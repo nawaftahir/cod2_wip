@@ -1,0 +1,46 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\material_queries.c",
+    "Z:\\inputs\\src\\renderer_state.c",
+    "Z:\\inputs\\src\\sun_override.c",
+    "Z:\\inputs\\src\\font_metrics.c",
+    "Z:\\inputs\\src\\visibility_config.c",
+    "Z:\\inputs\\src\\model_bounds.c",
+    "Z:\\inputs\\src\\fog_state.c",
+    "Z:\\inputs\\src\\world_bounds.c",
+    "/FoZ:\\out\\"
+  ],
+  "sources": {
+    "material_queries.c": "567f8741bbdaf6f85e7308262cca8971f70207397ebf4258cf1d5619b003c68f",
+    "renderer_state.c": "a9fcded06c6b638ecf2aaaae878209f20e3319e0d64827a5911759422d7fbf2f",
+    "sun_override.c": "43a4dd492967605cc3c9cbec44cf30b88bf776c15f1fa15f55dfb5a68d09491b",
+    "font_metrics.c": "2930ad7d073a62142871b1c11a37ac8677a04699dda465d1e24af5cfe031d0f4",
+    "visibility_config.c": "17a4c5d1f50222e7e66c9b2840987159a1e1da4aad9735e4ec5e4ba2942c1cc6",
+    "model_bounds.c": "47785e5ba311ca49190ffd028a54b96cbecf54831782476103382dbdaa58a2d6",
+    "fog_state.c": "5eb5241d3cff32d06a7661a07423b017577108ac9e09fdbe5606ab6e9195d4d6",
+    "world_bounds.c": "5550f54ab9e44803bdaa1bf96152f2e60778aaae400e99aa7f4892bed4a6bb25"
+  },
+  "objects": {
+    "material_queries.obj": "314e6b641787b6b4b08db5eb20530f763dd3232e0c4d8e16486058d4ceec3ec3",
+    "renderer_state.obj": "483df1d97d4bdaa80695aba6cb826ec23cc7c2348840ed3efa1c6e0b52abc29a",
+    "sun_override.obj": "7c22f732b1fb57e80c2166b18a20ebb61c9d756c7d14cea85d7ffea18d8e4405",
+    "font_metrics.obj": "514d89c850def990915938df2d22a1e617d2798d84ad6a4f40cbe6a22c56db0c",
+    "visibility_config.obj": "c76fd0dea1f21c8a3631b6f8b98bf6c1960207257e4426b8cbb5dccdb8810293",
+    "model_bounds.obj": "40abbc3e27a84bbdc660ba8f1c2c4d8bbaaf2c7adaa07fe3371ca940caf5889c",
+    "fog_state.obj": "8bdabc8275e2d8919d140ce621011c319e4389fa2e2a5475b04f86de3e54f17d",
+    "world_bounds.obj": "47163a3aaab928546b83a24d1266f84d6e3aeca0cfbb1dc4cc5ae751501a9706"
+  },
+  "status": "REVIEWABLE",
+  "functions": 14,
+  "bytes": 425,
+  "wrong_binding_rejected": true,
+  "host_fixtures_passed": true,
+  "independent_review": false
+}
