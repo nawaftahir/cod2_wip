@@ -1,0 +1,16 @@
+# Link order = .text order of the original DLL. One TU per line: path [extra cl flags].
+# A TU goes live (uncommented) only after it compiles and a measure shows no loss elsewhere.
+
+# codex verified candidates (from codex/renderer/src)
+codex/delayed_drawing.c
+codex/fog_state.c
+codex/font_metrics.c
+codex/material_queries.c
+codex/model_bounds.c
+codex/renderer_state.c
+codex/sun_override.c
+codex/visibility_config.c
+codex/world_bounds.c
+
+# Mac 1.3 decompile, to be ported (src/gfx_d3d/, claim in CLAIMS.md first)
+# gfx_d3d/r_init.c

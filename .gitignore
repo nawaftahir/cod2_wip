@@ -1,0 +1,8 @@
+build/
+*.obj
+*.dll
+*.exe
+*.pdb
+*.gpr
+*.rep/
+__pycache__/

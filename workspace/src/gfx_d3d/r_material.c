@@ -1,0 +1,1294 @@
+/* ASM dump from: r_material.cpp */
+/* Original path: /Users/kevin/Development/i5works/COD2/Project/PC/gfx_d3d/r_material.cpp */
+
+#include "common_types.h"
+#include "imports.h"
+#include <string.h>
+
+extern void Com_Printf(const char *fmt, ...);
+extern void Com_sprintf(char *dest, int size, const char *fmt, ...);
+extern const char *R_ErrorDescription(int hr);
+
+/* Original includes (from N_BINCL debug info):
+ *   #include "PC/universal/com_vector.h"
+ *   #include "PC/gfx_d3d/r_material.h"
+ */
+
+extern const D3DVERTEXELEMENT9 declEnd; /* declEnd — defined in rodata.c */
+static const BuiltInMaterialTable s_fillTestMaterials[12]; /* s_fillTestMaterials */
+extern unsigned char materialGlobals[]; /* materialGlobals — 10752 bytes in bss.c */
+extern const stream_source_info_t s_streamSourceInfo[]; /* s_streamSourceInfo — defined in rodata.c */
+extern const stream_dest_info_t s_streamDestInfo[]; /* s_streamDestInfo — defined in rodata.c */
+
+/* s_builtInMaterials + RB_RenderCommandTable must be contiguous in memory.
+   Material_Init loops from s_builtInMaterials to RB_RenderCommandTable. */
+
+extern int R_HashAssetName(const char *name);
+extern int stricmp(const char *s1, const char *s2);
+extern void R_SetPicmip(void);
+extern void Image_UpdatePicmip(GfxImage *image);
+extern void Image_Release(GfxImage *image);
+extern void Image_Reload(GfxImage *image);
+extern Bool Image_LoadRaw(GfxImage *image, const char *filepath, int imageTrack);
+extern void R_Error(int errorLevel, const char *msg, ...);
+extern r_global_permanent_t rgp; /* imp_rgp */
+
+void * Material_Alloc(int size);
+const float * Material_RegisterLiteral(const vec_t *literal);
+static Bool Material_Compare(const Material *mtl0, const Material *mtl1);
+void Material_SetTechnique(const char *name, MaterialTechnique *technique);
+void Material_SetTechniqueSet(const char *name, MaterialTechniqueSet *techniqueSet);
+void Material_SetStateMap(const char *name, MaterialStateMap *stateMap);
+void Material_SetShader(const char *shaderName, MaterialShaderType shaderType, int shaderVersion, MaterialShader *mtlShader);
+Bool Material_IsDefault(const Material *material);
+Bool R_IsMaterialRefractive(MaterialHandle handle);
+void Material_FinishLoading(void);
+void Material_ReleaseAll(void);
+void Material_UpdatePicmipAll(void);
+int Material_LoadFile(const char *filename, fileHandle_t *file);
+const char * R_GetMaterialName(_ValueType handle);
+int R_GetMaterialSubimageCount(MaterialHandle handle);
+void Material_Sort(void);
+const char * Material_RegisterString(const char *string);
+MaterialVertexDeclaration * Material_AllocVertexDecl(MaterialStreamRouting *routingData, int streamCount, Bool *existing);
+MaterialStateMap * Material_FindStateMap(const char *name);
+MaterialTechniqueSet * Material_FindTechniqueSet(const char *name);
+MaterialTechnique * Material_FindTechnique(const char *name);
+MaterialShader * Material_FindShader(const char *shaderName, MaterialShaderType shaderType, int shaderVersion);
+void Material_Shutdown(void);
+_ValueType R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrack);
+void Material_ReloadAll(void);
+void Load_BuildVertexDecl(MaterialVertexDeclaration * *mtlVertDecl);
+void R_Cmd_ReloadMaterialTextures(void);
+MaterialHandle Material_Duplicate(MaterialHandle mtlCopy, const char *name);
+MaterialHandle Material_Register(const char *name, int imageTrack);
+MaterialHandle Material_RegisterHandle(const char *name, int baseImageFlags, int imageTrack);
+void Material_Init(void);
+typedef unsigned char (*MaterialCompFunc)(const Material *, const Material *);
+void ZSt13__adjust_heapIPP8MaterialiS1_PFhPKS0_S4_EEvT_T0_S8_T1_T2_(Material **first, int holeIndex, int len, Material *value, MaterialCompFunc comp);
+void ZSt16__insertion_sortIPP8MaterialPFhPKS0_S4_EEvT_S7_T0_(Material **first, Material **last, MaterialCompFunc comp);
+void ZSt16__introsort_loopIPP8MaterialiPFhPKS0_S4_EEvT_S7_T0_T1_(Material **first, Material **last, int depth_limit, MaterialCompFunc comp);
+extern void FS_FCloseFile(fileHandle_t f);
+
+static qboolean Material_IsUiLikeName(const char *name)
+{
+    return strncmp(name, "ui/", 3) == 0 ||
+           strncmp(name, "ui_", 3) == 0 ||
+           strncmp(name, "menu/", 5) == 0 ||
+           strncmp(name, "levelshots/", 11) == 0 ||
+           stricmp(name, "$levelbriefing") == 0;
+}
+
+static qboolean Material_HasImageExtension(const char *name)
+{
+    int len = (int)strlen(name);
+
+    if (len <= 4 || name[len - 4] != '.')
+        return 0;
+
+    return stricmp(name + len - 4, ".tga") == 0 ||
+           stricmp(name + len - 4, ".jpg") == 0 ||
+           stricmp(name + len - 4, ".iwi") == 0;
+}
+
+static MaterialHandle Material_TryAliasWithoutExtension(const char *name, int imageTrack)
+{
+    char aliasName[64];
+    fileHandle_t fileHandle;
+    int fileSize;
+    int len;
+
+    if (!Material_HasImageExtension(name))
+        return NULL;
+
+    len = (int)strlen(name);
+    if (len >= (int)sizeof(aliasName))
+        return NULL;
+
+    memcpy(aliasName, name, len - 4);
+    aliasName[len - 4] = '\0';
+
+    fileSize = Material_LoadFile(aliasName, &fileHandle);
+    if (fileSize < 0)
+        return NULL;
+
+    FS_FCloseFile(fileHandle);
+    return Material_Duplicate(Material_Register(aliasName, imageTrack), name);
+}
+
+/* line 218 */
+void * Material_Alloc(int size)
+{
+    return ((refimport_t *)imp_ri)->Hunk_AllocInternal(size);
+}
+
+/* line 314 */
+const float * Material_RegisterLiteral(const vec_t *literal)
+{
+    int literalCount = *(int *)(materialGlobals + 0x230c); /* literalCount */
+    float *literals = (float *)(materialGlobals + 0x2310);  /* literals */
+    int i;
+
+    for (i = 0; i < literalCount; i++) {
+        float *entry = literals + i * 4;
+        if (entry[0] == literal[0] && entry[1] == literal[1] &&
+            entry[2] == literal[2] && entry[3] == literal[3]) {
+            return entry;
+        }
+    }
+
+    if (literalCount >= 16) {
+        R_Error(1, "more than %i shader literals used", 16);
+    }
+
+    {
+        float *dest = literals + literalCount * 4;
+        dest[0] = literal[0];
+        dest[1] = literal[1];
+        dest[2] = literal[2];
+        dest[3] = literal[3];
+        return dest;
+    }
+}
+
+/* line 529 */
+static Bool Material_Compare(const Material *mtl0, const Material *mtl1)
+{
+    /* Guard against corrupt/uninitialized material pointers in the sort
+       array.  After hunk clear + re-init, some slots may contain stale
+       handles (small integers) instead of valid pointers. */
+    if ((unsigned int)mtl0 < 0x10000 || (unsigned int)mtl1 < 0x10000)
+        return 0;
+    int diff = (int)mtl0->info.sortKey - (int)mtl1->info.sortKey;
+    if (diff != 0)
+        return (unsigned int)diff >> 31;
+    diff = (int)((unsigned int)mtl0->techniqueSet - (unsigned int)mtl1->techniqueSet);
+    if (diff == 0)
+        return 0;
+    return (unsigned int)diff >> 31;
+}
+
+/* line 581 */
+void Material_SetTechnique(const char *name, MaterialTechnique *technique)
+{
+    if (*(int *)(materialGlobals + 0x1308) == 0x3ff) { /* techniqueCount */
+        R_Error(1, "More than %i techniques in use", 0x3ff);
+    }
+
+    int hash = R_HashAssetName(name) & 0x3ff;
+
+    while (((MaterialTechnique **)(materialGlobals + 0x130C))[hash] != NULL) {
+        if (stricmp(((MaterialTechnique **)(materialGlobals + 0x130C))[hash]->name, name) == 0)
+            break;
+        hash = (hash + 1) & 0x3ff;
+    }
+
+    (*(int *)(materialGlobals + 0x1308))++; /* techniqueCount */
+    ((MaterialTechnique **)(materialGlobals + 0x130C))[hash] = technique; /* techniqueTable */
+}
+
+/* line 647 */
+void Material_SetTechniqueSet(const char *name, MaterialTechniqueSet *techniqueSet)
+{
+    int hash = R_HashAssetName(name) & 0x3ff;
+
+    while (((MaterialTechniqueSet **)(materialGlobals + 0x308))[hash] != NULL) {
+        if (stricmp(((MaterialTechniqueSet **)(materialGlobals + 0x308))[hash]->name, name) == 0)
+            break;
+        hash = (hash + 1) & 0x3ff;
+    }
+
+    ((MaterialTechniqueSet **)(materialGlobals + 0x308))[hash] = techniqueSet; /* techSetTable */
+}
+
+/* line 709 */
+void Material_SetStateMap(const char *name, MaterialStateMap *stateMap)
+{
+    int hash = R_HashAssetName(name) & 0x1f;
+
+    while (((MaterialStateMap **)(materialGlobals + 0x2414))[hash] != NULL) {
+        if (strcmp(((MaterialStateMap **)(materialGlobals + 0x2414))[hash]->name, name) == 0)
+            break;
+        hash = (hash + 1) & 0x1f;
+    }
+
+    ((MaterialStateMap **)(materialGlobals + 0x2414))[hash] = stateMap; /* stateMapTable */
+}
+
+/* line 793 */
+void Material_SetShader(const char *shaderName, MaterialShaderType shaderType, int shaderVersion, MaterialShader *mtlShader)
+{
+    (*(int *)(materialGlobals + 0x2598))++; /* shaderCount */
+    if (*(int *)(materialGlobals + 0x2598) == 0x100) { /* shaderCount */
+        R_Error(1, "More than %i unique pixel and vertex shaders", 0xff);
+    }
+
+    int hash = R_HashAssetName(shaderName);
+    hash = ((int)shaderType * 97 + shaderVersion + hash) & 0xff;
+
+    MaterialShader *entry = ((MaterialShader **)(materialGlobals + 0x259C))[hash]; /* shaderTable */
+    while (entry != NULL) {
+        if (entry->shaderType == (byte)shaderType &&
+            entry->shaderVersion == (byte)shaderVersion &&
+            strcmp(entry->name, shaderName) == 0)
+            break;
+        hash = (hash + 1) & 0xff;
+        entry = ((MaterialShader **)(materialGlobals + 0x259C))[hash]; /* shaderTable */
+    }
+
+    ((MaterialShader **)(materialGlobals + 0x259C))[hash] = mtlShader; /* shaderTable */
+}
+
+/* line 981 */
+Bool Material_IsDefault(const Material *material)
+{
+    const Material *defaultMtl = ((r_global_permanent_t *)imp_rgp)->defaultMaterial;
+    if (material->textures != defaultMtl->textures)
+        return 0;
+    if (material->constants != defaultMtl->constants)
+        return 0;
+    if (material->techniqueSet != defaultMtl->techniqueSet)
+        return 0;
+    return 1;
+}
+
+/* line 1278 */
+Bool R_IsMaterialRefractive(MaterialHandle handle)
+{
+    if ((*(const dvar_t **)imp_r_rendererInUse)->current.integer == 2)
+        return 0;
+    MaterialTechniqueSet *ts = handle->techniqueSet;
+    MaterialTechnique *tech = ts->techniques[21];
+    if (!tech)
+        return 0;
+    if (!(tech->flags & 1))
+        return 0;
+    return 1;
+}
+
+/* line 1366 */
+void Material_FinishLoading(void)
+{
+}
+
+/* line 1470 */
+extern void RB_ReleaseVertexDecl(void);
+
+void Material_ReleaseAll(void)
+{
+    byte *outer;
+    int j;
+    void *obj;
+    void **vtable;
+    int i;
+
+    RB_ReleaseVertexDecl();
+
+    /* Release technique COM objects — skip vtable Release on Linux (no real COM) */
+    for (outer = materialGlobals + 4; outer < materialGlobals + 772; outer += 24) {
+        byte *slot = outer;
+        for (j = 0; j < 4; j++) {
+            void **pObj = (void **)(slot + 8);
+            *pObj = NULL;
+            slot += 4;
+        }
+    }
+
+    /* Release shader COM objects — skip vtable Release on Linux (no real COM) */
+}
+
+/* line 1538 */
+void Material_UpdatePicmipAll(void)
+{
+    byte *rg = (byte *)imp_rg;
+    byte *slot;
+    byte *rgEnd;
+    int textureIndex, textureCount;
+    byte *material;
+    byte *texdef;
+    byte *texdefs;
+    GfxImage *image;
+
+    R_SetPicmip();
+
+    /* Iterate all material slots in rg (0x1000 byte stride, pointer at offset 0x28) */
+    rgEnd = rg + 0x1000;
+    for (slot = rg; slot < rgEnd; slot += 4) {
+        material = (byte *)((r_globals_t *)imp_rg)->materialHashTable[(slot - rg) / 4];
+        if (!material)
+            continue;
+
+        textureCount = ((Material *)material)->textureCount;
+        if (textureCount <= 0)
+            continue;
+
+        texdefs = (byte *)((Material *)material)->textures;
+        for (textureIndex = 0; textureIndex < textureCount; textureIndex++) {
+            texdef = texdefs + textureIndex * 0xc;
+
+            /* Skip water textures (semantic == 5) */
+            if (((MaterialTextureDef *)texdef)->semantic == 5)
+                continue;
+
+            image = ((MaterialTextureDef *)texdef)->u.image;
+            if (!image)
+                continue;
+
+            Image_UpdatePicmip(image);
+            /* Re-read count since UpdatePicmip may have side effects */
+            textureCount = ((Material *)material)->textureCount;
+        }
+    }
+}
+
+/* line 1588 */
+extern int FS_FOpenFileRead(const char *filename, int *file, int uniqueFILE);
+int Material_LoadFile(const char *filename, int *file)
+{
+    char fullFilename[64];
+    Com_sprintf(fullFilename, 64, "materials/%s", filename);
+    return FS_FOpenFileRead(fullFilename, file, 1);
+}
+
+/* line 1261 */
+const char * R_GetMaterialName(_ValueType handle)
+{
+    return *(const char **)(*(int *)&handle);
+}
+
+/* line 1268 */
+int R_GetMaterialSubimageCount(MaterialHandle handle)
+{
+    return handle->info.textureAtlasColumnCount * handle->info.textureAtlasRowCount;
+}
+
+/* line 876 */
+/* line 876 — Sort the material pointer array using introsort + insertion sort,
+ * then update each material's sortKey index. */
+void Material_Sort(void)
+{
+    typedef void (*introsort_fn)(const Material **, const Material **, int, Bool (*)(const Material *, const Material *));
+    typedef void (*insertion_sort_fn)(const Material **, const Material **, Bool (*)(const Material *, const Material *));
+
+    r_global_permanent_t *rgpPtr = (r_global_permanent_t *)imp_rgp;
+    int count = rgpPtr->materialCount;
+    const Material **first = (const Material **)rgpPtr->sortedMaterials;
+    const Material **last = first + count;
+    int i;
+
+    if (first != last) {
+        int n = count;
+        int byteRange = (int)((byte *)last - (byte *)first);
+        int depthLimit = 0;
+
+        /* Compute introsort depth limit: 2 * floor(log2(n)) */
+        if (n > 1) {
+            int tmp = n;
+            while (tmp > 1) {
+                depthLimit++;
+                tmp >>= 1;
+            }
+            depthLimit *= 2;
+        }
+
+        /* Phase 1: introsort partitioning */
+        ((introsort_fn)ZSt16__introsort_loopIPP8MaterialiPFhPKS0_S4_EEvT_S7_T0_T1_)(
+            first, last, depthLimit, Material_Compare);
+
+        /* Phase 2: insertion sort for final ordering */
+        if (byteRange <= 0x43) {
+            /* Small range: insertion sort the whole thing */
+            ((insertion_sort_fn)ZSt16__insertion_sortIPP8MaterialPFhPKS0_S4_EEvT_S7_T0_)(
+                first, last, Material_Compare);
+        } else {
+            /* Large range: insertion sort first 18 elements, then rest */
+            const Material **mid = first + 18; /* 0x48 / sizeof(pointer) */
+            ((insertion_sort_fn)ZSt16__insertion_sortIPP8MaterialPFhPKS0_S4_EEvT_S7_T0_)(
+                first, mid, Material_Compare);
+
+            /* Unguarded insertion sort for remaining elements */
+            while (mid != last) {
+                const Material *val = *mid;
+                const Material **hole = mid;
+                const Material **prev = mid - 1;
+                while (Material_Compare(val, *prev)) {
+                    *hole = *prev;
+                    hole = prev;
+                    prev--;
+                }
+                *hole = val;
+                mid++;
+            }
+        }
+    }
+
+    /* Update sortKey index for each material */
+    rgpPtr = (r_global_permanent_t *)imp_rgp;
+    count = rgpPtr->materialCount;
+    for (i = 0; i < count; i++) {
+        rgpPtr->sortedMaterials[i]->info.sortedIndex = (unsigned short)i;
+    }
+}
+
+/* line 338 */
+extern int R_HashString(const char *string);
+extern void R_Error(int level, const char *msg, ...);
+
+const char * Material_RegisterString(const char *string)
+{
+    int hash = R_HashString(string) & 0x3f;
+    const char *existing;
+    int count;
+    int nameLen;
+    void *(*hunkAlloc)(int);
+    char *copy;
+
+    /* Search hash table for existing string */
+    existing = ((const char **)(materialGlobals + 0x2498))[hash]; /* stringIdentTable */
+    while (existing) {
+        if (strcmp(existing, string) == 0)
+            return existing;
+        hash = (hash + 1) & 0x3f;
+        existing = ((const char **)(materialGlobals + 0x2498))[hash]; /* stringIdentTable */
+    }
+
+    /* Not found — register new string */
+    count = *(int *)(materialGlobals + 0x2494) + 1; /* stringIdentCount */
+    *(int *)(materialGlobals + 0x2494) = count;     /* stringIdentCount */
+    if (count == 64) {
+        R_Error(1, "More than %i string identifiers used by shaders", 63);
+    }
+
+    /* Allocate and copy string via ri->hunkAlloc */
+    nameLen = strlen(string) + 1;
+    hunkAlloc = ((refimport_t *)imp_ri)->Hunk_AllocInternal;
+    copy = (char *)hunkAlloc(nameLen);
+    memcpy(copy, string, nameLen);
+
+    /* Insert into hash table */
+    ((const char **)(materialGlobals + 0x2498))[hash] = copy; /* stringIdentTable */
+
+    return copy;
+}
+
+/* line 492 */
+MaterialVertexDeclaration * Material_AllocVertexDecl(MaterialStreamRouting *routingData, int streamCount, Bool *existing)
+{
+    int dataSize = streamCount * 2; /* each stream routing is 2 bytes */
+    int hash = 0;
+    int i;
+    byte *routingBytes = (byte *)routingData;
+    byte *mvd; /* MaterialVertexDeclaration pointer */
+    byte *data;
+    void *(*hunkAlloc)(int);
+
+    /* Compute hash over routing data bytes */
+    for (i = 0; i < dataSize; i++) {
+        hash += (i + 0x77) * routingBytes[i];
+    }
+    hash &= 0x1f;
+
+    /* Search hash table for existing match (24-byte entries in materialGlobals) */
+    for (;;) {
+        mvd = (byte *)&materialGlobals[hash * 6 + 1]; /* materialGlobals + hash*24 + 4 */
+        data = *(byte **)mvd;
+
+        if (!data)
+            break; /* empty slot — need to allocate */
+
+        /* Check streamCount and data match */
+        if (*(int *)(mvd + 4) == streamCount &&
+            memcmp(data, routingData, dataSize) == 0) {
+            *existing = 1;
+            return (MaterialVertexDeclaration *)mvd;
+        }
+
+        hash = (hash + 1) & 0x1f;
+    }
+
+    /* Allocate new entry */
+    if (*(int *)materialGlobals == 0x1f) {
+        R_Error(1, "More than %i vertex declarations in use", 31);
+    }
+    (*(int *)materialGlobals)++;
+
+    hunkAlloc = ((refimport_t *)imp_ri)->Hunk_AllocInternal;
+    data = (byte *)hunkAlloc(dataSize);
+    memcpy(data, routingData, dataSize);
+
+    /* Zero the mvd struct (24 bytes = 6 ints) and fill in fields */
+    memset(mvd, 0, 24);
+    *(byte **)(mvd + 0) = data;
+    *(int *)(mvd + 4) = streamCount;
+
+    *existing = 0;
+    return (MaterialVertexDeclaration *)mvd;
+}
+
+/* line 699 */
+MaterialStateMap * Material_FindStateMap(const char *name)
+{
+    int hash = R_HashAssetName(name) & 0x1f;
+    MaterialStateMap *entry = ((MaterialStateMap **)(materialGlobals + 0x2414))[hash]; /* stateMapTable */
+    while (entry) {
+        if (strcmp(entry->name, name) == 0)
+            return entry;
+        hash = (hash + 1) & 0x1f;
+        entry = ((MaterialStateMap **)(materialGlobals + 0x2414))[hash]; /* stateMapTable */
+    }
+    return NULL;
+}
+
+/* line 636 */
+MaterialTechniqueSet * Material_FindTechniqueSet(const char *name)
+{
+    int hash = R_HashAssetName(name) & 0x3ff;
+    MaterialTechniqueSet *entry = ((MaterialTechniqueSet **)(materialGlobals + 0x308))[hash]; /* techSetTable */
+    while (entry) {
+        if (stricmp(entry->name, name) == 0)
+            return entry;
+        hash = (hash + 1) & 0x3ff;
+        entry = ((MaterialTechniqueSet **)(materialGlobals + 0x308))[hash]; /* techSetTable */
+    }
+    return NULL;
+}
+
+/* line 569 */
+MaterialTechnique * Material_FindTechnique(const char *name)
+{
+    int hash;
+    MaterialTechnique *entry;
+    if (!name) return NULL;
+    hash = R_HashAssetName(name) & 0x3ff;
+    entry = ((MaterialTechnique **)(materialGlobals + 0x130C))[hash];
+    while (entry) {
+        if (entry->name && stricmp(entry->name, name) == 0)
+            return entry;
+        hash = (hash + 1) & 0x3ff;
+        entry = ((MaterialTechnique **)(materialGlobals + 0x130C))[hash];
+    }
+    return NULL;
+}
+
+/* line 780 */
+MaterialShader * Material_FindShader(const char *shaderName, MaterialShaderType shaderType, int shaderVersion)
+{
+    int hash = (R_HashAssetName(shaderName) + shaderType * 97 + shaderVersion) & 0xff;
+    MaterialShader *entry = ((MaterialShader **)(materialGlobals + 0x259C))[hash]; /* shaderTable */
+    while (entry) {
+        if (entry->shaderType == shaderType && entry->shaderVersion == shaderVersion && strcmp(entry->name, shaderName) == 0)
+            return entry;
+        hash = (hash + 1) & 0xff;
+        entry = ((MaterialShader **)(materialGlobals + 0x259C))[hash]; /* shaderTable */
+    }
+    return NULL;
+}
+
+/* line 1437 */
+void Material_Shutdown(void)
+{
+    byte *outer;
+    int j, i;
+    void *obj;
+    void **vtable;
+
+    RB_ReleaseVertexDecl();
+
+    /* Release technique COM objects — skip vtable Release on Linux (no real COM) */
+    for (outer = materialGlobals + 4; outer < materialGlobals + 772; outer += 24) {
+        byte *slot = outer;
+        for (j = 0; j < 4; j++) {
+            void **pObj = (void **)(slot + 8);
+            *pObj = NULL;
+            slot += 4;
+        }
+    }
+
+    memset(materialGlobals + 4, 0, 0x300);
+    *(int *)materialGlobals = 0;
+
+    /* Release shader COM objects — skip vtable Release on Linux (no real COM) */
+
+    /* Clear all hash tables */
+    for (i = 0; i < 256; i++)
+        ((MaterialShader **)(materialGlobals + 0x259C))[i] = NULL;       /* shaderTable */
+    *(int *)(materialGlobals + 0x230C) = 0;                              /* literalCount */
+    for (i = 0; i < 64; i++)
+        ((const char **)(materialGlobals + 0x2498))[i] = NULL;           /* stringIdentTable */
+    for (i = 0; i < 32; i++)
+        ((MaterialStateMap **)(materialGlobals + 0x2414))[i] = NULL;     /* stateMapTable */
+    for (i = 0; i < 1024; i++)
+        ((MaterialTechnique **)(materialGlobals + 0x130C))[i] = NULL;    /* techniqueTable */
+    for (i = 0; i < 1024; i++)
+        ((MaterialTechniqueSet **)(materialGlobals + 0x308))[i] = NULL;  /* techSetTable */
+
+    memset(materialGlobals, 0, 0x299c);
+    memset(((r_globals_t *)imp_rg)->materialHashTable, 0, sizeof(((r_globals_t *)imp_rg)->materialHashTable));
+    ((r_global_permanent_t *)imp_rgp)->materialCount = 0;
+}
+
+/* line 1134 */
+_ValueType R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrack)
+{
+    byte *rgp = (byte *)imp_rgp;
+    byte *defaultImage = (byte *)((r_global_permanent_t *)rgp)->defaultMaterial;
+    byte *rawImage = (byte *)((r_global_permanent_t *)rgp)->rawMaterial;
+    _ValueType result;
+
+    /* Empty name returns default image */
+    if (*name == '\0') {
+        *(void **)&result = defaultImage;
+        return result;
+    }
+
+    /* Check if raw image matches default (no reload needed) */
+    if (((Material *)rawImage)->textures == ((Material *)defaultImage)->textures &&
+        ((Material *)rawImage)->constants == ((Material *)defaultImage)->constants &&
+        ((Material *)rawImage)->techniqueSet == ((Material *)defaultImage)->techniqueSet) {
+        *(void **)&result = defaultImage;
+        return result;
+    }
+
+    /* Release and reload raw image */
+    Image_Release(((r_global_permanent_t *)rgp)->rawImage);
+    if (Image_LoadRaw(((r_global_permanent_t *)rgp)->rawImage, name, imageTrack)) {
+        *(void **)&result = (void *)((r_global_permanent_t *)rgp)->rawMaterial; /* rawMaterial */
+    } else {
+        *(void **)&result = (void *)((r_global_permanent_t *)rgp)->defaultMaterial; /* defaultMaterial */
+    }
+    return result;
+}
+
+/* line 1479 — Rebuild all vertex declarations and reload D3D shaders for all materials.
+ * Called after device recovery (lost device). */
+void Material_ReloadAll(void)
+{
+    char *dx = (char *)imp_dx;
+    /* materialGlobals layout:
+     * +0x00: first vertDecl table entry (24 bytes each, stride 0x18)
+     * Each entry at offset +4 has a sub-pointer, offset +0 has routing data count
+     * 32 entries total from +4 to +772 */
+    byte *vertDeclPtr = materialGlobals + 4;
+    byte *routingPtr = materialGlobals + 8;
+    int i;
+
+    /* Phase 1: Rebuild all vertex declarations (same loop as Load_BuildVertexDecl) */
+    while (vertDeclPtr < materialGlobals + 772) {
+        int routingCount = *(int *)(routingPtr - 4);
+        if (routingCount != 0) {
+            /* Rebuild vertex decls for this material's vertex declaration set */
+            const byte *sourceInfoBase = (const byte *)s_streamSourceInfo;
+            int vertDeclType;
+
+            for (vertDeclType = 0; vertDeclType < 4; vertDeclType++) {
+                const byte *sourceInfo = sourceInfoBase;
+                int elemCount = *(int *)(routingPtr);
+                const byte *routingData = *(const byte **)(routingPtr - 4);
+                D3DVERTEXELEMENT9 elemTable[256];
+                void *decl = NULL;
+                int numElems = 0;
+                int routingIdx;
+                const byte *rp = routingData;
+
+                if (elemCount == 0)
+                    goto writeEnd2;
+
+                for (routingIdx = 0; routingIdx < elemCount; routingIdx++) {
+                    byte sourceIdx = rp[0];
+                    byte destIdx = rp[1];
+                    const byte *src = sourceInfo + sourceIdx * 3;
+                    const byte *dest = (const byte *)s_streamDestInfo + destIdx * 2;
+                    int insertPos;
+
+                    rp += 2;
+
+                    if (src[0] == 0xFF) {
+                        decl = NULL;
+                        goto storeDecl2;
+                    }
+
+                    insertPos = numElems;
+                    if (numElems > 0 && (unsigned)elemTable[numElems - 1].Stream > (unsigned)src[0]) {
+                        int j = numElems - 1;
+                        while (j > 0) {
+                            elemTable[j] = elemTable[j - 1];
+                            if ((unsigned)elemTable[j - 1].Stream <= (unsigned)src[0])
+                                break;
+                            j--;
+                        }
+                        insertPos = j;
+                    }
+
+                    *(unsigned short *)&elemTable[insertPos].Stream = (unsigned short)src[0];
+                    *(unsigned short *)&elemTable[insertPos].Offset = (unsigned short)src[1];
+                    ((byte *)&elemTable[insertPos])[4] = src[2];
+                    ((byte *)&elemTable[insertPos])[5] = 0;
+                    ((byte *)&elemTable[insertPos])[6] = dest[0];
+                    ((byte *)&elemTable[insertPos])[7] = dest[1];
+                    numElems++;
+                }
+
+writeEnd2:
+                *(int *)&elemTable[numElems] = *(int *)&declEnd;
+                /* Copy Type/Method/Usage/UsageIndex from declEnd sentinel */
+        memcpy((byte *)&elemTable[numElems] + 4, (byte *)&declEnd + 4, 4);
+
+                do {
+                    void *device = (void *)((DxGlobals *)dx)->device;
+                    void **vtable = *(void ***)device;
+                    ((int (__attribute__((stdcall)) *)(void *, const void *, void **))vtable[0x158/4])(
+                        device, elemTable, &decl);
+                } while (*(int *)imp_alwaysfails);
+
+storeDecl2:
+                *(void **)(vertDeclPtr + vertDeclType * 4) = decl;
+                sourceInfoBase += 21;
+            }
+        }
+
+        vertDeclPtr += 0x18;
+        routingPtr += 0x18;
+    }
+
+    /* Phase 2: Reload D3D shaders for all materials */
+    {
+        byte *matSlot = materialGlobals;
+        byte *matEnd = materialGlobals + 1024;
+        void (*ri_Printf)(int, const char *, ...) = (void (*)(int, const char *, ...))((refimport_t *)imp_ri)->Error;
+
+        for (; matSlot < matEnd; matSlot += 4) {
+            /* Each slot at materialGlobals + 0x259c + slotIndex has a shader pointer */
+            byte *shader = *(byte **)(matSlot + 0x259c);
+            int hr;
+
+            if (!shader)
+                continue;
+
+            /* Check shader managed flag at offset 0x0a */
+            if (((MaterialShader *)shader)->shaderType == 0) {
+                /* Not managed: call D3D CreatePixelShader (vtable[0x16c/4]) */
+                void *device = (void *)((DxGlobals *)dx)->device;
+                void **vtable = *(void ***)device;
+                hr = ((int (__attribute__((stdcall)) *)(void *, const void *, void **))vtable[0x16c/4])(
+                    device, ((MaterialShader *)shader)->program, &((MaterialShader *)shader)->u);
+            } else {
+                /* Managed: call D3D CreateVertexShader (vtable[0x1a8/4]) */
+                void *device = (void *)((DxGlobals *)dx)->device;
+                void **vtable = *(void ***)device;
+                hr = ((int (__attribute__((stdcall)) *)(void *, const void *, void **))vtable[0x1a8/4])(
+                    device, ((MaterialShader *)shader)->program, &((MaterialShader *)shader)->u);
+            }
+
+            if (hr < 0) {
+                ri_Printf(0, "Couldn't reload shader '%s' when recovering from a lost devi",
+                    *(const char **)shader, R_ErrorDescription(hr), hr);
+            }
+        }
+    }
+}
+
+
+/* line 481 — Build D3D vertex declarations from stream routing data.
+ * For each of 4 vertex declaration types, reads routing pairs from the
+ * material's vertex declaration, looks up source/dest info, builds a sorted
+ * D3DVERTEXELEMENT9 array, and calls CreateVertexDeclaration. */
+void Load_BuildVertexDecl(MaterialVertexDeclaration **mtlVertDecl)
+{
+    const byte *sourceInfoBase = (const byte *)s_streamSourceInfo;
+    int vertDeclType;
+
+    for (vertDeclType = 0; vertDeclType < 4; vertDeclType++) {
+        MaterialVertexDeclaration *vd = *mtlVertDecl;
+        int elemCount = vd->streamCount;
+        const byte *routingData = *(const byte **)vd;
+        D3DVERTEXELEMENT9 elemTable[256];
+        void *decl = NULL;
+        int numElems = 0;
+        int routingIdx;
+        const byte *routingPtr;
+        const byte *sourceInfo;
+
+        sourceInfo = sourceInfoBase;
+        routingPtr = routingData;
+
+        if (elemCount == 0)
+            goto writeEnd;
+
+        /* For each routing pair (2 bytes: sourceIdx, destIdx) */
+        for (routingIdx = 0; routingIdx < elemCount; routingIdx++) {
+            byte sourceIdx = routingPtr[0];
+            byte destIdx = routingPtr[1];
+            const byte *src = sourceInfo + sourceIdx * 3;
+            const byte *dest = (const byte *)s_streamDestInfo + destIdx * 2;
+            int insertPos;
+
+            routingPtr += 2;
+
+            /* Check if this source is valid (0xFF = skip) */
+            if (src[0] == 0xFF) {
+                decl = NULL;
+                goto storeDecl;
+            }
+
+            /* Binary insertion sort: find position to insert by source stream */
+            insertPos = numElems;
+            if (numElems > 0 && (unsigned)elemTable[numElems - 1].Stream > (unsigned)src[0]) {
+                /* Shift elements down to make room */
+                int j = numElems - 1;
+                while (j > 0) {
+                    int prev = j - 1;
+                    elemTable[j] = elemTable[j - 1];
+                    if ((unsigned)elemTable[prev].Stream <= (unsigned)src[0])
+                        break;
+                    j = prev;
+                }
+                insertPos = j;
+            }
+
+            /* Insert the new element */
+            *(unsigned short *)&elemTable[insertPos].Stream = (unsigned short)src[0];
+            *(unsigned short *)&elemTable[insertPos].Offset = (unsigned short)src[1];
+            ((byte *)&elemTable[insertPos])[4] = src[2]; /* Type */
+            ((byte *)&elemTable[insertPos])[5] = 0;      /* Method */
+            ((byte *)&elemTable[insertPos])[6] = dest[0]; /* Usage */
+            ((byte *)&elemTable[insertPos])[7] = dest[1]; /* UsageIndex */
+            numElems++;
+        }
+
+writeEnd:
+        /* Append D3DDECL_END() sentinel */
+        *(int *)&elemTable[numElems] = *(int *)&declEnd;
+        /* Copy Type/Method/Usage/UsageIndex from declEnd sentinel */
+        memcpy((byte *)&elemTable[numElems] + 4, (byte *)&declEnd + 4, 4);
+
+        /* CreateVertexDeclaration: device->vtable[0x158/4] */
+        do {
+            void *device = ((DxGlobals *)imp_dx)->device;
+            void **vtable = *(void ***)device;
+            ((int (__attribute__((stdcall)) *)(void *, const void *, void **))vtable[0x158/4])(
+                device, elemTable, &decl);
+        } while (*(int *)imp_alwaysfails);
+
+storeDecl:
+        /* Store the vertex declaration pointer in mtlVertDecl struct */
+        vd->decl[vertDeclType] = (void (*)())decl;
+
+        sourceInfoBase += 21; /* advance to next vertDeclType's source info block */
+    }
+}
+
+
+/* line 1560 */
+extern void RB_BindDefaultImages(void);
+extern const char * va(const char *fmt, ...);
+
+void R_Cmd_ReloadMaterialTextures(void)
+{
+    refimport_t *ri = (refimport_t *)imp_ri;
+    void (*ri_Printf)(int, const char *, ...) = (void (*)(int, const char *, ...))ri->Printf;
+    int (*Cmd_Argc)(void) = (int (*)(void))ri->Cmd_Argc;
+    const char *(*Cmd_Argv)(int) = (const char *(*)(int))ri->Cmd_Argv;
+    const char *name;
+    byte *rg;
+    int hash;
+    byte *existing;
+    byte *material;
+    int textureCount, i;
+    byte *texdefs;
+    GfxImage *best;
+    GfxImage *lastReloaded;
+
+    if (Cmd_Argc() != 2) {
+        ri_Printf(0, "Usage: reloadMaterialTextures <materialName>\n");
+        return;
+    }
+
+    name = Cmd_Argv(1);
+
+    /* Look up material in hash table */
+    hash = R_HashAssetName(name);
+    hash &= 0x3ff;
+    existing = (byte *)((r_globals_t *)imp_rg)->materialHashTable[hash];
+    while (existing) {
+        if (strcmp(*(const char **)existing, name) == 0)
+            break;
+        hash = (hash + 1) & 0x3ff;
+        existing = (byte *)((r_globals_t *)imp_rg)->materialHashTable[hash];
+    }
+
+    material = existing ? ((r_globals_t *)imp_rg)->materialHashTable[hash] : NULL;
+
+    if (!material) {
+        ri_Printf(0, "%s", va("ReloadMaterialTextures: Material '%s' is not currently loaded\n", name));
+        return;
+    }
+
+    RB_BindDefaultImages();
+
+    /* Reload textures in order: repeatedly find the smallest image pointer
+     * greater than lastReloaded, and reload it. This ensures ordered reload. */
+    textureCount = ((Material *)material)->textureCount;
+    if (textureCount == 0)
+        return;
+
+    texdefs = (byte *)((Material *)material)->textures;
+    lastReloaded = NULL;
+
+    for (;;) {
+        best = NULL;
+        for (i = 0; i < textureCount; i++) {
+            byte *texdef = texdefs + i * 0xc;
+            GfxImage *img;
+
+            if (((MaterialTextureDef *)texdef)->semantic == 5) /* skip water */
+                continue;
+
+            img = ((MaterialTextureDef *)texdef)->u.image;
+            if (!lastReloaded) {
+                /* First pass: find largest image pointer */
+                if ((unsigned int)img > (unsigned int)best)
+                    best = img;
+            } else {
+                /* Subsequent passes: find largest below lastReloaded */
+                if ((unsigned int)img > (unsigned int)best &&
+                    (unsigned int)img < (unsigned int)lastReloaded)
+                    best = img;
+            }
+        }
+
+        if (!best)
+            return;
+
+        Image_Reload(best);
+        lastReloaded = best;
+    }
+}
+
+/* line 920 */
+MaterialHandle Material_Duplicate(MaterialHandle mtlCopy, const char *name)
+{
+    byte *rg = (byte *)imp_rg;
+    byte *rgp;
+    int hash = R_HashAssetName(name) & 0x3ff;
+    byte *material;
+    byte *existing;
+    int nameLen;
+    void *(*hunkAlloc)(int);
+    char *nameDst;
+    int count;
+
+    /* Search for existing material with this name */
+    existing = (byte *)((r_globals_t *)imp_rg)->materialHashTable[hash];
+    while (existing) {
+        if (strcmp(*(const char **)existing, name) == 0) {
+            /* Found — overwrite with new data, preserve name pointer */
+            char *savedName = *(char **)existing;
+            memcpy(existing, (void *)mtlCopy, 0x44);
+            *(char **)existing = savedName;
+            ((r_global_permanent_t *)imp_rgp)->materialLoaded = 1; /* rgp->needsSort = true */
+            return (MaterialHandle)existing;
+        }
+        hash = (hash + 1) & 0x3ff;
+        existing = (byte *)((r_globals_t *)imp_rg)->materialHashTable[hash];
+    }
+
+    /* Not found — allocate new material (0x44 struct + name string) */
+    nameLen = strlen(name) + 1;
+    hunkAlloc = ((refimport_t *)imp_ri)->Hunk_AllocInternal;
+    material = (byte *)hunkAlloc(0x44 + nameLen);
+
+    /* Copy material struct from source */
+    memcpy(material, (void *)mtlCopy, 0x44);
+
+    /* Name stored after struct, set name pointer */
+    nameDst = (char *)(material + sizeof(Material));
+    ((Material *)material)->info.name = nameDst;
+    memcpy(nameDst, name, nameLen);
+
+    /* Register in rgp and rg */
+    {
+        r_global_permanent_t *rgpPtr = (r_global_permanent_t *)imp_rgp;
+        rgpPtr->materialLoaded = 1; /* needsSort */
+        ((Material *)material)->info.hashIndex = (unsigned short)hash;
+        count = rgpPtr->materialCount;
+        ((Material *)material)->info.sortedIndex = (unsigned short)count;
+        rgpPtr->sortedMaterials[count] = (Material *)material;
+        ((r_globals_t *)imp_rg)->materialHashTable[hash] = (Material *)material;
+        count++;
+        rgpPtr->materialCount = count;
+    }
+
+    if (count == 0x400)
+        R_Error(0, "Too many unique materials (%i or more)\n", 0x400);
+
+    return (MaterialHandle)material;
+}
+
+/* line 1019 */
+extern Material * Material_Load(const char *name, int imageTrack);
+
+MaterialHandle Material_Register(const char *name, int imageTrack)
+{
+    byte *rg;
+    byte *rgp;
+    int hash = R_HashAssetName(name) & 0x3ff;
+    byte *existing;
+    Material *material;
+    MaterialHandle aliasMaterial;
+    int count;
+
+    /* Search for existing material */
+    existing = (byte *)((r_globals_t *)imp_rg)->materialHashTable[hash];
+    while (existing) {
+        if (strcmp(*(const char **)existing, name) == 0) {
+            /* Found existing material */
+            return (MaterialHandle)((r_globals_t *)imp_rg)->materialHashTable[hash];
+        }
+        hash = (hash + 1) & 0x3ff;
+        existing = (byte *)((r_globals_t *)imp_rg)->materialHashTable[hash];
+    }
+
+    /* Not found — try loading */
+    material = Material_Load(name, imageTrack);
+    if (!material) {
+        {
+            r_global_permanent_t *rgpPtr = (r_global_permanent_t *)imp_rgp;
+            if (!rgpPtr->defaultMaterial)
+                R_Error(0, "No default material loaded for %s fallback", name);
+
+            aliasMaterial = Material_TryAliasWithoutExtension(name, imageTrack);
+            if (aliasMaterial)
+                return aliasMaterial;
+
+            if (Material_IsUiLikeName(name)) {
+                MaterialHandle fallback = rgpPtr->whiteMaterial;
+                if (!fallback)
+                    fallback = rgpPtr->defaultMaterial;
+                return Material_Duplicate(fallback, name);
+            }
+
+            Com_Printf("^3WARNING: Could not find material '%s'\n", name);
+            return Material_Duplicate(rgpPtr->defaultMaterial, name);
+        }
+    }
+
+    /* Register new material */
+    r_global_permanent_t *rgpPtr = (r_global_permanent_t *)imp_rgp;
+    rgpPtr->materialLoaded = 1; /* needsSort */
+    material->info.hashIndex = (unsigned short)hash;
+    count = rgpPtr->materialCount;
+    material->info.sortedIndex = (unsigned short)count;
+    rgpPtr->sortedMaterials[count] = material;
+    ((r_globals_t *)imp_rg)->materialHashTable[hash] = material;
+    count++;
+    rgpPtr->materialCount = count;
+
+    if (count == 0x400)
+        R_Error(0, "Too many unique materials (%i or more)\n", 0x400);
+
+    return (MaterialHandle)material;
+}
+
+/* line 1119 */
+MaterialHandle Material_RegisterHandle(const char *name, int baseImageFlags, int imageTrack)
+{
+    MaterialHandle material;
+
+    (void)baseImageFlags;
+
+    if (name == NULL || *name == '\0')
+        return rgp.defaultMaterial;
+
+    material = Material_Register(name, imageTrack);
+    if (material != NULL)
+        return material;
+
+    if (strncmp(name, "ui/", 3) == 0 || strncmp(name, "ui_", 3) == 0)
+        return rgp.whiteMaterial ? rgp.whiteMaterial : rgp.defaultMaterial;
+
+    return rgp.defaultMaterial;
+}
+
+/* line 1345 — Material_Init
+ * Initializes the material system: registers all built-in materials,
+ * optionally registers fill-test materials, registers $raw material,
+ * and validates technique set compatibility with $default. */
+extern void Material_PreLoadAllShaderText(void);
+extern void Com_Error(int errorLevel, const char *msg, ...);
+extern BuiltInMaterialTable s_builtInMaterials[];
+extern BuiltInMaterialTable s_builtInMaterials_end[];
+
+void Material_Init(void)
+{
+    byte *rgp_ptr = (byte *)&rgp;
+
+    memset(materialGlobals, 0, 0x299c);
+    Material_PreLoadAllShaderText();
+
+    /* Register all built-in materials */
+    BuiltInMaterialTable *entry;
+    for (entry = s_builtInMaterials; entry < s_builtInMaterials_end; entry++) {
+        *(Material **)entry->material = Material_Register(entry->name, 0);
+        if (!*(Material **)entry->material)
+            Com_Error(0, "Could not find material '%s'", entry->name);
+    }
+
+    /* If fill-rate testing enabled, register fill-test materials */
+    if ((*(const dvar_t **)imp_r_testFillEnable)->current.enabled) {
+        for (entry = (BuiltInMaterialTable *)&s_fillTestMaterials; entry < s_builtInMaterials; entry++) {
+            *(Material **)entry->material = Material_Register(entry->name, 0);
+            if (!*(Material **)entry->material)
+                Com_Error(0, "Could not find material '%s'", entry->name);
+        }
+    }
+
+    /* Register $raw material and validate against $default */
+    Material *rawMaterial = Material_Register("$raw", 0);
+    ((r_global_permanent_t *)rgp_ptr)->rawMaterial = rawMaterial;
+    Material *defaultMaterial = ((r_global_permanent_t *)rgp_ptr)->defaultMaterial;
+
+    /* First pass: check if raw material is compatible with default */
+    if (!rawMaterial || !defaultMaterial) {
+        /* Materials not loaded — skip compatibility check */
+    } else if (rawMaterial->textures != defaultMaterial->textures ||
+        rawMaterial->constants != defaultMaterial->constants ||
+        rawMaterial->techniqueSet != defaultMaterial->techniqueSet) {
+        if (rawMaterial->textureCount != 1) {
+            /* Incompatible: fall back to $default */
+            typedef void (*ri_Printf_fn)(int, const char *, ...);
+            ((ri_Printf_fn)((void *)imp_ri))(3, "$raw material is not compatible with $default");
+            rawMaterial = defaultMaterial;
+            ((r_global_permanent_t *)rgp_ptr)->rawMaterial = defaultMaterial;
+        }
+    }
+
+    /* Reload pointers (may have changed after fallback) */
+    rawMaterial = ((r_global_permanent_t *)rgp_ptr)->rawMaterial;
+    defaultMaterial = ((r_global_permanent_t *)rgp_ptr)->defaultMaterial;
+
+    /* Second pass: if textures/constants/techniqueSet still differ, copy technique data */
+    if (!rawMaterial || !defaultMaterial) {
+        return;
+    }
+    if (rawMaterial->textures != defaultMaterial->textures ||
+        rawMaterial->constants != defaultMaterial->constants ||
+        rawMaterial->techniqueSet != defaultMaterial->techniqueSet) {
+        /* Copy first entry from raw's textures to rgp fallback slot, redirect pointer */
+        *(int *)&((r_global_permanent_t *)rgp_ptr)->rawTexdef = *(int *)rawMaterial->textures;
+        rawMaterial->textures = &((r_global_permanent_t *)rgp_ptr)->rawTexdef;
+    }
+}
+
+/* std::__adjust_heap for Material** — heap sift-down + push-up */
+void ZSt13__adjust_heapIPP8MaterialiS1_PFhPKS0_S4_EEvT_T0_S8_T1_T2_(
+    Material **first, int holeIndex, int len, Material *value, MaterialCompFunc comp)
+{
+    int topIndex = holeIndex;
+    int secondChild = 2 * holeIndex + 2;
+    while (secondChild < len) {
+        if (comp(first[secondChild], first[secondChild - 1]))
+            secondChild--;
+        first[holeIndex] = first[secondChild];
+        holeIndex = secondChild;
+        secondChild = 2 * secondChild + 2;
+    }
+    if (secondChild == len) {
+        first[holeIndex] = first[len - 1];
+        holeIndex = len - 1;
+    }
+    while (holeIndex > topIndex) {
+        int parent = (holeIndex - 1) / 2;
+        if (!comp(first[parent], value))
+            break;
+        first[holeIndex] = first[parent];
+        holeIndex = parent;
+    }
+    first[holeIndex] = value;
+}
+
+/* std::__insertion_sort for Material** — insertion sort with comparator */
+void ZSt16__insertion_sortIPP8MaterialPFhPKS0_S4_EEvT_S7_T0_(
+    Material **first, Material **last, MaterialCompFunc comp)
+{
+    Material **i;
+    if (first == last) return;
+    for (i = first + 1; i != last; i++) {
+        Material *val = *i;
+        if (comp(val, *first)) {
+            unsigned int n = (unsigned int)((char *)i - (char *)first) & ~3u;
+            memmove(first + 1, first, n);
+            *first = val;
+        } else {
+            Material **prev = i - 1;
+            Material **hole = i;
+            while (comp(val, *prev)) {
+                *hole = *prev;
+                hole = prev;
+                prev--;
+            }
+            *hole = val;
+        }
+    }
+}
+
+/* std::__introsort_loop for Material** — introsort with heapsort fallback */
+void ZSt16__introsort_loopIPP8MaterialiPFhPKS0_S4_EEvT_S7_T0_T1_(
+    Material **first, Material **last, int depth_limit, MaterialCompFunc comp)
+{
+    while ((char *)last - (char *)first > 64) {
+        if (depth_limit == 0) {
+            int n = (int)(last - first);
+            int half = (n - 2) / 2;
+            int i;
+            Material **end;
+            for (i = half; i >= 0; i--)
+                ZSt13__adjust_heapIPP8MaterialiS1_PFhPKS0_S4_EEvT_T0_S8_T1_T2_(
+                    first, i, n, first[i], comp);
+            for (end = last - 1; end - first > 0; end--) {
+                Material *value = *end;
+                *end = *first;
+                ZSt13__adjust_heapIPP8MaterialiS1_PFhPKS0_S4_EEvT_T0_S8_T1_T2_(
+                    first, 0, (int)(end - first), value, comp);
+            }
+            return;
+        }
+        depth_limit--;
+        {
+            int n = (int)(last - first);
+            Material **midPtr = first + n / 2;
+            Material **pivotPtr;
+            Material *pivot;
+            Material **lo, **hi;
+            if (comp(*first, *midPtr)) {
+                if (comp(*midPtr, *(last - 1)))
+                    pivotPtr = midPtr;
+                else if (comp(*first, *(last - 1)))
+                    pivotPtr = last - 1;
+                else
+                    pivotPtr = first;
+            } else {
+                if (comp(*first, *(last - 1)))
+                    pivotPtr = first;
+                else if (comp(*(last - 1), *midPtr))
+                    pivotPtr = midPtr;
+                else
+                    pivotPtr = last - 1;
+            }
+            pivot = *pivotPtr;
+            lo = first;
+            hi = last;
+            for (;;) {
+                while (!comp(pivot, *lo)) lo++;
+                hi--;
+                while (!comp(*hi, pivot)) hi--;
+                if (lo >= hi) break;
+                { Material *tmp = *lo; *lo = *hi; *hi = tmp; }
+                lo++;
+            }
+            ZSt16__introsort_loopIPP8MaterialiPFhPKS0_S4_EEvT_S7_T0_T1_(
+                lo, last, depth_limit, comp);
+            last = lo;
+        }
+    }
+}
+

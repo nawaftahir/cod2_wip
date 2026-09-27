@@ -1,0 +1,4308 @@
+/* ASM dump from: rb_backend.cpp */
+/* Original path: /Users/kevin/Development/i5works/COD2/Project/PC/gfx_d3d/rb_backend.cpp */
+
+#include "common_types.h"
+#include "imports.h"
+
+extern int g_rb_tess_type_counts[8]; /* diagnostic */
+extern int g_rb_tess_type_idxzero[8]; /* diagnostic */
+int g_rb_last_tess_type = 0; /* diagnostic */
+int g_dsc_techtype[3] = {0};
+int g_dsc_surfcount[3] = {0};
+int g_rdsl_ignore_decal = 0;
+int g_rdsl_ignore_techm1 = 0;
+int g_rdsl_ignore_technull = 0;
+int g_rdsl_noignore = 0;
+int g_rdsl_sortchange = 0;
+int g_rdsl_bf_entry = 0;
+void *g_technull_mat = 0;
+int g_technull_type = 0;
+int g_technull_saved = 0;
+
+void rdsl_log_null_technique2(void *material, int techType)
+{
+    (void)material;
+    (void)techType;
+}
+
+/* Original includes (from N_BINCL debug info):
+ *   #include "PC/universal/com_vector.h"
+ *   #include "PC/universal/com_math.h"
+ *   #include "PC/universal/profile.h"
+ *   #include "PC/gfx_d3d/rb_backend.h"
+ *   #include "Mac/DirectX 9/MacOpenGLUtils.h"
+ *   #include "PC/gfx_d3d/r_material.h"
+ *   #include "PC/gfx_d3d/rb_state.h"
+ */
+
+extern int printf(const char *, ...);
+int rb_drawsurfscmd_count = 0;
+int rb_drawsurfscmd_dxskip = 0;
+
+static int diag_rb_skip_this_frame = 0;
+static void diag_rb_cmd(int cmdType) {
+    (void)cmdType;
+}
+
+extern unsigned char dxState[];
+static void diag_rb_frame_start(void) {
+    (void)dxState;
+}
+
+extern int rb_rdsl_call_count;
+extern int g_dip_gl_draw;
+extern int g_rb_endsurface_count;
+extern int g_rb_endsurface_draw;
+extern int g_rb_endsurface_nomaterial;
+extern int g_rb_endsurface_notechnique;
+extern int g_rb_endsurface_dxstate;
+extern int g_rb_endsurface_idxzero;
+extern int g_rb_endsurface_flag1skip;
+extern int g_rb_endsurface_flag2skip;
+extern int g_dip_drawflag_zero;
+extern int g_dip_vs_null;
+extern int g_dip_vs_bound;
+extern int g_dip_vs_skip;
+extern int g_dip_numelems_zero;
+extern int g_dip_is_tri;
+extern int g_technull_saved;
+extern void *g_technull_mat;
+extern int g_technull_type;
+extern int g_tess_since_begin;
+extern int g_rb_tess_type_counts[];
+extern int g_rb_last_tess_type;
+extern int g_rb_exec_count;
+extern int g_dsc_techtype[];
+extern int g_dsc_surfcount[];
+extern int rb_drawsurfscmd_dxskip;
+extern int g_rb_skip_reason;
+extern int g_rb_dispatch_count;
+extern int g_rb_first_cmd;
+static void diag_rb_frame_end(void) {
+    /* Reset per-frame counters */
+    rb_rdsl_call_count = 0;
+    g_rb_endsurface_count = 0;
+    g_rb_endsurface_draw = 0;
+    g_rb_endsurface_nomaterial = 0;
+    g_rb_endsurface_notechnique = 0;
+    g_rb_endsurface_dxstate = 0;
+    g_rb_endsurface_idxzero = 0;
+    g_rb_endsurface_flag1skip = 0;
+    g_rb_endsurface_flag2skip = 0;
+    g_dip_gl_draw = 0;
+    g_dip_is_tri = 0;
+    g_dip_drawflag_zero = 0;
+    g_dip_vs_null = 0;
+    g_dip_vs_bound = 0;
+    g_dip_vs_skip = 0;
+    g_dip_numelems_zero = 0;
+    g_rdsl_ignore_technull = 0;
+    g_rdsl_ignore_decal = 0;
+    g_rdsl_ignore_techm1 = 0;
+    g_rdsl_noignore = 0;
+    g_rdsl_sortchange = 0;
+    g_rdsl_bf_entry = 0;
+    rb_drawsurfscmd_count = 0;
+    rb_drawsurfscmd_dxskip = 0;
+    g_technull_saved = 0;
+    memset(g_rb_tess_type_counts, 0, sizeof(int) * 8);
+    g_tess_since_begin = 0;
+}
+
+extern struct materialCommands_t tess; /* 0x0 */
+extern struct r_backEndGlobals_t backEnd; /* 0x0 */
+extern const GfxBackEndData *backEndData; /* 0x0 */
+extern GLuint g_FenceID; /* 0x0 */
+extern const byte color_table[8][4]; /* color_table — rodata.c */
+extern const Bool refEntIsInWorldSpace[10]; /* refEntIsInWorldSpace — rodata.c */
+
+extern void RB_TessBad(const surfaceType_t *surfType);
+extern void RB_TessPoly(const surfaceType_t *surfType);
+extern void RB_TessBackEndEntity(const surfaceType_t *surfType);
+extern void RB_TessXModelSkinned(const surfaceType_t *surfType);
+extern void RB_TessXModelRigid(const surfaceType_t *surfType);
+extern void RB_TessStaticModelCached(const surfaceType_t *surfType);
+extern void RB_TessTriangles(const surfaceType_t *surfType);
+
+static void (*const rb_tessTable[8])(const surfaceType_t *) = {
+    RB_TessBad,               /* SF_BAD */
+    RB_TessPoly,              /* SF_POLY */
+    RB_TessBackEndEntity,     /* SF_ENTITY */
+    RB_TessXModelSkinned,     /* SF_XMODEL_SKINNED */
+    RB_TessXModelRigid,       /* SF_XMODEL_RIGID */
+    RB_TessStaticModelCached, /* SF_STATICMODEL_CACHED */
+    RB_TessTriangles,         /* SF_TRIANGLES */
+    RB_TessBad                /* SF_RAW_GEOMETRY */
+}; /* rb_tessTable */
+
+extern FontHandle R_RegisterFont(const char *fontName, int imageTrack);
+extern void RB_TouchAllImages(void);
+extern int ColorIndex(int c);
+extern void RB_EndSurface(void);
+extern void RB_BeginSurface(const Material *material, MaterialTechniqueType techType, int lmapIndex);
+extern void *Image_GetSurface(void *image);
+extern void RB_TessEntity(void *entity);
+extern Bool Material_IsDefault(MaterialHandle handle);
+extern BOOL QueryPerformanceFrequency(void *lpPerformanceFrequency);
+extern void RB_DrawSun(const void *sunData);
+extern void RB_SetShadowLookupMatrix(const void *matrix);
+extern void RB_UpdateViewportConstants(void);
+extern void RB_UpdateViewport(void);
+extern void RB_SetRenderTarget(int renderTargetId);
+extern void RB_DrawSunPostEffects(const void *sunData);
+extern void *RB_GetActiveWorldMatrix(void);
+extern void MatrixIdentity44(void *matrix);
+extern void MatrixMultiply44(const void *a, const void *b, void *out);
+extern Bool RB_GetViewport(void *viewport);
+extern void MacOpenGLUtils_ConvertD3DProjectionMatrixToOpenGL(void *proj, float width, float height);
+extern void RB_SetViewMatrix(const void *matrix);
+extern void RB_SetProjectionMatrix(const void *matrix);
+extern void MatrixForViewer(void *out, const void *origin, const void *axis);
+extern void InfinitePerspectiveMatrix(void *out, float fovX, float fovY, float zNear);
+extern void RB_PushMatrixStack(void);
+extern void RB_PopMatrixStack(void);
+extern float Vec2Normalize(float *v);
+extern float Vec3Normalize(float *v);
+extern void R_DecomposeSort(unsigned int sortKey, int *entityIndex, const Material **material, int *lightmap);
+extern void RB_SetDepthRange(float near, float far);
+extern void RB_SetDepthHackNearClip(float nearClip);
+extern void RB_SetWorldMatrixForEntity(const void *entity);
+extern int RB_FogOffset(void);
+extern Glyph *R_GetCharacterGlyph(FontHandle font, int charCode);
+extern void RB_ChangedWorldMatrix(float worldScale);
+extern void RB_SetMatricesForView(const void *viewParms);
+extern float floorf(float x);
+extern float sqrtf(float x);
+extern float sinf(float x);
+extern float cosf(float x);
+extern double pow(double base, double exponent);
+
+/* Write a 2D vertex to the tess buffer at the given vertex index.
+ * Handles both Dx7 (stride 36) and non-Dx7 (stride 64) layouts. */
+static inline void RB_SetVertex2D(char *tessBase, int vertIndex, int isDx7,
+                                   float px, float py, float s, float t, D3DCOLOR color)
+{
+    if (isDx7) {
+        char *v = tessBase + vertIndex * 36;
+        ((GfxVertexDx7 *)v)->xyz[0] = px;
+        ((GfxVertexDx7 *)v)->xyz[1] = py;
+        ((GfxVertexDx7 *)v)->xyz[2] = 0;
+        ((GfxVertexDx7 *)v)->normal[0] = 0;
+        ((GfxVertexDx7 *)v)->normal[1] = 0;
+        ((GfxVertexDx7 *)v)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)v)->color.packed = color;
+        ((GfxVertexDx7 *)v)->texCoord[0] = s;
+        ((GfxVertexDx7 *)v)->texCoord[1] = t;
+    } else {
+        char *v = tessBase + vertIndex * 64;
+        ((GfxVertexDx7 *)v)->xyz[0] = px;
+        ((GfxVertexDx7 *)v)->xyz[1] = py;
+        ((GfxVertexDx7 *)v)->xyz[2] = 0;
+        ((GfxVertexDx7 *)v)->normal[0] = 1.0f;
+        ((GfxVertex *)v)->normal[0] = 0;
+        ((GfxVertex *)v)->normal[1] = 0;
+        ((GfxVertex *)v)->normal[2] = 1.0f;
+        ((GfxVertex *)v)->color.packed = color;
+        ((GfxVertex *)v)->texCoord[0] = s;
+        ((GfxVertex *)v)->texCoord[1] = t;
+        ((GfxVertex *)v)->binormal[0] = 0;
+        ((GfxVertex *)v)->binormal[1] = 1.0f;
+        ((GfxVertex *)v)->binormal[2] = 0;
+        ((GfxVertex *)v)->tangent[0] = 1.0f;
+        ((GfxVertex *)v)->tangent[1] = 0;
+        ((GfxVertex *)v)->tangent[2] = 0;
+    }
+}
+
+/* Standard check-overflow-and-flush for tess quad rendering.
+ * Returns new vc (vertex count) after potential flush. */
+static inline int RB_CheckTessOverflow4(char *t)
+{
+    int vc = tess.vertexCount;
+    int ic = tess.indexCount;
+    if (vc + 4 > 0x154a || ic + 6 > 0x100000) {
+        int savedDecl = tess.declType;
+        RB_EndSurface();
+        RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
+        if (tess.declType != savedDecl) {
+            if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+                RB_EndSurface();
+            tess.declType = savedDecl;
+        }
+        vc = tess.vertexCount;
+    }
+    return vc;
+}
+
+/* Write 6 indices for a standard quad (2 triangles) at current tess position. */
+static inline void RB_WriteQuadIndices(char *t, int vc)
+{
+    int ic = tess.indexCount;
+    r_index_t *indices = tess.indices;
+    indices[ic + 0] = (r_index_t)(vc + 3);
+    indices[ic + 1] = (r_index_t)vc;
+    indices[ic + 2] = (r_index_t)(vc + 2);
+    indices[ic + 3] = (r_index_t)(vc + 2);
+    indices[ic + 4] = (r_index_t)vc;
+    indices[ic + 5] = (r_index_t)(vc + 1);
+}
+
+/* Begin 2D surface with material if not already active */
+static inline void RB_BeginSurface2D(char *t, const Material *material)
+{
+    if (material != tess.material || tess.techType != 3) {
+        if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 0x1f);
+    }
+}
+
+/* Smallest power of 2 >= v (for texture dimension rounding) */
+static inline unsigned int nextPow2(unsigned int v)
+{
+    unsigned int p = 1;
+    if (v <= 1) return 1;
+    while (p < v) p <<= 1;
+    return p;
+}
+extern const char *R_ErrorDescription(HRESULT hr);
+extern void R_Error(int level, const char *msg, ...);
+extern void R_FlushStaticModelCache(void);
+extern void R_SetColorMappings(void);
+extern void RB_SetViewport(const void *viewport);
+extern BOOL QueryPerformanceCounter(void *lpPerformanceCount);
+
+void RB_SetCodeConstant(int constant, vec_t x, vec_t y, vec_t z, vec_t w);
+static void RB_GotoCmd(GfxRenderCommandExecState *execState);
+static void RB_ReturnCmd(GfxRenderCommandExecState *execState);
+void RB_SetGammaRamp(const GfxGammaRamp *gammaTable);
+static void RB_TouchAllImagesCmd(GfxRenderCommandExecState *execState);
+qboolean RB_IsGpuFenceFinished(void);
+void RB_GpuWaited(int ticks);
+static void RB_EndFrame_real(void);
+void RB_EndFrame(void)
+{
+    RB_EndFrame_real();
+}
+void RB_InitBackendGlobalStructs(void);
+void RB_RegisterBackendAssets(void);
+void RB_LookupColor(int c, byte *color);
+static void RB_CallCmd(GfxRenderCommandExecState *execState);
+static void RB_SetClipPlanesCmd(GfxRenderCommandExecState *execState);
+static void RB_StretchRawCmd(GfxRenderCommandExecState *execState);
+static void RB_DrawSunCmd(GfxRenderCommandExecState *execState);
+void RB_ClearScreen(int whichToClear, const vec_t *color, float depth, int stencil);
+static void RB_ClearScreenCmd(GfxRenderCommandExecState *execState);
+static void RB_UpdateColorInternal(const vec_t *floatColor, byte *color);
+void RB_UpdateColor(const vec_t *color_allies, const vec_t *color_axis);
+void RB_AdaptiveGpuSyncWait(void);
+void RB_AdaptiveGpuSyncTarget(void);
+static void RB_EndBenchmarkGpu_impl(void *time);
+static void RB_BeginBenchmarkGpu_impl(void *time);
+void RB_Set3D(void);
+static void RB_SetMaterialColorCmd(GfxRenderCommandExecState *execState);
+static void RB_SetLightPropertiesCmd(GfxRenderCommandExecState *execState);
+static void RB_SetStencilRefValueCmd(GfxRenderCommandExecState *execState);
+static void RB_SetShadowCookieCmd(GfxRenderCommandExecState *execState);
+static void RB_BeginViewCmd(GfxRenderCommandExecState *execState);
+static void RB_SetViewportCmd(GfxRenderCommandExecState *execState);
+static void RB_SetRenderTargetCmd(GfxRenderCommandExecState *execState);
+static void RB_RenderDrawSurfList(GfxDrawSurf *drawSurfs, int drawSurfCount,
+                                   MaterialTechniqueType techType, GfxDrawSurfOrder order);
+static void RB_DrawSurfsCmd(GfxRenderCommandExecState *execState);
+static void RB_DrawSunPostEffectsCmd(GfxRenderCommandExecState *execState);
+static void RB_Set2D(void);
+static void RB_DrawTrianglesCmd(GfxRenderCommandExecState *execState);
+static void RB_SaveScreenCmd(GfxRenderCommandExecState *execState);
+static void RB_ApplyEarlyPostEffectsCmd(GfxRenderCommandExecState *execState);
+static void RB_DrawSpriteCmd(GfxRenderCommandExecState *execState);
+void RB_DrawLines2D(int count, int width, const GfxPointVertex *verts);
+void RB_DrawTextInSpace(const char *text, FontHandle font, const vec_t *org, const vec_t *xPixelStep, const vec_t *yPixelStep, D3DCOLOR color);
+static void RB_DrawTextInSpaceCmd(GfxRenderCommandExecState *execState);
+static float RB_TestFillPass3D_impl(const Material *material, MaterialTechniqueType techType);
+static float RB_TestFillPass3D(const Material *material, MaterialTechniqueType techType);
+void RB_DrawStretchPic(const Material *material, float x, float y, float w, float h, float s0, float t0, float s1, float t1, D3DCOLOR color, GfxPrimStatsTarget statsTarget);
+static void RB_StretchPicCmd(GfxRenderCommandExecState *execState);
+void RB_ExecuteRenderCommands(const void *data);
+void RB_DrawFullScreenColoredQuad(const Material *material, float s0, float t0, float s1, float t1, D3DCOLOR color);
+static void RB_DrawFullScreenColoredQuadCmd(GfxRenderCommandExecState *execState);
+static void RB_BlendSavedScreenCmd(GfxRenderCommandExecState *execState);
+static void RB_BlurShadowCookieCmd(GfxRenderCommandExecState *execState);
+static void RB_DrawTextCmd(GfxRenderCommandExecState *execState);
+static void RB_ApplyLatePostEffectsCmd(GfxRenderCommandExecState *execState);
+static void RB_StretchPicRotateCmd(GfxRenderCommandExecState *execState);
+static void RB_DrawQuadPicCmd(GfxRenderCommandExecState *execState);
+void RB_DrawLines3D(int count, int width, const GfxPointVertex *verts, int depthTest);
+static void RB_DrawLinesCmd(GfxRenderCommandExecState *execState);
+static void RB_StencilPlanesCmd(GfxRenderCommandExecState *execState);
+static void RB_DrawPointsCmd(GfxRenderCommandExecState *execState);
+
+void (*const RB_RenderCommandTable[34])(GfxRenderCommandExecState *execState) = {
+    NULL,
+    RB_GotoCmd,
+    RB_CallCmd,
+    RB_ReturnCmd,
+    RB_SetMaterialColorCmd,
+    RB_SetLightPropertiesCmd,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    RB_SaveScreenCmd,
+    RB_ClearScreenCmd,
+    RB_BeginViewCmd,
+    RB_SetViewportCmd,
+    RB_SetRenderTargetCmd,
+    RB_StretchPicCmd,
+    RB_StretchPicRotateCmd,
+    RB_StretchRawCmd,
+    RB_DrawQuadPicCmd,
+    RB_DrawSpriteCmd,
+    RB_DrawFullScreenColoredQuadCmd,
+    RB_DrawTextCmd,
+    RB_DrawTextInSpaceCmd,
+    RB_DrawSurfsCmd,
+    RB_DrawSunCmd,
+    RB_ApplyEarlyPostEffectsCmd,
+    RB_ApplyLatePostEffectsCmd,
+    RB_DrawSunPostEffectsCmd,
+    NULL,
+    RB_BlendSavedScreenCmd,
+    NULL,
+    NULL,
+    NULL,
+    RB_TouchAllImagesCmd,
+};
+
+/* line 4245 */
+void RB_SetCodeConstant(int constant, vec_t x, vec_t y, vec_t z, vec_t w)
+{
+    backEnd.codeConsts[constant - 128][0] = x;
+    backEnd.codeConsts[constant - 128][1] = y;
+    backEnd.codeConsts[constant - 128][2] = z;
+    backEnd.codeConsts[constant - 128][3] = w;
+}
+
+/* line 577 */
+static void RB_GotoCmd(GfxRenderCommandExecState *execState)
+{
+    execState->cmd = *(const void **)((byte *)execState->cmd + 4);
+}
+
+/* line 600 */
+static void RB_ReturnCmd(GfxRenderCommandExecState *execState)
+{
+    int idx = execState->stackPos - 1;
+    execState->stackPos = idx;
+    execState->cmd = execState->retCmd[idx];
+}
+
+/* line 1750 */
+void RB_SetGammaRamp(const GfxGammaRamp *gammaTable)
+{
+    unsigned short d3dGammaRamp[256 * 3]; /* R, G, B channels */
+    int i;
+    byte *dx;
+    void *dev;
+    void **vt;
+
+    /* Copy grayscale gamma ramp to all three D3D channels */
+    for (i = 0; i < 256; i++) {
+        d3dGammaRamp[i] = gammaTable->entries[i];
+        d3dGammaRamp[i + 256] = gammaTable->entries[i];
+        d3dGammaRamp[i + 512] = gammaTable->entries[i];
+    }
+
+    /* IDirect3DDevice9::SetGammaRamp(swapChain, flags=0, &ramp) */
+    dx = (byte *)imp_dx;
+    dev = *(void **)(dx + 8);
+    vt = *(void ***)dev;
+    ((void (*)(void *, int, int, void *))vt[0x54 / 4])(dev, ((DxGlobals *)dx)->targetWindowIndex, 0, d3dGammaRamp);
+}
+
+/* line 2430 */
+static void RB_TouchAllImagesCmd(GfxRenderCommandExecState *execState)
+{
+    const GfxCmdHeader *cmd;
+
+    RB_TouchAllImages();
+    cmd = (const GfxCmdHeader *)execState->cmd;
+    execState->cmd = (const void *)((byte *)cmd + cmd->byteCount);
+}
+
+/* line 3300 */
+qboolean RB_IsGpuFenceFinished(void)
+{
+    byte *dx = (byte *)imp_dx;
+    qboolean finished;
+
+    if (!dx[0x2d68])
+        return 1;
+
+    finished = glTestFenceAPPLE(g_FenceID) != 0;
+    if (finished)
+        glDeleteFencesAPPLE(1, &g_FenceID);
+    if (finished) {
+        dx[0x2d68] = 0;
+        return 1;
+    }
+    return 0;
+}
+
+/* line 3214 */
+void RB_GpuWaited(int ticks)
+{
+    ((DxGlobals *)imp_dx)->gpuSyncAlreadyWaited = ticks;
+}
+
+/* line 3710 */
+static void RB_EndFrame_real(void)
+{
+    char *dx = (char *)imp_dx;
+    void *device;
+    void **vtable;
+    HRESULT hr;
+    char *r_gamma_cvar;
+    char *r_ignoreHwGamma_cvar;
+    void (*Cvar_ClearModified)(void *);
+
+    /* IDirect3DDevice9::Present(NULL, NULL, NULL, NULL) — vtable offset 0x44 */
+    device = *(void **)(dx + 8);
+    if (!device)
+        goto skip_present;
+    vtable = *(void ***)device;
+    hr = ((HRESULT (*)(void *, void *, void *, void *, void *))(vtable[0x44 / 4]))(device, NULL, NULL, NULL, NULL);
+
+    if (hr < 0) {
+        if (hr != (HRESULT)0x88760868) { /* D3DERR_DEVICELOST */
+            R_Error(0, "Direct3DDevice9::Present failed: %s\n", R_ErrorDescription(hr));
+        }
+        ((DxGlobals *)dx)->deviceLost = 1; /* deviceLost = true */
+        R_FlushStaticModelCache();
+    }
+
+skip_present:
+    /* Reset index buffer lock position */
+    dx = (char *)imp_dx;
+    if (((DxGlobals *)dx)->dynamicIndexBuffer)
+        *(int *)((DxGlobals *)dx)->dynamicIndexBuffer = 0;
+
+    /* backEnd.projection2D = false */
+    backEnd.projection2D = 0;
+
+    /* Check if gamma cvars were modified */
+    r_gamma_cvar = *(char **)imp_r_gamma;
+    r_ignoreHwGamma_cvar = *(char **)imp_r_ignoreHwGamma;
+
+    if (((const dvar_t *)r_gamma_cvar)->modified || ((const dvar_t *)r_ignoreHwGamma_cvar)->modified) {
+        /* Clear modified flags via ri->Dvar_ClearModified */
+        Cvar_ClearModified = ((refimport_t *)imp_ri)->Dvar_ClearModified;
+        Cvar_ClearModified(r_gamma_cvar);
+
+        r_ignoreHwGamma_cvar = *(char **)imp_r_ignoreHwGamma;
+        Cvar_ClearModified(r_ignoreHwGamma_cvar);
+
+        if (!((const dvar_t *)r_ignoreHwGamma_cvar)->current.enabled) {
+            R_SetColorMappings();
+            return;
+        }
+    }
+}
+
+void RB_InitSceneViewport(void);
+
+/* line 4215 */
+void RB_InitBackendGlobalStructs(void)
+{
+    memset(&backEnd, 0, 0x36e90);
+    *(int *)&backEnd.worldEntity = 3; /* worldEntity.reType = RT_MODEL (3) */
+    backEnd.resolvedPostSunTarget = 0xe;
+    backEnd.resolvedSceneTarget = 0xe;
+    RB_InitSceneViewport();
+}
+
+/* line 4234 */
+void RB_RegisterBackendAssets(void)
+{
+    *(FontHandle *)((char *)&backEnd + 224904) = R_RegisterFont("fonts/smalldevfont", 1); /* TODO: unknown offset 224904 in r_backEndGlobals_t */
+}
+
+/* line 2828 */
+void RB_LookupColor(int c, byte *color)
+{
+    int idx = ColorIndex((byte)c);
+    if (idx <= 7) {
+        *(unsigned int *)color = ((const unsigned int *)color_table)[idx];
+    } else if ((byte)c == '8') {
+        *(unsigned int *)color = *(unsigned int *)&backEnd.color_allies;
+    } else if ((byte)c == '9') {
+        *(unsigned int *)color = *(unsigned int *)&backEnd.color_axis;
+    } else {
+        color[0] = 0xff;
+        color[1] = 0xff;
+        color[2] = 0xff;
+        color[3] = 0xff;
+    }
+}
+
+/* line 587 */
+static void RB_CallCmd(GfxRenderCommandExecState *execState)
+{
+    const GfxCmdHeader *cmd = (const GfxCmdHeader *)execState->cmd;
+    int idx = execState->stackPos;
+
+    /* Save return address (cmd + size) onto the call stack */
+    execState->retCmd[idx] = (const void *)((byte *)cmd + cmd->byteCount);
+    execState->stackPos = idx + 1;
+
+    /* Jump to the call target */
+    execState->cmd = *(const void **)((byte *)cmd + 4);
+}
+
+/* line 1339 */
+static void RB_SetClipPlanesCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd = (byte *)execState->cmd;
+    int planeCount = ((GfxCmdSetClipPlanes *)cmd)->clipPlaneCount;
+    void *device;
+    void **vtable;
+    int i;
+
+    /* Update clip plane enable render state if changed */
+    if (planeCount != ((DxState *)imp_dxState)->clipPlaneCount) {
+        /* IDirect3DDevice9::SetRenderState(D3DRS_CLIPPLANEENABLE, (1<<count)-1) — vtable 0xE4 */
+        do {
+            device = *(void **)((char *)imp_dx + 8);
+            vtable = *(void ***)device;
+            ((HRESULT (*)(void *, DWORD, DWORD))(vtable[0xE4 / 4]))(
+                device, 0x98, (DWORD)((1 << planeCount) - 1));
+        } while (*(volatile int *)imp_alwaysfails);
+
+        ((DxState *)imp_dxState)->clipPlaneCount = planeCount;
+    }
+
+    /* Set each clip plane from cmd->clipPlanes array */
+    if (planeCount > 0) {
+        byte *planeData = (byte *)((GfxCmdSetClipPlanes *)cmd)->clipPlanes;
+        for (i = 0; i < planeCount; i++) {
+            /* IDirect3DDevice9::SetClipPlane(i, planeData) — vtable 0xDC */
+            do {
+                device = *(void **)((char *)imp_dx + 8);
+                vtable = *(void ***)device;
+                ((HRESULT (*)(void *, DWORD, const float *))(vtable[0xDC / 4]))(
+                    device, (DWORD)i, (const float *)planeData);
+            } while (*(volatile int *)imp_alwaysfails);
+            planeData += 16;
+        }
+    }
+
+    /* Advance command pointer */
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 843 */
+static void RB_StretchRawCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd = (byte *)execState->cmd;
+    int x     = ((GfxCmdStretchRaw *)cmd)->x;
+    int y     = ((GfxCmdStretchRaw *)cmd)->y;
+    int w     = ((GfxCmdStretchRaw *)cmd)->w;
+    int h     = ((GfxCmdStretchRaw *)cmd)->h;
+    int cols  = ((GfxCmdStretchRaw *)cmd)->cols;
+    int rows  = ((GfxCmdStretchRaw *)cmd)->rows;
+    byte *data = ((GfxCmdStretchRaw *)cmd)->data;
+    void *rawTexture = NULL;
+    void *device;
+    void **devVtable;
+    void **texVtable;
+    HRESULT hr;
+    int lockedRect[2]; /* [0]=Pitch, [1]=pBits */
+    int dstRect[4];
+    void *surface = NULL;
+    byte *dest;
+    int pitch;
+    int rowBytes;
+    int i;
+
+    /* IDirect3DDevice9::CreateTexture(cols, rows, 1, 0, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &rawTexture, NULL) — vtable 0x5C */
+    device = *(void **)((char *)imp_dx + 8);
+    devVtable = *(void ***)device;
+    hr = ((HRESULT (*)(void *, UINT, UINT, UINT, DWORD, DWORD, DWORD, void **, void *))(devVtable[0x5C / 4]))(
+        device, (UINT)cols, (UINT)rows, 1, 0, 0x16, 0, &rawTexture, NULL);
+
+    if (hr >= 0) {
+        /* IDirect3DTexture9::LockRect(0, &lockedRect, NULL, D3DLOCK_DISCARD) — vtable 0x4C */
+        do {
+            texVtable = *(void ***)rawTexture;
+            ((HRESULT (*)(void *, UINT, void *, void *, DWORD))(texVtable[0x4C / 4]))(
+                rawTexture, 0, lockedRect, NULL, 0x2000);
+        } while (*(volatile int *)imp_alwaysfails);
+
+        dest = (byte *)(size_t)lockedRect[1]; /* pBits */
+        pitch = lockedRect[0]; /* Pitch */
+
+        /* Copy pixel data row by row */
+        if (rows > 0) {
+            rowBytes = cols * 4;
+            for (i = 0; i < rows; i++) {
+                memcpy(dest, data, rowBytes);
+                data += rowBytes;
+                dest += pitch;
+            }
+        }
+
+        /* IDirect3DTexture9::UnlockRect(0) — vtable 0x50 */
+        texVtable = *(void ***)rawTexture;
+        ((HRESULT (*)(void *, UINT))(texVtable[0x50 / 4]))(rawTexture, 0);
+
+        /* Build destination RECT */
+        dstRect[0] = x;
+        dstRect[1] = y;
+        dstRect[2] = x + w;
+        dstRect[3] = y + h;
+
+        /* IDirect3DTexture9::GetSurfaceLevel(0, &surface) — vtable 0x48 */
+        texVtable = *(void ***)rawTexture;
+        ((HRESULT (*)(void *, UINT, void **))(texVtable[0x48 / 4]))(rawTexture, 0, &surface);
+
+        /* IDirect3DDevice9::StretchRect(surface, NULL, backBuffer, &dstRect, D3DTEXF_LINEAR) — vtable 0x88 */
+        {
+            char *dx = (char *)imp_dx;
+            void *backBuffer = ((DxGlobals *)dx)->renderTargets[0].colorSurface;
+            device = *(void **)(dx + 8);
+            devVtable = *(void ***)device;
+            ((HRESULT (*)(void *, void *, void *, void *, void *, DWORD))(devVtable[0x88 / 4]))(
+                device, surface, NULL, backBuffer, dstRect, 2);
+        }
+
+        /* Release surface and texture — vtable 0x08 = Release */
+        ((ULONG (*)(void *))(*(void ***)surface)[0x08 / 4])(surface);
+        ((ULONG (*)(void *))(*(void ***)rawTexture)[0x08 / 4])(rawTexture);
+    }
+
+    /* Advance command pointer */
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 1246 */
+static void RB_DrawSunCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd = (byte *)execState->cmd;
+    RB_DrawSun(*(void **)(cmd + 4));
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 1366 */
+void RB_ClearScreen(int whichToClear, const vec_t *color, float depth, int stencil)
+{
+    DWORD clearFlags = 0;
+    int viewport[4];
+    byte r, g, b, a;
+    DWORD d3dColor;
+    void *device;
+    void **vtable;
+
+    /* Build D3DCLEAR flags from whichToClear bitmask */
+    if (whichToClear & 2)
+        clearFlags |= 2;  /* D3DCLEAR_ZBUFFER */
+    if (whichToClear & 4)
+        clearFlags |= 4;  /* D3DCLEAR_STENCIL */
+    if (whichToClear & 1)
+        clearFlags |= 1;  /* D3DCLEAR_TARGET */
+
+    /* Set viewport to full render target */
+    viewport[0] = 0;
+    viewport[1] = 0;
+    viewport[2] = ((DxState *)imp_dxState)->renderTargetWidth;
+    viewport[3] = ((DxState *)imp_dxState)->renderTargetHeight;
+    RB_SetViewport(viewport);
+    backEnd.viewportIsDirty = 1;
+
+    /* Convert float color [0..1] to byte [0..255] with clamping */
+    r = (byte)(int)floorf(color[0] * 255.0f + 0.5f);
+    g = (byte)(int)floorf(color[1] * 255.0f + 0.5f);
+    b = (byte)(int)floorf(color[2] * 255.0f + 0.5f);
+    a = (byte)(int)floorf(color[3] * 255.0f + 0.5f);
+
+    /* Pack ARGB color */
+    d3dColor = ((DWORD)a << 24) | ((DWORD)r << 16) | ((DWORD)g << 8) | (DWORD)b;
+
+    /* IDirect3DDevice9::Clear(0, NULL, flags, color, depth, stencil) — vtable 0xAC */
+    do {
+        device = *(void **)((char *)imp_dx + 8);
+        vtable = *(void ***)device;
+        ((HRESULT (*)(void *, DWORD, void *, DWORD, DWORD, float, DWORD))(vtable[0xAC / 4]))(
+            device, 0, NULL, clearFlags, d3dColor, depth, (DWORD)(byte)stencil);
+    } while (*(volatile int *)imp_alwaysfails);
+}
+
+/* line 1417 */
+static void RB_ClearScreenCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd = (byte *)execState->cmd;
+    RB_ClearScreen(((GfxCmdClearScreen *)cmd)->whichToClear,
+                   ((GfxCmdClearScreen *)cmd)->color,
+                   ((GfxCmdClearScreen *)cmd)->depth,
+                   ((GfxCmdClearScreen *)cmd)->stencil);
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2888 */
+static void RB_UpdateColorInternal(const vec_t *floatColor, byte *color)
+{
+    color[0] = (byte)(int)floorf(floatColor[0] * 255.0f + 0.5f);
+    color[1] = (byte)(int)floorf(floatColor[1] * 255.0f + 0.5f);
+    color[2] = (byte)(int)floorf(floatColor[2] * 255.0f + 0.5f);
+    color[3] = (byte)(int)floorf(floatColor[3] * 255.0f + 0.5f);
+}
+
+/* line 2897 */
+void RB_UpdateColor(const vec_t *color_allies, const vec_t *color_axis)
+{
+    RB_UpdateColorInternal(color_allies, (byte *)&backEnd.color_allies);
+    RB_UpdateColorInternal(color_axis, (byte *)&backEnd.color_axis);
+}
+
+/* line 3220 */
+static inline unsigned int rdtsc_lo(void)
+{
+    unsigned int lo;
+    lo = 0;
+    return lo;
+}
+
+void RB_AdaptiveGpuSyncWait(void)
+{
+    byte *dx = (byte *)imp_dx;
+    long long startTime;
+    long long waitedTime;
+    int syncTarget, diff;
+
+    if (((DxGlobals *)dx)->gpuSync != 3) {
+        /* Not adaptive sync mode — just check fence once */
+        if (dx[0x2d68]) {
+            qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+            if (finished)
+                glDeleteFencesAPPLE(1, &g_FenceID);
+            if (finished)
+                dx[0x2d68] = 0;
+        }
+        return;
+    }
+
+    /* Compute start time minus GPU waited ticks (sign-extended to 64-bit) */
+    startTime = (long long)rdtsc_lo() - (long long)((DxGlobals *)dx)->gpuSyncAlreadyWaited;
+    ((DxGlobals *)dx)->gpuSyncAlreadyWaited = 0;
+    waitedTime = 0;
+
+    /* Spin-wait for fence with timeout */
+    for (;;) {
+        dx = (byte *)imp_dx;
+        if (dx[0x2d68]) {
+            qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+            if (finished)
+                glDeleteFencesAPPLE(1, &g_FenceID);
+            if (finished) {
+                dx[0x2d68] = 0;
+                dx = (byte *)imp_dx;
+                break;
+            }
+            /* Check timeout: if elapsed > 0x7fffffff ticks, give up */
+            waitedTime = (long long)rdtsc_lo() - startTime;
+            if (waitedTime > 0x7fffffffLL)
+                return;
+        } else {
+            break;
+        }
+    }
+
+    /* Update adaptive sync target: exponential moving average
+     * syncTarget = (syncTarget + waitedTime) / 2 */
+    syncTarget = ((DxGlobals *)dx)->gpuSyncDelay;
+    diff = syncTarget - (int)waitedTime;
+    syncTarget -= (diff + ((unsigned int)diff >> 31)) >> 1;
+    ((DxGlobals *)dx)->gpuSyncDelay = syncTarget;
+}
+
+/* line 3252 */
+void RB_AdaptiveGpuSyncTarget(void)
+{
+    byte *dx = (byte *)imp_dx;
+    int val;
+
+    if (dx[0x2d68]) {
+        qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+        if (finished)
+            glDeleteFencesAPPLE(1, &g_FenceID);
+        if (!finished)
+            return;
+        dx[0x2d68] = 0;
+    }
+
+    /* Subtract target and clamp to non-negative */
+    val = ((DxGlobals *)dx)->gpuSyncDelay - 0x4e20;
+    if (val < 0)
+        val = 0;
+    ((DxGlobals *)dx)->gpuSyncDelay = val;
+}
+
+/* line 3363 */
+static void RB_EndBenchmarkGpu_impl(void *time)
+{
+    byte *dx;
+    void *device;
+    void **vtable;
+
+    /* IDirect3DDevice9::EndScene — vtable 0xA8 */
+    do {
+        dx = (byte *)imp_dx;
+        device = *(void **)(dx + 8);
+        vtable = *(void ***)device;
+        ((HRESULT (*)(void *))(vtable[0xA8 / 4]))(device);
+    } while (*(volatile int *)imp_alwaysfails);
+
+    /* Clear benchmarking flag */
+    dx = (byte *)imp_dx;
+    dx[0x2d3d] = 0;
+
+    /* Wait for any pending fence to finish */
+    while (dx[0x2d68]) {
+        qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+        if (finished)
+            glDeleteFencesAPPLE(1, &g_FenceID);
+        if (finished) {
+            dx[0x2d68] = 0;
+            break;
+        }
+        dx = (byte *)imp_dx;
+    }
+
+    /* Generate and set a new fence */
+    glGenFencesAPPLE(1, &g_FenceID);
+    glSetFenceAPPLE(g_FenceID);
+    dx = (byte *)imp_dx;
+    dx[0x2d68] = 1;
+
+    /* Wait for the new fence to complete */
+    while (dx[0x2d68]) {
+        qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+        if (finished)
+            glDeleteFencesAPPLE(1, &g_FenceID);
+        if (finished) {
+            dx[0x2d68] = 0;
+            break;
+        }
+        dx = (byte *)imp_dx;
+    }
+
+    /* Record end time */
+    QueryPerformanceCounter(time);
+}
+
+/* Clean C version for WASM — no register calling convention */
+static void RB_EndBenchmarkGpu(void *time)
+{
+    RB_EndBenchmarkGpu_impl(time);
+}
+
+/* line 3352 */
+static void RB_BeginBenchmarkGpu_impl(void *time)
+{
+    byte *dx;
+    void *device;
+    void **vtable;
+
+    /* Wait for any pending fence to finish */
+    dx = (byte *)imp_dx;
+    while (dx[0x2d68]) {
+        qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+        if (finished)
+            glDeleteFencesAPPLE(1, &g_FenceID);
+        if (finished) {
+            dx[0x2d68] = 0;
+            break;
+        }
+        dx = (byte *)imp_dx;
+    }
+
+    /* Generate and set a new fence */
+    glGenFencesAPPLE(1, &g_FenceID);
+    glSetFenceAPPLE(g_FenceID);
+    dx = (byte *)imp_dx;
+    dx[0x2d68] = 1;
+
+    /* Wait for the new fence to complete */
+    while (dx[0x2d68]) {
+        qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+        if (finished)
+            glDeleteFencesAPPLE(1, &g_FenceID);
+        if (finished) {
+            dx[0x2d68] = 0;
+            break;
+        }
+        dx = (byte *)imp_dx;
+    }
+
+    /* Record begin time */
+    QueryPerformanceCounter(time);
+
+    /* Set benchmarking flag */
+    dx = (byte *)imp_dx;
+    dx[0x2d3d] = 1;
+
+    /* IDirect3DDevice9::BeginScene — vtable 0xA4 */
+    do {
+        dx = (byte *)imp_dx;
+        device = *(void **)(dx + 8);
+        vtable = *(void ***)device;
+        ((HRESULT (*)(void *))(vtable[0xA4 / 4]))(device);
+    } while (*(volatile int *)imp_alwaysfails);
+}
+
+/* Clean C version for WASM — no register calling convention */
+static void RB_BeginBenchmarkGpu(void *time)
+{
+    RB_BeginBenchmarkGpu_impl(time);
+}
+
+/* line 326 */
+void RB_Set3D(void)
+{
+    const GfxViewParms *vp;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    backEnd.projection2D = 0;
+    MatrixIdentity44(RB_GetActiveWorldMatrix());
+    RB_ChangedWorldMatrix(1.0f);
+    RB_SetMatricesForView(backEnd.viewParms);
+
+    /* Copy view origin + axes from viewParms to backEnd codeConsts[11..14] as vec4s */
+    vp = backEnd.viewParms;
+    /* codeConsts[11] = (viewParms->origin, 1.0f) */
+    backEnd.codeConsts[11][0] = vp->origin[0];
+    backEnd.codeConsts[11][1] = vp->origin[1];
+    backEnd.codeConsts[11][2] = vp->origin[2];
+    backEnd.codeConsts[11][3] = 1.0f;
+
+    /* codeConsts[12] = (viewParms->axis[0], 0.0f) */
+    backEnd.codeConsts[12][0] = vp->axis[0][0];
+    backEnd.codeConsts[12][1] = vp->axis[0][1];
+    backEnd.codeConsts[12][2] = vp->axis[0][2];
+    backEnd.codeConsts[12][3] = 0.0f;
+
+    /* codeConsts[13] = (viewParms->axis[1], 0.0f) */
+    backEnd.codeConsts[13][0] = vp->axis[1][0];
+    backEnd.codeConsts[13][1] = vp->axis[1][1];
+    backEnd.codeConsts[13][2] = vp->axis[1][2];
+    backEnd.codeConsts[13][3] = 0.0f;
+
+    /* codeConsts[14] = (viewParms->axis[2], 0.0f) */
+    backEnd.codeConsts[14][0] = vp->axis[2][0];
+    backEnd.codeConsts[14][1] = vp->axis[2][1];
+    backEnd.codeConsts[14][2] = vp->axis[2][2];
+    backEnd.codeConsts[14][3] = 0.0f;
+}
+
+/* line 2463 */
+static void RB_SetMaterialColorCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    cmd = (byte *)execState->cmd;
+    /* Copy vec4 material color from cmd to codeConsts[27] */
+    *(int *)&backEnd.codeConsts[27][0] = *(int *)&((GfxCmdSetMaterialColor *)cmd)->color[0];
+    *(int *)&backEnd.codeConsts[27][1] = *(int *)&((GfxCmdSetMaterialColor *)cmd)->color[1];
+    *(int *)&backEnd.codeConsts[27][2] = *(int *)&((GfxCmdSetMaterialColor *)cmd)->color[2];
+    *(int *)&backEnd.codeConsts[27][3] = *(int *)&((GfxCmdSetMaterialColor *)cmd)->color[3];
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2475 */
+/* line 2475 */
+static void RB_SetLightPropertiesCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    int idx;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    cmd = (byte *)execState->cmd;
+    idx = ((GfxCmdSetLightProperties *)cmd)->lightIndex;
+
+    /* Copy light properties from cmd to backEnd.light[idx] */
+    /* ambient (cmd+0x18) */
+    *(int *)&backEnd.light[idx].ambient[0] = ((GfxCmdSetLightProperties *)cmd)->ambient[0];
+    *(int *)&backEnd.light[idx].ambient[1] = ((GfxCmdSetLightProperties *)cmd)->ambient[1];
+    *(int *)&backEnd.light[idx].ambient[2] = ((GfxCmdSetLightProperties *)cmd)->ambient[2];
+    *(int *)&backEnd.light[idx].ambient[3] = ((GfxCmdSetLightProperties *)cmd)->ambient[3];
+
+    /* color (cmd+0x28) */
+    *(int *)&backEnd.light[idx].color[0] = ((GfxCmdSetLightProperties *)cmd)->color[0];
+    *(int *)&backEnd.light[idx].color[1] = ((GfxCmdSetLightProperties *)cmd)->color[1];
+    *(int *)&backEnd.light[idx].color[2] = ((GfxCmdSetLightProperties *)cmd)->color[2];
+    *(int *)&backEnd.light[idx].color[3] = ((GfxCmdSetLightProperties *)cmd)->color[3];
+
+    /* specular (cmd+0x38) */
+    *(int *)&backEnd.light[idx].specular[0] = ((GfxCmdSetLightProperties *)cmd)->specular[0];
+    *(int *)&backEnd.light[idx].specular[1] = ((GfxCmdSetLightProperties *)cmd)->specular[1];
+    *(int *)&backEnd.light[idx].specular[2] = ((GfxCmdSetLightProperties *)cmd)->specular[2];
+    *(int *)&backEnd.light[idx].specular[3] = ((GfxCmdSetLightProperties *)cmd)->specular[3];
+
+    /* def pointer (cmd+0x48) */
+    *(int *)&backEnd.light[idx].def = ((GfxCmdSetLightProperties *)cmd)->lightDef;
+
+    /* position (cmd+0x08) */
+    *(int *)&backEnd.light[idx].position[0] = ((GfxCmdSetLightProperties *)cmd)->position[0];
+    *(int *)&backEnd.light[idx].position[1] = ((GfxCmdSetLightProperties *)cmd)->position[1];
+    *(int *)&backEnd.light[idx].position[2] = ((GfxCmdSetLightProperties *)cmd)->position[2];
+    *(int *)&backEnd.light[idx].position[3] = ((GfxCmdSetLightProperties *)cmd)->position[3];
+
+    /* Copy per-light data to code constants: position → codeConsts[3+idx] */
+    memcpy(&backEnd.codeConsts[3 + idx], &backEnd.light[idx].position, 16);
+
+    /* ambient → codeConsts[7+idx] */
+    memcpy(&backEnd.codeConsts[7 + idx], &backEnd.light[idx].ambient, 16);
+
+    /* color → codeConsts[5+idx] */
+    memcpy(&backEnd.codeConsts[5 + idx], &backEnd.light[idx].color, 16);
+
+    /* specular → codeConsts[9+idx] */
+    memcpy(&backEnd.codeConsts[9 + idx], &backEnd.light[idx].specular, 16);
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 1281 */
+static void RB_SetStencilRefValueCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    int stencilRef;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    cmd = (byte *)execState->cmd;
+    stencilRef = ((GfxCmdSetStencilRefValue *)cmd)->refValue;
+
+    if (((DxState *)imp_dxState)->stencilRefValue != stencilRef) {
+        /* D3D SetRenderState(D3DRS_STENCILREF, stencilRef) */
+        do {
+            void *dev = *(void **)((byte *)imp_dx + 8);
+            void **vt = *(void ***)dev;
+            ((int (*)(void *, int, int))vt[0xe4 / 4])(dev, 0x39, stencilRef);
+        } while (*(int *)imp_alwaysfails);
+        ((DxState *)imp_dxState)->stencilRefValue = stencilRef;
+    }
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 1258 */
+static void RB_SetShadowCookieCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    float shadowMapSize, invSize;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    cmd = (byte *)execState->cmd;
+    RB_SetShadowLookupMatrix(cmd + 4);
+
+    shadowMapSize = (float)((DxGlobals *)imp_dx)->renderTargets[R_RENDERTARGET_SHADOWCOOKIE].width;
+    invSize = 1.0f / shadowMapSize;
+
+    /* Shadow map size constants → codeConsts[44] */
+    backEnd.codeConsts[44][0] = shadowMapSize;
+    backEnd.codeConsts[44][1] = shadowMapSize;
+    backEnd.codeConsts[44][2] = invSize;
+    backEnd.codeConsts[44][3] = invSize;
+
+    /* Shadow intensity → codeConsts[45] */
+    backEnd.codeConsts[45][0] = 0.0f;
+    backEnd.codeConsts[45][1] = 0.0f;
+    backEnd.codeConsts[45][2] = 0.0f;
+    *(int *)&backEnd.codeConsts[45][3] = *(int *)&((GfxCmdSetShadowCookie *)cmd)->fade;
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2761 */
+static void RB_BeginViewCmd(GfxRenderCommandExecState *execState)
+{
+    const GfxCmdBeginView *cmd;
+    const GfxViewParms *vp;
+    const float *invVPMatrix; /* inverseViewProjectionMatrix as float array */
+    float invProjDist, twoInvProjDist;
+    float pow2W, pow2H;
+    float pixelScaleW, pixelScaleH;
+    float scale;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    cmd = (const GfxCmdBeginView *)execState->cmd;
+
+    /* Copy view parameters from cmd to backEnd */
+    backEnd.viewCount = ((GfxCmdBeginView *)cmd)->viewCount; /* cmd->viewCount */
+    backEnd.sceneDef = cmd->sceneDef;
+    backEnd.viewParms = cmd->viewParms;
+    backEnd.lodParms = cmd->lodParms;
+
+    /* Copy viewport rect from viewParms */
+    vp = backEnd.viewParms;
+    backEnd.sceneViewport.x = vp->viewport.X;
+    backEnd.sceneViewport.y = vp->viewport.Y;
+    backEnd.sceneViewport.width = vp->viewport.Width;
+    backEnd.sceneViewport.height = vp->viewport.Height;
+
+    /* Copy viewProjectionMatrix from viewParms */
+    memcpy(&backEnd.viewProjectionMatrix, &vp->viewProjectionMatrix, sizeof(D3DMATRIX));
+
+    backEnd.tileIndex = 0;
+    backEnd.tileCount = 1;
+
+    /* Copy screen dimensions from vidConfig */
+    backEnd.width = ((const vidConfig_t *)imp_vidConfig)->width;
+    backEnd.height = ((const vidConfig_t *)imp_vidConfig)->height;
+
+    /* Update viewport constants if no render target is set */
+    if (!((DxState *)imp_dxState)->viewportBehavior)
+        RB_UpdateViewportConstants();
+
+    /* Compute frustum vectors for pixel-accurate rendering */
+    vp = backEnd.viewParms;
+    invVPMatrix = (const float *)&vp->inverseViewProjectionMatrix;
+
+    /* frustumCenter = projPoint/projDist - viewOrigin */
+    invProjDist = 1.0f / invVPMatrix[15]; /* inverseViewProjectionMatrix._44 */
+    backEnd.codeConsts[15][0] = invProjDist * invVPMatrix[12] - vp->origin[0]; /* _41 */
+    backEnd.codeConsts[15][1] = invProjDist * invVPMatrix[13] - vp->origin[1]; /* _42 */
+    backEnd.codeConsts[15][2] = invProjDist * invVPMatrix[14] - vp->origin[2]; /* _43 */
+    backEnd.codeConsts[15][3] = 0.0f;
+
+    twoInvProjDist = invProjDist * 2.0f;
+
+    /* frustumRight = pixelScaleWidth * twoInvProjDist * rightAxis */
+    {
+        unsigned int sw = (unsigned int)backEnd.width;
+        pow2W = (float)nextPow2(sw);
+        pixelScaleW = pow2W / (float)sw;
+    }
+    scale = pixelScaleW * twoInvProjDist;
+    backEnd.codeConsts[16][0] = scale * invVPMatrix[0]; /* _11 */
+    backEnd.codeConsts[16][1] = scale * invVPMatrix[1]; /* _12 */
+    backEnd.codeConsts[16][2] = scale * invVPMatrix[2]; /* _13 */
+    backEnd.codeConsts[16][3] = 0.0f;
+
+    /* frustumUp = -pixelScaleHeight * twoInvProjDist * upAxis */
+    {
+        unsigned int sh = (unsigned int)backEnd.height;
+        pow2H = (float)nextPow2(sh);
+        pixelScaleH = pow2H / (float)sh;
+    }
+    scale = -(pixelScaleH * twoInvProjDist);
+    backEnd.codeConsts[17][0] = scale * invVPMatrix[4]; /* _21 */
+    backEnd.codeConsts[17][1] = scale * invVPMatrix[5]; /* _22 */
+    backEnd.codeConsts[17][2] = scale * invVPMatrix[6]; /* _23 */
+    backEnd.codeConsts[17][3] = 0.0f;
+
+    RB_Set3D();
+
+    cmd = (const GfxCmdBeginView *)execState->cmd;
+    execState->cmd = (const void *)((byte *)cmd + cmd->header.byteCount);
+}
+
+
+/* line 2807 */
+static void RB_SetViewportCmd(GfxRenderCommandExecState *execState)
+{
+    const GfxCmdSetViewport *cmd;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    cmd = (const GfxCmdSetViewport *)execState->cmd;
+    /* Copy viewport rect from cmd to backEnd */
+    backEnd.sceneViewport = cmd->viewport;
+    backEnd.viewportIsDirty = 1;
+    RB_UpdateViewportConstants();
+
+    cmd = (const GfxCmdSetViewport *)execState->cmd;
+    execState->cmd = (const void *)((byte *)cmd + cmd->header.byteCount);
+}
+
+/* line 2501 */
+static void RB_SetRenderTargetCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    cmd = (byte *)execState->cmd;
+    RB_SetRenderTarget(((GfxCmdSetRenderTarget *)cmd)->renderTargetId);
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 936 — Core draw surface rendering loop: iterates sorted draw surfaces,
+ * manages entity/material/technique state transitions, dispatches to tessellation. */
+int rb_rdsl_diag = 0;
+int rb_rdsl_call_count = 0;
+static void RB_RenderDrawSurfList(GfxDrawSurf *drawSurfs, int drawSurfCount,
+                                   MaterialTechniqueType techType, GfxDrawSurfOrder order)
+{
+    GfxDrawSurf *drawSurf;
+    int byteStep, iteration;
+    unsigned int prevSort, sortKey;
+    const Material *materialPrev, *material;
+    int lightmapPrev, lightmap;
+    MaterialTechniqueType actualTechType, actualTechTypePrev;
+    byte ignoreSurfs, isWorldSpaceEnt, isWorldSpaceEntPrev, entityMergable;
+    int entityIndexPrev, entityIndex;
+    int depthRange, depthRangePrev;
+    float materialTime, materialTimePrev;
+    GfxEntity *entities;
+
+    rb_rdsl_call_count++;
+
+    /* currentEntity = &worldEntity, currentEntityLighting = NULL */
+    backEnd.currentEntity = &backEnd.worldEntity;
+    backEnd.currentEntityLighting = NULL;
+
+    /* Determine traversal direction */
+    if (order != 0) {
+        drawSurf = (GfxDrawSurf *)((char *)drawSurfs + (drawSurfCount - 1) * 8);
+        byteStep = -8;
+    } else {
+        drawSurf = drawSurfs;
+        byteStep = 8;
+    }
+
+    if (drawSurfCount <= 0) {
+        isWorldSpaceEntPrev = 1;
+        depthRange = 0;
+        goto cleanup;
+    }
+
+    /* Initialize tracking state */
+    actualTechTypePrev = techType;
+    materialPrev = NULL;
+    lightmapPrev = 0x1f;
+    ignoreSurfs = 0;
+    isWorldSpaceEnt = 1;
+    entityIndexPrev = 0x7fe;
+    depthRangePrev = 0;
+    prevSort = 0xffffffff;
+    materialTime = 0.0f;
+    materialTimePrev = 3.4028234663852886e+38f;
+    iteration = 0;
+    depthRange = 0;
+    isWorldSpaceEntPrev = 1;
+
+    /* Main loop */
+    sortKey = drawSurf->sort;
+    if (sortKey == prevSort)
+        goto same_sort;
+    goto sort_changed;
+
+advance:
+    iteration++;
+    drawSurf = (GfxDrawSurf *)((char *)drawSurf + byteStep);
+    if (iteration == drawSurfCount)
+        goto cleanup;
+    sortKey = drawSurf->sort;
+    if (sortKey == prevSort)
+        goto same_sort;
+
+sort_changed:
+    g_rdsl_sortchange++;
+    prevSort = sortKey;
+    R_DecomposeSort(sortKey, &entityIndex, &material, &lightmap);
+
+    /* --- Determine actual technique type --- */
+    actualTechType = techType;
+    if (techType == 6 && lightmap == 0x1f) {
+        /* LIGHTMAP technique with default lightmap: pick based on entity type */
+        entities = backEnd.sceneDef.entities;
+        if (entityIndex == 0x7fe) {
+            actualTechType = 9;
+        } else if (entityIndex == 0x7ff) {
+            actualTechType = 15;
+        } else {
+            int reType = entities[entityIndex].reType;
+            if (reType == 2)
+                actualTechType = 12;
+            else
+                actualTechType = 9;
+        }
+        actualTechType += RB_FogOffset();
+        goto have_tech;
+    }
+    if (techType != 6)
+        goto non_lightmap;
+    /* techType==6 but lightmap!=0x1f: fall through to non-lightmap path */
+
+non_lightmap:
+    /* Check depth prepass filtering */
+    if (!*(byte *)(*(char **)imp_r_depthPrepassModels + 8)) {
+        if (techType == 0 || techType == 2) {
+            /* DEPTH_PREPASS or BUILD_SHADOWMAP: check entity eligibility */
+            entities = backEnd.sceneDef.entities;
+            if (entityIndex == 0x7ff) {
+                actualTechType = -1;
+                goto have_tech;
+            }
+            if (entityIndex <= 0x7fd) {
+                GfxEntity *ent = &entities[entityIndex];
+                if (ent->reType <= 2 && !(*(byte *)((char *)ent + 5) & 1)) {
+                    actualTechType = -1;
+                    goto have_tech;
+                }
+            }
+        }
+    }
+    /* Normal technique: check if in fog-eligible range [3..26] */
+    if ((unsigned int)(techType - 3) <= 0x17) {
+        actualTechType = techType + RB_FogOffset();
+    } else {
+        actualTechType = techType;
+    }
+
+have_tech:
+    g_rdsl_bf_entry++;
+    material = material; /* reload after decompose (esi in ASM) */
+
+    /* Decal filtering */
+    if (!*(byte *)(*(char **)imp_r_drawDecals + 8)) {
+        if (*(byte *)&material->stateBits[1] & 0x30) {
+            g_rdsl_ignore_decal++;
+            goto ignore_surf;
+        }
+    }
+
+    /* Skip if technique is -1 */
+    if (actualTechType == (MaterialTechniqueType)-1) {
+        g_rdsl_ignore_techm1++;
+        goto ignore_surf;
+    }
+
+    /* Null technique check */
+    {
+        MaterialTechniqueSet *techSet = material->techniqueSet;
+        MaterialTechnique *technique = techSet->techniques[actualTechType];
+        if (!technique) {
+            g_rdsl_ignore_technull++;
+            if (actualTechType == 6 && g_technull_saved < 30) {
+                g_technull_mat = (void *)material;
+                g_technull_type = actualTechType;
+                g_technull_saved++;
+            }
+            goto ignore_surf;
+        }
+    }
+
+    /* Valid technique — process this surface */
+    g_rdsl_noignore++;
+    ignoreSurfs = 0;
+    entities = backEnd.sceneDef.entities;
+
+    /* --- Entity change handling --- */
+    if (entityIndex != entityIndexPrev) {
+        /* Determine if world-space entity */
+        if ((unsigned int)(entityIndex - 0x7fe) <= 1) {
+            isWorldSpaceEnt = 1;
+        } else {
+            int reType = entities[entityIndex].reType;
+            if (refEntIsInWorldSpace[reType])
+                isWorldSpaceEnt = 1;
+            else
+                isWorldSpaceEnt = 0;
+        }
+
+        /* Determine entity mergability */
+        if (!isWorldSpaceEnt) {
+            entityMergable = 0;
+        } else if (isWorldSpaceEntPrev) {
+            entityMergable = 1;
+        } else {
+            entityMergable = 0;
+        }
+    } else {
+        entityMergable = 1;
+        goto check_material;
+    }
+
+    /* Get material time for this entity */
+    if (entityIndex == 0x7fe) {
+        materialTime = 0.0f;
+    } else {
+        materialTime = entities[entityIndex].materialTime;
+    }
+
+check_material:
+    /* Check if material/lightmap/technique changed */
+    if (materialPrev == material) {
+        if (lightmapPrev == lightmap &&
+            actualTechTypePrev == actualTechType &&
+            materialTime == materialTimePrev &&
+            !(materialTime != materialTimePrev)) /* NaN check via ordered compare */
+        {
+            if (entityMergable)
+                goto do_entity_setup;
+        }
+    }
+
+    /* Need new surface: flush pending tess */
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    /* Update material time constants */
+    if (materialTime != materialTimePrev || materialTime != materialTime) {
+        float w = backEnd.sceneDef.floatTime - materialTime;
+        float frac = w - floorf(w);
+        int isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+        if (isDx7) {
+            backEnd.texScrollAmountDx7 = frac;
+        } else {
+            float radians = (float)((double)frac * 6.283185307179586);
+            backEnd.codeConsts[2][1] = cosf(radians);
+            backEnd.codeConsts[2][0] = sinf(radians);
+            backEnd.codeConsts[2][2] = frac;
+            backEnd.codeConsts[2][3] = w;
+        }
+    }
+
+    /* Begin new surface */
+    RB_BeginSurface(material, actualTechType, lightmap);
+    materialPrev = material;
+    lightmapPrev = lightmap;
+    materialTimePrev = materialTime;
+    actualTechTypePrev = actualTechType;
+
+do_entity_setup:
+    /* Handle entity state change */
+    if (entityIndexPrev == entityIndex)
+        goto dispatch;
+
+    if (entityIndex == 0x7fe || entityIndex == 0x7ff) {
+        /* World or none entity */
+        backEnd.currentEntity = &backEnd.worldEntity;
+        backEnd.currentEntityLighting = NULL;
+    } else {
+        /* Regular entity */
+        GfxEntity *ent = &entities[entityIndex];
+        backEnd.currentEntity = ent;
+        if (ent->reType <= 1) {
+            /* reType <= 1: has entity lighting */
+            backEnd.currentEntityLighting = &backEnd.entityLighting[entityIndex];
+        } else {
+            backEnd.currentEntityLighting = NULL;
+        }
+    }
+
+    if (isWorldSpaceEnt) {
+        /* Transitioning to world-space entity */
+        if (!isWorldSpaceEntPrev)
+            RB_PopMatrixStack();
+        if (depthRangePrev) {
+            RB_SetDepthRange(0.0f, 1.0f);
+            depthRangePrev = 0;
+        }
+    } else {
+        /* Transitioning to non-world-space entity */
+        if (isWorldSpaceEntPrev)
+            RB_PushMatrixStack();
+        RB_SetWorldMatrixForEntity(backEnd.currentEntity);
+
+        /* Get depth range from entity flags */
+        depthRange = backEnd.currentEntity->renderFxFlags & 0x18;
+
+        if (depthRange != depthRangePrev) {
+            /* Flush tess if depth range changes mid-surface */
+            if (tess.indexCount || tess.optimizedIndexCount) {
+                int savedDecl = tess.declType;
+                RB_EndSurface();
+                RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
+                if (tess.declType != savedDecl) {
+                    if (tess.indexCount || tess.optimizedIndexCount)
+                        RB_EndSurface();
+                    tess.declType = savedDecl;
+                }
+            }
+
+            /* Set appropriate depth range */
+            if (depthRange == 8) {
+                /* Weapon depth hack */
+                RB_SetDepthHackNearClip(backEnd.viewParms->depthHackNearClip);
+                RB_SetDepthRange(0.0f, 0.2f);
+            } else if (depthRange == 0x10 || depthRange == 0x18) {
+                RB_SetDepthRange(0.0f, 0.5f);
+            } else if (depthRange == 0) {
+                RB_SetDepthRange(0.0f, 1.0f);
+            }
+
+            /* Undo previous depth hack if needed */
+            if (depthRangePrev == 8) {
+                float nc = ((const float *)&backEnd.viewParms->projectionMatrix)[14]; /* _43 */
+                /* Negate: XOR sign bit */
+                *(int *)&nc ^= 0x80000000;
+                RB_SetDepthHackNearClip(nc);
+            }
+            depthRangePrev = depthRange;
+        }
+    }
+
+    entityIndexPrev = entityIndex;
+    isWorldSpaceEntPrev = isWorldSpaceEnt;
+
+dispatch:
+    /* Call tessellation function for this surface */
+    {
+        const surfaceType_t *surfType = drawSurf->surface;
+        int type = *(const int *)surfType;
+        g_rb_tess_type_counts[type]++;
+        g_rb_last_tess_type = type;
+        g_tess_since_begin++;
+        rb_tessTable[type](surfType);
+    }
+    goto advance;
+
+ignore_surf:
+    ignoreSurfs = 1;
+    goto advance;
+
+same_sort:
+    if (ignoreSurfs)
+        goto advance;
+    goto dispatch;
+
+cleanup:
+    /* End any pending surface */
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    /* Restore depth range */
+    if (depthRange) {
+        RB_SetDepthRange(0.0f, 1.0f);
+        if (depthRange == 8) {
+            float nc = ((const float *)&backEnd.viewParms->projectionMatrix)[14]; /* _43 */
+            *(int *)&nc ^= 0x80000000;
+            RB_SetDepthHackNearClip(nc);
+        }
+    }
+
+    /* Pop matrix stack if last entity was non-world */
+    if (!isWorldSpaceEntPrev)
+        RB_PopMatrixStack();
+
+    /* Clear entity pointers */
+    backEnd.currentEntity = NULL;
+    backEnd.currentEntityLighting = NULL;
+}
+
+/* line 1222 */
+static void RB_DrawSurfsCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    int idx;
+
+    cmd = (byte *)execState->cmd;
+    /* Advance cmd pointer before processing */
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    if (backEnd.projection2D)
+        RB_Set3D();
+
+    if (backEnd.viewportIsDirty)
+        RB_UpdateViewport();
+
+    /* Diagnostic logging */
+    rb_drawsurfscmd_count++;
+    idx = rb_drawsurfscmd_count - 1;
+    if (idx < 3) {
+        g_dsc_techtype[idx] = ((GfxCmdDrawSurfs *)cmd)->techType;
+        g_dsc_surfcount[idx] = ((GfxCmdDrawSurfs *)cmd)->drawSurfCount;
+    }
+
+    /* Check dxState skip flag */
+    if (((DxState *)imp_dxState)->viewportIsNull) {
+        rb_drawsurfscmd_dxskip++;
+        return;
+    }
+
+    RB_RenderDrawSurfList(
+        ((GfxCmdDrawSurfs *)cmd)->drawSurfs,
+        ((GfxCmdDrawSurfs *)cmd)->drawSurfCount,
+        ((GfxCmdDrawSurfs *)cmd)->techType,
+        ((GfxCmdDrawSurfs *)cmd)->order);
+}
+
+/* line 1991 */
+static void RB_DrawSunPostEffectsCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    cmd = (byte *)execState->cmd;
+    RB_DrawSunPostEffects((const void *)(uintptr_t)((GfxCmdDrawSunPostEffects *)cmd)->viewIndex); /* viewIndex used as pointer */
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 197 */
+/* line 197 */
+static void RB_Set2D(void)
+{
+    char *be = (char *)&backEnd;
+    int viewport[4]; /* x, y, width, height */
+    float transform[16];
+    float identity[16];
+    float invW, invH;
+    int stackIdx;
+    char *am; /* activeMatrices base */
+    int isDx7;
+    int i;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    backEnd.projection2D = 1;
+
+    if (!RB_GetViewport(viewport))
+        return;
+
+    /* Build orthographic projection matrix */
+    invW = 1.0f / (float)viewport[2]; /* 1/width */
+    invH = 1.0f / (float)viewport[3]; /* 1/height */
+    for (i = 0; i < 16; i++)
+        transform[i] = 0.0f;
+    transform[0]  = 2.0f * invW;         /* [0][0] */
+    transform[5]  = -2.0f * invH;        /* [1][1] */
+    transform[10] = 1.0f;                /* [2][2] */
+    transform[12] = -1.0f;               /* [3][0] */
+    transform[13] = 1.0f;                /* [3][1] */
+    transform[15] = 1.0f;                /* [3][3] */
+
+    MatrixIdentity44(identity);
+
+    /* Compute activeMatrices pointer from stack index */
+    stackIdx = backEnd.codeMatrixStackLevel;
+    am = (char *)&backEnd.codeMatrixStack[stackIdx];
+
+    /* Copy projection transform to activeMatrices.projection.matrix[0] */
+    {
+        GfxCodeMatrices *cm = (GfxCodeMatrices *)am;
+        for (i = 0; i < 16; i++)
+            *(int *)&((float *)&cm->projection.matrix[0])[i] = *(int *)&transform[i];
+        cm->projection.valid[0] = 1; /* projection dirty */
+        /* Clear projection dirty flags for slots 1-3 */
+        cm->projection.valid[1] = 0;
+        cm->projection.valid[2] = 0;
+        cm->projection.valid[3] = 0;
+        /* Copy identity matrix to 4 world matrix slots and mark dirty */
+        for (i = 0; i < 4; i++) {
+            memcpy(&cm->world.matrix[i], identity, 64);
+            cm->world.valid[i] = 1; /* view dirty */
+        }
+    }
+
+    /* Replicate view/projection blocks */
+    memcpy(am + 0x230, am + 0x10, 0x110);    /* view → viewProj slot 1 */
+    memcpy(am + 0x450, am + 0x10, 0x110);    /* view → viewProj slot 2 */
+    memcpy(am + 0x670, am + 0x340, 0x110);   /* proj → projViewProj slot 1 */
+    memcpy(am + 0x780, am + 0x340, 0x110);   /* proj → projViewProj slot 2 */
+
+    /* Build OpenGL matrices */
+    {
+        float OGLView[16], OGLProjection[16], OGLWorldView[16];
+
+        /* Copy view matrix */
+        memcpy(OGLView, am + 0x230, 64);
+        /* Copy projection matrix */
+        memcpy(OGLProjection, am + 0x340, 64);
+
+        /* Negate column 2 for OpenGL coordinate convention (Z flip) */
+        OGLView[2]  = -OGLView[2];
+        OGLView[6]  = -OGLView[6];
+        OGLView[10] = -OGLView[10];
+        OGLView[14] = -OGLView[14];
+
+        MacOpenGLUtils_ConvertD3DProjectionMatrixToOpenGL(
+            OGLProjection, (float)viewport[2], (float)viewport[3]);
+
+        /* OGLWorldView = identity * OGLView */
+        MatrixMultiply44(am + 0x10, OGLView, OGLWorldView);
+        /* viewProjection = OGLWorldView * OGLProjection */
+        MatrixMultiply44(OGLWorldView, OGLProjection, am + 0xcd0);
+
+        memcpy(am + 0x120, am + 0x10, 0x110);   /* identity → world matrices */
+        memcpy(am + 0x560, am + 0x450, 0x110);
+        memcpy(am + 0x890, am + 0x450, 0x110);
+    }
+
+    /* Dx7: set D3D transforms directly */
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+    if (isDx7) {
+        char *dx = (char *)imp_dx;
+        /* SetTransform: vtable[0xb0/4] = index 44 */
+        do {
+            void *device = *(void **)(dx + 8);
+            void **vtable = *(void ***)device;
+            ((int (__attribute__((stdcall)) *)(void *, int, const void *))vtable[0xb0/4])(
+                device, 0x100, identity); /* D3DTS_WORLD */
+        } while (*(int *)imp_alwaysfails);
+        do {
+            void *device = *(void **)(dx + 8);
+            void **vtable = *(void ***)device;
+            ((int (__attribute__((stdcall)) *)(void *, int, const void *))vtable[0xb0/4])(
+                device, 2, identity); /* D3DTS_VIEW */
+        } while (*(int *)imp_alwaysfails);
+        do {
+            void *device = *(void **)(dx + 8);
+            void **vtable = *(void ***)device;
+            ((int (__attribute__((stdcall)) *)(void *, int, const void *))vtable[0xb0/4])(
+                device, 3, transform); /* D3DTS_PROJECTION */
+        } while (*(int *)imp_alwaysfails);
+    }
+
+    /* Set 2D screen-space direction vectors in codeConsts */
+    /* codeConsts[11] = (0, 0, 1, 1) */
+    backEnd.codeConsts[11][0] = 0.0f;
+    backEnd.codeConsts[11][1] = 0.0f;
+    backEnd.codeConsts[11][2] = 1.0f;
+    backEnd.codeConsts[11][3] = 1.0f;
+    /* codeConsts[12] = (0, 0, 1, 0) */
+    backEnd.codeConsts[12][0] = 0.0f;
+    backEnd.codeConsts[12][1] = 0.0f;
+    backEnd.codeConsts[12][2] = 1.0f;
+    backEnd.codeConsts[12][3] = 0.0f;
+    /* codeConsts[13] = (1, 0, 0, 0) */
+    backEnd.codeConsts[13][0] = 1.0f;
+    backEnd.codeConsts[13][1] = 0.0f;
+    backEnd.codeConsts[13][2] = 0.0f;
+    backEnd.codeConsts[13][3] = 0.0f;
+    /* codeConsts[14] = (0, 1, 0, 0) */
+    backEnd.codeConsts[14][0] = 0.0f;
+    backEnd.codeConsts[14][1] = 1.0f;
+    backEnd.codeConsts[14][2] = 0.0f;
+    backEnd.codeConsts[14][3] = 0.0f;
+}
+
+
+/* line 2388 */
+/* line 2388 */
+static void RB_DrawTrianglesCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    char *t = (char *)&tess;
+    const Material *triMaterial;
+    MaterialTechniqueType techType;
+    int vertexCount, indexCount;
+    const float *xyzwData, *normalData, *stData;
+    const int *colorData;
+    const unsigned short *indexData;
+    int isDx7;
+    int vc, ic;
+    r_index_t *indices;
+    int savedDecl;
+    int i;
+
+    cmd = (byte *)execState->cmd;
+
+    /* Parse cmd header */
+    triMaterial = ((GfxCmdDrawTriangles *)cmd)->material;
+    techType = ((GfxCmdDrawTriangles *)cmd)->techType;
+    indexCount = ((GfxCmdDrawTriangles *)cmd)->indexCount;
+    vertexCount = ((GfxCmdDrawTriangles *)cmd)->vertexCount;
+
+    /* Compute data array offsets within cmd buffer */
+    {
+        int normalOfs = 0x10 + vertexCount * 16;
+        int colorOfs = normalOfs + vertexCount * 12;
+        int stOfs = colorOfs + vertexCount * 4;
+        int indexOfs = stOfs + vertexCount * 8;
+        xyzwData = (const float *)(cmd + 0x10);
+        normalData = (const float *)(cmd + normalOfs);
+        colorData = (const int *)(cmd + colorOfs);
+        stData = (const float *)(cmd + stOfs);
+        indexData = (const unsigned short *)(cmd + indexOfs);
+    }
+
+    /* Flush tess and switch to 3D if needed */
+    if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+        RB_EndSurface();
+    if (!backEnd.projection2D)
+        RB_Set3D();
+
+    /* Begin surface if material or techType changed */
+    if (triMaterial != tess.material || techType != tess.techType) {
+        if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+            RB_EndSurface();
+        RB_BeginSurface(triMaterial, techType, 0x1f);
+    }
+
+    /* Check tess buffer overflow */
+    vc = tess.vertexCount;
+    if (vc + vertexCount > 0x154a ||
+        tess.indexCount + indexCount > 0x100000) {
+        savedDecl = tess.declType;
+        RB_EndSurface();
+        RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
+        if (tess.declType != savedDecl) {
+            if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+                RB_EndSurface();
+            tess.declType = savedDecl;
+        }
+        vc = tess.vertexCount;
+    }
+
+    /* Copy indices (base-shifted by current vertex count) */
+    ic = tess.indexCount;
+    indices = tess.indices;
+    for (i = 0; i < indexCount; i++)
+        indices[ic + i] = (r_index_t)(vc + indexData[i]);
+
+    /* Copy vertices */
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    for (i = 0; i < vertexCount; i++) {
+        float px = xyzwData[i * 4 + 0];
+        float py = xyzwData[i * 4 + 1];
+        float pz = xyzwData[i * 4 + 2];
+        float pw = xyzwData[i * 4 + 3];
+        int nx = *(const int *)&normalData[i * 3 + 0];
+        int ny = *(const int *)&normalData[i * 3 + 1];
+        float nzf = normalData[i * 3 + 2];
+        int color = colorData[i];
+        float s = stData[i * 2 + 0];
+        float tt = stData[i * 2 + 1];
+        int vi = vc + i;
+
+        if (isDx7) {
+            /* Dx7 stride=36: position/w, normal, color, texcoord */
+            char *v = t + vi * 36;
+            ((GfxVertexDx7 *)v)->xyz[0] = px / pw;
+            ((GfxVertexDx7 *)v)->xyz[1] = py / pw;
+            ((GfxVertexDx7 *)v)->xyz[2] = pz / pw;
+            ((GfxVertexDx7 *)v)->normal[0] = nx;
+            ((GfxVertexDx7 *)v)->normal[1] = ny;
+            ((GfxVertexDx7 *)v)->normal[2] = nzf;
+            ((GfxVertexDx7 *)v)->color.packed = color;
+            ((GfxVertexDx7 *)v)->texCoord[0] = s;
+            ((GfxVertexDx7 *)v)->texCoord[1] = tt;
+        } else {
+            /* Non-Dx7 stride=64: xyzw, normal, color, texcoord, tangent, binormal */
+            char *v = t + vi * 64;
+            ((GfxVertexDx7 *)v)->xyz[0] = px;
+            ((GfxVertexDx7 *)v)->xyz[1] = py;
+            ((GfxVertexDx7 *)v)->xyz[2] = pz;
+            ((GfxVertex *)v)->xyzw[3] = pw;
+            ((GfxVertex *)v)->normal[0] = nx;
+            ((GfxVertex *)v)->normal[1] = ny;
+            ((GfxVertex *)v)->normal[2] = nzf;
+            ((GfxVertex *)v)->color.packed = color;
+            ((GfxVertex *)v)->texCoord[0] = s;
+            ((GfxVertex *)v)->texCoord[1] = tt;
+            /* tangent = (1,0,0) */
+            ((GfxVertex *)v)->tangent[0] = 1.0f;
+            ((GfxVertex *)v)->tangent[1] = 0;
+            ((GfxVertex *)v)->tangent[2] = 0;
+            /* binormal = (0,1,0) */
+            ((GfxVertex *)v)->binormal[0] = 0;
+            ((GfxVertex *)v)->binormal[1] = 1.0f;
+            ((GfxVertex *)v)->binormal[2] = 0;
+        }
+    }
+
+    /* Update tess counts */
+    tess.indexCount += indexCount;
+    tess.vertexCount = vc + vertexCount;
+
+    RB_EndSurface();
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2064 */
+/* line 2064 */
+static void RB_SaveScreenCmd(GfxRenderCommandExecState *execState)
+{
+    char *dx;
+    void *imageSurface;
+    byte *cmd;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    dx = (char *)imp_dx;
+    imageSurface = Image_GetSurface(((DxGlobals *)dx)->renderTargets[7].image);
+
+    /* StretchRect: copy back buffer to save surface (vtable[0x88/4]) */
+    do {
+        void *device = *(void **)(dx + 8);
+        void **vtable = *(void ***)device;
+        void *backBuffer = ((DxState *)imp_dxState)->renderTargetSurface;
+        ((int (__attribute__((stdcall)) *)(void *, void *, void *, void *, void *, int))vtable[0x88/4])(
+            device, backBuffer, NULL, imageSurface, NULL, 2);
+    } while (*(int *)imp_alwaysfails);
+
+    /* Release imageSurface (vtable[2]) */
+    do {
+        ((int (__attribute__((stdcall)) *)(void *))((*(void ***)imageSurface)[2]))(imageSurface);
+    } while (*(int *)imp_alwaysfails);
+
+    /* Store current sceneDef.time as saved screen frame */
+    ((r_global_permanent_t *)imp_rgp)->savedScreenTime = backEnd.sceneDef.time;
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2036 */
+/* line 2036 */
+static void RB_ApplyEarlyPostEffectsCmd(GfxRenderCommandExecState *execState)
+{
+    int needCopy;
+    byte *cmd;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    /* Set render target to post-effect target */
+    backEnd.resolvedPostSunTarget = 0xe;
+
+    /* Check if distortion is enabled */
+    needCopy = *(byte *)(*(char **)imp_r_distortion + 8);
+
+    if (!needCopy) {
+        /* Check glow support: not Dx7, hardware supports it, glow enabled, not fullbright */
+        int isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+        if (!isDx7 && ((DxGlobals *)imp_dx)->hasSeparateAlphaBlend) {
+            if (((const dvar_t *)(void *)imp_r_glow)->current.enabled) {
+                needCopy = !((const dvar_t *)(void *)imp_r_fullbright)->current.enabled;
+            }
+        }
+    }
+
+    if (needCopy) {
+        char *dx = (char *)imp_dx;
+        void *imageSurface = Image_GetSurface(((DxGlobals *)dx)->renderTargets[1].image);
+
+        /* StretchRect: copy back buffer to post-effect surface */
+        do {
+            void *device = *(void **)(dx + 8);
+            void **vtable = *(void ***)device;
+            void *backBuffer = ((DxState *)imp_dxState)->renderTargetSurface;
+            ((int (__attribute__((stdcall)) *)(void *, void *, void *, void *, void *, int))vtable[0x88/4])(
+                device, backBuffer, NULL, imageSurface, NULL, 2);
+        } while (*(int *)imp_alwaysfails);
+
+        /* Release imageSurface */
+        do {
+            ((int (__attribute__((stdcall)) *)(void *))((*(void ***)imageSurface)[2]))(imageSurface);
+        } while (*(int *)imp_alwaysfails);
+
+        backEnd.resolvedPostSunTarget = 1;
+    }
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 718 */
+/* line 718 */
+static void RB_DrawSpriteCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    const Material *spriteMaterial;
+    char *t = (char *)&tess;
+    byte entity[0x74]; /* local GfxEntity-like struct for RB_TessEntity */
+
+    cmd = (byte *)execState->cmd;
+
+    /* Switch to 3D mode if in 2D */
+    if (!backEnd.projection2D)
+        RB_Set3D();
+
+    spriteMaterial = (const Material *)((GfxCmdDrawSprite *)cmd)->material;
+
+    /* Begin surface if material or technique changed */
+    if (spriteMaterial != tess.material || tess.techType != 3) {
+        if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+            RB_EndSurface();
+        RB_BeginSurface(spriteMaterial, 3, 0x1f);
+    }
+
+    /* Build entity on stack */
+    memset(entity, 0, 0x74);
+
+    /* origin (entity+0x3c) = cmd+0x0c (vec3) */
+    ((GfxEntity *)entity)->origin[0] = ((GfxCmdDrawSprite *)cmd)->pos[0];
+    ((GfxEntity *)entity)->origin[1] = ((GfxCmdDrawSprite *)cmd)->pos[1];
+    ((GfxEntity *)entity)->origin[2] = ((GfxCmdDrawSprite *)cmd)->pos[2];
+
+    /* material (entity+0x54) = cmd->material */
+    ((GfxEntity *)entity)->customMaterial = (int)(uintptr_t)((GfxCmdDrawSprite *)cmd)->material;
+
+    /* surfaceType (entity+0x00) = 4 */
+    ((GfxEntity *)entity)->reType = 4;
+
+    /* materialTime (entity+0x04) = cmd+0x20 */
+    ((GfxEntity *)entity)->renderFxFlags = ((GfxCmdDrawSprite *)cmd)->renderFxFlags;
+
+    /* radius[0] = radius[1] = cmd+0x18 */
+    ((GfxEntity *)entity)->radius[0] = ((GfxCmdDrawSprite *)cmd)->radius;
+    ((GfxEntity *)entity)->radius[1] = ((GfxCmdDrawSprite *)cmd)->radius;
+
+    /* scale (entity+0x70) = cmd+0x1c */
+    ((GfxEntity *)entity)->minScreenRadius = ((GfxCmdDrawSprite *)cmd)->minScreenRadius;
+
+    /* color (entity+0x58) = cmd->rgbaColor */
+    *(unsigned int *)((GfxEntity *)entity)->materialRGBA = ((GfxCmdDrawSprite *)cmd)->rgbaColor.packed;
+
+    RB_TessEntity(entity);
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2226 */
+/* Write a line vertex at tessBase + vertIndex with xyz, color, and st.
+ * z is stored as raw int bits (from GfxPointVertex.xyz[2]). */
+static inline void RB_SetLineVertex(char *tessBase, int vertIndex, int isDx7,
+                                     float px, float py, int zBits, float s, float t, D3DCOLOR color)
+{
+    if (isDx7) {
+        char *v = tessBase + vertIndex * 36;
+        ((GfxVertexDx7 *)v)->xyz[0] = px;
+        ((GfxVertexDx7 *)v)->xyz[1] = py;
+        ((GfxVertexDx7 *)v)->xyz[2] = zBits;
+        ((GfxVertexDx7 *)v)->normal[0] = 0;
+        ((GfxVertexDx7 *)v)->normal[1] = 0;
+        ((GfxVertexDx7 *)v)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)v)->color.packed = color;
+        ((GfxVertexDx7 *)v)->texCoord[0] = s;
+        ((GfxVertexDx7 *)v)->texCoord[1] = t;
+    } else {
+        char *v = tessBase + vertIndex * 64;
+        ((GfxVertexDx7 *)v)->xyz[0] = px;
+        ((GfxVertexDx7 *)v)->xyz[1] = py;
+        ((GfxVertexDx7 *)v)->xyz[2] = zBits;
+        ((GfxVertexDx7 *)v)->normal[0] = 1.0f;
+        ((GfxVertex *)v)->normal[0] = 0;
+        ((GfxVertex *)v)->normal[1] = 0;
+        ((GfxVertex *)v)->normal[2] = 1.0f;
+        ((GfxVertex *)v)->color.packed = color;
+        ((GfxVertex *)v)->texCoord[0] = s;
+        ((GfxVertex *)v)->texCoord[1] = t;
+        ((GfxVertex *)v)->binormal[0] = 0;
+        ((GfxVertex *)v)->binormal[1] = 1.0f;
+        ((GfxVertex *)v)->binormal[2] = 0;
+        ((GfxVertex *)v)->tangent[0] = 1.0f;
+        ((GfxVertex *)v)->tangent[1] = 0;
+        ((GfxVertex *)v)->tangent[2] = 0;
+    }
+}
+
+/* Write 6 indices for a line billboard quad: (vc+1, vc, vc+2, vc+2, vc, vc+3) */
+static inline void RB_WriteLineQuadIndices(char *t, int vc)
+{
+    int ic = tess.indexCount;
+    r_index_t *indices = tess.indices;
+    indices[ic + 0] = (r_index_t)(vc + 1);
+    indices[ic + 1] = (r_index_t)vc;
+    indices[ic + 2] = (r_index_t)(vc + 2);
+    indices[ic + 3] = (r_index_t)(vc + 2);
+    indices[ic + 4] = (r_index_t)vc;
+    indices[ic + 5] = (r_index_t)(vc + 3);
+}
+
+/* line 2226 */
+void RB_DrawLines2D(int count, int width, const GfxPointVertex *verts)
+{
+    char *t = (char *)&tess;
+    const Material *lineMaterial;
+    int lineIdx;
+    int isDx7;
+
+    (void)width;
+
+    lineMaterial = ((r_global_permanent_t *)imp_rgp)->whiteMaterial;
+    RB_BeginSurface2D(t, lineMaterial);
+
+    if (count <= 0)
+        return;
+
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    for (lineIdx = 0; lineIdx < count; lineIdx++) {
+        const GfxPointVertex *p0 = &verts[lineIdx * 2];
+        const GfxPointVertex *p1 = &verts[lineIdx * 2 + 1];
+        float delta[2];
+        float x0, y0, x1, y1;
+        int z0, z1;
+        D3DCOLOR c0, c1;
+        int vc;
+
+        /* Perpendicular to line direction: (dy, -dx) */
+        delta[0] = p1->xyz[1] - p0->xyz[1];
+        delta[1] = p0->xyz[0] - p1->xyz[0];
+        Vec2Normalize(delta);
+        delta[0] *= 0.5f;
+        delta[1] *= 0.5f;
+
+        /* Check tess overflow */
+        vc = RB_CheckTessOverflow4(t);
+
+        /* Write indices and advance tess counts */
+        RB_WriteLineQuadIndices(t, vc);
+        tess.indexCount += 6;
+
+        x0 = p0->xyz[0];  y0 = p0->xyz[1];
+        x1 = p1->xyz[0];  y1 = p1->xyz[1];
+        z0 = *(int *)&p0->xyz[2];
+        z1 = *(int *)&p1->xyz[2];
+        c0 = *(D3DCOLOR *)p0->color;
+        c1 = *(D3DCOLOR *)p1->color;
+
+        /* 4 vertices: endpoints ± perpendicular offset */
+        RB_SetLineVertex(t, vc + 0, isDx7, x0 - delta[0], y0 - delta[1], z0, 0.0f, 0.0f, c0);
+        RB_SetLineVertex(t, vc + 1, isDx7, x1 - delta[0], y1 - delta[1], z1, 0.0f, 1.0f, c1);
+        RB_SetLineVertex(t, vc + 2, isDx7, x1 + delta[0], y1 + delta[1], z1, 1.0f, 1.0f, c1);
+        RB_SetLineVertex(t, vc + 3, isDx7, x0 + delta[0], y0 + delta[1], z0, 1.0f, 0.0f, c0);
+
+        tess.vertexCount += 4;
+    }
+}
+
+
+/* line 3063 */
+/* Write a 3D vertex (xyz + w=1.0) with color, texcoord, normal=(0,0,1), tangent/binormal.
+ * Used for 3D text and similar world-space quads. */
+static inline void RB_SetVertex3DWorld(char *tessBase, int vertIndex, int isDx7,
+                                        float px, float py, float pz,
+                                        float s, float t, D3DCOLOR color)
+{
+    if (isDx7) {
+        char *v = tessBase + vertIndex * 36;
+        ((GfxVertexDx7 *)v)->xyz[0] = px;
+        ((GfxVertexDx7 *)v)->xyz[1] = py;
+        ((GfxVertexDx7 *)v)->xyz[2] = pz;
+        ((GfxVertexDx7 *)v)->normal[0] = 0;
+        ((GfxVertexDx7 *)v)->normal[1] = 0;
+        ((GfxVertexDx7 *)v)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)v)->color.packed = color;
+        ((GfxVertexDx7 *)v)->texCoord[0] = s;
+        ((GfxVertexDx7 *)v)->texCoord[1] = t;
+    } else {
+        char *v = tessBase + vertIndex * 64;
+        ((GfxVertexDx7 *)v)->xyz[0] = px;
+        ((GfxVertexDx7 *)v)->xyz[1] = py;
+        ((GfxVertexDx7 *)v)->xyz[2] = pz;
+        ((GfxVertexDx7 *)v)->normal[0] = 1.0f;
+        ((GfxVertex *)v)->normal[0] = 0;
+        ((GfxVertex *)v)->normal[1] = 0;
+        ((GfxVertex *)v)->normal[2] = 1.0f;
+        ((GfxVertex *)v)->color.packed = color;
+        ((GfxVertex *)v)->texCoord[0] = s;
+        ((GfxVertex *)v)->texCoord[1] = t;
+        ((GfxVertex *)v)->binormal[0] = 0;
+        ((GfxVertex *)v)->binormal[1] = 1.0f;
+        ((GfxVertex *)v)->binormal[2] = 0;
+        ((GfxVertex *)v)->tangent[0] = 1.0f;
+        ((GfxVertex *)v)->tangent[1] = 0;
+        ((GfxVertex *)v)->tangent[2] = 0;
+    }
+}
+
+/* line 3063 */
+void RB_DrawTextInSpace(const char *text, FontHandle font, const vec_t *org, const vec_t *xPixelStep, const vec_t *yPixelStep, D3DCOLOR color)
+{
+    char *t = (char *)&tess;
+    const Material *material;
+    float startX, startY, startZ;
+    int isDx7;
+    int (*Q_ReadToken)(const char **, int);
+
+    /* Get font material */
+    material = (const Material *)font->material; /* font->material is MaterialHandle (pointer to Material) */
+
+    /* Set view matrices for current viewParms */
+    RB_SetMatricesForView(backEnd.viewParms);
+
+    /* Starting position: org offset by -0.5 of both pixel step axes */
+    startX = org[0] - 0.5f * xPixelStep[0] - 0.5f * yPixelStep[0];
+    startY = org[1] - 0.5f * xPixelStep[1] - 0.5f * yPixelStep[1];
+    startZ = org[2] - 0.5f * xPixelStep[2] - 0.5f * yPixelStep[2];
+
+    /* Function to read next character code from text string */
+    Q_ReadToken = (int (*)(const char **, int))((refimport_t *)imp_ri)->SEH_ReadCharFromString;
+
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    while (*text) {
+        int charCode;
+        Glyph *glyph;
+        float posX, posY, posZ;
+        float wdX, wdY, wdZ; /* width step: pixelWidth * xPixelStep */
+        float htX, htY, htZ; /* height step: pixelHeight * yPixelStep */
+        int vc;
+
+        /* Read next character from string */
+        charCode = Q_ReadToken(&text, 0);
+        glyph = R_GetCharacterGlyph(font, charCode);
+
+        /* Position: start + x0*xPixelStep + y0*yPixelStep */
+        {
+            float x0 = (float)(signed char)glyph->x0;
+            float y0 = (float)(signed char)glyph->y0;
+            posX = startX + x0 * xPixelStep[0] + y0 * yPixelStep[0];
+            posY = startY + x0 * xPixelStep[1] + y0 * yPixelStep[1];
+            posZ = startZ + x0 * xPixelStep[2] + y0 * yPixelStep[2];
+        }
+
+        /* Glyph extent vectors */
+        {
+            float pw = (float)glyph->pixelWidth;
+            float ph = (float)glyph->pixelHeight;
+            wdX = pw * xPixelStep[0];  wdY = pw * xPixelStep[1];  wdZ = pw * xPixelStep[2];
+            htX = ph * yPixelStep[0];  htY = ph * yPixelStep[1];  htZ = ph * yPixelStep[2];
+        }
+
+        /* Begin surface with font material */
+        if (material != tess.material || tess.techType != 3) {
+            if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+                RB_EndSurface();
+            RB_BeginSurface(material, 3, 0x1f);
+        }
+
+        /* Check overflow and write indices */
+        vc = RB_CheckTessOverflow4(t);
+        tess.vertexCount = vc + 4;
+        tess.indexCount += 6;
+        RB_WriteQuadIndices(t, vc);
+
+        /* 4 vertices: glyph quad in world space */
+        RB_SetVertex3DWorld(t, vc + 0, isDx7,
+            posX, posY, posZ,
+            glyph->s0, glyph->t0, color);
+        RB_SetVertex3DWorld(t, vc + 1, isDx7,
+            posX + wdX, posY + wdY, posZ + wdZ,
+            glyph->s1, glyph->t0, color);
+        RB_SetVertex3DWorld(t, vc + 2, isDx7,
+            posX + wdX + htX, posY + wdY + htY, posZ + wdZ + htZ,
+            glyph->s1, glyph->t1, color);
+        RB_SetVertex3DWorld(t, vc + 3, isDx7,
+            posX + htX, posY + htY, posZ + htZ,
+            glyph->s0, glyph->t1, color);
+
+        /* Advance cursor by glyph advance width */
+        {
+            float dx = (float)glyph->dx;
+            startX += dx * xPixelStep[0];
+            startY += dx * xPixelStep[1];
+            startZ += dx * xPixelStep[2];
+        }
+    }
+}
+
+
+/* line 3113 */
+/* line 3113 */
+static void RB_DrawTextInSpaceCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd = (byte *)execState->cmd;
+
+    RB_DrawTextInSpace(
+        ((GfxCmdDrawTextInSpace *)cmd)->text,
+        ((GfxCmdDrawTextInSpace *)cmd)->font,
+        ((GfxCmdDrawTextInSpace *)cmd)->org,
+        ((GfxCmdDrawTextInSpace *)cmd)->xPixelStep,
+        ((GfxCmdDrawTextInSpace *)cmd)->yPixelStep,
+        ((GfxCmdDrawTextInSpace *)cmd)->color.packed);
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 3416 — GPU fill-rate benchmark: renders a test quad with iterationCount
+ * copies of indices, times the GPU, returns estimated triangles/frame at 60fps.
+ * All 4 vertex positions write to tess slot 0 (degenerate geometry for pure GPU throughput). */
+static float RB_TestFillPass3D_impl(const Material *material, MaterialTechniqueType techType)
+{
+    char *t = (char *)&tess;
+    float origin[3] = {0.0f, 0.0f, 0.0f};
+    float axis[9] = {1.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f};
+    float view[16];
+    float projection[16];
+    long long beginTime, endTime, frequency;
+    int isDx7, iterationCount, i;
+    D3DCOLOR white = 0xffffffff;
+    float x0, y0, z0, x, y, z;
+
+    MatrixForViewer(view, origin, axis);
+    InfinitePerspectiveMatrix(projection, 90.0f, 90.0f, 0.9f);
+    RB_Set3D();
+    RB_PushMatrixStack();
+    MatrixIdentity44(RB_GetActiveWorldMatrix());
+    RB_ChangedWorldMatrix(1.0f);
+    RB_SetViewMatrix(view);
+    RB_SetProjectionMatrix(projection);
+
+    /* currentEntity = &worldEntity, currentEntityLighting = NULL */
+    backEnd.currentEntity = &backEnd.worldEntity;
+    backEnd.currentEntityLighting = NULL;
+    /* codeConsts[5] = {1,1,1,1} */
+    backEnd.codeConsts[5][0] = 1.0f;
+    backEnd.codeConsts[5][1] = 1.0f;
+    backEnd.codeConsts[5][2] = 1.0f;
+    backEnd.codeConsts[5][3] = 1.0f;
+    /* codeConsts[3] = {0,0,0,1} */
+    backEnd.codeConsts[3][0] = 0.0f;
+    backEnd.codeConsts[3][1] = 0.0f;
+    backEnd.codeConsts[3][2] = 0.0f;
+    backEnd.codeConsts[3][3] = 1.0f;
+    /* codeConsts[11] = {0,0,0,1} */
+    backEnd.codeConsts[11][0] = 0.0f;
+    backEnd.codeConsts[11][1] = 0.0f;
+    backEnd.codeConsts[11][2] = 0.0f;
+    backEnd.codeConsts[11][3] = 1.0f;
+
+    RB_BeginSurface(material, techType, 0);
+
+    /* Move origin along forward axis (axis[0]) */
+    origin[0] += axis[0];
+    origin[1] += axis[1];
+    origin[2] += axis[2];
+
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+    x0 = origin[0];
+    y0 = origin[1];
+    z0 = origin[2];
+
+    /* Write 4 test quad vertices to tess slot 0 (fill-rate benchmark).
+     * Positions: origin ± axis[1] ± axis[2], texcoords: standard quad UVs. */
+
+    /* Vertex 0: origin + axis[1] + axis[2], tc=(0,0) */
+    x = x0 + axis[3] + axis[6];
+    y = y0 + axis[4] + axis[7];
+    z = z0 + axis[5] + axis[8];
+    if (isDx7) {
+        ((GfxVertexDx7 *)t)->xyz[0] = x;  ((GfxVertexDx7 *)t)->xyz[1] = y;  ((GfxVertexDx7 *)t)->xyz[2] = z;
+        ((GfxVertexDx7 *)t)->normal[0] = 0;  ((GfxVertexDx7 *)t)->normal[1] = 0;  ((GfxVertexDx7 *)t)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)t)->color.packed = white;
+        ((GfxVertexDx7 *)t)->texCoord[0] = 0;  ((GfxVertexDx7 *)t)->texCoord[1] = 0;
+    } else {
+        ((GfxVertex *)t)->xyzw[0] = x;  ((GfxVertex *)t)->xyzw[1] = y;  ((GfxVertex *)t)->xyzw[2] = z;
+        ((GfxVertex *)t)->xyzw[3] = 1.0f;
+        ((GfxVertex *)t)->normal[0] = 0;  ((GfxVertex *)t)->normal[1] = 0;  ((GfxVertex *)t)->normal[2] = 1.0f;
+        ((GfxVertex *)t)->color.packed = white;
+        ((GfxVertex *)t)->texCoord[0] = 0;  ((GfxVertex *)t)->texCoord[1] = 0;
+        ((GfxVertex *)t)->tangent[0] = 1.0f;  ((GfxVertex *)t)->tangent[1] = 0;  ((GfxVertex *)t)->tangent[2] = 0;
+        ((GfxVertex *)t)->binormal[0] = 0;  ((GfxVertex *)t)->binormal[1] = 1.0f;  ((GfxVertex *)t)->binormal[2] = 0;
+    }
+
+    /* Vertex 1: origin - axis[1] + axis[2], tc=(1,0) */
+    x = x0 - axis[3] + axis[6];
+    y = y0 - axis[4] + axis[7];
+    z = z0 - axis[5] + axis[8];
+    if (isDx7) {
+        ((GfxVertexDx7 *)t)->xyz[0] = x;  ((GfxVertexDx7 *)t)->xyz[1] = y;  ((GfxVertexDx7 *)t)->xyz[2] = z;
+        ((GfxVertexDx7 *)t)->normal[0] = 0;  ((GfxVertexDx7 *)t)->normal[1] = 0;  ((GfxVertexDx7 *)t)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)t)->color.packed = white;
+        ((GfxVertexDx7 *)t)->texCoord[0] = 1.0f;  ((GfxVertexDx7 *)t)->texCoord[1] = 0;
+    } else {
+        ((GfxVertex *)t)->xyzw[0] = x;  ((GfxVertex *)t)->xyzw[1] = y;  ((GfxVertex *)t)->xyzw[2] = z;
+        ((GfxVertex *)t)->xyzw[3] = 1.0f;
+        ((GfxVertex *)t)->normal[0] = 0;  ((GfxVertex *)t)->normal[1] = 0;  ((GfxVertex *)t)->normal[2] = 1.0f;
+        ((GfxVertex *)t)->color.packed = white;
+        ((GfxVertex *)t)->texCoord[0] = 1.0f;  ((GfxVertex *)t)->texCoord[1] = 0;
+    }
+
+    /* Vertex 2: origin - axis[1] - axis[2], tc=(1,1) */
+    x = x0 - axis[3] - axis[6];
+    y = y0 - axis[4] - axis[7];
+    z = z0 - axis[5] - axis[8];
+    if (isDx7) {
+        ((GfxVertexDx7 *)t)->xyz[0] = x;  ((GfxVertexDx7 *)t)->xyz[1] = y;  ((GfxVertexDx7 *)t)->xyz[2] = z;
+        ((GfxVertexDx7 *)t)->normal[0] = 0;  ((GfxVertexDx7 *)t)->normal[1] = 0;  ((GfxVertexDx7 *)t)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)t)->color.packed = white;
+        ((GfxVertexDx7 *)t)->texCoord[0] = 1.0f;  ((GfxVertexDx7 *)t)->texCoord[1] = 1.0f;
+    } else {
+        ((GfxVertex *)t)->xyzw[0] = x;  ((GfxVertex *)t)->xyzw[1] = y;  ((GfxVertex *)t)->xyzw[2] = z;
+        ((GfxVertex *)t)->xyzw[3] = 1.0f;
+        ((GfxVertex *)t)->normal[0] = 0;  ((GfxVertex *)t)->normal[1] = 0;  ((GfxVertex *)t)->normal[2] = 1.0f;
+        ((GfxVertex *)t)->color.packed = white;
+        ((GfxVertex *)t)->texCoord[0] = 1.0f;  ((GfxVertex *)t)->texCoord[1] = 1.0f;
+        ((GfxVertex *)t)->tangent[0] = 1.0f;  ((GfxVertex *)t)->tangent[1] = 0;  ((GfxVertex *)t)->tangent[2] = 0;
+        ((GfxVertex *)t)->binormal[0] = 0;  ((GfxVertex *)t)->binormal[1] = 1.0f;  ((GfxVertex *)t)->binormal[2] = 0;
+    }
+
+    /* Vertex 3: origin + axis[1] - axis[2], tc=(0,1) */
+    x = x0 + axis[3] - axis[6];
+    y = y0 + axis[4] - axis[7];
+    z = z0 + axis[5] - axis[8];
+    if (isDx7) {
+        ((GfxVertexDx7 *)t)->xyz[0] = x;  ((GfxVertexDx7 *)t)->xyz[1] = y;  ((GfxVertexDx7 *)t)->xyz[2] = z;
+        ((GfxVertexDx7 *)t)->normal[0] = 0;  ((GfxVertexDx7 *)t)->normal[1] = 0;  ((GfxVertexDx7 *)t)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)t)->color.packed = white;
+        ((GfxVertexDx7 *)t)->texCoord[0] = 0;  ((GfxVertexDx7 *)t)->texCoord[1] = 1.0f;
+    } else {
+        ((GfxVertex *)t)->xyzw[0] = x;  ((GfxVertex *)t)->xyzw[1] = y;  ((GfxVertex *)t)->xyzw[2] = z;
+        ((GfxVertex *)t)->xyzw[3] = 1.0f;
+        ((GfxVertex *)t)->normal[0] = 0;  ((GfxVertex *)t)->normal[1] = 0;  ((GfxVertex *)t)->normal[2] = 1.0f;
+        ((GfxVertex *)t)->color.packed = white;
+        ((GfxVertex *)t)->texCoord[0] = 0;  ((GfxVertex *)t)->texCoord[1] = 1.0f;
+    }
+
+    /* vertexCount = 4 */
+    tess.vertexCount = 4;
+
+    /* Write indices: iterationCount copies of quad (3,0,2, 2,0,1) */
+    iterationCount = *(int *)(*(char **)imp_r_testFill + 8);
+    for (i = 0; i < iterationCount; i++) {
+        int ic = tess.indexCount;
+        r_index_t *indices = tess.indices;
+        indices[ic + 0] = 3;
+        indices[ic + 1] = 0;
+        indices[ic + 2] = 2;
+        indices[ic + 3] = 2;
+        indices[ic + 4] = 0;
+        indices[ic + 5] = 1;
+        tess.indexCount = ic + 6;
+    }
+
+    /* Time the GPU render */
+    RB_BeginBenchmarkGpu_impl(&beginTime);
+    RB_EndSurface();
+    RB_EndBenchmarkGpu_impl(&endTime);
+    RB_PopMatrixStack();
+
+    /* Compute triangles per frame at 60fps */
+    QueryPerformanceFrequency(&frequency);
+    {
+        double elapsed = (double)(endTime - beginTime) / (double)frequency;
+        return (float)((double)iterationCount / elapsed / 60.0);
+    }
+}
+
+/* Clean C version for WASM — no register calling convention */
+static float RB_TestFillPass3D(const Material *material, MaterialTechniqueType techType)
+{
+    return RB_TestFillPass3D_impl(material, techType);
+}
+
+/* line 433 */
+/* line 433 */
+void RB_DrawStretchPic(const Material *material, float x, float y, float w, float h, float s0, float t0, float s1, float t1, D3DCOLOR color, GfxPrimStatsTarget statsTarget)
+{
+    char *t = (char *)&tess;
+    r_index_t *indices;
+    int vc, ic;
+    int isDx7;
+    int savedDecl;
+
+    (void)statsTarget;
+
+    if (!material)
+        return;
+
+    /* Fix NaN positions from uninitialized screen placement in original binary code.
+     * The background draw (e.g. "background_american_w") comes through the original
+     * binary's CalcScreenPlacement which produces NaN for x due to an uninitialized
+     * screen placement struct. The background should be centered fullscreen. */
+    if (x != x) x = 0.0f;
+    if (y != y) y = 0.0f;
+    if (w != w || h != h)
+        return;
+
+    /* Enter 2D mode if not already active */
+    if (!backEnd.projection2D)
+        RB_Set2D();
+
+    /* Begin surface if material or technique changed */
+    if (material != tess.material || tess.techType != 3) { /* TECHNIQUE_UNLIT */
+        if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 0x1f); /* TECHNIQUE_UNLIT, lmapIndex=31 */
+    }
+
+    /* Check tess buffer overflow: need 4 verts + 6 indices */
+    vc = tess.vertexCount;
+    ic = tess.indexCount;
+    if (vc + 4 > 0x154a || ic + 6 > 0x100000) {
+        /* Flush and re-begin, preserving declType */
+        savedDecl = tess.declType;
+        RB_EndSurface();
+        RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
+        if (tess.declType != savedDecl) {
+            if (tess.indexCount != 0 || tess.optimizedIndexCount != 0)
+                RB_EndSurface();
+            tess.declType = savedDecl;
+        }
+        vc = tess.vertexCount;
+        ic = tess.indexCount;
+    }
+
+    /* Write 6 indices for 2 triangles: (vc+3, vc, vc+2), (vc+2, vc, vc+1) */
+    indices = tess.indices;
+    indices[ic + 0] = (r_index_t)(vc + 3);
+    indices[ic + 1] = (r_index_t)vc;
+    indices[ic + 2] = (r_index_t)(vc + 2);
+    indices[ic + 3] = (r_index_t)(vc + 2);
+    indices[ic + 4] = (r_index_t)vc;
+    indices[ic + 5] = (r_index_t)(vc + 1);
+
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    if (isDx7) {
+        /* Dx7 vertex layout: stride 36 (0x24)
+         *   +0x00: vec3 position, +0x0c: vec3 normal, +0x18: color, +0x1c: vec2 texcoord */
+        char *v0 = t + vc * 36;
+        char *v1 = v0 + 36;
+        char *v2 = v0 + 72;
+        char *v3 = v0 + 108;
+
+        /* Vertex 0: (x, y) texcoord (s0, t0) */
+        ((GfxVertexDx7 *)v0)->xyz[0] = x;
+        ((GfxVertexDx7 *)v0)->xyz[1] = y;
+        ((GfxVertexDx7 *)v0)->xyz[2] = 0.0f;
+        ((GfxVertexDx7 *)v0)->normal[0] = 0.0f;
+        ((GfxVertexDx7 *)v0)->normal[1] = 0.0f;
+        ((GfxVertexDx7 *)v0)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)v0)->color.packed = color;
+        ((GfxVertexDx7 *)v0)->texCoord[0] = s0;
+        ((GfxVertexDx7 *)v0)->texCoord[1] = t0;
+
+        /* Vertex 1: (x+w, y) texcoord (s1, t0) */
+        ((GfxVertexDx7 *)v1)->xyz[0] = x + w;
+        ((GfxVertexDx7 *)v1)->xyz[1] = y;
+        ((GfxVertexDx7 *)v1)->xyz[2] = 0.0f;
+        ((GfxVertexDx7 *)v1)->normal[0] = 0.0f;
+        ((GfxVertexDx7 *)v1)->normal[1] = 0.0f;
+        ((GfxVertexDx7 *)v1)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)v1)->color.packed = color;
+        ((GfxVertexDx7 *)v1)->texCoord[0] = s1;
+        ((GfxVertexDx7 *)v1)->texCoord[1] = t0;
+
+        /* Vertex 2: (x+w, y+h) texcoord (s1, t1) */
+        ((GfxVertexDx7 *)v2)->xyz[0] = x + w;
+        ((GfxVertexDx7 *)v2)->xyz[1] = y + h;
+        ((GfxVertexDx7 *)v2)->xyz[2] = 0.0f;
+        ((GfxVertexDx7 *)v2)->normal[0] = 0.0f;
+        ((GfxVertexDx7 *)v2)->normal[1] = 0.0f;
+        ((GfxVertexDx7 *)v2)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)v2)->color.packed = color;
+        ((GfxVertexDx7 *)v2)->texCoord[0] = s1;
+        ((GfxVertexDx7 *)v2)->texCoord[1] = t1;
+
+        /* Vertex 3: (x, y+h) texcoord (s0, t1) */
+        ((GfxVertexDx7 *)v3)->xyz[0] = x;
+        ((GfxVertexDx7 *)v3)->xyz[1] = y + h;
+        ((GfxVertexDx7 *)v3)->xyz[2] = 0.0f;
+        ((GfxVertexDx7 *)v3)->normal[0] = 0.0f;
+        ((GfxVertexDx7 *)v3)->normal[1] = 0.0f;
+        ((GfxVertexDx7 *)v3)->normal[2] = 1.0f;
+        ((GfxVertexDx7 *)v3)->color.packed = color;
+        ((GfxVertexDx7 *)v3)->texCoord[0] = s0;
+        ((GfxVertexDx7 *)v3)->texCoord[1] = t1;
+    } else {
+        /* Non-Dx7 vertex layout: stride 64 (0x40)
+         *   +0x00: vec4 pos, +0x10: vec3 normal, +0x1c: color,
+         *   +0x20: vec2 texcoord, +0x28: vec3 binormal, +0x34: vec3 tangent */
+        char *v0 = t + vc * 64;
+        char *v1 = v0 + 64;
+        char *v2 = v0 + 128;
+        char *v3 = v0 + 192;
+
+        /* Vertex 0: (x, y) texcoord (s0, t0) */
+        ((GfxVertex *)v0)->xyzw[0] = x;
+        ((GfxVertex *)v0)->xyzw[1] = y;
+        ((GfxVertex *)v0)->xyzw[2] = 0.0f;
+        ((GfxVertex *)v0)->xyzw[3] = 1.0f;
+        ((GfxVertex *)v0)->normal[0] = 0.0f;
+        ((GfxVertex *)v0)->normal[1] = 0.0f;
+        ((GfxVertex *)v0)->normal[2] = 1.0f;
+        ((GfxVertex *)v0)->color.packed = color;
+        ((GfxVertex *)v0)->texCoord[0] = s0;
+        ((GfxVertex *)v0)->texCoord[1] = t0;
+        ((GfxVertex *)v0)->binormal[0] = 0.0f;  /* binormal */
+        ((GfxVertex *)v0)->binormal[1] = 1.0f;
+        ((GfxVertex *)v0)->binormal[2] = 0.0f;
+        ((GfxVertex *)v0)->tangent[0] = 1.0f;  /* tangent */
+        ((GfxVertex *)v0)->tangent[1] = 0.0f;
+        ((GfxVertex *)v0)->tangent[2] = 0.0f;
+
+        /* Vertex 1: (x+w, y) texcoord (s1, t0) */
+        ((GfxVertex *)v1)->xyzw[0] = x + w;
+        ((GfxVertex *)v1)->xyzw[1] = y;
+        ((GfxVertex *)v1)->xyzw[2] = 0.0f;
+        ((GfxVertex *)v1)->xyzw[3] = 1.0f;
+        ((GfxVertex *)v1)->normal[0] = 0.0f;
+        ((GfxVertex *)v1)->normal[1] = 0.0f;
+        ((GfxVertex *)v1)->normal[2] = 1.0f;
+        ((GfxVertex *)v1)->color.packed = color;
+        ((GfxVertex *)v1)->texCoord[0] = s1;
+        ((GfxVertex *)v1)->texCoord[1] = t0;
+        ((GfxVertex *)v1)->binormal[0] = 0.0f;
+        ((GfxVertex *)v1)->binormal[1] = 1.0f;
+        ((GfxVertex *)v1)->binormal[2] = 0.0f;
+        ((GfxVertex *)v1)->tangent[0] = 1.0f;
+        ((GfxVertex *)v1)->tangent[1] = 0.0f;
+        ((GfxVertex *)v1)->tangent[2] = 0.0f;
+
+        /* Vertex 2: (x+w, y+h) texcoord (s1, t1) */
+        ((GfxVertex *)v2)->xyzw[0] = x + w;
+        ((GfxVertex *)v2)->xyzw[1] = y + h;
+        ((GfxVertex *)v2)->xyzw[2] = 0.0f;
+        ((GfxVertex *)v2)->xyzw[3] = 1.0f;
+        ((GfxVertex *)v2)->normal[0] = 0.0f;
+        ((GfxVertex *)v2)->normal[1] = 0.0f;
+        ((GfxVertex *)v2)->normal[2] = 1.0f;
+        ((GfxVertex *)v2)->color.packed = color;
+        ((GfxVertex *)v2)->texCoord[0] = s1;
+        ((GfxVertex *)v2)->texCoord[1] = t1;
+        ((GfxVertex *)v2)->binormal[0] = 0.0f;
+        ((GfxVertex *)v2)->binormal[1] = 1.0f;
+        ((GfxVertex *)v2)->binormal[2] = 0.0f;
+        ((GfxVertex *)v2)->tangent[0] = 1.0f;
+        ((GfxVertex *)v2)->tangent[1] = 0.0f;
+        ((GfxVertex *)v2)->tangent[2] = 0.0f;
+
+        /* Vertex 3: (x, y+h) texcoord (s0, t1) */
+        ((GfxVertex *)v3)->xyzw[0] = x;
+        ((GfxVertex *)v3)->xyzw[1] = y + h;
+        ((GfxVertex *)v3)->xyzw[2] = 0.0f;
+        ((GfxVertex *)v3)->xyzw[3] = 1.0f;
+        ((GfxVertex *)v3)->normal[0] = 0.0f;
+        ((GfxVertex *)v3)->normal[1] = 0.0f;
+        ((GfxVertex *)v3)->normal[2] = 1.0f;
+        ((GfxVertex *)v3)->color.packed = color;
+        ((GfxVertex *)v3)->texCoord[0] = s0;
+        ((GfxVertex *)v3)->texCoord[1] = t1;
+        ((GfxVertex *)v3)->binormal[0] = 0.0f;
+        ((GfxVertex *)v3)->binormal[1] = 1.0f;
+        ((GfxVertex *)v3)->binormal[2] = 0.0f;
+        ((GfxVertex *)v3)->tangent[0] = 1.0f;
+        ((GfxVertex *)v3)->tangent[1] = 0.0f;
+        ((GfxVertex *)v3)->tangent[2] = 0.0f;
+    }
+
+    tess.vertexCount += 4;
+    tess.indexCount += 6;
+}
+
+/* line 609 */
+static void RB_StretchPicCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd = (byte *)execState->cmd;
+
+    RB_DrawStretchPic(
+        ((GfxCmdStretchPic *)cmd)->material,
+        ((GfxCmdStretchPic *)cmd)->x,
+        ((GfxCmdStretchPic *)cmd)->y,
+        ((GfxCmdStretchPic *)cmd)->w,
+        ((GfxCmdStretchPic *)cmd)->h,
+        ((GfxCmdStretchPic *)cmd)->s0,
+        ((GfxCmdStretchPic *)cmd)->t0,
+        ((GfxCmdStretchPic *)cmd)->s1,
+        ((GfxCmdStretchPic *)cmd)->t1,
+        ((GfxCmdStretchPic *)cmd)->color.packed,
+        8);
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 3383 */
+/* line 3383 */
+static float RB_BenchmarkRepeatedCalls_impl(const Material *material, int iterationCount, float width, float height)
+{
+    long long beginTime, endTime, frequency;
+    int i;
+
+    if (Material_IsDefault((MaterialHandle)material))
+        return 0.0f;
+
+    RB_BeginBenchmarkGpu_impl(&beginTime);
+
+    for (i = 0; i < iterationCount; i++) {
+        RB_DrawStretchPic(material, 0.0f, 0.0f, width, height,
+                          0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff, 10);
+    }
+
+    RB_EndSurface();
+    RB_EndBenchmarkGpu_impl(&endTime);
+
+    QueryPerformanceFrequency(&frequency);
+
+    {
+        double elapsed = (double)(endTime - beginTime) / (double)frequency;
+        return (float)((double)iterationCount / elapsed);
+    }
+}
+
+/* Clean C version for WASM — no register calling convention */
+static float RB_BenchmarkRepeatedCalls(const Material *material, int iterationCount, float width, float height)
+{
+    return RB_BenchmarkRepeatedCalls_impl(material, iterationCount, width, height);
+}
+
+int g_rb_exec_count = 0; /* diagnostic */
+static const char rb_diag_fmt[] = "";
+static const char rb_diag_dispatch_fmt[] = "";
+static const char rb_endframe_fmt[] = "";
+static const char rb_diag_post_fmt[] = "";
+int g_rb_dispatch_count = 0; /* diagnostic: how many commands dispatched */
+int g_rb_first_cmd = -1; /* diagnostic: first command word seen */
+int g_rb_skip_reason = 0; /* diagnostic: 1=disableRendering, 2=needToTouch+recover_fail, 3=skipBackEnd, 4=empty_buf */
+/* line 3915 */
+/* line 3915 — Main frame render command processor: device state management,
+ * dvar-driven parameter updates, command dispatch loop, GPU fence sync,
+ * optional benchmark fill/transform tests. */
+extern void RB_DecideDefaultSamplerState(void);
+extern void RB_SetAnisotropy(void);
+extern void RB_SetAlphaAntiAliasingState(int state);
+extern qboolean R_RecoverLostDevice(void);
+extern void RB_DrawDebug(const void *viewParms);
+extern void RB_ChangeIndices(int value);
+extern void RB_ClearAllStreamSources(void);
+extern void Image_RebuildCosinePowerMap(float shift);
+void RB_ExecuteRenderCommands(const void *data)
+{
+    char *dx;
+    byte needToTouchImages;
+    int deviceState;
+    GfxRenderCommandExecState execState;
+
+    g_rb_exec_count++;
+    diag_rb_frame_start();
+
+    backEndData = 0;
+
+    /* Check if rendering is disabled */
+    if (*(int *)imp_g_disableRendering) {
+        g_rb_skip_reason = 1;
+        diag_rb_skip_this_frame = 1;
+        goto done;
+    }
+
+    dx = (char *)imp_dx;
+
+    /* Test D3D cooperative level if no pending device state */
+    if (!((DxGlobals *)dx)->deviceLost) {
+        void *device = *(void **)(dx + 8);
+        void **vtable = *(void ***)device;
+        HRESULT hr = ((HRESULT (__attribute__((stdcall)) *)(void *))(vtable[0x0c/4]))(device);
+        if ((unsigned int)(hr + 0x7789f798u) <= 1) /* D3DERR_DEVICELOST or DEVICENOTRESET */
+            ((DxGlobals *)dx)->deviceLost = 1;
+    }
+
+    needToTouchImages = ((DxGlobals *)dx)->deviceLost;
+    if (needToTouchImages) {
+        if (!R_RecoverLostDevice())
+            goto done;
+    }
+
+    /* Store back-end data pointer */
+    backEndData = (const GfxBackEndData *)data;
+
+    /* Check and apply dvar changes */
+    {
+        char *dvar;
+        dvar = *(char **)imp_r_textureMode;
+        if (((const dvar_t *)dvar)->modified) {
+            ((refimport_t *)imp_ri)->Dvar_ClearModified((const dvar_t *)dvar);
+            RB_DecideDefaultSamplerState();
+        }
+        dvar = *(char **)imp_r_anisotropy;
+        if (((const dvar_t *)dvar)->modified) {
+            ((refimport_t *)imp_ri)->Dvar_ClearModified((const dvar_t *)dvar);
+            RB_SetAnisotropy();
+        }
+        dvar = *(char **)imp_r_cosinePowerMapShift;
+        if (((const dvar_t *)dvar)->modified) {
+            ((refimport_t *)imp_ri)->Dvar_ClearModified((const dvar_t *)dvar);
+            Image_RebuildCosinePowerMap(((const dvar_t *)dvar)->current.value);
+        }
+        dvar = *(char **)imp_r_outdoorFeather;
+        if (((const dvar_t *)dvar)->modified) {
+            ((refimport_t *)imp_ri)->Dvar_ClearModified((const dvar_t *)dvar);
+            {
+                float val = ((const dvar_t *)dvar)->current.value;
+                /* codeConsts[50] = outdoor feather value */
+                backEnd.codeConsts[50][0] = val;
+                backEnd.codeConsts[50][1] = val;
+                backEnd.codeConsts[50][2] = val;
+                backEnd.codeConsts[50][3] = val;
+            }
+        }
+        dvar = *(char **)imp_r_aaAlpha;
+        if (((const dvar_t *)dvar)->modified) {
+            ((refimport_t *)imp_ri)->Dvar_ClearModified((const dvar_t *)dvar);
+            dx = (char *)imp_dx;
+            if (((DxGlobals *)dx)->hasTransparencyMsaa) {
+                char *dxSt = (char *)imp_dxState;
+                RB_SetAlphaAntiAliasingState(((DxState *)dxSt)->activeStateBits[0]);
+            }
+        }
+    }
+
+    /* D3D device state machine */
+    dx = (char *)imp_dx;
+    deviceState = ((DxGlobals *)dx)->gpuSync;
+    if (deviceState == 3) {
+        /* Full fence wait + generate new fence */
+        while (((DxGlobals *)dx)->flushGpuQueryIssued) {
+            qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+            if (finished)
+                glDeleteFencesAPPLE(1, &g_FenceID);
+            if (finished) { ((DxGlobals *)dx)->flushGpuQueryIssued = 0; break; }
+            dx = (char *)imp_dx;
+        }
+        /* Skip to done after fence wait for state 3 */
+        glGenFencesAPPLE(1, &g_FenceID);
+        glSetFenceAPPLE(g_FenceID);
+        ((DxGlobals *)imp_dx)->flushGpuQueryIssued = 1;
+        goto done;
+    } else if (deviceState == 1) {
+        /* Fence wait loop before sync */
+        while (((DxGlobals *)dx)->flushGpuQueryIssued) {
+            qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+            if (finished)
+                glDeleteFencesAPPLE(1, &g_FenceID);
+            if (finished) { ((DxGlobals *)dx)->flushGpuQueryIssued = 0; break; }
+            dx = (char *)imp_dx;
+        }
+        /* Generate new fence and sync */
+        glGenFencesAPPLE(1, &g_FenceID);
+        glSetFenceAPPLE(g_FenceID);
+        dx = (char *)imp_dx;
+        ((DxGlobals *)dx)->flushGpuQueryIssued = 1;
+    }
+
+    /* Set benchmarking flag, BeginScene */
+    dx = (char *)imp_dx;
+    ((DxGlobals *)dx)->inScene = 1;
+    do {
+        void *device = *(void **)(dx + 8);
+        void **vtable = *(void ***)device;
+        ((HRESULT (__attribute__((stdcall)) *)(void *))(vtable[0xa4/4]))(device); /* BeginScene */
+    } while (*(volatile int *)imp_alwaysfails);
+
+    backEnd.frameCount += 1;
+
+    if (needToTouchImages)
+        RB_TouchAllImages();
+
+    /* Check r_skipBackEnd */
+    if (((const dvar_t *)(void *)imp_r_skipBackEnd)->current.enabled) {
+        g_rb_skip_reason = 3;
+        diag_rb_skip_this_frame = 3;
+        goto post_render;
+    }
+
+    /* Get render command buffer from backEndData->commands */
+    {
+        const byte *cmdBuf = backEndData->commands.cmds;
+        unsigned short firstCmd;
+        execState.cmd = cmdBuf;
+        execState.stackPos = 0;
+
+        firstCmd = *(unsigned short *)cmdBuf;
+        g_rb_first_cmd = firstCmd;
+
+        if (firstCmd == 0) {
+            g_rb_skip_reason = 4;
+            diag_rb_skip_this_frame = 4;
+        } else {
+            /* Main command dispatch loop */
+            unsigned short cmd = firstCmd;
+            g_rb_dispatch_count = 0;
+            while (cmd != 0) {
+                g_rb_dispatch_count++;
+                diag_rb_cmd(cmd);
+                RB_RenderCommandTable[cmd](&execState);
+                cmd = *(unsigned short *)execState.cmd;
+            }
+        }
+    }
+
+post_render:
+    /* End any pending surface */
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    /* Draw debug overlay if developer mode */
+    {
+        const GfxViewParms *vp = backEnd.viewParms;
+        if (vp) {
+            int dev = ((const dvar_t *)(void *)imp_developer)->current.integer;
+            if (dev)
+                RB_DrawDebug(vp);
+        }
+    }
+
+    /* Update viewport dirty state */
+    if (backEnd.viewportIsDirty) {
+        RB_UpdateViewport();
+    }
+
+    /* D3D Clear */
+    do {
+        dx = (char *)imp_dx;
+        void *device = *(void **)(dx + 8);
+        void **vtable = *(void ***)device;
+        ((HRESULT (__attribute__((stdcall)) *)(void *, int, void *, int, float, int))
+            (vtable[0xac/4]))(device, 0, 0, 1, 0.0f, 0); /* Clear */
+    } while (*(volatile int *)imp_alwaysfails);
+
+    /* Clear indices/streams */
+    {
+        char *dxSt = (char *)imp_dxState;
+        if (((DxState *)dxSt)->indexBuffer)
+            RB_ChangeIndices(0);
+    }
+    RB_ClearAllStreamSources();
+
+    /* EndScene */
+    dx = (char *)imp_dx;
+    do {
+        void *device = *(void **)(dx + 8);
+        void **vtable = *(void ***)device;
+        ((HRESULT (__attribute__((stdcall)) *)(void *))(vtable[0xa8/4]))(device); /* EndScene */
+    } while (*(volatile int *)imp_alwaysfails);
+    ((DxGlobals *)dx)->inScene = 0;
+
+    /* r_testFill benchmark */
+    {
+        int testFillCount = ((const dvar_t *)(void *)imp_r_testFill)->current.integer;
+        if (testFillCount > 0) {
+            if (!((const dvar_t *)(void *)imp_r_testFillEnable)->current.enabled) {
+                typedef int (*PrintFunc)(int, const char *, ...);
+                PrintFunc ri_printf = *(PrintFunc *)imp_ri;
+                ri_printf(0, "Fill testing uses extra textures and materials, so it is usu");
+                ri_printf(0, "ally only useful if r_testFillEnable is set before starting the game.\n");
+            } else {
+                /* Run fill benchmark tests */
+                typedef int (*PrintFunc)(int, const char *, ...);
+                PrintFunc ri_printf = *(PrintFunc *)imp_ri;
+                char *rgp = (char *)imp_rgp;
+                char *dxSt = (char *)imp_dxState;
+                float screenW = (float)((DxState *)dxSt)->renderTargetWidth;
+                float screenH = (float)((DxState *)dxSt)->renderTargetHeight;
+                float result;
+                ri_printf(0, "-----------------------------------------------\n");
+
+                /* 2D fill tests */
+                #define FILL_TEST_2D(mat_off, fmt) \
+                    result = RB_BenchmarkRepeatedCalls_impl(*(const Material **)(rgp + mat_off), testFillCount, screenW, screenH) / 60.0f; \
+                    ri_printf(0, fmt, (double)result)
+                FILL_TEST_2D(0x105c, "normal fill                 %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_2D(0x1060, "alpha blend fill            %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_2D(0x1064, "alpha test pass fill        %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_2D(0x1068, "alpha test fail fill        %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_2D(0x106c, "additive fill               %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_2D(0x1070, "depth only fill             %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_2D(0x1074, "1-sided stencil keep fill   %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_2D(0x1078, "1-sided stencil reject fill %4.1f overdraw @ 60Hz\n");
+                #undef FILL_TEST_2D
+
+                /* 2-sided stencil tests (if supported) */
+                if (((DxGlobals *)dx)->stencilTwoSided) {
+                    #define FILL_TEST_2D_S(mat_off, fmt) \
+                        result = RB_BenchmarkRepeatedCalls_impl(*(const Material **)(rgp + mat_off), testFillCount, screenW, screenH) / 60.0f; \
+                        ri_printf(0, fmt, (double)result)
+                    FILL_TEST_2D_S(0x107c, "2-sided stencil keep fill   %4.1f overdraw @ 60Hz\n");
+                    FILL_TEST_2D_S(0x1080, "2-sided stencil reject fill %4.1f overdraw @ 60Hz\n");
+                    #undef FILL_TEST_2D_S
+                }
+
+                /* 3D fill tests */
+                #define FILL_TEST_3D(mat_off, tech, fmt) \
+                    result = RB_TestFillPass3D_impl(*(const Material **)(rgp + mat_off), tech); \
+                    ri_printf(0, fmt, (double)result)
+                FILL_TEST_3D(0x1084, 0x12, "phong point bump fill       %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_3D(0x1088, 0x12, "phong point bump+spec fill  %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_3D(0x1084, 9,    "phong dir bump fill         %4.1f overdraw @ 60Hz\n");
+                FILL_TEST_3D(0x1088, 9,    "phong dir bump+spec fill    %4.1f overdraw @ 60Hz\n");
+                #undef FILL_TEST_3D
+                ri_printf(0, "-----------------------------------------------\n");
+            }
+            /* Reset dvar */
+            ((refimport_t *)imp_ri)->Dvar_SetInt(*(const dvar_t **)imp_r_testFill, 0);
+        }
+    }
+
+    /* r_testTransform benchmark */
+    {
+        int testTransformCount = ((const dvar_t *)(void *)imp_r_testTransform)->current.integer;
+        if (testTransformCount > 0) {
+            typedef int (*PrintFunc)(int, const char *, ...);
+            PrintFunc ri_printf = *(PrintFunc *)imp_ri;
+            char *rgp = (char *)imp_rgp;
+            float dynRate;
+
+            dynRate = RB_BenchmarkRepeatedCalls_impl(
+                ((r_global_permanent_t *)rgp)->whiteMaterial, testTransformCount, 0.0f, 0.0f) / 60.0f;
+
+            ri_printf(0, "-----------------------------------------------\n");
+            ri_printf(0, "static vertex data    %8.0f verts/sec @ 60Hz\n", 0.0);
+            ri_printf(0, "static vertex data    %8.0f tris/sec @ 60Hz\n", 0.0);
+            ri_printf(0, "skinned vertex data   %8.0f verts/sec @ 60Hz\n", 0.0);
+            ri_printf(0, "skinned vertex data   %8.0f tris/sec @ 60Hz\n", 0.0);
+            ri_printf(0, "dynamic vertex data   %8.0f verts/sec @ 60Hz\n", (double)(dynRate * 4.0f));
+            ri_printf(0, "dynamic vertex data   %8.0f tris/sec @ 60Hz\n", (double)(dynRate * 2.0f));
+            ri_printf(0, "-----------------------------------------------\n");
+            ((refimport_t *)imp_ri)->Dvar_SetInt(*(const dvar_t **)imp_r_testTransform, 0);
+        }
+    }
+
+    /* Post-frame: generate fence for next frame */
+    dx = (char *)imp_dx;
+    deviceState = ((DxGlobals *)dx)->gpuSync;
+    if (deviceState == 3) {
+        glGenFencesAPPLE(1, &g_FenceID);
+        glSetFenceAPPLE(g_FenceID);
+        ((DxGlobals *)dx)->flushGpuQueryIssued = 1;
+        goto done;
+    }
+    if (deviceState == 2) {
+        /* Adaptive GPU sync wait */
+        while (((DxGlobals *)dx)->flushGpuQueryIssued) {
+            qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+            if (finished)
+                glDeleteFencesAPPLE(1, &g_FenceID);
+            if (finished) { ((DxGlobals *)dx)->flushGpuQueryIssued = 0; break; }
+            dx = (char *)imp_dx;
+        }
+        {
+            unsigned int startTsc;
+    startTsc = 0;
+            dx = (char *)imp_dx;
+            while (((DxGlobals *)dx)->flushGpuQueryIssued) {
+                qboolean finished = glTestFenceAPPLE(g_FenceID) != 0;
+                if (finished)
+                    glDeleteFencesAPPLE(1, &g_FenceID);
+                if (finished) { ((DxGlobals *)dx)->flushGpuQueryIssued = 0; break; }
+                {
+                    unsigned int now;
+    now = 0;
+                    if ((int)(now - startTsc) > ((DxGlobals *)dx)->gpuSyncDelay)
+                        break;
+                }
+                dx = (char *)imp_dx;
+            }
+            {
+                unsigned int endTsc;
+    endTsc = 0;
+                int elapsed = (int)(endTsc - startTsc);
+                int scaled = (elapsed * 3 + 3) / 4;
+                if (elapsed <= -1) scaled = (elapsed * 3 + 3) / 4;
+                ((DxGlobals *)dx)->gpuSyncDelay += scaled;
+            }
+        }
+    }
+
+    /* Generate fence for next frame */
+    glGenFencesAPPLE(1, &g_FenceID);
+    glSetFenceAPPLE(g_FenceID);
+    dx = (char *)imp_dx;
+    ((DxGlobals *)dx)->flushGpuQueryIssued = 1;
+
+done:
+    diag_rb_frame_end();
+}
+
+
+/* line 466 */
+void RB_DrawFullScreenColoredQuad(const Material *material, float s0, float t0, float s1, float t1, D3DCOLOR color)
+{
+    char *dxState_ptr = (char *)imp_dxState;
+    float w = (float)((DxState *)dxState_ptr)->renderTargetWidth;
+    float h = (float)((DxState *)dxState_ptr)->renderTargetHeight;
+
+    RB_DrawStretchPic(material, 0.0f, 0.0f, w, h, s0, t0, s1, t1, color, 0xa);
+}
+
+/* line 748 */
+static void RB_DrawFullScreenColoredQuadCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd = (byte *)execState->cmd;
+    float w = (float)((DxState *)imp_dxState)->renderTargetWidth;
+    float h = (float)((DxState *)imp_dxState)->renderTargetHeight;
+
+    RB_DrawStretchPic(
+        ((GfxCmdDrawFullScreenColoredQuad *)cmd)->material,
+        0.0f, 0.0f, w, h,
+        ((GfxCmdDrawFullScreenColoredQuad *)cmd)->s0,
+        ((GfxCmdDrawFullScreenColoredQuad *)cmd)->t0,
+        ((GfxCmdDrawFullScreenColoredQuad *)cmd)->s1,
+        ((GfxCmdDrawFullScreenColoredQuad *)cmd)->t1,
+        ((GfxCmdDrawFullScreenColoredQuad *)cmd)->color.packed, 0xa);
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2074 */
+/* line 2074 */
+static void RB_BlendSavedScreenCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    char *rgp;
+    int elapsed, fadeFrames;
+    float alpha, alphaScaled;
+    int alphaByte;
+    D3DCOLOR blendColor;
+    const Material *blendMaterial;
+    float screenWidth, screenHeight;
+    float pow2Width, pow2Height;
+
+    cmd = (byte *)execState->cmd;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    if (!backEnd.projection2D)
+        RB_Set2D();
+
+    rgp = (char *)imp_rgp;
+
+    /* Check if saved screen is recent enough to blend */
+    elapsed = backEnd.sceneDef.time - ((r_global_permanent_t *)rgp)->savedScreenTime;
+    fadeFrames = ((GfxCmdBlendSavedScreen *)cmd)->fadeMsec;
+
+    if (elapsed < 0 || elapsed >= fadeFrames)
+        goto advance;
+
+    /* Calculate blend alpha: pow(0.01, elapsed/fadeFrames) */
+    alpha = (float)pow(0.01, (double)((float)elapsed / (float)fadeFrames));
+
+    if (alpha > 0.99f)
+        alphaScaled = 252.45f;
+    else
+        alphaScaled = alpha * 255.0f;
+
+    /* Convert to byte: floor(alphaScaled + 0.5f) */
+    alphaByte = (int)floorf(alphaScaled + 0.5f);
+
+    /* Build color: [alphaByte, 0xFF, 0xFF, 0xFF] as DWORD */
+    {
+        byte colorBytes[4];
+        colorBytes[0] = (byte)alphaByte;
+        colorBytes[1] = 0xFF;
+        colorBytes[2] = 0xFF;
+        colorBytes[3] = 0xFF;
+        blendColor = *(D3DCOLOR *)colorBytes;
+    }
+
+    /* Set feedback texture to saved screen image */
+    backEnd.currentFeedbackImage = ((DxGlobals *)imp_dx)->renderTargets[R_RENDERTARGET_SAVED_SCREEN].image;
+
+    blendMaterial = ((r_global_permanent_t *)rgp)->shellShockMaterial;
+
+    /* Get screen dimensions and power-of-2 rounded texture sizes */
+    {
+        char *dxState = (char *)imp_dxState;
+        unsigned int sw = (unsigned int)((DxState *)dxState)->renderTargetWidth;
+        unsigned int sh = (unsigned int)((DxState *)dxState)->renderTargetHeight;
+        screenWidth = (float)sw;
+        screenHeight = (float)sh;
+        pow2Width = (float)nextPow2(sw);
+        pow2Height = (float)nextPow2(sh);
+    }
+
+    /* Draw fullscreen quad with saved screen texture, UV mapped to power-of-2 texture */
+    RB_DrawStretchPic(blendMaterial,
+        0.0f, 0.0f, screenWidth, screenHeight,
+        0.0f, screenHeight / pow2Height,
+        screenWidth / pow2Width, 0.0f,
+        blendColor, 10);
+
+advance:
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 1868 */
+/* line 1868 — Helper: StretchRect backbuffer to surface, then Release */
+static void RB_CopyBackBufferToSurface(void *image)
+{
+    char *dx = (char *)imp_dx;
+    void *imageSurface = Image_GetSurface(image);
+
+    do {
+        void *device = *(void **)(dx + 8);
+        void **vtable = *(void ***)device;
+        void *backBuffer = ((DxState *)imp_dxState)->renderTargetSurface;
+        ((int (__attribute__((stdcall)) *)(void *, void *, void *, void *, void *, int))vtable[0x88/4])(
+            device, backBuffer, NULL, imageSurface, NULL, 2);
+    } while (*(int *)imp_alwaysfails);
+
+    do {
+        ((int (__attribute__((stdcall)) *)(void *))((*(void ***)imageSurface)[2]))(imageSurface);
+    } while (*(int *)imp_alwaysfails);
+}
+
+/* line 1868 */
+static void RB_BlurShadowCookieCmd(GfxRenderCommandExecState *execState)
+{
+    int blurCount;
+    int blurIter;
+    byte *cmd;
+
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    blurCount = *(int *)(*(char **)imp_sc_blur + 8);
+    if (blurCount <= 0)
+        goto advance;
+
+    for (blurIter = 0; blurIter < blurCount; blurIter++) {
+        char *dxState = (char *)imp_dxState;
+        char *dx = (char *)imp_dx;
+        float screenWidth = (float)((DxState *)dxState)->renderTargetWidth;
+        float screenHeight = (float)((DxState *)dxState)->renderTargetHeight;
+        void *shadowImage = ((DxGlobals *)dx)->renderTargets[5].image;
+        const Material *blurMaterial = ((r_global_permanent_t *)imp_rgp)->shadowCookieBlurMaterial;
+
+        /* Pass 1: copy backbuffer, draw with coarse UV inset */
+        RB_CopyBackBufferToSurface(shadowImage);
+        backEnd.currentFeedbackImage = (GfxImage *)shadowImage;
+
+        /* s0=t0=0.01171875 (0x3c400000), s1=t1=0.99609375 (0x3f7f0000) */
+        RB_DrawStretchPic(blurMaterial,
+            1.0f, 1.0f, screenWidth - 2.0f, screenHeight - 2.0f,
+            0.01171875f, 0.01171875f, 0.99609375f, 0.99609375f,
+            0xffffffff, 10);
+        RB_EndSurface();
+
+        /* Pass 2: copy backbuffer again, draw with fine UV inset */
+        screenWidth = (float)((DxState *)dxState)->renderTargetWidth;
+        screenHeight = (float)((DxState *)dxState)->renderTargetHeight;
+        shadowImage = ((DxGlobals *)dx)->renderTargets[5].image;
+
+        RB_CopyBackBufferToSurface(shadowImage);
+        backEnd.currentFeedbackImage = (GfxImage *)shadowImage;
+
+        /* s0=t0=0.00390625 (0x3b800000), s1=t1=0.98828125 (0x3f7d0000) */
+        RB_DrawStretchPic(blurMaterial,
+            1.0f, 1.0f, screenWidth - 2.0f, screenHeight - 2.0f,
+            0.00390625f, 0.00390625f, 0.98828125f, 0.98828125f,
+            0xffffffff, 10);
+        RB_EndSurface();
+    }
+
+advance:
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2904 — Text rendering with cursor: iterates characters, handles color codes (^0-^9),
+ * newline/CR, shadow styles (3=1px, 6=2px drop shadow), cursor blink via Sys_Milliseconds.
+ * Each glyph drawn twice at +0.25px offset for subpixel antialiasing. */
+static void RB_DrawTextWithCursor_impl(const char *text, int maxChars, FontHandle font,
+                                        float x, float y, float xScale, float yScale,
+                                        GfxColor color, int style, int cursorPos, int cursor)
+{
+    int (*Q_ReadToken)(const char **, int) = (int (*)(const char **, int))((refimport_t *)imp_ri)->SEH_ReadCharFromString;
+    int (*Sys_Milliseconds)(void) = (int (*)(void))((refimport_t *)imp_ri)->Milliseconds;
+    const Material *material = (const Material *)font->material; /* font->material is MaterialHandle (pointer to Material) */
+    GfxColor newColor = color;
+    GfxColor newBlack;
+    byte savedAlpha;
+    newBlack.packed = color.packed & 0xFF; /* alpha-only = black shadow */
+    savedAlpha = color.array[0];
+    float xOrig, yPos, xPos, xAdj, glyphX, glyphY, savedGlyphX2;
+    int count, ch;
+    Glyph *glyph;
+
+    /* Half-pixel offset for centering */
+    x += xScale * -0.5f;
+    y += yScale * -0.5f;
+    xOrig = x;
+    yPos = y;
+    xPos = x;
+    xAdj = 0.0f;
+    count = 0;
+
+    while (*text && maxChars) {
+        ch = Q_ReadToken(&text, 0);
+
+        /* Color escape: ^0 through ^9 */
+        if (ch == '^') {
+            const char *next = text;
+            if (next && *next != '^' && *next > '/' && *next <= '9') {
+                int colorIdx = ColorIndex((int)(unsigned char)*next);
+                int defaultIdx = ColorIndex(0x37);
+                if ((byte)colorIdx == (byte)defaultIdx) {
+                    newColor = color; /* reset to original */
+                } else {
+                    byte rgb[4];
+                    RB_LookupColor((int)(unsigned char)*next, rgb);
+                    newColor.packed = savedAlpha | ((unsigned int)rgb[0] << 8) |
+                                     ((unsigned int)rgb[1] << 16) | ((unsigned int)rgb[2] << 24);
+                }
+                text++; /* skip digit */
+                count += 2;
+                continue;
+            }
+            /* Lone ^ or ^^ — fall through to draw as normal character */
+        }
+
+        /* Newline */
+        if (ch == '\n') {
+            yPos += (float)font->pixelHeight * yScale;
+            xPos = xOrig;
+            continue;
+        }
+
+        /* Carriage return */
+        if (ch == '\r') {
+            xPos = xOrig;
+            continue;
+        }
+
+        /* Normal character */
+        glyph = R_GetCharacterGlyph(font, ch);
+        xAdj = (float)(signed char)glyph->x0 * xScale;
+        {
+            float yAdj = (float)(signed char)glyph->y0 * yScale;
+            float w, h, shadowOffset;
+
+            if (style == 3) {
+                shadowOffset = 1.0f;
+            } else if (style == 6) {
+                shadowOffset = 2.0f;
+            } else {
+                shadowOffset = 0.0f;
+            }
+
+            if (shadowOffset > 0.0f) {
+                /* Draw shadow pass first */
+                h = (float)glyph->pixelHeight * yScale;
+                w = (float)glyph->pixelWidth * xScale;
+                glyphY = yPos + yAdj;
+                glyphX = xPos + xAdj;
+                {
+                    float shadowY = glyphY + shadowOffset;
+                    float shadowX = glyphX + shadowOffset;
+                    RB_DrawStretchPic(material, shadowX, shadowY, w, h,
+                                      glyph->s0, glyph->t0, glyph->s1, glyph->t1, newBlack.packed, 8);
+                    RB_DrawStretchPic(material, shadowX + 0.25f, shadowY + 0.25f, w, h,
+                                      glyph->s0, glyph->t0, glyph->s1, glyph->t1, newBlack.packed, 8);
+                }
+                /* Fall through to draw foreground glyph */
+            } else {
+                glyphY = yPos + yAdj;
+                glyphX = xPos + xAdj;
+            }
+
+            /* Draw foreground glyph (twice for subpixel AA) */
+            h = (float)glyph->pixelHeight * yScale;
+            w = (float)glyph->pixelWidth * xScale;
+            RB_DrawStretchPic(material, glyphX, glyphY, w, h,
+                              glyph->s0, glyph->t0, glyph->s1, glyph->t1, newColor.packed, 8);
+            savedGlyphX2 = glyphX + 0.25f;
+            RB_DrawStretchPic(material, savedGlyphX2, glyphY + 0.25f, w, h,
+                              glyph->s0, glyph->t0, glyph->s1, glyph->t1, newColor.packed, 8);
+        }
+
+        /* Check for cursor at this character position */
+        if (count == cursorPos) {
+            int time = Sys_Milliseconds();
+            if (time <= -1) time += 255;
+            if (!((time >> 8) & 1)) {
+                /* Cursor blink ON — draw cursor glyph */
+                Glyph *cg = R_GetCharacterGlyph(font, cursor);
+                float ch_ = (float)cg->pixelHeight * yScale;
+                float cw = (float)cg->pixelWidth * xScale;
+                float cy = yPos + (float)(signed char)cg->y0 * yScale;
+                RB_DrawStretchPic(material, glyphX, cy, cw, ch_,
+                                  cg->s0, cg->t0, cg->s1, cg->t1, newColor.packed, 8);
+                RB_DrawStretchPic(material, savedGlyphX2, cy + 0.25f, cw, ch_,
+                                  cg->s0, cg->t0, cg->s1, cg->t1, newColor.packed, 8);
+            }
+        }
+
+        /* Advance */
+        xPos += (float)glyph->dx * xScale;
+        count++;
+        maxChars--;
+    }
+
+    /* Check cursor at end of text */
+    if (count == cursorPos) {
+        float cursorX = xPos + xAdj;
+        int time = Sys_Milliseconds();
+        if (time <= -1) time += 255;
+        if (!((time >> 8) & 1)) {
+            Glyph *cg = R_GetCharacterGlyph(font, cursor);
+            float ch_ = (float)cg->pixelHeight * yScale;
+            float cw = (float)cg->pixelWidth * xScale;
+            float cy = yPos + (float)(signed char)cg->y0 * yScale;
+            RB_DrawStretchPic(material, cursorX, cy, cw, ch_,
+                              cg->s0, cg->t0, cg->s1, cg->t1, newColor.packed, 8);
+            RB_DrawStretchPic(material, cursorX + 0.25f, cy + 0.25f, cw, ch_,
+                              cg->s0, cg->t0, cg->s1, cg->t1, newColor.packed, 8);
+        }
+    }
+}
+
+/* Clean C version for WASM — no register calling convention */
+static void RB_DrawTextWithCursor(const char *text, int maxChars, FontHandle font,
+                                   float x, float y, float xScale, float yScale,
+                                   GfxColor color, int style, int cursorPos, int cursor)
+{
+    RB_DrawTextWithCursor_impl(text, maxChars, font, x, y, xScale, yScale, color, style, cursorPos, cursor);
+}
+
+/* line 3101 — RB_DrawTextCmd
+ * Extracts text rendering parameters from GfxCmdDrawText and calls RB_DrawTextWithCursor.
+ * RB_DrawTextWithCursor uses custom register convention: eax=text, edx=maxChars, ecx=font,
+ * xmm0=x, xmm1=y, xmm2=xScale, xmm3=yScale, stack=style,color,cursorPos,cursor */
+static void RB_DrawTextCmd(GfxRenderCommandExecState *execState)
+{
+    const GfxCmdDrawText *cmd = (const GfxCmdDrawText *)execState->cmd;
+
+    /* Extract all fields from the command */
+    const char *text = cmd->text;
+    int maxChars = cmd->maxChars;
+    int font = *(int *)&cmd->font; /* FontHandle as int */
+    float x = cmd->x;
+    float y = cmd->y;
+    float xScale = cmd->xScale;
+    float yScale = cmd->yScale;
+    int style = *(int *)&cmd->color; /* GfxColor at offset 0x18 → style stack slot */
+    int color = cmd->style;          /* int at offset 0x1c → color stack slot */
+    int cursorPos = cmd->cursorPos;
+    int cursor = (signed char)cmd->cursor;
+
+    /* Call RB_DrawTextWithCursor with custom register convention:
+     * eax=text, edx=maxChars, ecx=font, xmm0=x, xmm1=y, xmm2=xScale, xmm3=yScale,
+     * stack: style, color, cursorPos, cursor */
+    /* style/color locals are swapped due to x86 register convention reordering:
+     * 'style' actually holds the color value, 'color' holds the style value */
+    RB_DrawTextWithCursor_impl(text, maxChars, (FontHandle)(intptr_t)font, x, y, xScale, yScale, *(GfxColor *)&style, color, cursorPos, cursor);
+
+    /* Advance command pointer */
+    const byte *cmdBytes = (const byte *)execState->cmd;
+    execState->cmd = (const void *)(cmdBytes + *(unsigned short *)(cmdBytes + 2));
+}
+
+/* line 2004 — Late post-effects: glow/bloom with multi-pass Gaussian filter,
+ * screen blur, framebuffer color debug, shadow cookie debug display. */
+extern void RB_GaussianFilterImage(float radius, int passes);
+extern void RB_GlowFilterImage(const int *radii);
+extern float GetVirtualWidthFromRealWidth(float width);
+static void RB_ApplyLatePostEffectsCmd(GfxRenderCommandExecState *execState)
+{
+    char *t = (char *)&tess;
+    const byte *cmd = (const byte *)execState->cmd;
+    int frameBufferTarget;
+    float blurRadius;
+    int isDx7, hasGlowSupport, needCopy;
+
+    /* Flush pending tess */
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+
+    frameBufferTarget = ((DxState *)imp_dxState)->renderTargetId;
+    backEnd.resolvedSceneTarget = 0xe;
+    blurRadius = ((GfxCmdApplyLatePostEffects *)cmd)->blurRadius;
+
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+    hasGlowSupport = !isDx7 && ((DxGlobals *)imp_dx)->hasSeparateAlphaBlend;
+
+    /* Determine if we need to copy backbuffer for effects */
+    needCopy = 0;
+    if (hasGlowSupport) {
+        if (*(byte *)(*(char **)imp_r_glow + 8) && !*(byte *)(*(char **)imp_r_fullbright + 8))
+            needCopy = 1;
+    }
+
+    if (*(int *)(*(char **)imp_r_showFbColorDebug + 8) == 2)
+        needCopy = 1;
+    else if (!isDx7) {
+        float blurVal = *(float *)(*(char **)imp_r_blur + 8);
+        if (blurVal > 0.0f || blurRadius > 0.0f)
+            needCopy = 1;
+    }
+
+    /* Copy backbuffer to offscreen surface if needed */
+    if (needCopy) {
+        char *dx = (char *)imp_dx;
+        void *offscreenImage = ((DxGlobals *)dx)->renderTargets[2].image;
+        void *imageSurface = Image_GetSurface(offscreenImage);
+
+        /* StretchRect backbuffer → offscreen surface */
+        do {
+            void *device = *(void **)(dx + 8);
+            void **vtable = *(void ***)device;
+            void *backBuffer = ((DxState *)imp_dxState)->renderTargetSurface;
+            ((HRESULT (__attribute__((stdcall)) *)(void *, void *, void *, void *, void *, int))
+                vtable[0x88/4])(device, backBuffer, NULL, imageSurface, NULL, 2);
+        } while (*(volatile int *)imp_alwaysfails);
+
+        /* Release surface */
+        do {
+            ((HRESULT (__attribute__((stdcall)) *)(void *))((*(void ***)imageSurface)[2]))(imageSurface);
+        } while (*(volatile int *)imp_alwaysfails);
+
+        backEnd.resolvedSceneTarget = 2;
+    }
+
+    /* Apply blur effect */
+    if (!isDx7) {
+        float blurVal = *(float *)(*(char **)imp_r_blur + 8);
+        float totalBlur;
+
+        if (blurVal > 0.0f || blurRadius > 0.0f) {
+            if (blurVal <= 0.0f)
+                totalBlur = blurRadius;
+            else {
+                float sqrtf_approx;
+                totalBlur = blurVal * blurVal + blurRadius * blurRadius;
+                sqrtf_approx = sqrtf(totalBlur);
+                totalBlur = sqrtf_approx;
+            }
+
+            /* Compute blur alpha */
+            {
+                float virtualWidth = GetVirtualWidthFromRealWidth(3.0f);
+                D3DCOLOR blurColor = 0xffffffff;
+
+                if (totalBlur > virtualWidth) {
+                    int alpha = (int)floorf(totalBlur / virtualWidth * 255.0f + 0.5f);
+                    blurColor = (blurColor & 0xffffff00) | (alpha & 0xff);
+                }
+
+                /* Apply Gaussian blur filter */
+                RB_GaussianFilterImage(totalBlur, 8);
+                RB_SetRenderTarget(0);
+
+                /* Draw blurred result fullscreen */
+                backEnd.currentFeedbackImage = ((DxGlobals *)imp_dx)->renderTargets[R_RENDERTARGET_BLURRED_SCREEN].image;
+                {
+                    char *rgp = (char *)imp_rgp;
+                    const Material *blurMaterial = ((r_global_permanent_t *)rgp)->feedbackBlendMaterial;
+                    char *dxSt = (char *)imp_dxState;
+                    float sw = (float)((DxState *)dxSt)->renderTargetWidth;
+                    float sh = (float)((DxState *)dxSt)->renderTargetHeight;
+                    float pw = (float)nextPow2((unsigned int)((DxState *)dxSt)->renderTargetWidth);
+                    float ph = (float)nextPow2((unsigned int)((DxState *)dxSt)->renderTargetHeight);
+
+                    RB_DrawStretchPic(blurMaterial, 0, 0, sw, sh,
+                        0, sh/ph, sw/pw, 0, blurColor, 10);
+                    RB_EndSurface();
+                }
+            }
+        }
+    }
+
+    /* Set render target back to framebuffer */
+    RB_SetRenderTarget(frameBufferTarget);
+
+    /* Handle framebuffer debug display and shadow cookie debug */
+    /* (fbColorDebug==1: RGB channel debug quads, fbColorDebug==2 or sc_showDebug: shadow cookie) */
+    /* These debug paths are handled by the original ASM in #if 0 block below */
+
+    /* Glow/bloom processing */
+    if (hasGlowSupport && *(byte *)(*(char **)imp_r_glow + 8) &&
+        !*(byte *)(*(char **)imp_r_fullbright + 8))
+    {
+        char *rgp = (char *)imp_rgp;
+        char *dxSt = (char *)imp_dxState;
+
+        /* Setup bloom constants */
+        float bloomCutoff = *(float *)(*(char **)imp_r_glowBloomCutoff + 8);
+        int bloomDesat = *(int *)(*(char **)imp_r_glowBloomDesaturation + 8);
+        backEnd.codeConsts[32][0] = bloomCutoff;
+        backEnd.codeConsts[32][1] = 1.0f / (1.0f - bloomCutoff);
+        backEnd.codeConsts[32][2] = 0.0f;
+        *(int *)&backEnd.codeConsts[32][3] = bloomDesat;
+
+        /* Collect glow radii */
+        {
+            int glowRadii[2] = {0, 0};
+            int p;
+            for (p = 0; p < 2; p++) {
+                float intensity = *(float *)(*(char **)imp_r_glowBloomIntensity + 8 + p * 4);
+                if (intensity > 0.0f)
+                    glowRadii[p] = *(int *)(*(char **)imp_r_glowRadius + 8 + p * 4);
+            }
+
+            /* Normalize: if only [1] is set, swap to [0] */
+            if (glowRadii[1] != 0 && glowRadii[0] == 0) {
+                glowRadii[0] = glowRadii[1];
+                glowRadii[1] = 0;
+            }
+
+            int glowAxisCount = (glowRadii[1] != 0) ? 2 : (glowRadii[0] != 0) ? 1 : 0;
+            backEnd.glowIndexFirst = glowAxisCount;
+            *(int *)imp_g_TotalFilterPasses = 0;
+            RB_GlowFilterImage(glowRadii);
+        }
+
+        RB_SetRenderTarget(0);
+
+        /* Draw glow passes */
+        {
+            int glowCount = backEnd.glowCount;
+            int glowIndex = backEnd.glowIndexFirst;
+            int pass;
+            float sw = (float)((DxState *)dxSt)->renderTargetWidth;
+            float sh = (float)((DxState *)dxSt)->renderTargetHeight;
+
+            for (pass = 0; pass < glowCount; pass++) {
+                float skyBleed = *(float *)(*(char **)imp_r_glowSkyBleedIntensity + 8 + glowIndex * 4);
+                int bloomIntensity = *(int *)(*(char **)imp_r_glowBloomIntensity + 8 + glowIndex * 4);
+                const Material *glowMaterial;
+
+                if (skyBleed > 0.0f)
+                    glowMaterial = ((r_global_permanent_t *)rgp)->glowApplySkyBleedMaterial;
+                else
+                    glowMaterial = ((r_global_permanent_t *)rgp)->glowApplyBloomMaterial;
+
+                backEnd.codeConsts[33][0] = skyBleed;
+                backEnd.codeConsts[33][1] = 0.0f;
+                backEnd.codeConsts[33][2] = 0.0f;
+                *(int *)&backEnd.codeConsts[33][3] = bloomIntensity;
+
+                backEnd.currentFeedbackImage = backEnd.glowImage[glowIndex];
+
+                {
+                    float pw = (float)nextPow2((unsigned int)((DxState *)dxSt)->renderTargetWidth);
+                    float ph = (float)nextPow2((unsigned int)((DxState *)dxSt)->renderTargetHeight);
+                    RB_DrawStretchPic(glowMaterial, 0, 0, sw, sh,
+                        0, sh/ph, sw/pw, 0, 0xffffffff, 10);
+                    RB_EndSurface();
+                }
+
+                glowIndex = 1 - glowIndex;
+            }
+            backEnd.glowCount = 0;
+        }
+    }
+
+    /* Advance command */
+    {
+        const byte *c = (const byte *)execState->cmd;
+        execState->cmd = c + *(unsigned short *)(c + 2);
+    }
+}
+
+
+/* line 620 */
+/* line 620 */
+static void RB_StretchPicRotateCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    char *t = (char *)&tess;
+    const Material *material;
+    float halfW, halfH, midX, midY;
+    float radians, sinR, cosR;
+    float cx, sx, sy, cy; /* rotated half-extents */
+    float v0x, v0y, v1x, v1y, v2x, v2y, v3x, v3y;
+    int vc, isDx7;
+    D3DCOLOR color;
+
+    cmd = (byte *)execState->cmd;
+
+    if (!backEnd.projection2D)
+        RB_Set2D();
+
+    material = ((GfxCmdStretchPicRotate *)cmd)->material;
+    RB_BeginSurface2D(t, material);
+    vc = RB_CheckTessOverflow4(t);
+
+    /* Update tess counts early (matches original) */
+    tess.vertexCount = vc + 4;
+    tess.indexCount += 6;
+    RB_WriteQuadIndices(t, vc);
+
+    /* Compute rotation parameters */
+    halfW = ((GfxCmdStretchPicRotate *)cmd)->w * 0.5f;
+    halfH = ((GfxCmdStretchPicRotate *)cmd)->h * 0.5f;
+    midX = ((GfxCmdStretchPicRotate *)cmd)->x + halfW;
+    midY = ((GfxCmdStretchPicRotate *)cmd)->y + halfH;
+    radians = ((GfxCmdStretchPicRotate *)cmd)->rotation * (float)(3.14159265358979323846 / 180.0);
+    sinR = sinf(radians);
+    cosR = cosf(radians);
+
+    /* Rotated half-extents */
+    cx = halfW * cosR;   /* x contribution from width */
+    sx = halfW * sinR;   /* y contribution from width */
+    sy = -halfH * sinR;  /* x contribution from height (negated) */
+    cy = halfH * cosR;   /* y contribution from height */
+
+    /* 4 rotated corners: center +/- rotated half-extents */
+    v0x = midX - cx - sy;  v0y = midY - sx - cy;
+    v1x = midX + cx - sy;  v1y = midY + sx - cy;
+    v2x = midX + cx + sy;  v2y = midY + sx + cy;
+    v3x = midX - cx + sy;  v3y = midY - sx + cy;
+
+    color = ((GfxCmdStretchPicRotate *)cmd)->color.packed;
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    RB_SetVertex2D(t, vc + 0, isDx7, v0x, v0y, ((GfxCmdStretchPicRotate *)cmd)->s0, ((GfxCmdStretchPicRotate *)cmd)->t0, color);
+    RB_SetVertex2D(t, vc + 1, isDx7, v1x, v1y, ((GfxCmdStretchPicRotate *)cmd)->s1, ((GfxCmdStretchPicRotate *)cmd)->t0, color);
+    RB_SetVertex2D(t, vc + 2, isDx7, v2x, v2y, ((GfxCmdStretchPicRotate *)cmd)->s1, ((GfxCmdStretchPicRotate *)cmd)->t1, color);
+    RB_SetVertex2D(t, vc + 3, isDx7, v3x, v3y, ((GfxCmdStretchPicRotate *)cmd)->s0, ((GfxCmdStretchPicRotate *)cmd)->t1, color);
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+
+/* line 678 */
+static void RB_DrawQuadPicCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    char *t = (char *)&tess;
+    const Material *material;
+    int vc, isDx7;
+    D3DCOLOR color;
+
+    cmd = (byte *)execState->cmd;
+
+    if (!backEnd.projection2D)
+        RB_Set2D();
+
+    material = ((GfxCmdDrawQuadPic *)cmd)->material;
+    RB_BeginSurface2D(t, material);
+    vc = RB_CheckTessOverflow4(t);
+
+    /* Update tess counts and write indices */
+    tess.vertexCount = vc + 4;
+    tess.indexCount += 6;
+    RB_WriteQuadIndices(t, vc);
+
+    color = ((GfxCmdDrawQuadPic *)cmd)->color.packed;
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    /* 4 explicit corner positions with fixed texcoords */
+    RB_SetVertex2D(t, vc + 0, isDx7, ((GfxCmdDrawQuadPic *)cmd)->verts[0][0], ((GfxCmdDrawQuadPic *)cmd)->verts[0][1], 0.0f, 0.0f, color);
+    RB_SetVertex2D(t, vc + 1, isDx7, ((GfxCmdDrawQuadPic *)cmd)->verts[1][0], ((GfxCmdDrawQuadPic *)cmd)->verts[1][1], 1.0f, 0.0f, color);
+    RB_SetVertex2D(t, vc + 2, isDx7, ((GfxCmdDrawQuadPic *)cmd)->verts[2][0], ((GfxCmdDrawQuadPic *)cmd)->verts[2][1], 1.0f, 1.0f, color);
+    RB_SetVertex2D(t, vc + 3, isDx7, ((GfxCmdDrawQuadPic *)cmd)->verts[3][0], ((GfxCmdDrawQuadPic *)cmd)->verts[3][1], 0.0f, 1.0f, color);
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 2273 */
+/* line 2273 — 3D line rendering: transforms line endpoints through viewProjection matrix,
+ * computes screen-space perpendicular offsets for billboard width, creates quad per line.
+ * Each quad has 4 vertices (start±offset, end±offset) with perspective-correct width. */
+void RB_DrawLines3D(int count, int width, const GfxPointVertex *verts, int depthTest)
+{
+    char *t = (char *)&tess;
+    const Material *debugMtl = ((r_global_permanent_t *)imp_rgp)->lineMaterial;
+    int isDx7, lineIndex;
+    float identity[16];
+    float invWidth, invHeight;
+    const float *row0, *row1, *row2, *row3;
+    char *vp;
+
+    /* Begin surface with debug material */
+    if (debugMtl != tess.material ||
+        tess.techType != 3) {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(debugMtl, 3, 0x1f);
+    } else if (tess.indexCount || tess.optimizedIndexCount) {
+        /* Same material but check techType match */
+    }
+
+    /* Disable depth test if requested */
+    if (!depthTest) {
+        char *mtl = ((r_global_permanent_t *)imp_rgp)->lineMaterial;
+        int bits = ((Material *)mtl)->stateBits[1];
+        ((Material *)mtl)->stateBits[1] = (bits & 0xfffffff1) | 2;
+    }
+
+    /* Set identity projection and view matrices */
+    MatrixIdentity44(identity);
+    RB_SetProjectionMatrix(identity);
+    RB_SetViewMatrix(identity);
+
+    /* Get viewProjection transform from viewParms (4x4 matrix at vp+0xc8) */
+    vp = (char *)backEnd.viewParms;
+    row0 = (const float *)&backEnd.viewParms->viewProjectionMatrix._11; /* row 0 */
+    row1 = (const float *)&backEnd.viewParms->viewProjectionMatrix._21; /* row 1 */
+    row2 = (const float *)&backEnd.viewParms->viewProjectionMatrix._31; /* row 2 */
+    row3 = (const float *)&backEnd.viewParms->viewProjectionMatrix._41; /* row 3 */
+
+    /* Compute pixel-to-clip-space scale factors */
+    {
+        float fWidth = (float)width;
+        char *dxState = (char *)imp_dxState;
+        float screenW = (float)((DxState *)dxState)->renderTargetWidth;
+        float screenH = (float)((DxState *)dxState)->renderTargetHeight;
+        invWidth = fWidth / screenW;
+        invHeight = fWidth / screenH;
+    }
+
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    /* Process each line */
+    for (lineIndex = 0; lineIndex < count; lineIndex++) {
+        const float *fromXyz = (const float *)&verts[lineIndex * 2];
+        const float *toXyz = (const float *)&verts[lineIndex * 2 + 1];
+        const byte *fromColor = (const byte *)&verts[lineIndex * 2] + 12;
+        const byte *toColor = (const byte *)&verts[lineIndex * 2 + 1] + 12;
+        float posA_x, posA_y, posA_z, posA_w;
+        float posB_x, posB_y, posB_z, posB_w;
+        float delta[2], offAx, offAy, offBx, offBy;
+        int vc, ic;
+        r_index_t *indices;
+
+        /* Transform endpoint A through viewProjection */
+        posA_x = fromXyz[0]*row0[0] + fromXyz[1]*row1[0] + fromXyz[2]*row2[0] + row3[0];
+        posA_y = fromXyz[0]*row0[1] + fromXyz[1]*row1[1] + fromXyz[2]*row2[1] + row3[1];
+        posA_z = fromXyz[0]*row0[2] + fromXyz[1]*row1[2] + fromXyz[2]*row2[2] + row3[2];
+        posA_w = fromXyz[0]*row0[3] + fromXyz[1]*row1[3] + fromXyz[2]*row2[3] + row3[3];
+
+        /* Transform endpoint B */
+        posB_x = toXyz[0]*row0[0] + toXyz[1]*row1[0] + toXyz[2]*row2[0] + row3[0];
+        posB_y = toXyz[0]*row0[1] + toXyz[1]*row1[1] + toXyz[2]*row2[1] + row3[1];
+        posB_z = toXyz[0]*row0[2] + toXyz[1]*row1[2] + toXyz[2]*row2[2] + row3[2];
+        posB_w = toXyz[0]*row0[3] + toXyz[1]*row1[3] + toXyz[2]*row2[3] + row3[3];
+
+        /* Compute 2D perpendicular direction for line billboard width */
+        delta[0] = posA_w * posB_y - posA_y * posB_w;
+        delta[1] = posA_x * posB_w - posA_w * posB_x;
+        Vec2Normalize(delta);
+        delta[0] *= invWidth;
+        delta[1] *= invHeight;
+
+        /* Scale perpendicular by w for perspective-correct width */
+        offAx = posA_w * delta[0];
+        offAy = posA_w * delta[1];
+        offBx = posB_w * delta[0];
+        offBy = posB_w * delta[1];
+
+        /* Check tess overflow: 4 verts + 6 indices */
+        vc = tess.vertexCount;
+        ic = tess.indexCount;
+        if (vc + 4 > 0x154a || ic + 6 > 0x100000) {
+            int savedDecl = tess.declType;
+            RB_EndSurface();
+            RB_BeginSurface(tess.material,
+                            tess.techType,
+                            tess.lmapIndex);
+            if (tess.declType != savedDecl) {
+                if (tess.indexCount || tess.optimizedIndexCount)
+                    RB_EndSurface();
+                tess.declType = savedDecl;
+            }
+            vc = tess.vertexCount;
+            ic = tess.indexCount;
+        }
+
+        /* Write 6 indices: quad (V3,V0,V2, V2,V0,V1) */
+        indices = tess.indices;
+        indices[ic + 0] = (r_index_t)(vc + 3);
+        indices[ic + 1] = (r_index_t)vc;
+        indices[ic + 2] = (r_index_t)(vc + 2);
+        indices[ic + 3] = (r_index_t)(vc + 2);
+        indices[ic + 4] = (r_index_t)vc;
+        indices[ic + 5] = (r_index_t)(vc + 1);
+        tess.indexCount += 6;
+
+        /* Write 4 billboard vertices */
+        {
+            D3DCOLOR colA = *(D3DCOLOR *)fromColor;
+            D3DCOLOR colB = *(D3DCOLOR *)toColor;
+            float v0x = posA_x - offAx, v0y = posA_y - offAy;
+            float v1x = posB_x - offBx, v1y = posB_y - offBy;
+            float v2x = posB_x + offBx, v2y = posB_y + offBy;
+            float v3x = posA_x + offAx, v3y = posA_y + offAy;
+
+            if (isDx7) {
+                /* Dx7: perspective divide, stride 36 */
+                char *v;
+                /* Dx7: perspective divide, stride 36 */
+                char *vp_;
+                vp_ = t + (vc+0) * 36;
+                ((GfxVertexDx7 *)vp_)->xyz[0] = v0x/posA_w; ((GfxVertexDx7 *)vp_)->xyz[1] = v0y/posA_w; ((GfxVertexDx7 *)vp_)->xyz[2] = posA_z/posA_w;
+                ((GfxVertexDx7 *)vp_)->normal[0] = 0; ((GfxVertexDx7 *)vp_)->normal[1] = 0; ((GfxVertexDx7 *)vp_)->normal[2] = 1.0f;
+                ((GfxVertexDx7 *)vp_)->color.packed = colA; ((GfxVertexDx7 *)vp_)->texCoord[0] = 0; ((GfxVertexDx7 *)vp_)->texCoord[1] = 0;
+
+                vp_ = t + (vc+1) * 36;
+                ((GfxVertexDx7 *)vp_)->xyz[0] = v1x/posB_w; ((GfxVertexDx7 *)vp_)->xyz[1] = v1y/posB_w; ((GfxVertexDx7 *)vp_)->xyz[2] = posB_z/posB_w;
+                ((GfxVertexDx7 *)vp_)->normal[0] = 0; ((GfxVertexDx7 *)vp_)->normal[1] = 0; ((GfxVertexDx7 *)vp_)->normal[2] = 1.0f;
+                ((GfxVertexDx7 *)vp_)->color.packed = colB; ((GfxVertexDx7 *)vp_)->texCoord[0] = 0; ((GfxVertexDx7 *)vp_)->texCoord[1] = 1.0f;
+
+                vp_ = t + (vc+2) * 36;
+                ((GfxVertexDx7 *)vp_)->xyz[0] = v2x/posB_w; ((GfxVertexDx7 *)vp_)->xyz[1] = v2y/posB_w; ((GfxVertexDx7 *)vp_)->xyz[2] = posB_z/posB_w;
+                ((GfxVertexDx7 *)vp_)->normal[0] = 0; ((GfxVertexDx7 *)vp_)->normal[1] = 0; ((GfxVertexDx7 *)vp_)->normal[2] = 1.0f;
+                ((GfxVertexDx7 *)vp_)->color.packed = colB; ((GfxVertexDx7 *)vp_)->texCoord[0] = 1.0f; ((GfxVertexDx7 *)vp_)->texCoord[1] = 1.0f;
+
+                vp_ = t + (vc+3) * 36;
+                ((GfxVertexDx7 *)vp_)->xyz[0] = v3x/posA_w; ((GfxVertexDx7 *)vp_)->xyz[1] = v3y/posA_w; ((GfxVertexDx7 *)vp_)->xyz[2] = posA_z/posA_w;
+                ((GfxVertexDx7 *)vp_)->normal[0] = 0; ((GfxVertexDx7 *)vp_)->normal[1] = 0; ((GfxVertexDx7 *)vp_)->normal[2] = 1.0f;
+                ((GfxVertexDx7 *)vp_)->color.packed = colA; ((GfxVertexDx7 *)vp_)->texCoord[0] = 1.0f; ((GfxVertexDx7 *)vp_)->texCoord[1] = 0;
+            } else {
+                /* Non-Dx7: raw clip coords, stride 64 */
+                char *vp_;
+                vp_ = t + (vc+0) * 64;
+                ((GfxVertexDx7 *)vp_)->xyz[0] = v0x; ((GfxVertexDx7 *)vp_)->xyz[1] = v0y;
+                ((GfxVertexDx7 *)vp_)->xyz[2] = posA_z; ((GfxVertexDx7 *)vp_)->normal[0] = posA_w;
+                ((GfxVertexDx7 *)vp_)->normal[1] = 0; ((GfxVertexDx7 *)vp_)->normal[2] = 0; ((GfxVertexDx7 *)vp_)->color.packed = 1.0f;
+                ((GfxVertexDx7 *)vp_)->texCoord[0] = colA;
+                ((GfxVertex *)vp_)->texCoord[0] = 0; ((GfxVertex *)vp_)->texCoord[1] = 0;
+                ((GfxVertex *)vp_)->binormal[0] = 0; ((GfxVertex *)vp_)->binormal[1] = 0.0f; ((GfxVertex *)vp_)->binormal[2] = 0;
+                ((GfxVertex *)vp_)->tangent[0] = 1.0f; ((GfxVertex *)vp_)->tangent[1] = 0; ((GfxVertex *)vp_)->tangent[2] = 0;
+
+                vp_ = t + (vc+1) * 64;
+                ((GfxVertex *)vp_)->xyzw[0] = v1x; ((GfxVertex *)vp_)->xyzw[1] = v1y;
+                ((GfxVertex *)vp_)->xyzw[2] = posB_z; ((GfxVertex *)vp_)->xyzw[3] = posB_w;
+                ((GfxVertex *)vp_)->normal[0] = 0; ((GfxVertex *)vp_)->normal[1] = 0; ((GfxVertex *)vp_)->normal[2] = 1.0f;
+                ((GfxVertex *)vp_)->color.packed = colB;
+                ((GfxVertex *)vp_)->texCoord[0] = 0; ((GfxVertex *)vp_)->texCoord[1] = 1.0f;
+                ((GfxVertex *)vp_)->binormal[0] = 0; ((GfxVertex *)vp_)->binormal[1] = 1.0f; ((GfxVertex *)vp_)->binormal[2] = 0;
+                ((GfxVertex *)vp_)->tangent[0] = 1.0f; ((GfxVertex *)vp_)->tangent[1] = 0; ((GfxVertex *)vp_)->tangent[2] = 0;
+
+                vp_ = t + (vc+2) * 64;
+                ((GfxVertex *)vp_)->xyzw[0] = v2x; ((GfxVertex *)vp_)->xyzw[1] = v2y;
+                ((GfxVertex *)vp_)->xyzw[2] = posB_z; ((GfxVertex *)vp_)->xyzw[3] = posB_w;
+                ((GfxVertex *)vp_)->normal[0] = 0; ((GfxVertex *)vp_)->normal[1] = 0; ((GfxVertex *)vp_)->normal[2] = 1.0f;
+                ((GfxVertex *)vp_)->color.packed = colB;
+                ((GfxVertex *)vp_)->texCoord[0] = 1.0f; ((GfxVertex *)vp_)->texCoord[1] = 1.0f;
+                ((GfxVertex *)vp_)->binormal[0] = 1.0f; ((GfxVertex *)vp_)->binormal[1] = 1.0f; ((GfxVertex *)vp_)->binormal[2] = 0;
+                ((GfxVertex *)vp_)->tangent[0] = 1.0f; ((GfxVertex *)vp_)->tangent[1] = 0; ((GfxVertex *)vp_)->tangent[2] = 0;
+
+                vp_ = t + (vc+3) * 64;
+                ((GfxVertex *)vp_)->xyzw[0] = v3x; ((GfxVertex *)vp_)->xyzw[1] = v3y;
+                ((GfxVertex *)vp_)->xyzw[2] = posA_z; ((GfxVertex *)vp_)->xyzw[3] = posA_w;
+                ((GfxVertex *)vp_)->normal[0] = 0; ((GfxVertex *)vp_)->normal[1] = 0; ((GfxVertex *)vp_)->normal[2] = 1.0f;
+                ((GfxVertex *)vp_)->color.packed = colA;
+                ((GfxVertex *)vp_)->texCoord[0] = 1.0f; ((GfxVertex *)vp_)->texCoord[1] = 0;
+                ((GfxVertex *)vp_)->binormal[0] = 1.0f; ((GfxVertex *)vp_)->binormal[1] = 0; ((GfxVertex *)vp_)->binormal[2] = 0;
+                ((GfxVertex *)vp_)->tangent[0] = 1.0f; ((GfxVertex *)vp_)->tangent[1] = 0; ((GfxVertex *)vp_)->tangent[2] = 0;
+            }
+        }
+        tess.vertexCount += 4;
+    }
+
+    /* Flush and restore */
+    RB_EndSurface();
+    RB_SetMatricesForView(backEnd.viewParms);
+
+    /* Restore depth test if it was disabled */
+    if (!depthTest) {
+        char *mtl = ((r_global_permanent_t *)imp_rgp)->lineMaterial;
+        int bits = ((Material *)mtl)->stateBits[1];
+        ((Material *)mtl)->stateBits[1] = (bits & 0xfffffff1) | 4;
+    }
+}
+
+
+/* line 2347 */
+static void RB_DrawLinesCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd = (byte *)execState->cmd;
+    int count = *(short *)(cmd + 4);
+    int width = *(short *)(cmd + 6);
+    const GfxPointVertex *verts = (const GfxPointVertex *)(cmd + 8);
+
+    if (backEnd.projection2D) {
+        /* 2D mode */
+        RB_DrawLines2D(count, width, verts);
+    } else {
+        /* 3D mode */
+        RB_DrawLines3D(count, width, verts, 1);
+    }
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+/* line 1298 */
+/* Write a clip-space vertex (xyzw) to tess with standard 2D normal/tangent/binormal */
+static inline void RB_SetClipSpaceVertex(char *tessBase, int vertIndex, int isDx7,
+                                          float px, float py, float pz, float pw, D3DCOLOR color)
+{
+    if (isDx7) {
+        char *v = tessBase + vertIndex * 36;
+        ((GfxVertexDx7 *)v)->xyz[0] = px / pw;
+        ((GfxVertexDx7 *)v)->xyz[1] = py / pw;
+        ((GfxVertexDx7 *)v)->xyz[2] = pz / pw;
+        ((GfxVertexDx7 *)v)->normal[0] = 0;          /* normal.x */
+        ((GfxVertexDx7 *)v)->normal[1] = 0;          /* normal.y */
+        ((GfxVertexDx7 *)v)->normal[2] = 1.0f;     /* normal.z */
+        ((GfxVertexDx7 *)v)->color.packed = color;
+        ((GfxVertexDx7 *)v)->texCoord[0] = 0;          /* s */
+        ((GfxVertexDx7 *)v)->texCoord[1] = 0;          /* t */
+    } else {
+        char *v = tessBase + vertIndex * 64;
+        ((GfxVertexDx7 *)v)->xyz[0] = px;        ((GfxVertexDx7 *)v)->xyz[1] = py;
+        ((GfxVertexDx7 *)v)->xyz[2] = pz;        ((GfxVertexDx7 *)v)->normal[0] = pw;
+        ((GfxVertexDx7 *)v)->normal[1] = 0;           ((GfxVertexDx7 *)v)->normal[2] = 0;
+        ((GfxVertexDx7 *)v)->color.packed = 1.0f;     /* normal = (0,0,1) */
+        ((GfxVertex *)v)->color.packed = color;
+        ((GfxVertex *)v)->texCoord[0] = 0;           ((GfxVertex *)v)->texCoord[1] = 0; /* texcoord = (0,0) */
+        ((GfxVertex *)v)->binormal[0] = 0;           ((GfxVertex *)v)->binormal[1] = 1.0f;
+        ((GfxVertex *)v)->binormal[2] = 0;           /* binormal = (0,1,0) */
+        ((GfxVertex *)v)->tangent[0] = 1.0f;     ((GfxVertex *)v)->tangent[1] = 0;
+        ((GfxVertex *)v)->tangent[2] = 0;           /* tangent = (1,0,0) */
+    }
+}
+
+/* line 1298 */
+static void RB_StencilPlanesCmd(GfxRenderCommandExecState *execState)
+{
+    byte *cmd;
+    char *t = (char *)&tess;
+    const Material *stencilMaterial;
+    int planeCount, planeIdx;
+    float zOffset;
+    int isDx7;
+    D3DCOLOR white = 0xffffffff;
+
+    cmd = (byte *)execState->cmd;
+
+    stencilMaterial = ((r_global_permanent_t *)imp_rgp)->stencilPlaneMaterial;
+    RB_BeginSurface2D(t, stencilMaterial);
+
+    planeCount = ((GfxCmdStencilPlanes *)cmd)->planeCount;
+    zOffset = ((GfxCmdStencilPlanes *)cmd)->nearDist;
+
+    if (planeCount <= 0)
+        goto done;
+
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    for (planeIdx = 0; planeIdx < planeCount; planeIdx++) {
+        float d = ((GfxCmdStencilPlanes *)cmd)->planeDists[planeIdx];
+        float negD = -d;
+        float z = d - zOffset;
+        int vc;
+
+        /* Check overflow */
+        vc = RB_CheckTessOverflow4(t);
+
+        /* Write 6 indices: (vc, vc+1, vc+2, vc+2, vc+3, vc) */
+        {
+            int ic = tess.indexCount;
+            r_index_t *indices = tess.indices;
+            indices[ic + 0] = (r_index_t)vc;
+            indices[ic + 1] = (r_index_t)(vc + 1);
+            indices[ic + 2] = (r_index_t)(vc + 2);
+            indices[ic + 3] = (r_index_t)(vc + 2);
+            indices[ic + 4] = (r_index_t)(vc + 3);
+            indices[ic + 5] = (r_index_t)vc;
+        }
+
+        /* 4 clip-space vertices forming a plane quad */
+        RB_SetClipSpaceVertex(t, vc + 0, isDx7, negD, negD, z, d, white);
+        RB_SetClipSpaceVertex(t, vc + 1, isDx7, negD,    d, z, d, white);
+        RB_SetClipSpaceVertex(t, vc + 2, isDx7,    d,    d, z, d, white);
+        RB_SetClipSpaceVertex(t, vc + 3, isDx7,    d, negD, z, d, white);
+
+        tess.vertexCount = vc + 4;
+        tess.indexCount += 6;
+    }
+
+done:
+    RB_EndSurface();
+
+    cmd = (byte *)execState->cmd;
+    execState->cmd = (const void *)(cmd + ((const GfxCmdHeader *)cmd)->byteCount);
+}
+
+
+/* line 2211 — Point sprite rendering: creates axis-aligned billboard quads for each point.
+ * Two paths: 2D (screen coords) or 3D (viewProjection transform with screen-space size). */
+static void RB_DrawPointsCmd(GfxRenderCommandExecState *execState)
+{
+    char *t = (char *)&tess;
+    const byte *cmd = (const byte *)execState->cmd;
+    const Material *debugMtl = ((r_global_permanent_t *)imp_rgp)->whiteMaterial;
+    short pointCount = *(short *)(cmd + 4);
+    float size = (float)(short)*(short *)(cmd + 6) * 0.5f;
+    const byte *verts = cmd + 8;
+    int isDx7, pointIndex;
+
+    /* Begin surface with debug material */
+    if (debugMtl != tess.material ||
+        tess.techType != 3) {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(debugMtl, 3, 0x1f);
+    }
+
+    isDx7 = (((const dvar_t *)(void *)imp_r_rendererInUse)->current.integer == 2);
+
+    if (backEnd.projection2D) {
+        /* === 3D path: transform through viewProjection matrix === */
+        float identity[16];
+        float invWidth, invHeight;
+        const float *row0, *row1, *row2, *row3;
+        const GfxViewParms *vpParms = backEnd.viewParms;
+
+        MatrixIdentity44(identity);
+        RB_SetProjectionMatrix(identity);
+        RB_SetViewMatrix(identity);
+
+        row0 = (const float *)&vpParms->viewProjectionMatrix._11; /* row 0 */
+        row1 = (const float *)&vpParms->viewProjectionMatrix._21; /* row 1 */
+        row2 = (const float *)&vpParms->viewProjectionMatrix._31; /* row 2 */
+        row3 = (const float *)&vpParms->viewProjectionMatrix._41; /* row 3 */
+        {
+            float fSize = (float)(short)*(short *)(cmd + 6);
+            char *dxSt = (char *)imp_dxState;
+            invWidth = fSize / (float)((DxState *)dxSt)->renderTargetWidth;
+            invHeight = fSize / (float)((DxState *)dxSt)->renderTargetHeight;
+        }
+
+        for (pointIndex = 0; pointIndex < pointCount; pointIndex++) {
+            const float *xyz = (const float *)(verts + pointIndex * 16);
+            D3DCOLOR color = *(D3DCOLOR *)(verts + pointIndex * 16 + 12);
+            float cx, cy, cz, cw, ox, oy;
+            int vc, ic;
+            r_index_t *indices;
+
+            /* Transform to clip space */
+            cx = xyz[0]*row0[0] + xyz[1]*row1[0] + xyz[2]*row2[0] + row3[0];
+            cy = xyz[0]*row0[1] + xyz[1]*row1[1] + xyz[2]*row2[1] + row3[1];
+            cz = xyz[0]*row0[2] + xyz[1]*row1[2] + xyz[2]*row2[2] + row3[2];
+            cw = xyz[0]*row0[3] + xyz[1]*row1[3] + xyz[2]*row2[3] + row3[3];
+            ox = cw * invWidth;
+            oy = cw * invHeight;
+
+            /* Check tess overflow */
+            vc = RB_CheckTessOverflow4(t);
+            ic = tess.indexCount;
+
+            /* Indices: (vc+1, vc, vc+2, vc+2, vc, vc+3) */
+            indices = tess.indices;
+            indices[ic+0] = (r_index_t)(vc+1); indices[ic+1] = (r_index_t)vc;
+            indices[ic+2] = (r_index_t)(vc+2); indices[ic+3] = (r_index_t)(vc+2);
+            indices[ic+4] = (r_index_t)vc;     indices[ic+5] = (r_index_t)(vc+3);
+            tess.indexCount += 6;
+
+            /* 4 vertices: quad corners at clip ± offset */
+            if (isDx7) {
+                char *v;
+                v=t+(vc+0)*36; ((GfxVertexDx7 *)v)->xyz[0]=(cx-ox)/cw; ((GfxVertexDx7 *)v)->xyz[1]=(cy-oy)/cw; ((GfxVertexDx7 *)v)->xyz[2]=cz/cw;
+                ((GfxVertexDx7 *)v)->normal[0]=0; ((GfxVertexDx7 *)v)->normal[1]=0; ((GfxVertexDx7 *)v)->normal[2]=1.0f; ((GfxVertexDx7 *)v)->color.packed = color; ((GfxVertexDx7 *)v)->texCoord[0]=0; ((GfxVertexDx7 *)v)->texCoord[1]=0;
+                v=t+(vc+1)*36; ((GfxVertexDx7 *)v)->xyz[0]=(cx-ox)/cw; ((GfxVertexDx7 *)v)->xyz[1]=(cy+oy)/cw; ((GfxVertexDx7 *)v)->xyz[2]=cz/cw;
+                ((GfxVertexDx7 *)v)->normal[0]=0; ((GfxVertexDx7 *)v)->normal[1]=0; ((GfxVertexDx7 *)v)->normal[2]=1.0f; ((GfxVertexDx7 *)v)->color.packed = color; ((GfxVertexDx7 *)v)->texCoord[0]=0; ((GfxVertexDx7 *)v)->texCoord[1]=1.0f;
+                v=t+(vc+2)*36; ((GfxVertexDx7 *)v)->xyz[0]=(cx+ox)/cw; ((GfxVertexDx7 *)v)->xyz[1]=(cy+oy)/cw; ((GfxVertexDx7 *)v)->xyz[2]=cz/cw;
+                ((GfxVertexDx7 *)v)->normal[0]=0; ((GfxVertexDx7 *)v)->normal[1]=0; ((GfxVertexDx7 *)v)->normal[2]=1.0f; ((GfxVertexDx7 *)v)->color.packed = color; ((GfxVertexDx7 *)v)->texCoord[0]=1.0f; ((GfxVertexDx7 *)v)->texCoord[1]=1.0f;
+                v=t+(vc+3)*36; ((GfxVertexDx7 *)v)->xyz[0]=(cx+ox)/cw; ((GfxVertexDx7 *)v)->xyz[1]=(cy-oy)/cw; ((GfxVertexDx7 *)v)->xyz[2]=cz/cw;
+                ((GfxVertexDx7 *)v)->normal[0]=0; ((GfxVertexDx7 *)v)->normal[1]=0; ((GfxVertexDx7 *)v)->normal[2]=1.0f; ((GfxVertexDx7 *)v)->color.packed = color; ((GfxVertexDx7 *)v)->texCoord[0]=1.0f; ((GfxVertexDx7 *)v)->texCoord[1]=0;
+            } else {
+                char *v;
+                v=t+(vc+0)*64; ((GfxVertex *)v)->xyzw[0]=cx-ox; ((GfxVertex *)v)->xyzw[1]=cy-oy; ((GfxVertex *)v)->xyzw[2]=cz; ((GfxVertex *)v)->xyzw[3]=cw;
+                ((GfxVertex *)v)->normal[0]=0; ((GfxVertex *)v)->normal[1]=0; ((GfxVertex *)v)->normal[2]=1.0f; ((GfxVertex *)v)->color.packed = color;
+                ((GfxVertex *)v)->texCoord[0]=0; ((GfxVertex *)v)->texCoord[1]=0; ((GfxVertex *)v)->binormal[0]=0; ((GfxVertex *)v)->binormal[1]=0.0f; ((GfxVertex *)v)->binormal[2]=0;
+                ((GfxVertex *)v)->tangent[0]=1.0f; ((GfxVertex *)v)->tangent[1]=0; ((GfxVertex *)v)->tangent[2]=0;
+                v=t+(vc+1)*64; ((GfxVertex *)v)->xyzw[0]=cx-ox; ((GfxVertex *)v)->xyzw[1]=cy+oy; ((GfxVertex *)v)->xyzw[2]=cz; ((GfxVertex *)v)->xyzw[3]=cw;
+                ((GfxVertex *)v)->normal[0]=0; ((GfxVertex *)v)->normal[1]=0; ((GfxVertex *)v)->normal[2]=1.0f; ((GfxVertex *)v)->color.packed = color;
+                ((GfxVertex *)v)->texCoord[0]=0; ((GfxVertex *)v)->texCoord[1]=1.0f; ((GfxVertex *)v)->binormal[0]=0; ((GfxVertex *)v)->binormal[1]=1.0f; ((GfxVertex *)v)->binormal[2]=0;
+                ((GfxVertex *)v)->tangent[0]=1.0f; ((GfxVertex *)v)->tangent[1]=0; ((GfxVertex *)v)->tangent[2]=0;
+                v=t+(vc+2)*64; ((GfxVertex *)v)->xyzw[0]=cx+ox; ((GfxVertex *)v)->xyzw[1]=cy+oy; ((GfxVertex *)v)->xyzw[2]=cz; ((GfxVertex *)v)->xyzw[3]=cw;
+                ((GfxVertex *)v)->normal[0]=0; ((GfxVertex *)v)->normal[1]=0; ((GfxVertex *)v)->normal[2]=1.0f; ((GfxVertex *)v)->color.packed = color;
+                ((GfxVertex *)v)->texCoord[0]=1.0f; ((GfxVertex *)v)->texCoord[1]=1.0f; ((GfxVertex *)v)->binormal[0]=1.0f; ((GfxVertex *)v)->binormal[1]=1.0f; ((GfxVertex *)v)->binormal[2]=0;
+                ((GfxVertex *)v)->tangent[0]=1.0f; ((GfxVertex *)v)->tangent[1]=0; ((GfxVertex *)v)->tangent[2]=0;
+                v=t+(vc+3)*64; ((GfxVertex *)v)->xyzw[0]=cx+ox; ((GfxVertex *)v)->xyzw[1]=cy-oy; ((GfxVertex *)v)->xyzw[2]=cz; ((GfxVertex *)v)->xyzw[3]=cw;
+                ((GfxVertex *)v)->normal[0]=0; ((GfxVertex *)v)->normal[1]=0; ((GfxVertex *)v)->normal[2]=1.0f; ((GfxVertex *)v)->color.packed = color;
+                ((GfxVertex *)v)->texCoord[0]=1.0f; ((GfxVertex *)v)->texCoord[1]=0; ((GfxVertex *)v)->binormal[0]=1.0f; ((GfxVertex *)v)->binormal[1]=0; ((GfxVertex *)v)->binormal[2]=0;
+                ((GfxVertex *)v)->tangent[0]=1.0f; ((GfxVertex *)v)->tangent[1]=0; ((GfxVertex *)v)->tangent[2]=0;
+            }
+            tess.vertexCount += 4;
+        }
+
+        RB_EndSurface();
+        RB_SetMatricesForView(backEnd.viewParms);
+    } else {
+        /* === 2D path: render points in screen coordinates === */
+        for (pointIndex = 0; pointIndex < pointCount; pointIndex++) {
+            const float *xyz = (const float *)(verts + pointIndex * 16);
+            D3DCOLOR color = *(D3DCOLOR *)(verts + pointIndex * 16 + 12);
+            float px = xyz[0], py = xyz[1];
+            int pz_i = *(int *)(xyz + 2); /* z as raw int bits */
+            int vc, ic;
+            r_index_t *indices;
+
+            vc = RB_CheckTessOverflow4(t);
+            ic = tess.indexCount;
+
+            indices = tess.indices;
+            indices[ic+0] = (r_index_t)(vc+1); indices[ic+1] = (r_index_t)vc;
+            indices[ic+2] = (r_index_t)(vc+2); indices[ic+3] = (r_index_t)(vc+2);
+            indices[ic+4] = (r_index_t)vc;     indices[ic+5] = (r_index_t)(vc+3);
+            tess.indexCount += 6;
+
+            if (isDx7) {
+                char *v;
+                v=t+(vc+0)*36; ((GfxVertexDx7 *)v)->xyz[0]=px-size; ((GfxVertexDx7 *)v)->xyz[1]=py-size; ((GfxVertexDx7 *)v)->xyz[2]=pz_i;
+                ((GfxVertexDx7 *)v)->normal[0]=0; ((GfxVertexDx7 *)v)->normal[1]=0; ((GfxVertexDx7 *)v)->normal[2]=1.0f; ((GfxVertexDx7 *)v)->color.packed = color; ((GfxVertexDx7 *)v)->texCoord[0]=0; ((GfxVertexDx7 *)v)->texCoord[1]=0;
+                v=t+(vc+1)*36; ((GfxVertexDx7 *)v)->xyz[0]=px-size; ((GfxVertexDx7 *)v)->xyz[1]=py+size; ((GfxVertexDx7 *)v)->xyz[2]=pz_i;
+                ((GfxVertexDx7 *)v)->normal[0]=0; ((GfxVertexDx7 *)v)->normal[1]=0; ((GfxVertexDx7 *)v)->normal[2]=1.0f; ((GfxVertexDx7 *)v)->color.packed = color; ((GfxVertexDx7 *)v)->texCoord[0]=0; ((GfxVertexDx7 *)v)->texCoord[1]=1.0f;
+                v=t+(vc+2)*36; ((GfxVertexDx7 *)v)->xyz[0]=px+size; ((GfxVertexDx7 *)v)->xyz[1]=py+size; ((GfxVertexDx7 *)v)->xyz[2]=pz_i;
+                ((GfxVertexDx7 *)v)->normal[0]=0; ((GfxVertexDx7 *)v)->normal[1]=0; ((GfxVertexDx7 *)v)->normal[2]=1.0f; ((GfxVertexDx7 *)v)->color.packed = color; ((GfxVertexDx7 *)v)->texCoord[0]=1.0f; ((GfxVertexDx7 *)v)->texCoord[1]=1.0f;
+                v=t+(vc+3)*36; ((GfxVertexDx7 *)v)->xyz[0]=px+size; ((GfxVertexDx7 *)v)->xyz[1]=py-size; ((GfxVertexDx7 *)v)->xyz[2]=pz_i;
+                ((GfxVertexDx7 *)v)->normal[0]=0; ((GfxVertexDx7 *)v)->normal[1]=0; ((GfxVertexDx7 *)v)->normal[2]=1.0f; ((GfxVertexDx7 *)v)->color.packed = color; ((GfxVertexDx7 *)v)->texCoord[0]=1.0f; ((GfxVertexDx7 *)v)->texCoord[1]=0;
+            } else {
+                char *v;
+                v=t+(vc+0)*64; ((GfxVertex *)v)->xyzw[0]=px-size; ((GfxVertex *)v)->xyzw[1]=py-size; ((GfxVertex *)v)->xyzw[2]=pz_i; ((GfxVertex *)v)->xyzw[3]=1.0f;
+                ((GfxVertex *)v)->normal[0]=0; ((GfxVertex *)v)->normal[1]=0; ((GfxVertex *)v)->normal[2]=1.0f; ((GfxVertex *)v)->color.packed = color;
+                ((GfxVertex *)v)->texCoord[0]=0; ((GfxVertex *)v)->texCoord[1]=0; ((GfxVertex *)v)->binormal[0]=0; ((GfxVertex *)v)->binormal[1]=0.0f; ((GfxVertex *)v)->binormal[2]=0;
+                ((GfxVertex *)v)->tangent[0]=1.0f; ((GfxVertex *)v)->tangent[1]=0; ((GfxVertex *)v)->tangent[2]=0;
+                v=t+(vc+1)*64; ((GfxVertex *)v)->xyzw[0]=px-size; ((GfxVertex *)v)->xyzw[1]=py+size; ((GfxVertex *)v)->xyzw[2]=pz_i; ((GfxVertex *)v)->xyzw[3]=1.0f;
+                ((GfxVertex *)v)->normal[0]=0; ((GfxVertex *)v)->normal[1]=0; ((GfxVertex *)v)->normal[2]=1.0f; ((GfxVertex *)v)->color.packed = color;
+                ((GfxVertex *)v)->texCoord[0]=0; ((GfxVertex *)v)->texCoord[1]=1.0f; ((GfxVertex *)v)->binormal[0]=0; ((GfxVertex *)v)->binormal[1]=1.0f; ((GfxVertex *)v)->binormal[2]=0;
+                ((GfxVertex *)v)->tangent[0]=1.0f; ((GfxVertex *)v)->tangent[1]=0; ((GfxVertex *)v)->tangent[2]=0;
+                v=t+(vc+2)*64; ((GfxVertex *)v)->xyzw[0]=px+size; ((GfxVertex *)v)->xyzw[1]=py+size; ((GfxVertex *)v)->xyzw[2]=pz_i; ((GfxVertex *)v)->xyzw[3]=1.0f;
+                ((GfxVertex *)v)->normal[0]=0; ((GfxVertex *)v)->normal[1]=0; ((GfxVertex *)v)->normal[2]=1.0f; ((GfxVertex *)v)->color.packed = color;
+                ((GfxVertex *)v)->texCoord[0]=1.0f; ((GfxVertex *)v)->texCoord[1]=1.0f; ((GfxVertex *)v)->binormal[0]=1.0f; ((GfxVertex *)v)->binormal[1]=1.0f; ((GfxVertex *)v)->binormal[2]=0;
+                ((GfxVertex *)v)->tangent[0]=1.0f; ((GfxVertex *)v)->tangent[1]=0; ((GfxVertex *)v)->tangent[2]=0;
+                v=t+(vc+3)*64; ((GfxVertex *)v)->xyzw[0]=px+size; ((GfxVertex *)v)->xyzw[1]=py-size; ((GfxVertex *)v)->xyzw[2]=pz_i; ((GfxVertex *)v)->xyzw[3]=1.0f;
+                ((GfxVertex *)v)->normal[0]=0; ((GfxVertex *)v)->normal[1]=0; ((GfxVertex *)v)->normal[2]=1.0f; ((GfxVertex *)v)->color.packed = color;
+                ((GfxVertex *)v)->texCoord[0]=1.0f; ((GfxVertex *)v)->texCoord[1]=0; ((GfxVertex *)v)->binormal[0]=1.0f; ((GfxVertex *)v)->binormal[1]=0; ((GfxVertex *)v)->binormal[2]=0;
+                ((GfxVertex *)v)->tangent[0]=1.0f; ((GfxVertex *)v)->tangent[1]=0; ((GfxVertex *)v)->tangent[2]=0;
+            }
+            tess.vertexCount += 4;
+        }
+
+        RB_EndSurface();
+    }
+
+    /* Advance command pointer */
+    {
+        const byte *c = (const byte *)execState->cmd;
+        execState->cmd = c + *(unsigned short *)(c + 2);
+    }
+}
+
