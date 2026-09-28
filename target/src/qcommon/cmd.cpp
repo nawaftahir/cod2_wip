@@ -238,7 +238,67 @@ void Cbuf_ExecuteInternal( void )
 
 void Cbuf_Execute( void )
 {
-	Cbuf_ExecuteInternal();
+	int i;
+	char    *text;
+	char line[MAX_CMD_LINE];
+	int quotes;
+
+	while ( cmd_text.cursize )
+	{
+		if ( cmd_wait )
+		{
+			// skip out while text still remains in buffer, leaving it
+			// for next frame
+			cmd_wait--;
+			break;
+		}
+
+		// find a \n or ; line break
+		text = (char *)cmd_text.data;
+
+		quotes = 0;
+		for ( i = 0 ; i < cmd_text.cursize ; i++ )
+		{
+			if ( text[i] == '"' )
+			{
+				quotes++;
+			}
+			if ( !( quotes & 1 ) &&  text[i] == ';' )
+			{
+				break;  // don't break if inside a quoted string
+			}
+			if ( text[i] == '\n' || text[i] == '\r' )
+			{
+				break;
+			}
+		}
+
+		if ( i >= ( MAX_CMD_LINE - 1 ) )
+		{
+			i = MAX_CMD_LINE - 1;
+		}
+
+		memcpy( line, text, i );
+		line[i] = 0;
+
+// delete the text from the command buffer and move remaining commands down
+// this is necessary because commands (exec) can insert data at the
+// beginning of the text buffer
+
+		if ( i == cmd_text.cursize )
+		{
+			cmd_text.cursize = 0;
+		}
+		else
+		{
+			i++;
+			cmd_text.cursize -= i;
+			memmove( text, text + i, cmd_text.cursize );
+		}
+
+// execute the command line
+		Cmd_ExecuteString( line );
+	}
 }
 
 /*
