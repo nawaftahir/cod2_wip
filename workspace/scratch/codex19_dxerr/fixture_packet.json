@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "named_cases": 5467,
+  "boundary_inputs": 6560,
+  "random_inputs": 100000,
+  "stdin_sha256": "f56a285e7fe5d9f4066a4c064c355c44d561bc65424276b07736b30fe0b803d6",
+  "result": "PASS 106560 source/reference lookup comparisons",
+  "runner_sha256": "6210060abd38ff9396a28e9a2d2fb28ae4474d8456cb85d1d0fb49caaceef6ae",
+  "source_sha256": "5d6e13837b2dc528a26aa06ac6c7723f0b778805f1a8353398e1bee895257dcf",
+  "test_source_sha256": "27c2171b3276df7fec2087df947eb6daa02b0558eddc1f15d4d425dfb433dad5",
+  "build_script_sha256": "ac8abddfd15aa0685a3b0032a1faccb8618b02d51274e78b594a1b578201be4c",
+  "test_exe_sha256": "43c26cf80bff2d46e113c9193067b3cc6676aacc105214a5bb17554fe7e7c7b3",
+  "test_object_sha256": "06ba2ff7b85f48f4cea9cbf7eea838863ee0e5dac1a9408cf5bcf0c3587a4386",
+  "lookup_object_sha256": "d0ae20471dd514dbca6ac84911d802e7ff50e943e8220e1919f17db9300dbd5e",
+  "sdk_lib_sha256": "0dcf72695c4dc029768d2d8fadb5d61d56dcf896bb9683dc936f8a046c608495"
+}

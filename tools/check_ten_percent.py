@@ -722,12 +722,106 @@ def main():
     assert sum(n for _, n in crt17) == crt17_packet['verified_instruction_bytes'] == 37866
     crt17_gain = {(a, n) for a, n in crt17
                   if not any(a < b + m and b < a + n for b, m in [*prior, *crt16_gain])}
+    crt19_dir = TARGET / 'scratch/codex19_crt'
+    for name, digest in {
+        'check.py': '85b144646e69d5a9aecf72b88e6953e4a79ff9ad2ab8f73b20e1582387eda3d6',
+        'check_asm.py': '5a109fccb0d24887d7c39553ec6e8670ef24e2bfbc65113c1b81738b28831aea',
+        'plan.json': '010f945a13375e6a300b2d893d36da62b4b5d6b972f956abd06fcd17550def20',
+        'compile.sh': 'c77cde720a33d651f22ac948f1f19eedc5865e7399dece08816183b141d94b72',
+        'build.sh': '494ba2b3dad641567f3d30833c98d8373eef94f61e5ab29092831388f3f8813f',
+        'compile_asm.sh': '39a850aedac0fd2aa4a2db931977204f9dd940a2d102035b9790060d2e61b538',
+    }.items():
+        assert sha(crt19_dir / name) == digest
+    for checker in ('check.py', 'check_asm.py'):
+        subprocess.run([sys.executable, str(crt19_dir / checker)], cwd=TARGET,
+                       check=True, capture_output=True, text=True)
+    crt19_packet = json.loads((crt19_dir / 'packet.json').read_text())
+    asm19_packet = json.loads((crt19_dir / 'asm_packet.json').read_text())
+    for packet in (crt19_packet, asm19_packet):
+        assert packet['status'] == 'REVIEWABLE' and not packet['whole_file_identity']
+        assert packet['anchor_sha256'] == ANCHOR_SHA and packet['image'] == IMAGE
+        assert packet['negative_tests_passed']
+    for key, name in (('checker_sha256', 'check.py'), ('plan_sha256', 'plan.json'),
+                      ('build_script_sha256', 'build.sh'), ('compile_script_sha256', 'compile.sh')):
+        assert crt19_packet[key] == sha(crt19_dir / name)
+    assert crt19_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert crt19_packet['asm_packet_sha256'] == sha(asm_run / 'packet.json')
+    assert all(sha(ROOT / 'glm/crt71' / n) == h for n, h in crt19_packet['dependencies'].items())
+    assert all(sha(ROOT / n) == h for n, h in crt19_packet['objects'].items())
+    assert asm19_packet['checker_sha256'] == sha(crt19_dir / 'check_asm.py')
+    assert asm19_packet['build_script_sha256'] == sha(crt19_dir / 'compile_asm.sh')
+    assert asm19_packet['includes']['Intel/MEMCPY.ASM'] == sha(asm_run / 'case/Intel/MEMCPY.ASM')
+    assert asm19_packet['includes']['cruntime.inc'] == sha(ROOT / 'glm/crt71/cruntime.inc')
+    for name, inputs in asm19_packet['inputs'].items():
+        assert inputs['source_sha256'] == sha(ROOT / 'glm/crt71' / (name + '.asm'))
+        assert inputs['object_sha256'] == sha(crt19_dir / 'asm' / (name + '.obj'))
+    crt19 = {(int(row['address'], 16), row['bytes']) for row in crt19_packet['rows']}
+    assert len(crt19) == len(crt19_packet['rows']) == 216
+    assert sum(n for _, n in crt19) == crt19_packet['verified_instruction_bytes'] == 40617
+    crt19_gain = {(a, n) for a, n in crt19 if not any(
+        a < b + m and b < a + n for b, m in [*prior, *crt16_gain, *crt17_gain])}
+    asm19 = {(int(span['address'], 16), span['bytes'])
+             for row in asm19_packet['rows'] for span in row['instruction_ranges']}
+    assert all(row['original_referee_match'] == 100 for row in asm19_packet['rows'])
+    assert sum(n for _, n in asm19) == asm19_packet['verified_instruction_bytes'] == 1749
+    asm19_gain = {(a, n) for a, n in asm19 if not any(
+        a < b + m and b < a + n for b, m in [*prior, *crt16_gain, *crt17_gain, *crt19_gain])}
+    dx_dir = TARGET / 'scratch/codex19_dxerr'
+    for name, digest in {
+        'check.py': '2d2436d55793b71298193896b144d66405aa3a1ec564e68d61c85c947b21afae',
+        'check_link.py': '216442557e67b688d87294e57aea22a92ca081a659302c9950e80230d7102db3',
+        'compile_4035.sh': 'c195bb7dc1da9d6dbd2ac3f6a75875f269cdfcf27cba04b1b61ada24d62af66e',
+        'group_cases.py': '68a6721a7a9fdd6e097882e8f3ec5f74c06fbac9c3fc5bf995abf692fc7bc446',
+        'group_sdk_leaf.cpp': '5d6e13837b2dc528a26aa06ac6c7723f0b778805f1a8353398e1bee895257dcf',
+        'run_test.py': '6210060abd38ff9396a28e9a2d2fb28ae4474d8456cb85d1d0fb49caaceef6ae',
+        'compile_test.sh': 'ac8abddfd15aa0685a3b0032a1faccb8618b02d51274e78b594a1b578201be4c',
+        'test_lookup.cpp': '27c2171b3276df7fec2087df947eb6daa02b0558eddc1f15d4d425dfb433dad5',
+        'link.mk': '9007bf520e56e38eed7ff8b40b7359835b72b7ac0037724382ec4a153911119d',
+        'build.sh': '74fa1c00e30a3005c9a0ca9b275586a15cc413755fb76c4849b3fd841f470ef9',
+        'extract_compiler.py': '75235721084828ecd125fc807147118ce8326d1e4e907839d72ddb71293554fb',
+    }.items():
+        assert sha(dx_dir / name) == digest
+    assert sha(TARGET / 'src/codex_libraries/dxerr9_name.cpp') == sha(dx_dir / 'group_sdk_leaf.cpp')
+    for checker in ('check.py', 'check_link.py'):
+        subprocess.run([sys.executable, str(dx_dir / checker)], cwd=TARGET,
+                       check=True, capture_output=True, text=True)
+    dx = json.loads((dx_dir / 'packet.json').read_text())
+    assert dx['status'] == 'REVIEWABLE' and not dx['whole_file_identity']
+    assert dx['anchor_sha256'] == ANCHOR_SHA and dx['image'] == IMAGE
+    assert dx['negative_tests_passed'] and dx['original_referee_match'] == 100
+    assert len(dx['bindings']) == 8899 and dx['excluded_table_bytes'] == 24097
+    assert dx['code_bytes'] == 48427 and dx['section_bytes'] == 72524
+    for key, name in (('checker_sha256', 'check.py'), ('source_sha256', 'group_sdk_leaf.cpp'),
+                      ('object_sha256', 'group_4035_sdk_leaf.obj'),
+                      ('build_script_sha256', 'compile_4035.sh'), ('generator_sha256', 'group_cases.py')):
+        assert dx[key] == sha(dx_dir / name)
+    assert dx['mapping_sha256'] == sha(dx_dir.parent / 'codex_dxerr_rebuild/mapping.json')
+    assert dx['sdk_lib_sha256'] == sha(ROOT / 'sdk/sum2004/Lib/DxErr9.lib')
+    assert all(sha(dx_dir / 'compiler' / n) == h for n, h in dx['compiler_files'].items())
+    link = json.loads((dx_dir / 'link_packet.json').read_text())
+    assert link['status'] == 'PASS' and not link['whole_file_identity']
+    assert link['image'] == 'sha256:17ddd3cc30517bc070c4e1a1d8bec9c4abd0d8b453115dfa0324e7e20dc94131'
+    assert link['source_match_losses'] == []
+    assert (link['baseline_source_matches'], link['linked_source_matches']) == (359, 360)
+    assert link['baseline_bind_sha256'] == sha(LIVE_RUN / 'bind.json')
+    assert all(sha(ROOT / p) == h for key in ('source_dependencies', 'objects', 'files')
+               for p, h in link[key].items())
+    fixture = json.loads((dx_dir / 'fixture_packet.json').read_text())
+    assert fixture['status'] == 'PASS' and fixture['named_cases'] == 5467
+    assert fixture['boundary_inputs'] + fixture['random_inputs'] == 106560
+    assert fixture['sdk_lib_sha256'] == dx['sdk_lib_sha256']
+    for key, name in (('runner_sha256', 'run_test.py'), ('source_sha256', 'group_sdk_leaf.cpp'),
+                      ('test_source_sha256', 'test_lookup.cpp'), ('build_script_sha256', 'compile_test.sh'),
+                      ('test_exe_sha256', 'test_lookup.exe'), ('test_object_sha256', 'test_lookup.obj'),
+                      ('lookup_object_sha256', 'fixture_lookup.obj')):
+        assert fixture[key] == sha(dx_dir / name)
+    dx_credit = {(int(dx['address'], 16), dx['code_bytes'])}
     disjoint((address, size) for address, size in jpeg.items())
     disjoint(closed)
     disjoint(stl)
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
-              *globals_rows, *crt_input, *crt16_gain, *crt17_gain])
+              *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -737,16 +831,22 @@ def main():
     live_bytes = sum(size for _, size in live_gain)
     crt16_bytes = sum(n for _, n in crt16_gain)
     crt17_bytes = sum(n for _, n in crt17_gain)
-    total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes
-    assert total >= (DENOMINATOR * 17 + 99) // 100
+    crt19_bytes = sum(n for _, n in crt19_gain)
+    asm19_bytes = sum(n for _, n in asm19_gain)
+    dx_bytes = sum(n for _, n in dx_credit)
+    total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + asm19_bytes + dx_bytes
+    assert total >= (DENOMINATOR * 19 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
           f'{total / DENOMINATOR:.6%}; JPEG {old_bytes}, closed tree {new_bytes}, '
           f'STL {stl_bytes}, standalone {standalone_bytes}, engine {engine_bytes}, '
           f'private linked gain {private_bytes}, live verified/src gain {live_bytes}, '
           f'private draw groups {sum(n for _, n in draw_credit)}, '
-          f'CRT C source {crt_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes}, CRT ASM source {asm_bytes}')
+          f'CRT C source {crt_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes}, '
+          f'CRT ASM source {asm_bytes + asm19_bytes}, reconstructed SDK source {dx_bytes}')
     print(f'CRT batch: {len(crt16_gain)} new disjoint bodies, {crt16_bytes} bytes; duplicates excluded.')
     print(f'CRT17 batch: {len(crt17_gain)} new disjoint bodies, {crt17_bytes} bytes; duplicates excluded.')
+    print(f'CRT19 batch: {len(crt19_gain)} new disjoint bodies, {crt19_bytes} bytes; '
+          f'new original ASM instruction bytes {asm19_bytes}; duplicates and tables excluded.')
     print('Draft functions, opaque SDK/CRT library bytes, and whole-file identity excluded.')
 
 

@@ -1,0 +1,705 @@
+{
+  "status": "REVIEWABLE",
+  "whole_file_identity": false,
+  "source_class": "authentic VC7.1 MASM; not game-authored C++",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "checker_sha256": "5a109fccb0d24887d7c39553ec6e8670ef24e2bfbc65113c1b81738b28831aea",
+  "build_script_sha256": "39a850aedac0fd2aa4a2db931977204f9dd940a2d102035b9790060d2e61b538",
+  "includes": {
+    "Intel/MEMCPY.ASM": "2f4185786e6f00194d7a096dfe0a454ecdba9bafd93b5329be7f171a21e934a4",
+    "cruntime.inc": "9270c581cbee5db5100939c708dac024faadf4c93c53f5e5f7eb0e538c0d0f47"
+  },
+  "inputs": {
+    "memcpy": {
+      "source_sha256": "2f4185786e6f00194d7a096dfe0a454ecdba9bafd93b5329be7f171a21e934a4",
+      "object_sha256": "ffe40dc7daf85f70beba13290ca388c6d61415c5861a26ea3df178efd3a9f83e"
+    },
+    "memmove": {
+      "source_sha256": "9588c6a35e3679f9e00e18b406d877abdb6915244777542ef721c08c6975f5c2",
+      "object_sha256": "1028bd85ed0bcdcde75202da1bf63f8b7c6023fc3714afca745103a5a5de97ce"
+    },
+    "strchr": {
+      "source_sha256": "ccd82ee57d53db85272f9eff333cbb8d452808d100bd89842827706f9f1f2435",
+      "object_sha256": "007e8acba15b6a684fdc48bcb38cade4cc4c1c86157efd7a8a4e02216b1d229a"
+    },
+    "strcmp": {
+      "source_sha256": "a77c5f884946248a2b11ae98bad73a58d5d5c7dfac590a687760cbbee414ac2c",
+      "object_sha256": "071c9b4bdb8e7edc6ef517e8fe393937e64365809e073b1d17d9abab5d0bc144"
+    }
+  },
+  "rows": [
+    {
+      "symbol": "_memcpy",
+      "address": "0x100fcdf0",
+      "public_entry": "0x100fcdf0",
+      "section_bytes": 829,
+      "excluded_table_bytes": 120,
+      "excluded_alignment_bytes": 0,
+      "instruction_ranges": [
+        {
+          "address": "0x100fcdf0",
+          "bytes": 100
+        },
+        {
+          "address": "0x100fce60",
+          "bytes": 112
+        },
+        {
+          "address": "0x100fcef0",
+          "bytes": 76
+        },
+        {
+          "address": "0x100fcf4c",
+          "bytes": 148
+        },
+        {
+          "address": "0x100fcfec",
+          "bytes": 128
+        },
+        {
+          "address": "0x100fd08c",
+          "bytes": 76
+        },
+        {
+          "address": "0x100fd0e8",
+          "bytes": 69
+        }
+      ],
+      "bindings": [
+        {
+          "offset": 56,
+          "symbol": "TrailUpVec",
+          "base": "0x100fcf3c",
+          "addend": 0
+        },
+        {
+          "offset": 80,
+          "symbol": "LeadUpVec",
+          "base": "0x100fce54",
+          "addend": 4294967292
+        },
+        {
+          "offset": 87,
+          "symbol": "TrailUpVec",
+          "base": "0x100fcf3c",
+          "addend": 16
+        },
+        {
+          "offset": 95,
+          "symbol": "UnwindUpVec",
+          "base": "0x100fced0",
+          "addend": 0
+        },
+        {
+          "offset": 100,
+          "symbol": "LeadUp1",
+          "base": "0x100fce60",
+          "addend": 0
+        },
+        {
+          "offset": 104,
+          "symbol": "LeadUp2",
+          "base": "0x100fce8c",
+          "addend": 0
+        },
+        {
+          "offset": 108,
+          "symbol": "LeadUp3",
+          "base": "0x100fceb0",
+          "addend": 0
+        },
+        {
+          "offset": 149,
+          "symbol": "TrailUpVec",
+          "base": "0x100fcf3c",
+          "addend": 0
+        },
+        {
+          "offset": 187,
+          "symbol": "TrailUpVec",
+          "base": "0x100fcf3c",
+          "addend": 0
+        },
+        {
+          "offset": 217,
+          "symbol": "TrailUpVec",
+          "base": "0x100fcf3c",
+          "addend": 0
+        },
+        {
+          "offset": 224,
+          "symbol": "UnwindUp0",
+          "base": "0x100fcf33",
+          "addend": 0
+        },
+        {
+          "offset": 228,
+          "symbol": "UnwindUp1",
+          "base": "0x100fcf20",
+          "addend": 0
+        },
+        {
+          "offset": 232,
+          "symbol": "UnwindUp2",
+          "base": "0x100fcf18",
+          "addend": 0
+        },
+        {
+          "offset": 236,
+          "symbol": "UnwindUp3",
+          "base": "0x100fcf10",
+          "addend": 0
+        },
+        {
+          "offset": 240,
+          "symbol": "UnwindUp4",
+          "base": "0x100fcf08",
+          "addend": 0
+        },
+        {
+          "offset": 244,
+          "symbol": "UnwindUp5",
+          "base": "0x100fcf00",
+          "addend": 0
+        },
+        {
+          "offset": 248,
+          "symbol": "UnwindUp6",
+          "base": "0x100fcef8",
+          "addend": 0
+        },
+        {
+          "offset": 252,
+          "symbol": "UnwindUp7",
+          "base": "0x100fcef0",
+          "addend": 0
+        },
+        {
+          "offset": 326,
+          "symbol": "TrailUpVec",
+          "base": "0x100fcf3c",
+          "addend": 0
+        },
+        {
+          "offset": 332,
+          "symbol": "TrailUp0",
+          "base": "0x100fcf4c",
+          "addend": 0
+        },
+        {
+          "offset": 336,
+          "symbol": "TrailUp1",
+          "base": "0x100fcf54",
+          "addend": 0
+        },
+        {
+          "offset": 340,
+          "symbol": "TrailUp2",
+          "base": "0x100fcf60",
+          "addend": 0
+        },
+        {
+          "offset": 344,
+          "symbol": "TrailUp3",
+          "base": "0x100fcf74",
+          "addend": 0
+        },
+        {
+          "offset": 446,
+          "symbol": "TrailDownVec",
+          "base": "0x100fd0d8",
+          "addend": 0
+        },
+        {
+          "offset": 457,
+          "symbol": "UnwindDownVec",
+          "base": "0x100fd06c",
+          "addend": 28
+        },
+        {
+          "offset": 484,
+          "symbol": "LeadDownVec",
+          "base": "0x100fcfe0",
+          "addend": 4294967292
+        },
+        {
+          "offset": 491,
+          "symbol": "TrailDownVec",
+          "base": "0x100fd0d8",
+          "addend": 0
+        },
+        {
+          "offset": 496,
+          "symbol": "LeadDown1",
+          "base": "0x100fcfec",
+          "addend": 0
+        },
+        {
+          "offset": 500,
+          "symbol": "LeadDown2",
+          "base": "0x100fd010",
+          "addend": 0
+        },
+        {
+          "offset": 504,
+          "symbol": "LeadDown3",
+          "base": "0x100fd038",
+          "addend": 0
+        },
+        {
+          "offset": 537,
+          "symbol": "TrailDownVec",
+          "base": "0x100fd0d8",
+          "addend": 0
+        },
+        {
+          "offset": 579,
+          "symbol": "TrailDownVec",
+          "base": "0x100fd0d8",
+          "addend": 0
+        },
+        {
+          "offset": 629,
+          "symbol": "TrailDownVec",
+          "base": "0x100fd0d8",
+          "addend": 0
+        },
+        {
+          "offset": 636,
+          "symbol": "UnwindDown7",
+          "base": "0x100fd08c",
+          "addend": 0
+        },
+        {
+          "offset": 640,
+          "symbol": "UnwindDown6",
+          "base": "0x100fd094",
+          "addend": 0
+        },
+        {
+          "offset": 644,
+          "symbol": "UnwindDown5",
+          "base": "0x100fd09c",
+          "addend": 0
+        },
+        {
+          "offset": 648,
+          "symbol": "UnwindDown4",
+          "base": "0x100fd0a4",
+          "addend": 0
+        },
+        {
+          "offset": 652,
+          "symbol": "UnwindDown3",
+          "base": "0x100fd0ac",
+          "addend": 0
+        },
+        {
+          "offset": 656,
+          "symbol": "UnwindDown2",
+          "base": "0x100fd0b4",
+          "addend": 0
+        },
+        {
+          "offset": 660,
+          "symbol": "UnwindDown1",
+          "base": "0x100fd0bc",
+          "addend": 0
+        },
+        {
+          "offset": 664,
+          "symbol": "UnwindDown0",
+          "base": "0x100fd0cf",
+          "addend": 0
+        },
+        {
+          "offset": 738,
+          "symbol": "TrailDownVec",
+          "base": "0x100fd0d8",
+          "addend": 0
+        },
+        {
+          "offset": 744,
+          "symbol": "TrailDown0",
+          "base": "0x100fd0e8",
+          "addend": 0
+        },
+        {
+          "offset": 748,
+          "symbol": "TrailDown1",
+          "base": "0x100fd0f0",
+          "addend": 0
+        },
+        {
+          "offset": 752,
+          "symbol": "TrailDown2",
+          "base": "0x100fd100",
+          "addend": 0
+        },
+        {
+          "offset": 756,
+          "symbol": "TrailDown3",
+          "base": "0x100fd114",
+          "addend": 0
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "_memmove",
+      "address": "0x100f67a0",
+      "public_entry": "0x100f67a0",
+      "section_bytes": 829,
+      "excluded_table_bytes": 120,
+      "excluded_alignment_bytes": 0,
+      "instruction_ranges": [
+        {
+          "address": "0x100f67a0",
+          "bytes": 100
+        },
+        {
+          "address": "0x100f6810",
+          "bytes": 112
+        },
+        {
+          "address": "0x100f68a0",
+          "bytes": 76
+        },
+        {
+          "address": "0x100f68fc",
+          "bytes": 148
+        },
+        {
+          "address": "0x100f699c",
+          "bytes": 128
+        },
+        {
+          "address": "0x100f6a3c",
+          "bytes": 76
+        },
+        {
+          "address": "0x100f6a98",
+          "bytes": 69
+        }
+      ],
+      "bindings": [
+        {
+          "offset": 56,
+          "symbol": "TrailUpVec",
+          "base": "0x100f68ec",
+          "addend": 0
+        },
+        {
+          "offset": 80,
+          "symbol": "LeadUpVec",
+          "base": "0x100f6804",
+          "addend": 4294967292
+        },
+        {
+          "offset": 87,
+          "symbol": "TrailUpVec",
+          "base": "0x100f68ec",
+          "addend": 16
+        },
+        {
+          "offset": 95,
+          "symbol": "UnwindUpVec",
+          "base": "0x100f6880",
+          "addend": 0
+        },
+        {
+          "offset": 100,
+          "symbol": "LeadUp1",
+          "base": "0x100f6810",
+          "addend": 0
+        },
+        {
+          "offset": 104,
+          "symbol": "LeadUp2",
+          "base": "0x100f683c",
+          "addend": 0
+        },
+        {
+          "offset": 108,
+          "symbol": "LeadUp3",
+          "base": "0x100f6860",
+          "addend": 0
+        },
+        {
+          "offset": 149,
+          "symbol": "TrailUpVec",
+          "base": "0x100f68ec",
+          "addend": 0
+        },
+        {
+          "offset": 187,
+          "symbol": "TrailUpVec",
+          "base": "0x100f68ec",
+          "addend": 0
+        },
+        {
+          "offset": 217,
+          "symbol": "TrailUpVec",
+          "base": "0x100f68ec",
+          "addend": 0
+        },
+        {
+          "offset": 224,
+          "symbol": "UnwindUp0",
+          "base": "0x100f68e3",
+          "addend": 0
+        },
+        {
+          "offset": 228,
+          "symbol": "UnwindUp1",
+          "base": "0x100f68d0",
+          "addend": 0
+        },
+        {
+          "offset": 232,
+          "symbol": "UnwindUp2",
+          "base": "0x100f68c8",
+          "addend": 0
+        },
+        {
+          "offset": 236,
+          "symbol": "UnwindUp3",
+          "base": "0x100f68c0",
+          "addend": 0
+        },
+        {
+          "offset": 240,
+          "symbol": "UnwindUp4",
+          "base": "0x100f68b8",
+          "addend": 0
+        },
+        {
+          "offset": 244,
+          "symbol": "UnwindUp5",
+          "base": "0x100f68b0",
+          "addend": 0
+        },
+        {
+          "offset": 248,
+          "symbol": "UnwindUp6",
+          "base": "0x100f68a8",
+          "addend": 0
+        },
+        {
+          "offset": 252,
+          "symbol": "UnwindUp7",
+          "base": "0x100f68a0",
+          "addend": 0
+        },
+        {
+          "offset": 326,
+          "symbol": "TrailUpVec",
+          "base": "0x100f68ec",
+          "addend": 0
+        },
+        {
+          "offset": 332,
+          "symbol": "TrailUp0",
+          "base": "0x100f68fc",
+          "addend": 0
+        },
+        {
+          "offset": 336,
+          "symbol": "TrailUp1",
+          "base": "0x100f6904",
+          "addend": 0
+        },
+        {
+          "offset": 340,
+          "symbol": "TrailUp2",
+          "base": "0x100f6910",
+          "addend": 0
+        },
+        {
+          "offset": 344,
+          "symbol": "TrailUp3",
+          "base": "0x100f6924",
+          "addend": 0
+        },
+        {
+          "offset": 446,
+          "symbol": "TrailDownVec",
+          "base": "0x100f6a88",
+          "addend": 0
+        },
+        {
+          "offset": 457,
+          "symbol": "UnwindDownVec",
+          "base": "0x100f6a1c",
+          "addend": 28
+        },
+        {
+          "offset": 484,
+          "symbol": "LeadDownVec",
+          "base": "0x100f6990",
+          "addend": 4294967292
+        },
+        {
+          "offset": 491,
+          "symbol": "TrailDownVec",
+          "base": "0x100f6a88",
+          "addend": 0
+        },
+        {
+          "offset": 496,
+          "symbol": "LeadDown1",
+          "base": "0x100f699c",
+          "addend": 0
+        },
+        {
+          "offset": 500,
+          "symbol": "LeadDown2",
+          "base": "0x100f69c0",
+          "addend": 0
+        },
+        {
+          "offset": 504,
+          "symbol": "LeadDown3",
+          "base": "0x100f69e8",
+          "addend": 0
+        },
+        {
+          "offset": 537,
+          "symbol": "TrailDownVec",
+          "base": "0x100f6a88",
+          "addend": 0
+        },
+        {
+          "offset": 579,
+          "symbol": "TrailDownVec",
+          "base": "0x100f6a88",
+          "addend": 0
+        },
+        {
+          "offset": 629,
+          "symbol": "TrailDownVec",
+          "base": "0x100f6a88",
+          "addend": 0
+        },
+        {
+          "offset": 636,
+          "symbol": "UnwindDown7",
+          "base": "0x100f6a3c",
+          "addend": 0
+        },
+        {
+          "offset": 640,
+          "symbol": "UnwindDown6",
+          "base": "0x100f6a44",
+          "addend": 0
+        },
+        {
+          "offset": 644,
+          "symbol": "UnwindDown5",
+          "base": "0x100f6a4c",
+          "addend": 0
+        },
+        {
+          "offset": 648,
+          "symbol": "UnwindDown4",
+          "base": "0x100f6a54",
+          "addend": 0
+        },
+        {
+          "offset": 652,
+          "symbol": "UnwindDown3",
+          "base": "0x100f6a5c",
+          "addend": 0
+        },
+        {
+          "offset": 656,
+          "symbol": "UnwindDown2",
+          "base": "0x100f6a64",
+          "addend": 0
+        },
+        {
+          "offset": 660,
+          "symbol": "UnwindDown1",
+          "base": "0x100f6a6c",
+          "addend": 0
+        },
+        {
+          "offset": 664,
+          "symbol": "UnwindDown0",
+          "base": "0x100f6a7f",
+          "addend": 0
+        },
+        {
+          "offset": 738,
+          "symbol": "TrailDownVec",
+          "base": "0x100f6a88",
+          "addend": 0
+        },
+        {
+          "offset": 744,
+          "symbol": "TrailDown0",
+          "base": "0x100f6a98",
+          "addend": 0
+        },
+        {
+          "offset": 748,
+          "symbol": "TrailDown1",
+          "base": "0x100f6aa0",
+          "addend": 0
+        },
+        {
+          "offset": 752,
+          "symbol": "TrailDown2",
+          "base": "0x100f6ab0",
+          "addend": 0
+        },
+        {
+          "offset": 756,
+          "symbol": "TrailDown3",
+          "base": "0x100f6ac4",
+          "addend": 0
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "_strchr",
+      "address": "0x100f65a0",
+      "public_entry": "0x100f65b0",
+      "section_bytes": 206,
+      "excluded_table_bytes": 0,
+      "excluded_alignment_bytes": 11,
+      "instruction_ranges": [
+        {
+          "address": "0x100f65a0",
+          "bytes": 5
+        },
+        {
+          "address": "0x100f65b0",
+          "bytes": 190
+        }
+      ],
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "_strcmp",
+      "address": "0x101003a0",
+      "public_entry": "0x101003a0",
+      "section_bytes": 136,
+      "excluded_table_bytes": 0,
+      "excluded_alignment_bytes": 0,
+      "instruction_ranges": [
+        {
+          "address": "0x101003a0",
+          "bytes": 136
+        }
+      ],
+      "bindings": [],
+      "original_referee_match": 100
+    }
+  ],
+  "negative_tests_passed": true,
+  "verified_instruction_bytes": 1749
+}

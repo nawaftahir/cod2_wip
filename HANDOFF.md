@@ -3,7 +3,96 @@
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
-## Current checkpoint: 17% passed; next requested checkpoint 19%
+## Current checkpoint: 19% goal exceeded — 22.020685%
+
+**Latest independently replayed state (2026-09-30): 239,955 / 1,089,680
+= 22.020685%** source-backed instruction bytes. Run
+`python3 gfx/tools/check_ten_percent.py` from the workspace root. The requested
+19% floor is 207,040 bytes; this checkpoint exceeds it by **32,915 bytes**.
+This supersedes the historical 17% snapshot below.
+
+New unique credit since 17%: **52,927 bytes**. These are **48,427 bytes**
+of reconstructed SDK-derived C++ (`DXGetErrorString9A`), **2,751 bytes / 16
+complete original CRT C bodies**, and **1,749 bytes / four original MASM
+procedures**. This is library-source progress, not newly reversed rendering
+logic. Tables, alignment excluded by the procedure proofs, opaque library
+objects and overlapping earlier proofs receive no credit.
+
+**Clean new source:** `target/src/codex_libraries/dxerr9_name.cpp`, copied
+unchanged from the accepted candidate. Its `MANIFEST.md` gives provenance,
+compiler, build commands and coverage. This is readable reconstructed C++,
+not Microsoft's recovered historical source. Original Microsoft CRT/compiler
+files remain external build inputs and are not committed.
+
+**Breakthrough, do not re-derive:** group HRESULT aliases sharing a returned
+name under common switch labels, and order the shared return groups by the
+original SDK's actual return-leaf relocation order. Numeric ordering and
+COFF string-section ranking were not equivalent. Compiler **13.10.4035**
+with **`/O1 /Oy- /hotpatch /MT`** produces the complete **72,524-byte section**:
+48,427 code bytes + 24,097 verified, uncredited table bytes. The object proof
+checks every one of **8,899 relocation sites/types/bindings**, internal
+branches, complete source string initializers and wrong-binding negatives.
+The original masked referee also returns 100%. This resolves the earlier
+near-match `codex_dxerr_rebuild` DEFER; retain failed attempts, don't rerun
+the same ordering/flag variants.
+
+**Integration check:** `target/scratch/codex19_dxerr/link.mk` links the new
+object with a private unchanged snapshot of Claude's canonical source,
+without `/FORCE`. Standard `cmp.py` + `bindcheck.py` preserve **all 359**
+baseline accepted source functions and accept the new helper (360 total).
+Their 72,524-byte helper extent includes tables: only the separate 48,427-byte
+code proof earns aggregate credit. SDK-reference behavior comparisons pass
+for all 5,467 named cases and their neighbours, plus 100,000 deterministic
+random inputs: **106,560 comparisons**. `check_link.py` pins inputs and outputs.
+No canonical source or standard referee was edited.
+
+**Avoid two resolved traps:** `/ML` on the standalone helper pulls LIBC into
+the `/MT` renderer and loses 42 prior source matches; use `/MT` instead.
+`closed.mk` does not track `XL` as a dependency: a changed helper object alone
+does not trigger relinking. The private `link.mk` adds the explicit object
+dependency; do not accept the earlier stale DLL experiment.
+
+The private compiler cache is `target/scratch/codex19_dxerr/compiler/`.
+It contains seven hash-pinned files from the official Windows Server 2003
+SP1 DDK, not checked into Git. The complete ISO is currently cached at
+`/tmp/cod2-dxerr-compiler.asMam8/ddk.iso`; its SHA-256 is
+`7a27263e4c3c89dee113eba75dc9145bf7019b43a2c5e24bc9382dbde79f7f8b`.
+`extract_compiler.py /path/to/ddk.iso` can recreate the cache without an
+installation. See the packet for each compiler component hash.
+
+**Replay/rebuild:** the aggregate replays all byte/binding and linked
+regression checks. The behavior fixture is cached only with hashes of all
+fixture inputs/outputs; rerun `run_test.py` to execute it again. From
+`gfx/target`, `sh scratch/codex19_dxerr/build.sh` rebuilds the helper, fixture
+and private whole link. CRT C: `sh scratch/codex19_crt/build.sh`; CRT MASM:
+
+```sh
+docker run --rm --network none \
+  -v "$PWD:/w" -v /home/nawaf/cod2/test/dev/glm:/crt:ro -w /w \
+  sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694 \
+  sh scratch/codex19_crt/compile_asm.sh
+python3 scratch/codex19_crt/check_asm.py
+```
+
+The frozen CRT19 plan certifies 216 C bodies / 40,617 bytes before deduplication;
+16 bodies / 2,751 bytes are new. Ten failed object variants remain rejected.
+`_doexit` becomes provable through original `crt0init.c` data sentinels.
+Compiler-generated INT3 tails in security/exit helpers remain DEFER; the
+complete-body gate was not relaxed. Full original memcpy/memmove tables are
+verified but excluded; strchr's leading shared return helper is source-proven,
+and its 11 alignment NOP bytes are excluded. strcmp's inventory boundary
+misses its final JMP; the full source proof includes it.
+
+**Next work:** have Claude review this source/helper and its narrow private
+proofs, then coordinate adding the non-LTCG helper with its exact compiler
+to the canonical link. `verified/src/` remains Claude-owned; do not bulk-copy
+the snapshot or count the helper twice. The next substantive work is
+target-backed game-authored renderer cohorts, plus remaining library bodies
+with recoverable source. Retain the existing private drawgroup and `_atoi`
+binder-review tasks. The DLL is still a diagnostic build: **no whole-file
+SHA identity, runtime release or complete clean renderer tree is claimed**.
+
+## Historical checkpoint: 17% passed
 
 **Verified state (2026-09-30):** `python3 gfx/tools/check_ten_percent.py`
 passes with **187,028 / 1,089,680 = 17.163571%** unique, source-backed
