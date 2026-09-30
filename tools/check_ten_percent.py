@@ -1,0 +1,754 @@
+#!/usr/bin/env python3
+"""Conservative, address-deduplicated renderer source-coverage checkpoint."""
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+ROOT = Path(__file__).resolve().parents[2]
+GFX = ROOT / 'gfx'
+OLD = ROOT / 'codex/renderer'
+ANCHOR = ROOT / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+TARGET = GFX / 'target'
+# Frozen 09-28 snapshot of verified/src: the root of the private-gain proof chain below.
+RUN = TARGET / 'build/v_base_0928'
+LIVE_RUN = TARGET / 'build/v'
+PACKETS = (
+    'jpeg_dependency_packet.json',
+    'jpeg_entropy_packet.json',
+    'jpeg_quantizer_packet.json',
+    'jpeg_constructor_packet.json',
+    'jpeg_dimensions_packet.json',
+    'jpeg_startup_packet.json',
+    'jpeg_marker_block_packet.json',
+    'jpeg_color_callbacks_packet.json',
+    'jpeg_loader_packet.json',
+    'jpeg_input_block_packet.json',
+    'jpeg_renderer_bridge_packet.json',
+)
+ANCHOR_SHA = '4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6'
+IMAGE = 'sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694'
+DENOMINATOR = 1089680
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def disjoint(intervals):
+    ordered = sorted(intervals)
+    overlap = [((a, n), (b, m)) for (a, n), (b, m) in zip(ordered, ordered[1:])
+               if b < a + n]
+    assert not overlap, overlap
+
+
+def checked_object(packet, run):
+    inputs = packet['inputs']
+    recorded = json.loads((run / 'inputs.json').read_text())
+    assert inputs == recorded and inputs['image'] == IMAGE
+    assert not inputs.get('reused_objects_from')
+    assert all(sha(Path(inputs['reference']) / name) == digest
+               for name, digest in inputs['dependencies'].items())
+    assert sha(run / 'job000.obj') == packet['object_sha256']
+    assert packet['object_sha256'] in {row['object_sha256']
+                                       for row in json.loads((run / 'results.json').read_text())}
+
+
+def main():
+    assert sha(ANCHOR) == ANCHOR_SHA
+    assert sha(TARGET / 'src/codex_drawgroups/gfx_d3d/r_splitscreen.cpp') == (
+        '10601fdeb692bc831120dfc53121894bf1c7185205c5de6c4d5052b0b4e1ea9a')
+    jpeg = {}
+    for name in PACKETS:
+        packet = json.loads((OLD / name).read_text())
+        assert packet['anchor_sha256'] == ANCHOR_SHA
+        run = Path(packet.get('run') or packet['objects_from'])
+        inputs = json.loads((run / 'inputs.json').read_text())
+        assert packet['image'] == inputs['image'] == IMAGE
+        reference = Path(inputs['reference'])
+        assert all(sha(reference / path) == digest
+                   for path, digest in inputs['dependencies'].items())
+        results = json.loads((run / 'results.json').read_text())
+        assert all(sha(run / (row['job'] + '.obj')) == row['object_sha256']
+                   for row in results)
+        if packet.get('object_sha256'):
+            assert packet['object_sha256'] in {row['object_sha256'] for row in results}
+        for row in packet.get('functions', []):
+            if row.get('unresolved'):
+                continue
+            address = row.get('address')
+            size = row.get('coverage_credit') or row.get('code_bytes') or row.get('bytes')
+            if not isinstance(address, str) or not isinstance(size, int):
+                continue
+            address = int(address, 16)
+            if not 0x10001000 <= address < 0x1010b000:
+                continue
+            if name == 'jpeg_dependency_packet.json':
+                assert sha(Path(row['reference_root']) / row['source']) == row['source_sha256']
+                assert row['object_sha256'] in {sha(p) for p in Path(row['object_root']).glob('*.obj')}
+            jpeg[address] = max(jpeg.get(address, 0), size)
+
+    source_dir = TARGET / 'scratch/claude_verified_src_backup_0929'
+    dll = RUN / 'gfx.dll'
+    assert dll.exists() and (RUN / 'cmp.json').stat().st_mtime >= dll.stat().st_mtime
+    assert (RUN / 'bind.json').stat().st_mtime >= dll.stat().st_mtime
+    for dependency in (source_dir, TARGET / 'src/opencod2/headers',
+                       TARGET / 'src/shims', TARGET / 'src/cl'):
+        assert all(p.stat().st_mtime <= dll.stat().st_mtime for p in dependency.rglob('*')
+                   if p.is_file() and p.suffix in ('.cpp', '.c', '.h', '.txt'))
+    bound = json.loads((RUN / 'bind.json').read_text())
+    closed = {(int(row['t'], 16), row['n'])
+              for row in bound.values() if not row['why'] and ':' not in row['obj']}
+    switch_sections = {(0x1000e840, 187), (0x1000e900, 274),
+                       (0x1000ef40, 219)}
+    assert switch_sections <= closed
+    closed -= switch_sections  # These include jump tables; engine packets count code only.
+    candidate_dir = TARGET / 'scratch/codex_rendercmd_rotate_15'
+    candidate_run = TARGET / 'build/codex_rendercmd_rotate_15'
+    changed_sources = {Path('gfx_d3d/r_rendercmds.cpp'), Path('gfx_d3d/r_utils.cpp')}
+    assert all(sha(candidate_dir / path.relative_to(source_dir)) == sha(path)
+               for path in source_dir.rglob('*') if path.is_file()
+               and path.relative_to(source_dir) not in changed_sources)
+    for path in changed_sources:
+        candidate_source = candidate_dir / path
+        candidate_obj = candidate_run / 'obj' / path.with_suffix('.obj')
+        assert candidate_source.stat().st_mtime <= candidate_obj.stat().st_mtime
+        assert candidate_obj.stat().st_mtime <= (candidate_run / 'gfx.dll').stat().st_mtime
+    assert (candidate_run / 'gfx.dll').stat().st_mtime <= (candidate_run / 'cmp_short.json').stat().st_mtime
+    assert (candidate_run / 'cmp_short.json').stat().st_mtime <= (candidate_run / 'bind_short.json').stat().st_mtime
+    assert (TARGET / 'scratch/codex_short_cmp.py').stat().st_mtime <= (candidate_run / 'cmp_short.json').stat().st_mtime
+    assert (GFX / 'tools/bindcheck.py').stat().st_mtime <= (candidate_run / 'bind_short.json').stat().st_mtime
+    candidate_bound = json.loads((candidate_run / 'bind_short.json').read_text())
+    assert candidate_bound['_atoi']['t'] == '0x100f742f'
+    assert candidate_bound['_atoi']['n'] == 5
+    assert candidate_bound['_atol']['t'] == '0x100f73a7'
+    candidate_matches = {(int(row['t'], 16), row['n'])
+                         for row in candidate_bound.values()
+                         if not row['why'] and ':' not in row['obj']}
+    baseline_matches = closed | switch_sections
+    private_gain = {(0x10021100, 158), (0x100211a0, 207), (0x100213f0, 229),
+                    (0x10021660, 130)}
+    # The 384-byte parser body is shape-correct here, but its _atoi binding
+    # requires the exact C-string-boundary check in the merged proof below.
+    assert candidate_matches - baseline_matches == private_gain | {(0x10061440, 384)}
+    assert baseline_matches <= candidate_matches
+    parse_dir = TARGET / 'scratch/codex_qparse_12'
+    parse_run = TARGET / 'build/codex_qparse_12c'
+    assert all(sha(parse_dir / path.relative_to(source_dir)) == sha(path)
+               for path in source_dir.rglob('*') if path.is_file()
+               and path.relative_to(source_dir) != Path('universal/q_parse.cpp'))
+    assert (parse_dir / 'universal/q_parse.cpp').stat().st_mtime <= (
+        parse_run / 'obj/universal/q_parse.obj').stat().st_mtime
+    assert (parse_run / 'gfx.dll').stat().st_mtime <= (
+        parse_run / 'cmp.json').stat().st_mtime <= (
+        parse_run / 'bind.json').stat().st_mtime
+    parse_bound = json.loads((parse_run / 'bind.json').read_text())
+    parse_matches = {(int(row['t'], 16), row['n'])
+                     for row in parse_bound.values()
+                     if not row['why'] and ':' not in row['obj']}
+    parse_gain = {(0x1005f690, 945), (0x1005fa50, 68), (0x1005faa0, 75),
+                  (0x1005faf0, 181), (0x1005fbb0, 131), (0x1005fc80, 222),
+                  (0x1005fd60, 275), (0x1005fed0, 82), (0x1005ffe0, 221),
+                  (0x100600c0, 167), (0x10060170, 181)}
+    assert parse_matches - baseline_matches == parse_gain
+    assert baseline_matches <= parse_matches
+    merged_dir = TARGET / 'scratch/codex_merged_12'
+    merged_run = TARGET / 'build/codex_merged_12'
+    merged_changes = {Path(name) for name in (
+        'roots.txt', 'universal/q_parse.cpp', 'gfx_d3d/r_utils.cpp',
+        'gfx_d3d/r_rendercmds.cpp', 'gfx_d3d/rb_state.cpp',
+        'gfx_d3d/rb_logfile.cpp')}
+    assert all(sha(merged_dir / path.relative_to(source_dir)) == sha(path)
+               for path in source_dir.rglob('*') if path.is_file()
+               and path.relative_to(source_dir) not in merged_changes)
+    for path in merged_changes - {Path('roots.txt')}:
+        assert (merged_dir / path).stat().st_mtime <= (
+            merged_run / 'obj' / path.with_suffix('.obj')).stat().st_mtime
+    assert (merged_dir / 'roots.txt').stat().st_mtime <= (merged_run / 'gfx.dll').stat().st_mtime
+    assert (merged_run / 'gfx.dll').stat().st_mtime <= (
+        merged_run / 'cmp_short.json').stat().st_mtime <= (
+        merged_run / 'bind_literal.json').stat().st_mtime
+    assert sha(TARGET / 'scratch/codex_bindcheck.py') == (
+        '091a1e69a58a4a5ff894d51abc155ce908cff9bb32449852cc481ba24c9e9f1b')
+    assert sha(TARGET / 'scratch/codex_short_cmp.py') == (
+        '4c59b2bfed614bd0c7052043bdfbc509472f23c6b9c77c989ae12b13f4aebc3f')
+    merged_bound = json.loads((merged_run / 'bind_literal.json').read_text())
+    merged_matches = {(int(row['t'], 16), row['n'])
+                      for row in merged_bound.values()
+                      if not row['why'] and ':' not in row['obj']}
+    standard_bound = json.loads((merged_run / 'bind.json').read_text())
+    standard_matches = {(int(row['t'], 16), row['n'])
+                        for row in standard_bound.values()
+                        if not row['why'] and ':' not in row['obj']}
+    conditional = {(0x1005ff80, 84), (0x10061440, 384)}
+    assert merged_matches - standard_matches == conditional
+    assert baseline_matches <= standard_matches <= merged_matches
+    state_gain = {(0x10037ce0, 1060), (0x10038110, 211),
+                  (0x1003c430, 2086), (0x1003cc60, 1452),
+                  (0x1003e8a0, 262), (0x1003ecb0, 109),
+                  (0x1003ed20, 144)}
+    merged_gain = private_gain | parse_gain | state_gain | conditional
+    assert merged_matches - baseline_matches == merged_gain
+    more_dir = TARGET / 'scratch/codex_moretu15'
+    more_run = TARGET / 'build/codex_moretu15'
+    more_changes = {Path(name) for name in (
+        'tus.txt', 'universal/com_math.cpp', 'gfx_d3d/r_xsurface.cpp',
+        'gfx_d3d/r_surfbounds.cpp', 'gfx_d3d/r_fatal_init.cpp',
+        'gfx_d3d/r_matrix_scale.cpp', 'gfx_d3d/r_staticmodel_load_obj.cpp',
+        'gfx_d3d/r_staticmodelcache.cpp', 'gfx_d3d/r_water_load_obj.cpp')}
+    assert all(sha(more_dir / path.relative_to(merged_dir)) == sha(path)
+               for path in merged_dir.rglob('*') if path.is_file()
+               and path.relative_to(merged_dir) not in more_changes)
+    for path in more_changes - {Path('tus.txt')}:
+        assert (more_dir / path).stat().st_mtime <= (
+            more_run / 'obj' / path.with_suffix('.obj')).stat().st_mtime
+    assert (more_dir / 'tus.txt').stat().st_mtime <= (more_run / 'gfx.dll').stat().st_mtime
+    assert (more_run / 'gfx.dll').stat().st_mtime <= (
+        more_run / 'cmp.json').stat().st_mtime <= (more_run / 'bind.json').stat().st_mtime
+    assert (more_run / 'gfx.dll').stat().st_mtime <= (
+        more_run / 'cmp_short.json').stat().st_mtime <= (
+        more_run / 'bind_literal.json').stat().st_mtime
+    more_bound = json.loads((more_run / 'bind_literal.json').read_text())
+    more_matches = {(int(row['t'], 16), row['n'])
+                    for row in more_bound.values()
+                    if not row['why'] and ':' not in row['obj']}
+    more_standard = json.loads((more_run / 'bind.json').read_text())
+    more_standard_matches = {(int(row['t'], 16), row['n'])
+                             for row in more_standard.values()
+                             if not row['why'] and ':' not in row['obj']}
+    surface_gain = {(0x1002bca0, 13), (0x1002bcb0, 36),
+                    (0x1002cd80, 80), (0x1002cdd0, 71)}
+    support_gain = {(0x10011390, 66), (0x10038c60, 131)}
+    cache_tree_gain = {(0x1002a010, 489), (0x1002ab90, 87),
+                       (0x1002abf0, 221), (0x1002cb40, 445)}
+    assert more_matches - merged_matches == surface_gain | support_gain | cache_tree_gain
+    assert more_standard_matches - standard_matches == surface_gain | support_gain | cache_tree_gain
+    assert merged_matches <= more_matches
+    assert standard_matches <= more_standard_matches
+    caps_dir = TARGET / 'scratch/codex_cohort13'
+    caps_run = TARGET / 'build/codex_cohort13'
+    assert all(sha(caps_dir / path.relative_to(more_dir)) == sha(path)
+               for path in more_dir.rglob('*') if path.is_file()
+               and path.relative_to(more_dir) != Path('tus.txt'))
+    assert (caps_dir / 'tus.txt').read_text().splitlines() == (
+        (more_dir / 'tus.txt').read_text().splitlines()[:5]
+        + ['gfx_d3d/r_caps.cpp']
+        + (more_dir / 'tus.txt').read_text().splitlines()[5:])
+    assert (caps_dir / 'gfx_d3d/r_caps.cpp').stat().st_mtime <= (
+        caps_run / 'obj/gfx_d3d/r_caps.obj').stat().st_mtime
+    assert (caps_dir / 'tus.txt').stat().st_mtime <= (caps_run / 'gfx.dll').stat().st_mtime
+    assert (caps_run / 'gfx.dll').stat().st_mtime <= (
+        caps_run / 'cmp_short.json').stat().st_mtime <= (
+        caps_run / 'bind_literal.json').stat().st_mtime
+    caps_bound = json.loads((caps_run / 'bind_literal.json').read_text())
+    caps_matches = {(int(row['t'], 16), row['n'])
+                    for row in caps_bound.values()
+                    if not row['why'] and ':' not in row['obj']}
+    caps_gain = {(0x10005150, 135), (0x100051e0, 165)}
+    assert caps_matches - more_matches == caps_gain
+    assert more_matches <= caps_matches
+    total_gain = merged_gain | surface_gain | support_gain | cache_tree_gain | caps_gain
+    stl_run = GFX / 'scratch/library_runs/stl_sort_gl_r6ekw52i'
+    stl_inputs = json.loads((stl_run / 'inputs.json').read_text())
+    stl_packet = json.loads((stl_run / 'sort_helpers_packet.json').read_text())
+    assert stl_inputs['anchor_sha256'] == stl_packet['anchor_sha256'] == ANCHOR_SHA
+    assert stl_inputs['image'] == stl_packet['image'] == IMAGE
+    assert all(sha(Path(stl_inputs['source']) / name) == digest
+               for name, digest in stl_inputs['inputs'].items())
+    assert all(sha(stl_run / name) == digest
+               for name, digest in stl_inputs['outputs'].items())
+    assert sha(GFX / 'tools/check_stl_sort.py') == stl_packet['checker_sha256']
+    assert sha(GFX / 'tools/cmp.py') == stl_packet['linked_referee_sha256']
+    assert sha(stl_run / 'test_sort.exe') == stl_packet['fixture_exe_sha256']
+    assert stl_packet['linked_referee_replayed'] and stl_packet['source_fixture_passed']
+    assert not stl_packet['whole_file_identity']
+    stl = {(int(row['target_address'], 16), row['instruction_bytes'])
+           for row in stl_packet['functions']}
+    assert len(stl) == len(stl_packet['functions']) == 24
+    assert sum(size for _, size in stl) == stl_packet['verified_instruction_bytes'] == 3434
+    views_run = OLD / 'baseline_jpeg_7h016wwk'
+    views = json.loads((views_run / 'seven_percent_packet.json').read_text())
+    assert views['anchor_sha256'] == ANCHOR_SHA and views['image'] == IMAGE
+    assert sha(TARGET / 'src/codex/renderer_views.c') == views['source_sha256']
+    assert sha(OLD / 'check_seven_percent.py') == views['checker_sha256']
+    assert sha(views_run / 'inputs.json') == views['inputs_sha256']
+    assert views['object_sha256'] in {sha(p) for p in views_run.glob('*.obj')}
+    refapi_run = GFX / 'scratch/library_runs/baseline_jpeg_7_9fo60y'
+    refapi = json.loads((refapi_run / 'refapi_context_packet.json').read_text())
+    assert refapi['anchor_sha256'] == ANCHOR_SHA
+    assert sha(TARGET / 'src/codex/refapi_table.c') == refapi['source_sha256']
+    assert sha(GFX / 'tools/check_refapi_context.py') == refapi['checker_sha256']
+    assert sha(OLD / 'refapi_pinned.json') == refapi['slots_sha256']
+    assert refapi['object_sha256'] in {sha(p) for p in refapi_run.glob('*.obj')}
+    standalone = {(int(row['address'], 16), row['bytes']) for row in views['functions']}
+    standalone.add((0x10013270, refapi['verified_initializer_code_bytes']))
+    assert len(standalone) == 3 and sum(size for _, size in standalone) == 1190
+    startup = json.loads((OLD / 'jpeg_startup_packet.json').read_text())
+    assert startup['anchor_sha256'] == ANCHOR_SHA and startup['image'] == IMAGE
+    assert sha(OLD / 'check_jpeg_color_initializers.py') == startup['checker_sha256']
+    jpeg_extra = {(address, size) for address, size in startup['callbacks'].values()}
+    jpeg_extra.update((address, size) for address, size in startup['table_builders'].values())
+    idct = json.loads((OLD / 'jpeg_idct_block_packet.json').read_text())
+    idct_run = Path(idct['run'])
+    assert idct['anchor_sha256'] == ANCHOR_SHA and idct['image'] == IMAGE
+    assert idct['status'] == 'FULL-BLOCK-DEPENDENCY-PASS' and idct['fixture_passed']
+    assert sha(OLD / 'check_jpeg_idct_block.py') == idct['checker_sha256']
+    assert sha(idct_run / 'inputs.json') == idct['decoder_input_sha256']
+    assert idct['object_sha256'] in {sha(p) for p in idct_run.glob('*.obj')}
+    jpeg_extra.update(((0x1004c0e0, idct['code_bytes']),
+                       (0x1004c410, idct['initializer_bytes'])))
+    assert sum(size for _, size in jpeg_extra) == 1310
+    material_run = OLD / 'material_verify_onw3l0z5'
+    material = json.loads((material_run / 'packet.json').read_text())
+    assert material['image'] == IMAGE and material['status'] == 'REVIEWABLE'
+    assert material['functions'] == 14 and material['bytes'] == 425
+    assert material['wrong_binding_rejected'] and material['host_fixtures_passed']
+    assert all(sha(OLD / 'src' / name) == digest
+               for name, digest in material['sources'].items())
+    assert all(sha(material_run / name) == digest
+               for name, digest in material['objects'].items())
+    material_rows = ((0x10017300, 7), (0x10017310, 16), (0x10017320, 37),
+                     (0x1000c8d0, 6), (0x1001d8f0, 15), (0x1001d900, 14),
+                     (0x10001430, 42), (0x10001460, 39), (0x1000c000, 8),
+                     (0x1000aac0, 38), (0x1001d910, 77), (0x1000bb10, 22),
+                     (0x1000bc40, 35), (0x10001230, 69))
+    log = (material_run / 'checks.log').read_text()
+    assert all(f'@ {address:#x} size={size} ' in log
+               for address, size in material_rows)
+    assert sum(size for _, size in material_rows) == material['bytes']
+    delayed_run = OLD / 'material_verify_delayed_v01ovwmn'
+    delayed = json.loads((delayed_run / 'packet.json').read_text())
+    assert delayed['image'] == IMAGE and delayed['wrong_binding_rejected']
+    assert delayed['host_32bit_fixtures_passed']
+    assert sha(OLD / 'src/delayed_drawing.c') == delayed['source_sha256']
+    assert sha(delayed_run / 'delayed.obj') == delayed['object_sha256']
+    delayed_rows = ((0x10020f10, 92), (0x10020fe0, 91))
+    assert all(any(row['address'] == f'{address:#x}' and
+                   f'{size} bytes' in row['diagnostics'] and
+                   'normalized match:' in row['diagnostics']
+                   for row in delayed['functions'])
+               for address, size in delayed_rows)
+    engine = [*material_rows, *delayed_rows]
+    image_packets = (
+        ('image_create', 'baseline_jpeg_4un7pbxe',
+         ((0x1000ce80, 113), (0x1000cf00, 130), (0x1000cf90, 119))),
+        ('image_slice', 'baseline_jpeg_t8vfcrgk',
+         ((0x1000e840, 135), (0x1000e900, 226))),
+        ('image_dispatch', 'baseline_jpeg_qqtw3j8j',
+         ((0x1000f900, 261), (0x1000f2a0, 67))),
+    )
+    for name, run_name, rows in image_packets:
+        packet = json.loads((OLD / f'{name}_packet.json').read_text())
+        assert packet['status'] == 'REVIEWABLE' and packet['anchor_sha256'] == ANCHOR_SHA
+        assert packet['host_fixture_passed'] if name == 'image_create' else packet['fixture_passed']
+        checked_object(packet, OLD / run_name)
+        assert all(f'@ {address:#x} size=' in json.dumps(packet)
+                   for address, _ in rows)
+        engine.extend(rows)
+    memory = json.loads((OLD / 'image_memory_chain_packet.json').read_text())
+    mip = memory['matched_dependency']
+    assert memory['status'] == mip['status'] == 'REVIEWABLE'
+    assert memory['wrong_binding_rejected'] and mip['wrong_binding_rejected']
+    assert mip['fixture_passed'] and mip['anchor_sha256'] == ANCHOR_SHA
+    checked_object(mip, OLD / 'baseline_jpeg_olyhxdy7')
+    assert memory['address'] == '0x1000f020' and mip['address'] == '0x1000ef40'
+    engine.extend(((0x1000ef40, mip['code_bytes']),
+                   (0x1000f020, memory['new_code_bytes'])))
+    image_file = json.loads((OLD / 'image_file_packet.json').read_text())
+    image_path = image_file['retained']
+    assert image_file['status'] == image_path['status'] == 'REVIEWABLE'
+    assert image_file['wrong_binding_rejected'] and image_path['wrong_binding_rejected']
+    assert image_file['new_code_bytes'] == 240 and image_path['new_code_bytes'] == 26
+    assert '0x1000fa40' in image_file['diagnostics']
+    assert '0x10060c10' in image_path['diagnostics']
+    engine.append((0x1000fa40, 240))
+    assert (0x10060c10, 26) in closed  # Formatter already linked and counted.
+    debug_run = OLD / 'baseline_jpeg_arnc6688'
+    debug = json.loads((debug_run / 'debug_frame_packet.json').read_text())
+    assert debug['status'] == 'REVIEWABLE' and debug['anchor_sha256'] == ANCHOR_SHA
+    assert debug['wrong_binding_rejected'] and debug['code_bytes'] == 258
+    assert sha(OLD / 'test_debug_pair.c') == debug['fixture_sha256']
+    checked_object(debug, debug_run)
+    engine.extend(((0x10020ec0, 71), (0x10022040, 114), (0x10021ff0, 73)))
+    frame_run = OLD / 'baseline_jpeg_n2weway4'
+    frame = json.loads((frame_run / 'frame_end_packet.json').read_text())
+    assert frame['status'] == 'REVIEWABLE' and frame['code_bytes'] == 86
+    assert frame['negative_bindings_passed'] and frame['fixture_passed']
+    assert sha(OLD / 'test_frame_end.c') == frame['fixture_sha256']
+    checked_object(frame, frame_run)
+    engine.append((0x10021f90, 86))
+    wavelet = json.loads((OLD / 'wavelet_link_packet.json').read_text())
+    wavelet_checked = json.loads((OLD / 'wavelet_link_checked.json').read_text())
+    assert wavelet_checked['status'] == 'SOURCE-LINK-BYTES-AND-BINDINGS-PASS'
+    assert wavelet_checked['link_proof'] == wavelet
+    assert wavelet_checked['code_bytes'] == 134 and len(wavelet_checked['bindings']) == 4
+    assert sha(Path(wavelet['dll'])) == wavelet['dll_sha256']
+    wavelet_run = OLD / 'baseline_jpeg_1v2df6oy'
+    wavelet_inputs = json.loads((wavelet_run / 'inputs.json').read_text())
+    assert wavelet_inputs['image'] == IMAGE
+    assert all(sha(Path(wavelet_inputs['reference']) / name) == digest
+               for name, digest in wavelet_inputs['dependencies'].items())
+    assert sha(wavelet_run / 'job000.obj') == wavelet['functions_object_sha256']
+    engine.append((0x10010cb0, 134))
+    assert sum(size for _, size in engine) == 608 + 362 + 361 + 328 + 284 + 240 + 258 + 86 + 134
+    crt_run = TARGET / 'scratch/codex_crt13'
+    crt_checker = crt_run / 'check.py'
+    subprocess.run([sys.executable, str(crt_checker)], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    crt_packet = json.loads((crt_run / 'packet.json').read_text())
+    assert crt_packet['status'] == 'REVIEWABLE' and not crt_packet['whole_file_identity']
+    assert crt_packet['anchor_sha256'] == ANCHOR_SHA and crt_packet['image'] == IMAGE
+    assert crt_packet['checker_sha256'] == sha(crt_checker)
+    assert crt_packet['build_script_sha256'] == sha(crt_run / 'build.sh')
+    assert crt_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert crt_packet['classification_sha256'] == sha(ROOT / 'glm/data/match_classification.json')
+    assert crt_packet['negative_bindings_passed']
+    for name, hashes in crt_packet['inputs'].items():
+        assert sha(ROOT / 'glm/crt71' / name) == hashes['source_sha256']
+        obj = crt_run / 'obj' / (Path(name).stem + '.obj')
+        assert sha(obj) == hashes['object_sha256']
+        assert (ROOT / 'glm/crt71' / name).stat().st_mtime <= obj.stat().st_mtime
+    crt = {(int(row['address'], 16), row['bytes']) for row in crt_packet['rows']}
+    assert len(crt) == len(crt_packet['rows']) == 44
+    crt_bytes = sum(size for _, size in crt)
+    assert crt_bytes == crt_packet['verified_instruction_bytes'] == 10273
+    asm_run = TARGET / 'scratch/codex_crt14asm'
+    asm_checker = asm_run / 'check.py'
+    subprocess.run([sys.executable, str(asm_checker)], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    asm_packet = json.loads((asm_run / 'packet.json').read_text())
+    assert asm_packet['status'] == 'REVIEWABLE' and not asm_packet['whole_file_identity']
+    assert asm_packet['anchor_sha256'] == ANCHOR_SHA and asm_packet['image'] == IMAGE
+    assert asm_packet['checker_sha256'] == sha(asm_checker)
+    assert asm_packet['build_script_sha256'] == sha(asm_run / 'build.sh')
+    assert asm_packet['negative_test_passed']
+    for name, hashes in asm_packet['inputs'].items():
+        source = ROOT / 'glm/crt71' / name
+        obj = asm_run / 'obj' / (Path(name).stem + '.obj')
+        assert sha(source) == hashes['source_sha256']
+        assert sha(obj) == hashes['object_sha256']
+        assert source.stat().st_mtime <= obj.stat().st_mtime
+    for name, digest in asm_packet['includes'].items():
+        assert sha(asm_run / 'case' / name) == digest
+    asm = {(int(row['address'], 16), row['bytes']) for row in asm_packet['rows']}
+    assert len(asm) == len(asm_packet['rows']) == 15
+    asm_bytes = sum(size for _, size in asm)
+    assert asm_bytes == asm_packet['verified_instruction_bytes'] == 1682
+    extra_run = TARGET / 'scratch/codex_crt14extra'
+    extra_checker = extra_run / 'check.py'
+    subprocess.run([sys.executable, str(extra_checker)], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    extra_packet = json.loads((extra_run / 'packet.json').read_text())
+    assert extra_packet['status'] == 'REVIEWABLE' and not extra_packet['whole_file_identity']
+    assert extra_packet['anchor_sha256'] == ANCHOR_SHA and extra_packet['image'] == IMAGE
+    assert extra_packet['checker_sha256'] == sha(extra_checker)
+    assert extra_packet['build_script_sha256'] == sha(extra_run / 'build.sh')
+    assert extra_packet['asm_packet_sha256'] == sha(asm_run / 'packet.json')
+    assert extra_packet['negative_bindings_passed']
+    for name, hashes in extra_packet['inputs'].items():
+        source = ROOT / 'glm/crt71' / name
+        obj = extra_run / 'obj' / (Path(name).stem + '.obj')
+        assert sha(source) == hashes['source_sha256']
+        assert sha(obj) == hashes['object_sha256']
+        assert source.stat().st_mtime <= obj.stat().st_mtime
+    extra = {(int(row['address'], 16), row['bytes']) for row in extra_packet['rows']}
+    assert len(extra) == len(extra_packet['rows']) == 4
+    extra_bytes = sum(size for _, size in extra)
+    assert extra_bytes == extra_packet['verified_instruction_bytes'] == 238
+    output_checker = extra_run / 'check_output.py'
+    subprocess.run([sys.executable, str(output_checker)], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    output_packet = json.loads((extra_run / 'output_packet.json').read_text())
+    assert output_packet['status'] == 'REVIEWABLE' and not output_packet['whole_file_identity']
+    assert output_packet['anchor_sha256'] == ANCHOR_SHA and output_packet['image'] == IMAGE
+    assert output_packet['checker_sha256'] == sha(output_checker)
+    assert output_packet['build_script_sha256'] == sha(extra_run / 'build.sh')
+    assert output_packet['crt13_build_script_sha256'] == sha(crt_run / 'build.sh')
+    assert output_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert output_packet['negative_bindings_passed']
+    assert output_packet['excluded_jump_table_bytes'] == 32
+    for name, hashes in output_packet['inputs'].items():
+        source = ROOT / 'glm/crt71' / name
+        obj_root = crt_run if name in ('output.c', 'seccook.c') else extra_run
+        obj = obj_root / 'obj' / (Path(name).stem + '.obj')
+        assert sha(source) == hashes['source_sha256']
+        assert sha(obj) == hashes['object_sha256']
+        assert source.stat().st_mtime <= obj.stat().st_mtime
+    output = {(int(output_packet['address'], 16), output_packet['verified_instruction_bytes'])}
+    assert output == {(0x100fa4e6, 2010)}
+    woutput_checker = extra_run / 'check_woutput.py'
+    subprocess.run([sys.executable, str(woutput_checker)], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    woutput_packet = json.loads((extra_run / 'woutput_packet.json').read_text())
+    assert woutput_packet['status'] == 'REVIEWABLE' and not woutput_packet['whole_file_identity']
+    assert woutput_packet['anchor_sha256'] == ANCHOR_SHA and woutput_packet['image'] == IMAGE
+    assert woutput_packet['checker_sha256'] == sha(woutput_checker)
+    assert woutput_packet['output_packet_sha256'] == sha(extra_run / 'output_packet.json')
+    assert woutput_packet['build_script_sha256'] == sha(extra_run / 'build.sh')
+    assert woutput_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert woutput_packet['negative_bindings_passed']
+    assert woutput_packet['excluded_jump_table_bytes'] == 32
+    for name, hashes in woutput_packet['inputs'].items():
+        source = ROOT / 'glm/crt71' / name
+        obj = extra_run / 'obj' / (Path(name).stem + '.obj')
+        assert sha(source) == hashes['source_sha256']
+        assert sha(obj) == hashes['object_sha256']
+        assert source.stat().st_mtime <= obj.stat().st_mtime
+    woutput = {(int(woutput_packet['address'], 16), woutput_packet['verified_instruction_bytes'])}
+    assert woutput == {(0x1010552c, 2064)}
+    large_checker = extra_run / 'check_large.py'
+    subprocess.run([sys.executable, str(large_checker)], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    large_packet = json.loads((extra_run / 'large_packet.json').read_text())
+    assert large_packet['status'] == 'REVIEWABLE' and not large_packet['whole_file_identity']
+    assert large_packet['anchor_sha256'] == ANCHOR_SHA and large_packet['image'] == IMAGE
+    assert large_packet['checker_sha256'] == sha(large_checker)
+    assert large_packet['build_script_sha256'] == sha(extra_run / 'build.sh')
+    assert large_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert large_packet['negative_test_passed'] and large_packet['binding_count'] == 57
+    for name, hashes in large_packet['inputs'].items():
+        source = ROOT / 'glm/crt71' / name
+        obj = extra_run / 'obj' / (Path(name).stem + '.obj')
+        assert sha(source) == hashes['source_sha256']
+        assert sha(obj) == hashes['object_sha256']
+        assert source.stat().st_mtime <= obj.stat().st_mtime
+    large = {(int(row['address'], 16), row['bytes']) for row in large_packet['rows']}
+    assert large == {(0x10107fca, 457), (0x10109f98, 900)}
+    assert sum(size for _, size in large) == large_packet['verified_instruction_bytes'] == 1357
+    leaves_checker = extra_run / 'check_leaves.py'
+    subprocess.run([sys.executable, str(leaves_checker)], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    leaves_packet = json.loads((extra_run / 'leaves_packet.json').read_text())
+    assert leaves_packet['status'] == 'REVIEWABLE' and not leaves_packet['whole_file_identity']
+    assert leaves_packet['anchor_sha256'] == ANCHOR_SHA and leaves_packet['image'] == IMAGE
+    assert leaves_packet['checker_sha256'] == sha(leaves_checker)
+    assert leaves_packet['build_script_sha256'] == sha(extra_run / 'build.sh')
+    assert leaves_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert leaves_packet['asm_packet_sha256'] == sha(asm_run / 'packet.json')
+    assert leaves_packet['negative_bindings_passed']
+    for name, hashes in leaves_packet['inputs'].items():
+        source = ROOT / 'glm/crt71' / name
+        obj = extra_run / 'obj' / (Path(name).stem + '.obj')
+        assert sha(source) == hashes['source_sha256']
+        assert sha(obj) == hashes['object_sha256']
+        assert source.stat().st_mtime <= obj.stat().st_mtime
+    leaves = {(int(row['address'], 16), row['bytes']) for row in leaves_packet['rows']}
+    assert len(leaves) == len(leaves_packet['rows']) == 12
+    assert sum(size for _, size in leaves) == leaves_packet['verified_instruction_bytes'] == 707
+    globals_checker = extra_run / 'check_globals.py'
+    subprocess.run([sys.executable, str(globals_checker)], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    globals_packet = json.loads((extra_run / 'globals_packet.json').read_text())
+    assert globals_packet['status'] == 'REVIEWABLE' and not globals_packet['whole_file_identity']
+    assert globals_packet['anchor_sha256'] == ANCHOR_SHA and globals_packet['image'] == IMAGE
+    assert globals_packet['checker_sha256'] == sha(globals_checker)
+    assert globals_packet['build_script_sha256'] == sha(extra_run / 'build.sh')
+    assert globals_packet['crt13_build_script_sha256'] == sha(crt_run / 'build.sh')
+    assert globals_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert globals_packet['asm_packet_sha256'] == sha(asm_run / 'packet.json')
+    assert globals_packet['negative_bindings_passed']
+    for name, hashes in globals_packet['inputs'].items():
+        source = ROOT / 'glm/crt71' / name
+        obj_root = Path(hashes['object_root'])
+        assert obj_root in (crt_run, extra_run)
+        obj = obj_root / 'obj' / (Path(name).stem + '.obj')
+        assert sha(source) == hashes['source_sha256']
+        assert sha(obj) == hashes['object_sha256']
+        assert source.stat().st_mtime <= obj.stat().st_mtime
+    globals_rows = {(int(row['address'], 16), row['bytes']) for row in globals_packet['rows']}
+    assert len(globals_rows) == len(globals_packet['rows']) == 15
+    assert sum(size for _, size in globals_rows) == globals_packet['verified_instruction_bytes'] == 2911
+    # Live consolidated tree: only matches beyond every set above are credited.
+    live_dir = TARGET / 'verified/src'
+    live_dll = LIVE_RUN / 'gfx.dll'
+    assert (LIVE_RUN / 'cmp.json').stat().st_mtime >= live_dll.stat().st_mtime
+    assert (LIVE_RUN / 'bind.json').stat().st_mtime >= live_dll.stat().st_mtime
+    for dependency in (live_dir, TARGET / 'src/opencod2/headers',
+                       TARGET / 'src/shims', TARGET / 'src/cl'):
+        assert all(p.stat().st_mtime <= live_dll.stat().st_mtime for p in dependency.rglob('*')
+                   if p.is_file() and p.suffix in ('.cpp', '.c', '.h', '.txt'))
+    live_bound = json.loads((LIVE_RUN / 'bind.json').read_text())
+    live = {(int(row['t'], 16), row['n'])
+            for row in live_bound.values() if not row['why'] and ':' not in row['obj']}
+    live_gain = live - closed - switch_sections - total_gain
+    counted = [*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone, *engine, *total_gain,
+               *crt, *asm, *extra, *output, *woutput, *large, *leaves, *globals_rows]
+    # Live rows already claimed by another proof set count once, under that set.
+    live_gain = {(a, n) for a, n in live_gain
+                 if not any(a < b + m and b < a + n for b, m in counted)}
+    draw_dir = TARGET / 'scratch/codex15_drawgroups'
+    # The drawgroup packet was pinned to the 348-function tree; replay it against that snapshot.
+    live_dir = TARGET / 'scratch/premerge_1001/src'
+    snap_bound = json.loads((TARGET / 'build/pm/bind.json').read_text())
+    live_now = live
+    live = {(int(row['t'], 16), row['n'])
+            for row in snap_bound.values() if not row['why'] and ':' not in row['obj']}
+    draw_run = TARGET / 'build/codex15_drawgroups'
+    draw_new = Path('gfx_d3d/r_splitscreen.cpp')
+    draw_changes = {draw_new, Path('tus.txt'), Path('roots.txt'),
+                    Path('gfx_d3d/r_rendercmds.cpp')}
+    assert {p.relative_to(draw_dir) for p in draw_dir.rglob('*') if p.is_file()} - {
+        p.relative_to(live_dir) for p in live_dir.rglob('*') if p.is_file()} == {
+            draw_new, Path('REPORT.md')}  # Evidence prose is not a compiled input.
+    assert all(sha(draw_dir / path.relative_to(live_dir)) == sha(path)
+               for path in live_dir.rglob('*') if path.is_file()
+               and path.relative_to(live_dir) not in draw_changes)
+    assert (draw_dir / 'tus.txt').read_text().splitlines() == (
+        (live_dir / 'tus.txt').read_text().splitlines()[:19]
+        + ['gfx_d3d/r_splitscreen.cpp']
+        + (live_dir / 'tus.txt').read_text().splitlines()[19:])
+    assert (draw_dir / 'roots.txt').read_text() == (
+        (live_dir / 'roots.txt').read_text().replace(
+            'R_BeginDelayedDrawing\n', '?R_BeginDelayedDrawing@@YAXH@Z\n'))
+    assert sha(draw_dir / draw_new) == '10601fdeb692bc831120dfc53121894bf1c7185205c5de6c4d5052b0b4e1ea9a'
+    assert sha(draw_dir / 'gfx_d3d/r_rendercmds.cpp') == 'a02cc72bf5d5e9f8334bd7243ac17b3ed81626e9086557c255b5b73bb9bcf0d5'
+    assert sha(draw_dir / 'tus.txt') == '91e0d3b5d75d06b59f4c1c20afe1cb8e8637016832dc05df018f6ff1fbfb06da'
+    assert sha(draw_dir / 'roots.txt') == '6f84f1b5a5db355945d7d21f5338788a25240bf74387034527185557eaf4ec8d'
+    assert sha(TARGET / 'closed.mk') == '7164205f6dcecd96dfd0db1e0543b601eab87c89d59b6c112043344c8b71faa8'
+    assert sha(GFX / 'tools/codex15_bindcheck.py') == '2f9fc9f1cdbfff3fca3dcbc054e51d1f48657022545b4eb9bb38d3f16f39939a'
+    assert sha(draw_run / 'obj/gfx_d3d/r_splitscreen.obj') == '59084e6c2cf4abe404e22446aab33d71f9a4361a302b5bf5f109ccc54fb5c7d3'
+    assert sha(draw_run / 'obj/gfx_d3d/r_rendercmds.obj') == '576784f6b3e4ac79c1523ff13e464a596ce48d269ef0e5c3028ab97bc3c8067c'
+    assert sha(draw_run / 'gfx.dll') == '94dfae1b71e37a585527717d3a64995001039357071fd9fe7d075883d82616d6'
+    assert sha(draw_run / 'cmp.json') == '9df5dbe6659d1f206b14f13b1a93812db1c5cf49f3371d352070e5cffff99e3b'
+    assert sha(draw_run / 'bind_private.json') == '51f9c2056b551d116923bf91df3d5dd1fd5c0c5072ec127b549a673ce869cde0'
+    assert (draw_dir / draw_new).stat().st_mtime <= (draw_run / 'obj/gfx_d3d/r_splitscreen.obj').stat().st_mtime
+    assert (draw_dir / 'gfx_d3d/r_rendercmds.cpp').stat().st_mtime <= (draw_run / 'obj/gfx_d3d/r_rendercmds.obj').stat().st_mtime
+    assert (draw_run / 'obj/gfx_d3d/r_splitscreen.obj').stat().st_mtime <= (draw_run / 'gfx.dll').stat().st_mtime
+    assert (draw_run / 'obj/gfx_d3d/r_rendercmds.obj').stat().st_mtime <= (draw_run / 'gfx.dll').stat().st_mtime
+    assert (draw_dir / 'roots.txt').stat().st_mtime <= (draw_run / 'gfx.dll').stat().st_mtime
+    assert (draw_run / 'gfx.dll').stat().st_mtime <= (draw_run / 'cmp.json').stat().st_mtime
+    subprocess.run([sys.executable, str(GFX / 'tools/codex15_bindcheck.py'),
+                    str(draw_run / 'gfx.dll'), str(draw_run / 'gfx.map'), str(ANCHOR),
+                    str(draw_run / 'cmp.json'), '--json', str(draw_run / 'bind_replay.json'),
+                    '--pdb', str(draw_run / 'gfx.pdb')],
+                   cwd=TARGET, check=True, capture_output=True, text=True)
+    assert sha(draw_run / 'bind_replay.json') == sha(draw_run / 'bind_private.json')
+    draw_bound = json.loads((draw_run / 'bind_replay.json').read_text())
+    draw = {(int(row['t'], 16), row['n'])
+            for row in draw_bound.values() if not row['why'] and ':' not in row['obj']}
+    draw_gain = {(0x10020f10, 92), (0x10029430, 53),
+                 (0x10029470, 44), (0x100294a0, 63),
+                 (0x100294e0, 70), (0x10029530, 40),
+                 (0x10029560, 317)}
+    assert live <= draw and draw - live == draw_gain
+    assert (0x10020f10, 92) in engine
+    draw_credit = draw_gain - {(0x10020f10, 92)}
+    live = live_now
+    input_dir = TARGET / 'scratch/codex15_crtinput'
+    assert sha(input_dir / 'check.py') == '49b5452b656d1b5436921984cc2149b5e360dd4706cefec748e9b3ed64a8758f'
+    assert sha(input_dir / 'build.sh') == 'e788fd886a95a4c9fe5340bfbdacfef2789d78eb6c90d337371f9aab1e9a4da0'
+    # cl writes the build time to the COFF header; it is not instruction data.
+    input_raw = (input_dir / 'obj/O1mt.obj').read_bytes()
+    input_stable = hashlib.sha256(input_raw[:4] + b'\0' * 4 + input_raw[8:]).hexdigest()
+    assert input_stable == 'c58c7b899ee4d2e74258f4a5d0f2f7f983410e1c0dd3bc530770c8ac1930a3f5'
+    subprocess.run([sys.executable, str(input_dir / 'check.py')], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    input_packet = json.loads((input_dir / 'packet.json').read_text())
+    assert input_packet['status'] == 'REVIEWABLE' and not input_packet['whole_file_identity']
+    assert input_packet['anchor_sha256'] == ANCHOR_SHA and input_packet['image'] == IMAGE
+    assert input_packet['checker_sha256'] == sha(input_dir / 'check.py')
+    assert input_packet['build_script_sha256'] == sha(input_dir / 'build.sh')
+    assert input_packet['object_sha256'] == sha(input_dir / 'obj/O1mt.obj')
+    assert input_packet['negative_bindings_passed'] and len(input_packet['bindings']) == 21
+    assert input_packet['output_packet_sha256'] == sha(extra_run / 'output_packet.json')
+    assert input_packet['nlsdata1_object_sha256'] == sha(extra_run / 'obj/nlsdata1.obj')
+    assert input_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert all(sha(ROOT / 'glm/crt71' / n) == h for n, h in input_packet['dependencies'].items())
+    crt_input = {(int(input_packet['address'], 16), input_packet['verified_instruction_bytes'])}
+    assert crt_input == {(0x100f9482, 3452)}
+    crt16_dir = TARGET / 'scratch/codex16_crt'
+    for name, digest in {
+        'check.py': '1ba4d0ae4c4d9e4e134eaeccde5ae5c18564fcdaabca5d9bd96fb5d54ef06fdd',
+        'plan.json': '5bbe8c938a298bc75be22cc8a7574e0131dffe2f0268900baee2a96c3e1cc6d6',
+        'compile.sh': '83a6e2781b7e6b03d8132a6bcc54867c77f5d0eb6a9fb5a170e7059488adf69e',
+        'build.sh': '13ca7c9ac9ddd1aedbdc4c744c50f9ada4be1ff28c8f1e6969b910c4811dc908',
+    }.items():
+        assert sha(crt16_dir / name) == digest
+    subprocess.run([sys.executable, str(crt16_dir / 'check.py')], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    crt16_packet = json.loads((crt16_dir / 'packet.json').read_text())
+    assert crt16_packet['status'] == 'REVIEWABLE' and not crt16_packet['whole_file_identity']
+    assert crt16_packet['anchor_sha256'] == ANCHOR_SHA and crt16_packet['image'] == IMAGE
+    assert crt16_packet['checker_sha256'] == sha(crt16_dir / 'check.py')
+    assert crt16_packet['plan_sha256'] == sha(crt16_dir / 'plan.json')
+    assert crt16_packet['compile_script_sha256'] == sha(crt16_dir / 'compile.sh')
+    assert crt16_packet['build_script_sha256'] == sha(crt16_dir / 'build.sh')
+    assert crt16_packet['inventory_sha256'] == sha(ROOT / 'glm/data/functions_gfx10.json')
+    assert crt16_packet['negative_tests_passed']
+    for path, digest in crt16_packet['objects'].items():
+        obj = ROOT / path
+        assert obj.parent in (crt16_dir / 'obj/st', crt16_dir / 'obj/mt',
+                              TARGET / 'scratch/codex_crt13/obj', extra_run / 'obj')
+        assert sha(obj) == digest
+    assert all(sha(ROOT / 'glm/crt71' / n) == h for n, h in crt16_packet['dependencies'].items())
+    crt16 = {(int(row['address'], 16), row['bytes']) for row in crt16_packet['rows']}
+    assert len(crt16) == len(crt16_packet['rows']) == 141
+    assert sum(n for _, n in crt16) == crt16_packet['verified_instruction_bytes'] == 25076
+    prior = [*counted, *live_gain, *draw_credit, *crt_input]
+    crt16_gain = {(a, n) for a, n in crt16
+                  if not any(a < b + m and b < a + n for b, m in prior)}
+    crt17_dir = TARGET / 'scratch/codex17_crt'
+    for name, digest in {
+        'check.py': '160ead4c9380b95207d80ad2672264ac9cfe514b2baaf72db8246a12e2b7a7d3',
+        'plan.json': '4c3ebb26ec4a1de0ec5169168489b066a8f8a115b89fcb34ec86de2b8e70c1ff',
+        'compile.sh': '5b8faefd040328fd52fbd3bcc5865b1c0c5ce11541ac93a5ff8ff7311402ac45',
+        'build.sh': 'd110b90e1431749d48288a236200b57c7c29b486b16ef443bf74038f4e743009',
+    }.items():
+        assert sha(crt17_dir / name) == digest
+    subprocess.run([sys.executable, str(crt17_dir / 'check.py')], cwd=TARGET,
+                   check=True, capture_output=True, text=True)
+    crt17_packet = json.loads((crt17_dir / 'packet.json').read_text())
+    assert crt17_packet['status'] == 'REVIEWABLE' and not crt17_packet['whole_file_identity']
+    assert crt17_packet['anchor_sha256'] == ANCHOR_SHA and crt17_packet['image'] == IMAGE
+    for key, path in (
+        ('checker_sha256', crt17_dir / 'check.py'), ('plan_sha256', crt17_dir / 'plan.json'),
+        ('compile_script_sha256', crt17_dir / 'compile.sh'),
+        ('build_script_sha256', crt17_dir / 'build.sh'),
+        ('inventory_sha256', ROOT / 'glm/data/functions_gfx10.json'),
+        ('asm_packet_sha256', asm_run / 'packet.json'),
+    ):
+        assert crt17_packet[key] == sha(path)
+    assert crt17_packet['negative_tests_passed']
+    for path, digest in crt17_packet['objects'].items():
+        obj = ROOT / path
+        assert obj.parent in (crt17_dir / 'obj/st', crt17_dir / 'obj/mt',
+                              crt16_dir / 'obj/st', crt16_dir / 'obj/mt',
+                              TARGET / 'scratch/codex_crt13/obj', extra_run / 'obj')
+        assert sha(obj) == digest
+    assert all(sha(ROOT / 'glm/crt71' / n) == h for n, h in crt17_packet['dependencies'].items())
+    crt17 = {(int(row['address'], 16), row['bytes']) for row in crt17_packet['rows']}
+    assert len(crt17) == len(crt17_packet['rows']) == 200
+    assert sum(n for _, n in crt17) == crt17_packet['verified_instruction_bytes'] == 37866
+    crt17_gain = {(a, n) for a, n in crt17
+                  if not any(a < b + m and b < a + n for b, m in [*prior, *crt16_gain])}
+    disjoint((address, size) for address, size in jpeg.items())
+    disjoint(closed)
+    disjoint(stl)
+    disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
+              *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
+              *globals_rows, *crt_input, *crt16_gain, *crt17_gain])
+    old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
+    new_bytes = sum(size for _, size in closed)
+    stl_bytes = sum(size for _, size in stl)
+    standalone_bytes = sum(size for _, size in standalone)
+    engine_bytes = sum(size for _, size in engine)
+    private_bytes = sum(size for _, size in total_gain)
+    live_bytes = sum(size for _, size in live_gain)
+    crt16_bytes = sum(n for _, n in crt16_gain)
+    crt17_bytes = sum(n for _, n in crt17_gain)
+    total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes
+    assert total >= (DENOMINATOR * 17 + 99) // 100
+    print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
+          f'{total / DENOMINATOR:.6%}; JPEG {old_bytes}, closed tree {new_bytes}, '
+          f'STL {stl_bytes}, standalone {standalone_bytes}, engine {engine_bytes}, '
+          f'private linked gain {private_bytes}, live verified/src gain {live_bytes}, '
+          f'private draw groups {sum(n for _, n in draw_credit)}, '
+          f'CRT C source {crt_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes}, CRT ASM source {asm_bytes}')
+    print(f'CRT batch: {len(crt16_gain)} new disjoint bodies, {crt16_bytes} bytes; duplicates excluded.')
+    print(f'CRT17 batch: {len(crt17_gain)} new disjoint bodies, {crt17_bytes} bytes; duplicates excluded.')
+    print('Draft functions, opaque SDK/CRT library bytes, and whole-file identity excluded.')
+
+
+if __name__ == '__main__':
+    main()

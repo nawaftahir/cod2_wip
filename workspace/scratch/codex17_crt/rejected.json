@@ -1,0 +1,175 @@
+[
+  {
+    "address": "0x100fd6c6",
+    "bytes": 195,
+    "symbol": "_doexit",
+    "object": "gfx/target/scratch/codex17_crt/obj/mt/crt0dat.obj",
+    "boundary": false,
+    "code_bindings": {
+      "__SEH_prolog": [
+        "0x100fb610"
+      ],
+      "__lock": [
+        "0x100fc07d"
+      ],
+      "__initterm": [
+        "0x100fd626"
+      ],
+      "___crtExitProcess": [
+        "0x100fd5e4"
+      ],
+      "__unlock": [
+        "0x100fbfb0"
+      ],
+      "__SEH_epilog": [
+        "0x100fb64b"
+      ]
+    },
+    "unknown_bindings": {
+      "$T20878": [
+        "0x1017c9b0"
+      ],
+      "__C_Exit_Done": [
+        "0x101ae04c"
+      ],
+      "__imp__GetCurrentProcess@0": [
+        "0x1010c14c"
+      ],
+      "__imp__TerminateProcess@8": [
+        "0x1010c148"
+      ],
+      "__C_Termination_Done": [
+        "0x101ae048"
+      ],
+      "__exitflag": [
+        "0x101ae044"
+      ],
+      "___onexitbegin": [
+        "0x1076ada8"
+      ],
+      "___onexitend": [
+        "0x1076ada4"
+      ],
+      "___xp_z": [
+        "0x1019e02c"
+      ],
+      "___xp_a": [
+        "0x1019e024"
+      ],
+      "___xt_z": [
+        "0x1019e034"
+      ],
+      "___xt_a": [
+        "0x1019e030"
+      ],
+      "__unlock": [
+        "0x100fbfb0"
+      ]
+    },
+    "reason": "('unproven data', '___xp_z', '0x1019e02c', [])"
+  },
+  {
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "symbol": "___crtExitProcess",
+    "object": "gfx/target/scratch/codex17_crt/obj/mt/crt0dat.obj",
+    "boundary": true,
+    "code_bindings": {},
+    "unknown_bindings": {
+      "??_C@_0M@MBOPBNBK@mscoree?4dll?$AA@": [
+        "0x1017c9a4"
+      ],
+      "__imp__GetModuleHandleA@4": [
+        "0x1010c07c"
+      ],
+      "??_C@_0P@MIGLKIOC@CorExitProcess?$AA@": [
+        "0x1017c994"
+      ],
+      "__imp__GetProcAddress@8": [
+        "0x1010c04c"
+      ],
+      "__imp__ExitProcess@4": [
+        "0x1010c144"
+      ]
+    },
+    "reason": ""
+  },
+  {
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "symbol": "___crtExitProcess",
+    "object": "gfx/target/scratch/codex17_crt/obj/st/crt0dat.obj",
+    "boundary": true,
+    "code_bindings": {},
+    "unknown_bindings": {
+      "??_C@_0M@MBOPBNBK@mscoree?4dll?$AA@": [
+        "0x1017c9a4"
+      ],
+      "__imp__GetModuleHandleA@4": [
+        "0x1010c07c"
+      ],
+      "??_C@_0P@MIGLKIOC@CorExitProcess?$AA@": [
+        "0x1017c994"
+      ],
+      "__imp__GetProcAddress@8": [
+        "0x1010c04c"
+      ],
+      "__imp__ExitProcess@4": [
+        "0x1010c144"
+      ]
+    },
+    "reason": ""
+  },
+  {
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "symbol": "___crtExitProcess",
+    "object": "gfx/target/scratch/codex_crt13/obj/crt0dat.obj",
+    "boundary": true,
+    "code_bindings": {},
+    "unknown_bindings": {
+      "??_C@_0M@MBOPBNBK@mscoree?4dll?$AA@": [
+        "0x1017c9a4"
+      ],
+      "__imp__GetModuleHandleA@4": [
+        "0x1010c07c"
+      ],
+      "??_C@_0P@MIGLKIOC@CorExitProcess?$AA@": [
+        "0x1017c994"
+      ],
+      "__imp__GetProcAddress@8": [
+        "0x1010c04c"
+      ],
+      "__imp__ExitProcess@4": [
+        "0x1010c144"
+      ]
+    },
+    "reason": ""
+  },
+  {
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "symbol": "___crtExitProcess",
+    "object": "gfx/target/scratch/codex_crt14extra/obj/crt0dat.obj",
+    "boundary": true,
+    "code_bindings": {},
+    "unknown_bindings": {
+      "??_C@_0M@MBOPBNBK@mscoree?4dll?$AA@": [
+        "0x1017c9a4"
+      ],
+      "__imp__GetModuleHandleA@4": [
+        "0x1010c07c"
+      ],
+      "??_C@_0P@MIGLKIOC@CorExitProcess?$AA@": [
+        "0x1017c994"
+      ],
+      "__imp__GetProcAddress@8": [
+        "0x1010c04c"
+      ],
+      "__imp__ExitProcess@4": [
+        "0x1010c144"
+      ]
+    },
+    "reason": ""
+  }
+]
