@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "cases": 96,
+  "scope": "CPU assembly/compilation, full bytecode and diagnostic output equality; not a GPU/game boot",
+  "output_sha256": "7682562727a90d148ebd2957d1365195c5e5f761d7ac718fa6aa1085db69f5db",
+  "files": {
+    "gfx/target/scratch/codex30_parser/run_test.py": "79c002a3f087b2e6d6474728f985b739cf96c67e15afc54f0725c693017c4de9",
+    "gfx/target/scratch/codex30_parser/compile_test.sh": "f7d8477d79720c8987f7da820daaf18048572d3c4b2e0dd4446369e73637cf4f",
+    "gfx/target/scratch/codex30_parser/test_parsers.cpp": "c67d8c87a3aff189902ac27aa46700ae1a3a3b1d02cc827715e40e58111ea9b6",
+    "gfx/target/scratch/codex30_parser/test_parsers.obj": "44405e0aa86a4c1f019204de3836802c59ef5549d9dc361ed762d843835e2438",
+    "gfx/target/scratch/codex30_parser/test_original.exe": "34b9b2fcadea8d6a8a62d0092c11249a2d09d9ce41fb6570afbf3c9f6af95c90",
+    "gfx/target/scratch/codex30_parser/test_source.exe": "2f2e37d2eceb9e0ae7595612bc1bdbec6ad36afe341f43dda89ba98f598f84f3",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/build/codex30_parser/dependencies/d3dx9.lib": "7a375af67156830c99f7222282aeb8ccaffd0ab10eea2f142aecba6aee177e24",
+    "gfx/target/build/codex30_parser/libraries/d3dxtok.obj": "76d308bc7860cc3084d88d58b8d144470c7175cf4ec3242e1dc994cf6944019c",
+    "gfx/target/build/codex30_parser/libraries/d3dxasm.obj": "ed42431e243976599be5c67b79a7388fe2231eea0c17e30c5afb958ca14f5e24",
+    "gfx/target/build/codex30_parser/libraries/d3dxshader.obj": "c6c954973c592cf0ec88585d2ed0bd0aced96556d0b55350006304f25f7d3852",
+    "gfx/target/build/codex30_parser/libraries/instruction_predicates.obj": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "gfx/target/build/codex30_parser/libraries/shader_native_constants.obj": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2"
+  }
+}

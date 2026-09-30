@@ -945,13 +945,43 @@ def main():
     fixture35 = json.loads((sdk35_dir / 'fixture_packet.json').read_text())
     assert fixture35['status'] == 'PASS' and fixture35['comparisons'] == 361654
     assert all(sha(ROOT / n) == h for n, h in fixture35['files'].items())
+    parser_dir = TARGET / 'scratch/codex30_parser'
+    for name, digest in {
+        'check.py': 'a7de81ca77ba6de75cea6213795052867fdf88375929345644ce0272a2effb05',
+        'check_link.py': 'b36393e4c8ebf219b70545dc81c6a29ea4e4d9c7ab702c3aefa6331361dec67c',
+        'build.sh': '03b850cc4b93c354a45ac4b4cdba42ae82350971b4a070e91ccb9cb53a2c6741',
+        'link.mk': '2e6f05ac81a277f17c4346614b6f1835382fe7c2de3be30e124e266fe2eed2d1',
+        'select_dependencies.py': '8fc5e16e488acfd1d675e4970ac921376405858c14914c6bf348ec681b51e692',
+        'run_test.py': '79c002a3f087b2e6d6474728f985b739cf96c67e15afc54f0725c693017c4de9',
+        'compile_test.sh': 'f7d8477d79720c8987f7da820daaf18048572d3c4b2e0dd4446369e73637cf4f',
+    }.items():
+        assert sha(parser_dir / name) == digest
+    subprocess.run([sys.executable, str(parser_dir / 'check.py'), '--clean'], check=True, capture_output=True)
+    subprocess.run([sys.executable, str(parser_dir / 'check_link.py')], check=True, capture_output=True)
+    parser_packet = json.loads((parser_dir / 'clean_packet.json').read_text())
+    assert parser_packet['status'] == 'REVIEWABLE' and not parser_packet['whole_file_identity']
+    assert parser_packet['anchor_sha256'] == ANCHOR_SHA and parser_packet['negative_tests_passed']
+    assert all(sha(ROOT / n) == h for n, h in parser_packet['files'].items())
+    parser_gain = {(int(r['address'], 16), r['bytes']) for r in parser_packet['rows']}
+    assert len(parser_gain) == 3 and sum(n for _, n in parser_gain) == 6082
+    assert sum(r['excluded_table_bytes'] for r in parser_packet['rows']) == 1608
+    assert not any(a < b + m and b < a + n for a, n in parser_gain
+                   for b, m in [*prior35, *crt35_gain, *sdk35_gain])
+    parser_link = json.loads((parser_dir / 'link_packet.json').read_text())
+    assert parser_link['status'] == 'PASS' and not parser_link['whole_file_identity']
+    assert parser_link['baseline_source_matches'] == 400 and parser_link['linked_source_matches'] == 403
+    assert not parser_link['source_match_losses'] and parser_link['dependency_source_credit'] == 0
+    assert all(sha(ROOT / n) == h for n, h in parser_link['files'].items())
+    parser_fixture = json.loads((parser_dir / 'fixture_packet.json').read_text())
+    assert parser_fixture['status'] == 'PASS' and parser_fixture['cases'] == 96
+    assert all(sha(ROOT / n) == h for n, h in parser_fixture['files'].items())
     disjoint((address, size) for address, size in jpeg.items())
     disjoint(closed)
     disjoint(stl)
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -964,7 +994,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -983,8 +1013,10 @@ def main():
     print(f'CRT35 batch: {len(crt35_gain)} new disjoint bodies, {crt35_bytes} bytes; '
           f'SDK35: {len(sdk35_gain)} bodies, {sum(n for _, n in sdk35_gain)} bytes; '
           '400 linked source matches, all previous retained; 361654 CPU comparisons passed.')
-    goal = (DENOMINATOR * 35 + 99) // 100
-    print(f'35% checkpoint: {"REACHED" if total >= goal else "PENDING"}; '
+    print('Parser batch: 3 complete source bodies, 6082 instruction bytes; '
+          '403 linked source matches retained/accepted; 96 full-output CPU cases passed.')
+    goal = (DENOMINATOR * 30 + 99) // 100
+    print(f'30% checkpoint: {"REACHED" if total >= goal else "PENDING"}; '
           f'{max(0, goal - total)} further source instruction bytes needed.')
     print('Draft functions, opaque SDK/CRT library bytes, and whole-file identity excluded.')
 

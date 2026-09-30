@@ -1,0 +1,4541 @@
+{
+  "status": "REVIEWABLE",
+  "whole_file_identity": false,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "source_class": "reconstructed SDK parser C++; SDK dependencies external",
+  "compiler_files": {
+    "c1.dll": "31aad0d8d776d882ce7036b9f97c98a1d10fc1b8c068ebb9a2bb22a74225b4aa",
+    "c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "mspdb71.dll": "f7ffe701485813a7f10861bc61ba533b09f1386c40c882e832f71881a705c75b",
+    "msvcp71.dll": "1d5a627cb700400a7de751f0e7d3bf2f024e8d79f8c4a9f11a5a20a05c73ab9f",
+    "msvcr71.dll": "91961cc52149826031f1b17b65a95a5c84c89d9a42f8621a43448c0fe897a94f"
+  },
+  "rows": [
+    {
+      "symbol": "?d3dxtok_parse@D3DXShader@@YGHXZ",
+      "address": "0x10066a19",
+      "bytes": 1128,
+      "section_bytes": 1316,
+      "excluded_table_bytes": 188,
+      "source": "gfx/target/src/codex_parsers/d3dxtok.cpp",
+      "object": "gfx/target/build/codex30_parser/libraries/d3dxtok.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "?d3dxtok_nerrs@D3DXShader@@3HA",
+          "base": "0x101abd50",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 15,
+          "symbol": "?d3dxtok_errflag@D3DXShader@@3HA",
+          "base": "0x101abd4c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 21,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 25,
+          "symbol": "?d3dxtok_ss@D3DXShader@@3PAFA",
+          "base": "0x101ab950",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 31,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 35,
+          "symbol": "?d3dxtok_vs@D3DXShader@@3PAHA",
+          "base": "0x101ab180",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 42,
+          "symbol": "?d3dxtok_ss@D3DXShader@@3PAFA",
+          "base": "0x101ab950",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 50,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 58,
+          "symbol": "?d3dxtok_defred@D3DXShader@@3PAFA",
+          "base": "0x1019e100",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 76,
+          "symbol": "?s_pPP@CPreProcessor@D3DXShader@@1PAV12@A",
+          "base": "0x101abd78",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 81,
+          "symbol": "?Token@CPreProcessor@D3DXShader@@IAEHXZ",
+          "base": "0x10065c86",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 88,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 97,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 105,
+          "symbol": "?d3dxtok_sindex@D3DXShader@@3PAFA",
+          "base": "0x1019e1c0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 131,
+          "symbol": "?d3dxtok_check@D3DXShader@@3PAFA",
+          "base": "0x1019e608",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 140,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 145,
+          "symbol": "?d3dxtok_ss@D3DXShader@@3PAFA",
+          "base": "0x101ab950",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 158,
+          "symbol": "?d3dxtok_table@D3DXShader@@3PAFA",
+          "base": "0x1019e320",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 165,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 174,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 180,
+          "symbol": "?d3dxtok_lval@D3DXShader@@3HA",
+          "base": "0x101abd38",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 186,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 197,
+          "symbol": "?d3dxtok_errflag@D3DXShader@@3HA",
+          "base": "0x101abd4c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 203,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 215,
+          "symbol": "?d3dxtok_errflag@D3DXShader@@3HA",
+          "base": "0x101abd4c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 233,
+          "symbol": "?d3dxtok_rindex@D3DXShader@@3PAFA",
+          "base": "0x1019e260",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 266,
+          "symbol": "?d3dxtok_check@D3DXShader@@3PAFA",
+          "base": "0x1019e608",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 281,
+          "symbol": "?d3dxtok_table@D3DXShader@@3PAFA",
+          "base": "0x1019e320",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 286,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 296,
+          "symbol": "?d3dxtok_len@D3DXShader@@3PAFA",
+          "base": "0x1019e0a0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 311,
+          "symbol": "?d3dxtok_val@D3DXShader@@3HA",
+          "base": "0x101abd3c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 330,
+          "symbol": "$L433",
+          "base": "0x10066e81",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 691,
+          "symbol": "?s_pPP@CPreProcessor@D3DXShader@@1PAV12@A",
+          "base": "0x101abd78",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 696,
+          "symbol": "?Production@CPreProcessor@D3DXShader@@IAEXII@Z",
+          "base": "0x100665f9",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 701,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 708,
+          "symbol": "?d3dxtok_lhs@D3DXShader@@3PAFA",
+          "base": "0x1019e040",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 718,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 727,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 744,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 754,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 760,
+          "symbol": "?d3dxtok_val@D3DXShader@@3HA",
+          "base": "0x101abd3c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 766,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 773,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 783,
+          "symbol": "?s_pPP@CPreProcessor@D3DXShader@@1PAV12@A",
+          "base": "0x101abd78",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 788,
+          "symbol": "?Token@CPreProcessor@D3DXShader@@IAEHXZ",
+          "base": "0x10065c86",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 795,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 804,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 829,
+          "symbol": "?d3dxtok_gindex@D3DXShader@@3PAFA",
+          "base": "0x1019e300",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 854,
+          "symbol": "?d3dxtok_check@D3DXShader@@3PAFA",
+          "base": "0x1019e608",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 865,
+          "symbol": "?d3dxtok_table@D3DXShader@@3PAFA",
+          "base": "0x1019e320",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 874,
+          "symbol": "?d3dxtok_dgoto@D3DXShader@@3PAFA",
+          "base": "0x1019e1a0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 879,
+          "symbol": "?d3dxtok_ss@D3DXShader@@3PAFA",
+          "base": "0x101ab950",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 892,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 900,
+          "symbol": "?d3dxtok_val@D3DXShader@@3HA",
+          "base": "0x101abd3c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 911,
+          "symbol": "?d3dxtok_errflag@D3DXShader@@3HA",
+          "base": "0x101abd4c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 919,
+          "symbol": "??_C@_0N@MNJHOOI@syntax?5error?$AA@",
+          "base": "0x1010c5e8",
+          "addend": 0,
+          "kind": "SOURCE-STRING"
+        },
+        {
+          "offset": 925,
+          "symbol": "?s_pPP@CPreProcessor@D3DXShader@@1PAV12@A",
+          "base": "0x101abd78",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 930,
+          "symbol": "?Error@CPreProcessor@D3DXShader@@IAAXPBDZZ",
+          "base": "0x10063ee5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 936,
+          "symbol": "?d3dxtok_nerrs@D3DXShader@@3HA",
+          "base": "0x101abd50",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 941,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 952,
+          "symbol": "?d3dxtok_errflag@D3DXShader@@3HA",
+          "base": "0x101abd4c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 964,
+          "symbol": "?d3dxtok_errflag@D3DXShader@@3HA",
+          "base": "0x101abd4c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 970,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 986,
+          "symbol": "?d3dxtok_sindex@D3DXShader@@3PAFA",
+          "base": "0x1019e1c0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1006,
+          "symbol": "?d3dxtok_check@D3DXShader@@3PAFA",
+          "base": "0x1019e608",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1014,
+          "symbol": "?d3dxtok_ss@D3DXShader@@3PAFA",
+          "base": "0x101ab950",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1024,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1031,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1039,
+          "symbol": "?d3dxtok_ss@D3DXShader@@3PAFA",
+          "base": "0x101ab950",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1049,
+          "symbol": "?d3dxtok_table@D3DXShader@@3PAFA",
+          "base": "0x1019e320",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1057,
+          "symbol": "?d3dxtok_ssp@D3DXShader@@3PAFA",
+          "base": "0x101abd44",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1065,
+          "symbol": "?d3dxtok_lval@D3DXShader@@3HA",
+          "base": "0x101abd38",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1071,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1078,
+          "symbol": "?d3dxtok_vsp@D3DXShader@@3PAHA",
+          "base": "0x101abd40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1085,
+          "symbol": "?d3dxtok_char@D3DXShader@@3HA",
+          "base": "0x101abd48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1104,
+          "symbol": "??_C@_0BE@CHCCDJIL@yacc?5stack?5overflow?$AA@",
+          "base": "0x1010c99c",
+          "addend": 0,
+          "kind": "SOURCE-STRING"
+        },
+        {
+          "offset": 1110,
+          "symbol": "?s_pPP@CPreProcessor@D3DXShader@@1PAV12@A",
+          "base": "0x101abd78",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1115,
+          "symbol": "?Error@CPreProcessor@D3DXShader@@IAAXPBDZZ",
+          "base": "0x10063ee5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 1128,
+          "symbol": "$L341",
+          "base": "0x10066b67",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1132,
+          "symbol": "$L342",
+          "base": "0x10066b70",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1136,
+          "symbol": "$L343",
+          "base": "0x10066b79",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1140,
+          "symbol": "$L344",
+          "base": "0x10066b82",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1144,
+          "symbol": "$L345",
+          "base": "0x10066b8b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1148,
+          "symbol": "$L346",
+          "base": "0x10066b94",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1152,
+          "symbol": "$L347",
+          "base": "0x10066b9d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1156,
+          "symbol": "$L348",
+          "base": "0x10066ba6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1160,
+          "symbol": "$L349",
+          "base": "0x10066baf",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1164,
+          "symbol": "$L350",
+          "base": "0x10066bb8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1168,
+          "symbol": "$L351",
+          "base": "0x10066bc1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1172,
+          "symbol": "$L352",
+          "base": "0x10066bca",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1176,
+          "symbol": "$L353",
+          "base": "0x10066bd3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1180,
+          "symbol": "$L354",
+          "base": "0x10066bdc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1184,
+          "symbol": "$L355",
+          "base": "0x10066be5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1188,
+          "symbol": "$L356",
+          "base": "0x10066bee",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1192,
+          "symbol": "$L357",
+          "base": "0x10066bf7",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1196,
+          "symbol": "$L358",
+          "base": "0x10066c00",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1200,
+          "symbol": "$L359",
+          "base": "0x10066c09",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1204,
+          "symbol": "$L360",
+          "base": "0x10066c12",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1208,
+          "symbol": "$L361",
+          "base": "0x10066c1b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1212,
+          "symbol": "$L362",
+          "base": "0x10066c24",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1216,
+          "symbol": "$L363",
+          "base": "0x10066c2d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1220,
+          "symbol": "$L364",
+          "base": "0x10066c36",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1224,
+          "symbol": "$L365",
+          "base": "0x10066c3f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1228,
+          "symbol": "$L366",
+          "base": "0x10066c48",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1232,
+          "symbol": "$L367",
+          "base": "0x10066c4e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1236,
+          "symbol": "$L368",
+          "base": "0x10066c54",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1240,
+          "symbol": "$L369",
+          "base": "0x10066c5a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1244,
+          "symbol": "$L370",
+          "base": "0x10066c60",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1248,
+          "symbol": "$L371",
+          "base": "0x10066c66",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1252,
+          "symbol": "$L372",
+          "base": "0x10066c6c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1256,
+          "symbol": "$L373",
+          "base": "0x10066c72",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1260,
+          "symbol": "$L374",
+          "base": "0x10066c78",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1264,
+          "symbol": "$L375",
+          "base": "0x10066c7e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1268,
+          "symbol": "$L376",
+          "base": "0x10066c84",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1272,
+          "symbol": "$L377",
+          "base": "0x10066c8a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1276,
+          "symbol": "$L378",
+          "base": "0x10066c90",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1280,
+          "symbol": "$L379",
+          "base": "0x10066c96",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1284,
+          "symbol": "$L380",
+          "base": "0x10066c9c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1288,
+          "symbol": "$L381",
+          "base": "0x10066ca2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1292,
+          "symbol": "$L382",
+          "base": "0x10066ca8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1296,
+          "symbol": "$L383",
+          "base": "0x10066cae",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1300,
+          "symbol": "$L384",
+          "base": "0x10066cb4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1304,
+          "symbol": "$L385",
+          "base": "0x10066cba",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1308,
+          "symbol": "$L386",
+          "base": "0x10066cc0",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1312,
+          "symbol": "$L387",
+          "base": "0x10066cc6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?d3dxasm_parse@D3DXShader@@YGHXZ",
+      "address": "0x1006b861",
+      "bytes": 1263,
+      "section_bytes": 1511,
+      "excluded_table_bytes": 248,
+      "source": "gfx/target/src/codex_parsers/d3dxasm.cpp",
+      "object": "gfx/target/build/codex30_parser/libraries/d3dxasm.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "?d3dxasm_nerrs@D3DXShader@@3HA",
+          "base": "0x101ac950",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 15,
+          "symbol": "?d3dxasm_errflag@D3DXShader@@3HA",
+          "base": "0x101ac94c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 21,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 25,
+          "symbol": "?d3dxasm_ss@D3DXShader@@3PAFA",
+          "base": "0x101ac550",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 31,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 35,
+          "symbol": "?d3dxasm_vs@D3DXShader@@3PAHA",
+          "base": "0x101abd80",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 42,
+          "symbol": "?d3dxasm_ss@D3DXShader@@3PAFA",
+          "base": "0x101ac550",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 50,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 58,
+          "symbol": "?d3dxasm_defred@D3DXShader@@3PAFA",
+          "base": "0x1019e9f0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 76,
+          "symbol": "?s_pAsm@CAssembler@D3DXShader@@1PAV12@A",
+          "base": "0x101ac958",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 81,
+          "symbol": "?Token@CAssembler@D3DXShader@@IAEHXZ",
+          "base": "0x1006ac56",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 88,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 97,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 105,
+          "symbol": "?d3dxasm_sindex@D3DXShader@@3PAFA",
+          "base": "0x1019eb38",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 131,
+          "symbol": "?d3dxasm_check@D3DXShader@@3PAFA",
+          "base": "0x1019efd8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 140,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 145,
+          "symbol": "?d3dxasm_ss@D3DXShader@@3PAFA",
+          "base": "0x101ac550",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 158,
+          "symbol": "?d3dxasm_table@D3DXShader@@3PAFA",
+          "base": "0x1019ed88",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 165,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 174,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 180,
+          "symbol": "?d3dxasm_lval@D3DXShader@@3HA",
+          "base": "0x101ac938",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 186,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 197,
+          "symbol": "?d3dxasm_errflag@D3DXShader@@3HA",
+          "base": "0x101ac94c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 203,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 215,
+          "symbol": "?d3dxasm_errflag@D3DXShader@@3HA",
+          "base": "0x101ac94c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 233,
+          "symbol": "?d3dxasm_rindex@D3DXShader@@3PAFA",
+          "base": "0x1019ec40",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 266,
+          "symbol": "?d3dxasm_check@D3DXShader@@3PAFA",
+          "base": "0x1019efd8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 281,
+          "symbol": "?d3dxasm_table@D3DXShader@@3PAFA",
+          "base": "0x1019ed88",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 286,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 296,
+          "symbol": "?d3dxasm_len@D3DXShader@@3PAFA",
+          "base": "0x1019e970",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 311,
+          "symbol": "?d3dxasm_val@D3DXShader@@3HA",
+          "base": "0x101ac93c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 330,
+          "symbol": "$L448",
+          "base": "0x1006bd50",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 826,
+          "symbol": "?s_pAsm@CAssembler@D3DXShader@@1PAV12@A",
+          "base": "0x101ac958",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 831,
+          "symbol": "?Production@CAssembler@D3DXShader@@IAEXII@Z",
+          "base": "0x1006b2b4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 836,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 843,
+          "symbol": "?d3dxasm_lhs@D3DXShader@@3PAFA",
+          "base": "0x1019e8f0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 853,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 862,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 879,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 889,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 895,
+          "symbol": "?d3dxasm_val@D3DXShader@@3HA",
+          "base": "0x101ac93c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 901,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 908,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 918,
+          "symbol": "?s_pAsm@CAssembler@D3DXShader@@1PAV12@A",
+          "base": "0x101ac958",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 923,
+          "symbol": "?Token@CAssembler@D3DXShader@@IAEHXZ",
+          "base": "0x1006ac56",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 930,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 939,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 964,
+          "symbol": "?d3dxasm_gindex@D3DXShader@@3PAFA",
+          "base": "0x1019ed48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 989,
+          "symbol": "?d3dxasm_check@D3DXShader@@3PAFA",
+          "base": "0x1019efd8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1000,
+          "symbol": "?d3dxasm_table@D3DXShader@@3PAFA",
+          "base": "0x1019ed88",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1009,
+          "symbol": "?d3dxasm_dgoto@D3DXShader@@3PAFA",
+          "base": "0x1019eaf8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1014,
+          "symbol": "?d3dxasm_ss@D3DXShader@@3PAFA",
+          "base": "0x101ac550",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1027,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1035,
+          "symbol": "?d3dxasm_val@D3DXShader@@3HA",
+          "base": "0x101ac93c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1046,
+          "symbol": "?d3dxasm_errflag@D3DXShader@@3HA",
+          "base": "0x101ac94c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1054,
+          "symbol": "??_C@_0N@MNJHOOI@syntax?5error?$AA@",
+          "base": "0x1010c5e8",
+          "addend": 0,
+          "kind": "SOURCE-STRING"
+        },
+        {
+          "offset": 1060,
+          "symbol": "?s_pAsm@CAssembler@D3DXShader@@1PAV12@A",
+          "base": "0x101ac958",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1065,
+          "symbol": "?Error@CAssembler@D3DXShader@@IAAXPBDZZ",
+          "base": "0x10068c42",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 1071,
+          "symbol": "?d3dxasm_nerrs@D3DXShader@@3HA",
+          "base": "0x101ac950",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1076,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1087,
+          "symbol": "?d3dxasm_errflag@D3DXShader@@3HA",
+          "base": "0x101ac94c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1099,
+          "symbol": "?d3dxasm_errflag@D3DXShader@@3HA",
+          "base": "0x101ac94c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1105,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1121,
+          "symbol": "?d3dxasm_sindex@D3DXShader@@3PAFA",
+          "base": "0x1019eb38",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1141,
+          "symbol": "?d3dxasm_check@D3DXShader@@3PAFA",
+          "base": "0x1019efd8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1149,
+          "symbol": "?d3dxasm_ss@D3DXShader@@3PAFA",
+          "base": "0x101ac550",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1159,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1166,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1174,
+          "symbol": "?d3dxasm_ss@D3DXShader@@3PAFA",
+          "base": "0x101ac550",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1184,
+          "symbol": "?d3dxasm_table@D3DXShader@@3PAFA",
+          "base": "0x1019ed88",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1192,
+          "symbol": "?d3dxasm_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ac944",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1200,
+          "symbol": "?d3dxasm_lval@D3DXShader@@3HA",
+          "base": "0x101ac938",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1206,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1213,
+          "symbol": "?d3dxasm_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ac940",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1220,
+          "symbol": "?d3dxasm_char@D3DXShader@@3HA",
+          "base": "0x101ac948",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1239,
+          "symbol": "??_C@_0BE@CHCCDJIL@yacc?5stack?5overflow?$AA@",
+          "base": "0x1010c99c",
+          "addend": 0,
+          "kind": "SOURCE-STRING"
+        },
+        {
+          "offset": 1245,
+          "symbol": "?s_pAsm@CAssembler@D3DXShader@@1PAV12@A",
+          "base": "0x101ac958",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 1250,
+          "symbol": "?Error@CAssembler@D3DXShader@@IAAXPBDZZ",
+          "base": "0x10068c42",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 1263,
+          "symbol": "$L341",
+          "base": "0x1006b9af",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1267,
+          "symbol": "$L342",
+          "base": "0x1006b9b8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1271,
+          "symbol": "$L343",
+          "base": "0x1006b9c1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1275,
+          "symbol": "$L344",
+          "base": "0x1006b9ca",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1279,
+          "symbol": "$L345",
+          "base": "0x1006b9d3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1283,
+          "symbol": "$L346",
+          "base": "0x1006b9dc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1287,
+          "symbol": "$L347",
+          "base": "0x1006b9e5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1291,
+          "symbol": "$L348",
+          "base": "0x1006b9ee",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1295,
+          "symbol": "$L349",
+          "base": "0x1006b9f7",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1299,
+          "symbol": "$L350",
+          "base": "0x1006ba00",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1303,
+          "symbol": "$L351",
+          "base": "0x1006ba09",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1307,
+          "symbol": "$L352",
+          "base": "0x1006ba12",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1311,
+          "symbol": "$L353",
+          "base": "0x1006ba1b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1315,
+          "symbol": "$L354",
+          "base": "0x1006ba24",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1319,
+          "symbol": "$L355",
+          "base": "0x1006ba2d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1323,
+          "symbol": "$L356",
+          "base": "0x1006ba36",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1327,
+          "symbol": "$L357",
+          "base": "0x1006ba3f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1331,
+          "symbol": "$L358",
+          "base": "0x1006ba48",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1335,
+          "symbol": "$L359",
+          "base": "0x1006ba51",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1339,
+          "symbol": "$L360",
+          "base": "0x1006ba5a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1343,
+          "symbol": "$L361",
+          "base": "0x1006ba63",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1347,
+          "symbol": "$L362",
+          "base": "0x1006ba6c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1351,
+          "symbol": "$L363",
+          "base": "0x1006ba75",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1355,
+          "symbol": "$L364",
+          "base": "0x1006ba7e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1359,
+          "symbol": "$L365",
+          "base": "0x1006ba87",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1363,
+          "symbol": "$L366",
+          "base": "0x1006ba90",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1367,
+          "symbol": "$L367",
+          "base": "0x1006ba99",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1371,
+          "symbol": "$L368",
+          "base": "0x1006baa2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1375,
+          "symbol": "$L369",
+          "base": "0x1006baab",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1379,
+          "symbol": "$L370",
+          "base": "0x1006bab4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1383,
+          "symbol": "$L371",
+          "base": "0x1006babd",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1387,
+          "symbol": "$L372",
+          "base": "0x1006bac6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1391,
+          "symbol": "$L373",
+          "base": "0x1006bacf",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1395,
+          "symbol": "$L374",
+          "base": "0x1006bad8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1399,
+          "symbol": "$L375",
+          "base": "0x1006bae1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1403,
+          "symbol": "$L376",
+          "base": "0x1006baea",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1407,
+          "symbol": "$L377",
+          "base": "0x1006baf3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1411,
+          "symbol": "$L378",
+          "base": "0x1006bafc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1415,
+          "symbol": "$L379",
+          "base": "0x1006bb05",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1419,
+          "symbol": "$L380",
+          "base": "0x1006bb0e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1423,
+          "symbol": "$L381",
+          "base": "0x1006bb17",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1427,
+          "symbol": "$L382",
+          "base": "0x1006bb1d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1431,
+          "symbol": "$L383",
+          "base": "0x1006bb23",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1435,
+          "symbol": "$L384",
+          "base": "0x1006bb29",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1439,
+          "symbol": "$L385",
+          "base": "0x1006bb2f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1443,
+          "symbol": "$L386",
+          "base": "0x1006bb35",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1447,
+          "symbol": "$L387",
+          "base": "0x1006bb3b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1451,
+          "symbol": "$L388",
+          "base": "0x1006bb41",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1455,
+          "symbol": "$L389",
+          "base": "0x1006bb47",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1459,
+          "symbol": "$L390",
+          "base": "0x1006bb4d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1463,
+          "symbol": "$L391",
+          "base": "0x1006bb53",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1467,
+          "symbol": "$L392",
+          "base": "0x1006bb59",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1471,
+          "symbol": "$L393",
+          "base": "0x1006bb5f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1475,
+          "symbol": "$L394",
+          "base": "0x1006bb65",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1479,
+          "symbol": "$L395",
+          "base": "0x1006bb6b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1483,
+          "symbol": "$L396",
+          "base": "0x1006bb71",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1487,
+          "symbol": "$L397",
+          "base": "0x1006bb77",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1491,
+          "symbol": "$L398",
+          "base": "0x1006bb7d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1495,
+          "symbol": "$L399",
+          "base": "0x1006bb83",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1499,
+          "symbol": "$L400",
+          "base": "0x1006bb89",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1503,
+          "symbol": "$L401",
+          "base": "0x1006bb8f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 1507,
+          "symbol": "$L402",
+          "base": "0x1006bb95",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?d3dxshader_parse@D3DXShader@@YGHXZ",
+      "address": "0x100a352e",
+      "bytes": 3691,
+      "section_bytes": 4863,
+      "excluded_table_bytes": 1172,
+      "source": "gfx/target/src/codex_parsers/d3dxshader.cpp",
+      "object": "gfx/target/build/codex30_parser/libraries/d3dxshader.obj",
+      "bindings": [
+        {
+          "offset": 21,
+          "symbol": "?d3dxshader_nerrs@D3DXShader@@3HA",
+          "base": "0x101ad550",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 27,
+          "symbol": "?d3dxshader_errflag@D3DXShader@@3HA",
+          "base": "0x101ad54c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 33,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 37,
+          "symbol": "?d3dxshader_ss@D3DXShader@@3PAFA",
+          "base": "0x101ad150",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 43,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 47,
+          "symbol": "?d3dxshader_vs@D3DXShader@@3PAHA",
+          "base": "0x101ac980",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 54,
+          "symbol": "?d3dxshader_ss@D3DXShader@@3PAFA",
+          "base": "0x101ad150",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 60,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 68,
+          "symbol": "?d3dxshader_defred@D3DXShader@@3PAFA",
+          "base": "0x1019f6d0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 86,
+          "symbol": "?s_pParse@CParse@D3DXShader@@1PAV12@A",
+          "base": "0x101ad558",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 91,
+          "symbol": "?Token@CParse@D3DXShader@@IAEHXZ",
+          "base": "0x1009f7dc",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 98,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 107,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 115,
+          "symbol": "?d3dxshader_sindex@D3DXShader@@3PAFA",
+          "base": "0x1019fb80",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 140,
+          "symbol": "?d3dxshader_check@D3DXShader@@3PAFA",
+          "base": "0x101a1f10",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 149,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 154,
+          "symbol": "?d3dxshader_ss@D3DXShader@@3PAFA",
+          "base": "0x101ad150",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 167,
+          "symbol": "?d3dxshader_table@D3DXShader@@3PAFA",
+          "base": "0x101a03f8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 174,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 183,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 189,
+          "symbol": "?d3dxshader_lval@D3DXShader@@3HA",
+          "base": "0x101ad538",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 195,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 206,
+          "symbol": "?d3dxshader_errflag@D3DXShader@@3HA",
+          "base": "0x101ad54c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 211,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 223,
+          "symbol": "?d3dxshader_errflag@D3DXShader@@3HA",
+          "base": "0x101ad54c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 236,
+          "symbol": "?d3dxshader_rindex@D3DXShader@@3PAFA",
+          "base": "0x1019ff48",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 273,
+          "symbol": "?d3dxshader_check@D3DXShader@@3PAFA",
+          "base": "0x101a1f10",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 288,
+          "symbol": "?d3dxshader_table@D3DXShader@@3PAFA",
+          "base": "0x101a03f8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 294,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 304,
+          "symbol": "?d3dxshader_len@D3DXShader@@3PAFA",
+          "base": "0x1019f480",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 325,
+          "symbol": "?d3dxshader_val@D3DXShader@@3HA",
+          "base": "0x101ad53c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 346,
+          "symbol": "$L683",
+          "base": "0x100a4399",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3239,
+          "symbol": "?s_pParse@CParse@D3DXShader@@1PAV12@A",
+          "base": "0x101ad558",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3244,
+          "symbol": "?Production@CParse@D3DXShader@@IAEXII@Z",
+          "base": "0x100a21d8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 3249,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3262,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3271,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3283,
+          "symbol": "?d3dxshader_lhs@D3DXShader@@3PAFA",
+          "base": "0x1019f230",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3298,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3308,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3314,
+          "symbol": "?d3dxshader_val@D3DXShader@@3HA",
+          "base": "0x101ad53c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3320,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3327,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3337,
+          "symbol": "?s_pParse@CParse@D3DXShader@@1PAV12@A",
+          "base": "0x101ad558",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3342,
+          "symbol": "?Token@CParse@D3DXShader@@IAEHXZ",
+          "base": "0x1009f7dc",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 3349,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3358,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3383,
+          "symbol": "?d3dxshader_gindex@D3DXShader@@3PAFA",
+          "base": "0x101a0310",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3408,
+          "symbol": "?d3dxshader_check@D3DXShader@@3PAFA",
+          "base": "0x101a1f10",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3419,
+          "symbol": "?d3dxshader_table@D3DXShader@@3PAFA",
+          "base": "0x101a03f8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3432,
+          "symbol": "?d3dxshader_dgoto@D3DXShader@@3PAFA",
+          "base": "0x1019fa98",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3437,
+          "symbol": "?d3dxshader_ss@D3DXShader@@3PAFA",
+          "base": "0x101ad150",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3450,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3458,
+          "symbol": "?d3dxshader_val@D3DXShader@@3HA",
+          "base": "0x101ad53c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3469,
+          "symbol": "?d3dxshader_errflag@D3DXShader@@3HA",
+          "base": "0x101ad54c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3476,
+          "symbol": "??_C@_0N@MNJHOOI@syntax?5error?$AA@",
+          "base": "0x1010c5e8",
+          "addend": 0,
+          "kind": "SOURCE-STRING"
+        },
+        {
+          "offset": 3482,
+          "symbol": "?s_pParse@CParse@D3DXShader@@1PAV12@A",
+          "base": "0x101ad558",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3487,
+          "symbol": "?Error@CParse@D3DXShader@@IAAXPBDZZ",
+          "base": "0x100993ad",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 3493,
+          "symbol": "?d3dxshader_nerrs@D3DXShader@@3HA",
+          "base": "0x101ad550",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3498,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3509,
+          "symbol": "?d3dxshader_errflag@D3DXShader@@3HA",
+          "base": "0x101ad54c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3521,
+          "symbol": "?d3dxshader_errflag@D3DXShader@@3HA",
+          "base": "0x101ad54c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3527,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3543,
+          "symbol": "?d3dxshader_sindex@D3DXShader@@3PAFA",
+          "base": "0x1019fb80",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3566,
+          "symbol": "?d3dxshader_check@D3DXShader@@3PAFA",
+          "base": "0x101a1f10",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3574,
+          "symbol": "?d3dxshader_ss@D3DXShader@@3PAFA",
+          "base": "0x101ad150",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3584,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3591,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3599,
+          "symbol": "?d3dxshader_ss@D3DXShader@@3PAFA",
+          "base": "0x101ad150",
+          "addend": 998,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3609,
+          "symbol": "?d3dxshader_table@D3DXShader@@3PAFA",
+          "base": "0x101a03f8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3617,
+          "symbol": "?d3dxshader_ssp@D3DXShader@@3PAFA",
+          "base": "0x101ad544",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3625,
+          "symbol": "?d3dxshader_lval@D3DXShader@@3HA",
+          "base": "0x101ad538",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3631,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3638,
+          "symbol": "?d3dxshader_vsp@D3DXShader@@3PAHA",
+          "base": "0x101ad540",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3645,
+          "symbol": "?d3dxshader_char@D3DXShader@@3HA",
+          "base": "0x101ad548",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3667,
+          "symbol": "??_C@_0BE@CHCCDJIL@yacc?5stack?5overflow?$AA@",
+          "base": "0x1010c99c",
+          "addend": 0,
+          "kind": "SOURCE-STRING"
+        },
+        {
+          "offset": 3673,
+          "symbol": "?s_pParse@CParse@D3DXShader@@1PAV12@A",
+          "base": "0x101ad558",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        },
+        {
+          "offset": 3678,
+          "symbol": "?Error@CParse@D3DXShader@@IAAXPBDZZ",
+          "base": "0x100993ad",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 3691,
+          "symbol": "$L341",
+          "base": "0x100a368c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3695,
+          "symbol": "$L342",
+          "base": "0x100a3693",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3699,
+          "symbol": "$L343",
+          "base": "0x100a369a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3703,
+          "symbol": "$L344",
+          "base": "0x100a36a2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3707,
+          "symbol": "$L345",
+          "base": "0x100a36ab",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3711,
+          "symbol": "$L346",
+          "base": "0x100a36b3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3715,
+          "symbol": "$L347",
+          "base": "0x100a36bb",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3719,
+          "symbol": "$L348",
+          "base": "0x100a36c3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3723,
+          "symbol": "$L349",
+          "base": "0x100a36cb",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3727,
+          "symbol": "$L350",
+          "base": "0x100a36d3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3731,
+          "symbol": "$L351",
+          "base": "0x100a36db",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3735,
+          "symbol": "$L352",
+          "base": "0x100a36e3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3739,
+          "symbol": "$L353",
+          "base": "0x100a36ec",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3743,
+          "symbol": "$L354",
+          "base": "0x100a36f4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3747,
+          "symbol": "$L355",
+          "base": "0x100a36fc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3751,
+          "symbol": "$L356",
+          "base": "0x100a3704",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3755,
+          "symbol": "$L357",
+          "base": "0x100a370c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3759,
+          "symbol": "$L358",
+          "base": "0x100a3714",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3763,
+          "symbol": "$L359",
+          "base": "0x100a371c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3767,
+          "symbol": "$L360",
+          "base": "0x100a3724",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3771,
+          "symbol": "$L361",
+          "base": "0x100a372c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3775,
+          "symbol": "$L362",
+          "base": "0x100a3734",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3779,
+          "symbol": "$L363",
+          "base": "0x100a373d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3783,
+          "symbol": "$L364",
+          "base": "0x100a3745",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3787,
+          "symbol": "$L365",
+          "base": "0x100a374d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3791,
+          "symbol": "$L366",
+          "base": "0x100a3755",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3795,
+          "symbol": "$L367",
+          "base": "0x100a375d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3799,
+          "symbol": "$L368",
+          "base": "0x100a3766",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3803,
+          "symbol": "$L369",
+          "base": "0x100a376e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3807,
+          "symbol": "$L370",
+          "base": "0x100a3777",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3811,
+          "symbol": "$L371",
+          "base": "0x100a3780",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3815,
+          "symbol": "$L372",
+          "base": "0x100a3789",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3819,
+          "symbol": "$L373",
+          "base": "0x100a3791",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3823,
+          "symbol": "$L374",
+          "base": "0x100a3799",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3827,
+          "symbol": "$L375",
+          "base": "0x100a37a2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3831,
+          "symbol": "$L376",
+          "base": "0x100a37aa",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3835,
+          "symbol": "$L377",
+          "base": "0x100a37b2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3839,
+          "symbol": "$L378",
+          "base": "0x100a37ba",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3843,
+          "symbol": "$L379",
+          "base": "0x100a37c2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3847,
+          "symbol": "$L380",
+          "base": "0x100a37ca",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3851,
+          "symbol": "$L381",
+          "base": "0x100a37d3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3855,
+          "symbol": "$L382",
+          "base": "0x100a37db",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3859,
+          "symbol": "$L383",
+          "base": "0x100a37e4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3863,
+          "symbol": "$L384",
+          "base": "0x100a37ec",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3867,
+          "symbol": "$L385",
+          "base": "0x100a37f4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3871,
+          "symbol": "$L386",
+          "base": "0x100a37fc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3875,
+          "symbol": "$L387",
+          "base": "0x100a3804",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3879,
+          "symbol": "$L388",
+          "base": "0x100a380c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3883,
+          "symbol": "$L389",
+          "base": "0x100a3814",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3887,
+          "symbol": "$L390",
+          "base": "0x100a381c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3891,
+          "symbol": "$L391",
+          "base": "0x100a3824",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3895,
+          "symbol": "$L392",
+          "base": "0x100a382c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3899,
+          "symbol": "$L393",
+          "base": "0x100a3834",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3903,
+          "symbol": "$L394",
+          "base": "0x100a383c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3907,
+          "symbol": "$L395",
+          "base": "0x100a3845",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3911,
+          "symbol": "$L396",
+          "base": "0x100a384d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3915,
+          "symbol": "$L397",
+          "base": "0x100a3856",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3919,
+          "symbol": "$L398",
+          "base": "0x100a385e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3923,
+          "symbol": "$L399",
+          "base": "0x100a3866",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3927,
+          "symbol": "$L400",
+          "base": "0x100a386e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3931,
+          "symbol": "$L401",
+          "base": "0x100a3876",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3935,
+          "symbol": "$L402",
+          "base": "0x100a387e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3939,
+          "symbol": "$L403",
+          "base": "0x100a3886",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3943,
+          "symbol": "$L404",
+          "base": "0x100a388e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3947,
+          "symbol": "$L405",
+          "base": "0x100a3896",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3951,
+          "symbol": "$L406",
+          "base": "0x100a389e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3955,
+          "symbol": "$L407",
+          "base": "0x100a38a6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3959,
+          "symbol": "$L408",
+          "base": "0x100a38ae",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3963,
+          "symbol": "$L409",
+          "base": "0x100a38b6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3967,
+          "symbol": "$L410",
+          "base": "0x100a38be",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3971,
+          "symbol": "$L411",
+          "base": "0x100a38c6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3975,
+          "symbol": "$L412",
+          "base": "0x100a38ce",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3979,
+          "symbol": "$L413",
+          "base": "0x100a38d6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3983,
+          "symbol": "$L414",
+          "base": "0x100a38df",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3987,
+          "symbol": "$L415",
+          "base": "0x100a38e8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3991,
+          "symbol": "$L416",
+          "base": "0x100a38f1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3995,
+          "symbol": "$L417",
+          "base": "0x100a38fa",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 3999,
+          "symbol": "$L418",
+          "base": "0x100a3902",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4003,
+          "symbol": "$L419",
+          "base": "0x100a390b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4007,
+          "symbol": "$L420",
+          "base": "0x100a3913",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4011,
+          "symbol": "$L421",
+          "base": "0x100a391b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4015,
+          "symbol": "$L422",
+          "base": "0x100a3924",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4019,
+          "symbol": "$L423",
+          "base": "0x100a392c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4023,
+          "symbol": "$L424",
+          "base": "0x100a3934",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4027,
+          "symbol": "$L425",
+          "base": "0x100a393c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4031,
+          "symbol": "$L426",
+          "base": "0x100a3944",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4035,
+          "symbol": "$L427",
+          "base": "0x100a394d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4039,
+          "symbol": "$L428",
+          "base": "0x100a3955",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4043,
+          "symbol": "$L429",
+          "base": "0x100a395d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4047,
+          "symbol": "$L430",
+          "base": "0x100a3965",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4051,
+          "symbol": "$L431",
+          "base": "0x100a396e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4055,
+          "symbol": "$L432",
+          "base": "0x100a3977",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4059,
+          "symbol": "$L433",
+          "base": "0x100a3980",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4063,
+          "symbol": "$L434",
+          "base": "0x100a3988",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4067,
+          "symbol": "$L435",
+          "base": "0x100a3990",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4071,
+          "symbol": "$L436",
+          "base": "0x100a3998",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4075,
+          "symbol": "$L437",
+          "base": "0x100a39a0",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4079,
+          "symbol": "$L438",
+          "base": "0x100a39a9",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4083,
+          "symbol": "$L439",
+          "base": "0x100a39b1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4087,
+          "symbol": "$L440",
+          "base": "0x100a39b9",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4091,
+          "symbol": "$L441",
+          "base": "0x100a39c1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4095,
+          "symbol": "$L442",
+          "base": "0x100a39c9",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4099,
+          "symbol": "$L443",
+          "base": "0x100a39d1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4103,
+          "symbol": "$L444",
+          "base": "0x100a39d9",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4107,
+          "symbol": "$L445",
+          "base": "0x100a39e2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4111,
+          "symbol": "$L446",
+          "base": "0x100a39eb",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4115,
+          "symbol": "$L447",
+          "base": "0x100a39f3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4119,
+          "symbol": "$L448",
+          "base": "0x100a39fc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4123,
+          "symbol": "$L449",
+          "base": "0x100a3a05",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4127,
+          "symbol": "$L450",
+          "base": "0x100a3a0d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4131,
+          "symbol": "$L451",
+          "base": "0x100a3a15",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4135,
+          "symbol": "$L452",
+          "base": "0x100a3a1e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4139,
+          "symbol": "$L453",
+          "base": "0x100a3a26",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4143,
+          "symbol": "$L454",
+          "base": "0x100a3a2f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4147,
+          "symbol": "$L455",
+          "base": "0x100a3a38",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4151,
+          "symbol": "$L456",
+          "base": "0x100a3a41",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4155,
+          "symbol": "$L457",
+          "base": "0x100a3a4a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4159,
+          "symbol": "$L458",
+          "base": "0x100a3a53",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4163,
+          "symbol": "$L459",
+          "base": "0x100a3a5b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4167,
+          "symbol": "$L460",
+          "base": "0x100a3a63",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4171,
+          "symbol": "$L461",
+          "base": "0x100a3a6b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4175,
+          "symbol": "$L462",
+          "base": "0x100a3a74",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4179,
+          "symbol": "$L463",
+          "base": "0x100a3a7d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4183,
+          "symbol": "$L464",
+          "base": "0x100a3a85",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4187,
+          "symbol": "$L465",
+          "base": "0x100a3a8e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4191,
+          "symbol": "$L466",
+          "base": "0x100a3a99",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4195,
+          "symbol": "$L467",
+          "base": "0x100a3aa5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4199,
+          "symbol": "$L468",
+          "base": "0x100a3ab0",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4203,
+          "symbol": "$L469",
+          "base": "0x100a3abb",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4207,
+          "symbol": "$L470",
+          "base": "0x100a3ac6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4211,
+          "symbol": "$L471",
+          "base": "0x100a3ad1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4215,
+          "symbol": "$L472",
+          "base": "0x100a3adc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4219,
+          "symbol": "$L473",
+          "base": "0x100a3ae8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4223,
+          "symbol": "$L474",
+          "base": "0x100a3af4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4227,
+          "symbol": "$L475",
+          "base": "0x100a3b00",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4231,
+          "symbol": "$L476",
+          "base": "0x100a3b0b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4235,
+          "symbol": "$L477",
+          "base": "0x100a3b16",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4239,
+          "symbol": "$L478",
+          "base": "0x100a3b21",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4243,
+          "symbol": "$L479",
+          "base": "0x100a3b2d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4247,
+          "symbol": "$L480",
+          "base": "0x100a3b39",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4251,
+          "symbol": "$L481",
+          "base": "0x100a3b45",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4255,
+          "symbol": "$L482",
+          "base": "0x100a3b51",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4259,
+          "symbol": "$L483",
+          "base": "0x100a3b5c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4263,
+          "symbol": "$L484",
+          "base": "0x100a3b67",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4267,
+          "symbol": "$L485",
+          "base": "0x100a3b72",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4271,
+          "symbol": "$L486",
+          "base": "0x100a3b7e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4275,
+          "symbol": "$L487",
+          "base": "0x100a3b8a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4279,
+          "symbol": "$L488",
+          "base": "0x100a3b95",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4283,
+          "symbol": "$L489",
+          "base": "0x100a3ba0",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4287,
+          "symbol": "$L490",
+          "base": "0x100a3bab",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4291,
+          "symbol": "$L491",
+          "base": "0x100a3bb6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4295,
+          "symbol": "$L492",
+          "base": "0x100a3bc2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4299,
+          "symbol": "$L493",
+          "base": "0x100a3bce",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4303,
+          "symbol": "$L494",
+          "base": "0x100a3bd9",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4307,
+          "symbol": "$L495",
+          "base": "0x100a3be4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4311,
+          "symbol": "$L496",
+          "base": "0x100a3bef",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4315,
+          "symbol": "$L497",
+          "base": "0x100a3bfb",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4319,
+          "symbol": "$L498",
+          "base": "0x100a3c06",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4323,
+          "symbol": "$L499",
+          "base": "0x100a3c11",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4327,
+          "symbol": "$L500",
+          "base": "0x100a3c1c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4331,
+          "symbol": "$L501",
+          "base": "0x100a3c27",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4335,
+          "symbol": "$L502",
+          "base": "0x100a3c33",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4339,
+          "symbol": "$L503",
+          "base": "0x100a3c3e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4343,
+          "symbol": "$L504",
+          "base": "0x100a3c49",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4347,
+          "symbol": "$L505",
+          "base": "0x100a3c54",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4351,
+          "symbol": "$L506",
+          "base": "0x100a3c5f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4355,
+          "symbol": "$L507",
+          "base": "0x100a3c6a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4359,
+          "symbol": "$L508",
+          "base": "0x100a3c75",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4363,
+          "symbol": "$L509",
+          "base": "0x100a3c81",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4367,
+          "symbol": "$L510",
+          "base": "0x100a3c8d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4371,
+          "symbol": "$L511",
+          "base": "0x100a3c98",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4375,
+          "symbol": "$L512",
+          "base": "0x100a3ca4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4379,
+          "symbol": "$L513",
+          "base": "0x100a3cb0",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4383,
+          "symbol": "$L514",
+          "base": "0x100a3cbc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4387,
+          "symbol": "$L515",
+          "base": "0x100a3cc8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4391,
+          "symbol": "$L516",
+          "base": "0x100a3cd3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4395,
+          "symbol": "$L517",
+          "base": "0x100a3cde",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4399,
+          "symbol": "$L518",
+          "base": "0x100a3ce9",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4403,
+          "symbol": "$L519",
+          "base": "0x100a3cf4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4407,
+          "symbol": "$L520",
+          "base": "0x100a3cff",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4411,
+          "symbol": "$L521",
+          "base": "0x100a3d0a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4415,
+          "symbol": "$L522",
+          "base": "0x100a3d15",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4419,
+          "symbol": "$L523",
+          "base": "0x100a3d20",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4423,
+          "symbol": "$L524",
+          "base": "0x100a3d2b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4427,
+          "symbol": "$L525",
+          "base": "0x100a3d37",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4431,
+          "symbol": "$L526",
+          "base": "0x100a3d42",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4435,
+          "symbol": "$L527",
+          "base": "0x100a3d4d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4439,
+          "symbol": "$L528",
+          "base": "0x100a3d58",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4443,
+          "symbol": "$L529",
+          "base": "0x100a3d63",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4447,
+          "symbol": "$L530",
+          "base": "0x100a3d6e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4451,
+          "symbol": "$L531",
+          "base": "0x100a3d79",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4455,
+          "symbol": "$L532",
+          "base": "0x100a3d84",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4459,
+          "symbol": "$L533",
+          "base": "0x100a3d8f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4463,
+          "symbol": "$L534",
+          "base": "0x100a3d9a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4467,
+          "symbol": "$L535",
+          "base": "0x100a3da5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4471,
+          "symbol": "$L536",
+          "base": "0x100a3db0",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4475,
+          "symbol": "$L537",
+          "base": "0x100a3dbb",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4479,
+          "symbol": "$L538",
+          "base": "0x100a3dc7",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4483,
+          "symbol": "$L539",
+          "base": "0x100a3dd3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4487,
+          "symbol": "$L540",
+          "base": "0x100a3ddf",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4491,
+          "symbol": "$L541",
+          "base": "0x100a3dea",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4495,
+          "symbol": "$L542",
+          "base": "0x100a3df5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4499,
+          "symbol": "$L543",
+          "base": "0x100a3e01",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4503,
+          "symbol": "$L544",
+          "base": "0x100a3e0c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4507,
+          "symbol": "$L545",
+          "base": "0x100a3e17",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4511,
+          "symbol": "$L546",
+          "base": "0x100a3e23",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4515,
+          "symbol": "$L547",
+          "base": "0x100a3e2e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4519,
+          "symbol": "$L548",
+          "base": "0x100a3e3a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4523,
+          "symbol": "$L549",
+          "base": "0x100a3e45",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4527,
+          "symbol": "$L550",
+          "base": "0x100a3e50",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4531,
+          "symbol": "$L551",
+          "base": "0x100a3e5b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4535,
+          "symbol": "$L552",
+          "base": "0x100a3e66",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4539,
+          "symbol": "$L553",
+          "base": "0x100a3e72",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4543,
+          "symbol": "$L554",
+          "base": "0x100a3e7e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4547,
+          "symbol": "$L555",
+          "base": "0x100a3e89",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4551,
+          "symbol": "$L556",
+          "base": "0x100a3e94",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4555,
+          "symbol": "$L557",
+          "base": "0x100a3e9f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4559,
+          "symbol": "$L558",
+          "base": "0x100a3eaa",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4563,
+          "symbol": "$L559",
+          "base": "0x100a3eb5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4567,
+          "symbol": "$L560",
+          "base": "0x100a3ec0",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4571,
+          "symbol": "$L561",
+          "base": "0x100a3ecb",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4575,
+          "symbol": "$L562",
+          "base": "0x100a3ed6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4579,
+          "symbol": "$L563",
+          "base": "0x100a3ee1",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4583,
+          "symbol": "$L564",
+          "base": "0x100a3eed",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4587,
+          "symbol": "$L565",
+          "base": "0x100a3ef8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4591,
+          "symbol": "$L566",
+          "base": "0x100a3f04",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4595,
+          "symbol": "$L567",
+          "base": "0x100a3f10",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4599,
+          "symbol": "$L568",
+          "base": "0x100a3f1c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4603,
+          "symbol": "$L569",
+          "base": "0x100a3f27",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4607,
+          "symbol": "$L570",
+          "base": "0x100a3f33",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4611,
+          "symbol": "$L571",
+          "base": "0x100a3f3f",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4615,
+          "symbol": "$L572",
+          "base": "0x100a3f4a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4619,
+          "symbol": "$L573",
+          "base": "0x100a3f56",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4623,
+          "symbol": "$L574",
+          "base": "0x100a3f62",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4627,
+          "symbol": "$L575",
+          "base": "0x100a3f6e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4631,
+          "symbol": "$L576",
+          "base": "0x100a3f7a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4635,
+          "symbol": "$L577",
+          "base": "0x100a3f85",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4639,
+          "symbol": "$L578",
+          "base": "0x100a3f91",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4643,
+          "symbol": "$L579",
+          "base": "0x100a3f9d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4647,
+          "symbol": "$L580",
+          "base": "0x100a3fa8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4651,
+          "symbol": "$L581",
+          "base": "0x100a3fb4",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4655,
+          "symbol": "$L582",
+          "base": "0x100a3fbf",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4659,
+          "symbol": "$L583",
+          "base": "0x100a3fcb",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4663,
+          "symbol": "$L584",
+          "base": "0x100a3fd6",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4667,
+          "symbol": "$L585",
+          "base": "0x100a3fe2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4671,
+          "symbol": "$L586",
+          "base": "0x100a3fed",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4675,
+          "symbol": "$L587",
+          "base": "0x100a3ff9",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4679,
+          "symbol": "$L588",
+          "base": "0x100a4005",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4683,
+          "symbol": "$L589",
+          "base": "0x100a4011",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4687,
+          "symbol": "$L590",
+          "base": "0x100a401d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4691,
+          "symbol": "$L591",
+          "base": "0x100a4029",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4695,
+          "symbol": "$L592",
+          "base": "0x100a4035",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4699,
+          "symbol": "$L593",
+          "base": "0x100a4040",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4703,
+          "symbol": "$L594",
+          "base": "0x100a404c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4707,
+          "symbol": "$L595",
+          "base": "0x100a4057",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4711,
+          "symbol": "$L596",
+          "base": "0x100a4062",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4715,
+          "symbol": "$L597",
+          "base": "0x100a406d",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4719,
+          "symbol": "$L598",
+          "base": "0x100a4078",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4723,
+          "symbol": "$L599",
+          "base": "0x100a4083",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4727,
+          "symbol": "$L600",
+          "base": "0x100a408e",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4731,
+          "symbol": "$L601",
+          "base": "0x100a409a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4735,
+          "symbol": "$L602",
+          "base": "0x100a40a5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4739,
+          "symbol": "$L603",
+          "base": "0x100a40b0",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4743,
+          "symbol": "$L604",
+          "base": "0x100a40bc",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4747,
+          "symbol": "$L605",
+          "base": "0x100a40c7",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4751,
+          "symbol": "$L606",
+          "base": "0x100a40d2",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4755,
+          "symbol": "$L607",
+          "base": "0x100a40dd",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4759,
+          "symbol": "$L608",
+          "base": "0x100a40e8",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4763,
+          "symbol": "$L609",
+          "base": "0x100a40f3",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4767,
+          "symbol": "$L610",
+          "base": "0x100a40ff",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4771,
+          "symbol": "$L611",
+          "base": "0x100a410a",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4775,
+          "symbol": "$L612",
+          "base": "0x100a4115",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4779,
+          "symbol": "$L613",
+          "base": "0x100a4120",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4783,
+          "symbol": "$L614",
+          "base": "0x100a412b",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4787,
+          "symbol": "$L615",
+          "base": "0x100a4136",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4791,
+          "symbol": "$L616",
+          "base": "0x100a4141",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4795,
+          "symbol": "$L617",
+          "base": "0x100a414c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4799,
+          "symbol": "$L618",
+          "base": "0x100a4154",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4803,
+          "symbol": "$L619",
+          "base": "0x100a415c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4807,
+          "symbol": "$L620",
+          "base": "0x100a4164",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4811,
+          "symbol": "$L621",
+          "base": "0x100a416c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4815,
+          "symbol": "$L622",
+          "base": "0x100a4174",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4819,
+          "symbol": "$L623",
+          "base": "0x100a417c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4823,
+          "symbol": "$L624",
+          "base": "0x100a4184",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4827,
+          "symbol": "$L625",
+          "base": "0x100a418c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4831,
+          "symbol": "$L626",
+          "base": "0x100a4194",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4835,
+          "symbol": "$L627",
+          "base": "0x100a419c",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4839,
+          "symbol": "$L628",
+          "base": "0x100a41a5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4843,
+          "symbol": "$L629",
+          "base": "0x100a41ad",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4847,
+          "symbol": "$L630",
+          "base": "0x100a41b5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4851,
+          "symbol": "$L631",
+          "base": "0x100a41bd",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4855,
+          "symbol": "$L632",
+          "base": "0x100a41c5",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 4859,
+          "symbol": "$L633",
+          "base": "0x100a41cd",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        }
+      ],
+      "original_referee_match": 100
+    }
+  ],
+  "build_image": "sha256:17ddd3cc30517bc070c4e1a1d8bec9c4abd0d8b453115dfa0324e7e20dc94131",
+  "compile_flags": "/O1 /Oy- /hotpatch /MT /Gy",
+  "verified_instruction_bytes": 6082,
+  "negative_tests_passed": true,
+  "files": {
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/scratch/codex35_sdk/discovery.json": "70dbdb2eaeff0c3bb791bf8b24ea917676fa354101162964fa3420bb8bc5f5bf",
+    "gfx/target/scratch/codex30_parser/d3dxasm.cpp": "8b4e89a85d2a187cd79fa747b69774d5d78dbed4edb01198059d414272354d6d",
+    "gfx/target/scratch/codex30_parser/generate.py": "13bb9b20511d354f4f26cc2c0c829ca32688a8a69c60942894ad379fd4102e14",
+    "gfx/target/scratch/codex30_parser/d3dxshader.cpp": "0a5f9bbc573908883e877f857468396a25166ebf8350fa4c0b0169ea1886f1a1",
+    "gfx/target/scratch/codex30_parser/select_dependencies.py": "8fc5e16e488acfd1d675e4970ac921376405858c14914c6bf348ec681b51e692",
+    "gfx/target/scratch/codex30_parser/parser_core.h": "50e766d336e87e342f9d696fb377d1bff3b0d97161ea5e045cea822c795784f5",
+    "gfx/target/scratch/codex30_parser/probe.py": "6fe8ea175fc77b03a115bac15295e67a1b5db65e1d0d39fb31e6c2435ef76461",
+    "gfx/target/scratch/codex30_parser/compile_test.sh": "f7d8477d79720c8987f7da820daaf18048572d3c4b2e0dd4446369e73637cf4f",
+    "gfx/target/scratch/codex30_parser/test_parsers.cpp": "c67d8c87a3aff189902ac27aa46700ae1a3a3b1d02cc827715e40e58111ea9b6",
+    "gfx/target/scratch/codex30_parser/run_test.py": "79c002a3f087b2e6d6474728f985b739cf96c67e15afc54f0725c693017c4de9",
+    "gfx/target/scratch/codex30_parser/compile.sh": "8cd7ffdaf7732e5fa533e77d587835b6e00a1330275df56dc774609bcdbe5b5c",
+    "gfx/target/scratch/codex30_parser/d3dxasm_actions.inc": "e123f0e6e616829a68d919840f7738d2624ab240309f284df57eb155ced93e12",
+    "gfx/target/scratch/codex30_parser/build.sh": "03b850cc4b93c354a45ac4b4cdba42ae82350971b4a070e91ccb9cb53a2c6741",
+    "gfx/target/scratch/codex30_parser/check.py": "a7de81ca77ba6de75cea6213795052867fdf88375929345644ce0272a2effb05",
+    "gfx/target/scratch/codex30_parser/d3dxshader_actions.inc": "f1f441e67707b763b8770f694502dd2c9e23da1247fe302d87bd026594412964",
+    "gfx/target/scratch/codex30_parser/d3dxtok.cpp": "5bbb4d5782f2063968a501a1c8ad084530c155237c7f06a4dc4254746e7d32e1",
+    "gfx/target/scratch/codex30_parser/check_link.py": "b36393e4c8ebf219b70545dc81c6a29ea4e4d9c7ab702c3aefa6331361dec67c",
+    "gfx/target/scratch/codex30_parser/link.mk": "2e6f05ac81a277f17c4346614b6f1835382fe7c2de3be30e124e266fe2eed2d1",
+    "gfx/target/scratch/codex30_parser/d3dxtok_actions.inc": "63ba2cfbbda15da62454564736fcb2f40639f14268637dc3c1a5e014c7eeef19",
+    "gfx/target/src/codex_parsers/d3dxasm.cpp": "8b4e89a85d2a187cd79fa747b69774d5d78dbed4edb01198059d414272354d6d",
+    "gfx/target/src/codex_parsers/d3dxshader.cpp": "0a5f9bbc573908883e877f857468396a25166ebf8350fa4c0b0169ea1886f1a1",
+    "gfx/target/src/codex_parsers/parser_core.h": "50e766d336e87e342f9d696fb377d1bff3b0d97161ea5e045cea822c795784f5",
+    "gfx/target/src/codex_parsers/d3dxasm_actions.inc": "e123f0e6e616829a68d919840f7738d2624ab240309f284df57eb155ced93e12",
+    "gfx/target/src/codex_parsers/d3dxshader_actions.inc": "f1f441e67707b763b8770f694502dd2c9e23da1247fe302d87bd026594412964",
+    "gfx/target/src/codex_parsers/d3dxtok.cpp": "5bbb4d5782f2063968a501a1c8ad084530c155237c7f06a4dc4254746e7d32e1",
+    "gfx/target/src/codex_parsers/d3dxtok_actions.inc": "63ba2cfbbda15da62454564736fcb2f40639f14268637dc3c1a5e014c7eeef19",
+    "gfx/target/build/codex30_parser/libraries/d3dxtok.obj": "76d308bc7860cc3084d88d58b8d144470c7175cf4ec3242e1dc994cf6944019c",
+    "gfx/target/build/codex30_parser/libraries/d3dxasm.obj": "ed42431e243976599be5c67b79a7388fe2231eea0c17e30c5afb958ca14f5e24",
+    "gfx/target/build/codex30_parser/libraries/d3dxshader.obj": "c6c954973c592cf0ec88585d2ed0bd0aced96556d0b55350006304f25f7d3852"
+  }
+}

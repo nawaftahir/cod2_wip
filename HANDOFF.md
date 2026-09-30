@@ -1,9 +1,41 @@
-# Shared renderer handoff — 2026-09-30
+# Shared renderer handoff — 2026-10-01
 
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
-## Current checkpoint: 28.673831%; requested 35% remains pending
+## Current audited checkpoint: 29.231976%; latest request is 30%
+
+The new clean parser module adds **6,082 instruction bytes**, with 1,608
+embedded jump-table bytes excluded. Complete source/object, target boundary,
+binding and original-referee proofs pass. The private link accepts **403**
+source matches and retains every preceding **400**. A fresh CPU fixture
+passes **96** assembler/HLSL cases comparing full bytecode, HRESULTs and
+diagnostic buffers against the original SDK.
+
+Clean source: `target/src/codex_parsers/`. Read its README for commands and
+scope. SDK tables/globals/callees remain external dependencies, zero extra
+source credit. A private generated dependency archive excludes only definitions
+supplied by proven source; no retail patching, `/FORCE`, canonical edits or
+standard-binder changes. Proven COFF string-section ends are supplied as
+private map data-extent metadata, not function markers or counted source.
+
+Fresh audit passed: **318,535 / 1,089,680 = 29.231976%**. Replay with
+`python3 tools/check_ten_percent.py`.
+**30% remains pending: 8,369 more instruction bytes.**
+Whole-file SHA equality and game/GPU smoke tests are still pending.
+
+Stopped at the owner's request on 2026-10-01. Wait for the next goal and
+authorization; do not assume unattended continuation. Resume by reading
+this handoff and the clean parser README, then replay the audit. Keep
+Claude-owned canonical source and unrelated dirty files unchanged.
+
+The shared shader-constant TU at `target/scratch/codex30_constants/` is
+**DEFER, zero credit**. Nine Set specializations compile but differ; 18 Read
+helper shapes match without sufficient identity/binding promotion. Preserve
+the source and probe hashes; do not repeat unchanged variants or import it.
+Its report records target-confirmed count scaling, indexing and padding work.
+
+## Preceding audited checkpoint: 28.673831%
 
 **Fresh audit: 312,453 / 1,089,680 = 28.673831%** (2026-09-30).
 New gain since the preceding checkpoint: **4,802 instruction bytes**.

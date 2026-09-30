@@ -80,3 +80,37 @@
   response-file batching, not one compiler process per source. Original CRT
   source stays external. SDK discovery names 1,427 sections but earns no
   source credit. Reports and replay packets: scratch/codex35_{crt,sdk}/.
+
+## Codex parser family — 2026-10-01
+
+- PINNED: one shared C++ shift/reduce implementation matches all three
+  complete SDK parser sections and retail bodies. d3dxtok_parse 0x10066a19:
+  1,128 code +188 table; d3dxasm_parse 0x1006b861: 1,263 +248;
+  d3dxshader_parse 0x100a352e: 3,691 +1,172. Credit 6,082 code bytes only.
+- PINNED: initializing yychar=-1 before *yyssp=yystate=0 removes the
+  shader parser's five-byte instruction-order difference while retaining the
+  other two matches. Context is 13.10.4035 /O1 /Oy- /hotpatch /MT /Gy.
+  Grammar action rule/count pairs are target-derived, not opcode bytes.
+  Historical byacc version and original TU grouping are unestablished.
+- PINNED: parser stacks have 500 elements; recovery token is 256; final
+  states are preprocessor 15, assembler 16, shader 40. All grammar table,
+  parser-global and Token/Production/Error bindings are independently checked
+  against typed original SDK members. Those dependencies get zero credit.
+- PINNED: original parser COMDAT selection is NODUPLICATES (1). Adding /Gy
+  alone does not resolve duplicate definitions in original SDK members.
+  The private link excludes only source-replaced COMDAT definitions from its
+  generated dependency archive, retains SDK code as opaque dependencies,
+  and verifies each parser's actual source-object owner in the linked map.
+- PINNED: generic map data spans extend the last source literal over unrelated
+  anonymous SDK data. Comparing that gap falsely rejects "syntax error".
+  Source COFF and complete linked/retail strings establish literal ends;
+  private derived-map data metadata supplies these ends. Standard binder
+  remains unchanged and raw results remain available. No function marker
+  variants, lost matches or unchecked string truncation are accepted.
+- PINNED: private link retains all 400 previous source matches, now 403.
+  CPU fixture compares 96 complete shader/error outputs against original SDK;
+  this is neither GPU validation nor game boot nor whole-file identity.
+- SetTyped draft remains DEFER. Target-backed count scaling and reverse
+  padding were corrected; all nine Set bodies still differ. Read bounds are
+  deliberately inclusive Rows/Columns. CConstant is an access prefix only,
+  never an allocation layout. See its report before more variant testing.
