@@ -48,3 +48,35 @@
   clean C++ files as separate non-/GL objects. The private wrapper tracks
   those object prerequisites. SDK fixture passes 426,244 comparisons.
   Review narrow placement/table proofs before Claude-owned canonical integration.
+
+## 2026-09-30 — Source-backed shader helpers and remaining CRT survey
+
+- PINNED: fresh aggregate 312,453 / 1,089,680 = 28.673831%. CRT35 adds
+  29 disjoint complete C bodies / 3,004 bytes; SDK35 adds 37 complete
+  reconstructed C++ methods / 1,798 bytes. 35% remains 68,935 bytes away.
+- PINNED: MSVC 13.10.4035 `/O1 /Oy- /hotpatch /MT` reproduces the 25
+  CInstruction methods. Confirmed prefix: token +0, inputCount +4,
+  inputs +8, outputCount +0xc, outputs +0x10. Full size and allocation
+  layout are NOT established. Only method access to this prefix is proved.
+- PINNED: explicit shared `offset = width * index` in GetInputs/GetOutputs
+  preserves the target's reuse; the factored `(index + 1) * width` spelling
+  did not. GetOutputs switch layout also matters. The final 25 complete
+  methods match; previous 68/134-byte near-matches are not accepted.
+- PINNED: 12 SetShaderConstant native/raw specializations are 30 bytes each.
+  Their original name/address binding comes from CConstant::Create at
+  0x1008085f (664-byte SDK section, zero source credit), not first-hit
+  selection among identical bodies. Conversion specializations remain DEFER:
+  float-to-int source called __ftol2 while target uses a control-word sequence;
+  this does NOT prove impossible source reconstruction or a /GL requirement.
+- PINNED: new private clean-module link accepts 400 source matches, retains
+  all 363 previous, and CPU fixture passes 361,654 predicate/getter comparisons.
+  No canonical edits, binder weakening, whole-DLL identity or game smoke claim.
+- PINNED: `_amsg_exit` discovery at 0x100f7840 was a 37-byte suffix of the
+  previously certified complete 51-byte body at 0x100f7832. Reject interior
+  entries even when homogeneous BSS permits shifted apparent data bindings.
+  CRT35 inherits the unchanged hash-pinned complete-body/binding verifier.
+- 358 remaining original CRT C files were compiled in each of ST/MT modes;
+  357 per mode produced objects. tidprint.c fails both and is excluded. Use
+  response-file batching, not one compiler process per source. Original CRT
+  source stays external. SDK discovery names 1,427 sections but earns no
+  source credit. Reports and replay packets: scratch/codex35_{crt,sdk}/.

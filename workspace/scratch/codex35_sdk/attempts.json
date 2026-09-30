@@ -1,0 +1,27 @@
+{
+  "status": "DEFER conversion family; accepted native family separated",
+  "source": "shader_constants.cpp",
+  "scope": "Both vertex and pixel stages share each reported conversion outcome",
+  "observed_probes": [
+    "Direct shared lifetime versus conditional count calculation",
+    "Pointer declaration and assignment order",
+    "Explicit scratch-buffer induction versus factored index expressions"
+  ],
+  "conversion_results": [
+    {"register_set": "bool", "source_type": "int", "object_bytes": 65, "target_bytes": 65, "first_difference": 9},
+    {"register_set": "bool", "source_type": "float", "object_bytes": 82, "target_bytes": 82, "first_difference": 9},
+    {"register_set": "int4", "source_type": "bool", "object_bytes": 68, "target_bytes": 68, "first_difference": 10},
+    {"register_set": "int4", "source_type": "float", "object_bytes": 70, "target_bytes": 102, "first_difference": 5, "blocker": "Source emits __ftol2 call; target has inline control-word sequence"},
+    {"register_set": "float4", "source_type": "bool", "object_bytes": 74, "target_bytes": 74, "first_difference": 10},
+    {"register_set": "float4", "source_type": "int", "object_bytes": 61, "target_bytes": 59, "first_difference": 10}
+  ],
+  "limitations": "Earlier probe objects were overwritten; historical observations are not independent immutable acceptance packets. All conversion variants receive zero source credit. No claim that source matching is impossible or that LTCG is required.",
+  "predicate_recovery": {
+    "initial_get_inputs_bytes": [68, 61],
+    "initial_get_outputs_bytes": [134, 127],
+    "change": "Reuse explicit width*index offset and preserve GetOutputs switch structure",
+    "final_complete_methods": 25,
+    "final_instruction_bytes": 1438,
+    "proof": "packet.json"
+  }
+}

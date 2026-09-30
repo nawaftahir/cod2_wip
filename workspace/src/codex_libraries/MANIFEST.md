@@ -73,3 +73,45 @@ A standalone non-LTCG object is required with this compiler/flags;
 do not compile it with the renderer's `/GL` flags and presume equivalence.
 The source-only test DLL is not the retail checksum-identical renderer.
 Promotion into `cod2engine/` remains owner-controlled.
+
+## Shader helper cohort — 2026-09-30
+
+| Clean file | Complete source methods | Instruction bytes |
+|---|---:|---:|
+| `instruction_predicates.cpp` | 25 predicates/getters | 1,438 |
+| `shader_native_constants.cpp` | 12 native/raw callback specializations | 360 |
+
+These are readable reconstructed SDK-derived C++, not historical Microsoft
+source. `shader_build.mk` compiles both clean paths separately using the
+hash-pinned 13.10.4035 compiler, `/O1 /Oy- /hotpatch /MT`, without `/GL`.
+The private `scratch/codex35_sdk/link.mk` includes both recipe files.
+Original headers, archives and compiler files remain external dependencies.
+
+`CInstruction` declares only the target-confirmed five-word prefix: token,
+input count/pointer, output count/pointer. It is NOT the full historical
+class size or allocation layout. Do not allocate, construct or destroy SDK
+objects with this view. The TU provides only the 25 fully proved methods.
+The shader callbacks cover vertex/pixel native and raw inputs only, forwarding
+the original device slot, arguments and result; conversion drafts are excluded.
+
+The source objects match complete typed SDK sections and retail bodies, with
+no masked fields. The original referee returns 100%. First-byte and final-byte
+mutations fail. Identical callback code is named using original relocations
+in `CConstant::Create` at `0x1008085f`, not an arbitrary identical-code hit.
+That 664-byte opaque identity carrier receives zero source credit, and wrong
+callback targets are rejected. All 37 source intervals are disjoint.
+
+`scratch/codex35_sdk/check.py` / `packet.json` record source/object/compiler,
+header/archive, complete body/boundary and callback identity evidence.
+`check_link.py` / `link_packet.json` retain every one of the previous 363
+private source matches and accept **400**, without `/FORCE`; all 37 new
+linked bodies match retail. Standard binder and canonical files are unchanged.
+The CPU fixture passes **361,654** predicate/getter comparisons against the
+authentic SDK. It tests no GPU or game boot and does not validate the remaining
+class layout. Whole-DLL SHA identity is still pending.
+
+Build from `gfx/target`: `sh scratch/codex35_sdk/build.sh`; replay with
+`python3 scratch/codex35_sdk/check.py` and `check_link.py`.
+For the existing fixture use `python3 scratch/codex35_sdk/run_test.py`;
+fresh fixture compilation uses `compile_test.sh` inside the pinned compiler
+container with the SDK mounted at `/dxsdk`. See the scratch report for commands.

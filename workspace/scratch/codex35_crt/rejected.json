@@ -1,0 +1,212 @@
+[
+  {
+    "symbol": "___security_error_handler",
+    "address": "0x10108892",
+    "bytes": 328,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/secfail.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___security_error_handler",
+    "address": "0x10108892",
+    "bytes": 328,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/st/secfail.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "__strlwr",
+    "address": "0x1010a794",
+    "bytes": 276,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/strlwr.obj",
+    "reason": "('unproven data', '$T19644', '0x101825a8', ['', ''])"
+  },
+  {
+    "symbol": "___crtInitCritSecAndSpinCount",
+    "address": "0x10107a66",
+    "bytes": 139,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/initcrit.obj",
+    "reason": "('unproven data', '$T19907', '0x10182270', [''])"
+  },
+  {
+    "symbol": "_report_failure",
+    "address": "0x10100d1c",
+    "bytes": 49,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/secchk.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "_report_failure",
+    "address": "0x10100d1c",
+    "bytes": 49,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/st/secchk.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___crtExitProcess",
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/crt0dat.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___crtExitProcess",
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/st/crt0dat.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___crtExitProcess",
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "object": "gfx/target/scratch/codex17_crt/obj/mt/crt0dat.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___crtExitProcess",
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "object": "gfx/target/scratch/codex17_crt/obj/st/crt0dat.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___crtExitProcess",
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "object": "gfx/target/scratch/codex_crt13/obj/crt0dat.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___crtExitProcess",
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "object": "gfx/target/scratch/codex_crt14extra/obj/crt0dat.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___security_error_handler",
+    "address": "0x10108892",
+    "bytes": 328,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/secfail.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___security_error_handler",
+    "address": "0x10108892",
+    "bytes": 328,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/st/secfail.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "__strlwr",
+    "address": "0x1010a794",
+    "bytes": 276,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/strlwr.obj",
+    "reason": "('unproven data', '$T19644', '0x101825a8', ['', ''])"
+  },
+  {
+    "symbol": "__setmode",
+    "address": "0x10109458",
+    "bytes": 151,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/setmode.obj",
+    "reason": "('unproven data', '$T20268', '0x10182510', [''])"
+  },
+  {
+    "symbol": "__setmode",
+    "address": "0x10109ee5",
+    "bytes": 151,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/setmode.obj",
+    "reason": "('unproven data', '$T20268', '0x10182580', [''])"
+  },
+  {
+    "symbol": "___crtInitCritSecAndSpinCount",
+    "address": "0x10107a66",
+    "bytes": 139,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/initcrit.obj",
+    "reason": "('unproven data', '$T19907', '0x10182270', [''])"
+  },
+  {
+    "symbol": "__wgetenv",
+    "address": "0x10107f48",
+    "bytes": 63,
+    "object": "gfx/target/scratch/codex35_crt/obj/mt/wgetenv.obj",
+    "reason": "('unproven code body', '__wgetenv_lk', '0x10107ec7', ['incomplete instruction decode'])"
+  },
+  {
+    "symbol": "__wputenv",
+    "address": "0x10107f48",
+    "bytes": 63,
+    "object": "gfx/target/scratch/codex35_crt/obj/mt/wputenv.obj",
+    "reason": "('unproven code body', '__wputenv_lk', '0x10107ec7', [''])"
+  },
+  {
+    "symbol": "_report_failure",
+    "address": "0x10100d1c",
+    "bytes": 49,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/secchk.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "_report_failure",
+    "address": "0x10100d1c",
+    "bytes": 49,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/st/secchk.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___crtExitProcess",
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/crt0dat.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "___crtExitProcess",
+    "address": "0x100fd5e4",
+    "bytes": 48,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/st/crt0dat.obj",
+    "reason": ""
+  },
+  {
+    "symbol": "__wfopen",
+    "address": "0x100f6cf2",
+    "bytes": 19,
+    "object": "gfx/target/scratch/codex35_crt/obj/mt/wfopen.obj",
+    "reason": "('unproven code body', '__wfsopen', '0x100f6c96', [\"('unproven code body', '__wopenfile', '0x100fc0ae', ['', ''])\"])"
+  },
+  {
+    "symbol": "__wfopen",
+    "address": "0x100f6cf2",
+    "bytes": 19,
+    "object": "gfx/target/scratch/codex35_crt/obj/st/wfopen.obj",
+    "reason": "('unproven code body', '__wfsopen', '0x100f6c96', [\"('unproven code body', '__wopenfile', '0x100fc0ae', ['', ''])\"])"
+  },
+  {
+    "symbol": "_iswupper",
+    "address": "0x100f786a",
+    "bytes": 14,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/mt/_wctype.obj",
+    "reason": "('unproven code body', '_iswctype', '0x100fc438', ['', ''])"
+  },
+  {
+    "symbol": "_iswupper",
+    "address": "0x100f786a",
+    "bytes": 14,
+    "object": "gfx/target/scratch/codex35_crt/obj/prior19/st/_wctype.obj",
+    "reason": "('unproven code body', '_iswctype', '0x100fc438', ['', ''])"
+  },
+  {
+    "symbol": "__un_inc",
+    "address": "0x100f9458",
+    "bytes": 13,
+    "object": "gfx/target/scratch/codex35_crt/obj/mt/cscanf.obj",
+    "reason": "('unproven code body', '__ungetch_lk', '0x10105e3d', [''])"
+  },
+  {
+    "symbol": "__un_inc",
+    "address": "0x100f9458",
+    "bytes": 13,
+    "object": "gfx/target/scratch/codex35_crt/obj/st/cscanf.obj",
+    "reason": "('unproven code body', '__ungetch', '0x10105e3d', ['', ''])"
+  }
+]

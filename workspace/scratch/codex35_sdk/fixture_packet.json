@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "comparisons": 361654,
+  "result": "PASS 361654 predicate/getter comparisons",
+  "scope": "22 predicates plus three getters; CPU only, not a game/GPU smoke test",
+  "files": {
+    "gfx/target/scratch/codex35_sdk/run_test.py": "925841161374d79c812b85bec1b69f137178f23298f5198db0fc63cc2003d77e",
+    "gfx/target/scratch/codex35_sdk/compile_test.sh": "5804f4d363f9e2ffde0b678cc158df76aa7d92e76259546e67a0994909cf32ff",
+    "gfx/target/scratch/codex35_sdk/test_predicates.cpp": "cb01c5a25655265aeb8bcb23871ca662368ffec35d73fdc670dc90137aacef19",
+    "gfx/target/scratch/codex35_sdk/test_predicates.obj": "cdd524467bae40162234b20c0b3e7034e91758ed251272603e6a5f79dd5255c2",
+    "gfx/target/scratch/codex35_sdk/test_predicates.exe": "cc9abe48d4bfc1b003819c99f17ad02c6dc667e114dcc61e1215768bf019193b",
+    "gfx/target/src/codex_libraries/instruction_predicates.cpp": "f8f990542718155500539ce09486d1200e7a1ff367d6ccf20ccd666b7127b561",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88"
+  }
+}

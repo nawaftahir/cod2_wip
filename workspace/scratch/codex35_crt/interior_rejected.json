@@ -1,0 +1,54 @@
+[
+  {
+    "address": "0x100f7840",
+    "bytes": 37,
+    "symbol": "__amsg_exit",
+    "object": "gfx/target/scratch/codex35_crt/obj/mt/wincrt0.obj",
+    "bindings": {
+      "___error_mode": "0x101add8c",
+      "__FF_MSGBANNER": "0x100fe38f",
+      "__NMSG_WRITE": "0x100fe1ee",
+      "__aexit_rtn": "0x101a4610"
+    },
+    "reason": "interior of a previously certified complete function"
+  },
+  {
+    "address": "0x100f7840",
+    "bytes": 37,
+    "symbol": "__amsg_exit",
+    "object": "gfx/target/scratch/codex35_crt/obj/mt/wwincrt0.obj",
+    "bindings": {
+      "___error_mode": "0x101add8c",
+      "__FF_MSGBANNER": "0x100fe38f",
+      "__NMSG_WRITE": "0x100fe1ee",
+      "__aexit_rtn": "0x101a4610"
+    },
+    "reason": "interior of a previously certified complete function"
+  },
+  {
+    "address": "0x100f7840",
+    "bytes": 37,
+    "symbol": "__amsg_exit",
+    "object": "gfx/target/scratch/codex35_crt/obj/st/wincrt0.obj",
+    "bindings": {
+      "___error_mode": "0x101add8c",
+      "__FF_MSGBANNER": "0x100fe38f",
+      "__NMSG_WRITE": "0x100fe1ee",
+      "__aexit_rtn": "0x101a4610"
+    },
+    "reason": "interior of a previously certified complete function"
+  },
+  {
+    "address": "0x100f7840",
+    "bytes": 37,
+    "symbol": "__amsg_exit",
+    "object": "gfx/target/scratch/codex35_crt/obj/st/wwincrt0.obj",
+    "bindings": {
+      "___error_mode": "0x101add8c",
+      "__FF_MSGBANNER": "0x100fe38f",
+      "__NMSG_WRITE": "0x100fe1ee",
+      "__aexit_rtn": "0x101a4610"
+    },
+    "reason": "interior of a previously certified complete function"
+  }
+]

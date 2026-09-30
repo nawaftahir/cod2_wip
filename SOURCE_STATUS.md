@@ -17,8 +17,18 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **307,651 /
-1,089,680 = 28.233151%** (2026-09-30). The requested 25% checkpoint is exceeded.
+The current cross-tree, address-deduplicated source lower bound is **312,453 /
+1,089,680 = 28.673831%** (2026-09-30). The requested 35% checkpoint is not yet
+reached: **68,935 more instruction bytes** are needed.
+
+Two further clean files in `target/src/codex_libraries/` reconstruct 25
+instruction predicates/getters (**1,438 bytes**) and 12 native shader-constant
+callbacks (**360 bytes**). `shader_build.mk` compiles the actual clean paths.
+The private closed link accepts **400 source matches**, retaining every one
+of the preceding 363; the CPU predicate/getter fixture passes **361,654**
+original-SDK comparisons. These are SDK-derived source, not new rendering
+logic. The instruction declaration is only a confirmed five-word prefix,
+not a complete allocation layout. Conversion drafts receive no credit.
 
 The complete four-function SDK error-lookup source family is separated in
 [`target/src/codex_libraries/`](target/src/codex_libraries/), with a real
@@ -27,7 +37,7 @@ instruction bytes**; tables are fully checked but excluded. The new wide
 name and two description functions add **67,696 unique instruction bytes**.
 This is reconstructed SDK-derived C++, not new game renderer logic or
 Microsoft's historical source. The private closed link preserves every
-previous source match and accepts 363 after source-proven disambiguation;
+previous source match and accepted 363 at that checkpoint after source-proven disambiguation;
 **426,244** SDK-reference behavior comparisons pass. Read the manifest and
 `HANDOFF.md` for the narrow ASCII/UTF-16 placement/table proof.
 Canonical source and the release tree remain unchanged.
@@ -42,7 +52,7 @@ matches the full 72,524-byte section and all 8,899 relocation bindings;
 This is reconstructed SDK-derived C++, not historical Microsoft source or
 new rendering logic. It is not yet integrated into Claude's canonical tree.
 
-Of the current total, **48,314 CRT C bytes** and **3,431 CRT
+Of the current total, **51,318 CRT C bytes** and **3,431 CRT
 assembly bytes** are from authentic VC7.1 source in the pinned compiler image,
 rebuilt and checked separately at `target/scratch/codex_crt13/`,
 `target/scratch/codex_crt14extra/`, and `target/scratch/codex_crt14asm/`.
@@ -51,7 +61,10 @@ The 16% batch proof is in `target/scratch/codex16_crt/`; it contributes
 85 new disjoint original CRT functions / 13,375 bytes after deduplication.
 The 17% batch in `target/scratch/codex17_crt/` adds 41 further disjoint bodies /
 9,176 bytes. The CRT19 batch adds another 16 C bodies / 2,751 bytes and four
-original MASM procedures / 1,749 instruction bytes. Tables and overlapping
+original MASM procedures / 1,749 instruction bytes. CRT35 surveys 358 further
+original C files in both thread modes and adds 29 disjoint bodies / 3,004 bytes.
+The full packet includes older dependency bodies; they are not counted twice.
+Tables and overlapping
 earlier proofs are excluded. The original-source dependency remains external to this repository.
 This is a toolchain dependency, **not**
 newly recovered game-authored renderer code; do not redistribute Microsoft's
@@ -74,7 +87,7 @@ added to the canonical TU list, and adds no duplicate coverage.
 
 The audit counts 73,123 JPEG, 41,307 closed-tree, 3,434 STL, 1,190 standalone,
 2,661 independently proven engine, 11,003 private linked, 6,478 live canonical gains,
-587 private drawgroup, 48,314 CRT C, 3,431 CRT assembly and 116,123 reconstructed SDK
+587 private drawgroup, 51,318 CRT C, 3,431 CRT assembly and 117,921 reconstructed SDK
 instruction bytes. All target ranges are disjoint; opaque SDK/runtime library
 bytes, unmatched drafts, and whole-file identity are excluded. Reproduce:
 
@@ -92,11 +105,19 @@ sh scratch/codex17_crt/build.sh
 sh scratch/codex19_crt/build.sh
 sh scratch/codex19_dxerr/build.sh
 sh scratch/codex25_dxerr/build.sh
+sh scratch/codex35_crt/build.sh
+mkdir -p scratch/codex35_crt/obj/prior19
+cp -a scratch/codex19_crt/obj/. scratch/codex35_crt/obj/prior19/
+python3 scratch/codex35_crt/check.py
+sh scratch/codex35_sdk/build.sh
+python3 scratch/codex35_sdk/check.py
+python3 scratch/codex35_sdk/check_link.py
+python3 scratch/codex35_sdk/run_test.py
 cd ../..
 python3 gfx/tools/check_ten_percent.py
 ```
 
-The requested 25% checkpoint is passed by **35,231 bytes**. This
+The requested 35% checkpoint is still **68,935 bytes away**. This
 percentage is source instruction coverage including external library source,
 not completeness or a working replacement DLL.
 

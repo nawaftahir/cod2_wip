@@ -3,7 +3,56 @@
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
-## Current checkpoint: 25% goal exceeded — 28.233151%
+## Current checkpoint: 28.673831%; requested 35% remains pending
+
+**Fresh audit: 312,453 / 1,089,680 = 28.673831%** (2026-09-30).
+New gain since the preceding checkpoint: **4,802 instruction bytes**.
+35% requires 381,388 bytes, so **68,935 further bytes remain**. This is
+source instruction coverage, not release completeness or whole-DLL identity.
+
+**Clean source:** `target/src/codex_libraries/instruction_predicates.cpp`
+contains 25 complete reconstructed SDK methods / **1,438 bytes**;
+`shader_native_constants.cpp` contains 12 native/raw shader-constant callback
+specializations / **360 bytes**. `shader_build.mk` builds both clean paths
+with the already established MSVC 13.10.4035 `/O1 /Oy- /hotpatch /MT` context.
+The private link now accepts **400 source matches**, retaining all **363**
+previous matches. Canonical files, the standard binder and release tree
+remain unchanged. See `scratch/codex35_sdk/REPORT.md` for replay commands.
+
+**Scope:** the instruction class declares only its confirmed five-word
+prefix, NOT a complete allocation layout. Do not construct or allocate SDK
+objects using this view. The 12 callbacks are native forwarding only;
+conversion variants remain DEFER and receive zero credit. Typed SDK sections
+independently identify each method. Identical native callback bodies are
+disambiguated by actual callback relocations in the original creation routine;
+that opaque routine itself receives zero source credit. Full-body equality,
+complete boundaries, original referee and mutation/binding negatives pass.
+The CPU fixture passes **361,654** predicate/getter comparisons against the
+original SDK. This is not a game boot or GPU smoke test.
+
+**Original CRT source:** a batched survey of the remaining 358 original C
+files in ST and MT modes adds **29 disjoint complete bodies / 3,004 bytes**.
+The reused binding verifier is unchanged and hash-pinned; all source is
+compared with the pinned compiler image. Microsoft source stays external.
+`tidprint.c` fails compilation in both modes and is honestly excluded.
+An `_amsg_exit` suffix inside a previously proved complete function is also
+rejected, not relabelled as a fresh function. See `scratch/codex35_crt/REPORT.md`.
+
+**Next fastest route:** the stock CRT C survey is now largely exhausted.
+SDK archive discovery supplies names and extents for 1,427 sections, not
+source coverage. Large remaining sections are shader compiler/optimizer code;
+linking the SDK archive does not reconstruct them. Use the new naming map to
+batch a target-backed source family, or verified game-renderer cohorts, rather
+than repeat broad compiler-flag searches or accept conversion near-matches.
+Keep external-library and game-authored gains separately labelled. Review
+the private integration before touching Claude-owned canonical files.
+
+Replay from the workspace root: `python3 gfx/tools/check_ten_percent.py`.
+It reproduces all byte/binding and linked regression proofs and validates
+complete cached CPU-fixture hashes. Whole-file SHA equality and game runtime
+validation are still pending; no renderer release is claimed.
+
+## Historical checkpoint: 25% goal exceeded — 28.233151%
 
 **Current replayed lower bound: 307,651 / 1,089,680 = 28.233151%**
 (2026-09-30). The requested 25% floor is 272,420 bytes; surpassed by
