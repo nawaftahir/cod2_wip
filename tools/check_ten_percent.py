@@ -816,12 +816,83 @@ def main():
                       ('lookup_object_sha256', 'fixture_lookup.obj')):
         assert fixture[key] == sha(dx_dir / name)
     dx_credit = {(int(dx['address'], 16), dx['code_bytes'])}
+    dx25_dir = TARGET / 'scratch/codex25_dxerr'
+    for name, digest in {
+        'check.py': 'bd7d15d998485deaf357712eddc0ef4ab5bdfe673e651637e4ca8d9a8f23784e',
+        'check_link.py': 'bbe00a4c3187a55b85f2be4a1e100c2509a4bb7cb1727112a39103f0f1ecf1b8',
+        'generate.py': 'd5c265c50d426258b4da14f053fbbeca9db929c6728f0891184b67994fc94367',
+        'build.sh': '38370bfa0c42393a53b0636fbd7fbedec83251277f5eb2ddd562ce587d4f68bc',
+        'compile.sh': '6891eee0c20f883cbc1ff3eae50f164f428af3c4372f84f774ab671f24aebcfd',
+        'compile_test.sh': 'ce09e78aea92d7cae8c4e3774fa71cb3e08cc33e16f8aba1116157ba97f86931',
+        'run_test.py': 'f4451bdbb24aa4d11e6824bc272656968a3ea113e1293d359da7f4dad728983b',
+        'test_lookup.cpp': 'e6288de709647e1b8fdd1a38d25a33ec074cc1cddf2bb4987191ae9b20e6ee15',
+        'link.mk': 'f7a3e37ea64ab618a402831345d8306edcf89bdd20712536f329af0c5b4024a0',
+        'probe.py': '0c591195d9566598c3dd3446ec78ea1292dc5efb9d08450a53ae9b2c212430c2',
+        'oracle.cpp': 'ee7f05677d718452d4c801f43586245ab8888bcccc07643bd3465cd6645f7679',
+        'compile_oracle.sh': '6bff442951f2ab8b49f39006579d0505594d7893fac3edc28a59a73fdc074849',
+    }.items():
+        assert sha(dx25_dir / name) == digest
+    assert sha(TARGET / 'src/codex_libraries/build.mk') == (
+        'fae7f598a3a81d416f9861bf66eb0490b933f8a911c3dc21c62929e528c2e711')
+    for name, digest in {
+        'name_w': '81a0ab0bacbc9b69e706094fb1417ecfd34f69b590e4a1fc77168474f42edc3d',
+        'description_a': '13234549d95852550c229c822ef2136e4576db9c9b5b17bcadc447eedcb09a83',
+        'description_w': 'b656d13c6c84a1fd7b76f83cb188ec2c7ae486224f5461020fbad0f66379a9a2',
+    }.items():
+        assert sha(TARGET / 'src/codex_libraries' / ('dxerr9_' + name + '.cpp')) == digest
+        assert sha(dx25_dir / (name + '.cpp')) == digest
+    for checker in ('check.py', 'check_link.py'):
+        subprocess.run([sys.executable, str(dx25_dir / checker)], cwd=TARGET,
+                       check=True, capture_output=True, text=True)
+    dx25 = json.loads((dx25_dir / 'packet.json').read_text())
+    assert dx25['status'] == 'REVIEWABLE' and not dx25['whole_file_identity']
+    assert dx25['anchor_sha256'] == ANCHOR_SHA and dx25['image'] == IMAGE
+    assert dx25['compiler_files'] == dx['compiler_files'] and dx25['compiler_version'] == '13.10.4035'
+    assert dx25['checker_sha256'] == sha(dx25_dir / 'check.py')
+    assert dx25['prior_checker_sha256'] == sha(dx_dir / 'check.py')
+    assert dx25['build_script_sha256'] == sha(dx25_dir / 'compile.sh')
+    assert dx25['generator_sha256'] == sha(dx25_dir / 'generate.py')
+    assert dx25['clean_build_module_sha256'] == sha(TARGET / 'src/codex_libraries/build.mk')
+    assert dx25['clean_build_image'] == link['image'] and dx25['sdk_lib_sha256'] == dx['sdk_lib_sha256']
+    assert dx25['oracle_packet_sha256'] == sha(dx25_dir / 'oracle_packet.json')
+    oracle = json.loads((dx25_dir / 'oracle_packet.json').read_text())
+    assert oracle['image'] == IMAGE and oracle['sdk_lib_sha256'] == dx['sdk_lib_sha256']
+    for key, name in (('oracle_source_sha256', 'oracle.cpp'), ('oracle_exe_sha256', 'oracle.exe'),
+                      ('oracle_object_sha256', 'oracle.obj'), ('runner_sha256', 'probe.py')):
+        assert oracle[key] == sha(dx25_dir / name)
+    assert oracle['mappings'] == dx25['mappings']
+    for name, digest in dx25['mappings'].items():
+        assert sha(dx25_dir / (name + '_mapping.json')) == digest
+    for row in dx25['clean_rows']:
+        assert row['negative_tests_passed'] and row['original_referee_match'] == 100
+        assert sha(ROOT / row['source']) == row['source_sha256']
+        assert sha(ROOT / row['object']) == row['object_sha256']
+    assert len(dx25['rows']) == 3 and len(dx25['clean_rows']) == 4
+    dx25_credit = {(int(row['address'], 16), row['code_bytes']) for row in dx25['rows']}
+    assert dx25_credit == {(0x100de367, 48462), (0x100efe3c, 9617), (0x100f2b25, 9617)}
+    assert sum(n for _, n in dx25_credit) == dx25['verified_instruction_bytes'] == 67696
+    assert sum(len(row['bindings']) for row in dx25['rows']) == 10991
+    assert sum(row['excluded_table_bytes'] for row in dx25['rows']) == 27703
+    link25 = json.loads((dx25_dir / 'link_packet.json').read_text())
+    assert link25['status'] == 'PASS' and not link25['whole_file_identity'] and link25['image'] == link['image']
+    assert link25['source_match_losses'] == []
+    assert (link25['baseline_source_matches'], link25['previous_source_matches'],
+            link25['raw_standard_source_matches'], link25['linked_source_matches']) == (359, 360, 361, 363)
+    assert len(link25['linked_lookup_proofs']) == 4
+    assert len(link25['data_disambiguated_placements']) == 2
+    assert all(len(row['wrong_width_rejected']) == 1 for row in link25['data_disambiguated_placements'])
+    assert all(sha(ROOT / p) == h for key in ('source_dependencies', 'objects', 'files')
+               for p, h in link25[key].items())
+    fixture25 = json.loads((dx25_dir / 'fixture_packet.json').read_text())
+    assert fixture25['status'] == 'PASS' and fixture25['lookup_comparisons'] == 426244
+    assert fixture25['boundary_inputs'] + fixture25['random_inputs'] == 106561
+    assert all(sha(ROOT / p) == h for p, h in fixture25['files'].items())
     disjoint((address, size) for address, size in jpeg.items())
     disjoint(closed)
     disjoint(stl)
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
-              *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit])
+              *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -833,9 +904,9 @@ def main():
     crt17_bytes = sum(n for _, n in crt17_gain)
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
-    dx_bytes = sum(n for _, n in dx_credit)
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + asm19_bytes + dx_bytes
-    assert total >= (DENOMINATOR * 19 + 99) // 100
+    assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
           f'{total / DENOMINATOR:.6%}; JPEG {old_bytes}, closed tree {new_bytes}, '
           f'STL {stl_bytes}, standalone {standalone_bytes}, engine {engine_bytes}, '
@@ -847,6 +918,8 @@ def main():
     print(f'CRT17 batch: {len(crt17_gain)} new disjoint bodies, {crt17_bytes} bytes; duplicates excluded.')
     print(f'CRT19 batch: {len(crt19_gain)} new disjoint bodies, {crt19_bytes} bytes; '
           f'new original ASM instruction bytes {asm19_bytes}; duplicates and tables excluded.')
+    print('SDK sibling batch: 3 new complete source bodies, 67696 unique code bytes; '
+          'clean 4-TU module linked with all previous matches retained; tables excluded.')
     print('Draft functions, opaque SDK/CRT library bytes, and whole-file identity excluded.')
 
 

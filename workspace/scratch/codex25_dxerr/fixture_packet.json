@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "boundary_inputs": 6561,
+  "random_inputs": 100000,
+  "lookup_comparisons": 426244,
+  "result": "PASS 106561 inputs; 426244 source/reference lookup comparisons",
+  "stdin_sha256": "1cfca03ad4c132c80ca0599bc964094be990bc5a72653a30990ba508d7acc804",
+  "files": {
+    "gfx/target/scratch/codex25_dxerr/run_test.py": "f4451bdbb24aa4d11e6824bc272656968a3ea113e1293d359da7f4dad728983b",
+    "gfx/target/scratch/codex25_dxerr/test_lookup.cpp": "e6288de709647e1b8fdd1a38d25a33ec074cc1cddf2bb4987191ae9b20e6ee15",
+    "gfx/target/scratch/codex25_dxerr/compile_test.sh": "ce09e78aea92d7cae8c4e3774fa71cb3e08cc33e16f8aba1116157ba97f86931",
+    "gfx/target/scratch/codex25_dxerr/test_lookup.exe": "ecaa5aa021975ffeaa3912f0b66994f8f9ee1ffe3544cc4034566f693b8eb6a0",
+    "gfx/target/scratch/codex25_dxerr/test_lookup.obj": "964c09c6a5df06c187270ae088aa48214cc1c80b4df7670b395c05247e9010ef",
+    "sdk/sum2004/Lib/DxErr9.lib": "0dcf72695c4dc029768d2d8fadb5d61d56dcf896bb9683dc936f8a046c608495",
+    "gfx/target/scratch/codex25_dxerr/fixture_name.obj": "ffbaf5e94e810e49f302f32dbe647582bdddeb7c5d2eb869e8591dd87fe78be3",
+    "gfx/target/src/codex_libraries/dxerr9_name.cpp": "5d6e13837b2dc528a26aa06ac6c7723f0b778805f1a8353398e1bee895257dcf",
+    "gfx/target/scratch/codex25_dxerr/fixture_name_w.obj": "07c5253f71f6b3cb2290609b24c9fed8f4976e1e31c857c16dda3d040930f03f",
+    "gfx/target/src/codex_libraries/dxerr9_name_w.cpp": "81a0ab0bacbc9b69e706094fb1417ecfd34f69b590e4a1fc77168474f42edc3d",
+    "gfx/target/scratch/codex25_dxerr/fixture_description_a.obj": "f7208d1618ccce1315d746fb189742bed773be4a8a9f9cd6c970254585fa783e",
+    "gfx/target/src/codex_libraries/dxerr9_description_a.cpp": "13234549d95852550c229c822ef2136e4576db9c9b5b17bcadc447eedcb09a83",
+    "gfx/target/scratch/codex25_dxerr/fixture_description_w.obj": "aaaf5637b7cc026346387d46a8d3b976fdec375d54c247fb7fac78e692b1bd77",
+    "gfx/target/src/codex_libraries/dxerr9_description_w.cpp": "b656d13c6c84a1fd7b76f83cb188ec2c7ae486224f5461020fbad0f66379a9a2"
+  }
+}

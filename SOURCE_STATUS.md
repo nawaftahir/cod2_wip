@@ -17,10 +17,22 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **239,955 /
-1,089,680 = 22.020685%** (2026-09-30). The requested 19% checkpoint is exceeded.
+The current cross-tree, address-deduplicated source lower bound is **307,651 /
+1,089,680 = 28.233151%** (2026-09-30). The requested 25% checkpoint is exceeded.
 
-The complete reconstructed SDK error-name lookup is separated in
+The complete four-function SDK error-lookup source family is separated in
+[`target/src/codex_libraries/`](target/src/codex_libraries/), with a real
+`build.mk` compiling these clean files directly. It contributes **116,123
+instruction bytes**; tables are fully checked but excluded. The new wide
+name and two description functions add **67,696 unique instruction bytes**.
+This is reconstructed SDK-derived C++, not new game renderer logic or
+Microsoft's historical source. The private closed link preserves every
+previous source match and accepts 363 after source-proven disambiguation;
+**426,244** SDK-reference behavior comparisons pass. Read the manifest and
+`HANDOFF.md` for the narrow ASCII/UTF-16 placement/table proof.
+Canonical source and the release tree remain unchanged.
+
+The initial reconstructed SDK error-name lookup is separated in
 [`target/src/codex_libraries/dxerr9_name.cpp`](target/src/codex_libraries/dxerr9_name.cpp).
 Its manifest explains the source and exact compiler. The private no-FORCE
 link preserves all 359 existing accepted source functions, adds this helper,
@@ -62,7 +74,7 @@ added to the canonical TU list, and adds no duplicate coverage.
 
 The audit counts 73,123 JPEG, 41,307 closed-tree, 3,434 STL, 1,190 standalone,
 2,661 independently proven engine, 11,003 private linked, 6,478 live canonical gains,
-587 private drawgroup, 48,314 CRT C, 3,431 CRT assembly and 48,427 reconstructed SDK
+587 private drawgroup, 48,314 CRT C, 3,431 CRT assembly and 116,123 reconstructed SDK
 instruction bytes. All target ranges are disjoint; opaque SDK/runtime library
 bytes, unmatched drafts, and whole-file identity are excluded. Reproduce:
 
@@ -79,15 +91,16 @@ sh scratch/codex16_crt/build.sh
 sh scratch/codex17_crt/build.sh
 sh scratch/codex19_crt/build.sh
 sh scratch/codex19_dxerr/build.sh
+sh scratch/codex25_dxerr/build.sh
 cd ../..
 python3 gfx/tools/check_ten_percent.py
 ```
 
-The requested 19% checkpoint is passed by **32,915 bytes**. This
+The requested 25% checkpoint is passed by **35,231 bytes**. This
 percentage is source instruction coverage including external library source,
 not completeness or a working replacement DLL.
 
-`HANDOFF.md` documents the separate CRT19 MASM rebuild command and private
+`HANDOFF.md` documents the clean-library module, CRT19 MASM rebuild command and private
 compiler-cache extraction. The aggregate replays source byte/binding and
 linked regression checks; the behavior fixture's cached result has complete
 input/output hashes. Rerun `scratch/codex19_dxerr/run_test.py` to execute it.

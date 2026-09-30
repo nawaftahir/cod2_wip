@@ -3,7 +3,71 @@
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
-## Current checkpoint: 19% goal exceeded — 22.020685%
+## Current checkpoint: 25% goal exceeded — 28.233151%
+
+**Current replayed lower bound: 307,651 / 1,089,680 = 28.233151%**
+(2026-09-30). The requested 25% floor is 272,420 bytes; surpassed by
+**35,231 bytes**. Run `python3 gfx/tools/check_ten_percent.py` from the
+workspace root. New instruction gain since 22.020685%: **67,696 bytes**.
+No whole-DLL identity or renderer release is claimed.
+
+**Clean-source integration:** `target/src/codex_libraries/` now contains
+the complete four-function DirectX error name/description lookup family,
+plus `build.mk`. The module compiles those clean paths directly as separate
+non-LTCG objects with hash-pinned MSVC 13.10.4035 `/O1 /Oy- /hotpatch /MT`.
+It is integrated into the private link by `scratch/codex25_dxerr/link.mk`,
+not Claude's canonical TU list. `verified/src/`, `closed.mk`, the standard
+binder and `cod2engine/` remain unchanged. Compiler/SDK/original Microsoft
+source files stay external and are not committed.
+
+New wide-name source: **48,462** instruction bytes; ASCII/wide descriptions:
+**9,617 each**. Their complete sections match, including all **10,991
+relocation bindings** and **27,703 verified but uncredited table bytes**.
+The original referee returns 100%; full strings, code/table destinations,
+sites/types, source/object/toolchain hashes and wrong-target/mutation tests
+pass. These are reconstructed SDK-derived C++, not Microsoft's recovered
+historical source or new rendering logic. Including the preceding ASCII-name
+proof, the family totals **116,123 unique instruction bytes**.
+
+**Method reuse:** prior shared-alias labels / actual SDK return-leaf ordering /
+4035 compiler flags reproduced all three siblings on their first compile.
+The oracle recovered 5,449 wide names and 656 descriptions of each width;
+oracle observations alone are discovery, not source acceptance.
+
+**New proof issue resolved:** description code is identical after relocation
+masking; full ASCII/UTF-16 initializers uniquely distinguish placements and
+reject the wrong width. Their genuine code ends in RET4 at **+9,617**, before
+1,880 table bytes each. A full-section instruction sweep invents table CALLs
+and extent failures. `check_link.py` checks every full linked section and
+initializer, then refines ONLY these two source-proven placements/code extents
+in `cmp_placed.json` and reruns the **unchanged** standard binder. Result:
+**363 source matches**, all **359 baseline / 360 previous** retained. Raw
+output is preserved separately (`bind_raw.json`: 361 source matches).
+Independent review before canonical integration is still required; no broad
+ambiguity, masking, binding or boundary exception was added to the referee.
+
+**Behavior:** all four functions versus authentic SDK functions pass
+**426,244 comparisons**, over 6,561 boundary/unknown inputs plus 100,000
+deterministic random values. Renamed fixture objects are separate from the
+normal clean-source/link objects. The aggregate checks complete cached-fixture
+input/output hashes; `run_test.py` executes the fixture again.
+
+From `gfx/target`, replay `python3 scratch/codex25_dxerr/check.py` and
+`python3 scratch/codex25_dxerr/check_link.py`; fresh-build everything including
+behavior with `sh scratch/codex25_dxerr/build.sh`. The wrapper restores
+ownership only of its Docker-created private build output. The snapshot
+must remain byte-identical to canonical source for this regression proof;
+coordinate later canonical changes. Preserve earlier frozen packets.
+See the clean `MANIFEST.md` and `scratch/codex25_dxerr/REPORT.md` for details.
+
+**Next:** independent review, coordinate canonical module inclusion with
+Claude, then target-backed game-renderer cohorts or genuine source-backed
+library families. Don't add these lookups to engine `/GL` TUs or count opaque
+D3DX library objects as recovered source. A 30% floor needs **19,253** further
+unique bytes, not an achieved/promised checkpoint. Release-tree promotion
+remains owner-controlled and needs whole-file identity/runtime checks.
+
+## Historical checkpoint: 19% goal exceeded — 22.020685%
 
 **Latest independently replayed state (2026-09-30): 239,955 / 1,089,680
 = 22.020685%** source-backed instruction bytes. Run

@@ -1,5 +1,52 @@
 # Verified reconstructed library source
 
+## Four-lookup source module — 2026-09-30
+
+The complete name/description lookup family is now separated here:
+
+| File | Target symbol / entry | Instruction bytes | Verified table bytes, excluded |
+|---|---|---:|---:|
+| `dxerr9_name.cpp` | `_DXGetErrorString9A@4`, `0x100cc81b` | 48,427 | 24,097 |
+| `dxerr9_name_w.cpp` | `_DXGetErrorString9W@4`, `0x100de367` | 48,462 | 23,943 |
+| `dxerr9_description_a.cpp` | `_DXGetErrorDescription9A@4`, `0x100efe3c` | 9,617 | 1,880 |
+| `dxerr9_description_w.cpp` | `_DXGetErrorDescription9W@4`, `0x100f2b25` | 9,617 | 1,880 |
+
+All four files are readable reconstructed C++, not historical Microsoft source.
+Each complete COFF section, every string initializer, local branch/table target,
+relocation site/type and binding matches the target. Wrong-target and corrupted
+byte tests reject; the original masked referee returns 100% for every section.
+The three new files add **67,696 unique instruction bytes**; the family totals
+116,123 instruction bytes. Table data is compiled and verified, not discarded
+from the binary; it simply earns no instruction coverage.
+
+`build.mk` compiles these four clean files as non-LTCG objects using the
+hash-pinned MSVC 13.10.4035 compiler and `/O1 /Oy- /hotpatch /MT`.
+It is used by `target/scratch/codex25_dxerr/link.mk` before the existing
+`closed.mk`. The resulting private link retains all 359 baseline source
+matches and the previous 360-match checkpoint, with 363 source matches now.
+Claude's canonical files and standard referee are unchanged. Do not add
+these functions to the engine `/GL` TU list.
+
+The description code layouts are identical after relocation masking. Their
+ASCII/Unicode initializers uniquely distinguish the two placements; the wrong
+width is tested and rejected. Their code stops before embedded tables at
+offset 9,617. `check_link.py` supplies those two source-proven placements/code
+extents to the unchanged standard binder and independently verifies every
+linked lookup's complete section and initializer. Raw standard output is
+retained separately; no table CALLs or table bytes count as source instructions.
+
+Proof/rebuild: from `gfx/target`, run
+`sh scratch/codex25_dxerr/build.sh` for a fresh module/renderer build, full
+source checks, linked regression and behavior fixture. The fixture passes
+**426,244** comparisons against authentic SDK lookups: 106,561 distinct
+boundary/random inputs tested across all four functions. Replays:
+`python3 scratch/codex25_dxerr/check.py`,
+`python3 scratch/codex25_dxerr/check_link.py`;
+`python3 scratch/codex25_dxerr/run_test.py` reruns behavior.
+The external compiler cache is unchanged from the preceding checkpoint.
+
+### Initial ASCII-name proof (retained)
+
 `dxerr9_name.cpp` reconstructs the complete SDK-derived
 `DXGetErrorString9A(HRESULT)` lookup as readable C++.
 It is not a claim to have recovered Microsoft's historical source file.
@@ -20,8 +67,9 @@ This folder does not contain copied Microsoft CRT or compiler sources.
 - Behavior: 106,560 comparisons against the authentic SDK library pass.
 - Build/replay from `gfx/target`: `sh scratch/codex19_dxerr/build.sh`.
 
-This exact source copy is separated from scratch, not added to the canonical
-TU list. A standalone non-LTCG object is required with this compiler/flags;
+These exact source copies are separated from scratch and integrated into
+the private clean-module build, not Claude's canonical TU list.
+A standalone non-LTCG object is required with this compiler/flags;
 do not compile it with the renderer's `/GL` flags and presume equivalence.
 The source-only test DLL is not the retail checksum-identical renderer.
 Promotion into `cod2engine/` remains owner-controlled.
