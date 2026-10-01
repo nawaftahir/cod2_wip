@@ -1,0 +1,64 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Initialize@CTokenize@D3DXShader@@QAEJPBXIPBDIPAVCAlloc@D3DXCore@@PAVCTErrors@2@@Z",
+      "object_bytes": 106,
+      "target_bytes": 106,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexFloat@CTokenize@D3DXShader@@IAEIPBDPAN@Z",
+      "object_bytes": 395,
+      "target_bytes": 395,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexIdentifier@CTokenize@D3DXShader@@IAEIPBDPAPBD@Z",
+      "object_bytes": 132,
+      "target_bytes": 132,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexFloatSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z",
+      "object_bytes": 74,
+      "target_bytes": 74,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexIntegerSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z",
+      "object_bytes": 137,
+      "target_bytes": 137,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexOctal@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "object_bytes": 126,
+      "target_bytes": 126,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexChar@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "object_bytes": 67,
+      "target_bytes": 67,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_lexer/lexer_matched.cpp",
+  "source_sha256": "d2049c788e8032d7e5e8ce389245298457baff194023242ab6a53dfa84d6945c",
+  "object_sha256": "8a05cad74f2896ef774f463bb48b77d4675bb1f3b04289653a2981ceb0ec8b1a"
+}

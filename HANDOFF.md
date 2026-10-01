@@ -1,5 +1,34 @@
 # Shared renderer handoff — 2026-10-01
 
+Current request: preserve/commit the 30.016610% checkpoint and continue toward
+**35% verified source coverage**. The owner explicitly reinstated 35% after
+the checkpoint below. Still required: **53,266 instruction bytes**.
+Work starts with `target/scratch/codex35_lexer/`; draft bytes get zero credit.
+
+## Confirmed checkpoint: 30.111776%; tokenizer accepted
+
+`target/src/codex_shader_lexer/lexer.cpp` contains **seven complete matched
+methods / 1,037 instruction bytes**. Clean-path V2 passes. The fresh private
+closed link accepts **523** matches and retains all **516** preceding matches.
+**9,976** full-output original/source CPU comparisons pass (6,392 tokenizer,
+3,584 earlier regressions). The fresh complete coverage audit passes:
+**328,122 / 1,089,680 = 30.111776%**. Full output is saved in
+`target/scratch/codex35_lexer/aggregate.log`. New ranges are disjoint from every
+earlier accepted range; opaque dependency code and drafts remain excluded.
+
+Read the clean module README before repeating code-generation experiments.
+Nine unaccepted tokenizer definitions remain only in scratch. The next larger
+SDK family is claimed in `target/scratch/codex35_preprocessor/`; no draft bytes
+count toward the active 35% goal. Do not change another agent's source files.
+
+The first larger preprocessor batch compiled 31 located definitions and
+currently has 25 complete masked-section matches / 2,158 preliminary bytes.
+This is discovery only: callee/global identities, boundaries, integrated link
+and CPU tests are still missing. In particular, the masked LeaveCriticalSection
+match currently names the wrong global, so it MUST NOT be accepted. SDK member94
+Enter/Leave use CNode's allocator global, not the preprocessor parser global.
+Other class/TU drafts are preserved; do not throw them away or repeat flags.
+
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
@@ -48,8 +77,9 @@ Read each clean module's README for pinned facts, scope and fresh replay command
    NOT verified source credit or promises of easy matches. Existing opcode,
    register and Production drafts should be inspected before rewriting them.
 
-The prior 35% goal remains cleared. The owner's above-30% checkpoint is now
-achieved; do not invent a new percentage goal. No release monorepo changes,
+At this historical checkpoint the prior 35% goal had been cleared; the
+owner has since explicitly reinstated it (see the current request above).
+The above-30% checkpoint is achieved. No release monorepo changes,
 push, whole-DLL SHA identity, GPU/game
 boot or allocation-failure injection is authorized/claimed by this checkpoint.
 Other worktrees and unrelated dirty changes remain untouched.

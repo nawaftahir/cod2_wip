@@ -1,0 +1,136 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Initialize@CTokenize@D3DXShader@@QAEJPBXIPBDIPAVCAlloc@D3DXCore@@PAVCTErrors@2@@Z",
+      "object_bytes": 106,
+      "target_bytes": 106,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?SkipToEOL@CTokenize@D3DXShader@@QAEHXZ",
+      "object_bytes": 85,
+      "target_bytes": 91,
+      "first_difference": 2,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexFloat@CTokenize@D3DXShader@@IAEIPBDPAN@Z",
+      "object_bytes": 395,
+      "target_bytes": 395,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexIdentifier@CTokenize@D3DXShader@@IAEIPBDPAPBD@Z",
+      "object_bytes": 132,
+      "target_bytes": 132,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexOperator@CTokenize@D3DXShader@@IAEIPBDPAD@Z",
+      "object_bytes": 280,
+      "target_bytes": 270,
+      "first_difference": 12,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexFloatSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z",
+      "object_bytes": 74,
+      "target_bytes": 74,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexIntegerSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z",
+      "object_bytes": 137,
+      "target_bytes": 137,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?SkipWhitespace@CTokenize@D3DXShader@@QAEHXZ",
+      "object_bytes": 286,
+      "target_bytes": 297,
+      "first_difference": 11,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexHex@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "object_bytes": 164,
+      "target_bytes": 164,
+      "first_difference": 9,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexOctal@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "object_bytes": 126,
+      "target_bytes": 126,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexDecimal@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "object_bytes": 177,
+      "target_bytes": 163,
+      "first_difference": 18,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexStringChar@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "object_bytes": 395,
+      "target_bytes": 409,
+      "first_difference": 6,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexChar@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "object_bytes": 67,
+      "target_bytes": 67,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexVersion@CTokenize@D3DXShader@@IAEIPBDPAK@Z",
+      "object_bytes": 279,
+      "target_bytes": 261,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?LexString@CTokenize@D3DXShader@@IAEIPBDPAPBD@Z",
+      "object_bytes": 320,
+      "target_bytes": 330,
+      "first_difference": 8,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?GetToken@CTokenize@D3DXShader@@QAEJKPAUD3DXTOKEN@2@@Z",
+      "object_bytes": 451,
+      "target_bytes": 451,
+      "first_difference": 159,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_lexer/lexer.cpp",
+  "source_sha256": "dd94f96ff63cb5728daf5e76a78f1152db3ed5c3db9119e888c9500e8d053908",
+  "object_sha256": "f4cafdd0536dce64923499c14a45db152939ed68090d41383a07ccf1c9aab2bf"
+}

@@ -1,0 +1,272 @@
+{
+  "status": "REVIEWABLE",
+  "whole_file_identity": false,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "source_class": "reconstructed SDK tokenizer C++; remaining SDK/runtime methods external",
+  "compiler_files": {
+    "c1.dll": "31aad0d8d776d882ce7036b9f97c98a1d10fc1b8c068ebb9a2bb22a74225b4aa",
+    "c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "mspdb71.dll": "f7ffe701485813a7f10861bc61ba533b09f1386c40c882e832f71881a705c75b",
+    "msvcp71.dll": "1d5a627cb700400a7de751f0e7d3bf2f024e8d79f8c4a9f11a5a20a05c73ab9f",
+    "msvcr71.dll": "91961cc52149826031f1b17b65a95a5c84c89d9a42f8621a43448c0fe897a94f"
+  },
+  "rows": [
+    {
+      "symbol": "?Initialize@CTokenize@D3DXShader@@QAEJPBXIPBDIPAVCAlloc@D3DXCore@@PAVCTErrors@2@@Z",
+      "address": "0x1006771f",
+      "bytes": 106,
+      "section_bytes": 106,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_lexer/lexer_matched.cpp",
+      "object": "gfx/target/scratch/codex35_lexer/obj/lexer_matched.obj",
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?LexFloat@CTokenize@D3DXShader@@IAEIPBDPAN@Z",
+      "address": "0x100677e4",
+      "bytes": 395,
+      "section_bytes": 395,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_lexer/lexer_matched.cpp",
+      "object": "gfx/target/scratch/codex35_lexer/obj/lexer_matched.obj",
+      "bindings": [
+        {
+          "offset": 28,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 63,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 86,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 123,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 154,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 182,
+          "symbol": "_tolower",
+          "base": "0x100f75ab",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 197,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 215,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 245,
+          "symbol": "_tolower",
+          "base": "0x100f75ab",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 266,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 285,
+          "symbol": "_isdigit",
+          "base": "0x100f85f4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 334,
+          "symbol": "__alloca_probe",
+          "base": "0x100f8830",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 366,
+          "symbol": "_atof",
+          "base": "0x100f5db2",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?LexIdentifier@CTokenize@D3DXShader@@IAEIPBDPAPBD@Z",
+      "address": "0x1006796f",
+      "bytes": 132,
+      "section_bytes": 132,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_lexer/lexer_matched.cpp",
+      "object": "gfx/target/scratch/codex35_lexer/obj/lexer_matched.obj",
+      "bindings": [
+        {
+          "offset": 23,
+          "symbol": "_isalpha",
+          "base": "0x100f8541",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 47,
+          "symbol": "_isalnum",
+          "base": "0x100f86e1",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 81,
+          "symbol": "?Alloc@CAlloc@D3DXCore@@QAEPAEII@Z",
+          "base": "0x100826bd",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?LexFloatSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z",
+      "address": "0x10067b01",
+      "bytes": 74,
+      "section_bytes": 74,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_lexer/lexer_matched.cpp",
+      "object": "gfx/target/scratch/codex35_lexer/obj/lexer_matched.obj",
+      "bindings": [
+        {
+          "offset": 30,
+          "symbol": "_tolower",
+          "base": "0x100f75ab",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?LexIntegerSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z",
+      "address": "0x10067b4b",
+      "bytes": 137,
+      "section_bytes": 137,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_lexer/lexer_matched.cpp",
+      "object": "gfx/target/scratch/codex35_lexer/obj/lexer_matched.obj",
+      "bindings": [
+        {
+          "offset": 40,
+          "symbol": "_tolower",
+          "base": "0x100f75ab",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 70,
+          "symbol": "_tolower",
+          "base": "0x100f75ab",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?LexOctal@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "address": "0x10068174",
+      "bytes": 126,
+      "section_bytes": 126,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_lexer/lexer_matched.cpp",
+      "object": "gfx/target/scratch/codex35_lexer/obj/lexer_matched.obj",
+      "bindings": [
+        {
+          "offset": 87,
+          "symbol": "??_C@_0CA@DNBKJEDM@octal?5value?5truncated?5to?532bits?$AA@",
+          "base": "0x1010cb38",
+          "addend": 0,
+          "kind": "SOURCE-STRING"
+        },
+        {
+          "offset": 104,
+          "symbol": "?Error@CTErrors@D3DXShader@@QAAJPAUD3DXTOKEN@2@IPBDZZ",
+          "base": "0x10067c3e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?LexChar@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+      "address": "0x10068533",
+      "bytes": 67,
+      "section_bytes": 67,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_lexer/lexer_matched.cpp",
+      "object": "gfx/target/scratch/codex35_lexer/obj/lexer_matched.obj",
+      "bindings": [
+        {
+          "offset": 31,
+          "symbol": "?LexStringChar@CTokenize@D3DXShader@@IAEIPBDPAI@Z",
+          "base": "0x10068295",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    }
+  ],
+  "build_image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "compile_flags": "/O1 /Oy- /hotpatch /MT /Gy",
+  "verified_instruction_bytes": 1037,
+  "negative_tests_passed": true,
+  "files": {
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/scratch/codex35_sdk/discovery.json": "70dbdb2eaeff0c3bb791bf8b24ea917676fa354101162964fa3420bb8bc5f5bf",
+    "gfx/target/scratch/codex35_lexer/dependencies/libcmt.lib": "6e2b3742e58245de52149137f64281b73db1487a07a31e165fff269fbf9b2ee8",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/src/codex_shader_support/support.h": "a306ad19845c2862c71f546a424e9fcac990776b8a989b472e63ad2bb1449666",
+    "gfx/target/scratch/codex35_lexer/probe.py": "b90542424aa85cdcdaedb6e760846201383bc1173cd310b84344639351293e52",
+    "gfx/target/scratch/codex35_lexer/lexer.cpp": "dd94f96ff63cb5728daf5e76a78f1152db3ed5c3db9119e888c9500e8d053908",
+    "gfx/target/scratch/codex35_lexer/compile.sh": "4d623b1fbe12dc310b280f6ba03ecc201f24d531ec7ef73b1e8d8265f0d40578",
+    "gfx/target/scratch/codex35_lexer/lexer_matched.cpp": "d2049c788e8032d7e5e8ce389245298457baff194023242ab6a53dfa84d6945c",
+    "gfx/target/scratch/codex35_lexer/check.py": "c5ac7720e446aad60f8cb73c0e7d0dc10d9166b200ae615141f4f2cfe2fb12bf",
+    "gfx/target/scratch/codex35_lexer/diff.py": "837bd1f6ee579d711325b352e7c3a8e70fbe8c406e91e74439c85d42b2c30c9b",
+    "gfx/target/scratch/codex35_lexer/obj/lexer_matched.obj": "8a05cad74f2896ef774f463bb48b77d4675bb1f3b04289653a2981ceb0ec8b1a"
+  }
+}

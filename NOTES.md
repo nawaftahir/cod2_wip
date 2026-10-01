@@ -171,3 +171,27 @@
   1453-byte section (1277 code + 176 tables); zero source credit. Shared/direct
   error paths and switch/loop source orders were tried without a complete match.
   No whole-DLL identity, failure injection or GPU/game execution claim.
+
+## Codex tokenizer module — 2026-10-01
+
+- PINNED: seven complete clean C++ methods / 1037 code bytes pass source/SDK/
+  retail, typed bindings, boundaries, mutation negatives and the original
+  referee. The private closed link accepts 523 with all 516 retained; 9976
+  full-output CPU cases pass. Fresh aggregate: 328122/1089680 = 30.111776%.
+- PINNED access view: cursor/end +0/+4, token +8 (32 bytes), flags +40,
+  allocator +44, diagnostics +48. This 52-byte access declaration is not proof
+  of an original complete historical class; unexamined ctor-tail fields wait.
+- PINNED: original libcmt.lib hash 6e2b3742e58245de52149137f64281b73db1487a07a31e165fff269fbf9b2ee8
+  supplies complete identities for isalpha/isdigit/isalnum/atof/tolower and
+  the 61-byte MASM alloca probe. Complete SDK caller edges identify their retail
+  entries; their library bodies/relocations match. External dependencies only.
+- Tested source forms: LexFloat's integer marker and suffix flags are int,
+  not bool; the first digit loop uses preincrement for, and allocation length
+  stays in its output branch. Integer suffix declarations are long flag,
+  cursor, unsigned flag. Identifier starts text+1. Octal uses int overflow
+  and <= '7'. LexChar advances the pointer after its external character helper.
+  Preserve these forms; the old full draft records nine unmatched methods.
+- Original quirks, including exponent-plus rejection and bounded malformed
+  characters, are preserved. CPU comparisons include full float/integer bits,
+  unchanged token words, nullable outputs, strings and complete diagnostics.
+  No allocation failure, non-ASCII locale or GPU/game boot proof.
