@@ -1066,13 +1066,42 @@ def main():
     node_fixture = json.loads((node_dir / 'fixture_packet.json').read_text())
     assert node_fixture['status'] == 'PASS' and node_fixture['cases'] == 10496
     assert all(sha(ROOT / n) == h for n, h in node_fixture['files'].items())
+    assembler_gain, support_gain = set(), set()
+    for family, count, byte_count, baseline_count, linked_count, cpu_count, pins in [
+        ('codex30_assembler', 14, 1517, 491, 505, 1440, {'check.py': '122503199b8bd6eeeb62c43b2b608d741534ad5e73120c1ca81f8b4c1e9cb6dc', 'check_link.py': 'ad65993748bc22de451925bdc27a6ccb6e7775580787b7e748ee600e0460498c', 'vtables.py': '8da29b66d6b3e22d6a0c283d049240bed6ac6f3e1557a97d94966c94a6ec3f56', 'sdk_binding.py': '87f9fca6c6bb2748faea490b15e85b587cb77fa2df187bd401ba34951e30a6d8', 'build.sh': '269587b2397efba2641bac1bfdafb81a1218fba31568b57801949f0f66e79bcb', 'link.mk': '0aa38161eb7b031fa1242b119003025517593a23f30d724e2086162a2a81d388', 'select_dependencies.py': 'e9bdb5b9cb2b7c949bdd9888f3844f5239bdd746dbebfd7762a2e3f1e8db0611', 'run_test.py': 'ca98a472d4c5409ec34756402eaca3a161123f1997fdd77e55baf24080442ca6', 'compile_test.sh': '9ce4c7cbeacbd69136dc41edaa2e9d8a97d1700f5bb6027e338acdd7a2ce9a46'}),
+        ('codex30_support', 11, 1162, 505, 516, 3584, {'check.py': '0be7f12571224aab64bb2a76c1516cedf3a6f2383e6487eecce712eca812cb4d', 'check_link.py': '6568a4c3659b6ce96d6076b510a19d78aaee017445ddae879447addecf0c0148', 'vtables.py': 'b2c8db5fc24d6426a7def14f0bed99d021a9cdd093fcba040f3a91025d4a97ef', 'sdk_binding.py': '87f9fca6c6bb2748faea490b15e85b587cb77fa2df187bd401ba34951e30a6d8', 'build.sh': '4ae4184a176cdb63456082deef9e084392864bb4bc8cb2eb9d4cd9c203f3006e', 'link.mk': '9b1737324df750c1708ab7a04884b4e60784a4b63c34332e974a1ca10d2302e7', 'select_dependencies.py': '38fd6db33515acee4bd4a3adf84b7c9dbc78e1c22cfdfc457fa50edec34260d7', 'run_test.py': '798bebc141b1038d2d8d985e0f61ac4f5b3a2a9081977f38627c32b62d73c28e', 'compile_test.sh': '7fa72226b5409d33d25df89f0ad4bb35ef007cd6a27e2e1b2ef59bc7330cd173'}),
+    ]:
+        directory = TARGET / 'scratch' / family
+        for name, digest in pins.items():
+            assert sha(directory / name) == digest
+        subprocess.run([sys.executable, str(directory / 'check.py'), '--clean'], check=True, capture_output=True)
+        subprocess.run([sys.executable, str(directory / 'check_link.py')], check=True, capture_output=True)
+        packet = json.loads((directory / 'clean_packet.json').read_text())
+        assert packet['status'] == 'REVIEWABLE' and not packet['whole_file_identity']
+        assert packet['anchor_sha256'] == ANCHOR_SHA and packet['negative_tests_passed']
+        assert all(sha(ROOT / n) == h for n, h in packet['files'].items())
+        gain = {(int(r['address'], 16), r['bytes']) for r in packet['rows']}
+        assert len(gain) == count and sum(n for _, n in gain) == byte_count
+        assert all(r['excluded_table_bytes'] == 0 for r in packet['rows'])
+        link = json.loads((directory / 'link_packet.json').read_text())
+        assert link['status'] == 'PASS' and not link['whole_file_identity']
+        assert link['baseline_source_matches'] == baseline_count and link['linked_source_matches'] == linked_count
+        assert not link['source_match_losses'] and link['dependency_source_credit'] == 0
+        assert all(sha(ROOT / n) == h for n, h in link['files'].items())
+        fixture = json.loads((directory / 'fixture_packet.json').read_text())
+        assert fixture['status'] == 'PASS' and fixture['cases'] == cpu_count
+        assert all(sha(ROOT / n) == h for n, h in fixture['files'].items())
+        if family == 'codex30_assembler':
+            assembler_gain = gain
+        else:
+            support_gain = gain
     disjoint((address, size) for address, size in jpeg.items())
     disjoint(closed)
     disjoint(stl)
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1085,7 +1114,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1114,6 +1143,8 @@ def main():
     print('Shader-node batch: 72 complete source bodies, 4783 instruction bytes; '
           '491 linked source matches, all 419 previous retained; 10496 CPU comparisons passed. '
           'Typed vtables and empty SDK Print slots are fully checked but receive no new source credit.')
+    print('Assembler batch: 14 complete source bodies, 1517 instruction bytes; 505 linked matches, all 491 retained; 1440 CPU comparisons passed.')
+    print('Allocator/diagnostic batch: 11 complete source bodies, 1162 instruction bytes; 516 linked matches, all 505 retained; 3584 CPU comparisons passed.')
     goal = (DENOMINATOR * 30 + 99) // 100
     print(f'30% checkpoint: {"REACHED" if total >= goal else "PENDING"}; '
           f'{max(0, goal - total)} further source instruction bytes needed.')

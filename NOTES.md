@@ -135,3 +135,39 @@
 - Original C++ CRT ST/MT and remaining C `/O2` ST/MT surveys supply no accepted
   gain. Common tiny no-op shapes are not entry/name identity. Preserve reports;
   repeating these unchanged batches will not advance source reconstruction.
+
+## Codex assembler and support modules — 2026-10-01
+
+- PINNED: 14 complete clean assembler/node helpers contribute 1517 code bytes;
+  their private link accepts 505 source matches and retains all preceding 491.
+  The original SDK CPU comparison passes 1440 complete-output cases. Eleven
+  clean allocator/diagnostic methods contribute 1162 code bytes; their private
+  link accepts 516 with all 505 retained, and the combined fixture passes 3584
+  cases. The full aggregate, not these subtotals, authorizes coverage updates.
+- PINNED: asm instruction/register nodes are 96/44 bytes. Instruction bytes
+  +0x5c..+0x5f are untouched. Omitting base-node body definitions from their
+  compilation TU restores four constructor register sequences; SDK member60
+  calls the external base constructor from member75. No ABI workaround needed.
+- PINNED: CAssembler has a confirmed 128-byte access prefix, not a proven
+  complete historical class. Token's final jump goes back to its existing
+  epilogue at +63; verify all 222 bytes rather than cutting at its earlier RET.
+  GetShaderCode reloads escaped storage after virtual calls; aliasing it to a
+  new local shortens/reorders the body and fails byte matching.
+- PINNED: CAlloc's six words are chain, commit granularity, cursor, committed,
+  reserved, initial reserve. Initial zero-byte Alloc returns NULL, confirmed
+  by the complete original 234-byte body and original-SDK CPU run. The first
+  fixture wrongly assumed non-NULL; only the test was corrected. Alloc's final
+  jump targets its earlier pop/pop/pop/leave/RET8 epilogue at +177.
+- PINNED: CTErrors is 32 bytes: head, message bytes, error count, warning count,
+  warning level, specifier count, keys pointer, flags pointer. Error/Warning
+  are cdecl varargs; Push is protected. ErrorChunk text starts at +4, requiring
+  sizeof(pointer)+strlen+1 allocation, not padded sizeof(ErrorChunk).
+- PINNED: Push preserves partial allocation and NULL cleanup; Clear retains
+  keys/warning policy and clears flag 0x20 while resetting messages/counts.
+  Separate ascending initial stores, comparison operand orientation and
+  NOT+INC instead of NEG affect exact 4035 compiler output. Preserve the source
+  forms that actually match; do not label mismatches an impossible compiler.
+- Production remains a scratch-only 1500-byte draft versus an original
+  1453-byte section (1277 code + 176 tables); zero source credit. Shared/direct
+  error paths and switch/loop source orders were tried without a complete match.
+  No whole-DLL identity, failure injection or GPU/game execution claim.

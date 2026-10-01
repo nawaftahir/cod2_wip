@@ -3,7 +3,64 @@
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
-## Confirmed checkpoint: 29.770758%; next target above 30%
+## Confirmed checkpoint: 30.016610%; above-30% goal reached
+
+Two clean modules now contain **25 complete matched functions / 2,679 new
+instruction bytes**:
+
+- `target/src/codex_shader_assembler/`: 14 functions / 1,517 bytes, **505**
+  private linked source matches retaining all 491; **1,440** full-output CPU
+  comparisons against the original SDK pass.
+- `target/src/codex_shader_support/`: 11 functions / 1,162 bytes, **516**
+  private linked source matches retaining all 505; **3,584** combined CPU
+  comparisons pass. Shared `support.h` is used by the clean assembler TU too.
+
+Both modules pass full source/typed-SDK/retail bodies, original referee 100%,
+complete boundaries, typed relocation identities and byte/binding negatives.
+The fresh full `python3 tools/check_ten_percent.py` replay passed:
+**327,085 / 1,089,680 = 30.016610%**, up from **324,406 / 29.770758%**.
+The new instruction bytes are disjoint from every earlier credited range.
+The checkpoint is 181 instruction bytes above exactly 30%; no draft,
+opaque library or table bytes were added. Full terminal output is saved in
+`target/scratch/codex30_support/aggregate.log`.
+Read each clean module's README for pinned facts, scope and fresh replay commands.
+
+### Continue without re-deriving or discarding work
+
+1. Preserve this accepted checkpoint. Full aggregate replay, all retained
+   matches, disjoint ranges and current input hashes pass. Scope is V2/V3
+   plus CPU comparison, not whole-file identity or a renderer release.
+2. Clean modules define only matched functions; declarations for unimplemented
+   methods are intentional. Remaining SDK/CRT objects are dependencies, not
+   recovered-source coverage. Production's 1,500-byte draft versus a 1,453-byte
+   original section stays in `scratch/codex30_assembler/`, at zero credit.
+3. Batch related functions per compiler run and reuse each fresh object across
+   comparisons. Inspect actual first differences and SDK caller/TU evidence,
+   not blind flags or ABI variants. The source forms and class layouts already
+   established are recorded in the module READMEs and NOTES.md.
+4. Run full historical audits at major checkpoints, not after every tiny body.
+   Between checkpoints, verify new bodies, their integrated link and regression.
+   Existing packet reuse is valid only when complete input/toolchain identity
+   is unchanged. A cached percent or opaque SDK match is never new source work.
+5. Next source-family leads: CPreProcessor has 36 remaining uniquely located
+   SDK sections / 11,993 section bytes; CTokenize has 16 / 3,473. CAssembler
+   has 10 / 9,937. These are discovery sizes, include possible tables, and are
+   NOT verified source credit or promises of easy matches. Existing opcode,
+   register and Production drafts should be inspected before rewriting them.
+
+The prior 35% goal remains cleared. The owner's above-30% checkpoint is now
+achieved; do not invent a new percentage goal. No release monorepo changes,
+push, whole-DLL SHA identity, GPU/game
+boot or allocation-failure injection is authorized/claimed by this checkpoint.
+Other worktrees and unrelated dirty changes remain untouched.
+
+The full replay took approximately 33 minutes, largely repeated linked-body
+and symbol-binding scans of earlier private DLLs. Avoid repeating that whole
+chain after each small function. Cache reuse must be input/toolchain-complete
+and validated, never a bypass for fresh new-source/link proof. No new caching
+framework or weaker verifier was introduced here.
+
+## Preceding confirmed checkpoint: 29.770758%
 
 `target/src/codex_shader_nodes/nodes.cpp` now contains 72 complete matched
 constructors, comparisons and recursive copies: **4,783 new instruction bytes**.

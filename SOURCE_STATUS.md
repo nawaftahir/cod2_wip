@@ -17,12 +17,23 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **324,406 /
-1,089,680 = 29.770758%** (2026-10-01), confirmed by a full aggregate replay.
-The current requested checkpoint is strictly above 30%; **2,499 more
-instruction bytes** are required. The previous 35% goal was cleared by the owner.
+The current cross-tree, address-deduplicated source lower bound is **327,085 /
+1,089,680 = 30.016610%** (2026-10-01), confirmed by a fresh full aggregate
+replay. The requested strictly-above-30% checkpoint is achieved. The previous
+35% goal remains cleared. Whole-DLL checksum identity is still unfinished.
 
-The newest clean module is
+Two new clean modules passed per-function proof, private linked regression,
+CPU comparison and the full aggregate audit, adding 2,679 disjoint code bytes:
+
+- [`target/src/codex_shader_assembler/`](target/src/codex_shader_assembler/):
+  14 complete source definitions / 1,517 bytes; 505 linked source matches with
+  all 491 retained; 1,440 full-output original-SDK CPU comparisons.
+- [`target/src/codex_shader_support/`](target/src/codex_shader_support/):
+  11 complete definitions / 1,162 bytes; 516 linked source matches with all
+  505 retained; 3,584 combined CPU comparisons. It supplies actual allocator
+  and diagnostic bodies, not just declarations or opaque library objects.
+
+The preceding clean module is
 [`target/src/codex_shader_nodes/`](target/src/codex_shader_nodes/): 72 complete
 SDK node methods, **4,783 instruction bytes**, 491 accepted private linked
 source matches with all 419 previous retained, and **10,496** complete-output

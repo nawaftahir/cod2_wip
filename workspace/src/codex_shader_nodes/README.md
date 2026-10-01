@@ -9,7 +9,8 @@ Their bytes and empty shared Print methods receive no additional credit.
 
 The fresh private link accepts 491 source matches, retaining all 419 previous
 matches. The SDK-reference CPU fixture passes 10,496 complete-output comparisons.
-The complete aggregate replay passed: 324,406 / 1,089,680 = 29.770758%.
+At this module's checkpoint, the aggregate replay passed at
+324,406 / 1,089,680 = 29.770758%. See `gfx/SOURCE_STATUS.md` for the newer total.
 Remaining methods are declared
 for the target-confirmed layouts but supplied by the original SDK dependency,
 with zero new source credit. Drafts remain in `scratch/codex35_nodes/`.
