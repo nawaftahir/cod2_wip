@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "cases": 10285,
+  "scope": "CPU capability profiles, inline operand copies and cast compatibility codes; not GPU/game/large allocations",
+  "output_sha256": "c2b13ddf8257f03966b8242631d5ba4c6e7bb22758e67bd13a700156ef8f77e1",
+  "files": {
+    "gfx/target/scratch/codex30_instructions/test.cpp": "167ff1384cf0210fca441865b8c84c9d4c0e20d07485f93e9aee2ecb732fe870",
+    "gfx/target/scratch/codex30_instructions/compile_test.sh": "c693f77c6bea95b7ece6c1f75fb395f2991bbaf6230b9e797c9a66962cb3abe2",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/src/codex_shader_instructions/cparse_cast.cpp": "4a1918e26ed0d922aedc4147180244f9644773d8b1f59fb950cb100d9cc43efe",
+    "gfx/target/src/codex_shader_instructions/instruction_copy.cpp": "9c56c7cccf4ce155296dab02813b9b9da5c31cbd562635827c73d618742a1d20",
+    "gfx/target/src/codex_shader_instructions/shader_profiles.cpp": "5b12fada015d9fdfc7766818517f252aa9086a06ace38ac04e5c421b9cef1411",
+    "gfx/target/build/codex30_instructions/libraries/instruction_copy.obj": "1692b9a7da9e955f9225a9a7690343c8b9afab6fc8182dacbf3963d3b8fc6180",
+    "gfx/target/build/codex30_instructions/libraries/shader_profiles.obj": "f2690b597cf51e5a66a9665ef4f4f1434c4b575445dcce919c9fa482fa2986a7",
+    "gfx/target/build/codex30_instructions/libraries/cparse_cast.obj": "027c7c3e951824934c2557afbdb2d5a5a0acd08e75c2ff76a34d302934ab5816",
+    "gfx/target/build/codex30_instructions/dependencies/d3dx9.lib": "67f65bf2110cd22474d14385a3436d3b81c553f16d50139d665fa9c8435f6b7d",
+    "gfx/target/scratch/codex30_instructions/run_test.py": "fb50b8b56e511a46e53ce13d2b93d057e268bd0af2461f1359cfc5c84bac8203",
+    "gfx/target/scratch/codex30_instructions/test.obj": "852d43e12cac5029f31e195e9995e323e1c8302e338cf10c841e50b4fbe39cb2",
+    "gfx/target/scratch/codex30_instructions/test_original.exe": "6d6436ea75e2785c2c6d1b8c00d7b099d042beb9014f46e06943189ace4605bd",
+    "gfx/target/scratch/codex30_instructions/test_source.exe": "d24db55a4e3960f4d267491d248e8441340b18c694193c9b323cfed1af7326cb"
+  }
+}

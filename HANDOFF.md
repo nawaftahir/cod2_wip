@@ -3,7 +3,54 @@
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
-## Current checkpoint: 29.275567%; latest request is 30% and above
+## New module verified; aggregate replay pending
+
+`target/src/codex_shader_instructions/` contains four complete reconstructed
+SDK methods, **613 instruction bytes**, with its 48-byte cast jump table
+checked but excluded. Full source/SDK/retail byte proofs and original referee
+100% pass. The private closed link accepts **419**, retaining all preceding
+**415** source matches. The CPU fixture passes **10,285** full-output SDK/source
+comparisons. Canonical and release trees are unchanged.
+
+The expected deduplicated total is **319,623 / 1,089,680 = 29.331822%**;
+the fresh complete aggregate replay is pending. **30% is not achieved**:
+**7,281** additional instruction bytes would still be required.
+The standing 35% goal would need **61,765** further bytes.
+
+The aggregate replay reached shader-read validation but was interrupted when
+stopping an old, CPU-spinning make job removed its generated version object.
+That unchanged source has been rebuilt and its private DLL relinked; its
+415-match link check passes again with all 403 preceding matches retained.
+Rerun the aggregate and refresh any packet hashes
+before declaring a fresh global audit. The prior four-method module proof and
+10,285-case fixture passed; do not claim the aggregate also passed this turn.
+
+Replay and scope are in the clean module README. The instruction-copy class
+is an access prefix, not an allocation contract; shader-profile and cast
+fixtures do not establish GPU/game boot or whole-DLL identity. Unknown enum
+names are not invented. `CParse::IsCast` permits destination 5 from source 4/8;
+the earlier boolean draft omitted that case. Nested switches match exactly.
+
+Private link corrections are evidence-based, not lost-match exclusions:
+all four DxErr source sections, strings and tables are checked in full before
+their instruction scans stop at their proven code ends. A/W-name scans that
+included compiler tables produced bogus calls when the new link moved data.
+No table bytes are newly counted. The SDK `_g_Targets` flags-column end is
+`base +536`, not an adjacent string. `sdk_binding.py` checks the complete
+528-byte array, 44 complete strings and every relocation, plus the caller's
+three operand/addend pairs. Its narrow adapter then supplies the actual array
+binding; all canonical code/data/import/call gates still run. The canonical
+binder is unchanged. Raw results are retained only as diagnostic evidence;
+the corrected complete-bound results are the integration gate.
+
+Tokenizer and opcode initializer remain **DEFER, zero credit** in
+`target/scratch/codex30_token/`. Its report preserves rejected layout variants.
+Do not run its stale diagnostic object as though it represented the last
+restored source. Larger next work is target-backed parser semantic/node/type
+groups, including `CParse::Production` (3,762 code bytes +1,188 table bytes),
+not more unchanged compiler/library sweeps or partial-prefix accounting.
+
+## Preceding checkpoint: 29.275567%
 
 Owner resumed work on 2026-10-01. The latest clean source module is
 `target/src/codex_shader_constants/`: eleven Read helpers plus shader version,

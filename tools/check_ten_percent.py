@@ -1000,13 +1000,49 @@ def main():
     reads_fixture = json.loads((TARGET / 'scratch/codex30_constants/reads_fixture_packet.json').read_text())
     assert reads_fixture['status'] == 'PASS' and reads_fixture['cases'] == 2000
     assert all(sha(ROOT / n) == h for n, h in reads_fixture['files'].items())
+    instruction_dir = TARGET / 'scratch/codex30_instructions'
+    for name, digest in {
+        'check.py': 'f9da8fbaba71a25b1c14f4a42cbc11ece85ddf56874f20f0008b8e20abc41713',
+        'check_link.py': '6e247f7b222fb43d5bdcd659b3c56d426fb883cdcf88f40137d51468ae92306c',
+        'sdk_binding.py': 'd10021efd10506d110cfec38535668c696194a6dfdb972564cbc30fe136bd69f',
+        'build.sh': '281df84044592e05bd7ed20d4637318aa379bb0da716b03575807ca06a82a69a',
+        'link.mk': 'b4741e33a2244019fb4ad5ce40bb4983539d3d81c5cc7d1541cc9220a8d836f0',
+        'select_dependencies.py': '15383ae09e7f59ceb428f86b1ce02277384e090f49d7ec7d5d0f3597429a0a57',
+        'run_test.py': 'fb50b8b56e511a46e53ce13d2b93d057e268bd0af2461f1359cfc5c84bac8203',
+        'compile_test.sh': 'c693f77c6bea95b7ece6c1f75fb395f2991bbaf6230b9e797c9a66962cb3abe2',
+    }.items():
+        assert sha(instruction_dir / name) == digest
+    subprocess.run([sys.executable, str(instruction_dir / 'check.py')], check=True, capture_output=True)
+    subprocess.run([sys.executable, str(instruction_dir / 'check_link.py')], check=True, capture_output=True)
+    instruction_packet = json.loads((instruction_dir / 'clean_packet.json').read_text())
+    assert instruction_packet['status'] == 'REVIEWABLE' and not instruction_packet['whole_file_identity']
+    assert instruction_packet['anchor_sha256'] == ANCHOR_SHA and instruction_packet['negative_tests_passed']
+    assert all(sha(ROOT / n) == h for n, h in instruction_packet['files'].items())
+    instruction_gain = {(int(r['address'], 16), r['bytes']) for r in instruction_packet['rows']}
+    assert len(instruction_gain) == 4 and sum(n for _, n in instruction_gain) == 613
+    assert sum(r['excluded_table_bytes'] for r in instruction_packet['rows']) == 48
+    instruction_link = json.loads((instruction_dir / 'link_packet.json').read_text())
+    assert instruction_link['status'] == 'PASS' and not instruction_link['whole_file_identity']
+    assert instruction_link['baseline_source_matches'] == 415 and instruction_link['linked_source_matches'] == 419
+    assert not instruction_link['source_match_losses'] and instruction_link['dependency_source_credit'] == 0
+    assert len(instruction_link['linked_lookup_proofs']) == 4
+    assert instruction_link['baseline_extent_correction'] == {
+        'symbol': '_DXGetErrorString9W@4', 'old_section_bytes': 72405,
+        'instruction_bytes': 48462, 'full_section_still_verified': True}
+    assert instruction_link['additional_baseline_extent_corrections'] == [{
+        'symbol': '_DXGetErrorString9A@4', 'old_section_bytes': 72524,
+        'instruction_bytes': 48427, 'full_section_still_verified': True}]
+    assert all(sha(ROOT / n) == h for n, h in instruction_link['files'].items())
+    instruction_fixture = json.loads((instruction_dir / 'fixture_packet.json').read_text())
+    assert instruction_fixture['status'] == 'PASS' and instruction_fixture['cases'] == 10285
+    assert all(sha(ROOT / n) == h for n, h in instruction_fixture['files'].items())
     disjoint((address, size) for address, size in jpeg.items())
     disjoint(closed)
     disjoint(stl)
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1019,7 +1055,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1042,6 +1078,9 @@ def main():
           '403 linked source matches retained/accepted; 96 full-output CPU cases passed.')
     print('Shader read batch: 12 complete source bodies, 475 instruction bytes; '
           '415 linked source matches, all 403 previous retained; 2000 full-output CPU cases passed.')
+    print('Instruction/profile/cast batch: 4 complete source bodies, 613 instruction bytes; '
+          '419 linked source matches, all 415 previous retained; 10285 CPU comparisons passed. '
+          'DxErr W table is still fully checked, not decoded as instructions or counted again.')
     goal = (DENOMINATOR * 30 + 99) // 100
     print(f'30% checkpoint: {"REACHED" if total >= goal else "PENDING"}; '
           f'{max(0, goal - total)} further source instruction bytes needed.')

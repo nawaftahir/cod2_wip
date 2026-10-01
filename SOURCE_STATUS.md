@@ -19,7 +19,16 @@ files in `target/src/codex/` also need integration into the closed build.
 
 The current cross-tree, address-deduplicated source lower bound is **312,453 /
 1,089,680 = 28.673831%** (2026-09-30). The requested 35% checkpoint is not yet
-reached: **68,935 more instruction bytes** are needed.
+reached: **68,935 more instruction bytes** were needed at that checkpoint.
+
+The newer clean module is
+[`target/src/codex_shader_instructions/`](target/src/codex_shader_instructions/).
+Four completed SDK methods add **613 instruction bytes**, retain all 415
+previous linked source matches and accept 419, with **10,285** CPU comparisons
+against the original SDK. The full aggregate replay is pending; including the
+preceding parser and shader-read checkpoints would yield **319,623 bytes /
+29.331822%**, still **7,281 bytes below 30%**. Read `HANDOFF.md` for current
+status rather than treating the historical breakdown below as current.
 
 Two further clean files in `target/src/codex_libraries/` reconstruct 25
 instruction predicates/getters (**1,438 bytes**) and 12 native shader-constant
