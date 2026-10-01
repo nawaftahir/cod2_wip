@@ -17,17 +17,24 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **312,453 /
-1,089,680 = 28.673831%** (2026-09-30). The requested 35% checkpoint is not yet
-reached: **68,935 more instruction bytes** were needed at that checkpoint.
+The current cross-tree, address-deduplicated source lower bound is **324,406 /
+1,089,680 = 29.770758%** (2026-10-01), confirmed by a full aggregate replay.
+The current requested checkpoint is strictly above 30%; **2,499 more
+instruction bytes** are required. The previous 35% goal was cleared by the owner.
 
-The newer clean module is
+The newest clean module is
+[`target/src/codex_shader_nodes/`](target/src/codex_shader_nodes/): 72 complete
+SDK node methods, **4,783 instruction bytes**, 491 accepted private linked
+source matches with all 419 previous retained, and **10,496** complete-output
+SDK/source CPU comparisons. Full typed vtables are checked but not counted.
+
+The preceding clean module is
 [`target/src/codex_shader_instructions/`](target/src/codex_shader_instructions/).
 Four completed SDK methods add **613 instruction bytes**, retain all 415
 previous linked source matches and accept 419, with **10,285** CPU comparisons
-against the original SDK. The full aggregate replay is pending; including the
-preceding parser and shader-read checkpoints would yield **319,623 bytes /
-29.331822%**, still **7,281 bytes below 30%**. Read `HANDOFF.md` for current
+against the original SDK. The full aggregate replay passed and includes the
+preceding parser and shader-read checkpoints: **319,623 bytes / 29.331822%**,
+still **7,281 bytes below exactly 30%**. Read `HANDOFF.md` for current
 status rather than treating the historical breakdown below as current.
 
 Two further clean files in `target/src/codex_libraries/` reconstruct 25

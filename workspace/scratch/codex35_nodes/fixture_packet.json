@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "cases": 10496,
+  "scope": "initialized and untouched node fields, null/self/copied equality, recursive copies, arena allocation and source-update quirk; not allocation failure, game/GPU boot or unimplemented methods",
+  "output_sha256": "bda016b49c2c4d888596569b7ddce9fa6614d5a8f20bf9c6dca03b722e0b52ae",
+  "files": {
+    "gfx/target/scratch/codex35_nodes/test.cpp": "cfcaf6ece683042e5e5cb60e393c0ee8ab2521d3e4e9c54d973d54e0819d9c5d",
+    "gfx/target/scratch/codex35_nodes/compile_test.sh": "eeb51f84b24045665dd05ff2374315aa983ef1bf0dc0679d6c448163559430ff",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/build/codex35_nodes/libraries/d3dxasm.obj": "ed42431e243976599be5c67b79a7388fe2231eea0c17e30c5afb958ca14f5e24",
+    "gfx/target/build/codex35_nodes/libraries/shader_native_constants.obj": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "gfx/target/build/codex35_nodes/libraries/read_typed.obj": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "gfx/target/build/codex35_nodes/libraries/d3dxtok.obj": "76d308bc7860cc3084d88d58b8d144470c7175cf4ec3242e1dc994cf6944019c",
+    "gfx/target/build/codex35_nodes/libraries/dxerr9_description_w.obj": "bc773697208482d4239aa638453946ff616374d39b09a3a2c6ad86a2a6b85dff",
+    "gfx/target/build/codex35_nodes/libraries/nodes.obj": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "gfx/target/build/codex35_nodes/libraries/dxerr9_description_a.obj": "ae9ce6eda772abf4edeacd23cbd20db25ec8fc8a29f6d429f282654d1f1764dc",
+    "gfx/target/build/codex35_nodes/libraries/d3dxshader.obj": "c6c954973c592cf0ec88585d2ed0bd0aced96556d0b55350006304f25f7d3852",
+    "gfx/target/build/codex35_nodes/libraries/shader_profiles.obj": "f2690b597cf51e5a66a9665ef4f4f1434c4b575445dcce919c9fa482fa2986a7",
+    "gfx/target/build/codex35_nodes/libraries/instruction_predicates.obj": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "gfx/target/build/codex35_nodes/libraries/dxerr9_name_w.obj": "ebb3fc996f53b3ef48809db86de8346302652f3e1492e7f04f98e612e8afcbfe",
+    "gfx/target/build/codex35_nodes/libraries/cparse_cast.obj": "027c7c3e951824934c2557afbdb2d5a5a0acd08e75c2ff76a34d302934ab5816",
+    "gfx/target/build/codex35_nodes/libraries/shader_version.obj": "b187c8257a2bd5ad9e385068adb07d34c61891e96f6023de634dea63629e4704",
+    "gfx/target/build/codex35_nodes/libraries/dxerr9_name.obj": "a4b6b3fe407f0a0ddda4a3f4279f77c07f1eb3f4b3cf467476caf8ad3cac9d39",
+    "gfx/target/build/codex35_nodes/libraries/instruction_copy.obj": "1692b9a7da9e955f9225a9a7690343c8b9afab6fc8182dacbf3963d3b8fc6180",
+    "gfx/target/build/codex35_nodes/dependencies/d3dx9.lib": "0239d1b89a64935d18fa9d64e3ee2b26d4e5f8ba08d920a42bdb318ce336e273",
+    "gfx/target/scratch/codex35_nodes/run_test.py": "b0d464c8141a50903428b95dce1b0bd2941e8f66630cc8fbd25e0165c8a13b32",
+    "gfx/target/scratch/codex35_nodes/test.obj": "19494fb5a39ed4e6cc081aefa581552334aaeebd08c6cdd3ad0fad128b28a3a5",
+    "gfx/target/scratch/codex35_nodes/test_original.exe": "48c43c1b4e9ed30ead8ae7b5b43ef5a4d0a69c549956d0301ebfccaf5ce9b4be",
+    "gfx/target/scratch/codex35_nodes/test_source.exe": "62f80d0ad961386c4df36040815dd05ccaa7efc1fcb8ffb6b7d348a3d3c1c722"
+  }
+}

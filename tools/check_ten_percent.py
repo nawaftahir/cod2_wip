@@ -1036,13 +1036,43 @@ def main():
     instruction_fixture = json.loads((instruction_dir / 'fixture_packet.json').read_text())
     assert instruction_fixture['status'] == 'PASS' and instruction_fixture['cases'] == 10285
     assert all(sha(ROOT / n) == h for n, h in instruction_fixture['files'].items())
+    node_dir = TARGET / 'scratch/codex35_nodes'
+    for name, digest in {
+        'check.py': '662f35a91c9d5ac91821aa0002681dee5e9d994d632ea9a7311f05dba77893c7',
+        'check_link.py': 'ff9ce9447d0be727179c43369fa3c08c244fb522f3564f3fecb9679548b6f36b',
+        'vtables.py': 'c233ab7ebea5f2f988904f8e92b453a2edbb38fa4307cfadd95c0304777fd6f8',
+        'sdk_binding.py': '87f9fca6c6bb2748faea490b15e85b587cb77fa2df187bd401ba34951e30a6d8',
+        'build.sh': '63e63046eae27335b2250e21fce625e24b82dde0e24c4f4a2dbfb2aca62a133d',
+        'link.mk': '52ff051d6bf1e3f5045d1de14d71b1085792c07c88ac15250588bce8a58a507e',
+        'select_dependencies.py': 'dd4c7c40990376e2018d28bc5bef09179494f5b870794129d557a8031b1fc402',
+        'run_test.py': 'b0d464c8141a50903428b95dce1b0bd2941e8f66630cc8fbd25e0165c8a13b32',
+        'compile_test.sh': 'eeb51f84b24045665dd05ff2374315aa983ef1bf0dc0679d6c448163559430ff',
+    }.items():
+        assert sha(node_dir / name) == digest
+    subprocess.run([sys.executable, str(node_dir / 'check.py'), '--clean'], check=True, capture_output=True)
+    subprocess.run([sys.executable, str(node_dir / 'check_link.py')], check=True, capture_output=True)
+    node_packet = json.loads((node_dir / 'clean_packet.json').read_text())
+    assert node_packet['status'] == 'REVIEWABLE' and not node_packet['whole_file_identity']
+    assert node_packet['anchor_sha256'] == ANCHOR_SHA and node_packet['negative_tests_passed']
+    assert all(sha(ROOT / n) == h for n, h in node_packet['files'].items())
+    node_gain = {(int(r['address'], 16), r['bytes']) for r in node_packet['rows']}
+    assert len(node_gain) == 72 and sum(n for _, n in node_gain) == 4783
+    assert all(r['excluded_table_bytes'] == 0 for r in node_packet['rows'])
+    node_link = json.loads((node_dir / 'link_packet.json').read_text())
+    assert node_link['status'] == 'PASS' and not node_link['whole_file_identity']
+    assert node_link['baseline_source_matches'] == 419 and node_link['linked_source_matches'] == 491
+    assert not node_link['source_match_losses'] and node_link['dependency_source_credit'] == 0
+    assert all(sha(ROOT / n) == h for n, h in node_link['files'].items())
+    node_fixture = json.loads((node_dir / 'fixture_packet.json').read_text())
+    assert node_fixture['status'] == 'PASS' and node_fixture['cases'] == 10496
+    assert all(sha(ROOT / n) == h for n, h in node_fixture['files'].items())
     disjoint((address, size) for address, size in jpeg.items())
     disjoint(closed)
     disjoint(stl)
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1055,7 +1085,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1081,6 +1111,9 @@ def main():
     print('Instruction/profile/cast batch: 4 complete source bodies, 613 instruction bytes; '
           '419 linked source matches, all 415 previous retained; 10285 CPU comparisons passed. '
           'DxErr W table is still fully checked, not decoded as instructions or counted again.')
+    print('Shader-node batch: 72 complete source bodies, 4783 instruction bytes; '
+          '491 linked source matches, all 419 previous retained; 10496 CPU comparisons passed. '
+          'Typed vtables and empty SDK Print slots are fully checked but receive no new source credit.')
     goal = (DENOMINATOR * 30 + 99) // 100
     print(f'30% checkpoint: {"REACHED" if total >= goal else "PENDING"}; '
           f'{max(0, goal - total)} further source instruction bytes needed.')

@@ -3,7 +3,25 @@
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
-## New module verified; aggregate replay pending
+## Confirmed checkpoint: 29.770758%; next target above 30%
+
+`target/src/codex_shader_nodes/nodes.cpp` now contains 72 complete matched
+constructors, comparisons and recursive copies: **4,783 new instruction bytes**.
+The fresh private closed link accepts **491**, retaining all preceding **419**
+source matches. **10,496** complete-output CPU comparisons against the original
+SDK pass. All 18 three-slot vtables are checked, including their original
+empty Print dependencies; neither tables nor empty SDK methods add source credit.
+
+The complete aggregate replay passed: **324,406 / 1,089,680 = 29.770758%**.
+**2,498** further instruction bytes reach exactly 30%; **2,499 or more**
+are needed to exceed it. Draft assembler node/semantic work is isolated in
+`target/scratch/codex30_assembler/` and currently receives zero credit.
+Canonical and release source trees remain unchanged. Replay commands are in
+the clean module README. Nine unresolved node drafts remain in scratch, not
+defined in the clean module. The `CNodeValue::Copy` source mutation is an
+original, CPU-confirmed quirk, not a correction to make during reconstruction.
+
+## Preceding checkpoint: 29.331822%
 
 `target/src/codex_shader_instructions/` contains four complete reconstructed
 SDK methods, **613 instruction bytes**, with its 48-byte cast jump table
@@ -12,18 +30,27 @@ checked but excluded. Full source/SDK/retail byte proofs and original referee
 **415** source matches. The CPU fixture passes **10,285** full-output SDK/source
 comparisons. Canonical and release trees are unchanged.
 
-The expected deduplicated total is **319,623 / 1,089,680 = 29.331822%**;
-the fresh complete aggregate replay is pending. **30% is not achieved**:
-**7,281** additional instruction bytes would still be required.
-The standing 35% goal would need **61,765** further bytes.
+The fresh complete aggregate replay passed: **319,623 / 1,089,680 =
+29.331822%**. **30% is not achieved**: **7,281** additional instruction
+bytes reach exactly 30%, so **7,282 or more** are needed to exceed it.
+The owner cleared the previous 35% goal and requested continued work above
+30% while away. Do not restore the old goal or call it completed.
 
 The aggregate replay reached shader-read validation but was interrupted when
 stopping an old, CPU-spinning make job removed its generated version object.
 That unchanged source has been rebuilt and its private DLL relinked; its
 415-match link check passes again with all 403 preceding matches retained.
-Rerun the aggregate and refresh any packet hashes
-before declaring a fresh global audit. The prior four-method module proof and
-10,285-case fixture passed; do not claim the aggregate also passed this turn.
+The subsequent full replay completed successfully, with no lost prior source
+matches. Generated packet hashes were refreshed. This proves the aggregate
+lower bound, not whole-DLL identity.
+
+At that checkpoint the next private source batch was `target/scratch/codex35_nodes/`: typed shader
+tree constructors, comparisons and recursive copies, built with the pinned
+SDK compiler. Preliminary complete-section matches are discovery only until
+binding, source-path rebuild, private link and behavior gates pass. All source
+credit remains zero for this batch at this checkpoint. Some SDK token helper
+calls use an internal register convention despite their public decorated name;
+do not replace the ABI merely to make a comparison pass.
 
 Replay and scope are in the clean module README. The instruction-copy class
 is an access prefix, not an allocation contract; shader-profile and cast

@@ -1,0 +1,2843 @@
+{
+  "status": "REVIEWABLE",
+  "whole_file_identity": false,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "source_class": "reconstructed SDK shader-node C++; remaining SDK methods external",
+  "compiler_files": {
+    "c1.dll": "31aad0d8d776d882ce7036b9f97c98a1d10fc1b8c068ebb9a2bb22a74225b4aa",
+    "c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "mspdb71.dll": "f7ffe701485813a7f10861bc61ba533b09f1386c40c882e832f71881a705c75b",
+    "msvcp71.dll": "1d5a627cb700400a7de751f0e7d3bf2f024e8d79f8c4a9f11a5a20a05c73ab9f",
+    "msvcr71.dll": "91961cc52149826031f1b17b65a95a5c84c89d9a42f8621a43448c0fe897a94f"
+  },
+  "rows": [
+    {
+      "symbol": "??0CNode@D3DXShader@@QAE@XZ",
+      "address": "0x100827a7",
+      "bytes": 20,
+      "section_bytes": 20,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNode@D3DXShader@@6B@",
+          "base": "0x1010ffc0",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+              "target": "0x100827da",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNode@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100836b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNode@D3DXShader@@UAEXXZ",
+              "target": "0x10082858",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+      "address": "0x100827bb",
+      "bytes": 31,
+      "section_bytes": 31,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNode@D3DXShader@@6B@",
+          "base": "0x1010ffc0",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+              "target": "0x100827da",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNode@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100836b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNode@D3DXShader@@UAEXXZ",
+              "target": "0x10082858",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeList@D3DXShader@@QAE@XZ",
+      "address": "0x1008285c",
+      "bytes": 22,
+      "section_bytes": 22,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeList@D3DXShader@@6B@",
+          "base": "0x1010ffcc",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeList@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x1008289e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeList@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100836d8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeList@D3DXShader@@UAEXXZ",
+              "target": "0x100828fb",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeList@D3DXShader@@QAE@PAVCNode@1@0PBD@Z",
+      "address": "0x10082872",
+      "bytes": 44,
+      "section_bytes": 44,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeList@D3DXShader@@6B@",
+          "base": "0x1010ffcc",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeList@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x1008289e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeList@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100836d8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeList@D3DXShader@@UAEXXZ",
+              "target": "0x100828fb",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeTree@D3DXShader@@QAE@XZ",
+      "address": "0x100828fc",
+      "bytes": 26,
+      "section_bytes": 26,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeTree@D3DXShader@@6B@",
+          "base": "0x1010ffd8",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeTree@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082948",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeTree@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083751",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeTree@D3DXShader@@UAEXXZ",
+              "target": "0x10082998",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeTree@D3DXShader@@QAE@PBDPAVCNode@1@11@Z",
+      "address": "0x10082916",
+      "bytes": 50,
+      "section_bytes": 50,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeTree@D3DXShader@@6B@",
+          "base": "0x1010ffd8",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeTree@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082948",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeTree@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083751",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeTree@D3DXShader@@UAEXXZ",
+              "target": "0x10082998",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeToken@D3DXShader@@QAE@XZ",
+      "address": "0x10082a69",
+      "bytes": 18,
+      "section_bytes": 18,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeToken@D3DXShader@@6B@",
+          "base": "0x1010ffe4",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeToken@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082aa4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeToken@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100837ac",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeToken@D3DXShader@@UAEXXZ",
+              "target": "0x10082acb",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeToken@D3DXShader@@QAE@PBUD3DXTOKEN@1@@Z",
+      "address": "0x10082a7b",
+      "bytes": 41,
+      "section_bytes": 41,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeToken@D3DXShader@@6B@",
+          "base": "0x1010ffe4",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeToken@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082aa4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeToken@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100837ac",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeToken@D3DXShader@@UAEXXZ",
+              "target": "0x10082acb",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeProgram@D3DXShader@@QAE@IIIPAVCNode@1@@Z",
+      "address": "0x10082aec",
+      "bytes": 50,
+      "section_bytes": 50,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeProgram@D3DXShader@@6B@",
+          "base": "0x1010fff0",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeProgram@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082b1e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeProgram@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100837dc",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeProgram@D3DXShader@@UAEXXZ",
+              "target": "0x10082b61",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeProgram@D3DXShader@@QAE@XZ",
+      "address": "0x10082acc",
+      "bytes": 32,
+      "section_bytes": 32,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeProgram@D3DXShader@@6B@",
+          "base": "0x1010fff0",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeProgram@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082b1e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeProgram@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100837dc",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeProgram@D3DXShader@@UAEXXZ",
+              "target": "0x10082b61",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeScope@D3DXShader@@QAE@XZ",
+      "address": "0x10082b62",
+      "bytes": 35,
+      "section_bytes": 35,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeScope@D3DXShader@@6B@",
+          "base": "0x1010fffc",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeScope@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082bbd",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeScope@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x1008382e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeScope@D3DXShader@@UAEXXZ",
+              "target": "0x10082c1d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeScope@D3DXShader@@QAE@W4_D3DXSCOPE_TYPE@1@PBDPAVCNode@1@PAVCNodeTree@1@PAV01@@Z",
+      "address": "0x10082b85",
+      "bytes": 56,
+      "section_bytes": 56,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeScope@D3DXShader@@6B@",
+          "base": "0x1010fffc",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeScope@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082bbd",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeScope@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x1008382e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeScope@D3DXShader@@UAEXXZ",
+              "target": "0x10082c1d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeDecl@D3DXShader@@QAE@W4_D3DXDECL_TYPE@1@PAVCNode@1@11@Z",
+      "address": "0x10082c4b",
+      "bytes": 65,
+      "section_bytes": 65,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeDecl@D3DXShader@@6B@",
+          "base": "0x10110008",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeDecl@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082c8c",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeDecl@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100838a4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeDecl@D3DXShader@@UAEXXZ",
+              "target": "0x10082d04",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeDecl@D3DXShader@@QAE@XZ",
+      "address": "0x10082c1e",
+      "bytes": 45,
+      "section_bytes": 45,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeDecl@D3DXShader@@6B@",
+          "base": "0x10110008",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeDecl@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082c8c",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeDecl@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100838a4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeDecl@D3DXShader@@UAEXXZ",
+              "target": "0x10082d04",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeUsage@D3DXShader@@QAE@XZ",
+      "address": "0x10082d05",
+      "bytes": 29,
+      "section_bytes": 29,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeUsage@D3DXShader@@6B@",
+          "base": "0x10110014",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeUsage@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082d4e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeUsage@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x1008392c",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeUsage@D3DXShader@@UAEXXZ",
+              "target": "0x10082d97",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeUsage@D3DXShader@@QAE@KPAVCNode@1@0@Z",
+      "address": "0x10082d22",
+      "bytes": 44,
+      "section_bytes": 44,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeUsage@D3DXShader@@6B@",
+          "base": "0x10110014",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeUsage@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082d4e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeUsage@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x1008392c",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeUsage@D3DXShader@@UAEXXZ",
+              "target": "0x10082d97",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeType@D3DXShader@@QAE@W4_D3DXTYPE_TEMPLATE@1@W4_D3DXCOMPONENT_TYPE@1@IIK@Z",
+      "address": "0x10082e36",
+      "bytes": 56,
+      "section_bytes": 56,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeType@D3DXShader@@6B@",
+          "base": "0x1011002c",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeType@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082e6e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeType@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100839cd",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeType@D3DXShader@@UAEXXZ",
+              "target": "0x10082eb3",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeArray@D3DXShader@@QAE@XZ",
+      "address": "0x10082d9b",
+      "bytes": 26,
+      "section_bytes": 26,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeArray@D3DXShader@@6B@",
+          "base": "0x10110020",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeArray@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082ddb",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeArray@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083987",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeArray@D3DXShader@@UAEXXZ",
+              "target": "0x10082e0e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeArray@D3DXShader@@QAE@PAVCNode@1@I@Z",
+      "address": "0x10082db5",
+      "bytes": 38,
+      "section_bytes": 38,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeArray@D3DXShader@@6B@",
+          "base": "0x10110020",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeArray@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082ddb",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeArray@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083987",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeArray@D3DXShader@@UAEXXZ",
+              "target": "0x10082e0e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeType@D3DXShader@@QAE@XZ",
+      "address": "0x10082e0f",
+      "bytes": 39,
+      "section_bytes": 39,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeType@D3DXShader@@6B@",
+          "base": "0x1011002c",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeType@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082e6e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeType@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x100839cd",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeType@D3DXShader@@UAEXXZ",
+              "target": "0x10082eb3",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeFunction@D3DXShader@@QAE@XZ",
+      "address": "0x10082eb4",
+      "bytes": 56,
+      "section_bytes": 56,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeFunction@D3DXShader@@6B@",
+          "base": "0x10110038",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeFunction@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082f4a",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeFunction@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083a0e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeFunction@D3DXShader@@UAEXXZ",
+              "target": "0x1008300a",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeFunction@D3DXShader@@QAE@IIKPAVCNode@1@000000@Z",
+      "address": "0x10082eec",
+      "bytes": 94,
+      "section_bytes": 94,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeFunction@D3DXShader@@6B@",
+          "base": "0x10110038",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeFunction@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10082f4a",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeFunction@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083a0e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeFunction@D3DXShader@@UAEXXZ",
+              "target": "0x1008300a",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeVariable@D3DXShader@@QAE@XZ",
+      "address": "0x1008300b",
+      "bytes": 56,
+      "section_bytes": 56,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeVariable@D3DXShader@@6B@",
+          "base": "0x10110044",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeVariable@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x1008309e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeVariable@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083aeb",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeVariable@D3DXShader@@UAEXXZ",
+              "target": "0x10083158",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeVariable@D3DXShader@@QAE@IIW4_D3DXSCOPE_TYPE@1@KPAVCNode@1@1111@Z",
+      "address": "0x10083043",
+      "bytes": 91,
+      "section_bytes": 91,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeVariable@D3DXShader@@6B@",
+          "base": "0x10110044",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeVariable@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x1008309e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeVariable@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083aeb",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeVariable@D3DXShader@@UAEXXZ",
+              "target": "0x10083158",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeStatement@D3DXShader@@QAE@XZ",
+      "address": "0x10083159",
+      "bytes": 35,
+      "section_bytes": 35,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeStatement@D3DXShader@@6B@",
+          "base": "0x10110050",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeStatement@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100831b4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeStatement@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083c2f",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeStatement@D3DXShader@@UAEXXZ",
+              "target": "0x1008321b",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeStatement@D3DXShader@@QAE@W4_D3DXSTMT_TYPE@1@PAVCNode@1@111@Z",
+      "address": "0x1008317c",
+      "bytes": 56,
+      "section_bytes": 56,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeStatement@D3DXShader@@6B@",
+          "base": "0x10110050",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeStatement@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100831b4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeStatement@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083c2f",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeStatement@D3DXShader@@UAEXXZ",
+              "target": "0x1008321b",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeExpression@D3DXShader@@QAE@XZ",
+      "address": "0x1008321c",
+      "bytes": 57,
+      "section_bytes": 57,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 8,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeExpression@D3DXShader@@6B@",
+          "base": "0x1011005c",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeExpression@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100832a4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeExpression@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083cb4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeExpression@D3DXShader@@UAEXXZ",
+              "target": "0x10083323",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeExpression@D3DXShader@@QAE@PAVCNode@1@W4_D3DXEXPR_OP@1@00HPBUD3DXTOKEN@1@@Z",
+      "address": "0x10083255",
+      "bytes": 79,
+      "section_bytes": 79,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeExpression@D3DXShader@@6B@",
+          "base": "0x1011005c",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeExpression@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100832a4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeExpression@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083cb4",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeExpression@D3DXShader@@UAEXXZ",
+              "target": "0x10083323",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeState@D3DXShader@@QAE@XZ",
+      "address": "0x1008350a",
+      "bytes": 29,
+      "section_bytes": 29,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeState@D3DXShader@@6B@",
+          "base": "0x10110074",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeState@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10083553",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeState@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083dc6",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeState@D3DXShader@@UAEXXZ",
+              "target": "0x100835a3",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeState@D3DXShader@@QAE@PAVCNode@1@00@Z",
+      "address": "0x10083527",
+      "bytes": 44,
+      "section_bytes": 44,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeState@D3DXShader@@6B@",
+          "base": "0x10110074",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeState@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10083553",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeState@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083dc6",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeState@D3DXShader@@UAEXXZ",
+              "target": "0x100835a3",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeRegister@D3DXShader@@QAE@PAVCNode@1@0@Z",
+      "address": "0x10083650",
+      "bytes": 38,
+      "section_bytes": 38,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeRegister@D3DXShader@@6B@",
+          "base": "0x1011008c",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeRegister@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10083676",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeRegister@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083e6e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeRegister@D3DXShader@@UAEXXZ",
+              "target": "0x100836b7",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeRegister@D3DXShader@@QAE@XZ",
+      "address": "0x10083636",
+      "bytes": 26,
+      "section_bytes": 26,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeRegister@D3DXShader@@6B@",
+          "base": "0x1011008c",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeRegister@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x10083676",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeRegister@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083e6e",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeRegister@D3DXShader@@UAEXXZ",
+              "target": "0x100836b7",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+      "address": "0x100827da",
+      "bytes": 27,
+      "section_bytes": 27,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+      "address": "0x100827f5",
+      "bytes": 33,
+      "section_bytes": 33,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNode@D3DXShader@@SGPAV12@PAV12@@Z",
+      "address": "0x10082816",
+      "bytes": 25,
+      "section_bytes": 25,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNode@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x100836b8",
+      "bytes": 32,
+      "section_bytes": 32,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 8,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 22,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Append@CNode@D3DXShader@@SGPAV12@PAV12@0@Z",
+      "address": "0x1008282f",
+      "bytes": 41,
+      "section_bytes": 41,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeUsage@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x10082d4e",
+      "bytes": 73,
+      "section_bytes": 73,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 14,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 37,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 52,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeType@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x10082e6e",
+      "bytes": 69,
+      "section_bytes": 69,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeDecl@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x10082c8c",
+      "bytes": 120,
+      "section_bytes": 120,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 14,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 69,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 84,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 99,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeType@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x100839cd",
+      "bytes": 65,
+      "section_bytes": 65,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 8,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 19,
+          "symbol": "??0CNodeType@D3DXShader@@QAE@XZ",
+          "base": "0x10082e0f",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeProgram@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x10082b1e",
+      "bytes": 67,
+      "section_bytes": 67,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 49,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeScope@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x10082bbd",
+      "bytes": 96,
+      "section_bytes": 96,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 14,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 45,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 60,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 75,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeFunction@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x10082f4a",
+      "bytes": 192,
+      "section_bytes": 192,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 14,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 81,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 96,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 111,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 126,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 141,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 156,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 171,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeStatement@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x100831b4",
+      "bytes": 103,
+      "section_bytes": 103,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 14,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 37,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 52,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 67,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 82,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeState@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x10083553",
+      "bytes": 80,
+      "section_bytes": 80,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 14,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 29,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 44,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeRegister@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x10083676",
+      "bytes": 65,
+      "section_bytes": 65,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 14,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 29,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 44,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeToken@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x100837ac",
+      "bytes": 48,
+      "section_bytes": 48,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 8,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 19,
+          "symbol": "??0CNodeToken@D3DXShader@@QAE@XZ",
+          "base": "0x10082a69",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeTree@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083751",
+      "bytes": 91,
+      "section_bytes": 91,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeTree@D3DXShader@@QAE@XZ",
+          "base": "0x100828fc",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeProgram@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x100837dc",
+      "bytes": 82,
+      "section_bytes": 82,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeProgram@D3DXShader@@QAE@XZ",
+          "base": "0x10082acc",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeScope@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x1008382e",
+      "bytes": 118,
+      "section_bytes": 118,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeScope@D3DXShader@@QAE@XZ",
+          "base": "0x10082b62",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeDecl@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x100838a4",
+      "bytes": 136,
+      "section_bytes": 136,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeDecl@D3DXShader@@QAE@XZ",
+          "base": "0x10082c1e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeUsage@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x1008392c",
+      "bytes": 91,
+      "section_bytes": 91,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeUsage@D3DXShader@@QAE@XZ",
+          "base": "0x10082d05",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeArray@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083987",
+      "bytes": 70,
+      "section_bytes": 70,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeArray@D3DXShader@@QAE@XZ",
+          "base": "0x10082d9b",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeFunction@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083a0e",
+      "bytes": 221,
+      "section_bytes": 221,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 10,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 23,
+          "symbol": "??0CNodeFunction@D3DXShader@@QAE@XZ",
+          "base": "0x10082eb4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeStatement@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083c2f",
+      "bytes": 133,
+      "section_bytes": 133,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeStatement@D3DXShader@@QAE@XZ",
+          "base": "0x10083159",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeExpression@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083cb4",
+      "bytes": 169,
+      "section_bytes": 169,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 23,
+          "symbol": "??0CNodeExpression@D3DXShader@@QAE@XZ",
+          "base": "0x1008321c",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeState@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083dc6",
+      "bytes": 106,
+      "section_bytes": 106,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeState@D3DXShader@@QAE@XZ",
+          "base": "0x1008350a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeRegister@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083e6e",
+      "bytes": 85,
+      "section_bytes": 85,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 20,
+          "symbol": "??0CNodeRegister@D3DXShader@@QAE@XZ",
+          "base": "0x10083636",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeVariable@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x1008309e",
+      "bytes": 186,
+      "section_bytes": 186,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 14,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 81,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 96,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 111,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 126,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 141,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@XZ",
+      "address": "0x10083324",
+      "bytes": 51,
+      "section_bytes": 51,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeValue@D3DXShader@@6B@",
+          "base": "0x10110068",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100834b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083d5d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeValue@D3DXShader@@UAEXXZ",
+              "target": "0x10083509",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@PBU_D3DXVALUE@1@PBUD3DXTOKEN@1@@Z",
+      "address": "0x10083357",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 13,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeValue@D3DXShader@@6B@",
+          "base": "0x10110068",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100834b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083d5d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeValue@D3DXShader@@UAEXXZ",
+              "target": "0x10083509",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        },
+        {
+          "offset": 60,
+          "symbol": "?Copy@CNode@D3DXShader@@SGPAV12@PAV12@@Z",
+          "base": "0x10082816",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@IPBUD3DXTOKEN@1@@Z",
+      "address": "0x100833a3",
+      "bytes": 53,
+      "section_bytes": 53,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeValue@D3DXShader@@6B@",
+          "base": "0x10110068",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100834b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083d5d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeValue@D3DXShader@@UAEXXZ",
+              "target": "0x10083509",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@PAVCNode@1@PBUD3DXTOKEN@1@@Z",
+      "address": "0x1008340d",
+      "bytes": 53,
+      "section_bytes": 53,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeValue@D3DXShader@@6B@",
+          "base": "0x10110068",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100834b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083d5d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeValue@D3DXShader@@UAEXXZ",
+              "target": "0x10083509",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@NPBUD3DXTOKEN@1@@Z",
+      "address": "0x100833d8",
+      "bytes": 53,
+      "section_bytes": 53,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeValue@D3DXShader@@6B@",
+          "base": "0x10110068",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100834b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083d5d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeValue@D3DXShader@@UAEXXZ",
+              "target": "0x10083509",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@IIPBUD3DXTOKEN@1@@Z",
+      "address": "0x1008347d",
+      "bytes": 59,
+      "section_bytes": 59,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeValue@D3DXShader@@6B@",
+          "base": "0x10110068",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100834b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083d5d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeValue@D3DXShader@@UAEXXZ",
+              "target": "0x10083509",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@PAEIPBUD3DXTOKEN@1@@Z",
+      "address": "0x10083442",
+      "bytes": 59,
+      "section_bytes": 59,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeValue@D3DXShader@@6B@",
+          "base": "0x10110068",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100834b8",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083d5d",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeValue@D3DXShader@@UAEXXZ",
+              "target": "0x10083509",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z",
+      "address": "0x100834b8",
+      "bytes": 81,
+      "section_bytes": 81,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 13,
+          "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z",
+          "base": "0x100827da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 65,
+          "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z",
+          "base": "0x100827f5",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083d5d",
+      "bytes": 105,
+      "section_bytes": 105,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 23,
+          "symbol": "??0CNodeValue@D3DXShader@@QAE@XZ",
+          "base": "0x10083324",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 84,
+          "symbol": "?Copy@CNode@D3DXShader@@SGPAV12@PAV12@@Z",
+          "base": "0x10082816",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeBuffer@D3DXShader@@QAE@XZ",
+      "address": "0x100835a4",
+      "bytes": 26,
+      "section_bytes": 26,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 5,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeBuffer@D3DXShader@@6B@",
+          "base": "0x10110080",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeBuffer@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100835f3",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeBuffer@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083e30",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeBuffer@D3DXShader@@UAEXXZ",
+              "target": "0x10083635",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "??0CNodeBuffer@D3DXShader@@QAE@PBUD3DXTOKEN@1@PAEI@Z",
+      "address": "0x100835be",
+      "bytes": 53,
+      "section_bytes": 53,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 12,
+          "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z",
+          "base": "0x100827bb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "kind": "TYPED-SOURCE-VTABLE",
+          "symbol": "??_7CNodeBuffer@D3DXShader@@6B@",
+          "base": "0x10110080",
+          "slots": [
+            {
+              "offset": 0,
+              "symbol": "?IsEqual@CNodeBuffer@D3DXShader@@UAEHPAVCNode@2@@Z",
+              "target": "0x100835f3",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 4,
+              "symbol": "?Copy@CNodeBuffer@D3DXShader@@UAEPAV12@XZ",
+              "target": "0x10083e30",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            },
+            {
+              "offset": 8,
+              "symbol": "?Print@CNodeBuffer@D3DXShader@@UAEXXZ",
+              "target": "0x10083635",
+              "complete_sdk_callee_equal": true,
+              "dependency_source_credit": 0
+            }
+          ]
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Copy@CNodeBuffer@D3DXShader@@UAEPAV12@XZ",
+      "address": "0x10083e30",
+      "bytes": 62,
+      "section_bytes": 62,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/scratch/codex35_nodes/nodes_matched.cpp",
+      "object": "gfx/target/scratch/codex30_token/obj/nodes_matched.obj",
+      "bindings": [
+        {
+          "offset": 8,
+          "symbol": "??2CNode@D3DXShader@@SGPAXI@Z",
+          "base": "0x1006506e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 19,
+          "symbol": "??0CNodeBuffer@D3DXShader@@QAE@XZ",
+          "base": "0x100835a4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    }
+  ],
+  "build_image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "compile_flags": "/O1 /Oy- /hotpatch /MT /Gy",
+  "verified_instruction_bytes": 4783,
+  "negative_tests_passed": true,
+  "files": {
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/scratch/codex35_sdk/discovery.json": "70dbdb2eaeff0c3bb791bf8b24ea917676fa354101162964fa3420bb8bc5f5bf",
+    "gfx/target/scratch/codex35_nodes/nodes_matched.cpp": "9634b6a7491871c2aee104910a035f750a08101208a7609018b4a8c641a5b31c",
+    "gfx/target/scratch/codex35_nodes/probe.py": "6510209505e52793f8ac2404ec486c6874c3e91b0e1bb5880f6c942a7bb86b5e",
+    "gfx/target/scratch/codex35_nodes/nodes.cpp": "54771957e0e8e1ce0dd8f4f1b2f2dd816dca777f5bccd156b77b17966fdf4207",
+    "gfx/target/scratch/codex35_nodes/check.py": "662f35a91c9d5ac91821aa0002681dee5e9d994d632ea9a7311f05dba77893c7",
+    "gfx/target/scratch/codex30_token/obj/nodes_matched.obj": "698a8ded9777c0e346ebd0bf8f28863f1c77e6793c69c80cf21fa59387ca9b9c"
+  }
+}
