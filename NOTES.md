@@ -195,3 +195,35 @@
   characters, are preserved. CPU comparisons include full float/integer bits,
   unchanged token words, nullable outputs, strings and complete diagnostics.
   No allocation failure, non-ASCII locale or GPU/game boot proof.
+
+## 2026-10-01 Codex preprocessor source checkpoint
+
+- PINNED: clean preprocessor has 25 complete source bodies / 2199 code bytes.
+  Full V2, private link 548 retaining all 523, and 12259 complete-output CPU
+  comparisons pass. Fresh full aggregate: 330321/1089680 = 30.313578%.
+- PINNED: CPreProcessor access layout is 684 bytes: allocator +0, errors +24,
+  define buckets +108 (127 entries), include stack +616, lexer +620, token +632,
+  mode +664. CPPConditional/CPPBlock/CPPDefine are 16/12/20 bytes. CPPInclude
+  is a 112-byte access view; unexamined file/resource fields remain opaque.
+- PINNED: SDK member 94 critical-section methods use CNode's allocator static,
+  not CPreProcessor's parser static. A 23-byte masked Leave draft is wrong and
+  excluded. The parser static has protected-name mangling in the SDK.
+- PINNED: private link regression selected libcpmt:newop.obj's 36-byte operator
+  new rather than the target's 14-byte libcmt:new.obj. A hash-pinned authentic
+  source-rebuilt CRT dependency restores all five previous source matches.
+  Its archive/object bytes receive no additional credit and are never committed.
+- PINNED: a synthetic literal-end map label can shadow an adjacent real literal
+  symbol at the same address. Real map symbols already establish that boundary;
+  append a proven end label only where no real symbol starts. Keep binding checks.
+- PINNED: recursive CPPConditional/CPPBlock destructors have typed COFF self-call
+  fields omitted by the shared external-branch locator. Privately prove their
+  exact decoded self-entry calls and typed identities; only then enable the
+  original referee's existing MASK_INTRA option for these two methods. Canonical
+  referee is unchanged. FindDefine's full 135-byte body ends with an internal
+  jump to its independently decoded pop/pop/pop/ret epilogue, not a truncated RET.
+- Matched source forms: positive end/cursor comparison, recursion guard before
+  define search, initial-test plus do/while undef traversal, signed token-kind
+  bounds 2..4, and 32-bit quoting/escaping state without a terminator append.
+- Four subsequent source loaders have first-compile masked equality (412 bytes),
+  not V2/aggregate credit. GetToken854/838, DoError223/228, define equality571/620
+  remain scratch. Read the REPORT before repeating their bounded source attempts.

@@ -14,3 +14,5 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 | target/src/codex_shader_support/*, target/scratch/codex30_support/* | Codex | 2026-10-01 | Allocator and diagnostic source, shared declarations with owned assembler TU; private link and CPU regression |
 | target/scratch/codex35_lexer/* | Codex | 2026-10-01 | Complete SDK tokenizer family reconstruction toward 35%; drafts and diagnostic objects only until all gates |
 | target/src/codex_shader_lexer/* | Codex | 2026-10-01 | Seven accepted source methods / 1037 code bytes; 523 linked matches retain all 516; 9976 CPU comparisons and full aggregate pass |
+| target/scratch/codex35_preprocessor/* | Codex | 2026-10-01 | Larger typed SDK directive/macro family source batch; scratch only, zero source credit until full acceptance |
+| target/src/codex_shader_preprocessor/* | Codex | 2026-10-01 | Accepted 25 bodies / 2199 bytes; 548 linked matches retain all 523, 12259 CPU comparisons and fresh aggregate pass |

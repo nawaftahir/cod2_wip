@@ -17,13 +17,19 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **328,122 /
-1,089,680 = 30.111776%** (2026-10-01), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **330,321 /
+1,089,680 = 30.313578%** (2026-10-01), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**53,266** further verified instruction bytes are required. Whole-DLL checksum
+**51,067** further verified instruction bytes are required. Whole-DLL checksum
 identity is still unfinished.
 
 The latest clean module is
+[`target/src/codex_shader_preprocessor/`](target/src/codex_shader_preprocessor/):
+25 complete bodies / **2,199 instruction bytes**; 548 private linked source
+matches with all 523 retained, and **12,259** complete-output CPU comparisons.
+Full aggregate replay passes; unmatched drafts remain in scratch at zero credit.
+
+The preceding clean module is
 [`target/src/codex_shader_lexer/`](target/src/codex_shader_lexer/): seven complete
 source methods / **1,037 instruction bytes**; 523 private linked source matches
 with all 516 retained, and **9,976** complete-output CPU comparisons.
@@ -150,7 +156,7 @@ cd ../..
 python3 gfx/tools/check_ten_percent.py
 ```
 
-The requested 35% checkpoint is still **68,935 bytes away**. This
+The requested 35% checkpoint is still **51,067 bytes away**. This
 percentage is source instruction coverage including external library source,
 not completeness or a working replacement DLL.
 

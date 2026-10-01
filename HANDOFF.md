@@ -2,8 +2,35 @@
 
 Current request: preserve/commit the 30.016610% checkpoint and continue toward
 **35% verified source coverage**. The owner explicitly reinstated 35% after
-the checkpoint below. Still required: **53,266 instruction bytes**.
-Work starts with `target/scratch/codex35_lexer/`; draft bytes get zero credit.
+the checkpoint below. Still required: **51,067 instruction bytes**.
+Continue in `target/scratch/codex35_preprocessor/`; draft bytes get zero credit.
+
+## Confirmed checkpoint: 30.313578%; preprocessor accepted
+
+`target/src/codex_shader_preprocessor/preprocessor.cpp` contains 22 methods
+plus three compiler-generated deleting helpers: **25 complete matched bodies /
+2,199 instruction bytes**. Clean-path V2 passes. The fresh private closed link
+accepts **548** matches and retains all **523** preceding matches.
+**12,259** full-output SDK/source CPU comparisons pass: 2,283 new preprocessor
+cases and 9,976 unchanged tokenizer/allocator/diagnostic/assembler regressions.
+The fresh complete coverage audit passes:
+**330,321 / 1,089,680 = 30.313578%**. Complete terminal output is saved in
+`target/scratch/codex35_preprocessor/aggregate.log`; new ranges are disjoint.
+Whole-DLL SHA identity and game/GPU boot remain unfinished.
+
+Read the clean README and scratch REPORT before continuing. The initial
+five-match regression came from libcpmt selecting a 36-byte operator new;
+the pinned authentic CRT dependency supplies the target's 14-byte implementation
+and restores every prior match. No extra dependency-source credit. Synthetic
+string-end labels must not shadow a real adjacent map symbol.
+
+Next drafts are already written, not tasks to re-derive: four source-loading
+functions have complete masked-equal sections / 412 bytes; their V2/link/CPU
+acceptance remains pending. A generated include deleting helper is masked-equal
+too, but cannot be emitted artificially merely to count its 33 bytes. GetToken
+is 854 vs 838, DoError 223 vs 228, AreDefinesIdentical 571 vs 620. The recorded
+source/control-flow attempts and all older drafts are preserved at zero credit.
+Do not promote the critical-section drafts: they still name the wrong global.
 
 ## Confirmed checkpoint: 30.111776%; tokenizer accepted
 
@@ -21,13 +48,10 @@ Nine unaccepted tokenizer definitions remain only in scratch. The next larger
 SDK family is claimed in `target/scratch/codex35_preprocessor/`; no draft bytes
 count toward the active 35% goal. Do not change another agent's source files.
 
-The first larger preprocessor batch compiled 31 located definitions and
-currently has 25 complete masked-section matches / 2,158 preliminary bytes.
-This is discovery only: callee/global identities, boundaries, integrated link
-and CPU tests are still missing. In particular, the masked LeaveCriticalSection
-match currently names the wrong global, so it MUST NOT be accepted. SDK member94
-Enter/Leave use CNode's allocator global, not the preprocessor parser global.
-Other class/TU drafts are preserved; do not throw them away or repeat flags.
+The first preprocessor discovery is historical; the accepted subset is now
+documented above. SDK member 94 Enter/Leave use CNode's allocator global, not
+the preprocessor parser global. Those two drafts remain excluded even when
+Leave has masked-equal bytes. Do not throw away drafts or repeat known flags.
 
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
