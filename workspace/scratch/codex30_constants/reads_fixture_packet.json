@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "cases": 2000,
+  "scope": "CPU read helpers; matrices, pointer arrays, vector reads and inclusive bounds; not GPU/game boot",
+  "output_sha256": "73147ba363ceda27f28700e635c43760139be6344137da266c61d02741b9d3f8",
+  "files": {
+    "gfx/target/scratch/codex30_constants/test_reads.cpp": "a89bd029bf3000d12914a2aa7b7331e3ebab5dc4974a5ee1b324f33ddfbe4bea",
+    "gfx/target/src/codex_shader_constants/read_typed.cpp": "9f41a8b819c48899347f298d60b0ca234e7f451daedd9c52296e7f0963c09914",
+    "gfx/target/scratch/codex30_constants/compile_reads_test.sh": "bf2e67d333dd97378ad60c91c298052cb9cbd112638f24d7e3332b164ba4adae",
+    "gfx/target/src/codex_shader_constants/shader_version.cpp": "d1ee35e5b1045ce3a30766430a3436d6cd5a1b258bdaa998920bc196a29fdf96",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/scratch/codex30_constants/run_reads_test.py": "8beabca414bfb0ccde44c445cf893461a0632e00f1540d4f3c597d0feba38bdb",
+    "gfx/target/scratch/codex30_constants/test_original.exe": "c77b315ff21b94cc52a4b7aeaf25df8462bdb83f24496e2111d673c5758677d3",
+    "gfx/target/scratch/codex30_constants/test_source.exe": "baeb35fa1bace5f17746c6cd711b82b9531c1af2b0b4f0d3df9f919d705ef0b4",
+    "gfx/target/scratch/codex30_constants/obj/test_original.obj": "a92215ca8ee82baadcf582b5ebfff7574d5d4250b15a50ad69b4b082ff4ad3bf",
+    "gfx/target/scratch/codex30_constants/obj/test_source.obj": "ed1c5be096b77349c52ac042dcad8d0e84453707e3d61620afcfebfe2c4dde08"
+  }
+}

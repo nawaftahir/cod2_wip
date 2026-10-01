@@ -16,44 +16,58 @@ public:
     CConstant **members;
 };
 
-template<unsigned Class, unsigned Type, unsigned Rows, unsigned Columns, unsigned Transpose>
+template<unsigned Class, unsigned Type, unsigned Rows, unsigned Columns, unsigned PointerArray>
 class SetTyped
 {
-    static DWORD __stdcall Read(const void *data, unsigned element, unsigned row, unsigned column)
+    static __forceinline DWORD __stdcall Read(const void *data, unsigned element, unsigned row, unsigned column)
     {
         if (row > Rows || column > Columns)
         {
             return 0;
         }
-        if ((Class == 2 && !Transpose) || (Class == 3 && Transpose))
+        if (PointerArray)
+        {
+            data = static_cast<const DWORD *const *>(data)[element];
+            element = 0;
+        }
+        if (Class != 3)
         {
             return static_cast<const DWORD *>(data)[column + (row + element * Rows) * Columns];
         }
         return static_cast<const DWORD *>(data)[row + (column + element * Columns) * Rows];
     }
-    static DWORD __stdcall Read(const void *data, unsigned element, unsigned column)
+    static __forceinline DWORD __stdcall Read(const void *data, unsigned element, unsigned column)
     {
         if (column > Columns)
         {
             return 0;
         }
-        if ((Class == 2 && !Transpose) || (Class == 3 && Transpose))
+        unsigned matrix = element / Rows;
+        unsigned row = element % Rows;
+        unsigned offset = Class == 3 ? row + column * Rows : column + row * Columns;
+        if (PointerArray)
         {
-            return static_cast<const DWORD *>(data)[column +
-                (element % Rows + (element / Rows) * Rows) * Columns];
+            return static_cast<const DWORD *const *>(data)[matrix][offset];
         }
-        return static_cast<const DWORD *>(data)[element % Rows +
-            (column + (element / Rows) * Columns) * Rows];
+        return static_cast<const DWORD *>(data)[offset + matrix * Rows * Columns];
     }
-    static DWORD __stdcall Read(const void *data, unsigned element)
+    static __forceinline DWORD __stdcall Read(const void *data, unsigned element)
     {
-        if ((Class == 2 && !Transpose) || (Class == 3 && Transpose))
+        unsigned column = element % Columns;
+        element /= Columns;
+        unsigned row = element % Rows;
+        element /= Rows;
+        unsigned matrix = element;
+        unsigned offset = Class == 3 ? row + column * Rows : column + row * Columns;
+        if (PointerArray)
         {
-            return static_cast<const DWORD *>(data)[element % Columns +
-                ((element / Columns) % Rows + (element / (Rows * Columns)) * Rows) * Columns];
+            return static_cast<const DWORD *const *>(data)[matrix][offset];
         }
-        return static_cast<const DWORD *>(data)[(element / Columns) % Rows +
-            (element % Columns + (element / (Rows * Columns)) * Columns) * Rows];
+        if (Class == 3)
+        {
+            return static_cast<const DWORD *>(data)[row + (column + matrix * Columns) * Rows];
+        }
+        return static_cast<const DWORD *>(data)[column + (row + matrix * Rows) * Columns];
     }
 public:
     static HRESULT __stdcall Set(CConstant *constant, const void *device, const void *data,
@@ -62,15 +76,16 @@ public:
         DWORD *buffer = constant->buffer;
         D3DXSHADER_TYPEINFO *type = constant->type;
         const DWORD *input = static_cast<const DWORD *>(data);
+        unsigned element = 0;
         switch (type->Class)
         {
             case D3DXPC_SCALAR:
                 count *= Rows * Columns;
                 count = count <= type->Elements ? count : type->Elements;
-                if ((Class == 3 && !Transpose) || (Class == 2 && Transpose))
+                if (Class == 3 || PointerArray)
                 {
                     DWORD *output = buffer;
-                    for (unsigned element = 0; element < count; ++element)
+                    for (; element < count; ++element)
                     {
                         *output++ = Read(data, element);
                     }
@@ -87,10 +102,10 @@ public:
                     count *= Rows;
                 }
                 count = count <= type->Elements ? count : type->Elements;
-                if (Class != 0 && (Columns != type->Columns || (Class == 3 && !Transpose) || (Class == 2 && Transpose)))
+                if (Class != 0 && (Columns != type->Columns || Class == 3 || PointerArray))
                 {
                     DWORD *output = buffer;
-                    for (unsigned element = 0; element < count; ++element)
+                    for (; element < count; ++element)
                     {
                         for (unsigned column = 0; column < type->Columns; ++column)
                         {
@@ -110,10 +125,30 @@ public:
                     count /= type->Rows;
                 }
                 count = count <= type->Elements ? count : type->Elements;
-                if (Class != 0 && ((Class != 1 && Rows != type->Rows) || Columns != type->Columns || (Class == 3 && !Transpose) || (Class == 2 && Transpose)))
+                if (Class != 0 && ((Class != 1 && Rows != type->Rows) || Columns != type->Columns || Class == 3 || PointerArray))
                 {
                     DWORD *output = buffer;
-                    for (unsigned element = 0; element < count; ++element)
+                    if (Class == 3 && !PointerArray &&
+                        Rows == 4 && Columns == 4 && type->Rows == 4 && type->Columns == 4)
+                    {
+                        const DWORD *source = input;
+                        for (unsigned matrices = count; matrices != 0; --matrices)
+                        {
+                            output[0] = source[0]; output[1] = source[4];
+                            output[2] = source[8]; output[3] = source[12];
+                            output[4] = source[1]; output[5] = source[5];
+                            output[6] = source[9]; output[7] = source[13];
+                            output[8] = source[2]; output[9] = source[6];
+                            output[10] = source[10]; output[11] = source[14];
+                            output[12] = source[3]; output[13] = source[7];
+                            output[14] = source[11]; output[15] = source[15];
+                            source += 16;
+                            output += 16;
+                        }
+                    }
+                    else
+                    {
+                    for (; element < count; ++element)
                     {
                         for (unsigned row = 0; row < type->Rows; ++row)
                         {
@@ -130,6 +165,7 @@ public:
                             }
                         }
                     }
+                    }
                     input = buffer;
                 }
                 break;
@@ -143,10 +179,30 @@ public:
                     count /= type->Columns;
                 }
                 count = count <= type->Elements ? count : type->Elements;
-                if (Class < 2 || Rows != type->Rows || Columns != type->Columns || (Class == 2 && !Transpose) || (Class == 3 && Transpose))
+                if (Class < 2 || Rows != type->Rows || Columns != type->Columns || Class == 2 || PointerArray)
                 {
                     DWORD *output = buffer;
-                    for (unsigned element = 0; element < count; ++element)
+                    if (Class == 2 && !PointerArray &&
+                        Rows == 4 && Columns == 4 && type->Rows == 4 && type->Columns == 4)
+                    {
+                        const DWORD *source = input;
+                        for (unsigned matrices = count; matrices != 0; --matrices)
+                        {
+                            output[0] = source[0]; output[1] = source[4];
+                            output[2] = source[8]; output[3] = source[12];
+                            output[4] = source[1]; output[5] = source[5];
+                            output[6] = source[9]; output[7] = source[13];
+                            output[8] = source[2]; output[9] = source[6];
+                            output[10] = source[10]; output[11] = source[14];
+                            output[12] = source[3]; output[13] = source[7];
+                            output[14] = source[11]; output[15] = source[15];
+                            source += 16;
+                            output += 16;
+                        }
+                    }
+                    else
+                    {
+                    for (; element < count; ++element)
                     {
                         for (unsigned column = 0; column < type->Columns; ++column)
                         {
@@ -167,23 +223,25 @@ public:
                             }
                         }
                     }
+                    }
                     input = buffer;
                 }
                 break;
             case D3DXPC_STRUCT:
                 count = count * (Rows * Columns) / constant->inputValues;
                 count = count <= type->Elements ? count : type->Elements;
-                if ((Class == 3 && !Transpose) || (Class == 2 && Transpose))
+                if (Class == 3 || PointerArray)
                 {
                     DWORD *output = buffer;
                     unsigned values = constant->inputValues * count;
-                    for (unsigned element = 0; element < values; ++element)
+                    for (; element < values; ++element)
                     {
                         *output++ = Read(data, element);
                     }
                     input = buffer;
+                    element = 0;
                 }
-                for (unsigned element = 0; element < count; ++element)
+                for (; element < count; ++element)
                 {
                     for (unsigned member = 0; member < type->StructMembers; ++member)
                     {
@@ -207,34 +265,50 @@ public:
         {
             unsigned values = constant->inputValues * count;
             DWORD *output = buffer;
-            while (values != 0)
+            if (type->Type == D3DXPT_BOOL)
             {
-                DWORD value = *input++;
-                if (type->Type == D3DXPT_BOOL)
+                while (values != 0)
                 {
                     if (Type == D3DXPT_FLOAT)
                     {
-                        value = *reinterpret_cast<float *>(&value) != 0.0f;
+                        *output++ = *reinterpret_cast<const float *>(input++) != 0.0f;
                     }
                     else
                     {
-                        value = static_cast<int>(value) != 0;
+                        *output++ = static_cast<int>(*input++) != 0;
                     }
+                    --values;
                 }
-                else if (type->Type == D3DXPT_INT)
+            }
+            else if (type->Type == D3DXPT_INT)
+            {
+                while (values != 0)
                 {
                     if (Type == D3DXPT_FLOAT)
                     {
-                        value = static_cast<int>(*reinterpret_cast<float *>(&value));
+                        *output++ = static_cast<int>(*reinterpret_cast<const float *>(input++));
                     }
+                    else
+                    {
+                        *output++ = *input++ != 0;
+                    }
+                    --values;
                 }
-                else if (type->Type == D3DXPT_FLOAT)
+            }
+            else if (type->Type == D3DXPT_FLOAT)
+            {
+                while (values != 0)
                 {
-                    float converted = static_cast<float>(static_cast<int>(value));
-                    *reinterpret_cast<float *>(&value) = converted;
+                    if (Type == D3DXPT_BOOL)
+                    {
+                        *reinterpret_cast<float *>(output++) = *input++ ? 1.0f : 0.0f;
+                    }
+                    else
+                    {
+                        *reinterpret_cast<float *>(output++) = static_cast<float>(static_cast<int>(*input++));
+                    }
+                    --values;
                 }
-                *output++ = value;
-                --values;
             }
             input = buffer;
         }

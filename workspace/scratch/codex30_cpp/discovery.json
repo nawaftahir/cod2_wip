@@ -1,0 +1,123 @@
+[
+  {
+    "address": "0x100f93bb",
+    "bytes": 111,
+    "symbol": "?vswprintf@@YAHPA_WIPB_WPAD@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/mt/vswprinn.obj",
+    "bindings": {
+      "__woutput": "0x1010552c",
+      "__flsbuf": "0x100fa320"
+    }
+  },
+  {
+    "address": "0x100f93bb",
+    "bytes": 111,
+    "symbol": "?vswprintf@@YAHPA_WIPB_WPAD@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/st/vswprinn.obj",
+    "bindings": {
+      "__woutput": "0x1010552c",
+      "__flsbuf": "0x100fa320"
+    }
+  },
+  {
+    "address": "0x10107e82",
+    "bytes": 36,
+    "symbol": "?_set_new_handler@@YAP6AHI@ZP6AHI@Z@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/mt/handler.obj",
+    "bindings": {
+      "__lock": "0x100fc07d",
+      "?_pnhHeap@@3P6AHI@ZA": "0x101ae234",
+      "__unlock": "0x100fbfb0"
+    }
+  },
+  {
+    "address": "0x10107eac",
+    "bytes": 27,
+    "symbol": "__callnewh",
+    "object": "gfx/target/scratch/codex30_cpp/obj/mt/handler.obj",
+    "bindings": {
+      "?_pnhHeap@@3P6AHI@ZA": "0x101ae234"
+    }
+  },
+  {
+    "address": "0x10107eac",
+    "bytes": 27,
+    "symbol": "__callnewh",
+    "object": "gfx/target/scratch/codex30_cpp/obj/st/handler.obj",
+    "bindings": {
+      "?_pnhHeap@@3P6AHI@ZA": "0x101ae234"
+    }
+  },
+  {
+    "address": "0x100f88b4",
+    "bytes": 22,
+    "symbol": "_ldexpl",
+    "object": "gfx/target/scratch/codex30_cpp/obj/mt/instances.obj",
+    "bindings": {
+      "_ldexp": "0x101020cb"
+    }
+  },
+  {
+    "address": "0x100f88b4",
+    "bytes": 22,
+    "symbol": "?ldexp@?$_Ctraits@O@std@@SAOOH@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/mt/instances.obj",
+    "bindings": {
+      "_ldexpl": "0x101020cb"
+    }
+  },
+  {
+    "address": "0x100f88b4",
+    "bytes": 22,
+    "symbol": "?ldexp@?$_Ctraits@N@std@@SANNH@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/mt/instances.obj",
+    "bindings": {
+      "_ldexp": "0x101020cb"
+    }
+  },
+  {
+    "address": "0x100f88b4",
+    "bytes": 22,
+    "symbol": "_ldexpl",
+    "object": "gfx/target/scratch/codex30_cpp/obj/st/instances.obj",
+    "bindings": {
+      "_ldexp": "0x101020cb"
+    }
+  },
+  {
+    "address": "0x100f88b4",
+    "bytes": 22,
+    "symbol": "?ldexp@?$_Ctraits@O@std@@SAOOH@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/st/instances.obj",
+    "bindings": {
+      "_ldexpl": "0x101020cb"
+    }
+  },
+  {
+    "address": "0x100f88b4",
+    "bytes": 22,
+    "symbol": "?ldexp@?$_Ctraits@N@std@@SANNH@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/st/instances.obj",
+    "bindings": {
+      "_ldexp": "0x101020cb"
+    }
+  },
+  {
+    "address": "0x100f786a",
+    "bytes": 14,
+    "symbol": "??2@YAPAXI@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/mt/new.obj",
+    "bindings": {
+      "__nh_malloc": "0x100fc438"
+    }
+  },
+  {
+    "address": "0x100f786a",
+    "bytes": 14,
+    "symbol": "??2@YAPAXI@Z",
+    "object": "gfx/target/scratch/codex30_cpp/obj/st/new.obj",
+    "bindings": {
+      "__nh_malloc": "0x100fc438"
+    }
+  }
+]

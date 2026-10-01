@@ -1,0 +1,295 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 41,
+      "target_bytes": 41,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 32,
+      "target_bytes": 32,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 18,
+      "target_bytes": 18,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 640,
+      "target_bytes": 671,
+      "first_difference": 8,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 41,
+      "target_bytes": 41,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 32,
+      "target_bytes": 32,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 18,
+      "target_bytes": 18,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 749,
+      "target_bytes": 770,
+      "first_difference": 8,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 41,
+      "target_bytes": 41,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 32,
+      "target_bytes": 32,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 18,
+      "target_bytes": 18,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 734,
+      "target_bytes": 758,
+      "first_difference": 11,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 41,
+      "target_bytes": 41,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 32,
+      "target_bytes": 32,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 18,
+      "target_bytes": 18,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 753,
+      "target_bytes": 817,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 43,
+      "target_bytes": 43,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 33,
+      "target_bytes": 33,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 29,
+      "target_bytes": 29,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 964,
+      "target_bytes": 1005,
+      "first_difference": 9,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 40,
+      "target_bytes": 40,
+      "first_difference": 6,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 1115,
+      "target_bytes": 1173,
+      "first_difference": 11,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 40,
+      "target_bytes": 40,
+      "first_difference": 6,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$01$02$03$03$00@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 1009,
+      "target_bytes": 1082,
+      "first_difference": 12,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 40,
+      "target_bytes": 40,
+      "first_difference": 6,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 1221,
+      "target_bytes": 1288,
+      "first_difference": 8,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 40,
+      "target_bytes": 40,
+      "first_difference": 6,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetTyped@$02$02$03$03$00@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+      "object_bytes": 1009,
+      "target_bytes": 1082,
+      "first_difference": 12,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source_sha256": "299ebde4e001634d520de1c3481f25786a8be4546b5261e12a988643b0118b25",
+  "object_sha256": "52125b450b4b2521a1bdfe24655b330d372f9f5e485ca5a3ae303b22cee6ef71"
+}

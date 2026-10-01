@@ -3,7 +3,45 @@
 Read RULES.md, CLAIMS.md, then this file. Target is readable source and whole-DLL
 SHA identity, not a functioning substitute or a discovery percentage.
 
-## Current audited checkpoint: 29.231976%; latest request is 30%
+## Current checkpoint: 29.275567%; latest request is 30% and above
+
+Owner resumed work on 2026-10-01. The latest clean source module is
+`target/src/codex_shader_constants/`: eleven Read helpers plus shader version,
+**12 complete bodies / 475 instruction bytes**. Entire typed SDK and retail
+bodies, boundaries, original referee, and byte-corruption negatives pass.
+The fresh private source link accepts **415**, retaining all preceding **403**.
+CPU fixtures pass **2,000** complete-output comparisons against original SDK.
+See the clean module README for scope and replay commands.
+
+Total: **319,010 / 1,089,680 = 29.275567%**. **30% remains pending: 7,894
+instruction bytes.** No whole-DLL SHA identity or GPU/game smoke claim.
+
+Important corrected fact: the fifth SetTyped template argument means an array
+of matrix pointers, not transpose. Class 2/3 chooses orientation. The draft's
+pointer-array paths, both 4x4 fast paths and normalized boolean conversions
+are corrected, but **all nine Set/upload bodies still differ**. Four matrix
+linear-read bodies and ambiguous scalar helper identities also remain deferred.
+Do not turn their discovery matches into source credit.
+
+Fresh original CRT surveys in `scratch/codex30_cpp` (58 C++ sources, ST/MT)
+and `scratch/codex30_crt_o2` (358 C sources, ST/MT) produced no accepted gain.
+Their reports preserve failures and rejected tiny aliases. Do not repeat
+unchanged library/compiler sweeps. `/Oi` and bounded CPU-codegen variants
+also did not resolve Set. Next larger source work needs target-backed source
+changes and semantic/caller-callee evidence, not more unmodified flag trials.
+
+The new build reuses the existing verified compiler, SDK selector, body proof
+and binding verifier. Its generated member response must point to
+`build/codex30_reads/dependencies`, not the earlier parser folder. This is
+asserted. Archive creation uses an empty container-local output before copying
+into the private run. All retained SDK members remain opaque and zero credit.
+No `/FORCE`, marker functions, canonical edits or retail-byte replacement.
+
+Keep Claude-owned canonical source and unrelated dirty files unchanged.
+This is a recoverable checkpoint toward the goal, not a claim that 30% is done
+or authorization to work unattended after this turn.
+
+## Preceding parser checkpoint: 29.231976%
 
 The new clean parser module adds **6,082 instruction bytes**, with 1,608
 embedded jump-table bytes excluded. Complete source/object, target boundary,
@@ -24,14 +62,12 @@ Fresh audit passed: **318,535 / 1,089,680 = 29.231976%**. Replay with
 **30% remains pending: 8,369 more instruction bytes.**
 Whole-file SHA equality and game/GPU smoke tests are still pending.
 
-Stopped at the owner's request on 2026-10-01. Wait for the next goal and
-authorization; do not assume unattended continuation. Resume by reading
-this handoff and the clean parser README, then replay the audit. Keep
-Claude-owned canonical source and unrelated dirty files unchanged.
+This parser baseline was replayed successfully after the owner resumed the
+30% request. The current shader-read checkpoint above supersedes the prior pause.
 
 The shared shader-constant TU at `target/scratch/codex30_constants/` is
-**DEFER, zero credit**. Nine Set specializations compile but differ; 18 Read
-helper shapes match without sufficient identity/binding promotion. Preserve
+**DEFER, zero upload credit**. Nine Set specializations compile but differ;
+accepted read helpers have moved to their clean module above. Preserve
 the source and probe hashes; do not repeat unchanged variants or import it.
 Its report records target-confirmed count scaling, indexing and padding work.
 

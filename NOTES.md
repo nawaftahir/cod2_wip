@@ -114,3 +114,24 @@
   padding were corrected; all nine Set bodies still differ. Read bounds are
   deliberately inclusive Rows/Columns. CConstant is an access prefix only,
   never an allocation layout. See its report before more variant testing.
+
+## Codex shader read checkpoint — 2026-10-01
+
+- PINNED: SetTyped argument five is PointerArray, not transpose. SDK Read
+  sections select `data[element]` before indexing. Class 2/3 supplies orientation.
+  Target 0x1007fae3 confirms pointer-array reads through all Set copy paths.
+- PINNED: accepted clean Read module has eleven complete bodies / 457 bytes;
+  nullable shader-version query adds 18. Inclusive Rows/Columns bounds are
+  deliberately preserved; no SDK instance is allocated from an incomplete view.
+- PINNED: standalone source-built bodies match unmasked complete original
+  sections and retail; original referee 100%, first/end mutation negatives.
+  Private link retains 403 and accepts 415; 2,000 SDK/source CPU outputs agree.
+- PINNED: raw matrix Set has explicit fixed 4x4 transpose fast paths. Float-to-int
+  control-word setup is outside the conversion loop; the nine upload functions
+  remain unmatched despite corrected behavior paths and bounded compiler probes.
+- PINNED: the first reused selector response incorrectly named the old parser
+  dependencies. Correct both POSIX run paths and escaped Windows response paths,
+  and assert the resulting prefix before linking. The librarian was not at fault.
+- Original C++ CRT ST/MT and remaining C `/O2` ST/MT surveys supply no accepted
+  gain. Common tiny no-op shapes are not entry/name identity. Preserve reports;
+  repeating these unchanged batches will not advance source reconstruction.

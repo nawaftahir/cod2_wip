@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "_D3DXFindShaderComment@16",
+      "object_bytes": 233,
+      "target_bytes": 231,
+      "first_difference": 39,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "_D3DXGetShaderSize@4",
+      "object_bytes": 114,
+      "target_bytes": 114,
+      "first_difference": 18,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "_D3DXGetShaderVersion@4",
+      "object_bytes": 18,
+      "target_bytes": 18,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex30_constants/shader_metadata.cpp",
+  "source_sha256": "e1efee7b80f573c7dcb2b4486fb1b4a2bab67a0ae90154c50b3b2f0799563f5b",
+  "object_sha256": "c488c3eccf37ff638a0575f4506a7304f7bf5727bfad62a8dd96e21493715282"
+}

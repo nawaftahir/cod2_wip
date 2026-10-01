@@ -27,7 +27,7 @@
     },
     {
       "symbol": "?Set@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
-      "object_bytes": 644,
+      "object_bytes": 640,
       "target_bytes": 671,
       "first_difference": 8,
       "full_masked_equal": false,
@@ -59,7 +59,7 @@
     },
     {
       "symbol": "?Set@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
-      "object_bytes": 734,
+      "object_bytes": 749,
       "target_bytes": 770,
       "first_difference": 8,
       "full_masked_equal": false,
@@ -93,7 +93,7 @@
       "symbol": "?Set@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
       "object_bytes": 734,
       "target_bytes": 758,
-      "first_difference": 34,
+      "first_difference": 11,
       "full_masked_equal": false,
       "source_credit": 0
     },
@@ -123,7 +123,7 @@
     },
     {
       "symbol": "?Set@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
-      "object_bytes": 759,
+      "object_bytes": 753,
       "target_bytes": 817,
       "first_difference": 7,
       "full_masked_equal": false,
@@ -131,10 +131,10 @@
     },
     {
       "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXIII@Z",
-      "object_bytes": 42,
+      "object_bytes": 43,
       "target_bytes": 43,
-      "first_difference": 6,
-      "full_masked_equal": false,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     },
     {
@@ -155,9 +155,9 @@
     },
     {
       "symbol": "?Set@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
-      "object_bytes": 971,
+      "object_bytes": 964,
       "target_bytes": 1005,
-      "first_difference": 7,
+      "first_difference": 9,
       "full_masked_equal": false,
       "source_credit": 0
     },
@@ -187,7 +187,7 @@
     },
     {
       "symbol": "?Set@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
-      "object_bytes": 925,
+      "object_bytes": 1115,
       "target_bytes": 1173,
       "first_difference": 11,
       "full_masked_equal": false,
@@ -197,16 +197,16 @@
       "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXIII@Z",
       "object_bytes": 44,
       "target_bytes": 44,
-      "first_difference": 23,
-      "full_masked_equal": false,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     },
     {
       "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXII@Z",
       "object_bytes": 44,
       "target_bytes": 44,
-      "first_difference": 25,
-      "full_masked_equal": false,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     },
     {
@@ -219,7 +219,7 @@
     },
     {
       "symbol": "?Set@?$SetTyped@$01$02$03$03$00@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
-      "object_bytes": 989,
+      "object_bytes": 1009,
       "target_bytes": 1082,
       "first_difference": 11,
       "full_masked_equal": false,
@@ -251,9 +251,9 @@
     },
     {
       "symbol": "?Set@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
-      "object_bytes": 989,
+      "object_bytes": 1227,
       "target_bytes": 1288,
-      "first_difference": 12,
+      "first_difference": 8,
       "full_masked_equal": false,
       "source_credit": 0
     },
@@ -261,16 +261,16 @@
       "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXIII@Z",
       "object_bytes": 44,
       "target_bytes": 44,
-      "first_difference": 23,
-      "full_masked_equal": false,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     },
     {
       "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXII@Z",
       "object_bytes": 44,
       "target_bytes": 44,
-      "first_difference": 22,
-      "full_masked_equal": false,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     },
     {
@@ -283,13 +283,13 @@
     },
     {
       "symbol": "?Set@?$SetTyped@$02$02$03$03$00@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
-      "object_bytes": 925,
+      "object_bytes": 1009,
       "target_bytes": 1082,
       "first_difference": 11,
       "full_masked_equal": false,
       "source_credit": 0
     }
   ],
-  "source_sha256": "c11ac235ad06a58078894db3b0fe7b8cf5cfd782cafc19038f44c660c66e7f81",
-  "object_sha256": "009567248b0f0d6754a0e3fe958625dabea4984d2612b62423e7e912157aa15d"
+  "source_sha256": "919294bfbb360beee2e3a6ada57442f5ffb0affc70abe68a2848c2f05888d428",
+  "object_sha256": "86ee4874a7fc547630c70704c7b9ea5c8b1684fd0f2f95a6a3233cc8f8d8db21"
 }

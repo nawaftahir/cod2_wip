@@ -1,0 +1,96 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 44,
+      "target_bytes": 44,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXIII@Z",
+      "object_bytes": 43,
+      "target_bytes": 43,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXII@Z",
+      "object_bytes": 33,
+      "target_bytes": 33,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXI@Z",
+      "object_bytes": 29,
+      "target_bytes": 29,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex30_constants/read_typed.cpp",
+  "source_sha256": "9f41a8b819c48899347f298d60b0ca234e7f451daedd9c52296e7f0963c09914",
+  "object_sha256": "8b363c80b876e08be799c806cd20ad084df526a4351bdb450bc2cb3f4c8c74db"
+}

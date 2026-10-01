@@ -1,0 +1,74 @@
+[
+  {
+    "address": "0x100f6197",
+    "bytes": 34,
+    "symbol": "_rand",
+    "object": "gfx/target/scratch/codex30_crt_o2/obj/mt/rand.obj",
+    "bindings": {
+      "__getptd": "0x100fb114"
+    }
+  },
+  {
+    "address": "0x100f618a",
+    "bytes": 13,
+    "symbol": "_srand",
+    "object": "gfx/target/scratch/codex30_crt_o2/obj/mt/rand.obj",
+    "bindings": {
+      "__getptd": "0x100fb114"
+    }
+  },
+  {
+    "address": "0x10033076",
+    "bytes": 12,
+    "symbol": "__loaddll",
+    "object": "gfx/target/scratch/codex30_crt_o2/obj/mt/loaddll.obj",
+    "bindings": {
+      "__imp__LoadLibraryA@4": "0x1010c028"
+    }
+  },
+  {
+    "address": "0x10033076",
+    "bytes": 12,
+    "symbol": "__Mtxinit",
+    "object": "gfx/target/scratch/codex30_crt_o2/obj/mt/xmtx.obj",
+    "bindings": {
+      "__imp__InitializeCriticalSection@4": "0x1010c028"
+    }
+  },
+  {
+    "address": "0x10033076",
+    "bytes": 12,
+    "symbol": "__Mtxdst",
+    "object": "gfx/target/scratch/codex30_crt_o2/obj/mt/xmtx.obj",
+    "bindings": {
+      "__imp__DeleteCriticalSection@4": "0x1010c028"
+    }
+  },
+  {
+    "address": "0x10033076",
+    "bytes": 12,
+    "symbol": "__Mtxlock",
+    "object": "gfx/target/scratch/codex30_crt_o2/obj/mt/xmtx.obj",
+    "bindings": {
+      "__imp__EnterCriticalSection@4": "0x1010c028"
+    }
+  },
+  {
+    "address": "0x10033076",
+    "bytes": 12,
+    "symbol": "__Mtxunlock",
+    "object": "gfx/target/scratch/codex30_crt_o2/obj/mt/xmtx.obj",
+    "bindings": {
+      "__imp__LeaveCriticalSection@4": "0x1010c028"
+    }
+  },
+  {
+    "address": "0x10033076",
+    "bytes": 12,
+    "symbol": "__loaddll",
+    "object": "gfx/target/scratch/codex30_crt_o2/obj/st/loaddll.obj",
+    "bindings": {
+      "__imp__LoadLibraryA@4": "0x1010c028"
+    }
+  }
+]

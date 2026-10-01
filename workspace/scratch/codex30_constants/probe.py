@@ -16,7 +16,9 @@ m = load_matcher()
 sdk = list(members((ROOT / 'sdk/sum2004/Lib/d3dx9.lib').read_bytes()))
 refs = {n: r for r in json.loads((HERE.parent / 'codex35_sdk/discovery.json').read_text())
         for n in r['symbols']}
-raw = (HERE / 'obj/set_typed.obj').read_bytes()
+obj = HERE / 'obj' / (sys.argv[1] if len(sys.argv) > 1 else 'set_typed.obj')
+source = HERE / (sys.argv[2] if len(sys.argv) > 2 else 'set_typed.cpp')
+raw = obj.read_bytes()
 coff = m['parse_coff'](raw)
 rows = []
 for fn in coff['symbols']:
@@ -39,6 +41,7 @@ for fn in coff['symbols']:
            'source_credit': 0}
     rows.append(row)
     print(row['full_masked_equal'], len(a), '/', len(b), first, fn['name'])
-(HERE / 'probe.json').write_text(json.dumps({'status': 'DISCOVERY ONLY', 'rows': rows,
-    'source_sha256': hashlib.sha256((HERE / 'set_typed.cpp').read_bytes()).hexdigest(),
+(HERE / ('probe.json' if len(sys.argv) == 1 else 'probe_' + obj.stem + '.json')).write_text(json.dumps({'status': 'DISCOVERY ONLY', 'rows': rows,
+    'source': str(source.relative_to(ROOT)),
+    'source_sha256': hashlib.sha256(source.read_bytes()).hexdigest(),
     'object_sha256': hashlib.sha256(raw).hexdigest()}, indent=2) + '\n')

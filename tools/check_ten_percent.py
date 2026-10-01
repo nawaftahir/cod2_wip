@@ -975,13 +975,38 @@ def main():
     parser_fixture = json.loads((parser_dir / 'fixture_packet.json').read_text())
     assert parser_fixture['status'] == 'PASS' and parser_fixture['cases'] == 96
     assert all(sha(ROOT / n) == h for n, h in parser_fixture['files'].items())
+    reads_dir = TARGET / 'scratch/codex30_reads'
+    for name, digest in {
+        'check.py': 'f037f929cd4d7d9c51bb5c7154cbc30ca9b1c2e6093d07e2d2a49b651b9b692c',
+        'check_link.py': 'b11276584cb351fa734091a15f45b17edd4aabadf5cea75fbffa54ed00602334',
+        'select_dependencies.py': '87335ff6653bd7718db69feeeaa299219c858d56280f98d5215047ed3231bd6d',
+        'build.sh': '80f1100463604cc630b2a14b3cb950171d25be045f15c00b1554508fe4a33b6f',
+        'link.mk': 'b37e6509f22af1c54bb523b164575adefbc9367468595d8181e9b6241f5f321d',
+    }.items():
+        assert sha(reads_dir / name) == digest
+    subprocess.run([sys.executable, str(reads_dir / 'check.py')], check=True, capture_output=True)
+    subprocess.run([sys.executable, str(reads_dir / 'check_link.py')], check=True, capture_output=True)
+    reads_packet = json.loads((reads_dir / 'clean_packet.json').read_text())
+    assert reads_packet['status'] == 'REVIEWABLE' and not reads_packet['whole_file_identity']
+    assert reads_packet['anchor_sha256'] == ANCHOR_SHA and reads_packet['negative_tests_passed']
+    assert all(sha(ROOT / n) == h for n, h in reads_packet['files'].items())
+    reads_gain = {(int(r['address'], 16), r['bytes']) for r in reads_packet['rows']}
+    assert len(reads_gain) == 12 and sum(n for _, n in reads_gain) == 475
+    reads_link = json.loads((reads_dir / 'link_packet.json').read_text())
+    assert reads_link['status'] == 'PASS' and not reads_link['whole_file_identity']
+    assert reads_link['baseline_source_matches'] == 403 and reads_link['linked_source_matches'] == 415
+    assert not reads_link['source_match_losses'] and reads_link['dependency_source_credit'] == 0
+    assert all(sha(ROOT / n) == h for n, h in reads_link['files'].items())
+    reads_fixture = json.loads((TARGET / 'scratch/codex30_constants/reads_fixture_packet.json').read_text())
+    assert reads_fixture['status'] == 'PASS' and reads_fixture['cases'] == 2000
+    assert all(sha(ROOT / n) == h for n, h in reads_fixture['files'].items())
     disjoint((address, size) for address, size in jpeg.items())
     disjoint(closed)
     disjoint(stl)
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -994,7 +1019,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1015,6 +1040,8 @@ def main():
           '400 linked source matches, all previous retained; 361654 CPU comparisons passed.')
     print('Parser batch: 3 complete source bodies, 6082 instruction bytes; '
           '403 linked source matches retained/accepted; 96 full-output CPU cases passed.')
+    print('Shader read batch: 12 complete source bodies, 475 instruction bytes; '
+          '415 linked source matches, all 403 previous retained; 2000 full-output CPU cases passed.')
     goal = (DENOMINATOR * 30 + 99) // 100
     print(f'30% checkpoint: {"REACHED" if total >= goal else "PENDING"}; '
           f'{max(0, goal - total)} further source instruction bytes needed.')
