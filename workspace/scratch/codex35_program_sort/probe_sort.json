@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?HeapSort@D3DXShader@@YGXP6GHIIPBX@ZPAII0@Z",
+      "object_bytes": 281,
+      "target_bytes": 279,
+      "first_difference": 8,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_program_sort/sort.cpp",
+  "source_sha256": "79b43f838b2e7f86714c062be96eb97c1fe742bdd4f0a9582bbc4232cece667e",
+  "object_sha256": "f2e72267f443c1740d5d95775908bc828266e3faf34db0551c152d650aeee5d4"
+}

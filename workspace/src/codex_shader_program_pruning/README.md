@@ -6,5 +6,6 @@ retaining577;1284 complete original/source shader outputs agree.
 
 The low20 token-count field is a target-backed source representation, not a
 claim about original private SDK header spelling. Other fields are access
-prefixes; do not infer allocation sizes. Full aggregate acceptance is pending.
+prefixes; do not infer allocation sizes. Fresh full aggregate accepts all408
+disjoint bytes (../../scratch/codex35_program_pruning/aggregate.log).
 No whole-file identity/GPU claim. See ../../scratch/codex35_program_pruning/REPORT.md.

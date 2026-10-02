@@ -13,7 +13,8 @@ class CPool
 {
 public:
     unsigned name, flags;
-    unsigned opaque8[6];
+    unsigned opaque8[2];
+    unsigned vectorCount, opaque14[3];
     unsigned *lastWrites;
     unsigned firstWrite, firstRead, lastRead, readCount;
 };
@@ -232,6 +233,151 @@ long CProgram::ReadWriteInfo_CommitOrigin()
             }
         }
     }
+    return 0;
+}
+
+long CProgram::ReadWriteInfo()
+{
+    for (unsigned i = 0; i < poolCount; ++i)
+    {
+        CPool *pool = pools[i];
+        pool->firstRead = ~0u;
+        pool->lastRead = 0;
+        pool->readCount = 0;
+        pool->lastWrites = 0;
+    }
+    for (unsigned i = 0; i < argumentCount; ++i)
+    {
+        CArgument *arg = arguments[i];
+        arg->origin = i;
+        arg->firstRead = ~0u;
+        arg->lastRead = 0;
+        arg->readCount = 0;
+        arg->instruction = ~0u;
+        arg->previousWrite = ~0u;
+        arg->nextWrite = ~0u;
+    }
+    unsigned *writes = 0;
+    if (detailedInfo)
+    {
+        for (unsigned i = 0; i < poolCount; ++i)
+        {
+            pools[i]->vectorCount = 0;
+        }
+        for (unsigned i = 0; i < argumentCount; ++i)
+        {
+            CArgument *arg = arguments[i];
+            CPool *pool = pools[arg->pool];
+            if (!(pool->flags & 0x40) && (pool->flags & 2))
+            {
+                unsigned count = arg->index + 1;
+                if (pool->vectorCount < count)
+                {
+                    pool->vectorCount = count;
+                }
+            }
+        }
+        unsigned count = 0;
+        for (unsigned i = 0; i < poolCount; ++i)
+        {
+            count += pools[i]->vectorCount;
+        }
+        unsigned bytes = count * 4 * sizeof(unsigned);
+        writes = (unsigned *)operator new(bytes);
+        if (!writes)
+        {
+            return (long)0x8007000e;
+        }
+        memset(writes, 0xff, bytes);
+        unsigned offset = 0;
+        for (unsigned i = 0; i < poolCount; ++i)
+        {
+            pools[i]->lastWrites = pools[i]->vectorCount ? writes + offset * 4 : 0;
+            offset += pools[i]->vectorCount;
+        }
+    }
+    for (unsigned i = 0; i < instructionCount; ++i)
+    {
+        CInstruction *ins = instructions[i];
+        if (!ins || !(ins->token & 0xfff00000))
+        {
+            continue;
+        }
+        for (unsigned j = 0; j < ins->inputCount; ++j)
+        {
+            ReadWriteInfo_ReadInfo(ins->inputs[j], i);
+        }
+        for (unsigned j = 0; j < ins->outputCount; ++j)
+        {
+            ReadWriteInfo_WriteInfo(ins->outputs[j], i);
+        }
+        if ((ins->token & 0xfff00000) == 0x10000000 && !(flags & 4))
+        {
+            for (unsigned j = 0; j < ins->outputCount; ++j)
+            {
+                CArgument *out = arguments[ins->outputs[j]];
+                CArgument *in = arguments[ins->inputs[j]];
+                unsigned poolFlags = pools[out->pool]->flags;
+                if (!(poolFlags & 0x1020) && (poolFlags & 1) && !in->opaque3c)
+                {
+                    unsigned origin = out->origin;
+                    out->origin = in->origin;
+                    in->origin = origin;
+                }
+            }
+        }
+    }
+    for (unsigned i = 0; i < argumentCount; ++i)
+    {
+        CArgument *arg = arguments[i];
+        CPool *pool = pools[arg->pool];
+        if (arg->firstRead > pool->firstRead)
+        {
+            arg->firstRead = pool->firstRead;
+        }
+        if (arg->lastRead < pool->lastRead)
+        {
+            arg->lastRead = pool->lastRead;
+        }
+    }
+    if (detailedInfo)
+    {
+        for (unsigned i = 0; i < argumentCount; ++i)
+        {
+            CArgument *arg = arguments[i];
+            if (arg->previousWrite != ~0u)
+            {
+                CArgument *previous = arguments[arg->previousWrite];
+                arg->previousWrite = previous->lastRead;
+                if (arg->previousWrite <= previous->instruction)
+                {
+                    arg->previousWrite = previous->instruction + 1;
+                }
+            }
+            else
+            {
+                arg->previousWrite = 0;
+            }
+            if (arg->nextWrite != ~0u)
+            {
+                CArgument *next = arguments[arg->nextWrite];
+                arg->nextWrite = next->firstRead;
+                if (arg->nextWrite > next->instruction)
+                {
+                    arg->nextWrite = next->instruction;
+                }
+            }
+            else
+            {
+                arg->nextWrite = ~0u;
+            }
+        }
+    }
+    if (optimized)
+    {
+        ReadWriteInfo_CommitOrigin();
+    }
+    operator delete(writes);
     return 0;
 }
 }

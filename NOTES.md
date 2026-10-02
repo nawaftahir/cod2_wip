@@ -456,3 +456,21 @@
   C++ draft. Write tracking uses pool lastWrites[index*4+component]; reads
   follow relative arguments and update origin/pool bounds. These395 bytes
   remain uncredited until full clean typed, binding, regression and CPU gates.
+- CORRECTION: all four read/write methods above already belong to the accepted
+  codex31_program module (1112 of its2663 bytes). The duplicate selector caught
+  a repeated reconstruction before private linking; these drafts add ZERO
+  coverage. The redundant clean copy was archived in scratch, unused new gate
+  wrappers removed, accepted program source untouched. Before every new batch,
+  subtract existing REVIEWABLE clean-packet symbol rows from the SDK queue.
+- Uniform-pruning full aggregate PASS now336487/1089680 =30.879432%;408 new
+  disjoint source bytes accepted. Strip643 and sort279 have all local gates
+  green but aggregate credit remains pending. The active goal remains35%.
+- PINNED: HeapSort10086920/279, member90 section13, uses __stdcall helper and
+  comparator. Scoped locals, first-child initialization inside the split>0
+  guard and direct array[child+1] access reproduce the entire body. Shared
+  locals also gave279 bytes but differed at40; size equality is insufficient.
+  Clean V2,V3/584 retaining583 and1284 actual full-output CPU comparisons pass.
+- CompactOutputs1008d26d/696 remains unmatched after bounded flag/opcode,
+  indexed-buffer/lifetime and actual12-definition caller/callee TU tests.
+  Observed opaque argument offsets60..70 are not guessed semantic types.
+  No new source credit, integration claim or compiler-impossibility claim.

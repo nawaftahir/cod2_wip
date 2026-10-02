@@ -4,7 +4,8 @@ Active35% goal. StripUniform10087159/408 passes complete clean V2 with literal
 SDK/retail/source bodies, bounds, fields and negative tests. Private V3 accepts
 578 source matches retaining577;1284 full shader/error/constant-buffer CPU
 outputs agree (954 successes and330 errors in each profile). All gates were
-freshly executed. Its408 bytes await aggregate proof and are not credited yet.
+freshly executed. Fresh full aggregate PASS in aggregate.log accepts its408
+disjoint bytes:336487/1089680 =30.879432%. Whole-file identity remains unproven.
 
 Source: ../../src/codex_shader_program_pruning/pruning.cpp. Compiler4035 flags
 /O1 /Oy- /hotpatch /MT /Gy /d2QIftol and pinned images are inherited from the

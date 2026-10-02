@@ -1,29 +1,25 @@
-# Shader read/write analysis draft — 2026-10-02
+# Duplicate read/write-analysis attempt — 2026-10-02
 
-Three new ordinary C++ definitions reproduce their complete SDK sections in
-a fresh pinned-image compile: ReadInfo94, WriteInfo98, CommitOrigin203, total
-395 instruction bytes. probe_readwrite.json records the source/object hashes.
-These are discovery diagnostics only: clean typed V2, linked V3, integrated
-CPU and full aggregate proof have not run. No coverage credit is awarded.
+Zero new source credit. All four methods already belong to the accepted
+codex31_program module: ReadInfo94, WriteInfo98, CommitOrigin203 and
+ReadWriteInfo717, totaling1112 of that module's2663 instruction bytes.
+The new scratch definitions independently reproduce complete SDK sections,
+but re-deriving existing accepted work is not reconstruction progress.
 
-PINNED SDK member90/sections116..118 and matching retail placements:
-ReadInfo1008a7ee, WriteInfo1008a84c, CommitOrigin1008a8ae. Signatures are the
-actual decorated symbols, private __thiscall CProgram methods. ReadInfo follows
-relative arguments, accounting on their origins and pools. WriteInfo stores
-the instruction and previous/next write links through the pool's lastWrites
-table, indexed by argument index*4+component, then reads relative2. CommitOrigin
-copies origin fields and merges reader bounds/counts, then propagates firstRead
-back to aliases. Access prefixes agree with the directly disassembled target;
-there is no allocation-size or historical-header claim.
+The strict private SDK selector rejected duplicate source ownership before
+linking. No private V3 or CPU acceptance was claimed for this duplicate.
+The redundant clean source copy was moved to readwrite_clean_duplicate.cpp,
+and nine newly generated unused gate wrappers were removed. Existing accepted
+source and proofs were not changed. Older raw clean_packet.json/build.log
+are historical diagnostics, not current accepted proof.
 
-Compile compile.sh in the same pinned compiler image as the clean strip
-cohort, then from gfx/target:
+The first parent-method candidate differed at501,503,507,510 (four swapped
+register operand bytes); reversing source swap-assignment order matches717.
+That ordinary source-level result still does not award duplicate credit.
+Read probe_readwrite.json hashes with the corresponding source revision.
 
-    python3 scratch/codex35_program_rw/probe.py readwrite.obj readwrite.cpp
-
-Next: project only these three matched bodies into a clean source module,
-reuse the strict strip cohort gates, require223 distinct source definitions /
-243 removed SDK definitions, preserve all583 previous linked matches, compare
-actual full shader outputs, then run the full disjoint aggregate. The parent
-ReadWriteInfo717 method is an additional unimplemented source opportunity, not
-an accepted function. The active target remains35%, not a31% substitution.
+Before further drafts, subtract existing REVIEWABLE clean-packet symbol rows
+from the target-backed SDK inventory, and inspect the owning clean source.
+This check includes pending clean candidates to avoid double ownership.
+CompactOutputs696 at1008d26d is genuinely absent from that existing inventory.
+Active35% goal unchanged; no attempted duplicate bytes added to the counter.

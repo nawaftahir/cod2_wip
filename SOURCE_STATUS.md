@@ -17,10 +17,10 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **336,079 /
-1,089,680 = 30.841990%** (2026-10-02), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **336,487 /
+1,089,680 = 30.879432%** (2026-10-02), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**45,309** further verified instruction bytes are required.31% needs1722 bytes.
+**44,901** further verified instruction bytes are required.31% needs1314 bytes.
 Work is active again at the owner's request. Whole-DLL checksum
 identity is still unfinished.
 
@@ -29,10 +29,15 @@ New clean candidates are `target/src/codex_shader_program_varying/varying.cpp`
 outputs and full aggregate pass; included in the total) and
 `target/src/codex_shader_program_pruning/pruning.cpp` (408-byte StripUniform;
 clean V2,578 linked matches retaining577 and1284 full CPU outputs pass).
-The pruning408 bytes await full aggregate proof before joining the total.
+The pruning408 bytes are accepted in the total by a fresh full aggregate PASS.
 `target/src/codex_shader_program_strip/strip.cpp` adds five clean methods/643
 bytes passing V2,V3/583 retaining578 and1284 integrated CPU outputs; these
 also await aggregate acceptance. No dynamic execution of every getter is claimed.
+`target/src/codex_shader_program_sort/sort.cpp` adds complete HeapSort279,
+passing clean V2,V3/584 retaining583 and1284 full CPU outputs; aggregate pending.
+The duplicate read/write scratch source adds zero coverage: all four methods
+were already accepted in the earlier program module. CompactOutputs stays
+scratch-only because actual source/object comparisons still differ.
 
 The preceding clean module is
 [`target/src/codex_shader_compiler/`](target/src/codex_shader_compiler/):

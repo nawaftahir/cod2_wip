@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?CompactOutputs@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 692,
+      "target_bytes": 696,
+      "first_difference": 50,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_program_outputs/outputs.cpp",
+  "source_sha256": "e308e8059ea2fd0a76ff3d48691130519b5885518fa70ba89c09443cbb425365",
+  "object_sha256": "f98eb0fe0c2e93dbb7d50e84b28b81ee6c6f7363751921b63a9e112b30196cff"
+}

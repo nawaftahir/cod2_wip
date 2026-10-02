@@ -24,9 +24,17 @@
       "first_difference": null,
       "full_masked_equal": true,
       "source_credit": 0
+    },
+    {
+      "symbol": "?ReadWriteInfo@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 717,
+      "target_bytes": 717,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
     }
   ],
   "source": "gfx/target/scratch/codex35_program_rw/readwrite.cpp",
-  "source_sha256": "8d5845d1326939c9d8928f15bf5783f05d09fea410bd3e461ffdf747e231d142",
-  "object_sha256": "05305ed73cebe1c596c3c9b5f848f6d3011b551c9374df2071ebd2a2ce766557"
+  "source_sha256": "09cdc76706f08345b0e1e643da8aaf1c1d471a7603650a7d13c0def9bce5da8c",
+  "object_sha256": "5bf7a0b03640fabd4fb00b726ee58ce202a02660b48980379601eab2187f2641"
 }
