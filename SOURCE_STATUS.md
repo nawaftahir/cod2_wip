@@ -46,9 +46,14 @@ the full aggregate replay pass. Only309 new disjoint bytes count; the prior757
 are retained. This is not whole-file identity. The old eight-method module is
 history, not an additional TU to link alongside this replacement.
 
-The new type/diagnostic source in `target/scratch/codex35_compiler_types/`
-and interpolation variants in `target/scratch/codex35_lerp/` remain scratch,
-not accepted coverage or clean release source.
+The new readable type/diagnostic module is separated in
+[`target/src/codex_shader_compiler_types/`](target/src/codex_shader_compiler_types/).
+Its two complete methods pass clean byte/binding proof (411 instruction bytes;
+52 table bytes excluded),559 private linked source matches retaining557,
+and1284 complete shader-output CPU comparisons. The full aggregate replay was
+interrupted by the environment restart, so these411 bytes are **not yet added**
+to the confirmed total above. Resume with that replay; no whole-DLL SHA claim.
+Interpolation variants in `target/scratch/codex35_lerp/` remain unaccepted scratch.
 
 The preceding clean module is
 [`target/src/codex_shader_preprocessor/`](target/src/codex_shader_preprocessor/):

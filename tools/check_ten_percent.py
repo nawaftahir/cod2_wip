@@ -1074,6 +1074,17 @@ def main():
         ('codex35_preprocessor', 25, 2199, 523, 548, 12259, {'check.py': '6645f73286332986a182792c7482e9a44c316c1acde6c9605f06d65b36dc450d', 'check_link.py': '8a2e304b695fd8068c86c0e9fc8d2c7a045ab682c3cbe5ebb46adc2c523c25a8', 'vtables.py': '286e8db166aecaf1298cb7284634d2c38878cded8b9e8943bff0ff5af5cbcf56', 'sdk_binding.py': '9d908b68e297aa20ede5577b82cb1a669802b73761010f1aba9024635735183f', 'build.sh': '163cdb6c383fc1f9cf1c8e8b71dcba78ffd072066834837cff30ee6d7e04e6b0', 'link.mk': 'd65f3e31c21260884c103370da33873b5efd01c42db76205fa181f08dff3f66f', 'select_dependencies.py': '5979913ca49cb48716ac3e1372d17f1b93095a653a96f84e11064ff8bc853b33', 'run_test.py': 'bc9a0753813ac46cf612d29d64b554eac6534910a950d8be6b006a5f734ca507', 'compile_test.sh': 'd8ef111e91b541e6db564f761701261728406b07acb41198ddae54d07c3d9c5a'}),
         ('codex35_compiler', 8, 757, 548, 556, 20355, {'check.py': '1ffb58a461240fe7153c93d6d34eadf68787b2f216f28d460d96a94f389c1e23', 'check_link.py': '0ada8b5cabe8fe3d7db827296f1972975aa74a2bf2006a40ee97e7726c142df1', 'vtables.py': '164015760b74b004fec21fc282354dd99ec3b19254f789b1c4b0992f58b5de8b', 'sdk_binding.py': 'f18f559c0c1aa4e465cb9da86cb8b27fba703fc24279fefff43945ac5db2035d', 'build.sh': 'f6ecade0e6670bc03d0b5e76273d0344b934bdcd62a6c9d68fd68f2ddec3943c', 'link.mk': 'beb69a59fcab7668f227ad67a5b7d05615ab97416b81e1a166af8fc31b94d8d4', 'select_link_dependencies.py': '3f45fc62c1702ea31c1effc8b0eafaf2f94d3588e1cbb5dddd35168ea297851f', 'run_clean_test.py': '06f06ef2fecbd24f889496c9cfe987417b72da2851b8334fb03c699a6866cbd3', 'compile_clean_test.sh': '96adde37717b019c76a3507279193fc95ef291bed23eef19835aa87972353e77', 'run_test.py': '53ad982f7206dd5b8869d24ce0bec31d638edd6e8cf58c73dd54fc757eba8125', 'test.cpp': '40153c8bd6e52361d6992f2e2328312ffa0a093f167643318ff0c991d13e4b62'}),
         ('codex35_clip', 9, 1066, 556, 557, 1284, {'check.py': '41635c4bdeea00c83cdddd7b54d659fd7294338b32f21bbb330838ef99208cb7', 'check_link.py': '9e5131bbece7d0d81596320d90252ec01d23a0515164334b030b226e42c96648', 'vtables.py': '9cba04fd6cfaa15618ea22e5c61e952f470a83af3dbde65070310982deb0b96d', 'sdk_binding.py': '8c744fb8229fd254edf8ea215f11bf0fafadfa2f4d69fc41bff94467e4f7040c', 'build.sh': '7b47858ed5b2a7752a9e964627acb5ccd745aa89372b2cdde4ca580a9b842057', 'link.mk': 'fd58cb5cb9dba409cb02143f93f9ace9cf4081bdad686833b9835812b7b19097', 'select_link_dependencies.py': '44540ea47d6e011c0d448379ddf874f34983ed1fa4090db4ca241697f036843b', 'run_test.py': 'bb6b107ec83d20c6ac0dbe1cf5c26d82143e507832a9cc178b12486d3398ee90', 'compile_test.sh': 'b913eccffae7cc54cc10734fa3b3a4c9fef311978eeb7f4e17f6ec852483243a'}),
+        ('codex35_compiler_types', 2, 411, 557, 559, 1284, {
+            'check.py': '64ba07a1792a4d64e8e6619cb1b6099953d1e3dbfecd92195abb79b286d0a41a',
+            'check_link.py': 'c1ddaaf0d97259d86ea3d2dcb2a58019fd11a63af8f9c6043d94c3974bf88265',
+            'referee.py': '1f7f5e7380267e5cfe11fc03ffa31a3cee0996c3777749314685a04e0d9ba740',
+            'vtables.py': 'cbf165a0f317e882ffc91eaca082ea3bb7a715826a0a24ef610218f06831b730',
+            'sdk_binding.py': '3fbb85d3acc340d9fa1ccf328e0eb15ea0e798e21502c779d98cce2fbe71606e',
+            'build.sh': 'a3da48553b81fb476266694f4b0b93b4170193c1164e861793a83e30808e58d2',
+            'link.mk': 'b6cdc0086e97143c5fbef2f9ad6b2ce44155337c1cc72d6818295f18587a14e0',
+            'select_link_dependencies.py': 'd411f66abceed265907bab0232bef54478407b0589ae1e9822c88a8f343ba7bc',
+            'run_clean_test.py': '283309602eb13a07c1a6677073a5129d0c69cc033577fa8d70b90b972be1629c',
+            'compile_clean_test.sh': 'bafc65ef33a7a66f0719399a46a91c05c4a33d19174f27731147b9d430700099'}),
     ]:
         directory = TARGET / 'scratch' / family
         for name, digest in pins.items():
@@ -1086,13 +1097,18 @@ def main():
         assert all(sha(ROOT / n) == h for n, h in packet['files'].items())
         gain = {(int(r['address'], 16), r['bytes']) for r in packet['rows']}
         assert len(gain) == count and sum(n for _, n in gain) == byte_count
-        assert all(r['excluded_table_bytes'] == 0 for r in packet['rows'])
+        if family == 'codex35_compiler_types':
+            assert sorted(r['excluded_table_bytes'] for r in packet['rows']) == [0, 52]
+            assert all(r['instruction_aware_referee_match'] == 100 for r in packet['rows'])
+            assert sorted(r['original_referee_match'] for r in packet['rows']) == [95, 100]
+        else:
+            assert all(r['excluded_table_bytes'] == 0 for r in packet['rows'])
         link = json.loads((directory / 'link_packet.json').read_text())
         assert link['status'] == 'PASS' and not link['whole_file_identity']
         assert link['baseline_source_matches'] == baseline_count and link['linked_source_matches'] == linked_count
         assert not link['source_match_losses'] and link['dependency_source_credit'] == 0
         assert all(sha(ROOT / n) == h for n, h in link['files'].items())
-        fixture_name = 'clean_fixture_packet.json' if family == 'codex35_compiler' else 'fixture_packet.json'
+        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types') else 'fixture_packet.json'
         fixture = json.loads((directory / fixture_name).read_text())
         assert fixture['status'] == 'PASS' and fixture['cases'] == cpu_count
         assert all(sha(ROOT / n) == h for n, h in fixture['files'].items())
@@ -1106,6 +1122,9 @@ def main():
             preprocessor_gain = gain
         elif family == 'codex35_compiler':
             compiler_gain = gain
+        elif family == 'codex35_compiler_types':
+            type_gain = gain
+            assert type_gain == {(0x1006dca1, 98), (0x1006ddf3, 313)}
         else:
             assert family == 'codex35_clip' and compiler_gain <= gain
             clip_gain = gain - compiler_gain
@@ -1116,7 +1135,7 @@ def main():
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1129,7 +1148,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1164,6 +1183,7 @@ def main():
     print('Preprocessor batch: 25 complete source bodies, 2199 instruction bytes; 548 linked matches, all 523 retained; 12259 CPU comparisons passed.')
     print('Compiler batch: 8 complete source bodies, 757 instruction bytes; 556 linked matches, all 548 retained; 20355 clean-profile CPU comparisons passed. Unmatched evaluator/stack allocation remain SDK dependencies, zero extra source credit.')
     print('Clipping cohort: 9 complete source bodies, 1066 instruction bytes; only 309 new bytes counted, all 757 previous compiler bytes retained; 557 linked matches, all 556 retained; 1284 full shader-output CPU cases passed.')
+    print('Compiler type/diagnostic cohort: 2 complete source bodies, 411 new instruction bytes; 52 table bytes excluded; 559 linked matches retain all 557; 1284 full shader-output CPU cases passed. Legacy raw GetTypeFlags score95 retained; decoded self-call normalization100 and independent full typed/binding proof pass.')
     goal = (DENOMINATOR * 35 + 99) // 100
     print(f'35% checkpoint: {"REACHED" if total >= goal else "PENDING"}; '
           f'{max(0, goal - total)} further source instruction bytes needed.')

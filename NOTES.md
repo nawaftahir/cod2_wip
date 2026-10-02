@@ -335,3 +335,26 @@
 - Six new interpolation lifetime/cleanup/shared-final-call variants remain
   unmatched947/937 or945/937. Preserve codex35_lerp/REPORT.md; they have no
   independent CPU proof and must not borrow the older fixture's certification.
+
+## Compiler type integration and pause — 2026-10-02
+
+- PINNED: local decoded referee fixes four recursive E8 operand relocations
+  in GetTypeFlags. Internal E9 jumps stay literal; table data and E8/E9 inside
+  immediates are not instructions. Its executable self-check covers all these
+  cases plus bounds. Raw legacy95 is recorded separately from normalized100;
+  independent complete SDK/source/retail byte, binding and negative proof is
+  still required. No global legacy referee was changed.
+- Clean types.cpp provides Error98/GetTypeFlags313, excluding52 table bytes.
+  Clean V2 passes; private link559 retains557;1284 full shader-output checks
+  pass. Selector196 distinct/206 raw definitions includes10 archive duplicates.
+  All opaque SDK/runtime dependencies get zero additional source credit.
+- Environment restart interrupted the full aggregate replay before output.
+  Last confirmed total remains331387/1089680 =30.411405%. Resume with a fresh
+  full replay, not a percentage edit. Candidate gain411 would yield30.449123%,
+  still6003 bytes short of31%. Paused at the owner's request.
+- Do not repeat completed surveys: codex30_crt_o2 tested358 C files in ST/MT
+  with zero accepted gain; codex30_cpp tested58 runtime C++ files, zero gain.
+  This turn's duplicate CRT batch was stopped; partial objects prove no gain.
+  codex30_token already has a624-byte opcode initializer versus607 target;
+  this turn's644-byte attempt is worse and remains DEFER. Consult old REPORTs
+  before spending more builds on these families.

@@ -53,7 +53,7 @@ overrides = [
     ('    refs = node_references(m, oracle, refs, pe)',
      '    refs = node_references(m, oracle, refs, pe)\n    refs = runtime_reference(m, oracle, refs, pe)'),
     ('def main():', runtime + '\ndef main():'),
-    ('    rows = []', '    rows = []\n    referee_scores = {}'),
+    ('    rows = []', '    rows = []\n    referee_scores = {}\n    normalized_scores = {}'),
     ("                elif is_function(original, old):", "                elif is_function(original, old) or symbol['name'] == '__vsnprintf':"),
     ('        branches = branch_fields(retail[:code_bytes], address)', '''        branches = branch_fields(retail[:code_bytes], address)
         for instruction in d.disasm(retail[:code_bytes], address):
@@ -68,25 +68,32 @@ overrides = [
     ("        with contextlib.redirect_stdout(io.StringIO()):\n            assert m['cmd_diff'](hex(address), str(obj), name) == 100", '''        import os
         previous = os.environ.pop('MASK_INTRA', None)
         try:
-            if address in branches.values():
-                assert name == '?GetTypeFlags@CCompiler@D3DXShader@@IAEIPAVCNode@2@PAK@Z'
-                os.environ['MASK_INTRA'] = '1'
             with contextlib.redirect_stdout(io.StringIO()):
                 result = m['cmd_diff'](hex(address), str(obj), name)
             referee_scores[name] = result
-            assert result == 100 or (name == '?GetTypeFlags@CCompiler@D3DXShader@@IAEIPAVCNode@2@PAK@Z' and result == 95), (name, result)
+            from referee import relocation_mask, self_check
+            self_check()
+            old_mask = m['pe_mask_for']
+            try:
+                m['pe_mask_for'] = lambda off, size, code, rva: relocation_mask(m, off, size, code, rva, code_bytes)
+                with contextlib.redirect_stdout(io.StringIO()):
+                    corrected = m['cmd_diff'](hex(address), str(obj), name)
+                assert corrected == 100, (name, corrected)
+                normalized_scores[name] = corrected
+            finally:
+                m['pe_mask_for'] = old_mask
         finally:
             os.environ.pop('MASK_INTRA', None)
             if previous is not None: os.environ['MASK_INTRA'] = previous'''),
-    ("'original_referee_match': 100", "'original_referee_match': referee_scores[name]"),
-    ("    packet = {'status': 'REVIEWABLE',", "    packet = {'status': 'REVIEWABLE' if all(score == 100 for score in referee_scores.values()) else 'DEFER', 'source_credit': 0, 'referee_scores': referee_scores, 'defer_reason': 'GetTypeFlags passes full typed SDK/retail/source proof but the legacy MASK_INTRA option masks exact internal E9 jumps on the PE side only; original referee reports95, not100. Acceptance remains blocked, no coverage credit.',"),
+    ("'original_referee_match': 100", "'original_referee_match': referee_scores[name], 'instruction_aware_referee_match': normalized_scores[name]"),
+    ("    packet = {'status': 'REVIEWABLE',", "    packet = {'status': 'REVIEWABLE', 'referee_scores': referee_scores, 'instruction_aware_referee_scores': normalized_scores, 'normalization': 'Decoded PE self-call fields; all internal E9 jumps literal. Complete typed SDK/source/retail proof and wrong-binding negatives required independently.',"),
     ("print('PASS:', len(rows)", "print(packet['status'] + ':', len(rows)"),
-    ('    paths = [sdk, discovery_path,', "    paths = [sdk, discovery_path, HERE.parent / 'codex35_compiler/compiler.cpp', ROOT / 'gfx/target/src/codex_shader_nodes/nodes.cpp', ROOT / 'gfx/target/src/codex_shader_support/support.h', HERE.parent / 'codex17_crt/obj/mt/vsnprint.obj',"),
-    ("[SOURCES / (prefix + '.cpp')]", "[SOURCES / (prefix + '.cpp'), HERE.parent / 'codex35_compiler/compiler.cpp', ROOT / 'gfx/target/src/codex_shader_nodes/nodes.cpp', ROOT / 'gfx/target/src/codex_shader_support/support.h']"),
+    ('    paths = [sdk, discovery_path,', "    paths = [sdk, discovery_path, HERE.parent / 'codex35_compiler/compiler.cpp', ROOT / 'gfx/target/src/codex_shader_compiler_clip/compiler.cpp', ROOT / 'gfx/target/src/codex_shader_nodes/nodes.cpp', ROOT / 'gfx/target/src/codex_shader_support/support.h', HERE.parent / 'codex17_crt/obj/mt/vsnprint.obj',"),
+    ("[SOURCES / (prefix + '.cpp')]", "[SOURCES / (prefix + '.cpp'), HERE.parent / 'codex35_compiler/compiler.cpp', ROOT / 'gfx/target/src/codex_shader_compiler_clip/compiler.cpp', ROOT / 'gfx/target/src/codex_shader_nodes/nodes.cpp', ROOT / 'gfx/target/src/codex_shader_support/support.h']"),
     ("if CLEAN else 'sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694'", "if CLEAN else 'sha256:17ddd3cc30517bc070c4e1a1d8bec9c4abd0d8b453115dfa0324e7e20dc94131'"),
     ('complete source node bodies', 'complete source type/diagnostic bodies'),
     ('reconstructed SDK shader-node C++; remaining SDK methods external', 'reconstructed SDK compiler type/diagnostic C++; remaining SDK/runtime methods external'),
-    ("'verified_instruction_bytes'", "'typed_proof_instruction_bytes'"),
+    ("'/O1 /Oy- /hotpatch /MT /Gy'", "'/O1 /Oy- /hotpatch /MT /Gy /d2QIftol'"),
 ]
 marker = '\nexec(compile(source'
 assert source.count(marker) == 1

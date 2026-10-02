@@ -1,10 +1,45 @@
 # Shared renderer handoff — 2026-10-02
 
-Current goal: commit checkpoints and pursue **35% verified source coverage**.
-Latest accepted checkpoint is **331,387 / 1,089,680 = 30.411405%**;
-**50,001 instruction bytes** remain for35%. Work resumed after the previous
-pause. Preserve the expression/compiler/preprocessor drafts; unaccepted bytes
-still receive zero credit.
+Paused at the owner's request after the compiler-type integration checkpoint.
+Latest fully replayed coverage remains **331,387 / 1,089,680 = 30.411405%**.
+The immediate requested target is **31%**, not yet reached. Two clean methods
+add411 candidate instruction bytes, with clean V2, retained-match V3 and CPU
+checks passed; the environment restart interrupted the full aggregate replay.
+Do not count that gain until the replay passes. If it passes unchanged, the
+total becomes331798/1089680 =30.449123%, leaving6003 bytes to31%.
+35% remains the longer target; it would then require49590 more bytes.
+
+## Resume first: compiler type/diagnostic integration
+
+Clean source: `target/src/codex_shader_compiler_types/types.cpp` supplies
+Error(98 code bytes) and GetTypeFlags(313 code bytes plus52 table bytes).
+Clean V2 is REVIEWABLE. The private DLL passes559 source matches, retaining
+all557 previous matches. The integrated fixture passes1284 complete original/
+source shader outputs (954 successes/330 errors in each), with map ownership.
+Packets and commands are in `target/scratch/codex35_compiler_types/REPORT.md`.
+
+The legacy raw GetTypeFlags score95 is preserved, not called a pass. Local
+decoded normalization passes100 and independently checks complete typed
+SDK/source/retail bytes, bindings, table destinations and negative tests.
+It fixes four self-call relocation fields while leaving internal jumps literal.
+The source selector checks196 distinct definitions/206 removed archive entries.
+Tables and opaque SDK/runtime dependencies do not increase source coverage.
+
+**First resume action:** run `python3 -u tools/check_ten_percent.py` from gfx,
+record a terminal PASS, then update totals. The preceding aggregate log is
+empty: its process/session did not survive the environment restart. Do not
+mistake saved per-family packets for a completed aggregate replay.
+Do not link the old eight-method compiler TU alongside the clipping replacement.
+Whole-DLL identity and game/GPU boot remain unfinished.
+
+Avoid repeating exhausted surveys: codex30_crt_o2 (358 CRT C files, two modes,
+zero accepted gain), codex30_cpp (58 C++ runtime files, zero gain), codex35_crt
+(already-completed new CRT cohort). This turn's duplicate CRT survey was stopped;
+its partial objects get zero credit. Read codex30_token/REPORT.md before further
+opcode-initializer experiments: its prior624-byte draft is closer to607 retail
+bytes than this turn's644-byte draft. Both remain unaccepted.
+
+The sections below are historical checkpoints, not instructions to redo work.
 
 ## Accepted checkpoint: clipping clean integration
 
@@ -22,7 +57,7 @@ definitions, including10 duplicate archive entries. Both exact counts and
 symbol-set equality are checked. Do not link the old eight-method compiler
 module alongside this nine-method replacement. No whole-DLL SHA or GPU claim.
 
-New work in `target/scratch/codex35_compiler_types/`: actual GetTypeFlags and
+Historical scratch work in `target/scratch/codex35_compiler_types/`: actual GetTypeFlags and
 Error definitions reproduce complete SDK sections365/98;313/98 are code,
 52 are jump-table bytes. Complete typed retail/SDK/source proof and1284 full
 CPU outputs pass, but the original legacy comparison reports95 for GetTypeFlags:
@@ -57,8 +92,8 @@ superseded by the accepted clean integration above. Do not count the28-byte
 EmitTemp twice or promote the other four mismatched methods.
 The five-method CPU fixture uses standalone helpers.obj, not clip_matched.obj.
 
-Clipping integration is complete. Next resolve the type helper's self-call
-normalization proof, then clean integration, retained557-match link and aggregate.
+Clipping integration is complete. The former type-helper normalization and
+clean integration blockers are resolved; only its full aggregate replay remains.
 For larger source gains, continue EmitExpression's target-backed branches.
 Preserve
 full-output CPU checks while changing source; no invented padding or ABI hacks.

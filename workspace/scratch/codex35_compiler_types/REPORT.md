@@ -1,5 +1,40 @@
 # Type/diagnostic reconstruction — 2026-10-02
 
+## Current checkpoint: clean integration
+
+The owner requested31%, then checkpoint/pause. This batch supplies411 new
+instruction bytes, not31% completion. Clean source is
+`../../src/codex_shader_compiler_types/types.cpp`. Clean V2 passes, private V3
+accepts559 source matches retaining all557, and the fresh clean CPU fixture
+passes1284 complete outputs (954 successes/330 errors in both).
+The full aggregate replay was interrupted by an environment restart; its log
+is empty and its process/session no longer exists. The owner requested a pause.
+Do not publish a new total until a fresh full replay passes. Confirmed coverage
+remains331387/1089680 =30.411405%. Projected after replay:331798/1089680 =
+30.449123%,6003 bytes short of31%. This is not an achieved31% checkpoint.
+
+The local decoded `referee.py` fixes the confirmed normalization defect without
+editing the legacy referee or weakening typed/binding proof. It masks actual
+self-call operands, not internal E9 jumps, table bytes or E8/E9 inside immediates.
+Raw legacy scores98-byte Error100/313-code-plus52-table GetTypeFlags95 are
+retained separately; corrected normalization is100 for both. The complete
+SDK/source/retail bytes, every typed binding/addend, decoded boundaries,
+all13 table destinations and changed-byte/wrong-binding negatives still pass
+independently. Table52 and authentic CRT dependency86 receive no extra credit.
+
+The strict selector replaces196 distinct source methods/206 archive definitions
+(10 duplicates), with exact removed/source symbol-set equality. No /FORCE or
+retail patching. Source/module inputs, tools, objects, and output hashes are in
+clean_packet.json, link_packet.json, clean_fixture_packet.json. The separate
+older standalone fixture is not a substitute for this clean integration.
+
+Replay: build.sh, check.py --clean, check_link.py, run_clean_test.py; fresh CPU
+executables use compile_clean_test.sh in pinned9147e308… image, target:/work,
+SDK:/dxsdk:ro. Source build uses pinned17ddd3cc… compiler and original flags.
+
+The material below is the **historical DEFER checkpoint**, superseded by the
+clean integration above, retained to explain the original blocker and attempts.
+
 Accepted renderer coverage is331387/1089680 =30.411405%. This directory adds
 **zero accepted coverage**; packet.json is explicitlyDEFER. No clean/canonical
 source, accepted compiler inputs or legacy referee were modified.
