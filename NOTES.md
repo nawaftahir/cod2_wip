@@ -227,3 +227,29 @@
 - Four subsequent source loaders have first-compile masked equality (412 bytes),
   not V2/aggregate credit. GetToken854/838, DoError223/228, define equality571/620
   remain scratch. Read the REPORT before repeating their bounded source attempts.
+
+## PINNED — 2026-10-02 compiler source checkpoint
+
+- Eight isolated CCompiler definitions pass complete scratch V2: 757 instruction
+  bytes, exact source/SDK/retail bodies and typed bindings, original referee 100%,
+  full extents/branches and byte/binding negatives. No aggregate gain until clean
+  rebuild/link/CPU integration and disjoint accounting. Last accepted 30.313578%.
+- Thirteen actual definitions are preserved in codex35_compiler/compiler.cpp;
+  20,355 complete original/source CPU comparisons pass. The larger EvalRange is
+  3264/3274, still unmatched. Keep both the full draft and isolated eight.
+- PINNED compiler c2.dll contains -QIftol; /d2QIftol emits __ftol instead of
+  __ftol2 for these casts. /QIftol alone is ignored. This establishes reproduced
+  compiler behavior, not the original historical flags; no ABI/byte rewriting.
+- Range clamps intentionally include unordered comparisons when flags 4/8/10h
+  assert sign/unit bounds. Ordinary <=/>= replacements fail NaN cases. Unary
+  10A00000h = asin, 10B00000h = acos with reversed endpoints; 207/208 binary
+  operations combine min lower/max upper bounds. LIT pow reverses its exponent
+  endpoint below base one. All are pinned from typed SDK code, not Ghidra labels.
+- CRT finite21/isnan46 identities are verified from complete typed SDK caller
+  edges and pinned libcmt member721; both dependencies receive zero source credit.
+  IsFullySemantic69 ends with a backward jump to its checked return epilogue.
+- Private read-only Ghidra retry recovered the missing EmitIntrinsic analysis
+  (3210 lines), plus expression/range exports. Analysis is not source; its wrong
+  IMAGE_DOS_HEADER types and nonsettling type propagation are documented. SDK
+  intrinsic section23940 versus analysis body23580 needs code/table accounting.
+  No DB/reference edits or compiler-impossibility claim. Replay/attempts in REPORT.

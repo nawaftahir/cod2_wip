@@ -16,3 +16,4 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 | target/src/codex_shader_lexer/* | Codex | 2026-10-01 | Seven accepted source methods / 1037 code bytes; 523 linked matches retain all 516; 9976 CPU comparisons and full aggregate pass |
 | target/scratch/codex35_preprocessor/* | Codex | 2026-10-01 | Larger typed SDK directive/macro family source batch; scratch only, zero source credit until full acceptance |
 | target/src/codex_shader_preprocessor/* | Codex | 2026-10-01 | Accepted 25 bodies / 2199 bytes; 548 linked matches retain all 523, 12259 CPU comparisons and fresh aggregate pass |
+| target/scratch/codex35_compiler/* | Codex | 2026-10-02 | Thirteen C++ definitions; eight scratch V2 bodies / 757 bytes, 20355 CPU cases pass; clean/link/aggregate acceptance pending, canonical/reference trees untouched |

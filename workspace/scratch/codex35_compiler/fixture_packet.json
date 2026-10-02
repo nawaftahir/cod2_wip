@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "source_credit": 0,
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "cases": 20355,
+  "differing_cases": 0,
+  "first_differences": [],
+  "scope": "1969 allocator/stack/temp/semantic/constant-value cases plus 18386 range cases. Range multiplication includes NaNs, signed zero and infinities; cached/constant ranges, interval flag updates, unary/binary/select/dot/lit/sincos operations, aliases and nullable outputs. GetToken, IsNumeric, ApplyType, allocation failures, general indexed EvalValue, and game/GPU behavior are not certified.",
+  "files": {
+    "gfx/target/scratch/codex35_compiler/compiler.cpp": "2b495bfe58a21d4269e1037394ce77f8960e00d48829ff539097c27b20768e0f",
+    "gfx/target/scratch/codex35_compiler/compile.sh": "03cc1ed087251eb0bc5a0bb2ee5f913d2cc6825a9b2ba39a6dd43c5e236f92c3",
+    "gfx/target/scratch/codex35_compiler/test.cpp": "40153c8bd6e52361d6992f2e2328312ffa0a093f167643318ff0c991d13e4b62",
+    "gfx/target/scratch/codex35_compiler/compile_test.sh": "632b3631d8a9dc725630a4335cc49e75727ab58dd0e951784e2b63ca1fbcf47c",
+    "gfx/target/scratch/codex35_compiler/obj/compiler.obj": "8e3757a9871de479c69f3ef0b57ff1e5d2a3563c887dbcae777ce0746d150a43",
+    "gfx/target/scratch/codex35_compiler/test.obj": "572cda05e4ea14f8515d55450a624fadce8b69d5ccf20f2ffcbb18f30c8a32b0",
+    "gfx/target/scratch/codex35_compiler/select_dependencies.py": "8f18a7b61081fdd74e5b7b7e0592ea7639b105213129c36c77681286832d6d6f",
+    "gfx/target/scratch/codex35_compiler/dependency_selection.json": "b919f5d52e6b8052cfe5665ec837805d4b637901e64ecc47bdb257a1eb12624e",
+    "gfx/target/scratch/codex35_compiler/dependencies/d3dx9.lib": "3f81d2990cffaddb7d9849bf3cab5784c01e22e048751e0a5fd85ceeada73977",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/scratch/codex19_dxerr/compiler/cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "gfx/target/scratch/codex19_dxerr/compiler/c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "gfx/target/scratch/codex19_dxerr/compiler/c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "gfx/target/scratch/codex35_compiler/run_test.py": "53ad982f7206dd5b8869d24ce0bec31d638edd6e8cf58c73dd54fc757eba8125",
+    "gfx/target/scratch/codex35_compiler/original.exe": "371ba03f1b68bd3d087f4bdbe0bab7a454eee4a8881a61ffd1cc5682f3c09706",
+    "gfx/target/scratch/codex35_compiler/original.map": "a26b01d65ce3847580a671ccb06d76275e306f64bc3fbe767a3db3578e5df30e",
+    "gfx/target/scratch/codex35_compiler/original_output.log": "1c127085957e9d85a393afd1e672933fde6bcbadaee6bc92c8be3e93c5004d37",
+    "gfx/target/scratch/codex35_compiler/source.exe": "1dcb73be19489d0bbde9f6e79d029a6376903fc6b2cb230d2a0cc9677b7d466e",
+    "gfx/target/scratch/codex35_compiler/source.map": "65e721b3d0d6a7bf76c7f87b2883edb31fb98534c77e7ff44f828f3aa03af7f9",
+    "gfx/target/scratch/codex35_compiler/source_output.log": "1c127085957e9d85a393afd1e672933fde6bcbadaee6bc92c8be3e93c5004d37"
+  }
+}

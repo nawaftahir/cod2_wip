@@ -1,9 +1,40 @@
-# Shared renderer handoff — 2026-10-01
+# Shared renderer handoff — 2026-10-02
 
-Current request: preserve/commit the 30.016610% checkpoint and continue toward
-**35% verified source coverage**. The owner explicitly reinstated 35% after
-the checkpoint below. Still required: **51,067 instruction bytes**.
-Continue in `target/scratch/codex35_preprocessor/`; draft bytes get zero credit.
+Current goal: commit checkpoints and pursue **35% verified source coverage**.
+Latest accepted checkpoint is **30.313578%**; still required:
+**51,067 instruction bytes**. The full goal remains unfinished.
+Continue in `target/scratch/codex35_compiler/`; preserve the preprocessor
+drafts too. All unaccepted bytes still get zero credit.
+
+## New private checkpoint: shader compiler source, not accepted coverage
+
+`target/scratch/codex35_compiler/compiler.cpp` now defines thirteen actual
+C++ methods. **Eight complete typed SDK section matches / 757 candidate
+bytes**: constructor, Scratch, StackFree, EmitTemp, IsFullySemantic,
+CompareSemantic, EvalValue, EvalRange_Mul. Their relocation symbol names,
+types, sites and addends match too. **20,355** complete original/source CPU
+output comparisons pass, with source-object ownership checked in both maps.
+The larger EvalRange draft is **3264/3274**, still unmatched; five drafts are
+not certified. Accepted percentage remains **30.313578%**, not 35%.
+
+Read its REPORT.md before repeating attempts. The real cached compiler
+backend's `/d2QIftol` generates the SDK's `__ftol` instead of `__ftol2`;
+top-level /QIftol is ignored. NaN clamps, inverse-trig opcode identities,
+union-range operations and pow endpoint selection are binary-confirmed and
+CPU-checked. Do not replace their source forms with plausible math logic.
+
+Scratch V2 now passes for the isolated eight-method compiler_matched.cpp:
+full SDK/retail bodies, typed bindings, complete extents/branches, corruption
+and wrong-binding negatives, and 100% from the original referee. Runtime
+finite/isnan/new/delete identities are checked and earn zero extra credit.
+Next: clean-path rebuild, retained 548-match link regression, clean-profile
+CPU checks and disjoint aggregate accounting before promoting/counting them.
+Preserve/continue the larger behavior-checked evaluator. Fresh recovered
+compiler exports in decomp/ are **analysis only**, with wrong Ghidra types
+explicitly documented; the missing 23 KB intrinsic analysis is now available.
+Private DBs, dependency archives, objects/executables and output logs stay
+uncommitted. No release-tree edits, canonical source changes, push or GPU/
+whole-DLL completion claim.
 
 ## Confirmed checkpoint: 30.313578%; preprocessor accepted
 
