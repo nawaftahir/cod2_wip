@@ -274,3 +274,24 @@
   but are unmatched372/376; pointer361/362 and cached391/387 attempts remain
   drafts. Do not simplify target behavior or repeat these probes. Evidence
   and source are in target/scratch/codex35_compiler_layout/REPORT.md.
+
+## Codex expression checkpoint — 2026-10-02
+
+- PINNED: member73 EmitExpression at1007B5EB is5701 instruction bytes plus108
+  table bytes, all27 table destinations checked against retail and decoded
+  starts. Do not count5809 as code. Typed SDK callee signatures and diagnostic
+  strings are in target/scratch/codex35_expression; Error is cdecl, its missing
+  implementation code isDB6h. CBaseProgram fields+6C/+70 flags, +74 special
+  register, +78 constant label, +88 null label, +A8 clip label are access views.
+- PINNED: EmitClip311 standalone becomes exact309 when real EmitTemp28 shares
+  the TU. Isolated clip_matched.cpp passes strict retail/SDK/source V2 including
+  bindings, negatives and original referee. Callee bytes are already credited;
+  clipping's309 still need clean/full-link V3. This is an observed compiler
+  context result, not proof of historical source/TU provenance.
+- Five complete expression/helper drafts (8102 target instruction bytes) pass
+  1284 original/source full-output CPU comparisons:954 successful compilations,
+  330 errors. Fixture uses standalone helpers.obj, not the matched cohort.
+  No new aggregate credit, no GPU/whole-file claim. Preserve fixture/packet
+  hashes; next integrate cohort without duplicate callee ownership. Eight
+  EvalRange array/scope/induction variants remain unmatched in codex35_evalrange;
+  their REPORT.md records the failed routes. Owner requested pause after commit.

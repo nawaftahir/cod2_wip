@@ -1,0 +1,22 @@
+{
+  "status": "TYPED SDK DIAGNOSTIC ONLY; retail binding/boundary/link acceptance pending",
+  "rows": [
+    {
+      "symbol": "?EvalRange@CCompiler@D3DXShader@@IAEJIPAU_D3DXRANGE@2@@Z",
+      "object_bytes": 3290,
+      "target_bytes": 3274,
+      "first_difference": 9,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_evalrange/branch_scopes.cpp",
+  "source_sha256": "f30a90c1cf8e51fd99508ee6406e09c31d987ff22845d46e00aea319c38e0aba",
+  "object_sha256": "25b29b2e908bf7c003241f571e836388c6895daa21263d43c19169413e8ed384",
+  "compiler_flags": "historical diagnostic; see REPORT.md",
+  "compiler_sha256": {
+    "cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae"
+  }
+}

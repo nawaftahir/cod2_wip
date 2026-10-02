@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EvalRange@CCompiler@D3DXShader@@IAEJIPAU_D3DXRANGE@2@@Z",
+      "object_bytes": 3264,
+      "target_bytes": 3274,
+      "first_difference": 9,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_evalrange/binary_scope.cpp",
+  "source_sha256": "8425c9456296f8ca438ffd58f3e6b594b406af6894e1ccdd95257a59a4107e42",
+  "object_sha256": "0b73fc2dcede98548d3acc0bf61e64f70c5955eb6a328712ed707161e79d95f5"
+}

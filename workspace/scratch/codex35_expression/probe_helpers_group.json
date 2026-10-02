@@ -1,0 +1,152 @@
+{
+  "status": "SDK DIAGNOSTIC ONLY; zero credit, retail acceptance pending",
+  "rows": [
+    {
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+      "object_bytes": 28,
+      "target_bytes": 28,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0,
+      "typed_relocation_fields_equal": true,
+      "relocations": [
+        [],
+        []
+      ]
+    },
+    {
+      "symbol": "?EmitPositive@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 615,
+      "target_bytes": 642,
+      "first_difference": 9,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitLerp@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI111I@Z",
+      "object_bytes": 947,
+      "target_bytes": 937,
+      "first_difference": 97,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitClip@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z",
+      "object_bytes": 309,
+      "target_bytes": 309,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0,
+      "typed_relocation_fields_equal": true,
+      "relocations": [
+        [
+          [
+            23,
+            20,
+            "??2@YAPAXI@Z",
+            0
+          ],
+          [
+            95,
+            20,
+            "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+            0
+          ],
+          [
+            117,
+            20,
+            "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+            0
+          ],
+          [
+            164,
+            20,
+            "?EmitInst@CCompiler@D3DXShader@@IAEJPAVCNode@2@KPAI11K@Z",
+            0
+          ],
+          [
+            198,
+            20,
+            "?EmitInst@CCompiler@D3DXShader@@IAEJPAVCNode@2@KPAI11K@Z",
+            0
+          ],
+          [
+            295,
+            20,
+            "??3@YAXPAX@Z",
+            0
+          ]
+        ],
+        [
+          [
+            23,
+            20,
+            "??2@YAPAXI@Z",
+            0
+          ],
+          [
+            95,
+            20,
+            "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+            0
+          ],
+          [
+            117,
+            20,
+            "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+            0
+          ],
+          [
+            164,
+            20,
+            "?EmitInst@CCompiler@D3DXShader@@IAEJPAVCNode@2@KPAI11K@Z",
+            0
+          ],
+          [
+            198,
+            20,
+            "?EmitInst@CCompiler@D3DXShader@@IAEJPAVCNode@2@KPAI11K@Z",
+            0
+          ],
+          [
+            295,
+            20,
+            "??3@YAXPAX@Z",
+            0
+          ]
+        ]
+      ]
+    },
+    {
+      "symbol": "?EmitArgs@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z",
+      "object_bytes": 497,
+      "target_bytes": 513,
+      "first_difference": 18,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_expression/helpers_group.cpp",
+  "source_sha256": "154bf1331cd995a9a80e20c93d7f8c63c3341701c5cc351b698b01bb5cd972a8",
+  "object_sha256": "5a46896209c8ce6996841f2dffd3cc0a514bff1f8cc324eeaa7869702a755811",
+  "compiler_flags": [
+    "/O1",
+    "/Oy-",
+    "/hotpatch",
+    "/MT",
+    "/Gy",
+    "/d2QIftol"
+  ],
+  "input_hashes": {
+    "gfx/target/scratch/codex35_expression/helpers_group.cpp": "154bf1331cd995a9a80e20c93d7f8c63c3341701c5cc351b698b01bb5cd972a8",
+    "gfx/target/scratch/codex35_expression/helpers.cpp": "ee45a4788f6f7f40db50a0ecb78537bf70a96281be43a6d338662334474636b8",
+    "gfx/target/scratch/codex35_expression/expression.h": "04c206db36aa30017eb2863b7dedb9e29427730c159d74ddeee765c919ae4846",
+    "gfx/target/scratch/codex35_expression/compile.sh": "1f1c225eec59bf308d3a4ac37d73106a6581683077c56c2da3aec9a7ea5cdfaa",
+    "gfx/target/scratch/codex35_expression/probe.py": "3a3b3d627334855671c187f6747477d836998e5592f46f5dcf8c02a358d943b9",
+    "gfx/target/scratch/codex30_constants/probe.py": "95d68413ad4582c5da798955cff7b5f18484aceaed538972efb4544f4529f0dc",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/scratch/codex19_dxerr/compiler/cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "gfx/target/scratch/codex19_dxerr/compiler/c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "gfx/target/scratch/codex19_dxerr/compiler/c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae"
+  }
+}

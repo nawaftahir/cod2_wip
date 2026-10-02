@@ -1,0 +1,172 @@
+{
+  "status": "PINNED CODE/TABLE BOUNDARY, NOT SOURCE ACCEPTANCE",
+  "instruction_bytes": 5701,
+  "excluded_table_bytes": 108,
+  "section_bytes": 5809,
+  "sdk_sha256": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "rows": [
+    {
+      "operation": 0,
+      "table_offset": 5701,
+      "instruction_offset": 381,
+      "retail_target": "0x1007b768"
+    },
+    {
+      "operation": 1,
+      "table_offset": 5705,
+      "instruction_offset": 381,
+      "retail_target": "0x1007b768"
+    },
+    {
+      "operation": 2,
+      "table_offset": 5709,
+      "instruction_offset": 786,
+      "retail_target": "0x1007b8fd"
+    },
+    {
+      "operation": 3,
+      "table_offset": 5713,
+      "instruction_offset": 829,
+      "retail_target": "0x1007b928"
+    },
+    {
+      "operation": 4,
+      "table_offset": 5717,
+      "instruction_offset": 930,
+      "retail_target": "0x1007b98d"
+    },
+    {
+      "operation": 5,
+      "table_offset": 5721,
+      "instruction_offset": 1128,
+      "retail_target": "0x1007ba53"
+    },
+    {
+      "operation": 6,
+      "table_offset": 5725,
+      "instruction_offset": 1188,
+      "retail_target": "0x1007ba8f"
+    },
+    {
+      "operation": 7,
+      "table_offset": 5729,
+      "instruction_offset": 2739,
+      "retail_target": "0x1007c09e"
+    },
+    {
+      "operation": 8,
+      "table_offset": 5733,
+      "instruction_offset": 2811,
+      "retail_target": "0x1007c0e6"
+    },
+    {
+      "operation": 9,
+      "table_offset": 5737,
+      "instruction_offset": 2956,
+      "retail_target": "0x1007c177"
+    },
+    {
+      "operation": 10,
+      "table_offset": 5741,
+      "instruction_offset": 1239,
+      "retail_target": "0x1007bac2"
+    },
+    {
+      "operation": 11,
+      "table_offset": 5745,
+      "instruction_offset": 1311,
+      "retail_target": "0x1007bb0a"
+    },
+    {
+      "operation": 12,
+      "table_offset": 5749,
+      "instruction_offset": 1456,
+      "retail_target": "0x1007bb9b"
+    },
+    {
+      "operation": 13,
+      "table_offset": 5753,
+      "instruction_offset": 1513,
+      "retail_target": "0x1007bbd4"
+    },
+    {
+      "operation": 14,
+      "table_offset": 5757,
+      "instruction_offset": 1585,
+      "retail_target": "0x1007bc1c"
+    },
+    {
+      "operation": 15,
+      "table_offset": 5761,
+      "instruction_offset": 1645,
+      "retail_target": "0x1007bc58"
+    },
+    {
+      "operation": 16,
+      "table_offset": 5765,
+      "instruction_offset": 1705,
+      "retail_target": "0x1007bc94"
+    },
+    {
+      "operation": 17,
+      "table_offset": 5769,
+      "instruction_offset": 1941,
+      "retail_target": "0x1007bd80"
+    },
+    {
+      "operation": 18,
+      "table_offset": 5773,
+      "instruction_offset": 2156,
+      "retail_target": "0x1007be57"
+    },
+    {
+      "operation": 19,
+      "table_offset": 5777,
+      "instruction_offset": 2412,
+      "retail_target": "0x1007bf57"
+    },
+    {
+      "operation": 20,
+      "table_offset": 5781,
+      "instruction_offset": 596,
+      "retail_target": "0x1007b83f"
+    },
+    {
+      "operation": 21,
+      "table_offset": 5785,
+      "instruction_offset": 713,
+      "retail_target": "0x1007b8b4"
+    },
+    {
+      "operation": 22,
+      "table_offset": 5789,
+      "instruction_offset": 3405,
+      "retail_target": "0x1007c338"
+    },
+    {
+      "operation": 23,
+      "table_offset": 5793,
+      "instruction_offset": 3450,
+      "retail_target": "0x1007c365"
+    },
+    {
+      "operation": 24,
+      "table_offset": 5797,
+      "instruction_offset": 3584,
+      "retail_target": "0x1007c3eb"
+    },
+    {
+      "operation": 25,
+      "table_offset": 5801,
+      "instruction_offset": 4020,
+      "retail_target": "0x1007c59f"
+    },
+    {
+      "operation": 26,
+      "table_offset": 5805,
+      "instruction_offset": 4101,
+      "retail_target": "0x1007c5f0"
+    }
+  ]
+}

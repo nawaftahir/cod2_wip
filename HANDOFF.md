@@ -3,8 +3,38 @@
 Current goal: commit checkpoints and pursue **35% verified source coverage**.
 Latest accepted checkpoint is **30.383048%**; still required:
 **50,310 instruction bytes**. The full goal remains unfinished.
-Continue in `target/scratch/codex35_compiler/`; preserve the preprocessor
+Owner requested a pause after this checkpoint. Resume in
+`target/scratch/codex35_expression/`; preserve the compiler/preprocessor
 drafts too. All unaccepted bytes still get zero credit.
+
+## Latest scratch checkpoint: expression source and clipping V2
+
+Five complete readable C++ drafts now cover **8,102 target instruction bytes**:
+EmitExpression (5,701), EmitPositive (642), EmitLerp (937), EmitClip (309),
+and EmitArgs (513). They are not accepted clean-source coverage.
+The fresh five-method fixture passes **1,284** full original/source CPU
+comparisons: **954** successful compilations, **330** error cases. It compares
+every byte of shader, constant-table and diagnostic buffers plus HRESULTs;
+all five method owners are checked in the maps. Other SDK code is opaque.
+
+`clip_matched.cpp` contains clipping beside the already-accepted EmitTemp
+callee. Both pass strict scratch V2 (337 bytes total; only clipping's **309**
+would be new). Complete retail/SDK/source bodies, every typed binding,
+negative tests and the original referee pass. The 309-byte cohort does not
+yet have its own CPU fixture/full-DLL V3 or clean integration. Do not count
+the 28-byte EmitTemp twice or promote the other four mismatched methods.
+The five-method CPU fixture uses standalone helpers.obj, not clip_matched.obj.
+
+Fast next action: integrate that exact clipping/callee cohort without duplicate
+EmitTemp ownership, retain all 556 existing linked matches, then refresh the
+aggregate. Next match EmitLerp's remaining source/context differences and split
+the grouped EmitExpression cases into target-backed source branches. Preserve
+full-output CPU checks while changing source; no invented padding or ABI hacks.
+REPORT.md has exact current sizes, limitations and replay commands.
+
+Earlier eight evaluator experiments in `target/scratch/codex35_evalrange/`
+all remain unmatched. Their source/scripts/diagnostics are checkpointed so
+the same array/scope/loop probes need not be repeated. No new percentage claim.
 
 ## Confirmed checkpoint: compiler clean integration accepted
 

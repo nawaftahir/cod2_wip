@@ -30,6 +30,14 @@ matches with all 548 retained, and **20,355** complete original/clean-source
 CPU comparisons. Full aggregate replay passes. The larger evaluator and
 matrix-layout drafts stay in scratch and are not counted.
 
+Latest paused scratch checkpoint:
+[`target/scratch/codex35_expression/`](target/scratch/codex35_expression/)
+has five complete source drafts covering 8,102 target instruction bytes.
+All 1,284 CPU shader-compilation comparisons pass. The isolated 309-byte
+clipping method plus its already-counted 28-byte temporary callee pass strict
+scratch V2; integration/full-link V3 are pending. Neither the drafts nor this
+candidate increase the accepted 30.383048% yet. See its REPORT.md to resume.
+
 The preceding clean module is
 [`target/src/codex_shader_preprocessor/`](target/src/codex_shader_preprocessor/):
 25 complete bodies / **2,199 instruction bytes**; 548 private linked source

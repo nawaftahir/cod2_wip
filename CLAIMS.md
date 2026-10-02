@@ -19,3 +19,5 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 | target/scratch/codex35_compiler/* | Codex | 2026-10-02 | Eight clean methods accepted / 757 bytes; five unmatched drafts preserved, 20355 clean CPU cases pass, canonical/reference trees untouched |
 | target/src/codex_shader_compiler/* | Codex | 2026-10-02 | Accepted eight-method source / 757 bytes; clean V2, 556 matches retain all 548, 20355 clean CPU comparisons and full aggregate pass |
 | target/scratch/codex35_compiler_layout/* | Codex | 2026-10-02 | Target-backed matrix-layout predicate batch; drafts only, compiler and canonical proofs preserved |
+| target/scratch/codex35_evalrange/* | Codex | 2026-10-02 | Isolated large range evaluator; bounded scratch-storage/loop-context experiments, accepted compiler inputs unchanged |
+| target/scratch/codex35_expression/* | Codex | 2026-10-02 | Complete expression-emission source and CPU differential check; private draft, no credit before all gates |
