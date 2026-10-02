@@ -27,3 +27,4 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 | target/scratch/codex31_instructions/* | Codex | 2026-10-02 | Instruction initialization source batch; preserve accepted copy/predicate modules |
 | target/scratch/codex31_crt/* | Codex | 2026-10-02 | Authentic CRT source /O2 batch, strict full-body proof and no opaque-library credit |
 | target/src/codex_shader_compiler_types/* | Codex | 2026-10-02 | Clean source type/diagnostic cohort; private V2/V3 integration, previous clean TUs unchanged |
+| target/scratch/codex31_program/*, target/src/codex_shader_program/* | Codex (paused) | 2026-10-02 | 12 methods/2663 bytes clean V2 and1284 CPU checks pass; four linked acceptance failures, no aggregate credit; optimizer remains scratch |

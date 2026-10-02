@@ -17,10 +17,10 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **331,387 /
-1,089,680 = 30.411405%** (2026-10-02), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **331,798 /
+1,089,680 = 30.449123%** (2026-10-02), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**50,001** further verified instruction bytes are required. Whole-DLL checksum
+**49,590** further verified instruction bytes are required. Whole-DLL checksum
 identity is still unfinished.
 
 The preceding clean module is
@@ -50,9 +50,14 @@ The new readable type/diagnostic module is separated in
 [`target/src/codex_shader_compiler_types/`](target/src/codex_shader_compiler_types/).
 Its two complete methods pass clean byte/binding proof (411 instruction bytes;
 52 table bytes excluded),559 private linked source matches retaining557,
-and1284 complete shader-output CPU comparisons. The full aggregate replay was
-interrupted by the environment restart, so these411 bytes are **not yet added**
-to the confirmed total above. Resume with that replay; no whole-DLL SHA claim.
+and1284 complete shader-output CPU comparisons. The restarted full aggregate
+replay passed, so its411 disjoint code bytes are included in the total above.
+The program cohort is separated in
+[`target/src/codex_shader_program/program.cpp`](target/src/codex_shader_program/program.cpp):
+12 complete methods /2663 instruction bytes pass clean byte/binding proof and
+1284 full-output CPU comparisons. Private linked acceptance fails for four
+methods; this cohort is not included in the total above. The unmatched optimizer
+stays in scratch. No whole-DLL SHA claim.
 Interpolation variants in `target/scratch/codex35_lerp/` remain unaccepted scratch.
 
 The preceding clean module is

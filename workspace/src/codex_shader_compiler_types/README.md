@@ -7,7 +7,7 @@ Declarations reuse the clipping compiler module and shader support header.
 
 Clean byte/binding proof passes. The private DLL retains all557 preceding
 matches and accepts559;1284 complete original/source shader-output tests pass.
-Full aggregate replay was interrupted and must pass before increasing coverage.
+The restarted full aggregate replay passed;411 disjoint instruction bytes count.
 No whole-DLL identity, GPU/game boot or historical-source provenance claim.
 
 Reproduction scripts and proof packets:

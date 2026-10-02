@@ -358,3 +358,22 @@
   codex30_token already has a624-byte opcode initializer versus607 target;
   this turn's644-byte attempt is worse and remains DEFER. Consult old REPORTs
   before spending more builds on these families.
+
+## Program source checkpoint and pause — 2026-10-02
+
+- Fresh aggregate PASS confirms331798/1089680 =30.449123%; the earlier411
+  compiler type/diagnostic bytes are accepted. Program bytes remain uncounted.
+- PINNED: SDK87/88 class-specific CArgument/CInstruction operator delete is
+  static __stdcall. Correct declarations generate32-byte deleting helpers;
+  global-delete drafts generated33. SDK1-byte destructors stay dependencies.
+- PINNED: ReadWriteInfo relocation+705 binds global operator delete, not _free.
+  A masked-byte-equal free draft had wrong binding and was corrected before
+  clean strict proof. Never substitute masked equality for typed binding.
+- Clean program.cpp:12 complete methods/2663 bytes, clean V2 negative tests,
+  scratch and integrated1284 full-output CPU cases all pass; hashes current.
+  Private DLL builds, retains559 preceding matches, but four new methods fail
+  linked acceptance: both deleting helpers and both compaction methods.
+  Exact failure and next steps are in codex31_program/REPORT.md and link.log.
+- Accepted aggregate checker remains unchanged; its proposed extension is
+  saved as aggregate_pending.patch. Optimizer625/638 remains scratch-only.
+  Paused at owner's request; no whole-file SHA or GPU claim.

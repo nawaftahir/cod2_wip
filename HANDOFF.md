@@ -1,13 +1,24 @@
 # Shared renderer handoff — 2026-10-02
 
-Paused at the owner's request after the compiler-type integration checkpoint.
-Latest fully replayed coverage remains **331,387 / 1,089,680 = 30.411405%**.
-The immediate requested target is **31%**, not yet reached. Two clean methods
-add411 candidate instruction bytes, with clean V2, retained-match V3 and CPU
-checks passed; the environment restart interrupted the full aggregate replay.
-Do not count that gain until the replay passes. If it passes unchanged, the
-total becomes331798/1089680 =30.449123%, leaving6003 bytes to31%.
-35% remains the longer target; it would then require49590 more bytes.
+Paused at the owner's request after saving this checkpoint. Fresh full aggregate replay passed after
+the restart: **331,798 / 1,089,680 = 30.449123%**. The411 compiler type/diagnostic
+instruction bytes are now counted; no tables or opaque dependency gain.
+The immediate requested target is **31%**, not yet reached:6003 further bytes.
+35% remains the longer target, requiring49590 further verified bytes.
+
+New target-backed batch: `target/scratch/codex31_program/program.cpp` implements
+program setup/copy, argument remapping/compaction, instruction compaction and
+read/write analysis. Twelve complete sections pass strict V2, **2663 code bytes**,
+including two typed deleting helpers. The625/638 optimizer draft remains excluded
+by PROGRAM_MATCHED_ONLY; consult the current probe for its latest actual size.
+Both scratch and integrated clean CPU fixtures passed1284 complete outputs
+(954 successes/330 errors each). Clean source is separated in
+`target/src/codex_shader_program/program.cpp`; all clean proof/fixture input
+hashes were checked current at pause. The private DLL builds without /FORCE.
+V3 stopped at the new-method acceptance assertion: both deleting helpers,
+CompactInstructions and CompactArguments are absent from the accepted linked
+results. The preceding559 source matches were retained. Exact failure:
+`target/scratch/codex31_program/link.log`. No program aggregate credit yet.
 
 ## Resume first: compiler type/diagnostic integration
 
@@ -25,10 +36,16 @@ It fixes four self-call relocation fields while leaving internal jumps literal.
 The source selector checks196 distinct definitions/206 removed archive entries.
 Tables and opaque SDK/runtime dependencies do not increase source coverage.
 
-**First resume action:** run `python3 -u tools/check_ten_percent.py` from gfx,
-record a terminal PASS, then update totals. The preceding aggregate log is
-empty: its process/session did not survive the environment restart. Do not
-mistake saved per-family packets for a completed aggregate replay.
+The restarted `python3 -u tools/check_ten_percent.py` completed with exit0;
+full output is in compiler_types/aggregate.log. Next inspect the four linked
+binding failures in `build/codex31_program/bind.json`, versus clean V2 rows,
+map symbols and complete SDK/source/retail relocation evidence. Preserve
+the ABI and gates; do not suppress failures. Rerun clean V2 and V3 after any
+harness change. The proposed aggregate extension is preserved as
+`scratch/codex31_program/aggregate_pending.patch`, not installed in the accepted
+aggregate checker. Apply it and update changed pins only after genuine V3 PASS,
+then replay the full disjoint aggregate. Scratch section matches alone are not
+accepted aggregate coverage.
 Do not link the old eight-method compiler TU alongside the clipping replacement.
 Whole-DLL identity and game/GPU boot remain unfinished.
 

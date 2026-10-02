@@ -7,11 +7,11 @@ instruction bytes, not31% completion. Clean source is
 `../../src/codex_shader_compiler_types/types.cpp`. Clean V2 passes, private V3
 accepts559 source matches retaining all557, and the fresh clean CPU fixture
 passes1284 complete outputs (954 successes/330 errors in both).
-The full aggregate replay was interrupted by an environment restart; its log
-is empty and its process/session no longer exists. The owner requested a pause.
-Do not publish a new total until a fresh full replay passes. Confirmed coverage
-remains331387/1089680 =30.411405%. Projected after replay:331798/1089680 =
-30.449123%,6003 bytes short of31%. This is not an achieved31% checkpoint.
+The first full aggregate replay was interrupted by an environment restart.
+After the owner resumed work, the fresh replay completed with exit0/PASS:
+**331798/1089680 =30.449123%**,6003 bytes short of31%. Full output is preserved
+in aggregate.log. The411 disjoint instruction-byte gain is now counted.
+This is not an achieved31% checkpoint or a whole-DLL identity claim.
 
 The local decoded `referee.py` fixes the confirmed normalization defect without
 editing the legacy referee or weakening typed/binding proof. It masks actual
