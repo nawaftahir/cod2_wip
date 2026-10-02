@@ -17,32 +17,38 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **331,078 /
-1,089,680 = 30.383048%** (2026-10-02), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **331,387 /
+1,089,680 = 30.411405%** (2026-10-02), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**50,310** further verified instruction bytes are required. Whole-DLL checksum
+**50,001** further verified instruction bytes are required. Whole-DLL checksum
 identity is still unfinished.
 
-The latest clean module is
+The preceding clean module is
 [`target/src/codex_shader_compiler/`](target/src/codex_shader_compiler/):
 eight complete source methods / **757 instruction bytes**; 556 private linked
 matches with all 548 retained, and **20,355** complete original/clean-source
 CPU comparisons. Full aggregate replay passes. The larger evaluator and
 matrix-layout drafts stay in scratch and are not counted.
 
-Latest paused scratch checkpoint:
+Earlier scratch checkpoint:
 [`target/scratch/codex35_expression/`](target/scratch/codex35_expression/)
 has five complete source drafts covering 8,102 target instruction bytes.
 All 1,284 CPU shader-compilation comparisons pass. The isolated 309-byte
 clipping method plus its already-counted 28-byte temporary callee pass strict
-scratch V2; integration/full-link V3 are pending. Neither the drafts nor this
-candidate increase the accepted 30.383048% yet. See its REPORT.md to resume.
+scratch V2; its clipping method is now accepted through the clean module below.
+The other four drafts remain uncounted. See HANDOFF.md for current work.
 
-New integration candidate:
+Latest accepted clean module:
 [`target/src/codex_shader_compiler_clip/`](target/src/codex_shader_compiler_clip/)
 contains all nine compiler/clipping methods. Clean V2 and full-link V3 pass
-(557 matches, all556 retained); CPU comparison and aggregate refresh remain
-pending. This is not yet new accepted percentage or whole-file identity.
+(557 matches, all556 retained);1284 complete CPU shader-output comparisons and
+the full aggregate replay pass. Only309 new disjoint bytes count; the prior757
+are retained. This is not whole-file identity. The old eight-method module is
+history, not an additional TU to link alongside this replacement.
+
+The new type/diagnostic source in `target/scratch/codex35_compiler_types/`
+and interpolation variants in `target/scratch/codex35_lerp/` remain scratch,
+not accepted coverage or clean release source.
 
 The preceding clean module is
 [`target/src/codex_shader_preprocessor/`](target/src/codex_shader_preprocessor/):

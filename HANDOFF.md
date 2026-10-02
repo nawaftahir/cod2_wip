@@ -1,27 +1,43 @@
 # Shared renderer handoff — 2026-10-02
 
 Current goal: commit checkpoints and pursue **35% verified source coverage**.
-Latest accepted checkpoint is **30.383048%**; still required:
-**50,310 instruction bytes**. The full goal remains unfinished.
-Owner requested a pause after this checkpoint. Resume in
-`target/scratch/codex35_clip/`; preserve the expression/compiler/preprocessor
-drafts too. All unaccepted bytes still get zero credit.
+Latest accepted checkpoint is **331,387 / 1,089,680 = 30.411405%**;
+**50,001 instruction bytes** remain for35%. Work resumed after the previous
+pause. Preserve the expression/compiler/preprocessor drafts; unaccepted bytes
+still receive zero credit.
 
-## New integration checkpoint: clipping V2/V3, CPU pending
+## Accepted checkpoint: clipping clean integration
 
 Separate `target/src/codex_shader_compiler_clip/compiler.cpp` supplies the
 eight previous compiler methods plus clipping, with no duplicate callee TU.
 All nine/1066 bytes pass clean V2. The new private DLL passes V3 with **557**
-matches, retaining all556. Only clipping's309 bytes could increase coverage.
+matches, retaining all556. Only clipping's309 bytes increase coverage.
 No old accepted source or checker input was changed.
 
-The public CPU executables are built; comparison is not yet complete. Its
-preflight found194 distinct symbols versus204 excluded SDK definitions because
-the archive duplicates some instruction predicates. The corrected gate pins
-both exact counts and equality of the symbol sets; it has not run yet.
-First run `python3 scratch/codex35_clip/run_test.py` from gfx/target. Then
-extend/replay the aggregate with only309 disjoint new bytes. Coverage remains
-30.383048% until those steps pass. REPORT.md records timing and pause details.
+The integrated public CPU fixture passes **1284** complete original/source
+comparisons:954 successes and330 errors, with source/map ownership checked.
+The full aggregate replay passes at30.411405%, counting only309 new disjoint
+bytes. The strict selector pins194 distinct source symbols and204 removed SDK
+definitions, including10 duplicate archive entries. Both exact counts and
+symbol-set equality are checked. Do not link the old eight-method compiler
+module alongside this nine-method replacement. No whole-DLL SHA or GPU claim.
+
+New work in `target/scratch/codex35_compiler_types/`: actual GetTypeFlags and
+Error definitions reproduce complete SDK sections365/98;313/98 are code,
+52 are jump-table bytes. Complete typed retail/SDK/source proof and1284 full
+CPU outputs pass, but the original legacy comparison reports95 for GetTypeFlags:
+default mode misses four self-call relocations; MASK_INTRA also masks exact
+internal E9 jumps only on the retail side. packet.json is explicitlyDEFER;
+there is no full-DLL V3/clean integration or extra accepted percentage yet.
+Do not waive the legacy gate. REPORT.md gives evidence and the narrow next
+normalization experiment. Initializing the component count only after
+the null-node return reproduces the SDK's conditional EBX save; this is normal
+source lifetime, not padding or an ABI workaround.
+
+`target/scratch/codex35_lerp/` preserves six bounded interpolation variants.
+Cleanup position and cursor lifetime give947/937; factoring final emission
+gives945/937. None match, none count. These variants have no independent CPU
+proof. Do not confuse the older five-method fixture with these newer objects.
 
 ## Latest scratch checkpoint: expression source and clipping V2
 
@@ -36,15 +52,15 @@ all five method owners are checked in the maps. Other SDK code is opaque.
 `clip_matched.cpp` contains clipping beside the already-accepted EmitTemp
 callee. Both pass strict scratch V2 (337 bytes total; only clipping's **309**
 would be new). Complete retail/SDK/source bodies, every typed binding,
-negative tests and the original referee pass. The 309-byte cohort does not
-yet have its own CPU fixture/full-DLL V3 or clean integration. Do not count
-the 28-byte EmitTemp twice or promote the other four mismatched methods.
+negative tests and the original referee pass. This isolated proof is
+superseded by the accepted clean integration above. Do not count the28-byte
+EmitTemp twice or promote the other four mismatched methods.
 The five-method CPU fixture uses standalone helpers.obj, not clip_matched.obj.
 
-Fast next action: integrate that exact clipping/callee cohort without duplicate
-EmitTemp ownership, retain all 556 existing linked matches, then refresh the
-aggregate. Next match EmitLerp's remaining source/context differences and split
-the grouped EmitExpression cases into target-backed source branches. Preserve
+Clipping integration is complete. Next resolve the type helper's self-call
+normalization proof, then clean integration, retained557-match link and aggregate.
+For larger source gains, continue EmitExpression's target-backed branches.
+Preserve
 full-output CPU checks while changing source; no invented padding or ABI hacks.
 REPORT.md has exact current sizes, limitations and replay commands.
 

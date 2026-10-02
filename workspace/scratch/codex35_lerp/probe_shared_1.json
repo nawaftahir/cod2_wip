@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+      "object_bytes": 28,
+      "target_bytes": 28,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitLerp@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI111I@Z",
+      "object_bytes": 945,
+      "target_bytes": 937,
+      "first_difference": 29,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_lerp/lerp.cpp",
+  "source_sha256": "78426b7ba9194c761455c08a99d3423af19d829e2b86710ec66bdc1d425599a7",
+  "object_sha256": "dd0abd67bb7b155010d3a85a812d2f22d1b11f3b0507b44d63c35772e2457ca8"
+}

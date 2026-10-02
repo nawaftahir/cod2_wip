@@ -22,3 +22,5 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 | target/scratch/codex35_evalrange/* | Codex | 2026-10-02 | Isolated large range evaluator; bounded scratch-storage/loop-context experiments, accepted compiler inputs unchanged |
 | target/scratch/codex35_expression/* | Codex | 2026-10-02 | Complete expression-emission source and CPU differential check; private draft, no credit before all gates |
 | target/src/codex_shader_compiler_clip/*, target/scratch/codex35_clip/* | Codex | 2026-10-02 | Timed20-minute integration of matched clipping/callee cohort; previous accepted compiler inputs preserved |
+| target/scratch/codex35_lerp/* | Codex | 2026-10-02 | Bounded target-backed interpolation control-flow/source-context batch; earlier proofs unchanged |
+| target/scratch/codex35_compiler_types/* | Codex | 2026-10-02 | Actual recursive type-flag propagation and compiler diagnostics; reuse existing pinned declarations |

@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Error@CCompiler@D3DXShader@@IAAJPAVCNode@2@IPBDZZ",
+      "object_bytes": 98,
+      "target_bytes": 98,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?GetTypeFlags@CCompiler@D3DXShader@@IAEIPAVCNode@2@PAK@Z",
+      "object_bytes": 365,
+      "target_bytes": 365,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_compiler_types/types.cpp",
+  "source_sha256": "a187f259131af7deb3d9fed1d3ff1a2d5df3b174775a4f6d775d7a0ac6047c07",
+  "object_sha256": "6f41fffbc41b7ab55669a32d593d1ff82bb9e043dffa433550b020061ed46794"
+}

@@ -306,3 +306,32 @@
   CPU preflight must pin both counts plus exact symbol-set equality, not194 raw
   entries. The first run rejected the mistaken count; corrected runner not run.
   Source/proofs/resume commands are in target/scratch/codex35_clip/REPORT.md.
+
+## Codex resumed clipping/type checkpoint — 2026-10-02
+
+- Clipping clean integration now passes1284 full original/source shader outputs
+  (954 successes,330 errors), full-link557/556 retained and the full aggregate:
+  331387/1089680 =30.411405%. Only309 new bytes count; the previous757 are
+  retained. Older pending/pause entries above are historical, not current state.
+- PINNED: GetTypeFlags at1006DDF3 has313 code bytes and a13-entry/52-byte jump
+  table; each target resolves to a decoded instruction start. Component codes
+  0=>17h;1/5=>2;2/6=>02000002h;3/7=>04000002h;4/8=>08000002h;
+  9=>0;10=>02000000h;11=>04000000h;12=>08000000h. Compiler+14h bit20h
+  overrides precision bits using(value &F3FFFFFFh)|02000000h.
+- PINNED: Error at1006DCA1 sets compiler+4Ch to1, formats at most256 bytes
+  with __vsnprintf at100F61B9, forcibly terminates byte255, forwards to input
+  diagnostics+18h with GetToken(node), and returns0. Its98-byte source section
+  matches SDK/retail with complete bindings. Remaining SDK/runtime dependencies
+  are independently checked but receive no extra source credit.
+- Normal source lifetime matters: initializing GetTypeFlags'count only after
+  its null-node return moves the EBX save to the target's non-null path. This
+  gives complete365-byte SDK-section equality, including its table. No padding.
+- PINNED verifier limitation: legacy MASK_INTRA=0 fails on four recursive
+  GetTypeFlags call operands (first+96); MASK_INTRA=1 additionally masks exact
+  internal E9 jumps only on the PE side (first+25). Both report349/365=95%.
+  Full typed SDK/retail/source proof passes, but packet remainsDEFER and gets
+  zero coverage credit until the referee issue and integration are resolved.
+  Do not silently change or relax the existing gate.
+- Six new interpolation lifetime/cleanup/shared-final-call variants remain
+  unmatched947/937 or945/937. Preserve codex35_lerp/REPORT.md; they have no
+  independent CPU proof and must not borrow the older fixture's certification.
