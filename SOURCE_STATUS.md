@@ -17,13 +17,20 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **330,321 /
-1,089,680 = 30.313578%** (2026-10-01), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **331,078 /
+1,089,680 = 30.383048%** (2026-10-02), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**51,067** further verified instruction bytes are required. Whole-DLL checksum
+**50,310** further verified instruction bytes are required. Whole-DLL checksum
 identity is still unfinished.
 
 The latest clean module is
+[`target/src/codex_shader_compiler/`](target/src/codex_shader_compiler/):
+eight complete source methods / **757 instruction bytes**; 556 private linked
+matches with all 548 retained, and **20,355** complete original/clean-source
+CPU comparisons. Full aggregate replay passes. The larger evaluator and
+matrix-layout drafts stay in scratch and are not counted.
+
+The preceding clean module is
 [`target/src/codex_shader_preprocessor/`](target/src/codex_shader_preprocessor/):
 25 complete bodies / **2,199 instruction bytes**; 548 private linked source
 matches with all 523 retained, and **12,259** complete-output CPU comparisons.

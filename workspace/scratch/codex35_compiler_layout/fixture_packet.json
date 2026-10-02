@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "source_credit": 0,
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "cases": 32768,
+  "differing_cases": 0,
+  "first_differences": [],
+  "scope": "Both matrix-layout predicates; numeric template codes 0..3, dimensions 0..7, label flags, differing registers, direct/indexed layouts, differing instruction owners and reversed argument lists. Original compiler constructor remains an SDK dependency. No allocation-failure/GPU/whole-file claim.",
+  "files": {
+    "gfx/target/scratch/codex35_compiler_layout/layout.cpp": "d61caa1074972f84c2a1ab5da6cc06c7927941d63c83a469350cd79e8a713a5a",
+    "gfx/target/scratch/codex35_compiler_layout/compile.sh": "2256ef73eb9c604acd4c30cea8f5dd241708d7930548c1ec70742ee849a5080c",
+    "gfx/target/scratch/codex35_compiler_layout/test.cpp": "257a6f1133d5da1da9e79d3d378129877e4b03d0461c0624fc141fbbf1522304",
+    "gfx/target/scratch/codex35_compiler_layout/test.obj": "d70bd3ad10d4519bfb6aafeb9352070f8525c884003fe3779da5fbd7990bc938",
+    "gfx/target/scratch/codex35_compiler_layout/compile_test.sh": "87de8469862bb6b001dbee40cb0c4fed5e545b9902af7068261964c6b1df69ac",
+    "gfx/target/scratch/codex35_compiler_layout/obj/layout.obj": "3337d93b1fc034fe87993ec7ba12854939d2ac3215c7e712dae4eb485acf74c0",
+    "gfx/target/scratch/codex35_compiler_layout/select_dependencies.py": "1e97d45adbef07c06c3cc6d4a08684e64e4f0d738204614b91bad104f8d2070c",
+    "gfx/target/scratch/codex35_compiler_layout/dependency_selection.json": "1dbd595b83e22d591c3d485a119f59474f3bbd76f1dec8d3c53b335e590a02f5",
+    "gfx/target/scratch/codex35_compiler_layout/dependencies/d3dx9.lib": "ed9927f5c1e56844fb5a7ca1fe082adad9ffdb9f137e682dbd3e8caf9c4fbd09",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/scratch/codex19_dxerr/compiler/cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "gfx/target/scratch/codex19_dxerr/compiler/c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "gfx/target/scratch/codex19_dxerr/compiler/c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "gfx/target/scratch/codex35_compiler_layout/run_test.py": "21d044e90139801dd0036f03115cf3d3b0ac2a15fe2cc0c5fc5d0a2217498fb2",
+    "gfx/target/scratch/codex35_compiler_layout/original.exe": "7344d0eed0780ac8c411ef9bbd7268b26604dbe9c048b839d901d3e5d227bada",
+    "gfx/target/scratch/codex35_compiler_layout/original.map": "4edfe0ecb6b187234ff30575fbcc4543bd4bf659c237be1414a722e9c64dc67e",
+    "gfx/target/scratch/codex35_compiler_layout/original_output.log": "e072b0f25a3db3119094c45bef67a490e87edb00c4a71159802ea9a531ee0078",
+    "gfx/target/scratch/codex35_compiler_layout/source.exe": "85295ea2da28de7c555a915f5a6d8bde6c7b6cb2215c807e61dee55aeb6ce987",
+    "gfx/target/scratch/codex35_compiler_layout/source.map": "d4452a9b543da8c6cb2f2998486d7d1e6b5ffbf29bf1d1171b067f23b32902f0",
+    "gfx/target/scratch/codex35_compiler_layout/source_output.log": "e072b0f25a3db3119094c45bef67a490e87edb00c4a71159802ea9a531ee0078"
+  }
+}

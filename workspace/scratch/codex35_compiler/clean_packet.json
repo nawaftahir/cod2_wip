@@ -1,0 +1,199 @@
+{
+  "status": "REVIEWABLE",
+  "whole_file_identity": false,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "source_class": "reconstructed SDK compiler C++; remaining SDK/runtime methods external",
+  "compiler_files": {
+    "c1.dll": "31aad0d8d776d882ce7036b9f97c98a1d10fc1b8c068ebb9a2bb22a74225b4aa",
+    "c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "mspdb71.dll": "f7ffe701485813a7f10861bc61ba533b09f1386c40c882e832f71881a705c75b",
+    "msvcp71.dll": "1d5a627cb700400a7de751f0e7d3bf2f024e8d79f8c4a9f11a5a20a05c73ab9f",
+    "msvcr71.dll": "91961cc52149826031f1b17b65a95a5c84c89d9a42f8621a43448c0fe897a94f"
+  },
+  "rows": [
+    {
+      "symbol": "??0CCompiler@D3DXShader@@QAE@XZ",
+      "address": "0x1006c39d",
+      "bytes": 123,
+      "section_bytes": 123,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_compiler/compiler.cpp",
+      "object": "gfx/target/build/codex35_compiler/libraries/compiler.obj",
+      "bindings": [
+        {
+          "offset": 2,
+          "symbol": "__real@3eb0c6f7a0b5ed8d",
+          "base": "0x1010f780",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-GLOBAL-STORAGE-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?Scratch@CCompiler@D3DXShader@@IAEPAII@Z",
+      "address": "0x1006c449",
+      "bytes": 99,
+      "section_bytes": 99,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_compiler/compiler.cpp",
+      "object": "gfx/target/build/codex35_compiler/libraries/compiler.obj",
+      "bindings": [
+        {
+          "offset": 48,
+          "symbol": "??2@YAPAXI@Z",
+          "base": "0x100f786a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 70,
+          "symbol": "??3@YAXPAX@Z",
+          "base": "0x100f7865",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?StackFree@CCompiler@D3DXShader@@IAEXPAI@Z",
+      "address": "0x1006c52d",
+      "bytes": 57,
+      "section_bytes": 57,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_compiler/compiler.cpp",
+      "object": "gfx/target/build/codex35_compiler/libraries/compiler.obj",
+      "bindings": [
+        {
+          "offset": 48,
+          "symbol": "??3@YAXPAX@Z",
+          "base": "0x100f7865",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+      "address": "0x1006c566",
+      "bytes": 28,
+      "section_bytes": 28,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_compiler/compiler.cpp",
+      "object": "gfx/target/build/codex35_compiler/libraries/compiler.obj",
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?IsFullySemantic@CCompiler@D3DXShader@@IAEHPAII@Z",
+      "address": "0x1006d594",
+      "bytes": 69,
+      "section_bytes": 69,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_compiler/compiler.cpp",
+      "object": "gfx/target/build/codex35_compiler/libraries/compiler.obj",
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?CompareSemantic@CCompiler@D3DXShader@@KGHIIPBX@Z",
+      "address": "0x1006dd5c",
+      "bytes": 87,
+      "section_bytes": 87,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_compiler/compiler.cpp",
+      "object": "gfx/target/build/codex35_compiler/libraries/compiler.obj",
+      "bindings": [],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?EvalValue@CCompiler@D3DXShader@@IAEJIPAN@Z",
+      "address": "0x1006e16c",
+      "bytes": 131,
+      "section_bytes": 131,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_compiler/compiler.cpp",
+      "object": "gfx/target/build/codex35_compiler/libraries/compiler.obj",
+      "bindings": [
+        {
+          "offset": 35,
+          "symbol": "__finite",
+          "base": "0x100f8c58",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 63,
+          "symbol": "?EvalRange@CCompiler@D3DXShader@@IAEJIPAU_D3DXRANGE@2@@Z",
+          "base": "0x1006c8ca",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 95,
+          "symbol": "__finite",
+          "base": "0x100f8c58",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    },
+    {
+      "symbol": "?EvalRange_Mul@CCompiler@D3DXShader@@IAEXPAU_D3DXRANGE@2@00K@Z",
+      "address": "0x1006c827",
+      "bytes": 163,
+      "section_bytes": 163,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_compiler/compiler.cpp",
+      "object": "gfx/target/build/codex35_compiler/libraries/compiler.obj",
+      "bindings": [
+        {
+          "offset": 83,
+          "symbol": "__isnan",
+          "base": "0x100f8c6d",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100
+    }
+  ],
+  "build_image": "sha256:17ddd3cc30517bc070c4e1a1d8bec9c4abd0d8b453115dfa0324e7e20dc94131",
+  "compile_flags": "/O1 /Oy- /hotpatch /MT /Gy /d2QIftol",
+  "verified_instruction_bytes": 757,
+  "negative_tests_passed": true,
+  "files": {
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/scratch/codex35_sdk/discovery.json": "70dbdb2eaeff0c3bb791bf8b24ea917676fa354101162964fa3420bb8bc5f5bf",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/scratch/codex35_lexer/dependencies/libcmt.lib": "6e2b3742e58245de52149137f64281b73db1487a07a31e165fff269fbf9b2ee8",
+    "gfx/target/scratch/codex30_cpp/obj/mt/new.obj": "b50d9802dcd8d135e5159c0de26fff5cf8bd43e99af1244bd609d743ebb8723a",
+    "gfx/target/scratch/codex30_cpp/obj/mt/delete.obj": "aead5eabbcdf9cd490a1d80ae60de7cdce13269a57372dedc055c055a000da24",
+    "gfx/target/scratch/codex35_compiler/compile_clean_test.sh": "96adde37717b019c76a3507279193fc95ef291bed23eef19835aa87972353e77",
+    "gfx/target/scratch/codex35_compiler/select_dependencies.py": "8f18a7b61081fdd74e5b7b7e0592ea7639b105213129c36c77681286832d6d6f",
+    "gfx/target/scratch/codex35_compiler/vtables.py": "164015760b74b004fec21fc282354dd99ec3b19254f789b1c4b0992f58b5de8b",
+    "gfx/target/scratch/codex35_compiler/probe.py": "32bea6099d058f6de244439854950b7b51bd7dd7c3fc080667dc947cad4a0708",
+    "gfx/target/scratch/codex35_compiler/sdk_binding.py": "f18f559c0c1aa4e465cb9da86cb8b27fba703fc24279fefff43945ac5db2035d",
+    "gfx/target/scratch/codex35_compiler/compile_test.sh": "632b3631d8a9dc725630a4335cc49e75727ab58dd0e951784e2b63ca1fbcf47c",
+    "gfx/target/scratch/codex35_compiler/select_link_dependencies.py": "3f45fc62c1702ea31c1effc8b0eafaf2f94d3588e1cbb5dddd35168ea297851f",
+    "gfx/target/scratch/codex35_compiler/compile_matched.sh": "9c6df5e98b879a4ec05365c121f5458f332a342b57f0f969090aeabd9e68e8a2",
+    "gfx/target/scratch/codex35_compiler/run_test.py": "53ad982f7206dd5b8869d24ce0bec31d638edd6e8cf58c73dd54fc757eba8125",
+    "gfx/target/scratch/codex35_compiler/compile.sh": "03cc1ed087251eb0bc5a0bb2ee5f913d2cc6825a9b2ba39a6dd43c5e236f92c3",
+    "gfx/target/scratch/codex35_compiler/build.sh": "f6ecade0e6670bc03d0b5e76273d0344b934bdcd62a6c9d68fd68f2ddec3943c",
+    "gfx/target/scratch/codex35_compiler/check.py": "1ffb58a461240fe7153c93d6d34eadf68787b2f216f28d460d96a94f389c1e23",
+    "gfx/target/scratch/codex35_compiler/diff.py": "6e2a58d8063a43b97e5b229b68d7f2afeb22f029116c483c33491f89b549e8cc",
+    "gfx/target/scratch/codex35_compiler/test.cpp": "40153c8bd6e52361d6992f2e2328312ffa0a093f167643318ff0c991d13e4b62",
+    "gfx/target/scratch/codex35_compiler/compiler_matched.cpp": "18f0cc71f5d81bd98b324c96598b6e996d2ede9aa82351faa7f15b82a490d143",
+    "gfx/target/scratch/codex35_compiler/check_link.py": "0ada8b5cabe8fe3d7db827296f1972975aa74a2bf2006a40ee97e7726c142df1",
+    "gfx/target/scratch/codex35_compiler/link.mk": "beb69a59fcab7668f227ad67a5b7d05615ab97416b81e1a166af8fc31b94d8d4",
+    "gfx/target/scratch/codex35_compiler/run_clean_test.py": "06f06ef2fecbd24f889496c9cfe987417b72da2851b8334fb03c699a6866cbd3",
+    "gfx/target/scratch/codex35_compiler/compiler.cpp": "2b495bfe58a21d4269e1037394ce77f8960e00d48829ff539097c27b20768e0f",
+    "gfx/target/src/codex_shader_compiler/compiler.cpp": "18f0cc71f5d81bd98b324c96598b6e996d2ede9aa82351faa7f15b82a490d143",
+    "gfx/target/build/codex35_compiler/libraries/compiler.obj": "ee655e2064f70a3e945c31e352e3fe9a819b6da06d4bda0263d2333cb3e6b178"
+  }
+}

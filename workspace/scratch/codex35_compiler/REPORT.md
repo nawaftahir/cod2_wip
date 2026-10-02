@@ -1,4 +1,29 @@
-# Shader compiler draft checkpoint — 2026-10-02
+# Shader compiler integration checkpoint — 2026-10-02
+
+Current accepted coverage: **331,078 / 1,089,680 = 30.383048%**;
+**50,310 instruction bytes** remain for the active 35% goal.
+The isolated eight-method file is now in `../../src/codex_shader_compiler/`.
+Its fresh clean-path V2 passes, the private closed link accepts **556** matches
+and retains all **548**, and **20,355** original/clean-source CPU comparisons
+pass. The full disjoint aggregate replay passes; output is in aggregate.log.
+Clean packet, link packet and clean_fixture_packet.json record current proof.
+
+`select_link_dependencies.py` removes exactly 193 clean source definitions
+from a private SDK dependency selection. The clean fixture links those source
+objects, with its eight compiler functions owned by compiler.obj. StackAlloc
+and EvalRange are owned by the retained SDK member and earn zero credit.
+An initial CPU link omitted 181 preceding source definitions; supplying all
+clean source objects fixes that actual missing-input failure. The ownership
+gate also caught an initially stale draft-map filename; clean maps are now
+required. Both failures were fixed before acceptance, not bypassed.
+
+Replay: build.sh, check.py --clean, check_link.py, compile_clean_test.sh
+(in the pinned CPU image), run_clean_test.py, then gfx/tools/check_ten_percent.py.
+The older thirteen-method fixture and its source/behavior evidence are kept
+separately. Whole-DLL checksum identity, game/GPU boot and all unmatched drafts
+remain unfinished. The following section is the earlier drafting record.
+
+## Earlier private draft checkpoint
 
 Accepted renderer coverage stays **330,321 / 1,089,680 = 30.313578%**.
 The 35% goal remains active; **51,067** additional accepted instruction bytes

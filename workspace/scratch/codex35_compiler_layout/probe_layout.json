@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?IsRowMajor@CCompiler@D3DXShader@@IAEHPAIW4_D3DXTYPE_TEMPLATE@2@II@Z",
+      "object_bytes": 372,
+      "target_bytes": 404,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?IsColumnMajor@CCompiler@D3DXShader@@IAEHPAIW4_D3DXTYPE_TEMPLATE@2@II@Z",
+      "object_bytes": 376,
+      "target_bytes": 406,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_compiler_layout/layout.cpp",
+  "source_sha256": "d61caa1074972f84c2a1ab5da6cc06c7927941d63c83a469350cd79e8a713a5a",
+  "object_sha256": "3337d93b1fc034fe87993ec7ba12854939d2ac3215c7e712dae4eb485acf74c0"
+}

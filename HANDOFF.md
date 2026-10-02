@@ -1,10 +1,45 @@
 # Shared renderer handoff — 2026-10-02
 
 Current goal: commit checkpoints and pursue **35% verified source coverage**.
-Latest accepted checkpoint is **30.313578%**; still required:
-**51,067 instruction bytes**. The full goal remains unfinished.
+Latest accepted checkpoint is **30.383048%**; still required:
+**50,310 instruction bytes**. The full goal remains unfinished.
 Continue in `target/scratch/codex35_compiler/`; preserve the preprocessor
 drafts too. All unaccepted bytes still get zero credit.
+
+## Confirmed checkpoint: compiler clean integration accepted
+
+`target/src/codex_shader_compiler/compiler.cpp` contains eight complete source
+methods / **757 instruction bytes**. Clean-path V2 passes. The private closed
+link accepts **556** matches, retaining all **548** preceding matches.
+**20,355** complete original/clean-source CPU output comparisons pass, with
+map ownership enforced for all eight source methods and two SDK dependencies.
+The full coverage replay passes: **331,078 / 1,089,680 = 30.383048%**.
+Full output is in `target/scratch/codex35_compiler/aggregate.log`.
+Whole-DLL identity and game/GPU boot are still unfinished; goal stays active.
+
+Use `build.sh`, `check.py --clean`, `check_link.py`, `compile_clean_test.sh`
+and `run_clean_test.py` in codex35_compiler. The separate old thirteen-method
+fixture is not the clean integration fixture: its unmatched EvalRange and
+StackAlloc are original SDK dependencies in the clean profile, zero credit.
+The strict link dependency selector removes exactly 193 source definitions.
+Its archive is private/generated, never reconstructed-library source credit.
+
+New real drafts: `target/scratch/codex35_compiler_layout/layout.cpp` implements
+the two matrix predicates (target 404/406 bytes). It passes **32,768** full
+original/source output comparisons, but source bodies are 372/376, unmatched.
+Pointer induction gives 361/362; per-pass array caching and target operand
+order give 391/387. All three are preserved with hashed diagnostic packets;
+zero source credit. Read REPORT.md before repeating attempts. First-pass
+layout mismatch returns one; second-pass mismatch returns zero—do not change
+that unusual target behavior. Template code 2 and every access offset are
+typed-SDK pinned. Do not invent a helper, volatile access or padding variable
+to force codegen. The next experiment is actual SDK accessor/TU evidence,
+not a claim that an inline accessor must have existed.
+
+Larger source work remains the behavior-checked EvalRange (3,274 target bytes)
+and the already recovered EmitExpression/EmitIntrinsic analysis. Their
+analysis exports are not source and are not counted. No release/canonical
+tree changes or push is included in this checkpoint.
 
 ## New private checkpoint: shader compiler source, not accepted coverage
 

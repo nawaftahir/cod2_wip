@@ -253,3 +253,24 @@
   IMAGE_DOS_HEADER types and nonsettling type propagation are documented. SDK
   intrinsic section23940 versus analysis body23580 needs code/table accounting.
   No DB/reference edits or compiler-impossibility claim. Replay/attempts in REPORT.
+
+## PINNED — compiler clean integration and matrix predicates, 2026-10-02
+
+- Eight compiler source methods / 757 bytes now pass clean V2, a 556-match
+  closed link retaining all 548, 20,355 clean-profile CPU comparisons and the
+  full disjoint audit: 331,078/1,089,680 = 30.383048%. Source is separated in
+  target/src/codex_shader_compiler/. Clean EvalRange and StackAlloc remain
+  original SDK dependencies; the older thirteen-method draft is not promoted.
+- Select all 193 source-replaced definitions' objects when using the full
+  private dependency archive. The clean CPU link originally omitted 181;
+  adding the actual missing source objects resolves that failure without
+  relaxing unresolved-symbol or duplicate-definition gates. Map ownership
+  must use the clean maps, not the earlier draft fixture's filenames.
+- SDK member73's IsRowMajor404 at1006D5D9 and IsColumnMajor406 at1006D76D:
+  template2 first-pass mismatch returns1, second-pass mismatch returns0;
+  non-template2 returns rows==1 and rows>1 respectively. Zero dimensions
+  return0. Label flag40h selects array/component checks, otherwise instruction
+  +48h. Indexed drafts pass32,768 complete original/source output comparisons
+  but are unmatched372/376; pointer361/362 and cached391/387 attempts remain
+  drafts. Do not simplify target behavior or repeat these probes. Evidence
+  and source are in target/scratch/codex35_compiler_layout/REPORT.md.
