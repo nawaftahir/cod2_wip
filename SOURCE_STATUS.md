@@ -38,6 +38,12 @@ clipping method plus its already-counted 28-byte temporary callee pass strict
 scratch V2; integration/full-link V3 are pending. Neither the drafts nor this
 candidate increase the accepted 30.383048% yet. See its REPORT.md to resume.
 
+New integration candidate:
+[`target/src/codex_shader_compiler_clip/`](target/src/codex_shader_compiler_clip/)
+contains all nine compiler/clipping methods. Clean V2 and full-link V3 pass
+(557 matches, all556 retained); CPU comparison and aggregate refresh remain
+pending. This is not yet new accepted percentage or whole-file identity.
+
 The preceding clean module is
 [`target/src/codex_shader_preprocessor/`](target/src/codex_shader_preprocessor/):
 25 complete bodies / **2,199 instruction bytes**; 548 private linked source

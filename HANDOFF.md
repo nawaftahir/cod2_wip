@@ -4,8 +4,24 @@ Current goal: commit checkpoints and pursue **35% verified source coverage**.
 Latest accepted checkpoint is **30.383048%**; still required:
 **50,310 instruction bytes**. The full goal remains unfinished.
 Owner requested a pause after this checkpoint. Resume in
-`target/scratch/codex35_expression/`; preserve the compiler/preprocessor
+`target/scratch/codex35_clip/`; preserve the expression/compiler/preprocessor
 drafts too. All unaccepted bytes still get zero credit.
+
+## New integration checkpoint: clipping V2/V3, CPU pending
+
+Separate `target/src/codex_shader_compiler_clip/compiler.cpp` supplies the
+eight previous compiler methods plus clipping, with no duplicate callee TU.
+All nine/1066 bytes pass clean V2. The new private DLL passes V3 with **557**
+matches, retaining all556. Only clipping's309 bytes could increase coverage.
+No old accepted source or checker input was changed.
+
+The public CPU executables are built; comparison is not yet complete. Its
+preflight found194 distinct symbols versus204 excluded SDK definitions because
+the archive duplicates some instruction predicates. The corrected gate pins
+both exact counts and equality of the symbol sets; it has not run yet.
+First run `python3 scratch/codex35_clip/run_test.py` from gfx/target. Then
+extend/replay the aggregate with only309 disjoint new bytes. Coverage remains
+30.383048% until those steps pass. REPORT.md records timing and pause details.
 
 ## Latest scratch checkpoint: expression source and clipping V2
 

@@ -295,3 +295,14 @@
   hashes; next integrate cohort without duplicate callee ownership. Eight
   EvalRange array/scope/induction variants remain unmatched in codex35_evalrange;
   their REPORT.md records the failed routes. Owner requested pause after commit.
+
+## Codex clipping integration — 2026-10-02
+
+- PINNED: separate compiler/clipping cohort reproduces all nine complete bodies
+  (1066 bytes) and retains every556 prior full-link match, adding clipping for557.
+  Only309 bytes are potential gain. CPU/aggregate acceptance remains pending.
+- PINNED: the strict SDK selector removes204 definitions for194 distinct source
+  symbols: IsCLIP appears3 times, IsUnary2, IsBinary2, IsTexture6, GetParameters2.
+  CPU preflight must pin both counts plus exact symbol-set equality, not194 raw
+  entries. The first run rejected the mistaken count; corrected runner not run.
+  Source/proofs/resume commands are in target/scratch/codex35_clip/REPORT.md.
