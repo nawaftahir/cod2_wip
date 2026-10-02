@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?CompareValue@D3DXShader@@YGHIIPBX@Z",
+      "object_bytes": 79,
+      "target_bytes": 79,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompareRegister@D3DXShader@@YGHIIPBX@Z",
+      "object_bytes": 142,
+      "target_bytes": 142,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?RemoveDuplicateArguments@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 460,
+      "target_bytes": 460,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_program_duplicates/duplicates.cpp",
+  "source_sha256": "18fe2205374721c353d2fda382dac237624f95cede4c99ae40a1ac9996d87b68",
+  "object_sha256": "15b57241c4108b7f96b6a95cc15af86b0494bc6548dd8c4f2d56dc3e5c3fdc53"
+}

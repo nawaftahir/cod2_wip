@@ -474,3 +474,26 @@
   indexed-buffer/lifetime and actual12-definition caller/callee TU tests.
   Observed opaque argument offsets60..70 are not guessed semantic types.
   No new source credit, integration claim or compiler-impossibility claim.
+- Strip/accessor full aggregate PASS now337130/1089680 =30.938441%,643 new
+  disjoint bytes accepted. Sort279, argument duplicates681 and instruction
+  duplicates1106 have complete current V2/V3/CPU proofs;2066 aggregate bytes
+  are pending. The active35% goal remains unfinished, not paused.
+- PINNED: CompareValue100864e9/79 compares unsigned pool4 then double20;
+  CompareRegister10086538/142 orders38,3c,4,c,8,10,14 as unsigned and18 as signed.
+  Else-if lifetime/control-flow plus shared value-return paths solve whole
+  bodies. RemoveDuplicateArguments10094810/460 needs pool-ID comparison order
+  matching the target. V3/587 retains584 and1284 actual full CPU outputs pass.
+- PINNED: grouped static C++ CompareDuplicateInstructions1008b1b3/415 and
+  Stable1008b352/44 match literal SDK bodies. Compiler4035 itself passes the
+  first private comparator argument inECX/ret8; address-taken Stable keeps
+  ret12. Keep the real static caller/callee group; never force a different ABI.
+  Original SDK calls occur only in sections141/210, both replaced by source.
+- PINNED: RemoveDuplicateInstructions10094eb4/647 checks an opaque DWORD24,
+  not the earlier children20 prefix field. Count-before-allocation, shared
+  cleanup and bounded-loop comparisons yield the complete body. V2,V3/590
+  retain587 and1284 full CPU outputs pass. Its comparator section ends with
+  a backward jump to a pinned pop/pop/pop/leave/ret8 epilogue, not a truncation.
+- DelayOutputs1008bbde/648 remains619/626 versus648 after genuine cleanup/
+  group-cursor source tests. Instruction3c is still an opaque DWORD. MSVC's
+  legacy for-loop scope collided with an outer i; rename the cursor or scope
+  it explicitly, and genuinely rebuild. No draft coverage or CPU parity claim.

@@ -4,7 +4,8 @@ Active goal: 35% independently verified source instruction coverage.
 Five clean definitions total 643 bytes: StripVarying529, GetPool27,
 GetArgument27, GetInstruction27 and Origin33. Complete V2, private V3/583
 retaining578 and 1,284 integrated full-output CPU comparisons passed. No
-aggregate credit yet; the preceding 408-byte pruning audit is still running.
+Fresh full aggregate PASS in aggregate.log accepts all643 disjoint bytes:
+337130/1089680 =30.938441%. No whole-file identity or GPU certification.
 
 PINNED: keeping repeated `arguments[index]` accesses rather than a cached
 `next` pointer reproduces the target's reloads and 529-byte body. Both tested

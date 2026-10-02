@@ -2,12 +2,12 @@
 
 Owner resumed work explicitly. The active target remains
 **35% verified source coverage**; the earlier pause is revoked.
-Fresh full aggregate PASS confirms **336,487 / 1,089,680 =
-30.879432%**. Uniform pruning adds408 disjoint instruction bytes.
-31% needs1314 further bytes;35% needs44901.
+Fresh full aggregate PASS confirms **337,130 / 1,089,680 =
+30.938441%**. Varying pruning/accessors add643 disjoint instruction bytes.
+31% needs671 further bytes;35% needs44258.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
-Checkpoint commit: `143fea3` (verified clean source, proof tools and docs;
+Previous checkpoint commit: `5bd4522` (verified clean source, proof tools and docs;
 unrelated user/Claude changes left untouched). Goal stays active, not paused.
 
 ## Current source and proofs
@@ -23,12 +23,24 @@ unrelated user/Claude changes left untouched). Goal stays active, not paused.
   PASS accepts its408 disjoint bytes (codex35_program_pruning/aggregate.log).
 - New `target/src/codex_shader_program_strip/strip.cpp`: StripVarying529,
   GetPool27, GetArgument27, GetInstruction27 and Origin33 pass clean V2,
-  V3/583 retaining578 and1284 integrated CPU outputs. Its643 bytes are not yet
-  in the aggregate. Actual fixtures use /OPT:NOREF to retain unused getters
+  V3/583 retaining578 and1284 integrated CPU outputs. Its643 bytes are now
+  accepted in the aggregate (codex35_program_strip/aggregate.log).
+  Actual fixtures use /OPT:NOREF to retain unused getters
   for the strict owner gate; this is not direct execution of every getter.
 - New `target/src/codex_shader_program_sort/sort.cpp`: complete279-byte
   HeapSort passes clean V2, V3/584 retaining583 and1284 full CPU outputs.
   Aggregate credit is pending; SDK/CRT dependencies add zero source credit.
+- New `target/src/codex_shader_program_duplicates/duplicates.cpp`: three
+  complete methods/681 bytes pass clean V2,V3/587 retaining584 and1284 full
+  CPU outputs. Private callbacks are rebound only after complete literal
+  body/storage/ownership proof; no opaque source credit.
+- New `target/src/codex_shader_instruction_duplicates/instructions.cpp`:
+  three complete methods/1106 bytes pass clean V2,V3/590 retaining587 and1284
+  full CPU outputs. Private helpers stay static together in a genuine C++ TU,
+  with exact source/SDK literals and no retained original SDK callers.
+- `target/scratch/codex35_delay_outputs/outputs.cpp`: complete target-backed
+  DelayOutputs draft currently626/648, unmatched and uncredited. Instruction3c
+  remains an observed opaque DWORD. Read REPORT before repeating probes.
 - `target/scratch/codex35_program_outputs/outputs.cpp`: real696-byte
   CompactOutputs target is reconstructed but remains unmatched. Bounded
   flag/lifetime/TU-group attempts are documented in REPORT.md; zero credit.
@@ -64,19 +76,21 @@ Full aggregate command (from gfx/):
 
     python3 -u tools/check_ten_percent.py
 
-The latest completed PASS log is `target/scratch/codex35_program_pruning/aggregate.log`.
-The next replay is running at `target/scratch/codex35_program_strip/aggregate.log`;
-do not restart it merely for an observation timeout. It loaded the strip cohort
-but not the subsequently added sort cohort. The preceding program full PASS is
+The latest completed PASS log is `target/scratch/codex35_program_strip/aggregate.log`.
+The next replay is running at `target/scratch/codex35_instruction_duplicates/aggregate.log`;
+do not restart it merely for an observation timeout. It loaded sort279,
+duplicate-argument681 and duplicate-instruction1106,2066 pending disjoint bytes.
+If and only if it passes, expected total339196/1089680 =31.128038%.
+The preceding program full PASS is
 preserved at `target/scratch/codex31_program/aggregate.log`.
 Proof hashes were checked current after the replay. Start fresh checks only
 after modifying their actual inputs; do not invent a new percentage.
 
-The strip process started before the checker gained sort, so its eventual
-PASS can credit643, not279. After it finishes, run the current checker for
-all cohorts (or batch another genuinely new integration first).
+After the current replay finishes, preserve its actual terminal result before
+crediting any of the2066 bytes. Continue genuinely new reconstruction meanwhile.
 Only one aggregate replay at a time: earlier cohorts write their proof JSONs.
-Varying/pruning/strip/sort packets had current input hashes at checkpoint.
+Varying/pruning/strip/sort/argument-duplicate/instruction-duplicate packets had
+current input hashes at checkpoint. Every new local gate was genuinely run.
 
 Immediate next checkpoint is31%, not yet reached. The large behavior-checked
 drafts remain useful source work, not accepted bytes. Preserve the source-level

@@ -1145,6 +1145,26 @@ def main():
             'select_link_dependencies.py': 'da27b0d9dfe15477c2ec8d2f33df74cbeb4c715c17330e9204acdc344a93e85a',
             'run_clean_test.py': 'f101ea0df21fef25ea9f324291f646d4c4dd85cd65b76cddc5bddde1e2255d4f',
             'compile_clean_test.sh': '85ffc6abdd5ea41fc6d7baff2dd0a7e3a26d8c0b86d5b08a668d6bde3cb791df'}),
+        ('codex35_program_duplicates', 3, 681, 584, 587, 1284, {
+            'check.py': '7d62c85d6c75abbdd1861cc754f57ce9110efb5dd3a078b81ba12075a9b1cc9d',
+            'check_link.py': '6c30bacb706e70c13a61cda63fc45309edcf8a2f6502519b40e4147af65fa2f7',
+            'vtables.py': 'b7b78ef336cc7c648b3613cfb0b4bf89fd30ad6af699340456cd0a480998dceb',
+            'sdk_binding.py': '5ba504f78f48404deb0f7f935beffef47c0acf89e562931a7bb1aa8e40ed5bbf',
+            'build.sh': 'ba6d313d697c208f17bb92678ea70dfd4e0a4771f7c98d8681f35c3e29da2c0b',
+            'link.mk': '785d3314b23719c10548704937d3f44a814fd024b5a9eb3d8ccb2e9dd1af098d',
+            'select_link_dependencies.py': '7156643144eeb1d1003cf7eaa1ae5141b00c6dd6d643f70c5d8ee18f35d8e983',
+            'run_clean_test.py': '4a7dfb95dd363a242e08fefe495c04a9b49178a710c1fcb3685187fdee207d9e',
+            'compile_clean_test.sh': '0cb67ae1f6f3a9e67b40ae8f2dd0a377008c2200cdf044186cbb1cb7ccb91eb6'}),
+        ('codex35_instruction_duplicates', 3, 1106, 587, 590, 1284, {
+            'check.py': '8eef2b8e1aa771e0b286b0c483a6c7ef64dd34ba5d48f0d3aec8a60059c3ea07',
+            'check_link.py': '6986db5ac900526439332e511c50ec33f668b0c47568cb1d6c78d308772b399e',
+            'vtables.py': '80e709146d8454f1583975f98cf103b0df51f8b939caa543af2613d0f6f570f3',
+            'sdk_binding.py': '8ce62472b579e256c088ea4cd70b05f6e2c7744c646d1efb16066adf7d9be2e3',
+            'build.sh': 'a213de18f9f32e9eb8a1e4b3bdc05a7063893c76ca20c29484ba71b982b17bbe',
+            'link.mk': '4ca88e7f901c75d2de38f914d13bdf27a82252a411b112d2eb342762f4587d74',
+            'select_link_dependencies.py': 'eaed2a3ecb7815a557238fbab2ba67859274cd1aa60b08ca32f45670d4cf5a3a',
+            'run_clean_test.py': 'da6e0de55262275c1ff18eb1b5a2003095611b37347c1d009067241d5e7f5030',
+            'compile_clean_test.sh': '65e16ff7e5b9773d94966b93cd79c64f95d357cc12f54c617c26a918c8521744'}),
     ]:
         directory = TARGET / 'scratch' / family
         for name, digest in pins.items():
@@ -1168,7 +1188,7 @@ def main():
         assert link['baseline_source_matches'] == baseline_count and link['linked_source_matches'] == linked_count
         assert not link['source_match_losses'] and link['dependency_source_credit'] == 0
         assert all(sha(ROOT / n) == h for n, h in link['files'].items())
-        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort') else 'fixture_packet.json'
+        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates') else 'fixture_packet.json'
         fixture = json.loads((directory / fixture_name).read_text())
         assert fixture['status'] == 'PASS' and fixture['cases'] == cpu_count
         assert all(sha(ROOT / n) == h for n, h in fixture['files'].items())
@@ -1188,6 +1208,12 @@ def main():
         elif family == 'codex31_program':
             program_gain = gain
             assert {(0x1006c418, 32), (0x1006db35, 32)} <= gain
+        elif family == 'codex35_program_duplicates':
+            duplicates_gain = gain
+            assert duplicates_gain == {(0x100864e9, 79), (0x10086538, 142), (0x10094810, 460)}
+        elif family == 'codex35_instruction_duplicates':
+            instruction_duplicates_gain = gain
+            assert instruction_duplicates_gain == {(0x1008b1b3, 415), (0x1008b352, 44), (0x10094eb4, 647)}
         elif family == 'codex35_program_sort':
             sort_gain = gain
             assert sort_gain == {(0x10086920, 279)}
@@ -1215,7 +1241,7 @@ def main():
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1228,7 +1254,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1270,6 +1296,8 @@ def main():
     print('Uniform-pruning cohort: 1 complete source body, 408 new instruction bytes; 578 linked matches retain all577; 1284 integrated full-output CPU cases pass. SDK dependencies and drafts receive no additional credit.')
     print('Varying-pruning/accessor cohort: 5 complete source bodies, 643 new instruction bytes; 583 linked matches retain all578; 1284 integrated full-output CPU cases pass. Getter retention is not direct execution coverage; no opaque dependency credit.')
     print('Heap-sort cohort: 1 complete source body, 279 new instruction bytes; 584 linked matches retain all583; 1284 integrated full-output CPU cases pass. No opaque dependency credit.')
+    print('Duplicate-argument cohort: 3 complete source bodies, 681 new instruction bytes; 587 linked matches retain all584; 1284 integrated full-output CPU cases pass. Private callbacks are bound only after literal full-body proof.')
+    print('Duplicate-instruction cohort: 3 complete source bodies, 1106 new instruction bytes; 590 linked matches retain all587; 1284 integrated full-output CPU cases pass. Original private helpers have no retained SDK callers and remain together in the source TU.')
     goal31 = (DENOMINATOR * 31 + 99) // 100
     print(f'31% checkpoint: {"REACHED" if total >= goal31 else "PENDING"}; {max(0, goal31 - total)} further source instruction bytes needed.')
     goal = (DENOMINATOR * 35 + 99) // 100

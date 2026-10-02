@@ -17,10 +17,10 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **336,487 /
-1,089,680 = 30.879432%** (2026-10-02), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **337,130 /
+1,089,680 = 30.938441%** (2026-10-02), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**44,901** further verified instruction bytes are required.31% needs1314 bytes.
+**44,258** further verified instruction bytes are required.31% needs671 bytes.
 Work is active again at the owner's request. Whole-DLL checksum
 identity is still unfinished.
 
@@ -31,10 +31,16 @@ outputs and full aggregate pass; included in the total) and
 clean V2,578 linked matches retaining577 and1284 full CPU outputs pass).
 The pruning408 bytes are accepted in the total by a fresh full aggregate PASS.
 `target/src/codex_shader_program_strip/strip.cpp` adds five clean methods/643
-bytes passing V2,V3/583 retaining578 and1284 integrated CPU outputs; these
-also await aggregate acceptance. No dynamic execution of every getter is claimed.
+bytes passing V2,V3/583 retaining578 and1284 integrated CPU outputs; fresh
+full aggregate accepts them. No dynamic execution of every getter is claimed.
 `target/src/codex_shader_program_sort/sort.cpp` adds complete HeapSort279,
 passing clean V2,V3/584 retaining583 and1284 full CPU outputs; aggregate pending.
+`target/src/codex_shader_program_duplicates/duplicates.cpp` adds three complete
+methods/681 bytes, clean V2,V3/587 retaining584 and1284 full CPU outputs.
+`target/src/codex_shader_instruction_duplicates/instructions.cpp` adds three
+complete methods/1106 bytes, clean V2,V3/590 retaining587 and1284 CPU outputs.
+The current full aggregate includes these2066 pending bytes; no extra percentage
+until it passes. Every source/proof input hash was checked current.
 The duplicate read/write scratch source adds zero coverage: all four methods
 were already accepted in the earlier program module. CompactOutputs stays
 scratch-only because actual source/object comparisons still differ.

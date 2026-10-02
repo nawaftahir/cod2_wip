@@ -15,7 +15,8 @@ bindings, including negative tests. Private V3 retains all 578 preceding
 matches and accepts 583. The integrated CPU fixture compares 1,284 complete
 shader/error/constant-table outputs, with 954 successes and 330 failures in
 each profile. This is integration coverage, not direct execution of every
-getter or GPU/whole-file certification. Aggregate credit is pending.
+getter or GPU/whole-file certification. Fresh full aggregate accepts all643
+disjoint bytes (../../scratch/codex35_program_strip/aggregate.log).
 
 Proofs and build instructions: `../../scratch/codex35_program_strip/`.
 The declarations are pinned access prefixes, not historical allocation sizes
