@@ -30,7 +30,19 @@ public:
 class CInstruction
 {
 public:
+#if FLOW_TOKEN_BITS
+    union
+    {
+        unsigned long token;
+        struct
+        {
+            unsigned scalarCount : 20;
+            unsigned opcode : 12;
+        } fields;
+    };
+#else
     unsigned long token;
+#endif
     unsigned inputCount;
     unsigned *inputs;
     unsigned outputCount;
@@ -57,6 +69,11 @@ public:
     unsigned CopyArgument(CArgument *);
     unsigned CopyInstruction(CInstruction *);
     long Initialize(CBaseProgram *);
+#if FLOW_BASE_GETTERS
+    CPool *GetPool(unsigned);
+    CArgument *GetArgument(unsigned);
+    CInstruction *GetInstruction(unsigned);
+#endif
 };
 class CProgram : public CBaseProgram
 {
@@ -96,6 +113,26 @@ private:
     void ReadWriteInfo_WriteInfo(unsigned, unsigned);
     long ReadWriteInfo_CommitOrigin();
 protected:
+#if FLOW_ORIGIN_INLINE
+#if FLOW_ORIGIN_FORCE
+    __forceinline unsigned Origin(unsigned index)
+#else
+    unsigned Origin(unsigned index)
+#endif
+    {
+        if (index != ~0u)
+        {
+            unsigned origin = arguments[index]->relative3;
+            if (origin != ~0u)
+            {
+                return origin;
+            }
+        }
+        return index;
+    }
+#else
+    unsigned Origin(unsigned);
+#endif
     long VectorizeLeft();
     long DelayOutputs();
     long SimplifyInstructions();
@@ -118,8 +155,147 @@ public:
 };
 
 
+#if FLOW_BASE_GETTERS
+CPool *CBaseProgram::GetPool(unsigned index)
+{
+    if (index < poolCount)
+    {
+        return pools[index];
+    }
+    return 0;
+}
+
+CArgument *CBaseProgram::GetArgument(unsigned index)
+{
+    if (index < argumentCount)
+    {
+        return arguments[index];
+    }
+    return 0;
+}
+
+CInstruction *CBaseProgram::GetInstruction(unsigned index)
+{
+    if (index < instructionCount)
+    {
+        return instructions[index];
+    }
+    return 0;
+}
+#endif
+
 int CProgram::IsVarying(unsigned index)
 {
+#if FLOW_VARYING_FORM == 8
+    if (index != ~0u)
+    {
+        CArgument *arg = arguments[index];
+        if ((arg->flags & 0x20) || (arg->relative3 != ~0u && (arguments[arg->relative3]->flags & 0x20)))
+        {
+            return 1;
+        }
+        return IsVarying(arg->relative);
+    }
+    return 0;
+#elif FLOW_VARYING_FORM == 9
+    if (index == ~0u)
+    {
+        return 0;
+    }
+    CArgument *arg = arguments[index];
+    if ((arg->flags & 0x20) || (arg->relative3 != ~0u && (arguments[arg->relative3]->flags & 0x20)))
+    {
+        return 1;
+    }
+    return IsVarying(arg->relative);
+#elif FLOW_VARYING_FORM == 1
+    int result;
+    while (index != ~0u)
+    {
+        CArgument *arg = arguments[index];
+        if ((arg->flags & 0x20) || (arg->relative3 != ~0u && (arguments[arg->relative3]->flags & 0x20)))
+        {
+            result = 1;
+            goto done;
+        }
+        index = arg->relative;
+    }
+    result = 0;
+done:
+    return result;
+#elif FLOW_VARYING_FORM == 2 || FLOW_VARYING_FORM == 3
+#if FLOW_VARYING_FORM == 3
+    bool result = false;
+#else
+    int result = 0;
+#endif
+    while (index != ~0u)
+    {
+        CArgument *arg = arguments[index];
+        if ((arg->flags & 0x20) || (arg->relative3 != ~0u && (arguments[arg->relative3]->flags & 0x20)))
+        {
+            result = 1;
+            break;
+        }
+        index = arg->relative;
+    }
+    return result;
+#elif FLOW_VARYING_FORM == 4
+    int result;
+    if (index != ~0u)
+    {
+        do
+        {
+            CArgument *arg = arguments[index];
+            if ((arg->flags & 0x20) || (arg->relative3 != ~0u && (arguments[arg->relative3]->flags & 0x20)))
+            {
+                result = 1;
+                goto done;
+            }
+            index = arg->relative;
+        }
+        while (index != ~0u);
+    }
+    result = 0;
+done:
+    return result;
+#elif FLOW_VARYING_FORM == 5 || FLOW_VARYING_FORM == 6
+#if FLOW_VARYING_FORM == 5
+    while (index != ~0u)
+#else
+    for (; index != ~0u; index = arguments[index]->relative)
+#endif
+    {
+        CArgument *arg = arguments[index];
+        if ((arg->flags & 0x20) || (arg->relative3 != ~0u && (arguments[arg->relative3]->flags & 0x20)))
+        {
+            break;
+        }
+#if FLOW_VARYING_FORM == 5
+        index = arg->relative;
+#endif
+    }
+    return index != ~0u;
+#elif FLOW_VARYING_FORM == 7
+    if (index == ~0u)
+    {
+        return 0;
+    }
+    for (;;)
+    {
+        CArgument *arg = arguments[index];
+        if ((arg->flags & 0x20) || (arg->relative3 != ~0u && (arguments[arg->relative3]->flags & 0x20)))
+        {
+            break;
+        }
+        index = arg->relative;
+        if (index == ~0u)
+        {
+            return 0;
+        }
+    }
+    return 1;
+#else
     if (index != ~0u)
     {
         do
@@ -137,11 +313,13 @@ int CProgram::IsVarying(unsigned index)
     return 0;
 varying:
     return 1;
+#endif
 }
 
 void CProgram::RemoveDeadCode_Reference(unsigned index, unsigned state)
 {
-    if (state)
+#if FLOW_REFERENCE_LOOP
+    while (state)
     {
         if (index != ~0u && arguments[index]->relative3 != ~0u)
         {
@@ -156,11 +334,59 @@ void CProgram::RemoveDeadCode_Reference(unsigned index, unsigned state)
         {
             RemoveDeadCode_Reference(arg->relative, arg->firstRead);
         }
+#if FLOW_REFERENCE_LOOP == 1
+        index = arg->relative2;
+        if (index == ~0u)
+        {
+            break;
+        }
+#else
+        if (arg->relative2 == ~0u)
+        {
+            break;
+        }
+        index = arg->relative2;
+#endif
+        state = arg->firstRead;
+    }
+#else
+#if FLOW_REFERENCE_EARLY
+    if (!state)
+    {
+        return;
+    }
+#else
+    if (state)
+    {
+#endif
+#if FLOW_ORIGIN_INLINE
+        index = Origin(index);
+#elif FLOW_REFERENCE_EXPR
+        index = (index != ~0u && arguments[index]->relative3 != ~0u)
+            ? arguments[index]->relative3 : index;
+#else
+        if (index != ~0u && arguments[index]->relative3 != ~0u)
+        {
+            index = arguments[index]->relative3;
+        }
+#endif
+        CArgument *arg = arguments[index];
+        if (arg->firstRead < state)
+        {
+            arg->firstRead = state;
+        }
+        if (arg->relative != ~0u)
+        {
+            RemoveDeadCode_Reference(arg->relative, arg->firstRead);
+        }
         if (arg->relative2 != ~0u)
         {
             RemoveDeadCode_Reference(arg->relative2, arg->firstRead);
         }
+#if !FLOW_REFERENCE_EARLY
     }
+#endif
+#endif
 }
 
 long CProgram::MarkVarying()
@@ -183,7 +409,21 @@ long CProgram::MarkVarying()
     for (unsigned i = 0; i < instructionCount; ++i)
     {
         CInstruction *ins = instructions[i];
-#if FLOW_TOKEN_LOCAL
+#if FLOW_OPCODE_FORM == 1
+#define opcode (ins->token & 0xfff00000)
+#elif FLOW_OPCODE_FORM == 2
+        unsigned token = ins->token;
+#define opcode (token & 0xfff00000)
+#elif FLOW_OPCODE_FORM == 3
+        unsigned category0 = ins->token & 0xf0000000;
+        unsigned opcode = ins->token & 0xfff00000;
+#elif FLOW_OPCODE_FORM == 4
+        unsigned opcode = ins->token;
+#define opcode (opcode & 0xfff00000)
+#elif FLOW_OPCODE_FORM == 5
+        long token = ins->token;
+        long opcode = token & 0xfff00000;
+#elif FLOW_TOKEN_LOCAL
         unsigned long token = ins->token;
         unsigned opcode = token & 0xfff00000;
 #else
@@ -195,7 +435,11 @@ long CProgram::MarkVarying()
         }
         if (opcode == 0x50100000 || opcode == 0x11000000 ||
             opcode == 0x11200000 ||
-#if FLOW_TOKEN_LOCAL
+#if FLOW_OPCODE_FORM == 2 || FLOW_OPCODE_FORM == 5
+            (token & 0xf0000000) == 0x60000000)
+#elif FLOW_OPCODE_FORM == 3
+            category0 == 0x60000000)
+#elif FLOW_TOKEN_LOCAL
             (token & 0xf0000000) == 0x60000000)
 #else
             (ins->token & 0xf0000000) == 0x60000000)
@@ -226,10 +470,24 @@ long CProgram::MarkVarying()
             unsigned category = ins->token & 0xf0000000;
             if (category < 0x10000000 || category > 0x40000000)
             {
+#if FLOW_INPUT_GUARD
+                if (ins->inputCount)
+                {
+#endif
+#if FLOW_INPUT_INDEXED
+                for (unsigned j = 0; j < ins->inputCount; ++j)
+#else
                 unsigned *input = ins->inputs;
                 for (unsigned j = 0; j < ins->inputCount; ++j, ++input)
+#endif
                 {
-                    if (IsVarying(*input))
+                    if (IsVarying(
+#if FLOW_INPUT_INDEXED
+                        ins->inputs[j]
+#else
+                        *input
+#endif
+                    ))
                     {
                         for (unsigned k = 0; k < ins->outputCount; ++k)
                         {
@@ -238,6 +496,9 @@ long CProgram::MarkVarying()
                         break;
                     }
                 }
+#if FLOW_INPUT_GUARD
+                }
+#endif
             }
             else
             {
@@ -299,6 +560,9 @@ long CProgram::MarkVarying()
                 }
             }
         }
+#if FLOW_OPCODE_FORM == 1 || FLOW_OPCODE_FORM == 2 || FLOW_OPCODE_FORM == 4
+#undef opcode
+#endif
     }
     for (unsigned i = 0; i < argumentCount; ++i)
     {
@@ -482,6 +746,15 @@ long CProgram::StripVarying()
             continue;
         }
         unsigned varying = 0;
+#if FLOW_VARYING_INDEXED
+        for (unsigned j = 0; j < ins->outputCount; ++j)
+        {
+            if (arguments[ins->outputs[j]]->flags & 0x20)
+            {
+                varying++;
+            }
+        }
+#else
         if (ins->outputCount)
         {
             unsigned left = ins->outputCount;
@@ -496,14 +769,17 @@ long CProgram::StripVarying()
             }
             while (--left);
         }
+#endif
         if (varying == ins->outputCount)
         {
             ins->token = 0;
         }
         else
         {
+            if (varying < ins->outputCount)
+            {
             unsigned category = token & 0xf0000000;
-            if (varying < ins->outputCount && category >= 0x10000000 && category <= 0x40000000)
+            if (category >= 0x10000000 && category <= 0x40000000)
             {
                 unsigned groups = ins->inputCount / (token & 0xfffff);
                 unsigned count = 0;
@@ -516,7 +792,12 @@ long CProgram::StripVarying()
                         for (unsigned k = 0; k < groups; ++k)
                         {
                             unsigned offset = ins->outputCount * k;
+#if FLOW_VARYING_BUFFER
+                            unsigned *inputs = ins->inputs;
+                            inputs[offset + count] = inputs[offset + j];
+#else
                             ins->inputs[offset + count] = ins->inputs[offset + j];
+#endif
                         }
                         count++;
                     }
@@ -524,15 +805,24 @@ long CProgram::StripVarying()
                 unsigned offset = count;
                 for (unsigned j = 1; j < groups; ++j, offset += count)
                 {
-                    unsigned *dest = ins->inputs + offset;
                     for (unsigned k = 0; k < count; ++k)
                     {
-                        *dest++ = ins->inputs[ins->outputCount * j + k];
+#if FLOW_VARYING_BUFFER
+                        unsigned *inputs = ins->inputs;
+                        inputs[offset + k] = inputs[ins->outputCount * j + k];
+#else
+                        ins->inputs[offset + k] = ins->inputs[ins->outputCount * j + k];
+#endif
                     }
                 }
+#if FLOW_TOKEN_BITS
+                ins->fields.scalarCount = count;
+#else
                 ins->token ^= (ins->token ^ count) & 0xfffff;
+#endif
                 ins->inputCount = count * groups;
                 ins->outputCount = count;
+            }
             }
             for (unsigned j = 0; j < ins->outputCount; ++j)
             {
@@ -541,9 +831,14 @@ long CProgram::StripVarying()
                 unsigned index = arg->relative2;
                 while (index != ~0u && (arguments[index]->flags & 0x20))
                 {
+#if FLOW_VARYING_RELOAD
+                    link = arguments[index]->link;
+                    index = arguments[index]->relative2;
+#else
                     CArgument *next = arguments[index];
                     link = next->link;
                     index = next->relative2;
+#endif
                 }
                 arg->link = link;
                 arg->relative2 = index;
@@ -565,10 +860,40 @@ long CProgram::StripUniform()
             continue;
         }
         unsigned uniform = 0;
+#if FLOW_STRIP_GUARD == 2
+#elif FLOW_STRIP_GUARD == 1
+        if (ins->outputCount)
+        {
+#else
         if (!ins->outputCount)
         {
             continue;
         }
+#endif
+#if FLOW_STRIP_INDEXED == 2 || FLOW_STRIP_INDEXED == 3
+#if FLOW_STRIP_INDEXED == 3
+        int j = 0;
+#else
+        unsigned j = 0;
+#endif
+        do
+        {
+            if (!(arguments[ins->outputs[j]]->flags & 0x20))
+            {
+                uniform++;
+            }
+            ++j;
+        }
+        while (j < ins->outputCount);
+#elif FLOW_STRIP_INDEXED == 1
+        for (unsigned j = 0; j < ins->outputCount; ++j)
+        {
+            if (!(arguments[ins->outputs[j]]->flags & 0x20))
+            {
+                uniform++;
+            }
+        }
+#else
         unsigned left = ins->outputCount;
         unsigned *output = ins->outputs;
         do
@@ -580,6 +905,10 @@ long CProgram::StripUniform()
             output++;
         }
         while (--left);
+#endif
+#if FLOW_STRIP_GUARD == 1
+        }
+#endif
         if (!uniform)
         {
             continue;
@@ -591,8 +920,10 @@ long CProgram::StripUniform()
         }
         else
         {
+            if (uniform < ins->outputCount)
+            {
             unsigned category = token & 0xf0000000;
-            if (uniform < ins->outputCount && category >= 0x10000000 && category <= 0x40000000)
+            if (category >= 0x10000000 && category <= 0x40000000)
             {
                 unsigned groups = ins->inputCount / (token & 0xfffff);
                 unsigned count = 0;
@@ -613,15 +944,19 @@ long CProgram::StripUniform()
                 unsigned offset = count;
                 for (unsigned j = 1; j < groups; ++j, offset += count)
                 {
-                    unsigned *dest = ins->inputs + offset;
                     for (unsigned k = 0; k < count; ++k)
                     {
-                        *dest++ = ins->inputs[ins->outputCount * j + k];
+                        ins->inputs[offset + k] = ins->inputs[ins->outputCount * j + k];
                     }
                 }
+#if FLOW_TOKEN_BITS
+                ins->fields.scalarCount = count;
+#else
                 ins->token ^= (ins->token ^ count) & 0xfffff;
+#endif
                 ins->inputCount = count * groups;
                 ins->outputCount = count;
+            }
             }
         }
     }
@@ -637,7 +972,7 @@ long CProgram::RemoveDeadCode()
         CArgument *arg = arguments[i];
         arg->firstRead = (pools[arg->pool]->flags & 0x10020) ? 2 : 0;
     }
-    for (unsigned i = instructionCount; i;)
+    for (unsigned i = instructionCount; i > 0;)
     {
         CInstruction *ins = instructions[--i];
         if ((ins->token & 0xfff00000) == 0x20900000)
@@ -655,11 +990,7 @@ long CProgram::RemoveDeadCode()
     for (;;)
     {
         int unresolved = 0;
-        if (!instructionCount)
-        {
-            break;
-        }
-        for (unsigned i = instructionCount; i;)
+        for (unsigned i = instructionCount; i > 0;)
         {
             CInstruction *ins = instructions[--i];
             unsigned token = ins->token;
@@ -672,16 +1003,28 @@ long CProgram::RemoveDeadCode()
             {
                 unsigned state = 0;
                 unsigned left = ins->outputCount;
+#if !FLOW_DEAD_GUARD
                 unsigned *output = ins->outputs;
+#endif
                 if (left)
                 {
+#if FLOW_DEAD_GUARD
+                    unsigned *output = ins->outputs;
+#endif
                     do
                     {
+#if FLOW_DEAD_GUARD
+                        unsigned value = arguments[*output]->firstRead;
+#else
                         unsigned value = arguments[*output++]->firstRead;
+#endif
                         if (state < value)
                         {
                             state = value;
                         }
+#if FLOW_DEAD_GUARD
+                        output++;
+#endif
                     }
                     while (--left);
                     if (state == 1)
@@ -737,10 +1080,14 @@ long CProgram::RemoveDeadCode()
                     continue;
                 }
                 unsigned index = ins->inputs[ins->outputCount + j];
+#if FLOW_ORIGIN_INLINE
+                index = Origin(index);
+#else
                 if (index != ~0u && arguments[index]->relative3 != ~0u)
                 {
                     index = arguments[index]->relative3;
                 }
+#endif
                 CInstruction *writer = instructions[arguments[index]->instruction];
                 unsigned slot = 0;
                 unsigned *output = writer->outputs;
@@ -750,10 +1097,14 @@ long CProgram::RemoveDeadCode()
                     output++;
                 }
                 index = writer->inputs[slot];
+#if FLOW_ORIGIN_INLINE
+                index = Origin(index);
+#else
                 if (index != ~0u && arguments[index]->relative3 != ~0u)
                 {
                     index = arguments[index]->relative3;
                 }
+#endif
                 unsigned state = arguments[index]->firstRead;
                 if (state != 1)
                 {
@@ -817,10 +1168,16 @@ long CProgram::RemoveDeadCode()
                 unsigned offset = count;
                 for (unsigned j = 1; j < groups; ++j, offset += count)
                 {
+#if !FLOW_DEAD_BUFFER
                     unsigned *dest = ins->inputs + offset;
+#endif
                     for (unsigned k = 0; k < count; ++k)
                     {
+#if FLOW_DEAD_BUFFER
+                        ins->inputs[offset + k] = ins->inputs[ins->outputCount * j + k];
+#else
                         *dest++ = ins->inputs[ins->outputCount * j + k];
+#endif
                     }
                 }
                 ins->outputCount = count;
@@ -840,9 +1197,15 @@ long CProgram::RemoveDeadCode()
         if (arguments[index]->firstRead != 2)
         {
             unsigned pool = arg->pool;
+#if FLOW_DEAD_FLAGS
+            if (pool != poolIds[0] &&
+                (arg->relative != ~0u || !(pools[pool]->flags & 0x400)) &&
+                (!(pools[pool]->flags & 0x100) || !(pools[pool]->flags & 0x800)))
+#else
             unsigned flags = pools[pool]->flags;
             if (pool != poolIds[0] && (arg->relative != ~0u || !(flags & 0x400)) &&
                 (!(flags & 0x100) || !(flags & 0x800)))
+#endif
             {
                 arg->pool = poolIds[0];
                 changed = 1;

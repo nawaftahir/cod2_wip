@@ -410,3 +410,44 @@
   load order also differs. Preserve bounded attempts, do not infer impossibility.
 - Owner asked to pause after checkpoint.31% needs2395 more bytes;35% needs45982.
   No verification process remains running; no V4/V5 claim.
+
+## Varying/pruning source work resumed — 2026-10-02
+
+- Owner explicitly resumed35%; previous pause revoked. Confirmed total remains
+ 335406/1089680 until the fresh varying aggregate passes;673 candidate bytes.
+- PINNED: IsVarying target10086f0d/59 is reproduced by an early-invalid-return
+  recursive C++ form. The compiler emits the target loop with zero self-call
+  relocations. Other loop/result/goto forms differed in return-block layout.
+- PINNED: token-mask expressions plus indexed inputs reproduce MarkVarying614
+  at1008d61e. It requires the actual helper definition in the same TU: a lone
+  caller produced603 bytes. Both source bodies now pass strict clean V2 and
+  V3/577 retaining575;1284 full CPU shader outputs agree. No impossible-source
+  or LTCG excuse, padding, ABI hack or opaque helper credit was used.
+- PINNED: StripUniform10087159/408 matches with a for-counting loop (no redundant
+  zero-count guard), indexed buffer compaction and a low20-bit count-field
+  assignment in a four-byte token union. Explicit extra guards changed codegen;
+  XOR-expression source emitted extra moves rather than the target field store.
+  Its clean V2 passes; full integration is in progress, no aggregate credit.
+- The source bitfield is a target-backed representation of the observed low20
+  count update, not an assertion about historical private SDK header names.
+- Varying full aggregate now PASS:336079/1089680 =30.841990%, including673
+  disjoint bytes. StripUniform V3/578 retains577 and1284 CPU outputs pass;
+  its408 aggregate gain is pending. The failed initial pruning linked checker
+  selected an older run due to inherited replacement collision; a direct
+  pinned parent wrapper fixed selection and genuinely reran V2/V3, no gate waiver.
+- PINNED Origin:10086c88/33, protected nonconst unsigned CProgram::Origin(unsigned),
+  maps a noninvalid argument's relative3 to its origin unless that is invalid,
+  otherwise preserves the input. GetArgument27 at1006c367 returns null when
+  index>=argumentCount, otherwise arguments[index]; do not conflate the two.
+- PINNED: StripVarying10086f48/529 matches after repeated argument-index access
+  replaces the cached relative-chain pointer. Both input-buffer forms then
+  match. The five-method clean strip file totals643 bytes and passes strict
+  V2,V3/583 retaining578 and1284 integrated CPU outputs, aggregate pending.
+- PINNED: GetPool1006c34c/27 and GetInstruction1006c382/27 return null for
+  out-of-range indices, otherwise the indexed pool/instruction. The CPU linker
+  removed unused getters under /OPT:REF; /OPT:NOREF preserves all definitions
+  in both real fixtures for the unchanged owner gate. Output parity is not
+  direct execution coverage of every retained getter.
+- Origin /Ob1,/Ob2 and explicit forceinline experiments did not solve the
+  dead-code helpers. Bounded guard/buffer/flag variants1189..1198/1202 remain
+  unmatched and uncredited, not evidence of impossible source matching.

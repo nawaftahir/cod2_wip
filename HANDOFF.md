@@ -1,14 +1,28 @@
 # Shared renderer handoff — 2026-10-02
 
-Owner requested a **pause after this checkpoint**. The unfinished target remains
-**35% verified source coverage**; do not resume reconstruction until requested.
-Fresh full aggregate PASS confirms **335,406 / 1,089,680 =
-30.780229%**. This checkpoint adds3608 disjoint instruction bytes across16
-methods (program2663 + graph945).31% needs2395 further bytes;35% needs45982.
+Owner resumed work explicitly. The active target remains
+**35% verified source coverage**; the earlier pause is revoked.
+Fresh full aggregate PASS confirms **336,079 / 1,089,680 =
+30.841990%**. The latest varying pair adds673 disjoint instruction bytes.
+31% needs1722 further bytes;35% needs45309.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
 ## Current source and proofs
 
+- New `target/src/codex_shader_program_varying/varying.cpp`: IsVarying59 and
+  MarkVarying614 pass complete clean V2, private V3/577 retaining575 and1284
+  integrated CPU shader-output comparisons. Every input hash was checked.
+  Their673-byte full aggregate PASS is preserved at
+  `target/scratch/codex35_program_varying/aggregate.log` and included above.
+- New `target/src/codex_shader_program_pruning/pruning.cpp`: complete408-byte
+  StripUniform candidate passes clean V2 and builds in a separate private DLL.
+  V3/578 retains577 and1284 integrated CPU outputs pass. Full aggregate is
+  running for this cohort, so zero new aggregate credit until it finishes.
+- New `target/src/codex_shader_program_strip/strip.cpp`: StripVarying529,
+  GetPool27, GetArgument27, GetInstruction27 and Origin33 pass clean V2,
+  V3/583 retaining578 and1284 integrated CPU outputs. Its643 bytes are not yet
+  in the aggregate. Actual fixtures use /OPT:NOREF to retain unused getters
+  for the strict owner gate; this is not direct execution of every getter.
 - `target/src/codex_shader_program/program.cpp`:12 complete methods /2663
   bytes. Clean V2, private V3/571 matches retaining559,1284 integrated full-output
   CPU comparisons and full disjoint aggregate PASS. The earlier four V3
@@ -22,18 +36,22 @@ No table/opaque dependency credit or whole-DLL/GPU claim.
   differ in bytes. Only the four independently proven bodies entered clean src.
 - `target/scratch/codex35_program_lifetime/`:bounded real control-flow/lifetime
   alternatives for MarkVarying; accepted source/proof inputs untouched.
-  Pointer-index form improves606/614 to609/614 with matching prologue. Latest
-  explicit-token-local candidate also produces609/614, first difference+88;
-  it is unmatched and adds zero credit. Read its REPORT before more variants.
+  Its opcode/indexed-loop experiments and early-exit recursive helper form9
+  solved IsVarying/MarkVarying. Unguarded counted loop plus low20 token-count
+  bitfield solved StripUniform. Repeated argument access solved StripVarying529.
+  Dead-code variants1189..1198/1202 remain unmatched, zero credit. Read REPORT
+  before repeating earlier probes; recorded hashes identify each source revision.
 
-## Resume after the pause
+## Active checks / continuing work
 
 Full aggregate command (from gfx/):
 
     python3 -u tools/check_ten_percent.py
 
 The completed PASS log is `target/scratch/codex35_program_flow/aggregate.log`.
-No aggregate process remains running. The preceding program full PASS is
+The varying aggregate replay has also completed PASS. The pruning replay is
+running at `target/scratch/codex35_program_pruning/aggregate.log`; do not
+restart it merely for an observation timeout. The preceding program full PASS is
 preserved at `target/scratch/codex31_program/aggregate.log`.
 Proof hashes were checked current after the replay. Start fresh checks only
 after modifying their actual inputs; do not invent a new percentage.

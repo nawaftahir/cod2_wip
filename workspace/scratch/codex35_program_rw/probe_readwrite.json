@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?ReadWriteInfo_ReadInfo@CProgram@D3DXShader@@AAEXII@Z",
+      "object_bytes": 94,
+      "target_bytes": 94,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?ReadWriteInfo_WriteInfo@CProgram@D3DXShader@@AAEXII@Z",
+      "object_bytes": 98,
+      "target_bytes": 98,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?ReadWriteInfo_CommitOrigin@CProgram@D3DXShader@@AAEJXZ",
+      "object_bytes": 203,
+      "target_bytes": 203,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_program_rw/readwrite.cpp",
+  "source_sha256": "8d5845d1326939c9d8928f15bf5783f05d09fea410bd3e461ffdf747e231d142",
+  "object_sha256": "05305ed73cebe1c596c3c9b5f848f6d3011b551c9374df2071ebd2a2ce766557"
+}

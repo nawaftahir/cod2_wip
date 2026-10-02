@@ -1,0 +1,6 @@
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: 5 complete source program-flow bodies; 643 instruction bytes

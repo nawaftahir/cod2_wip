@@ -1,0 +1,88 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?IsVarying@CProgram@D3DXShader@@AAEHI@Z",
+      "object_bytes": 59,
+      "target_bytes": 59,
+      "first_difference": 23,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?RemoveDeadCode_Reference@CProgram@D3DXShader@@AAEXII@Z",
+      "object_bytes": 94,
+      "target_bytes": 94,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?MarkVarying@CProgram@D3DXShader@@AAEJXZ",
+      "object_bytes": 623,
+      "target_bytes": 614,
+      "first_difference": 88,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?ParentChildInfo_ParentInfo@CProgram@D3DXShader@@AAEXIIH@Z",
+      "object_bytes": 141,
+      "target_bytes": 141,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompareIndex@D3DXShader@@YGHIIPBX@Z",
+      "object_bytes": 26,
+      "target_bytes": 26,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?ParentChildInfo@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 568,
+      "target_bytes": 568,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?StripVarying@CProgram@D3DXShader@@AAEJXZ",
+      "object_bytes": 518,
+      "target_bytes": 529,
+      "first_difference": 83,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?StripUniform@CProgram@D3DXShader@@AAEJXZ",
+      "object_bytes": 408,
+      "target_bytes": 408,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?RemoveDeadCode@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 1208,
+      "target_bytes": 1202,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Initialize@CBaseProgram@D3DXShader@@QAEJPAV12@@Z",
+      "object_bytes": 210,
+      "target_bytes": 210,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_program_lifetime/flow.cpp",
+  "source_sha256": "c12a61b444ebb92b8193e7590cf3abc203dfb058fa59513c81d7cbd05d10bf3b",
+  "object_sha256": "ae39ac4dacddbbc1c54c7e0d4c64af32b29daa4d2aeeec81420db24e9a966847"
+}
