@@ -7,6 +7,9 @@ Fresh full aggregate PASS confirms **336,079 / 1,089,680 =
 31% needs1722 further bytes;35% needs45309.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
+Checkpoint commit: `143fea3` (verified clean source, proof tools and docs;
+unrelated user/Claude changes left untouched). Goal stays active, not paused.
+
 ## Current source and proofs
 
 - New `target/src/codex_shader_program_varying/varying.cpp`: IsVarying59 and
@@ -23,6 +26,10 @@ No table/opaque dependency credit or whole-DLL/GPU claim.
   V3/583 retaining578 and1284 integrated CPU outputs. Its643 bytes are not yet
   in the aggregate. Actual fixtures use /OPT:NOREF to retain unused getters
   for the strict owner gate; this is not direct execution of every getter.
+- New `target/scratch/codex35_program_rw/readwrite.cpp`: ReadInfo94,
+  WriteInfo98 and CommitOrigin203 freshly match their complete SDK sections.
+  Its395 bytes remain uncredited discovery; strict clean V2/V3/CPU integration
+  is the next source task. Read REPORT and source/object hashes before scaling.
 - `target/src/codex_shader_program/program.cpp`:12 complete methods /2663
   bytes. Clean V2, private V3/571 matches retaining559,1284 integrated full-output
   CPU comparisons and full disjoint aggregate PASS. The earlier four V3
@@ -55,6 +62,12 @@ restart it merely for an observation timeout. The preceding program full PASS is
 preserved at `target/scratch/codex31_program/aggregate.log`.
 Proof hashes were checked current after the replay. Start fresh checks only
 after modifying their actual inputs; do not invent a new percentage.
+
+The pruning process started before the checker gained the strip cohort, so
+its eventual PASS can credit408, not643. After it finishes, run the current
+checker for all cohorts (or batch the next read/write integration first).
+Only one aggregate replay at a time: earlier cohorts write their proof JSONs.
+All three varying/pruning/strip packets had current input hashes at checkpoint.
 
 Immediate next checkpoint is31%, not yet reached. The large behavior-checked
 drafts remain useful source work, not accepted bytes. Preserve the source-level

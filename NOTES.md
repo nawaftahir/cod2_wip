@@ -451,3 +451,8 @@
 - Origin /Ob1,/Ob2 and explicit forceinline experiments did not solve the
   dead-code helpers. Bounded guard/buffer/flag variants1189..1198/1202 remain
   unmatched and uncredited, not evidence of impossible source matching.
+- PINNED: ReadWriteInfo_ReadInfo1008a7ee/94, WriteInfo1008a84c/98 and
+  CommitOrigin1008a8ae/203 reproduce complete SDK sections in a fresh genuine
+  C++ draft. Write tracking uses pool lastWrites[index*4+component]; reads
+  follow relative arguments and update origin/pool bounds. These395 bytes
+  remain uncredited until full clean typed, binding, regression and CPU gates.
