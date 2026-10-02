@@ -1,0 +1,40 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?CombinePools@CProgram@D3DXShader@@AAEJIKK@Z",
+      "object_bytes": 293,
+      "target_bytes": 293,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?MutuallyExclusive@CProgram@D3DXShader@@AAEHIHIH@Z",
+      "object_bytes": 181,
+      "target_bytes": 181,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?SwizzleParameter@CProgram@D3DXShader@@AAEJPAI0IH@Z",
+      "object_bytes": 225,
+      "target_bytes": 225,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Vectorize@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 267,
+      "target_bytes": 267,
+      "first_difference": 33,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_program_coalesce/coalesce.cpp",
+  "source_sha256": "81fe854df80071f05cc952cccf8024a320db4cf7f3d54e869d0b011f82c7832a",
+  "object_sha256": "26d6006e07b4c6f9422c354c9756a80a5f7f166cd339cd164cd2a958e06c8f9a"
+}

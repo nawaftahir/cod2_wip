@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?MergePredicates@CProgram@D3DXShader@@AAEJPAIPAHIH@Z",
+      "object_bytes": 261,
+      "target_bytes": 258,
+      "first_difference": 28,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?MergePredicates@CProgram@D3DXShader@@AAEJPAVCArgument@2@0@Z",
+      "object_bytes": 129,
+      "target_bytes": 129,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?MergeArguments@CProgram@D3DXShader@@AAEJII@Z",
+      "object_bytes": 97,
+      "target_bytes": 97,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_predicate_merge/chain_trial.cpp",
+  "source_sha256": "c81fd875496d8d48dc1861a0475719447f31a369e0b4e99262bb4809b8e62ea9",
+  "object_sha256": "5acb05a4f5564c3d70b85422dbbabfccdd59f83535fa4fc7984d93e7ce5ab080"
+}

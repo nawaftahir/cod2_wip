@@ -497,3 +497,23 @@
   group-cursor source tests. Instruction3c is still an opaque DWORD. MSVC's
   legacy for-loop scope collided with an outer i; rename the cursor or scope
   it explicitly, and genuinely rebuild. No draft coverage or CPU parity claim.
+
+## Codex predicate/pool checkpoint — 2026-10-03
+
+- PINNED: member90 sections181/182: pointer MergePredicates1008d884/129 and
+  MergeArguments1008d905/97, complete source/SDK/retail matches. Gradient/loop
+  special case clears relative2 and sets signed link1; MergeArguments remaps
+  second argument, combines flag-class bits25..27 and copies opaque60/64 when
+  destination60 is zero. Clean V2,V3/592 retain590 and1284 full CPU outputs pass.
+- PINNED: member90 sections108/109/115: CombinePools10089f75/293,
+  MutuallyExclusive1008a09a/181 and SwizzleParameter1008a70d/225 match complete
+  clean source bodies. Pool8/10/18 stay opaque DWORD fields; signed predicate
+  senses use argument18 and chains14. Counted parameter-copy loop reproduces
+  the225-byte body; memcpy emits224 and differs. V3/CPU still pending.
+- A chained CPU-runner substitution212->232 then232->252 incorrectly rewrites
+  both assertions. Replace232->252 first, then212->232. Fix requires fresh
+  pinned V2/V3 and actual CPU replay; no successful CPU result was claimed.
+- DelayOutputs current621/648, pointer-cursor alternative643/648; shared chain
+  helper256/258, output-pointer trial261/258; Vectorize267/267 register swap.
+  These remain unaccepted scratch. IsSameRegister117 has discovery equality
+  only; no new strict coverage. Goal35% stays active at confirmed30.938441%.

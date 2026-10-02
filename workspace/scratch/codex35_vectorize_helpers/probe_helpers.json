@@ -1,0 +1,40 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?SimplifyPredicates_IsEqual@CProgram@D3DXShader@@AAEHII@Z",
+      "object_bytes": 257,
+      "target_bytes": 273,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft_IsSameRegister@CProgram@D3DXShader@@AAEHII@Z",
+      "object_bytes": 117,
+      "target_bytes": 117,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft_IsConflicting@CProgram@D3DXShader@@AAEHPAVCInstruction@2@II@Z",
+      "object_bytes": 155,
+      "target_bytes": 165,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft_UpdateLinks@CProgram@D3DXShader@@AAEJPAVCInstruction@2@@Z",
+      "object_bytes": 229,
+      "target_bytes": 229,
+      "first_difference": 12,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_vectorize_helpers/helpers.cpp",
+  "source_sha256": "253758c19ae6d66814e0695afe5fa39319da33077239b87eaf535a5ffd3d6af6",
+  "object_sha256": "df1e0f7f0a603bd409f2fa16d6c159eb9eb1d10f6d2f97f71875642f2b00f462"
+}

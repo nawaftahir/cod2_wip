@@ -3,14 +3,14 @@
   "rows": [
     {
       "symbol": "?DelayOutputs@CProgram@D3DXShader@@IAEJXZ",
-      "object_bytes": 626,
+      "object_bytes": 621,
       "target_bytes": 648,
-      "first_difference": 7,
+      "first_difference": 31,
       "full_masked_equal": false,
       "source_credit": 0
     }
   ],
   "source": "gfx/target/scratch/codex35_delay_outputs/outputs.cpp",
-  "source_sha256": "443e15a381e9ef263813472cac8c0744af0a28400214502555817e370ad9ee24",
-  "object_sha256": "4593742005f71b653e01c8f2972dca53d7fd62c311263c9c86c4bd1d3a3d2a2c"
+  "source_sha256": "f5843a98b7a35005debaac44d12c350779287a6d6fc6cb682161aa41e629ec38",
+  "object_sha256": "dc714c8856213efdcd1ac11fb81ec00b0dc5d0fb364c79ca89c7589bd9817d2e"
 }

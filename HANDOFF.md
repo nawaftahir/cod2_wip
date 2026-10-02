@@ -7,7 +7,7 @@ Fresh full aggregate PASS confirms **337,130 / 1,089,680 =
 31% needs671 further bytes;35% needs44258.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
-Previous checkpoint commit: `5bd4522` (verified clean source, proof tools and docs;
+Previous checkpoint commit: `9fcd797` (verified clean source, proof tools and docs;
 unrelated user/Claude changes left untouched). Goal stays active, not paused.
 
 ## Current source and proofs
@@ -38,8 +38,20 @@ unrelated user/Claude changes left untouched). Goal stays active, not paused.
   three complete methods/1106 bytes pass clean V2,V3/590 retaining587 and1284
   full CPU outputs. Private helpers stay static together in a genuine C++ TU,
   with exact source/SDK literals and no retained original SDK callers.
+- New `target/src/codex_shader_predicate_merge/merge.cpp`: two complete methods,
+  pointer predicate merge129 and argument merge97, pass clean V2,V3/592
+  retaining590 and1284 full CPU outputs. Its226 bytes await aggregate inclusion.
+  Four-argument chain helper remains scratch-only and uncredited.
+- New `target/src/codex_shader_program_coalesce/coalesce.cpp`: three complete
+  source methods/699 bytes pass strict clean V2. Private V3 is still running;
+  CPU runner failed a cohort-count assertion, not a shader-output comparison.
+  Read its REPORT before fixing: reorder count substitutions232->252 before
+  212->232, then refresh affected proof gates. No CPU or aggregate claim.
+- `target/scratch/codex35_vectorize_helpers/`: four genuine helper drafts;
+  IsSameRegister117 exactly matches complete SDK section in discovery only.
+  Other bodies differ. No strict acceptance or new source credit.
 - `target/scratch/codex35_delay_outputs/outputs.cpp`: complete target-backed
-  DelayOutputs draft currently626/648, unmatched and uncredited. Instruction3c
+  DelayOutputs draft currently621/648, unmatched and uncredited. Instruction3c
   remains an observed opaque DWORD. Read REPORT before repeating probes.
 - `target/scratch/codex35_program_outputs/outputs.cpp`: real696-byte
   CompactOutputs target is reconstructed but remains unmatched. Bounded
@@ -86,11 +98,17 @@ preserved at `target/scratch/codex31_program/aggregate.log`.
 Proof hashes were checked current after the replay. Start fresh checks only
 after modifying their actual inputs; do not invent a new percentage.
 
-After the current replay finishes, preserve its actual terminal result before
-crediting any of the2066 bytes. Continue genuinely new reconstruction meanwhile.
+Checkpoint requested2026-10-03. After the current replay finishes, preserve its
+actual terminal result before crediting any of the2066 bytes. Its current run
+does not include predicate226, despite the checker now supporting that family.
+After finishing the coalesce CPU fix and full gates, add its699-byte family
+to the same strict aggregate and replay once for both new families.
+Current process/session identities: aggregate118170/session65215; coalesce
+V3 session55977. Check process/session state before restarting either.
 Only one aggregate replay at a time: earlier cohorts write their proof JSONs.
-Varying/pruning/strip/sort/argument-duplicate/instruction-duplicate packets had
-current input hashes at checkpoint. Every new local gate was genuinely run.
+Predicate V2/V3/1284 CPU packets had current input hashes at checkpoint.
+Its final V3 passes592 retaining590; the chain draft now256/258 stays excluded.
+Every reported gate was genuinely run; coalesce CPU remains failed/pending.
 
 Immediate next checkpoint is31%, not yet reached. The large behavior-checked
 drafts remain useful source work, not accepted bytes. Preserve the source-level

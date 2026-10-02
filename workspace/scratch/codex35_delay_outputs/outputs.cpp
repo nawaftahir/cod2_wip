@@ -187,31 +187,30 @@ long CProgram::DelayOutputs()
     {
         RemapArguments();
         indices = static_cast<unsigned *>(::operator new(count * sizeof(unsigned)));
+        unsigned sortedCount = 0;
         if (!indices)
         {
             goto allocationFailure;
         }
-        count = 0;
         for (unsigned i = 0; i < argumentCount; ++i)
         {
             if (pools[arguments[i]->pool]->flags & 0x20)
             {
-                indices[count++] = i;
+                indices[sortedCount++] = i;
             }
         }
-        HeapSort(CompareRegister, indices, count, this);
+        HeapSort(CompareRegister, indices, sortedCount, this);
+        count = sortedCount;
     }
     start = 0;
-    if (start < count)
+    if (start >= count)
     {
-        goto delay;
-    }
 success:
-    result = 0;
+        result = 0;
 cleanup:
-    ::operator delete(indices);
-    return result;
-delay:
+        ::operator delete(indices);
+        return result;
+    }
     {
         do
         {
@@ -241,46 +240,66 @@ delay:
                 goto allocationFailure;
             }
             CInstruction *copy = instructions[index];
-            for (unsigned j = 0; j < group; ++j)
+            unsigned processed = 0;
+            if (group > 0)
             {
-                CArgument *out = arguments[position[j]];
+                unsigned *cursor = position;
+                do
+                {
+                CArgument *out = arguments[*cursor];
                 unsigned input = out->remap;
                 unsigned writer = out->instruction;
-                while (writer != ~0u)
+                if (writer != ~0u)
                 {
-                    CInstruction *ins = instructions[writer];
-                    if (ins->opaque3c)
+                    do
                     {
-                        result = copy->Instance(ins);
-                        if (result < 0)
+                        CInstruction *ins = instructions[writer];
+                        if (ins->opaque3c)
                         {
-                            goto cleanup;
+                            result = copy->Instance(ins);
+                            if (result < 0)
+                            {
+                                goto cleanup;
+                            }
                         }
-                    }
-                    if ((ins->token & 0xfff00000) != 0x10000000)
-                    {
-                        break;
-                    }
-                    unsigned k = 0;
-                    for (; k < ins->outputCount; ++k)
-                    {
-                        if (input == ins->outputs[k])
+                        if ((ins->token & 0xfff00000) != 0x10000000)
                         {
                             break;
                         }
+                        unsigned k = 0;
+                        for (; k < ins->outputCount; ++k)
+                        {
+                            if (input == ins->outputs[k])
+                            {
+                                break;
+                            }
+                        }
+                        input = ins->inputs[k];
+                        writer = arguments[input]->instruction;
                     }
-                    input = ins->inputs[k];
-                    writer = arguments[input]->instruction;
+                    while (writer != ~0u);
                 }
                 if (copy->opaque3c)
                 {
                     break;
                 }
+                ++processed;
+                ++cursor;
+                }
+                while (processed < group);
             }
-            for (unsigned j = 0; j < group; ++j)
+            unsigned copied = 0;
+            if (group > 0)
             {
-                copy->inputs[j] = arguments[position[j]]->remap;
-                copy->outputs[j] = position[j];
+                unsigned *cursor = position;
+                do
+                {
+                    copy->inputs[copied] = arguments[*cursor]->remap;
+                    copy->outputs[copied] = *cursor;
+                    ++copied;
+                    ++cursor;
+                }
+                while (copied < group);
             }
             start += group;
         }

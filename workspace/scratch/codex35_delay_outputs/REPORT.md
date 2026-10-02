@@ -10,7 +10,9 @@ historical semantic field or allocation-size declaration.
 Initial actual source emitted619/648. A source-level shared-cleanup/group
 cursor form emitted626/648. MSVC's legacy for-loop scope warned about an outer
 i colliding with earlier for declarations; the group cursor was renamed start
-and genuinely recompiled, still626/648. Current source/object identities are
+and genuinely recompiled, still626/648. Explicit writer/pair pointer cursors
+emitted643/648 but differed at31. A guarded group-count/copy-loop form currently
+emits621/648 and differs at31. None is a match. Current source/object identities are
 recorded by probe_outputs.json. These are complete-section diagnostics, not
 V2 acceptance. No linked regression, CPU parity or additional source credit.
 Continue bounded target-backed source forms; never count near matches.

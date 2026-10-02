@@ -1,0 +1,2497 @@
+{
+  "source_credit": 0,
+  "sdk_sha256": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+  "source_objects": {
+    "?CompareValue@D3DXShader@@YGHIIPBX@Z": "2d233b27ca14ce5dbae3bdb71ac5f5f248bbea561a8e720fa0fe7e4d5bd49685",
+    "?CompareRegister@D3DXShader@@YGHIIPBX@Z": "2d233b27ca14ce5dbae3bdb71ac5f5f248bbea561a8e720fa0fe7e4d5bd49685",
+    "?RemoveDuplicateArguments@CProgram@D3DXShader@@IAEJXZ": "2d233b27ca14ce5dbae3bdb71ac5f5f248bbea561a8e720fa0fe7e4d5bd49685",
+    "?d3dxasm_parse@D3DXShader@@YGHXZ": "ed42431e243976599be5c67b79a7388fe2231eea0c17e30c5afb958ca14f5e24",
+    "?Set@?$SetShaderConstant@$0A@$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$0A@$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$0A@$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$0A@$00$01@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$0A@$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$0A@$01$02@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$00$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$00$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$00$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$00$00$01@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$00$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Set@?$SetShaderConstant@$00$01$02@D3DXShader@@SGJPBXI0PAKI@Z": "6e5fcb25dc20f751a010206439f05416d59d5ace8279c72ebe7cfec08fc5b8f2",
+    "?Initialize@CTokenize@D3DXShader@@QAEJPBXIPBDIPAVCAlloc@D3DXCore@@PAVCTErrors@2@@Z": "0ece0ddfdacbebf81de3f4c710f6336b8e48360a8548f8d38d1679914ce1fd44",
+    "?LexFloat@CTokenize@D3DXShader@@IAEIPBDPAN@Z": "0ece0ddfdacbebf81de3f4c710f6336b8e48360a8548f8d38d1679914ce1fd44",
+    "?LexIdentifier@CTokenize@D3DXShader@@IAEIPBDPAPBD@Z": "0ece0ddfdacbebf81de3f4c710f6336b8e48360a8548f8d38d1679914ce1fd44",
+    "?LexFloatSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z": "0ece0ddfdacbebf81de3f4c710f6336b8e48360a8548f8d38d1679914ce1fd44",
+    "?LexIntegerSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z": "0ece0ddfdacbebf81de3f4c710f6336b8e48360a8548f8d38d1679914ce1fd44",
+    "?LexOctal@CTokenize@D3DXShader@@IAEIPBDPAI@Z": "0ece0ddfdacbebf81de3f4c710f6336b8e48360a8548f8d38d1679914ce1fd44",
+    "?LexChar@CTokenize@D3DXShader@@IAEIPBDPAI@Z": "0ece0ddfdacbebf81de3f4c710f6336b8e48360a8548f8d38d1679914ce1fd44",
+    "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXIII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXIII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXIII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXIII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXIII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXII@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXI@Z": "8cf374615a54a599e15637185eb07108ecbc841a0a6649515a6e80db7fd9135d",
+    "?Error@CCompiler@D3DXShader@@IAAJPAVCNode@2@IPBDZZ": "a47309a1f9a8babf99a04dfc2a9a2a2b7909829812ca423d9e94a2a35d58daa4",
+    "?GetTypeFlags@CCompiler@D3DXShader@@IAEIPAVCNode@2@PAK@Z": "a47309a1f9a8babf99a04dfc2a9a2a2b7909829812ca423d9e94a2a35d58daa4",
+    "?d3dxtok_parse@D3DXShader@@YGHXZ": "76d308bc7860cc3084d88d58b8d144470c7175cf4ec3242e1dc994cf6944019c",
+    "?MergePredicates@CProgram@D3DXShader@@AAEJPAVCArgument@2@0@Z": "832aff82db68e9d14af451ca54ea69e2158cc918475c76a4d881e3470e07ed59",
+    "?MergeArguments@CProgram@D3DXShader@@AAEJII@Z": "832aff82db68e9d14af451ca54ea69e2158cc918475c76a4d881e3470e07ed59",
+    "??0CNode@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeList@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeList@D3DXShader@@QAE@PAVCNode@1@0PBD@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeTree@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeTree@D3DXShader@@QAE@PBDPAVCNode@1@11@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeToken@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeToken@D3DXShader@@QAE@PBUD3DXTOKEN@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeProgram@D3DXShader@@QAE@IIIPAVCNode@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeProgram@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeScope@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeScope@D3DXShader@@QAE@W4_D3DXSCOPE_TYPE@1@PBDPAVCNode@1@PAVCNodeTree@1@PAV01@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeDecl@D3DXShader@@QAE@W4_D3DXDECL_TYPE@1@PAVCNode@1@11@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeDecl@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeUsage@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeUsage@D3DXShader@@QAE@KPAVCNode@1@0@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeType@D3DXShader@@QAE@W4_D3DXTYPE_TEMPLATE@1@W4_D3DXCOMPONENT_TYPE@1@IIK@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeArray@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeArray@D3DXShader@@QAE@PAVCNode@1@I@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeType@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeFunction@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeFunction@D3DXShader@@QAE@IIKPAVCNode@1@000000@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeVariable@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeVariable@D3DXShader@@QAE@IIW4_D3DXSCOPE_TYPE@1@KPAVCNode@1@1111@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeStatement@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeStatement@D3DXShader@@QAE@W4_D3DXSTMT_TYPE@1@PAVCNode@1@111@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeExpression@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeExpression@D3DXShader@@QAE@PAVCNode@1@W4_D3DXEXPR_OP@1@00HPBUD3DXTOKEN@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeState@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeState@D3DXShader@@QAE@PAVCNode@1@00@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeRegister@D3DXShader@@QAE@PAVCNode@1@0@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeRegister@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNode@D3DXShader@@SGPAV12@PAV12@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNode@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Append@CNode@D3DXShader@@SGPAV12@PAV12@0@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeUsage@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeType@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeDecl@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeType@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeProgram@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeScope@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeFunction@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeStatement@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeState@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeRegister@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeToken@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeTree@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeProgram@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeScope@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeDecl@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeUsage@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeArray@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeFunction@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeStatement@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeExpression@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeState@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeRegister@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeVariable@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeValue@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeValue@D3DXShader@@QAE@PBU_D3DXVALUE@1@PBUD3DXTOKEN@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@IPBUD3DXTOKEN@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@PAVCNode@1@PBUD3DXTOKEN@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@NPBUD3DXTOKEN@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@IIPBUD3DXTOKEN@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@PAEIPBUD3DXTOKEN@1@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeBuffer@D3DXShader@@QAE@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CNodeBuffer@D3DXShader@@QAE@PBUD3DXTOKEN@1@PAEI@Z": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "?Copy@CNodeBuffer@D3DXShader@@UAEPAV12@XZ": "9ce35426fda23bc303ac2500c2704f69b79ce05f107ddc1c0edfb181bcb8d700",
+    "??0CCompiler@D3DXShader@@QAE@XZ": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "?Scratch@CCompiler@D3DXShader@@IAEPAII@Z": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "?StackFree@CCompiler@D3DXShader@@IAEXPAI@Z": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "?IsFullySemantic@CCompiler@D3DXShader@@IAEHPAII@Z": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "?CompareSemantic@CCompiler@D3DXShader@@KGHIIPBX@Z": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "?EvalValue@CCompiler@D3DXShader@@IAEJIPAN@Z": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "?EvalRange_Mul@CCompiler@D3DXShader@@IAEXPAU_D3DXRANGE@2@00K@Z": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "?EmitClip@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z": "0abbad84e8eda48fad25e721e219534ca7bdb6e2e361c63a2251bed86da2a826",
+    "??0CTErrors@D3DXShader@@QAE@XZ": "1e12fb59ddb8fa587f7b50b7f25de110b5a9c52c61a6896a5c79b21f494a8344",
+    "??1CTErrors@D3DXShader@@QAE@XZ": "1e12fb59ddb8fa587f7b50b7f25de110b5a9c52c61a6896a5c79b21f494a8344",
+    "?SetWarningLevel@CTErrors@D3DXShader@@QAEJI@Z": "1e12fb59ddb8fa587f7b50b7f25de110b5a9c52c61a6896a5c79b21f494a8344",
+    "?Clear@CTErrors@D3DXShader@@QAEJXZ": "1e12fb59ddb8fa587f7b50b7f25de110b5a9c52c61a6896a5c79b21f494a8344",
+    "?PreformattedError@CTErrors@D3DXShader@@QAEJPBD@Z": "1e12fb59ddb8fa587f7b50b7f25de110b5a9c52c61a6896a5c79b21f494a8344",
+    "?GetErrorBuffer@CTErrors@D3DXShader@@QAEJPAPAUID3DXBuffer@@@Z": "1e12fb59ddb8fa587f7b50b7f25de110b5a9c52c61a6896a5c79b21f494a8344",
+    "?Push@CTErrors@D3DXShader@@IAEJIPAI@Z": "1e12fb59ddb8fa587f7b50b7f25de110b5a9c52c61a6896a5c79b21f494a8344",
+    "?SetWarningSpecifier@CTErrors@D3DXShader@@QAEJII@Z": "1e12fb59ddb8fa587f7b50b7f25de110b5a9c52c61a6896a5c79b21f494a8344",
+    "?StripUniform@CProgram@D3DXShader@@AAEJXZ": "c6eac4cc6fd742bf0c8cfb6c86ccc4b144fc5d75ae2b2e273da5455ba334a8cc",
+    "?d3dxshader_parse@D3DXShader@@YGHXZ": "c6c954973c592cf0ec88585d2ed0bd0aced96556d0b55350006304f25f7d3852",
+    "_D3DXGetPixelShaderProfile@4": "f2690b597cf51e5a66a9665ef4f4f1434c4b575445dcce919c9fa482fa2986a7",
+    "_D3DXGetVertexShaderProfile@4": "f2690b597cf51e5a66a9665ef4f4f1434c4b575445dcce919c9fa482fa2986a7",
+    "?GetPool@CBaseProgram@D3DXShader@@QAEPAVCPool@2@I@Z": "7fecda6d331032f1874221656a9b38ac296e691cc8dc6491fda59d9d1a576256",
+    "?GetArgument@CBaseProgram@D3DXShader@@QAEPAVCArgument@2@I@Z": "7fecda6d331032f1874221656a9b38ac296e691cc8dc6491fda59d9d1a576256",
+    "?GetInstruction@CBaseProgram@D3DXShader@@QAEPAVCInstruction@2@I@Z": "7fecda6d331032f1874221656a9b38ac296e691cc8dc6491fda59d9d1a576256",
+    "?Origin@CProgram@D3DXShader@@IAEII@Z": "7fecda6d331032f1874221656a9b38ac296e691cc8dc6491fda59d9d1a576256",
+    "?StripVarying@CProgram@D3DXShader@@AAEJXZ": "7fecda6d331032f1874221656a9b38ac296e691cc8dc6491fda59d9d1a576256",
+    "??0CPPConditional@D3DXShader@@QAE@HH@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "??1CPPConditional@D3DXShader@@QAE@XZ": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "??_GCPPConditional@D3DXShader@@QAEPAXI@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "??0CPPBlock@D3DXShader@@QAE@K@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "??1CPPBlock@D3DXShader@@QAE@XZ": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "??_GCPPBlock@D3DXShader@@QAEPAXI@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "??0CPPDefine@D3DXShader@@QAE@PBDPAVCNode@1@1@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?Begin@CPreProcessor@D3DXShader@@QAEJK@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?GetFileLine@CPreProcessor@D3DXShader@@QAEJPAPBDPAI@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?GetBufferPointer@CPreProcessor@D3DXShader@@QAEJPAPBDPAI@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?Hash@CPreProcessor@D3DXShader@@IAEIPBD@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?Escape@CPreProcessor@D3DXShader@@IAEIPBDIPAD@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?NonNull@CPreProcessor@D3DXShader@@IAEPAVCNode@2@PAV32@@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?DoLine@CPreProcessor@D3DXShader@@IAEJIPBD@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?DoIf@CPreProcessor@D3DXShader@@IAEJH@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?DoElif@CPreProcessor@D3DXShader@@IAEJH@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?DoElse@CPreProcessor@D3DXShader@@IAEJXZ": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?DoEndif@CPreProcessor@D3DXShader@@IAEJXZ": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?FindDefine@CPreProcessor@D3DXShader@@IAEHPBDPAPAVCNode@2@1@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "??_GCPPDefine@D3DXShader@@QAEPAXI@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?AddDefine@CPreProcessor@D3DXShader@@IAEJPAVCPPDefine@2@@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?UintDefine@CPreProcessor@D3DXShader@@IAEIPBD@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?DoPragmaPackMatrix@CPreProcessor@D3DXShader@@IAEJXZ": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?DoUndef@CPreProcessor@D3DXShader@@IAEJPBD@Z": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?DoPragma@CPreProcessor@D3DXShader@@IAEJXZ": "d05f6d5ced882dd6455c71d6c83f38194898db5d6da04b251d81cd03028b7008",
+    "?IsFlowControl@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsLoop@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsGradient@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsMacro@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsCopy@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsElse@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsSpecial@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsSymetric@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsScalar@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsCLIP@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsUnary@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsBinary@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsTexture@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsMOV@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsNEG@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsDOT@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsREPEAT@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsTernary@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsEndIf@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsPerComponent@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsCombine@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsPartial@CInstruction@D3DXShader@@QAEHXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?GetParameters@CInstruction@D3DXShader@@QAEIXZ": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?GetInputs@CInstruction@D3DXShader@@QAEIIPAPAI@Z": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?GetOutputs@CInstruction@D3DXShader@@QAEIIPAPAI@Z": "72d0d9082f823bb646129d12de3c51e0dcf8465dccbeb201a8fac3baaad8cbe6",
+    "?IsVarying@CProgram@D3DXShader@@AAEHI@Z": "f2fc0deb33979f07ce06370d08d4779b765326645620952979e2a1cd154fd400",
+    "?MarkVarying@CProgram@D3DXShader@@AAEJXZ": "f2fc0deb33979f07ce06370d08d4779b765326645620952979e2a1cd154fd400",
+    "??0CAlloc@D3DXCore@@QAE@II@Z": "2c49a08b247c9fd69b8618d5b20c76967ead79dcd3b36125ec3b5396e8d3a3b5",
+    "??1CAlloc@D3DXCore@@QAE@XZ": "2c49a08b247c9fd69b8618d5b20c76967ead79dcd3b36125ec3b5396e8d3a3b5",
+    "?Alloc@CAlloc@D3DXCore@@QAEPAEII@Z": "2c49a08b247c9fd69b8618d5b20c76967ead79dcd3b36125ec3b5396e8d3a3b5",
+    "?HeapSort@D3DXShader@@YGXP6GHIIPBX@ZPAII0@Z": "23f7e104e051d1ba19c7a4a25ffdc0a7607dbca4c4c12610aa7279c88fadb842",
+    "??0CNodeAsmInstruction@D3DXShader@@QAE@XZ": "a7ae82783f844df4ad9c72df256322b2ebfaf07144acc903e342cf22b5539a30",
+    "??0CNodeAsmInstruction@D3DXShader@@QAE@PBUD3DXTOKEN@1@KKK@Z": "a7ae82783f844df4ad9c72df256322b2ebfaf07144acc903e342cf22b5539a30",
+    "??0CNodeAsmRegister@D3DXShader@@QAE@XZ": "a7ae82783f844df4ad9c72df256322b2ebfaf07144acc903e342cf22b5539a30",
+    "??0CNodeAsmRegister@D3DXShader@@QAE@KKKHPAVCNode@1@@Z": "a7ae82783f844df4ad9c72df256322b2ebfaf07144acc903e342cf22b5539a30",
+    "?Copy@CNodeAsmRegister@D3DXShader@@UAEPAV12@XZ": "a7ae82783f844df4ad9c72df256322b2ebfaf07144acc903e342cf22b5539a30",
+    "?Copy@CNodeAsmInstruction@D3DXShader@@UAEPAV12@XZ": "a7ae82783f844df4ad9c72df256322b2ebfaf07144acc903e342cf22b5539a30",
+    "?IsCast@CParse@D3DXShader@@IAEHW4_D3DXCOMPONENT_TYPE@2@0@Z": "027c7c3e951824934c2557afbdb2d5a5a0acd08e75c2ff76a34d302934ab5816",
+    "_D3DXGetShaderVersion@4": "b187c8257a2bd5ad9e385068adb07d34c61891e96f6023de634dea63629e4704",
+    "?Initialize@CProgram@D3DXShader@@QAEJPAVCNode@2@PAVCTErrors@2@KK@Z": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?Initialize@CProgram@D3DXShader@@QAEJPAV12@KK@Z": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "??_GCInstruction@D3DXShader@@QAEPAXI@Z": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?RemapArguments@CProgram@D3DXShader@@IAEJXZ": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "??_GCArgument@D3DXShader@@QAEPAXI@Z": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?ReadWriteInfo_ReadInfo@CProgram@D3DXShader@@AAEXII@Z": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?ReadWriteInfo_WriteInfo@CProgram@D3DXShader@@AAEXII@Z": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?IdentityRemap@CProgram@D3DXShader@@IAEJXZ": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?ReadWriteInfo_CommitOrigin@CProgram@D3DXShader@@AAEJXZ": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?CompactInstructions@CProgram@D3DXShader@@IAEJXZ": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?ReadWriteInfo@CProgram@D3DXShader@@IAEJXZ": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?CompactArguments@CProgram@D3DXShader@@IAEJXZ": "eb6a1a024811cdc0026e21e93dd557b28539b2e812ffe292d88fb970afa8bf30",
+    "?CompareDuplicateInstructions@D3DXShader@@YGHIIPBX@Z": "9497d6b0113a59322fe37bb4901e59be74df9a186c8ee42a0adc05ed17beb644",
+    "?CompareDuplicateInstructionsStable@D3DXShader@@YGHIIPBX@Z": "9497d6b0113a59322fe37bb4901e59be74df9a186c8ee42a0adc05ed17beb644",
+    "?RemoveDuplicateInstructions@CProgram@D3DXShader@@IAEJH@Z": "9497d6b0113a59322fe37bb4901e59be74df9a186c8ee42a0adc05ed17beb644",
+    "?Initialize@CInstruction@D3DXShader@@QAEJPAV12@@Z": "1692b9a7da9e955f9225a9a7690343c8b9afab6fc8182dacbf3963d3b8fc6180",
+    "?CompareIndex@D3DXShader@@YGHIIPBX@Z": "230d4b0c97f4f131a785ea44236462567a58dbc7c144965c12eeb6408e9a4b28",
+    "?ParentChildInfo_ParentInfo@CProgram@D3DXShader@@AAEXIIH@Z": "230d4b0c97f4f131a785ea44236462567a58dbc7c144965c12eeb6408e9a4b28",
+    "?ParentChildInfo@CProgram@D3DXShader@@IAEJXZ": "230d4b0c97f4f131a785ea44236462567a58dbc7c144965c12eeb6408e9a4b28",
+    "?Initialize@CBaseProgram@D3DXShader@@QAEJPAV12@@Z": "230d4b0c97f4f131a785ea44236462567a58dbc7c144965c12eeb6408e9a4b28",
+    "??0CAssembler@D3DXShader@@QAE@XZ": "78d2206deb4c1349f2b46cef60d825cd78094aef37eaf5343bcc61f4f0ba3720",
+    "?NonNull@CAssembler@D3DXShader@@IAEPAVCNode@2@PAV32@@Z": "78d2206deb4c1349f2b46cef60d825cd78094aef37eaf5343bcc61f4f0ba3720",
+    "?DecodeMask@CAssembler@D3DXShader@@IAEKPAUD3DXTOKEN@2@@Z": "78d2206deb4c1349f2b46cef60d825cd78094aef37eaf5343bcc61f4f0ba3720",
+    "?DecodeSwizzle@CAssembler@D3DXShader@@IAEKPAUD3DXTOKEN@2@@Z": "78d2206deb4c1349f2b46cef60d825cd78094aef37eaf5343bcc61f4f0ba3720",
+    "?Assure@CAssembler@D3DXShader@@IAEJI@Z": "78d2206deb4c1349f2b46cef60d825cd78094aef37eaf5343bcc61f4f0ba3720",
+    "?Emit@CAssembler@D3DXShader@@IAEJK@Z": "78d2206deb4c1349f2b46cef60d825cd78094aef37eaf5343bcc61f4f0ba3720",
+    "?Token@CAssembler@D3DXShader@@IAEHXZ": "78d2206deb4c1349f2b46cef60d825cd78094aef37eaf5343bcc61f4f0ba3720",
+    "?GetShaderCode@CAssembler@D3DXShader@@IAEJPAPAUID3DXBuffer@@@Z": "78d2206deb4c1349f2b46cef60d825cd78094aef37eaf5343bcc61f4f0ba3720"
+  },
+  "removed_definitions": [
+    {
+      "member": 10,
+      "section": 3,
+      "symbol": "??0CAlloc@D3DXCore@@QAE@II@Z"
+    },
+    {
+      "member": 10,
+      "section": 4,
+      "symbol": "??1CAlloc@D3DXCore@@QAE@XZ"
+    },
+    {
+      "member": 10,
+      "section": 6,
+      "symbol": "?Alloc@CAlloc@D3DXCore@@QAEPAEII@Z"
+    },
+    {
+      "member": 57,
+      "section": 58,
+      "symbol": "_D3DXGetPixelShaderProfile@4"
+    },
+    {
+      "member": 57,
+      "section": 59,
+      "symbol": "_D3DXGetVertexShaderProfile@4"
+    },
+    {
+      "member": 57,
+      "section": 62,
+      "symbol": "_D3DXGetShaderVersion@4"
+    },
+    {
+      "member": 60,
+      "section": 3,
+      "symbol": "??0CNodeAsmInstruction@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 60,
+      "section": 6,
+      "symbol": "??0CNodeAsmInstruction@D3DXShader@@QAE@PBUD3DXTOKEN@1@KKK@Z"
+    },
+    {
+      "member": 60,
+      "section": 9,
+      "symbol": "??0CNodeAsmRegister@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 60,
+      "section": 12,
+      "symbol": "??0CNodeAsmRegister@D3DXShader@@QAE@KKKHPAVCNode@1@@Z"
+    },
+    {
+      "member": 60,
+      "section": 16,
+      "symbol": "?Copy@CNodeAsmInstruction@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 60,
+      "section": 17,
+      "symbol": "?Copy@CNodeAsmRegister@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 61,
+      "section": 217,
+      "symbol": "?GetShaderCode@CAssembler@D3DXShader@@IAEJPAPAUID3DXBuffer@@@Z"
+    },
+    {
+      "member": 61,
+      "section": 137,
+      "symbol": "??0CAssembler@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 61,
+      "section": 238,
+      "symbol": "?Token@CAssembler@D3DXShader@@IAEHXZ"
+    },
+    {
+      "member": 61,
+      "section": 145,
+      "symbol": "?NonNull@CAssembler@D3DXShader@@IAEPAVCNode@2@PAV32@@Z"
+    },
+    {
+      "member": 61,
+      "section": 274,
+      "symbol": "?d3dxasm_parse@D3DXShader@@YGHXZ"
+    },
+    {
+      "member": 61,
+      "section": 179,
+      "symbol": "?DecodeMask@CAssembler@D3DXShader@@IAEKPAUD3DXTOKEN@2@@Z"
+    },
+    {
+      "member": 61,
+      "section": 181,
+      "symbol": "?DecodeSwizzle@CAssembler@D3DXShader@@IAEKPAUD3DXTOKEN@2@@Z"
+    },
+    {
+      "member": 61,
+      "section": 184,
+      "symbol": "?Assure@CAssembler@D3DXShader@@IAEJI@Z"
+    },
+    {
+      "member": 61,
+      "section": 185,
+      "symbol": "?Emit@CAssembler@D3DXShader@@IAEJK@Z"
+    },
+    {
+      "member": 63,
+      "section": 25,
+      "symbol": "?Set@?$SetShaderConstant@$00$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 27,
+      "symbol": "?Set@?$SetShaderConstant@$00$00$01@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 29,
+      "symbol": "?Set@?$SetShaderConstant@$00$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 32,
+      "symbol": "?Set@?$SetShaderConstant@$00$01$02@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 49,
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXIII@Z"
+    },
+    {
+      "member": 63,
+      "section": 50,
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXII@Z"
+    },
+    {
+      "member": 63,
+      "section": 51,
+      "symbol": "?Read@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@CGKPBXI@Z"
+    },
+    {
+      "member": 63,
+      "section": 52,
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXIII@Z"
+    },
+    {
+      "member": 63,
+      "section": 53,
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@CGKPBXII@Z"
+    },
+    {
+      "member": 63,
+      "section": 55,
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXIII@Z"
+    },
+    {
+      "member": 63,
+      "section": 56,
+      "symbol": "?Read@?$SetTyped@$01$02$03$03$00@D3DXShader@@CGKPBXII@Z"
+    },
+    {
+      "member": 63,
+      "section": 58,
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXIII@Z"
+    },
+    {
+      "member": 63,
+      "section": 59,
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@CGKPBXII@Z"
+    },
+    {
+      "member": 63,
+      "section": 61,
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXIII@Z"
+    },
+    {
+      "member": 63,
+      "section": 62,
+      "symbol": "?Read@?$SetTyped@$02$02$03$03$00@D3DXShader@@CGKPBXII@Z"
+    },
+    {
+      "member": 63,
+      "section": 71,
+      "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 72,
+      "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 76,
+      "symbol": "?Set@?$SetShaderConstant@$0A@$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 78,
+      "symbol": "?Set@?$SetShaderConstant@$0A@$00$01@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 80,
+      "symbol": "?Set@?$SetShaderConstant@$0A@$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 83,
+      "symbol": "?Set@?$SetShaderConstant@$0A@$01$02@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 84,
+      "symbol": "?Set@?$SetShaderConstant@$00$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 63,
+      "section": 85,
+      "symbol": "?Set@?$SetShaderConstant@$00$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z"
+    },
+    {
+      "member": 73,
+      "section": 3,
+      "symbol": "?IsCLIP@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 73,
+      "section": 5,
+      "symbol": "?IsUnary@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 73,
+      "section": 7,
+      "symbol": "?IsBinary@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 73,
+      "section": 9,
+      "symbol": "?IsTexture@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 73,
+      "section": 13,
+      "symbol": "?GetPool@CBaseProgram@D3DXShader@@QAEPAVCPool@2@I@Z"
+    },
+    {
+      "member": 73,
+      "section": 14,
+      "symbol": "?GetArgument@CBaseProgram@D3DXShader@@QAEPAVCArgument@2@I@Z"
+    },
+    {
+      "member": 73,
+      "section": 15,
+      "symbol": "?GetInstruction@CBaseProgram@D3DXShader@@QAEPAVCInstruction@2@I@Z"
+    },
+    {
+      "member": 73,
+      "section": 16,
+      "symbol": "??0CCompiler@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 73,
+      "section": 19,
+      "symbol": "??_GCInstruction@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 73,
+      "section": 23,
+      "symbol": "?Scratch@CCompiler@D3DXShader@@IAEPAII@Z"
+    },
+    {
+      "member": 73,
+      "section": 25,
+      "symbol": "?StackFree@CCompiler@D3DXShader@@IAEXPAI@Z"
+    },
+    {
+      "member": 73,
+      "section": 26,
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z"
+    },
+    {
+      "member": 73,
+      "section": 29,
+      "symbol": "?EvalRange_Mul@CCompiler@D3DXShader@@IAEXPAU_D3DXRANGE@2@00K@Z"
+    },
+    {
+      "member": 73,
+      "section": 39,
+      "symbol": "?IsFullySemantic@CCompiler@D3DXShader@@IAEHPAII@Z"
+    },
+    {
+      "member": 73,
+      "section": 44,
+      "symbol": "??_GCArgument@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 73,
+      "section": 47,
+      "symbol": "?Error@CCompiler@D3DXShader@@IAAJPAVCNode@2@IPBDZZ"
+    },
+    {
+      "member": 73,
+      "section": 50,
+      "symbol": "?CompareSemantic@CCompiler@D3DXShader@@KGHIIPBX@Z"
+    },
+    {
+      "member": 73,
+      "section": 53,
+      "symbol": "?GetTypeFlags@CCompiler@D3DXShader@@IAEIPAVCNode@2@PAK@Z"
+    },
+    {
+      "member": 73,
+      "section": 57,
+      "symbol": "?EvalValue@CCompiler@D3DXShader@@IAEJIPAN@Z"
+    },
+    {
+      "member": 73,
+      "section": 89,
+      "symbol": "?EmitClip@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z"
+    },
+    {
+      "member": 74,
+      "section": 136,
+      "symbol": "?IsCast@CParse@D3DXShader@@IAEHW4_D3DXCOMPONENT_TYPE@2@0@Z"
+    },
+    {
+      "member": 74,
+      "section": 456,
+      "symbol": "?d3dxshader_parse@D3DXShader@@YGHXZ"
+    },
+    {
+      "member": 75,
+      "section": 130,
+      "symbol": "??0CNodeBuffer@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 4,
+      "symbol": "??0CNode@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 133,
+      "symbol": "??0CNodeBuffer@D3DXShader@@QAE@PBUD3DXTOKEN@1@PAEI@Z"
+    },
+    {
+      "member": 75,
+      "section": 7,
+      "symbol": "??0CNode@D3DXShader@@QAE@W4_D3DXNODE_TYPE@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 8,
+      "symbol": "?IsEqual@CNode@D3DXShader@@UAEHPAV12@@Z"
+    },
+    {
+      "member": 75,
+      "section": 9,
+      "symbol": "?IsEqual@CNode@D3DXShader@@SGHPAV12@0@Z"
+    },
+    {
+      "member": 75,
+      "section": 10,
+      "symbol": "?Copy@CNode@D3DXShader@@SGPAV12@PAV12@@Z"
+    },
+    {
+      "member": 75,
+      "section": 11,
+      "symbol": "?Append@CNode@D3DXShader@@SGPAV12@PAV12@0@Z"
+    },
+    {
+      "member": 75,
+      "section": 137,
+      "symbol": "??0CNodeRegister@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 140,
+      "symbol": "??0CNodeRegister@D3DXShader@@QAE@PAVCNode@1@0@Z"
+    },
+    {
+      "member": 75,
+      "section": 141,
+      "symbol": "?IsEqual@CNodeRegister@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 16,
+      "symbol": "??0CNodeList@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 146,
+      "symbol": "?Copy@CNode@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 19,
+      "symbol": "??0CNodeList@D3DXShader@@QAE@PAVCNode@1@0PBD@Z"
+    },
+    {
+      "member": 75,
+      "section": 149,
+      "symbol": "?Copy@CNodeTree@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 23,
+      "symbol": "??0CNodeTree@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 151,
+      "symbol": "?Copy@CNodeToken@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 153,
+      "symbol": "?Copy@CNodeProgram@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 26,
+      "symbol": "??0CNodeTree@D3DXShader@@QAE@PBDPAVCNode@1@11@Z"
+    },
+    {
+      "member": 75,
+      "section": 155,
+      "symbol": "?Copy@CNodeScope@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 157,
+      "symbol": "?Copy@CNodeDecl@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 159,
+      "symbol": "?Copy@CNodeUsage@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 32,
+      "symbol": "??0CNodeToken@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 161,
+      "symbol": "?Copy@CNodeArray@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 35,
+      "symbol": "??0CNodeToken@D3DXShader@@QAE@PBUD3DXTOKEN@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 163,
+      "symbol": "?Copy@CNodeType@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 165,
+      "symbol": "?Copy@CNodeFunction@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 39,
+      "symbol": "??0CNodeProgram@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 168,
+      "symbol": "?Copy@CNodeStatement@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 42,
+      "symbol": "??0CNodeProgram@D3DXShader@@QAE@IIIPAVCNode@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 43,
+      "symbol": "?IsEqual@CNodeProgram@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 170,
+      "symbol": "?Copy@CNodeExpression@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 171,
+      "symbol": "?Copy@CNodeValue@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 46,
+      "symbol": "??0CNodeScope@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 172,
+      "symbol": "?Copy@CNodeState@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 174,
+      "symbol": "?Copy@CNodeBuffer@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 49,
+      "symbol": "??0CNodeScope@D3DXShader@@QAE@W4_D3DXSCOPE_TYPE@1@PBDPAVCNode@1@PAVCNodeTree@1@PAV01@@Z"
+    },
+    {
+      "member": 75,
+      "section": 50,
+      "symbol": "?IsEqual@CNodeScope@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 176,
+      "symbol": "?Copy@CNodeRegister@D3DXShader@@UAEPAV12@XZ"
+    },
+    {
+      "member": 75,
+      "section": 53,
+      "symbol": "??0CNodeDecl@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 56,
+      "symbol": "??0CNodeDecl@D3DXShader@@QAE@W4_D3DXDECL_TYPE@1@PAVCNode@1@11@Z"
+    },
+    {
+      "member": 75,
+      "section": 57,
+      "symbol": "?IsEqual@CNodeDecl@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 60,
+      "symbol": "??0CNodeUsage@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 63,
+      "symbol": "??0CNodeUsage@D3DXShader@@QAE@KPAVCNode@1@0@Z"
+    },
+    {
+      "member": 75,
+      "section": 64,
+      "symbol": "?IsEqual@CNodeUsage@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 69,
+      "symbol": "??0CNodeArray@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 72,
+      "symbol": "??0CNodeArray@D3DXShader@@QAE@PAVCNode@1@I@Z"
+    },
+    {
+      "member": 75,
+      "section": 76,
+      "symbol": "??0CNodeType@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 79,
+      "symbol": "??0CNodeType@D3DXShader@@QAE@W4_D3DXTYPE_TEMPLATE@1@W4_D3DXCOMPONENT_TYPE@1@IIK@Z"
+    },
+    {
+      "member": 75,
+      "section": 80,
+      "symbol": "?IsEqual@CNodeType@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 83,
+      "symbol": "??0CNodeFunction@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 86,
+      "symbol": "??0CNodeFunction@D3DXShader@@QAE@IIKPAVCNode@1@000000@Z"
+    },
+    {
+      "member": 75,
+      "section": 87,
+      "symbol": "?IsEqual@CNodeFunction@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 90,
+      "symbol": "??0CNodeVariable@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 93,
+      "symbol": "??0CNodeVariable@D3DXShader@@QAE@IIW4_D3DXSCOPE_TYPE@1@KPAVCNode@1@1111@Z"
+    },
+    {
+      "member": 75,
+      "section": 94,
+      "symbol": "?IsEqual@CNodeVariable@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 97,
+      "symbol": "??0CNodeStatement@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 100,
+      "symbol": "??0CNodeStatement@D3DXShader@@QAE@W4_D3DXSTMT_TYPE@1@PAVCNode@1@111@Z"
+    },
+    {
+      "member": 75,
+      "section": 101,
+      "symbol": "?IsEqual@CNodeStatement@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 104,
+      "symbol": "??0CNodeExpression@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 107,
+      "symbol": "??0CNodeExpression@D3DXShader@@QAE@PAVCNode@1@W4_D3DXEXPR_OP@1@00HPBUD3DXTOKEN@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 111,
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 114,
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@PBU_D3DXVALUE@1@PBUD3DXTOKEN@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 115,
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@IPBUD3DXTOKEN@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 116,
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@NPBUD3DXTOKEN@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 117,
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@PAVCNode@1@PBUD3DXTOKEN@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 118,
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@PAEIPBUD3DXTOKEN@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 119,
+      "symbol": "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@IIPBUD3DXTOKEN@1@@Z"
+    },
+    {
+      "member": 75,
+      "section": 120,
+      "symbol": "?IsEqual@CNodeValue@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 75,
+      "section": 123,
+      "symbol": "??0CNodeState@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 75,
+      "section": 126,
+      "symbol": "??0CNodeState@D3DXShader@@QAE@PAVCNode@1@00@Z"
+    },
+    {
+      "member": 75,
+      "section": 127,
+      "symbol": "?IsEqual@CNodeState@D3DXShader@@UAEHPAVCNode@2@@Z"
+    },
+    {
+      "member": 77,
+      "section": 35,
+      "symbol": "??_GCInstruction@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 78,
+      "section": 18,
+      "symbol": "??_GCInstruction@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 79,
+      "section": 73,
+      "symbol": "?IsPartial@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 79,
+      "section": 66,
+      "symbol": "?IsCLIP@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 79,
+      "section": 71,
+      "symbol": "?IsTexture@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 79,
+      "section": 55,
+      "symbol": "??_GCInstruction@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 80,
+      "section": 32,
+      "symbol": "??_GCInstruction@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 81,
+      "section": 54,
+      "symbol": "?IsTexture@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 81,
+      "section": 21,
+      "symbol": "??_GCInstruction@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 81,
+      "section": 22,
+      "symbol": "??_GCArgument@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 82,
+      "section": 72,
+      "symbol": "?IsTexture@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 82,
+      "section": 68,
+      "symbol": "?GetParameters@CInstruction@D3DXShader@@QAEIXZ"
+    },
+    {
+      "member": 88,
+      "section": 34,
+      "symbol": "?IsTexture@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 37,
+      "symbol": "?Initialize@CInstruction@D3DXShader@@QAEJPAV12@@Z"
+    },
+    {
+      "member": 88,
+      "section": 38,
+      "symbol": "?GetOutputs@CInstruction@D3DXShader@@QAEIIPAPAI@Z"
+    },
+    {
+      "member": 88,
+      "section": 9,
+      "symbol": "?GetInputs@CInstruction@D3DXShader@@QAEIIPAPAI@Z"
+    },
+    {
+      "member": 88,
+      "section": 10,
+      "symbol": "?IsSpecial@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 12,
+      "symbol": "?IsScalar@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 14,
+      "symbol": "?IsSymetric@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 16,
+      "symbol": "?IsCopy@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 18,
+      "symbol": "?IsMacro@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 20,
+      "symbol": "?IsLoop@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 22,
+      "symbol": "?IsElse@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 24,
+      "symbol": "?IsEndIf@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 26,
+      "symbol": "?IsFlowControl@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 88,
+      "section": 28,
+      "symbol": "?IsGradient@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 89,
+      "section": 8,
+      "symbol": "??_GCInstruction@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 89,
+      "section": 28,
+      "symbol": "?Initialize@CBaseProgram@D3DXShader@@QAEJPAV12@@Z"
+    },
+    {
+      "member": 89,
+      "section": 7,
+      "symbol": "??_GCArgument@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 90,
+      "section": 3,
+      "symbol": "?CompareValue@D3DXShader@@YGHIIPBX@Z"
+    },
+    {
+      "member": 90,
+      "section": 4,
+      "symbol": "?CompareRegister@D3DXShader@@YGHIIPBX@Z"
+    },
+    {
+      "member": 90,
+      "section": 5,
+      "symbol": "?CompareIndex@D3DXShader@@YGHIIPBX@Z"
+    },
+    {
+      "member": 90,
+      "section": 140,
+      "symbol": "?CompareDuplicateInstructions@D3DXShader@@YGHIIPBX@Z"
+    },
+    {
+      "member": 90,
+      "section": 13,
+      "symbol": "?HeapSort@D3DXShader@@YGXP6GHIIPBX@ZPAII0@Z"
+    },
+    {
+      "member": 90,
+      "section": 141,
+      "symbol": "?CompareDuplicateInstructionsStable@D3DXShader@@YGHIIPBX@Z"
+    },
+    {
+      "member": 90,
+      "section": 143,
+      "symbol": "?Initialize@CProgram@D3DXShader@@QAEJPAVCNode@2@PAVCTErrors@2@KK@Z"
+    },
+    {
+      "member": 90,
+      "section": 30,
+      "symbol": "??_GCArgument@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 90,
+      "section": 159,
+      "symbol": "?Initialize@CProgram@D3DXShader@@QAEJPAV12@KK@Z"
+    },
+    {
+      "member": 90,
+      "section": 33,
+      "symbol": "?GetParameters@CInstruction@D3DXShader@@QAEIXZ"
+    },
+    {
+      "member": 90,
+      "section": 37,
+      "symbol": "?IsMOV@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 39,
+      "symbol": "?IsNEG@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 41,
+      "symbol": "?IsDOT@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 43,
+      "symbol": "?IsCLIP@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 45,
+      "symbol": "?IsREPEAT@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 47,
+      "symbol": "?IsUnary@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 49,
+      "symbol": "?IsBinary@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 51,
+      "symbol": "?IsTernary@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 179,
+      "symbol": "?CompactArguments@CProgram@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 53,
+      "symbol": "?IsTexture@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 180,
+      "symbol": "?MarkVarying@CProgram@D3DXShader@@AAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 55,
+      "symbol": "?IsPerComponent@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 181,
+      "symbol": "?MergePredicates@CProgram@D3DXShader@@AAEJPAVCArgument@2@0@Z"
+    },
+    {
+      "member": 90,
+      "section": 57,
+      "symbol": "?IsCombine@CInstruction@D3DXShader@@QAEHXZ"
+    },
+    {
+      "member": 90,
+      "section": 182,
+      "symbol": "?MergeArguments@CProgram@D3DXShader@@AAEJII@Z"
+    },
+    {
+      "member": 90,
+      "section": 60,
+      "symbol": "?Origin@CProgram@D3DXShader@@IAEII@Z"
+    },
+    {
+      "member": 90,
+      "section": 73,
+      "symbol": "??_GCInstruction@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 90,
+      "section": 76,
+      "symbol": "?CompactInstructions@CProgram@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 78,
+      "symbol": "?IsVarying@CProgram@D3DXShader@@AAEHI@Z"
+    },
+    {
+      "member": 90,
+      "section": 79,
+      "symbol": "?StripVarying@CProgram@D3DXShader@@AAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 80,
+      "symbol": "?StripUniform@CProgram@D3DXShader@@AAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 208,
+      "symbol": "?RemoveDuplicateArguments@CProgram@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 210,
+      "symbol": "?RemoveDuplicateInstructions@CProgram@D3DXShader@@IAEJH@Z"
+    },
+    {
+      "member": 90,
+      "section": 116,
+      "symbol": "?ReadWriteInfo_ReadInfo@CProgram@D3DXShader@@AAEXII@Z"
+    },
+    {
+      "member": 90,
+      "section": 117,
+      "symbol": "?ReadWriteInfo_WriteInfo@CProgram@D3DXShader@@AAEXII@Z"
+    },
+    {
+      "member": 90,
+      "section": 118,
+      "symbol": "?ReadWriteInfo_CommitOrigin@CProgram@D3DXShader@@AAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 120,
+      "symbol": "?ReadWriteInfo@CProgram@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 121,
+      "symbol": "?ParentChildInfo_ParentInfo@CProgram@D3DXShader@@AAEXIIH@Z"
+    },
+    {
+      "member": 90,
+      "section": 122,
+      "symbol": "?ParentChildInfo@CProgram@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 123,
+      "symbol": "?IdentityRemap@CProgram@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 90,
+      "section": 125,
+      "symbol": "?RemapArguments@CProgram@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 93,
+      "section": 64,
+      "symbol": "?LexChar@CTokenize@D3DXShader@@IAEIPBDPAI@Z"
+    },
+    {
+      "member": 93,
+      "section": 3,
+      "symbol": "??0CTErrors@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 93,
+      "section": 5,
+      "symbol": "??1CTErrors@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 93,
+      "section": 7,
+      "symbol": "?SetWarningLevel@CTErrors@D3DXShader@@QAEJI@Z"
+    },
+    {
+      "member": 93,
+      "section": 8,
+      "symbol": "?Push@CTErrors@D3DXShader@@IAEJIPAI@Z"
+    },
+    {
+      "member": 93,
+      "section": 9,
+      "symbol": "?Clear@CTErrors@D3DXShader@@QAEJXZ"
+    },
+    {
+      "member": 93,
+      "section": 11,
+      "symbol": "?PreformattedError@CTErrors@D3DXShader@@QAEJPBD@Z"
+    },
+    {
+      "member": 93,
+      "section": 12,
+      "symbol": "?GetErrorBuffer@CTErrors@D3DXShader@@QAEJPAPAUID3DXBuffer@@@Z"
+    },
+    {
+      "member": 93,
+      "section": 21,
+      "symbol": "?Initialize@CTokenize@D3DXShader@@QAEJPBXIPBDIPAVCAlloc@D3DXCore@@PAVCTErrors@2@@Z"
+    },
+    {
+      "member": 93,
+      "section": 24,
+      "symbol": "?LexFloat@CTokenize@D3DXShader@@IAEIPBDPAN@Z"
+    },
+    {
+      "member": 93,
+      "section": 25,
+      "symbol": "?LexIdentifier@CTokenize@D3DXShader@@IAEIPBDPAPBD@Z"
+    },
+    {
+      "member": 93,
+      "section": 27,
+      "symbol": "?LexFloatSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z"
+    },
+    {
+      "member": 93,
+      "section": 28,
+      "symbol": "?LexIntegerSuffix@CTokenize@D3DXShader@@IAEIPBDPAUD3DXTOKEN@2@@Z"
+    },
+    {
+      "member": 93,
+      "section": 29,
+      "symbol": "?SetWarningSpecifier@CTErrors@D3DXShader@@QAEJII@Z"
+    },
+    {
+      "member": 93,
+      "section": 57,
+      "symbol": "?LexOctal@CTokenize@D3DXShader@@IAEIPBDPAI@Z"
+    },
+    {
+      "member": 94,
+      "section": 11,
+      "symbol": "??0CPPDefine@D3DXShader@@QAE@PBDPAVCNode@1@1@Z"
+    },
+    {
+      "member": 94,
+      "section": 12,
+      "symbol": "??0CPPConditional@D3DXShader@@QAE@HH@Z"
+    },
+    {
+      "member": 94,
+      "section": 13,
+      "symbol": "??1CPPConditional@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 94,
+      "section": 142,
+      "symbol": "?d3dxtok_parse@D3DXShader@@YGHXZ"
+    },
+    {
+      "member": 94,
+      "section": 15,
+      "symbol": "??_GCPPConditional@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 94,
+      "section": 26,
+      "symbol": "??0CPPBlock@D3DXShader@@QAE@K@Z"
+    },
+    {
+      "member": 94,
+      "section": 27,
+      "symbol": "??1CPPBlock@D3DXShader@@QAE@XZ"
+    },
+    {
+      "member": 94,
+      "section": 29,
+      "symbol": "??_GCPPBlock@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 94,
+      "section": 35,
+      "symbol": "?Begin@CPreProcessor@D3DXShader@@QAEJK@Z"
+    },
+    {
+      "member": 94,
+      "section": 36,
+      "symbol": "?GetFileLine@CPreProcessor@D3DXShader@@QAEJPAPBDPAI@Z"
+    },
+    {
+      "member": 94,
+      "section": 37,
+      "symbol": "?GetBufferPointer@CPreProcessor@D3DXShader@@QAEJPAPBDPAI@Z"
+    },
+    {
+      "member": 94,
+      "section": 42,
+      "symbol": "?DoLine@CPreProcessor@D3DXShader@@IAEJIPBD@Z"
+    },
+    {
+      "member": 94,
+      "section": 49,
+      "symbol": "?DoIf@CPreProcessor@D3DXShader@@IAEJH@Z"
+    },
+    {
+      "member": 94,
+      "section": 50,
+      "symbol": "?DoElif@CPreProcessor@D3DXShader@@IAEJH@Z"
+    },
+    {
+      "member": 94,
+      "section": 53,
+      "symbol": "?DoElse@CPreProcessor@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 94,
+      "section": 57,
+      "symbol": "?DoEndif@CPreProcessor@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 94,
+      "section": 60,
+      "symbol": "?DoPragmaPackMatrix@CPreProcessor@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 94,
+      "section": 76,
+      "symbol": "?Hash@CPreProcessor@D3DXShader@@IAEIPBD@Z"
+    },
+    {
+      "member": 94,
+      "section": 79,
+      "symbol": "?FindDefine@CPreProcessor@D3DXShader@@IAEHPBDPAPAVCNode@2@1@Z"
+    },
+    {
+      "member": 94,
+      "section": 84,
+      "symbol": "?Escape@CPreProcessor@D3DXShader@@IAEIPBDIPAD@Z"
+    },
+    {
+      "member": 94,
+      "section": 85,
+      "symbol": "?NonNull@CPreProcessor@D3DXShader@@IAEPAVCNode@2@PAV32@@Z"
+    },
+    {
+      "member": 94,
+      "section": 89,
+      "symbol": "??_GCPPDefine@D3DXShader@@QAEPAXI@Z"
+    },
+    {
+      "member": 94,
+      "section": 94,
+      "symbol": "?DoUndef@CPreProcessor@D3DXShader@@IAEJPBD@Z"
+    },
+    {
+      "member": 94,
+      "section": 95,
+      "symbol": "?DoPragma@CPreProcessor@D3DXShader@@IAEJXZ"
+    },
+    {
+      "member": 94,
+      "section": 99,
+      "symbol": "?AddDefine@CPreProcessor@D3DXShader@@IAEJPAVCPPDefine@2@@Z"
+    },
+    {
+      "member": 94,
+      "section": 101,
+      "symbol": "?UintDefine@CPreProcessor@D3DXShader@@IAEIPBD@Z"
+    }
+  ],
+  "members": {
+    "member_0003.obj": {
+      "original": "af51bae269b7cba00a367dc30cd700ac45da86d163df5b9c4ae228f4412cfb0c",
+      "selected": "af51bae269b7cba00a367dc30cd700ac45da86d163df5b9c4ae228f4412cfb0c"
+    },
+    "member_0004.obj": {
+      "original": "b29137d067d50a595eb2f4e1d100d63f502a197ebc3f56574b0ab83c73df3326",
+      "selected": "b29137d067d50a595eb2f4e1d100d63f502a197ebc3f56574b0ab83c73df3326"
+    },
+    "member_0005.obj": {
+      "original": "672d85c98e9295815894d03cc8d2359465512645471d33871be7992d963de8fb",
+      "selected": "672d85c98e9295815894d03cc8d2359465512645471d33871be7992d963de8fb"
+    },
+    "member_0006.obj": {
+      "original": "7a9c07a66bd43741062eeb2ac740b685911d3080f652eaf37bf563f3ad0aadf0",
+      "selected": "7a9c07a66bd43741062eeb2ac740b685911d3080f652eaf37bf563f3ad0aadf0"
+    },
+    "member_0007.obj": {
+      "original": "d9bc439a2d0f6cf359a82e718c18f57cb7bc75c68847bdf4ec57727f7598dd0a",
+      "selected": "d9bc439a2d0f6cf359a82e718c18f57cb7bc75c68847bdf4ec57727f7598dd0a"
+    },
+    "member_0008.obj": {
+      "original": "5659f6bf043347dccca5597f937ab0c90da1dc2f84112341b57f56d2f7b086ef",
+      "selected": "5659f6bf043347dccca5597f937ab0c90da1dc2f84112341b57f56d2f7b086ef"
+    },
+    "member_0009.obj": {
+      "original": "7b6be130fde768e76c4f93c3aa3e5b7b7cfbb22f889854b5e2dc6132d76d1878",
+      "selected": "7b6be130fde768e76c4f93c3aa3e5b7b7cfbb22f889854b5e2dc6132d76d1878"
+    },
+    "member_0010.obj": {
+      "original": "12738a03b62f21c1bea207a2c136d460ed028cbd42ab76acbb6cf61feb9c8005",
+      "selected": "806902fda6321b71d961fcebfc13b2db23258984bbef12910ed246f59553a636"
+    },
+    "member_0011.obj": {
+      "original": "a32484e40fc99902178ac03d771d9a22106dedfd4a7f6006a8fbc77a1dbbf857",
+      "selected": "a32484e40fc99902178ac03d771d9a22106dedfd4a7f6006a8fbc77a1dbbf857"
+    },
+    "member_0012.obj": {
+      "original": "25c331aa20cd6a73125865168c585ec3d9dfd3e19cbf73205a42415205c2efb3",
+      "selected": "25c331aa20cd6a73125865168c585ec3d9dfd3e19cbf73205a42415205c2efb3"
+    },
+    "member_0013.obj": {
+      "original": "a21c81b49c27cb1b7cb167de57fabfae5537a66cf3aaaed28420c7b191f42c2a",
+      "selected": "a21c81b49c27cb1b7cb167de57fabfae5537a66cf3aaaed28420c7b191f42c2a"
+    },
+    "member_0014.obj": {
+      "original": "3633c86e61938ac75b39921a949dbaf8abab033dae8785abbe6853d2e556df17",
+      "selected": "3633c86e61938ac75b39921a949dbaf8abab033dae8785abbe6853d2e556df17"
+    },
+    "member_0015.obj": {
+      "original": "58578ad374fb0c2971e2633faae0760a5088c87506808ccce3fa367b56dd221c",
+      "selected": "58578ad374fb0c2971e2633faae0760a5088c87506808ccce3fa367b56dd221c"
+    },
+    "member_0016.obj": {
+      "original": "62f7f91073a3ff63e504f38c8845ba86c687c75a59dfa206ebb41c48d8293cf2",
+      "selected": "62f7f91073a3ff63e504f38c8845ba86c687c75a59dfa206ebb41c48d8293cf2"
+    },
+    "member_0017.obj": {
+      "original": "e029f9a09b6c9d8538027c360185f7cfe4fc63ef29797039a3250e0ee2218bf6",
+      "selected": "e029f9a09b6c9d8538027c360185f7cfe4fc63ef29797039a3250e0ee2218bf6"
+    },
+    "member_0018.obj": {
+      "original": "803935c0dcf13988552b7aed359a3585bac2e5173c233680f18342dd36ff51aa",
+      "selected": "803935c0dcf13988552b7aed359a3585bac2e5173c233680f18342dd36ff51aa"
+    },
+    "member_0019.obj": {
+      "original": "ea80c90af4fcf9fa7a41885e9085233e45d1f623dd9571ca0a36917a19c3767f",
+      "selected": "ea80c90af4fcf9fa7a41885e9085233e45d1f623dd9571ca0a36917a19c3767f"
+    },
+    "member_0020.obj": {
+      "original": "1d198199408fbcd56543c41f8f7948eb54a8c52dc26a74bdfe79110ff0efb3bd",
+      "selected": "1d198199408fbcd56543c41f8f7948eb54a8c52dc26a74bdfe79110ff0efb3bd"
+    },
+    "member_0021.obj": {
+      "original": "613f6ef590db2893337654028d15907f3cf94ff62dd1cc720b30de038debfbb3",
+      "selected": "613f6ef590db2893337654028d15907f3cf94ff62dd1cc720b30de038debfbb3"
+    },
+    "member_0022.obj": {
+      "original": "9676b4319a72f60ac6b48e38fa5bbc0ef975b5d11a3ec1c86472bbe2919374d1",
+      "selected": "9676b4319a72f60ac6b48e38fa5bbc0ef975b5d11a3ec1c86472bbe2919374d1"
+    },
+    "member_0023.obj": {
+      "original": "00384d8ec8a6789f114c38bb8ed3e74a98317cac317f10d5a57d0104eae619a3",
+      "selected": "00384d8ec8a6789f114c38bb8ed3e74a98317cac317f10d5a57d0104eae619a3"
+    },
+    "member_0024.obj": {
+      "original": "9f1a866a01660f33e1cfd3871ab6f8cb9ca720890e6da55a267c1a575da24096",
+      "selected": "9f1a866a01660f33e1cfd3871ab6f8cb9ca720890e6da55a267c1a575da24096"
+    },
+    "member_0025.obj": {
+      "original": "77bf820b3c400716169e049559eb7058b9cda8eeb0ef2b1885becdb3c2e01413",
+      "selected": "77bf820b3c400716169e049559eb7058b9cda8eeb0ef2b1885becdb3c2e01413"
+    },
+    "member_0026.obj": {
+      "original": "9d34d4eee4c4a8f426e4bb1a45e067d099b29812285f417b48c7156e774f2738",
+      "selected": "9d34d4eee4c4a8f426e4bb1a45e067d099b29812285f417b48c7156e774f2738"
+    },
+    "member_0027.obj": {
+      "original": "6d65081be99e5ff77b22629ccdfc6c4fc977a386a53d605cf2815f13f1167e94",
+      "selected": "6d65081be99e5ff77b22629ccdfc6c4fc977a386a53d605cf2815f13f1167e94"
+    },
+    "member_0028.obj": {
+      "original": "d43086df5c9ec72089ba5069795d8441cfce51e0650cf9cf1e64fbd52763668f",
+      "selected": "d43086df5c9ec72089ba5069795d8441cfce51e0650cf9cf1e64fbd52763668f"
+    },
+    "member_0029.obj": {
+      "original": "a697533645d3537203b35795427f45f2ca0d5e95e76c168197cdf4d027958d6f",
+      "selected": "a697533645d3537203b35795427f45f2ca0d5e95e76c168197cdf4d027958d6f"
+    },
+    "member_0030.obj": {
+      "original": "9c16921fd1f8b8755a4693e726108ede4c78fcf8ba8e065f8bb9098920142201",
+      "selected": "9c16921fd1f8b8755a4693e726108ede4c78fcf8ba8e065f8bb9098920142201"
+    },
+    "member_0031.obj": {
+      "original": "0e9bdd85889d4485482af7299eb3c0906d6df5748169b04269b386bdc2fb06e2",
+      "selected": "0e9bdd85889d4485482af7299eb3c0906d6df5748169b04269b386bdc2fb06e2"
+    },
+    "member_0032.obj": {
+      "original": "d3e9e95b76329020bbd125ff6138c6f6a90645c7588781e24990800c9562cb2e",
+      "selected": "d3e9e95b76329020bbd125ff6138c6f6a90645c7588781e24990800c9562cb2e"
+    },
+    "member_0033.obj": {
+      "original": "66635bc915a6ea51f2fde48f8aeab55c7988f016b0fb55df8e68598ec7c3fe64",
+      "selected": "66635bc915a6ea51f2fde48f8aeab55c7988f016b0fb55df8e68598ec7c3fe64"
+    },
+    "member_0034.obj": {
+      "original": "52fcb6a6d33fa7de846e3d635552fb2936b68302871c43966fa68a76dbc57f7d",
+      "selected": "52fcb6a6d33fa7de846e3d635552fb2936b68302871c43966fa68a76dbc57f7d"
+    },
+    "member_0035.obj": {
+      "original": "c6b114f71ecf4c5ca8d877131a6bd64191899526e5adfa8ced11b6978ad88d4b",
+      "selected": "c6b114f71ecf4c5ca8d877131a6bd64191899526e5adfa8ced11b6978ad88d4b"
+    },
+    "member_0036.obj": {
+      "original": "36e6f13ea03abeca3bc8868bd397c002744b3a762cc9107572a45c42c1318486",
+      "selected": "36e6f13ea03abeca3bc8868bd397c002744b3a762cc9107572a45c42c1318486"
+    },
+    "member_0037.obj": {
+      "original": "0d8678cc214936af10a114f4bb8125f2a045c7baa7c26ccc070afd5da1bea24d",
+      "selected": "0d8678cc214936af10a114f4bb8125f2a045c7baa7c26ccc070afd5da1bea24d"
+    },
+    "member_0038.obj": {
+      "original": "ce6242e0f981b70703f50f923f92b32579b5d38d34609c309807eff501da137a",
+      "selected": "ce6242e0f981b70703f50f923f92b32579b5d38d34609c309807eff501da137a"
+    },
+    "member_0039.obj": {
+      "original": "7cb1e3f47d28bb446b6ce11b5644977a0bc9fa170838bcdf22142661f95c6a7a",
+      "selected": "7cb1e3f47d28bb446b6ce11b5644977a0bc9fa170838bcdf22142661f95c6a7a"
+    },
+    "member_0040.obj": {
+      "original": "9acda54b654045a181b5a5f405c31bd619456885cb38939a757b8b74dd06239d",
+      "selected": "9acda54b654045a181b5a5f405c31bd619456885cb38939a757b8b74dd06239d"
+    },
+    "member_0041.obj": {
+      "original": "d3c47e9aa5f5dea70b01658140064277a3cdec415940810c454128309cdb056b",
+      "selected": "d3c47e9aa5f5dea70b01658140064277a3cdec415940810c454128309cdb056b"
+    },
+    "member_0042.obj": {
+      "original": "9e38fdda1d2f94516d0fcd573b5f83ecedc0b4fd704964c580e9363b0ca68d1c",
+      "selected": "9e38fdda1d2f94516d0fcd573b5f83ecedc0b4fd704964c580e9363b0ca68d1c"
+    },
+    "member_0043.obj": {
+      "original": "77865341109c4bce3c7f54f755d55490cba59c82e33b1524bf03baa7a21b4e9a",
+      "selected": "77865341109c4bce3c7f54f755d55490cba59c82e33b1524bf03baa7a21b4e9a"
+    },
+    "member_0044.obj": {
+      "original": "181f163cb38b0cc8cc91eb2366d43193fbc6de10e087b8594b464e148bba0f21",
+      "selected": "181f163cb38b0cc8cc91eb2366d43193fbc6de10e087b8594b464e148bba0f21"
+    },
+    "member_0045.obj": {
+      "original": "18e68a11a568adb9d5677398a6b11d266e64840fdf580c2a688a966ad12cd220",
+      "selected": "18e68a11a568adb9d5677398a6b11d266e64840fdf580c2a688a966ad12cd220"
+    },
+    "member_0046.obj": {
+      "original": "f53b2fc40e6fbbcba1ab76f4c8fa6ced2de817d6890b920a264b845a288f6001",
+      "selected": "f53b2fc40e6fbbcba1ab76f4c8fa6ced2de817d6890b920a264b845a288f6001"
+    },
+    "member_0047.obj": {
+      "original": "3325e7e0d203bbc3070e414c6126310ef39ef3d116a670295f11783adde9fe46",
+      "selected": "3325e7e0d203bbc3070e414c6126310ef39ef3d116a670295f11783adde9fe46"
+    },
+    "member_0048.obj": {
+      "original": "253dca45930a11709a60f3cc5fb28d610903a1ef84625703df796991abfd099f",
+      "selected": "253dca45930a11709a60f3cc5fb28d610903a1ef84625703df796991abfd099f"
+    },
+    "member_0049.obj": {
+      "original": "8768b05398d04c71db013f12e6ebf4b1d0f01ffe18b1da36127ec47428988150",
+      "selected": "8768b05398d04c71db013f12e6ebf4b1d0f01ffe18b1da36127ec47428988150"
+    },
+    "member_0050.obj": {
+      "original": "16894afe0a0a03c552bc47d59759e6dd13bb474fe471af476316858c0a317352",
+      "selected": "16894afe0a0a03c552bc47d59759e6dd13bb474fe471af476316858c0a317352"
+    },
+    "member_0051.obj": {
+      "original": "6437a1e1bc0c2b462357cf3440b9087423f51521da318134d7859389977d8752",
+      "selected": "6437a1e1bc0c2b462357cf3440b9087423f51521da318134d7859389977d8752"
+    },
+    "member_0052.obj": {
+      "original": "53098252aedbede9d4b30b877d63f3ff1b9536d65168ad47414fa09be7c642ca",
+      "selected": "53098252aedbede9d4b30b877d63f3ff1b9536d65168ad47414fa09be7c642ca"
+    },
+    "member_0053.obj": {
+      "original": "9b73bee28e56b433f1d3d3d2ca77c459f797ffd77e2ab873fd91791faef8d1f5",
+      "selected": "9b73bee28e56b433f1d3d3d2ca77c459f797ffd77e2ab873fd91791faef8d1f5"
+    },
+    "member_0054.obj": {
+      "original": "23b0152cabc40827d15d57e6e5ab3b29dc59616484a51342646d09cdd47eb7be",
+      "selected": "23b0152cabc40827d15d57e6e5ab3b29dc59616484a51342646d09cdd47eb7be"
+    },
+    "member_0055.obj": {
+      "original": "b269448e6c343dea6f6506088e17bd573f367d174150eaaf5fe0ab5fed13a86c",
+      "selected": "b269448e6c343dea6f6506088e17bd573f367d174150eaaf5fe0ab5fed13a86c"
+    },
+    "member_0056.obj": {
+      "original": "a838da342e7a4302f2ca98b392ae28fc583d46051bdd25774c7723b32a5a1295",
+      "selected": "a838da342e7a4302f2ca98b392ae28fc583d46051bdd25774c7723b32a5a1295"
+    },
+    "member_0057.obj": {
+      "original": "73c9fa0d44f3a34fc3c8322c6b8678227e20005e016e1817b35edbcab743a4ae",
+      "selected": "29797eab5b04b7b0352e97bfd56e6b323c5b4a71990db07c66190acbc3467d31"
+    },
+    "member_0058.obj": {
+      "original": "fc4ff64a98811105734c873847445a28af55c1ae1b70630d8d2a00ed1eb61f89",
+      "selected": "fc4ff64a98811105734c873847445a28af55c1ae1b70630d8d2a00ed1eb61f89"
+    },
+    "member_0059.obj": {
+      "original": "1f1ec639e67be1b0c63a98b7c667df3862107483e0912a881ba27ce8b7484305",
+      "selected": "1f1ec639e67be1b0c63a98b7c667df3862107483e0912a881ba27ce8b7484305"
+    },
+    "member_0060.obj": {
+      "original": "92a764619187b0b0cd1a889f3a315b7d9b796be747b2cc1b763fe7cbd0923117",
+      "selected": "897d87658743cbbad365fd3d092f6d2ebd45a2b2cfa134f0fda0d8e8d83395ff"
+    },
+    "member_0061.obj": {
+      "original": "15d6e1f4d3903655af464e69fafb038db172d799c59707f6153949e8aaa8060a",
+      "selected": "a5254bcce93e38ecf410f5a228a4a3503c0228cd864ad07b16f200dfe526c8e8"
+    },
+    "member_0062.obj": {
+      "original": "1ace019a8c78357d1d45dcc1c6d21f39c63e2499c4d90ffa977a5244157f75ac",
+      "selected": "1ace019a8c78357d1d45dcc1c6d21f39c63e2499c4d90ffa977a5244157f75ac"
+    },
+    "member_0063.obj": {
+      "original": "1a870af94a6bebab782ba76e1b153eeac9ae58daa80474827f2cb18d4f0614d4",
+      "selected": "e88192971363149b108256b06bb24324c4d55442c2bcc353bb3bfc13f84126a9"
+    },
+    "member_0064.obj": {
+      "original": "cfc7916135cb8af467431f3181e41800fc7cf281581ede90cdba94ff74698ce5",
+      "selected": "cfc7916135cb8af467431f3181e41800fc7cf281581ede90cdba94ff74698ce5"
+    },
+    "member_0065.obj": {
+      "original": "18f936649e66e45662b340b68a130fb5e7ec9837431e75653d60d8efbfdcef4a",
+      "selected": "18f936649e66e45662b340b68a130fb5e7ec9837431e75653d60d8efbfdcef4a"
+    },
+    "member_0066.obj": {
+      "original": "0cb312d8b2036898c5984f3f73f1a93c85d41872a1fe1aecdb058e69631520ae",
+      "selected": "0cb312d8b2036898c5984f3f73f1a93c85d41872a1fe1aecdb058e69631520ae"
+    },
+    "member_0067.obj": {
+      "original": "a0baa8165707966b5932dfa77a4b53c177acf540d6dd5db8381488ca3201bbb9",
+      "selected": "a0baa8165707966b5932dfa77a4b53c177acf540d6dd5db8381488ca3201bbb9"
+    },
+    "member_0068.obj": {
+      "original": "a797702a94a22da92a07df85df04b97024c6494b9b69c7d8d0294dcf9ed88f45",
+      "selected": "a797702a94a22da92a07df85df04b97024c6494b9b69c7d8d0294dcf9ed88f45"
+    },
+    "member_0069.obj": {
+      "original": "61f512e1c56c7d355788428bf427afe9ae4d30998a25324c1ac80a48076ebd70",
+      "selected": "61f512e1c56c7d355788428bf427afe9ae4d30998a25324c1ac80a48076ebd70"
+    },
+    "member_0070.obj": {
+      "original": "4b870d9ca9ac14c83671124481fa2e8110a3d33942077626061cd85264da3b8a",
+      "selected": "4b870d9ca9ac14c83671124481fa2e8110a3d33942077626061cd85264da3b8a"
+    },
+    "member_0071.obj": {
+      "original": "2a56178973b941e840cc3d09c8740c58237460c251b5bab62a9e234b43021a9c",
+      "selected": "2a56178973b941e840cc3d09c8740c58237460c251b5bab62a9e234b43021a9c"
+    },
+    "member_0072.obj": {
+      "original": "56c858771a6dbe23217f3a7353ccd54a5d62a89fd92d8a700d56d0f0b317604e",
+      "selected": "56c858771a6dbe23217f3a7353ccd54a5d62a89fd92d8a700d56d0f0b317604e"
+    },
+    "member_0073.obj": {
+      "original": "51a387fa045bb17cfeb473be834f6f00d3c5db3baf2d20a056a3f10c6b24c64c",
+      "selected": "338e2cba041e949536f762ded8638803dc3b0768b75bcecf3ffcdc0fd410c39e"
+    },
+    "member_0074.obj": {
+      "original": "0edf22d41d7cbc69ba7a8b1fb02f2f2865b4cb6e490e62b9cff640033b2df5b8",
+      "selected": "35d9bb86b112911c942d2c214274ba09ad9c5e991a0e5c609e2e444294d12d70"
+    },
+    "member_0075.obj": {
+      "original": "ecfe7f715a3e1f89227045669c583ed6a671eb938e4cee42362086f3b77959d3",
+      "selected": "b1e45a97c27ea6ccf27aa10fc4acdc0aea79d78e77316d5b327da8893f6d3af2"
+    },
+    "member_0076.obj": {
+      "original": "f7890396bf05134b7044057c18c9172f0a745022ff11f090f394e6cd1a19481e",
+      "selected": "f7890396bf05134b7044057c18c9172f0a745022ff11f090f394e6cd1a19481e"
+    },
+    "member_0077.obj": {
+      "original": "08d0efe06d442ab25f6d8b92fbf3f5aef1ed992ab4b045e1728b07012f943a62",
+      "selected": "e8b022f0d066dd1d7e55156e780c0aaca9114ee711420a0f7c556e5307008760"
+    },
+    "member_0078.obj": {
+      "original": "8fa7d86e32ee23e9b900018c1b9fe618fe6e1d1030d5725984282940105bec7b",
+      "selected": "6a892baa0977daa9a5f9bcf9dc18332ba243c125e6b40c775189d65dd8a26658"
+    },
+    "member_0079.obj": {
+      "original": "95fdd45543771cf9b491d5d2ced88dc7cee3cddc77718996ecdf155035ac6116",
+      "selected": "0ec5f157968a4e5990b24b7069754c28419621bf7dbcc9a47663a8cabd98c50e"
+    },
+    "member_0080.obj": {
+      "original": "6cf5fd76fdf1938cd22a30a5eb75a4c707209aa03361735d0d34d0853b832979",
+      "selected": "a7074e0ec437a8eef8af30529710a406e4915ea2076e9eb57a4b6aea3386058d"
+    },
+    "member_0081.obj": {
+      "original": "06eaa37d7fbd2d2af6ec41ab7c3762c37248c6b0c272ff0daef6b7ca676ed3a4",
+      "selected": "4de91e2d0bd909b124f17e11822f5aec2fbf6dbbc40f5adf2006ec749be12016"
+    },
+    "member_0082.obj": {
+      "original": "d97515693129647f6096b569d98f9f668dea32df888409127708c3e5deb6b3bd",
+      "selected": "731fd7dfc0879d193ced9a1d13cade5adf187444d4b1935e942084dd878ce0d9"
+    },
+    "member_0083.obj": {
+      "original": "61e130eb740aa01953a160572afacacd0d4a818d95367bca2381a6fbed268bdc",
+      "selected": "61e130eb740aa01953a160572afacacd0d4a818d95367bca2381a6fbed268bdc"
+    },
+    "member_0084.obj": {
+      "original": "f88acc0a0cd1ffb0cbef358514d8b76ccf4612978790505c8b1025cce9eb414b",
+      "selected": "f88acc0a0cd1ffb0cbef358514d8b76ccf4612978790505c8b1025cce9eb414b"
+    },
+    "member_0085.obj": {
+      "original": "4bab8079b8fbc2a8a4a3989fec9fd6cfa28dd88f5ffea39d5d622886d3bdc448",
+      "selected": "4bab8079b8fbc2a8a4a3989fec9fd6cfa28dd88f5ffea39d5d622886d3bdc448"
+    },
+    "member_0086.obj": {
+      "original": "1be9e71c3b88e70ce770d318740ef6a395bf64597e731d5301026ee9c6cb1d66",
+      "selected": "1be9e71c3b88e70ce770d318740ef6a395bf64597e731d5301026ee9c6cb1d66"
+    },
+    "member_0087.obj": {
+      "original": "4c68ac20e013d200a3a82fe697cd3df4f1acb945570fac90250c062ff4e637a0",
+      "selected": "4c68ac20e013d200a3a82fe697cd3df4f1acb945570fac90250c062ff4e637a0"
+    },
+    "member_0088.obj": {
+      "original": "adbd021b253c3e4977cd82e56f0b770571286d396472461c44c98fbf942e20fa",
+      "selected": "5be5f4b49f7273bf847618e178dd6cdf02f8d38a8507345005898f01a2d5f3dd"
+    },
+    "member_0089.obj": {
+      "original": "07fd126d0fc11553d1a410242523c9e568fb370fbc295c01aa80b57dbae40bc2",
+      "selected": "2d38cd6416f93b93505487c8ce514ac43205f6aa5e7ba6c313df470c16b2b2e5"
+    },
+    "member_0090.obj": {
+      "original": "74ae79fd6a60a05120ad9d5d74070fe097c39fd36892bb8d7e92e3e90922b7da",
+      "selected": "a4264558a9ca8bb8908636eafecdb7a7cffbe83f87b7872ed5d6bf0bbd63bed5"
+    },
+    "member_0091.obj": {
+      "original": "f49968ac99d878bcb9c5e848124b7178608185a78347fff298e9537e7fa8f7e9",
+      "selected": "f49968ac99d878bcb9c5e848124b7178608185a78347fff298e9537e7fa8f7e9"
+    },
+    "member_0092.obj": {
+      "original": "9f69b634e5db67c4e9d9512126c607b0565232e03ca82e65332c739ca4744896",
+      "selected": "9f69b634e5db67c4e9d9512126c607b0565232e03ca82e65332c739ca4744896"
+    },
+    "member_0093.obj": {
+      "original": "c507e56378de07204c5359c9ac7517fd33fac986b4b393f231ff42ea916c251c",
+      "selected": "8b77386551a465967c7453945c5836744bdf71b85f80e13e0358c3fecd186eaf"
+    },
+    "member_0094.obj": {
+      "original": "a22f1c49a7943eb9da9103bf98f733ed24e893be346259eb56a639b6cda4da62",
+      "selected": "65b3915d3f75ac1fd45e9d062a7bd9b965d42383bdabddf40fdbb78a3f426dc4"
+    },
+    "member_0095.obj": {
+      "original": "a669b9e58e61e9c3b6741e2a7ec9474633371e22eb09e41a878c238f35a03edb",
+      "selected": "a669b9e58e61e9c3b6741e2a7ec9474633371e22eb09e41a878c238f35a03edb"
+    },
+    "member_0096.obj": {
+      "original": "fe59583f9ea4251449d3084cf85f48f78e3fd7b890b453d1c97f8c4186669b16",
+      "selected": "fe59583f9ea4251449d3084cf85f48f78e3fd7b890b453d1c97f8c4186669b16"
+    },
+    "member_0097.obj": {
+      "original": "69c8f47e36fee1b43d614dbe6d9fdb950752e6eea139ab2416eb961b16f74f17",
+      "selected": "69c8f47e36fee1b43d614dbe6d9fdb950752e6eea139ab2416eb961b16f74f17"
+    },
+    "member_0098.obj": {
+      "original": "c506ae3df7e26b34177f993113c514814b347705b370e145043d6000cd5d7076",
+      "selected": "c506ae3df7e26b34177f993113c514814b347705b370e145043d6000cd5d7076"
+    },
+    "member_0099.obj": {
+      "original": "55b7d5fc7df2be06ac7c80b5aa13d2744004bafa8913941273eaf9ca34b57e18",
+      "selected": "55b7d5fc7df2be06ac7c80b5aa13d2744004bafa8913941273eaf9ca34b57e18"
+    },
+    "member_0100.obj": {
+      "original": "905f9cdacddf208b64a0f5967d0f407fae58f3f3b61a6894d3bba646834dcbd0",
+      "selected": "905f9cdacddf208b64a0f5967d0f407fae58f3f3b61a6894d3bba646834dcbd0"
+    },
+    "member_0101.obj": {
+      "original": "74dcd92b87442a089ec35506ecbf0ccd8f4219386d521a26e02f292a2c163767",
+      "selected": "74dcd92b87442a089ec35506ecbf0ccd8f4219386d521a26e02f292a2c163767"
+    },
+    "member_0102.obj": {
+      "original": "223241f811c97234419e623b9ef283d1c964aae2b490464b7ff63fa0c81e27c0",
+      "selected": "223241f811c97234419e623b9ef283d1c964aae2b490464b7ff63fa0c81e27c0"
+    },
+    "member_0103.obj": {
+      "original": "eac237ea1ad2b196a3a5dea2752d3c7d4636b0a1ff3f8a10ef3fb8545b908bf8",
+      "selected": "eac237ea1ad2b196a3a5dea2752d3c7d4636b0a1ff3f8a10ef3fb8545b908bf8"
+    },
+    "member_0104.obj": {
+      "original": "c0f117a811f158cf5b2d2131fa88389479c2780c9d9f4a5651df6398c161b4d3",
+      "selected": "c0f117a811f158cf5b2d2131fa88389479c2780c9d9f4a5651df6398c161b4d3"
+    },
+    "member_0105.obj": {
+      "original": "7cc9d5856bb48d15c80d360b9c0208f54162001a9e61bdfb996fea3f7471d588",
+      "selected": "7cc9d5856bb48d15c80d360b9c0208f54162001a9e61bdfb996fea3f7471d588"
+    },
+    "member_0106.obj": {
+      "original": "d7e4a4b3c2084b9e5b4250ef70475a316566bd8d4be812f1b3002121ead3f13e",
+      "selected": "d7e4a4b3c2084b9e5b4250ef70475a316566bd8d4be812f1b3002121ead3f13e"
+    },
+    "member_0107.obj": {
+      "original": "a70e5017962c4bde448c49cb2e1a75518026c92bd20bed1439c4d20b81f5f9f4",
+      "selected": "a70e5017962c4bde448c49cb2e1a75518026c92bd20bed1439c4d20b81f5f9f4"
+    },
+    "member_0108.obj": {
+      "original": "aac11b062ea10101a0dfc650e7217cadce5dd7adc11c1bc162e8b9308e4be84e",
+      "selected": "aac11b062ea10101a0dfc650e7217cadce5dd7adc11c1bc162e8b9308e4be84e"
+    },
+    "member_0109.obj": {
+      "original": "e256427c489bc6fe3690d281080acfaed87a20adca9879cb021ab25b0da4de1e",
+      "selected": "e256427c489bc6fe3690d281080acfaed87a20adca9879cb021ab25b0da4de1e"
+    },
+    "member_0110.obj": {
+      "original": "e78c6e5df87a448030dc61ceb2355241a91e117525aa273e09303fb96d34609d",
+      "selected": "e78c6e5df87a448030dc61ceb2355241a91e117525aa273e09303fb96d34609d"
+    },
+    "member_0111.obj": {
+      "original": "a1e1faf15f4e704a0b6cecfbf6cf209155401b342827c054c50f203f9519334a",
+      "selected": "a1e1faf15f4e704a0b6cecfbf6cf209155401b342827c054c50f203f9519334a"
+    },
+    "member_0112.obj": {
+      "original": "76042febd85d1b3269d3b03cfa9de0424bc4f18de50d322c37891d9a05624867",
+      "selected": "76042febd85d1b3269d3b03cfa9de0424bc4f18de50d322c37891d9a05624867"
+    },
+    "member_0113.obj": {
+      "original": "6e4bed9d071e0270a33a568fe17c06e45c28de43e7cebf02a5a7a932ca3eb23e",
+      "selected": "6e4bed9d071e0270a33a568fe17c06e45c28de43e7cebf02a5a7a932ca3eb23e"
+    },
+    "member_0114.obj": {
+      "original": "4e5a38bdb2b44f317b880ca779f189a1b4bc90633787334ce66a202780ac5714",
+      "selected": "4e5a38bdb2b44f317b880ca779f189a1b4bc90633787334ce66a202780ac5714"
+    },
+    "member_0115.obj": {
+      "original": "7d7237495470e7832293cb3f0d433c5a89bd8ce1949800fa35ba1e276b86cb51",
+      "selected": "7d7237495470e7832293cb3f0d433c5a89bd8ce1949800fa35ba1e276b86cb51"
+    },
+    "member_0116.obj": {
+      "original": "45758532b0af1cec2ed401ba359d3d8a0bd96f6afad6931fdbbe3b9f31a84022",
+      "selected": "45758532b0af1cec2ed401ba359d3d8a0bd96f6afad6931fdbbe3b9f31a84022"
+    },
+    "member_0117.obj": {
+      "original": "60a0b0bd387ff7473c59619343ed21f43190c0f5e03abb7f7eeb78986c101058",
+      "selected": "60a0b0bd387ff7473c59619343ed21f43190c0f5e03abb7f7eeb78986c101058"
+    },
+    "member_0118.obj": {
+      "original": "4fda1caba4655800f8d8f03375af2ff3b529dbe8ae3c1971fd2b59b2da8779cc",
+      "selected": "4fda1caba4655800f8d8f03375af2ff3b529dbe8ae3c1971fd2b59b2da8779cc"
+    },
+    "member_0119.obj": {
+      "original": "f675c9beedfb9feea64510d0d36d7b0a521e14033b45f3b7bdc83cdf129ac2fa",
+      "selected": "f675c9beedfb9feea64510d0d36d7b0a521e14033b45f3b7bdc83cdf129ac2fa"
+    },
+    "member_0120.obj": {
+      "original": "3b0ee0f92efe758a42c06e913ed07a3bea6619f12b54baee845732b6c2f78b09",
+      "selected": "3b0ee0f92efe758a42c06e913ed07a3bea6619f12b54baee845732b6c2f78b09"
+    },
+    "member_0121.obj": {
+      "original": "80fd4bdbf3aaa22caf858ec74886028e0c83200b882d0873852513860ae2eeb8",
+      "selected": "80fd4bdbf3aaa22caf858ec74886028e0c83200b882d0873852513860ae2eeb8"
+    },
+    "member_0122.obj": {
+      "original": "35bfc416741b1d503340e956b54d8bbcbd21cfdf7f0ae5b64ea9ffe32a61c4c9",
+      "selected": "35bfc416741b1d503340e956b54d8bbcbd21cfdf7f0ae5b64ea9ffe32a61c4c9"
+    },
+    "member_0123.obj": {
+      "original": "1399540bb6933800d2d06219642e323cb0bc159e66e8411749c1c1c06dc56a17",
+      "selected": "1399540bb6933800d2d06219642e323cb0bc159e66e8411749c1c1c06dc56a17"
+    },
+    "member_0124.obj": {
+      "original": "5e017770c1a661ead5b7ecf966248709392ade82e25fd491aa7d23f2e4c87e15",
+      "selected": "5e017770c1a661ead5b7ecf966248709392ade82e25fd491aa7d23f2e4c87e15"
+    },
+    "member_0125.obj": {
+      "original": "fd532f42c149b8366d13517fbe526335c18305a5bdf7780229257fd788b4691e",
+      "selected": "fd532f42c149b8366d13517fbe526335c18305a5bdf7780229257fd788b4691e"
+    },
+    "member_0126.obj": {
+      "original": "4e62684daca35c91829e562605ba7b8443ef7554a5d6c1dbe31b498d95949b3b",
+      "selected": "4e62684daca35c91829e562605ba7b8443ef7554a5d6c1dbe31b498d95949b3b"
+    },
+    "member_0127.obj": {
+      "original": "dd89de0dfdca2db5f1594acffd15e77159f936c1a0313868f40388cd2281582f",
+      "selected": "dd89de0dfdca2db5f1594acffd15e77159f936c1a0313868f40388cd2281582f"
+    },
+    "member_0128.obj": {
+      "original": "dffcf3e081efe760159c972ae04d93e506b7b20499fb38da22ef862ac20b4468",
+      "selected": "dffcf3e081efe760159c972ae04d93e506b7b20499fb38da22ef862ac20b4468"
+    },
+    "member_0129.obj": {
+      "original": "5ee6d445222413d6447a61ae5fa3ae1304c9ff91bf6cbfb202a76c85a86c02f5",
+      "selected": "5ee6d445222413d6447a61ae5fa3ae1304c9ff91bf6cbfb202a76c85a86c02f5"
+    },
+    "member_0130.obj": {
+      "original": "4f26f03adcca9185aaa41a3f029307ff464aa7a1656e2888ae39f57c328e68f5",
+      "selected": "4f26f03adcca9185aaa41a3f029307ff464aa7a1656e2888ae39f57c328e68f5"
+    },
+    "member_0131.obj": {
+      "original": "fc1ba0a476e392895a052ae330f91107f989969d1c996534433c07568ee8c20c",
+      "selected": "fc1ba0a476e392895a052ae330f91107f989969d1c996534433c07568ee8c20c"
+    },
+    "member_0132.obj": {
+      "original": "fbd7451082b243d551d433418ebe549180ef8bbf829be4ef0532266eedbc5fb0",
+      "selected": "fbd7451082b243d551d433418ebe549180ef8bbf829be4ef0532266eedbc5fb0"
+    },
+    "member_0133.obj": {
+      "original": "075594d910973c0a079060a9dfd929e54e2e90e3235cb45e5c5cdb1ad0b7b02a",
+      "selected": "075594d910973c0a079060a9dfd929e54e2e90e3235cb45e5c5cdb1ad0b7b02a"
+    },
+    "member_0134.obj": {
+      "original": "411f8426cb87af5d6a1594855311199074df07c0ae61c42f36073168abdf4f46",
+      "selected": "411f8426cb87af5d6a1594855311199074df07c0ae61c42f36073168abdf4f46"
+    },
+    "member_0135.obj": {
+      "original": "aa1d5f188de114e1653fc4d4687a8a43b71ceb29575887e561193673c5e108bf",
+      "selected": "aa1d5f188de114e1653fc4d4687a8a43b71ceb29575887e561193673c5e108bf"
+    },
+    "member_0136.obj": {
+      "original": "f1d256d8dc7a3fee5f4aa62aeb59b0f64b439786830fcedd0e936071e67d98b7",
+      "selected": "f1d256d8dc7a3fee5f4aa62aeb59b0f64b439786830fcedd0e936071e67d98b7"
+    },
+    "member_0137.obj": {
+      "original": "f86735eb1fd12e4a26a419baf6ba99ebe806a9814b9819d70b5593494bea41b0",
+      "selected": "f86735eb1fd12e4a26a419baf6ba99ebe806a9814b9819d70b5593494bea41b0"
+    },
+    "member_0138.obj": {
+      "original": "500b02e1834309eaa2ab9f55c05af9fe6936f312a931c707b142c9068e714cc9",
+      "selected": "500b02e1834309eaa2ab9f55c05af9fe6936f312a931c707b142c9068e714cc9"
+    },
+    "member_0139.obj": {
+      "original": "51379bb671decca66fec467868887a47013c17736016c239b93061e5836de180",
+      "selected": "51379bb671decca66fec467868887a47013c17736016c239b93061e5836de180"
+    },
+    "member_0140.obj": {
+      "original": "5d5c20316459136851c4a520f72076f434e29d4ce88d0bea42a7f7e6130325f1",
+      "selected": "5d5c20316459136851c4a520f72076f434e29d4ce88d0bea42a7f7e6130325f1"
+    },
+    "member_0141.obj": {
+      "original": "169cb9d83d0780500cbb1428643d2c779b2760da0775671461aff50424ec8266",
+      "selected": "169cb9d83d0780500cbb1428643d2c779b2760da0775671461aff50424ec8266"
+    },
+    "member_0142.obj": {
+      "original": "09a2fb910242c921929258f14021a9089e7d54ab0a417a8962630c642b3361aa",
+      "selected": "09a2fb910242c921929258f14021a9089e7d54ab0a417a8962630c642b3361aa"
+    },
+    "member_0143.obj": {
+      "original": "501b2d79749d2838c5a661336554c0116eaa103e1b4bc5854a86e33b8d31d33f",
+      "selected": "501b2d79749d2838c5a661336554c0116eaa103e1b4bc5854a86e33b8d31d33f"
+    },
+    "member_0144.obj": {
+      "original": "0b503288cb6c6f4cca9b0dc1c5d0a53295be6be620a4039e3f3cb3ce141a72d2",
+      "selected": "0b503288cb6c6f4cca9b0dc1c5d0a53295be6be620a4039e3f3cb3ce141a72d2"
+    },
+    "member_0145.obj": {
+      "original": "4eefd0d007c5487c88b2d126d215fc97dbb2ca6cd4535df344c7d8d5a7418c16",
+      "selected": "4eefd0d007c5487c88b2d126d215fc97dbb2ca6cd4535df344c7d8d5a7418c16"
+    },
+    "member_0146.obj": {
+      "original": "7b867245fb546c31f639ecda5f2e52fb08f2af369d3312cc47119a2a8947bdf9",
+      "selected": "7b867245fb546c31f639ecda5f2e52fb08f2af369d3312cc47119a2a8947bdf9"
+    },
+    "member_0147.obj": {
+      "original": "0557132cd5e7af1d10b6b2b67365ee8ab743c15272428d8f66475435f6012c8f",
+      "selected": "0557132cd5e7af1d10b6b2b67365ee8ab743c15272428d8f66475435f6012c8f"
+    },
+    "member_0148.obj": {
+      "original": "098db4a73bfbd6e1f65c0b18c53f8b9543962ef56c9db874033c0f1dbc6d8635",
+      "selected": "098db4a73bfbd6e1f65c0b18c53f8b9543962ef56c9db874033c0f1dbc6d8635"
+    },
+    "member_0149.obj": {
+      "original": "9d8abfaa2b3ff81a87753795bcd45d5545d0389c6648ac8cb2e9c3720eb777a6",
+      "selected": "9d8abfaa2b3ff81a87753795bcd45d5545d0389c6648ac8cb2e9c3720eb777a6"
+    },
+    "member_0150.obj": {
+      "original": "0ae37051ff985db90e2de6cc11e28f4d6cd3323a6d0d5a7fe0a417392d41960c",
+      "selected": "0ae37051ff985db90e2de6cc11e28f4d6cd3323a6d0d5a7fe0a417392d41960c"
+    },
+    "member_0151.obj": {
+      "original": "15b277be83a690dfc8c4756720c448b91408ae3be5133fc3a9b074c8fe2b81aa",
+      "selected": "15b277be83a690dfc8c4756720c448b91408ae3be5133fc3a9b074c8fe2b81aa"
+    },
+    "member_0152.obj": {
+      "original": "ad40fb3f4b6ef154b608a4cb1dd3c58013bc5946665e91de3d65022da0fc02af",
+      "selected": "ad40fb3f4b6ef154b608a4cb1dd3c58013bc5946665e91de3d65022da0fc02af"
+    },
+    "member_0153.obj": {
+      "original": "7e1cfd196fb9c1b55e4b92857930ee414c4a86cd97d05fe8865389f74bffc4d6",
+      "selected": "7e1cfd196fb9c1b55e4b92857930ee414c4a86cd97d05fe8865389f74bffc4d6"
+    },
+    "member_0154.obj": {
+      "original": "65f312524fce502528ea439f94b6ff40f4f0c594b91302b4fa377d2b3f6ab63d",
+      "selected": "65f312524fce502528ea439f94b6ff40f4f0c594b91302b4fa377d2b3f6ab63d"
+    },
+    "member_0155.obj": {
+      "original": "ab52a41e21152e2a8e494ba664a3c33483022db74c12bf1d46d1f56111d02bad",
+      "selected": "ab52a41e21152e2a8e494ba664a3c33483022db74c12bf1d46d1f56111d02bad"
+    },
+    "member_0156.obj": {
+      "original": "c8d033b6e83435688c756ffcafe2a0116f48105bc7ed81af4e21c9f1ae9e8fe0",
+      "selected": "c8d033b6e83435688c756ffcafe2a0116f48105bc7ed81af4e21c9f1ae9e8fe0"
+    },
+    "member_0157.obj": {
+      "original": "ec5eabcfad227470a8f94d4a4648a18c5aaf8bcda17c210df75c0d0e07f23865",
+      "selected": "ec5eabcfad227470a8f94d4a4648a18c5aaf8bcda17c210df75c0d0e07f23865"
+    },
+    "member_0158.obj": {
+      "original": "e4ddc572862818dff635bacf264654e540e102a6905e7f8809ca80e02755582b",
+      "selected": "e4ddc572862818dff635bacf264654e540e102a6905e7f8809ca80e02755582b"
+    },
+    "member_0159.obj": {
+      "original": "8354905ffd4763a1d1133172b661ba33f8a21bce4913254c014500c33564c066",
+      "selected": "8354905ffd4763a1d1133172b661ba33f8a21bce4913254c014500c33564c066"
+    },
+    "member_0160.obj": {
+      "original": "015a05ee094df25fe6c84bb22fdafc15d4ac05ae847edea29794f897bb91331c",
+      "selected": "015a05ee094df25fe6c84bb22fdafc15d4ac05ae847edea29794f897bb91331c"
+    },
+    "member_0161.obj": {
+      "original": "3b3a5279c827c7e7bf00ad9850722495905c6aee2e2f2f6513369378d85e2ddb",
+      "selected": "3b3a5279c827c7e7bf00ad9850722495905c6aee2e2f2f6513369378d85e2ddb"
+    },
+    "member_0162.obj": {
+      "original": "25ab9f9eb26a2a266140e036de1ec9cf8aeec337eb45852189bc11938aae5858",
+      "selected": "25ab9f9eb26a2a266140e036de1ec9cf8aeec337eb45852189bc11938aae5858"
+    },
+    "member_0163.obj": {
+      "original": "3959328aa0e7cbb3c79757b5467a3e46d8d157a0e2a913c0fe39e06a9d152359",
+      "selected": "3959328aa0e7cbb3c79757b5467a3e46d8d157a0e2a913c0fe39e06a9d152359"
+    },
+    "member_0164.obj": {
+      "original": "b219aa08fdc89c172f258265e1561ec41c60b0fd7cf000295c7380cabaa0508c",
+      "selected": "b219aa08fdc89c172f258265e1561ec41c60b0fd7cf000295c7380cabaa0508c"
+    },
+    "member_0165.obj": {
+      "original": "87e1b2761fdc82a760eb6f3fe6e7d07b18f1ce14d97620474406f957c340924a",
+      "selected": "87e1b2761fdc82a760eb6f3fe6e7d07b18f1ce14d97620474406f957c340924a"
+    },
+    "member_0166.obj": {
+      "original": "8ed5abbf4ad8e8eac0d3d119d9c65bae15b5fe67bc68e4d185913984992456fe",
+      "selected": "8ed5abbf4ad8e8eac0d3d119d9c65bae15b5fe67bc68e4d185913984992456fe"
+    },
+    "member_0167.obj": {
+      "original": "30ae0b41f83a35ee830cfabf9b91b62d1c9f72b9f0e0029748e7bf37829ce7cb",
+      "selected": "30ae0b41f83a35ee830cfabf9b91b62d1c9f72b9f0e0029748e7bf37829ce7cb"
+    },
+    "member_0168.obj": {
+      "original": "94abd45d7254eda66a84eff4938c0aadfe77ac3b0df3b86b840642fd45899a7b",
+      "selected": "94abd45d7254eda66a84eff4938c0aadfe77ac3b0df3b86b840642fd45899a7b"
+    },
+    "member_0169.obj": {
+      "original": "b74b00126b25706e2fa39bde3125e17d47e91351c9517309387f233e8c9e6220",
+      "selected": "b74b00126b25706e2fa39bde3125e17d47e91351c9517309387f233e8c9e6220"
+    },
+    "member_0170.obj": {
+      "original": "d1f46013a6663f9f432b182185e6467ba17b8eb441c17acafe02eb16ad28fa81",
+      "selected": "d1f46013a6663f9f432b182185e6467ba17b8eb441c17acafe02eb16ad28fa81"
+    },
+    "member_0171.obj": {
+      "original": "2ce42b99350e3c19c72e886e7b427c0555b6dd47f7bb3c2937077b42f84d3178",
+      "selected": "2ce42b99350e3c19c72e886e7b427c0555b6dd47f7bb3c2937077b42f84d3178"
+    },
+    "member_0172.obj": {
+      "original": "cfff034c7de798591d13ece35e13bd9d6ca7f3f4b0aa82f421a6dabc68fad8e2",
+      "selected": "cfff034c7de798591d13ece35e13bd9d6ca7f3f4b0aa82f421a6dabc68fad8e2"
+    },
+    "member_0173.obj": {
+      "original": "318a5afba45b6850caf0a7141cea5e9aca5baa3c0ebd0f2527b89303b1cb725a",
+      "selected": "318a5afba45b6850caf0a7141cea5e9aca5baa3c0ebd0f2527b89303b1cb725a"
+    },
+    "member_0174.obj": {
+      "original": "77c0cef156e234b29840760150142ff6d6b8de04bcd01bc1fcdf3e73b6e16770",
+      "selected": "77c0cef156e234b29840760150142ff6d6b8de04bcd01bc1fcdf3e73b6e16770"
+    },
+    "member_0175.obj": {
+      "original": "ae08ae28a3ddbf885cfb070ca5702f034473f5120ae83f5f0598c90090227613",
+      "selected": "ae08ae28a3ddbf885cfb070ca5702f034473f5120ae83f5f0598c90090227613"
+    },
+    "member_0176.obj": {
+      "original": "09323d95115bb11b5f60d5b074f3bc736ce8eab7485fd2c80951ba4323d4025f",
+      "selected": "09323d95115bb11b5f60d5b074f3bc736ce8eab7485fd2c80951ba4323d4025f"
+    },
+    "member_0177.obj": {
+      "original": "f2ae0adfd3d9ea35591dca3fa2887f7f85a21bfe17dac918fcb5b3614c48e193",
+      "selected": "f2ae0adfd3d9ea35591dca3fa2887f7f85a21bfe17dac918fcb5b3614c48e193"
+    },
+    "member_0178.obj": {
+      "original": "31db31a3fa597601c5681a9b506491d0edeb5e34b88368489b7cea167c92e1a2",
+      "selected": "31db31a3fa597601c5681a9b506491d0edeb5e34b88368489b7cea167c92e1a2"
+    },
+    "member_0179.obj": {
+      "original": "ffb24ad4de1c58c7d19fe3b27d9110183cdc84773612828e3a2ccbaff815fa1c",
+      "selected": "ffb24ad4de1c58c7d19fe3b27d9110183cdc84773612828e3a2ccbaff815fa1c"
+    },
+    "member_0180.obj": {
+      "original": "daa9a4727af1d36cacd80b669a3b7563c8c7eb833b3514d3b92a81562f9e2b86",
+      "selected": "daa9a4727af1d36cacd80b669a3b7563c8c7eb833b3514d3b92a81562f9e2b86"
+    },
+    "member_0181.obj": {
+      "original": "802146780445e2c03b0dbd60001b10919c62f8656e7d7258bceba30b45ee2f95",
+      "selected": "802146780445e2c03b0dbd60001b10919c62f8656e7d7258bceba30b45ee2f95"
+    },
+    "member_0182.obj": {
+      "original": "70bc9293eb1f04937aa73acc84ca821489b6c8914ef7a6b9a25ec29e7e41ceac",
+      "selected": "70bc9293eb1f04937aa73acc84ca821489b6c8914ef7a6b9a25ec29e7e41ceac"
+    },
+    "member_0183.obj": {
+      "original": "a3dfbaa6ee48edffc92611ec90c930afcd2810d0cb566cef2f3173eb880b6374",
+      "selected": "a3dfbaa6ee48edffc92611ec90c930afcd2810d0cb566cef2f3173eb880b6374"
+    },
+    "member_0184.obj": {
+      "original": "0fe7a753c67db1ee631fdfef18ac49ce49a7a1cc2a6a98a84e479179e28cc5b4",
+      "selected": "0fe7a753c67db1ee631fdfef18ac49ce49a7a1cc2a6a98a84e479179e28cc5b4"
+    },
+    "member_0185.obj": {
+      "original": "ec5856481fec6493572943a70ad40ddefd5f87632fc859259ddacc0be8ef0650",
+      "selected": "ec5856481fec6493572943a70ad40ddefd5f87632fc859259ddacc0be8ef0650"
+    },
+    "member_0186.obj": {
+      "original": "81312288be08e800bf21a29caa3f4b632b1560cfa5de4ebb2161bb8ae1ae60fc",
+      "selected": "81312288be08e800bf21a29caa3f4b632b1560cfa5de4ebb2161bb8ae1ae60fc"
+    },
+    "member_0187.obj": {
+      "original": "bd7af620c6650a5174bcde796f448262153cca7343139c2607d60bd611df5bfd",
+      "selected": "bd7af620c6650a5174bcde796f448262153cca7343139c2607d60bd611df5bfd"
+    },
+    "member_0188.obj": {
+      "original": "2742becde202c0e7fbb3fd5661450a06bf916ff84a97fab0c5e34a3502ff032c",
+      "selected": "2742becde202c0e7fbb3fd5661450a06bf916ff84a97fab0c5e34a3502ff032c"
+    },
+    "member_0189.obj": {
+      "original": "fa7ba3de6e40f612a9f66e390ec5644de0ed58a5f992ab92a26f64756cf23a50",
+      "selected": "fa7ba3de6e40f612a9f66e390ec5644de0ed58a5f992ab92a26f64756cf23a50"
+    },
+    "member_0190.obj": {
+      "original": "fbd5cf8f6369ccf25aa721b179d9e4cb70169987158c6235f00e613945cd1416",
+      "selected": "fbd5cf8f6369ccf25aa721b179d9e4cb70169987158c6235f00e613945cd1416"
+    },
+    "member_0191.obj": {
+      "original": "b004eb7e43864e09b9a148aceb95b25b907e9ac1607cfd8be507c2fb7cf862ba",
+      "selected": "b004eb7e43864e09b9a148aceb95b25b907e9ac1607cfd8be507c2fb7cf862ba"
+    },
+    "member_0192.obj": {
+      "original": "e23fc14dbb524b162b87a9374f8198d31f0bd77813dda14b20766767038d18c1",
+      "selected": "e23fc14dbb524b162b87a9374f8198d31f0bd77813dda14b20766767038d18c1"
+    },
+    "member_0193.obj": {
+      "original": "85ec7d4e7f7dc1ca48d91a3adb98414cf705e84f541f79594b240afdfd89d59f",
+      "selected": "85ec7d4e7f7dc1ca48d91a3adb98414cf705e84f541f79594b240afdfd89d59f"
+    },
+    "member_0194.obj": {
+      "original": "748cf355cb2e32243ab20cb391f65d83277262ea0c1ff908415be856acd79033",
+      "selected": "748cf355cb2e32243ab20cb391f65d83277262ea0c1ff908415be856acd79033"
+    },
+    "member_0195.obj": {
+      "original": "2e598b4354d8c058ae5f285e9c9c227be1b9c3a2dc23c9dce67d4f87a44e1eb0",
+      "selected": "2e598b4354d8c058ae5f285e9c9c227be1b9c3a2dc23c9dce67d4f87a44e1eb0"
+    },
+    "member_0196.obj": {
+      "original": "aee4d2a1312aaaaf32e02442a1310297a5c2cec775d9b60a179c31058e1d0f23",
+      "selected": "aee4d2a1312aaaaf32e02442a1310297a5c2cec775d9b60a179c31058e1d0f23"
+    },
+    "member_0197.obj": {
+      "original": "53858cd1c0c3db3687a4f8d691218a6c20f715495b4b0dae590485c8038ddc36",
+      "selected": "53858cd1c0c3db3687a4f8d691218a6c20f715495b4b0dae590485c8038ddc36"
+    },
+    "member_0198.obj": {
+      "original": "c61783d036f8e7cd7c26748d4ef77734f7ecd4a66ee1583eb5d1bf0c4f3fa8e7",
+      "selected": "c61783d036f8e7cd7c26748d4ef77734f7ecd4a66ee1583eb5d1bf0c4f3fa8e7"
+    },
+    "member_0199.obj": {
+      "original": "6bde411f72decebc747cfc2aae5f4640ad12750afcafae8741d6155ae0d3ddf4",
+      "selected": "6bde411f72decebc747cfc2aae5f4640ad12750afcafae8741d6155ae0d3ddf4"
+    },
+    "member_0200.obj": {
+      "original": "c89c2ac3d4c49afbf2b765fc7e4405246f744680af269eceace7627c5b14f547",
+      "selected": "c89c2ac3d4c49afbf2b765fc7e4405246f744680af269eceace7627c5b14f547"
+    },
+    "member_0201.obj": {
+      "original": "4ef95b979b42ef82dd12ffae47727457932e40835ba3329744dfb89541eddb0a",
+      "selected": "4ef95b979b42ef82dd12ffae47727457932e40835ba3329744dfb89541eddb0a"
+    },
+    "member_0202.obj": {
+      "original": "eedeb875d341a081e6ddb41c0e36e701a16e65be7c382c5953691d4ef72a1251",
+      "selected": "eedeb875d341a081e6ddb41c0e36e701a16e65be7c382c5953691d4ef72a1251"
+    },
+    "member_0203.obj": {
+      "original": "15ddd184efb3757778765542479457e349d1f997beef7e9518821b18ceedc9bf",
+      "selected": "15ddd184efb3757778765542479457e349d1f997beef7e9518821b18ceedc9bf"
+    },
+    "member_0204.obj": {
+      "original": "20da5c4e6870020dabd4c4eadea89dc839069c38977231b8ca37d5368ae5f9f6",
+      "selected": "20da5c4e6870020dabd4c4eadea89dc839069c38977231b8ca37d5368ae5f9f6"
+    },
+    "member_0205.obj": {
+      "original": "72d914a54ca7f1def3ae1876d5dd44ba01b86feea8543e0ff88e5542f62eaf98",
+      "selected": "72d914a54ca7f1def3ae1876d5dd44ba01b86feea8543e0ff88e5542f62eaf98"
+    },
+    "member_0206.obj": {
+      "original": "a17ccccf0f347e2cd3aa50ffd44e6b9df5faeff0d98e57603163e5d4f66526a0",
+      "selected": "a17ccccf0f347e2cd3aa50ffd44e6b9df5faeff0d98e57603163e5d4f66526a0"
+    },
+    "member_0207.obj": {
+      "original": "75c62839ff07c300363d0dad40895e2f2b0f0b03596c7f343d0c915eb2f2feba",
+      "selected": "75c62839ff07c300363d0dad40895e2f2b0f0b03596c7f343d0c915eb2f2feba"
+    },
+    "member_0208.obj": {
+      "original": "a41fee75787f3e882dba7bb03235a58524493b6556c76f75f7d6bdaf70ee78a3",
+      "selected": "a41fee75787f3e882dba7bb03235a58524493b6556c76f75f7d6bdaf70ee78a3"
+    },
+    "member_0209.obj": {
+      "original": "00dfe89ce9ee677f0af0eb640a3f478edbf7954d3fd0e5c315ca7fa0de97c796",
+      "selected": "00dfe89ce9ee677f0af0eb640a3f478edbf7954d3fd0e5c315ca7fa0de97c796"
+    },
+    "member_0210.obj": {
+      "original": "600a4b4df386bbe6b7e6e7de91387ee63bece9c18599e501c0d2a5b5465d8515",
+      "selected": "600a4b4df386bbe6b7e6e7de91387ee63bece9c18599e501c0d2a5b5465d8515"
+    },
+    "member_0211.obj": {
+      "original": "cdb205d6071637b4f27b3e0efd2ca40aee3a4b9353235d29823362f6e9194d3f",
+      "selected": "cdb205d6071637b4f27b3e0efd2ca40aee3a4b9353235d29823362f6e9194d3f"
+    },
+    "member_0212.obj": {
+      "original": "6e8990da332c8bf99d905ec814a2ec28ada8544c91801743e825c769668d57d8",
+      "selected": "6e8990da332c8bf99d905ec814a2ec28ada8544c91801743e825c769668d57d8"
+    },
+    "member_0213.obj": {
+      "original": "c4607edcfd3d03306fb924b2235d67db36bc07911b226b542046725fa1dfa2e9",
+      "selected": "c4607edcfd3d03306fb924b2235d67db36bc07911b226b542046725fa1dfa2e9"
+    },
+    "member_0214.obj": {
+      "original": "c04afc0ece3ceb8af8b71583a12bb9fff26d15bc3adccd1bc9bb46dd62084458",
+      "selected": "c04afc0ece3ceb8af8b71583a12bb9fff26d15bc3adccd1bc9bb46dd62084458"
+    },
+    "member_0215.obj": {
+      "original": "6b9488ee4be66a785e408727e2b4b07b8b031f5b6045d9e828ce606c1e4dce20",
+      "selected": "6b9488ee4be66a785e408727e2b4b07b8b031f5b6045d9e828ce606c1e4dce20"
+    },
+    "member_0216.obj": {
+      "original": "0a997b8f20c19618af98dc6d29068cb2515e69d4b407da3f98f90783685ef2d8",
+      "selected": "0a997b8f20c19618af98dc6d29068cb2515e69d4b407da3f98f90783685ef2d8"
+    },
+    "member_0217.obj": {
+      "original": "b5bc5573703188b83214d3ca22da3802b75007dd3b688b14edeede2a94e52a1d",
+      "selected": "b5bc5573703188b83214d3ca22da3802b75007dd3b688b14edeede2a94e52a1d"
+    },
+    "member_0218.obj": {
+      "original": "4bd1015a608cbc5e2068870ea60f237d87641f9cff1f6a22bccaa85ee97ee078",
+      "selected": "4bd1015a608cbc5e2068870ea60f237d87641f9cff1f6a22bccaa85ee97ee078"
+    },
+    "member_0219.obj": {
+      "original": "05d8f8d1d3f6a40cf6b4c339f4d5014cea6e25d7b3d43c751f14113e4fd68133",
+      "selected": "05d8f8d1d3f6a40cf6b4c339f4d5014cea6e25d7b3d43c751f14113e4fd68133"
+    },
+    "member_0220.obj": {
+      "original": "047ffc4a558245e9d2e4980b62cc9fc0564712869fcdffba4569c00b8117a726",
+      "selected": "047ffc4a558245e9d2e4980b62cc9fc0564712869fcdffba4569c00b8117a726"
+    },
+    "member_0221.obj": {
+      "original": "8070e1682e07d038a025ca3bc96eca2f848c9b44eaa28aa3f8b72966799397b8",
+      "selected": "8070e1682e07d038a025ca3bc96eca2f848c9b44eaa28aa3f8b72966799397b8"
+    },
+    "member_0222.obj": {
+      "original": "05ce55541fdefe9703438854f877cff8d29f4fde7cdca20ab61b2c197bc9e8a3",
+      "selected": "05ce55541fdefe9703438854f877cff8d29f4fde7cdca20ab61b2c197bc9e8a3"
+    },
+    "member_0223.obj": {
+      "original": "8fb8dc82cad9de7f1e6cfdcb108714cad14ef6f6bd673e9efe428328cf6d8e7e",
+      "selected": "8fb8dc82cad9de7f1e6cfdcb108714cad14ef6f6bd673e9efe428328cf6d8e7e"
+    },
+    "member_0224.obj": {
+      "original": "2445f0a66c704b6c609d91ed50fa6495441676a18135e32e2697370f7b930978",
+      "selected": "2445f0a66c704b6c609d91ed50fa6495441676a18135e32e2697370f7b930978"
+    },
+    "member_0225.obj": {
+      "original": "9964e6b1917bce9c1464e53314f09532f363f0f227f92f22536ff510569cc2e7",
+      "selected": "9964e6b1917bce9c1464e53314f09532f363f0f227f92f22536ff510569cc2e7"
+    },
+    "member_0226.obj": {
+      "original": "45f99322134365c179efef8003e6786130aedb7c2260264777266960d96874d6",
+      "selected": "45f99322134365c179efef8003e6786130aedb7c2260264777266960d96874d6"
+    },
+    "member_0227.obj": {
+      "original": "49229538a81cf7b8f4f95f8d30177be99c1f41cd80cfee16485c4102771ddc3c",
+      "selected": "49229538a81cf7b8f4f95f8d30177be99c1f41cd80cfee16485c4102771ddc3c"
+    },
+    "member_0228.obj": {
+      "original": "8f38c62a52fa1f711d8d15d2655a062ab7ea7fee491de685f31c50db0d442edd",
+      "selected": "8f38c62a52fa1f711d8d15d2655a062ab7ea7fee491de685f31c50db0d442edd"
+    },
+    "member_0229.obj": {
+      "original": "811b9bf382b88c75b4786fd7f7781d0ac78407d09a557c247ca2fef2ede16683",
+      "selected": "811b9bf382b88c75b4786fd7f7781d0ac78407d09a557c247ca2fef2ede16683"
+    },
+    "member_0230.obj": {
+      "original": "3767308fd2a06550298d052542384cee38e1efdd60b3a9e27a84d65668f629c4",
+      "selected": "3767308fd2a06550298d052542384cee38e1efdd60b3a9e27a84d65668f629c4"
+    },
+    "member_0231.obj": {
+      "original": "989a314e09df008676e63b56469ab344dbe786eec6604c8909f7169ad5fc5ef6",
+      "selected": "989a314e09df008676e63b56469ab344dbe786eec6604c8909f7169ad5fc5ef6"
+    },
+    "member_0232.obj": {
+      "original": "c00b8ab53009dd2ac3d8356e8a1e713a82f486efd2924322d39cd638bdfcc86c",
+      "selected": "c00b8ab53009dd2ac3d8356e8a1e713a82f486efd2924322d39cd638bdfcc86c"
+    },
+    "member_0233.obj": {
+      "original": "6b524ab05a61f6b6665a9ba14e56902f0fb0338eba59b50002aad5687c3ce153",
+      "selected": "6b524ab05a61f6b6665a9ba14e56902f0fb0338eba59b50002aad5687c3ce153"
+    },
+    "member_0234.obj": {
+      "original": "9dffe1b630e0536303e2462daab9ac52f65ee5f81a3c0eaab86f789ec4188127",
+      "selected": "9dffe1b630e0536303e2462daab9ac52f65ee5f81a3c0eaab86f789ec4188127"
+    },
+    "member_0235.obj": {
+      "original": "2ca8cc91943d6a5c08e786e8df30825aba46bd7290a92d013cd795d8b2b7b4f0",
+      "selected": "2ca8cc91943d6a5c08e786e8df30825aba46bd7290a92d013cd795d8b2b7b4f0"
+    },
+    "member_0236.obj": {
+      "original": "ff2e845ff253bf3d29bf16e976fd07049cfaa2135cef3d174cb473420a0e8f7e",
+      "selected": "ff2e845ff253bf3d29bf16e976fd07049cfaa2135cef3d174cb473420a0e8f7e"
+    },
+    "member_0237.obj": {
+      "original": "69b73dd5caf8f6cb19603d0ecc4393b27d638973fb5dc67655ae040204aa4809",
+      "selected": "69b73dd5caf8f6cb19603d0ecc4393b27d638973fb5dc67655ae040204aa4809"
+    },
+    "member_0238.obj": {
+      "original": "6fc81853b364f5ef04494e5925ccf4a96935cee589133e5dd6db8df05bacfd61",
+      "selected": "6fc81853b364f5ef04494e5925ccf4a96935cee589133e5dd6db8df05bacfd61"
+    },
+    "member_0239.obj": {
+      "original": "a249ad463ce40ba6e07de962ab48dd859940ad7146df7b72dab615306362e44b",
+      "selected": "a249ad463ce40ba6e07de962ab48dd859940ad7146df7b72dab615306362e44b"
+    },
+    "member_0240.obj": {
+      "original": "36fc683e4a50d859634091aa51a5c8429527feef4825b3648c90c8edc7d9bcea",
+      "selected": "36fc683e4a50d859634091aa51a5c8429527feef4825b3648c90c8edc7d9bcea"
+    },
+    "member_0241.obj": {
+      "original": "8f45226ebd4b03eb4f9538373d0987baac57f979117ff5b2f0817ba7b58c7fca",
+      "selected": "8f45226ebd4b03eb4f9538373d0987baac57f979117ff5b2f0817ba7b58c7fca"
+    },
+    "member_0242.obj": {
+      "original": "d2d2d513b526610d77d7d926468362287668c0c4658ceec4f2d329ff7eb30f77",
+      "selected": "d2d2d513b526610d77d7d926468362287668c0c4658ceec4f2d329ff7eb30f77"
+    },
+    "member_0243.obj": {
+      "original": "69dd2dad5c855499ec4e88922f80c17b0cd763250b57b283d2c8db47ad2ec8ec",
+      "selected": "69dd2dad5c855499ec4e88922f80c17b0cd763250b57b283d2c8db47ad2ec8ec"
+    },
+    "member_0244.obj": {
+      "original": "8b56615e0389397f6482cb2038b69bb2faf0396aeb62f76cd48c3d903774d547",
+      "selected": "8b56615e0389397f6482cb2038b69bb2faf0396aeb62f76cd48c3d903774d547"
+    },
+    "member_0245.obj": {
+      "original": "d062995aa284a89d0d859ae8f98ae1c5585df5dfdf2c383a6dafe33ea6515df1",
+      "selected": "d062995aa284a89d0d859ae8f98ae1c5585df5dfdf2c383a6dafe33ea6515df1"
+    },
+    "member_0246.obj": {
+      "original": "5f7e09cb1d64078c9c582ffa481f79924e0c0aebbb14a364d50a21be18b9c6e0",
+      "selected": "5f7e09cb1d64078c9c582ffa481f79924e0c0aebbb14a364d50a21be18b9c6e0"
+    },
+    "member_0247.obj": {
+      "original": "26dc61fb566acd6eaefd9bcfbdf432f0a7a731ff07f45276a7822733eb811372",
+      "selected": "26dc61fb566acd6eaefd9bcfbdf432f0a7a731ff07f45276a7822733eb811372"
+    },
+    "member_0248.obj": {
+      "original": "d7ecb0fc2f7994278b94056c6d12d416f1e0e8547e72f0ca0b99a500c323cb22",
+      "selected": "d7ecb0fc2f7994278b94056c6d12d416f1e0e8547e72f0ca0b99a500c323cb22"
+    },
+    "member_0249.obj": {
+      "original": "c530d23ba6063a06ab7fca3e1053e86385645854045f586388547245e12bb3af",
+      "selected": "c530d23ba6063a06ab7fca3e1053e86385645854045f586388547245e12bb3af"
+    },
+    "member_0250.obj": {
+      "original": "348cbfb8c993d9105de3ffb5a37bc92973b595aa58f6e52bd96e4f2542de33f1",
+      "selected": "348cbfb8c993d9105de3ffb5a37bc92973b595aa58f6e52bd96e4f2542de33f1"
+    },
+    "member_0251.obj": {
+      "original": "5ff8d877907ed5791f74e90c202cac3c1149b1299ccf21250aacd47faa492665",
+      "selected": "5ff8d877907ed5791f74e90c202cac3c1149b1299ccf21250aacd47faa492665"
+    },
+    "member_0252.obj": {
+      "original": "91ae5a9c91ff18f33b1aa97162b67c01c63b43490e2fe274d2538f191a1c6f79",
+      "selected": "91ae5a9c91ff18f33b1aa97162b67c01c63b43490e2fe274d2538f191a1c6f79"
+    },
+    "member_0253.obj": {
+      "original": "1cc618448b34aac9a0a4da01a1d6f5d7839dcf64f001611fedc521cf674e90f6",
+      "selected": "1cc618448b34aac9a0a4da01a1d6f5d7839dcf64f001611fedc521cf674e90f6"
+    },
+    "member_0254.obj": {
+      "original": "6b5419dffba289bbd25f377e70fdb562aed7be46baf5db956cdf7a1f9e2a3d06",
+      "selected": "6b5419dffba289bbd25f377e70fdb562aed7be46baf5db956cdf7a1f9e2a3d06"
+    },
+    "member_0255.obj": {
+      "original": "6270e9f7efb80ba75dfa481464e562fd78de3846a5cf3e98c6a04093b1d25ee4",
+      "selected": "6270e9f7efb80ba75dfa481464e562fd78de3846a5cf3e98c6a04093b1d25ee4"
+    }
+  },
+  "note": "Generated private SDK dependency selection; never a reconstructed library."
+}
