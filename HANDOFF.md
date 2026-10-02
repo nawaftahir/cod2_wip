@@ -1,60 +1,78 @@
 # Shared renderer handoff — 2026-10-02
 
-Paused at the owner's request after saving this checkpoint. Fresh full aggregate replay passed after
-the restart: **331,798 / 1,089,680 = 30.449123%**. The411 compiler type/diagnostic
-instruction bytes are now counted; no tables or opaque dependency gain.
-The immediate requested target is **31%**, not yet reached:6003 further bytes.
-35% remains the longer target, requiring49590 further verified bytes.
+Owner requested a **pause after this checkpoint**. The unfinished target remains
+**35% verified source coverage**; do not resume reconstruction until requested.
+Fresh full aggregate PASS confirms **335,406 / 1,089,680 =
+30.780229%**. This checkpoint adds3608 disjoint instruction bytes across16
+methods (program2663 + graph945).31% needs2395 further bytes;35% needs45982.
+No table/opaque dependency credit or whole-DLL/GPU claim.
 
-New target-backed batch: `target/scratch/codex31_program/program.cpp` implements
-program setup/copy, argument remapping/compaction, instruction compaction and
-read/write analysis. Twelve complete sections pass strict V2, **2663 code bytes**,
-including two typed deleting helpers. The625/638 optimizer draft remains excluded
-by PROGRAM_MATCHED_ONLY; consult the current probe for its latest actual size.
-Both scratch and integrated clean CPU fixtures passed1284 complete outputs
-(954 successes/330 errors each). Clean source is separated in
-`target/src/codex_shader_program/program.cpp`; all clean proof/fixture input
-hashes were checked current at pause. The private DLL builds without /FORCE.
-V3 stopped at the new-method acceptance assertion: both deleting helpers,
-CompactInstructions and CompactArguments are absent from the accepted linked
-results. The preceding559 source matches were retained. Exact failure:
-`target/scratch/codex31_program/link.log`. No program aggregate credit yet.
+## Current source and proofs
 
-## Resume first: compiler type/diagnostic integration
+- `target/src/codex_shader_program/program.cpp`:12 complete methods /2663
+  bytes. Clean V2, private V3/571 matches retaining559,1284 integrated full-output
+  CPU comparisons and full disjoint aggregate PASS. The earlier four V3
+  failures were missing1-byte SDK destructor locators. Those now receive
+  complete typed SDK/source/retail checks and zero source credit.
+- `target/src/codex_shader_program_flow/flow.cpp`:4 complete methods /945
+  bytes. Clean V2, private V3/575 matches retaining571 and1284 integrated CPU
+  comparisons and full aggregate pass; its945 disjoint bytes are included.
+- `target/scratch/codex35_program_flow/flow.cpp`:10-method larger reconstruction
+  draft. All1284 original/source shader outputs agree, but six methods still
+  differ in bytes. Only the four independently proven bodies entered clean src.
+- `target/scratch/codex35_program_lifetime/`:bounded real control-flow/lifetime
+  alternatives for MarkVarying; accepted source/proof inputs untouched.
+  Pointer-index form improves606/614 to609/614 with matching prologue. Latest
+  explicit-token-local candidate also produces609/614, first difference+88;
+  it is unmatched and adds zero credit. Read its REPORT before more variants.
 
-Clean source: `target/src/codex_shader_compiler_types/types.cpp` supplies
-Error(98 code bytes) and GetTypeFlags(313 code bytes plus52 table bytes).
-Clean V2 is REVIEWABLE. The private DLL passes559 source matches, retaining
-all557 previous matches. The integrated fixture passes1284 complete original/
-source shader outputs (954 successes/330 errors in each), with map ownership.
-Packets and commands are in `target/scratch/codex35_compiler_types/REPORT.md`.
+## Resume after the pause
 
-The legacy raw GetTypeFlags score95 is preserved, not called a pass. Local
-decoded normalization passes100 and independently checks complete typed
-SDK/source/retail bytes, bindings, table destinations and negative tests.
-It fixes four self-call relocation fields while leaving internal jumps literal.
-The source selector checks196 distinct definitions/206 removed archive entries.
-Tables and opaque SDK/runtime dependencies do not increase source coverage.
+Full aggregate command (from gfx/):
 
-The restarted `python3 -u tools/check_ten_percent.py` completed with exit0;
-full output is in compiler_types/aggregate.log. Next inspect the four linked
-binding failures in `build/codex31_program/bind.json`, versus clean V2 rows,
-map symbols and complete SDK/source/retail relocation evidence. Preserve
-the ABI and gates; do not suppress failures. Rerun clean V2 and V3 after any
-harness change. The proposed aggregate extension is preserved as
-`scratch/codex31_program/aggregate_pending.patch`, not installed in the accepted
-aggregate checker. Apply it and update changed pins only after genuine V3 PASS,
-then replay the full disjoint aggregate. Scratch section matches alone are not
-accepted aggregate coverage.
-Do not link the old eight-method compiler TU alongside the clipping replacement.
-Whole-DLL identity and game/GPU boot remain unfinished.
+    python3 -u tools/check_ten_percent.py
 
-Avoid repeating exhausted surveys: codex30_crt_o2 (358 CRT C files, two modes,
-zero accepted gain), codex30_cpp (58 C++ runtime files, zero gain), codex35_crt
-(already-completed new CRT cohort). This turn's duplicate CRT survey was stopped;
-its partial objects get zero credit. Read codex30_token/REPORT.md before further
-opcode-initializer experiments: its prior624-byte draft is closer to607 retail
-bytes than this turn's644-byte draft. Both remain unaccepted.
+The completed PASS log is `target/scratch/codex35_program_flow/aggregate.log`.
+No aggregate process remains running. The preceding program full PASS is
+preserved at `target/scratch/codex31_program/aggregate.log`.
+Proof hashes were checked current after the replay. Start fresh checks only
+after modifying their actual inputs; do not invent a new percentage.
+
+Immediate next checkpoint is31%, not yet reached. The large behavior-checked
+drafts remain useful source work, not accepted bytes. Preserve the source-level
+approach and strict full-boundary/binding/negative/regression/CPU gates.
+
+Flow commands (from gfx/target):
+
+    sh scratch/codex35_program_flow/build.sh
+    python3 scratch/codex35_program_flow/check.py --clean
+    python3 scratch/codex35_program_flow/check_link.py
+    python3 scratch/codex35_program_flow/run_clean_test.py
+
+The flow selector checks212 distinct source definitions/232 removed SDK
+definitions. Its static CompareIndex callback is externalized only after
+complete26-byte SDK/source equality and no relocations; all other storage-class
+checks remain strict. ParentInfo raw legacy score97 is preserved separately:
+decoded self-call normalization100 and complete independent typed proof pass.
+CBaseProgram::Initialize's210-byte tail includes its exact backward jump into
+the verified return epilogue. No function truncation, padding or ABI change.
+
+A build-script escaped-path bug temporarily regenerated program's owned
+runtime_new.lib archive. The script was corrected; program V3 and its freshly
+built1284-output CPU fixture were rerun successfully with current hashes.
+No retail bytes were patched. Preserve full artifact freshness gates.
+
+The in-process COFF parser now uses an exact-immutable-byte stdlib cache in the
+new flow checker. Cached/uncached equality, repeated-input hit and changed-input
+miss are checked. It does not cache matches, compiler results or stale files.
+
+## Avoid repeating exhausted work
+
+Plain JPEG version/flag surveys, CRT O2 C surveys (358 files/two modes), C++
+runtime survey58 files and CRT MASM39-file survey were already done. Reuse
+their evidence; do not repeat unchanged builds hoping for new coverage.
+The old eight-method compiler module is superseded by clipping and must not
+be linked alongside that replacement. Optimizer625/638 stays scratch-only.
 
 The sections below are historical checkpoints, not instructions to redo work.
 

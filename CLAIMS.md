@@ -27,4 +27,6 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 | target/scratch/codex31_instructions/* | Codex | 2026-10-02 | Instruction initialization source batch; preserve accepted copy/predicate modules |
 | target/scratch/codex31_crt/* | Codex | 2026-10-02 | Authentic CRT source /O2 batch, strict full-body proof and no opaque-library credit |
 | target/src/codex_shader_compiler_types/* | Codex | 2026-10-02 | Clean source type/diagnostic cohort; private V2/V3 integration, previous clean TUs unchanged |
-| target/scratch/codex31_program/*, target/src/codex_shader_program/* | Codex (paused) | 2026-10-02 | 12 methods/2663 bytes clean V2 and1284 CPU checks pass; four linked acceptance failures, no aggregate credit; optimizer remains scratch |
+| target/scratch/codex31_program/*, target/src/codex_shader_program/* | Codex (paused) | 2026-10-02 | Accepted12 methods/2663 bytes: clean V2,571 linked matches retaining559,1284 full CPU outputs and full aggregate PASS; optimizer stays scratch |
+| target/scratch/codex35_program_flow/*, target/src/codex_shader_program_flow/* | Codex (paused) | 2026-10-02 | Accepted four clean methods/945 bytes: V2,575 linked matches retaining571,1284 full CPU outputs and full aggregate PASS; six mismatched drafts excluded |
+| target/scratch/codex35_program_lifetime/* | Codex (paused) | 2026-10-02 | Bounded pointer/counter lifetime alternatives; best609/614 remains unmatched, no added credit; accepted inputs untouched |

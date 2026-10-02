@@ -1,0 +1,22 @@
+PASS: disjoint source lower bound 335406/1089680 = 30.780229%; JPEG 73123, closed tree 41307, STL 3434, standalone 1190, engine 2661, private linked gain 11003, live verified/src gain 6478, private draw groups 587, CRT C source 51318, CRT ASM source 3431, reconstructed SDK source 140874
+CRT batch: 85 new disjoint bodies, 13375 bytes; duplicates excluded.
+CRT17 batch: 41 new disjoint bodies, 9176 bytes; duplicates excluded.
+CRT19 batch: 16 new disjoint bodies, 2751 bytes; new original ASM instruction bytes 1749; duplicates and tables excluded.
+SDK sibling batch: 3 new complete source bodies, 67696 unique code bytes; clean 4-TU module linked with all previous matches retained; tables excluded.
+CRT35 batch: 29 new disjoint bodies, 3004 bytes; SDK35: 37 bodies, 1798 bytes; 400 linked source matches, all previous retained; 361654 CPU comparisons passed.
+Parser batch: 3 complete source bodies, 6082 instruction bytes; 403 linked source matches retained/accepted; 96 full-output CPU cases passed.
+Shader read batch: 12 complete source bodies, 475 instruction bytes; 415 linked source matches, all 403 previous retained; 2000 full-output CPU cases passed.
+Instruction/profile/cast batch: 4 complete source bodies, 613 instruction bytes; 419 linked source matches, all 415 previous retained; 10285 CPU comparisons passed. DxErr W table is still fully checked, not decoded as instructions or counted again.
+Shader-node batch: 72 complete source bodies, 4783 instruction bytes; 491 linked source matches, all 419 previous retained; 10496 CPU comparisons passed. Typed vtables and empty SDK Print slots are fully checked but receive no new source credit.
+Assembler batch: 14 complete source bodies, 1517 instruction bytes; 505 linked matches, all 491 retained; 1440 CPU comparisons passed.
+Allocator/diagnostic batch: 11 complete source bodies, 1162 instruction bytes; 516 linked matches, all 505 retained; 3584 CPU comparisons passed.
+Tokenizer batch: 7 complete source bodies, 1037 instruction bytes; 523 linked matches, all 516 retained; 9976 CPU comparisons passed.
+Preprocessor batch: 25 complete source bodies, 2199 instruction bytes; 548 linked matches, all 523 retained; 12259 CPU comparisons passed.
+Compiler batch: 8 complete source bodies, 757 instruction bytes; 556 linked matches, all 548 retained; 20355 clean-profile CPU comparisons passed. Unmatched evaluator/stack allocation remain SDK dependencies, zero extra source credit.
+Clipping cohort: 9 complete source bodies, 1066 instruction bytes; only 309 new bytes counted, all 757 previous compiler bytes retained; 557 linked matches, all 556 retained; 1284 full shader-output CPU cases passed.
+Compiler type/diagnostic cohort: 2 complete source bodies, 411 new instruction bytes; 52 table bytes excluded; 559 linked matches retain all 557; 1284 full shader-output CPU cases passed. Legacy raw GetTypeFlags score95 retained; decoded self-call normalization100 and independent full typed/binding proof pass.
+Program cohort: 12 complete source bodies, 2663 new instruction bytes; 571 linked matches retain all559; 1284 full shader-output CPU cases passed. Optimizer draft and opaque dependencies excluded.
+Program flow cohort: 4 complete source bodies, 945 new instruction bytes; 575 linked matches retain all571; 1284 integrated clean CPU shader outputs pass. Recursive helper raw97 is retained, decoded self-call100 and complete independent bindings pass; other drafts get zero extra credit.
+31% checkpoint: PENDING; 2395 further source instruction bytes needed.
+35% checkpoint: PENDING; 45982 further source instruction bytes needed.
+Draft functions, opaque SDK/CRT library bytes, and whole-file identity excluded.

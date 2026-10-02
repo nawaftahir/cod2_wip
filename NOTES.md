@@ -377,3 +377,36 @@
 - Accepted aggregate checker remains unchanged; its proposed extension is
   saved as aggregate_pending.patch. Optimizer625/638 remains scratch-only.
   Paused at owner's request; no whole-file SHA or GPU claim.
+
+## Program and graph source checkpoint — 2026-10-02
+
+- PINNED: the program cohort's four linked failures were absent one-byte SDK
+  destructor locators, not mismatched source bodies. SDK88 CInstruction at
+  100853af and SDK87 CArgument at10085bf4 are exact C3 sections. Verify SDK,
+  retail and linked byte equality, named library owner, typed helper CALL+8 /
+  relocation+9 / target+13 displacement, and wrong-target negative. These
+  locators receive zero additional source credit. Program12/2663 now passes
+  V3/571 retaining559 and fresh1284-output CPU proof plus full aggregate.
+- PINNED: graph fields CInstruction+14/18/1c/20 are parent-count/pointer and
+  child-count/pointer access prefixes, not verified complete allocation size.
+  The four clean graph methods independently prove945 instruction bytes;
+  V3/575 retains571 and1284 integrated full shader outputs agree. Full aggregate
+  PASS confirms335406/1089680 =30.780229%, including945 new disjoint flow bytes.
+- PINNED: CompareIndex is a26-byte static SDK callback. Only that named static
+  definition is rebound after full SDK/source equality, no relocations and
+  local-label reference checks. The strict selector verifies212 distinct
+  source definitions /232 removed archive definitions and exact symbol sets.
+- PINNED: ParentInfo includes a recursive E8 relocation; legacy raw97 remains
+  recorded separately from decoded normalized100 and independent typed proof.
+  Base Initialize's complete210-byte section ends in a backward jump into its
+  verified +196 return epilogue. Neither body is truncated or padded.
+- The new proof uses stdlib lru_cache on immutable COFF bytes within one
+  process, with parity, hit and changed-input-miss checks. No result/file cache
+  or relaxed verification gate. A build script briefly regenerated the owned
+  program runtime archive; corrected paths plus freshly rerun V3 and CPU proof
+  restored current hash consistency without editing proof digests or retail.
+- MarkVarying scope3/token-local609/614 remains unaccepted. Five masked-opcode
+  comparisons use shorter EAX immediate encodings than SDK's ECX; input-pointer
+  load order also differs. Preserve bounded attempts, do not infer impossibility.
+- Owner asked to pause after checkpoint.31% needs2395 more bytes;35% needs45982.
+  No verification process remains running; no V4/V5 claim.
