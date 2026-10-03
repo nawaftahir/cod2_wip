@@ -839,3 +839,23 @@
   Audit8482 exited1 on the new aggregate's raw100 assertion; replacement30276
   includes both cohorts with exact named diagnostic/binding/destination checks.
   No bytes accepted yet. Preserve failed log; never use MASK_INTRA globally.
+## Codex35 aggregate acceptance and full argument storage — 2026-10-03
+
+- Audit30276 completed terminal PASS/exit0. Five new complete definitions,
+  3275 disjoint instruction bytes, bring accepted coverage to352015/1089680
+  =32.304438%. All32 verifier pin sets and96 authoritative packet input sets,
+  12557 file identities, rehashed current afterward; anchor unchanged.
+  Goal35% remains active,29373 bytes short. No whole-DLL/GPU claim.
+- PINNED CArgument allocation size is80h/128, not the120-byte access prefix
+  used by earlier non-allocating views. SDK89/19 CopyArgument at10086240 pushes
+  80h to the typed class allocator then invokes the default constructor.
+  PropagatePredicates creates a local argument and therefore needs full size;
+  two unknown trailing words remain opaque. Do not allocate prefix views.
+- PINNED TraceMulAdd at10089e08 caches its first input ID before any writes
+  through double pointers. Returning a reloaded *first afterward would change
+  alias-sensitive behavior. The cache is now explicit in the uncounted draft.
+- MergeInstructions1199 and PropagatePredicates1462 have full ordinary C++
+  drafts in codex35_address_registers, current1196/1459 respectively, unmatched.
+  Explicit helper-result temporaries preserve observed SDK call ordering;
+  source expression evaluation order alone did not. REPORT lists bounded
+  Squish/literal/trace attempts so later workers do not repeat them blindly.

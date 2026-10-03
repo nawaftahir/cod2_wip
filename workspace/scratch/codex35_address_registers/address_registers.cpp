@@ -7,6 +7,9 @@
 namespace D3DXShader
 {
 class CNode;
+void __stdcall HeapSort(int (__stdcall *)(unsigned, unsigned, const void *),
+    unsigned *, unsigned, const void *);
+int __stdcall CompareHash(unsigned, unsigned, const void *);
 
 union InstructionCode
 {
@@ -35,7 +38,9 @@ public:
     double sequenceScale;
     unsigned remap, origin, relative3, opaque3c, opaque40, opaque44;
     unsigned instruction, previousWrite, nextWrite, firstRead, lastRead, readCount;
-    unsigned opaque60[6];
+    unsigned opaque60[8];
+    CArgument();
+    ~CArgument();
 };
 
 class CInstruction
@@ -113,9 +118,14 @@ protected:
     long CompactOutputs();
     long VectorizeLiterals();
     long SquishInstructions();
+    long MergeInstructions();
+    long PropagatePredicates();
     long RemoveDuplicateArguments();
     long __cdecl Error(CNode *, unsigned, const char *, ...);
 private:
+    unsigned MergeInstructions_Input(CInstruction *, unsigned, unsigned, int);
+    long MergePredicates(CArgument *, CArgument *);
+    void PropagatePredicates_Depth(unsigned, unsigned *);
     long MergeArguments(unsigned, unsigned);
     long CompactLiterals(unsigned *, unsigned *, unsigned *);
     long VectorizeLeft_DotProduct(CInstruction *);
@@ -513,11 +523,12 @@ long CProgram::CompactOutputs()
     return 0;
 }
 
-#define REMAPPED_ARGUMENT(id) ((id) == ~0u ? ~0u : arguments[id]->remap)
+#define REMAPPED_ARGUMENT(id) ((id) != ~0u ? arguments[id]->remap : ~0u)
 
 long CProgram::SquishInstructions()
 {
     int changed = 0;
+    unsigned j, k;
     IdentityRemap();
     for (unsigned i = 0; i < instructionCount; ++i)
     {
@@ -527,18 +538,20 @@ long CProgram::SquishInstructions()
         {
             continue;
         }
-        unsigned width = instruction->fields.scalarCount;
-        unsigned groups = instruction->inputCount / width;
+        InstructionCode width;
+        width.token = instruction->token;
+        width.fields.opcode = 0;
+        unsigned groups = instruction->inputCount / width.token;
         int symmetric = instruction->IsSymetric();
-        unsigned remaining = width;
-        for (unsigned j = 1; j < width; ++j)
+        unsigned remaining = width.token;
+        for (j = 1; j < width.token; ++j)
         {
             unsigned output = instruction->outputs[j];
             if (pools[arguments[output]->pool]->flags & 0x1020)
             {
                 continue;
             }
-            for (unsigned k = 0; k < j; ++k)
+            for (k = 0; k < j; ++k)
             {
                 unsigned previous = instruction->outputs[k];
                 if (previous == ~0u || (pools[arguments[previous]->pool]->flags & 0x1020))
@@ -555,15 +568,15 @@ long CProgram::SquishInstructions()
                 {
                     if (REMAPPED_ARGUMENT(instruction->inputs[j]) ==
                         REMAPPED_ARGUMENT(instruction->inputs[k]) &&
-                        REMAPPED_ARGUMENT(instruction->inputs[j + width]) ==
-                        REMAPPED_ARGUMENT(instruction->inputs[k + width]))
+                        REMAPPED_ARGUMENT(instruction->inputs[j + width.token]) ==
+                        REMAPPED_ARGUMENT(instruction->inputs[k + width.token]))
                     {
                         goto merge;
                     }
                     if (symmetric &&
                         REMAPPED_ARGUMENT(instruction->inputs[j]) ==
-                        REMAPPED_ARGUMENT(instruction->inputs[k + width]) &&
-                        REMAPPED_ARGUMENT(instruction->inputs[j + width]) ==
+                        REMAPPED_ARGUMENT(instruction->inputs[k + width.token]) &&
+                        REMAPPED_ARGUMENT(instruction->inputs[j + width.token]) ==
                         REMAPPED_ARGUMENT(instruction->inputs[k]))
                     {
                         goto merge;
@@ -572,22 +585,22 @@ long CProgram::SquishInstructions()
                 if (groups == 3 &&
                     REMAPPED_ARGUMENT(instruction->inputs[j]) ==
                     REMAPPED_ARGUMENT(instruction->inputs[k]) &&
-                    REMAPPED_ARGUMENT(instruction->inputs[j + width]) ==
-                    REMAPPED_ARGUMENT(instruction->inputs[k + width]) &&
-                    REMAPPED_ARGUMENT(instruction->inputs[j + 2 * width]) ==
-                    REMAPPED_ARGUMENT(instruction->inputs[k + 2 * width]))
+                    REMAPPED_ARGUMENT(instruction->inputs[j + width.token]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + width.token]) &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j + 2 * width.token]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + 2 * width.token]))
                 {
                     goto merge;
                 }
                 if (groups == 4 &&
                     REMAPPED_ARGUMENT(instruction->inputs[j]) ==
                     REMAPPED_ARGUMENT(instruction->inputs[k]) &&
-                    REMAPPED_ARGUMENT(instruction->inputs[j + width]) ==
-                    REMAPPED_ARGUMENT(instruction->inputs[k + width]) &&
-                    REMAPPED_ARGUMENT(instruction->inputs[j + 2 * width]) ==
-                    REMAPPED_ARGUMENT(instruction->inputs[k + 2 * width]) &&
-                    REMAPPED_ARGUMENT(instruction->inputs[j + 3 * width]) ==
-                    REMAPPED_ARGUMENT(instruction->inputs[k + 3 * width]))
+                    REMAPPED_ARGUMENT(instruction->inputs[j + width.token]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + width.token]) &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j + 2 * width.token]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + 2 * width.token]) &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j + 3 * width.token]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + 3 * width.token]))
                 {
                     goto merge;
                 }
@@ -599,29 +612,29 @@ merge:
                 break;
             }
         }
-        if (remaining >= width)
+        if (remaining >= width.token)
         {
             continue;
         }
         unsigned output = 0;
-        for (unsigned j = 0; j < width; ++j)
+        for (j = 0; j < width.token; ++j)
         {
             if (instruction->outputs[j] == ~0u)
             {
                 continue;
             }
             instruction->outputs[output] = instruction->outputs[j];
-            for (unsigned k = 0; k < groups; ++k)
+            for (k = 0; k < groups; ++k)
             {
-                instruction->inputs[output + k * width] = instruction->inputs[j + k * width];
+                instruction->inputs[output + k * width.token] = instruction->inputs[j + k * width.token];
             }
             ++output;
         }
-        for (unsigned k = 1; k < groups; ++k)
+        for (k = 1; k < groups; ++k)
         {
-            for (unsigned j = 0; j < remaining; ++j)
+            for (j = 0; j < remaining; ++j)
             {
-                instruction->inputs[j + k * remaining] = instruction->inputs[j + k * width];
+                instruction->inputs[j + k * remaining] = instruction->inputs[j + k * width.token];
             }
         }
         instruction->fields.scalarCount = remaining;
@@ -639,6 +652,391 @@ merge:
 
 #undef REMAPPED_ARGUMENT
 
+long CProgram::MergeInstructions()
+{
+    unsigned *order = static_cast<unsigned *>(::operator new(argumentCount * sizeof(unsigned)));
+    long result;
+    if (!order)
+    {
+        result = static_cast<long>(0x8007000eu);
+        goto finished;
+    }
+    unsigned rounds = 0;
+    for (;;)
+    {
+        int changed = 0;
+        unsigned count = 0;
+        ReadWriteInfo();
+        IdentityRemap();
+        for (unsigned i = 0; i < argumentCount; ++i)
+        {
+            CArgument *argument = arguments[i];
+            if (argument->relative != ~0u || argument->instruction == ~0u)
+            {
+                continue;
+            }
+            unsigned poolFlags = pools[argument->pool]->flags;
+            if (!(poolFlags & 2) || (poolFlags & 0x20))
+            {
+                continue;
+            }
+            CInstruction *instruction = instructions[argument->instruction];
+            unsigned kind = instruction->token & 0xf0000000;
+            if (kind < 0x10000000 || kind > 0x40000000)
+            {
+                continue;
+            }
+            unsigned hash = instruction->token & 0xfff00000;
+            switch (hash)
+            {
+                case 0x10f00000:
+                case 0x11100000:
+                case 0x11200000:
+                case 0x11300000:
+                case 0x11400000:
+                case 0x11500000:
+                case 0x20700000:
+                case 0x20800000:
+                case 0x20900000:
+                    continue;
+            }
+            unsigned lane;
+            for (lane = 0; lane < instruction->outputCount; ++lane)
+            {
+                if (i == instruction->outputs[lane])
+                {
+                    break;
+                }
+            }
+            unsigned groups = instruction->inputCount / instruction->fields.scalarCount;
+            int symmetric = instruction->IsSymetric();
+            for (unsigned group = 0; group < groups; ++group)
+            {
+                hash = hash * 0x83f + MergeInstructions_Input(instruction, group, lane, symmetric);
+            }
+            argument->opaque40 = hash;
+            order[count++] = i;
+        }
+        HeapSort(CompareHash, order, count, this);
+        for (unsigned i = 0; i < count; ++i)
+        {
+            CArgument *first = arguments[order[i]];
+            CInstruction *firstInstruction = instructions[first->instruction];
+            if (first->remap != order[i])
+            {
+                continue;
+            }
+            for (unsigned j = i + 1; j < count; ++j)
+            {
+                CArgument *second = arguments[order[j]];
+                if (first->opaque40 != second->opaque40)
+                {
+                    break;
+                }
+                if (second->remap != order[j] || first->instruction == second->instruction ||
+                    first->pool != second->pool || first->relative2 != second->relative2 ||
+                    first->link != second->link ||
+                    ((firstInstruction->token ^ instructions[second->instruction]->token) & 0xfff00000))
+                {
+                    continue;
+                }
+                unsigned groups = firstInstruction->inputCount / firstInstruction->fields.scalarCount;
+                int symmetric = firstInstruction->IsSymetric();
+                unsigned pass;
+                CInstruction *victim;
+                CInstruction *winner;
+                for (pass = 0; pass < 2; ++pass)
+                {
+                    unsigned winnerIndex = (pass ? second : first)->instruction;
+                    victim = instructions[(pass ? first : second)->instruction];
+                    winner = instructions[winnerIndex];
+                    unsigned lane;
+                    for (lane = 0; lane < victim->outputCount; ++lane)
+                    {
+                        if (arguments[victim->outputs[lane]]->firstRead <= winnerIndex)
+                        {
+                            break;
+                        }
+                        unsigned other;
+                        for (other = 0; other < winner->outputCount; ++other)
+                        {
+                            unsigned group;
+                            for (group = 0; group < groups; ++group)
+                            {
+                                unsigned left = MergeInstructions_Input(victim, group, lane, symmetric);
+                                if (left != MergeInstructions_Input(winner, group, other, symmetric))
+                                {
+                                    break;
+                                }
+                            }
+                            if (group == groups)
+                            {
+                                break;
+                            }
+                        }
+                        if (other == winner->outputCount)
+                        {
+                            break;
+                        }
+                    }
+                    if (lane >= victim->outputCount)
+                    {
+                        break;
+                    }
+                }
+                if (pass == 2)
+                {
+                    continue;
+                }
+                for (unsigned lane = 0; lane < victim->outputCount; ++lane)
+                {
+                    unsigned other;
+                    for (other = 0; other < winner->outputCount; ++other)
+                    {
+                        unsigned group;
+                        for (group = 0; group < groups; ++group)
+                        {
+                            unsigned left = MergeInstructions_Input(winner, group, other, symmetric);
+                            if (left != MergeInstructions_Input(victim, group, lane, symmetric))
+                            {
+                                break;
+                            }
+                        }
+                        if (group == groups)
+                        {
+                            break;
+                        }
+                    }
+                    arguments[victim->outputs[lane]]->remap = winner->outputs[other];
+                }
+                victim->token = 0;
+                changed = 1;
+            }
+        }
+        if (!changed)
+        {
+            break;
+        }
+        for (unsigned i = 0; i < argumentCount; ++i)
+        {
+            CArgument *argument = arguments[i];
+            while (argument->remap != arguments[argument->remap]->remap)
+            {
+                argument->remap = arguments[argument->remap]->remap;
+            }
+        }
+        RemapArguments();
+        ++rounds;
+    }
+    result = rounds == 0;
+finished:
+    ::operator delete(order);
+    return result;
+}
+
+long CProgram::PropagatePredicates()
+{
+    int changed = 0;
+    for (unsigned index = 0; index < argumentCount; ++index)
+    {
+        CArgument *argument = arguments[index];
+        CPool *pool = pools[argument->pool];
+        argument->remap = argument->relative2;
+        argument->opaque40 = argument->link;
+        if (pool->flags & 0x10)
+        {
+            argument->link = 1;
+            argument->relative2 = ~0u;
+        }
+        else if (!(pool->flags & 0x11028))
+        {
+            argument->link = 0;
+            argument->relative2 = ~0u;
+        }
+    }
+    unsigned reverse = instructionCount;
+    while (reverse > 0)
+    {
+        CInstruction *instruction = instructions[--reverse];
+        if (!(instruction->token & 0xfff00000))
+        {
+            continue;
+        }
+        for (unsigned j = 1; j < instruction->outputCount; ++j)
+        {
+            MergePredicates(arguments[instruction->outputs[0]], arguments[instruction->outputs[j]]);
+        }
+        for (unsigned j = 1; j < instruction->outputCount; ++j)
+        {
+            arguments[instruction->outputs[j]]->relative2 = arguments[instruction->outputs[0]]->relative2;
+            arguments[instruction->outputs[j]]->link = arguments[instruction->outputs[0]]->link;
+        }
+        unsigned opcode = instruction->token & 0xfff00000;
+        if (opcode == 0x20700000 || opcode == 0x20800000 || opcode == 0x11500000)
+        {
+            for (unsigned j = 0; j < instruction->outputCount; ++j)
+            {
+                arguments[instruction->outputs[j]]->relative2 =
+                    arguments[arguments[instruction->inputs[j]]->relative2]->relative2;
+                arguments[instruction->outputs[j]]->link =
+                    arguments[arguments[instruction->inputs[j]]->relative2]->link;
+            }
+        }
+        else if (opcode == 0x11200000)
+        {
+            unsigned groups = instruction->inputCount / instruction->fields.scalarCount;
+            for (unsigned j = 0; j < instruction->outputCount; ++j)
+            {
+                for (unsigned k = 0; k < groups; ++k)
+                {
+                    for (unsigned input = instruction->inputs[j + instruction->outputCount * k];
+                         input != ~0u; input = arguments[input]->relative)
+                    {
+                        MergePredicates(arguments[input],
+                            arguments[arguments[instruction->outputs[j]]->relative2]);
+                    }
+                }
+            }
+        }
+        else if ((instruction->token & 0xf0000000) >= 0x10000000 &&
+                 (instruction->token & 0xf0000000) <= 0x40000000)
+        {
+            unsigned groups = instruction->inputCount / instruction->fields.scalarCount;
+            for (unsigned j = 0; j < instruction->outputCount; ++j)
+            {
+                for (unsigned k = 0; k < groups; ++k)
+                {
+                    for (unsigned input = instruction->inputs[j + instruction->outputCount * k];
+                         input != ~0u; input = arguments[input]->relative)
+                    {
+                        MergePredicates(arguments[input], arguments[instruction->outputs[j]]);
+                    }
+                }
+            }
+        }
+        else if (instruction->outputCount)
+        {
+            for (unsigned j = 0; j < instruction->inputCount; ++j)
+            {
+                for (unsigned input = instruction->inputs[j]; input != ~0u;
+                     input = arguments[input]->relative)
+                {
+                    MergePredicates(arguments[input], arguments[instruction->outputs[0]]);
+                }
+            }
+        }
+        else
+        {
+            for (unsigned j = 0; j < instruction->inputCount; ++j)
+            {
+                arguments[instruction->inputs[j]]->relative2 = ~0u;
+                arguments[instruction->inputs[j]]->link = 1;
+            }
+        }
+    }
+    CArgument temporary;
+    for (unsigned index = 0; index < instructionCount; ++index)
+    {
+        CInstruction *instruction = instructions[index];
+        unsigned opcode = instruction->token & 0xfff00000;
+        if (!opcode || opcode == 0x10f00000 || opcode == 0x20700000 ||
+            opcode == 0x11100000 || opcode == 0x11200000 || opcode == 0x11300000 ||
+            opcode == 0x11400000 || opcode == 0x20800000 || opcode == 0x20900000 ||
+            opcode == 0x11500000)
+        {
+            continue;
+        }
+        unsigned outputId = instruction->outputs[0];
+        CArgument *output = arguments[outputId];
+        if (pools[output->pool]->flags & 0x1000)
+        {
+            continue;
+        }
+        unsigned outputDepth = 0;
+        unsigned inputDepth = 0;
+        PropagatePredicates_Depth(outputId, &outputDepth);
+        for (unsigned relative = output->relative; relative != ~0u;
+             relative = arguments[relative]->relative)
+        {
+            PropagatePredicates_Depth(relative, &inputDepth);
+        }
+        if (instruction->inputCount > 0)
+        {
+            unsigned *inputs = instruction->inputs;
+            unsigned inputCount = instruction->inputCount;
+            do
+            {
+                for (unsigned input = *inputs; input != ~0u;
+                     input = arguments[input]->relative)
+                {
+                    PropagatePredicates_Depth(input, &inputDepth);
+                }
+                ++inputs;
+            } while (--inputCount);
+        }
+        unsigned predicate = output->relative2;
+        if (outputDepth > inputDepth)
+        {
+            outputDepth -= inputDepth;
+            do
+            {
+                if (pools[arguments[predicate]->pool]->flags & 0x8000)
+                {
+                    for (unsigned j = 0; j < instruction->outputCount; ++j)
+                    {
+                        arguments[instruction->outputs[j]]->link = arguments[predicate]->link;
+                        arguments[instruction->outputs[j]]->relative2 = arguments[predicate]->relative2;
+                    }
+                }
+                --outputDepth;
+                predicate = arguments[predicate]->relative2;
+            } while (outputDepth);
+        }
+    }
+    for (unsigned index = 0; index < argumentCount; ++index)
+    {
+        CArgument *argument = arguments[index];
+        if (argument->remap != argument->relative2 || argument->opaque40 != static_cast<unsigned>(argument->link))
+        {
+            changed = 1;
+        }
+    }
+    if (!changed)
+    {
+        return 1;
+    }
+    ReadWriteInfo();
+    reverse = instructionCount;
+    while (reverse > 0)
+    {
+        --reverse;
+        CInstruction *instruction = instructions[reverse];
+        if (!(instruction->token & 0xfff00000))
+        {
+            continue;
+        }
+        unsigned last = reverse;
+        for (unsigned j = 0; j < instruction->outputCount; ++j)
+        {
+            unsigned predicate = arguments[instruction->outputs[j]]->relative2;
+            if (predicate != ~0u && last < arguments[predicate]->instruction)
+            {
+                last = arguments[predicate]->instruction;
+            }
+        }
+        if (last != reverse)
+        {
+            for (unsigned j = reverse; j < last; ++j)
+            {
+                instructions[j] = instructions[j + 1];
+            }
+            instructions[last] = instruction;
+            ReadWriteInfo();
+        }
+    }
+    return 0;
+}
+
 long CProgram::VectorizeLiterals()
 {
     unsigned fixed = 0;
@@ -650,7 +1048,8 @@ long CProgram::VectorizeLiterals()
             fixed += pool->opaque8[0];
         }
     }
-    unsigned bytes = (fixed + 2 * instructionCount) * 16;
+    unsigned words = (fixed + 2 * instructionCount) * 4;
+    unsigned bytes = words * sizeof(unsigned);
     unsigned *packed = static_cast<unsigned *>(::operator new(bytes));
     if (!packed)
     {
@@ -764,7 +1163,7 @@ long CProgram::VectorizeLiterals()
             CArgument *first = arguments[input[0]];
             if (poolIds[1] == first->pool && first->relative == ~0u)
             {
-                uniform[group] = !(caps[17] & 4);
+                uniform[group] = (~caps[17] & 4) >> 2;
                 unsigned j;
                 for (j = 1; j < count && uniform[group]; ++j)
                 {
@@ -831,15 +1230,18 @@ long CProgram::VectorizeLiterals()
                 CArgument *first = arguments[input[0]];
                 if (poolIds[1] == first->pool && first->relative == ~0u)
                 {
-                    memcpy(ids, input, count * sizeof(unsigned));
+                    if (count > 0)
+                    {
+                        memcpy(ids, input, count << 2);
+                    }
                     for (unsigned j = 0; j < count; ++j)
                     {
                         masks[j] = 1u << j;
                     }
                     if (count < 4)
                     {
-                        memset(masks + count, 0, (4 - count) * sizeof(unsigned));
-                        memset(ids + count, 0xff, (4 - count) * sizeof(unsigned));
+                        memset(masks + count, 0, (4 - count) << 2);
+                        memset(ids + count, 0xff, (4 - count) << 2);
                     }
                     CompactLiterals(packed, ids, masks);
                     CompactLiterals_Remap(ids, input, count);
@@ -1733,12 +2135,15 @@ unsigned CProgram::CanVectorize_TraceMulAdd(unsigned id, double *scale, double *
             break;
         }
     }
+    unsigned width = instruction->outputCount;
+    CPool **poolList = pools;
     unsigned *first = &instruction->inputs[i];
-    unsigned *second = &instruction->inputs[i + instruction->outputCount];
+    unsigned *second = &instruction->inputs[i + width];
     for (unsigned pass = 0; pass < 2; ++pass)
     {
+        unsigned value = *first;
         CArgument *constant = arguments[*second];
-        if ((pools[constant->pool]->flags & 0x100) && constant->relative == ~0u)
+        if ((poolList[constant->pool]->flags & 0x100) && constant->relative == ~0u)
         {
             if (scale)
             {
@@ -1751,10 +2156,10 @@ unsigned CProgram::CanVectorize_TraceMulAdd(unsigned id, double *scale, double *
                     *offset += *scale * constant->value;
                 }
             }
-            return *first;
+            return value;
         }
-        first += instruction->outputCount;
-        second -= instruction->outputCount;
+        first += width;
+        second -= width;
     }
     if (opcode == 0x20400000 && instruction->inputs[i] == instruction->inputs[i + instruction->outputCount])
     {

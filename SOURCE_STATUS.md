@@ -1,26 +1,26 @@
 # Where to inspect renderer source
 
-35% continuation is active. New clean candidate:
+35% continuation is active. New accepted clean source:
 [register splitting and sequence tracing](target/src/codex_shader_register_split/register_split.cpp),
 two complete definitions/807 bytes. Both referees, bindings, boundaries,
 negative tests,644 linked matches retaining642 and1284 CPU comparisons pass.
-Coverage remains348740/32.003891% until the full aggregate at
-target/scratch/codex35_output_groups/aggregate.log (session30276) completes PASS/exit0.
+Full aggregate at target/scratch/codex35_output_groups/aggregate.log
+(session30276) completed terminal PASS/exit0. Coverage is352015/32.304438%.
 Earlier audit8482 exited1 at a legacy self-call-mask diagnostic assertion; its
 failure log is preserved and no bytes were accepted from that failed replay.
 Older statements saying no audit is live are superseded by this continuation.
 
 Further clean source:
 [output grouping, dot-product reduction and literal remapping](target/src/codex_shader_output_groups/output_groups.cpp).
-All three complete functions/2468 bytes pass local byte/binding/boundary,
+All three complete functions/2468 bytes pass byte/binding/boundary,
 V3/647 retaining644 and1284 full CPU gates with current input hashes.
-They await the next aggregate and are not counted in the percentage above.
+They are now aggregate-accepted, together with the807 register/sequence bytes.
 
-Latest accepted checkpoint: **348,740 / 1,089,680 =32.003891%**. Full audit13323
-completed PASS/exit0 at
-`target/scratch/codex32_argument_helpers/aggregate_resume.log`. All30 cohort
-verifier pin sets and90 packet input sets were independently rehashed current.
-Clean source/evidence is saved in `1b6f344` and `246b910`; unmatched drafts remain
+Latest accepted checkpoint: **352,015 / 1,089,680 =32.304438%**. Full audit30276
+completed PASS/exit0 at `target/scratch/codex35_output_groups/aggregate.log`.
+All32 cohort verifier pin sets and96 authoritative packet input sets were
+independently rehashed current after completion. New clean source/evidence is
+saved in `aaa0e28` and `99900f3`; unmatched drafts remain
 scratch-only. The32% goal is reached, not whole-DLL checksum identity.
 
 The current buildable renderer working tree is [`target/verified/src/`](target/verified/src/).
@@ -40,10 +40,10 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **348,740 /
-1,089,680 = 32.003891%** (2026-10-03), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **352,015 /
+1,089,680 = 32.304438%** (2026-10-03), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**32,648** further verified instruction bytes are required for35%.
+**29,373** further verified instruction bytes are required for35%.
 The requested32% checkpoint is reached. Whole-DLL checksum identity is still
 unfinished.
 

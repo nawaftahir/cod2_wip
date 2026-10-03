@@ -34,6 +34,22 @@
       "source_credit": 0
     },
     {
+      "symbol": "?MergeInstructions@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 1196,
+      "target_bytes": 1199,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?PropagatePredicates@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 1459,
+      "target_bytes": 1462,
+      "first_difference": 25,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
       "symbol": "?VectorizeLeft_DotProduct@CProgram@D3DXShader@@AAEJPAVCInstruction@2@@Z",
       "object_bytes": 1221,
       "target_bytes": 1221,
@@ -83,7 +99,7 @@
     },
     {
       "symbol": "?CanVectorize_TraceMulAdd@CProgram@D3DXShader@@AAEIIPAN0@Z",
-      "object_bytes": 338,
+      "object_bytes": 350,
       "target_bytes": 365,
       "first_difference": 7,
       "full_masked_equal": false,
@@ -91,7 +107,7 @@
     },
     {
       "symbol": "?VectorizeLiterals@CProgram@D3DXShader@@IAEJXZ",
-      "object_bytes": 1413,
+      "object_bytes": 1400,
       "target_bytes": 1370,
       "first_difference": 10,
       "full_masked_equal": false,
@@ -99,6 +115,6 @@
     }
   ],
   "source": "gfx/target/scratch/codex35_address_registers/address_registers.cpp",
-  "source_sha256": "249dafb1a812f298eefca9164574c97e23517880997f952eb25dcb7b2a4ac52c",
-  "object_sha256": "9fe557e629b5d1ac0b921811cd9d8ff45835e45a2fb2585d8c6834e0acc8b853"
+  "source_sha256": "5f85be56146124be5811c4a5a159ca4985c8e58ee2bb5a31bc4ab60d9b8a35d3",
+  "object_sha256": "f295fbed05cdd7d8d6fbb5a3975222648fa4f9aadf253bc9f067a7c02a5a76fb"
 }

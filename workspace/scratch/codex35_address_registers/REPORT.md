@@ -93,11 +93,47 @@ is ignored-HRESULT and consumes the current output with~0. Outputs and input
 lanes compact within old group stride first, then groups are packed to the new
 stride. Full token low20-bit update/inputCount/outputCount follows. Unchanged
 returns1; changed calls RemapArguments and returns0. Draft stays uncredited.
+Direct local union width and shared lane counters both remain1241/1240;
+sentinel conditional reversal fixes branch ordering but not the remaining
+stack/register/SIB differences. No mask change or source-padding workaround.
+
+MergeInstructions1199: complete hash-sort/equivalent-output merging authored
+from SDK90/172 at1008c376. Hash multiply83f, opcode exclusions, two winner/victim
+directions, firstRead54 ordering, remap-chain compression and repeated rounds
+are target-backed. Initial1203; explicit helper-call sequencing1196. Original
+helper calls have a defined observed order; relying on C++ operand-evaluation
+order let the compiler reverse them. Ordinary named temporaries preserve it.
+No claim of acceptance or compiler impossibility for remaining differences.
+
+PropagatePredicates1462: complete backward propagation, predicate-depth trimming,
+backup comparison and producer-order repair authored from SDK90/212 at1009698a.
+Full argument storage is REQUIRED here, unlike earlier access-prefix views:
+PINNED SDK89/19 CopyArgument at10086240 literally pushes80h to CArgument's
+allocator before its default constructor. CArgument is128 bytes; the earlier
+120-byte prefix must not be used for allocation. Two unknown tail words are
+preserved as opaque fields, not invented semantics. Default constructor and
+destructor declarations are genuine SDK typed edges; the original retains a
+local object's lifetime even though the optimized body never uses its members.
+Initial1468; straight opcode exclusions and bounded input-buffer iteration1459
+before this full-size correction. Source remains scratch-only pending exact
+byte, binding, boundary, negative, regression and fresh behavior proof.
+Full-size correction restores the original9ch frame; current1459 differs25.
+Guarded input-buffer iteration and predicate-depth reuse preserve target calls;
+counter-slot lifetimes and one SIB operand order remain unmatched.
+
+VectorizeLiterals retries: scalar copy/fill loops1374, first difference10;
+shift-size memcpy/memset with positive-copy guard1400, first difference10.
+Explicit (~caps17 &4)>>2 preserves target uniform-test operations. These are
+unaccepted ordinary source attempts, never evidence for narrowing comparison.
 
 CanVectorize_TraceMulAdd365: complete neg/MUL/ADD tracer authored; draft338.
 ADD writes *offset += *scale * constant, not *scale. A nonnull scale gates the
 operation; no fabricated null-offset guard. NEG doubles no values; equal ADD
 inputs double scale. Preserve the original two-pass pointer advancement.
+Literal target caches the first input ID before any scale/offset writes; that
+alias-sensitive order is now explicit. Captured width gives356, cached pool
+table350, still unmatched. The one transient undeclared-poolList compilation
+was corrected in scratch and freshly rebuilt; no stale probe was accepted.
 
 All compiler attempts use pinned4035 /O1 /Oy- /hotpatch /MT /Gy /d2QIftol.
 Do not widen masks, alter ABI, insert padding or manufacture assembly wrappers.

@@ -1,0 +1,74 @@
+Checking pinned base and complete source cohorts
+Checking codex30_assembler: complete byte proof and linked regression
+Checking codex30_support: complete byte proof and linked regression
+Checking codex35_lexer: complete byte proof and linked regression
+Checking codex35_preprocessor: complete byte proof and linked regression
+Checking codex35_compiler: complete byte proof and linked regression
+Checking codex35_clip: complete byte proof and linked regression
+Checking codex35_compiler_types: complete byte proof and linked regression
+Checking codex31_program: complete byte proof and linked regression
+Checking codex35_program_flow: complete byte proof and linked regression
+Checking codex35_program_varying: complete byte proof and linked regression
+Checking codex35_program_pruning: complete byte proof and linked regression
+Checking codex35_program_strip: complete byte proof and linked regression
+Checking codex35_program_sort: complete byte proof and linked regression
+Checking codex35_program_duplicates: complete byte proof and linked regression
+Checking codex35_instruction_duplicates: complete byte proof and linked regression
+Checking codex35_predicate_merge: complete byte proof and linked regression
+Checking codex35_program_coalesce: complete byte proof and linked regression
+Checking codex35_vectorize_helpers: complete byte proof and linked regression
+Checking codex35_program_cleanup: complete byte proof and linked regression
+Checking codex35_instruction_order: complete byte proof and linked regression
+Checking codex35_transform_order: complete byte proof and linked regression
+Checking codex35_transform_driver: complete byte proof and linked regression
+Checking codex35_predicate_order: complete byte proof and linked regression
+Checking codex35_program_order: complete byte proof and linked regression
+Checking codex35_pool_helpers: complete byte proof and linked regression
+Checking codex32_program_drivers: complete byte proof and linked regression
+Checking codex32_program_diagnostics: complete byte proof and linked regression
+Checking codex32_special_literals: complete byte proof and linked regression
+Checking codex32_swizzle: complete byte proof and linked regression
+Checking codex32_argument_helpers: complete byte proof and linked regression
+Checking codex35_register_split: complete byte proof and linked regression
+Checking codex35_output_groups: complete byte proof and linked regression
+PASS: disjoint source lower bound 352015/1089680 = 32.304438%; JPEG 73123, closed tree 41307, STL 3434, standalone 1190, engine 2661, private linked gain 11003, live verified/src gain 6478, private draw groups 587, CRT C source 51318, CRT ASM source 3431, reconstructed SDK source 157483
+CRT batch: 85 new disjoint bodies, 13375 bytes; duplicates excluded.
+CRT17 batch: 41 new disjoint bodies, 9176 bytes; duplicates excluded.
+CRT19 batch: 16 new disjoint bodies, 2751 bytes; new original ASM instruction bytes 1749; duplicates and tables excluded.
+SDK sibling batch: 3 new complete source bodies, 67696 unique code bytes; clean 4-TU module linked with all previous matches retained; tables excluded.
+CRT35 batch: 29 new disjoint bodies, 3004 bytes; SDK35: 37 bodies, 1798 bytes; 400 linked source matches, all previous retained; 361654 CPU comparisons passed.
+Parser batch: 3 complete source bodies, 6082 instruction bytes; 403 linked source matches retained/accepted; 96 full-output CPU cases passed.
+Shader read batch: 12 complete source bodies, 475 instruction bytes; 415 linked source matches, all 403 previous retained; 2000 full-output CPU cases passed.
+Instruction/profile/cast batch: 4 complete source bodies, 613 instruction bytes; 419 linked source matches, all 415 previous retained; 10285 CPU comparisons passed. DxErr W table is still fully checked, not decoded as instructions or counted again.
+Shader-node batch: 72 complete source bodies, 4783 instruction bytes; 491 linked source matches, all 419 previous retained; 10496 CPU comparisons passed. Typed vtables and empty SDK Print slots are fully checked but receive no new source credit.
+Assembler batch: 14 complete source bodies, 1517 instruction bytes; 505 linked matches, all 491 retained; 1440 CPU comparisons passed.
+Allocator/diagnostic batch: 11 complete source bodies, 1162 instruction bytes; 516 linked matches, all 505 retained; 3584 CPU comparisons passed.
+Tokenizer batch: 7 complete source bodies, 1037 instruction bytes; 523 linked matches, all 516 retained; 9976 CPU comparisons passed.
+Preprocessor batch: 25 complete source bodies, 2199 instruction bytes; 548 linked matches, all 523 retained; 12259 CPU comparisons passed.
+Compiler batch: 8 complete source bodies, 757 instruction bytes; 556 linked matches, all 548 retained; 20355 clean-profile CPU comparisons passed. Unmatched evaluator/stack allocation remain SDK dependencies, zero extra source credit.
+Clipping cohort: 9 complete source bodies, 1066 instruction bytes; only 309 new bytes counted, all 757 previous compiler bytes retained; 557 linked matches, all 556 retained; 1284 full shader-output CPU cases passed.
+Compiler type/diagnostic cohort: 2 complete source bodies, 411 new instruction bytes; 52 table bytes excluded; 559 linked matches retain all 557; 1284 full shader-output CPU cases passed. Legacy raw GetTypeFlags score95 retained; decoded self-call normalization100 and independent full typed/binding proof pass.
+Program cohort: 12 complete source bodies, 2663 new instruction bytes; 571 linked matches retain all559; 1284 full shader-output CPU cases passed. Optimizer draft and opaque dependencies excluded.
+Program flow cohort: 4 complete source bodies, 945 new instruction bytes; 575 linked matches retain all571; 1284 integrated clean CPU shader outputs pass. Recursive helper raw97 is retained, decoded self-call100 and complete independent bindings pass; other drafts get zero extra credit.
+Varying cohort: 2 complete source bodies, 673 new instruction bytes; 577 linked matches retain all575; 1284 integrated full-output CPU cases pass. Recursive helper and caller remain together in genuine source, no opaque dependency credit.
+Uniform-pruning cohort: 1 complete source body, 408 new instruction bytes; 578 linked matches retain all577; 1284 integrated full-output CPU cases pass. SDK dependencies and drafts receive no additional credit.
+Varying-pruning/accessor cohort: 5 complete source bodies, 643 new instruction bytes; 583 linked matches retain all578; 1284 integrated full-output CPU cases pass. Getter retention is not direct execution coverage; no opaque dependency credit.
+Heap-sort cohort: 1 complete source body, 279 new instruction bytes; 584 linked matches retain all583; 1284 integrated full-output CPU cases pass. No opaque dependency credit.
+Duplicate-argument cohort: 3 complete source bodies, 681 new instruction bytes; 587 linked matches retain all584; 1284 integrated full-output CPU cases pass. Private callbacks are bound only after literal full-body proof.
+Duplicate-instruction cohort: 3 complete source bodies, 1106 new instruction bytes; 590 linked matches retain all587; 1284 integrated full-output CPU cases pass. Original private helpers have no retained SDK callers and remain together in the source TU.
+Predicate merge cohort: 2 complete source bodies, 226 new instruction bytes; 592 linked matches retain all590; 1284 integrated full-output CPU cases pass. Shared chain helper is uncounted SDK dependency.
+Pool/predicate/parameter cohort: 3 complete source bodies, 699 new instruction bytes; 595 linked matches retain all592; 1284 integrated full-output CPU cases pass. Draft Vectorize stays excluded.
+Vectorization-helper cohort: 2 complete source bodies, 346 new instruction bytes; 597 linked matches retain all595; 1284 integrated full-output CPU cases pass. Other helper drafts stay excluded.
+Shader-cleanup cohort: 2 complete source bodies, 816 new instruction bytes; 599 linked matches retain all597; 1284 integrated full-output CPU cases pass. Exact named shared-return boundary checked, no truncated tail.
+Instruction-ordering cohort: 4 complete source bodies, 660 new instruction bytes; 603 linked matches retain all599; 1284 integrated full-output CPU cases pass. Raw recursive94/97 scores preserved; decoded self-call100 and full independent typed/boundary proof pass.
+Transform helpers: 9 complete source bodies /885 bytes; 612 linked matches retain603; 1284 full CPU cases pass. Typed SDK caller selects CompareIndex100cbbac, not existing100865c6.
+Transform driver: 1 complete Apply source body /1129 bytes; 613 linked matches retain612; 1284 full CPU cases pass. SDK/CRT dependencies remain uncredited.
+Predicate ordering: complete573-byte comparator; 614 linked matches retain613; 1284 full CPU cases pass. Callback is rebound only after full literal/storage/bounds proof.
+Public instruction ordering: 8 complete source definitions /962 bytes; 622 linked matches retain614; 1284 full CPU cases pass. Generated vtables and SDK dependencies receive zero extra credit.
+Register-pool helpers: 4 complete source bodies /424 bytes; 626 linked matches retain622; 1284 full CPU cases pass. Larger drafts and SDK dependencies receive zero extra credit.
+Program drivers: 2 complete source bodies /729 bytes; 628 linked matches retain626; 1284 full CPU cases pass. Exact named Link tail jump and bindings proven; opaque dependencies uncredited.
+Shader naming/special/literal/swizzle/argument cohorts: 14 new complete source bodies /2095 bytes; successive632/634/635/642 linked matches retain all baselines; 1284 complete CPU cases per cohort pass. Duplicate IsCombine35 excluded; dependencies add zero credit.
+32% checkpoint: REACHED; 0 further source instruction bytes needed.
+31% checkpoint: REACHED; 0 further source instruction bytes needed.
+35% checkpoint: PENDING; 29373 further source instruction bytes needed.
+Draft functions, opaque SDK/CRT library bytes, and whole-file identity excluded.

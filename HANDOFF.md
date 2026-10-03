@@ -2,17 +2,20 @@
 
 ## Active continuation — 35% goal
 
-Owner requested35%; goal remains active. Accepted coverage is348740/1089680
-=32.003891%, requiring32648 more instruction bytes for35%.
+Owner requested35%; goal remains active. Accepted coverage is352015/1089680
+=32.304438%, requiring29373 more instruction bytes for35%.
+Full aggregate session30276 completed terminal PASS/exit0, preserved at
+target/scratch/codex35_output_groups/aggregate.log. Five new complete source
+definitions/3275 address-disjoint bytes are accepted. All32 cohort verifier
+pin sets and96 authoritative packet input sets (12557 file identities) were
+independently rehashed after completion; retail anchor SHA remains unchanged.
 Two new readable definitions, SplitRegisters586 and MulSequence221, are clean
 at target/src/codex_shader_register_split/register_split.cpp. Fresh complete
 V2 byte/binding/boundary/negative proof passes807 bytes; V3 has644 matches,
 retaining all642 preceding matches. Full CPU outputs agree in all1284 cases.
 All three packet input sets independently rehashed current.
 
-One full aggregate is live: session30276, log
-target/scratch/codex35_output_groups/aggregate.log. All3275 new bytes are pending;
-accepted348740 unchanged. Previous audit8482 exited1 on an inconsistent legacy
+No aggregate is currently live. Previous audit8482 exited1 on an inconsistent legacy
 raw-score assertion, preserved at codex35_register_split/aggregate.log.
 MulSequence's three COFF self-call relocation operands are113/179/204; the
 legacy byte-scanning PE masker omits intra-function calls and reports94.
@@ -20,21 +23,27 @@ Decoded normalization100 and complete source/SDK/retail/binding equality PASS.
 Each retailE8 was independently decoded to target10087a5d. The aggregate now
 asserts exactly this name/length/raw diagnostic and all three typed self-bindings
 plus literal decoded destinations; no ABI, instruction, source or mask widening.
-SDK dependencies remain opaque and uncredited. Do not restart the live audit or
-change its frozen clean source/proof inputs.
+SDK dependencies remain opaque and uncredited. Preserve the completed audit
+and its accepted clean source/proof inputs; do not rerun it without input changes.
 
 Next clean batch is target/src/codex_shader_output_groups/output_groups.cpp:
 PerComponent1006, DotProduct1221 and literal remap241, totaling2468. Fresh V2,
 V3/647 retaining644 and1284 full CPU outputs all PASS, all three input sets
 current. It is now included in audit30276 with exact tuple/pins and address set.
-Both gains total3275; expected352015/1089680=32.304438% stays unconfirmed
-until complete aggregate acceptance. The35% goal remains active throughout.
-Reuse the existing batch pipeline, never restart a live audit. Source/attempt
+Both gains total3275 and are now aggregate-accepted at32.304438%.
+The35% goal remains active throughout. Reuse the existing batch pipeline.
+Source/attempt
 facts and genuine earlier-epilogue boundary checks are in the new REPORT.
 
 Active drafts are isolated in target/scratch/codex35_address_registers/:
-SimplifyAddresses, CompactOutputs, RangeSequence, AddSequence, literal remap
-and multiply/add tracing. Complete source is preserved even when instructions
+SimplifyAddresses, CompactOutputs, RangeSequence, AddSequence, SquishInstructions,
+VectorizeLiterals, MergeInstructions, PropagatePredicates and multiply/add tracing.
+Two new full passes total2661 target bytes but remain unmatched/uncounted.
+Merge initial1203 now1196/1199; predicate propagation1459/1462. Its local
+CArgument now has verified full128-byte storage: SDK89/19 CopyArgument pushes
+80h at10086240. Earlier120-byte declarations are access prefixes only.
+The trace captures its input ID before writing scale/offset, as literal target
+ordering requires; preserve that alias-sensitive fact. Complete source is preserved even when instructions
 differ; discovery equality is not acceptance. REPORT.md preserves the pinned
 facts and bounded attempts. Old unchanged allocation scheduling retries were
 restored and freshly reprobed; do not repeat their recorded no-gain forms.
