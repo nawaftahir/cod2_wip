@@ -1,4 +1,4 @@
-# Shared renderer handoff — 2026-10-02
+# Shared renderer handoff — 2026-10-03
 
 Owner resumed work explicitly. The active target remains
 **35% verified source coverage**; the earlier pause is revoked.
@@ -7,7 +7,7 @@ Fresh full aggregate PASS confirms **337,130 / 1,089,680 =
 31% needs671 further bytes;35% needs44258.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
-Previous checkpoint commit: `9fcd797` (verified clean source, proof tools and docs;
+Previous checkpoint commit: `50d6755` (verified clean source, proof tools and docs;
 unrelated user/Claude changes left untouched). Goal stays active, not paused.
 
 ## Current source and proofs
@@ -43,13 +43,24 @@ unrelated user/Claude changes left untouched). Goal stays active, not paused.
   retaining590 and1284 full CPU outputs. Its226 bytes await aggregate inclusion.
   Four-argument chain helper remains scratch-only and uncredited.
 - New `target/src/codex_shader_program_coalesce/coalesce.cpp`: three complete
-  source methods/699 bytes pass strict clean V2. Private V3 is still running;
-  CPU runner failed a cohort-count assertion, not a shader-output comparison.
-  Read its REPORT before fixing: reorder count substitutions232->252 before
-  212->232, then refresh affected proof gates. No CPU or aggregate claim.
-- `target/scratch/codex35_vectorize_helpers/`: four genuine helper drafts;
-  IsSameRegister117 exactly matches complete SDK section in discovery only.
-  Other bodies differ. No strict acceptance or new source credit.
+  source methods/699 bytes pass strict clean V2,V3/595 retaining592 and1284
+  actual full CPU outputs. Initial CPU count-substitution error is fixed;
+  all affected gates were replayed and input hashes checked current.
+  Aggregate checker now includes this family for the next full replay.
+- New `target/src/codex_shader_vectorize_helpers/helpers.cpp`: two complete
+  methods/346 bytes pass clean V2,V3/597 retaining595 and1284 actual full CPU
+  outputs, all hashes current. Full-token local solves UpdateLinks229;
+  IsSameRegister117 preserves repeated argument-array accesses. Aggregate pending.
+  Other two helper methods remain byte-mismatched scratch.
+- New `target/src/codex_shader_program_cleanup/cleanup.cpp`: two real cleanup
+  definitions/816 bytes pass complete V2,V3/599 retaining597 and1284 actual CPU
+  outputs, hashes current. Its406-byte shared-return tail is fully checked,
+  never truncated. Full aggregate inclusion is pending.
+- New `target/src/codex_shader_instruction_order/order.cpp`: four complete
+  methods/660 bytes pass clean V2,V3/603 retaining599 and1284 full CPU outputs,
+  hashes current. Raw recursive scores94/97 are preserved; decoded self-call
+  normalization100 and independent typed proof pass. Private59-byte callback
+  is rebound only after complete literal/storage/bounds proof. Aggregate pending.
 - `target/scratch/codex35_delay_outputs/outputs.cpp`: complete target-backed
   DelayOutputs draft currently621/648, unmatched and uncredited. Instruction3c
   remains an observed opaque DWORD. Read REPORT before repeating probes.
@@ -89,30 +100,49 @@ Full aggregate command (from gfx/):
     python3 -u tools/check_ten_percent.py
 
 The latest completed PASS log is `target/scratch/codex35_program_strip/aggregate.log`.
-The next replay is running at `target/scratch/codex35_instruction_duplicates/aggregate.log`;
-do not restart it merely for an observation timeout. It loaded sort279,
-duplicate-argument681 and duplicate-instruction1106,2066 pending disjoint bytes.
-If and only if it passes, expected total339196/1089680 =31.128038%.
+The prior replay at codex35_instruction_duplicates/aggregate.log lost its
+process/session and left an empty log, so it has no terminal acceptance.
+Fresh combined replay now runs at
+`target/scratch/codex35_vectorize_helpers/aggregate.log`; do not restart it for
+an observation timeout. It includes sort279, argument duplicates681,
+instruction duplicates1106, predicate226, coalesce699 and helpers346:
+3337 pending disjoint bytes. Only an actual terminal PASS accepts its expected
+total340467/1089680 =31.244677%. Cleanup816 is not in this running replay.
 The preceding program full PASS is
 preserved at `target/scratch/codex31_program/aggregate.log`.
 Proof hashes were checked current after the replay. Start fresh checks only
 after modifying their actual inputs; do not invent a new percentage.
 
-Checkpoint requested2026-10-03. After the current replay finishes, preserve its
-actual terminal result before crediting any of the2066 bytes. Its current run
-does not include predicate226, despite the checker now supporting that family.
-After finishing the coalesce CPU fix and full gates, add its699-byte family
-to the same strict aggregate and replay once for both new families.
-Current process/session identities: aggregate118170/session65215; coalesce
-V3 session55977. Check process/session state before restarting either.
+This cleanup/ordering save supersedes commit50d6755. Preserve the current replay's actual terminal
+result before crediting any pending bytes. Current aggregate identity:
+process274530/session55509. All coalesce/helper/cleanup/order local gates are
+complete. The running aggregate includes3337 bytes, not cleanup816/order660.
+Next checker revision can include all4813 locally proven bytes for an expected
+341943/1089680 =31.380130%, but only a real final PASS accepts that total.
+The checker prints stage progress without relaxing any gates.
 Only one aggregate replay at a time: earlier cohorts write their proof JSONs.
 Predicate V2/V3/1284 CPU packets had current input hashes at checkpoint.
 Its final V3 passes592 retaining590; the chain draft now256/258 stays excluded.
-Every reported gate was genuinely run; coalesce CPU remains failed/pending.
+Every reported gate was genuinely run; coalesce CPU now passes after its fix.
 
 Immediate next checkpoint is31%, not yet reached. The large behavior-checked
 drafts remain useful source work, not accepted bytes. Preserve the source-level
 approach and strict full-boundary/binding/negative/regression/CPU gates.
+
+## Owner-requested save checkpoint — 2026-10-03
+
+No new reconstruction is being started before this save. Clean source and
+all local proofs for coalesce699, helpers346, cleanup816 and ordering660 are
+ready for the checkpoint. Twelve V2/V3/CPU packet input sets were rehashed and
+current. Latest private regression accepts603 matches, retaining all599.
+The live aggregate loaded the revision through helpers346 only; cleanup816
+and ordering660 are intentionally not credited by that process. Do not rerun
+in parallel, invent its result, or count SDK/table/draft bytes.
+
+After its terminal result, the next saved checker revision can replay all
+four families. Public ReorderInstructions100910df/828 is an inspected possible
+next reconstruction, not a source claim: verify CTReorderInstructions virtual
+signature/vtable/observed layout first. Do not invent the tree-walker class.
 
 Flow commands (from gfx/target):
 

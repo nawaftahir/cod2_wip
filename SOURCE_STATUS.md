@@ -45,10 +45,17 @@ The new predicate pair is separated in target/src/codex_shader_predicate_merge/:
 226 complete bytes, clean V2,V3/592 retaining590 and1284 full CPU outputs pass;
 all recorded hashes are current. Aggregate inclusion is pending.
 The new pool/predicate/swizzle module is separated in
-target/src/codex_shader_program_coalesce/:699 complete clean V2 bytes, linked
-regression running and CPU harness count assertion failed. No new coverage
-or CPU parity claimed for that module. Its scratch Vectorize near-match and
-the vectorize-helper drafts are excluded. Read HANDOFF.md before resuming.
+target/src/codex_shader_program_coalesce/:699 complete clean V2 bytes,
+V3/595 retaining592 and1284 full CPU outputs pass with current input hashes.
+Its CPU harness count assertion was fixed and all affected gates replayed.
+Aggregate inclusion is pending. The separate vectorize-helper module adds346
+complete V2 bytes,V3/597 retaining595 and1284 full CPU outputs. Its two unmatched
+helper drafts and coalesce Vectorize near-match remain excluded. Combined
+aggregate includes3337 pending bytes, not yet accepted; its older interrupted
+replay supplied no PASS. Cleanup816 passes complete V2,V3/599 retaining597 and
+1284 actual full CPU outputs; ordering660 passes V2,V3/603 retaining599 and
+1284 full CPU outputs, all hashes current. Both await aggregate inclusion.
+Read HANDOFF.md before resuming.
 The duplicate read/write scratch source adds zero coverage: all four methods
 were already accepted in the earlier program module. CompactOutputs stays
 scratch-only because actual source/object comparisons still differ.

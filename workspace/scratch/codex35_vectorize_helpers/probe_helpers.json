@@ -3,9 +3,9 @@
   "rows": [
     {
       "symbol": "?SimplifyPredicates_IsEqual@CProgram@D3DXShader@@AAEHII@Z",
-      "object_bytes": 257,
+      "object_bytes": 275,
       "target_bytes": 273,
-      "first_difference": 5,
+      "first_difference": 56,
       "full_masked_equal": false,
       "source_credit": 0
     },
@@ -19,9 +19,9 @@
     },
     {
       "symbol": "?VectorizeLeft_IsConflicting@CProgram@D3DXShader@@AAEHPAVCInstruction@2@II@Z",
-      "object_bytes": 155,
+      "object_bytes": 162,
       "target_bytes": 165,
-      "first_difference": 5,
+      "first_difference": 9,
       "full_masked_equal": false,
       "source_credit": 0
     },
@@ -29,12 +29,12 @@
       "symbol": "?VectorizeLeft_UpdateLinks@CProgram@D3DXShader@@AAEJPAVCInstruction@2@@Z",
       "object_bytes": 229,
       "target_bytes": 229,
-      "first_difference": 12,
-      "full_masked_equal": false,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     }
   ],
   "source": "gfx/target/scratch/codex35_vectorize_helpers/helpers.cpp",
-  "source_sha256": "253758c19ae6d66814e0695afe5fa39319da33077239b87eaf535a5ffd3d6af6",
-  "object_sha256": "df1e0f7f0a603bd409f2fa16d6c159eb9eb1d10f6d2f97f71875642f2b00f462"
+  "source_sha256": "6bb9f6d9009b6303e225ac679f0ab6f6e354de7132f3e9729f636c7be42467eb",
+  "object_sha256": "edef9c988f2100467e37a2dbe00f9af512642bb94ad76eb22765e83cd0ba5639"
 }

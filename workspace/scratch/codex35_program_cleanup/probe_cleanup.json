@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?PropagateMovs@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 410,
+      "target_bytes": 410,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?DeadLinkRemove@CProgram@D3DXShader@@AAEJXZ",
+      "object_bytes": 406,
+      "target_bytes": 406,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_program_cleanup/cleanup.cpp",
+  "source_sha256": "143e83dc4196e3b0c3f9090e31535ed9ddb90665db245eeae37208c15df8b689",
+  "object_sha256": "9759c32dd7483c71dd0142f235eee7e121e2ad1b13af51433d5684cd3f891e09"
+}

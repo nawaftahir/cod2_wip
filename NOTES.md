@@ -517,3 +517,51 @@
   helper256/258, output-pointer trial261/258; Vectorize267/267 register swap.
   These remain unaccepted scratch. IsSameRegister117 has discovery equality
   only; no new strict coverage. Goal35% stays active at confirmed30.938441%.
+
+## Codex pool replay and vectorization helpers — 2026-10-03
+
+- Pool/predicate/swizzle699-byte cohort now passes clean V2,V3/595 retaining592
+  and1284 actual full CPU outputs with current hashes. The substitution-order
+  bug was fixed only after the pinned check finished; all gates were replayed.
+- PINNED: VectorizeLeft_UpdateLinks10088f70/229 uses the full instruction token
+  local across its high12-bit guard, then masks low20 bits for width. This
+  source form reproduces the complete SDK section; the previous direct-field
+  forms gave equal229 bytes but rearranged prologue registers. Instruction24
+  and28 remain opaque DWORDs; argument40 tracks observed shift/or bits.
+- Initial IsSameRegister100883d0/117 and UpdateLinks229 discovery equality was
+  subsequently promoted through all local gates below. Other helper near-matches
+  never receive source credit merely for equal lengths.
+
+- Vectorization helpers now pass clean V2,V3/597 retaining595 and1284 actual
+  full CPU outputs, all hashes current.346 bytes await combined aggregate.
+- PINNED: PropagateMovs10089562/410, member90 section98: grouped-input alias
+  validation continues with unsigned j>=count, not merely equality. That
+  expression restores full410-byte source equality and target stack lifetimes.
+- PINNED: DeadLinkRemove1008ba48/406, member90 section168, is private. CProgram
+  poolIds starts at74; AddArgument loads88=poolIds[5], unused arguments take
+  74=poolIds[0]. Wrong6/1 indexing emitted equal406 bytes but differed at246;
+  corrected ordinary source fully matches. Local integration passes below;
+  complete aggregate inclusion remains pending.
+- Prior aggregate118170/session65215 disappeared with no PASS and empty log.
+  Fresh replay274530/session55509 includes3337 pending disjoint bytes. Do not
+  claim expected31.244677% before its actual terminal PASS.
+
+## Codex cleanup and instruction-ordering proof — 2026-10-03
+
+- Cleanup816 now passes clean V2,V3/599 retaining597 and1284 full CPU outputs,
+  all recorded hashes current. The exact DeadLinkRemove406 tail branches back
+  to394, with popedi/popsi/popbx/leave/ret394..398. Strict checker pins name,
+  full size, jump and decoded epilogue; allocation-failure tail is not truncated.
+- PINNED: SDK90 sections6/99/100/101: CompareDependency100865e0/59,
+  MarkParents100896fc/78, ComputeDependency1008974a/128 and private recursive
+  ReorderInstructions100897ca/395. Grouped ordinary C++ fully matches660 bytes.
+  Instruction30 uses signed compare/division;24/38 stay opaque DWORDs.
+- Else-if signed score ordering followed by b>a / b<a reproduces CompareDependency
+  fully. Tag-first field comparison reproduces ComputeDependency. A parent-index
+  pointer and score-before-marked initialization reproduce recursive caller395;
+  cached parent-index value gave392. No ABI or padding workaround.
+- New comparator59 is externally rebound only after full literal SDK/source
+  equality, exact section/storage and zero-relocation proof. MarkParents/raw94
+  and recursive caller/raw97 self-call scores stay visible; decoded normalization
+  is100 with complete independent typed binding/boundary proof. Clean V2,V3/603
+  retain599 and1284 full CPU outputs pass with current hashes; aggregate pending.

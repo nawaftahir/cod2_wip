@@ -187,30 +187,33 @@ int CProgram::SimplifyPredicates_IsEqual(unsigned a, unsigned b)
         ++secondLane;
     }
     unsigned kind = first->token & 0xf0000000;
-    if (kind >= 0x10000000 && kind <= 0x40000000)
+    if (kind < 0x10000000 || kind > 0x40000000)
+    {
+        goto generic;
+    }
     {
         unsigned count = first->inputCount / first->fields.scalarCount;
-        unsigned *x = first->inputs + firstLane;
-        unsigned *y = second->inputs + secondLane;
         for (unsigned i = 0; i < count; ++i)
         {
-            if (*x != *y)
+            if (first->inputs[firstLane + i * first->outputCount] !=
+                second->inputs[secondLane + i * second->outputCount])
             {
                 return 0;
             }
-            x += first->outputCount;
-            y += second->outputCount;
         }
     }
-    else
-    {
-        if (firstLane != secondLane || ((first->token ^ second->token) & 0xfffff) ||
-            memcmp(first->inputs, second->inputs, first->inputCount * sizeof(unsigned)))
-        {
-            return 0;
-        }
-    }
+equal:
     return 1;
+generic:
+    if (firstLane != secondLane || first->fields.scalarCount != second->fields.scalarCount)
+    {
+        return 0;
+    }
+    if (!memcmp(first->inputs, second->inputs, first->inputCount * sizeof(unsigned)))
+    {
+        goto equal;
+    }
+    return 0;
 }
 
 int CProgram::VectorizeLeft_IsSameRegister(unsigned a, unsigned b)
@@ -226,27 +229,36 @@ int CProgram::VectorizeLeft_IsConflicting(CInstruction *instruction, unsigned fi
 {
     unsigned width = instruction->fields.scalarCount;
     unsigned count = instruction->inputCount / width;
-    unsigned *x = instruction->inputs + first;
-    unsigned *y = instruction->inputs + second;
-    for (unsigned i = 0; i < count; ++i)
+    unsigned i = 0;
+    if (i < count)
     {
-        if ((pools[arguments[*x]->pool]->flags & 0x40) &&
-            (pools[arguments[*y]->pool]->flags & 0x40) &&
-            !VectorizeLeft_IsSameRegister(*x, *y))
+        unsigned *x = instruction->inputs + first;
+        unsigned *y = instruction->inputs + second;
+        do
         {
-            return 1;
+            unsigned b = *y;
+            unsigned a = *x;
+            if ((pools[arguments[a]->pool]->flags & 0x40) &&
+                (pools[arguments[b]->pool]->flags & 0x40) &&
+                !VectorizeLeft_IsSameRegister(a, b))
+            {
+                return 1;
+            }
+            x += width;
+            y += width;
+            ++i;
         }
-        x += width;
-        y += width;
+        while (i < count);
     }
     return 0;
 }
 
 long CProgram::VectorizeLeft_UpdateLinks(CInstruction *instruction)
 {
-    if (instruction->token & 0xfff00000)
+    unsigned width = instruction->token;
+    if (width & 0xfff00000)
     {
-        unsigned width = instruction->fields.scalarCount;
+        width &= 0xfffff;
         unsigned count = instruction->inputCount / width;
         unsigned offset = 0;
         for (unsigned i = 0; i < count; ++i)
