@@ -565,3 +565,39 @@
   and recursive caller/raw97 self-call scores stay visible; decoded normalization
   is100 with complete independent typed binding/boundary proof. Clean V2,V3/603
   retain599 and1284 full CPU outputs pass with current hashes; aggregate pending.
+
+## Codex transform source — 2026-10-03
+
+- PINNED SDK91 sections3/4/5/6/8/9/12/13/15: clean Read117,Write105,
+  UpdateRead64,UpdateWrite38,CompareLoad71,CompareIndex26,RemoveDuplicates70,
+  RecalculateLoad285 and Reduce109 fully match885 bytes. Private V3/612 retains
+  all603;1284 actual full CPU outputs pass with current hashes.
+- PINNED: complete RemoveDuplicates caller's ABS32 callback relocation selects
+  CompareIndex100cbbac, not global100865c6. Full26 bytes, zero relocations,
+  complete caller and typed target proof disambiguate the two physical copies.
+- PINNED: Reduce109 ends by jumping to102, its complete popedi/popesi/ret
+  sequence102..104. Exact name/size/destination/decoded epilogue checks admit
+  that complete body, not a generic truncated-branch waiver.
+- PINNED: member91 section17 Apply100cc228/1129. Initial result=0 at entry
+  creates1136 bytes/extra stack slot. Delaying its lifetime until flow-tag setup
+  restores1129; a real final-allocation success block and shared failure/cleanup
+  labels restore exact control-flow layout. Standalone and caller/helper TU
+  forms fully match. Clean V2,V3/613 retain612 and1284 full CPU outputs pass.
+- Preserve the target's ignored ReadWriteInfo status, observed initialization,
+  cleanup order and negative Reduce early return. Byte reconstruction is not
+  permission to fix allocation behavior. Prefix labels are descriptive, not
+  original header/field provenance; public CPU tests do not cover all branches.
+- The clean checker includes sibling *.cpp/*.py/*.sh inputs. Editing an unrelated
+  draft in that same scratch directory invalidates its packet. Keep active
+  drafts in separate sibling directories, freeze every pinned input, and replay
+  gates after moves/tool fixes. This caused two honest V3 failures, not progress.
+- ReverseInsts endpoint/loop alternatives72/73/74/75 never fully matched74;
+  current independent-last-index form74 differs24. Do not repeat unchanged forms.
+- ComparePredicate573 initially562 differed315 because combined final conditions
+  merged return blocks. Nested sense tests and explicit final else reproduce the
+  full573-byte SDK body. Clean V2,V3/614 retaining613 and1284 actual full CPU
+  outputs pass with current hashes; aggregate inclusion remains pending.
+
+- Full cleanup/ordering aggregate subsequently completed PASS/exit0:
+  341943/1089680 =31.380130%. New helper/driver/comparator2587 bytes remain
+  pending a later full replay. All fifteen proof-input sets were rehashed current.

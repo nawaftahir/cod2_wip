@@ -1,0 +1,409 @@
+#include <string.h>
+#include <new>
+#include <stdlib.h>
+#include "../../src/codex_shader_support/support.h"
+#define NODE_DECLARATIONS_ONLY
+#include "../../src/codex_shader_nodes/nodes.cpp"
+#pragma intrinsic(memset)
+
+namespace D3DXShader
+{
+// PINNED member89/90 access prefixes; not allocation-size declarations.
+class CPool
+{
+public:
+    unsigned name, flags;
+    unsigned opaque8[6];
+    unsigned *lastWrites;
+    unsigned firstWrite, firstRead, lastRead, readCount;
+};
+class CArgument
+{
+public:
+    union
+    {
+        unsigned flags;
+        struct
+        {
+            unsigned lower : 25;
+            unsigned mergeClass : 3;
+            unsigned upper : 4;
+        } flagFields;
+    };
+    unsigned pool, relative, index, component, relative2;
+    int link;
+    unsigned opaque1c;
+    double value;
+    unsigned opaque28[2];
+    unsigned remap, origin, relative3, opaque3c, opaque40, opaque44;
+    unsigned instruction, previousWrite, nextWrite, firstRead, lastRead, readCount;
+    unsigned opaque60[6];
+    ~CArgument();
+    static void __stdcall operator delete(void *);
+};
+class CInstruction
+{
+public:
+    union
+    {
+        unsigned long token;
+        struct
+        {
+            unsigned scalarCount : 20;
+            unsigned opcode : 12;
+        } fields;
+    };
+    unsigned inputCount;
+    unsigned *inputs;
+    unsigned outputCount;
+    unsigned *outputs;
+    unsigned parentCount;
+    unsigned *parents;
+    unsigned childCount;
+    unsigned *children;
+    unsigned opaque24, opaque28, opaque2c;
+    int opaque30;
+    unsigned opaque34, opaque38;
+    int IsSpecial();
+    int IsLoop();
+    int IsGradient();
+    static unsigned *__stdcall Alloc(unsigned);
+    ~CInstruction();
+    static void __stdcall operator delete(void *);
+};
+class CBaseProgram
+{
+public:
+    virtual ~CBaseProgram();
+    unsigned poolCount, argumentCount, instructionCount;
+    CPool **pools;
+    CArgument **arguments;
+    CInstruction **instructions;
+    unsigned poolCapacity, argumentCapacity, instructionCapacity;
+    unsigned AddPool(const char *, unsigned long, unsigned, unsigned);
+    unsigned CopyPool(CPool *);
+    unsigned CopyArgument(CArgument *);
+    unsigned CopyInstruction(CInstruction *);
+    long Initialize(CBaseProgram *);
+    CPool *GetPool(unsigned);
+    CArgument *GetArgument(unsigned);
+    CInstruction *GetInstruction(unsigned);
+};
+class CProgram : public CBaseProgram
+{
+public:
+    virtual ~CProgram();
+    virtual long IndexSemantic(CArgument *, int);
+    virtual long GenerateCode(ID3DXBuffer **);
+protected:
+    virtual long InitCaps();
+    virtual long Translate();
+    virtual long Reschedule();
+    virtual long Constrain();
+    virtual void GetArgumentName(CArgument *, char *, unsigned);
+    unsigned caps[19];
+    unsigned poolIds[18], opaqueBC;
+    CNode *node;
+    CTErrors *errors;
+    unsigned long version, flags;
+    char *name;
+    unsigned opaqueD4, optimized, detailedInfo, opaqueE0;
+    long Validate();
+    long RemoveDeadCode();
+    long RemoveDuplicateArguments();
+    long CompactInstructions();
+    long CompactArguments();
+    long RemapArguments();
+    long IdentityRemap();
+    long ReadWriteInfo();
+private:
+    int IsVarying(unsigned);
+    long MarkVarying();
+    long StripVarying();
+    long StripUniform();
+    void RemoveDeadCode_Reference(unsigned, unsigned);
+    void ParentChildInfo_ParentInfo(unsigned, unsigned, int);
+    void ReadWriteInfo_ReadInfo(unsigned, unsigned);
+    void ReadWriteInfo_WriteInfo(unsigned, unsigned);
+    long ReadWriteInfo_CommitOrigin();
+    long MergeArguments(unsigned, unsigned);
+    long MergePredicates(CArgument *, CArgument *);
+    long MergePredicates(unsigned *, int *, unsigned, int);
+    void ReorderInstructions_MarkParents(CInstruction *, unsigned *, unsigned);
+    void ReorderInstructions_ComputeDependency(CInstruction *, unsigned *, int *, unsigned);
+    long ReorderInstructions(unsigned, unsigned *, unsigned *);
+    int SimplifyPredicates_IsEqual(unsigned, unsigned);
+    int VectorizeLeft_IsSameRegister(unsigned, unsigned);
+    int VectorizeLeft_IsConflicting(CInstruction *, unsigned, unsigned);
+    long VectorizeLeft_UpdateLinks(CInstruction *);
+    long CombinePools(unsigned, unsigned long, unsigned long);
+    int MutuallyExclusive(unsigned, int, unsigned, int);
+    long SwizzleParameter(unsigned *, unsigned *, unsigned, int);
+protected:
+    unsigned Origin(unsigned);
+    long VectorizeLeft();
+    long DelayOutputs();
+    long SimplifyInstructions();
+    long SquishInstructions();
+    long RemoveDuplicateInstructions(int);
+    long MergeInstructions();
+    long ReorderBinary();
+    long SimplifyAddresses();
+    long SimplifyPredicates();
+    long PropagatePredicates();
+    long Split();
+    long CompactOutputs();
+    long Vectorize();
+    long VectorizeRight();
+    long SplitRegisters(int);
+    long PropagateSwizzles();
+    long CombineInstructions();
+    long ReorderInstructions();
+    long VectorizeLiterals();
+    long SeparatePhases();
+    long PropagateMovs();
+    long CompactRegisters();
+    long SwizzleRegisters();
+    long __cdecl Warning(CNode *, unsigned, const char *, ...);
+    long ParentChildInfo();
+    long Optimize();
+public:
+    long SetName(const char *);
+    long Initialize(CNode *, CTErrors *, unsigned long, unsigned long);
+    long Initialize(CProgram *, unsigned long, unsigned long);
+};
+
+
+// PINNED SDK90 virtual slots, SDK91 access prefix through offset50.
+// Names below describe observed uses, not recovered historical headers.
+class CTransform
+{
+public:
+    virtual ~CTransform();
+    virtual long Apply();
+protected:
+    CProgram *program;
+};
+
+class CTReorderInstructions : public CTransform
+{
+public:
+    virtual ~CTReorderInstructions();
+    virtual long Apply(int);
+protected:
+    unsigned *readCounts, *readStarts, *readArguments;
+    unsigned *opaque14, *opaque18;
+    unsigned *writeCounts, *writeStarts, *writeArguments;
+    unsigned *loadChanges, *loads, *loadOrder, *flowFlags;
+    unsigned count;
+    unsigned *order, *savedOrder;
+    CInstruction **originalInstructions;
+    unsigned opaque48, peakLoad, totalLoad;
+    void Read(unsigned, unsigned);
+    void Write(unsigned, unsigned);
+    void UpdateRead(unsigned, unsigned);
+    void UpdateWrite(unsigned, unsigned);
+    void ReverseInsts(unsigned, unsigned);
+    static int __stdcall CompareLoad(unsigned, unsigned, const void *);
+    static int __stdcall CompareIndex(unsigned, unsigned, const void *);
+    void RemoveDuplicates(unsigned *, unsigned *);
+    void RecalculateLoad(unsigned *, unsigned *);
+    long Bubble(unsigned);
+    long Reduce();
+};
+
+void __stdcall HeapSort(int (__stdcall *)(unsigned, unsigned, const void *),
+    unsigned *, unsigned, const void *);
+
+void CTReorderInstructions::Read(unsigned instruction, unsigned index)
+{
+    for (;;)
+    {
+        CArgument *argument = program->arguments[index];
+        if (argument->relative3 != ~0u)
+        {
+            index = argument->relative3;
+            continue;
+        }
+        argument->remap = ~0u;
+        argument->opaque60[5] = instruction;
+        if (!(program->pools[argument->pool]->flags & 0x10))
+        {
+            if (readArguments)
+            {
+                readArguments[readStarts[instruction] + readCounts[instruction]] = index;
+            }
+            ++readCounts[instruction];
+        }
+        if (argument->relative == ~0u)
+        {
+            break;
+        }
+        index = argument->relative;
+    }
+}
+
+void CTReorderInstructions::Write(unsigned instruction, unsigned index)
+{
+    CArgument *argument = program->arguments[index];
+    if (!(program->pools[argument->pool]->flags & 0x20) && argument->readCount)
+    {
+        if (writeArguments)
+        {
+            writeArguments[writeStarts[instruction] + writeCounts[instruction]] = index;
+        }
+        ++writeCounts[instruction];
+    }
+    if (argument->relative2 != ~0u)
+    {
+        Read(instruction, argument->relative2);
+    }
+}
+
+void CTReorderInstructions::UpdateRead(unsigned instruction, unsigned index)
+{
+    do
+    {
+        CArgument *argument = program->arguments[index];
+        if (argument->opaque60[5] == instruction)
+        {
+            ++loadChanges[instruction];
+        }
+        if (argument->firstRead)
+        {
+            argument->opaque60[5] = instruction;
+            --loadChanges[instruction];
+        }
+        index = argument->relative;
+    } while (index != ~0u);
+}
+
+void CTReorderInstructions::UpdateWrite(unsigned instruction, unsigned index)
+{
+    unsigned predicate = program->arguments[index]->relative2;
+    if (predicate != ~0u)
+    {
+        UpdateRead(instruction, predicate);
+    }
+}
+
+int __stdcall CTReorderInstructions::CompareLoad(unsigned a, unsigned b, const void *context)
+{
+    const CTReorderInstructions *transform = static_cast<const CTReorderInstructions *>(context);
+    a = transform->order[a];
+    b = transform->order[b];
+    if (transform->loads[a] > transform->loads[b])
+    {
+        return -1;
+    }
+    else if (transform->loads[a] < transform->loads[b])
+    {
+        return 1;
+    }
+    else if (b > a)
+    {
+        return -1;
+    }
+    else
+    {
+        return b < a;
+    }
+}
+
+int __stdcall CTReorderInstructions::CompareIndex(unsigned a, unsigned b, const void *)
+{
+    if (a < b)
+    {
+        return -1;
+    }
+    return a > b;
+}
+
+void CTReorderInstructions::RemoveDuplicates(unsigned *entries, unsigned *length)
+{
+    if (*length > 1)
+    {
+        HeapSort(CompareIndex, entries, *length, 0);
+        unsigned output = 1;
+        for (unsigned i = 1; i < *length; ++i)
+        {
+            if (entries[i] != entries[i - 1])
+            {
+                entries[output++] = entries[i];
+            }
+        }
+        *length = output;
+    }
+}
+
+void CTReorderInstructions::RecalculateLoad(unsigned *sum, unsigned *maximum)
+{
+    unsigned live = 0, total = 0, peak = 0;
+    for (unsigned i = 0; i < count; ++i)
+    {
+        unsigned index = order[i];
+        CInstruction *instruction = program->instructions[index];
+        loads[index] = live;
+        loadChanges[index] = 0;
+        if (instruction->fields.opcode)
+        {
+            unsigned *reads = readArguments + readStarts[index];
+            unsigned size = readCounts[index];
+            for (unsigned j = 0; j < size; ++j)
+            {
+                if (index == program->arguments[reads[j]]->lastRead)
+                {
+                    --loadChanges[index];
+                }
+            }
+            unsigned *writes = writeArguments + writeStarts[index];
+            unsigned writeSize = writeCounts[index];
+            for (unsigned k = 0; k < writeSize; ++k)
+            {
+                if (program->arguments[writes[k]]->readCount)
+                {
+                    ++loadChanges[index];
+                }
+            }
+            total += live;
+            if (live > peak)
+            {
+                peak = live;
+            }
+            live += loadChanges[index];
+        }
+    }
+    if (sum)
+    {
+        *sum = total;
+    }
+    if (maximum)
+    {
+        *maximum = peak;
+    }
+}
+
+long CTReorderInstructions::Reduce()
+{
+    RecalculateLoad(&totalLoad, &peakLoad);
+    for (unsigned i = 0; i < count; ++i)
+    {
+        loadOrder[i] = i;
+        savedOrder[i] = order[i];
+    }
+    HeapSort(CompareLoad, loadOrder, count, this);
+    for (unsigned i = 0; i < count; ++i)
+    {
+        long result = Bubble(loadOrder[i]);
+        if (result < 0)
+        {
+            return result;
+        }
+        if (!result)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+}

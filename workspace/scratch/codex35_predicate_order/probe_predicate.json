@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?ComparePredicate@D3DXShader@@YGHIIPBX@Z",
+      "object_bytes": 573,
+      "target_bytes": 573,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_predicate_order/predicate.cpp",
+  "source_sha256": "31cc152c8320356199a70ffeb7e500b53e052ab273db797664d53d351107f77e",
+  "object_sha256": "bde4c83079f21992b78fed16e6703015760dc79c7118c118160465b888b2ef6c"
+}

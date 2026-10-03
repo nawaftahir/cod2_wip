@@ -17,10 +17,10 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **337,130 /
-1,089,680 = 30.938441%** (2026-10-02), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **341,943 /
+1,089,680 = 31.380130%** (2026-10-03), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**44,258** further verified instruction bytes are required.31% needs671 bytes.
+**39,445** further verified instruction bytes are required.31% is reached.
 Work is active again at the owner's request. Whole-DLL checksum
 identity is still unfinished.
 
@@ -55,7 +55,22 @@ aggregate includes3337 pending bytes, not yet accepted; its older interrupted
 replay supplied no PASS. Cleanup816 passes complete V2,V3/599 retaining597 and
 1284 actual full CPU outputs; ordering660 passes V2,V3/603 retaining599 and
 1284 full CPU outputs, all hashes current. Both await aggregate inclusion.
+The terminal PASS/exit0 aggregate at codex35_vectorize_helpers/aggregate.log
+now accepts the3337 bytes from sort, both duplicate families, predicate,
+coalesce and helper modules. Older pending statements above describe the
+pre-PASS checkpoint. Cleanup816/order660 still await the next full replay.
 Read HANDOFF.md before resuming.
+New clean source modules codex_shader_transform_order/transform.cpp (nine
+complete methods/885 bytes) and codex_shader_transform_driver/driver.cpp
+(complete Apply1129) pass clean V2,private V3/612 and613 retaining all prior
+matches, and1284 full CPU outputs each. All input hashes are current; these2014
+bytes are not yet included in the confirmed aggregate above. The live cleanup/
+ordering replay completed PASS/exit0 and now includes1476 accepted bytes, not
+these new transform modules. Latest full log is codex35_program_cleanup/aggregate.log.
+codex_shader_predicate_order/predicate.cpp adds complete573 bytes, clean V2,
+V3/614 retaining613 and1284 full CPU outputs with current hashes. Its aggregate
+acceptance remains pending too;2587 new transform/comparator bytes are not yet
+included in the confirmed percentage.
 The duplicate read/write scratch source adds zero coverage: all four methods
 were already accepted in the earlier program module. CompactOutputs stays
 scratch-only because actual source/object comparisons still differ.

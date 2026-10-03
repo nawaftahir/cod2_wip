@@ -11,4 +11,5 @@ function, full size, jump destination and decoded sequence; it never truncates
 the body or skips the allocation-failure tail. Opaque argument44 remains a
 DWORD access, not a claimed original historical field name.
 
-Full aggregate inclusion is pending. No whole-DLL identity or GPU claim.
+Full aggregate inclusion passes at341943/1089680 =31.380130%; its816 disjoint
+bytes are included. No whole-DLL identity or GPU claim.

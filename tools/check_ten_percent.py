@@ -1221,6 +1221,39 @@ def main():
             'run_clean_test.py': 'bde703275ab7af844d949329663443cf929b993cbd6d298f93636bdbf1d3586f',
             'compile_clean_test.sh': '76174c9feaca06bcdb6a16996bd598d68fcee2bbde273d893d1fa3ec54fdce18',
         }),
+        ('codex35_transform_order', 9, 885, 603, 612, 1284, {
+            'check.py': '1ff719ff9b5047ec1b272ed317ab1236b146e0387542ee7016e8d96e4ef71363',
+            'check_link.py': 'a85b90df5cee60e215f886db5eef4a02bb855563206ee5ff7da706bdd2c28413',
+            'vtables.py': '1b31f0e64055993133cd50d16f2aa293cfbb934d4fdb0e51d8fd8deaccfe28c3',
+            'sdk_binding.py': 'a1735b6304ecd771303b8e6afe7eb0c079b890489288d9b8fb38ed59fbaaf691',
+            'build.sh': 'c28627469d89cf0a7d716f11ddde41f1b1fa7805b59d10f850194387629cebaa',
+            'link.mk': '0ee0a046de378e3a58460620f23fb9aa6db67de8a02352a3198770eecf1f1295',
+            'select_link_dependencies.py': 'fe2e94a50cefea5f03c84d4b9304f507532f7746e7636b39fe47a1c240b83ff0',
+            'run_clean_test.py': '47a78dc3f4427d013c54c789361fd4b5528b6a7345b859c3fcdac3bd628f76d1',
+            'compile_clean_test.sh': 'e4c827f0c6e868e485293516aea91100606cee245fb046b97be2949e55a3bf63',
+        }),
+        ('codex35_transform_driver', 1, 1129, 612, 613, 1284, {
+            'check.py': 'e37157f330749063a0f83129d8371e47b1b7e6c2bdc75c865124c3f203a7a57c',
+            'check_link.py': '179fddf495d667c788394823b580c4249eb5283046b3409efad4414601521c0f',
+            'vtables.py': 'f52b41f50bcb11bd1215f96077ae933e94c8b9ab32f23ef3f486f9d43f5be1b2',
+            'sdk_binding.py': 'a1735b6304ecd771303b8e6afe7eb0c079b890489288d9b8fb38ed59fbaaf691',
+            'build.sh': 'e4867da4f3124a582ed8b7edf347dbd3b445d4c329ac616af17ee3de5d90e34f',
+            'link.mk': 'b302e2f8d390c175e668e225898d4a9f698135ec37b308638df814639c4b78fd',
+            'select_link_dependencies.py': 'c123ac2e4686e01f2577884b4f4eeea74164dda1fa895bca0e912027ccd2218a',
+            'run_clean_test.py': '505f7721c1f3f6a1d9be645e12c20b031257e1cca05da097b7d4434bcd9139e4',
+            'compile_clean_test.sh': '15de56275f92763a5e7d49d1dbb70e112c54703ee05962f3b91b6f555d3e0c48',
+        }),
+        ('codex35_predicate_order', 1, 573, 613, 614, 1284, {
+            'check.py': '0999ac102114882029182df338aedb8fa21636f2940a1b5b61340b605119acfe',
+            'check_link.py': '820c90fbee8744fab50f99b0bb71fc6bbfc75fb5a83020570696c4db808be981',
+            'vtables.py': '5e99c63fd1d2fad047de54907af2eed9165eafe70abc65dc415118597b728fac',
+            'sdk_binding.py': 'a1735b6304ecd771303b8e6afe7eb0c079b890489288d9b8fb38ed59fbaaf691',
+            'build.sh': 'b6d5642bbc4a05c85d19fa523f97c19f498adad685bc19561b0f5c18493ef389',
+            'link.mk': '9220ff79dd1de59049d9ae6b09ba007473a34ea9ae0881058e84457e1a2dcb4e',
+            'select_link_dependencies.py': '6aab1cecef9f38f9a58a025dba0701f296cac5e01dbd4a857cc616d21b434a34',
+            'run_clean_test.py': 'd95322326cd48ff0ae5a4337c8c3da985d3530ef9616e7065dcab0f942907321',
+            'compile_clean_test.sh': 'a7c241b8ad86e37a2f215f234dc13abe6cc25cbbd9a5999fc0e77bb4d31b9755',
+        }),
     ]:
         print(f'Checking {family}: complete byte proof and linked regression', flush=True)
         directory = TARGET / 'scratch' / family
@@ -1245,7 +1278,7 @@ def main():
         assert link['baseline_source_matches'] == baseline_count and link['linked_source_matches'] == linked_count
         assert not link['source_match_losses'] and link['dependency_source_credit'] == 0
         assert all(sha(ROOT / n) == h for n, h in link['files'].items())
-        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates', 'codex35_predicate_merge', 'codex35_program_coalesce', 'codex35_vectorize_helpers', 'codex35_program_cleanup', 'codex35_instruction_order') else 'fixture_packet.json'
+        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates', 'codex35_predicate_merge', 'codex35_program_coalesce', 'codex35_vectorize_helpers', 'codex35_program_cleanup', 'codex35_instruction_order', 'codex35_transform_order', 'codex35_transform_driver', 'codex35_predicate_order') else 'fixture_packet.json'
         fixture = json.loads((directory / fixture_name).read_text())
         assert fixture['status'] == 'PASS' and fixture['cases'] == cpu_count
         assert all(sha(ROOT / n) == h for n, h in fixture['files'].items())
@@ -1288,6 +1321,15 @@ def main():
             assert order_gain == {(0x100865e0, 59), (0x100896fc, 78), (0x1008974a, 128), (0x100897ca, 395)}
             assert all(r['instruction_aware_referee_match'] == 100 for r in packet['rows'])
             assert sorted(r['original_referee_match'] for r in packet['rows']) == [94, 97, 100, 100]
+        elif family == 'codex35_transform_order':
+            transform_gain = gain
+            assert transform_gain == {(0x100cb9d7, 117), (0x100cba4c, 105), (0x100cbab5, 64), (0x100cbaf5, 38), (0x100cbb65, 71), (0x100cbbac, 26), (0x100cbbc6, 70), (0x100cbc0c, 285), (0x100cc1bb, 109)}
+        elif family == 'codex35_transform_driver':
+            driver_gain = gain
+            assert driver_gain == {(0x100cc228, 1129)}
+        elif family == 'codex35_predicate_order':
+            predicate_order_gain = gain
+            assert predicate_order_gain == {(0x1008661b, 573)}
         elif family == 'codex35_program_sort':
             sort_gain = gain
             assert sort_gain == {(0x10086920, 279)}
@@ -1315,7 +1357,7 @@ def main():
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1328,7 +1370,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1377,6 +1419,9 @@ def main():
     print('Vectorization-helper cohort: 2 complete source bodies, 346 new instruction bytes; 597 linked matches retain all595; 1284 integrated full-output CPU cases pass. Other helper drafts stay excluded.')
     print('Shader-cleanup cohort: 2 complete source bodies, 816 new instruction bytes; 599 linked matches retain all597; 1284 integrated full-output CPU cases pass. Exact named shared-return boundary checked, no truncated tail.')
     print('Instruction-ordering cohort: 4 complete source bodies, 660 new instruction bytes; 603 linked matches retain all599; 1284 integrated full-output CPU cases pass. Raw recursive94/97 scores preserved; decoded self-call100 and full independent typed/boundary proof pass.')
+    print('Transform helpers: 9 complete source bodies /885 bytes; 612 linked matches retain603; 1284 full CPU cases pass. Typed SDK caller selects CompareIndex100cbbac, not existing100865c6.')
+    print('Transform driver: 1 complete Apply source body /1129 bytes; 613 linked matches retain612; 1284 full CPU cases pass. SDK/CRT dependencies remain uncredited.')
+    print('Predicate ordering: complete573-byte comparator; 614 linked matches retain613; 1284 full CPU cases pass. Callback is rebound only after full literal/storage/bounds proof.')
     goal31 = (DENOMINATOR * 31 + 99) // 100
     print(f'31% checkpoint: {"REACHED" if total >= goal31 else "PENDING"}; {max(0, goal31 - total)} further source instruction bytes needed.')
     goal = (DENOMINATOR * 35 + 99) // 100

@@ -11,7 +11,8 @@ decoded self-call relocation normalization gives100, with complete independent
 typed proofs. Other bodies report raw100. No mismatched instruction is waived.
 Private V3 passes603 source matches retaining599. Actual original/source CPU
 fixtures agree on1284 full shader/error/constant-table outputs; input hashes
-are current. Full aggregate inclusion remains pending.
+are current. Full aggregate inclusion passes at341943/1089680 =31.380130%;
+its660 disjoint instruction bytes are included.
 
 The SDK's private CompareDependency callback is rebound only after complete
 literal59-byte equality, zero relocations, exact symbol/storage/bounds proof.
