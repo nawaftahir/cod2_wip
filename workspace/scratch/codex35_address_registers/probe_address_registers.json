@@ -2,6 +2,14 @@
   "status": "DISCOVERY ONLY",
   "rows": [
     {
+      "symbol": "??_GCArgument@D3DXShader@@QAEPAXI@Z",
+      "object_bytes": 32,
+      "target_bytes": 32,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
       "symbol": "?SimplifyAddresses@CProgram@D3DXShader@@IAEJXZ",
       "object_bytes": 779,
       "target_bytes": 772,
@@ -19,7 +27,7 @@
     },
     {
       "symbol": "?CompactOutputs@CProgram@D3DXShader@@IAEJXZ",
-      "object_bytes": 694,
+      "object_bytes": 693,
       "target_bytes": 696,
       "first_difference": 17,
       "full_masked_equal": false,
@@ -98,11 +106,35 @@
       "source_credit": 0
     },
     {
-      "symbol": "?CanVectorize_TraceMulAdd@CProgram@D3DXShader@@AAEIIPAN0@Z",
-      "object_bytes": 350,
-      "target_bytes": 365,
-      "first_difference": 7,
+      "symbol": "?Validate@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 814,
+      "target_bytes": 811,
+      "first_difference": 25,
       "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CanVectorize_TraceMulAdd@CProgram@D3DXShader@@AAEIIPAN0@Z",
+      "object_bytes": 357,
+      "target_bytes": 365,
+      "first_difference": 12,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?AddArgument@CBaseProgram@D3DXShader@@QAEIPAVCArgument@2@@Z",
+      "object_bytes": 356,
+      "target_bytes": 356,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CopyArgument@CBaseProgram@D3DXShader@@QAEIPAVCArgument@2@@Z",
+      "object_bytes": 82,
+      "target_bytes": 82,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     },
     {
@@ -115,6 +147,6 @@
     }
   ],
   "source": "gfx/target/scratch/codex35_address_registers/address_registers.cpp",
-  "source_sha256": "5f85be56146124be5811c4a5a159ca4985c8e58ee2bb5a31bc4ab60d9b8a35d3",
-  "object_sha256": "f295fbed05cdd7d8d6fbb5a3975222648fa4f9aadf253bc9f067a7c02a5a76fb"
+  "source_sha256": "a77181c9173a04c04f626d48b8eadea3ea890473e157e45959d52f6ed1f97b0b",
+  "object_sha256": "fa75214f67886b268628f352fcae8e3543a3bcd0e7a8f253286cddc6561748b9"
 }

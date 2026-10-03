@@ -1,6 +1,9 @@
 # Where to inspect renderer source
 
-35% continuation is active. New accepted clean source:
+35% continuation is active. New clean argument_alloc.cpp passes V2,
+V3/649 retaining647 and1284 CPU outputs. Its438 disjoint bytes await full
+aggregate11516; duplicate destructor32 gets zero new credit.
+New accepted clean source:
 [register splitting and sequence tracing](target/src/codex_shader_register_split/register_split.cpp),
 two complete definitions/807 bytes. Both referees, bindings, boundaries,
 negative tests,644 linked matches retaining642 and1284 CPU comparisons pass.

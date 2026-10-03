@@ -139,3 +139,22 @@ All compiler attempts use pinned4035 /O1 /Oy- /hotpatch /MT /Gy /d2QIftol.
 Do not widen masks, alter ABI, insert padding or manufacture assembly wrappers.
 The existing allocation retry report records unchanged pointer/SIB and counter
 ordering experiments; originals were restored and freshly compiled/reprobed.
+
+AddArgument356/CopyArgument82: complete ordinary source now matches after
+literal-first zero/one comparisons, value-minus-integer subtraction and two
+explicit CopyArgument early returns. Extracted to argument_alloc clean cohort;
+all local gates pass. The generated CArgument destructor32 is duplicate only.
+
+Squish retries: explicit high-half ushort masking1259 did not help; restored
+the original local instruction union. CompactOutputs shared counter declarations
+do not change693. Trace explicit argument table plus signed backward stride
+gives357/365; it preserves alias-sensitive cached input IDs but is unmatched.
+
+Validate811: full lifetime initialization, relative/predicate read traversal,
+pool propagation and all seven literal diagnostics recovered from SDK90/160.
+PINNED kind6 is CNodeDecl (SDK75 ctor), kind3 is CNodeToken; declaration field28
+suppresses repeated FA0 diagnostics. The token word at18 is passed verbatim as
+the name pointer. All literal strings were read from typed SDK COFF sections.
+Initial811 differed25; changed assignment order matches target writes.
+Pointer-field traversal and final guarded failure return remain bounded draft
+trials. No speculative diagnostic, new validation or code credit was inserted.

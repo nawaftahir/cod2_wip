@@ -859,3 +859,24 @@
   Explicit helper-result temporaries preserve observed SDK call ordering;
   source expression evaluation order alone did not. REPORT lists bounded
   Squish/literal/trace attempts so later workers do not repeat them blindly.
+## Codex35 argument ownership and constructor binding — 2026-10-03
+
+- PINNED AddArgument356 at10085ec2 and CopyArgument82 at10086240 now have
+  complete readable source in target/src/codex_shader_argument_alloc. Fresh
+  V2/470 includes duplicate destructor32; V3/649 retains647;1284 full CPU
+  comparisons pass. Only438 new disjoint bytes await aggregate11516.
+- PINNED CArgument storage128/sizeof80h is backed by CopyArgument's literal
+  allocation. Class default constructor is SDK87, complete3-byte mov eax,ecx;
+  ret at10085bf1. Its typed CopyArgument call and both linked/retail/full SDK
+  bodies plus negative destination test supply a zero-credit binding locator.
+- PINNED __ftol is39 relocation-free bytes in libcmt member686. The pinned
+  archive and SDK89/10 typed caller identify and compare the complete retail
+  body; no runtime source credit. Do not replace it with __ftol2.
+- PINNED duplicate deleting destructor32 is literal/typed-COMDAT-identical;
+  preserve original program.obj ownership via final LFLAGS ordering. XL added
+  after closed.mk inclusion is omitted from its := flags; that trial failed.
+- Validate811 has a complete uncounted draft with all seven authentic strings.
+  SDK75 confirms node kind6=CNodeDecl and3=CNodeToken. Decl+28 suppresses repeat
+  FA0 messages, token+18 passes the name pointer. Volatile pointer access in the
+  local draft preserves observed repeated predicate-field reads; no historical
+  qualifier claim. Failed-byte drafts never increase the coverage ledger.

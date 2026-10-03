@@ -2,6 +2,13 @@
 
 ## Active continuation — 35% goal
 
+New clean module target/src/codex_shader_argument_alloc/argument_alloc.cpp:
+AddArgument356 and CopyArgument82 pass V2, V3/649 retaining647, and1284 fresh
+CPU outputs with zero differences. Existing destructor32 is independently
+certified but excluded as duplicate. Full aggregate11516 is live at
+target/scratch/codex35_argument_alloc/aggregate.log. Expected new gain438 is
+NOT credited until its terminal PASS. Prior accepted32.304438% remains current.
+
 Owner requested35%; goal remains active. Accepted coverage is352015/1089680
 =32.304438%, requiring29373 more instruction bytes for35%.
 Full aggregate session30276 completed terminal PASS/exit0, preserved at

@@ -1,8 +1,12 @@
 #include <new>
 #include <string.h>
+#include <math.h>
 #include "../../src/codex_shader_support/support.h"
+#define NODE_DECLARATIONS_ONLY
+#include "../../src/codex_shader_nodes/nodes.cpp"
 #pragma intrinsic(memset)
 #pragma intrinsic(memcpy)
+#pragma intrinsic(fabs)
 
 namespace D3DXShader
 {
@@ -26,6 +30,8 @@ class CPool
 public:
     unsigned name, flags;
     unsigned opaque8[6];
+    unsigned *lastWrites;
+    unsigned firstWrite, firstRead, lastRead, readCount;
 };
 
 class CArgument
@@ -41,6 +47,9 @@ public:
     unsigned opaque60[8];
     CArgument();
     ~CArgument();
+    long Initialize(CArgument *);
+    static void *__stdcall operator new(unsigned);
+    static void __stdcall operator delete(void *);
 };
 
 class CInstruction
@@ -85,6 +94,8 @@ public:
     CInstruction **instructions;
     unsigned poolCapacity, argumentCapacity, instructionCapacity;
     unsigned AddArgument(unsigned, unsigned, unsigned, double);
+    unsigned AddArgument(CArgument *);
+    unsigned CopyArgument(CArgument *);
     unsigned AddInstruction(unsigned long, unsigned, unsigned);
 };
 
@@ -111,6 +122,8 @@ protected:
     int optimized, detailedInfo;
     CProgram *linkedProgram;
     long ReadWriteInfo();
+    long ReadWriteInfo_CommitOrigin();
+    long Validate();
     long IdentityRemap();
     long RemapArguments();
     long SimplifyAddresses();
@@ -139,6 +152,66 @@ private:
     long CompactLiterals_Remap(unsigned *, unsigned *, unsigned);
     unsigned CanVectorize_TraceMulAdd(unsigned, double *, double *);
 };
+
+unsigned CBaseProgram::AddArgument(CArgument *argument)
+{
+    if (argumentCount == argumentCapacity)
+    {
+        unsigned capacity = argumentCapacity ? 2 * argumentCapacity : 0x400;
+        CArgument **copy = static_cast<CArgument **>(::operator new(capacity * sizeof(CArgument *)));
+        if (!copy)
+        {
+            delete argument;
+            return ~0u;
+        }
+        memcpy(copy, arguments, argumentCount * sizeof(CArgument *));
+        memset(copy + argumentCount, 0, (capacity - argumentCount) * sizeof(CArgument *));
+        ::operator delete(arguments);
+        arguments = copy;
+        argumentCapacity = capacity;
+    }
+    if (argument && (pools[argument->pool]->flags & 0x100) && argument->relative == ~0u)
+    {
+        argument->flags |= 0x80;
+        if (0.0 == argument->value || 1.0 == argument->value)
+        {
+            argument->flags |= 1;
+        }
+        if (fabs(argument->value - static_cast<int>(argument->value)) < 1e-6)
+        {
+            argument->flags |= 2;
+        }
+        if (argument->value >= 0.0)
+        {
+            argument->flags |= 4;
+        }
+        if (argument->value <= 0.0)
+        {
+            argument->flags |= 8;
+        }
+        if (fabs(argument->value) <= 1.0)
+        {
+            argument->flags |= 0x10;
+        }
+    }
+    arguments[argumentCount] = argument;
+    return argumentCount++;
+}
+
+unsigned CBaseProgram::CopyArgument(CArgument *argument)
+{
+    CArgument *copy = new CArgument;
+    if (!copy)
+    {
+        return ~0u;
+    }
+    if (copy->Initialize(argument) < 0)
+    {
+        delete copy;
+        return ~0u;
+    }
+    return AddArgument(copy);
+}
 
 // Access prefixes and control flow are pinned to SDK90/174 and SDK90/194.
 long CProgram::SimplifyAddresses()
@@ -411,6 +484,7 @@ long CProgram::SplitRegisters(int scalar)
 
 long CProgram::CompactOutputs()
 {
+    unsigned k, j, group;
     if (caps[17] & 1)
     {
         return 1;
@@ -425,7 +499,6 @@ long CProgram::CompactOutputs()
         {
             continue;
         }
-        unsigned j;
         for (j = 0; j < instruction->outputCount; ++j)
         {
             if (!(pools[arguments[instruction->outputs[j]]->pool]->flags & 0x20))
@@ -448,9 +521,8 @@ long CProgram::CompactOutputs()
         {
             continue;
         }
-        unsigned width = instruction->fields.scalarCount;
+        unsigned width = *static_cast<volatile unsigned long *>(&instruction->token) & 0xfffff;
         unsigned groups = instruction->inputCount / width;
-        unsigned group;
         for (group = 0; group < groups; ++group)
         {
             for (j = 0; j < width; ++j)
@@ -458,7 +530,6 @@ long CProgram::CompactOutputs()
                 CArgument *argument = arguments[instruction->inputs[group * width + j]];
                 CInstruction *writer = instructions[argument->instruction];
                 int special = writer->IsSpecial();
-                unsigned k;
                 for (k = 0; k < writer->outputCount; ++k)
                 {
                     CArgument *output = arguments[writer->outputs[k]];
@@ -2098,9 +2169,190 @@ long CProgram::CompactLiterals_Remap(unsigned *table, unsigned *ids, unsigned co
     return 0;
 }
 
+long CProgram::Validate()
+{
+    int failed = 0;
+    unsigned i, j;
+    for (i = 0; i < poolCount; ++i)
+    {
+        CPool *pool = pools[i];
+        pool->firstWrite = pool->firstRead = ~0u;
+    }
+    for (i = 0; i < argumentCount; ++i)
+    {
+        CArgument *argument = arguments[i];
+        argument->instruction = argument->firstRead = ~0u;
+    }
+    for (i = 0; i < instructionCount; ++i)
+    {
+        CInstruction *instruction = instructions[i];
+        if (!(instruction->token & 0xfff00000))
+        {
+            continue;
+        }
+        for (j = 0; j < instruction->inputCount; ++j)
+        {
+            CArgument *argument = arguments[instruction->inputs[j]];
+            if (i < argument->firstRead)
+            {
+                argument->firstRead = i;
+            }
+            CArgument *relative = argument;
+            while (relative->relative != ~0u)
+            {
+                CPool *pool = pools[relative->pool];
+                if (i < pool->firstRead)
+                {
+                    pool->firstRead = i;
+                }
+                relative = arguments[relative->relative];
+                if (i < relative->firstRead)
+                {
+                    relative->firstRead = i;
+                }
+            }
+            volatile unsigned *predicate = &argument->relative2;
+            while (*predicate != ~0u)
+            {
+                argument = arguments[*predicate];
+                if (i < argument->firstRead)
+                {
+                    argument->firstRead = i;
+                }
+                predicate = &argument->relative2;
+            }
+        }
+        for (j = 0; j < instruction->outputCount; ++j)
+        {
+            CArgument *argument = arguments[instruction->outputs[j]];
+            if (i < argument->instruction)
+            {
+                argument->instruction = i;
+            }
+            CArgument *relative = argument;
+            if (argument->relative != ~0u)
+            {
+                CPool *pool = pools[argument->pool];
+                if (i < pool->firstWrite)
+                {
+                    pool->firstWrite = i;
+                }
+                relative = arguments[argument->relative];
+                if (i < relative->firstRead)
+                {
+                    relative->firstRead = i;
+                }
+            }
+            while (relative->relative != ~0u)
+            {
+                CPool *pool = pools[relative->pool];
+                if (i < pool->firstRead)
+                {
+                    pool->firstRead = i;
+                }
+                relative = arguments[relative->relative];
+                if (i < relative->firstRead)
+                {
+                    relative->firstRead = i;
+                }
+            }
+            volatile unsigned *predicate = &argument->relative2;
+            while (*predicate != ~0u)
+            {
+                argument = arguments[*predicate];
+                if (i < argument->firstRead)
+                {
+                    argument->firstRead = i;
+                }
+                predicate = &argument->relative2;
+            }
+        }
+    }
+    ReadWriteInfo_CommitOrigin();
+    i = 0;
+    if (argumentCount)
+    {
+    do
+    {
+        CArgument *argument = arguments[i];
+        CPool *pool = pools[argument->pool];
+        if (pool->firstRead < argument->firstRead)
+        {
+            argument->firstRead = pool->firstRead;
+        }
+        if (pool->firstWrite < argument->instruction)
+        {
+            argument->instruction = pool->firstWrite;
+        }
+        unsigned flags = pool->flags;
+        if (!(flags & 0x10) && argument->firstRead != ~0u &&
+            argument->firstRead <= argument->instruction)
+        {
+            CNode *node = reinterpret_cast<CNode *>(argument->opaque60[0]);
+            CNodeDecl *declaration = static_cast<CNodeDecl *>(node);
+            if (node && node->kind == 6 && declaration->field14 && declaration->field14->kind == 3)
+            {
+                if (!declaration->field28)
+                {
+                    CNodeToken *token = static_cast<CNodeToken *>(declaration->field14);
+                    Error(instructions[argument->firstRead]->node, 0xfa0,
+                        "variable '%s' used without having been completely initialized",
+                        reinterpret_cast<const char *>(token->token.words[2]));
+                    declaration->field28 = 1;
+                }
+            }
+            else
+            {
+                Error(0, 0, "internal error: argument used without having been initialized (A%u, I%u)",
+                    i, argument->firstRead);
+            }
+        }
+        else if ((flags & 0x20) && argument->instruction == ~0u)
+        {
+            Error(0, 0, "internal error: output argument was never initialized (A%u)", i);
+        }
+        else if (!(flags & 2) && argument->instruction != ~0u)
+        {
+            Error(0, 0, "internal error: cannot write to argument pool (A%u, I%u)", i, argument->instruction);
+        }
+        else if (!(flags & 0xd) && argument->firstRead != ~0u)
+        {
+            Error(0, 0, "internal error: cannot read from argument pool (A%u)", i);
+        }
+        else if (optimized && !(flags & 0x10120) && argument->firstRead == ~0u &&
+            ((flags & 0x10) || (argument->instruction != ~0u &&
+                !instructions[argument->instruction]->IsSpecial() &&
+                (instructions[argument->instruction]->token & 0xfff00000) != 0x20900000)))
+        {
+            if (argument->instruction != ~0u)
+            {
+                Error(0, 0, "internal error: argument was never used (A%u, I%u)", i, argument->instruction);
+            }
+            else
+            {
+                Error(0, 0, "internal error: argument was never used (A%u)", i);
+            }
+        }
+        else
+        {
+            goto nextArgument;
+        }
+        failed = 1;
+nextArgument:
+        ++i;
+    } while (i < argumentCount);
+    if (failed)
+    {
+        return static_cast<long>(0x80004005u);
+    }
+    }
+    return 0;
+}
+
 unsigned CProgram::CanVectorize_TraceMulAdd(unsigned id, double *scale, double *offset)
 {
-    CArgument *argument = arguments[id];
+    CArgument **argumentList = arguments;
+    CArgument *argument = argumentList[id];
     if (argument->instruction == ~0u || argument->relative != ~0u)
     {
         return ~0u;
@@ -2136,13 +2388,14 @@ unsigned CProgram::CanVectorize_TraceMulAdd(unsigned id, double *scale, double *
         }
     }
     unsigned width = instruction->outputCount;
+    int backward = -static_cast<int>(width);
     CPool **poolList = pools;
     unsigned *first = &instruction->inputs[i];
     unsigned *second = &instruction->inputs[i + width];
     for (unsigned pass = 0; pass < 2; ++pass)
     {
         unsigned value = *first;
-        CArgument *constant = arguments[*second];
+        CArgument *constant = argumentList[*second];
         if ((poolList[constant->pool]->flags & 0x100) && constant->relative == ~0u)
         {
             if (scale)
@@ -2159,7 +2412,7 @@ unsigned CProgram::CanVectorize_TraceMulAdd(unsigned id, double *scale, double *
             return value;
         }
         first += width;
-        second -= width;
+        second += backward;
     }
     if (opcode == 0x20400000 && instruction->inputs[i] == instruction->inputs[i + instruction->outputCount])
     {
