@@ -1,5 +1,12 @@
 # Where to inspect renderer source
 
+Accepted latest:353651/1089680=32.454574%. Complete aggregate8159 PASS/exit0
+accepts clean validator811 and pool-read387. All35 cohort pin sets,105 packet
+sets/13889 identities and the reviewed reuse closure independently current.
+Readable source is in the two linked clean folders below.35% remains active;
+27737 further independently verified source bytes are needed. Older totals
+and aggregate-pending statements are historical, not current status.
+
 Latest accepted aggregate:352453/1089680=32.344633%, terminal PASS/exit0
 at codex35_argument_alloc/aggregate.log.33 cohort pin sets and99 authoritative
 packet sets independently rehashed current after completion.

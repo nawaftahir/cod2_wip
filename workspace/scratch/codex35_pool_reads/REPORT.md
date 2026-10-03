@@ -33,3 +33,9 @@ is claimed. The helper is meaningful source logic, not unreachable padding.
 Replay: `sh target/scratch/codex35_pool_reads/build.sh`, then
 `python3 target/scratch/codex35_pool_reads/check_link.py`. CPU replay uses the
 pinned image with `compile_clean_test.sh` followed by `run_clean_test.py`.
+
+Aggregate8159 now PASS/exit0 at353651/1089680=32.454574%, including387 here and
+validator811. All35 cohort pin sets,105 packet sets/13889 identities and the
+33 reviewed reuse states/toolchain closure were independently rehashed current.
+The earlier aggregate-pending note above is superseded;35% is still unfinished.
+Guarded historical proof reuse is explicit in the log, not fresh old CPU runs.

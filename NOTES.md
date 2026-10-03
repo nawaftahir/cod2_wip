@@ -912,3 +912,24 @@
   to remove incorrect DOS-header and64-bit-return guesses. Both are research,
   ZERO source credit; shared analysis DB changes were discarded. Target-bound
   structure layouts and full source compilation are still required.
+## Codex35 reviewed-reuse aggregate — 2026-10-04
+
+- Accepted353651/1089680=32.454574% after aggregate8159 terminal PASS/exit0;
+  validator811 and pool-read387 are now included.35% remains active,27737 short.
+  Posthash35 pin sets,105 packet sets/13889 identities and33 reused cohort states
+  plus complete tool/SDK/header/host/image closure all current.
+- Reuse is historical proof, not a fresh compile/CPU claim. Hard-pinned snapshot
+  and helper require unchanged source/object/packet/tool/package/image identity;
+  new cohorts run full checks and global overlap/accounting still executes.
+  Wrong certificate/state, unknown cohort and source mutation reject. A changed
+  verifier closure fails closed. Cold replay remains available without the flag.
+- PINNED SDK73/131 EmitArgs513 converts the unsigned value directly to double;
+  MSVC4035 emits fild from the original word plus the negative-bit correction.
+  The manually signed conversion in the old draft unnecessarily spilled the
+  value. Complete new drafts still differ in list/epilogue layout, zero credit.
+- Bounded four-field predicate-phase state sweep compiled24 genuine layouts in
+  one invocation. All remain1459 versus1462 and first difference7, zero credit.
+  Do not repeat this field-order sweep or classify it as compiler impossibility.
+- PINNED SDK73/26 EmitTemp28 uses ECX/EDI/EAX and does not modify EDX. Typed
+  intrinsic decompilation's extraout_EDX artifacts require real caller/callee
+  source-context testing, not fabricated return types or calling conventions.

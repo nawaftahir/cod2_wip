@@ -2,6 +2,35 @@
 
 ## Active continuation — 35% goal
 
+Newest aggregate8159 completed terminal PASS/exit0:353651/1089680
+=32.454574%, with validator811 and pool-read387 now accepted.35% remains
+active and27737 source instruction bytes short. Posthash passed35 cohort
+pin sets,105 packet sets and13889 file identities. All33 reused cohort states
+and the complete cached tool/SDK/header/host-package/image closure rechecked
+current after the audit. Clean source checkpoint7998058 includes pool reads.
+
+Speed improvement: `python3 tools/check_ten_percent.py --reuse-reviewed`
+requires the hard-pinned `reviewed_inputs.json` and cache helper. It reuses
+only historical complete proofs with unchanged full packet inputs, verifier
+closure, SDK headers/libraries, compiler files, host packages and two pinned
+image identities. Every accounting/binding/boundary/negative/regression/CPU
+packet gate and global address-disjointness check still executes. New cohorts
+run both full referees/linked checks. This is NOT fresh compilation or CPU
+execution for old cohorts. Current source-mutation, wrong certificate, wrong
+state and unknown-cohort tests reject. Closure changes fail closed; omit the
+flag for a cold audit. Never reseal from a stale/partial log without independent
+full-input review and terminal exit0. The new audit took15m08s; the preceding
+cold audit took82m52s, with different cohorts. No direct equal-input speed claim.
+
+Additional drafts: codex35_emit_args has target-backed constant conversion
+and list-control variants, all currently unmatched. Correct ordinary unsigned
+to-double conversion reproduces the literal x87 path; avoid the earlier manual
+signed-plus4294967296 form. codex35_predicate_states tested all24 real four-field
+state orders in one compiler invocation; none matched, no coverage. Preserve
+these attempts rather than repeating them or adding marker code. The typed
+intrinsic export is still research-only. Older pending/live statements below
+are superseded by this newest paragraph; no audit is currently live.
+
 Aggregate11516 finished terminal PASS/exit0. Accepted352453/1089680
 =32.344633%; argument-allocation438 is now included. Post-completion rehash
 passed33 cohort pin sets,99 authoritative packet sets and12999 identities.

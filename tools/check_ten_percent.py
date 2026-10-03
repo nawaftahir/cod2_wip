@@ -58,6 +58,13 @@ def checked_object(packet, run):
 
 def main():
     print('Checking pinned base and complete source cohorts', flush=True)
+    reviewed_cache = None
+    if '--reuse-reviewed' in sys.argv:
+        cache_tool = GFX / 'tools/reviewed_cohort_cache.py'
+        assert sha(cache_tool) == '79fd2b6d74e659346a88f9dacbff65a735bd470b55093b391e8c21e9d7a791d1'
+        from reviewed_cohort_cache import load, reusable
+        reviewed_cache = load(TARGET / 'scratch/codex35_pool_reads/reviewed_inputs.json',
+                              '439c658a277452edaa9d083703411028c489180d649892697f2ccf3732b3c17b')
     assert sha(ANCHOR) == ANCHOR_SHA
     assert sha(TARGET / 'src/codex_drawgroups/gfx_d3d/r_splitscreen.cpp') == (
         '10601fdeb692bc831120dfc53121894bf1c7185205c5de6c4d5052b0b4e1ea9a')
@@ -1354,6 +1361,28 @@ def main():
             'run_clean_test.py': '93e5017de03c8506dd4057b2461700a46de4ec462a9d6f40ff5cdce3a070dfe5',
             'compile_clean_test.sh': '698875d7e602b2b90d414b368ff48866224cb9e38a7febb589833252a38ea532',
         }),
+        ('codex35_validation', 1, 811, 649, 650, 1284, {
+            'check.py': '8e915f32bd336c86eaca3f6930dd99b6f9e09816d451fa2c4bd8879ecfe024b0',
+            'check_link.py': '649684c4710e2c5a7cf972d4ee0c4096337bc106826aa22b4023d433adb83294',
+            'vtables.py': 'e986a589d9ee58f25ea0c936545403a08eaa4a0637156b89f6bb86dcdc22c263',
+            'sdk_binding.py': '46a6483b141233eb367e878b5f0e7d80ca1ff8093ebd2c93de83a533beffd1d9',
+            'build.sh': 'd700b154b4825d4f109ce07ba6be1ed27cc90545418c076cba7ea25a1d934a0e',
+            'link.mk': 'b990d13f18c2e7368a6b5d67fec4fd6e1aacd39c256ba27882abdd9b9d939af2',
+            'select_link_dependencies.py': '1c9d9bf300297f307fd7f2edb549237c4cbe773b808034be1bc0338b83b4e2a9',
+            'run_clean_test.py': 'd6621f91cb703f6b385ea9f554f87e5060ca4eb8e822381dda66f9ef0bc4d064',
+            'compile_clean_test.sh': '82da88a50d9ef7d3e57390fb6382c4bb9d24cead0c72c448edd89d205b8c3853',
+        }),
+        ('codex35_pool_reads', 1, 387, 650, 651, 1284, {
+            'check.py': '74c279dfa14c84722b364515fa69636af357190cca3d047f69a915ade8373eca',
+            'check_link.py': '0c921f9eef8ba96fc0f64652e0fe395c8789e82e9fd5a1c4e0f9f303260d97d4',
+            'vtables.py': '29166b861ff4b0029a2d686f9ddb4d55dd5e356bbcb08a7cb58d6eaed72f355c',
+            'sdk_binding.py': '46a6483b141233eb367e878b5f0e7d80ca1ff8093ebd2c93de83a533beffd1d9',
+            'build.sh': '83dc32885f60409498b2d5dc40c0d68ddf9d84d81b1373c0d60c337bd8bab041',
+            'link.mk': '33b8c6c5a00319520296133d3203406c0dba34a7a26d83e61d08ea1d438338bc',
+            'select_link_dependencies.py': '1ed71669eff57de3cb940997b38a1b54b106016665e4fd3dd82fd0cc325cb0d5',
+            'run_clean_test.py': '838a65c6b609207033301fb614a046fff3f1ccda592d8417ba6c86a2a5b00b4e',
+            'compile_clean_test.sh': 'e01bc8a2f49db063fe861e98d708b50192e027fec706297b16649fbf144ec0d5',
+        }),
         ('codex35_output_groups', 3, 2468, 644, 647, 1284, {
             'check.py': 'd063f0c701167651527f07a2eedec56f3a388db5f203a7c5bcbf3bd97b40760d',
             'check_link.py': '731422456dbb312af41cd1ddf12deaa5486f21cf7fa51b2935ee9607c4e8adec',
@@ -1370,8 +1399,11 @@ def main():
         directory = TARGET / 'scratch' / family
         for name, digest in pins.items():
             assert sha(directory / name) == digest
-        subprocess.run([sys.executable, str(directory / 'check.py'), '--clean'], check=True, capture_output=True)
-        subprocess.run([sys.executable, str(directory / 'check_link.py')], check=True, capture_output=True)
+        if reviewed_cache is not None and reusable(reviewed_cache, family, directory):
+            print(f'Reusing reviewed unchanged proof: {family}; NOT a fresh build or CPU run', flush=True)
+        else:
+            subprocess.run([sys.executable, str(directory / 'check.py'), '--clean'], check=True, capture_output=True)
+            subprocess.run([sys.executable, str(directory / 'check_link.py')], check=True, capture_output=True)
         packet = json.loads((directory / 'clean_packet.json').read_text())
         assert packet['status'] == 'REVIEWABLE' and not packet['whole_file_identity']
         assert packet['anchor_sha256'] == ANCHOR_SHA and packet['negative_tests_passed']
@@ -1389,7 +1421,7 @@ def main():
         assert link['baseline_source_matches'] == baseline_count and link['linked_source_matches'] == linked_count
         assert not link['source_match_losses'] and link['dependency_source_credit'] == 0
         assert all(sha(ROOT / n) == h for n, h in link['files'].items())
-        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates', 'codex35_predicate_merge', 'codex35_program_coalesce', 'codex35_vectorize_helpers', 'codex35_program_cleanup', 'codex35_instruction_order', 'codex35_transform_order', 'codex35_transform_driver', 'codex35_predicate_order', 'codex35_program_order', 'codex35_pool_helpers', 'codex32_program_drivers', 'codex32_program_diagnostics', 'codex32_special_literals', 'codex32_swizzle', 'codex32_argument_helpers', 'codex35_register_split', 'codex35_output_groups', 'codex35_argument_alloc') else 'fixture_packet.json'
+        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates', 'codex35_predicate_merge', 'codex35_program_coalesce', 'codex35_vectorize_helpers', 'codex35_program_cleanup', 'codex35_instruction_order', 'codex35_transform_order', 'codex35_transform_driver', 'codex35_predicate_order', 'codex35_program_order', 'codex35_pool_helpers', 'codex32_program_drivers', 'codex32_program_diagnostics', 'codex32_special_literals', 'codex32_swizzle', 'codex32_argument_helpers', 'codex35_register_split', 'codex35_output_groups', 'codex35_argument_alloc', 'codex35_validation', 'codex35_pool_reads') else 'fixture_packet.json'
         fixture = json.loads((directory / fixture_name).read_text())
         assert fixture['status'] == 'PASS' and fixture['cases'] == cpu_count
         assert all(sha(ROOT / n) == h for n, h in fixture['files'].items())
@@ -1488,6 +1520,12 @@ def main():
                 (21, '??3CArgument@D3DXShader@@SGXPAX@Z', '0x10085da3')}
             argument_alloc_gain = gain - {(0x1006db35, 32)}
             assert sum(n for _, n in argument_alloc_gain) == 438
+        elif family == 'codex35_validation':
+            validation_gain = gain
+            assert validation_gain == {(0x1008b71d, 811)}
+        elif family == 'codex35_pool_reads':
+            pool_reads_gain = gain
+            assert pool_reads_gain == {(0x1008a4c3, 387)}
         elif family == 'codex35_output_groups':
             output_groups_gain = gain
             assert output_groups_gain == {(0x10088517, 1006), (0x10088905, 1221), (0x100899b7, 241)}
@@ -1530,7 +1568,7 @@ def main():
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain, *output_groups_gain, *argument_alloc_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain, *output_groups_gain, *argument_alloc_gain, *validation_gain, *pool_reads_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1543,7 +1581,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain, *output_groups_gain, *argument_alloc_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain, *output_groups_gain, *argument_alloc_gain, *validation_gain, *pool_reads_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1599,6 +1637,7 @@ def main():
     print('Register-pool helpers: 4 complete source bodies /424 bytes; 626 linked matches retain622; 1284 full CPU cases pass. Larger drafts and SDK dependencies receive zero extra credit.')
     print('Program drivers: 2 complete source bodies /729 bytes; 628 linked matches retain626; 1284 full CPU cases pass. Exact named Link tail jump and bindings proven; opaque dependencies uncredited.')
     print('Shader naming/special/literal/swizzle/argument cohorts: 14 new complete source bodies /2095 bytes; successive632/634/635/642 linked matches retain all baselines; 1284 complete CPU cases per cohort pass. Duplicate IsCombine35 excluded; dependencies add zero credit.')
+    print('Validator and pool-read collector: 2 complete bodies /1198 new source bytes; linked650/651 retain649/650,1284 CPU outputs per cohort pass. Unused private classifier41 excluded.')
     goal32 = (DENOMINATOR * 32 + 99) // 100
     print(f'32% checkpoint: {"REACHED" if total >= goal32 else "PENDING"}; {max(0, goal32 - total)} further source instruction bytes needed.')
     goal31 = (DENOMINATOR * 31 + 99) // 100
