@@ -1,11 +1,11 @@
 # Where to inspect renderer source
 
-Latest pause checkpoint: clean source/evidence saved in `246b910`, confirmed
-31.811633%. Old audit3787 stopped without a terminal result. Replacement full
-audit13323/process23905 is live at
-`target/scratch/codex32_argument_helpers/aggregate_resume.log`; inspect it first
-on resume. The four-cohort2,095-byte increment and32.003854% remain unaccepted
-until terminal PASS/exit0. No new source was added during this continuation.
+Latest accepted checkpoint: **348,740 / 1,089,680 =32.003891%**. Full audit13323
+completed PASS/exit0 at
+`target/scratch/codex32_argument_helpers/aggregate_resume.log`. All30 cohort
+verifier pin sets and90 packet input sets were independently rehashed current.
+Clean source/evidence is saved in `1b6f344` and `246b910`; unmatched drafts remain
+scratch-only. The32% goal is reached, not whole-DLL checksum identity.
 
 The current buildable renderer working tree is [`target/verified/src/`](target/verified/src/).
 `gfx_d3d/` contains renderer C++; `universal/` contains shared engine C++.
@@ -24,13 +24,12 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **346,645 /
-1,089,680 = 31.811633%** (2026-10-03), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **348,740 /
+1,089,680 = 32.003891%** (2026-10-03), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**34,743** further verified instruction bytes are required.31% is reached.
-The current requested checkpoint is32%, requiring2053 further verified bytes.
-The owner now requested a checkpoint and pause until usage refills. Whole-DLL checksum
-identity is still unfinished.
+**32,648** further verified instruction bytes are required for35%.
+The requested32% checkpoint is reached. Whole-DLL checksum identity is still
+unfinished.
 
 Latest clean source is
 [`codex_shader_program_order/program_order.cpp`](target/src/codex_shader_program_order/program_order.cpp):
@@ -44,8 +43,8 @@ four complete helpers /424 bytes pass clean V2 and1284 full CPU comparisons.
 V3 now passes626 linked matches retaining all622 after the missing metadata
 dispatch was supplied using existing full proof tools against the new image.
 They are now aggregate-accepted: the full replay completed terminal PASS/exit0
-at codex35_pool_helpers/aggregate.log. No audit was live at that earlier save;
-the current four-cohort audit described below is running.
+at codex35_pool_helpers/aggregate.log. The subsequent four-cohort audit below
+also completed PASS/exit0; no aggregate is currently running.
 Its REPORT records the historical failures, resolved gates and exact replay.
 Larger register-pool methods remain scratch drafts and are not counted.
 Latest separate clean candidate is
@@ -57,12 +56,12 @@ Three newer clean files are codex_shader_program_diagnostics/diagnostics.cpp
 (506 bytes), codex_shader_special_literals/special_literals.cpp(520 bytes),
 and codex_shader_swizzle/swizzle.cpp(536 bytes). All have complete local byte,
 binding,linked-regression and1284-case CPU proofs with current hashes; their
-1562 bytes await aggregate acceptance. A fourth clean candidate,
+1562 bytes are now aggregate-accepted. A fourth clean source file,
 codex_shader_argument_helpers/argument_helpers.cpp, adds seven complete533-byte
 methods passing V2,V3/642 retaining635 and1284 full CPU cases with current hashes.
-IsCombine35 is excluded as duplicate prior ownership. One full audit is live
-at codex32_argument_helpers/aggregate.log, session3787;2095 total new bytes are
-uncredited until terminal PASS. The expected32.003854% is not confirmed yet.
+IsCombine35 is excluded as duplicate prior ownership. Terminal PASS/exit0 at
+codex32_argument_helpers/aggregate_resume.log accepts all2,095 new disjoint
+bytes. The confirmed32.003891% replaces the earlier pending estimate.
 Allocation/phase drafts are kept separately in scratch/codex32_program_allocation.
 The preceding transform885, driver1129 and predicate573 cohorts ARE now included
 by terminal PASS/exit0 at codex35_predicate_order/aggregate.log.

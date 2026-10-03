@@ -1,6 +1,38 @@
 # Shared renderer handoff — 2026-10-03
 
-## Latest requested pause — audit continuation checkpoint
+## Current checkpoint — 32% independently verified
+
+Owner resumed the goal. Audit session13323 completed **PASS / exit0**, verified
+through its retained process handle and the complete log at
+`target/scratch/codex32_argument_helpers/aggregate_resume.log`. Confirmed
+address-deduplicated source instruction coverage is now **348,740 / 1,089,680 =
+32.003891%**. The32% threshold is348,698 bytes, exceeded by42 bytes.
+
+The four later cohorts add14 complete source definitions /2,095 genuinely new
+bytes: naming/diagnostics506, special/literal allocation520, swizzle536 and
+argument/predicate helpers533. Full byte referees, typed bindings, boundaries,
+negative tests, retained linked matches and global disjointness all pass.
+The final private image retains all635 preceding matches and has642 matches.
+Each cohort has1,284 full-output CPU comparisons with zero differences.
+All30 cohort verifier pin sets and90 packet input sets were independently
+rehashed current after audit completion; the target anchor SHA was rechecked.
+
+Clean source is committed in `1b6f344` and `246b910` under
+`target/src/codex_shader_program_diagnostics/`, `codex_shader_special_literals/`,
+`codex_shader_swizzle/` and `codex_shader_argument_helpers/`. Unmatched larger
+allocation/vectorization experiments remain scratch-only with zero credit.
+No table, duplicate or opaque SDK dependency credit. Whole-DLL SHA identity,
+GPU boot and final release integration are still unfinished;32% is code-byte
+coverage, not32% of every remaining release task.
+
+This32% goal is achieved. The longer-term35% checkpoint requires32,648 more
+verified instruction bytes. On a future continuation, reuse the accepted
+cohort chain and existing proof tools; do not rerun a dead audit or count the
+unmatched allocation drafts. The earlier expected32.003854% was an arithmetic
+transcription error; the verified numerator/denominator yield32.003891%.
+Older pending/pause/live-audit statements below are historical and superseded.
+
+## Historical requested pause — audit continuation checkpoint
 
 Source/evidence checkpoint `246b910` is saved. No new reconstruction was made
 during this continuation. Confirmed coverage remains **346,645 / 1,089,680 =

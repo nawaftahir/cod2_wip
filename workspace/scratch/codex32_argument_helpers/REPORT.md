@@ -1,4 +1,4 @@
-# Argument/predicate source — pending complete gates
+# Argument/predicate source — aggregate accepted
 
 Seven complete source methods/533 instruction bytes: CArgument copy Initialize188 and Instance61, CProgram PropagatePredicates_Depth49, CanVectorize_IsSameRegister83, VectorizeLeft_IsUsedTogether45, CompareHash46 and GenerateCode61. They come from typed SDK members87/90. No unmatched scalar Initialize112 or CanRead106 is in the clean file. Full fresh V2/bindings/bounds/negative tests, V3 retaining635 preceding matches and all1284 full CPU cases are required; discovery contributes no credit.
 
@@ -30,3 +30,10 @@ diagnostics506,special/literals520,swizzle536 and this533,2095 new disjoint byte
 Do not restart or credit the expected348740/1089680=32.003854% before terminal
 PASS/exit0. Confirmed coverage remains346645/1089680=31.811633%. No whole-DLL
 identity, GPU test, table/opaque dependency or historical-layout claim.
+
+The preceding pending/live statements are historical. Replacement audit13323
+completed terminal PASS/exit0 at aggregate_resume.log, accepting all14 new
+definitions /2,095 disjoint bytes across the four cohorts. Confirmed lower
+bound348740/1089680=32.003891%;32% is reached by42 bytes. All30 cohort verifier
+pin sets and90 packet input sets independently rehashed current afterward.
+Clean source was saved in246b910; no whole-DLL identity or new draft credit.

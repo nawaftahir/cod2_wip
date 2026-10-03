@@ -776,3 +776,15 @@
   Fourteen new definitions2,095 bytes are internally disjoint; only full audit
   establishes global disjointness/acceptance. Confirmed31.811633%, expected
   32.003854% pending. No new source/tooling or release-tree mutation.
+## Codex32 aggregate accepted — 2026-10-03
+
+- Audit13323 terminal PASS/exit0 accepts14 complete source definitions /2,095
+  disjoint instruction bytes. Confirmed348740/1089680=32.003891%; threshold
+  348698 exceeded by42 bytes. Earlier expected32.003854% was transcription
+  error, not the result of a different byte count.
+- All30 cohort verifier pin sets and90 packet input sets independently rehashed
+  current after completion, anchor SHA current. Final642 linked matches retain
+  all635 preceding ones;1,284 full CPU outputs per new cohort pass.
+- Clean source saved in1b6f344/246b910. Drafts, duplicates, tables and opaque
+  dependencies excluded. Whole-DLL identity/GPU/release integration unfinished.
+  This32% goal is achieved;35% needs32,648 further verified instruction bytes.
