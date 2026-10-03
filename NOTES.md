@@ -894,3 +894,21 @@
   an else-if chain. All-if/all-goto alternatives had different full bytes.
   Repeated predicate-field reads use a volatile local access view, not a claim
   that the original SDK header had that qualifier. No marker or padding code.
+## Codex35 clean pool-read collector — 2026-10-04
+
+- PINNED CompactPool_ReadCount387 at1008a4c3/SDK90 section112 has readable
+  clean source. Complete V2,651 linked matches retaining650 and1284 full CPU
+  comparisons/0 differences pass; all three packet identity sets current.
+  Original default-path instruction-list reloads are retained by a volatile
+  local access view, with no historical qualifier provenance claim.
+- The new source-level opcode classifier inlines completely. Its unused41-byte
+  private compiler copy has no relocations or incoming COFF edges, no SDK
+  replacement and ZERO target/source credit. No invented engine callee is bound.
+- Aggregate11516 passed/exit0 at352453/1089680=32.344633%;33 cohort pin sets,
+  99 packet sets/12999 input identities independently current afterward.
+  Validator811 and pool-read387 are still aggregate-pending;35% remains active.
+- Read-only Ghidra12.1.4 export of EmitIntrinsic recovered the previously failed
+  23580-address body. A second export used876 in-memory SDK signature hypotheses
+  to remove incorrect DOS-header and64-bit-return guesses. Both are research,
+  ZERO source credit; shared analysis DB changes were discarded. Target-bound
+  structure layouts and full source compilation are still required.

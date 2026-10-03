@@ -1,0 +1,55 @@
+{
+  "status": "REVIEWABLE",
+  "whole_file_identity": false,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "source_class": "reconstructed SDK program C++; remaining SDK/runtime methods external",
+  "compiler_files": {
+    "c1.dll": "31aad0d8d776d882ce7036b9f97c98a1d10fc1b8c068ebb9a2bb22a74225b4aa",
+    "c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "mspdb71.dll": "f7ffe701485813a7f10861bc61ba533b09f1386c40c882e832f71881a705c75b",
+    "msvcp71.dll": "1d5a627cb700400a7de751f0e7d3bf2f024e8d79f8c4a9f11a5a20a05c73ab9f",
+    "msvcr71.dll": "91961cc52149826031f1b17b65a95a5c84c89d9a42f8621a43448c0fe897a94f"
+  },
+  "rows": [
+    {
+      "symbol": "?CompactPool_ReadCount@CProgram@D3DXShader@@AAEXPAU_D3DXCP_DATA@2@II@Z",
+      "address": "0x1008a4c3",
+      "bytes": 387,
+      "section_bytes": 387,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_pool_reads/pool_reads.cpp",
+      "object": "gfx/target/build/codex35_pool_reads/libraries/pool_reads.obj",
+      "bindings": [],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    }
+  ],
+  "build_image": "sha256:17ddd3cc30517bc070c4e1a1d8bec9c4abd0d8b453115dfa0324e7e20dc94131",
+  "compile_flags": "/O1 /Oy- /hotpatch /MT /Gy /d2QIftol",
+  "verified_instruction_bytes": 387,
+  "negative_tests_passed": true,
+  "files": {
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/scratch/codex35_sdk/discovery.json": "70dbdb2eaeff0c3bb791bf8b24ea917676fa354101162964fa3420bb8bc5f5bf",
+    "gfx/target/scratch/codex35_compiler_types/referee.py": "1f7f5e7380267e5cfe11fc03ffa31a3cee0996c3777749314685a04e0d9ba740",
+    "gfx/target/src/codex_shader_support/support.h": "a306ad19845c2862c71f546a424e9fcac990776b8a989b472e63ad2bb1449666",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/scratch/codex35_lexer/dependencies/libcmt.lib": "6e2b3742e58245de52149137f64281b73db1487a07a31e165fff269fbf9b2ee8",
+    "gfx/target/scratch/codex30_cpp/obj/mt/new.obj": "b50d9802dcd8d135e5159c0de26fff5cf8bd43e99af1244bd609d743ebb8723a",
+    "gfx/target/scratch/codex30_cpp/obj/mt/delete.obj": "aead5eabbcdf9cd490a1d80ae60de7cdce13269a57372dedc055c055a000da24",
+    "gfx/target/scratch/codex35_pool_reads/compile_clean_test.sh": "e01bc8a2f49db063fe861e98d708b50192e027fec706297b16649fbf144ec0d5",
+    "gfx/target/scratch/codex35_pool_reads/vtables.py": "29166b861ff4b0029a2d686f9ddb4d55dd5e356bbcb08a7cb58d6eaed72f355c",
+    "gfx/target/scratch/codex35_pool_reads/pool_reads.cpp": "febd2a4f9b88a42fd684fff1fa2fe9185f2f97faaf03693c3b8e298bc15dcf55",
+    "gfx/target/scratch/codex35_pool_reads/sdk_binding.py": "46a6483b141233eb367e878b5f0e7d80ca1ff8093ebd2c93de83a533beffd1d9",
+    "gfx/target/scratch/codex35_pool_reads/select_link_dependencies.py": "1ed71669eff57de3cb940997b38a1b54b106016665e4fd3dd82fd0cc325cb0d5",
+    "gfx/target/scratch/codex35_pool_reads/build.sh": "83dc32885f60409498b2d5dc40c0d68ddf9d84d81b1373c0d60c337bd8bab041",
+    "gfx/target/scratch/codex35_pool_reads/check.py": "74c279dfa14c84722b364515fa69636af357190cca3d047f69a915ade8373eca",
+    "gfx/target/scratch/codex35_pool_reads/check_link.py": "0c921f9eef8ba96fc0f64652e0fe395c8789e82e9fd5a1c4e0f9f303260d97d4",
+    "gfx/target/scratch/codex35_pool_reads/link.mk": "33b8c6c5a00319520296133d3203406c0dba34a7a26d83e61d08ea1d438338bc",
+    "gfx/target/scratch/codex35_pool_reads/run_clean_test.py": "838a65c6b609207033301fb614a046fff3f1ccda592d8417ba6c86a2a5b00b4e",
+    "gfx/target/src/codex_shader_pool_reads/pool_reads.cpp": "febd2a4f9b88a42fd684fff1fa2fe9185f2f97faaf03693c3b8e298bc15dcf55",
+    "gfx/target/build/codex35_pool_reads/libraries/pool_reads.obj": "9c35dc56287678ddbc2534e379be2656039a5b04d9e60c79d4f9354831bc96e0"
+  }
+}

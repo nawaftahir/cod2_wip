@@ -2,6 +2,24 @@
 
 ## Active continuation — 35% goal
 
+Aggregate11516 finished terminal PASS/exit0. Accepted352453/1089680
+=32.344633%; argument-allocation438 is now included. Post-completion rehash
+passed33 cohort pin sets,99 authoritative packet sets and12999 identities.
+The completed log is codex35_argument_alloc/aggregate.log. Do not rerun the
+unchanged old cohorts without a complete-identity reason.35% remains active,
+28935 new source instruction bytes short.
+
+New clean codex_shader_pool_reads/pool_reads.cpp adds ReadCount387, locally
+V2 PASS, V3/651 retaining650, and1284 fresh CPU comparisons/0 differences.
+Its private inlined classifier's unused41-byte compiler copy gets ZERO credit;
+both strict tools certify it is private, relocation-free and never called.
+All three packet identity sets current. This387 and validator811 are NOT yet
+aggregate-approved. Full reports/tools are isolated in codex35_pool_reads.
+The read-only Ghidra research export now has876 SDK name/signature hypotheses
+applied in memory; emit_intrinsic_typed.c recovered the complete large body.
+The shared database discarded all changes. Neither export is accepted source.
+Older live/pending statements below are superseded by this checkpoint.
+
 Clean target/src/codex_shader_validation/validation.cpp is locally complete:
 Validate811 at1008b71d passes full V2, V3/650 retaining649, and1284 fresh CPU
 outputs with zero differences. All three authoritative packet input sets

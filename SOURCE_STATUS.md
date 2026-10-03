@@ -1,5 +1,14 @@
 # Where to inspect renderer source
 
+Latest accepted aggregate:352453/1089680=32.344633%, terminal PASS/exit0
+at codex35_argument_alloc/aggregate.log.33 cohort pin sets and99 authoritative
+packet sets independently rehashed current after completion.
+New clean [pool-read collector](target/src/codex_shader_pool_reads/pool_reads.cpp)
+passes V2/387,V3/651 retaining650 and1284 CPU comparisons/0 differences.
+Its unused private classifier's41-byte compiler copy receives ZERO credit.
+Collector387 and validator811 remain aggregate-pending;35% goal is active.
+The older pending argument-allocation figures below are historical.
+
 New clean [shader validation](target/src/codex_shader_validation/validation.cpp)
 passes all local gates:811 complete bytes,650 linked matches retaining649,
 and1284 full CPU comparisons with zero differences. Its aggregate inclusion
