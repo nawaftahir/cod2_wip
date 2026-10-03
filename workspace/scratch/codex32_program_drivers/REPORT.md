@@ -44,3 +44,8 @@ expected729-byte gain before terminal PASS/exit0. Confirmed345916/1089680
 =31.744732%;32% needs2782 more accepted bytes. After this gain passes,2053
 remain. Continue source work in the separate allocation scratch while all
 driver proof inputs remain frozen. No whole-file identity or GPU claim.
+
+Superseding result: session43146 completed terminal PASS/exit0. The full
+disjoint audit accepts729:346645/1089680 =31.811633%;32% needs2053 further bytes.
+All source and proof inputs remain current. The running statements above
+describe the earlier state, not a live audit.

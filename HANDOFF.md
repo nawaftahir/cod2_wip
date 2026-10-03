@@ -1,20 +1,67 @@
 # Shared renderer handoff — 2026-10-03
 
-Owner resumed work explicitly. The active target remains
-**35% verified source coverage**; the earlier pause is revoked.
-Owner subsequently revoked the checkpoint pause and requested working through
-at least **32% verified coverage** next. Do not pause under the older notes below.
-32% requires348698 bytes; confirmed345916 leaves2782. Preserve the
-longer-term reconstruction objective. The helper audit finished PASS/exit0.
-Fresh full aggregate PASS confirms **345,916 / 1,089,680 =
-31.744732%**. The latest replay also accepts all four pool helpers/424 bytes.
-35% needs35472 further bytes.
+Owner now requested **checkpoint and pause until usage refills**. This newest
+instruction supersedes the earlier continue-through32% request. Do not start
+more reconstruction. Save current source/evidence and resume the already
+running audit first when the owner returns.32% remains unfinished until PASS.
+32% requires348698 bytes; confirmed346645 leaves2053. Preserve the
+longer-term reconstruction objective. The driver audit finished PASS/exit0.
+Fresh full aggregate PASS confirms **346,645 / 1,089,680 =
+31.811633%**. The latest replay accepts Link91/Optimize638.
+35% needs34743 further bytes.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
 Earlier source checkpoint commit: `cc5d411` (verified clean source, proof tools and docs;
-unrelated user/Claude changes left untouched). Goal stays active, not paused.
+unrelated user/Claude changes left untouched). The earlier active state is superseded
+by the owner-requested pause above.
 
 ## Latest continuation checkpoint — 2026-10-03
+
+### Driver audit accepted; later source cohorts complete locally
+
+Session43146 completed terminal PASS/exit0 at
+target/scratch/codex32_program_drivers/aggregate.log. Confirmed346645 bytes.
+The older running-driver statements below are historical, not live state.
+Three later clean cohorts have complete V2,V3 and1284 CPU comparisons, all
+packet hashes rechecked current: diagnostics506, special/literals520 and
+SwizzleRegisters536. Linked matches632/634/635 retain628/632/634 respectively.
+Their1562 bytes are NOT aggregate-accepted yet. Once accepted,491 additional
+bytes are required for32%. At that earlier point no full audit was running;
+the subsequent audit described below is now live.
+Special's first-output/iterator order was recovered; Swizzle's explicit volatile
+opcode is a compilation/storage constraint matching pinned memory operations,
+not a claim of historical qualifier provenance. Neither weakens comparison.
+The new argument/predicate source has seven complete533-byte definitions and
+passes fresh V2,V3/642 retaining635,1284 full CPU cases and current hashes.
+IsCombine35 was a duplicate supplied by older source and is excluded; the new
+GenerateCode61 is additional. CompareHash46 uses full literal static-callback
+proof, not a new private ABI. Selector ownership279 distinct/299 physical.
+One full aggregate is NOW live: session3787/process125717, log
+target/scratch/codex32_argument_helpers/aggregate.log. It includes all2095 new
+bytes. Only terminal PASS/exit0 can establish expected348740/1089680=32.003854%.
+Do not restart it or alter any proof/source input while it runs.
+Allocation scratch preserves unaccepted output/vectorization drafts and all
+bounded attempts; ordinary index accesses restored and freshly reprobed.
+The owner subsequently requested a checkpoint now, resuming after usage refills.
+Pause at this save. No whole-DLL or GPU claim.
+
+### Immediate checkpoint requested — 2026-10-03
+
+Confirmed346645/1089680=31.811633%; all four later clean cohorts2095 have
+complete local V2,V3 and1284-case CPU proofs with independently current hashes.
+The new private image has642 source matches, all635 preceding ones retained.
+Expected348740/1089680=32.003854% remains UNCONFIRMED until the full audit exits0.
+Audit process125717/session3787 remains running; log above. It may complete
+while paused. On resume, inspect its terminal result/log before launching any
+new audit. If a live process no longer has a reusable session, use the saved
+log and a read-only process check; do not infer success from process absence.
+Do not restart a running audit or modify its frozen input set.
+
+Clean newly proved source is under target/src/codex_shader_special_literals/,
+codex_shader_swizzle/ and codex_shader_argument_helpers/; naming/diagnostics
+source was saved in prior commit1b6f344. All unmatched experiments remain in
+scratch/codex32_program_allocation with fresh probes and written dead ends.
+No release-tree changes, retail binaries, user/Claude source edits or push.
 
 ### Pool helpers accepted; owner resumed through 32%
 

@@ -1,0 +1,88 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Initialize@CArgument@D3DXShader@@QAEJIIIN@Z",
+      "object_bytes": 110,
+      "target_bytes": 112,
+      "first_difference": 6,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Initialize@CArgument@D3DXShader@@QAEJPAV12@@Z",
+      "object_bytes": 188,
+      "target_bytes": 188,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Instance@CArgument@D3DXShader@@QAEJPAV12@@Z",
+      "object_bytes": 61,
+      "target_bytes": 61,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?IsCombine@CInstruction@D3DXShader@@QAEHXZ",
+      "object_bytes": 35,
+      "target_bytes": 35,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?PropagatePredicates_Depth@CProgram@D3DXShader@@AAEXIPAI@Z",
+      "object_bytes": 49,
+      "target_bytes": 49,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CanVectorize_CanRead@CProgram@D3DXShader@@AAEHIPAVCInstruction@2@II@Z",
+      "object_bytes": 100,
+      "target_bytes": 106,
+      "first_difference": 6,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CanVectorize_IsSameRegister@CProgram@D3DXShader@@AAEHII@Z",
+      "object_bytes": 83,
+      "target_bytes": 83,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft_IsUsedTogether@CProgram@D3DXShader@@AAEHII@Z",
+      "object_bytes": 45,
+      "target_bytes": 45,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompareHash@D3DXShader@@YGHIIPBX@Z",
+      "object_bytes": 46,
+      "target_bytes": 46,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?GenerateCode@CProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z",
+      "object_bytes": 61,
+      "target_bytes": 61,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex32_program_allocation/argument_helpers.cpp",
+  "source_sha256": "03b0bce49304a02984ac1a477bcb13bfee71346ca23099fdf74529493feac254",
+  "object_sha256": "e0882bbb4181bc09a9a9789bcbfa073f85bbcc375293e3876bcdafa0a4886e50"
+}

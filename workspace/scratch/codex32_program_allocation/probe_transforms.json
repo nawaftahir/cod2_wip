@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?SwizzleRegisters@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 536,
+      "target_bytes": 536,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft_Special@CProgram@D3DXShader@@AAEJPAVCInstruction@2@@Z",
+      "object_bytes": 422,
+      "target_bytes": 422,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 574,
+      "target_bytes": 569,
+      "first_difference": 19,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex32_program_allocation/transforms.cpp",
+  "source_sha256": "26af5470c341aa60b6d2a81b1926ccfd23363cda33aaf6c4673efbeafc2ff21a",
+  "object_sha256": "abeb85c35924c26a93f8c8c16335ac9e1faab2e249158bc9dac6470f18b8ecba"
+}

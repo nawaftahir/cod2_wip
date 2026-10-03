@@ -736,3 +736,32 @@
   up then return0; only initial CompactInstructions failure propagates.
   CompactRegisters ignored IdentityRemap/one Process result and double-End
   failure cleanup are target behavior, not bugs to fix during reconstruction.
+## Codex32 continued source facts — 2026-10-03
+
+- Driver aggregate43146 terminal PASS/exit0 confirms346645/1089680=31.811633%.
+  Diagnostics506,special/literals520,swizzle536 have complete fresh local
+  byte/binding/regression/1284-case CPU proof; they are not yet aggregate credit.
+- PINNED Special snapshots count and first output before initializing its
+  cursor. That initializer order produces the exact422-byte body. Instance
+  results are ignored; successful PerComponent clears the move token.
+- PINNED Swizzle keeps masked opcode in stack storage, with a nonvolatile
+  group-counter lifetime reusing it. A volatile opcode is explicit storage-
+  constrained source, not historical provenance. Complete536 bytes match;
+  source ABI and comparison masks are unchanged. Its group stride is
+  outputCount, not scalar width; helper errors are intentionally ignored.
+- PINNED SDK87 CArgument copy Initialize leaves1c untouched and copies the
+  secondary double at28. Instance copies only60..74 and rejects null80004005.
+  SDK90 Depth skips maximum dereference for a sentinel relative2, otherwise
+  traverses that chain and keeps the maximum. Register equality excludes
+  component; used-together uses same ID or opaque40 overlap. CompareHash
+  compares opaque40 unsigned values. New507-byte cohort awaits full proof.
+- Duplicate-ownership gate rejects IsCombine35 from the new helper cohort;
+  older instruction-predicate source already owns it. GenerateCode61 replaces
+  it: reset optimized/detailedInfo, clear optional output, preserve negative
+  Optimize/Vectorize results, otherwise0. New seven-method533 now passes
+  V2,V3/642 retaining635 and1284 full CPU outputs, hashes current. CompareHash46
+  is rebound only after the existing exact literal static-callback proof.
+- One full audit3787 is live for four new cohorts2095 bytes. Expected32.003854%
+  remains unconfirmed until terminal PASS. No source,ABI or comparison waiver.
+- Owner requested immediate checkpoint/pause, overriding continue-through32%.
+  Save current proofs and inspect live audit3787 result first on next resume.

@@ -1,0 +1,48 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Vectorize@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 267,
+      "target_bytes": 267,
+      "first_difference": 33,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?SetName@CProgram@D3DXShader@@QAEJPBD@Z",
+      "object_bytes": 106,
+      "target_bytes": 106,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Error@CProgram@D3DXShader@@IAAJPAVCNode@2@IPBDZZ",
+      "object_bytes": 133,
+      "target_bytes": 133,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Warning@CProgram@D3DXShader@@IAAJPAVCNode@2@IPBDZZ",
+      "object_bytes": 121,
+      "target_bytes": 121,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?GetArgumentName@CProgram@D3DXShader@@MAEXPAVCArgument@2@PADI@Z",
+      "object_bytes": 146,
+      "target_bytes": 146,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex32_program_allocation/diagnostics.cpp",
+  "source_sha256": "6f2f12b8121a935ddb711740ed2e357f2c0455cb9e891240b514b3c98c4fffd0",
+  "object_sha256": "d872aec724e03886a20422159fc6938a8146c268636cea3798e914765b7cbb31"
+}

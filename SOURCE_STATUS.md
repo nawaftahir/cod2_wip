@@ -17,12 +17,12 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **345,916 /
-1,089,680 = 31.744732%** (2026-10-03), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **346,645 /
+1,089,680 = 31.811633%** (2026-10-03), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**35,472** further verified instruction bytes are required.31% is reached.
-The current requested checkpoint is32%, requiring2782 further verified bytes.
-Work is active again at the owner's request. Whole-DLL checksum
+**34,743** further verified instruction bytes are required.31% is reached.
+The current requested checkpoint is32%, requiring2053 further verified bytes.
+The owner now requested a checkpoint and pause until usage refills. Whole-DLL checksum
 identity is still unfinished.
 
 Latest clean source is
@@ -37,14 +37,25 @@ four complete helpers /424 bytes pass clean V2 and1284 full CPU comparisons.
 V3 now passes626 linked matches retaining all622 after the missing metadata
 dispatch was supplied using existing full proof tools against the new image.
 They are now aggregate-accepted: the full replay completed terminal PASS/exit0
-at codex35_pool_helpers/aggregate.log. No audit is live at this save.
+at codex35_pool_helpers/aggregate.log. No audit was live at that earlier save;
+the current four-cohort audit described below is running.
 Its REPORT records the historical failures, resolved gates and exact replay.
 Larger register-pool methods remain scratch drafts and are not counted.
 Latest separate clean candidate is
 [`codex_shader_program_drivers/drivers.cpp`](target/src/codex_shader_program_drivers/drivers.cpp):
 Link91/Optimize638 pass full byte/binding/boundary proof,628 linked matches
-retaining626 and1284 full CPU outputs. Their729 bytes await the single running
-full aggregate in codex32_program_drivers/aggregate.log; not in the total above.
+retaining626 and1284 full CPU outputs. Their729 bytes are accepted by terminal
+PASS/exit0 at codex32_program_drivers/aggregate.log and included above.
+Three newer clean files are codex_shader_program_diagnostics/diagnostics.cpp
+(506 bytes), codex_shader_special_literals/special_literals.cpp(520 bytes),
+and codex_shader_swizzle/swizzle.cpp(536 bytes). All have complete local byte,
+binding,linked-regression and1284-case CPU proofs with current hashes; their
+1562 bytes await aggregate acceptance. A fourth clean candidate,
+codex_shader_argument_helpers/argument_helpers.cpp, adds seven complete533-byte
+methods passing V2,V3/642 retaining635 and1284 full CPU cases with current hashes.
+IsCombine35 is excluded as duplicate prior ownership. One full audit is live
+at codex32_argument_helpers/aggregate.log, session3787;2095 total new bytes are
+uncredited until terminal PASS. The expected32.003854% is not confirmed yet.
 Allocation/phase drafts are kept separately in scratch/codex32_program_allocation.
 The preceding transform885, driver1129 and predicate573 cohorts ARE now included
 by terminal PASS/exit0 at codex35_predicate_order/aggregate.log.

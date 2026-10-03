@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?CompactLiterals_Allocate@CProgram@D3DXShader@@AAEIPAIIII@Z",
+      "object_bytes": 98,
+      "target_bytes": 98,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactLiterals@CProgram@D3DXShader@@AAEJPAI00@Z",
+      "object_bytes": 621,
+      "target_bytes": 675,
+      "first_difference": 8,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex32_program_allocation/literals.cpp",
+  "source_sha256": "509d69281107d9a81a9f19df8985edb61af79fe7b049834722620cf6cba372f3",
+  "object_sha256": "5b0fde02bc0a91b7f0a33f680fabc25ced7d792123932471206e429dfac9e6cd"
+}

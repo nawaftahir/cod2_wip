@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?DelayOutputs@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 640,
+      "target_bytes": 648,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex32_program_allocation/delay.cpp",
+  "source_sha256": "c074b0767cec87f55551ed222fd2b8b4e181189d8b6fa9a99c90b9ec940ff263",
+  "object_sha256": "d63e1b922c890520c7e86c10e3adc5d2570ce64f346e0e6d0e7261498bd2dc10"
+}
