@@ -1331,6 +1331,17 @@ def main():
             'run_clean_test.py': 'd8c277518707afb4a4571bd6d2137915da98c693b1e83a0c1f5fa6fab42866ea',
             'compile_clean_test.sh': '27731ac5bee3c90c77c854b46fd3212a7d54946c3f186f4e19dd6d232559dd2c',
         }),
+        ('codex35_register_split', 2, 807, 642, 644, 1284, {
+            'check.py': '85312b5ff53b6f8c7ad398bee33525a35a723c51c0b9293d0822321bd74cdafa',
+            'check_link.py': '89dd854cdd65ea1bd111ca7dd9932abc4c8e2fe4874bb6710d493990a1564be8',
+            'vtables.py': 'f704f1d6589dbc40f9773941a918f9cbe17d75398de14c2b12f1489ac26cfe82',
+            'sdk_binding.py': 'a31793828d45674b6f4be5b81bb8d2dba75f7f4742412e9bd073c2d69cf01606',
+            'build.sh': '951a7310bce068eb1ac9f06fecd4ef791ec254b3b76b48f7dca4efadac357aaf',
+            'link.mk': 'ed2ccbc23c5c07f844960418633b74add787eccbc48a052c18bfd407cec3749a',
+            'select_link_dependencies.py': '83a991f7aa20425b8a7523c7f4f2ce40c20d9ce224f2861aecac91526551fbf7',
+            'run_clean_test.py': '9354947359a4af004f290835314123408e07f0a9651fa13b0ad1ccd5b61d5d81',
+            'compile_clean_test.sh': 'aaa60be866be41fee0879ec67abe306578380f8ef78bdfadb2d0915289903c12',
+        }),
     ]:
         print(f'Checking {family}: complete byte proof and linked regression', flush=True)
         directory = TARGET / 'scratch' / family
@@ -1355,7 +1366,7 @@ def main():
         assert link['baseline_source_matches'] == baseline_count and link['linked_source_matches'] == linked_count
         assert not link['source_match_losses'] and link['dependency_source_credit'] == 0
         assert all(sha(ROOT / n) == h for n, h in link['files'].items())
-        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates', 'codex35_predicate_merge', 'codex35_program_coalesce', 'codex35_vectorize_helpers', 'codex35_program_cleanup', 'codex35_instruction_order', 'codex35_transform_order', 'codex35_transform_driver', 'codex35_predicate_order', 'codex35_program_order', 'codex35_pool_helpers', 'codex32_program_drivers', 'codex32_program_diagnostics', 'codex32_special_literals', 'codex32_swizzle', 'codex32_argument_helpers') else 'fixture_packet.json'
+        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates', 'codex35_predicate_merge', 'codex35_program_coalesce', 'codex35_vectorize_helpers', 'codex35_program_cleanup', 'codex35_instruction_order', 'codex35_transform_order', 'codex35_transform_driver', 'codex35_predicate_order', 'codex35_program_order', 'codex35_pool_helpers', 'codex32_program_drivers', 'codex32_program_diagnostics', 'codex32_special_literals', 'codex32_swizzle', 'codex32_argument_helpers', 'codex35_register_split') else 'fixture_packet.json'
         fixture = json.loads((directory / fixture_name).read_text())
         assert fixture['status'] == 'PASS' and fixture['cases'] == cpu_count
         assert all(sha(ROOT / n) == h for n, h in fixture['files'].items())
@@ -1423,6 +1434,10 @@ def main():
             argument_helpers_gain = gain
             assert argument_helpers_gain == {(0x10085c65, 188), (0x10085d21, 61), (0x10086e7d, 49), (0x10089db5, 83), (0x10088445, 45), (0x100868f2, 46), (0x1009935c, 61)}
             assert all(r['instruction_aware_referee_match'] == r['original_referee_match'] == 100 for r in packet['rows'])
+        elif family == 'codex35_register_split':
+            register_split_gain = gain
+            assert register_split_gain == {(0x10090e95, 586), (0x10087a5d, 221)}
+            assert all(r['instruction_aware_referee_match'] == r['original_referee_match'] == 100 for r in packet['rows'])
         elif family == 'codex32_program_drivers':
             program_drivers_gain = gain
             assert program_drivers_gain == {(0x10093c0c, 91), (0x10098fd3, 638)}
@@ -1461,7 +1476,7 @@ def main():
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1474,7 +1489,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '

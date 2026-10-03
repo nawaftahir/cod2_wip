@@ -79,3 +79,8 @@ restored, freshly compiled and reprobed. Process still1715/diff1191, Separate
 earlier source ownership and was rejected by the selector; GenerateCode61
 matches and replaces it in the now fully locally verified seven-method533
 cohort. Scalar Initialize110/112 and CanRead100/106 stay scratch-only.
+
+35% continuation bounded replay: index-first subscripts for the two Process
+reads, an explicit shared-negative label in CompareRead, and reversal counter
+declaration order all emitted exactly the previous mismatches. No new equality.
+Those source changes were reverted; do not repeat them as new experiments.

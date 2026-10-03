@@ -1,5 +1,13 @@
 # Where to inspect renderer source
 
+35% continuation is active. New clean candidate:
+[register splitting and sequence tracing](target/src/codex_shader_register_split/register_split.cpp),
+two complete definitions/807 bytes. Both referees, bindings, boundaries,
+negative tests,644 linked matches retaining642 and1284 CPU comparisons pass.
+Coverage remains348740/32.003891% until the full aggregate at
+target/scratch/codex35_register_split/aggregate.log completes PASS/exit0.
+Older statements saying no audit is live are superseded by this continuation.
+
 Latest accepted checkpoint: **348,740 / 1,089,680 =32.003891%**. Full audit13323
 completed PASS/exit0 at
 `target/scratch/codex32_argument_helpers/aggregate_resume.log`. All30 cohort

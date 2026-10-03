@@ -1,0 +1,80 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?SimplifyAddresses@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 779,
+      "target_bytes": 772,
+      "first_difference": 20,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?SplitRegisters@CProgram@D3DXShader@@IAEJH@Z",
+      "object_bytes": 586,
+      "target_bytes": 586,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactOutputs@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 694,
+      "target_bytes": 696,
+      "first_difference": 17,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft_PerComponent@CProgram@D3DXShader@@AAEJPAVCInstruction@2@@Z",
+      "object_bytes": 989,
+      "target_bytes": 1006,
+      "first_difference": 81,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?RangeSequence@CProgram@D3DXShader@@AAEJIPAI0000@Z",
+      "object_bytes": 1558,
+      "target_bytes": 1548,
+      "first_difference": 12,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?AddSequence@CProgram@D3DXShader@@AAEJIPAIPAN@Z",
+      "object_bytes": 652,
+      "target_bytes": 650,
+      "first_difference": 26,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?MulSequence@CProgram@D3DXShader@@AAEHII@Z",
+      "object_bytes": 221,
+      "target_bytes": 221,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactLiterals_Remap@CProgram@D3DXShader@@AAEJPAI0I@Z",
+      "object_bytes": 241,
+      "target_bytes": 241,
+      "first_difference": 53,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CanVectorize_TraceMulAdd@CProgram@D3DXShader@@AAEIIPAN0@Z",
+      "object_bytes": 338,
+      "target_bytes": 365,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_address_registers/address_registers.cpp",
+  "source_sha256": "2663844eb25924dd78e4cc28ded41f0aca8ab5bf36e770a9e72060ec97ec40f3",
+  "object_sha256": "c5144435813b61a2cfd0070ace8568543bd6b427cc45b33274eb52da75c9e6d2"
+}

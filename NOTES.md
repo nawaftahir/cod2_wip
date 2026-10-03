@@ -788,3 +788,24 @@
 - Clean source saved in1b6f344/246b910. Drafts, duplicates, tables and opaque
   dependencies excluded. Whole-DLL identity/GPU/release integration unfinished.
   This32% goal is achieved;35% needs32,648 further verified instruction bytes.
+## Codex35 address/register continuation — 2026-10-03
+
+- PINNED SDK90/194 SplitRegisters586 at10090e95 and SDK90/85
+  MulSequence221 at10087a5d now have complete clean V2/V3/CPU proofs.
+  Private MulSequence mangles AAE, not protected IAE. Selector281 distinct/
+  301 physical source definitions;644 linked matches retain642. All1284
+  complete CPU outputs agree, all three proof packet input sets current.
+  Their807 bytes await aggregate8482; accepted348740 bytes unchanged.
+- PINNED CArgument54 is firstRead,58 lastRead,5c readCount. Output compaction
+  reads54. AddSequence caches an unsigned base at40 and double coefficient28.
+  CanVectorize_TraceMulAdd ADD updates offset by scale*constant, not scale.
+  Preserve unguarded original producer assumptions; these are prefix views,
+  never full allocation layouts or fabricated historical type provenance.
+- New drafts retain complete address/output folding and recursive bound and
+  coefficient recovery. Fresh probes/attempts in codex35_address_registers;
+  no credit for near sizes or plausible source. Existing allocation SIB and
+  counter-scheduling retries produced no gain and were restored/rebuilt.
+  Reuse their recorded dead ends instead of re-deriving them.
+-35% goal remains active. Full audit log codex35_register_split/aggregate.log;
+  one live audit only, clean source/proof inputs frozen. No release-tree write,
+  opaque dependency credit, whole-DLL identity or GPU claim.

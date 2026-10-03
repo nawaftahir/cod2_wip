@@ -1,6 +1,30 @@
 # Shared renderer handoff — 2026-10-03
 
-## Current checkpoint — 32% independently verified
+## Active continuation — 35% goal
+
+Owner requested35%; goal remains active. Accepted coverage is348740/1089680
+=32.003891%, requiring32648 more instruction bytes for35%.
+Two new readable definitions, SplitRegisters586 and MulSequence221, are clean
+at target/src/codex_shader_register_split/register_split.cpp. Fresh complete
+V2 byte/binding/boundary/negative proof passes807 bytes; V3 has644 matches,
+retaining all642 preceding matches. Full CPU outputs agree in all1284 cases.
+All three packet input sets independently rehashed current.
+
+One full aggregate is live: session8482, log
+target/scratch/codex35_register_split/aggregate.log. Its807-byte gain is pending,
+not yet accepted. Terminal PASS/exit0 is required before confirming349547
+bytes/32.077949% or revising the35% gap. Do not restart it or change frozen clean
+source/proof inputs. SDK dependencies remain opaque and uncredited.
+
+Active drafts are isolated in target/scratch/codex35_address_registers/:
+SimplifyAddresses, CompactOutputs, RangeSequence, AddSequence, literal remap
+and multiply/add tracing. Complete source is preserved even when instructions
+differ; discovery equality is not acceptance. REPORT.md preserves the pinned
+facts and bounded attempts. Old unchanged allocation scheduling retries were
+restored and freshly reprobed; do not repeat their recorded no-gain forms.
+No whole-DLL checksum/GPU/release claim. Do not pause the35% goal on this save.
+
+## Accepted baseline — 32% independently verified
 
 Owner resumed the goal. Audit session13323 completed **PASS / exit0**, verified
 through its retained process handle and the complete log at
