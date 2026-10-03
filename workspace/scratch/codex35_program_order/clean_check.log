@@ -1,0 +1,9 @@
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: recursive calls, literal internal jumps, immediates, tables, bounds
+PASS: 8 complete source program-ordering and generated transform bodies; 962 instruction bytes

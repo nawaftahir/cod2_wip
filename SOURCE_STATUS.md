@@ -17,12 +17,21 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **341,943 /
-1,089,680 = 31.380130%** (2026-10-03), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **344,530 /
+1,089,680 = 31.617539%** (2026-10-03), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**39,445** further verified instruction bytes are required.31% is reached.
+**36,858** further verified instruction bytes are required.31% is reached.
 Work is active again at the owner's request. Whole-DLL checksum
 identity is still unfinished.
+
+Latest clean source is
+[`codex_shader_program_order/program_order.cpp`](target/src/codex_shader_program_order/program_order.cpp):
+eight complete definitions/962 bytes, final clean byte/binding proof,622 linked
+matches retaining614, and1284 integrated CPU comparisons pass with current hashes.
+Its complete generated virtual tables add no code credit. Aggregate inclusion is
+pending; these962 bytes are not in the confirmed total above.
+The preceding transform885, driver1129 and predicate573 cohorts ARE now included
+by terminal PASS/exit0 at codex35_predicate_order/aggregate.log.
 
 New clean candidates are `target/src/codex_shader_program_varying/varying.cpp`
 (two methods/673 bytes; V2,577 linked matches retaining575,1284 full CPU

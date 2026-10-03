@@ -2,15 +2,41 @@
 
 Owner resumed work explicitly. The active target remains
 **35% verified source coverage**; the earlier pause is revoked.
-Fresh full aggregate PASS confirms **341,943 / 1,089,680 =
-31.380130%**. The latest replay accepts cleanup816 and ordering660 on top of
-the preceding3337 disjoint bytes.31% is reached;35% needs39445 further bytes.
+Fresh full aggregate PASS confirms **344,530 / 1,089,680 =
+31.617539%**. The latest replay accepts transform helpers885, driver1129 and
+predicate ordering573.31% is reached;35% needs36858 further bytes.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
-Latest source checkpoint commit: `cc5d411` (verified clean source, proof tools and docs;
+Earlier source checkpoint commit: `cc5d411` (verified clean source, proof tools and docs;
 unrelated user/Claude changes left untouched). Goal stays active, not paused.
 
-## Owner-requested checkpoint now — 2026-10-03
+## Latest continuation checkpoint — 2026-10-03
+
+Previous save7584290 kept the goal active. Audit303733/session10758 subsequently
+finished terminal PASS/exit0; its immutable log is
+target/scratch/codex35_predicate_order/aggregate.log. The total above is confirmed.
+
+New clean target/src/codex_shader_program_order/program_order.cpp contains the
+complete828-byte public ordering method and seven generated transform definitions,
+962 bytes in all. Final clean V2, V3/622 retaining all614, and1284 full CPU
+comparisons pass. All three packet-input sets were checked current; SDK selection
+is259 distinct definitions/279 removed physical sections. Generated8/12-byte
+tables are fully proven but receive zero code credit. Read scratch REPORT.md
+for source forms, failure history, virtual metadata and exact commands.
+
+Only one new aggregate is live: process328542/session88253. It loaded the checker
+revision including this962-byte cohort. Log:
+target/scratch/codex35_program_order/aggregate.log. Do not restart for observation
+timeouts, run another aggregate concurrently, or edit any pinned cohort inputs.
+Only its terminal PASS permits345492/1089680 =31.705822%, leaving35896 for35%.
+Until then the confirmed total remains31.617539%. Whole-DLL identity is unfinished.
+
+Next source work must use a separate sibling scratch folder. Transform Bubble
+100cbd29/1170 (SDK91 section14) is a remaining inspected inventory candidate,
+not yet reconstructed. ReverseInsts74 remains unmatched. Earlier public-ordering
+drafts are superseded by the accepted local source, not by an opaque SDK import.
+
+## Historical owner-requested checkpoint — superseded above
 
 No further reconstruction was started for this save. Confirmed coverage remains
 341943/1089680 =31.380130%; whole-file identity and the35% target remain unfinished.

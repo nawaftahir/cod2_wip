@@ -613,3 +613,29 @@
   or credited. Verify compiler-generated vtable/constructor/deleting-destructor
   bindings before accepting a source caller. Do not replace virtual dispatch
   with invented constants, raw table data or a plausible stub.
+
+## Codex public ordering source — 2026-10-03
+
+- Full previous aggregate303733/session10758 completed PASS/exit0:
+  344530/1089680 =31.617539%. Immutable log is codex35_predicate_order/aggregate.log.
+  All fifteen cleanup/order/transform/driver/predicate input sets remain current.
+- PINNED: public ReorderInstructions100910df/828 fully matches ordinary C++.
+  Separate caps bit tests combine into the target DWORD test. Repeated masks
+  of full token locals in both loops restore registers/spill/70-byte frame;
+  pointer virtual dispatch restores constant-vtable+8; a real final-allocation
+  success block restores exact failure/cleanup layout. Earlier808/812/816/819
+  forms are not accepted; don't repeat unchanged attempts.
+- PINNED SDK and fresh source: both `_E` weak externals have COFF search-kind2
+  with `_G` fallback tag indices, NOT kind3. Complete typed8/12-byte tables at
+  10110440/10110448 distinguish34-byte deleting bodies10086d2c/1008c825.
+  Constructors10086d08/10086d4e are23; adjacent full reset destructors10086d1f/
+  10086d65 are7; base Apply10086d26 is6. All eight complete V2 bodies total962;
+  tables add zero code credit. Integrated CPU equality is not branch coverage.
+- The inherited table proof uses a global prior_prove. A new extension must
+  save its delegate under a different name or it makes that older proof recurse.
+  Fixed ordering_prior_prove; fresh affected checks are required, not waived.
+
+- Final clean ordering V2, V3/622 retaining614 and1284 integrated CPU outputs
+  pass with current hashes. Selector259 distinct/279 physical SDK definitions.
+  Three named6/7-byte scan locators require full100 V2 and full linked bodies;
+  no global scan threshold or body/binding gate is relaxed.962 await aggregate.
