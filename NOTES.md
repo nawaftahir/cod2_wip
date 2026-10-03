@@ -880,3 +880,17 @@
   FA0 messages, token+18 passes the name pointer. Volatile pointer access in the
   local draft preserves observed repeated predicate-field reads; no historical
   qualifier claim. Failed-byte drafts never increase the coverage ledger.
+## Codex35 clean validator — 2026-10-03
+
+- PINNED Validate811 at1008b71d/SDK90 section160 now has clean readable source.
+  Fresh V2 certifies the complete body, all seven literal diagnostics and typed
+  bindings; V3/650 retains649,1284 CPU outputs have zero differences. Aggregate
+  not yet included; local acceptance is not percentage credit.
+- PINNED final argument walk reuses the instruction-lane counter's lifetime.
+  A three-field phase state preserves the observed stack slots; no historical
+  local-struct provenance claim. Chained stores set firstRead before firstWrite.
+- PINNED common diagnostic placement is recovered with the first initialization
+  check jumping to the common error label and the later permission checks in
+  an else-if chain. All-if/all-goto alternatives had different full bytes.
+  Repeated predicate-field reads use a volatile local access view, not a claim
+  that the original SDK header had that qualifier. No marker or padding code.

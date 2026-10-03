@@ -1,5 +1,10 @@
 # Where to inspect renderer source
 
+New clean [shader validation](target/src/codex_shader_validation/validation.cpp)
+passes all local gates:811 complete bytes,650 linked matches retaining649,
+and1284 full CPU comparisons with zero differences. Its aggregate inclusion
+is pending; the percentage below has not counted these811 bytes yet.
+
 35% continuation is active. New clean argument_alloc.cpp passes V2,
 V3/649 retaining647 and1284 CPU outputs. Its438 disjoint bytes await full
 aggregate11516; duplicate destructor32 gets zero new credit.

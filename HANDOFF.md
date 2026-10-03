@@ -2,6 +2,14 @@
 
 ## Active continuation — 35% goal
 
+Clean target/src/codex_shader_validation/validation.cpp is locally complete:
+Validate811 at1008b71d passes full V2, V3/650 retaining649, and1284 fresh CPU
+outputs with zero differences. All three authoritative packet input sets
+were independently rehashed current. Source and tools are isolated in the
+codex35_validation cohort. It is NOT in the currently running aggregate11516;
+add its frozen verifier pins only after that audit terminates. Do not count
+the811 bytes early or run overlapping aggregate writers.
+
 New clean module target/src/codex_shader_argument_alloc/argument_alloc.cpp:
 AddArgument356 and CopyArgument82 pass V2, V3/649 retaining647, and1284 fresh
 CPU outputs with zero differences. Existing destructor32 is independently
