@@ -92,3 +92,27 @@ live aggregate process328542/session88253 uses
 ../codex35_program_order/aggregate.log and remains running at this save. Only
 terminal PASS permits345492/1089680 =31.705822%. Leave accepted inputs frozen.
 The35% target and whole-file identity remain unfinished.
+
+## Superseding checkpoint — 2026-10-03
+
+The above replay/hashes describe the previous committed save, not current
+source. Candidate-read marker now correctly compares candidate index, NOT the
+original reference, to argument74. Corrected Bubble emits1160/1170, first
+difference7, frame0x50 versus target0x54. Structured outer/inner loops and
+split instruction/output locals still give1160. baseline_1160.cpp preserves
+the preceding corrected source. Current Reverse emits74/74, difference24;
+guarded do/while and countdown/index lifetime variants remain unaccepted.
+
+Actual /G5,/G6,/G7 builds and probes complete successfully; all retain
+Bubble1160/difference7 and Reverse74/difference24. The three separate
+probe_bubble_G*.json packets and compile_cpus.sh record this attempted sweep.
+Those historical packets pin source3d251e8b688648b7352669945079d10531506487c8b0d11ec8bc4aeae6c767e4,
+not the current source; that exact intermediate source is not retained.
+The current default probe pins source57267d3e7b870ca769161e4676c64420eb49b210813b41dcbfcb549628c44934.
+Do not repeat it or treat equal lengths as proof. All source here stays
+scratch-only, with zero credit and no V2/V3/CPU acceptance.
+
+Public-order aggregate has since completed terminal PASS/exit0. Confirmed
+total is345492/1089680 =31.705822%; no aggregate is live at this checkpoint.
+Read ../codex35_register_pool/REPORT.md and ../codex35_pool_helpers/REPORT.md
+for the next source group and honest local-gate failure.35% remains unfinished.

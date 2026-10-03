@@ -3,15 +3,15 @@
   "rows": [
     {
       "symbol": "?ReverseInsts@CTReorderInstructions@D3DXShader@@IAEXII@Z",
-      "object_bytes": 73,
+      "object_bytes": 74,
       "target_bytes": 74,
-      "first_difference": 18,
+      "first_difference": 24,
       "full_masked_equal": false,
       "source_credit": 0
     },
     {
       "symbol": "?Bubble@CTReorderInstructions@D3DXShader@@IAEJI@Z",
-      "object_bytes": 1157,
+      "object_bytes": 1160,
       "target_bytes": 1170,
       "first_difference": 7,
       "full_masked_equal": false,
@@ -19,6 +19,6 @@
     }
   ],
   "source": "gfx/target/scratch/codex35_transform_bubble/bubble.cpp",
-  "source_sha256": "ef7b6c95203483ebe039c94f8f3509fd0fc6c87dab9db408a8ae00e15115d5cd",
-  "object_sha256": "83f071dfaf0b962c34999ff8a5dc0da9db2130aa45f401f1ab6103ef02313b70"
+  "source_sha256": "57267d3e7b870ca769161e4676c64420eb49b210813b41dcbfcb549628c44934",
+  "object_sha256": "828501b2ea7233b076e70d35fa3525f9b27f5fe5d27fefdf5cbc4e40308c129f"
 }

@@ -2,15 +2,64 @@
 
 Owner resumed work explicitly. The active target remains
 **35% verified source coverage**; the earlier pause is revoked.
-Fresh full aggregate PASS confirms **344,530 / 1,089,680 =
-31.617539%**. The latest replay accepts transform helpers885, driver1129 and
-predicate ordering573.31% is reached;35% needs36858 further bytes.
+Fresh full aggregate PASS confirms **345,492 / 1,089,680 =
+31.705822%**. The latest replay accepts public ordering962, in addition to
+transform helpers885, driver1129 and predicate ordering573.35% needs35896 further bytes.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
 Earlier source checkpoint commit: `cc5d411` (verified clean source, proof tools and docs;
 unrelated user/Claude changes left untouched). Goal stays active, not paused.
 
 ## Latest continuation checkpoint — 2026-10-03
+
+### Owner-requested register-pool checkpoint — 2026-10-03
+
+Confirmed coverage is **345,492 / 1,089,680 = 31.705822%**. No aggregate
+is running. The 35% target remains unfinished; this save does not complete or
+pause the goal. No new reconstruction is started for this checkpoint.
+
+Clean candidate source: `target/src/codex_shader_pool_helpers/pool_helpers.cpp`.
+Four complete helpers /424 bytes pass both full-body referees, typed bindings,
+boundaries and negative tests (V2). The private source DLL links without
+/FORCE. A fresh CPU comparison passes all1284 cases with zero differences.
+Both packet input sets were rehashed current after completion. **Not counted**:
+V3 exits1 because its inherited proof loads a missing local `vtables.py`.
+The earlier expected-byte assertion was corrected from34001 to33463;
+the missing metadata dispatch remains unresolved. See its REPORT.md.
+
+The larger isolated `codex35_register_pool/register_pool.cpp` now includes
+target-backed Begin1739, Process1715, Map254, ReadCount387 and static callbacks.
+Fresh compiler/probe completed exit0. Process emits1715/1715 but differs1191;
+Begin1739/1739 differs555. These are body lengths, NOT matched-byte counts.
+Two callbacks56/33 match in discovery only, not typed acceptance. CompareRead65
+differs30; its callers must preserve the real private register convention.
+Origin33 duplicates existing accepted source and cannot add coverage.
+Every larger draft and callback remains scratch-only with zero credit.
+
+Resume with the pool helper metadata dispatch, using the existing full table
+and SDK binding proofs in the **new linked image**; do not skip that gate or
+certify only the older image. Rerun affected hash-pinned V2/V3/CPU checks after
+tool changes. Only then add424 to the aggregate checker and run one full audit.
+In parallel source work, inspect Process's first difference1191 before changing
+bounded source forms; preserve its full1715-byte evidence and caller/callee ABI.
+Read the new register-pool REPORT and corrected Bubble REPORT first. No byte
+patching, weakened gates, whole-DLL/GPU claim, release-tree writes or push.
+
+### Public-order aggregate accepted — 2026-10-03
+
+Audit328542/session88253 finished terminal PASS/exit0. Its immutable completed
+log is target/scratch/codex35_program_order/aggregate.log:345492/1089680 =
+31.705822%. All three public-order packet input sets were freshly rehashed and
+are current. No aggregate is live now. This supersedes the pending statements
+in the earlier saves below; the35% goal remains active and unfinished.
+
+Further Bubble inspection corrected a real draft mistake: the candidate-read
+loop compares the candidate instruction index, not the original cluster index,
+against argument74. Fresh corrected draft1160/1170 uses frame50 hex; still
+unmatched. Structured loops, split instruction/output access and /G5,/G6,/G7
+do not solve it. Reverse74/74 still differs24. Preserve these as uncredited
+scratch, read its REPORT before repeating attempts. New target-backed source
+work is isolated in codex35_register_pool, covering the SDK90 compaction family.
 
 ### Owner-requested save — 2026-10-03
 

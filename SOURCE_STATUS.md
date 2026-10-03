@@ -17,10 +17,10 @@ verified. JPEG source-backed proofs remain in `../codex/renderer/` snapshots,
 not yet consolidated into this tree. Two separately verified small source
 files in `target/src/codex/` also need integration into the closed build.
 
-The current cross-tree, address-deduplicated source lower bound is **344,530 /
-1,089,680 = 31.617539%** (2026-10-03), confirmed by a fresh full aggregate
+The current cross-tree, address-deduplicated source lower bound is **345,492 /
+1,089,680 = 31.705822%** (2026-10-03), confirmed by a fresh full aggregate
 replay. The owner reinstated **35%** after the earlier above-30% checkpoint;
-**36,858** further verified instruction bytes are required.31% is reached.
+**35,896** further verified instruction bytes are required.31% is reached.
 Work is active again at the owner's request. Whole-DLL checksum
 identity is still unfinished.
 
@@ -28,8 +28,14 @@ Latest clean source is
 [`codex_shader_program_order/program_order.cpp`](target/src/codex_shader_program_order/program_order.cpp):
 eight complete definitions/962 bytes, final clean byte/binding proof,622 linked
 matches retaining614, and1284 integrated CPU comparisons pass with current hashes.
-Its complete generated virtual tables add no code credit. Aggregate inclusion is
-pending; these962 bytes are not in the confirmed total above.
+Its complete generated virtual tables add no code credit. Terminal PASS/exit0 at
+codex35_program_order/aggregate.log now includes these962 bytes in the total.
+Additional candidate source is
+[`codex_shader_pool_helpers/pool_helpers.cpp`](target/src/codex_shader_pool_helpers/pool_helpers.cpp):
+four complete helpers /424 bytes pass clean V2 and1284 full CPU comparisons.
+They are **not aggregate-accepted**: V3 fails on a missing metadata-proof
+dispatch file. Its REPORT records the exact failure and resume steps.
+Larger register-pool methods remain scratch drafts and are not counted.
 The preceding transform885, driver1129 and predicate573 cohorts ARE now included
 by terminal PASS/exit0 at codex35_predicate_order/aggregate.log.
 

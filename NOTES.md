@@ -658,3 +658,38 @@
 - Owner requested checkpoint. Confirmed31.617539%; aggregate328542/session88253
   is still live and public-order962 remains pending. No new aggregate, expected
   percentage, whole-DLL claim, goal completion or release-tree write.
+
+## Codex register-pool checkpoint — 2026-10-03
+
+- PINNED SDK90 CProgram caps[17] is offset6c, caps[18] offset70 and poolData
+  pointer offsetbc. Initial draft caps[9] was wrong: full target-byte comparison
+  caught it. Correcting to17 makes SeparatePhases_Phases178 match completely.
+- PINNED compaction record is100 bytes, cleared as25 DWORDs. pool0;
+  component counts8; maps10/14; source/mapped argument pointers18/1c;
+  copy lists30/34/38; macro lists3c/40/44; read lists4c/50/54;
+  12-byte read records58; current instruction pointer5c; packed flags60.
+  Names are descriptive, not recovered historical header provenance.
+- PINNED ReadCount is a do/while on the argument predicate chain; an incoming
+  sentinel guard changes target behavior. Predicate14, sense18, origin38,
+  instruction48, lastRead58 and read ID74 were inspected on the target.
+- PINNED Map's unusual equality compares current sense18 to other predicate14;
+  preserve it. Process's preference scan starts at inputs[k*width] for every
+  input group, not inputs[j+k*width]. Reconstruction is not bug fixing.
+- PINNED static CompareRead65 uses EAX context / ECX first / EDX second in
+  its genuine same-TU private compiler convention. Address-taken Index56 and
+  Stable33 use stdcall stack ABI; declaring a substitute fastcall is not proof.
+- Target-backed bitfield extraction caps[17]<<1 with signed >>31 emits the
+  observed SHL/SAR/XOR insertion in Begin. Its1739/1739 body still differs555;
+  local lifetimes and SIB operands are unresolved, not compiler impossibility.
+- Fresh Process1715/1715 differs1191; CompareRead65/65 differs30. Index56 and
+  Stable33 have full masked discovery equality only. Their typed bindings are
+  unverified; all larger draft source remains scratch-only and uncredited.
+- Bubble correction: candidate-read marker compares candidate index, not
+  original reference, to argument74. Current1160/1170 uses frame50 hex,
+  target54. Structured loops and /G5,/G6,/G7 do not solve it. Reverse74/74
+  differs24. Historical REPORT sizes are superseded by its appended checkpoint.
+- Pool helpers4/424: complete clean V2 and1284 CPU cases pass; all packet files
+  rehashed current. V3 first failed a guessed byte total34001 (correct33463),
+  then missing local vtables.py. Both failures must be preserved, not waived.
+  Reuse complete existing metadata proof in the new image and rerun affected
+  gates before aggregate inclusion. No aggregate is live; confirmed31.705822%.

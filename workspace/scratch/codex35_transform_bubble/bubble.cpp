@@ -220,14 +220,13 @@ void __stdcall HeapSort(int (__stdcall *)(unsigned, unsigned, const void *),
 void CTReorderInstructions::ReverseInsts(unsigned start, unsigned end)
 {
     unsigned swaps = (end - start) / 2;
-    --end;
-    for (unsigned i = 0; i < swaps; ++i)
+    for (unsigned last = end - 1; swaps; --swaps)
     {
         unsigned value = order[start];
-        order[start] = order[end];
-        order[end] = value;
+        order[start] = order[last];
+        order[last] = value;
         ++start;
-        --end;
+        --last;
     }
 }
 
@@ -252,7 +251,8 @@ long CTReorderInstructions::Bubble(unsigned position)
         unsigned readSize = readCounts[reference];
         memcpy(opaque14, readArguments + readStarts[reference], readSize * sizeof(unsigned));
 
-    restart:
+        for (;;)
+        {
         delta = 0;
         ++opaque48;
         for (position = begin; position < end; ++position)
@@ -271,7 +271,7 @@ long CTReorderInstructions::Bubble(unsigned position)
             argument->firstRead = reference == argument->opaque60[5];
         }
 
-    choose_direction:
+        for (;;)
         {
             if (delta < 0)
             {
@@ -297,16 +297,17 @@ long CTReorderInstructions::Bubble(unsigned position)
                 index = order[scan];
                 if (!flowFlags[index])
                 {
-                    candidateOutput = program->arguments[program->instructions[index]->outputs[0]];
+                    instruction = program->instructions[index];
+                    candidateOutput = program->arguments[instruction->outputs[0]];
                     unsigned chain = candidateOutput->relative2;
                     int chainSense = candidateOutput->link;
-                    while (chain != ~0u && chain != predicate)
+                    while (chain != ~0u && predicate != chain)
                     {
                         CArgument *next = program->arguments[chain];
                         chainSense = next->link;
                         chain = next->relative2;
                     }
-                    if (chain != predicate || chainSense != sense)
+                    if (predicate != chain || sense != chainSense)
                         goto restore;
                 }
                 if (first > scan)
@@ -318,17 +319,17 @@ long CTReorderInstructions::Bubble(unsigned position)
                 memcpy(opaque18 + candidateSize, reads, size * sizeof(unsigned));
                 candidateSize += readCounts[index];
                 candidateDelta += loadChanges[index];
-                blocked |= program->instructions[index]->opaque24 == opaque48;
+                blocked |= opaque48 == program->instructions[index]->opaque24;
                 for (unsigned j = 0; j < size; ++j)
                 {
                     CArgument *argument = program->arguments[reads[j]];
-                    if (argument->remap != opaque48 || reference == argument->opaque60[5])
+                    if (argument->remap != opaque48 || index == argument->opaque60[5])
                     {
                         argument->remap = opaque48;
-                        argument->firstRead = static_cast<unsigned>(reference != argument->opaque60[5]) - 1;
+                        argument->firstRead = static_cast<unsigned>(index != argument->opaque60[5]) - 1;
                     }
                 }
-                if (!flowFlags[index] && candidateOutput->relative2 == predicate && candidateOutput->link == sense)
+                if (!flowFlags[index] && predicate == candidateOutput->relative2 && sense == candidateOutput->link)
                     break;
             }
             if (first >= position)
@@ -389,7 +390,7 @@ long CTReorderInstructions::Bubble(unsigned position)
                     for (unsigned k = 0; k < instruction->childCount; ++k)
                         program->instructions[instruction->children[k]]->opaque24 = opaque48;
                 }
-                goto choose_direction;
+                continue;
             }
             ReverseInsts(begin, end);
             ReverseInsts(first, position);
@@ -405,7 +406,8 @@ long CTReorderInstructions::Bubble(unsigned position)
             begin += step;
             end += step;
             changed = 1;
-            goto restart;
+            break;
+        }
         }
     restore:
         if (changed)
