@@ -54,3 +54,4 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 | target/scratch/codex35_pool_helpers/*, target/src/codex_shader_pool_helpers/* | Codex | 2026-10-03 | Four complete pool/phase helper candidates424 in isolated full-proof/link/CPU pipeline; larger register-pool draft excluded |
 | target/scratch/codex32_program_drivers/*, target/src/codex_shader_program_drivers/* | Codex | 2026-10-03 | Target-backed optimizer/vectorization/link/phase driver cohort for32% checkpoint; isolated source and strict byte/binding/link/CPU gates |
 | target/scratch/codex32_program_allocation/* | Codex | 2026-10-03 | Isolated target-backed register/phase experiments; never edit frozen driver proof inputs |
+| target/scratch/codex32_program_diagnostics/*, target/src/codex_shader_program_diagnostics/* | Codex | 2026-10-03 | Four complete shader name/diagnostic methods; full typed CRT dependencies and independent gates |

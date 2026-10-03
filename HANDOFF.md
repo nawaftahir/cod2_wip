@@ -39,6 +39,14 @@ until terminal PASS/exit0. Only one full audit; do not restart it.
 New register/phase drafts are isolated in codex32_program_allocation so they
 cannot stale the driver packets. Their current lengths are not matched credit.
 
+Four clean naming/diagnostic methods506 now pass fresh V2,V3/632 retaining628
+and1284 full CPU cases; all three packet input sets current. Clean source:
+target/src/codex_shader_program_diagnostics/diagnostics.cpp. Their separate
+REPORT records exact methods and CRT bindings.506 is not aggregate-accepted.
+Audit43146 includes driver729 only, not this later cohort. After both gains
+pass full aggregate,32% needs1547 more bytes. Keep that distinction explicit.
+Further isolated drafts/attempts are recorded in codex32_program_allocation/REPORT.md.
+
 ### Continuation: helper gates complete, checkpoint pause requested
 
 Confirmed coverage remains345492/1089680 =31.705822%. Four helpers424 now
