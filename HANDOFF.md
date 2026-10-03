@@ -7,8 +7,31 @@ Fresh full aggregate PASS confirms **341,943 / 1,089,680 =
 the preceding3337 disjoint bytes.31% is reached;35% needs39445 further bytes.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
-Previous checkpoint commit: `50d6755` (verified clean source, proof tools and docs;
+Latest source checkpoint commit: `cc5d411` (verified clean source, proof tools and docs;
 unrelated user/Claude changes left untouched). Goal stays active, not paused.
+
+## Owner-requested checkpoint now — 2026-10-03
+
+No further reconstruction was started for this save. Confirmed coverage remains
+341943/1089680 =31.380130%; whole-file identity and the35% target remain unfinished.
+The three new clean cohorts contain11 methods/2587 bytes with passing local
+V2/V3/CPU proofs; they are committed in cc5d411, but not yet aggregate-credited.
+All fifteen cleanup/order/transform/driver/predicate packet input sets were
+rehashed for this checkpoint with no stale inputs.
+
+Aggregate process303733/session10758 is still live. Its log is
+target/scratch/codex35_predicate_order/aggregate.log and has reached the
+preprocessor stage, with no terminal PASS yet. Leave it running, do not run
+another aggregate concurrently, and do not commit the mutable log. Only an
+actual terminal PASS permits344530/1089680 =31.617539% (36858 bytes short of35%).
+
+Next inspected candidate is public CProgram::ReorderInstructions100910df/828.
+No source or accepted bytes exist for this candidate yet. SDK90 section66
+proves base CTransform::Apply returns E_NOTIMPL (0x80004001), not1; sections63/70
+place that method at vtable+4 and derived Apply(int) at+8. Preserve real virtual
+dispatch and verify generated metadata rather than inventing a stub or raw table.
+Draft in a separate sibling directory; the live audit pins current cohort inputs.
+This save does not mark the larger goal complete or paused.
 
 ## Current source and proofs
 

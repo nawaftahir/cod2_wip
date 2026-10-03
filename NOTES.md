@@ -601,3 +601,15 @@
 - Full cleanup/ordering aggregate subsequently completed PASS/exit0:
   341943/1089680 =31.380130%. New helper/driver/comparator2587 bytes remain
   pending a later full replay. All fifteen proof-input sets were rehashed current.
+
+## Codex public ordering inspection checkpoint — 2026-10-03
+
+- PINNED on the hashed Summer2004 SDK library: member90 section66 is the complete
+  six-byte CTransform::Apply body, `mov eax,0x80004001; ret` (E_NOTIMPL), not1.
+  Base vtable section63 has destructor relocation0 and Apply relocation4;
+  derived CTReorderInstructions vtable section70 adds Apply(int) relocation8.
+  This is SDK declaration/context evidence, not a new retail/source match.
+- Public CProgram::ReorderInstructions100910df/828 remains inspected, not drafted
+  or credited. Verify compiler-generated vtable/constructor/deleting-destructor
+  bindings before accepting a source caller. Do not replace virtual dispatch
+  with invented constants, raw table data or a plausible stub.
