@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?ReverseInsts@CTReorderInstructions@D3DXShader@@IAEXII@Z",
+      "object_bytes": 73,
+      "target_bytes": 74,
+      "first_difference": 18,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Bubble@CTReorderInstructions@D3DXShader@@IAEJI@Z",
+      "object_bytes": 1157,
+      "target_bytes": 1170,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_transform_bubble/bubble.cpp",
+  "source_sha256": "ef7b6c95203483ebe039c94f8f3509fd0fc6c87dab9db408a8ae00e15115d5cd",
+  "object_sha256": "83f071dfaf0b962c34999ff8a5dc0da9db2130aa45f401f1ab6103ef02313b70"
+}

@@ -639,3 +639,22 @@
   pass with current hashes. Selector259 distinct/279 physical SDK definitions.
   Three named6/7-byte scan locators require full100 V2 and full linked bodies;
   no global scan threshold or body/binding gate is relaxed.962 await aggregate.
+
+## Codex scheduling draft checkpoint — 2026-10-03
+
+- PINNED SDK91 Bubble100cbd29/1170: candidate end is scan+1 without advancing
+  scan; temporary argument flag is54, not lastRead58; reference index is74.
+  Initial argument marker loop uses arguments[j], not the read-buffer index.
+  Blocked expansion preserves generation/delta and resumes choose_direction,
+  not restart. Preserve all observed behavior; no bug-fix substitutions.
+- PINNED: Bubble stack allocation54 hex differs from fresh draft4c. Reusing
+  step, caching initial program, positive flow guarding and hoisting locals
+  still give1157/1170, first difference7. Reverse73/74 differs18. These are
+  emitted/target BODY LENGTHS, not matching-byte counts; both earn zero credit.
+- Source and immediate prior baseline are retained in isolated
+  codex35_transform_bubble with compile/probe scripts, hashed discovery packet
+  and REPORT. The latest compiler and probe finished exit0; full equality is
+  false. No V2/V3/CPU gate is claimed and no clean source was added this save.
+- Owner requested checkpoint. Confirmed31.617539%; aggregate328542/session88253
+  is still live and public-order962 remains pending. No new aggregate, expected
+  percentage, whole-DLL claim, goal completion or release-tree write.

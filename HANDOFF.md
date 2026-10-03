@@ -12,6 +12,30 @@ unrelated user/Claude changes left untouched). Goal stays active, not paused.
 
 ## Latest continuation checkpoint — 2026-10-03
 
+### Owner-requested save — 2026-10-03
+
+No further reconstruction is started for this save. Confirmed coverage stays
+344530/1089680 =31.617539%; the35% goal is unfinished, not marked complete or
+paused. The single audit328542/session88253 is still running and has reached
+the argument-duplicates stage. Leave it running and inspect its real terminal
+result before crediting the962-byte public-order cohort. Do not commit its
+mutable log or start another aggregate concurrently.
+
+New isolated draft: target/scratch/codex35_transform_bubble/. Its latest fresh
+pinned4035 build and probe complete successfully, but Bubble is1157/1170
+bytes with first difference7, and ReverseInsts is73/74 with first difference18.
+These are BODY LENGTHS, not matching-byte counts. Both remain unmatched,
+scratch-only and receive zero credit. REPORT.md pins the source/probe hashes,
+corrected target facts, attempted forms and exact replay commands. The preceding
+1157-byte source is retained as baseline_1157.cpp; the current experiment hoists
+locals and gives the same lengths/differences. No V2/V3/CPU acceptance is claimed.
+
+Resume: first check the existing audit result; then read the new draft REPORT
+before testing further source lifetimes/control flow. Do not repeat unchanged
+variants or edit accepted cohort inputs. Clean accepted source remains in
+target/src/, including codex_shader_program_order/program_order.cpp. Other
+user/Claude changes are preserved; no release-tree writes or push were made.
+
 Previous save7584290 kept the goal active. Audit303733/session10758 subsequently
 finished terminal PASS/exit0; its immutable log is
 target/scratch/codex35_predicate_order/aggregate.log. The total above is confirmed.
