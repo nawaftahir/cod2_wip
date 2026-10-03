@@ -26,11 +26,27 @@
       "source_credit": 0
     },
     {
-      "symbol": "?VectorizeLeft_PerComponent@CProgram@D3DXShader@@AAEJPAVCInstruction@2@@Z",
-      "object_bytes": 989,
-      "target_bytes": 1006,
-      "first_difference": 81,
+      "symbol": "?SquishInstructions@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 1241,
+      "target_bytes": 1240,
+      "first_difference": 16,
       "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft_DotProduct@CProgram@D3DXShader@@AAEJPAVCInstruction@2@@Z",
+      "object_bytes": 1221,
+      "target_bytes": 1221,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLeft_PerComponent@CProgram@D3DXShader@@AAEJPAVCInstruction@2@@Z",
+      "object_bytes": 1006,
+      "target_bytes": 1006,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     },
     {
@@ -61,8 +77,8 @@
       "symbol": "?CompactLiterals_Remap@CProgram@D3DXShader@@AAEJPAI0I@Z",
       "object_bytes": 241,
       "target_bytes": 241,
-      "first_difference": 53,
-      "full_masked_equal": false,
+      "first_difference": null,
+      "full_masked_equal": true,
       "source_credit": 0
     },
     {
@@ -72,9 +88,17 @@
       "first_difference": 7,
       "full_masked_equal": false,
       "source_credit": 0
+    },
+    {
+      "symbol": "?VectorizeLiterals@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 1413,
+      "target_bytes": 1370,
+      "first_difference": 10,
+      "full_masked_equal": false,
+      "source_credit": 0
     }
   ],
   "source": "gfx/target/scratch/codex35_address_registers/address_registers.cpp",
-  "source_sha256": "2663844eb25924dd78e4cc28ded41f0aca8ab5bf36e770a9e72060ec97ec40f3",
-  "object_sha256": "c5144435813b61a2cfd0070ace8568543bd6b427cc45b33274eb52da75c9e6d2"
+  "source_sha256": "249dafb1a812f298eefca9164574c97e23517880997f952eb25dcb7b2a4ac52c",
+  "object_sha256": "9fe557e629b5d1ac0b921811cd9d8ff45835e45a2fb2585d8c6834e0acc8b853"
 }

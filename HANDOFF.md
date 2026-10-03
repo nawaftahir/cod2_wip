@@ -10,11 +10,27 @@ V2 byte/binding/boundary/negative proof passes807 bytes; V3 has644 matches,
 retaining all642 preceding matches. Full CPU outputs agree in all1284 cases.
 All three packet input sets independently rehashed current.
 
-One full aggregate is live: session8482, log
-target/scratch/codex35_register_split/aggregate.log. Its807-byte gain is pending,
-not yet accepted. Terminal PASS/exit0 is required before confirming349547
-bytes/32.077949% or revising the35% gap. Do not restart it or change frozen clean
-source/proof inputs. SDK dependencies remain opaque and uncredited.
+One full aggregate is live: session30276, log
+target/scratch/codex35_output_groups/aggregate.log. All3275 new bytes are pending;
+accepted348740 unchanged. Previous audit8482 exited1 on an inconsistent legacy
+raw-score assertion, preserved at codex35_register_split/aggregate.log.
+MulSequence's three COFF self-call relocation operands are113/179/204; the
+legacy byte-scanning PE masker omits intra-function calls and reports94.
+Decoded normalization100 and complete source/SDK/retail/binding equality PASS.
+Each retailE8 was independently decoded to target10087a5d. The aggregate now
+asserts exactly this name/length/raw diagnostic and all three typed self-bindings
+plus literal decoded destinations; no ABI, instruction, source or mask widening.
+SDK dependencies remain opaque and uncredited. Do not restart the live audit or
+change its frozen clean source/proof inputs.
+
+Next clean batch is target/src/codex_shader_output_groups/output_groups.cpp:
+PerComponent1006, DotProduct1221 and literal remap241, totaling2468. Fresh V2,
+V3/647 retaining644 and1284 full CPU outputs all PASS, all three input sets
+current. It is now included in audit30276 with exact tuple/pins and address set.
+Both gains total3275; expected352015/1089680=32.304438% stays unconfirmed
+until complete aggregate acceptance. The35% goal remains active throughout.
+Reuse the existing batch pipeline, never restart a live audit. Source/attempt
+facts and genuine earlier-epilogue boundary checks are in the new REPORT.
 
 Active drafts are isolated in target/scratch/codex35_address_registers/:
 SimplifyAddresses, CompactOutputs, RangeSequence, AddSequence, literal remap

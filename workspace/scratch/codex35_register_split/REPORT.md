@@ -12,8 +12,12 @@ SplitRegisters operand order was recovered from the target comparisons.
 MulSequence follows MOV and MUL producer inputs recursively; its original
 defined-writer assumptions are retained, with no invented guards or cycle fix.
 
-Fresh pinned compiler4035 build via build.sh passes check.py --clean: both
-referees100%, exact symbols/bindings, complete boundaries and negative tests.
+Fresh pinned compiler4035 build via build.sh passes check.py --clean: decoded
+relocation-normalized referee100 and complete source/SDK/retail equality,
+exact symbols/bindings, complete boundaries and negative tests. Legacy raw
+diagnostic is100 for SplitRegisters,94 for MulSequence: the byte-scanning
+PE masker omits intra-function/self-call operands113/179/204. Each realE8
+operand independently decodes to10087a5d and has exact source-local binding.
 Wrong MulSequence access initially generated protected IAE instead of private
 AAE; the gate rejected the symbol, and the actual private declaration fixed it.
 No ABI, mask, size or boundary gate was relaxed.
@@ -23,8 +27,10 @@ run_clean_test.py passes0 differences/1284 integrated shader cases,
 independent of fixture reachability; these are integrated output comparisons.
 All three packet file hashes were independently checked current.
 
-One whole coverage audit runs in session8482, aggregate.log. Until terminal
-PASS/exit0, these807 bytes are not added to348740 accepted bytes. No SDK
+Audit8482 exited1 at the inconsistent raw100 aggregate assertion. Its log is
+preserved. Replacement30276 at codex35_output_groups/aggregate.log includes
+807+2468 bytes, with exact diagnostic94 and typed/literal self-call assertions.
+Until terminal PASS/exit0, these807 bytes are not added to348740. No SDK
 dependency, table, duplicate, data or whole-file identity credit is claimed.
 The private selector replaces281 distinct definitions/301 physical definitions;
 all remaining historical SDK code is an opaque external test dependency.

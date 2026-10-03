@@ -47,6 +47,11 @@ mixed rows try(j+i)&3. Count0 still enters uniform scan. The current controls
 preserve ordered/unordered floating comparisons; same byte length alone never
 establishes a match. Initial241 differed36; shared goto form239 differed53.
 Latest direct success-loop attempt is tracked by the fresh probe, not presumed.
+The241-byte direct/goto success forms reproduced all operations but outlined
+uniform copy after the mixed loop. A genuine allSame flag, structured if/else
+and inner copy followed by break recovered the original layout: fresh241/241
+full masked equality including relocation fields. Full acceptance gates remain
+pending; this discovery is not coverage credit and did not modify the live audit.
 
 VectorizeLeft_PerComponent1006: complete scalar extraction, same-register
 output grouping and four-wide compatible/conflict-free packing reconstructed
@@ -56,6 +61,38 @@ outputs are consumed with~0 sentinels. When four or fewer remain and neither
 flow control nor output pool1000 constrains packing, both compatibility gates
 are disabled. Complete source remains a draft until both byte referees agree.
 No textbook rewrite or optimization is substituted for the original algorithm.
+Output pointer lifetime plus a local20-bit instruction-field update recovered
+the full1006 bytes; XOR-temporary form1012 was not accepted. Extracted with
+literal remap into the clean output_groups.cpp module for all acceptance gates.
+
+VectorizeLeft_DotProduct1221: full paired-register grouping, dot temporaries
+and four-way summation/reduction authored. Initial1220; source-level branch
+ordering, direct conditional calls and individual cached register fields
+recovered1221 except loop-init scheduling. Guarded unsigned-positive do-loop
+recovered all bytes. Formatted normally and freshly recompiled; match remains.
+Preserve the second-input sentinel check in pair counting and14/18 destination
+metadata. This completed body is also in the clean output_groups.cpp cohort.
+
+VectorizeLiterals1370: complete fixed-pool placement, duplicate remapping,
+literal group packing/fallback and final pool conversion authored fromSDK90/215.
+Initial1409 differed10; uncounted draft, no original body is discarded. Allocation
+is16*(fixed-register count +2*instruction count) bytes, memsetff. Pool100 with
+C00 flags is fixed;800 pools reserve slots without shifting argument indices.
+Target's fallback tail memset executes only when count<4. No new input clamps
+or repaired error handling: IdentityRemap/RemapArguments and fallback packing
+return values are ignored as in the target. Success sets detailedInfoDC=1.
+Corrected tail-fill guard and the MSVC71 nonstandard for-scope warning by using
+one explicitly declared lane variable. Fresh1413/1370 still differs10; no credit.
+
+SquishInstructions1240: complete lane-duplicate merging and compacted group
+strides recovered from SDK90/209. IdentityRemap precedes processing. Only
+high-nibble classes1..4 qualify; output pools1020 are protected. One through
+four input groups compare remapped argument IDs, preserving~0 sentinels.
+Two-group symmetric instructions also allow reversed input pairs. MergeArguments
+is ignored-HRESULT and consumes the current output with~0. Outputs and input
+lanes compact within old group stride first, then groups are packed to the new
+stride. Full token low20-bit update/inputCount/outputCount follows. Unchanged
+returns1; changed calls RemapArguments and returns0. Draft stays uncredited.
 
 CanVectorize_TraceMulAdd365: complete neg/MUL/ADD tracer authored; draft338.
 ADD writes *offset += *scale * constant, not *scale. A nonnull scale gates the

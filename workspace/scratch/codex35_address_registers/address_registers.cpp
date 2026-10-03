@@ -1,8 +1,22 @@
+#include <new>
+#include <string.h>
 #include "../../src/codex_shader_support/support.h"
+#pragma intrinsic(memset)
+#pragma intrinsic(memcpy)
 
 namespace D3DXShader
 {
 class CNode;
+
+union InstructionCode
+{
+    unsigned long token;
+    struct
+    {
+        unsigned scalarCount : 20;
+        unsigned opcode : 12;
+    } fields;
+};
 
 class CPool
 {
@@ -51,6 +65,7 @@ public:
     unsigned GetInputs(unsigned, unsigned **);
     int IsSpecial();
     int IsScalar();
+    int IsSymetric();
     int IsFlowControl();
     long Instance(CInstruction *);
 };
@@ -96,8 +111,14 @@ protected:
     long SimplifyAddresses();
     long SplitRegisters(int);
     long CompactOutputs();
+    long VectorizeLiterals();
+    long SquishInstructions();
+    long RemoveDuplicateArguments();
     long __cdecl Error(CNode *, unsigned, const char *, ...);
 private:
+    long MergeArguments(unsigned, unsigned);
+    long CompactLiterals(unsigned *, unsigned *, unsigned *);
+    long VectorizeLeft_DotProduct(CInstruction *);
     long VectorizeLeft_PerComponent(CInstruction *);
     int VectorizeLeft_IsSameRegister(unsigned, unsigned);
     int VectorizeLeft_IsUsedTogether(unsigned, unsigned);
@@ -492,6 +513,575 @@ long CProgram::CompactOutputs()
     return 0;
 }
 
+#define REMAPPED_ARGUMENT(id) ((id) == ~0u ? ~0u : arguments[id]->remap)
+
+long CProgram::SquishInstructions()
+{
+    int changed = 0;
+    IdentityRemap();
+    for (unsigned i = 0; i < instructionCount; ++i)
+    {
+        CInstruction *instruction = instructions[i];
+        unsigned kind = instruction->token & 0xf0000000;
+        if (kind < 0x10000000 || kind > 0x40000000)
+        {
+            continue;
+        }
+        unsigned width = instruction->fields.scalarCount;
+        unsigned groups = instruction->inputCount / width;
+        int symmetric = instruction->IsSymetric();
+        unsigned remaining = width;
+        for (unsigned j = 1; j < width; ++j)
+        {
+            unsigned output = instruction->outputs[j];
+            if (pools[arguments[output]->pool]->flags & 0x1020)
+            {
+                continue;
+            }
+            for (unsigned k = 0; k < j; ++k)
+            {
+                unsigned previous = instruction->outputs[k];
+                if (previous == ~0u || (pools[arguments[previous]->pool]->flags & 0x1020))
+                {
+                    continue;
+                }
+                if (groups == 1 &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k]))
+                {
+                    goto merge;
+                }
+                if (groups == 2)
+                {
+                    if (REMAPPED_ARGUMENT(instruction->inputs[j]) ==
+                        REMAPPED_ARGUMENT(instruction->inputs[k]) &&
+                        REMAPPED_ARGUMENT(instruction->inputs[j + width]) ==
+                        REMAPPED_ARGUMENT(instruction->inputs[k + width]))
+                    {
+                        goto merge;
+                    }
+                    if (symmetric &&
+                        REMAPPED_ARGUMENT(instruction->inputs[j]) ==
+                        REMAPPED_ARGUMENT(instruction->inputs[k + width]) &&
+                        REMAPPED_ARGUMENT(instruction->inputs[j + width]) ==
+                        REMAPPED_ARGUMENT(instruction->inputs[k]))
+                    {
+                        goto merge;
+                    }
+                }
+                if (groups == 3 &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k]) &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j + width]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + width]) &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j + 2 * width]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + 2 * width]))
+                {
+                    goto merge;
+                }
+                if (groups == 4 &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k]) &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j + width]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + width]) &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j + 2 * width]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + 2 * width]) &&
+                    REMAPPED_ARGUMENT(instruction->inputs[j + 3 * width]) ==
+                    REMAPPED_ARGUMENT(instruction->inputs[k + 3 * width]))
+                {
+                    goto merge;
+                }
+                continue;
+merge:
+                MergeArguments(instruction->outputs[k], output);
+                instruction->outputs[j] = ~0u;
+                --remaining;
+                break;
+            }
+        }
+        if (remaining >= width)
+        {
+            continue;
+        }
+        unsigned output = 0;
+        for (unsigned j = 0; j < width; ++j)
+        {
+            if (instruction->outputs[j] == ~0u)
+            {
+                continue;
+            }
+            instruction->outputs[output] = instruction->outputs[j];
+            for (unsigned k = 0; k < groups; ++k)
+            {
+                instruction->inputs[output + k * width] = instruction->inputs[j + k * width];
+            }
+            ++output;
+        }
+        for (unsigned k = 1; k < groups; ++k)
+        {
+            for (unsigned j = 0; j < remaining; ++j)
+            {
+                instruction->inputs[j + k * remaining] = instruction->inputs[j + k * width];
+            }
+        }
+        instruction->fields.scalarCount = remaining;
+        instruction->inputCount = remaining * groups;
+        instruction->outputCount = remaining;
+        changed = 1;
+    }
+    if (!changed)
+    {
+        return 1;
+    }
+    RemapArguments();
+    return 0;
+}
+
+#undef REMAPPED_ARGUMENT
+
+long CProgram::VectorizeLiterals()
+{
+    unsigned fixed = 0;
+    for (unsigned i = 0; i < poolCount; ++i)
+    {
+        CPool *pool = pools[i];
+        if ((pool->flags & 0x100) && (pool->flags & 0xc00))
+        {
+            fixed += pool->opaque8[0];
+        }
+    }
+    unsigned bytes = (fixed + 2 * instructionCount) * 16;
+    unsigned *packed = static_cast<unsigned *>(::operator new(bytes));
+    if (!packed)
+    {
+        return static_cast<long>(0x8007000eu);
+    }
+    memset(packed, 0xff, bytes);
+    int remapping = 0;
+    IdentityRemap();
+    for (unsigned i = 0; i < poolCount; ++i)
+    {
+        unsigned poolFlags = pools[i]->flags;
+        if (!(poolFlags & 0x100) || !(poolFlags & 0xc00))
+        {
+            continue;
+        }
+        unsigned offset;
+        for (offset = 0; offset < fixed; ++offset)
+        {
+            unsigned j;
+            for (j = 0; j < argumentCount; ++j)
+            {
+                CArgument *argument = arguments[j];
+                if (argument->pool != i || argument->relative != ~0u)
+                {
+                    continue;
+                }
+                unsigned old = packed[4 * (argument->index + offset) + argument->component];
+                if (old != ~0u && ((poolFlags & 0x800) ||
+                    argument->value != arguments[old]->value))
+                {
+                    break;
+                }
+            }
+            if (j == argumentCount)
+            {
+                break;
+            }
+        }
+        if (!(poolFlags & 0x800))
+        {
+            for (unsigned j = 0; j < argumentCount; ++j)
+            {
+                CArgument *argument = arguments[j];
+                if (argument->pool != i)
+                {
+                    continue;
+                }
+                argument->index += offset;
+                if (argument->relative != ~0u)
+                {
+                    continue;
+                }
+                unsigned *slot = &packed[4 * argument->index + argument->component];
+                if (*slot == ~0u)
+                {
+                    *slot = j;
+                }
+                else
+                {
+                    argument->pool = poolIds[0];
+                    argument->remap = *slot;
+                    remapping = 1;
+                }
+            }
+        }
+        else
+        {
+            for (unsigned j = 0; j < argumentCount; ++j)
+            {
+                CArgument *argument = arguments[j];
+                if (argument->pool == i)
+                {
+                    packed[4 * (argument->index + offset) + argument->component] = j;
+                }
+            }
+        }
+    }
+    if (remapping)
+    {
+        RemapArguments();
+    }
+    for (unsigned i = 0; i < argumentCount; ++i)
+    {
+        CArgument *argument = arguments[i];
+        unsigned poolFlags = pools[argument->pool]->flags;
+        if ((poolFlags & 0x100) && !(poolFlags & 0xc00))
+        {
+            argument->index = ~0u;
+            argument->pool = poolIds[1];
+        }
+    }
+    for (unsigned i = 0; i < instructionCount; ++i)
+    {
+        CInstruction *instruction = instructions[i];
+        if (!(instruction->token & 0xfff00000))
+        {
+            continue;
+        }
+        unsigned ids[4];
+        unsigned masks[4];
+        int uniform[4];
+        memset(ids, 0xff, sizeof(ids));
+        memset(masks, 0, sizeof(masks));
+        unsigned distinct = 0;
+        int overflow = 0;
+        unsigned group = 0;
+        unsigned *input;
+        unsigned count;
+        while ((count = instruction->GetInputs(group, &input)) != 0)
+        {
+            CArgument *first = arguments[input[0]];
+            if (poolIds[1] == first->pool && first->relative == ~0u)
+            {
+                uniform[group] = !(caps[17] & 4);
+                unsigned j;
+                for (j = 1; j < count && uniform[group]; ++j)
+                {
+                    if (first->value != arguments[input[j]]->value)
+                    {
+                        uniform[group] = 0;
+                    }
+                }
+                for (j = 0; j < count; ++j)
+                {
+                    unsigned id = input[j];
+                    CArgument *argument = arguments[id];
+                    unsigned k;
+                    for (k = 0; k < distinct; ++k)
+                    {
+                        if (arguments[ids[k]]->value == argument->value)
+                        {
+                            break;
+                        }
+                    }
+                    if (k == 4)
+                    {
+                        overflow = 1;
+                        break;
+                    }
+                    if (k == distinct)
+                    {
+                        ids[distinct++] = id;
+                    }
+                    if (!uniform[group])
+                    {
+                        masks[k] |= 1u << j;
+                    }
+                }
+                if (overflow)
+                {
+                    break;
+                }
+            }
+            ++group;
+        }
+        if (!overflow && CompactLiterals(packed, ids, masks) >= 0)
+        {
+            unsigned group = 0;
+            unsigned *input;
+            unsigned count;
+            while ((count = instruction->GetInputs(group, &input)) != 0)
+            {
+                CArgument *first = arguments[input[0]];
+                if (poolIds[1] == first->pool && first->relative == ~0u)
+                {
+                    CompactLiterals_Remap(ids, input, count);
+                }
+                ++group;
+            }
+        }
+        else
+        {
+            unsigned group = 0;
+            unsigned *input;
+            unsigned count;
+            while ((count = instruction->GetInputs(group, &input)) != 0)
+            {
+                CArgument *first = arguments[input[0]];
+                if (poolIds[1] == first->pool && first->relative == ~0u)
+                {
+                    memcpy(ids, input, count * sizeof(unsigned));
+                    for (unsigned j = 0; j < count; ++j)
+                    {
+                        masks[j] = 1u << j;
+                    }
+                    if (count < 4)
+                    {
+                        memset(masks + count, 0, (4 - count) * sizeof(unsigned));
+                        memset(ids + count, 0xff, (4 - count) * sizeof(unsigned));
+                    }
+                    CompactLiterals(packed, ids, masks);
+                    CompactLiterals_Remap(ids, input, count);
+                }
+                ++group;
+            }
+        }
+    }
+    int relative = 0;
+    for (unsigned i = 0; i < argumentCount; ++i)
+    {
+        CArgument *argument = arguments[i];
+        CPool *pool = pools[argument->pool];
+        if (poolIds[1] == argument->pool && argument->index == ~0u)
+        {
+            argument->pool = poolIds[0];
+        }
+        else if ((pool->flags & 0x100) && (pool->flags & 0x40) && !(pool->flags & 0x800))
+        {
+            argument->pool = poolIds[1];
+            if (argument->relative != ~0u)
+            {
+                relative = 1;
+            }
+        }
+    }
+    pools[poolIds[1]]->flags |= 0x40;
+    if (relative)
+    {
+        pools[poolIds[1]]->flags |= 0x400;
+    }
+    pools[poolIds[1]]->opaque8[0] = 0;
+    for (unsigned i = 0; i < argumentCount; ++i)
+    {
+        CArgument *argument = arguments[i];
+        if (poolIds[1] == argument->pool && argument->relative == ~0u)
+        {
+            CPool *pool = pools[poolIds[1]];
+            if (pool->opaque8[0] <= argument->index)
+            {
+                pool->opaque8[0] = argument->index + 1;
+            }
+        }
+    }
+    if (remapping)
+    {
+        RemoveDuplicateArguments();
+    }
+    detailedInfo = 1;
+    ::operator delete(packed);
+    return 0;
+}
+
+long CProgram::VectorizeLeft_DotProduct(CInstruction *instruction)
+{
+    unsigned width = instruction->token & 0xfffff;
+    unsigned remaining = width;
+    unsigned parts = 0;
+    unsigned firstPool, firstRelative, firstIndex, firstWriter;
+    unsigned secondPool, secondRelative, secondIndex, secondWriter;
+    while (remaining > 0)
+    {
+        unsigned count = 0;
+        if (remaining > 4)
+        {
+            for (unsigned i = 0; i < width; ++i)
+            {
+                if (instruction->inputs[i] == ~0u)
+                {
+                    continue;
+                }
+                CArgument *first = arguments[instruction->inputs[i]];
+                CArgument *second = arguments[instruction->inputs[width + i]];
+                unsigned found = 1;
+                for (unsigned j = i + 1; j < width; ++j)
+                {
+                    if (instruction->inputs[width + j] == ~0u)
+                    {
+                        continue;
+                    }
+                    CArgument *otherFirst = arguments[instruction->inputs[j]];
+                    CArgument *otherSecond = arguments[instruction->inputs[width + j]];
+                    if (first->pool == otherFirst->pool &&
+                        first->relative == otherFirst->relative &&
+                        first->index == otherFirst->index &&
+                        first->instruction == otherFirst->instruction &&
+                        second->pool == otherSecond->pool &&
+                        second->relative == otherSecond->relative &&
+                        second->index == otherSecond->index &&
+                        second->instruction == otherSecond->instruction)
+                    {
+                        ++found;
+                        if (found == 4)
+                        {
+                            break;
+                        }
+                    }
+                }
+                if (found > count)
+                {
+                    count = found;
+                    firstPool = first->pool;
+                    secondPool = second->pool;
+                    firstRelative = first->relative;
+                    secondRelative = second->relative;
+                    firstIndex = first->index;
+                    secondIndex = second->index;
+                    firstWriter = first->instruction;
+                    secondWriter = second->instruction;
+                }
+                if (count == 4)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            count = remaining;
+        }
+        unsigned id = AddInstruction(0x50000000 | (count & 0xfffff), ~0u, ~0u);
+        if (id == ~0u)
+        {
+            return static_cast<long>(0x8007000eu);
+        }
+        CInstruction *copy = instructions[id];
+        copy->Instance(instruction);
+        unsigned output = 0;
+        for (unsigned i = 0; i < width && output < count; ++i)
+        {
+            if (instruction->inputs[i] == ~0u)
+            {
+                continue;
+            }
+            CArgument *first = arguments[instruction->inputs[i]];
+            CArgument *second = arguments[instruction->inputs[width + i]];
+            if (remaining > 4 &&
+                (firstPool != first->pool || firstRelative != first->relative ||
+                 firstIndex != first->index || firstWriter != first->instruction ||
+                 secondPool != second->pool || secondRelative != second->relative ||
+                 secondIndex != second->index || secondWriter != second->instruction))
+            {
+                continue;
+            }
+            copy->inputs[output] = instruction->inputs[i];
+            copy->inputs[output + count] = instruction->inputs[width + i];
+            instruction->inputs[i] = ~0u;
+            instruction->inputs[width + i] = ~0u;
+            ++output;
+        }
+        if (width > 4)
+        {
+            copy->outputs[0] = AddArgument(poolIds[5], ~0u, ~0u, 0.0);
+            if (copy->outputs[0] == ~0u)
+            {
+                return static_cast<long>(0x8007000eu);
+            }
+            arguments[copy->outputs[0]]->relative2 = arguments[instruction->outputs[0]]->relative2;
+            arguments[copy->outputs[0]]->link = arguments[instruction->outputs[0]]->link;
+        }
+        else
+        {
+            copy->outputs[0] = instruction->outputs[0];
+        }
+        remaining -= count;
+        ++parts;
+    }
+    if (parts <= 1)
+    {
+        return 0;
+    }
+    unsigned one = AddArgument(poolIds[1], ~0u, 0, 1.0);
+    if (one == ~0u)
+    {
+        return static_cast<long>(0x8007000eu);
+    }
+    while (parts > 1)
+    {
+        unsigned start = instructionCount - parts;
+        unsigned nextParts = 0;
+        if (parts > 0)
+        {
+            unsigned i = 0;
+            do
+            {
+                unsigned count = parts - i;
+                if (count > 4)
+                {
+                    count = 4;
+                }
+                unsigned id;
+                if (count == 1)
+                {
+                    id = AddInstruction(0x10000001, ~0u, ~0u);
+                }
+                else if (count == 2)
+                {
+                    id = AddInstruction(0x20400001, ~0u, ~0u);
+                }
+                else
+                {
+                    id = AddInstruction(0x50000000 | (count & 0xfffff), ~0u, ~0u);
+                }
+                if (id == ~0u)
+                {
+                    return static_cast<long>(0x8007000eu);
+                }
+                CInstruction *copy = instructions[id];
+                copy->Instance(instruction);
+                for (unsigned j = 0; j < count; ++j)
+                {
+                    copy->inputs[j] = instructions[start + j]->outputs[0];
+                    if (count > 2)
+                    {
+                        copy->inputs[count + j] = one;
+                    }
+                }
+                if (parts > 4)
+                {
+                    copy->outputs[0] = AddArgument(poolIds[5], ~0u, ~0u, 0.0);
+                    if (copy->outputs[0] == ~0u)
+                    {
+                        return static_cast<long>(0x8007000eu);
+                    }
+                    arguments[copy->outputs[0]]->relative2 = arguments[instruction->outputs[0]]->relative2;
+                    arguments[copy->outputs[0]]->link = arguments[instruction->outputs[0]]->link;
+                }
+                else
+                {
+                    copy->outputs[0] = instruction->outputs[0];
+                }
+                start += count;
+                ++nextParts;
+                i += 4;
+            }
+            while (i < parts);
+        }
+        parts = nextParts;
+    }
+    return 0;
+}
+
 long CProgram::VectorizeLeft_PerComponent(CInstruction *instruction)
 {
     unsigned width = instruction->outputCount;
@@ -518,7 +1108,8 @@ long CProgram::VectorizeLeft_PerComponent(CInstruction *instruction)
     unsigned remaining = width;
     for (unsigned i = 0; i < width; ++i)
     {
-        unsigned id = instruction->outputs[i];
+        unsigned *outputs = instruction->outputs;
+        unsigned id = outputs[i];
         if (id == ~0u || !(pools[arguments[id]->pool]->flags & 0x40))
         {
             continue;
@@ -526,13 +1117,16 @@ long CProgram::VectorizeLeft_PerComponent(CInstruction *instruction)
         unsigned count = 0;
         for (unsigned j = i; j < width; ++j)
         {
-            if (instruction->outputs[j] != ~0u &&
+            if (outputs[j] != ~0u &&
                 VectorizeLeft_IsSameRegister(instruction->outputs[i], instruction->outputs[j]))
             {
                 ++count;
             }
         }
-        id = AddInstruction((instruction->token & 0xfff00000) | count, ~0u, ~0u);
+        InstructionCode code;
+        code.token = instruction->token;
+        code.fields.scalarCount = count;
+        id = AddInstruction(code.token, ~0u, ~0u);
         if (id == ~0u)
         {
             return static_cast<long>(0x8007000eu);
@@ -609,7 +1203,10 @@ long CProgram::VectorizeLeft_PerComponent(CInstruction *instruction)
         {
             return 0;
         }
-        unsigned id = AddInstruction((instruction->token & 0xfff00000) | bestCount, ~0u, ~0u);
+        InstructionCode code;
+        code.token = instruction->token;
+        code.fields.scalarCount = bestCount;
+        unsigned id = AddInstruction(code.token, ~0u, ~0u);
         if (id == ~0u)
         {
             return static_cast<long>(0x8007000eu);
@@ -1055,46 +1652,47 @@ long CProgram::CompactLiterals_Remap(unsigned *table, unsigned *ids, unsigned co
     unsigned i;
     unsigned j;
     unsigned component;
+    int allSame = 1;
     for (j = 1; j < count; ++j)
     {
         if (arguments[ids[j]]->value != arguments[ids[0]]->value)
         {
-            goto mixed;
+            allSame = 0;
+            break;
         }
     }
-    for (i = 0; i < 4; ++i)
-    {
-        component = (i - 1) & 3;
-        unsigned value = table[component];
-        if (value != ~0u && arguments[ids[0]]->value == arguments[value]->value)
-        {
-            goto uniform;
-        }
-    }
-    goto complete;
-uniform:
-    {
-        for (unsigned k = 0; k < count; ++k)
-        {
-            ids[k] = table[component];
-        }
-    }
-    goto complete;
-mixed:
-    for (j = 0; j < count; ++j)
+    if (allSame)
     {
         for (i = 0; i < 4; ++i)
         {
-            unsigned component = (j + i) & 3;
+            component = (i - 1) & 3;
             unsigned value = table[component];
-            if (value != ~0u && arguments[ids[j]]->value == arguments[value]->value)
+            if (value != ~0u && arguments[ids[0]]->value == arguments[value]->value)
             {
-                ids[j] = table[component];
+                for (unsigned k = 0; k < count; ++k)
+                {
+                    ids[k] = table[component];
+                }
                 break;
             }
         }
     }
-complete:
+    else
+    {
+        for (j = 0; j < count; ++j)
+        {
+            for (i = 0; i < 4; ++i)
+            {
+                unsigned component = (j + i) & 3;
+                unsigned value = table[component];
+                if (value != ~0u && arguments[ids[j]]->value == arguments[value]->value)
+                {
+                    ids[j] = table[component];
+                    break;
+                }
+            }
+        }
+    }
     return 0;
 }
 

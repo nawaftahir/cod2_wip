@@ -5,8 +5,16 @@
 two complete definitions/807 bytes. Both referees, bindings, boundaries,
 negative tests,644 linked matches retaining642 and1284 CPU comparisons pass.
 Coverage remains348740/32.003891% until the full aggregate at
-target/scratch/codex35_register_split/aggregate.log completes PASS/exit0.
+target/scratch/codex35_output_groups/aggregate.log (session30276) completes PASS/exit0.
+Earlier audit8482 exited1 at a legacy self-call-mask diagnostic assertion; its
+failure log is preserved and no bytes were accepted from that failed replay.
 Older statements saying no audit is live are superseded by this continuation.
+
+Further clean source:
+[output grouping, dot-product reduction and literal remapping](target/src/codex_shader_output_groups/output_groups.cpp).
+All three complete functions/2468 bytes pass local byte/binding/boundary,
+V3/647 retaining644 and1284 full CPU gates with current input hashes.
+They await the next aggregate and are not counted in the percentage above.
 
 Latest accepted checkpoint: **348,740 / 1,089,680 =32.003891%**. Full audit13323
 completed PASS/exit0 at

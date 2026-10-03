@@ -809,3 +809,33 @@
 -35% goal remains active. Full audit log codex35_register_split/aggregate.log;
   one live audit only, clean source/proof inputs frozen. No release-tree write,
   opaque dependency credit, whole-DLL identity or GPU claim.
+## Codex35 output grouping — 2026-10-03
+
+- PINNED SDK90/91 PerComponent1006, /92 DotProduct1221 and /103 literal
+  remap241 now have full clean V2,V3/647 retaining644 and1284 CPU output
+  gates. All three input sets current;2468 bytes are aggregate-pending.
+  Source at codex_shader_output_groups/output_groups.cpp; selector284 distinct/
+  304 physical definitions. No duplicate, table or opaque dependency credit.
+- PINNED PerComponent ends with a literal jump to earlier epilogue161/ret4
+  at165; DotProduct jumps to epilogue40/ret4 at44. Explicit name/length/
+  destination/full-epilogue assertions retain complete boundary checking;
+  no general terminal-ret waiver. Field count is20 bits; bitfield update
+  generated the actual XOR/AND/XOR sequence. Source output-pointer lifetime
+  matters across calls in the first grouping scan.
+- PINNED DotProduct pair keys omit component but include pool/relative/index/
+  writer. Counting checks the SECOND paired-input sentinel.14/18 metadata
+  propagates to new temporaries. Individual cached fields preserve the true
+  lifetimes; an unsigned-positive guarded reduction loop matches scheduling.
+  Literal-remap allSame flag/structured if/else recovers exact block order.
+- VectorizeLiterals1370 complete draft remains uncredited. Fixed pool flags
+  100+C00,800 reservation path; scratch allocation16*(fixed+2*instructionCount).
+  Target fallback tail fills only count<4, original ignored HRESULTs retained.
+  See scratch report before retrying; actual fresh mismatches remain binding.
+- PINNED legacy raw MulSequence score94 is not a source mismatch: its PE-side
+  byte-scanning mask omits all intra-function branches/calls, while unlinked
+  COFF has self-call relocation fields113/179/204. The three retailE8 operands
+  decode to the function start10087a5d, typed bindings agree. Existing decoded
+  normalization100 and complete SDK/source/retail equality remain mandatory.
+  Audit8482 exited1 on the new aggregate's raw100 assertion; replacement30276
+  includes both cohorts with exact named diagnostic/binding/destination checks.
+  No bytes accepted yet. Preserve failed log; never use MASK_INTRA globally.

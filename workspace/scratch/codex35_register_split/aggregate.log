@@ -1,0 +1,40 @@
+Checking pinned base and complete source cohorts
+Checking codex30_assembler: complete byte proof and linked regression
+Checking codex30_support: complete byte proof and linked regression
+Checking codex35_lexer: complete byte proof and linked regression
+Checking codex35_preprocessor: complete byte proof and linked regression
+Checking codex35_compiler: complete byte proof and linked regression
+Checking codex35_clip: complete byte proof and linked regression
+Checking codex35_compiler_types: complete byte proof and linked regression
+Checking codex31_program: complete byte proof and linked regression
+Checking codex35_program_flow: complete byte proof and linked regression
+Checking codex35_program_varying: complete byte proof and linked regression
+Checking codex35_program_pruning: complete byte proof and linked regression
+Checking codex35_program_strip: complete byte proof and linked regression
+Checking codex35_program_sort: complete byte proof and linked regression
+Checking codex35_program_duplicates: complete byte proof and linked regression
+Checking codex35_instruction_duplicates: complete byte proof and linked regression
+Checking codex35_predicate_merge: complete byte proof and linked regression
+Checking codex35_program_coalesce: complete byte proof and linked regression
+Checking codex35_vectorize_helpers: complete byte proof and linked regression
+Checking codex35_program_cleanup: complete byte proof and linked regression
+Checking codex35_instruction_order: complete byte proof and linked regression
+Checking codex35_transform_order: complete byte proof and linked regression
+Checking codex35_transform_driver: complete byte proof and linked regression
+Checking codex35_predicate_order: complete byte proof and linked regression
+Checking codex35_program_order: complete byte proof and linked regression
+Checking codex35_pool_helpers: complete byte proof and linked regression
+Checking codex32_program_drivers: complete byte proof and linked regression
+Checking codex32_program_diagnostics: complete byte proof and linked regression
+Checking codex32_special_literals: complete byte proof and linked regression
+Checking codex32_swizzle: complete byte proof and linked regression
+Checking codex32_argument_helpers: complete byte proof and linked regression
+Checking codex35_register_split: complete byte proof and linked regression
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/tools/check_ten_percent.py", line 1559, in <module>
+    main()
+    ~~~~^^
+  File "/home/nawaf/cod2/test/dev/gfx/tools/check_ten_percent.py", line 1440, in main
+    assert all(r['instruction_aware_referee_match'] == r['original_referee_match'] == 100 for r in packet['rows'])
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
