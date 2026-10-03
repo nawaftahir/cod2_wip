@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?PropagatePredicates@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 1459,
+      "target_bytes": 1462,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_predicate_states/state_18.cpp",
+  "source_sha256": "ac000aaca0608eac979e595a7c560e8fc2154ead8efd2d7f2eb34824fbe99e90",
+  "object_sha256": "2508d370f58983d2de79f11464e3874d96dd9049135dbccf5fb56f8f293a1f06"
+}

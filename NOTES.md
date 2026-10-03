@@ -933,3 +933,17 @@
 - PINNED SDK73/26 EmitTemp28 uses ECX/EDI/EAX and does not modify EDX. Typed
   intrinsic decompilation's extraout_EDX artifacts require real caller/callee
   source-context testing, not fabricated return types or calling conventions.
+## Codex35 owner checkpoint and shader-comment drafts — 2026-10-04
+
+- Accepted coverage remains353651/1089680=32.454574%;35% needs27737 more
+  verified bytes. New EmitArgs/comment/sampler/state drafts get ZERO credit.
+  No aggregate or compiler is live. Continuation details are preserved in
+  target/scratch/codex35_continuation/REPORT.md, not promoted to clean source.
+- PINNED SDK57 D3DXFindShaderComment231/10062db3 and GetShaderSamplers190/
+  100635fe now have full SDK-header-backed C++ drafts. Registers and branch
+  placement still differ. FindShaderComment's literal boundary ends with an
+  internal jump to an earlier epilogue; do not truncate its body at first RET.
+- PINNED sampler routine has no shader/sampler null guard, checks CTAB total
+  size but does not validate ConstantInfo offset, and reuses the dead shader
+  stack argument for bytes. Preserve those literal behaviors for reconstruction;
+  any security repair belongs after matching, not hidden in byte-proof work.

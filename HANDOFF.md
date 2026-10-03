@@ -1,4 +1,28 @@
-# Shared renderer handoff — 2026-10-03
+# Shared renderer handoff — 2026-10-04
+
+## Owner-requested checkpoint — 2026-10-04
+
+Accepted coverage remains **353651/1089680 = 32.454574%**. No new bytes
+were accepted after checkpoint02a16d5;35% still needs27737 verified bytes.
+There is no live aggregate or compiler job. The35% objective is unfinished.
+This save stops work at the owner's checkpoint request, not at the35% goal.
+Checkpoint rehash passed35 verifier pin sets,105 authoritative packets and
+13889 recorded file identities; all33 reused cohort states/environment are
+current. This was an identity recheck, not a new build or fresh CPU execution.
+
+Clean accepted source stays under target/src/. Latest additions are
+codex_shader_argument_alloc, codex_shader_validation and codex_shader_pool_reads.
+The newer EmitArgs, shader-comment/sampler and predicate-state candidates are
+scratch-only, unmatched and uncredited. Their source and bounded attempts are
+saved for continuation; see target/scratch/codex35_continuation/REPORT.md.
+
+Next useful work: continue the SDK57 shader-comment/sampler421-byte cohort or
+SDK73 EmitArgs513 from the precise remaining differences in that report. Do
+not repeat the failed24-layout predicate sweep. The much larger typed intrinsic
+export is research, not finished source. Do not promote it as reconstruction.
+
+Historical sections below record earlier checkpoints. Their pending/live
+statements do not override the accepted total or job state above.
 
 ## Active continuation — 35% goal
 

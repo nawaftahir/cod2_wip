@@ -1,5 +1,14 @@
 # Where to inspect renderer source
 
+2026-10-04 checkpoint: **32.454574% verified**, unchanged since02a16d5.
+Clean accepted additions: [argument allocation](target/src/codex_shader_argument_alloc/argument_alloc.cpp),
+[validation](target/src/codex_shader_validation/validation.cpp),
+and [pool reads](target/src/codex_shader_pool_reads/pool_reads.cpp).
+Newer candidates are unaccepted scratch work, saved in the
+[continuation report](target/scratch/codex35_continuation/REPORT.md).
+35% is unfinished;27737 further verified bytes are required. No jobs are live.
+Older aggregate-pending statements below are historical.
+
 Accepted latest:353651/1089680=32.454574%. Complete aggregate8159 PASS/exit0
 accepts clean validator811 and pool-read387. All35 cohort pin sets,105 packet
 sets/13889 identities and the reviewed reuse closure independently current.
