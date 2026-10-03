@@ -693,3 +693,46 @@
   then missing local vtables.py. Both failures must be preserved, not waived.
   Reuse complete existing metadata proof in the new image and rerun affected
   gates before aggregate inclusion. No aggregate is live; confirmed31.705822%.
+## Codex helper acceptance and pool algorithms — 2026-10-03
+
+- Missing helper metadata dispatch resolved with pinned prior table/binding
+  proofs applied to the NEW private image. Fresh V2, V3/626 retaining622 and
+ 1284 CPU outputs pass; all three complete input sets rehashed current. A
+  single full aggregate32299/session47013 is live;424 remains pending credit.
+- PINNED SDK90 Score: argument flag80000000, caps17 bits4/2 and producer
+  IsSpecial select1 versus4 components; cost uses copy penalties29+, parity28,
+  component preference24. Read pairs macro-register constraints before Score.
+- PINNED SDK90 Read: instruction node pointer3c; cdecl Error(code4004), exact
+  string preserved in source, logging only when commit flag bit1 is set.
+  Both logged and silent allocation failure return80004005. Link insertion
+  follows argument remap30 and lastRead58, then allocates relative8 recursively.
+- Process >0 loop conditions fix unsigned branches. Whole-body decoded diff
+  leaves ONLY SIB order4a5/4dc, still not full equality. Pointer/scalar refresh,
+  unsigned-long counter and/G5/G6/G7 did not solve. Do not accept equivalent
+  encodings, substitute assembly or infer impossibility. ABI stays unchanged.
+- Current larger drafts include Score647/630, Read691/712 and Begin1739/1739;
+  all unmatched, zero credit. Exact CPU-sweep source is baseline_cpu.cpp with
+  hash878cabff43af3b2b9b9d9886fc258efd6ac9939323194df757a41eae98594c35.
+  Its three probes are historical, not proof of the current source revision.
+- Owner requested pausing at the next checkpoint. No more source batches;
+  finish the one live audit and record its real result before pausing the goal.
+
+## Codex helper aggregate and driver discovery — 2026-10-03
+
+- Helper aggregate32299/session47013 ended PASS/exit0:345916/1089680,
+ 31.744732%. Four helpers424 are accepted; all prior source retained.
+- Owner revoked checkpoint pause;32% next,2782 further bytes needed.
+- PINNED SDK90 Link ends with a tail jump at offset56 hex to private
+  DeadLinkRemove (AAEJXZ); it is not a truncated body. linkedProgram is an
+  accessed CProgram pointer atE0. Error is protected cdecl (IAA...ZZ).
+- Driver discovery Link91/Optimize638 matches complete sections, zero credit
+  until typed bindings, full boundaries, private regression and CPU proof pass.
+  Vectorize267 still differs33. Target Optimize has nine zero-result/XOR paths;
+  the bounded source form retains those paths, no historical macro claim.
+- Driver V2,V3/628 retaining626 and1284 full CPU outputs now pass. Named Link
+  tail jump is checked exactly; original raw95 is retained, decoded100 plus
+  complete independent byte/binding proof pass.729 awaits aggregate43146.
+- PINNED target SeparatePhases late allocation/compaction failures are cleaned
+  up then return0; only initial CompactInstructions failure propagates.
+  CompactRegisters ignored IdentityRemap/one Process result and double-End
+  failure cleanup are target behavior, not bugs to fix during reconstruction.

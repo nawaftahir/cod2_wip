@@ -5,6 +5,7 @@
 #define NODE_DECLARATIONS_ONLY
 #include "../../src/codex_shader_nodes/nodes.cpp"
 #pragma intrinsic(memset)
+#pragma intrinsic(memcpy)
 
 namespace D3DXShader
 {
@@ -64,6 +65,7 @@ public:
     unsigned opaque24, opaque28, opaque2c;
     int opaque30;
     unsigned opaque34, opaque38;
+    CNode *node;
     int IsFlowControl();
     int IsSpecial();
     int IsLoop();
@@ -193,6 +195,7 @@ private:
     long SwizzleParameter(unsigned *, unsigned *, unsigned, int);
 protected:
     long CompactPool_Begin(_D3DXCP_DATA *, unsigned, unsigned);
+    long __cdecl Error(CNode *, unsigned, const char *, ...);
     long CompactPool_Process(_D3DXCP_DATA *, int);
     long CompactPool_End(_D3DXCP_DATA *);
     __forceinline unsigned Origin(unsigned value)
@@ -415,6 +418,225 @@ long CProgram::CompactPool_End(_D3DXCP_DATA *data)
     return 0;
 }
 
+unsigned CProgram::CompactPool_Score(_D3DXCP_DATA *data, unsigned id, unsigned reg,
+    int preference, unsigned *out, unsigned best)
+{
+    CArgument *argument = arguments[id];
+    unsigned components = data->componentMasks[argument->index];
+    unsigned width = 4;
+    if ((argument->flags & 0x80000000) ||
+        (components == 1 && (caps[17] & 4)) ||
+        (components > 1 && (caps[17] & 2)) ||
+        instructions[argument->instruction]->IsSpecial())
+        width = 1;
+    unsigned reverse[4];
+    memset(reverse, 0xff, sizeof(reverse));
+    unsigned map[4];
+    memset(map, 0xff, sizeof(map));
+    unsigned unmapped = 4;
+    unsigned offset = argument->index * 4;
+    for (unsigned i = 0; i < 4; ++i, ++offset)
+    {
+        unsigned source = data->sourceArguments[offset];
+        int used = 0;
+        if (source != ~0u)
+        {
+            unsigned count = data->copyCounts[offset];
+            if (count > 0)
+            {
+                unsigned *copies = data->copyArguments + data->copyStarts[offset];
+                for (unsigned j = 0; j < count; ++j)
+                {
+                    unsigned origin = copies[j];
+                    unsigned mappedReg = data->registerMap[origin / 4];
+                    if (mappedReg != ~0u)
+                        used = 1;
+                    if (reg == mappedReg)
+                    {
+                        unsigned component = data->componentMap[origin];
+                        if (component != ~0u && reverse[component] == ~0u &&
+                            (width != 1 || i == component) &&
+                            CompactPool_Map(data, source, reg, component) == ~0u)
+                        {
+                            --unmapped;
+                            reverse[component] = i;
+                            map[i] = component;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (!used)
+            --unmapped;
+    }
+    unsigned score = unmapped << 29;
+    if (score >= best)
+        return score;
+    unsigned penalty = 0;
+    if (preference < 0)
+    {
+        if (reg & 1)
+            penalty = 1;
+    }
+    else if (preference > 0 && !(reg & 1))
+        penalty = 1;
+    score |= penalty << 28;
+    if (score >= best)
+        return score;
+    for (unsigned i = 0; i < 4; ++i)
+    {
+        if (map[i] == ~0u)
+        {
+            unsigned source = data->sourceArguments[argument->index * 4 + i];
+            if (source == ~0u)
+                continue;
+            unsigned j;
+            for (j = 0; j < width; ++j)
+            {
+                unsigned component = (j + i) & 3;
+                if (components == 1)
+                {
+                    CInstruction *instruction = instructions[argument->instruction];
+                    if (!(caps[18] & 2) ||
+                        (instruction->token & 0xfff00000) != 0x50000000 ||
+                        (instruction->token & 0xfffff) < 4)
+                        component = 3 - component;
+                }
+                if (reverse[component] == ~0u &&
+                    CompactPool_Map(data, source, reg, component) == ~0u)
+                {
+                    reverse[component] = i;
+                    map[i] = component;
+                    break;
+                }
+            }
+            if (width == j)
+                return ~0u;
+            if (!data->flagFields.reverse || components > 1)
+            {
+                score += j << 24;
+                if (score >= best)
+                    return score;
+            }
+        }
+    }
+    if (out)
+        memcpy(out, map, sizeof(map));
+    return score;
+}
+
+long CProgram::CompactPool_Read(_D3DXCP_DATA *data, unsigned id, int preference,
+    unsigned paired, unsigned explicitReg)
+{
+    unsigned origin = arguments[id]->relative3;
+    if (origin != ~0u)
+        id = origin;
+    CArgument *argument = arguments[id];
+    if (data->pool == argument->pool && data->registerMap[argument->index] == ~0u &&
+        (data->componentMasks[argument->index] >= data->opaque4 ||
+         data->opaqueC[argument->index] >= data->opaque4))
+    {
+        unsigned bestScore = ~0u;
+        unsigned bestReg = ~0u;
+        unsigned bestMap[4];
+        if (explicitReg == ~0u)
+        {
+            for (unsigned i = 0; i < data->limit; ++i)
+            {
+                unsigned reg = data->opaque20[i];
+                unsigned count = data->macroCounts[argument->index];
+                unsigned *adjacent = data->macroArguments + data->macroStarts[argument->index];
+                unsigned j;
+                for (j = 0; j < count; ++j)
+                {
+                    if (reg == data->registerMap[adjacent[j]])
+                        break;
+                }
+                if (j < count)
+                    continue;
+                if (paired != ~0u)
+                {
+                    unsigned index = arguments[paired]->index;
+                    count = data->macroCounts[index];
+                    adjacent = data->macroArguments + data->macroStarts[index];
+                    for (j = 0; j < count; ++j)
+                    {
+                        if (reg == data->registerMap[adjacent[j]])
+                            break;
+                    }
+                    if (j < count)
+                        continue;
+                }
+                unsigned map[4];
+                unsigned score = CompactPool_Score(data, id, reg, preference, map, bestScore);
+                if (score < bestScore)
+                {
+                    bestReg = reg;
+                    memcpy(bestMap, map, sizeof(bestMap));
+                    bestScore = score;
+                    if (!score)
+                        break;
+                }
+            }
+        }
+        else
+        {
+            bestReg = data->opaque20[explicitReg];
+            bestScore = CompactPool_Score(data, id, bestReg, preference, bestMap, ~0u);
+        }
+        if (bestScore == ~0u)
+        {
+            if (data->flagFields.commit)
+                Error(data->currentInstruction->node, 4004,
+                    "program too complex; there are more active values than registers");
+            return static_cast<long>(0x80004005);
+        }
+        data->registerMap[argument->index] = bestReg;
+        if ((flags & 4) && bestReg < data->opaque24)
+        {
+            unsigned i = 0;
+            while (data->opaque20[i++] != bestReg)
+            {
+            }
+            for (; i < data->opaque24; ++i)
+                data->opaque20[i - 1] = data->opaque20[i];
+            data->opaque20[data->opaque24 - 1] = bestReg;
+        }
+        for (unsigned i = 0; i < 4; ++i)
+        {
+            unsigned offset = argument->index * 4 + i;
+            unsigned source = data->sourceArguments[offset];
+            if (source != ~0u)
+            {
+                unsigned component = bestMap[i];
+                data->componentMap[offset] = component;
+                unsigned *slot = data->mappedArguments + bestReg * 4 + component;
+                if (*slot != ~0u)
+                {
+                    unsigned lastRead = arguments[source]->lastRead;
+                    while (arguments[*slot]->lastRead > lastRead)
+                    {
+                        slot = &arguments[*slot]->remap;
+                        if (*slot == ~0u)
+                            break;
+                    }
+                }
+                arguments[source]->remap = *slot;
+                *slot = source;
+            }
+        }
+    }
+    unsigned relative = argument->relative;
+    if (relative != ~0u)
+    {
+        long result = CompactPool_Read(data, relative, 0, ~0u, ~0u);
+        if (result < 0)
+            return result;
+    }
+    return 0;
+}
+
 static int __stdcall CompareRead(unsigned first, unsigned second, const void *context)
 {
     const CProgram *program = static_cast<const CProgram *>(context);
@@ -548,7 +770,7 @@ long CProgram::CompactPool_Process(_D3DXCP_DATA *data, int commit)
         data->opaque20[i] = i;
     data->opaque24 = data->limit / 2;
     data->opaque4 = 0;
-    for (unsigned i = instructionCount; i; )
+    for (unsigned i = instructionCount; i > 0; )
     {
         CInstruction *instruction = instructions[--i];
         if ((instruction->token & 0xfff00000) == 0x20900000)
@@ -561,17 +783,19 @@ long CProgram::CompactPool_Process(_D3DXCP_DATA *data, int commit)
                     return result;
                 unsigned input = instruction->inputs[instruction->outputCount + j];
                 CInstruction *source = instructions[arguments[input]->instruction];
-                unsigned k;
+                unsigned long k;
                 for (k = 0; k < source->outputCount; ++k)
                 {
                     if (source->outputs[k] == input)
                         break;
                 }
                 data->currentInstruction = source;
-                result = CompactPool_Read(data, instruction->outputs[j], 0, source->inputs[k], ~0u);
+                unsigned *sourceInput = &source->inputs[k];
+                result = CompactPool_Read(data, instruction->outputs[j], 0, *sourceInput, ~0u);
                 if (result < 0)
                     return result;
-                result = CompactPool_Read(data, source->inputs[k], 0, instruction->outputs[j], ~0u);
+                sourceInput = &source->inputs[k];
+                result = CompactPool_Read(data, *sourceInput, 0, instruction->outputs[j], ~0u);
                 if (result < 0)
                     return result;
             }
@@ -580,7 +804,7 @@ long CProgram::CompactPool_Process(_D3DXCP_DATA *data, int commit)
     for (unsigned pass = 4; pass; --pass)
     {
         data->opaque4 = pass;
-        for (unsigned i = instructionCount; i; )
+        for (unsigned i = instructionCount; i > 0; )
         {
             CInstruction *instruction = instructions[--i];
             data->currentInstruction = instruction;
@@ -640,7 +864,7 @@ long CProgram::CompactPool_Process(_D3DXCP_DATA *data, int commit)
 
 long CProgram::CompactPool_Begin(_D3DXCP_DATA *data, unsigned pool, unsigned limit)
 {
-    unsigned width;
+    unsigned long width;
     ReadWriteInfo();
     if (!data)
         return static_cast<long>(0x80004005);

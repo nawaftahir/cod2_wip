@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Link@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 91,
+      "target_bytes": 91,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Vectorize@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 267,
+      "target_bytes": 267,
+      "first_difference": 33,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Optimize@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 638,
+      "target_bytes": 638,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex32_program_drivers/drivers.cpp",
+  "source_sha256": "c2116571a9d0ddb0c41299a58229dfb53cd7c44508b543565b2127f0e9f08bd7",
+  "object_sha256": "59e447d1b134264233a3c8e41008170169e85595d55eedf62fbc51f1a4d3093b"
+}

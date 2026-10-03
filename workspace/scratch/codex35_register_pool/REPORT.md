@@ -89,3 +89,75 @@ From gfx/target:
 Flags /O1 /Oy- /hotpatch /MT /Gy /d2QIftol. Discovery reuses the existing
 hash-pinned full-section probe and checks source/object freshness. No object,
 SDK library or DLL belongs in git. No bytes are credited from this discovery.
+
+## Superseding continuation checkpoint — 2026-10-03
+
+Current source1ff63e37853f603bf38a6e1c7303339fbfb391ebe3e22ff65385db3eaf7ed0c1,
+current fresh probe1087e7d59116e5fcd31fe5bddc4408bd4eeef887659b4ec957d2bf84b62b7d9f.
+The earlier source/probe hashes above belong to the preceding committed save.
+The draft now implements full target-backed Score630 and recursive Read712,
+including literal diagnostic text and CNode pointer at instruction3c. This is
+the complete source algorithm, not just declarations or copied object bytes.
+
+Fresh default compiler87168 and its probe completed exit0. Current emitted
+Score647/630 differs7; Read691/712 differs38; Process1715/1715 differs1191;
+other method sizes/discoveries are as above. Every one remains scratch-only.
+There is no typed/linked proof for the two discovery-equal callbacks.
+
+Changing both reverse Process loops from a truth test to unsigned >0 fixed
+the target unsigned branch encodings. Decoded whole-body comparison now shows
+only two differences: target/source SIB operand order at4a5 and4dc. Pointer
+addition forms did not change them. This is NOT permission to accept equivalent
+encodings, change an ABI or emit bytes. Source-level equality remains required.
+
+Other bounded attempts actually compiled: shared negative-return goto gives
+CompareRead65/difference30 unchanged; result-variable form gives63/difference9.
+Refreshing a scalar input temporary gives Process1717/difference1000; reverted.
+Refreshing a pointer temporary gives1715/difference1173; reverted to the closer
+direct-index form. Unsigned-long local producer counter does not fix the two
+remaining SIB differences. No compiler-impossibility claim follows.
+
+Score first draft645/difference7; target-backed cached first-pass register
+offset, count guard and intrinsic memset initialization produce current647.
+Read bestScore/bestReg declaration ordering still gives691/difference38.
+These attempts are neither matches nor accepted bytes.
+
+A real /G5,/G6,/G7 compile/probe batch completed. /G5 and/G6 retain the pointer
+temporary Process1715/difference1173 and current Score/Read sizes. /G7 changes
+Map246, ReadCount383, Begin1733 and callback ABI/code and still fails Process.
+All three packets pin source878cabff43af3b2b9b9d9886fc258efd6ac9939323194df757a41eae98594c35;
+that exact tested source is retained as baseline_cpu.cpp. They are historical,
+not current-source proof. Do not repeat that CPU sweep or silently promote it.
+
+PINNED SDK90: Score uses4 components unless argument flag80000000, cap17
+scalar/vector flags4/2 or producer IsSpecial require1. Cost fields penalize
+copy mismatches in bits29+, parity preference bit28 and component search bit24.
+Read failure on committed allocation calls cdecl Error(node3c,4004,
+"program too complex; there are more active values than registers") and
+returns80004005. Noncommitting failures still return80004005 without logging.
+Read's linked-list insertion compares lastRead58 and links through remap30;
+relative8 allocation recurses with no preference/explicit binding. Names remain
+descriptive; known target behavior must not be fixed during reconstruction.
+
+The extracted clean4/424 helper cohort now passes all local V2/V3/CPU gates.
+Its sole full aggregate is live; keep these larger drafts separate from its
+frozen inputs. Owner requested a checkpoint pause, so no new source batch is
+started after the current audit. On resume inspect actual first differences,
+not another random flag sweep. The35% goal and whole-file identity are unfinished.
+
+## Latest corrected snapshots and resumed work
+
+The helper audit completed PASS, accepting424 bytes. Owner revoked the pause
+and resumed through32%. Larger drafts still contribute zero bytes.
+Current primary source20918231b2f30a84d3a2ba2edb372448b0a7c6f5897e355d22af94df4ba3933f;
+probe b731619d139fd5f135e14a7ddede6f2874dc78d520a03adec4302c7f0de5323e.
+Group source d579347e0b65680385d06be918522aa805c64121d899f31c33c18abf3292aad9;
+probe64e3038be168e3e383313bd4704b4f8f62d76000d7756ab707555e772a08b9a0.
+Both fresh compiles95332 and probes60766 completed exit0. Group contains four
+genuine read/write definitions that retain their previous1112 bytes; duplicate
+credit is zero. They do not resolve Process's two SIB operand-order differences.
+Primary pointer refresh gives Process1715/diff1173; group direct array gives
+1715/diff1191. Both corrected Error to SDK-protected cdecl (IAA...ZZ).
+This does not change masked bodies but restores the real callee identity.
+Further source work belongs in codex32_program_allocation, not frozen helper
+or driver packets. No equivalent-encoding or compiler-impossibility waiver.

@@ -52,3 +52,5 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 | target/scratch/codex35_transform_bubble/* | Codex | 2026-10-03 | Target-backed Bubble1170 and isolated ReverseInsts74 source group; drafts only, all live audit inputs frozen |
 | target/scratch/codex35_register_pool/*, target/src/codex_shader_register_pool/* | Codex | 2026-10-03 | SDK90 register-pool scheduling cohort; target-backed drafts and strict fresh proof only, other workers' inputs unchanged |
 | target/scratch/codex35_pool_helpers/*, target/src/codex_shader_pool_helpers/* | Codex | 2026-10-03 | Four complete pool/phase helper candidates424 in isolated full-proof/link/CPU pipeline; larger register-pool draft excluded |
+| target/scratch/codex32_program_drivers/*, target/src/codex_shader_program_drivers/* | Codex | 2026-10-03 | Target-backed optimizer/vectorization/link/phase driver cohort for32% checkpoint; isolated source and strict byte/binding/link/CPU gates |
+| target/scratch/codex32_program_allocation/* | Codex | 2026-10-03 | Isolated target-backed register/phase experiments; never edit frozen driver proof inputs |

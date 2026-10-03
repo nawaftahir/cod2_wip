@@ -1,6 +1,6 @@
 # Register-pool helpers checkpoint — 2026-10-03
 
-Status: V2 REVIEWABLE, CPU PASS, **V3 DEFER / zero aggregate credit**.
+Status: **V2 REVIEWABLE, V3 PASS, CPU PASS; aggregate pending**.
 Clean candidate: ../../src/codex_shader_pool_helpers/pool_helpers.cpp.
 No unmatched larger methods are in this file. Complete definitions:
 
@@ -28,7 +28,7 @@ cases, zero differences,954 successful compiles per side and330 diagnostic
 cases per side. Both packet input sets were independently rehashed current
 at this checkpoint. CPU equality does not establish whole-file or GPU proof.
 
-## Actual regression failure — do not skip
+## Historical regression failures — now resolved
 
 V3 session50698 first failed a byte-total assertion:34001 was an incorrect
 expectation; the retained33039 plus new424 equals33463. The wrapper now uses
@@ -37,11 +37,17 @@ expectation; the retained33039 plus new424 equals33463. The wrapper now uses
     table_proof = load(HERE / 'vtables.py', 'node_table_proof')
     FileNotFoundError: codex35_pool_helpers/vtables.py
 
-No successful link_packet.json or626-retaining622 claim exists. The existing
-parent table and SDK-binding proofs must be dispatched against the NEW linked
-image, with the appropriate prior metadata packets, not omitted or run only
-against the old DLL. check_link.py currently documents the attempted pipeline,
-not acceptance. Tool changes invalidate pinned inputs; rerun affected gates.
+The missing dispatch is now supplied by small hash-pinned vtables.py and
+sdk_binding.py wrappers around the existing complete proofs. The table proof
+uses prior typed metadata packets but checks actual storage, relocations,
+entries, owner objects and callee destinations in the NEW helper image. No
+table or binding gate was removed and the earlier image is not substituted.
+
+Fresh V2 session26958 ended exit0 after adding both wrappers. Fresh V3
+session68494 ended exit0:626 private linked source matches, all622 preceding
+matches retained, no losses. Fresh CPU session3906 ended exit0:1284 cases,
+zero differences. All three complete packet input sets were rehashed current.
+Their actual link_packet.json is retained. No whole-DLL identity is claimed.
 
 ## Replay / resume
 
@@ -53,7 +59,17 @@ From gfx/target:
 
 Build command uses the existing pinned4035 compiler image and build.sh,
 read-only SDK mount, as in the retained prior program-order cohort.
-Finish metadata dispatch, rerun all affected gates and rehash recorded inputs.
-Only after V3 passes add the exact4/424 cohort to tools/check_ten_percent.py
-and run one aggregate. Current confirmed aggregate345492/1089680 remains
-31.705822%; there is no live audit and no whole-file identity claim.
+The exact4/424 cohort is now added to tools/check_ten_percent.py with all nine
+tool hashes, exact address/length identities and the existing complete gates.
+One full audit is live: process32299/session47013, aggregate.log. Do not restart
+it, edit any accepted proof inputs or credit its expected result before terminal
+PASS/exit0. Confirmed aggregate345492/1089680 remains31.705822% until then.
+The owner initially requested pausing after this checkpoint.
+
+## Terminal aggregate acceptance and resumed work
+
+Process32299/session47013 completed terminal PASS/exit0. The retained
+aggregate.log accepts424 new disjoint source bytes:345916/1089680 =31.744732%.
+No expected result was counted before this PASS. All three packet input sets
+were rehashed current after the audit. The owner revoked the checkpoint pause
+and requested continuing through32%;2782 additional verified bytes are needed.

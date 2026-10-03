@@ -2,15 +2,64 @@
 
 Owner resumed work explicitly. The active target remains
 **35% verified source coverage**; the earlier pause is revoked.
-Fresh full aggregate PASS confirms **345,492 / 1,089,680 =
-31.705822%**. The latest replay accepts public ordering962, in addition to
-transform helpers885, driver1129 and predicate ordering573.35% needs35896 further bytes.
+Owner subsequently revoked the checkpoint pause and requested working through
+at least **32% verified coverage** next. Do not pause under the older notes below.
+32% requires348698 bytes; confirmed345916 leaves2782. Preserve the
+longer-term reconstruction objective. The helper audit finished PASS/exit0.
+Fresh full aggregate PASS confirms **345,916 / 1,089,680 =
+31.744732%**. The latest replay also accepts all four pool helpers/424 bytes.
+35% needs35472 further bytes.
 No table/opaque dependency credit or whole-DLL/GPU claim.
 
 Earlier source checkpoint commit: `cc5d411` (verified clean source, proof tools and docs;
 unrelated user/Claude changes left untouched). Goal stays active, not paused.
 
 ## Latest continuation checkpoint — 2026-10-03
+
+### Pool helpers accepted; owner resumed through 32%
+
+Process32299/session47013 completed terminal PASS/exit0. Completed log:
+target/scratch/codex35_pool_helpers/aggregate.log. All three helper packet input
+sets remain current. Accepted total345916/1089680 =31.744732%; no audit live.
+The older checkpoint-pause instructions below are revoked by the latest owner
+message. Continue through32%, keeping the longer-term35% objective unfinished.
+
+New isolated driver source is target/scratch/codex32_program_drivers/drivers.cpp.
+Link91 and Optimize638 match full sections in discovery; Vectorize267 differs33.
+Neither discovery match is accepted yet. Promote only matched definitions into
+clean source and retain full typed binding, boundary, regression and CPU gates.
+Link's terminal tail jump is to the SDK-private DeadLinkRemove; confirm this
+named edge rather than dropping the terminal-boundary test globally.
+
+The two clean driver definitions now PASS full V2, V3/628 retaining626 and
+1284 complete CPU outputs. All three packet input sets rehashed current.
+New full aggregate session43146 is running at
+target/scratch/codex32_program_drivers/aggregate.log.729 remains uncredited
+until terminal PASS/exit0. Only one full audit; do not restart it.
+New register/phase drafts are isolated in codex32_program_allocation so they
+cannot stale the driver packets. Their current lengths are not matched credit.
+
+### Continuation: helper gates complete, checkpoint pause requested
+
+Confirmed coverage remains345492/1089680 =31.705822%. Four helpers424 now
+pass fresh V2, V3/626 retaining622 and1284 complete CPU comparisons; all three
+packet input sets were independently rehashed current. Metadata dispatch reuses
+complete existing table/binding gates on the NEW image, not the prior image.
+One audit is live: process32299/session47013, log
+target/scratch/codex35_pool_helpers/aggregate.log. tools/check_ten_percent.py
+now includes the exact4/424 cohort and all9 tool hashes. No credit until PASS.
+
+Larger register-pool source now includes Score/Read algorithms. Current fresh
+sizes: Score647/630, Read691/712, Process1715/1715, Begin1739/1739; none
+matches. Process's unsigned branch fix leaves only two SIB encoding differences
+at4a5/4dc. Read the expanded REPORT before repeating attempts; current source
+and an exact historical CPU-batch baseline are retained separately.
+
+Owner explicitly requested **pause when this checkpoint is reached**. Do not
+start more reconstruction. Finish the existing audit, record its actual result,
+save owned source/evidence/docs, then mark the goal paused. Leave other agents'
+changes intact; no push or release-tree write. This section supersedes the
+missing-dispatch/pending-tool statements in the previous checkpoint below.
 
 ### Owner-requested register-pool checkpoint — 2026-10-03
 

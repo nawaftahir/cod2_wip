@@ -212,6 +212,8 @@
     "gfx/target/scratch/codex30_cpp/obj/mt/new.obj": "b50d9802dcd8d135e5159c0de26fff5cf8bd43e99af1244bd609d743ebb8723a",
     "gfx/target/scratch/codex30_cpp/obj/mt/delete.obj": "aead5eabbcdf9cd490a1d80ae60de7cdce13269a57372dedc055c055a000da24",
     "gfx/target/scratch/codex35_pool_helpers/compile_clean_test.sh": "8e8931ddb1f1bc55d74c34ea8d40b7696cf06ddd3fbecd287e7899c3848b1a1f",
+    "gfx/target/scratch/codex35_pool_helpers/vtables.py": "c19905ccf2adabca7ae8b409e51612d6ad2d9b3618ed26f02c2338cc5c5913c7",
+    "gfx/target/scratch/codex35_pool_helpers/sdk_binding.py": "a31793828d45674b6f4be5b81bb8d2dba75f7f4742412e9bd073c2d69cf01606",
     "gfx/target/scratch/codex35_pool_helpers/select_link_dependencies.py": "1d09beb13fd8f5422bad5389bde8c1d014a610d1b80d48f8bd743863035c61c8",
     "gfx/target/scratch/codex35_pool_helpers/build.sh": "951d914fc257caaba29233fd2b8f1a8228c530b50a395f9e7b0332efeb444651",
     "gfx/target/scratch/codex35_pool_helpers/check.py": "d6bd1f72e413cafd010fdaa3b64f679622846d689eae43d463b9ee9dd5d0d2fc",
