@@ -1,5 +1,12 @@
 # Where to inspect renderer source
 
+Latest pause checkpoint: clean source/evidence saved in `246b910`, confirmed
+31.811633%. Old audit3787 stopped without a terminal result. Replacement full
+audit13323/process23905 is live at
+`target/scratch/codex32_argument_helpers/aggregate_resume.log`; inspect it first
+on resume. The four-cohort2,095-byte increment and32.003854% remain unaccepted
+until terminal PASS/exit0. No new source was added during this continuation.
+
 The current buildable renderer working tree is [`target/verified/src/`](target/verified/src/).
 `gfx_d3d/` contains renderer C++; `universal/` contains shared engine C++.
 `tus.txt` selects the files built by `target/closed.mk`; `roots.txt` lists interim

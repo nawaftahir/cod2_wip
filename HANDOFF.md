@@ -1,5 +1,32 @@
 # Shared renderer handoff — 2026-10-03
 
+## Latest requested pause — audit continuation checkpoint
+
+Source/evidence checkpoint `246b910` is saved. No new reconstruction was made
+during this continuation. Confirmed coverage remains **346,645 / 1,089,680 =
+31.811633%**; four later cohorts / 2,095 bytes remain aggregate-pending.
+
+The old audit session3787 is unavailable, process125717 is absent, and its
+`target/scratch/codex32_argument_helpers/aggregate.log` has no terminal PASS or
+recorded exit status. It stopped during the earlier compiler cohort; the cause
+is unknown. Its partial log is preserved, not overwritten or treated as proof.
+
+One replacement full audit is live: **session13323, process23905**, log
+`target/scratch/codex32_argument_helpers/aggregate_resume.log`. The latest
+read-only poll shows the earlier assembler linked regression running. All15
+driver/new-cohort proof packet input sets were independently rehashed current;
+the14 new definitions account for2,095 bytes without internal overlap. Global
+overlap, total and regression acceptance still require this full audit's PASS.
+Expected **348,740 / 1,089,680 = 32.003854%** remains UNCONFIRMED.
+
+Owner requested checkpoint and pause again. Leave the current audit running;
+do not start another or change frozen inputs. On resume, inspect session13323,
+process23905 and the new log first. A missing process or partial log is not
+success. Check terminal exit0/PASS before updating coverage. Clean source remains
+under `target/src/`; unmatched allocation experiments remain isolated scratch.
+No source changes, release-tree writes, new tooling or push in this continuation.
+Older audit handles and active-state statements below are historical.
+
 Owner now requested **checkpoint and pause until usage refills**. This newest
 instruction supersedes the earlier continue-through32% request. Do not start
 more reconstruction. Save current source/evidence and resume the already

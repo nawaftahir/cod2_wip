@@ -1,0 +1,6 @@
+Checking pinned base and complete source cohorts
+Checking codex30_assembler: complete byte proof and linked regression
+Checking codex30_support: complete byte proof and linked regression
+Checking codex35_lexer: complete byte proof and linked regression
+Checking codex35_preprocessor: complete byte proof and linked regression
+Checking codex35_compiler: complete byte proof and linked regression

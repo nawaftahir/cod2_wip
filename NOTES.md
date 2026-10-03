@@ -765,3 +765,14 @@
   remains unconfirmed until terminal PASS. No source,ABI or comparison waiver.
 - Owner requested immediate checkpoint/pause, overriding continue-through32%.
   Save current proofs and inspect live audit3787 result first on next resume.
+## Codex32 audit-continuation checkpoint — 2026-10-03
+
+- Old audit3787 has no reusable handle, process125717 is absent, and its partial
+  log has no terminal PASS/exit status. Cause unknown; no new coverage accepted.
+- Replacement full audit13323/process23905 is live at
+  target/scratch/codex32_argument_helpers/aggregate_resume.log. Latest poll:
+  earlier assembler linked regression. Leave it running during requested pause.
+- All15 driver/new-cohort packet input sets independently rehashed current.
+  Fourteen new definitions2,095 bytes are internally disjoint; only full audit
+  establishes global disjointness/acceptance. Confirmed31.811633%, expected
+  32.003854% pending. No new source/tooling or release-tree mutation.
