@@ -1,5 +1,23 @@
 # Shared renderer handoff — 2026-10-04
 
+## Owner-requested checkpoint — 13:13 UTC
+
+Reconstruction work stops at this checkpoint; the existing read-only aggregate
+is left running, not cancelled. Source and proof checkpoint: **0d85cce**.
+Accepted coverage remains **353882/1089680 = 32.475773%**; 35% is not reached.
+The three clean candidate cohorts below total 1213 globally pending bytes.
+Fresh checkpoint rehash passed all nine packets / 1328 recorded file identities
+with zero mismatches. This checks current evidence, not a fresh build or global
+acceptance. All 1213 accepted would yield **32.587090%**, not 35%.
+
+Audit PID 5151 was live at 58:18 elapsed, last log entry
+`Checking codex32_program_diagnostics`. No terminal PASS observed. Inspect
+`target/scratch/codex35_shader_conversions/aggregate.log` and process status on
+resume; do not assume this live status persists. Do not restart or alter its
+inputs while it runs. The next action is to independently review the completed
+audit before counting any new bytes, then integrate the buffer/cast cohorts
+under the same gates. No whole-DLL checksum identity or release claim.
+
 ## Continuation after b5ad733 — clean buffer/cast cohorts
 
 Accepted total still **353882/1089680 = 32.475773%**,35% unfinished.
