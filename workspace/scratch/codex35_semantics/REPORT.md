@@ -55,3 +55,12 @@ adds bytes. Their fresh diagnostic packets retain source/object identities.
 Resume from these exact differences; do not rerun identical helper, C-front,
 array-scope or flag variants. No fresh CPU fixture, V3 or aggregate acceptance
 is claimed for any semantics, sampler or merge draft.
+
+Continuation: output_preincrement.cpp moves VS3 cursor advancement to the
+loop entry, output805/806 firstdiff17; output_outer_guard.cpp adds the genuine
+outer non-null control scope, output815/806 firstdiff17. Both fresh compiler
+builds and source/object diagnostic identities are retained. Neither fixes
+the callee-save/return differences or matches the complete target body.
+Initial extraction omitted the function signature line and failed compilation;
+the corrected complete files compiled successfully before these diagnostics.
+No new accepted bytes; do not repeat the identical forms.

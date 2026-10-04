@@ -1,5 +1,27 @@
 # Shared renderer handoff — 2026-10-04
 
+## Active35% continuation — after0f5b6e1
+
+Accepted total remains353882/1089680=32.475773%;27506 bytes short of35%.
+No new source bytes were accepted this continuation. New full unary-math and
+unswizzle optimizer drafts are in target/scratch/codex35_unary/, with fresh
+pinned-image compiles and hash-recorded diagnostics. Unary1737/1841 and best
+unswizzle756/755 are UNMATCHED. Real compaction caller/callee grouping retains
+existing matches but leaves CompactRegisters933/922 unmatched. Read that
+folder's REPORT.md before retrying. The new parser control-flow forms remain
+unmatched805/806 and815/806; do not repeat those identical forms.
+
+Guarded replay12321 PASS/exit0, unchanged353882. Independent posthash passed
+36 states/environment,109 authoritative packet sets,14688 identities and anchor.
+New reviewed snapshot is codex35_shader_comment/reviewed_inputs.json, hash
+d6ce6478d0162b0c9973048bb42fb997d81731b1f33d213bfed1d05a8b560657.
+The driver now pins it; wrong certificate/state/closure, simulated source
+mutation and unknown-cohort tests reject. See REUSE_REVIEW.md there. Reuse is
+historical proof, not fresh CPU execution; it adds zero bytes. New proof-tool
+closure changes still invalidate reuse and require a reviewed cold audit.
+No compiler/audit job remains live;35% goal remains active and unfinished.
+The older stale-certificate warning below is superseded by this new snapshot.
+
 ## Latest owner-requested checkpoint — 2026-10-04
 
 Accepted coverage: **353882/1089680 = 32.475773%**. Cold aggregate17239

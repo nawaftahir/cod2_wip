@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?SimplifyUnary@CProgram@D3DXShader@@AAEJPAVCInstruction@2@II@Z",
+      "object_bytes": 1737,
+      "target_bytes": 1841,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/unary.cpp",
+  "source_sha256": "88bd856b8fbd5e09a296d840e03aeacccd484a6b4f8bc192bbd3aba5bbf08479",
+  "object_sha256": "b510c393dbf18168167580820ddb57c824b5e35fc4192f5610e02a9817106d82"
+}

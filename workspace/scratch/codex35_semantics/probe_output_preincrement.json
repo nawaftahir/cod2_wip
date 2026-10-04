@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "_D3DXGetShaderOutputSemantics@12",
+      "object_bytes": 805,
+      "target_bytes": 806,
+      "first_difference": 17,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_semantics/output_preincrement.cpp",
+  "source_sha256": "462ecc934674b5760ff6a615e6d900edad984d04b27ded04e896cbd760f03851",
+  "object_sha256": "6f34f5ceda46b2120bd0cb49e7c30293ba9dd8b4fd5e9cc269cbefc87fe4c790"
+}

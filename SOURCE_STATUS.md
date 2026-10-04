@@ -1,5 +1,12 @@
 # Where to inspect renderer source
 
+Continuation after0f5b6e1: accepted coverage stays32.475773%. New unary and
+unswizzle complete source drafts live only in scratch/codex35_unary/; their
+fresh compiles do NOT match and add zero coverage. No clean source promotion.
+The refreshed36-cohort reviewed cache passed guarded aggregate12321 and
+posthash; it saves unchanged-proof replay work, not reconstruction bytes.
+See [current handoff](HANDOFF.md).35% remains active and27506 bytes short.
+
 Latest checkpoint,2026-10-04: **353882/1089680 = 32.475773% verified**.
 Cold aggregate17239 finished PASS/exit0; independent posthash passed36 cohort
 pin sets,109 authoritative packets and14688 recorded identities. No jobs live.

@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "_D3DXGetShaderOutputSemantics@12",
+      "object_bytes": 815,
+      "target_bytes": 806,
+      "first_difference": 17,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_semantics/output_outer_guard.cpp",
+  "source_sha256": "944d0d71033753d3c436bcfd4903784d33861e59307fb715cd4dd0a91e804688",
+  "object_sha256": "e420c89f1a5af01564c5ccd94a2ad35a83fbef0ad40a24804dec4f474c9427e4"
+}

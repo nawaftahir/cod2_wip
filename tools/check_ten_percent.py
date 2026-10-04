@@ -63,8 +63,8 @@ def main():
         cache_tool = GFX / 'tools/reviewed_cohort_cache.py'
         assert sha(cache_tool) == '79fd2b6d74e659346a88f9dacbff65a735bd470b55093b391e8c21e9d7a791d1'
         from reviewed_cohort_cache import load, reusable
-        reviewed_cache = load(TARGET / 'scratch/codex35_pool_reads/reviewed_inputs.json',
-                              '439c658a277452edaa9d083703411028c489180d649892697f2ccf3732b3c17b')
+        reviewed_cache = load(TARGET / 'scratch/codex35_shader_comment/reviewed_inputs.json',
+                              'd6ce6478d0162b0c9973048bb42fb997d81731b1f33d213bfed1d05a8b560657')
     assert sha(ANCHOR) == ANCHOR_SHA
     assert sha(TARGET / 'src/codex_drawgroups/gfx_d3d/r_splitscreen.cpp') == (
         '10601fdeb692bc831120dfc53121894bf1c7185205c5de6c4d5052b0b4e1ea9a')

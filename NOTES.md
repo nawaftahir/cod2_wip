@@ -984,3 +984,24 @@
 - Final cold aggregate17239 PASS/exit0 accepts the separate comment parser231:
  353882/1089680=32.475773%. Posthash36 pin sets,109 packet sets,14688 identities
   and retail anchor current. No audit/compiler job live at this checkpoint.
+
+## Codex35 unary and swizzle target facts — 2026-10-04
+
+- PINNED SimplifyUnary1841 at1008d966 loads its constant-pool operand from
+  program+78h, poolIds[1] in the reused prefix, not poolIds[0]/74h. Initial
+  draft mistake corrected before any acceptance request. Error sites use
+  instruction node+3ch, cdecl program this,4002/logarithm,4003/square root,
+  4005/arcsine,4006/arccosine and the literal SDK message strings.
+- PINNED Unswizzle755 at10089055 traverses argument+34h as an alias-ring
+  next link in this pass, validates relative2/link ancestry and excludes
+  writer==0 from distance scoring (not writer==~0u). The fallback copies
+  the original instruction context, allocates a new vector, splices ring
+  links and inserts its new identity-copy instruction. Do not fix those
+  historical behaviors during matching.
+- Full new readable bodies and precise fresh diagnostics are preserved in
+  codex35_unary. Unary1737/1841, swizzle756/755 and real grouped compaction
+ 933/922 remain UNMATCHED and uncredited. No marker/assembly/ABI shortcut.
+- Reviewed snapshot refreshed only after completed cold audit and independent
+  posthash. Guarded replay12321 PASS/exit0,36 unchanged historical reuses,
+ 109 packets/14688 identities current, same353882 bytes. It is not fresh
+  CPU proof and is invalidated by new proof-tool closure changes.

@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?SimplifyUnary@CProgram@D3DXShader@@AAEJPAVCInstruction@2@II@Z",
+      "object_bytes": 1737,
+      "target_bytes": 1841,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/unary_remap.cpp",
+  "source_sha256": "d63db18dbf11e5bdd56095b45a6e7ac3f29de3c32d6bb33dfdd7dd5b08d291be",
+  "object_sha256": "d9e55db2ddd139c02f79df4c238a4e7cbfcb6b05cdbe4daa42e7d572c2369466"
+}
