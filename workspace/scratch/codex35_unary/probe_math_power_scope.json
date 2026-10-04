@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitPow@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 1073,
+      "target_bytes": 1068,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitATan2@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2090,
+      "target_bytes": 2086,
+      "first_difference": 68,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/math_power_scope.cpp",
+  "source_sha256": "6d14e6e2d624ddd5a50dfdf903d4925ddb721f1d5709846fa8455e4f0dd07733",
+  "object_sha256": "01b541b889ba0bd682d1c01fc25f13f17017a0c11f3c81186f1d178ca46cf14a"
+}

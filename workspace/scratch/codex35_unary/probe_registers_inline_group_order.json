@@ -1,0 +1,48 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?RemapArguments@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 224,
+      "target_bytes": 224,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "??_GCArgument@D3DXShader@@QAEPAXI@Z",
+      "object_bytes": 32,
+      "target_bytes": 32,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_End@CProgram@D3DXShader@@IAEJPAU_D3DXCP_DATA@2@@Z",
+      "object_bytes": 161,
+      "target_bytes": 161,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactArguments@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 249,
+      "target_bytes": 249,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactRegisters@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 932,
+      "target_bytes": 922,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/registers_inline_group_order.cpp",
+  "source_sha256": "2e547f5db27c165e238b80d7ab45ff5ba541f59e202efbbd65d108112f1e0e0a",
+  "object_sha256": "7b6dd7275cc40529e5ec3e74691fb1b0a55755777645b7b348df700810e9a47f"
+}

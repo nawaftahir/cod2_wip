@@ -1,0 +1,40 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+      "object_bytes": 28,
+      "target_bytes": 28,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2222,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitPow@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 1072,
+      "target_bytes": 1068,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitATan2@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2083,
+      "target_bytes": 2086,
+      "first_difference": 68,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/math_power_scope_group.cpp",
+  "source_sha256": "f2181a45cd8a59ccee7b2aeb2b2b6c867025809855e38c59b396fe305d6f79b8",
+  "object_sha256": "69a5340ca4b2aaee095549737cbcd7115c758d6299331a0715e7d3ccb059500c"
+}

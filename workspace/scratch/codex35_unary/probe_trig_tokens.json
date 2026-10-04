@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2218,
+      "target_bytes": 2210,
+      "first_difference": 28,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_tokens.cpp",
+  "source_sha256": "980a73e6cb072f9b9906861dd03c84aabb07eece8cbb5621465a6020f517c428",
+  "object_sha256": "0c1be5bc264c71640a8ca4011945924cc4470c87eb17e5e1b97b973ca2f36b3e"
+}

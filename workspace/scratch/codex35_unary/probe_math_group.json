@@ -1,0 +1,40 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+      "object_bytes": 28,
+      "target_bytes": 28,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2222,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitPow@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 1080,
+      "target_bytes": 1068,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitATan2@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2090,
+      "target_bytes": 2086,
+      "first_difference": 29,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/math_group.cpp",
+  "source_sha256": "317a79b44b26f64a86fe0981f1a92f386aea8f181647fdbb5d73a71ac8fdbfd6",
+  "object_sha256": "121711c16b49ccacfca970062ce06d66813b633cd08892633ff54efd640361c9"
+}

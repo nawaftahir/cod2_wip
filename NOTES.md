@@ -1022,3 +1022,28 @@
 - Checkpoint input recheck:36 cohort pins/states, full reviewed environment,
   audit hash and both fresh draft source/object identities current. Historical
   proof reuse only, no fresh CPU claim. Accepted353882/32.475773%, zero gain.
+
+## Codex35 complete math draft checkpoint — 2026-10-04
+
+- PINNED SDK73/target scopes SinCos2210 at1006edd4, Pow1068 at100707c3,
+  ATan2/ATan2086 at1006fbf4. New full ordinary C++ lives in codex35_unary,
+  remains unmatched:5364 candidate bytes, ZERO accepted coverage.
+- PINNED SinCos reciprocal period is0.15915493866300567,
+  IEEE3fc45f306446f9b4, NOT mathematically exact1/(2*pi). Pi and period are
+  target float values promoted to double. Preserve original polynomial bits.
+- PINNED Pow base-zero/base-one shortcuts precede exponent evaluation;
+  EvalValue has32-bit long return. Raw decompiler uint64/out-EDX is an
+  artifact, not an ABI. ATan2's last EmitInst flags are0 at the actual SDK
+  tail; null x selects atan and native opcodes are206/10c.
+- Fresh selected-source CPU fixtures: standalone SinCos1284/0 differences,
+  three-method math1816/0 (1366 successes450 errors). Independent final
+  posthash passed24 identities each. CPU behavior is NOT byte-match proof.
+  Frozen baselines math.cpp/math.h and trig_ordered.cpp/trig.h must not be
+  overwritten by newer variants while retaining their old fixture claims.
+- Best recorded sizes: standalone SinCos2216/2210 first110; delayed-group
+  ATan22083/2086 first68; scoped/grouped Pow1072/1068 first7. All uncredited;
+  newer variants lack CPU proof. abs-intrinsic Pow has INT_MIN C ceiling.
+  /Zc:forScope- was rejected, not an executed disabled-option experiment.
+- New fixture tools invalidate the old reviewed-cache environment. Old load
+  rejects intentionally; omit --reuse-reviewed and never reseal an old log.
+  Accepted353882/1089680=32.475773%;35% remains27506 bytes short. No jobs live.

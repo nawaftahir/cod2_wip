@@ -1,5 +1,42 @@
 # Shared renderer handoff — 2026-10-04
 
+## Current owner-requested checkpoint — after db9a4ca
+
+Verified coverage remains **353882/1089680 = 32.475773%**. This continuation
+accepted ZERO new bytes; the35% goal remains active and27506 bytes short.
+Whole-DLL checksum identity is unfinished. No compiler, Ghidra or CPU fixture
+job is live at this checkpoint. No release cod2engine files were changed.
+
+New readable source in target/scratch/codex35_unary/math.cpp implements the
+complete SinCos2210, Pow1068 and ATan2/ATan2086 target scopes:5364 candidate
+bytes, not accepted coverage. Fresh selected-source CPU comparisons passed
+1816/1816 cases (1366 successful compiles,450 errors), with identical complete
+outputs. The standalone trig_ordered.cpp passed1284/1284. Independent final
+posthash passed all24 recorded identities in each fixture packet.
+These are behavioral fixtures, NOT byte matching, GPU or whole-file proof.
+
+Baseline math.cpp/math.h and trig_ordered.cpp/trig.h are frozen at their
+fixture hashes. The newer delayed/grouped ATan2 emits2083/2086, firstdiff68;
+scoped/grouped Pow1072/1068, firstdiff7; standalone SinCos2216/2210,
+firstdiff110. ALL remain unmatched and uncredited. Later variants have not
+been CPU-tested. Preserve the original coefficient literals and shortcuts;
+do not repair original behavior or add marker/ABI/padding tricks.
+
+Read target/scratch/codex35_unary/REPORT.md for every bounded experiment,
+fixture replay commands and the next instruction differences. Resume from
+SinCos's initializer/token scheduling or ATan2's coefficient/constant-loop
+storage, not another identical flag sweep. Near-equal sizes are not proof.
+
+IMPORTANT: new fixture tools changed the proof-tool closure. The old reviewed
+snapshot intentionally rejects the current environment. Omit --reuse-reviewed;
+do not reseal it from an old log. After genuine new byte matches and local
+gates, run a reviewed cold aggregate before refreshing that certificate.
+The earlier claim that the full cache environment is current is historical.
+
+Accepted clean source stays under target/src/; new math and optimizer drafts
+stay in target/scratch/. Unrelated agents' dirty files are preserved.
+All checkpoint/live statements below are historical.
+
 ## Owner-requested checkpoint — after88bb176, 2026-10-04
 
 Verified coverage is **353882/1089680 = 32.475773%**. No new bytes were

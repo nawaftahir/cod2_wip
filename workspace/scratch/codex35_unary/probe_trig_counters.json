@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_counters.cpp",
+  "source_sha256": "cff1bf09aae6f06fad4755dfce819041c2254a968b805305d3db9cef6a622112",
+  "object_sha256": "f28594f267cacc4435864278665880e5cd797520d07d5a5648c66efaf8a77475"
+}

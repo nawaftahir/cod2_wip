@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_long_initializer.cpp",
+  "source_sha256": "0a2c6a2f506e8bea252f073702d4e38ea595f73543542016169d057ba4d29283",
+  "object_sha256": "4c9558d4360ad16e13c0646b69ca79fdf8d4a6b5e9faa0f250cf0698599772ce"
+}

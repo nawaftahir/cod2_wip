@@ -1,5 +1,16 @@
 # Where to inspect renderer source
 
+Current checkpoint,2026-10-04: **32.475773% verified** (353882/1089680).
+ZERO new accepted bytes after db9a4ca;35% is27506 bytes short and unfinished.
+Accepted source remains in target/src/. New [math source drafts](target/scratch/codex35_unary/math.cpp)
+cover5364 candidate target bytes, but still fail byte matching. Fresh selected-
+source CPU fixtures passed1816 cases with identical outputs; independent final
+posthash passed24 identities. This does not increase verified coverage.
+Read [the current handoff](HANDOFF.md) and [attempt report](target/scratch/codex35_unary/REPORT.md).
+New fixture tools invalidate the old reviewed-cache environment; a reviewed
+cold aggregate is required before resealing. No jobs live, no clean promotion,
+no whole-DLL checksum match. All lower checkpoint claims are historical.
+
 Latest saved checkpoint,2026-10-04: **32.475773% verified source coverage**
 (353882/1089680 bytes). Unchanged since88bb176;35% needs27506 more bytes.
 Clean accepted source is under target/src/. New pool-type unary/swizzle

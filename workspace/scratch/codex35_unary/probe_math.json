@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitPow@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 1081,
+      "target_bytes": 1068,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitATan2@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2097,
+      "target_bytes": 2086,
+      "first_difference": 29,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/math.cpp",
+  "source_sha256": "113fb981d670befe1cfbdc1b6010b16c50457eb9ec1914c503af4bdbb5ad910c",
+  "object_sha256": "f12cfdb51e77d8099ba1eba6c22abe92710936dd0f1ff49a4776599be600de35"
+}

@@ -1,0 +1,48 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?RemapArguments@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 224,
+      "target_bytes": 224,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "??_GCArgument@D3DXShader@@QAEPAXI@Z",
+      "object_bytes": 32,
+      "target_bytes": 32,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_End@CProgram@D3DXShader@@IAEJPAU_D3DXCP_DATA@2@@Z",
+      "object_bytes": 161,
+      "target_bytes": 161,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactArguments@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 249,
+      "target_bytes": 249,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactRegisters@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 933,
+      "target_bytes": 922,
+      "first_difference": 36,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/registers_postincrement.cpp",
+  "source_sha256": "31fd7c6f31ccf10e35cf69d12dc69df03b4a31854175403c0e3a8f583a65789e",
+  "object_sha256": "668e9cc4a32eaf6d89408bb7efa43749a4612ad60bee0726f4f85244eb9d9251"
+}

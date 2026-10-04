@@ -1,0 +1,144 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?ReadWriteInfo_ReadInfo@CProgram@D3DXShader@@AAEXII@Z",
+      "object_bytes": 206,
+      "target_bytes": 94,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?ReadWriteInfo_WriteInfo@CProgram@D3DXShader@@AAEXII@Z",
+      "object_bytes": 169,
+      "target_bytes": 98,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?ReadWriteInfo@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 1292,
+      "target_bytes": 717,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?ReadWriteInfo_CommitOrigin@CProgram@D3DXShader@@AAEJXZ",
+      "object_bytes": 428,
+      "target_bytes": 203,
+      "first_difference": 2,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?SeparatePhases_Phases@CProgram@D3DXShader@@AAEIXZ",
+      "object_bytes": 286,
+      "target_bytes": 178,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_Map@CProgram@D3DXShader@@AAEIPAU_D3DXCP_DATA@2@III@Z",
+      "object_bytes": 360,
+      "target_bytes": 254,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_ReadCount@CProgram@D3DXShader@@AAEXPAU_D3DXCP_DATA@2@II@Z",
+      "object_bytes": 633,
+      "target_bytes": 387,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_WriteCount@CProgram@D3DXShader@@AAEXPAU_D3DXCP_DATA@2@II@Z",
+      "object_bytes": 55,
+      "target_bytes": 38,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_Write@CProgram@D3DXShader@@AAEJPAU_D3DXCP_DATA@2@I@Z",
+      "object_bytes": 75,
+      "target_bytes": 47,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_End@CProgram@D3DXShader@@IAEJPAU_D3DXCP_DATA@2@@Z",
+      "object_bytes": 231,
+      "target_bytes": 161,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_Score@CProgram@D3DXShader@@AAEIPAU_D3DXCP_DATA@2@IIHPAII@Z",
+      "object_bytes": 905,
+      "target_bytes": 630,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_Read@CProgram@D3DXShader@@AAEJPAU_D3DXCP_DATA@2@IHII@Z",
+      "object_bytes": 1039,
+      "target_bytes": 712,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_Process@CProgram@D3DXShader@@IAEJPAU_D3DXCP_DATA@2@H@Z",
+      "object_bytes": 3070,
+      "target_bytes": 1715,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompareRead@D3DXShader@@YGHIIPBX@Z",
+      "object_bytes": 136,
+      "target_bytes": 65,
+      "first_difference": 1,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompareReadIndex@D3DXShader@@YGHIIPBX@Z",
+      "object_bytes": 91,
+      "target_bytes": 56,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompareReadStable@D3DXShader@@YGHIIPBX@Z",
+      "object_bytes": 52,
+      "target_bytes": 33,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CompactPool_Begin@CProgram@D3DXShader@@IAEJPAU_D3DXCP_DATA@2@II@Z",
+      "object_bytes": 3152,
+      "target_bytes": 1739,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/../codex32_program_allocation/process.cpp",
+  "source_sha256": "d579347e0b65680385d06be918522aa805c64121d899f31c33c18abf3292aad9",
+  "object_sha256": "92507ea7d81563db5cc1204a186324f4a6504e14695b74860c5c611d8a113196"
+}

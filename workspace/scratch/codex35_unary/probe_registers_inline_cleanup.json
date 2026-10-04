@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?CompactRegisters@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 929,
+      "target_bytes": 922,
+      "first_difference": 36,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/registers_inline_cleanup.cpp",
+  "source_sha256": "3bd90746613f47259c5ad10c9b2b1823d9b102ad254162970d102a4a0a7ecf03",
+  "object_sha256": "0a15a2f62bf9e39511ec9b02a9709dfd9843975c0fcd09b430fa2d6889c45ae5"
+}

@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+      "object_bytes": 28,
+      "target_bytes": 28,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2223,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_post_initializer_group.cpp",
+  "source_sha256": "b449ae14331d2ab382875ad2805846f4fa4e8560758946c26917a9295701d6a9",
+  "object_sha256": "9c707f574ac5dbaa43f7da8bcce612ef4bc0f458ea12a1102039b76c46a75911"
+}

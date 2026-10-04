@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2218,
+      "target_bytes": 2210,
+      "first_difference": 26,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_fields.cpp",
+  "source_sha256": "772f4c2b7c44d7a29766d26e43e7c6ad313c1cd4e7a6149b64b6957816913925",
+  "object_sha256": "dd4cafae070276dd5661ab6b08d636f9e7f1c06ebd7862d9f4ecd3c605693fb2"
+}

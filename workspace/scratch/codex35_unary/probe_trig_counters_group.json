@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+      "object_bytes": 28,
+      "target_bytes": 28,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2222,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_counters_group.cpp",
+  "source_sha256": "ffdbc60db5d7007d9f5edbb5de92428af48aefd5b9e9b18c2d0988a5e6d9bfb3",
+  "object_sha256": "55da54399b978f99791ca43448809a806254ca03932a96d4d6038a5fd73fc658"
+}

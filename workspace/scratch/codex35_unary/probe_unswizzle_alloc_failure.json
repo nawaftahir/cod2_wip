@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?PropagateSwizzles_Unswizzle@CProgram@D3DXShader@@AAEJIPAII0@Z",
+      "object_bytes": 759,
+      "target_bytes": 755,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/unswizzle_alloc_failure.cpp",
+  "source_sha256": "75d3d329da9fa8b2e71535430f39c31d6694157bedbce835b0e6266972966f6f",
+  "object_sha256": "872dd6228d523591c82fe26dba17f9be54593ad6085471a1c12de293266436f5"
+}

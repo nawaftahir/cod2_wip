@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitPow@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 1081,
+      "target_bytes": 1068,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitATan2@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2090,
+      "target_bytes": 2086,
+      "first_difference": 68,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/math_delayed.cpp",
+  "source_sha256": "039ce8e84de894fdf46f78f44dc82cf165868c0a64dbbcee75240acafecabfa3",
+  "object_sha256": "b167f7308cda3f36a2dec5f72c6b3a251f6ffde8877b751f3cd6b17a9ec60f76"
+}

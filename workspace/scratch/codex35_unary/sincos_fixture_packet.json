@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "source_credit": 0,
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "cases": 1284,
+  "differing_cases": 0,
+  "successful_compiles": {
+    "original": 954,
+    "source": 954
+  },
+  "first_differences": [],
+  "scope": "CPU-only D3DXCompileShader: complete HRESULT, shader, diagnostic and constant-table buffers; two profiles, optimized/unoptimized, arithmetic, comparisons, casts, intrinsics, assignments, swizzles, array access, function calls and compile errors. Other SDK methods are opaque dependencies; no GPU, allocation-failure, whole-file or byte-match certification.",
+  "files": {
+    "gfx/target/scratch/codex35_unary/trig_ordered.cpp": "33567c8a562a43d618e1a4e29cdb184da63f12706ebd7fbb033043b8adc6f41b",
+    "gfx/target/scratch/codex35_unary/trig.h": "c6eaa13100fee1be54ff30e80bcb53badc1ba019564f49a3d636631e0fe75b8e",
+    "gfx/target/scratch/codex35_unary/compile_trig_fixture.sh": "32ae74a7a65aaa5e3c1d2f6a3dc64999c978ef0d4932ab80f06893dfbe6f77c2",
+    "gfx/target/scratch/codex35_unary/select_trig_dependencies.py": "00190c96c3d907e369ee50b793a48effa3cf1fc2cb1a2151448fe42faa1a208c",
+    "gfx/target/scratch/codex35_unary/dependency_selection.json": "6214b046e0fd8e897e4fa330f0c03296b88aa4625c8092ef1c59fedf95ac7dd1",
+    "gfx/target/scratch/codex35_unary/obj/trig_ordered.obj": "1b85cec38ac9f52e82021c2c635de762451417dc9348c956dbff242bc36d44b0",
+    "gfx/target/scratch/codex35_unary/trig_test.obj": "25348d7db652ab7ab8fdcda7c10765f51db5702f8f87a0c518596394d5600ece",
+    "gfx/target/scratch/codex35_unary/dependencies.lib": "2cb0b0ec13ee5e97e50f8947d52ee46962e396c3422aec49a0c3147b886d98d3",
+    "gfx/target/scratch/codex35_expression/test.cpp": "7de3d1e0bbf8a5a5528e58026bbe89acaee2b945c6456957f27351a6a339f93b",
+    "gfx/target/scratch/codex30_parser/select_dependencies.py": "8fc5e16e488acfd1d675e4970ac921376405858c14914c6bf348ec681b51e692",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/scratch/codex19_dxerr/compiler/cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "gfx/target/scratch/codex19_dxerr/compiler/c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "gfx/target/scratch/codex19_dxerr/compiler/c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "gfx/target/scratch/codex35_unary/run_trig_fixture.py": "dfe82739adc044fc62a1898633bb247780353052fdc38ea8ce06dee83d4f3be8",
+    "gfx/target/scratch/codex35_unary/original.exe": "2685853d2f397674219f5db389cb0a7987854a638678cf5db5eb0e10c855caf2",
+    "gfx/target/scratch/codex35_unary/original.map": "b5c5701571f8a7569748ebf8b9a103b923059ba2b9c65cca574eb17d4bf29cac",
+    "gfx/target/scratch/codex35_unary/original_output.log": "2d821506ca1c875f584041ddc723a4ed6b6bde7de915dcafaa9f16ea6ec05ac6",
+    "gfx/target/scratch/codex35_unary/original_stderr.log": "f42cc6146e62563deb9ffc0860971d586e600860b4a6c0415ec33e90af6868e0",
+    "gfx/target/scratch/codex35_unary/source.exe": "441a205c9d9fcba3d7a3c3461a278037c83bd35b55e88fe6eb5231ba0046d9a7",
+    "gfx/target/scratch/codex35_unary/source.map": "70e10acd1c056667d280ab0322f1650368922069d90110bc29038c53d7f372bf",
+    "gfx/target/scratch/codex35_unary/source_output.log": "2d821506ca1c875f584041ddc723a4ed6b6bde7de915dcafaa9f16ea6ec05ac6",
+    "gfx/target/scratch/codex35_unary/source_stderr.log": "f42cc6146e62563deb9ffc0860971d586e600860b4a6c0415ec33e90af6868e0"
+  }
+}

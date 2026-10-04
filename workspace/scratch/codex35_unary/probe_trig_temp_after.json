@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_temp_after.cpp",
+  "source_sha256": "5a2901cc470a0ddd531e7c439ed2b59da9f2b9da73a3996b61a96932ba4198fa",
+  "object_sha256": "5bb180cbdf50f6e47e402b50fe4d653c8f7935a90fdd5873d53a47f55978a816"
+}

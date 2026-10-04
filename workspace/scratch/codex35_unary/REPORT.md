@@ -102,3 +102,143 @@ At the owner's checkpoint, all36 reviewed cohort pins/states, the complete
 proof environment, audit hash and both new draft source/object hashes were
 rechecked current. Accepted total remains353882/32.475773%; ZERO new bytes.
 No fresh CPU/aggregate run was needed or claimed for these unmatched drafts.
+
+## Continuation after db9a4ca: bounded byte-difference tests
+
+All builds use the same pinned4035 image and base flags recorded above.
+Fresh compiler batches18580,13070,84590 completed exit0. Hash-recorded
+probe_*.json files are DISCOVERY ONLY, not V2 or source acceptance.
+
+| Ordinary source experiment | Emitted / target | First difference |
+|---|---:|---:|
+| registers_inline_cleanup: error label inside first real failure block | 929 / 922 | 36 |
+| registers_inline_order: obtain destination pointer before source ID | 934 / 922 | 5 |
+| registers_inline_group: same cleanup with three actual callees | 927 / 922 | 36 |
+| registers_inline_group_order: grouped plus pointer-load order | 932 / 922 | 5 |
+| registers_uint_loop: unsigned loop index instead of unsigned long | 933 / 922 | 36 |
+| registers_long_count: long retained count and unsigned loop index | 933 / 922 | 36 |
+| registers_postincrement: increment retained count in input assignment | 933 / 922 | 36 |
+| unswizzle_score: repeated target writer expression, inserted > at | 759 / 755 | 7 |
+| unswizzle_parent: capture inner target parent before ancestry walk | 754 / 755 | 7 |
+| unswizzle_alloc_failure: real shared allocation-failure return | 759 / 755 | 7 |
+
+The grouped duplicate callee matches remain224,249,161 and dtor32; all were
+already accepted elsewhere and receive ZERO new credit. Near-equal lengths
+still differ in stack storage, register scheduling and branch encodings.
+
+CompactPool_Process was freshly rebuilt directly from the unchanged complete
+codex32_program_allocation/process.cpp with four extra flag tests. /G5 and
+/G6 retain1715/1715 firstdiff1191; /G7 retains1715 but firstdiff851; /Og-
+grows to3070/1715 firstdiff5. The two original SIB differences are not solved.
+Packets probe_process_g5/g6/g7/ogoff.json record original source and each new
+object hash; source_credit is0. No opaque source dependency was credited.
+Do not repeat these exact forms/flag tests; they do not establish impossibility.
+
+## Complete shader math source — checkpoint after db9a4ca
+
+New ordinary C++ implements complete target scopes EmitSinCos2210 at1006edd4,
+EmitPow1068 at100707c3 and EmitATan2/ATan2086 at1006fbf4:5364 candidate bytes.
+Names/signatures, calls, constants and access prefixes were checked against
+the target and summer-2004 SDK73. Read-only Ghidra exports are research inputs
+under decomp/, never accepted source. No glm _emit transplant was used.
+All new math drafts have ZERO byte-accurate source credit.
+
+math.cpp/math.h are the frozen three-method behavioral baseline. The earlier
+trig_ordered.cpp/trig.h are a separate frozen SinCos baseline. Existing accepted
+CNode definitions are included by the declaration-only path. These headers are
+verified access prefixes, NOT proof of complete compiler allocation layout.
+
+| Fresh source experiment | Emitted / target | First difference |
+|---|---:|---:|
+| trig.cpp initial full SinCos | 2216 / 2210 | 27 |
+| trig_ordered.cpp: target init/comparison/local ordering | 2216 / 2210 | 110 |
+| trig_ordered_group: genuine EmitTemp28 in same TU | 2222 / 2210 | 110 |
+| trig_tokens / grouped: explicit opcode locals | 2218 / 2210;2225 / 2210 | 28 |
+| trig_fields / grouped: opcode bit fields | 2218 / 2210;2224 / 2210 | 26 |
+| trig_counters, temp_after, long_total, long_initializer, int_initializer | 2216 / 2210 | 110 |
+| grouped counters, temp_after, int_initializer | 2222 / 2210 | 110 |
+| trig_post_initializer / grouped | 2217 / 2210;2223 / 2210 | 110 |
+| math.cpp full Pow | 1081 / 1068 | 7 |
+| math_group full Pow | 1080 / 1068 | 7 |
+| math.cpp full ATan2 | 2097 / 2086 | 29 |
+| math_group full ATan2 | 2090 / 2086 | 29 |
+| math_delayed: native branch and opcode construction at first use | 2090 / 2086 | 68 |
+| math_delayed_group ATan2 | 2083 / 2086 | 68 |
+| math_power_scope / grouped Pow | 1073 / 1068;1072 / 1068 | 7 |
+
+/Zc:forScope on grouped counters leaves2222/2210 first110. /Zc:forScope-
+produced D4002 for unknown /Zc:-, so it did NOT test a supported disabled
+for-scope setting. Duplicate EmitTemp28 is already accepted; zero new credit.
+Probe packets are fresh-object diagnostic comparisons, not full V2 gates;
+wrapper packets alone do not pin all included sources. Do not promote them.
+
+PINNED math facts:
+
+- SinCos uses pi3.1415927410125732 and period6.2831854820251465, target
+  single-precision values promoted to double. Its reciprocal-period constant
+  is0.15915493866300567 (IEEE3fc45f306446f9b4), not the mathematical reciprocal.
+  Native flags200 use opcodes108/109; uniform flags100 use5034 with paired
+  cosine/sine slots. Software uses27 temp arrays,15 initialized,16 emits.
+- Pow checks all-base-zero/all-base-one before exponent handling; preserve
+  these original shortcuts. Integer exponentiation, +/-0.5 and general
+  LOG/MUL/EXP paths are present. EvalValue returns32-bit long, not the raw
+  decompiler's uint64/out-EDX artifact. Baseline unsigned absolute-power
+  arithmetic preserves the target wrapping bit path. The newer abs-intrinsic
+  scope variant has the C INT_MIN ceiling; do not treat it as accepted proof.
+- ATan2 handles null x as atan. Native paths use206 and10c. Software retains
+  all48 temporary slots/39 initializations and39 instruction emissions,
+  including unused23..25 slots. Last EmitInst flags are0, confirmed at the
+  actual SDK tail; do not invent a missing argument from decompiled text.
+- CCompiler one/zero index accesses are+20/+24, flags+14. Program accesses
+  are flags+6c, cost+64 and constant label+78. These are target-backed access
+  prefixes, not inferred full class size or newly reconstructed historical TU.
+
+### Fresh behavioral fixtures and limitations
+
+sincos_fixture_packet.json: PASS1284 cases, zero complete-output differences,
+954 successful compiles and330 errors per executable. Link maps bind the
+source method to trig_ordered.obj, not an SDK fallback.
+
+math_fixture_packet.json: PASS1816 cases, zero complete-output differences,
+1366 successful compiles and450 errors per executable. Includes pow variants,
+atan/atan2, scalar/vector/paired SinCos and large angles. Link maps bind ALL
+three methods to math.obj; the selector removes exactly those three SDK
+definitions, leaving other SDK methods opaque and uncredited.
+
+Both compare HRESULT, shader bytes, errors and constant-table output, with
+two shader profiles and optimization on/off. Input mutation/freshness and
+symbol-owner gates are enabled. At this checkpoint independent posthash
+passed all24 identities in EACH packet. These runs are CPU-only, not GPU,
+allocation-failure, exhaustive private-state, byte-match or whole-file proof.
+New delayed/scoped/grouped variants have NOT had these CPU fixtures run.
+
+Replay after freshly compiling the pinned baseline object:
+
+```sh
+python3 target/scratch/codex35_unary/select_math_dependencies.py
+docker run --rm --network none \
+  -v /home/nawaf/cod2/test/dev/gfx/target:/work \
+  -v /home/nawaf/cod2/test/dev/sdk/sum2004:/dxsdk:ro -w /work \
+  sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694 \
+  sh scratch/codex35_unary/compile_math_fixture.sh
+python3 target/scratch/codex35_unary/run_math_fixture.py
+```
+
+Use the same commands with select_trig_dependencies.py, compile_trig_fixture.sh
+and run_trig_fixture.py for the frozen standalone trig_ordered.obj baseline.
+Source compile uses4035 in image17ddd3cc30517bc070c4e1a1d8bec9c4abd0d8b453115dfa0324e7e20dc94131,
+/O1 /Oy- /hotpatch /MT /Gy /d2QIftol; do not reuse stale objects after edits.
+
+Next bounded work: SinCos's temp-init loop counter storage and first multiply
+token construction; ATan2 delayed-group coefficient-local placement and
+constant-fill loop storage. First differences can be branch displacements
+caused by later length changes, not necessarily the originating mismatch.
+Pow still differs in stack/register allocation, not merely its four-byte size
+gap. Do not pad or break ABI to force counts. All original/fresh attempts stay
+available to avoid re-running identical forms.
+
+New fixture .py/.sh files changed the reviewed proof-tool closure. Old cache
+load rejects as intended; no stale reseal or fresh aggregate claim was made.
+After a genuine V2 gain, complete local gates and a reviewed cold aggregate
+before updating that snapshot. Current accepted coverage remains353882/
+1089680=32.475773%,27506 bytes short of35%. No live jobs at checkpoint.

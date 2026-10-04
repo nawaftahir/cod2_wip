@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_int_initializer.cpp",
+  "source_sha256": "8696b650b80991766cdf3c9f65011b16c7c6c6431a5ece0ecc57ae2affe07a96",
+  "object_sha256": "a4908aa8bf82ca42dfc609605ccf18e8262ec0455683898916264530a71bc459"
+}
