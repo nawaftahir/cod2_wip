@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?SimplifyUnary@CProgram@D3DXShader@@AAEJPAVCInstruction@2@II@Z",
+      "object_bytes": 1737,
+      "target_bytes": 1841,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/unary_pool.cpp",
+  "source_sha256": "78d5727fb57f5ff22d93bdb76f06f7bff576b0d52140c3b723ec50cf39e550a7",
+  "object_sha256": "f03cc32ab8dccde89cf09d131e8037a0e1686948d0a7dd991853075791b714ad"
+}

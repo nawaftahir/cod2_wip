@@ -1005,3 +1005,20 @@
   posthash. Guarded replay12321 PASS/exit0,36 unchanged historical reuses,
  109 packets/14688 identities current, same353882 bytes. It is not fresh
   CPU proof and is invalidated by new proof-tool closure changes.
+
+## Codex35 pool types and library shortcut checks — 2026-10-04
+
+- PINNED SDK CPool::Initialize100cb92a symbol ends QAEJPBDKII@Z: name
+  const char* at0, flags unsigned long at4. Correcting only these prefix
+  types in unary_pool/unswizzle_pool leaves1737/1841 and756/755 unmatched,
+  firstdiff7. Do not infer CArgument::flags type from the pool signature.
+- PINNED summer-2004 SDK has348 debugS,1683 debugF,21 debugT sections.
+  Shader members57/73/74/90 have tiny build records, no full debugT types.
+  No private shader class type oracle was found in the available records.
+- PINNED SDK zlib members210..223 have zero current retail discovery
+  placements; eight checked version/error strings are absent from the anchor.
+  This is not categorical absence proof. No mass zlib rebuild/coverage credit
+  is justified solely by its presence in an unlinked archive.
+- Checkpoint input recheck:36 cohort pins/states, full reviewed environment,
+  audit hash and both fresh draft source/object identities current. Historical
+  proof reuse only, no fresh CPU claim. Accepted353882/32.475773%, zero gain.

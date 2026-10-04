@@ -68,3 +68,37 @@ Do not silently add bounds guards or repair these literal behaviors here.
 Next useful action: inspect complete remaining register/CFG differences, not
 another broad random flag sweep. These are source-backed drafts suitable for
 continuation, not clean/canonical source or reconstructed historical TU proof.
+
+## Pool-type experiment and SDK shortcut checks
+
+PINNED SDK CPool::Initialize at100cb92a has the signature
+?Initialize@CPool@D3DXShader@@QAEJPBDKII@Z: name is const char*, flags is
+unsigned long. Its target-backed prefix stores them at0 and4 respectively.
+unary_pool.cpp and unswizzle_pool.cpp change only those two declarations in
+the preceding complete drafts. Fresh pinned-image compiles exited0; current
+probe_unary_pool.json and probe_unswizzle_pool.json record source/object
+hashes. Unary remains1737/1841 and unswizzle756/755, first difference7.
+No gain; do not repeat this exact correction as a matching experiment.
+This does not prove CArgument::flags has the same type; do not change it
+without independent target/type evidence. No clean source promotion.
+
+PINNED summer-2004 d3dx9.lib carries348 .debug$S sections,1683 .debug$F and
+21 .debug$T. Core shader members57,73,74,90 retain only small .debug$S build
+records (160,158,155,157 bytes) and no .debug$T. The available type sections
+are members210..224 and226..231; they do not provide the private shader
+class type oracle sought here. Build-record presence is not source/flag proof.
+
+Members210..223 contain Microsoft-prefixed zlib components. The current
+codex35_sdk/discovery.json has ZERO retail placements for those members.
+Eight exact version/error strings were also absent from the retail anchor:
+1.1.3,1.1.4,1.2.1,deflate 1.,inflate 1.,incorrect header check,
+invalid distance too far back,unknown compression method.
+This is bounded evidence, not proof that every possible zlib implementation
+is absent. Do not count unlinked archive code or mass-build zlib without new
+target-backed placement/version evidence. Authentic CRT mass-build attempts
+already exist in codex35_crt/REPORT.md; do not repeat them blindly either.
+
+At the owner's checkpoint, all36 reviewed cohort pins/states, the complete
+proof environment, audit hash and both new draft source/object hashes were
+rechecked current. Accepted total remains353882/32.475773%; ZERO new bytes.
+No fresh CPU/aggregate run was needed or claimed for these unmatched drafts.

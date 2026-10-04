@@ -1,6 +1,35 @@
 # Shared renderer handoff — 2026-10-04
 
-## Active35% continuation — after0f5b6e1
+## Owner-requested checkpoint — after88bb176, 2026-10-04
+
+Verified coverage is **353882/1089680 = 32.475773%**. No new bytes were
+accepted since88bb176. The35% objective remains unfinished,27506 verified
+instruction bytes short. No compiler or audit job is running at this save.
+
+Checkpoint identity recheck passed all36 cohort verifier pins/states, the
+complete reviewed environment and cold audit hash. Both new pool-type draft
+source/object hashes also agree with their diagnostic packets. This was an
+identity recheck, NOT fresh compilation or CPU execution.
+
+New unary_pool.cpp and unswizzle_pool.cpp preserve the authentic CPool name
+and flags types from the SDK Initialize signature. They still do not match:
+1737/1841 and756/755, first difference7. Zero coverage, scratch only.
+The SDK's core shader objects retain build records but no full type records;
+the zlib archive members have no placements in the current retail discovery
+inventory. Do not count unlinked library bytes or repeat these exact tests.
+Details are in target/scratch/codex35_unary/REPORT.md.
+
+Clean accepted source remains under target/src/. All new unmatched candidates
+remain in target/scratch/; no release cod2engine changes were made.
+Next: work on target-backed compiler expression/optimizer source and real
+caller/callee grouping, starting from recorded instruction differences.
+Read the expression, emit_args, semantics and unary reports before retrying;
+do not repeat identical flag, pool-type or control-flow experiments.
+Whole-DLL checksum identity has NOT been reached.
+
+Historical continuation and checkpoint sections below do not override this state.
+
+## Previous continuation — after0f5b6e1
 
 Accepted total remains353882/1089680=32.475773%;27506 bytes short of35%.
 No new source bytes were accepted this continuation. New full unary-math and

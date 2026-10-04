@@ -1,5 +1,15 @@
 # Where to inspect renderer source
 
+Latest saved checkpoint,2026-10-04: **32.475773% verified source coverage**
+(353882/1089680 bytes). Unchanged since88bb176;35% needs27506 more bytes.
+Clean accepted source is under target/src/. New pool-type unary/swizzle
+candidates stay in target/scratch/codex35_unary/, unmatched and uncredited.
+All36 reviewed cohort states/pins and the full proof environment recheck
+current; this is input verification, not a new build or CPU run. No jobs live.
+See [the checkpoint handoff](HANDOFF.md) and
+[saved attempts](target/scratch/codex35_unary/REPORT.md).
+The DLL is not yet checksum-identical. Lower sections are historical.
+
 Continuation after0f5b6e1: accepted coverage stays32.475773%. New unary and
 unswizzle complete source drafts live only in scratch/codex35_unary/; their
 fresh compiles do NOT match and add zero coverage. No clean source promotion.

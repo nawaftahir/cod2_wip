@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?PropagateSwizzles_Unswizzle@CProgram@D3DXShader@@AAEJIPAII0@Z",
+      "object_bytes": 756,
+      "target_bytes": 755,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/unswizzle_pool.cpp",
+  "source_sha256": "d23443d23bd137c1fb926fb5b547d81371488cdd600a41f2e62debaba634b125",
+  "object_sha256": "fa6bb63f88e66ec89c598fde73935416f7bd69dad86b9aae85e63ca03244ac63"
+}
