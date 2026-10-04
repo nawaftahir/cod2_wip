@@ -947,3 +947,17 @@
   size but does not validate ConstantInfo offset, and reuses the dead shader
   stack argument for bytes. Preserve those literal behaviors for reconstruction;
   any security repair belongs after matching, not hidden in byte-proof work.
+
+## Codex35 complete public shader-comment parser — 2026-10-04
+
+- PINNED D3DXFindShaderComment231 at10062db3, SDK57/60, now has complete
+  literal-equal ordinary C++ source in target/src/codex_shader_comment.
+  Repeating token low-word comparisons instead of retaining an opcode local
+  produces the literal register allocation. No ABI change, padding or marker.
+- PINNED final JMP atoffset229 goes to180. The exact earlier epilogue at
+  180..184 is popESI/popEDI/popEBX/popEBP/ret16; all231 bytes and every
+  internal branch destination are checked. Do not trim the SDK body at RET.
+- Full V2,V3/652 retain651,1284 shader compiler cases and324 direct comment
+  cases pass, four packet input sets current. Source231 stays aggregate-pending
+  until cold17239 terminates PASS. New tools change the reuse closure; the old
+  certificate is not resealed from its stale log to bypass that check.

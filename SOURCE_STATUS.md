@@ -1,5 +1,10 @@
 # Where to inspect renderer source
 
+Resumed35% work: new [comment parser](target/src/codex_shader_comment/comment.cpp)
+passes complete V2,652 linked matches retaining651,1284 compiler and324 direct
+CPU cases. All four proof packet identity sets current. Full cold aggregate17239
+is live;231 bytes are pending acceptance, not added to32.454574% yet.
+
 2026-10-04 checkpoint: **32.454574% verified**, unchanged since02a16d5.
 Clean accepted additions: [argument allocation](target/src/codex_shader_argument_alloc/argument_alloc.cpp),
 [validation](target/src/codex_shader_validation/validation.cpp),

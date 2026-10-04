@@ -1394,6 +1394,7 @@ def main():
             'run_clean_test.py': 'a512705b2e2f3916a5d13cb26352429d7b85e403731fc1b944dba102d73b8c87',
             'compile_clean_test.sh': 'e29e03826da3fe43dfb79a1a871e19f0aff2c261370bf5b1e2899b3aa517dfe8',
         }),
+        ('codex35_shader_comment', 1, 231, 651, 652, 1284, {'build.sh': '68afc0554d403dafe41b4dafa17f6d8df214768e94d5a066f7defdc629b416a2', 'check.py': '02c87214619ad74cd3cd6f7ef8bf1fc105c95278cc93a1cf40be1df0eb96a69e', 'check_link.py': '0cdf62d2e12d74557cdb792823581e737fc1547741a5316e7986c02f609e55cb', 'comment_test.cpp': 'a89a332bf7bfaaa0905b3a4311be3c1007bff56f97d6e33ae3d43ec117486fdc', 'compile_clean_test.sh': '70a0b17208a9bb41586c46ccfd30b6ebe1f1c6fdf6025dafe761a92823a1b4a9', 'link.mk': '2d1951a23c9dc34eb413263f6a49c6e540ab3fcd1b8f50ca77b5fb0c9e7bb074', 'run_clean_test.py': 'b921b28b6a5caea2dada98863edc80dba1a9c07f3a06580833554f8c72d51192', 'run_comment_test.py': '6b1819c9e7d120f56e069bcdfb60c8489583c92a636cef474f666c04b0658ae1', 'sdk_binding.py': '37149ec12ed52a2f18473eec5e85ede1103a60e7719374529ea65f4872a2bb5d', 'select_link_dependencies.py': 'a4ce4744ddf243a7891adec69af91656710ca80a771ff3f8ffa41acde29b3ac4', 'vtables.py': '86e261b054a2b165efc03bb894fd368b6e46836f20de2991c08e6bef4e4b866b'}),
     ]:
         print(f'Checking {family}: complete byte proof and linked regression', flush=True)
         directory = TARGET / 'scratch' / family
@@ -1421,7 +1422,7 @@ def main():
         assert link['baseline_source_matches'] == baseline_count and link['linked_source_matches'] == linked_count
         assert not link['source_match_losses'] and link['dependency_source_credit'] == 0
         assert all(sha(ROOT / n) == h for n, h in link['files'].items())
-        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates', 'codex35_predicate_merge', 'codex35_program_coalesce', 'codex35_vectorize_helpers', 'codex35_program_cleanup', 'codex35_instruction_order', 'codex35_transform_order', 'codex35_transform_driver', 'codex35_predicate_order', 'codex35_program_order', 'codex35_pool_helpers', 'codex32_program_drivers', 'codex32_program_diagnostics', 'codex32_special_literals', 'codex32_swizzle', 'codex32_argument_helpers', 'codex35_register_split', 'codex35_output_groups', 'codex35_argument_alloc', 'codex35_validation', 'codex35_pool_reads') else 'fixture_packet.json'
+        fixture_name = 'clean_fixture_packet.json' if family in ('codex35_compiler', 'codex35_compiler_types', 'codex31_program', 'codex35_program_flow', 'codex35_program_varying', 'codex35_program_pruning', 'codex35_program_strip', 'codex35_program_sort', 'codex35_program_duplicates', 'codex35_instruction_duplicates', 'codex35_predicate_merge', 'codex35_program_coalesce', 'codex35_vectorize_helpers', 'codex35_program_cleanup', 'codex35_instruction_order', 'codex35_transform_order', 'codex35_transform_driver', 'codex35_predicate_order', 'codex35_program_order', 'codex35_pool_helpers', 'codex32_program_drivers', 'codex32_program_diagnostics', 'codex32_special_literals', 'codex32_swizzle', 'codex32_argument_helpers', 'codex35_register_split', 'codex35_output_groups', 'codex35_argument_alloc', 'codex35_validation', 'codex35_pool_reads', 'codex35_shader_comment') else 'fixture_packet.json'
         fixture = json.loads((directory / fixture_name).read_text())
         assert fixture['status'] == 'PASS' and fixture['cases'] == cpu_count
         assert all(sha(ROOT / n) == h for n, h in fixture['files'].items())
@@ -1526,6 +1527,13 @@ def main():
         elif family == 'codex35_pool_reads':
             pool_reads_gain = gain
             assert pool_reads_gain == {(0x1008a4c3, 387)}
+        elif family == 'codex35_shader_comment':
+            shader_comment_gain = gain
+            assert shader_comment_gain == {(0x10062db3, 231)}
+            assert all(r['instruction_aware_referee_match'] == r['original_referee_match'] == 100 for r in packet['rows'])
+            direct = json.loads((directory / 'comment_fixture_packet.json').read_text())
+            assert direct['status'] == 'PASS' and direct['cases'] == 324 and direct['differing_cases'] == 0
+            assert all(sha(ROOT / n) == h for n, h in direct['files'].items())
         elif family == 'codex35_output_groups':
             output_groups_gain = gain
             assert output_groups_gain == {(0x10088517, 1006), (0x10088905, 1221), (0x100899b7, 241)}
@@ -1568,7 +1576,7 @@ def main():
     disjoint([*jpeg.items(), *jpeg_extra, *closed, *stl, *standalone,
               *engine, *total_gain, *live_gain, *draw_credit, *crt, *asm, *extra, *output, *woutput, *large, *leaves,
               *globals_rows, *crt_input, *crt16_gain, *crt17_gain, *crt19_gain, *asm19_gain, *dx_credit, *dx25_credit,
-              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain, *output_groups_gain, *argument_alloc_gain, *validation_gain, *pool_reads_gain])
+              *crt35_gain, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain, *output_groups_gain, *argument_alloc_gain, *validation_gain, *pool_reads_gain, *shader_comment_gain])
     old_bytes = sum(jpeg.values()) + sum(size for _, size in jpeg_extra)
     new_bytes = sum(size for _, size in closed)
     stl_bytes = sum(size for _, size in stl)
@@ -1581,7 +1589,7 @@ def main():
     crt19_bytes = sum(n for _, n in crt19_gain)
     asm19_bytes = sum(n for _, n in asm19_gain)
     crt35_bytes = sum(n for _, n in crt35_gain)
-    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain, *output_groups_gain, *argument_alloc_gain, *validation_gain, *pool_reads_gain])
+    dx_bytes = sum(n for _, n in [*dx_credit, *dx25_credit, *sdk35_gain, *parser_gain, *reads_gain, *instruction_gain, *node_gain, *assembler_gain, *support_gain, *lexer_gain, *preprocessor_gain, *compiler_gain, *clip_gain, *type_gain, *program_gain, *flow_gain, *varying_gain, *pruning_gain, *strip_gain, *sort_gain, *duplicates_gain, *instruction_duplicates_gain, *predicate_gain, *coalesce_gain, *vectorize_helpers_gain, *cleanup_gain, *order_gain, *transform_gain, *driver_gain, *predicate_order_gain, *program_order_gain, *pool_helpers_gain, *program_drivers_gain, *program_diagnostics_gain, *special_literals_gain, *swizzle_gain, *argument_helpers_gain, *register_split_gain, *output_groups_gain, *argument_alloc_gain, *validation_gain, *pool_reads_gain, *shader_comment_gain])
     total = old_bytes + new_bytes + stl_bytes + standalone_bytes + engine_bytes + private_bytes + live_bytes + sum(n for _, n in draw_credit) + crt_bytes + asm_bytes + extra_bytes + 2010 + 2064 + 1357 + 707 + 2911 + 3452 + crt16_bytes + crt17_bytes + crt19_bytes + crt35_bytes + asm19_bytes + dx_bytes
     assert total >= (DENOMINATOR * 25 + 99) // 100
     print(f'PASS: disjoint source lower bound {total}/{DENOMINATOR} = '
@@ -1637,6 +1645,7 @@ def main():
     print('Register-pool helpers: 4 complete source bodies /424 bytes; 626 linked matches retain622; 1284 full CPU cases pass. Larger drafts and SDK dependencies receive zero extra credit.')
     print('Program drivers: 2 complete source bodies /729 bytes; 628 linked matches retain626; 1284 full CPU cases pass. Exact named Link tail jump and bindings proven; opaque dependencies uncredited.')
     print('Shader naming/special/literal/swizzle/argument cohorts: 14 new complete source bodies /2095 bytes; successive632/634/635/642 linked matches retain all baselines; 1284 complete CPU cases per cohort pass. Duplicate IsCombine35 excluded; dependencies add zero credit.')
+    print('Shader-comment parser: 231 complete source bytes;652 linked matches retain651;1284 compiler and324 direct CPU outputs agree.')
     print('Validator and pool-read collector: 2 complete bodies /1198 new source bytes; linked650/651 retain649/650,1284 CPU outputs per cohort pass. Unused private classifier41 excluded.')
     goal32 = (DENOMINATOR * 32 + 99) // 100
     print(f'32% checkpoint: {"REACHED" if total >= goal32 else "PENDING"}; {max(0, goal32 - total)} further source instruction bytes needed.')

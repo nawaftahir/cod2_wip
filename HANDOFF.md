@@ -1,5 +1,23 @@
 # Shared renderer handoff — 2026-10-04
 
+## Resumed35% work — shader-comment parser
+
+New clean candidate target/src/codex_shader_comment/comment.cpp is complete231
+bytes at10062db3/SDK57 section60. Fresh V2 passes literal SDK/retail equality,
+original referee, complete earlier-return/tail boundary and negative controls.
+Fresh V3 has652 matches, retaining651. CPU outputs agree in all1284 compiler
+cases and324 direct parser cases. All four packet input sets rehashed current.
+Samplers remains an unmatched scratch-only draft and receives no credit.
+
+Cold aggregate17239 is live at codex35_shader_comment/aggregate.log. Accepted
+coverage stays353651/32.454574% until its terminal PASS; expected gain231 must
+not be counted early. Old reviewed reuse certificate intentionally rejects the
+new proof-tool closure. No stale reseal or bypass was performed. Keep all
+accepted/new proof inputs frozen while the audit runs; separate uncounted
+source drafts can continue. The35% goal is still active, not achieved.
+
+The earlier owner's checkpoint below is historical; work subsequently resumed.
+
 ## Owner-requested checkpoint — 2026-10-04
 
 Accepted coverage remains **353651/1089680 = 32.454574%**. No new bytes
