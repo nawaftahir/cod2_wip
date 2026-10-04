@@ -1075,3 +1075,34 @@
 - Generic callback declarations need final TU consolidation; local source
   matches do not prove historical TU layout, GPU boot or whole-DLL identity.
   Accepted remains353882/32.475773%,35% unfinished. Old cache remains stale.
+
+## Codex35 buffer/cast/evaluator continuation — 2026-10-04
+
+- Buffer308 now CLEAN: V2,V3/666 retaining662 and256 CPU cases pass, posthash
+ 155/212/171 current. New clean parser casts209: V2,V3/668 retain666,1400
+ CPU cases pass (944 successes456 errors), posthash17/213/23 current. Both
+  await aggregate inclusion; no global credit. Conversion audit5151 still live.
+- PINNED CParse casts: CastToFloat1009a36a/94, CastToValue1009ca51/115;
+ _D3DXVALUE tags0 bool,1 signed,2 unsigned,3 double, other tags E_FAIL.
+ Float unsigned correction4294967296 at1010c728. Value adds/subtracts
+ 0.000001 before confirmed __ftol; every SDK/source/retail literal and
+ runtime edge is proven. No new SDK/CRT source credit from that dependency.
+- PINNED source-context fix: Float case order0/3/2/1 reproduces the common
+ store. Natural0/1/2/3 still94 bytes but wrong. Value separate int/uint
+ cases and0.0 != value reproduce115; shared integer labels produce117.
+- Complete new CParse::EvalIntrinsic draft includes all supported cases and
+ cleanup; baseline1400 CPU outputs agree,23 identities current. Its SDK
+ section5104 includes switch data: neither5104 nor any draft is credited.
+ Separate5107, helpers/casts5103, exact-helper+reloadable-reference group5049,
+ memset/count-first5174 remain UNMATCHED. Later variants lack CPU claims.
+- PINNED evaluator's input list expression.field24->child, output list
+ field24->next; reject output children. Error is void cdecl varargs, not
+ Ghidra's garbage extraout register parameters. Target/SDK call edges and
+ original typed node access prefixes verified; no CParse allocation invented.
+- Baseline evaluator file is frozen at9562624531143be10952dd05274f6fce6563aa2b5e1fbd720a67cb292aa1ec7e.
+ Preserve degree/radian/color literals and original exceptional behavior.
+ Source body/order/lifetime tuning remains, not a compiler-impossibility claim.
+- Final declaration/TU consolidation still required. Old cache stale; after
+ terminal cold audit+posthash, include disjoint308/209 with strict pins.
+ All1213 locally proved pending bytes would total355095/32.587090%; this is
+ not accepted coverage.35% remains active, accepted353882/32.475773%.

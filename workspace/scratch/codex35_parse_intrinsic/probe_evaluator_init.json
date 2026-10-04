@@ -1,0 +1,32 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?CastToFloat@CParse@D3DXShader@@IAEJPANPAU_D3DXVALUE@2@PAUD3DXTOKEN@2@@Z",
+      "object_bytes": 94,
+      "target_bytes": 94,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CastToValue@CParse@D3DXShader@@IAEJPAU_D3DXVALUE@2@NPAUD3DXTOKEN@2@@Z",
+      "object_bytes": 115,
+      "target_bytes": 115,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EvalIntrinsic@CParse@D3DXShader@@IAEJPAVCNode@2@PAU_D3DXVALUE@2@@Z",
+      "object_bytes": 5174,
+      "target_bytes": 5104,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_parse_intrinsic/evaluator_init.cpp",
+  "source_sha256": "c75abe6aa72a08e1508e01eaec242e10cf62d27f9cf7e3433f0723556fc96a0e",
+  "object_sha256": "e360370fd0996c660495d85442264447682ec2868fad178841217f92eab439e7"
+}

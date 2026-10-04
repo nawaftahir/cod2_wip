@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "source_credit": 0,
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "cases": 1400,
+  "differing_cases": 0,
+  "successful_compiles": {
+    "original": 944,
+    "source": 944
+  },
+  "first_differences": [],
+  "scope": "CPU-only D3DXCompileShader: complete HRESULT, shader, diagnostic and constant-table buffers; constant intrinsic evaluations including matrix operations, six types, two profiles and optimization modes; full compile errors compared. Other SDK methods are opaque dependencies; no GPU, allocation-failure, whole-file or byte-match certification.",
+  "files": {
+    "gfx/target/scratch/codex35_parse_casts/compile_fixture.sh": "2830ac133088af66727d231370dd175657229490179908af50aebb923bdf75bd",
+    "gfx/target/scratch/codex35_parse_casts/select_dependencies.py": "60c24eb82ca4864e4232cd6abc52e83e1b7ef7e0863207123aa7863c1f80ede9",
+    "gfx/target/scratch/codex35_parse_casts/dependency_selection.json": "0cbdbff1eb51511c4a65d766071f2678240fd9a5ada7b12f41e655fbb9119707",
+    "gfx/target/scratch/codex35_parse_casts/test_evaluator.obj": "d6dc1224ea507e22f42a8e45205ffbb70447731134b9f05218800d08825ff17f",
+    "gfx/target/scratch/codex35_parse_casts/casts_dependencies.lib": "5c1550fba44495716c9a36a36b65977e4b3163ed9c9d3bf2452ed977e5115fd2",
+    "gfx/target/src/codex_shader_parse_casts/casts.cpp": "67e0cf08d07616a77cfa865594ca2e24a3da18af5e64d35a38e217b1d599d4ae",
+    "gfx/target/build/codex35_parse_casts/libraries/casts.obj": "4eb3722dfadfc9fcdd0c484b3b6917d2c3a757084b1c7eb199b331bdb5026a0c",
+    "gfx/target/scratch/codex35_parse_casts/test_evaluator.cpp": "bb3c260f82aae9073fe3e9537a7e07a6bc518acb65afa3f4e9fa4448da6c78b7",
+    "gfx/target/scratch/codex30_parser/select_dependencies.py": "8fc5e16e488acfd1d675e4970ac921376405858c14914c6bf348ec681b51e692",
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/scratch/codex19_dxerr/compiler/cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "gfx/target/scratch/codex19_dxerr/compiler/c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "gfx/target/scratch/codex19_dxerr/compiler/c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "gfx/target/scratch/codex35_parse_casts/run_fixture.py": "4225dd81856d6145b677f1f970008833c2364fbb78910e6f45b4a08d789cb0e2",
+    "gfx/target/scratch/codex35_parse_casts/original.exe": "36c7ac5bcdd6abd24d8a7e9a1833faed0ce79820a34fab3cb01776e42bd2a0e4",
+    "gfx/target/scratch/codex35_parse_casts/original.map": "84b4853965973cbafc6500fdf9bbe5f03103c8b1606fcba0b78f5a85878826f9",
+    "gfx/target/scratch/codex35_parse_casts/original_output.log": "cba2c4c0eeb796153cc1552410cd9689782f784b58b08bb6c426b6888287fef9",
+    "gfx/target/scratch/codex35_parse_casts/original_stderr.log": "f42cc6146e62563deb9ffc0860971d586e600860b4a6c0415ec33e90af6868e0",
+    "gfx/target/scratch/codex35_parse_casts/source.exe": "3f8d50bc400c1e9d832f243bc3c12452df05063d792ae5786eb4b96e211041be",
+    "gfx/target/scratch/codex35_parse_casts/source.map": "d5e1fbe962ca5a83aee3fa61b387a37ec26f16941323ff196f5a1bdc790aa708",
+    "gfx/target/scratch/codex35_parse_casts/source_output.log": "cba2c4c0eeb796153cc1552410cd9689782f784b58b08bb6c426b6888287fef9",
+    "gfx/target/scratch/codex35_parse_casts/source_stderr.log": "f42cc6146e62563deb9ffc0860971d586e600860b4a6c0415ec33e90af6868e0"
+  }
+}

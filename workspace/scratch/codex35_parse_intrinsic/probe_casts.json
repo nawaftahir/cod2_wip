@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?CastToFloat@CParse@D3DXShader@@IAEJPANPAU_D3DXVALUE@2@PAUD3DXTOKEN@2@@Z",
+      "object_bytes": 94,
+      "target_bytes": 94,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?CastToValue@CParse@D3DXShader@@IAEJPAU_D3DXVALUE@2@NPAUD3DXTOKEN@2@@Z",
+      "object_bytes": 115,
+      "target_bytes": 115,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_parse_intrinsic/casts.cpp",
+  "source_sha256": "30f53344d42f229658a8f8062dd718a8ed650587569a63e2c10ecb9a15497195",
+  "object_sha256": "441decc5fd90e8cb2c6a1ebb190af8af49c0bd14914fa84174f8a377764f86b8"
+}

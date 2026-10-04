@@ -3,7 +3,7 @@ XL += $(BUFFERS_OBJ)
 include scratch/codex35_shader_conversions/link.mk
 LFLAGS := $(filter-out $(BUFFERS_OBJ),$(LFLAGS)) $(BUFFERS_OBJ)
 $(OUT): $(BUFFERS_OBJ)
-$(BUFFERS_OBJ): scratch/codex35_shader_buffers/buffers.cpp scratch/codex19_dxerr/compiler/cl.exe scratch/codex35_shader_buffers/link.mk
+$(BUFFERS_OBJ): src/codex_shader_buffers/buffers.cpp scratch/codex19_dxerr/compiler/cl.exe scratch/codex35_shader_buffers/link.mk
 	@mkdir -p $(dir $@)
 	INCLUDE='Z:\opt\msvc710\Vc7\include;Z:\opt\msvc710\Vc7\PlatformSDK\include;Z:\dxsdk\Include' \
 	wine $(DXERR_COMPILER) /nologo /c /O1 /Oy- /hotpatch /MT /Gy /d2QIftol /Fo$(subst /,\\,$@) $(subst /,\\,$<)

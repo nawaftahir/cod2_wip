@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EvalIntrinsic@CParse@D3DXShader@@IAEJPAVCNode@2@PAU_D3DXVALUE@2@@Z",
+      "object_bytes": 5107,
+      "target_bytes": 5104,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_parse_intrinsic/evaluator_separate.cpp",
+  "source_sha256": "702ec7665080367bb98b76edf14ff4fb994161d8c1a2465e9769f94cf9a069ff",
+  "object_sha256": "9231f82bc6c1f28b164d05b17ce17992304fd3f0b6711de5a2f47e74316d40bc"
+}

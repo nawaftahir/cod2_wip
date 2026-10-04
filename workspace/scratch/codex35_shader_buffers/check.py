@@ -10,7 +10,7 @@ changes = [
     ('build/codex35_sdk', 'build/codex35_shader_buffers'),
     ("HERE / 'discovery.json'", "HERE.parent / 'codex35_sdk/discovery.json'"),
     ("[('instruction_predicates', 25), ('shader_native_constants', 12)]", "[('buffers', 4)]"),
-    ("'src/codex_libraries'", "'scratch/codex35_shader_buffers'"),
+    ("'src/codex_libraries'", "'src/codex_shader_buffers'"),
     ("stem == 'shader_native_constants'", "stem == 'buffers'"),
     ("'original_referee_match': 100, 'bindings': {},", "'section_bytes': len(code), 'excluded_table_bytes': 0, 'original_referee_match': 100, 'instruction_aware_referee_match': 100, 'bindings': {},"),
     ("'class_layout_scope': 'five-word instruction prefix only; no full allocation layout'", "'class_layout_scope': 'static callbacks and public SDK ID3DXBuffer; no private class allocation'"),

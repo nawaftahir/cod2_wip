@@ -1,5 +1,41 @@
 # Shared renderer handoff — 2026-10-04
 
+## Continuation after b5ad733 — clean buffer/cast cohorts
+
+Accepted total still **353882/1089680 = 32.475773%**,35% unfinished.
+Cold conversion aggregate PID5151/session69820 is LIVE and progressing through
+the optimizer cohorts. Do not restart or alter tools/check_ten_percent.py or
+its37 cohorts while live. Its696 pending bytes would give32.539645% after
+terminal PASS and independent posthash. The stale reviewed cache is not used.
+
+Two further CLEAN cohorts now pass every local gate but await aggregate
+inclusion: target/src/codex_shader_buffers/buffers.cpp (four/308,V3/666 retain662,
+256 CPU cases), target/src/codex_shader_parse_casts/casts.cpp (two/209,V3/668
+retain666,1400 CPU cases/944 successes456 errors). All full outputs agree;
+independent posthash155/212/171 buffer and17/213/23 cast identities passed.
+These two add ZERO accepted global coverage yet. All three pending cohorts
+sum1213 bytes; accepted total would355095/32.587090% if ALL aggregate gates
+pass, leaving26293 short of35%. This is an expectation, NOT a new percentage.
+
+New complete evaluator draft in target/scratch/codex35_parse_intrinsic:
+5104-byte target SECTION including switch data, NOT instruction credit.
+Baseline source passes1400 full CPU comparisons, same944 successes456 errors,
+posthash23 identities current. Its source byte match FAILS; all variants and
+diagnostics are saved. Group with exact casts5049/5104 first8, separate5107
+first7; equal/near lengths are not matches. Read its REPORT before retrying.
+Frozen evaluator.cpp CPU proof does not cover later variants.
+
+Next after live audit TERMINATES: review terminal output, posthash every
+cohort/pin/packet and anchor, then accept696 if justified. Pin and add the
+buffer308/cast209 cohorts with explicit disjoint gain sets. Replay using only
+a reviewed CURRENT full certificate; new tools have invalidated the old one.
+Do not seal from an old log or bypass unchanged input/closure checks. Full
+source declaration/TU consolidation and whole-DLL checksum identity remain.
+
+Owned source, tests, reports and bounded attempts are saved separately;
+foreign dirty files and cod2engine release files were not changed. Older
+"buffer link pending" and "only696 clean" statements below are historical.
+
 ## Latest checkpoint — shader conversion source
 
 Accepted coverage remains **353882/1089680 = 32.475773%**. The35% goal

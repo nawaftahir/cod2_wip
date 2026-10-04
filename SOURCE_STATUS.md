@@ -1,5 +1,18 @@
 # Where to inspect renderer source
 
+Continuation after b5ad733: accepted remains **32.475773%**. Clean
+[buffer callbacks](target/src/codex_shader_buffers/buffers.cpp) and
+[parser value casts](target/src/codex_shader_parse_casts/casts.cpp) now pass
+complete matching, retained-link regression and256/1400 CPU cases. They add
+517 locally verified but globally UNCOUNTED bytes. The earlier696-byte cold
+audit is still live. All1213 pending bytes together would give32.587090% only
+after aggregate acceptance;35% and whole-DLL identity remain unfinished.
+
+The new [complete evaluator draft](target/scratch/codex35_parse_intrinsic/evaluator.cpp)
+passes1400 CPU comparisons but FAILS byte matching and stays scratch-only.
+Read [current handoff](HANDOFF.md) and its REPORT; do not count section switch
+data or near-matching drafts. All lower totals/pending statements historical.
+
 Latest checkpoint,2026-10-04: **32.475773% accepted** (353882/1089680).
 New clean [conversion source](target/src/codex_shader_conversions/conversions.cpp)
 passes complete byte matching for ten callbacks/696 bytes,662 linked matches
