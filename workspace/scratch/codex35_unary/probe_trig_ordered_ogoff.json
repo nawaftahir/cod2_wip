@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 3229,
+      "target_bytes": 2210,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_ordered.cpp",
+  "source_sha256": "33567c8a562a43d618e1a4e29cdb184da63f12706ebd7fbb033043b8adc6f41b",
+  "object_sha256": "1fcc06fad6eed55222e55d8f103e9ea1196a41fb243cd0e5a8be0d6d5aa560f9"
+}

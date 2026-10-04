@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2230,
+      "target_bytes": 2210,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_half_token.cpp",
+  "source_sha256": "a3b7aa74dfe6667752cba8d6578372b581818d663066eca673a416e825160071",
+  "object_sha256": "724139e8c6030f892e07fe061268f853b64d6250566e39f42b72768f683685b2"
+}

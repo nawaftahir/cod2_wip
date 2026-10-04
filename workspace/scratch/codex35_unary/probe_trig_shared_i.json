@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_shared_i.cpp",
+  "source_sha256": "ee681e6a2fbb80c7a894ecbde855ba8271b075e06ea79232a8daf259d8150334",
+  "object_sha256": "2d5c518c1a785a4fa85968a7e8185b587408c6f7e5b6d73f5a2e63ce591841ba"
+}

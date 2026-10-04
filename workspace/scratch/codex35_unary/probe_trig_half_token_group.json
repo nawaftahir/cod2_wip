@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitTemp@CCompiler@D3DXShader@@IAEJPAII@Z",
+      "object_bytes": 28,
+      "target_bytes": 28,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2235,
+      "target_bytes": 2210,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_half_token_group.cpp",
+  "source_sha256": "1cf9459a1826b83bf37d3126d8bdc295a807811c8fea960482ea8c048bc0bf8a",
+  "object_sha256": "658ff56d485408dbae43a57644a4eac1d0ed8bf917dfee5d4adeeb2662c845aa"
+}

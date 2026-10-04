@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 26,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_delayed_fields.cpp",
+  "source_sha256": "95bc0ada28d2b99a632bfaafa9cf8b55d7a40204b3ac865f35323a64b0f68a48",
+  "object_sha256": "363a9ddd8c9ddd660d7ff34dde58b2a3116a835f0fce369726ea6d71633fbd96"
+}

@@ -242,3 +242,40 @@ load rejects as intended; no stale reseal or fresh aggregate claim was made.
 After a genuine V2 gain, complete local gates and a reviewed cold aggregate
 before updating that snapshot. Current accepted coverage remains353882/
 1089680=32.475773%,27506 bytes short of35%. No live jobs at checkpoint.
+
+## Later callback gain and bounded math attempts — 2026-10-04
+
+New real source gains were found in the constant conversion family, not the
+math drafts. shader_conversion_index.cpp matches ten new bodies696; twelve
+native matches are existing duplicates. shader_conversion_buffer.cpp adds
+four distinct Stage2 bodies308. Full local proofs are in sibling
+codex35_shader_conversions and codex35_shader_buffers; see their reports.
+Only696 has clean source/link regression; full cold aggregate5151 is LIVE,
+not yet accepted.308 has scratch V2/256 CPU but no linked regression. Both
+remain absent from the accepted353882-byte total at checkpoint.
+
+Conversion base/d2QIftol, /Op, /QIfist and /d2QIfist tests preserve twelve
+native matches. Float-to-int stays70/102 (fist71/102). Indexed conversion
+fixes the real pointer/register scheduling; do-loop conversion is worse.
+Probe JSON is diagnostic, not proof of bindings or global coverage.
+
+Fresh standalone/grouped SinCos variants: shared_i2216/2222, delayed_tokens
+2216/2223, half_token2230/2235, delayed_fields2216/2222, ulong_total2216/2222,
+sum_temps2216/2222, pointer_temps2211/2217, count_temps2216/2222. All targets
+are2210, all UNMATCHED. Most firstdiff110; half_token7, delayed_fields26.
+First-diff offset and one-byte size gaps are not one-byte-to-completion proof.
+
+Unchanged trig_ordered flags: /G5,/G6,/Oi2216 first110, /G72214 first110,
+/Og-3229 first7. Grouped /Ob0,/Ob2,/Ox /Os,/O2 /Os all2222 first110.
+No new exact bodies besides existing EmitTemp28 duplicate (zero gain).
+
+Full math ATan2 flattened/component/coeffarray variants all2090 standalone
+and2083 grouped vs2086, first68. Doloop2093 first68 standalone; grouped2086
+first117 still differs across stack, registers, loops and tokens. Equal
+length does NOT match. Other SinCos/Pow remain unmatched. New variants are
+not covered by the frozen math1816/trig1284 CPU claims. Preserve all fresh
+CPP/probe JSON attempts and do not repeat these identical forms.
+
+The pinned SDK math matrix/vector/etc family still has zero current retail
+discovery rows; do not mass-rebuild public inline helpers for guessed credit.
+Private compiler arithmetic remains the target-backed next math work.

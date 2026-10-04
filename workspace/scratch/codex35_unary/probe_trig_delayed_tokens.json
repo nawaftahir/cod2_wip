@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_delayed_tokens.cpp",
+  "source_sha256": "f82d163ffa4fb0b0f62a5cd2b4f35cd10b6af061d93a0195a70f4d0c232c8091",
+  "object_sha256": "a52db2ced3b0c25434b7b78232ae514b2c8780ceb994921edbe4721536add2c4"
+}

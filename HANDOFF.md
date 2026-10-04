@@ -1,5 +1,45 @@
 # Shared renderer handoff — 2026-10-04
 
+## Latest checkpoint — shader conversion source
+
+Accepted coverage remains **353882/1089680 = 32.475773%**. The35% goal
+is unfinished,27506 accepted instruction bytes short. This checkpoint does
+not pause or complete the goal. Whole-DLL checksum identity is not reached.
+
+New clean source: target/src/codex_shader_conversions/conversions.cpp.
+Ten distinct callbacks/696 bytes pass both complete byte referees, boundary
+and binding checks, negative tests, private linked regression (662 source
+matches retaining all652), and640 source-selected CPU comparisons with zero
+differences. Checkpoint posthash passed155 V2,211 V3 and171 CPU identities.
+They are locally verified but NOT yet accepted into global coverage.
+
+Cold aggregate is LIVE: PID5151, parent5139, original session69820;
+log target/scratch/codex35_shader_conversions/aggregate.log. It is replaying
+the complete baseline and all37 source cohorts without --reuse-reviewed.
+Do not restart it or edit its driver/cohort inputs while running. At save it
+has not printed terminal PASS. Inspect process descendants and the log;
+silence during baseline checks is expected. Only terminal success plus an
+independent posthash can accept696, giving354578/32.539645%,26810 short of35%.
+The old reviewed cache remains stale; never reseal it from a historical log.
+
+Next independent gain: target/scratch/codex35_shader_buffers/buffers.cpp,
+four callbacks/308 bytes. Scratch V2 and256 source-selected CPU comparisons
+pass; linked regression, clean promotion and aggregate inclusion are NOT
+done. It adds ZERO accepted coverage. Resume its private integration from
+baseline662 toward666 retained matches,303 selected source definitions and
+42433 parser proof bytes; these are expectations to prove, not results.
+
+Read both new cohort REPORT.md files and the appended unary REPORT.md before
+retrying attempts. Existing native callbacks and EmitTemp duplicates add no
+new credit. Two float-to-int callbacks and the5364-byte math cohort remain
+unmatched. Preserve original conversion behavior and float-zero bindings.
+The source fragments still need declaration/TU consolidation during final
+integration; these local proofs do not establish the historical full TU.
+
+Only owned source, proof tools, packets and notes are saved. Foreign dirty
+files and release cod2engine are untouched. All older live/checkpoint claims
+below are historical, not the current state.
+
 ## Current owner-requested checkpoint — after db9a4ca
 
 Verified coverage remains **353882/1089680 = 32.475773%**. This continuation

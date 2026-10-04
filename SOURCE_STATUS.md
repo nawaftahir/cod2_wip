@@ -1,5 +1,18 @@
 # Where to inspect renderer source
 
+Latest checkpoint,2026-10-04: **32.475773% accepted** (353882/1089680).
+New clean [conversion source](target/src/codex_shader_conversions/conversions.cpp)
+passes complete byte matching for ten callbacks/696 bytes,662 linked matches
+retaining652, and640 exact CPU comparisons. Its cold aggregate is still LIVE,
+so these696 bytes are not included above. Success plus independent posthash
+would give32.539645%;35% remains unfinished. See [handoff](HANDOFF.md).
+
+Four more [buffer callbacks](target/scratch/codex35_shader_buffers/buffers.cpp)
+pass scratch byte proof/308 bytes and256 CPU cases, but await link regression
+and clean promotion. Zero global credit. All prior unmatched math drafts
+remain scratch-only. No whole-DLL checksum match or release-tree changes.
+Older checkpoint/live statements below are historical.
+
 Current checkpoint,2026-10-04: **32.475773% verified** (353882/1089680).
 ZERO new accepted bytes after db9a4ca;35% is27506 bytes short and unfinished.
 Accepted source remains in target/src/. New [math source drafts](target/scratch/codex35_unary/math.cpp)

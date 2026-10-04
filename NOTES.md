@@ -1047,3 +1047,31 @@
 - New fixture tools invalidate the old reviewed-cache environment. Old load
   rejects intentionally; omit --reuse-reviewed and never reseal an old log.
   Accepted353882/1089680=32.475773%;35% remains27506 bytes short. No jobs live.
+
+## Codex35 shader callback source checkpoint — 2026-10-04
+
+- PINNED SDK cconstanttable.obj/Create1008085f selects the callback family.
+  Indexed conversion loops match ten previously unaccepted complete bodies,
+  696 bytes. Clean source is target/src/codex_shader_conversions/conversions.cpp;
+  V2,V3/662 retaining652 and640 CPU cases pass, posthash155/211/171 current.
+  Cold aggregate5151/session69820 LIVE; no new global credit at checkpoint.
+- PINNED float-to-bool callbacks1007e3d1/1007e647 each bind __real@00000000
+  at offset25/type6 to retail0x1019bc84, exactly four zero bytes. Boundary,
+  base relocation, SDK/source storage and carrier binding explicitly checked.
+- PINNED D3D constant device slots: vertexB98/I96/F94, pixelB113/I111/F109.
+  Earlier fixture's wrong pixel slots caused both versions to stop after320;
+  corrected from SDK/header/target dispatch, then all640 cases agreed.
+- PINNED callbacks write scratch, then pass/copy original input, not scratch.
+  Preserve alias-sensitive target behavior; do not repair it while matching.
+- PINNED Stage2 buffer callbacks1007ddd9/61,1007de16/100,1007de7a/86,
+  1007ded0/61 match308 scratch bytes. GetBufferPointer slot3/offset0xc,
+  destination+start*16, length=count*16, return0.256 CPU cases agree, private
+  link and clean promotion unfinished. No global credit; distinct identical
+  bodies are carrier-selected placements, not guessed first hits.
+- /QIfist and /d2QIfist genuinely compile but float-to-int71/102 still fails;
+  baseline /d2QIftol and /Op give70/102. No compiler-impossibility claim.
+  Math variants remain unmatched and uncredited; current frozen1816/1284
+  fixture claims do not cover newer variants. See appended unary report.
+- Generic callback declarations need final TU consolidation; local source
+  matches do not prove historical TU layout, GPU boot or whole-DLL identity.
+  Accepted remains353882/32.475773%,35% unfinished. Old cache remains stale.

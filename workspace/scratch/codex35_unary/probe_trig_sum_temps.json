@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_sum_temps.cpp",
+  "source_sha256": "14b1464fe233a3e3fa552b81c382d5c48378b6b0d7ea96bd65d1d598c38151be",
+  "object_sha256": "187d0c893396238adb7f9a5bcea1de76168baaf589b14da8db4277ab6abfc5e1"
+}

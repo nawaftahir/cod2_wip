@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z",
+      "object_bytes": 2216,
+      "target_bytes": 2210,
+      "first_difference": 110,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/trig_ulong_total.cpp",
+  "source_sha256": "cc9f5736fec56686f2245ab335524f735fe2f4aadb582301cc1b8f2f2ee90344",
+  "object_sha256": "0851a7472881ee3de9bcfe5192439d65dc456870bfb7c7eb04e6213acfdd80b4"
+}

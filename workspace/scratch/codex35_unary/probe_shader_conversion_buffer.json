@@ -1,0 +1,232 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$01@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 65,
+      "target_bytes": 65,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$02@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 82,
+      "target_bytes": 82,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$00$00@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 68,
+      "target_bytes": 68,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$00$01@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$00$02@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 70,
+      "target_bytes": 102,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$01$00@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 74,
+      "target_bytes": 74,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$01$01@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 59,
+      "target_bytes": 59,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$0A@$01$02@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$0A@$01@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 65,
+      "target_bytes": 65,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$0A@$02@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 82,
+      "target_bytes": 82,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$00$00@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 68,
+      "target_bytes": 68,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$00$01@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$00$02@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 70,
+      "target_bytes": 102,
+      "first_difference": 5,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$01$00@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 74,
+      "target_bytes": 74,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$01$01@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 59,
+      "target_bytes": 59,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$00$01$02@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 30,
+      "target_bytes": 30,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$01$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 61,
+      "target_bytes": 61,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$01$01$00@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 100,
+      "target_bytes": 100,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$01$01$01@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 86,
+      "target_bytes": 86,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "?Set@?$SetShaderConstant@$01$01$02@D3DXShader@@SGJPBXI0PAKI@Z",
+      "object_bytes": 61,
+      "target_bytes": 61,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_unary/shader_conversion_buffer.cpp",
+  "source_sha256": "fbe0eaf30635c9aafbc8ecbbc0ce897d91720d25c8ba981df4c4db355e4f9884",
+  "object_sha256": "609634641fc1689bc78c7612ab4432e7f472f6d476f1bdfcd5e223874a6e8b2b"
+}
