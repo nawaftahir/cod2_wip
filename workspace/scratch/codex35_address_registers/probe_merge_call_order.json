@@ -1,0 +1,16 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "?MergeInstructions@CProgram@D3DXShader@@IAEJXZ",
+      "object_bytes": 1203,
+      "target_bytes": 1199,
+      "first_difference": 7,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_address_registers/merge_call_order.cpp",
+  "source_sha256": "56470468d7be8ef635b1b0d68a5020abf516fb7e5357c35ff5a87e4c1913d9f0",
+  "object_sha256": "96c39a506fde0e4e2fc6f992396d8aaceab45a8a04b14d151d9deac5bbe3b6bb"
+}

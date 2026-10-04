@@ -1,22 +1,40 @@
 # Shared renderer handoff — 2026-10-04
 
-## Resumed35% work — shader-comment parser
+## Latest owner-requested checkpoint — 2026-10-04
 
-New clean candidate target/src/codex_shader_comment/comment.cpp is complete231
-bytes at10062db3/SDK57 section60. Fresh V2 passes literal SDK/retail equality,
-original referee, complete earlier-return/tail boundary and negative controls.
-Fresh V3 has652 matches, retaining651. CPU outputs agree in all1284 compiler
-cases and324 direct parser cases. All four packet input sets rehashed current.
-Samplers remains an unmatched scratch-only draft and receives no credit.
+Accepted coverage: **353882/1089680 = 32.475773%**. Cold aggregate17239
+completed terminal PASS/exit0, recorded at
+target/scratch/codex35_shader_comment/aggregate.log. Independent post-completion
+rehash passed36 cohort pin sets,109 authoritative packet sets and14688 recorded
+file identities; the retail anchor is unchanged. No compiler or audit job remains
+live. The35% objective is unfinished:27506 more verified instruction bytes needed.
 
-Cold aggregate17239 is live at codex35_shader_comment/aggregate.log. Accepted
-coverage stays353651/32.454574% until its terminal PASS; expected gain231 must
-not be counted early. Old reviewed reuse certificate intentionally rejects the
-new proof-tool closure. No stale reseal or bypass was performed. Keep all
-accepted/new proof inputs frozen while the audit runs; separate uncounted
-source drafts can continue. The35% goal is still active, not achieved.
+New accepted readable source: target/src/codex_shader_comment/comment.cpp,
+complete231 bytes at10062db3/SDK57 section60. V2 passes literal SDK/retail
+equality, original referee, full earlier-return/tail boundary and negative tests.
+V3 retains651 and reaches652 linked source matches. Fresh CPU fixtures agree
+in all1284 compiler cases and324 direct parser cases. No whole-DLL identity claim.
 
-The earlier owner's checkpoint below is historical; work subsequently resumed.
+Unmatched work is preserved separately in target/scratch/codex35_semantics/,
+codex35_shader_comments/ and codex35_address_registers/merge_call_order.cpp.
+The best output-semantics draft is800/806 bytes, still differing in callee-save
+entry/return order and VS3 pointer-step instruction selection. Input958/954,
+sampler194/190 and merge1203/1199 also remain unmatched. ALL receive zero credit.
+Read codex35_semantics/REPORT.md before retrying: it records the completed
+C89, helper, scope, parameter and compiler-flag attempts and their limitations.
+
+Resume next from the precise output-semantics differences, then sampler/EmitArgs;
+do not replay identical failed variants. The much larger intrinsic export remains
+research, not maintainable accepted C++. Keep accepted source under target/src/;
+no release cod2engine edits were made.
+
+The old --reuse-reviewed certificate intentionally rejects the new proof-tool
+closure. Do not use or stale-reseal it. A new snapshot may be sealed from this
+completed cold log only after independently reviewing all current inputs; then
+pin its new path/hash in the driver and test rejection gates. Until then omit
+--reuse-reviewed. Reuse unchanged objects within each cohort, not stale proof.
+
+Historical checkpoint/live statements below do not override this latest state.
 
 ## Owner-requested checkpoint — 2026-10-04
 

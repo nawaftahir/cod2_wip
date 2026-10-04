@@ -1,9 +1,18 @@
 # Where to inspect renderer source
 
-Resumed35% work: new [comment parser](target/src/codex_shader_comment/comment.cpp)
-passes complete V2,652 linked matches retaining651,1284 compiler and324 direct
-CPU cases. All four proof packet identity sets current. Full cold aggregate17239
-is live;231 bytes are pending acceptance, not added to32.454574% yet.
+Latest checkpoint,2026-10-04: **353882/1089680 = 32.475773% verified**.
+Cold aggregate17239 finished PASS/exit0; independent posthash passed36 cohort
+pin sets,109 authoritative packets and14688 recorded identities. No jobs live.
+35% remains unfinished:27506 further verified instruction bytes required.
+
+New accepted clean [comment parser](target/src/codex_shader_comment/comment.cpp):
+231 complete bytes, V2,652 linked matches retaining651,1284 compiler and324
+direct CPU cases pass. Unmatched semantic/sampler/merge drafts stay in scratch,
+receive zero credit, and are preserved in the
+[attempt report](target/scratch/codex35_semantics/REPORT.md).
+See [the latest handoff](HANDOFF.md) for continuation and stale-cache warnings.
+
+All lower totals and pending/live statements below are historical.
 
 2026-10-04 checkpoint: **32.454574% verified**, unchanged since02a16d5.
 Clean accepted additions: [argument allocation](target/src/codex_shader_argument_alloc/argument_alloc.cpp),

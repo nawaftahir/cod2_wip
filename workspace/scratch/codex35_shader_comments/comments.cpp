@@ -70,6 +70,7 @@ HRESULT WINAPI D3DXGetShaderSamplers(const DWORD *shader, LPCSTR *samplers,
     {
         *total = 0;
     }
+    HRESULT result;
     DWORD kind = *shader & 0xffff0000;
     switch (kind)
     {
@@ -80,28 +81,32 @@ HRESULT WINAPI D3DXGetShaderSamplers(const DWORD *shader, LPCSTR *samplers,
         break;
     default:
 invalid:
-        return D3DXERR_INVALIDDATA;
+        result = D3DXERR_INVALIDDATA;
+        goto finished;
     }
     const D3DXSHADER_CONSTANTTABLE *table = 0;
     unsigned bytes;
-    HRESULT result = D3DXFindShaderComment(shader, 0x42415443,
+    result = D3DXFindShaderComment(shader, 0x42415443,
         reinterpret_cast<LPCVOID *>(&table), &bytes);
     if (result < 0)
     {
-        return result;
+        goto finished;
     }
     if (!table)
     {
-        return S_OK;
+        result = S_OK;
+        goto finished;
     }
     if (bytes < sizeof(D3DXSHADER_CONSTANTTABLE))
     {
         goto invalid;
     }
+    unsigned required = sizeof(D3DXSHADER_CONSTANTTABLE) +
+        table->Constants * sizeof(D3DXSHADER_CONSTANTINFO);
     const D3DXSHADER_CONSTANTINFO *constant =
         reinterpret_cast<const D3DXSHADER_CONSTANTINFO *>(
             reinterpret_cast<const char *>(table) + table->ConstantInfo);
-    if (bytes < sizeof(D3DXSHADER_CONSTANTTABLE) + table->Constants * sizeof(D3DXSHADER_CONSTANTINFO))
+    if (bytes < required)
     {
         goto invalid;
     }
@@ -121,5 +126,7 @@ invalid:
     {
         *total = count;
     }
-    return S_OK;
+    result = S_OK;
+finished:
+    return result;
 }

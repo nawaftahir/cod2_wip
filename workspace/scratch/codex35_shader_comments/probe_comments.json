@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "_D3DXFindShaderComment@16",
+      "object_bytes": 231,
+      "target_bytes": 231,
+      "first_difference": null,
+      "full_masked_equal": true,
+      "source_credit": 0
+    },
+    {
+      "symbol": "_D3DXGetShaderSamplers@12",
+      "object_bytes": 194,
+      "target_bytes": 190,
+      "first_difference": 12,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_shader_comments/comments.cpp",
+  "source_sha256": "b80ddea176167ccc81e93066a80db94ec7c4a51f8f948dd84aa8ef659b9c64ef",
+  "object_sha256": "3d1e1a49dfa18aa0b2c359d6b131c368d443f0ad20f9b59b42846c06476fd365"
+}

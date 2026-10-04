@@ -41,3 +41,9 @@ image, then run_clean_test.py and run_comment_test.py. Use the existing pinned
 CPU image for executable comparisons. Proof inputs must remain frozen during
 the aggregate. SDK selectors remove only independently source-supplied functions,
 never transplant retail code into source or patch post-link bytes.
+
+Final checkpoint: cold aggregate17239 completed terminal PASS/exit0. Accepted
+353882/1089680=32.475773%, adding exactly231 disjoint source instruction bytes.
+Independent post-completion rehash passed36 cohort pin sets,109 authoritative
+packet sets and14688 recorded identities; anchor unchanged. Earlier pending/live
+statements above are historical. No V4 whole-DLL identity or GPU claim.

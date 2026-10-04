@@ -961,3 +961,26 @@
   cases pass, four packet input sets current. Source231 stays aggregate-pending
   until cold17239 terminates PASS. New tools change the reuse closure; the old
   certificate is not resealed from its stale log to bypass that check.
+
+## Codex35 public shader semantics continuation — 2026-10-04
+
+- PINNED SDK57 sections63/64 are the full input954/output806 public semantic
+  parsers. These are separate from the newly matched public comment parser.
+- The retained ordinary output source narrows to800/806 but is UNMATCHED.
+  Destructive reuse of the decoded token for its register index removes
+  earlier bitmap-register differences. Callee-save entry/return order and
+  VS3 pointer-step instruction selection remain different; encoded branches
+  must still match. Label-normalized diagnostics are not byte/binding proof.
+- C89, force-inline index helper, function-scope arrays, parameter iterator,
+  /G5,/G6,/G7,/Og- and /EHsc attempts did not match. Preserve the exact source
+  and diagnostic packets in codex35_semantics/REPORT.md rather than rerunning
+  these identical variants. Pre-null-label CPU-model objects lack current
+  source identity and cannot be treated as fresh proof for the edited source.
+- PINNED output routine writes the count pointer unconditionally on its
+  ordinary success path; FX early success skips that write. Reconstruction
+  must preserve this original behavior, not silently add a null-pointer fix.
+- Sampler194/190 and MergeInstructions1203/1199 helper-order drafts remain
+  scratch-only. All semantic/sampler/merge attempts receive ZERO new bytes.
+- Final cold aggregate17239 PASS/exit0 accepts the separate comment parser231:
+ 353882/1089680=32.475773%. Posthash36 pin sets,109 packet sets,14688 identities
+  and retail anchor current. No audit/compiler job live at this checkpoint.

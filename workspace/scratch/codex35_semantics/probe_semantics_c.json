@@ -1,0 +1,24 @@
+{
+  "status": "DISCOVERY ONLY",
+  "rows": [
+    {
+      "symbol": "_D3DXGetShaderInputSemantics@12",
+      "object_bytes": 958,
+      "target_bytes": 954,
+      "first_difference": 13,
+      "full_masked_equal": false,
+      "source_credit": 0
+    },
+    {
+      "symbol": "_D3DXGetShaderOutputSemantics@12",
+      "object_bytes": 806,
+      "target_bytes": 806,
+      "first_difference": 17,
+      "full_masked_equal": false,
+      "source_credit": 0
+    }
+  ],
+  "source": "gfx/target/scratch/codex35_semantics/semantics_c.c",
+  "source_sha256": "1c073bac00b593a28e54ab100ac71e13fd2b23ec297e5a3da77a21466e15fb71",
+  "object_sha256": "26a582dccf2597563857ec5ea01cb1188aa105d86d7be07e7884169564cc2f66"
+}
