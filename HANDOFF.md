@@ -1,4 +1,34 @@
-# Shared renderer handoff — 2026-10-04
+# Shared renderer handoff — 2026-10-05
+
+## Current acceptance — 33% continuation
+
+**355095/1089680 = 32.587090% accepted.** The cold conversion audit completed
+PASS at354578; independent review checked37 cohort pin/state sets,111 packets
+and15009 recorded identities. The guarded extension audit then completed PASS
+at355095; independent review checked39 cohort pin/state sets,117 packets and
+15804 identities. Logs: shader_conversions/aggregate.log and
+parse_casts/aggregate_33_corrected.log under target/scratch. An earlier extension
+attempt was interrupted to correct a fixture metadata assertion (success counts
+are a two-side dictionary, not a scalar); its log is not acceptance evidence.
+
+The696 conversion,308 buffer and209 cast bytes are now globally accepted,
+with genuine clean source in target/src/codex_shader_conversions,
+codex_shader_buffers and codex_shader_parse_casts. No prior match losses.
+Current goal is33%, requiring4500 further verified instruction bytes.35% and
+whole-DLL SHA identity are still unfinished. The two audits are no longer live.
+
+Current reviewed cache:39 unchanged cohorts, hash
+b11bcff9af029492df4c2f96a11b17709ecaa0ab5e4c2ad992ecea5f8497c115.
+Sealed only after completed aggregate and independent posthash. New verifier
+files invalidate its environment; do not reseal from historical evidence alone.
+
+Active NEW source: target/scratch/codex33_constant_table/constants.cpp/.h and
+constants_inline.cpp/.h. SDK63/retail export is research only, read-only DB
+changes discarded. Full27-body batch includes descriptors, lookups and typed
+upload wrappers. First build matches five complete shapes391 bytes; remaining
+wrappers need the genuine lookup helper's inline context. Discovery is not
+acceptance. Do not promote until bindings/bounds/link/CPU gates pass.
+Older checkpoint/live totals below are historical.
 
 ## Owner-requested checkpoint — 13:13 UTC
 

@@ -1,5 +1,12 @@
 # Where to inspect renderer source
 
+Current,2026-10-05: **355095/1089680 = 32.587090% accepted**. All three clean
+conversion/buffer/cast batches below passed aggregate acceptance and independent
+posthash, with no retained source-match losses.33% needs4500 further verified
+instruction bytes. New constant-table source stays scratch-only pending full
+proof. No whole-DLL checksum identity or release claim. Read [handoff](HANDOFF.md);
+all lower totals and live-audit statements are historical.
+
 Continuation after b5ad733: accepted remains **32.475773%**. Clean
 [buffer callbacks](target/src/codex_shader_buffers/buffers.cpp) and
 [parser value casts](target/src/codex_shader_parse_casts/casts.cpp) now pass

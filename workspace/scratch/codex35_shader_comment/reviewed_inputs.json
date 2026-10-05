@@ -1,9 +1,9 @@
 {
   "status": "REVIEWED-INPUT-SNAPSHOT",
   "source_credit": 0,
-  "completed_audit": "gfx/target/scratch/codex35_shader_comment/aggregate.log",
-  "audit_sha256": "c62bfb5b31efaa7f56a10600d916cc220e82a611ae1c9c5dd27570e295d6bbcb",
-  "environment": "b86df5d3b717bcdfc485c9a46d65dad5e50f54828496476f26baa38a8cf559f7",
+  "completed_audit": "gfx/target/scratch/codex35_parse_casts/aggregate_33_corrected.log",
+  "audit_sha256": "1bbb151afca9627fb41a82b1530aaefd042c616a43e6fceada8acea36e64e882",
+  "environment": "195a0e99391a27437d99c8fe52f78b951437deed4c093b9bb5307f7fa5471401",
   "cohorts": {
     "codex30_assembler": "9826e4b0febf22cc9e5a6071b90bb15970d1efba8999506d0ca46fc058e3e031",
     "codex30_support": "01efe5a289b15e2aeaa40babfb49b1cff205b50d22302e765b7837e24ab240d4",
@@ -40,7 +40,10 @@
     "codex35_validation": "e9713ede99b3595f0bd43412b2bb4877c4c167890262b5b0e2f0c7fcc43c2286",
     "codex35_pool_reads": "f1c3dadf04293956953c8d66e04a7d14101fa660262621b1a29cc22188fdb77e",
     "codex35_output_groups": "324ed9c778fcce2069989567c98cfd648f9177758445ab9291d8703cb5ca4b8c",
-    "codex35_shader_comment": "242b4771a5446f9cef5b5c566f0f10f02c95b96733379386beb3203ba5397c3b"
+    "codex35_shader_comment": "242b4771a5446f9cef5b5c566f0f10f02c95b96733379386beb3203ba5397c3b",
+    "codex35_shader_conversions": "997beef09a7cd0a4eb329cca4fc155fc50f2244a0413a05a695599cc9f8b4baa",
+    "codex35_shader_buffers": "6da6928d58a0edc8c073c4b490cdf67bbf42f4dbd32b25c3cb612670d20dc8b6",
+    "codex35_parse_casts": "222b64d52d608cc00277ae9ae718990e5b306f83dc496376549168a8b9727b2c"
   },
   "scope": "Historical proof reuse only; unchanged full inputs, tools, host packages and pinned images"
 }
