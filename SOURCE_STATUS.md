@@ -1,10 +1,17 @@
 # Where to inspect renderer source
 
-Current,2026-10-05: **355095/1089680 = 32.587090% accepted**. All three clean
+Checkpoint,2026-10-06: **355095/1089680 = 32.587090% accepted**. All three clean
 conversion/buffer/cast batches below passed aggregate acceptance and independent
 posthash, with no retained source-match losses.33% needs4500 further verified
-instruction bytes. New constant-table source stays scratch-only pending full
-proof. No whole-DLL checksum identity or release claim. Read [handoff](HANDOFF.md);
+instruction bytes. New clean source in
+[constant tables](target/src/codex_shader_constant_table/README.md) and
+[shader helpers](target/src/codex_shader_native_helpers/README.md) supplies
+4520 locally proved bytes (37 functions); all705 linked matches and34348 new
+CPU cases pass. Global inclusion is pending: the cold aggregate stopped without
+terminal PASS and is no longer running. All six new packets passed a checkpoint
+rehash (826 recorded /533 unique identities). Successful aggregate acceptance
+would yield33.001835%; this is not counted yet. Work stopped at the owner's
+request. No whole-DLL checksum identity or release claim. Read [handoff](HANDOFF.md);
 all lower totals and live-audit statements are historical.
 
 Continuation after b5ad733: accepted remains **32.475773%**. Clean

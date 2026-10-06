@@ -1,6 +1,55 @@
-# Shared renderer handoff — 2026-10-05
+# Shared renderer handoff — 2026-10-06
 
-## Current acceptance — 33% continuation
+## Owner-requested checkpoint — stopped, aggregate pending
+
+Saved checkpoint,2026-10-06: **37 complete C++ functions /4520 bytes** pass
+independent byte/binding/boundary proof, retained-link regression and CPU tests.
+Constant tables:32/3904,700 linked matches retaining668,20396 public API cases.
+Native shader helpers:5/616,705 linked matches retaining700,13952 direct cases.
+Clean source is in target/src/codex_shader_constant_table/ and
+target/src/codex_shader_native_helpers/; unmatched variants remain scratch-only.
+The full cold coverage audit is NOT running. PID22510 no longer exists and
+session85269 is unavailable. Its incomplete aggregate_33.log ends at
+`Checking codex30_assembler: complete byte proof and linked regression`.
+No terminal PASS or successful exit was observed; the reason it stopped is
+unknown. Keep this log as incomplete evidence, not acceptance.
+Expected359615/1089680 (33.001835%) remains provisional. Accepted remains
+355095/32.587090%. The owner cleared the goal and requested this checkpoint;
+no reconstruction or new audit is being started. The old cache is stale; do not use
+--reuse-reviewed until a new completed audit has been reviewed and resealed.
+
+Checkpoint verification: all six new clean/link/fixture packets rehashed;
+826 recorded identities /533 unique identities passed with zero mismatches.
+This verifies saved evidence, not a fresh compile or completed global audit.
+Clean source and replay tooling are saved; artifacts remain local. No release
+cod2engine changes, whole-DLL identity, GPU boot, or push is claimed.
+
+### Resume here
+
+1. Read the two batch REPORTs and RE_FACTS.md in codex33_constant_table.
+   Preserve the clean source; unmatched drafts add zero credit.
+2. Run a new cold audit from gfx, using a NEW log filename:
+   `python3 -u tools/check_ten_percent.py > target/scratch/codex33_shader_helpers/aggregate_33_resume.log 2>&1`.
+   Do not change source/tools/packet inputs during it. Do not use the stale cache.
+3. Require successful exit and complete terminal output. Independently review
+   all41 cohort pin sets and123 packets, hash every recorded identity, confirm
+   disjoint accounting and no retained losses. Only then accept359615 if proved.
+4. Seal the reviewed cache from that completed audit using
+   tools/reviewed_cohort_cache.py, update its pinned digest in the counter,
+   and save an acceptance checkpoint. Never reseal from the incomplete log.
+5. After acceptance, choose the next actual source batch with the owner.
+   Declaration/TU consolidation, full linking/layout and whole-DLL SHA remain.
+
+Both new build.sh scripts use the existing baseline object closure. If objects
+are missing or inputs changed, rebuild preceding cohorts first rather than
+reusing stale objects. For each batch, run build.sh and check_link.py from gfx;
+select_link_dependencies.py --fixture (tables) / --cpu (helpers), run its
+compile_fixture.sh inside the pinned compiler image with /w and /dxsdk mounts,
+then run_fixture.py on the host. Scripts contain the exact images and paths.
+Source ownership is proven for32/5 methods; opaque SDK/runtime dependencies
+remain zero credit. Full CPU equality is34348 cases, not a game/GPU test.
+
+All live/active-goal statements in older sections below are historical.
 
 **355095/1089680 = 32.587090% accepted.** The cold conversion audit completed
 PASS at354578; independent review checked37 cohort pin/state sets,111 packets
@@ -14,7 +63,7 @@ are a two-side dictionary, not a scalar); its log is not acceptance evidence.
 The696 conversion,308 buffer and209 cast bytes are now globally accepted,
 with genuine clean source in target/src/codex_shader_conversions,
 codex_shader_buffers and codex_shader_parse_casts. No prior match losses.
-Current goal is33%, requiring4500 further verified instruction bytes.35% and
+33% requires4500 further accepted instruction bytes.35% and
 whole-DLL SHA identity are still unfinished. The two audits are no longer live.
 
 Current reviewed cache:39 unchanged cohorts, hash
@@ -22,12 +71,14 @@ b11bcff9af029492df4c2f96a11b17709ecaa0ab5e4c2ad992ecea5f8497c115.
 Sealed only after completed aggregate and independent posthash. New verifier
 files invalidate its environment; do not reseal from historical evidence alone.
 
-Active NEW source: target/scratch/codex33_constant_table/constants.cpp/.h and
-constants_inline.cpp/.h. SDK63/retail export is research only, read-only DB
-changes discarded. Full27-body batch includes descriptors, lookups and typed
-upload wrappers. First build matches five complete shapes391 bytes; remaining
-wrappers need the genuine lookup helper's inline context. Discovery is not
-acceptance. Do not promote until bindings/bounds/link/CPU gates pass.
+Active NEW source now lives in the two clean modules named above. The final
+32-body table candidate includes structured and array initialization; full
+V2/3904 and typed27-slot bindings pass. Raw legacy97/94/96 scores are kept,
+not falsely reported100. Other drafts remain unmatched. Allnew source plus
+the5 native helpers totals4520 prospective bytes. Read the batch REPORTs
+before retrying allocation/lookup drafts. SDK exports stay local-only.
+New check.py invalidates the reviewed-cache environment: cold aggregate is
+required before resealing; never seal an old log against changed tools.
 Older checkpoint/live totals below are historical.
 
 ## Owner-requested checkpoint — 13:13 UTC

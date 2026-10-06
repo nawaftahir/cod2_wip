@@ -1,0 +1,1131 @@
+{
+  "status": "REVIEWABLE",
+  "whole_file_identity": false,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "source_class": "reconstructed SDK constant-table C++; remaining SDK/runtime methods external",
+  "compiler_files": {
+    "c1.dll": "31aad0d8d776d882ce7036b9f97c98a1d10fc1b8c068ebb9a2bb22a74225b4aa",
+    "c1xx.dll": "884727948209dfd638596bd7256c881ea8cc71bdc99f02bdf6e0a1274966f0eb",
+    "c2.dll": "5fdc4d339dd4f9cfbcb00bd2bc79622a7363aea64204a93c4bf66485886242ae",
+    "cl.exe": "c9d1dce113f9fcb2ebbc588efebfdc146098b503e4bcdbb146fe61e00ea7d025",
+    "mspdb71.dll": "f7ffe701485813a7f10861bc61ba533b09f1386c40c882e832f71881a705c75b",
+    "msvcp71.dll": "1d5a627cb700400a7de751f0e7d3bf2f024e8d79f8c4a9f11a5a20a05c73ab9f",
+    "msvcr71.dll": "91961cc52149826031f1b17b65a95a5c84c89d9a42f8621a43448c0fe897a94f"
+  },
+  "rows": [
+    {
+      "symbol": "?TypeSize@D3DXShader@@YGXPAVCConstantTable@1@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@IPAI3@Z",
+      "address": "0x1007d733",
+      "bytes": 187,
+      "section_bytes": 187,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 77,
+          "symbol": "?TypeSize@D3DXShader@@YGXPAVCConstantTable@1@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@IPAI3@Z",
+          "base": "0x1007d733",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        }
+      ],
+      "original_referee_match": 97,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "??0CConstant@D3DXShader@@QAE@PAVCConstantTable@1@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@P6GJPBXI3PAKI@Z4@Z",
+      "address": "0x1007d869",
+      "bytes": 113,
+      "section_bytes": 113,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 69,
+          "symbol": "?TypeSize@D3DXShader@@YGXPAVCConstantTable@1@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@IPAI3@Z",
+          "base": "0x1007d733",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "??1CConstant@D3DXShader@@QAE@XZ",
+      "address": "0x1007d8da",
+      "bytes": 142,
+      "section_bytes": 142,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 36,
+          "symbol": "??1CConstant@D3DXShader@@QAE@XZ",
+          "base": "0x1007d8da",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 42,
+          "symbol": "??3@YAXPAX@Z",
+          "base": "0x100f7865",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 63,
+          "symbol": "??3@YAXPAX@Z",
+          "base": "0x100f7865",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 97,
+          "symbol": "??1CConstant@D3DXShader@@QAE@XZ",
+          "base": "0x1007d8da",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        },
+        {
+          "offset": 103,
+          "symbol": "??3@YAXPAX@Z",
+          "base": "0x100f7865",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 124,
+          "symbol": "??3@YAXPAX@Z",
+          "base": "0x100f7865",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 133,
+          "symbol": "??3@YAXPAX@Z",
+          "base": "0x100f7865",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 94,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "??_GCConstant@D3DXShader@@QAEPAXI@Z",
+      "address": "0x1007e2e2",
+      "bytes": 33,
+      "section_bytes": 33,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 9,
+          "symbol": "??1CConstant@D3DXShader@@QAE@XZ",
+          "base": "0x1007d8da",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 21,
+          "symbol": "??3@YAXPAX@Z",
+          "base": "0x100f7865",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetScratch@CConstant@D3DXShader@@QAEJPAK@Z",
+      "address": "0x1007d968",
+      "bytes": 108,
+      "section_bytes": 108,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 44,
+          "symbol": "?SetScratch@CConstant@D3DXShader@@QAEJPAK@Z",
+          "base": "0x1007d968",
+          "addend": 0,
+          "kind": "SOURCE-LOCAL-CODE-OR-TABLE"
+        }
+      ],
+      "original_referee_match": 96,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?GetDesc@CConstant@D3DXShader@@QAEJPAU_D3DXCONSTANT_DESC@@@Z",
+      "address": "0x1007d9d4",
+      "bytes": 163,
+      "section_bytes": 163,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?GetConstantMember@CConstant@D3DXShader@@QAEPAV12@I@Z",
+      "address": "0x1007da77",
+      "bytes": 33,
+      "section_bytes": 33,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?FindConstant@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+      "address": "0x100813b7",
+      "bytes": 36,
+      "section_bytes": 36,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 28,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetDefaults@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@@Z",
+      "address": "0x1007dbc1",
+      "bytes": 51,
+      "section_bytes": 51,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 29,
+          "symbol": "?SetDefaults@CConstant@D3DXShader@@QAEJPBXI@Z",
+          "base": "0x1007da98",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?GetConstantDesc@CConstantTable@D3DXShader@@UAGJPBDPAU_D3DXCONSTANT_DESC@@PAI@Z",
+      "address": "0x100813db",
+      "bytes": 139,
+      "section_bytes": 139,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 48,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 111,
+          "symbol": "?GetDesc@CConstant@D3DXShader@@QAEJPAU_D3DXCONSTANT_DESC@@@Z",
+          "base": "0x1007d9d4",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?GetSamplerIndex@CConstantTable@D3DXShader@@UAGIPBD@Z",
+      "address": "0x10081466",
+      "bytes": 56,
+      "section_bytes": 56,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 25,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?GetConstant@CConstantTable@D3DXShader@@UAGPBDPBDI@Z",
+      "address": "0x1008149e",
+      "bytes": 80,
+      "section_bytes": 80,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 53,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 68,
+          "symbol": "?GetConstantMember@CConstant@D3DXShader@@QAEPAV12@I@Z",
+          "base": "0x1007da77",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?GetConstantByName@CConstantTable@D3DXShader@@UAGPBDPBD0@Z",
+      "address": "0x100814ee",
+      "bytes": 96,
+      "section_bytes": 96,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 32,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 67,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 84,
+          "symbol": "?GetConstantByName@CConstant@D3DXShader@@QAEPAV12@PBDH@Z",
+          "base": "0x10081062",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetValue@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBXI@Z",
+      "address": "0x1008158b",
+      "bytes": 82,
+      "section_bytes": 82,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 64,
+          "symbol": "?Set@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007e699",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetBool@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDH@Z",
+      "address": "0x100815dd",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007e938",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetInt@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDH@Z",
+      "address": "0x10081675",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007ec3a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetFloat@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDM@Z",
+      "address": "0x1008170d",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007ef30",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetBoolArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBHI@Z",
+      "address": "0x10081629",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007e938",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetIntArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBHI@Z",
+      "address": "0x100816c1",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007ec3a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetFloatArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBMI@Z",
+      "address": "0x10081759",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007ef30",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetVectorArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXVECTOR4@@I@Z",
+      "address": "0x100817f0",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007f261",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetMatrixArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@I@Z",
+      "address": "0x10081887",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007f64e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetMatrixPointerArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPAPBUD3DXMATRIX@@I@Z",
+      "address": "0x100818d3",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$01$02$03$03$00@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007fae3",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetMatrixTransposeArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@I@Z",
+      "address": "0x1008196a",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007ff1d",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetMatrixTransposePointerArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPAPBUD3DXMATRIX@@I@Z",
+      "address": "0x100819b6",
+      "bytes": 76,
+      "section_bytes": 76,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 59,
+          "symbol": "?Set@?$SetTyped@$02$02$03$03$00@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x10080425",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetVector@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXVECTOR4@@@Z",
+      "address": "0x100817a5",
+      "bytes": 75,
+      "section_bytes": 75,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 58,
+          "symbol": "?Set@?$SetTyped@$00$02$00$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007f261",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetMatrix@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@@Z",
+      "address": "0x1008183c",
+      "bytes": 75,
+      "section_bytes": 75,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 58,
+          "symbol": "?Set@?$SetTyped@$01$02$03$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007f64e",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?SetMatrixTranspose@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@@Z",
+      "address": "0x1008191f",
+      "bytes": 75,
+      "section_bytes": 75,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 26,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 58,
+          "symbol": "?Set@?$SetTyped@$02$02$03$03$0A@@D3DXShader@@SGJPAVCConstant@2@PBX1II@Z",
+          "base": "0x1007ff1d",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?Create@CConstant@D3DXShader@@SGPAV12@PAVCConstantTable@2@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@PAK@Z",
+      "address": "0x1008085f",
+      "bytes": 664,
+      "section_bytes": 664,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 113,
+          "symbol": "?Set@?$SetShaderConstant@$00$01$01@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007dd80",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 123,
+          "symbol": "?Set@?$SetShaderConstant@$00$01$00@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007dd36",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 133,
+          "symbol": "?Set@?$SetShaderConstant@$00$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007dd18",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 168,
+          "symbol": "?Set@?$SetShaderConstant@$00$00$02@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007dcb2",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 178,
+          "symbol": "?Set@?$SetShaderConstant@$00$00$00@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007dc50",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 188,
+          "symbol": "?Set@?$SetShaderConstant@$00$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007dc32",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 219,
+          "symbol": "?Set@?$SetShaderConstant@$00$0A@$02@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e647",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 229,
+          "symbol": "?Set@?$SetShaderConstant@$00$0A@$01@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e606",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 239,
+          "symbol": "?Set@?$SetShaderConstant@$00$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e5e8",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 249,
+          "symbol": "?Set@?$SetShaderConstant@$00$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e5ca",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 305,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$01$02@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e5ac",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 315,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$01$01@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e571",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 325,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$01$00@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e527",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 335,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e509",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 366,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$00$02@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e4a3",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 376,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$00$01@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e485",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 386,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$00$00@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e441",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 396,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e423",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 431,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$02@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e3d1",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 441,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$01@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e390",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 451,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e354",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 489,
+          "symbol": "?Set@?$SetShaderConstant@$01$01$02@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007ded0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 496,
+          "symbol": "?Set@?$SetShaderConstant@$01$01$01@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007de7a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 503,
+          "symbol": "?Set@?$SetShaderConstant@$01$01$00@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007de16",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 510,
+          "symbol": "?Set@?$SetShaderConstant@$01$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007ddd9",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 550,
+          "symbol": "?Set@?$SetShaderConstant@$00$01$02@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007ddbb",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 557,
+          "symbol": "?Set@?$SetShaderConstant@$00$00$01@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007dc94",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 587,
+          "symbol": "?Set@?$SetShaderConstant@$0A@$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z",
+          "base": "0x1007e372",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 594,
+          "symbol": "??2@YAPAXI@Z",
+          "base": "0x100f786a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 617,
+          "symbol": "??0CConstant@D3DXShader@@QAE@PAVCConstantTable@1@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@P6GJPBXI3PAKI@Z4@Z",
+          "base": "0x1007d869",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 634,
+          "symbol": "?Initialize@CConstant@D3DXShader@@QAEJXZ",
+          "base": "0x10080af7",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 647,
+          "symbol": "??_GCConstant@D3DXShader@@QAEPAXI@Z",
+          "base": "0x1007e2e2",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?Initialize@CConstant@D3DXShader@@QAEJXZ",
+      "address": "0x10080af7",
+      "bytes": 388,
+      "section_bytes": 388,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 36,
+          "symbol": "??2@YAPAXI@Z",
+          "base": "0x100f786a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 185,
+          "symbol": "?TypeSize@D3DXShader@@YGXPAVCConstantTable@1@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@IPAI3@Z",
+          "base": "0x1007d733",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 276,
+          "symbol": "?Create@CConstant@D3DXShader@@SGPAV12@PAVCConstantTable@2@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@PAK@Z",
+          "base": "0x1008085f",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?GetConstantElement@CConstant@D3DXShader@@QAEPAV12@I@Z",
+      "address": "0x10080c7b",
+      "bytes": 411,
+      "section_bytes": 411,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 61,
+          "symbol": "??2@YAPAXI@Z",
+          "base": "0x100f786a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 138,
+          "symbol": "??2@YAPAXI@Z",
+          "base": "0x100f786a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 298,
+          "symbol": "??2@YAPAXI@Z",
+          "base": "0x100f786a",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 323,
+          "symbol": "??0CConstant@D3DXShader@@QAE@PAVCConstantTable@1@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@P6GJPBXI3PAKI@Z4@Z",
+          "base": "0x1007d869",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 355,
+          "symbol": "?Initialize@CConstant@D3DXShader@@QAEJXZ",
+          "base": "0x10080af7",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 379,
+          "symbol": "??_GCConstant@D3DXShader@@QAEPAXI@Z",
+          "base": "0x1007e2e2",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    },
+    {
+      "symbol": "?GetConstantElement@CConstantTable@D3DXShader@@UAGPBDPBDI@Z",
+      "address": "0x1008154e",
+      "bytes": 61,
+      "section_bytes": 61,
+      "excluded_table_bytes": 0,
+      "source": "gfx/target/src/codex_shader_constant_table/matched.cpp",
+      "object": "gfx/target/build/codex33_constant_table/libraries/matched.obj",
+      "bindings": [
+        {
+          "offset": 28,
+          "symbol": "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z",
+          "base": "0x100811b0",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        },
+        {
+          "offset": 43,
+          "symbol": "?GetConstantElement@CConstant@D3DXShader@@QAEPAV12@I@Z",
+          "base": "0x10080c7b",
+          "addend": 0,
+          "kind": "AUTHENTIC-SDK-CALLEE-IDENTITY-ZERO-CREDIT"
+        }
+      ],
+      "original_referee_match": 100,
+      "instruction_aware_referee_match": 100
+    }
+  ],
+  "build_image": "sha256:17ddd3cc30517bc070c4e1a1d8bec9c4abd0d8b453115dfa0324e7e20dc94131",
+  "compile_flags": "/O1 /Oy- /hotpatch /MT /Gy /d2QIftol",
+  "verified_instruction_bytes": 3904,
+  "negative_tests_passed": true,
+  "files": {
+    "sdk/sum2004/Lib/d3dx9.lib": "3eec8cbc4f3d2c3128ce454400820e5b905009b91fe7d8b6bbedb2432b818a88",
+    "gfx/target/scratch/codex35_sdk/discovery.json": "70dbdb2eaeff0c3bb791bf8b24ea917676fa354101162964fa3420bb8bc5f5bf",
+    "gfx/target/scratch/codex35_compiler_types/referee.py": "1f7f5e7380267e5cfe11fc03ffa31a3cee0996c3777749314685a04e0d9ba740",
+    "gfx/target/src/codex_shader_nodes/nodes.cpp": "b9524c450c28b1b197ace482eb3b638d385253d7b9b172a6f19e69e024170b9b",
+    "gfx/target/scratch/codex35_lexer/dependencies/libcmt.lib": "6e2b3742e58245de52149137f64281b73db1487a07a31e165fff269fbf9b2ee8",
+    "gfx/target/scratch/codex30_cpp/obj/mt/new.obj": "b50d9802dcd8d135e5159c0de26fff5cf8bd43e99af1244bd609d743ebb8723a",
+    "gfx/target/scratch/codex30_cpp/obj/mt/delete.obj": "aead5eabbcdf9cd490a1d80ae60de7cdce13269a57372dedc055c055a000da24",
+    "gfx/target/scratch/codex33_constant_table/constants_inline.h": "15fce9c0311272bb1b0c74a5d33549c8fb155d17c4f88acf4c055dda34d3b555",
+    "gfx/target/scratch/codex33_constant_table/matched.cpp": "6b290aa940f6a71de497f61544c837c306e7139fbdee1a42ac73d0a63d54755f",
+    "gfx/target/scratch/codex33_constant_table/constants.h": "237d037105e305d9d27eb7b7ffbbf3041926724d0fefb775cd6ff8c2f3f08eb4",
+    "gfx/target/scratch/codex33_constant_table/vtables.py": "dda6f091d1bceb17f4833577ac1896f87aa3f0eed705f732b76e51234b8c9bb6",
+    "gfx/target/scratch/codex33_constant_table/initialization.cpp": "e1eb1f968a84f8889e218e35dffb85c2521300b92efb1766c92c9730152d265b",
+    "gfx/target/scratch/codex33_constant_table/sdk_binding.py": "db5575d59bba5af264f0be6472ffa50e027d8d8fd7d88750ebb15054c2ea6e1e",
+    "gfx/target/scratch/codex33_constant_table/select_link_dependencies.py": "5093ebc61b38464f0004c7233a5cd48973c3a9bffcbf185b2699d7f3633a0243",
+    "gfx/target/scratch/codex33_constant_table/build.sh": "4ff4110f282d7b67a4da6b28c0132c26dbb212e3244c20f244e7f2c57117b6c8",
+    "gfx/target/scratch/codex33_constant_table/check.py": "ae14dfbc550ebdca6d6b1c1fb69c73411808c8458c18fafb1e259101de52c5b3",
+    "gfx/target/scratch/codex33_constant_table/compile_fixture.sh": "78628b0151d86bbc0eb5a41b84d0e65e15443f5266160e52d5ea335f0e040011",
+    "gfx/target/scratch/codex33_constant_table/elements.cpp": "3c47f30baf33d8f2fe96154133a2feed2b83ef1998d1e1382e4ea3b4bb677136",
+    "gfx/target/scratch/codex33_constant_table/create.cpp": "fd72432a796d7c4affd6a83f339fcfed68fa11796b5f94ef4ba605028bedbdf2",
+    "gfx/target/scratch/codex33_constant_table/check_link.py": "e84013855fb4c3f9a2173ff9d37209bb969c96df11a3c96d48349afc6c62bfc2",
+    "gfx/target/scratch/codex33_constant_table/link.mk": "e6d0e1544ab312aa157e6faa8c929afcef189b271c4ec6689ce8e2a7e4c1ccf6",
+    "gfx/target/scratch/codex33_constant_table/run_fixture.py": "c959558e8eb6bbc437062d52135fea26202d5ecf19ce300f8f995e2909677893",
+    "gfx/target/src/codex_shader_constant_table/constants_inline.h": "15fce9c0311272bb1b0c74a5d33549c8fb155d17c4f88acf4c055dda34d3b555",
+    "gfx/target/src/codex_shader_constant_table/matched.cpp": "6b290aa940f6a71de497f61544c837c306e7139fbdee1a42ac73d0a63d54755f",
+    "gfx/target/src/codex_shader_constant_table/constants.h": "237d037105e305d9d27eb7b7ffbbf3041926724d0fefb775cd6ff8c2f3f08eb4",
+    "gfx/target/src/codex_shader_constant_table/initialization.cpp": "e1eb1f968a84f8889e218e35dffb85c2521300b92efb1766c92c9730152d265b",
+    "gfx/target/src/codex_shader_constant_table/elements.cpp": "3c47f30baf33d8f2fe96154133a2feed2b83ef1998d1e1382e4ea3b4bb677136",
+    "gfx/target/src/codex_shader_constant_table/create.cpp": "fd72432a796d7c4affd6a83f339fcfed68fa11796b5f94ef4ba605028bedbdf2",
+    "gfx/target/build/codex33_constant_table/libraries/matched.obj": "95970f029ffbdae2298d80d72eb268c8e13931cac1a0a16b255160c5ad680e5d"
+  }
+}
