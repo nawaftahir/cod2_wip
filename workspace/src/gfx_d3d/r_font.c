@@ -36,8 +36,8 @@ static FontHandle R_ResolveFont(FontHandle font)
 const Glyph * R_GetCharacterGlyph(FontHandle font, unsigned int letter);
 FontHandle R_RegisterFont(const char *fontName, int imageTrack);
 int R_DuplicateFont(FontHandle fontCopy, const char *name);
-int R_InitFonts(void);
-int R_ShutdownFonts(void);
+void R_InitFonts(void);
+void R_ShutdownFonts(void);
 float R_NormalizedTextScale(FontHandle font, float scale);
 int R_TextHeight(FontHandle font);
 int R_DrawText(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style);
@@ -141,7 +141,7 @@ int R_DuplicateFont(FontHandle fontCopy, const char *name)
         return R_Error(1, (const char *)"R_DuplicateFont: Too many fonts registered already.\n");
     }
 
-    newFont = alloc(0x14);
+    newFont = (FontHandle)(alloc(0x14));
     memcpy(newFont, fontCopy, 0x14);
 
     nameCopy = (char *)alloc(strlen(name) + 1);
@@ -155,12 +155,12 @@ int R_DuplicateFont(FontHandle fontCopy, const char *name)
 }
 
 /* line 138 */
-int R_InitFonts(void)
+void R_InitFonts(void)
 {
 }
 
 /* line 144 */
-int R_ShutdownFonts(void)
+void R_ShutdownFonts(void)
 {
     registeredFontCount = 0;
 }

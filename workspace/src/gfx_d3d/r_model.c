@@ -12,16 +12,8 @@
 
 static int warnCount; /* warnCount */
 static int warnCount_00c85b04; /* warnCount */
-static int warnCount_00c85b04; /* warnCount */
-static int warnCount_00c85b04; /* warnCount */
-static int warnCount_00c85b08; /* warnCount */
-static int warnCount_00c85b08; /* warnCount */
 static int warnCount_00c85b08; /* warnCount */
 static int warnCount_00c85b0c; /* warnCount */
-static int warnCount_00c85b0c; /* warnCount */
-static int warnCount_00c85b0c; /* warnCount */
-static int warnCount_00c85b10; /* warnCount */
-static int warnCount_00c85b10; /* warnCount */
 static int warnCount_00c85b10; /* warnCount */
 extern void * Hunk_AllocInternal(int size);
 extern void DB_EnumXAssets(int type, void (*func)(XAssetHeader, void *), void *data, qboolean overrides);
@@ -368,7 +360,7 @@ static int R_GetSurfaceData_impl(const byte *ent, const void *obj, void *surface
     int modelCount, i;
     float dist, scale;
 
-    modelCount = DObjGetNumModels(obj);
+    modelCount = DObjGetNumModels((const DObj_s *)obj);
     scale = ((GfxEntity *)ent)->scale;
 
     /* Compute distance from entity origin to camera, scaled by LOD parameters */
@@ -384,7 +376,7 @@ static int R_GetSurfaceData_impl(const byte *ent, const void *obj, void *surface
         lods[i] = (char)DObjGetLodForDist(obj, i, dist);
     }
 
-    return DObjGetSurfaces(obj, surfaces, partBits, lods);
+    return DObjGetSurfaces((const DObj_s *)obj, (DSurface_s *)surfaces, partBits, lods);
 }
 
 /* Clean C version for WASM — no register calling convention */
@@ -577,7 +569,7 @@ void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, GfxEntity *ent)
     if (((GfxEntity *)e)->reType != 0) {
         void *defaultModel = ((r_globals_t *)imp_rg)->modelDObj;
         obj = (void *)((GfxSceneEntity *)se)->u.data;
-        DObjSetModel(defaultModel, obj);
+        DObjSetModel((DObj_s *)defaultModel, obj);
     } else {
         obj = (void *)((GfxSceneEntity *)se)->u.data;
     }
@@ -699,7 +691,7 @@ static int R_PreSkinXSurface(GfxSceneEntity *sceneEnt, const struct DObj_s *obj,
     void *material;
 
     model = DObjGetModel(obj, surfIdx);
-    skins = XModelGetSkins(model);
+    skins = (void *)(XModelGetSkins((const XModel *)model));
     if (!skins) return 0;
 
     skinIndex = (signed char)lods[surfIdx];
@@ -959,7 +951,7 @@ static int R_PreSkinStaticSurface(GfxSceneEntity *sceneEnt, GfxEntity *ent, int 
     const struct XModel *model, XSurface *xsurf, int surfaceIndex, int lod,
     qboolean *needSkinningSurf, byte *surfPos)
 {
-    void *skins = XModelGetSkins((void *)model);
+    void *skins = (void *)(XModelGetSkins((const XModel *)((void *)model)));
     if (!skins) return 0;
 
     /* Set material in scene surface list */

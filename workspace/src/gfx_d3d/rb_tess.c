@@ -27,7 +27,7 @@ extern void RB_ChangedWorldMatrix(float worldScale);
 extern void Com_Memcpy(void *dest, const void *src, int count);
 extern int XSurfaceGetNumVerts(const XSurface *surface);
 extern int XSurfaceGetNumTris(const XSurface *surface);
-extern long unsigned int XSurfaceGetTris(const XSurface *surface, r_index_t *dstIndices, int offset);
+extern void XSurfaceGetTris(const XSurface *surface, r_index_t *dstIndices, int offset);
 extern float Vec3Normalize(vec3_t v);
 extern void Vec3Cross(const vec3_t v0, const vec3_t v1, vec3_t cross);
 extern int VecNCompareCustomEpsilon(const vec_t *v0, const vec_t *v1, float epsilon, int coordCount);
@@ -198,7 +198,7 @@ void RB_TessParticleCloud(const GfxEntity *re)
         RB_ChangeStreamSource(0, vb, 0, 0x14);
     }
 
-    RB_DrawTechnique(2, &args);
+    RB_DrawTechnique((MaterialVertexDeclType)2, &args);
 }
 
 /* line 1406 */
@@ -284,7 +284,7 @@ void RB_TessXModelRigid(const surfaceType_t *surfType)
 
     RB_ChangedWorldMatrix(backEnd->currentEntity->scale);
 
-    RB_DrawTechnique(0, &args);
+    RB_DrawTechnique((MaterialVertexDeclType)0, &args);
     RB_PopMatrixStack();
 }
 

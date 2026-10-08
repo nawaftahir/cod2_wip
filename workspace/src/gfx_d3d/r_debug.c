@@ -90,7 +90,7 @@ void R_TransferDebugGlobals(DebugGlobals *debugGlobalsEntry) {
 
     if (debugGlobals.plumes) {
         if (!debugGlobalsEntry->plumes) {
-            debugGlobalsEntry->plumes = ri.Z_MallocInternal(debugGlobals.plumeLimit * sizeof(GfxDebugPlume));
+            debugGlobalsEntry->plumes = (GfxDebugPlume *)(ri.Z_MallocInternal(debugGlobals.plumeLimit * sizeof(GfxDebugPlume)));
         }
         memcpy(debugGlobalsEntry->plumes, debugGlobals.plumes, plumeCount * sizeof(GfxDebugPlume));
     }
@@ -106,7 +106,7 @@ void R_LocateDebugStrings(trDebugString_t *strings, int stringCount, int maxStri
 
     if (strings) {
         if (!debugGlobalsEntry->externStrings) {
-            debugGlobalsEntry->externStrings = ri.Z_MallocInternal(maxStringCount * sizeof(trDebugString_t));
+            debugGlobalsEntry->externStrings = (trDebugString_t *)(ri.Z_MallocInternal(maxStringCount * sizeof(trDebugString_t)));
         }
         memcpy(debugGlobalsEntry->externStrings, strings, stringCount * sizeof(trDebugString_t));
     }
@@ -118,7 +118,7 @@ void R_LocateDebugLines(trDebugLine_t *lines, int lineCount, int maxLineCount) {
 
     if (lines) {
         if (!debugGlobalsEntry->externLines) {
-            debugGlobalsEntry->externLines = ri.Z_MallocInternal(maxLineCount * sizeof(trDebugLine_t));
+            debugGlobalsEntry->externLines = (trDebugLine_t *)(ri.Z_MallocInternal(maxLineCount * sizeof(trDebugLine_t)));
         }
         memcpy(debugGlobalsEntry->externLines, lines, lineCount * sizeof(trDebugLine_t));
     }
@@ -131,7 +131,7 @@ void R_AddDebugString(DebugGlobals *debugGlobalsEntry, const vec_t *origin, cons
     }
 
     if (!debugGlobalsEntry->strings) {
-        debugGlobalsEntry->strings = ri.Z_MallocInternal(debugGlobalsEntry->stringLimit * sizeof(trDebugString_t));
+        debugGlobalsEntry->strings = (trDebugString_t *)(ri.Z_MallocInternal(debugGlobalsEntry->stringLimit * sizeof(trDebugString_t)));
     }
 
     trDebugString_t *pDebugString = &debugGlobalsEntry->strings[debugGlobalsEntry->stringCount];
@@ -150,7 +150,7 @@ void R_AddDebugString(DebugGlobals *debugGlobalsEntry, const vec_t *origin, cons
 
 void R_AddPlume(const vec_t *origin, int score, const vec_t *color, int duration) {
     if (!debugGlobals.plumes) {
-        debugGlobals.plumes = ri.Z_MallocInternal(debugGlobals.plumeLimit * sizeof(GfxDebugPlume));
+        debugGlobals.plumes = (GfxDebugPlume *)(ri.Z_MallocInternal(debugGlobals.plumeLimit * sizeof(GfxDebugPlume)));
         debugGlobals.plumeCount = 0;
     }
 
@@ -182,8 +182,8 @@ void R_AddDebugPolygon(DebugGlobals *debugGlobalsEntry, const vec_t *color, cons
     }
 
     if (!debugGlobalsEntry->polys) {
-        debugGlobalsEntry->polys = ri.Z_MallocInternal(debugGlobalsEntry->polyLimit * sizeof(GfxDebugPoly));
-        debugGlobalsEntry->verts = ri.Z_MallocInternal(debugGlobalsEntry->vertLimit * sizeof(vec3_t));
+        debugGlobalsEntry->polys = (GfxDebugPoly *)(ri.Z_MallocInternal(debugGlobalsEntry->polyLimit * sizeof(GfxDebugPoly)));
+        debugGlobalsEntry->verts = (vec3_t (*))(ri.Z_MallocInternal(debugGlobalsEntry->vertLimit * sizeof(vec3_t)));
         vertCount = debugGlobalsEntry->vertCount;
         polyCount = debugGlobalsEntry->polyCount;
     }
@@ -206,7 +206,7 @@ void R_AddDebugLine(DebugGlobals *debugGlobalsEntry, const vec_t *start, const v
     }
 
     if (!debugGlobalsEntry->lines) {
-        debugGlobalsEntry->lines = ri.Z_MallocInternal(debugGlobalsEntry->lineLimit * sizeof(trDebugLine_t));
+        debugGlobalsEntry->lines = (trDebugLine_t *)(ri.Z_MallocInternal(debugGlobalsEntry->lineLimit * sizeof(trDebugLine_t)));
     }
 
     trDebugLine_t *line = &debugGlobalsEntry->lines[debugGlobalsEntry->lineCount];

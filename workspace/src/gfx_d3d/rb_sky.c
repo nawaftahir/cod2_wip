@@ -4,6 +4,8 @@
 #include "common_types.h"
 #include "imports.h"
 
+static const D3DCOLOR kWhite = 0xffffffff;
+
 /* Original includes (from N_BINCL debug info):
  *   #include "PC/universal/com_vector.h"
  *   #include "PC/gfx_d3d/rb_backend.h"
@@ -108,7 +110,7 @@ int RB_CalcSunSpriteSamples(void)
         Material *mat;
         void *glob = r_glob;
         mat = FIELD(glob, 0x1038, Material *);
-        RB_DrawStretchPic(mat, 0.0f, 0.0f, 16.0f, 16.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff, 10);
+        RB_DrawStretchPic(mat, 0.0f, 0.0f, 16.0f, 16.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff, (GfxPrimStatsTarget)10);
     }
     RB_EndSurface();
 
@@ -511,7 +513,7 @@ unsigned char RB_DrawSunPostEffects(int viewIndex)
         return 0;
 
     {
-        Material *sunMaterial = FIELD(scene, 0x168, void *);
+        Material *sunMaterial = (Material *)(FIELD(scene, 0x168, void *));
         float sunFlareCosBegin, sunFlareCosEnd;
         float lastDot;
         float cosAngle;
@@ -566,7 +568,7 @@ unsigned char RB_DrawSunPostEffects(int viewIndex)
                     if (FIELD(tb, 0x5a7d0, int) != 0 || FIELD(tb, 0x5a7e0, int) != 0) {
                         RB_EndSurface();
                     }
-                    RB_BeginSurface(mat, 3, 0x1f);
+                    RB_BeginSurface(mat, (MaterialTechniqueType)3, 0x1f);
                 }
             }
         }
@@ -840,7 +842,7 @@ unsigned char RB_DrawSun(int viewIndex)
                     if (FIELD(tb, 0x5a7d0, int) != 0 || FIELD(tb, 0x5a7e0, int) != 0) {
                         RB_EndSurface();
                     }
-                    RB_BeginSurface(occlusionMat, 3, 0x1f);
+                    RB_BeginSurface(occlusionMat, (MaterialTechniqueType)3, 0x1f);
                 }
             }
 
@@ -989,7 +991,7 @@ after_sun_trace:
                         if (FIELD(tb, 0x5a7d0, int) != 0 || FIELD(tb, 0x5a7e0, int) != 0) {
                             RB_EndSurface();
                         }
-                        RB_BeginSurface(sunMat, 1, 0x1f);
+                        RB_BeginSurface(sunMat, (MaterialTechniqueType)1, 0x1f);
                     }
                 }
 
@@ -1001,7 +1003,7 @@ after_sun_trace:
                     vec3_t up;
                     float dxp1[3], dxp2[3], dxm1[3], dxm2[3];
 
-                    vd = RB_SetTessQuadDx7(*(GfxColor *)&(D3DCOLOR){0xffffffff});
+                    vd = RB_SetTessQuadDx7(*(GfxColor *)&kWhite);
 
                     halfSize = 0.0013110929867252707f;
                     halfSize *= FIELD(FIELD(r_glob, 0x109c, void *), 0x16c, float);
@@ -1074,7 +1076,7 @@ after_sun_trace:
                         if (FIELD(tb, 0x5a7d0, int) != 0 || FIELD(tb, 0x5a7e0, int) != 0) {
                             RB_EndSurface();
                         }
-                        RB_BeginSurface(sunMat, 1, 0x1f);
+                        RB_BeginSurface(sunMat, (MaterialTechniqueType)1, 0x1f);
                     }
                 }
 
@@ -1086,7 +1088,7 @@ after_sun_trace:
                     vec3_t up;
                     float dxp1[3], dxp2[3], dxm1[3], dxm2[3];
 
-                    v = RB_SetTessQuad(*(GfxColor *)&(D3DCOLOR){0xffffffff});
+                    v = RB_SetTessQuad(*(GfxColor *)&kWhite);
 
                     halfSize = 0.0013110929867252707f;
                     halfSize *= FIELD(FIELD(r_glob, 0x109c, void *), 0x16c, float);

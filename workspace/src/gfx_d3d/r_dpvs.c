@@ -877,7 +877,7 @@ static int R_GetFurtherCellList_r_impl(const GfxCell *cell, const DpvsPlane *par
         int occluded = 0;
         int oi;
         for (oi = 0; oi < occCount && !occluded; oi++) {
-            GfxOccluder *occ = occTable[oi];
+            GfxOccluder *occ = (GfxOccluder *)occTable[oi];
             int occPlaneCount = occ->viewPlaneCount;
             DpvsPlane *occPlanes = occ->viewPlanes;
             if (occPlaneCount <= 0) {
@@ -1647,7 +1647,7 @@ extern void R_AddDebugPolygon(void *debugGlobals, const float *color, int vertCo
 
 static void R_VisitPortals_impl(const GfxCell *cell, const DpvsPlane *parentPlane, const DpvsPlane *planes, int planeCount)
 {
-    LargeLocal hullPointsPool_large_local;
+    LargeLocal hullPointsPool_large_local(0x20000);
     DpvsPlane childPlanes[64];
     vec3_t portalVerts[64];
     vec3_t normals[64];
@@ -1660,8 +1660,7 @@ static void R_VisitPortals_impl(const GfxCell *cell, const DpvsPlane *parentPlan
     int clipChildren;
 
     /* Allocate hull points pool: 0x20000 bytes = 256 blocks of 0x200 bytes */
-    LargeLocal_LargeLocal(&hullPointsPool_large_local, 0x20000);
-    byte *poolBuf = (byte *)LargeLocal_GetBuf(&hullPointsPool_large_local);
+    byte *poolBuf = (byte *)hullPointsPool_large_local.GetBuf();
 
     /* Build free list: each 0x200-byte block points to the next */
     for (i = 0; i < 255; i++) {
@@ -1896,7 +1895,6 @@ static void R_VisitPortals_impl(const GfxCell *cell, const DpvsPlane *parentPlan
     }
 
     /* Cleanup */
-    ZN10LargeLocalD1Ev(&hullPointsPool_large_local);
 }
 
 /* Clean C version for WASM — no register calling convention */
@@ -1981,17 +1979,15 @@ extern int __mh_execute_header;
 
 static void R_AddWorldSurfacesDpvs_impl(const GfxViewParms *viewParms, int cameraCellIndex)
 {
-    LargeLocal activeOccluderBuffer_large_local;
-    LargeLocal occluderPlaneBuffer_large_local;
+    LargeLocal activeOccluderBuffer_large_local((int)&__mh_execute_header);
+    LargeLocal occluderPlaneBuffer_large_local(0x1e000);
     DpvsPlane frustumPlanes[6]; /* up to 4 frustum + 1 near + 1 far */
     int frustumPlaneCount;
     int i;
 
     /* Allocate large local buffers for occluder data */
-    LargeLocal_LargeLocal(&activeOccluderBuffer_large_local, (int)&__mh_execute_header);
-    byte *activeOccluderBuf = (byte *)LargeLocal_GetBuf(&activeOccluderBuffer_large_local);
-    LargeLocal_LargeLocal(&occluderPlaneBuffer_large_local, 0x1e000);
-    byte *occluderPlaneBuf = (byte *)LargeLocal_GetBuf(&occluderPlaneBuffer_large_local);
+    byte *activeOccluderBuf = (byte *)activeOccluderBuffer_large_local.GetBuf();
+    byte *occluderPlaneBuf = (byte *)occluderPlaneBuffer_large_local.GetBuf();
 
     /* Store buffer pointers in dpvsGlob */
     *(void **)((byte *)&dpvsGlob + 60) = activeOccluderBuf;
@@ -2289,8 +2285,6 @@ static void R_AddWorldSurfacesDpvs_impl(const GfxViewParms *viewParms, int camer
         RB_ShowLightVisCachePoints(viewParms, frustumPlanes, frustumPlaneCount);
 
     /* Cleanup large locals */
-    ZN10LargeLocalD1Ev(&occluderPlaneBuffer_large_local);
-    ZN10LargeLocalD1Ev(&activeOccluderBuffer_large_local);
 }
 
 /* Clean C version for WASM — no register calling convention */

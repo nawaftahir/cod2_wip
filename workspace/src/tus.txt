@@ -13,4 +13,123 @@ codex/visibility_config.c
 codex/world_bounds.c
 
 # Mac 1.3 decompile, to be ported (src/gfx_d3d/, claim in CLAIMS.md first)
+# gfx_d3d/r_bsp.c
+# gfx_d3d/r_bsp_load_obj.c
+# gfx_d3d/r_buffers.c
+# gfx_d3d/r_caps.c
+# gfx_d3d/r_cmds.c
+# gfx_d3d/r_debug.c
+# gfx_d3d/r_dpvs.c
+# gfx_d3d/r_dvars.c
+# gfx_d3d/r_flares.c
+# gfx_d3d/r_fog.c
+# gfx_d3d/r_font.c
+# gfx_d3d/r_font_load_obj.c
+# gfx_d3d/r_image.c
+# gfx_d3d/r_image_load_common.c
+# gfx_d3d/r_image_load_obj.c
+# gfx_d3d/r_image_wavelet.c
 # gfx_d3d/r_init.c
+# gfx_d3d/r_jpeg.c
+# gfx_d3d/r_light.c
+# gfx_d3d/r_light_load_obj.c
+# gfx_d3d/r_loadworld_new.c
+# gfx_d3d/r_marks.c
+# gfx_d3d/r_material.c
+# gfx_d3d/r_material_load_obj.c
+# gfx_d3d/r_model.c
+# gfx_d3d/r_model_load_obj.c
+# gfx_d3d/r_outdoor.c
+# gfx_d3d/r_rendercmds.c
+# gfx_d3d/r_rendertarget.c
+# gfx_d3d/r_scene.c
+# gfx_d3d/r_screenshot.c
+# gfx_d3d/r_shadowcookie.c
+# gfx_d3d/r_sky.c
+# gfx_d3d/r_sky_load_obj.c
+# gfx_d3d/r_specularityimage.c
+# gfx_d3d/r_splitscreen.c
+# gfx_d3d/r_staticmodel.c
+# gfx_d3d/r_staticmodel_load_obj.c
+# gfx_d3d/r_staticmodelcache.c
+# gfx_d3d/r_surfbounds.c
+# gfx_d3d/r_texturemem.c
+# gfx_d3d/r_utils.c
+# gfx_d3d/r_water.c
+# gfx_d3d/r_water_load_obj.c
+# gfx_d3d/r_xsurface.c
+# gfx_d3d/r_xsurface_load_obj.c
+# gfx_d3d/r_xsurface_optimize.c
+# gfx_d3d/rb_backend.c
+# gfx_d3d/rb_debug.c
+# gfx_d3d/rb_fog.c
+# gfx_d3d/rb_imagefilter.c
+# gfx_d3d/rb_imagetouch.c
+# gfx_d3d/rb_light.c
+# gfx_d3d/rb_shade.c
+# gfx_d3d/rb_sky.c
+# gfx_d3d/rb_state.c
+# gfx_d3d/rb_tess.c
+
+
+# opencod2 gfx_d3d (typed, Mac-derived)
+opencod2/gfx_d3d/r_bsp.c
+opencod2/gfx_d3d/r_bsp_load_obj.c
+opencod2/gfx_d3d/r_buffers.c
+opencod2/gfx_d3d/r_caps.c
+opencod2/gfx_d3d/r_cmds.c
+opencod2/gfx_d3d/r_debug.c
+opencod2/gfx_d3d/r_dpvs.c
+opencod2/gfx_d3d/r_dvars.c
+opencod2/gfx_d3d/r_flares.c
+opencod2/gfx_d3d/r_fog.c
+opencod2/gfx_d3d/r_font.c
+opencod2/gfx_d3d/r_font_load_obj.c
+# opencod2/gfx_d3d/r_getrefapi_v60.c  (1.3 API v60; 1.0 is 59)
+opencod2/gfx_d3d/r_image.c
+opencod2/gfx_d3d/r_image_load_common.c
+opencod2/gfx_d3d/r_image_load_obj.c
+opencod2/gfx_d3d/r_image_wavelet.c
+opencod2/gfx_d3d/r_init.c
+opencod2/gfx_d3d/r_jpeg.c
+opencod2/gfx_d3d/r_light.c
+opencod2/gfx_d3d/r_light_load_obj.c
+opencod2/gfx_d3d/r_loadworld_new.c
+opencod2/gfx_d3d/r_marks.c
+opencod2/gfx_d3d/r_material.c
+opencod2/gfx_d3d/r_material_code_tables.c
+opencod2/gfx_d3d/r_material_load_obj.c
+opencod2/gfx_d3d/r_model.c
+opencod2/gfx_d3d/r_model_load_obj.c
+opencod2/gfx_d3d/r_outdoor.c
+opencod2/gfx_d3d/r_rendercmds.c
+opencod2/gfx_d3d/r_rendertarget.c
+opencod2/gfx_d3d/r_scene.c
+opencod2/gfx_d3d/r_screenshot.c
+opencod2/gfx_d3d/r_shadowcookie.c
+opencod2/gfx_d3d/r_sky.c
+opencod2/gfx_d3d/r_sky_load_obj.c
+opencod2/gfx_d3d/r_specularityimage.c
+opencod2/gfx_d3d/r_splitscreen.c
+opencod2/gfx_d3d/r_staticmodel.c
+opencod2/gfx_d3d/r_staticmodel_load_obj.c
+opencod2/gfx_d3d/r_staticmodelcache.c
+opencod2/gfx_d3d/r_surfbounds.c
+opencod2/gfx_d3d/r_texturemem.c
+opencod2/gfx_d3d/r_utils.c
+opencod2/gfx_d3d/r_water.c
+opencod2/gfx_d3d/r_water_load_obj.c
+opencod2/gfx_d3d/r_xmodelsurfs_load.c
+opencod2/gfx_d3d/r_xsurface.c
+opencod2/gfx_d3d/r_xsurface_load_obj.c
+opencod2/gfx_d3d/r_xsurface_optimize.c
+opencod2/gfx_d3d/rb_backend.c
+opencod2/gfx_d3d/rb_debug.c
+opencod2/gfx_d3d/rb_fog.c
+opencod2/gfx_d3d/rb_imagefilter.c
+opencod2/gfx_d3d/rb_imagetouch.c
+opencod2/gfx_d3d/rb_light.c
+opencod2/gfx_d3d/rb_shade.c
+opencod2/gfx_d3d/rb_sky.c
+opencod2/gfx_d3d/rb_state.c
+opencod2/gfx_d3d/rb_tess.c

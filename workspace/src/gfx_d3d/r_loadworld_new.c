@@ -67,7 +67,7 @@ typedef void (*loader_regparm_fn)(void *) __attribute__((regparm(1)));
 #define MAX_MERGED_GROUPS   32
 
 /* ---- Helper macros for accessing renderer import table ---- */
-#define RI_PRINTF(fmt, ...)   ((void (*)(int, const char *, ...))*(void **)(((byte *)&imp_ri)[0]))(0, fmt, ##__VA_ARGS__)
+// unused: #define RI_PRINTF(fmt, ...)   ((void (*)(int, const char *, ...))*(void **)(((byte *)&imp_ri)[0]))(0, fmt, ##__VA_ARGS__)
 #define UPDATE_SCREEN()       ((refimport_t *)imp_ri)->Cbuf_ExecuteText(0, "updatescreen\n")
 
 /*

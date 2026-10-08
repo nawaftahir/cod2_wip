@@ -19,7 +19,7 @@ __attribute__((used)) byte s_XModelSurfaceSize[8] = {
 }; /* 0x311080 */
 __attribute__((used, aligned(4)))
 surfaceType_t s_entitySurface[6] = {
-    2, 0, 0, 0, 0, 0,
+    (surfaceType_t)2, (surfaceType_t)0, (surfaceType_t)0, (surfaceType_t)0, (surfaceType_t)0, (surfaceType_t)0,
 }; /* 0x311088 */
 
 #define s_entitySurface (s_entitySurface[0])
@@ -402,7 +402,7 @@ void R_AddPolyToScene(MaterialHandle materialHandle, int lmapIndex, int vertCoun
         return;
 
     poly = &buf->polys[buf->polyCount];
-    poly->surfaceType = 1;
+    poly->surfaceType = (surfaceType_t)1;
     poly->material = materialHandle;
     poly->lmapIndex = (unsigned short)lmapIndex;
     poly->vertCount = (unsigned short)vertCount;
@@ -723,7 +723,7 @@ void R_RenderScene(const refdef_t *refdef)
             memcpy(&fed->fogSettings, fogActive, sizeof(GfxFog));
         } else {
             GfxBackEndData *fed = *(GfxBackEndData **)imp_frontEndDataOut;
-            fed->fogSettings.techniqueOffset = 0;
+            fed->fogSettings.techniqueOffset = (GfxFogOffset)0;
         }
     }
 
@@ -777,7 +777,7 @@ void R_RenderScene(const refdef_t *refdef)
                 R_AddClearCommandsForFrameBuffer(0);
             }
             R_BeginDrawGroupLoop(3, viewIndex);
-            R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, lodParms);
+            R_AddCmdBeginView(scene.viewCount, &scene.def, (const GfxViewParms *)viewParms, lodParms);
             R_AddCmdDrawSurfs((void *)(intptr_t)drawSurfStart, drawSurfCount, 3);
             R_AddCmdDrawSun(viewIndex);
             R_EndDrawGroupLoop(3, viewIndex);
@@ -788,10 +788,10 @@ void R_RenderScene(const refdef_t *refdef)
                 R_AddCmdSetViewport(0, 0, ((const vidConfig_t *)imp_vidConfig)->width, ((const vidConfig_t *)imp_vidConfig)->height);
             }
             R_BeginDrawGroupLoop(4, viewIndex);
-            R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, lodParms);
+            R_AddCmdBeginView(scene.viewCount, &scene.def, (const GfxViewParms *)viewParms, lodParms);
         } else if (isDx7) {
             /* Dx7 path */
-            R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, lodParms);
+            R_AddCmdBeginView(scene.viewCount, &scene.def, (const GfxViewParms *)viewParms, lodParms);
                 R_AddCmdSetRenderTarget(0);
                 R_AddClearCommandsForFrameBuffer(0);
                 {
@@ -804,7 +804,7 @@ void R_RenderScene(const refdef_t *refdef)
             R_AddCmdDrawSurfs((void *)(intptr_t)drawSurfStart, drawSurfCount, 0x15);
         } else if ((*(const dvar_t **)imp_r_debugShader)->current.integer) {
             /* Debug shader path */
-            R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, lodParms);
+            R_AddCmdBeginView(scene.viewCount, &scene.def, (const GfxViewParms *)viewParms, lodParms);
             R_AddCmdSetRenderTarget(0);
             R_AddClearCommandsForFrameBuffer(0);
             R_AddCmdDrawSurfs((void *)(intptr_t)drawSurfStart, drawSurfCount, 0x21);
@@ -822,7 +822,7 @@ void R_RenderScene(const refdef_t *refdef)
                 }
             }
             R_BeginDrawGroupLoop(2, viewIndex);
-            R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, lodParms);
+            R_AddCmdBeginView(scene.viewCount, &scene.def, (const GfxViewParms *)viewParms, lodParms);
             R_AddCmdDrawSurfs((void *)(intptr_t)drawSurfStart, drawSurfCount, 1);
             R_AddCmdDrawSurfs((void *)(intptr_t)drawSurfStart, drawSurfCount, 6);
             R_AddCmdDrawSun(viewIndex);
@@ -834,7 +834,7 @@ void R_RenderScene(const refdef_t *refdef)
             /* Section 3: lit surfaces */
             R_BeginDrawGroupSection(3);
             R_BeginDrawGroupLoop(3, viewIndex);
-            R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, lodParms);
+            R_AddCmdBeginView(scene.viewCount, &scene.def, (const GfxViewParms *)viewParms, lodParms);
 
             /* Point light partitions */
             if (pointLightCount > 0) {
@@ -860,7 +860,7 @@ void R_RenderScene(const refdef_t *refdef)
                 R_AddCmdSetViewport(0, 0, ((const vidConfig_t *)imp_vidConfig)->width, ((const vidConfig_t *)imp_vidConfig)->height);
             }
             R_BeginDrawGroupLoop(4, viewIndex);
-            R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, lodParms);
+            R_AddCmdBeginView(scene.viewCount, &scene.def, (const GfxViewParms *)viewParms, lodParms);
             if (!isSplitscreen)
                 R_AddCmdApplyLatePostEffects(blurRadius);
             R_AddCmdDrawSunPostEffects(viewIndex);
@@ -934,7 +934,7 @@ int R_AddStaticModelToScene(int smodelIndex)
     smodelInst = &world->smodelInsts[smodelIndex];
 
     memset(backEndRefEnt, 0, sizeof(GfxEntity));
-    backEndRefEnt->reType = 2;
+    backEndRefEnt->reType = (refEntityType_t)2;
     backEndRefEnt->origin[0] = smodelInst->origin[0];
     backEndRefEnt->origin[1] = smodelInst->origin[1];
     backEndRefEnt->origin[2] = smodelInst->origin[2];
@@ -980,7 +980,7 @@ GfxEntity * R_AddRefEntityToScene(const GfxEntity *refEnt, GfxModel sceneModel, 
         /* check performance monitor */
         if ((*(const dvar_t **)imp_com_statmon)->current.enabled) {
             if (frontEndDataOut->entityCount > 0x1cc4)
-                ri.StatMon_Warning(5, "R_AddRefEntityToScene: too many entity render calls", 0xbb8);
+                ((void (*)(int, const char *, int))ri.StatMon_Warning)(5, "R_AddRefEntityToScene: too many entity render calls", 0xbb8);
         }
 
         if (refEnt->reType > 9)

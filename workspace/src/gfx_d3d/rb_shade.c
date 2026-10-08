@@ -64,8 +64,8 @@ void RB_BeginSurface(const Material *material, MaterialTechniqueType techType, i
     char *tess = RB_TessBase();
     g_begin_surface_calls++;
     g_tess_since_begin = 0;
-    ((materialCommands_t *)tess)->declType = 0;
-    ((materialCommands_t *)tess)->optimizedVertexSource = 0;
+    ((materialCommands_t *)tess)->declType = (MaterialVertexDeclType)0;
+    ((materialCommands_t *)tess)->optimizedVertexSource = (GfxOptimizedVertexSource)0;
     ((materialCommands_t *)tess)->indexCount = 0;
     ((materialCommands_t *)tess)->vertexCount = 0;
     ((materialCommands_t *)tess)->firstVertex = 0;
@@ -924,7 +924,7 @@ static void RB_SetShaderAndDecl(byte *pass, int vertDeclType, byte *dxState)
                 vtable = *(void ***)device;
                 ((void (*)(void *, void *))vtable[0x1ac/4])(device, pixelShader);
             } while (*alwaysfails);
-            ((DxState *)dxState)->pixelShader = pixelShader;
+            ((DxState *)dxState)->pixelShader = (IDirect3DPixelShader9 *)pixelShader;
         }
     }
 
@@ -939,7 +939,7 @@ static void RB_SetShaderAndDecl(byte *pass, int vertDeclType, byte *dxState)
                 vtable = *(void ***)device;
                 ((void (*)(void *, void *))vtable[0x170/4])(device, vertexShader);
             } while (*alwaysfails);
-            ((DxState *)dxState)->vertexShader = vertexShader;
+            ((DxState *)dxState)->vertexShader = (IDirect3DVertexShader9 *)vertexShader;
         }
     }
 
@@ -954,7 +954,7 @@ static void RB_SetShaderAndDecl(byte *pass, int vertDeclType, byte *dxState)
                 vtable = *(void ***)device;
                 ((void (*)(void *, void *))vtable[0x15c/4])(device, decl);
             } while (*alwaysfails);
-            ((DxState *)dxState)->vertexDecl = decl;
+            ((DxState *)dxState)->vertexDecl = (IDirect3DVertexDeclaration9 *)decl;
             ((DxState *)dxState)->fvf = 0;
         }
     }

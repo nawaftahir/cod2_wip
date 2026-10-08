@@ -24,7 +24,7 @@ extern void Material_FinishLoading(void);
 extern void R_AddCmdTouchAllImages(void);
 extern void R_InitImages(void);
 extern void Material_Init(void);
-extern int R_InitFonts(void);
+extern void R_InitFonts(void);
 extern void R_InitLightDefs(void);
 extern void R_ClearFogs(void);
 extern void R_InitDebug(void);
@@ -118,8 +118,8 @@ static void R_CreateParticleCloudBuffer(void)
     int xIter, yIter, zIter, corner;
     int vertexIndex = 0;
 
-    verts = R_AllocStaticVertexBuffer((IDirect3DVertexBuffer9 **)((byte *)&dx + 11704), 0x14000);
-    indices = R_AllocStaticIndexBuffer((IDirect3DIndexBuffer9 **)((byte *)&dx + 11708), 0x3000);
+    verts = (float *)(R_AllocStaticVertexBuffer((IDirect3DVertexBuffer9 **)((byte *)&dx + 11704), 0x14000));
+    indices = (unsigned short *)(R_AllocStaticIndexBuffer((IDirect3DIndexBuffer9 **)((byte *)&dx + 11708), 0x3000));
 
     for (xIter = 0; xIter < 8; xIter++) {
         float xBase = (float)xIter;

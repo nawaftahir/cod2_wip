@@ -17,7 +17,7 @@ extern GfxImage *Image_Alloc(const char *name, int category, int semantic, int i
 extern void Image_Generate3D(GfxImage *image, byte *pixels, int width, int height, int depth, int imageFormat);
 
 static int CompareStaticModels(const int *smodel0, const int *smodel1);
-int R_ScaleStaticModelLighting(float directLightScale, float indirectLightScale, float *sunVisibility, vec4_t *colorForDir);
+void R_ScaleStaticModelLighting(float directLightScale, float indirectLightScale, float *sunVisibility, vec4_t *colorForDir);
 int R_GetStaticModelLightingFromGrid(const GfxWorld *world, GfxStaticModelInstance *smodelInst, float *sunVisibility, vec4_t *colorForDir);
 int R_PrepareStaticModelLightingCache(GfxWorld *world, int smodelCount);
 Bool R_ValidateStaticModel(struct XModel *model);
@@ -37,7 +37,7 @@ static int CompareStaticModels(const int *smodel0, const int *smodel1)
 }
 
 /* line 449 */
-int R_ScaleStaticModelLighting(float directLightScale, float indirectLightScale, float *sunVisibility, vec4_t *colorForDir)
+void R_ScaleStaticModelLighting(float directLightScale, float indirectLightScale, float *sunVisibility, vec4_t *colorForDir)
 {
     int i;
     *sunVisibility *= directLightScale;
@@ -276,7 +276,7 @@ top:
             int allocSize = (existingCount + 1) * sizeof(GfxAabbTree);
             byte *newChildren = (byte *)Hunk_AllocAlignInternal(allocSize, 4);
             memcpy(newChildren, (void *)(intptr_t)aabb->children, existingCount * sizeof(GfxAabbTree));
-            aabb->children = (int)(intptr_t)newChildren;
+            aabb->children = (GfxAabbTree *)((int)(intptr_t)newChildren);
 
             {
                 GfxAabbTree *newChild = (GfxAabbTree *)(newChildren + existingCount * sizeof(GfxAabbTree));

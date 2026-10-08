@@ -179,7 +179,7 @@ static float VecDot(const vec3_t a, const vec3_t b)
  */
 static void SetupDirectionalLight(D3DLIGHT9 *light, const float *ambient, const float *diffuse, const float *direction)
 {
-    light->Type = 3; /* D3DLIGHT_DIRECTIONAL */
+    light->Type = (D3DLIGHTTYPE)3; /* D3DLIGHT_DIRECTIONAL */
     light->Ambient.r = ambient[0];
     light->Ambient.g = ambient[1];
     light->Ambient.b = ambient[2];
@@ -250,7 +250,7 @@ int RB_DeriveEntityLights(vec4_t *colorForDir, float sunVisibility, const Materi
         }
 
         /* First light: ambient from grid average */
-        lights[0].Type = 3;
+        lights[0].Type = (D3DLIGHTTYPE)3;
         lights[0].Ambient.r = avgR * 0.125f * 0.5f;
         lights[0].Ambient.g = avgG * 0.125f * 0.5f;
         lights[0].Ambient.b = avgB * 0.125f * 0.5f;
@@ -263,7 +263,7 @@ int RB_DeriveEntityLights(vec4_t *colorForDir, float sunVisibility, const Materi
         sunColorB = sunVisibility * world->sunLight.color[2] + world->sunLight.u.dir.ambientColor[2];
 
         light = &lights[1];
-        light->Type = 3;
+        light->Type = (D3DLIGHTTYPE)3;
         light->Ambient.r = sunColorR * 0.5f;
         light->Ambient.g = sunColorG * 0.5f;
         light->Ambient.b = sunColorB * 0.5f;
@@ -417,7 +417,7 @@ fallback:
         }
 
         /* Set up this light */
-        light->Type = 3;
+        light->Type = (D3DLIGHTTYPE)3;
         light->Ambient.r = ambientR * 0.5f;
         light->Ambient.g = ambientG * 0.5f;
         light->Ambient.b = ambientH * 0.5f;
@@ -456,7 +456,7 @@ fallback:
 
         world = rgp.world;
 
-        sunLight->Type = 3;
+        sunLight->Type = (D3DLIGHTTYPE)3;
         sunLight->Ambient.r = world->sunLight.u.dir.ambientColor[0] * 0.5f;
         sunLight->Ambient.g = world->sunLight.u.dir.ambientColor[1] * 0.5f;
         sunLight->Ambient.b = world->sunLight.u.dir.ambientColor[2] * 0.5f;

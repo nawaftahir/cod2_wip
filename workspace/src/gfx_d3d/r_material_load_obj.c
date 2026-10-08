@@ -1032,12 +1032,12 @@ static MtlParseSuccess Material_ParseRuleSetConditionTest_impl(const char **text
         if (strcmp(token, *(const char **)(srcGroup + sourceIndex * 0x10)) == 0)
             goto foundSource;
     }
-    return 1; /* unrecognized source — not an error */
+    return (MtlParseSuccess)(1); /* unrecognized source — not an error */
 
 foundSource:
     /* Match "==" operator */
     if (!Com_MatchToken(text, "==", 1))
-        return 2;
+        return (MtlParseSuccess)(2);
 
     /* Get bitNames table for this source */
     byte *bitNames = *(byte **)(srcGroup + sourceIndex * 0x10 + 4);
@@ -1050,7 +1050,7 @@ foundSource:
             goto foundValue;
     }
     Com_ScriptWarning("%s is not a valid state value\n", valueToken);
-    return 2;
+    return (MtlParseSuccess)(2);
 
 foundValue:;
     byte *bitEntry = bitNames + valueIndex * 8;
@@ -1074,7 +1074,7 @@ foundValue:;
     ruleWords[destWordIndex] |= *(int *)(srcGroup + (destWordIndex + sourceIndex * 4) * 4 + 8);
     ruleWords[destWordIndex + 2] |= *(int *)(bitEntry + 4);
 
-    return 0; /* success */
+    return (MtlParseSuccess)(0); /* success */
 }
 
 /* Clean C version for WASM — no register calling convention */

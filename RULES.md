@@ -1,5 +1,16 @@
 # Shared renderer workspace — rules for every agent
 
+## Goal (owner, 2026-10-07): CoD2's own renderer source
+- Progress = verified **game** code only: `python3 tools/gamecov.py` (CoD2 renderer bytes, not
+  JPEG, D3DX or the CRT). 2026-10-08: 67,258/253,580 B = 26.523%. Start at `HANDOFF.md`.
+- Do NOT reconstruct D3DX, CRT or JPEG internals. For whole-file identity, link the original
+  Summer 2004 / VC7.1 .lib files and upstream IJG 6b. The earlier library work is frozen in
+  `archive/library_recon/` (no further effort, never in a release tree).
+- One game tree: `target/verified/src`. Build `tools/vb.sh` (or `tools/pb.sh <src> <build>` in
+  parallel). A function counts when `bind.json` has `why == []` and `t` == the retail VA.
+- Work TU by TU in Mac 1.3 file names (cod2-mp-macho). Handoffs are reviewed by the owner and
+  Claude before they replace this direction.
+
 Target: `gfx_d3d_mp_x86_s.dll` 1.0, readable C/C++ that rebuilds **SHA-256 identical**
 (`4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6`). `.text` = 1,089,680 B.
 Agents here: Claude, Codex, DeepSeek (and any other the owner adds). The root `../CLAUDE.md`
@@ -8,25 +19,20 @@ universal laws apply; this file adds what makes parallel work safe.
 ## Why one whole-DLL link (the fast method)
 The DLL's Rich header (PINNED 2026-09-27) shows 121 objects built `/GL` + `link /LTCG`:
 code is generated at link time, with cross-TU inlining and custom register conventions.
-Per-object `/O2` matching only fits leaf / non-LTCG code. So the ONLY progress number is the
-coverage of the linked DLL (`make measure`). This took the client from ~0.6% to 51%.
+Whole-link matching is the integration experiment; retain per-function proof separately.
+`make measure` reports discovery coverage, not verified coverage: its masked search does
+not yet establish complete target boundaries or correct symbol bindings. Do not add
+its percentage to independently verified function coverage. Whole-file SHA remains
+the finish line. The reported client comparison is not proof for this renderer.
 Non-LTCG parts (CRT, jpeg, D3DX static lib `96/4035`×30, masm ×48) can still be matched per
 function, then dropped into the link.
 
-## Layout
-- `target/src/tus.txt` — TUs in link order; `target/Makefile` — build in `cod2-msvc71-build`.
-- `target/src/gfx_d3d/` — Mac 1.3 decompile (61 files), raw port input.
-- `target/src/codex/` — Codex's verified candidates. `headers/`, `shims/` — shared Mac-derived headers.
-- `tools/` — `cmp.py` (match), `cov.py` (coverage), `delta.py` (gained/lost), `fdiff.py` (one fn).
-- `runs/rNNN.json` — every committed measure. `STATUS.md` — one line per commit.
-
-## Loop
-1. Claim a TU in `CLAIMS.md` (one owner per file; shared headers: see below).
-2. `cd target; make` (~1 min) → `make measure`. Diff one fn:
-   `python3 ../tools/fdiff.py build/gfx_d3d_mp_x86_s.dll build/gfx_d3d_mp_x86_s.map <anchor> '<Mangled>@@' <hexaddr>`.
-3. Batch several independent fixes per build. Revert what didn't help.
-4. Commit only if coverage did not drop and `delta.py` loses nothing real (`$L…` labels are noise).
-   Add a `STATUS.md` line (run, coverage, who, what). Release your claim.
+## Layout and loop (game work)
+- `target/verified/src` = the game tree (tus.txt = link order). Drafts: `target/scratch/<you>/src`.
+- Build: `tools/pb.sh <src> <build>`; one fn: `tools/fd.sh '<Name>@@' <va> <size> <build>`;
+  score: `tools/gamecov.py <build>/bind.json`; work list: `tools/ready.py`.
+- `make measure` / `cov.py` / CLAIMS.md / runs/ are the old library-era workflow. Don't use them
+  for game progress.
 
 ## Parallel-safety rules
 - **One owner per file** (claimed in `CLAIMS.md`). Never edit a file someone else holds.
@@ -44,7 +50,11 @@ function, then dropped into the link.
 - No `_emit`, byte arrays, naked-asm transplants or post-link patching. Readable source only.
 - Never commit binaries (anchor DLL, `.obj`, `.dll`), Ghidra projects or game assets.
 - Git identity `Nawaf`, short human commit messages, **no Co-Authored-By**.
-- Quote only numbers `make measure` printed.
+- Quote discovery numbers from `make measure`; verified numbers require full boundaries,
+  symbol bindings, pinned source/toolchain identity and regression checks. Label both.
+- `/FORCE` links and unresolved-symbol/shim builds are experiments, never release proof.
+- Verified game source goes in `target/verified/src/` (after review); drafts in `target/scratch/<owner>/`.
+  A fully checked candidate file is not proof of the original historical TU grouping.
 - Don't touch other workspaces (`glm/`, `codex/`, `claude_client/`, `cod2engine/`); copy in, don't move.
 
 ## Sources, in trust order

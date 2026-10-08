@@ -270,7 +270,7 @@ static void RB_FinalizeWorldMatrixChange(GfxCodeMatrices *activeMatrices, float 
     RB_InvalidateCodeMatrix(&activeMatrices->OGLworldViewProjection);
 
     if (RB_UsingDx7Renderer()) {
-        RB_SetTransformDx7(0x100, &activeMatrices->world.matrix[0]);
+        RB_SetTransformDx7((D3DTRANSFORMSTATETYPE)0x100, &activeMatrices->world.matrix[0]);
     }
 }
 
@@ -520,14 +520,14 @@ void RB_ChangeGenTexCoords(int samplerIndex, int genTexCoords)
         transform._43 = 0.0f;
         RB_SetTextureStageStateDx7(samplerIndex, D3DTSS_TEXCOORDINDEX, 0x20000);
         RB_SetTextureStageStateDx7(samplerIndex, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
-        RB_SetTransformDx7(D3DTS_TEXTURE0 + samplerIndex, &transform);
+        RB_SetTransformDx7((D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + samplerIndex), &transform);
         break;
     case 2:
         MatrixIdentity44(transform.m);
         transform._32 = -backEnd.viewParms->depthHackNearClip;
         RB_SetTextureStageStateDx7(samplerIndex, D3DTSS_TEXCOORDINDEX, samplerIndex);
         RB_SetTextureStageStateDx7(samplerIndex, D3DTSS_TEXTURETRANSFORMFLAGS, D3DTTFF_COUNT3);
-        RB_SetTransformDx7(D3DTS_TEXTURE0 + samplerIndex, &transform);
+        RB_SetTransformDx7((D3DTRANSFORMSTATETYPE)(D3DTS_TEXTURE0 + samplerIndex), &transform);
         break;
     default:
         break;
@@ -649,7 +649,7 @@ void RB_PopMatrixStack(void)
     }
 
     activeMatrices = RB_GetActiveCodeMatrices();
-    RB_SetTransformDx7(0x100, &activeMatrices->world.matrix[0]);
+    RB_SetTransformDx7((D3DTRANSFORMSTATETYPE)0x100, &activeMatrices->world.matrix[0]);
     RB_SetTransformDx7(D3DTS_VIEW, &activeMatrices->view.matrix[0]);
     RB_SetTransformDx7(D3DTS_PROJECTION, &activeMatrices->projection.matrix[0]);
 }
@@ -910,7 +910,7 @@ void RB_BindDefaultImages(void)
     void *defaultImage = ((r_global_permanent_t *)imp_rgp)->whiteImage;
 
     for (int i = 0; i < 16; i++) {
-        RB_SetSampler(i, dxState.samplerState[i], defaultImage);
+        RB_SetSampler(i, dxState.samplerState[i], (GfxImage *)defaultImage);
     }
 }
 
@@ -1339,6 +1339,6 @@ void RB_SetWorldMatrixForEntity(const GfxEntity *re)
     GfxCodeMatrices *activeMatrices;
 
     activeMatrices = RB_GetActiveCodeMatrices();
-    MatrixSet44(activeMatrices->world.matrix[0].m, re->origin, re->axis, re->scale);
+    MatrixSet44(activeMatrices->world.matrix[0].m, re->origin, (vec3_t (*))re->axis, re->scale);
     RB_FinalizeWorldMatrixChange(activeMatrices, re->scale);
 }

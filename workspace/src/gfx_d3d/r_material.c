@@ -770,13 +770,13 @@ storeDecl2:
                 void *device = (void *)((DxGlobals *)dx)->device;
                 void **vtable = *(void ***)device;
                 hr = ((int (__attribute__((stdcall)) *)(void *, const void *, void **))vtable[0x16c/4])(
-                    device, ((MaterialShader *)shader)->program, &((MaterialShader *)shader)->u);
+                    device, ((MaterialShader *)shader)->program, (void **)&((MaterialShader *)shader)->u);
             } else {
                 /* Managed: call D3D CreateVertexShader (vtable[0x1a8/4]) */
                 void *device = (void *)((DxGlobals *)dx)->device;
                 void **vtable = *(void ***)device;
                 hr = ((int (__attribute__((stdcall)) *)(void *, const void *, void **))vtable[0x1a8/4])(
-                    device, ((MaterialShader *)shader)->program, &((MaterialShader *)shader)->u);
+                    device, ((MaterialShader *)shader)->program, (void **)&((MaterialShader *)shader)->u);
             }
 
             if (hr < 0) {
@@ -916,7 +916,7 @@ void R_Cmd_ReloadMaterialTextures(void)
         existing = (byte *)((r_globals_t *)imp_rg)->materialHashTable[hash];
     }
 
-    material = existing ? ((r_globals_t *)imp_rg)->materialHashTable[hash] : NULL;
+    material = (byte *)(existing ? ((r_globals_t *)imp_rg)->materialHashTable[hash] : NULL);
 
     if (!material) {
         ri_Printf(0, "%s", va("ReloadMaterialTextures: Material '%s' is not currently loaded\n", name));

@@ -10,7 +10,7 @@
 
 int XSurfaceGetNumVerts(const XSurface *surface);
 int XSurfaceGetNumTris(const XSurface *surface);
-long unsigned int XSurfaceGetTris(const XSurface *surface, r_index_t *dstIndices, int offset);
+void XSurfaceGetTris(const XSurface *surface, r_index_t *dstIndices, int offset);
 XVertexInfo * XSurfaceGetVertexInfoArray(const XSurface *surf);
 int XSurfaceGetBoneOffset(const XSurface *surf);
 long unsigned int XSurfaceTransferDx7(const XVertexBuffer *surfVerts, GfxVertexDx7 *verts, int vertCount);
@@ -30,7 +30,7 @@ int XSurfaceGetNumTris(const XSurface *surface)
 }
 
 /* line 51 */
-long unsigned int XSurfaceGetTris(const XSurface *surface, r_index_t *dstIndices, int offset)
+void XSurfaceGetTris(const XSurface *surface, r_index_t *dstIndices, int offset)
 {
     short sOffset = (short)offset;
 

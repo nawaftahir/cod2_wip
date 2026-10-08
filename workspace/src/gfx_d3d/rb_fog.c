@@ -17,7 +17,7 @@ GfxFogOffset RB_FogOffset(void)
 {
     byte *state = *(byte **)g_renderState;
     if (state[8] != 0) {
-        return 0;
+        return (GfxFogOffset)(0);
     }
 
     byte *viewParms = *(byte **)g_viewParms;
@@ -170,7 +170,7 @@ int RB_SetIteratorFog(void)
                 typedef int (*SetRenderStateFn)(void *, int, int);
                 ((SetRenderStateFn)vtable[0xe4 / 4])(device, 0x8c, 3);
             } while (*(volatile int *)imp_alwaysfails != 0);
-            dxState->fog.mode = 3;
+            dxState->fog.mode = (D3DFOGMODE)3;
         }
 
         /* Set fog start */
@@ -203,7 +203,7 @@ int RB_SetIteratorFog(void)
                 typedef int (*SetRenderStateFn)(void *, int, int);
                 ((SetRenderStateFn)vtable[0xe4 / 4])(device, 0x8c, 1);
             } while (*(volatile int *)imp_alwaysfails != 0);
-            dxState->fog.mode = 1;
+            dxState->fog.mode = (D3DFOGMODE)1;
         }
 
         /* Set fog density */

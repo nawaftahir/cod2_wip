@@ -339,7 +339,7 @@ long int R_InitRenderTargets(void)
 
     /* line 491: Print requested frame buffer format */
     {
-        void (*riPrintf)() = *(void (**)())imp_ri;
+        void (*riPrintf)(...) = *(void (**)(...))imp_ri;
         riPrintf(0, "Requested frame buffer to be %s\n", "24-bit color with 8-bit alpha");
 
         /* line 492: Get the actual format of the color surface */
@@ -355,7 +355,7 @@ long int R_InitRenderTargets(void)
         ((DxGlobals *)dxPtr)->backBufferFormat = surfaceFormat;
 
         /* line 495: Print actual format */
-        riPrintf = *(void (**)())imp_ri;
+        riPrintf = (void (__cdecl *)(...))(*(void (**)())imp_ri);
         riPrintf(0, "DirectX returned a frame buffer that is %s\n", R_DescribeFormat(surfaceFormat));
     }
 

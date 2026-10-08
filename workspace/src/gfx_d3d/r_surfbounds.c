@@ -6,7 +6,7 @@
 
 extern void GetRotatedBounds(const vec_t *surfBounds, const vec_t *entityOrigin, const vec_t *entityAxis, vec_t *out);
 
-extern const vec_t * (*R_BoundsForDrawSurfTable[8])(); /* 0x0 */
+extern const vec_t * (*R_BoundsForDrawSurfTable[8])(...); /* 0x0 */
 static vec3_t surfBoundsGlob[2]; /* surfBoundsGlob */
 
 extern GfxScene *gfxScene; /* imp_scene */
@@ -39,7 +39,7 @@ const vec_t *R_BoundsForSurf_StaticModelCached(const GfxDrawSurf *drawSurf, int 
 const vec_t *R_BoundsForDrawSurf(const GfxDrawSurf *surf)
 {
     int surfType = *surf->surface;
-    const vec_t * (*boundsFunc)() = R_BoundsForDrawSurfTable[surfType];
+    const vec_t * (*boundsFunc)(...) = R_BoundsForDrawSurfTable[surfType];
     int entIndex;
     int sortVal;
 

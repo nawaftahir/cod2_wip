@@ -6,3 +6,5 @@ build/
 *.gpr
 *.rep/
 __pycache__/
+archive/
+scratch/

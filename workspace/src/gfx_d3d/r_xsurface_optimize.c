@@ -27,13 +27,11 @@
 #define DEREF_PTR(ptr, off)       (*(void **)((char *)(ptr) + (off)))
 
 /* COM vtable call helpers: vtable is at *(void***)obj, function at byte offset */
-typedef int  (__attribute__((cdecl)) *vtable_func_t)();
+typedef int  (__attribute__((cdecl)) *vtable_func_t)(...);
 #define VTABLE(obj)               (*(vtable_func_t **)((void *)(obj)))
-#define VTABLE_CALL(obj, off, ...) (VTABLE(obj)[(off)/sizeof(vtable_func_t *)](__VA_ARGS__))
 
 /* Function pointer at byte offset in a flat table */
-typedef int (__attribute__((cdecl)) *flat_func_t)();
-#define FLAT_CALL(base, off, ...) ((*(flat_func_t *)((base) + (off)))(__VA_ARGS__))
+typedef int (__attribute__((cdecl)) *flat_func_t)(...);
 
 extern void R_FinishStaticVertexBuffer(IDirect3DVertexBuffer9 *vb);
 extern void *R_AllocStaticIndexBuffer(IDirect3DIndexBuffer9 **ib, int sizeInBytes);
@@ -141,13 +139,13 @@ void XModelOptimize(XModel *model)
     vtable = XMODEL_VTABLE;
 
     /* GetLodCount(model) at vtable offset 0x174 */
-    lodCount = FLAT_CALL(vtable, 0x174, model);
+    lodCount = (*(flat_func_t *)((vtable) + (0x174)))(model);
     if (lodCount <= 0)
         return;
 
     for (lodIndex = 0; lodIndex < lodCount; lodIndex++) {
         /* GetSurfaces(model, &surfaces, lodIndex, &partBits) at vtable offset 0x168 */
-        surfCount = FLAT_CALL(vtable, 0x168, model, &surfaces, lodIndex, &partBits);
+        surfCount = (*(flat_func_t *)((vtable) + (0x168)))(model, &surfaces, lodIndex, &partBits);
         if (surfCount <= 0)
             continue;
 
@@ -207,7 +205,7 @@ void XModelUnoptimize(XModel *model)
     vtable = XMODEL_VTABLE;
 
     /* GetLodCount(model) at vtable offset 0x174 */
-    lodCount = FLAT_CALL(vtable, 0x174, model);
+    lodCount = (*(flat_func_t *)((vtable) + (0x174)))(model);
     if (lodCount <= 0)
         return;
 
@@ -215,7 +213,7 @@ void XModelUnoptimize(XModel *model)
 
     for (lodIndex = 0; lodIndex < lodCount; lodIndex++) {
         /* GetSurfaces(model, &surfaces, lodIndex, &partBits) at vtable offset 0x168 */
-        surfCount = FLAT_CALL(vtable, 0x168, model, &surfaces, lodIndex, &partBits);
+        surfCount = (*(flat_func_t *)((vtable) + (0x168)))(model, &surfaces, lodIndex, &partBits);
         if (surfCount <= 0)
             continue;
 

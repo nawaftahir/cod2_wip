@@ -27,12 +27,12 @@ void R_InitDrawGroups(void)
 GfxDrawGroupGlueBehavior R_BeginDrawGroupSection(GfxDrawGroupType group)
 {
     if (delayedGroup[group].begin != -1) {
-        return 1;
+        return (GfxDrawGroupGlueBehavior)(1);
     }
 
     delayedGroup[group].isIssuingGlue = 1;
     delayedGroup[group].begin = R_BeginDelayedDrawing();
-    return 0;
+    return (GfxDrawGroupGlueBehavior)(0);
 }
 
 void R_BeginDrawGroupLoop(GfxDrawGroupType group, int viewIndex)
@@ -50,11 +50,11 @@ GfxDrawGroupGlueBehavior R_EndDrawGroupLoop(GfxDrawGroupType group, int viewInde
         R_EndDelayedDrawing(delayedGroup[group].perView[viewIndex]);
 
     if (delayedGroup[group].end != -1)
-        return 1;
+        return (GfxDrawGroupGlueBehavior)(1);
 
     delayedGroup[group].isIssuingGlue = 1;
     delayedGroup[group].end = R_BeginDelayedDrawing();
-    return 0;
+    return (GfxDrawGroupGlueBehavior)(0);
 }
 
 void R_EndDrawGroupSection(GfxDrawGroupType group)

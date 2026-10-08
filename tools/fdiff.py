@@ -1,45 +1,17 @@
-#!/usr/bin/env python3
-"""Instruction diff: our function (by mangled-name substring) vs target code at an address."""
-import difflib, re, sys
-import pefile, capstone
-
-img, mapf, target, pat, caddr = sys.argv[1:6]
-caddr = int(caddr, 16)
+# fdiff.py <mangled-name-substr> <anchor-va-hex> [build dir]: our function vs retail, addresses masked
+import sys, re, json, pefile, capstone, difflib
+name, ava = sys.argv[1], int(sys.argv[2], 16)
+B = sys.argv[3] if len(sys.argv) > 3 else 'build/closed'
+cmp = json.load(open(B + '/cmp.json'))
+f = [x for x in cmp if name in x['name']][0]
+m = [l.split() for l in open(B + '/gfx.map') if f['name'] in l and len(l.split()) > 2]
+ova = int([t for t in m[0] if len(t) == 8 and re.fullmatch('[0-9a-f]{8}', t)][0], 16)
 md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
-
-def section(path):
-    pe = pefile.PE(path)
-    t = next(s for s in pe.sections if s.Name.startswith(b'.text'))
-    return t.get_data(), pe.OPTIONAL_HEADER.ImageBase + t.VirtualAddress
-
-syms = sorted((int(m.group(2), 16), m.group(1)) for m in
-              (re.match(r'\s*0001:\S+\s+(\S+)\s+([0-9a-f]{8}) f', l) for l in open(mapf, errors='replace')) if m)
-i = next((k for k, s in enumerate(syms) if s[1] == pat), None)
-if i is None:
-    i = next(k for k, s in enumerate(syms) if pat in s[1])
-va, name = syms[i]
-d, base = section(img)
-ours = d[va - base:syms[i + 1][0] - base].rstrip(b'\xcc')
-cd, cbase = section(target)
-theirs = cd[caddr - cbase:caddr - cbase + len(ours) + 64]
-
-def norm(code, start):
-    out = []
-    for ins in md.disasm(code, start):
-        op = ins.op_str
-        if ins.mnemonic == 'call' or (ins.mnemonic.startswith('j') and ins.size == 5):
-            op = 'X'
-        op = re.sub(r'0x[0-9a-f]{5,}', 'A', op)  # absolute addresses
-        out.append('%s %s' % (ins.mnemonic, op))
-        if ins.address - start >= len(ours) - 1:
-            break
-    return out
-
-a, b = norm(ours, va), norm(theirs, caddr)
-print(name, len(ours), 'bytes;', len(a), 'vs', len(b), 'insns')
-n = 0
-for line in difflib.unified_diff(a, b, 'ours', 'client', n=2, lineterm=''):
-    print(line)
-    n += 1
-    if n > int(sys.argv[6] if len(sys.argv) > 6 else 60):
-        break
+def dis(p, va, n):
+    pe = pefile.PE(p, fast_load=True)
+    d = pe.get_data(va - pe.OPTIONAL_HEADER.ImageBase, n)
+    return [re.sub(r'0x10[0-9a-f]{6}', 'A', f'{i.mnemonic} {i.op_str}') for i in md.disasm(d, va)]
+a = dis(B + '/gfx.dll', ova, f['size'])
+b = dis('../../cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll', ava, f['size'] + 64)
+print(f['name'], hex(ova), f['size'])
+for l in difflib.unified_diff(a, b[:len(a) + 8], 'ours', 'retail', n=2, lineterm=''): print(l)

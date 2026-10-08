@@ -35,7 +35,7 @@ extern unsigned char backEnd[];   /* r_backEndGlobals_t data */
 
 /* External function declarations */
 extern void RB_SetRenderTarget(GfxRenderTargetId newTargetId);
-extern void RB_DrawStretchPic(MaterialHandle material, float x, float y, float w, float h,
+extern void RB_DrawStretchPic(const Material *material, float x, float y, float w, float h,
                                float s0, float t0, float s1, float t1,
                                unsigned int color, int splitScreen);
 extern void RB_EndSurface(void);
@@ -449,12 +449,12 @@ static void RB_ApplyFilterPasses(GfxImageFilter *filter, int swapLastPass)
             /* Last pass with swapped t0/t1 (used for sky bleed in glow) */
             RB_DrawStretchPic(pass->material, 0.0f, 0.0f, dstW, dstH,
                               0.0f, pass->srcHeight, pass->srcWidth, 0.0f,
-                              0xFFFFFFFF, 0xa);
+                              0xFFFFFFFF, (GfxPrimStatsTarget)0xa);
         } else {
             /* Normal draw */
             RB_DrawStretchPic(pass->material, 0.0f, 0.0f, dstW, dstH,
                               0.0f, 0.0f, pass->srcWidth, pass->srcHeight,
-                              0xFFFFFFFF, 0xa);
+                              0xFFFFFFFF, (GfxPrimStatsTarget)0xa);
         }
 
         RB_EndSurface();
@@ -737,12 +737,12 @@ int RB_GaussianFilterImage(float radius, GfxRenderTargetId renderTargetId)
             /* Last pass with even total: swap t0/t1 */
             RB_DrawStretchPic(pass->material, 0.0f, 0.0f, dstW, dstH,
                               0.0f, pass->srcHeight, pass->srcWidth, 0.0f,
-                              0xFFFFFFFF, 0xa);
+                              0xFFFFFFFF, (GfxPrimStatsTarget)0xa);
         } else {
             /* Normal draw */
             RB_DrawStretchPic(pass->material, 0.0f, 0.0f, dstW, dstH,
                               0.0f, 0.0f, pass->srcWidth, pass->srcHeight,
-                              0xFFFFFFFF, 0xa);
+                              0xFFFFFFFF, (GfxPrimStatsTarget)0xa);
         }
 
         /* line 383 */

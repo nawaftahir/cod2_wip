@@ -341,7 +341,7 @@ void R_LoadWorld(const char *name, int *checksum)
         byte *device = *(byte **)imp_r_rendererInUse;
         if (((dvar_t *)device)->current.integer == 2) {
             ((r_global_permanent_t *)r_glob_ptr)->sunHalfAngleImage =
-                Image_Register("$sunhalfangle", 1, 0);
+                (GfxImage *)Image_Register("$sunhalfangle", 1, 0);
         }
     }
 }

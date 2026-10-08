@@ -11,7 +11,7 @@ extern void *Hunk_AllocAlignInternal(int size, int alignment);
 extern r_globals_t rg; /* imp_rg */
 extern r_global_permanent_t rgp; /* imp_rgp */
 
-long unsigned int R_InitStaticModelDynamicData(int smodelIndex)
+void R_InitStaticModelDynamicData(int smodelIndex)
 {
     int xsurfs;
     int partBits;

@@ -24,7 +24,7 @@ syms.sort()
 md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 res, stats = [], {'fns': 0, 'bytes': 0, 'match_fns': 0, 'match_bytes': 0}
 for i, (va, name, obj) in enumerate(syms):
-    end = syms[i + 1][0] if i + 1 < len(syms) else tva + len(tdata)
+    end = syms[i + 1][0] if i + 1 < len(syms) else tva + min(len(tdata), text.Misc_VirtualSize)
     code = tdata[va - tva:end - tva].rstrip(b'\xcc')
     if len(code) < 6:
         continue
@@ -33,10 +33,11 @@ for i, (va, name, obj) in enumerate(syms):
         if va <= r < va + len(code):
             mask.update(range(r - va, r - va + 4))
     for ins in md.disasm(code, va):
-        if ins.mnemonic in ('call', 'jmp') and ins.size == 5 and ins.bytes[0] in (0xe8, 0xe9):
-            tgt = int.from_bytes(ins.bytes[1:], 'little', signed=True) + ins.address + 5
+        # external rel32 call/jmp/jcc: the displacement depends on layout
+        if ins.size == 5 and ins.bytes[0] in (0xe8, 0xe9) or ins.size == 6 and ins.bytes[0] == 0x0f and 0x80 <= ins.bytes[1] <= 0x8f:
+            tgt = int.from_bytes(ins.bytes[-4:], 'little', signed=True) + ins.address + ins.size
             if not va <= tgt < va + len(code):
-                mask.update(range(ins.address - va + 1, ins.address - va + 5))
+                mask.update(range(ins.address - va + ins.size - 4, ins.address - va + ins.size))
     # longest unmasked run as the search anchor
     best, s = (0, 0), 0
     for k in range(len(code) + 1):

@@ -174,13 +174,13 @@ void Image_Setup(GfxImage *image, int width, int height, int depth, int imageFla
     /* line 444-454: Create texture based on type */
     if (imageFlags & 4) {
         /* Cubemap */
-        Image_CreateCubeTexture(image, w, mipmapCount, usage, imageFormat, 1);
+        Image_CreateCubeTexture(image, w, mipmapCount, usage, imageFormat, (D3DPOOL)1);
     } else if (imageFlags & 8) {
         /* 3D Volume texture */
-        Image_Create3DTexture(image, w, h, d, mipmapCount, usage, imageFormat, 1);
+        Image_Create3DTexture(image, w, h, d, mipmapCount, usage, imageFormat, (D3DPOOL)1);
     } else {
         /* 2D texture */
-        Image_Create2DTexture(image, w, h, mipmapCount, usage, imageFormat, 1);
+        Image_Create2DTexture(image, w, h, mipmapCount, usage, imageFormat, (D3DPOOL)1);
     }
 
     /* line 481: Track texture memory usage */

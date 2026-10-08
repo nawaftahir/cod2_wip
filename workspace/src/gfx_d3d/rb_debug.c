@@ -314,7 +314,7 @@ static JCOEF RB_DrawPolyInteriors(void)
     int polyIndex;
 
     /* Begin surface with white material, technique type 3, no lightmap */
-    RB_BeginSurface(rgp.whiteMaterial, 3, 0);
+    RB_BeginSurface(rgp.whiteMaterial, (MaterialTechniqueType)3, 0);
 
     data = *(byte **)g_viewParms;
     polyCount = ((DebugGlobals *)(data + DBGGLOB_OFF))->polyCount;
@@ -372,7 +372,7 @@ static JCOEF RB_DrawPolyInteriors(void)
                     }
                     drawSurf = *(byte **)g_drawSurf;
                     tess = (materialCommands_t *)drawSurf;
-                    tess->declType = oldBatch;
+                    tess->declType = (MaterialVertexDeclType)oldBatch;
                 }
             }
         }

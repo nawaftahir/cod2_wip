@@ -1,9 +1,195 @@
 # Shared notes (tag PINNED / SUPPORTED / HYPOTHESIS)
 
+- PINNED (Codex, 2026-09-30): batch-building 94 authentic CRT C sources
+  under original /O1 flags with and without _MT yields 85 NEW address-disjoint
+  accepted bodies / 13,375 instruction bytes. Many locale and low-I/O routines
+  require _MT, even though earlier single-thread builds matched other bodies.
+  Use codex16_crt/check.py and packet.json rather than generalizing one TU's
+  flags to the entire library. Full code sections, SEH labels, code/data/import
+  bindings, original initializers, PE data relocations, shared data-section
+  bases and negative tests are checked. Unresolved identities remain rejected.
+  Aggregate checkpoint is 177,250/1,089,680 = 16.266243%; this includes external
+  source, not a renderer release or a whole-file match. COFF TimeDateStamp at
+  header bytes 4..7 changes per build; it must not be confused with code drift.
+
+- PINNED (Codex, 2026-09-30): `delayedGroup` at target 0x10696c40 contains
+  five 0x1c-byte records: bool at +0, begin at +4, four per-view command
+  offsets at +8, end at +0x18. Mac's ten-view structure is not this target.
+  R_InitDrawGroups' loop bound is array base +0x90 (one-past begin field),
+  NOT the adjacent dx symbol. The constrained private binding correction
+  uses the exact array symbol, target address and corroborating +4 reference.
+  Replay `tools/check_ten_percent.py`; six drawgroup bodies contribute 587
+  new bytes. No-argument R_BeginDelayedDrawing at 0x10020f10/92 already
+  belonged to another proof packet; never count it twice.
+- PINNED (Codex, 2026-09-30): authentic VC7.1 input.c matches the full
+  0x100f9482..0x100fa1fe body (3,452 bytes) with original CRT flags /O1 /D_MT.
+  ctype.h's _MT gate suppresses isspace/isdigit/isxdigit macros while leaving
+  isleadbyte as a _pctype lookup. Disabling all ctype macros is not equivalent.
+  The GLM 3,387-byte extent truncates 65 bytes, including epilogue; next entry
+  is _strlen at 0x100fa200, after two excluded INT3 bytes. Full decoded code,
+  SEH table, 21 bindings and negative tests pass codex15_crtinput/check.py.
+  This is external CRT source, not new game-authored code.
+
+- PINNED (Codex, 2026-09-29): the `cod2-msvc71` image has digest
+  `sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694`.
+  Twenty-one `glm/crt71/*.c` files and all compared CRT headers match the
+  image's authentic VC7.1 CRT source. Rebuilt with the original CRT `/O1`
+  flags, 41 full-section CRT functions (9,811 disjoint target instruction
+  bytes) passed decoded byte/relocation-site checks, matching import and code
+  targets, consistent source-data bindings with matching initial data,
+  boundary checks, and wrong-binding negatives. Replay
+  `target/scratch/codex_crt13/build.sh` then `tools/check_ten_percent.py`.
+  These are external toolchain source, not newly recovered renderer code;
+  do not copy Microsoft CRT source into the release tree or count the 2,690
+  rejected shape-only bytes. `r_caps.cpp` in `codex_cohort13` adds two
+  standard-bound renderer bodies (300 bytes); the model `/FORCE` probe
+  yielded only 47 discovery bytes and earns no coverage.
+- PINNED (Codex, 2026-09-29): in the no-`/FORCE` source link,
+  `R_AddStaticModelToAabbTree_r` 0x1002a010/489,
+  `SMC_ForceFreeBlock` 0x1002ab90/87,
+  `SMC_GetFreeBlockOfSize` 0x1002abf0/221, and
+  `R_PickWaterFrequencies` 0x1002cb40/445 have exact bodies and resolved
+  bindings. The cache-list pointer must be reused through the local list
+  pointer for MSVC to emit the target addressing mode. The water negative
+  branch uses `windfactor <= 0.0f`; this preserves the target's unordered/NaN
+  branch behavior. `R_SetFog` source-order and `R_ParseSunLight` first-call
+  probes did not match; neither is credited.
+- PINNED (Codex, 2026-09-28): source-linked `r_xsurface.cpp` yields exact
+  80/71-byte transforms at 0x1002cd80/0x1002cdd0; `r_surfbounds.cpp` yields
+  exact 13/36-byte bounds helpers at 0x1002bca0/0x1002bcb0. The remaining
+  bodies in those files, including 722-byte `XSurfaceGetVerts` versus the
+  726-byte target at 0x1002cee0, are NOT matches. Fresh standard and private
+  binders retain all prior source matches in `build/codex_moretu15`.
+- PINNED (Codex, 2026-09-28): target `RB_ChangeState_0` at 0x1003c430
+  (2,086 bytes), `RB_ChangeState_1` at 0x1003cc60 (1,452), and
+  `RB_SetViewport` at 0x1003e8a0 (262) match readable source in
+  `target/scratch/codex_merged_12/` under the standard full linked verifier.
+  `RB_ChangeIndices`/`RB_ChangeStreamSource` at 0x1003ecb0/0x1003ed20
+  add 109/144 bytes. `RB_ReleaseVertexDecl` in that scratch file is a draft,
+  not a match. The state log guard and exact source-stringized `FloatAsInt`
+  calls affect MSVC output; don't "simplify" them before a fresh check.
+- PINNED (Codex, 2026-09-28): `SkipWhitespace` as static noinline in
+  `universal/q_parse.cpp` reproduces 11 parser bodies/2,548 bytes in the
+  whole /GL link. `Com_ParseIntOnLine` (0x1005ff80/84) and
+  `ParseConfigStringToStruct` (0x10061440/384) have exact linked bodies but
+  need the five-byte `_atoi` thunk and NUL-bounded MSVC C-string proof noted
+  in HANDOFF.md; the canonical binder does not yet credit them.
 - PINNED: DLL Rich header = 100/3077 x121 (/GL), 95/3077 x149 C, 96/4035 x30 + 95/4035 x3, masm x48, imports x120.
 - PINNED: image base 0x10000000, one export GetRefAPI @0x10013270, API 59, 108 export slots (codex/renderer/refapi_pinned.json).
 - PINNED: imports d3d9 x1, DDRAW x2, KERNEL32 x99, USER32 x14, GDI32 x1, ADVAPI32 x3.
 - SUPPORTED: DX SDK in the Makefile is iw3xo-radiant deps (D3DX v43, not the 2005 SDK); fine for d3d9.h, not for matching D3DX code.
+- PINNED (2026-09-27, Claude): DirectX SDK = **Summer 2004** (DX 9.0c, archive.org `dxsdk_sum2004`, installer 239,008,008 B). Byte match vs DLL .text, relocations masked:
+  DxErr9.lib 18/18 sections (169,373 B) for Summer and Oct 2004, Dec 2004 only 14/18; d3dx9.lib Summer 431 KB DLL bytes covered, Oct 388 KB, Oct-only 0 (Summer is a strict superset). Summer d3dx9 objs = 96/4035 + 95/4035, same compiler build as the DLL Rich header. Summer 2003 (9.0b) ruled out: DxErr9 3/14 sections, d3dx9 33 KB.
+  Local copy: `../sdk/sum2004/{Include,Lib}` (never commit). Makefile `DXSDK ?=` should point there.
+- PINNED (Codex independent check): Summer2004 DXErr18 sections uniquely placed
+  with full string/data and internal code/table bindings. Nine external identities
+  checked; six actual IATs plus fresh CRT vsnprintf86/vsnwprintf111/chkstk61.
+  Target100f93bb is _vsnwprintf (GLM label ambiguous). See check_dxerr_dependency.py.
+  Mask-only first-hit matching aliases wide/ASCII bodies and is not binding proof.
+  SDK section byte totals include code/data and are not reconstructed-source credit.
+- PINNED (Codex): genuine VC7.1 std::sort instantiations require `/GL` + `/LTCG`
+  to reproduce these median helpers, not plain isolated `/O2`. Two full515-byte
+  medians at1000e330/10017d40 equal source-built linked code without masking.
+  Every branch is internal;15 indirect comparator calls each, EAX result tests
+  in first family versus AL in second. Opaque element pointer names are ours,
+  not historical struct-layout claims. No register glue or byte transplants.
+  Proof stl_sort_gl_r6ekw52i/median_packet.json; check_stl_sort.py replays it and
+  the actual source DLL Wine fixture. Now superseded by24 functions/3434bytes
+  in sort_helpers_packet.json, with helper graph bindings and negative tests.
+- PINNED: target1002d4a0 starts with allocator(24), adds24 to model+0x84
+  (instruction1002d4b7) and endsRET1002da8e. opencod2 XModelReadSurface is the
+  corresponding readable reference, NOT yet matched. Its /O2/TP reader801,
+  /GL+LTCG801, /G6 same, /G7 804 vs target1519. Do not repeat those probes or
+  count duplicated11-byte consume-helper shapes as confirmed function identity.
+- Tested local blend-count promotion from byte to unsigned int in the opencod2
+  reader overlay: fresh baseline_jpeg_r_f2wa0_ compiled successfully but matched
+  zero functions. This is not an ABI/layout change or accepted source progress.
+- PINNED: reader1002d4a0 blend loop has four-record bulk and remainder loops.
+  scratch/model_surface_unrolled expresses these with an inline record helper:
+  fresh baseline_jpeg_6jt133xe reader1336 versus target1519, no match. Native
+  comparison with reference passes512 rigid/skinned cases across counts0..255.
+  Target tile store precedes pointer advancement; target initial bone offset
+  comparison is32-bit after sign extension, unlike reference short comparison.
+  /Oa source-only linked probe in model_surface_wide_weights/build_oa did not
+  match the reader either; tiny helper aliases remain uncounted.
+- Reader follow-ups: model_surface_order (tile store then advance, int initial
+  bone offset) builds1320bytes in baseline_jpeg_t9_fuc5m; target's initial
+  sign-extension/32-bit compare and in-memory model count addition are now
+  present, but register assignments differ. model_surface_allocation hoists
+  the common vertex allocation and reloads index pointer through the surface:
+  baseline_jpeg_3yr_bvfe builds1299bytes, zero matches. Both pass the512-case
+  native reference comparison. Neither is accepted or canonical source.
+- SDK component reconnaissance: d3dx9.lib contains PNG and old zlib code, but
+  none of the checked defined-symbol member sections with png/deflate/inflate
+  identifiers (code size>=40, full relocation-masked section comparison) occurs
+  in the target. This is bounded discovery, not proof that all related members
+  are absent. Do not compile those entire libraries merely because SDK ships them.
+- SDK math header instantiation batch: sdk_math_reference/j_math.c instantiates
+  32 header-defined operations with the supplied SDK as read-only source input.
+  Fresh baseline_jpeg_iae12yt3 /O2/TP compiles; only2 trivial shapes/6unique
+  bytes found in whole code scan. No accepted source credit, no canonical import.
+- model_surface_allocation source-only /GL+LTCG link freshly succeeds without
+  /FORCE, missing-service shims or default CRT dependencies. Reader remains1299
+  bytes, no linked referee hit; tiny11-byte aliases excluded. Thus this bounded
+  source group does not change the reader under LTCG. Preserve build_gl/cmp.json.
+- opencod2 Mac/DirectX_9/D3DXMath.c is NOT a Windows implementation oracle:
+  MatrixInverse delegates to COpenGLMatrix_Inverse and its error-description
+  function is a NULL-return stub. Do not bulk-import this file into renderer src.
+- PINNED behavior correction: target1002cee0/726 is vertex extraction with
+  rigid/skinned bone transforms, not GLM's R_RegisterXModelSurfs label.
+  SUPPORTED name XSurfaceGetVerts agrees with opencod2 r_xsurface.c. Raw code
+  pins offsets+2/+6/+12, signed32-bit bone compare, countdowns and RET1002d1b5.
+  Fresh reference/countdown/counter-width bodies736/733/720 all fail full match.
+  Native transfer/transform fixture passes all three. Latest source-only GL link
+  fails missing __fltused; resolve via authentic CRT, never an invented definition.
+- PINNED (Claude, r001): declaring D3DXCompileShader/D3DXGetShaderConstantTable `extern "C" __stdcall` (real SDK ABI) makes the link pull Summer 2004 d3dx9.lib: discovery jumps 7% -> 47%, ~434 KB of D3DX objects placed exactly. Dependency coverage, not source.
+- SUPPORTED: opencod2 `src/PC/gfx_d3d` = cleaned Mac 1.3 decompile (same headers); compiles under MSVC 7.1 /TP with no edits for 58/60 TUs. Renderer-source discovery: Mac raw 1,464 B, opencod2 2,892 B. r_getrefapi_v60.c is the 1.3 API (v60), excluded; 1.0 = 59.
+- SUPPORTED: the Mac drafts' invented return types (jpeg_alloc, long unsigned) disagree with Mac STABS gfx_funcs.h (void) for 9 fns; opencod2 already fixed.
+- PINNED (Codex, 2026-09-29): The VC7.1 CRT MASM source in the pinned
+  toolchain rebuilds 15 exact, nonoverlapping renderer CRT bodies/1,682
+  instruction bytes, including `_strcpy` at 0x100fe890 (7 bytes) and
+  `_strcat` at 0x100fe8a0 (232 bytes). The latter was unnamed by the
+  renderer inventory. That independent symbol/binding evidence unlocks
+  three CRT C functions/462 bytes: `__strcats` 0x100f7b6a,
+  `___lc_lctostr` 0x100f7c6a, and `__expandlocale` 0x100f7db2.
+  `target/scratch/codex_crt14asm/check.py` is the raw-byte, source/object,
+  complete-instruction and disjointness proof. MASM source is external
+  proprietary toolchain source, not recovered game code; keep its coverage
+  class separate. The original Windows-cased includes require exact-byte
+  aliases of `memcpy.asm` and `strspn.asm` on Linux.
+- PINNED (Codex, 2026-09-29): Authentic VC7.1 CRT C objects give 7,946
+  additional disjoint renderer instruction bytes under the independently
+  replayed 14% audit, without adding game-authored renderer source.
+  `__convertcp` at 0x10107fca is a complete 457-byte code section and
+  `__crtCompareStringA` at 0x10109f98 a complete 900-byte section; the
+  GLM inventory stops at 434/848 bytes mid-instruction. Their next-entry
+  addresses, relocation sites and targets, original SEH tables, zero-filled
+  CRT globals, source/object hashes, and wrong-binding negatives are checked
+  in `target/scratch/codex_crt14extra/check_large.py`. Original `__output`
+  and `__woutput` code is 2,010/2,064 bytes respectively, each followed by
+  a 32-byte jump table that is verified but not counted as code. The
+  shared-global proof checks original `crt0dat.c` BSS offsets 12/44/48/52
+  (`_osplatform`, `_environ`, `__initenv`, `_wenviron`), the 180-byte
+  source-defined locale-time pointer table, and the 640-byte `__iob` table.
+  These are source-backed CRT dependencies, not a renderer release or SHA
+  identity.
+## 2026-09-30 — CRT17 callback and boundary proofs
+
+- PINNED: the replayed aggregate is 187,028 / 1,089,680 = 17.163571%.
+  CRT17 adds 41 unique original-source bodies / 9,176 bytes; callback and
+  data-dependency proofs add no extra instruction coverage.
+- PINNED: COFF Type 0x20 marks external code callbacks even when undefined
+  in the current object. Original initializer pointers must be checked as
+  code, not guessed data definitions. The private CRT17 checker proves
+  their complete source sections at the target-provided addresses.
+- PINNED: anonymous GLM FUN entries inside a complete source section can
+  be internal branch destinations. Accept only explicit source labels or
+  decoded direct-branch targets; reject arbitrary/named overlapping entries.
+  The private checker includes classification and binding negative tests.
+- Source checkpoint: six checked drawgroup functions are copied unchanged
+  to target/src/codex_drawgroups; integration still needs independent review
+  of the narrowly scoped one-past-array binder correction. Proprietary CRT
+  source remains external. No whole-DLL identity has been established.
 
 ## 2026-09-30 — CRT19 and reconstructed SDK lookup
 
@@ -135,6 +321,67 @@
 - Original C++ CRT ST/MT and remaining C `/O2` ST/MT surveys supply no accepted
   gain. Common tiny no-op shapes are not entry/name identity. Preserve reports;
   repeating these unchanged batches will not advance source reconstruction.
+
+## Codex instruction/profile/cast module — 2026-10-01
+
+- PINNED: copy initializer at 10085abe is 180 bytes; `Alloc` is public static
+  __stdcall, not private. Input/output inline cutoffs are 8/4; copy preserves
+  fields +2c and +38 while copying +24/+28/+30/+3c. Class is only an access view.
+- PINNED: profile methods at 10062c8b/10062d3b are 176/120 bytes. NULL devices
+  and failed GetDeviceCaps return NULL. Explicit NULL jump to the shared failure
+  block reproduces target layout. Pixel 2_a requires >=22 temps and all five
+  caps; vertex 2_a requires >=13 temps, predication, dynamic depth exactly 24.
+- PINNED: CParse::IsCast at 10099846 is 137 code +48 table bytes. Nested target
+  component-code switches match; source 4/8 accepts destination 5. Its last jump
+  returns through the interior pop/ret-8 epilogue; a last-instruction-ret-only
+  assumption is false for this body. Numeric enum codes are known, names aren't.
+- PINNED: original SDK `_g_Targets` is 44 records of 12 bytes, 528 bytes total.
+  GetTargetDescByVersion at 10063814 has three absolute operands: base+536,
+  base+8, base. +536 is the one-past flags-column iterator (array end +8), not a
+  string reference. Linked and retail adjacent strings can differ without
+  changing that array's bytes. Original COFF, all table fields, all 44 complete
+  strings and all relocations prove the binding. A narrow private adapter
+  resolves those operand pairs only; canonical binder and source are untouched.
+- PINNED: decoding full DxErr A/W name sections as code encounters fake CALLs
+  in their tables after a link-layout shift. Their actual code ends are 48427
+  and 48462; complete sections remain 72524 and 72405. Full-section/table/string
+  proof precedes scan correction, and the previously excluded tables stay zero.
+- PINNED: clean four-method module passes original referee, full-section byte
+  and binding negatives, 419 linked source matches with all 415 retained,
+  and 10285 complete-output CPU comparisons. No whole-file/GPU/game claim.
+- Tokenizer source remains unmatched: moving shared error labels, reversing
+  comparisons and rearranging cases changes byte layout without completing the
+  body. Preserve the draft and report; no partial-prefix credit or flag retries.
+- PINNED: a superseded `codex30_reads` Docker make job kept its compiler spinning
+  for over two hours. Stopping it caused make to delete its named generated
+  `shader_version.obj`, even though a later build had replaced that output.
+  Rebuilt the unchanged verified source and relinked its private DLL. Never
+  overlap compiler jobs using the same output directory; stop the old job before
+  reusing its paths. The separate client build was not stopped or edited.
+
+## Codex shader-node module — 2026-10-01
+
+- PINNED: 72 complete clean functions contribute 4783 disjoint code bytes;
+  491 private linked source matches retain all preceding 419. The original SDK
+  CPU fixture passes 10496 complete-output comparisons. The full aggregate
+  replay passes at 324406/1089680 = 29.770758%, still below 30%.
+- PINNED: CNode is 16 bytes: vptr, kind, child, next. Virtual slots are IsEqual,
+  Copy, Print, with no virtual destructor. Eighteen complete 12-byte vtables
+  have typed COFF/retail/linked pointer proofs. SDK Print methods fold to a
+  shared one-byte RET; they are dependency evidence, never new source credit.
+- PINNED: tiny List/Token default constructors omitted by generic discovery
+  are located by complete SDK typed caller edges, not by guessing a byte shape.
+  Identical unsigned/node and two-unsigned/byte-buffer Value constructors are
+  disambiguated by their mangled caller edges and complete bodies.
+- PINNED: CNodeValue::Copy (105 bytes at 10083d5d) copies its value/token then,
+  for kind 4 with a node pointer, deep-copies into the SOURCE node pointer.
+  The destination retains the old pointer. CPU tests explicitly preserve this
+  original mutation. CNodeTree::Copy does not copy its name field.
+- PINNED: CAlloc uses six words (24 bytes), confirmed by its ctor and caller
+  stack allocation. SetAlloc returns the prior allocator pointer. Its opaque
+  SDK implementation adds no source credit.
+- Nine unmatched node methods remain scratch-only; internal register calls
+  in TokenEqual do not justify changing its public ABI. No partial credit.
 
 ## Codex assembler and support modules — 2026-10-01
 
@@ -693,6 +940,7 @@
   then missing local vtables.py. Both failures must be preserved, not waived.
   Reuse complete existing metadata proof in the new image and rerun affected
   gates before aggregate inclusion. No aggregate is live; confirmed31.705822%.
+
 ## Codex helper acceptance and pool algorithms — 2026-10-03
 
 - Missing helper metadata dispatch resolved with pinned prior table/binding
@@ -736,6 +984,7 @@
   up then return0; only initial CompactInstructions failure propagates.
   CompactRegisters ignored IdentityRemap/one Process result and double-End
   failure cleanup are target behavior, not bugs to fix during reconstruction.
+
 ## Codex32 continued source facts — 2026-10-03
 
 - Driver aggregate43146 terminal PASS/exit0 confirms346645/1089680=31.811633%.
@@ -765,6 +1014,7 @@
   remains unconfirmed until terminal PASS. No source,ABI or comparison waiver.
 - Owner requested immediate checkpoint/pause, overriding continue-through32%.
   Save current proofs and inspect live audit3787 result first on next resume.
+
 ## Codex32 audit-continuation checkpoint — 2026-10-03
 
 - Old audit3787 has no reusable handle, process125717 is absent, and its partial
@@ -776,6 +1026,7 @@
   Fourteen new definitions2,095 bytes are internally disjoint; only full audit
   establishes global disjointness/acceptance. Confirmed31.811633%, expected
   32.003854% pending. No new source/tooling or release-tree mutation.
+
 ## Codex32 aggregate accepted — 2026-10-03
 
 - Audit13323 terminal PASS/exit0 accepts14 complete source definitions /2,095
@@ -788,6 +1039,7 @@
 - Clean source saved in1b6f344/246b910. Drafts, duplicates, tables and opaque
   dependencies excluded. Whole-DLL identity/GPU/release integration unfinished.
   This32% goal is achieved;35% needs32,648 further verified instruction bytes.
+
 ## Codex35 address/register continuation — 2026-10-03
 
 - PINNED SDK90/194 SplitRegisters586 at10090e95 and SDK90/85
@@ -809,6 +1061,7 @@
 -35% goal remains active. Full audit log codex35_register_split/aggregate.log;
   one live audit only, clean source/proof inputs frozen. No release-tree write,
   opaque dependency credit, whole-DLL identity or GPU claim.
+
 ## Codex35 output grouping — 2026-10-03
 
 - PINNED SDK90/91 PerComponent1006, /92 DotProduct1221 and /103 literal
@@ -839,6 +1092,7 @@
   Audit8482 exited1 on the new aggregate's raw100 assertion; replacement30276
   includes both cohorts with exact named diagnostic/binding/destination checks.
   No bytes accepted yet. Preserve failed log; never use MASK_INTRA globally.
+
 ## Codex35 aggregate acceptance and full argument storage — 2026-10-03
 
 - Audit30276 completed terminal PASS/exit0. Five new complete definitions,
@@ -859,6 +1113,7 @@
   Explicit helper-result temporaries preserve observed SDK call ordering;
   source expression evaluation order alone did not. REPORT lists bounded
   Squish/literal/trace attempts so later workers do not repeat them blindly.
+
 ## Codex35 argument ownership and constructor binding — 2026-10-03
 
 - PINNED AddArgument356 at10085ec2 and CopyArgument82 at10086240 now have
@@ -880,6 +1135,7 @@
   FA0 messages, token+18 passes the name pointer. Volatile pointer access in the
   local draft preserves observed repeated predicate-field reads; no historical
   qualifier claim. Failed-byte drafts never increase the coverage ledger.
+
 ## Codex35 clean validator — 2026-10-03
 
 - PINNED Validate811 at1008b71d/SDK90 section160 now has clean readable source.
@@ -894,6 +1150,7 @@
   an else-if chain. All-if/all-goto alternatives had different full bytes.
   Repeated predicate-field reads use a volatile local access view, not a claim
   that the original SDK header had that qualifier. No marker or padding code.
+
 ## Codex35 clean pool-read collector — 2026-10-04
 
 - PINNED CompactPool_ReadCount387 at1008a4c3/SDK90 section112 has readable
@@ -912,6 +1169,7 @@
   to remove incorrect DOS-header and64-bit-return guesses. Both are research,
   ZERO source credit; shared analysis DB changes were discarded. Target-bound
   structure layouts and full source compilation are still required.
+
 ## Codex35 reviewed-reuse aggregate — 2026-10-04
 
 - Accepted353651/1089680=32.454574% after aggregate8159 terminal PASS/exit0;
@@ -933,6 +1191,7 @@
 - PINNED SDK73/26 EmitTemp28 uses ECX/EDI/EAX and does not modify EDX. Typed
   intrinsic decompilation's extraout_EDX artifacts require real caller/callee
   source-context testing, not fabricated return types or calling conventions.
+
 ## Codex35 owner checkpoint and shader-comment drafts — 2026-10-04
 
 - Accepted coverage remains353651/1089680=32.454574%;35% needs27737 more
@@ -1106,3 +1365,64 @@
  terminal cold audit+posthash, include disjoint308/209 with strict pins.
  All1213 locally proved pending bytes would total355095/32.587090%; this is
  not accepted coverage.35% remains active, accepted353882/32.475773%.
+
+## 2026-10-05 — constant-table reconstruction (Codex)
+
+- Accepted355095/32.587090%; the33% goal is active. New isolated30-method
+  source passes V2/3105 only, not link/CPU/aggregate. Evidence lives in
+  target/scratch/codex33_constant_table/packet.json and REPORT.md.
+- PINNED SDK63/retail CConstant allocates68 bytes (Create1008085f/664),
+  copies20 bytes of CONSTANTINFO at this+4, has type+18, upload+1c,
+  scratch+20, next+24, members+38, elements+3c and elementType+40.
+  The table declaration is an access prefix, not an allocation contract.
+- PINNED TypeSize1007d733/187 uses six stdcall stack arguments and ret24,
+  including its self-call at+77. Direct register-size branch expressions
+  reproduce the original body; shared product temporaries swap registers.
+- PINNED CConstant GetDesc1007d9d4/163 initially clears12 bytes, then
+  writes the complete48-byte descriptor. Preserve that original behavior.
+- PINNED table constructor10080e16/33 identifies all27 vtable slots from
+  its original SDK DIR32 field. Complete SDK callees and PE relocation sites
+  certify the public getter/setter identities; the carrier earns zero source.
+- PINNED signed-negative handles negate the CConstant pointer; positive
+  handles are names. Setters traverse next+24 and stop on a failed upload.
+  GetConstantDesc reuses its descriptor argument slot only for lookup output;
+  the saved destination pointer remains distinct.
+- CORRECTED false draft inference: Initialize does NOT replace DefaultValue
+  with parent registerIndex. The frame-0x14 DWORD is a separate parent-index
+  spill; info.DefaultValue is at frame-0x18. Preserve the copied default.
+  The old lifetime.cpp is an explicitly unaccepted defective first draft.
+- PINNED private CompareStringA1007d7ee/65 passes name in EBX, query in EAX,
+  length on the stack and returns ret4. Ordinary static C++ with stored-name
+  first/query second produces this convention; no hand-authored ABI wrapper.
+  Its two source callers still differ, so no forced standalone-helper credit.
+- The new verifier changes the global proof environment. The39-cohort cache
+  remains historical/stale until a cold replay and independent posthash.
+
+## 2026-10-05 exact constant lifetime and shader helpers
+
+PINNED: CConstant::Initialize388 is exact when its limit check reads the
+parent registerCount/registerIndex fields directly; parent locals in that
+sum exchange three WORD operands. The separate saved parentIndex remains
+for clamping. Preserve info.DefaultValue copied from the20-byte descriptor.
+GetConstantElement411 similarly reads the registerIndex field in the new
+index/available-count expressions, retaining a saved index for the clamp.
+Its element offset deliberately truncates the register product to WORD;
+new/Initialize failure returns0 immediately, with the stored slot cleared
+on initialization failure. Source-local allocation value drives the null
+check; a reloaded slot changes the target's condition/register context.
+
+PINNED: CPSLegacyProgram::InitCaps179 accesses version0xc8, flags0xcc,
+originalVersion0x108 and capability words starting0x28. Capability word0x6c
+bit17 is assigned from the version==0x101 condition; an unsigned1-bit source
+field reproduces AND1 before SHL17. Word0x30 is cleared before setting byte
+0xcd bit0. Source uses exact binary-derived masks, not inferred cap labels.
+Ghidra lacks a function at0x100a6f12; full typed original SDK179-byte section,
+unique retail placement, complete unmasked equality and CPU cases supply
+the evidence. Do not claim that a decompiler confirmed a missing function.
+
+CPool initialize/copy touch only0..0x30; register swapping uses program
+argumentCount8,pools0x10,arguments0x14, pool flags bit0x200, argument pool4,
+index0xc and remap0x30. Access records are not full SDK allocation declarations.
+Direct CPU fixtures pass34348 cases across both new cohorts, with all705
+prior/new linked source matches proved. Aggregate acceptance is still pending.
+- 10-07 r5: 0x1005e180 (145 B, fsincos + vectopitch 0x10059970, vec in edx) has no caller in retail .text and no absolute ref; register entry can't be reproduced from a root. Deferred.

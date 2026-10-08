@@ -93,7 +93,7 @@ static int R_FinishLoadingAabbTrees_r_impl(byte *tree, int totalTreesUsed)
     childCount = aabbTree->childCount;
     if (childCount) {
         /* Has children — assign child array from rgl pool */
-        aabbTree->children = (int)(intptr_t)((byte *)rgl.aabbTrees + totalTreesUsed * sizeof(GfxAabbTree));
+        aabbTree->children = (GfxAabbTree *)((int)(intptr_t)((byte *)rgl.aabbTrees + totalTreesUsed * sizeof(GfxAabbTree)));
         totalTreesUsed += childCount;
 
         /* Recurse into each child */

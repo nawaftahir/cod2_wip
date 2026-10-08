@@ -35,7 +35,7 @@ void Image_Generate3D(GfxImage *image, byte *pixels, int width, int height, int 
 void Image_BuildWaterMap(GfxImage *image);
 static jpeg_alloc Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data, D3DFORMAT format, int bytesPerPixel);
 static jpeg_alloc Image_LoadDxtc(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data, D3DFORMAT format, int bytesPerBlock);
-jpeg_alloc Image_LoadFromData(GfxImage *image, GfxImageFileHeader *fileHeader, const byte *srcData);
+void Image_LoadFromData(GfxImage *image, GfxImageFileHeader *fileHeader, const byte *srcData);
 static void Image_GetSunHalfAngleForVector(const vec_t *facePos, int ignored, byte *pixel);
 static void Image_GetWaterColorForVector(const vec_t *facePos, int packedColor, byte *pixel);
 static void Image_GetLightGridWeightsForVector(const vec_t *facePos, int subMap, byte *pixel);
@@ -44,7 +44,7 @@ GfxImage * R_CreateWaterMap(char *name, int imageWidth, int imageHeight);
 typedef void (*CubemapPixelCallback)(const vec_t *facePos, int userData, byte *pixel);
 static void Image_GenerateCubemapFunction(GfxImage *image, byte *pic, int res, int userData, CubemapPixelCallback Callback);
 Bool Image_LoadRaw(GfxImage *image, const char *filepath, int imageTrack);
-static jpeg_alloc Image_LoadLightmapWeights(GfxImage *image);
+static void Image_LoadLightmapWeights(GfxImage *image);
 GfxImage * Image_Load(const char *name, int semantic, int imageTrack);
 
 /* Compute mip level count: smallest power of 2 >= max(w, h, d), return log2 */
@@ -88,7 +88,7 @@ void Image_BuildWaterMap(GfxImage *image)
 
 /* line 195 */
 /* line 195 */
-static jpeg_alloc Image_LoadBitmap_impl(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data, D3DFORMAT format, int bytesPerPixel)
+static void Image_LoadBitmap_impl(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data, D3DFORMAT format, int bytesPerPixel)
 {
     byte *img = (byte *)image;
     const byte *hdr = (const byte *)fileHeader;
@@ -173,7 +173,7 @@ static jpeg_alloc Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fi
 
 /* line 245 */
 /* line 245 */
-static jpeg_alloc Image_LoadDxtc_impl(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data, D3DFORMAT format, int bytesPerBlock)
+static void Image_LoadDxtc_impl(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data, D3DFORMAT format, int bytesPerBlock)
 {
     byte *img = (byte *)image;
     const byte *hdr = (const byte *)fileHeader;
@@ -310,7 +310,7 @@ static void Image_LoadWavelet_impl(GfxImage *image, const byte *fileHeader,
             byte *newAddr = hunkBufs[face] + totalSize - sizeForLevel;
             hunkAddrs[face] = newAddr;
 
-            Wavelet_DecompressLevel((byte *)oldAddr, newAddr, &decode);
+            Wavelet_DecompressLevel((byte *)oldAddr, (int)newAddr, &decode);
 
             /* Allocate temp, copy decompressed data */
             void *pTemp = __Znam(allocSize);
@@ -318,7 +318,7 @@ static void Image_LoadWavelet_impl(GfxImage *image, const byte *fileHeader,
 
             /* Upload to texture */
             int cubeFace = Image_CubemapFace(face);
-            Image_UploadData(image, format, cubeFace, level - picmip, (const byte *)pTemp);
+            Image_UploadData(image, format, cubeFace, level - picmip, (byte *)((const byte *)pTemp));
 
             if (pTemp)
                 __ZdaPv(pTemp);
@@ -343,11 +343,11 @@ static jpeg_alloc Image_LoadWavelet(GfxImage *image, const byte *fileHeader, con
 /* Helper: call naked Image_LoadWavelet with register calling convention */
 static void Image_LoadWavelet_call(GfxImage *image, const void *fileHeader, const byte *data, int format, int bytesPerPixel)
 {
-    Image_LoadWavelet_impl(image, (const byte *)fileHeader, data, format, bytesPerPixel);
+    Image_LoadWavelet_impl(image, (const byte *)fileHeader, data, (D3DFORMAT)format, bytesPerPixel);
 }
 
 /* line 320 — Dispatch image data to the appropriate loader based on format type. */
-jpeg_alloc Image_LoadFromData(GfxImage *image, GfxImageFileHeader *fileHeader, const byte *srcData)
+void Image_LoadFromData(GfxImage *image, GfxImageFileHeader *fileHeader, const byte *srcData)
 {
     byte *img = (byte *)image;
     const byte *hdr = (const byte *)fileHeader;
@@ -359,19 +359,19 @@ jpeg_alloc Image_LoadFromData(GfxImage *image, GfxImageFileHeader *fileHeader, c
     formatType = hdr[4];
 
     switch (formatType) {
-    case 1:  Image_LoadBitmap_impl(image, fileHeader, srcData, 0x15, 4); break; /* A8R8G8B8, 4 bpp */
-    case 2:  Image_LoadBitmap_impl(image, fileHeader, srcData, 0x16, 3); break; /* X8R8G8B8 (BGR), 3 bpp */
-    case 3:  Image_LoadBitmap_impl(image, fileHeader, srcData, 0x33, 2); break; /* A1R5G5B5, 2 bpp */
-    case 4:  Image_LoadBitmap_impl(image, fileHeader, srcData, 0x32, 1); break; /* R5G6B5, 1 bpp */
-    case 5:  Image_LoadBitmap_impl(image, fileHeader, srcData, 0x1c, 1); break; /* A4R4G4B4, 1 bpp */
+    case 1:  Image_LoadBitmap_impl(image, fileHeader, srcData, (D3DFORMAT)0x15, 4); break; /* A8R8G8B8, 4 bpp */
+    case 2:  Image_LoadBitmap_impl(image, fileHeader, srcData, (D3DFORMAT)0x16, 3); break; /* X8R8G8B8 (BGR), 3 bpp */
+    case 3:  Image_LoadBitmap_impl(image, fileHeader, srcData, (D3DFORMAT)0x33, 2); break; /* A1R5G5B5, 2 bpp */
+    case 4:  Image_LoadBitmap_impl(image, fileHeader, srcData, (D3DFORMAT)0x32, 1); break; /* R5G6B5, 1 bpp */
+    case 5:  Image_LoadBitmap_impl(image, fileHeader, srcData, (D3DFORMAT)0x1c, 1); break; /* A4R4G4B4, 1 bpp */
     case 6:  Image_LoadWavelet_call(image, fileHeader, srcData, 0x15, 4); break; /* ARGB wavelet */
     case 7:  Image_LoadWavelet_call(image, fileHeader, srcData, 0x16, 3); break; /* BGR wavelet */
     case 8:  Image_LoadWavelet_call(image, fileHeader, srcData, 0x33, 2); break;
     case 9:  Image_LoadWavelet_call(image, fileHeader, srcData, 0x32, 1); break;
     case 10: Image_LoadWavelet_call(image, fileHeader, srcData, 0x1c, 1); break;
-    case 11: Image_LoadDxtc_impl(image, fileHeader, srcData, 0x31545844, 8); break;  /* DXT1, 8 bytes/block */
-    case 12: Image_LoadDxtc_impl(image, fileHeader, srcData, 0x33545844, 16); break; /* DXT3, 16 bytes/block */
-    case 13: Image_LoadDxtc_impl(image, fileHeader, srcData, 0x35545844, 16); break; /* DXT5, 16 bytes/block */
+    case 11: Image_LoadDxtc_impl(image, fileHeader, srcData, (D3DFORMAT)0x31545844, 8); break;  /* DXT1, 8 bytes/block */
+    case 12: Image_LoadDxtc_impl(image, fileHeader, srcData, (D3DFORMAT)0x33545844, 16); break; /* DXT3, 16 bytes/block */
+    case 13: Image_LoadDxtc_impl(image, fileHeader, srcData, (D3DFORMAT)0x35545844, 16); break; /* DXT5, 16 bytes/block */
     default: break;
     }
 }
@@ -418,7 +418,7 @@ static void Image_GetWaterColorForVector(const vec_t *facePos, int packedColor, 
     Vec3NormalizeTo(facePos, dirFromEye);
 
     /* FresnelTerm(ior_air=1.0, ior_water=1.333, cosIncident=dirFromEye.y) */
-    fresnel = FresnelTerm(1.0f, *(float *)&(int){0x3faa9fbe}, *(float *)&dirFromEye[1]);
+    fresnel = FresnelTerm(1.0f, 1.333f, *(float *)&dirFromEye[1]);
 
     color = packedColor;
     /* Replace alpha byte (byte 0) with Fresnel reflectance */
@@ -719,7 +719,7 @@ extern float floorf(float x);
 extern double atan2(double y, double x);
 extern float Vec2Normalize(float *v);
 
-static jpeg_alloc Image_LoadLightmapWeights(GfxImage *image)
+static void Image_LoadLightmapWeights(GfxImage *image)
 {
     byte pic[32 * 32 * 4]; /* 32x32 RGBA */
     int t, s;
