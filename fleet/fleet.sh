@@ -117,6 +117,9 @@ Fix it: restore what you broke or remove the bad ledger row, run make verify unt
 
 case ${1:-} in
   start)
+    if pgrep -f 'fleet.sh run' >/dev/null; then
+      echo "agents still running (a stop waits for their batch to end); check: $0 status"; exit 1
+    fi
     rm -f fleet/STOP
     for name in $(echo "$ROSTER" | awk 'NF{print $1}'); do
       nohup "$0" run "$name" >>"fleet/logs/$name.log" 2>&1 &
