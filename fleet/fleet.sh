@@ -15,6 +15,7 @@ mkdir -p fleet/logs
 ROSTER="
 deepseek  cheap  opencode  opencode/deepseek-v4.1-flash-free
 glm       cheap  opencode  opencode/glm-5.3-flash-free
+agy       cheap  agy       -
 copilot   mid    copilot   -
 "
 TIMEOUT=40m
@@ -40,6 +41,10 @@ run_agent() { # runner model dir prompt continue?
         --allow-tool 'shell(head)' --allow-tool 'shell(tail)' --allow-tool 'shell(mkdir)' --allow-tool 'shell(cp)' \
         --deny-tool 'shell(git push)' --deny-tool 'shell(rm)' --deny-tool 'shell(curl)' \
         -p "$prompt") ;;
+    agy)
+      # allow/deny rules live in ~/.gemini/antigravity-cli/settings.json (permissions); headless denies the rest
+      (cd "$dir" && timeout $TIMEOUT ~/.local/bin/agy ${cont:+--continue} \
+        $([ "$model" != - ] && echo --model "$model") -p "$prompt") ;;
   esac
 }
 
