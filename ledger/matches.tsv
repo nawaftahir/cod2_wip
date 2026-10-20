@@ -1,12 +1,16 @@
 addr	size	source	symbol	name	tag
+0x00495f70	10	src/universal/q_shared.cpp	_FUN_00495f70	FUN_00495f70	UNNAMED
+0x00495fb0	10	src/universal/q_shared.cpp	_FUN_00495fb0	FUN_00495fb0	UNNAMED
 0x00495fc0	24	src/universal/q_shared.cpp	_ShortSwap	ShortSwap	SUPPORTED
 0x00495fe0	9	src/universal/q_shared.cpp	_ShortNoSwap	ShortNoSwap	SUPPORTED
 0x00495ff0	48	src/universal/q_shared.cpp	_LongSwap	LongSwap	SUPPORTED
 0x00496020	8	src/universal/q_shared.cpp	_LongNoSwap	LongNoSwap	SUPPORTED
 0x00496140	11	src/universal/q_shared.cpp	_Long64NoSwap	Long64NoSwap	SUPPORTED
 0x00496180	14	src/universal/q_shared.cpp	_FloatReadNoSwap	FloatReadNoSwap	SUPPORTED
+0x00496190	39	src/universal/q_shared.cpp	_FloatWriteSwap	FloatWriteSwap	SUPPORTED
 0x004961c0	8	src/universal/q_shared.cpp	_FloatWriteNoSwap	FloatWriteNoSwap	SUPPORTED
 0x00496530	83	src/universal/q_shared.cpp	_I_strnicmp	I_strnicmp	SUPPORTED
+0x004969a0	50	src/universal/q_shared.cpp	_CanKeepStringPointer	CanKeepStringPointer	SUPPORTED
 0x00482980	31	src/universal/com_math.cpp	_randomf	randomf	SUPPORTED
 0x004829a0	39	src/universal/com_math.cpp	_crandom	crandom	SUPPORTED
 0x00489b20	9	src/universal/com_memory.cpp	_Z_FreeInternal	Z_FreeInternal	SUPPORTED

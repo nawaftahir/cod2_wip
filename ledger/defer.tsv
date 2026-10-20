@@ -2,3 +2,4 @@ addr	agent	date	reason
 0x004acc30	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
 0x004acd90	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
 0x004acf40	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
+0x00496150	deepseek	2026-10-20	8 tries: union/byte-array/int-local byte-write forms all coalesce the union with the cdecl parameter (no push ecx); retail keeps it at [ebp-4] and reloads n. Not tried: two-union byte-copy form (dat1.i=n; dat2.b[k]=dat1.b[3-k]; return dat2.f), which matched 0x496190's pattern
