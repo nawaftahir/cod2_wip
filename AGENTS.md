@@ -36,6 +36,13 @@ You work in your own worktree, `.agents/<your-name>/`, on branch `agent/<your-na
    touches anything except `src/` and `ledger/`. CI then rechecks everything and posts the numbers.
 7. Next row. When your rows are done, run `python3 tools/claim.py --release <your-name>` and stop.
 
+## Shell commands you may run
+
+Only these, one command per call: no `&&`, `;` or `|` chains, no `python3`, no `find`, no `rm`.
+`make show|try|verify`, `git add|commit|status|diff|log`, `ls`, `cat`, `grep`, `head`, `tail`,
+`mkdir`, `cp`, `wc`, `sed`, `sort`, `diff`, `pwd`, `echo`. Anything else gets refused automatically.
+Read and edit files with your file tools, not the shell.
+
 ## Rules that make it byte-identical
 
 - **Line numbers are part of the binary.** Asserts store `__LINE__`. `make show` prints the
