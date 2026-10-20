@@ -34,3 +34,8 @@ addr	size	source	symbol	name	tag
 0x004acd80	13	src/xanim/xmodel_utils.cpp	?XModelGetBasePose@@YAPAUDObjAnimMat@@PBUXModel@@@Z	XModelGetBasePose	SUPPORTED
 0x004acea0	52	src/xanim/xmodel_utils.cpp	?XModelGetLodOutDist@@YAMPBUXModel@@@Z	XModelGetLodOutDist	SUPPORTED
 0x004acee0	95	src/xanim/xmodel_utils.cpp	?XModelGetLodForDist@@YAHPBUXModel@@M@Z	XModelGetLodForDist	SUPPORTED
+0x004a4da0	18	src/xanim/dobj.cpp	?DObjGetAllocSkelSize@@YAHPBUDObj_s@@@Z	DObjGetAllocSkelSize	SUPPORTED
+0x004a4e90	12	src/xanim/dobj.cpp	?DObjGetNumModels@@YAHPBUDObj_s@@@Z	DObjGetNumModels	SUPPORTED
+0x004a4ea0	15	src/xanim/dobj.cpp	?DObjGetModel@@YAPAUXModel@@PBUDObj_s@@H@Z	DObjGetModel	SUPPORTED
+0x004a50e0	92	src/xanim/dobj.cpp	?DObjGetBoneInfo@@YAXPBUDObj_s@@PAPAUXBoneInfo@@@Z	DObjGetBoneInfo	SUPPORTED
+0x004a5ae0	12	src/xanim/dobj.cpp	?DObjNumBones@@YAHPBUDObj_s@@@Z	DObjNumBones	SUPPORTED
