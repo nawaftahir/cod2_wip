@@ -12,7 +12,6 @@ addr	size	source	symbol	name	tag
 0x00496190	39	src/universal/q_shared.cpp	_FloatWriteSwap	FloatWriteSwap	SUPPORTED
 0x004961c0	8	src/universal/q_shared.cpp	_FloatWriteNoSwap	FloatWriteNoSwap	SUPPORTED
 0x00496530	83	src/universal/q_shared.cpp	_I_strnicmp	I_strnicmp	SUPPORTED
-0x004969a0	50	src/universal/q_shared.cpp	_CanKeepStringPointer	CanKeepStringPointer	SUPPORTED
 0x00482980	31	src/universal/com_math.cpp	_randomf	randomf	SUPPORTED
 0x004829a0	39	src/universal/com_math.cpp	_crandom	crandom	SUPPORTED
 0x004837f0	57	src/universal/com_math.cpp	_Vec3DistanceSq	Vec3DistanceSq	SUPPORTED

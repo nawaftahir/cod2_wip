@@ -180,9 +180,4 @@ static int __declspec(noinline) CanKeepStringPointer(const char *string)
     return 1;
 }
 
-int FUN_004969a0_ref(const char *string)
-{
-    return CanKeepStringPointer(string);
-}
-
 }

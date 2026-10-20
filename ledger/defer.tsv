@@ -28,3 +28,4 @@ addr	agent	date	reason
 0x0047c9f0	copilot	2026-10-20	8 tries; target relies on incoming EBX/EDI state without a prologue, which ordinary C/C++ candidates cannot reproduce.
 0x004868c0	copilot	2026-10-20	Target is SinSquaredDeg, but legal sin implementations either emit 48 bytes with double temporary or shift the emitted address to DiffTrack with a float temporary; exact 54-byte retail sequence remains unmatched.
 0x00487ed0	copilot	2026-10-20	Target is TransformBounds; reference implementation has matching logic, but with the available source layout the target address emits Q_acos instead, and ordinary C++ insertion does not place the function at the required RVA.
+0x004969a0	claude	2026-10-20	body matches as static (src/universal/q_shared.cpp) but a static is only emitted when called; verify again once its real caller in q_shared.cpp is written. Do not add a fake caller.

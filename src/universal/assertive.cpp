@@ -19,21 +19,18 @@ struct MapNode
     int unused;
     MapNode *child;
 
-    MapNode *destroy(int destroy)
-    {
-        MapNode *child = this->child;
-        if (child)
-            child->destroy(1);
-        free(this->value);
-        if (destroy & 1)
-            free(this);
-        return this;
-    }
+    MapNode *destroy(int destroy);
 };
 
-MapNode *FUN_0047c6f0(MapNode *self, int destroy)
+MapNode *MapNode::destroy(int destroy)
 {
-    return self->destroy(destroy);
+    MapNode *child = this->child;
+    if (child)
+        child->destroy(1);
+    free(this->value);
+    if (destroy & 1)
+        free(this);
+    return this;
 }
 
 }
