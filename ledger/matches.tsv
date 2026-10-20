@@ -13,6 +13,10 @@ addr	size	source	symbol	name	tag
 0x004969a0	50	src/universal/q_shared.cpp	_CanKeepStringPointer	CanKeepStringPointer	SUPPORTED
 0x00482980	31	src/universal/com_math.cpp	_randomf	randomf	SUPPORTED
 0x004829a0	39	src/universal/com_math.cpp	_crandom	crandom	SUPPORTED
+0x004837f0	57	src/universal/com_math.cpp	_Vec3DistanceSq	Vec3DistanceSq	SUPPORTED
+0x00483950	40	src/universal/com_math.cpp	_Vec2DistanceSq	Vec2DistanceSq	SUPPORTED
+0x00483f00	62	src/universal/com_math.cpp	_Vec3MaxComponent	Vec3MaxComponent	SUPPORTED
+0x00489900	57	src/universal/com_math.cpp	_SnapFloatBits	SnapFloatBits	SUPPORTED
 0x00489b20	9	src/universal/com_memory.cpp	_Z_FreeInternal	Z_FreeInternal	SUPPORTED
 0x00489b30	22	src/universal/com_memory.cpp	_Z_VirtualFreeInternal	Z_VirtualFreeInternal	SUPPORTED
 0x00489b50	24	src/universal/com_memory.cpp	_Z_VirtualDecommitInternal	Z_VirtualDecommitInternal	SUPPORTED
