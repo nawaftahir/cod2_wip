@@ -37,3 +37,8 @@ addr	size	source	symbol	name	tag
 0x004acc30	298	src/xanim/xmodel_utils.cpp	?XModelGetSurfaces@@YAHPBUXModel@@PAPAUXSurface@@HPAPAH@Z	XModelGetSurfaces	PINNED
 0x004acd90	262	src/xanim/xmodel_utils.cpp	?XModelGetBasePoseOffset@@YAPADPBUXModel@@H@Z	XModelGetBasePoseOffset	PINNED
 0x004acf40	126	src/xanim/xmodel_utils.cpp	?XModelSetLodOverride@@YAXHM@Z	XModelSetLodOverride	PINNED
+0x004a4da0	18	src/xanim/dobj.cpp	?DObjGetAllocSkelSize@@YAHPBUDObj_s@@@Z	DObjGetAllocSkelSize	SUPPORTED
+0x004a4e90	12	src/xanim/dobj.cpp	?DObjGetNumModels@@YAHPBUDObj_s@@@Z	DObjGetNumModels	SUPPORTED
+0x004a4ea0	15	src/xanim/dobj.cpp	?DObjGetModel@@YAPAUXModel@@PBUDObj_s@@H@Z	DObjGetModel	SUPPORTED
+0x004a50e0	92	src/xanim/dobj.cpp	?DObjGetBoneInfo@@YAXPBUDObj_s@@PAPAUXBoneInfo@@@Z	DObjGetBoneInfo	SUPPORTED
+0x004a5ae0	12	src/xanim/dobj.cpp	?DObjNumBones@@YAHPBUDObj_s@@@Z	DObjNumBones	SUPPORTED
