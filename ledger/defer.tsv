@@ -8,3 +8,5 @@ addr	agent	date	reason
 0x00480940	copilot	2026-10-20	Best 63%; first difference at +0xa (retail loads global before call setup) after 8 tries.
 0x0047f660	copilot	2026-10-20	Best 66%; first difference at +0x4 (retail mov eax, global; draft symbol/prologue differs) after 8 tries.
 0x004818f0	copilot	2026-10-20	Best 39%; first difference at +0x0 (retail register-preserving call sequence unavailable from C draft) after 8 tries.
+0x00490c70	copilot	2026-10-20	best 99%; first differing offset +0x16, immediately after the 22-byte function
+0x00490bc0	copilot	2026-10-20	best 99%; first differing offset +0x17, immediately after the 23-byte function

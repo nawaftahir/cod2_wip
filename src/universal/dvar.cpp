@@ -32,7 +32,7 @@ static int generateHashValue(const char *fname)
         hash += letter * (i + 119);
         i++;
     }
-
+    
     return hash & (FILE_HASH_SIZE - 1);
 }
 
@@ -366,4 +366,3 @@ static void Dvar_UpdateRegistration_keepalive(dvar_t *dvar, const char *dvarName
 Dvar_UpdateRegistration_fp *dvar_keep_0048f240 = &Dvar_UpdateRegistration_keepalive;
 
 }
-
