@@ -42,6 +42,7 @@ def measure():
         "matched_functions": verify["matched"],
         "failed_rows": verify["failed"],
         "order_warnings": verify.get("order_warnings", 0),
+        "unverified_in_src": verify.get("unverified_in_src", 0),
         "matched_bytes": verify["matched_bytes"],
         "lib_bytes": sum(int(r[1]) for r in lib_rows),
         "text_bytes": text,
@@ -69,6 +70,7 @@ def summary(now, before):
         "| SHA-256 identical | %s |" % ("YES" if now["sha_identical"] else "no"),
         "| failing ledger rows | %d |" % now["failed_rows"],
         "| emit-order warnings | %d |" % now["order_warnings"],
+        "| unverified functions in src/ (must not grow) | %d |" % now["unverified_in_src"],
     ]
     return "\n".join(lines) + "\n"
 
@@ -81,6 +83,8 @@ def main():
     (BASE / "build" / "summary.md").write_text(text)
     print(text)
     down = [k for k in KEYS if now[k] < before.get(k, 0)]
+    if "unverified_in_src" in before and now["unverified_in_src"] > before["unverified_in_src"]:
+        down.append("unverified_in_src (went up)")
     if down:
         print("WENT DOWN: " + ", ".join(down))
     if ("--gate" in sys.argv or "--update" in sys.argv) and (down or now["failed_rows"]):

@@ -140,11 +140,14 @@ def verify_all():
     by_source = collections.defaultdict(list)
     for row in rows:
         by_source[row["source"]].append(row)
-    results, failed = [], 0
+    results, failed, extras = [], 0, []
     for source, group in sorted(by_source.items()):
         ok = (BASE / source).exists() and source.startswith("src/") and compile_source(source, obj_path(source))
         data = (BASE / obj_path(source)).read_bytes() if ok else b""
         order = definition_order(data) if ok else {}
+        # functions in src/ with no ledger row: unverified code in the clean tree
+        mine = {r["symbol"] for r in group}
+        extras += ["%s %s" % (source, name) for name in sorted(order) if name not in mine]
         for row in group:
             if not ok:
                 status, detail = "COMPILE", "missing or failed to compile"
@@ -167,9 +170,12 @@ def verify_all():
             print("%-8s %s %s %s  %s" % (res["status"], res["addr"], res["name"], res["source"], res["detail"]))
         if res.get("order"):
             print("%-8s %s %s %s  %s" % ("WARN-ORD", res["addr"], res["name"], res["source"], res["order"]))
+    for e in extras:
+        print("UNVERIFIED %s" % e)
     matched = [r for r in results if r["status"] == "MATCH"]
     summary = {"rows": len(rows), "matched": len(matched), "failed": failed,
                "order_warnings": sum(1 for r in results if r.get("order")),
+               "unverified_in_src": len(extras),
                "matched_bytes": sum(int(r["size"]) for r in matched), "results": results}
     (BASE / "build").mkdir(exist_ok=True)
     (BASE / "build" / "verify.json").write_text(json.dumps(summary, indent=1))

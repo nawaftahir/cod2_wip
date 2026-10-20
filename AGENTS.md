@@ -71,6 +71,8 @@ You work in your own worktree, `.agents/<your-name>/`, on branch `agent/<your-na
 - Never touch anything outside this `radiant/` folder.
 - Never push. Never merge into main. Never rewrite history.
 - Never mark something matched that `make try` didn't call `MATCH`.
+- Never leave an unmatched function in `src/`. Drafts stay in `scratch/`. `src/` holds only verified code,
+  and CI fails if the count of unverified functions in `src/` goes up.
 
 ## Words
 

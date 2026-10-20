@@ -1,8 +1,9 @@
 {
- "matched_functions": 35,
+ "matched_functions": 43,
  "failed_rows": 0,
  "order_warnings": 1,
- "matched_bytes": 2151,
+ "unverified_in_src": 20,
+ "matched_bytes": 2986,
  "lib_bytes": 235493,
  "text_bytes": 1204750,
  "same_offset_bytes": 0,
