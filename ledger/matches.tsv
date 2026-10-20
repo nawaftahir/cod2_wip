@@ -48,3 +48,5 @@ addr	size	source	symbol	name	tag
 0x004a4ea0	15	src/xanim/dobj.cpp	?DObjGetModel@@YAPAUXModel@@PBUDObj_s@@H@Z	DObjGetModel	SUPPORTED
 0x004a50e0	92	src/xanim/dobj.cpp	?DObjGetBoneInfo@@YAXPBUDObj_s@@PAPAUXBoneInfo@@@Z	DObjGetBoneInfo	SUPPORTED
 0x004a5ae0	12	src/xanim/dobj.cpp	?DObjNumBones@@YAHPBUDObj_s@@@Z	DObjNumBones	SUPPORTED
+0x0047c6c0	41	src/universal/assertive.cpp	@FUN_0047c6c0@4	FUN_0047c6c0	SUPPORTED
+0x0047c6f0	54	src/universal/assertive.cpp	?destroy@MapNode@@QAEPAU1@H@Z	FUN_0047c6f0	SUPPORTED
