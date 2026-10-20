@@ -7,6 +7,7 @@ __pycache__/
 *.pyc
 _CL_*
 .agents/
-fleet/.secrets
+fleet/logs/
+fleet/STOP
 queue/claims/*
 !queue/claims/.keep
