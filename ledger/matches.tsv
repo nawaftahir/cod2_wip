@@ -1,4 +1,5 @@
 addr	size	source	symbol	name	tag
+0x0047f2b0	37	src/universal/com_files.cpp	_FUN_0047f2b0	FUN_0047f2b0	UNNAMED
 0x00495f70	10	src/universal/q_shared.cpp	_FUN_00495f70	FUN_00495f70	UNNAMED
 0x00495fb0	10	src/universal/q_shared.cpp	_FUN_00495fb0	FUN_00495fb0	UNNAMED
 0x00495fc0	24	src/universal/q_shared.cpp	_ShortSwap	ShortSwap	SUPPORTED
