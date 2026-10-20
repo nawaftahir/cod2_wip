@@ -16,9 +16,10 @@ ROSTER="
 deepseek  cheap  opencode  opencode/deepseek-v4.1-flash-free
 glm       cheap  opencode  opencode/glm-5.3-flash-free
 deepseek2 cheap  opencode  opencode/deepseek-v4.1-flash-free
-agy       cheap  agy       -
-# copilot   mid    copilot   -     (student credits used up until the monthly reset)
+deepseek3 cheap  opencode  opencode/deepseek-v4.1-flash-free
 "
+# out of the roster: copilot (student credits used up until the monthly reset; 12 matched, 11 rejected),
+# agy (44 batches, nothing landed), mimo (one batch in 1.5h, nothing landed)
 TIMEOUT=40m
 NUDGES=2
 
@@ -94,6 +95,13 @@ Commit only. Do not push, do not run claim.py. Stop when every row is matched or
       quota_hit "$out" && break
       run_agent "$runner" "$model" "$ROOT/$wt" "Continue. Rows still open: $(echo $left). Finish or defer each, then commit." 1 2>&1 | tee "$out"
     done
+    # precheck before landing: one chance to fix what broke instead of losing the batch
+    if ! quota_hit "$out" && ! docker run --rm -v "$ROOT/$wt:/w" -w /w cod2-radiant-msvc71 \
+        python3 tools/verify.py --all > "fleet/logs/$name.precheck" 2>&1; then
+      run_agent "$runner" "$model" "$ROOT/$wt" "make verify fails on your branch:
+$(grep -v -E '^(WARN|UNVERIFIED|verify:)' "fleet/logs/$name.precheck" | head -6)
+Fix it: restore what you broke or remove the bad ledger row, run make verify until it passes, commit, then stop." 1 2>&1 | tee "$out"
+    fi
     python3 tools/claim.py --release "$name"
     tools/land.sh "$name"
     # usage ran out: wait and retry, 1h doubling to 4h; reset once a batch goes through
