@@ -10,3 +10,6 @@ addr	agent	date	reason
 0x004818f0	copilot	2026-10-20	Best 39%; first difference at +0x0 (retail register-preserving call sequence unavailable from C draft) after 8 tries.
 0x00490c70	copilot	2026-10-20	best 99%; first differing offset +0x16, immediately after the 22-byte function
 0x00490bc0	copilot	2026-10-20	best 99%; first differing offset +0x17, immediately after the 23-byte function
+0x00491280	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x17 (callee relocation).
+0x00490ba0	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x18 (callee relocation).
+0x00490be0	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x18 (callee relocation).
