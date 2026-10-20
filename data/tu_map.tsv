@@ -1,0 +1,6235 @@
+addr	size	tu	evidence
+0x00401000	142		
+0x004010c0	184		
+0x00401180	393		
+0x00401310	34		
+0x00401340	269		
+0x00401450	247		
+0x004015a0	453		
+0x00401780	67		
+0x004017d0	138		
+0x00401860	116		
+0x004018e0	448		
+0x00401aa0	35		
+0x00401ad0	167		
+0x00401b80	63		
+0x00401bd0	63		
+0x00401c20	94		
+0x00401c90	24		
+0x00401cb0	24		
+0x00401cd0	81		
+0x00401d30	90		
+0x00401d90	92		
+0x00401df0	93		
+0x00401f70	28		
+0x00401fa0	168		
+0x00402050	99		
+0x004020c0	99		
+0x00402130	93		
+0x004021a0	134		
+0x00402230	5		
+0x00402240	179		
+0x00402360	87		
+0x004023c0	85		
+0x00402420	139		
+0x00402500	5		
+0x00402550	19	nafxcw.lib	LIB
+0x00402570	11	nafxcw.lib	LIB
+0x00402580	30		
+0x00402750	29		
+0x00402770	29		
+0x004027a0	26	nafxcw.lib	LIB
+0x004027c0	24		
+0x004027e0	26		
+0x00402800	15		
+0x00402860	14		
+0x00402880	30		
+0x004028b0	30		
+0x004028e0	30		
+0x00402940	123		
+0x004029c0	33		
+0x004029f0	36		
+0x00402a20	46		
+0x00402a70	61		
+0x00402ab0	61		
+0x00402af0	54		
+0x00402b30	164		
+0x00402be0	97		
+0x00402c60	40		
+0x00402c90	23		
+0x00402cd0	48		
+0x00402d00	48		
+0x00402d30	77		
+0x00402d90	129		
+0x00402e20	10		
+0x00402e30	47		
+0x00402e60	9	nafxcw.lib	LIB
+0x00402e70	32		
+0x00402e90	40		
+0x00402ec0	27		
+0x00402ee0	91		
+0x00402f50	100		
+0x00402fc0	33		
+0x00402ff0	11	nafxcw.lib	LIB
+0x00403010	124		
+0x00403090	179		
+0x00403150	15		
+0x00403160	278		
+0x004032a0	69		
+0x004032f0	94		
+0x00403350	55		
+0x00403390	78		
+0x004033e0	55		
+0x00403420	78		
+0x00403470	55		
+0x004034b0	49		
+0x004034f0	46		
+0x00403520	74		
+0x004035a0	100		
+0x00403610	256		
+0x00403720	284		
+0x00403840	215		
+0x00403920	183		
+0x004039e0	252		
+0x00403ae0	512		
+0x00403ce0	222		
+0x00403dc0	475		
+0x00403fa0	3526	radiant/CamWnd.cpp	PINNED
+0x00404d70	65	radiant/CamWnd.cpp	SUPPORTED
+0x00404dc0	1107	radiant/CamWnd.cpp	SUPPORTED
+0x00405220	348	radiant/CamWnd.cpp	SUPPORTED
+0x00405380	199	radiant/CamWnd.cpp	SUPPORTED
+0x00405450	483	radiant/CamWnd.cpp	SUPPORTED
+0x00405640	1374	radiant/CamWnd.cpp	PINNED
+0x00405bb0	1166	radiant/CamWnd.cpp	PINNED
+0x00406050	409	radiant/CamWnd.cpp	SUPPORTED
+0x004061f0	448	radiant/CamWnd.cpp	PINNED
+0x004063b0	316	radiant/CamWnd.cpp	PINNED
+0x004064f0	283	radiant/CamWnd.cpp	PINNED
+0x00406610	3769	AMBIGUOUS:radiant/CamWnd.cpp,radiant/XYWnd.cpp	
+0x004074f0	84		
+0x00407560	23		
+0x00407580	34		
+0x004075b0	15		
+0x004075c0	21		
+0x004075e0	115		
+0x00407690	9	nafxcw.lib	LIB
+0x004076a0	9	nafxcw.lib	LIB
+0x004076e0	50		
+0x00407730	142		
+0x004077d0	30		
+0x00407800	35		
+0x00407860	166		
+0x00407910	54		
+0x00407950	41		
+0x00407980	14		
+0x00407990	204		
+0x00407a60	50		
+0x00407aa0	96		
+0x00407b30	97		
+0x00407bb0	113		
+0x00407c40	31		
+0x00407c60	43		
+0x00407c90	26		
+0x00407cb0	16		
+0x00407cd0	22		
+0x00407cf0	24		
+0x00407dd0	38		
+0x00407ec0	36		
+0x00407f60	30		
+0x00407fa0	33		
+0x00407fd0	5		
+0x00407fe0	25		
+0x00408020	27		
+0x00408040	27		
+0x00408060	31		
+0x00408080	31		
+0x004080e0	65		
+0x00408160	45		
+0x00408210	123	libs/cmdlib/cmdlib.cpp	PINNED
+0x00408290	123	libs/cmdlib/cmdlib.cpp	PINNED
+0x00408310	129	libs/cmdlib/cmdlib.cpp	SUPPORTED
+0x004083a0	147	libs/cmdlib/cmdlib.cpp	SUPPORTED
+0x00408440	81	libs/cmdlib/cmdlib.cpp	SUPPORTED
+0x004084a0	109	libs/cmdlib/cmdlib.cpp	SUPPORTED
+0x00408510	119	libs/cmdlib/cmdlib.cpp	SUPPORTED
+0x00408800	30	libs/cmdlib/cmdlib.cpp	SUPPORTED
+0x00408820	172	libs/cmdlib/cmdlib.cpp	SUPPORTED
+0x004088d0	238	libs/cmdlib/cmdlib.cpp	PINNED
+0x004089c0	471		
+0x00408bb0	420		
+0x00408eb0	31		
+0x00408f20	21		
+0x00408f50	121		
+0x00408fe0	94		
+0x00409040	34		
+0x00409070	74		
+0x004090c0	25		
+0x004090f0	682		
+0x004093a0	167		
+0x00409450	61		
+0x00409490	61		
+0x00409500	54		
+0x00409540	128		
+0x004095d0	25		
+0x00409620	30		
+0x00409640	74		
+0x00409690	66		
+0x00409700	94		
+0x00409760	34		
+0x00409790	25		
+0x00409800	33		
+0x00409830	5		
+0x00409840	46		
+0x00409880	168		
+0x00409930	131		
+0x004099c0	263		
+0x00409ad0	34		
+0x00409b00	193		
+0x00409be0	195		
+0x00409cb0	36		
+0x00409ce0	248		
+0x00409e10	345		
+0x00409f90	1044		
+0x0040a3b0	21		
+0x0040a470	72		
+0x0040a4c0	102		
+0x0040a530	507		
+0x0040a790	250		
+0x0040a890	65		
+0x0040a8e0	201		
+0x0040aaa0	228		
+0x0040aba0	12		
+0x0040abc0	142		
+0x0040ac60	142		
+0x0040acf0	33		
+0x0040ad20	47		
+0x0040adf0	105		
+0x0040aea0	13		
+0x0040af30	76		
+0x0040b010	405		
+0x0040b1c0	20		
+0x0040b260	45		
+0x0040b2c0	40		
+0x0040b330	30		
+0x0040b350	108		
+0x0040b3e0	126		
+0x0040b460	100		
+0x0040b4d0	33		
+0x0040b550	89		
+0x0040b5d0	39		
+0x0040b600	24		
+0x0040b680	37		
+0x0040b6b0	48		
+0x0040b6e0	33		
+0x0040b710	89		
+0x0040b780	142		
+0x0040b820	13		
+0x0040b830	13		
+0x0040b900	37		
+0x0040b930	184		
+0x0040b9f0	33		
+0x0040ba20	11	nafxcw.lib	LIB
+0x0040ba40	27		
+0x0040ba80	25		
+0x0040baa0	24		
+0x0040bb70	107		
+0x0040bbe0	76		
+0x0040bca0	30		
+0x0040bcd0	30		
+0x0040bcf0	123		
+0x0040bd70	33		
+0x0040bda0	46		
+0x0040bde0	70		
+0x0040be50	295	radiant/draw.cpp	PINNED
+0x0040bf80	77		
+0x0040bff0	259		
+0x0040c100	259		
+0x0040c210	644		
+0x0040c4a0	226		
+0x0040c590	107		
+0x0040c600	28		
+0x0040c620	142		
+0x0040c6b0	80		
+0x0040c720	33		
+0x0040c750	11	nafxcw.lib	LIB
+0x0040c770	30		
+0x0040c790	117		
+0x0040c810	34		
+0x0040c840	89		
+0x0040c8a0	49		
+0x0040c8f0	116		
+0x0040c970	407		
+0x0040cb10	387		
+0x0040ccb0	21		
+0x0040cdd0	30		
+0x0040ce00	30		
+0x0040ce20	116		
+0x0040cea0	33		
+0x0040ced0	36		
+0x0040cf00	25		
+0x0040cf30	1765		
+0x0040d620	241		
+0x0040d720	1047		
+0x0040db40	2457		
+0x0040e4f0	360		
+0x0040e680	213		
+0x0040fa50	30		
+0x0040fa70	30		
+0x0040fa90	22		
+0x0040fac0	20		
+0x0040fae0	28		
+0x0040fb20	59		
+0x0040fb60	25		
+0x0040fba0	20		
+0x0040fbc0	25		
+0x0040fc10	65		
+0x0040fca0	180		
+0x0040fd60	33		
+0x0040fd90	109		
+0x0040fe10	97		
+0x0040fe80	104		
+0x0040fef0	130		
+0x0040ffb0	79		
+0x00410000	79		
+0x00410050	54		
+0x004100c0	73		
+0x00410120	147	radiant/GfxWrapper.cpp	PINNED
+0x00410330	104	radiant/GfxWrapper.cpp	PINNED
+0x004105f0	1607	radiant/GfxWrapper.cpp	SUPPORTED
+0x00410c40	445	radiant/GfxWrapper.cpp	PINNED
+0x00410e40	278		
+0x00410f60	33		
+0x00410f90	65		
+0x00410fe0	76		
+0x00411050	33		
+0x00411080	11	nafxcw.lib	LIB
+0x004110a0	9	nafxcw.lib	LIB
+0x004110b0	343		
+0x00411250	270		
+0x00411360	33		
+0x00411390	137		
+0x00411420	206		
+0x004114f0	176		
+0x004115b0	1877		
+0x00411de0	632		
+0x00412060	123		
+0x004120e0	245	radiant/MainFrm.cpp	PINNED
+0x004121e0	2215	radiant/MainFrm.cpp	PINNED
+0x00412a90	858	radiant/MainFrm.cpp	SUPPORTED
+0x00412df0	9	nafxcw.lib	LIB
+0x00412e00	544	radiant/MainFrm.cpp	SUPPORTED
+0x00413020	9	nafxcw.lib	LIB
+0x00413030	37	radiant/MainFrm.cpp	SUPPORTED
+0x00413060	256	radiant/MainFrm.cpp	SUPPORTED
+0x00413160	9	nafxcw.lib	LIB
+0x004131d0	63	radiant/MainFrm.cpp	SUPPORTED
+0x00413210	50	radiant/MainFrm.cpp	SUPPORTED
+0x00413250	1336	radiant/MainFrm.cpp	SUPPORTED
+0x00413790	56	radiant/MainFrm.cpp	SUPPORTED
+0x004137d0	228	radiant/MainFrm.cpp	SUPPORTED
+0x004138f0	9	nafxcw.lib	LIB
+0x00413900	218	radiant/MainFrm.cpp	SUPPORTED
+0x004139e0	3395	radiant/MainFrm.cpp	SUPPORTED
+0x00414730	1303	radiant/MainFrm.cpp	SUPPORTED
+0x00414ec0	576	radiant/MainFrm.cpp	SUPPORTED
+0x00415210	42	radiant/MainFrm.cpp	SUPPORTED
+0x00415320	15	radiant/MainFrm.cpp	SUPPORTED
+0x00415330	23	radiant/MainFrm.cpp	SUPPORTED
+0x00415350	23	radiant/MainFrm.cpp	SUPPORTED
+0x00415370	23	radiant/MainFrm.cpp	SUPPORTED
+0x00415390	695	radiant/MainFrm.cpp	SUPPORTED
+0x004156a0	166	radiant/MainFrm.cpp	SUPPORTED
+0x00415750	157	radiant/MainFrm.cpp	SUPPORTED
+0x004157f0	362	radiant/MainFrm.cpp	SUPPORTED
+0x00415a10	282	radiant/MainFrm.cpp	SUPPORTED
+0x00415c20	423	radiant/MainFrm.cpp	SUPPORTED
+0x00415ef0	319	radiant/MainFrm.cpp	SUPPORTED
+0x00416090	146	radiant/MainFrm.cpp	SUPPORTED
+0x00416130	146	radiant/MainFrm.cpp	SUPPORTED
+0x004161d0	146	radiant/MainFrm.cpp	SUPPORTED
+0x004162c0	136	radiant/MainFrm.cpp	SUPPORTED
+0x00416350	200	radiant/MainFrm.cpp	SUPPORTED
+0x004168c0	1475	radiant/MainFrm.cpp	SUPPORTED
+0x00416e90	61	radiant/MainFrm.cpp	SUPPORTED
+0x00416ed0	58	radiant/MainFrm.cpp	SUPPORTED
+0x00416f10	58	radiant/MainFrm.cpp	SUPPORTED
+0x00416f50	58	radiant/MainFrm.cpp	SUPPORTED
+0x00416f90	58	radiant/MainFrm.cpp	SUPPORTED
+0x00416fd0	58	radiant/MainFrm.cpp	SUPPORTED
+0x00417150	30	radiant/MainFrm.cpp	SUPPORTED
+0x00417170	27	radiant/MainFrm.cpp	SUPPORTED
+0x004171b0	106	radiant/MainFrm.cpp	SUPPORTED
+0x00417660	238	radiant/MainFrm.cpp	SUPPORTED
+0x00417750	72	radiant/MainFrm.cpp	SUPPORTED
+0x004177a0	72	radiant/MainFrm.cpp	SUPPORTED
+0x004177f0	66	radiant/MainFrm.cpp	SUPPORTED
+0x00417840	79	radiant/MainFrm.cpp	SUPPORTED
+0x00417970	109	radiant/MainFrm.cpp	SUPPORTED
+0x004179e0	74	radiant/MainFrm.cpp	SUPPORTED
+0x00417a30	95	radiant/MainFrm.cpp	SUPPORTED
+0x00417ae0	109	radiant/MainFrm.cpp	SUPPORTED
+0x00417b50	366	radiant/MainFrm.cpp	SUPPORTED
+0x00417cc0	36	radiant/MainFrm.cpp	SUPPORTED
+0x00417cf0	63	radiant/MainFrm.cpp	SUPPORTED
+0x00417d60	157	radiant/MainFrm.cpp	SUPPORTED
+0x00417e40	89	radiant/MainFrm.cpp	SUPPORTED
+0x00417ea0	67	radiant/MainFrm.cpp	SUPPORTED
+0x00418d40	364	radiant/MainFrm.cpp	SUPPORTED
+0x00418eb0	5	radiant/MainFrm.cpp	SUPPORTED
+0x00418ec0	203	radiant/MainFrm.cpp	SUPPORTED
+0x004190a0	56	radiant/MainFrm.cpp	SUPPORTED
+0x004190e0	29	radiant/MainFrm.cpp	SUPPORTED
+0x004191a0	39	radiant/MainFrm.cpp	SUPPORTED
+0x004191d0	40	radiant/MainFrm.cpp	SUPPORTED
+0x00419200	39	radiant/MainFrm.cpp	SUPPORTED
+0x00419230	40	radiant/MainFrm.cpp	SUPPORTED
+0x00419560	244	radiant/MainFrm.cpp	SUPPORTED
+0x00419860	203	radiant/MainFrm.cpp	SUPPORTED
+0x00419ba0	21	radiant/MainFrm.cpp	SUPPORTED
+0x00419bc0	101	radiant/MainFrm.cpp	SUPPORTED
+0x00419c30	53	radiant/MainFrm.cpp	SUPPORTED
+0x00419cc0	25	radiant/MainFrm.cpp	SUPPORTED
+0x00419da0	228	radiant/MainFrm.cpp	SUPPORTED
+0x00419e90	233	radiant/MainFrm.cpp	SUPPORTED
+0x0041a010	652	radiant/MainFrm.cpp	SUPPORTED
+0x0041a2a0	9	nafxcw.lib	LIB
+0x0041a2b0	53	radiant/MainFrm.cpp	SUPPORTED
+0x0041a330	169	radiant/MainFrm.cpp	SUPPORTED
+0x0041a3e0	136	radiant/MainFrm.cpp	SUPPORTED
+0x0041a470	89	radiant/MainFrm.cpp	SUPPORTED
+0x0041a4d0	136	radiant/MainFrm.cpp	SUPPORTED
+0x0041a560	89	radiant/MainFrm.cpp	SUPPORTED
+0x0041b070	60	radiant/MainFrm.cpp	SUPPORTED
+0x0041b0b0	60	radiant/MainFrm.cpp	SUPPORTED
+0x0041b190	301	radiant/MainFrm.cpp	SUPPORTED
+0x0041b370	256	radiant/MainFrm.cpp	SUPPORTED
+0x0041b590	162	radiant/MainFrm.cpp	SUPPORTED
+0x0041b720	194	radiant/MainFrm.cpp	SUPPORTED
+0x0041b820	265	radiant/MainFrm.cpp	SUPPORTED
+0x0041bed0	466	radiant/MainFrm.cpp	SUPPORTED
+0x0041c270	451	radiant/MainFrm.cpp	SUPPORTED
+0x0041d5e0	843	radiant/MainFrm.cpp	PINNED
+0x0041d930	2083	radiant/MainFrm.cpp	PINNED
+0x0041e160	63		
+0x0041e250	129		
+0x0041e2e0	143		
+0x0041e440	175		
+0x0041e540	256		
+0x0041e640	82		
+0x0041e6a0	34		
+0x0041e6d0	81		
+0x0041e760	20		
+0x0041e780	94		
+0x0041e7e0	66		
+0x0041e830	29		
+0x0041e850	97		
+0x0041e8c0	18		
+0x0041e8e0	100		
+0x0041e950	142		
+0x0041e9e0	29		
+0x0041ea00	102		
+0x0041ea70	47		
+0x0041eab0	124		
+0x0041eb90	37		
+0x0041ec50	37		
+0x0041ec80	110		
+0x0041ecf0	78		
+0x0041ed40	78		
+0x0041ed90	194		
+0x0041ee70	46		
+0x0041eea0	33		
+0x0041eed0	11	nafxcw.lib	LIB
+0x0041eef0	61		
+0x0041ef30	62		
+0x0041ef70	96		
+0x0041efd0	167		
+0x0041f0a0	75		
+0x0041f0f0	28		
+0x0041f220	13		
+0x0041f2b0	22		
+0x0041f2d0	111		
+0x0041f340	98		
+0x0041f3c0	29		
+0x0041f3e0	37		
+0x0041f430	30		
+0x0041f450	11	nafxcw.lib	LIB
+0x0041f460	30		
+0x0041f480	11	nafxcw.lib	LIB
+0x0041f4c0	65		
+0x0041f510	78		
+0x0041f560	19	nafxcw.lib	LIB
+0x0041f5b0	25		
+0x0041f5f0	17		
+0x0041f610	24		
+0x0041f670	146	radiant/MapInfo.cpp	PINNED
+0x0041f710	503	radiant/MapInfo.cpp	PINNED
+0x0041f910	183	radiant/MapInfo.cpp	PINNED
+0x0041f9d0	94	radiant/MapInfo.cpp	SUPPORTED
+0x0041fa30	34	radiant/MapInfo.cpp	SUPPORTED
+0x0041fa60	25	radiant/MapInfo.cpp	SUPPORTED
+0x0041fa90	133	radiant/MapInfo.cpp	PINNED
+0x0041fb20	991		
+0x0041ff30	102		
+0x00420020	26		
+0x00420040	64		
+0x00420080	432		
+0x00420280	415		
+0x00420470	252		
+0x004205c0	201		
+0x004206e0	192		
+0x004207f0	192		
+0x00420900	38		
+0x00420930	108		
+0x004209a0	377		
+0x00420c10	44		
+0x00420c40	31		
+0x00420c70	15		
+0x00420c90	39		
+0x00420ce0	17	nafxcw.lib	LIB
+0x00420d10	39		
+0x00420d40	10		
+0x00420d50	104		
+0x00420dd0	39		
+0x00420e90	69		
+0x00420ee0	165		
+0x00420fe0	139		
+0x00421070	211		
+0x00421150	931		
+0x00421500	815		
+0x00421830	326		
+0x00421980	2505		
+0x00422370	1050		
+0x004227a0	351		
+0x00422900	1445		
+0x00422ed0	27		
+0x00422f10	22		
+0x00422f30	33		
+0x00422f60	11	nafxcw.lib	LIB
+0x00422f90	231		
+0x00423080	1128		
+0x004234f0	1128		
+0x004239c0	186		
+0x00423ae0	186		
+0x00423ba0	378	radiant/ModelDlg.cpp	PINNED
+0x00423d20	387		
+0x00423eb0	16	nafxcw.lib	LIB
+0x00423ec0	35		
+0x00423ef0	78		
+0x00423f40	99		
+0x00423fb0	32		
+0x00423fd0	35		
+0x00424020	101		
+0x00424090	183		
+0x00424150	33		
+0x00424180	25		
+0x004241c0	26		
+0x004241e0	116		
+0x00424260	33		
+0x00424290	25		
+0x004242c0	117		
+0x00424340	34		
+0x00424370	49		
+0x00424460	68		
+0x004244b0	211		
+0x00424590	371		
+0x00424710	34		
+0x00424740	355		
+0x00424920	133		
+0x004249b0	89		
+0x00424a10	10		
+0x00424a20	10		
+0x00424a50	40		
+0x00424a80	135		
+0x00424b10	321		
+0x00424c70	121		
+0x00424cf0	20		
+0x00424d10	62		
+0x00424d50	199		
+0x00424f10	277		
+0x00425060	30		
+0x004250c0	17		
+0x00425130	30		
+0x004251c0	158		
+0x00425260	303		
+0x004253a0	5		
+0x004253b0	30		
+0x004253d0	303		
+0x00425500	303		
+0x00425630	303		
+0x00425770	152		
+0x00425820	29		
+0x00425840	197		
+0x00425910	995		
+0x00425d10	549		
+0x00425f40	832		
+0x00426280	410		
+0x00426420	87		
+0x00426480	762		
+0x004267d0	455		
+0x004269d0	167		
+0x00426a80	243		
+0x00426b80	139		
+0x00426c10	127		
+0x00426c90	301		
+0x00426dc0	94		
+0x00426e20	84		
+0x00426e80	150		
+0x00426f20	369		
+0x004270a0	55		
+0x00427160	211		
+0x00427240	72		
+0x00427290	373	radiant/Pmesh.cpp	PINNED
+0x00427410	152	radiant/Pmesh.cpp	PINNED
+0x004274b0	131	radiant/Pmesh.cpp	SUPPORTED
+0x00427540	83	radiant/Pmesh.cpp	SUPPORTED
+0x004275a0	2366	radiant/Pmesh.cpp	PINNED
+0x00427ef0	3216	radiant/Pmesh.cpp	PINNED
+0x00428b80	658	radiant/Pmesh.cpp	PINNED
+0x00428e20	80	radiant/Pmesh.cpp	SUPPORTED
+0x00428e70	1390	radiant/Pmesh.cpp	SUPPORTED
+0x004293f0	750	radiant/Pmesh.cpp	SUPPORTED
+0x004296f0	771	radiant/Pmesh.cpp	SUPPORTED
+0x00429a00	446	radiant/Pmesh.cpp	PINNED
+0x00429bc0	546	radiant/Pmesh.cpp	PINNED
+0x00429df0	34	radiant/Pmesh.cpp	SUPPORTED
+0x00429e20	107	radiant/Pmesh.cpp	SUPPORTED
+0x00429e90	107	radiant/Pmesh.cpp	SUPPORTED
+0x00429f40	138	radiant/Pmesh.cpp	SUPPORTED
+0x00429fe0	82	radiant/Pmesh.cpp	SUPPORTED
+0x0042a040	88	radiant/Pmesh.cpp	SUPPORTED
+0x0042a0a0	748	radiant/Pmesh.cpp	PINNED
+0x0042a3a0	67	radiant/Pmesh.cpp	SUPPORTED
+0x0042a3f0	69	radiant/Pmesh.cpp	SUPPORTED
+0x0042a440	103	radiant/Pmesh.cpp	SUPPORTED
+0x0042a4b0	819	radiant/Pmesh.cpp	SUPPORTED
+0x0042a7f0	157	radiant/Pmesh.cpp	PINNED
+0x0042a890	609	radiant/Pmesh.cpp	PINNED
+0x0042ab20	312	radiant/Pmesh.cpp	PINNED
+0x0042ac60	276	radiant/Pmesh.cpp	SUPPORTED
+0x0042ad80	161	radiant/Pmesh.cpp	SUPPORTED
+0x0042ae30	149	radiant/Pmesh.cpp	SUPPORTED
+0x0042aed0	125	radiant/Pmesh.cpp	PINNED
+0x0042af50	63	radiant/Pmesh.cpp	SUPPORTED
+0x0042af90	346	radiant/Pmesh.cpp	SUPPORTED
+0x0042b0f0	1350	radiant/Pmesh.cpp	PINNED
+0x0042b640	57	radiant/Pmesh.cpp	SUPPORTED
+0x0042b680	80	radiant/Pmesh.cpp	SUPPORTED
+0x0042b6d0	14	radiant/Pmesh.cpp	SUPPORTED
+0x0042b6e0	114	radiant/Pmesh.cpp	SUPPORTED
+0x0042b760	45	radiant/Pmesh.cpp	SUPPORTED
+0x0042b790	114	radiant/Pmesh.cpp	SUPPORTED
+0x0042b810	96	radiant/Pmesh.cpp	SUPPORTED
+0x0042b870	1159	radiant/Pmesh.cpp	SUPPORTED
+0x0042bd10	121	radiant/Pmesh.cpp	PINNED
+0x0042bd90	69	radiant/Pmesh.cpp	SUPPORTED
+0x0042bde0	206	radiant/Pmesh.cpp	PINNED
+0x0042beb0	88	radiant/Pmesh.cpp	SUPPORTED
+0x0042bf10	51	radiant/Pmesh.cpp	SUPPORTED
+0x0042bf50	1169	radiant/Pmesh.cpp	SUPPORTED
+0x0042c3f0	917	radiant/Pmesh.cpp	PINNED
+0x0042c790	735	radiant/Pmesh.cpp	PINNED
+0x0042ca80	452	radiant/Pmesh.cpp	PINNED
+0x0042cc50	438	radiant/Pmesh.cpp	PINNED
+0x0042ce10	1120	radiant/Pmesh.cpp	PINNED
+0x0042d270	744	radiant/Pmesh.cpp	SUPPORTED
+0x0042d560	106	radiant/Pmesh.cpp	PINNED
+0x0042d5d0	336	radiant/Pmesh.cpp	PINNED
+0x0042d720	2894	radiant/Pmesh.cpp	SUPPORTED
+0x0042e290	689	radiant/Pmesh.cpp	SUPPORTED
+0x0042e550	360	radiant/Pmesh.cpp	PINNED
+0x0042e6c0	226	radiant/Pmesh.cpp	PINNED
+0x0042e7b0	651	radiant/Pmesh.cpp	PINNED
+0x0042ea50	151	radiant/Pmesh.cpp	SUPPORTED
+0x0042eaf0	363	radiant/Pmesh.cpp	SUPPORTED
+0x0042ec60	328	radiant/Pmesh.cpp	PINNED
+0x0042edc0	486	radiant/Pmesh.cpp	PINNED
+0x0042efb0	494	radiant/Pmesh.cpp	SUPPORTED
+0x0042f1b0	253	radiant/Pmesh.cpp	PINNED
+0x0042f2c0	540	radiant/Pmesh.cpp	SUPPORTED
+0x0042f4f0	214	radiant/Pmesh.cpp	SUPPORTED
+0x0042f5d0	109	radiant/Pmesh.cpp	SUPPORTED
+0x0042f660	290	radiant/Pmesh.cpp	PINNED
+0x0042f790	169	radiant/Pmesh.cpp	PINNED
+0x0042f840	266	radiant/Pmesh.cpp	SUPPORTED
+0x0042f970	337	radiant/Pmesh.cpp	SUPPORTED
+0x0042fad0	124	radiant/Pmesh.cpp	SUPPORTED
+0x0042fb50	592	radiant/Pmesh.cpp	SUPPORTED
+0x0042fda0	599	radiant/Pmesh.cpp	SUPPORTED
+0x00430010	526	radiant/Pmesh.cpp	SUPPORTED
+0x00430220	336	radiant/Pmesh.cpp	SUPPORTED
+0x00430370	663	radiant/Pmesh.cpp	SUPPORTED
+0x00430610	326	radiant/Pmesh.cpp	SUPPORTED
+0x00430760	631	radiant/Pmesh.cpp	SUPPORTED
+0x004309e0	118	radiant/Pmesh.cpp	SUPPORTED
+0x00430a60	170	radiant/Pmesh.cpp	SUPPORTED
+0x00430b10	111	radiant/Pmesh.cpp	SUPPORTED
+0x00430b90	169	radiant/Pmesh.cpp	SUPPORTED
+0x00430c40	467	radiant/Pmesh.cpp	SUPPORTED
+0x00430e20	454	radiant/Pmesh.cpp	SUPPORTED
+0x00430ff0	425	radiant/Pmesh.cpp	PINNED
+0x004311a0	448	radiant/Pmesh.cpp	PINNED
+0x00431360	293	radiant/Pmesh.cpp	PINNED
+0x00431490	213	radiant/Pmesh.cpp	PINNED
+0x00431570	779	radiant/Pmesh.cpp	PINNED
+0x00431890	2333	radiant/Pmesh.cpp	SUPPORTED
+0x004321c0	279	radiant/Pmesh.cpp	PINNED
+0x004322e0	324	radiant/Pmesh.cpp	SUPPORTED
+0x00432430	416	radiant/Pmesh.cpp	SUPPORTED
+0x004325d0	217	radiant/Pmesh.cpp	SUPPORTED
+0x004326b0	333	radiant/Pmesh.cpp	SUPPORTED
+0x00432800	328	radiant/Pmesh.cpp	SUPPORTED
+0x00432950	259	radiant/Pmesh.cpp	SUPPORTED
+0x00432a60	257	radiant/Pmesh.cpp	SUPPORTED
+0x00432b70	62	radiant/Pmesh.cpp	SUPPORTED
+0x00432ca0	600	radiant/Pmesh.cpp	PINNED
+0x00432f60	2220	radiant/Pmesh.cpp	PINNED
+0x00433830	214	radiant/Pmesh.cpp	SUPPORTED
+0x00433910	261	radiant/Pmesh.cpp	PINNED
+0x00433a20	44	radiant/Pmesh.cpp	SUPPORTED
+0x00433a80	79	radiant/Pmesh.cpp	SUPPORTED
+0x00433ad0	177	radiant/Pmesh.cpp	SUPPORTED
+0x00433b90	515	radiant/Pmesh.cpp	SUPPORTED
+0x00433da0	134	radiant/Pmesh.cpp	SUPPORTED
+0x00433e80	79	radiant/Pmesh.cpp	SUPPORTED
+0x00433f20	276	radiant/Pmesh.cpp	SUPPORTED
+0x00434040	159	radiant/Pmesh.cpp	SUPPORTED
+0x00434190	249	radiant/Pmesh.cpp	PINNED
+0x00434360	719	radiant/Pmesh.cpp	PINNED
+0x00434630	82	radiant/Pmesh.cpp	SUPPORTED
+0x00434690	381	radiant/Pmesh.cpp	PINNED
+0x00434810	64	radiant/Pmesh.cpp	SUPPORTED
+0x00434880	88	radiant/Pmesh.cpp	SUPPORTED
+0x004348e0	2365	radiant/Pmesh.cpp	PINNED
+0x00435230	406	radiant/Pmesh.cpp	SUPPORTED
+0x004354b0	680	radiant/Pmesh.cpp	PINNED
+0x00435760	220	radiant/Pmesh.cpp	PINNED
+0x00435840	182	radiant/Pmesh.cpp	PINNED
+0x00435900	373	radiant/Pmesh.cpp	SUPPORTED
+0x00435a80	379	radiant/Pmesh.cpp	SUPPORTED
+0x00435c00	277	radiant/Pmesh.cpp	SUPPORTED
+0x00435d20	278	radiant/Pmesh.cpp	SUPPORTED
+0x00435e40	442	radiant/Pmesh.cpp	SUPPORTED
+0x00436000	363	radiant/Pmesh.cpp	SUPPORTED
+0x00436170	812	radiant/Pmesh.cpp	SUPPORTED
+0x004364b0	475	radiant/Pmesh.cpp	SUPPORTED
+0x00436690	768	radiant/Pmesh.cpp	PINNED
+0x004369b0	513	radiant/Pmesh.cpp	SUPPORTED
+0x00436bc0	499	radiant/Pmesh.cpp	SUPPORTED
+0x00436dc0	1477	radiant/Pmesh.cpp	PINNED
+0x00437390	99	radiant/Pmesh.cpp	SUPPORTED
+0x00437400	806	radiant/Pmesh.cpp	SUPPORTED
+0x00437730	345	radiant/Pmesh.cpp	SUPPORTED
+0x00437890	342	radiant/Pmesh.cpp	SUPPORTED
+0x004379f0	1110	radiant/Pmesh.cpp	SUPPORTED
+0x00437e50	451	radiant/Pmesh.cpp	PINNED
+0x00438020	241	radiant/Pmesh.cpp	PINNED
+0x00438120	770	radiant/Pmesh.cpp	PINNED
+0x00438430	133	radiant/Pmesh.cpp	SUPPORTED
+0x004384c0	75	radiant/Pmesh.cpp	SUPPORTED
+0x00438510	915	radiant/Pmesh.cpp	PINNED
+0x004388b0	994	radiant/Pmesh.cpp	PINNED
+0x00438ca0	304	radiant/Pmesh.cpp	SUPPORTED
+0x00438de0	526	radiant/Pmesh.cpp	PINNED
+0x00438ff0	349	radiant/Pmesh.cpp	PINNED
+0x00439160	314	radiant/Pmesh.cpp	PINNED
+0x004392a0	275	radiant/Pmesh.cpp	PINNED
+0x004393c0	142		
+0x00439450	147		
+0x004395a0	61		
+0x004395e0	31		
+0x00439600	27		
+0x00439620	66		
+0x00439690	49		
+0x004396d0	75		
+0x00439720	22		
+0x00439740	762		
+0x00439a40	34		
+0x00439a70	813		
+0x00439db0	150		
+0x00439e50	140		
+0x00439ee0	2959		
+0x0043aa70	2456		
+0x0043b410	218		
+0x0043b500	85		
+0x0043b560	33		
+0x0043b590	87		
+0x0043b600	75		
+0x0043b650	67		
+0x0043b6b0	18		
+0x0043b6d0	33		
+0x0043b700	5		
+0x0043b710	1676		
+0x0043bdf0	36		
+0x0043be50	183		
+0x0043bf10	187		
+0x0043bfd0	26		
+0x0043bff0	137		
+0x0043c0d0	268		
+0x0043c1e0	34		
+0x0043c210	121		
+0x0043c2a0	16	nafxcw.lib	LIB
+0x0043c2b0	475		
+0x0043c490	86		
+0x0043c4f0	165		
+0x0043c5a0	165		
+0x0043c650	165		
+0x0043c740	33		
+0x0043c770	61		
+0x0043c7c0	182		
+0x0043c880	284		
+0x0043c9a0	34		
+0x0043c9d0	284		
+0x0043cb00	114		
+0x0043cb80	225	radiant/SurfaceDlg.cpp	PINNED
+0x0043cc70	220	radiant/SurfaceDlg.cpp	PINNED
+0x0043cd60	136	radiant/SurfaceDlg.cpp	SUPPORTED
+0x0043ce20	254	radiant/SurfaceDlg.cpp	SUPPORTED
+0x0043cf20	89	radiant/SurfaceDlg.cpp	SUPPORTED
+0x0043cf80	1140	radiant/SurfaceDlg.cpp	PINNED
+0x0043d400	557	radiant/SurfaceDlg.cpp	SUPPORTED
+0x0043d630	974	radiant/SurfaceDlg.cpp	PINNED
+0x0043da00	1007		
+0x0043ddf0	501		
+0x0043dff0	509	AMBIGUOUS:radiant/SurfaceDlg.cpp,radiant/brush.cpp	
+0x0043e1f0	514	AMBIGUOUS:radiant/SurfaceDlg.cpp,radiant/brush.cpp	
+0x0043e400	53		
+0x0043e440	247		
+0x0043e560	473		
+0x0043e740	51		
+0x0043e790	51		
+0x0043e7d0	103		
+0x0043e840	27		
+0x0043e870	27		
+0x0043e890	82		
+0x0043e8f0	26		
+0x0043e920	9	nafxcw.lib	LIB
+0x0043e950	38		
+0x0043e980	261		
+0x0043eac0	329		
+0x0043ec80	117		
+0x0043ed00	34		
+0x0043ed30	49		
+0x0043ed80	68		
+0x0043edd0	148		
+0x0043ee90	33		
+0x0043eec0	87		
+0x0043ef30	40		
+0x0043ef60	132		
+0x0043f040	220		
+0x0043f120	34		
+0x0043f150	214		
+0x0043f240	105		
+0x0043f2b0	107		
+0x0043f320	81		
+0x0043f380	64		
+0x0043f3c0	87		
+0x0043f430	27		
+0x0043f460	353	radiant/TextureBar.cpp	PINNED
+0x0043f710	135		
+0x0043f7a0	34		
+0x0043f7d0	94		
+0x0043f850	65		
+0x0043f8a0	335		
+0x0043f9f0	459	common/texturevecs.cpp	PINNED
+0x0043fbc0	1540	common/texturevecs.cpp	PINNED
+0x004401d0	985	common/texturevecs.cpp	PINNED
+0x004405b0	11		
+0x004405d0	31		
+0x00440620	144	radiant/TexWnd.cpp	PINNED
+0x004406c0	297	radiant/TexWnd.cpp	PINNED
+0x00440840	320	radiant/TexWnd.cpp	PINNED
+0x00440980	31	radiant/TexWnd.cpp	SUPPORTED
+0x004409a0	563	radiant/TexWnd.cpp	PINNED
+0x00440c10	92	radiant/TexWnd.cpp	SUPPORTED
+0x00440c70	45	radiant/TexWnd.cpp	SUPPORTED
+0x00440ca0	230	radiant/TexWnd.cpp	SUPPORTED
+0x00440d90	90	radiant/TexWnd.cpp	SUPPORTED
+0x00440df0	420	radiant/TexWnd.cpp	SUPPORTED
+0x00440fa0	347	radiant/TexWnd.cpp	SUPPORTED
+0x00441100	252	radiant/TexWnd.cpp	PINNED
+0x00441200	252	radiant/TexWnd.cpp	PINNED
+0x00441300	249	radiant/TexWnd.cpp	PINNED
+0x00441460	50	radiant/TexWnd.cpp	SUPPORTED
+0x004414a0	348	radiant/TexWnd.cpp	PINNED
+0x00441600	163	radiant/TexWnd.cpp	SUPPORTED
+0x00441750	145	radiant/TexWnd.cpp	PINNED
+0x004417f0	590	radiant/TexWnd.cpp	PINNED
+0x00441a40	509	radiant/TexWnd.cpp	PINNED
+0x00441c50	66	radiant/TexWnd.cpp	SUPPORTED
+0x00441ce0	118	radiant/TexWnd.cpp	SUPPORTED
+0x00441d60	540	radiant/TexWnd.cpp	SUPPORTED
+0x00441f80	438	radiant/TexWnd.cpp	PINNED
+0x00442140	94	radiant/TexWnd.cpp	SUPPORTED
+0x004421a0	94	radiant/TexWnd.cpp	SUPPORTED
+0x00442200	135	radiant/TexWnd.cpp	SUPPORTED
+0x004422a0	92	radiant/TexWnd.cpp	SUPPORTED
+0x00442300	939	radiant/TexWnd.cpp	PINNED
+0x004426e0	372	radiant/TexWnd.cpp	PINNED
+0x00442860	88		
+0x004428d0	128		
+0x00442950	33		
+0x00442980	96		
+0x004429f0	267		
+0x00442b20	189		
+0x00442be0	212		
+0x00442cc0	131		
+0x00442d50	9	nafxcw.lib	LIB
+0x00442d60	242		
+0x00442e60	111		
+0x00442f40	15		
+0x00442f50	23		
+0x00442f70	224		
+0x00443050	203		
+0x00443140	34		
+0x004431f0	166	radiant/Undo.cpp	PINNED
+0x004432a0	242	radiant/Undo.cpp	PINNED
+0x004433b0	476	radiant/Undo.cpp	PINNED
+0x00443590	606	radiant/Undo.cpp	PINNED
+0x00443860	553	radiant/Undo.cpp	PINNED
+0x00443a90	411	radiant/Undo.cpp	SUPPORTED
+0x00443c30	159	radiant/Undo.cpp	PINNED
+0x00443cd0	150	radiant/Undo.cpp	PINNED
+0x00443d70	17	radiant/Undo.cpp	SUPPORTED
+0x00443d90	223	radiant/Undo.cpp	PINNED
+0x00443e70	75	radiant/Undo.cpp	SUPPORTED
+0x00443ec0	92	radiant/Undo.cpp	SUPPORTED
+0x00443f80	74	radiant/Undo.cpp	SUPPORTED
+0x00443fd0	229	radiant/Undo.cpp	PINNED
+0x004440c0	70		
+0x00444110	63		
+0x00444150	96		
+0x004441b0	2116	AMBIGUOUS:radiant/Undo.cpp,radiant/entity.cpp	
+0x00444a00	1555	AMBIGUOUS:radiant/Undo.cpp,radiant/entity.cpp	
+0x00445060	209		
+0x00445140	33		
+0x00445170	156		
+0x00445210	121		
+0x004452a0	76		
+0x00445370	171	radiant/VehicleDlg.cpp	PINNED
+0x00445420	198	radiant/VehicleDlg.cpp	PINNED
+0x004454f0	29		
+0x00445900	166		
+0x004459f0	208		
+0x00445ac0	256		
+0x00445bc0	152		
+0x00445c60	169		
+0x00445e50	169		
+0x00445f40	169		
+0x00446030	31		
+0x00446050	22		
+0x00446070	9	nafxcw.lib	LIB
+0x00446080	20		
+0x004460c0	25		
+0x004460f0	311		
+0x00446230	33		
+0x00446260	174		
+0x00446310	225		
+0x00446410	116		
+0x00446490	211		
+0x00446570	701		
+0x00446830	606	radiant/VertEditDlg.cpp	PINNED
+0x00446ab0	264	radiant/VertEditDlg.cpp	SUPPORTED
+0x00446bc0	84	radiant/VertEditDlg.cpp	SUPPORTED
+0x00446c20	480	radiant/VertEditDlg.cpp	SUPPORTED
+0x00446e00	335	radiant/VertEditDlg.cpp	SUPPORTED
+0x00446f50	346	radiant/VertEditDlg.cpp	SUPPORTED
+0x004470b0	341	radiant/VertEditDlg.cpp	SUPPORTED
+0x00447230	468	radiant/VertEditDlg.cpp	SUPPORTED
+0x00447410	635	radiant/VertEditDlg.cpp	SUPPORTED
+0x00447690	954	radiant/VertEditDlg.cpp	PINNED
+0x00447a50	242		
+0x00447b50	164		
+0x00447c00	84		
+0x00447c60	691	radiant/Winding.cpp	PINNED
+0x00447f20	39		
+0x00447f60	77		
+0x00447fb0	104		
+0x00448060	153		
+0x00448100	134		
+0x004481e0	148		
+0x00448280	714		
+0x00448550	994		
+0x00448940	204		
+0x00448a10	743		
+0x00448d00	916		
+0x004490a0	220		
+0x00449180	73		
+0x004491d0	211		
+0x004492b0	272		
+0x004493d0	28		
+0x004493f0	88		
+0x00449460	227		
+0x00449550	33		
+0x00449580	8		
+0x00449590	220		
+0x00449680	31		
+0x004496b0	168		
+0x00449760	67		
+0x00449800	475		
+0x004499e0	49		
+0x00449a30	321		
+0x00449bd0	102		
+0x00449c40	29		
+0x00449c60	37		
+0x00449c90	860		
+0x00449ff0	51		
+0x0044a030	149		
+0x0044a0d0	89		
+0x0044a130	55		
+0x0044a170	147		
+0x0044a210	136		
+0x0044a2a0	46		
+0x0044a2d0	32		
+0x0044a2f0	2250		
+0x0044abc0	44		
+0x0044abf0	312		
+0x0044ad80	211		
+0x0044ae60	1083	radiant/XYWnd.cpp	PINNED
+0x0044b2a0	205	radiant/XYWnd.cpp	SUPPORTED
+0x0044b370	15	radiant/XYWnd.cpp	SUPPORTED
+0x0044b380	1581	radiant/XYWnd.cpp	PINNED
+0x0044b9b0	450	radiant/XYWnd.cpp	SUPPORTED
+0x0044bb80	172	radiant/XYWnd.cpp	SUPPORTED
+0x0044bc50	216	radiant/XYWnd.cpp	SUPPORTED
+0x0044bd30	225	radiant/XYWnd.cpp	SUPPORTED
+0x0044be20	1107	radiant/XYWnd.cpp	PINNED
+0x0044c280	83	radiant/XYWnd.cpp	SUPPORTED
+0x0044c300	42	radiant/XYWnd.cpp	SUPPORTED
+0x0044c330	132	radiant/XYWnd.cpp	SUPPORTED
+0x0044c3c0	511	radiant/XYWnd.cpp	SUPPORTED
+0x0044c5c0	90	radiant/XYWnd.cpp	SUPPORTED
+0x0044c620	633	radiant/XYWnd.cpp	SUPPORTED
+0x0044c8a0	1668	radiant/XYWnd.cpp	PINNED
+0x0044cf30	58	radiant/XYWnd.cpp	SUPPORTED
+0x0044cf70	330	radiant/XYWnd.cpp	SUPPORTED
+0x0044d0c0	607	radiant/XYWnd.cpp	SUPPORTED
+0x0044d320	1210	radiant/XYWnd.cpp	SUPPORTED
+0x0044d7e0	3259	radiant/XYWnd.cpp	SUPPORTED
+0x0044e4b0	1617	radiant/XYWnd.cpp	SUPPORTED
+0x0044eb10	903	radiant/XYWnd.cpp	SUPPORTED
+0x0044eea0	756	radiant/XYWnd.cpp	SUPPORTED
+0x0044f1a0	906	radiant/XYWnd.cpp	SUPPORTED
+0x0044f560	42	radiant/XYWnd.cpp	SUPPORTED
+0x0044f590	53	radiant/XYWnd.cpp	SUPPORTED
+0x0044f5d0	86	radiant/XYWnd.cpp	PINNED
+0x0044f630	2966	radiant/XYWnd.cpp	PINNED
+0x004501f0	1958	radiant/XYWnd.cpp	PINNED
+0x004509a0	991	radiant/XYWnd.cpp	PINNED
+0x00450d90	1176	radiant/XYWnd.cpp	SUPPORTED
+0x00451230	563	radiant/XYWnd.cpp	SUPPORTED
+0x00451470	219	radiant/XYWnd.cpp	PINNED
+0x00451550	391	radiant/XYWnd.cpp	PINNED
+0x004516e0	561	radiant/XYWnd.cpp	PINNED
+0x00451920	275	radiant/XYWnd.cpp	PINNED
+0x00451a40	440	radiant/XYWnd.cpp	PINNED
+0x00451c00	509	radiant/XYWnd.cpp	SUPPORTED
+0x00451e00	161	radiant/XYWnd.cpp	SUPPORTED
+0x00451eb0	300	src/universal/q_shared.cpp	OUTLIER
+0x00451fe0	240	radiant/XYWnd.cpp	SUPPORTED
+0x004520d0	2079	radiant/XYWnd.cpp	PINNED
+0x00452930	94		
+0x00452990	197		
+0x00452a60	126		
+0x00452b00	294		
+0x00452c60	51		
+0x00452ca0	169		
+0x00452d90	110		
+0x00452e30	287		
+0x00452f50	397		
+0x00453100	265		
+0x00453210	23		
+0x00453240	31		
+0x00453260	39		
+0x004532a0	26		
+0x004532c0	34		
+0x004532f0	15		
+0x00453300	90		
+0x00453360	30		
+0x004533a0	13	nafxcw.lib	LIB
+0x004533b0	20	nafxcw.lib	LIB
+0x004533f0	31		
+0x00453410	67		
+0x004534b0	119		
+0x00453560	24		
+0x004535b0	30		
+0x00453660	80		
+0x004536d0	33		
+0x00453700	11	nafxcw.lib	LIB
+0x00453720	49		
+0x00453760	15		
+0x00453770	81		
+0x004537d0	81		
+0x00453830	81		
+0x00453890	163		
+0x00453940	17		
+0x00453960	305		
+0x00453aa0	120		
+0x00453b30	31		
+0x00453b50	39		
+0x00453b90	51		
+0x00453bd0	51		
+0x00453c10	51		
+0x00453c50	180		
+0x00453d10	23		
+0x00453d30	34		
+0x00453d60	15		
+0x00453dc0	111	radiant/brush.cpp	PINNED
+0x00453e30	90	radiant/brush.cpp	PINNED
+0x00453e90	939	radiant/brush.cpp	PINNED
+0x00454250	955	radiant/brush.cpp	PINNED
+0x00454630	109	radiant/brush.cpp	PINNED
+0x004546a0	254	radiant/brush.cpp	PINNED
+0x004547a0	109	radiant/brush.cpp	PINNED
+0x00454810	330	radiant/brush.cpp	PINNED
+0x004549b0	117	radiant/brush.cpp	SUPPORTED
+0x00454a30	122	radiant/brush.cpp	PINNED
+0x00454ab0	184	radiant/brush.cpp	SUPPORTED
+0x00454b70	261	radiant/brush.cpp	SUPPORTED
+0x00454c80	226	radiant/brush.cpp	SUPPORTED
+0x00454d90	339	radiant/brush.cpp	SUPPORTED
+0x00454ef0	55	radiant/brush.cpp	SUPPORTED
+0x00454f30	61	radiant/brush.cpp	SUPPORTED
+0x00454f70	225	radiant/brush.cpp	SUPPORTED
+0x00455060	175	radiant/brush.cpp	SUPPORTED
+0x00455110	41	radiant/brush.cpp	SUPPORTED
+0x00455140	541	radiant/brush.cpp	PINNED
+0x00455360	370	radiant/brush.cpp	PINNED
+0x004554e0	371	radiant/brush.cpp	SUPPORTED
+0x00455660	409	radiant/brush.cpp	SUPPORTED
+0x00455800	325	radiant/brush.cpp	SUPPORTED
+0x00455950	151	radiant/brush.cpp	SUPPORTED
+0x004559f0	52	radiant/brush.cpp	SUPPORTED
+0x00455a30	413	radiant/brush.cpp	PINNED
+0x00455bd0	218	radiant/brush.cpp	PINNED
+0x00455cb0	57	radiant/brush.cpp	SUPPORTED
+0x00455cf0	298	radiant/brush.cpp	SUPPORTED
+0x00455e20	191	radiant/brush.cpp	SUPPORTED
+0x00455ee0	4041	radiant/brush.cpp	PINNED
+0x00456ed0	88	radiant/brush.cpp	SUPPORTED
+0x00456f30	122	radiant/brush.cpp	SUPPORTED
+0x00456fb0	56	radiant/brush.cpp	SUPPORTED
+0x00456ff0	629	radiant/brush.cpp	PINNED
+0x00457270	1879	radiant/brush.cpp	PINNED
+0x004579e0	488	radiant/brush.cpp	PINNED
+0x00457bd0	250	radiant/brush.cpp	PINNED
+0x00457ce0	233	radiant/brush.cpp	SUPPORTED
+0x00457dd0	1040	radiant/brush.cpp	PINNED
+0x004581e0	602	radiant/brush.cpp	PINNED
+0x00458440	511	radiant/brush.cpp	PINNED
+0x00458640	35	radiant/brush.cpp	SUPPORTED
+0x00458670	1149	radiant/brush.cpp	SUPPORTED
+0x00458af0	260	radiant/brush.cpp	PINNED
+0x00458c00	276	radiant/brush.cpp	PINNED
+0x00458d40	113	radiant/brush.cpp	SUPPORTED
+0x00458dc0	225	radiant/brush.cpp	SUPPORTED
+0x00458eb0	239	radiant/brush.cpp	SUPPORTED
+0x00458fa0	610	radiant/brush.cpp	SUPPORTED
+0x00459210	171	radiant/brush.cpp	SUPPORTED
+0x004592f0	194	radiant/brush.cpp	SUPPORTED
+0x004593c0	107	radiant/brush.cpp	SUPPORTED
+0x00459430	256	radiant/brush.cpp	PINNED
+0x00459530	354	radiant/brush.cpp	PINNED
+0x004596a0	322	radiant/brush.cpp	PINNED
+0x004597f0	191	radiant/brush.cpp	SUPPORTED
+0x004598b0	97	radiant/brush.cpp	SUPPORTED
+0x00459920	144	radiant/brush.cpp	SUPPORTED
+0x004599b0	233	radiant/brush.cpp	SUPPORTED
+0x00459ae0	1335	radiant/brush.cpp	SUPPORTED
+0x0045a030	278	radiant/brush.cpp	SUPPORTED
+0x0045a150	198	radiant/brush.cpp	SUPPORTED
+0x0045a220	991	radiant/brush.cpp	PINNED
+0x0045a600	542	radiant/brush.cpp	PINNED
+0x0045a830	226	radiant/brush.cpp	PINNED
+0x0045a920	1502	radiant/brush.cpp	PINNED
+0x0045af00	192	radiant/brush.cpp	PINNED
+0x0045afc0	664	radiant/brush.cpp	SUPPORTED
+0x0045b260	164	radiant/brush.cpp	SUPPORTED
+0x0045b310	260	radiant/brush.cpp	PINNED
+0x0045b420	517	radiant/brush.cpp	PINNED
+0x0045b630	36	radiant/brush.cpp	SUPPORTED
+0x0045b660	467	radiant/brush.cpp	SUPPORTED
+0x0045b840	1909	radiant/brush.cpp	PINNED
+0x0045bfc0	1109	radiant/brush.cpp	PINNED
+0x0045c420	647	radiant/brush.cpp	PINNED
+0x0045c6b0	458	radiant/brush.cpp	PINNED
+0x0045c950	180	radiant/brush.cpp	SUPPORTED
+0x0045ca10	620	radiant/brush.cpp	PINNED
+0x0045cc90	302	radiant/brush.cpp	PINNED
+0x0045cdc0	406	radiant/brush.cpp	PINNED
+0x0045cf60	290	radiant/brush.cpp	PINNED
+0x0045d090	431	radiant/brush.cpp	PINNED
+0x0045d240	517	radiant/brush.cpp	PINNED
+0x0045d450	928	radiant/brush.cpp	PINNED
+0x0045d7f0	427	radiant/brush.cpp	PINNED
+0x0045d9a0	709	radiant/brush.cpp	PINNED
+0x0045dc70	625	radiant/brush.cpp	PINNED
+0x0045def0	372	radiant/brush.cpp	SUPPORTED
+0x0045e070	63	radiant/brush.cpp	SUPPORTED
+0x0045e0b0	228	radiant/brush.cpp	PINNED
+0x0045e1a0	272	radiant/brush.cpp	SUPPORTED
+0x0045e2c0	171	radiant/brush.cpp	SUPPORTED
+0x0045e370	757	radiant/brush.cpp	SUPPORTED
+0x0045e670	1351	radiant/brush.cpp	SUPPORTED
+0x0045ebc0	40	radiant/brush.cpp	SUPPORTED
+0x0045ebf0	877	radiant/brush.cpp	SUPPORTED
+0x0045ef60	74	radiant/brush.cpp	SUPPORTED
+0x0045f070	219	radiant/brush.cpp	PINNED
+0x0045f150	229	radiant/brush.cpp	PINNED
+0x0045f240	251	radiant/brush.cpp	SUPPORTED
+0x0045f340	849	radiant/brush.cpp	PINNED
+0x0045f6a0	116		
+0x0045f720	132		
+0x0045f7e0	71		
+0x0045f830	46		
+0x0045f860	72		
+0x0045f8b0	653	radiant/csg.cpp	PINNED
+0x0045fb40	19	radiant/csg.cpp	SUPPORTED
+0x0045fb53	983	radiant/csg.cpp	PINNED
+0x0045ff30	560	radiant/csg.cpp	PINNED
+0x00460160	373	radiant/csg.cpp	PINNED
+0x004602e0	225	radiant/csg.cpp	PINNED
+0x004603d0	37	radiant/csg.cpp	SUPPORTED
+0x00460400	53	radiant/csg.cpp	SUPPORTED
+0x00460440	33	radiant/csg.cpp	SUPPORTED
+0x00460470	477	radiant/csg.cpp	PINNED
+0x00460650	63	radiant/csg.cpp	SUPPORTED
+0x00460690	97	radiant/csg.cpp	SUPPORTED
+0x00460700	411	radiant/csg.cpp	PINNED
+0x004608a0	302		
+0x004609e0	1523	radiant/drag.cpp	PINNED
+0x00460fe0	2516	radiant/drag.cpp	PINNED
+0x004619c0	2582	radiant/drag.cpp	PINNED
+0x004623e0	893		
+0x00462760	943		
+0x00462b10	175		
+0x00462bf0	198		
+0x00462cc0	69		
+0x00462d10	306		
+0x00462e60	131		
+0x00462f20	56		
+0x00462f60	54		
+0x00462fa0	66		
+0x00462ff0	199	radiant/eclass.cpp	PINNED
+0x004630c0	170	radiant/eclass.cpp	PINNED
+0x004631a0	155	radiant/eclass.cpp	SUPPORTED
+0x00463240	203	radiant/eclass.cpp	PINNED
+0x00463310	179	radiant/eclass.cpp	PINNED
+0x004633d0	281	radiant/eclass.cpp	SUPPORTED
+0x004634f0	98	radiant/eclass.cpp	SUPPORTED
+0x00463560	429	radiant/eclass.cpp	PINNED
+0x00463710	326	radiant/eclass.cpp	SUPPORTED
+0x00463860	904	radiant/eclass.cpp	SUPPORTED
+0x00463bf0	348	radiant/eclass.cpp	SUPPORTED
+0x00463d60	221	radiant/eclass.cpp	PINNED
+0x00463e40	75	radiant/eclass.cpp	SUPPORTED
+0x00463ea0	703	radiant/eclass.cpp	SUPPORTED
+0x00464170	1483	radiant/eclass.cpp	SUPPORTED
+0x00464770	188	radiant/eclass.cpp	SUPPORTED
+0x00464930	436	radiant/eclass.cpp	PINNED
+0x00464b10	22		
+0x00464b30	22		
+0x00464b50	88		
+0x00464bb0	88		
+0x00464c20	60		
+0x00464c60	25		
+0x00464c80	1067	radiant/entity.cpp	PINNED
+0x004650b0	290	radiant/entity.cpp	PINNED
+0x004651e0	876	radiant/entity.cpp	PINNED
+0x00465580	102	radiant/entity.cpp	SUPPORTED
+0x004655f0	175	radiant/entity.cpp	PINNED
+0x004656b0	202	radiant/entity.cpp	SUPPORTED
+0x00465780	29	radiant/entity.cpp	SUPPORTED
+0x004657a0	373	radiant/entity.cpp	PINNED
+0x00465920	328	radiant/entity.cpp	PINNED
+0x00465a70	111	radiant/entity.cpp	SUPPORTED
+0x00465ae0	111	radiant/entity.cpp	SUPPORTED
+0x00465b50	145	radiant/entity.cpp	SUPPORTED
+0x00465bf0	111	radiant/entity.cpp	SUPPORTED
+0x00465c60	117	radiant/entity.cpp	SUPPORTED
+0x00465d10	31	radiant/entity.cpp	SUPPORTED
+0x00465d50	42	radiant/entity.cpp	SUPPORTED
+0x00465d80	84	radiant/entity.cpp	SUPPORTED
+0x00465de0	39	radiant/entity.cpp	SUPPORTED
+0x00465e10	156	radiant/entity.cpp	SUPPORTED
+0x00465eb0	111	radiant/entity.cpp	SUPPORTED
+0x00465f20	104	radiant/entity.cpp	SUPPORTED
+0x00465f90	56	radiant/entity.cpp	SUPPORTED
+0x00465fd0	84	radiant/entity.cpp	SUPPORTED
+0x00466030	39	radiant/entity.cpp	SUPPORTED
+0x00466060	107	radiant/entity.cpp	SUPPORTED
+0x004660d0	61	radiant/entity.cpp	SUPPORTED
+0x00466110	101	radiant/entity.cpp	PINNED
+0x00466180	102	radiant/entity.cpp	PINNED
+0x004661f0	446	radiant/entity.cpp	PINNED
+0x004663b0	66	radiant/entity.cpp	SUPPORTED
+0x00466400	54	radiant/entity.cpp	SUPPORTED
+0x00466440	1135	radiant/entity.cpp	PINNED
+0x004668f0	73	radiant/entity.cpp	SUPPORTED
+0x00466940	41	radiant/entity.cpp	SUPPORTED
+0x00466970	649	radiant/entity.cpp	SUPPORTED
+0x00466c00	383	radiant/entity.cpp	PINNED
+0x00466d80	1050	radiant/entity.cpp	PINNED
+0x004671b0	142	radiant/entity.cpp	PINNED
+0x00467240	152	radiant/entity.cpp	PINNED
+0x004672e0	135	radiant/entity.cpp	SUPPORTED
+0x00467370	114	radiant/entity.cpp	SUPPORTED
+0x00467470	153	radiant/entity.cpp	PINNED
+0x00467510	200	radiant/entity.cpp	PINNED
+0x004675e0	88	radiant/entity.cpp	SUPPORTED
+0x00467640	59	radiant/entity.cpp	SUPPORTED
+0x00467770	330	radiant/entity.cpp	PINNED
+0x004678c0	429	radiant/entity.cpp	PINNED
+0x00467a70	361	radiant/entity.cpp	PINNED
+0x00467be0	286	radiant/entity.cpp	SUPPORTED
+0x00467d00	204	radiant/entity.cpp	PINNED
+0x00467df0	28		
+0x00467e60	82		
+0x00467ec0	57		
+0x00467f00	225		
+0x00467ff0	55		
+0x00468030	203	radiant/map.cpp	PINNED
+0x00468100	175	radiant/map.cpp	SUPPORTED
+0x004681d0	134	radiant/map.cpp	SUPPORTED
+0x00468260	373	radiant/map.cpp	PINNED
+0x004683e0	1311	radiant/map.cpp	PINNED
+0x00468910	1019	radiant/map.cpp	PINNED
+0x00468d10	238	radiant/map.cpp	SUPPORTED
+0x00468e00	705	radiant/map.cpp	PINNED
+0x00469100	53	radiant/map.cpp	SUPPORTED
+0x00469140	200	radiant/map.cpp	SUPPORTED
+0x00469210	129	radiant/map.cpp	SUPPORTED
+0x00469350	200	radiant/map.cpp	SUPPORTED
+0x00469570	284	radiant/map.cpp	PINNED
+0x00469690	157	radiant/map.cpp	PINNED
+0x00469740	519	radiant/map.cpp	SUPPORTED
+0x004699b0	4433	radiant/map.cpp	PINNED
+0x0046ab20	385	radiant/map.cpp	SUPPORTED
+0x0046acb0	216	radiant/map.cpp	PINNED
+0x0046ad90	93	radiant/map.cpp	SUPPORTED
+0x0046adf0	30	radiant/map.cpp	SUPPORTED
+0x0046ae10	89	radiant/map.cpp	SUPPORTED
+0x0046ae70	98	radiant/map.cpp	SUPPORTED
+0x0046aee0	212	radiant/map.cpp	PINNED
+0x0046afc0	172	radiant/map.cpp	SUPPORTED
+0x0046b070	1242	radiant/map.cpp	SUPPORTED
+0x0046b550	96	radiant/map.cpp	PINNED
+0x0046b5b0	1017	radiant/map.cpp	PINNED
+0x0046b9b0	91	radiant/map.cpp	PINNED
+0x0046ba10	54		
+0x0046ba50	272		
+0x0046bb70	34		
+0x0046bbf0	84		
+0x0046bc50	72		
+0x0046bcd0	126		
+0x0046bd50	28		
+0x0046be10	70		
+0x0046be60	186		
+0x0046bf20	93		
+0x0046bf80	266		
+0x0046c090	242		
+0x0046c190	257		
+0x0046c2c0	284		
+0x0046c3e0	299		
+0x0046c540	167		
+0x0046c600	315		
+0x0046c740	306		
+0x0046c880	427	radiant/points.cpp	PINNED
+0x0046ca50	156		
+0x0046cb10	111	radiant/qe3.cpp	PINNED
+0x0046cbd0	139	radiant/qe3.cpp	SUPPORTED
+0x0046cc60	694	radiant/qe3.cpp	SUPPORTED
+0x0046cf20	396	radiant/qe3.cpp	SUPPORTED
+0x0046d0b0	63	radiant/qe3.cpp	SUPPORTED
+0x0046d0f0	159	radiant/qe3.cpp	SUPPORTED
+0x0046d190	503	radiant/qe3.cpp	SUPPORTED
+0x0046d3d0	671	radiant/qe3.cpp	SUPPORTED
+0x0046d680	136	radiant/qe3.cpp	SUPPORTED
+0x0046d710	257	radiant/qe3.cpp	PINNED
+0x0046d820	648	radiant/qe3.cpp	PINNED
+0x0046dab0	368		
+0x0046dc40	382		
+0x0046ddc0	511		
+0x0046e280	223		
+0x0046e370	124		
+0x0046e4a0	55		
+0x0046e520	1032	radiant/select.cpp	PINNED
+0x0046e930	346	radiant/select.cpp	SUPPORTED
+0x0046ea90	513	radiant/select.cpp	SUPPORTED
+0x0046eca0	609	radiant/XYWnd.cpp	OUTLIER
+0x0046ef10	414	radiant/select.cpp	SUPPORTED
+0x0046f0b0	522	radiant/select.cpp	PINNED
+0x0046f2c0	367	radiant/select.cpp	PINNED
+0x0046f430	188	radiant/select.cpp	SUPPORTED
+0x0046f4f0	438	radiant/select.cpp	PINNED
+0x0046f6b0	1140	radiant/select.cpp	PINNED
+0x0046fb30	172	radiant/select.cpp	SUPPORTED
+0x0046fbe0	355	radiant/select.cpp	SUPPORTED
+0x0046fd50	252	radiant/select.cpp	SUPPORTED
+0x0046fe50	183	radiant/select.cpp	PINNED
+0x0046ff10	953	radiant/select.cpp	PINNED
+0x004702d0	957	radiant/select.cpp	PINNED
+0x00470690	960	radiant/select.cpp	PINNED
+0x00470a50	88	radiant/select.cpp	SUPPORTED
+0x00470ab0	325	radiant/select.cpp	SUPPORTED
+0x00470c00	69	radiant/select.cpp	SUPPORTED
+0x00470c50	140	radiant/select.cpp	SUPPORTED
+0x00470ce0	65	radiant/select.cpp	SUPPORTED
+0x00470d30	78	radiant/select.cpp	SUPPORTED
+0x00470d80	356	radiant/select.cpp	PINNED
+0x00470ef0	248	radiant/select.cpp	SUPPORTED
+0x00470ff0	358	radiant/select.cpp	SUPPORTED
+0x00471160	263	radiant/select.cpp	SUPPORTED
+0x00471270	358	radiant/select.cpp	SUPPORTED
+0x004713e0	324	radiant/select.cpp	SUPPORTED
+0x00471530	312	radiant/select.cpp	SUPPORTED
+0x00471670	574	radiant/select.cpp	PINNED
+0x004718b0	431	radiant/select.cpp	PINNED
+0x00471a90	818	radiant/select.cpp	PINNED
+0x00471dd0	965	radiant/select.cpp	PINNED
+0x004721a0	224	radiant/select.cpp	PINNED
+0x00472280	224	radiant/select.cpp	PINNED
+0x00472360	370	radiant/select.cpp	SUPPORTED
+0x004724e0	698	radiant/select.cpp	SUPPORTED
+0x00472860	870	radiant/select.cpp	PINNED
+0x00472bd0	1055	radiant/select.cpp	PINNED
+0x00472ff0	1012	radiant/select.cpp	PINNED
+0x004733f0	1051	radiant/select.cpp	PINNED
+0x00473810	301	radiant/select.cpp	SUPPORTED
+0x00473940	136	radiant/select.cpp	SUPPORTED
+0x004739d0	658	radiant/select.cpp	SUPPORTED
+0x00473c70	725	radiant/select.cpp	PINNED
+0x00473f50	649	radiant/select.cpp	PINNED
+0x004741e0	65	radiant/select.cpp	SUPPORTED
+0x00474230	782	radiant/select.cpp	PINNED
+0x00474710	367	radiant/select.cpp	PINNED
+0x00474880	286	radiant/select.cpp	PINNED
+0x00474d40	21		
+0x00474d60	395		
+0x00474f10	58		
+0x00474fa0	153		
+0x00475090	35		
+0x004750c0	82		
+0x00475120	27		
+0x00475170	21		
+0x00475190	180		
+0x00475250	104		
+0x004752c0	141		
+0x00475350	91		
+0x004753b0	492		
+0x004755b0	474		
+0x00475790	335		
+0x004758e0	435		
+0x00475aa0	509		
+0x00475cc0	395	radiant/win_dlg.cpp	PINNED
+0x00475e50	302	radiant/win_dlg.cpp	PINNED
+0x00475f80	361		
+0x00476110	686		
+0x004763e0	121		
+0x00476433	589		
+0x004766d0	312		
+0x00476840	545		
+0x00476aa0	572		
+0x00476d00	76		
+0x00476d70	62		
+0x00476dd0	226		
+0x00476ec0	79		
+0x00476f10	859		
+0x00477270	79		
+0x004772c0	206		
+0x00477390	481		
+0x00477580	569		
+0x004777c0	409		
+0x00477960	87		
+0x004779c0	457		
+0x00477ba0	335	radiant/win_ent.cpp	PINNED
+0x00477d00	370		
+0x00477e80	243		
+0x00477f80	261		
+0x00478090	170		
+0x00478140	175		
+0x004781f0	38		
+0x00478220	1169		
+0x004786c0	1139		
+0x00478b40	2057		
+0x00479530	16		
+0x00479540	30		
+0x00479560	390		
+0x004796f0	94		
+0x00479760	180		
+0x00479820	242		
+0x00479920	97		
+0x00479990	33		
+0x004799c0	5		
+0x00479a10	159		
+0x00479ab0	336		
+0x00479c00	290		
+0x00479d30	1034		
+0x0047a140	141		
+0x0047a1d0	119		
+0x0047a250	93		
+0x0047a2b0	126		
+0x0047a330	106		
+0x0047a3c0	137		
+0x0047a4a0	36		
+0x0047a4f0	144	radiant/win_qe3.cpp	PINNED
+0x0047a580	33		
+0x0047a5b0	254		
+0x0047a6b0	33		
+0x0047a6e0	123		
+0x0047a760	137		
+0x0047a7f0	70		
+0x0047a8d0	348		
+0x0047ab50	405		
+0x0047ad20	296		
+0x0047ae50	80		
+0x0047aed0	128		
+0x0047af50	222		
+0x0047b040	312		
+0x0047b180	1334		
+0x0047b6c0	964	radiant/z.cpp	PINNED
+0x0047ba90	2610	radiant/z.cpp	PINNED
+0x0047c4e0	125		
+0x0047c5c0	42		
+0x0047c620	42		
+0x0047c650	96	src/universal/assertive.cpp	PINNED
+0x0047c6c0	41	src/universal/assertive.cpp	SUPPORTED
+0x0047c6f0	54	src/universal/assertive.cpp	SUPPORTED
+0x0047c760	182	src/universal/assertive.cpp	SUPPORTED
+0x0047c820	31	src/universal/assertive.cpp	SUPPORTED
+0x0047c870	273	src/universal/assertive.cpp	PINNED
+0x0047c9b0	53	src/universal/assertive.cpp	SUPPORTED
+0x0047c9f0	72	src/universal/assertive.cpp	SUPPORTED
+0x0047ca40	1883	src/universal/assertive.cpp	PINNED
+0x0047d1b0	190	src/universal/assertive.cpp	SUPPORTED
+0x0047d270	562	src/universal/assertive.cpp	PINNED
+0x0047d4b0	81		
+0x0047d510	518		
+0x0047d720	105		
+0x0047d7b0	114		
+0x0047d830	121		
+0x0047d8b0	208		
+0x0047d980	192		
+0x0047db10	89		
+0x0047db70	196	src/universal/com_files.cpp	PINNED
+0x0047dc40	247	src/universal/com_files.cpp	PINNED
+0x0047dd40	174	src/universal/com_files.cpp	PINNED
+0x0047ddf0	54	src/universal/com_files.cpp	SUPPORTED
+0x0047de30	418	src/universal/com_files.cpp	PINNED
+0x0047dfe0	22	src/universal/com_files.cpp	SUPPORTED
+0x0047e000	100	src/universal/com_files.cpp	SUPPORTED
+0x0047e070	235	src/universal/com_files.cpp	SUPPORTED
+0x0047e170	114	src/universal/com_files.cpp	SUPPORTED
+0x0047e1f0	257	src/universal/com_files.cpp	SUPPORTED
+0x0047e300	177	src/universal/com_files.cpp	SUPPORTED
+0x0047e3c0	103	src/universal/com_files.cpp	SUPPORTED
+0x0047e430	173	src/universal/com_files.cpp	SUPPORTED
+0x0047e4e0	269	src/universal/com_files.cpp	SUPPORTED
+0x0047e5f0	258	src/universal/com_files.cpp	SUPPORTED
+0x0047e700	82	src/universal/com_files.cpp	SUPPORTED
+0x0047e760	457	src/universal/com_files.cpp	SUPPORTED
+0x0047e930	103	src/universal/com_files.cpp	SUPPORTED
+0x0047e9e0	643	src/universal/com_files.cpp	PINNED
+0x0047ec70	161	src/universal/com_files.cpp	SUPPORTED
+0x0047ed20	1386	src/universal/com_files.cpp	PINNED
+0x0047f2b0	37	src/universal/com_files.cpp	SUPPORTED
+0x0047f2e0	60	src/universal/com_files.cpp	SUPPORTED
+0x0047f320	168	src/universal/com_files.cpp	SUPPORTED
+0x0047f3d0	190	src/universal/com_files.cpp	PINNED
+0x0047f490	223	src/universal/com_files.cpp	PINNED
+0x0047f570	86	src/universal/com_files.cpp	SUPPORTED
+0x0047f5c6	143	src/universal/com_files.cpp	SUPPORTED
+0x0047f660	39	src/universal/com_files.cpp	SUPPORTED
+0x0047f687	120	src/universal/com_files.cpp	SUPPORTED
+0x0047f700	105	src/universal/com_files.cpp	SUPPORTED
+0x0047f770	719	src/universal/com_files.cpp	PINNED
+0x0047fa40	181	src/universal/com_files.cpp	SUPPORTED
+0x0047fb10	119	src/universal/com_files.cpp	PINNED
+0x0047fb90	245	src/universal/com_files.cpp	PINNED
+0x0047fc90	300	src/universal/com_files.cpp	PINNED
+0x0047fdc0	259	src/universal/com_files.cpp	PINNED
+0x0047fed0	1181	src/universal/com_files.cpp	SUPPORTED
+0x00480380	92	src/universal/com_files.cpp	SUPPORTED
+0x004803e0	81	src/universal/com_files.cpp	SUPPORTED
+0x00480440	1249	src/universal/com_files.cpp	PINNED
+0x00480940	36	src/universal/com_files.cpp	SUPPORTED
+0x00480970	30	src/universal/com_files.cpp	SUPPORTED
+0x00480990	497	src/universal/com_files.cpp	SUPPORTED
+0x00480b90	363	src/universal/com_files.cpp	PINNED
+0x00480d00	80	src/universal/com_files.cpp	SUPPORTED
+0x00480d50	211	src/universal/com_files.cpp	SUPPORTED
+0x00480e50	91	src/universal/com_files.cpp	SUPPORTED
+0x00480eb0	171	src/universal/com_files.cpp	SUPPORTED
+0x00480f60	191	src/universal/com_files.cpp	SUPPORTED
+0x00481040	147	src/universal/com_files.cpp	SUPPORTED
+0x004810e0	244	src/universal/com_files.cpp	SUPPORTED
+0x00481210	963	src/universal/com_files.cpp	SUPPORTED
+0x004815e0	773	src/universal/com_files.cpp	PINNED
+0x004818f0	28	src/universal/com_files.cpp	SUPPORTED
+0x00481910	126	src/universal/com_files.cpp	SUPPORTED
+0x00481990	68	src/universal/com_files.cpp	SUPPORTED
+0x004819e0	273	src/universal/com_files.cpp	SUPPORTED
+0x00481b00	1184	src/universal/com_files.cpp	SUPPORTED
+0x00481fd0	186	src/universal/com_files.cpp	SUPPORTED
+0x004820a0	92	src/universal/com_files.cpp	SUPPORTED
+0x00482100	368	src/universal/com_files.cpp	PINNED
+0x00482270	38		
+0x004822a0	185		
+0x004824c0	41		
+0x004824f0	44		
+0x00482520	66		
+0x00482580	24		
+0x004825a0	61		
+0x00482600	105		
+0x00482670	39		
+0x004826a0	63		
+0x004826e0	548		
+0x00482910	105		
+0x00482980	31		
+0x004829a0	39		
+0x004829d0	308	src/universal/com_math.cpp	PINNED
+0x00482b10	96	src/universal/com_math.cpp	SUPPORTED
+0x00482b70	125	src/universal/com_math.cpp	SUPPORTED
+0x00482bf0	111	src/universal/com_math.cpp	SUPPORTED
+0x00482c60	310	src/universal/com_math.cpp	PINNED
+0x00482da0	328	src/universal/com_math.cpp	PINNED
+0x00482ef0	346	src/universal/com_math.cpp	PINNED
+0x00483050	148	src/universal/com_math.cpp	SUPPORTED
+0x004830f0	151	src/universal/com_math.cpp	SUPPORTED
+0x00483190	133	src/universal/com_math.cpp	SUPPORTED
+0x00483220	151	src/universal/com_math.cpp	SUPPORTED
+0x004832c0	832	src/universal/com_math.cpp	PINNED
+0x00483610	74	src/universal/com_math.cpp	SUPPORTED
+0x00483690	93	src/universal/com_math.cpp	SUPPORTED
+0x00483730	81	src/universal/com_math.cpp	SUPPORTED
+0x00483790	83	src/universal/com_math.cpp	SUPPORTED
+0x004837f0	57	src/universal/com_math.cpp	SUPPORTED
+0x00483830	206	src/universal/com_math.cpp	SUPPORTED
+0x00483900	66	src/universal/com_math.cpp	SUPPORTED
+0x00483950	40	src/universal/com_math.cpp	SUPPORTED
+0x004839b0	160	src/universal/com_math.cpp	PINNED
+0x00483a50	245	src/universal/com_math.cpp	SUPPORTED
+0x00483b50	134	src/universal/com_math.cpp	SUPPORTED
+0x00483be0	111	src/universal/com_math.cpp	SUPPORTED
+0x00483c50	157	src/universal/com_math.cpp	SUPPORTED
+0x00483cf0	148	src/universal/com_math.cpp	SUPPORTED
+0x00483d90	128	src/universal/com_math.cpp	SUPPORTED
+0x00483e10	135	src/universal/com_math.cpp	SUPPORTED
+0x00483ea0	92	src/universal/com_math.cpp	SUPPORTED
+0x00483f00	62	src/universal/com_math.cpp	SUPPORTED
+0x00483f40	136	src/universal/com_math.cpp	PINNED
+0x00483fd0	136	src/universal/com_math.cpp	PINNED
+0x00484060	757	src/universal/com_math.cpp	PINNED
+0x00484360	127	src/universal/com_math.cpp	SUPPORTED
+0x004843e0	147	src/universal/com_math.cpp	SUPPORTED
+0x00484480	146	src/universal/com_math.cpp	SUPPORTED
+0x00484520	278	src/universal/com_math.cpp	PINNED
+0x00484640	222	src/universal/com_math.cpp	SUPPORTED
+0x00484720	194	src/universal/com_math.cpp	SUPPORTED
+0x004847f0	348	src/universal/com_math.cpp	SUPPORTED
+0x00484950	274	src/universal/com_math.cpp	SUPPORTED
+0x00484a70	301	src/universal/com_math.cpp	SUPPORTED
+0x00484ba0	92	src/universal/com_math.cpp	SUPPORTED
+0x00484c00	270	src/universal/com_math.cpp	PINNED
+0x00484d10	144	src/universal/com_math.cpp	SUPPORTED
+0x00484da0	191	src/universal/com_math.cpp	SUPPORTED
+0x00484e60	258	src/universal/com_math.cpp	PINNED
+0x00484f70	205	src/universal/com_math.cpp	SUPPORTED
+0x00485040	107	src/universal/com_math.cpp	PINNED
+0x00485110	129	src/universal/com_math.cpp	SUPPORTED
+0x004851a0	219	src/universal/com_math.cpp	SUPPORTED
+0x00485280	264	src/universal/com_math.cpp	SUPPORTED
+0x00485980	118	src/universal/com_math.cpp	PINNED
+0x00485aa0	404	src/universal/com_math.cpp	PINNED
+0x00485c40	74	src/universal/com_math.cpp	SUPPORTED
+0x00485c90	1382	src/universal/com_math.cpp	PINNED
+0x00486200	136	src/universal/com_math.cpp	PINNED
+0x004863e0	145	src/universal/com_math.cpp	PINNED
+0x00486480	174	src/universal/com_math.cpp	PINNED
+0x00486530	101	src/universal/com_math.cpp	SUPPORTED
+0x004865a0	90	src/universal/com_math.cpp	SUPPORTED
+0x00486600	124	src/universal/com_math.cpp	SUPPORTED
+0x004866a0	372	src/universal/com_math.cpp	PINNED
+0x00486820	154	src/universal/com_math.cpp	SUPPORTED
+0x004868c0	54	src/universal/com_math.cpp	SUPPORTED
+0x00486900	57	src/universal/com_math.cpp	SUPPORTED
+0x00486940	189	src/universal/com_math.cpp	PINNED
+0x00486a00	66	src/universal/com_math.cpp	SUPPORTED
+0x00486a50	66	src/universal/com_math.cpp	SUPPORTED
+0x00486aa0	56	src/universal/com_math.cpp	SUPPORTED
+0x00486ae0	78	src/universal/com_math.cpp	SUPPORTED
+0x00486b30	96	src/universal/com_math.cpp	SUPPORTED
+0x00486b90	98	src/universal/com_math.cpp	SUPPORTED
+0x00486c00	98	src/universal/com_math.cpp	SUPPORTED
+0x00486c70	277	src/universal/com_math.cpp	PINNED
+0x00486d90	358	src/universal/com_math.cpp	PINNED
+0x00486f00	366	src/universal/com_math.cpp	PINNED
+0x00487070	63	src/universal/com_math.cpp	SUPPORTED
+0x004870b0	76	src/universal/com_math.cpp	SUPPORTED
+0x00487100	114	src/universal/com_math.cpp	SUPPORTED
+0x00487180	42	src/universal/com_math.cpp	SUPPORTED
+0x004871b0	94	src/universal/com_math.cpp	SUPPORTED
+0x00487210	113	src/universal/com_math.cpp	SUPPORTED
+0x004872d0	42	src/universal/com_math.cpp	SUPPORTED
+0x00487300	76	src/universal/com_math.cpp	SUPPORTED
+0x00487350	101	src/universal/com_math.cpp	SUPPORTED
+0x004873c0	101	src/universal/com_math.cpp	SUPPORTED
+0x00487430	23	src/universal/com_math.cpp	SUPPORTED
+0x00487450	172	src/universal/com_math.cpp	SUPPORTED
+0x00487500	164	src/universal/com_math.cpp	SUPPORTED
+0x00487620	334	src/universal/com_math.cpp	PINNED
+0x00487770	343	src/universal/com_math.cpp	PINNED
+0x00487910	107	src/universal/com_math.cpp	SUPPORTED
+0x00487ae0	257	src/universal/com_math.cpp	PINNED
+0x00487c90	106	src/universal/com_math.cpp	SUPPORTED
+0x00487d00	74	src/universal/com_math.cpp	SUPPORTED
+0x00487d50	107	src/universal/com_math.cpp	SUPPORTED
+0x00487e10	179	src/universal/com_math.cpp	SUPPORTED
+0x00487ed0	43	src/universal/com_math.cpp	SUPPORTED
+0x00487ff0	78	src/universal/com_math.cpp	SUPPORTED
+0x00488040	65	src/universal/com_math.cpp	SUPPORTED
+0x00488090	78	src/universal/com_math.cpp	SUPPORTED
+0x004880e0	275	src/universal/com_math.cpp	SUPPORTED
+0x00488200	275	src/universal/com_math.cpp	SUPPORTED
+0x00488320	381	src/universal/com_math.cpp	SUPPORTED
+0x004884a0	392	src/universal/com_math.cpp	SUPPORTED
+0x00488630	958	src/universal/com_math.cpp	SUPPORTED
+0x004889f0	204	src/universal/com_math.cpp	SUPPORTED
+0x00488ac0	169	src/universal/com_math.cpp	SUPPORTED
+0x00488b70	185	src/universal/com_math.cpp	PINNED
+0x00488f00	342	src/universal/com_math.cpp	PINNED
+0x00489060	313	src/universal/com_math.cpp	SUPPORTED
+0x004891a0	34	src/universal/com_math.cpp	SUPPORTED
+0x004891d0	134	src/universal/com_math.cpp	SUPPORTED
+0x00489260	236	src/universal/com_math.cpp	SUPPORTED
+0x00489350	75	src/universal/com_math.cpp	SUPPORTED
+0x004893a0	104	src/universal/com_math.cpp	SUPPORTED
+0x00489410	212	src/universal/com_math.cpp	PINNED
+0x00489500	75	src/universal/com_math.cpp	SUPPORTED
+0x00489590	554	src/universal/com_math.cpp	PINNED
+0x004897c0	306	src/universal/com_math.cpp	PINNED
+0x00489900	57	src/universal/com_math.cpp	SUPPORTED
+0x00489940	471	src/universal/com_math.cpp	PINNED
+0x00489b20	9	nafxcw.lib	LIB
+0x00489b30	22		
+0x00489b50	24		
+0x00489b70	107	src/universal/com_memory.cpp	PINNED
+0x00489c10	52	src/universal/com_memory.cpp	SUPPORTED
+0x00489c90	131	src/universal/com_memory.cpp	PINNED
+0x00489d20	24	src/universal/com_memory.cpp	SUPPORTED
+0x00489d40	138	src/universal/com_memory.cpp	PINNED
+0x00489dd0	76	src/universal/com_memory.cpp	SUPPORTED
+0x00489e20	124	src/universal/com_memory.cpp	SUPPORTED
+0x00489ea0	284	src/universal/com_memory.cpp	PINNED
+0x00489fc0	218	src/universal/com_memory.cpp	PINNED
+0x0048a0a0	56	src/universal/com_memory.cpp	SUPPORTED
+0x0048a170	245	src/universal/com_memory.cpp	PINNED
+0x0048a270	124	src/universal/com_memory.cpp	PINNED
+0x0048a2f0	157	src/universal/com_memory.cpp	PINNED
+0x0048a3b0	129	src/universal/com_memory.cpp	SUPPORTED
+0x0048a440	52	src/universal/com_memory.cpp	SUPPORTED
+0x0048a480	69	src/universal/com_memory.cpp	SUPPORTED
+0x0048a560	19	src/universal/com_memory.cpp	SUPPORTED
+0x0048a580	435	src/universal/com_memory.cpp	PINNED
+0x0048a740	266	src/universal/com_memory.cpp	PINNED
+0x0048a870	430	src/universal/com_memory.cpp	PINNED
+0x0048aae0	279	src/universal/com_memory.cpp	PINNED
+0x0048acc0	174	src/universal/com_memory.cpp	PINNED
+0x0048ad90	145	src/universal/com_memory.cpp	PINNED
+0x0048ae30	145	src/universal/com_memory.cpp	PINNED
+0x0048aef0	18		
+0x0048af30	18		
+0x0048af50	85		
+0x0048afb0	587		
+0x0048b200	153		
+0x0048b2a0	67		
+0x0048b2f0	96		
+0x0048b350	129		
+0x0048b3e0	428	src/universal/com_shared.cpp	PINNED
+0x0048b5a0	170		
+0x0048b650	153		
+0x0048b6f0	54		
+0x0048b730	44		
+0x0048b7e0	78		
+0x0048b930	70		
+0x0048b9b0	194	src/universal/dvar.cpp	PINNED
+0x0048bab0	75	src/universal/dvar.cpp	SUPPORTED
+0x0048bb00	75	src/universal/dvar.cpp	SUPPORTED
+0x0048bb50	75	src/universal/dvar.cpp	SUPPORTED
+0x0048bba0	159	src/universal/dvar.cpp	SUPPORTED
+0x0048bc40	159	src/universal/dvar.cpp	SUPPORTED
+0x0048bce0	222	src/universal/dvar.cpp	PINNED
+0x0048bdc0	414	src/universal/dvar.cpp	PINNED
+0x0048bf60	568	src/universal/dvar.cpp	PINNED
+0x0048c1a0	679	src/universal/dvar.cpp	PINNED
+0x0048c470	93	src/universal/dvar.cpp	PINNED
+0x0048c4d0	81	src/universal/dvar.cpp	PINNED
+0x0048c530	103	src/universal/dvar.cpp	PINNED
+0x0048c5a0	129	src/universal/dvar.cpp	PINNED
+0x0048c630	139	src/universal/dvar.cpp	PINNED
+0x0048c6c0	149	src/universal/dvar.cpp	PINNED
+0x0048c760	289	src/universal/dvar.cpp	PINNED
+0x0048c890	446	src/universal/dvar.cpp	SUPPORTED
+0x0048ca50	307	src/universal/dvar.cpp	PINNED
+0x0048cc10	92	src/universal/dvar.cpp	PINNED
+0x0048cc70	92	src/universal/dvar.cpp	PINNED
+0x0048ccd0	60	src/universal/dvar.cpp	SUPPORTED
+0x0048cd10	55	src/universal/dvar.cpp	SUPPORTED
+0x0048cd50	802	src/universal/dvar.cpp	PINNED
+0x0048d0a0	494	src/universal/dvar.cpp	PINNED
+0x0048d2c0	142	src/universal/dvar.cpp	SUPPORTED
+0x0048d350	903	src/universal/dvar.cpp	PINNED
+0x0048d700	30	src/universal/dvar.cpp	SUPPORTED
+0x0048d720	95	src/universal/dvar.cpp	PINNED
+0x0048d780	70	src/universal/dvar.cpp	SUPPORTED
+0x0048d7d0	306	src/universal/dvar.cpp	SUPPORTED
+0x0048d851	214	src/universal/dvar.cpp	PINNED
+0x0048d9b0	129	src/universal/dvar.cpp	SUPPORTED
+0x0048da70	27	src/universal/dvar.cpp	SUPPORTED
+0x0048da90	941	src/universal/dvar.cpp	PINNED
+0x0048dee0	84	src/universal/dvar.cpp	PINNED
+0x0048df40	93	src/universal/dvar.cpp	PINNED
+0x0048dfa0	494	src/universal/dvar.cpp	PINNED
+0x0048e190	194	src/universal/dvar.cpp	PINNED
+0x0048e260	202	src/universal/dvar.cpp	PINNED
+0x0048e330	201	src/universal/dvar.cpp	PINNED
+0x0048e640	194	src/universal/dvar.cpp	PINNED
+0x0048e710	93	src/universal/dvar.cpp	SUPPORTED
+0x0048e770	304	src/universal/dvar.cpp	PINNED
+0x0048e8f0	323	src/universal/dvar.cpp	SUPPORTED
+0x0048ea40	176	src/universal/dvar.cpp	PINNED
+0x0048eaf0	374	src/universal/dvar.cpp	PINNED
+0x0048ec70	115	src/universal/dvar.cpp	PINNED
+0x0048ecf0	194	src/universal/dvar.cpp	PINNED
+0x0048edd0	251	src/universal/dvar.cpp	PINNED
+0x0048eed0	207	src/universal/dvar.cpp	SUPPORTED
+0x0048efc0	335	src/universal/dvar.cpp	PINNED
+0x0048f110	50	src/universal/dvar.cpp	SUPPORTED
+0x0048f150	237	src/universal/dvar.cpp	PINNED
+0x0048f240	44	src/universal/dvar.cpp	SUPPORTED
+0x0048f2b0	805	src/universal/dvar.cpp	PINNED
+0x0048f5e0	451	src/universal/dvar.cpp	SUPPORTED
+0x0048f7c0	311	src/universal/dvar.cpp	PINNED
+0x0048f900	36	src/universal/dvar.cpp	SUPPORTED
+0x0048f930	35	src/universal/dvar.cpp	SUPPORTED
+0x0048f960	35	src/universal/dvar.cpp	SUPPORTED
+0x0048f990	52	src/universal/dvar.cpp	SUPPORTED
+0x0048f9d0	58	src/universal/dvar.cpp	SUPPORTED
+0x0048fa10	64	src/universal/dvar.cpp	SUPPORTED
+0x0048fa50	277	src/universal/dvar.cpp	PINNED
+0x0048fb70	275	src/universal/dvar.cpp	PINNED
+0x0048fc90	478	src/universal/dvar.cpp	SUPPORTED
+0x0048fe70	297	src/universal/dvar.cpp	PINNED
+0x0048ffa0	310	src/universal/dvar.cpp	PINNED
+0x004900e0	308	src/universal/dvar.cpp	PINNED
+0x00490220	327	src/universal/dvar.cpp	PINNED
+0x00490370	340	src/universal/dvar.cpp	PINNED
+0x004904d0	374	src/universal/dvar.cpp	PINNED
+0x00490650	479	src/universal/dvar.cpp	PINNED
+0x00490830	869	src/universal/dvar.cpp	PINNED
+0x00490ba0	24	src/universal/dvar.cpp	SUPPORTED
+0x00490bc0	23	src/universal/dvar.cpp	SUPPORTED
+0x00490be0	24	src/universal/dvar.cpp	SUPPORTED
+0x00490c00	28	src/universal/dvar.cpp	SUPPORTED
+0x00490c20	32	src/universal/dvar.cpp	SUPPORTED
+0x00490c40	36	src/universal/dvar.cpp	SUPPORTED
+0x00490c70	22	src/universal/dvar.cpp	SUPPORTED
+0x00490c90	36	src/universal/dvar.cpp	SUPPORTED
+0x00490cc0	144	src/universal/dvar.cpp	SUPPORTED
+0x00490d50	24	src/universal/dvar.cpp	SUPPORTED
+0x00490d70	113	src/universal/dvar.cpp	SUPPORTED
+0x00490df0	148	src/universal/dvar.cpp	SUPPORTED
+0x00490e90	118	src/universal/dvar.cpp	SUPPORTED
+0x00490f10	129	src/universal/dvar.cpp	SUPPORTED
+0x00490fa0	140	src/universal/dvar.cpp	SUPPORTED
+0x00491030	151	src/universal/dvar.cpp	SUPPORTED
+0x004910d0	99	src/universal/dvar.cpp	SUPPORTED
+0x00491140	194	src/universal/dvar.cpp	SUPPORTED
+0x00491210	99	src/universal/dvar.cpp	SUPPORTED
+0x00491280	23	src/universal/dvar.cpp	SUPPORTED
+0x00491380	91	src/universal/dvar.cpp	PINNED
+0x00491410	54	src/universal/dvar.cpp	SUPPORTED
+0x00491490	345	src/universal/dvar.cpp	PINNED
+0x004915f0	309	src/universal/dvar.cpp	PINNED
+0x00491760	302	src/universal/dvar.cpp	PINNED
+0x00491890	990	src/universal/dvar.cpp	PINNED
+0x00491c80	341		
+0x00491de0	740	src/universal/g_vehicle_path.cpp	PINNED
+0x004920d0	88	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492130	119	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x004921b0	191	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492270	84	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x004922d0	377	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492450	377	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x004925d0	983	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x004929b0	75	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492a00	75	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492a50	152	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492af0	342	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492c50	172	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492d00	534	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00492f80	292	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x004930d0	695	src/universal/g_vehicle_path.cpp	SUPPORTED
+0x00493390	901	src/universal/g_vehicle_path.cpp	PINNED
+0x00493850	334		
+0x004939a0	321		
+0x00493af0	284		
+0x00493c10	986		
+0x00494000	495		
+0x004941f0	107		
+0x00494260	244	src/universal/linearmapping.cpp	PINNED
+0x00494360	157	src/universal/linearmapping.cpp	SUPPORTED
+0x00494400	121	src/universal/linearmapping.cpp	PINNED
+0x00494480	70		
+0x004944d0	89		
+0x00494530	657		
+0x00494830	213		
+0x00494b60	168		
+0x00494c10	164		
+0x00494cc0	82		
+0x00494d20	188	src/universal/q_parse.cpp	PINNED
+0x00494de0	192	src/universal/q_parse.cpp	PINNED
+0x00494ea0	67	src/universal/q_parse.cpp	SUPPORTED
+0x00494f90	197	src/universal/q_parse.cpp	SUPPORTED
+0x00495060	984	src/universal/q_parse.cpp	PINNED
+0x00495440	65		
+0x00495490	75		
+0x004954e0	173		
+0x00495590	132		
+0x00495660	122		
+0x004956f0	265		
+0x00495800	84		
+0x00495860	28		
+0x00495880	71		
+0x004958e0	223		
+0x004959d0	167		
+0x00495a80	184		
+0x00495b40	8		
+0x00495b80	517	src/universal/q_shared.cpp	PINNED
+0x00495d90	117	src/universal/q_shared.cpp	PINNED
+0x00495e10	33	src/universal/q_shared.cpp	SUPPORTED
+0x00495e80	119	src/universal/q_shared.cpp	SUPPORTED
+0x00495f20	22	src/universal/q_shared.cpp	SUPPORTED
+0x00495f70	10	src/universal/q_shared.cpp	SUPPORTED
+0x00495fb0	10	src/universal/q_shared.cpp	SUPPORTED
+0x00495fc0	24	src/universal/q_shared.cpp	SUPPORTED
+0x00495fe0	9	src/universal/q_shared.cpp	SUPPORTED
+0x00495ff0	48	src/universal/q_shared.cpp	SUPPORTED
+0x00496020	8	src/universal/q_shared.cpp	SUPPORTED
+0x00496030	257	src/universal/q_shared.cpp	SUPPORTED
+0x00496140	11	src/universal/q_shared.cpp	SUPPORTED
+0x00496150	38	src/universal/q_shared.cpp	SUPPORTED
+0x00496180	14	src/universal/q_shared.cpp	SUPPORTED
+0x00496190	39	src/universal/q_shared.cpp	SUPPORTED
+0x004961c0	8	src/universal/q_shared.cpp	SUPPORTED
+0x00496270	170	src/universal/q_shared.cpp	SUPPORTED
+0x00496430	245	src/universal/q_shared.cpp	PINNED
+0x00496530	83	src/universal/q_shared.cpp	SUPPORTED
+0x00496590	53	src/universal/q_shared.cpp	SUPPORTED
+0x004965d0	169	src/universal/q_shared.cpp	PINNED
+0x00496680	194	src/universal/q_shared.cpp	PINNED
+0x00496750	253	src/universal/q_shared.cpp	PINNED
+0x004968b0	147	src/universal/q_shared.cpp	PINNED
+0x00496980	28	src/universal/q_shared.cpp	SUPPORTED
+0x004969a0	50	src/universal/q_shared.cpp	SUPPORTED
+0x004969e0	142	src/universal/q_shared.cpp	SUPPORTED
+0x00496aa0	256	src/universal/q_shared.cpp	SUPPORTED
+0x00496bf0	278	src/universal/q_shared.cpp	SUPPORTED
+0x00496d10	278	src/universal/q_shared.cpp	SUPPORTED
+0x00496e60	705	src/universal/q_shared.cpp	PINNED
+0x00497130	708	src/universal/q_shared.cpp	PINNED
+0x00497400	726	src/universal/q_shared.cpp	PINNED
+0x00497700	145	src/universal/q_shared.cpp	PINNED
+0x004977a0	137	src/universal/q_shared.cpp	PINNED
+0x00497830	109	src/universal/q_shared.cpp	PINNED
+0x004978a0	174	src/universal/q_shared.cpp	PINNED
+0x00497950	137	src/universal/q_shared.cpp	PINNED
+0x004979e0	216	src/universal/q_shared.cpp	PINNED
+0x00497ac0	109	src/universal/q_shared.cpp	PINNED
+0x00497b30	158	src/universal/q_shared.cpp	PINNED
+0x00497bd0	118	src/universal/q_shared.cpp	PINNED
+0x00497c50	274	src/universal/q_shared.cpp	PINNED
+0x00497d70	116	src/universal/q_shared.cpp	PINNED
+0x00497e00	397		
+0x00497fd0	89		
+0x00498030	422		
+0x004981e0	78		
+0x00498230	645		
+0x004984f0	222		
+0x00498610	20		
+0x00498630	17		
+0x00498690	15		
+0x004986c0	24		
+0x004986f0	94		
+0x00498750	306		
+0x00498890	27		
+0x004988d0	368		
+0x00498a40	133		
+0x00498ad0	128		
+0x00498bd0	49		
+0x00498c10	46		
+0x00498c60	64		
+0x00498ca0	209		
+0x00498d80	366		
+0x00498ef0	40		
+0x00498f70	174		
+0x00499020	140		
+0x004990b0	234		
+0x004991a0	49		
+0x00499210	88		
+0x00499290	32		
+0x004992b0	482		
+0x004994b0	146		
+0x00499550	222		
+0x00499630	265		
+0x00499790	17		
+0x004997b0	154		
+0x00499870	32		
+0x00499890	152		
+0x00499930	74		
+0x00499980	57		
+0x004999c0	100		
+0x00499a40	18		
+0x00499a70	113		
+0x00499af0	99		
+0x00499b90	150		
+0x00499c30	37		
+0x00499c60	109		
+0x00499cd0	105		
+0x00499d80	129		
+0x00499e10	168		
+0x00499ec0	227		
+0x00499fb0	241		
+0x0049a0b0	39		
+0x0049a0e0	185		
+0x0049a210	166		
+0x0049a2c0	334		
+0x0049a420	201		
+0x0049a4f0	509	src/universal/splines/splines.cpp	PINNED
+0x0049a6f0	439	src/universal/splines/splines.cpp	SUPPORTED
+0x0049a8c0	69	src/universal/splines/splines.cpp	SUPPORTED
+0x0049a910	170	src/universal/splines/splines.cpp	SUPPORTED
+0x0049a9c0	452	src/universal/splines/splines.cpp	PINNED
+0x0049ab90	1001	src/universal/splines/splines.cpp	SUPPORTED
+0x0049af80	645	src/universal/splines/splines.cpp	SUPPORTED
+0x0049b220	1382	src/universal/splines/splines.cpp	PINNED
+0x0049b7a0	1768		
+0x0049be90	60		
+0x0049bed0	988		
+0x0049c2b0	138		
+0x0049c340	536		
+0x0049c580	59		
+0x0049c5c0	148		
+0x0049c660	921		
+0x0049ca00	664		
+0x0049cca0	452		
+0x0049ce70	985		
+0x0049d260	378		
+0x0049d3e0	900		
+0x0049d770	1091		
+0x0049dbc0	861		
+0x0049df20	782		
+0x0049e230	760		
+0x0049e530	474		
+0x0049e710	604		
+0x0049e970	355		
+0x0049eae0	116		
+0x0049eb60	801		
+0x0049ee90	85		
+0x0049ef00	142		
+0x0049ef90	66		
+0x0049efe0	66		
+0x0049f090	37		
+0x0049f0c0	66		
+0x0049f170	37		
+0x0049f1a0	66		
+0x0049f250	37		
+0x0049f290	142		
+0x0049f320	66		
+0x0049f370	175		
+0x0049f420	175		
+0x0049f4d0	175		
+0x0049f580	175		
+0x0049f660	175		
+0x0049f740	181		
+0x0049f800	107		
+0x0049f870	173		
+0x0049f960	147		
+0x0049fa00	147		
+0x0049faa0	148		
+0x0049fb40	12		
+0x0049fb50	12		
+0x0049fb60	94		
+0x0049fbc0	147		
+0x0049fc60	155		
+0x0049fd00	22		
+0x0049fda0	84		
+0x0049fe50	54		
+0x0049fec0	105		
+0x0049ff30	191		
+0x0049fff0	186		
+0x004a00b0	186		
+0x004a0170	68		
+0x004a01c0	63		
+0x004a0200	63		
+0x004a02b0	205	src/universal/splines/util_str.cpp	PINNED
+0x004a0380	250	src/universal/splines/util_str.cpp	PINNED
+0x004a04b0	146	src/universal/splines/util_str.cpp	PINNED
+0x004a0550	2967		
+0x004a10f0	68		
+0x004a1140	38		
+0x004a1170	719		
+0x004a1440	114		
+0x004a14c0	49		
+0x004a1550	342		
+0x004a16d0	114		
+0x004a1750	151		
+0x004a17f0	151		
+0x004a1890	265	src/xanim/dobj.cpp	PINNED
+0x004a19a0	1376	src/xanim/dobj.cpp	PINNED
+0x004a1f00	837	src/xanim/dobj.cpp	PINNED
+0x004a2250	815	src/xanim/dobj.cpp	PINNED
+0x004a2590	165	src/xanim/dobj.cpp	PINNED
+0x004a2700	6700	src/xanim/dobj.cpp	PINNED
+0x004a4130	151	src/xanim/dobj.cpp	PINNED
+0x004a41d0	688	src/xanim/dobj.cpp	PINNED
+0x004a4480	1109	src/xanim/dobj.cpp	PINNED
+0x004a48e0	131	src/xanim/dobj.cpp	PINNED
+0x004a4af0	676	src/xanim/dobj.cpp	PINNED
+0x004a4da0	18	src/xanim/dobj.cpp	SUPPORTED
+0x004a4e10	123	src/xanim/dobj.cpp	PINNED
+0x004a4e90	12	src/xanim/dobj.cpp	SUPPORTED
+0x004a4ea0	15	src/xanim/dobj.cpp	SUPPORTED
+0x004a4eb0	113	src/xanim/dobj.cpp	PINNED
+0x004a4f30	87	src/xanim/dobj.cpp	PINNED
+0x004a4f90	236	src/xanim/dobj.cpp	PINNED
+0x004a5080	90	src/xanim/dobj.cpp	PINNED
+0x004a50e0	92	src/xanim/dobj.cpp	SUPPORTED
+0x004a5140	315	src/xanim/dobj.cpp	PINNED
+0x004a5280	335	src/xanim/dobj.cpp	PINNED
+0x004a53d0	133	src/xanim/dobj.cpp	PINNED
+0x004a5460	100	src/xanim/dobj.cpp	PINNED
+0x004a54d0	212	src/xanim/dobj.cpp	PINNED
+0x004a55b0	544	src/xanim/dobj.cpp	PINNED
+0x004a57e0	211	src/xanim/dobj.cpp	PINNED
+0x004a58c0	335	src/xanim/dobj.cpp	PINNED
+0x004a5a60	117	src/xanim/xmodel.cpp	OUTLIER
+0x004a5ae0	12	src/xanim/dobj.cpp	SUPPORTED
+0x004a5af0	120	src/xanim/dobj.cpp	SUPPORTED
+0x004a5b70	3778	src/xanim/dobj.cpp	PINNED
+0x004a6a40	299	src/xanim/dobj.cpp	PINNED
+0x004a6b70	28	src/xanim/dobj.cpp	SUPPORTED
+0x004a6b90	353	src/xanim/dobj.cpp	SUPPORTED
+0x004a6d00	606	src/xanim/dobj.cpp	PINNED
+0x004a6f70	126	src/xanim/xmodel.cpp	PINNED
+0x004a6ff0	320		
+0x004a7130	80		
+0x004a7180	71		
+0x004a71d0	52		
+0x004a7210	29		
+0x004a7230	58		
+0x004a7270	91		
+0x004a72d0	643	src/script/scr_memorytree.cpp	PINNED
+0x004a7570	96	src/script/scr_memorytree.cpp	SUPPORTED
+0x004a75e0	191	src/script/scr_memorytree.cpp	PINNED
+0x004a76a0	735	src/script/scr_memorytree.cpp	PINNED
+0x004a7980	492	src/script/scr_memorytree.cpp	PINNED
+0x004a7b70	424	src/script/scr_memorytree.cpp	PINNED
+0x004a7d20	150	src/script/scr_memorytree.cpp	SUPPORTED
+0x004a7de0	139	src/script/scr_memorytree.cpp	PINNED
+0x004a7e70	582	src/script/scr_memorytree.cpp	PINNED
+0x004a80c0	562	src/script/scr_memorytree.cpp	PINNED
+0x004a8300	465	src/script/scr_memorytree.cpp	PINNED
+0x004a8500	125	src/script/scr_memorytree.cpp	PINNED
+0x004a85c0	374	src/script/scr_memorytree.cpp	PINNED
+0x004a8740	64		
+0x004a8780	35		
+0x004a87b0	157	src/script/scr_stringlist.cpp	PINNED
+0x004a88c0	40	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a8920	107	src/script/scr_stringlist.cpp	PINNED
+0x004a8a10	60	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a8a50	234	src/script/scr_stringlist.cpp	PINNED
+0x004a8b40	19	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a8b80	887	src/script/scr_stringlist.cpp	PINNED
+0x004a8f20	157	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a8fc0	123	src/script/scr_stringlist.cpp	PINNED
+0x004a9040	24	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a9060	31	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a9080	2101	src/script/scr_stringlist.cpp	PINNED
+0x004a98c0	47	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a98f0	45	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a9920	161	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a99d0	49	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a9a10	47	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a9a40	190	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a9b00	139	src/script/scr_stringlist.cpp	PINNED
+0x004a9ba0	812	src/script/scr_stringlist.cpp	PINNED
+0x004a9ed0	83	src/script/scr_stringlist.cpp	SUPPORTED
+0x004a9f90	37	src/script/scr_stringlist.cpp	SUPPORTED
+0x004aa090	97	src/script/scr_stringlist.cpp	SUPPORTED
+0x004aa100	92	src/script/scr_stringlist.cpp	SUPPORTED
+0x004aa160	113	src/script/scr_stringlist.cpp	SUPPORTED
+0x004aa1e0	267	src/script/scr_stringlist.cpp	PINNED
+0x004aa310	201	src/script/scr_stringlist.cpp	PINNED
+0x004aa3e0	366	src/script/scr_stringlist.cpp	PINNED
+0x004aa560	176	src/script/scr_stringlist.cpp	PINNED
+0x004aa610	90		
+0x004aa670	85	src/xanim/xmodel.cpp	PINNED
+0x004aa6e0	189	src/xanim/xmodel.cpp	PINNED
+0x004aa7a0	190	src/xanim/xmodel.cpp	SUPPORTED
+0x004aa8c0	215	src/xanim/xmodel.cpp	SUPPORTED
+0x004aa9a0	25	src/xanim/xmodel.cpp	SUPPORTED
+0x004aaa40	47	src/xanim/xmodel.cpp	SUPPORTED
+0x004aaa70	133	src/xanim/xmodel.cpp	SUPPORTED
+0x004aab00	138	src/xanim/xmodel.cpp	SUPPORTED
+0x004aaba0	102	src/xanim/xmodel.cpp	PINNED
+0x004aac40	96	src/xanim/xmodel.cpp	PINNED
+0x004aad00	14	src/xanim/xmodel.cpp	SUPPORTED
+0x004aad10	14	src/xanim/xmodel.cpp	SUPPORTED
+0x004aadb0	94	src/xanim/xmodel.cpp	PINNED
+0x004aae30	23		
+0x004aae50	236	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004aaf40	585	src/xanim/xmodel_load_obj.cpp	SUPPORTED
+0x004ab190	1149	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004ab610	251	src/xanim/xmodel_load_obj.cpp	SUPPORTED
+0x004ab710	998	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004abb00	103	src/xanim/xmodel_load_obj.cpp	SUPPORTED
+0x004abb70	2156	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004ac3e0	80	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004ac430	80	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004ac490	443	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004ac650	526	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004ac860	111	src/xanim/xmodel_load_obj.cpp	SUPPORTED
+0x004ac8d0	205	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004ac9a0	70	src/xanim/xmodel_load_obj.cpp	SUPPORTED
+0x004ac9f0	352	src/xanim/xmodel_load_obj.cpp	PINNED
+0x004acb50	14		
+0x004acb60	14		
+0x004acb70	191	src/xanim/xmodel_utils.cpp	PINNED
+0x004acc30	298	src/xanim/xmodel_utils.cpp	PINNED
+0x004acd60	12	src/xanim/xmodel_utils.cpp	SUPPORTED
+0x004acd70	13	src/xanim/xmodel_utils.cpp	SUPPORTED
+0x004acd80	13	src/xanim/xmodel_utils.cpp	SUPPORTED
+0x004acd90	262	src/xanim/xmodel_utils.cpp	PINNED
+0x004acea0	52	src/xanim/xmodel_utils.cpp	SUPPORTED
+0x004acee0	95	src/xanim/xmodel_utils.cpp	SUPPORTED
+0x004acf40	126	src/xanim/xmodel_utils.cpp	PINNED
+0x004acfc0	291		
+0x004ad0f0	158		
+0x004ad1c0	487		
+0x004ad3b0	235		
+0x004ad4a0	104		
+0x004ad790	39		
+0x004ad7c0	100		
+0x004ad830	654		
+0x004adac0	178		
+0x004add30	109		
+0x004adda0	135		
+0x004ade30	350		
+0x004adfa0	279		
+0x004ae280	758		
+0x004ae580	990		
+0x004ae960	108		
+0x004ae9d0	141		
+0x004aea60	2776		
+0x004af590	121		
+0x004af650	53		
+0x004af690	1747		
+0x004afda0	917		
+0x004b0140	63		
+0x004b0180	69		
+0x004b01d0	254		
+0x004b02e0	947		
+0x004b0850	1243		
+0x004b0d40	156		
+0x004b0de0	376		
+0x004b0f90	310		
+0x004b10e0	96		
+0x004b1140	100		
+0x004b11b0	196		
+0x004b1280	560		
+0x004b14c0	138		
+0x004b1550	495		
+0x004b1750	216		
+0x004b1830	1278		
+0x004b1d40	105		
+0x004b1db0	611		
+0x004b2020	155		
+0x004b20c0	493		
+0x004b22b0	467		
+0x004b2530	1052		
+0x004b2950	129		
+0x004b2a00	127		
+0x004b2a80	109		
+0x004b2af0	130		
+0x004b2b80	139		
+0x004b2c10	36		
+0x004b2c40	35		
+0x004b2c70	64		
+0x004b2d00	291		
+0x004b2e30	73		
+0x004b2e80	375		
+0x004b30a0	864		
+0x004b3400	37		
+0x004b3430	64		
+0x004b3470	101		
+0x004b3500	62		
+0x004b3540	293		
+0x004b3670	412		
+0x004b3810	267		
+0x004b3920	423		
+0x004b3b10	138		
+0x004b3ba0	88		
+0x004b3c00	111		
+0x004b3ca0	56		
+0x004b3ce0	17		
+0x004b3d30	79		
+0x004b3ef0	7	nafxcw.lib	LIB
+0x004b3f00	30		
+0x004b3f20	41		
+0x004b4100	56		
+0x004b4140	44		
+0x004b4170	34		
+0x004b42e0	118		
+0x004b4360	257		
+0x004b4500	35		
+0x004b4530	51		
+0x004b45f0	222		
+0x004b46d0	249		
+0x004b4e50	30		
+0x004b4e70	67		
+0x004b4ec0	30		
+0x004b4f00	8		
+0x004b4f30	8		
+0x004b4f40	8		
+0x004b5340	59		
+0x004b5380	51		
+0x004b5550	30		
+0x004b5570	68		
+0x004b55c0	114		
+0x004b5640	79		
+0x004b5690	172		
+0x004b5740	42		
+0x004b5770	37		
+0x004b57c0	44		
+0x004b5950	267		
+0x004b5a60	218		
+0x004b5b40	463		
+0x004b5d10	30		
+0x004b5d30	33		
+0x004b5d70	191		
+0x004b60e0	39		
+0x004b6110	144		
+0x004b61a0	51		
+0x004b61e0	80		
+0x004b6230	144		
+0x004b63f0	64		
+0x004b64b0	60		
+0x004b64f0	135		
+0x004b6580	60		
+0x004b65c0	196		
+0x004b66c0	69		
+0x004b6710	87		
+0x004b6820	30		
+0x004b6870	34		
+0x004b68a0	30		
+0x004b6920	25		
+0x004b6a10	296		
+0x004b6ba0	95		
+0x004b6c00	52		
+0x004b6c40	113		
+0x004b6cc0	304		
+0x004b7330	126		
+0x004b7690	30		
+0x004b76b0	64		
+0x004b7970	146		
+0x004b7a10	56		
+0x004b7a50	39		
+0x004b7a80	94		
+0x004b7ae0	30		
+0x004b7b00	146		
+0x004b7c10	55		
+0x004b7c50	30		
+0x004b7c70	81		
+0x004b9180	135		
+0x004b9210	11	nafxcw.lib	LIB
+0x004b9250	36		
+0x004b9280	30		
+0x004b92a0	222		
+0x004b9440	220		
+0x004b9620	199		
+0x004b9b60	302		
+0x004b9c90	30		
+0x004b9cb0	288		
+0x004ba350	87		
+0x004ba3b0	112		
+0x004ba4b0	93		
+0x004ba790	160		
+0x004ba830	30		
+0x004bab20	19		
+0x004babd0	8		
+0x004babe0	30		
+0x004bac20	41		
+0x004bac50	8		
+0x004bac60	65		
+0x004bacf0	40		
+0x004bad20	58		
+0x004bad60	17		
+0x004bada0	8		
+0x004bae60	13		
+0x004bae90	135		
+0x004baf20	81		
+0x004baf80	298		
+0x004bb0b0	8		
+0x004bb0c0	8		
+0x004bb110	30		
+0x004bb130	97		
+0x004bb1a0	43		
+0x004bb1d0	37		
+0x004bb200	59		
+0x004bb240	511		
+0x004bb440	77		
+0x004bb490	59		
+0x004bb590	150		
+0x004bb630	180		
+0x004bb6f0	54		
+0x004bb770	65		
+0x004bb820	30		
+0x004bb840	65		
+0x004bb890	91		
+0x004bb8f0	390		
+0x004bba80	61		
+0x004bbac0	61		
+0x004bbb40	168		
+0x004bbbf0	213		
+0x004bbcd0	71		
+0x004bbd20	189		
+0x004bbde0	155		
+0x004bbea0	96		
+0x004bbf00	163		
+0x004bbfb0	259		
+0x004bc0c0	22		
+0x004bc0e0	30		
+0x004bc110	30		
+0x004bc130	181		
+0x004bc1f0	397		
+0x004bc380	414		
+0x004bc530	47		
+0x004bc5a0	38		
+0x004bc5d0	30		
+0x004bc5f0	16		
+0x004bc600	156		
+0x004bc6a0	25		
+0x004bc6c0	7	nafxcw.lib	LIB
+0x004bc6d0	25		
+0x004bc6f0	50		
+0x004bc770	30		
+0x004bc790	298		
+0x004bc8c0	44		
+0x004bc8ec	188		
+0x004bc9b0	233		
+0x004bcaa0	41		
+0x004bcb30	26		
+0x004bcb80	60		
+0x004bcbd0	81		
+0x004bcc70	36		
+0x004bce40	51		
+0x004bcf50	43		
+0x004bcf80	49		
+0x004bcfc0	198		
+0x004bd100	25		
+0x004bd120	106		
+0x004bd190	106		
+0x004bd200	97		
+0x004bd3d0	58		
+0x004bd410	127		
+0x004bd520	394		
+0x004bd6d0	61		
+0x004bd7f0	133		
+0x004bd900	57		
+0x004bd940	100		
+0x004bd9b0	82		
+0x004bda10	101		
+0x004bdcc0	7	nafxcw.lib	LIB
+0x004bdd00	29		
+0x004bdd20	197		
+0x004bdff0	131		
+0x004be0b0	73		
+0x004be150	56		
+0x004be190	74		
+0x004be1e0	88		
+0x004be240	51		
+0x004be280	60		
+0x004be2c0	56		
+0x004be300	81		
+0x004be3f0	42		
+0x004be450	51		
+0x004be490	78		
+0x004be650	14		
+0x004be660	32		
+0x004be690	55		
+0x004be7d0	124		
+0x004be850	242		
+0x004be950	34		
+0x004be980	76		
+0x004be9d0	173		
+0x004bea80	137		
+0x004beb10	330		
+0x004bec60	101		
+0x004becd0	169		
+0x004bed80	22		
+0x004beda0	56		
+0x004bee00	42		
+0x004bee80	141		
+0x004bef10	172		
+0x004bf160	89		
+0x004bf1c0	108		
+0x004bf230	79		
+0x004bf280	86		
+0x004bf2e0	85		
+0x004bf340	41		
+0x004bf370	156		
+0x004bf4a0	88		
+0x004bf500	354		
+0x004bf670	39		
+0x004bf760	199		
+0x004bfac0	74		
+0x004bfb10	86		
+0x004bfb70	105		
+0x004bfc00	42		
+0x004bfc30	64		
+0x004bfc70	15		
+0x004bfcd0	54		
+0x004bfd10	42		
+0x004bfd90	43		
+0x004bfdc0	61		
+0x004bfe00	25		
+0x004bfe30	30		
+0x004bfe50	34		
+0x004bfe80	30		
+0x004bfea0	48		
+0x004bfed0	30		
+0x004bfef0	32		
+0x004bff10	30		
+0x004bff30	32		
+0x004bff50	30		
+0x004bff70	25		
+0x004bff90	30		
+0x004bffb0	25		
+0x004bffd0	30		
+0x004bfff0	25		
+0x004c0010	30		
+0x004c0030	440		
+0x004c0250	155		
+0x004c02f0	195		
+0x004c03c0	13		
+0x004c03d0	59		
+0x004c0410	93		
+0x004c04e0	41		
+0x004c05b0	30		
+0x004c0660	12	nafxcw.lib	LIB
+0x004c06a0	30		
+0x004c0700	266		
+0x004c0840	30		
+0x004c0860	10		
+0x004c0870	43		
+0x004c08a0	78		
+0x004c08f0	33		
+0x004c0920	445		
+0x004c0ae0	62		
+0x004c0b40	519		
+0x004c0d50	92		
+0x004c0db0	99		
+0x004c0e20	30		
+0x004c0e40	35		
+0x004c0e70	362		
+0x004c0fe0	28		
+0x004c1010	41		
+0x004c1120	545		
+0x004c13a0	61		
+0x004c1410	148		
+0x004c14b0	58		
+0x004c14f0	246		
+0x004c15f0	161		
+0x004c16a0	167		
+0x004c1750	128		
+0x004c17d0	52		
+0x004c1840	32		
+0x004c1860	30		
+0x004c1880	30		
+0x004c18a0	139		
+0x004c1930	61		
+0x004c1970	24		
+0x004c1990	82		
+0x004c19f0	230		
+0x004c1b00	94		
+0x004c1b60	93		
+0x004c1bc0	297		
+0x004c1cf0	159		
+0x004c1d90	205		
+0x004c1e60	332		
+0x004c1fb0	541		
+0x004c21d0	74		
+0x004c2250	62		
+0x004c22b0	76		
+0x004c2300	157		
+0x004c23c0	157		
+0x004c2460	102		
+0x004c24d0	62		
+0x004c2510	39		
+0x004c2540	62		
+0x004c2580	11	nafxcw.lib	LIB
+0x004c2590	57		
+0x004c25d0	83		
+0x004c2dd0	446		
+0x004c3270	535		
+0x004c3490	108		
+0x004c3550	96		
+0x004c35f0	726		
+0x004c38f0	30		
+0x004c3910	30		
+0x004c3930	30		
+0x004c3950	30		
+0x004c3970	30		
+0x004c3990	30		
+0x004c39b0	30		
+0x004c39d0	30		
+0x004c39f0	30		
+0x004c3a10	30		
+0x004c3a30	30		
+0x004c3a50	30		
+0x004c3a90	169		
+0x004c3b40	127		
+0x004c3bd0	140		
+0x004c3c60	25		
+0x004c3c80	50		
+0x004c3cc0	6	nafxcw.lib	LIB
+0x004c3d70	30		
+0x004c3db0	30		
+0x004c3df0	30		
+0x004c3e30	30		
+0x004c3f80	39		
+0x004c4050	12	nafxcw.lib	LIB
+0x004c4060	62		
+0x004c40e0	23		
+0x004c4100	269		
+0x004c4210	341		
+0x004c4370	81		
+0x004c4400	111		
+0x004c4470	123		
+0x004c44f0	143		
+0x004c4580	30		
+0x004c45a0	381		
+0x004c4720	91		
+0x004c47a0	62		
+0x004c4870	268		
+0x004c4980	297		
+0x004c4ab0	386		
+0x004c4c40	1059		
+0x004c5070	861		
+0x004c5480	98		
+0x004c5590	55		
+0x004c55d0	43		
+0x004c5600	97		
+0x004c5670	128		
+0x004c5790	55		
+0x004c57d0	86		
+0x004c5880	69		
+0x004c58f0	62		
+0x004c59a0	30		
+0x004c59c0	125		
+0x004c5a40	139		
+0x004c5ad0	30		
+0x004c5b00	349		
+0x004c5c60	164		
+0x004c5d20	38		
+0x004c5d50	43		
+0x004c5d80	25		
+0x004c5da0	6		
+0x004c5e20	42		
+0x004c5e50	13	nafxcw.lib	LIB
+0x004c5e60	10		
+0x004c5e70	93		
+0x004c5ed0	48		
+0x004c5f00	142		
+0x004c5f90	130		
+0x004c6020	554		
+0x004c6250	303		
+0x004c64b0	210		
+0x004c6590	401		
+0x004c6730	266		
+0x004c6840	719		
+0x004c6b10	45		
+0x004c6b70	41		
+0x004c6ba0	2028		
+0x004c7390	288		
+0x004c74c0	197		
+0x004c7590	43		
+0x004c75c0	220		
+0x004c7790	217		
+0x004c7ad0	84		
+0x004c7cd0	408		
+0x004c7e70	73		
+0x004c8080	152		
+0x004c8120	45		
+0x004c8160	34		
+0x004c8190	61		
+0x004c81d0	83		
+0x004c8230	81		
+0x004c8340	63		
+0x004c8380	96		
+0x004c83e0	50		
+0x004c8510	138		
+0x004c8690	25		
+0x004c86b0	13	nafxcw.lib	LIB
+0x004c86f0	48		
+0x004c8720	139		
+0x004c87f0	115		
+0x004c8870	149		
+0x004c8920	48		
+0x004c8950	30		
+0x004c8990	22	nafxcw.lib	LIB
+0x004c89b0	97		
+0x004c8a20	51		
+0x004c8a60	57		
+0x004c8aa0	56		
+0x004c8b00	129		
+0x004c8c70	38		
+0x004c8cc0	161		
+0x004c8d70	152		
+0x004c8e10	161		
+0x004c8ec0	172		
+0x004c8fc0	99		
+0x004c9130	157		
+0x004c91d0	217		
+0x004c93a0	66		
+0x004c93f0	138		
+0x004c9510	34		
+0x004c9540	49		
+0x004c96a0	31		
+0x004c9ad0	30		
+0x004c9bd0	124		
+0x004c9c50	100		
+0x004c9cc0	47		
+0x004c9dc0	152		
+0x004c9e60	91		
+0x004c9ec0	47		
+0x004c9f10	30		
+0x004c9f70	31		
+0x004c9fb0	39		
+0x004c9fe0	39		
+0x004ca030	45		
+0x004ca190	30		
+0x004ca1b0	178		
+0x004ca4d0	44		
+0x004ca500	111		
+0x004ca570	30		
+0x004ca590	17		
+0x004ca5b0	4	nafxcw.lib	LIB
+0x004ca660	265		
+0x004ca770	329		
+0x004cae10	74		
+0x004cb0a0	46		
+0x004cb150	255		
+0x004cb250	46		
+0x004cb320	237		
+0x004cb710	30		
+0x004cb7b0	30		
+0x004cba50	60		
+0x004cbaa0	128		
+0x004cbb20	87		
+0x004cbba0	73		
+0x004cbbf0	74		
+0x004cbc40	940		
+0x004cc030	247		
+0x004cc130	239		
+0x004cc220	272		
+0x004cc350	161		
+0x004cc400	20		
+0x004cc440	21		
+0x004cc560	53		
+0x004cc5a0	101		
+0x004cc610	120		
+0x004cc690	21		
+0x004cc6b0	21		
+0x004cc6d0	21		
+0x004cc6f0	21		
+0x004cc710	21		
+0x004cc730	72		
+0x004cc780	247		
+0x004cc8b0	62		
+0x004cc8f0	26		
+0x004cc910	52		
+0x004cc950	64		
+0x004cc990	73		
+0x004cc9e0	13		
+0x004cc9f0	123		
+0x004cca70	152		
+0x004ccbe0	218		
+0x004cccc0	236		
+0x004ccf40	124		
+0x004ccfc0	6	nafxcw.lib	LIB
+0x004ccfd0	6	nafxcw.lib	LIB
+0x004ccfe0	6	nafxcw.lib	LIB
+0x004ccff0	6	nafxcw.lib	LIB
+0x004cd140	349		
+0x004cd2c0	307		
+0x004cd6f0	219		
+0x004cd7d0	67		
+0x004cdb20	96		
+0x004cdb80	297		
+0x004cde20	360		
+0x004ce0a0	121		
+0x004ce120	42		
+0x004ce150	113		
+0x004ce3b0	132		
+0x004ce5e0	50		
+0x004ce620	116		
+0x004ce930	145		
+0x004cec80	100		
+0x004cecf0	25		
+0x004ced10	39		
+0x004ceea0	52		
+0x004ceee0	55		
+0x004cef20	562		
+0x004cf170	673		
+0x004cf470	7	nafxcw.lib	LIB
+0x004cf480	16		
+0x004cf490	88		
+0x004cf4f0	68		
+0x004cf5a0	138		
+0x004cf6a0	88		
+0x004cf8b0	84		
+0x004cf970	31		
+0x004cf990	62		
+0x004cfab0	85		
+0x004cfb10	847		
+0x004cfed0	468		
+0x004d0230	164		
+0x004d02e0	301		
+0x004d0410	211		
+0x004d04f0	30		
+0x004d0530	157		
+0x004d05d0	265		
+0x004d0b10	292		
+0x004d0c8c	28	nafxcw.lib	LIB
+0x004d0ca8	23	nafxcw.lib	LIB
+0x004d0d2d	13	nafxcw.lib	LIB
+0x004d0d47	11	nafxcw.lib	LIB
+0x004d0d52	25	nafxcw.lib	LIB
+0x004d0d6b	31	nafxcw.lib	LIB
+0x004d0dad	23	nafxcw.lib	LIB
+0x004d0dc4	25	nafxcw.lib	LIB
+0x004d0df6	25	nafxcw.lib	LIB
+0x004d0e34	28	nafxcw.lib	LIB
+0x004d0e68	28	nafxcw.lib	LIB
+0x004d0e9b	28	nafxcw.lib	LIB
+0x004d0ee7	28	nafxcw.lib	LIB
+0x004d0f03	19	nafxcw.lib	LIB
+0x004d0f16	25	nafxcw.lib	LIB
+0x004d0f2f	25	nafxcw.lib	LIB
+0x004d0f48	28	nafxcw.lib	LIB
+0x004d0f64	28	nafxcw.lib	LIB
+0x004d0f80	28	nafxcw.lib	LIB
+0x004d0f9c	28	nafxcw.lib	LIB
+0x004d0fd5	35	nafxcw.lib	LIB
+0x004d0ff8	28	nafxcw.lib	LIB
+0x004d1047	4	nafxcw.lib	LIB
+0x004d104b	25	nafxcw.lib	LIB
+0x004d1064	77	nafxcw.lib	LIB
+0x004d10b1	250	nafxcw.lib	LIB
+0x004d11f3	86	nafxcw.lib	LIB
+0x004d1249	76	nafxcw.lib	LIB
+0x004d1295	107	nafxcw.lib	LIB
+0x004d1300	149	nafxcw.lib	LIB
+0x004d1395	235	nafxcw.lib	LIB
+0x004d1480	109	nafxcw.lib	LIB
+0x004d14ee	1435		
+0x004d1ad5	96	nafxcw.lib	LIB
+0x004d1c35	21	nafxcw.lib	LIB
+0x004d1c4a	206	nafxcw.lib	LIB
+0x004d1d18	23	nafxcw.lib	LIB
+0x004d1d2f	30	nafxcw.lib	LIB
+0x004d1d4d	24	nafxcw.lib	LIB
+0x004d1d8d	28	nafxcw.lib	LIB
+0x004d1da9	55	nafxcw.lib	LIB
+0x004d1de0	56	nafxcw.lib	LIB
+0x004d1e3d	26	nafxcw.lib	LIB
+0x004d1e57	32	nafxcw.lib	LIB
+0x004d1e77	9	nafxcw.lib	LIB
+0x004d1e8f	29	nafxcw.lib	LIB
+0x004d1eb7	28	nafxcw.lib	LIB
+0x004d1ed3	9	nafxcw.lib	LIB
+0x004d1edc	33	nafxcw.lib	LIB
+0x004d1efd	43	nafxcw.lib	LIB
+0x004d1f28	13	nafxcw.lib	LIB
+0x004d1f35	35	nafxcw.lib	LIB
+0x004d1f67	74	nafxcw.lib	LIB
+0x004d1fb1	4	nafxcw.lib	LIB
+0x004d1fb5	26	nafxcw.lib	LIB
+0x004d201e	25	nafxcw.lib	LIB
+0x004d2044	11	nafxcw.lib	LIB
+0x004d206c	33	nafxcw.lib	LIB
+0x004d20a4	48	nafxcw.lib	LIB
+0x004d20ec	28	nafxcw.lib	LIB
+0x004d2108	41	nafxcw.lib	LIB
+0x004d2131	45	nafxcw.lib	LIB
+0x004d218b	32	nafxcw.lib	LIB
+0x004d21ac	22	nafxcw.lib	LIB
+0x004d21c2	158	nafxcw.lib	LIB
+0x004d2260	160	nafxcw.lib	LIB
+0x004d2300	28	nafxcw.lib	LIB
+0x004d231c	7	nafxcw.lib	LIB
+0x004d2324	7	nafxcw.lib	LIB
+0x004d232b	7	nafxcw.lib	LIB
+0x004d2332	7	nafxcw.lib	LIB
+0x004d2339	24	nafxcw.lib	LIB
+0x004d2351	28	nafxcw.lib	LIB
+0x004d236d	34	nafxcw.lib	LIB
+0x004d238f	28	nafxcw.lib	LIB
+0x004d23ab	34	nafxcw.lib	LIB
+0x004d23cd	28	nafxcw.lib	LIB
+0x004d23e9	34	nafxcw.lib	LIB
+0x004d2458	34	nafxcw.lib	LIB
+0x004d247a	7	nafxcw.lib	LIB
+0x004d2481	34	nafxcw.lib	LIB
+0x004d24a3	7	nafxcw.lib	LIB
+0x004d24aa	36	nafxcw.lib	LIB
+0x004d24ce	36	nafxcw.lib	LIB
+0x004d24f2	28	nafxcw.lib	LIB
+0x004d2577	37	nafxcw.lib	LIB
+0x004d259c	56	nafxcw.lib	LIB
+0x004d25f0	31	nafxcw.lib	LIB
+0x004d260f	48	nafxcw.lib	LIB
+0x004d265b	28	nafxcw.lib	LIB
+0x004d2677	28	nafxcw.lib	LIB
+0x004d26a0	11	nafxcw.lib	LIB
+0x004d26ab	33	nafxcw.lib	LIB
+0x004d26cc	40	nafxcw.lib	LIB
+0x004d26f4	28	nafxcw.lib	LIB
+0x004d2710	11	nafxcw.lib	LIB
+0x004d271b	28	nafxcw.lib	LIB
+0x004d2747	17	nafxcw.lib	LIB
+0x004d2758	28	nafxcw.lib	LIB
+0x004d2774	83	nafxcw.lib	LIB
+0x004d27dc	27	nafxcw.lib	LIB
+0x004d2843	21	nafxcw.lib	LIB
+0x004d287c	30	nafxcw.lib	LIB
+0x004d2936	36		
+0x004d29ae	23	nafxcw.lib	LIB
+0x004d29e9	36	nafxcw.lib	LIB
+0x004d2aa2	50	nafxcw.lib	LIB
+0x004d2ad4	30	nafxcw.lib	LIB
+0x004d2b0e	19	nafxcw.lib	LIB
+0x004d2b3a	39	nafxcw.lib	LIB
+0x004d2b75	25	nafxcw.lib	LIB
+0x004d2bc0	24	nafxcw.lib	LIB
+0x004d2bf8	36	nafxcw.lib	LIB
+0x004d2c3f	24	nafxcw.lib	LIB
+0x004d2cc3	27		
+0x004d2d13	30	nafxcw.lib	LIB
+0x004d2d6f	27	nafxcw.lib	LIB
+0x004d2d8a	44	nafxcw.lib	LIB
+0x004d2dd0	27	nafxcw.lib	LIB
+0x004d2df5	25	nafxcw.lib	LIB
+0x004d2e15	23	nafxcw.lib	LIB
+0x004d2e2c	23	nafxcw.lib	LIB
+0x004d2e43	22	nafxcw.lib	LIB
+0x004d2e6f	22	nafxcw.lib	LIB
+0x004d2e85	22	nafxcw.lib	LIB
+0x004d2e9b	60	nafxcw.lib	LIB
+0x004d2ed7	59	nafxcw.lib	LIB
+0x004d2f12	67	nafxcw.lib	LIB
+0x004d2f55	66	nafxcw.lib	LIB
+0x004d2f9c	26	nafxcw.lib	LIB
+0x004d2fdb	64	nafxcw.lib	LIB
+0x004d30ab	58	nafxcw.lib	LIB
+0x004d3113	96	nafxcw.lib	LIB
+0x004d3173	88	nafxcw.lib	LIB
+0x004d31cb	94	nafxcw.lib	LIB
+0x004d3231	50	nafxcw.lib	LIB
+0x004d3263	50	nafxcw.lib	LIB
+0x004d3295	50	nafxcw.lib	LIB
+0x004d32c7	57	nafxcw.lib	LIB
+0x004d3300	36	nafxcw.lib	LIB
+0x004d3324	56	nafxcw.lib	LIB
+0x004d335c	27	nafxcw.lib	LIB
+0x004d3377	28	nafxcw.lib	LIB
+0x004d3393	248	nafxcw.lib	LIB
+0x004d348b	145	nafxcw.lib	LIB
+0x004d351c	159	nafxcw.lib	LIB
+0x004d35bb	100	nafxcw.lib	LIB
+0x004d361f	116	nafxcw.lib	LIB
+0x004d36b8	25	nafxcw.lib	LIB
+0x004d36d1	26	nafxcw.lib	LIB
+0x004d36eb	1		
+0x004d36ec	19	nafxcw.lib	LIB
+0x004d36ff	26	nafxcw.lib	LIB
+0x004d372b	31		
+0x004d374b	56	nafxcw.lib	LIB
+0x004d3783	66	nafxcw.lib	LIB
+0x004d37c5	63	nafxcw.lib	LIB
+0x004d3804	72	nafxcw.lib	LIB
+0x004d385f	20	nafxcw.lib	LIB
+0x004d3873	38		
+0x004d38d1	124	nafxcw.lib	LIB
+0x004d3ab7	35	nafxcw.lib	LIB
+0x004d3af4	29	nafxcw.lib	LIB
+0x004d3b11	39	nafxcw.lib	LIB
+0x004d3b38	102	nafxcw.lib	LIB
+0x004d3b9e	96	nafxcw.lib	LIB
+0x004d3c49	32	nafxcw.lib	LIB
+0x004d3c6e	260	nafxcw.lib	LIB
+0x004d3d72	34	nafxcw.lib	LIB
+0x004d3da1	26	nafxcw.lib	LIB
+0x004d3dc3	299	nafxcw.lib	LIB
+0x004d3fc8	34	nafxcw.lib	LIB
+0x004d3fea	35	nafxcw.lib	LIB
+0x004d4057	28	nafxcw.lib	LIB
+0x004d4073	84	nafxcw.lib	LIB
+0x004d40e3	29	nafxcw.lib	LIB
+0x004d4100	536		
+0x004d42fd	84		
+0x004d436c	170		
+0x004d4417	59	nafxcw.lib	LIB
+0x004d4479	101	nafxcw.lib	LIB
+0x004d44de	43	nafxcw.lib	LIB
+0x004d4509	39	nafxcw.lib	LIB
+0x004d46a6	26	nafxcw.lib	LIB
+0x004d46c0	67	nafxcw.lib	LIB
+0x004d4703	19	nafxcw.lib	LIB
+0x004d4716	38	nafxcw.lib	LIB
+0x004d473c	25	nafxcw.lib	LIB
+0x004d47cd	39	nafxcw.lib	LIB
+0x004d47f4	38	nafxcw.lib	LIB
+0x004d481a	38	nafxcw.lib	LIB
+0x004d4840	38	nafxcw.lib	LIB
+0x004d4866	38	nafxcw.lib	LIB
+0x004d4922	22	nafxcw.lib	LIB
+0x004d4938	16	nafxcw.lib	LIB
+0x004d4985	26	nafxcw.lib	LIB
+0x004d499f	26	nafxcw.lib	LIB
+0x004d4a07	22	nafxcw.lib	LIB
+0x004d4a6d	26	nafxcw.lib	LIB
+0x004d4aa9	28	nafxcw.lib	LIB
+0x004d4acb	16	nafxcw.lib	LIB
+0x004d4aea	37	nafxcw.lib	LIB
+0x004d4b12	97	nafxcw.lib	LIB
+0x004d4b73	13	nafxcw.lib	LIB
+0x004d4b80	8	nafxcw.lib	LIB
+0x004d4bd6	32	nafxcw.lib	LIB
+0x004d4bf6	32	nafxcw.lib	LIB
+0x004d4c16	32	nafxcw.lib	LIB
+0x004d4c36	119	nafxcw.lib	LIB
+0x004d4cad	124	nafxcw.lib	LIB
+0x004d4d29	36	nafxcw.lib	LIB
+0x004d4d4d	153	nafxcw.lib	LIB
+0x004d4de6	108		
+0x004d4e53	111	nafxcw.lib	LIB
+0x004d4ec2	34	nafxcw.lib	LIB
+0x004d4ee4	57	nafxcw.lib	LIB
+0x004d4f1d	63	nafxcw.lib	LIB
+0x004d4f5c	42	nafxcw.lib	LIB
+0x004d4f86	34	nafxcw.lib	LIB
+0x004d4fa8	34	nafxcw.lib	LIB
+0x004d4fca	36	nafxcw.lib	LIB
+0x004d4fee	52	nafxcw.lib	LIB
+0x004d50c0	122		
+0x004d5118	31		
+0x004d515e	70	nafxcw.lib	LIB
+0x004d51a4	70	nafxcw.lib	LIB
+0x004d51ea	50	nafxcw.lib	LIB
+0x004d521c	50	nafxcw.lib	LIB
+0x004d524e	50	nafxcw.lib	LIB
+0x004d5280	50	nafxcw.lib	LIB
+0x004d52b2	47	nafxcw.lib	LIB
+0x004d52e1	153	nafxcw.lib	LIB
+0x004d537a	42	nafxcw.lib	LIB
+0x004d53a4	53	nafxcw.lib	LIB
+0x004d53d9	105		
+0x004d5443	66	nafxcw.lib	LIB
+0x004d5485	59	nafxcw.lib	LIB
+0x004d54c0	59	nafxcw.lib	LIB
+0x004d54fb	59	nafxcw.lib	LIB
+0x004d5536	72	nafxcw.lib	LIB
+0x004d557e	66	nafxcw.lib	LIB
+0x004d55c0	66	nafxcw.lib	LIB
+0x004d5602	66	nafxcw.lib	LIB
+0x004d5667	97	nafxcw.lib	LIB
+0x004d56c8	96	nafxcw.lib	LIB
+0x004d5728	133	nafxcw.lib	LIB
+0x004d57ad	133	nafxcw.lib	LIB
+0x004d5832	70	nafxcw.lib	LIB
+0x004d5878	286	nafxcw.lib	LIB
+0x004d5996	124	nafxcw.lib	LIB
+0x004d5a12	184	nafxcw.lib	LIB
+0x004d5aca	40	nafxcw.lib	LIB
+0x004d5ba3	103	nafxcw.lib	LIB
+0x004d5c0a	121		
+0x004d5c83	18		
+0x004d5caa	202	nafxcw.lib	LIB
+0x004d5d74	436		
+0x004d5f28	18		
+0x004d6197	34		
+0x004d627c	312	nafxcw.lib	LIB
+0x004d63b4	360	nafxcw.lib	LIB
+0x004d651c	75	nafxcw.lib	LIB
+0x004d6567	216	nafxcw.lib	LIB
+0x004d663f	260	nafxcw.lib	LIB
+0x004d6743	228	nafxcw.lib	LIB
+0x004d6827	293	nafxcw.lib	LIB
+0x004d694c	228	nafxcw.lib	LIB
+0x004d6a30	319	nafxcw.lib	LIB
+0x004d6b6f	77	nafxcw.lib	LIB
+0x004d6bbc	28	nafxcw.lib	LIB
+0x004d6bd8	17	nafxcw.lib	LIB
+0x004d6be9	75	nafxcw.lib	LIB
+0x004d6c34	77	nafxcw.lib	LIB
+0x004d6cca	23	nafxcw.lib	LIB
+0x004d6ce1	19	nafxcw.lib	LIB
+0x004d6d06	19	nafxcw.lib	LIB
+0x004d6d19	19	nafxcw.lib	LIB
+0x004d6ddb	50	nafxcw.lib	LIB
+0x004d6e0d	30	nafxcw.lib	LIB
+0x004d6e47	142	nafxcw.lib	LIB
+0x004d6faf	27	nafxcw.lib	LIB
+0x004d701d	23	nafxcw.lib	LIB
+0x004d7047	27		
+0x004d708e	47	nafxcw.lib	LIB
+0x004d70d5	22	nafxcw.lib	LIB
+0x004d70fe	19	nafxcw.lib	LIB
+0x004d7141	19	nafxcw.lib	LIB
+0x004d7154	23	nafxcw.lib	LIB
+0x004d719b	23	nafxcw.lib	LIB
+0x004d7211	19	nafxcw.lib	LIB
+0x004d7260	29	nafxcw.lib	LIB
+0x004d727d	29	nafxcw.lib	LIB
+0x004d729a	42	nafxcw.lib	LIB
+0x004d72c4	21	nafxcw.lib	LIB
+0x004d72ec	5	nafxcw.lib	LIB
+0x004d72f1	65	nafxcw.lib	LIB
+0x004d7352	21	nafxcw.lib	LIB
+0x004d73d4	71		
+0x004d741b	22		
+0x004d74a9	27		
+0x004d74c5	31		
+0x004d755d	27		
+0x004d7579	31		
+0x004d7599	88	libcmt.lib	LIB
+0x004d75f1	49	libcmt.lib	LIB
+0x004d7630	289		
+0x004d7751	56	libcmt.lib	LIB
+0x004d7790	72		
+0x004d7a20	72		
+0x004d7b70	61		
+0x004d7bad	9		
+0x004d7bb6	28	nafxcw.lib	LIB
+0x004d7c40	672		
+0x004d7f7d	177	libcmt.lib	LIB
+0x004d802e	52	libcmt.lib	LIB
+0x004d8070	10	libcmt.lib	LIB
+0x004d8090	57	libcmt.lib	LIB
+0x004d80c9	128	libcmt.lib	LIB
+0x004d8149	40	libcmt.lib	LIB
+0x004d8171	50		
+0x004d81a3	6	libcmt.lib	LIB
+0x004d81a9	18	libcmt.lib	LIB
+0x004d81bb	87	libcmt.lib	LIB
+0x004d8212	48	libcmt.lib	LIB
+0x004d8242	85		
+0x004d8297	10		
+0x004d82a1	111		
+0x004d8313	9		
+0x004d831c	44	libcmt.lib	LIB
+0x004d8348	18	libcmt.lib	LIB
+0x004d835a	80	libcmt.lib	LIB
+0x004d83aa	9	libcmt.lib	LIB
+0x004d83b3	9	libcmt.lib	LIB
+0x004d83bc	115	libcmt.lib	LIB
+0x004d8430	292	libcmt.lib	LIB
+0x004d8554	86		
+0x004d85af	11		
+0x004d85ba	82		
+0x004d860c	10		
+0x004d8616	19	libcmt.lib	LIB
+0x004d8629	233	libcmt.lib	LIB
+0x004d8712	66		
+0x004d8754	10		
+0x004d875e	263	libcmt.lib	LIB
+0x004d8865	66		
+0x004d88a7	10		
+0x004d88b1	354	libcmt.lib	LIB
+0x004d8a13	55		
+0x004d8a4a	10		
+0x004d8a54	55	libcmt.lib	LIB
+0x004d8a8b	235	libcmt.lib	LIB
+0x004d8b76	61		
+0x004d8bb3	9		
+0x004d8c03	57	libcmt.lib	LIB
+0x004d8c3c	143	libcmt.lib	LIB
+0x004d8ccb	63		
+0x004d8d0a	10		
+0x004d8d14	76	libcmt.lib	LIB
+0x004d8d60	70		
+0x004d8da9	8		
+0x004d8dc0	20	libcmt.lib	LIB
+0x004d8dd4	9		
+0x004d8ddd	174		
+0x004d8e8b	181	libcmt.lib	LIB
+0x004d8f40	74		
+0x004d8f8a	24		
+0x004d8fb4	47		
+0x004d9012	72		
+0x004d905a	24		
+0x004d9090	195		
+0x004d914e	63	libcmt.lib	LIB
+0x004d9201	58	libcmt.lib	LIB
+0x004d923b	63	libcmt.lib	LIB
+0x004d927a	58	libcmt.lib	LIB
+0x004d92ee	63	libcmt.lib	LIB
+0x004d932d	63	libcmt.lib	LIB
+0x004d93ab	58	libcmt.lib	LIB
+0x004d94ca	22	libcmt.lib	LIB
+0x004d94e0	85	libcmt.lib	LIB
+0x004d9535	31	libcmt.lib	LIB
+0x004d95b1	249	libcmt.lib	LIB
+0x004d96aa	309	libcmt.lib	LIB
+0x004d97df	179		
+0x004d98c0	20	libcmt.lib	LIB
+0x004d98d4	9		
+0x004d98dd	157		
+0x004d997a	28	libcmt.lib	LIB
+0x004d9996	132	libcmt.lib	LIB
+0x004d9a1a	331	libcmt.lib	LIB
+0x004d9b65	178	libcmt.lib	LIB
+0x004d9c17	107	libcmt.lib	LIB
+0x004d9c82	133	libcmt.lib	LIB
+0x004d9d07	104		
+0x004d9d5a	9		
+0x004d9d78	227	libcmt.lib	LIB
+0x004d9e85	28	libcmt.lib	LIB
+0x004d9ea1	133	libcmt.lib	LIB
+0x004d9f33	34	libcmt.lib	LIB
+0x004d9f55	106		
+0x004d9fc2	9		
+0x004d9fcb	84		
+0x004da01f	10		
+0x004da030	20	libcmt.lib	LIB
+0x004da044	9		
+0x004da04d	145		
+0x004da0e0	20	libcmt.lib	LIB
+0x004da0f4	9		
+0x004da0fd	145		
+0x004da18e	136	libcmt.lib	LIB
+0x004da216	5		
+0x004da2f0	106		
+0x004da360	643	libcmt.lib	LIB
+0x004da5e3	123		
+0x004da661	8		
+0x004da671	201	libcmt.lib	LIB
+0x004da73a	34	libcmt.lib	LIB
+0x004da75c	148	libcmt.lib	LIB
+0x004da7f0	285		
+0x004da910	134	libcmt.lib	LIB
+0x004da996	32	libcmt.lib	LIB
+0x004da9b6	100	libcmt.lib	LIB
+0x004daa1a	221	libcmt.lib	LIB
+0x004daaf7	216	libcmt.lib	LIB
+0x004dabcf	77		
+0x004dac1f	8		
+0x004dac27	77		
+0x004dac77	8		
+0x004dac7f	83		
+0x004dacd2	10		
+0x004dad00	86	libcmt.lib	LIB
+0x004dad56	42	libcmt.lib	LIB
+0x004dad80	5		
+0x004dad85	64		
+0x004dadc5	10		
+0x004dadcf	189	libcmt.lib	LIB
+0x004dae8c	109	libcmt.lib	LIB
+0x004daef9	839	libcmt.lib	LIB
+0x004db240	44	libcmt.lib	LIB
+0x004db26c	67	libcmt.lib	LIB
+0x004db2af	55	libcmt.lib	LIB
+0x004db2e6	47		
+0x004db316	9	libcmt.lib	LIB
+0x004db31f	9	libcmt.lib	LIB
+0x004db328	24	libcmt.lib	LIB
+0x004db35e	106	libcmt.lib	LIB
+0x004db3c8	181		
+0x004db477	14		
+0x004db48b	17	libcmt.lib	LIB
+0x004db49c	17	libcmt.lib	LIB
+0x004db4ad	15	libcmt.lib	LIB
+0x004db4cb	273		
+0x004db610	45	libcmt.lib	LIB
+0x004db63d	46	libcmt.lib	LIB
+0x004db66b	93	libcmt.lib	LIB
+0x004db6c8	46	libcmt.lib	LIB
+0x004db6f6	182		
+0x004db796	17		
+0x004db7c2	9	libcmt.lib	LIB
+0x004db7cb	70		
+0x004db811	10		
+0x004db82c	200	libcmt.lib	LIB
+0x004db8f4	34	libcmt.lib	LIB
+0x004db920	20	libcmt.lib	LIB
+0x004db934	9		
+0x004db93d	149		
+0x004db9e0	20	libcmt.lib	LIB
+0x004db9f4	9		
+0x004db9fd	187		
+0x004dbaab	384	libcmt.lib	LIB
+0x004dbc2b	87	libcmt.lib	LIB
+0x004dbc82	42	libcmt.lib	LIB
+0x004dbcac	37	libcmt.lib	LIB
+0x004dbcd1	36	libcmt.lib	LIB
+0x004dbd4b	426		
+0x004dbfe3	47	libcmt.lib	LIB
+0x004dc012	35	libcmt.lib	LIB
+0x004dc035	47	libcmt.lib	LIB
+0x004dc064	35	libcmt.lib	LIB
+0x004dc087	129	libcmt.lib	LIB
+0x004dc108	54		
+0x004dc13e	9		
+0x004dc1b8	8		
+0x004dc1d6	46	libcmt.lib	LIB
+0x004dc216	408		
+0x004dc3ae	9		
+0x004dc3b7	356		
+0x004dc4f2	13		
+0x004dc530	124	libcmt.lib	LIB
+0x004dc5ac	127	libcmt.lib	LIB
+0x004dc62b	65	libcmt.lib	LIB
+0x004dc66c	148		
+0x004dc703	9		
+0x004dc70c	34	libcmt.lib	LIB
+0x004dc72e	356		
+0x004dc807	9		
+0x004dc8a1	9		
+0x004dc971	470		
+0x004dcaeb	8		
+0x004dcafc	13		
+0x004dcb70	61	libcmt.lib	LIB
+0x004dcbad	22	libcmt.lib	LIB
+0x004dcbc3	103		
+0x004dcc2a	10		
+0x004dcc34	44	libcmt.lib	LIB
+0x004dcc60	195	libcmt.lib	LIB
+0x004dcd23	139	libcmt.lib	LIB
+0x004dcdae	765	libcmt.lib	LIB
+0x004dd0ab	42	libcmt.lib	LIB
+0x004dd0e0	33	libcmt.lib	LIB
+0x004dd126	17	libcmt.lib	LIB
+0x004dd137	5		
+0x004dd140	173	libcmt.lib	LIB
+0x004dd1ed	42	libcmt.lib	LIB
+0x004dd217	5		
+0x004dd21c	326	libcmt.lib	LIB
+0x004dd362	55	libcmt.lib	LIB
+0x004dd399	55	libcmt.lib	LIB
+0x004dd3d0	65	libcmt.lib	LIB
+0x004dd411	65	libcmt.lib	LIB
+0x004dd452	744	libcmt.lib	LIB
+0x004dd73a	69		
+0x004dd77f	16		
+0x004dd7e4	46	libcmt.lib	LIB
+0x004dd812	24	libcmt.lib	LIB
+0x004dd82a	412		
+0x004dd992	9		
+0x004dd9d7	448	libcmt.lib	LIB
+0x004ddb97	13	libcmt.lib	LIB
+0x004ddbb1	263	libcmt.lib	LIB
+0x004ddcb8	41		
+0x004ddce9	14	libcmt.lib	LIB
+0x004ddd00	96	libcmt.lib	LIB
+0x004ddd60	43		
+0x004ddd90	7	libcmt.lib	LIB
+0x004ddd97	7	libcmt.lib	LIB
+0x004ddd9e	7	libcmt.lib	LIB
+0x004ddda5	82	libcmt.lib	LIB
+0x004dddf7	54	libcmt.lib	LIB
+0x004dde82	199	libcmt.lib	LIB
+0x004ddf49	175		
+0x004ddffb	122	libcmt.lib	LIB
+0x004de075	40	libcmt.lib	LIB
+0x004de09d	33	libcmt.lib	LIB
+0x004de0be	76	libcmt.lib	LIB
+0x004de10a	89	libcmt.lib	LIB
+0x004de164	32	libcmt.lib	LIB
+0x004de1a6	104		
+0x004de20e	35	libcmt.lib	LIB
+0x004de231	9	libcmt.lib	LIB
+0x004de23a	24		
+0x004de254	31	libcmt.lib	LIB
+0x004de280	672		
+0x004de5c0	139	libcmt.lib	LIB
+0x004de64b	58	libcmt.lib	LIB
+0x004de690	184	libcmt.lib	LIB
+0x004de748	111	libcmt.lib	LIB
+0x004de7b7	49	libcmt.lib	LIB
+0x004de7e8	11	libcmt.lib	LIB
+0x004de7f3	123	libcmt.lib	LIB
+0x004de86e	1		
+0x004de86f	56	libcmt.lib	LIB
+0x004de8b7	30	libcmt.lib	LIB
+0x004de8d5	175		
+0x004de97f	9		
+0x004de990	48		
+0x004dea56	139	libcmt.lib	LIB
+0x004deae1	43	libcmt.lib	LIB
+0x004deb0c	79	libcmt.lib	LIB
+0x004deb5b	592	libcmt.lib	LIB
+0x004dedab	13	libcmt.lib	LIB
+0x004dedc5	170	libcmt.lib	LIB
+0x004dee6f	328	libcmt.lib	LIB
+0x004defb8	59	libcmt.lib	LIB
+0x004deff3	17	libcmt.lib	LIB
+0x004df0f2	27	libcmt.lib	LIB
+0x004df10d	158		
+0x004df18b	9		
+0x004df1fd	47	libcmt.lib	LIB
+0x004df22c	41	libcmt.lib	LIB
+0x004df255	396	libcmt.lib	LIB
+0x004df3e1	99		
+0x004df447	9		
+0x004df450	400	libcmt.lib	LIB
+0x004df5f0	327		
+0x004df737	9		
+0x004df740	30	libcmt.lib	LIB
+0x004df760	117	libcmt.lib	LIB
+0x004df7e0	52	libcmt.lib	LIB
+0x004df820	170	libcmt.lib	LIB
+0x004df8ca	526	libcmt.lib	LIB
+0x004dfad8	119	libcmt.lib	LIB
+0x004dfb4f	39	libcmt.lib	LIB
+0x004dfb76	119	libcmt.lib	LIB
+0x004dfbed	39	libcmt.lib	LIB
+0x004dfc14	124	libcmt.lib	LIB
+0x004dfc90	39	libcmt.lib	LIB
+0x004dfcb7	281	libcmt.lib	LIB
+0x004dfdd0	51	libcmt.lib	LIB
+0x004dfe03	36	libcmt.lib	LIB
+0x004dfe27	55	libcmt.lib	LIB
+0x004dfe7d	2010		
+0x004e0677	654	libcmt.lib	LIB
+0x004e0905	46		
+0x004e093a	206	libcmt.lib	LIB
+0x004e0a1c	211	libcmt.lib	LIB
+0x004e0aef	149	libcmt.lib	LIB
+0x004e0b90	25		
+0x004e0ba9	2861		
+0x004e18f0	103	libcmt.lib	LIB
+0x004e1957	140	libcmt.lib	LIB
+0x004e1ab3	7	libcmt.lib	LIB
+0x004e1ac0	23	libcmt.lib	LIB
+0x004e1ad7	60	libcmt.lib	LIB
+0x004e1b35	23	libcmt.lib	LIB
+0x004e1b4c	25	libcmt.lib	LIB
+0x004e1b65	67	libcmt.lib	LIB
+0x004e1ba8	22	libcmt.lib	LIB
+0x004e1bcb	42	libcmt.lib	LIB
+0x004e1cac	110	libcmt.lib	LIB
+0x004e1d1a	354	libcmt.lib	LIB
+0x004e1e80	24		
+0x004e1e98	6		
+0x004e1e9e	590		
+0x004e20f0	73	libcmt.lib	LIB
+0x004e2139	85	libcmt.lib	LIB
+0x004e218e	21	libcmt.lib	LIB
+0x004e21bb	151		
+0x004e2252	9		
+0x004e225b	49	libcmt.lib	LIB
+0x004e2290	135		
+0x004e2318	677	libcmt.lib	LIB
+0x004e25bd	548	libcmt.lib	LIB
+0x004e27e1	40	libcmt.lib	LIB
+0x004e2829	45	libcmt.lib	LIB
+0x004e2856	158	libcmt.lib	LIB
+0x004e28f4	83	libcmt.lib	LIB
+0x004e2947	95	libcmt.lib	LIB
+0x004e29a6	184	libcmt.lib	LIB
+0x004e2a5e	201	libcmt.lib	LIB
+0x004e2b27	42	libcmt.lib	LIB
+0x004e2b90	37	libcmt.lib	LIB
+0x004e2bb5	91	libcmt.lib	LIB
+0x004e2c10	188	libcmt.lib	LIB
+0x004e2ccc	11	libcmt.lib	LIB
+0x004e2cd7	12	libcmt.lib	LIB
+0x004e2ce3	36	libcmt.lib	LIB
+0x004e2d07	86	libcmt.lib	LIB
+0x004e2d75	22	libcmt.lib	LIB
+0x004e2db5	3387		
+0x004e3bac	9		
+0x004e3bf0	62	libcmt.lib	LIB
+0x004e3c2e	61	libcmt.lib	LIB
+0x004e3c6b	72		
+0x004e3cb3	7		
+0x004e3cba	327		
+0x004e3e01	51	libcmt.lib	LIB
+0x004e3e34	60	libcmt.lib	LIB
+0x004e3e70	136	libcmt.lib	LIB
+0x004e3ef8	42	libcmt.lib	LIB
+0x004e3f22	26	libcmt.lib	LIB
+0x004e3f3c	81	libcmt.lib	LIB
+0x004e4027	72	libcmt.lib	LIB
+0x004e406f	43	libcmt.lib	LIB
+0x004e409a	792	libcmt.lib	LIB
+0x004e43b2	183	libcmt.lib	LIB
+0x004e4469	262	libcmt.lib	LIB
+0x004e456f	735	libcmt.lib	LIB
+0x004e491f	793	libcmt.lib	LIB
+0x004e4c93	764	libcmt.lib	LIB
+0x004e4fb9	27	libcmt.lib	LIB
+0x004e4fe0	7	libcmt.lib	LIB
+0x004e4ff0	232	libcmt.lib	LIB
+0x004e50d8	9	libcmt.lib	LIB
+0x004e50e1	29	libcmt.lib	LIB
+0x004e50fe	19	libcmt.lib	LIB
+0x004e5111	113	libcmt.lib	LIB
+0x004e5182	301		
+0x004e52b4	9		
+0x004e52c0	9		
+0x004e52c9	47	libcmt.lib	LIB
+0x004e5304	239	libcmt.lib	LIB
+0x004e53f3	360	libcmt.lib	LIB
+0x004e555b	278		
+0x004e5674	9	libcmt.lib	LIB
+0x004e567d	225	libcmt.lib	LIB
+0x004e575e	475	libcmt.lib	LIB
+0x004e5939	160		
+0x004e59c0	8		
+0x004e59e4	462	libcmt.lib	LIB
+0x004e5bb2	160		
+0x004e5c39	8		
+0x004e5c5d	510	libcmt.lib	LIB
+0x004e5ea7	116	libcmt.lib	LIB
+0x004e5f1b	160		
+0x004e5fa2	8		
+0x004e5fd0	104	libcmt.lib	LIB
+0x004e6038	131	libcmt.lib	LIB
+0x004e60bb	144		
+0x004e6132	8		
+0x004e6156	43	libcmt.lib	LIB
+0x004e6181	46		
+0x004e61ce	38		
+0x004e61fb	119	libcmt.lib	LIB
+0x004e62a5	208	libcmt.lib	LIB
+0x004e6375	193	libcmt.lib	LIB
+0x004e6439	36	libcmt.lib	LIB
+0x004e645d	220	libcmt.lib	LIB
+0x004e6539	78	libcmt.lib	LIB
+0x004e6587	50		
+0x004e65b9	9		
+0x004e65e5	156		
+0x004e6681	348	libcmt.lib	LIB
+0x004e6db0	61	libcmt.lib	LIB
+0x004e6ded	74	libcmt.lib	LIB
+0x004e6e37	22	libcmt.lib	LIB
+0x004e6e5a	25	libcmt.lib	LIB
+0x004e6e8b	11	nafxcw.lib	LIB
+0x004e6ec7	11	nafxcw.lib	LIB
+0x004e6f02	11	nafxcw.lib	LIB
+0x004e6f0d	28	nafxcw.lib	LIB
+0x004e6f29	31	libcmt.lib	LIB
+0x004e6f48	28	nafxcw.lib	LIB
+0x004e6f64	28	nafxcw.lib	LIB
+0x004e6f80	28	nafxcw.lib	LIB
+0x004e6f9c	421		
+0x004e7172	886		
+0x004e752e	105	libcmt.lib	LIB
+0x004e7597	211	libcmt.lib	LIB
+0x004e766a	270	libcmt.lib	LIB
+0x004e7778	181		
+0x004e78eb	133	libcmt.lib	LIB
+0x004e7970	61		
+0x004e79f8	133	libcmt.lib	LIB
+0x004e7a7d	177		
+0x004e7b1d	8		
+0x004e7b39	666		
+0x004e7d54	9		
+0x004e7de1	440	libcmt.lib	LIB
+0x004e7f99	391	libcmt.lib	LIB
+0x004e8120	67		
+0x004e8163	9		
+0x004e81a1	53		
+0x004e81d6	9		
+0x004e81df	375	libcmt.lib	LIB
+0x004e8380	57	libcmt.lib	LIB
+0x004e83e5	356	libcmt.lib	LIB
+0x004e8564	93	libcmt.lib	LIB
+0x004e85c1	199	libcmt.lib	LIB
+0x004e8688	364	libcmt.lib	LIB
+0x004e87f4	162	libcmt.lib	LIB
+0x004e8896	290	libcmt.lib	LIB
+0x004e8a53	78	libcmt.lib	LIB
+0x004e8aa1	144	libcmt.lib	LIB
+0x004e8b31	16	libcmt.lib	LIB
+0x004e8b41	103		
+0x004e8bcc	173	libcmt.lib	LIB
+0x004e8c79	48	libcmt.lib	LIB
+0x004e8ca9	174	libcmt.lib	LIB
+0x004e8d57	97	libcmt.lib	LIB
+0x004e8db8	75	libcmt.lib	LIB
+0x004e8e03	64	libcmt.lib	LIB
+0x004e8f1f	743	libcmt.lib	LIB
+0x004e9206	69		
+0x004e924b	16		
+0x004e925b	69		
+0x004e92a0	16		
+0x004e92b0	321	libcmt.lib	LIB
+0x004e9488	102	libcmt.lib	LIB
+0x004e94ee	319		
+0x004e9662	79	libcmt.lib	LIB
+0x004e96cf	148		
+0x004e9782	27		
+0x004e97cd	52		
+0x004e9812	31	libcmt.lib	LIB
+0x004e9a26	157		
+0x004e9b7b	111		
+0x004e9bea	368		
+0x004e9d66	293	libcmt.lib	LIB
+0x004e9e8b	103	libcmt.lib	LIB
+0x004e9ef2	190	libcmt.lib	LIB
+0x004e9fb0	516	libcmt.lib	LIB
+0x004ea1b4	162	libcmt.lib	LIB
+0x004ea260	76	libcmt.lib	LIB
+0x004ea2ac	78	libcmt.lib	LIB
+0x004ea31a	37	libcmt.lib	LIB
+0x004ea33f	37	libcmt.lib	LIB
+0x004ea364	61	libcmt.lib	LIB
+0x004ea3b6	2064		
+0x004eac87	62	libcmt.lib	LIB
+0x004eacc5	29	libcmt.lib	LIB
+0x004eace2	174	libcmt.lib	LIB
+0x004ead90	108	libcmt.lib	LIB
+0x004eadfc	156	libcmt.lib	LIB
+0x004eae98	98	libcmt.lib	LIB
+0x004eaefa	154	libcmt.lib	LIB
+0x004eaf94	81	libcmt.lib	LIB
+0x004eafe5	18	libcmt.lib	LIB
+0x004eaff7	64	libcmt.lib	LIB
+0x004eb037	41	libcmt.lib	LIB
+0x004eb060	549	libcmt.lib	LIB
+0x004eb290	178	libcmt.lib	LIB
+0x004eb342	147	libcmt.lib	LIB
+0x004eb3d5	553	libcmt.lib	LIB
+0x004eb600	70	libcmt.lib	LIB
+0x004eb650	70	libcmt.lib	LIB
+0x004eb6a0	64	libcmt.lib	LIB
+0x004eb6e0	68	libcmt.lib	LIB
+0x004eb724	42	libcmt.lib	LIB
+0x004eb74e	96	libcmt.lib	LIB
+0x004eb7ae	39	libcmt.lib	LIB
+0x004eb7f0	149	libcmt.lib	LIB
+0x004eb885	3	nafxcw.lib	LIB
+0x004eb888	17	libcmt.lib	LIB
+0x004eb899	50	libcmt.lib	LIB
+0x004eb8cb	77	libcmt.lib	LIB
+0x004eb918	114	libcmt.lib	LIB
+0x004eb98a	27	libcmt.lib	LIB
+0x004eb9a5	12	libcmt.lib	LIB
+0x004eb9b1	25	libcmt.lib	LIB
+0x004eb9ca	123	libcmt.lib	LIB
+0x004eba45	344	libcmt.lib	LIB
+0x004ebb9d	22	libcmt.lib	LIB
+0x004ebbb3	22	libcmt.lib	LIB
+0x004ebbc9	124	libcmt.lib	LIB
+0x004ebc45	61	libcmt.lib	LIB
+0x004ebc82	62	libcmt.lib	LIB
+0x004ebcc0	61	libcmt.lib	LIB
+0x004ebcfd	1028		
+0x004ec131	76	libcmt.lib	LIB
+0x004ecf0b	248	libcmt.lib	LIB
+0x004ed003	33	libcmt.lib	LIB
+0x004ed024	38	libcmt.lib	LIB
+0x004ed060	235	libcmt.lib	LIB
+0x004ed14b	675	libcmt.lib	LIB
+0x004ed431	156	libcmt.lib	LIB
+0x004ed4cd	108	libcmt.lib	LIB
+0x004ed57e	192	libcmt.lib	LIB
+0x004ed63e	43	libcmt.lib	LIB
+0x004ed669	131	libcmt.lib	LIB
+0x004ed7aa	127	libcmt.lib	LIB
+0x004ed829	149	libcmt.lib	LIB
+0x004ed8be	563	libcmt.lib	LIB
+0x004edaf1	32	libcmt.lib	LIB
+0x004edb47	121	libcmt.lib	LIB
+0x004edbc0	614	libcmt.lib	LIB
+0x004ede26	1139		
+0x004ee2b0	197	libcmt.lib	LIB
+0x004ee375	50	libcmt.lib	LIB
+0x004ee3c8	871	libcmt.lib	LIB
+0x004ee72f	400	libcmt.lib	LIB
+0x004ee951	95	libcmt.lib	LIB
+0x004ee9b0	461	libcmt.lib	LIB
+0x004eebb0	217	libcmt.lib	LIB
+0x004eec89	575	libcmt.lib	LIB
+0x004eeec8	490	libcmt.lib	LIB
+0x004ef106	96	libcmt.lib	LIB
+0x004ef166	26	libcmt.lib	LIB
+0x004ef180	118	libcmt.lib	LIB
+0x004ef1f6	30	libcmt.lib	LIB
+0x004ef214	227	libcmt.lib	LIB
+0x004ef2f7	53	libcmt.lib	LIB
+0x004ef32c	29	libcmt.lib	LIB
+0x004ef349	148	libcmt.lib	LIB
+0x004ef3dd	113	libcmt.lib	LIB
+0x004ef44e	538	libcmt.lib	LIB
+0x004ef668	203	libcmt.lib	LIB
+0x004ef733	55	libcmt.lib	LIB
+0x004ef76a	134	libcmt.lib	LIB
+0x004ef7f0	85	libcmt.lib	LIB
+0x004ef845	437	libcmt.lib	LIB
+0x004ef9fa	67	libcmt.lib	LIB
+0x004efa3d	434		
+0x004efc10	78	libcmt.lib	LIB
+0x004efc5e	249	libcmt.lib	LIB
+0x004efd57	51	libcmt.lib	LIB
+0x004efe1e	17	libcmt.lib	LIB
+0x004efe67	28	libcmt.lib	LIB
+0x004efe83	848		
+0x004f0207	77	libcmt.lib	LIB
+0x004f0254	97	libcmt.lib	LIB
+0x004f02b5	469	libcmt.lib	LIB
+0x004f048a	242	libcmt.lib	LIB
+0x004f057c	61		
+0x004f05b9	9		
+0x004f0627	554		
+0x004f0880	87	libcmt.lib	LIB
+0x004f08d7	82	libcmt.lib	LIB
+0x004f092e	108	libcmt.lib	LIB
+0x004f099a	140		
+0x004f0a15	8		
+0x004f0a31	28	libcmt.lib	LIB
+0x004f0a4d	28	libcmt.lib	LIB
+0x004f0a69	24	libcmt.lib	LIB
+0x004f0a81	214	libcmt.lib	LIB
+0x004f0ba4	119	libcmt.lib	LIB
+0x004f0c1b	186	libcmt.lib	LIB
+0x004f0cd5	108	libcmt.lib	LIB
+0x004f0d41	9	libcmt.lib	LIB
+0x004f0d75	146	libcmt.lib	LIB
+0x004f0e07	142	libcmt.lib	LIB
+0x004f0eef	50	libcmt.lib	LIB
+0x004f0f21	22	libcmt.lib	LIB
+0x004f0f37	33	libcmt.lib	LIB
+0x004f0f58	94	libcmt.lib	LIB
+0x004f0fb6	46	libcmt.lib	LIB
+0x004f0fe4	45	libcmt.lib	LIB
+0x004f1011	222	libcmt.lib	LIB
+0x004f10ef	562	libcmt.lib	LIB
+0x004f1321	134	libcmt.lib	LIB
+0x004f13a7	491	libcmt.lib	LIB
+0x004f1592	295	libcmt.lib	LIB
+0x004f16b9	127	libcmt.lib	LIB
+0x004f1738	62	libcmt.lib	LIB
+0x004f1776	42	libcmt.lib	LIB
+0x004f17a0	39	libcmt.lib	LIB
+0x004f17e1	109	libcmt.lib	LIB
+0x004f184e	49	libcmt.lib	LIB
+0x004f187f	27	libcmt.lib	LIB
+0x004f189a	493		
+0x004f1abf	296	libcmt.lib	LIB
+0x004f1be7	654	libcmt.lib	LIB
+0x004f1e75	281		
+0x004f1fa5	297		
+0x004f20f0	97	libcmt.lib	LIB
+0x004f252a	6		
+0x004f29f2	6		
+0x004f29f8	6		
+0x004f2ce0	6		
+0x004f2ce6	6		
+0x004f2cec	6		
+0x004f2cf2	6		
+0x004f2d88	6		
+0x004f2d8e	6		
+0x004f2f37	67		
+0x004f2f7a	29	nafxcw.lib	LIB
+0x004f2fbd	19		
+0x004f2fd5	39	nafxcw.lib	LIB
+0x004f2ffc	24	nafxcw.lib	LIB
+0x004f3014	17		
+0x004f304e	23		
+0x004f3065	26		
+0x004f3087	22		
+0x004f309d	89		
+0x004f30f6	78		
+0x004f3144	75	nafxcw.lib	LIB
+0x004f318f	171		
+0x004f323a	59		
+0x004f3276	6		
+0x004f327c	6		
+0x004f3282	6		
+0x004f3288	6		
+0x004f328e	6		
+0x004f3294	6		
+0x004f329a	6		
+0x004f32a0	6		
+0x004f32a6	6		
+0x004f32ac	6		
+0x004f32b2	6		
+0x004f32b8	6		
+0x004f32be	6		
+0x004f32c4	6		
+0x004f32ca	6		
+0x004f32d0	6		
+0x004f32d6	6		
+0x004f32dc	6		
+0x004f32e2	6		
+0x004f32e8	6		
+0x004f32ee	6		
+0x004f32f4	6		
+0x004f32fa	6		
+0x004f3300	6		
+0x004f3306	6		
+0x004f330c	10	nafxcw.lib	LIB
+0x004f3316	17		
+0x004f3327	6		
+0x004f332d	10	nafxcw.lib	LIB
+0x004f3337	6		
+0x004f333d	10	nafxcw.lib	LIB
+0x004f3347	6		
+0x004f3383	36		
+0x004f3451	579		
+0x004f3694	28		
+0x004f36b0	176		
+0x004f3760	193		
+0x004f3821	5		
+0x004f3826	30	nafxcw.lib	LIB
+0x004f3857	253		
+0x004f396b	8	libcmt.lib	LIB
+0x004f3980	91	libcmt.lib	LIB
+0x004f39db	22	libcmt.lib	LIB
+0x004f39f1	45	nafxcw.lib	LIB
+0x004f3a53	27	nafxcw.lib	LIB
+0x004f3a6e	1		
+0x004f3a6f	19	nafxcw.lib	LIB
+0x004f3a82	135	nafxcw.lib	LIB
+0x004f3b09	28	nafxcw.lib	LIB
+0x004f3b25	41	nafxcw.lib	LIB
+0x004f3b4e	80	nafxcw.lib	LIB
+0x004f3b9e	25		
+0x004f3bb8	25		
+0x004f3bd2	25		
+0x004f3bf0	4	nafxcw.lib	LIB
+0x004f3bf4	234	nafxcw.lib	LIB
+0x004f3d97	222	nafxcw.lib	LIB
+0x004f3e75	37	nafxcw.lib	LIB
+0x004f3e9a	28	nafxcw.lib	LIB
+0x004f3eb6	151	nafxcw.lib	LIB
+0x004f3f4d	416	nafxcw.lib	LIB
+0x004f40ed	279	nafxcw.lib	LIB
+0x004f4204	196	nafxcw.lib	LIB
+0x004f43d8	93	nafxcw.lib	LIB
+0x004f4435	496	nafxcw.lib	LIB
+0x004f465b	411	nafxcw.lib	LIB
+0x004f47f6	45	nafxcw.lib	LIB
+0x004f487c	129	nafxcw.lib	LIB
+0x004f4903	48	nafxcw.lib	LIB
+0x004f4933	47	nafxcw.lib	LIB
+0x004f4975	17	nafxcw.lib	LIB
+0x004f4986	107	nafxcw.lib	LIB
+0x004f49f1	127	nafxcw.lib	LIB
+0x004f4a7c	169	nafxcw.lib	LIB
+0x004f4b25	31	nafxcw.lib	LIB
+0x004f4b44	80	nafxcw.lib	LIB
+0x004f4b94	31	nafxcw.lib	LIB
+0x004f4bcb	28	nafxcw.lib	LIB
+0x004f4be7	5		
+0x004f4bec	28	nafxcw.lib	LIB
+0x004f4c08	46	nafxcw.lib	LIB
+0x004f4c36	47	nafxcw.lib	LIB
+0x004f4c65	47	nafxcw.lib	LIB
+0x004f4c94	49	nafxcw.lib	LIB
+0x004f4cc5	50	nafxcw.lib	LIB
+0x004f4cf7	50	nafxcw.lib	LIB
+0x004f4d35	10	nafxcw.lib	LIB
+0x004f4d3f	84	nafxcw.lib	LIB
+0x004f4d93	191	nafxcw.lib	LIB
+0x004f4e52	28	nafxcw.lib	LIB
+0x004f4e6e	5		
+0x004f4e73	56	nafxcw.lib	LIB
+0x004f4ef9	55	nafxcw.lib	LIB
+0x004f4f30	56	nafxcw.lib	LIB
+0x004f4f68	48	nafxcw.lib	LIB
+0x004f4f98	48	nafxcw.lib	LIB
+0x004f5013	55	nafxcw.lib	LIB
+0x004f504a	56	nafxcw.lib	LIB
+0x004f50d6	58	nafxcw.lib	LIB
+0x004f5113	33	nafxcw.lib	LIB
+0x004f516b	55	nafxcw.lib	LIB
+0x004f51a2	56	nafxcw.lib	LIB
+0x004f5213	54	nafxcw.lib	LIB
+0x004f5249	84	nafxcw.lib	LIB
+0x004f529d	43	nafxcw.lib	LIB
+0x004f52c8	43	nafxcw.lib	LIB
+0x004f52f3	69	nafxcw.lib	LIB
+0x004f5338	66	nafxcw.lib	LIB
+0x004f537d	33	nafxcw.lib	LIB
+0x004f53d5	55	nafxcw.lib	LIB
+0x004f540c	56	nafxcw.lib	LIB
+0x004f5464	63	nafxcw.lib	LIB
+0x004f54a3	56	nafxcw.lib	LIB
+0x004f54db	46	nafxcw.lib	LIB
+0x004f5509	46	nafxcw.lib	LIB
+0x004f5537	78	nafxcw.lib	LIB
+0x004f5585	84	nafxcw.lib	LIB
+0x004f55d9	54	nafxcw.lib	LIB
+0x004f560f	57	nafxcw.lib	LIB
+0x004f5648	65	nafxcw.lib	LIB
+0x004f56b7	55	nafxcw.lib	LIB
+0x004f56ee	56	nafxcw.lib	LIB
+0x004f5783	55	nafxcw.lib	LIB
+0x004f57ba	56	nafxcw.lib	LIB
+0x004f5889	55	nafxcw.lib	LIB
+0x004f58c0	56	nafxcw.lib	LIB
+0x004f5929	55	nafxcw.lib	LIB
+0x004f5960	56	nafxcw.lib	LIB
+0x004f599b	33	nafxcw.lib	LIB
+0x004f59ed	55	nafxcw.lib	LIB
+0x004f5a24	56	nafxcw.lib	LIB
+0x004f5a5c	43	nafxcw.lib	LIB
+0x004f5abe	55	nafxcw.lib	LIB
+0x004f5af5	56	nafxcw.lib	LIB
+0x004f5b30	33	nafxcw.lib	LIB
+0x004f5b51	47	nafxcw.lib	LIB
+0x004f5b80	50	nafxcw.lib	LIB
+0x004f5bb2	55	nafxcw.lib	LIB
+0x004f5be9	67	nafxcw.lib	LIB
+0x004f5c5d	55	nafxcw.lib	LIB
+0x004f5c94	56	nafxcw.lib	LIB
+0x004f5ccc	56	nafxcw.lib	LIB
+0x004f5d04	45	nafxcw.lib	LIB
+0x004f5d31	36	nafxcw.lib	LIB
+0x004f5d83	72	nafxcw.lib	LIB
+0x004f5dcb	244	nafxcw.lib	LIB
+0x004f5ebf	188	nafxcw.lib	LIB
+0x004f5f7b	52	nafxcw.lib	LIB
+0x004f5faf	51	nafxcw.lib	LIB
+0x004f5fe2	34	nafxcw.lib	LIB
+0x004f6004	41	nafxcw.lib	LIB
+0x004f609b	66	nafxcw.lib	LIB
+0x004f60dd	83	nafxcw.lib	LIB
+0x004f6130	76	nafxcw.lib	LIB
+0x004f617c	38	nafxcw.lib	LIB
+0x004f61a2	31	nafxcw.lib	LIB
+0x004f61c1	35	nafxcw.lib	LIB
+0x004f61f1	37	nafxcw.lib	LIB
+0x004f6216	124	nafxcw.lib	LIB
+0x004f6292	42	nafxcw.lib	LIB
+0x004f62bc	22	nafxcw.lib	LIB
+0x004f62d2	14	nafxcw.lib	LIB
+0x004f62fa	45	nafxcw.lib	LIB
+0x004f6327	187	nafxcw.lib	LIB
+0x004f655d	11	nafxcw.lib	LIB
+0x004f6568	40	nafxcw.lib	LIB
+0x004f6590	50	nafxcw.lib	LIB
+0x004f65c2	50	nafxcw.lib	LIB
+0x004f65f4	49	nafxcw.lib	LIB
+0x004f6683	157	nafxcw.lib	LIB
+0x004f6720	166	nafxcw.lib	LIB
+0x004f67c6	166	nafxcw.lib	LIB
+0x004f686c	148	nafxcw.lib	LIB
+0x004f6900	28	nafxcw.lib	LIB
+0x004f691c	85	nafxcw.lib	LIB
+0x004f6971	343	nafxcw.lib	LIB
+0x004f6ac8	45	nafxcw.lib	LIB
+0x004f6af5	27	nafxcw.lib	LIB
+0x004f6b10	55	nafxcw.lib	LIB
+0x004f6ba7	41	nafxcw.lib	LIB
+0x004f6bd0	42	nafxcw.lib	LIB
+0x004f6c1a	45	nafxcw.lib	LIB
+0x004f6c47	33	nafxcw.lib	LIB
+0x004f6c68	49	nafxcw.lib	LIB
+0x004f6e42	18	nafxcw.lib	LIB
+0x004f6e54	63	nafxcw.lib	LIB
+0x004f6e93	61	nafxcw.lib	LIB
+0x004f6f26	48	nafxcw.lib	LIB
+0x004f6f56	48	nafxcw.lib	LIB
+0x004f6f86	74	nafxcw.lib	LIB
+0x004f6fd0	103	nafxcw.lib	LIB
+0x004f7058	52		
+0x004f708c	14		
+0x004f709f	17		
+0x004f70b0	53		
+0x004f70e5	14		
+0x004f70f8	17		
+0x004f7192	78		
+0x004f71e0	14		
+0x004f71f3	17		
+0x004f7204	18	nafxcw.lib	LIB
+0x004f721c	57	nafxcw.lib	LIB
+0x004f728a	71	nafxcw.lib	LIB
+0x004f72d1	22	nafxcw.lib	LIB
+0x004f72e7	28	nafxcw.lib	LIB
+0x004f7359	116	nafxcw.lib	LIB
+0x004f73fb	115	nafxcw.lib	LIB
+0x004f746e	115	nafxcw.lib	LIB
+0x004f74e1	83	nafxcw.lib	LIB
+0x004f7534	130	nafxcw.lib	LIB
+0x004f75b6	78	nafxcw.lib	LIB
+0x004f7604	90	nafxcw.lib	LIB
+0x004f765e	49	nafxcw.lib	LIB
+0x004f768f	50	nafxcw.lib	LIB
+0x004f76c1	66	nafxcw.lib	LIB
+0x004f7703	55	nafxcw.lib	LIB
+0x004f773a	1010	nafxcw.lib	LIB
+0x004f7b3c	75	nafxcw.lib	LIB
+0x004f7b87	157	nafxcw.lib	LIB
+0x004f7c24	14	nafxcw.lib	LIB
+0x004f7c43	89	nafxcw.lib	LIB
+0x004f7ca0	69	nafxcw.lib	LIB
+0x004f7ce5	23	nafxcw.lib	LIB
+0x004f7d06	33	nafxcw.lib	LIB
+0x004f7d2c	26	nafxcw.lib	LIB
+0x004f7d46	32	nafxcw.lib	LIB
+0x004f7d66	294	nafxcw.lib	LIB
+0x004f7e8c	118		
+0x004f7f03	108		
+0x004f7f70	28	nafxcw.lib	LIB
+0x004f801a	55	nafxcw.lib	LIB
+0x004f8051	53	nafxcw.lib	LIB
+0x004f8086	55	nafxcw.lib	LIB
+0x004f80bd	92		
+0x004f81e3	30	nafxcw.lib	LIB
+0x004f8201	35	nafxcw.lib	LIB
+0x004f822e	98	nafxcw.lib	LIB
+0x004f82ca	53	nafxcw.lib	LIB
+0x004f82ff	11	nafxcw.lib	LIB
+0x004f830a	50	nafxcw.lib	LIB
+0x004f833c	107	nafxcw.lib	LIB
+0x004f83a7	107	nafxcw.lib	LIB
+0x004f8452	28	nafxcw.lib	LIB
+0x004f846e	53	nafxcw.lib	LIB
+0x004f84a3	52	nafxcw.lib	LIB
+0x004f84d7	60	nafxcw.lib	LIB
+0x004f8513	60	nafxcw.lib	LIB
+0x004f854f	72	nafxcw.lib	LIB
+0x004f8597	70	nafxcw.lib	LIB
+0x004f85dd	66	nafxcw.lib	LIB
+0x004f861f	66	nafxcw.lib	LIB
+0x004f8661	69	nafxcw.lib	LIB
+0x004f86a6	69	nafxcw.lib	LIB
+0x004f86eb	145	nafxcw.lib	LIB
+0x004f877c	282	nafxcw.lib	LIB
+0x004f8896	69	nafxcw.lib	LIB
+0x004f890b	69	nafxcw.lib	LIB
+0x004f8950	50	nafxcw.lib	LIB
+0x004f8982	143		
+0x004f8a12	74		
+0x004f8a5d	23	nafxcw.lib	LIB
+0x004f8a74	16	nafxcw.lib	LIB
+0x004f8a84	94		
+0x004f8ae3	28	nafxcw.lib	LIB
+0x004f8aff	32	nafxcw.lib	LIB
+0x004f8b1f	34	nafxcw.lib	LIB
+0x004f8b41	36	nafxcw.lib	LIB
+0x004f8b89	64	nafxcw.lib	LIB
+0x004f8be7	31	nafxcw.lib	LIB
+0x004f8c06	35	nafxcw.lib	LIB
+0x004f8c29	11	nafxcw.lib	LIB
+0x004f8c34	86	nafxcw.lib	LIB
+0x004f8c8a	42	nafxcw.lib	LIB
+0x004f8cb4	41	nafxcw.lib	LIB
+0x004f8cdd	61	nafxcw.lib	LIB
+0x004f8d1a	61	nafxcw.lib	LIB
+0x004f8d57	61	nafxcw.lib	LIB
+0x004f8dcf	28	nafxcw.lib	LIB
+0x004f8deb	48		
+0x004f8e1c	22	nafxcw.lib	LIB
+0x004f8e32	261	nafxcw.lib	LIB
+0x004f8f37	64	nafxcw.lib	LIB
+0x004f8fa3	62	nafxcw.lib	LIB
+0x004f8fe1	50	nafxcw.lib	LIB
+0x004f9013	120		
+0x004f908c	68		
+0x004f90e8	16	nafxcw.lib	LIB
+0x004f90f8	96		
+0x004f91d6	28	nafxcw.lib	LIB
+0x004f91f2	282	nafxcw.lib	LIB
+0x004f930c	69	nafxcw.lib	LIB
+0x004f9381	69	nafxcw.lib	LIB
+0x004f93c6	50	nafxcw.lib	LIB
+0x004f93f8	143		
+0x004f94ea	16	nafxcw.lib	LIB
+0x004f94fa	94		
+0x004f9559	28	nafxcw.lib	LIB
+0x004f9575	33	nafxcw.lib	LIB
+0x004f9596	76	nafxcw.lib	LIB
+0x004f95e2	46	nafxcw.lib	LIB
+0x004f9610	28	nafxcw.lib	LIB
+0x004f962c	89	nafxcw.lib	LIB
+0x004f9685	85	nafxcw.lib	LIB
+0x004f96da	39	nafxcw.lib	LIB
+0x004f9701	39	nafxcw.lib	LIB
+0x004f972d	82	nafxcw.lib	LIB
+0x004f977f	11	nafxcw.lib	LIB
+0x004f9819	28	nafxcw.lib	LIB
+0x004f9835	123	nafxcw.lib	LIB
+0x004f98b0	103	nafxcw.lib	LIB
+0x004f9917	33	nafxcw.lib	LIB
+0x004f9938	76	nafxcw.lib	LIB
+0x004f9a52	46	nafxcw.lib	LIB
+0x004f9a80	83	nafxcw.lib	LIB
+0x004f9ad3	24	nafxcw.lib	LIB
+0x004f9aeb	24	nafxcw.lib	LIB
+0x004f9b03	38	nafxcw.lib	LIB
+0x004f9b29	5		
+0x004f9b2e	28	nafxcw.lib	LIB
+0x004f9b4a	82	nafxcw.lib	LIB
+0x004f9b9c	11	nafxcw.lib	LIB
+0x004f9ba7	41	nafxcw.lib	LIB
+0x004f9bd0	43	nafxcw.lib	LIB
+0x004f9bfb	99	nafxcw.lib	LIB
+0x004f9c5e	125	nafxcw.lib	LIB
+0x004f9cdb	28	nafxcw.lib	LIB
+0x004f9cf7	123	nafxcw.lib	LIB
+0x004f9d72	90	nafxcw.lib	LIB
+0x004f9dcc	241	nafxcw.lib	LIB
+0x004f9ec7	76	nafxcw.lib	LIB
+0x004f9f13	43	nafxcw.lib	LIB
+0x004f9f3e	25	nafxcw.lib	LIB
+0x004f9f57	56	nafxcw.lib	LIB
+0x004f9f8f	55	nafxcw.lib	LIB
+0x004f9fc6	39	nafxcw.lib	LIB
+0x004f9fed	67	nafxcw.lib	LIB
+0x004fa030	122	nafxcw.lib	LIB
+0x004fa0aa	46	nafxcw.lib	LIB
+0x004fa0d8	11	nafxcw.lib	LIB
+0x004fa0e3	75	nafxcw.lib	LIB
+0x004fa12e	85	nafxcw.lib	LIB
+0x004fa183	28	nafxcw.lib	LIB
+0x004fa19f	58	nafxcw.lib	LIB
+0x004fa1df	34	nafxcw.lib	LIB
+0x004fa201	62	nafxcw.lib	LIB
+0x004fa23f	92	nafxcw.lib	LIB
+0x004fa2a8	64	nafxcw.lib	LIB
+0x004fa2e8	57	nafxcw.lib	LIB
+0x004fa35c	38	nafxcw.lib	LIB
+0x004fa386	25	nafxcw.lib	LIB
+0x004fa39f	8	nafxcw.lib	LIB
+0x004fa453	132	nafxcw.lib	LIB
+0x004fa4d7	28	nafxcw.lib	LIB
+0x004fa4f3	58	nafxcw.lib	LIB
+0x004fa52d	66	nafxcw.lib	LIB
+0x004fa593	135	nafxcw.lib	LIB
+0x004fa61a	86	nafxcw.lib	LIB
+0x004fa670	97	nafxcw.lib	LIB
+0x004fa6d1	151	nafxcw.lib	LIB
+0x004fa768	62	nafxcw.lib	LIB
+0x004fa7a6	376		
+0x004fa91e	21		
+0x004fa93b	120		
+0x004fa9b3	264		
+0x004faabb	21		
+0x004faad5	91		
+0x004fab30	43	nafxcw.lib	LIB
+0x004fab5b	86	nafxcw.lib	LIB
+0x004fabb1	35	nafxcw.lib	LIB
+0x004fabea	90	nafxcw.lib	LIB
+0x004fac6d	70	nafxcw.lib	LIB
+0x004facb3	80	nafxcw.lib	LIB
+0x004fad1d	26	nafxcw.lib	LIB
+0x004fad4a	71	nafxcw.lib	LIB
+0x004fad95	31	nafxcw.lib	LIB
+0x004fadb4	113	nafxcw.lib	LIB
+0x004fae25	23	nafxcw.lib	LIB
+0x004fae53	241		
+0x004faf44	16		
+0x004faf55	21	nafxcw.lib	LIB
+0x004faf6a	27	nafxcw.lib	LIB
+0x004faf8b	64	nafxcw.lib	LIB
+0x004fafe0	68	nafxcw.lib	LIB
+0x004fb024	25	nafxcw.lib	LIB
+0x004fb05c	61	nafxcw.lib	LIB
+0x004fb099	61	nafxcw.lib	LIB
+0x004fb0d6	140	nafxcw.lib	LIB
+0x004fb162	45	nafxcw.lib	LIB
+0x004fb1ca	9	nafxcw.lib	LIB
+0x004fb1d3	27	nafxcw.lib	LIB
+0x004fb419	49	nafxcw.lib	LIB
+0x004fb5e6	33	nafxcw.lib	LIB
+0x004fb754	44	nafxcw.lib	LIB
+0x004fb7a5	24	nafxcw.lib	LIB
+0x004fb828	117	nafxcw.lib	LIB
+0x004fb8b7	48	nafxcw.lib	LIB
+0x004fb8f3	120	nafxcw.lib	LIB
+0x004fb972	31	nafxcw.lib	LIB
+0x004fb9af	67	nafxcw.lib	LIB
+0x004fb9f2	35	nafxcw.lib	LIB
+0x004fba15	73	nafxcw.lib	LIB
+0x004fba5e	78	nafxcw.lib	LIB
+0x004fbaac	81	nafxcw.lib	LIB
+0x004fbafd	84	nafxcw.lib	LIB
+0x004fbb51	82	nafxcw.lib	LIB
+0x004fbba3	91	nafxcw.lib	LIB
+0x004fbbfe	178	nafxcw.lib	LIB
+0x004fbcb0	81	nafxcw.lib	LIB
+0x004fbd01	50	nafxcw.lib	LIB
+0x004fbd33	48	nafxcw.lib	LIB
+0x004fbd63	40	nafxcw.lib	LIB
+0x004fbd8b	53	nafxcw.lib	LIB
+0x004fbdc0	48	nafxcw.lib	LIB
+0x004fbdf0	67	nafxcw.lib	LIB
+0x004fbe33	71	nafxcw.lib	LIB
+0x004fbe7a	170	nafxcw.lib	LIB
+0x004fbf43	13	nafxcw.lib	LIB
+0x004fbf50	70	nafxcw.lib	LIB
+0x004fbf96	211	nafxcw.lib	LIB
+0x004fc069	90		
+0x004fc0c3	6	nafxcw.lib	LIB
+0x004fc0c9	30		
+0x004fc0ea	29		
+0x004fc107	437	nafxcw.lib	LIB
+0x004fc2bc	335	nafxcw.lib	LIB
+0x004fc430	65	nafxcw.lib	LIB
+0x004fc471	719	nafxcw.lib	LIB
+0x004fc740	53	nafxcw.lib	LIB
+0x004fc775	39	nafxcw.lib	LIB
+0x004fc79c	124	nafxcw.lib	LIB
+0x004fc818	39	nafxcw.lib	LIB
+0x004fc83f	26	nafxcw.lib	LIB
+0x004fc859	57	nafxcw.lib	LIB
+0x004fc892	46	nafxcw.lib	LIB
+0x004fc8c0	66	nafxcw.lib	LIB
+0x004fc902	32	nafxcw.lib	LIB
+0x004fc922	59	nafxcw.lib	LIB
+0x004fc95d	273	nafxcw.lib	LIB
+0x004fca6e	84	nafxcw.lib	LIB
+0x004fcac2	70	nafxcw.lib	LIB
+0x004fcb38	68	nafxcw.lib	LIB
+0x004fcb9a	119	nafxcw.lib	LIB
+0x004fcc11	328	nafxcw.lib	LIB
+0x004fcd59	66	nafxcw.lib	LIB
+0x004fcd9b	45	nafxcw.lib	LIB
+0x004fcdc8	35	nafxcw.lib	LIB
+0x004fcdeb	106	nafxcw.lib	LIB
+0x004fce55	58	nafxcw.lib	LIB
+0x004fce8f	33	nafxcw.lib	LIB
+0x004fceb0	33	nafxcw.lib	LIB
+0x004fced1	98	nafxcw.lib	LIB
+0x004fcf33	64	nafxcw.lib	LIB
+0x004fcf73	39	nafxcw.lib	LIB
+0x004fcf9a	39	nafxcw.lib	LIB
+0x004fcfc1	121	nafxcw.lib	LIB
+0x004fd03a	171		
+0x004fd0e5	32		
+0x004fd108	31		
+0x004fd127	75	nafxcw.lib	LIB
+0x004fd178	124	nafxcw.lib	LIB
+0x004fd1f4	43	nafxcw.lib	LIB
+0x004fd21f	43	nafxcw.lib	LIB
+0x004fd24a	120	nafxcw.lib	LIB
+0x004fd2c2	63	nafxcw.lib	LIB
+0x004fd301	65	nafxcw.lib	LIB
+0x004fd342	125	nafxcw.lib	LIB
+0x004fd3bf	175	nafxcw.lib	LIB
+0x004fd46e	45	nafxcw.lib	LIB
+0x004fd49b	42	nafxcw.lib	LIB
+0x004fd4c5	48	nafxcw.lib	LIB
+0x004fd4f5	23	nafxcw.lib	LIB
+0x004fd50c	111	nafxcw.lib	LIB
+0x004fd57b	164	nafxcw.lib	LIB
+0x004fd61f	273	nafxcw.lib	LIB
+0x004fd730	66	nafxcw.lib	LIB
+0x004fd772	107	nafxcw.lib	LIB
+0x004fd7dd	28	nafxcw.lib	LIB
+0x004fd7f9	69	nafxcw.lib	LIB
+0x004fd83e	61	nafxcw.lib	LIB
+0x004fd87b	42	nafxcw.lib	LIB
+0x004fd8c5	115	nafxcw.lib	LIB
+0x004fd938	140	nafxcw.lib	LIB
+0x004fd9c4	122	nafxcw.lib	LIB
+0x004fda3e	69	nafxcw.lib	LIB
+0x004fda83	40	nafxcw.lib	LIB
+0x004fdaab	44	nafxcw.lib	LIB
+0x004fdad7	61	nafxcw.lib	LIB
+0x004fdb14	194	nafxcw.lib	LIB
+0x004fdbd6	70	nafxcw.lib	LIB
+0x004fdc1c	75	nafxcw.lib	LIB
+0x004fdc67	73	nafxcw.lib	LIB
+0x004fdcb0	251	nafxcw.lib	LIB
+0x004fddab	225	nafxcw.lib	LIB
+0x004fde8c	97	nafxcw.lib	LIB
+0x004fdeed	118	nafxcw.lib	LIB
+0x004fdf63	291		
+0x004fe086	53		
+0x004fe0bb	543	nafxcw.lib	LIB
+0x004fe2da	76	nafxcw.lib	LIB
+0x004fe326	198	nafxcw.lib	LIB
+0x004fe3ec	115	nafxcw.lib	LIB
+0x004fe45f	1287		
+0x004fea6a	232	nafxcw.lib	LIB
+0x004feb7e	200	nafxcw.lib	LIB
+0x004fec46	101	nafxcw.lib	LIB
+0x004fecab	122	nafxcw.lib	LIB
+0x004fed25	121	nafxcw.lib	LIB
+0x004fed9e	81	nafxcw.lib	LIB
+0x004fef0e	26	nafxcw.lib	LIB
+0x004fef28	13	nafxcw.lib	LIB
+0x004fef35	230		
+0x004ff04b	268	nafxcw.lib	LIB
+0x004ff1df	38	nafxcw.lib	LIB
+0x004ff205	97	nafxcw.lib	LIB
+0x004ff266	21	nafxcw.lib	LIB
+0x004ff27b	21	nafxcw.lib	LIB
+0x004ff2a5	127	nafxcw.lib	LIB
+0x004ff324	101	nafxcw.lib	LIB
+0x004ff389	86	nafxcw.lib	LIB
+0x004ff3df	84	nafxcw.lib	LIB
+0x004ff433	5		
+0x004ff43e	18	nafxcw.lib	LIB
+0x004ff450	38		
+0x004ff47b	5		
+0x004ff480	5		
+0x004ff485	5		
+0x004ff4c3	6	nafxcw.lib	LIB
+0x004ff4c9	59	nafxcw.lib	LIB
+0x004ff511	47	nafxcw.lib	LIB
+0x004ff55e	24	nafxcw.lib	LIB
+0x004ff576	24	nafxcw.lib	LIB
+0x004ff5f2	38	nafxcw.lib	LIB
+0x004ff638	38		
+0x004ff65f	10		
+0x004ff66a	78	nafxcw.lib	LIB
+0x004ff6b8	44	nafxcw.lib	LIB
+0x004ff6e4	47	nafxcw.lib	LIB
+0x004ff713	68	nafxcw.lib	LIB
+0x004ff75c	103	nafxcw.lib	LIB
+0x004ff7c3	40	nafxcw.lib	LIB
+0x004ff805	24	nafxcw.lib	LIB
+0x004ff81d	71	nafxcw.lib	LIB
+0x004ff864	42	nafxcw.lib	LIB
+0x004ff893	105	nafxcw.lib	LIB
+0x004ff8fc	74	nafxcw.lib	LIB
+0x004ff946	37	nafxcw.lib	LIB
+0x004ff96b	271	nafxcw.lib	LIB
+0x004ffae5	271	nafxcw.lib	LIB
+0x004ffbf4	66	nafxcw.lib	LIB
+0x004ffc4d	12	nafxcw.lib	LIB
+0x004ffc59	22	nafxcw.lib	LIB
+0x004ffc6f	19	nafxcw.lib	LIB
+0x004ffc82	34	nafxcw.lib	LIB
+0x004ffccc	36	nafxcw.lib	LIB
+0x004ffcf0	36	nafxcw.lib	LIB
+0x004ffdbd	37	nafxcw.lib	LIB
+0x004ffde2	33	nafxcw.lib	LIB
+0x004ffe03	51	nafxcw.lib	LIB
+0x004ffe36	26	nafxcw.lib	LIB
+0x004ffe50	26	nafxcw.lib	LIB
+0x004ffe6a	42	nafxcw.lib	LIB
+0x004ffe94	42	nafxcw.lib	LIB
+0x004ffebe	33	nafxcw.lib	LIB
+0x004ffefa	35	nafxcw.lib	LIB
+0x004fff5b	33	nafxcw.lib	LIB
+0x004fff7c	27	nafxcw.lib	LIB
+0x004fff97	33	nafxcw.lib	LIB
+0x004fffb8	33	nafxcw.lib	LIB
+0x00500044	38	nafxcw.lib	LIB
+0x00500080	37	nafxcw.lib	LIB
+0x005000a5	25	nafxcw.lib	LIB
+0x005000fe	5		
+0x00500103	81	nafxcw.lib	LIB
+0x00500154	60	nafxcw.lib	LIB
+0x00500190	65	nafxcw.lib	LIB
+0x005001d1	220	nafxcw.lib	LIB
+0x005002ad	252	nafxcw.lib	LIB
+0x005003a9	252	nafxcw.lib	LIB
+0x005004a5	272	nafxcw.lib	LIB
+0x005005b5	128	nafxcw.lib	LIB
+0x00500635	97	nafxcw.lib	LIB
+0x0050069c	124	nafxcw.lib	LIB
+0x00500718	14	nafxcw.lib	LIB
+0x00500726	26	nafxcw.lib	LIB
+0x00500740	45	nafxcw.lib	LIB
+0x0050076d	42	nafxcw.lib	LIB
+0x00500797	22	nafxcw.lib	LIB
+0x005007ad	130	nafxcw.lib	LIB
+0x0050082f	89	nafxcw.lib	LIB
+0x00500888	28	nafxcw.lib	LIB
+0x005008a4	65	nafxcw.lib	LIB
+0x005008e5	1094	nafxcw.lib	LIB
+0x00500d2b	312	nafxcw.lib	LIB
+0x00500e63	14	nafxcw.lib	LIB
+0x00500e92	110	nafxcw.lib	LIB
+0x00500f00	10	nafxcw.lib	LIB
+0x00500f0a	12	nafxcw.lib	LIB
+0x00500f16	40	nafxcw.lib	LIB
+0x00500f3e	22	nafxcw.lib	LIB
+0x00500f82	75	nafxcw.lib	LIB
+0x00500fcd	86	nafxcw.lib	LIB
+0x00501023	11	nafxcw.lib	LIB
+0x0050102e	130	nafxcw.lib	LIB
+0x005010ca	37	nafxcw.lib	LIB
+0x005010ef	33	nafxcw.lib	LIB
+0x00501110	220	nafxcw.lib	LIB
+0x005011ec	64	nafxcw.lib	LIB
+0x0050122c	75	nafxcw.lib	LIB
+0x00501277	81	nafxcw.lib	LIB
+0x005012c8	74	nafxcw.lib	LIB
+0x00501312	39	nafxcw.lib	LIB
+0x005013d1	63	nafxcw.lib	LIB
+0x00501410	103	nafxcw.lib	LIB
+0x00501477	67	nafxcw.lib	LIB
+0x005014ba	31	nafxcw.lib	LIB
+0x005014d9	29	nafxcw.lib	LIB
+0x005014f6	34	nafxcw.lib	LIB
+0x00501518	68	nafxcw.lib	LIB
+0x0050155c	118	nafxcw.lib	LIB
+0x005015d2	28	nafxcw.lib	LIB
+0x005015ee	176	nafxcw.lib	LIB
+0x0050169e	66	nafxcw.lib	LIB
+0x005016e0	321	nafxcw.lib	LIB
+0x00501821	403	nafxcw.lib	LIB
+0x005019b4	106	nafxcw.lib	LIB
+0x00501a1e	128	nafxcw.lib	LIB
+0x00501a9e	130	nafxcw.lib	LIB
+0x00501b20	165	nafxcw.lib	LIB
+0x00501bc5	92	nafxcw.lib	LIB
+0x00501c21	364	nafxcw.lib	LIB
+0x00501d8d	9	nafxcw.lib	LIB
+0x00501d96	9	nafxcw.lib	LIB
+0x00501d9f	37	nafxcw.lib	LIB
+0x00501dc4	22	nafxcw.lib	LIB
+0x00501dda	132		
+0x00501e5e	14		
+0x00501e6c	14		
+0x00501e7a	14		
+0x00501e99	141	nafxcw.lib	LIB
+0x00501f2f	118	nafxcw.lib	LIB
+0x00501fa5	5		
+0x00501ff0	26	nafxcw.lib	LIB
+0x0050201b	108	nafxcw.lib	LIB
+0x00502087	27	nafxcw.lib	LIB
+0x005020a2	108	nafxcw.lib	LIB
+0x0050210e	27	nafxcw.lib	LIB
+0x00502129	69	nafxcw.lib	LIB
+0x005021a8	68	nafxcw.lib	LIB
+0x005021ec	22	nafxcw.lib	LIB
+0x0050225b	288	nafxcw.lib	LIB
+0x00502380	46	nafxcw.lib	LIB
+0x005023ae	265	nafxcw.lib	LIB
+0x005024b7	135		
+0x0050253e	42		
+0x0050256e	119		
+0x005025e5	227	nafxcw.lib	LIB
+0x005026c8	130	nafxcw.lib	LIB
+0x0050274a	96	nafxcw.lib	LIB
+0x00502825	102	nafxcw.lib	LIB
+0x0050288b	158	nafxcw.lib	LIB
+0x00502929	33	nafxcw.lib	LIB
+0x0050297e	52	nafxcw.lib	LIB
+0x005029b2	52	nafxcw.lib	LIB
+0x005029ec	56		
+0x00502a24	14		
+0x00502a45	34	nafxcw.lib	LIB
+0x00502a6c	11	nafxcw.lib	LIB
+0x00502a77	38	nafxcw.lib	LIB
+0x00502a9d	38	nafxcw.lib	LIB
+0x00502ac3	283	nafxcw.lib	LIB
+0x00502bee	23	nafxcw.lib	LIB
+0x00502c15	84	nafxcw.lib	LIB
+0x00502c69	14	nafxcw.lib	LIB
+0x00502c77	6	nafxcw.lib	LIB
+0x00502c7d	34	nafxcw.lib	LIB
+0x00502cae	75	nafxcw.lib	LIB
+0x00502cf9	195	nafxcw.lib	LIB
+0x00502dbc	312	nafxcw.lib	LIB
+0x00502ef4	158	nafxcw.lib	LIB
+0x00502f92	60	nafxcw.lib	LIB
+0x00502fce	47	nafxcw.lib	LIB
+0x00502ffd	65	nafxcw.lib	LIB
+0x005030a2	100	nafxcw.lib	LIB
+0x00503106	46	nafxcw.lib	LIB
+0x00503134	174	nafxcw.lib	LIB
+0x005031e2	68	nafxcw.lib	LIB
+0x00503226	90	nafxcw.lib	LIB
+0x00503280	9	nafxcw.lib	LIB
+0x00503289	132	nafxcw.lib	LIB
+0x00503312	176		
+0x005033c2	17		
+0x005033d4	99	nafxcw.lib	LIB
+0x00503478	249	nafxcw.lib	LIB
+0x005035c6	478		
+0x005038eb	69		
+0x00503931	33	nafxcw.lib	LIB
+0x0050398c	268	nafxcw.lib	LIB
+0x00503a98	185	nafxcw.lib	LIB
+0x00503b51	317	nafxcw.lib	LIB
+0x00503cba	273	nafxcw.lib	LIB
+0x00503dcb	204	nafxcw.lib	LIB
+0x00503e97	204	nafxcw.lib	LIB
+0x00503fc6	207	nafxcw.lib	LIB
+0x00504095	75	nafxcw.lib	LIB
+0x005040e0	57	nafxcw.lib	LIB
+0x00504119	126	nafxcw.lib	LIB
+0x00504197	28	nafxcw.lib	LIB
+0x005041b3	313	nafxcw.lib	LIB
+0x005042ec	55	nafxcw.lib	LIB
+0x00504323	161	nafxcw.lib	LIB
+0x005043c4	172	nafxcw.lib	LIB
+0x00504470	170		
+0x0050451b	683	nafxcw.lib	LIB
+0x005047c6	119	nafxcw.lib	LIB
+0x0050485b	49	nafxcw.lib	LIB
+0x0050488c	62	nafxcw.lib	LIB
+0x005048ca	47	nafxcw.lib	LIB
+0x005048f9	46	nafxcw.lib	LIB
+0x00504927	46	nafxcw.lib	LIB
+0x00504955	46	nafxcw.lib	LIB
+0x00504983	46	nafxcw.lib	LIB
+0x005049b1	47	nafxcw.lib	LIB
+0x005049e0	46	nafxcw.lib	LIB
+0x00504a1e	66	nafxcw.lib	LIB
+0x00504a60	66	nafxcw.lib	LIB
+0x00504aa2	66	nafxcw.lib	LIB
+0x00504ae4	66	nafxcw.lib	LIB
+0x00504b26	54	nafxcw.lib	LIB
+0x00504b5c	54	nafxcw.lib	LIB
+0x00504b92	53	nafxcw.lib	LIB
+0x00504bc7	53	nafxcw.lib	LIB
+0x00504bfc	54	nafxcw.lib	LIB
+0x00504c32	49	nafxcw.lib	LIB
+0x00504c63	47	nafxcw.lib	LIB
+0x00504c92	54	nafxcw.lib	LIB
+0x00504cc8	70	nafxcw.lib	LIB
+0x00504d0e	46	nafxcw.lib	LIB
+0x00504d3c	46	nafxcw.lib	LIB
+0x00504dc8	25		
+0x00504de2	25		
+0x00504dfc	20	nafxcw.lib	LIB
+0x00504e10	56	nafxcw.lib	LIB
+0x00504e48	69	nafxcw.lib	LIB
+0x00504e8d	76	nafxcw.lib	LIB
+0x00504ed9	76	nafxcw.lib	LIB
+0x00504f25	76	nafxcw.lib	LIB
+0x00504f71	88	nafxcw.lib	LIB
+0x00504fc9	76	nafxcw.lib	LIB
+0x00505015	76	nafxcw.lib	LIB
+0x00505061	76	nafxcw.lib	LIB
+0x005050ad	88	nafxcw.lib	LIB
+0x00505105	64	nafxcw.lib	LIB
+0x00505145	76	nafxcw.lib	LIB
+0x00505191	60	nafxcw.lib	LIB
+0x005051cd	60	nafxcw.lib	LIB
+0x00505209	88	nafxcw.lib	LIB
+0x00505261	73	nafxcw.lib	LIB
+0x005052aa	70	nafxcw.lib	LIB
+0x005052f0	70	nafxcw.lib	LIB
+0x00505336	13		
+0x0050537e	105	nafxcw.lib	LIB
+0x005053e7	105	nafxcw.lib	LIB
+0x00505450	124	nafxcw.lib	LIB
+0x005054cc	14	nafxcw.lib	LIB
+0x005054da	55	nafxcw.lib	LIB
+0x00505511	49	nafxcw.lib	LIB
+0x00505558	25	nafxcw.lib	LIB
+0x00505571	91	nafxcw.lib	LIB
+0x005055cc	66	nafxcw.lib	LIB
+0x0050560e	91	nafxcw.lib	LIB
+0x00505669	66	nafxcw.lib	LIB
+0x005056ab	91	nafxcw.lib	LIB
+0x00505706	71	nafxcw.lib	LIB
+0x0050574d	124	nafxcw.lib	LIB
+0x005057c9	14	nafxcw.lib	LIB
+0x005057d7	45	nafxcw.lib	LIB
+0x00505804	42	nafxcw.lib	LIB
+0x0050582e	22	nafxcw.lib	LIB
+0x00505876	28	nafxcw.lib	LIB
+0x00505892	23	nafxcw.lib	LIB
+0x005058a9	60	nafxcw.lib	LIB
+0x005058e5	70	nafxcw.lib	LIB
+0x0050592b	70	nafxcw.lib	LIB
+0x00505971	70	nafxcw.lib	LIB
+0x005059d9	576	nafxcw.lib	LIB
+0x00505c19	57	nafxcw.lib	LIB
+0x00505c52	28	nafxcw.lib	LIB
+0x00505c6e	28	nafxcw.lib	LIB
+0x00505c8a	28	nafxcw.lib	LIB
+0x00505ca6	80	nafxcw.lib	LIB
+0x00505cf6	86	nafxcw.lib	LIB
+0x00505d4c	74	nafxcw.lib	LIB
+0x00505d96	77	nafxcw.lib	LIB
+0x00505de3	77	nafxcw.lib	LIB
+0x00505e30	644	nafxcw.lib	LIB
+0x005060b4	576	nafxcw.lib	LIB
+0x005062f4	749	nafxcw.lib	LIB
+0x005065e1	633	nafxcw.lib	LIB
+0x00506875	66	nafxcw.lib	LIB
+0x005068b7	301	nafxcw.lib	LIB
+0x005069e4	119	nafxcw.lib	LIB
+0x00506a5b	232	nafxcw.lib	LIB
+0x00506b46	168		
+0x00506bef	129	nafxcw.lib	LIB
+0x00506c70	56	nafxcw.lib	LIB
+0x00506ca8	149	nafxcw.lib	LIB
+0x00506d3d	111	nafxcw.lib	LIB
+0x00506dac	14	nafxcw.lib	LIB
+0x00506dba	177	nafxcw.lib	LIB
+0x00506e6b	44	nafxcw.lib	LIB
+0x00506e97	47	nafxcw.lib	LIB
+0x00506ee3	109		
+0x00506f4c	41		
+0x00506f7f	23		
+0x00506f96	23	nafxcw.lib	LIB
+0x00506fad	74	nafxcw.lib	LIB
+0x00506ff7	58	nafxcw.lib	LIB
+0x00507031	69	nafxcw.lib	LIB
+0x00507076	273	nafxcw.lib	LIB
+0x00507187	155	nafxcw.lib	LIB
+0x00507222	90	nafxcw.lib	LIB
+0x0050727c	59	nafxcw.lib	LIB
+0x005072b7	104	nafxcw.lib	LIB
+0x0050731f	25	nafxcw.lib	LIB
+0x00507338	119	nafxcw.lib	LIB
+0x005073af	48	nafxcw.lib	LIB
+0x0050742c	136	nafxcw.lib	LIB
+0x005074b4	114	nafxcw.lib	LIB
+0x00507526	193		
+0x005075d4	6	nafxcw.lib	LIB
+0x005075ed	66		
+0x00507638	20	nafxcw.lib	LIB
+0x0050764c	260	nafxcw.lib	LIB
+0x00507750	171	nafxcw.lib	LIB
+0x005077fb	461		
+0x005079e7	153	nafxcw.lib	LIB
+0x00507a80	183	nafxcw.lib	LIB
+0x00507b3d	16	nafxcw.lib	LIB
+0x00507b4d	54	nafxcw.lib	LIB
+0x00507b83	46	nafxcw.lib	LIB
+0x00507c23	100	nafxcw.lib	LIB
+0x00507d0f	114	nafxcw.lib	LIB
+0x00507d81	48	nafxcw.lib	LIB
+0x00507db1	112	nafxcw.lib	LIB
+0x00507e9e	93	nafxcw.lib	LIB
+0x00507efb	121	nafxcw.lib	LIB
+0x00508020	37	nafxcw.lib	LIB
+0x00508045	194	nafxcw.lib	LIB
+0x00508107	74	nafxcw.lib	LIB
+0x00508151	22	nafxcw.lib	LIB
+0x005081b8	171	nafxcw.lib	LIB
+0x00508269	11	nafxcw.lib	LIB
+0x00508274	77	nafxcw.lib	LIB
+0x005082fa	82	nafxcw.lib	LIB
+0x0050834c	90	nafxcw.lib	LIB
+0x005083a6	71	nafxcw.lib	LIB
+0x005083ed	75	nafxcw.lib	LIB
+0x00508438	106	nafxcw.lib	LIB
+0x005084a2	252	nafxcw.lib	LIB
+0x0050859e	39	nafxcw.lib	LIB
+0x005085c5	28	nafxcw.lib	LIB
+0x005085e1	166	nafxcw.lib	LIB
+0x00508687	38	nafxcw.lib	LIB
+0x005086ad	276	nafxcw.lib	LIB
+0x005087c1	98	nafxcw.lib	LIB
+0x00508823	43	nafxcw.lib	LIB
+0x0050884e	28	nafxcw.lib	LIB
+0x0050886a	161	nafxcw.lib	LIB
+0x0050890b	38	nafxcw.lib	LIB
+0x00508931	55	nafxcw.lib	LIB
+0x00508968	107	nafxcw.lib	LIB
+0x005089d3	282	nafxcw.lib	LIB
+0x00508aed	301	nafxcw.lib	LIB
+0x00508c1a	156	nafxcw.lib	LIB
+0x00508cb6	117	nafxcw.lib	LIB
+0x00508d2b	193	nafxcw.lib	LIB
+0x00508dec	378	nafxcw.lib	LIB
+0x00508f66	132	nafxcw.lib	LIB
+0x00508fea	191	nafxcw.lib	LIB
+0x005090a9	210	nafxcw.lib	LIB
+0x0050917b	504	nafxcw.lib	LIB
+0x00509373	222	nafxcw.lib	LIB
+0x00509451	139	nafxcw.lib	LIB
+0x005094dc	306	nafxcw.lib	LIB
+0x0050960e	212	nafxcw.lib	LIB
+0x005096e2	38	nafxcw.lib	LIB
+0x00509708	52	nafxcw.lib	LIB
+0x005098cf	85	nafxcw.lib	LIB
+0x00509930	73	nafxcw.lib	LIB
+0x0050997c	25	nafxcw.lib	LIB
+0x005099d6	32	nafxcw.lib	LIB
+0x005099f6	47	nafxcw.lib	LIB
+0x00509a25	65	nafxcw.lib	LIB
+0x00509a66	49	nafxcw.lib	LIB
+0x00509a97	68	nafxcw.lib	LIB
+0x00509adb	33	nafxcw.lib	LIB
+0x00509c02	55	nafxcw.lib	LIB
+0x00509c39	84	nafxcw.lib	LIB
+0x00509cac	30	nafxcw.lib	LIB
+0x00509d24	102	nafxcw.lib	LIB
+0x00509d8a	25	nafxcw.lib	LIB
+0x00509e26	26	nafxcw.lib	LIB
+0x00509ea0	28	nafxcw.lib	LIB
+0x00509ebc	22	nafxcw.lib	LIB
+0x00509ff1	170	nafxcw.lib	LIB
+0x0050a09b	373	nafxcw.lib	LIB
+0x0050a210	623	nafxcw.lib	LIB
+0x0050a47f	370		
+0x0050a5cd	14		
+0x0050a5dd	48		
+0x0050a631	232		
+0x0050a719	76		
+0x0050a765	14		
+0x0050a777	48		
+0x0050a7a7	215		
+0x0050a87e	69		
+0x0050a8c3	14		
+0x0050a8d5	48		
+0x0050a905	63	nafxcw.lib	LIB
+0x0050a944	79	nafxcw.lib	LIB
+0x0050a993	99	nafxcw.lib	LIB
+0x0050a9f6	169	nafxcw.lib	LIB
+0x0050aa9f	85	nafxcw.lib	LIB
+0x0050aaf4	85	nafxcw.lib	LIB
+0x0050ab49	78	nafxcw.lib	LIB
+0x0050ab97	87	nafxcw.lib	LIB
+0x0050abee	74	nafxcw.lib	LIB
+0x0050ac38	81	nafxcw.lib	LIB
+0x0050ac89	137	nafxcw.lib	LIB
+0x0050ad12	23	nafxcw.lib	LIB
+0x0050ad29	137	nafxcw.lib	LIB
+0x0050adb2	113	nafxcw.lib	LIB
+0x0050ae23	49	nafxcw.lib	LIB
+0x0050ae54	47	nafxcw.lib	LIB
+0x0050ae83	47	nafxcw.lib	LIB
+0x0050aeb2	47	nafxcw.lib	LIB
+0x0050aee1	47	nafxcw.lib	LIB
+0x0050af10	72	nafxcw.lib	LIB
+0x0050af58	72	nafxcw.lib	LIB
+0x0050afa0	62	nafxcw.lib	LIB
+0x0050afde	182	nafxcw.lib	LIB
+0x0050b094	52	nafxcw.lib	LIB
+0x0050b0c8	55	nafxcw.lib	LIB
+0x0050b0ff	49	nafxcw.lib	LIB
+0x0050b130	49	nafxcw.lib	LIB
+0x0050b161	48	nafxcw.lib	LIB
+0x0050b191	48	nafxcw.lib	LIB
+0x0050b1c1	67	nafxcw.lib	LIB
+0x0050b204	67	nafxcw.lib	LIB
+0x0050b247	212	nafxcw.lib	LIB
+0x0050b31b	145	nafxcw.lib	LIB
+0x0050b3ac	105	nafxcw.lib	LIB
+0x0050b415	82	nafxcw.lib	LIB
+0x0050b467	148	nafxcw.lib	LIB
+0x0050b4fb	96	nafxcw.lib	LIB
+0x0050b55b	146	nafxcw.lib	LIB
+0x0050b5ed	110	nafxcw.lib	LIB
+0x0050b65b	207	nafxcw.lib	LIB
+0x0050b72a	30	nafxcw.lib	LIB
+0x0050b766	191	nafxcw.lib	LIB
+0x0050b825	65	nafxcw.lib	LIB
+0x0050b866	65	nafxcw.lib	LIB
+0x0050b8a7	392	nafxcw.lib	LIB
+0x0050ba2f	31	nafxcw.lib	LIB
+0x0050ba4e	22	nafxcw.lib	LIB
+0x0050ba64	41	nafxcw.lib	LIB
+0x0050ba8d	68	nafxcw.lib	LIB
+0x0050bad1	51	nafxcw.lib	LIB
+0x0050bb04	207	nafxcw.lib	LIB
+0x0050bbd3	72	nafxcw.lib	LIB
+0x0050bc2f	51	nafxcw.lib	LIB
+0x0050bc67	25	nafxcw.lib	LIB
+0x0050bccf	50	nafxcw.lib	LIB
+0x0050bd04	18	nafxcw.lib	LIB
+0x0050bd16	323	nafxcw.lib	LIB
+0x0050be59	58	nafxcw.lib	LIB
+0x0050be93	93	nafxcw.lib	LIB
+0x0050bef0	290	nafxcw.lib	LIB
+0x0050c012	396	nafxcw.lib	LIB
+0x0050c1a1	127	nafxcw.lib	LIB
+0x0050c220	223	nafxcw.lib	LIB
+0x0050c2ff	97	nafxcw.lib	LIB
+0x0050c360	61	nafxcw.lib	LIB
+0x0050c39d	108	nafxcw.lib	LIB
+0x0050c409	62	nafxcw.lib	LIB
+0x0050c447	67	nafxcw.lib	LIB
+0x0050c48a	186	nafxcw.lib	LIB
+0x0050c544	828	nafxcw.lib	LIB
+0x0050c8a9	66	nafxcw.lib	LIB
+0x0050c911	270	nafxcw.lib	LIB
+0x0050ca1f	262	nafxcw.lib	LIB
+0x0050cb25	189	nafxcw.lib	LIB
+0x0050cc47	28	nafxcw.lib	LIB
+0x0050cc97	56	nafxcw.lib	LIB
+0x0050cccf	41	nafxcw.lib	LIB
+0x0050ccf8	98	nafxcw.lib	LIB
+0x0050cd5a	114	nafxcw.lib	LIB
+0x0050cdcc	47	nafxcw.lib	LIB
+0x0050ce19	163	nafxcw.lib	LIB
+0x0050cebc	133	nafxcw.lib	LIB
+0x0050cf41	50	nafxcw.lib	LIB
+0x0050cf73	54	nafxcw.lib	LIB
+0x0050cfa9	353	nafxcw.lib	LIB
+0x0050d154	257	nafxcw.lib	LIB
+0x0050d255	89	nafxcw.lib	LIB
+0x0050d2ae	33	nafxcw.lib	LIB
+0x0050d2cf	211	nafxcw.lib	LIB
+0x0050d3a2	88	nafxcw.lib	LIB
+0x0050d3fa	76	nafxcw.lib	LIB
+0x0050d446	56	nafxcw.lib	LIB
+0x0050d47e	314	nafxcw.lib	LIB
+0x0050d5b8	61	nafxcw.lib	LIB
+0x0050d5f5	466	nafxcw.lib	LIB
+0x0050d834	142	nafxcw.lib	LIB
+0x0050d8c2	509	nafxcw.lib	LIB
+0x0050dabf	241	nafxcw.lib	LIB
+0x0050dbb0	171	nafxcw.lib	LIB
+0x0050dc75	45	nafxcw.lib	LIB
+0x0050dce9	42	nafxcw.lib	LIB
+0x0050dd59	33	nafxcw.lib	LIB
+0x0050dd7a	34	nafxcw.lib	LIB
+0x0050dd9c	22	nafxcw.lib	LIB
+0x0050ddb2	18	nafxcw.lib	LIB
+0x0050ddc4	196	nafxcw.lib	LIB
+0x0050de88	66	nafxcw.lib	LIB
+0x0050deca	116	nafxcw.lib	LIB
+0x0050df3e	84	nafxcw.lib	LIB
+0x0050dfb6	37	nafxcw.lib	LIB
+0x0050dff6	176		
+0x0050e053	6	nafxcw.lib	LIB
+0x0050e0f0	81	nafxcw.lib	LIB
+0x0050e141	124	nafxcw.lib	LIB
+0x0050e1d1	23	nafxcw.lib	LIB
+0x0050e24d	32	nafxcw.lib	LIB
+0x0050e26d	56	nafxcw.lib	LIB
+0x0050e2a5	80	nafxcw.lib	LIB
+0x0050e300	54	nafxcw.lib	LIB
+0x0050e346	28	nafxcw.lib	LIB
+0x0050e362	255	nafxcw.lib	LIB
+0x0050e467	75	nafxcw.lib	LIB
+0x0050e4c5	25	nafxcw.lib	LIB
+0x0050e4de	44	nafxcw.lib	LIB
+0x0050e50a	40	nafxcw.lib	LIB
+0x0050e532	44	nafxcw.lib	LIB
+0x0050e55e	40	nafxcw.lib	LIB
+0x0050e586	30	nafxcw.lib	LIB
+0x0050e5a4	337	nafxcw.lib	LIB
+0x0050e732	32	nafxcw.lib	LIB
+0x0050e752	289	nafxcw.lib	LIB
+0x0050e873	265	nafxcw.lib	LIB
+0x0050e97c	192	nafxcw.lib	LIB
+0x0050ea7f	41	nafxcw.lib	LIB
+0x0050eaa8	119	nafxcw.lib	LIB
+0x0050eb1f	74	nafxcw.lib	LIB
+0x0050eb69	69	nafxcw.lib	LIB
+0x0050ebae	28	nafxcw.lib	LIB
+0x0050ebca	258		
+0x0050ecb9	14		
+0x0050ecda	50	nafxcw.lib	LIB
+0x0050ed0c	284		
+0x0050ee15	6	nafxcw.lib	LIB
+0x0050ee2e	61	nafxcw.lib	LIB
+0x0050ee6b	115	nafxcw.lib	LIB
+0x0050eede	220	nafxcw.lib	LIB
+0x0050efba	279	nafxcw.lib	LIB
+0x0050f0d1	282	nafxcw.lib	LIB
+0x0050f23f	446	nafxcw.lib	LIB
+0x0050f3fd	163	nafxcw.lib	LIB
+0x0050f4a0	163	nafxcw.lib	LIB
+0x0050f6d4	436	nafxcw.lib	LIB
+0x0050f888	450	nafxcw.lib	LIB
+0x0050fa4a	118	nafxcw.lib	LIB
+0x0050fac0	249	nafxcw.lib	LIB
+0x0050fbb9	42	nafxcw.lib	LIB
+0x0050fc0e	223	nafxcw.lib	LIB
+0x0050fced	143	nafxcw.lib	LIB
+0x0050fd7c	716	nafxcw.lib	LIB
+0x00510048	533	nafxcw.lib	LIB
+0x0051025d	294	nafxcw.lib	LIB
+0x00510483	384	nafxcw.lib	LIB
+0x00510603	322	nafxcw.lib	LIB
+0x00510745	283	nafxcw.lib	LIB
+0x005108de	61	nafxcw.lib	LIB
+0x0051091b	323	nafxcw.lib	LIB
+0x00510a5e	150	nafxcw.lib	LIB
+0x00510af4	159	nafxcw.lib	LIB
+0x00510b93	356	nafxcw.lib	LIB
+0x00510cf7	340	nafxcw.lib	LIB
+0x00510e4b	69	nafxcw.lib	LIB
+0x00510e90	127	nafxcw.lib	LIB
+0x00510f0f	54	nafxcw.lib	LIB
+0x00510f57	112	nafxcw.lib	LIB
+0x00510fc7	34	nafxcw.lib	LIB
+0x00510fec	104	nafxcw.lib	LIB
+0x0051105a	88	nafxcw.lib	LIB
+0x005110b2	129	nafxcw.lib	LIB
+0x00511133	71	nafxcw.lib	LIB
+0x0051117a	102	nafxcw.lib	LIB
+0x005111e0	74	nafxcw.lib	LIB
+0x0051122a	61	nafxcw.lib	LIB
+0x00511267	31	nafxcw.lib	LIB
+0x00511286	313	nafxcw.lib	LIB
+0x005113da	161	nafxcw.lib	LIB
+0x005114cd	114	nafxcw.lib	LIB
+0x0051153f	45	nafxcw.lib	LIB
+0x0051156c	59	nafxcw.lib	LIB
+0x005115a7	103	nafxcw.lib	LIB
+0x0051160e	292	nafxcw.lib	LIB
+0x00511732	1181	nafxcw.lib	LIB
+0x00511bcf	65	nafxcw.lib	LIB
+0x00511c10	67	nafxcw.lib	LIB
+0x00511c61	28	nafxcw.lib	LIB
+0x00511c7d	620	nafxcw.lib	LIB
+0x00511ee9	545	nafxcw.lib	LIB
+0x0051210a	28	nafxcw.lib	LIB
+0x00512126	56	nafxcw.lib	LIB
+0x0051215e	350	nafxcw.lib	LIB
+0x005122bc	8	nafxcw.lib	LIB
+0x005122c8	78	nafxcw.lib	LIB
+0x00512316	584	nafxcw.lib	LIB
+0x0051255e	208	nafxcw.lib	LIB
+0x0051262e	28	nafxcw.lib	LIB
+0x0051264a	67	nafxcw.lib	LIB
+0x0051268d	83	nafxcw.lib	LIB
+0x005126e0	161	nafxcw.lib	LIB
+0x0051279b	44	nafxcw.lib	LIB
+0x005127c7	181	nafxcw.lib	LIB
+0x0051287c	479	nafxcw.lib	LIB
+0x00512a5b	1052	nafxcw.lib	LIB
+0x00512e77	98	nafxcw.lib	LIB
+0x00512ed9	308	nafxcw.lib	LIB
+0x0051300d	288	nafxcw.lib	LIB
+0x0051312d	191	nafxcw.lib	LIB
+0x005131ec	215	nafxcw.lib	LIB
+0x005132c3	28	nafxcw.lib	LIB
+0x005132df	141	nafxcw.lib	LIB
+0x0051336c	542	nafxcw.lib	LIB
+0x0051358a	77	nafxcw.lib	LIB
+0x005135d7	222	nafxcw.lib	LIB
+0x005136b5	328	nafxcw.lib	LIB
+0x005137fd	77	nafxcw.lib	LIB
+0x0051384a	130	nafxcw.lib	LIB
+0x005138cc	150	nafxcw.lib	LIB
+0x00513962	157	nafxcw.lib	LIB
+0x00513a16	12	nafxcw.lib	LIB
+0x00513a22	17	nafxcw.lib	LIB
+0x00513b12	17	nafxcw.lib	LIB
+0x00513b57	50	nafxcw.lib	LIB
+0x00513bcb	12	nafxcw.lib	LIB
+0x00513bd7	45	nafxcw.lib	LIB
+0x00513c04	158	nafxcw.lib	LIB
+0x00513ca2	307	nafxcw.lib	LIB
+0x00513dd5	34	nafxcw.lib	LIB
+0x00513df7	98	nafxcw.lib	LIB
+0x00513e59	48	nafxcw.lib	LIB
+0x00513e89	99	nafxcw.lib	LIB
+0x00513f8f	73	nafxcw.lib	LIB
+0x00513fd8	6	nafxcw.lib	LIB
+0x00513fde	78	nafxcw.lib	LIB
+0x0051402c	77	nafxcw.lib	LIB
+0x00514079	80	nafxcw.lib	LIB
+0x005140c9	125	nafxcw.lib	LIB
+0x00514147	42	nafxcw.lib	LIB
+0x00514187	191	nafxcw.lib	LIB
+0x00514246	76	nafxcw.lib	LIB
+0x00514292	28	nafxcw.lib	LIB
+0x005142ae	255	nafxcw.lib	LIB
+0x005143ad	103	nafxcw.lib	LIB
+0x00514414	23	nafxcw.lib	LIB
+0x0051442b	38	nafxcw.lib	LIB
+0x00514451	30	nafxcw.lib	LIB
+0x0051446f	280	nafxcw.lib	LIB
+0x00514587	71	nafxcw.lib	LIB
+0x005145ce	65	nafxcw.lib	LIB
+0x0051460f	110	nafxcw.lib	LIB
+0x0051467d	220	nafxcw.lib	LIB
+0x00514759	188	nafxcw.lib	LIB
+0x00514815	263	nafxcw.lib	LIB
+0x0051491c	82	nafxcw.lib	LIB
+0x0051496e	127	nafxcw.lib	LIB
+0x005149ed	52	nafxcw.lib	LIB
+0x00514a21	349	nafxcw.lib	LIB
+0x00514b7e	69	nafxcw.lib	LIB
+0x00514bc3	259	nafxcw.lib	LIB
+0x00514cc6	68	nafxcw.lib	LIB
+0x00514d0a	283	nafxcw.lib	LIB
+0x00514e25	823	nafxcw.lib	LIB
+0x0051515c	319	nafxcw.lib	LIB
+0x005152ee	151	nafxcw.lib	LIB
+0x005153bf	60	nafxcw.lib	LIB
+0x005153fb	28	nafxcw.lib	LIB
+0x00515417	5		
+0x0051541c	64	nafxcw.lib	LIB
+0x0051545c	238	nafxcw.lib	LIB
+0x0051554a	69	nafxcw.lib	LIB
+0x0051558f	64	nafxcw.lib	LIB
+0x005155cf	372	nafxcw.lib	LIB
+0x00515743	117	nafxcw.lib	LIB
+0x005157b8	44	nafxcw.lib	LIB
+0x005157e4	76	nafxcw.lib	LIB
+0x00515830	51	nafxcw.lib	LIB
+0x00515863	38	nafxcw.lib	LIB
+0x00515889	11	nafxcw.lib	LIB
+0x0051589a	28	nafxcw.lib	LIB
+0x005158e9	114	nafxcw.lib	LIB
+0x00515970	56	nafxcw.lib	LIB
+0x005159a8	50	nafxcw.lib	LIB
+0x005159da	81	nafxcw.lib	LIB
+0x00515a2b	144	nafxcw.lib	LIB
+0x00515bc2	110	nafxcw.lib	LIB
+0x00515c30	381	nafxcw.lib	LIB
+0x00515dad	547	nafxcw.lib	LIB
+0x00515fd0	1495	nafxcw.lib	LIB
+0x005165a7	34	nafxcw.lib	LIB
+0x005165c9	56	nafxcw.lib	LIB
+0x00516604	33	nafxcw.lib	LIB
+0x00516625	34	nafxcw.lib	LIB
+0x00516647	56	nafxcw.lib	LIB
+0x0051667f	40	nafxcw.lib	LIB
+0x005166aa	33	nafxcw.lib	LIB
+0x005166ec	56	nafxcw.lib	LIB
+0x00516742	140	nafxcw.lib	LIB
+0x00516827	56	nafxcw.lib	LIB
+0x0051686d	90	nafxcw.lib	LIB
+0x005168e8	56	nafxcw.lib	LIB
+0x00516941	56	nafxcw.lib	LIB
+0x00516979	49	nafxcw.lib	LIB
+0x00516a05	120	nafxcw.lib	LIB
+0x00516a9f	28	nafxcw.lib	LIB
+0x00516bce	111	nafxcw.lib	LIB
+0x00516c3d	169	nafxcw.lib	LIB
+0x00516ce6	51	nafxcw.lib	LIB
+0x00516d4f	36	nafxcw.lib	LIB
+0x00516d73	55	nafxcw.lib	LIB
+0x00516dc5	7	nafxcw.lib	LIB
+0x00516dcc	90	nafxcw.lib	LIB
+0x00516e3f	32	nafxcw.lib	LIB
+0x00516e7c	47	nafxcw.lib	LIB
+0x00516eab	20	nafxcw.lib	LIB
+0x00516ebf	51	nafxcw.lib	LIB
+0x00516ef2	38	nafxcw.lib	LIB
+0x00516f18	27	nafxcw.lib	LIB
+0x00516f33	34	nafxcw.lib	LIB
+0x00516fc0	42	nafxcw.lib	LIB
+0x00516fea	88	nafxcw.lib	LIB
+0x00517042	119	nafxcw.lib	LIB
+0x005170b9	173	nafxcw.lib	LIB
+0x00517166	112	nafxcw.lib	LIB
+0x005171f8	79	nafxcw.lib	LIB
+0x00517247	131	nafxcw.lib	LIB
+0x005172ca	197	nafxcw.lib	LIB
+0x0051738f	239	nafxcw.lib	LIB
+0x0051747e	150	nafxcw.lib	LIB
+0x005175f0	211	nafxcw.lib	LIB
+0x005176c3	149	nafxcw.lib	LIB
+0x00517758	142	nafxcw.lib	LIB
+0x005177e6	36	nafxcw.lib	LIB
+0x00517842	219	nafxcw.lib	LIB
+0x0051791d	181	nafxcw.lib	LIB
+0x005179e3	252	nafxcw.lib	LIB
+0x00517adf	378	nafxcw.lib	LIB
+0x00517c59	273	nafxcw.lib	LIB
+0x00517db4	23	nafxcw.lib	LIB
+0x00517dcb	229	nafxcw.lib	LIB
+0x00517eb0	83	nafxcw.lib	LIB
+0x00517f03	53	nafxcw.lib	LIB
+0x00517fc0	47	nafxcw.lib	LIB
+0x00517fef	552	nafxcw.lib	LIB
+0x00518217	121	nafxcw.lib	LIB
+0x00518290	229	nafxcw.lib	LIB
+0x00518375	109	nafxcw.lib	LIB
+0x005183e2	31	nafxcw.lib	LIB
+0x00518417	163	nafxcw.lib	LIB
+0x005184ba	81	nafxcw.lib	LIB
+0x0051850b	185	nafxcw.lib	LIB
+0x005185c4	15	nafxcw.lib	LIB
+0x005185d3	88	nafxcw.lib	LIB
+0x0051865c	36	nafxcw.lib	LIB
+0x00518680	36	nafxcw.lib	LIB
+0x005186a4	207	nafxcw.lib	LIB
+0x00518773	283	nafxcw.lib	LIB
+0x0051888e	197	nafxcw.lib	LIB
+0x00518953	161	nafxcw.lib	LIB
+0x00518a38	28	nafxcw.lib	LIB
+0x00518a54	247	nafxcw.lib	LIB
+0x00518b4b	1284	nafxcw.lib	LIB
+0x0051904f	170	nafxcw.lib	LIB
+0x005190f9	270	nafxcw.lib	LIB
+0x00519207	69	nafxcw.lib	LIB
+0x00519291	57	nafxcw.lib	LIB
+0x005192ca	86	nafxcw.lib	LIB
+0x00519320	129	nafxcw.lib	LIB
+0x005193a1	152	nafxcw.lib	LIB
+0x00519439	40	nafxcw.lib	LIB
+0x00519461	266	nafxcw.lib	LIB
+0x0051956b	196	nafxcw.lib	LIB
+0x0051963a	42	nafxcw.lib	LIB
+0x00519664	142	nafxcw.lib	LIB
+0x005196f2	142	nafxcw.lib	LIB
+0x005197b6	159	nafxcw.lib	LIB
+0x00519855	665	nafxcw.lib	LIB
+0x00519aee	76	nafxcw.lib	LIB
+0x00519b3a	106	nafxcw.lib	LIB
+0x00519ba4	170	nafxcw.lib	LIB
+0x00519c4e	43	nafxcw.lib	LIB
+0x00519c79	85	nafxcw.lib	LIB
+0x00519cce	16	nafxcw.lib	LIB
+0x00519cde	16	nafxcw.lib	LIB
+0x00519cee	15	nafxcw.lib	LIB
+0x00519cfd	9	nafxcw.lib	LIB
+0x00519d06	76	nafxcw.lib	LIB
+0x00519d52	25	nafxcw.lib	LIB
+0x00519d71	48	nafxcw.lib	LIB
+0x00519da1	43	nafxcw.lib	LIB
+0x00519dcc	100	nafxcw.lib	LIB
+0x00519e30	24	nafxcw.lib	LIB
+0x00519efb	72	nafxcw.lib	LIB
+0x00519f43	242	nafxcw.lib	LIB
+0x0051a0e1	36	nafxcw.lib	LIB
+0x0051a105	73	nafxcw.lib	LIB
+0x0051a14e	28	nafxcw.lib	LIB
+0x0051a16a	115	nafxcw.lib	LIB
+0x0051a1dd	32	nafxcw.lib	LIB
+0x0051a259	75	nafxcw.lib	LIB
+0x0051a316	33	nafxcw.lib	LIB
+0x0051a337	45	nafxcw.lib	LIB
+0x0051a3ab	28	nafxcw.lib	LIB
+0x0051a402	210	nafxcw.lib	LIB
+0x0051a4d4	286	nafxcw.lib	LIB
+0x0051a5f2	240	nafxcw.lib	LIB
+0x0051a6e2	220	nafxcw.lib	LIB
+0x0051a7be	34	nafxcw.lib	LIB
+0x0051a7e0	46	nafxcw.lib	LIB
+0x0051a80e	52	nafxcw.lib	LIB
+0x0051a88b	25	nafxcw.lib	LIB
+0x0051a8be	122	nafxcw.lib	LIB
+0x0051a938	22	nafxcw.lib	LIB
+0x0051a94e	30	nafxcw.lib	LIB
+0x0051a96c	37	nafxcw.lib	LIB
+0x0051a991	76		
+0x0051a9dd	17		
+0x0051a9ef	97	nafxcw.lib	LIB
+0x0051aa50	740	nafxcw.lib	LIB
+0x0051ad34	160	nafxcw.lib	LIB
+0x0051add4	36	nafxcw.lib	LIB
+0x0051adf8	32	nafxcw.lib	LIB
+0x0051ae18	91	nafxcw.lib	LIB
+0x0051ae73	27	nafxcw.lib	LIB
+0x0051ae8e	106	nafxcw.lib	LIB
+0x0051aef8	163	nafxcw.lib	LIB
+0x0051af9b	595	nafxcw.lib	LIB
+0x0051b1ee	30	nafxcw.lib	LIB
+0x0051b24a	58	nafxcw.lib	LIB
+0x0051b284	325	nafxcw.lib	LIB
+0x0051b3c9	124	nafxcw.lib	LIB
+0x0051b455	84	nafxcw.lib	LIB
+0x0051b4a9	119	nafxcw.lib	LIB
+0x0051b520	138	nafxcw.lib	LIB
+0x0051b5aa	307	nafxcw.lib	LIB
+0x0051b6f4	24	nafxcw.lib	LIB
+0x0051b7fc	75	nafxcw.lib	LIB
+0x0051b847	52	nafxcw.lib	LIB
+0x0051b899	50	nafxcw.lib	LIB
+0x0051b91f	23	nafxcw.lib	LIB
+0x0051bb6c	72	nafxcw.lib	LIB
+0x0051bcc4	88	nafxcw.lib	LIB
+0x0051bd1c	67	nafxcw.lib	LIB
+0x0051bd5f	54	nafxcw.lib	LIB
+0x0051be0a	56	nafxcw.lib	LIB
+0x0051be42	47	nafxcw.lib	LIB
+0x0051bedb	45	nafxcw.lib	LIB
+0x0051bf08	28	nafxcw.lib	LIB
+0x0051bf24	37	nafxcw.lib	LIB
+0x0051bfc9	83		
+0x0051c01c	14		
+0x0051c032	29		
+0x0051c04f	232	nafxcw.lib	LIB
+0x0051c264	5		
+0x0051c26e	53	nafxcw.lib	LIB
+0x0051c2a3	25	nafxcw.lib	LIB
+0x0051c2bc	53	nafxcw.lib	LIB
+0x0051c2f1	110	nafxcw.lib	LIB
+0x0051c35f	66	nafxcw.lib	LIB
+0x0051c3a1	163	nafxcw.lib	LIB
+0x0051c480	27	nafxcw.lib	LIB
+0x0051c49b	96	nafxcw.lib	LIB
+0x0051c4fb	27	nafxcw.lib	LIB
+0x0051c53d	27	nafxcw.lib	LIB
+0x0051c56c	27	nafxcw.lib	LIB
+0x0051c587	5		
+0x0051c5c7	16	nafxcw.lib	LIB
+0x0051c5fd	38	nafxcw.lib	LIB
+0x0051c623	23	nafxcw.lib	LIB
+0x0051c796	110	nafxcw.lib	LIB
+0x0051c804	140	nafxcw.lib	LIB
+0x0051c890	84	nafxcw.lib	LIB
+0x0051c8e8	160	nafxcw.lib	LIB
+0x0051c988	305	nafxcw.lib	LIB
+0x0051cabf	107	nafxcw.lib	LIB
+0x0051cb2a	28	nafxcw.lib	LIB
+0x0051cb46	69	nafxcw.lib	LIB
+0x0051cb8b	63	nafxcw.lib	LIB
+0x0051cbca	56	nafxcw.lib	LIB
+0x0051cc02	135	nafxcw.lib	LIB
+0x0051ccec	78	nafxcw.lib	LIB
+0x0051cd4d	165	nafxcw.lib	LIB
+0x0051cdf2	198	nafxcw.lib	LIB
+0x0051ceb8	91	nafxcw.lib	LIB
+0x0051cf1d	31	nafxcw.lib	LIB
+0x0051cf3c	111	nafxcw.lib	LIB
+0x0051cfab	46	nafxcw.lib	LIB
+0x0051cfdc	57	nafxcw.lib	LIB
+0x0051d0b3	42	nafxcw.lib	LIB
+0x0051d116	112	nafxcw.lib	LIB
+0x0051d18c	113	nafxcw.lib	LIB
+0x0051d1fd	95	nafxcw.lib	LIB
+0x0051d25c	59	nafxcw.lib	LIB
+0x0051d297	28	nafxcw.lib	LIB
+0x0051d2b3	311	nafxcw.lib	LIB
+0x0051d3ea	301	nafxcw.lib	LIB
+0x0051d51d	55	nafxcw.lib	LIB
+0x0051d55a	68	nafxcw.lib	LIB
+0x0051d59e	28	nafxcw.lib	LIB
+0x0051d5ba	61	nafxcw.lib	LIB
+0x0051d65c	50	nafxcw.lib	LIB
+0x0051d69f	112	nafxcw.lib	LIB
+0x0051d70f	115	nafxcw.lib	LIB
+0x0051d782	49	nafxcw.lib	LIB
+0x0051d7b3	67	nafxcw.lib	LIB
+0x0051d7f6	145	nafxcw.lib	LIB
+0x0051d887	70	nafxcw.lib	LIB
+0x0051d8cd	105	nafxcw.lib	LIB
+0x0051d936	335	nafxcw.lib	LIB
+0x0051da85	296	nafxcw.lib	LIB
+0x0051dbad	127	nafxcw.lib	LIB
+0x0051dc42	476	nafxcw.lib	LIB
+0x0051de1e	202	nafxcw.lib	LIB
+0x0051dee8	32	nafxcw.lib	LIB
+0x0051df48	132	nafxcw.lib	LIB
+0x0051dfcc	143	nafxcw.lib	LIB
+0x0051e0ae	230	nafxcw.lib	LIB
+0x0051e194	296	nafxcw.lib	LIB
+0x0051e2bc	53	nafxcw.lib	LIB
+0x0051e2f1	84	nafxcw.lib	LIB
+0x0051e350	28	nafxcw.lib	LIB
+0x0051e36c	56	nafxcw.lib	LIB
+0x0051e3a4	216	nafxcw.lib	LIB
+0x0051e47c	63	nafxcw.lib	LIB
+0x0051e4bb	54	nafxcw.lib	LIB
+0x0051e4f1	47	nafxcw.lib	LIB
+0x0051e520	28	nafxcw.lib	LIB
+0x0051e53c	73	nafxcw.lib	LIB
+0x0051e76d	243		
+0x0051e819	27		
+0x0051e881	171	nafxcw.lib	LIB
+0x0051e931	371	nafxcw.lib	LIB
+0x0051eb3a	85	nafxcw.lib	LIB
+0x0051ebb6	24	nafxcw.lib	LIB
+0x0051ebce	16	nafxcw.lib	LIB
+0x0051ebde	268	nafxcw.lib	LIB
+0x0051ecea	70	nafxcw.lib	LIB
+0x0051ed30	64	nafxcw.lib	LIB
+0x0051ed70	26	nafxcw.lib	LIB
+0x0051ed8a	75		
+0x0051edd5	16		
+0x0051ede6	37	nafxcw.lib	LIB
+0x0051ee24	19	nafxcw.lib	LIB
+0x0051ee37	62	nafxcw.lib	LIB
+0x0051ee75	9	nafxcw.lib	LIB
+0x0051eea8	66	nafxcw.lib	LIB
+0x0051eeea	99	nafxcw.lib	LIB
+0x0051ef4d	263	nafxcw.lib	LIB
+0x0051f054	27	nafxcw.lib	LIB
+0x0051f06f	1		
+0x0051f070	149	nafxcw.lib	LIB
+0x0051f105	89	nafxcw.lib	LIB
+0x0051f15e	122	nafxcw.lib	LIB
+0x0051f1d8	30	nafxcw.lib	LIB
+0x0051f1f6	18	nafxcw.lib	LIB
+0x0051f208	87	nafxcw.lib	LIB
+0x0051f25f	28	nafxcw.lib	LIB
+0x0051f2a3	36	nafxcw.lib	LIB
+0x0051f2c7	69	nafxcw.lib	LIB
+0x0051f30c	99	nafxcw.lib	LIB
+0x0051f36f	24	nafxcw.lib	LIB
+0x0051f387	51	nafxcw.lib	LIB
+0x0051f64e	29	nafxcw.lib	LIB
+0x0051f66b	69	nafxcw.lib	LIB
+0x0051f6b6	47	nafxcw.lib	LIB
+0x0051f6e5	334	nafxcw.lib	LIB
+0x0051f833	125	nafxcw.lib	LIB
+0x0051f915	127	nafxcw.lib	LIB
+0x0051f9b6	181	nafxcw.lib	LIB
+0x0051fa6b	23	nafxcw.lib	LIB
+0x0051fa82	28	nafxcw.lib	LIB
+0x0051fa9e	49	nafxcw.lib	LIB
+0x0051facf	25	nafxcw.lib	LIB
+0x0051fae8	58		
+0x0051fb23	101	nafxcw.lib	LIB
+0x0051fb88	157	nafxcw.lib	LIB
+0x0051fc25	35	nafxcw.lib	LIB
+0x0051fc48	706	nafxcw.lib	LIB
+0x0051ff0a	1380	nafxcw.lib	LIB
+0x0052053c	32	nafxcw.lib	LIB
+0x00520568	86	nafxcw.lib	LIB
+0x005205be	79	nafxcw.lib	LIB
+0x005206e8	108	nafxcw.lib	LIB
+0x00520754	205	nafxcw.lib	LIB
+0x00520821	139	nafxcw.lib	LIB
+0x005208ac	104	nafxcw.lib	LIB
+0x00520914	226	nafxcw.lib	LIB
+0x005209f6	47	nafxcw.lib	LIB
+0x00520a57	41	nafxcw.lib	LIB
+0x00520a80	103	nafxcw.lib	LIB
+0x00520ae7	109	nafxcw.lib	LIB
+0x00520b54	65		
+0x00520b96	695	nafxcw.lib	LIB
+0x00520e4d	225	nafxcw.lib	LIB
+0x00521155	516	nafxcw.lib	LIB
+0x005213a8	279	nafxcw.lib	LIB
+0x005214bf	595	nafxcw.lib	LIB
+0x00521712	36	nafxcw.lib	LIB
+0x00521736	28	nafxcw.lib	LIB
+0x00521752	41	nafxcw.lib	LIB
+0x0052177b	21	nafxcw.lib	LIB
+0x00521790	174	nafxcw.lib	LIB
+0x0052183e	96	nafxcw.lib	LIB
+0x005218f4	27	nafxcw.lib	LIB
+0x0052190f	64	nafxcw.lib	LIB
+0x0052194f	30	nafxcw.lib	LIB
+0x0052197e	68	nafxcw.lib	LIB
+0x005219ca	71	nafxcw.lib	LIB
+0x00521a3e	5		
+0x00521a43	533	nafxcw.lib	LIB
+0x00521c58	164	nafxcw.lib	LIB
+0x00521cfc	85	nafxcw.lib	LIB
+0x00521d51	68	nafxcw.lib	LIB
+0x00521d95	11	nafxcw.lib	LIB
+0x00521da0	28	nafxcw.lib	LIB
+0x00521dbc	35	nafxcw.lib	LIB
+0x00521dfd	27	nafxcw.lib	LIB
+0x00521e18	1		
+0x00521e19	140	nafxcw.lib	LIB
+0x00521ea5	90	nafxcw.lib	LIB
+0x00521f20	84	nafxcw.lib	LIB
+0x00521f74	79	nafxcw.lib	LIB
+0x00521fc3	33	nafxcw.lib	LIB
+0x005220d6	2276	nafxcw.lib	LIB
+0x005229ba	79	nafxcw.lib	LIB
+0x00522a09	28	nafxcw.lib	LIB
+0x00522a2f	119	nafxcw.lib	LIB
+0x00522aa6	180	nafxcw.lib	LIB
+0x00522b60	8		
+0x00522b72	8		
+0x00522b84	8		
+0x00522b8c	8		
+0x00522ba8	8		
+0x00522bba	8		
+0x00522bcc	8		
+0x00522bde	8		
+0x00522bf0	8		
+0x00522c02	8		
+0x00522c14	8		
+0x00522c26	8		
+0x00522c38	8		
+0x00522c4a	8		
+0x00522c5c	8		
+0x00522c6e	8		
+0x00522c80	8		
+0x00522c92	8		
+0x00522ca4	8		
+0x00522cb6	8		
+0x00522cc8	8		
+0x00522cda	8		
+0x00522cec	8		
+0x00522cfe	8		
+0x00522d10	10		
+0x00522d24	8		
+0x00522d36	8		
+0x00522d48	8		
+0x00522d5a	8		
+0x00522d6c	8		
+0x00522d7e	8		
+0x00522d86	8		
+0x00522d8e	8		
+0x00522d96	8		
+0x00522d9e	8		
+0x00522dba	9		
+0x00522dd7	9		
+0x00522dea	12		
+0x00522e00	10		
+0x00522e14	8		
+0x00522e30	8		
+0x00522e42	8		
+0x00522e54	11		
+0x00522e69	8		
+0x00522e71	8		
+0x00522e83	10		
+0x00522ea1	8		
+0x00522ea9	8		
+0x00522eb1	8		
+0x00522ec3	8		
+0x00522ed5	8		
+0x00522ee7	8		
+0x00522ef9	8		
+0x00522f0b	8		
+0x00522f1d	8		
+0x00522f2f	8		
+0x00522f41	11		
+0x00522f4c	11		
+0x00522f61	11		
+0x00522f6c	11		
+0x00522f81	8		
+0x00522f93	8		
+0x00522fa5	10		
+0x00522fb9	11		
+0x00522fc4	14		
+0x00522fdc	8		
+0x00522fee	8		
+0x00522ff6	8		
+0x00522ffe	8		
+0x00523010	8		
+0x00523018	8		
+0x0052302a	8		
+0x0052303c	9		
+0x0052304f	11		
+0x00523064	14		
+0x0052307c	10		
+0x00523090	8		
+0x005230a2	8		
+0x005230b4	8		
+0x005230c6	8		
+0x005230d8	8		
+0x005230ea	8		
+0x005230fc	10		
+0x00523110	8		
+0x00523122	8		
+0x00523134	8		
+0x00523146	8		
+0x00523158	8		
+0x0052316a	8		
+0x00523172	8		
+0x0052317a	8		
+0x00523182	8		
+0x0052318a	8		
+0x0052319c	8		
+0x005231a4	8		
+0x005231ac	8		
+0x005231b4	8		
+0x005231bc	8		
+0x005231ce	8		
+0x005231d6	8		
+0x005231de	8		
+0x005231e6	8		
+0x005231ee	8		
+0x00523200	8		
+0x00523208	8		
+0x00523210	8		
+0x00523218	8		
+0x0052322a	11		
+0x0052323f	8		
+0x00523251	11		
+0x00523266	11		
+0x00523271	8		
+0x00523283	8		
+0x0052328b	8		
+0x0052329d	8		
+0x005232af	8		
+0x005232c1	9		
+0x005232ca	8		
+0x005232dc	8		
+0x005232e4	8		
+0x005232ec	8		
+0x005232fe	8		
+0x00523310	8		
+0x00523322	8		
+0x00523334	8		
+0x00523346	8		
+0x00523358	8		
+0x0052336a	8		
+0x0052337c	8		
+0x00523384	8		
+0x00523396	8		
+0x005233a8	11		
+0x005233bd	8		
+0x005233c5	14		
+0x005233d3	14		
+0x005233eb	8		
+0x005233f3	14		
+0x00523401	14		
+0x00523419	9		
+0x0052342c	8		
+0x00523434	8		
+0x00523446	8		
+0x0052344e	8		
+0x00523456	8		
+0x0052345e	8		
+0x00523466	8		
+0x0052346e	11		
+0x00523483	8		
+0x00523495	8		
+0x005234b1	8		
+0x005234c3	8		
+0x005234d5	8		
+0x005234fb	8		
+0x00523517	8		
+0x00523529	8		
+0x0052353b	8		
+0x0052354d	8		
+0x0052355f	9		
+0x00523572	8		
+0x00523584	10		
+0x00523598	8		
+0x005235a0	14		
+0x005235b8	8		
+0x005235c0	14		
+0x005235d8	8		
+0x005235ea	9		
+0x005235fd	8		
+0x0052360f	8		
+0x00523621	9		
+0x00523634	8		
+0x0052363c	8		
+0x00523644	8		
+0x0052364c	8		
+0x00523654	8		
+0x00523666	9		
+0x00523679	11		
+0x0052368e	10		
+0x005236a2	13		
+0x005236b9	10		
+0x005236cd	8		
+0x005236df	8		
+0x005236f1	8		
+0x00523703	8		
+0x00523715	8		
+0x00523727	8		
+0x00523739	11		
+0x00523744	14		
+0x0052375c	8		
+0x0052376e	8		
+0x00523780	8		
+0x00523792	8		
+0x005237a4	8		
+0x005237ac	8		
+0x005237b4	8		
+0x005237bc	8		
+0x005237c4	8		
+0x005237d6	8		
+0x005237e8	8		
+0x005237fa	10		
+0x0052380e	8		
+0x00523820	8		
+0x00523832	11		
+0x0052383d	25		
+0x00523856	25		
+0x0052386f	11		
+0x00523884	11		
+0x00523899	11		
+0x005238ae	8		
+0x005238b6	8		
+0x005238c8	8		
+0x005238d0	8		
+0x005238e2	8		
+0x005238f4	8		
+0x005238fc	8		
+0x0052390e	9		
+0x00523917	9		
+0x0052392a	9		
+0x0052393d	11		
+0x00523952	8		
+0x0052395a	8		
+0x0052396c	11		
+0x00523977	11		
+0x00523982	11		
+0x00523997	8		
+0x005239a9	8		
+0x005239bb	8		
+0x005239cd	8		
+0x005239df	8		
+0x005239f1	8		
+0x00523a03	8		
+0x00523a15	8		
+0x00523a27	8		
+0x00523a39	8		
+0x00523a4b	14		
+0x00523a63	8		
+0x00523a6b	8		
+0x00523a7d	8		
+0x00523a99	11		
+0x00523aae	11		
+0x00523ab9	8		
+0x00523ad5	8		
+0x00523ae7	11		
+0x00523af2	11		
+0x00523b07	11		
+0x00523b1c	8		
+0x00523b2e	9		
+0x00523b5f	11		
+0x00523b6a	11		
+0x00523b75	11		
+0x00523b94	11		
+0x00523b9f	11		
+0x00523baa	11		
+0x00523bc9	16		
+0x00523be3	8		
+0x00523bff	8		
+0x00523c11	8		
+0x00523c2d	8		
+0x00523c49	8		
+0x00523c5b	8		
+0x00523c6d	8		
+0x00523c7f	8		
+0x00523c91	8		
+0x00523c99	8		
+0x00523cab	8		
+0x00523cb3	8		
+0x00523cc5	8		
+0x00523ccd	8		
+0x00523cd5	8		
+0x00523cdd	8		
+0x00523cef	8		
+0x00523cf7	8		
+0x00523d09	8		
+0x00523d11	8		
+0x00523d23	8		
+0x00523d2b	8		
+0x00523d3d	11		
+0x00523d52	9		
+0x00523d65	8		
+0x00523d6d	8		
+0x00523d7f	9		
+0x00523d92	11		
+0x00523da7	11		
+0x00523dbc	8		
+0x00523dce	8		
+0x00523dd6	11		
+0x00523deb	9		
+0x00523dfe	8		
+0x00523e10	9		
+0x00523e19	9		
+0x00523e2c	9		
+0x00523e3f	8		
+0x00523e51	8		
+0x00523e63	8		
+0x00523e75	8		
+0x00523e87	8		
+0x00523e8f	11		
+0x00523ea4	8		
+0x00523eb6	8		
+0x00523ec8	8		
+0x00523eda	9		
+0x00523eed	8		
+0x00523eff	8		
+0x00523f11	8		
+0x00523f19	14		
+0x00523f31	9		
+0x00523f44	8		
+0x00523f56	11		
+0x00523f61	11		
+0x00523f6c	11		
+0x00523f81	11		
+0x00523f8c	11		
+0x00523f97	11		
+0x00523fac	8		
+0x00523fbe	8		
+0x00523fd0	9		
+0x00523fe3	11		
+0x00523ff8	11		
+0x0052400d	8		
+0x0052401f	8		
+0x00524031	8		
+0x00524039	8		
+0x00524041	8		
+0x00524049	8		
+0x00524051	8		
+0x00524063	8		
+0x0052406b	8		
+0x00524073	8		
+0x0052407b	8		
+0x0052408d	8		
+0x00524095	8		
+0x0052409d	8		
+0x005240a5	8		
+0x005240ad	8		
+0x005240b5	8		
+0x005240bd	8		
+0x005240c5	8		
+0x005240cd	8		
+0x005240d5	8		
+0x005240e7	11		
+0x005240f2	11		
+0x005240fd	8		
+0x00524105	8		
+0x0052410d	8		
+0x0052411f	8		
+0x00524127	8		
+0x0052412f	8		
+0x00524137	8		
+0x0052413f	8		
+0x00524147	8		
+0x0052414f	8		
+0x00524157	8		
+0x0052415f	8		
+0x00524167	8		
+0x0052416f	8		
+0x00524177	8		
+0x0052417f	8		
+0x00524187	8		
+0x0052418f	8		
+0x00524197	8		
+0x005241a9	8		
+0x005241bb	8		
+0x005241c3	11		
+0x005241d8	9		
+0x005241f5	8		
+0x00524207	8		
+0x00524219	8		
+0x00524221	8		
+0x00524229	9		
+0x0052423c	8		
+0x00524244	8		
+0x0052424c	8		
+0x00524254	8		
+0x0052425c	8		
+0x00524278	8		
+0x00524280	11		
+0x0052428b	11		
+0x005242a0	8		
+0x005242a8	11		
+0x005242b3	11		
+0x005242be	11		
+0x005242d3	8		
+0x005242e5	9		
+0x005242f8	8		
+0x00524300	8		
+0x00524312	8		
+0x00524324	11		
+0x00524339	8		
+0x00524341	8		
+0x00524349	8		
+0x00524351	8		
+0x00524363	8		
+0x0052436b	8		
+0x00524373	8		
+0x00524385	8		
+0x0052438d	8		
+0x00524395	8		
+0x005243a7	11		
+0x005243b2	9		
+0x005243c5	11		
+0x005243da	8		
+0x005243ec	11		
+0x005243f7	11		
+0x00524402	11		
+0x0052440d	11		
+0x00524418	11		
+0x00524423	11		
+0x0052442e	11		
+0x00524439	11		
+0x00524444	11		
+0x0052444f	11		
+0x0052445a	11		
+0x00524465	11		
+0x00524470	11		
+0x0052447b	11		
+0x00524486	11		
+0x00524491	11		
+0x005244b0	8		
+0x005244d0	8		
+0x005244d8	14		
+0x005244e6	14		
+0x005244f4	14		
+0x00524502	14		
+0x00524510	14		
+0x0052451e	14		
+0x00524540	8		
+0x00524548	11		
+0x00524553	14		
+0x00524561	14		
+0x0052456f	14		
+0x0052457d	14		
+0x005245a0	8		
+0x005245a8	14		
+0x005245b6	14		
+0x005245c4	14		
+0x005245d2	14		
+0x005245e0	14		
+0x005245ee	14		
+0x005245fc	14		
+0x00524620	8		
+0x00524628	11		
+0x00524640	8		
+0x00524648	11		
+0x00524660	8		
+0x00524668	11		
+0x00524680	8		
+0x005246a0	8		
+0x005246a8	14		
+0x005246b6	14		
+0x005246c4	14		
+0x005246d2	14		
+0x005246f0	8		
+0x005246f8	11		
+0x00524710	8		
+0x00524718	11		
+0x00524730	8		
+0x00524750	8		
+0x00524770	8		
+0x00524790	11		
+0x005247b0	8		
+0x005247b8	11		
+0x005247c3	14		
+0x005247d1	14		
+0x005247df	14		
+0x005247ed	14		
+0x005247fb	14		
+0x00524809	14		
+0x00524817	14		
+0x00524825	14		
+0x00524833	14		
+0x00524841	14		
+0x0052484f	14		
+0x0052485d	14		
+0x00524880	8		
+0x00524888	11		
+0x00524893	14		
+0x005248a1	14		
+0x005248af	14		
+0x005248bd	14		
+0x005248cb	14		
+0x005248d9	14		
+0x005248e7	14		
+0x005248f5	14		
+0x00524903	14		
+0x00524911	14		
+0x0052491f	14		
+0x0052492d	14		
+0x00524950	10		
+0x00524970	8		
+0x00524978	14		
+0x00524986	14		
+0x00524994	14		
+0x005249a2	14		
+0x005249b0	14		
+0x005249be	14		
+0x005249e0	8		
+0x005249e8	11		
+0x005249f3	14		
+0x00524a01	14		
+0x00524a0f	14		
+0x00524a1d	14		
+0x00524a40	8		
+0x00524a48	11		
+0x00524a60	8		
+0x00524a68	14		
+0x00524a76	14		
+0x00524a84	14		
+0x00524a92	14		
+0x00524ab0	8		
+0x00524ab8	11		
+0x00524ad0	8		
+0x00524ad8	14		
+0x00524ae6	14		
+0x00524af4	14		
+0x00524b02	14		
+0x00524b10	14		
+0x00524b1e	14		
+0x00524b2c	14		
+0x00524b50	8		
+0x00524b70	8		
+0x00524b90	8		
+0x00524b98	11		
+0x00524ba3	14		
+0x00524bb1	14		
+0x00524bbf	14		
+0x00524bcd	14		
+0x00524bdb	14		
+0x00524be9	14		
+0x00524c10	8		
+0x00524c18	11		
+0x00524c30	11		
+0x00524c50	8		
+0x00524c70	8		
+0x00524c90	10		
+0x00524cb0	13		
+0x00524cbd	11		
+0x00524ce0	13		
+0x00524d00	13		
+0x00524d0d	11		
+0x00524d30	8		
+0x00524d38	11		
+0x00524d43	14		
+0x00524d60	8		
+0x00524d68	14		
+0x00524d76	14		
+0x00524d84	14		
+0x00524d92	15		
+0x00524da1	14		
+0x00524daf	14		
+0x00524dbd	14		
+0x00524de0	8		
+0x00524de8	11		
+0x00524df3	14		
+0x00524e01	14		
+0x00524e20	8		
+0x00524e40	10		
+0x00524e60	8		
+0x00524e68	11		
+0x00524e73	14		
+0x00524e90	8		
+0x00524eb0	10		
+0x00524ed0	11		
+0x00524ef0	8		
+0x00524f10	11		
+0x00524f30	8		
+0x00524f38	14		
+0x00524f46	14		
+0x00524f60	8		
+0x00524f68	14		
+0x00524f80	10		
+0x00524fa0	8		
+0x00524fc0	8		
+0x00524fe0	8		
+0x00524fe8	8		
+0x00524ff0	8		
+0x00525010	8		
+0x00525018	8		
+0x00525020	8		
+0x00525040	8		
+0x00525048	8		
+0x00525050	8		
+0x00525070	8		
+0x00525078	8		
+0x00525080	8		
+0x005250a0	8		
+0x005250a8	8		
+0x005250c0	11		
+0x005250cb	11		
+0x005250e0	8		
+0x00525100	8		
+0x00525108	14		
+0x00525116	14		
+0x00525124	14		
+0x00525132	15		
+0x00525141	14		
+0x0052514f	14		
+0x0052515d	14		
+0x00525180	8		
+0x005251a0	8		
+0x005251a8	11		
+0x005251c0	11		
+0x005251e0	8		
+0x00525200	11		
+0x00525220	11		
+0x00525240	8		
+0x00525260	8		
+0x00525280	8		
+0x00525288	11		
+0x00525293	14		
+0x005252a1	14		
+0x005252af	14		
+0x005252bd	14		
+0x005252cb	14		
+0x005252f0	8		
+0x005252f8	11		
+0x00525303	14		
+0x00525311	14		
+0x0052531f	14		
+0x0052532d	14		
+0x0052533b	14		
+0x00525349	14		
+0x00525357	14		
+0x00525365	14		
+0x00525373	14		
+0x00525381	14		
+0x005253a0	8		
+0x005253a8	11		
+0x005253b3	14		
+0x005253c1	14		
+0x005253cf	14		
+0x005253dd	14		
+0x005253eb	14		
+0x005253f9	14		
+0x00525407	14		
+0x00525415	14		
+0x00525430	8		
+0x00525438	11		
+0x00525450	8		
+0x00525458	11		
+0x00525463	11		
+0x00525480	8		
+0x00525488	11		
+0x00525493	11		
+0x005254b0	8		
+0x005254b8	11		
+0x005254c3	11		
+0x005254e0	8		
+0x005254e8	11		
+0x00525500	8		
+0x00525508	11		
+0x00525520	8		
+0x00525528	11		
+0x00525533	11		
+0x00525550	8		
+0x00525558	11		
+0x00525563	14		
+0x00525571	14		
+0x0052557f	14		
+0x0052558d	14		
+0x005255b0	8		
+0x005255d0	8		
+0x005255f0	8		
+0x00525610	8		
+0x00525630	8		
+0x00525650	8		
+0x00525670	8		
+0x00525678	8		
+0x00525690	8		
+0x00525698	11		
+0x005256b0	8		
+0x005256b8	11		
+0x005256d0	10		
+0x005256f0	8		
+0x00525710	8		
+0x00525730	11		
+0x0052573b	11		
+0x00525750	8		
+0x00525758	8		
+0x00525760	8		
+0x00525768	8		
+0x00525770	8		
+0x00525778	8		
+0x00525780	8		
+0x005257a0	11		
+0x005257ab	11		
+0x005257b6	11		
+0x005257c1	11		
+0x005257cc	11		
+0x005257d7	11		
+0x005257e2	11		
+0x00525800	11		
+0x0052580b	11		
+0x00525816	11		
+0x00525821	11		
+0x0052582c	11		
+0x00525837	11		
+0x00525842	11		
+0x00525860	8		
+0x00525880	8		
+0x005258a0	8		
+0x005258c0	8		
+0x005258c8	8		
+0x005258d0	8		
+0x005258d8	8		
+0x005258f0	8		
+0x005258f8	8		
+0x00525900	8		
+0x00525920	8		
+0x00525940	10		
+0x00525960	8		
+0x00525968	8		
+0x00525980	11		
+0x0052598b	11		
+0x005259a0	11		
+0x005259c0	11		
+0x005259e0	8		
+0x00525a00	8		
+0x00525a08	8		
+0x00525a10	8		
+0x00525a18	8		
+0x00525a30	11		
+0x00525a3b	11		
+0x00525a46	11		
+0x00525a51	11		
+0x00525a5c	11		
+0x00525a67	11		
+0x00525a72	11		
+0x00525a7d	11		
+0x00525a88	13		
+0x00525a95	11		
+0x00525ab0	11		
+0x00525ad0	8		
+0x00525af0	8		
+0x00525af8	11		
+0x00525b03	11		
+0x00525b0e	11		
+0x00525b30	8		
+0x00525b50	8		
+0x00525b70	8		
+0x00525b78	25		
+0x00525ba0	8		
+0x00525ba8	25		
+0x00525bd0	8		
+0x00525bd8	25		
+0x00525c00	8		
+0x00525c08	25		
+0x00525c30	8		
+0x00525c38	25		
+0x00525c60	8		
+0x00525c68	25		
+0x00525c90	8		
+0x00525c98	8		
+0x00525cb0	8		
+0x00525cb8	11		
+0x00525cc3	11		
+0x00525ce0	8		
+0x00525ce8	11		
+0x00525cf3	11		
+0x00525d10	11		
+0x00525d30	11		
+0x00525d50	8		
+0x00525d58	8		
+0x00525d70	8		
+0x00525d78	11		
+0x00525d83	11		
+0x00525d8e	11		
+0x00525db0	8		
+0x00525db8	11		
+0x00525dc3	11		
+0x00525de0	11		
+0x00525e00	8		
+0x00525e08	8		
+0x00525e10	8		
+0x00525e18	8		
+0x00525e20	8		
+0x00525e28	11		
+0x00525e33	11		
+0x00525e3e	8		
+0x00525e46	8		
+0x00525e4e	8		
+0x00525e56	8		
+0x00525e5e	8		
+0x00525e70	8		
+0x00525e90	8		
+0x00525eb0	8		
+0x00525ed0	8		
+0x00525ef0	11		
+0x00525f10	8		
+0x00525f30	8		
+0x00525f50	11		
+0x00525f5b	11		
+0x00525f66	11		
+0x00525f80	8		
+0x00525fa0	8		
+0x00525fc0	8		
+0x00525fe0	8		
+0x00526000	8		
+0x00526020	8		
+0x00526040	11		
+0x0052604b	11		
+0x00526056	11		
+0x00526061	11		
+0x0052606c	11		
+0x00526077	11		
+0x00526082	11		
+0x0052608d	11		
+0x005260b0	8		
+0x005260d0	11		
+0x005260db	11		
+0x005260e6	11		
+0x00526100	11		
+0x0052610b	11		
+0x00526116	8		
+0x00526130	8		
+0x00526150	8		
+0x00526170	8		
+0x00526190	11		
+0x0052619b	11		
+0x005261b0	11		
+0x005261d0	8		
+0x005261f0	11		
+0x00526210	8		
+0x00526230	8		
+0x00526238	8		
+0x00526240	8		
+0x00526248	8		
+0x00526260	11		
+0x0052626b	11		
+0x00526280	11		
+0x0052628b	11		
+0x00526296	8		
+0x005262b0	11		
+0x005262d0	8		
+0x005262d8	8		
+0x005262f0	8		
+0x005262f8	8		
+0x00526310	11		
+0x0052631b	11		
+0x00526326	8		
+0x0052632e	11		
+0x00526339	8		
+0x00526350	8		
+0x00526370	11		
+0x00526390	8		
+0x005263b0	8		
+0x005263d0	8		
+0x005263f0	8		
+0x00526410	8		
+0x00526430	13		
+0x00526450	11		
+0x00526470	13		
+0x00526490	13		
+0x005264b0	11		
+0x005264d0	13		
+0x005264f0	11		
+0x00526510	11		
+0x00526530	11		
+0x0052653b	11		
+0x00526546	11		
+0x00526551	11		
+0x00526570	8		
+0x00526590	11		
+0x0052659b	11		
+0x005265a6	11		
+0x005265b1	11		
+0x005265bc	11		
+0x005265c7	11		
+0x005265d2	11		
+0x005265f0	8		
+0x005265f8	8		
+0x00526600	8		
+0x00526608	8		
+0x00526610	8		
+0x00526630	8		
+0x00526650	8		
+0x00526670	8		
+0x00526690	11		
+0x005266b0	8		
+0x005266d0	8		
+0x005266f0	11		
+0x005266fb	11		
+0x00526710	8		
+0x00526730	8		
+0x00526750	8		
+0x00526758	8		
+0x00526770	8		
+0x00526778	8		
+0x00526780	8		
+0x00526788	8		
+0x00526790	8		
+0x00526798	8		
+0x005267b0	8		
+0x005267d0	8		
+0x005267f0	8		
+0x005267f8	8		
+0x00526800	8		
+0x00526820	8		
+0x00526840	11		
+0x0052684b	11		
+0x00526860	11		
+0x00526880	8		
+0x00526888	8		
+0x005268a0	11		
+0x005268ab	11		
+0x005268c0	8		
+0x005268e0	10		
+0x005268ea	10		
+0x005268f4	10		
+0x005268fe	10		
+0x00526908	10		
+0x00526912	10		
+0x0052691c	10		
+0x00526940	24		
+0x00526960	24		
+0x00526990	24		
+0x005269e0	24		
+0x00526a10	24		
+0x00526a30	24		
+0x00526a50	24		
+0x00526ad0	24		
+0x00526b90	24		
+0x00526bf0	24		
+0x00526d20	22		

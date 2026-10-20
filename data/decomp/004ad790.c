@@ -1,0 +1,15 @@
+
+void __fastcall FUN_004ad790(undefined4 param_1)
+
+{
+  int in_EAX;
+  int iVar1;
+  
+  *(char *)(*(int *)(in_EAX + 8) + *(int *)(in_EAX + 0x14)) = (char)((uint)param_1 >> 8);
+  iVar1 = *(int *)(in_EAX + 0x14) + 1;
+  *(int *)(in_EAX + 0x14) = iVar1;
+  *(char *)(iVar1 + *(int *)(in_EAX + 8)) = (char)param_1;
+  *(int *)(in_EAX + 0x14) = *(int *)(in_EAX + 0x14) + 1;
+  return;
+}
+

@@ -1,0 +1,78 @@
+name: radiant
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository_owner }}/cod2-radiant-msvc71:1
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+      options: --user root
+    outputs:
+      sha_identical: ${{ steps.gate.outputs.sha_identical }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Previous numbers
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git show HEAD~1:ledger/meter.json > ledger/meter.json 2>/dev/null || git checkout -- ledger/meter.json 2>/dev/null || true
+      - id: gate
+        name: Verify every ledger row + meters
+        run: |
+          set -o pipefail
+          python3 tools/verify.py --all | tee build-verify.log || true
+          python3 tools/meter.py --gate; rc=$?
+          { cat build/summary.md; echo; echo '```'; grep -v '^verify:' build-verify.log | head -50; tail -1 build-verify.log; echo '```'; } > summary.md
+          cat summary.md >> "$GITHUB_STEP_SUMMARY"
+          python3 -c "import json;print('sha_identical=%s' % str(json.load(open('build/meter.json'))['sha_identical']).lower())" >> "$GITHUB_OUTPUT"
+          exit $rc
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: summary
+          path: summary.md
+
+  report:
+    needs: gate
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: summary
+      - name: Commit comment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RESULT: ${{ needs.gate.result }}
+        run: |
+          { echo "**radiant CI: $RESULT**"; echo; cat summary.md; } > body.md
+          gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/comments" -F body=@body.md > /dev/null
+      - name: Discord
+        env:
+          HOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          RESULT: ${{ needs.gate.result }}
+          MSG: ${{ github.event.head_commit.message }}
+        if: env.HOOK != ''
+        run: |
+          table=$(sed -n '/^| functions/,/^| failing/p' summary.md | sed 's/^| //; s/ |$//; s/ | /: /')
+          text=$(printf '**radiant %s** `%s` %s\n%s\n<%s>' "$RESULT" "${GITHUB_SHA::7}" "$(echo "$MSG" | head -1)" "$table" \
+            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          jq -n --arg c "$text" '{content: $c}' | curl -fsS -H 'Content-Type: application/json' -d @- "$HOOK"
+      - name: Tag the first SHA-identical build
+        if: needs.gate.outputs.sha_identical == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release view sha-identical -R "${{ github.repository }}" >/dev/null 2>&1 || \
+            gh release create sha-identical -R "${{ github.repository }}" --target "${{ github.sha }}" \
+              --title "SHA-identical CoD2Radiant.exe" --notes "Rebuilt exe matches retail SHA-256."

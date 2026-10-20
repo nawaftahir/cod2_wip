@@ -1,0 +1,10 @@
+build/
+scratch/
+ghidra/
+toolchain/_extract/
+toolchain/msvc710.tar.gz
+__pycache__/
+*.pyc
+_CL_*
+queue/claims/*
+!queue/claims/.keep
