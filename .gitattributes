@@ -1,0 +1,3 @@
+# two agents appending ledger rows at once merge cleanly
+ledger/matches.tsv merge=union
+ledger/defer.tsv merge=union

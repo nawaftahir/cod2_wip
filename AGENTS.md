@@ -7,8 +7,11 @@ This file is all you need. Follow it exactly.
 
 ## The loop
 
-1. **Pick a row.** Open `queue/queue.tsv` and take the first row (top = easiest) that has no
-   file in `queue/claims/`. Claim it: `echo <your-name> > queue/claims/<addr>`. One row at a time.
+You work in your own worktree, `.agents/<your-name>/`, on branch `agent/<your-name>`. Stay in it.
+
+1. **Get your rows.** If your task message lists rows, use those. Otherwise run
+   `python3 tools/claim.py <your-name> cheap`. It locks one whole source file for you and
+   prints up to 5 functions (`addr  source  note`). If it prints nothing, there is no work: stop.
 2. **Look at it.** `make show A=<addr>`. It prints:
    - the source file the function belongs to, and which matched functions it goes between;
    - the retail disassembly, with call targets and strings resolved;
@@ -24,16 +27,14 @@ This file is all you need. Follow it exactly.
    - Add a row to `ledger/matches.tsv`: `addr size source symbol name tag`. `symbol` is the
      name in the .obj: `_Name` for C/`extern "C"`, the mangled `?Name@@...` for C++. `make try` prints it.
    - Run `make try S=<the src file> A=<addr>` once more.
-   - Then `make verify`. Every row must still pass.
-6. **Commit and push.**
+6. **Commit (don't push).**
    ```
    git add <the src file> ledger/matches.tsv      # only your files, never `git add -A`
    git commit -m "match <name> <addr>"
-   git pull --rebase && git push
    ```
-   CI rechecks everything and posts the numbers. Check it with `gh run list -L 1`.
-   **If your push turned CI red, fix it or `git revert` your commit before you claim anything else.**
-7. Delete your claim file. Go to step 1.
+   The lander (`tools/land.sh`) merges your branch into main later. It rejects any commit that
+   touches anything except `src/` and `ledger/`. CI then rechecks everything and posts the numbers.
+7. Next row. When your rows are done, run `python3 tools/claim.py --release <your-name>` and stop.
 
 ## Rules that make it byte-identical
 
@@ -68,7 +69,7 @@ This file is all you need. Follow it exactly.
 - Never edit `tools/`, `data/`, `link/`, `toolchain/`, `binaries/`, `.github/` or this file. If one
   looks wrong, write it in your defer reason and move on.
 - Never touch anything outside this `radiant/` folder.
-- Never push a commit that breaks `make verify`. Never force-push. Never rewrite history.
+- Never push. Never merge into main. Never rewrite history.
 - Never mark something matched that `make try` didn't call `MATCH`.
 
 ## Words
