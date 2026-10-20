@@ -53,6 +53,12 @@ def main():
                 for a, why in deferred.items() if a not in done]
         rows += [(r["addr"], r["source"], "") for r in queue
                  if int(r["tier"]) == 3 and r["addr"] not in done and r["addr"] not in deferred]
+    # files with real reference source first: verified server source, then CoD2rev, then Q3Radiant
+    rank = {}
+    for r in tsv("data/refs.tsv"):
+        src = r["tu"] if r["tu"].startswith("src/") else "src/" + r["tu"]
+        rank[src] = min(rank.get(src, 9), int(r["rank"]))
+    rows.sort(key=lambda r: rank.get(r[1], 9))
     os.makedirs(CLAIMS, exist_ok=True)
     tried = set()
     for _, source, _ in rows:

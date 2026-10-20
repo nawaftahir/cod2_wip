@@ -48,13 +48,25 @@ run_agent() { # runner model dir prompt continue?
   esac
 }
 
+copy_refs() { # copy the TU's reference files into the worktree (agents can't read outside it)
+  local wt=$1 src=$2
+  rm -rf "$wt/refs"; mkdir -p "$wt/refs"
+  awk -F'\t' -v s="$src" '$1==s || "src/"$1==s {print $2"\t"$3}' data/refs.tsv | sort -n | while IFS=$'\t' read -r rank ref; do
+    cp "$ROOT/$ref" "$wt/refs/${rank}_$(basename "$ref")" && echo "refs/${rank}_$(basename "$ref")"
+  done
+}
+
+quota_hit() { # the tool said its usage ran out
+  grep -q -i -E 'rate.?limit(ed)? (reached|exceeded|hit)|quota (exceeded|exhausted|reached)|usage limit|(http|status|error)[: ]+429|too many requests|out of credits|insufficient credits|premium requests? (limit|exhausted|quota)' "$1"
+}
+
 open_rows() { # rows of this batch not yet in the worktree's matches/defer ledger
   local dir=$1; shift
   for a in "$@"; do grep -q "^$a" "$dir/ledger/matches.tsv" "$dir/ledger/defer.tsv" 2>/dev/null || echo "$a"; done
 }
 
 loop() {
-  local name=$1 line level runner model wt rows addrs prompt left i
+  local name=$1 line level runner model wt rows addrs prompt left i refs out backoff=3600
   line=$(agent_line "$name"); [ -n "$line" ] || { echo "unknown agent $name"; exit 1; }
   read -r _ level runner model <<<"$line"
   wt=.agents/$name
@@ -64,20 +76,32 @@ loop() {
     rows=$(RADIANT_ROOT="$ROOT" python3 tools/claim.py "$name" "$level")
     if [ -z "$rows" ]; then echo "$(date +%T) no work"; sleep 900; continue; fi
     addrs=$(echo "$rows" | cut -f1)
+    refs=$(copy_refs "$wt" "$(echo "$rows" | head -1 | cut -f2)")
     prompt="You are agent '$name'. Read AGENTS.md in this folder and follow it exactly.
 Your rows are already claimed for you (addr, source file, note):
 $rows
+Reference source for this file (read-only copies; best first; rank 1 is the real CoD2 code, often copy-ready):
+${refs:-none, work from make show}
 Do them in order: make show, draft in scratch/$name/, make try (max 8 tries), land in src/ + ledger, commit.
 Commit only. Do not push, do not run claim.py. Stop when every row is matched or deferred."
     echo "$(date +%T) batch: $(echo $addrs)"
-    run_agent "$runner" "$model" "$ROOT/$wt" "$prompt" ""
+    out=fleet/logs/$name.last
+    run_agent "$runner" "$model" "$ROOT/$wt" "$prompt" "" 2>&1 | tee "$out"
     for ((i = 0; i < NUDGES; i++)); do
       left=$(open_rows "$wt" $addrs)
       [ -z "$left" ] && break
-      run_agent "$runner" "$model" "$ROOT/$wt" "Continue. Rows still open: $(echo $left). Finish or defer each, then commit." 1
+      quota_hit "$out" && break
+      run_agent "$runner" "$model" "$ROOT/$wt" "Continue. Rows still open: $(echo $left). Finish or defer each, then commit." 1 2>&1 | tee "$out"
     done
     python3 tools/claim.py --release "$name"
     tools/land.sh "$name"
+    # usage ran out: wait and retry, 1h doubling to 4h; reset once a batch goes through
+    if quota_hit "$out"; then
+      echo "$(date +%T) usage limit hit, sleeping $((backoff / 60))m"
+      sleep "$backoff"; backoff=$((backoff * 2 > 14400 ? 14400 : backoff * 2))
+    else
+      backoff=3600
+    fi
   done
   echo "$(date +%T) stopped"
 }
