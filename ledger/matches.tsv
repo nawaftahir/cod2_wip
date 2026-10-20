@@ -32,11 +32,15 @@ addr	size	source	symbol	name	tag
 0x0048c470	93	src/universal/dvar.cpp	_Dvar_StringToBool	Dvar_StringToBool	SUPPORTED
 0x0048c4d0	81	src/universal/dvar.cpp	_Dvar_StringToInt	Dvar_StringToInt	SUPPORTED
 0x0048c530	103	src/universal/dvar.cpp	_Dvar_StringToFloat	Dvar_StringToFloat	SUPPORTED
+0x0048ccd0	60	src/universal/dvar.cpp	_Dvar_ClampVectorToDomain	Dvar_ClampVectorToDomain	SUPPORTED
+0x0048cd10	55	src/universal/dvar.cpp	_Dvar_VectorInDomain	Dvar_VectorInDomain	SUPPORTED
+0x0048d2c0	142	src/universal/dvar.cpp	_Dvar_VectorDomainToString	Dvar_VectorDomainToString	SUPPORTED
 0x0048e190	194	src/universal/dvar.cpp	_Dvar_GetBool	Dvar_GetBool	SUPPORTED
 0x0048e260	202	src/universal/dvar.cpp	_Dvar_GetInt	Dvar_GetInt	SUPPORTED
 0x0048e330	201	src/universal/dvar.cpp	_Dvar_GetFloat	Dvar_GetFloat	SUPPORTED
 0x0048e640	194	src/universal/dvar.cpp	_Dvar_GetString	Dvar_GetString	SUPPORTED
 0x0048e710	93	src/universal/dvar.cpp	_Dvar_GetVariantString	Dvar_GetVariantString	SUPPORTED
+0x0048f240	44	src/universal/dvar.cpp	_Dvar_UpdateRegistration	Dvar_UpdateRegistration	SUPPORTED
 0x004acb50	14	src/xanim/xmodel_utils.cpp	?XModelGetName@@YAPBDPBUXModel@@@Z	XModelGetName	SUPPORTED
 0x004acb60	14	src/xanim/xmodel_utils.cpp	?XModelGetFlags@@YADPBUXModel@@@Z	XModelGetFlags	SUPPORTED
 0x004acd60	12	src/xanim/xmodel_utils.cpp	?XModelGetNumLods@@YAHPBUXModel@@@Z	XModelGetNumLods	SUPPORTED
