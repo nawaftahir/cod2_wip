@@ -78,6 +78,8 @@ Read and edit files with your file tools, not the shell.
 - Never touch anything outside this `radiant/` folder.
 - Never push. Never merge into main. Never rewrite history.
 - Never mark something matched that `make try` didn't call `MATCH`.
+- Never add a wrapper or fake caller just to make the compiler emit a function. If a `static`
+  or inline function only appears when called, defer it until its real caller is written.
 - Never leave an unmatched function in `src/`. Drafts stay in `scratch/`. `src/` holds only verified code,
   and CI fails if the count of unverified functions in `src/` goes up.
 
