@@ -64,7 +64,7 @@ jobs:
           MSG: ${{ github.event.head_commit.message }}
         if: env.HOOK != ''
         run: |
-          table=$(sed -n '/^| functions/,/^| failing/p' summary.md | sed 's/^| //; s/ |$//; s/ | /: /')
+          table=$(grep '^| ' summary.md | tail -n +3 | sed 's/^| //; s/ |$//; s/ | /: **/; s/$/**/')
           text=$(printf '**radiant %s** `%s` %s\n%s\n<%s>' "$RESULT" "${GITHUB_SHA::7}" "$(echo "$MSG" | head -1)" "$table" \
             "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
           jq -n --arg c "$text" '{content: $c}' | curl -fsS -H 'Content-Type: application/json' -d @- "$HOOK"

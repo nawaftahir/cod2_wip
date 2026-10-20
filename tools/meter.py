@@ -59,12 +59,13 @@ def summary(now, before):
     def delta(k):
         d = now[k] - before.get(k, 0)
         return " (%+d)" % d if before and d else ""
+    game = now["text_bytes"] - now["lib_bytes"]
     lines = [
         "| meter | value |", "|---|---|",
+        "| .text done (game code + MFC/CRT identified) | %.2f%% |" % pct(now["matched_bytes"] + now["lib_bytes"], now["text_bytes"]),
+        "| game code reconstructed (MFC/CRT excluded) | %.3f%% (%d of %d bytes%s) |" % (pct(now["matched_bytes"], game), now["matched_bytes"], game, delta("matched_bytes")),
         "| functions matched from source | %d%s |" % (now["matched_functions"], delta("matched_functions")),
-        "| .text matched from source | %.3f%% (%d bytes%s) |" % (pct(now["matched_bytes"], now["text_bytes"]), now["matched_bytes"], delta("matched_bytes")),
-        "| .text identified as library | %.2f%% (%d bytes) |" % (pct(now["lib_bytes"], now["text_bytes"]), now["lib_bytes"]),
-        "| whole file, same byte at same offset | %.3f%%%s |" % (pct(now["same_offset_bytes"], now["file_bytes"]), delta("same_offset_bytes")),
+        "| SHA goal: whole file bytes in place | %.3f%%%s |" % (pct(now["same_offset_bytes"], now["file_bytes"]), delta("same_offset_bytes")),
         "| SHA-256 identical | %s |" % ("YES" if now["sha_identical"] else "no"),
         "| failing ledger rows | %d |" % now["failed_rows"],
         "| emit-order warnings | %d |" % now["order_warnings"],
