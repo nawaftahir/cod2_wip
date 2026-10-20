@@ -34,3 +34,6 @@ addr	size	source	symbol	name	tag
 0x004acd80	13	src/xanim/xmodel_utils.cpp	?XModelGetBasePose@@YAPAUDObjAnimMat@@PBUXModel@@@Z	XModelGetBasePose	SUPPORTED
 0x004acea0	52	src/xanim/xmodel_utils.cpp	?XModelGetLodOutDist@@YAMPBUXModel@@@Z	XModelGetLodOutDist	SUPPORTED
 0x004acee0	95	src/xanim/xmodel_utils.cpp	?XModelGetLodForDist@@YAHPBUXModel@@M@Z	XModelGetLodForDist	SUPPORTED
+0x004acc30	298	src/xanim/xmodel_utils.cpp	?XModelGetSurfaces@@YAHPBUXModel@@PAPAUXSurface@@HPAPAH@Z	XModelGetSurfaces	PINNED
+0x004acd90	262	src/xanim/xmodel_utils.cpp	?XModelGetBasePoseOffset@@YAPADPBUXModel@@H@Z	XModelGetBasePoseOffset	PINNED
+0x004acf40	126	src/xanim/xmodel_utils.cpp	?XModelSetLodOverride@@YAXHM@Z	XModelSetLodOverride	PINNED

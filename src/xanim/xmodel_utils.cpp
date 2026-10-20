@@ -44,6 +44,21 @@ static __forceinline const char *SL_ConvertToString(unsigned int stringValue)
         } \
     } while (0)
 
+#define AssertMsgAt(expr, fmt, a1, a2, line) \
+    do { \
+        static char s_assertDisable; \
+        if (!(expr) && !s_assertDisable) { \
+            switch (AssertFailed(va("%s\n\t%s", #expr, va(fmt, a1, a2)), "\\trees\\cod2src\\src\\xanim\\xmodel_utils.cpp", line, 0, 1)) { \
+            case 0: \
+                DebugBreak(); \
+                break; \
+            case 2: \
+                s_assertDisable = 1; \
+                break; \
+            } \
+        } \
+    } while (0)
+
 #define MAX_LODS 4
 
 struct XModelLodOverride {
@@ -85,12 +100,12 @@ int XModelGetSurfaces(const XModel *model, XSurface **surfaces, int lod, int **p
 {
     const XModelLodInfo *lodInfo;
 
-    Assert(model);
-    Assert(surfaces);
-    Assert(lod >= 0);
+    AssertAt(model, 66);
+    AssertAt(surfaces, 67);
+    AssertAt(lod >= 0, 68);
 
     lodInfo = &model->lodInfo[lod];
-    Assert(lodInfo->surfs);
+    AssertAt(lodInfo->surfs, 71);
 
     *surfaces = lodInfo->surfs->surf;
     *partBits = lodInfo->surfs->partBits;
@@ -136,9 +151,9 @@ DObjAnimMat *XModelGetBasePose(const XModel *model) {
 //
 char *XModelGetBasePoseOffset(const XModel *model, int skelMatBoneOffset)
 {
-    Assert(model);
-    Assert(model->parts);
-    AssertMsg(skelMatBoneOffset >= 0 && skelMatBoneOffset < model->parts->numBones * sizeof( DObjSkelMat ), "%i, %i", skelMatBoneOffset, model->parts->numBones);
+    AssertAt(model, 117);
+    AssertAt(model->parts, 118);
+    AssertMsgAt(skelMatBoneOffset >= 0 && skelMatBoneOffset < model->parts->numBones * sizeof( DObjSkelMat ), "%i, %i", skelMatBoneOffset, model->parts->numBones, 119);
 
     return (char *)&model->parts->skel.Mat + ((unsigned int)skelMatBoneOffset >> 1);
 }
@@ -196,7 +211,7 @@ XModelSetLodOverride
 */
 void XModelSetLodOverride(int lodLevel, float dist)
 {
-    Assert((unsigned)lodLevel < MAX_LODS);
+    AssertAt((unsigned)lodLevel < MAX_LODS, 177);
 
     xmodelLodOverride[lodLevel].dist = dist;
     xmodelLodOverride[lodLevel].enabled = dist >= 0.0f;
