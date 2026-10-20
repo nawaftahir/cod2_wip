@@ -7,35 +7,36 @@ permissions:
   contents: write
   packages: read
 
+env:
+  IMAGE: ghcr.io/${{ github.repository_owner }}/cod2-radiant-msvc71:1
+
 jobs:
   gate:
+    # the compiler image is i386, so GitHub's own actions run on the host and the image runs via docker
     runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/${{ github.repository_owner }}/cod2-radiant-msvc71:1
-      credentials:
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-      options: --user root
     outputs:
       sha_identical: ${{ steps.gate.outputs.sha_identical }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 2
-      - name: Previous numbers
+      - name: Pull compiler image
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          git show HEAD~1:ledger/meter.json > ledger/meter.json 2>/dev/null || git checkout -- ledger/meter.json 2>/dev/null || true
+          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
+          docker pull -q "$IMAGE"
+      - name: Previous numbers
+        run: git show HEAD~1:ledger/meter.json > ledger/meter.json 2>/dev/null || git checkout -- ledger/meter.json || true
       - id: gate
         name: Verify every ledger row + meters
         run: |
-          set -o pipefail
-          python3 tools/verify.py --all | tee build-verify.log || true
-          python3 tools/meter.py --gate; rc=$?
+          docker run --rm -v "$PWD:/w" -w /w "$IMAGE" sh -c \
+            'python3 tools/verify.py --all > build-verify.log 2>&1; python3 tools/meter.py --gate > meter.log 2>&1; echo $? > meter.rc'
+          rc=$(cat meter.rc)
+          cat build-verify.log meter.log
           { cat build/summary.md; echo; echo '```'; grep -v '^verify:' build-verify.log | head -50; tail -1 build-verify.log; echo '```'; } > summary.md
           cat summary.md >> "$GITHUB_STEP_SUMMARY"
-          python3 -c "import json;print('sha_identical=%s' % str(json.load(open('build/meter.json'))['sha_identical']).lower())" >> "$GITHUB_OUTPUT"
-          exit $rc
+          echo "sha_identical=$(jq -r .sha_identical build/meter.json)" >> "$GITHUB_OUTPUT"
+          exit "$rc"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
