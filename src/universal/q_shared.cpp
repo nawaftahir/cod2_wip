@@ -68,9 +68,14 @@ unsigned __int64 Long64NoSwap(unsigned __int64 ll)
 
 float FloatReadSwap(int n)
 {
-    union { float f; int i; } u;
-    u.i = LongSwap(n);
-    return u.f;
+    union { int i; byte b[4]; } dat1;
+    union { float f; byte b[4]; } dat2;
+    dat1.i = n;
+    dat2.b[0] = dat1.b[3];
+    dat2.b[1] = dat1.b[2];
+    dat2.b[2] = dat1.b[1];
+    dat2.b[3] = dat1.b[0];
+    return dat2.f;
 }
 
 float FloatReadNoSwap(int n)
@@ -181,4 +186,3 @@ int FUN_004969a0_ref(const char *string)
 }
 
 }
-

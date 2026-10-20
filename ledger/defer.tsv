@@ -4,3 +4,7 @@ addr	agent	date	reason
 0x004acf40	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
 0x004acb70	copilot	2026-10-20	8+ attempts retain 191-byte size but first difference remains at +0xa2 in XModelGetSurfaceName conversion epilogue; retail calls FUN_004a87b0 and source helper mapping remains unresolved
 0x00496150	deepseek	2026-10-20	8 tries: union/byte-array/int-local byte-write forms all coalesce the union with the cdecl parameter (no push ecx); retail keeps it at [ebp-4] and reloads n. Not tried: two-union byte-copy form (dat1.i=n; dat2.b[k]=dat1.b[3-k]; return dat2.f), which matched 0x496190's pattern
+0x00495f20	copilot	2026-10-20	wrapper candidate preserves retail size but compiler load order differs at +0x4; imported callee/pointer declaration needed to reproduce retail argument-register sequence
+0x00495e10	copilot	2026-10-20	requires reproducing nonstandard eax/ecx/edx register ABI and unresolved FUN_00495d90 callee; no source/reference implementation identified
+0x00497830	copilot	2026-10-20	requires reproducing nonstandard eax/fastcall-style ABI, exact assert line/data, and unresolved FUN_004977a0 callee
+0x00497ac0	copilot	2026-10-20	requires reproducing nonstandard eax/fastcall-style ABI, exact assert line/data, and unresolved FUN_00497950 callee
