@@ -16,5 +16,3 @@ addr	agent	date	reason
 0x00490d50	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x18 (callee relocation).
 0x00490c00	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x1c (callee relocation).
 0x0048d700	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x1e (callee relocation).
-0x00490c20	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x20 (callee relocation).
-0x0048f930	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x23 (callee relocation).
