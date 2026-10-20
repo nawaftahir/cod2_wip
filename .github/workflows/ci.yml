@@ -33,7 +33,19 @@ jobs:
             'python3 tools/verify.py --all > build-verify.log 2>&1; python3 tools/meter.py --gate > meter.log 2>&1; echo $? > meter.rc'
           rc=$(cat meter.rc)
           cat build-verify.log meter.log
-          { cat build/summary.md; echo; echo '```'; grep -v '^verify:' build-verify.log | head -50; tail -1 build-verify.log; echo '```'; } > summary.md
+          # what this push added, from the ledger diff (HEAD~1 = previous main)
+          git diff HEAD~1 HEAD -- ledger/matches.tsv | grep '^+0x' | cut -c2- | awk -F'\t' '{printf "- `%s` %s (%s bytes, %s)\n", $1, $5, $2, $3}' > new.md || true
+          git diff HEAD~1 HEAD -- ledger/defer.tsv | grep '^+0x' | cut -c2- | awk -F'\t' '{printf "- `%s` deferred by %s: %s\n", $1, $2, substr($4,1,90)}' > deferred.md || true
+          agent=$(git log -1 --format=%s | sed -n 's/^land \([a-z]*\).*/\1/p')
+          queue_left=$(awk -F'\t' 'NR==FNR{d[$1]=1;next} FNR>1 && !($3 in d)' <(cut -f1 ledger/matches.tsv ledger/defer.tsv) queue/queue.tsv | wc -l)
+          {
+            echo "**by:** ${agent:-owner}  **new matches:** $(wc -l < new.md)  **deferred:** $(wc -l < deferred.md)  **queue left:** $queue_left  **total deferred:** $(( $(grep -c . ledger/defer.tsv) - 1 ))"
+            echo
+            cat build/summary.md
+            if [ -s new.md ]; then echo; echo "**New matches**"; head -12 new.md; fi
+            if [ -s deferred.md ]; then echo; echo "**Deferred**"; head -5 deferred.md; fi
+            echo; echo '```'; grep -v '^verify:' build-verify.log | grep -v '^UNVERIFIED' | head -30; tail -1 build-verify.log; echo '```'
+          } > summary.md
           cat summary.md >> "$GITHUB_STEP_SUMMARY"
           echo "sha_identical=$(jq -r .sha_identical build/meter.json)" >> "$GITHUB_OUTPUT"
           exit "$rc"
@@ -65,9 +77,14 @@ jobs:
           MSG: ${{ github.event.head_commit.message }}
         if: env.HOOK != ''
         run: |
-          table=$(grep '^| ' summary.md | tail -n +3 | sed 's/^| //; s/ |$//; s/ | /: **/; s/$/**/')
-          text=$(printf '**radiant %s** `%s` %s\n%s\n<%s>' "$RESULT" "${GITHUB_SHA::7}" "$(echo "$MSG" | head -1)" "$table" \
+          icon=$([ "$RESULT" = success ] && echo "✅" || echo "❌")
+          head_line=$(head -1 summary.md)
+          table=$(grep '^| ' summary.md | tail -n +3 | sed 's/^| //; s/ |$//; s/ | /: **/; s/$/**/; s/^/• /')
+          extra=$(sed -n '/^\*\*New matches\*\*/,/^```/p; /^\*\*Deferred\*\*/,/^```/p' summary.md | grep -v '^```' | head -20)
+          text=$(printf '%s **CoD2Radiant** `%s` %s\n%s\n\n%s\n\n%s\n<%s>' "$icon" "${GITHUB_SHA::7}" "$(echo "$MSG" | head -1)" \
+            "$head_line" "$table" "$extra" \
             "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          text=${text:0:1990}
           jq -n --arg c "$text" '{content: $c}' | curl -fsS -H 'Content-Type: application/json' -d @- "$HOOK"
       - name: Tag the first SHA-identical build
         if: needs.gate.outputs.sha_identical == 'true'
