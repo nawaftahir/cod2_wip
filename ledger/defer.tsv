@@ -37,3 +37,7 @@ addr	agent	date	reason
 0x00489350	copilot	2026-10-20	Retail computes a 3-component difference, calls 00489260, then adds the base vector; the callee ABI and operation semantics are unresolved, so no reliable isolated MATCH.
 0x00488090	copilot	2026-10-20	Retail initializes an output structure after normalizing input through 00484ba0; the structure layout and implicit register ABI are unavailable in the current scaffold, preventing a verified reconstruction.
 0x00483790	copilot	2026-10-20	8 tries; Vec3Distance logic and 83-byte size are reproduced, but MSVC emission maps the slot through existing scaffold anchors and differs at the x87 setup/call sequence.
+0x00482b10	copilot	2026-10-20	8 tries; PointInCircleFromUniformDeviates reference logic reproduced, but the required fsincos sequence and emitted function slot cannot be obtained with legal MSVC C/C++ forms.
+0x00482bf0	copilot	2026-10-20	8 tries; PointOnSphereFromUniformDeviates reference logic reproduced, but the required fsincos sequence and emitted function slot cannot be obtained with legal MSVC C/C++ forms.
+0x00483be0	copilot	2026-10-20	8 tries; Vec2Normalize reference logic reproduced, but the existing scaffold emits Q_acos at this RVA and cannot establish the target function order without a fake caller.
+0x00485040	copilot	2026-10-20	8 tries; AxisClear reference logic reproduced, but the existing scaffold emits LinearTrackAngle at this RVA and cannot establish the target function order without a fake caller.
