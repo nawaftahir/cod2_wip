@@ -365,5 +365,29 @@ static void Dvar_UpdateRegistration_keepalive(dvar_t *dvar, const char *dvarName
 
 Dvar_UpdateRegistration_fp *dvar_keep_0048f240 = &Dvar_UpdateRegistration_keepalive;
 
+extern dvar_t *Dvar_RegisterVariant(const char *dvarName, unsigned char type, unsigned short flags, DvarValue value, DvarLimits domain);
+extern void Dvar_SetVariant(dvar_t *dvar, DvarValue value, int source);
+
+dvar_t *Dvar_RegisterBool(const char *dvarName, bool value, unsigned short flags)
+{
+    DvarValue dvarValue;
+    DvarLimits dvarDomain;
+
+    dvarValue.boolean = value;
+    dvarDomain.integer.min = 0;
+    dvarDomain.integer.max = 0;
+    return Dvar_RegisterVariant(dvarName, DVAR_TYPE_BOOL, flags, dvarValue, dvarDomain);
 }
 
+void Dvar_SetVec4(dvar_t *dvar, float x, float y, float z, float w)
+{
+    DvarValue value;
+
+    value.vector[0] = x;
+    value.vector[1] = y;
+    value.vector[2] = z;
+    value.vector[3] = w;
+    Dvar_SetVariant(dvar, value, 0);
+}
+
+}
