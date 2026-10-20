@@ -12,3 +12,8 @@ addr	agent	date	reason
 0x00495e10	copilot	2026-10-20	requires reproducing nonstandard eax/ecx/edx register ABI and unresolved FUN_00495d90 callee; no source/reference implementation identified
 0x00497830	copilot	2026-10-20	requires reproducing nonstandard eax/fastcall-style ABI, exact assert line/data, and unresolved FUN_004977a0 callee
 0x00497ac0	copilot	2026-10-20	requires reproducing nonstandard eax/fastcall-style ABI, exact assert line/data, and unresolved FUN_00497950 callee
+0x00490c70	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x16; target Dvar_SetFromStringFromSource symbol/address remains unresolved.
+0x00490bc0	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x17; target Dvar_SetIntFromSource symbol/address remains unresolved.
+0x00491280	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x17; target Dvar_RegisterString symbol/address remains unresolved.
+0x00490ba0	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x18; target Dvar_SetBoolFromSource symbol/address remains unresolved.
+0x00490be0	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x18; target Dvar_SetFloatFromSource symbol/address remains unresolved.
