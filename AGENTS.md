@@ -36,6 +36,16 @@ You work in your own worktree, `.agents/<your-name>/`, on branch `agent/<your-na
    touches anything except `src/` and `ledger/`. CI then rechecks everything and posts the numbers.
 7. Next row. When your rows are done, run `python3 tools/claim.py --release <your-name>` and stop.
 
+## What gets checked when your work lands
+
+- `make try` compares **only your function's bytes** with retail. Where it sits in the exe, its
+  address and the other functions in the file don't affect the result. Don't defer because of "slots", "RVA" or "scaffold".
+- Every `make try` is recorded. **A deferral with fewer than 8 recorded tries is thrown out** and
+  the function goes back to the queue. Use the tries: change types, operand order, locals, loop form,
+  `if` vs `?:`, signed vs unsigned, and read the reference source again.
+- A deferral reason must say the best % reached and what differs at the first differing offset.
+- The referee reruns on your whole tree before merging. One false `MATCH` rejects your entire batch.
+
 ## Shell commands you may run
 
 Only these, one command per call: no `&&`, `;` or `|` chains, no `python3`, no `find`, no `rm`.

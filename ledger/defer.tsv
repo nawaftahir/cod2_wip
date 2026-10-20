@@ -1,57 +1,5 @@
 addr	agent	date	reason
-0x00486aa0	copilot	2026-10-20	8 tries not completed; QuatFromRoll depends on retail FastSinCos lowering to x87 fsincos, which MSVC 7.1 emits only through banned inline assembly; legal C forms retain _sin/_cos calls and differ at +0x4
-0x00484d10	copilot	2026-10-20	8 tries not completed; Vec3Cross source/reference candidate is not selected by verifier in the current TU and the target register ABI/order remains unresolved
-0x004863e0	copilot	2026-10-20	8 tries not completed; MatrixTransformVector source/reference candidate is not selected by verifier in the current TU and the target register ABI/order remains unresolved
-0x004843e0	copilot	2026-10-20	8 tries not completed; PerpendicularVector candidate depends on unresolved Vec3Normalize emission/order and verifier selects another TU function
-0x00483cf0	copilot	2026-10-20	8 tries not completed; Vec3Normalize candidate is optimized/emitted in an unresolved order and verifier selects another TU function
-0x0047dfe0	copilot	2026-10-20	8 tries not completed; target is an overlapping fastcall thunk with a nonstandard register/stack ABI, and minimal wrapper candidates differ at +0x3
-0x004818f0	copilot	2026-10-20	8 tries not completed; target has no prologue and relies on incoming ESI/EDI state, so ordinary C/C++ wrapper candidates do not reproduce the 28-byte body
-0x00480970	copilot	2026-10-20	8 tries not completed; target uses a nonstandard register/stack argument ABI and minimal wrapper candidate does not reproduce the load/push sequence
-0x00480940	copilot	2026-10-20	8 tries not completed; target uses a nonstandard register/stack argument ABI and minimal wrapper candidate differs in size and argument setup
 0x004acc30	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
 0x004acd90	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
 0x004acf40	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
-0x004acb70	copilot	2026-10-20	8+ attempts retain 191-byte size but first difference remains at +0xa2 in XModelGetSurfaceName conversion epilogue; retail calls FUN_004a87b0 and source helper mapping remains unresolved
-0x00496150	deepseek	2026-10-20	8 tries: union/byte-array/int-local byte-write forms all coalesce the union with the cdecl parameter (no push ecx); retail keeps it at [ebp-4] and reloads n. Not tried: two-union byte-copy form (dat1.i=n; dat2.b[k]=dat1.b[3-k]; return dat2.f), which matched 0x496190's pattern
-0x00495f20	copilot	2026-10-20	wrapper candidate preserves retail size but compiler load order differs at +0x4; imported callee/pointer declaration needed to reproduce retail argument-register sequence
-0x00495e10	copilot	2026-10-20	requires reproducing nonstandard eax/ecx/edx register ABI and unresolved FUN_00495d90 callee; no source/reference implementation identified
-0x00497830	copilot	2026-10-20	requires reproducing nonstandard eax/fastcall-style ABI, exact assert line/data, and unresolved FUN_004977a0 callee
-0x00497ac0	copilot	2026-10-20	requires reproducing nonstandard eax/fastcall-style ABI, exact assert line/data, and unresolved FUN_00497950 callee
-0x00490c70	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x16; target Dvar_SetFromStringFromSource symbol/address remains unresolved.
-0x00490bc0	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x17; target Dvar_SetIntFromSource symbol/address remains unresolved.
-0x00491280	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x17; target Dvar_RegisterString symbol/address remains unresolved.
-0x00490ba0	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x18; target Dvar_SetBoolFromSource symbol/address remains unresolved.
-0x00490be0	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x18; target Dvar_SetFloatFromSource symbol/address remains unresolved.
-0x00490d50	copilot	2026-10-20	Wrapper candidate has retail size 24 but mismatch remains at +0x18; target FUN_00490cc0 callee/source mapping is unresolved.
-0x0048da70	copilot	2026-10-20	Wrapper candidate has retail size 27 but mismatch remains at +0x1b; exact Dvar_ValuesEqual helper layout/callee is unresolved.
-0x00490c00	copilot	2026-10-20	Nonstandard register/stack ABI wrapper calls unresolved FUN_00490220; exact source setter mapping is unresolved.
-0x0048d700	copilot	2026-10-20	Nonstandard register/stack ABI wrapper calls unresolved FUN_0048d350; exact source setter mapping is unresolved.
-0x00490c20	copilot	2026-10-20	Nonstandard register/stack ABI wrapper calls unresolved FUN_00490370; exact source setter mapping is unresolved.
-0x00486aa0	deepseek	2026-10-20	QuatFromRoll (refs/1 lines 2148-2154). Retail's FastSinCos expands to x87 fsincos; MSVC 7.1 with fixed flags /O2 /Oy- /Op only emits _sin/_cos calls for every legal C form tried (sinf/sinf, double sin/cos, pragma intrinsic), and fsincos requires __asm/inline asm, which verify rejects as BANNED. Tried static/non-static, zero-store reordering, static inline/__forceinline FastSinCos, and a call-site macro; all keep the 56-byte size and stall at 44%, first diff +0x4 (retail loads quat before fld/fmul, ours does fld/fmul first).
-0x00486900	copilot	2026-10-20	Quaternion conversion body depends on preceding unlanded functions 00486600 and 00486820; current TU placeholder ordering maps the target slot to Q_acos, so no reliable isolated MATCH.
-0x00488040	copilot	2026-10-20	Target calls 00484a70 with implicit register arguments; available source/decompile does not expose its calling convention. Explicit C signatures produce 54-64 byte bodies versus retail 65 bytes and differing prologue/call setup.
-0x00483900	copilot	2026-10-20	Target is the 2D distance/sqrt helper, but current TU ordering maps the requested slot to placeholder functions; removing the placeholder shifts 00483610 into the slot. No isolated MATCH without prior missing functions.
-0x00483610	copilot	2026-10-20	Clamp body is understood, but MSVC emits a 68-byte function while retail is 74 bytes; fixed C forms lack retail's extra x87 reload/compare sequence.
-0x0047c820	copilot	2026-10-20	8 tries; target begins from incoming ESI and uses a nonstandard register/stack ABI; ordinary fastcall and member candidates differ at the first instruction.
-0x00485980	copilot	2026-10-20	Target is MatrixTranspose with an injected in!=out assertion at retail line 1682; current TU slot resolves to LinearTrackAngle, and reproducing the custom assertion/calling convention is not possible with the available C forms.
-0x00482b70	copilot	2026-10-20	Target uses incoming ESI plus x87 fsincos and nonstandard register arguments; ordinary C/C++ candidates cannot reproduce the ABI or fsincos sequence without banned inline assembly.
-0x00484360	copilot	2026-10-20	Target uses incoming EAX/EDI/ESI state and calls unresolved register-argument helpers; ordinary C/C++ signatures do not reproduce the prologue or call setup.
-0x00483d90	copilot	2026-10-20	Target is a 2D normalization helper, but current TU slot resolves to Q_acos because preceding unlanded functions are absent; isolated implementation cannot produce a reliable MATCH.
-0x0047c9b0	copilot	2026-10-20	8 tries; target passes incoming EAX/ECX/EDX directly to fgets, while ordinary fastcall candidates differ at +0x3.
-0x0047c9f0	copilot	2026-10-20	8 tries; target relies on incoming EBX/EDI state without a prologue, which ordinary C/C++ candidates cannot reproduce.
-0x004868c0	copilot	2026-10-20	Target is SinSquaredDeg, but legal sin implementations either emit 48 bytes with double temporary or shift the emitted address to DiffTrack with a float temporary; exact 54-byte retail sequence remains unmatched.
-0x00487ed0	copilot	2026-10-20	Target is TransformBounds; reference implementation has matching logic, but with the available source layout the target address emits Q_acos instead, and ordinary C++ insertion does not place the function at the required RVA.
 0x004969a0	claude	2026-10-20	body matches as static (src/universal/q_shared.cpp) but a static is only emitted when called; verify again once its real caller in q_shared.cpp is written. Do not add a fake caller.
-0x00485c40	copilot	2026-10-20	Retail body is a quaternion/vector transform calling 00485980 and 00486200; available references do not identify the exact public signature or ABI, and ordinary C candidates cannot establish the required register setup.
-0x00483b50	copilot	2026-10-20	Vec3Normalize reference logic matches semantics, but retail expects the vector in ESI and emits a nonstandard register ABI; legal C forms emit standard-ABI access and remain mismatched after 8 tries.
-0x00483f40	copilot	2026-10-20	MatrixTransformVectorRows reference logic matches semantics, but retail expects in/mat/out in ESI/EDI/EBX and emits a nonstandard register ABI; legal C forms remain mismatched after 8 tries.
-0x00483fd0	copilot	2026-10-20	MatrixTransformVectorCols reference logic matches semantics, but retail expects in/mat/out in ESI/EDI/EBX and emits a nonstandard register ABI; legal C forms remain mismatched after 8 tries.
-0x00486200	copilot	2026-10-20	MatrixTransformVector reference logic matches semantics, but retail expects in1/in2/out in ESI/EDI/EBX and emits a nonstandard register ABI; legal C forms remain mismatched after 8 tries.
-0x00489350	copilot	2026-10-20	Retail computes a 3-component difference, calls 00489260, then adds the base vector; the callee ABI and operation semantics are unresolved, so no reliable isolated MATCH.
-0x00488090	copilot	2026-10-20	Retail initializes an output structure after normalizing input through 00484ba0; the structure layout and implicit register ABI are unavailable in the current scaffold, preventing a verified reconstruction.
-0x00483790	copilot	2026-10-20	8 tries; Vec3Distance logic and 83-byte size are reproduced, but MSVC emission maps the slot through existing scaffold anchors and differs at the x87 setup/call sequence.
-0x00482b10	copilot	2026-10-20	8 tries; PointInCircleFromUniformDeviates reference logic reproduced, but the required fsincos sequence and emitted function slot cannot be obtained with legal MSVC C/C++ forms.
-0x00482bf0	copilot	2026-10-20	8 tries; PointOnSphereFromUniformDeviates reference logic reproduced, but the required fsincos sequence and emitted function slot cannot be obtained with legal MSVC C/C++ forms.
-0x00483be0	copilot	2026-10-20	8 tries; Vec2Normalize reference logic reproduced, but the existing scaffold emits Q_acos at this RVA and cannot establish the target function order without a fake caller.
-0x00485040	copilot	2026-10-20	8 tries; AxisClear reference logic reproduced, but the existing scaffold emits LinearTrackAngle at this RVA and cannot establish the target function order without a fake caller.
-0x0048c890	deepseek	2026-10-20	Dvar_StringToColor (refs/1 lines 4270-4315). Best 59%, size 446/446, first diff +0x5: retail reserves sub esp,0x28 and keeps a double 0.5 temp at [ebp-0x14], float temp at [ebp-8] and int at [ebp-0xc], while every legal form compiled here uses sub esp,0x14 and folds floor into truncation. Tried I_fsel 0.0 vs 0.0f, I_fround with floor(x+0.5f), floor(x+0.5), (int)(x+0.5), macro vs static inline, and with/without __declspec(noinline); 446-byte variants stay at +0x5 / 58-59%, the 394-byte form is 54%. 8 tries used.

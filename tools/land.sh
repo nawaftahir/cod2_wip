@@ -25,6 +25,29 @@ if [ -n "$BAD" ]; then
   reset_agent
   exit 1
 fi
+WT=.agents/$AGENT
+if [ -d "$WT" ]; then
+  # deferrals need 8 recorded make-try runs; lazier ones go back to the queue
+  LAZY=""
+  for a in $(git diff main..."$BR" -- ledger/defer.tsv | grep '^+0x' | cut -c2- | cut -f1); do
+    n=$(cat "$WT/build/tries/$a" 2>/dev/null | wc -l)
+    [ "$n" -ge 8 ] || LAZY="$LAZY $a"
+  done
+  if [ -n "$LAZY" ]; then
+    for a in $LAZY; do sed -i "/^$a\t$AGENT\t/d" "$WT/ledger/defer.tsv"; done
+    git -C "$WT" commit -q -am "drop deferrals with fewer than 8 tries:$LAZY"
+    echo "$AGENT: dropped lazy deferrals:$LAZY"
+  fi
+  # the referee reruns on the agent's tree; any false match rejects the batch
+  if ! docker run --rm -v "$PWD/$WT:/w" -w /w cod2-radiant-msvc71 python3 tools/verify.py --all > "build/land-$AGENT.log" 2>&1; then
+    echo "$AGENT: REJECTED, verify failed:"; grep -v -E '^(WARN|UNVERIFIED)' "build/land-$AGENT.log" | head -5
+    reset_agent; exit 1
+  fi
+  grew=$(python3 -c "import json;print(json.load(open('$WT/build/verify.json'))['unverified_in_src'] > json.load(open('ledger/meter.json')).get('unverified_in_src', 1e9))")
+  if [ "$grew" = True ]; then
+    echo "$AGENT: REJECTED, left unverified functions in src/"; reset_agent; exit 1
+  fi
+fi
 if ! git merge -q --no-ff --no-edit -m "land $AGENT ($NEW commits)" "$BR"; then
   git merge --abort; echo "$AGENT: REJECTED, merge conflict"; reset_agent; exit 1
 fi

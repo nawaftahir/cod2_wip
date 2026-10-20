@@ -193,9 +193,14 @@ def verify_one(source, addresses, symbol):
     data = (BASE / obj).read_bytes()
     names = known_names()
     ok = True
+    tries = BASE / "build" / "tries"
+    tries.mkdir(parents=True, exist_ok=True)
     for addr in addresses:
         status, detail, cname = check(data, addr, symbol if len(addresses) == 1 else None, names)
         print("%s %s %s %s" % (status, addr, cname or "", detail))
+        # the lander only accepts a deferral after 8 recorded tries
+        with open(tries / ("0x%08x" % int(addr, 16)), "a") as log:
+            log.write("%s %s\n" % (status, detail))
         ok &= status == "MATCH"
     return ok
 
