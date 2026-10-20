@@ -17,3 +17,8 @@ addr	agent	date	reason
 0x00491280	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x17; target Dvar_RegisterString symbol/address remains unresolved.
 0x00490ba0	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x18; target Dvar_SetBoolFromSource symbol/address remains unresolved.
 0x00490be0	copilot	2026-10-20	Wrapper bytes match except call relocation byte at +0x18; target Dvar_SetFloatFromSource symbol/address remains unresolved.
+0x00490d50	copilot	2026-10-20	Wrapper candidate has retail size 24 but mismatch remains at +0x18; target FUN_00490cc0 callee/source mapping is unresolved.
+0x0048da70	copilot	2026-10-20	Wrapper candidate has retail size 27 but mismatch remains at +0x1b; exact Dvar_ValuesEqual helper layout/callee is unresolved.
+0x00490c00	copilot	2026-10-20	Nonstandard register/stack ABI wrapper calls unresolved FUN_00490220; exact source setter mapping is unresolved.
+0x0048d700	copilot	2026-10-20	Nonstandard register/stack ABI wrapper calls unresolved FUN_0048d350; exact source setter mapping is unresolved.
+0x00490c20	copilot	2026-10-20	Nonstandard register/stack ABI wrapper calls unresolved FUN_00490370; exact source setter mapping is unresolved.
