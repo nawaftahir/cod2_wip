@@ -6,6 +6,7 @@ addr	size	source	symbol	name	tag
 0x00495ff0	48	src/universal/q_shared.cpp	_LongSwap	LongSwap	SUPPORTED
 0x00496020	8	src/universal/q_shared.cpp	_LongNoSwap	LongNoSwap	SUPPORTED
 0x00496140	11	src/universal/q_shared.cpp	_Long64NoSwap	Long64NoSwap	SUPPORTED
+0x00496150	38	src/universal/q_shared.cpp	_FloatReadSwap	FloatReadSwap	SUPPORTED
 0x00496180	14	src/universal/q_shared.cpp	_FloatReadNoSwap	FloatReadNoSwap	SUPPORTED
 0x00496190	39	src/universal/q_shared.cpp	_FloatWriteSwap	FloatWriteSwap	SUPPORTED
 0x004961c0	8	src/universal/q_shared.cpp	_FloatWriteNoSwap	FloatWriteNoSwap	SUPPORTED
