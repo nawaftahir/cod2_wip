@@ -1,4 +1,9 @@
 addr	agent	date	reason
+0x00486aa0	copilot	2026-10-20	8 tries not completed; QuatFromRoll depends on retail FastSinCos lowering to x87 fsincos, which MSVC 7.1 emits only through banned inline assembly; legal C forms retain _sin/_cos calls and differ at +0x4
+0x00484d10	copilot	2026-10-20	8 tries not completed; Vec3Cross source/reference candidate is not selected by verifier in the current TU and the target register ABI/order remains unresolved
+0x004863e0	copilot	2026-10-20	8 tries not completed; MatrixTransformVector source/reference candidate is not selected by verifier in the current TU and the target register ABI/order remains unresolved
+0x004843e0	copilot	2026-10-20	8 tries not completed; PerpendicularVector candidate depends on unresolved Vec3Normalize emission/order and verifier selects another TU function
+0x00483cf0	copilot	2026-10-20	8 tries not completed; Vec3Normalize candidate is optimized/emitted in an unresolved order and verifier selects another TU function
 0x0047dfe0	copilot	2026-10-20	8 tries not completed; target is an overlapping fastcall thunk with a nonstandard register/stack ABI, and minimal wrapper candidates differ at +0x3
 0x004818f0	copilot	2026-10-20	8 tries not completed; target has no prologue and relies on incoming ESI/EDI state, so ordinary C/C++ wrapper candidates do not reproduce the 28-byte body
 0x00480970	copilot	2026-10-20	8 tries not completed; target uses a nonstandard register/stack argument ABI and minimal wrapper candidate does not reproduce the load/push sequence
