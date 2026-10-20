@@ -43,6 +43,8 @@ def main():
     limit = int(sys.argv[sys.argv.index("--rows") + 1]) if "--rows" in sys.argv else 5
     done = {r["addr"] for r in tsv("ledger/matches.tsv")}
     deferred = {r["addr"]: r["reason"] for r in tsv("ledger/defer.tsv")}
+    # never hand an agent a row it already gave up on
+    mine = {r["addr"] for r in tsv("ledger/defer.tsv") if r["agent"] == agent}
     queue = tsv("queue/queue.tsv")
     if level == "cheap":
         rows = [(r["addr"], r["source"], "") for r in queue
@@ -50,7 +52,7 @@ def main():
     else:
         tu = {r["addr"]: r["tu"] for r in tsv("data/tu_map.tsv")}
         rows = [(a, tu[a] if tu.get(a, "").startswith("src/") else "src/" + tu.get(a, "?"), "deferred: " + why)
-                for a, why in deferred.items() if a not in done]
+                for a, why in deferred.items() if a not in done and a not in mine]
         rows += [(r["addr"], r["source"], "") for r in queue
                  if int(r["tier"]) == 3 and r["addr"] not in done and r["addr"] not in deferred]
     # files with real reference source first: verified server source, then CoD2rev, then Q3Radiant
