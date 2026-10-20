@@ -39,6 +39,7 @@ float LinearTrack( float tgt, float cur, float rate, float deltaTime )
 }
 
 float AngleNormalize360(float angle);
+float AngleNormalize180(float angle);
 
 float LinearTrackAngle(float tgt, float cur, float rate, float deltaTime)
 {
@@ -144,6 +145,16 @@ static float Vec3MaxComponent(const float *v)
 
 	m = v[0] >= v[1] ? v[0] : v[1];
 	return m >= v[2] ? m : v[2];
+}
+
+float AngleDelta(float angle1, float angle2)
+{
+	return AngleNormalize180(angle1 - angle2);
+}
+
+float Q_round(float x)
+{
+	return floor(x + 0.5f);
 }
 
 static float SnapFloatBits(float f, int tolerance, int bits)

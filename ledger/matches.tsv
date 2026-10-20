@@ -54,3 +54,5 @@ addr	size	source	symbol	name	tag
 0x004a5ae0	12	src/xanim/dobj.cpp	?DObjNumBones@@YAHPBUDObj_s@@@Z	DObjNumBones	SUPPORTED
 0x0047c6c0	41	src/universal/assertive.cpp	@FUN_0047c6c0@4	FUN_0047c6c0	SUPPORTED
 0x0047c6f0	54	src/universal/assertive.cpp	?destroy@MapNode@@QAEPAU1@H@Z	FUN_0047c6f0	SUPPORTED
+0x00487430	23	src/universal/com_math.cpp	_AngleDelta	AngleDelta	SUPPORTED
+0x004891a0	34	src/universal/com_math.cpp	_Q_round	Q_round	SUPPORTED
