@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <float.h>
+#include <string.h>
 
 extern "C" {
 
@@ -13,6 +14,10 @@ char *va(const char *format, ...);
 int tolower(int c);
 void Com_Error(int code, const char *fmt, ...);
 int I_strcmp(const char *s1, const char *s2);
+bool Vector2Compare(const float *a, const float *b);
+bool VectorCompare(const float *a, const float *b);
+bool Vector4Compare(const float *a, const float *b);
+bool Byte4Compare(const unsigned char *a, const unsigned char *b);
 
 static int generateHashValue(const char *fname)
 {
@@ -245,6 +250,38 @@ static void Dvar_VectorDomainToString_keepalive(char *outBuffer, int outBufferLe
 }
 
 Dvar_VectorDomainToString_keep_fp *dvar_keep_0048d2c0 = &Dvar_VectorDomainToString_keepalive;
+
+static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
+{
+    switch (type)
+    {
+    case DVAR_TYPE_BOOL:
+        return val0.boolean == val1.boolean;
+    case DVAR_TYPE_INT:
+        return val0.integer == val1.integer;
+    case DVAR_TYPE_FLOAT:
+        return val0.decimal == val1.decimal;
+    case DVAR_TYPE_VEC2:
+        return Vector2Compare(val0.vector, val1.vector);
+    case DVAR_TYPE_VEC3:
+        return VectorCompare(val0.vector, val1.vector);
+    case DVAR_TYPE_VEC4:
+        return Vector4Compare(val0.vector, val1.vector);
+    case DVAR_TYPE_COLOR:
+        return Byte4Compare(val0.color, val1.color);
+    case DVAR_TYPE_ENUM:
+        return val0.integer == val1.integer;
+    case DVAR_TYPE_STRING:
+        return strcmp(val0.string, val1.string) == 0;
+    default:
+        return false;
+    }
+}
+
+bool Dvar_IsAtDefaultValue(const dvar_t *dvar)
+{
+    return Dvar_ValuesEqual(dvar->type, dvar->current, dvar->reset);
+}
 
 bool Dvar_GetBool(const char *dvarName)
 {

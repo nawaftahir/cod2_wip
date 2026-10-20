@@ -59,3 +59,4 @@ addr	size	source	symbol	name	tag
 0x0047c6f0	54	src/universal/assertive.cpp	?destroy@MapNode@@QAEPAU1@H@Z	FUN_0047c6f0	SUPPORTED
 0x00487430	23	src/universal/com_math.cpp	_AngleDelta	AngleDelta	SUPPORTED
 0x004891a0	34	src/universal/com_math.cpp	_Q_round	Q_round	SUPPORTED
+0x0048da70	27	src/universal/dvar.cpp	_Dvar_IsAtDefaultValue	Dvar_IsAtDefaultValue	SUPPORTED
