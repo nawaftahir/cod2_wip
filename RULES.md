@@ -42,3 +42,7 @@ Owner-edited only.
 - 2026-10-20: workspace rebuilt. Old ledger had 39 rows: 1 was MFC library code (`CWnd::GetControlUnknown`,
   now lib), 3 no longer compile to retail (assert lines drifted; in `ledger/defer.tsv`), 35 verified.
   The old `opencode/modtools/cod2radiant*` work was salvaged into `research/opencode/` and `data/decomp/`.
+- 2026-10-20 evening: fleet paused at 61 verified functions (0.39% of game code). Free DeepSeek did best;
+  Copilot (credits out), agy and mimo were dropped. Stalled because the same hard rows were re-claimed
+  every batch with nothing landed and no deferral. Before restarting: rotate rows after an empty batch,
+  and widen the queue (only 1,194 functions have a known file; the TU map needs more coverage).
