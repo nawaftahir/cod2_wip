@@ -15,7 +15,7 @@ mkdir -p fleet/logs
 ROSTER="
 deepseek  cheap  opencode  opencode/deepseek-v4.1-flash-free
 glm       cheap  opencode  opencode/glm-5.3-flash-free
-mimo      cheap  opencode  opencode/mimo-v2.6-flash-free
+deepseek2 cheap  opencode  opencode/deepseek-v4.1-flash-free
 agy       cheap  agy       -
 # copilot   mid    copilot   -     (student credits used up until the monthly reset)
 "
