@@ -38,7 +38,14 @@ def measure():
     lib_rows = [l.split("\t") for l in lib_path.read_text().splitlines()[1:]] if lib_path.exists() else []
     same, identical = whole_file()
     text = m.SECTIONS[".text"]["vs"]
+    libs = {r[0] for r in lib_rows}
+    tu_rows = [l.split("\t") for l in (BASE / "data" / "tu_map.tsv").read_text().splitlines()[1:]]
+    game = [r for r in tu_rows if r[0] not in libs]
     return {
+        "game_functions": len(game),
+        "game_bytes": sum(int(r[1]) for r in game),
+        "placed_functions": sum(1 for r in game if r[3] in ("PINNED", "SUPPORTED")),
+        "lib_functions": len(libs),
         "matched_functions": verify["matched"],
         "failed_rows": verify["failed"],
         "order_warnings": verify.get("order_warnings", 0),
@@ -60,13 +67,13 @@ def summary(now, before):
     def delta(k):
         d = now[k] - before.get(k, 0)
         return " (%+d)" % d if before and d else ""
-    game = now["text_bytes"] - now["lib_bytes"]
     lines = [
         "| meter | value |", "|---|---|",
-        "| .text done (game code + MFC/CRT identified) | %.2f%% |" % pct(now["matched_bytes"] + now["lib_bytes"], now["text_bytes"]),
-        "| game code reconstructed (MFC/CRT excluded) | %.3f%% (%d of %d bytes%s) |" % (pct(now["matched_bytes"], game), now["matched_bytes"], game, delta("matched_bytes")),
-        "| functions matched from source | %d%s |" % (now["matched_functions"], delta("matched_functions")),
-        "| SHA goal: whole file bytes in place | %.3f%%%s |" % (pct(now["same_offset_bytes"], now["file_bytes"]), delta("same_offset_bytes")),
+        "| **SHA goal: rebuilt exe bytes in place** | %.3f%%%s |" % (pct(now["same_offset_bytes"], now["file_bytes"]), delta("same_offset_bytes")),
+        "| game functions matched from source | %d / %d (%.2f%%)%s |" % (now["matched_functions"], now["game_functions"], pct(now["matched_functions"], now["game_functions"]), delta("matched_functions")),
+        "| game code bytes matched | %.2f%% (%d / %d bytes) |" % (pct(now["matched_bytes"], now["game_bytes"]), now["matched_bytes"], now["game_bytes"]),
+        "| game functions with a known source file | %d / %d |" % (now["placed_functions"], now["game_functions"]),
+        "| MFC/CRT library functions identified (linked, not written; not counted as done) | %d |" % now["lib_functions"],
         "| SHA-256 identical | %s |" % ("YES" if now["sha_identical"] else "no"),
         "| failing ledger rows | %d |" % now["failed_rows"],
         "| emit-order warnings | %d |" % now["order_warnings"],
