@@ -1,5 +1,7 @@
 #include "dvar.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <float.h>
 
 extern "C" {
 
@@ -167,6 +169,82 @@ static float Dvar_StringToFloat(const char *string)
     return (float)atof(string);
 }
 
+static void __declspec(noinline) Dvar_ClampVectorToDomain(float *vector, int components, float min, float max)
+{
+    int channel;
+
+    for (channel = 0; channel < components; channel++)
+    {
+        if (vector[channel] < min)
+            vector[channel] = min;
+        else if (vector[channel] > max)
+            vector[channel] = max;
+    }
+}
+
+typedef void Dvar_ClampVectorToDomain_keep_fp(float *, float, float);
+
+static void Dvar_ClampVectorToDomain_keepalive(float *vector, float min, float max)
+{
+    Dvar_ClampVectorToDomain(vector, 3, min, max);
+}
+
+Dvar_ClampVectorToDomain_keep_fp *dvar_keep_0048ccd0 = &Dvar_ClampVectorToDomain_keepalive;
+
+static bool __declspec(noinline) Dvar_VectorInDomain(const float *vector, int components, float min, float max)
+{
+    int channel;
+
+    for (channel = 0; channel < components; channel++)
+    {
+        if (vector[channel] < min)
+            return false;
+        if (vector[channel] > max)
+            return false;
+    }
+
+    return true;
+}
+
+typedef bool Dvar_VectorInDomain_keep_fp(const float *, float, float);
+
+static bool Dvar_VectorInDomain_keepalive(const float *vector, float min, float max)
+{
+    return Dvar_VectorInDomain(vector, 3, min, max);
+}
+
+Dvar_VectorInDomain_keep_fp *dvar_keep_0048cd10 = &Dvar_VectorInDomain_keepalive;
+
+static void __declspec(noinline) Dvar_VectorDomainToString(int components, DvarLimits domain, char *outBuffer, int outBufferLen)
+{
+    if (domain.decimal.min != -FLT_MAX)
+    {
+        if (domain.decimal.max != FLT_MAX)
+            _snprintf(outBuffer, outBufferLen, "Domain is any %iD vector with components from %g to %g", components, domain.decimal.min, domain.decimal.max);
+        else
+            _snprintf(outBuffer, outBufferLen, "Domain is any %iD vector with components %g or bigger", components, domain.decimal.min);
+    }
+    else
+    {
+        if (domain.decimal.max != FLT_MAX)
+            _snprintf(outBuffer, outBufferLen, "Domain is any %iD vector with components %g or smaller", components, domain.decimal.max);
+        else
+            _snprintf(outBuffer, outBufferLen, "Domain is any %iD vector", components);
+    }
+}
+
+typedef void Dvar_VectorDomainToString_keep_fp(char *, int, float, float);
+
+static void Dvar_VectorDomainToString_keepalive(char *outBuffer, int outBufferLen, float min, float max)
+{
+    DvarLimits domain;
+
+    domain.decimal.min = min;
+    domain.decimal.max = max;
+    Dvar_VectorDomainToString(2, domain, outBuffer, outBufferLen);
+}
+
+Dvar_VectorDomainToString_keep_fp *dvar_keep_0048d2c0 = &Dvar_VectorDomainToString_keepalive;
 
 bool Dvar_GetBool(const char *dvarName)
 {
@@ -260,6 +338,32 @@ const char *Dvar_GetVariantString(const char *dvarName)
 
     return Dvar_ValueToString(dvar, dvar->current);
 }
+
+#define DVAR_CHANGEABLE_RESET 0x1000
+
+static void __declspec(noinline) Dvar_UpdateRegistration(dvar_t *dvar, const char *dvarName, unsigned char type, unsigned short flags, DvarValue resetValue, DvarLimits domain)
+{
+    if (flags & DVAR_EXTERNAL)
+        return;
+
+    if ((flags & DVAR_CHANGEABLE_RESET) && !(dvar->flags & DVAR_CHANGEABLE_RESET))
+    {
+        dvar->name = dvarName;
+        if (dvar->type == DVAR_TYPE_ENUM)
+            dvar->domain = domain;
+    }
+}
+
+typedef void Dvar_UpdateRegistration_fp(dvar_t *, const char *, unsigned char, unsigned short, DvarValue, DvarLimits);
+
+static void Dvar_UpdateRegistration_keepalive(dvar_t *dvar, const char *dvarName, unsigned char type, unsigned short flags, DvarValue resetValue, DvarLimits domain)
+{
+    Dvar_UpdateRegistration(dvar, dvarName, type, flags, resetValue, domain);
+    if (domain.enumeration.stringCount == 12345)
+        dvar->modified = true;
+}
+
+Dvar_UpdateRegistration_fp *dvar_keep_0048f240 = &Dvar_UpdateRegistration_keepalive;
 
 }
 
