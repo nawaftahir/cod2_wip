@@ -2,6 +2,18 @@ typedef unsigned char byte;
 
 extern "C" {
 
+static int (*_FloatAsInt)(float f);
+
+int FUN_00495f70(float f)
+{
+    return _FloatAsInt(f);
+}
+
+int FUN_00495fb0(float f)
+{
+    return _FloatAsInt(f);
+}
+
 short ShortSwap(int l)
 {
     byte b1, b2;
@@ -70,9 +82,13 @@ float FloatReadNoSwap(int n)
 
 int FloatWriteSwap(float f)
 {
-    union { float f; int i; } u;
-    u.f = f;
-    return LongSwap(u.i);
+    union { float f; int i; byte b[4]; } dat1, dat2;
+    dat1.f = f;
+    dat2.b[0] = dat1.b[3];
+    dat2.b[1] = dat1.b[2];
+    dat2.b[2] = dat1.b[1];
+    dat2.b[3] = dat1.b[0];
+    return dat2.i;
 }
 
 
@@ -144,6 +160,24 @@ int I_strcmp(const char *s0, const char *s1)
     AssertAt(s0, 608);
     AssertAt(s1, 609);
     return I_strnicmp(s0, s1, 0x7fffffff);
+}
+
+extern char va_info[];
+
+static int __declspec(noinline) CanKeepStringPointer(const char *string)
+{
+    int stackLocal;
+
+    if (string >= (char *)&stackLocal && string < (char *)&stackLocal + 0x2000)
+        return 0;
+    if (string >= va_info && string < va_info + 0x7D00)
+        return 0;
+    return 1;
+}
+
+int FUN_004969a0_ref(const char *string)
+{
+    return CanKeepStringPointer(string);
 }
 
 }
