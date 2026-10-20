@@ -16,3 +16,8 @@ addr	agent	date	reason
 0x00490d50	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x18 (callee relocation).
 0x00490c00	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x1c (callee relocation).
 0x0048d700	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x1e (callee relocation).
+0x0047c820	copilot	2026-10-20	Best 54%; compiler emits a normal this adjustment, but retail uses ESI at +0x3.
+0x0047c9b0	copilot	2026-10-20	Best 49%; standard calling convention differs from retail register arguments at +0x3.
+0x0047c9f0	copilot	2026-10-20	Best 0%; candidate emits only a return stub, differing from retail at +0x0.
+0x0047c650	copilot	2026-10-20	Best 27%; existing cleanup method has a different prologue and size, first differing at +0x3.
+0x0047c760	copilot	2026-10-20	Best 10%; existing source emits the unrelated cleanup function, differing from retail at +0x1.
