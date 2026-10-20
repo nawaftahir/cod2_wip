@@ -26,3 +26,5 @@ addr	agent	date	reason
 0x0047c820	copilot	2026-10-20	8 tries; target begins from incoming ESI and uses a nonstandard register/stack ABI; ordinary fastcall and member candidates differ at the first instruction.
 0x0047c9b0	copilot	2026-10-20	8 tries; target passes incoming EAX/ECX/EDX directly to fgets, while ordinary fastcall candidates differ at +0x3.
 0x0047c9f0	copilot	2026-10-20	8 tries; target relies on incoming EBX/EDI state without a prologue, which ordinary C/C++ candidates cannot reproduce.
+0x004868c0	copilot	2026-10-20	Target is SinSquaredDeg, but legal sin implementations either emit 48 bytes with double temporary or shift the emitted address to DiffTrack with a float temporary; exact 54-byte retail sequence remains unmatched.
+0x00487ed0	copilot	2026-10-20	Target is TransformBounds; reference implementation has matching logic, but with the available source layout the target address emits Q_acos instead, and ordinary C++ insertion does not place the function at the required RVA.
