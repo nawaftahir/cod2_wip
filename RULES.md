@@ -8,15 +8,25 @@ Owner-edited only.
 - `.text` 0x401000-0x52720e (1,204,750 bytes), 6,234 functions (`data/functions_cod2radiant.json`, Ghidra).
 - PE timestamp 0x4408e56e (2006-03-04), linker 7.10.
 
-## Toolchain (PINNED unless marked)
+## Toolchain (PINNED unless marked; see "Mixed build" below)
 - Image `cod2-radiant-msvc71` (`toolchain/`): cl 13.10.3077 + link 7.10.3077 from VS.NET 2003 disc 1,
   the VS2003 Platform SDK, x86 MFC/ATL 7.1 from the same disc, Wine 5 (bullseye).
   The old `cod2-msvc71-build` image (Wine 8, SP1 SDK, no x86 MFC) is not used.
 - Flags `/O2 /Oy- /Op` for the engine-shared files: 6 of 35 ledger rows fail without `/Op`; `/Gy`
   makes no difference to them. Radiant's own files are not tested yet (`data/flags.tsv`).
 - Rich header, build 3077 entries: prodid 95 x225, 96 x106, 99 x104, 15 x52, 90 x1 (the linker).
-  Older builds also appear (2067/2179/9466/8491/9210: prebuilt lib objects). Which prodid means
-  C, C++ or MASM is HYPOTHESIS until compared with an exe linked in our image.
+  Older builds also appear (2067/2179/9466/8491/9210: prebuilt lib objects).
+- **Mixed build: 104 objects are C compiled with `/GL` (link-time code generation). PINNED** 2026-10-21 by
+  linking test exes in our image (`scratch/richtest/`): plain C = 95, plain C++ = 96, `/GL` C = 99,
+  `/GL` C++ = 100, MASM = 15, link = 90. The `@comp.id` stamps say MFC (`nafxcw.lib`) objects are 96 and
+  CRT objects 95/96/15. Retail has 99 x104 and no 100, so: 104 C files built `/GL` and linked `/LTCG`,
+  while the C++ files (radiant's MFC editor code, MFC itself) are plain. The engine-shared files
+  (`src/universal`, `src/xanim`, `src/script`, ...) are the likely `/GL` C set: that range is where the
+  "register arguments / no prologue" functions sit (LTCG custom calling conventions). Which files exactly is
+  still open.
+- Consequence: in `/GL` files, functions LTCG left alone match with plain `/O2` (the 61 verified rows),
+  but functions whose callers LTCG rewrote need an LTCG-aware referee (compile `/GL`, link `/LTCG`, compare
+  the linked bytes), as in the client track. Their code order in `.text` also comes from LTCG codegen.
 
 ## Layout (PINNED from the binary)
 - 49 source paths are embedded via assert `__FILE__`. `tools/tu_map.py` pins 492 functions to 48 files
