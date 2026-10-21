@@ -122,10 +122,17 @@ def obj_path(source):
     return pathlib.Path("build") / "obj" / pathlib.Path(source).with_suffix(".obj")
 
 
+def unit_files():
+    path = BASE / UNIT
+    if not path.exists():
+        return set()
+    return {"src/" + l.split('"')[1] for l in path.read_text().splitlines() if l.startswith("#include")}
+
+
 def unit_of(source):
-    # game files are compiled inside the single unit (RULES.md "Unity build"); scratch drafts alone
+    # game files compile inside the single unit (RULES.md "Unity build"); zlib and scratch drafts alone
     source = str(source).replace("\\", "/")
-    return UNIT if source.startswith("src/") and (BASE / UNIT).exists() else source
+    return UNIT if source in unit_files() else source
 
 
 def definition_order(obj_data):
@@ -157,9 +164,14 @@ def verify_all():
     ledger_syms = {r["symbol"] for r in rows}
     extras = ["%s" % name for name in sorted(unit_order) if name not in ledger_syms]
     for source, group in sorted(by_source.items()):
-        ok = unit_ok and (BASE / source).exists() and source.startswith("src/")
-        data = unit_data if ok else b""
-        order = unit_order if ok else {}
+        if unit_of(source) == UNIT:
+            ok = unit_ok and (BASE / source).exists()
+            data, order = (unit_data, unit_order) if ok else (b"", {})
+        else:
+            ok = (BASE / source).exists() and source.startswith("src/") and compile_source(source, obj_path(source))
+            data = (BASE / obj_path(source)).read_bytes() if ok else b""
+            order = definition_order(data) if ok else {}
+            extras += [n for n in sorted(order) if n not in ledger_syms]
         for row in group:
             if not ok:
                 status, detail = "COMPILE", "missing or failed to compile"

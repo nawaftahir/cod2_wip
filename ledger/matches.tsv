@@ -60,3 +60,17 @@ addr	size	source	symbol	name	tag
 0x00487430	23	src/universal/com_math.cpp	_AngleDelta	AngleDelta	SUPPORTED
 0x004891a0	34	src/universal/com_math.cpp	_Q_round	Q_round	SUPPORTED
 0x0048da70	27	src/universal/dvar.cpp	_Dvar_IsAtDefaultValue	Dvar_IsAtDefaultValue	SUPPORTED
+0x004ad790	39	src/zlib/deflate.c	_putShortMSB	putShortMSB	PINNED
+0x004ad7c0	100	src/zlib/deflate.c	_flush_pending	flush_pending	PINNED
+0x004adda0	135	src/zlib/deflate.c	_lm_init	lm_init	PINNED
+0x004b1140	100	src/zlib/trees.c	_init_block	init_block	PINNED
+0x004b2950	129	src/zlib/trees.c	_set_data_type	set_data_type	PINNED
+0x004b2a00	127	src/zlib/trees.c	_bi_flush	bi_flush	PINNED
+0x004b2a80	109	src/zlib/trees.c	_bi_windup	bi_windup	PINNED
+0x004b2c10	36	src/zlib/unzip.c	_unzlocal_getShort	unzlocal_getShort	PINNED
+0x004b2c40	35	src/zlib/unzip.c	_unzlocal_getLong	unzlocal_getLong	PINNED
+0x004b2c70	64	src/zlib/unzip.c	_strcmpcasenosensitive_internal	strcmpcasenosensitive_internal	PINNED
+0x004b2d00	291	src/zlib/unzip.c	_unzlocal_SearchCentralDir	unzlocal_SearchCentralDir	PINNED
+0x004b30a0	864	src/zlib/unzip.c	_unzlocal_GetCurrentFileInfoInternal	unzlocal_GetCurrentFileInfoInternal	PINNED
+0x004b3670	412	src/zlib/unzip.c	_unzlocal_CheckCurrentFileCoherencyHeader	unzlocal_CheckCurrentFileCoherencyHeader	PINNED
+0x004b3ce0	17	src/zlib/zutil.c	_zcfree	zcfree	PINNED
