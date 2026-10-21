@@ -145,6 +145,10 @@ light_history = gfx / 'target/work/proof/light_history_warm_bind.json'
 assert hashlib.sha256(light_history.read_bytes()).hexdigest() == '08c9bfa93c8e99a3f3ee3db1e0820953a85b1256c380d00583ef717fe3cdaf42'
 required.update({va: row for va, row in accepted(light_history).items()
                  if va in old or '@std@@' not in row['name']})
+api_graph = gfx / 'target/work/proof/api_graph_warm_bind.json'
+assert hashlib.sha256(api_graph.read_bytes()).hexdigest() == '69a9b7c7171f31d0390ef61b929abe0a7849fbedc4a54bb9a8787d4bb39c0c9d'
+required.update({va: row for va, row in accepted(api_graph).items()
+                 if va in old or '@std@@' not in row['name']})
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

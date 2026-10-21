@@ -29,4 +29,8 @@ for slot in pinned['slots']:
     destination, value = instruction.operands
     assert destination.type == capstone.x86.X86_OP_MEM and destination.mem.disp == address
     assert value.type == capstone.x86.X86_OP_IMM and value.imm == int(slot['target'], 16)
-print('PASS: all 108 API slots, 98 actual initializer writes and ten zero-initialized slots')
+for address in (0x1000bad0, 0x1000ce60, 0x1000ce70, 0x10020cf0):
+    assert pe.get_data(address-base, 2) == b'\xc3\xcc', hex(address)
+reset = next(decoder.disasm(pe.get_data(0x10001280-base, 5), 0x10001280))
+assert reset.mnemonic == 'jmp' and reset.operands[0].imm == 0x100013d0
+print('PASS: 108 API slots, 98 writes, ten zeros, four genuine empty callbacks and sun-reset tail')

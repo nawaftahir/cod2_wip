@@ -17,6 +17,77 @@ void R_UpdateGfxEntityBoundsCmd(GfxEntity *ent)
 
 GfxScene scene;
 
+extern const dvar_t *r_lockPvs;
+extern const dvar_t *r_lodScale;
+extern const dvar_t *r_lodBias;
+extern const dvar_t *r_znear;
+extern const dvar_t *r_znear_depthhack;
+void MatrixForViewer(float mtx[4][4], const vec3_t origin, const vec3_t axis[3]);
+void InfinitePerspectiveMatrix(float mtx[4][4], float fovX, float fovY, float zNear);
+void MatrixMultiply44(const float first[4][4], const float second[4][4], float out[4][4]);
+void MatrixInverse44(const float *matrix, float *out);
+
+// PINNED 10696a68: retained camera used when r_lockPvs is enabled.
+static GfxViewParms lockPvsViewParms;
+
+// PINNED 10025570: shared by the LOD callback and scene submission.
+static __declspec(noinline) void R_SetViewParmsForScene(GfxViewParms *viewParms, const refdef_t *refdef)
+{
+    float zNear;
+
+    memset(viewParms, 0, sizeof(*viewParms));
+    viewParms->viewport.X = refdef->x;
+    viewParms->viewport.Y = refdef->y;
+    viewParms->viewport.Width = refdef->width;
+    viewParms->viewport.Height = refdef->height;
+    viewParms->viewport.MinZ = 0.0f;
+    viewParms->viewport.MaxZ = 1.0f;
+    VectorCopy(refdef->vieworg, viewParms->origin);
+    VectorCopy(refdef->viewaxis[0], viewParms->axis[0]);
+    VectorCopy(refdef->viewaxis[1], viewParms->axis[1]);
+    VectorCopy(refdef->viewaxis[2], viewParms->axis[2]);
+    MatrixForViewer((float (*)[4])&viewParms->viewMatrix, viewParms->origin, viewParms->axis);
+    if (refdef->zNear > 0.0f)
+        zNear = refdef->zNear;
+    else
+        zNear = I_fmax(0.01f, r_znear->current.value);
+    InfinitePerspectiveMatrix((float (*)[4])&viewParms->projectionMatrix,
+        refdef->fov_x, refdef->fov_y, zNear);
+    viewParms->depthHackNearClip = r_znear_depthhack->current.value;
+    MatrixMultiply44((const float (*)[4])&viewParms->viewMatrix,
+        (const float (*)[4])&viewParms->projectionMatrix,
+        (float (*)[4])&viewParms->viewProjectionMatrix);
+    MatrixInverse44((const float *)&viewParms->viewProjectionMatrix,
+        (float *)&viewParms->inverseViewProjectionMatrix);
+}
+
+#pragma intrinsic(tan)
+// PINNED 100256c0: API59 slot107; the reference FOV uses single-precision arithmetic.
+void R_SetLodOrigin(const refdef_t *refdef)
+{
+    float invFovScale;
+
+    if (r_lockPvs->modified)
+    {
+        ri.Dvar_ClearModified(r_lockPvs);
+        R_SetViewParmsForScene(&lockPvsViewParms, refdef);
+    }
+    if (r_lockPvs->current.enabled)
+        VectorCopy(lockPvsViewParms.origin, rg.lodParms.origin);
+    else
+        VectorCopy(refdef->vieworg, rg.lodParms.origin);
+    rg.lodParms.scale = r_lodScale->current.value;
+    rg.lodParms.bias = r_lodBias->current.value;
+    if (refdef->fov_x != 80.0f)
+    {
+        invFovScale = (float)(tan((double)(refdef->fov_x * 0.5f) * 0.017453292f)
+            / tan(80.0f * 0.5f * 0.017453292f));
+        rg.lodParms.scale *= invFovScale;
+        rg.lodParms.bias *= invFovScale;
+    }
+}
+#pragma function(tan)
+
 extern const dvar_t *fx_sort;
 extern const dvar_t *r_drawBModels;
 

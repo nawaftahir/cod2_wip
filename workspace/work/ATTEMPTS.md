@@ -370,3 +370,30 @@ identical; see proof/material_checkpoint.json and its nine negative controls.
   src. Its99-case test is explicitly DEFERRED and tests no active function.
   Remove/reinsert inside the material TU when retrying; a new TU is not the
   recorded experiment. Original passing material source is restored.
+
+## API graph wave - 2026-10-22
+
+- BeginDebugFrame10021ff0/73 accepts first build. Use the actual
+  dx.skinnedCacheLockAddr, not the reference's dynamicBufferFrame guess.
+  GfxDebugFrameGlob owns saved pointers, byte flag and embedded backend data.
+  Compile-time checks pin data+12 and commands+219d0c; full historical global
+  extent still requires independent layout proof.
+- View setup10025570/286 accepts with output-first private signature and three
+  explicit VectorCopy axis rows. Initial memcpy/AxisCopy forms produce247/286
+  bytes but different register/base use. This is not historical signature proof.
+- LodOrigin100256c0 remains UNACCEPTED. Three bounded forms:215,203,212 bytes.
+  Latest212 differs by FMUL qword rather than dword at the degree/radian factor;
+  no byte-match credit. A double promotion after the half-FOV preserves two
+  multiplies but changes literal width. Do not repeat syntax sweeps without new
+  compiler/TU/caller evidence.192 actual-source view/LOD routes pass, including
+  lock transitions and NaN near planes. The reference's baseline tangent
+  constant is wrong: retail double1019bf08 is0.6981317400932312, promoted from
+  float arithmetic, not0.69813170079773179.
+- Four empty API callbacks are real primary RETs, not placeholders:1000bad0,
+  1000ce60,1000ce70,10020cf0. Sun reset10001280 jumps100013d0. Sources are
+  restored for eventual GetRefAPI closure, without credit from address-only
+  attribution. noinline on UpdateLights preserves the real outlined helper.
+- Retail CodeView: RSDS GUID142974c2-5a6c-48f5-b39a-25c1649e5e89, age1,
+  path c:\\builds\\crc6_v1\\pc\\cod2\\pc\\gfx_d3d_mp_x86_s.pdb.
+  Reused candidate PDB has a different GUID and increasing age; repeat links
+  alone cannot prove deterministic whole-file output. No metadata patch used.

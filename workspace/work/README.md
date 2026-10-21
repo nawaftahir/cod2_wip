@@ -3,7 +3,7 @@
 Work here. Old scratch folders and archived builds are history, not active inputs.
 Follow [the whole-file roadmap](../../WHOLEFILE.md): readable source and exact retail SHA.
 
-The820-extent ratchet uses local proof/history JSONs. The API oracle and the
+The checkpoint ratchet uses local proof/history JSONs. The API oracle and the
 SUPPORTED function inventory are local in proof/retail. Current renderer checks
 do not require dev/codex; other tracks' deletion safety is not covered here.
 
@@ -27,8 +27,7 @@ source/library extents, game accounting and the latest raw-offset layout meter.
 Failed checks stop the command; a diagnostic match is never accepted progress.
 
 Current status and continuation: [PROGRESS.md](../../PROGRESS.md).
-Latest warm checkpoint:612 game bodies /107659 executable bytes, including
-99872 authored C/C++ bytes (39.385% of the SUPPORTED game inventory).
+The progress log records the latest verified counts and receipt, not this map.
 Whole-file SHA is the objective, not former percentage milestones. Assembly
 stays separately attributed and protected by regression.
 The counter excludes entire containing bodies, treats C/C++ intrinsics as C/C++,
@@ -70,6 +69,5 @@ unaccepted because its model-debug callee chain is unresolved. Run
 The restored continuation checkpoint's source/proof hashes are recorded in
 proof/continuation_checkpoint.json; subsequent drafts must pass the same gates.
 
-Latest receipt: proof/wholefile_checkpoint.json. All820 extents retained;
-completed checks are recorded there. No new cold-rebuild/runtime claim.
-Other named checkpoint receipts are historical snapshots.
+PROGRESS.md identifies the current machine receipt and completed checks.
+Other named checkpoint receipts are historical snapshots, not runtime proof.

@@ -56,6 +56,14 @@ No historical claim is made for the original alignment spelling.
 Shared quaternion helper: the actual xanim_matrix.cpp wrapper provides the
 non-/Op ConvertQuatToMat instance. Do not create new ABI wrappers or consolidate
 static helper instances blindly; match the target's actual copies and callees.
+Debug frame is owned by r_rendercmds.cpp: saved command/data pointers at+0/+4,
+restore-lock byte+8, embedded GfxBackEndData+12, its commands+219d0c. These used
+offsets are PINNED; the full historical allocation extent is not independently
+proved. The LOD camera at10696a68 belongs to the r_scene.cpp candidate, supported
+by the accepted view helper and primary callback references. No final TU/order
+claim follows. Its private output-first helper signature is a matching candidate,
+not recovered historical source spelling.
+
 Anonymous float-pool ownership and full .rdata/.data contributor order remain
 unrecovered. Mark them unknown; never invent a TU owner to move a meter.
 

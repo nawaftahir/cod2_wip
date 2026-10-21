@@ -7,7 +7,7 @@
 DxGlobals dx;
 
 // PC 1.0 has no render thread, so the sync is empty and only the main-thread query survives.
-static void R_SyncRenderThread()
+void R_SyncRenderThread()
 {
 }
 

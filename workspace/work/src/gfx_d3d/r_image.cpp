@@ -112,6 +112,15 @@ static Bool Image_IsCodeTrack(int track)
 }
 
 // PINNED1000c8d0; this accessor is also present as a public retail body.
+// PINNED 1000ce60/1000ce70: these PC API callbacks contain only RET.
+void R_ResetImageAllocations()
+{
+}
+
+void R_FreeImageAllocations()
+{
+}
+
 int R_GetMinSpecImageMemory()
 {
     return imageGlobals.totalMemory[1];

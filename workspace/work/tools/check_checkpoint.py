@@ -57,6 +57,9 @@ required.update(accepted(world_sun))
 light_history = Path(__file__).resolve().parents[1] / 'proof/light_history_warm_bind.json'
 assert hashlib.sha256(light_history.read_bytes()).hexdigest() == '08c9bfa93c8e99a3f3ee3db1e0820953a85b1256c380d00583ef717fe3cdaf42'
 required.update(accepted(light_history))
+api_graph = Path(__file__).resolve().parents[1] / 'proof/api_graph_warm_bind.json'
+assert hashlib.sha256(api_graph.read_bytes()).hexdigest() == '69a9b7c7171f31d0390ef61b929abe0a7849fbedc4a54bb9a8787d4bb39c0c9d'
+required.update(accepted(api_graph))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

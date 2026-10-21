@@ -2805,6 +2805,14 @@
 ]
 },
 {
+"name": "?R_BeginDebugFrame@@YAXXZ",
+"obj": "r_rendercmds.obj",
+"size": 73,
+"hits": [
+"0x10021ff0"
+]
+},
+{
 "name": "?R_GetCommandBuffer@@YAPAUGfxCmdHeader@@HH@Z",
 "obj": "r_rendercmds.obj",
 "size": 92,
@@ -3314,6 +3322,40 @@
 "hits": []
 },
 {
+"name": "_tanf",
+"obj": "r_scene.obj",
+"size": 9,
+"hits": [
+"0x10023610",
+"0x10023620"
+]
+},
+{
+"name": "?tan@@YAMM@Z",
+"obj": "r_scene.obj",
+"size": 9,
+"hits": [
+"0x10023610",
+"0x10023620"
+]
+},
+{
+"name": "?I_fsel@@YAMMMM@Z",
+"obj": "q_shared.obj",
+"size": 27,
+"hits": [
+"0x10023630"
+]
+},
+{
+"name": "?I_fmax@@YAMMM@Z",
+"obj": "com_math.obj",
+"size": 31,
+"hits": [
+"0x10023650"
+]
+},
+{
 "name": "?VectorCopy@@YAXQBMQAM@Z",
 "obj": "q_shared.obj",
 "size": 17,
@@ -3341,6 +3383,20 @@
 "name": "?R_UpdateGfxEntityBoundsCmd@@YAXPAUGfxEntity@@@Z",
 "obj": "r_scene.obj",
 "size": 12,
+"hits": []
+},
+{
+"name": "?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z",
+"obj": "r_scene.obj",
+"size": 286,
+"hits": [
+"0x10025570"
+]
+},
+{
+"name": "?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z",
+"obj": "r_scene.obj",
+"size": 212,
 "hits": []
 },
 {

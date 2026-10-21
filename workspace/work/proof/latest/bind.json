@@ -1355,6 +1355,12 @@
 "obj": "r_material.obj",
 "why": []
 },
+"?R_BeginDebugFrame@@YAXXZ": {
+"t": "0x10021ff0",
+"n": 73,
+"obj": "r_rendercmds.obj",
+"why": []
+},
 "?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z": {
 "t": "0x10021c60",
 "n": 23,
@@ -1682,6 +1688,12 @@
 "why": [
 "call ?R_UpdateXModelBounds@@YAXPAUGfxSceneEntity@@PBUGfxEntity@@@Z"
 ]
+},
+"?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z": {
+"t": "0x10025570",
+"n": 286,
+"obj": "r_scene.obj",
+"why": []
 },
 "?R_ClearScene@@YAXXZ": {
 "t": "0x10025510",

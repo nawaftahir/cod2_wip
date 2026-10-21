@@ -10,7 +10,7 @@
   "game_executable_bytes_mixed": 107659,
   "cpp_executable_bytes": 99872,
   "cpp_percent_supported_inventory": 39.38480952756527,
-  "source_attribution_receipt": "source_coverage_current.json",
+  "source_attribution_receipt": "wholefile_baseline_source_coverage.json",
   "source_attribution_sha256": "ae875b56d7ea18342541432056e7bca339a01499818ef39c58383406092cf2d0",
   "pinned_toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
   "build_header_config_identity": "d99e79bb003619bf8ef614ac2dc2e8b7221dac18ac222fc8d0a3c226fc57a960",

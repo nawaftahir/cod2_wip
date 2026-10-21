@@ -103,13 +103,19 @@ void R_InterpretSunLightParseParams(SunLightParseParams *sunParse)
     VectorCopy(rgp.world->sunLight.color, rgp.world->sunColorFromBsp);
 }
 
-void R_UpdateLightsFromDvars()
+__declspec(noinline) void R_UpdateLightsFromDvars()
 {
     SunLightParseParams sunParse;
 
     R_GetSunLightParseParamsFromDvars(&sunParse);
     R_InterpretSunLightParseParamsIntoLights(&sunParse, &rgp.world->sunLight);
     VectorCopy(rgp.world->sunLight.color, rgp.world->sunColorFromBsp);
+}
+
+// PINNED 10001280: API59 slot28 tail-calls the existing dvar update.
+void R_ResetSunLightParseParams()
+{
+    R_UpdateLightsFromDvars();
 }
 
 void R_SetSunLightOverride(const vec_t *sunColor)

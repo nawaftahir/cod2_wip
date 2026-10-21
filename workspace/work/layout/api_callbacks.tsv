@@ -48,7 +48,7 @@ slot	retail_target	status	accepted_symbols	legacy_label_UNVERIFIED
 46	0x100215d0	byte_and_binding_accepted	?R_AddCmdDrawSprite@@YAXPAUMaterial@@PBEPBMMMH@Z	DrawQuadPic
 47	0x10021f40	not_verified		DrawSprite
 48	0x10021f90	not_verified		BeginFrame
-49	0x10021ff0	not_verified		EndFrame
+49	0x10021ff0	byte_and_binding_accepted	?R_BeginDebugFrame@@YAXXZ	EndFrame
 50	0x10022040	not_verified		BeginDebugFrame
 51	0x10013200	byte_and_binding_accepted	?R_EndView@@YAXH@Z	EndDebugFrame
 52	0x10013250	not_verified		EndView

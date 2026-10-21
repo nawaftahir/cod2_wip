@@ -14,6 +14,7 @@ gfx_d3d/r_dpvs_occluders.cpp
 gfx_d3d/r_dpvs_clipplanes.cpp
 gfx_d3d/r_dpvs_winding.c
 gfx_d3d/r_dvars.cpp
+gfx_d3d/r_flares.cpp
 gfx_d3d/r_fog.cpp
 gfx_d3d/r_font.cpp
 gfx_d3d/r_image.cpp

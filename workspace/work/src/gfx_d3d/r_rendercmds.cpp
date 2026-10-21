@@ -5,6 +5,32 @@
 GfxBackEndData *frontEndDataOut;
 GfxCmdArray *s_cmdList;
 
+// PINNED 101e4a00: saved frame pointers, lock flag and the debug frame payload.
+GfxDebugFrameGlob s_debugFrameGlob;
+
+typedef char debugFrameLayoutCheck[
+    (offsetof(GfxDebugFrameGlob, frontEndDataOut) == 12 &&
+     offsetof(GfxBackEndData, commands) == 0x219d0c) ? 1 : -1];
+
+extern DxGlobals dx;
+void R_UnlockSkinnedCache();
+
+// PINNED 10021ff0: API59 slot49; save before unlocking the original cache.
+void R_BeginDebugFrame()
+{
+    if (!rg.registered)
+        return;
+    s_debugFrameGlob.restoreCmdList = s_cmdList;
+    s_debugFrameGlob.restoreFrontEndDataOut = frontEndDataOut;
+    if (dx.skinnedCacheLockAddr)
+    {
+        s_debugFrameGlob.restoreSkinnedCache = 1;
+        R_UnlockSkinnedCache();
+    }
+    s_cmdList = &s_debugFrameGlob.frontEndDataOut.commands;
+    frontEndDataOut = &s_debugFrameGlob.frontEndDataOut;
+}
+
 // Retail: ids <= 0xe count as critical, 0x15+ reserve space; the exact split in 0xf..0x15 is unobservable.
 #define RC_FIRST_NONCRITICAL 0xf
 

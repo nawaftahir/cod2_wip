@@ -1,8 +1,8 @@
 {
-  "functions": 612,
-  "bytes": 107659,
+  "functions": 614,
+  "bytes": 108018,
   "total": 253580,
-  "percent": 42.45563530246865,
+  "percent": 42.59720798170203,
   "baseline_lost": [],
   "gains": [
     {
@@ -552,6 +552,12 @@
       "object": "r_model_bounds.obj"
     },
     {
+      "target": "0x10021ff0",
+      "bytes": 73,
+      "name": "?R_BeginDebugFrame@@YAXXZ",
+      "object": "r_rendercmds.obj"
+    },
+    {
       "target": "0x10022710",
       "bytes": 172,
       "name": "?R_DescribeFormat@@YAPBDW4_D3DFORMAT@@@Z",
@@ -604,6 +610,12 @@
       "bytes": 77,
       "name": "?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z",
       "object": "rb_fog.obj"
+    },
+    {
+      "target": "0x10025570",
+      "bytes": 286,
+      "name": "?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z",
+      "object": "r_scene.obj"
     },
     {
       "target": "0x10027d00",
