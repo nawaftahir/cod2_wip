@@ -8,12 +8,10 @@ cd "$(dirname "$0")/.."
 IMAGE=${RADIANT_IMAGE:-cod2-radiant-msvc71}
 mkdir -p build
 git show HEAD~1:ledger/meter.json > build/meter.prev.json 2>/dev/null || cp ledger/meter.json build/meter.prev.json
-cp ledger/meter.json build/meter.head.json
-cp build/meter.prev.json ledger/meter.json
-docker run --rm -v "$PWD:/w" -w /w "$IMAGE" sh -c \
+docker run --rm -v "$PWD:/w" -w /w -e METER_BASELINE=/w/build/meter.prev.json "$IMAGE" sh -c \
   'python3 tools/verify.py --all > build/ci-verify.log 2>&1; python3 tools/link.py > build/ci-link.log 2>&1;
-   python3 tools/sections.py > build/ci-sections.log 2>&1; python3 tools/meter.py --gate > build/ci-meter.log 2>&1; echo $? > build/ci.rc'
-cp build/meter.head.json ledger/meter.json
+   python3 tools/sections.py > build/ci-sections.log 2>&1; python3 tools/meter.py --gate > build/ci-meter.log 2>&1; echo $? > build/ci.rc;
+   chown -R '"$(id -u):$(id -g)"' build ledger src 2>/dev/null'
 rc=$(cat build/ci.rc)
 result=$([ "$rc" = 0 ] && echo success || echo failure)
 

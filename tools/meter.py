@@ -10,6 +10,7 @@ separately), whole-file same-offset % against retail, and whether the SHA-256 is
 """
 import hashlib
 import json
+import os
 import pathlib
 import sys
 
@@ -20,6 +21,8 @@ import match_radiant as m
 RETAIL = BASE / "binaries" / "CoD2Radiant.exe"
 OURS = BASE / "build" / "CoD2Radiant.exe"
 COMMITTED = BASE / "ledger" / "meter.json"
+# CI compares against the previous commit's numbers, passed in as a separate file
+BASELINE = pathlib.Path(os.environ["METER_BASELINE"]) if os.environ.get("METER_BASELINE") else COMMITTED
 # gated: these may never drop. same_offset_bytes is reported only: real code can shift chance matches
 KEYS = ("matched_functions", "matched_bytes")
 
@@ -85,7 +88,7 @@ def summary(now, before):
 
 def main():
     now = measure()
-    before = json.loads(COMMITTED.read_text()) if COMMITTED.exists() else {}
+    before = json.loads(BASELINE.read_text()) if BASELINE.exists() else {}
     text = summary(now, before)
     (BASE / "build" / "meter.json").write_text(json.dumps(now, indent=1))
     (BASE / "build" / "summary.md").write_text(text)
