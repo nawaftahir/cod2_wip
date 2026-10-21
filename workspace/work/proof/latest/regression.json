@@ -1,8 +1,8 @@
 {
-  "functions": 614,
-  "bytes": 108018,
+  "functions": 616,
+  "bytes": 108206,
   "total": 253580,
-  "percent": 42.59720798170203,
+  "percent": 42.67134632068775,
   "baseline_lost": [],
   "gains": [
     {
@@ -618,6 +618,12 @@
       "object": "r_scene.obj"
     },
     {
+      "target": "0x100266f0",
+      "bytes": 97,
+      "name": "?R_FlipCubemapShot@@YAXPAE@Z",
+      "object": "r_screenshot.obj"
+    },
+    {
       "target": "0x10027d00",
       "bytes": 573,
       "name": "?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z",
@@ -658,6 +664,12 @@
       "bytes": 403,
       "name": "?XSurfaceTransferDx7@@YAXPBUXVertexBuffer@@PAUGfxVertexDx7@@H@Z",
       "object": "r_xsurface.obj"
+    },
+    {
+      "target": "0x100307e0",
+      "bytes": 91,
+      "name": "?RB_SetGammaRamp@@YAXPBUGfxGammaRamp@@@Z",
+      "object": "rb_backend.obj"
     },
     {
       "target": "0x100348f0",

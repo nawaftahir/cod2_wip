@@ -397,3 +397,50 @@ identical; see proof/material_checkpoint.json and its nine negative controls.
   path c:\\builds\\crc6_v1\\pc\\cod2\\pc\\gfx_d3d_mp_x86_s.pdb.
   Reused candidate PDB has a different GUID and increasing age; repeat links
   alone cannot prove deterministic whole-file output. No metadata patch used.
+
+## Cubemap API closure - 2026-10-22
+
+- New accepted bodies: BGRA vertical flip100266f0/97 and hardware gamma
+  upload100307e0/91. All822 earlier extents retained. Byte-offset locals
+  calculated BEFORE either swap store avoid a redundant dimension reload;
+  unsigned-word pointer/index forms produced111/96 bytes and wrong registers.
+  Hardware ramp copies one256-ushort GfxGammaRamp into all three SDK channels,
+  then SetGammaRamp(targetWindowIndex,0,&ramp). No retry/logging belongs here.
+- Cubemap begin10026a50/28 and clear100269c0/115 have exact bytes. Binding
+  remains blocked by RB_SetRenderTarget -> RB_UpdateViewportConstants.
+  Early constant43 publication plus /Op still399 vs366. Both changes reverted;
+  no new viewport gain. Do not repeat this profile/publication combination.
+- Added the real end/capture chain. Capture100268b0/99 has exact bytes but
+  waits for software gamma. End10026a70/20 has no unique discovery anchor.
+  Capture ignores readback failure, flips, then applies gamma only when
+  overbrightBits>0 and deviceSupportsGamma. Native tests cover576 routes.
+- GfxGammaRamp is the real512-byte one-channel type (common_types.h6594), not
+  D3DGAMMARAMP's1536-byte three-channel type. Restoring the actual second
+  caller R_SetColorMappings10011fb0 and the typed producer input fixes the
+  producer argument to ECX, and makes mappings38 and software gamma82 byte
+  equal. Their bindings still wait for the157-byte producer10011f10.
+  The producer differs in its index register/update scheduling at the loop
+  tail. Pointer/array forms, typed structs, both callers and indexed/countdown
+  loops were tested. Indexed common-store139 loses those two caller matches;
+  restored typed countdown157. Stop register/loop spelling sweeps pending
+  different original-TU/function-set evidence. Current size-first software
+  gamma signature is a matching candidate, not historical prototype proof.
+- Restored full save/copy/Fresnel-alpha source from primary265e0..26aae.
+  Writer154 and public wrapper30 have exact bytes. Copy89 differs in one
+  SIB base/index encoding for its zero-channel store; source-first argument
+  order fixes all other register allocations. Pointer-local and direct-index
+  versions retain that one mismatch. Alpha262 vs266 changes x87 spills and
+  also depends on the unaccepted FresnelTerm. No save-chain coverage credit.
+- TGA resolution is cached AFTER allocation and BEFORE header zeroing. This
+  matches the target's single ushort load and shared high/low bytes, unlike
+  four global byte loads. Saved face pointers remain dangling after both
+  frees; failed writes still free both buffers. Native tests cover144 saves,
+  including257-pixel dimensions, six faces, both write outcomes and alpha rays.
+- Gamma producer and alpha reuse the PREEXISTING I_fround inline assembly.
+  Neither is accepted, so the strict31/7787 exclusion set remains unchanged.
+  If either later passes both referees, separately audit and exclude its
+  assembly expansion before reporting C/C++ credit. Do not just relax counts.
+  Backend source hash changed only for the new ordinary C++ gamma uploader;
+  existing assembly definitions were not edited. Six counter negatives pass.
+- build.sh now invokes the existing source counter on EVERY successful link;
+  assembly attribution is a mandatory gate, not an optional reporting step.

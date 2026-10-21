@@ -56,6 +56,11 @@ No historical claim is made for the original alignment spelling.
 Shared quaternion helper: the actual xanim_matrix.cpp wrapper provides the
 non-/Op ConvertQuatToMat instance. Do not create new ABI wrappers or consolidate
 static helper instances blindly; match the target's actual copies and callees.
+Gamma uses the shared512-byte GfxGammaRamp type in r_init.cpp and rb_backend.cpp.
+The uploader's1536-byte D3DGAMMARAMP is stack-local; no gamma global was added.
+Existing cubeShotGlob retains its six face pointers in r_screenshot.cpp; save
+does not clear them after freeing. Candidate ownership is not historical proof.
+
 Debug frame is owned by r_rendercmds.cpp: saved command/data pointers at+0/+4,
 restore-lock byte+8, embedded GfxBackEndData+12, its commands+219d0c. These used
 offsets are PINNED; the full historical allocation extent is not independently

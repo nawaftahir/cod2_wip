@@ -6,7 +6,7 @@ import tempfile
 source = (Path(__file__).resolve().parent.parent / 'src' / 'gfx_d3d/rb_viewport.cpp').read_text()
 backend = (Path(__file__).resolve().parent.parent / 'src' / 'gfx_d3d/rb_backend.cpp').read_text()
 setter_start = backend.index('void RB_SetCodeConstant(')
-setter = backend[setter_start:backend.index('// PINNED 106d3194', setter_start)]
+setter = backend[setter_start:backend.index('\n}', setter_start) + 2]
 math_header = (Path(__file__).resolve().parent.parent / 'src' / 'universal/com_math.h').read_text()
 helpers = ''
 for name in ('Vector2Set', 'Vector2Add', 'Vec2Scale', 'VectorMA2', 'Vector4Set'):

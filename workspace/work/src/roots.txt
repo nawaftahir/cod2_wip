@@ -1,6 +1,10 @@
 # Exported entry points; interim until GetRefAPI (refapi_table) is linked.
 R_BeginDebugFrame
 R_SetLodOrigin
+R_BeginCubemapShot
+R_EndCubemapShot
+R_SetColorMappings
+R_SaveCubemapShot
 Image_BuildSpecularityMap
 R_InitRenderTargets
 Material_ReloadAll

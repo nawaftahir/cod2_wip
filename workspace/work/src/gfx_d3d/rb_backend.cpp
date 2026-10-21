@@ -11,6 +11,19 @@ void RB_SetCodeConstant(int constant, float x, float y, float z, float w)
 	backEnd.codeConsts[constant][3] = w;
 }
 
+// PINNED 100307e0: replicate the one-channel table for the target swap chain.
+void RB_SetGammaRamp(const GfxGammaRamp *gammaTable)
+{
+	D3DGAMMARAMP ramp;
+	for (int index = 0; index < 256; ++index)
+	{
+		ramp.red[index] = gammaTable->entries[index];
+		ramp.green[index] = gammaTable->entries[index];
+		ramp.blue[index] = gammaTable->entries[index];
+	}
+	dx.device->SetGammaRamp(dx.targetWindowIndex, 0, &ramp);
+}
+
 // PINNED 106d3194, distinct from frontEndDataOut at 101da9c8.
 struct GfxBackEndData;
 GfxBackEndData *backEndData;

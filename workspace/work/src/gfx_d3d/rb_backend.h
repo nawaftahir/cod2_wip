@@ -3,6 +3,12 @@
 
 #include <stddef.h>
 
+// Mac type; PINNED PC gamma builders consume exactly256 ushort entries.
+struct GfxGammaRamp
+{
+	unsigned short entries[256];
+};
+
 struct GfxViewport
 {
 	int x;

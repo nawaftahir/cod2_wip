@@ -1,6 +1,6 @@
 # Renderer progress
 
-## Whole-file API wave - 2026-10-22
+## Whole-file cubemap/gamma wave - 2026-10-22
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
@@ -8,20 +8,45 @@ new handoffs. Machine proof receipts and technical reference notes stay separate
 
 ### Verified state
 
-- Base source commit: `221cfa5`; workspace consolidation: `084b513`.
-  Current authored C/C++: **100231/253580 bytes (39.526%)**
+- Previous source checkpoint: `5f9724e`; workspace consolidation: `084b513`.
+  Current authored C/C++: **100419/253580 bytes (39.601%)**
   against the SUPPORTED game inventory, not the entire DLL.
-- Mixed C/C++ and authored assembly: 614 game bodies, 108018 bytes.
-  Assembly is excluded from the C/C++ meter. This wave adds **359 C/C++ bytes**.
-- All 820 previous protected extents retained; the stronger ratchet now protects
-  **822**. Negative controls reject removal of either new body.
-- All **59** source/audit fixtures passed in one batch, including the two new
-  actual-source tests. No new assembly or relaxed referee.
-- Current receipt: `target/work/proof/api_graph_checkpoint.json`. Current referees:
+- Mixed C/C++ and authored assembly:616 game bodies,108206 bytes.
+  Assembly is excluded from the C/C++ meter. This wave adds **188 C/C++ bytes**.
+- All822 previous protected extents retained; the ratchet now protects **824**.
+  Negative controls reject removal of either new body.
+- All **63** source/audit fixtures passed after a forced same-output rebuild.
+  Warm/rebuilt binding JSON hashes are identical. No new assembly definitions
+  or relaxed referee. The C/C++ attribution check is now mandatory in build.sh.
+- Current receipt: `target/work/proof/cubemap_checkpoint.json`. Current referees:
   `target/work/proof/latest/`. Layout: `target/work/layout/current.json`.
 - **Whole-file retail SHA does not match. No release or runtime proof.**
 
 ### Actual whole-file work completed
+
+- New accepted source: BGRA vertical flip100266f0/97 and hardware gamma
+  upload100307e0/91. The uploader copies the real512-byte GfxGammaRamp into
+  three SDK gamma channels and routes it to the actual target swap chain.
+- Added complete source for cubemap begin/end/save, readback, flipping,
+  software gamma, TGA output and Fresnel-alpha routing. These close real API
+  dependencies, but **only the two bodies above receive new coverage credit**.
+  Tests cover90 begin cases,576 capture routes,144 saves (including257-pixel
+  headers),48 hardware ramps and35 software-gamma buffers. Readback failure
+  still flips; write failure still frees both buffers; original dangling saved
+  pointers are preserved, not silently fixed.
+- Remaining blockers: begin -> render-target setup -> viewport366; end ->
+  gamma-table producer157; save -> copy89's one SIB encoding difference and
+  alpha262-vs266 -> FresnelTerm. Several callers already have equal bytes but
+  fail dependency binding. No masked-only or native-test result is credited.
+- The producer's real second caller and GfxGammaRamp type fix its argument
+  convention and two caller bodies. Its loop-tail scheduling remains different;
+  stop syntax sweeps and use original TU/function-set evidence next.
+- Gamma/alpha drafts reuse the existing I_fround assembly helper. They are
+  unaccepted; accepted exclusions remain31 bodies/7787 bytes. If either later
+  matches, its assembly expansion needs explicit exclusion review. The stricter
+  build gate will reject unreviewed accounting instead of inflating C/C++ credit.
+
+Previously accepted and still protected:
 
 - Restored the real BeginDebugFrame callback, API59 slot49:73 bytes accepted.
   It saves the original frame pointers, unlocks the original vertex cache when
@@ -36,11 +61,11 @@ new handoffs. Machine proof receipts and technical reference notes stay separate
 - Restored four primary-proven empty API callbacks and the sun-reset wrapper
   for eventual GetRefAPI closure. These receive **zero new credited bytes**;
   they are not invented substitutes for missing implementations.
-- Current candidate has154 temporary exports and still no GetRefAPI.54 of98
+- Current candidate has158 temporary exports and still no GetRefAPI.54 of98
   written API slots now have accepted implementations. The real front door is
   **not implemented yet**; completing its actual callback graph remains first.
-- Current .text virtual size436272 versus retail1089680. Raw same-file-offset
-  equality is2.024909%; this is a layout diagnostic, NOT source completion.
+- Current .text virtual size437792 versus retail1089680. Raw same-file-offset
+  equality is2.044084%; this is a layout diagnostic, NOT source completion.
 - Retail debug metadata pins an age1 PDB at the original c:\\builds path. Our
   reused PDB has a different GUID and increasing age. These remain real SHA
   blockers, not hash fields to silently ignore or patch.
@@ -61,10 +86,16 @@ Unrelated staged work is preserved, not bundled into this cleanup. No push.
    slots: 98 written callbacks, ten initial zeros.54 written slots have accepted
    implementations; unverified does not mean source absent. Use primary code
    and `target/work/layout/api_callbacks.tsv`; never guess signatures or stub bodies.
-2. Replace temporary roots with genuine reachability as connected groups close,
-   retaining all accepted extents. Candidate has154 exports and no GetRefAPI;
+2. Prioritize genuine shader SDK entrypoints to pull original library members,
+   not library-internal reconstruction. The existing tested shader-table wrapper
+   is still in tests/fixtures/unaccepted_shader_wrapper.cpp; earlier integration
+   disturbed a CRT data binding. Reproduce that precise dependency/ownership
+   failure and resolve it honestly before scaling shader source. Do not simply
+   bypass the referee or import whole unverified reference trees.
+3. Replace temporary roots with genuine reachability as connected groups close,
+   retaining all accepted extents. Candidate has158 exports and no GetRefAPI;
    retail exports only GetRefAPI. Recover TU/data/library ownership alongside code.
-3. Complete missing real source and original dependency calls. Reuse exact
+4. Complete missing real source and original dependency calls. Reuse exact
    VC7.1/Summer2004 libraries and correct upstream source, not library reversal
    for a counter. Resolve exact layout and metadata, then cold rebuild and smoke.
 
@@ -75,6 +106,9 @@ no output patching or normalized hash may substitute for retail identity.
 ### Resume
 
 From gfx: `sh target/work/tools/build.sh`. Use `--rebuild` only when warranted.
+Full fixtures: `python3 target/work/tests/run.py` (fails immediately on a failed
+child). A stale broad extraction in the viewport fixture included the new gamma
+function; it now extracts only its intended setter. All assertions remain.
 One output: `target/build/codex_boundsoutside_1016_02`; `target/work/build` is
 a symlink, not a duplicate. No own builds remain running. Before retrying source
 forms, read `target/work/ATTEMPTS.md` and archived NOTES.md. Do not repeat the
@@ -86,11 +120,13 @@ Do connected source work next, not another parser/report framework.
 Anchor SHA256:
 `4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6`.
 Latest candidate SHA256:
-`438182a3a2bb5ad6bd59794b9592c78e53085fc737380f30cebb8d9b04d1e7e7`.
+`3076306cda3d65f4e647e7d9cd8bd48d8f1355e8e0dcda5e46d32377dac918a7`.
 
 ### Limits
 
-No fresh independent cold rebuild or client/GPU smoke test for this checkpoint.
+Forced full compilation in the one existing build passed; no independent fresh
+checkout replay or client/GPU smoke test. Historical layout receipts are frozen
+in proof rather than pointing at the mutable layout/current.json.
 No reliable whole-project completion percentage or release date is established.
 Renderer checks no longer need dev/codex, **but client/deepseek tools still use
 codex/client/salvage_gemini/data/names_1.0.json**. Deleting that folder can break

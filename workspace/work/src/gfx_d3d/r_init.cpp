@@ -112,3 +112,48 @@ void R_InitModelDObj()
     ri.DObjCreate(&model, 1, 0, rg.modelDObjBuf, 0);
     rg.modelDObj = (DObj_s *)rg.modelDObjBuf;
 }
+
+extern const dvar_t *r_gamma;
+
+#pragma intrinsic(pow)
+// PINNED 10011f10: the existing I_fround expansion is accounted as assembly.
+static __declspec(noinline) void R_BuildGammaTable(GfxGammaRamp *gammaTable)
+{
+    float inverseGamma = 1.0f / r_gamma->current.value;
+    int index = 0;
+    int remaining = 256;
+    unsigned short *entry = gammaTable->entries;
+    do
+    {
+        int value;
+        if (inverseGamma == 1.0f)
+            value = index + (index << 8);
+        else
+            value = I_fround((float)(pow(index * (1.0f / 255.0f), inverseGamma) * 65535.0f));
+        ++index;
+        *entry++ = (unsigned short)value;
+    } while (--remaining);
+}
+#pragma function(pow)
+
+void RB_SetGammaRamp(const GfxGammaRamp *gammaTable);
+
+// PINNED 10011fb0: the other real caller of the shared one-channel builder.
+void R_SetColorMappings()
+{
+    GfxGammaRamp gammaTable;
+    if (vidConfig.deviceSupportsGamma)
+    {
+        R_BuildGammaTable(&gammaTable);
+        RB_SetGammaRamp(&gammaTable);
+    }
+}
+
+// PINNED 10011fe0: signed integer division after widening the ushort entry.
+void R_GammaCorrect(int bufferSize, byte *buffer)
+{
+    GfxGammaRamp gammaTable;
+    R_BuildGammaTable(&gammaTable);
+    for (int index = 0; index < bufferSize; ++index)
+        buffer[index] = (byte)(gammaTable.entries[buffer[index]] * 255 / 65535);
+}

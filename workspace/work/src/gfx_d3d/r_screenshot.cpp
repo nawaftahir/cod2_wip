@@ -292,6 +292,61 @@ struct CubemapShotGlob
 // PINNED 0x10696bb4
 CubemapShotGlob cubeShotGlob;
 
+void RB_SetRenderTarget(GfxRenderTargetId newTargetId);
+void R_GammaCorrect(int bufferSize, byte *buffer);
+extern const dvar_t *r_overbrightBits;
+
+// PINNED 100266f0: flip complete BGRA words, leaving the odd middle row alone.
+static __declspec(noinline) void R_FlipCubemapShot(byte *buffer)
+{
+    for (int row = 0; row < dx.cubemapShotRes / 2; ++row)
+    {
+        for (int column = 0; column < dx.cubemapShotRes; ++column)
+        {
+            int topOffset = (row * dx.cubemapShotRes + column) * 4;
+            int bottomOffset = ((dx.cubemapShotRes - row - 1) * dx.cubemapShotRes + column) * 4;
+            unsigned int pixel = *(unsigned int *)(buffer + topOffset);
+            *(unsigned int *)(buffer + topOffset) = *(unsigned int *)(buffer + bottomOffset);
+            *(unsigned int *)(buffer + bottomOffset) = pixel;
+        }
+    }
+}
+
+// PINNED 100268b0: failed capture still follows the flip/gamma path.
+static __declspec(noinline) void R_CaptureCubemapShot(int shotIndex)
+{
+    int bufferSize = dx.cubemapShotRes * dx.cubemapShotRes * 4;
+    byte *buffer = (byte *)ri.Z_MallocInternal(bufferSize);
+    cubeShotGlob.pixels[shotIndex - 1] = buffer;
+    R_GetFrontBufferData(dx.cubemapShotPixelBorder, dx.cubemapShotPixelBorder,
+        dx.cubemapShotRes, dx.cubemapShotRes, 4, buffer);
+    R_FlipCubemapShot(buffer);
+    if (r_overbrightBits->current.integer > 0 && vidConfig.deviceSupportsGamma)
+        R_GammaCorrect(bufferSize, buffer);
+}
+
+// PINNED 100269c0; descriptive name, historical helper name unconfirmed.
+static __declspec(noinline) void R_ClearForCubemapShot()
+{
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+    R_DX_CALL(dx.device->Clear( 0, 0, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER | D3DCLEAR_STENCIL, D3DCOLOR_ARGB(255,255,0,255), 1, 0 ));
+}
+
+// PINNED 10026a50: API59 slot64 narrows both arguments to unsigned shorts.
+void R_BeginCubemapShot(int pixelWidthHeight, int pixelBorder)
+{
+    dx.cubemapShotRes = (unsigned short)pixelWidthHeight;
+    dx.cubemapShotPixelBorder = (unsigned short)pixelBorder;
+    R_ClearForCubemapShot();
+}
+
+// PINNED 10026a70: API59 slot65 restores the framebuffer after capture.
+void R_EndCubemapShot(int shotIndex)
+{
+    R_CaptureCubemapShot(shotIndex);
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+}
+
 // PINNED 0x101903a8; index 0 is CUBEMAPSHOT_NONE.
 const float cubemapShotAxis[7][3][3] =
 {
@@ -303,6 +358,77 @@ const float cubemapShotAxis[7][3][3] =
     { { 1.0f, 0.0f, 0.0f }, { 0.0f, 1.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } },
     { { -1.0f, 0.0f, 0.0f }, { 0.0f, -1.0f, 0.0f }, { 0.0f, 0.0f, 1.0f } },
 };
+
+float FresnelTerm(float n0, float n1, float cosIncidentAngle);
+
+// PINNED 100265e0: the ray is normalized before using its Z for Fresnel alpha.
+static __declspec(noinline) byte R_CubemapShotAlpha(int shotIndex, int column, int row, float n0, float n1)
+{
+    float halfSize = dx.cubemapShotRes * 0.5f;
+    vec3_t direction;
+    VectorScale(cubemapShotAxis[shotIndex][0], halfSize, direction);
+    VectorMA(direction, column - halfSize + 0.5f, cubemapShotAxis[shotIndex][1], direction);
+    VectorMA(direction, row - halfSize + 0.5f, cubemapShotAxis[shotIndex][2], direction);
+    Vec3Normalize(direction);
+    return (byte)I_fround(FresnelTerm(n0, n1, direction[2]) * 255.0f);
+}
+
+// PINNED 100267e0: preserve BGRA channel order after the18-byte TGA header.
+static __declspec(noinline) void R_CopyCubemapShot(const byte *source, byte *targa)
+{
+    for (int row = 0; row < dx.cubemapShotRes; ++row)
+    {
+        for (int column = 0; column < dx.cubemapShotRes; ++column)
+        {
+            int offset = (row * dx.cubemapShotRes + column) * 4;
+            byte *destination = targa + 18 + offset;
+            const byte *pixel = source + offset;
+            destination[2] = pixel[2];
+            destination[1] = pixel[1];
+            destination[0] = pixel[0];
+            destination[3] = pixel[3];
+        }
+    }
+}
+
+// PINNED 10026840: only the alpha byte is replaced, including for failed writes.
+static __declspec(noinline) void R_WriteCubemapShotAlpha(int shotIndex, float n0, float n1, byte *targa)
+{
+    for (int row = 0; row < dx.cubemapShotRes; ++row)
+    {
+        for (int column = 0; column < dx.cubemapShotRes; ++column)
+        {
+            int offset = (row * dx.cubemapShotRes + column) * 4 + 18;
+            targa[offset + 3] = R_CubemapShotAlpha(shotIndex, column, row, n0, n1);
+        }
+    }
+}
+
+// PINNED 10026920: release both buffers without clearing the saved face pointer.
+static __declspec(noinline) void R_WriteCubemapShot(int shotIndex, const char *filename, float n0, float n1)
+{
+    int fileSize = dx.cubemapShotRes * dx.cubemapShotRes * 4 + 18;
+    byte *targa = (byte *)ri.Z_MallocInternal(fileSize);
+    int resolution = dx.cubemapShotRes;
+    memset(targa, 0, 18);
+    targa[2] = 2;
+    targa[12] = (byte)resolution;
+    targa[13] = (byte)(resolution >> 8);
+    targa[14] = (byte)resolution;
+    targa[15] = (byte)(resolution >> 8);
+    targa[16] = 32;
+    R_CopyCubemapShot(cubeShotGlob.pixels[shotIndex - 1], targa);
+    R_WriteCubemapShotAlpha(shotIndex, n0, n1, targa);
+    ri.FS_WriteFile(filename, targa, fileSize);
+    ri.Z_FreeInternal(targa);
+    ri.Z_FreeInternal(cubeShotGlob.pixels[shotIndex - 1]);
+}
+
+// PINNED 10026a90: API59 slot66 adapts the public filename-first parameter order.
+void R_SaveCubemapShot(const char *filename, int shotIndex, float n0, float n1)
+{
+    R_WriteCubemapShot(shotIndex, filename, n0, n1);
+}
 
 static void R_GetDirForCubemapPixel(int faceIndex, float x, float y, float *dir)
 {

@@ -23,7 +23,7 @@
   "source_fixtures_passed": 59,
   "fixture_log": "latest/api_fixture_run.log",
   "fixture_log_sha256": "d506a21e1e7c9d7183cf21913efdc97be83b6d96bd4152e05b45096db6c6a117",
-  "layout_receipt": "../layout/current.json",
+  "layout_receipt": "api_graph_layout.json",
   "layout_sha256": "bb14a804f008c23b700e36a39fdd07064a4fd2026c249f4aa76c8dfa40cb2de3",
   "candidate_data_virtual_bytes": 3648180,
   "full_debug_frame_historical_extent_proved": false,

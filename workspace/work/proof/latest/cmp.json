@@ -2426,10 +2426,28 @@
 ]
 },
 {
+"name": "_powf",
+"obj": "r_init.obj",
+"size": 14,
+"hits": [
+"0x10011300",
+"0x10011320"
+]
+},
+{
 "name": "_sinf",
 "obj": "r_init.obj",
 "size": 7,
 "hits": []
+},
+{
+"name": "?pow@@YAMMM@Z",
+"obj": "r_init.obj",
+"size": 14,
+"hits": [
+"0x10011300",
+"0x10011320"
+]
 },
 {
 "name": "?sin@@YAMM@Z",
@@ -2452,6 +2470,12 @@
 "hits": [
 "0x1000c790"
 ]
+},
+{
+"name": "?I_fround@@YAHM@Z",
+"obj": "q_shared.obj",
+"size": 31,
+"hits": []
 },
 {
 "name": "?R_GetMaterialHashTable@@YAPAPAUMaterial@@XZ",
@@ -2518,6 +2542,28 @@
 "size": 51,
 "hits": [
 "0x10012f40"
+]
+},
+{
+"name": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
+"obj": "r_init.obj",
+"size": 157,
+"hits": []
+},
+{
+"name": "?R_SetColorMappings@@YAXXZ",
+"obj": "r_init.obj",
+"size": 38,
+"hits": [
+"0x10011fb0"
+]
+},
+{
+"name": "?R_GammaCorrect@@YAXHPAE@Z",
+"obj": "r_init.obj",
+"size": 82,
+"hits": [
+"0x10011fe0"
 ]
 },
 {
@@ -3472,24 +3518,6 @@
 ]
 },
 {
-"name": "_powf",
-"obj": "r_screenshot.obj",
-"size": 14,
-"hits": [
-"0x10011300",
-"0x10011320"
-]
-},
-{
-"name": "?pow@@YAMMM@Z",
-"obj": "r_screenshot.obj",
-"size": 14,
-"hits": [
-"0x10011300",
-"0x10011320"
-]
-},
-{
 "name": "?I_fsel@@YAMMMM@Z",
 "obj": "q_shared.obj",
 "size": 27,
@@ -3598,6 +3626,80 @@
 "size": 138,
 "hits": [
 "0x100261b0"
+]
+},
+{
+"name": "?R_FlipCubemapShot@@YAXPAE@Z",
+"obj": "r_screenshot.obj",
+"size": 97,
+"hits": [
+"0x100266f0"
+]
+},
+{
+"name": "?R_CaptureCubemapShot@@YAXH@Z",
+"obj": "r_screenshot.obj",
+"size": 99,
+"hits": [
+"0x100268b0"
+]
+},
+{
+"name": "?R_ClearForCubemapShot@@YAXXZ",
+"obj": "r_screenshot.obj",
+"size": 115,
+"hits": [
+"0x100269c0"
+]
+},
+{
+"name": "?R_BeginCubemapShot@@YAXHH@Z",
+"obj": "r_screenshot.obj",
+"size": 28,
+"hits": [
+"0x10026a50"
+]
+},
+{
+"name": "?R_EndCubemapShot@@YAXH@Z",
+"obj": "r_screenshot.obj",
+"size": 20,
+"hits": []
+},
+{
+"name": "?R_CubemapShotAlpha@@YAEHHHMM@Z",
+"obj": "r_screenshot.obj",
+"size": 262,
+"hits": []
+},
+{
+"name": "?R_CopyCubemapShot@@YAXPBEPAE@Z",
+"obj": "r_screenshot.obj",
+"size": 89,
+"hits": []
+},
+{
+"name": "?R_WriteCubemapShotAlpha@@YAXHMMPAE@Z",
+"obj": "r_screenshot.obj",
+"size": 100,
+"hits": [
+"0x10026840"
+]
+},
+{
+"name": "?R_WriteCubemapShot@@YAXHPBDMM@Z",
+"obj": "r_screenshot.obj",
+"size": 154,
+"hits": [
+"0x10026920"
+]
+},
+{
+"name": "?R_SaveCubemapShot@@YAXPBDHMM@Z",
+"obj": "r_screenshot.obj",
+"size": 30,
+"hits": [
+"0x10026a90"
 ]
 },
 {
@@ -4389,6 +4491,14 @@
 "obj": "rb_backend.obj",
 "size": 44,
 "hits": []
+},
+{
+"name": "?RB_SetGammaRamp@@YAXPBUGfxGammaRamp@@@Z",
+"obj": "rb_backend.obj",
+"size": 91,
+"hits": [
+"0x100307e0"
+]
 },
 {
 "name": "?I_fround@@YAHM@Z",

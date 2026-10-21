@@ -60,6 +60,9 @@ required.update(accepted(light_history))
 api_graph = Path(__file__).resolve().parents[1] / 'proof/api_graph_warm_bind.json'
 assert hashlib.sha256(api_graph.read_bytes()).hexdigest() == '69a9b7c7171f31d0390ef61b929abe0a7849fbedc4a54bb9a8787d4bb39c0c9d'
 required.update(accepted(api_graph))
+cubemap = Path(__file__).resolve().parents[1] / 'proof/cubemap_warm_bind.json'
+assert hashlib.sha256(cubemap.read_bytes()).hexdigest() == '7896c2b0d6673e0221d3ceacacc77ed9ca2f467929320b2d9f7fcf2da8a658e1'
+required.update(accepted(cubemap))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)
