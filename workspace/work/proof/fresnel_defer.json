@@ -1,0 +1,28 @@
+{
+  "status": "DEFER; zero new accepted bytes",
+  "target": "0x1002c370",
+  "target_bytes": 201,
+  "candidate": "0x100180f0",
+  "candidate_bytes": 203,
+  "cleanup_offset": "0x91",
+  "retail_cleanup": "fxch st(2); fstp st(1); fstp st(0)",
+  "candidate_cleanup": "fxch st(2); fxch st(1); fstp st(0); fstp st(0)",
+  "candidate_dll_sha256": "b0efec97d22e516ef2b6eed55de54faa8d41970ec4df553c8ce027250f5ec3b5",
+  "bind_sha256": "ac01f62504f4f873bd02977d9899b207640fce80cfb80ad9059492b7103c0b45",
+  "cmp_sha256": "ea94a77f574ac7ad95d14ddb827a4a5888c20d7a7c40f63a703444151f19d673",
+  "source_hashes": {
+    "src/gfx_d3d/r_utils.cpp": "7829edde2e220e788f3ff4af5bdd49c2a0ecfbc0403aad0c9ca2e967589a55c7",
+    "src/tus.txt": "a5a87b38a798e85d08278c488dca0773ef319c9c20ccbcfddb93ea5007d3f621",
+    "src/roots.txt": "84c9d07bf1ee0b91276a5c2a1f4c49e94580bd72e7df10092303ae3555f9df85",
+    "src/profile.mk": "6015c8ee2fbf36f8dbe127d0fac090714f50d92cbbf6e758ca3b3db72e7cc420",
+    "tests/test_fresnel.py": "0dcd4167ee2c4f4bfe05faa635d2cf7f6f6d0568164ea58f228eb6315160e983",
+    "tests/test_debug_plumes.py": "1be2342b6a87f7812c750e1be22e53c2ddc9ee2e04495952e9e93ffe78231d6f"
+  },
+  "accepted_game_bodies": 579,
+  "accepted_game_code_bytes": 101478,
+  "source_only_upper_bound_bytes": 93691,
+  "build": "sh target/work/tools/build.sh --rebuild",
+  "toolchain": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "gate": "all 774 baseline accepted address-extents retained; unchanged cmp.py and bindcheck.py",
+  "limits": "not an accepted Fresnel match; not whole-DLL identity; no GPU test"
+}

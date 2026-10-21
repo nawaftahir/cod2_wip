@@ -1,5 +1,9 @@
 # Status — one line per commit to master
 
+Current renderer source, metrics and execution plan are in [ROADMAP.md](ROADMAP.md)
+and [HANDOFF.md](HANDOFF.md). The table below is historical; its aggregate
+library percentages are not today's C/C++ game-source coverage.
+
 | Run | Coverage | Who | What |
 |---|---|---|---|
 | — | not built yet | Claude | workspace created |

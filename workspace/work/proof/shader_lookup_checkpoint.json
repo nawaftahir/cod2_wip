@@ -1,0 +1,47 @@
+{
+  "status": "V2/V3 warm shader cohort; full cold replay still pending",
+  "new_game_cpp_bytes": 627,
+  "newly_accepted": [
+    {
+      "t": "0x10019e10",
+      "n": 188,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "?Material_FindScalarConstantSource@@YAEPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z"
+    },
+    {
+      "t": "0x10019ed0",
+      "n": 50,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "?Material_FindDefaultConstantSource@@YAEPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z"
+    },
+    {
+      "t": "0x10019f10",
+      "n": 285,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "?Material_ParseShaderArgumentArray@@YAEPAPBDPAUShaderConstantRouting@@@Z"
+    },
+    {
+      "t": "0x1001a0e0",
+      "n": 128,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "?Material_DefaultShaderArgument@@YAEPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z"
+    }
+  ],
+  "retained_extents": 794,
+  "proof_sha256": {
+    "shader_warm_bind.json": "cca77137401f8d861f317189b10280d7a1f3627331c14cb1718653776f46df45",
+    "shader_warm_cmp.json": "0bd39d65dbfca31d1e397c2b075e68269c4d8cce2832f554eb639a64c96f36cd"
+  },
+  "remaining_goal": "45 percent proper source; full inline-assembly attribution pending",
+  "excluded_embedded_table_bytes": 24,
+  "game": {
+    "functions": 596,
+    "bytes": 104115,
+    "total": 253580,
+    "percent": 41.05804874201436
+  }
+}

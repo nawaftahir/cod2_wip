@@ -1,0 +1,182 @@
+{
+  "created_utc": "2026-10-21T07:01:59.695857+00:00",
+  "status": "V2/V3 forced rebuild; not whole-file identity or GPU proof",
+  "game": {
+    "functions": 601,
+    "bytes": 105263,
+    "total": 253580,
+    "percent": 41.510765833267605
+  },
+  "delta_since_literal_checkpoint": {
+    "cpp_functions": 9,
+    "cpp_executable_bytes": 1775
+  },
+  "source_only": {
+    "cpp_bytes_upper_bound": 97476,
+    "percent_upper_bound": 38.43994005836422,
+    "complete_inline_assembly_attribution": "pending",
+    "minimum_additional_cpp_bytes_to_45_percent": 16635
+  },
+  "newly_accepted": [
+    {
+      "t": "0x1000c7c0",
+      "n": 20,
+      "obj": "r_image.obj",
+      "why": [],
+      "name": "?Image_IsCodeTrack@@YAEH@Z",
+      "executable_bytes": 20
+    },
+    {
+      "t": "0x1000c7e0",
+      "n": 17,
+      "obj": "r_image.obj",
+      "why": [],
+      "name": "?R_AddImageToList@@YAXPAUGfxImage@@PAX@Z",
+      "executable_bytes": 17
+    },
+    {
+      "t": "0x1000d480",
+      "n": 47,
+      "obj": "r_image.obj",
+      "why": [],
+      "name": "?Image_Iterate@@YAXP6AXPAUGfxImage@@PAX@Z1@Z",
+      "executable_bytes": 47
+    },
+    {
+      "t": "0x1000d900",
+      "n": 49,
+      "obj": "r_image.obj",
+      "why": [],
+      "name": "?imagecompare@@YAHPAUGfxImage@@0@Z",
+      "executable_bytes": 49
+    },
+    {
+      "t": "0x1000d940",
+      "n": 1070,
+      "obj": "r_image.obj",
+      "why": [],
+      "name": "?R_ImageList_f@@YAXXZ",
+      "executable_bytes": 1015
+    },
+    {
+      "t": "0x10019e10",
+      "n": 188,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "?Material_FindScalarConstantSource@@YAEPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z",
+      "executable_bytes": 188
+    },
+    {
+      "t": "0x10019ed0",
+      "n": 50,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "?Material_FindDefaultConstantSource@@YAEPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z",
+      "executable_bytes": 50
+    },
+    {
+      "t": "0x10019f10",
+      "n": 285,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "?Material_ParseShaderArgumentArray@@YAEPAPBDPAUShaderConstantRouting@@@Z",
+      "executable_bytes": 285
+    },
+    {
+      "t": "0x1001a0e0",
+      "n": 128,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "?Material_DefaultShaderArgument@@YAEPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z",
+      "executable_bytes": 104
+    }
+  ],
+  "protected_address_extents": 809,
+  "warm_cold_bind_and_cmp_identical": true,
+  "frozen_inputs_checked_before_and_after": 415,
+  "native_fixtures_passed": 40,
+  "new_extent_removal_negative_controls": 9,
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "proof_sha256": {
+    "image_body_warm_bind.json": "720f45d4464a8289eb412b08a2bcbb4914a7c1a7b83dda7f03dd14837633e606",
+    "image_body_warm_cmp.json": "e4614cfffae4f401ba71837374b91224eb8c42986f77ebb3833b600e4c69ffd7",
+    "image_body_inputs.json": "ad91e31affddd97d3815c4a60e60f41e9c680bd706ab8c87232ed97034b6c1e0",
+    "image_body_negative_controls.json": "2efde108f881844d08625830d7576ecb51fbf5a740caac86aa36ace691d2d426",
+    "image_body_20261021_source.tar.gz": "51cfb7a43532e8482e670c3ceecdb333fa185d29e58c6039b74ffda2ab934cef"
+  },
+  "layout": {
+    "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+    "candidate_sha256": "66435f83369af657a6e9de7a8f9b9aabfeec74a35c20adf8937708f8156e021b",
+    "whole_file_identical": false,
+    "same_file_offset_equal_bytes": 35410,
+    "compared_bytes": 1851392,
+    "same_file_offset_percent": 1.9126149405420354,
+    "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
+    "retail_sections": [
+      {
+        "name": ".text",
+        "rva": "0x1000",
+        "file_offset": "0x1000",
+        "raw_bytes": 1093632,
+        "virtual_bytes": 1089680
+      },
+      {
+        "name": ".rdata",
+        "rva": "0x10c000",
+        "file_offset": "0x10c000",
+        "raw_bytes": 598016,
+        "virtual_bytes": 595105
+      },
+      {
+        "name": ".data",
+        "rva": "0x19e000",
+        "file_offset": "0x19e000",
+        "raw_bytes": 57344,
+        "virtual_bytes": 6086100
+      },
+      {
+        "name": ".reloc",
+        "rva": "0x76c000",
+        "file_offset": "0x1ac000",
+        "raw_bytes": 98304,
+        "virtual_bytes": 95704
+      }
+    ],
+    "candidate_sections": [
+      {
+        "name": ".text",
+        "rva": "0x1000",
+        "file_offset": "0x1000",
+        "raw_bytes": 434176,
+        "virtual_bytes": 430960
+      },
+      {
+        "name": ".rdata",
+        "rva": "0x6b000",
+        "file_offset": "0x6b000",
+        "raw_bytes": 528384,
+        "virtual_bytes": 526582
+      },
+      {
+        "name": ".data",
+        "rva": "0xec000",
+        "file_offset": "0xec000",
+        "raw_bytes": 28672,
+        "virtual_bytes": 1248052
+      },
+      {
+        "name": ".reloc",
+        "rva": "0x21d000",
+        "file_offset": "0xf3000",
+        "raw_bytes": 61440,
+        "virtual_bytes": 61168
+      }
+    ]
+  },
+  "caveats": [
+    "Source archive includes preserved legacy assembly, excluded from the proper-source upper bound.",
+    "SDK libraries and compiler remain external pinned dependencies, not included in the source archive.",
+    "No retail byte patching, new assembly, verifier relaxation, commit, push or release promotion."
+  ]
+}

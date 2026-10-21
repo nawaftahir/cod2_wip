@@ -14,6 +14,7 @@ usage: bindcheck.py ours.dll ours.map anchor.dll cmp.json [--exclude objregex] [
 """
 import bisect, json, re, sys
 import pefile, capstone
+from string_literal import string_equal, string_size
 
 args = sys.argv[1:]
 img, mapf, anchor, cmpf = args[:4]
@@ -52,6 +53,12 @@ ope, obase, orel, oimp, osecs = load(img)
 ape, abase, arel, aimp, asecs = load(anchor)
 otext = next(s for s in osecs if s[3] == '.text')
 atext = next(s for s in asecs if s[3] == '.text')
+orelocbytes = {p + i for p in orel for i in range(4)}
+arelocbytes = {p + i for p in arel for i in range(4)}
+
+
+def overlaps_reloc(address, size, relocbytes):
+    return any(address + i in relocbytes for i in range(size))
 
 # every symbol with its object, for resolving relocation targets
 syms = []
@@ -103,7 +110,7 @@ def call_targets(path, lo, n):
     while off < n:  # linear sweep; resync one byte past undecodable bytes
         last = off
         for ins in md.disasm(code[off:off + 65536], lo + off):
-            if ins.bytes[0] == 0xe8 and ins.size == 5:
+            if ins.bytes[0] == 0xe8 and ins.size == 5 and not overlaps_reloc(ins.address, ins.size, arelocbytes):
                 t = ins.address + 5 + int.from_bytes(ins.bytes[1:], 'little', signed=True)
                 if lo <= t < lo + n:
                     out.add(t)
@@ -151,7 +158,7 @@ while changed and multi:
             continue
         code, tcode = read(osecs, va, r['size']), read(asecs, t, r['size'])
         for ins in md.disasm(code, va):
-            if ins.bytes[0] in (0xe8, 0xe9) and ins.size == 5:
+            if ins.bytes[0] in (0xe8, 0xe9) and ins.size == 5 and not overlaps_reloc(ins.address, ins.size, orelocbytes):
                 ot = ins.address + 5 + int.from_bytes(ins.bytes[1:], 'little', signed=True)
                 k = ins.address - va
                 tt = t + k + 5 + int.from_bytes(tcode[k + 1:k + 5], 'little', signed=True)
@@ -213,6 +220,8 @@ for name, r in cands.items():
             why.append(f'treloc@{k:x}')
     for ins in md.disasm(code, va):
         if ins.bytes[0] in (0xe8, 0xe9) and ins.size == 5 or ins.bytes[0] == 0x0f and ins.size == 6 and 0x80 <= ins.bytes[1] <= 0x8f:
+            if overlaps_reloc(ins.address, ins.size, orelocbytes):
+                continue
             ot = int.from_bytes(ins.bytes[-4:], 'little', signed=True) + ins.address + ins.size
             if va <= ot < va + n:
                 continue
@@ -306,6 +315,69 @@ if split:
         r['syms'] = new
 bad = {s for s, v in fwd.items() if len(v) > 1} | {s for v in rev.values() if len(v) > 1 and not all('#' in x for x in v) for s in v}
 datacache = {}
+nested_forward, nested_reverse, nested_done = {}, {}, set()
+
+
+def nested_data(op, tp):
+    """Compare a relocated pointer's complete named data-object graph."""
+    resolved = resolve(op)
+    if resolved is None:
+        return False
+    sym, off, sva, size = resolved
+    tbase = tp - off
+    if fwd.get(sym, {tbase}) != {tbase} or rev.get(tbase, {sym}) != {sym}:
+        return False
+    if nested_forward.setdefault(sym, tbase) != tbase:
+        return False
+    if nested_reverse.setdefault(tbase, sym) != sym:
+        return False
+    if secname(osecs, sva) not in ('.rdata', '.data') or secname(asecs, tbase) not in ('.rdata', '.data'):
+        return False
+    if literal(sym):
+        if sym.startswith('??_C@') and '+' not in sym:
+            size = string_size(sym)
+            return (size is not None and off < size
+                    and string_equal(sym, read(osecs, sva, size), read(asecs, tbase, size)))
+        a, b = read(osecs, op, 256), read(asecs, tp, 256)
+        return a is not None and b is not None and a.split(b'\0')[0] == b.split(b'\0')[0]
+    if size <= 0 or size > 1048576:
+        return False
+    key = (sva, tbase, size)
+    if key in nested_done:
+        return True
+    a, b = read(osecs, sva, size), read(asecs, tbase, size)
+    if a is None or b is None:
+        return False
+    nested_done.add(key)
+    try:
+        k = 0
+        while k < size:
+            if (sva + k in orel) != (tbase + k in arel):
+                return False
+            if sva + k in orel:
+                if k + 4 > size:
+                    return False
+                p = int.from_bytes(a[k:k + 4], 'little')
+                q = int.from_bytes(b[k:k + 4], 'little')
+                if secname(osecs, p) == '.text':
+                    if secname(asecs, q) != '.text':
+                        return False
+                    if not (placedat.get(p) == q or p not in placedat and
+                            p in multi and masked_eq(p, q, multi[p]['size'])):
+                        return False
+                    r['calls'].append((p, q))
+                elif not nested_data(p, q):
+                    return False
+                k += 4
+            else:
+                if a[k] != b[k]:
+                    return False
+                k += 1
+        return True
+    finally:
+        nested_done.remove(key)
+
+
 for name, r in results.items():
     for sym, sva, size, tbase in r.get('syms', []):
         if sym in bad:
@@ -315,7 +387,13 @@ for name, r in results.items():
             ok = datacache[sym]
         else:
             ok = True
-            if secname(osecs, sva) != '.text' and size and ('#' not in sym or literal(sym)):
+            if sym.startswith('??_C@') and '+' not in sym:
+                count = string_size(sym)
+                ok = (secname(osecs, sva) in ('.rdata', '.data')
+                      and secname(asecs, tbase) in ('.rdata', '.data')
+                      and count is not None
+                      and string_equal(sym, read(osecs, sva, count), read(asecs, tbase, count)))
+            elif secname(osecs, sva) != '.text' and size and ('#' not in sym or literal(sym)):
                 size = min(size, trunc.get(sym, size))
                 a, b = read(osecs, sva, size), read(asecs, tbase, size)
                 sec = secname(osecs, sva)
@@ -334,9 +412,7 @@ for name, r in results.items():
                                 ok = tbase + k in arel and (placedat.get(op) == tp or op not in placedat and
                                                             op in multi and masked_eq(op, tp, multi[op]['size']))
                             else:
-                                so, st = read(osecs, op, 256), read(asecs, tp, 256)
-                                ok = tbase + k in arel and so is not None and st is not None and \
-                                    so.split(b'\0')[0] == st.split(b'\0')[0]
+                                ok = tbase + k in arel and nested_data(op, tp)
                             k += 4
                         else:
                             ok = body[k] == b[k]
@@ -353,6 +429,24 @@ def libbound(r):
 
 
 byva = {r['va']: (name, r) for name, r in results.items()}
+
+
+def jump_dest(code, va):
+    if code is None or len(code) != 5 or code[0] != 0xe9:
+        return None
+    return va + 5 + int.from_bytes(code[1:], 'little', signed=True)
+
+
+def thunkbound(ova, tva):
+    """Accept a missing five-byte jump thunk only when its placed destination agrees."""
+    odest = jump_dest(read(osecs, ova, 5), ova)
+    tdest = jump_dest(read(asecs, tva, 5), tva)
+    if odest is None or tdest is None:
+        return False
+    placed = byva.get(odest)
+    return bool(placed and placed[1]['t'] == tdest and (not placed[1]['why'] or libbound(placed[1])))
+
+
 changed = True
 while changed:
     changed = False
@@ -361,6 +455,8 @@ while changed:
             continue
         for ot, tt in r['calls']:
             callee = byva.get(ot)
+            if not callee and thunkbound(ot, tt):
+                continue
             if not callee or callee[1]['t'] != tt or callee[1]['why'] and (':' in r['obj'] or not libbound(callee[1])):
                 r['why'].append(f'call {starts.get(ot, ("?",))[0]}')
                 changed = True

@@ -1,0 +1,75 @@
+# gfx_d3d_mp_x86_s.dll 1.0 translation units in link order, then extra cl flags.
+# gfx_d3d/ builds with the renderer flags, the rest with the engine (client) flags; see closed.mk.
+gfx_d3d/r_bsp.cpp
+gfx_d3d/r_material_load_obj.cpp
+gfx_d3d/r_staticmodel_load_obj.cpp
+gfx_d3d/r_staticmodel_bounds.cpp
+gfx_d3d/r_bsp_load_obj.cpp
+gfx_d3d/r_caps.cpp
+gfx_d3d/r_caps_device.cpp
+gfx_d3d/r_display_modes.cpp
+gfx_d3d/r_debug.cpp
+gfx_d3d/r_dpvs.cpp
+gfx_d3d/r_dpvs_occluders.cpp
+gfx_d3d/r_dpvs_clipplanes.cpp
+gfx_d3d/r_dpvs_winding.c
+gfx_d3d/r_dvars.cpp
+gfx_d3d/r_fog.cpp
+gfx_d3d/r_font.cpp
+gfx_d3d/r_image.cpp
+gfx_d3d/r_image_load_common.cpp
+gfx_d3d/r_rendertarget.cpp
+gfx_d3d/r_water_load_obj.cpp
+gfx_d3d/r_water.cpp
+gfx_d3d/r_image_load_obj.cpp
+gfx_d3d/r_lightgrid_weights.cpp
+universal/axis_transform.cpp /Op
+gfx_d3d/r_image_wavelet.cpp
+gfx_d3d/r_init.cpp
+gfx_d3d/r_material.cpp
+gfx_d3d/r_rendercmds.cpp
+gfx_d3d/r_splitscreen.cpp
+gfx_d3d/rb_logfile.cpp
+gfx_d3d/common.cpp
+gfx_d3d/r_marks.cpp
+gfx_d3d/r_scene.cpp
+gfx_d3d/r_screenshot.cpp
+gfx_d3d/r_screenshot_capture.cpp
+gfx_d3d/r_shadowcookie_candidates.cpp
+gfx_d3d/r_sky.cpp
+gfx_d3d/r_specularityimage.cpp
+gfx_d3d/rb_state.cpp
+gfx_d3d/rb_viewport.cpp
+gfx_d3d/rb_sky.cpp
+gfx_d3d/rb_sunsprite.cpp
+gfx_d3d/r_staticmodelcache.cpp
+gfx_d3d/r_texturemem.cpp
+gfx_d3d/r_surfbounds.cpp
+gfx_d3d/r_utils.cpp
+gfx_d3d/rb_backend.cpp
+gfx_d3d/rb_fog.cpp
+gfx_d3d/rb_filter_generate.cpp
+gfx_d3d/rb_light_derive.cpp
+gfx_d3d/rb_shade_lights.cpp
+gfx_d3d/rb_shader_matrices.cpp
+gfx_d3d/r_xsurface_load_obj.cpp
+gfx_d3d/r_xsurface.cpp
+gfx_d3d/r_xsurface_optimize.cpp
+gfx_d3d/r_fatal_init.cpp
+gfx_d3d/r_monitor.cpp
+gfx_d3d/r_matrix_scale.cpp
+gfx_d3d/r_model.cpp
+gfx_d3d/r_model_bounds.cpp
+gfx_d3d/r_model_lod.cpp
+gfx_d3d/r_skin_rigid.cpp
+gfx_d3d/r_skin_transform.cpp
+gfx_d3d/r_dxbuffers.cpp
+universal/xanim_matrix.cpp
+universal/com_convexhull.cpp
+universal/com_rotate.cpp /Op
+universal/com_math.cpp /Op
+universal/com_plane.cpp /Op
+universal/com_shared.cpp
+universal/fft.cpp
+universal/q_parse.cpp
+universal/q_shared.cpp

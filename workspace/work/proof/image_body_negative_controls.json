@@ -1,0 +1,42 @@
+{
+  "snapshot_sha256": "720f45d4464a8289eb412b08a2bcbb4914a7c1a7b83dda7f03dd14837633e606",
+  "positive_control_passed": true,
+  "removal_negative_controls": [
+    {
+      "target": "0x10019e10",
+      "rejected": true
+    },
+    {
+      "target": "0x10019ed0",
+      "rejected": true
+    },
+    {
+      "target": "0x10019f10",
+      "rejected": true
+    },
+    {
+      "target": "0x1001a0e0",
+      "rejected": true
+    },
+    {
+      "target": "0x1000d480",
+      "rejected": true
+    },
+    {
+      "target": "0x1000c7e0",
+      "rejected": true
+    },
+    {
+      "target": "0x1000c7c0",
+      "rejected": true
+    },
+    {
+      "target": "0x1000d900",
+      "rejected": true
+    },
+    {
+      "target": "0x1000d940",
+      "rejected": true
+    }
+  ]
+}

@@ -22,10 +22,34 @@ for line in open(mapf, errors='replace'):
 syms.sort()
 
 md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
+
+def trim_padding(raw, va):
+    # Only inspect the fallthrough prefix; later bytes may be switch data.
+    code = raw.rstrip(b'\xcc')
+    limit = len(code)
+    for ins in md.disasm(code, va):
+        if ins.mnemonic in ('ret', 'retf', 'int3'):
+            break
+        op = ins.bytes[0]
+        if ins.size == 2 and (op == 0xeb or 0x70 <= op <= 0x7f):
+            delta = int.from_bytes(ins.bytes[-1:], 'little', signed=True)
+        elif ins.size == 5 and op == 0xe9 or ins.size == 6 and op == 0x0f and 0x80 <= ins.bytes[1] <= 0x8f:
+            delta = int.from_bytes(ins.bytes[-4:], 'little', signed=True)
+        else:
+            if ins.mnemonic == 'jmp':
+                break
+            continue
+        target = ins.address + ins.size + delta - va
+        if len(code) <= target < len(raw) and raw[target] == 0xcc:
+            limit = max(limit, target + 1)
+        if ins.mnemonic == 'jmp':
+            break
+    return raw[:limit]
+
 res, stats = [], {'fns': 0, 'bytes': 0, 'match_fns': 0, 'match_bytes': 0}
 for i, (va, name, obj) in enumerate(syms):
     end = syms[i + 1][0] if i + 1 < len(syms) else tva + min(len(tdata), text.Misc_VirtualSize)
-    code = tdata[va - tva:end - tva].rstrip(b'\xcc')
+    code = trim_padding(tdata[va - tva:end - tva], va)
     if len(code) < 6:
         continue
     mask = set()

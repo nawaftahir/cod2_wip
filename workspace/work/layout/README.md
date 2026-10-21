@@ -1,0 +1,109 @@
+# Layout is part of every reconstruction wave
+
+Authoritative current object order: `../src/tus.txt`. The linker receives those
+objects in precisely that order, with `/GL` inputs and `/LTCG` linking. Never
+sort the list or regroup TUs as a cosmetic cleanup. The clean-tree migration
+preserves it along with roots and per-TU profiles; later gated structural
+changes are recorded below. The current order is not claimed to be retail's.
+
+Explicit library order from the existing closed.mk:
+
+    d3d9.lib d3dx9.lib DxErr9.lib user32.lib gdi32.lib advapi32.lib
+
+VC7.1 runtime libraries also come from compiler object directives. The pinned
+Summer2004 SDK supplies renderer dependencies; library bytes are not game-source
+coverage. No replacement library or SDK version without a full matching check.
+
+Per wave, inspect `current.map` and `current.json`. The latter records section
+RVAs, raw offsets/sizes, whole-file hash and raw same-offset equality. That meter
+includes headers/data/debug bytes, is NOT source recovery, and is NOT a checksum
+match. The build runs it every time rather than postponing layout to the end.
+
+Known current data ownership (these are candidate TU owners, not historical
+source-file claims):
+
+| Data | Candidate owner | Target evidence |
+| --- | --- | --- |
+| rg | gfx_d3d/r_init.cpp | Retail101d4d00; accepted uses and initialization |
+| rgp | gfx_d3d/r_init.cpp | Retail101d0b00; accepted uses |
+| ri import table | gfx_d3d/r_init.cpp | Retail101d49c8; program-wide bindings |
+| dx | gfx_d3d/common.cpp | Device-lost101d492c = dx+2d3c |
+| dxState | gfx_d3d/rb_state.cpp | Initializer clears0x2170; fields independently pinned |
+| image registry/counters | gfx_d3d/r_image.cpp | imageHashTable101cea68; platform counters101d0a74/78 |
+| image track/platform labels | gfx_d3d/r_image.cpp | ten pointers101a59fc and two pointers101a5a24; primary strings independently read |
+| backEnd | gfx_d3d/rb_state.cpp | Accepted backend cache/constant uses |
+| scene | gfx_d3d/r_scene.cpp | Accepted scene-array uses |
+| frontEndDataOut | gfx_d3d/r_rendercmds.cpp | Retail101da9c8 |
+| backEndData | gfx_d3d/rb_backend.cpp | Retail106d3194; NOT frontEndDataOut |
+| sampler filter table | gfx_d3d/rb_state.cpp | Four DWORDs at10190714 |
+| viewport policies | gfx_d3d/rb_state.cpp | Thirteen values at1019087c; caller still pending |
+| model box endpoints | gfx_d3d/r_model_bounds.cpp | 288 bytes at10190278; model debug bodies still pending |
+| debug box edge pairs | gfx_d3d/r_debug.cpp | 96 bytes at101924c8; complete240-byte consumer accepted |
+| code sampler hierarchy | gfx_d3d/r_material_load_obj.cpp via r_material_state_tables.h | 29 rows at1018eb58/eb80/ec0c/ec38; independently checked names, sources, child bindings and strides |
+| shader string identifiers | gfx_d3d/r_material.cpp, materialGlobals | count101da45c and64 pointers101da460; folded hash but case-sensitive identity |
+| constant source hierarchy and aliases | gfx_d3d/r_material_load_obj.cpp via r_material_state_tables.h | 93 hierarchy rows at1018eed0..1018f61b;22 default rows at1018f620 |
+| sampler aliases | gfx_d3d/r_material_load_obj.cpp via r_material_state_tables.h |15 rows at1018eda0; separate from the code-source root |
+| DX7 texture operators | gfx_d3d/r_material_load_obj.cpp |21 rows/336 bytes at10190100, compact operators1,3..22; not SDK enum values |
+| DX7 pass options | gfx_d3d/r_material_load_obj.cpp |5 rows/40 bytes at10190250; offsets4..8, original TU ownership unconfirmed |
+| four-view sun state | gfx_d3d/r_sky.cpp | 10764590, four48-byte records; accepted158-byte reset, untouched query/visibility fields retained |
+| light-visibility log pointer/count | gfx_d3d/rb_light_derive.cpp | 10764578/7c; accepted filename helper78, load/save callers remain drafts |
+
+All23 state-name tables start8-byte aligned in the primary binary. The first
+array now requests that alignment; this removes a4-byte inferred-table overrun
+after the56-byte blend-op table when the real constant hierarchy is included.
+No historical claim is made for the original alignment spelling.
+
+Shared quaternion helper: the actual xanim_matrix.cpp wrapper provides the
+non-/Op ConvertQuatToMat instance. Do not create new ABI wrappers or consolidate
+static helper instances blindly; match the target's actual copies and callees.
+Anonymous float-pool ownership and full .rdata/.data contributor order remain
+unrecovered. Mark them unknown; never invent a TU owner to move a meter.
+
+FresnelTerm's candidate owner is the existing r_utils.cpp (Mac source path
+agrees). Its PC extent is1002c370..1002c438. Source is still under matching;
+the explicit retention root is temporary until a genuine caller is present.
+It adds no TU or global data. Existing object order is unchanged.
+
+The bounds API callback10020cd0 and internal worker10023d40 both belong to the
+current r_scene.cpp candidate. Only the API callback is now a retention root;
+its real out-of-line call retains the worker. No TU or data contributor was
+added. Acceptance still depends on the unresolved model-debug callee chain.
+
+The accepted polygon append stays in existing r_debug.cpp. Its complete
+retail extent is10005440..10005504, with no new TU, global data or artificial
+export. The real portal-traversal caller1000a020 is still missing. The119-byte
+shared line writer is now owned by this same debug TU, with model forward
+declaration/callers updated and no duplicate body. Box/string/scaled-string
+bodies also live here; no extra object or library was added.
+
+Matched primary-body ranges show the original work-tree order was not retail order:
+r_bsp bodies start10001230, r_debug10005820, r_image1000c910,
+r_material100165c0 and r_material_load10018250. The earlier tus.txt started
+with material_load/staticmodel_load. This is evidence for a bounded structural
+link-order trial, NOT proof of the complete original order. Helpers and cold
+splits interleave ranges; do not sort objects mechanically or ship a hypothesis.
+
+Every ownership/order/compiler-profile change must retain all baseline bindings
+and be measured with the current map. Exact final placement needs the remaining
+code/data first, but structure and evidence are maintained now.
+
+## 2026-10-21 bounded order audit
+
+Moving r_bsp.cpp alone to the first object position retains all817 protected
+extents (session43220), without new game-code credit. Its world queries bind
+at10001230..100017ab; the preceding buffer uploader is10001050..10001227.
+This candidate step is retained. It does not establish the missing prefix's
+complete source/helper ownership or the final historical link order.
+
+Moving material_load immediately after material in isolation still fails
+two protected CRT extents: _cvtdate100fc71e/440 (data attribution) and its
+__isindst_lk100fc8d6/391 caller. Session67761 is rejected. The material object's
+earlier position is restored until its data/library interactions are resolved.
+Do not repeat the earlier combined material/staticmodel reorder as a new idea.
+
+Do not sort files by their lowest accepted target address: com_convexhull's
+Vector2Copy copy binds at10001000 while its actual hull routines occur near
+10057a10. Several other shared vector copies likewise precede their owning
+callers. Classify helper copies separately from each file's main body range.
+The retained map plus the unchanged binder supplies that ownership evidence;
+the binary alone does not prove historical source-file boundaries.

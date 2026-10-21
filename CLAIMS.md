@@ -4,6 +4,22 @@ Add a row before editing a TU; delete it when merged. Stale (>24 h, no commit) =
 
 | File | Owner | Since | Note |
 |---|---|---|---|
+| target/work/src/gfx_d3d/rb_light_derive.cpp | Codex | 2026-10-21 | Primary light-visibility history filename/load/save group78/194/94; same existing light TU |
+| target/work/src/gfx_d3d/r_sky.cpp | Codex | 2026-10-21 | Primary R_FlushSun158 and typed four-view state; preserve untouched query state |
+| target/work/src/gfx_d3d/r_staticmodel_load_obj.cpp, target/work/src/gfx_d3d/r_bsp.cpp | Codex | 2026-10-21 | Missing primary world-dynamic allocation217 and maximum-surface helper73; actual-source fixture and full ratchet |
+| target/work/src/gfx_d3d/r_bsp.cpp, target/work/src/tus.txt | Codex | 2026-10-21 | Retail world-buffer copy call and bounded object-order audit; preserve all protected extents |
+| target/work/src/gfx_d3d/r_dpvs_clipplanes.cpp | Codex | 2026-10-21 | Existing typed vector-copy helper in the unaccepted bevel-plane caller group |
+| target/work/src/gfx_d3d/r_dpvs.cpp, target/work/src/gfx_d3d/r_marks.cpp | Codex | 2026-10-21 | Primary BSP early-return and ordered AABB predicate reconstruction; no shared layout edits |
+| target/work/src/universal/com_shared.cpp | Codex | 2026-10-21 | Non-inlining guard for assembly-free caller accounting; no body/ABI change accepted without full ratchet |
+| target/work/src/gfx_d3d/rb_viewport.cpp, target/work/src/profile.mk | Codex | 2026-10-21 | Bounded per-TU floating-point mode trial for viewport/state caller group |
+| target/work/src/gfx_d3d/r_image_load_obj.cpp, target/work/tests/test_wavelet_loader.py | Codex | 2026-10-21 | PC wavelet-loader array initialization and allocator/decoder caller group |
+| target/work/src/gfx_d3d/r_material.cpp | Codex | 2026-10-21 | Bounded DX7 option-table ownership trial; no shared-header edits |
+| target/work/src/universal/fft.cpp, target/work/src/profile.mk | Codex | 2026-10-21 | PC534-byte FFT aggregate temporaries and bounded frame-pointer trial |
+| target/work/src/gfx_d3d/r_display_modes.cpp | Codex | 2026-10-21 | Target-backed display enumeration lifetimes; original SDK/STL, no link-order edits |
+| target/work/src/gfx_d3d/rb_shader_matrices.cpp | Codex | 2026-10-21 | Internal code-image lookup visibility trial; all three callers remain in this TU |
+| target/work/src/gfx_d3d/r_water_load_obj.cpp | Codex | 2026-10-21 | Bounded primary x87 norm evaluation trial, no shared math changes |
+| target/work/src/gfx_d3d/r_image.cpp | Codex | 2026-10-21 | PC image enumeration and memory-reporting source; preserve existing image ownership |
+| target/work/src/gfx_d3d/r_material_load_obj.cpp, r_material_state_tables.h, target/work/tests | Codex | 2026-10-21 | Active shader-parser cohort; local PC pointer types only, no shared-header retyping |
 | target/src/codex_shader_nodes/*, target/scratch/codex35_nodes/* | Codex | 2026-10-01 | Accepted typed SDK node source, private closed-link and CPU proof; canonical unchanged |
 | target/scratch/codex30_assembler/* | Codex | 2026-10-01 | Target-backed assembler nodes and semantic methods; private drafts, zero credit until all gates pass |
 | target/scratch/codex30_support/* | Codex | 2026-10-01 | Target-backed SDK allocator and diagnostic-source batch; drafts only until full proof |

@@ -1,5 +1,12 @@
 # Where to inspect renderer source
 
+Current2026-10-21: active source is [target/work/src](target/work/src).
+The roadmap is [ROADMAP.md](ROADMAP.md). Accepted game code is107350 bytes
+including assembly; authored C/C++ is99563/253580=39.263%, after non-inlining
+guards and source attribution. See HANDOFF.md for evidence and scope.
+The current milestone is40% C/C++, then45%. The older aggregate percentages below
+are historical and must not be used as today's game-source meter.
+
 Checkpoint,2026-10-06: **355095/1089680 = 32.587090% accepted**. All three clean
 conversion/buffer/cast batches below passed aggregate acceptance and independent
 posthash, with no retained source-match losses.33% needs4500 further verified

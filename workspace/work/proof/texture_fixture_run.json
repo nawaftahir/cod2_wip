@@ -1,0 +1,276 @@
+{
+  "passed": true,
+  "elapsed_seconds": 49.94033192899951,
+  "results": [
+    {
+      "test": "target/work/tests/test_code_constant_parser.py",
+      "exit_code": 0,
+      "stdout": "PASS: 136 actual constant-parser paths, typed hierarchy, arrays, matrix transpose/rows, literals and failure writes\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_constant_array_offset.py",
+      "exit_code": 0,
+      "stdout": "PASS: 112 constant-array range, implicit/unget, syntax, ending-index and partial-write cases\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_debug_boxes.py",
+      "exit_code": 0,
+      "stdout": "PASS: 11,560 box cases, exact edge order, lazy allocation, capacity and untouched storage\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_debug_plumes.py",
+      "exit_code": 0,
+      "stdout": "PASS: 1,458 plume cases, swap ordering, expiry boundaries, allocation and null source\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_debug_polygons.py",
+      "exit_code": 0,
+      "stdout": "PASS: 7,200 polygon append/limit cases, allocation order, metadata and untouched storage\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_debug_strings.py",
+      "exit_code": 0,
+      "stdout": "PASS: 280 string cases, truncation/padding, terminator, signed-zero scale and untouched records\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_display_modes.py",
+      "exit_code": 0,
+      "stdout": "PASS: display sorting, unique resolutions/rates, defaults, failed modes and256-mode cap\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_dx7_material_tables.py",
+      "exit_code": 0,
+      "stdout": "PASS: all376 DX7 table bytes,26 names/offsets/operators/counts/validity fields against retail\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_fft.py",
+      "exit_code": 0,
+      "stdout": "PASS:168 actual FFT cases,4..256 samples,three strides and untouched gaps\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_fresnel.py",
+      "exit_code": 0,
+      "stdout": "PASS: 96 Fresnel oracle cases, sign symmetry, total reflection and preserved NaNs\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_frontend_fog.py",
+      "exit_code": 0,
+      "stdout": "PASS: 13,720 actual fog-setter cases, colors, boundaries, NaN and untouched slots\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_fullscreen_targets.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual PC format switch/fullscreen/init bodies, 1152 allocation cases plus three usage paths, signed clamps/ushort sizes, z-feather/DX7, depth and call order\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_image_list.py",
+      "exit_code": 0,
+      "stdout": "PASS: image-list sorting,10 formats,2 platforms,3 texture types,all option,13th code image and2048 capacity\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_image_list_tables.py",
+      "exit_code": 0,
+      "stdout": "PASS: image comparator49; listing1070 comprises1015 code,1 pad,24 pointers and30 selectors\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_image_lookup.py",
+      "exit_code": 0,
+      "stdout": "PASS: image lookup misses/hits, collisions, bucket wrap, case, program endpoints and signed hash\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_image_memory.py",
+      "exit_code": 0,
+      "stdout": "PASS: 129 image-table populations, all13 programmable images, list order and both memory counters\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_image_setup.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual setup, picmip clamp, mip/cube sizes, 256 tracks, fullscreen accumulation and48 render/system wrapper cases\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_initial_state.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual initializer, retail-sized32-bit cache, all5 sampler defaults, state/call order, scene dimensions and8192 invalid cache bytes\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_literal_vectors.py",
+      "exit_code": 0,
+      "stdout": "PASS: 20 literal-vector cases, defaults, dispatch and ignored value-parser failure\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_material_literals.py",
+      "exit_code": 0,
+      "stdout": "PASS: 153 literal-table cases, signed-zero reuse, four NaN lanes, exact limit and unchanged count\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_material_lookup_helpers.py",
+      "exit_code": 0,
+      "stdout": "PASS: 560 array parse/range cases, scalar-only sampler lookup and 16 serialized constant lookups\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_material_strings.py",
+      "exit_code": 0,
+      "stdout": "PASS: string deduplication, folded-hash/case-sensitive identity, wrap, empty string and 63-entry limit\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_model_bounds.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual model cohort, 512 corner oracles, LOD scale/NaN cases, state/fallback/model routing, all four bone-bit words, 12 box edges, 3 axes and line capacity\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_occluders.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual occluder culling, silhouette planes, NaN, debug allocation and brush/face limits\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_pass_options.py",
+      "exit_code": 0,
+      "stdout": "PASS:32 DX7 option combinations,duplicates,token retention,syntax errors and untouched pass bytes\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_portal_planes.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual projection, small/near/NaN cases, nearest-plane scan, plane copies and debug-line capacity\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_render_target_switch.py",
+      "exit_code": 0,
+      "stdout": "PASS: 3120 actual render-target transitions, cache skips, all13 policies, none sentinel, unbind/device order, null depth, logging and viewport reset\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_sampler.py",
+      "exit_code": 0,
+      "stdout": "PASS: sampler caching, defaults, anisotropy, address modes, null/unbind, initialization\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_sampler_source_parser.py",
+      "exit_code": 0,
+      "stdout": "PASS: 99 nested sampler cases and 10 real-table caller/error paths; not byte-match proof\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_sampler_tables.py",
+      "exit_code": 0,
+      "stdout": "PASS: all 159 sampler/constant rows, names, sources, child bindings, counts and strides match retail\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_scaled_debug_strings.py",
+      "exit_code": 0,
+      "stdout": "PASS: 2,048 scaled-string cases, routing, lower clamp, zero-vector and NaN behavior\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_scene_bounds_callback.py",
+      "exit_code": 0,
+      "stdout": "PASS: 96 actual callback/worker routes, nonzero scene bases and untouched records\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_shader_argument_list.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual argument-list parser through256 entries, defaults/errors/flags;12 DEFERRED COM wrapper paths\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_shader_argument_tables.py",
+      "exit_code": 0,
+      "stdout": "PASS: shader argument extents164/128 include24 non-code bytes each;140/104 executable bytes\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_shader_arguments.py",
+      "exit_code": 0,
+      "stdout": "PASS: 14 lookup,112 narrowed-array,42 explicit-dispatch and21 default-dispatch cases\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_skinning.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual 32-bit skinning, 512 scalar/SSE/cache cases plus XSurfaceGetVerts rigid/skinned/empty/optional-output cases, signed bone offsets, weighted positions, normals, color/UV bits and canaries\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_state_map_cache.py",
+      "exit_code": 0,
+      "stdout": "PASS: state-map cache/load and pass syntax,output retention,failed loads and semicolons\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_state_rules.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual state rules, conditional chains, grouped values, copy semantics, errors and256/257 bounds\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_texture_arguments.py",
+      "exit_code": 0,
+      "stdout": "PASS: DX7 arguments,operators,stage syntax,coordinate generators,sampler wiring and partial writes\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_trap_extent.py",
+      "exit_code": 0,
+      "stdout": "PASS: targeted traps, short/long branches, external jumps, calls and padding\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_vertex_writers.py",
+      "exit_code": 0,
+      "stdout": "PASS: 2,016 vertex cases, DX7/DX9 strides, W edge cases and all untouched bytes\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_view_matrices.py",
+      "exit_code": 0,
+      "stdout": "PASS: actual view/projection copies, cache flags, three stack levels and DX7 routing\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_viewport_constants.py",
+      "exit_code": 0,
+      "stdout": "PASS: 240 actual viewport-constant cases, full/scene modes, half-pixel offsets, zero/negative sizes and untouched constants\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_water.py",
+      "exit_code": 0,
+      "stdout": "PASS: water sizes, tolerances, direction, zero vector, target NaN distinction\n",
+      "stderr": ""
+    },
+    {
+      "test": "target/work/tests/test_xsurface_stream.py",
+      "exit_code": 0,
+      "stdout": "PASS: 288 packed surface streams, rigid/skinned weights, all fields, four bone-bit words, padding and guards\n",
+      "stderr": ""
+    }
+  ]
+}

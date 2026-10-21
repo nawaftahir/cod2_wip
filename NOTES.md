@@ -1,5 +1,135 @@
 # Shared notes (tag PINNED / SUPPORTED / HYPOTHESIS)
 
+- LATEST PINNED (2026-10-21 pause):612 mixed game bodies/107659 executable
+  bytes; authored C/C++99872/253580=39.384809528%,581 bodies. Adds309 C++ bytes:
+  maximum-model-surface helper100296a0/73, R_FlushSun10029120/158 and
+  BuildGridFilename10037670/78. Both referees and all820 protected extents pass.
+  Three new source fixtures pass separately; no fresh full-suite/cold replay.
+  The sun reset clears seven fields per view, not the entire48-byte record.
+  Grid filename accepts stripped length58, rejects59; history drops invalid
+  six-byte-record lengths but frees successfully read buffers regardless.
+  Current proof:target/work/proof/cpp_checkpoint.json. Owner paused the goal.
+
+- PINNED (2026-10-21 structural continuation): moving only r_bsp.cpp to the
+  first object position retains all817 protected extents (session43220).
+  This is a regression-safe candidate order, not recovered historical order.
+  Moving material_load after material separately still loses _cvtdate440 and
+  __isindst_lk391: __lpdays and a preceding-symbol attribution fail, followed
+  by the caller binding. Rejected and restored; never weaken the gate.
+- PINNED: world-buffer uploader10001050..10001227 calls Com_Memcpy at
+  1000120d, not CRT memcpy. The existing readable draft used memcpy and
+  expanded a different copy loop. test_world_vertex_buffer.py detects the
+  wrong service before the correction and checks72 actual-source uploads.
+  A corrected call or passing fixture is not yet byte-match acceptance.
+- PINNED: R_CellSurfaces100155a0 AABB comparisons reject strict less/greater
+  but accept unordered values: TEST AH,05/JNP and TEST AH,41/JE respectively.
+  The decompiler's positive ordered comparisons are not equivalent on NaNs.
+  Keep the original negative-OR predicates. R_FilterEntityIntoCells_r's
+  axial front branch requires ordered min<max; NaN skips that branch.
+  Actual-source test_bsp_visibility.py covers routing/clamps/AABB NaNs and
+  independently calibrates49 x87 relation pairs. These remain draft bodies.
+
+- LATEST PINNED (2026-10-21):609 game bodies/107350 executable bytes MIXED.
+  Proper-source upper bound99563/253580 =39.262954492%; full assembly attribution
+  remains pending. Seven new C++ bodies1712 bytes: index73, named-index90,
+  DX7 option311, texture argument393, packed-list165, operator316, coordinate364.
+  All817 protected extents survive;45 source/audit fixtures pass. Pause bind
+  SHA622d74f862a8bc4e6df16932e6b339e1fae2c765ed068cdab36592bd5aa59569.
+  Cold replay and PDB fixture remain pending. All26 DX7 data rows match retail.
+  Compact operator select is1, not D3DTOP_SELECTARG1. Texture generators accept
+  genEyeDirCoords/texScroll, but reject genEyeFacingDotCoords despite the warning.
+  Coordinate parser calls Com_Parse, not Com_ParseOnLine. No whole-file/GPU claim.
+
+- LATEST PINNED (2026-10-21):592/103488 executable game bytes;704 new C/C++
+  bytes over588. Proper-source upper bound37.739963720%, not40% proper source.
+  All790 extents retained,31 fixtures pass, warm/cold referee files identical.
+  Current hashes and proof:target/work/proof/literal_checkpoint.json.
+  Detailed hash/string/constant-array/literal findings are at the end below.
+
+- PINNED (2026-10-21, earlier snapshot): checkpoint588/102784 game bytes,
+  40.533165076% MIXED; proper C++ upper bound94997/37.462339301%.
+  Nine new extents total1306 C/C++ bytes. All783 accepted extents retained;
+  warm/cold bind SHA2f36afb33bcc19bb21c2c27997efe8e863b6927278a2e3d66c1e646f4ef984f3,
+  cmp SHA56308872c1ebfb3b6f71b403015a1950e3ebe31d45c2b9bf329b313190f75a99.
+  All nine new targets decode through RET and independent removal traps fail.
+  Full input/test/tool hashes: target/work/proof/material_checkpoint.json.
+  All ten touched native fixtures pass. No new assembly, TU, flags or build tree.
+- PINNED: Material_ParseArrayOffset103 at10019480 supplies a real call to
+  Com_ParseInt1005ff30/74, resolving its formerly ambiguous identical-body
+  candidates. Both become accepted; no new parser shim or checker relaxation.
+- PINNED: shader constant lookup10019400 calls CRT printf100f620f. Do not
+  substitute engine Com_Printf10061c80 from a nearby label or assumed range.
+- Next sampler attack: recover the real211-byte caller10019620 and its
+  target-pinned sampler tables before another303-byte helper spelling sweep.
+  Both current helper forms fail and disturb two old library data bindings;
+  only the353-byte draft is retained outside active src. No credit for it.
+
+- PINNED (2026-10-20 continuation): ordinary C++ debug polygon197, box240,
+  string131 and scaled string145 add713 game bytes. Current583/102191 MIXED
+  (40.299313826%); proper-source upper bound94404/37.228488051%. The box ends
+  at RET1000567f, not the truncated231-byte inventory. Unsigned edge indexing
+  reproduces the primary byte-offset loop/JB. One shared R_AddDebugLine now
+  lives in r_debug.cpp; model callers use it, and the old119-byte extent still
+  matches. No duplicate helper, new TU, assembly or retention export. All778
+  current game/library extents pass the strengthened gate. Native fixtures:
+  polygon7200, box11560, string280, scaled string2048 plus old model/plume tests.
+  Force-rebuild confirmation of this larger cohort is still pending.
+
+- PINNED (2026-10-20, warm build): new ordinary C++ R_AddDebugPolygon in the
+  clean work/src/gfx_d3d/r_debug.cpp matches10005440..RET10005504,197 bytes,
+  with empty binding reasons and all774 old address/extents retained. No new
+  export, TU, assembly or caller wrapper. Native7200-case append/limit fixture
+  passes. Total580/101675 MIXED; proper-source upper bound93888/37.025002%.
+  Warm bind SHA8eb551ac5121fb74d007f420b17844459c163c4a3a33008fbb6febe6295ec4a5.
+  Forced rebuild confirms identical bind/cmp hashes and all775 accepted extents.
+  Proof work/proof/polygon_checkpoint.json; the775-extent gate rejects removal
+  of the new target. Goal remains active; whole-file/GPU proof is not achieved.
+- PINNED: this public function survives the existing /OPT:NOREF link without
+  a retention export and receives the retail custom register convention even
+  before its missing portal-traversal caller is reconstructed. Do not assume
+  every new function needs an artificial export or a fabricated caller wrapper.
+
+- PINNED (2026-10-19): new model C++ cohort accepts885 executable bytes with
+  unchanged referees and no old extent lost: debug line119, LOD143, surface
+  selection98, pose20, origin bounds35 and bone expansion470. The lower clamp
+  must be written outMin>lower for the target FPU comparison. Source/tests and
+  exact proof are in target/scratch/codex_1019_model_checkpoint/. LOD-only /Op
+  plus the actual Vec3Distance expression reproduces143; not historical TU proof.
+- PINNED PC10023d40 calls1001ffc0 after resolving the scene record from the
+  entity-array index. Replacing the worker's artificial export with that real
+  caller reproduces the worker's484-byte body; it remains binding-rejected on
+  debug boxes. Boxes985 and axes959 still have end-point X-sum scheduling
+  differences. Explicitly expanding three transform rows worsens the boxes
+  from6 to24 unmasked differing bytes; reverted. Native math/routing tests pass.
+
+- PINNED (2026-10-19): standalone VC7.1 /O2 /QIfist casts in all four
+  rounding_cpp_probe.cpp forms emit QWORD FISTP, while the existing renderer
+  I_fround helper uses DWORD FISTP. None is a matching C++ replacement.
+  __rdtsc is rejected as an intrinsic with C4163 by this compiler. Evidence:
+  target/scratch/codex_1019_rt_state/rounding_cpp_probe.s and source probes.
+  These failures reclaim zero assembly-free bytes; do not repeat unchanged.
+
+- PINNED (2026-10-19): the sampler filter helper at 1003d920/41 sets
+  magFilter=LINEAR before testing dx.anisotropy; only minFilter falls back
+  when anisotropy is zero. This source form matches the outlined helper and
+  expanded RB_SetSampler1003d950/1041, then binds RB_UnbindImage49 and
+  RB_InitImages45. The sampler ends at RET1003dd60, not GLM's truncated1025.
+  All 1,176 new bytes are code. Frozen codex_1019_sampler force-recompiles
+  573/100,593 executable bytes, with no accepted losses and 420 stable inputs;
+  warm/cold bind SHA54e8a5ea0972af12693e00644618befc016f77428b2d3f80495609801c3a4c85.
+  Normal flags, no new assembly/referee edits. Whole DLL is not the anchor.
+
+- PINNED (2026-10-19): view setup at 1003e300 ends with RET1003e472,
+  so its complete extent is 371 bytes, not GLM's 364. A 364-byte comparison
+  cuts the final CMP instruction. The current 371-byte candidate remains
+  unaccepted because its first validity stores are scheduled differently.
+- PINNED (2026-10-19): the router at 1001f480/65 takes a pose, entity and
+  surface record. Type 5 skips 16 bytes; type 4 applies the surface's signed
+  short bone offset, calls 1001ee70 and returns record+56; other types call
+  1001f030 and return record+16. Entity origin/scale/axis are +14/+38/+3c;
+  the rigid record's transform is +8. The source helper's name is descriptive,
+  not recovered provenance. Its native tests pass; byte matching is pending.
+
 - PINNED (Codex, 2026-09-30): batch-building 94 authentic CRT C sources
   under original /O1 flags with and without _MT yields 85 NEW address-disjoint
   accepted bodies / 13,375 instruction bytes. Many locale and low-I/O routines
@@ -1426,3 +1556,81 @@ index0xc and remap0x30. Access records are not full SDK allocation declarations.
 Direct CPU fixtures pass34348 cases across both new cohorts, with all705
 prior/new linked source matches proved. Aggregate acceptance is still pending.
 - 10-07 r5: 0x1005e180 (145 B, fsincos + vectopitch 0x10059970, vec in edx) has no caller in retail .text and no absolute ref; register entry can't be reproduced from a root. Deferred.
+- PINNED 2026-10-19: BoxOnPlaneSide at 1005da30 is the Quake III MSVC
+  x87 source family, not the scalar C draft. The attributed source excerpt
+  from refrences/Quake-III-Arena/code/game/q_math.c:813 matches all 567
+  bytes after changing signed JGE to the retail unsigned JAE at 1005daa7.
+  It ends in a real error-path INT3 at 1005dc66. cmp.py formerly stripped
+  that trap as padding, causing a false external-call rejection. Preserve
+  branch-targeted traps in the executable fallthrough prefix, and stop at
+  RET/indirect JMP before interpreting switch data. Synthetic negative
+  tests cover dead bytes after returns and indirect jumps. The actual
+  source passes 3,072 MSVC/Wine calls and INT3 traps for signbits8,128,255.
+  Account its 567 assembly bytes separately from C/C++ source. This is
+  source-family/byte evidence, not a historical CoD2 source-license claim.
+## Renderer state cohort, 2026-10-19
+
+- PINNED RB_SetRenderTarget1003ea30 ends at RET1003ec15:486 bytes, not480.
+  A changed color surface resets dimensions/viewport; an unchanged surface does
+  not. A changed target ID still calls viewport-constant setup. The viewport
+  policy table1019087c contains0,1,1,0,0,1,0,1,1,1,1,1,1. New readable C++ in
+  codex_boundsoutside_1016 passes3120 actual-source transition cases. Its masked
+  bytes reproduce the target but binding remains blocked on viewport setup.
+- PINNED RB_SetInitialState1003c2a0/252 clears0x2170 bytes (0x85c DWORDs).
+  The previous cache model was0x216c; four trailing bytes now remain explicitly
+  reserved, without an invented meaning or historical alignment claim. All
+  identified field offsets are unchanged. A real32-bit fixture checks cache
+  size, initialization order, five sampler defaults and8192 invalid cache bytes.
+  Active state-bit pairs are assigned before reference pairs. fd.sh masks all
+  eight-digit constants and hid this order difference; byte_probe.py retains
+  non-relocated literals. Neither diagnostic replaces the official referees.
+- SUPPORTED Mac rb_backend.c defines the shared RB_SetCodeConstant setter in
+  the backend TU. Moving it out of the inline scratch header does not alone
+  fix viewport setup. Normal rb_state/rb_backend flags are restored; /Op on
+  either whole TU gives no viewport gain. Precise historical grouping is unknown.
+
+# PINNED 2026-10-21 sampler/hash continuation
+
+Final proof:work/proof/literal_checkpoint.json,592/103488 game bytes,
+four new C/C++ extents704 bytes, all790 protected,31 fixtures, exact warm/cold
+referee hashes. Proper-source upper bound37.739963720%;40% remains unmet.
+Material_RegisterLiteral10016390/150 does NOT increment literalCount; its exact
+limit is index==16. Input-first float comparisons, local destination stores and
+an indexed return reproduce the primary body. Zero signs compare equal; NaNs do
+not. Do not repeat the152-byte pointer-return or159-byte global-store forms.
+
+Material_RegisterString10016440 ends at RET10016535:246 bytes, not239.
+Restoring the real R_HashString boundary in existing r_utils.cpp reproduces
+both the registry246 and standalone hash1002bfe0/37 under unchanged cmp and
+binding checks. The CRT literal-bound correction and full regression gate now
+pass; see HANDOFF.md and literal_checkpoint.json for the final source/proof.
+Hash folding does not make identity case-insensitive. The64th unique insert
+increments the count to64 and calls R_Error(ERR_DROP) before allocating.
+Com_Parse1005fa50 restores an ungot token before calling Com_ParseExt;
+it is not Com_ParseOnLine. All29 primary sampler-table rows have an independent
+actual-C-vs-anchor field comparison in work/tests/test_sampler_tables.py.
+
+# 2026-10-21 image-management continuation
+
+- PINNED imagecompare1000d900 is49 executable bytes, through RET1000d930.
+  It sorts track ascending, then current-platform memory ascending; no name
+  tie-break. Both referees accept it; imagelist_warm_bind.json protects it.
+- PINNED R_ImageList_f1000d940 has1070 total bytes, not inventory998:
+  code1015 ends at RET1000dd36, then one NOP, six switch pointers at1000dd38
+  and30 selectors at1000dd50. test_image_list_tables.py audits the anchor,
+  real instruction targets, relocations and every selector. Deduct55 from
+  executable credit if the complete function becomes accepted.
+- PINNED format PUSH order is RGB32,RGBA32,A8,L8,RGB16,AL16,DXT1,R32F,
+  DXT3,DXT5. Equal relocation-masked instructions do not verify these cases:
+  wrong source case order exchanges literals AND table targets. The unchanged
+  binder correctly rejects that. Do not bypass it or patch switch data.
+- SUPPORTED candidate: use the real SDK cube-texture GetLevelDesc interface
+  for mapType5, not the 2D union member. This reproduces the primary's EDI
+  image, EBP memory cursor and surface/volume description slots. Restoring the
+  primary's case order now clears all literal and self-table bindings: full
+ 1070 accepted,1015 executable credit. Not GPU tested.
+- Actual PC list source and tests are in work/src/gfx_d3d/r_image.cpp and
+  work/tests/test_image_list.py. All40 source/audit fixtures passed. The test
+  covers10 formats, both platforms, all three map types, case-insensitive all,
+  entry12 of the13-image program array, capacity2048 and unknown-type return.
+

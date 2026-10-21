@@ -1,5 +1,19 @@
 # Shared renderer workspace — rules for every agent
 
+## Active workspace override — owner cleanup, 2026-10-20
+
+Use `target/work/` for active reconstruction. Its `src/` contains only compiled
+TUs, headers and configuration; tests, layout notes and proof are separate.
+Build ONLY with `sh target/work/tools/build.sh`; it reuses one existing build
+directory, preserves compiler-visible paths, checks both referees and every
+accepted checkpoint extent, and refreshes the map/section report each wave.
+`src/tus.txt` is object order; `src/profile.mk` holds per-TU exceptions.
+Maintain data ownership and library order in `target/work/layout/README.md`.
+No cosmetic TU reordering, duplicate build trees or postponing layout to100%.
+This supersedes old active-tree/build-path instructions below. Historical proof
+packets remain in place because regression checks depend on them. No source
+promotion to `target/verified/src` or the release tree is implied by cleanup.
+
 ## Goal (owner, 2026-10-07): CoD2's own renderer source
 - Progress = verified **game** code only: `python3 tools/gamecov.py` (CoD2 renderer bytes, not
   JPEG, D3DX or the CRT). 2026-10-08: 67,258/253,580 B = 26.523%. Start at `HANDOFF.md`.
@@ -35,6 +49,9 @@ function, then dropped into the link.
   for game progress.
 
 ## Parallel-safety rules
+- Serialize whole-link builds: check running build containers first, run only one renderer link at
+  a time, and never launch two builds against the same output directory. Reuse a completed build
+  incrementally for bounded source trials.
 - **One owner per file** (claimed in `CLAIMS.md`). Never edit a file someone else holds.
 - **Shared headers** (`headers/`, `shims/`, anything in 2+ TUs): small append-only edits only,
   in their own commit, rebuilt + measured before commit. Rename/re-type = ask in `CLAIMS.md` first.
