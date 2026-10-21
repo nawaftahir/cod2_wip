@@ -29,7 +29,7 @@ verify:
 	$(RUN) python3 tools/verify.py --all
 
 build:
-	$(RUN) python3 tools/link.py
+	$(RUN) sh -c 'python3 tools/link.py && python3 tools/linkcheck.py'
 
 sections:
 	$(RUN) python3 tools/sections.py

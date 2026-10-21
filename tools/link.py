@@ -20,8 +20,9 @@ LIBS = ("nafxcw.lib libcmt.lib libcpmt.lib kernel32.lib user32.lib gdi32.lib com
         "advapi32.lib shell32.lib comctl32.lib shlwapi.lib ole32.lib oleaut32.lib uuid.lib ws2_32.lib "
         "winmm.lib oleacc.lib delayimp.lib").split()
 FLAGS = ["/NOLOGO", "/SUBSYSTEM:WINDOWS,4.0", "/FIXED", "/BASE:0x400000", "/DEBUG",
-         "/PDB:e:\\trees\\cod2\\bin\\CoD2Radiant.pdb", "/PDBPATH:none", "/OPT:REF", "/OPT:ICF",
+         "/PDB:e:\\trees\\cod2\\bin\\CoD2Radiant.pdb", "/PDBPATH:none",
          "/DELAYLOAD:OLEACC.dll", "/FORCE:UNRESOLVED", "/LTCG"]
+# no /OPT: retail keeps 238 groups of identical functions apart (no ICF); /DEBUG defaults to NOREF+NOICF
 
 
 def sources():
@@ -50,7 +51,9 @@ def main():
     dos = pathlib.Path(os.environ.get("WINEPREFIX", os.path.expanduser("~/.wine"))) / "dosdevices" / "e:"
     if not dos.exists():
         dos.symlink_to(edrive)
-    cmd = ["wine", "/opt/msvc710/Vc7/bin/link.exe"] + FLAGS + ["/OUT:build/CoD2Radiant.exe"] + objs + LIBS
+    rsp = BASE / "build" / "link.rsp"
+    rsp.write_text("\n".join(FLAGS + ["/OUT:build/CoD2Radiant.exe", "/MAP:build/CoD2Radiant.map"] + objs + LIBS) + "\n")
+    cmd = ["wine", "/opt/msvc710/Vc7/bin/link.exe", "@build/link.rsp"]
     res = subprocess.run(cmd, cwd=BASE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     out = res.stdout.splitlines()
     unresolved = sum(1 for l in out if "unresolved external" in l and "LNK2001" in l or "LNK2019" in l)

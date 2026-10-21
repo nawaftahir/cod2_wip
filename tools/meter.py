@@ -42,10 +42,13 @@ def measure():
     lib_rows = [l.split("\t") for l in lib_path.read_text().splitlines()[1:]] if lib_path.exists() else []
     same, identical = whole_file()
     text = m.SECTIONS[".text"]["vs"]
+    lc = BASE / "build" / "linkcheck.json"
+    linked = json.loads(lc.read_text())["match"] if lc.exists() else 0
     libs = {r[0] for r in lib_rows}
     tu_rows = [l.split("\t") for l in (BASE / "data" / "tu_map.tsv").read_text().splitlines()[1:]]
     game = [r for r in tu_rows if r[0] not in libs]
     return {
+        "linked_matches": linked,
         "game_functions": len(game),
         "game_bytes": sum(int(r[1]) for r in game),
         "placed_functions": sum(1 for r in game if r[3] in ("PINNED", "SUPPORTED")),
@@ -75,6 +78,7 @@ def summary(now, before):
         "| meter | value |", "|---|---|",
         "| **SHA goal: rebuilt exe bytes in place** | %.3f%%%s |" % (pct(now["same_offset_bytes"], now["file_bytes"]), delta("same_offset_bytes")),
         "| game functions matched from source | %d / %d (%.2f%%)%s |" % (now["matched_functions"], now["game_functions"], pct(now["matched_functions"], now["game_functions"]), delta("matched_functions")),
+        "| ...of those, proven inside the linked exe | %d |" % now["linked_matches"],
         "| game code bytes matched | %.2f%% (%d / %d bytes) |" % (pct(now["matched_bytes"], now["game_bytes"]), now["matched_bytes"], now["game_bytes"]),
         "| game functions with a known source file | %d / %d |" % (now["placed_functions"], now["game_functions"]),
         "| MFC/CRT library functions identified (linked, not written; not counted as done) | %d |" % now["lib_functions"],
