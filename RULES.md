@@ -28,6 +28,18 @@ Owner-edited only.
   but functions whose callers LTCG rewrote need an LTCG-aware referee (compile `/GL`, link `/LTCG`, compare
   the linked bytes), as in the client track. Their code order in `.text` also comes from LTCG codegen.
 
+## Link settings (PINNED from the PE header, 2026-10-21; used by tools/link.py)
+- Base 0x400000, relocations stripped (`/FIXED`), GUI subsystem 4.0, OS 4.0, section and file
+  alignment 0x1000, stack and heap 1 MB reserve / 4 KB commit, checksum 0, entry 0x4dbd4b.
+- Sections `.text .rdata .data .rsrc`; `.data` virtual size 13.5 MB (large BSS).
+- Imports: KERNEL32 195, USER32 193, GDI32 96, OLEAUT32 38, WS2_32 25, ADVAPI32 17, ole32 17,
+  COMCTL32 11, comdlg32 9, SHELL32 5, SHLWAPI 5, WINSPOOL.DRV 4, WINMM 1; delay-loaded OLEACC.dll (3).
+  No OpenGL import: the renderer is loaded at run time.
+- Debug: one CodeView RSDS record, age 4, PDB `e:\trees\cod2\bin\CoD2Radiant.pdb` (`/DEBUG`).
+  link.py maps Wine's E: into build/ so the linker writes that exact path.
+- Open: the header timestamp and the RSDS GUID/age change on every link. Needs a deterministic link
+  (pinned clock and GUID source under Wine), never output patching. The client track has the same open item.
+
 ## Layout (PINNED from the binary)
 - 49 source paths are embedded via assert `__FILE__`. `tools/tu_map.py` pins 492 functions to 48 files
   (+707 SUPPORTED by sitting between pins of one file). See `data/tu_map.tsv`, `link/order.txt`.
