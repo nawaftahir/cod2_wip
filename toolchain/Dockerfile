@@ -2,7 +2,7 @@
 # Same base as claude_client/toolchain: Wine 8 (bookworm) makes cl.exe hang on compile errors.
 FROM i386/debian:bullseye-slim
 RUN sed -i "/security/d" /etc/apt/sources.list && apt-get update \
- && apt-get -o Acquire::Retries=5 install -y --no-install-recommends wine make python3 python3-pip \
+ && apt-get -o Acquire::Retries=5 install -y --no-install-recommends wine make python3 python3-pip faketime \
  && pip3 install --no-cache-dir capstone==4.0.2 pefile==2023.2.7 \
  && rm -rf /var/lib/apt/lists/*
 ENV WINEDEBUG=-all WINEPREFIX=/root/.wine RADIANT_IN_IMAGE=1

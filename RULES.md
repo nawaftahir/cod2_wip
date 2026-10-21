@@ -70,6 +70,27 @@ Owner-edited only.
 - Open: the header timestamp and the RSDS GUID/age change on every link. Needs a deterministic link
   (pinned clock and GUID source under Wine), never output patching. The client track has the same open item.
 
+## zlib (PINNED 2026-10-21)
+- Strings "inflate 1.1.4", "deflate 1.1.4", "unzip 0.15". The code sits right after the unit, 0x4ad790-0x4b3d00,
+  as separate plain C files in alphabetical link order: adler32, deflate, infblock, infcodes, inffast, inflate,
+  inftrees, infutil, trees, unzip, zutil. compress.c and uncompr.c show no trace (HYPOTHESIS: absent).
+- `src/zlib/` is the verified server copy (`cod2engine/archive/lnxded-1.0/src/zlib`). Against the official
+  zlib-1.1.4.tar.gz (sha256 9e3e9731...6a8291e): 15 files identical; infblock/inftrees/infutil/zutil differ by
+  2-14 lines; unzip.c/.h are IW's heavily modified minizip 0.15. 14 functions match byte-identical as is.
+
+## Resources (PINNED 2026-10-21)
+- `src/res/CoD2Radiant.rc` (from `tools/rc_extract.py`, numeric ids, styles written out) compiled by the
+  original `rc.exe` gives all 172 resources byte-identical (`tools/rescheck.py`). Bitmaps, icons and cursors
+  are image assets extracted from retail into build/res at build time and never committed.
+  rc.exe ORs WS_CHILD|WS_VISIBLE into CONTROL styles; retail controls without them are written `| NOT WS_VISIBLE`.
+
+## Deterministic link
+- Timestamps (retail 0x4408e56e): still open. libfaketime over Wine hangs: a frozen clock and a 1%-speed
+  clock both stall wineserver timeouts (tried 2026-10-21). Next idea: fake time only inside link.exe (a Wine
+  DLL override of GetSystemTimeAsFileTime/time), not for the whole Wine process.
+- RSDS GUID and age (4): random per link. Reproducing them means supplying retail's GUID as a build
+  input. That needs the owner's decision.
+
 ## Layout (PINNED from the binary)
 - 49 source paths are embedded via assert `__FILE__`. `tools/tu_map.py` pins 492 functions to 48 files
   (+707 SUPPORTED by sitting between pins of one file). See `data/tu_map.tsv`, `link/order.txt`.
