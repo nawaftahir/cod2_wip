@@ -16,9 +16,13 @@ You work in your own worktree, `.agents/<your-name>/`, on branch `agent/<your-na
    - the source file the function belongs to, and which matched functions it goes between;
    - the retail disassembly, with call targets and strings resolved;
    - the Ghidra decompile, if there is one. It's a hint only; its names and types are guesses.
-3. **Draft.** Copy the target file to `scratch/<your-name>/` and write the function there,
-   between the two neighbours `show` named. `scratch/` is never committed or linked.
-4. **Test.** `make try S=scratch/<your-name>/<file>.cpp A=<addr>`. `MATCH` means done.
+3. **Write it in place.** Edit the real file under `src/` (your worktree is private), between the
+   two neighbours `show` named. All game files are compiled together as one unit (`src/unit.cpp`,
+   generated; never edit it), exactly as retail was.
+   - If `make show` shows the function reading `eax`, `edx`, `esi`, `edi` or `ebx` before writing it, it is a
+     **`static` function** with register arguments. Write it `static` in its file. The compiler picks
+     the registers itself because its callers are in the same unit.
+4. **Test.** `make try S=<the src file> A=<addr>`. It compiles the whole unit. `MATCH` means done.
    On a mismatch it prints the first differing byte offset; compare with `make show`.
    **At most 8 tries per function.** After the 8th failure, append a row to `ledger/defer.tsv`
    (`addr  your-name  date  what you tried and what still differs`), delete your claim, and go to step 1.

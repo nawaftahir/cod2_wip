@@ -115,8 +115,17 @@ def check(obj_data, address, symbol, names):
     return best
 
 
+UNIT = "src/unit.cpp"
+
+
 def obj_path(source):
     return pathlib.Path("build") / "obj" / pathlib.Path(source).with_suffix(".obj")
+
+
+def unit_of(source):
+    # game files are compiled inside the single unit (RULES.md "Unity build"); scratch drafts alone
+    source = str(source).replace("\\", "/")
+    return UNIT if source.startswith("src/") and (BASE / UNIT).exists() else source
 
 
 def definition_order(obj_data):
@@ -141,13 +150,16 @@ def verify_all():
     for row in rows:
         by_source[row["source"]].append(row)
     results, failed, extras = [], 0, []
+    unit_ok = compile_source(UNIT, obj_path(UNIT))
+    unit_data = (BASE / obj_path(UNIT)).read_bytes() if unit_ok else b""
+    unit_order = definition_order(unit_data) if unit_ok else {}
+    # functions in the unit with no ledger row: unverified code in the clean tree
+    ledger_syms = {r["symbol"] for r in rows}
+    extras = ["%s" % name for name in sorted(unit_order) if name not in ledger_syms]
     for source, group in sorted(by_source.items()):
-        ok = (BASE / source).exists() and source.startswith("src/") and compile_source(source, obj_path(source))
-        data = (BASE / obj_path(source)).read_bytes() if ok else b""
-        order = definition_order(data) if ok else {}
-        # functions in src/ with no ledger row: unverified code in the clean tree
-        mine = {r["symbol"] for r in group}
-        extras += ["%s %s" % (source, name) for name in sorted(order) if name not in mine]
+        ok = unit_ok and (BASE / source).exists() and source.startswith("src/")
+        data = unit_data if ok else b""
+        order = unit_order if ok else {}
         for row in group:
             if not ok:
                 status, detail = "COMPILE", "missing or failed to compile"
@@ -187,8 +199,9 @@ def verify_one(source, addresses, symbol):
     source = pathlib.Path(source)
     if source.is_absolute():
         source = source.relative_to(BASE)
+    source = unit_of(source)
     obj = obj_path(source)
-    if not compile_source(str(source).replace("\\", "/"), obj):
+    if not compile_source(source, obj):
         return False
     data = (BASE / obj).read_bytes()
     names = known_names()

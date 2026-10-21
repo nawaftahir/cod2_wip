@@ -26,6 +26,12 @@ FLAGS = ["/NOLOGO", "/SUBSYSTEM:WINDOWS,4.0", "/FIXED", "/BASE:0x400000", "/DEBU
 
 
 def sources():
+    # one unit holds every game file (RULES.md "Unity build"); other .c files (zlib etc.) link separately
+    if (BASE / "src" / "unit.cpp").exists():
+        included = {l.split('"')[1] for l in (BASE / "src" / "unit.cpp").read_text().splitlines() if l.startswith("#include")}
+        others = sorted(str(p.relative_to(BASE)) for p in (BASE / "src").rglob("*.c")
+                        if str(p.relative_to(BASE / "src")) not in included)
+        return ["src/unit.cpp"] + others
     listed = []
     for line in (BASE / "link" / "order.txt").read_text().splitlines():
         if line and not line.startswith("#"):
