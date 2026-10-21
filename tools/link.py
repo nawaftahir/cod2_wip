@@ -43,6 +43,23 @@ def sources():
     return present + extra
 
 
+def resources():
+    # src/res/CoD2Radiant.rc + image assets taken from retail into build/res (never committed)
+    rc = BASE / "src" / "res" / "CoD2Radiant.rc"
+    if not rc.exists():
+        return []
+    out = BASE / "build" / "res"
+    subprocess.run([sys.executable, str(BASE / "tools" / "rc_extract.py"), "--assets-only"], cwd=BASE, check=True,
+                   stdout=subprocess.DEVNULL)
+    (out / rc.name).write_bytes(rc.read_bytes())
+    r = subprocess.run(["wine", "/opt/msvc710/Vc7/bin/rc.exe", "/fo", "radiant.res", rc.name], cwd=out,
+                       stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+    if r.returncode != 0 or not (out / "radiant.res").exists():
+        print(r.stdout)
+        raise SystemExit("rc.exe failed")
+    return ["build/res/radiant.res"]
+
+
 def main():
     objs = []
     for src in sources():
@@ -57,8 +74,9 @@ def main():
     dos = pathlib.Path(os.environ.get("WINEPREFIX", os.path.expanduser("~/.wine"))) / "dosdevices" / "e:"
     if not dos.exists():
         dos.symlink_to(edrive)
+    res = resources()
     rsp = BASE / "build" / "link.rsp"
-    rsp.write_text("\n".join(FLAGS + ["/OUT:build/CoD2Radiant.exe", "/MAP:build/CoD2Radiant.map"] + objs + LIBS) + "\n")
+    rsp.write_text("\n".join(FLAGS + ["/OUT:build/CoD2Radiant.exe", "/MAP:build/CoD2Radiant.map"] + objs + res + LIBS) + "\n")
     cmd = ["wine", "/opt/msvc710/Vc7/bin/link.exe", "@build/link.rsp"]
     res = subprocess.run(cmd, cwd=BASE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
     out = res.stdout.splitlines()
