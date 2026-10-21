@@ -53,4 +53,6 @@ if ! git merge -q --no-ff --no-edit -m "land $AGENT ($NEW commits)" "$BR"; then
 fi
 if git remote get-url origin >/dev/null 2>&1; then git push -q origin main; fi
 reset_agent
+# GitHub minutes are out: the same checks run locally and post to Discord
+tools/ci_local.sh > build/ci-last.log 2>&1 || echo "$AGENT: local CI failed, see build/ci-last.log"
 echo "$AGENT: landed $NEW commits"

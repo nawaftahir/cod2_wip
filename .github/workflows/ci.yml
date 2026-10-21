@@ -1,6 +1,6 @@
 name: radiant
+# manual only while GitHub Actions minutes are out; tools/ci_local.sh runs the same checks on every landing
 on:
-  push:
   workflow_dispatch:
 
 permissions:
