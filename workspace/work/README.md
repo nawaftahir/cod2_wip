@@ -1,7 +1,11 @@
 # Active renderer workspace
 
 Work here. Old scratch folders and archived builds are history, not active inputs.
-Follow [the renderer roadmap](../../ROADMAP.md):40% C/C++ first, then45% through retail SHA.
+Follow [the whole-file roadmap](../../WHOLEFILE.md): readable source and exact retail SHA.
+
+The820-extent ratchet uses local proof/history JSONs. The API oracle and the
+SUPPORTED function inventory are local in proof/retail. Current renderer checks
+do not require dev/codex; other tracks' deletion safety is not covered here.
 
 - `src/`: only the TUs in `src/tus.txt`, their local headers and build configuration.
 - `tests/`: actual-source behavior and referee regression fixtures.
@@ -22,11 +26,11 @@ rejects competing builds. Every run checks both referees, all prior
 source/library extents, game accounting and the latest raw-offset layout meter.
 Failed checks stop the command; a diagnostic match is never accepted progress.
 
-Frozen baseline:579 game bodies /101478 executable bytes. Latest cold checkpoint:
-609 /107350, including1712 new C++ bytes over the602-body checkpoint.
-Mixed coverage42.333780%; current authored C/C++ coverage39.262954% after
-non-inlining guards and source_coverage.py attribution. Owner milestone40%,
-then45%, excluding assembly. Known assembly remains protected by regression.
+Current status and continuation: [PROGRESS.md](../../PROGRESS.md).
+Latest warm checkpoint:612 game bodies /107659 executable bytes, including
+99872 authored C/C++ bytes (39.385% of the SUPPORTED game inventory).
+Whole-file SHA is the objective, not former percentage milestones. Assembly
+stays separately attributed and protected by regression.
 The counter excludes entire containing bodies, treats C/C++ intrinsics as C/C++,
 and does not audit internal implementation of original compiler/SDK dependencies.
 Partial files still contain unaccepted drafts. This is an organized working
@@ -46,7 +50,7 @@ scratch build scripts: they do not select this physical input tree.
 Read-only shared dependencies: `target/src` compatibility/reference headers,
 the Summer2004 SDK and original VC7.1 libraries. They are not reconstruction
 credit. The unchanged regression script retains historical proof JSON inputs
-under `target/scratch`; those proofs are deliberately preserved, not active
+under `target/work/proof/history`; those proofs are deliberately preserved, not active
 source. Nothing moves into `cod2engine/` without owner review.
 
 Whole-file identity and game/GPU tests remain unfinished. No assets/binaries
@@ -66,9 +70,6 @@ unaccepted because its model-debug callee chain is unresolved. Run
 The restored continuation checkpoint's source/proof hashes are recorded in
 proof/continuation_checkpoint.json; subsequent drafts must pass the same gates.
 
-Latest proof is proof/dx7_checkpoint.json: all817 extents retained,
-cold bind and cmp identical to the frozen warm checkpoint,422 unchanged
-input hashes,45 passing fixtures and a separate passing PDB-string fixture.
-The compiler-named-string boundary correction is tested separately and adds
-no game coverage in the side-by-side legacy-checker cohort. See ATTEMPTS.md.
-Earlier material/sampler/polygon/continuation receipts are historical snapshots.
+Latest receipt: proof/wholefile_checkpoint.json. All820 extents retained;
+completed checks are recorded there. No new cold-rebuild/runtime claim.
+Other named checkpoint receipts are historical snapshots.

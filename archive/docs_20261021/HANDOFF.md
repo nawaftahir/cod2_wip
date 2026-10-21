@@ -1,5 +1,43 @@
 # Renderer handoff — 2026-10-08 (read this first)
 
+## Current — gfx-only workspace, whole-file first, 2026-10-21
+
+Owner cleared the percentage goal and requested a committed checkpoint, gfx-only
+writes and the roadmap to actual retail SHA. Checkpoint221cfa5 is committed;
+no push. Read WHOLEFILE.md; it supersedes the40%/45% priorities below.
+
+Active source remains target/work/src. Historical regression JSONs now live
+under target/work/proof/history with unchanged pinned hashes. The lone draft
+COM fixture input is under tests/fixtures, not an external scratch path. API
+oracle and SUPPORTED inventory are preserved under proof/retail. The old
+exploratory Makefile and library checker were moved/copied recoverably to
+archive/legacy_entrypoints; current make verify selects the sole pinned build.
+No active renderer build/check/fixture references dev/codex. Other tracks were
+not edited; known client/deepseek names_1.0.json references still make deleting
+codex unsafe for those tools. Renderer-only clearance is not workspace-wide.
+
+Relink31006 retains all820 extents,612 mixed game bodies/107659 executable bytes,
+authored C/C++99872/253580=39.384809528%. Full55-fixture source batch passed after
+consolidation; two new whole-file/API-oracle checks also pass. Fresh post-relink
+string check covers9878 extents and source attribution's six negatives pass.
+No compiler/build/fixture session remains live. No new source credit this turn.
+
+Whole-file-first findings: retail has one export, GetRefAPI; current has152
+temporary exports and no GetRefAPI export. Of98 written API callback slots,
+53 have accepted implementations; do not call the remaining45 absent source
+without checking their drafts. Ten further slots remain initial zeros.
+See layout/api_callbacks.tsv. First source task: real API59 callback graph and
+retention, not more isolated spelling trials or invented callback stubs.
+
+Same-object relink preserves raw .text/.data/.reloc hashes but changes whole
+SHA, .rdata/debug hashes and timestamp. Metadata reproducibility is a verified
+remaining task; no binary patch was made. The current SHA is
+b779f9d3f034bd9fa993f528a5c0a6700666c642f45b59878e21e92e65310e68,
+NOT retail. Before/after evidence is saved. Cold SHA identity and runtime smoke
+remain unachieved. Older cpp_checkpoint.json is historical; its frozen source
+attribution is cpp_pause_source_coverage.json. Current source receipt remains
+source_coverage_current.json. Continue inside gfx only when owner requests it.
+
 ## PAUSED — world/sun/history checkpoint, 2026-10-21
 
 Owner explicitly paused. No renderer build or fixture session remains live.

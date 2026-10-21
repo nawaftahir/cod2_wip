@@ -261,7 +261,7 @@
   "naked_box_separate": true,
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "e75cce2c6c4930674368684efd73c67b9f29afccd755ba77a607141fdb4fca2d",
-  "regression_sha256": "6438a5ff3fe3040661b692128e95de0b5cb5e9f6364a9383fb56c8dd44679f07",
+  "regression_sha256": "8ba670429a800e0706becc519ae4b5f7a9954b666f152a309245b9ba40c3ccb1",
   "bind_sha256": "08c9bfa93c8e99a3f3ee3db1e0820953a85b1256c380d00583ef717fe3cdaf42",
   "source_sha256": {
     "profile.mk": "6015c8ee2fbf36f8dbe127d0fac090714f50d92cbbf6e758ca3b3db72e7cc420",

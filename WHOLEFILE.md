@@ -1,0 +1,138 @@
+# Renderer roadmap: readable source to the exact retail DLL
+
+Owner direction, 2026-10-21: use gfx as the sole renderer workspace and make
+whole-file identity the main objective now, not a sequence of coverage targets.
+This supersedes the old40%/45% execution priorities. Source coverage remains
+an honest secondary diagnostic; it must not be inflated or discarded.
+
+## The finish line
+
+Build readable reconstructed source with the pinned original toolchain and
+dependencies. The complete resulting gfx_d3d_mp_x86_s.dll must have SHA256:
+
+    4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6
+
+Then smoke-test it with the1.0 client and legally supplied game files. Matching
+functions or gameplay alone is not completion. This reconstructs source that
+produces the retail bytes; it does not prove the lost developer files' wording.
+No retail-code arrays, dummy callbacks, padding stand-ins or post-link copying
+of retail bytes may substitute for source. Existing authored assembly stays
+separately accounted; changing the main meter does not turn it into C++.
+
+## Current evidence, not a release claim
+
+Checkpoint commit:221cfa5. Readable source is target/work/src; some functions
+are still unmatched drafts. All820 protected source/library extents survive.
+Accepted authored C/C++:99872/253580 game bytes,39.384809528%. This is not a
+whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
+
+| Whole-file component | Retail | Current candidate |
+| --- | --- | --- |
+| File length |1851392 bytes |1064960 bytes |
+| Named exports |GetRefAPI only |152 temporary exports; GetRefAPI absent |
+| API table |108 slots,98 written callbacks,10 initial zeros |53 callback slots have accepted implementations; other slots are not yet byte-verified |
+| .text virtual length |1089680 |435520 |
+| .rdata virtual length |595105 |528062 |
+| .data virtual length, including zero-initialized storage |6086100 |1248244 |
+| .reloc virtual length |95704 |61584 |
+| Whole SHA |Anchor above |NOT matched |
+
+Sizes identify missing contributors; they do not tell us to add filler. Callback
+counts are not source coverage or evidence that the current DLL can be loaded
+by the game. Latest detailed measurements:target/work/layout/current.json.
+
+## Execution order
+
+1. **Preserve and replay the base.** Keep one source tree and one build. Local
+   historical referee inputs keep their original hashes. Run both unchanged
+   referees, all820 protected extents and actual-source fixtures. Missing old
+   research folders must not silently disable a gate. Never delete another
+   agent's work or reset the owner's staged changes.
+
+2. **Recover the real front door and callback graph.** Reconstruct API59's
+   GetRefAPI and typed108-slot table from the primary initializer and confirmed
+   caller signatures. The locally preserved oracle pins addresses, not every
+   legacy name or signature. Inventory all98 actual callback slots, their source
+   owners and missing helper chains. Implement missing real callbacks; never
+   invent placeholder bodies to make the link pass. Replace temporary roots
+   with real retention through this graph as each closure is complete. Final
+   export table must contain exactly the retail GetRefAPI export.
+
+3. **Recover whole-program structure alongside those chains.** Maintain the
+   actual function set per TU, shared-helper instances, object/library member
+   order, table/string ownership and per-TU flags. Use retail address ranges,
+   real calls and Mac naming/type evidence; do not mechanically sort objects
+   by a shared helper's earliest address. Each structural change must retain
+   all accepted extents. Prior rejected material-order trials stay documented.
+   Match connected API/caller groups rather than endless leaf spelling trials.
+
+4. **Complete all real code and data contributors.** Missing engine source
+   still has to be reconstructed; whole-file-first does not skip it. Reuse the
+   exact VC7.1 runtime, Summer2004 SDK libraries and correct IJG source where
+   applicable. Restore genuine dependency calls so the linker pulls the right
+   library members; do not reverse library internals again for a progress meter.
+   Recover typed globals, arrays, tables and initialization, including large
+   zero-initialized state. No arbitrary bytes to imitate section sizes.
+
+5. **Close exact layout and reproducibility.** Align function/data placement,
+   literal pools, section RVAs/sizes, imports and hints, exports/ordinals,
+   relocations, entrypoint/startup and PE/debug metadata. Compare a repeat link
+   from identical inputs now, not only at the end. Record timestamps/debug-ID
+   differences as real blockers. Investigate original toolchain behavior and
+   flags; do not quietly normalize the hash or patch the output. Any finish-line
+   exception needs the owner's explicit decision and is not SHA completion.
+
+6. **Prove and release.** Fresh rebuild from the committed tree, full-file SHA
+   equality, then real client boot/render/smoke checks. Save input/toolchain
+   identities and commands. Only after that: owner review, release-tree promotion
+   and later bug fixes/enhancements. No claim that this candidate is finished.
+
+Steps2-4 overlap; step5 is measured during every wave, not postponed. The first
+implementation priority is the real API/callback inventory and its missing
+source closures, because it determines retention, custom calling conventions
+and which library members must exist in the final file.
+
+### Repeat-link evidence
+
+The same-object relink31006 retained all820 accepted extents. Raw .text,
+.data and .reloc hashes are unchanged; the whole-file SHA, .rdata hash and
+debug records differ, and the PE timestamp changed. This establishes a real
+metadata/reproducibility task before all missing source is recovered.
+It does not establish that every changed .rdata byte is debug information.
+Before report:target/work/proof/wholefile_before_relink.json; after report:
+target/work/layout/current.json. No binary was patched or copied into place.
+
+The callback inventory is target/work/layout/api_callbacks.tsv. It distinguishes
+accepted bindings, masked-only candidates, unverified slots and unused zeros;
+it must not call every unverified callback missing source.
+
+## One renderer workspace
+
+- Active source/tests/tools/proof/layout:target/work/.
+- One pinned build:target/build/codex_boundsoutside_1016_02. The old name is
+  retained for compiler-visible paths, not another workspace or dev/codex.
+- Shared build headers:target/src/shims and target/src/opencod2/headers.
+- Historical gate JSONs:target/work/proof/history, with original hash checks.
+- Retail API oracle/inventory:target/work/proof/retail. Neither is code credit.
+- Old exploratory entrypoints are archived in archive/legacy_entrypoints.
+- Game binary and proprietary SDK/toolchain remain read-only external inputs;
+  they must not be committed. This is not a claim to vendor those legally
+  separate dependencies into gfx.
+
+Build/check:sh target/work/tools/build.sh from gfx, or make verify from target.
+Report:python3 target/work/tools/layout.py target/work/build/gfx.dll.
+The source meter remains python3 target/work/tools/source_coverage.py.
+
+## Deleting dev/codex
+
+The maintained renderer build/gates/tests no longer need dev/codex. Its pinned
+renderer API oracle was copied unchanged and independently checked against all
+98 primary initializer writes and ten zero-initialized slots. No files outside
+gfx were edited. Historical scripts in the archive are not active entrypoints.
+
+**This is renderer-only clearance, not clearance for every dev project.**
+claude_client/regions.py, classify.py and ghidra/names.py, plus their deepseek
+counterparts, still reference codex/client/salvage_gemini/data/names_1.0.json.
+Those tracks are outside this task and were not modified. Deleting codex would
+break those tools unless their owner migrates the referenced data/paths first.
+Archive the folder recoverably rather than permanently deleting it if unsure.

@@ -15,7 +15,7 @@
   "policy": "Exclude entire containing bodies; C/C++ intrinsics and calls to out-of-line helpers remain C/C++; original toolchain/SDK internals are dependencies",
   "retained_source_change": "New accepted maximum-model-surface helper73, four-view sun reset158 and grid filename78; unaccepted world/history callers remain drafts. Earlier guards, copy corrections and candidate BSP-first order retained.",
   "memory_source_sha256": "d19acbee13742932acea6b76556326489b6fce44ed742acccfa59072770818a3",
-  "source_attribution_receipt": "source_coverage_current.json",
+  "source_attribution_receipt": "cpp_pause_source_coverage.json",
   "source_attribution_sha256": "f730edc10a3da1e06feac91e03383572d90c438887a877dbfdba479cc876d610",
   "protected_address_extents": 820,
   "final_gate_session": 30037,

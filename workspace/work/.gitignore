@@ -1,0 +1,5 @@
+/build
+/proof/latest/
+/layout/current.json
+/layout/current.map
+/proof/*.tar.gz

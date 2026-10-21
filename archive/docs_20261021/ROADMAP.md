@@ -1,10 +1,9 @@
 # Renderer: existing source to the retail-identical DLL
 
-Owner direction, 2026-10-21: reach40% actual C/C++ first, then45%, then keep
-going to complete source reconstruction AND a SHA-256-identical retail rebuild.
-Assembly, library internals and imported-but-unmatched code do not advance the
-C/C++ meter. This plan supersedes the earlier mixed-source40/45% milestones.
-The current active goal is40%;45% and the remaining roadmap follow it.
+Latest owner direction: whole-file identity now drives execution. Read
+[WHOLEFILE.md](WHOLEFILE.md) for the current roadmap, baseline, workspace and
+codex-deletion warning. It supersedes the40%/45% milestones below. C/C++
+coverage remains a separate diagnostic; the earlier plan is retained as history.
 
 ## What is already here
 

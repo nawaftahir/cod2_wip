@@ -6,7 +6,7 @@ import tempfile
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_material_load_obj.cpp').read_text()
 source = text[text.index('unsigned int Material_FindShaderConstant('):text.index('// PINNED 100198c0:')]
 source += text[text.index('// PINNED 1001a160:'):]
-draft = (Path(__file__).resolve().parents[2] / 'scratch/codex_20261021_shader_wrapper.cpp').read_text()
+draft = (Path(__file__).resolve().parent / 'fixtures/unaccepted_shader_wrapper.cpp').read_text()
 source += draft[draft.index('// SDK interface prefix'):]
 program = r'''
 #include <cassert>
