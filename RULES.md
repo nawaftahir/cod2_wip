@@ -24,9 +24,20 @@ Owner-edited only.
   (`src/universal`, `src/xanim`, `src/script`, ...) are the likely `/GL` C set: that range is where the
   "register arguments / no prologue" functions sit (LTCG custom calling conventions). Which files exactly is
   still open.
-- Consequence: in `/GL` files, functions LTCG left alone match with plain `/O2` (the 61 verified rows),
-  but functions whose callers LTCG rewrote need an LTCG-aware referee (compile `/GL`, link `/LTCG`, compare
-  the linked bytes), as in the client track. Their code order in `.text` also comes from LTCG codegen.
+- **Correction (PINNED by test, `research/richtest/static.sh`):** plain `/O2` without `/GL` already passes
+  arguments in registers (`_p$ = esi`) to a `static` function called from the same file. Register
+  arguments alone don't prove LTCG. They mean "static, with its callers in the same file": write it
+  `static` next to its real callers.
+- **Open (evidence, not yet resolved):** `tools/ltcg_scan.py` finds 854 register-argument functions, and 142
+  of them are called from *other* files with register arguments, which only LTCG can produce. Several sit
+  inside radiant `.cpp` ranges, e.g. 0x41b190 in the MainFrm.cpp range, called with EAX from MainFrm, Pmesh,
+  brush, drag and select. That conflicts with "no /GL C++" from the Rich header. Leading hypothesis: LTCG
+  emits all `/GL` code in its own order, interleaved with the plain objects, so contiguity-based SUPPORTED
+  entries in `data/tu_map.tsv` are unreliable around LTCG code. Only PINNED (assert string) entries are
+  solid. Resolve before trusting any SUPPORTED file assignment.
+- The linked-exe referee (`tools/linkcheck.py`) proves rows inside the real linked exe; all 61 pass.
+- Link options: retail keeps 238 groups of byte-identical functions at separate addresses, so no `/OPT:ICF`.
+  With `/DEBUG`, 7.1 defaults to NOREF and NOICF, so link.py passes no `/OPT`. SUPPORTED.
 
 ## Link settings (PINNED from the PE header, 2026-10-21; used by tools/link.py)
 - Base 0x400000, relocations stripped (`/FIXED`), GUI subsystem 4.0, OS 4.0, section and file
