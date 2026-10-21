@@ -28,6 +28,13 @@ Owner-edited only.
   arguments in registers (`_p$ = esi`) to a `static` function called from the same file. Register
   arguments alone don't prove LTCG. They mean "static, with its callers in the same file": write it
   `static` next to its real callers.
+- **Game files are C++ (PINNED):** RTTI type names `.?AVCMainFrame@@`, `.?AVCCamWnd@@`, `.?AVCXYWnd@@`,
+  `.?AVCRadiantApp@@`, `.?AVidCameraPosition@@` (splines) are in the exe. `/GL` C++ is always prodid 100
+  whatever the other flags (`research/richtest/flags.sh`), and retail has none. So the C++ game files are
+  plain `/O2`; the 104 `/GL` objects are C files, and which ones is still open. Note: a plain link also
+  puts every object before library code, so "game code first, MFC/CRT after" does not prove LTCG.
+- **Mixed-link layout (PINNED, `research/richtest/order.sh`):** with `/LTCG`, all `/GL` code is placed
+  before every plain object, each group in link order.
 - **Open (evidence, not yet resolved):** `tools/ltcg_scan.py` finds 854 register-argument functions, and 142
   of them are called from *other* files with register arguments, which only LTCG can produce. Several sit
   inside radiant `.cpp` ranges, e.g. 0x41b190 in the MainFrm.cpp range, called with EAX from MainFrm, Pmesh,
