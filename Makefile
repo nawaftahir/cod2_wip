@@ -1,7 +1,9 @@
 # CoD2Radiant.exe 1.0 reconstruction. Every target runs inside the toolchain image.
 #   make show A=0x...          everything about one retail function
 #   make try S=src/x.cpp A=0x...   compile one file and check one function
-#   make verify  recompile every ledger row and check it (the referee)
+#   make build    link the whole exe in retail order (build/CoD2Radiant.exe)
+#   make sections per-section bytes in place vs retail
+#   make verify recompile every ledger row and check it (the referee)
 #   make meter    progress numbers, written to build/summary.md
 #   make gate     verify + meter, fails if anything broke or went down (CI runs this)
 #   make accept   gate, then record the new numbers in ledger/meter.json (commit it)
@@ -15,7 +17,7 @@ else
 RUN = docker run --rm -v $(CURDIR):/w -w /w -e RADIANT_IN_IMAGE=1 $(IMAGE)
 endif
 
-.PHONY: show try verify meter gate accept queue map libs image clean
+.PHONY: show try verify build sections meter gate accept queue map libs image clean
 
 show:
 	$(RUN) python3 tools/show.py $(A)
@@ -26,14 +28,20 @@ try:
 verify:
 	$(RUN) python3 tools/verify.py --all
 
+build:
+	$(RUN) python3 tools/link.py
+
+sections:
+	$(RUN) python3 tools/sections.py
+
 meter:
 	$(RUN) python3 tools/meter.py
 
 gate:
-	$(RUN) sh -c 'python3 tools/verify.py --all; python3 tools/meter.py --gate'
+	$(RUN) sh -c 'python3 tools/verify.py --all; python3 tools/link.py; python3 tools/meter.py --gate'
 
 accept:
-	$(RUN) sh -c 'python3 tools/verify.py --all && python3 tools/meter.py --update'
+	$(RUN) sh -c 'python3 tools/verify.py --all && python3 tools/link.py && python3 tools/meter.py --update'
 
 queue:
 	$(RUN) python3 tools/gen_queue.py

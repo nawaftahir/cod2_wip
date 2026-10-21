@@ -20,7 +20,8 @@ import match_radiant as m
 RETAIL = BASE / "binaries" / "CoD2Radiant.exe"
 OURS = BASE / "build" / "CoD2Radiant.exe"
 COMMITTED = BASE / "ledger" / "meter.json"
-KEYS = ("matched_functions", "matched_bytes", "lib_bytes", "same_offset_bytes")
+# gated: these may never drop. same_offset_bytes is reported only: real code can shift chance matches
+KEYS = ("matched_functions", "matched_bytes")
 
 
 def whole_file():

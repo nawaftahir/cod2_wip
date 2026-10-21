@@ -30,7 +30,7 @@ jobs:
         name: Verify every ledger row + meters
         run: |
           docker run --rm -v "$PWD:/w" -w /w "$IMAGE" sh -c \
-            'python3 tools/verify.py --all > build-verify.log 2>&1; python3 tools/meter.py --gate > meter.log 2>&1; echo $? > meter.rc'
+            'python3 tools/verify.py --all > build-verify.log 2>&1; python3 tools/link.py > link.log 2>&1; python3 tools/sections.py > sections.log 2>&1; python3 tools/meter.py --gate > meter.log 2>&1; echo $? > meter.rc'
           rc=$(cat meter.rc)
           cat build-verify.log meter.log
           # what this push added, from the ledger diff (HEAD~1 = previous main)
@@ -44,6 +44,7 @@ jobs:
             cat build/summary.md
             if [ -s new.md ]; then echo; echo "**New matches**"; head -12 new.md; fi
             if [ -s deferred.md ]; then echo; echo "**Deferred**"; head -5 deferred.md; fi
+            echo; echo '**Rebuilt exe vs retail**'; echo '```'; cat link.log sections.log; echo '```'
             echo; echo '```'; grep -v '^verify:' build-verify.log | grep -v '^UNVERIFIED' | head -30; tail -1 build-verify.log; echo '```'
           } > summary.md
           cat summary.md >> "$GITHUB_STEP_SUMMARY"
