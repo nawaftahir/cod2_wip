@@ -33,6 +33,18 @@ Owner-edited only.
   whatever the other flags (`research/richtest/flags.sh`), and retail has none. So the C++ game files are
   plain `/O2`; the 104 `/GL` objects are C files, and which ones is still open. Note: a plain link also
   puts every object before library code, so "game code first, MFC/CRT after" does not prove LTCG.
+- **Unity build (PINNED 2026-10-21).** Plain `/O2` gives register arguments only to `static` functions
+  (`research/richtest/nonstatic.sh`: non-static and `inline` stay on the stack). Retail has 72 register-argument
+  calls between *different* pinned files, e.g. CamWnd.cpp 0x4061f0 -> XYWnd.cpp 0x44f5d0 (ESI).
+  `scratch/claude/unity_test.cpp` reproduces 0x44f5d0 byte-identical as a `static` function called from another
+  class's method in the same compile unit. So the game C++ files were compiled as shared compile units.
+  `tools/units.py` groups files by those calls (`data/units.tsv`): 28 files in one group, 5 in another,
+  the rest unlinked. All of them interleave in address order: xmodel_load_obj (group 0) sits after group
+  1's files, cmdlib sits between CamWnd and draw. So it is **one compile unit**: a file that `#include`s
+  every source file in this order: editor files sorted ignoring case (CamWnd, cmdlib, draw, GfxWrapper ...
+  XYWnd), Q3-core files (brush ... z), src/universal sorted, splines, then xanim/script.
+  Consequence: every register-argument function is a `static` in its own file, called from wherever. It
+  matches once written `static` inside the unit build.
 - **Mixed-link layout (PINNED, `research/richtest/order.sh`):** with `/LTCG`, all `/GL` code is placed
   before every plain object, each group in link order.
 - **Open (evidence, not yet resolved):** `tools/ltcg_scan.py` finds 854 register-argument functions, and 142
