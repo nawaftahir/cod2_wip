@@ -1,0 +1,4 @@
+PASS: rejects removal 0x10018f90
+PASS: rejects removal 0x10018ff0
+PASS: rejects removal 0x100190c0
+PASS: rejects removal 0x10016740

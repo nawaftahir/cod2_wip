@@ -66,6 +66,9 @@ required.update(accepted(cubemap))
 sdk = Path(__file__).resolve().parents[1] / 'proof/sdk_warm_bind.json'
 assert hashlib.sha256(sdk.read_bytes()).hexdigest() == 'f0f99f0338cc61595ded8a1141023b5b8fc2731a305235e33d16ae385ae395aa'
 required.update(accepted(sdk))
+material_pass = Path(__file__).resolve().parents[1] / 'proof/material_pass_warm_bind.json'
+assert hashlib.sha256(material_pass.read_bytes()).hexdigest() == '65be844fa18ed5f18e3f3c8b6bf83f375d5bb0ff6595c74db38013f538304a22'
+required.update(accepted(material_pass))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

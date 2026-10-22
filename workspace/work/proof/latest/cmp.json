@@ -471,6 +471,92 @@
 "hits": []
 },
 {
+"name": "?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z",
+"obj": "r_material_load_obj.obj",
+"size": 89,
+"hits": [
+"0x10018f90"
+]
+},
+{
+"name": "?Material_ParseStreamDestination@@YAEPAPBDPBDPAE@Z",
+"obj": "r_material_load_obj.obj",
+"size": 197,
+"hits": [
+"0x10018ff0"
+]
+},
+{
+"name": "?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z",
+"obj": "r_material_load_obj.obj",
+"size": 216,
+"hits": [
+"0x100190c0"
+]
+},
+{
+"name": "?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z",
+"obj": "r_material_load_obj.obj",
+"size": 599,
+"hits": []
+},
+{
+"name": "?Material_LoadPassVertexShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z",
+"obj": "r_material_load_obj.obj",
+"size": 75,
+"hits": [
+"0x1001aa00"
+]
+},
+{
+"name": "?Material_LoadPassPixelShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z",
+"obj": "r_material_load_obj.obj",
+"size": 75,
+"hits": [
+"0x1001aa50"
+]
+},
+{
+"name": "?Material_LoadPassDx9@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z",
+"obj": "r_material_load_obj.obj",
+"size": 71,
+"hits": []
+},
+{
+"name": "?Material_LoadTechniqueDx9@@YAPAUMaterialTechnique@@PBD@Z",
+"obj": "r_material_load_obj.obj",
+"size": 600,
+"hits": []
+},
+{
+"name": "?Material_LoadTechniqueDx7@@YAPAUMaterialTechnique@@PBD@Z",
+"obj": "r_material_load_obj.obj",
+"size": 589,
+"hits": []
+},
+{
+"name": "?Material_LoadCachedTechnique@@YAPAUMaterialTechnique@@PBD@Z",
+"obj": "r_material_load_obj.obj",
+"size": 101,
+"hits": [
+"0x1001bde0"
+]
+},
+{
+"name": "?Material_LoadTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",
+"obj": "r_material_load_obj.obj",
+"size": 557,
+"hits": []
+},
+{
+"name": "?Material_LoadCachedTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",
+"obj": "r_material_load_obj.obj",
+"size": 79,
+"hits": [
+"0x1001c240"
+]
+},
+{
 "name": "?Material_CreateShader@@YAPAUMaterialShader@@PBDHH@Z",
 "obj": "r_material_shader.obj",
 "size": 708,
@@ -2598,6 +2684,14 @@
 "size": 372,
 "hits": [
 "0x100165c0"
+]
+},
+{
+"name": "?Material_BuildVertexDecls@@YAXPAPAUMaterialVertexDeclaration@@@Z",
+"obj": "r_material.obj",
+"size": 53,
+"hits": [
+"0x10016740"
 ]
 },
 {

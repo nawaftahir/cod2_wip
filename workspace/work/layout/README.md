@@ -1,5 +1,12 @@
 # Layout is part of every reconstruction wave
 
+Material-pass wave,2026-10-22: stream parsing, DX9 pass setup, both technique
+file formats and technique-set/cache source remain in r_material_load_obj.cpp.
+The actual34-byte use mask is owned by r_material.cpp directly after its stream
+tables. The four-layout declaration builder is beside its real device helper
+in that same TU. No additional TU, root/export or library was introduced.
+Candidate ownership is evidence-backed grouping, not historical file-order proof.
+
 Shader creation source wave,2026-10-22: candidate r_material_shader.cpp follows
 r_material_load_obj.cpp in tus.txt, using real SDK interfaces without importing
 the Mac type universe. This split is not claimed as historical TU provenance.

@@ -289,6 +289,56 @@
 "call ?Material_CreateShader@@YAPAUMaterialShader@@PBDHH@Z"
 ]
 },
+"?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z": {
+"t": "0x10018f90",
+"n": 89,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ParseStreamDestination@@YAEPAPBDPBDPAE@Z": {
+"t": "0x10018ff0",
+"n": 197,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z": {
+"t": "0x100190c0",
+"n": 216,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_LoadPassVertexShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z": {
+"t": "0x1001aa00",
+"n": 75,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z"
+]
+},
+"?Material_LoadPassPixelShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z": {
+"t": "0x1001aa50",
+"n": 75,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z"
+]
+},
+"?Material_LoadCachedTechnique@@YAPAUMaterialTechnique@@PBD@Z": {
+"t": "0x1001bde0",
+"n": 101,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_LoadTechniqueDx7@@YAPAUMaterialTechnique@@PBD@Z"
+]
+},
+"?Material_LoadCachedTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z": {
+"t": "0x1001c240",
+"n": 79,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_LoadTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z"
+]
+},
 "?Vec3Add@@YAXPBM0PAM@Z": {
 "t": "0x1000f140",
 "n": 25,
@@ -1220,6 +1270,12 @@
 "?Material_BuildVertexDecl@@YAPAUIDirect3DVertexDeclaration9@@PBUMaterialStreamRouting@@HPBUstream_source_info_t@@@Z": {
 "t": "0x100165c0",
 "n": 372,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_BuildVertexDecls@@YAXPAPAUMaterialVertexDeclaration@@@Z": {
+"t": "0x10016740",
+"n": 53,
 "obj": "r_material.obj",
 "why": []
 },
@@ -11583,9 +11639,9 @@
 "n": 385,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 10177cbc",
-"unresolved 10177cbc",
-"unresolved 10177cbc"
+"unresolved 10178cbc",
+"unresolved 10178cbc",
+"unresolved 10178cbc"
 ]
 },
 "__DllMainCRTStartup@12": {
@@ -11593,7 +11649,7 @@
 "n": 228,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 10177cbc"
+"unresolved 10178cbc"
 ]
 },
 "__amsg_exit": {
@@ -14264,6 +14320,18 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
+"?Material_FindTechniqueSlot@@YA_NPBDPAH@Z": {
+"t": "0x100168e0",
+"n": 96,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_FindTechniqueSetSlot@@YA_NPBDPAH@Z": {
+"t": "0x100169e0",
+"n": 96,
+"obj": "r_material.obj",
+"why": []
+},
 "_DXGetErrorDescription9A@4": {
 "t": "0x100efe3c",
 "n": 11497,
@@ -14304,18 +14372,6 @@
 "t": "0x1000f180",
 "n": 285,
 "obj": "r_staticmodelcache.obj",
-"why": []
-},
-"?Material_FindTechniqueSlot@@YA_NPBDPAH@Z": {
-"t": "0x100168e0",
-"n": 96,
-"obj": "r_material.obj",
-"why": []
-},
-"?Material_FindTechniqueSetSlot@@YA_NPBDPAH@Z": {
-"t": "0x100169e0",
-"n": 96,
-"obj": "r_material.obj",
 "why": []
 },
 "__CIpow": {
@@ -14848,9 +14904,9 @@
 "n": 829,
 "obj": "LIBCMT:memcpy.obj",
 "why": [
-"extent",
 "bind UnwindUpVec+6c",
 "bind UnwindUpVec+7c",
+"bind UnwindUpVec+6c",
 "bind UnwindUpVec+6c"
 ]
 },

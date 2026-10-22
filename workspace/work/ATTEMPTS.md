@@ -1,5 +1,51 @@
 # Reconstruction attempts
 
+## 2026-10-22 connected material-pass/technique source
+
+New accepted C++555 bytes: stream index10018f90/89, destination10018ff0/197,
+source100190c0/216 and declaration build10016740/53. Keep explicit temporary
+created before reloading *declaration: one assignment expression matches MSVC
+but GCC may evaluate its destination before a device callback changes the
+owner. The native pointer-replacement control detected that real distinction.
+Out-of-range stream indices only warn. Cast the index tobyte before adding
+the code base, preserving target wrapping without signed-overflow UB.
+
+Restored DX9 pass setup, both technique-file loaders, technique-set loading
+and both caches, using the existing Material_TechniqueTypeForName. Do not add
+a second label lookup. Primary type mask1018eb34 is34 bytes, zeros27/28/30;
+candidate owner r_material.cpp follows the stream source/destination tables.
+All other type-mask bytes are1. This is data, not additional code credit.
+
+Primary vertex routes reject exactly16 AFTER its lastsemicolon, not before
+parsing it. Route source names use Com_ParseOnLine; destination names use
+Com_Parse. Warning-only index bounds and narrowing are not validation errors.
+Routing remains sorted by source then destination; equal entries are inserted
+before old equals. Reused declarations skip all four device builds.
+
+True technique boundaries: DX9 1001b810..1001ba62 =595, DX7 1001ba70..
+1001bcb3 =580. Inventory588/569 truncates instructions. Bothcap four passes
+without consuming a fifth; bothfree file data before allocating the result.
+DX7 deliberately does NOT write header flags. Technique-set source allocates
+its140-byte header+name BEFORE parsing and does not clear omitted pointers.
+Entirely unused groups skip loading; mixed groups fill every grouped slot.
+EOF with labels pending returns the allocated set, as primary does.
+
+No-inline guards on the real vertex/pixel shader handlers reduce DX9 loader
+742 to600 (primary595); actual primarycalls justify retaining them. This does
+not prove historical annotations. DX7 loader589 vs580 remains unmatched.
+The cached technique's primary has separate branch failure tails; spelling
+them separately improves89 to101, fully masked-equal but dependency-blocked.
+Cached set79 and shader handlers75 each are also byte-equal but unaccepted.
+Vertex routing599 vs587; pass dispatcher71 differs in allocation/convention.
+
+Technique-set source557 vs556 differs in shared colon/semicolon block placement
+and one NOP, not its labels/mask/semantics. A targeted explicit shared-separator
+goto trial produces565 and is reverted. Do not repeat that trial or declaration
+spelling sweeps. No flags, ABI overrides, marker roots or new assembly added.
+Native32 source controls:96 stream/pass,50 technique-file and51 techset/cache
+routes; original failures, partial writes and cleanup are checked separately
+from accepted byte coverage. Source and library counters remain separate.
+
 ## 2026-10-22 connected shader creation source
 
 Added real SDK compiler/device creation source in r_material_shader.cpp with

@@ -1,6 +1,6 @@
 # Renderer progress
 
-## Whole-file shader creation source - 2026-10-22
+## Whole-file material-pass and technique loading - 2026-10-22
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
@@ -8,27 +8,63 @@ new handoffs. Machine proof receipts and technical reference notes stay separate
 
 ### Verified state
 
-- Previous integration checkpoint: `9fd99f1`; workspace consolidation: `084b513`.
-  Current authored C/C++: **100419/253580 bytes (39.601%)**
+- Previous source checkpoint: `b15270e`; workspace consolidation: `084b513`.
+  Current authored C/C++: **100974/253580 bytes (39.819%)**
   against the SUPPORTED game inventory, not the entire DLL.
-- Mixed C/C++ and authored assembly:616 game bodies,108206 bytes.
-  Assembly is excluded from the C/C++ meter. This wave adds **zero game C/C++ bytes**.
-- Original SDK reuse adds **433 verified library extents /67471 bytes**.
-  All824 previous protected extents survive; the ratchet now protects **1257**.
-  Unique verified engine+library extents cover356338/1089680 retail .text bytes
-  (**32.701%**, relocation-normalized; NOT whole-file identity or authored C++).
+- Mixed C/C++ and authored assembly:620 game bodies,108761 bytes.
+  Assembly is excluded from the C/C++ meter. This wave adds **555 C/C++ bytes**
+  in four bodies;589 accepted bodies are ordinary C/C++.
+- Prior SDK reuse added433 verified library extents /67471 bytes; none are
+  relabeled game source. All1257 prior extents survive; the ratchet now protects
+  **1261**. Four removal negatives reject loss of any new body.
+  Unique verified engine+library extents cover356893/1089680 retail .text bytes
+  (**32.752%**, relocation-normalized; NOT whole-file identity or authored C++).
 - The previous **66** fixtures passed after a forced same-output rebuild; warm/fresh
   binding JSONs are identical. Three removal negatives reject loss of either
   CRT exception-table caller or a new SDK body. No new assembly definitions
   or relaxed binding ownership.
-- Current source-wave receipt: `target/work/proof/shader_creation_checkpoint.json`.
+- Current source-wave receipt: `target/work/proof/material_pass_checkpoint.json`.
   The accepted SDK checkpoint is `target/work/proof/sdk_checkpoint.json`. Current referees:
   `target/work/proof/latest/`. Layout: `target/work/layout/current.json`.
 - **Whole-file retail SHA does not match. No release or runtime proof.**
 
 ### Actual whole-file work completed
 
-New source wave (not new accepted game bytes):
+Current source wave:
+
+- Four new accepted bodies: stream-index parsing10018f90/89, destination
+  parsing10018ff0/197, source parsing100190c0/216, and four-layout declaration
+  building10016740/53. Index bounds warn but do not reject; narrow before
+  adding to preserve byte wrapping without signed-overflow UB. The builder
+  reloads the actual declaration pointer after each device call.
+- Restored complete DX9 pass loading: state map, sorted vertex routes, vertex
+  shader/arguments, then pixel shader/arguments. Exactly16 routes is rejected
+  after parsing its final semicolon; zero routes and reused declarations follow
+  the original paths. This does not mean the whole pass is byte-verified.
+- Restored DX9 and DX7 technique-file loading, both capped at four passes and
+  freeing file data before final allocation. The original DX7 path does not
+  write technique flags; the DX9 path accumulates shader flags. Original full
+  boundaries are595/580 bytes, not inventory588/569.
+- Restored technique-set loading and both cache layers. Quoted groups may
+  share one technique; wholly inactive groups skip loading. Mixed active and
+  inactive labels all receive the same loaded technique. Primary34-byte use
+  mask lives beside material stream tables; existing type-name lookup is reused.
+  Error cleanup and the original EOF-with-pending-label behavior are preserved.
+- New native32 source fixtures pass96 routing/pass cases,50 technique-file
+  cases and51 technique-set/cache cases. All71 fixtures passed after the
+  final build, including source attribution and all prior source fixtures.
+- Byte-equal but unaccepted: shader handlers75 each, cached technique101,
+  cached set79 and pass-shader parser266; their unresolved dependencies still
+  block binding. Vertex-route loader599 vs587, technique loaders600/589 vs
+  595/580, technique-set557 vs556 and pass dispatcher71 remain drafts.
+- Keeping real shader handlers out of line reduces DX9 technique742 to600;
+  primary calls justify this guard, not historical annotation provenance.
+  A shared-separator goto trial worsens557 to565 and is removed. Do not repeat.
+- Stages1-3 are NOT complete. Material loading now has a much larger connected
+  source path; the real GetRefAPI entrypoint is still missing. Never add dummy
+  callbacks or a partial table to claim stage3. Whole-file/API/GPU proof remains open.
+
+Previous shader creation source wave (no new accepted game bytes then):
 
 - Added `src/gfx_d3d/r_material_shader.cpp`: real cached shader compilation,
   original PC macros/include callbacks, compiler warnings, FP restoration,
@@ -173,8 +209,8 @@ Do connected source work next, not another parser/report framework.
 
 Anchor SHA256:
 `4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6`.
-Current shader-source candidate SHA256:
-`27a70d2ec52c5d410b4e8bed1214501cedae5a058aee00f939d32e1d68af9b2f`.
+Current material-source candidate SHA256:
+`070ae3b624fb297cc62d968779b80d095204140b990869f50a5cef6c9259067c`.
 Relinking can change debug/timestamp bytes; current actual SHA is in
 layout/current.json; immutable receipts keep historical build measurements.
 

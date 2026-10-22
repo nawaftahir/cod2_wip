@@ -21,23 +21,23 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current checkpoint:target/work/proof/shader_creation_checkpoint.json; previous accepted SDK receipt
+Current checkpoint:target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
 e433c14. Readable source is target/work/src; some functions are still unmatched
-drafts. All1257 protected source/library extents survive (433 new SDK/runtime
+drafts. All1261 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
-Accepted authored C/C++:100419/253580 game bytes,39.600520546%. This is not a
+Accepted authored C/C++:100974/253580 game bytes,39.819386387%. This is not a
 whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 
 | Whole-file component | Retail | Current candidate |
 | --- | --- | --- |
-| File length |1851392 bytes |1613824 bytes |
+| File length |1851392 bytes |1617920 bytes |
 | Named exports |GetRefAPI only |158 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |876562 |
-| .rdata virtual length |595105 |589652 |
+| .text virtual length |1089680 |879954 |
+| .rdata virtual length |595105 |590276 |
 | .data virtual length, including zero-initialized storage |6086100 |3685652 |
-| .reloc virtual length |95704 |78342 |
+| .reloc virtual length |95704 |78548 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
@@ -48,7 +48,7 @@ by the game. Latest detailed measurements:target/work/layout/current.json.
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local
    historical referee inputs keep their original hashes. Run both unchanged
-   referees, all1257 protected extents and actual-source fixtures. Missing old
+   referees, all1261 protected extents and actual-source fixtures. Missing old
    research folders must not silently disable a gate. Never delete another
    agent's work or reset the owner's staged changes.
 

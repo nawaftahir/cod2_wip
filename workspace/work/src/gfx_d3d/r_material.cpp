@@ -127,6 +127,13 @@ static const stream_dest_info_t s_streamDestInfo[12] =
     { D3DDECLUSAGE_TEXCOORD, 7 },
 };
 
+// PINNED 1018eb34: retained technique types; three debug-only routes are unused.
+extern const byte g_useTechnique[34] =
+{
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,1,1
+};
+
 static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl(const MaterialStreamRouting *routingData, int streamCount, const stream_source_info_t *sourceTable)
 {
     D3DVERTEXELEMENT9 declEnd;
@@ -170,6 +177,17 @@ static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl(const MaterialStrea
         dx.device->CreateVertexDeclaration(elemTable, &decl);
     } while (alwaysfails);
     return decl;
+}
+
+// PINNED 10016740: reload the declaration pointer after each device call.
+void Material_BuildVertexDecls(MaterialVertexDeclaration **declaration)
+{
+    for (int type = 0; type < 4; ++type)
+    {
+        IDirect3DVertexDeclaration9 *created = Material_BuildVertexDecl(
+            (*declaration)->routingData, (*declaration)->streamCount, s_streamSourceInfo[type]);
+        (*declaration)->decl[type] = created;
+    }
 }
 
 void Material_ReloadAll()

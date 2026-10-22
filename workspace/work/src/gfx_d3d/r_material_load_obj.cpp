@@ -59,6 +59,15 @@ extern const float *Material_RegisterLiteral(const float *literal);
 extern MaterialShader *Material_FindShader(const char *name, int shaderType, int shaderVersion);
 extern void Material_SetShader(const char *name, int shaderType, int shaderVersion, MaterialShader *shader);
 extern MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion);
+extern char *Com_ParseOnLine(const char **text);
+extern MaterialVertexDeclaration *Material_AllocVertexDecl(MaterialStreamRouting *routing, int count, Bool *existing);
+extern void Material_BuildVertexDecls(MaterialVertexDeclaration **declaration);
+extern MaterialTechnique *Material_FindTechnique(const char *name);
+extern void Material_SetTechnique(const char *name, MaterialTechnique *technique);
+extern MaterialTechniqueSet *Material_FindTechniqueSet(const char *name);
+extern void Material_SetTechniqueSet(const char *name, MaterialTechniqueSet *set);
+extern const byte g_useTechnique[34];
+extern void Com_SetKeepStringQuotes(qboolean enabled);
 extern MaterialStateMap *Material_FindStateMap(const char *name);
 extern void Material_SetStateMap(const char *name, MaterialStateMap *stateMap);
 Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argument);
@@ -1499,5 +1508,372 @@ Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *sh
     Bool success = Material_ParseShaderArguments(text, shader->name, table, techFlags, *arguments);
     constants->Release();
     return success;
+}
+
+// PINNED 10018f90: out-of-range indices warn but still parse the closing bracket.
+Bool Material_ParseStreamIndex(const char **text, int count, int *index)
+{
+    if (!Com_MatchToken(text, "[", 1))
+        return 0;
+    *index = Com_ParseInt(text);
+    if (*index < 0 || *index >= count)
+        Com_ScriptWarning("index '%i' is not in the range [0, %i]\n", *index, count - 1);
+    return Com_MatchToken(text, "]", 1) != 0;
+}
+
+// PINNED 10018ff0: destination indices narrow to bytes after warning-only bounds.
+Bool Material_ParseStreamDestination(const char **text, const char *name, byte *destination)
+{
+    if (!strcmp(name, "position"))
+        *destination = 0;
+    else if (!strcmp(name, "normal"))
+        *destination = 1;
+    else if (!strcmp(name, "color"))
+    {
+        int index;
+        if (!Material_ParseStreamIndex(text, 2, &index))
+            return 0;
+        *destination = (byte)index + 2;
+    }
+    else if (!strcmp(name, "texcoord"))
+    {
+        int index;
+        if (!Material_ParseStreamIndex(text, 8, &index))
+            return 0;
+        *destination = (byte)index + 4;
+    }
+    else
+    {
+        Com_ScriptWarning("unknown stream destination '%s'\n", name);
+        return 0;
+    }
+    return 1;
+}
+
+// PINNED 100190c0: tangent/binormal source codes are6/5; texcoord starts at3.
+Bool Material_ParseStreamSource(const char **text, const char *name, byte *source)
+{
+    if (!strcmp(name, "position"))
+        *source = 0;
+    else if (!strcmp(name, "normal"))
+        *source = 1;
+    else if (!strcmp(name, "tangent"))
+        *source = 6;
+    else if (!strcmp(name, "binormal"))
+        *source = 5;
+    else if (!strcmp(name, "color"))
+        *source = 2;
+    else if (!strcmp(name, "texcoord"))
+    {
+        int index;
+        if (!Material_ParseStreamIndex(text, 2, &index))
+            return 0;
+        *source = (byte)index + 3;
+    }
+    else
+    {
+        Com_ScriptWarning("unknown stream source '%s'\n", name);
+        return 0;
+    }
+    return 1;
+}
+
+// PINNED 100191a0: sorted two-byte routes; the sixteenth mapping is rejected.
+Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass)
+{
+    MaterialStreamRouting routing[16];
+    int count = 0;
+    for (;;)
+    {
+        const char *token = Com_Parse(text);
+        if (strcmp(token, "vertex"))
+        {
+            Com_UngetToken();
+            Bool existing;
+            pass->vertexDecl = Material_AllocVertexDecl(routing, count, &existing);
+            if (!existing)
+                Material_BuildVertexDecls(&pass->vertexDecl);
+            return 1;
+        }
+        byte destination;
+        byte source;
+        if (!Com_MatchToken(text, ".", 1)
+            || !Material_ParseStreamDestination(text, Com_Parse(text), &destination)
+            || !Com_MatchToken(text, "=", 1) || !Com_MatchToken(text, "code", 1)
+            || !Com_MatchToken(text, ".", 1)
+            || !Material_ParseStreamSource(text, Com_ParseOnLine(text), &source)
+            || !Com_MatchToken(text, ";", 1))
+            return 0;
+        int index = count;
+        while (index > 0 && (routing[index - 1].source > source
+                || (routing[index - 1].source == source && routing[index - 1].dest >= destination)))
+        {
+            routing[index] = routing[index - 1];
+            --index;
+        }
+        routing[index].source = source;
+        routing[index].dest = destination;
+        if (++count == 16)
+        {
+            Com_ScriptWarning("More than %i vertex mappings\n", count);
+            return 0;
+        }
+    }
+}
+
+// PINNED 1001aa00: publish the shader before parsing its arguments.
+__declspec(noinline) Bool Material_LoadPassVertexShader(const char **text, MaterialPassDx9 *pass, byte *techFlags)
+{
+    if (!Com_MatchToken(text, "vertexShader", 1))
+        return 0;
+    MaterialShader *shader = Material_LoadPassShader(text, 0);
+    if (!shader)
+        return 0;
+    pass->vertexShader = shader;
+    return Material_SetPassShaderArguments(text, shader, techFlags, &pass->vertexArgCount, &pass->vertexArgs);
+}
+
+// PINNED 1001aa50: pixel arguments have their own count and pointer fields.
+__declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, MaterialPassDx9 *pass, byte *techFlags)
+{
+    if (!Com_MatchToken(text, "pixelShader", 1))
+        return 0;
+    MaterialShader *shader = Material_LoadPassShader(text, 1);
+    if (!shader)
+        return 0;
+    pass->pixelShader = shader;
+    return Material_SetPassShaderArguments(text, shader, techFlags, &pass->pixelArgCount, &pass->pixelArgs);
+}
+
+// PINNED 1001aaa0: state, declaration, vertex shader, then pixel shader.
+Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags)
+{
+    if (!Material_LoadPassStateMap(text, &pass->stateMap)
+        || !Material_LoadPassVertexDecl(text, pass)
+        || !Material_LoadPassVertexShader(text, pass, techFlags))
+        return 0;
+    return Material_LoadPassPixelShader(text, pass, techFlags) != 0;
+}
+
+// PINNED 1001b810..1001ba62: four passes maximum; do not consume a fifth.
+MaterialTechnique *Material_LoadTechniqueDx9(const char *name)
+{
+    char path[64];
+    void *fileData;
+    Com_sprintf(path, sizeof(path), "materials/techniques/%s.tech", name);
+    if (ri.FS_ReadFile(path, &fileData) < 0)
+    {
+        Com_ScriptWarning("Couldn't open technique '%s'\n", path);
+        return 0;
+    }
+    const char *text = (const char *)fileData;
+    Com_BeginParseSession(path);
+    Com_SetScriptWarningPrefix("^1ERROR: ");
+    Com_SetSpaceDelimited(0);
+    unsigned short flags = 0;
+    unsigned short count = 0;
+    MaterialPassDx9 passes[4];
+    Bool error = 0;
+    do
+    {
+        const char *token = Com_Parse(&text);
+        if (!token[0])
+            break;
+        if (token[0] != '{')
+        {
+            Com_ScriptWarning("expected '{' but found '%s'\n", token);
+            error = 1;
+            break;
+        }
+        if (!Material_LoadPassDx9(&text, &passes[count], (byte *)&flags)
+            || !Com_MatchToken(&text, "}", 1))
+        {
+            error = 1;
+            break;
+        }
+        ++count;
+    } while (count < 4);
+    Com_EndParseSession();
+    ri.FS_FreeFile(fileData);
+    if (error)
+        return 0;
+    if (!count)
+    {
+        Com_ScriptWarning("Technique '%s' has no passes.  The technique should be left blank in the techniqueset instead.\n", name);
+        return 0;
+    }
+    int passSize = count * sizeof(MaterialPassDx9);
+    int nameSize = strlen(name) + 1;
+    MaterialTechnique *technique = (MaterialTechnique *)ri.Hunk_AllocInternal(8 + passSize + nameSize);
+    technique->name = (char *)technique + 8 + passSize;
+    memcpy((void *)technique->name, name, nameSize);
+    technique->flags = flags;
+    technique->passCount = count;
+    memcpy(&technique->passArray, passes, passSize);
+    return technique;
+}
+
+// PINNED 1001ba70..1001bcb3: DX7 does not write technique->flags.
+MaterialTechnique *Material_LoadTechniqueDx7(const char *name)
+{
+    char path[64];
+    void *fileData;
+    Com_sprintf(path, sizeof(path), "materials_dx7/techniques/%s.tech", name);
+    if (ri.FS_ReadFile(path, &fileData) < 0)
+    {
+        Com_ScriptWarning("Couldn't open technique '%s'\n", path);
+        return 0;
+    }
+    const char *text = (const char *)fileData;
+    Com_BeginParseSession(path);
+    Com_SetScriptWarningPrefix("^1ERROR: ");
+    Com_SetSpaceDelimited(0);
+    unsigned short count = 0;
+    MaterialPassDx7 passes[4];
+    Bool error = 0;
+    do
+    {
+        const char *token = Com_Parse(&text);
+        if (!token[0])
+            break;
+        if (token[0] != '{')
+        {
+            Com_ScriptWarning("expected '{' but found '%s'\n", token);
+            error = 1;
+            break;
+        }
+        if (!Material_LoadPassDx7(&text, &passes[count]) || !Com_MatchToken(&text, "}", 1))
+        {
+            error = 1;
+            break;
+        }
+        ++count;
+    } while (count < 4);
+    Com_EndParseSession();
+    ri.FS_FreeFile(fileData);
+    if (error)
+        return 0;
+    if (!count)
+    {
+        Com_ScriptWarning("Technique '%s' has no passes.  The technique should be left blank in the techniqueset instead.\n", name);
+        return 0;
+    }
+    int passSize = count * sizeof(MaterialPassDx7);
+    int nameSize = strlen(name) + 1;
+    MaterialTechnique *technique = (MaterialTechnique *)ri.Hunk_AllocInternal(8 + passSize + nameSize);
+    technique->name = (char *)technique + 8 + passSize;
+    memcpy((void *)technique->name, name, nameSize);
+    technique->passCount = count;
+    memcpy(&technique->passArray, passes, passSize);
+    return technique;
+}
+
+// PINNED 1001bde0: cached techniques bypass renderer selection and file loading.
+MaterialTechnique *Material_LoadCachedTechnique(const char *name)
+{
+    MaterialTechnique *technique = Material_FindTechnique(name);
+    if (technique)
+        return technique;
+    if (r_rendererInUse->current.integer == 2)
+    {
+        technique = Material_LoadTechniqueDx7(name);
+        if (!technique)
+            return 0;
+    }
+    else
+    {
+        technique = Material_LoadTechniqueDx9(name);
+        if (!technique)
+            return 0;
+    }
+    Material_SetTechnique(name, technique);
+    return technique;
+}
+
+// PINNED 1001c010..1001c23b: grouped labels share one technique; inactive groups skip loading.
+MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
+{
+    char path[64];
+    void *fileData;
+    Com_sprintf(path, sizeof(path), r_rendererInUse->current.integer == 2
+        ? "materials_dx7/techniquesets/%s.techset" : "materials/techniquesets/%s.techset", name);
+    if (ri.FS_ReadFile(path, &fileData) < 0)
+    {
+        Com_Printf("^1ERROR: Couldn't open techniqueSet '%s'\n", path);
+        return 0;
+    }
+    int nameSize = strlen(name) + 1;
+    MaterialTechniqueSet *set = (MaterialTechniqueSet *)ri.Hunk_AllocInternal(sizeof(MaterialTechniqueSet) + nameSize);
+    set->name = (const char *)(set + 1);
+    memcpy((void *)set->name, name, nameSize);
+    const char *text = (const char *)fileData;
+    Com_BeginParseSession(path);
+    Com_SetScriptWarningPrefix("^1ERROR: ");
+    Com_SetSpaceDelimited(0);
+    Com_SetKeepStringQuotes(1);
+    int labelCount = 0;
+    int labels[34];
+    Bool used = 0;
+    for (;;)
+    {
+        const char *token = Com_Parse(&text);
+        if (!token[0])
+            break;
+        if (token[0] == '"')
+        {
+            if (labelCount == 34)
+            {
+                Com_ScriptWarning("Too many labels in technique set\n");
+                set = 0;
+                break;
+            }
+            unsigned int type = Material_TechniqueTypeForName(token);
+            labels[labelCount] = type;
+            if (type == 34)
+                goto unknown_type;
+            if (g_useTechnique[type])
+                used = 1;
+            ++labelCount;
+            if (!Com_MatchToken(&text, ":", 1))
+                goto parse_error;
+            continue;
+        }
+        if (!labelCount)
+            goto unknown_type;
+        if (used)
+        {
+            MaterialTechnique *technique = Material_LoadCachedTechnique(token);
+            if (!technique)
+                goto parse_error;
+            for (int index = 0; index < labelCount; ++index)
+                set->techniques[labels[index]] = technique;
+        }
+        labelCount = 0;
+        used = 0;
+        if (!Com_MatchToken(&text, ";", 1))
+            goto parse_error;
+        continue;
+unknown_type:
+        Com_ScriptWarning("Unknown technique type '%s'\n", token);
+parse_error:
+        set = 0;
+        break;
+    }
+    Com_EndParseSession();
+    ri.FS_FreeFile(fileData);
+    return set;
+}
+
+// PINNED 1001c240..1001c28e: failed loads are never inserted into the cache.
+MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name)
+{
+    MaterialTechniqueSet *set = Material_FindTechniqueSet(name);
+    if (set)
+        return set;
+    set = Material_LoadTechniqueSet(name);
+    if (!set)
+        return 0;
+    Material_SetTechniqueSet(name, set);
+    return set;
 }
 
