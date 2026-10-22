@@ -262,7 +262,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "cb493b035b55e9672337c890b33190dedf77024f4e827247846219649ec575b4",
   "regression_sha256": "0b02122f6e8f7a685a9e3d9d7d8121ee90bfe81efbde5f36e04ebde6875a2630",
-  "bind_sha256": "7896c2b0d6673e0221d3ceacacc77ed9ca2f467929320b2d9f7fcf2da8a658e1",
+  "bind_sha256": "f0f99f0338cc61595ded8a1141023b5b8fc2731a305235e33d16ae385ae395aa",
   "source_sha256": {
     "profile.mk": "6015c8ee2fbf36f8dbe127d0fac090714f50d92cbbf6e758ca3b3db72e7cc420",
     "roots.txt": "60409bfc5f3ab6badc4dbca18a046006c409a91af8da712c3a5cb944e49b071a",
@@ -314,7 +314,7 @@
     "gfx_d3d/r_bsp.cpp": "16a63d77e5ae145ecd4fd4efe8e42b3a63645ef833941dba16aa9e486829d2df",
     "gfx_d3d/r_material.cpp": "33b00b70e2580b8d206de6f33dfe2c89b3225f68329b3aa296805b2172745794",
     "gfx_d3d/r_material_state_tables.h": "2d19ad921b5ae1f8cf0a1c6b43a466243c00a8d30126d18835720ea5478ae0a2",
-    "gfx_d3d/r_material_load_obj.cpp": "98de94b55a9d1160d99cf0113f7e44e91ca647d7150cebbfe44f5f55cae2413c",
+    "gfx_d3d/r_material_load_obj.cpp": "58ba7d26fe63998786e075f68e0d1e298b00902100b6e6c622dff6be431471dc",
     "gfx_d3d/r_xsurface_optimize.cpp": "12405d8c0e4e9f8641ac5ed79ae2180ac95368f60dd7169b7152e875b1b8d63c",
     "gfx_d3d/r_flares.cpp": "55f7a278e82e5f4a540f797c82b7d03a89ab66521c63b22bbcf2eaf66bfe99b7",
     "gfx_d3d/r_rendercmds.cpp": "71665a7f1d673e97920b466cbc9873e15b585677918761de165b10a32103775b",

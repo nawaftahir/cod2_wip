@@ -61,7 +61,7 @@ def overlaps_reloc(address, size, relocbytes):
     return any(address + i in relocbytes for i in range(size))
 
 # every symbol with its object, for resolving relocation targets
-syms = []
+syms, contribution_sizes = [], {}
 for line in open(mapf, errors='replace'):
     m = re.match(r'\s*[0-9a-f]{4}:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8})\s+(f\s+)?(?:i\s+)?(\S+)\s*$', line)
     if m and int(m.group(2), 16) >= obase + 0x1000:
@@ -74,6 +74,15 @@ if pdb:
         if kind in ('ldata', 'gdata') and name and va not in have:
             lib = mod.lower().endswith('.lib') or '\\lib\\' in mod.lower()
             syms.append((va, name, 'LIB:' + mod if lib else '?' + mod, False)); have.add(va)
+    named = sorted(have)
+    for va, size, flags, mod in pdbsyms.contributions(ours, pdb):
+        i = bisect.bisect_left(named, va)
+        if (secname(osecs, va) not in ('.rdata', '.data') or
+                i < len(named) and named[i] < va + size):
+            continue
+        name = f'$pdb_contribution${mod}@{va:x}'
+        syms.append((va, name, '?' + mod, False))
+        contribution_sizes[name] = size
 syms.sort()
 svas = [s[0] for s in syms]
 starts = {}
@@ -87,7 +96,18 @@ def resolve(va):
         return None
     s = syms[i]
     nxt = next((v for v in svas[i + 1:] if v > s[0]), None)
-    return s[1], va - s[0], s[0], (nxt - s[0]) if nxt else 0
+    size = (nxt - s[0]) if nxt else 0
+    if s[1] in contribution_sizes:
+        count = contribution_sizes[s[1]]
+        if va - s[0] >= count:
+            return None
+        size = min(size, count) if size else count
+    if s[1].startswith('??_C@'):
+        count = string_size(s[1])
+        if count is None or va - s[0] >= count:
+            return None
+        size = min(size, count) if size else count
+    return s[1], va - s[0], s[0], size
 
 
 glm = json.load(open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), '../../glm/data/functions_gfx10.json')))['functions']
@@ -318,6 +338,21 @@ datacache = {}
 nested_forward, nested_reverse, nested_done = {}, {}, set()
 
 
+def interior_code(op, tp):
+    """A compiler label must keep its exact offset inside one matched function."""
+    owners = [row for row in results.values()
+              if row['va'] < op < row['va'] + row['n']
+              and row['t'] + op - row['va'] == tp]
+    if len(owners) != 1:
+        return False
+    owner = owners[0]
+    code = read(osecs, owner['va'], owner['n'])
+    if not any(ins.address == op for ins in md.disasm(code, owner['va'])):
+        return False
+    r['calls'].append((owner['va'], owner['t']))
+    return True
+
+
 def nested_data(op, tp):
     """Compare a relocated pointer's complete named data-object graph."""
     resolved = resolve(op)
@@ -363,7 +398,7 @@ def nested_data(op, tp):
                     if secname(asecs, q) != '.text':
                         return False
                     if not (placedat.get(p) == q or p not in placedat and
-                            p in multi and masked_eq(p, q, multi[p]['size'])):
+                            p in multi and masked_eq(p, q, multi[p]['size']) or interior_code(p, q)):
                         return False
                     r['calls'].append((p, q))
                 elif not nested_data(p, q):
@@ -410,7 +445,8 @@ for name, r in results.items():
                             if secname(osecs, op) == '.text':
                                 # code pointer: the function there must be placed at the target's pointee
                                 ok = tbase + k in arel and (placedat.get(op) == tp or op not in placedat and
-                                                            op in multi and masked_eq(op, tp, multi[op]['size']))
+                                                            op in multi and masked_eq(op, tp, multi[op]['size']) or
+                                                            interior_code(op, tp))
                             else:
                                 ok = tbase + k in arel and nested_data(op, tp)
                             k += 4

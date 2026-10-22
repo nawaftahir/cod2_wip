@@ -1,5 +1,36 @@
 # Reconstruction attempts
 
+## 2026-10-22 shader SDK integration
+
+Material_SetPassShaderArguments is now real compiled source, not a fixture-only
+wrapper. It links original Summer2004 D3DX shader members. The217-byte body
+still differs in Release/parser register allocation; no game-source credit.
+Do not count the SDK bytes as authored game C/C++. The SDK entry itself is
+not binding-closed: D3DXGetShaderConstantTable -> operator new remains unverified.
+
+Original nested ownership was NOT relaxed. A proposed equal-string-copy
+relaxation was rejected and removed; its test is archived, not active.
+The actual failure was a5-byte fabs literal incorrectly owning72 bytes up to
+the next symbol. Four unrelated, already-unaccepted CRT refs then poisoned
+its target base. Encoded string bounds now reject that attribution. This exposed
+two prior false string associations: has_osfxsr_set and RTC_Initialize actually
+reference12-byte SEH tables. Linked PDB section contributions and original
+VC7.1 LIBCMT COFF symbols independently confirm both spans and their owners.
+Anonymous contributions are accepted only where no named symbol occupies the
+span; full data/relocation checks remain. Interior filter/handler pointers must
+keep an instruction-boundary offset in one uniquely matched enclosing function;
+that function is added to the existing verification fixpoint. No gate threshold
+or binding ownership exception was introduced. All824 old extents survive.
+
+Next primary source:1001a4c0/705 is the shader compiler/creation routine, not
+the reference's combined parse/cache loader. It takes filename/type/version;
+PC defines are {"PC", "",0,0}; include vtable is101948ec (Open100182c0,
+Close10018310). D3DXCompileShader target10062b59. It restores FP state, reports
+compiler messages, checks result/code/constants, allocates16+code+name bytes,
+and calls device slot91 or106. Read primary before adopting Mac/web source:
+those references include extra HLSL defines, path rewriting and platform fixes
+absent here. Unusual failure cleanup/leaks must not be silently fixed.
+
 ## 2026-10-21 world/sun/history source gain — paused
 
 Accepted309 new C++ bytes: model maximum-surface helper73, sun reset158 and

@@ -31,6 +31,32 @@ def records(buf):
 DATA = {0x110c: 'ldata', 0x110d: 'gdata', 0x1007: 'ldata', 0x1008: 'gdata',
         0x110f: 'lproc', 0x1110: 'gproc', 0x100a: 'lproc', 0x100b: 'gproc'}
 
+def contributions(dll, pdb):
+    """Exact linked section contributions, including unnamed compiler tables."""
+    pe = pefile.PE(dll, fast_load=True)
+    dbi = msf_streams(pdb)[3]
+    modsz, size = struct.unpack_from('<ii', dbi, 24)
+    modules, i = [], 64
+    while i < 64 + modsz:
+        first = dbi.index(b'\0', i + 64)
+        end = dbi.index(b'\0', first + 1)
+        modules.append(dbi[i + 64:first].decode('latin1'))
+        i = (end + 4) & ~3
+    data = dbi[64 + modsz:64 + modsz + size]
+    if not data:
+        return
+    if data[:4] != struct.pack('<I', 0xf12eba2d) or (len(data) - 4) % 28:
+        raise ValueError('Unsupported PDB section contribution format')
+    for i in range(4, len(data), 28):
+        seg, _, off, count, flags, mod, _, _, _ = struct.unpack_from('<HHIIIHHII', data, i)
+        if not 1 <= seg <= len(pe.sections) or mod >= len(modules):
+            raise ValueError('Invalid PDB section contribution owner')
+        section = pe.sections[seg - 1]
+        if off + count > section.Misc_VirtualSize:
+            raise ValueError('PDB contribution exceeds linked section')
+        if count:
+            yield pe.OPTIONAL_HEADER.ImageBase + section.VirtualAddress + off, count, flags, modules[mod]
+
 def syms(dll, pdb):
     pe = pefile.PE(dll, fast_load=True)
     base = pe.OPTIONAL_HEADER.ImageBase

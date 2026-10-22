@@ -1,6 +1,6 @@
 # Renderer progress
 
-## Whole-file cubemap/gamma wave - 2026-10-22
+## Whole-file shader SDK integration - 2026-10-22
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
@@ -8,21 +8,43 @@ new handoffs. Machine proof receipts and technical reference notes stay separate
 
 ### Verified state
 
-- Previous source checkpoint: `5f9724e`; workspace consolidation: `084b513`.
+- Previous source checkpoint: `e433c14`; workspace consolidation: `084b513`.
   Current authored C/C++: **100419/253580 bytes (39.601%)**
   against the SUPPORTED game inventory, not the entire DLL.
 - Mixed C/C++ and authored assembly:616 game bodies,108206 bytes.
-  Assembly is excluded from the C/C++ meter. This wave adds **188 C/C++ bytes**.
-- All822 previous protected extents retained; the ratchet now protects **824**.
-  Negative controls reject removal of either new body.
-- All **63** source/audit fixtures passed after a forced same-output rebuild.
-  Warm/rebuilt binding JSON hashes are identical. No new assembly definitions
-  or relaxed referee. The C/C++ attribution check is now mandatory in build.sh.
-- Current receipt: `target/work/proof/cubemap_checkpoint.json`. Current referees:
+  Assembly is excluded from the C/C++ meter. This wave adds **zero game C/C++ bytes**.
+- Original SDK reuse adds **433 verified library extents /67471 bytes**.
+  All824 previous protected extents survive; the ratchet now protects **1257**.
+  Unique verified engine+library extents cover356338/1089680 retail .text bytes
+  (**32.701%**, relocation-normalized; NOT whole-file identity or authored C++).
+- All **66** fixtures passed after a forced same-output rebuild; warm/fresh
+  binding JSONs are identical. Three removal negatives reject loss of either
+  CRT exception-table caller or a new SDK body. No new assembly definitions
+  or relaxed binding ownership.
+- Current receipt: `target/work/proof/sdk_checkpoint.json`. Current referees:
   `target/work/proof/latest/`. Layout: `target/work/layout/current.json`.
 - **Whole-file retail SHA does not match. No release or runtime proof.**
 
 ### Actual whole-file work completed
+
+- Material_SetPassShaderArguments is compiled from the real source tree, no
+  longer appended from a test-only fixture. Its real D3DX shader-table call
+  pulls original Summer2004 SDK objects, growing candidate .text from437792
+  to875554 bytes. This is library reuse, not newly authored game source.
+- The217-byte wrapper still differs in register allocation. Its SDK entry
+  also fails binding closure through operator new. Neither is counted as a
+  match; the433 accepted library extents are independently verified bodies.
+- Corrected a literal-bounds bug exposed by the new library layout. The old
+  checker attributed unnamed data after a5-byte fabs string to the string.
+  Bounds now reject that. Two real12-byte CRT exception tables get their exact
+  extents/owners from linked PDB contributions, independently confirmed against
+  original VC7.1 COFF records. Their internal code labels must keep exact
+  instruction offsets inside one matched owner, with a verification dependency.
+  Full data/pointer checks and one-to-one ownership remain; no old gate removed.
+- Warm candidate raw same-file-offset equality rises from2.044% to7.863%.
+  This diagnostic includes headers/data/debug and is NOT source completion.
+
+Previous cubemap/gamma source checkpoint:
 
 - New accepted source: BGRA vertical flip100266f0/97 and hardware gamma
   upload100307e0/91. The uploader copies the real512-byte GfxGammaRamp into
@@ -86,12 +108,12 @@ Unrelated staged work is preserved, not bundled into this cleanup. No push.
    slots: 98 written callbacks, ten initial zeros.54 written slots have accepted
    implementations; unverified does not mean source absent. Use primary code
    and `target/work/layout/api_callbacks.tsv`; never guess signatures or stub bodies.
-2. Prioritize genuine shader SDK entrypoints to pull original library members,
-   not library-internal reconstruction. The existing tested shader-table wrapper
-   is still in tests/fixtures/unaccepted_shader_wrapper.cpp; earlier integration
-   disturbed a CRT data binding. Reproduce that precise dependency/ownership
-   failure and resolve it honestly before scaling shader source. Do not simply
-   bypass the referee or import whole unverified reference trees.
+2. Complete shader creation at1001a4c0/705 using the primary binary, not the
+   references' combined parse/cache/platform loader. Actual PC defines are
+   {"PC","",0,0}. Its real D3DXCompileShader call should establish further SDK
+   reachability. Include Open already exists; Close is the genuine zero-return
+   callback10018310. Preserve original failure cleanup. Resolve the table
+   wrapper's register choices and SDK operator-new closure without syntax sweeps.
 3. Replace temporary roots with genuine reachability as connected groups close,
    retaining all accepted extents. Candidate has158 exports and no GetRefAPI;
    retail exports only GetRefAPI. Recover TU/data/library ownership alongside code.
@@ -119,13 +141,18 @@ Do connected source work next, not another parser/report framework.
 
 Anchor SHA256:
 `4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6`.
-Latest candidate SHA256:
-`3076306cda3d65f4e647e7d9cd8bd48d8f1355e8e0dcda5e46d32377dac918a7`.
+Warm SDK candidate SHA256:
+`91048bae1fef422f35b10a82f667081617ec0b69fd6a51a1398b086071d8363c`.
+Relinking can change debug/timestamp bytes; current actual SHA is in
+layout/current.json and the immutable SDK receipt records both builds.
 
 ### Limits
 
-Forced full compilation in the one existing build passed; no independent fresh
-checkout replay or client/GPU smoke test. Historical layout receipts are frozen
+Forced compilation passed in the one existing output; no independent fresh
+checkout replay or client/GPU smoke test. Do not run receipt-dependent fixtures
+against a simultaneously rebuilding DLL: the source-coverage freshness check
+correctly rejected that intermediate state; the post-build full rerun passed.
+Historical layout receipts are frozen
 in proof rather than pointing at the mutable layout/current.json.
 No reliable whole-project completion percentage or release date is established.
 Renderer checks no longer need dev/codex, **but client/deepseek tools still use

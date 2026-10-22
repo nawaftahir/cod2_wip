@@ -1445,3 +1445,41 @@ Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
     return 0;
 }
 
+// SDK interface prefix; unused reflection methods are not invoked here.
+struct ShaderConstantTableInterface
+{
+    virtual HRESULT __stdcall QueryInterface(const GUID &iid, void **object) = 0;
+    virtual ULONG __stdcall AddRef() = 0;
+    virtual ULONG __stdcall Release() = 0;
+    virtual void *__stdcall GetBufferPointer() = 0;
+};
+extern "C" HRESULT __stdcall D3DXGetShaderConstantTable(const DWORD *program, ShaderConstantTableInterface **table);
+extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT result);
+
+// PINNED 1001a920: narrow Constants before allocation and release on both paths.
+Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *shader,
+    byte *techFlags, unsigned short *argumentCount, MaterialShaderArgument **arguments)
+{
+    ShaderConstantTableInterface *constants;
+    HRESULT result = D3DXGetShaderConstantTable((const DWORD *)shader->program, &constants);
+    if (result < 0)
+    {
+        Com_ScriptWarning("Couldn't get the constant table: %s (%08x)\n",
+            DXGetErrorDescription9A(result), result);
+        return 0;
+    }
+    const D3DXSHADER_CONSTANTTABLE *table = (const D3DXSHADER_CONSTANTTABLE *)constants->GetBufferPointer();
+    *argumentCount = (byte)table->Constants;
+    if (!*argumentCount)
+    {
+        *arguments = 0;
+        Bool success = Com_MatchToken(text, "{", 1) && Com_MatchToken(text, "}", 1);
+        constants->Release();
+        return success;
+    }
+    *arguments = (MaterialShaderArgument *)ri.Hunk_AllocInternal(*argumentCount * sizeof(MaterialShaderArgument));
+    Bool success = Material_ParseShaderArguments(text, shader->name, table, techFlags, *arguments);
+    constants->Release();
+    return success;
+}
+
