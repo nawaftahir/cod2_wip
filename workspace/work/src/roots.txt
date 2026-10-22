@@ -90,6 +90,7 @@ R_AllocSkinnedCachedVerts
 R_DObjGetSurfMaterials
 R_DObjReplaceMaterial
 R_AddLightToScene
+R_AddPolyToScene
 R_ClearScene
 R_ClearModifiedLightDvars
 R_CreateSmodelCacheVertexBuffer

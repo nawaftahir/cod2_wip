@@ -5,6 +5,22 @@
 GfxBackEndData *frontEndDataOut;
 GfxCmdArray *s_cmdList;
 
+// PINNED 10020cb0/10020cc0 and client CL_InitRef: API59 imports166/165.
+typedef char effectImportOffsets[
+    (offsetof(refimport_t, FX_UpdateBolt) == 166 * 4 &&
+     offsetof(refimport_t, FX_UpdateNonBolt) == 165 * 4 &&
+     sizeof(refimport_t) == 169 * 4) ? 1 : -1];
+
+void R_UpdateEffectsBolt()
+{
+    ri.FX_UpdateBolt();
+}
+
+void R_UpdateEffectsNonBolt()
+{
+    ri.FX_UpdateNonBolt();
+}
+
 // PINNED 101e4a00: saved frame pointers, lock flag and the debug frame payload.
 GfxDebugFrameGlob s_debugFrameGlob;
 

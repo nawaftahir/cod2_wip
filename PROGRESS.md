@@ -1,12 +1,50 @@
 # Renderer progress
 
-## Whole-file material-pass and technique loading - 2026-10-22
+## Whole-file API callback source - 2026-10-22
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
-### Verified state
+### Latest source work
+
+Previous committed checkpoint:eec7920. Restored real API59 polygon submission
+and both effect-update forwards in the same compiled source tree. No additional
+game bytes are accepted this wave: C/C++ remains100974/253580 (39.819%).
+All1261 protected extents survive both unchanged referees and source attribution.
+No new assembly or checker changes. This is useful source recovery, NOT a
+coverage increase or completion of the owner's stages1-3.
+
+- R_AddPolyToScene10023ed0/245 uses the existing draw-surface helper, real
+  68-byte vertex copies,2048/8192 pool limits and fallback material. Full draw
+  storage still consumes polygon storage. Captured backend ownership and
+  signed-remainder sort keys follow primary bytes, not the conflicting Mac draft.
+- API slots22/23 forward to actual client imports166/165: FX_UpdateBolt and
+  FX_UpdateNonBolt. Compile assertions pin import offsets/table size. The old
+  API inventory's shifted labels remain explicitly untrusted.
+- Native32 fixtures pass6480 polygon routes plus128 forwarding calls. The
+  source wave also tests upper-bit narrowing, negative keys and full draw storage.
+- Polygon compiled244 vs primary245 with different registers/stack storage;
+  do not count it. Six-byte effect jumps are independently confirmed but the
+  unchanged byte referee does not search their two-byte unmasked anchors;
+  no relaxed gate or manual coverage credit. Bounded trials are in ATTEMPTS.md.
+- One actual callback joins interim roots to preserve the external stack ABI.
+  Candidate now has159 temporary exports. This is NOT stage3's real GetRefAPI
+  callback table; replace these roots through real API reachability, not fillers.
+- One incremental output reused; no workers or duplicate build trees. Whole
+  candidate SHA is d4ffd0c6a14e61c9a8fb4d0bfd0b6bde74f551e317deec5f02cf6a061053c8e6.
+  Raw same-offset equality8.116811567%; not a completion meter. Candidate .text
+  is880242 bytes. Unique accepted engine+library bytes remain356893 (32.752%).
+
+Frozen source/binding/layout receipts:target/work/proof/scene_api_*.json.
+All73 fixtures pass after the completed build; fixture/result hashes and source
+identities are pinned in scene_api_checkpoint.json. No own build is left running.
+Current goal remains active: connected renderer source, original dependencies,
+then the real entrypoint/callback graph. These are the conversational stages1-3,
+not a claim that the first three smaller numbered roadmap items are finished.
+No whole-file identity, client/GPU smoke or independent checkout replay yet.
+
+### Last accepted coverage checkpoint
 
 - Previous source checkpoint: `b15270e`; workspace consolidation: `084b513`.
   Current authored C/C++: **100974/253580 bytes (39.819%)**
@@ -209,7 +247,7 @@ Do connected source work next, not another parser/report framework.
 
 Anchor SHA256:
 `4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6`.
-Current material-source candidate SHA256:
+Previous material-source candidate SHA256:
 `070ae3b624fb297cc62d968779b80d095204140b990869f50a5cef6c9259067c`.
 Relinking can change debug/timestamp bytes; current actual SHA is in
 layout/current.json; immutable receipts keep historical build measurements.

@@ -21,7 +21,8 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current checkpoint:target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
+Current source wave:target/work/proof/scene_api_checkpoint.json; last coverage gain:
+target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
 e433c14. Readable source is target/work/src; some functions are still unmatched
 drafts. All1261 protected source/library extents survive (433 prior SDK/runtime
@@ -32,12 +33,12 @@ whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 | Whole-file component | Retail | Current candidate |
 | --- | --- | --- |
 | File length |1851392 bytes |1617920 bytes |
-| Named exports |GetRefAPI only |158 temporary exports; GetRefAPI absent |
+| Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |879954 |
-| .rdata virtual length |595105 |590276 |
+| .text virtual length |1089680 |880242 |
+| .rdata virtual length |595105 |590303 |
 | .data virtual length, including zero-initialized storage |6086100 |3685652 |
-| .reloc virtual length |95704 |78548 |
+| .reloc virtual length |95704 |78562 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback

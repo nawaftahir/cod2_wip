@@ -1,5 +1,6 @@
 // Scene setup.
 #include "gfx.h"
+#include <stddef.h>
 void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent);
 
 // PC 1.0 10023d40: resolve the scene record from the entity-array index.
@@ -110,6 +111,39 @@ static void R_AddDrawSurf(const Material *material, int entIndex, int lmapIndex,
     drawSurf->surface = surface;
     ++scene.drawSurfCount;
     ++data->drawSurfCount;
+}
+
+// PINNED 10023ed0/245: backend arrays and vertex stride used by the API callback.
+typedef char polygonLayout[
+    sizeof(srfPoly_t) == 16 && sizeof(GfxWorldVertex) == 68 &&
+    offsetof(GfxBackEndData, polyCount) == 0x187c70 &&
+    offsetof(GfxBackEndData, polys) == 0x187c74 &&
+    offsetof(GfxBackEndData, polyVertCount) == 0x18fc74 &&
+    offsetof(GfxBackEndData, polyVerts) == 0x18fc78 ? 1 : -1];
+
+void R_AddPolyToScene(Material *material, int lmapIndex,
+    unsigned short vertCount, const GfxWorldVertex *verts)
+{
+    if (!rg.registered)
+        return;
+    if (!material)
+        material = rgp.defaultMaterial;
+    GfxBackEndData *data = frontEndDataOut;
+    int count = (unsigned short)vertCount;
+    if (data->polyVertCount + count > 8192 || data->polyCount >= 2048)
+        return;
+    srfPoly_t *poly = &data->polys[data->polyCount];
+    poly->lmapIndex = (unsigned short)lmapIndex;
+    poly->material = material;
+    poly->vertCount = (unsigned short)vertCount;
+    poly->surfaceType = SF_POLY;
+    poly->verts = &data->polyVerts[data->polyVertCount];
+    memcpy(poly->verts, verts, count * sizeof(*verts));
+    R_AddDrawSurf(material, scene.polyCount % 2048 + 2048, (unsigned short)lmapIndex,
+        &poly->surfaceType);
+    ++data->polyCount;
+    data->polyVertCount += count;
+    ++scene.polyCount;
 }
 
 // PINNED 10024610/99; disabled brush drawing still updates cullState.

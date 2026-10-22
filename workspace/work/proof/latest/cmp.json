@@ -2971,6 +2971,18 @@
 ]
 },
 {
+"name": "?R_UpdateEffectsBolt@@YAXXZ",
+"obj": "r_rendercmds.obj",
+"size": 6,
+"hits": []
+},
+{
+"name": "?R_UpdateEffectsNonBolt@@YAXXZ",
+"obj": "r_rendercmds.obj",
+"size": 6,
+"hits": []
+},
+{
 "name": "?R_BeginDebugFrame@@YAXXZ",
 "obj": "r_rendercmds.obj",
 "size": 73,
@@ -3569,6 +3581,12 @@
 "name": "?R_AddDrawSurf@@YAXPBUMaterial@@HHPBW4surfaceType_t@@@Z",
 "obj": "r_scene.obj",
 "size": 108,
+"hits": []
+},
+{
+"name": "?R_AddPolyToScene@@YAXPAUMaterial@@HGPBUGfxWorldVertex@@@Z",
+"obj": "r_scene.obj",
+"size": 244,
 "hits": []
 },
 {

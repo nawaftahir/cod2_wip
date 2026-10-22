@@ -1,8 +1,8 @@
 {
-  "functions": 616,
-  "bytes": 108206,
+  "functions": 620,
+  "bytes": 108761,
   "total": 253580,
-  "percent": 42.67134632068775,
+  "percent": 42.89021216184241,
   "baseline_lost": [],
   "gains": [
     {
@@ -372,6 +372,12 @@
       "object": "r_material.obj"
     },
     {
+      "target": "0x10016740",
+      "bytes": 53,
+      "name": "?Material_BuildVertexDecls@@YAXPAPAUMaterialVertexDeclaration@@@Z",
+      "object": "r_material.obj"
+    },
+    {
       "target": "0x10018250",
       "bytes": 109,
       "name": "?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z",
@@ -411,6 +417,24 @@
       "target": "0x10018710",
       "bytes": 375,
       "name": "?Material_ParseRuleSetValue@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAUMaterialStateMapRule@@@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
+      "target": "0x10018f90",
+      "bytes": 89,
+      "name": "?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
+      "target": "0x10018ff0",
+      "bytes": 197,
+      "name": "?Material_ParseStreamDestination@@YAEPAPBDPBDPAE@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
+      "target": "0x100190c0",
+      "bytes": 216,
+      "name": "?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z",
       "object": "r_material_load_obj.obj"
     },
     {

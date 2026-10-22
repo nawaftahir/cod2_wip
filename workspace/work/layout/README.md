@@ -1,5 +1,13 @@
 # Layout is part of every reconstruction wave
 
+API scene wave,2026-10-22: polygon submission belongs to r_scene.cpp and calls
+the existing R_AddDrawSurf there. Effect forwarding belongs to r_rendercmds.cpp;
+ri fields165/166 are now named for the actual client imports with unchanged
+layout. One real polygon callback joins the interim export list to preserve
+its external stack ABI. Candidate now has159 temporary exports, NOT the retail
+single GetRefAPI export. This root must be replaced by genuine API-table
+reachability, not retained in a release. No new TU/library/data padding added.
+
 Material-pass wave,2026-10-22: stream parsing, DX9 pass setup, both technique
 file formats and technique-set/cache source remain in r_material_load_obj.cpp.
 The actual34-byte use mask is owned by r_material.cpp directly after its stream

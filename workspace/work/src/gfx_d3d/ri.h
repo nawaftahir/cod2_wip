@@ -228,8 +228,8 @@ struct refimport_t
     void (*slot162)();  // unidentified
     void (*slot163)();  // unidentified
     void (*slot164)();  // unidentified
-    void (*slot165)();  // unidentified
-    void (*slot166)();  // unidentified
+    void (*FX_UpdateNonBolt)();
+    void (*FX_UpdateBolt)();
     void (*FX_UpdateAndDraw)();  // signature unverified
     const char * (*CL_GetHudMsgIconMaterialName)(int index);
 };

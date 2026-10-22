@@ -1,5 +1,36 @@
 # Reconstruction attempts
 
+## 2026-10-22 real effect and polygon API callbacks
+
+Primary API slots22/23 target10020cb0/10020cc0 are six-byte tail jumps into
+ri slots166/165, not the shifted legacy labels178/177. Client cl_main_mp
+assigns FX_UpdateBolt/FX_UpdateNonBolt there; FxUtil confirms void/no arguments.
+The actual wrappers and import-offset compile assertions are in r_rendercmds.
+The unchanged comparator does not search two-byte unmasked anchors, so these
+are not accepted matches even though the independent primary-operand fixture
+confirms both jumps. Do not loosen the referee or invent retention markers.
+
+Primary API slot25 targets R_AddPolyToScene10023ed0/245. It copies68-byte
+GfxWorldVertex records into a2048-polygon/8192-vertex backend pool. The exact
+vertex limit is inclusive. A null material uses rgp.defaultMaterial; disabled
+registration changes nothing. Full draw-surface storage still consumes the
+polygon/vertices. Keep the backend pointer captured across the helper call.
+The entity key is scene.polyCount %2048 +2048, NOT &2047: primary preserves
+negative signed remainders. Mac reference reloads the backend and uses &2047;
+neither reference shortcut is accepted. Compile assertions pin real pool offsets.
+
+Initial ushort/ushort callback builds237 with LTCG's private register ABI.
+One genuine interim export retains its external stack ABI (245, still wrong
+registers). This is not the final export table: only GetRefAPI may remain at
+completion. An int/int spelling with explicit unsigned-short count builds247;
+accumulating the surface type inside both sort branches worsens the existing
+draw helper108 to119. The latter is reverted; no accepted prior body changed.
+Final bounded trial keeps an explicit widened count with ushort formal and
+int lightmap index, with explicit narrowing at all uses:244 versus primary245,
+still different registers and stack storage, not accepted. Do not repeat these
+spelling trials without a genuine caller/TU/function-set change. No new ASM,
+compiler flags, checker changes, duplicate outputs or fabricated callbacks.
+
 ## 2026-10-22 connected material-pass/technique source
 
 New accepted C++555 bytes: stream index10018f90/89, destination10018ff0/197,
