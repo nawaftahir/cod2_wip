@@ -1,5 +1,13 @@
 # Layout is part of every reconstruction wave
 
+Procedural-image wave,2026-10-22: all six new helpers stay in the existing
+r_image_load_obj.cpp, beside the real image loading/upload callers. Cubemap
+axis descriptors are local, as the primary stack stores establish. No new
+TU, export, library or padding. The constructor helpers call existing typed
+setup/upload and lookup/pixel helpers. GenCube84/86, specularity117/119 and
+direction generator754/786 are not matched; actual Image_Load caller context
+still needs recovery. Do not claim historical function order from this draft.
+
 API scene wave,2026-10-22: polygon submission belongs to r_scene.cpp and calls
 the existing R_AddDrawSurf there. Effect forwarding belongs to r_rendercmds.cpp;
 ri fields165/166 are now named for the actual client imports with unchanged

@@ -1,8 +1,8 @@
 {
-  "functions": 620,
-  "bytes": 108761,
+  "functions": 621,
+  "bytes": 108863,
   "total": 253580,
-  "percent": 42.89021216184241,
+  "percent": 42.93043615427084,
   "baseline_lost": [],
   "gains": [
     {
@@ -273,6 +273,12 @@
       "target": "0x1000f7b0",
       "bytes": 331,
       "name": "?Image_LoadDxtc@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x100100f0",
+      "bytes": 102,
+      "name": "?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z",
       "object": "r_image_load_obj.obj"
     },
     {

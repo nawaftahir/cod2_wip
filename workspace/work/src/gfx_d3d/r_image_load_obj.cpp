@@ -8,6 +8,9 @@ GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTra
 void Image_Setup(GfxImage *image, int width, int height, int depth, int imageFlags, DWORD usage, D3DFORMAT imageFormat);
 void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubemapFace, unsigned int mipLevel, const unsigned char *src);
 void Image_Create2DTexture(GfxImage *image, int width, int height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_BuildSpecularityMap(float shift, unsigned char *pic);
+void Image_GetLightGridWeightsForVector(const float *direction, int subMap, unsigned char *pixel);
+void Image_GetSunHalfAngleForVector(const float *direction, int unused, unsigned char *pixel);
 
 // PINNED 1.0 disk image header: format/flags 4/5, signed dimensions 6/8/a.
 struct GfxImageFileHeader
@@ -21,6 +24,102 @@ struct GfxImageFileHeader
 };
 
 void Wavelet_DecompressLevel(byte *src, byte *dst, WaveletDecode *decode);
+
+// PINNED 1000fbd0/86: every face is uploaded from its own source slice.
+void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
+    int faceBytes, D3DFORMAT format)
+{
+    Image_Setup(image, resolution, resolution, 1, 7, 0, format);
+    for (int face = 0; face < 6; ++face)
+    {
+        Image_UploadData(image, format, (D3DCUBEMAP_FACES)face, 0, pixels);
+        pixels += faceBytes;
+    }
+}
+
+// PINNED 1000fce0/119: original lookup is32 by256, one luminance byte per texel.
+void Image_GenerateSpecularity(GfxImage *image)
+{
+    byte pixels[32 * 256];
+    Image_BuildSpecularityMap(0.0f, pixels);
+    Image_Setup(image, 32, 256, 1, 3, 0, D3DFMT_L8);
+    Image_UploadData(image, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+}
+
+// PINNED 100100f0/102: the four bytes reach the texture in BGRA order.
+void Image_GenerateSolidColor(GfxImage *image, byte blue, byte green, byte red, byte alpha)
+{
+    byte pixel[4];
+    pixel[0] = blue;
+    pixel[1] = green;
+    pixel[2] = red;
+    pixel[3] = alpha;
+    Image_Setup(image, 1, 1, 1, 3, 0, D3DFMT_A8R8G8B8);
+    Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixel);
+}
+
+typedef void (*CubemapPixelCallback)(const float *direction, int userData, byte *pixel);
+
+// PINNED 10010160/786: the axis descriptors are local to the original function.
+void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
+    int userData, CubemapPixelCallback callback)
+{
+    int faceAxis[6][3] = {
+        { 0, 5, 3 }, { 1, 4, 3 }, { 2, 0, 4 },
+        { 3, 0, 5 }, { 4, 0, 3 }, { 5, 1, 3 }
+    };
+    float inverseResolution = 1.0f / resolution;
+    int pixelIndex = 0;
+    for (int face = 0; face < 6; ++face)
+    {
+        float origin[3] = { 0.0f, 0.0f, 0.0f };
+        int axis = faceAxis[face][0];
+        origin[axis >> 1] = axis & 1 ? -1.0f : 1.0f;
+        float right[3] = { 0.0f, 0.0f, 0.0f };
+        axis = faceAxis[face][1];
+        origin[axis >> 1] = axis & 1 ? 1.0f : -1.0f;
+        right[axis >> 1] = origin[axis >> 1] * -2.0f;
+        float up[3] = { 0.0f, 0.0f, 0.0f };
+        axis = faceAxis[face][2];
+        origin[axis >> 1] = axis & 1 ? 1.0f : -1.0f;
+        up[axis >> 1] = origin[axis >> 1] * -2.0f;
+        VectorScale(right, inverseResolution, right);
+        VectorScale(up, inverseResolution, up);
+        float rowBase[3];
+        VectorMA(origin, 0.5f, right, rowBase);
+        for (int row = 0; row < resolution; ++row)
+        {
+            float direction[3];
+            float rowOffset = row + 0.5f;
+            VectorMA(rowBase, rowOffset, up, direction);
+            for (int column = 0; column < resolution; ++column)
+            {
+                callback(direction, userData, pixels + pixelIndex * 4);
+                ++pixelIndex;
+                direction[0] += right[0];
+                direction[1] += right[1];
+                direction[2] += right[2];
+            }
+        }
+    }
+    Image_GenerateCube(image, resolution, pixels, resolution * resolution * 4,
+        D3DFMT_A8R8G8B8);
+}
+
+// PINNED 10010680/43: submap is passed unchanged to every pixel callback.
+void Image_GenerateLightGridWeights(GfxImage *image, int subMap)
+{
+    byte pixels[6 * 32 * 32 * 4];
+    Image_GenerateCubemapFunction(image, pixels, 32, subMap, Image_GetLightGridWeightsForVector);
+}
+
+// PINNED 100107b0/46: this larger cubemap uses temporary hunk memory, not the stack.
+void Image_GenerateSunHalfAngle(GfxImage *image)
+{
+    byte *pixels = (byte *)ri.Hunk_AllocateTempMemoryInternal(6 * 64 * 64 * 4);
+    Image_GenerateCubemapFunction(image, pixels, 64, 0, Image_GetSunHalfAngleForVector);
+    ri.Hunk_FreeTempMemory(pixels);
+}
 
 static unsigned int Image_CountMipmapsForFile(const GfxImageFileHeader *fileHeader)
 {

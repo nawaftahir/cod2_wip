@@ -1,5 +1,42 @@
 # Reconstruction attempts
 
+## 2026-10-22 procedural-image source and material-load dependencies
+
+Accepted solid-color helper100100f0/102 writes input bytes directly in BGRA
+order, then creates/uploads1x1 A8R8G8B8. This closes through existing setup and
+upload source; not an imported library or authored assembly body. Native32
+fixture also decodes all18 local axis stores in primary10010160's prologue.
+The reference's uninitialized static axis table is not usable source evidence.
+
+New real source uses cube flags7, per-face source strides,32x256 L8 specularity,
+32x32 light-grid cubemaps, and64x64 sun cubemaps. Sun allocates98304 temporary
+hunk bytes, uploads all six faces, then frees that same buffer. No stack stand-in.
+The direction generator initially builds786 with a different frame allocation;
+using existing VectorScale/VectorMA and sequential vector construction builds754
+vs primary786, still unaccepted. Keep the reused helpers; no more local spelling
+sweeps without the real Image_Load caller/function set. Cube upload84 vs86 and
+specularity117 vs119 remain drafts. Light-grid43/sun46 are masked-equal but fail
+dependency closure through the generator. One output, no new flags or roots.
+
+Next material path is primary10017100 (registration) ->1001c740/171 (file load)
+->1001c4e0/603 (instance fixup). Existing technique validation/cache helpers
+are reusable; missing image creators/dispatcher are the current source gap.
+Do NOT import the reference's extension aliases, UI fallback or returning a
+partially initialized material after fixup failure. Primary returns NULL then.
+File open is uniqueFILE=1; negative size warns only for non-$ names; zero size
+closes the handle and warns. Positive size uses hunk allocation, read, close,
+then fixup, preserving ownership even on failure. Relative pointer fixups and
+water/renderer-specific texture handling need exact PC layouts, not raw guesses.
+
+Outdoor primary source facts for that closure: OutdoorGlob base101da980,
+bbox[0].z101da988, bbox[1].z101da994, scale.z101da9a0, invScale.x/y9a4/9a8,
+add.x/y/z9b0/9b4/9b8, pic9bc. The height trace10020590/175 goes from maxZ+1
+to minZ-1 with model0/mask0x2001, zero bounds and36-byte trace initialized
+with fraction1. Return is startZ+(endZ-startZ)*fraction, not the reversed
+reference interpolation. Image generator10020950 subtracts double
+0.4999999990686774 before FISTP then clamps0..255; do not call that plain
+floorf without a proof. No outdoor source or new assembly has been fabricated.
+
 ## 2026-10-22 real effect and polygon API callbacks
 
 Primary API slots22/23 target10020cb0/10020cc0 are six-byte tail jumps into

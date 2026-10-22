@@ -1133,6 +1133,34 @@
 "call ?R_WatersEquivalent@@YAHPBUwater_t@@0@Z"
 ]
 },
+"?VectorMA@@YAXQBMM0QAM@Z": {
+"t": "0x10005b60",
+"n": 37,
+"obj": "q_shared.obj",
+"why": []
+},
+"?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z": {
+"t": "0x100100f0",
+"n": 102,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z": {
+"t": "0x10010680",
+"n": 43,
+"obj": "r_image_load_obj.obj",
+"why": [
+"call ?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z"
+]
+},
+"?Image_GenerateSunHalfAngle@@YAXPAUGfxImage@@@Z": {
+"t": "0x100107b0",
+"n": 46,
+"obj": "r_image_load_obj.obj",
+"why": [
+"call ?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z"
+]
+},
 "?Image_CountMipmapsForFile@@YAIPBUGfxImageFileHeader@@@Z": {
 "t": "0x1000f320",
 "n": 47,
@@ -1821,12 +1849,6 @@
 "t": "0x10025940",
 "n": 25,
 "obj": "com_math.obj",
-"why": []
-},
-"?VectorMA@@YAXQBMM0QAM@Z": {
-"t": "0x10005b60",
-"n": 37,
-"obj": "q_shared.obj",
 "why": []
 },
 "?R_GetFrontBufferData@@YAEHHHHHPAE@Z": {
@@ -11639,9 +11661,9 @@
 "n": 385,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 10178cbc",
-"unresolved 10178cbc",
-"unresolved 10178cbc"
+"unresolved 10179cbc",
+"unresolved 10179cbc",
+"unresolved 10179cbc"
 ]
 },
 "__DllMainCRTStartup@12": {
@@ -11649,7 +11671,7 @@
 "n": 228,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 10178cbc"
+"unresolved 10179cbc"
 ]
 },
 "__amsg_exit": {

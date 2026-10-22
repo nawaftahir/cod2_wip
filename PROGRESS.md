@@ -1,12 +1,53 @@
 # Renderer progress
 
-## Whole-file API callback source - 2026-10-22
+## Whole-file procedural-image source - 2026-10-22
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Previous committed checkpoint:5caa779. Six real procedural-image functions now
+compile in r_image_load_obj.cpp: cube upload, solid BGRA pixel, specularity,
+direction-driven cubemap generation, light-grid weights and sun half-angle.
+The actual existing image setup/upload, specularity and pixel callbacks are
+reused. No new TU, library, export, compiler flags or authored assembly.
+
+New verified source:Image_GenerateSolidColor100100f0/102. Authored C/C++ is now
+**101076/253580 bytes (39.860%)**,590 bodies. Mixed source108863 bytes,621 bodies;
+the same31 assembly-bearing bodies/7787 bytes are excluded. Both referees retain
+all1261 prior extents; the ratchet now protects1262 and rejects removing the new
+solid-color body. Unique accepted engine+library bytes356995/1089680 (32.761%).
+
+Native32 tests cover134 procedural routes, including all six cube directions,
+texel centers, BGRA ordering, L8 format, face-slice pointers, zero resolution,
+buffer guards, submap forwarding and the98304-byte sun buffer allocation/free.
+All18 face-axis descriptor values are independently recovered from primary
+instructions in the fixture, not trusted from an uninitialized reference table.
+
+Unaccepted: cube uploader84 vs86; specularity117 vs119; cubemap generator754
+vs786. Light-grid43 and sun46 are masked-equal but dependency-blocked by the
+generator. A bounded vector-helper trial changes786 to754 without acceptance;
+keep the reused helpers, do not continue local spelling/flag sweeps. Details
+and the next material-loader chain are in ATTEMPTS.md.
+
+Current candidate SHA453d90185a655fc172e12b49ea8b493eea0b7ea72d16d28921838ef38d1c35ac;
+raw same-offset8.196589377%, .text881522 bytes,159 interim exports. Still no
+GetRefAPI or retail SHA identity. Frozen proof:target/work/proof/procedural_*.json.
+One output reused, no workers or additional build trees.
+All74 fixtures pass after the completed build. The new-body removal negative
+also passes. Receipt/log/source hashes are pinned in procedural_checkpoint.json;
+the ratchet protects1262 extents. No own build remains running at this checkpoint.
+
+The active stages1-3 remain connected renderer source, original dependency
+reuse, and the genuine entrypoint/callback graph. They are NOT complete.
+Next missing source closure: remaining procedural creators/dispatcher ->
+material-instance fixup/file loading -> real material registration callbacks.
+Never import the reference's alias/fallback/partial-material behavior: primary
+failure paths differ. Preserve the actual source and protected matches throughout.
+
+### Previous API source checkpoint
 
 Previous committed checkpoint:eec7920. Restored real API59 polygon submission
 and both effect-update forwards in the same compiled source tree. No additional
@@ -44,7 +85,7 @@ then the real entrypoint/callback graph. These are the conversational stages1-3,
 not a claim that the first three smaller numbered roadmap items are finished.
 No whole-file identity, client/GPU smoke or independent checkout replay yet.
 
-### Last accepted coverage checkpoint
+### Previous material-pass coverage checkpoint
 
 - Previous source checkpoint: `b15270e`; workspace consolidation: `084b513`.
   Current authored C/C++: **100974/253580 bytes (39.819%)**

@@ -1,0 +1,2 @@
+PASS: all 1262 checkpoint source/library address-extents retained
+PASS: removal of the newly accepted solid-color body is rejected

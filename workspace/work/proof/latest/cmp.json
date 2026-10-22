@@ -2400,6 +2400,64 @@
 "hits": []
 },
 {
+"name": "?VectorScale@@YAXQBMMQAM@Z",
+"obj": "q_shared.obj",
+"size": 29,
+"hits": [
+"0x10001880"
+]
+},
+{
+"name": "?VectorMA@@YAXQBMM0QAM@Z",
+"obj": "q_shared.obj",
+"size": 37,
+"hits": [
+"0x10005b60"
+]
+},
+{
+"name": "?Image_GenerateCube@@YAXPAUGfxImage@@HPBEHW4_D3DFORMAT@@@Z",
+"obj": "r_image_load_obj.obj",
+"size": 84,
+"hits": []
+},
+{
+"name": "?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z",
+"obj": "r_image_load_obj.obj",
+"size": 117,
+"hits": []
+},
+{
+"name": "?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z",
+"obj": "r_image_load_obj.obj",
+"size": 102,
+"hits": [
+"0x100100f0"
+]
+},
+{
+"name": "?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z",
+"obj": "r_image_load_obj.obj",
+"size": 754,
+"hits": []
+},
+{
+"name": "?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z",
+"obj": "r_image_load_obj.obj",
+"size": 43,
+"hits": [
+"0x10010680"
+]
+},
+{
+"name": "?Image_GenerateSunHalfAngle@@YAXPAUGfxImage@@@Z",
+"obj": "r_image_load_obj.obj",
+"size": 46,
+"hits": [
+"0x100107b0"
+]
+},
+{
 "name": "?Image_CountMipmapsForFile@@YAIPBUGfxImageFileHeader@@@Z",
 "obj": "r_image_load_obj.obj",
 "size": 47,
