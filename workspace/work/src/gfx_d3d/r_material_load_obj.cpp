@@ -56,6 +56,9 @@ extern int Com_sprintf(char *dest, unsigned int size, const char *format, ...);
 extern "C" void Com_Memcpy(void *dest, const void *src, int count);
 extern const char *Material_RegisterString(const char *string);
 extern const float *Material_RegisterLiteral(const float *literal);
+extern MaterialShader *Material_FindShader(const char *name, int shaderType, int shaderVersion);
+extern void Material_SetShader(const char *name, int shaderType, int shaderVersion, MaterialShader *shader);
+extern MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion);
 extern MaterialStateMap *Material_FindStateMap(const char *name);
 extern void Material_SetStateMap(const char *name, MaterialStateMap *stateMap);
 Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argument);
@@ -1443,6 +1446,21 @@ Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
             Com_Printf("  %s\n", (const char *)table + info[index].Name);
     Com_Printf("%i constant(s) were undefined\n", table->Constants - usedCount);
     return 0;
+}
+
+// PINNED 1001a810: PC does not clamp the requested shader version.
+MaterialShader *Material_LoadPassShader(const char **text, int shaderType)
+{
+    int version = I_fround(Com_ParseFloat(text) * 10.0f);
+    const char *name = Com_Parse(text);
+    MaterialShader *shader = Material_FindShader(name, shaderType, version);
+    if (shader)
+        return shader;
+    shader = Material_CreateShader(name, shaderType, version);
+    if (!shader)
+        return 0;
+    Material_SetShader(name, shaderType, version, shader);
+    return shader;
 }
 
 // SDK interface prefix; unused reflection methods are not invoked here.

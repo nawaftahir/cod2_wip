@@ -1,6 +1,6 @@
 # Renderer progress
 
-## Whole-file shader SDK integration - 2026-10-22
+## Whole-file shader creation source - 2026-10-22
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
@@ -8,7 +8,7 @@ new handoffs. Machine proof receipts and technical reference notes stay separate
 
 ### Verified state
 
-- Previous source checkpoint: `e433c14`; workspace consolidation: `084b513`.
+- Previous integration checkpoint: `9fd99f1`; workspace consolidation: `084b513`.
   Current authored C/C++: **100419/253580 bytes (39.601%)**
   against the SUPPORTED game inventory, not the entire DLL.
 - Mixed C/C++ and authored assembly:616 game bodies,108206 bytes.
@@ -17,15 +17,44 @@ new handoffs. Machine proof receipts and technical reference notes stay separate
   All824 previous protected extents survive; the ratchet now protects **1257**.
   Unique verified engine+library extents cover356338/1089680 retail .text bytes
   (**32.701%**, relocation-normalized; NOT whole-file identity or authored C++).
-- All **66** fixtures passed after a forced same-output rebuild; warm/fresh
+- The previous **66** fixtures passed after a forced same-output rebuild; warm/fresh
   binding JSONs are identical. Three removal negatives reject loss of either
   CRT exception-table caller or a new SDK body. No new assembly definitions
   or relaxed binding ownership.
-- Current receipt: `target/work/proof/sdk_checkpoint.json`. Current referees:
+- Current source-wave receipt: `target/work/proof/shader_creation_checkpoint.json`.
+  The accepted SDK checkpoint is `target/work/proof/sdk_checkpoint.json`. Current referees:
   `target/work/proof/latest/`. Layout: `target/work/layout/current.json`.
 - **Whole-file retail SHA does not match. No release or runtime proof.**
 
 ### Actual whole-file work completed
+
+New source wave (not new accepted game bytes):
+
+- Added `src/gfx_d3d/r_material_shader.cpp`: real cached shader compilation,
+  original PC macros/include callbacks, compiler warnings, FP restoration,
+  16-byte shader header/program/name allocation and vertex/pixel device creation.
+  The shared shader header replaces the old unnamed length bytes, with pinned
+  offsets. Original error-path releases and leaks are preserved, not repaired.
+- Added the real Material_LoadPassShader parser/cache/compiler/cache-insertion
+  path in material_load_obj. Its full266-byte body is masked-equal at1001a810,
+  but binding correctly rejects its unresolved Material_CreateShader callee.
+  It uses the existing I_fround helper; if later accepted its assembly expansion
+  must be explicitly excluded rather than counted as ordinary C++.
+- New source fixtures pass252 creation routes and36 parser/cache routes. The
+  former tests actual32-bit allocation/header sizes, PC macros, include calls,
+  shader types0/1/256, versions including negatives, 65540-byte programs,
+  all release/leak branches and FP restoration. All68 fixtures passed after
+  the completed connected build; no simultaneous rebuild/freshness race.
+- Compiler body is708 versus retail705, with differing local slots and a real
+  `_clearfp` call versus FNCLEX. One original-VC7.1 probe confirms pragma
+  intrinsic(_clearfp) is unsupported (C4163). No authored assembly was added
+  to force the match. Explicit typed include-object modeling gives the same
+  result as the pointer-shaped draft; do not repeat either variant.
+- All1257 protected extents survive the connected wave. Candidate .text is
+  now876562 bytes (was875554): real code growth, not padding. Raw same-offset
+  equality is8.0247%; it remains a layout diagnostic, not source coverage.
+
+Previous accepted SDK integration:
 
 - Material_SetPassShaderArguments is compiled from the real source tree, no
   longer appended from a test-only fixture. Its real D3DX shader-table call
@@ -108,12 +137,15 @@ Unrelated staged work is preserved, not bundled into this cleanup. No push.
    slots: 98 written callbacks, ten initial zeros.54 written slots have accepted
    implementations; unverified does not mean source absent. Use primary code
    and `target/work/layout/api_callbacks.tsv`; never guess signatures or stub bodies.
-2. Complete shader creation at1001a4c0/705 using the primary binary, not the
-   references' combined parse/cache/platform loader. Actual PC defines are
-   {"PC","",0,0}. Its real D3DXCompileShader call should establish further SDK
-   reachability. Include Open already exists; Close is the genuine zero-return
-   callback10018310. Preserve original failure cleanup. Resolve the table
-   wrapper's register choices and SDK operator-new closure without syntax sweeps.
+2. Close the existing shader source, not another imported implementation.
+   Material_CreateShader1001a4c0/705 now exists and compiles708; actual PC
+   defines are {"PC","",0,0}. Resolve local-slot ownership and the evidenced
+   FP-instruction difference without guessing compiler flags or adding assembly
+   to inflate C++ coverage. There is also a real cached registration wrapper
+   at1001a7b0..1001a803 (omitted by the inventory), plus include construction
+   at1001a790. The pass parser already reproduces266 code bytes but is blocked
+   by the compiler body. Resolve SDK operator-new closure separately; no gates
+   may be loosened. Do not repeat the unsupported _clearfp intrinsic probe.
 3. Replace temporary roots with genuine reachability as connected groups close,
    retaining all accepted extents. Candidate has158 exports and no GetRefAPI;
    retail exports only GetRefAPI. Recover TU/data/library ownership alongside code.
@@ -141,10 +173,10 @@ Do connected source work next, not another parser/report framework.
 
 Anchor SHA256:
 `4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6`.
-Warm SDK candidate SHA256:
-`91048bae1fef422f35b10a82f667081617ec0b69fd6a51a1398b086071d8363c`.
+Current shader-source candidate SHA256:
+`27a70d2ec52c5d410b4e8bed1214501cedae5a058aee00f939d32e1d68af9b2f`.
 Relinking can change debug/timestamp bytes; current actual SHA is in
-layout/current.json and the immutable SDK receipt records both builds.
+layout/current.json; immutable receipts keep historical build measurements.
 
 ### Limits
 

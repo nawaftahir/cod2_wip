@@ -1,5 +1,13 @@
 # Layout is part of every reconstruction wave
 
+Shader creation source wave,2026-10-22: candidate r_material_shader.cpp follows
+r_material_load_obj.cpp in tus.txt, using real SDK interfaces without importing
+the Mac type universe. This split is not claimed as historical TU provenance.
+The shader header is shared with r_material.cpp (16 bytes on PC); the include
+vtable belongs to r_material_shader.cpp. No padding or root/export was added.
+All1257 protected extents survive. The compiler body and include-vtable binding
+are still unverified; its parser caller is byte-equal but dependency-blocked.
+
 Authoritative current object order: `../src/tus.txt`. The linker receives those
 objects in precisely that order, with `/GL` inputs and `/LTCG` linking. Never
 sort the list or regroup TUs as a cosmetic cleanup. The clean-tree migration

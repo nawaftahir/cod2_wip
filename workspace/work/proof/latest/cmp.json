@@ -92,6 +92,12 @@
 "hits": []
 },
 {
+"name": "?I_fround@@YAHM@Z",
+"obj": "q_shared.obj",
+"size": 31,
+"hits": []
+},
+{
 "name": "?Material_ParseVector@@YAEPAPBDHPAM@Z",
 "obj": "r_material_load_obj.obj",
 "size": 281,
@@ -451,9 +457,23 @@
 "hits": []
 },
 {
+"name": "?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z",
+"obj": "r_material_load_obj.obj",
+"size": 266,
+"hits": [
+"0x1001a810"
+]
+},
+{
 "name": "?Material_SetPassShaderArguments@@YAEPAPBDPBUMaterialShader@@PAEPAGPAPAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
 "size": 217,
+"hits": []
+},
+{
+"name": "?Material_CreateShader@@YAPAUMaterialShader@@PBDHH@Z",
+"obj": "r_material_shader.obj",
+"size": 708,
 "hits": []
 },
 {
@@ -17585,6 +17605,70 @@
 ]
 },
 {
+"name": "__fpreset",
+"obj": "LIBCMT:ieee87.obj",
+"size": 43,
+"hits": [
+"0x100f5f9d"
+]
+},
+{
+"name": "__abstract_cw",
+"obj": "LIBCMT:ieee87.obj",
+"size": 146,
+"hits": [
+"0x100f5fc8"
+]
+},
+{
+"name": "__hw_cw",
+"obj": "LIBCMT:ieee87.obj",
+"size": 142,
+"hits": [
+"0x100f605a"
+]
+},
+{
+"name": "__abstract_sw",
+"obj": "LIBCMT:ieee87.obj",
+"size": 57,
+"hits": [
+"0x100f60e8"
+]
+},
+{
+"name": "__statusfp",
+"obj": "LIBCMT:ieee87.obj",
+"size": 16,
+"hits": [
+"0x100f6121"
+]
+},
+{
+"name": "__clearfp",
+"obj": "LIBCMT:ieee87.obj",
+"size": 17,
+"hits": [
+"0x100f6131"
+]
+},
+{
+"name": "__control87",
+"obj": "LIBCMT:ieee87.obj",
+"size": 50,
+"hits": [
+"0x100f6142"
+]
+},
+{
+"name": "__controlfp",
+"obj": "LIBCMT:ieee87.obj",
+"size": 22,
+"hits": [
+"0x100f6174"
+]
+},
+{
 "name": "_swap",
 "obj": "LIBCMT:qsort.obj",
 "size": 32,
@@ -18019,70 +18103,6 @@
 "obj": "LIBCMT:fpinit.obj",
 "size": 30,
 "hits": []
-},
-{
-"name": "__fpreset",
-"obj": "LIBCMT:ieee87.obj",
-"size": 43,
-"hits": [
-"0x100f5f9d"
-]
-},
-{
-"name": "__abstract_cw",
-"obj": "LIBCMT:ieee87.obj",
-"size": 146,
-"hits": [
-"0x100f5fc8"
-]
-},
-{
-"name": "__hw_cw",
-"obj": "LIBCMT:ieee87.obj",
-"size": 142,
-"hits": [
-"0x100f605a"
-]
-},
-{
-"name": "__abstract_sw",
-"obj": "LIBCMT:ieee87.obj",
-"size": 57,
-"hits": [
-"0x100f60e8"
-]
-},
-{
-"name": "__statusfp",
-"obj": "LIBCMT:ieee87.obj",
-"size": 16,
-"hits": [
-"0x100f6121"
-]
-},
-{
-"name": "__clearfp",
-"obj": "LIBCMT:ieee87.obj",
-"size": 17,
-"hits": [
-"0x100f6131"
-]
-},
-{
-"name": "__control87",
-"obj": "LIBCMT:ieee87.obj",
-"size": 50,
-"hits": [
-"0x100f6142"
-]
-},
-{
-"name": "__controlfp",
-"obj": "LIBCMT:ieee87.obj",
-"size": 22,
-"hits": [
-"0x100f6174"
-]
 },
 {
 "name": "__strdup",
@@ -18803,6 +18823,58 @@
 "size": 27,
 "hits": [
 "0x100fb74a"
+]
+},
+{
+"name": "__setdefaultprecision",
+"obj": "LIBCMT:fp8.obj",
+"size": 18,
+"hits": [
+"0x100face0"
+]
+},
+{
+"name": "_ctrlevent_capture@4",
+"obj": "LIBCMT:winsig.obj",
+"size": 143,
+"hits": [
+"0x100facf2"
+]
+},
+{
+"name": "_siglookup",
+"obj": "LIBCMT:winsig.obj",
+"size": 46,
+"hits": [
+"0x100fad81"
+]
+},
+{
+"name": "___fpecode",
+"obj": "LIBCMT:winsig.obj",
+"size": 9,
+"hits": []
+},
+{
+"name": "___pxcptinfoptrs",
+"obj": "LIBCMT:winsig.obj",
+"size": 9,
+"hits": []
+},
+{
+"name": "_signal",
+"obj": "LIBCMT:winsig.obj",
+"size": 417,
+"hits": [
+"0x100fadc1"
+]
+},
+{
+"name": "_raise",
+"obj": "LIBCMT:winsig.obj",
+"size": 377,
+"hits": [
+"0x100faf62"
 ]
 },
 {
@@ -19842,14 +19914,6 @@
 ]
 },
 {
-"name": "__setdefaultprecision",
-"obj": "LIBCMT:fp8.obj",
-"size": 18,
-"hits": [
-"0x100face0"
-]
-},
-{
 "name": "__ms_p5_test_fdiv",
 "obj": "LIBCMT:testfdiv.obj",
 "size": 64,
@@ -19863,50 +19927,6 @@
 "size": 41,
 "hits": [
 "0x100fe85d"
-]
-},
-{
-"name": "_ctrlevent_capture@4",
-"obj": "LIBCMT:winsig.obj",
-"size": 143,
-"hits": [
-"0x100facf2"
-]
-},
-{
-"name": "_siglookup",
-"obj": "LIBCMT:winsig.obj",
-"size": 46,
-"hits": [
-"0x100fad81"
-]
-},
-{
-"name": "___fpecode",
-"obj": "LIBCMT:winsig.obj",
-"size": 9,
-"hits": []
-},
-{
-"name": "___pxcptinfoptrs",
-"obj": "LIBCMT:winsig.obj",
-"size": 9,
-"hits": []
-},
-{
-"name": "_signal",
-"obj": "LIBCMT:winsig.obj",
-"size": 417,
-"hits": [
-"0x100fadc1"
-]
-},
-{
-"name": "_raise",
-"obj": "LIBCMT:winsig.obj",
-"size": 377,
-"hits": [
-"0x100faf62"
 ]
 },
 {
@@ -21933,6 +21953,12 @@
 "hits": []
 },
 {
+"name": "_SetConsoleCtrlHandler@8",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": []
+},
+{
 "name": "_RaiseException@16",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
@@ -22072,12 +22098,6 @@
 },
 {
 "name": "_UnhandledExceptionFilter@4",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": []
-},
-{
-"name": "_SetConsoleCtrlHandler@8",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
 "hits": []

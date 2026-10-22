@@ -8,10 +8,13 @@ is reused. Old scratch folders and archived builds are history, not active input
 
 Read the actual C/C++ in [target/work/src](target/work/src). Files may still
 contain unmatched drafts; accepted bodies are identified by the binding proof.
-Checkpoint221cfa5 preserves612 game bodies/107659 executable bytes including
-assembly; authored C/C++ is99872/253580=39.385%. This is warm V2/V3 evidence,
-not a whole-file match. Whole-DLL SHA is now the primary objective; source
-attribution and every accepted extent remain protected. See PROGRESS.md.
+This is also the source being developed for the final retail-identical DLL:
+there is no separate complete "retail source" tree. Whole-file reconstruction
+connects these same functions with their real callers, data and original
+libraries. [src/tus.txt](target/work/src/tus.txt) lists compiled files in candidate
+link order. `target/src/opencod2` is supporting reference/header material, not
+evidence that the entire engine has been reconstructed. Current verified
+counts and limitations are maintained only in PROGRESS.md.
 
 Old `target/agent_*` folders and compiler debris were moved, not deleted, to
 [archive/target_trials_20261021](archive/target_trials_20261021/README.md).

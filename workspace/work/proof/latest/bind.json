@@ -281,6 +281,14 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
+"?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z": {
+"t": "0x1001a810",
+"n": 266,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_CreateShader@@YAPAUMaterialShader@@PBDHH@Z"
+]
+},
 "?Vec3Add@@YAXPBM0PAM@Z": {
 "t": "0x1000f140",
 "n": 25,
@@ -11213,6 +11221,56 @@
 "call __output"
 ]
 },
+"__fpreset": {
+"t": "0x100f5f9d",
+"n": 43,
+"obj": "LIBCMT:ieee87.obj",
+"why": [
+"call ___pxcptinfoptrs"
+]
+},
+"__abstract_cw": {
+"t": "0x100f5fc8",
+"n": 146,
+"obj": "LIBCMT:ieee87.obj",
+"why": []
+},
+"__hw_cw": {
+"t": "0x100f605a",
+"n": 142,
+"obj": "LIBCMT:ieee87.obj",
+"why": []
+},
+"__abstract_sw": {
+"t": "0x100f60e8",
+"n": 57,
+"obj": "LIBCMT:ieee87.obj",
+"why": []
+},
+"__statusfp": {
+"t": "0x100f6121",
+"n": 16,
+"obj": "LIBCMT:ieee87.obj",
+"why": []
+},
+"__clearfp": {
+"t": "0x100f6131",
+"n": 17,
+"obj": "LIBCMT:ieee87.obj",
+"why": []
+},
+"__control87": {
+"t": "0x100f6142",
+"n": 50,
+"obj": "LIBCMT:ieee87.obj",
+"why": []
+},
+"__controlfp": {
+"t": "0x100f6174",
+"n": 22,
+"obj": "LIBCMT:ieee87.obj",
+"why": []
+},
 "_swap": {
 "t": "0x100f6280",
 "n": 32,
@@ -11525,9 +11583,9 @@
 "n": 385,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 10176cbc",
-"unresolved 10176cbc",
-"unresolved 10176cbc"
+"unresolved 10177cbc",
+"unresolved 10177cbc",
+"unresolved 10177cbc"
 ]
 },
 "__DllMainCRTStartup@12": {
@@ -11535,7 +11593,7 @@
 "n": 228,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 10176cbc"
+"unresolved 10177cbc"
 ]
 },
 "__amsg_exit": {
@@ -11553,56 +11611,6 @@
 "why": [
 "call __output"
 ]
-},
-"__fpreset": {
-"t": "0x100f5f9d",
-"n": 43,
-"obj": "LIBCMT:ieee87.obj",
-"why": [
-"call ___pxcptinfoptrs"
-]
-},
-"__abstract_cw": {
-"t": "0x100f5fc8",
-"n": 146,
-"obj": "LIBCMT:ieee87.obj",
-"why": []
-},
-"__hw_cw": {
-"t": "0x100f605a",
-"n": 142,
-"obj": "LIBCMT:ieee87.obj",
-"why": []
-},
-"__abstract_sw": {
-"t": "0x100f60e8",
-"n": 57,
-"obj": "LIBCMT:ieee87.obj",
-"why": []
-},
-"__statusfp": {
-"t": "0x100f6121",
-"n": 16,
-"obj": "LIBCMT:ieee87.obj",
-"why": []
-},
-"__clearfp": {
-"t": "0x100f6131",
-"n": 17,
-"obj": "LIBCMT:ieee87.obj",
-"why": []
-},
-"__control87": {
-"t": "0x100f6142",
-"n": 50,
-"obj": "LIBCMT:ieee87.obj",
-"why": []
-},
-"__controlfp": {
-"t": "0x100f6174",
-"n": 22,
-"obj": "LIBCMT:ieee87.obj",
-"why": []
 },
 "__strdup": {
 "t": "0x100f799f",
@@ -12092,6 +12100,42 @@
 "n": 27,
 "obj": "LIBCMT:exsup3.obj",
 "why": []
+},
+"__setdefaultprecision": {
+"t": "0x100face0",
+"n": 18,
+"obj": "LIBCMT:fp8.obj",
+"why": []
+},
+"_ctrlevent_capture@4": {
+"t": "0x100facf2",
+"n": 143,
+"obj": "LIBCMT:winsig.obj",
+"why": [
+"call __lock"
+]
+},
+"_siglookup": {
+"t": "0x100fad81",
+"n": 46,
+"obj": "LIBCMT:winsig.obj",
+"why": []
+},
+"_signal": {
+"t": "0x100fadc1",
+"n": 417,
+"obj": "LIBCMT:winsig.obj",
+"why": [
+"call _memcpy"
+]
+},
+"_raise": {
+"t": "0x100faf62",
+"n": 377,
+"obj": "LIBCMT:winsig.obj",
+"why": [
+"call __getptd"
+]
 },
 "__hextodec": {
 "t": "0x100f942a",
@@ -12922,12 +12966,6 @@
 "call __cftof"
 ]
 },
-"__setdefaultprecision": {
-"t": "0x100face0",
-"n": 18,
-"obj": "LIBCMT:fp8.obj",
-"why": []
-},
 "__ms_p5_test_fdiv": {
 "t": "0x100fe81d",
 "n": 64,
@@ -12939,36 +12977,6 @@
 "n": 41,
 "obj": "LIBCMT:testfdiv.obj",
 "why": []
-},
-"_ctrlevent_capture@4": {
-"t": "0x100facf2",
-"n": 143,
-"obj": "LIBCMT:winsig.obj",
-"why": [
-"call __lock"
-]
-},
-"_siglookup": {
-"t": "0x100fad81",
-"n": 46,
-"obj": "LIBCMT:winsig.obj",
-"why": []
-},
-"_signal": {
-"t": "0x100fadc1",
-"n": 417,
-"obj": "LIBCMT:winsig.obj",
-"why": [
-"call _memcpy"
-]
-},
-"_raise": {
-"t": "0x100faf62",
-"n": 377,
-"obj": "LIBCMT:winsig.obj",
-"why": [
-"call __exit"
-]
 },
 "_strcpy": {
 "t": "0x100fe890",
@@ -14769,6 +14777,14 @@
 "obj": "LIBCMT:_file.obj",
 "why": []
 },
+"___pxcptinfoptrs": {
+"t": "0x100fadb8",
+"n": 9,
+"obj": "LIBCMT:winsig.obj",
+"why": [
+"call __getptd"
+]
+},
 "__write": {
 "t": "0x100fbdab",
 "n": 171,
@@ -14827,14 +14843,6 @@
 "obj": "LIBCMT:dllmain.obj",
 "why": []
 },
-"___pxcptinfoptrs": {
-"t": "0x100fadb8",
-"n": 9,
-"obj": "LIBCMT:winsig.obj",
-"why": [
-"call __getptd"
-]
-},
 "_memcpy": {
 "t": "0x100fcdf0",
 "n": 829,
@@ -14862,6 +14870,14 @@
 "call __getptd"
 ]
 },
+"___doserrno": {
+"t": "0x100fc21f",
+"n": 9,
+"obj": "LIBCMT:dosmap.obj",
+"why": [
+"call __getptd"
+]
+},
 "__ld12tod": {
 "t": "0x101063c0",
 "n": 22,
@@ -14874,14 +14890,6 @@
 "obj": "LIBCMT:lseek.obj",
 "why": [
 "call __lock_fhandle"
-]
-},
-"___doserrno": {
-"t": "0x100fc21f",
-"n": 9,
-"obj": "LIBCMT:dosmap.obj",
-"why": [
-"call __getptd"
 ]
 },
 "__atodbl": {

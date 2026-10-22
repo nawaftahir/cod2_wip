@@ -2,6 +2,7 @@
 # gfx_d3d/ builds with the renderer flags, the rest with the engine (client) flags; see closed.mk.
 gfx_d3d/r_bsp.cpp
 gfx_d3d/r_material_load_obj.cpp
+gfx_d3d/r_material_shader.cpp
 gfx_d3d/r_staticmodel_load_obj.cpp
 gfx_d3d/r_staticmodel_bounds.cpp
 gfx_d3d/r_bsp_load_obj.cpp

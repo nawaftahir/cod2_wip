@@ -1,0 +1,14 @@
+?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z 0x10004220 266
+--- ours
++++ retail
+@@ -84,2 +84,10 @@
+ add esp, 0x10
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++push ecx
++mov ecx, dword ptr [esi + 4]

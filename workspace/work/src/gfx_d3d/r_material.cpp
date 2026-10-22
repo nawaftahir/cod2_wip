@@ -1,6 +1,7 @@
 // Material globals and vertex declarations.
 #include "r_local.h"
 #include <dxerr9.h>
+#include "r_material_shader.h"
 
 int R_HashAssetName(const char *name);
 int R_HashString(const char *string);
@@ -30,21 +31,6 @@ struct MaterialVertexDeclaration
     MaterialStreamRouting *routingData;
     int streamCount;
     IDirect3DVertexDeclaration9 *decl[4];
-};
-
-// Mac 1.3 field names; PINNED on PC 1.0: shaderTable at +0x259c, size 0x299c (mtlLoadGlob follows).
-struct MaterialShader
-{
-    const char *name;
-    const DWORD *program;
-    unsigned char pad8[2];
-    unsigned char shaderType;
-    unsigned char shaderVersion;
-    union
-    {
-        IDirect3DVertexShader9 *vertexShader;
-        IDirect3DPixelShader9 *pixelShader;
-    } u;
 };
 
 // Mac 1.3 layouts; only the leading fields the table code reads.

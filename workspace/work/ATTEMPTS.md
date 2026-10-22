@@ -1,5 +1,31 @@
 # Reconstruction attempts
 
+## 2026-10-22 connected shader creation source
+
+Added real SDK compiler/device creation source in r_material_shader.cpp with
+the shared16-byte MaterialShader header. PC request version is NOT clamped.
+Actual parser/cache/compiler/cache-insertion caller1001a810 is266 bytes and
+has one exact masked placement; its binding remains blocked by creation.
+Compiler1001a4c0 source builds708 versus705, with local stack-slot differences
+and a5-byte _clearfp call versus2-byte FNCLEX. Do not count either body.
+The pass parser expands existing I_fround assembly; account separately if it
+later becomes binding-accepted. No new assembly definitions were introduced.
+
+Original VC7.1 /O2 probe with pragma intrinsic(_clearfp) emits C4163 and an
+out-of-line jump to __clearfp, not FNCLEX. Retained fixture and local log:
+tests/fixtures/clearfp_intrinsic.cpp, build/clearfp_compile.log. Do not repeat.
+Replacing a pointer-shaped include object with its explicit4-byte struct
+leaves the708-byte body unchanged; keep the clearer typed representation.
+Do not sweep declaration/flag spellings without actual source/TU evidence.
+
+Native32 tests cover252 compiler/device paths, including type256 truncation,
+negative versions,65540-byte code-size truncation and original failure leaks;
+36 parser/cache paths cover hits, failed compiles and insertion. The parser
+fixture explicitly stores the scaled version asfloat before rounding, as the
+primary does: host x87 excess precision otherwise mis-tests2.05f's boundary.
+All1257 protected extents remain. No new library or engine bytes are accepted
+in this source wave. This adds source/real linkage, not a claimed counter gain.
+
 ## 2026-10-22 shader SDK integration
 
 Material_SetPassShaderArguments is now real compiled source, not a fixture-only

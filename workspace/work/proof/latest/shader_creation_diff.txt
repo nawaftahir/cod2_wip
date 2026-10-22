@@ -1,0 +1,128 @@
+?Material_CreateShader@@YAPAUMaterialShader@@PBDHH@Z 0x10004420 708
+--- ours
++++ retail
+@@ -8,5 +8,5 @@
+ mov eax, dword ptr [esp + 0x94]
+ push edi
+-mov dword ptr [esp + 0x20], A
++mov dword ptr [esp + 0x1c], A
+ mov dword ptr [esp + 0x2c], A
+ mov dword ptr [esp + 0x30], A
+@@ -23,5 +23,5 @@
+ push A
+ call A
+-mov dword ptr [esp + 0x1c], A
++mov dword ptr [esp + 0x2c], A
+ jmp A
+ idiv ecx
+@@ -30,5 +30,5 @@
+ push A
+ call A
+-mov dword ptr [esp + 0x1c], A
++mov dword ptr [esp + 0x2c], A
+ mov ebp, dword ptr [esp + 0x9c]
+ add esp, 0xc
+@@ -59,10 +59,10 @@
+ add esp, 0x7c
+ ret 
+-lea edx, [esp + 0x18]
+-push edx
+-lea eax, [esp + 0x20]
+-push eax
+-mov eax, dword ptr [esp + 0x18]
+-lea ecx, [esp + 0x1c]
++lea edx, [esp + 0x14]
++push edx
++lea eax, [esp + 0x1c]
++push eax
++mov eax, dword ptr [esp + 0x28]
++lea ecx, [esp + 0x18]
+ push ecx
+ push ebx
+@@ -71,5 +71,5 @@
+ push eax
+ mov eax, dword ptr [esp + 0x3c]
+-lea ecx, [esp + 0x38]
++lea ecx, [esp + 0x34]
+ push ecx
+ mov ecx, dword ptr [esp + 0x44]
+@@ -80,5 +80,5 @@
+ call A
+ mov esi, eax
+-call A
++fnclex 
+ push 0x30000
+ push 0x20000
+@@ -87,5 +87,5 @@
+ push 0x8001f
+ call A
+-mov eax, dword ptr [esp + 0x2c]
++mov eax, dword ptr [esp + 0x28]
+ add esp, 0x10
+ cmp eax, ebx
+@@ -99,5 +99,5 @@
+ push A
+ call A
+-mov eax, dword ptr [esp + 0x28]
++mov eax, dword ptr [esp + 0x24]
+ mov ecx, dword ptr [eax]
+ add esp, 0xc
+@@ -121,9 +121,9 @@
+ add esp, 0x7c
+ ret 
++mov eax, dword ptr [esp + 0x10]
++cmp eax, ebx
++jne A
+ mov eax, dword ptr [esp + 0x14]
+ cmp eax, ebx
+-jne A
+-mov eax, dword ptr [esp + 0x18]
+-cmp eax, ebx
+ je A
+ mov ecx, dword ptr [eax]
+@@ -142,5 +142,5 @@
+ add esp, 0x7c
+ ret 
+-cmp dword ptr [esp + 0x18], ebx
++cmp dword ptr [esp + 0x14], ebx
+ mov ecx, dword ptr [eax]
+ push eax
+@@ -185,5 +185,5 @@
+ and ecx, 3
+ rep movsb byte ptr es:[edi], byte ptr [esi]
+-mov eax, dword ptr [esp + 0x18]
++mov eax, dword ptr [esp + 0x14]
+ mov ecx, dword ptr [eax]
+ add esp, 4
+@@ -221,5 +221,5 @@
+ push eax
+ call A
+-mov edx, dword ptr [esp + 0x10]
++mov edx, dword ptr [esp + 0x20]
+ push eax
+ push edx
+@@ -238,9 +238,9 @@
+ add esp, 0x7c
+ ret 
++mov eax, dword ptr [esp + 0x10]
++mov edx, dword ptr [eax]
++push eax
++call dword ptr [edx + 8]
+ mov eax, dword ptr [esp + 0x14]
+-mov edx, dword ptr [eax]
+-push eax
+-call dword ptr [edx + 8]
+-mov eax, dword ptr [esp + 0x18]
+ mov ecx, dword ptr [eax]
+ push eax
+@@ -253,2 +253,10 @@
+ add esp, 0x7c
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
