@@ -1,6 +1,7 @@
 // Direct3D presentation setup and device creation.
 #include "r_local.h"
 #include "r_window.h"
+#include "r_permanent.h"
 #include "r_sun_state.h"
 #include "rb_backend.h"
 #include <dxerr9.h>
@@ -294,4 +295,68 @@ void R_ShutdownHardware()
             dx.d3d9->Release();
             dx.d3d9 = 0;
         } while (alwaysfails);
+}
+
+// Role name; PINNED 10013690: construct reset parameters before releasing resources.
+void R_FatalInitError(const char *message);
+
+void R_ResetDevice()
+{
+    GfxWindowParms parms;
+    parms.hwnd = dx.windows[0].hwnd;
+    parms.hz = vidConfig.displayFrequency;
+    parms.fullscreen = vidConfig.isFullscreen != 0;
+    parms.x = 0;
+    parms.y = 0;
+    parms.width = dx.windows[0].width;
+    parms.height = dx.windows[0].height;
+    parms.aaSamples = r_aaSamples->current.integer;
+    D3DPRESENT_PARAMETERS present;
+    R_SetD3DPresentParameters(&present, &parms);
+    R_ReleaseForShutdownOrReset();
+    HRESULT result = dx.device->Reset(&present);
+    _controlfp(0x20000, 0x30000);
+    _controlfp(0x8001f, 0x8001f);
+    if (result < 0)
+        R_FatalInitError(va("Couldn't reset a lost Direct3D device - IDirect3DDevice9::Reset returned 0x%08x (%s)",
+            result, DXGetErrorDescription9(result)));
+    dx.deviceLost = 0;
+    if (!R_CreateDeviceResources())
+        R_FatalInitError("Couldn't reinitialize after a lost Direct3D device");
+}
+
+void R_ReleaseAllModels();
+void R_ReleaseLostImages();
+void Material_ReleaseVertexDecls();
+void Material_ReleaseShaders();
+void R_ReleaseWorld();
+void R_ReloadWorld();
+void Material_ReloadAll();
+void Material_ReloadShaders();
+void R_ReloadLostImages();
+void R_FinishLoadingModels();
+int RB_CalcSunSpriteSamples();
+
+// PINNED 100137f0: only DEVICELOST postpones recovery; other results continue.
+Bool R_RecoverLostDevice()
+{
+    if (dx.device->TestCooperativeLevel() == D3DERR_DEVICELOST)
+        return 0;
+    ri.Printf(0, "Recovering lost device...\n");
+    R_ReleaseAllModels();
+    R_ReleaseLostImages();
+    Material_ReleaseVertexDecls();
+    Material_ReleaseShaders();
+    if (rgp.world)
+        R_ReleaseWorld();
+    R_ResetDevice();
+    if (rgp.world)
+        R_ReloadWorld();
+    Material_ReloadAll();
+    Material_ReloadShaders();
+    R_ReloadLostImages();
+    R_FinishLoadingModels();
+    dx.sunSpriteSamples = RB_CalcSunSpriteSamples();
+    ri.Printf(0, "Finished recovering lost device.\n");
+    return 1;
 }

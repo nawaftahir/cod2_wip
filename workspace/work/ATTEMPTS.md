@@ -1365,3 +1365,32 @@ Native4105 routes include callbacks rearming materialLoaded, changing cleared
 values, replacing world, updating subsequent LODs and flipping skinCache during
 client flush. Matching these source bodies is deferred until structural closure;
 no source-spelling/flag probes were run. All existing matches remain required.
+
+### Device recovery - 2026-10-23
+
+Primary13690 snapshots window0 hwnd/size, video hz/fullscreen and current AA
+before114d0 present setup and12210 release. x/y are zero; unused tileCount is
+not initialized or consumed. Reset reloads the current device afterward, then
+calls _controlfp(20000h,30000h) and(8001fh,8001fh) BEFORE failure handling.
+If fatal returns, it still clears deviceLost and calls resource initialization;
+a second failure can call fatal again. R_ResetDevice is a role name.
+
+Primary137f0 only defers for HRESULT88760868; every other result enters recovery.
+It releases models/images/vertex declarations/shaders, conditionally releases
+world, resets, conditionally reloads the LIVE world, rebuilds declarations/shaders/
+lost images, conditionally optimizes models and publishes sun samples last.
+Do not use Material_ReleaseAll: it clears the routing information needed by
+Material_ReloadAll. Existing R_FinishLoadingModels has the exact optimization
+guard/enumeration and is reused. Recovery is206 bytes through RET100138bd;
+inventory203 omits MOV AL,1 / POP ECX / RET. No new byte credit is claimed.
+
+Primaryd0f0 only rebuilds category5: width/height are unsigned shorts; dynamic
+usage200h/pool0, DX7 mip1/format16h, DX9 mip0/format32h. d2e0 visits categories
+>=5 with null textures outside the13-image program range; categories>5 remain
+untouched by d0f0. This is not Image_LoadFromFile. Native checks cover both ends
+of the program array, all category bytes and live table/renderer changes.
+
+SDK permanent-state views now share r_permanent.h; one rgp allocation remains.
+Cold build and all123 fixtures pass. Native reset tests mock COM/controlfp calls
+to check args/order; they do not establish real Direct3D execution or FP state.
+No byte tuning, new flags, duplicate storage or authored assembly was introduced.

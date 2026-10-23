@@ -10,7 +10,8 @@ work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_material.cpp').read_text()
 
 def declaration(name):
-    owner = (work / 'src/gfx_d3d/r_material_globals.h').read_text() if name == 'MaterialGlobals' else text
+    file = 'r_material_globals.h' if name == 'MaterialGlobals' else 'r_permanent.h' if name in ['MaterialTextureDef','r_global_permanent_t'] else 'r_material.cpp'
+    owner = (work / 'src/gfx_d3d' / file).read_text()
     start = owner.index('struct ' + name + '\n{')
     return owner[start:owner.index('\n};', start) + 3] + '\n'
 
@@ -35,7 +36,7 @@ program = r'''
 #include <vector>
 #include <stdexcept>
 typedef unsigned char byte;typedef byte Bool;
-struct GfxImage;struct MaterialWaterDef;struct MaterialTechniqueSet;struct MaterialTechnique;
+struct GfxImage;struct GfxWorld;struct GfxLightDef;struct MaterialWaterDef;struct MaterialTechniqueSet;struct MaterialTechnique;
 struct MaterialStateMap;struct MaterialShader;struct MaterialStreamRouting;struct IDirect3DVertexDeclaration9;
 ''' + types + r'''
 r_global_permanent_t rgp;MaterialGlobals materialGlobals;

@@ -4,20 +4,11 @@
 #include "r_local.h"
 #include "rb_backend.h"
 #include "rb_drawargs.h"
+#include "r_permanent.h"
 #include "universal/com_math.h"
 
 DxState dxState;
 typedef char sampler_device_lost_offset[(offsetof(DxGlobals, deviceLost) == 0x2d3c) ? 1 : -1];
-
-// Head of r_global_permanent_t (Mac 1.3 layout): only whiteImage is used here.
-struct r_global_permanent_t
-{
-	int materialLoaded;
-	int materialCount;
-	void *sortedMaterials[1024];
-	GfxImage *whiteImage;
-};
-extern r_global_permanent_t rgp;
 
 void RB_SetDepthRange(float nearValue, float farValue)
 {

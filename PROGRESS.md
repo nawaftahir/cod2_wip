@@ -5,7 +5,42 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: genuine frame start
+### Latest: lost-device recovery and shared permanent state
+
+R_ResetDevice13690 (role name) and R_RecoverLostDevice137f0 now connect the
+actual reset/release/recreate/reload/calibration sequence. Only DEVICELOST
+postpones recovery; other cooperative-level results continue. Reset captures
+the original window/video/AA parameters before resource release, reloads the
+live device afterward, restores both FP-control masks, then clears deviceLost
+before resource creation. Returning fatal callbacks retain original continuation.
+
+Image_BuildWaterMapd0f0 and R_ReloadLostImagesd2e0 restore category5 dynamic
+textures only: DX7 one mip/X8R8G8B8 versus DX9 full mips/L8. Thirteen program
+images and already-created textures are skipped. Existing model, world, material
+and calibration helpers are reused; vertex-declaration release is now callable
+without clearing the declarations needed for rebuilding.
+
+r_permanent.h shares the existing SDK-side MaterialTextureDef and complete
+10f0-byte permanent-state schema across material/device/state users. It replaces
+the duplicate material definition and the state's smaller head-only view;
+r_init.cpp still owns the ONE allocation. All relevant offsets are compile-pinned.
+
+Cold original-compiler build, both referees and all123 fixtures pass, retaining
+all1447 protected extents. NO new byte credit: C++104181/253580=41.084076031%,
+616 bodies, frozen legacy denominator. All four new bodies remain uncredited.
+2304 reset/recovery routes,1536 water rebuilds and2048 lost-image selectors
+pass, including callback/device/world changes, format/mip choices and failure
+publication. FP-control calls are mocked in native checks; no actual GPU reset
+or hardware calibration is claimed. Same-offset file equality9.098775408% is
+only a layout diagnostic. Named imports remain exact, with159 temporary exports
+and no GetRefAPI. No new globals, flags, roots or authored assembly.
+
+Proof: proof/device_recovery_checkpoint.json; logs under proof/latest/ named
+device_recovery_preflight.log, device_recovery_build.log and
+device_recovery_fixtures.log. Backend dispatcher/command closure, remaining API
+callbacks/world load, original TU/order proof, SHA and game smoke remain OPEN.
+
+### Genuine frame start
 
 R_BeginFrame10021f40 (API59 slot47) now connects actual material sorting,
 modified light/sun/settings handling, LOD distance publication, client debug

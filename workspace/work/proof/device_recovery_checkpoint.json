@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "ea35305",
+  "scope": "actual device reset/recovery, dynamic lost-image rebuild and shared permanent-state schema",
+  "source_functions_restored": [
+    "R_ResetDevice (role name)",
+    "R_RecoverLostDevice",
+    "Image_BuildWaterMap",
+    "R_ReloadLostImages"
+  ],
+  "shared_sdk_state_schema": "r_permanent.h; one original rgp allocation in r_init.cpp",
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "2c775e400b8a5b322e38364628544778e452cfe71bffd8f8ed5a1fab029ca627",
+  "same_file_offset_percent": 9.098775407909292,
+  "cpp_executable_bytes": 104181,
+  "cpp_percent_legacy_inventory": 41.08407603123275,
+  "cpp_game_bodies": 616,
+  "new_verified_engine_bytes": 0,
+  "protected_extents_retained": 1447,
+  "accepted_address_extent_set_unchanged": true,
+  "full_source_fixtures_passed": 123,
+  "native_device_recovery_routes": 2304,
+  "native_water_map_routes": 1536,
+  "native_lost_image_selector_routes": 2048,
+  "named_import_set_identical": true,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 953810,
+      "sha256": "aff419edc48707e5a384c7da22cccc71a3fdf01ca28279933244eac0b1c29af0"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602687,
+      "sha256": "177b8e07b9109b017864cd7f923dc0dc1e8b948ece126291d8263b12048e251b"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "1b447be9837dd6094668d2e8e05579f6965df848dfb4ae3e7b7b4a46005f5467"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88168,
+      "sha256": "ace4c6b6bf855759df315869b4e3f162fc2cac411842ce3935d7bac98574b1a6"
+    }
+  ],
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "cold_build": true,
+  "build_config_identity": "a671babb5085b2b5ff2a0e5055968cc591b1f45c413db10b141ae291902d43d0",
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/r_device.cpp": "c38d6616a2a47403388f18436d482402f433d79830b260895ca24b6a2f41dc2e",
+    "target/work/src/gfx_d3d/r_image.cpp": "e34f526fef62f2fb2588a1f9069ef08eac67ebff6c7f766e00d10ace2f1b3ce1",
+    "target/work/src/gfx_d3d/r_material.cpp": "ea627c79c714e5b35ebbecbeec03f5420cfc8c227630339c0ba7efdf0b2b7c18",
+    "target/work/src/gfx_d3d/rb_state.cpp": "a1118556bbf471772e49b13dc87ffced16474fafa9744c11c472977e946a2304",
+    "target/work/src/gfx_d3d/r_permanent.h": "3a5a46e2728d308a5a75a40d0f61f5172c85b283aa7bade98e56d4a2615b2983",
+    "target/work/tests/test_device_recovery.py": "95b182814b94ad7f1a94a9b16463c5cb29e63f378e820a9283df677ee7f1104a",
+    "target/work/tests/test_lost_image_reload.py": "6e82af983788400dc234b8cae68577a0be82b0127dd7a616e63182a8bc5aa64a",
+    "target/work/tests/test_material_startup.py": "11c04b0597c1280ca952ba93409641cb49a85dbecdb4b07bda18e6bce3eb3f16",
+    "target/work/tests/test_material_reload_commands.py": "66c147733724c6e3eb19ac48083fde54d260c3c5be6ceb7d4e10d874b99c6ee8",
+    "target/work/tests/test_resource_shutdown.py": "8cd86a04b4017d80cfa60bbfdea47b263391f9d958e9e247539ff34426611d1d"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/device_recovery_preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "target/work/proof/latest/device_recovery_build.log": "4f89f0cdb4452975bc2e44c5096cf8d5035b4f1447b5cd48d436a8204cc0e4fd",
+    "target/work/proof/latest/device_recovery_fixtures.log": "07babca78d6b3b4525e1fd982d1c62af6e9609a31d417c76c45bab8473fa3676"
+  },
+  "limits": [
+    "all four new bodies remain uncredited pending byte matching",
+    "native COM and controlfp calls are mocked; actual GPU reset/FP state/calibration not established",
+    "source/TU final order, remaining backend/API/world-load closure, metadata and SHA still unproved",
+    "no independent fresh-checkout replay or game smoke"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ]
+}

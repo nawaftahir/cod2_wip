@@ -417,3 +417,15 @@ is now named sortKey in the unchanged68-byte Material view. TechniqueSet remains
 140 bytes; comparison subtracts typed pointers, not raw address ordering. Original
 VC7.1 std::sort is reused; ten matched library bodies remain dependency credit.
 No new mutable storage or TU/order claim is introduced by this wave.
+
+Device recovery now shares r_permanent.h with material/state code. The SDK-side
+MaterialTextureDef and full10f0-byte permanent view have one declaration; the
+common allocation remains r_init.cpp. The former image gap and head-only state
+view are replaced by fields matching the common schema; white/default/world/
+raw offsets1008/102c/109c/10e4 and total size are asserted. No second rgp exists.
+
+r_device.cpp owns actual Reset13690/Recover137f0 using existing release/create,
+world/model and material helpers. Material_ReleaseVertexDecls becomes shared
+without clearing its routing/count; Material_ReleaseAll would destroy rebuild
+inputs. r_image.cpp owns dynamic water rebuild and retained-image filtering.
+No original TU-boundary or final placement claim follows from this organization.

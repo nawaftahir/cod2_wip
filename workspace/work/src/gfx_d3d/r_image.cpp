@@ -601,6 +601,27 @@ void R_ReleaseLostImages()
     }
 }
 
+// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
+void Image_BuildWaterMap(GfxImage *image)
+{
+    if (image->category == 5)
+        Image_Create2DTexture(image, image->width, image->height,
+            r_rendererInUse->current.integer == 2 ? 1 : 0, D3DUSAGE_DYNAMIC,
+            r_rendererInUse->current.integer == 2 ? D3DFMT_X8R8G8B8 : D3DFMT_L8,
+            D3DPOOL_DEFAULT);
+}
+
+// PINNED 1000d2e0: retained program images and already-created textures are skipped.
+void R_ReloadLostImages()
+{
+    for (int index = 0; index < 2048; ++index)
+    {
+        GfxImage *image = imageGlobals.imageHashTable[index];
+        if (image && image->category >= 5 && !image->texture.basemap && !Image_IsCodeImage(image))
+            Image_BuildWaterMap(image);
+    }
+}
+
 Bool Image_LoadFromFile(GfxImage *image);
 
 // PINNED 1000d450/42: release first, then reload or raise ERR_DROP.

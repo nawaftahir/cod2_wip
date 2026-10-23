@@ -463,15 +463,7 @@ int R_GetMaterialSubimageCount(const MaterialInfoView *handle)
 }
 
 struct MaterialWaterDef;
-struct MaterialTextureDef
-{
-    const char *name;
-    byte samplerState;
-    byte semantic;
-    byte unused_0;
-    byte unused_1;
-    union { GfxImage *image; MaterialWaterDef *water; } u;
-};
+#include "r_permanent.h"
 
 // Mac 1.3 Material (0x44 bytes); offsets PINNED on PC 1.0.
 struct Material
@@ -489,57 +481,6 @@ struct Material
     MaterialTextureDef *textures;
     const void *constants;
 };
-
-// SDK-side view of the same rgp allocation owned by r_init.cpp.
-struct r_global_permanent_t
-{
-    int materialLoaded;
-    int materialCount;
-    Material *sortedMaterials[1024];
-    unsigned char pad1008[0x102c - 0x1008];
-    Material *defaultMaterial;
-    Material *rawMaterial;
-    Material *stencilPlaneMaterial;
-    Material *whiteMaterial;
-    Material *additiveMaterial;
-    Material *pointMaterial;
-    Material *lineMaterial;
-    Material *clearAlphaStencilMaterial;
-    Material *shadowClearMaterial;
-    Material *shadowCookieOverlayMaterial;
-    Material *shadowCookieBlurMaterial;
-    Material *glareBlindMaterial;
-    Material *normalFillMaterial;
-    Material *alphaBlendFillMaterial;
-    Material *alphaTestPassFillMaterial;
-    Material *alphaTestFailFillMaterial;
-    Material *additiveFillMaterial;
-    Material *depthOnlyFillMaterial;
-    Material *stencilOneSideKeepFillMaterial;
-    Material *stencilOneSideRejectFillMaterial;
-    Material *stencilTwoSideKeepFillMaterial;
-    Material *stencilTwoSideRejectFillMaterial;
-    Material *phongBumpFillMaterial;
-    Material *phongBumpSpecFillMaterial;
-    Material *colorChannelMixerMaterial;
-    Material *frameColorDebugMaterial;
-    Material *frameAlphaDebugMaterial;
-    GfxImage *rawImage;
-    void *world;
-    GfxImage *sunHalfAngleImage;
-    GfxImage *waterColorImage;
-    Material *feedbackReplaceMaterial;
-    Material *feedbackBlendMaterial;
-    Material *symmetricFilterMaterial[8];
-    Material *shellShockMaterial;
-    Material *glowSetupMaterial;
-    Material *glowApplySkyBleedMaterial;
-    Material *glowApplyBloomMaterial;
-    int savedScreenTime;
-    MaterialTextureDef rawTexdef;
-};
-
-extern r_global_permanent_t rgp;
 
 #include <stddef.h>
 typedef char materialStartupLayoutCheck[(sizeof(MaterialGlobals) == 0x299c &&
@@ -890,7 +831,7 @@ void Material_Init()
 void RB_SetFVF(DWORD fvf);
 
 // Name unconfirmed.
-static void Material_ReleaseVertexDecls()
+void Material_ReleaseVertexDecls()
 {
     int declIndex;
     int declType;
