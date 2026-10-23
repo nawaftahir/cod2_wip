@@ -1,0 +1,164 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "e6017ea",
+  "scope": "actual shader-source preload using existing cache and original standard-library sort",
+  "whole_file_identical": false,
+  "candidate_sha256": "08356b902c32869692a3bf4c35255c30c1591577137b38d8899908013c840ccb",
+  "same_file_offset_percent": 8.301051317063052,
+  "cpp_executable_bytes": 102205,
+  "cpp_percent_supported_inventory": 40.30483476614875,
+  "cpp_game_bodies": 599,
+  "cpp_bytes_gained": 83,
+  "new_accepted_game_bodies": [
+    {
+      "target": "0x1001c8d0",
+      "bytes": 83,
+      "name": "Material_CompareShaderText"
+    }
+  ],
+  "new_accepted_library_bodies": [
+    {
+      "t": "0x1001ca50",
+      "n": 33,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z"
+    },
+    {
+      "t": "0x1001ca80",
+      "n": 320,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Sort@PAUGfxCachedShaderText@@HP6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0HP6A_NABU1@1@Z@Z"
+    },
+    {
+      "t": "0x1001cbc0",
+      "n": 831,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Unguarded_partition@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YA?AU?$pair@PAUGfxCachedShaderText@@PAU1@@0@PAUGfxCachedShaderText@@0P6A_NABU2@1@Z@Z"
+    },
+    {
+      "t": "0x1001cf30",
+      "n": 154,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$sort_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z"
+    },
+    {
+      "t": "0x1001cfd0",
+      "n": 144,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Insertion_sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z"
+    },
+    {
+      "t": "0x1001d070",
+      "n": 169,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Median@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00P6A_NABU1@1@Z@Z"
+    },
+    {
+      "t": "0x1001d170",
+      "n": 100,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Make_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@ZPAH0@Z"
+    },
+    {
+      "t": "0x1001d230",
+      "n": 190,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Med3@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00P6A_NABU1@1@Z@Z"
+    },
+    {
+      "t": "0x1001d320",
+      "n": 167,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Adjust_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@HHU1@P6A_NABU1@2@Z@Z"
+    },
+    {
+      "t": "0x1001d3d0",
+      "n": 108,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Pop_heap_0@PAUGfxCachedShaderText@@U1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z0@Z"
+    },
+    {
+      "t": "0x1001d460",
+      "n": 129,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Push_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@HHU1@P6A_NABU1@2@Z@Z"
+    },
+    {
+      "t": "0x1001d4f0",
+      "n": 82,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Pop_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00U1@P6A_NABU1@2@ZPAH@Z"
+    },
+    {
+      "t": "0x1001d550",
+      "n": 269,
+      "obj": "r_material_load_obj.obj",
+      "why": [],
+      "name": "??$_Rotate@PAUGfxCachedShaderText@@HU1@@std@@YAXPAUGfxCachedShaderText@@00PAH0@Z"
+    }
+  ],
+  "new_library_body_count": 13,
+  "new_library_extent_bytes": 2696,
+  "library_bytes_are_authored_game_credit": false,
+  "mixed_game_bodies": 630,
+  "mixed_executable_bytes": 109992,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "new_authored_assembly_definitions": false,
+  "byte_and_binding_referees_changed": false,
+  "previous_1270_extents_retained": true,
+  "protected_extents": 1284,
+  "three_new_game_library_removal_negatives_passed": true,
+  "full_source_fixtures_passed": 90,
+  "native32_shader_cache_scenarios": 9,
+  "native_root_file_counts": [
+    0,
+    1,
+    2,
+    33,
+    80
+  ],
+  "preserved_original_behavior": [
+    "case-sensitive sort with case-insensitive lookup",
+    "unchecked open/read result handling",
+    "free library list before root list"
+  ],
+  "source_header_fix": "Include original <algorithm> before legacy min/max typedefs; no reference edits or macros/flags",
+  "unaccepted_source": [
+    "Material_CacheShaderText",
+    "Material_PreloadShaderText"
+  ],
+  "new_globals_exports_tus_or_flags": false,
+  "GetRefAPI_implemented": false,
+  "candidate_exports": 159,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "independent_fresh_checkout_replay": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_material_load_obj.cpp": "829e43ea81c8d023548cc82fcdbd5087dc361f5a0f138a6c2a0013c7fd734537",
+    "tests/test_shader_preload.py": "2eac20cd048b4cc5ba5b501301f68c638ba6b5c5ad539600e0f6349a030e1944",
+    "tools/check_checkpoint.py": "424bcc350936e5f9c748f14f0301a4a32248eeb2c99653b7fe96716b6370ab15",
+    "proof/shader_preload_warm_bind.json": "b283ac654f0dcc4a0e937bcde19d5fa27134fcf49f4bd8cf188cdbd39ca7173d",
+    "proof/shader_preload_layout.json": "99dd971b633d557f6e73f9e82beb974d6cfbcfe1b68ab04c0242a3be017d6ef5",
+    "proof/shader_preload_source_coverage.json": "6f0526c99eca5ad0ab3f49d39b00fe6e87c465e42330f0537dbf463ef9a5646a",
+    "proof/latest/shader_preload_headers_build.log": "698ca65fbc85ea8c14e919c016a2c7de8427db872f3445be3b9ff58e9021cc45",
+    "proof/latest/shader_preload_fixtures.log": "f3ba8849531f08018d8d4a0deb35691879ab059ded9f6cdbaa743f4a797abe7c",
+    "proof/latest/shader_preload_ratchet.log": "4b1559f4748561183249400bd1020cbf1991c99bf6fab9e6d7f10b0b20a1ac8e",
+    "proof/latest/shader_preload_negatives.log": "0f113b1c78cf9c405c3ae55b23be9c19e1e7ec284d7c5ca2580aed6c7059e7ce"
+  }
+}

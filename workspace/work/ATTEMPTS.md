@@ -1,5 +1,40 @@
 # Reconstruction attempts
 
+## 2026-10-23 shader-source cache preload
+
+Preload1c930 ends1ca4f:288 bytes, not282. Reuse the EXISTING8-byte mtlLoadGlob
+and12-byte GfxCachedShaderText entries in r_material_load_obj.cpp. List hlsl
+under materials/shaders/ and materials/shaders/lib/ with behavior0/track20;
+publish the combined count/table, load root then lib files, sort, free LIB list
+before ROOT list. The output base is captured for each loading loop, reloaded
+between loops and before sort, matching primary ownership rather than caching
+a whole stale snapshot or making another database.
+
+File helper1c7f0/173 builds a64-byte materials/shaders/%s%s path, opens with
+unique1, and allocates ONE align1 block for prefix+name+NUL+text+NUL. Publish
+name/text before FS_Read, close before the final NUL/textSize stores. The target
+does not check open/read results. Native tests preserve short-read tail bytes
+and the negative-open calls instead of silently adding new failure handling.
+The table allocation uses Hunk_AllocInternal; entries use Hunk_AllocAlignInternal.
+
+Comparator1c8d0 ends1c922:83 bytes. It is bool(const entry&,const entry&) using
+CASE-SENSITIVE strcmp<0. Existing binary lookup10018250 uses _stricmp; mixed-case
+sort/search can therefore miss an existing entry. Preserve that original quirk.
+1ca80 is VC7.1 std::_Sort, NOT another game algorithm to reverse. Use actual
+<algorithm>/std::sort with that function-pointer comparator, just as the existing
+display-mode reconstruction reuses compiler-library templates. Any matching
+std helper is dependency coverage, never newly authored game credit.
+Nine native scenarios include0/1/2/33/80 root files, library prefixes, all text
+ownership/termination, lookup, empty lists, short/negative reads and the original
+case-sensitive sort mismatch. New source has no flags/TU/global/root/assembly.
+The first compile exposed legacy global typedefs named min/max in common_types;
+VC7.1 xutility cannot parse its function declarations after those aliases.
+Include <algorithm> BEFORE the legacy view. The retry compiles without changing
+that reference header, adding macros/flags or implementing a replacement sort.
+That retry binds the83-byte comparator plus THIRTEEN std templates /2696 bytes
+through both unchanged referees, with all1270 previous extents retained. Only83
+is new authored C++ credit. Preload/file helper source remains unaccepted.
+
 ## 2026-10-23 image startup publication
 
 R_RegisterBuiltinImages1000d560/276 publishes white/black first. DX7 (renderer2)

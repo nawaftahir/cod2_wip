@@ -1,8 +1,8 @@
 {
-  "functions": 629,
-  "bytes": 109909,
+  "functions": 630,
+  "bytes": 109992,
   "total": 253580,
-  "percent": 43.34292925309567,
+  "percent": 43.375660541052135,
   "baseline_lost": [],
   "gains": [
     {
@@ -570,6 +570,12 @@
       "object": "r_material_load_obj.obj"
     },
     {
+      "target": "0x1001c8d0",
+      "bytes": 83,
+      "name": "?Material_CompareShaderText@@YA_NABUGfxCachedShaderText@@0@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
       "target": "0x1001d660",
       "bytes": 181,
       "name": "?ConvertQuatToMat@@YAXPBUDObjAnimMat@@QAY02M@Z",
@@ -979,7 +985,7 @@
     }
   ],
   "checkpoint_lost": [],
-  "excluded_new_library_functions": 23,
+  "excluded_new_library_functions": 36,
   "excluded_new_embedded_table_bytes": 482,
-  "excluded_new_library_bytes": 4549
+  "excluded_new_library_bytes": 7245
 }

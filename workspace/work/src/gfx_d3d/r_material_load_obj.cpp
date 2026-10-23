@@ -1,4 +1,5 @@
 // Material and technique loading.
+#include <algorithm>
 #define CodeSamplerSource MacCodeSamplerSource
 #define CodeConstantSource MacCodeConstantSource
 #define ShaderConstantRouting MacShaderConstantRouting
@@ -652,6 +653,55 @@ struct MtlLoadGlob
 };
 
 MtlLoadGlob mtlLoadGlob;
+
+typedef char cachedShaderTextLayoutCheck[(sizeof(GfxCachedShaderText) == 12 &&
+    offsetof(GfxCachedShaderText, text) == 4 &&
+    offsetof(GfxCachedShaderText, textSize) == 8) ? 1 : -1];
+
+// PINNED 1001c7f0/173: name and text share one allocation; read results are not checked here.
+void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedShaderText *cached)
+{
+    char path[64];
+    Com_sprintf(path, sizeof(path), "materials/shaders/%s%s", prefix, name);
+    fileHandle_t file;
+    int length = ri.FS_FOpenFileRead(path, &file, 1);
+    char *buffer = (char *)ri.Hunk_AllocAlignInternal(strlen(prefix) + strlen(name) + length + 2, 1);
+    cached->name = buffer;
+    int nameLength = sprintf(buffer, "%s%s", prefix, name);
+    char *text = buffer + nameLength + 1;
+    cached->text = text;
+    ri.FS_Read(text, length, file);
+    ri.FS_FCloseFile(file);
+    text[length] = 0;
+    cached->textSize = length;
+}
+
+// PINNED 1001c8d0/83: sort is case-sensitive although cache lookup uses _stricmp.
+bool Material_CompareShaderText(const GfxCachedShaderText &left, const GfxCachedShaderText &right)
+{
+    return strcmp(left.name, right.name) < 0;
+}
+
+// PINNED 1001c930/288: publish the existing cache, sort with the original compiler library.
+void Material_PreloadShaderText()
+{
+    int shaderCount, libraryCount;
+    char **shaders = ri.FS_ListFiles("materials/shaders/", "hlsl", 0, &shaderCount, 20);
+    char **libraries = ri.FS_ListFiles("materials/shaders/lib/", "hlsl", 0, &libraryCount, 20);
+    mtlLoadGlob.cachedCount = shaderCount + libraryCount;
+    mtlLoadGlob.cached = (GfxCachedShaderText *)ri.Hunk_AllocInternal(
+        mtlLoadGlob.cachedCount * sizeof(GfxCachedShaderText));
+    GfxCachedShaderText *cached = mtlLoadGlob.cached;
+    for (int index = 0; index < shaderCount; ++index, ++cached)
+        Material_CacheShaderText(shaders[index], "", cached);
+    cached = mtlLoadGlob.cached + shaderCount;
+    for (int index = 0; index < libraryCount; ++index, ++cached)
+        Material_CacheShaderText(libraries[index], "lib/", cached);
+    std::sort(mtlLoadGlob.cached, mtlLoadGlob.cached + mtlLoadGlob.cachedCount,
+        Material_CompareShaderText);
+    ri.FS_FreeFileList(libraries, 20);
+    ri.FS_FreeFileList(shaders, 20);
+}
 
 // Names of the split helpers are unconfirmed; PC 1.0 addresses are pinned.
 static const MtlStateMapBitName *Material_ParseStateValue(const char **text,

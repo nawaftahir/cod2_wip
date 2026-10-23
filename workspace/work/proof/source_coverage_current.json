@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 109909,
-  "cpp_executable_bytes": 102122,
-  "cpp_percent": 40.272103478192285,
-  "cpp_game_bodies": 598,
+  "mixed_executable_bytes": 109992,
+  "cpp_executable_bytes": 102205,
+  "cpp_percent": 40.30483476614875,
+  "cpp_game_bodies": 599,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -262,7 +262,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "cb493b035b55e9672337c890b33190dedf77024f4e827247846219649ec575b4",
   "regression_sha256": "0b02122f6e8f7a685a9e3d9d7d8121ee90bfe81efbde5f36e04ebde6875a2630",
-  "bind_sha256": "f11cb6b2fedbe17c3da844ac880465bd0807e93fbb6880c02a3f6208e153f9bd",
+  "bind_sha256": "b283ac654f0dcc4a0e937bcde19d5fa27134fcf49f4bd8cf188cdbd39ca7173d",
   "source_sha256": {
     "profile.mk": "6015c8ee2fbf36f8dbe127d0fac090714f50d92cbbf6e758ca3b3db72e7cc420",
     "roots.txt": "cad2205bd43d5ea59c7323bf668c2d107128bfa47a33dc1f596b59b1e45e50bc",
@@ -316,7 +316,7 @@
     "gfx_d3d/r_bsp.cpp": "64f7f17faeaabe44fbb18e57cd310f1ffb741abafd4effc1f47f7f8c3915a0b5",
     "gfx_d3d/r_material.cpp": "05449f7a8704c7fe59eede12c8a37801c81763f8e3af7716af3ba6c7bc658fb3",
     "gfx_d3d/r_material_state_tables.h": "2d19ad921b5ae1f8cf0a1c6b43a466243c00a8d30126d18835720ea5478ae0a2",
-    "gfx_d3d/r_material_load_obj.cpp": "967298dc2ed85eaea55f8bea5753dc11ac6891cfe098ac95235535879c609873",
+    "gfx_d3d/r_material_load_obj.cpp": "829e43ea81c8d023548cc82fcdbd5087dc361f5a0f138a6c2a0013c7fd734537",
     "gfx_d3d/r_xsurface_optimize.cpp": "12405d8c0e4e9f8641ac5ed79ae2180ac95368f60dd7169b7152e875b1b8d63c",
     "gfx_d3d/r_flares.cpp": "55f7a278e82e5f4a540f797c82b7d03a89ab66521c63b22bbcf2eaf66bfe99b7",
     "gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",

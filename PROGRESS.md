@@ -1,12 +1,49 @@
 # Renderer progress
 
-## Structure-first image initialization wave - 2026-10-23
+## Structure-first shader preload wave - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Wave after e6017ea restores shader-source preload and file caching in the
+EXISTING mtlLoadGlob owner, r_material_load_obj.cpp. It lists root/lib hlsl files,
+uses one permanent name+text block per file, publishes/sorts the real cache,
+then frees lib/root lists. No second shader database, globals, TU, flags or roots.
+The83-byte case-sensitive comparator1001c8d0 passes both unchanged referees.
+Original VC7.1 std::sort headers reproduce THIRTEEN dependency bodies /2696 bytes;
+none of those library bytes are relabeled authored game reconstruction.
+
+All1270 prior extents survive; the ratchet now protects1284. Comparator/_Sort/
+_Rotate removal negatives all reject lost bodies. Authored C/C++102205/253580
+=40.304834766%,599 bodies. Mixed109992 bytes/630 bodies; same31/7787 authored
+assembly exclusions. The file helper/preload source remains unaccepted; source
+restoration alone is not V2. No compiler/code spelling sweeps or authored ASM.
+All90 fixtures pass after the final build, including nine native cache scenarios
+with0/1/2/33/80 root files, borrowed/owned data, prefixes, short reads, failed
+opens and the original case-sensitive-sort/case-insensitive-lookup mismatch.
+
+Current SHA08356b902c32869692a3bf4c35255c30c1591577137b38d8899908013c840ccb;
+.text891298, .rdata591391, .data6085588, .reloc85258; file1630208 bytes.
+Raw same-offset8.301051317%, NOT source coverage/retail identity. Still no
+GetRefAPI; structural checkpoint and stages1-3 remain OPEN. One output, no workers.
+Per-turn billing is not exposed: verified gain83 game bytes+2696 dependencies.
+No own build/test remains running. Frozen source/evidence identities:
+target/work/proof/shader_preload_checkpoint.json.
+
+One compile issue was a legacy typedef min/max collision with VC7.1 xutility.
+Including <algorithm> BEFORE the legacy view fixes it without editing references,
+changing flags, macro-renaming types or writing a replacement sort implementation.
+
+Next material closure: Material_Register17100/144 calls lookup17050, loader1c740,
+register16ed0 and duplicate16f30. Default failure/duplicate behavior is real work,
+not a placeholder. Then tables17350/64 and raw/default17190/88 -> Material_Init
+173e0/124 -> finalization12040 -> higher device/startup/R_Init/API. Shader preload
+needed by Material_Init now has actual compiled source and its shared cache.
+
+### Image initialization checkpoint e6017ea
 
 Wave after94e48e9 restores R_RegisterBuiltinImages1000d560/276 and the complete
 R_InitImages1000d880/124 in r_init.cpp, the existing rgp owner. DX7 creates water

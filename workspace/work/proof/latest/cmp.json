@@ -271,6 +271,26 @@
 ]
 },
 {
+"name": "?Material_CacheShaderText@@YAXPBD0PAUGfxCachedShaderText@@@Z",
+"obj": "r_material_load_obj.obj",
+"size": 173,
+"hits": []
+},
+{
+"name": "?Material_CompareShaderText@@YA_NABUGfxCachedShaderText@@0@Z",
+"obj": "r_material_load_obj.obj",
+"size": 83,
+"hits": [
+"0x1001c8d0"
+]
+},
+{
+"name": "?Material_PreloadShaderText@@YAXXZ",
+"obj": "r_material_load_obj.obj",
+"size": 272,
+"hits": []
+},
+{
 "name": "?Material_ParseStateValue@@YAPBUMtlStateMapBitName@@PAPBDPBU1@@Z",
 "obj": "r_material_load_obj.obj",
 "size": 163,
@@ -554,6 +574,173 @@
 "size": 79,
 "hits": [
 "0x1001c240"
+]
+},
+{
+"name": "??$sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 33,
+"hits": [
+"0x1001ca50"
+]
+},
+{
+"name": "??$_Sort@PAUGfxCachedShaderText@@HP6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0HP6A_NABU1@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 320,
+"hits": [
+"0x1001ca80"
+]
+},
+{
+"name": "??$_Unguarded_partition@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YA?AU?$pair@PAUGfxCachedShaderText@@PAU1@@0@PAUGfxCachedShaderText@@0P6A_NABU2@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 831,
+"hits": [
+"0x1001cbc0"
+]
+},
+{
+"name": "??$make_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 33,
+"hits": [
+"0x1001cf00",
+"0x1001d1e0"
+]
+},
+{
+"name": "??$sort_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 154,
+"hits": [
+"0x1001cf30"
+]
+},
+{
+"name": "??$_Insertion_sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 144,
+"hits": [
+"0x1001cfd0"
+]
+},
+{
+"name": "??0?$pair@PAUGfxCachedShaderText@@PAU1@@std@@QAE@ABQAUGfxCachedShaderText@@0@Z",
+"obj": "r_material_load_obj.obj",
+"size": 16,
+"hits": [
+"0x1000e320",
+"0x10013f20",
+"0x10017d30",
+"0x1001d060",
+"0x10028570"
+]
+},
+{
+"name": "??$_Median@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00P6A_NABU1@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 169,
+"hits": [
+"0x1001d070"
+]
+},
+{
+"name": "??$iter_swap@PAUGfxCachedShaderText@@PAU1@@std@@YAXPAUGfxCachedShaderText@@0@Z",
+"obj": "r_material_load_obj.obj",
+"size": 45,
+"hits": [
+"0x1001d120",
+"0x1001d2f0"
+]
+},
+{
+"name": "??$_Make_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@ZPAH0@Z",
+"obj": "r_material_load_obj.obj",
+"size": 100,
+"hits": [
+"0x1001d170"
+]
+},
+{
+"name": "??$pop_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 33,
+"hits": [
+"0x1001cf00",
+"0x1001d1e0"
+]
+},
+{
+"name": "??$rotate@PAUGfxCachedShaderText@@@std@@YAXPAUGfxCachedShaderText@@00@Z",
+"obj": "r_material_load_obj.obj",
+"size": 19,
+"hits": [
+"0x100140c0",
+"0x1001d210"
+]
+},
+{
+"name": "??$_Med3@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00P6A_NABU1@1@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 190,
+"hits": [
+"0x1001d230"
+]
+},
+{
+"name": "??$swap@UGfxCachedShaderText@@@std@@YAXAAUGfxCachedShaderText@@0@Z",
+"obj": "r_material_load_obj.obj",
+"size": 45,
+"hits": [
+"0x1001d120",
+"0x1001d2f0"
+]
+},
+{
+"name": "??$_Adjust_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@HHU1@P6A_NABU1@2@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 167,
+"hits": [
+"0x1001d320"
+]
+},
+{
+"name": "??$_Pop_heap_0@PAUGfxCachedShaderText@@U1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z0@Z",
+"obj": "r_material_load_obj.obj",
+"size": 108,
+"hits": [
+"0x1001d3d0"
+]
+},
+{
+"name": "??$_Rotate@PAUGfxCachedShaderText@@@std@@YAXPAUGfxCachedShaderText@@00Urandom_access_iterator_tag@0@@Z",
+"obj": "r_material_load_obj.obj",
+"size": 15,
+"hits": []
+},
+{
+"name": "??$_Push_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@HHU1@P6A_NABU1@2@Z@Z",
+"obj": "r_material_load_obj.obj",
+"size": 129,
+"hits": [
+"0x1001d460"
+]
+},
+{
+"name": "??$_Pop_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00U1@P6A_NABU1@2@ZPAH@Z",
+"obj": "r_material_load_obj.obj",
+"size": 82,
+"hits": [
+"0x1001d4f0"
+]
+},
+{
+"name": "??$_Rotate@PAUGfxCachedShaderText@@HU1@@std@@YAXPAUGfxCachedShaderText@@00PAH0@Z",
+"obj": "r_material_load_obj.obj",
+"size": 269,
+"hits": [
+"0x1001d550"
 ]
 },
 {
@@ -17989,6 +18176,22 @@
 ]
 },
 {
+"name": "_sprintf",
+"obj": "LIBCMT:sprintf.obj",
+"size": 88,
+"hits": [
+"0x100f5f14"
+]
+},
+{
+"name": "__scprintf",
+"obj": "LIBCMT:sprintf.obj",
+"size": 49,
+"hits": [
+"0x100f5f6c"
+]
+},
+{
 "name": "_printf",
 "obj": "LIBCMT:printf.obj",
 "size": 102,
@@ -18098,22 +18301,6 @@
 "size": 56,
 "hits": [
 "0x100f5db2"
-]
-},
-{
-"name": "_sprintf",
-"obj": "LIBCMT:sprintf.obj",
-"size": 88,
-"hits": [
-"0x100f5f14"
-]
-},
-{
-"name": "__scprintf",
-"obj": "LIBCMT:sprintf.obj",
-"size": 49,
-"hits": [
-"0x100f5f6c"
 ]
 },
 {
@@ -19056,6 +19243,72 @@
 ]
 },
 {
+"name": "__flsbuf",
+"obj": "LIBCMT:_flsbuf.obj",
+"size": 281,
+"hits": [
+"0x100fa320"
+]
+},
+{
+"name": "_write_char",
+"obj": "LIBCMT:output.obj",
+"size": 51,
+"hits": [
+"0x100fa439"
+]
+},
+{
+"name": "_write_multi_char",
+"obj": "LIBCMT:output.obj",
+"size": 36,
+"hits": [
+"0x100fa46c"
+]
+},
+{
+"name": "_write_string",
+"obj": "LIBCMT:output.obj",
+"size": 55,
+"hits": [
+"0x100fa490"
+]
+},
+{
+"name": "_get_int_arg",
+"obj": "LIBCMT:output.obj",
+"size": 9,
+"hits": [
+"0x100fa4c7",
+"0x10105517"
+]
+},
+{
+"name": "_get_int64_arg",
+"obj": "LIBCMT:output.obj",
+"size": 12,
+"hits": [
+"0x100fa4d0",
+"0x10105520"
+]
+},
+{
+"name": "_get_short_arg",
+"obj": "LIBCMT:output.obj",
+"size": 10,
+"hits": [
+"0x100fa4dc"
+]
+},
+{
+"name": "__output",
+"obj": "LIBCMT:output.obj",
+"size": 2042,
+"hits": [
+"0x100fa4e6"
+]
+},
+{
 "name": "___iob_func",
 "obj": "LIBCMT:_file.obj",
 "size": 6,
@@ -19125,64 +19378,6 @@
 "size": 42,
 "hits": [
 "0x100fb5e5"
-]
-},
-{
-"name": "_write_char",
-"obj": "LIBCMT:output.obj",
-"size": 51,
-"hits": [
-"0x100fa439"
-]
-},
-{
-"name": "_write_multi_char",
-"obj": "LIBCMT:output.obj",
-"size": 36,
-"hits": [
-"0x100fa46c"
-]
-},
-{
-"name": "_write_string",
-"obj": "LIBCMT:output.obj",
-"size": 55,
-"hits": [
-"0x100fa490"
-]
-},
-{
-"name": "_get_int_arg",
-"obj": "LIBCMT:output.obj",
-"size": 9,
-"hits": [
-"0x100fa4c7",
-"0x10105517"
-]
-},
-{
-"name": "_get_int64_arg",
-"obj": "LIBCMT:output.obj",
-"size": 12,
-"hits": [
-"0x100fa4d0",
-"0x10105520"
-]
-},
-{
-"name": "_get_short_arg",
-"obj": "LIBCMT:output.obj",
-"size": 10,
-"hits": [
-"0x100fa4dc"
-]
-},
-{
-"name": "__output",
-"obj": "LIBCMT:output.obj",
-"size": 2042,
-"hits": [
-"0x100fa4e6"
 ]
 },
 {
@@ -19323,14 +19518,6 @@
 "size": 149,
 "hits": [
 "0x100fa28b"
-]
-},
-{
-"name": "__flsbuf",
-"obj": "LIBCMT:_flsbuf.obj",
-"size": 281,
-"hits": [
-"0x100fa320"
 ]
 },
 {
@@ -21217,11 +21404,29 @@
 ]
 },
 {
-"name": "__fcloseall",
-"obj": "LIBCMT:closeall.obj",
-"size": 155,
+"name": "__lseek_lk",
+"obj": "LIBCMT:lseek.obj",
+"size": 116,
 "hits": [
-"0x101071fc"
+"0x101069a0"
+]
+},
+{
+"name": "__lseek",
+"obj": "LIBCMT:lseek.obj",
+"size": 171,
+"hits": [
+"0x100fbdab",
+"0x10106a14",
+"0x10108dfc"
+]
+},
+{
+"name": "__getbuf",
+"obj": "LIBCMT:_getbuf.obj",
+"size": 68,
+"hits": [
+"0x10106abf"
 ]
 },
 {
@@ -21255,6 +21460,14 @@
 "size": 149,
 "hits": [
 "0x10106bc0"
+]
+},
+{
+"name": "__fcloseall",
+"obj": "LIBCMT:closeall.obj",
+"size": 155,
+"hits": [
+"0x101071fc"
 ]
 },
 {
@@ -21443,32 +21656,6 @@
 "size": 76,
 "hits": [
 "0x10106954"
-]
-},
-{
-"name": "__lseek_lk",
-"obj": "LIBCMT:lseek.obj",
-"size": 116,
-"hits": [
-"0x101069a0"
-]
-},
-{
-"name": "__lseek",
-"obj": "LIBCMT:lseek.obj",
-"size": 171,
-"hits": [
-"0x100fbdab",
-"0x10106a14",
-"0x10108dfc"
-]
-},
-{
-"name": "__getbuf",
-"obj": "LIBCMT:_getbuf.obj",
-"size": 68,
-"hits": [
-"0x10106abf"
 ]
 },
 {
@@ -22585,6 +22772,12 @@
 "hits": []
 },
 {
+"name": "_SetFilePointer@16",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": []
+},
+{
 "name": "_VirtualQuery@12",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
@@ -22592,12 +22785,6 @@
 },
 {
 "name": "_VirtualProtect@16",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": []
-},
-{
-"name": "_SetFilePointer@16",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
 "hits": []

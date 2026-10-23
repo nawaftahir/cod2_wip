@@ -1,5 +1,12 @@
 # Layout is part of every reconstruction wave
 
+Shader preload wave,2026-10-23: file caching, case-sensitive comparator and
+preload remain beside the existing mtlLoadGlob/find/include implementation in
+r_material_load_obj.cpp. No second cache or ownership split. Count/table/entry
+layout is unchanged and asserted. The original VC7.1 <algorithm> supplies sort
+templates; do not count them as authored game source. No TU, SDK, root/export,
+compiler flag or new assembly definition. Existing candidate order stays intact.
+
 Image startup wave,2026-10-23: R_InitImages and builtin publication stay in the
 existing rgp owner r_init.cpp. They reuse R_SetPicmip, Image_Register,
 Image_AllocProg and RB_SetSampler, with no duplicate image/hash/state tables.

@@ -141,6 +141,12 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
+"?Material_CompareShaderText@@YA_NABUGfxCachedShaderText@@0@Z": {
+"t": "0x1001c8d0",
+"n": 83,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
 "?Material_ParseStateValue@@YAPBUMtlStateMapBitName@@PAPBDPBU1@@Z": {
 "t": "0x10018420",
 "n": 163,
@@ -338,6 +344,84 @@
 "why": [
 "call ?Material_LoadTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z"
 ]
+},
+"??$sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z": {
+"t": "0x1001ca50",
+"n": 33,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Sort@PAUGfxCachedShaderText@@HP6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0HP6A_NABU1@1@Z@Z": {
+"t": "0x1001ca80",
+"n": 320,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Unguarded_partition@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YA?AU?$pair@PAUGfxCachedShaderText@@PAU1@@0@PAUGfxCachedShaderText@@0P6A_NABU2@1@Z@Z": {
+"t": "0x1001cbc0",
+"n": 831,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$sort_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z": {
+"t": "0x1001cf30",
+"n": 154,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Insertion_sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z": {
+"t": "0x1001cfd0",
+"n": 144,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Median@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00P6A_NABU1@1@Z@Z": {
+"t": "0x1001d070",
+"n": 169,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Make_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@ZPAH0@Z": {
+"t": "0x1001d170",
+"n": 100,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Med3@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00P6A_NABU1@1@Z@Z": {
+"t": "0x1001d230",
+"n": 190,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Adjust_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@HHU1@P6A_NABU1@2@Z@Z": {
+"t": "0x1001d320",
+"n": 167,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Pop_heap_0@PAUGfxCachedShaderText@@U1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z0@Z": {
+"t": "0x1001d3d0",
+"n": 108,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Push_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@HHU1@P6A_NABU1@2@Z@Z": {
+"t": "0x1001d460",
+"n": 129,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Pop_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00U1@P6A_NABU1@2@ZPAH@Z": {
+"t": "0x1001d4f0",
+"n": 82,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$_Rotate@PAUGfxCachedShaderText@@HU1@@std@@YAXPAUGfxCachedShaderText@@00PAH0@Z": {
+"t": "0x1001d550",
+"n": 269,
+"obj": "r_material_load_obj.obj",
+"why": []
 },
 "?Vec3Add@@YAXPBM0PAM@Z": {
 "t": "0x1000f140",
@@ -11371,6 +11455,22 @@
 "call __getptd"
 ]
 },
+"_sprintf": {
+"t": "0x100f5f14",
+"n": 88,
+"obj": "LIBCMT:sprintf.obj",
+"why": [
+"call __output"
+]
+},
+"__scprintf": {
+"t": "0x100f5f6c",
+"n": 49,
+"obj": "LIBCMT:sprintf.obj",
+"why": [
+"call __output"
+]
+},
 "_printf": {
 "t": "0x100f620f",
 "n": 102,
@@ -11461,22 +11561,6 @@
 "obj": "LIBCMT:atof.obj",
 "why": [
 "call _isspace"
-]
-},
-"_sprintf": {
-"t": "0x100f5f14",
-"n": 88,
-"obj": "LIBCMT:sprintf.obj",
-"why": [
-"call __output"
-]
-},
-"__scprintf": {
-"t": "0x100f5f6c",
-"n": 49,
-"obj": "LIBCMT:sprintf.obj",
-"why": [
-"call __output"
 ]
 },
 "_strncpy": {
@@ -11741,9 +11825,9 @@
 "n": 385,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 1017acbc",
-"unresolved 1017acbc",
-"unresolved 1017acbc"
+"unresolved 1017bcbc",
+"unresolved 1017bcbc",
+"unresolved 1017bcbc"
 ]
 },
 "__DllMainCRTStartup@12": {
@@ -11751,7 +11835,7 @@
 "n": 228,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 1017acbc"
+"unresolved 1017bcbc"
 ]
 },
 "__amsg_exit": {
@@ -12173,28 +12257,12 @@
 "bind ??_C@_08KNHFBNJ@FlsAlloc?$AA@+c"
 ]
 },
-"___initstdio": {
-"t": "0x100fb3fc",
-"n": 169,
-"obj": "LIBCMT:_file.obj",
+"__flsbuf": {
+"t": "0x100fa320",
+"n": 281,
+"obj": "LIBCMT:_flsbuf.obj",
 "why": [
-"call _calloc"
-]
-},
-"__stbuf": {
-"t": "0x100fb55d",
-"n": 136,
-"obj": "LIBCMT:_sftbuf.obj",
-"why": [
-"call _malloc"
-]
-},
-"__ftbuf": {
-"t": "0x100fb5e5",
-"n": 42,
-"obj": "LIBCMT:_sftbuf.obj",
-"why": [
-"call __flush"
+"call __write"
 ]
 },
 "_write_char": {
@@ -12233,6 +12301,30 @@
 "obj": "LIBCMT:output.obj",
 "why": [
 "data ??_C@_08KNHFBNJ@FlsAlloc?$AA@"
+]
+},
+"___initstdio": {
+"t": "0x100fb3fc",
+"n": 169,
+"obj": "LIBCMT:_file.obj",
+"why": [
+"call _calloc"
+]
+},
+"__stbuf": {
+"t": "0x100fb55d",
+"n": 136,
+"obj": "LIBCMT:_sftbuf.obj",
+"why": [
+"call _malloc"
+]
+},
+"__ftbuf": {
+"t": "0x100fb5e5",
+"n": 42,
+"obj": "LIBCMT:_sftbuf.obj",
+"why": [
+"call __flush"
 ]
 },
 "__SEH_prolog": {
@@ -12347,14 +12439,6 @@
 "obj": "LIBCMT:cfin.obj",
 "why": [
 "call ___strgtold12"
-]
-},
-"__flsbuf": {
-"t": "0x100fa320",
-"n": 281,
-"obj": "LIBCMT:_flsbuf.obj",
-"why": [
-"call __write"
 ]
 },
 "__raise_exc": {
@@ -13744,12 +13828,20 @@
 "call __setmbcp"
 ]
 },
-"__fcloseall": {
-"t": "0x101071fc",
-"n": 155,
-"obj": "LIBCMT:closeall.obj",
+"__lseek_lk": {
+"t": "0x101069a0",
+"n": 116,
+"obj": "LIBCMT:lseek.obj",
 "why": [
-"call __lock"
+"call __dosmaperr"
+]
+},
+"__getbuf": {
+"t": "0x10106abf",
+"n": 68,
+"obj": "LIBCMT:_getbuf.obj",
+"why": [
+"call _malloc"
 ]
 },
 "__isatty": {
@@ -13772,6 +13864,14 @@
 "obj": "LIBCMT:ulldvrm.obj",
 "why": []
 },
+"__fcloseall": {
+"t": "0x101071fc",
+"n": 155,
+"obj": "LIBCMT:closeall.obj",
+"why": [
+"call __lock"
+]
+},
 "__ValidateEH3RN": {
 "t": "0x10107297",
 "n": 553,
@@ -13783,7 +13883,7 @@
 "n": 225,
 "obj": "LIBCMT:_filbuf.obj",
 "why": [
-"call __read"
+"call __getbuf"
 ]
 },
 "__ungetc_lk": {
@@ -13900,22 +14000,6 @@
 "obj": "LIBCMT:strgtold.obj",
 "why": [
 "call ___strgtold12"
-]
-},
-"__lseek_lk": {
-"t": "0x101069a0",
-"n": 116,
-"obj": "LIBCMT:lseek.obj",
-"why": [
-"call __dosmaperr"
-]
-},
-"__getbuf": {
-"t": "0x10106abf",
-"n": 68,
-"obj": "LIBCMT:_getbuf.obj",
-"why": [
-"call _malloc"
 ]
 },
 "__lseeki64_lk": {
@@ -15020,6 +15104,14 @@
 "call _report_failure"
 ]
 },
+"__lseek": {
+"t": "0x10106a14",
+"n": 171,
+"obj": "LIBCMT:lseek.obj",
+"why": [
+"call __lock_fhandle"
+]
+},
 "_wctomb": {
 "t": "0x10106b8d",
 "n": 39,
@@ -15041,14 +15133,6 @@
 "n": 22,
 "obj": "LIBCMT:intrncvt.obj",
 "why": []
-},
-"__lseek": {
-"t": "0x10106a14",
-"n": 171,
-"obj": "LIBCMT:lseek.obj",
-"why": [
-"call __lock_fhandle"
-]
 },
 "__atodbl": {
 "t": "0x10106468",

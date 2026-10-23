@@ -87,6 +87,9 @@ required.update(accepted(resources_structure))
 video_structure = Path(__file__).resolve().parents[1] / 'proof/video_structure_warm_bind.json'
 assert hashlib.sha256(video_structure.read_bytes()).hexdigest() == '86340dc1aef2a86d11a961513ae766bcb7c29412d01f367ac12be711cd93fb85'
 required.update(accepted(video_structure))
+shader_preload = Path(__file__).resolve().parents[1] / 'proof/shader_preload_warm_bind.json'
+assert hashlib.sha256(shader_preload.read_bytes()).hexdigest() == 'b283ac654f0dcc4a0e937bcde19d5fa27134fcf49f4bd8cf188cdbd39ca7173d'
+required.update(accepted(shader_preload))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)
