@@ -582,6 +582,27 @@ void Image_Reload(GfxImage *image)
         R_Error(ERR_DROP, "failed to load image '%s'", image->name);
 }
 
+GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic);
+
+// PINNED 1000d200/94: cache hits keep their existing semantic and tracking category.
+GfxImage *Image_Register(const char *name, int imageTrack, int semantic)
+{
+    GfxImage *image = Image_FindExisting(name);
+    if (image)
+        return image;
+    if (name[0] == '$')
+        image = Image_LoadBuiltin(name, imageTrack, (byte)semantic);
+    else
+    {
+        image = Image_Alloc(name, 3, semantic, imageTrack);
+        if (!Image_LoadFromFile(image))
+            image = 0;
+    }
+    if (!image)
+        R_Error(ERR_DROP, "failed to load image '%s'", name);
+    return image;
+}
+
 IDirect3DSurface9 *Image_GetSurface(GfxImage *image)
 {
     IDirect3DSurface9 *surface;

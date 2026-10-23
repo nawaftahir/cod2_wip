@@ -42,17 +42,7 @@ extern const dvar_t *r_outdoorDownBias;
 extern const dvar_t *r_lightMap;
 extern const dvar_t *sc_enable;
 
-struct GfxLightImage
-{
-    GfxImage *image;
-    byte samplerState;
-};
-struct GfxLightDef
-{
-    int type;
-    GfxLightImage cookie, attenuation;
-    const char *name;
-};
+#include "r_light.h"
 struct GfxEntity
 {
     int reType;

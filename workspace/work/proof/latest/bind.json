@@ -1213,6 +1213,14 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
+"?Image_WaterColorForDirection@@YAXPBMHPAE@Z": {
+"t": "0x100107e0",
+"n": 98,
+"obj": "r_image_load_obj.obj",
+"why": [
+"call ?FresnelTerm@@YAMMMM@Z"
+]
+},
 "?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {
 "t": "0x100104a0",
 "n": 465,
@@ -2840,6 +2848,14 @@
 "n": 175,
 "obj": "r_outdoor.obj",
 "why": []
+},
+"?R_CreateOutdoorImage@@YAXPAUGfxImage@@@Z": {
+"t": "0x10020a70",
+"n": 136,
+"obj": "r_outdoor.obj",
+"why": [
+"call ?R_GenerateOutdoorLookup@@YAXXZ"
+]
 },
 "?R_SkinVectorSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z": {
 "t": "0x1001e6a0",

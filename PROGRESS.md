@@ -1,12 +1,54 @@
 # Renderer progress
 
-## Structure-first video configuration wave - 2026-10-23
+## Structure-first image and light startup wave - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Source wave after66a4ff2 restores nine real functions: outdoor lookup/image,
+water-color callback/cubemap, complete ten-builtin dispatcher, image registration,
+packed light image entry, light file loader and light registry. This closes real
+image/light dependencies required by startup; no dummy $ branch or unresolved
+light-loader link. New r_light.cpp owns the actual260-byte count+64-pointer
+registry. Shared r_light.h replaces the shader's duplicate24-byte definition
+view. Source remains target/work/src only; no new SDK, exports or compiler flags.
+
+Both completed builds pass unchanged byte/binding/source gates. All1270 prior
+extents survive, with NO new accepted bodies this wave. Authored C/C++ remains
+102122/253580=40.272103478%,598 bodies; mixed109909 bytes,629 bodies;31/7787
+authored-assembly exclusions. The restored source is not silently byte-match
+credit. No instruction/flag tuning and no new assembly definitions; old rounding
+helpers are reused where already implemented, with separate accounting.
+
+Native tests pass92 image routing/error cases,54 watercolor cases, eight FULL
+512x512 outdoor maps across four rounding modes, and21 light-definition routes.
+All88 fixtures pass after the final build; log
+latest/light_image_structure_fixtures.log. No own build or test remains running.
+Frozen source/receipt identities: target/work/proof/light_image_structure_checkpoint.json.
+
+Current SHA52d858dcd943adc024a0f4a3e8de0ee6bd74fea1509a715f3f75e98aad650aa8;
+.text887298, .rdata591311, .data6085588, .reloc85138, file1630208 bytes.
+The .data virtual-size gap is now512 bytes, down from768, with actual light
+storage added and no size fillers. Same-offset8.340211041% is NOT a completion
+meter. Still159 temporary exports/no GetRefAPI; whole SHA is not retail.
+One output reused; no workers. Per-turn billing is not exposed. Zero V2 byte
+gain is reported honestly despite the connected source/ownership restoration.
+
+Next startup source: real Image_Init1000d880/124 calls existing R_SetPicmip1000d680,
+then builtin registration1000d560/276, initializes16 samplers from backend state,
+and publishes the existing programmable raw image/raw texture definition. Keep
+rgp/image hash/backend ownership shared, not copied globals or guessed offsets.
+Material_Init100173e0 and finalization10012040 then remain mandatory before the
+higher device/startup/API closure. Do not confuse those init bodies with reload.
+
+PINNED capacity-path light error has a malformed original format/argument list;
+source preserves the exact count-only call with an explicit comment. Fixes wait
+until original reconstruction is complete. No real client/GPU smoke or release.
+
+### Video checkpoint29bc6db
 
 Wave after d782265 restores monitor fallback and video/aspect storage in the
 existing r_monitor.cpp/r_init.cpp owners. All1269 prior extents survive both

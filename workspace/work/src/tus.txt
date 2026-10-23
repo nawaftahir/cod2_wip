@@ -24,6 +24,7 @@ gfx_d3d/r_rendertarget.cpp
 gfx_d3d/r_water_load_obj.cpp
 gfx_d3d/r_water.cpp
 gfx_d3d/r_image_load_obj.cpp
+gfx_d3d/r_light.cpp
 gfx_d3d/r_lightgrid_weights.cpp
 universal/axis_transform.cpp /Op
 gfx_d3d/r_image_wavelet.cpp

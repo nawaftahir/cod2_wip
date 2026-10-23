@@ -1,5 +1,63 @@
 # Reconstruction attempts
 
+## 2026-10-23 builtin/file image and light-definition closure
+
+The519-byte builtin dispatcher selects exactly ten case-sensitive names:
+$white,$black,$identitynormalmap,$specularity,$outdoor,$lightmapweights,
+$lightgridweights0,$lightgridweights1,$watercolor,$sunhalfangle. The primary
+does NOT select a checker/default generator. Reuse the already restored solid,
+specularity/lightmap/light-grid/sun creators. Identity-normal BGRA is255/128/
+128/128, not alpha255. Water BGRA starts77/64/51/255; callback replaces alpha.
+Unknown builtins print through actual Com_Printf10061c80 and returnnull before
+allocation. Image_Register1000d200/94 then raises the normal failed-image error.
+Cache hits return unchanged; ordinary files allocate category3 and use the real
+Image_LoadFromFile. On failure the published allocation is not silently removed.
+Builtin category is1. Input track is int, semantic narrows to a byte only for
+the builtin call. This is pinned by Image_Alloc stores+0xa semantic/+0xc track;
+the earlier note calling light argument5 a semantic was wrong and is corrected.
+
+Water callback107e0/98 normalizes the direction through existing Vec3NormalizeTo,
+copies all four packed color bytes, then computes existing FresnelTerm(1.0f,
+1.333f,normalZ)*255 and uses the old I_fround for alpha. The float payload is
+3faa9fbe. Constructor10850/70 uses a16-resolution cubemap,6144 stack bytes and
+passes packed color BY VALUE. No pointer into a transient color stack record.
+Native54-route fixture compares the actual float bits: GCC i386's extended-
+precision comparison against a decimal float literal was a fixture artifact,
+not a production source bug. No production flag/rounding sweep was made.
+
+Outdoor lookup20950/201 writes512x512 bytes into the EXISTING OutdoorGlob.pic.
+Rows/columns use the prior texel-center helper, trace height, scaleZ/addZ and
+clamp0..255. Candidate reuses I_fround(encoded-.5f); original instruction shape
+subtracts double(.5-2^-30) before FISTP. Exact instruction tuning stays deferred.
+Eight complete native maps check clamped pixels against that primary conversion
+model in four rounding modes, every trace coordinate, guards and ownership.
+This bounded behavior evidence is NOT byte equality or all-FP-status proof.
+Image creator20a70/136 allocates262144 hunk-temp bytes, uploads L8 withflags3
+and frees the CURRENT global pointer afterward. Upload uses the pointer saved
+before Image_Setup. Retain the global's dangling value; no extra clear/reset.
+
+The single light registry at101d7eb0 is260 bytes (count and64 pointers). New
+r_light.cpp owns it. Shared24-byte GfxLightDef/8-byte GfxLightImage view replaces
+the shader's private duplicate; offsets4/12/20 are asserted. Packed loader
+150e0/172 allocates the24-byte definition and name separately, reads a leading
+type byte and two sampler+NUL-name entries, then copies/lowercases the owned
+name and frees the file. No new file-format guard/version check exists in the
+primary. Empty file is freed; negative read is not. Image entry15090/68 skips
+empty names, otherwise Image_Register(name,track5,semantic1).
+
+Registry14c60 ends14d52:243 bytes, not235. Comparisons call CRT _stricmp at
+100f78cf, not strcmp; cache reuse is case-insensitive. A missing name retries
+light_dynamic without inserting a missing-name alias. Missing default raises
+the actual ERR_DROP. At capacity64 print all loaded names then call R_Error.
+PINNED original bug: the capacity format expects name and count but the target
+pushes ONLY count after the format/code. Source preserves that call, with an
+explicit note; the native error mock verifies the one-argument contract without
+dereferencing64 as a string. Do not silently repair retail while reconstructing.
+Native21 routes check packed fields, missing/zero files, hunk ownership, case
+reuse, repeated fallback and both error branches. The92 image routing cases and
+54 water cases pass. Source needed for real startup is restored; only unchanged
+referees may turn any of these bodies into accepted coverage.
+
 ## 2026-10-23 video configuration and monitor fallback
 
 Monitor dimensions10011560/132 uses adapter monitor bounds only in fullscreen.
@@ -30,12 +88,13 @@ Confirm complete loader150e0 and registration RET boundaries before implementing
 Registration's RET is14d52:243 bytes, not inventory235. Loader150e0/172 reads
 lights/%s; negative read returnsnull, zero read frees the buffer then returnsnull.
 Two packed image entries each contain a sampler byte and a NUL-terminated name;
-15090/68 calls Image_Register(name,semantic5,track1) only for nonempty names.
+15090/68 calls Image_Register(name,track5,semantic1) only for nonempty names.
 Image_Register1000d200/94 calls existing lookup, then either builtin108a0/519
 or category3 allocation plus real file loading. Builtin failure/file failure
 raises the same primary error, not a placeholder fallback. The builtin dispatcher
-still needs real default/checker/outdoor creators alongside the restored solid,
-specularity/light-grid/sun helpers. Do not introduce unresolved light source
+at that checkpoint still needed outdoor/water creators alongside the restored
+solid/specularity/lightmap/light-grid/sun helpers. No default checker is selected
+by this PC dispatcher. Do not introduce unresolved light source
 or silently skip $ names to make a partial startup graph link.
 
 ## 2026-10-23 actual device resources and GPU buffers

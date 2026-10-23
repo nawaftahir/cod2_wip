@@ -432,3 +432,94 @@ void Image_LoadLightmapWeights(GfxImage *image)
     Image_Setup(image, 32, 32, 1, 3, 0, D3DFMT_A8R8G8B8);
     Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, &pic[0][0][0]);
 }
+
+float FresnelTerm(float n0, float n1, float cosIncidentAngle);
+
+// PINNED 100107e0/98: copy the BGRA color, then replace only alpha with Fresnel reflectance.
+void Image_WaterColorForDirection(const float *direction, int color, byte *pixel)
+{
+    float normal[3];
+    Vec3NormalizeTo(direction, normal);
+    memcpy(pixel, &color, 4);
+    float alpha = FresnelTerm(1.0f, 1.333f, normal[2]) * 255.0f;
+    pixel[3] = (byte)I_fround(alpha);
+}
+
+// PINNED 10010850/70: the callback receives packed color by value, not a stack pointer.
+void Image_GenerateWaterColor(GfxImage *image, byte blue, byte green, byte red)
+{
+    byte pixels[6 * 16 * 16 * 4];
+    int color = (int)(blue | ((unsigned int)green << 8) | ((unsigned int)red << 16) | 0xff000000U);
+    Image_GenerateCubemapFunction(image, pixels, 16, color, Image_WaterColorForDirection);
+}
+
+void R_CreateOutdoorImage(GfxImage *image);
+void Com_Printf(const char *format, ...);
+
+// PINNED 100108a0/519: unknown builtins return null before allocating an image.
+GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic)
+{
+    GfxImage *image;
+    if (!strcmp(name, "$white"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_GenerateSolidColor(image, 255, 255, 255, 255);
+        return image;
+    }
+    if (!strcmp(name, "$black"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_GenerateSolidColor(image, 0, 0, 0, 255);
+        return image;
+    }
+    if (!strcmp(name, "$identitynormalmap"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_GenerateSolidColor(image, 255, 128, 128, 128);
+        return image;
+    }
+    if (!strcmp(name, "$specularity"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_GenerateSpecularity(image);
+        return image;
+    }
+    if (!strcmp(name, "$outdoor"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        R_CreateOutdoorImage(image);
+        return image;
+    }
+    if (!strcmp(name, "$lightmapweights"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_LoadLightmapWeights(image);
+        return image;
+    }
+    if (!strcmp(name, "$lightgridweights0"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_GenerateLightGridWeights(image, 0);
+        return image;
+    }
+    if (!strcmp(name, "$lightgridweights1"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_GenerateLightGridWeights(image, 1);
+        return image;
+    }
+    if (!strcmp(name, "$watercolor"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_GenerateWaterColor(image, 77, 64, 51);
+        return image;
+    }
+    if (!strcmp(name, "$sunhalfangle"))
+    {
+        image = Image_Alloc(name, 1, semantic, imageTrack);
+        Image_GenerateSunHalfAngle(image);
+        return image;
+    }
+    Com_Printf("ERROR: Unknown built-in image '%s'", name);
+    return 0;
+}

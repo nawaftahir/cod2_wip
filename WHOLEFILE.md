@@ -21,10 +21,10 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/video_structure_checkpoint.json; previous coverage gain:
+Current source wave:target/work/proof/light_image_structure_checkpoint.json; previous coverage gain:
 target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
-d782265. Readable source is target/work/src; some functions are still unmatched
+66a4ff2. Readable source is target/work/src; some functions are still unmatched
 drafts. All1270 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
 Accepted authored C/C++:102122/253580 game bytes,40.272103478%. This is not a
@@ -32,13 +32,13 @@ whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 
 | Whole-file component | Retail | Current candidate |
 | --- | --- | --- |
-| File length |1851392 bytes |1626112 bytes |
+| File length |1851392 bytes |1630208 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |885522 |
-| .rdata virtual length |595105 |590959 |
-| .data virtual length, including zero-initialized storage |6086100 |6085332 |
-| .reloc virtual length |95704 |85018 |
+| .text virtual length |1089680 |887298 |
+| .rdata virtual length |595105 |591311 |
+| .data virtual length, including zero-initialized storage |6086100 |6085588 |
+| .reloc virtual length |95704 |85138 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
@@ -74,6 +74,12 @@ verified C++ bytes with all84 fixtures passing. Aspect storage remains unmatched
 and reuses the existing assembly-bearing rounding helper without C++ credit.
 Startup still needs actual image/material initialization and the light_dynamic
 definition registration, not assumed reload/material calls.
+The image/light wave restores all ten builtin branches, water/outdoor creators,
+Image_Register and packed light loading/registration. It adds the actual260-byte
+light registry and a shared definition header; the .data size gap is512 bytes.
+All88 fixtures and all1270 old extents pass. NO new V2 bytes are claimed: these
+nine source functions still need matching. Real image/material initialization,
+final registration and higher startup/API remain open, not replaced by stubs.
 
 ## Execution order
 

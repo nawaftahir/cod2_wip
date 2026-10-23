@@ -1821,6 +1821,12 @@
 "hits": []
 },
 {
+"name": "?Image_Register@@YAPAUGfxImage@@PBDHH@Z",
+"obj": "r_image.obj",
+"size": 106,
+"hits": []
+},
+{
 "name": "?Image_GetSurface@@YAPAUIDirect3DSurface9@@PAUGfxImage@@@Z",
 "obj": "r_image.obj",
 "size": 87,
@@ -2531,6 +2537,44 @@
 "name": "?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z",
 "obj": "r_image_load_obj.obj",
 "size": 501,
+"hits": []
+},
+{
+"name": "?Image_WaterColorForDirection@@YAXPBMHPAE@Z",
+"obj": "r_image_load_obj.obj",
+"size": 98,
+"hits": [
+"0x100107e0"
+]
+},
+{
+"name": "?Image_GenerateWaterColor@@YAXPAUGfxImage@@EEE@Z",
+"obj": "r_image_load_obj.obj",
+"size": 72,
+"hits": []
+},
+{
+"name": "?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHE@Z",
+"obj": "r_image_load_obj.obj",
+"size": 549,
+"hits": []
+},
+{
+"name": "?R_LoadLightImage@@YAPBEPBEPAUGfxLightImage@@@Z",
+"obj": "r_light.obj",
+"size": 74,
+"hits": []
+},
+{
+"name": "?R_LoadLightDef@@YAPAUGfxLightDef@@PBD@Z",
+"obj": "r_light.obj",
+"size": 168,
+"hits": []
+},
+{
+"name": "?R_RegisterLightDef@@YAPAUGfxLightDef@@PBD@Z",
+"obj": "r_light.obj",
+"size": 241,
 "hits": []
 },
 {
@@ -5791,6 +5835,12 @@
 ]
 },
 {
+"name": "?I_fround@@YAHM@Z",
+"obj": "q_shared.obj",
+"size": 31,
+"hits": []
+},
+{
 "name": "?R_OutdoorTraceHeight@@YAMMM@Z",
 "obj": "r_outdoor.obj",
 "size": 175,
@@ -5821,6 +5871,20 @@
 "obj": "r_outdoor.obj",
 "size": 25,
 "hits": []
+},
+{
+"name": "?R_GenerateOutdoorLookup@@YAXXZ",
+"obj": "r_outdoor.obj",
+"size": 211,
+"hits": []
+},
+{
+"name": "?R_CreateOutdoorImage@@YAXPAUGfxImage@@@Z",
+"obj": "r_outdoor.obj",
+"size": 136,
+"hits": [
+"0x10020a70"
+]
 },
 {
 "name": "?R_TransformRigidVertex@@YAXPBUDObjSkelMat_s@@PBM111PAUGfxVertex@@@Z",

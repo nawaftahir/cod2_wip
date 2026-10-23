@@ -1,5 +1,17 @@
 # Layout is part of every reconstruction wave
 
+Image/light closure wave,2026-10-23: outdoor image storage remains in the real
+OutdoorGlob in r_outdoor.cpp; water creators and all ten builtin branches live
+with existing procedural helpers in r_image_load_obj.cpp. Image_Register stays
+with the real cache/allocator in r_image.cpp. No alternate dispatcher, shader
+fallback or duplicate registry. r_light.cpp follows image_load_obj in candidate
+tus.txt and owns the actual260-byte light registry (count plus64 pointers).
+Shared r_light.h preserves the24-byte definition/8-byte image layout used by
+rb_shader_matrices.cpp; the shader's duplicate declaration is removed. No SDK,
+TU flags, root/export, authored assembly definitions or padding changes. Initial
+whole-file ordering is still candidate, not historical proof. The old rounding
+helper is reused only with separate authored-assembly attribution if matched.
+
 Video source wave,2026-10-23: monitor bounds/fallback stays in r_monitor.cpp;
 window settings/aspect selection stays with the existing vidConfig owner in
 r_init.cpp. No new TU, global, root/export, flags or dependencies. The existing

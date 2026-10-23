@@ -3,6 +3,8 @@
 #include <stddef.h>
 void MatrixIdentity44(float matrix[4][4]);
 void ExpandBounds(const vec3_t addedMins, const vec3_t addedMaxs, vec3_t mins, vec3_t maxs);
+void Image_Setup(GfxImage *image, int width, int height, int depth, int flags, DWORD usage, D3DFORMAT format);
+void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES face, unsigned int mip, const byte *pixels);
 
 // PINNED 101da980..101da9bf; names are descriptive, not PC debug provenance.
 static OutdoorGlob outdoorGlob;
@@ -98,4 +100,37 @@ void R_ComputeOutdoorLookupMatrix(GfxWorld *world)
 float R_OutdoorTexelToWorld(int axis, int texel)
 {
     return ((float)texel + 0.5f - outdoorGlob.add[axis]) * outdoorGlob.invScale[axis];
+}
+
+// PINNED 10020950/201: map traces to clamped depth bytes; instruction tuning remains deferred.
+void R_GenerateOutdoorLookup()
+{
+    byte *pixel = outdoorGlob.pic;
+    for (int row = 0; row < 512; ++row)
+    {
+        float y = R_OutdoorTexelToWorld(1, row);
+        for (int column = 0; column < 512; ++column)
+        {
+            float x = R_OutdoorTexelToWorld(0, column);
+            float height = R_OutdoorTraceHeight(x, y);
+            float encoded = height * outdoorGlob.scale[2] + outdoorGlob.add[2];
+            int value = I_fround(encoded - 0.5f);
+            if (value < 0)
+                value = 0;
+            else if (value > 255)
+                value = 255;
+            *pixel++ = (byte)value;
+        }
+    }
+}
+
+// PINNED 10020a70/136: the saved upload pointer and the pointer freed later differ in ownership.
+void R_CreateOutdoorImage(GfxImage *image)
+{
+    outdoorGlob.pic = (byte *)ri.Hunk_AllocateTempMemoryInternal(262144);
+    R_GenerateOutdoorLookup();
+    byte *pixels = outdoorGlob.pic;
+    Image_Setup(image, 512, 512, 1, 3, 0, D3DFMT_L8);
+    Image_UploadData(image, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+    ri.Hunk_FreeTempMemory(outdoorGlob.pic);
 }

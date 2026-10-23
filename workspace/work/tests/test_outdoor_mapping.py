@@ -7,7 +7,7 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_outdoor.cpp').read_text()
-source = text[text.index('// PINNED 10020590/'):]
+source = text[text.index('// PINNED 10020590/'):text.index('// PINNED 10020950/')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 assert struct.unpack('<3i', retail.get_data(0x190398, 12)) == (512,512,256)
 program = r'''
