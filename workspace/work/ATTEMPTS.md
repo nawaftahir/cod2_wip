@@ -1202,3 +1202,31 @@ RGB. Default24 stores are recovered directly from primary100362d0. The other
 three helpers are10036100/100361e0/10036320. No flag/spelling sweep; only search
 gets V2 credit so far. No new assembly. Coordinate interpolation and visibility
 helpers remain real work before SetupEntityLighting/DrawTechnique can link.
+
+### Light-grid visibility/cache source - 2026-10-23
+
+Primary source inputs: GLM data/decomp35bd0/35c40/35ac0/36040 plus instructions.
+Use the existing s_vc_log/s_vc_logCount owners in rb_light_derive.cpp. Entries are
+three unsigned shorts (6 bytes), capacity0x400000. Existing keys are returned
+without insertion; misses may memmove/insert at the lexicographic lower bound.
+Debug boxes use actual backEndData.debugGlobals+249d18 and existing shared colors.
+Grid cells are32x32x64; sample boxes have radius0.5. Visibility skips tracing
+when corner's needsTrace bit is clear (green radius0.9 when shown). Otherwise
+normalize(sample-point), trace from sample to point+0.01*direction with zero
+extents/model, oldHit0, brushmask2001 through RI.CM_BoxSightTrace+168. Clear
+trace draws yellow radius1; blocked draws red1.1. Read showLightGrid AFTER trace
+callback. Native135 cache,54 box,1152 actual visibility cases pass.
+First test used an x87 extended temporary as expected box bound; corrected the
+fixture to compare stored float32 arrays byte-for-byte, without tolerance.
+
+Keep RB_GridVisLogIndex insertion control as int: primary35c40 tests a full
+dword. Native0/1/-1/256 cases exercise that ABI. Do not narrow it to bool.
+RB_DrawGridSampleBox must directly construct its blue0.5 box: the primary118-byte
+body calls AddDebugBox, not the generic106-byte point-box helper. A19-byte
+wrapper introduces a foreign call edge and needs correction before checkpoint.
+
+The blue sample helper now directly computes its bounds and calls AddDebugBox,
+preserving primary call structure. All1433 previous extents survive the final
+source build, but no new body is V2 accepted. No manual credit or flag sweep.
+Native trace mutation also changes grid.points: GetValidGridPoint reloads it
+after visibility, as primary360ef-360f3 does. No snapshot pointer publication.

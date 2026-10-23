@@ -5,6 +5,36 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
+### Verified grid visibility/cache source checkpoint
+
+After20ee614, rb_light_grid.cpp adds seven genuine source implementations:
+history insert/search, three debug boxes, actual corner visibility and valid-point
+retrieval. Existing six-byte history allocation/count, shared colors/backend state,
+Vec3Normalize and RI sight tracing are reused. No new state/roots/flags/assembly.
+History capacity is400000 hex; insertion control stays a full-width int. A corner
+without a trace bit skips collision. Otherwise trace sample -> gridpoint+0.01 times
+normalized(sample-gridpoint), zero extents/model, oldHit0, brushmask2001. Debug
+state is reread after callbacks; returned points reload grid.points after tracing.
+The blue sample box directly calls AddDebugBox, preserving primary call structure.
+
+Original-compiler build, both referees and all1433 protected extents pass.
+All108 fixtures pass, including135 sorted-cache/capacity/narrowing cases,54 exact
+float32 debug boxes and1152 visibility routes. Tests include full-width flag256,
+trace rejection and callbacks changing debug/backend/point-array state. No new
+body is byte-accepted: source C++ remains103650/253580=40.874674659%,612 bodies.
+This is genuine connected source recovery, NOT a byte-coverage gain or finished
+startup/API graph. No spelling or compiler-flag sweep. One output, no workers;
+billing unavailable. Build and final108-test suite are terminal and passed.
+
+Receipt/source/decompiler/log hashes: proof/light_grid_visibility_checkpoint.json.
+Candidate SHA5518fc55c69c73f98fe7c815e8cd8a8d3b68d2607c03c5b434c06550da5b6565;
+same-offset8.406107405%, NOT source completion. Next: grid interpolation and entity lighting
+-> lighting/DrawTechnique/EndSurface/2D -> sun calibration -> R_Init/API59.
+Existing /QIfist probe already generates QWORD instead of target DWORD FISTP;
+do not repeat it or invent new x87 assembly. Hard float spelling still needs
+bounded source/caller proof; the earlier owner asked to defer it, not fake it.
+Stages1-3, retail whole-file SHA and actual GPU/client smoke remain OPEN.
+
 ### Verified light-grid helper checkpoint
 
 Afterbb693a0, rb_light_grid.cpp restores five genuine helpers: packed coordinate

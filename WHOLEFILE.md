@@ -193,6 +193,11 @@ C++ bytes. Current103650/253580=40.8747%,1433 protected extents,107 fixtures.
 The remaining visibility/interpolation/lighting/draw/startup/API closures are still
 required. Proof and preserved reference differences: light_grid_helpers_checkpoint.json.
 
+Grid history/debug/visibility now has seven further actual source helpers and
+108 passing fixtures. All1433 byte matches survive, with NO coverage increase.
+Interpolation/entity lighting and the draw/startup/API closures remain open.
+Evidence: light_grid_visibility_checkpoint.json; no new assembly or flag sweep.
+
 ### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local

@@ -334,3 +334,14 @@ Candidate rb_light_grid.cpp uses existing GfxLightGrid/Point/Colors definitions:
 r_showMissingLightGrid control fallback; no extra owners or lookup buffers.
 Five genuine helpers precede future interpolation/trace closures in this TU.
 Candidate grouping follows rb_light_derive.cpp, not a historical-order claim.
+
+### Light-grid visibility and history - 2026-10-23
+
+Seven more helpers in rb_light_grid.cpp use the existing six-byte history record
+allocation/count from rb_light_derive.cpp. No new log/cache/global state. Existing
+backEndData.debugGlobals at249d18 owns debug lines; universal/q_shared.cpp owns
+the shared colors. Existing RI.CM_BoxSightTrace at168 supplies actual collision
+queries, with existing Vec3Normalize. The sample-box helper directly calls
+AddDebugBox as primary does; it is not a generic-point-box wrapper. The query
+reloads grid.points after visibility before returning a point. Candidate grouping
+is not proof of historical TU ownership. No new roots, flags or authored assembly.
