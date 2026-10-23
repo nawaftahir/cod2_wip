@@ -1,5 +1,12 @@
 # Layout is part of every reconstruction wave
 
+Material/cache commands,2026-10-23: material reload/picmip stays beside the
+existing hash/registration functions in r_material.cpp. White binding stays in
+rb_state.cpp, reusing actual dxState samplers and rgp.whiteImage. Stats/flush
+callbacks stay with the sole s_cache allocation in r_staticmodelcache.cpp.
+No new image/hash/stats allocation, TU/order, flag or root/export. Callback
+source is being restored before installing the complete registration graph.
+
 Hardware startup,2026-10-23: higher device/create/retry stays in r_device.cpp,
 calling the existing window, adapter/display, resource and systems owners.
 The two primary writes1072dde8/1072ddec are backEnd.sceneViewport.width/height

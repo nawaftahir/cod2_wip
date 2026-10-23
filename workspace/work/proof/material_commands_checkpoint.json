@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "47b747c",
+  "scope": "real material reload/picmip and cache stats/flush command chains, live white sampler binding",
+  "whole_file_identical": false,
+  "candidate_sha256": "06caec127d0b8673c4f358109d4fc15317efc587ebb0334be39069976443911f",
+  "same_file_offset_percent": 8.198965967228983,
+  "candidate_file_bytes": 1638400,
+  "candidate_sections": {
+    ".text": 894562,
+    ".rdata": 593215,
+    ".data": 6084500,
+    ".reloc": 85708
+  },
+  "cpp_executable_bytes": 102322,
+  "cpp_percent_supported_inventory": 40.35097405158135,
+  "cpp_game_bodies": 601,
+  "cpp_bytes_gained": 117,
+  "new_accepted_bodies": [
+    {
+      "target": "0x1002bb90",
+      "bytes": 84,
+      "name": "R_StaticModelCacheStats_f"
+    },
+    {
+      "target": "0x1003ec50",
+      "bytes": 33,
+      "name": "RB_BindWhiteImages"
+    }
+  ],
+  "mixed_executable_bytes": 110109,
+  "mixed_game_bodies": 632,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "previous_1284_extents_retained": true,
+  "protected_extents": 1286,
+  "new_match_removal_negatives_passed": 2,
+  "full_source_fixtures_passed": 98,
+  "native32_material_command_routes": 26,
+  "native32_cache_command_routes": 48,
+  "command_source_implementations_present": 5,
+  "retail_command_entries": 9,
+  "command_registration_implemented": false,
+  "new_state_owners": [],
+  "new_tus_flags_root_exports_or_assembly": false,
+  "GetRefAPI_implemented": false,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_material.cpp": "518f68966900175c75fe58dd286aaa918b7b5e4f191bf4881d6d7b49d792c9d4",
+    "src/gfx_d3d/rb_state.cpp": "b50563d82e2af6889d78dd9f81bfe8350c7e327ce300f8e054e4a4f0063b88b3",
+    "src/gfx_d3d/r_staticmodelcache.cpp": "a66e3f762decfba58b8966ed964f85e13f78ee1a0413a209e292686441e3d604",
+    "tests/test_material_binary.py": "bf0f8ade7ec2002fa5b302bbff2733f3cbb5cfc295936f68816f2182a2af120a",
+    "tests/test_material_reload_commands.py": "9c3cfb73d421b6b358e0e692e63785f526e84d082feffd5131f4e66290d99e2c",
+    "tests/test_cache_commands.py": "070a048fdf48e2dd588db40f790f02d84cfb7471d451451cad60de66c8ce29ab",
+    "tools/check_checkpoint.py": "6ab6646be8c693f0c45a29c90c652904e30f5c3f357dab9540e17f1935e460d5",
+    "proof/material_commands_warm_bind.json": "d6649d7675c16f03ba9327ae676f5adda764e659165dc15b5a033867b6f3ad32",
+    "proof/material_commands_layout.json": "3e16e266eeb479309690ca4144d486eb788dadc14ed58d557795b3de5866efb7",
+    "proof/material_commands_source_coverage.json": "b1dac683b33f2474343825298dc93979e489ff9d1d7ff6337aaa038c4b837c58",
+    "proof/latest/material_commands_build.log": "cc7da48b54a069150dac6e25992f85cc005e31a80018ee4e2b3871a3a9b60027",
+    "proof/latest/material_commands_fixtures.log": "f9a67050b4273255b5728cb31112053b145f97a8234331de58305bd93acd778a",
+    "proof/latest/material_commands_ratchet.log": "af4333d62c31c7682201e72aaf74f4ccd2b87e241236f8464496e2fc21214fc2"
+  }
+}

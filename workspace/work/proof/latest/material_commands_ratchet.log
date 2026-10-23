@@ -1,0 +1,3 @@
+PASS: all 1286 checkpoint source/library address-extents retained
+PASS: removing 0x1002bb90 is rejected
+PASS: removing 0x1003ec50 is rejected

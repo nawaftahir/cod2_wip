@@ -7,7 +7,7 @@ work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_material_load_obj.cpp').read_text()
 source = text[text.index('GfxImage *Image_Register('):]
 material = (work / 'src/gfx_d3d/r_material.cpp').read_text()
-register = material[material.index('Material *Material_Register('):material.index('struct BuiltInMaterialTable')]
+register = material[material.index('Material *Material_Register('):material.index('void Image_Reload(')]
 types = (work.parents[0] / 'src/opencod2/headers/common_types.h').read_text()
 
 def declaration(name):

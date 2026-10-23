@@ -1,12 +1,51 @@
 # Renderer progress
 
-## Structure-first hardware startup - 2026-10-23
+## Structure-first material/cache commands - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+After47b747c, actual material reload and picmip command source is restored in
+r_material.cpp. Reload walks each unique non-water image in descending unsigned
+address order using the original count snapshot. Picmip walks the existing1024
+hash slots, skips water/null bindings, compares ONLY platform0, releases before
+assigning both picmip bytes/reloading, and retains the original ERR_DROP path.
+The command looks up an existing material; it does not create one. Before the
+reload it binds the real white image across16 LIVE sampler states. No duplicate
+image state, hash table, stats, wrapper workaround, new flags or authored ASM.
+
+Cache stats/flush callbacks reuse the existing s_cache and real flush. Stats
+1002bb90/84 and white binder1003ec50/33 pass both referees: +117 C++ bytes.
+All1284 old extents survive; the new ratchet protects1286. Removing either new
+match is rejected. C++102322/253580=40.350974052%,601 bodies; mixed110109/632,
+same31/7787 assembly exclusions. All98 fixtures pass, including26 native actual
+material routes and48 stats routes, plus old material/sampler/regression tests.
+Source/proof identities: target/work/proof/material_commands_checkpoint.json.
+
+Five of the nine command SOURCE implementations now exist: image list,
+apply-picmip, material-texture reload, cache stats and cache flush. This is NOT
+five byte-accepted callbacks. The remaining screenshot pair and sun pair still
+need real closures. Do not add a partial/dummy registration table to hide them.
+Other new material/helper bodies remain unmatched; do not count restored source
+as extra V2 coverage. Primary usage/errors, format handling and pointer order
+are deliberately preserved until the original is reconstructed.
+
+Current SHA06caec127d0b8673c4f358109d4fc15317efc587ebb0334be39069976443911f;
+.text894562, .rdata593215, .data6084500, .reloc85708; file1638400 bytes.
+Same-offset8.198965967%, NOT whole-file completion. Still no GetRefAPI/client
+smoke; stages1-3/structural checkpoint remain OPEN. One build output, no workers;
+billing unavailable. The build, negative controls and98 fixtures have finished.
+
+Next: screenshot/sun command closures -> genuine nine-command registration ->
+R_Init/benchmark -> API. Reuse existing global/sine/DObj setup (already V2),
+FFT_Init source in universal/fft.cpp and R_LevelShot in r_screenshot_capture.cpp;
+those last two are present but currently unaccepted. Do not rewrite existing
+code from memory or substitute unrelated callbacks. Keep structure first.
+
+### Hardware startup checkpoint47b747c
 
 After676e402, r_device.cpp now restores higher device creation128b0/271,
 settings reduction12c20/91 and hardware startup12c80/289. The real chain is

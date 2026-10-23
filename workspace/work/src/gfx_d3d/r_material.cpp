@@ -714,6 +714,94 @@ Material *Material_Register(const char *name, int imageTrack)
     return material;
 }
 
+void Image_Reload(GfxImage *image);
+void Image_Release(GfxImage *image);
+Bool Image_LoadFromFile(GfxImage *image);
+void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip);
+void R_SetPicmip();
+void RB_BindWhiteImages();
+
+// PINNED 10017640/195: visit each non-water image once, in descending address order.
+void Material_ReloadTextures(Material *material)
+{
+    unsigned int count = material->textureCount;
+    GfxImage *previous = 0;
+    for (;;)
+    {
+        GfxImage *best = 0;
+        for (unsigned int index = 0; index < count; ++index)
+        {
+            MaterialTextureDef *texture = &material->textures[index];
+            if (texture->semantic == 5)
+                continue;
+            GfxImage *image = texture->u.image;
+            if ((unsigned int)image > (unsigned int)best &&
+                (!previous || (unsigned int)image < (unsigned int)previous))
+                best = image;
+        }
+        previous = best;
+        if (!best)
+            return;
+        Image_Reload(best);
+    }
+}
+
+// PINNED 100178b0/137: use the loaded material; never load a new one for this command.
+void Material_ReloadTextures_f()
+{
+    if (ri.Cmd_Argc() != 2)
+    {
+        ri.Printf(0, "Usage: reloadmaterialtextures <materialname>\n");
+        return;
+    }
+    const char *name = ri.Cmd_Argv(1);
+    Material *material = Material_FindRegistered(name);
+    if (!material)
+    {
+        ri.Printf(0, va("ReloadMaterialTextures: Material '%s' is not currently loaded.\n", name));
+        return;
+    }
+    RB_BindWhiteImages();
+    Material_ReloadTextures(material);
+}
+
+// PINNED 10017730/357: a platform-zero change alone triggers release and reload.
+void R_ApplyPicmip()
+{
+    R_SetPicmip();
+    for (int slot = 0; slot < 1024; ++slot)
+    {
+        Material *material = R_GetMaterialHashTable()[slot];
+        if (!material)
+            continue;
+        for (int index = 0; index < material->textureCount; ++index)
+        {
+            MaterialTextureDef *texture = &material->textures[index];
+            if (texture->semantic == 5 || !texture->u.image)
+                continue;
+            GfxImage *image = texture->u.image;
+            Picmip picmip;
+            if (image->noPicmip)
+                memset(&picmip, 0, sizeof(picmip));
+            else
+                Image_PicmipForSemantic(image->semantic, &picmip);
+            if (image->picmip.platform[0] != picmip.platform[0])
+            {
+                Image_Release(image);
+                image->picmip = picmip;
+                if (!Image_LoadFromFile(image))
+                    R_Error(ERR_DROP, "failed to load image '%s'", image->name);
+            }
+        }
+    }
+}
+
+// PINNED 10005290/5: the registered command is a separate tail call.
+void R_ApplyPicmip_f()
+{
+    R_ApplyPicmip();
+}
+
 struct BuiltInMaterialTable
 {
     const char *name;

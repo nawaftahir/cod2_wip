@@ -1,5 +1,25 @@
 # Reconstruction attempts
 
+## 2026-10-23 material/cache command closure
+
+PINNED Material_ReloadTextures17640 ends17702,195 bytes, not the oversized
+inventory range. Snapshot ushort textureCount once, then select each unique
+non-water/non-null image by unsigned descending address; reload the live
+texture-array pointer on each scan. Reuse Image_Reload/Image_Release/file load,
+not duplicate memory accounting. ApplyPicmip17730 ends17894,357 bytes; skip
+water/null, noPicmip forces two zero bytes, otherwise reuse Image_PicmipForSemantic.
+ONLY changed platform0 releases, assigns both bytes, loads and raises ERR_DROP
+if necessary. The05290 callback is a separate5-byte tail call, not a dummy.
+
+Reload command178b0/137 requires argc2 and an already registered material.
+Missing-name printing uses va's output as the Printf FORMAT, as primary does;
+do not quietly fix that behavior during original reconstruction. Bind16 white
+samplers first using LIVE state/white pointers (3ec50/33), then sorted reload.
+The white binder and existing-cache stats2bb90/84 pass both referees (+117 C++),
+all1284 old extents survive and1286 are now protected. Both removal negatives
+reject lost bodies. All98 fixtures pass (26 material-command +48 stats routes).
+No source/flag spelling sweeps; other new bodies remain unmatched.
+
 ## 2026-10-23 higher device and hardware startup
 
 PINNED128b0/271 captures HWND BEFORE presentation setup; calls CreateDeviceInternal

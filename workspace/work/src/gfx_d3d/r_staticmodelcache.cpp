@@ -308,3 +308,19 @@ void R_FlushStaticModelCache()
     }
     SMC_ClearCache();
 }
+
+// PINNED 1002bb90/84: the denominator is the fixed65536-vertex cache capacity.
+void R_StaticModelCacheStats_f()
+{
+    ri.Printf(0, "%.2f%% of cache is currently allocated.\n",
+        s_cache.stats.allocatedVerts * (100.0f / 65536.0f));
+    if (s_cache.stats.allocatedVerts)
+        ri.Printf(0, "%.2f%% allocated cache vertices are used.\n",
+            s_cache.stats.usedVerts * 100.0f / s_cache.stats.allocatedVerts);
+}
+
+// PINNED 1002bbf0/5: the console callback jumps to the existing real flush.
+void R_StaticModelCacheFlush_f()
+{
+    R_FlushStaticModelCache();
+}

@@ -136,6 +136,13 @@ void RB_UnbindImage(const GfxImage *image)
 	}
 }
 
+// PINNED 1003ec50/33: preserve each live sampler state while binding white.
+void RB_BindWhiteImages()
+{
+	for (int index = 0; index < 16; ++index)
+		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
+}
+
 void RB_InitImages()
 {
 	int samplerIndex;
