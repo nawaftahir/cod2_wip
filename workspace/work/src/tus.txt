@@ -54,6 +54,7 @@ gfx_d3d/rb_backend.cpp
 gfx_d3d/rb_fog.cpp
 gfx_d3d/rb_filter_generate.cpp
 gfx_d3d/rb_light_derive.cpp
+gfx_d3d/rb_light_grid.cpp
 gfx_d3d/rb_shade_lights.cpp
 gfx_d3d/rb_shade.cpp
 gfx_d3d/rb_buffer_upload.cpp

@@ -326,3 +326,11 @@ TU is candidate organization, not proof of the historical file boundary. Origina
 MSVC asserts both state records12 bytes and dx offsets2d80/2d8c/2db4. RI fatal
 callback is+54 from the pinned101d49c8 import base. Existing RB_ChangeIndices and
 RB_ChangeStreamSource own cache publication; existing log helpers own logging.
+
+### Light-grid lookup helpers - 2026-10-23
+
+Candidate rb_light_grid.cpp uses existing GfxLightGrid/Point/Colors definitions:
+16/8/24 bytes, point flags+4 and color index+6. Existing rgp.world and
+r_showMissingLightGrid control fallback; no extra owners or lookup buffers.
+Five genuine helpers precede future interpolation/trace closures in this TU.
+Candidate grouping follows rb_light_derive.cpp, not a historical-order claim.

@@ -5,6 +5,32 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
+### Verified light-grid helper checkpoint
+
+Afterbb693a0, rb_light_grid.cpp restores five genuine helpers: packed coordinate
+search,24-coefficient accumulation, scaling, primary default coefficients and
+nearest/predecessor fallback. Shared16/8/24-byte layouts are asserted; existing
+rgp/world/dvar state is reused. No new globals, roots, flags or authored assembly.
+Search misses return predecessor (possibly-1), NOT the insertion point in the old
+Mac draft. Retail fallback consumes it without bounds repair; native fixtures
+use a guarded prefix record to verify that behavior. PC missing-grid gating also
+differs from the reference. GLM data/decomp helps; its src/f ASM wrappers do not.
+
+Both referees accept the141-byte search: engine C++103650/253580=40.874674659%,
+612 bodies, same frozen legacy comparison denominator. Four other source helpers
+remain uncredited: no flag or spelling sweeps. All1432 older extents survive;
+ratchet protects1433, and removing the new extent fails. All107 fixtures pass,
+including4000 packed searches,576 fallback/early-return cases and60 coefficient
+cases.24 default values are independently derived from primary instruction writes.
+One output reused, no workers; billing unavailable. Build/full fixtures terminal.
+
+Receipt/source/proof/decompiler hashes: proof/light_grid_helpers_checkpoint.json.
+Candidate SHA76d8efa78e6219d9388fc00168ae9d83b1fec7df9d5f93befe256fa37949d263;
+same-offset8.175956253%, NOT source completion. Remaining real closures: grid visibility,
+interpolation and shared log lookup/insertion -> SetupEntityLighting/lighting ->
+DrawTechnique/EndSurface/2D -> sun calibration -> R_Init/API59. Do not skip those
+branches or fabricate callbacks. Stages1-3, retail SHA and GPU smoke stay OPEN.
+
 ### Verified dynamic-buffer upload checkpoint
 
 After6ca5aa7, rb_buffer_upload.cpp restores actual index and vertex uploads

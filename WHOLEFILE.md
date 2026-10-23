@@ -188,11 +188,16 @@ uncredited pending register matching. Current103509/253580=40.8191%,1432
 protected extents,106 passing fixtures. Remaining draw/calibration/API closures
 are still required. Evidence: buffer_upload_checkpoint.json.
 
+Five light-grid helpers now have real source; the packed search adds141 verified
+C++ bytes. Current103650/253580=40.8747%,1433 protected extents,107 fixtures.
+The remaining visibility/interpolation/lighting/draw/startup/API closures are still
+required. Proof and preserved reference differences: light_grid_helpers_checkpoint.json.
+
 ### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local
    historical referee inputs keep their original hashes. Run both unchanged
-   referees, all1432 protected extents and actual-source fixtures. Missing old
+   referees, all1433 protected extents and actual-source fixtures. Missing old
    research folders must not silently disable a gate. Never delete another
    agent's work or reset the owner's staged changes.
 

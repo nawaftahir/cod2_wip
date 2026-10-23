@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "bb693a0",
+  "scope": "actual packed grid search, color accumulation/scaling/defaults and predecessor fallback",
+  "whole_file_identical": false,
+  "stages_1_to_3_complete": false,
+  "candidate_sha256": "76d8efa78e6219d9388fc00168ae9d83b1fec7df9d5f93befe256fa37949d263",
+  "same_file_offset_percent": 8.175956253456858,
+  "cpp_executable_bytes": 103650,
+  "cpp_percent_legacy_inventory": 40.87467465888477,
+  "cpp_game_bodies": 612,
+  "new_engine_bytes": 141,
+  "new_engine_matches": [
+    {
+      "target": "0x10035fb0",
+      "bytes": 141,
+      "name": "RB_FindGridPoint (descriptive)"
+    }
+  ],
+  "source_helpers_restored": 5,
+  "uncredited_helpers": [
+    "RB_AccumulateGridColors",
+    "RB_ScaleGridColors",
+    "RB_DefaultGridColors",
+    "RB_GetNearestGridColors"
+  ],
+  "previous_1432_retained": true,
+  "protected_extents": 1433,
+  "new_match_removal_negative_passed": true,
+  "full_source_fixtures_passed": 107,
+  "native_packed_searches": 4000,
+  "native_fallback_cases": 576,
+  "native_coefficient_cases": 60,
+  "default_coefficients_derived_from_primary_instructions": 24,
+  "predecessor_minus_one_behavior_preserved": true,
+  "new_authored_assembly": false,
+  "new_export_roots": false,
+  "new_globals": false,
+  "GetRefAPI_implemented": false,
+  "client_gpu_smoke_tested": false,
+  "billing_tokens": null,
+  "reference_decompiler_sha256": {
+    "10035fb0_FUN_10035fb0.c": "b9f9f8641131ce97b82a51d7c06236c2a95dbb1967831cdab40265d2fda9d1c5",
+    "10036100_FUN_10036100.c": "3f5194c4e63211e4b3c9753686a89514bad4f86862d32818b81eecd6ac3dceab",
+    "100361e0_FUN_100361e0.c": "facd676c311609b5cbe87a15930d144fae2e07005a87fd298c60e425f31794f7",
+    "10036320_FUN_10036320.c": "ef00130fe5112bd7ce7a258291eae816f2a43511905fab09994332d2834f5925"
+  },
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/rb_light_grid.cpp": "26368364d5c88786322252c5decaf9732b0e6e5ba471b6515adfc9407d0e621a",
+    "src/tus.txt": "d1245c4e48f1d6a4c101aad0be3320817afef88fa845b495d394b2eea4f3d68c",
+    "tests/test_light_grid_helpers.py": "09cf03106f856b499d84e30e4d9467373e44ccaba0c11a65e1050a37c2fa1460",
+    "tools/check_checkpoint.py": "99c3ecb68085df8c37ca6ad287afe161912ba1797148953e7d56d3ab161e30fc",
+    "proof/light_grid_helpers_warm_bind.json": "1f5cf92b1838cf658ae2ed915d454fa51afa304b2addae24c1d443903a733853",
+    "proof/light_grid_helpers_layout.json": "32a281a1084f9e9c5abbf1eb970af6e7772a2ecad4bed67cf66f99554993f720",
+    "proof/light_grid_helpers_source_coverage.json": "616796b910a5005dd1d1d6afde41e952c0b954a069f9c356f471bee4c4469654",
+    "proof/latest/light_grid_helpers_build.log": "507185c22826edd007f7b0de06482273037aae11803894c063b2889fd8195ccc",
+    "proof/latest/light_grid_helpers_fixtures.log": "c223dd1ca3da4ee80f0c0af9e055489840ec5d242391444ed5bb632a47246750",
+    "proof/latest/light_grid_helpers_ratchet.log": "dfc88f85001ed51d86648a904ca9b72eb29e9b33bcdca27478d878381a6435a3"
+  }
+}

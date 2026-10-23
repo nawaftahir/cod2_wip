@@ -1185,3 +1185,20 @@ Vertex source compiles to282 bytes like retail; fdiff records changed registers
 and alignment NOPs, with the same control flow. No source spelling/flag sweep,
 new assembly or manual credit: restore genuine caller groups first. Shared
 error source stays descriptive; a matching helper is not proof of its old name.
+
+### Light-grid helper batch - 2026-10-23
+
+GLM data/decomp contains useful primary decompiler output; src/f contains broken
+assembly wrappers/_emit and is NOT source reconstruction. Use data/decomp plus
+retail instructions, not naked wrappers. Restore141-byte lookup10035fb0 with
+packed high/low coordinate keys, signed comparison after wrapped subtraction,
+sun bit ignored and predecessor-on-miss. Its callers10036320 deliberately consume
+that predecessor without checking found or lower bounds. Test with a guarded
+prefix record to observe the original below-first behavior without hiding it.
+The old Mac draft says insertion point and has a different nearest-lookup gate;
+PC gate is (world && r_showMissingLightGrid) OR empty grid -> no fallback.
+Packed colors are3x8 coefficients accumulated into24 floats; not per-direction
+RGB. Default24 stores are recovered directly from primary100362d0. The other
+three helpers are10036100/100361e0/10036320. No flag/spelling sweep; only search
+gets V2 credit so far. No new assembly. Coordinate interpolation and visibility
+helpers remain real work before SetupEntityLighting/DrawTechnique can link.
