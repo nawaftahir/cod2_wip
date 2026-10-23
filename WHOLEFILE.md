@@ -198,6 +198,12 @@ Grid history/debug/visibility now has seven further actual source helpers and
 Interpolation/entity lighting and the draw/startup/API closures remain open.
 Evidence: light_grid_visibility_checkpoint.json; no new assembly or flag sweep.
 
+Grid interpolation -> entity lighting -> lighting/technique drawing now has real
+connected source.110 fixtures and all1433 protected extents pass; no new byte
+credit (40.8747% legacy meter). Exact FP spelling/all-input identity remain
+unproved. Next close tess surface/2D/calibration and R_Init/API59; do not replace
+missing paths with fake callbacks. Proof: lighting_chain_checkpoint.json.
+
 ### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local

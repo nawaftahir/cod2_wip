@@ -9,6 +9,7 @@ import pefile
 work = Path(__file__).resolve().parents[1]
 source = (work / 'src/gfx_d3d/rb_shade.cpp').read_text()
 source = source[source.index('// PINNED 10037930'):]
+source = source[:source.index('extern r_backEndGlobals_t backEnd;')]
 header = (work / 'src/gfx_d3d/rb_tess.h').read_text()
 header = header[header.index('struct Material;'):header.index('#ifdef _MSC_VER')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))

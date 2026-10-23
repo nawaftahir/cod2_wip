@@ -6,6 +6,7 @@ import tempfile
 work=Path(__file__).resolve().parents[1]
 source=(work/'src/gfx_d3d/rb_light_grid.cpp').read_text()
 source=source[source.index('// PINNED 10035fb0'):]
+source=source[:source.index('/* PINNED 100363a0.')]
 program=r'''
 #include <algorithm>
 #include <array>

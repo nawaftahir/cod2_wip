@@ -345,3 +345,15 @@ queries, with existing Vec3Normalize. The sample-box helper directly calls
 AddDebugBox as primary does; it is not a generic-point-box wrapper. The query
 reloads grid.points after visibility before returning a point. Candidate grouping
 is not proof of historical TU ownership. No new roots, flags or authored assembly.
+
+### Connected interpolation/lighting/draw callers - 2026-10-23
+
+rb_light_grid.cpp consumes the existing world lightGrid+11c and backend viewCount
++3b4, with compile-time entity origin3c/lighting104-byte pins. No new world/entity
+state. Existing I_fround is reused in currently unaccepted interpolation; audit
+its containing body for assembly accounting if it becomes byte-accepted.
+rb_shade.cpp owns actual SetupLighting and DrawTechnique callers. The genuine
+DX7 renormalization override is one typed16-byte const instance [-1,-1,40000000,0]
+pinned at primary10190690; candidate location/order is not historical proof.
+Constants and cached entity lighting remain in the sole shared backEnd. These
+callers reuse existing hardware lights, pass setup, viewport and iterator fog.

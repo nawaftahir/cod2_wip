@@ -5,6 +5,41 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
+### Connected interpolation/entity/lighting/draw checkpoint
+
+Afteraa03608, RB_GetLightingAtPoint/RB_SetupEntityLighting in rb_light_grid.cpp
+and RB_SetupLighting/RB_DrawTechnique in rb_shade.cpp now connect the real grid
+helpers to existing viewport/fog/hardware-light/pass drawing. No fake callbacks,
+new export roots, mutable state, flags or authored assembly definitions. The
+single16-byte DX7 renormalization constant is pinned at primary10190690.
+Original MSVC confirms world.lightGrid11c, entity.origin3c, lighting104 bytes and
+backend.viewCount3b4; the callers use the existing shared allocations/views.
+
+All110 source fixtures pass. New tests cover65536 bounded interpolation routes
+(all256 occupancy masks, four rounding modes, x8724/64-bit precision),7 entity
+routes,2240 full lighting cases and420 draw dispatches. They check cached-light
+publication/reload, exact shader constants/override, callback changes to technique
+and renderer and output guards. Existing rounding assembly is reused, not added.
+Full IEEE-input equivalence and exact FP instruction spelling remain UNPROVED:
+this is not a declaration that interpolation is byte-matched. If it ever matches,
+audit its inlined helper assembly separately rather than awarding C++ credit.
+
+Original-compiler whole build, both referees/source attribution and all1433 old
+extents pass; accepted address/extent set is unchanged. NO new byte credit:
+engine C++ stays103650/253580=40.874674659%,612 bodies. All four new callers
+remain uncredited. No register/flag sweep. One output reused, no workers;
+billing unknown. Build and final110-fixture suite are terminal and passed.
+
+Receipt/source/decompiler/log hashes: proof/lighting_chain_checkpoint.json.
+Candidate SHA944f6e0d8fa6a41b6b23d54e46708575a69cf7dd588efed458cdb365714cc95f;
+same-offset8.386284482%, NOT source completion. Next real closure: optimized/ordinary tess
+surface drivers and EndSurface -> 2D/stretch pic -> sun calibration -> R_Init
+and remaining API59 front door. All their lighting/upload/pass dependencies now
+have genuine source. GfxDrawPrimArgs has two identical private definitions in
+rb_state.cpp and rb_shader_matrices.cpp; share its schema before new drivers.
+Do not edit assembly-bearing rb_backend.cpp casually (its entire file is pinned).
+GetRefAPI, stages1-3, exact FP/SHA and actual GPU/client smoke remain OPEN.
+
 ### Verified grid visibility/cache source checkpoint
 
 After20ee614, rb_light_grid.cpp adds seven genuine source implementations:

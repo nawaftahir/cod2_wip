@@ -1,0 +1,68 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "aa03608",
+  "scope": "connected grid interpolation, entity lighting, shader constants and technique draw callers",
+  "whole_file_identical": false,
+  "stages_1_to_3_complete": false,
+  "candidate_sha256": "944f6e0d8fa6a41b6b23d54e46708575a69cf7dd588efed458cdb365714cc95f",
+  "same_file_offset_percent": 8.38628448216261,
+  "cpp_executable_bytes": 103650,
+  "cpp_percent_legacy_inventory": 40.87467465888477,
+  "cpp_game_bodies": 612,
+  "new_verified_engine_bytes": 0,
+  "protected_extents_retained": 1433,
+  "accepted_address_extent_set_unchanged": true,
+  "source_callers_restored": [
+    "RB_GetLightingAtPoint",
+    "RB_SetupEntityLighting",
+    "RB_SetupLighting",
+    "RB_DrawTechnique"
+  ],
+  "all_new_callers_uncredited": true,
+  "full_source_fixtures_passed": 110,
+  "native_bounded_interpolation_routes": 65536,
+  "native_entity_routes": 7,
+  "native_lighting_routes": 2240,
+  "native_draw_dispatches": 420,
+  "rounding_modes_tested": 4,
+  "x87_precision_modes_tested": [
+    24,
+    64
+  ],
+  "all_IEEE_FP_identity_proved": false,
+  "exact_interpolation_FP_instruction_spelling_proved": false,
+  "existing_rounding_assembly_reused": true,
+  "new_authored_assembly_definitions": false,
+  "new_export_roots": false,
+  "new_global_mutable_state": false,
+  "primary_typed_renormalization_override_bytes": 16,
+  "original_compiler_layout_pins": {
+    "world.lightGrid": "0x11c",
+    "entity.origin": "0x3c",
+    "entityLighting.size": 104,
+    "backend.viewCount": "0x3b4"
+  },
+  "GetRefAPI_implemented": false,
+  "client_gpu_smoke_tested": false,
+  "billing_tokens": null,
+  "reference_decompiler_sha256": {
+    "100363a0_FUN_100363a0.c": "0865fd27f28abb4e619c2950da089d7261538118fc41200d381dd724a102c6eb",
+    "100366b0_FUN_100366b0.c": "99060523ad747c8f92db79fd607632a82ba89768dc472753bc519ed9e932a57f",
+    "1003a340_FUN_1003a340.c": "fa6078202e860f89ddd04893768be1f978e3025cc33bdab352a8e979b8495e3e",
+    "1003a580_FUN_1003a580.c": "94cb70943a5893765729dd97cb9a7d46da55673f2301b5b3928eeeab6974b90a"
+  },
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/rb_light_grid.cpp": "50574cadf3a5322bc2162bfb6a73f4e86dff5fb8f02e1d7e6151836ec13161bf",
+    "src/gfx_d3d/rb_shade.cpp": "41b1d24b68c93070d6216a9ada05573ff27955dad148506297e44be419d74734",
+    "tests/test_light_grid_visibility.py": "a429ea1d75c0beb32a260fa7b72f0f3f2aca07978efd1170aa682bfc09cf6a2a",
+    "tests/test_surface_begin.py": "e6202ff5cbd22af1611dd970b6d10753eb0a5387b5e33aa28ebe6ed39ce792c8",
+    "tests/test_grid_interpolation.py": "daa2c30133d28a93b11410c98fd858b166ccae82fbbb351cc7dce706e6442719",
+    "tests/test_lighting_chain.py": "e3773cce1803598307ab887c5d257d1a0ec192a21bfcbe772dbca1fe64a7d169",
+    "proof/lighting_chain_bind.json": "d31bf83de46666425d9787e8b4e30ee740639619af0b4af8ac52b81e85d7c8b2",
+    "proof/lighting_chain_layout.json": "2269445a70e089337d7098e68b5de5b49557ca1016f53d79f119a9b2e36fcc40",
+    "proof/lighting_chain_source_coverage.json": "40ea3e7c9ae15c40b6af63e1ed53939657667f31fac47c2f7c0f6f011f33fed5",
+    "proof/latest/lighting_chain_preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proof/latest/lighting_chain_build.log": "36285a18bb53c95ab2a376ac9ec2486b9cc2cdc7cc9c5ec04f1e707a7932e938",
+    "proof/latest/lighting_chain_fixtures.log": "f04a71aebca4ccf802b32a7fa226cdfe12586a33753cbee1b75f0afc6c5b00d8"
+  }
+}

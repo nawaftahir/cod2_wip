@@ -1230,3 +1230,27 @@ preserving primary call structure. All1433 previous extents survive the final
 source build, but no new body is V2 accepted. No manual credit or flag sweep.
 Native trace mutation also changes grid.points: GetValidGridPoint reloads it
 after visibility, as primary360ef-360f3 does. No snapshot pointer publication.
+
+### Interpolation/entity/lighting/draw caller group - 2026-10-23
+
+Primary363a0 uses bias DOUBLE0x3fdfffffff000000 =0.4999999990686774,
+not exact0.5 (Ghidra rounds its printout). The existing I_fround adds2^-30.
+Use the existing helper after subtracting0.5 for source interpolation; no new
+authored assembly definitions or /QIfist flag. Native65536 interpolation routes
+compare cells with the primary biased rounding expression across all256 occupancy
+masks, four rounding modes and x8724/64-bit precision on bounded in-world inputs.
+That is NOT proof for every IEEE input or instruction identity. Exact FP
+spelling stays unresolved; if this body ever matches, audit/exclude its inlined
+existing assembly from C++ credit, never merely relax the source gate.
+
+Restored actual entity sampling366b0, lighting3a340 and draw dispatch3a580 using
+existing shared world/backend/entity layouts. Original compiler confirms world
+lightGrid11c, entity origin3c, lighting104, backend viewCount3b4. Entity publishes
+viewCount before sampling and updates returned sun visibility afterward. PC
+lighting writes code constants5/18/24/25 (Mac's0x85 alias is wrong). Reload
+currentEntityLighting after callbacks. DX7 cached-tech15..17 returns untouched.
+Draw dispatch updates viewport, runs lighting for6..17 and fog for3..26, reloading
+the technique between phases. DX7 lightprobe9..14 uses actual16-byte override
+10190690 [-1,-1,40000000,0]. No invented fallback/guard/default callback.
+Native7 entity,2240 lighting and420 dispatch cases pass, including callback
+changes to current lighting, technique and renderer and exact constant guards.

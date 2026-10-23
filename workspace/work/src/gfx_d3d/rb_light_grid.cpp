@@ -219,3 +219,79 @@ const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
         return 0;
     return &grid->points[index];
 }
+
+/* PINNED 100363a0. Reuse the existing biased rounding helper; exact FP
+   instruction spelling remains unaccepted and its assembly is not C++ credit. */
+float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out)
+{
+    int cell[3];
+    float weights[3][2];
+    for (int axis = 0; axis < 3; ++axis)
+    {
+        float shifted = sampleOrigin[axis] + 131072.0f;
+        cell[axis] = I_fround(shifted - 0.5f) >> (axis == 2 ? 6 : 5);
+        weights[axis][1] = shifted * (axis == 2 ? 0.015625f : 0.03125f) - cell[axis];
+        weights[axis][0] = 1.0f - weights[axis][1];
+    }
+    if (r_showLightGrid->current.enabled)
+    {
+        RB_DrawGridCellBox(cell[0], cell[1], cell[2]);
+        RB_DrawGridSampleBox(sampleOrigin);
+    }
+    memset(out, 0, 6 * sizeof(vec4_t));
+    float totalWeight = 0.0f;
+    float sunWeight = 0.0f;
+    for (unsigned int corner = 0; corner < 8; ++corner)
+    {
+        const GfxLightGridPoint *point = RB_GetValidGridPoint(grid,
+            cell[0] + (corner & 1), cell[1] + ((corner >> 1) & 1),
+            cell[2] + ((corner >> 2) & 1), corner, sampleOrigin);
+        if (!point)
+            continue;
+        float weight = weights[1][(corner >> 1) & 1] * weights[2][(corner >> 2) & 1]
+            * weights[0][corner & 1];
+        totalWeight += weight;
+        RB_AccumulateGridColors(out, &grid->colors[point->colorsIndex], weight);
+        if (point->xyzLowBitsAndSunVisible & 1)
+            sunWeight += weight;
+    }
+    if (totalWeight < 0.98f)
+    {
+        if (totalWeight == 0.0f)
+        {
+            if (!RB_GetNearestGridColors(grid,
+                cell[0] + (weights[0][1] > 0.5f), cell[1] + (weights[1][1] > 0.5f),
+                cell[2] + (weights[2][1] > 0.5f), out, &sunWeight))
+                RB_DefaultGridColors(out);
+        }
+        else
+        {
+            float inverseWeight = 1.0f / totalWeight;
+            sunWeight *= inverseWeight;
+            RB_ScaleGridColors(out, inverseWeight);
+        }
+    }
+    return sunWeight;
+}
+
+typedef char entityLightingLayoutCheck[(offsetof(GfxEntity, renderFxFlags) == 4
+    && offsetof(GfxEntity, origin) == 0x3c
+    && offsetof(GfxWorld, lightGrid) == 0x11c
+    && sizeof(GfxEntityLighting) == 104
+    && offsetof(r_backEndGlobals_t, viewCount) == 0x3b4) ? 1 : -1];
+extern r_backEndGlobals_t backEnd;
+
+// PINNED 100366b0: publish viewCount before sampling, with no missing-world guard.
+void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting)
+{
+    lighting->viewCount = backEnd.viewCount;
+    vec3_t origin;
+    if ((signed char)entity->renderFxFlags < 0)
+        VectorCopy(entity->lighting.origin, origin);
+    else
+    {
+        VectorCopy(entity->origin, origin);
+        origin[2] += 4.0f;
+    }
+    lighting->sunVisibility = RB_GetLightingAtPoint(&rgp.world->lightGrid, origin, lighting->colorForDir);
+}
