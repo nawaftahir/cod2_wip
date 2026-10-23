@@ -182,11 +182,17 @@ extents,105 fixtures. The single tess allocation now covers its primary optimize
 fields. This is required startup/draw structure; EndSurface/upload/2D/calibration
 and API closure remain open. See surface_begin_checkpoint.json.
 
+Dynamic index/vertex upload source is restored using existing shared buffers.
+Index upload and lock-error helper add331 verified C++ bytes; vertex remains
+uncredited pending register matching. Current103509/253580=40.8191%,1432
+protected extents,106 passing fixtures. Remaining draw/calibration/API closures
+are still required. Evidence: buffer_upload_checkpoint.json.
+
 ### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local
    historical referee inputs keep their original hashes. Run both unchanged
-   referees, all1430 protected extents and actual-source fixtures. Missing old
+   referees, all1432 protected extents and actual-source fixtures. Missing old
    research folders must not silently disable a gate. Never delete another
    agent's work or reset the owner's staged changes.
 

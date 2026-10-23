@@ -1158,3 +1158,30 @@ all strings recovered independently from its immediate operands, no guessed
 technique aliases. Existing Mac/open-source BeginSurface omits logging. PC calls
 va then existing RB_LogPrint before mutating tess, conditionally on r_logFile.
 Preflight passes. Do not add guards for invalid type/material absent from retail.
+
+### Dynamic upload source - 2026-10-23
+
+Primary index upload100386b0/282 and vertex upload100387d0/282 use actual SDK
+buffers and existing Com_Memcpy/RI fatal callback. Ref vertex draft is wrong:
+PC has no null-buffer guard, no color conversion and NO gpuSync dependency in
+vertex lock flags (nonzero offset means NOOVERWRITE). Index rollover clears the
+current slot and redirects to the pool if used is zero. Both functions reload
+the live state after unlock/bind callbacks before publishing used. Error prints
+two exact messages and calls RI+54; if that void callback returns, retail proceeds.
+Native2064 normal routes plus4 failures pass, including callback pointer changes.
+First preflight mounted test/sdk instead of dev/sdk and reported missing d3d9.h;
+only that failed preflight container was stopped. Correct SDK is dev/sdk/sum2004,
+matching build.sh. Do not interpret that mount failure as a compiler limitation.
+
+Upload preflight rejected an incorrect RI+5c assertion: the locally pinned
+refapi_pinned.json and primary GetRefAPI establish import base101d49c8, not
+101d49c0. Absolute fatal address101d4a1c is therefore RI+54. Correct the pin,
+not the table order; production callback member and behavior were already right.
+
+Original compiler and both referees accept RB_SetIndexData282 bytes and the
+shared lock-failure sequence as a genuine49-byte out-of-line primary function
+100113e0 (retail uploads inline that same sequence). Both new extents are protected.
+Vertex source compiles to282 bytes like retail; fdiff records changed registers
+and alignment NOPs, with the same control flow. No source spelling/flag sweep,
+new assembly or manual credit: restore genuine caller groups first. Shared
+error source stays descriptive; a matching helper is not proof of its old name.

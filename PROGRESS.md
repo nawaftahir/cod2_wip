@@ -5,6 +5,32 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
+### Verified dynamic-buffer upload checkpoint
+
+After6ca5aa7, rb_buffer_upload.cpp restores actual index and vertex uploads
+through existing dx/dxState buffers and binding caches. No duplicate globals,
+new buffers/export roots or assembly. Primary-backed SDK layout assertions pass.
+Index rollover, distinct vertex/index lock flags, memcpy, unlock retries, error
+prints and RI fatal handling preserve the primary behavior. Late callback-driven
+state changes are reloaded before used-count publication. The reference's extra
+vertex guard/color conversion/gpuSync behavior is NOT imported.
+
+Both referees accept RB_SetIndexData100386b0/282 and the genuine shared error
+sequence100113e0/49: +331 C++ bytes. Engine C++103509/253580=40.819070905%,
+611 bodies. Same frozen legacy comparison denominator; IJG and assembly remain
+separate. All1430 previous extents survive; ratchet protects1432, and both new
+removal negatives reject regressions. All106 fixtures pass, including768 index,
+1296 vertex and4 lock-failure routes. One output, no workers; billing unavailable.
+Vertex source compiles to282 bytes like retail but differs in registers/NOPs:
+NO vertex byte credit, no spelling/flag sweeps. Diagnostic is frozen with receipt.
+
+Candidate SHA51d5748ca76356cf9d0ebe5b6b9f32bd224e032f7db929b896b780d83cd6db67;
+same-offset8.177846723%, NOT source coverage. Receipt: buffer_upload_checkpoint.json.
+Build/preflight/full fixtures are terminal and passed. Next: genuine lighting,
+DrawTechnique/EndSurface/2D setup -> sun calibration -> R_Init -> API59 closure.
+RB_DrawSingleTechnique, viewport, iterator fog and DX7 hardware-light source
+already exist; reuse them. Stages1-3, whole-file SHA and GPU smoke stay OPEN.
+
 ### Verified tessellated surface setup checkpoint
 
 After3f1c0ac, the shared rb_tess.h now models the primary field span through

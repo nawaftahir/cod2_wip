@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "6ca5aa7",
+  "scope": "real shared-state index/vertex uploads and DirectX lock-failure handling",
+  "whole_file_identical": false,
+  "stages_1_to_3_complete": false,
+  "candidate_sha256": "51d5748ca76356cf9d0ebe5b6b9f32bd224e032f7db929b896b780d83cd6db67",
+  "same_file_offset_percent": 8.17784672289823,
+  "cpp_executable_bytes": 103509,
+  "cpp_percent_legacy_inventory": 40.81907090464548,
+  "cpp_game_bodies": 611,
+  "new_engine_bytes": 331,
+  "new_engine_matches": [
+    {
+      "target": "0x100113e0",
+      "bytes": 49,
+      "name": "R_FatalBufferLockError (descriptive)"
+    },
+    {
+      "target": "0x100386b0",
+      "bytes": 282,
+      "name": "RB_SetIndexData"
+    }
+  ],
+  "unaccepted_vertex_upload": {
+    "target": "0x100387d0",
+    "retail_bytes": 282,
+    "candidate_bytes": 282,
+    "credit": 0,
+    "finding": "same control flow; register/NOP differences recorded without source spelling sweeps"
+  },
+  "previous_1430_retained": true,
+  "protected_extents": 1432,
+  "new_match_removal_negatives_passed": 2,
+  "full_source_fixtures_passed": 106,
+  "native_index_routes": 768,
+  "native_vertex_routes": 1296,
+  "native_lock_failure_routes": 4,
+  "new_authored_assembly": false,
+  "new_export_roots": false,
+  "new_global_buffers": false,
+  "GetRefAPI_implemented": false,
+  "client_gpu_smoke_tested": false,
+  "billing_tokens": null,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/rb_buffer_upload.cpp": "5b5bfe7c69fded35cf5b80833f8ba5b15759c98fa82550b9d35c3b0f1ffc2a2c",
+    "src/tus.txt": "98794b5a63ca08baffd5d6351c89d0d0605f64be8261dc2a4a9079df60c950dc",
+    "tests/test_buffer_upload.py": "ca374475b55801cec5ae1231bdd82cc76687905bfa5470fea2c496e18782a1f6",
+    "tools/check_checkpoint.py": "7ab0439a660f9dfa08bf82fa1cb282d6a3be6a8c1ecc57868a8b21155b3721e5",
+    "proof/buffer_upload_warm_bind.json": "070862c695ad35a730931b128c810792db14e0fa4744034f04eded678fefc1da",
+    "proof/buffer_upload_layout.json": "f81993171c1465e9c13866b090bd418bd8b4393e210bc30374adb6747ffb26f4",
+    "proof/buffer_upload_source_coverage.json": "e1c6d05d0a8ea161b56d012d2f3a65108c14cc46fb7f5ee01f1c605bc2a9b311",
+    "proof/latest/buffer_upload_build.log": "281c003f2e9e80ac9f73fa4ab9e483b884f383ef0502babc8f59f24af9191816",
+    "proof/latest/buffer_upload_preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proof/latest/buffer_upload_fixtures.log": "82c0e6d79508b48a7bc76ac9a85244b97fbb6f39439463b7051ad51048bad672",
+    "proof/latest/buffer_upload_ratchet.log": "3acf27942cc7f6014eadb95f423ba8d67b32e4dd906bb0a268fae1c51266bb65",
+    "proof/latest/buffer_upload_vertex_diff.log": "19f4f8f17abd7de8e5d5e489f83cd87eb87763b5798aa75eee9fecd5a0f99918"
+  }
+}

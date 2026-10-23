@@ -316,3 +316,13 @@ its35-entry stack-local diagnostic-name helper. Candidate TU order follows
 rb_shade_lights.cpp; historical grouping/order remains unproved. Logging reuses
 the existing r_logFile, va and RB_LogPrint. No new export root or duplicate state.
 Both functions match retail304+153 bytes and all1428 older extents survive.
+
+### Dynamic-buffer upload ownership - 2026-10-23
+
+Candidate rb_buffer_upload.cpp uses the same dx dynamicIndexBufferPool / current
+index slot and dynamicVertexBuffer set by existing R_CreateDynamicBuffers. There
+are no new buffers, counters, stream caches or allocator globals. The SDK-view
+TU is candidate organization, not proof of the historical file boundary. Original
+MSVC asserts both state records12 bytes and dx offsets2d80/2d8c/2db4. RI fatal
+callback is+54 from the pinned101d49c8 import base. Existing RB_ChangeIndices and
+RB_ChangeStreamSource own cache publication; existing log helpers own logging.
