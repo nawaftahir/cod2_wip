@@ -1,5 +1,42 @@
 # Reconstruction attempts
 
+## 2026-10-23 D3D device/presentation source
+
+PINNED AA10011460 ends100114c3 (100 bytes, not112 including INT3 padding).
+It probes adapter0/DEVTYPE_HAL/format21 regardless of dx.adapterIndex, with
+windowed=!fullscreen, decreasing samples until1. A successful HRESULT>=0
+publishes qualityLevels-1 as unsigned DWORD; zero levels therefore wraps.
+No probe for samples<=1, no reference-only logging/validation/reflection flag.
+
+Presentation100114d0/137 clears56 SDK bytes, uses format21(A8R8G8B8), one
+back buffer, discard1, AutoDepthStencilFormat75(D24S8) but disables auto depth.
+Primary global101ce7dc is r_swapInterval, pinned by registration string
+10192b74 and the matched dvar registration. Do not copy CoD4's r_vsync name.
+Any nonzero bool selects interval1; zero selects80000000. Fullscreen preserves
+the requested Hz, windowed forces0Hz. Existing dx holds multisample state.
+
+CreateDeviceInternal100126d0 ends12740 (113 bytes; inventory106 truncates RET
+and epilogue). Each batch prints once, tries HAL twenty times and sleeps100ms
+after EVERY failed call including the twentieth. Success is any HRESULT>=0.
+After a failed nonzero adapter batch, publish adapter0 and try one more batch;
+after adapter0 fails, return the last HRESULT. No extra resets/cleanup/REF
+device fallback. The device output pointer is the real existing dx.device.
+Native32 actual-source fixtures cover1204 AA/presentation/retry paths, including
+success at1/19/20/21/39/40, total failure, and quality0/1/7. Behavior tests alone
+do not establish byte match, real GPU operation or complete startup.
+The first normal-profile build accepts all three complete bodies through both
+unchanged referees:100+137+113=350 C++ bytes. All1264 prior extents survive.
+No register/flag/source spelling sweep or new roots/assembly was needed.
+
+Next higher device caller100128b0 also needs video configuration100115f0,
+resource creation10012100 and registration finalization10012040. Resource
+creation calls real render targets10022d20, two static-model cache helpers
+1002b920/1002b9a0, buffer constructors10011b60/10011bf0 and CreateQuery type8.
+Its success tail begins10012198: the inventory152 omits that tail. Video config
+has a real selector table at100116b0 after its RET; never decode/count the table
+as instructions. Full hardware startup10012c80 and its retry dvar logic remain
+missing, not replaced with fake returns merely because these helpers match.
+
 ## 2026-10-23 real game-window creation
 
 PINNED100129c0/248 takes the36-byte PC GfxWindowParms record. Fullscreen is

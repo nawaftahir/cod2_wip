@@ -1,0 +1,69 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "d3f05a8",
+  "scope": "real D3D AA, presentation parameters and retrying device creation",
+  "whole_file_identical": false,
+  "candidate_sha256": "7cc9514234fc696f781fa7474b1431c6e0f33fdd81a4a38b80d8ca1f50bda051",
+  "same_file_offset_percent": 8.308235100940266,
+  "cpp_executable_bytes": 101732,
+  "cpp_percent_supported_inventory": 40.1183058600836,
+  "cpp_game_bodies": 595,
+  "cpp_bytes_gained": 350,
+  "new_accepted_bodies": [
+    {
+      "target": "0x10011460",
+      "bytes": 100,
+      "name": "R_SetupAntiAliasing",
+      "source": "gfx_d3d/r_device.cpp"
+    },
+    {
+      "target": "0x100114d0",
+      "bytes": 137,
+      "name": "R_SetD3DPresentParameters",
+      "source": "gfx_d3d/r_device.cpp"
+    },
+    {
+      "target": "0x100126d0",
+      "bytes": 113,
+      "name": "R_CreateDeviceInternal",
+      "source": "gfx_d3d/r_device.cpp"
+    }
+  ],
+  "mixed_game_bodies": 626,
+  "mixed_executable_bytes": 109519,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "new_authored_assembly_definitions": false,
+  "byte_and_binding_referees_changed": false,
+  "previous_1264_extents_retained": true,
+  "protected_extents": 1267,
+  "three_new_body_removal_negatives_passed": true,
+  "full_source_fixtures_passed": 80,
+  "native32_device_routes": 1204,
+  "new_globals_or_exports": false,
+  "new_compiler_flags": false,
+  "first_normal_profile_build_matched_all_three": true,
+  "GetRefAPI_implemented": false,
+  "candidate_exports": 159,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "independent_fresh_checkout_replay": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_device.cpp": "644c919eec77650bf104c46d4d74d1b9357f1d7fcbfb5dd0be0e86aa3c27d014",
+    "src/gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",
+    "src/tus.txt": "f4e5c1281135610189829165d0f953ebf507f9a40a5f2748582eb8b705e2d0a3",
+    "src/profile.mk": "6015c8ee2fbf36f8dbe127d0fac090714f50d92cbbf6e758ca3b3db72e7cc420",
+    "tests/test_device_creation.py": "1fe01eb2b49dd64d9c03fec0add3940ae324110d8cb05d5a0f64ae04c08b4409",
+    "tools/check_checkpoint.py": "66375da26aa959a1319d8602409559ceabaa9d5cdeaefe9f0848d2a29539e57c",
+    "proof/device_structure_warm_bind.json": "0f78e9c63c923907374118d2a524d8b451dc798a913139f6c64024c48074f226",
+    "proof/device_structure_layout.json": "8445a0b4fb5e0e1e916af694dd0d5c767794f1b5b05813a47fd87e544184ad4a",
+    "proof/device_structure_source_coverage.json": "cc14243c285ad3b04f38e8dde1d84d69dc95358ce047825abc4dbf508247b4b8",
+    "proof/latest/device_structure_build.log": "7b9b0877fc57e70b13568434c88b593f217675e0d264fce0c7f7e9cd151c9a50",
+    "proof/latest/device_structure_fixtures.log": "e6bf032d158c6782038881e036ad75186fba5ca89dd7bca0b38a1cbda918fc2a",
+    "proof/latest/device_structure_ratchet.log": "123e5cd7aad1e60c7b929e328a2a8191e2adcabd29913bbbebc90ac596ac33b9",
+    "proof/latest/device_structure_negatives.log": "0c58900b3c13cb3907eabca3c2c25f3012c3405439e6f0fa0ed4404ef0f7a4fa"
+  }
+}

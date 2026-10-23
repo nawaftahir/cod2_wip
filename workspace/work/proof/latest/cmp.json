@@ -5494,6 +5494,30 @@
 "hits": []
 },
 {
+"name": "?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z",
+"obj": "r_device.obj",
+"size": 100,
+"hits": [
+"0x10011460"
+]
+},
+{
+"name": "?R_SetD3DPresentParameters@@YAXPAU_D3DPRESENT_PARAMETERS_@@PBUGfxWindowParms@@@Z",
+"obj": "r_device.obj",
+"size": 137,
+"hits": [
+"0x100114d0"
+]
+},
+{
+"name": "?R_CreateDeviceInternal@@YAJPAUHWND__@@KPAU_D3DPRESENT_PARAMETERS_@@@Z",
+"obj": "r_device.obj",
+"size": 113,
+"hits": [
+"0x100126d0"
+]
+},
+{
 "name": "?RB_ScaleWorldMatrix@@YAXPBMPAMM@Z",
 "obj": "r_matrix_scale.obj",
 "size": 131,

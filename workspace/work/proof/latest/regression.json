@@ -1,8 +1,8 @@
 {
-  "functions": 623,
-  "bytes": 109169,
+  "functions": 626,
+  "bytes": 109519,
   "total": 253580,
-  "percent": 43.05110813155612,
+  "percent": 43.189131634986985,
   "baseline_lost": [],
   "gains": [
     {
@@ -318,6 +318,18 @@
       "object": "r_image_wavelet.obj"
     },
     {
+      "target": "0x10011460",
+      "bytes": 100,
+      "name": "?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z",
+      "object": "r_device.obj"
+    },
+    {
+      "target": "0x100114d0",
+      "bytes": 137,
+      "name": "?R_SetD3DPresentParameters@@YAXPAU_D3DPRESENT_PARAMETERS_@@PBUGfxWindowParms@@@Z",
+      "object": "r_device.obj"
+    },
+    {
       "target": "0x100116c0",
       "bytes": 139,
       "name": "?R_GetDeviceCaps@@YAXIPAU_D3DCAPS9@@@Z",
@@ -352,6 +364,12 @@
       "bytes": 41,
       "name": "?R_AddResolution@@YAHHPAUGfxResolution@@HH@Z",
       "object": "r_display_modes.obj"
+    },
+    {
+      "target": "0x100126d0",
+      "bytes": 113,
+      "name": "?R_CreateDeviceInternal@@YAJPAUHWND__@@KPAU_D3DPRESENT_PARAMETERS_@@@Z",
+      "object": "r_device.obj"
     },
     {
       "target": "0x10012b00",

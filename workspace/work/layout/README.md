@@ -1,5 +1,13 @@
 # Layout is part of every reconstruction wave
 
+Device source wave,2026-10-23: r_device.cpp follows r_window.cpp in candidate
+tus.txt, sharing the existing36-byte GfxWindowParms and SDK D3D types. It owns
+AA probing, presentation setup and the retrying CreateDevice caller. dx, the
+existing r_swapInterval dvar, USER32/KERNEL32 and d3d9 library ownership remain
+unchanged. No new data globals, retention exports, flags or SDK replacements.
+This groups the actual connected presentation -> AA calls, not historical
+TU provenance. Higher device initialization/startup is still missing.
+
 Window source wave,2026-10-23: new r_window.cpp follows r_monitor.cpp in the
 candidate TU list. Shared r_window.h pins the36-byte PC parameter record;
 R_CreateGameWindow100129c0 owns the actual Win32 creation path and uses the

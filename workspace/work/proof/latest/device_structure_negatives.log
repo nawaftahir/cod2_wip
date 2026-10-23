@@ -1,0 +1,3 @@
+PASS: removing 0x10011460 is rejected by the unchanged extent policy
+PASS: removing 0x100114d0 is rejected by the unchanged extent policy
+PASS: removing 0x100126d0 is rejected by the unchanged extent policy

@@ -2671,6 +2671,24 @@
 "obj": "r_window.obj",
 "why": []
 },
+"?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z": {
+"t": "0x10011460",
+"n": 100,
+"obj": "r_device.obj",
+"why": []
+},
+"?R_SetD3DPresentParameters@@YAXPAU_D3DPRESENT_PARAMETERS_@@PBUGfxWindowParms@@@Z": {
+"t": "0x100114d0",
+"n": 137,
+"obj": "r_device.obj",
+"why": []
+},
+"?R_CreateDeviceInternal@@YAJPAUHWND__@@KPAU_D3DPRESENT_PARAMETERS_@@@Z": {
+"t": "0x100126d0",
+"n": 113,
+"obj": "r_device.obj",
+"why": []
+},
 "?RB_ScaleWorldMatrix@@YAXPBMPAMM@Z": {
 "t": "0x10038c60",
 "n": 131,
@@ -14946,9 +14964,9 @@
 "n": 829,
 "obj": "LIBCMT:memcpy.obj",
 "why": [
-"extent",
 "bind UnwindUpVec+6c",
 "bind UnwindUpVec+7c",
+"bind UnwindUpVec+6c",
 "bind UnwindUpVec+6c"
 ]
 },

@@ -1,12 +1,43 @@
 # Renderer progress
 
-## Structure-first window startup wave - 2026-10-23
+## Structure-first Direct3D device wave - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Source wave after d3f05a8: new r_device.cpp follows r_window.cpp in candidate
+tus.txt. It restores real AA probing10011460/100, presentation setup100114d0/137
+and retrying device creation100126d0/113. ALL THREE pass both unchanged referees
+on the first normal-profile build; no prior1264 extent is lost. No new exports,
+globals, flags, library substitutes or authored assembly. Existing dx and the
+actual r_swapInterval dvar are reused; the reference's r_vsync is not a PC name.
+
+Authored C/C++101732/253580=40.118305860%,595 bodies. Mixed109519 bytes,626
+bodies; same31 authored-assembly exclusions/7787 bytes. This wave gains350
+verified C++ bytes. This is a secondary source metric, NOT completion of the
+structural gate or stages1-3. All1204 focused native32 device routes and all80
+full fixtures pass after the completed build (latest/device_structure_fixtures.log).
+The ratchet now protects1267 extents; removal of each new body is rejected.
+Frozen source/binding/layout/log identities: proof/device_structure_checkpoint.json
+under target/work. No own build/test remains running at this checkpoint.
+
+Current candidate SHA7cc9514234fc696f781fa7474b1431c6e0f33fdd81a4a38b80d8ca1f50bda051;
+.text883874, .rdata590559, .data6085332, .reloc84812; file1626112 bytes.
+Raw same-offset8.308235101%, not source coverage or SHA identity. Still159
+temporary exports, no GetRefAPI; full startup/device resource closure remains
+open. One build output reused; no workers. No reliable per-turn billing counter.
+
+Next structural chain: resource creation10012100 (render targets, static-model
+cache buffers, dynamic/particle buffers, query8), video configuration100115f0,
+registration finalization10012040 -> full higher device caller100128b0 ->
+startup10012c80, then the real R_Init/API. Keep primary failure/retry branches.
+Missing callbacks/resources are not placeholders. No instruction-tuning campaign
+until the early structural gate in WHOLEFILE.md is actually closed.
+
+### Window source checkpoint d3f05a8
 
 Latest wave after fdb699f: r_window.cpp restores real Win32 window creation,
 refresh selection and startup parameter preparation. Candidate TU follows

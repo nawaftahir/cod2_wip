@@ -60,6 +60,7 @@ gfx_d3d/r_xsurface_optimize.cpp
 gfx_d3d/r_fatal_init.cpp
 gfx_d3d/r_monitor.cpp
 gfx_d3d/r_window.cpp
+gfx_d3d/r_device.cpp
 gfx_d3d/r_matrix_scale.cpp
 gfx_d3d/r_model.cpp
 gfx_d3d/r_model_bounds.cpp
