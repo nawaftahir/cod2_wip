@@ -204,6 +204,14 @@ credit (40.8747% legacy meter). Exact FP spelling/all-input identity remain
 unproved. Next close tess surface/2D/calibration and R_Init/API59; do not replace
 missing paths with fake callbacks. Proof: lighting_chain_checkpoint.json.
 
+Major source closure: the candidate now links actual R_Init through font I/O,
+surface drivers,2D/quad state and real sun calibration. A shared20-byte draw
+argument schema replaces two duplicate definitions.114 fixtures and all1433
+protected extents pass. No new byte credit; the legacy C++ meter stays40.8747%.
+GetRefAPI and Shutdown/BeginRegistration/remaining callbacks still need source;
+stages1-3, exact FP/code/layout and GPU/SHA proof are NOT complete. Evidence:
+renderer_startup_checkpoint.json and current PROGRESS.md.
+
 ### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local

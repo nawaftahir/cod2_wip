@@ -10,6 +10,7 @@ import capstone
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_init.cpp').read_text()
 source = text[text.index('void R_RegisterCmds()'):]
+source = source[:source.index('\nvoid Swap_Init();')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 names = []

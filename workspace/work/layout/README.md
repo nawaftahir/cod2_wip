@@ -357,3 +357,23 @@ DX7 renormalization override is one typed16-byte const instance [-1,-1,40000000,
 pinned at primary10190690; candidate location/order is not historical proof.
 Constants and cached entity lighting remain in the sole shared backEnd. These
 callers reuse existing hardware lights, pass setup, viewport and iterator fog.
+
+### Surface/calibration/font/startup closure - 2026-10-23
+
+GfxDrawPrimArgs has one shared20-byte definition in rb_drawargs.h; device/pass
+TUs no longer duplicate it. rb_surface.cpp owns actual ordinary/optimized drivers
+and EndSurface, using read-only views of existing Material techniqueSet38,
+technique.flags4, rgp.world109c and world.vertexBuffer30. These views allocate no
+state. Actual tess remains owned in rb_sky.cpp and DX buffers/caches keep their
+existing owners. Candidate surface/2D TU placement after buffer upload is not
+historical file/order proof. rb_2d.cpp owns2D/quad/overflow and calibration using
+existing identityMatrix44, colors, sun queries and rgp.whiteMaterial1038.
+
+r_font.cpp retains the ONE registeredFontCount and16-entry registry for both
+duplication and new registration. Its16-byte disk header expands to20-byte
+runtime Font_s without a second font store; glyphs are24 bytes. R_Init in
+r_init.cpp uses existing rg/rgp/backend/dx, font/sine/FFT/DObj and calibration.
+Primary rg base101d4d00 pins trig2510 and bitswap2d10; dx.sunSpriteSamples2c2c.
+No added root exports, new mutable globals, artificial layout fillers or assembly.
+The actual startup sequence now links through source, while GetRefAPI and
+remaining callback closures still need reconstruction and exact code/layout proof.

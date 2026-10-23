@@ -5,6 +5,49 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
+### Major startup-source checkpoint
+
+After2a1b722, ten genuine functions complete the candidate's R_Init source
+closure: optimized/ordinary tess drivers and EndSurface;2D matrix state,
+overflow, packed quads and sun-query calibration; font file loading/registration;
+and the actual13-step R_Init caller. Device/pass/surface callers now share ONE
+20-byte GfxDrawPrimArgs definition. The candidate startup sequence links through
+actual source, not dummy functions. GetRefAPI is still absent: this does NOT
+finish stages1-3, the export/callback graph, GPU execution or retail SHA.
+
+Existing mutable owners are retained: one tess, rg/rgp, backEnd, dx/dxState,
+sun-query state and font registry. Read-only surface views add no allocations.
+2D state preserves unused cache data and the primary identity-copy quirk;
+calibration performs actual BeginScene/clear/query/draw/EndScene/GetData polling,
+not a CPU benchmark or injected result. Font loading preserves both16-byte disk
+and20-byte runtime layouts, real file ownership/fixups and the16-font cache.
+R_Init uses fonts/smalldevfont track1 and publishes samples only after font,
+sine/FFT and DObj setup. Primary rg base101d4d00 fixes FFT offsets2510/2d10.
+
+All114 fixtures pass: new96 ordinary/48 optimized/1024 EndSurface routes,
+864 matrix/8 overflow/240 quad/109 calibration routes,60 font and32 startup
+routes. Tests include live state/cached-pointer changes, exact capacity bounds,
+query retries/failure fallback, allocation guards and startup exception order.
+Original compiler/preflights, both referees/source attribution and all1433 old
+extents pass. Accepted address/extent set unchanged; NO byte-credit gain:
+C++103650/253580=40.874674659%,612 bodies, frozen legacy comparison denominator.
+These ten functions are real source recovery but remain individually uncredited.
+No new roots, mutable owners, flags or authored assembly. Earlier FP/all-input
+matching limits remain open. One build output, no workers; billing unavailable.
+
+Receipt/source/decompiler/log hashes: proof/renderer_startup_checkpoint.json.
+Candidate SHA40bf1f60a49a7c3baa1284fbee70deb3c81e5f507f2a5b51bfa010eb680b90dc;
+same-offset8.850961871%, NOT source completion. Build and final114-fixture suite are terminal.
+
+Next: genuine Shutdown/BeginRegistration and remaining callback closures, then
+fully typed GetRefAPI/API59. Follow primary code, not shifted GLM labels (bce0's
+R_PickMaterial label is actually RegisterFont, confirmed by its error strings).
+Shutdown13080 resets font count inlined: Mac r_init calls R_ShutdownFonts and
+r_font owns its static counter. Keep the owner; restore that genuine helper when
+needed, do not expose/duplicate the static registry or add a fake reset wrapper.
+R_Init is reconstructed source, not yet a byte-matched/smoke-tested entry path.
+Stages1-3 and whole-file identity remain OPEN.
+
 ### Connected interpolation/entity/lighting/draw checkpoint
 
 Afteraa03608, RB_GetLightingAtPoint/RB_SetupEntityLighting in rb_light_grid.cpp

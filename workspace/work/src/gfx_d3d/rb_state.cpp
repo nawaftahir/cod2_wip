@@ -3,6 +3,7 @@
 #include <stddef.h>
 #include "r_local.h"
 #include "rb_backend.h"
+#include "rb_drawargs.h"
 #include "universal/com_math.h"
 
 DxState dxState;
@@ -516,11 +517,6 @@ void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl)
 	}
 }
 
-struct GfxDrawPrimArgs
-{
-	int firstVertexFromBase, vertexCount, primCount;
-	union { struct { int baseVertex, baseIndex; } buf; struct { int vertexStride; } tess; } u;
-};
 extern const dvar_t *r_drawPrimFloor, *r_drawPrimCap;
 
 // PINNED 10038610/150: the triangle limits do not apply to 2D draws.

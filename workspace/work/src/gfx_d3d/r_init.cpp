@@ -297,3 +297,36 @@ void R_RegisterCmds()
     ri.Cmd_AddCommand("r_smc_stats", R_StaticModelCacheStats_f);
     ri.Cmd_AddCommand("r_smc_flush", R_StaticModelCacheFlush_f);
 }
+
+void Swap_Init();
+void R_RegisterDvars();
+void R_InitRenderCmds();
+void R_InitDrawGroups();
+void R_InitHardware();
+Font_s *R_RegisterFont(const char *name, int imageTrack);
+void FFT_Init(int *bitswap, complex_s *trigTable);
+int RB_CalcSunSpriteSamples();
+extern r_backEndGlobals_t backEnd;
+extern DxGlobals dx;
+typedef char rendererInitLayoutCheck[(offsetof(r_globals_t, fftTrigTable) == 0x2510
+    && offsetof(r_globals_t, fftBitswap) == 0x2d10
+    && offsetof(r_backEndGlobals_t, debugFont) == 0x36b58
+    && offsetof(DxGlobals, sunSpriteSamples) == 0x2c2c) ? 1 : -1];
+
+// PINNED 10012f80: preserve the retail startup and publication order.
+void R_Init()
+{
+    ri.Printf(0, "----- R_Init -----\n");
+    Swap_Init();
+    R_RegisterDvars();
+    R_RegisterCmds();
+    R_InitGlobalStructs();
+    R_InitRenderCmds();
+    R_InitDrawGroups();
+    R_InitHardware();
+    backEnd.debugFont = R_RegisterFont("fonts/smalldevfont", 1);
+    R_InitSinTable();
+    FFT_Init(rg.fftBitswap, rg.fftTrigTable);
+    R_InitModelDObj();
+    dx.sunSpriteSamples = RB_CalcSunSpriteSamples();
+}

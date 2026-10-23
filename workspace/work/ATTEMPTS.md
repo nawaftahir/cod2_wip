@@ -1254,3 +1254,38 @@ the technique between phases. DX7 lightprobe9..14 uses actual16-byte override
 10190690 [-1,-1,40000000,0]. No invented fallback/guard/default callback.
 Native7 entity,2240 lighting and420 dispatch cases pass, including callback
 changes to current lighting, technique and renderer and exact constant guards.
+
+### Surface,2D,calibration,font and R_Init source - 2026-10-23
+
+Shared GfxDrawPrimArgs is now one20-byte header for device/pass/surface callers.
+Ordinary3a7b0 snapshots draw args before index upload, samples capacity afterward,
+keeps its pre-upload stride, then reloads declaration for draw. Optimized3a690
+chooses world VB+30 via rgp.world109c or smodelCacheVb; strides32/68 and24/64.
+EndSurface3a8d0 captures the technique before viewport callback, clears only three
+counts on skip and reloads ordinary count after optimized draw. Native1168 routes.
+
+Set2D2e020 preserves unused cache slots/worldScale, builds orthographic transform,
+and copies the primary normalized-world-view-projection slot from WORLD, not
+projection. Normalized cache behavior is pinned, not a mathematical repair.
+Use the existing identityMatrix44 global, shared colors and real D3D methods.
+Packed PC stretch-pic has8 floats and unsigned color, not Mac stats parameter.
+Overflow preserves declaration and may flush again if Begin leaves optimized
+work. Native864 matrix/8 overflow/240 quad/109 query cases pass. Blue query
+calibration3a9d0 captures sunFlareState[0].sunQuery[0], whiteMaterial at rgp1038,
+begins/clears/issues/draws16x16/ends, polls S_FALSE with Sleep0 and returns256
+on other failure. No CPU benchmark, no query status injection, no inScene write.
+
+Font loaderc6a0 uses real FOpenRead unique1, handles -2 separately, closes short
+files, allocates fileLen+4, reads16 header bytes then tail at runtime+20, closes
+before pointer fixups/material lookup. Read return counts are ignored. Serialized
+name/material offsets gain4; glyph pointer is runtime+20. Existing font registry
+owner is reused for RegisterFontbce0, max16/case-insensitive cache. Errors that
+return leave original publication behavior. Native60 file/registry routes pass.
+
+R_Init12f80 now calls the actual13 retail steps with fonts/smalldevfont track1,
+FFT arrays and final calibration publication. Native32 order/exception routes.
+First FFT offset pin used the wrong rg base and was rejected by preflight.
+Primary12e70 clears rg at101d4d00 (NOT101d4e70), so trig2510/bitswap2d10.
+All final original-compiler pins pass, including FS imports13c/154/158, default
+material102c, debugFont36b58 and dx.sunSpriteSamples2c2c. Never fix a failed pin
+by adding padding or weakening it; read the primary base/field evidence.

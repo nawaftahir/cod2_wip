@@ -2,6 +2,7 @@
 // Descriptive helper names; historical names and TU grouping unconfirmed.
 #include "r_local.h"
 #include "rb_backend.h"
+#include "rb_drawargs.h"
 #include "universal/com_math.h"
 #include <math.h>
 #pragma intrinsic(sin)
@@ -738,11 +739,6 @@ void RB_SetupPass(const GfxStateOverride *stateOverride,
     RB_SetPixelShaderArguments(pass->pixelArgCount, pass->pixelArgs);
 }
 
-struct GfxDrawPrimArgs
-{
-    int firstVertexFromBase, vertexCount, primCount;
-    union { struct { int baseVertex, baseIndex; } buf; struct { int vertexStride; } tess; } u;
-};
 struct MaterialTechnique
 {
     const char *name;
