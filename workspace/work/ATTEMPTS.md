@@ -1,5 +1,34 @@
 # Reconstruction attempts
 
+## 2026-10-23 real game-window creation
+
+PINNED100129c0/248 takes the36-byte PC GfxWindowParms record. Fullscreen is
+a byte at8, x/y12/16, width/height20/24, aaSamples32. Any nonzero fullscreen
+byte selects WS_EX_TOPMOST8 and WS_POPUP80000000; the windowed style is
+WS_CAPTION|WS_SYSMENU00c80000, not a generic overlapped/minimizable window.
+The target ignores AdjustWindowRectEx's return, obtains GetModuleHandleA(0),
+creates class CoD2 with the multiplayer title, then stores the returned HWND
+even on failure. No added cleanup/retry or offset compensation belongs here.
+Primary IAT1010c1e4/1010c07c/1010c1d8 pins these exact Win32 imports. Source
+uses the existing SDK/windows types and original libraries, no compatibility
+implementation. Thirty-six native32 routes check both outcomes of rectangle
+adjustment and creation, arbitrary nonzero fullscreen, negative/zero/positive
+positions, call order, literals and unchanged non-HWND fields. Tests are not
+GPU/runtime or byte-match evidence. No local spelling/flag sweep authorized.
+
+The same TU restores refresh choice10012b00/131 and parameter preparation
+10012b90/133. Binary search compares width, height, then Hz with signed
+differences. A missing exact rate uses the preceding rate only if resolution
+matches, otherwise the next insertion-point rate. Preserve the primary's
+unguarded preceding/next probes; do not invent a new invalid-mode fallback.
+The caller enumerates modes first; tests use that valid startup domain and
+model the preceding storage to exercise first-resolution requests below60Hz.
+Native tests cover900 refresh selections and27 full parameter setups. The
+actual PC setup forces fullscreen1, clears HWND and leaves tileCount alone.
+It parses mode/refresh enum strings before reading position and AA dvars.
+Do not replace that force with a read of r_fullscreen merely because a
+windowed branch exists in the window creator. Source tests are not byte proof.
+
 ## 2026-10-23 normal-frame storage and initialization
 
 PINNED normal GfxBackEndData base1042e780, size249d6c, commands219d0c,

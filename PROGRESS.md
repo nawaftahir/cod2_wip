@@ -1,12 +1,46 @@
 # Renderer progress
 
-## Structure-first backend/outdoor wave - 2026-10-23
+## Structure-first window startup wave - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Latest wave after fdb699f: r_window.cpp restores real Win32 window creation,
+refresh selection and startup parameter preparation. Candidate TU follows
+r_monitor.cpp; no new globals, exports, SDK substitutes or compiler flags.
+r_window.h pins the36-byte PC record. All79 fixtures pass; the completed build
+passes both unchanged referees with every1263 prior extent retained. Refresh
+selection10012b00/131 adds one accepted C++ body; the ratchet now protects1264.
+Window creation/parameter setup remain unaccepted, not silently counted.
+
+Current authored C/C++101382/253580=39.980282357%,592 bodies; mixed109169 bytes,
+623 bodies, same31 authored-assembly exclusions/7787 bytes. Restoring the real
+AdjustWindowRectEx call closes one missing import. Only IsWindow and ShowWindow
+remain missing from the named-import set; no extra named imports. Full startup,
+device creation, API graph and metadata/layout remain OPEN, not a release.
+
+Current candidate SHA127549b628eeab1f0a35b5d98f9e33d8d3591b10063893aa8abf2f032217417b;
+.text883490, .rdata590527, .data6085332, .reloc84780, file1626112 bytes.
+Whole-file raw same-offset8.305804497%, not source coverage or SHA identity.
+Frozen receipts: target/work/proof/window_structure_*.json. Tests cover36
+window-creation routes plus927 refresh/setup routes. A removal negative rejects
+loss of the new refresh function. No local flag/spelling sweep and no new ASM.
+Source/evidence hashes: target/work/proof/window_structure_checkpoint.json.
+No own build/test remains running. No workers or duplicate build outputs used.
+Per-turn billing/token cost is not exposed; this wave gains131 verified bytes
+and restores two additional real startup bodies without claiming their match.
+
+Next: restore device/presentation-parameter creation and startup10012c80 so
+these real window helpers connect to the existing D3D capability/enum source.
+Keep the primary's exact retry/failure branches, not Kisak/CoD4 assumptions.
+Shutdown10012db0 also requires actual resource release10012210 before adding
+its IsWindow loop; do not root a dummy import. Full startup/API closure is the
+priority, not chasing a source-percentage threshold. Fine FP tuning stays deferred.
+
+### Backend/outdoor checkpoint fdb699f
 
 Owner priority: finish the early structural gate in WHOLEFILE.md before another
 function-tuning campaign. That gate is OPEN, not a coverage milestone. Defer

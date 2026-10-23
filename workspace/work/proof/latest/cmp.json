@@ -5474,6 +5474,26 @@
 ]
 },
 {
+"name": "?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z",
+"obj": "r_window.obj",
+"size": 248,
+"hits": []
+},
+{
+"name": "?R_ChooseRefreshRate@@YAHHHH@Z",
+"obj": "r_window.obj",
+"size": 131,
+"hits": [
+"0x10012b00"
+]
+},
+{
+"name": "?R_SetupWindowParms@@YAXPAUGfxWindowParms@@@Z",
+"obj": "r_window.obj",
+"size": 142,
+"hits": []
+},
+{
 "name": "?RB_ScaleWorldMatrix@@YAXPBMPAMM@Z",
 "obj": "r_matrix_scale.obj",
 "size": 131,
@@ -17758,6 +17778,12 @@
 },
 {
 "name": "_EnumDisplayMonitors@16",
+"obj": "user32:USER32.dll",
+"size": 6,
+"hits": []
+},
+{
+"name": "_AdjustWindowRectEx@16",
 "obj": "user32:USER32.dll",
 "size": 6,
 "hits": []

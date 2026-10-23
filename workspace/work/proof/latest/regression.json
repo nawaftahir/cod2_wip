@@ -1,8 +1,8 @@
 {
-  "functions": 622,
-  "bytes": 109038,
+  "functions": 623,
+  "bytes": 109169,
   "total": 253580,
-  "percent": 42.99944790598628,
+  "percent": 43.05110813155612,
   "baseline_lost": [],
   "gains": [
     {
@@ -352,6 +352,12 @@
       "bytes": 41,
       "name": "?R_AddResolution@@YAHHPAUGfxResolution@@HH@Z",
       "object": "r_display_modes.obj"
+    },
+    {
+      "target": "0x10012b00",
+      "bytes": 131,
+      "name": "?R_ChooseRefreshRate@@YAHHHH@Z",
+      "object": "r_window.obj"
     },
     {
       "target": "0x10015260",

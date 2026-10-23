@@ -2665,6 +2665,12 @@
 "obj": "r_monitor.obj",
 "why": []
 },
+"?R_ChooseRefreshRate@@YAHHHH@Z": {
+"t": "0x10012b00",
+"n": 131,
+"obj": "r_window.obj",
+"why": []
+},
 "?RB_ScaleWorldMatrix@@YAXPBMPAMM@Z": {
 "t": "0x10038c60",
 "n": 131,

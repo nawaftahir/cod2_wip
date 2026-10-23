@@ -1,0 +1,71 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "fdb699f",
+  "scope": "real PC window creation, refresh selection and startup parameters",
+  "whole_file_identical": false,
+  "candidate_sha256": "127549b628eeab1f0a35b5d98f9e33d8d3591b10063893aa8abf2f032217417b",
+  "same_file_offset_percent": 8.305804497372788,
+  "cpp_executable_bytes": 101382,
+  "cpp_percent_supported_inventory": 39.98028235665274,
+  "cpp_game_bodies": 592,
+  "cpp_bytes_gained": 131,
+  "new_accepted_bodies": [
+    {
+      "target": "0x10012b00",
+      "bytes": 131,
+      "name": "R_ChooseRefreshRate",
+      "source": "gfx_d3d/r_window.cpp"
+    }
+  ],
+  "mixed_game_bodies": 623,
+  "mixed_executable_bytes": 109169,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "new_authored_assembly_definitions": false,
+  "byte_and_binding_referees_changed": false,
+  "previous_1263_extents_retained": true,
+  "protected_extents": 1264,
+  "new_body_removal_negative_passed": true,
+  "full_source_fixtures_passed": 79,
+  "native32_window_routes": 36,
+  "native32_refresh_routes": 900,
+  "native32_parameter_routes": 27,
+  "restored_named_import": "USER32.dll!AdjustWindowRectEx",
+  "remaining_missing_named_imports": [
+    "USER32.dll!IsWindow",
+    "USER32.dll!ShowWindow"
+  ],
+  "extra_named_imports": [],
+  "new_globals_or_exports": false,
+  "new_compiler_flags": false,
+  "source_struct_size": 36,
+  "GetRefAPI_implemented": false,
+  "candidate_exports": 159,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "independent_fresh_checkout_replay": false,
+  "client_gpu_smoke_tested": false,
+  "unaccepted_source": [
+    "R_CreateGameWindow",
+    "R_SetupWindowParms"
+  ],
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_window.cpp": "6fe161d7abf331e7406932f52ae5571fb607977b0d69c833f1c8fae49d18ceb0",
+    "src/gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",
+    "src/tus.txt": "5ed8887a86e200f51fb23216ac059074d656fb99a500bafa306726ecf5b29a15",
+    "src/profile.mk": "6015c8ee2fbf36f8dbe127d0fac090714f50d92cbbf6e758ca3b3db72e7cc420",
+    "tests/test_game_window.py": "9a1d0c22b56656d4b416868b213f531a1093325fa776fc56f850fb320d6bb067",
+    "tests/test_window_parms.py": "196b21b24cdd00fdd3a52f8ded5761cec5da5f27e73328bb6850c81e63d4cd69",
+    "tools/check_checkpoint.py": "132af544466ca7d764cd50becffd8e68f6c5ba99664db5c0cd0d67961fc3e1fa",
+    "proof/window_structure_warm_bind.json": "567583dda0afdfff997c09131246309a2e78a3a9807b936916d439ef0fff0279",
+    "proof/window_structure_layout.json": "25e144769d268c02edf91f7e1a4ebd52e1b6b5e50357598af8b2df76e2d00fbd",
+    "proof/window_structure_source_coverage.json": "96ce3c14d41fbe839b94cf29281e7ccbb18451cf859713fbddde90c7f42e9c2b",
+    "proof/latest/window_structure_build.log": "5fa20431dd91daa5559531a39df7ddb100b23f9e7f67c5f19e3261bd0ced9811",
+    "proof/latest/window_parameters_build.log": "5fa20431dd91daa5559531a39df7ddb100b23f9e7f67c5f19e3261bd0ced9811",
+    "proof/latest/window_structure_fixtures.log": "418538eb2ea32448849ee2bad899ec56fc9c07abddc260e68dcbe91365069422",
+    "proof/latest/window_structure_ratchet.log": "62d45883745643504b3dc4d4e1725af20ba72b63f9dc8d7eabc1722f5dd79f2f",
+    "proof/latest/window_structure_negative.log": "401497b91cfbccc2a579d291367d6b2beafc5cecf4aaa9c4fd4d82016881f78f"
+  }
+}

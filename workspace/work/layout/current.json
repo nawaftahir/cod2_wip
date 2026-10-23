@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "31cbeb3764aca5e2581829477a2ce55d22d5d84f2a2a62dc48b8d86ab2e5b9bb",
+  "candidate_sha256": "127549b628eeab1f0a35b5d98f9e33d8d3591b10063893aa8abf2f032217417b",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 153498,
+  "same_file_offset_equal_bytes": 153773,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 8.290950808904867,
+  "same_file_offset_percent": 8.305804497372788,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -46,16 +46,16 @@
       "rva": "0x1000",
       "file_offset": "0x1000",
       "raw_bytes": 884736,
-      "virtual_bytes": 882930,
-      "sha256": "bccea853fa0289700b719ff626105f34ad86f877d0e79967ed8d37f291c3c072"
+      "virtual_bytes": 883490,
+      "sha256": "bd56a228a6e9f64b11266b5673df74bdb7c3efaf73bda21026c48a80de78c452"
     },
     {
       "name": ".rdata",
       "rva": "0xd9000",
       "file_offset": "0xd9000",
       "raw_bytes": 593920,
-      "virtual_bytes": 590319,
-      "sha256": "c4338d645be02fa72d918b19051b1c92ea17577db40e3234c4720ee5efe2d03f"
+      "virtual_bytes": 590527,
+      "sha256": "eaeb0d2145ffe589bcdf641970a15bf816f280a576b5408344f8a35f27d70bab"
     },
     {
       "name": ".data",
@@ -63,15 +63,15 @@
       "file_offset": "0x16a000",
       "raw_bytes": 57344,
       "virtual_bytes": 6085332,
-      "sha256": "eab1ef18b8b66e7b7f172eba05dd14fc537cbac55826f493a11ed9087661899a"
+      "sha256": "3ea7c9a1d832e1d8aad4c41dbc596880d9a8870c5949ac440b10442db12ee53f"
     },
     {
       "name": ".reloc",
       "rva": "0x738000",
       "file_offset": "0x178000",
       "raw_bytes": 86016,
-      "virtual_bytes": 84718,
-      "sha256": "77ed85d3ee8b4c38cbac1a3666035339e8bf3c876fe413281d16c0a3a44370d9"
+      "virtual_bytes": 84780,
+      "sha256": "9f2249327ecdb86a5a1d0c9bb3cf477b9d74cd204bed09e779e910d33dd442c2"
     }
   ],
   "retail_image": {
@@ -739,9 +739,9 @@
   "candidate_image": {
     "file_bytes": 1626112,
     "machine": "0x14c",
-    "timestamp": 1792696050,
+    "timestamp": 1792723949,
     "image_base": "0x10000000",
-    "entrypoint_rva": "0xc5431",
+    "entrypoint_rva": "0xc5661",
     "image_bytes": 7655424,
     "header_bytes": 4096,
     "section_alignment": 4096,
@@ -752,12 +752,12 @@
       {
         "name": "BoxOnPlaneSide",
         "ordinal": 1,
-        "rva": "0x2bc00"
+        "rva": "0x2be20"
       },
       {
         "name": "FFT_Init",
         "ordinal": 2,
-        "rva": "0x2cd00"
+        "rva": "0x2cf20"
       },
       {
         "name": "FresnelTerm",
@@ -962,7 +962,7 @@
       {
         "name": "R_AbortRenderCommands",
         "ordinal": 43,
-        "rva": "0x23890"
+        "rva": "0x23ab0"
       },
       {
         "name": "R_AddCmdApplyLatePostEffects",
@@ -1067,7 +1067,7 @@
       {
         "name": "R_AllocSkinnedCachedVerts",
         "ordinal": 64,
-        "rva": "0x23580"
+        "rva": "0x237a0"
       },
       {
         "name": "R_ArchiveFogState",
@@ -1142,7 +1142,7 @@
       {
         "name": "R_CreateSmodelCacheVertexBuffer",
         "ordinal": 79,
-        "rva": "0x25810"
+        "rva": "0x25a30"
       },
       {
         "name": "R_CullBrushEntity",
@@ -1152,12 +1152,12 @@
       {
         "name": "R_DObjGetSurfMaterials",
         "ordinal": 81,
-        "rva": "0x23610"
+        "rva": "0x23830"
       },
       {
         "name": "R_DObjReplaceMaterial",
         "ordinal": 82,
-        "rva": "0x236d0"
+        "rva": "0x238f0"
       },
       {
         "name": "R_DoneRenderingViews",
@@ -1197,7 +1197,7 @@
       {
         "name": "R_FinishLoadingModels",
         "ordinal": 90,
-        "rva": "0x23820"
+        "rva": "0x23a40"
       },
       {
         "name": "R_FlushStaticModelCache",
@@ -1217,7 +1217,7 @@
       {
         "name": "R_GetIgnorePrecacheErrors",
         "ordinal": 94,
-        "rva": "0x237f0"
+        "rva": "0x23a10"
       },
       {
         "name": "R_GetMaterialName",
@@ -1297,7 +1297,7 @@
       {
         "name": "R_LockSkinnedCache",
         "ordinal": 110,
-        "rva": "0x23480"
+        "rva": "0x236a0"
       },
       {
         "name": "R_MarkFragments",
@@ -1307,7 +1307,7 @@
       {
         "name": "R_ModelBounds",
         "ordinal": 112,
-        "rva": "0x23770"
+        "rva": "0x23990"
       },
       {
         "name": "R_NormalizedTextScale",
@@ -1347,17 +1347,17 @@
       {
         "name": "R_RegisterInlineModel",
         "ordinal": 120,
-        "rva": "0x237c0"
+        "rva": "0x239e0"
       },
       {
         "name": "R_RegisterModel",
         "ordinal": 121,
-        "rva": "0x23410"
+        "rva": "0x23630"
       },
       {
         "name": "R_ReleaseAllModels",
         "ordinal": 122,
-        "rva": "0x23870"
+        "rva": "0x23a90"
       },
       {
         "name": "R_ReleaseLostImages",
@@ -1417,7 +1417,7 @@
       {
         "name": "R_SetIgnorePrecacheErrors",
         "ordinal": 134,
-        "rva": "0x237e0"
+        "rva": "0x23a00"
       },
       {
         "name": "R_SetLodOrigin",
@@ -1452,7 +1452,7 @@
       {
         "name": "R_SkinRigidXModelCmd",
         "ordinal": 141,
-        "rva": "0x25590"
+        "rva": "0x257b0"
       },
       {
         "name": "R_SkinStaticModelCachedCmd",
@@ -1462,7 +1462,7 @@
       {
         "name": "R_SkinXModelCmd",
         "ordinal": 143,
-        "rva": "0x25670"
+        "rva": "0x25890"
       },
       {
         "name": "R_SortGfxAabbTree",
@@ -1497,7 +1497,7 @@
       {
         "name": "R_UnlockSkinnedCache",
         "ordinal": 150,
-        "rva": "0x23510"
+        "rva": "0x23730"
       },
       {
         "name": "R_UpdateFrameFog",
@@ -1573,6 +1573,11 @@
             "name": "MessageBoxW",
             "ordinal": null,
             "hint": 486
+          },
+          {
+            "name": "AdjustWindowRectEx",
+            "ordinal": null,
+            "hint": 2
           },
           {
             "name": "EnumDisplayMonitors",
@@ -1670,14 +1675,14 @@
             "hint": 823
           },
           {
+            "name": "SetEndOfFile",
+            "ordinal": null,
+            "hint": 784
+          },
+          {
             "name": "GetCurrentProcessId",
             "ordinal": null,
             "hint": 323
-          },
-          {
-            "name": "VirtualProtect",
-            "ordinal": null,
-            "hint": 902
           },
           {
             "name": "VirtualQuery",
@@ -1685,14 +1690,19 @@
             "hint": 904
           },
           {
+            "name": "GetOEMCP",
+            "ordinal": null,
+            "hint": 403
+          },
+          {
             "name": "ReadFile",
             "ordinal": null,
             "hint": 693
           },
           {
-            "name": "SetEndOfFile",
+            "name": "VirtualProtect",
             "ordinal": null,
-            "hint": 784
+            "hint": 902
           },
           {
             "name": "GetTickCount",
@@ -2153,11 +2163,6 @@
             "name": "GetACP",
             "ordinal": null,
             "hint": 253
-          },
-          {
-            "name": "GetOEMCP",
-            "ordinal": null,
-            "hint": 403
           }
         ]
       }
@@ -2165,11 +2170,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1792696050,
+        "timestamp": 1792723949,
         "bytes": 71,
-        "rva": "0x1673b0",
-        "file_offset": "0x1673b0",
-        "data_sha256": "9948e053246cba6f1d8b0807063cca85ba48fa7f3f52134aa0b354c07f52aeb5"
+        "rva": "0x167470",
+        "file_offset": "0x167470",
+        "data_sha256": "a9313770a51035a199d480deff73093e4a1fa0c64150caf37f4f98935a359eb9"
       }
     ]
   },

@@ -1,5 +1,16 @@
 # Layout is part of every reconstruction wave
 
+Window source wave,2026-10-23: new r_window.cpp follows r_monitor.cpp in the
+candidate TU list. Shared r_window.h pins the36-byte PC parameter record;
+R_CreateGameWindow100129c0 owns the actual Win32 creation path and uses the
+original USER32/KERNEL32 libraries. It restores real AdjustWindowRectEx use,
+not an import-retention dummy. No new export or storage global. Its hardware
+caller10012c80 and additional-window caller10012ac0 still need genuine device
+creation source; no historical TU or original spelling is claimed here.
+Refresh selection and parameter preparation now share that TU and the same
+36-byte header. They reuse dx.displayModes and the existing enum/position/AA
+dvar owners; no copied display table, duplicate dvar or global window record.
+
 Normal-frame/outdoor wave,2026-10-23: r_rendercmds.cpp owns the real normal
 GfxBackEndData as well as the separate debug frame. Primary1042e780 and the
 used offsets establish2399596 bytes, commands+219d0c and debug+249d18. No
