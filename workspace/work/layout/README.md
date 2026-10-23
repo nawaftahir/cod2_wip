@@ -429,3 +429,18 @@ world/model and material helpers. Material_ReleaseVertexDecls becomes shared
 without clearing its routing/count; Material_ReleaseAll would destroy rebuild
 inputs. r_image.cpp owns dynamic water rebuild and retained-image filtering.
 No original TU-boundary or final placement claim follows from this organization.
+
+### Backend command records and frame presentation - 2026-10-24
+
+The six recovered control/state handlers and RB_EndFrame remain in the existing
+rb_backend.cpp, preserving the known backend compiler context. New handlers use
+the private linkage supported by the Mac source. No separate TU or fabricated
+partial command table remains. The actual table has33 non-null entries; only
+seven handler bodies currently exist here. Its completion/reachability is open.
+
+rb_commands.h shares the prior header/clear/execution records unchanged and adds
+the primary-pinned8/20-byte state-command records. The backend's partial tess
+definition is removed in favor of rb_tess.h, preserving all prior used offsets
+and the sole r_sky.cpp allocation. Existing executable/assembly text is unchanged;
+source accounting keeps the same31 exclusions/7787 bytes after pin re-review.
+Gamma presentation reuses R_SetColorMappings; no second ramp/global is owned here.

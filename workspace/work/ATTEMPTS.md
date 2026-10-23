@@ -1394,3 +1394,33 @@ SDK permanent-state views now share r_permanent.h; one rgp allocation remains.
 Cold build and all123 fixtures pass. Native reset tests mock COM/controlfp calls
 to check args/order; they do not establish real Direct3D execution or FP state.
 No byte tuning, new flags, duplicate storage or authored assembly was introduced.
+
+### Backend commands/presentation - 2026-10-24
+
+Primary table10190518 has34 slots: zero stop plus33 non-null handlers. Only
+ClearScreen had source before this wave. New roles1/2/3 are Goto/Call/Return at
+2eb60/70/90;4 material color31f10;13 viewport32310;14 target320e0. The three
+state handlers capture command pointers BEFORE EndSurface, read payload afterward
+and reload live execState->cmd for advancement. Mac reads the command after flush
+in several wrappers; do not copy that ownership timing. State size16/return slots2.
+
+Rejected split-TU, externally linked control helpers emitted EAX workers matching
+interiors2eb64/8B,2eb74/26B,2eb94/14B. These are not the actual table entries;
+no ledger/ratchet credit was taken. The six functions now stay static in the
+original backend TU until the real table references them. Never add fake marker
+arrays, temporary exports or partial retail tables just to force an ABI match.
+
+Backend presentation33b20 calls Present once with five zeros. DEVICELOST skips
+the error callback; other negative results report ERR_FATAL before setting lost/
+flushing cache. Returning errors still continue. Reset the LIVE index pointer,
+projection2D4bd, then logging. If either gamma flag is modified, clear BOTH and
+read current ignore/support flags afterward. Existing color mappings are reused.
+
+Command structs move verbatim to rb_commands.h; the smaller backend tess view is
+replaced by the existing full schema. Reversing only include/declaration moves
+restores the entire prior backend source exactly. Old pin61f816fe... becomes
+c2d33a39...; no existing function/assembly instruction changes and no new authored
+assembly. Source accounting still requires the same exclusions and fail-closed
+negative controls. No TU/order edit remains. A test filename collision was fixed
+by restoring test_backend_frame.py verbatim and adding test_backend_presentation.py;
+the entire final suite is rerun, not accepted from the overwritten-fixture run.

@@ -1,0 +1,118 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "72febfa",
+  "scope": "six private backend control/state handlers, real frame presentation and shared command/tess schemas",
+  "source_functions_restored": [
+    "RB_GotoCmd",
+    "RB_CallCmd",
+    "RB_ReturnCmd",
+    "RB_SetMaterialColorCmd",
+    "RB_SetViewportCmd",
+    "RB_SetRenderTargetCmd",
+    "RB_EndFrame"
+  ],
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 7,
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "74674b7395bb126c99b47632487ebbf833f513a38887e6a85be3e2b16dc9490d",
+  "same_file_offset_percent": 9.068527896847344,
+  "cpp_executable_bytes": 104181,
+  "cpp_percent_legacy_inventory": 41.08407603123275,
+  "cpp_game_bodies": 616,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1447,
+  "full_source_fixtures_passed": 125,
+  "native_control_cases": 30,
+  "native_state_command_cases": 96,
+  "native_presentation_cases": 260,
+  "tu_order_unchanged": true,
+  "named_import_set_identical": true,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "assembly_review": {
+    "old_backend_sha256": "61f816fe7a7ad9aaba5142201b2441d378c965f8ce8cc9bad3a76bf9a7863f60",
+    "new_backend_sha256": "c2d33a39a5947c131e90d638b0e4fb89c8dedcf8944a1ed3b715140b6109ae94",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "reverse only command/tess declaration moves and includes; reconstruct full prior source exactly",
+    "authored_assembly_paths_unchanged": true,
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "rejected_trial": {
+    "context": "separate TUs with externally linked control functions",
+    "interior_worker_ranges": [
+      "1002eb64/8",
+      "1002eb74/26",
+      "1002eb94/14"
+    ],
+    "actual_table_entries": [
+      "1002eb60",
+      "1002eb70",
+      "1002eb90"
+    ],
+    "bytes_promoted_or_ratcheted": 0
+  },
+  "restored_existing_fixture_sha256": "964313ed8e35786dfa2e2d7abe57769bf7fd1b640a2df028abff67b4a56d4b66",
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 954066,
+      "sha256": "cf82b19bf7708d7a482fba49e56034b9a33c0f20797e18d10dc9d51e2756af82"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602783,
+      "sha256": "ac53ad53b99b87ad4660d0494d25f03e53a3491345082d48093e1139ac153b85"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "f3efc192fe6f67022eb3e16dccfebe61d213766089c5170c9526bcdbc1bb4c29"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88204,
+      "sha256": "bf521e6e95fe5d3b2c79cf0144abbb0ace23fb5d256222e032a9685748250448"
+    }
+  ],
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "c2d33a39a5947c131e90d638b0e4fb89c8dedcf8944a1ed3b715140b6109ae94",
+    "target/work/src/gfx_d3d/rb_commands.h": "23c6be7b5f38a314658dc413ed9c6d91f111502f21ee11eec6da9c80a5345b8c",
+    "target/work/tools/source_coverage.py": "e2128ee21f10861cae90684466373edb454311dd03f6782a6fb0f3742a39cc1b",
+    "target/work/tests/test_backend_commands.py": "285797ba87d1807fc62eb8000276810a9604d16aa319d784dd82e221cce38cd8",
+    "target/work/tests/test_backend_presentation.py": "01079ae7b3f9065b531e086eee0b9cb99d8b808b713d7d4b6509df13a3ae2e89"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_commands_preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "target/work/proof/latest/backend_commands_build.log": "4f89f0cdb4452975bc2e44c5096cf8d5035b4f1447b5cd48d436a8204cc0e4fd",
+    "target/work/proof/latest/backend_commands_fixtures.log": "48fffdc383729891bfb0db6d9bc3d80b3f51b89e82367fb21fdf2a2ff4074aa5"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "limits": [
+    "all seven new bodies remain uncredited at actual retail entries",
+    "private handlers await genuine table reachability; no fabricated partial table",
+    "no actual dispatcher/GPU/game execution or final TU/layout/metadata/SHA proof"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ]
+}

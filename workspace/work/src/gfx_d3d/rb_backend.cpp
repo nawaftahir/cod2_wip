@@ -1,6 +1,8 @@
 // Backend frame driver: GPU fence sync and benchmarking.
 #include "r_local.h"
 #include "rb_backend.h"
+#include "rb_tess.h"
+#include <dxerr9.h>
 
 // Mac source places this shared setter in rb_backend, not an inline header.
 void RB_SetCodeConstant(int constant, float x, float y, float z, float w)
@@ -29,25 +31,7 @@ struct GfxBackEndData;
 GfxBackEndData *backEndData;
 #include "universal/com_math.h"
 
-struct GfxCmdHeader
-{
-	unsigned short id, byteCount;
-};
-
-struct GfxCmdClearScreen
-{
-	GfxCmdHeader header;
-	byte whichToClear, stencil;
-	float depth;
-	float color[4];
-};
-
-struct GfxRenderCommandExecState
-{
-	const void *cmd;
-	int stackPos;
-	const void *retCmd[2];
-};
+#include "rb_commands.h"
 
 void RB_SetViewport(const GfxViewport *viewport);
 void R_QuantizeCachedColor(const float *color, byte *out);
@@ -415,18 +399,6 @@ struct GfxVertexDx7
 	float texCoord[2];
 };
 
-// Same layout as the tess in rb_sky.cpp.
-struct GfxTess
-{
-	char vertexData[0x5a7b0];
-	unsigned short *indices;
-	char pad[0x1c];
-	int indexCount;
-	int vertexCount;
-};
-
-extern GfxTess tess;
-
 // PINNED 1002e470: packed color is passed by value on the 2D path.
 void RB_SetVertex2D(int index, float x, float y, float s, float t, GfxColor color)
 {
@@ -589,4 +561,101 @@ double RB_BenchmarkSeconds(const LARGE_INTEGER *end, const LARGE_INTEGER *start)
 	__int64 endTicks = end->QuadPart;
 
 	return (double)(endTicks - startTicks) / (double)frequency.QuadPart;
+}
+
+// Backend command handlers.
+void RB_EndSurface();
+void RB_SetRenderTarget(GfxRenderTargetId target);
+void RB_UpdateViewportConstants();
+
+// PINNED 1002eb60: jump without touching the return stack.
+static void RB_GotoCmd(GfxRenderCommandExecState *state)
+{
+    state->cmd = ((const GfxCmdJump *)state->cmd)->next;
+}
+
+// PINNED 1002eb70: save the variable-sized return address before jumping.
+static void RB_CallCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdJump *cmd = (const GfxCmdJump *)state->cmd;
+    state->retCmd[state->stackPos] = (const byte *)cmd + cmd->header.byteCount;
+    ++state->stackPos;
+    state->cmd = cmd->next;
+}
+
+// PINNED 1002eb90: the command producer owns the two-level stack bounds.
+static void RB_ReturnCmd(GfxRenderCommandExecState *state)
+{
+    --state->stackPos;
+    state->cmd = state->retCmd[state->stackPos];
+}
+
+// PINNED 10031f10: capture the payload before flushing; advance from live state.
+static void RB_SetMaterialColorCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdSetMaterialColor *cmd = (const GfxCmdSetMaterialColor *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    memcpy(backEnd.codeConsts[27], cmd->color, sizeof(cmd->color));
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 100320e0: target selection can change the live command pointer.
+static void RB_SetRenderTargetCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdSetRenderTarget *cmd = (const GfxCmdSetRenderTarget *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    RB_SetRenderTarget(cmd->renderTargetId);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 10032310: copy the captured rectangle, then update constants.
+static void RB_SetViewportCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdSetViewport *cmd = (const GfxCmdSetViewport *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    backEnd.sceneViewport = cmd->viewport;
+    backEnd.viewportIsDirty = 1;
+    RB_UpdateViewportConstants();
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// Backend presentation.
+extern const dvar_t *r_gamma;
+extern const dvar_t *r_ignoreHwGamma;
+void R_FlushStaticModelCache();
+void RB_UpdateLogging();
+void R_SetColorMappings();
+
+typedef char framePresentationLayoutCheck[(offsetof(r_backEndGlobals_t, projection2D) == 0x4bd
+    && offsetof(DxGlobals, dynamicIndexBuffer) == 0x2d8c
+    && offsetof(vidConfig_t, deviceSupportsGamma) == 0x28) ? 1 : -1];
+
+// PINNED 10033b20: present once; a returning fatal error still takes the lost path.
+void RB_EndFrame()
+{
+    RB_LogPrint("***************** RB_SwapBuffers *****************\n\n\n");
+    HRESULT result = dx.windows[dx.targetWindowIndex].swapChain->Present(0, 0, 0, 0, 0);
+    if (result < 0)
+    {
+        if (result != D3DERR_DEVICELOST)
+            R_Error(ERR_FATAL, "Direct3DDevice9::Present failed: %s\n", DXGetErrorDescription9(result));
+        dx.deviceLost = 1;
+        R_FlushStaticModelCache();
+    }
+    dx.dynamicIndexBuffer->used = 0;
+    backEnd.projection2D = 0;
+    RB_UpdateLogging();
+    if (r_gamma->modified || r_ignoreHwGamma->modified)
+    {
+        ri.Dvar_ClearModified(r_gamma);
+        ri.Dvar_ClearModified(r_ignoreHwGamma);
+        if (!r_ignoreHwGamma->current.enabled && vidConfig.deviceSupportsGamma)
+            R_SetColorMappings();
+    }
 }

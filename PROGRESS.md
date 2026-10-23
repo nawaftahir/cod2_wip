@@ -1,11 +1,52 @@
 # Renderer progress
 
-## Structure-first renderer checkpoint - 2026-10-23
+## Structure-first renderer checkpoint - 2026-10-24
 
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: lost-device recovery and shared permanent state
+### Latest: backend control/state commands and presentation
+
+Six private handlers now have real source in the existing rb_backend.cpp:
+Goto/Call/Return, material color, viewport and render target. Together with the
+existing clear handler,7 of33 non-null command-table bodies are source-restored;
+this is NOT a completed dispatcher/table or byte-accepted callback graph.
+Payload pointers are captured before surface flush; advancement reloads live
+execution state afterward. Material color copies raw bits, not FP conversions.
+
+RB_EndFrame33b20 now presents the selected swap chain once, handles lost/error
+results, resets the live dynamic index cursor/projection flag, updates logging
+and applies modified gamma settings through the existing shared implementation.
+No GPU smoke or full command execution is claimed.
+
+rb_commands.h owns the shared16-byte execution state and command records.
+Backend's smaller tess view is replaced by the existing full rb_tess.h schema;
+the single tess allocation stays unchanged. No TU/link-order entries were added.
+All prior executable/assembly source restores byte-for-byte when only these
+declaration/include moves are reversed. The full-file assembly source pin was
+reviewed/updated; no assembly instruction or exclusion policy changed.
+
+A discarded split-TU trial produced EAX worker fragments at2eb64/74/94,
+not actual callback entries2eb60/70/90. Those48 interior bytes were NOT promoted
+or ratcheted. Correct private linkage is retained in the original TU; handlers
+stay uncredited until the genuine table gives them actual reachability.
+
+Final original-compiler build and both referees retain all1447 old extents;
+NO new byte credit. C++104181/253580=41.084076031%,616 bodies on the legacy
+inventory, not whole-DLL completion. Same-offset file equality9.068527897% is
+only a layout diagnostic. Native30 control,96 state-handler and260 presentation
+routes pass, including payload/pointer changes, fatal returns, live cursor and
+gamma/logging callbacks. All125 final fixtures pass; the pre-existing frame-data
+fixture is restored verbatim, with presentation in a separate new test. The six
+assembly-negative checks and original31 exclusions/7787 bytes remain intact.
+
+Evidence/logs: proof/latest/backend_commands_preflight.log,
+backend_commands_build.log and backend_commands_fixtures.log. The remaining26
+handler bodies, real dispatcher, remaining API/world-load closure, exact layout/
+metadata/SHA and client/GPU execution remain OPEN. No new flags, roots or globals.
+Frozen measurements and declaration/assembly review: proof/backend_commands_checkpoint.json.
+
+### Lost-device recovery and shared permanent state
 
 R_ResetDevice13690 (role name) and R_RecoverLostDevice137f0 now connect the
 actual reset/release/recreate/reload/calibration sequence. Only DEVICELOST

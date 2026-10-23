@@ -21,13 +21,13 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Latest source checkpoint: target/work/proof/device_recovery_checkpoint.json.
+Latest source checkpoint: target/work/proof/backend_commands_checkpoint.json.
 Protected bindings: target/work/proof/frame_start_warm_bind.json.
 Readable source is target/work/src; some bodies remain unmatched drafts. The
 regression gate protects1447 source/library extents. Accepted authored C/C++ is
 104181/253580=41.084076031% on the frozen legacy inventory denominator, not a
 whole-DLL completion percentage. Startup/registration/shutdown, console callbacks, BeginFrame and device recovery
-have real source;
+have real source. Backend presentation and seven command handlers also have source;
 GetRefAPI and the remaining callback graph are still open. PROGRESS.md is the
 current log; the chronological notes below are historical wave measurements.
 
@@ -36,10 +36,10 @@ current log; the chronological notes below are historical wave measurements.
 | File length |1851392 bytes |1712128 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |953810 |
-| .rdata virtual length |595105 |602687 |
+| .text virtual length |1089680 |954066 |
+| .rdata virtual length |595105 |602783 |
 | .data virtual length, including zero-initialized storage |6086100 |6084628 |
-| .reloc virtual length |95704 |88168 |
+| .reloc virtual length |95704 |88204 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
