@@ -2,14 +2,18 @@
 #include "gfx.h"
 #include <math.h>
 #include <string.h>
+#include <stddef.h>
 
 // R_CreateWaterSetup / R_LoadWaterSetup (0x1002cd00 / 0x1000dd70) wait for R_CreateWaterMap (r_image, 0x10010b30).
 
 void GaussianRandom(float *f0, float *f1);
 GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight);
 
-int sceneWaterMapSetupsCount;
-water_t sceneWaterMapSetups[16];
+// PINNED 101d5d28/101d5d2c: these records belong to rg, not a second allocation.
+typedef char waterSetupOwnershipCheck[(sizeof(water_t) == 68 &&
+    offsetof(r_globals_t, sceneWaterMapSetupsCount) == 0x1028 &&
+    offsetof(r_globals_t, sceneWaterMapSetups) == 0x102c &&
+    offsetof(r_globals_t, fogSettings) == 0x146c) ? 1 : -1];
 
 qboolean R_WatersEquivalent(const water_t *w0, const water_t *w1)
 {
@@ -42,7 +46,7 @@ qboolean R_WatersEquivalent(const water_t *w0, const water_t *w1)
 
 void R_ShutdownLoadWater()
 {
-	sceneWaterMapSetupsCount = 0;
+    rg.sceneWaterMapSetupsCount = 0;
 }
 
 void R_PickWaterFrequencies(water_t *water)
@@ -115,18 +119,18 @@ water_t *R_LoadWaterSetup(const water_t *water)
 	int waterCount;
 	int waterMapSetupIndex;
 
-	waterCount = sceneWaterMapSetupsCount;
+	waterCount = rg.sceneWaterMapSetupsCount;
 	for (waterMapSetupIndex = 0; waterMapSetupIndex < waterCount; ++waterMapSetupIndex)
 	{
-		if (R_WatersEquivalent(&sceneWaterMapSetups[waterMapSetupIndex], water))
-			return &sceneWaterMapSetups[waterMapSetupIndex];
+		if (R_WatersEquivalent(&rg.sceneWaterMapSetups[waterMapSetupIndex], water))
+			return &rg.sceneWaterMapSetups[waterMapSetupIndex];
 	}
 	if (waterMapSetupIndex == 16)
 	{
 		Com_Printf("^1ERROR: map uses more than %i waterMap textures\n", 16);
 		return 0;
 	}
-	R_CreateWaterSetup(water, waterMapSetupIndex, &sceneWaterMapSetups[waterMapSetupIndex]);
-	++sceneWaterMapSetupsCount;
-	return &sceneWaterMapSetups[waterMapSetupIndex];
+	R_CreateWaterSetup(water, waterMapSetupIndex, &rg.sceneWaterMapSetups[waterMapSetupIndex]);
+	++rg.sceneWaterMapSetupsCount;
+	return &rg.sceneWaterMapSetups[waterMapSetupIndex];
 }

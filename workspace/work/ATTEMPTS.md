@@ -1,5 +1,35 @@
 # Reconstruction attempts
 
+## 2026-10-23 renderer-owned water setup storage
+
+Following material fixup1c4e0 exposed a real ownership defect: water loading
+used standalone sceneWaterMapSetupsCount/sceneWaterMapSetups globals, while
+the retail storage is INSIDE rg at+1028/+102c (101d5d28/101d5d2c). Startup12040
+clears that rg count. Separate globals therefore disconnect map resets and
+material-created water. Remove those two duplicate source allocations; all
+load/reuse/shutdown accesses now explicitly use rg's original fields.
+Compile assertions pin sizeof(water_t)=68, count1028, array102c, fog146c.
+No new buffer, compatibility alias, root/export, TU, flags or assembly.
+
+Native40 actual-source routes cover lookup reuse, capacity16, creation into
+the renderer-owned slot, incrementing the LIVE count after creation callbacks,
+and count-only shutdown leaving all16 records untouched. Existing water math/
+NaN fixtures still pass. A larger .data size gap after removing a duplicate
+is correct progress: section-size similarity was never proof of real ownership.
+
+Next material source is now bounded: binary fixup1c4e0/603 -> file loader1c740/
+171 -> existing hash/add/duplicate helpers plus register17100/144. Use common
+MaterialInfo.name/refImageName offsets0/4, textureCount34/constantCount36,
+techniqueSet38/textures3c/constants40. Texture entries stride12; constants20.
+Semantic5 relocates MaterialWaterDef, builds water_t and calls the real owner-
+repaired R_LoadWaterSetup. The zero store at1c57e [esp+58] occurs AFTER pushing
+the water pointer: it initializes water.image(+40), NOT writable.floatTime.
+Do not invent a zeroed aggregate. DX7 skips image semantics3/4; other image paths
+use the real Image_Register, with track from the material caller. Reuse existing
+interning, cached technique loading and Material_ValidateTechnique rather than
+creating parallel caches or guessed success paths. No new material loader has
+been claimed complete here; these are pinned implementation constraints.
+
 ## 2026-10-23 shader-source cache preload
 
 Preload1c930 ends1ca4f:288 bytes, not282. Reuse the EXISTING8-byte mtlLoadGlob

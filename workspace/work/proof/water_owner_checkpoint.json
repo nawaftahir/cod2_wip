@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "7e82de5",
+  "scope": "remove duplicate water globals and use original renderer-owned count/records",
+  "whole_file_identical": false,
+  "candidate_sha256": "8d4622a76b8aa46ccd939e7b59544193a2b52d329a41eb0a39931f77ad7e9fac",
+  "same_file_offset_percent": 8.300025062223451,
+  "cpp_executable_bytes": 102205,
+  "cpp_percent_supported_inventory": 40.30483476614875,
+  "cpp_game_bodies": 599,
+  "cpp_bytes_gained": 0,
+  "new_accepted_bodies": [],
+  "mixed_game_bodies": 630,
+  "mixed_executable_bytes": 109992,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "new_authored_assembly_definitions": false,
+  "byte_and_binding_referees_changed": false,
+  "previous_1284_extents_retained": true,
+  "protected_extents": 1284,
+  "full_source_fixtures_passed": 91,
+  "native32_water_owner_routes": 40,
+  "state_owner": "rg in r_init.cpp",
+  "removed_standalone_definitions": [
+    "int sceneWaterMapSetupsCount",
+    "water_t sceneWaterMapSetups[16]"
+  ],
+  "retail_offsets": {
+    "count": "0x1028",
+    "records": "0x102c",
+    "fog": "0x146c",
+    "record_bytes": 68
+  },
+  "live_count_increment_after_callback": true,
+  "shutdown_preserves_all_records": true,
+  "data_virtual_size_gap_before": 512,
+  "data_virtual_size_gap_after": 1600,
+  "size_gap_is_completion_proof": false,
+  "new_globals_exports_tus_or_flags": false,
+  "GetRefAPI_implemented": false,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "independent_fresh_checkout_replay": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_water_load_obj.cpp": "ef8be8731eaeb78f791fdcc9d7753213df8caaa14ce892b6a0e2a8669cc99622",
+    "tests/test_water_setup_owner.py": "34a7d3fdf84ef382ed902e41878f7e9df8dfab7fcf2d3c8ef5903e74177292ff",
+    "proof/water_owner_warm_bind.json": "b283ac654f0dcc4a0e937bcde19d5fa27134fcf49f4bd8cf188cdbd39ca7173d",
+    "proof/water_owner_layout.json": "ed7b1d13b8beee82698513835ad3a3ee05f469e643adfd3bdda32f4b17d22e13",
+    "proof/water_owner_source_coverage.json": "2e11b06720e50dde152a8f8d3402a8c5df3faa6218fde6d4efcfe43b483b42c9",
+    "proof/latest/water_owner_build.log": "cc7da48b54a069150dac6e25992f85cc005e31a80018ee4e2b3871a3a9b60027",
+    "proof/latest/water_owner_fixtures.log": "19759f01dbfa8f5264a21be43bc47d0961f686f456fe75f218d1d8d1b80ca0bc",
+    "proof/latest/water_owner_ratchet.log": "4b1559f4748561183249400bd1020cbf1991c99bf6fab9e6d7f10b0b20a1ac8e"
+  }
+}

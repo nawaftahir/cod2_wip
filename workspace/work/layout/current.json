@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "08356b902c32869692a3bf4c35255c30c1591577137b38d8899908013c840ccb",
+  "candidate_sha256": "8d4622a76b8aa46ccd939e7b59544193a2b52d329a41eb0a39931f77ad7e9fac",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 153685,
+  "same_file_offset_equal_bytes": 153666,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 8.301051317063052,
+  "same_file_offset_percent": 8.300025062223451,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -47,7 +47,7 @@
       "file_offset": "0x1000",
       "raw_bytes": 892928,
       "virtual_bytes": 891298,
-      "sha256": "4a5bc7829c8fe211194737f11414676d56a61e85b1d0927bc19a9fc26f6e98d0"
+      "sha256": "40201259b997bc759c2a8aea4c9a264fcc4176eb2f87061c8882d6b9692459d6"
     },
     {
       "name": ".rdata",
@@ -55,15 +55,15 @@
       "file_offset": "0xdb000",
       "raw_bytes": 593920,
       "virtual_bytes": 591391,
-      "sha256": "80bd74c6e125a0c3ebe1bcfe1698ef321f852c9439452d558579cd75ba203c94"
+      "sha256": "b386646f07a0fa859ac349facd1d8e0ba05fafea1b4a20c4458e4dc130655abc"
     },
     {
       "name": ".data",
       "rva": "0x16c000",
       "file_offset": "0x16c000",
       "raw_bytes": 57344,
-      "virtual_bytes": 6085588,
-      "sha256": "d3bf955f3f7db74ca62c480b9e3eccb650d308a8791d340b337906a15207bcb9"
+      "virtual_bytes": 6084500,
+      "sha256": "c243d2d2e29f7eae61ae34ae1afb6152768754bc5001fd692ce5ae687cb1769a"
     },
     {
       "name": ".reloc",
@@ -739,7 +739,7 @@
   "candidate_image": {
     "file_bytes": 1634304,
     "machine": "0x14c",
-    "timestamp": 1792729121,
+    "timestamp": 1792729726,
     "image_base": "0x10000000",
     "entrypoint_rva": "0xc74e1",
     "image_bytes": 7663616,
@@ -2170,11 +2170,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1792729121,
+        "timestamp": 1792729726,
         "bytes": 71,
         "rva": "0x1697d0",
         "file_offset": "0x1697d0",
-        "data_sha256": "0273af0711512e89ed85623fd2ca9711ed0e741c1ce34f1d2bbda26977f48cdd"
+        "data_sha256": "5a67e51de857a697859acad814f3b8e0da2968bd30c40aff7b20d2bd0ae3c626"
       }
     ]
   },

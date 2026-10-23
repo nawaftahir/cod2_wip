@@ -1,5 +1,12 @@
 # Layout is part of every reconstruction wave
 
+Water owner repair,2026-10-23: the setup count/array are rg.sceneWaterMapSetupsCount
+and rg.sceneWaterMapSetups, pinned at1028/102c with68-byte stride. r_init.cpp
+remains the sole rg allocation. Remove the two incorrect standalone definitions
+from r_water_load_obj.cpp; loader and shutdown use the same state startup clears.
+The16 original records are preserved on shutdown; only the count resets. Do not
+replace removed duplicate storage with padding to keep a section-size metric.
+
 Shader preload wave,2026-10-23: file caching, case-sensitive comparator and
 preload remain beside the existing mtlLoadGlob/find/include implementation in
 r_material_load_obj.cpp. No second cache or ownership split. Count/table/entry

@@ -21,10 +21,10 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/shader_preload_checkpoint.json; previous coverage gain:
+Current source wave:target/work/proof/water_owner_checkpoint.json; previous coverage gain:
 target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
-e6017ea. Readable source is target/work/src; some functions are still unmatched
+7e82de5. Readable source is target/work/src; some functions are still unmatched
 drafts. All1284 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
 Accepted authored C/C++:102205/253580 game bytes,40.304834766%. This is not a
@@ -32,12 +32,12 @@ whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 
 | Whole-file component | Retail | Current candidate |
 | --- | --- | --- |
-| File length |1851392 bytes |1630208 bytes |
+| File length |1851392 bytes |1634304 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
 | .text virtual length |1089680 |891298 |
 | .rdata virtual length |595105 |591391 |
-| .data virtual length, including zero-initialized storage |6086100 |6085588 |
+| .data virtual length, including zero-initialized storage |6086100 |6084500 |
 | .reloc virtual length |95704 |85258 |
 | Whole SHA |Anchor above |NOT matched |
 
@@ -90,6 +90,11 @@ It adds83 verified comparator C++ bytes and13 matching library bodies/2696 bytes
 kept strictly separate. All90 fixtures and all1284 extents pass. Material file
 loading/registration and its full initializer still need source closure before
 the higher device/startup/API can be connected. No missing-function stub links.
+Following material/water fixup uncovered duplicate standalone water setup
+storage disconnected from rg. Loading/shutdown now uses rg's pinned count/
+16-record fields. All1284 matches survive. Removing the duplicate increases
+the .data size gap to1600, correctly: the earlier512-byte gap was not ownership
+or content proof. Do not put padding back merely to recover a size metric.
 
 ## Execution order
 

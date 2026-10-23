@@ -1,12 +1,42 @@
 # Renderer progress
 
-## Structure-first shader preload wave - 2026-10-23
+## Structure-first water ownership repair - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Wave after7e82de5 fixes a real shared-state defect uncovered while following
+material fixup1c4e0. Water loading/reset used TWO standalone allocations while
+retail stores the count/16 records in rg at1028/102c. Those duplicate declarations
+are removed; every lookup/create/shutdown now uses rg's actual fields, the same
+count startup12040 clears. Source remains recoverable in Git; no folders/assets
+were deleted. Compile assertions pin68-byte records and fog boundary146c.
+
+The build passes both referees/source attribution with all1284 old extents
+retained. No new accepted body: authored C/C++ stays102205/253580=40.304834766%,
+599 bodies; mixed109992 bytes/630 bodies, same31/7787 authored-assembly exclusions.
+40 native ownership routes, existing water/NaN tests and all91 fixtures pass
+after the completed build (latest/water_owner_fixtures.log). No own build/test
+remains running. Source/evidence hashes: target/work/proof/water_owner_checkpoint.json.
+
+Current SHA8d4622a76b8aa46ccd939e7b59544193a2b52d329a41eb0a39931f77ad7e9fac;
+.text891298, .rdata591391, .data6084500, .reloc85258; file1634304 bytes.
+Same-offset8.300025062%, NOT source coverage or identity. Removing duplicate
+water storage INCREASES the .data virtual-size gap from512 to1600; this is
+correct ownership repair, not a regression to fix with size fillers. No wrappers,
+aliases, flags, roots, TU or authored ASM. One output, no workers; billing not exposed.
+
+Next real material closure: fixup1c4e0/603, file loading1c740/171, then register
+17100/144 through the already matched hash/add/duplicate helpers. Reuse existing
+image registration, string interning, cached techniques and validation. Water
+fixup must now use the repaired real rg records. Stack field mapping notes are
+in ATTEMPTS.md; do not mistake the image-pointer zero for writable.floatTime.
+Full Material_Init/finalization/higher startup/API and stages1-3 remain OPEN.
+
+### Shader preload checkpoint7e82de5
 
 Wave after e6017ea restores shader-source preload and file caching in the
 EXISTING mtlLoadGlob owner, r_material_load_obj.cpp. It lists root/lib hlsl files,
