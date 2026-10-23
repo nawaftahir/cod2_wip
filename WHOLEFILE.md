@@ -21,10 +21,10 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/water_owner_checkpoint.json; previous coverage gain:
+Current source wave:target/work/proof/material_binary_checkpoint.json; previous coverage gain:
 target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
-7e82de5. Readable source is target/work/src; some functions are still unmatched
+d998efe. Readable source is target/work/src; some functions are still unmatched
 drafts. All1284 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
 Accepted authored C/C++:102205/253580 game bytes,40.304834766%. This is not a
@@ -35,10 +35,10 @@ whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 | File length |1851392 bytes |1634304 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |891298 |
-| .rdata virtual length |595105 |591391 |
+| .text virtual length |1089680 |892594 |
+| .rdata virtual length |595105 |591743 |
 | .data virtual length, including zero-initialized storage |6086100 |6084500 |
-| .reloc virtual length |95704 |85258 |
+| .reloc virtual length |95704 |85300 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
@@ -95,6 +95,10 @@ storage disconnected from rg. Loading/shutdown now uses rg's pinned count/
 16-record fields. All1284 matches survive. Removing the duplicate increases
 the .data size gap to1600, correctly: the earlier512-byte gap was not ownership
 or content proof. Do not put padding back merely to recover a size metric.
+Material binary loading/fixup/registration now connects the actual shared
+image/water/string/technique helpers, with77 focused routes and92 full fixtures
+passing. All1284 extents survive; no new byte credit. Material_Init's actual
+tables/raw setup, finalization and higher startup/API are still open.
 
 ## Execution order
 

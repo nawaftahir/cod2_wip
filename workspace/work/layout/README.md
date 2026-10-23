@@ -1,5 +1,11 @@
 # Layout is part of every reconstruction wave
 
+Material loading,2026-10-23: binary fixup and file loading stay in the existing
+r_material_load_obj.cpp; registration stays with hash/add/duplicate in
+r_material.cpp. Layout assertions pin68-byte Material,12-byte textures,
+20-byte constants,32-byte water definitions and68-byte water setups. Shared
+image/string/water/technique owners are reused. No new state, TU, root or flag.
+
 Water owner repair,2026-10-23: the setup count/array are rg.sceneWaterMapSetupsCount
 and rg.sceneWaterMapSetups, pinned at1028/102c with68-byte stride. r_init.cpp
 remains the sole rg allocation. Remove the two incorrect standalone definitions

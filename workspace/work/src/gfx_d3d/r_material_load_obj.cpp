@@ -1927,3 +1927,98 @@ MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name)
     return set;
 }
 
+GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+water_t *R_LoadWaterSetup(const water_t *water);
+
+typedef char materialBinaryLayoutCheck[(sizeof(Material) == 68 &&
+    offsetof(Material, textureCount) == 0x34 && offsetof(Material, constantCount) == 0x36 &&
+    offsetof(Material, techniqueSet) == 0x38 && offsetof(Material, textures) == 0x3c &&
+    offsetof(Material, constants) == 0x40 && sizeof(MaterialTextureDef) == 12 &&
+    sizeof(MaterialConstantDef) == 20 && sizeof(MaterialWaterDef) == 32 &&
+    sizeof(water_t) == 68 && offsetof(water_t, image) == 64) ? 1 : -1];
+
+// PINNED 1001c4e0/603: serialized pointers are offsets from the material base, including zero.
+bool Material_FixupBinary(Material *material, int imageTrack)
+{
+    byte *base = (byte *)material;
+    material->info.name = (const char *)(base + (uintptr_t)material->info.name);
+    material->info.refImageName = (const char *)(base + (uintptr_t)material->info.refImageName);
+    material->textures = (MaterialTextureDef *)(base + (uintptr_t)material->textures);
+    for (int index = 0; index < material->textureCount; ++index)
+    {
+        MaterialTextureDef *texture = &material->textures[index];
+        texture->name = Material_RegisterString((const char *)(base + (uintptr_t)texture->name));
+        if (texture->semantic == 5)
+        {
+            MaterialWaterDef *definition = (MaterialWaterDef *)(base + (uintptr_t)texture->u.water);
+            texture->u.water = definition;
+            water_t water;
+            water.M = (unsigned short)definition->textureWidth;
+            water.N = water.M;
+            water.Lx = definition->horizontalWorldLength;
+            water.Lz = definition->verticalWorldLength;
+            water.gravity = 800.0f;
+            water.windvel = definition->windSpeed;
+            water.winddir[0] = definition->windDirection[0];
+            water.winddir[1] = definition->windDirection[1];
+            water.amplitude = definition->amplitude;
+            water.image = 0;
+            definition->map = R_LoadWaterSetup(&water);
+            if (!definition->map)
+                return false;
+        }
+        else if (r_rendererInUse->current.integer == 2 &&
+            (texture->semantic == 3 || texture->semantic == 4))
+            texture->u.image = 0;
+        else
+        {
+            texture->u.image = Image_Register((const char *)(base + (uintptr_t)texture->u.image),
+                imageTrack, texture->semantic);
+            if (!texture->u.image)
+                return false;
+        }
+    }
+    material->constants = (MaterialConstantDef *)(base + (uintptr_t)material->constants);
+    for (int index = 0; index < material->constantCount; ++index)
+    {
+        MaterialConstantDef *constant = &material->constants[index];
+        constant->name = Material_RegisterString((const char *)(base + (uintptr_t)constant->name));
+        if (!constant->name)
+            return false;
+    }
+    const char *techniqueName = (const char *)(base + (uintptr_t)material->techniqueSet);
+    MaterialTechniqueSet *set = Material_LoadCachedTechniqueSet(techniqueName);
+    material->techniqueSet = set;
+    if (!set)
+        return false;
+    for (int index = 0; index < 34; ++index)
+        if (set->techniques[index] && !Material_ValidateTechnique(material, set->name, set->techniques[index]))
+            return false;
+    return true;
+}
+
+// PINNED 1001c740/171: close zero-length files, retain permanent allocations on fixup failure.
+Material *Material_LoadBinary(const char *name, int imageTrack)
+{
+    char path[64];
+    Com_sprintf(path, sizeof(path), "materials/%s", name);
+    fileHandle_t file;
+    int length = ri.FS_FOpenFileRead(path, &file, 1);
+    if (length < 0)
+    {
+        if (name[0] != '$')
+            Com_Printf("^1ERROR: Couldn't find material '%s'\n", name);
+        return 0;
+    }
+    if (!length)
+    {
+        ri.FS_FCloseFile(file);
+        Com_Printf("^1ERROR: material '%s' has zero length\n", name);
+        return 0;
+    }
+    Material *material = (Material *)ri.Hunk_AllocInternal(length);
+    ri.FS_Read(material, length, file);
+    ri.FS_FCloseFile(file);
+    return Material_FixupBinary(material, imageTrack) ? material : 0;
+}
+

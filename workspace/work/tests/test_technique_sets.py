@@ -6,7 +6,7 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_material_load_obj.cpp').read_text()
-source = text[text.index('// PINNED 1001bde0:'):]
+source = text[text.index('// PINNED 1001bde0:'):text.index('GfxImage *Image_Register(')]
 source = text[text.index('int Material_TechniqueTypeForName('):text.index('struct MtlLoadGlob')] + source
 material = (work / 'src/gfx_d3d/r_material.cpp').read_text()
 source = material[material.index('extern const byte g_useTechnique'):material.index('static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl')] + source

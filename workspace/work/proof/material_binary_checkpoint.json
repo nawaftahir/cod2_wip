@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "d998efe",
+  "scope": "real material binary pointer fixup, permanent file loader and hash/default registration closure",
+  "whole_file_identical": false,
+  "candidate_sha256": "6b943f1d34a8678a2e08ed70cbf532e5115a285132e3190cd72eb7cf63dd5875",
+  "same_file_offset_percent": 8.267076880530974,
+  "cpp_executable_bytes": 102205,
+  "cpp_percent_supported_inventory": 40.30483476614875,
+  "cpp_game_bodies": 599,
+  "cpp_bytes_gained": 0,
+  "new_accepted_bodies": [],
+  "mixed_executable_bytes": 109992,
+  "mixed_game_bodies": 630,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "previous_1284_extents_retained": true,
+  "full_source_fixtures_passed": 92,
+  "native32_material_routes": 77,
+  "new_globals_exports_tus_or_flags": false,
+  "GetRefAPI_implemented": false,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_material.cpp": "a9a0daba5d45b1ccd11730edb9a6b2cf481425ad1bd6345027d02ea634e81873",
+    "src/gfx_d3d/r_material_load_obj.cpp": "733440dd064c76f609ebc37265cb12ad3e7057f6f783e6a296a303c5f0eaa9d0",
+    "tests/test_material_binary.py": "c6c3a556df69cf9c539754e6777dd19818ee991bf36aa3d92763d24708c0aca1",
+    "tests/test_technique_sets.py": "30538454690078d4ac41c0356e3dcf754d996909aa44f011bcc926d4f3bdb2e3",
+    "proof/material_binary_warm_bind.json": "d0e30967cb5fbac58fa020fa4db7142ef7cd23d0b4c7d9ac298cc738b0486771",
+    "proof/material_binary_layout.json": "580a05c52a33681ca5174a8f613a2a37f8a5978fa7a31b7eb09751d3662843d1",
+    "proof/material_binary_source_coverage.json": "8ee522b36ef1fb8b9ead7184fe8a60e2a87d4498c62f4a9bf312154af913af01",
+    "proof/latest/material_binary_build.log": "cc7da48b54a069150dac6e25992f85cc005e31a80018ee4e2b3871a3a9b60027",
+    "proof/latest/material_binary_fixtures.log": "0fdbc3252f681fbb5e8901461aa577ded24ed6387fe908eebf6cfeeba14ce126"
+  }
+}

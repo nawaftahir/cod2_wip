@@ -1,12 +1,39 @@
 # Renderer progress
 
-## Structure-first water ownership repair - 2026-10-23
+## Structure-first material loading - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Material binary fixup1001c4e0/603, file loader1001c740/171 and registration
+10017100/144 now have actual C++ source in the existing material TUs. They
+connect serialized names/textures/constants to existing string interning,
+Image_Register, renderer-owned water setup, cached techniques and validation.
+Registration reuses the already matched hash/add/duplicate bodies. No new TU,
+globals, flags, root exports or assembly. Permanent allocation/error behavior
+and DX7 normal/specular skips are preserved, not replaced with safer guesses.
+
+Both referees and all1284 protected extents pass; all92 fixtures pass, including
+77 native material routes and the existing51 technique-set routes. Authored
+C++ remains102205/253580=40.304834766%,599 bodies; mixed109992/630. The same
+31/7787 assembly exclusions remain. No new V2 gain: Material_Register has
+matching code but its loader binding is unaccepted, so it receives NO credit.
+Proof/source hashes: target/work/proof/material_binary_checkpoint.json.
+
+Current SHA6b943f1d34a8678a2e08ed70cbf532e5115a285132e3190cd72eb7cf63dd5875;
+.text892594, .rdata591743, .data6084500, .reloc85300; file1634304 bytes.
+Same-offset8.267076881%, not whole-file completion. No GetRefAPI/boot/SHA claim.
+Next: real28-entry/12-entry registration tables, raw material helper17190,
+Material_Init173e0 -> finalization12040 -> higher device/startup/API closure.
+Primary tables and r_testFillEnable101ce79c are pinned; do not fabricate tables
+or confuse raw material's texture-name rebinding with copying a whole record.
+One build output, no workers; actual billing unavailable. Build and full suite
+finished. The earlier approval-service usage failure cleared on the next turn.
+
+### Water ownership checkpoint d998efe
 
 Wave after7e82de5 fixes a real shared-state defect uncovered while following
 material fixup1c4e0. Water loading/reset used TWO standalone allocations while

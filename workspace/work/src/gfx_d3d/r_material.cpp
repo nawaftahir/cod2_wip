@@ -579,7 +579,7 @@ static void Material_FindHashSlot(const char *name, unsigned short *hashIndex, b
 }
 
 // Name unconfirmed; retail passes the material in EAX and the hash slot in CX.
-// noinline stands in for the second caller (Material_Register, not yet ported).
+// Keep the accepted outlined body while the restored caller group is verified.
 __declspec(noinline) static void Material_AddToTable(Material *material, unsigned short hashIndex)
 {
     Material **slot = &R_GetMaterialHashTable()[hashIndex];
@@ -630,6 +630,29 @@ Material *Material_FindRegistered(const char *name)
     if (!found)
         return 0;
     return R_GetMaterialHashTable()[hashIndex];
+}
+
+Material *Material_LoadBinary(const char *name, int imageTrack);
+void Com_Printf(const char *format, ...);
+
+// PINNED 10017100/144: failed loads duplicate the default under the requested name.
+Material *Material_Register(const char *name, int imageTrack)
+{
+    unsigned short hashIndex;
+    bool found;
+    Material_FindHashSlot(name, &hashIndex, &found);
+    if (found)
+        return R_GetMaterialHashTable()[hashIndex];
+    Material *material = Material_LoadBinary(name, imageTrack);
+    if (!material)
+    {
+        if (!rgp.defaultMaterial)
+            R_Error(ERR_FATAL, "couldn't load material '$default'");
+        Com_Printf("^3WARNING: Could not find material '%s'\n", name);
+        return Material_Duplicate(rgp.defaultMaterial, name);
+    }
+    Material_AddToTable(material, hashIndex);
+    return material;
 }
 
 void RB_SetFVF(DWORD fvf);

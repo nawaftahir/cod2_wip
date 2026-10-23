@@ -994,3 +994,18 @@ identical; see proof/material_checkpoint.json and its nine negative controls.
   existing assembly definitions were not edited. Six counter negatives pass.
 - build.sh now invokes the existing source counter on EVERY successful link;
   assembly attribution is a mandatory gate, not an optional reporting step.
+- PINNED material closure2026-10-23: fixup1001c4e0 ends at1c73a (603 bytes).
+  All serialized pointers relocate from the material base, including zero.
+  Texture interning has no null branch; constant interning does. DX7 semantic
+  3/4 clears the image and succeeds. Water width reads ushort, gravity800,
+  image=0; other unassigned water fields remain untouched. Techniques iterate34.
+  Loader1c740/171 closes zero/positive handles, ignores read return, retains
+  permanent allocation on failed fixup; only missing '$' paths are silent.
+  Registration17100/144 reuses hash/add/duplicate. Its byte-shaped body still
+  fails loader binding and is NOT accepted coverage. Do not tune spelling now.
+  Actual Material_Init173e0 clears0x299c, preloads, registers28 entries plus12
+  when r_testFillEnable101ce79c is enabled, then raw setup17190. Helper17350
+  ends17396 (71 bytes, not inventory64). Raw setup compares textures/constants/
+  techniqueSet, rejects non-default raw with textureCount!=1 via Printf3,
+  then init redirects only the texture-name pointer into rgp.rawTexdef.
+
