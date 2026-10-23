@@ -212,3 +212,86 @@ void R_InitHardware()
     dx.targetWindowIndex = 0;
     ShowWindow(parms.hwnd, SW_SHOW);
 }
+
+void R_ShutdownRenderTargets();
+void R_FlushStaticModelCache();
+void R_ReleaseDynamicBuffers();
+
+// PINNED 10012210: release each window, then targets, buffers and queries.
+void R_ReleaseForShutdownOrReset()
+{
+    for (int index = 0; index < dx.windowCount; ++index)
+        do
+        {
+            dx.windows[index].swapChain->Release();
+            dx.windows[index].swapChain = 0;
+        } while (alwaysfails);
+    R_ShutdownRenderTargets();
+    R_FlushStaticModelCache();
+    if (dx.smodelCacheVb)
+        do
+        {
+            dx.smodelCacheVb->Release();
+            dx.smodelCacheVb = 0;
+        } while (alwaysfails);
+    R_ReleaseDynamicBuffers();
+    if (dx.particleCloudVertexBuffer)
+    {
+        IDirect3DVertexBuffer9 *buffer = dx.particleCloudVertexBuffer;
+        do
+        {
+            buffer->Release();
+            buffer = 0;
+        } while (alwaysfails);
+        dx.particleCloudVertexBuffer = 0;
+    }
+    if (dx.particleCloudIndexBuffer)
+    {
+        IDirect3DIndexBuffer9 *buffer = dx.particleCloudIndexBuffer;
+        do
+        {
+            buffer->Release();
+            buffer = 0;
+        } while (alwaysfails);
+        dx.particleCloudIndexBuffer = 0;
+    }
+    if (dx.flushGpuQuery)
+        do
+        {
+            dx.flushGpuQuery->Release();
+            dx.flushGpuQuery = 0;
+        } while (alwaysfails);
+    for (int index = 0; index < 4; ++index)
+        for (int query = 0; query < 2; ++query)
+            if (sunFlareState[index].sunQuery[query])
+                do
+                {
+                    sunFlareState[index].sunQuery[query]->Release();
+                    sunFlareState[index].sunQuery[query] = 0;
+                } while (alwaysfails);
+}
+
+// PINNED 10012db0: reload the current window index after Win32 calls.
+void R_ShutdownHardware()
+{
+    R_ReleaseForShutdownOrReset();
+    while (dx.windowCount)
+    {
+        --dx.windowCount;
+        if (IsWindow(dx.windows[dx.windowCount].hwnd))
+            DestroyWindow(dx.windows[dx.windowCount].hwnd);
+        dx.windows[dx.windowCount].hwnd = 0;
+    }
+    if (dx.device)
+        do
+        {
+            dx.device->Release();
+            dx.device = 0;
+        } while (alwaysfails);
+    if (dx.d3d9)
+        do
+        {
+            dx.d3d9->Release();
+            dx.d3d9 = 0;
+        } while (alwaysfails);
+}

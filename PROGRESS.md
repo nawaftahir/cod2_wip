@@ -1,9 +1,42 @@
 # Renderer progress
 
-## Structure-first JPEG and command checkpoint - 2026-10-23
+## Structure-first startup and shutdown checkpoint - 2026-10-23
 
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
+
+### Latest: genuine shutdown source
+
+Eleven shutdown helpers/callers are restored in their existing source owners:
+stream cleanup; normal debug frame; light/font registries; images; render
+targets; dynamic pools; reset resources; hardware; command removal; R_Shutdown.
+MaterialGlobals now has one shared definition and its existing sole instance.
+The caller performs logical cleanup regardless of destroyWindow, then optional
+hardware teardown and dvar-system removal, then ten exact command removals.
+This includes retail's unregistered r_vc_stats; no invented extra startup command.
+
+Both referees accept three new extents/444 C++ bytes: R_ShutdownRenderTargets162,
+R_UnregisterCmds114 and the previously unaccepted R_GetImageMemory168. Current
+C++104094/253580=41.049767332%,615 bodies; legacy denominator, NOT whole-DLL
+completion. All1433 old extents survive; the gate now protects1436, with three
+independent removal negatives. Other new source bodies remain uncredited.
+All retail named imports now exist with no extras, including genuine IsWindow.
+Order/hints/metadata remain unproved. Same-offset file equality8.849233442% is
+only a layout diagnostic, not progress toward a claimed source percentage.
+
+4096 native resource routes,2048 image routes and300 logical shutdown routes
+pass. Checks use actual shared PC resource/image/material schemas and exercise
+optional allocations, release order, retained/colliding program-image hashes,
+live sampler/window bounds, interrupted cleanup, count-only registry resets and
+normal-frame ownership. The crashing nonzero alwaysfails path is NOT executed;
+its loops are retained from primary instructions. All118 full fixtures pass.
+
+Original compiler/preflight and both referees pass. One existing build, no new
+flags, roots, storage or authored assembly. Logs: proof/latest/shutdown_preflight.log,
+renderer_shutdown_build.log and renderer_shutdown_fixtures.log. Frozen new binding
+evidence: proof/renderer_shutdown_checkpoint.json and renderer_shutdown_warm_bind.json.
+GetRefAPI/API59 callback closure,
+final ownership/order proof, SHA and client/GPU smoke remain OPEN.
 
 ### Major startup-source checkpoint
 

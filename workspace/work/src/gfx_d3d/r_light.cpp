@@ -15,6 +15,12 @@ static LightGlobals lightGlobals;
 typedef char lightGlobalsLayoutCheck[(sizeof(LightGlobals) == 260 &&
     offsetof(LightGlobals, defs) == 4) ? 1 : -1];
 
+// PINNED in 10013080: the definition pointers are not cleared here.
+void R_ShutdownLightDefs()
+{
+    lightGlobals.count = 0;
+}
+
 // PINNED 10015090/68: packed sampler byte and a NUL-terminated image name.
 const byte *R_LoadLightImage(const byte *data, GfxLightImage *image)
 {

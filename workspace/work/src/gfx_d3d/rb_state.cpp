@@ -488,6 +488,13 @@ void RB_ChangeStreamSource(int streamIndex, IDirect3DVertexBuffer9 *vb, int vert
 	dxState.vertexBufferDeselecting = NULL;
 }
 
+// PINNED in 10013080: only the one PC stream participates in shutdown.
+void RB_ClearAllStreamSources()
+{
+    if (dxState.streams[0].vb || dxState.streams[0].offset || dxState.streams[0].stride)
+        RB_ChangeStreamSource(0, 0, 0, 0);
+}
+
 // PINNED 10038430/104, 100384a0/104 and 10038510/114.
 void RB_ChangePixelShader(IDirect3DPixelShader9 *shader)
 {

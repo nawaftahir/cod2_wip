@@ -10,8 +10,9 @@ work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_material.cpp').read_text()
 
 def declaration(name):
-    start = text.index('struct ' + name + '\n{')
-    return text[start:text.index('\n};', start) + 3] + '\n'
+    owner = (work / 'src/gfx_d3d/r_material_globals.h').read_text() if name == 'MaterialGlobals' else text
+    start = owner.index('struct ' + name + '\n{')
+    return owner[start:owner.index('\n};', start) + 3] + '\n'
 
 types = ''.join(declaration(name) for name in ['MaterialVertexDeclaration', 'MaterialGlobals', 'MaterialTextureDef', 'Material', 'r_global_permanent_t'])
 check = text[text.index('typedef char materialStartupLayoutCheck'):text.index('Material **R_GetMaterialHashTable();')]

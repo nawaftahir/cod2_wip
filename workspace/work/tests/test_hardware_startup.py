@@ -7,7 +7,7 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_device.cpp').read_text()
-source = text[text.index('Bool R_ReduceWindowSettings()'):]
+source = text[text.index('Bool R_ReduceWindowSettings()'):text.index('void R_ShutdownRenderTargets();')]
 header = (work / 'src/gfx_d3d/r_window.h').read_text().replace('#pragma once', '')
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 messages = [retail.get_string_at_rva(a).decode('ascii') for a in [0x194150,0x1940f0,0x194090]]

@@ -5,6 +5,12 @@
 static int registeredFontCount;
 static Font_s *registeredFont[16];
 
+// PINNED in 10013080: keep stale entries; the count owns their visibility.
+void R_ShutdownFonts()
+{
+    registeredFontCount = 0;
+}
+
 Material *Material_Register(const char *name, int imageTrack);
 
 // PINNED 1000c6a0: the disk header omits the runtime glyph pointer.

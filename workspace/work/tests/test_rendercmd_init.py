@@ -7,7 +7,7 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_rendercmds.cpp').read_text()
-source = text[text.index('void R_InitRenderCmds()'):text.index('// PINNED 10021ff0:')]
+source = text[text.index('void R_InitRenderCmds()'):text.index('// PINNED in 10013080:')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 instructions = list(decoder.disasm(retail.get_data(0x20b50, 126), 0x10020b50))

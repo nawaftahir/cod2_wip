@@ -43,6 +43,36 @@ void R_CreateDynamicBuffers()
     dx.tempSkinBuf = (byte *)ri.Z_VirtualReserveInternal(10485760);
 }
 
+// PINNED 10011e60: release pools before freeing the reserved skin arena.
+void R_ReleaseDynamicBuffers()
+{
+    if (dx.dynamicIndexBufferPool[0].buffer)
+        do
+        {
+            dx.dynamicIndexBufferPool[0].buffer->Release();
+            dx.dynamicIndexBufferPool[0].buffer = 0;
+        } while (alwaysfails);
+    if (dx.dynamicVertexBufferPool[0].buffer)
+        do
+        {
+            dx.dynamicVertexBufferPool[0].buffer->Release();
+            dx.dynamicVertexBufferPool[0].buffer = 0;
+        } while (alwaysfails);
+    for (int index = 0; index < 2; ++index)
+        if (dx.skinnedCacheVbPool[index].buffer)
+            do
+            {
+                dx.skinnedCacheVbPool[index].buffer->Release();
+                dx.skinnedCacheVbPool[index].buffer = 0;
+            } while (alwaysfails);
+    if (dx.tempSkinBuf)
+    {
+        ri.Z_VirtualFreeInternal(dx.tempSkinBuf);
+        dx.tempSkinBuf = 0;
+        dx.tempSkinPos = 0;
+    }
+}
+
 void R_FinishStaticIndexBuffer(IDirect3DIndexBuffer9 *ib)
 {
     R_DX_CALL(ib->Unlock());

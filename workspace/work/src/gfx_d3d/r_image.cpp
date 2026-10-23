@@ -558,6 +558,35 @@ void Image_Release(GfxImage *image)
     image->mapType = 0;
 }
 
+void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);
+
+// PINNED 1000cd10: preserve programmable images and rebuild their hash entries.
+void R_ShutdownImages()
+{
+    if (!dx.deviceLost)
+        for (int sampler = 0; sampler < vidConfig.maxTextureMaps; ++sampler)
+            RB_SetSampler(sampler, 0, 0);
+    ImageList keep;
+    keep.count = 0;
+    for (int index = 0; index < 2048; ++index)
+    {
+        GfxImage *image = imageGlobals.imageHashTable[index];
+        if (image)
+        {
+            if (Image_IsCodeImage(image))
+                keep.image[keep.count++] = image;
+            else
+                Image_Release(image);
+        }
+    }
+    memset(imageGlobals.imageHashTable, 0, sizeof(imageGlobals.imageHashTable));
+    for (int index = 0; index < keep.count; ++index)
+    {
+        GfxImage *image = keep.image[index];
+        imageGlobals.imageHashTable[Image_GetAvailableHashLocation(image->name)] = image;
+    }
+}
+
 void R_ReleaseLostImages()
 {
     unsigned int index;

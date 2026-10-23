@@ -108,6 +108,9 @@ required.update(accepted(buffer_upload))
 light_grid_helpers = Path(__file__).resolve().parents[1] / 'proof/light_grid_helpers_warm_bind.json'
 assert hashlib.sha256(light_grid_helpers.read_bytes()).hexdigest() == '1f5cf92b1838cf658ae2ed915d454fa51afa304b2addae24c1d443903a733853'
 required.update(accepted(light_grid_helpers))
+renderer_shutdown = Path(__file__).resolve().parents[1] / 'proof/renderer_shutdown_warm_bind.json'
+assert hashlib.sha256(renderer_shutdown.read_bytes()).hexdigest() == 'a98a9a13870183c04f15103e091a34f3aaec1821e16b72fcb0a915bfd60558ea'
+required.update(accepted(renderer_shutdown))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

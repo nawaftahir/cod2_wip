@@ -21,24 +21,23 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/sun_commands_checkpoint.json; previous coverage gain:
-target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
-target/work/proof/sdk_checkpoint.json. Previous source commit
-a7294fb. Readable source is target/work/src; some functions are still unmatched
-drafts. All1288 protected source/library extents survive (433 prior SDK/runtime
-extents,67471 bytes; these are not authored game source).
-Accepted authored C/C++:102469/253580 game bytes,40.408943923%. This is not a
-whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
+Latest source/binding checkpoint: target/work/proof/renderer_shutdown_warm_bind.json.
+Readable source is target/work/src; some bodies remain unmatched drafts. The
+regression gate protects1436 source/library extents. Accepted authored C/C++ is
+104094/253580=41.049767332% on the frozen legacy inventory denominator, not a
+whole-DLL completion percentage. Startup/registration/shutdown have real source;
+GetRefAPI and the remaining callback graph are still open. PROGRESS.md is the
+current log; the chronological notes below are historical wave measurements.
 
 | Whole-file component | Retail | Current candidate |
 | --- | --- | --- |
-| File length |1851392 bytes |1638400 bytes |
+| File length |1851392 bytes |1708032 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |895842 |
-| .rdata virtual length |595105 |593519 |
-| .data virtual length, including zero-initialized storage |6086100 |6084596 |
-| .reloc virtual length |95704 |85890 |
+| .text virtual length |1089680 |948994 |
+| .rdata virtual length |595105 |602351 |
+| .data virtual length, including zero-initialized storage |6086100 |6084628 |
+| .reloc virtual length |95704 |87948 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback

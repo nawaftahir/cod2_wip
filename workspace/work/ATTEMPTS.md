@@ -1289,3 +1289,30 @@ Primary12e70 clears rg at101d4d00 (NOT101d4e70), so trig2510/bitswap2d10.
 All final original-compiler pins pass, including FS imports13c/154/158, default
 material102c, debugFont36b58 and dx.sunSpriteSamples2c2c. Never fix a failed pin
 by adding padding or weakening it; read the primary base/field evidence.
+
+### Shutdown source - 2026-10-23
+
+Primary10012210..1001231c does NOT write alwaysfails at1076a830. GLM's
+decompile fabricates that store and a repeated particle-index-buffer store;
+raw instructions at100122a1..100122d7 only read the flag and clear owned
+resource pointers. Keep the original retry loops, including their null-pointer
+second iteration if that diagnostic flag is nonzero; do not invent recovery.
+Native resource checks cover normal flag0, not that crashing diagnostic path.
+
+Primary10023560 clears13 target records/260 bytes, then zeros the cached
+single-sample depth pointer WITHOUT another Release. Surface releases happen
+before reading each live image pointer. Primary1000cd10 retains the complete
+programmable-image address range and rehashes retained entries in table order;
+texture-null ordinary images still lose tracked memory but retain cardMemory.
+
+Primary10013080 gates stream cleanup on device present AND deviceLost false,
+clears the light/font counts without clearing their arrays, clears the complete
+299c-byte material owner after Material_Shutdown, and clears world AGAIN after
+image callbacks. Hardware teardown precedes RI+88 UnregisterSystem(2000h).
+Primary10005360 removes ten names, including r_vc_stats not registered by the
+nine-command startup. Do not repair that original asymmetry.
+
+Primary10012dd0..10012e11 reloads windowCount/hwnd after IsWindow and
+DestroyWindow. No cached stale index/handle, extra validity guard or separate
+depth-alias release is equivalent. Shutdown uses the existing pools, sun query
+records, normal debug frame and registries; no replacement state is allocated.

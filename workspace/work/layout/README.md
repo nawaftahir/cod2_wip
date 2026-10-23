@@ -381,3 +381,19 @@ remaining callback closures still need reconstruction and exact code/layout proo
 R_BeginRegistration also lives in r_init.cpp and publishes the existing44-byte
 vidConfig after unconditional R_Init. No new storage/root/export; genuine API
 slot1 reachability remains open until GetRefAPI is restored.
+
+### Shutdown ownership - 2026-10-23
+
+r_material_globals.h shares the existing299c-byte MaterialGlobals schema;
+r_material.cpp remains its sole allocator. R_Shutdown clears that entire owner,
+rg's material hash and rgp's count rather than fabricating replacement tables.
+Font/light counts stay private to their original files; normal-frame debug
+cleanup stays beside the sole s_backEndData in r_rendercmds.cpp.
+
+r_image.cpp retains program images in the existing allocation and rehashes the
+survivors; no allocation/free ownership is invented. r_rendertarget.cpp releases
+13 records before clearing them and only zeros the cached depth alias. Buffer
+and device cleanup reuse dx pools, skin reservation and shared sun query state.
+r_device.cpp owns the existing SDK-facing device helpers; this split is candidate
+organization, not proof of original TU boundaries or final link order. Genuine
+IsWindow now completes the named import set; layout/hints/order still differ.

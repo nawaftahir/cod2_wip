@@ -86,6 +86,14 @@ void R_InitRenderCmds()
     }
 }
 
+// PINNED in 10013080: release the normal frame's debug storage first.
+void R_ShutdownDebugEntry(DebugGlobals *entry);
+
+void R_ShutdownBackendData()
+{
+    R_ShutdownDebugEntry(&s_backEndData.debugGlobals);
+}
+
 // PINNED 10021ff0: API59 slot49; save before unlocking the original cache.
 void R_BeginDebugFrame()
 {

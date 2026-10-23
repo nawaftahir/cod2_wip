@@ -1,5 +1,6 @@
 // Renderer initialization.
 #include "gfx.h"
+#include "r_material_globals.h"
 #include "universal/com_math.h"
 #include <stddef.h>
 
@@ -338,4 +339,65 @@ void R_BeginRegistration(vidConfig_t *config)
 {
     R_Init();
     *config = vidConfig;
+}
+
+// PINNED 10005360: shutdown also removes the legacy vertex-cache command.
+void R_UnregisterCmds()
+{
+    ri.Cmd_RemoveCommand("r_applyPicmip");
+    ri.Cmd_RemoveCommand("r_vc_stats");
+    ri.Cmd_RemoveCommand("screenshot");
+    ri.Cmd_RemoveCommand("screenshotJpeg");
+    ri.Cmd_RemoveCommand("imagelist");
+    ri.Cmd_RemoveCommand("reloadmaterialtextures");
+    ri.Cmd_RemoveCommand("r_loadsun");
+    ri.Cmd_RemoveCommand("r_savesun");
+    ri.Cmd_RemoveCommand("r_smc_stats");
+    ri.Cmd_RemoveCommand("r_smc_flush");
+}
+
+void RB_ClearAllStreamSources();
+void R_ShutdownBackendData();
+void R_ShutdownLightDefs();
+void R_ShutdownFonts();
+void R_ShutdownImages();
+void R_ShutdownHardware();
+void R_FlushStaticModelCache();
+void R_ShutdownDebug();
+void RB_SaveLightVisHistory();
+void R_ShutdownWorld();
+void R_ReleaseAllModels();
+void Material_Shutdown();
+void R_UnlockSkinnedCache();
+typedef char rendererShutdownLayoutCheck[(sizeof(MaterialGlobals) == 0x299c
+    && offsetof(refimport_t, Dvar_UnregisterSystem) == 0x88
+    && offsetof(refimport_t, Cmd_RemoveCommand) == 0x108) ? 1 : -1];
+
+// PINNED 10013080: logical shutdown always runs; hardware teardown is optional.
+void R_Shutdown(int destroyWindow)
+{
+    rg.registered = 0;
+    if (dx.device && !dx.deviceLost)
+        RB_ClearAllStreamSources();
+    R_ShutdownBackendData();
+    R_ShutdownDebug();
+    RB_SaveLightVisHistory();
+    R_ShutdownLightDefs();
+    R_ShutdownWorld();
+    R_ShutdownFonts();
+    R_ReleaseAllModels();
+    Material_Shutdown();
+    memset(&materialGlobals, 0, sizeof(materialGlobals));
+    memset(rg.materialHashTable, 0, sizeof(rg.materialHashTable));
+    rgp.materialCount = 0;
+    R_ShutdownImages();
+    rgp.world = 0;
+    R_UnlockSkinnedCache();
+    R_FlushStaticModelCache();
+    if (destroyWindow)
+    {
+        R_ShutdownHardware();
+        ri.Dvar_UnregisterSystem(0x2000);
+    }
+    R_UnregisterCmds();
 }

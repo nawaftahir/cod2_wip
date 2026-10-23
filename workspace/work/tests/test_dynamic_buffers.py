@@ -7,7 +7,7 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_dxbuffers.cpp').read_text()
-source = text[text.index('void R_CreateDynamicVertexBuffer('):text.index('void R_FinishStaticIndexBuffer(')]
+source = text[text.index('void R_CreateDynamicVertexBuffer('):text.index('// PINNED 10011e60:')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 ops = [(i.mnemonic,i.op_str) for i in decoder.disasm(retail.get_data(0x11b60,143),0x10011b60)]

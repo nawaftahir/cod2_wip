@@ -1,0 +1,128 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "af5e49c",
+  "scope": "genuine logical/resource/hardware shutdown and shared material owner",
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "66efd535907a43645dd20a3a4d74e727a9854eae6285b24b013096c45c468912",
+  "same_file_offset_percent": 8.84923344164823,
+  "cpp_executable_bytes": 104094,
+  "cpp_percent_legacy_inventory": 41.0497673318085,
+  "cpp_game_bodies": 615,
+  "new_verified_engine_bytes": 444,
+  "protected_extents": 1436,
+  "new_verified_extents": [
+    {
+      "name": "R_ShutdownRenderTargets",
+      "target": "0x10023560",
+      "bytes": 162
+    },
+    {
+      "name": "R_UnregisterCmds",
+      "target": "0x10005360",
+      "bytes": 114
+    },
+    {
+      "name": "R_GetImageMemory",
+      "target": "0x1000c820",
+      "bytes": 168
+    }
+  ],
+  "source_functions_restored": [
+    "RB_ClearAllStreamSources",
+    "R_ShutdownBackendData",
+    "R_ShutdownLightDefs",
+    "R_ShutdownFonts",
+    "R_ShutdownImages",
+    "R_ShutdownRenderTargets",
+    "R_ReleaseDynamicBuffers",
+    "R_ReleaseForShutdownOrReset",
+    "R_ShutdownHardware",
+    "R_UnregisterCmds",
+    "R_Shutdown"
+  ],
+  "full_source_fixtures_passed": 118,
+  "native_resource_routes": 4096,
+  "native_image_routes": 2048,
+  "native_logical_routes": 300,
+  "independent_new_extent_removal_negatives": 3,
+  "named_imports_missing": [],
+  "named_imports_extra": [],
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 950272,
+      "virtual_bytes": 948994,
+      "sha256": "cd42df66456eed14cc8db2dc5526ee83a75afc504dd485fcb5edead5ff9ed85c"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xe9000",
+      "file_offset": "0xe9000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602351,
+      "sha256": "e5672caa221fbd2a355b9698e609ea9c283e947c5b425609b3cda5f62a974267"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17d000",
+      "file_offset": "0x17d000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "c30328e64593fe7d9f4abba97e4c61dd09941089bbc19b66b2b507644818497d"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74b000",
+      "file_offset": "0x18b000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 87948,
+      "sha256": "3a61d22d0793a06d882d8d0cf8475813563a6600e589724ac01515df0daf8153"
+    }
+  ],
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "limits": [
+    "new shutdown source other than the two newly verified bodies remains uncredited",
+    "normal retry flag tested; nonzero diagnostic null-pointer iteration not executed",
+    "original TU boundaries/final order/metadata not proved",
+    "API graph remains incomplete; no release or whole-DLL source-completion claim"
+  ],
+  "binding_snapshot_sha256": "a98a9a13870183c04f15103e091a34f3aaec1821e16b72fcb0a915bfd60558ea",
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/r_device.cpp": "c27116d6ea14b5e78ea26196f2f8df07dcb192292fb9510be9b6c8bb03867754",
+    "target/work/src/gfx_d3d/r_dxbuffers.cpp": "16de723a1a19a286b31d8bb41b9f896116b1c3d08801e1b0c4ca0e283c054b27",
+    "target/work/src/gfx_d3d/r_font.cpp": "416f8f545a64483d3d0de37ade24aa7cf3012627dc4035bdaf66ec1d5781c509",
+    "target/work/src/gfx_d3d/r_image.cpp": "f7c055c89dfd8f69e2d5e3eed8880a73a03bec49ed85ce96a290cf55731a61fe",
+    "target/work/src/gfx_d3d/r_init.cpp": "6c4b36ac037a721aa75ccc8cee1f823614492beb34732bdfc060f99fb69cf5e9",
+    "target/work/src/gfx_d3d/r_light.cpp": "f9f303eb35707617bab5334e89d685bb382f665460c7c77ef918381c294d752c",
+    "target/work/src/gfx_d3d/r_material.cpp": "b136d3f3fc6072c718fe3f057218721a2888c2d9716cf18ff74a449377cdf40c",
+    "target/work/src/gfx_d3d/r_material_globals.h": "c167c5fa166909ae5e0d2753682a816391f8cbbfe6def24fff049368197a2614",
+    "target/work/src/gfx_d3d/r_rendercmds.cpp": "66e478ba286dae8c30d47e844c25a0c59c7c53fd05db4ec8ca05b9fbd0bb96e9",
+    "target/work/src/gfx_d3d/r_rendertarget.cpp": "bf9eb5892016d015c45e19fa766e40dfcad38d428d6725c5394c5847b2b0fbc7",
+    "target/work/src/gfx_d3d/rb_state.cpp": "9427c9b7361cb84c9dbd7b7178fa2b05be40c0173cb1cef487249d09d56db0ae",
+    "target/work/tests/test_begin_registration.py": "fec4d4edb3e50720b3d7017530f473ddd7682ef2830534124e037a7ec8096e88",
+    "target/work/tests/test_dynamic_buffers.py": "b7f1ad6199797cc07a6b8f5781f963deb179c98591be49745a64e13dbb93157f",
+    "target/work/tests/test_hardware_startup.py": "5a2084623b7e8259b814a92a74af6ccfd13d096c0daa25aadf927a619060aeab",
+    "target/work/tests/test_image_shutdown.py": "def90629b5df6b6de6b78177a04c831ea04c7553999be7b745d5d883cbe6aa95",
+    "target/work/tests/test_material_startup.py": "c408d65531fb697a6fe7c3999c4d7e2b47f7d69fe364d3ff4dedbff438d808a8",
+    "target/work/tests/test_rendercmd_init.py": "fdbffd5108d01a35d797b2bfe252274f19928b61d901719e0ea1da6c9d1e374c",
+    "target/work/tests/test_renderer_shutdown.py": "7b0da72729ae69b30e278afb72a7bbb159c261895cd3ccf67efefe38e66fbacd",
+    "target/work/tests/test_resource_shutdown.py": "26a48c96fad87365ce67b90b4591e75d66535820b4a0d68eed3badbbf6bcfd41",
+    "target/work/tools/check_checkpoint.py": "bff1478807330a16ed9ccdfb07bef8a2b4d2bf8e8af73424d4e2cdf397554b2a"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/shutdown_preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "target/work/proof/latest/renderer_shutdown_build.log": "36285a18bb53c95ab2a376ac9ec2486b9cc2cdc7cc9c5ec04f1e707a7932e938",
+    "target/work/proof/latest/renderer_shutdown_fixtures.log": "8817e22f59724713b4394c980b2e230850c597ea1e61200767408cae06c0006d"
+  },
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py",
+    "python3 target/work/tools/check_checkpoint.py target/work/build/bind.json"
+  ]
+}

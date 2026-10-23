@@ -15,6 +15,25 @@ void Image_TrackFullscreenTexture(GfxImage *, int, D3DFORMAT);
 char *va(const char *format, ...);
 extern const dvar_t *r_zFeather;
 
+void Image_Release(GfxImage *image);
+
+// PINNED 10023560: the cached depth surface is an alias, not another release.
+void R_ShutdownRenderTargets()
+{
+    for (int index = 0; index < 13; ++index)
+    {
+        GfxRenderTarget *target = &dx.renderTargets[index];
+        if (target->colorSurface)
+            target->colorSurface->Release();
+        if (target->depthStencilSurface)
+            target->depthStencilSurface->Release();
+        if (target->image)
+            Image_Release(target->image);
+    }
+    memset(dx.renderTargets, 0, sizeof(dx.renderTargets));
+    dx.singleSampleDepthStencilSurface = 0;
+}
+
 // PINNED 0x10022710: the PC switch includes R5G6B5 and D16_LOCKABLE, not D32.
 static const char *R_DescribeFormat(D3DFORMAT format)
 {
