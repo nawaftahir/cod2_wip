@@ -1,12 +1,47 @@
 # Renderer progress
 
-## Structure-first sun commands - 2026-10-23
+## Structure-first JPEG and command checkpoint - 2026-10-23
 
-Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
-This is the sole current progress/continuation log. Update it instead of creating
-new handoffs. Machine proof receipts and technical reference notes stay separate.
+Work only in gfx; actual source is `target/work/src/`. This is the sole current
+status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest source work
+### Latest verified work
+
+Restored the authentic IJG6b encoder (22 C TUs), its target-backed allocator,
+error-callback and BGR ABI, actual R_SaveJpg, JPEG/savegame capture, the shared
+screenshot dispatcher and all nine command registrations. Original upstream
+README/license is retained; 28 imported files are unchanged, five adapted.
+Provenance and ABI: src/jpeg-6b/COD2.md; archive hash and per-file provenance
+are pinned in proof/jpeg_commands_checkpoint.json. No new assembly or stubs.
+
+Both referees accept four new engine bodies /252 bytes and136 IJG bodies /
+38859 bytes. Dependency credit is separate. Engine C++102721 bytes /607 bodies,
+40.508320845% of the frozen253580-byte legacy inventory. That denominator still
+includes nine early IJG entries; object-origin filtering excludes them from the
+numerator. This is a legacy comparison meter, NOT a whole-DLL completion claim.
+Mixed110508 bytes /638 bodies; unchanged31 assembly-containing bodies /7787 bytes.
+All1288 prior protected extents survive; the ratchet now protects1428. Removal
+of all four new engine matches and two representative IJG matches is rejected.
+
+All103 actual-source fixtures pass. Tests include real codec/Pillow decoding,
+allocator ownership,63 screenshot routes and all nine registrations. Additional
+linked-code audit confirms actual callback addresses, command strings and RI
+slot0x104; wrong-callback/wrong-slot controls fail. One output reused, no workers.
+Token billing unavailable; measured gain is252 engine bytes +38859 library bytes.
+
+Candidate SHA e3ab109fd5e447ed7cafe8907f4fd550969ff9a1da795d27c7dca1212e5ec956;
+file1695744 bytes; .text939858, .rdata600607, .data6084596, .reloc86926.
+Same-offset8.210416811% is NOT source recovery or retail identity. Still159
+interim exports, no genuine GetRefAPI, no real client/GPU smoke, no V4/V5.
+
+Next: startup sun-sprite query calibration and its genuine draw/flush helpers,
+then R_Init and the remaining API59 callback closures. Fix/assert the common
+PC matrix-stack view before consuming post-stack backend fields: it currently
+includes an extra Mac/OGL matrix absent from the SDK-backed PC view. Do not
+create duplicate state or fake callbacks. Calibration1003a9d0 is occlusion
+sampling, NOT a CPU benchmark; query107645b4, result dx+0x2c2c.
+
+### Previous sun command checkpoint1d7e60a
 
 Aftera7294fb, r_sky.cpp restores sun population28cd0/826, dvar-file loading
 291c0/102, saving29080/101 and load/save command callbacks29010/122,290f0/46.

@@ -163,11 +163,18 @@ Do not defer structural gaps merely because a source-coverage target was met.
 Final placement and the exact SHA can only be certified once all contributors
 also match; structure first is not a promise of a frozen final address map.
 
+Latest checkpoint: JPEG encoder/capture and all nine command registrations now
+have real source. Both referees accept +252 engine C++ bytes and38859 separate
+IJG bytes;1428 extents protected,103 fixtures pass. C++102721/253580=40.5083%
+uses the frozen legacy denominator (known early IJG entries excluded from its
+numerator). R_Init/calibration and genuine GetRefAPI remain open; this does not
+complete any broader stage. See PROGRESS.md and jpeg_commands_checkpoint.json.
+
 ### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local
    historical referee inputs keep their original hashes. Run both unchanged
-   referees, all1288 protected extents and actual-source fixtures. Missing old
+   referees, all1428 protected extents and actual-source fixtures. Missing old
    research folders must not silently disable a gate. Never delete another
    agent's work or reset the owner's staged changes.
 

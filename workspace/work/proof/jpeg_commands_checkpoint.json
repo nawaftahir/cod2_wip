@@ -1,0 +1,1207 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "1d7e60a",
+  "scope": "actual IJG6b encoder ABI, screenshot/savegame commands and all nine command registrations",
+  "candidate_sha256": "e3ab109fd5e447ed7cafe8907f4fd550969ff9a1da795d27c7dca1212e5ec956",
+  "whole_file_identical": false,
+  "cpp_executable_bytes": 102721,
+  "cpp_game_bodies": 607,
+  "cpp_percent_legacy_inventory": 40.50832084549255,
+  "legacy_inventory_denominator": 253580,
+  "denominator_caveat": "Frozen legacy comparison inventory includes nine early IJG entries. JPEG-origin matches are explicitly excluded from the numerator. No denominator change or extra game credit.",
+  "engine_bytes_gained": 252,
+  "dependency_bytes_gained": 38859,
+  "new_engine_matches": [
+    {
+      "name": "?R_RegisterCmds@@YAXXZ",
+      "t": "0x100052c0",
+      "n": 151,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    {
+      "name": "?init_destination@@YAXPAUjpeg_compress_struct@@@Z",
+      "t": "0x10014580",
+      "n": 19,
+      "obj": "r_jpeg.obj",
+      "why": []
+    },
+    {
+      "name": "?term_destination@@YAXPAUjpeg_compress_struct@@@Z",
+      "t": "0x100145b0",
+      "n": 20,
+      "obj": "r_jpeg.obj",
+      "why": []
+    },
+    {
+      "name": "?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z",
+      "t": "0x100145d0",
+      "n": 62,
+      "obj": "r_jpeg.obj",
+      "why": []
+    }
+  ],
+  "new_dependency_matches": [
+    {
+      "name": "_jpeg_suppress_tables",
+      "t": "0x10041850",
+      "n": 97,
+      "obj": "jcapimin.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_finish_compress",
+      "t": "0x100418c0",
+      "n": 307,
+      "obj": "jcapimin.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_write_marker",
+      "t": "0x10041a00",
+      "n": 114,
+      "obj": "jcapimin.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_write_m_header",
+      "t": "0x10041a80",
+      "n": 77,
+      "obj": "jcapimin.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_write_m_byte",
+      "t": "0x10041ad0",
+      "n": 15,
+      "obj": "jcapimin.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_write_tables",
+      "t": "0x10041ae0",
+      "n": 136,
+      "obj": "jcapimin.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_start_compress",
+      "t": "0x10041b70",
+      "n": 110,
+      "obj": "jcapistd.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_write_scanlines",
+      "t": "0x10041be0",
+      "n": 188,
+      "obj": "jcapistd.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_write_raw_data",
+      "t": "0x10041ca0",
+      "n": 184,
+      "obj": "jcapistd.obj",
+      "why": []
+    },
+    {
+      "name": "_start_pass_coef",
+      "t": "0x10041db0",
+      "n": 224,
+      "obj": "jccoefct.obj",
+      "why": []
+    },
+    {
+      "name": "_compress_data",
+      "t": "0x10041e90",
+      "n": 692,
+      "obj": "jccoefct.obj",
+      "why": []
+    },
+    {
+      "name": "_compress_first_pass",
+      "t": "0x10042150",
+      "n": 590,
+      "obj": "jccoefct.obj",
+      "why": []
+    },
+    {
+      "name": "_compress_output",
+      "t": "0x100423a0",
+      "n": 521,
+      "obj": "jccoefct.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_c_coef_controller",
+      "t": "0x100425b0",
+      "n": 282,
+      "obj": "jccoefct.obj",
+      "why": []
+    },
+    {
+      "name": "_rgb_ycc_start",
+      "t": "0x100426d0",
+      "n": 215,
+      "obj": "jccolor.obj",
+      "why": []
+    },
+    {
+      "name": "_rgb_ycc_convert",
+      "t": "0x100427b0",
+      "n": 278,
+      "obj": "jccolor.obj",
+      "why": []
+    },
+    {
+      "name": "_rgb_gray_convert",
+      "t": "0x100428d0",
+      "n": 168,
+      "obj": "jccolor.obj",
+      "why": []
+    },
+    {
+      "name": "_cmyk_ycck_convert",
+      "t": "0x10042980",
+      "n": 346,
+      "obj": "jccolor.obj",
+      "why": []
+    },
+    {
+      "name": "_grayscale_convert",
+      "t": "0x10042ae0",
+      "n": 97,
+      "obj": "jccolor.obj",
+      "why": []
+    },
+    {
+      "name": "_null_convert",
+      "t": "0x10042b50",
+      "n": 140,
+      "obj": "jccolor.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_color_converter",
+      "t": "0x10042bf0",
+      "n": 544,
+      "obj": "jccolor.obj",
+      "why": []
+    },
+    {
+      "name": "_start_pass_fdctmgr",
+      "t": "0x10042e10",
+      "n": 760,
+      "obj": "jcdctmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_forward_DCT",
+      "t": "0x10043110",
+      "n": 967,
+      "obj": "jcdctmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_forward_DCT_float",
+      "t": "0x100434e0",
+      "n": 1765,
+      "obj": "jcdctmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_forward_dct",
+      "t": "0x10043bd0",
+      "n": 132,
+      "obj": "jcdctmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_start_pass_huff",
+      "t": "0x10043c60",
+      "n": 372,
+      "obj": "jchuff.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_make_c_derived_tbl",
+      "t": "0x10043de0",
+      "n": 518,
+      "obj": "jchuff.obj",
+      "why": []
+    },
+    {
+      "name": "_dump_buffer",
+      "t": "0x10047960",
+      "n": 54,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_bits",
+      "t": "0x100479a0",
+      "n": 312,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_flush_bits",
+      "t": "0x10047ae0",
+      "n": 28,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_restart",
+      "t": "0x10047c30",
+      "n": 259,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_htest_one_block",
+      "t": "0x100445f0",
+      "n": 227,
+      "obj": "jchuff.obj",
+      "why": []
+    },
+    {
+      "name": "_encode_mcu_gather",
+      "t": "0x100446e0",
+      "n": 204,
+      "obj": "jchuff.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_gen_optimal_table",
+      "t": "0x100447b0",
+      "n": 604,
+      "obj": "jchuff.obj",
+      "why": []
+    },
+    {
+      "name": "_finish_pass_gather",
+      "t": "0x10044a10",
+      "n": 262,
+      "obj": "jchuff.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_huff_encoder",
+      "t": "0x10044b20",
+      "n": 76,
+      "obj": "jchuff.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_compress_master",
+      "t": "0x10044b70",
+      "n": 272,
+      "obj": "jcinit.obj",
+      "why": []
+    },
+    {
+      "name": "_start_pass_main",
+      "t": "0x10044c80",
+      "n": 75,
+      "obj": "jcmainct.obj",
+      "why": []
+    },
+    {
+      "name": "_process_data_simple_main",
+      "t": "0x10044cd0",
+      "n": 161,
+      "obj": "jcmainct.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_c_main_controller",
+      "t": "0x10044d80",
+      "n": 126,
+      "obj": "jcmainct.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_marker",
+      "t": "0x10044e40",
+      "n": 104,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_2bytes",
+      "t": "0x10044eb0",
+      "n": 102,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_dqt",
+      "t": "0x10044f20",
+      "n": 546,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_dht",
+      "t": "0x10045150",
+      "n": 445,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_dri",
+      "t": "0x10045320",
+      "n": 41,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_sof",
+      "t": "0x10045350",
+      "n": 370,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_sos",
+      "t": "0x100454d0",
+      "n": 468,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_jfif_app0",
+      "t": "0x100456b0",
+      "n": 536,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_adobe_app14",
+      "t": "0x100458d0",
+      "n": 362,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_write_marker_header",
+      "t": "0x10045a40",
+      "n": 61,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_write_marker_byte",
+      "t": "0x10045a80",
+      "n": 60,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_write_file_header",
+      "t": "0x10045ac0",
+      "n": 70,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_write_frame_header",
+      "t": "0x10045b10",
+      "n": 222,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_write_scan_header",
+      "t": "0x10045bf0",
+      "n": 230,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_write_file_trailer",
+      "t": "0x10045ce0",
+      "n": 20,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_write_tables_only",
+      "t": "0x10045d00",
+      "n": 218,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_marker_writer",
+      "t": "0x10045de0",
+      "n": 75,
+      "obj": "jcmarker.obj",
+      "why": []
+    },
+    {
+      "name": "_initial_setup",
+      "t": "0x10045e30",
+      "n": 456,
+      "obj": "jcmaster.obj",
+      "why": []
+    },
+    {
+      "name": "_validate_script",
+      "t": "0x10046000",
+      "n": 967,
+      "obj": "jcmaster.obj",
+      "why": []
+    },
+    {
+      "name": "_select_scan_parameters",
+      "t": "0x100463d0",
+      "n": 235,
+      "obj": "jcmaster.obj",
+      "why": []
+    },
+    {
+      "name": "_per_scan_setup",
+      "t": "0x100464c0",
+      "n": 453,
+      "obj": "jcmaster.obj",
+      "why": []
+    },
+    {
+      "name": "_prepare_for_pass",
+      "t": "0x10046690",
+      "n": 396,
+      "obj": "jcmaster.obj",
+      "why": []
+    },
+    {
+      "name": "_pass_startup",
+      "t": "0x10046820",
+      "n": 40,
+      "obj": "jcmaster.obj",
+      "why": []
+    },
+    {
+      "name": "_finish_pass_master",
+      "t": "0x10046850",
+      "n": 116,
+      "obj": "jcmaster.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_c_master_control",
+      "t": "0x100468d0",
+      "n": 172,
+      "obj": "jcmaster.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_add_quant_table",
+      "t": "0x10046a20",
+      "n": 463,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_set_linear_quality",
+      "t": "0x10046bf0",
+      "n": 53,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_quality_scaling",
+      "t": "0x10046c30",
+      "n": 52,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_set_quality",
+      "t": "0x10046c70",
+      "n": 108,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_add_huff_table",
+      "t": "0x10046ce0",
+      "n": 184,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_std_huff_tables",
+      "t": "0x10046da0",
+      "n": 84,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_set_defaults",
+      "t": "0x10046e00",
+      "n": 263,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_default_colorspace",
+      "t": "0x10046f10",
+      "n": 684,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_set_colorspace",
+      "t": "0x100471c0",
+      "n": 740,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_fill_a_scan",
+      "t": "0x100474b0",
+      "n": 37,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_fill_scans",
+      "t": "0x100474e0",
+      "n": 47,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_fill_dc_scans",
+      "t": "0x10047510",
+      "n": 97,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_simple_progression",
+      "t": "0x10047580",
+      "n": 598,
+      "obj": "jcparam.obj",
+      "why": []
+    },
+    {
+      "name": "_start_pass_phuff",
+      "t": "0x100477e0",
+      "n": 384,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_symbol",
+      "t": "0x10047b00",
+      "n": 51,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_buffered_bits",
+      "t": "0x10047b40",
+      "n": 45,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_eobrun",
+      "t": "0x10047b70",
+      "n": 183,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_encode_mcu_DC_first",
+      "t": "0x10047d40",
+      "n": 369,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_encode_mcu_AC_first",
+      "t": "0x10047ec0",
+      "n": 506,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_encode_mcu_DC_refine",
+      "t": "0x100480c0",
+      "n": 196,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_encode_mcu_AC_refine",
+      "t": "0x10048190",
+      "n": 655,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_finish_pass_phuff",
+      "t": "0x10048420",
+      "n": 79,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_finish_pass_gather_phuff",
+      "t": "0x10048470",
+      "n": 231,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_phuff_encoder",
+      "t": "0x10048560",
+      "n": 55,
+      "obj": "jcphuff.obj",
+      "why": []
+    },
+    {
+      "name": "_start_pass_prep",
+      "t": "0x100485a0",
+      "n": 71,
+      "obj": "jcprepct.obj",
+      "why": []
+    },
+    {
+      "name": "_expand_bottom_edge",
+      "t": "0x100485f0",
+      "n": 54,
+      "obj": "jcprepct.obj",
+      "why": []
+    },
+    {
+      "name": "_pre_process_data",
+      "t": "0x10048630",
+      "n": 554,
+      "obj": "jcprepct.obj",
+      "why": []
+    },
+    {
+      "name": "_pre_process_context",
+      "t": "0x10048860",
+      "n": 612,
+      "obj": "jcprepct.obj",
+      "why": []
+    },
+    {
+      "name": "_create_context_buffer",
+      "t": "0x10048ad0",
+      "n": 313,
+      "obj": "jcprepct.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_c_prep_controller",
+      "t": "0x10048c10",
+      "n": 168,
+      "obj": "jcprepct.obj",
+      "why": []
+    },
+    {
+      "name": "_expand_right_edge",
+      "t": "0x10048cd0",
+      "n": 88,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_sep_downsample",
+      "t": "0x10048d30",
+      "n": 143,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_int_downsample",
+      "t": "0x10048dc0",
+      "n": 300,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_fullsize_downsample",
+      "t": "0x10048ef0",
+      "n": 120,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_h2v1_downsample",
+      "t": "0x10048f70",
+      "n": 160,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_h2v2_downsample",
+      "t": "0x10049010",
+      "n": 211,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_h2v2_smooth_downsample",
+      "t": "0x100490f0",
+      "n": 647,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_fullsize_smooth_downsample",
+      "t": "0x10049380",
+      "n": 378,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_downsampler",
+      "t": "0x10049500",
+      "n": 375,
+      "obj": "jcsample.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_alloc_quant_table",
+      "t": "0x100469e0",
+      "n": 24,
+      "obj": "jcomapi.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_alloc_huff_table",
+      "t": "0x10046a00",
+      "n": 24,
+      "obj": "jcomapi.obj",
+      "why": []
+    },
+    {
+      "name": "_error_exit",
+      "t": "0x10051f90",
+      "n": 51,
+      "obj": "jerror.obj",
+      "why": []
+    },
+    {
+      "name": "_output_message",
+      "t": "0x10051fd0",
+      "n": 49,
+      "obj": "jerror.obj",
+      "why": []
+    },
+    {
+      "name": "_emit_message",
+      "t": "0x10052010",
+      "n": 54,
+      "obj": "jerror.obj",
+      "why": []
+    },
+    {
+      "name": "_format_message",
+      "t": "0x10052050",
+      "n": 167,
+      "obj": "jerror.obj",
+      "why": []
+    },
+    {
+      "name": "_reset_error_mgr",
+      "t": "0x10052100",
+      "n": 17,
+      "obj": "jerror.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_std_error",
+      "t": "0x10052120",
+      "n": 88,
+      "obj": "jerror.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_fdct_float",
+      "t": "0x10052180",
+      "n": 4405,
+      "obj": "jfdctflt.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_fdct_ifast",
+      "t": "0x100532c0",
+      "n": 516,
+      "obj": "jfdctfst.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_fdct_islow",
+      "t": "0x100534d0",
+      "n": 814,
+      "obj": "jfdctint.obj",
+      "why": []
+    },
+    {
+      "name": "_out_of_memory",
+      "t": "0x10054d20",
+      "n": 26,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_alloc_small",
+      "t": "0x10054d40",
+      "n": 325,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_alloc_large",
+      "t": "0x10054e90",
+      "n": 185,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_alloc_sarray",
+      "t": "0x10054f50",
+      "n": 167,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_alloc_barray",
+      "t": "0x10055000",
+      "n": 167,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_request_virt_sarray",
+      "t": "0x100550b0",
+      "n": 104,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_request_virt_barray",
+      "t": "0x10055120",
+      "n": 104,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_realize_virt_arrays",
+      "t": "0x10055190",
+      "n": 360,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_do_sarray_io",
+      "t": "0x10055300",
+      "n": 148,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_do_barray_io",
+      "t": "0x100553a0",
+      "n": 151,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_access_virt_sarray",
+      "t": "0x10055440",
+      "n": 329,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_access_virt_barray",
+      "t": "0x10055590",
+      "n": 345,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_free_pool",
+      "t": "0x100556f0",
+      "n": 263,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_self_destruct",
+      "t": "0x10055800",
+      "n": 51,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_jinit_memory_mgr",
+      "t": "0x10055840",
+      "n": 160,
+      "obj": "jmemmgr.obj",
+      "why": []
+    },
+    {
+      "name": "_jpeg_open_backing_store",
+      "t": "0x10055930",
+      "n": 16,
+      "obj": "jmemnobs.obj",
+      "why": []
+    },
+    {
+      "name": "_jdiv_round_up",
+      "t": "0x10057970",
+      "n": 8,
+      "obj": "jutils.obj",
+      "why": []
+    },
+    {
+      "name": "_jround_up",
+      "t": "0x10057980",
+      "n": 14,
+      "obj": "jutils.obj",
+      "why": []
+    },
+    {
+      "name": "_jcopy_sample_rows",
+      "t": "0x10057990",
+      "n": 58,
+      "obj": "jutils.obj",
+      "why": []
+    },
+    {
+      "name": "_jcopy_block_row",
+      "t": "0x100579d0",
+      "n": 26,
+      "obj": "jutils.obj",
+      "why": []
+    },
+    {
+      "name": "_jzero_far",
+      "t": "0x100579f0",
+      "n": 21,
+      "obj": "jutils.obj",
+      "why": []
+    }
+  ],
+  "protected_extents": 1428,
+  "previous_1288_extents_retained": true,
+  "removal_negatives_passed": [
+    "0x100052c0",
+    "0x10014580",
+    "0x100145b0",
+    "0x100145d0",
+    "0x10052180",
+    "0x10041850"
+  ],
+  "full_source_fixtures_passed": 103,
+  "additional_registration_linked_audit_passed": true,
+  "command_source_implementations": 9,
+  "command_registration_implemented": true,
+  "new_authored_assembly": false,
+  "GetRefAPI_implemented": false,
+  "stages_1_to_3_complete": false,
+  "client_gpu_smoke_tested": false,
+  "upstream_archive_sha256": "75c3ec241e9996504fe02a9ed4d12f16b74ade713972f3db9e65ce95cd27e35d",
+  "upstream_files": {
+    "README": {
+      "upstream_sha256": "4cf9c190f184019b61c36bcc49d4a24ffeb2a838c6f1690d6c4db14cfb2d0478",
+      "current_sha256": "4cf9c190f184019b61c36bcc49d4a24ffeb2a838c6f1690d6c4db14cfb2d0478",
+      "adapted": false
+    },
+    "jcapimin.c": {
+      "upstream_sha256": "5d7e394ac763f51bb13d6f049c65888d3b106bf54c01253807647745acdf6eac",
+      "current_sha256": "48bf379c3de7790388df3dbcedab408cd80aa7d38a5b3c91d900c46d7801e66f",
+      "adapted": true
+    },
+    "jcapistd.c": {
+      "upstream_sha256": "371517d8285ca47d286be53a6c1bf8f1a0372e12e6e7f7c84b324d7f441b6581",
+      "current_sha256": "371517d8285ca47d286be53a6c1bf8f1a0372e12e6e7f7c84b324d7f441b6581",
+      "adapted": false
+    },
+    "jccoefct.c": {
+      "upstream_sha256": "3ae6713a9b2a3fe717703dcdcb37f5dfdf123c19736207b71c132c4e1caa7099",
+      "current_sha256": "3ae6713a9b2a3fe717703dcdcb37f5dfdf123c19736207b71c132c4e1caa7099",
+      "adapted": false
+    },
+    "jccolor.c": {
+      "upstream_sha256": "2c2b7417c2da845e5dcd959b4fb6264b8848c0de689d95dcc2a5b407ecaba5b5",
+      "current_sha256": "2c2b7417c2da845e5dcd959b4fb6264b8848c0de689d95dcc2a5b407ecaba5b5",
+      "adapted": false
+    },
+    "jcdctmgr.c": {
+      "upstream_sha256": "58adbdb02c125057964569e56fad59df8dc7d61e751a476006c34e24c030d1dd",
+      "current_sha256": "58adbdb02c125057964569e56fad59df8dc7d61e751a476006c34e24c030d1dd",
+      "adapted": false
+    },
+    "jchuff.c": {
+      "upstream_sha256": "1255c27a8fae13ad2b53d5fa17697b3b7cdb4983f6bdbf96876326189d2efba0",
+      "current_sha256": "1255c27a8fae13ad2b53d5fa17697b3b7cdb4983f6bdbf96876326189d2efba0",
+      "adapted": false
+    },
+    "jchuff.h": {
+      "upstream_sha256": "0aa206ea4abf0e68df14745c114fbe1db7705ce5c881b0964babf5acfbc38764",
+      "current_sha256": "0aa206ea4abf0e68df14745c114fbe1db7705ce5c881b0964babf5acfbc38764",
+      "adapted": false
+    },
+    "jcinit.c": {
+      "upstream_sha256": "31aa9f72d8e6250790328512ae9c646b3c2b32887f79fa3df01af7d5345e061c",
+      "current_sha256": "31aa9f72d8e6250790328512ae9c646b3c2b32887f79fa3df01af7d5345e061c",
+      "adapted": false
+    },
+    "jcmainct.c": {
+      "upstream_sha256": "a51f469b02429189ad0c5a52fb2d789d7025c1802b87168a9fe9180fc135c07e",
+      "current_sha256": "a51f469b02429189ad0c5a52fb2d789d7025c1802b87168a9fe9180fc135c07e",
+      "adapted": false
+    },
+    "jcmarker.c": {
+      "upstream_sha256": "c4eadb83aeaa63df9a17364fbddb1df1b96fb1281f2d395dff6ec8371373cfcc",
+      "current_sha256": "c4eadb83aeaa63df9a17364fbddb1df1b96fb1281f2d395dff6ec8371373cfcc",
+      "adapted": false
+    },
+    "jcmaster.c": {
+      "upstream_sha256": "44a467046fc8eee886359e1c738fb8289a5bb3533b06de62d332d5b409ddfb2b",
+      "current_sha256": "44a467046fc8eee886359e1c738fb8289a5bb3533b06de62d332d5b409ddfb2b",
+      "adapted": false
+    },
+    "jcomapi.c": {
+      "upstream_sha256": "d8a79c2a19310e0bc918324d7174a1e1bc1b9e316f63fd90449abf46c041711d",
+      "current_sha256": "d8a79c2a19310e0bc918324d7174a1e1bc1b9e316f63fd90449abf46c041711d",
+      "adapted": false
+    },
+    "jconfig.h": {
+      "upstream_sha256": "1d0894775067d15163181f26d3039e24b34501ca7e5380dd2ddb8526dd05b250",
+      "current_sha256": "1d0894775067d15163181f26d3039e24b34501ca7e5380dd2ddb8526dd05b250",
+      "adapted": false
+    },
+    "jcparam.c": {
+      "upstream_sha256": "c24c98d067ba1424a578e91a0ab584533983eafbcc399d681895974225478629",
+      "current_sha256": "c24c98d067ba1424a578e91a0ab584533983eafbcc399d681895974225478629",
+      "adapted": false
+    },
+    "jcphuff.c": {
+      "upstream_sha256": "7a428d6d13f786ba53d200ba96ab1fa3ff9f7dad61737ad96f3ce199b748c367",
+      "current_sha256": "7a428d6d13f786ba53d200ba96ab1fa3ff9f7dad61737ad96f3ce199b748c367",
+      "adapted": false
+    },
+    "jcprepct.c": {
+      "upstream_sha256": "4713a51fd7ecb9cc7c7162b30bc26243342361a4e083f43f2afbd10e977a92fc",
+      "current_sha256": "4713a51fd7ecb9cc7c7162b30bc26243342361a4e083f43f2afbd10e977a92fc",
+      "adapted": false
+    },
+    "jcsample.c": {
+      "upstream_sha256": "8e0b73f54bafcd87f7117795de04987eb1a5a3ac74fb8d256833ceb59f8b31d4",
+      "current_sha256": "8e0b73f54bafcd87f7117795de04987eb1a5a3ac74fb8d256833ceb59f8b31d4",
+      "adapted": false
+    },
+    "jdct.h": {
+      "upstream_sha256": "4cde9d7c12ffc920e1dd525c6b7f41f88a3ea573af8c66a4b6d0d6ed3d7fd770",
+      "current_sha256": "4cde9d7c12ffc920e1dd525c6b7f41f88a3ea573af8c66a4b6d0d6ed3d7fd770",
+      "adapted": false
+    },
+    "jerror.c": {
+      "upstream_sha256": "f215cc7948e628f4b3bf1f153ce1f460a65b0c4f9b5d4967e9cdc7ad95a3e265",
+      "current_sha256": "f6b0fc0548e2236bce873df854ab3bdf9252d1a680d8ebb494f9e3579c917e5d",
+      "adapted": true
+    },
+    "jerror.h": {
+      "upstream_sha256": "324f058e0dc17408ea83a8d47d0a7a1f6ba7553d653f709a9be275971f539fec",
+      "current_sha256": "324f058e0dc17408ea83a8d47d0a7a1f6ba7553d653f709a9be275971f539fec",
+      "adapted": false
+    },
+    "jfdctflt.c": {
+      "upstream_sha256": "07c7ec15785f5709515424da1b45deacfa822197b761e319f45fbaa45e17caf9",
+      "current_sha256": "07c7ec15785f5709515424da1b45deacfa822197b761e319f45fbaa45e17caf9",
+      "adapted": false
+    },
+    "jfdctfst.c": {
+      "upstream_sha256": "1c28ec690d4a69bdc285eac01bef668e31866ad0018fe9b4f68bcdce8a9ec044",
+      "current_sha256": "1c28ec690d4a69bdc285eac01bef668e31866ad0018fe9b4f68bcdce8a9ec044",
+      "adapted": false
+    },
+    "jfdctint.c": {
+      "upstream_sha256": "807dd95d59692db94d2fa23557d8a16e2a20cb4d851ba5a82f26fa1a674b52c8",
+      "current_sha256": "807dd95d59692db94d2fa23557d8a16e2a20cb4d851ba5a82f26fa1a674b52c8",
+      "adapted": false
+    },
+    "jinclude.h": {
+      "upstream_sha256": "a6433e5ea0030f4bffd41bcc2f064008afd79de4270cf28494bd43d2fbc5da06",
+      "current_sha256": "a6433e5ea0030f4bffd41bcc2f064008afd79de4270cf28494bd43d2fbc5da06",
+      "adapted": false
+    },
+    "jmemmgr.c": {
+      "upstream_sha256": "2b57e48bb6dd369c2d46e5827cd1e2553d50e02b062d94c2c17725ca26b642e3",
+      "current_sha256": "2b57e48bb6dd369c2d46e5827cd1e2553d50e02b062d94c2c17725ca26b642e3",
+      "adapted": false
+    },
+    "jmemnobs.c": {
+      "upstream_sha256": "0605c64556d298071473fc245fa9d83cf10b60022d5c5d2821a846b94aa1a9fb",
+      "current_sha256": "d26df98be70e5d89ac66803a4bcaab64350260eaffa02953ba9d1273e01ff166",
+      "adapted": true
+    },
+    "jmemsys.h": {
+      "upstream_sha256": "dbe87b534bc93f9ea54492589e69307b492aff8a377fa3c9c8b54a54de488397",
+      "current_sha256": "dbe87b534bc93f9ea54492589e69307b492aff8a377fa3c9c8b54a54de488397",
+      "adapted": false
+    },
+    "jmorecfg.h": {
+      "upstream_sha256": "262138c3433e81e84e9f6811b38b5dc63e6f161e9b952afb0ff61b4a39b697a9",
+      "current_sha256": "68a0f8e44b2bb8e041a3f1f389cc5e18345c3e0b043c7100d21db37e7bafcab7",
+      "adapted": true
+    },
+    "jpegint.h": {
+      "upstream_sha256": "f2fbbf47da9fe7cc9e4813235d71e1252ec4662e3ecb8823bd4d499492125153",
+      "current_sha256": "f2fbbf47da9fe7cc9e4813235d71e1252ec4662e3ecb8823bd4d499492125153",
+      "adapted": false
+    },
+    "jpeglib.h": {
+      "upstream_sha256": "b34b3d9897820302cc23ba60217157f75e03db8c537a7d4703ff0bc8c9fc048b",
+      "current_sha256": "f6eb955507d238a6c9b098d6bf1e8c99ccd49d0379265011f6e3a313b4e02f9c",
+      "adapted": true
+    },
+    "jutils.c": {
+      "upstream_sha256": "2cab735c6ea1bca55f4c94a72c73035a0a161378403a6bd849b350df71db92d6",
+      "current_sha256": "2cab735c6ea1bca55f4c94a72c73035a0a161378403a6bd849b350df71db92d6",
+      "adapted": false
+    },
+    "jversion.h": {
+      "upstream_sha256": "7a8c12a9d52f62342b46b64a8d91d148ae7b0398e9663ad03da3e0b882cd2f14",
+      "current_sha256": "7a8c12a9d52f62342b46b64a8d91d148ae7b0398e9663ad03da3e0b882cd2f14",
+      "adapted": false
+    }
+  },
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_jpeg.cpp": "c2e02d96cc99de647bf74d71e84226c19d74c3089f4aaceb683611532bafe14b",
+    "src/gfx_d3d/r_init.cpp": "017fe702efa1e3eede7fb816b33763a60716a97f925f0ac82195609c9492c8b2",
+    "src/gfx_d3d/r_screenshot_capture.cpp": "506921f54e2e756c3b658b320a9fb13eb53b44a0a385185f297fca381a1557f4",
+    "src/gfx_d3d/gfx.h": "a6c3860ce94540dba3f7e22412f34d111bb75488bff892a3b33bebd308d61e11",
+    "src/profile.mk": "581d8f5d309af34854b38c1ee1ac5d7292a5dc03b44fc423df1baf0ac9fe8379",
+    "src/tus.txt": "27458e29727e44e09e600649c9fad60fbb77eb4350f915425dc3c5e3e2113e43",
+    "src/jpeg-6b/COD2.md": "5c0b200b5a40e9667b7eb747d2dd3416a00632f3cf845deecd807d1959b2a485",
+    "tools/check_checkpoint.py": "b955ceb010ef3f8392c5e6de135cd23fd5e6cbfbdbcbbcbe0166b0033dd02ad1",
+    "tools/regression.py": "d174136b8643fb10ffbfef1ac6e70dc36e1702615c6df9a94693c87e1c3b5f7b",
+    "tools/source_coverage.py": "28e096773c765242357ea18dfafe0541a861d2fce4a85ce65c2fd9700a1a34bf",
+    "tests/test_jpeg_encoder.py": "e1aafdb3c57c92cbf3a679a520d10df769b564ed7e029c60299ebea3a7348989",
+    "tests/test_screenshot_commands.py": "5dd292d93320aec3e183b970fc9fa1a16eba8aac7c17a3fb6912dde51dd35654",
+    "tests/test_command_registration.py": "31f20528cbe58976df4b64b4fcbdd5713b5055b8b1f6c772d3eb0274c073d0e8",
+    "tests/test_dependency_origin.py": "cfc2d179e9d2d6a5a36adcfa691e03c8b295e2d2973464395d224c1fb952acf1",
+    "tests/test_renderer_systems.py": "55150e348d000e34b941ab5a4bae041ed2037a20effe291506799b8a767037ce",
+    "proof/jpeg_commands_warm_bind.json": "8ad857edd6e4b2ea8b17572f753266e63e3ef2cfa22ced0f2435d17c80a7640e",
+    "proof/jpeg_commands_layout.json": "37231643bd9dbda9a3d2e3fc1b79ceef69c892a4db7a895b3c58ce4101975657",
+    "proof/jpeg_commands_source_coverage.json": "3ccd24cb59013d7cc0b77a17bfefb436ab5ecc4370ca1732e46c4b62c5fba22c",
+    "proof/latest/jpeg_commands_build.log": "1132f3160b568b788e7f28a8682eb38a7b1b59bb925ef17a3c084db75c894243",
+    "proof/latest/jpeg_commands_fixtures.log": "2258ed7486b39c44b008e14425869b7a6e4ba38d0e7e3ff5b27f44c19c347cfb",
+    "proof/latest/jpeg_commands_registration.log": "5661843157d59676ec7937cb2e523fe538e65d5054f3c7dfb23723de610a6f75"
+  }
+}

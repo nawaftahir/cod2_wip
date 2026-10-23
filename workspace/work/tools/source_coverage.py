@@ -60,7 +60,7 @@ assert '__asm rdtsc' in backend
 rows = {}
 for name, row in bindings.items():
     address = int(row['t'], 16)
-    if row['why'] or '@std@@' in name or not (
+    if row['why'] or '@std@@' in name or Path(row['obj'].replace('\\', '/')).name in report['dependency_objects'] or not (
             0x10001000 <= address < 0x10041db0 or 0x10057990 <= address < 0x10062200):
         continue
     assert address not in rows or rows[address]['n'] == row['n']

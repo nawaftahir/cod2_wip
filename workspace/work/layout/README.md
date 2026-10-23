@@ -282,3 +282,15 @@ Vector2Copy copy binds at10001000 while its actual hull routines occur near
 callers. Classify helper copies separately from each file's main body range.
 The retained map plus the unchanged binder supplies that ownership evidence;
 the binary alone does not prove historical source-file boundaries.
+
+### JPEG encoder and command ownership - 2026-10-23
+
+r_jpeg.cpp owns hackSize and real memory-destination callbacks. r_screenshot_capture.cpp
+owns the one shared JPEG/TGA lastScreenShotNumber. r_init.cpp registers nine actual
+command callbacks through the existing RI. jpeg-6b supplies22 encoder C TUs after
+the engine units in tus.txt; candidate order, not historical proof. The supplied
+Windows boolean ABI and target-backed allocator/error additions are shared through
+one IJG header set. profile.mk compiles codec C directly with /O2 /GL /MT /TC and
+NO_GETENV; this is a tested configuration, not proof of original command lines.
+Library credit is separate even for IJG addresses inside the legacy game interval.
+No dummy callbacks, duplicate globals, filler or new export roots.

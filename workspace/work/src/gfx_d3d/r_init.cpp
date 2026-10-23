@@ -273,3 +273,27 @@ void R_InitSystems()
     debugGlobals.plumeLimit = 4096;
     rg.registered = 1;
 }
+
+void R_ScreenShot_f();
+void R_ScreenShotJpeg_f();
+void R_ImageList_f();
+void R_ApplyPicmip_f();
+void Material_ReloadTextures_f();
+void R_LoadSun_f();
+void R_SaveSun_f();
+void R_StaticModelCacheStats_f();
+void R_StaticModelCacheFlush_f();
+
+// PINNED 100052c0/151: every callback has real source in its owning module.
+void R_RegisterCmds()
+{
+    ri.Cmd_AddCommand("screenshot", R_ScreenShot_f);
+    ri.Cmd_AddCommand("screenshotJpeg", R_ScreenShotJpeg_f);
+    ri.Cmd_AddCommand("imagelist", R_ImageList_f);
+    ri.Cmd_AddCommand("r_applyPicmip", R_ApplyPicmip_f);
+    ri.Cmd_AddCommand("reloadmaterialtextures", Material_ReloadTextures_f);
+    ri.Cmd_AddCommand("r_loadsun", R_LoadSun_f);
+    ri.Cmd_AddCommand("r_savesun", R_SaveSun_f);
+    ri.Cmd_AddCommand("r_smc_stats", R_StaticModelCacheStats_f);
+    ri.Cmd_AddCommand("r_smc_flush", R_StaticModelCacheFlush_f);
+}

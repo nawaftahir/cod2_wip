@@ -162,7 +162,12 @@ inventory = json.loads((gfx / 'target/work/proof/retail/functions_gfx10.json').r
 total = sum(row['size'] for row in inventory if not row['thunk'] and
             (0x10001000 <= int(row['addr'], 16) < 0x10041db0 or
              0x10057990 <= int(row['addr'], 16) < 0x10062200))
-library = {va: row for va, row in new.items() if va not in old and '@std@@' in row['name']}
+jpeg_objects = {Path(line.split()[0]).stem + '.obj'
+                for line in (gfx / 'target/work/src/tus.txt').read_text().splitlines()
+                if line.startswith('jpeg-6b/')}
+library = {va: row for va, row in new.items()
+           if Path(row['obj'].replace('\\', '/')).name in jpeg_objects or
+           (va not in old and '@std@@' in row['name'])}
 scored = {va: row for va, row in new.items() if va not in library}
 gains = [row for row in gains if int(row['target'], 16) not in library]
 # Require full unchanged-referee extents; exclude embedded tables and padding.
@@ -188,6 +193,7 @@ print(json.dumps(dict(functions=len(scored), bytes=done, total=total, percent=10
                       baseline_lost=lost, gains=gains,
                       checkpoint_lost=checkpoint_lost,
                       excluded_new_library_functions=len(library),
+                      dependency_objects=sorted(jpeg_objects),
                       excluded_new_embedded_table_bytes=embedded_table_bytes,
                       excluded_new_library_bytes=sum(row['n'] for row in library.values())), indent=2))
 assert not lost, ('baseline loss', lost)

@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_init.cpp').read_text()
-source = text[text.index('typedef char rendererSystemsLayoutCheck'):]
+source = text[text.index('typedef char rendererSystemsLayoutCheck'):text.index('void R_ScreenShot_f();')]
 types = (work.parent / 'src/opencod2/headers/common_types.h').read_text()
 start = types.index('struct DebugGlobals {')
 debug = types[start:types.index('\n};', start)+3]

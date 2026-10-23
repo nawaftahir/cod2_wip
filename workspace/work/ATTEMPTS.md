@@ -1116,3 +1116,17 @@ identical; see proof/material_checkpoint.json and its nine negative controls.
   ends17396 (71 bytes, not inventory64). Raw setup compares textures/constants/
   techniqueSet, rejects non-default raw with textureCount!=1 via Printf3,
   then init redirects only the texture-name pointer into rgp.rawTexdef.
+
+### JPEG command closure - 2026-10-23
+
+Reuse authenticated IJG6b; do not repeat archived broad compiler sweeps. Restore
+the actual allocator pair at cinfo+18/+1c and error callbacks at+84/+88, Windows
+boolean and BGR order. Compression368/decompression440/error140 bytes, dest28.
+Pinned-compiler integration failures fixed before final successful build: use
+minimal ri.h to avoid Windows INT32 conflict, declare existing vidConfig in the
+common-view screenshot TU, and expose existing unsigned Com_sprintf signature.
+Native fixtures require -malign-double to model MSVC double alignment. Original
+exhausted-destination and screenshot numbering quirks are intentionally retained.
+Final build/referees/full103 fixtures pass; four engine bodies252 bytes and136
+IJG bodies38859 bytes accepted, all old1288 retained. Registration linked audit
+also rejects wrong callback/RI slot. Source spelling sweeps were not pursued.

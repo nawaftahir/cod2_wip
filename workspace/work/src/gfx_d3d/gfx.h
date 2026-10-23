@@ -20,6 +20,7 @@ void R_Error(errorParm_t code, const char *fmt, ...);
 void Com_Printf(const char *fmt, ...);
 void Com_Error(errorParm_t code, const char *fmt, ...);
 char *va(const char *format, ...);
+int Com_sprintf(char *dest, unsigned int size, const char *format, ...);
 
 extern r_globals_t rg;
 extern r_global_permanent_t rgp;
