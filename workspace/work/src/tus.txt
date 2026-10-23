@@ -55,6 +55,7 @@ gfx_d3d/rb_fog.cpp
 gfx_d3d/rb_filter_generate.cpp
 gfx_d3d/rb_light_derive.cpp
 gfx_d3d/rb_shade_lights.cpp
+gfx_d3d/rb_shade.cpp
 gfx_d3d/rb_shader_matrices.cpp
 gfx_d3d/r_xsurface_load_obj.cpp
 gfx_d3d/r_xsurface.cpp

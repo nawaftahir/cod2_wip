@@ -305,3 +305,14 @@ The old OGL field is absent from the live cod2_defs.h; common_types.h's inactive
 historical copy is not a compiler input. Original MSVC needs explicit alignment
 on this type because COD2_ALIGNED is empty on its platform branch. The six
 layout assertions pass with original MSVC and all1428 accepted extents survive.
+
+### Tessellated surface setup - 2026-10-23
+
+rb_sky.cpp remains the sole tess allocation. rb_tess.h now models the primary
+field span through5a7e8 (firstOptimizedVertex), size5a7ec, retaining the existing
+opaque vertex storage. optimizedVertexSource replaces the prior four-byte pad;
+all older offsets stay fixed. New rb_shade.cpp owns genuine RB_BeginSurface and
+its35-entry stack-local diagnostic-name helper. Candidate TU order follows
+rb_shade_lights.cpp; historical grouping/order remains unproved. Logging reuses
+the existing r_logFile, va and RB_LogPrint. No new export root or duplicate state.
+Both functions match retail304+153 bytes and all1428 older extents survive.

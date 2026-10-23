@@ -99,6 +99,9 @@ required.update(accepted(sun_commands))
 jpeg_commands = Path(__file__).resolve().parents[1] / 'proof/jpeg_commands_warm_bind.json'
 assert hashlib.sha256(jpeg_commands.read_bytes()).hexdigest() == '8ad857edd6e4b2ea8b17572f753266e63e3ef2cfa22ced0f2435d17c80a7640e'
 required.update(accepted(jpeg_commands))
+surface_begin = Path(__file__).resolve().parents[1] / 'proof/surface_begin_warm_bind.json'
+assert hashlib.sha256(surface_begin.read_bytes()).hexdigest() == 'b4b8d1aead89362ced24b41926efe4414bd6cb9ef07a0ef6858155af1ded3053'
+required.update(accepted(surface_begin))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

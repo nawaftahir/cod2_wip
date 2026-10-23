@@ -1146,3 +1146,15 @@ Primary R_Init writes10764558 and RB_InitBackendGlobalStructs clears0xdad8
 dwords at1072da00 and sets resolved targets10730554/58. Native fixture checks
 both actual matrix declarations and rejects restoring the extra OGL matrix.
 No extra global/backend wrapper or code-coverage credit.
+
+### Surface setup structure - 2026-10-23
+
+Primary BeginSurface1003a5f0 stores zeros to tess offsets5a7cc,5a7b8,5a7d0,
+5a7d4,5a7d8,5a7dc, then publishes material/type/lmap. It does NOT clear
+materialTime or optimizedIndexCount. Restore the actual remaining fields in
+the shared header so later calibration/draw work never accesses beyond the
+sole tess allocation. Diagnostic callee10037930 constructs35 pointers on stack;
+all strings recovered independently from its immediate operands, no guessed
+technique aliases. Existing Mac/open-source BeginSurface omits logging. PC calls
+va then existing RB_LogPrint before mutating tess, conditionally on r_logFile.
+Preflight passes. Do not add guards for invalid type/material absent from retail.

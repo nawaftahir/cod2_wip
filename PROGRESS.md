@@ -5,6 +5,31 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
+### Verified tessellated surface setup checkpoint
+
+After3f1c0ac, the shared rb_tess.h now models the primary field span through
+firstOptimizedVertex at5a7e8 (modeled size5a7ec), preserving every old field
+position and the sole allocation in rb_sky.cpp. New rb_shade.cpp restores real
+RB_BeginSurface1003a5f0/153 and its primary35-entry diagnostic helper10037930/304.
+It logs through existing shared helpers BEFORE resetting precisely six fields;
+materialTime and optimized counts remain untouched, exactly as retail.
+
+Both functions pass both referees: +457 genuine C++ bytes. Engine C++ now
+103178/253580=40.688540106%,609 bodies. This is the frozen legacy inventory
+meter with IJG explicitly excluded from its numerator, not whole-DLL completion.
+All1428 old extents survive; ratchet now protects1430. Both removal negatives
+reject the lost new body. All105 fixtures pass, including4200 actual surface
+begins,35 independently target-derived names and complete-field preservation.
+No new assembly/export roots, workers or duplicate build outputs; billing unknown.
+
+Candidate SHA354c64897ce39e7ed8ef689d44fa598aa6724cb4163920fd6072162b565e84f6;
+same-offset8.174227824%, not source progress. Freeze/source/log hashes are in
+proof/surface_begin_checkpoint.json. Builds and fixtures are terminal and passed.
+Next closure: real EndSurface/draw/upload/2D setup -> sun calibration -> R_Init
+-> remaining API59 callbacks. RB_DrawSingleTechnique, iterator fog and viewport
+updates already have real source; reuse them. Do not add dummy draw callbacks.
+GetRefAPI, stages1-3, retail SHA and real client/GPU smoke remain OPEN.
+
 ### Backend layout checkpoint afterf35cb77
 
 Fixed the LIVE common PC backend type in target/src/opencod2/headers/cod2_defs.h:

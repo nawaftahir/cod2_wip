@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "3f1c0ac",
+  "scope": "target-proven tessellation field span and real surface setup/logging",
+  "whole_file_identical": false,
+  "stages_1_to_3_complete": false,
+  "candidate_sha256": "354c64897ce39e7ed8ef689d44fa598aa6724cb4163920fd6072162b565e84f6",
+  "same_file_offset_percent": 8.174227824253318,
+  "cpp_executable_bytes": 103178,
+  "cpp_percent_legacy_inventory": 40.68854010568657,
+  "cpp_game_bodies": 609,
+  "new_engine_bytes": 457,
+  "new_engine_matches": [
+    {
+      "target": "0x10037930",
+      "bytes": 304,
+      "name": "RB_TechniqueName (descriptive)"
+    },
+    {
+      "target": "0x1003a5f0",
+      "bytes": 153,
+      "name": "RB_BeginSurface"
+    }
+  ],
+  "protected_extents": 1430,
+  "previous_1428_retained": true,
+  "new_match_removal_negatives_passed": 2,
+  "full_source_fixtures_passed": 105,
+  "native_surface_begin_routes": 4200,
+  "target_diagnostic_names": 35,
+  "tess_modeled_bytes": "0x5a7ec",
+  "new_authored_assembly": false,
+  "new_export_roots": false,
+  "GetRefAPI_implemented": false,
+  "client_gpu_smoke_tested": false,
+  "billing_tokens": null,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/rb_tess.h": "3a8b6d3bf2209d6f25bb5efb8594fea8c1845afef306a6bae18394af8f2343d0",
+    "src/gfx_d3d/rb_shade.cpp": "56b532618b04059833f0525ed49e9c958527878092b3396f4e65d2e41269eb35",
+    "src/tus.txt": "961c79c38da525d31cc4771ff07dfd47c9249faf24a39b68fe7ea818780049af",
+    "tests/test_surface_begin.py": "05335a7991842749cf64fefcf6a5d96e3a29a99cb1a745bedde1f9e6b1edd802",
+    "tools/check_checkpoint.py": "29ee674d02fa78700eb0f16ada00d133c599a191cbbf551810a66eb67b29525f",
+    "proof/surface_begin_warm_bind.json": "b4b8d1aead89362ced24b41926efe4414bd6cb9ef07a0ef6858155af1ded3053",
+    "proof/surface_begin_layout.json": "44ea4e37599d352dfe0364ae4452460d4af84a29a829a01aa3aaac0fe8e065b5",
+    "proof/surface_begin_source_coverage.json": "64d0ba1279748691442c828b41c250afd9c9d974714c419056aff8705ad42b3a",
+    "proof/latest/surface_begin_preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "proof/latest/surface_begin_build.log": "6a394d90af39a24c03ee5e8e3dba68a5a21dd035272646f84cf0204891d24a1f",
+    "proof/latest/surface_begin_fixtures.log": "cdaeccf11cd35516bdc07809d71560f8038783ee269e6cdab70314d2ee904256",
+    "proof/latest/surface_begin_ratchet.log": "ca13728c7773c6314929773f93ae2d46e143d3c59db982bcf435d93aec631f27"
+  }
+}

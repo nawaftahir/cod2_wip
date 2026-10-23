@@ -7,7 +7,7 @@ struct GfxTess
     char vertexData[0x5a7b0];
     unsigned short *indices;
     unsigned short *secondaryIndices;
-    char pad[4];
+    int optimizedVertexSource;
     const Material *material;
     int techType;
     int lmapIndex;
@@ -15,11 +15,19 @@ struct GfxTess
     int declType;
     int indexCount;
     int vertexCount;
+    int firstVertex;
+    int lastVertex;
+    int optimizedIndexCount;
+    int optimizedVertexCount;
+    int firstOptimizedVertex;
 };
 extern GfxTess tess;
 #ifdef _MSC_VER
 typedef char tessLayoutCheck[(offsetof(GfxTess, material) == 0x5a7bc &&
     offsetof(GfxTess, secondaryIndices) == 0x5a7b4 &&
     offsetof(GfxTess, indexCount) == 0x5a7d0 &&
-    offsetof(GfxTess, vertexCount) == 0x5a7d4) ? 1 : -1];
+    offsetof(GfxTess, vertexCount) == 0x5a7d4 &&
+    offsetof(GfxTess, optimizedIndexCount) == 0x5a7e0 &&
+    offsetof(GfxTess, firstOptimizedVertex) == 0x5a7e8 &&
+    sizeof(GfxTess) == 0x5a7ec) ? 1 : -1];
 #endif

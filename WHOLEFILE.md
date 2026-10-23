@@ -176,11 +176,17 @@ The extra Mac/OGL matrix and missing MSVC alignment are corrected in the live
 header;104 fixtures and1428 protected extents pass. This fixes a structural gap,
 with no new coverage credit. Proof: backend_common_checkpoint.json.
 
+Surface setup now has genuine matching source: RB_BeginSurface and its diagnostic
+helper add457 engine C++ bytes. Current103178/253580=40.6885%,1430 protected
+extents,105 fixtures. The single tess allocation now covers its primary optimized
+fields. This is required startup/draw structure; EndSurface/upload/2D/calibration
+and API closure remain open. See surface_begin_checkpoint.json.
+
 ### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local
    historical referee inputs keep their original hashes. Run both unchanged
-   referees, all1428 protected extents and actual-source fixtures. Missing old
+   referees, all1430 protected extents and actual-source fixtures. Missing old
    research folders must not silently disable a gate. Never delete another
    agent's work or reset the owner's staged changes.
 
