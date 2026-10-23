@@ -21,13 +21,13 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/material_commands_checkpoint.json; previous coverage gain:
+Current source wave:target/work/proof/sun_commands_checkpoint.json; previous coverage gain:
 target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
-47b747c. Readable source is target/work/src; some functions are still unmatched
-drafts. All1286 protected source/library extents survive (433 prior SDK/runtime
+a7294fb. Readable source is target/work/src; some functions are still unmatched
+drafts. All1288 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
-Accepted authored C/C++:102322/253580 game bytes,40.350974052%. This is not a
+Accepted authored C/C++:102469/253580 game bytes,40.408943923%. This is not a
 whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 
 | Whole-file component | Retail | Current candidate |
@@ -35,10 +35,10 @@ whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 | File length |1851392 bytes |1638400 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |894562 |
-| .rdata virtual length |595105 |593215 |
-| .data virtual length, including zero-initialized storage |6086100 |6084500 |
-| .reloc virtual length |95704 |85708 |
+| .text virtual length |1089680 |895842 |
+| .rdata virtual length |595105 |593519 |
+| .data virtual length, including zero-initialized storage |6086100 |6084596 |
+| .reloc virtual length |95704 |85890 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
@@ -116,6 +116,14 @@ cache state. Cache stats84B and white binding33B add117 accepted C++ bytes;
 all98 fixtures and1286 protected extents pass, with two removal negatives.
 Five of nine command source implementations exist; screenshot/sun pairs,
 registration, the R_Init/benchmark chain and API still need real closure.
+Sun population/load/save and both sun callbacks are now source-restored. The
+save helper101B and callback46B add147 verified C++ bytes; all99 fixtures and
+1288 protected extents pass, with two new removal negatives. Seven of nine
+command source implementations exist, not seven byte-accepted callbacks.
+The screenshot pair requires the original missing JPEG wrapper/library ABI;
+do not substitute modern JPEG/D3DX or leave an unresolved release link. Sun
+population reuses existing assembly-bearing helpers but stays unaccepted;
+future accepted expansions need separate attribution, not C++ relabeling.
 
 ## Execution order
 
@@ -159,7 +167,7 @@ also match; structure first is not a promise of a frozen final address map.
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local
    historical referee inputs keep their original hashes. Run both unchanged
-   referees, all1286 protected extents and actual-source fixtures. Missing old
+   referees, all1288 protected extents and actual-source fixtures. Missing old
    research folders must not silently disable a gate. Never delete another
    agent's work or reset the owner's staged changes.
 

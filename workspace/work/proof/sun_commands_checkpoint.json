@@ -1,0 +1,66 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "a7294fb",
+  "scope": "real sun dvar population, file load/save and both console commands",
+  "whole_file_identical": false,
+  "candidate_sha256": "7e87e52be7e6813e8dd20e2da99375096123bc17b3acb40dc63b6ea0a377f268",
+  "same_file_offset_percent": 8.179359098451327,
+  "candidate_file_bytes": 1638400,
+  "candidate_sections": {
+    ".text": 895842,
+    ".rdata": 593519,
+    ".data": 6084596,
+    ".reloc": 85890
+  },
+  "cpp_executable_bytes": 102469,
+  "cpp_percent_supported_inventory": 40.40894392302232,
+  "cpp_game_bodies": 603,
+  "cpp_bytes_gained": 147,
+  "new_accepted_bodies": [
+    {
+      "target": "0x10029080",
+      "bytes": 101,
+      "name": "R_SaveSun"
+    },
+    {
+      "target": "0x100290f0",
+      "bytes": 46,
+      "name": "R_SaveSun_f"
+    }
+  ],
+  "mixed_executable_bytes": 110256,
+  "mixed_game_bodies": 634,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "previous_1286_extents_retained": true,
+  "protected_extents": 1288,
+  "new_match_removal_negatives_passed": 2,
+  "full_source_fixtures_passed": 99,
+  "native32_sun_routes": 144,
+  "sun_dvar_entries": 21,
+  "world_sun_offset": "0x160",
+  "sun_record_bytes": 96,
+  "new_authored_assembly_definitions": false,
+  "unaccepted_population_reuses_existing_assembly_bearing_rounding_helper": true,
+  "command_source_implementations_present": 7,
+  "retail_command_entries": 9,
+  "command_registration_implemented": false,
+  "new_tus_flags_root_exports_or_assembly": false,
+  "GetRefAPI_implemented": false,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_sky.cpp": "52a822ca7dc19e3faabd6368726743521c3981152c29ee0b973d070e9b0e7ad7",
+    "tests/test_sun_commands.py": "b7457a3d75c5c154780b814d84c12ccf362001634eea3891277e949ecede93a3",
+    "tools/check_checkpoint.py": "4dd9390d487b01e3e128c6d888fae28c41103e016bce947d45f2feb359212df0",
+    "proof/sun_commands_warm_bind.json": "4a66a429acde5d20e1236b9c15b24bc07ff08ef6ac4c8b388dd574ce2470062f",
+    "proof/sun_commands_layout.json": "60e76e9e1e03359984e4482702d944023a4f3227563a2ea2f8d67b211049870c",
+    "proof/sun_commands_source_coverage.json": "155adcdbed1ecce1942dfa7710b9541092b88e0e75ea174f2fd325998bb3acef",
+    "proof/latest/sun_commands_build.log": "2a621d90098eeaaeea382da92ea92d8c256536d70ab51c2cdd9d401d4d8b2e69",
+    "proof/latest/sun_commands_fixtures.log": "05eeb0bea18a1e5a67730f359cd0539c4e2f2826b756578000cacaad09c982ab",
+    "proof/latest/sun_commands_ratchet.log": "2ee96077abdea4dbc67199be3258f14d42111832e77d33eb9989405c2fc88f5c"
+  }
+}

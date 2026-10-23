@@ -1,5 +1,34 @@
 # Reconstruction attempts
 
+## 2026-10-23 sun commands and JPEG dependency boundary
+
+PINNED28cd0 ends29009 (826 bytes, not inventory832): sprite material/default,
+sprite size, flare material/default, half flare min/max sizes, float degree
+factor1019bd8c, six cosines, six float seconds*1000 then biased I_fround values,
+forward AngleVectors and hasValidData1. Material track is6. Size factor0.5,
+time factor1000, rounding bias2^-30 are primary constants. Existing assembly
+helpers are reused with no new definitions; this body is unaccepted. Any later
+matching inline expansions MUST be separately attributed, not added as C++.
+
+Load291c0/102 uses sun/%s.sun; missing reads warn/return without free. Zero
+length still parses. Parse true populates before free; parse false still frees.
+Load command29010 checks argc2, sv_cheats101ce6bc, then rgp.world. Save29080/101
+serializes21 named dvars to8192 bytes, then writes strlen bytes; write status
+is ignored. Save callback290f0/46 only requires argc2. Both save bodies pass
+both referees (+147 C++), all99 fixtures pass, and both new loss controls reject.
+
+JPEG next: active source has no R_SaveJpg14670/713 or JPEG library TU. Existing
+R_LevelShot in r_screenshot_capture.cpp must be reused, not rewritten. Primary
+R_SaveJpg inlines object/error setup:368 bytes cleared; allocation callback
+14610 stored at cinfo+18, free callback14620 at+1c (source14610 forwards RI
+Z_MallocInternal;14620 forwards Z_FreeInternal). The plain reference PC/jpeg-6
+header reports IJG6b/version62 but lacks those per-object fields and has a
+one-argument jpeg_std_error. This is NOT proof of a drop-in ABI. The old verified/
+Mac draft's hard-coded offsets are not primary evidence. Recover the actual
+small header/allocator/error modifications, then compile/reuse original IJG
+members in a bounded batch; do not hand-reverse the whole library or silently
+replace it with modern libjpeg-turbo/D3DX JPEG. No files copied/added for JPEG yet.
+
 ## 2026-10-23 material/cache command closure
 
 PINNED Material_ReloadTextures17640 ends17702,195 bytes, not the oversized

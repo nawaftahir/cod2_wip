@@ -1,5 +1,12 @@
 # Layout is part of every reconstruction wave
 
+Sun commands,2026-10-23: population/load/save and the original21-name pointer
+table stay with the registered sun dvars in r_sky.cpp. The pointer table is
+writable initialized data, as primary101a5a38, not dumped retail bytes. It
+adds96 aligned candidate data bytes without filler. Existing rgp/world owns
+the96-byte sun at world+160; no second sun allocation or flag/TU change.
+Compile checks pin consumed fields and the table length.
+
 Material/cache commands,2026-10-23: material reload/picmip stays beside the
 existing hash/registration functions in r_material.cpp. White binding stays in
 rb_state.cpp, reusing actual dxState samplers and rgp.whiteImage. Stats/flush

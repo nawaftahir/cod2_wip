@@ -1,12 +1,51 @@
 # Renderer progress
 
-## Structure-first material/cache commands - 2026-10-23
+## Structure-first sun commands - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Aftera7294fb, r_sky.cpp restores sun population28cd0/826, dvar-file loading
+291c0/102, saving29080/101 and load/save command callbacks29010/122,290f0/46.
+The actual21-entry name table and96-byte sun record/world+160 layout are pinned.
+This reuses existing dvars, rgp/world, material registration(track6), file imports,
+AngleVectors and existing rounding. Empty shaders use rgp.defaultMaterial.
+Load checks argc -> cheats -> loaded world, parses before updating, frees even
+after parse failure, but does not free a missing file. Save has no cheat/world
+gate and writes only after successful serialization; original write status is
+ignored. No cloned world/sun state, new TU, flags, exports or authored assembly.
+
+R_SaveSun101B and R_SaveSun_f46B pass BOTH referees: +147 C++ bytes.
+All1286 previous extents survive; ratchet now protects1288. Both new removal
+negatives reject regressions. Authored C++102469/253580=40.408943923%,603 bodies;
+mixed110256/634, same31/7787 assembly exclusions. All99 fixtures pass, including
+144 native sun routes checking independent retail names, field/layout publication,
+file ownership, command gates and four rounding modes with target math models.
+Population/load source remains unaccepted; no extra V2 credit. Population uses
+preexisting I_fround/AngleVectors; audit and separately exclude any inlined
+authored assembly IF this body ever matches. Never blindly relax the counter.
+Receipt/source hashes: target/work/proof/sun_commands_checkpoint.json.
+
+Seven of nine command SOURCE implementations now exist; the screenshot pair
+still needs the genuine JPEG chain. R_LevelShot already exists and should be
+reused. R_SaveJpg14670/713 and its original JPEG dependency are absent from the
+active TU list. Plain reference IJG6b is NOT drop-in proof: target stores
+per-object allocation/free callbacks in cinfo+18/+1c, absent from its stock
+header. Do not use the old Mac-offset draft, modern libjpeg-turbo or a D3DX
+substitute and call that retail reconstruction. JPEG wrapper/header/library ABI
+is the next bounded dependency batch, then screenshot callbacks/registration.
+
+Current SHA7e87e52be7e6813e8dd20e2da99375096123bc17b3acb40dc63b6ea0a377f268;
+.text895842, .rdata593519, .data6084596, .reloc85890; file1638400 bytes.
+Same-offset8.179359098%, NOT whole-file completion. The genuine name table adds
+96 aligned data bytes; no filler. Still no GetRefAPI or real GPU/client smoke;
+stages1-3/structural checkpoint remain OPEN. One output reused, no workers;
+billing unavailable. Build,99 fixtures and both ratchet negatives are finished.
+
+### Material/cache checkpointa7294fb
 
 After47b747c, actual material reload and picmip command source is restored in
 r_material.cpp. Reload walks each unique non-water image in descending unsigned

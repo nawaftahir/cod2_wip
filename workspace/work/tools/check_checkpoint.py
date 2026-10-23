@@ -93,6 +93,9 @@ required.update(accepted(shader_preload))
 material_commands = Path(__file__).resolve().parents[1] / 'proof/material_commands_warm_bind.json'
 assert hashlib.sha256(material_commands.read_bytes()).hexdigest() == 'd6649d7675c16f03ba9327ae676f5adda764e659165dc15b5a033867b6f3ad32'
 required.update(accepted(material_commands))
+sun_commands = Path(__file__).resolve().parents[1] / 'proof/sun_commands_warm_bind.json'
+assert hashlib.sha256(sun_commands.read_bytes()).hexdigest() == '4a66a429acde5d20e1236b9c15b24bc07ff08ef6ac4c8b388dd574ce2470062f'
+required.update(accepted(sun_commands))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

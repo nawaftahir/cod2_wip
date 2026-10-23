@@ -69,3 +69,102 @@ void R_RegisterSunDvars()
 	r_sunglare_fadeout = ri.Dvar_RegisterFloat("r_sunglare_fadeout", 3.0f, 0.0f, 60.0f, 0x2000);
 	r_sun_fx_position = ri.Dvar_RegisterVec3("r_sun_fx_position", 0.0f, 0.0f, 0.0f, -360.0f, 360.0f, 0x2000);
 }
+
+// PINNED 101a5a38: the original21-name save/load list, in registration order.
+static const char *sunDvarNames[] =
+{
+    "r_sunsprite_shader", "r_sunsprite_size", "r_sunflare_shader",
+    "r_sunflare_min_size", "r_sunflare_min_angle", "r_sunflare_max_size",
+    "r_sunflare_max_angle", "r_sunflare_max_alpha", "r_sunflare_fadein",
+    "r_sunflare_fadeout", "r_sunblind_min_angle", "r_sunblind_max_angle",
+    "r_sunblind_max_darken", "r_sunblind_fadein", "r_sunblind_fadeout",
+    "r_sunglare_min_angle", "r_sunglare_max_angle", "r_sunglare_max_lighten",
+    "r_sunglare_fadein", "r_sunglare_fadeout", "r_sun_fx_position"
+};
+
+typedef char sunFileLayoutCheck[(sizeof(sunflare_t) == 96 &&
+    offsetof(sunflare_t, spriteMaterial) == 4 && offsetof(sunflare_t, flareMaterial) == 8 &&
+    offsetof(sunflare_t, flareFadeInTime) == 36 && offsetof(sunflare_t, sunFxPosition) == 84 &&
+    offsetof(GfxWorld, sun) == 0x160 && sizeof(sunDvarNames) / sizeof(sunDvarNames[0]) == 21) ? 1 : -1];
+
+Material *Material_Register(const char *name, int imageTrack);
+extern const dvar_t *sv_cheats;
+
+// PINNED 10028cd0/826: half-size flares, float radians and existing biased rounding.
+void R_SetSunFromDvars(sunflare_t *sun)
+{
+    const char *name = r_sunsprite_shader->current.string;
+    sun->spriteMaterial = name[0] ? Material_Register(name, 6) : rgp.defaultMaterial;
+    sun->spriteSize = r_sunsprite_size->current.value;
+    name = r_sunflare_shader->current.string;
+    sun->flareMaterial = name[0] ? Material_Register(name, 6) : rgp.defaultMaterial;
+    sun->flareMinSize = r_sunflare_min_size->current.value * 0.5f;
+    sun->flareMinDot = (float)cos(r_sunflare_min_angle->current.value * 0.017453292f);
+    sun->flareMaxSize = r_sunflare_max_size->current.value * 0.5f;
+    sun->flareMaxDot = (float)cos(r_sunflare_max_angle->current.value * 0.017453292f);
+    sun->flareMaxAlpha = r_sunflare_max_alpha->current.value;
+    sun->flareFadeInTime = I_fround(r_sunflare_fadein->current.value * 1000.0f);
+    sun->flareFadeOutTime = I_fround(r_sunflare_fadeout->current.value * 1000.0f);
+    sun->blindMinDot = (float)cos(r_sunblind_min_angle->current.value * 0.017453292f);
+    sun->blindMaxDot = (float)cos(r_sunblind_max_angle->current.value * 0.017453292f);
+    sun->blindMaxDarken = r_sunblind_max_darken->current.value;
+    sun->blindFadeInTime = I_fround(r_sunblind_fadein->current.value * 1000.0f);
+    sun->blindFadeOutTime = I_fround(r_sunblind_fadeout->current.value * 1000.0f);
+    sun->glareMinDot = (float)cos(r_sunglare_min_angle->current.value * 0.017453292f);
+    sun->glareMaxDot = (float)cos(r_sunglare_max_angle->current.value * 0.017453292f);
+    sun->glareMaxLighten = r_sunglare_max_lighten->current.value;
+    sun->glareFadeInTime = I_fround(r_sunglare_fadein->current.value * 1000.0f);
+    sun->glareFadeOutTime = I_fround(r_sunglare_fadeout->current.value * 1000.0f);
+    AngleVectors(r_sun_fx_position->current.vector, sun->sunFxPosition, 0, 0);
+    sun->hasValidData = 1;
+}
+
+// PINNED 100291c0/102: parse success updates the sun before freeing the input.
+void R_LoadSunThroughDvars(const char *name, sunflare_t *sun)
+{
+    const char *path = va("sun/%s.sun", name);
+    void *buffer;
+    if (ri.FS_ReadFile(path, &buffer) < 0)
+    {
+        Com_Printf("^3WARNING: couldn't load sun file '%s'\n", path);
+        return;
+    }
+    if (ri.Com_LoadDvarsFromBuffer(sunDvarNames, 21, (const char *)buffer, path))
+        R_SetSunFromDvars(sun);
+    ri.FS_FreeFile(buffer);
+}
+
+// PINNED 10029010/122: argument count, cheats and loaded world are checked in order.
+void R_LoadSun_f()
+{
+    if (ri.Cmd_Argc() != 2)
+        ri.Printf(0, "USAGE: r_loadsun <sunname>\n  sunname must not have an extension\n");
+    else if (!sv_cheats->current.enabled)
+        ri.Printf(0, "You must have cheats enabled to use r_loadsun\n");
+    else if (!rgp.world)
+        ri.Printf(0, "You can't r_loadsun while a map isn't loaded\n");
+    else
+        R_LoadSunThroughDvars(ri.Cmd_Argv(1), &rgp.world->sun);
+}
+
+// PINNED 10029080/101: only a successful dvar serialization writes the file.
+void R_SaveSun(const char *name)
+{
+    char buffer[8192];
+    if (ri.Com_SaveDvarsToBuffer(sunDvarNames, 21, buffer, sizeof(buffer)))
+    {
+        int length = strlen(buffer);
+        ri.FS_WriteFile(va("sun/%s.sun", name), buffer, length);
+    }
+}
+
+// PINNED 100290f0/46: saving does not require cheats or a loaded world.
+void R_SaveSun_f()
+{
+    if (ri.Cmd_Argc() != 2)
+    {
+        ri.Printf(0, "USAGE: r_savesun <sunname>\n  sunname must not have an extension\n");
+        return;
+    }
+    R_SaveSun(ri.Cmd_Argv(1));
+}
