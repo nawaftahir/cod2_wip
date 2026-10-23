@@ -1,6 +1,7 @@
 // Renderer initialization.
 #include "gfx.h"
 #include "universal/com_math.h"
+#include <stddef.h>
 
 refimport_t ri;
 r_globals_t rg;
@@ -195,4 +196,50 @@ void R_GammaCorrect(int bufferSize, byte *buffer)
     R_BuildGammaTable(&gammaTable);
     for (int index = 0; index < bufferSize; ++index)
         buffer[index] = (byte)(gammaTable.entries[buffer[index]] * 255 / 65535);
+}
+
+GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+GfxImage *Image_AllocProg(int imageProgType, int category);
+void R_SetPicmip();
+void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);
+extern DxState dxState;
+
+typedef char imageStartupLayoutCheck[
+    offsetof(r_global_permanent_t, whiteImage) == 0x1008 &&
+    offsetof(r_global_permanent_t, rawImage) == 0x1098 &&
+    offsetof(r_global_permanent_t, waterColorImage) == 0x10a4 &&
+    offsetof(r_global_permanent_t, rawTexdef) == 0x10e4 &&
+    offsetof(MaterialTextureDef, samplerState) == 4 &&
+    offsetof(MaterialTextureDef, semantic) == 5 &&
+    offsetof(MaterialTextureDef, u) == 8 &&
+    offsetof(DxState, samplerState) == 0x20e4 ? 1 : -1];
+
+// PINNED 1000d560/276: DX7 creates water color instead of the DX9 lookup family.
+void R_RegisterBuiltinImages()
+{
+    rgp.whiteImage = Image_Register("$white", 0, 1);
+    rgp.blackImage = Image_Register("$black", 0, 1);
+    if (r_rendererInUse->current.integer == 2)
+        rgp.waterColorImage = Image_Register("$watercolor", 0, 1);
+    else
+    {
+        rgp.identityNormalMapImage = Image_Register("$identitynormalmap", 0, 1);
+        rgp.specularityImage = Image_Register("$specularity", 0, 1);
+        rgp.lightGridWeightsImage[0] = Image_Register("$lightgridweights0", 0, 1);
+        rgp.lightGridWeightsImage[1] = Image_Register("$lightgridweights1", 0, 1);
+        rgp.lightmapWeightsImage = Image_Register("$lightmapweights", 0, 1);
+    }
+}
+
+// PINNED 1000d880/124: preserve raw texture-definition name and padding fields.
+void R_InitImages()
+{
+    R_SetPicmip();
+    R_RegisterBuiltinImages();
+    for (int sampler = 0; sampler < 16; ++sampler)
+        RB_SetSampler(sampler, dxState.samplerState[sampler], rgp.whiteImage);
+    rgp.rawImage = Image_AllocProg(12, 4);
+    rgp.rawTexdef.samplerState = 0x32;
+    rgp.rawTexdef.semantic = 0;
+    rgp.rawTexdef.u.image = rgp.rawImage;
 }

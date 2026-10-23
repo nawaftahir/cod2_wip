@@ -21,10 +21,10 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/light_image_structure_checkpoint.json; previous coverage gain:
+Current source wave:target/work/proof/image_startup_checkpoint.json; previous coverage gain:
 target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
-66a4ff2. Readable source is target/work/src; some functions are still unmatched
+94e48e9. Readable source is target/work/src; some functions are still unmatched
 drafts. All1270 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
 Accepted authored C/C++:102122/253580 game bytes,40.272103478%. This is not a
@@ -35,10 +35,10 @@ whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 | File length |1851392 bytes |1630208 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |887298 |
+| .text virtual length |1089680 |887682 |
 | .rdata virtual length |595105 |591311 |
 | .data virtual length, including zero-initialized storage |6086100 |6085588 |
-| .reloc virtual length |95704 |85138 |
+| .reloc virtual length |95704 |85202 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
@@ -80,6 +80,11 @@ light registry and a shared definition header; the .data size gap is512 bytes.
 All88 fixtures and all1270 old extents pass. NO new V2 bytes are claimed: these
 nine source functions still need matching. Real image/material initialization,
 final registration and higher startup/API remain open, not replaced by stubs.
+Real image initialization now connects picmip, renderer-dependent builtin
+publication,16 live sampler bindings and the existing raw programmable image.
+It adds no globals or fake backend state; new layout asserts pin all consumed
+shared fields. These two source bodies have no new V2 byte credit. Material
+initialization/shader-source preload and the higher startup/API still remain.
 
 ## Execution order
 

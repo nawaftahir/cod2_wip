@@ -9,7 +9,7 @@ capture = image[image.index('static __declspec(noinline) void R_FlipCubemapShot(
                 image.index('// PINNED 100269c0;')]
 end = image[image.index('void R_EndCubemapShot('):image.index('// PINNED 0x101903a8')]
 init = (work / 'src/gfx_d3d/r_init.cpp').read_text()
-gamma = init[init.index('#pragma intrinsic(pow)'):]
+gamma = init[init.index('#pragma intrinsic(pow)'):init.index('\nGfxImage *Image_Register(')]
 program = r'''
 #include <cassert>
 #include <cmath>

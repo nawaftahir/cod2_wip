@@ -1,5 +1,13 @@
 # Layout is part of every reconstruction wave
 
+Image startup wave,2026-10-23: R_InitImages and builtin publication stay in the
+existing rgp owner r_init.cpp. They reuse R_SetPicmip, Image_Register,
+Image_AllocProg and RB_SetSampler, with no duplicate image/hash/state tables.
+The common DxState view is used only for its pinned sampler offset20e4;
+the single complete SDK cache allocation remains rb_state.cpp. Compile asserts
+pin all newly consumed rgp/rawTexdef fields. No new TU/global/root/flag or final
+link-order claim. Whole common/SDK type consolidation is not claimed complete.
+
 Image/light closure wave,2026-10-23: outdoor image storage remains in the real
 OutdoorGlob in r_outdoor.cpp; water creators and all ten builtin branches live
 with existing procedural helpers in r_image_load_obj.cpp. Image_Register stays

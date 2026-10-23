@@ -2787,6 +2787,18 @@
 ]
 },
 {
+"name": "?R_RegisterBuiltinImages@@YAXXZ",
+"obj": "r_init.obj",
+"size": 168,
+"hits": []
+},
+{
+"name": "?R_InitImages@@YAXXZ",
+"obj": "r_init.obj",
+"size": 200,
+"hits": []
+},
+{
 "name": "?Material_BuildVertexDecl@@YAPAUIDirect3DVertexDeclaration9@@PBUMaterialStreamRouting@@HPBUstream_source_info_t@@@Z",
 "obj": "r_material.obj",
 "size": 372,

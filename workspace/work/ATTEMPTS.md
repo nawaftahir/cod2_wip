@@ -1,5 +1,35 @@
 # Reconstruction attempts
 
+## 2026-10-23 image startup publication
+
+R_RegisterBuiltinImages1000d560/276 publishes white/black first. DX7 (renderer2)
+registers water color and returns, leaving DX9-only image fields untouched.
+Other renderers register identity normal, specularity, light-grid0, light-grid1,
+then lightmap weights in that order. All use track0/semantic1. Reuse the real
+Image_Register; its known-name lookup/builtin/error paths are the same source
+steps inlined by the primary for white/black. No special placeholder allocator.
+
+R_InitImages1000d880/124 calls existing R_SetPicmip then those registrations.
+It binds16 samplers using the LIVE dxState.samplerState and LIVE rgp.whiteImage
+on every call, NOT backEnd state (10766764 is dxState+20e4). Then reuse existing
+Image_AllocProg(12,4) for $raw and publish rgp.rawImage/rawTexdef. Set sampler32h,
+semantic0 and union image; preserve rawTexdef's name and padding bytes.
+The primary field stores and array bounds are fixture-pinned. New compile
+asserts check common-view dxState sampler20e4, rgp white1008/raw1098/water10a4/
+rawTexdef10e4, and texture-definition offsets4/5/8. No new global/header/TU.
+Native44 routes cover renderer changes during registration, live sampler/image
+mutation, error order and untouched branch fields. Existing576 capture/gamma
+paths still pass after narrowing that fixture's extraction to its actual source.
+
+Next material initializer173e0/124 clears0x299c bytes at101d7fc8, calls shader
+source setup1c930 (lists hlsl in materials/shaders/ and materials/shaders/lib/),
+registers28 table entries at1018e988 and optionally12 at1018ea68, then17190.
+Its final raw-material texture fixup compares offsets38/3c/40 on raw/default
+materials and reuses rgp.rawTexdef; do not guess it is a generic reload loop.
+Registration helpers17350/64 and17190/88 both call17100. Those closures need
+actual recovery before adding Material_Init or finalization12040 with unresolved
+links. This evidence is a next-source map, not newly accepted reconstruction.
+
 ## 2026-10-23 builtin/file image and light-definition closure
 
 The519-byte builtin dispatcher selects exactly ten case-sensitive names:

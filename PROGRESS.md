@@ -1,12 +1,43 @@
 # Renderer progress
 
-## Structure-first image and light startup wave - 2026-10-23
+## Structure-first image initialization wave - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Wave after94e48e9 restores R_RegisterBuiltinImages1000d560/276 and the complete
+R_InitImages1000d880/124 in r_init.cpp, the existing rgp owner. DX7 creates water
+color instead of DX9's normal/specularity/grid/lightmap family. Startup sets
+picmip, publishes those real images, binds16 live samplers and uses the existing
+Image_AllocProg(12,4) for $raw. RawTexdef's name/padding stay untouched. No new
+globals, TU, SDK/flags/exports, wrappers or authored-assembly definitions.
+
+Both referees and source attribution pass with every1270 prior extent retained.
+No new body is byte-accepted: C/C++ remains102122/253580=40.272103478%,598 bodies;
+mixed109909 bytes/629 bodies, same31/7787 authored-assembly exclusions. These
+two real startup source bodies are not silently counted as byte recovery.
+44 native startup routes, existing576 capture/gamma routes and all89 full
+fixtures pass after the completed build (latest/image_startup_fixtures.log).
+Proof/source identities: target/work/proof/image_startup_checkpoint.json.
+No own build/test remains running. No duplicate output or workers; billing/token
+cost is not exposed.
+
+Current SHA1ebb2a6ae9cde0a5f38b215a30826f2738ece55159726347b53f5b24a009d8d2;
+.text887682, .rdata591311, .data6085588, .reloc85202; file1630208 bytes.
+Same-offset8.324979259%, NOT source coverage/retail identity. Whole SHA and the
+early structural gate/stages1-3 remain open. The common DxState view now has
+a compile assertion for sampler20e4; SDK rb_state.cpp remains its single owner.
+
+Next: actual Material_Init173e0/124, its shader-source cache setup1c930/282 and
+material registration17100 through17350/64 and17190/88. Shader file-list/cache
+state ALREADY exists as mtlLoadGlob in r_material_load_obj.cpp; reuse it, not a
+parallel shader database. Then recover finalization12040 -> higher device128b0
+-> startup12c80 -> R_Init/API. Keep file load/error semantics and typed ownership.
+
+### Image/light checkpoint94e48e9
 
 Source wave after66a4ff2 restores nine real functions: outdoor lookup/image,
 water-color callback/cubemap, complete ten-builtin dispatcher, image registration,

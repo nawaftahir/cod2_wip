@@ -370,7 +370,7 @@
     "gfx_d3d/r_lightgrid_weights.cpp": "690d8bb14a397610208626f7e17669789462d28d6a6fd1e7b1bfda4e14b19113",
     "gfx_d3d/r_device.cpp": "4bb6777b2246b715931d26be6654bab7a9559b6322ea253a9c5adc735cf514af",
     "gfx_d3d/r_font.cpp": "a8765c45b08a5784a0b0143528ee705fed7515e34539f60520bc8b086c1b6a1f",
-    "gfx_d3d/r_init.cpp": "d1caac321a4cec24aac3ae98f1a0cb7a060afe34f5cc79bab9e492a3ff343ebe",
+    "gfx_d3d/r_init.cpp": "3b159d74827e02711516dc3f8bd199d01d3115e8afa0e468ac8c7d3aed6dc457",
     "gfx_d3d/r_surfbounds.cpp": "1157ea5664b71f3f45b27fffab606897a36cda882db7d4be6e94d05510446dd3",
     "gfx_d3d/r_sky.cpp": "eb4d7cd7ef92bd7bfcdc3c181e1e95c35364dfb545a97da9ee1f45f635b4b656",
     "gfx_d3d/rb_backend.cpp": "61f816fe7a7ad9aaba5142201b2441d378c965f8ce8cc9bad3a76bf9a7863f60",

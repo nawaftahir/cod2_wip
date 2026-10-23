@@ -1,0 +1,63 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "94e48e9",
+  "scope": "real renderer-dependent builtin image publication and complete image startup",
+  "whole_file_identical": false,
+  "candidate_sha256": "1ebb2a6ae9cde0a5f38b215a30826f2738ece55159726347b53f5b24a009d8d2",
+  "same_file_offset_percent": 8.324979258849558,
+  "cpp_executable_bytes": 102122,
+  "cpp_percent_supported_inventory": 40.272103478192285,
+  "cpp_game_bodies": 598,
+  "cpp_bytes_gained": 0,
+  "new_accepted_bodies": [],
+  "mixed_game_bodies": 629,
+  "mixed_executable_bytes": 109909,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "new_authored_assembly_definitions": false,
+  "byte_and_binding_referees_changed": false,
+  "previous_1270_extents_retained": true,
+  "protected_extents": 1270,
+  "full_source_fixtures_passed": 89,
+  "native32_image_startup_routes": 44,
+  "existing_capture_gamma_routes": 576,
+  "live_sampler_bindings": 16,
+  "raw_program_id": 12,
+  "raw_program_category": 4,
+  "preserved_raw_texture_fields": [
+    "name",
+    "padding"
+  ],
+  "shared_field_assertions": [
+    "DxState.samplerState=0x20e4",
+    "rgp.whiteImage=0x1008",
+    "rgp.rawImage=0x1098",
+    "rgp.waterColorImage=0x10a4",
+    "rgp.rawTexdef=0x10e4",
+    "MaterialTextureDef.samplerState/semantic/u=4/5/8"
+  ],
+  "unaccepted_source": [
+    "R_RegisterBuiltinImages 0x1000d560/276",
+    "R_InitImages 0x1000d880/124"
+  ],
+  "new_globals_exports_tus_or_flags": false,
+  "GetRefAPI_implemented": false,
+  "candidate_exports": 159,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "independent_fresh_checkout_replay": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_init.cpp": "3b159d74827e02711516dc3f8bd199d01d3115e8afa0e468ac8c7d3aed6dc457",
+    "tests/test_image_startup.py": "2968cf5eaea399e07f69b07d44edbb7c93340155ee3cc65b789ed1661e4b48db",
+    "tests/test_cubemap_capture.py": "c417d382db75c29d04cd974f5b81eb4847955e8f79e4b4dc20456353cbcbea24",
+    "proof/image_startup_warm_bind.json": "f11cb6b2fedbe17c3da844ac880465bd0807e93fbb6880c02a3f6208e153f9bd",
+    "proof/image_startup_layout.json": "eea03a3a1d5a65e11d68e69571a4df9eed3bcf989616cf7a8c17a30f6659071e",
+    "proof/image_startup_source_coverage.json": "45d03507cf0a9c599ff5e35e448aba14f8c97ce65824fa519763a53aca179cc2",
+    "proof/latest/image_startup_build.log": "698ca65fbc85ea8c14e919c016a2c7de8427db872f3445be3b9ff58e9021cc45",
+    "proof/latest/image_startup_fixtures.log": "0ce6b8538643fdfdd66cf1bfc18f161440e1b15594ef73c24ffaa964947a8f8c",
+    "proof/latest/image_startup_ratchet.log": "3344656554cdc79e7e3071b1989af7092b75105ab06e4adc415bd1201d8a3c2a"
+  }
+}
