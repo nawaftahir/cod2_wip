@@ -1,0 +1,94 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "e4dd313",
+  "scope": "real dynamic pools, particle geometry, full resource startup and shared interface repair",
+  "whole_file_identical": false,
+  "candidate_sha256": "bd63ec1fe85c88280f9e1f6b22b038a2f9e5692ede2a240155bfa3126e313f3c",
+  "same_file_offset_percent": 8.311908012997788,
+  "cpp_executable_bytes": 101990,
+  "cpp_percent_supported_inventory": 40.2200488997555,
+  "cpp_game_bodies": 597,
+  "cpp_bytes_gained": 258,
+  "new_accepted_bodies": [
+    {
+      "target": "0x10011a40",
+      "bytes": 129,
+      "name": "R_CreateDynamicVertexBuffer",
+      "source": "gfx_d3d/r_dxbuffers.cpp"
+    },
+    {
+      "target": "0x10011ad0",
+      "bytes": 129,
+      "name": "R_CreateDynamicIndexBuffer",
+      "source": "gfx_d3d/r_dxbuffers.cpp"
+    }
+  ],
+  "mixed_game_bodies": 628,
+  "mixed_executable_bytes": 109777,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "new_authored_assembly_definitions": false,
+  "byte_and_binding_referees_changed": false,
+  "previous_1267_extents_retained": true,
+  "protected_extents": 1269,
+  "new_body_and_old_allocator_removal_negatives_passed": true,
+  "old_allocator_222_bytes_retained": true,
+  "full_source_fixtures_passed": 83,
+  "native32_dynamic_routes": 24,
+  "native32_particle_streams": 3,
+  "particles_per_stream": 1024,
+  "preserved_original_particle_fault_tests": 2,
+  "native32_resource_routes": 16,
+  "resource_primary_extent_bytes": 261,
+  "inventory_resource_extent_bytes": 152,
+  "sun_storage_owner": "gfx_d3d/r_sky.cpp; shared stride48/query36/issued44 assertions",
+  "initial_resource_link_failure": "LNK2001: existing Mac union and SDK struct allocator signatures; repaired both callers and single definition, no alias",
+  "new_globals_or_exports": false,
+  "new_compiler_flags": false,
+  "remaining_missing_named_imports": [
+    [
+      "user32.dll",
+      "IsWindow"
+    ],
+    [
+      "user32.dll",
+      "ShowWindow"
+    ]
+  ],
+  "extra_named_imports": [],
+  "GetRefAPI_implemented": false,
+  "candidate_exports": 159,
+  "unaccepted_source": [
+    "R_CreateDynamicBuffers",
+    "R_CreateParticleCloudBuffer",
+    "R_CreateDeviceResources"
+  ],
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "independent_fresh_checkout_replay": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_dxbuffers.cpp": "03dfac18ee06a5fd4037d3d334cc2ed07203903fd8863d3255f9db994149c4ba",
+    "src/gfx_d3d/r_device.cpp": "4bb6777b2246b715931d26be6654bab7a9559b6322ea253a9c5adc735cf514af",
+    "src/gfx_d3d/r_sun_state.h": "419ff7fe0c06e590a7014b9ba5a47de61008284d2d759e0bccf9419e090743c5",
+    "src/gfx_d3d/r_sky.cpp": "eb4d7cd7ef92bd7bfcdc3c181e1e95c35364dfb545a97da9ee1f45f635b4b656",
+    "src/gfx_d3d/r_staticmodelcache.cpp": "cd81af12c98a033e4aba819a87e9311a6a320e8f95483cf2de2a9b8a61b4edb2",
+    "src/gfx_d3d/r_bsp.cpp": "64f7f17faeaabe44fbb18e57cd310f1ffb741abafd4effc1f47f7f8c3915a0b5",
+    "src/gfx_d3d/r_bsp_load_obj.cpp": "e36f4de7bfdfc84ec186028d58cd69313c4d27ab5afdcae5e0ea2d95673f628b",
+    "tests/test_dynamic_buffers.py": "72e7a3d0d7e2b7ed9f85db2e48ad3a2e30dd74f4080c94cdb6137753479c9668",
+    "tests/test_particle_cloud.py": "f803e82be93d333e8fa1ef6eb7218e04d6d8fc07620b6892a6195578800529c4",
+    "tests/test_device_resources.py": "b9cb36b1fc522496142cd7a9e33448f873646a23990da9de16991efe1c6a3e19",
+    "tests/test_world_vertex_buffer.py": "254e019a5c49aca9e034806772f833d890eb07eeab19d717f526a0d922c35e6a",
+    "tools/check_checkpoint.py": "76a1eefb127636dd20b7139d7584242fca3e3584a4054fda5425e46ab5b034a6",
+    "proof/resources_structure_warm_bind.json": "65bb5b965a87fbe45731f053f0372d4e261e263490a1b4241ba7ae722a5fa65a",
+    "proof/resources_structure_layout.json": "2c596308f7c17a0a6e9b9b2faba339d2fb30901afda6ab325b7948cca1eb65ec",
+    "proof/resources_structure_source_coverage.json": "7900dbc149c238475d7d52954fcd84254345d1c2ab1b0ad72a583325fd4c1102",
+    "proof/latest/dynamic_buffers_build.log": "58266b8c8bc41cd24b1e57061a86171312d33f8f0f1ffb7f027841796efb1044",
+    "proof/latest/resources_interface_build.log": "58266b8c8bc41cd24b1e57061a86171312d33f8f0f1ffb7f027841796efb1044",
+    "proof/latest/resources_structure_fixtures.log": "1979acbbfcc37180db7dfc5c40a9b9fa13daf8f19ee6fcad063258e26bf99870",
+    "proof/latest/resources_structure_ratchet.log": "2aa5b98560f7e882b518f89acaa67dc507071164aa7a08bb1b69684c63fb0ffd",
+    "proof/latest/resources_structure_negatives.log": "e86f57ec13a807fa44929d558c69de567e90e2a1d1f407026014ccc89f0f4aa6"
+  }
+}

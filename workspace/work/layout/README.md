@@ -1,5 +1,22 @@
 # Layout is part of every reconstruction wave
 
+Resource source wave,2026-10-23: dynamic VB/IB pool constructors and particle
+cloud geometry stay in the existing r_dxbuffers.cpp, using existing dx pools,
+virtual skin reservation and BSP static-buffer helpers. No duplicated buffers.
+The existing matched SMC_ClearCache is now callable from resource startup;
+only its static visibility changes, not its body or s_cache ownership.
+R_CreateDeviceResources belongs to candidate r_device.cpp, linking real target,
+cache and buffer constructors. Shared r_sun_state.h pins SunFlareDynamic size48,
+queries+36/issued+44 in both SDK and common-type views. r_sky.cpp remains its
+single global owner. No new TU, root/export, flags or authored assembly. This
+ownership is not historical TU provenance or final address placement proof.
+
+The shared static VB allocator now takes void** in the owning BSP source and
+both world/particle callers. The two previous handle views (Mac union vs SDK
+struct) otherwise produce incompatible C++ linker names. This is one existing
+allocator, no alias/wrapper/duplicate. The existing opaque finish interface is
+unchanged. Its accepted primary extent must survive the ordinary gates.
+
 Device source wave,2026-10-23: r_device.cpp follows r_window.cpp in candidate
 tus.txt, sharing the existing36-byte GfxWindowParms and SDK D3D types. It owns
 AA probing, presentation setup and the retrying CreateDevice caller. dx, the

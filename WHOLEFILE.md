@@ -21,13 +21,13 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/device_structure_checkpoint.json; previous coverage gain:
+Current source wave:target/work/proof/resources_structure_checkpoint.json; previous coverage gain:
 target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
-d3f05a8. Readable source is target/work/src; some functions are still unmatched
-drafts. All1267 protected source/library extents survive (433 prior SDK/runtime
+e4dd313. Readable source is target/work/src; some functions are still unmatched
+drafts. All1269 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
-Accepted authored C/C++:101732/253580 game bytes,40.118305860%. This is not a
+Accepted authored C/C++:101990/253580 game bytes,40.220048900%. This is not a
 whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 
 | Whole-file component | Retail | Current candidate |
@@ -35,10 +35,10 @@ whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 | File length |1851392 bytes |1626112 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |883874 |
-| .rdata virtual length |595105 |590559 |
+| .text virtual length |1089680 |885170 |
+| .rdata virtual length |595105 |590959 |
 | .data virtual length, including zero-initialized storage |6086100 |6085332 |
-| .reloc virtual length |95704 |84812 |
+| .reloc virtual length |95704 |84966 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
@@ -62,6 +62,13 @@ The device wave then restores the real AA/presentation/retrying device helpers
 in r_device.cpp: all three match, adding350 C++ bytes and retaining every old
 extent. All80 fixtures pass. No new assembly, flags, exports or globals. This
 closes those helper bodies, not the missing higher device/resource/init graph.
+The resource wave restores dynamic buffer pools, full particle geometry and the
+complete261-byte resource initializer, reusing existing cache/target helpers.
+It fixes the shared static-buffer allocator's union/struct linker-name mismatch
+without aliases or duplicate bodies; its old222 bytes still match. Two new
+constructors add258 verified C++ bytes. All83 fixtures pass. Resource startup,
+particle creation and pool initializer are not yet credited matches, and higher
+device/video/registration/startup/API closure remains mandatory work.
 
 ## Execution order
 
@@ -105,7 +112,7 @@ also match; structure first is not a promise of a frozen final address map.
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local
    historical referee inputs keep their original hashes. Run both unchanged
-   referees, all1267 protected extents and actual-source fixtures. Missing old
+   referees, all1269 protected extents and actual-source fixtures. Missing old
    research folders must not silently disable a gate. Never delete another
    agent's work or reset the owner's staged changes.
 

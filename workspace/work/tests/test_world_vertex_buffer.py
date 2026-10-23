@@ -29,7 +29,7 @@ void Vector2Copy(const float *a,float *b) { for(int i=0;i<2;++i)b[i]=a[i]; }
 void Com_Memcpy(void *dst,const void *src,int count) {
  ++copies;assert(dst==storage.data()+16&&count==requested);std::memcpy(dst,src,count);
 }
-void *R_AllocStaticVertexBuffer(IDirect3DVertexBuffer9 **out,int size) {
+void *R_AllocStaticVertexBuffer(void **out,int size) {
  ++allocations;requested=size;storage.assign(size+32,0xa5);*out=&buffer;return storage.data()+16;
 }
 void R_FinishStaticVertexBuffer(void *vb) { assert(vb==&buffer);++unlocks; }

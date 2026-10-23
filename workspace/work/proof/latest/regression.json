@@ -1,8 +1,8 @@
 {
-  "functions": 626,
-  "bytes": 109519,
+  "functions": 628,
+  "bytes": 109777,
   "total": 253580,
-  "percent": 43.189131634986985,
+  "percent": 43.29087467465889,
   "baseline_lost": [],
   "gains": [
     {
@@ -346,6 +346,18 @@
       "bytes": 307,
       "name": "?R_StoreDirect3DCaps@@YAXI@Z",
       "object": "r_caps_device.obj"
+    },
+    {
+      "target": "0x10011a40",
+      "bytes": 129,
+      "name": "?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z",
+      "object": "r_dxbuffers.obj"
+    },
+    {
+      "target": "0x10011ad0",
+      "bytes": 129,
+      "name": "?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z",
+      "object": "r_dxbuffers.obj"
     },
     {
       "target": "0x10012320",

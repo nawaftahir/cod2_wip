@@ -123,12 +123,12 @@ typedef HRESULT(__stdcall *BufferLockFn)(void *buffer, UINT offsetToLock, UINT s
 typedef HRESULT(__stdcall *BufferUnlockFn)(void *buffer);
 #define VTABLE(obj) (*(void ***)((void *)(obj)))
 
-void *R_AllocStaticVertexBuffer(IDirect3DVertexBuffer9 **vb, int sizeInBytes)
+void *R_AllocStaticVertexBuffer(void **vb, int sizeInBytes)
 {
     void *vertexBufferData;
     HRESULT hr;
 
-    hr = ((CreateVertexBufferFn)VTABLE(dx.device)[0x68 / 4])((void *)dx.device, sizeInBytes, 8, 0, 0, vb, NULL);
+    hr = ((CreateVertexBufferFn)VTABLE(dx.device)[0x68 / 4])((void *)dx.device, sizeInBytes, 8, 0, 0, (IDirect3DVertexBuffer9 **)vb, NULL);
     if (hr < 0)
         R_FatalInitError(va("DirectX didn't create a %i-byte vertex buffer: %s\n", sizeInBytes, DXGetErrorDescription9A(hr)));
     hr = ((BufferLockFn)VTABLE(*vb)[0x2c / 4])((void *)*vb, 0, 0, &vertexBufferData, 0);

@@ -1,0 +1,3 @@
+PASS: removing 0x10011a40 is rejected
+PASS: removing 0x10011ad0 is rejected
+PASS: removing 0x10004f40 is rejected

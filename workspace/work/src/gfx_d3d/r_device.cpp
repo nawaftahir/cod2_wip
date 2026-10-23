@@ -1,8 +1,50 @@
 // Direct3D presentation setup and device creation.
 #include "r_local.h"
 #include "r_window.h"
+#include "r_sun_state.h"
+#include <dxerr9.h>
 
 extern const dvar_t *r_swapInterval;
+
+void R_InitRenderTargets();
+void R_CreateSmodelCacheVertexBuffer();
+void SMC_ClearCache();
+void R_CreateDynamicBuffers();
+void R_CreateParticleCloudBuffer();
+void RB_SetInitialState();
+
+// PINNED 10012100/261: occlusion-query failures log and continue, event failure stops.
+Bool R_CreateDeviceResources()
+{
+    ri.Printf(0, "Initializing render targets...\n");
+    R_InitRenderTargets();
+    ri.Printf(0, "Initializing static model cache...\n");
+    R_CreateSmodelCacheVertexBuffer();
+    SMC_ClearCache();
+    ri.Printf(0, "Initializing dynamic buffers...\n");
+    R_CreateDynamicBuffers();
+    ri.Printf(0, "Initializing particle cloud buffer...\n");
+    R_CreateParticleCloudBuffer();
+    ri.Printf(0, "Creating Direct3D queries...\n");
+    dx.flushGpuQueryIssued = 0;
+    HRESULT result = dx.device->CreateQuery(D3DQUERYTYPE_EVENT, &dx.flushGpuQuery);
+    if (result < 0)
+    {
+        ri.Printf(0, "Event query creation failed: %s (0x%08x)\n", DXGetErrorDescription9(result), result);
+        return 0;
+    }
+    for (int view = 0; view < 4; ++view)
+        for (int query = 0; query < 2; ++query)
+        {
+            result = dx.device->CreateQuery(D3DQUERYTYPE_OCCLUSION, &sunFlareState[view].sunQuery[query]);
+            if (result < 0)
+                ri.Printf(0, "Occlusion query creation failed: %s (0x%08x)\n", DXGetErrorDescription9(result), result);
+            sunFlareState[view].sunQueryIssued[query] = 0;
+        }
+    ri.Printf(0, "Setting initial state...\n");
+    RB_SetInitialState();
+    return 1;
+}
 
 // PINNED 10011460/100: this probe always uses adapter zero.
 void R_SetupAntiAliasing(const GfxWindowParms *parms)

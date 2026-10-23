@@ -1,5 +1,6 @@
 // Sun and flare dvars.
 #include "gfx.h"
+#include "r_sun_state.h"
 
 // PINNED10764590: four48-byte per-view records.
 SunFlareDynamic sunFlareState[4];

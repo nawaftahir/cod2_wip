@@ -1,5 +1,51 @@
 # Reconstruction attempts
 
+## 2026-10-23 actual device resources and GPU buffers
+
+Dynamic VB10011a40/129 and IB10011ad0/129 initialize used0/totalBytes, create
+DEFAULT-pool buffers with usage208, and use the existing fatal-init warning
+path on negative HRESULT. Index format is101(INDEX16); VB FVF0. Both pass the
+first incremental build unchanged referees, retaining1267 old extents.
+R_CreateDynamicBuffers10011b60/143 allocates one32768-vertex dynamic pool and
+two131072-vertex skinned pools, with36-byte DX7 or64-byte DX9 vertices. Reload
+the renderer dvar for each allocation, publish existing pool pointers, create
+2097152 index bytes, then Z_VirtualReserveInternal(10485760). Do not commit
+that arena here or reset tempSkinPos. Native fixtures cover24 routes.
+
+Particle creator10011bf0/544 allocates81920 vertex bytes through the EXISTING
+R_AllocStaticVertexBuffer. Static indices12288 bytes use usage8, format101,
+pool0. Four20-byte vertices and six ushort indices represent each of1024
+particles in8x8x16 order. Three rand calls per particle use exact float
+1/32767, XY scale.25, Z scale.125, offset-1. UV order00,01,10,11 and index
+order0,1,2,2,1,3 come from primary stack initialization, not a guessed quad.
+Finish index then vertex through existing helpers. Native tests check all
+vertices/UVs/indices for three RNG streams,3072 calls, guards and ownership.
+PINNED original bug: index creation/lock failure still reaches writes through
+null; lock failure releases without clearing dx's pointer. The reconstruction
+preserves it, not a silent bug fix. Two isolated child tests expect SIGSEGV,
+with core dumps disabled; this is not a proposed renderer repair.
+
+Resource initializer10012100 ends12204:261 bytes, not inventory152. It calls
+real render targets, cache vertex creation, existing SMC_ClearCache, dynamic
+buffers and particles in that order. Clear flushGpuQueryIssued, CreateQuery8;
+negative result prints the actual Event query creation failed literal and
+returnsfalse. SUCCESS CONTINUES past12198 into4x2 CreateQuery9 sun queries at
+107645b4/b8+view*48, with issued flags+44/45 cleared even on failure. Those
+failures log but do not abort. Then print Setting initial state and call
+RB_SetInitialState1003c2a0 before returningtrue. Never accept a truncated
+early-success reconstruction from the152-byte inventory. Sixteen native routes
+cover event failure, every occlusion slot, pointer outputs and existing fields.
+Shared sun record/header asserts48 bytes/query36/issued44 in both compiled
+type views; global storage remains solely r_sky.cpp. No duplicate query arrays.
+
+The initial full resource link failed on the preexisting Mac-union versus SDK-
+struct IDirect3DVertexBuffer9 mangling at R_AllocStaticVertexBuffer. Fixed the
+single shared source interface to void** (like the existing void* finish helper),
+and updated BOTH real callers and their fixtures. Keep actual device-handle
+types inside each owning TU. No alias symbol, duplicated allocator or forced
+ABI wrapper. This interface repair must retain the existing222-byte allocator
+extent as well as all prior matches. Native world/particle fixtures still pass.
+
 ## 2026-10-23 D3D device/presentation source
 
 PINNED AA10011460 ends100114c3 (100 bytes, not112 including INT3 padding).

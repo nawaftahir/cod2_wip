@@ -261,7 +261,7 @@ Bool SMC_GetFreeBlockOfSize(static_model_cache_t *cache, int listIndex)
     return 1;
 }
 
-static void SMC_ClearCache()
+void SMC_ClearCache()
 {
     static_model_node_list_t *freenode;
     unsigned int listIter;

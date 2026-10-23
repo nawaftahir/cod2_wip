@@ -1,12 +1,57 @@
 # Renderer progress
 
-## Structure-first Direct3D device wave - 2026-10-23
+## Structure-first device resources wave - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Source wave after e4dd313: restored the real dynamic VB/IB constructors, their
+startup pools and1024-particle geometry in r_dxbuffers.cpp. Real resource startup
+in r_device.cpp now calls render targets -> cache VB -> existing cache reset ->
+dynamic buffers -> particle buffer -> event query -> eight sun queries ->
+initial render state. Event failure stops; sun-query failures log and continue.
+The old152-byte resource inventory missed109 real bytes. No partial-success
+return, dummy callbacks, new globals, exports, compiler flags or authored ASM.
+
+Fixed a genuine shared-interface defect now: Mac union vs SDK struct pointer
+types gave different allocator linker names. The SINGLE existing static VB
+allocator and both world/particle callers now share void** ownership. Its222
+primary bytes still match, as do all1267 previous extents. Existing SMC_ClearCache
+is callable by startup without duplicating cache storage. Shared sun header
+checks48-byte stride/query36/issued44 in both type views; r_sky owns all four.
+
+New accepted C++ is the129-byte dynamic VB and129-byte dynamic IB helper.
+Authored C/C++101990/253580=40.220048900%,597 bodies. Mixed109777 bytes,628
+bodies; authored ASM exclusions remain31/7787. Pool initializer, particle body
+and complete resource startup are real source but NOT accepted coverage.
+No instruction/flag tuning campaign. Native tests pass24 dynamic routes,
+three complete particle RNG streams, two isolated original-failure faults and
+16 resource/query routes. All83 fixtures pass after the completed build;
+log latest/resources_structure_fixtures.log. Ratchet protects1269 extents;
+removing either new helper or the repaired old allocator is rejected.
+Source/evidence hashes: target/work/proof/resources_structure_checkpoint.json.
+No own build or test process remains running at this checkpoint.
+
+Current SHA bd63ec1fe85c88280f9e1f6b22b038a2f9e5692ede2a240155bfa3126e313f3c;
+.text885170, .rdata590959, .data6085332, .reloc84966; file1626112 bytes.
+Raw same-offset8.311908013%, NOT source coverage or retail identity. Stage1-3
+and the early structural gate remain OPEN. Hardware/startup/API are still missing.
+No workers or duplicate build output. No reliable per-turn billing counter;
+this wave adds258 verified bytes plus connected unaccepted startup source.
+
+PINNED original particle bug is preserved: failed index allocation/lock leads
+to a null write. Native child tests disable core dumps and verify that fault;
+this is reconstruction, not permission to fix retail behavior before matching.
+
+Next structural closure: video configuration100115f0, registration completion
+10012040 -> full higher device caller100128b0 -> startup10012c80 -> real R_Init
+and API callbacks. Resource startup already uses real implemented callees even
+where bytes are still unmatched; do not replace them with fake return values.
+
+### Device checkpoint e4dd313
 
 Source wave after d3f05a8: new r_device.cpp follows r_window.cpp in candidate
 tus.txt. It restores real AA probing10011460/100, presentation setup100114d0/137

@@ -736,7 +736,7 @@
 ]
 },
 {
-"name": "?R_AllocStaticVertexBuffer@@YAPAXPAPATIDirect3DVertexBuffer9@@H@Z",
+"name": "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 222,
 "hits": [
@@ -5494,6 +5494,14 @@
 "hits": []
 },
 {
+"name": "?R_CreateDeviceResources@@YAEXZ",
+"obj": "r_device.obj",
+"size": 261,
+"hits": [
+"0x10012100"
+]
+},
+{
 "name": "?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z",
 "obj": "r_device.obj",
 "size": 100,
@@ -5913,6 +5921,28 @@
 "hits": []
 },
 {
+"name": "?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z",
+"obj": "r_dxbuffers.obj",
+"size": 129,
+"hits": [
+"0x10011a40"
+]
+},
+{
+"name": "?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z",
+"obj": "r_dxbuffers.obj",
+"size": 129,
+"hits": [
+"0x10011ad0"
+]
+},
+{
+"name": "?R_CreateDynamicBuffers@@YAXXZ",
+"obj": "r_dxbuffers.obj",
+"size": 143,
+"hits": []
+},
+{
 "name": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
 "obj": "r_dxbuffers.obj",
 "size": 73,
@@ -5928,6 +5958,12 @@
 "hits": [
 "0x1002b920"
 ]
+},
+{
+"name": "?R_CreateParticleCloudBuffer@@YAXXZ",
+"obj": "r_dxbuffers.obj",
+"size": 585,
+"hits": []
 },
 {
 "name": "?VectorScale@@YAXQBMMQAM@Z",
@@ -18156,6 +18192,22 @@
 ]
 },
 {
+"name": "_srand",
+"obj": "LIBCMT:rand.obj",
+"size": 13,
+"hits": [
+"0x100f618a"
+]
+},
+{
+"name": "_rand",
+"obj": "LIBCMT:rand.obj",
+"size": 34,
+"hits": [
+"0x100f6197"
+]
+},
+{
 "name": "_memmove",
 "obj": "LIBCMT:memmove.obj",
 "size": 829,
@@ -18207,22 +18259,6 @@
 "size": 213,
 "hits": [
 "0x1010abeb"
-]
-},
-{
-"name": "_srand",
-"obj": "LIBCMT:rand.obj",
-"size": 13,
-"hits": [
-"0x100f618a"
-]
-},
-{
-"name": "_rand",
-"obj": "LIBCMT:rand.obj",
-"size": 34,
-"hits": [
-"0x100f6197"
 ]
 },
 {

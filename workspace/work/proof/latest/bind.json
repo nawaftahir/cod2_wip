@@ -425,7 +425,7 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
-"?R_AllocStaticVertexBuffer@@YAPAXPAPATIDirect3DVertexBuffer9@@H@Z": {
+"?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z": {
 "t": "0x10004f40",
 "n": 222,
 "obj": "r_bsp_load_obj.obj",
@@ -2671,6 +2671,14 @@
 "obj": "r_window.obj",
 "why": []
 },
+"?R_CreateDeviceResources@@YAEXZ": {
+"t": "0x10012100",
+"n": 261,
+"obj": "r_device.obj",
+"why": [
+"call ?R_InitRenderTargets@@YAXXZ"
+]
+},
 "?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z": {
 "t": "0x10011460",
 "n": 100,
@@ -2837,6 +2845,18 @@
 "t": "0x1001e660",
 "n": 58,
 "obj": "r_skin_rigid.obj",
+"why": []
+},
+"?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z": {
+"t": "0x10011a40",
+"n": 129,
+"obj": "r_dxbuffers.obj",
+"why": []
+},
+"?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z": {
+"t": "0x10011ad0",
+"n": 129,
+"obj": "r_dxbuffers.obj",
 "why": []
 },
 "?R_CreateSmodelCacheVertexBuffer@@YAXXZ": {
@@ -11578,6 +11598,22 @@
 "call __getptd"
 ]
 },
+"_srand": {
+"t": "0x100f618a",
+"n": 13,
+"obj": "LIBCMT:rand.obj",
+"why": [
+"call __getptd"
+]
+},
+"_rand": {
+"t": "0x100f6197",
+"n": 34,
+"obj": "LIBCMT:rand.obj",
+"why": [
+"call __getptd"
+]
+},
 "__CIcos": {
 "t": "0x1010acc0",
 "n": 174,
@@ -11600,22 +11636,6 @@
 "obj": "LIBCMT:log.obj",
 "why": [
 "call __math_exit"
-]
-},
-"_srand": {
-"t": "0x100f618a",
-"n": 13,
-"obj": "LIBCMT:rand.obj",
-"why": [
-"call __getptd"
-]
-},
-"_rand": {
-"t": "0x100f6197",
-"n": 34,
-"obj": "LIBCMT:rand.obj",
-"why": [
-"call __getptd"
 ]
 },
 "__CIacos": {
@@ -11699,9 +11719,9 @@
 "n": 385,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 10179cbc",
-"unresolved 10179cbc",
-"unresolved 10179cbc"
+"unresolved 1017acbc",
+"unresolved 1017acbc",
+"unresolved 1017acbc"
 ]
 },
 "__DllMainCRTStartup@12": {
@@ -11709,7 +11729,7 @@
 "n": 228,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 10179cbc"
+"unresolved 1017acbc"
 ]
 },
 "__amsg_exit": {

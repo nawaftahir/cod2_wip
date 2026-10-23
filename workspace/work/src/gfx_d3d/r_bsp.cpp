@@ -9,7 +9,7 @@ extern const dvar_t *r_lightTweakSunColor;
 extern const dvar_t *r_lightTweakSunDiffuseColor;
 extern const dvar_t *r_lightTweakSunDirection;
 
-void *R_AllocStaticVertexBuffer(IDirect3DVertexBuffer9 **vb, int sizeInBytes);
+void *R_AllocStaticVertexBuffer(void **vb, int sizeInBytes);
 void R_FinishStaticVertexBuffer(void *vb);
 void R_FreeStaticVertexBuffer(IDirect3DVertexBuffer9 *vb);
 extern "C" void Com_Memcpy(void *dest, const void *src, int count);
@@ -22,7 +22,7 @@ IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int 
     int vertIndex;
 
     sizeVerts = (r_rendererInUse->current.integer == 2 ? 0x20 : 0x44) * vertexCount;
-    dataPtr = (byte *)R_AllocStaticVertexBuffer(&worldVb, sizeVerts);
+    dataPtr = (byte *)R_AllocStaticVertexBuffer((void **)&worldVb, sizeVerts);
     if (r_rendererInUse->current.integer == 2)
     {
         // DX7 path: GfxWorldVertex (0x44) -> GfxWorldVertexDx7 (0x20)
