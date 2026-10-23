@@ -1340,3 +1340,28 @@ Primary width function ends atRET1000c44f:192 bytes. GLM inventory186 cuts off
 its ADD ESP,414h/RET footer. Icon helper's code ends1000c367 before its seven
 switch pointers; future code-credit accounting must not count that table.
 No instruction spelling/flag sweeps attempted; source structure remains first.
+
+### Frame start - 2026-10-23
+
+Primary16890 compares unsigned byte Material+13 first, then subtracts the
+TechniqueSet pointers and divides by140 with signed magicEA0EA0EB/shift7.
+The Mac reference's corrupt-pointer guard and raw address difference are NOT
+in the target. Material_Sort16e70 calls the original VC7.1 std::_Sort and then
+writes sortedIndex+10 for every live material. Both referees accept87 bytes
+through RET10016ec6; inventory80 cuts off its tail. Using the original std::sort
+also matches ten dependency extents/1830 bytes, not authored game credit.
+
+Primary21db0 selects0.0 for the forced LOD and0.001f for OTHER levels, the
+opposite of the Mac source. Default branch reads each of four distance dvars
+immediately before RI+184.21e50 clears zFeather before checking DX7/current
+enable and target6.colorSurface; GPU modified flags are captured before both
+clear calls, then current multiGpu/gpuSync values are reloaded. Internal names
+R_UpdateLodDistances/R_UpdateFrameDvars are role labels, not historical claims.
+
+21f40 clears materialLoaded before sorting, then settings, client flush RI+12c
+and a fresh skinCache test/lock0. No extra command-list reset from the Mac wrapper.
+Primary registrationaaf0 identifies the dvar globals used by all these branches.
+Native4105 routes include callbacks rearming materialLoaded, changing cleared
+values, replacing world, updating subsequent LODs and flipping skinCache during
+client flush. Matching these source bodies is deferred until structural closure;
+no source-spelling/flag probes were run. All existing matches remain required.

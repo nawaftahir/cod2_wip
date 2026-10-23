@@ -1,6 +1,7 @@
 // Material globals and vertex declarations.
 #include "r_local.h"
 #include <dxerr9.h>
+#include <algorithm>
 #include "r_material_shader.h"
 
 int R_HashAssetName(const char *name);
@@ -479,7 +480,9 @@ struct Material
     unsigned char pad4[4];
     unsigned short hashIndex;
     unsigned short sortedIndex;
-    unsigned char padc[0x28];
+    unsigned char padc;
+    unsigned char sortKey;
+    unsigned char pade[0x26];
     unsigned short textureCount;
     unsigned short constantCount;
     const void *techniqueSet;
@@ -979,4 +982,27 @@ void Material_Shutdown()
     Material_ClearStateMapTable();
     Material_ClearTechniqueTable();
     Material_ClearTechniqueSetTable();
+}
+
+typedef char materialSortLayoutCheck[(sizeof(MaterialTechniqueSet) == 140
+    && offsetof(Material, sortKey) == 13
+    && offsetof(Material, techniqueSet) == 0x38) ? 1 : -1];
+
+// PINNED 10016890: technique-set subtraction is in140-byte elements.
+static bool Material_Compare(const Material *left, const Material *right)
+{
+    int diff = (int)left->sortKey - (int)right->sortKey;
+    if (diff)
+        return diff < 0;
+    diff = (const MaterialTechniqueSet *)left->techniqueSet
+        - (const MaterialTechniqueSet *)right->techniqueSet;
+    return diff < 0;
+}
+
+// PINNED 10016e70: sort the existing table, then publish every sorted index.
+void Material_Sort()
+{
+    std::sort(rgp.sortedMaterials, rgp.sortedMaterials + rgp.materialCount, Material_Compare);
+    for (int index = 0; index < rgp.materialCount; ++index)
+        rgp.sortedMaterials[index]->sortedIndex = (unsigned short)index;
 }

@@ -1,11 +1,38 @@
 # Renderer progress
 
-## Structure-first startup and shutdown checkpoint - 2026-10-23
+## Structure-first renderer checkpoint - 2026-10-23
 
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: console API source
+### Latest: genuine frame start
+
+R_BeginFrame10021f40 (API59 slot47) now connects actual material sorting,
+modified light/sun/settings handling, LOD distance publication, client debug
+flushing and optional skin-cache locking. Two address-pinned internal helpers
+use role names, not claimed original names. Existing sun/light/cache functions
+and all mutable state owners are reused; no stubs or injected callbacks.
+
+Material comparison uses the pinned byte sortKey13 and typed140-byte technique
+elements. Material_Sort87 bytes now match both referees, adding87 game C++ bytes.
+The original VC7.1 std::sort also reproduces ten dependency extents/1830 bytes,
+kept OUT of game credit. Current game C++104181/253580=41.084076031%,616 bodies;
+frozen legacy denominator, NOT whole-DLL completion. All1436 prior extents
+survive; the gate now protects1447 with11 independent removal negatives.
+Material comparison and the three new frame bodies remain uncredited.
+
+4105 native frame routes pass, including modified-flag order, inverse forced
+LOD distances and live dvar/world/client mutations.589824 comparator cases and
+128 sorts pass with actual Material/TechniqueSet shapes and sole sorted-index
+writes. Original compiler/ABI pins, both referees and all121 full fixtures pass.
+Named import set remains exact; same-offset file equality9.109524077%
+is only a layout diagnostic. No new globals, roots, flags or authored assembly.
+Evidence: proof/frame_start_warm_bind.json and proof/latest/frame_start_build.log
+plus frame_start_fixtures.log. Remaining API/backend dispatch, world load,
+original file/order proof, SHA and client/GPU execution are still OPEN.
+Frozen measurements/source hashes: proof/frame_start_checkpoint.json.
+
+### Console API source
 
 R_ConsoleTextWidth1000c390 (API59 slot78) and R_DrawConsoleText1000c4b0
 (slot79), plus their two packed-console helpers, now have genuine source in

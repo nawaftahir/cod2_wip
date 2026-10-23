@@ -532,3 +532,81 @@ void R_AddCmdDrawSunPostEffects(int viewIndex)
         return;
     cmd->viewIndex = viewIndex;
 }
+
+extern const dvar_t *r_zFeather;
+extern const dvar_t *r_sun_from_dvars;
+extern const dvar_t *r_gpuSync;
+extern const dvar_t *r_multiGpu;
+extern const dvar_t *r_skinCache;
+extern const dvar_t *r_forceLod;
+extern const dvar_t *r_highLodDist;
+extern const dvar_t *r_mediumLodDist;
+extern const dvar_t *r_lowLodDist;
+extern const dvar_t *r_lowestLodDist;
+void R_UpdateLightsFromDvars();
+void R_SetSunFromDvars(sunflare_t *sun);
+void Material_Sort();
+void R_LockSkinnedCache(int lockType);
+
+typedef char frameDvarLayoutCheck[(offsetof(dvar_t, reset) == 0x10
+    && offsetof(GfxWorld, sun) == 0x160
+    && offsetof(r_global_permanent_t, world) == 0x109c
+    && offsetof(DxGlobals, renderTargets) + 6 * sizeof(GfxRenderTarget)
+        + offsetof(GfxRenderTarget, colorSurface) == 0x2cac
+    && offsetof(refimport_t, Dvar_ClearModified) == 0x94
+    && offsetof(refimport_t, CL_FlushDebugData) == 0x12c
+    && offsetof(refimport_t, XModelSetTestLods) == 0x184) ? 1 : -1];
+
+// Role name; PINNED 10021db0: the selected forced LOD gets zero distance.
+static void R_UpdateLodDistances()
+{
+    if (r_forceLod->current.integer != r_forceLod->reset.integer)
+    {
+        for (int index = 0; index < 4; ++index)
+            ri.XModelSetTestLods(index, r_forceLod->current.integer == index ? 0.0f : 0.001f);
+    }
+    else
+    {
+        ri.XModelSetTestLods(0, r_highLodDist->current.value);
+        ri.XModelSetTestLods(1, r_mediumLodDist->current.value);
+        ri.XModelSetTestLods(2, r_lowLodDist->current.value);
+        ri.XModelSetTestLods(3, r_lowestLodDist->current.value);
+    }
+}
+
+// Role name; PINNED 10021e50: clear modified flags before reading live values.
+static void R_UpdateFrameDvars()
+{
+    if (R_ClearModifiedLightDvars())
+        R_UpdateLightsFromDvars();
+    if (r_zFeather->modified)
+    {
+        ri.Dvar_ClearModified(r_zFeather);
+        if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled
+            && !dx.renderTargets[6].colorSurface)
+            ri.Printf(0, "Because r_zFeather was 0 during renderer initialization,\nyou must do a vid_restart with r_zFeather set to 1 to see it.\n");
+    }
+    if (r_sun_from_dvars->current.enabled && rgp.world)
+        R_SetSunFromDvars(&rgp.world->sun);
+    bool gpuChanged = R_ClearModifiedDvar(r_gpuSync);
+    bool multiChanged = R_ClearModifiedDvar(r_multiGpu);
+    if (gpuChanged || multiChanged)
+        dx.gpuSync = r_multiGpu->current.enabled ? 0 : r_gpuSync->current.integer;
+    R_UpdateLodDistances();
+}
+
+// PINNED 10021f40: API59 slot47; sorting and settings precede client flushing.
+void R_BeginFrame()
+{
+    if (!rg.registered)
+        return;
+    if (rgp.materialLoaded)
+    {
+        rgp.materialLoaded = 0;
+        Material_Sort();
+    }
+    R_UpdateFrameDvars();
+    ri.CL_FlushDebugData(0);
+    if (r_skinCache->current.enabled)
+        R_LockSkinnedCache(0);
+}

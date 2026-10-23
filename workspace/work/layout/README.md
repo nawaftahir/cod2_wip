@@ -405,3 +405,15 @@ lookup. No second font registry or interface table is allocated. The legacy
 Mac refexport_t in PC/universal/com_math.h omits PC callback fields and has
 wrong prototypes such as no-argument Shutdown; do not adopt it unchanged for
 the actual108-slot API59 entrypoint.
+
+Frame start/API59 slot47 now lives with the existing command/frontend state in
+r_rendercmds.cpp. It reuses original light-flag clearing, world.sun160, gpuSync,
+float-Z target6.colorSurface, client flush RI+12c and LOD setter RI+184. Dvar
+reset is pinned at10h; live values are reloaded after callbacks. Internal21db0/
+21e50 helper names describe roles; original names are unconfirmed.
+
+r_material.cpp owns sorting of the existing rgp.sortedMaterials table. Byte13
+is now named sortKey in the unchanged68-byte Material view. TechniqueSet remains
+140 bytes; comparison subtracts typed pointers, not raw address ordering. Original
+VC7.1 std::sort is reused; ten matched library bodies remain dependency credit.
+No new mutable storage or TU/order claim is introduced by this wave.

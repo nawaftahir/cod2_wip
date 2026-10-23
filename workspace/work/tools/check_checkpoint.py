@@ -111,6 +111,9 @@ required.update(accepted(light_grid_helpers))
 renderer_shutdown = Path(__file__).resolve().parents[1] / 'proof/renderer_shutdown_warm_bind.json'
 assert hashlib.sha256(renderer_shutdown.read_bytes()).hexdigest() == 'a98a9a13870183c04f15103e091a34f3aaec1821e16b72fcb0a915bfd60558ea'
 required.update(accepted(renderer_shutdown))
+frame_start = Path(__file__).resolve().parents[1] / 'proof/frame_start_warm_bind.json'
+assert hashlib.sha256(frame_start.read_bytes()).hexdigest() == '369e04bcb8252b756b7112c163100a112bd398e21c33ac97ffc00811fa6494d1'
+required.update(accepted(frame_start))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

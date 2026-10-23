@@ -1,0 +1,160 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "1b63501",
+  "scope": "real frame-start callback, live settings/LOD and original material sorting",
+  "source_functions_restored": [
+    "Material_Compare",
+    "Material_Sort",
+    "R_UpdateLodDistances (role name)",
+    "R_UpdateFrameDvars (role name)",
+    "R_BeginFrame"
+  ],
+  "api_slots": {
+    "47": "R_BeginFrame at10021f40"
+  },
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "7c4ef189b418bba99108c1805d3092f7a204a2b0792cafdd3b999672ca7fce1d",
+  "same_file_offset_percent": 9.109524077018806,
+  "cpp_executable_bytes": 104181,
+  "cpp_percent_legacy_inventory": 41.08407603123275,
+  "cpp_game_bodies": 616,
+  "new_verified_engine_bytes": 87,
+  "new_dependency_extent_bytes": 1830,
+  "new_verified_extents": [
+    {
+      "name": "?Material_Sort@@YAXXZ",
+      "target": "0x10016e70",
+      "bytes": 87,
+      "kind": "game"
+    },
+    {
+      "name": "??$_Unguarded_partition@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YA?AU?$pair@PAPAUMaterial@@PAPAU1@@0@PAPAUMaterial@@0P6A_NPBU2@1@Z@Z",
+      "target": "0x10017a90",
+      "bytes": 408,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$_Insertion_sort@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z",
+      "target": "0x10017c90",
+      "bytes": 148,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$_Median@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@00P6A_NPBU1@1@Z@Z",
+      "target": "0x10017d40",
+      "bytes": 515,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$_Med3@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@00P6A_NPBU1@1@Z@Z",
+      "target": "0x10018020",
+      "bytes": 76,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$_Adjust_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@HHPAU1@P6A_NPBU1@2@Z@Z",
+      "target": "0x10018080",
+      "bytes": 103,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$_Push_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@HHPAU1@P6A_NPBU1@2@Z@Z",
+      "target": "0x10018140",
+      "bytes": 79,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$_Sort@PAPAUMaterial@@HP6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0HP6A_NPBU1@1@Z@Z",
+      "target": "0x100179a0",
+      "bytes": 230,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$_Rotate@PAPAUMaterial@@HPAU1@@std@@YAXPAPAUMaterial@@00PAH0@Z",
+      "target": "0x100181b0",
+      "bytes": 150,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$_Make_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@ZPAH0@Z",
+      "target": "0x10017f80",
+      "bytes": 60,
+      "kind": "dependency"
+    },
+    {
+      "name": "??$sort_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z",
+      "target": "0x10017c50",
+      "bytes": 61,
+      "kind": "dependency"
+    }
+  ],
+  "protected_extents": 1447,
+  "independent_new_extent_removal_negatives": 11,
+  "full_source_fixtures_passed": 121,
+  "native_frame_routes": 4105,
+  "native_material_comparisons": 589824,
+  "native_material_sorts": 128,
+  "named_import_set_identical": true,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 953138,
+      "sha256": "c419cfbb5ea7e60b44e7d3263aee7f6daf23da3fecc34d6e95a853ac2b37a386"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602479,
+      "sha256": "914acaea65a72302e88da3478206b8c906535784e6614d91daaa096f107aeb5c"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "2a1927981f5071b209a77bb3ce7163ea95cd9b91dfc01147606d1bb7998d5979"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88074,
+      "sha256": "3fdde0a6e85e57b4c73d27112dddcbb300fd1924cbedeba52ee1008de102c417"
+    }
+  ],
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "binding_snapshot_sha256": "369e04bcb8252b756b7112c163100a112bd398e21c33ac97ffc00811fa6494d1",
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/r_material.cpp": "ff83252849111c867808864b2a8ebeb84d6e0fe54991c9dd364cb7d5b8b6c0af",
+    "target/work/src/gfx_d3d/r_rendercmds.cpp": "6b8138599917ace6fe5d7f7560c3336484100243d4456fe6fcd6adc0c2d4f0a5",
+    "target/work/tests/test_frame_start.py": "8d8892af506930b17958ca4270893629baadd09ae3d29cba7a5e5d883c202a6a",
+    "target/work/tests/test_material_sort.py": "072e2b1008d8a194ab82195dfbff7aee0f642e2b3865df5c0c527a3ee3115a93",
+    "target/work/tools/check_checkpoint.py": "ce0841a5790100ac960eb9f41e3cd960d238f225bc3c8dca3412f3e370e8a267"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/frame_start_build.log": "768b7890e7394e9e1d1bd630977fa673595f4b9b644ee16eaadf882eb4c62ff0",
+    "target/work/proof/latest/frame_start_fixtures.log": "b55446eff95568aae67c8907aa9e361b88432bdcd24b3292898bb4da08dae087"
+  },
+  "limits": [
+    "only Material_Sort gains new game byte credit; four other source bodies remain uncredited",
+    "native pointer-distance cases use a valid shared TechniqueSet array; no arbitrary-address or all-IEEE proof",
+    "API/backend/world-load closure, original TU/order/metadata and whole-file SHA remain unproved",
+    "no client/GPU smoke or new authored assembly"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py",
+    "python3 target/work/tools/check_checkpoint.py target/work/build/bind.json"
+  ]
+}
