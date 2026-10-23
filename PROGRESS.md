@@ -34,6 +34,12 @@ with loader150e0/172 and image-entry reader15090/68; that reader calls actual
 Image_Register1000d200. Recover these real connected modules, not a guessed
 Material_Register call. Video source restores needed structure without claiming
 registration/device/API closure. Those closures and retail SHA remain OPEN.
+Additional closure check: Image_Register1000d200/94 needs BOTH file loading and
+the full519-byte builtin dispatcher100108a0. That dispatcher still requires real
+default/checker and outdoor-image creators among its existing procedural helpers.
+Do not add an unresolved light-loader TU, skip the builtin branch or returnnull
+as a stand-in. Close these actual image creators, then Image_Register and the
+light loader/registry together. No speculative light source was added this wave.
 
 ### Resources checkpoint d782265
 

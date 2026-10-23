@@ -27,6 +27,16 @@ stored in rgp.dlightDef+1028. Do not guess Material_Register or defaultMaterial.
 The existing full material/image initialization and light-loader closures still
 need recovery. The light registry is count101d7eb0 plus64 pointers101d7eb4.
 Confirm complete loader150e0 and registration RET boundaries before implementing.
+Registration's RET is14d52:243 bytes, not inventory235. Loader150e0/172 reads
+lights/%s; negative read returnsnull, zero read frees the buffer then returnsnull.
+Two packed image entries each contain a sampler byte and a NUL-terminated name;
+15090/68 calls Image_Register(name,semantic5,track1) only for nonempty names.
+Image_Register1000d200/94 calls existing lookup, then either builtin108a0/519
+or category3 allocation plus real file loading. Builtin failure/file failure
+raises the same primary error, not a placeholder fallback. The builtin dispatcher
+still needs real default/checker/outdoor creators alongside the restored solid,
+specularity/light-grid/sun helpers. Do not introduce unresolved light source
+or silently skip $ names to make a partial startup graph link.
 
 ## 2026-10-23 actual device resources and GPU buffers
 
