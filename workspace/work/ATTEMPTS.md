@@ -30,6 +30,16 @@ also calls global init12e70, command/backend setup20b50/29430, hardware12c80,
 font registration0bce0, sin/FFT tables, actual collision import and timing
 benchmark3a9d0. Recover their shared fields/callees before exposing the API.
 
+Reinspection of current source AND bind.json confirms existing accepted
+R_InitGlobalStructs12e70/109, R_InitSinTable12ee0/43, R_InitModelDObj12f40/51,
+RB_InitBackendGlobalStructs33f80/64. Existing asserts pin rg31a0, rgp10f0 and
+backEnd36b60. These are NOT missing reconstruction; reuse rather than re-derive.
+ImageList0d940/1070 and actual cache flush2baf0/111 already match too. The
+command entry2bbf0 is a separate five-byte jump to that real cache flush.
+Stats2bb90 ends2bbe3 (84 bytes), reads existing s_cache.stats allocated/used,
+prints allocated*(100/65536) and, if allocated!=0, used*100/allocated. Target
+single constants1019bd60/5c are0.00152587890625/100.0; no new stats globals.
+
 ## 2026-10-23 material/system startup closure
 
 PINNED Material_Init173e0/124 clears materialGlobals299c, preloads shader text,

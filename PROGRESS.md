@@ -39,11 +39,14 @@ Current SHAb6be81ba215fc957d4548c8b9b1e5c5439fc74039c659c0daa548ce3f10c00b5;
 Same-offset8.195185028%, not source recovery/whole-file completion. Stages1-3,
 structural checkpoint, SHA and real client/GPU smoke remain OPEN.
 
-Next genuine closure: R_Init10012f80/169. It still needs registration52c0
-(nine REAL callbacks), global initializer12e70, tables and benchmark3a9d0,
-not a stub entrypoint. Check sizeof rg=31a0, rgp=10f0, backEnd=36b60 and all
-consumed ownership before restoring the global clear. Commands/primary targets
-are pinned in ATTEMPTS.md. Continue source/structure closure, not flag sweeps.
+Next genuine closure: R_Init10012f80/169 needs registration52c0's real callback
+chain and benchmark3a9d0, not a stub entrypoint. Reinspection confirms global
+initializer12e70/109, sine table12ee0/43, model DObj12f40/51 and backend
+initializer33f80/64 ALREADY pass both referees; reuse them. Size checks for
+rg31a0/rgp10f0 and SDK backEnd36b60 already exist. Do not rewrite that work.
+Image-list0d940 and cache-flush2baf0 callback implementations also already
+match. Commands/targets and missing chains are pinned in ATTEMPTS.md.
+Continue source/structure closure, not flag sweeps.
 
 ### Material/systems checkpoint676e402
 
