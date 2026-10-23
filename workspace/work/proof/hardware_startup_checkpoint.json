@@ -1,0 +1,58 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "676e402",
+  "scope": "real higher device creation, settings reduction and hardware startup/retry chain",
+  "whole_file_identical": false,
+  "candidate_sha256": "b6be81ba215fc957d4548c8b9b1e5c5439fc74039c659c0daa548ce3f10c00b5",
+  "same_file_offset_percent": 8.19518502834624,
+  "candidate_file_bytes": 1638400,
+  "candidate_sections": {
+    ".text": 893666,
+    ".rdata": 593007,
+    ".data": 6084500,
+    ".reloc": 85626
+  },
+  "cpp_executable_bytes": 102205,
+  "cpp_percent_supported_inventory": 40.30483476614875,
+  "cpp_game_bodies": 599,
+  "cpp_bytes_gained": 0,
+  "new_accepted_bodies": [],
+  "mixed_executable_bytes": 109992,
+  "mixed_game_bodies": 630,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "previous_1284_extents_retained": true,
+  "full_source_fixtures_passed": 96,
+  "native32_higher_device_routes": 48,
+  "native32_hardware_routes": 361,
+  "retained_native32_device_creation_routes": 1204,
+  "restored_primary_source_bodies": {
+    "0x100128b0": 271,
+    "0x10012c20": 91,
+    "0x10012c80": 289
+  },
+  "new_state_owners": [],
+  "new_tus_flags_root_exports_or_assembly": false,
+  "genuine_import_added": "USER32.ShowWindow",
+  "missing_named_imports": [
+    "USER32.IsWindow"
+  ],
+  "GetRefAPI_implemented": false,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_device.cpp": "5cdc54038f2aa43373f3b63d7aedf41fe44ca45c4f695a5a3ffa8bf81cd5366b",
+    "tests/test_device_creation.py": "1886d46c960904d961f8c2dcf8aa2cb6b38d64814cfdf622462a3bd11b44f0e7",
+    "tests/test_device_startup.py": "98ce04ba37887903a5fa6042fb74914dc9231f7477dbdba29b7119b6c3d0456a",
+    "tests/test_hardware_startup.py": "9bb17644c6981e1fdce8de40be3666f6d39e7e8460af7a33c374c912334d9b76",
+    "proof/hardware_startup_warm_bind.json": "d51da2b40638603c040387a7255be586c4a993bbddcde31405288d5940ceaec2",
+    "proof/hardware_startup_layout.json": "885241ac8c5604fe1080ee71e350dba34a8dec36f430bba1b5699c914a2928f1",
+    "proof/hardware_startup_source_coverage.json": "e384b6b8fa25eccda6c75d676e7df45efca33ecb4c71564c540f63638a704494",
+    "proof/latest/device_startup_build.log": "cc7da48b54a069150dac6e25992f85cc005e31a80018ee4e2b3871a3a9b60027",
+    "proof/latest/hardware_startup_build.log": "cc7da48b54a069150dac6e25992f85cc005e31a80018ee4e2b3871a3a9b60027",
+    "proof/latest/hardware_startup_fixtures.log": "57ca686252d43fa7e5c0a249b2fb7a18739b16a5eb8ddff65dd1d4035450b2c5"
+  }
+}

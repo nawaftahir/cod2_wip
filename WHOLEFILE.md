@@ -21,10 +21,10 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/material_systems_checkpoint.json; previous coverage gain:
+Current source wave:target/work/proof/hardware_startup_checkpoint.json; previous coverage gain:
 target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
-dddd459. Readable source is target/work/src; some functions are still unmatched
+676e402. Readable source is target/work/src; some functions are still unmatched
 drafts. All1284 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
 Accepted authored C/C++:102205/253580 game bytes,40.304834766%. This is not a
@@ -35,10 +35,10 @@ whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 | File length |1851392 bytes |1638400 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |893026 |
-| .rdata virtual length |595105 |592911 |
+| .text virtual length |1089680 |893666 |
+| .rdata virtual length |595105 |593007 |
 | .data virtual length, including zero-initialized storage |6086100 |6084500 |
-| .reloc virtual length |95704 |85526 |
+| .reloc virtual length |95704 |85626 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
@@ -104,6 +104,13 @@ restored, along with R_InitSystems calling image/material/light setup and
 resetting original water/fog/debug state. All94 fixtures and1284 protected
 extents pass. Their dependency bindings remain unaccepted; no V2 gain is
 claimed. Higher device/window startup, R_Init and the genuine API remain open.
+Higher device/window startup and the actual AA/refresh/resolution retry ladder
+are now restored in r_device.cpp, reaching real resources/systems, splash and
+window publication. Both original-compiler waves retain1284 extents; all96
+fixtures pass. Source is not byte-accepted yet. ShowWindow is genuinely imported;
+only IsWindow remains missing, with no extra named imports. R_Init still needs
+actual command callbacks, global setup/table ownership and the benchmark; the
+API and structural checkpoint remain open. No source-coverage gain is claimed.
 
 ## Execution order
 

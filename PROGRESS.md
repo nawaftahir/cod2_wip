@@ -1,12 +1,51 @@
 # Renderer progress
 
-## Structure-first material and systems initialization - 2026-10-23
+## Structure-first hardware startup - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+After676e402, r_device.cpp now restores higher device creation128b0/271,
+settings reduction12c20/91 and hardware startup12c80/289. The real chain is
+presentation -> CreateDeviceInternal -> original FP controls -> video/shared
+viewport -> resources -> gamma modified reset -> R_InitSystems -> window
+publication. Startup retries AA, then refresh, then resolution; existing devices
+only reinitialize systems. Failure messages/return behavior match primary,
+including retrying after a returning fatal callback. No fake successful init.
+
+All state is reused: dx/vidConfig, real dvars and backEnd.sceneViewport at
+1072dde8/1072ddec, NOT dxState or newly invented width/height globals. HWND is
+captured before presentation setup, then actual parms are read for publication.
+Window swap-chain and viewport x/y remain untouched. _controlfp calls use the
+existing original CRT; no authored assembly. Primary still ignores the factory
+status and does not add a retry cleanup; do not silently modernize this behavior.
+
+Both compiler waves pass unchanged byte/binding/source gates and all1284
+protected extents. All96 fixtures pass:48 higher-device routes,361 hardware
+threshold/retry/failure routes, retained1204 AA/presentation/device routes.
+These three source bodies remain unmatched; NO new V2 credit. C++ stays
+102205/253580=40.304834766%,599 bodies; mixed109992/630, same31/7787 assembly
+exclusions. Source/proof hashes: target/work/proof/hardware_startup_checkpoint.json.
+All new functions are in the linked map; real ShowWindow closes that missing
+retail import. Only IsWindow remains missing among named imports; no extras.
+Still159 temporary exports/no GetRefAPI. One output reused, no workers; billing
+unavailable. No own build or fixture session remains running. No push.
+
+Current SHAb6be81ba215fc957d4548c8b9b1e5c5439fc74039c659c0daa548ce3f10c00b5;
+.text893666, .rdata593007, .data6084500, .reloc85626; file1638400 bytes.
+Same-offset8.195185028%, not source recovery/whole-file completion. Stages1-3,
+structural checkpoint, SHA and real client/GPU smoke remain OPEN.
+
+Next genuine closure: R_Init10012f80/169. It still needs registration52c0
+(nine REAL callbacks), global initializer12e70, tables and benchmark3a9d0,
+not a stub entrypoint. Check sizeof rg=31a0, rgp=10f0, backEnd=36b60 and all
+consumed ownership before restoring the global clear. Commands/primary targets
+are pinned in ATTEMPTS.md. Continue source/structure closure, not flag sweeps.
+
+### Material/systems checkpoint676e402
 
 Afterdddd459, actual Material_Init100173e0 and its registration/raw helpers
 10017350/10017190 are restored in r_material.cpp. The28 normal and12 optional

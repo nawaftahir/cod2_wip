@@ -1,5 +1,35 @@
 # Reconstruction attempts
 
+## 2026-10-23 higher device and hardware startup
+
+PINNED128b0/271 captures HWND BEFORE presentation setup; calls CreateDeviceInternal
+with40h, then _controlfp(20000,30000) and(8001f,8001f) even on failure. Success
+clears deviceLost, uses multiGpu101ce6b0/gpuSync101ce6c8, stores window settings
+and backEnd.sceneViewport.width/height1072dde8/1072ddec. Do NOT create anonymous
+viewport globals or confuse these fields with dxState. Resources must succeed
+before Dvar_ClearModified(gamma101ce62c), systems12040 and window publication.
+Source changes do not establish historical helper names/TU grouping.
+
+PINNED12c20/91 reduces AA if>1, else refresh index if>0 and live Hz>60,
+else mode index if>0 and(width>640 OR height>480). Thresholds are strict.
+Hardware12c80/289 checks dx.device only on ENTRY. It calls existing systems
+and returns for a cached device, otherwise ignores CreateDirect3D's return,
+loops setup/create-window/create-device, lowers settings or prints four exact
+messages then Sys_DirectXFatalError. A returning fatal continues the loop.
+Success hides splash, sets targetWindowIndex0, ShowWindow(hwnd,5). No added
+window/device cleanup, fake success or authored assembly. Native tests cover
+48 higher-device +361 hardware cases, plus all1204 retained creation cases.
+All96 fixtures and1284 protected extents pass; these source bodies are NOT V2.
+
+Next PINNED registration52c0/151 commands/targets, in exact order:
+screenshot052a0, screenshotJpeg052b0, imagelist0d940, r_applyPicmip05290,
+reloadmaterialtextures178b0, r_loadsun29010, r_savesun290f0,
+r_smc_stats2bb90, r_smc_flush2bbf0 (all addresses have10000000 base).
+Do not attach unrelated callbacks merely to retain the table. R_Init12f80
+also calls global init12e70, command/backend setup20b50/29430, hardware12c80,
+font registration0bce0, sin/FFT tables, actual collision import and timing
+benchmark3a9d0. Recover their shared fields/callees before exposing the API.
+
 ## 2026-10-23 material/system startup closure
 
 PINNED Material_Init173e0/124 clears materialGlobals299c, preloads shader text,

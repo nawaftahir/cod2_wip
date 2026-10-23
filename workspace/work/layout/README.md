@@ -1,5 +1,12 @@
 # Layout is part of every reconstruction wave
 
+Hardware startup,2026-10-23: higher device/create/retry stays in r_device.cpp,
+calling the existing window, adapter/display, resource and systems owners.
+The two primary writes1072dde8/1072ddec are backEnd.sceneViewport.width/height
+(base1072da00 +3e8/+3ec), NOT dxState or backEnd.width/height. Static checks pin
+the shared viewport and dx window/GPU fields. No new global, TU, flags or root.
+ShowWindow is retained through genuine startup, not a dummy import reference.
+
 Material/systems startup,2026-10-23: r_material.cpp owns the40 typed builtin
 registration entries and initializes its existing0x299c materialGlobals. The
 SDK-side rgp prefix now reaches rawTexdef10e4 with compile assertions matching

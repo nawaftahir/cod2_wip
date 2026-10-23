@@ -16,7 +16,7 @@ assert retail.get_string_at_rva(0x193c40) == b'Creating Direct3D device...\n'
 assert retail.get_string_at_rva(0x192b74) == b'r_swapInterval'
 header = (work / 'src/gfx_d3d/r_window.h').read_text().replace('#pragma once', '')
 text = (work / 'src/gfx_d3d/r_device.cpp').read_text()
-source = text[text.index('void R_SetupAntiAliasing('):]
+source = text[text.index('void R_SetupAntiAliasing('):text.index('extern const dvar_t *r_gamma;')]
 program = r'''
 #include <cassert>
 #include <cstdio>

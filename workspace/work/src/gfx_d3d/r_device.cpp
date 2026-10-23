@@ -2,7 +2,9 @@
 #include "r_local.h"
 #include "r_window.h"
 #include "r_sun_state.h"
+#include "rb_backend.h"
 #include <dxerr9.h>
+#include <float.h>
 
 extern const dvar_t *r_swapInterval;
 
@@ -117,4 +119,96 @@ HRESULT R_CreateDeviceInternal(HWND hwnd, DWORD behavior, D3DPRESENT_PARAMETERS 
             return result;
         dx.adapterIndex = 0;
     }
+}
+
+extern const dvar_t *r_gamma;
+extern const dvar_t *r_multiGpu;
+extern const dvar_t *r_gpuSync;
+void R_StoreWindowSettings(const GfxWindowParms *parms);
+void R_InitSystems();
+
+typedef char deviceStartupLayoutCheck[(offsetof(DxGlobals, gpuSync) == 0x2c20 &&
+    offsetof(DxGlobals, deviceLost) == 0x2d3c &&
+    offsetof(DxGlobals, windowCount) == 0x2d48 && offsetof(DxGlobals, windows) == 0x2d4c &&
+    sizeof(GfxWindowTarget) == 16 && offsetof(GfxWindowTarget, width) == 8 &&
+    offsetof(r_backEndGlobals_t, sceneViewport) + offsetof(GfxViewport, width) == 0x3e8 &&
+    offsetof(r_backEndGlobals_t, sceneViewport) + offsetof(GfxViewport, height) == 0x3ec &&
+    offsetof(vidConfig_t, width) == 0 && offsetof(vidConfig_t, height) == 4) ? 1 : -1];
+
+// PINNED 100128b0/271: restore FP control even when device creation fails.
+Bool R_CreateDevice(const GfxWindowParms *parms)
+{
+    HWND hwnd = parms->hwnd;
+    D3DPRESENT_PARAMETERS present;
+    R_SetD3DPresentParameters(&present, parms);
+    HRESULT result = R_CreateDeviceInternal(hwnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &present);
+    _controlfp(_PC_24, _MCW_PC);
+    _controlfp(_MCW_EM, _MCW_EM);
+    if (result < 0)
+    {
+        ri.Printf(0, "Couldn't create a Direct3D device: %s\n", DXGetErrorDescription9(result));
+        return 0;
+    }
+    dx.deviceLost = 0;
+    dx.gpuSync = r_multiGpu->current.enabled ? 0 : r_gpuSync->current.integer;
+    R_StoreWindowSettings(parms);
+    backEnd.sceneViewport.width = vidConfig.width;
+    backEnd.sceneViewport.height = vidConfig.height;
+    if (!R_CreateDeviceResources())
+        return 0;
+    ri.Dvar_ClearModified(r_gamma);
+    R_InitSystems();
+    dx.windows[dx.windowCount].hwnd = parms->hwnd;
+    dx.windows[dx.windowCount].width = parms->width;
+    dx.windows[dx.windowCount].height = parms->height;
+    ++dx.windowCount;
+    return 1;
+}
+
+void R_SetupWindowParms(GfxWindowParms *parms);
+bool R_CreateDirect3D();
+
+// PINNED 10012c20/91: lower AA first, then refresh, then resolution.
+Bool R_ReduceWindowSettings()
+{
+    const dvar_t *setting;
+    if (r_aaSamples->current.integer > 1)
+        setting = r_aaSamples;
+    else if (r_displayRefresh->current.integer > 0 && vidConfig.displayFrequency > 60)
+        setting = r_displayRefresh;
+    else if (r_mode->current.integer > 0 && (vidConfig.width > 640 || vidConfig.height > 480))
+        setting = r_mode;
+    else
+        return 0;
+    ri.Dvar_SetInt(setting, setting->current.integer - 1);
+    return 1;
+}
+
+// PINNED 10012c80/289: an existing device only reinitializes systems.
+void R_InitHardware()
+{
+    if (dx.device)
+    {
+        R_InitSystems();
+        return;
+    }
+    GfxWindowParms parms;
+    R_CreateDirect3D();
+    for (;;)
+    {
+        R_SetupWindowParms(&parms);
+        if (R_CreateGameWindow(&parms) && R_CreateDevice(&parms))
+            break;
+        if (!R_ReduceWindowSettings())
+        {
+            ri.Printf(0, "********** DirectX returned an unrecoverable error code during initialization  **********\n");
+            ri.Printf(0, "********** Initialization also happens while playing if DirectX loses a device **********\n");
+            ri.Printf(0, "********** Consult the readme for how to continue from this problem            **********\n");
+            ri.Printf(0, "\n%s\n", "Couldn't initialize renderer");
+            ri.Sys_DirectXFatalError();
+        }
+    }
+    ri.Sys_HideSplashWindow();
+    dx.targetWindowIndex = 0;
+    ShowWindow(parms.hwnd, SW_SHOW);
 }
