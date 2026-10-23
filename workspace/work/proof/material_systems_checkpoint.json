@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "dddd459",
+  "scope": "real material tables/raw setup/initializer and connected renderer systems initialization",
+  "whole_file_identical": false,
+  "candidate_sha256": "8661b340a44fc4b96064b0dd995e830b6366c2af874d40aafd84ff55a3a2a8e3",
+  "same_file_offset_percent": 8.21792467505531,
+  "candidate_file_bytes": 1638400,
+  "candidate_sections": {
+    ".text": 893026,
+    ".rdata": 592911,
+    ".data": 6084500,
+    ".reloc": 85526
+  },
+  "cpp_executable_bytes": 102205,
+  "cpp_percent_supported_inventory": 40.30483476614875,
+  "cpp_game_bodies": 599,
+  "cpp_bytes_gained": 0,
+  "new_accepted_bodies": [],
+  "mixed_executable_bytes": 109992,
+  "mixed_game_bodies": 630,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "previous_1284_extents_retained": true,
+  "full_source_fixtures_passed": 94,
+  "native32_material_startup_routes": 32,
+  "native32_renderer_systems_routes": 51,
+  "native32_material_binary_routes": 77,
+  "retail_builtin_entries": 28,
+  "retail_optional_fill_entries": 12,
+  "state_owners": {
+    "rgp": "r_init.cpp",
+    "rg": "r_init.cpp",
+    "materialGlobals": "r_material.cpp",
+    "debugGlobals": "r_debug.cpp"
+  },
+  "source_bodies_with_byte_shape_but_rejected_callee_bindings": {
+    "0x10017190": 88,
+    "0x10017350": 71,
+    "0x100173e0": 124,
+    "0x10012040": 116
+  },
+  "new_tus_flags_root_exports_or_assembly": false,
+  "GetRefAPI_implemented": false,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_material.cpp": "7affb2934bc6c0d42c7379967a2dc35782bf961d87bb9f20b77e8788962e1f3f",
+    "src/gfx_d3d/r_init.cpp": "cbb8afabebbf241d17332b8af9349df5d4695774732ef2da47943f7769e73d79",
+    "tests/test_material_binary.py": "1b8895ef609fa623294b8107caa61c0a4f03caa5f36a56a5cf01e92acb92c4c2",
+    "tests/test_image_startup.py": "bd65fd84af7473c167376fd00057d919b3c59e6a0f2b245262921687d0859f87",
+    "tests/test_material_startup.py": "0b16892f362d93a9f67e51f7d94f6e965a74bda6c20c550fdd9385fcdc6a8141",
+    "tests/test_renderer_systems.py": "2bacffdf6d956569b448a0eae9aea44a97e739c5901383f045004e143982be23",
+    "proof/material_systems_warm_bind.json": "d51da2b40638603c040387a7255be586c4a993bbddcde31405288d5940ceaec2",
+    "proof/material_systems_layout.json": "b49872eaa8d542cf98ef9031df3f044e46cbdbe2e0867b6534d4edbecaa34d5c",
+    "proof/material_systems_source_coverage.json": "76de7a8aa6b56d3baeb4803bd31bde0e1dd0bb0b008d8e6e8b8bdf48ec87731a",
+    "proof/latest/material_startup_build.log": "cc7da48b54a069150dac6e25992f85cc005e31a80018ee4e2b3871a3a9b60027",
+    "proof/latest/material_systems_build.log": "cc7da48b54a069150dac6e25992f85cc005e31a80018ee4e2b3871a3a9b60027",
+    "proof/latest/material_systems_fixtures.log": "833a1bfe5dcb3bdc60f93dd4648e246f6d0da457c0c03d00ba8a3df158800d50"
+  }
+}

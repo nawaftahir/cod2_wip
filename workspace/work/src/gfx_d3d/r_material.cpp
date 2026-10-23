@@ -477,6 +477,17 @@ int R_GetMaterialSubimageCount(const MaterialInfoView *handle)
     return handle->textureAtlasColumnCount * handle->textureAtlasRowCount;
 }
 
+struct MaterialWaterDef;
+struct MaterialTextureDef
+{
+    const char *name;
+    byte samplerState;
+    byte semantic;
+    byte unused_0;
+    byte unused_1;
+    union { GfxImage *image; MaterialWaterDef *water; } u;
+};
+
 // Mac 1.3 Material (0x44 bytes); offsets PINNED on PC 1.0.
 struct Material
 {
@@ -488,21 +499,70 @@ struct Material
     unsigned short textureCount;
     unsigned short constantCount;
     const void *techniqueSet;
-    const void *textures;
+    MaterialTextureDef *textures;
     const void *constants;
 };
 
-// Only up to defaultMaterial (offset PINNED 0x102c on PC 1.0).
+// SDK-side view of the same rgp allocation owned by r_init.cpp.
 struct r_global_permanent_t
 {
     int materialLoaded;
     int materialCount;
     Material *sortedMaterials[1024];
     unsigned char pad1008[0x102c - 0x1008];
-    const Material *defaultMaterial;
+    Material *defaultMaterial;
+    Material *rawMaterial;
+    Material *stencilPlaneMaterial;
+    Material *whiteMaterial;
+    Material *additiveMaterial;
+    Material *pointMaterial;
+    Material *lineMaterial;
+    Material *clearAlphaStencilMaterial;
+    Material *shadowClearMaterial;
+    Material *shadowCookieOverlayMaterial;
+    Material *shadowCookieBlurMaterial;
+    Material *glareBlindMaterial;
+    Material *normalFillMaterial;
+    Material *alphaBlendFillMaterial;
+    Material *alphaTestPassFillMaterial;
+    Material *alphaTestFailFillMaterial;
+    Material *additiveFillMaterial;
+    Material *depthOnlyFillMaterial;
+    Material *stencilOneSideKeepFillMaterial;
+    Material *stencilOneSideRejectFillMaterial;
+    Material *stencilTwoSideKeepFillMaterial;
+    Material *stencilTwoSideRejectFillMaterial;
+    Material *phongBumpFillMaterial;
+    Material *phongBumpSpecFillMaterial;
+    Material *colorChannelMixerMaterial;
+    Material *frameColorDebugMaterial;
+    Material *frameAlphaDebugMaterial;
+    GfxImage *rawImage;
+    void *world;
+    GfxImage *sunHalfAngleImage;
+    GfxImage *waterColorImage;
+    Material *feedbackReplaceMaterial;
+    Material *feedbackBlendMaterial;
+    Material *symmetricFilterMaterial[8];
+    Material *shellShockMaterial;
+    Material *glowSetupMaterial;
+    Material *glowApplySkyBleedMaterial;
+    Material *glowApplyBloomMaterial;
+    int savedScreenTime;
+    MaterialTextureDef rawTexdef;
 };
 
 extern r_global_permanent_t rgp;
+
+#include <stddef.h>
+typedef char materialStartupLayoutCheck[(sizeof(MaterialGlobals) == 0x299c &&
+    sizeof(Material) == 68 && sizeof(MaterialTextureDef) == 12 &&
+    offsetof(Material, textures) == 0x3c &&
+    offsetof(r_global_permanent_t, defaultMaterial) == 0x102c &&
+    offsetof(r_global_permanent_t, rawMaterial) == 0x1030 &&
+    offsetof(r_global_permanent_t, normalFillMaterial) == 0x105c &&
+    offsetof(r_global_permanent_t, symmetricFilterMaterial) == 0x10b0 &&
+    offsetof(r_global_permanent_t, rawTexdef) == 0x10e4) ? 1 : -1];
 
 Material **R_GetMaterialHashTable();
 
@@ -578,8 +638,7 @@ static void Material_FindHashSlot(const char *name, unsigned short *hashIndex, b
     *found = false;
 }
 
-// Name unconfirmed; retail passes the material in EAX and the hash slot in CX.
-// Keep the accepted outlined body while the restored caller group is verified.
+// Keep the accepted outlined body; historical name unconfirmed (EAX material, CX slot).
 __declspec(noinline) static void Material_AddToTable(Material *material, unsigned short hashIndex)
 {
     Material **slot = &R_GetMaterialHashTable()[hashIndex];
@@ -653,6 +712,104 @@ Material *Material_Register(const char *name, int imageTrack)
     }
     Material_AddToTable(material, hashIndex);
     return material;
+}
+
+struct BuiltInMaterialTable
+{
+    const char *name;
+    Material **material;
+};
+
+// PINNED 1018e988: actual pointer destinations, not offsets into a second state block.
+static const BuiltInMaterialTable s_builtInMaterials[] =
+{
+    { "$default", &rgp.defaultMaterial },
+    { "stencil_plane", &rgp.stencilPlaneMaterial },
+    { "white", &rgp.whiteMaterial },
+    { "$additive", &rgp.additiveMaterial },
+    { "$glare_blind", &rgp.glareBlindMaterial },
+    { "$point", &rgp.pointMaterial },
+    { "$line", &rgp.lineMaterial },
+    { "clear_alpha_stencil", &rgp.clearAlphaStencilMaterial },
+    { "shadowclear", &rgp.shadowClearMaterial },
+    { "shadowcookieoverlay", &rgp.shadowCookieOverlayMaterial },
+    { "shadowcookieblur", &rgp.shadowCookieBlurMaterial },
+    { "shellshock", &rgp.shellShockMaterial },
+    { "color_channel_mixer", &rgp.colorChannelMixerMaterial },
+    { "frame_color_debug", &rgp.frameColorDebugMaterial },
+    { "frame_alpha_debug", &rgp.frameAlphaDebugMaterial },
+    { "feedbackblend", &rgp.feedbackBlendMaterial },
+    { "feedbackreplace", &rgp.feedbackReplaceMaterial },
+    { "glow_setup", &rgp.glowSetupMaterial },
+    { "glow_apply_bloom", &rgp.glowApplyBloomMaterial },
+    { "glow_apply_sky_bleed", &rgp.glowApplySkyBleedMaterial },
+    { "filter_symmetric_1", &rgp.symmetricFilterMaterial[0] },
+    { "filter_symmetric_2", &rgp.symmetricFilterMaterial[1] },
+    { "filter_symmetric_3", &rgp.symmetricFilterMaterial[2] },
+    { "filter_symmetric_4", &rgp.symmetricFilterMaterial[3] },
+    { "filter_symmetric_5", &rgp.symmetricFilterMaterial[4] },
+    { "filter_symmetric_6", &rgp.symmetricFilterMaterial[5] },
+    { "filter_symmetric_7", &rgp.symmetricFilterMaterial[6] },
+    { "filter_symmetric_8", &rgp.symmetricFilterMaterial[7] }
+};
+
+// PINNED 1018ea68, enabled by r_testFillEnable at101ce79c.
+static const BuiltInMaterialTable s_fillTestMaterials[] =
+{
+    { "filltest_normal", &rgp.normalFillMaterial },
+    { "filltest_alphablend", &rgp.alphaBlendFillMaterial },
+    { "filltest_alphatest_pass", &rgp.alphaTestPassFillMaterial },
+    { "filltest_alphatest_fail", &rgp.alphaTestFailFillMaterial },
+    { "filltest_additive", &rgp.additiveFillMaterial },
+    { "filltest_depthonly", &rgp.depthOnlyFillMaterial },
+    { "filltest_stencil_oneside_keep", &rgp.stencilOneSideKeepFillMaterial },
+    { "filltest_stencil_oneside_reject", &rgp.stencilOneSideRejectFillMaterial },
+    { "filltest_stencil_twoside_keep", &rgp.stencilTwoSideKeepFillMaterial },
+    { "filltest_stencil_twoside_reject", &rgp.stencilTwoSideRejectFillMaterial },
+    { "filltest_phong_bump", &rgp.phongBumpFillMaterial },
+    { "filltest_phong_bumpspec", &rgp.phongBumpSpecFillMaterial }
+};
+
+void Com_Error(errorParm_t code, const char *format, ...);
+void Material_PreloadShaderText();
+extern const dvar_t *r_testFillEnable;
+
+// PINNED 10017350/71; helper name unconfirmed.
+static void Material_RegisterBuiltins(const BuiltInMaterialTable *table, int count)
+{
+    for (int index = 0; index < count; ++index)
+    {
+        *table[index].material = Material_Register(table[index].name, 0);
+        if (!*table[index].material)
+            Com_Error(ERR_FATAL, "Could not find material '%s'", table[index].name);
+    }
+}
+
+// PINNED 10017190/88; helper name unconfirmed.
+static void Material_RegisterRawMaterial()
+{
+    rgp.rawMaterial = Material_Register("$raw", 0);
+    if (!Material_IsDefault(rgp.rawMaterial) && rgp.rawMaterial->textureCount != 1)
+    {
+        ri.Printf(3, "material '$raw' doesn't use just one image");
+        rgp.rawMaterial = rgp.defaultMaterial;
+    }
+}
+
+// PINNED 100173e0/124: share the raw image binding without overwriting its sampler.
+void Material_Init()
+{
+    memset(&materialGlobals, 0, sizeof(materialGlobals));
+    Material_PreloadShaderText();
+    Material_RegisterBuiltins(s_builtInMaterials, sizeof(s_builtInMaterials) / sizeof(s_builtInMaterials[0]));
+    if (r_testFillEnable->current.enabled)
+        Material_RegisterBuiltins(s_fillTestMaterials, sizeof(s_fillTestMaterials) / sizeof(s_fillTestMaterials[0]));
+    Material_RegisterRawMaterial();
+    if (!Material_IsDefault(rgp.rawMaterial))
+    {
+        rgp.rawTexdef.name = rgp.rawMaterial->textures[0].name;
+        rgp.rawMaterial->textures = &rgp.rawTexdef;
+    }
 }
 
 void RB_SetFVF(DWORD fvf);

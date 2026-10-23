@@ -1,5 +1,13 @@
 # Layout is part of every reconstruction wave
 
+Material/systems startup,2026-10-23: r_material.cpp owns the40 typed builtin
+registration entries and initializes its existing0x299c materialGlobals. The
+SDK-side rgp prefix now reaches rawTexdef10e4 with compile assertions matching
+the common view; there is still only one actual rgp in r_init.cpp. R_InitSystems
+stays in r_init.cpp and resets rg's water count/five fogs plus the existing
+normal debugGlobals from r_debug.cpp. Do not use the backend frame debug block
+instead. No new state allocations, candidate TU/order changes or flags.
+
 Material loading,2026-10-23: binary fixup and file loading stay in the existing
 r_material_load_obj.cpp; registration stays with hash/add/duplicate in
 r_material.cpp. Layout assertions pin68-byte Material,12-byte textures,

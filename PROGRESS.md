@@ -1,12 +1,49 @@
 # Renderer progress
 
-## Structure-first material loading - 2026-10-23
+## Structure-first material and systems initialization - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Afterdddd459, actual Material_Init100173e0 and its registration/raw helpers
+10017350/10017190 are restored in r_material.cpp. The28 normal and12 optional
+fill-test entries use typed pointers into the existing rgp, not another state
+block. Native tests compare EVERY name/destination against the primary tables.
+Startup clears the actual0x299c materialGlobals before shader preload. Raw
+fallback/rebinding preserves rawTexdef sampler/semantic/image/padding and only
+copies the name before redirecting rawMaterial.textures. SDK-side views have
+compile-time checks for every newly consumed layout; rgp is still allocated
+only once in r_init.cpp.
+
+R_InitSystems10012040 now calls real R_InitImages -> Material_Init -> light
+registration in that order, resets rg's real water count, clears five fogs and
+the NORMAL debugGlobals allocation (not a duplicate/backend frame), sets the
+five original limits, then marks registered. Do NOT import the reference's
+extra font initializer: no such call exists in this PC1.0 primary body.
+
+Combined original-compiler build passes both referees and all1284 protected
+extents. All94 source fixtures pass;32 startup routes check both fill modes,
+raw/default comparisons/counts and fatal builtin failures;51 systems routes
+check order, shared ownership and bounded resets. Four new bodies have the
+right instruction shapes but rejected dependency bindings; NO V2 gain claimed.
+C++ stays102205/253580=40.304834766%,599 bodies; mixed109992/630, same31/7787
+assembly exclusions. Receipts/hashes: target/work/proof/material_systems_checkpoint.json.
+No roots, exports, TU, flags or assembly added. One output, no workers; billing
+unavailable. Both build sessions and all94 fixtures have finished.
+
+Current SHA8661b340a44fc4b96064b0dd995e830b6366c2af874d40aafd84ff55a3a2a8e3;
+.text893026, .rdata592911, .data6084500, .reloc85526; file1638400 bytes. Same-offset8.217924675%,
+not whole-file identity. Material_Init and R_InitSystems are present in the
+linked map. Still no GetRefAPI or GPU/client smoke; stages1-3 remain OPEN.
+Next genuine closure: higher device128b0/271 calls restored presentation,
+CreateDeviceInternal, FP control, video storage, resources and systems, then
+publishes the window. Continue with primary-pinned signatures/storage, followed
+by startup12c80/R_Init/real API graph. No per-body flag/spelling tuning yet.
+
+### Material loading checkpoint dddd459
 
 Material binary fixup1001c4e0/603, file loader1001c740/171 and registration
 10017100/144 now have actual C++ source in the existing material TUs. They

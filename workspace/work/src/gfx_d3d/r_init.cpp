@@ -243,3 +243,33 @@ void R_InitImages()
     rgp.rawTexdef.semantic = 0;
     rgp.rawTexdef.u.image = rgp.rawImage;
 }
+
+void Material_Init();
+GfxLightDef *R_RegisterLightDef(const char *name);
+extern DebugGlobals debugGlobals;
+
+typedef char rendererSystemsLayoutCheck[(sizeof(GfxFog) == 32 &&
+    offsetof(r_globals_t, sceneWaterMapSetupsCount) == 0x1028 &&
+    offsetof(r_globals_t, fogSettings) == 0x146c &&
+    offsetof(r_globals_t, fogIndex) == 0x150c && sizeof(DebugGlobals) == 84 &&
+    offsetof(DebugGlobals, vertLimit) == 8 && offsetof(DebugGlobals, polyLimit) == 20 &&
+    offsetof(DebugGlobals, stringLimit) == 32 && offsetof(DebugGlobals, lineLimit) == 56 &&
+    offsetof(DebugGlobals, plumeLimit) == 80) ? 1 : -1];
+
+// PINNED 10012040/116: reset the normal debug globals, not the frame's debug block.
+void R_InitSystems()
+{
+    R_InitImages();
+    Material_Init();
+    rg.sceneWaterMapSetupsCount = 0;
+    rgp.dlightDef = R_RegisterLightDef("light_dynamic");
+    memset(rg.fogSettings, 0, sizeof(rg.fogSettings));
+    memset(&debugGlobals, 0, sizeof(debugGlobals));
+    rg.fogIndex = 0;
+    debugGlobals.vertLimit = 4096;
+    debugGlobals.polyLimit = 512;
+    debugGlobals.stringLimit = 4096;
+    debugGlobals.lineLimit = 16384;
+    debugGlobals.plumeLimit = 4096;
+    rg.registered = 1;
+}

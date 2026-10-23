@@ -1,5 +1,24 @@
 # Reconstruction attempts
 
+## 2026-10-23 material/system startup closure
+
+PINNED Material_Init173e0/124 clears materialGlobals299c, preloads shader text,
+registers28 entries1018e988 and optional12 at1018ea68 (r_testFillEnable101ce79c),
+then raw helper17190/88 and name-only rebinding into rgp.rawTexdef10e4.
+Native32 tests independently compare all40 names/destinations to primary data.
+Helper17350 is71 bytes through17396, not the inventory's64. All four new
+bodies (three material helpers + systems12040/116) have byte-shaped candidates
+but rejected callee bindings. Do not turn those into credited matches.
+
+PINNED systems12040 calls image init, material init, resets real rg water count,
+registers light_dynamic, clears five32-byte fogs and84-byte NORMAL debugGlobals,
+then fogIndex and five limits, registered=1. It does NOT call reference-added
+R_InitFonts. Fog starts146c, fogIndex150c. All94 fixtures/1284 prior extents pass.
+Higher device128b0 is next: controlfp(20000,30000), controlfp(8001f,8001f),
+gpuSync0 when multiGpu otherwise r_gpuSync, video/target sizes, resources,
+clear gamma dvar modified, systems and window publication. Reconfirm ownership
+and exact prototypes before implementing; no new anonymous DAT storage.
+
 ## 2026-10-23 renderer-owned water setup storage
 
 Following material fixup1c4e0 exposed a real ownership defect: water loading
@@ -1008,4 +1027,3 @@ identical; see proof/material_checkpoint.json and its nine negative controls.
   ends17396 (71 bytes, not inventory64). Raw setup compares textures/constants/
   techniqueSet, rejects non-default raw with textureCount!=1 via Printf3,
   then init redirects only the texture-name pointer into rgp.rawTexdef.
-
