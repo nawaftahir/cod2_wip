@@ -330,3 +330,12 @@ void R_Init()
     R_InitModelDObj();
     dx.sunSpriteSamples = RB_CalcSunSpriteSamples();
 }
+
+typedef char rendererRegistrationLayoutCheck[(sizeof(vidConfig_t) == 44) ? 1 : -1];
+
+// PINNED 10013190: initialize on every call before publishing all eleven words.
+void R_BeginRegistration(vidConfig_t *config)
+{
+    R_Init();
+    *config = vidConfig;
+}

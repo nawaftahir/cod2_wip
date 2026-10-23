@@ -7,6 +7,18 @@ status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
 ### Major startup-source checkpoint
 
+Follow-up: R_BeginRegistration now has primary-proven source in r_init.cpp:
+always call R_Init, then copy the complete44-byte video configuration. Retail
+10013190..100131a9 calls10012f80 and copies eleven words from101d4c6c.
+The sole vidConfig allocation is unchanged; no temporary root/export was added.
+Native tests cover repeated initialization, all44 bytes, output guards, startup
+failure before publication and self-alias. Original compiler and both referees
+retain all1433 protected extents. This is source recovery, not new V2 credit:
+C++ remains103650/253580=40.874674659%; whole-file same-offset8.864897331% is
+only a layout diagnostic. Genuine API reachability and shutdown remain open.
+All115 fixtures pass. Logs: proof/latest/begin_registration_build.log and
+proof/latest/begin_registration_fixtures.log.
+
 After2a1b722, ten genuine functions complete the candidate's R_Init source
 closure: optimized/ordinary tess drivers and EndSurface;2D matrix state,
 overflow, packed quads and sun-query calibration; font file loading/registration;

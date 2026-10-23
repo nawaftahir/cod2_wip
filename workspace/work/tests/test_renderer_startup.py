@@ -5,7 +5,7 @@ import tempfile
 
 work=Path(__file__).resolve().parents[1]
 text=(work/'src/gfx_d3d/r_init.cpp').read_text()
-source=text[text.index('// PINNED 10012f80:'):]
+source=text[text.index('// PINNED 10012f80:'):text.index('typedef char rendererRegistrationLayoutCheck')]
 program=r'''
 #include <cassert>
 #include <cstdio>

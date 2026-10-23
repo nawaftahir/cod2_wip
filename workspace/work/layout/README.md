@@ -377,3 +377,7 @@ Primary rg base101d4d00 pins trig2510 and bitswap2d10; dx.sunSpriteSamples2c2c.
 No added root exports, new mutable globals, artificial layout fillers or assembly.
 The actual startup sequence now links through source, while GetRefAPI and
 remaining callback closures still need reconstruction and exact code/layout proof.
+
+R_BeginRegistration also lives in r_init.cpp and publishes the existing44-byte
+vidConfig after unconditional R_Init. No new storage/root/export; genuine API
+slot1 reachability remains open until GetRefAPI is restored.
