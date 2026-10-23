@@ -1,5 +1,12 @@
 # Layout is part of every reconstruction wave
 
+Video source wave,2026-10-23: monitor bounds/fallback stays in r_monitor.cpp;
+window settings/aspect selection stays with the existing vidConfig owner in
+r_init.cpp. No new TU, global, root/export, flags or dependencies. The existing
+rounding helper is reused; any accepted containing body is authored-assembly
+attribution, not C++ credit. Primary selector table has18 non-code bytes after
+190 code bytes. No final link-order/historical-source claim follows this grouping.
+
 Resource source wave,2026-10-23: dynamic VB/IB pool constructors and particle
 cloud geometry stay in the existing r_dxbuffers.cpp, using existing dx pools,
 virtual skin reservation and BSP static-buffer helpers. No duplicated buffers.

@@ -1,0 +1,55 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "d782265",
+  "scope": "actual monitor dimensions/fallback and PC video/aspect storage",
+  "whole_file_identical": false,
+  "candidate_sha256": "940d70e63e81262689add6ff447c2dd336337977fc630c634a222fd2071ce528",
+  "same_file_offset_percent": 8.30521034983407,
+  "cpp_executable_bytes": 102122,
+  "cpp_percent_supported_inventory": 40.272103478192285,
+  "cpp_game_bodies": 598,
+  "cpp_bytes_gained": 132,
+  "new_accepted_bodies": [
+    {
+      "target": "0x10011560",
+      "bytes": 132,
+      "name": "R_GetMonitorDimensions",
+      "source": "gfx_d3d/r_monitor.cpp"
+    }
+  ],
+  "mixed_game_bodies": 629,
+  "mixed_executable_bytes": 109909,
+  "authored_assembly_exclusions": {
+    "bodies": 31,
+    "bytes": 7787
+  },
+  "new_authored_assembly_definitions": false,
+  "preexisting_round_helper_reused": true,
+  "byte_and_binding_referees_changed": false,
+  "previous_1269_extents_retained": true,
+  "protected_extents": 1270,
+  "new_body_removal_negative_passed": true,
+  "full_source_fixtures_passed": 84,
+  "native32_video_routes": 126,
+  "unaccepted_source": [
+    "R_StoreWindowSettings; any inline assembly must remain excluded if later matched"
+  ],
+  "new_globals_exports_flags_or_imports": false,
+  "GetRefAPI_implemented": false,
+  "structural_checkpoint_complete": false,
+  "stages_1_to_3_complete": false,
+  "client_gpu_smoke_tested": false,
+  "source_and_evidence_sha256": {
+    "src/gfx_d3d/r_monitor.cpp": "33678737badf6cb5b81176dd3f6e5d08cfe9765006d86777149ee97b0e9962f3",
+    "src/gfx_d3d/r_init.cpp": "d1caac321a4cec24aac3ae98f1a0cb7a060afe34f5cc79bab9e492a3ff343ebe",
+    "tests/test_video_configuration.py": "15fbc3a344c3d9aa9418adb7dac7a440252e34a72ef645be36e00df8e6d3cc72",
+    "tools/check_checkpoint.py": "ddcb1164e9da62b09ddee24a4fd0fff303393aae928940656264c3eef8146db9",
+    "proof/video_structure_warm_bind.json": "86340dc1aef2a86d11a961513ae766bcb7c29412d01f367ac12be711cd93fb85",
+    "proof/video_structure_layout.json": "2e00a0b9c8d69ea2e7bb08329bf9bcafcef95888eef865771735acab23a7a011",
+    "proof/video_structure_source_coverage.json": "06e9bfc751c437927de5f46430d197a96c77f7494c354f87f87c9f20f71d8588",
+    "proof/latest/video_structure_build.log": "017e6bb49693ee59cf1e31494972844260f82f2c15070d99957eb1ccdaabade8",
+    "proof/latest/video_structure_fixtures.log": "68147fe7c3d9d3d233d0fa7242b8901ef0b35e15a1250d8638d8b5bc983ea3f8",
+    "proof/latest/video_structure_ratchet.log": "3344656554cdc79e7e3071b1989af7092b75105ab06e4adc415bd1201d8a3c2a",
+    "proof/latest/video_structure_negative.log": "121c65636cb7050723a16cd728ebf0186473bdffa9ee5115bece79330855da39"
+  }
+}

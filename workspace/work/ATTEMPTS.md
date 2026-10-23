@@ -1,5 +1,33 @@
 # Reconstruction attempts
 
+## 2026-10-23 video configuration and monitor fallback
+
+Monitor dimensions10011560/132 uses adapter monitor bounds only in fullscreen.
+Successful GetMonitorInfoA returns its raw width/height without validation.
+Failure tries GetSystemMetrics0/1; use them only when both positive, otherwise
+fall back to the current video mode. Windowed mode does not query the monitor.
+Source belongs to existing r_monitor.cpp; no new imports or globals required.
+
+Video storage100115f0 has190 code bytes through116ad, two padding bytes and a
+four-pointer selector table116b0..116bf. Table order is auto,4:3,16:10,16:9.
+The auto path computes float16*height/width, NOT16*width/height, then uses the
+PREEXISTING I_fround bias9.313225746154785e-10. Rounded values<10 select16:9,
+==10 select16:10, >10 select4:3. Invalid selectors preserve prior window aspect.
+Pixel aspect is modeHeight*windowAspect/modeWidth. Mode size/frequency/fullscreen
+are stored before the monitor query. Existing r_init.cpp owns vidConfig; no
+new authored assembly definitions. If this body matches, its old-helper inline
+assembly must be excluded and its18 non-code bytes treated separately. Native
+tests use a target-biased nearest-round model, not a byte-match claim, and cover
+126 finite video/monitor paths. Do not tune FP instructions under structure-first.
+
+Important startup naming correction from primary:10012040 calls1000d880 image
+initialization and100173e0 material initialization, NOT generic reload helpers.
+Its next asset literal10194250 is light_dynamic;10014c60 registers a GfxLightDef,
+stored in rgp.dlightDef+1028. Do not guess Material_Register or defaultMaterial.
+The existing full material/image initialization and light-loader closures still
+need recovery. The light registry is count101d7eb0 plus64 pointers101d7eb4.
+Confirm complete loader150e0 and registration RET boundaries before implementing.
+
 ## 2026-10-23 actual device resources and GPU buffers
 
 Dynamic VB10011a40/129 and IB10011ad0/129 initialize used0/totalBytes, create

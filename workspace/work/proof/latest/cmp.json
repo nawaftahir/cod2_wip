@@ -2648,6 +2648,12 @@
 "hits": []
 },
 {
+"name": "?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z",
+"obj": "r_init.obj",
+"size": 208,
+"hits": []
+},
+{
 "name": "?R_GetMaterialHashTable@@YAPAPAUMaterial@@XZ",
 "obj": "r_init.obj",
 "size": 6,
@@ -5471,6 +5477,14 @@
 "size": 66,
 "hits": [
 "0x100127d0"
+]
+},
+{
+"name": "?R_GetMonitorDimensions@@YAXPAH0@Z",
+"obj": "r_monitor.obj",
+"size": 132,
+"hits": [
+"0x10011560"
 ]
 },
 {

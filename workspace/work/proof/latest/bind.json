@@ -2665,6 +2665,12 @@
 "obj": "r_monitor.obj",
 "why": []
 },
+"?R_GetMonitorDimensions@@YAXPAH0@Z": {
+"t": "0x10011560",
+"n": 132,
+"obj": "r_monitor.obj",
+"why": []
+},
 "?R_ChooseRefreshRate@@YAHHHH@Z": {
 "t": "0x10012b00",
 "n": 131,
@@ -14984,9 +14990,9 @@
 "n": 829,
 "obj": "LIBCMT:memcpy.obj",
 "why": [
+"extent",
 "bind UnwindUpVec+6c",
 "bind UnwindUpVec+7c",
-"bind UnwindUpVec+6c",
 "bind UnwindUpVec+6c"
 ]
 },

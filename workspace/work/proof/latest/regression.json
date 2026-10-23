@@ -1,8 +1,8 @@
 {
-  "functions": 628,
-  "bytes": 109777,
+  "functions": 629,
+  "bytes": 109909,
   "total": 253580,
-  "percent": 43.29087467465889,
+  "percent": 43.34292925309567,
   "baseline_lost": [],
   "gains": [
     {
@@ -328,6 +328,12 @@
       "bytes": 137,
       "name": "?R_SetD3DPresentParameters@@YAXPAU_D3DPRESENT_PARAMETERS_@@PBUGfxWindowParms@@@Z",
       "object": "r_device.obj"
+    },
+    {
+      "target": "0x10011560",
+      "bytes": 132,
+      "name": "?R_GetMonitorDimensions@@YAXPAH0@Z",
+      "object": "r_monitor.obj"
     },
     {
       "target": "0x100116c0",

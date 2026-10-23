@@ -84,6 +84,9 @@ required.update(accepted(device_structure))
 resources_structure = Path(__file__).resolve().parents[1] / 'proof/resources_structure_warm_bind.json'
 assert hashlib.sha256(resources_structure.read_bytes()).hexdigest() == '65bb5b965a87fbe45731f053f0372d4e261e263490a1b4241ba7ae722a5fa65a'
 required.update(accepted(resources_structure))
+video_structure = Path(__file__).resolve().parents[1] / 'proof/video_structure_warm_bind.json'
+assert hashlib.sha256(video_structure.read_bytes()).hexdigest() == '86340dc1aef2a86d11a961513ae766bcb7c29412d01f367ac12be711cd93fb85'
+required.update(accepted(video_structure))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

@@ -55,3 +55,26 @@ unsigned int R_ChooseAdapter()
     }
     return found;
 }
+
+// PINNED 10011560/132: monitor failures fall back to positive desktop dimensions, then the mode.
+void R_GetMonitorDimensions(int *width, int *height)
+{
+    if (vidConfig.isFullscreen)
+    {
+        MONITORINFO info;
+        HMONITOR monitor = dx.d3d9->GetAdapterMonitor(dx.adapterIndex);
+        info.cbSize = sizeof(info);
+        if (GetMonitorInfoA(monitor, &info))
+        {
+            *width = info.rcMonitor.right - info.rcMonitor.left;
+            *height = info.rcMonitor.bottom - info.rcMonitor.top;
+            return;
+        }
+        *width = GetSystemMetrics(0);
+        *height = GetSystemMetrics(1);
+        if (*width > 0 && *height > 0)
+            return;
+    }
+    *width = vidConfig.width;
+    *height = vidConfig.height;
+}

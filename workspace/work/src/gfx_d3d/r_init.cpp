@@ -7,6 +7,45 @@ r_globals_t rg;
 r_global_permanent_t rgp;
 vidConfig_t vidConfig;
 
+extern const dvar_t *r_aspectRatio;
+void R_GetMonitorDimensions(int *width, int *height);
+
+// PINNED 100115f0: reuse the existing rounding helper; its assembly is not C++ credit.
+void R_StoreWindowSettings(const GfxWindowParms *parms)
+{
+    vidConfig.width = parms->width;
+    vidConfig.height = parms->height;
+    vidConfig.displayFrequency = parms->hz;
+    vidConfig.isFullscreen = parms->fullscreen;
+    switch (r_aspectRatio->current.integer)
+    {
+    case 0:
+    {
+        int width, height;
+        R_GetMonitorDimensions(&width, &height);
+        float ratio = (float)height * 16.0f / width;
+        int rounded = I_fround(ratio);
+        if (rounded < 10)
+            vidConfig.aspectRatioWindow = 16.0f / 9.0f;
+        else if (rounded == 10)
+            vidConfig.aspectRatioWindow = 16.0f / 10.0f;
+        else
+            vidConfig.aspectRatioWindow = 4.0f / 3.0f;
+        break;
+    }
+    case 1:
+        vidConfig.aspectRatioWindow = 4.0f / 3.0f;
+        break;
+    case 2:
+        vidConfig.aspectRatioWindow = 16.0f / 10.0f;
+        break;
+    case 3:
+        vidConfig.aspectRatioWindow = 16.0f / 9.0f;
+        break;
+    }
+    vidConfig.aspectRatioPixel = (float)vidConfig.height * vidConfig.aspectRatioWindow / vidConfig.width;
+}
+
 // r_material.cpp keeps its own Material view and cannot see r_globals_t; inlined there.
 Material **R_GetMaterialHashTable()
 {

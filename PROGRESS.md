@@ -1,12 +1,41 @@
 # Renderer progress
 
-## Structure-first device resources wave - 2026-10-23
+## Structure-first video configuration wave - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Wave after d782265 restores monitor fallback and video/aspect storage in the
+existing r_monitor.cpp/r_init.cpp owners. All1269 prior extents survive both
+unchanged referees. R_GetMonitorDimensions10011560/132 adds one accepted C++
+body; video storage remains unaccepted. It reuses the old I_fround, with no
+new authored assembly definitions and no assembly relabeled as C++ credit.
+Authored C/C++102122/253580=40.272103478%,598 bodies; mixed109909 bytes,629
+bodies. The31/7787 authored-assembly exclusion set remains unchanged.
+
+126 focused native32 monitor/video routes and all84 fixtures pass after the
+completed build (latest/video_structure_fixtures.log). Ratchet now protects1270;
+removing the new monitor function is rejected. No own build or test remains.
+Source/evidence hashes: target/work/proof/video_structure_checkpoint.json.
+Current SHA940d70e63e81262689add6ff447c2dd336337977fc630c634a222fd2071ce528;
+.text885522, .rdata590959, .data6085332, .reloc85018; file1626112 bytes.
+Raw same-offset8.305210350%, not source coverage or retail identity.
+No new globals, exports, TU, compiler flags or imports. No source/flag sweeps.
+No workers or duplicate output. Per-turn billing is not exposed; gain132 bytes.
+
+The next missing startup assets are now pinned correctly:10012040 calls IMAGE
+INITIALIZATION1000d880 and MATERIAL INITIALIZATION100173e0, not reload routines.
+Its light_dynamic literal registers a light definition through10014c60, stored
+in rgp.dlightDef. The required light registry is count+64 pointers at101d7eb0,
+with loader150e0/172 and image-entry reader15090/68; that reader calls actual
+Image_Register1000d200. Recover these real connected modules, not a guessed
+Material_Register call. Video source restores needed structure without claiming
+registration/device/API closure. Those closures and retail SHA remain OPEN.
+
+### Resources checkpoint d782265
 
 Source wave after e4dd313: restored the real dynamic VB/IB constructors, their
 startup pools and1024-particle geometry in r_dxbuffers.cpp. Real resource startup
