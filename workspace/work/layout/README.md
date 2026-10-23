@@ -397,3 +397,11 @@ and device cleanup reuse dx pools, skin reservation and shared sun query state.
 r_device.cpp owns the existing SDK-facing device helpers; this split is candidate
 organization, not proof of original TU boundaries or final link order. Genuine
 IsWindow now completes the named import set; layout/hints/order still differ.
+
+Console API59 slots78/79 now have genuine source in the existing r_font.cpp.
+Both helpers use stack scratch only, the original font/glyph schema, existing
+Material_Register(name,7), the sole rgp.defaultMaterial and RI slot168 name
+lookup. No second font registry or interface table is allocated. The legacy
+Mac refexport_t in PC/universal/com_math.h omits PC callback fields and has
+wrong prototypes such as no-argument Shutdown; do not adopt it unchanged for
+the actual108-slot API59 entrypoint.

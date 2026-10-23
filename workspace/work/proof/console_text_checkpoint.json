@@ -1,0 +1,87 @@
+{
+  "date": "2026-10-23",
+  "previous_source_checkpoint": "fa3089a",
+  "scope": "genuine API59 console callbacks and packed run/icon helpers",
+  "source_functions_restored": [
+    "R_GetConsoleString",
+    "R_GetConsoleIcon",
+    "R_ConsoleTextWidth",
+    "R_DrawConsoleText"
+  ],
+  "api_slots": {
+    "78": "R_ConsoleTextWidth at1000c390",
+    "79": "R_DrawConsoleText at1000c4b0"
+  },
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "643168d70fab997bc2b5f40ee427caba5b8a671f97a6f2c84f020d99decf88b0",
+  "same_file_offset_percent": 8.848045146570797,
+  "cpp_executable_bytes": 104094,
+  "cpp_percent_legacy_inventory": 41.0497673318085,
+  "cpp_game_bodies": 615,
+  "new_verified_engine_bytes": 0,
+  "protected_extents_retained": 1436,
+  "accepted_address_extent_set_unchanged": true,
+  "full_source_fixtures_passed": 119,
+  "native_console_run_routes": 2048,
+  "native_console_icon_routes": 2052,
+  "native_integrated_callback_routes": 14,
+  "named_import_set_identical": true,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 950272,
+      "virtual_bytes": 950226,
+      "sha256": "68c9b18d60722c29b221336fb03ec378602e3279514da496f71f7301b3d1bcc0"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xe9000",
+      "file_offset": "0xe9000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602351,
+      "sha256": "f606f77a980b7aff23966ad78093ae1786f48cae1a15c694a5182cb9085ab401"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17d000",
+      "file_offset": "0x17d000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "51bb993a5ae8fc5308d91576ca87c1194ca6c76c5d2edb71508f090ec2995333"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74b000",
+      "file_offset": "0x18b000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 87982,
+      "sha256": "108a28131763ec88b36787ecee440c6b6313177bef72e162fc7f75dbba12c264"
+    }
+  ],
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/r_font.cpp": "cf52c1a6441c37bfaa01454723154dc561278acb70226a068d22133abcc1acb9",
+    "target/work/tests/test_console_text.py": "4090b12bbc241e4a5e369061f48d670ba395d4d774e3b8cca819b4b5e283d197"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/console_text_build.log": "768b7890e7394e9e1d1bd630977fa673595f4b9b644ee16eaadf882eb4c62ff0",
+    "target/work/proof/latest/console_text_fixtures.log": "196fc5d47d472641e2b85f87b0a31c79a9048d9841cecc95ee94bc0aaa67164f"
+  },
+  "limits": [
+    "all four source bodies are uncredited pending byte matching",
+    "bounded input expansion; not a malformed-stream memory-safety proof",
+    "no GPU/client execution; entrypoint/callback graph incomplete",
+    "final TU/order/metadata and whole-file SHA remain unproved"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py",
+    "python3 target/work/tests/test_console_text.py"
+  ]
+}

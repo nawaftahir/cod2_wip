@@ -5,7 +5,27 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: genuine shutdown source
+### Latest: console API source
+
+R_ConsoleTextWidth1000c390 (API59 slot78) and R_DrawConsoleText1000c4b0
+(slot79), plus their two packed-console helpers, now have genuine source in
+r_font.cpp. The client API confirms int width/void draw; GLM's shifted labels
+and Mac's extra ResolveFont/null-font handling are not PC proof. Native checks
+cover2048 text runs,2052 icon routes and14 integrated width/draw routes with
+actual font/glyph layouts, RGB carryover, trailing spaces, flips, fractional
+icon units, late default-material changes and incomplete icons. Input expansion
+cases are bounded; no claim of safety for arbitrary malformed console streams.
+
+Original compiler, both referees and all1436 protected extents pass. NO new
+byte credit: C++ remains104094/253580=41.049767332%,615 bodies. Same-offset
+file equality8.848045147% is only a layout diagnostic. All four new source
+bodies remain uncredited pending matching. No new globals, roots, flags or
+assembly. All119 full fixtures pass; logs are proof/latest/console_text_build.log
+and console_text_fixtures.log. The real GetRefAPI and remaining callback graph
+are still open, especially frame/backend dispatch and world-load closure.
+Frozen measurements and source/test hashes: proof/console_text_checkpoint.json.
+
+### Genuine shutdown source
 
 Eleven shutdown helpers/callers are restored in their existing source owners:
 stream cleanup; normal debug frame; light/font registries; images; render

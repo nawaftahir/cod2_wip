@@ -1316,3 +1316,27 @@ Primary10012dd0..10012e11 reloads windowCount/hwnd after IsWindow and
 DestroyWindow. No cached stale index/handle, extra validity guard or separate
 depth-alias release is equivalent. Shutdown uses the existing pools, sun query
 records, normal debug frame and registries; no replacement state is allocated.
+
+### Console API source - 2026-10-23
+
+Primary API59 slots78/79 are ConsoleTextWidthc390 and DrawConsoleTextc4b0,
+not GLM's shifted DrawTextInSpace/ConsoleTextWidth labels. The actual client
+refexport declaration uses int width/void draw. PC code has no Mac ResolveFont
+or null-font guard. Width adds unscaled fractional icon width, then converts
+the final float to int. Draw copies the input color before testing the string;
+it preserves alpha, carries RGB edits between runs/icons and still emits an
+incomplete icon with null material. Do not invent fallback/validation guards.
+
+String helperc0f0 starts color7; types13/16/17/18 start icons,10/11/12 update
+RGB, other changes emit caret/color then the low character. It caps input
+entries at1023, NOT expanded output bytes. Trailing-space trim is suppressed
+at an icon boundary. Native cases stay within output capacity; these tests
+are not a memory-safety claim for malformed packed text. Icon helperc250
+uses13..15 RGB,16 width,17 height,19 flipped width and18 material; only18
+consumes the input limit. RI slot168 returns a name; nonempty registers track7,
+empty reloads the existing default material after the name callback.
+
+Primary width function ends atRET1000c44f:192 bytes. GLM inventory186 cuts off
+its ADD ESP,414h/RET footer. Icon helper's code ends1000c367 before its seven
+switch pointers; future code-credit accounting must not count that table.
+No instruction spelling/flag sweeps attempted; source structure remains first.
