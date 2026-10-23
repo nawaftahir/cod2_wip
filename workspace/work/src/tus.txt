@@ -63,6 +63,7 @@ gfx_d3d/r_matrix_scale.cpp
 gfx_d3d/r_model.cpp
 gfx_d3d/r_model_bounds.cpp
 gfx_d3d/r_model_lod.cpp
+gfx_d3d/r_outdoor.cpp
 gfx_d3d/r_skin_rigid.cpp
 gfx_d3d/r_skin_transform.cpp
 gfx_d3d/r_dxbuffers.cpp

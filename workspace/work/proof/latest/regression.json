@@ -1,8 +1,8 @@
 {
-  "functions": 621,
-  "bytes": 108863,
+  "functions": 622,
+  "bytes": 109038,
   "total": 253580,
-  "percent": 42.93043615427084,
+  "percent": 42.99944790598628,
   "baseline_lost": [],
   "gains": [
     {
@@ -580,6 +580,12 @@
       "bytes": 470,
       "name": "?R_ExpandBoneBounds@@YAXPAY02$$CBMPBM0PAY02M@Z",
       "object": "r_model_bounds.obj"
+    },
+    {
+      "target": "0x10020590",
+      "bytes": 175,
+      "name": "?R_OutdoorTraceHeight@@YAMMM@Z",
+      "object": "r_outdoor.obj"
     },
     {
       "target": "0x10021ff0",

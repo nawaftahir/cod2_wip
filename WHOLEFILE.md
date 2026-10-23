@@ -21,35 +21,81 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Current source wave:target/work/proof/procedural_checkpoint.json; previous coverage gain:
+Current source wave:target/work/proof/backend_structure_checkpoint.json; previous coverage gain:
 target/work/proof/material_pass_checkpoint.json; previous accepted SDK receipt
 target/work/proof/sdk_checkpoint.json. Previous source commit
-e433c14. Readable source is target/work/src; some functions are still unmatched
-drafts. All1262 protected source/library extents survive (433 prior SDK/runtime
+00fec50. Readable source is target/work/src; some functions are still unmatched
+drafts. All1263 protected source/library extents survive (433 prior SDK/runtime
 extents,67471 bytes; these are not authored game source).
-Accepted authored C/C++:101076/253580 game bytes,39.859610379%. This is not a
+Accepted authored C/C++:101251/253580 game bytes,39.928622131%. This is not a
 whole-DLL percentage. The inventory denominator is SUPPORTED, not definitive.
 
 | Whole-file component | Retail | Current candidate |
 | --- | --- | --- |
-| File length |1851392 bytes |1622016 bytes |
+| File length |1851392 bytes |1626112 bytes |
 | Named exports |GetRefAPI only |159 temporary exports; GetRefAPI absent |
 | API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |881522 |
-| .rdata virtual length |595105 |590303 |
-| .data virtual length, including zero-initialized storage |6086100 |3685652 |
-| .reloc virtual length |95704 |78606 |
+| .text virtual length |1089680 |882930 |
+| .rdata virtual length |595105 |590319 |
+| .data virtual length, including zero-initialized storage |6086100 |6085332 |
+| .reloc virtual length |95704 |84718 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
 counts are not source coverage or evidence that the current DLL can be loaded
 by the game. Latest detailed measurements:target/work/layout/current.json.
 
+2026-10-23 structural gain: restored the actual2399596-byte normal frame and
+its initialization, separate from the debug frame. This reduces the .data
+size gap to768 bytes without fillers. Render-command startup now initializes
+its debug block and both existing tess index-pointer fields. Its real caller
+in R_Init is pinned, but the full R_Init body is still absent. Outdoor global
+ownership and bounds/mapping/trace source are restored; only the175-byte trace
+adds accepted coverage. None of this closes the structural checkpoint below.
+
 ## Execution order
+
+Owner clarification,2026-10-22: structure first. Defer the shader FP-status
+instruction and outdoor rounding gaps; add no new authored assembly for them.
+Recover actual TU/interface/global ownership, genuine storage, dependency
+members and the real API graph before returning to per-body byte tuning.
+Existing byte/binding/source gates remain regression guards, not the current
+optimization target. Correct file size/order alone still cannot establish SHA
+identity: missing code, initialized data and PE/debug metadata must also match.
+Do not run additional local spelling/flag sweeps merely to increase coverage.
+
+### Structural checkpoint before another function-tuning campaign
+
+This is the owner's early structural gate, not a substitute for completing the
+full reconstruction. It remains OPEN. The numbered execution steps below mix
+structure and required source work; steps1-4 are not four purely preparatory
+tasks followed by all reconstruction afterward.
+
+1. Pin the retail input, compiler/linker, SDK/runtime versions and effective
+   flags. Record unproved flag choices as unproved, not historical facts.
+2. Establish source/TU boundaries, compatible shared interfaces, ownership of
+   every required global/table/helper instance and justified object/library
+   order constraints. No unexplained missing buffers, duplicate ownership or
+   size-matching filler. Exact final offsets can still move as real code changes.
+3. Restore genuine entrypoint/startup and the API59 interface/callback graph.
+   Missing implementations and uncertain signatures are explicit work, never
+   dummy callbacks, unresolved release links or a partial advertised API.
+4. Reproduce the whole candidate build and account for all section contributors,
+   imports, exports, relocations and metadata differences. Establish a repeat-
+   link baseline now. Diagnose structural mismatches now, not at90% code.
+
+Then complete remaining bodies and tune their generated instructions in
+connected batches, retaining this structure and measuring whole-file drift
+each wave. Source needed to establish the structure is reconstructed now.
+Do not defer structural gaps merely because a source-coverage target was met.
+Final placement and the exact SHA can only be certified once all contributors
+also match; structure first is not a promise of a frozen final address map.
+
+### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local
    historical referee inputs keep their original hashes. Run both unchanged
-   referees, all1262 protected extents and actual-source fixtures. Missing old
+   referees, all1263 protected extents and actual-source fixtures. Missing old
    research folders must not silently disable a gate. Never delete another
    agent's work or reset the owner's staged changes.
 

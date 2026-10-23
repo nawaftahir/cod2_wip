@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tools/check_checkpoint.py", line 80, in <module>
+    assert not lost, ('checkpoint regression', lost)
+           ^^^^^^^^
+AssertionError: ('checkpoint regression', {'0x10020590': 175})
+PASS: removing the outdoor trace is rejected by the checkpoint gate

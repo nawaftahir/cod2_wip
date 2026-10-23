@@ -1463,6 +1463,14 @@
 "obj": "r_material.obj",
 "why": []
 },
+"?R_InitRenderCmds@@YAXXZ": {
+"t": "0x10020b50",
+"n": 126,
+"obj": "r_rendercmds.obj",
+"why": [
+"call ?R_InitFrameBackendData@@YAXXZ"
+]
+},
 "?R_BeginDebugFrame@@YAXXZ": {
 "t": "0x10021ff0",
 "n": 73,
@@ -2787,6 +2795,12 @@
 "t": "0x1001d960",
 "n": 143,
 "obj": "r_model_lod.obj",
+"why": []
+},
+"?R_OutdoorTraceHeight@@YAMMM@Z": {
+"t": "0x10020590",
+"n": 175,
+"obj": "r_outdoor.obj",
 "why": []
 },
 "?R_SkinVectorSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z": {

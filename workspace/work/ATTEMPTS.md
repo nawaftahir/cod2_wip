@@ -1,5 +1,80 @@
 # Reconstruction attempts
 
+## 2026-10-23 normal-frame storage and initialization
+
+PINNED normal GfxBackEndData base1042e780, size249d6c, commands219d0c,
+debug249d18. This is distinct from s_debugFrameGlob's embedded record.
+R_InitFrameBackendData10021040/143 increments the frame before unlock,
+uses signed remainder for the double buffer, reloads frontend ownership after
+unlock and preserves command counters and all but three debug counts.
+
+R_InitRenderCmds10020b50/126 clears84 debug bytes, sets limits4096/512/4096/
+16384/4096, allocates two0x200000-byte buffers through import101d49d4, then
+selects the normal frame only if the current frontend is null. Otherwise it
+clears only the three current command counters. Storage1072d9b0/b4 belongs
+to existing tess106d3200; secondaryIndices is a descriptive field name.
+Primary100415b0 and10041636 index that second buffer with a two-byte stride;
+do not create duplicate standalone buffer pointers or claim original names.
+The pad after that pointer stays opaque. Shared material/count offsets remain
+unchanged. The genuine startup caller is10012fab inside10012f80..10013028.
+Full R_Init also needs command registration100052c0, hardware init10012c80
+and backend init1003a9d0; it is not reconstructed by this smaller source wave.
+
+The restored real frame reduces the .data virtual-size gap2400448 ->768.
+No filler/alignment annotation was added. This does not establish final order,
+initialized contents or SHA. O2 source compiles both initializers but neither
+is credited by the unchanged referees. Stop instruction tuning under the
+owner's structure-first direction. Source tests cover ownership changes during
+both unlock and allocation; preserved commands/debug fields are checked.
+
+The first concurrent fixture run correctly failed source-coverage freshness
+while the build had a newer DLL than cmp/bind. Do not run build-dependent
+fixtures against the mutable output during a link/referee cycle. The final
+fixture run is serialized after build completion; no freshness gate is relaxed.
+
+## 2026-10-22 structure-first owner direction and outdoor source
+
+The owner explicitly defers new FP assembly and prioritizes whole-file source/
+layout structure before individual instruction matching. No new authored ASM.
+Do not repeat the local source/flag trials below under that priority.
+
+New r_outdoor.cpp restores the64-byte OutdoorGlob at101da980, actual12-byte
+512/512/256 dimension table, bounds/scale/lookup construction and trace height.
+Use existing ClearBounds, ExpandBounds and MatrixIdentity44, not duplicate
+helpers or a second identity table. Candidate TU is after r_model_lod.cpp;
+this placement is not historical link-order proof. Compile assertions pin
+world offsets, trace36 bytes and every used OutdoorGlob block.
+
+The ordinary first build accepted R_OutdoorTraceHeight10020590/175. A single
+/Os TU trial lost that new match and did not add another accepted outdoor body;
+the flag is removed. Ordinary code initially unrolls scale to187 vs82; hand-
+written axis loops make bounds569 vs329. Shared original helpers replace those
+loops; no further tuning now. Numeric native tests use rational tolerances
+for scale intermediates: primary FST retains extended precision before inverse
+division; comparing an expression against a reloaded rounded float is not a
+valid bitwise oracle. Bounds/guards/trace routing remain exact fixture checks.
+
+Test-only VC7.1 /QIfist probe in tests/fixtures/float_conversion.cpp accepts the
+flag and generates FISTP QWORD, with bias3fdfffffff000000. The outdoor target
+uses FISTP DWORD. This probe is insufficient, not proof no C++ solution exists;
+no production /QIfist flags are kept. Shader FNCLEX remains deferred too.
+
+Primary structure discovery: normal backend starts1042e780; its debug block
+starts10678498, commands start1064848c, usedTotal/usedCritical/lastCmd at
+1067848c/90/94. Typed GfxBackEndData uses0x249d6c bytes through106784eb;
+next scene starts10678500. The20-byte intervening gap does not prove an
+alignment annotation or authorize filler. Its frame setup10021040/143 selects
+that storage, increments rg.frameCountInternal, unlocks the old skin cache,
+cycles the signed frame index modulo2, selects its actual VB, then resets
+only the observed draw/entity/poly/view/debug counts. Command counters and
+other debug fields are untouched. Frontend ownership is reloaded after unlock.
+The debug frame is a separate real object, not an alias for this missing one.
+
+Current import-set inspection: original and candidate have the same d3d9,
+DDRAW, GDI32, ADVAPI32 and99 KERNEL32 imports; candidate lacks USER32
+AdjustWindowRectEx, IsWindow and ShowWindow. No extra named imports. Their
+order differs and still needs genuine startup/window source, not dummy calls.
+
 ## 2026-10-22 procedural-image source and material-load dependencies
 
 Accepted solid-color helper100100f0/102 writes input bytes directly in BGRA

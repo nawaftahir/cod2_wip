@@ -1,5 +1,24 @@
 # Layout is part of every reconstruction wave
 
+Normal-frame/outdoor wave,2026-10-23: r_rendercmds.cpp owns the real normal
+GfxBackEndData as well as the separate debug frame. Primary1042e780 and the
+used offsets establish2399596 bytes, commands+219d0c and debug+249d18. No
+alignment annotation is inferred from the gap before the next retail global.
+R_InitRenderCmds zeroes that84-byte debug block and allocates two2MB index
+buffers into the EXISTING tess owner in rb_sky.cpp. rb_tess.h exposes the
+second ushort pointer at+5a7b4 without moving material/count fields. The name
+secondaryIndices describes pinned element use, not recovered source spelling.
+No duplicate buffer globals, initialization fillers or new retention exports.
+The startup caller10012fab is pinned; full R_Init source is still missing, so
+this initialization chain is not yet reachable from a genuine DLL front door.
+
+OutdoorGlob's64 bytes belong to new r_outdoor.cpp, after r_model_lod.cpp in
+candidate tus.txt. Its dimensions are the primary512,512,256 table. Shared
+ClearBounds, ExpandBounds and MatrixIdentity44 helpers are reused, not copied.
+The /Os trial is rejected; normal flags remain. Candidate grouping/order is
+not historical proof. FP instruction matching is explicitly deferred while
+startup/API/ownership and whole-file contributor accounting remain open.
+
 Procedural-image wave,2026-10-22: all six new helpers stay in the existing
 r_image_load_obj.cpp, beside the real image loading/upload callers. Cubemap
 axis descriptors are local, as the primary stack stores establish. No new

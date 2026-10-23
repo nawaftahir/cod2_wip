@@ -1,12 +1,70 @@
 # Renderer progress
 
-## Whole-file procedural-image source - 2026-10-22
+## Structure-first backend/outdoor wave - 2026-10-23
 
 Work only in gfx. Source: `target/work/src/`. Plan: [WHOLEFILE.md](WHOLEFILE.md).
 This is the sole current progress/continuation log. Update it instead of creating
 new handoffs. Machine proof receipts and technical reference notes stay separate.
 
 ### Latest source work
+
+Owner priority: finish the early structural gate in WHOLEFILE.md before another
+function-tuning campaign. That gate is OPEN, not a coverage milestone. Defer
+the FP-status and outdoor rounding instruction gaps; no new authored assembly.
+
+Source wave after00fec50: normal GfxBackEndData storage and its real frame
+initializer are restored in r_rendercmds.cpp. R_InitRenderCmds now sets the
+real debug limits and allocates both2MB index buffers into existing tess
+storage. rb_tess.h exposes the second ushort pointer without moving any
+material/count field. Its existing owner is rb_sky.cpp; no duplicate globals.
+The genuine caller10012fab is pinned, but full R_Init source is still missing.
+OutdoorGlob and five real
+bounds/mapping/trace helpers are in new r_outdoor.cpp, placed after r_model_lod
+in candidate tus.txt. Existing shared bounds and identity helpers are reused;
+this is not proof of historical TU order. The /Os experiment is removed.
+
+Completed build/referees/source attribution retain all1262 previous extents;
+new outdoor height trace10020590/175 passes both. Ratchet now protects1263.
+C/C++101251/253580 (39.929%),591 bodies; mixed109038 bytes,622 bodies.
+Assembly exclusions remain31 bodies/7787 bytes. No source-coverage target is
+being substituted for the structural gate.
+
+The actual normal frame record occupies2399596 typed bytes. Primary code pins
+base1042e780, commands+219d0c, debug+249d18 and the final used record extent.
+No fabricated filler or alias of the debug frame. Candidate .data virtual size
+is6085332 vs6086100 retail: gap768 bytes, down from2400448. Both raw .data
+sizes are57344. This is a size observation, NOT matching layout/data or SHA.
+
+Current SHA31cbeb3764aca5e2581829477a2ce55d22d5d84f2a2a62dc48b8d86ab2e5b9bb;
+.text882930, .rdata590319, .reloc84718; file1626112 bytes. Raw same-offset
+8.290950809%. No GetRefAPI;159 temporary exports. USER32 still lacks three
+real imports; startup/API/metadata/order work is not complete.
+
+Frozen intermediate snapshots:target/work/proof/backend_structure_{warm_bind,
+layout,source_coverage}.json. Final snapshots use rendercmd_structure_*.
+Native fixtures pass106 outdoor routes,24 normal-frame routes and four startup
+routes, including ownership replacement during unlock/allocation and untouched
+command counters. The earlier76-fixture backend batch passed. All77 final
+fixtures pass after the completed build (log
+latest/rendercmd_structure_fixtures_final.log). The first concurrent batch failed
+the freshness gate during the live build; never weaken that gate. Removing the
+new175-byte trace is rejected. No whole-link build remains running.
+Source/evidence identities and the final results are pinned in
+target/work/proof/backend_structure_checkpoint.json. No test process remains.
+No new compiler flags kept; /QIfist probe
+is test-only and emits64-bit FISTP, not the required32-bit operation.
+
+Next structural closure: real startup10012f80 calls Swap_Init -> register dvars
+-> renderer command registration100052c0 -> globals -> render commands -> draw
+groups -> hardware initialization10012c80 -> material selection -> sine table
+-> bit swap -> model DObj -> backend initialization1003a9d0. Recover missing
+real bodies and shared interfaces before introducing GetRefAPI; no dummy
+callbacks or artificial roots to hide missing startup. Exact function tuning
+and the deferred shader/outdoor FP gaps wait until the early structural gate.
+No workers/duplicate builds. Tooling exposes no reliable per-turn billing/token
+counter, so no invented cost figure; accepted source gain is175 bytes this wave.
+
+### Previous procedural-image checkpoint
 
 Previous committed checkpoint:5caa779. Six real procedural-image functions now
 compile in r_image_load_obj.cpp: cube upload, solid BGRA pixel, specularity,

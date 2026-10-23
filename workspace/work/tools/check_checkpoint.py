@@ -72,6 +72,9 @@ required.update(accepted(material_pass))
 procedural = Path(__file__).resolve().parents[1] / 'proof/procedural_warm_bind.json'
 assert hashlib.sha256(procedural.read_bytes()).hexdigest() == '3ef41496499a8d60ec600df6e883706a4d9ab2f7588e0d24ef21f7779977e8f8'
 required.update(accepted(procedural))
+backend_structure = Path(__file__).resolve().parents[1] / 'proof/backend_structure_warm_bind.json'
+assert hashlib.sha256(backend_structure.read_bytes()).hexdigest() == '59224cf7f86c0af591615658fb3d4d553504cb081608484cf485e71870b4c2fc'
+required.update(accepted(backend_structure))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

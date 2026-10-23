@@ -1,9 +1,9 @@
 // Render command buffers.
 #include "gfx.h"
+#include "rb_tess.h"
 #include <stddef.h>
 
 GfxBackEndData *frontEndDataOut;
-GfxCmdArray *s_cmdList;
 
 // PINNED 10020cb0/10020cc0 and client CL_InitRef: API59 imports166/165.
 typedef char effectImportOffsets[
@@ -23,6 +23,10 @@ void R_UpdateEffectsNonBolt()
 
 // PINNED 101e4a00: saved frame pointers, lock flag and the debug frame payload.
 GfxDebugFrameGlob s_debugFrameGlob;
+GfxCmdArray *s_cmdList;
+
+// PINNED 1042e780: normal frame storage, distinct from the embedded debug frame.
+static GfxBackEndData s_backEndData;
 
 typedef char debugFrameLayoutCheck[
     (offsetof(GfxDebugFrameGlob, frontEndDataOut) == 12 &&
@@ -30,6 +34,57 @@ typedef char debugFrameLayoutCheck[
 
 extern DxGlobals dx;
 void R_UnlockSkinnedCache();
+
+typedef char normalFrameLayoutCheck[
+    sizeof(GfxBackEndData) == 0x249d6c &&
+    offsetof(GfxBackEndData, skinnedCacheVb) == 0x217c78 &&
+    offsetof(GfxBackEndData, viewParmCount) == 0x217c7c &&
+    offsetof(GfxBackEndData, debugGlobals) == 0x249d18 &&
+    offsetof(DxGlobals, skinnedCacheVbPool) == 0x2d90 &&
+    offsetof(DxGlobals, dynamicBufferFrame) == 0x2dcc ? 1 : -1];
+
+// PINNED 10021040/143: selecting a normal frame does not reset command counters.
+void R_InitFrameBackendData()
+{
+    frontEndDataOut = &s_backEndData;
+    frontEndDataOut->frameCount = ++rg.frameCountInternal;
+    R_UnlockSkinnedCache();
+    dx.dynamicBufferFrame = (dx.dynamicBufferFrame + 1) % 2;
+    GfxBackEndData *data = frontEndDataOut;
+    data->skinnedCacheVb = &dx.skinnedCacheVbPool[dx.dynamicBufferFrame];
+    data->skinnedCacheVb->used = 0;
+    data->drawSurfCount = 0;
+    data->surfPos = 0;
+    data->entityCount = 0;
+    data->polyCount = 0;
+    data->polyVertCount = 0;
+    data->viewParmCount = 0;
+    s_cmdList = &data->commands;
+    data->debugGlobals.lineCount = 0;
+    data->debugGlobals.stringCount = 0;
+    data->debugGlobals.vertCount = 0;
+}
+
+// PINNED 10020b50/126: both index allocations belong to tess, not frame storage.
+void R_InitRenderCmds()
+{
+    memset(&s_backEndData.debugGlobals, 0, sizeof(s_backEndData.debugGlobals));
+    s_backEndData.debugGlobals.vertLimit = 4096;
+    s_backEndData.debugGlobals.polyLimit = 512;
+    s_backEndData.debugGlobals.stringLimit = 4096;
+    s_backEndData.debugGlobals.lineLimit = 16384;
+    s_backEndData.debugGlobals.plumeLimit = 4096;
+    tess.indices = (unsigned short *)ri.Hunk_AllocInternal(0x200000);
+    tess.secondaryIndices = (unsigned short *)ri.Hunk_AllocInternal(0x200000);
+    if (!frontEndDataOut)
+        R_InitFrameBackendData();
+    else
+    {
+        frontEndDataOut->commands.usedTotal = 0;
+        frontEndDataOut->commands.usedCritical = 0;
+        frontEndDataOut->commands.lastCmd = 0;
+    }
+}
 
 // PINNED 10021ff0: API59 slot49; save before unlocking the original cache.
 void R_BeginDebugFrame()

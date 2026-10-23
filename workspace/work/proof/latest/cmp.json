@@ -3041,6 +3041,20 @@
 "hits": []
 },
 {
+"name": "?R_InitFrameBackendData@@YAXXZ",
+"obj": "r_rendercmds.obj",
+"size": 147,
+"hits": []
+},
+{
+"name": "?R_InitRenderCmds@@YAXXZ",
+"obj": "r_rendercmds.obj",
+"size": 126,
+"hits": [
+"0x10020b50"
+]
+},
+{
 "name": "?R_BeginDebugFrame@@YAXXZ",
 "obj": "r_rendercmds.obj",
 "size": 73,
@@ -5709,6 +5723,38 @@
 "hits": [
 "0x1001d960"
 ]
+},
+{
+"name": "?R_OutdoorTraceHeight@@YAMMM@Z",
+"obj": "r_outdoor.obj",
+"size": 175,
+"hits": [
+"0x10020590"
+]
+},
+{
+"name": "?R_ComputeOutdoorBounds@@YAXPBUGfxWorld@@@Z",
+"obj": "r_outdoor.obj",
+"size": 505,
+"hits": []
+},
+{
+"name": "?R_ComputeOutdoorScale@@YAXXZ",
+"obj": "r_outdoor.obj",
+"size": 187,
+"hits": []
+},
+{
+"name": "?R_ComputeOutdoorLookupMatrix@@YAXPAUGfxWorld@@@Z",
+"obj": "r_outdoor.obj",
+"size": 205,
+"hits": []
+},
+{
+"name": "?R_OutdoorTexelToWorld@@YAMHH@Z",
+"obj": "r_outdoor.obj",
+"size": 25,
+"hits": []
 },
 {
 "name": "?R_TransformRigidVertex@@YAXPBUDObjSkelMat_s@@PBM111PAUGfxVertex@@@Z",
