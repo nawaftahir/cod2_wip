@@ -1130,3 +1130,19 @@ exhausted-destination and screenshot numbering quirks are intentionally retained
 Final build/referees/full103 fixtures pass; four engine bodies252 bytes and136
 IJG bodies38859 bytes accepted, all old1288 retained. Registration linked audit
 also rejects wrong callback/RI slot. Source spelling sweeps were not pursued.
+
+### Common PC backend view - 2026-10-23
+
+The live common include is headers/cod2_defs.h plus PC/gfx_d3d/rb_backend.h.
+common_types.h contains an inactive historical copy after its initial include;
+do not edit or use that copy as proof of the compiled type. Existing actual
+SDK backend view already has twelve matrices and explicit MSVC alignment.
+The common view had an extra OGL matrix and COD2_ALIGNED is empty under MSVC.
+Remove the OGL field in the live definition and explicitly align only this
+matrix type under MSVC. The first preflight (only field removal) failed the
+layout assertion; after alignment, the pinned compiler verifies all six pins:
+matrix110, framecd0, stack4e0, level2b50, debugFont36b58, backend36b60.
+Primary R_Init writes10764558 and RB_InitBackendGlobalStructs clears0xdad8
+dwords at1072da00 and sets resolved targets10730554/58. Native fixture checks
+both actual matrix declarations and rejects restoring the extra OGL matrix.
+No extra global/backend wrapper or code-coverage credit.

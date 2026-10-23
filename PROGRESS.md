@@ -5,6 +5,20 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
+### Backend layout checkpoint afterf35cb77
+
+Fixed the LIVE common PC backend type in target/src/opencod2/headers/cod2_defs.h:
+remove the extra OGL matrix and restore explicit16-byte matrix alignment for
+MSVC. All six primary-backed layout assertions pass with the original compiler,
+including debugFont36b58 and complete backend36b60. The common and SDK views
+still share one backend allocation. The inactive historical common_types.h copy
+is not compiled and was not changed. All1428 protected matches survive, no new
+source-byte credit; C++ stays102721/253580=40.508320845%. All104 fixtures pass,
+including both matrix views, primary instruction checks and extra-field negatives.
+SHA2665956c3d567aa8de4cc1365fbcc3b91b95e4f30f9a27ba5a4d4859513d478f;
+same-offset8.210416811%, not completion. Receipt: backend_common_checkpoint.json.
+One output, no workers; tokens unavailable. Stages1-3 and GPU/SHA remain open.
+
 ### Latest verified work
 
 Restored the authentic IJG6b encoder (22 C TUs), its target-backed allocator,

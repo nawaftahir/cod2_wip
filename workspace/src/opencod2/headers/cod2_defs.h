@@ -6657,6 +6657,9 @@ struct _D3DMATRIX {
     union { struct { float _11; float _12; float _13; float _14; float _21; float _22; float _23; float _24; float _31; float _32; float _33; float _34; float _41; float _42; float _43; float _44; }; float m[4][4]; };
 };
 
+#ifdef _MSC_VER
+__declspec(align(16))
+#endif
 struct GfxCodeMatrix {
     D3DMATRIX matrix[4];
     Bool valid[4];
@@ -6676,7 +6679,6 @@ struct GfxCodeMatrices {
     GfxCodeMatrix shadowLookupMatrix;
     GfxCodeMatrix lightGridLookupMatrix;
     GfxCodeMatrix worldOutdoorLookup;
-    GfxCodeMatrix OGLworldViewProjection;
 };
 
 struct ShadowCookie {

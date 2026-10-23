@@ -14,6 +14,14 @@
 #include <float.h>
 #include "universal/com_math.h"
 
+/* PINNED PC 1.0: three 0xcd0 matrix frames; debugFont is at 10764558. */
+typedef char rendererCodeMatrixSizeCheck[(sizeof(GfxCodeMatrix) == 0x110) ? 1 : -1];
+typedef char rendererCodeMatricesSizeCheck[(sizeof(GfxCodeMatrices) == 0xcd0) ? 1 : -1];
+typedef char rendererMatrixStackOffsetCheck[(offsetof(r_backEndGlobals_t, codeMatrixStack) == 0x4e0) ? 1 : -1];
+typedef char rendererMatrixLevelOffsetCheck[(offsetof(r_backEndGlobals_t, codeMatrixStackLevel) == 0x2b50) ? 1 : -1];
+typedef char rendererDebugFontOffsetCheck[(offsetof(r_backEndGlobals_t, debugFont) == 0x36b58) ? 1 : -1];
+typedef char rendererBackendSizeCheck[(sizeof(r_backEndGlobals_t) == 0x36b60) ? 1 : -1];
+
 
 // common.cpp / client universal sources
 void R_Error(errorParm_t code, const char *fmt, ...);

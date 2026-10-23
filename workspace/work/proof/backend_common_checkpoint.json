@@ -1,0 +1,37 @@
+{
+  "date": "2026-10-23",
+  "scope": "live common/SDK backend layout agreement for real startup",
+  "previous_source_checkpoint": "f35cb77",
+  "whole_file_identical": false,
+  "stages_1_to_3_complete": false,
+  "candidate_sha256": "2665956c3d567aa8de4cc1365fbcc3b91b95e4f30f9a27ba5a4d4859513d478f",
+  "same_file_offset_percent": 8.210416810702434,
+  "cpp_executable_bytes": 102721,
+  "cpp_percent_legacy_inventory": 40.50832084549255,
+  "engine_bytes_gained": 0,
+  "protected_extents_retained": 1428,
+  "source_fixtures_passed": 104,
+  "original_compiler_layout_pins": {
+    "GfxCodeMatrix_size": "0x110",
+    "GfxCodeMatrices_size": "0xcd0",
+    "backEnd_matrix_stack": "0x4e0",
+    "backEnd_stack_level": "0x2b50",
+    "backEnd_debugFont": "0x36b58",
+    "backEnd_size": "0x36b60"
+  },
+  "retail_evidence": {
+    "R_Init": "0x10012f80: debugFont write at 0x10764558",
+    "RB_InitBackendGlobalStructs": "0x10033f80: clear 0xdad8 dwords at 0x1072da00, resolved targets at 0x10730554/58"
+  },
+  "negative_controls": "both actual matrix declarations reject reintroducing extra OGL matrix",
+  "source_and_evidence_sha256": {
+    "target/src/opencod2/headers/cod2_defs.h": "169da4c93cf50634f434ea5d06e557af2d3bca84df1f3ec29a589a6efccf6970",
+    "target/work/src/gfx_d3d/gfx.h": "a2116d7ae61d82c64d1e95653e997394b35a98a0ac38a2188e3ca3f29ea2a35d",
+    "target/work/tests/test_backend_common_layout.py": "378ecff9112ee8fb5479061c709586a2bd8833895053e4c7be303bc917554bf5",
+    "target/work/proof/latest/backend_common_preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "target/work/proof/latest/backend_common_build.log": "6a394d90af39a24c03ee5e8e3dba68a5a21dd035272646f84cf0204891d24a1f",
+    "target/work/proof/latest/backend_common_fixtures.log": "bd19e8cffeb42684bed461c33cc8022d6c61cabaf5e1e8f8050b59400c391d2f"
+  },
+  "billing_tokens": null,
+  "client_gpu_smoke_tested": false
+}

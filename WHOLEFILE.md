@@ -170,6 +170,12 @@ uses the frozen legacy denominator (known early IJG entries excluded from its
 numerator). R_Init/calibration and genuine GetRefAPI remain open; this does not
 complete any broader stage. See PROGRESS.md and jpeg_commands_checkpoint.json.
 
+The common PC backend ABI is now asserted against retail in every common-view
+TU: matrix frame0xcd0, stack0x4e0, level0x2b50, debugFont0x36b58, size0x36b60.
+The extra Mac/OGL matrix and missing MSVC alignment are corrected in the live
+header;104 fixtures and1428 protected extents pass. This fixes a structural gap,
+with no new coverage credit. Proof: backend_common_checkpoint.json.
+
 ### Full execution sequence
 
 1. **Preserve and replay the base.** Keep one source tree and one build. Local

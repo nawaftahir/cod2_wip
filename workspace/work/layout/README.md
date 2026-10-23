@@ -294,3 +294,14 @@ one IJG header set. profile.mk compiles codec C directly with /O2 /GL /MT /TC an
 NO_GETENV; this is a tested configuration, not proof of original command lines.
 Library credit is separate even for IJG addresses inside the legacy game interval.
 No dummy callbacks, duplicate globals, filler or new export roots.
+
+### Common backend ABI - 2026-10-23
+
+The live common PC type now has exactly twelve 16-byte-aligned GfxCodeMatrix
+entries per0xcd0-byte GfxCodeMatrices frame. The SDK and common views refer
+to the SAME backend allocation; no alias storage. gfx.h asserts stack4e0,
+level2b50, debugFont36b58 and complete size36b60 in every common-view TU.
+The old OGL field is absent from the live cod2_defs.h; common_types.h's inactive
+historical copy is not a compiler input. Original MSVC needs explicit alignment
+on this type because COD2_ALIGNED is empty on its platform branch. The six
+layout assertions pass with original MSVC and all1428 accepted extents survive.
