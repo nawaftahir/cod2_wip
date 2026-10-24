@@ -1,3 +1,6 @@
 # cl.exe flags per source, first matching glob wins. Owner-edited only; changes need evidence.
 glob	flags
+src/zlib/unzip.c	/O2 /Oy- /Op /GL
+src/zlib/zutil.c	/O2 /Oy- /Op /GL
+src/zlib/*	/O2 /GL
 *	/O2 /Oy- /Op /GL

@@ -90,16 +90,32 @@ def stale(source, obj, headers):
     return not obj.exists() or obj.stat().st_mtime < max((BASE / source).stat().st_mtime, headers)
 
 
-def address_taken(addresses):
-    """Retail functions whose address is stored somewhere in the image (function tables, callbacks)."""
+def extlib_calls():
+    """Targets of rel32 calls/jumps made from non-/GL code (data/file_map.tsv extlib/ ranges, e.g. the P4 API)."""
     image = RETAIL.read_bytes()
-    return {a for a in addresses if image.find(struct.pack("<I", a)) != -1}
+    out = set()
+    for r in read_tsv("data/file_map.tsv"):
+        if not r["tu"].startswith("extlib/"):
+            continue
+        lo, hi = int(r["start"], 16), int(r["end"], 16)
+        for va in range(lo, hi - 4):
+            off = va - 0x400000  # .text raw offset == RVA in this image
+            if image[off] in (0xE8, 0xE9):
+                out.add((va + 5 + struct.unpack_from("<i", image, off + 1)[0]) & 0xFFFFFFFF)
+    return out
+
+
+def address_taken(addresses):
+    """Retail functions referenced from outside the /GL code: address stored in the image, or called by extlib code."""
+    image = RETAIL.read_bytes()
+    ext = extlib_calls()
+    return {a for a in addresses if a in ext or image.find(struct.pack("<I", a)) != -1}
 
 
 def ledger_includes():
     # LTCG gives a function with no visible caller register arguments; retail keeps the stack form for any
-    # function whose address is taken (research/filemap/probe/addr). Until the code taking it is written,
-    # /INCLUDE stands in for that reference. data/symbols.tsv names in-tree functions with no ledger row yet.
+    # function referenced from outside the /GL code (research/filemap/probe/addr). Until that code is written
+    # or linked, /INCLUDE stands in for the reference. data/symbols.tsv names in-tree functions with no ledger row yet.
     rows = read_tsv("ledger/matches.tsv") + read_tsv("data/symbols.tsv")
     taken = address_taken({int(r["addr"], 16) for r in rows})
     return sorted({r["symbol"] for r in rows if int(r["addr"], 16) in taken})
@@ -124,7 +140,8 @@ def resources():
 
 def build(includes=(), quiet=False):
     """Compile stale sources and link. Returns True when an exe was produced."""
-    headers = max([p.stat().st_mtime for p in (BASE / "src").rglob("*.h")] + [0])
+    # a header or flag change rebuilds everything
+    headers = max([p.stat().st_mtime for p in (BASE / "src").rglob("*.h")] + [(BASE / "data" / "flags.tsv").stat().st_mtime])
     objs = []
     for src in sources():
         obj = obj_path(src)
