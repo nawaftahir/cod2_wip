@@ -81,7 +81,8 @@ void R_SetLodOrigin(const refdef_t *refdef)
     rg.lodParms.bias = r_lodBias->current.value;
     if (refdef->fov_x != 80.0f)
     {
-        invFovScale = (float)(tan((double)(refdef->fov_x * 0.5f) * 0.017453292f)
+        float halfFov = refdef->fov_x * 0.5f;
+        invFovScale = (float)(tan(halfFov * 0.017453292f)
             / tan(80.0f * 0.5f * 0.017453292f));
         rg.lodParms.scale *= invFovScale;
         rg.lodParms.bias *= invFovScale;

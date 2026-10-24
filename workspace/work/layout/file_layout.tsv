@@ -687,7 +687,7 @@ gfx_d3d/r_material.cpp	?Material_ReleaseVertexDecls@@YAXXZ	10017470	bind	-	gfx_d
 gfx_d3d/r_material.cpp	?Material_ReloadAll@@YAXXZ	100174c0	bind	gfx_d3d/r_material	gfx_d3d/r_material	mac-name
 gfx_d3d/r_material.cpp	?Material_ReleaseAll@@YAXXZ	10017520	bind	gfx_d3d/r_material	gfx_d3d/r_material	mac-name
 gfx_d3d/r_material.cpp	?Material_Shutdown@@YAXXZ	10017540	bind	gfx_d3d/r_material	gfx_d3d/r_material	mac-name
-gfx_d3d/r_material.cpp	?Material_ReloadTextures@@YAXPAUMaterial@@@Z	10017640	pinned	-	-	unknown
+gfx_d3d/r_material.cpp	?Material_ReloadTextures@@YAXPAUMaterial@@@Z	10017640	hit	-	-	unknown
 gfx_d3d/r_material.cpp	?R_ApplyPicmip@@YAXXZ	10017730	pinned	-	-	unknown
 gfx_d3d/r_material.cpp	?Material_ReloadTextures_f@@YAXXZ	100178b0	hit	-	-	unknown
 gfx_d3d/r_material.cpp	??$_Sort@PAPAUMaterial@@HP6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0HP6A_NPBU1@1@Z@Z	100179a0	bind	-	-	unknown
@@ -826,7 +826,7 @@ gfx_d3d/r_rendercmds.cpp	?R_AddCmdId9@@YAXPBURcWords16@@H@Z	10021ae0	bind	-	gfx_
 gfx_d3d/r_rendercmds.cpp	?R_AddCmdSetViewport@@YAXHHHH@Z	10021bf0	bind	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
 gfx_d3d/r_rendercmds.cpp	?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z	10021c60	bind	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
 gfx_d3d/r_rendercmds.cpp	?R_ClearModifiedLightDvars@@YA_NXZ	10021c80	bind	-	gfx_d3d/r_rendercmds	interval
-gfx_d3d/r_rendercmds.cpp	?R_UpdateLodDistances@@YAXXZ	10021db0	pinned	-	gfx_d3d/r_rendercmds	interval
+gfx_d3d/r_rendercmds.cpp	?R_UpdateLodDistances@@YAXXZ	10021db0	bind	-	gfx_d3d/r_rendercmds	interval
 gfx_d3d/r_rendercmds.cpp	?R_UpdateFrameDvars@@YAXXZ	10021e50	pinned	-	gfx_d3d/r_rendercmds	interval
 gfx_d3d/r_rendercmds.cpp	?R_BeginFrame@@YAXXZ	10021f40	hit	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
 gfx_d3d/r_rendercmds.cpp	?R_BeginDebugFrame@@YAXXZ	10021ff0	bind	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
@@ -864,7 +864,7 @@ gfx_d3d/r_scene.cpp	?R_AddDrawSurf@@YAXPBUMaterial@@HHPBW4surfaceType_t@@@Z	1002
 gfx_d3d/r_scene.cpp	?R_AddBModelSurfaces@@YAXPAUGfxSceneEntity@@H@Z	10024610	pinned	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
 gfx_d3d/r_scene.cpp	?R_ClearScene@@YAXXZ	10025510	bind	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
 gfx_d3d/r_scene.cpp	?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z	10025570	bind	-	gfx_d3d/r_scene	interval
-gfx_d3d/r_scene.cpp	?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z	100256c0	pinned	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
+gfx_d3d/r_scene.cpp	?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z	100256c0	hit	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
 gfx_d3d/rb_imagefilter.cpp	?I_fmin@@YAMMM@Z	10025920	bind	-	-	unknown
 gfx_d3d/rb_imagefilter.cpp	?I_fmin@@YAMMM@Z	10025920	bind	-	-	unknown
 universal/com_math.cpp	?Vec3Mul@@YAXQBM0QAM@Z	10025940	bind	-	-	unknown
@@ -1002,7 +1002,7 @@ gfx_d3d/rb_backend.cpp	?R_ScaleFloats24@@YAXPAMM@Z	100361e0	bind	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_DefaultGridColors@@YAXPAY03M@Z	100362d0	pinned	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_GetNearestGridColors@@YA_NPBUGfxLightGrid@@HHHPAY03MPAM@Z	10036320	pinned	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z	100363a0	pinned	gfx_d3d/rb_light	gfx_d3d/rb_light	mac-name
-gfx_d3d/rb_light.cpp	?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z	100366b0	pinned	gfx_d3d/rb_light	gfx_d3d/rb_light	mac-name
+gfx_d3d/rb_light.cpp	?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z	100366b0	hit	gfx_d3d/rb_light	gfx_d3d/rb_light	mac-name
 gfx_d3d/rb_light.cpp	?RB_InterleaveLightColors@@YAXPBMPAY02M@Z	10036720	bind	-	gfx_d3d/rb_light	interval
 gfx_d3d/rb_light.cpp	?RB_AverageLightColors@@YAXPBMPAM@Z	100367b0	bind	-	gfx_d3d/rb_light	interval
 gfx_d3d/rb_light.cpp	?RB_FitDirectionalLight@@YA_NHPAY02MPAU_D3DLIGHT9@@@Z	100368a0	bind	-	gfx_d3d/rb_light	interval

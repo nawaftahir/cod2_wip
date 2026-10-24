@@ -539,7 +539,7 @@ static void R_UpdateLodDistances()
     if (r_forceLod->current.integer != r_forceLod->reset.integer)
     {
         for (int index = 0; index < 4; ++index)
-            ri.XModelSetTestLods(index, r_forceLod->current.integer == index ? 0.0f : 0.001f);
+            ri.XModelSetTestLods(index, index == r_forceLod->current.integer ? 0.0f : 0.001f);
     }
     else
     {

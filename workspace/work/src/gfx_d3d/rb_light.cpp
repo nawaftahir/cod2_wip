@@ -287,7 +287,7 @@ void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting
 {
     lighting->viewCount = backEnd.viewCount;
     vec3_t origin;
-    if ((signed char)entity->renderFxFlags < 0)
+    if (entity->renderFxFlags & 0x80)
         VectorCopy(entity->lighting.origin, origin);
     else
     {

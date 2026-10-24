@@ -1277,6 +1277,14 @@
 "call ?Material_LoadBinary@@YAPAUMaterial@@PBDH@Z"
 ]
 },
+"?Material_ReloadTextures@@YAXPAUMaterial@@@Z": {
+"t": "0x10017640",
+"n": 195,
+"obj": "r_material.obj",
+"why": [
+"call ?Image_LoadFromFile@@YAEPAUGfxImage@@@Z"
+]
+},
 "?Material_ReloadTextures_f@@YAXXZ": {
 "t": "0x100178b0",
 "n": 137,
@@ -2059,6 +2067,12 @@
 "obj": "r_rendercmds.obj",
 "why": []
 },
+"?R_UpdateLodDistances@@YAXXZ": {
+"t": "0x10021db0",
+"n": 152,
+"obj": "r_rendercmds.obj",
+"why": []
+},
 "?R_BeginFrame@@YAXXZ": {
 "t": "0x10021f40",
 "n": 70,
@@ -2136,6 +2150,14 @@
 "n": 286,
 "obj": "r_scene.obj",
 "why": []
+},
+"?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z": {
+"t": "0x100256c0",
+"n": 212,
+"obj": "r_scene.obj",
+"why": [
+"data __real@3fe6571840000000"
+]
 },
 "?R_ClearScene@@YAXXZ": {
 "t": "0x10025510",
@@ -2834,6 +2856,14 @@
 "n": 141,
 "obj": "rb_light.obj",
 "why": []
+},
+"?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
+"t": "0x100366b0",
+"n": 100,
+"obj": "rb_light.obj",
+"why": [
+"call ?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z"
+]
 },
 "?RB_InterleaveLightColors@@YAXPBMPAY02M@Z": {
 "t": "0x10036720",

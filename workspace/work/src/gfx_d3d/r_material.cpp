@@ -657,7 +657,7 @@ void Material_ReloadTextures(Material *material)
     for (;;)
     {
         GfxImage *best = 0;
-        for (unsigned int index = 0; index < count; ++index)
+        for (unsigned int index = 0; index != count; ++index)
         {
             MaterialTextureDef *texture = &material->textures[index];
             if (texture->semantic == 5)

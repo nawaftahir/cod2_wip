@@ -2679,7 +2679,9 @@
 "name": "?Material_ReloadTextures@@YAXPAUMaterial@@@Z",
 "obj": "r_material.obj",
 "size": 195,
-"hits": []
+"hits": [
+"0x10017640"
+]
 },
 {
 "name": "?Material_ReloadTextures_f@@YAXXZ",
@@ -4306,7 +4308,9 @@
 "name": "?R_UpdateLodDistances@@YAXXZ",
 "obj": "r_rendercmds.obj",
 "size": 152,
-"hits": []
+"hits": [
+"0x10021db0"
+]
 },
 {
 "name": "?R_UpdateFrameDvars@@YAXXZ",
@@ -4514,7 +4518,9 @@
 "name": "?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z",
 "obj": "r_scene.obj",
 "size": 212,
-"hits": []
+"hits": [
+"0x100256c0"
+]
 },
 {
 "name": "?R_AddDrawSurf@@YAXPBUMaterial@@HHPBW4surfaceType_t@@@Z",
@@ -6317,7 +6323,9 @@
 "name": "?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z",
 "obj": "rb_light.obj",
 "size": 100,
-"hits": []
+"hits": [
+"0x100366b0"
+]
 },
 {
 "name": "?RB_InterleaveLightColors@@YAXPBMPAY02M@Z",

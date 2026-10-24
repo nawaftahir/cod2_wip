@@ -1,8 +1,8 @@
 {
-  "functions": 654,
-  "bytes": 112953,
+  "functions": 655,
+  "bytes": 113105,
   "total": 253580,
-  "percent": 44.54333938007729,
+  "percent": 44.603281015852986,
   "baseline_lost": [],
   "gains": [
     {
@@ -712,6 +712,12 @@
       "bytes": 175,
       "name": "?R_OutdoorTraceHeight@@YAMMM@Z",
       "object": "r_outdoor.obj"
+    },
+    {
+      "target": "0x10021db0",
+      "bytes": 152,
+      "name": "?R_UpdateLodDistances@@YAXXZ",
+      "object": "r_rendercmds.obj"
     },
     {
       "target": "0x10021ff0",

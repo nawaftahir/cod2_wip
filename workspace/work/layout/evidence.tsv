@@ -244,6 +244,7 @@ accepted	gfx_d3d/r_rendercmds.cpp	R_ClearModifiedDvar	10021c60	mac
 accepted	gfx_d3d/r_rendercmds.cpp	R_ClearModifiedLightDvars	10021c80	bind
 accepted	gfx_d3d/r_rendercmds.cpp	R_EndDelayedDrawing	10020f70	mac
 accepted	gfx_d3d/r_rendercmds.cpp	R_IssueDelayedDrawing	10020fe0	mac
+accepted	gfx_d3d/r_rendercmds.cpp	R_UpdateLodDistances	10021db0	bind
 accepted	gfx_d3d/r_rendertarget.cpp	R_CreateSmallDepthStencil	100228d0	mac
 accepted	gfx_d3d/r_rendertarget.cpp	R_DescribeFormat	10022710	mac
 accepted	gfx_d3d/r_rendertarget.cpp	R_GetFrameBufferExtent	100227c0	doubt
@@ -869,7 +870,6 @@ draft-addressed	gfx_d3d/r_rendercmds.cpp	R_BeginFrame	10021f40	mac
 draft-addressed	gfx_d3d/r_rendercmds.cpp	R_InitFrameBackendData	10021040	-
 draft-addressed	gfx_d3d/r_rendercmds.cpp	R_InitRenderCmds	10020b50	-
 draft-addressed	gfx_d3d/r_rendercmds.cpp	R_UpdateFrameDvars	10021e50	-
-draft-addressed	gfx_d3d/r_rendercmds.cpp	R_UpdateLodDistances	10021db0	-
 draft-addressed	gfx_d3d/r_rendertarget.cpp	R_InitFullscreenRenderTargetImage	10022d20	mac
 draft-addressed	gfx_d3d/r_rendertarget.cpp	R_InitRenderTargets	10022d20	mac
 draft-addressed	gfx_d3d/r_scene.cpp	R_AddBModelSurfaces	10024610	mac
