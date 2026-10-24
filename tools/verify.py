@@ -90,6 +90,10 @@ def masks(code, va):
     calls = [(f, d) for f, d in calls if f - 1 in starts or f - 2 in starts]
     for field, _ in calls:
         out.update(range(field, field + 4))
+    # switch jump tables after the code hold addresses inside the function
+    for pos in range(len(code) - 3):
+        if va <= struct.unpack_from("<I", code, pos)[0] < va + len(code):
+            out.update(range(pos, pos + 4))
     return out, dict(calls)
 
 

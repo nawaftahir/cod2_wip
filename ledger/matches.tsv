@@ -142,3 +142,6 @@ addr	size	source	symbol	name	tag
 0x004b3810	267	src/zlib/unzip.c	_unzOpenCurrentFile	unzOpenCurrentFile	SUPPORTED
 0x004b3920	423	src/zlib/unzip.c	_unzReadCurrentFile	unzReadCurrentFile	SUPPORTED
 0x004b3ba0	88	src/zlib/unzip.c	_unzCloseCurrentFile	unzCloseCurrentFile	SUPPORTED
+0x004aea60	2864	src/zlib/infblock.c	_inflate_blocks	inflate_blocks	SUPPORTED
+0x004af690	1788	src/zlib/infcodes.c	_inflate_codes	inflate_codes	SUPPORTED
+0x004b02e0	1004	src/zlib/inflate.c	_inflate	inflate	SUPPORTED
