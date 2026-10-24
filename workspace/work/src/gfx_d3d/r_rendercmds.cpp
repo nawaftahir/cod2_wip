@@ -600,3 +600,8 @@ void R_AbortRenderCommands()
     ri.Z_VirtualDecommitInternal(dx.tempSkinBuf, dx.tempSkinPos);
     dx.tempSkinPos = 0;
 }
+
+// PC 1.0 has no render thread, so the sync is empty and only the main-thread query survives.
+void R_SyncRenderThread()
+{
+}

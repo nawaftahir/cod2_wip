@@ -71,7 +71,7 @@ void R_RegisterSunDvars()
 }
 
 // PINNED 101a5a38: the original21-name save/load list, in registration order.
-static const char *sunDvarNames[] =
+const char *sunDvarNames[] =
 {
     "r_sunsprite_shader", "r_sunsprite_size", "r_sunflare_shader",
     "r_sunflare_min_size", "r_sunflare_min_angle", "r_sunflare_max_size",
@@ -89,6 +89,7 @@ typedef char sunFileLayoutCheck[(sizeof(sunflare_t) == 96 &&
 
 Material *Material_Register(const char *name, int imageTrack);
 extern const dvar_t *sv_cheats;
+void R_LoadSunThroughDvars(const char *name, sunflare_t *sun);
 
 // PINNED 10028cd0/826: half-size flares, float radians and existing biased rounding.
 void R_SetSunFromDvars(sunflare_t *sun)
@@ -117,21 +118,6 @@ void R_SetSunFromDvars(sunflare_t *sun)
     sun->glareFadeOutTime = I_fround(r_sunglare_fadeout->current.value * 1000.0f);
     AngleVectors(r_sun_fx_position->current.vector, sun->sunFxPosition, 0, 0);
     sun->hasValidData = 1;
-}
-
-// PINNED 100291c0/102: parse success updates the sun before freeing the input.
-void R_LoadSunThroughDvars(const char *name, sunflare_t *sun)
-{
-    const char *path = va("sun/%s.sun", name);
-    void *buffer;
-    if (ri.FS_ReadFile(path, &buffer) < 0)
-    {
-        Com_Printf("^3WARNING: couldn't load sun file '%s'\n", path);
-        return;
-    }
-    if (ri.Com_LoadDvarsFromBuffer(sunDvarNames, 21, (const char *)buffer, path))
-        R_SetSunFromDvars(sun);
-    ri.FS_FreeFile(buffer);
 }
 
 // PINNED 10029010/122: argument count, cheats and loaded world are checked in order.

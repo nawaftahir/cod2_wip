@@ -9,7 +9,8 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_sky.cpp').read_text()
-source = text[text.index('static const char *sunDvarNames[]'):]
+load = (work / 'src/gfx_d3d/r_sky_load_obj.cpp').read_text()
+source = text[text.index('const char *sunDvarNames[]'):] + load[load.index('// PINNED 100291c0/'):]
 declarations = text[text.index('const dvar_t *r_sunsprite_shader;'):text.index('void R_RegisterSunDvars()')]
 names = re.findall(r'const dvar_t \*(\w+);', declarations)
 assert len(names) == 21

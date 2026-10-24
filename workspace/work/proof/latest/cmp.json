@@ -745,12 +745,6 @@
 "hits": []
 },
 {
-"name": "?R_LoadFont@@YAPAUFont_s@@PBDH@Z",
-"obj": "r_font.obj",
-"size": 230,
-"hits": []
-},
-{
 "name": "?R_RegisterFont@@YAPAUFont_s@@PBDH@Z",
 "obj": "r_font.obj",
 "size": 221,
@@ -828,6 +822,12 @@
 "name": "?R_DrawConsoleText@@YAXPBFHPAUFont_s@@MMMMPBMH@Z",
 "obj": "r_font.obj",
 "size": 494,
+"hits": []
+},
+{
+"name": "?R_LoadFont@@YAPAUFont_s@@PBDH@Z",
+"obj": "r_font_load_obj.obj",
+"size": 230,
 "hits": []
 },
 {
@@ -2069,6 +2069,14 @@
 ]
 },
 {
+"name": "?R_Error@@YAXW4errorParm_t@@PBDZZ",
+"obj": "r_init.obj",
+"size": 112,
+"hits": [
+"0x100138c0"
+]
+},
+{
 "name": "??$sort@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z",
 "obj": "r_init.obj",
 "size": 20,
@@ -2296,21 +2304,21 @@
 "hits": []
 },
 {
-"name": "?R_LoadLightImage@@YAPBEPBEPAUGfxLightImage@@@Z",
+"name": "?R_RegisterLightDef@@YAPAUGfxLightDef@@PBD@Z",
 "obj": "r_light.obj",
+"size": 241,
+"hits": []
+},
+{
+"name": "?R_LoadLightImage@@YAPBEPBEPAUGfxLightImage@@@Z",
+"obj": "r_light_load_obj.obj",
 "size": 74,
 "hits": []
 },
 {
 "name": "?R_LoadLightDef@@YAPAUGfxLightDef@@PBD@Z",
-"obj": "r_light.obj",
+"obj": "r_light_load_obj.obj",
 "size": 168,
-"hits": []
-},
-{
-"name": "?R_RegisterLightDef@@YAPAUGfxLightDef@@PBD@Z",
-"obj": "r_light.obj",
-"size": 241,
 "hits": []
 },
 {
@@ -4932,14 +4940,6 @@
 "hits": []
 },
 {
-"name": "?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z",
-"obj": "r_sky.obj",
-"size": 102,
-"hits": [
-"0x100291c0"
-]
-},
-{
 "name": "?R_LoadSun_f@@YAXXZ",
 "obj": "r_sky.obj",
 "size": 106,
@@ -4961,6 +4961,14 @@
 "size": 46,
 "hits": [
 "0x100290f0"
+]
+},
+{
+"name": "?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z",
+"obj": "r_sky_load_obj.obj",
+"size": 102,
+"hits": [
+"0x100291c0"
 ]
 },
 {
@@ -10816,11 +10824,11 @@
 ]
 },
 {
-"name": "?R_Error@@YAXW4errorParm_t@@PBDZZ",
+"name": "?I_strlen@@YAHPBD@Z",
 "obj": "common.obj",
-"size": 112,
+"size": 13,
 "hits": [
-"0x100138c0"
+"0x1005e680"
 ]
 },
 {
@@ -10841,17 +10849,9 @@
 },
 {
 "name": "?Sys_GetValue@@YAPAXH@Z",
-"obj": "common.obj",
+"obj": "win_threads.obj",
 "size": 11,
 "hits": []
-},
-{
-"name": "?I_strlen@@YAHPBD@Z",
-"obj": "common.obj",
-"size": 13,
-"hits": [
-"0x1005e680"
-]
 },
 {
 "name": "_Direct3DCreate9@4",
@@ -20472,6 +20472,14 @@
 ]
 },
 {
+"name": "__vsnprintf",
+"obj": "LIBCMT:vsnprint.obj",
+"size": 86,
+"hits": [
+"0x100f61b9"
+]
+},
+{
 "name": "_printf",
 "obj": "LIBCMT:printf.obj",
 "size": 102,
@@ -20785,14 +20793,6 @@
 "hits": [
 "0x100f72fe",
 "0x100f75ab"
-]
-},
-{
-"name": "__vsnprintf",
-"obj": "LIBCMT:vsnprint.obj",
-"size": 86,
-"hits": [
-"0x100f61b9"
 ]
 },
 {

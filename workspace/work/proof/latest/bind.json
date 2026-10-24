@@ -967,6 +967,12 @@
 "call ?R_EnumerateDisplayModes@@YAXI@Z"
 ]
 },
+"?R_Error@@YAXW4errorParm_t@@PBDZZ": {
+"t": "0x100138c0",
+"n": 112,
+"obj": "r_init.obj",
+"why": []
+},
 "??$sort@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z": {
 "t": "0x10013930",
 "n": 20,
@@ -2279,14 +2285,6 @@
 "obj": "r_sky.obj",
 "why": []
 },
-"?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z": {
-"t": "0x100291c0",
-"n": 102,
-"obj": "r_sky.obj",
-"why": [
-"call ?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z"
-]
-},
 "?R_LoadSun_f@@YAXXZ": {
 "t": "0x10029010",
 "n": 106,
@@ -2306,6 +2304,14 @@
 "n": 46,
 "obj": "r_sky.obj",
 "why": []
+},
+"?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z": {
+"t": "0x100291c0",
+"n": 102,
+"obj": "r_sky_load_obj.obj",
+"why": [
+"call ?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z"
+]
 },
 "?R_InitDrawGroups@@YAXXZ": {
 "t": "0x10029430",
@@ -5493,9 +5499,9 @@
 "obj": "q_shared.obj",
 "why": []
 },
-"?R_Error@@YAXW4errorParm_t@@PBDZZ": {
-"t": "0x100138c0",
-"n": 112,
+"?I_strlen@@YAHPBD@Z": {
+"t": "0x1005e680",
+"n": 13,
 "obj": "common.obj",
 "why": []
 },
@@ -5508,12 +5514,6 @@
 "?Com_Error@@YAXW4errorParm_t@@PBDZZ": {
 "t": "0x10061cd0",
 "n": 79,
-"obj": "common.obj",
-"why": []
-},
-"?I_strlen@@YAHPBD@Z": {
-"t": "0x1005e680",
-"n": 13,
 "obj": "common.obj",
 "why": []
 },
@@ -12705,6 +12705,14 @@
 "call __getptd"
 ]
 },
+"__vsnprintf": {
+"t": "0x100f61b9",
+"n": 86,
+"obj": "LIBCMT:vsnprint.obj",
+"why": [
+"call __output"
+]
+},
 "_printf": {
 "t": "0x100f620f",
 "n": 102,
@@ -12948,14 +12956,6 @@
 "obj": "LIBCMT:tolower.obj",
 "why": [
 "call ___crtLCMapStringA"
-]
-},
-"__vsnprintf": {
-"t": "0x100f61b9",
-"n": 86,
-"obj": "LIBCMT:vsnprint.obj",
-"why": [
-"call __output"
 ]
 },
 "__CRT_INIT@12": {

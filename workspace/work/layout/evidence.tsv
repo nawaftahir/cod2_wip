@@ -1,8 +1,4 @@
 # class	tu	function	retail_addr	name_evidence
-accepted	gfx_d3d/common.cpp	Com_Error	10061cd0	mac
-accepted	gfx_d3d/common.cpp	Com_Printf	10061c80	mac
-accepted	gfx_d3d/common.cpp	I_strlen	1005e680	bind
-accepted	gfx_d3d/common.cpp	R_Error	100138c0	mac
 accepted	gfx_d3d/r_bsp.cpp	R_GetSunLightParseParamsFromDvars	100012c0	doubt
 accepted	gfx_d3d/r_bsp.cpp	R_GetWorldBounds	10001230	mac
 accepted	gfx_d3d/r_bsp.cpp	R_InterpretSunLightParseParams	10001390	mac
@@ -115,6 +111,7 @@ accepted	gfx_d3d/r_init.cpp	R_CreateDynamicIndexBuffer	10011ad0	bind
 accepted	gfx_d3d/r_init.cpp	R_CreateDynamicVertexBuffer	10011a40	bind
 accepted	gfx_d3d/r_init.cpp	R_DisplayModeLess	10012320	mac
 accepted	gfx_d3d/r_init.cpp	R_EndView	10013200	mac
+accepted	gfx_d3d/r_init.cpp	R_Error	100138c0	mac
 accepted	gfx_d3d/r_init.cpp	R_FatalBufferLockError	100113e0	bind
 accepted	gfx_d3d/r_init.cpp	R_FatalInitError	10011390	mac
 accepted	gfx_d3d/r_init.cpp	R_GetDeviceCaps	100116c0	bind
@@ -419,6 +416,9 @@ accepted	gfx_d3d/rb_state.cpp	RB_SetViewMatrixForWDx7	1003e0b0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_SetViewport	1003e8a0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_UnbindImage	1003dd70	mac
 accepted	gfx_d3d/rb_state.cpp	RB_UpdateViewport	1003e9b0	mac
+accepted	qcommon/common.cpp	Com_Error	10061cd0	mac
+accepted	qcommon/common.cpp	Com_Printf	10061c80	mac
+accepted	qcommon/common.cpp	I_strlen	1005e680	bind
 accepted	universal/com_convexhull.cpp	Com_AddPointToHull	10057cd0	bind
 accepted	universal/com_convexhull.cpp	Com_ConvexHull	100581e0	mac
 accepted	universal/com_convexhull.cpp	Com_GrowInitialHull	10057f10	bind
@@ -801,10 +801,10 @@ draft-addressed	gfx_d3d/r_init.cpp	R_ShutdownHardware	10012db0	-
 draft-addressed	gfx_d3d/r_init.cpp	R_StoreWindowSettings	100115f0	-
 draft-addressed	gfx_d3d/r_jpeg.cpp	R_SaveJpg	10014670	mac
 draft-addressed	gfx_d3d/r_jpeg.cpp	empty_output_buffer	100145a0	mac
-draft-addressed	gfx_d3d/r_light.cpp	R_LoadLightDef	100150e0	mac
-draft-addressed	gfx_d3d/r_light.cpp	R_LoadLightImage	10015090	-
 draft-addressed	gfx_d3d/r_light.cpp	R_RegisterLightDef	10014c60	mac
 draft-addressed	gfx_d3d/r_light.cpp	R_ShutdownLightDefs	10013080	mac
+draft-addressed	gfx_d3d/r_light_load_obj.cpp	R_LoadLightDef	100150e0	mac
+draft-addressed	gfx_d3d/r_light_load_obj.cpp	R_LoadLightImage	10015090	-
 draft-addressed	gfx_d3d/r_marks.cpp	R_BoxSurfaces_r	10015740	mac
 draft-addressed	gfx_d3d/r_material.cpp	Material_ClearTechniqueSetTable	-	-
 draft-addressed	gfx_d3d/r_material.cpp	Material_ClearTechniqueTable	-	-
@@ -893,9 +893,9 @@ draft-addressed	gfx_d3d/r_screenshot.cpp	R_TakeResampledScreenshot	10026110	mac
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_TakeScreenshotJpeg	10026240	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_WriteCubemapShot	10026920	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_WriteCubemapShotAlpha	10026840	-
-draft-addressed	gfx_d3d/r_sky.cpp	R_LoadSunThroughDvars	100291c0	mac
 draft-addressed	gfx_d3d/r_sky.cpp	R_LoadSun_f	10029010	-
 draft-addressed	gfx_d3d/r_sky.cpp	R_SetSunFromDvars	10028cd0	mac
+draft-addressed	gfx_d3d/r_sky_load_obj.cpp	R_LoadSunThroughDvars	100291c0	mac
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_CacheStaticModelLighting	1002a570	-
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_CreateStaticModel	1002a9c0	-
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_FinishStaticModelLightingCache	1002a860	-
@@ -1011,14 +1011,12 @@ draft-addressed	universal/q_shared.cpp	I_isupper	-	mac
 draft-addressed	universal/q_shared.cpp	VectorClear	-	-
 draft-addressed	universal/q_shared.cpp	VectorClear	-	-
 draft-addressed	universal/q_shared.cpp	VectorClear	-	mac
-draft-mac-name	gfx_d3d/common.cpp	R_SyncRenderThread	-	mac
-draft-mac-name	gfx_d3d/common.cpp	Sys_GetValue	-	mac
 draft-mac-name	gfx_d3d/r_bsp.cpp	R_CreateWorldVertexBuffer	-	mac
 draft-mac-name	gfx_d3d/r_debug.cpp	R_ShutdownDebug	-	mac
 draft-mac-name	gfx_d3d/r_debug.cpp	R_TransferDebugGlobals	-	mac
 draft-mac-name	gfx_d3d/r_dpvs.cpp	R_PortalQueuePopMin	-	mac
 draft-mac-name	gfx_d3d/r_fog.cpp	R_SetFog	-	mac
-draft-mac-name	gfx_d3d/r_font.cpp	R_LoadFont	-	mac
+draft-mac-name	gfx_d3d/r_font_load_obj.cpp	R_LoadFont	-	mac
 draft-mac-name	gfx_d3d/r_image.cpp	Image_AllocProg	-	mac
 draft-mac-name	gfx_d3d/r_image.cpp	R_FreeImageAllocations	-	mac
 draft-mac-name	gfx_d3d/r_image.cpp	R_GetImageList	-	mac
@@ -1043,6 +1041,7 @@ draft-mac-name	gfx_d3d/r_model.cpp	R_ReleaseAllModels	-	mac
 draft-mac-name	gfx_d3d/r_model.cpp	R_XModelDebugAxes	-	mac
 draft-mac-name	gfx_d3d/r_model.cpp	R_XModelDebugBoxes	-	mac
 draft-mac-name	gfx_d3d/r_rendercmds.cpp	R_ShutdownBackendData	-	mac
+draft-mac-name	gfx_d3d/r_rendercmds.cpp	R_SyncRenderThread	-	mac
 draft-mac-name	gfx_d3d/r_rendercmds.cpp	R_UpdateEffectsBolt	-	mac
 draft-mac-name	gfx_d3d/r_rendercmds.cpp	R_UpdateEffectsNonBolt	-	mac
 draft-mac-name	gfx_d3d/r_scene.cpp	R_AddPolyToScene	-	mac
@@ -1099,6 +1098,7 @@ draft-mac-name	universal/q_shared.cpp	I_strcmp	-	mac
 draft-mac-name	universal/q_shared.cpp	I_stricmp	-	mac
 draft-mac-name	universal/q_shared.cpp	LongNoSwap	-	mac
 draft-mac-name	universal/q_shared.cpp	ShortNoSwap	-	mac
+draft-mac-name	win32/win_threads.cpp	Sys_GetValue	-	mac
 library-compiler	gfx_d3d/r_image.cpp	??$_Adjust_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@HHPAU1@P6AH11@Z@Z	1000e670	-
 library-compiler	gfx_d3d/r_image.cpp	??$_Dist_type@PAPAUGfxImage@@@std@@YAPAHPAPAUGfxImage@@@Z	-	-
 library-compiler	gfx_d3d/r_image.cpp	??$_Insertion_sort@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z	1000e280	-

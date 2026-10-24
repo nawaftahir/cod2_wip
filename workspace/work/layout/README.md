@@ -189,7 +189,7 @@ source-file claims):
 | rg | gfx_d3d/r_init.cpp | Retail101d4d00; accepted uses and initialization |
 | rgp | gfx_d3d/r_init.cpp | Retail101d0b00; accepted uses |
 | ri import table | gfx_d3d/r_init.cpp | Retail101d49c8; program-wide bindings |
-| dx | gfx_d3d/common.cpp | Device-lost101d492c = dx+2d3c |
+| dx | gfx_d3d/r_init.cpp | Device-lost101d492c = dx+2d3c; sits between rgp and ri, ri = dx+2dd8 in both |
 | dxState | gfx_d3d/rb_state.cpp | Initializer clears0x2170; fields independently pinned |
 | image registry/counters | gfx_d3d/r_image.cpp | imageHashTable101cea68; platform counters101d0a74/78 |
 | image track/platform labels | gfx_d3d/r_image.cpp | ten pointers101a59fc and two pointers101a5a24; primary strings independently read |
@@ -674,7 +674,7 @@ but untested alone. Libraries: d3d9 d3dx9 DxErr9 user32 gdi32 advapi32
 
 ### Shared globals - one definition each (checked 2026-10-24)
 
-ri, rg, rgp, vidConfig: r_init.cpp. dx: common.cpp. dxState, backEnd:
+ri, rg, rgp, vidConfig, dx: r_init.cpp. dxState, backEnd:
 rb_state.cpp. tess: rb_sky.cpp. scene: r_scene.cpp. sunFlareState[4]:
 r_sky.cpp. frontEndDataOut: r_rendercmds.cpp. backEndData: rb_backend.cpp.
 
@@ -752,3 +752,13 @@ R_AbortRenderCommands -> r_rendercmds; R_GetFrameBufferExtent (+ its desktop hel
 r_rendertarget; Image_BuildWaterMap -> r_image_load_obj; XModelUnoptimize ->
 r_xsurface_optimize; RB_Change{Vertex,Pixel}ShaderConstants -> rb_shade. Dead duplicate
 corner helpers removed from rb_backend (rb_light owns 10036720/100367b0). No flag/TU change.
+
+New retail files,2026-10-24: r_light_load_obj (R_LoadLightImage, R_LoadLightDef), r_sky_load_obj
+(R_LoadSunThroughDvars; sunDvarNames stays in r_sky as in Mac), r_font_load_obj (R_LoadFont),
+qcommon/common (Com_Printf, Com_Error), win32/win_threads (Sys_GetValue). R_Error and dx -> r_init,
+R_SyncRenderThread -> r_rendercmds. gfx_d3d/common.cpp keeps only I_strlen (home unknown).
+qcommon/win32 use the renderer flags via a static pattern rule in profile.mk; they include
+../gfx_d3d/r_local.h because src/opencod2/gfx_d3d shadows gfx_d3d/ on the include path.
+- DEFERRED 2026-10-24: R_TransformBoundsCorners/R_CullBrushEntity -> r_dpvs loses 0x100088c0 (needs
+  /Op); Image_GetSunHalfAngleForVector -> r_image_load_obj needs gfx.h there, which clashes with the
+  file's own GfxImageFileHeader (tag byte vs char). Both wait for type/flag consolidation.

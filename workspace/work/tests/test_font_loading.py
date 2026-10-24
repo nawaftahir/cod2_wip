@@ -6,6 +6,8 @@ import tempfile
 work=Path(__file__).resolve().parents[1]
 source=(work/'src/gfx_d3d/r_font.cpp').read_text()
 source=source[source.index('static int registeredFontCount;'):source.index('void R_DuplicateFont(')]
+load=(work/'src/gfx_d3d/r_font_load_obj.cpp').read_text()
+source=source.replace('Font_s *R_LoadFont(const char *name, int imageTrack);\n',load[load.index('// PINNED 1000c6a0:'):])
 start=source.index('typedef char fontFileLayoutCheck')
 source=source[:start]+source[source.index('];',start)+2:]
 program=r'''

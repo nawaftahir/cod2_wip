@@ -208,7 +208,7 @@ gfx_d3d/r_bsp.cpp	?R_InitWorldDynamicData@@YAXXZ	-	-	-	-	unknown
 gfx_d3d/r_dpvs.cpp	?R_IsOccluderOutsideView@@YA_NPBUGfxOccluder@@PBUDpvsPlane@@H@Z	-	-	-	-	unknown
 gfx_d3d/r_screenshot.cpp	?R_LevelShot@@YAXXZ	-	-	gfx_d3d/r_screenshot	gfx_d3d/r_screenshot	mac-name
 gfx_d3d/r_screenshot.cpp	?R_LightingFromCubemapShots@@YAXPBM@Z	-	-	gfx_d3d/r_screenshot	gfx_d3d/r_screenshot	mac-name
-gfx_d3d/r_font.cpp	?R_LoadFont@@YAPAUFont_s@@PBDH@Z	-	-	gfx_d3d/r_font_load_obj	gfx_d3d/r_font_load_obj	mac-name
+gfx_d3d/r_font_load_obj.cpp	?R_LoadFont@@YAPAUFont_s@@PBDH@Z	-	-	gfx_d3d/r_font_load_obj	gfx_d3d/r_font_load_obj	mac-name
 gfx_d3d/r_marks.cpp	?R_MarkFragments@@YAHPAY02MPBM0MHPAUGfxWorldVertex@@HPAUGfxMarkFragment@@PAUMaterial@@@Z	-	-	gfx_d3d/r_marks	gfx_d3d/r_marks	mac-name
 gfx_d3d/r_dpvs.cpp	?R_NearestPointOnWinding@@YANPAY02$$CBMHPBM@Z	-	-	-	-	unknown
 gfx_d3d/r_dpvs.cpp	?R_PortalQueuePopMin@@YAPAUGfxPortal@@XZ	-	-	gfx_d3d/r_dpvs	gfx_d3d/r_dpvs	mac-name
@@ -231,7 +231,7 @@ gfx_d3d/r_model.cpp	?R_SkinXSurfaceBlendedDx7@@YAXPBUXSurface_s@@PBUDObjSkelMat_
 gfx_d3d/r_model.cpp	?R_SkinXSurfaceRigid@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@HPAUGfxVertex@@@Z	-	-	-	-	unknown
 gfx_d3d/r_model.cpp	?R_SkinXSurfaceRigidDx7@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@HPAUGfxVertexDx7@@@Z	-	-	-	-	unknown
 gfx_d3d/r_model.cpp	?R_SkinXSurfaceSkinned@@YAXPAUGfxModelSkinnedSurface@@PBUDObjSkelMat_s@@@Z	-	-	-	-	unknown
-gfx_d3d/common.cpp	?R_SyncRenderThread@@YAXXZ	-	-	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
+gfx_d3d/r_rendercmds.cpp	?R_SyncRenderThread@@YAXXZ	-	-	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
 gfx_d3d/r_init.cpp	?R_TrackStatistics@@YAXPAUtrStatistics_t@@@Z	-	-	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_debug.cpp	?R_TransferDebugGlobals@@YAXPAUDebugGlobals@@@Z	-	-	gfx_d3d/r_debug	gfx_d3d/r_debug	mac-name
 gfx_d3d/r_model.cpp	?R_TransformRigidVertex@@YAXPBUDObjSkelMat_s@@PBM111PAUGfxVertex@@@Z	-	-	-	-	unknown
@@ -259,7 +259,7 @@ universal/q_shared.cpp	?ShortNoSwap@@YAFF@Z	-	-	universal/q_shared	universal/q_s
 universal/com_math.cpp	?SinCos@@YAXNPAN0@Z	-	-	-	-	unknown
 universal/q_shared.cpp	?Swap_InitBigEndian@@YAXXZ	-	-	-	-	unknown
 universal/q_shared.cpp	?Swap_InitLittleEndian@@YAXXZ	-	-	-	-	unknown
-gfx_d3d/common.cpp	?Sys_GetValue@@YAPAXH@Z	-	-	win32/win_threads	win32/win_threads	mac-name
+win32/win_threads.cpp	?Sys_GetValue@@YAPAXH@Z	-	-	win32/win_threads	win32/win_threads	mac-name
 universal/xanim_matrix.cpp	?TransformVectorByAnimMat@@YAXPBMPBUDObjAnimMat_s@@PAM@Z	-	-	-	-	unknown
 universal/com_math.cpp	?Vec2Length@@YAMQBM@Z	-	-	-	-	unknown
 universal/q_shared.cpp	?Vec4LengthSq@@YAMQBM@Z	-	-	-	-	unknown
@@ -622,7 +622,7 @@ gfx_d3d/r_init.cpp	?R_BeginRegistration@@YAXPAUvidConfig_t@@@Z	10013190	hit	gfx_
 gfx_d3d/r_init.cpp	?R_EndView@@YAXH@Z	10013200	bind	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_init.cpp	?R_ResetDevice@@YAXXZ	10013690	pinned	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_RecoverLostDevice@@YAEXZ	100137f0	pinned	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
-gfx_d3d/common.cpp	?R_Error@@YAXW4errorParm_t@@PBDZZ	100138c0	bind	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
+gfx_d3d/r_init.cpp	?R_Error@@YAXW4errorParm_t@@PBDZZ	100138c0	bind	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_init.cpp	??$sort@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z	10013930	bind	-	-	unknown
 gfx_d3d/r_init.cpp	??$_Sort@PAU_D3DDISPLAYMODE@@HP6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0HP6A_NABU1@1@Z@Z	10013950	bind	-	-	unknown
 gfx_d3d/r_init.cpp	??$_Unguarded_partition@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YA?AU?$pair@PAU_D3DDISPLAYMODE@@PAU1@@0@PAU_D3DDISPLAYMODE@@0P6A_NABU2@1@Z@Z	10013a40	bind	-	-	unknown
@@ -642,8 +642,8 @@ gfx_d3d/r_jpeg.cpp	?term_destination@@YAXPAUjpeg_compress_struct@@@Z	100145b0	bi
 gfx_d3d/r_jpeg.cpp	?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z	100145d0	bind	-	gfx_d3d/r_jpeg	interval
 gfx_d3d/r_jpeg.cpp	?R_SaveJpg@@YAXPBDHHHPAE@Z	10014670	pinned	gfx_d3d/r_jpeg	gfx_d3d/r_jpeg	mac-name
 gfx_d3d/r_light.cpp	?R_RegisterLightDef@@YAPAUGfxLightDef@@PBD@Z	10014c60	pinned	gfx_d3d/r_light	gfx_d3d/r_light	mac-name
-gfx_d3d/r_light.cpp	?R_LoadLightImage@@YAPBEPBEPAUGfxLightImage@@@Z	10015090	pinned	-	-	unknown
-gfx_d3d/r_light.cpp	?R_LoadLightDef@@YAPAUGfxLightDef@@PBD@Z	100150e0	pinned	gfx_d3d/r_light_load_obj	gfx_d3d/r_light_load_obj	mac-name
+gfx_d3d/r_light_load_obj.cpp	?R_LoadLightImage@@YAPBEPBEPAUGfxLightImage@@@Z	10015090	pinned	-	-	unknown
+gfx_d3d/r_light_load_obj.cpp	?R_LoadLightDef@@YAPAUGfxLightDef@@PBD@Z	100150e0	pinned	gfx_d3d/r_light_load_obj	gfx_d3d/r_light_load_obj	mac-name
 gfx_d3d/r_marks.cpp	?R_LerpMarkPoints@@YAXPBUClipPoint@@0MPAU1@@Z	100151e0	bind	-	-	unknown
 gfx_d3d/r_marks.cpp	?R_ChopPolyBehindPlane@@YAHHPAUClipPoint@@0PBMM@Z	10015260	bind	-	-	unknown
 gfx_d3d/r_marks.cpp	?R_AABBTreeSurfaces_r@@YAXPAUGfxAabbTree@@PBM1PAPAUGfxSurface@@HPAH@Z	100153f0	bind	gfx_d3d/r_marks	gfx_d3d/r_marks	mac-name
@@ -892,7 +892,7 @@ gfx_d3d/r_sky.cpp	?R_LoadSun_f@@YAXXZ	10029010	hit	-	gfx_d3d/r_sky	interval
 gfx_d3d/r_sky.cpp	?R_SaveSun@@YAXPBD@Z	10029080	bind	-	gfx_d3d/r_sky	interval
 gfx_d3d/r_sky.cpp	?R_SaveSun_f@@YAXXZ	100290f0	bind	-	gfx_d3d/r_sky	interval
 gfx_d3d/r_sky.cpp	?R_FlushSun@@YAXXZ	10029120	bind	gfx_d3d/r_sky	gfx_d3d/r_sky	mac-name
-gfx_d3d/r_sky.cpp	?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z	100291c0	hit	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
+gfx_d3d/r_sky_load_obj.cpp	?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z	100291c0	hit	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_InitDrawGroups@@YAXXZ	10029430	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_BeginDrawGroupSection@@YAHH@Z	10029470	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_BeginDrawGroupLoop@@YAXHH@Z	100294a0	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
@@ -1378,7 +1378,7 @@ universal/com_math.cpp	?AxisToQuat@@YAXQAY02$$CBMQAM@Z	1005e2c0	bind	-	-	unknown
 universal/com_math.cpp	?SinCosDegrees@@YAXMPAM0@Z	1005e4f0	bind	-	-	unknown
 universal/com_math.cpp	?SnapFloatBits@@YAMMHH@Z	1005e5a0	bind	-	-	unknown
 universal/com_math.cpp	?SnapFloatToGrid@@YAMMMM@Z	1005e5e0	bind	-	-	unknown
-gfx_d3d/common.cpp	?I_strlen@@YAHPBD@Z	1005e680	bind	-	-	unknown
+qcommon/common.cpp	?I_strlen@@YAHPBD@Z	1005e680	bind	-	-	unknown
 universal/com_shared.cpp	?_copyDWord@@YAXPAIII@Z	1005ea60	bind	-	-	unknown
 universal/com_shared.cpp	_Com_Memcpy	1005eaf0	bind	universal/com_shared	universal/com_shared	mac-name
 universal/com_shared.cpp	?Com_Memset@@YAXPAXHH@Z	1005ec20	bind	universal/com_shared	universal/com_shared	mac-name
@@ -1462,5 +1462,5 @@ universal/q_shared.cpp	?ScaledOrientationPosToWorld@@YAXPBUorientation_t@@MPBMPA
 universal/q_shared.cpp	?ScaledOrientationPlaneToWorld@@YAXPBUorientation_t@@MPBMPAM@Z	10061b30	bind	-	-	unknown
 universal/q_shared.cpp	?ScaledOrientationPosToLocal@@YAXPBUorientation_t@@MPBMPAM@Z	10061ba0	bind	-	-	unknown
 universal/q_shared.cpp	?ScaledOrientationPlaneToLocal@@YAXPBUorientation_t@@MPBMPAM@Z	10061c10	bind	-	-	unknown
-gfx_d3d/common.cpp	?Com_Printf@@YAXPBDZZ	10061c80	bind	qcommon/common	qcommon/common	mac-name
-gfx_d3d/common.cpp	?Com_Error@@YAXW4errorParm_t@@PBDZZ	10061cd0	bind	qcommon/common	qcommon/common	mac-name
+qcommon/common.cpp	?Com_Printf@@YAXPBDZZ	10061c80	bind	qcommon/common	qcommon/common	mac-name
+qcommon/common.cpp	?Com_Error@@YAXW4errorParm_t@@PBDZZ	10061cd0	bind	qcommon/common	qcommon/common	mac-name

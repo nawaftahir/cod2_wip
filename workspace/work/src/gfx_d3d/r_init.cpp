@@ -763,6 +763,7 @@ void R_SetupWindowParms(GfxWindowParms *parms)
 refimport_t ri;
 r_globals_t rg;
 r_global_permanent_t rgp;
+DxGlobals dx;
 vidConfig_t vidConfig;
 
 extern const dvar_t *r_aspectRatio;
@@ -1189,4 +1190,25 @@ bool R_CreateDirect3D()
     R_StoreDirect3DCaps(adapter);
     R_EnumerateDisplayModes(dx.adapterIndex);
     return true;
+}
+
+void R_SyncRenderThread();
+
+void R_Error(errorParm_t code, const char *fmt, ...)
+{
+    char text[1024];
+    va_list ap;
+
+    if (ri.Sys_IsMainThread())
+        R_SyncRenderThread();
+    if (dx.inScene)
+    {
+        dx.device->EndScene();
+        dx.inScene = 0;
+    }
+    va_start(ap, fmt);
+    _vsnprintf(text, sizeof(text) - 1, fmt, ap);
+    va_end(ap);
+    text[sizeof(text) - 1] = 0;
+    ri.Error(code, "%s", text);
 }
