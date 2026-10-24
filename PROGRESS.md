@@ -5,7 +5,29 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: stencil planes and packed triangles
+### Latest: genuine 2D/3D point commands
+
+Restored RB_DrawPoints2D10030de0/655B, RB_DrawPoints3D10031070/931B and command30
+wrapper10031420/70B in rb_backend.cpp. Reuse shared point packets, original
+vertex/overflow/matrix helpers and existing rgp/tess/state owners. 2D retains the
+batch; 3D temporarily sets identity projection/view and restores the live view,
+even for empty counts. 3D clip math precedes overflow; 2D geometry follows it.
+Size/matrix captures, live per-setter counts, early indices and late vertices
+follow PC instructions. No TU/order/flag/root/export/global or assembly added.
+
+Original build, BOTH referees and all134 fixtures pass;7776 native point routes
+exercise signed counts/sizes/dimensions, exact capacity, callback mutations,
+packet/cursor lifetime and real overflow declaration restore. All1448 accepted
+extents retained with the exact accepted address/extent set unchanged. C++ stays
+104237/253580=41.106159792%,617 bodies; no new byte credit for private routines
+awaiting genuine table reachability.31 assembly-bearing bodies/7787B excluded.
+Source exists for24/33 handlers; nine plus the full dispatcher/API/RenderScene/
+world chains remain. Stages1-3 are OPEN. Same-offset9.053728222%,157 temporary
+exports, no GetRefAPI. GPU and exact x87 execution are untested by the mocks.
+One output, no workers; token cost unavailable. Receipt: proof/backend_points_checkpoint.json.
+Next: line31 helper pair/dispatch; pinned primary evidence is in ATTEMPTS.md.
+
+### Earlier: stencil planes and packed triangles
 
 rb_backend.cpp now has actual stencil-plane command7, triangle command32 and
 its real render helper. They reuse existing vertex setters, Begin/EndSurface,

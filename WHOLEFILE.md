@@ -308,3 +308,10 @@ counterparts, still reference codex/client/salvage_gemini/data/names_1.0.json.
 Those tracks are outside this task and were not modified. Deleting codex would
 break those tools unless their owner migrates the referenced data/paths first.
 Archive the folder recoverably rather than permanently deleting it if unsure.
+
+2026-10-24 point closure: real2D/3D helpers and command30 now use existing
+shared packet, vertex, overflow and matrix/state owners. Source24/33 handlers,
+not a complete dispatcher/API.7776 focused routes, original build, both referees
+and all134 fixtures pass; all1448 extents unchanged. No new byte credit, TU,
+root, flag or assembly; stages1-3 remain OPEN. Next line31 and genuine remaining
+command/API/RenderScene/world closure. See PROGRESS.md and backend_points_checkpoint.json.

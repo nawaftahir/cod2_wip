@@ -530,3 +530,10 @@ Stencil command7 and triangle command32/helper stay private in rb_backend.cpp.
 They reuse sole tess storage, r_permanent.stencilPlaneMaterial, existing Begin/
 EndSurface, RB_TessOverflow and 4D/lit vertex writers. No new allocation or TU is
 introduced. No partial dispatch table is created to force code retention.
+
+Point commands,2026-10-24: both projection paths and command30 stay in the
+existing rb_backend.cpp with genuine shared packets. The existing r_init rgp
+allocation supplies whiteMaterial1038/pointMaterial1040; rb_state owns matrix
+changes and r_sky owns tess. No TU/order/flag/global/root/export change. Real
+command-table reachability remains pending; do not retain these private bodies
+through artificial exports or count source restoration as a new byte match.

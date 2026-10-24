@@ -1076,6 +1076,116 @@ static void RB_DrawTrianglesCmd(GfxRenderCommandExecState *state)
     state->cmd = (const byte *)header + header->byteCount;
 }
 
+// Backend point geometry.
+void RB_ProjectionMatrixChanged();
+void RB_SetViewMatrix(const D3DMATRIX *matrix);
+
+// PINNED 10030de0: size stays captured; geometry follows any overflow callback.
+static void RB_DrawPoints2D(const GfxCmdDrawPoints *cmd)
+{
+    const Material *material = rgp.whiteMaterial;
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    float halfSize = cmd->size * 0.5f;
+    const GfxPointVertex *point = cmd->verts;
+    for (int index = 0; index < cmd->pointCount; ++index, ++point)
+    {
+        if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+            RB_TessOverflow();
+        int first = tess.indexCount;
+        int base = tess.vertexCount;
+        tess.indices[first] = (unsigned short)(base + 1);
+        tess.indices[first + 1] = (unsigned short)base;
+        tess.indices[first + 2] = (unsigned short)(base + 2);
+        tess.indices[first + 3] = (unsigned short)(base + 2);
+        tess.indices[first + 4] = (unsigned short)base;
+        tess.indices[first + 5] = (unsigned short)(base + 3);
+        tess.indexCount += 6;
+        const GfxColor *color = (const GfxColor *)point->color;
+        RB_SetVertex4D(tess.vertexCount, point->xyz[0] - halfSize,
+            point->xyz[1] - halfSize, point->xyz[2], 1.0f, 0.0f, 0.0f, color);
+        RB_SetVertex4D(tess.vertexCount + 1, point->xyz[0] - halfSize,
+            point->xyz[1] + halfSize, point->xyz[2], 1.0f, 0.0f, 1.0f, color);
+        RB_SetVertex4D(tess.vertexCount + 2, point->xyz[0] + halfSize,
+            point->xyz[1] + halfSize, point->xyz[2], 1.0f, 1.0f, 1.0f, color);
+        RB_SetVertex4D(tess.vertexCount + 3, point->xyz[0] + halfSize,
+            point->xyz[1] - halfSize, point->xyz[2], 1.0f, 1.0f, 0.0f, color);
+        tess.vertexCount += 4;
+    }
+}
+
+// PINNED 10031070: retain clip coordinates across overflow, restore the live view.
+static void RB_DrawPoints3D(const GfxCmdDrawPoints *cmd)
+{
+    const Material *material = rgp.pointMaterial;
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    D3DMATRIX identity;
+    MatrixIdentity44(identity.m);
+    backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0] = identity;
+    RB_ProjectionMatrixChanged();
+    RB_SetViewMatrix(&identity);
+    const D3DMATRIX *matrix = &backEnd.viewParms->viewProjectionMatrix;
+    float size = (float)cmd->size;
+    float scaleX = size / (float)dxState.renderTargetWidth;
+    float scaleY = size / (float)dxState.renderTargetHeight;
+    const GfxPointVertex *point = cmd->verts;
+    for (int index = 0; index < cmd->pointCount; ++index, ++point)
+    {
+        float clip[4];
+        for (int component = 0; component < 4; ++component)
+            clip[component] = point->xyz[2] * matrix->m[2][component]
+                + point->xyz[1] * matrix->m[1][component]
+                + point->xyz[0] * matrix->m[0][component] + matrix->m[3][component];
+        float offsetX = clip[3] * scaleX;
+        float offsetY = clip[3] * scaleY;
+        clip[2] -= clip[3] * 0.001f;
+        if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+            RB_TessOverflow();
+        int first = tess.indexCount;
+        int base = tess.vertexCount;
+        tess.indices[first] = (unsigned short)(base + 3);
+        tess.indices[first + 1] = (unsigned short)base;
+        tess.indices[first + 2] = (unsigned short)(base + 2);
+        tess.indices[first + 3] = (unsigned short)(base + 2);
+        tess.indices[first + 4] = (unsigned short)base;
+        tess.indices[first + 5] = (unsigned short)(base + 1);
+        tess.indexCount += 6;
+        const GfxColor *color = (const GfxColor *)point->color;
+        RB_SetVertex4D(tess.vertexCount, clip[0] - offsetX, clip[1] - offsetY,
+            clip[2], clip[3], 0.0f, 0.0f, color);
+        RB_SetVertex4D(tess.vertexCount + 1, clip[0] - offsetX, clip[1] + offsetY,
+            clip[2], clip[3], 0.0f, 1.0f, color);
+        RB_SetVertex4D(tess.vertexCount + 2, clip[0] + offsetX, clip[1] + offsetY,
+            clip[2], clip[3], 1.0f, 1.0f, color);
+        RB_SetVertex4D(tess.vertexCount + 3, clip[0] + offsetX, clip[1] - offsetY,
+            clip[2], clip[3], 1.0f, 0.0f, color);
+        tess.vertexCount += 4;
+    }
+    RB_EndSurface();
+    RB_SetMatricesForView(backEnd.viewParms);
+}
+
+// PINNED 10031420, command30: the cursor is reloaded after drawing.
+static void RB_DrawPointsCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdDrawPoints *cmd = (const GfxCmdDrawPoints *)state->cmd;
+    if (backEnd.projection2D)
+        RB_DrawPoints2D(cmd);
+    else
+        RB_DrawPoints3D(cmd);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
 // Backend presentation.
 extern const dvar_t *r_gamma;
 extern const dvar_t *r_ignoreHwGamma;

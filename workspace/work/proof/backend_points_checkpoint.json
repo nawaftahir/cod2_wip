@@ -1,0 +1,106 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "a2eb71b",
+  "scope": "actual 2D/3D point helpers and command30",
+  "source_functions_restored": [
+    "RB_DrawPoints2D",
+    "RB_DrawPoints3D",
+    "RB_DrawPointsCmd"
+  ],
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 24,
+  "new_command_ids": [
+    30
+  ],
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "f48638d3a0567ea4c1800a1fbfbcaba1b75bedf08fb19b136a34eb0ce7c6a56c",
+  "same_file_offset_percent": 9.053728221792035,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 954322,
+      "sha256": "3d2bed005b9ca5a1ee6eca5f5fddb3ee0e03d8dd4d867be41a7e5149a9d45fb1"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602748,
+      "sha256": "27e436f24f8baaed0450b23e5d72f7b378e0d247c6942406a344e649252b4f9a"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "59b428b42eef3d23166920b05556a26ee6a7e7fc32cbc076b99186a3246ae555"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88258,
+      "sha256": "4bc7fb75feebc7b49ff45bff8a1868c9f17d9ecd840974d861051ae673102df4"
+    }
+  ],
+  "cpp_executable_bytes": 104237,
+  "cpp_percent_legacy_inventory": 41.106159791781685,
+  "cpp_game_bodies": 617,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1448,
+  "full_source_fixtures_passed": 134,
+  "native_cases": 7776,
+  "native_reuses_actual_RB_TessOverflow": true,
+  "tu_order_unchanged": true,
+  "named_import_set_identical": true,
+  "temporary_exports": 157,
+  "GetRefAPI_present": false,
+  "binding_snapshot": {
+    "path": "target/work/proof/image_residency_warm_bind.json",
+    "sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59"
+  },
+  "assembly_review": {
+    "old_backend_sha256": "9ad86b11002b4e234f72d4922aeba93795c8c406e5b7613077abf6f685ff7f98",
+    "new_backend_sha256": "c0e48ea7ee271a46be95598f8b81c97e33f89370f980b2e717a9ebc323dd97b9",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only new point section; reconstruct full previous source exactly",
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "c0e48ea7ee271a46be95598f8b81c97e33f89370f980b2e717a9ebc323dd97b9",
+    "target/work/src/gfx_d3d/rb_commands.h": "fba2e63fc48e5a87154f1b41a7945922042696bf883205724c75ee6718ce4a7d",
+    "target/work/src/gfx_d3d/rb_2d.cpp": "4b821018963ad73067b90e69eaf6161b7e6ef271413814b1bd142b5a9e2901fe",
+    "target/work/tools/source_coverage.py": "2cbf3b3315cbc512cfd53122f8290a89b1d094c90832cf9d8b08f8effd6198aa",
+    "target/work/tests/test_backend_geometry.py": "c2082efaed7dd61ed43e3c8dfc660e005db654cdc9d2568a7322d404d9d4d0ef",
+    "target/work/tests/test_backend_points.py": "7011e8cbc616af9e6485db60b9bfb5385e373d240e9f01407f627d8ab76c92cf"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_points_build.log": "e155ae5df40f81d254961e0ed15278ffd24220a4013a618e05fed9be39ce3ce6",
+    "target/work/proof/latest/backend_points_fixtures.log": "2aaa8e899dd82c0bd8dc010403580d9601c8407dcc025edf7510d93deebc958d"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "limits": [
+    "private helpers/command await genuine command table, no new byte credit",
+    "native matrix/vertex/surface mocks do not prove GPU or exact x87 instructions",
+    "dispatcher/API/world closure, final layout and whole SHA remain open"
+  ],
+  "workers": 0,
+  "build_outputs": 1,
+  "agent_token_cost": "unavailable"
+}

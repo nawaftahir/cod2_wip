@@ -1692,3 +1692,68 @@ changes during vertex calls, original packed offsets, late publication, index
 wrap/guards and nested overflow declaration restore. GPU submission and full
 vertex encoding are covered by separate existing helpers, not claimed here as
 new hardware evidence. All1448 old address/extents survive the original build.
+
+### Point command closure - 2026-10-24
+
+PINNED primary command30=10031420..10031465 dispatches projection2D true to
+10030de0/655B and false to10031070/931B. Both consume the original signed-short
+packet (count4,size6,16-byte vertices8), then the wrapper advances the LIVE cursor.
+The two helpers capture whiteMaterial/pointMaterial before a mismatch flush and
+BeginSurface(technique3,lightmap31). Size is captured AFTER surface setup. Count
+is reloaded each iteration; vertex counts remain live per setter. Original
+RB_SetVertex4D receives the packet color address, not a packed-color copy.
+
+2D computes half-size once, overflows BEFORE reading current point geometry,
+writes indices1,0,2,2,0,3 and publishes indexCount+6 BEFORE the four setters.
+Each setter rereads current XYZ; vertexCount+4 publishes afterward. No final
+EndSurface, even for empty/negative counts. Do not copy Mac's extra final flush.
+
+3D writes identity projection at the current matrix-stack level, calls existing
+RB_ProjectionMatrixChanged and RB_SetViewMatrix(identity), then captures the
+current viewProjection pointer and signed size/render-target scales. Transform
+four components with z*m2+y*m1+x*m0+m3; store clip coordinates/offsets and
+clipZ-=clipW*0.001f BEFORE overflow. The current quad retains this math across
+callbacks, while subsequent points use the captured matrix's live contents.
+Winding3,0,2,2,0,1; index count early, vertex count late. Always EndSurface and
+restore the FRESH backEnd.viewParms, including empty/negative counts. No world
+matrix reset, W guards, clipping or new assembly. Existing r_init owns rgp,
+rb_state owns matrices/state and r_sky owns tess; no new allocation or TU.
+
+Actual-source native fixture covers7776 routes:2D/3D, negative/zero/positive
+count/size, signed target widths, exact/overflow limits, material/technique
+mismatch, pending optimized indices, setup/overflow/setter/final-flush callbacks,
+size/geometry/count/matrix/view/cursor mutations, original overflow declaration
+restore, early indices and late vertices. Surface/matrix/vertex calls are mocked;
+this is structural behavior evidence, not x87 instruction, GPU or byte acceptance.
+Test corrections retained conceptually: capacity is cumulative across points,
+and an overflow on any point freezes that point's expected clip math; the first
+fixture incorrectly assumed overflow could only occur before the first point.
+
+PINNED next line chain:2D10031470/760B takes(count,verts), NOT a width argument;
+3D10031780/1332B takes(count,width,verts,bool depthTest). Command31=10031cc0/91B
+sign-extends count4/width6, passes vertices8 and depthTest1 for3D, then advances
+LIVE cursor. Direct calls into3D also exist at34034,340da,3449f,3456e,345bd;
+retain the real depthTest parameter for later debug closures.
+
+Both helpers normalize a stored float squared length via original sqrt and
+TEST AH,44/JNP after comparison to zero. Equal has masked40 (odd parity), skips;
+ordered unequal has00 (even parity), normalizes; unordered has44 (even parity),
+normalizes. Thus the source predicate is length!=0 (including NaN), not length>0
+or an ordered/non-NaN guard. Existing Vec2Normalize has this predicate and sqrt.
+2D then scales by0.5. Geometry offsets are calculated BEFORE overflow but actual
+XYZ/color are read afterward and per setter.3D retains transformed endpoint
+coordinates across overflow, scales normalized perpendicular by width/target
+size and endpoint W, and has NO point-style Z bias.
+
+PINNED2D vertex writer1002e550..1002e634/229B is XYZ/UV/color-pointer, distinct
+from existing packed-color2D and homogeneous4D writers. DX7 stride36/raw XYZ;
+DX9 stride64/XYZW1. Normal+Z,binormal+Y,tangent+X. Three independent call groups
+at3169c..3173f,32989..32a3c and33398..33488. Do not route through a differently
+shaped helper just because the output is usually equal.
+
+3D line startup captures lineMaterial before mismatch flush/Begin; after Begin
+reloads rgp.lineMaterial for depth edits. If depthTest0, clear bitsE at+30 and
+store, then OR2 and store. On exit EndSurface then restore LIVE view, reload
+LIVE lineMaterial, clear bitsE/store then OR4/store. Do not restore saved bits or
+saved material. Preserve the two target writes explicitly; no claim that volatile
+was present in historical source. All this is pinned research, not source credit.
