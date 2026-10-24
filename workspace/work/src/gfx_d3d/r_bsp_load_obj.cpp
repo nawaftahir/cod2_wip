@@ -30,6 +30,23 @@ void R_ScaleStaticModelLighting(float directScale, float indirectScale,
 void R_CacheStaticModelLighting(const GfxWorld *world,
     GfxStaticModelInstance *instance, float sunVisibility, vec4_t *colorForDir);
 
+r_globals_load_t rgl;
+typedef char occluderSizeCheck[sizeof(GfxOccluder) == 0x24 ? 1 : -1];
+
+// PINNED 10001940: lump element count with the three LoadMap checks.
+static int R_GetLumpElemCount(const GfxBspLoad *load, int lumpIndex, int elemSize)
+{
+    const lump_t *lump = &load->header->lumps[lumpIndex];
+    if (lump->filelen + lump->fileofs > load->fileSize)
+        R_Error(ERR_DROP, "\x15LoadMap: lump extends past end of file in %s", s_world.name);
+    if (lump->fileofs < 4)
+        R_Error(ERR_DROP, "\x15LoadMap: funny lump offset in %s", s_world.name);
+    int count = lump->filelen / elemSize;
+    if (lump->filelen < 0 || count * elemSize != lump->filelen)
+        R_Error(ERR_DROP, "\x15LoadMap: funny lump size in %s", s_world.name);
+    return count;
+}
+
 // PINNED 10002e80; descriptive name.
 double R_FloatForKey(const char *key, float defaultValue,
     const char *(*vars)[2], int count)
@@ -417,4 +434,26 @@ void R_LoadEntities(GfxBspLoad *load)
     R_FinishStaticModelLightingCache(&s_world);
     R_BuildCellAabbTrees();
     ri.Hunk_ClearTempMemory();
+}
+
+// PINNED 100043d0: lump 11, Kisak name.
+void R_LoadCullGroupIndices(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 11, 4);
+    const int *in = (const int *)(load->fileBase + load->header->lumps[11].fileofs);
+    int *out = (int *)ri.Hunk_AllocInternal(count * 4);
+    rgl.cullGroupIndices = out;
+    for (int index = 0; index < count; ++index)
+        out[index] = in[index];
+}
+
+// PINNED 10004670: lump 21 holds short occluder indices.
+void R_LoadOccluderIndices(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 21, 2);
+    const short *in = (const short *)(load->fileBase + load->header->lumps[21].fileofs);
+    GfxOccluder **out = (GfxOccluder **)ri.Hunk_AllocInternal(count * 4);
+    rgl.occluderIndices = out;
+    for (int index = 0; index < count; ++index)
+        out[index] = &rgl.occluders[in[index]];
 }

@@ -67,6 +67,12 @@
 "obj": "q_shared.obj",
 "why": []
 },
+"?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z": {
+"t": "0x10001940",
+"n": 118,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_FloatForKey@@YANPBDMPAY01PBDH@Z": {
 "t": "0x10002e80",
 "n": 72,
@@ -112,6 +118,12 @@
 "?R_BuildCellAabbTrees@@YAXXZ": {
 "t": "0x10003810",
 "n": 104,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x100043d0",
+"n": 82,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },

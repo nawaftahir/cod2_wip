@@ -55,6 +55,14 @@ void R_GetWorldBounds(vec_t *mins, vec_t *maxs)
     VectorCopy(rgp.world->maxs, maxs);
 }
 
+void R_UpdateLightsFromDvars();
+
+// PINNED 10001280: API59 slot28 tail-calls the existing dvar update.
+void R_ResetSunLightParseParams()
+{
+    R_UpdateLightsFromDvars();
+}
+
 void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight);
 
 // name unconfirmed: reads the r_lightTweak dvars into a parse block
@@ -110,12 +118,6 @@ __declspec(noinline) void R_UpdateLightsFromDvars()
     R_GetSunLightParseParamsFromDvars(&sunParse);
     R_InterpretSunLightParseParamsIntoLights(&sunParse, &rgp.world->sunLight);
     VectorCopy(rgp.world->sunLight.color, rgp.world->sunColorFromBsp);
-}
-
-// PINNED 10001280: API59 slot28 tail-calls the existing dvar update.
-void R_ResetSunLightParseParams()
-{
-    R_UpdateLightsFromDvars();
 }
 
 void R_SetSunLightOverride(const vec_t *sunColor)

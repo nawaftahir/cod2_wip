@@ -614,12 +614,17 @@ void R_SaveGameShot(const char *name)
 void R_ScreenShotCmd(int type)
 {
     const char *extension;
-    if (type == 0)
+    switch (type)
+    {
+    case 0:
         extension = "jpg";
-    else if (type == 1)
+        break;
+    case 1:
         extension = "tga";
-    else
+        break;
+    default:
         return;
+    }
     if (!strcmp(ri.Cmd_Argv(1), "levelshot"))
     {
         R_LevelShot();
@@ -630,7 +635,7 @@ void R_ScreenShotCmd(int type)
         R_SaveGameShot(ri.Cmd_Argv(2));
         return;
     }
-    bool silent = !strcmp(ri.Cmd_Argv(1), "silent");
+    int silent = !strcmp(ri.Cmd_Argv(1), "silent");
     char filename[256];
     if (ri.Cmd_Argc() == 2 && !silent)
         Com_sprintf(filename, sizeof(filename), "screenshots/%s.%s", ri.Cmd_Argv(1), extension);

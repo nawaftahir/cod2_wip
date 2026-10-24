@@ -117,6 +117,14 @@
 ]
 },
 {
+"name": "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 118,
+"hits": [
+"0x10001940"
+]
+},
+{
 "name": "?R_FloatForKey@@YANPBDMPAY01PBDH@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 72,
@@ -196,6 +204,20 @@
 "name": "?R_LoadEntities@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 1214,
+"hits": []
+},
+{
+"name": "?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 82,
+"hits": [
+"0x100043d0"
+]
+},
+{
+"name": "?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 103,
 "hits": []
 },
 {
@@ -4846,7 +4868,7 @@
 {
 "name": "?R_ScreenShotCmd@@YAXH@Z",
 "obj": "r_screenshot.obj",
-"size": 484,
+"size": 490,
 "hits": []
 },
 {

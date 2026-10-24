@@ -1,8 +1,8 @@
 {
-  "functions": 660,
-  "bytes": 113811,
+  "functions": 662,
+  "bytes": 114011,
   "total": 253580,
-  "percent": 44.8816941399164,
+  "percent": 44.960564713305466,
   "baseline_lost": [],
   "gains": [
     {
@@ -16,6 +16,12 @@
       "bytes": 28,
       "name": "?Vector4Set@@YAXQAMMMMM@Z",
       "object": "rb_imagefilter.obj"
+    },
+    {
+      "target": "0x10001940",
+      "bytes": 118,
+      "name": "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z",
+      "object": "r_bsp_load_obj.obj"
     },
     {
       "target": "0x10002e80",
@@ -45,6 +51,12 @@
       "target": "0x10003430",
       "bytes": 939,
       "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x100043d0",
+      "bytes": 82,
+      "name": "?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
