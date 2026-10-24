@@ -1819,6 +1819,12 @@
 "call ?XModelUnoptimize@@YAXPAUXModel@@@Z"
 ]
 },
+"?R_GetModelLodDistance@@YAMPBMM@Z": {
+"t": "0x1001d960",
+"n": 143,
+"obj": "r_model.obj",
+"why": []
+},
 "?R_CalcSceneEntityPose@@YAXPBUGfxSceneEntity@@PBUDObj_s@@PAH@Z": {
 "t": "0x1001da60",
 "n": 20,
@@ -1861,12 +1867,6 @@
 "t": "0x1001e660",
 "n": 58,
 "obj": "r_model.obj",
-"why": []
-},
-"?R_GetModelLodDistance@@YAMPBMM@Z": {
-"t": "0x1001d960",
-"n": 143,
-"obj": "r_model_lod.obj",
 "why": []
 },
 "?R_OutdoorTraceHeight@@YAMMM@Z": {
@@ -2109,12 +2109,6 @@
 "t": "0x100227c0",
 "n": 98,
 "obj": "r_rendertarget.obj",
-"why": []
-},
-"?AxisCopy@@YAXPAY02$$CBMPAY02M@Z": {
-"t": "0x1005c9d0",
-"n": 53,
-"obj": "r_scene.obj",
 "why": []
 },
 "?R_UpdateGfxEntityBounds@@YAXPAUGfxEntity@@@Z": {
@@ -2410,12 +2404,6 @@
 "why": [
 "call ?R_StaticModelBounds@@YAXPAUXModel@@PBMPAM2@Z"
 ]
-},
-"?R_TransformCachedVector@@YAXPAY02$$CBMMMMPAM@Z": {
-"t": "0x1005ca50",
-"n": 83,
-"obj": "r_staticmodelcache.obj",
-"why": []
 },
 "?SMC_FreeCachedSurface_r@@YAXPAUstatic_model_cache_t@@PAUstatic_model_tree_t@@HH@Z": {
 "t": "0x1002aac0",
@@ -5002,6 +4990,12 @@
 "why": []
 },
 "?AxisTransformVector@@YAXPAY02$$CBMMMMPAM@Z": {
+"t": "0x1005ca50",
+"n": 83,
+"obj": "com_math.obj",
+"why": []
+},
+"?R_TransformCachedVector@@YAXPAY02$$CBMMMMPAM@Z": {
 "t": "0x1005ca50",
 "n": 83,
 "obj": "com_math.obj",

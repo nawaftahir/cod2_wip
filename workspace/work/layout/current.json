@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "7a21814866779932bc07393e03ceeb29a4a800b2b694270e97451d44ecef1365",
+  "candidate_sha256": "14b444943240233c5be3efcf6928433cfd416786fa28c525d03676da0dbfb1dd",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 169190,
+  "same_file_offset_equal_bytes": 169740,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 9.138529279590708,
+  "same_file_offset_percent": 9.168236656526549,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -46,8 +46,8 @@
       "rva": "0x1000",
       "file_offset": "0x1000",
       "raw_bytes": 962560,
-      "virtual_bytes": 958994,
-      "sha256": "b490961a9e8663b7ea829a8a1be6cdf435ecf8ca95f76b0bb312127ac74aec89"
+      "virtual_bytes": 959106,
+      "sha256": "4c8e3bc0c78832be5b1b814443712031f7bd2e1268c2da8e6a131c429f767258"
     },
     {
       "name": ".rdata",
@@ -55,7 +55,7 @@
       "file_offset": "0xec000",
       "raw_bytes": 606208,
       "virtual_bytes": 603340,
-      "sha256": "0937bff9415a95b83758396afafef23115e9c0696eb7f08f9cb81e19936b692b"
+      "sha256": "d5eae02e3c50e2743852dddb334c135e0be9a3aa55f96330c2b196a583e0be8b"
     },
     {
       "name": ".data",
@@ -63,7 +63,7 @@
       "file_offset": "0x180000",
       "raw_bytes": 57344,
       "virtual_bytes": 6084628,
-      "sha256": "77828c62e4f2f14b3bb6bd38f53d66d8055cf5cfffbdc9a83debaac98d3ad996"
+      "sha256": "24e75abec1584576decb86cf1cdc670e005dd10b70675c14ae0df4a6a3bca490"
     },
     {
       "name": ".reloc",
@@ -71,7 +71,7 @@
       "file_offset": "0x18e000",
       "raw_bytes": 90112,
       "virtual_bytes": 88616,
-      "sha256": "10af6c7007114f01fadb61d2ab5f9ee5bee2c248ea30cf8652098bedea6d5a06"
+      "sha256": "e50024fc32af0190c56ce15c2c644f34e63766e8f200698c22eecdcadaec1f1a"
     }
   ],
   "retail_image": {
@@ -739,9 +739,9 @@
   "candidate_image": {
     "file_bytes": 1720320,
     "machine": "0x14c",
-    "timestamp": 1792857280,
+    "timestamp": 1792857741,
     "image_base": "0x10000000",
-    "entrypoint_rva": "0xd7d61",
+    "entrypoint_rva": "0xd7dd1",
     "image_bytes": 7749632,
     "header_bytes": 4096,
     "section_alignment": 4096,
@@ -752,17 +752,17 @@
       {
         "name": "BoxOnPlaneSide",
         "ordinal": 1,
-        "rva": "0x3e3d0"
+        "rva": "0x3e3e0"
       },
       {
         "name": "FFT_Init",
         "ordinal": 2,
-        "rva": "0x3f530"
+        "rva": "0x3f5a0"
       },
       {
         "name": "FresnelTerm",
         "ordinal": 3,
-        "rva": "0x217c0"
+        "rva": "0x217d0"
       },
       {
         "name": "Image_BuildSpecularityMap",
@@ -772,7 +772,7 @@
       {
         "name": "Image_GetLightGridWeightsForVector",
         "ordinal": 5,
-        "rva": "0x225d0"
+        "rva": "0x225e0"
       },
       {
         "name": "Image_GetSunHalfAngleForVector",
@@ -837,127 +837,127 @@
       {
         "name": "RB_AbandonGpuFence",
         "ordinal": 18,
-        "rva": "0x241a0"
+        "rva": "0x241b0"
       },
       {
         "name": "RB_AdaptiveGpuSyncFinal",
         "ordinal": 19,
-        "rva": "0x241b0"
+        "rva": "0x241c0"
       },
       {
         "name": "RB_AdaptiveGpuSyncTarget",
         "ordinal": 20,
-        "rva": "0x24150"
+        "rva": "0x24160"
       },
       {
         "name": "RB_AdaptiveGpuSyncWait",
         "ordinal": 21,
-        "rva": "0x240b0"
+        "rva": "0x240c0"
       },
       {
         "name": "RB_BeginBenchmarkGpu",
         "ordinal": 22,
-        "rva": "0x24270"
+        "rva": "0x24280"
       },
       {
         "name": "RB_ChangeState_0",
         "ordinal": 23,
-        "rva": "0x2b040"
+        "rva": "0x2b050"
       },
       {
         "name": "RB_ChangeState_1",
         "ordinal": 24,
-        "rva": "0x2b880"
+        "rva": "0x2b890"
       },
       {
         "name": "RB_ClearScreenCmd",
         "ordinal": 25,
-        "rva": "0x23f50"
+        "rva": "0x23f60"
       },
       {
         "name": "RB_DrawSingleTechnique",
         "ordinal": 26,
-        "rva": "0x29e50"
+        "rva": "0x29e60"
       },
       {
         "name": "RB_EndBenchmarkGpu",
         "ordinal": 27,
-        "rva": "0x242f0"
+        "rva": "0x24300"
       },
       {
         "name": "RB_FogOffset",
         "ordinal": 28,
-        "rva": "0x25440"
+        "rva": "0x25450"
       },
       {
         "name": "RB_GenerateGaussianFilterChain",
         "ordinal": 29,
-        "rva": "0x25c80"
+        "rva": "0x25c90"
       },
       {
         "name": "RB_GpuWaited",
         "ordinal": 30,
-        "rva": "0x240a0"
+        "rva": "0x240b0"
       },
       {
         "name": "RB_InitLightVisHistory",
         "ordinal": 31,
-        "rva": "0x279f0"
+        "rva": "0x27a00"
       },
       {
         "name": "RB_IsGpuFenceFinished",
         "ordinal": 32,
-        "rva": "0x23fc0"
+        "rva": "0x23fd0"
       },
       {
         "name": "RB_SaveLightVisHistory",
         "ordinal": 33,
-        "rva": "0x27ac0"
+        "rva": "0x27ad0"
       },
       {
         "name": "RB_SetAnisotropy",
         "ordinal": 34,
-        "rva": "0x2aa00"
+        "rva": "0x2aa10"
       },
       {
         "name": "RB_SetDepthHackNearClip",
         "ordinal": 35,
-        "rva": "0x2cdc0"
+        "rva": "0x2cdd0"
       },
       {
         "name": "RB_SetDepthRange",
         "ordinal": 36,
-        "rva": "0x2a960"
+        "rva": "0x2a970"
       },
       {
         "name": "RB_SetEntityHwLightsDx7",
         "ordinal": 37,
-        "rva": "0x29fe0"
+        "rva": "0x29ff0"
       },
       {
         "name": "RB_SetIteratorFog",
         "ordinal": 38,
-        "rva": "0x25510"
+        "rva": "0x25520"
       },
       {
         "name": "RB_SetSamplerFromArgument",
         "ordinal": 39,
-        "rva": "0x28b50"
+        "rva": "0x28b60"
       },
       {
         "name": "RB_UpdateColor",
         "ordinal": 40,
-        "rva": "0x24630"
+        "rva": "0x24640"
       },
       {
         "name": "RB_UpdateLogging",
         "ordinal": 41,
-        "rva": "0x27bb0"
+        "rva": "0x27bc0"
       },
       {
         "name": "RB_UploadWaterTexture",
         "ordinal": 42,
-        "rva": "0x22090"
+        "rva": "0x220a0"
       },
       {
         "name": "R_AbortRenderCommands",
@@ -1052,7 +1052,7 @@
       {
         "name": "R_AddLightToScene",
         "ordinal": 61,
-        "rva": "0x1bf20"
+        "rva": "0x1bee0"
       },
       {
         "name": "R_AddPlume",
@@ -1062,17 +1062,17 @@
       {
         "name": "R_AddPolyToScene",
         "ordinal": 63,
-        "rva": "0x1b6a0"
+        "rva": "0x1b660"
       },
       {
         "name": "R_AddStaticModelToAabbTree_r",
         "ordinal": 64,
-        "rva": "0x1ef00"
+        "rva": "0x1eec0"
       },
       {
         "name": "R_AddStaticModelToScene",
         "ordinal": 65,
-        "rva": "0x1bdb0"
+        "rva": "0x1bd70"
       },
       {
         "name": "R_AllocSkinnedCachedVerts",
@@ -1087,12 +1087,12 @@
       {
         "name": "R_AvailableTextureMemory",
         "ordinal": 68,
-        "rva": "0x21710"
+        "rva": "0x21720"
       },
       {
         "name": "R_BeginCubemapShot",
         "ordinal": 69,
-        "rva": "0x1cab0"
+        "rva": "0x1ca70"
       },
       {
         "name": "R_BeginDebugFrame",
@@ -1137,17 +1137,17 @@
       {
         "name": "R_ClearScene",
         "ordinal": 78,
-        "rva": "0x1b810"
+        "rva": "0x1b7d0"
       },
       {
         "name": "R_CreateSmodelCacheVertexBuffer",
         "ordinal": 79,
-        "rva": "0x207c0"
+        "rva": "0x207d0"
       },
       {
         "name": "R_CullBrushEntity",
         "ordinal": 80,
-        "rva": "0x213a0"
+        "rva": "0x213b0"
       },
       {
         "name": "R_DObjGetSurfMaterials",
@@ -1167,7 +1167,7 @@
       {
         "name": "R_DumpSceneEntities",
         "ordinal": 84,
-        "rva": "0x1b940"
+        "rva": "0x1b900"
       },
       {
         "name": "R_DuplicateFont",
@@ -1177,7 +1177,7 @@
       {
         "name": "R_EndCubemapShot",
         "ordinal": 86,
-        "rva": "0x1cad0"
+        "rva": "0x1ca90"
       },
       {
         "name": "R_EndDelayedDrawing",
@@ -1202,12 +1202,12 @@
       {
         "name": "R_FlushStaticModelCache",
         "ordinal": 91,
-        "rva": "0x20960"
+        "rva": "0x20970"
       },
       {
         "name": "R_FlushSun",
         "ordinal": 92,
-        "rva": "0x1dac0"
+        "rva": "0x1da80"
       },
       {
         "name": "R_GetFarPlaneDist",
@@ -1277,7 +1277,7 @@
       {
         "name": "R_LightingFromCubemapShots",
         "ordinal": 106,
-        "rva": "0x1d2f0"
+        "rva": "0x1d2b0"
       },
       {
         "name": "R_LoadWaterSetup",
@@ -1322,12 +1322,12 @@
       {
         "name": "R_PickMaterial",
         "ordinal": 115,
-        "rva": "0x21890"
+        "rva": "0x218a0"
       },
       {
         "name": "R_PopulateCandidates",
         "ordinal": 116,
-        "rva": "0x1d7a0"
+        "rva": "0x1d760"
       },
       {
         "name": "R_PortalClipPlanes",
@@ -1377,7 +1377,7 @@
       {
         "name": "R_ResetEntries",
         "ordinal": 126,
-        "rva": "0x1bee0"
+        "rva": "0x1bea0"
       },
       {
         "name": "R_ResetSunLightOverride",
@@ -1387,7 +1387,7 @@
       {
         "name": "R_SaveCubemapShot",
         "ordinal": 128,
-        "rva": "0x1cd70"
+        "rva": "0x1cd30"
       },
       {
         "name": "R_SetColorMappings",
@@ -1412,7 +1412,7 @@
       {
         "name": "R_SetLodOrigin",
         "ordinal": 133,
-        "rva": "0x1b550"
+        "rva": "0x1b510"
       },
       {
         "name": "R_SetParentAndCell_r",
@@ -1442,22 +1442,22 @@
       {
         "name": "R_SkinRigidXModelCmd",
         "ordinal": 139,
-        "rva": "0x18980"
+        "rva": "0x18a10"
       },
       {
         "name": "R_SkinStaticModelCachedCmd",
         "ordinal": 140,
-        "rva": "0x204a0"
+        "rva": "0x204b0"
       },
       {
         "name": "R_SkinXModelCmd",
         "ordinal": 141,
-        "rva": "0x18a60"
+        "rva": "0x18af0"
       },
       {
         "name": "R_SortGfxAabbTree",
         "ordinal": 142,
-        "rva": "0x1eae0"
+        "rva": "0x1eaa0"
       },
       {
         "name": "R_SwitchFog",
@@ -1492,12 +1492,12 @@
       {
         "name": "R_UpdateFrameFog",
         "ordinal": 149,
-        "rva": "0x1bb10"
+        "rva": "0x1bad0"
       },
       {
         "name": "R_UpdateGfxEntityBoundsCmd",
         "ordinal": 150,
-        "rva": "0x1b420"
+        "rva": "0x1b3e0"
       },
       {
         "name": "R_UpdateLightsFromDvars",
@@ -1507,27 +1507,27 @@
       {
         "name": "SMC_GetFreeBlockOfSize",
         "ordinal": 152,
-        "rva": "0x206e0"
+        "rva": "0x206f0"
       },
       {
         "name": "XModelReadSurface",
         "ordinal": 153,
-        "rva": "0x22f10"
+        "rva": "0x22f20"
       },
       {
         "name": "XModelUnoptimize",
         "ordinal": 154,
-        "rva": "0x237d0"
+        "rva": "0x237e0"
       },
       {
         "name": "XSurfaceGetTris",
         "ordinal": 155,
-        "rva": "0x227f0"
+        "rva": "0x22800"
       },
       {
         "name": "XSurfaceGetVerts",
         "ordinal": 156,
-        "rva": "0x22bc0"
+        "rva": "0x22bd0"
       },
       {
         "name": "_IncludeClass_Open@24",
@@ -2170,11 +2170,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1792857280,
+        "timestamp": 1792857741,
         "bytes": 71,
         "rva": "0x17d680",
         "file_offset": "0x17d680",
-        "data_sha256": "5757934fea3bc758e2442335ad1282b62182ac0b82d2018aa5fd5f3941d4c46b"
+        "data_sha256": "1d7e0347d613285658c1acc889f950faf66987a1af12fef963f0c7a7501a2993"
       }
     ]
   },

@@ -657,7 +657,7 @@
       "target": "0x1001d960",
       "bytes": 143,
       "name": "?R_GetModelLodDistance@@YAMPBMM@Z",
-      "object": "r_model_lod.obj"
+      "object": "r_model.obj"
     },
     {
       "target": "0x1001d9f0",

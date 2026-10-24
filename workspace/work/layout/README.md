@@ -762,3 +762,9 @@ qcommon/win32 use the renderer flags via a static pattern rule in profile.mk; th
 - DEFERRED 2026-10-24: R_TransformBoundsCorners/R_CullBrushEntity -> r_dpvs loses 0x100088c0 (needs
   /Op); Image_GetSunHalfAngleForVector -> r_image_load_obj needs gfx.h there, which clashes with the
   file's own GfxImageFileHeader (tag byte vs char). Both wait for type/flag consolidation.
+- 2026-10-24: file_layout.py reads Mac names only from gfx_d3d/universal/qcommon/win32; the
+  Mac binary is the whole game, so header inlines were credited to game_mp/g_missile_mp.
+  AxisCopy now uses the com_math body (gfx.h inline dropped), R_TransformCachedVector lives
+  in com_math, r_model_lod merged into r_model (its /Op line removed). No extent lost.
+- DEFERRED: ConvertQuatToMat/MatrixTransformVectorQuatTrans are xanim_public.h inlines whose
+  retail copy is the non-/Op form; Image_GetLightGridWeightsForVector costs 9 extents (above).

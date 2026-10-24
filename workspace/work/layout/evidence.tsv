@@ -202,6 +202,7 @@ accepted	gfx_d3d/r_model.cpp	R_DObjGetSurfMaterials	100201b0	mac
 accepted	gfx_d3d/r_model.cpp	R_DObjReplaceMaterial	10020270	mac
 accepted	gfx_d3d/r_model.cpp	R_ExpandBoneBounds	1001fdd0	bind
 accepted	gfx_d3d/r_model.cpp	R_GetIgnorePrecacheErrors	1001d900	mac
+accepted	gfx_d3d/r_model.cpp	R_GetModelLodDistance	1001d960	bind
 accepted	gfx_d3d/r_model.cpp	R_GetSurfaceData	1001d9f0	mac
 accepted	gfx_d3d/r_model.cpp	R_LockSkinnedCache	1001e4b0	mac
 accepted	gfx_d3d/r_model.cpp	R_ModelBounds	1001d910	mac
@@ -212,7 +213,6 @@ accepted	gfx_d3d/r_model.cpp	R_SetIgnorePrecacheErrors	1001d8f0	mac
 accepted	gfx_d3d/r_model.cpp	R_SkinPositionSse	1001e660	bind
 accepted	gfx_d3d/r_model.cpp	R_SkinVectorSse	1001e6a0	bind
 accepted	gfx_d3d/r_model.cpp	R_UnlockSkinnedCache	1001e540	mac
-accepted	gfx_d3d/r_model_lod.cpp	R_GetModelLodDistance	1001d960	bind
 accepted	gfx_d3d/r_outdoor.cpp	R_OutdoorTraceHeight	10020590	bind
 accepted	gfx_d3d/r_rendercmds.cpp	R_AbortRenderCommands	10020dc0	mac
 accepted	gfx_d3d/r_rendercmds.cpp	R_AddCmdApplyEarlyPostEffects	100220c0	mac
@@ -250,7 +250,6 @@ accepted	gfx_d3d/r_rendertarget.cpp	R_InitRenderTargetImage	10022a60	bind
 accepted	gfx_d3d/r_rendertarget.cpp	R_InitShadowCookieBlurRenderTarget	10022c30	bind
 accepted	gfx_d3d/r_rendertarget.cpp	R_InitShadowCookieRenderTarget	10022b90	bind
 accepted	gfx_d3d/r_rendertarget.cpp	R_ShutdownRenderTargets	10023560	mac
-accepted	gfx_d3d/r_scene.cpp	AxisCopy	1005c9d0	bind
 accepted	gfx_d3d/r_scene.cpp	R_AddLightToScene	10023fd0	mac
 accepted	gfx_d3d/r_scene.cpp	R_AllocSceneEntity	10023af0	bind
 accepted	gfx_d3d/r_scene.cpp	R_ClearScene	10025510	mac
@@ -289,7 +288,6 @@ accepted	gfx_d3d/r_staticmodelcache.cpp	R_CreateSmodelCacheVertexBuffer	1002b920
 accepted	gfx_d3d/r_staticmodelcache.cpp	R_FlushStaticModelCache	1002baf0	bind
 accepted	gfx_d3d/r_staticmodelcache.cpp	R_QuantizeCachedColor	1000f180	bind
 accepted	gfx_d3d/r_staticmodelcache.cpp	R_StaticModelCacheStats_f	1002bb90	mac
-accepted	gfx_d3d/r_staticmodelcache.cpp	R_TransformCachedVector	1005ca50	bind
 accepted	gfx_d3d/r_staticmodelcache.cpp	SMC_ClearCache	1002b9a0	bind
 accepted	gfx_d3d/r_staticmodelcache.cpp	SMC_ForceFreeBlock	1002ab90	bind
 accepted	gfx_d3d/r_staticmodelcache.cpp	SMC_FreeCachedSurface_r	1002aac0	bind
@@ -519,6 +517,7 @@ accepted	universal/com_math.cpp	QuatFromYaw	1005b9a0	bind
 accepted	universal/com_math.cpp	QuatInverse	1005b640	bind
 accepted	universal/com_math.cpp	QuatMultiply	1005b5c0	mac
 accepted	universal/com_math.cpp	QuatToAxis	1005b660	mac
+accepted	universal/com_math.cpp	R_TransformCachedVector	1005ca50	doubt
 accepted	universal/com_math.cpp	RadiusFromBounds	1005c1a0	mac
 accepted	universal/com_math.cpp	RadiusFromBounds2D	1005c2c0	mac
 accepted	universal/com_math.cpp	RotateVec2	1005b550	bind
@@ -563,7 +562,7 @@ accepted	universal/com_math.cpp	Vector2Set	10001840	bind
 accepted	universal/com_math.cpp	Vector2Subtract	10058290	bind
 accepted	universal/com_math.cpp	VectorAdd	1000f140	bind
 accepted	universal/com_math.cpp	VectorAdd	1000f140	bind
-accepted	universal/com_math.cpp	VectorAdd	1000f140	mac
+accepted	universal/com_math.cpp	VectorAdd	1000f140	bind
 accepted	universal/com_math.cpp	VectorAngleMultiply	1005b550	mac
 accepted	universal/com_math.cpp	VectorCompare	100582a0	bind
 accepted	universal/com_math.cpp	VectorScale4	10005be0	bind
@@ -627,7 +626,7 @@ accepted	universal/q_shared.cpp	DotProduct	10005400	bind
 accepted	universal/q_shared.cpp	DotProduct	10005400	bind
 accepted	universal/q_shared.cpp	DotProduct	10005400	bind
 accepted	universal/q_shared.cpp	DotProduct	10005400	bind
-accepted	universal/q_shared.cpp	DotProduct	10005400	mac
+accepted	universal/q_shared.cpp	DotProduct	10005400	bind
 accepted	universal/q_shared.cpp	FloatReadNoSwap	10060680	mac
 accepted	universal/q_shared.cpp	FloatReadSwap	10060650	mac
 accepted	universal/q_shared.cpp	FloatWriteSwap	10060690	mac
@@ -1010,7 +1009,7 @@ draft-addressed	universal/q_shared.cpp	I_fsel	10023630	-
 draft-addressed	universal/q_shared.cpp	I_isupper	-	mac
 draft-addressed	universal/q_shared.cpp	VectorClear	-	-
 draft-addressed	universal/q_shared.cpp	VectorClear	-	-
-draft-addressed	universal/q_shared.cpp	VectorClear	-	mac
+draft-addressed	universal/q_shared.cpp	VectorClear	-	-
 draft-mac-name	gfx_d3d/r_bsp.cpp	R_CreateWorldVertexBuffer	-	mac
 draft-mac-name	gfx_d3d/r_debug.cpp	R_ShutdownDebug	-	mac
 draft-mac-name	gfx_d3d/r_debug.cpp	R_TransferDebugGlobals	-	mac

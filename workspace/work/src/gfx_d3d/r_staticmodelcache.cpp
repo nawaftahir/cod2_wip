@@ -21,13 +21,7 @@ void RB_LogPrint(const char *text);
 extern "C" void Com_Memcpy(void *out, const void *in, int count);
 extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT hr);
 
-static __forceinline void R_TransformCachedVector(const vec3_t *axis,
-    float x, float y, float z, float *out)
-{
-    out[0] = y * axis[1][0] + z * axis[2][0] + x * axis[0][0];
-    out[1] = z * axis[2][1] + x * axis[0][1] + y * axis[1][1];
-    out[2] = z * axis[2][2] + x * axis[0][2] + y * axis[1][2];
-}
+void R_TransformCachedVector(const vec3_t *axis, float x, float y, float z, float *out);
 
 // PINNED 1000f180: round and clamp each RGBA channel, store BGRA.
 void R_QuantizeCachedColor(const float *color, byte *out)

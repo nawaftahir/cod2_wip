@@ -289,7 +289,15 @@ void R_ReleaseAllModels()
 // PC 1.0 model bounds/debug cohort, 1001d9f0--100201a3.
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile *, long, long);
 extern const dvar_t *developer;
-float R_GetModelLodDistance(const float *origin, float scale);
+// PINNED 1001d960; descriptive name.
+float R_GetModelLodDistance(const float *origin, float scale)
+{
+    float distance = Vec3Distance(origin, rg.lodParms.origin);
+    distance = rg.lodParms.scale * distance + rg.lodParms.bias;
+    if (scale != 0.0f)
+        distance /= scale;
+    return distance;
+}
 void ConvertQuatToMat(const DObjAnimMat *mat, vec3_t axis[3]);
 void TransformVectorByAnimMat(const float *in, const DObjAnimMat *mat, float *out);
 void TransformBounds(const vec3_t bounds[2], const vec3_t origin, const vec3_t axis[3], vec3_t out[2]);

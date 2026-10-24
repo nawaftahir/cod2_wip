@@ -51,6 +51,9 @@ for tu in tus:
 mac = collections.defaultdict(set)
 for f in glob.glob(str(mac_root / '*/*.c')):
     rel = os.path.relpath(f, mac_root).rsplit('.', 1)[0]
+    # the Mac binary is the whole game; only these directories exist in the renderer DLL
+    if rel.split('/')[0] not in ('gfx_d3d', 'universal', 'qcommon', 'win32'):
+        continue
     for l in open(f, errors='ignore'):
         m = re.match(r'^[A-Za-z_][\w \*]*?\b([A-Za-z_]\w*)\s*\([^;]*$', l)
         if m:

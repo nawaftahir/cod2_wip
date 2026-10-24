@@ -10,4 +10,3 @@ $(B)/obj/qcommon/common.obj $(B)/obj/win32/win_threads.obj: $(B)/obj/%.obj: $(SR
 $(B)/obj/gfx_d3d/r_surfbounds.obj: CFLAGS += /Op
 $(B)/obj/gfx_d3d/r_shadowcookie.obj: CFLAGS += /Op
 $(B)/obj/gfx_d3d/r_lightgrid_weights.obj: CFLAGS += /Op
-$(B)/obj/gfx_d3d/r_model_lod.obj: CFLAGS += /Op

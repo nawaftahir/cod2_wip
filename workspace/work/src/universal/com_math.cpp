@@ -3917,3 +3917,12 @@ void AxisTransformVector(const vec3_t *axes, float x, float y, float z, float *o
     out[1] = x * axes[0][1] + y * axes[1][1] + z * axes[2][1];
     out[2] = x * axes[0][2] + y * axes[1][2] + z * axes[2][2];
 }
+
+// PINNED 1005ca50; name unconfirmed, retail keeps one out-of-line copy here.
+void R_TransformCachedVector(const vec3_t *axis,
+    float x, float y, float z, float *out)
+{
+    out[0] = y * axis[1][0] + z * axis[2][0] + x * axis[0][0];
+    out[1] = z * axis[2][1] + x * axis[0][1] + y * axis[1][1];
+    out[2] = z * axis[2][2] + x * axis[0][2] + y * axis[1][2];
+}

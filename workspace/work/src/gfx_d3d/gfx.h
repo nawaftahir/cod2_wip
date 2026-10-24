@@ -75,12 +75,7 @@ static inline void Vec3Scale(const float *v, float scale, float *result)
     result[2] = scale * v[2];
 }
 
-static inline void AxisCopy(const float (*in)[3], float (*out)[3])
-{
-    VectorCopy(in[0], out[0]);
-    VectorCopy(in[1], out[1]);
-    VectorCopy(in[2], out[2]);
-}
+void AxisCopy(const float in[3][3], float out[3][3]);
 
 extern const dvar_t *r_drawEntities;
 extern const dvar_t *r_rendererInUse;

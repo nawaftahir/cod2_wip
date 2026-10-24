@@ -100,7 +100,7 @@ for name in ('Vec3Distance', 'ClearBounds', 'MatrixTransformVector', 'TransformB
 program += function(anim_header, 'inline void ConvertQuatToMat(')
 program += function(anim_header, 'inline void MatrixTransformVectorQuatTrans(').replace(
     'MatrixTransformVectorQuatTrans(', 'TransformVectorByAnimMat(')
-lod_source = (root / 'gfx_d3d/r_model_lod.cpp').read_text()
+lod_source = (root / 'gfx_d3d/r_model.cpp').read_text()
 program += function(lod_source, 'float R_GetModelLodDistance(')
 debug_source = (root / 'gfx_d3d/r_debug.cpp').read_text()
 program += function(debug_source, 'void R_AddDebugLine(')

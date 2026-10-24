@@ -3824,6 +3824,14 @@
 "hits": []
 },
 {
+"name": "?R_GetModelLodDistance@@YAMPBMM@Z",
+"obj": "r_model.obj",
+"size": 143,
+"hits": [
+"0x1001d960"
+]
+},
+{
 "name": "?R_CalcSceneEntityPose@@YAXPBUGfxSceneEntity@@PBUDObj_s@@PAH@Z",
 "obj": "r_model.obj",
 "size": 20,
@@ -3974,14 +3982,6 @@
 "obj": "r_model.obj",
 "size": 168,
 "hits": []
-},
-{
-"name": "?R_GetModelLodDistance@@YAMPBMM@Z",
-"obj": "r_model_lod.obj",
-"size": 143,
-"hits": [
-"0x1001d960"
-]
 },
 {
 "name": "?I_fround@@YAHM@Z",
@@ -4482,14 +4482,6 @@
 "size": 17,
 "hits": [
 "0x10001010"
-]
-},
-{
-"name": "?AxisCopy@@YAXPAY02$$CBMPAY02M@Z",
-"obj": "r_scene.obj",
-"size": 53,
-"hits": [
-"0x1005c9d0"
 ]
 },
 {
@@ -5248,14 +5240,6 @@
 ]
 },
 {
-"name": "?R_TransformCachedVector@@YAXPAY02$$CBMMMMPAM@Z",
-"obj": "r_staticmodelcache.obj",
-"size": 83,
-"hits": [
-"0x1005ca50"
-]
-},
-{
 "name": "?R_QuantizeCachedColor@@YAXPBMPAE@Z",
 "obj": "r_staticmodelcache.obj",
 "size": 285,
@@ -5279,13 +5263,13 @@
 {
 "name": "?R_SkinCachedVertices@@YAXPAY02$$CBM0HHHPBUXVertexInfo_s@@PAUGfxSModelCachedVertex@@@Z",
 "obj": "r_staticmodelcache.obj",
-"size": 697,
+"size": 825,
 "hits": []
 },
 {
 "name": "?R_SkinCachedVerticesDx7@@YAXPAY02$$CBM0HHHPBUXVertexInfo_s@@PBUMaterial@@PAUGfxSModelCachedVertexDx7@@@Z",
 "obj": "r_staticmodelcache.obj",
-"size": 620,
+"size": 671,
 "hits": []
 },
 {
@@ -9901,6 +9885,14 @@
 },
 {
 "name": "?AxisTransformVector@@YAXPAY02$$CBMMMMPAM@Z",
+"obj": "com_math.obj",
+"size": 83,
+"hits": [
+"0x1005ca50"
+]
+},
+{
+"name": "?R_TransformCachedVector@@YAXPAY02$$CBMMMMPAM@Z",
 "obj": "com_math.obj",
 "size": 83,
 "hits": [
