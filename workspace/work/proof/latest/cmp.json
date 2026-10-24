@@ -5172,8 +5172,10 @@
 {
 "name": "?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z",
 "obj": "r_staticmodel_load_obj.obj",
-"size": 78,
-"hits": []
+"size": 79,
+"hits": [
+"0x1002a730"
+]
 },
 {
 "name": "?R_PrepareStaticModelLightingCache@@YAXPAUGfxWorld@@H@Z",

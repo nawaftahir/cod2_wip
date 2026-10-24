@@ -909,7 +909,7 @@ gfx_d3d/r_staticmodel_load_obj.cpp	?R_StaticModelBounds@@YAXPAUXModel@@PBMPAM2@Z
 gfx_d3d/r_staticmodel_load_obj.cpp	?R_ScaleStaticModelLighting@@YAXMMPAMPAY03M@Z	1002a520	bind	gfx_d3d/r_staticmodel_load_obj	gfx_d3d/r_staticmodel_load_obj	mac-name
 gfx_d3d/r_staticmodel_load_obj.cpp	?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z	1002a570	pinned	-	gfx_d3d/r_staticmodel_load_obj	interval
 gfx_d3d/r_staticmodel_load_obj.cpp	?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z	1002a6d0	pinned	gfx_d3d/r_staticmodel_load_obj	gfx_d3d/r_staticmodel_load_obj	mac-name
-gfx_d3d/r_staticmodel_load_obj.cpp	?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z	1002a730	pinned	-	gfx_d3d/r_staticmodel_load_obj	interval
+gfx_d3d/r_staticmodel_load_obj.cpp	?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z	1002a730	bind	-	gfx_d3d/r_staticmodel_load_obj	interval
 gfx_d3d/r_staticmodel_load_obj.cpp	?R_PrepareStaticModelLightingCache@@YAXPAUGfxWorld@@H@Z	1002a780	pinned	gfx_d3d/r_staticmodel_load_obj	gfx_d3d/r_staticmodel_load_obj	mac-name
 gfx_d3d/r_staticmodel_load_obj.cpp	?R_FinishStaticModelLightingCache@@YAXPAUGfxWorld@@@Z	1002a860	pinned	-	gfx_d3d/r_staticmodel_load_obj	interval
 gfx_d3d/r_staticmodel_load_obj.cpp	?R_ValidateStaticModel@@YA_NPAUXModel@@@Z	1002a940	bind	gfx_d3d/r_staticmodel_load_obj	gfx_d3d/r_staticmodel_load_obj	mac-name

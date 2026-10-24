@@ -507,9 +507,11 @@ void R_GetStaticModelLightingFromGround(const vec_t *groundLight, float *sunVisi
     int index = 0;
     do
     {
-        Vector4Set(*color++, groundLight[index], groundLight[index], groundLight[index], groundLight[index]);
-        Vector4Set(*color++, groundLight[index], groundLight[index], groundLight[index], groundLight[index]);
-    } while (++index != 3);
+        Vector4Set(color[0], groundLight[index], groundLight[index], groundLight[index], groundLight[index]);
+        Vector4Set(color[1], groundLight[index], groundLight[index], groundLight[index], groundLight[index]);
+        ++index;
+        color += 2;
+    } while (index != 3);
     *sunVisibility = groundLight[3];
 }
 

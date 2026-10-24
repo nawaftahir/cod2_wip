@@ -1,8 +1,8 @@
 {
-  "functions": 653,
-  "bytes": 112874,
+  "functions": 654,
+  "bytes": 112953,
   "total": 253580,
-  "percent": 44.51218550358861,
+  "percent": 44.54333938007729,
   "baseline_lost": [],
   "gains": [
     {
@@ -819,6 +819,12 @@
       "target": "0x100296a0",
       "bytes": 73,
       "name": "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z",
+      "object": "r_staticmodel_load_obj.obj"
+    },
+    {
+      "target": "0x1002a730",
+      "bytes": 79,
+      "name": "?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z",
       "object": "r_staticmodel_load_obj.obj"
     },
     {

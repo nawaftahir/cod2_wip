@@ -279,6 +279,7 @@ accepted	gfx_d3d/r_staticmodel_load_obj.cpp	R_AddStaticModelToAabbTree_r	1002a01
 accepted	gfx_d3d/r_staticmodel_load_obj.cpp	R_AllocStaticModels	100298a0	bind
 accepted	gfx_d3d/r_staticmodel_load_obj.cpp	R_CompareStaticModelIndex	10029be0	bind
 accepted	gfx_d3d/r_staticmodel_load_obj.cpp	R_GetMaxModelSurfaceCount	100296a0	bind
+accepted	gfx_d3d/r_staticmodel_load_obj.cpp	R_GetStaticModelLightingFromGround	1002a730	bind
 accepted	gfx_d3d/r_staticmodel_load_obj.cpp	R_ScaleStaticModelLighting	1002a520	mac
 accepted	gfx_d3d/r_staticmodel_load_obj.cpp	R_SortGfxAabbTree	10029bf0	bind
 accepted	gfx_d3d/r_staticmodel_load_obj.cpp	R_SortGfxAabbTreeChildren	10029910	bind
@@ -899,7 +900,6 @@ draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_CacheStaticModelLighting	10
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_CreateStaticModel	1002a9c0	-
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_FinishStaticModelLightingCache	1002a860	-
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_GetStaticModelLightingFromGrid	1002a6d0	mac
-draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_GetStaticModelLightingFromGround	1002a730	-
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_PrepareStaticModelLightingCache	1002a780	mac
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_QuantizeStaticModelColor	10029780	-
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_StaticModelBounds	1002a360	-
