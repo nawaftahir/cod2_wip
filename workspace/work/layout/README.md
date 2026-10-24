@@ -759,7 +759,9 @@ qcommon/common (Com_Printf, Com_Error), win32/win_threads (Sys_GetValue). R_Erro
 R_SyncRenderThread -> r_rendercmds. gfx_d3d/common.cpp keeps only I_strlen (home unknown).
 qcommon/win32 use the renderer flags via a static pattern rule in profile.mk; they include
 ../gfx_d3d/r_local.h because src/opencod2/gfx_d3d shadows gfx_d3d/ on the include path.
-- DEFERRED 2026-10-24: R_TransformBoundsCorners/R_CullBrushEntity -> r_dpvs loses 0x100088c0 (needs
+- 2026-10-24: Image_GetSunHalfAngleForVector moved to r_image_load_obj; its local GfxImageFileHeader
+  copy was dropped for the common one (tag char vs byte, equality-only). DEFERRED:
+  R_TransformBoundsCorners/R_CullBrushEntity -> r_dpvs loses 0x100088c0 (needs
   /Op); Image_GetSunHalfAngleForVector -> r_image_load_obj needs gfx.h there, which clashes with the
   file's own GfxImageFileHeader (tag byte vs char). Both wait for type/flag consolidation.
 - 2026-10-24: file_layout.py reads Mac names only from gfx_d3d/universal/qcommon/win32; the

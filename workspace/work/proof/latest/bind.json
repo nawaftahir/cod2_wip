@@ -738,7 +738,7 @@
 "?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z": {
 "t": "0x100106b0",
 "n": 256,
-"obj": "r_specularityimage.obj",
+"obj": "r_image_load_obj.obj",
 "why": []
 },
 "?Wavelet_ConsumeBits@@YAXGPAUWaveletDecode@@@Z": {

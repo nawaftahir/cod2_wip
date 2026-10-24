@@ -1598,6 +1598,14 @@
 "hits": []
 },
 {
+"name": "?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z",
+"obj": "r_image_load_obj.obj",
+"size": 256,
+"hits": [
+"0x100106b0"
+]
+},
+{
 "name": "_logf",
 "obj": "r_specularityimage.obj",
 "size": 11,
@@ -1626,14 +1634,6 @@
 "obj": "r_specularityimage.obj",
 "size": 276,
 "hits": []
-},
-{
-"name": "?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z",
-"obj": "r_specularityimage.obj",
-"size": 256,
-"hits": [
-"0x100106b0"
-]
 },
 {
 "name": "?Wavelet_ConsumeBits@@YAXGPAUWaveletDecode@@@Z",

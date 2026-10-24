@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "14b444943240233c5be3efcf6928433cfd416786fa28c525d03676da0dbfb1dd",
+  "candidate_sha256": "a54ba607c03c96ccb599bbd97fe28d17fbf6050820e140cd15c1175b80b12496",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 169740,
+  "same_file_offset_equal_bytes": 169736,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 9.168236656526549,
+  "same_file_offset_percent": 9.168020602876107,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -47,7 +47,7 @@
       "file_offset": "0x1000",
       "raw_bytes": 962560,
       "virtual_bytes": 959106,
-      "sha256": "4c8e3bc0c78832be5b1b814443712031f7bd2e1268c2da8e6a131c429f767258"
+      "sha256": "4d131b5a8e8337b297d3eb3c89d1a24731b9b41572c35c94cb7532ed9fd097bc"
     },
     {
       "name": ".rdata",
@@ -55,7 +55,7 @@
       "file_offset": "0xec000",
       "raw_bytes": 606208,
       "virtual_bytes": 603340,
-      "sha256": "d5eae02e3c50e2743852dddb334c135e0be9a3aa55f96330c2b196a583e0be8b"
+      "sha256": "8d5df6026013e9a2277b5d686042f72d347984d528fec40946835bb66fd5e666"
     },
     {
       "name": ".data",
@@ -71,7 +71,7 @@
       "file_offset": "0x18e000",
       "raw_bytes": 90112,
       "virtual_bytes": 88616,
-      "sha256": "e50024fc32af0190c56ce15c2c644f34e63766e8f200698c22eecdcadaec1f1a"
+      "sha256": "13172b03fef3c603a3578d35597394d6b68e08fa4966acc995a9e9369e01a87a"
     }
   ],
   "retail_image": {
@@ -739,7 +739,7 @@
   "candidate_image": {
     "file_bytes": 1720320,
     "machine": "0x14c",
-    "timestamp": 1792857741,
+    "timestamp": 1792858802,
     "image_base": "0x10000000",
     "entrypoint_rva": "0xd7dd1",
     "image_bytes": 7749632,
@@ -767,7 +767,7 @@
       {
         "name": "Image_BuildSpecularityMap",
         "ordinal": 4,
-        "rva": "0xb250"
+        "rva": "0xb350"
       },
       {
         "name": "Image_GetLightGridWeightsForVector",
@@ -777,7 +777,7 @@
       {
         "name": "Image_GetSunHalfAngleForVector",
         "ordinal": 6,
-        "rva": "0xb370"
+        "rva": "0xb210"
       },
       {
         "name": "Image_LoadLightmapWeights",
@@ -2170,11 +2170,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1792857741,
+        "timestamp": 1792858802,
         "bytes": 71,
         "rva": "0x17d680",
         "file_offset": "0x17d680",
-        "data_sha256": "1d7e0347d613285658c1acc889f950faf66987a1af12fef963f0c7a7501a2993"
+        "data_sha256": "178c3a477d763456a39e8875c197b27acfc796b2db96d101a3f45f7f5b41fa01"
       }
     ]
   },

@@ -90,6 +90,7 @@ accepted	gfx_d3d/r_image_load_common.cpp	Image_Upload3D	1000ec00	doubt
 accepted	gfx_d3d/r_image_load_common.cpp	Image_UploadData	1000ed60	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_CountMipmapsForFile	1000f320	bind
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_GenerateSolidColor	100100f0	bind
+accepted	gfx_d3d/r_image_load_obj.cpp	Image_GetSunHalfAngleForVector	100106b0	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_LoadBitmap	1000f5a0	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_LoadDxtc	1000f7b0	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_ValidateHeader	1000f2a0	bind
@@ -266,7 +267,6 @@ accepted	gfx_d3d/r_sky.cpp	R_FlushSun	10029120	mac
 accepted	gfx_d3d/r_sky.cpp	R_RegisterSunDvars	10028a10	mac
 accepted	gfx_d3d/r_sky.cpp	R_SaveSun	10029080	bind
 accepted	gfx_d3d/r_sky.cpp	R_SaveSun_f	100290f0	bind
-accepted	gfx_d3d/r_specularityimage.cpp	Image_GetSunHalfAngleForVector	100106b0	mac
 accepted	gfx_d3d/r_splitscreen.cpp	R_BeginDrawGroupLoop	100294a0	mac
 accepted	gfx_d3d/r_splitscreen.cpp	R_BeginDrawGroupSection	10029470	mac
 accepted	gfx_d3d/r_splitscreen.cpp	R_EndDrawGroupLoop	100294e0	mac

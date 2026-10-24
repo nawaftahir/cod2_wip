@@ -3,6 +3,7 @@
 #include <math.h>
 #include "universal/com_math.h"
 #include "r_image_wavelet_types.h"
+#include "gfx.h"
 
 GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
 void Image_Setup(GfxImage *image, int width, int height, int depth, int imageFlags, DWORD usage, D3DFORMAT imageFormat);
@@ -11,17 +12,6 @@ void Image_Create2DTexture(GfxImage *image, int width, int height, int mipmapCou
 void Image_BuildSpecularityMap(float shift, unsigned char *pic);
 void Image_GetLightGridWeightsForVector(const float *direction, int subMap, unsigned char *pixel);
 void Image_GetSunHalfAngleForVector(const float *direction, int unused, unsigned char *pixel);
-
-// PINNED 1.0 disk image header: format/flags 4/5, signed dimensions 6/8/a.
-struct GfxImageFileHeader
-{
-    byte tag[3];
-    byte version;
-    byte format;
-    byte flags;
-    short dimensions[3];
-    int fileSizeForPicmip[4];
-};
 
 void Wavelet_DecompressLevel(byte *src, byte *dst, WaveletDecode *decode);
 
@@ -532,4 +522,29 @@ void Image_BuildWaterMap(GfxImage *image)
             r_rendererInUse->current.integer == 2 ? 1 : 0, D3DUSAGE_DYNAMIC,
             r_rendererInUse->current.integer == 2 ? D3DFMT_X8R8G8B8 : D3DFMT_L8,
             D3DPOOL_DEFAULT);
+}
+
+// Cubemap pixel callback: half-angle between the sun and the face direction, packed as a byte color.
+void Image_GetSunHalfAngleForVector(const float *facePos, int unused, unsigned char *pixel)
+{
+    float dirFromEye[3];
+    float halfAngle[3];
+    const float *sunPos;
+    float s0;
+    float s1;
+    float s2;
+
+    Vec3NormalizeTo(facePos, dirFromEye);
+    sunPos = rgp.world->sunLight.position;
+    halfAngle[0] = sunPos[0] - dirFromEye[0];
+    halfAngle[1] = sunPos[1] - dirFromEye[1];
+    halfAngle[2] = sunPos[2] - dirFromEye[2];
+    Vec3Normalize(halfAngle);
+    s0 = (halfAngle[0] + 1.0f) * 0.5f;
+    s1 = (halfAngle[1] + 1.0f) * 0.5f;
+    s2 = (halfAngle[2] + 1.0f) * 0.5f;
+    pixel[2] = (unsigned char)I_fround(s0 * 255.0f);
+    pixel[1] = (unsigned char)I_fround(s1 * 255.0f);
+    pixel[0] = (unsigned char)I_fround(s2 * 255.0f);
+    pixel[3] = 0x80;
 }
