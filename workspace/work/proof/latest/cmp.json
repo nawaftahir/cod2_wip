@@ -203,7 +203,7 @@
 {
 "name": "?R_LoadSurfaces@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1625,
+"size": 1513,
 "hits": []
 },
 {
@@ -375,7 +375,7 @@
 {
 "name": "?R_LoadWorldInternal@@YAPAUGfxWorld@@PBD@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1776,
+"size": 1311,
 "hits": []
 },
 {

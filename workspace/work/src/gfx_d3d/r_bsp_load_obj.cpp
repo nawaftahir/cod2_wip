@@ -43,8 +43,8 @@ void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubema
 r_globals_load_t rgl;
 typedef char occluderSizeCheck[sizeof(GfxOccluder) == 0x24 ? 1 : -1];
 
-// PINNED 10001940: lump element count with the three LoadMap checks.
-static int R_GetLumpElemCount(const GfxBspLoad *load, int lumpIndex, int elemSize)
+// PINNED 10001940: lump element count, never inlined in retail (22 calls).
+static __declspec(noinline) int R_GetLumpElemCount(const GfxBspLoad *load, int lumpIndex, int elemSize)
 {
     const lump_t *lump = &load->header->lumps[lumpIndex];
     if (lump->filelen + lump->fileofs > load->fileSize)
@@ -1050,7 +1050,7 @@ void R_LoadCullGroups(GfxBspLoad *load)
 }
 
 // PINNED 100043d0: lump 11, Kisak name.
-void R_LoadCullGroupIndices(GfxBspLoad *load)
+__declspec(noinline) void R_LoadCullGroupIndices(GfxBspLoad *load)
 {
     int count = R_GetLumpElemCount(load, 11, 4);
     const int *in = (const int *)(load->fileBase + load->header->lumps[11].fileofs);

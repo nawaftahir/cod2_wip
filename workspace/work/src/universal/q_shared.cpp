@@ -102,7 +102,8 @@ const char *Com_GetExtensionSubString( const char *filename )
 	return substr;
 }
 
-void Com_StripExtension( const char *in, char *out )
+// PINNED 10060350: called out of line by both retail callers.
+__declspec(noinline) void Com_StripExtension( const char *in, char *out )
 {
 	const char *extension;
 
