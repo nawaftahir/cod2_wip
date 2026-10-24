@@ -1,8 +1,8 @@
 {
-  "functions": 651,
-  "bytes": 112474,
+  "functions": 652,
+  "bytes": 112546,
   "total": 253580,
-  "percent": 44.354444356810475,
+  "percent": 44.38283776323054,
   "baseline_lost": [],
   "gains": [
     {
@@ -16,6 +16,12 @@
       "bytes": 28,
       "name": "?Vector4Set@@YAXQAMMMMM@Z",
       "object": "rb_imagefilter.obj"
+    },
+    {
+      "target": "0x10002e80",
+      "bytes": 72,
+      "name": "?R_FloatForKey@@YANPBDMPAY01PBDH@Z",
+      "object": "r_bsp_load_obj.obj"
     },
     {
       "target": "0x10002ed0",

@@ -119,8 +119,10 @@
 {
 "name": "?R_FloatForKey@@YANPBDMPAY01PBDH@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 65,
-"hits": []
+"size": 72,
+"hits": [
+"0x10002e80"
+]
 },
 {
 "name": "?R_Vec3ForKey@@YAEPBD0PAY01PBDHPAM@Z",

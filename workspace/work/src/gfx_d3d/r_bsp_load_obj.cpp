@@ -41,9 +41,9 @@ double R_FloatForKey(const char *key, float defaultValue,
             value = vars[index][1];
             break;
         }
-    if (value)
-        return atof(value);
-    return defaultValue;
+    if (!value)
+        return defaultValue;
+    return atof(value);
 }
 
 // PINNED 10002ed0; descriptive name.
