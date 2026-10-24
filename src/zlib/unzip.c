@@ -49,7 +49,7 @@ static const char unz_copyright[] =
 static int unzlocal_getByte(FILE *fin,int *pi)
 {
     unsigned char c;
-	int err = FS_FileRead(&c, 1, 1, fin);
+	int err = fread(&c, 1, 1, fin);
     if (err==1)
     {
         *pi = (int)c;
@@ -72,7 +72,7 @@ static int unzlocal_getShort (FILE* fin, uLong *pX)
 {
 	short	v;
 
-	FS_FileRead( &v, sizeof(v), 1, fin );
+	fread( &v, sizeof(v), 1, fin );
 
 	*pX = v;
 	return UNZ_OK;
@@ -101,7 +101,7 @@ static int unzlocal_getLong (FILE *fin, uLong *pX)
 {
 	int		v;
 
-	FS_FileRead( &v, sizeof(v), 1, fin );
+	fread( &v, sizeof(v), 1, fin );
 
 	*pX = v;
 	return UNZ_OK;
@@ -202,7 +202,7 @@ extern uLong unzlocal_SearchCentralDir(FILE *fin)
 	uLong uMaxBack=0xffff; /* maximum size of global comment */
 	uLong uPosFound=0;
 	
-	if (FS_FileSeek(fin,0,SEEK_END) != 0)
+	if (fseek(fin,0,SEEK_END) != 0)
 		return 0;
 
 
@@ -228,10 +228,10 @@ extern uLong unzlocal_SearchCentralDir(FILE *fin)
 		
 		uReadSize = ((BUFREADCOMMENT+4) < (uSizeFile-uReadPos)) ? 
                      (BUFREADCOMMENT+4) : (uSizeFile-uReadPos);
-		if (FS_FileSeek(fin,uReadPos,SEEK_SET)!=0)
+		if (fseek(fin,uReadPos,SEEK_SET)!=0)
 			break;
 
-		if (FS_FileRead(buf,(uInt)uReadSize,1,fin)!=1)
+		if (fread(buf,(uInt)uReadSize,1,fin)!=1)
 			break;
 
                 for (i=(int)uReadSize-3; (i--)>0;)
@@ -254,7 +254,7 @@ extern unzFile unzReOpen (const char* path, unzFile file)
 	unz_s *s;
 	FILE * fin;
 
-    fin=FS_FileOpen(path,"rb");
+    fin=fopen(path,"rb");
 	if (fin==NULL)
 		return NULL;
 
@@ -295,7 +295,7 @@ extern unzFile unzOpen (const char* path)
     if (unz_copyright[0]!=' ')
         return NULL;
 
-    fin=FS_FileOpen(path,"rb");
+    fin=fopen(path,"rb");
 	if (fin==NULL)
 		return NULL;
 
@@ -303,7 +303,7 @@ extern unzFile unzOpen (const char* path)
 	if (central_pos==0)
 		err=UNZ_ERRNO;
 
-	if (FS_FileSeek(fin,central_pos,SEEK_SET)!=0)
+	if (fseek(fin,central_pos,SEEK_SET)!=0)
 		err=UNZ_ERRNO;
 
 	/* the signature, already checked */
@@ -350,7 +350,7 @@ extern unzFile unzOpen (const char* path)
 
 	if (err!=UNZ_OK)
 	{
-		FS_FileClose(fin);
+		fclose(fin);
 		return NULL;
 	}
 
@@ -383,7 +383,7 @@ extern int unzClose (unzFile file)
     if (s->pfile_in_zip_read!=NULL)
         unzCloseCurrentFile(file);
 
-	FS_FileClose(s->file);
+	fclose(s->file);
 	TRYFREE(s);
 	return UNZ_OK;
 }
@@ -444,7 +444,7 @@ static int unzlocal_GetCurrentFileInfoInternal (unzFile file,
 	if (file==NULL)
 		return UNZ_PARAMERROR;
 	s=(unz_s*)file;
-	if (FS_FileSeek(s->file,s->pos_in_central_dir+s->byte_before_the_zipfile,SEEK_SET)!=0)
+	if (fseek(s->file,s->pos_in_central_dir+s->byte_before_the_zipfile,SEEK_SET)!=0)
 		err=UNZ_ERRNO;
 
 
@@ -515,7 +515,7 @@ static int unzlocal_GetCurrentFileInfoInternal (unzFile file,
 			uSizeRead = fileNameBufferSize;
 
 		if ((file_info.size_filename>0) && (fileNameBufferSize>0))
-			if (FS_FileRead(szFileName,(uInt)uSizeRead,1,s->file)!=1)
+			if (fread(szFileName,(uInt)uSizeRead,1,s->file)!=1)
 				err=UNZ_ERRNO;
 		lSeek -= uSizeRead;
 	}
@@ -530,13 +530,13 @@ static int unzlocal_GetCurrentFileInfoInternal (unzFile file,
 			uSizeRead = extraFieldBufferSize;
 
 		if (lSeek!=0) {
-			if (FS_FileSeek(s->file,lSeek,SEEK_CUR)==0)
+			if (fseek(s->file,lSeek,SEEK_CUR)==0)
 				lSeek=0;
 			else
 				err=UNZ_ERRNO;
 		}
 		if ((file_info.size_file_extra>0) && (extraFieldBufferSize>0)) {
-			if (FS_FileRead(extraField,(uInt)uSizeRead,1,s->file)!=1)
+			if (fread(extraField,(uInt)uSizeRead,1,s->file)!=1)
 				err=UNZ_ERRNO;
 		}
 		lSeek += file_info.size_file_extra - uSizeRead;
@@ -557,13 +557,13 @@ static int unzlocal_GetCurrentFileInfoInternal (unzFile file,
 			uSizeRead = commentBufferSize;
 
 		if (lSeek!=0) {
-			if (FS_FileSeek(s->file,lSeek,SEEK_CUR)==0)
+			if (fseek(s->file,lSeek,SEEK_CUR)==0)
 				lSeek=0;
 			else
 				err=UNZ_ERRNO;
 		}
 		if ((file_info.size_file_comment>0) && (commentBufferSize>0)) {
-			if (FS_FileRead(szComment,(uInt)uSizeRead,1,s->file)!=1)
+			if (fread(szComment,(uInt)uSizeRead,1,s->file)!=1)
 				err=UNZ_ERRNO;
 		}
 		lSeek+=file_info.size_file_comment - uSizeRead;
@@ -755,7 +755,7 @@ static int unzlocal_CheckCurrentFileCoherencyHeader (unz_s* s, uInt* piSizeVar,
 	*poffset_local_extrafield = 0;
 	*psize_local_extrafield = 0;
 
-	if (FS_FileSeek(s->file,s->cur_file_info_internal.offset_curfile +
+	if (fseek(s->file,s->cur_file_info_internal.offset_curfile +
 								s->byte_before_the_zipfile,SEEK_SET)!=0)
 		return UNZ_ERRNO;
 
@@ -964,11 +964,11 @@ extern int unzReadCurrentFile  (unzFile file, void *buf, unsigned len)
 				uReadThis = (uInt)pfile_in_zip_read_info->rest_read_compressed;
 			if (uReadThis == 0)
 				return UNZ_EOF;
-			if (FS_FileSeek(pfile_in_zip_read_info->file,
+			if (fseek(pfile_in_zip_read_info->file,
 					  pfile_in_zip_read_info->pos_in_zipfile +
 						 pfile_in_zip_read_info->byte_before_the_zipfile,SEEK_SET)!=0)
 				return UNZ_ERRNO;
-			if (FS_FileRead(pfile_in_zip_read_info->read_buffer,uReadThis,1,
+			if (fread(pfile_in_zip_read_info->read_buffer,uReadThis,1,
                          pfile_in_zip_read_info->file)!=1)
 				return UNZ_ERRNO;
 			pfile_in_zip_read_info->pos_in_zipfile += uReadThis;
@@ -1123,12 +1123,12 @@ extern int unzGetLocalExtrafield (unzFile file,void *buf,unsigned len)
 	if (read_now==0)
 		return 0;
 	
-	if (FS_FileSeek(pfile_in_zip_read_info->file,
+	if (fseek(pfile_in_zip_read_info->file,
               pfile_in_zip_read_info->offset_local_extrafield + 
 			  pfile_in_zip_read_info->pos_local_extrafield,SEEK_SET)!=0)
 		return UNZ_ERRNO;
 
-	if (FS_FileRead(buf,(uInt)size_to_read,1,pfile_in_zip_read_info->file)!=1)
+	if (fread(buf,(uInt)size_to_read,1,pfile_in_zip_read_info->file)!=1)
 		return UNZ_ERRNO;
 
 	return (int)read_now;
@@ -1183,13 +1183,13 @@ extern int unzGetGlobalComment (unzFile file, char *szComment, uLong uSizeBuf)
 	if (uReadThis>s->gi.size_comment)
 		uReadThis = s->gi.size_comment;
 
-	if (FS_FileSeek(s->file,s->central_pos+22,SEEK_SET)!=0)
+	if (fseek(s->file,s->central_pos+22,SEEK_SET)!=0)
 		return UNZ_ERRNO;
 
 	if (uReadThis>0)
     {
       *szComment='\0';
-	  if (FS_FileRead(szComment,(uInt)uReadThis,1,s->file)!=1)
+	  if (fread(szComment,(uInt)uReadThis,1,s->file)!=1)
 		return UNZ_ERRNO;
     }
 

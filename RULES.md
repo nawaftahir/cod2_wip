@@ -33,7 +33,17 @@ Owner-edited only.
   whatever the other flags (`research/richtest/flags.sh`), and retail has none. So the C++ game files are
   plain `/O2`; the 104 `/GL` objects are C files, and which ones is still open. Note: a plain link also
   puts every object before library code, so "game code first, MFC/CRT after" does not prove LTCG.
-- **Unity build (PINNED 2026-10-21).** Plain `/O2` gives register arguments only to `static` functions
+- **REFUTED 2026-10-24: one compile unit.** Each game .cpp was its own object. MSVC writes `__FILE__` as cl
+  was given the file: `.\X.cpp` for `cl .\X.cpp`, but `<full dir>\X.cpp` for a `.cpp` that is `#include`d
+  (`research/filemap/probe/once/run.sh`). Retail has `.\XYWnd.cpp` for editor files and drive-less
+  `\trees\cod2src\src\universal\com_math.cpp` for engine files, the command-line forms. A `#pragma once`
+  header also shows two spellings (`src\universal\../xanim/xanim_public.h` and `src\xanim\xanim_public.h`),
+  which one unit cannot produce. The map has 102 game files (89 .cpp + 13 zlib .c) against 104 prodid-99
+  objects, and the 96 nafxcw.lib objects nearly fill the 106 prodid-96 slots. So the game files are the
+  `/GL` objects and the cross-file register calls below are LTCG. Open: our image stamps `/GL` C++ as 100,
+  not 99 (`research/richtest/flags.sh`). The paragraph below is kept for its evidence; its unit conclusion
+  is wrong.
+- **Unity build (was PINNED 2026-10-21, see above).** Plain `/O2` gives register arguments only to `static` functions
   (`research/richtest/nonstatic.sh`: non-static and `inline` stay on the stack). Retail has 72 register-argument
   calls between *different* pinned files, e.g. CamWnd.cpp 0x4061f0 -> XYWnd.cpp 0x44f5d0 (ESI).
   `scratch/claude/unity_test.cpp` reproduces 0x44f5d0 byte-identical as a `static` function called from another
@@ -71,9 +81,16 @@ Owner-edited only.
   (pinned clock and GUID source under Wine), never output patching. The client track has the same open item.
 
 ## zlib (PINNED 2026-10-21)
-- Strings "inflate 1.1.4", "deflate 1.1.4", "unzip 0.15". The code sits right after the unit, 0x4ad790-0x4b3d00,
-  as separate plain C files in alphabetical link order: adler32, deflate, infblock, infcodes, inffast, inflate,
-  inftrees, infutil, trees, unzip, zutil. compress.c and uncompr.c show no trace (HYPOTHESIS: absent).
+- Strings "inflate 1.1.4", "deflate 1.1.4", "unzip 0.15". The code sits right after xmodel_utils.cpp,
+  0x4acfc0-0x4b3cf2, in alphabetical link order: adler32, compress, deflate, infblock, infcodes, inffast,
+  inflate, inftrees, infutil, trees, uncompr, unzip, zutil (research/filemap/proposals/F.md; the 10-21 claim
+  that compress.c and uncompr.c are absent was wrong). No crc32.c: the only crc32 is the P4 API's VC6 copy.
+- Built `/GL`, linked `/LTCG` (SUPPORTED): exported zlib functions take register arguments and deflateInit_
+  is inlined into compress2 across files. zcfree's `call free` is Z_FreeInternal inlined by LTCG
+  (research/filemap/probe/ltcg/run.sh reproduces both bodies); verify.py accepts a callee whose retail body is
+  a pure `jmp` to the retail target.
+- Retail unzip.c calls fopen/fread/fseek/ftell/fclose directly (no FS_File* wrapper exists in the exe, and
+  LTCG with /DEBUG would keep one), so src/zlib/unzip.c uses stdio, unlike the server copy.
 - `src/zlib/` is the verified server copy (`cod2engine/archive/lnxded-1.0/src/zlib`). Against the official
   zlib-1.1.4.tar.gz (sha256 9e3e9731...6a8291e): 15 files identical; infblock/inftrees/infutil/zutil differ by
   2-14 lines; unzip.c/.h are IW's heavily modified minizip 0.15. 14 functions match byte-identical as is.

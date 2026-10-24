@@ -65,6 +65,9 @@ def lib_functions(paths):
     return by_size
 
 
+GAME_END = 0x4d0c40  # first MFC function; game code and the VC6 P4 API sit before it
+
+
 def same(a, amask, b, bmask):
     mask = amask | bmask
     return all(x == y for i, (x, y) in enumerate(zip(a, b)) if i not in mask)
@@ -82,6 +85,9 @@ def main():
         va = int(addr, 16)
         tmask = m.absolute_masks(target, m.pe_relocations(va, len(target), target))
         targets[addr] = (target, tmask)
+        # MFC/CRT link after the game and P4 objects; a hit before them is header code or chance
+        if va < GAME_END:
+            continue
         for payload, omask, name, lib, member in by_size.get(len(target), ()):
             if same(target, tmask, payload, omask):
                 found.append((addr, len(target), lib, member, name))

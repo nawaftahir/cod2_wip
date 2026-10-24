@@ -46,13 +46,15 @@ def measure():
     linked = json.loads(lc.read_text())["match"] if lc.exists() else 0
     libs = {r[0] for r in lib_rows}
     tu_rows = [l.split("\t") for l in (BASE / "data" / "tu_map.tsv").read_text().splitlines()[1:]]
-    game = [r for r in tu_rows if r[0] not in libs]
+    game = [r for r in tu_rows if r[0] not in libs and r[3] not in ("AUTO", "EXTLIB")]
     return {
         "linked_matches": linked,
         "game_functions": len(game),
         "game_bytes": sum(int(r[1]) for r in game),
         "placed_functions": sum(1 for r in game if r[3] in ("PINNED", "SUPPORTED")),
         "lib_functions": len(libs),
+        "auto_functions": sum(1 for r in tu_rows if r[3] == "AUTO"),
+        "extlib_functions": sum(1 for r in tu_rows if r[3] == "EXTLIB"),
         "matched_functions": verify["matched"],
         "failed_rows": verify["failed"],
         "order_warnings": verify.get("order_warnings", 0),
@@ -82,6 +84,8 @@ def summary(now, before):
         "| game code bytes matched | %.2f%% (%d / %d bytes) |" % (pct(now["matched_bytes"], now["game_bytes"]), now["matched_bytes"], now["game_bytes"]),
         "| game functions with a known source file | %d / %d |" % (now["placed_functions"], now["game_functions"]),
         "| MFC/CRT library functions identified (linked, not written; not counted as done) | %d |" % now["lib_functions"],
+        "| compiler-emitted header code (AUTO) / external lib code (EXTLIB), not counted as game | %d / %d |" % (
+            now.get("auto_functions", 0), now.get("extlib_functions", 0)),
         "| SHA-256 identical | %s |" % ("YES" if now["sha_identical"] else "no"),
         "| failing ledger rows | %d |" % now["failed_rows"],
         "| emit-order warnings | %d |" % now["order_warnings"],

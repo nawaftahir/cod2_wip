@@ -57,11 +57,7 @@ extern "C" {
 #include <stdio.h>
 
 #ifndef __cplusplus
-/* engine hooks the zip reader calls; C++ callers see them via com_files.h/com_memory.h */
-FILE *FS_FileOpen( const char *filename, const char *mode );
-size_t FS_FileRead( void *ptr, size_t size, size_t nmemb, FILE *stream );
-int FS_FileSeek( FILE *file, int offset, int whence );
-void FS_FileClose( FILE *stream );
+/* the radiant zip reader uses stdio directly: retail unzip.c calls fopen/fread/fseek/fclose */
 void Com_Memcpy( void *dest, const void *src, int count );
 #endif
 

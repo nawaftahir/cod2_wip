@@ -75,6 +75,18 @@ def known_names():
     return names
 
 
+def forward_target(symbol, names):
+    # LTCG inlines a pure forwarding wrapper into its callers (research/filemap/probe/ltcg/run.sh)
+    for addr, name in names.items():
+        if name != symbol:
+            continue
+        code, _ = matcher.carve("0x%08x" % addr)
+        skip = 4 if code[:4] == b"\x55\x8b\xec\x5d" else 0
+        if code[skip:skip + 1] == b"\xe9" and len(code) == skip + 5:
+            return (addr + skip + 5 + struct.unpack_from("<i", code, skip + 1)[0]) & 0xFFFFFFFF
+    return None
+
+
 def check(obj_data, address, symbol, names):
     """Returns (status, detail, symbol_used)."""
     target, meta = matcher.carve(address)
@@ -105,7 +117,7 @@ def check(obj_data, address, symbol, names):
         if len(cand) == len(target) and same == n and tail_ok:
             for pos, callee in calls:
                 dest = (va + pos + 4 + struct.unpack_from("<i", target, pos)[0]) & 0xFFFFFFFF
-                if dest in names and names[dest] != callee:
+                if dest in names and names[dest] != callee and forward_target(callee, names) != dest:
                     return ("CALLEE", "+0x%x calls %s but retail calls %s (0x%08x)" % (pos, callee, names[dest], dest), cname)
             return ("MATCH", "", cname)
         if score > best_score:

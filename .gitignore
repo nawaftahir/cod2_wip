@@ -13,3 +13,11 @@ fleet/logs/
 fleet/STOP
 queue/claims/*
 !queue/claims/.keep
+research/**/*.obj
+research/**/*.exe
+research/**/*.pdb
+research/**/*.map
+research/**/*.ilk
+research/filemap/cache.json
+research/filemap/work/
+research/filemap/functions_ghidra.json
