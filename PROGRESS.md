@@ -5,7 +5,40 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: genuine frontend command interfaces
+### Latest: actual screen copy/save/blur/blend chain
+
+Five new private functions in rb_backend.cpp restore screen copying, save,
+shadow-blur pass/dispatch and saved-screen blending. They reuse actual
+Image_GetSurface, R_DX_CALL and the single r_permanent.h/DxState/backend owners.
+No new buffer, allocation or partial command table. New handlers are10/28/29;
+source exists for21 of33 non-null handlers, with12 plus the genuine dispatcher,
+remaining API/RenderScene/world chains still open. Stages1-3 are NOT complete.
+
+The copy/release retry paths use live device/source state and a captured surface.
+Save publishes scene time AFTER copying. Blur captures dimensions/image BEFORE
+copy, reads material AFTER callbacks, completes each pair before reloading the
+sc_blur pointer/count. Blend uses wrapped32-bit tick subtraction, primary float-
+widened0.01 base,0.99f clamp, high-byte alpha and full0..1 UVs. It reuses existing
+I_fround; NO new assembly definitions or C++ credit for containing expansions.
+The Mac low-byte alpha/power-of-two UV and captured blur count are not copied.
+
+Final original build, BOTH referees and all132 fixtures pass; the exact1448
+accepted extents remain. Native48 copies/48 saves/240 blur commands/1536 blends
+check actual image helper/macro, retries/logs, changing devices/targets/cursors,
+material/time publication, live blur dvar pointers, wrapped ticks and UV/color.
+COM and biased rounding are modeled; no GPU/client or exact original x87/CIpow
+proof. Existing31 assembly exclusions/7787 bytes stay unchanged.
+
+NO new byte credit: C++104237/253580=41.106159792%,617 bodies, frozen inventory;
+all five new bodies remain uncredited pending genuine table reachability. No
+new TU/order, roots, flags or globals. All prior backend source reconstructs
+exactly by removing only the new section. Named imports stay exact;157 temporary
+exports and no GetRefAPI remain. Proof: proof/backend_screen_checkpoint.json;
+protected bind stays image_residency_warm_bind.json. Next connected group is
+debug geometry (stencil planes, points, triangles, lines), reusing existing vertex
+writers/overflow. Primary table7 is StencilPlanes; blur is table28.
+
+### Earlier: genuine frontend command interfaces
 
 Four writers in r_rendercmds.cpp now use correct roles and shared typed records:
 R_AddCmdSetViewport(21bf0/98B), R_AddCmdBlendSavedScreen(222f0/93B),

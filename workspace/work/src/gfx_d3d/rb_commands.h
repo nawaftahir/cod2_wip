@@ -154,3 +154,13 @@ struct GfxCmdStretchRaw
 typedef char commandStretchRawLayoutCheck[(sizeof(GfxCmdStretchRaw) == 32
     && offsetof(GfxCmdStretchRaw, cols) == 20
     && offsetof(GfxCmdStretchRaw, data) == 28) ? 1 : -1];
+
+struct GfxCmdBlendSavedScreen
+{
+    GfxCmdHeader header;
+    int fadeMsec;
+    int unused;
+};
+
+typedef char commandBlendSavedScreenLayoutCheck[(sizeof(GfxCmdBlendSavedScreen) == 12
+    && offsetof(GfxCmdBlendSavedScreen, fadeMsec) == 4) ? 1 : -1];

@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "d4d04c7",
+  "scope": "screen copy/save, shadow-blur pass/command and saved-screen blend source",
+  "source_functions_restored": [
+    "RB_CopyBackBufferToSurface",
+    "RB_SaveScreenCmd",
+    "RB_BlurShadowCookiePass",
+    "RB_BlurShadowCookieCmd",
+    "RB_BlendSavedScreenCmd"
+  ],
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 21,
+  "new_command_ids": [
+    10,
+    28,
+    29
+  ],
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "0afdda9dc70315b06b80d9b14424cb8367dcdde00c5e702656bd2dcdb009553a",
+  "same_file_offset_percent": 9.053728221792035,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 954322,
+      "sha256": "3d2bed005b9ca5a1ee6eca5f5fddb3ee0e03d8dd4d867be41a7e5149a9d45fb1"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602748,
+      "sha256": "210c8749f2c3839ea23b2053aaab44aafb7371ad04548bed6c86395adb13f44b"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "59b428b42eef3d23166920b05556a26ee6a7e7fc32cbc076b99186a3246ae555"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88258,
+      "sha256": "4bc7fb75feebc7b49ff45bff8a1868c9f17d9ecd840974d861051ae673102df4"
+    }
+  ],
+  "cpp_executable_bytes": 104237,
+  "cpp_percent_legacy_inventory": 41.106159791781685,
+  "cpp_game_bodies": 617,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1448,
+  "full_source_fixtures_passed": 132,
+  "native_cases": {
+    "copy": 48,
+    "save": 48,
+    "blur": 240,
+    "blend": 1536
+  },
+  "native_reuses_actual_Image_GetSurface_and_R_DX_CALL": true,
+  "native_I_fround_is_a_model": true,
+  "tu_order_unchanged": true,
+  "named_import_set_identical": true,
+  "temporary_exports": 157,
+  "GetRefAPI_present": false,
+  "binding_snapshot": {
+    "path": "target/work/proof/image_residency_warm_bind.json",
+    "sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59"
+  },
+  "assembly_review": {
+    "old_backend_sha256": "5619b0abf80f73d7eea4a1c8d1ae7c2e3201b5f9686837839f295ea7d885ba10",
+    "new_backend_sha256": "b93e35024c33ea25737a84cdd204253ee53b17390b1987f908458e1e20dccb7c",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only new screen-command section; reconstruct full previous source exactly",
+    "new_authored_assembly": false,
+    "blend_reuses_existing_I_fround": true,
+    "future_containing_matches_require_assembly_attribution": true,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "b93e35024c33ea25737a84cdd204253ee53b17390b1987f908458e1e20dccb7c",
+    "target/work/src/gfx_d3d/rb_commands.h": "d33b432f28829aef71fefcb60f96b830db368e16b4de7af7afc6efad708bf91f",
+    "target/work/src/gfx_d3d/r_permanent.h": "3a5a46e2728d308a5a75a40d0f61f5172c85b283aa7bade98e56d4a2615b2983",
+    "target/work/src/gfx_d3d/r_image.cpp": "aabf0780588ec4568f145f098a437db6affd15ae1c969fd1f6036568caf24c07",
+    "target/work/tools/source_coverage.py": "ddf659e4e06ac7975fd9d8f680d653f049631570c13b62b5e6f136785012495b",
+    "target/work/tests/test_backend_raw.py": "3532374aa1c55d092bb669308afc25f96f70bd066269ac62aafb3a6cf8ccdef3",
+    "target/work/tests/test_backend_screen.py": "1099d2931742876c7d3cea7fe557841a78be1cd41d26056b46e07ab9c76dbade"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_screen_build.log": "e155ae5df40f81d254961e0ed15278ffd24220a4013a618e05fed9be39ce3ce6",
+    "target/work/proof/latest/backend_screen_fixtures.log": "2d4c7f0538d30cecb2b4bcd3b41143e9b477f024acb195fca27ee87c0c9e4b16"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "limits": [
+    "five new private bodies remain uncredited and await genuine complete command table",
+    "native COM and rounding models do not prove GPU execution or exact original x87/CIpow behavior",
+    "dispatcher/API/world load/final layout/whole SHA remain open"
+  ]
+}

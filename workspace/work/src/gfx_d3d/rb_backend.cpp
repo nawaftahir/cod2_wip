@@ -910,6 +910,87 @@ static void RB_StretchRawCmd(GfxRenderCommandExecState *state)
     state->cmd = (const byte *)header + header->byteCount;
 }
 
+// Backend screen copy, shadow blur and saved-screen commands.
+#include "r_permanent.h"
+#include <math.h>
+extern const dvar_t *sc_blur;
+IDirect3DSurface9 *Image_GetSurface(GfxImage *image);
+
+// PINNED 1002eaa0: both the copy and the release use the original retry path.
+static void RB_CopyBackBufferToSurface(GfxImage *image)
+{
+    IDirect3DSurface9 *imageSurface = Image_GetSurface(image);
+    R_DX_CALL(dx.device->StretchRect( dxState.renderTargetSurface, 0, imageSurface, 0, D3DTEXF_LINEAR ));
+    R_DX_CALL(imageSurface->Release());
+}
+
+// PINNED 10030c90: publish current scene time after the surface callbacks.
+static void RB_SaveScreenCmd(GfxRenderCommandExecState *state)
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    RB_CopyBackBufferToSurface(dx.renderTargets[R_RENDERTARGET_SAVED_SCREEN].image);
+    rgp.savedScreenTime = backEnd.sceneDef.time;
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 10030920: role name; dimensions/image precede copy, material follows it.
+static void RB_BlurShadowCookiePass(float minCoord, float maxCoord)
+{
+    float width = (float)dxState.renderTargetWidth;
+    float height = (float)dxState.renderTargetHeight;
+    GfxImage *image = dx.renderTargets[R_RENDERTARGET_SHADOWCOOKIE_BLUR].image;
+    RB_CopyBackBufferToSurface(image);
+    backEnd.currentFeedbackImage = image;
+    RB_DrawStretchPic(rgp.shadowCookieBlurMaterial, 1.0f, 1.0f, width - 2.0f, height - 2.0f,
+        minCoord, minCoord, maxCoord, maxCoord, 0xffffffff);
+    RB_EndSurface();
+}
+
+// PINNED 100309a0, command28: complete both passes before reloading sc_blur.
+static void RB_BlurShadowCookieCmd(GfxRenderCommandExecState *state)
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    for (int iteration = 0; iteration < sc_blur->current.integer; ++iteration)
+    {
+        RB_BlurShadowCookiePass(0.01171875f, 0.99609375f);
+        RB_BlurShadowCookiePass(0.00390625f, 0.98828125f);
+    }
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 10030cd0: alpha is the high byte; existing I_fround stays uncredited.
+static void RB_BlendSavedScreenCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdBlendSavedScreen *cmd = (const GfxCmdBlendSavedScreen *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (!backEnd.projection2D)
+        RB_Set2D();
+    int elapsed = (int)((unsigned int)backEnd.sceneDef.time - (unsigned int)rgp.savedScreenTime);
+    if (elapsed >= 0 && elapsed < cmd->fadeMsec)
+    {
+        double alpha = pow((double)0.01f, (double)elapsed / cmd->fadeMsec);
+        if (alpha > 0.99f)
+            alpha = 0.99f;
+        float scaled = (float)(alpha * 255.0f);
+        unsigned int color = ((unsigned int)(byte)I_fround(scaled) << 24) | 0x00ffffff;
+        backEnd.currentFeedbackImage = dx.renderTargets[R_RENDERTARGET_SAVED_SCREEN].image;
+        RB_DrawStretchPic(rgp.shellShockMaterial, 0.0f, 0.0f,
+            (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight,
+            0.0f, 0.0f, 1.0f, 1.0f, color);
+    }
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+typedef char screenCopyStateLayoutCheck[(offsetof(r_global_permanent_t, savedScreenTime) == 0x10e0
+    && offsetof(r_global_permanent_t, shadowCookieBlurMaterial) == 0x1054
+    && offsetof(r_global_permanent_t, shellShockMaterial) == 0x10d0) ? 1 : -1];
+
 // Backend presentation.
 extern const dvar_t *r_gamma;
 extern const dvar_t *r_ignoreHwGamma;

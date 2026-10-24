@@ -503,3 +503,17 @@ The duplicate unmatched typed clear and false no-argument RenderScene null-jump
 are removed, reducing temporary roots/exports159->157. Real RenderScene257a0
 remains missing. No actual API body is substituted by the old draft, and no
 retail table is partially advertised. No TU or state/data owner changes.
+
+### Screen commands - 2026-10-24
+
+rb_backend.cpp reuses the sole r_permanent.h definition for savedScreenTime10e0,
+shadowCookieBlurMaterial1054 and shellShockMaterial10d0. Targets7/5 and the live
+DxState source surface remain owned by existing device/image state. Copy captures
+one Image_GetSurface reference and releases it on the original retry path.
+No new mutable state, allocation or TU/order change is introduced.
+
+Shared GfxCmdBlendSavedScreen is12 bytes, fade at4 and an untouched trailing word,
+matching the common frontend writer's packet. Copy/pass helpers and handlers
+10/28/29 remain private in backend pending the genuine complete command table.
+Blend calls the existing biased I_fround; no authored assembly definition changes,
+and future containing-body matches must retain separate assembly accounting.

@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/rb_backend.cpp').read_text()
-source = text[text.index('// Backend raw-frame command.'):text.index('// Backend presentation.')]
+source = text[text.index('// Backend raw-frame command.'):text.index('// Backend screen copy, shadow blur and saved-screen commands.')]
 commands = (work / 'src/gfx_d3d/rb_commands.h').read_text().replace('#pragma once','')
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
 a = local.index('#define R_DX_STRING(call)')

@@ -1609,3 +1609,50 @@ DrawSurfs21890/108B also pass. The full1448 accepted address/extent set is
 identical to the frozen image-residency baseline. No old match was waived.
 Temporary exports drop159->157 by consolidating the unmatched typed clear and
 removing the unmatched null-jump RenderScene draft. This is not GetRefAPI closure.
+
+### Screen copy/save/blur/blend group - 2026-10-24
+
+PINNED2eaa0/186B: Image_GetSurface followed by retried/logged StretchRect from
+LIVE dxState.renderTargetSurface, LINEAR, no rectangles; release of the captured
+surface is also retried/logged. Reuse the existing Image_GetSurface; no second
+buffer, texture allocation, device cache or COM ownership rule is introduced.
+Save command10=30c90/58B flushes pending work, copies target7 image, THEN publishes
+live backEnd.sceneDef.time to rgp.savedScreenTime10e0 and advances the live cursor.
+
+Blur is command28=309a0/113B, NOT table7. Its30920/122B pass captures signed
+width/height and target5 image BEFORE copy; after callbacks, assigns that captured
+image as feedback and reads LIVE shadowCookieBlurMaterial1054. Draw(1,1,w-2,h-2)
+with white, EndSurface. Pair UVs are3/256..255/256 then1/256..253/256. Outer
+loop reloads sc_blur pointer/integer AFTER BOTH passes; do not snapshot Mac's
+blurCount or stop after only one pass when a callback changes it to zero.
+
+Blend command29=30cd0/257B captures original packet before EndSurface and Set2D.
+32-bit wrapped sceneTime-savedTime must be nonnegative and strictly below the
+original packet's fadeMsec. Pow base is(double)0.01f, exact bits3f847ae140000000,
+not double literal0.01. Clamp only >float0.99, multiply255 and store float BEFORE
+existing I_fround. Primary bias3e10000000000000 is2^-30, agreeing with the existing
+helper, not a new half-bias. Pack low24 white/high8 alpha, use target7 image and
+shellShockMaterial10d0; signed target dimensions, UV0..1. No Mac power-of-two
+ratios, low-byte alpha, post-draw flush or feedback clear. Existing inline ASM
+reuse stays uncredited and requires attribution audit on any future V2 match.
+
+New code is in original backend TU with shared12-byte fade packet. Removing
+only the screen-command section restores every prior backend source byte; no new
+assembly definitions. Native fixture uses ACTUAL Image_GetSurface and R_DX_CALL,
+COM mocks and a native rounding model. It checks48 copies/48 saves/240 blur/
+1536 blend routes; not GPU residency or exact MSVC x87 instruction identity.
+Fixture setup initially sliced Image_GetSurface to an EARLIER R_SetPicmip
+prototype; start-relative end lookup and body assertion fix the empty slice.
+A fixed image1 expectation was wrong after a callback changed target7; the oracle
+now checks the live target7 resource, matching primary. Production code unchanged.
+
+### Next geometry group: stencil-plane evidence - 2026-10-24
+
+PINNED command7=2faf0..2fd5a is StencilPlanes, not shadow blur. Header4, nearDist4,
+planeCount8, float distances atc. Use existing stencilPlaneMaterial1034, technique3,
+lightmap31, standard strict4/6 overflow and existing RB_TessOverflow. Read plane
+geometry AFTER overflow callbacks; each RB_SetVertex4D call uses live vertexCount.
+Vertices(-d,-d,d-near,d),(-d,d,d-near,d),(d,d,d-near,d),(d,-d,d-near,d), UV0,0,
+white. Indices0,1,2,2,3,0 relative live base; counts publish AFTER writes. Count is
+reloaded after each plane. EndSurface even for no planes, then live cursor advance.
+No Set2D or Set3D call occurs. New source is still required; this is input evidence.
