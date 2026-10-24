@@ -351,6 +351,7 @@ void R_BuildCellAabbTrees();
 static __forceinline int R_ParseEntitySpawnVars(const char **text,
     char *characters, const char *(*vars)[2])
 {
+    int slot;
     vars[0][0] = "";
     int count = 1;
     int used = 0;
@@ -359,7 +360,6 @@ static __forceinline int R_ParseEntitySpawnVars(const char **text,
         const char *token = Com_Parse(text);
         if (!token[0] || token[0] == '}')
             break;
-        int slot;
         if (!strcmp(token, "classname"))
             slot = 0;
         else
@@ -370,13 +370,13 @@ static __forceinline int R_ParseEntitySpawnVars(const char **text,
         }
         vars[slot][0] = characters + used;
         int length = strlen(token) + 1;
-        memcpy(characters + used, token, length);
         used += length;
+        memcpy((char *)vars[slot][0], token, length);
         token = Com_Parse(text);
         vars[slot][1] = characters + used;
         length = strlen(token) + 1;
-        memcpy(characters + used, token, length);
         used += length;
+        memcpy((char *)vars[slot][1], token, length);
     }
     if (!vars[0][0][0])
         R_Error(ERR_DROP, "\x15R_LoadEntities: entity without a classname\n");
@@ -389,6 +389,7 @@ void R_LoadEntities(GfxBspLoad *load)
     const char *start = (const char *)load->fileBase + load->header->lumps[37].fileofs;
     char *characters = (char *)ri.Hunk_AllocateTempMemoryInternal(load->header->lumps[37].filelen);
     const char *vars[64][2];
+    int count;
     int modelCount = 0;
     const char *text = start;
     for (;;)
@@ -396,7 +397,7 @@ void R_LoadEntities(GfxBspLoad *load)
         const char *token = Com_Parse(&text);
         if (!text || token[0] != '{')
             break;
-        int count = R_ParseEntitySpawnVars(&text, characters, vars);
+        count = R_ParseEntitySpawnVars(&text, characters, vars);
         if (!_stricmp(vars[0][1], "misc_model") && R_IsValidStaticModel(vars, count, 0, 0))
             ++modelCount;
     }
@@ -409,7 +410,7 @@ void R_LoadEntities(GfxBspLoad *load)
         const char *token = Com_Parse(&text);
         if (token[0] != '{')
             break;
-        int count = R_ParseEntitySpawnVars(&text, characters, vars);
+        count = R_ParseEntitySpawnVars(&text, characters, vars);
         if (!_stricmp(vars[0][1], "misc_model"))
             R_LoadMiscModel(vars, count);
     }

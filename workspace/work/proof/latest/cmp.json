@@ -189,13 +189,13 @@
 {
 "name": "?R_ParseEntitySpawnVars@@YAHPAPBDPADPAY01PBD@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 412,
+"size": 436,
 "hits": []
 },
 {
 "name": "?R_LoadEntities@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1232,
+"size": 1214,
 "hits": []
 },
 {
