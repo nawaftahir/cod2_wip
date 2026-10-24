@@ -351,7 +351,7 @@
       "target": "0x100113e0",
       "bytes": 49,
       "name": "?R_FatalBufferLockError@@YAXJ@Z",
-      "object": "rb_shade.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10011460",
@@ -717,7 +717,7 @@
       "target": "0x100227c0",
       "bytes": 98,
       "name": "?R_GetFrameBufferExtent@@YAXPAH0@Z",
-      "object": "r_init.obj"
+      "object": "r_rendertarget.obj"
     },
     {
       "target": "0x10022830",

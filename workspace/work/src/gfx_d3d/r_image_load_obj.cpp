@@ -523,3 +523,13 @@ GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic)
     Com_Printf("ERROR: Unknown built-in image '%s'", name);
     return 0;
 }
+
+// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
+void Image_BuildWaterMap(GfxImage *image)
+{
+    if (image->category == 5)
+        Image_Create2DTexture(image, image->width, image->height,
+            r_rendererInUse->current.integer == 2 ? 1 : 0, D3DUSAGE_DYNAMIC,
+            r_rendererInUse->current.integer == 2 ? D3DFMT_X8R8G8B8 : D3DFMT_L8,
+            D3DPOOL_DEFAULT);
+}

@@ -14,8 +14,8 @@ assert ops[-1] == ('ret','')
 for expected in [('cmp','edi, 0x10'),('mov','byte ptr [0x101d1be8], 0x32'),
                  ('mov','byte ptr [0x101d1be9], 0'),('mov','dword ptr [0x101d1bec], ecx')]:
     assert expected in ops, expected
-text = fragment('gfx_d3d/r_init.cpp')
-source = text[text.index('void R_RegisterBuiltinImages('):text.index('void Material_Init();')]
+text = (work / 'src/gfx_d3d/r_image.cpp').read_text()
+source = text[text.index('void R_RegisterBuiltinImages('):text.index('qboolean R_WatersEquivalent(')]
 program = r'''
 #include <cassert>
 #include <cstdio>

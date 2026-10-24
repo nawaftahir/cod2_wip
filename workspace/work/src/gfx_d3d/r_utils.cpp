@@ -172,3 +172,30 @@ __declspec(noinline) void R_ConvertColorToBytes(const vec_t *colorFloat, byte *c
     colorBytes[2] = (byte)(colorFloat[0] * 255.0f);
     colorBytes[3] = (byte)(colorFloat[3] * 255.0f);
 }
+
+// r_utils in Mac 1.3; inlined at every call site in retail 1.0.
+int R_HashAssetName(const char *name)
+{
+    int hash;
+    int i;
+
+    int mult;
+
+    hash = 0;
+    mult = 119;
+    for (i = 0; name[i]; i++)
+    {
+        hash += name[i] * mult;
+        mult++;
+    }
+    return hash;
+}
+
+bool R_ValidXModelName(const char *name)
+{
+    if (strlen(name) >= 0x40)
+        return false;
+    if (_strnicmp(name, "xmodel", 6))
+        return false;
+    return name[6] == '/' || name[6] == '\\';
+}

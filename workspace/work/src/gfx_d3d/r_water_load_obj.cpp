@@ -113,24 +113,3 @@ void R_CreateWaterSetup(const water_t *source, int waterMapSetupIndex, water_t *
 	destination->image = R_CreateWaterMap(va("watersetup%i", waterMapSetupIndex),
 		(unsigned short)source->M, (unsigned short)source->N);
 }
-
-water_t *R_LoadWaterSetup(const water_t *water)
-{
-	int waterCount;
-	int waterMapSetupIndex;
-
-	waterCount = rg.sceneWaterMapSetupsCount;
-	for (waterMapSetupIndex = 0; waterMapSetupIndex < waterCount; ++waterMapSetupIndex)
-	{
-		if (R_WatersEquivalent(&rg.sceneWaterMapSetups[waterMapSetupIndex], water))
-			return &rg.sceneWaterMapSetups[waterMapSetupIndex];
-	}
-	if (waterMapSetupIndex == 16)
-	{
-		Com_Printf("^1ERROR: map uses more than %i waterMap textures\n", 16);
-		return 0;
-	}
-	R_CreateWaterSetup(water, waterMapSetupIndex, &rg.sceneWaterMapSetups[waterMapSetupIndex]);
-	++rg.sceneWaterMapSetupsCount;
-	return &rg.sceneWaterMapSetups[waterMapSetupIndex];
-}

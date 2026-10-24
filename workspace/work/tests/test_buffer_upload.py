@@ -8,7 +8,9 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 source = fragment('gfx_d3d/rb_buffer_upload.cpp')
-source = source[source.index('// Both retail upload'):]
+init = (work / 'src/gfx_d3d/r_init.cpp').read_text()
+helper = init[init.index('void R_FatalBufferLockError(HRESULT result)\n'):init.index('// PINNED 10011460/100:')]
+source = helper + source[source.index('void R_FatalBufferLockError(HRESULT result);'):]
 retail = pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 for rva,size in [(0x386b0,282),(0x387d0,282)]:

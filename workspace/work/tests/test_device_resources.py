@@ -18,7 +18,7 @@ assert ('call','0x1003c2a0') in ops
 messages = [retail.get_string_at_rva(a-0x10000000).decode() for a in
             [0x10193dc4,0x10193da0,0x10193d7c,0x10193d54,0x10193d34,0x10193cbc,0x10193d08,0x10193cd8]]
 text = fragment('gfx_d3d/r_device.cpp')
-source = text[text.index('Bool R_CreateDeviceResources('):text.index('// PINNED 10011460/')]
+source = text[text.index('Bool R_CreateDeviceResources('):text.index('// PINNED 100113e0;')]
 header = (work / 'src/gfx_d3d/r_sun_state.h').read_text().replace('#pragma once','')
 program = r'''
 #include <cassert>

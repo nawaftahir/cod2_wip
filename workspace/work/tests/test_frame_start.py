@@ -9,7 +9,7 @@ import capstone
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_rendercmds.cpp').read_text()
 clears = text[text.index('static bool R_ClearModifiedDvar('):text.index('// PC 1.0 layouts of the small commands')]
-source = text[text.index('// Role name; PINNED 10021db0:'):]
+source = text[text.index('// Role name; PINNED 10021db0:'):text.index('void R_AbortRenderCommands()')]
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
 dvars = local[local.index('union DvarValue\n'):local.index('// opencod2 layout; PINNED maxTextureSize')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))

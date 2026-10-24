@@ -9,7 +9,9 @@ local = (work / 'src/gfx_d3d/r_local.h').read_text()
 types = local[local.index('union GfxTexture'):local.index('// Stringized after expansion')]
 globals_type = text[text.index('struct ImageGlobals\n'):text.index('ImageGlobals imageGlobals;')]
 predicate = text[text.index('inline Bool Image_IsCodeImage('):text.index('GfxImage *Image_FindExisting(')]
-source = text[text.index('// PINNED 1000d0f0:'):text.index('Bool Image_LoadFromFile(')]
+load = (work / 'src/gfx_d3d/r_image_load_obj.cpp').read_text()
+water = load[load.index('// PINNED 1000d0f0:'):]
+source = water + text[text.index('// PINNED 1000d2e0:'):text.index('Bool Image_LoadFromFile(')]
 program = r'''
 #include <cassert>
 #include <cstdio>

@@ -175,13 +175,7 @@ typedef char dynamicBufferLayoutCheck[(sizeof(r_ib_state_t) == 12
     && offsetof(DxGlobals, dynamicVertexBuffer) == 0x2db4
     && offsetof(refimport_t, Sys_DirectXFatalError) == 0x54) ? 1 : -1];
 
-// Both retail upload paths inline this failure sequence.
-static inline void R_FatalBufferLockError(HRESULT result)
-{
-    ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n");
-    ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9(result));
-    ri.Sys_DirectXFatalError();
-}
+void R_FatalBufferLockError(HRESULT result);
 
 // PINNED 100386b0/282: rollover selects the pool only after clearing used.
 int RB_SetIndexData(const unsigned short *indices, int indexCount)
@@ -488,8 +482,6 @@ variants:
     return (float *)&matrix->matrix[variant] + firstRow * 4;
 }
 
-void RB_ChangeVertexShaderConstants(int destIndex, const float *data, unsigned int rowCount);
-void RB_ChangePixelShaderConstants(int destIndex, const float *data, unsigned int rowCount);
 
 // PINNED 100390a0/65 and 100390f0/52; descriptive names.
 void RB_GetShaderCodeConstant(const MaterialArgumentCodeConst *code,
@@ -516,6 +508,40 @@ void RB_GetMaterialConstant(const char *name, const float **data,
             break;
         }
     }
+}
+
+// PINNED 10039130; name unconfirmed.
+void RB_ChangeVertexShaderConstants(int destIndex, const float *data, unsigned int rowCount)
+{
+	int rowIndex;
+
+	if (r_logFile->current.integer)
+	{
+		for (rowIndex = 0; rowIndex < (int)rowCount; rowIndex++)
+			RB_LogPrint(va("---------- const %i value %g %g %g %g\n", destIndex + rowIndex, data[rowIndex * 4], data[rowIndex * 4 + 1], data[rowIndex * 4 + 2], data[rowIndex * 4 + 3]));
+	}
+	if (memcmp(dxState.vertexShaderConsts[destIndex], data, rowCount * 16))
+	{
+		memcpy(dxState.vertexShaderConsts[destIndex], data, rowCount * 16);
+		R_DX_CALL(dx.device->SetVertexShaderConstantF( destIndex, data, rowCount ));
+	}
+}
+
+// PINNED 10039270; name unconfirmed.
+void RB_ChangePixelShaderConstants(int destIndex, const float *data, unsigned int rowCount)
+{
+	int rowIndex;
+
+	if (r_logFile->current.integer)
+	{
+		for (rowIndex = 0; rowIndex < (int)rowCount; rowIndex++)
+			RB_LogPrint(va("---------- const %i value %g %g %g %g\n", destIndex + rowIndex, data[rowIndex * 4], data[rowIndex * 4 + 1], data[rowIndex * 4 + 2], data[rowIndex * 4 + 3]));
+	}
+	if (memcmp(dxState.pixelShaderConsts[destIndex], data, rowCount * 16))
+	{
+		memcpy(dxState.pixelShaderConsts[destIndex], data, rowCount * 16);
+		R_DX_CALL(dx.device->SetPixelShaderConstantF( destIndex, data, rowCount ));
+	}
 }
 
 // PINNED 100393b0: material names are interned pointers, not string hashes.

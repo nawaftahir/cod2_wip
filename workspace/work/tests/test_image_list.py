@@ -5,7 +5,7 @@ import tempfile
 
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_image.cpp').read_text()
 registry = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_image_registry.h').read_text().replace('#pragma once','')
-source = registry + text[text.index('struct Image_MemUsage'):text.index('extern const dvar_t *r_picmip_manual;')]
+source = registry + 'struct Image_MemUsage\n{\n    int total;\n    int lightmap;\n    int minspec;\n};\n\n' + text[text.index('// PINNED1000d480:'):text.index('extern const dvar_t *r_picmip_manual;')]
 program = r'''
 #include <cassert>
 #include <algorithm>

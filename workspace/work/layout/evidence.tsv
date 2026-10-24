@@ -80,7 +80,6 @@ accepted	gfx_d3d/r_image.cpp	Image_SetupSystem	1000d050	mac
 accepted	gfx_d3d/r_image.cpp	Image_TrackTexture	1000ca70	mac
 accepted	gfx_d3d/r_image.cpp	R_AddImageToList	1000c7e0	mac
 accepted	gfx_d3d/r_image.cpp	R_GetImageMemory	1000c820	bind
-accepted	gfx_d3d/r_image.cpp	R_HashAssetName	1002bfb0	mac
 accepted	gfx_d3d/r_image.cpp	R_ImageList_f	1000d940	mac
 accepted	gfx_d3d/r_image.cpp	R_ReleaseLostImages	1000d260	mac
 accepted	gfx_d3d/r_image.cpp	imagecompare	1000d900	mac
@@ -116,9 +115,9 @@ accepted	gfx_d3d/r_init.cpp	R_CreateDynamicIndexBuffer	10011ad0	bind
 accepted	gfx_d3d/r_init.cpp	R_CreateDynamicVertexBuffer	10011a40	bind
 accepted	gfx_d3d/r_init.cpp	R_DisplayModeLess	10012320	mac
 accepted	gfx_d3d/r_init.cpp	R_EndView	10013200	mac
+accepted	gfx_d3d/r_init.cpp	R_FatalBufferLockError	100113e0	bind
 accepted	gfx_d3d/r_init.cpp	R_FatalInitError	10011390	mac
 accepted	gfx_d3d/r_init.cpp	R_GetDeviceCaps	100116c0	bind
-accepted	gfx_d3d/r_init.cpp	R_GetFrameBufferExtent	100227c0	doubt
 accepted	gfx_d3d/r_init.cpp	R_GetMonitorDimensions	10011560	bind
 accepted	gfx_d3d/r_init.cpp	R_InitGlobalStructs	10012e70	bind
 accepted	gfx_d3d/r_init.cpp	R_InitModelDObj	10012f40	doubt
@@ -199,7 +198,6 @@ accepted	gfx_d3d/r_material_load_obj.cpp	Material_ParseTextureArgumentsDx7	1001a
 accepted	gfx_d3d/r_material_load_obj.cpp	Material_ParseTextureFunctionDx7	1001afc0	bind
 accepted	gfx_d3d/r_material_load_obj.cpp	Material_ParseVector	100197a0	mac
 accepted	gfx_d3d/r_material_load_obj.cpp	Material_TechniqueTypeForName	1001be50	bind
-accepted	gfx_d3d/r_model.cpp	R_AbortRenderCommands	10020dc0	mac
 accepted	gfx_d3d/r_model.cpp	R_AllocSkinnedCachedVerts	1001e5b0	bind
 accepted	gfx_d3d/r_model.cpp	R_CalcSceneEntityPose	1001da60	bind
 accepted	gfx_d3d/r_model.cpp	R_ConvertAnimMatToSkelMat	1001d720	doubt
@@ -219,6 +217,7 @@ accepted	gfx_d3d/r_model.cpp	R_SkinVectorSse	1001e6a0	bind
 accepted	gfx_d3d/r_model.cpp	R_UnlockSkinnedCache	1001e540	mac
 accepted	gfx_d3d/r_model_lod.cpp	R_GetModelLodDistance	1001d960	bind
 accepted	gfx_d3d/r_outdoor.cpp	R_OutdoorTraceHeight	10020590	bind
+accepted	gfx_d3d/r_rendercmds.cpp	R_AbortRenderCommands	10020dc0	mac
 accepted	gfx_d3d/r_rendercmds.cpp	R_AddCmdApplyEarlyPostEffects	100220c0	mac
 accepted	gfx_d3d/r_rendercmds.cpp	R_AddCmdApplyLatePostEffects	10022110	mac
 accepted	gfx_d3d/r_rendercmds.cpp	R_AddCmdBlendSavedScreen	100222f0	mac
@@ -247,6 +246,7 @@ accepted	gfx_d3d/r_rendercmds.cpp	R_EndDelayedDrawing	10020f70	mac
 accepted	gfx_d3d/r_rendercmds.cpp	R_IssueDelayedDrawing	10020fe0	mac
 accepted	gfx_d3d/r_rendertarget.cpp	R_CreateSmallDepthStencil	100228d0	mac
 accepted	gfx_d3d/r_rendertarget.cpp	R_DescribeFormat	10022710	mac
+accepted	gfx_d3d/r_rendertarget.cpp	R_GetFrameBufferExtent	100227c0	doubt
 accepted	gfx_d3d/r_rendertarget.cpp	R_GetOrCreateDepthStencil	10022830	mac
 accepted	gfx_d3d/r_rendertarget.cpp	R_InitFrameBuffer	10022940	bind
 accepted	gfx_d3d/r_rendertarget.cpp	R_InitRenderTargetImage	10022a60	bind
@@ -308,6 +308,7 @@ accepted	gfx_d3d/r_texturemem.cpp	R_DrasticVideoMemoryForDevice	1002bdd0	bind
 accepted	gfx_d3d/r_texturemem.cpp	R_VideoMemory	1002bed0	bind
 accepted	gfx_d3d/r_texturemem.cpp	R_VideoMemoryForDevice	1002bd20	bind
 accepted	gfx_d3d/r_utils.cpp	R_ConvertColorToBytes	1002c0b0	mac
+accepted	gfx_d3d/r_utils.cpp	R_HashAssetName	1002bfb0	mac
 accepted	gfx_d3d/r_utils.cpp	R_HashString	1002bfe0	mac
 accepted	gfx_d3d/r_utils.cpp	R_PickMaterial	1002c100	mac
 accepted	gfx_d3d/r_water_load_obj.cpp	R_PickWaterFrequencies	1002cb40	bind
@@ -335,11 +336,9 @@ accepted	gfx_d3d/rb_backend.cpp	RB_SetFrustumConstants	10032120	doubt
 accepted	gfx_d3d/rb_backend.cpp	RB_SetGammaRamp	100307e0	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_UpdateColorInternal	10032490	mac
 accepted	gfx_d3d/rb_backend.cpp	R_AccumulateBytes24	10036100	bind
-accepted	gfx_d3d/rb_backend.cpp	R_CornersCenter	100367b0	bind
 accepted	gfx_d3d/rb_backend.cpp	R_FinishGpuFence	10032cd0	bind
 accepted	gfx_d3d/rb_backend.cpp	R_InsertGpuFence	10032d10	bind
 accepted	gfx_d3d/rb_backend.cpp	R_ScaleFloats24	100361e0	bind
-accepted	gfx_d3d/rb_backend.cpp	R_TransposeCorners	10036720	doubt
 accepted	gfx_d3d/rb_fog.cpp	RB_FogOffset	100348f0	mac
 accepted	gfx_d3d/rb_fog.cpp	RB_SetIteratorFog	10034910	mac
 accepted	gfx_d3d/rb_fog.cpp	RB_UpdateFogColor	10034bb0	mac
@@ -374,6 +373,8 @@ accepted	gfx_d3d/rb_logfile.cpp	RB_UpdateLogging	10037890	bind
 accepted	gfx_d3d/rb_shade.cpp	RB_ApplyImageOverride	100388f0	bind
 accepted	gfx_d3d/rb_shade.cpp	RB_ApplyStateMapRules	10039610	bind
 accepted	gfx_d3d/rb_shade.cpp	RB_BeginSurface	1003a5f0	mac
+accepted	gfx_d3d/rb_shade.cpp	RB_ChangePixelShaderConstants	10039270	doubt
+accepted	gfx_d3d/rb_shade.cpp	RB_ChangeVertexShaderConstants	10039130	doubt
 accepted	gfx_d3d/rb_shade.cpp	RB_DeriveOutdoorLookupMatrix	10038fd0	bind
 accepted	gfx_d3d/rb_shade.cpp	RB_EvaluateStateMap	10039670	bind
 accepted	gfx_d3d/rb_shade.cpp	RB_GetCodeMatrix	10038cf0	mac
@@ -383,7 +384,6 @@ accepted	gfx_d3d/rb_shade.cpp	RB_GetShaderCodeConstant	100390a0	bind
 accepted	gfx_d3d/rb_shade.cpp	RB_ScaleCodeMatrix	10038c60	bind
 accepted	gfx_d3d/rb_shade.cpp	RB_SetIndexData	100386b0	mac
 accepted	gfx_d3d/rb_shade.cpp	RB_TechniqueName	10037930	doubt
-accepted	gfx_d3d/rb_shade.cpp	R_FatalBufferLockError	100113e0	bind
 accepted	gfx_d3d/rb_shade.cpp	VectorCopy4	10005420	bind
 accepted	gfx_d3d/rb_shade.cpp	VectorCopy4	10005420	bind
 accepted	gfx_d3d/rb_shade.cpp	VectorCopy4	10005420	bind
@@ -396,14 +396,12 @@ accepted	gfx_d3d/rb_state.cpp	RB_ChangeColorStageState	1003d3d0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeGenTexCoords	1003d4c0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeIndices	1003ecb0	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangePixelShader	10038430	bind
-accepted	gfx_d3d/rb_state.cpp	RB_ChangePixelShaderConstants	10039270	doubt
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeState_0	1003c430	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeState_1	1003cc60	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeStreamSource	1003ed20	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeTextureStageState	1003d230	mac
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeVertexDeclaration	10038510	bind
 accepted	gfx_d3d/rb_state.cpp	RB_ChangeVertexShader	100384a0	bind
-accepted	gfx_d3d/rb_state.cpp	RB_ChangeVertexShaderConstants	10039130	doubt
 accepted	gfx_d3d/rb_state.cpp	RB_CopyViewParmsMatrices	1003e2a0	doubt
 accepted	gfx_d3d/rb_state.cpp	RB_DrawIndexedPrimitive	10038610	bind
 accepted	gfx_d3d/rb_state.cpp	RB_GetSamplerFilterModes	1003d920	mac
@@ -755,15 +753,18 @@ draft-addressed	gfx_d3d/r_font.cpp	R_GetConsoleIcon	1000c250	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_GetConsoleString	1000c0f0	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_RegisterFont	1000bce0	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_ShutdownFonts	10013080	mac
-draft-addressed	gfx_d3d/r_image.cpp	Image_BuildWaterMap	1000d0f0	mac
 draft-addressed	gfx_d3d/r_image.cpp	Image_FindExisting	1000d140	-
 draft-addressed	gfx_d3d/r_image.cpp	Image_Register	1000d200	mac
 draft-addressed	gfx_d3d/r_image.cpp	Image_Reload	1000d450	mac
 draft-addressed	gfx_d3d/r_image.cpp	Image_TrackFullscreenTexture	1000c9d0	mac
 draft-addressed	gfx_d3d/r_image.cpp	R_DownsampleMipMapBilinear	1000de10	mac
+draft-addressed	gfx_d3d/r_image.cpp	R_InitImages	1000d880	mac
+draft-addressed	gfx_d3d/r_image.cpp	R_LoadWaterSetup	1000dd70	mac
+draft-addressed	gfx_d3d/r_image.cpp	R_RegisterBuiltinImages	1000d560	-
 draft-addressed	gfx_d3d/r_image.cpp	R_ReloadLostImages	1000d2e0	mac
 draft-addressed	gfx_d3d/r_image.cpp	R_ResetImageAllocations	1000ce60	mac
 draft-addressed	gfx_d3d/r_image.cpp	R_ShutdownImages	1000cd10	mac
+draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_BuildWaterMap	1000d0f0	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateCube	1000fbd0	-
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateCubemapFunction	10010160	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateLightGridWeights	10010680	-
@@ -787,11 +788,9 @@ draft-addressed	gfx_d3d/r_init.cpp	R_EndRegistration	-	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_GammaCorrect	10011fe0	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_Init	10012f80	-
 draft-addressed	gfx_d3d/r_init.cpp	R_InitHardware	10012c80	-
-draft-addressed	gfx_d3d/r_init.cpp	R_InitImages	1000d880	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_InitSystems	10012040	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_RecoverLostDevice	100137f0	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_ReduceWindowSettings	10012c20	-
-draft-addressed	gfx_d3d/r_init.cpp	R_RegisterBuiltinImages	1000d560	-
 draft-addressed	gfx_d3d/r_init.cpp	R_ReleaseDynamicBuffers	10011e60	-
 draft-addressed	gfx_d3d/r_init.cpp	R_ReleaseForShutdownOrReset	10012210	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_ResetDevice	10013690	-
@@ -917,7 +916,6 @@ draft-addressed	gfx_d3d/r_water.cpp	R_WaterHeightMap	1002c7b0	-
 draft-addressed	gfx_d3d/r_water.cpp	R_WaterHkt	1002c470	-
 draft-addressed	gfx_d3d/r_water.cpp	R_WaterMipmaps	1002c850	-
 draft-addressed	gfx_d3d/r_water.cpp	R_WaterNormalMap	1002c620	-
-draft-addressed	gfx_d3d/r_water_load_obj.cpp	R_LoadWaterSetup	1000dd70	mac
 draft-addressed	gfx_d3d/r_xsurface_load_obj.cpp	??$Buf_Read@F@@YAFPAPBE@Z	-	-
 draft-addressed	gfx_d3d/r_xsurface_load_obj.cpp	??$Buf_Read@G@@YAGPAPBE@Z	-	-
 draft-addressed	gfx_d3d/r_xsurface_optimize.cpp	XModelOptimize	1002dc80	mac
@@ -1042,7 +1040,6 @@ draft-mac-name	gfx_d3d/r_material_load_obj.cpp	Material_ValidatePassArguments	-	
 draft-mac-name	gfx_d3d/r_model.cpp	Hunk_AllocXModelPrecache	-	mac
 draft-mac-name	gfx_d3d/r_model.cpp	Hunk_AllocXModelPrecacheColl	-	mac
 draft-mac-name	gfx_d3d/r_model.cpp	R_ReleaseAllModels	-	mac
-draft-mac-name	gfx_d3d/r_model.cpp	R_ValidXModelName	-	mac
 draft-mac-name	gfx_d3d/r_model.cpp	R_XModelDebugAxes	-	mac
 draft-mac-name	gfx_d3d/r_model.cpp	R_XModelDebugBoxes	-	mac
 draft-mac-name	gfx_d3d/r_rendercmds.cpp	R_ShutdownBackendData	-	mac
@@ -1057,6 +1054,7 @@ draft-mac-name	gfx_d3d/r_specularityimage.cpp	Image_BuildSpecularityMap	-	mac
 draft-mac-name	gfx_d3d/r_staticmodel_load_obj.cpp	R_FilterStaticModelIntoCells_r	-	mac
 draft-mac-name	gfx_d3d/r_staticmodelcache.cpp	R_SkinStaticModelCachedCmd	-	mac
 draft-mac-name	gfx_d3d/r_utils.cpp	FresnelTerm	-	mac
+draft-mac-name	gfx_d3d/r_utils.cpp	R_ValidXModelName	-	mac
 draft-mac-name	gfx_d3d/r_water_load_obj.cpp	R_CreateWaterSetup	-	mac
 draft-mac-name	gfx_d3d/r_water_load_obj.cpp	R_WatersEquivalent	-	mac
 draft-mac-name	gfx_d3d/r_xsurface.cpp	XSurfaceGetBoneOffset	-	mac
@@ -1066,7 +1064,7 @@ draft-mac-name	gfx_d3d/r_xsurface.cpp	XSurfaceGetVertexInfoArray	-	mac
 draft-mac-name	gfx_d3d/r_xsurface.cpp	XSurfaceGetVerts	-	mac
 draft-mac-name	gfx_d3d/r_xsurface.cpp	XSurfaceTransformPosWeighted	-	mac
 draft-mac-name	gfx_d3d/r_xsurface_load_obj.cpp	XModelReadSurface	-	mac
-draft-mac-name	gfx_d3d/r_xsurface_load_obj.cpp	XModelUnoptimize	-	mac
+draft-mac-name	gfx_d3d/r_xsurface_optimize.cpp	XModelUnoptimize	-	mac
 draft-mac-name	gfx_d3d/r_xsurface_optimize.cpp	XSurfaceOptimizeRigid	-	mac
 draft-mac-name	gfx_d3d/rb_backend.cpp	RB_GpuWaited	-	mac
 draft-mac-name	gfx_d3d/rb_backend.cpp	RB_SetCodeConstant	-	mac
@@ -1389,7 +1387,6 @@ unverified	gfx_d3d/r_dpvs.cpp	R_UnprojectPoint	-	-
 unverified	gfx_d3d/r_image.cpp	Image_IsCodeImage	-	-
 unverified	gfx_d3d/r_init.cpp	R_CheckTransparencyMsaa	-	doubt
 unverified	gfx_d3d/r_init.cpp	R_EnumerateDisplayModes	-	-
-unverified	gfx_d3d/r_init.cpp	R_GetDesktopExtent	-	doubt
 unverified	gfx_d3d/r_init.cpp	R_GetMaterialHashTable	-	-
 unverified	gfx_d3d/r_init.cpp	R_RendererName	-	-
 unverified	gfx_d3d/r_lightgrid_weights.cpp	Image_TransformLightGridVector	-	-
@@ -1411,6 +1408,7 @@ unverified	gfx_d3d/r_model.cpp	R_SkinXSurfaceRigidDx7	-	-
 unverified	gfx_d3d/r_model.cpp	R_TransformRigidVertex	-	-
 unverified	gfx_d3d/r_model.cpp	R_TransformRigidVertexDx7	-	-
 unverified	gfx_d3d/r_rendercmds.cpp	R_GetCommandBuffer	-	-
+unverified	gfx_d3d/r_rendertarget.cpp	R_GetDesktopExtent	-	doubt
 unverified	gfx_d3d/r_rendertarget.cpp	R_InitCookieRenderTarget	-	-
 unverified	gfx_d3d/r_scene.cpp	R_DumpSceneEntities	-	doubt
 unverified	gfx_d3d/r_screenshot.cpp	R_CubemapLighting	-	-

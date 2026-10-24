@@ -586,3 +586,17 @@ void R_BeginFrame()
     if (r_skinCache->current.enabled)
         R_LockSkinnedCache(0);
 }
+
+void R_AbortRenderCommands()
+{
+    if (!rg.registered)
+        return;
+    R_UnlockSkinnedCache();
+    frontEndDataOut->commands.usedTotal = 0;
+    frontEndDataOut->commands.usedCritical = 0;
+    frontEndDataOut->commands.lastCmd = 0;
+    if (!dx.tempSkinPos)
+        return;
+    ri.Z_VirtualDecommitInternal(dx.tempSkinBuf, dx.tempSkinPos);
+    dx.tempSkinPos = 0;
+}

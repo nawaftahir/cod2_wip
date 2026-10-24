@@ -5,6 +5,10 @@
 #include <dxerr9.h>
 #include <algorithm>
 #include "universal/com_math.h"
+#include "gfx.h"
+
+int R_HashAssetName(const char *name);
+void Image_BuildWaterMap(GfxImage *image);
 
 // Field names KisakCOD; PINNED on PC 1.0: imageHashTable 0x101cea68, picmip 0x101d0a68, picmipBump 0x101d0a6c,
 // picmipSpec 0x101d0a70, totalMemory 0x101d0a74 (Image_PicmipForSemantic, Image_TrackTexture). Later fields not reconstructed.
@@ -65,13 +69,6 @@ const char *g_imageProgNames[13] = {
     "$dynamic_shadows", "$shadow_cookie", "$shadow_cookie_blur", "$floatz",
     "$blurred_screen", "$glow_0", "$glow_1", "$pingpong_0", "$pingpong_1",
     "$resolved_post_sun", "$resolved_scene", "$savedscreen", "$raw"
-};
-
-struct Image_MemUsage
-{
-    int total;
-    int lightmap;
-    int minspec;
 };
 
 // PINNED1000d480: programmable images are excluded by their whole address range.
@@ -360,24 +357,6 @@ void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int w
     }
 }
 
-// r_utils in Mac 1.3; inlined at every call site in retail 1.0.
-int R_HashAssetName(const char *name)
-{
-    int hash;
-    int i;
-
-    int mult;
-
-    hash = 0;
-    mult = 119;
-    for (i = 0; name[i]; i++)
-    {
-        hash += name[i] * mult;
-        mult++;
-    }
-    return hash;
-}
-
 inline Bool Image_IsCodeImage(const GfxImage *image)
 {
     uintptr_t address = (uintptr_t)image;
@@ -596,16 +575,6 @@ void R_ReleaseLostImages()
     }
 }
 
-// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
-void Image_BuildWaterMap(GfxImage *image)
-{
-    if (image->category == 5)
-        Image_Create2DTexture(image, image->width, image->height,
-            r_rendererInUse->current.integer == 2 ? 1 : 0, D3DUSAGE_DYNAMIC,
-            r_rendererInUse->current.integer == 2 ? D3DFMT_X8R8G8B8 : D3DFMT_L8,
-            D3DPOOL_DEFAULT);
-}
-
 // PINNED 1000d2e0: retained program images and already-created textures are skipped.
 void R_ReloadLostImages()
 {
@@ -786,4 +755,58 @@ setDvars:
     ri.Dvar_SetInt(r_picmip_bump, imageGlobals.picmipBump);
     ri.Dvar_SetInt(r_picmip_spec, imageGlobals.picmipSpec);
     ri.Printf(0, "Using picmip %i on most textures, %i on normal maps, and %i on specular maps\n", imageGlobals.picmip, imageGlobals.picmipBump, imageGlobals.picmipSpec);
+}
+
+// PINNED 1000d560/276: DX7 creates water color instead of the DX9 lookup family.
+void R_RegisterBuiltinImages()
+{
+    rgp.whiteImage = Image_Register("$white", 0, 1);
+    rgp.blackImage = Image_Register("$black", 0, 1);
+    if (r_rendererInUse->current.integer == 2)
+        rgp.waterColorImage = Image_Register("$watercolor", 0, 1);
+    else
+    {
+        rgp.identityNormalMapImage = Image_Register("$identitynormalmap", 0, 1);
+        rgp.specularityImage = Image_Register("$specularity", 0, 1);
+        rgp.lightGridWeightsImage[0] = Image_Register("$lightgridweights0", 0, 1);
+        rgp.lightGridWeightsImage[1] = Image_Register("$lightgridweights1", 0, 1);
+        rgp.lightmapWeightsImage = Image_Register("$lightmapweights", 0, 1);
+    }
+}
+
+// PINNED 1000d880/124: preserve raw texture-definition name and padding fields.
+void R_InitImages()
+{
+    R_SetPicmip();
+    R_RegisterBuiltinImages();
+    for (int sampler = 0; sampler < 16; ++sampler)
+        RB_SetSampler(sampler, dxState.samplerState[sampler], rgp.whiteImage);
+    rgp.rawImage = Image_AllocProg(12, 4);
+    rgp.rawTexdef.samplerState = 0x32;
+    rgp.rawTexdef.semantic = 0;
+    rgp.rawTexdef.u.image = rgp.rawImage;
+}
+
+qboolean R_WatersEquivalent(const water_t *w0, const water_t *w1);
+void R_CreateWaterSetup(const water_t *source, int waterMapSetupIndex, water_t *destination);
+
+water_t *R_LoadWaterSetup(const water_t *water)
+{
+	int waterCount;
+	int waterMapSetupIndex;
+
+	waterCount = rg.sceneWaterMapSetupsCount;
+	for (waterMapSetupIndex = 0; waterMapSetupIndex < waterCount; ++waterMapSetupIndex)
+	{
+		if (R_WatersEquivalent(&rg.sceneWaterMapSetups[waterMapSetupIndex], water))
+			return &rg.sceneWaterMapSetups[waterMapSetupIndex];
+	}
+	if (waterMapSetupIndex == 16)
+	{
+		Com_Printf("^1ERROR: map uses more than %i waterMap textures\n", 16);
+		return 0;
+	}
+	R_CreateWaterSetup(water, waterMapSetupIndex, &rg.sceneWaterMapSetups[waterMapSetupIndex]);
+	++rg.sceneWaterMapSetupsCount;
+	return &rg.sceneWaterMapSetups[waterMapSetupIndex];
 }

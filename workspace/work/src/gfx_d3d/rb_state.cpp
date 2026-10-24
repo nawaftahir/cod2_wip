@@ -963,40 +963,6 @@ void RB_SetInitialState()
 	memset(dxState.pixelShaderConsts, 0xff, sizeof(dxState.pixelShaderConsts));
 }
 
-// name unconfirmed
-void RB_ChangeVertexShaderConstants(int destIndex, const float *data, unsigned int rowCount)
-{
-	int rowIndex;
-
-	if (r_logFile->current.integer)
-	{
-		for (rowIndex = 0; rowIndex < (int)rowCount; rowIndex++)
-			RB_LogPrint(va("---------- const %i value %g %g %g %g\n", destIndex + rowIndex, data[rowIndex * 4], data[rowIndex * 4 + 1], data[rowIndex * 4 + 2], data[rowIndex * 4 + 3]));
-	}
-	if (memcmp(dxState.vertexShaderConsts[destIndex], data, rowCount * 16))
-	{
-		memcpy(dxState.vertexShaderConsts[destIndex], data, rowCount * 16);
-		R_DX_CALL(dx.device->SetVertexShaderConstantF( destIndex, data, rowCount ));
-	}
-}
-
-// name unconfirmed
-void RB_ChangePixelShaderConstants(int destIndex, const float *data, unsigned int rowCount)
-{
-	int rowIndex;
-
-	if (r_logFile->current.integer)
-	{
-		for (rowIndex = 0; rowIndex < (int)rowCount; rowIndex++)
-			RB_LogPrint(va("---------- const %i value %g %g %g %g\n", destIndex + rowIndex, data[rowIndex * 4], data[rowIndex * 4 + 1], data[rowIndex * 4 + 2], data[rowIndex * 4 + 3]));
-	}
-	if (memcmp(dxState.pixelShaderConsts[destIndex], data, rowCount * 16))
-	{
-		memcpy(dxState.pixelShaderConsts[destIndex], data, rowCount * 16);
-		R_DX_CALL(dx.device->SetPixelShaderConstantF( destIndex, data, rowCount ));
-	}
-}
-
 // Viewport calculation.
 void RB_UpdateViewportConstants()
 {

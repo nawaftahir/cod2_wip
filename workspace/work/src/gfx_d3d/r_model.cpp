@@ -9,6 +9,7 @@
 extern DxGlobals dx;
 extern int alwaysfails;
 void RB_LogPrint(const char *text);
+bool R_ValidXModelName(const char *name);
 extern "C" __declspec(dllimport) long __stdcall InterlockedExchangeAdd(long volatile *addend, long value);
 extern "C" __declspec(dllimport) long __stdcall InterlockedExchange(long volatile *target, long value);
 
@@ -91,15 +92,6 @@ static void *Hunk_AllocXModelPrecache(int size)
 static void *Hunk_AllocXModelPrecacheColl(int size)
 {
     return ri.Hunk_AllocInternal(size);
-}
-
-static bool R_ValidXModelName(const char *name)
-{
-    if (strlen(name) >= 0x40)
-        return false;
-    if (_strnicmp(name, "xmodel", 6))
-        return false;
-    return name[6] == '/' || name[6] == '\\';
 }
 
 // PINNED 100030d9/10003128 call this body out of line.
@@ -292,20 +284,6 @@ static void R_ReleaseModel(XAssetHeader header, void *data)
 void R_ReleaseAllModels()
 {
     ri.DB_EnumXAssets(1, R_ReleaseModel, 0, 1);
-}
-
-void R_AbortRenderCommands()
-{
-    if (!rg.registered)
-        return;
-    R_UnlockSkinnedCache();
-    frontEndDataOut->commands.usedTotal = 0;
-    frontEndDataOut->commands.usedCritical = 0;
-    frontEndDataOut->commands.lastCmd = 0;
-    if (!dx.tempSkinPos)
-        return;
-    ri.Z_VirtualDecommitInternal(dx.tempSkinBuf, dx.tempSkinPos);
-    dx.tempSkinPos = 0;
 }
 
 // PC 1.0 model bounds/debug cohort, 1001d9f0--100201a3.

@@ -201,3 +201,35 @@ void R_InitRenderTargets()
     R_InitFullscreenRenderTargetImage(8, 2, dx.backBufferFormat, RENDERTARGET_USAGE_RENDER,
         &dx.renderTargets[R_RENDERTARGET_PINGPONG_1]);
 }
+
+extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex);
+
+// name unconfirmed: virtual-desktop extent, never smaller than the primary screen
+static void R_GetDesktopExtent(int *width, int *height)
+{
+    int virtualWidth;
+    int virtualHeight;
+    int screenWidth;
+    int screenHeight;
+
+    virtualWidth = GetSystemMetrics(78);
+    virtualHeight = GetSystemMetrics(79);
+    screenWidth = GetSystemMetrics(0);
+    screenHeight = GetSystemMetrics(1);
+    *width = I_max(virtualWidth, screenWidth);
+    *height = I_max(virtualHeight, screenHeight);
+}
+
+// name unconfirmed: fullscreen uses the mode size, windowed the desktop extent
+void R_GetFrameBufferExtent(int *width, int *height)
+{
+    if (vidConfig.isFullscreen)
+    {
+        int modeWidth = vidConfig.width;
+        int modeHeight = vidConfig.height;
+        *width = modeWidth;
+        *height = modeHeight;
+        return;
+    }
+    R_GetDesktopExtent(width, height);
+}

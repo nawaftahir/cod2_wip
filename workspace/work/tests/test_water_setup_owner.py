@@ -10,7 +10,8 @@ text = (work / 'src/gfx_d3d/r_water_load_obj.cpp').read_text()
 assert '\nint sceneWaterMapSetupsCount;' not in text
 assert '\nwater_t sceneWaterMapSetups[16];' not in text
 shutdown = text[text.index('void R_ShutdownLoadWater()'):text.index('void R_PickWaterFrequencies(')]
-loader = text[text.index('water_t *R_LoadWaterSetup('):]
+image = (work / 'src/gfx_d3d/r_image.cpp').read_text()
+loader = image[image.index('water_t *R_LoadWaterSetup('):]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 ops = [(i.mnemonic,i.op_str) for i in decoder.disasm(retail.get_data(0xdd70,122),0x1000dd70)]

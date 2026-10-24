@@ -4,7 +4,8 @@ import subprocess
 import tempfile
 
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_image.cpp').read_text()
-source = text[text.index('int R_HashAssetName('):text.index('static int Image_GetAvailableHashLocation(')]
+utils = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_utils.cpp').read_text()
+source = utils[utils.index('int R_HashAssetName('):utils.index('bool R_ValidXModelName(')] + text[text.index('inline Bool Image_IsCodeImage('):text.index('static int Image_GetAvailableHashLocation(')]
 program = r'''
 #include <cassert>
 #include <cstring>

@@ -390,55 +390,6 @@ void RB_UpdateColor(const float *color_allies, const float *color_axis)
 	RB_UpdateColorInternal(color_axis, (unsigned char *)&backEnd.color_axis);
 }
 
-// Leaf helpers (names unconfirmed); retail passes the first operands in eax/ecx.
-// 8 corner points, 3 floats each, stored as 3 rows of 8; flip to 8 rows of 3.
-void R_TransposeCorners(const float *in, float *out)
-{
-	out[0] = in[0];
-	out[1] = in[8];
-	out[2] = in[16];
-	out[3] = in[1];
-	out[4] = in[9];
-	out[5] = in[17];
-	out[6] = in[2];
-	out[7] = in[10];
-	out[8] = in[18];
-	out[9] = in[3];
-	out[10] = in[11];
-	out[11] = in[19];
-	out[12] = in[4];
-	out[13] = in[12];
-	out[14] = in[20];
-	out[15] = in[5];
-	out[16] = in[13];
-	out[17] = in[21];
-	out[18] = in[6];
-	out[19] = in[14];
-	out[20] = in[22];
-	out[21] = in[7];
-	out[22] = in[15];
-	out[23] = in[23];
-}
-
-// Mean of the 8 corners.
-void R_CornersCenter(float *center, const float *in)
-{
-	int i;
-
-	center[0] = 0.0f;
-	center[1] = 0.0f;
-	center[2] = 0.0f;
-	for (i = 0; i < 8; i++)
-	{
-		center[0] += in[i];
-		center[1] += in[8 + i];
-		center[2] += in[16 + i];
-	}
-	center[0] *= 0.125f;
-	center[1] *= 0.125f;
-	center[2] *= 0.125f;
-}
-
 void R_ScaleFloats24(float *values, float scale)
 {
 	values[0] = scale * values[0];

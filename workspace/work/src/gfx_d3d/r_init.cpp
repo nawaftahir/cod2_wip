@@ -140,6 +140,7 @@ void R_ReleaseDynamicBuffers()
 // Direct3D presentation setup and device creation.
 extern const dvar_t *r_swapInterval;
 
+void R_InitImages();
 void R_InitRenderTargets();
 void R_CreateSmodelCacheVertexBuffer();
 void SMC_ClearCache();
@@ -178,6 +179,14 @@ Bool R_CreateDeviceResources()
     ri.Printf(0, "Setting initial state...\n");
     RB_SetInitialState();
     return 1;
+}
+
+// PINNED 100113e0; both retail upload paths also inline it.
+void R_FatalBufferLockError(HRESULT result)
+{
+    ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n");
+    ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9(result));
+    ri.Sys_DirectXFatalError();
 }
 
 // PINNED 10011460/100: this probe always uses adapter zero.
@@ -831,36 +840,6 @@ void R_TrackStatistics(trStatistics_t *stats)
 
 extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex);
 
-// name unconfirmed: virtual-desktop extent, never smaller than the primary screen
-static void R_GetDesktopExtent(int *width, int *height)
-{
-    int virtualWidth;
-    int virtualHeight;
-    int screenWidth;
-    int screenHeight;
-
-    virtualWidth = GetSystemMetrics(78);
-    virtualHeight = GetSystemMetrics(79);
-    screenWidth = GetSystemMetrics(0);
-    screenHeight = GetSystemMetrics(1);
-    *width = I_max(virtualWidth, screenWidth);
-    *height = I_max(virtualHeight, screenHeight);
-}
-
-// name unconfirmed: fullscreen uses the mode size, windowed the desktop extent
-void R_GetFrameBufferExtent(int *width, int *height)
-{
-    if (vidConfig.isFullscreen)
-    {
-        int modeWidth = vidConfig.width;
-        int modeHeight = vidConfig.height;
-        *width = modeWidth;
-        *height = modeHeight;
-        return;
-    }
-    R_GetDesktopExtent(width, height);
-}
-
 // PINNED PC 1.0 sizes: rg 0x31a0, rgp 0x10f0
 typedef char rgSizeCheck[(sizeof(r_globals_t) == 0x31a0 && sizeof(r_global_permanent_t) == 0x10f0) ? 1 : -1];
 
@@ -961,36 +940,6 @@ typedef char imageStartupLayoutCheck[
     offsetof(MaterialTextureDef, semantic) == 5 &&
     offsetof(MaterialTextureDef, u) == 8 &&
     offsetof(DxState, samplerState) == 0x20e4 ? 1 : -1];
-
-// PINNED 1000d560/276: DX7 creates water color instead of the DX9 lookup family.
-void R_RegisterBuiltinImages()
-{
-    rgp.whiteImage = Image_Register("$white", 0, 1);
-    rgp.blackImage = Image_Register("$black", 0, 1);
-    if (r_rendererInUse->current.integer == 2)
-        rgp.waterColorImage = Image_Register("$watercolor", 0, 1);
-    else
-    {
-        rgp.identityNormalMapImage = Image_Register("$identitynormalmap", 0, 1);
-        rgp.specularityImage = Image_Register("$specularity", 0, 1);
-        rgp.lightGridWeightsImage[0] = Image_Register("$lightgridweights0", 0, 1);
-        rgp.lightGridWeightsImage[1] = Image_Register("$lightgridweights1", 0, 1);
-        rgp.lightmapWeightsImage = Image_Register("$lightmapweights", 0, 1);
-    }
-}
-
-// PINNED 1000d880/124: preserve raw texture-definition name and padding fields.
-void R_InitImages()
-{
-    R_SetPicmip();
-    R_RegisterBuiltinImages();
-    for (int sampler = 0; sampler < 16; ++sampler)
-        RB_SetSampler(sampler, dxState.samplerState[sampler], rgp.whiteImage);
-    rgp.rawImage = Image_AllocProg(12, 4);
-    rgp.rawTexdef.samplerState = 0x32;
-    rgp.rawTexdef.semantic = 0;
-    rgp.rawTexdef.u.image = rgp.rawImage;
-}
 
 void Material_Init();
 GfxLightDef *R_RegisterLightDef(const char *name);

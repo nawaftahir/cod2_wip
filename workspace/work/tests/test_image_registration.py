@@ -20,7 +20,7 @@ for instruction in decoder.disasm(retail.get_data(0x108a0,519),0x100108a0):
 assert names == {'$white','$black','$identitynormalmap','$specularity','$outdoor',
                  '$lightmapweights','$lightgridweights0','$lightgridweights1','$watercolor','$sunhalfangle'}
 text = (work / 'src/gfx_d3d/r_image_load_obj.cpp').read_text()
-builtin = text[text.index('GfxImage *Image_LoadBuiltin('):]
+builtin = text[text.index('GfxImage *Image_LoadBuiltin('):text.index('// PINNED 1000d0f0:')]
 text = (work / 'src/gfx_d3d/r_image.cpp').read_text()
 register = text[text.index('GfxImage *Image_Register('):text.index('IDirect3DSurface9 *Image_GetSurface(')]
 program = r'''

@@ -745,3 +745,10 @@ before the static-model lighting family. The old r_staticmodel_bounds TU
 used the same flags as r_staticmodel_load_obj (its /Op comment was stale).
 The helper is now in the load file before lighting scale1002a520; its name
 remains descriptive. No ABI/type/flag/root change. Both referees, all1448 extents and139 fixtures pass.
+
+Retail-file moves,2026-10-24: R_FatalBufferLockError -> r_init; R_RegisterBuiltinImages,
+R_InitImages, R_LoadWaterSetup -> r_image; R_HashAssetName, R_ValidXModelName -> r_utils;
+R_AbortRenderCommands -> r_rendercmds; R_GetFrameBufferExtent (+ its desktop helper) ->
+r_rendertarget; Image_BuildWaterMap -> r_image_load_obj; XModelUnoptimize ->
+r_xsurface_optimize; RB_Change{Vertex,Pixel}ShaderConstants -> rb_shade. Dead duplicate
+corner helpers removed from rb_backend (rb_light owns 10036720/100367b0). No flag/TU change.

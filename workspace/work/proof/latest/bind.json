@@ -477,12 +477,6 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?R_HashAssetName@@YAHPBD@Z": {
-"t": "0x1002bfb0",
-"n": 34,
-"obj": "r_image.obj",
-"why": []
-},
 "?Image_GetAvailableHashLocation@@YAHPBD@Z": {
 "t": "0x1000cb40",
 "n": 82,
@@ -548,6 +542,14 @@
 "n": 87,
 "obj": "r_image.obj",
 "why": []
+},
+"?R_LoadWaterSetup@@YAPAUwater_t@@PBU1@@Z": {
+"t": "0x1000dd70",
+"n": 122,
+"obj": "r_image.obj",
+"why": [
+"call ?R_WatersEquivalent@@YAHPBUwater_t@@0@Z"
+]
 },
 "??$_Unguarded_partition@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YA?AU?$pair@PAPAUGfxImage@@PAPAU1@@0@PAPAUGfxImage@@0P6AHPAU2@1@Z@Z": {
 "t": "0x1000e080",
@@ -795,6 +797,12 @@
 "call ?R_CreateParticleCloudBuffer@@YAXXZ"
 ]
 },
+"?R_FatalBufferLockError@@YAXJ@Z": {
+"t": "0x100113e0",
+"n": 49,
+"obj": "r_init.obj",
+"why": []
+},
 "?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z": {
 "t": "0x10011460",
 "n": 100,
@@ -872,12 +880,6 @@
 "?R_EndView@@YAXH@Z": {
 "t": "0x10013200",
 "n": 79,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_GetFrameBufferExtent@@YAXPAH0@Z": {
-"t": "0x100227c0",
-"n": 98,
 "obj": "r_init.obj",
 "why": []
 },
@@ -1811,12 +1813,6 @@
 "call ?XModelUnoptimize@@YAXPAUXModel@@@Z"
 ]
 },
-"?R_AbortRenderCommands@@YAXXZ": {
-"t": "0x10020dc0",
-"n": 73,
-"obj": "r_model.obj",
-"why": []
-},
 "?R_CalcSceneEntityPose@@YAXPBUGfxSceneEntity@@PBUDObj_s@@PAH@Z": {
 "t": "0x1001da60",
 "n": 20,
@@ -2053,6 +2049,12 @@
 "call ?R_UpdateFrameDvars@@YAXXZ"
 ]
 },
+"?R_AbortRenderCommands@@YAXXZ": {
+"t": "0x10020dc0",
+"n": 73,
+"obj": "r_rendercmds.obj",
+"why": []
+},
 "?R_ShutdownRenderTargets@@YAXXZ": {
 "t": "0x10023560",
 "n": 162,
@@ -2096,6 +2098,12 @@
 "why": [
 "call ?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z"
 ]
+},
+"?R_GetFrameBufferExtent@@YAXPAH0@Z": {
+"t": "0x100227c0",
+"n": 98,
+"obj": "r_rendertarget.obj",
+"why": []
 },
 "?AxisCopy@@YAXPAY02$$CBMPAY02M@Z": {
 "t": "0x1005c9d0",
@@ -2531,6 +2539,12 @@
 "obj": "r_utils.obj",
 "why": []
 },
+"?R_HashAssetName@@YAHPBD@Z": {
+"t": "0x1002bfb0",
+"n": 34,
+"obj": "r_utils.obj",
+"why": []
+},
 "?Vec2Multiply@@YAMQBM@Z": {
 "t": "0x1000f120",
 "n": 20,
@@ -2542,14 +2556,6 @@
 "n": 445,
 "obj": "r_water_load_obj.obj",
 "why": []
-},
-"?R_LoadWaterSetup@@YAPAUwater_t@@PBU1@@Z": {
-"t": "0x1000dd70",
-"n": 122,
-"obj": "r_water_load_obj.obj",
-"why": [
-"call ?R_WatersEquivalent@@YAHPBUwater_t@@0@Z"
-]
 },
 "?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {
 "t": "0x100104a0",
@@ -2741,18 +2747,6 @@
 "obj": "rb_backend.obj",
 "why": []
 },
-"?R_TransposeCorners@@YAXPBMPAM@Z": {
-"t": "0x10036720",
-"n": 143,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?R_CornersCenter@@YAXPAMPBM@Z": {
-"t": "0x100367b0",
-"n": 236,
-"obj": "rb_backend.obj",
-"why": []
-},
 "?R_ScaleFloats24@@YAXPAMM@Z": {
 "t": "0x100361e0",
 "n": 239,
@@ -2937,12 +2931,6 @@
 "obj": "rb_shade.obj",
 "why": []
 },
-"?R_FatalBufferLockError@@YAXJ@Z": {
-"t": "0x100113e0",
-"n": 49,
-"obj": "rb_shade.obj",
-"why": []
-},
 "?RB_SetIndexData@@YAHPBGH@Z": {
 "t": "0x100386b0",
 "n": 282,
@@ -2982,6 +2970,18 @@
 "?RB_GetMaterialConstant@@YAXPBDPAPBMPAI@Z": {
 "t": "0x100390f0",
 "n": 52,
+"obj": "rb_shade.obj",
+"why": []
+},
+"?RB_ChangeVertexShaderConstants@@YAXHPBMI@Z": {
+"t": "0x10039130",
+"n": 310,
+"obj": "rb_shade.obj",
+"why": []
+},
+"?RB_ChangePixelShaderConstants@@YAXHPBMI@Z": {
+"t": "0x10039270",
+"n": 310,
 "obj": "rb_shade.obj",
 "why": []
 },
@@ -3230,18 +3230,6 @@
 "why": [
 "call ?RB_SetRenderTarget@@YAXW4GfxRenderTargetId@@@Z"
 ]
-},
-"?RB_ChangeVertexShaderConstants@@YAXHPBMI@Z": {
-"t": "0x10039130",
-"n": 310,
-"obj": "rb_state.obj",
-"why": []
-},
-"?RB_ChangePixelShaderConstants@@YAXHPBMI@Z": {
-"t": "0x10039270",
-"n": 310,
-"obj": "rb_state.obj",
-"why": []
 },
 "?RB_DrawTessSurface@@YAXXZ": {
 "t": "0x1003a7b0",

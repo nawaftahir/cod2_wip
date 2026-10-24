@@ -104,3 +104,24 @@ void XModelOptimize(XModel *model)
     }
 }
 
+void XSurfaceFreeBuffers(XSurface *surf);
+
+void XModelUnoptimize(XModel *model)
+{
+    int lodCount;
+    int lodIndex;
+    int surfCount;
+    int surfIndex;
+    XSurface **surfaces;
+    int *partBits;
+
+    lodCount = ri.XModelGetNumLods(model);
+    for (lodIndex = 0; lodIndex < lodCount; lodIndex++)
+    {
+        surfCount = ri.XModelGetSurfaces(model, &surfaces, lodIndex, &partBits);
+        for (surfIndex = 0; surfIndex < surfCount; surfIndex++)
+        {
+            XSurfaceFreeBuffers(surfaces[surfIndex]);
+        }
+    }
+}
