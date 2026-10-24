@@ -111,6 +111,10 @@ Owner-edited only.
 - `src/universal/splines/` math_*.cpp and util_str.cpp are Q3Radiant's `q3radiant/splines` files as released
   (id GPL source). 20 functions match as is; the unmatched rest is IW changes still to find. splines.cpp is
   modified (retail has no OpenGL import; Q3 draws with qgl), so it stays a placeholder.
+- PINNED: splines q_shared.h has `M_PI` as a float (`...846f`). toAngles(mat3_t) 0x498750 divides by
+  `fdiv dword`; the Q3 double M_PI gives `fdiv qword`.
+- PINNED lib_sweep ties: identical masked CRT bytes can pick the wrong name. `data/lib_overrides.tsv`
+  fixes the two found (_toupper 0x4da73a, _atan2 0x4d8070), with the evidence for each.
 
 ## Resources (PINNED 2026-10-21)
 - `src/res/CoD2Radiant.rc` (from `tools/rc_extract.py`, numeric ids, styles written out) compiled by the

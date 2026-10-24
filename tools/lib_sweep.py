@@ -14,6 +14,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import match_radiant as m
+import link
 
 DEFAULT_LIBS = [
     "/opt/msvc710/Vc7/atlmfc/lib/nafxcw.lib",
@@ -92,6 +93,9 @@ def main():
             if same(target, tmask, payload, omask):
                 found.append((addr, len(target), lib, member, name))
                 break
+    fixed = {r["addr"]: r for r in link.read_tsv("data/lib_overrides.tsv")}
+    found = [(a, n, lib, fixed[a]["member"], fixed[a]["symbol"]) if a in fixed else (a, n, lib, mem, name)
+             for a, n, lib, mem, name in found]
     libbed = {f[0] for f in found}
     # identical code at two addresses (e.g. folded templates); a hint, not a library match
     groups = collections.defaultdict(list)

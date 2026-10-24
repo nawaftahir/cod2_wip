@@ -83,6 +83,9 @@ Read and edit files with your file tools, not the shell.
   - `../cod2engine/archive/lnxded-1.0/src/`: the finished CoD2 server source, same `src/universal`, `src/xanim`, `src/script` files
   - `../refrences/CoD2rev_Server/src/`
   - `../refrences/iw3xo-radiant/`: the CoD4 radiant, a later version of this editor
+  - `../refrences/cod2map/cod2src/` and `../refrences/opencod2/cod2rad/src/`: rebuilt CoD2 map compiler and
+    light tool. Same `universal` files (com_math, dvar, q_parse...), so good for names and logic. Their line
+    numbers and file layout are not the original ones; use the server source for those.
   - `research/opencode/`: old guesses per address (hints, not evidence)
 
 ## Never

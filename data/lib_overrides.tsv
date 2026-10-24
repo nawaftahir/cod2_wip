@@ -1,0 +1,4 @@
+# lib_sweep picks the first lib function with equal masked bytes; these addresses tie and were picked wrong
+addr	member	symbol	evidence
+0x004da73a	build\intel\mt_obj\toupper.obj	_toupper	internal call e818ffffff is _toupper's; _tolower has e819ffffff
+0x004d8070	build\intel\mt_obj\87ctriga.obj	_atan2	mov edx,0x58ee90 names "atan2" in the 87c stub table

@@ -40,6 +40,8 @@ addr	size	source	symbol	name	tag
 0x0048e640	194	src/universal/dvar.cpp	_Dvar_GetString	Dvar_GetString	SUPPORTED
 0x0048e710	93	src/universal/dvar.cpp	_Dvar_GetVariantString	Dvar_GetVariantString	SUPPORTED
 0x0048f240	44	src/universal/dvar.cpp	_Dvar_UpdateRegistration	Dvar_UpdateRegistration	SUPPORTED
+0x00498750	306	src/universal/splines/math_angles.cpp	?toAngles@@YAXAAVmat3_t@@AAVangles_t@@@Z	toAngles	SUPPORTED
+0x0049fd70	42	src/universal/splines/util_str.cpp	?toupper@idStr@@SAPADPAD@Z	idStr::toupper	SUPPORTED
 0x004acb50	14	src/xanim/xmodel_utils.cpp	?XModelGetName@@YAPBDPBUXModel@@@Z	XModelGetName	SUPPORTED
 0x004acb60	14	src/xanim/xmodel_utils.cpp	?XModelGetFlags@@YADPBUXModel@@@Z	XModelGetFlags	SUPPORTED
 0x004acd60	12	src/xanim/xmodel_utils.cpp	?XModelGetNumLods@@YAHPBUXModel@@@Z	XModelGetNumLods	SUPPORTED

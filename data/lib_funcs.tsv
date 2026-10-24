@@ -374,7 +374,7 @@ addr	size	lib	member	symbol
 0x004d7c2c	11	libcmt.lib	..\build\intel\mt_obj\typinfo.obj	??0type_info@@AAE@ABV0@@Z
 0x004d7f7d	177	libcmt.lib	..\build\intel\mt_obj\fabs.obj	_fabs
 0x004d802e	52	libcmt.lib	build\intel\mt_obj\sscanf.obj	_sscanf
-0x004d8070	10	libcmt.lib	..\build\intel\mt_obj\87ctran.obj	__exp_default
+0x004d8070	10	libcmt.lib	build\intel\mt_obj\87ctriga.obj	_atan2
 0x004d8090	57	libcmt.lib	build\intel\mt_obj\strncmp.obj	_strncmp
 0x004d80c9	128	libcmt.lib	build\intel\mt_obj\onexit.obj	__onexit_lk
 0x004d8149	40	libcmt.lib	build\intel\mt_obj\onexit.obj	___onexitinit
@@ -453,7 +453,7 @@ addr	size	lib	member	symbol
 0x004da5e3	134	libcmt.lib	build\intel\mt_obj\fgets.obj	_fgets
 0x004da669	8	libcmt.lib	build\intel\mt_obj\toupper.obj	__toupper
 0x004da671	201	libcmt.lib	build\intel\mt_obj\toupper.obj	___toupper_mt
-0x004da73a	34	libcmt.lib	build\intel\mt_obj\tolower.obj	_tolower
+0x004da73a	34	libcmt.lib	build\intel\mt_obj\toupper.obj	_toupper
 0x004da75c	148	libcmt.lib	build\intel\mt_obj\mbscmp.obj	__mbscmp
 0x004da910	134	libcmt.lib	build\intel\mt_obj\strstr.obj	_strstr
 0x004da996	32	libcmt.lib	build\intel\mt_obj\findfile.obj	__findclose
