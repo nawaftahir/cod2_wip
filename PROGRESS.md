@@ -5,7 +5,41 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: actual screen copy/save/blur/blend chain
+### Latest: stencil planes and packed triangles
+
+rb_backend.cpp now has actual stencil-plane command7, triangle command32 and
+its real render helper. They reuse existing vertex setters, Begin/EndSurface,
+RB_Set3D and RB_TessOverflow. Shared rb_commands.h pins plane and16-byte triangle
+prefixes; triangle payload is five separate arrays with signed-short counts.
+Point/line16-byte vertices and packet layouts are also pinned, but their helpers/
+handlers are NOT counted as reconstructed source yet.
+
+Stencil geometry is read AFTER overflow; vertex counts are live per setter,
+while distance/depth stay fixed for each quad. Counts publish AFTER vertex and
+index writes. Plane count reloads each iteration. Triangles capture packed-array
+pointers and scalar counts before callbacks, copy indices before vertices, then
+publish counts and flush. The PC3D transition condition is preserved, rather than
+the reversed Mac draft condition. No duplicate tess/material/state is allocated.
+
+Final original build, BOTH referees and all133 fixtures pass; the exact1448
+accepted extents remain. Native2160 stencil and8640 direct/packed triangle cases
+check captures/live mutations, late publication, five-array offsets, index wrap/
+guards, unconditional final flush and actual overflow declaration restore,
+including its extra flush branch. Vertex/surface calls are mocked; existing
+vertex/submission helpers have separate native checks, no GPU proof is claimed.
+
+NO new byte credit: C++104237/253580=41.106159792%,617 bodies, frozen inventory;
+31 assembly exclusions/7787 bytes unchanged. All three new bodies await genuine
+table reachability. Source exists for23/33 non-null command handlers;10 plus the
+real dispatcher/API/RenderScene/world chains remain. Stages1-3 are NOT complete.
+No new TU/order, roots, flags, globals or authored assembly; all prior backend
+source restores exactly by removing the new section. Named imports stay exact;
+157 temporary exports, no GetRefAPI. Same-offset equality9.053728222% is diagnostic.
+Proof: proof/backend_geometry_checkpoint.json; protected bind unchanged.
+Next: point30 and line31 helper pairs/dispatch. Their primary mapping is pinned
+in ATTEMPTS.md, not inferred from the incomplete Mac command table.
+
+### Earlier: actual screen copy/save/blur/blend chain
 
 Five new private functions in rb_backend.cpp restore screen copying, save,
 shadow-blur pass/dispatch and saved-screen blending. They reuse actual

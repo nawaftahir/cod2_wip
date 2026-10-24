@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/rb_backend.cpp').read_text()
-source = text[text.index('// Backend screen copy, shadow blur and saved-screen commands.'):text.index('// Backend presentation.')]
+source = text[text.index('// Backend screen copy, shadow blur and saved-screen commands.'):text.index('// Backend stencil-plane and triangle geometry.')]
 source = source.replace('#include "r_permanent.h"','').replace('#include <math.h>','')
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
 a = local.index('#define R_DX_STRING(call)')

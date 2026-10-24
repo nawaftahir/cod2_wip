@@ -517,3 +517,16 @@ matching the common frontend writer's packet. Copy/pass helpers and handlers
 10/28/29 remain private in backend pending the genuine complete command table.
 Blend calls the existing biased I_fround; no authored assembly definition changes,
 and future containing-body matches must retain separate assembly accounting.
+
+### Geometry command records - 2026-10-24
+
+rb_commands.h now owns PC stencil16-byte prefix, triangle16-byte prefix and the
+16-byte GfxPointVertex (XYZ plus four color bytes). Point/line records have signed
+short counts/size at4/6 and vertex tails at8. These latter layouts do not count
+as implemented handlers. Triangle packed arrays start at16 with40 bytes per
+vertex across five separate arrays; indices are u16 after the UV array.
+
+Stencil command7 and triangle command32/helper stay private in rb_backend.cpp.
+They reuse sole tess storage, r_permanent.stencilPlaneMaterial, existing Begin/
+EndSurface, RB_TessOverflow and 4D/lit vertex writers. No new allocation or TU is
+introduced. No partial dispatch table is created to force code retention.

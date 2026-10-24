@@ -991,6 +991,91 @@ typedef char screenCopyStateLayoutCheck[(offsetof(r_global_permanent_t, savedScr
     && offsetof(r_global_permanent_t, shadowCookieBlurMaterial) == 0x1054
     && offsetof(r_global_permanent_t, shellShockMaterial) == 0x10d0) ? 1 : -1];
 
+// Backend stencil-plane and triangle geometry.
+// PINNED 1002faf0: geometry follows overflow, counts follow all vertex/index writes.
+static void RB_StencilPlanesCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdStencilPlanes *cmd = (const GfxCmdStencilPlanes *)state->cmd;
+    const Material *material = rgp.stencilPlaneMaterial;
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    const GfxColor white = 0xffffffff;
+    for (int plane = 0; plane < cmd->planeCount; ++plane)
+    {
+        if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+            RB_TessOverflow();
+        float distance = cmd->planeDists[plane];
+        float depth = distance - cmd->nearDist;
+        float negative = -distance;
+        RB_SetVertex4D(tess.vertexCount, negative, negative, depth, distance, 0.0f, 0.0f, &white);
+        RB_SetVertex4D(tess.vertexCount + 1, negative, distance, depth, distance, 0.0f, 0.0f, &white);
+        RB_SetVertex4D(tess.vertexCount + 2, distance, distance, depth, distance, 0.0f, 0.0f, &white);
+        RB_SetVertex4D(tess.vertexCount + 3, distance, negative, depth, distance, 0.0f, 0.0f, &white);
+        int base = tess.vertexCount;
+        int first = tess.indexCount;
+        tess.indices[first] = (unsigned short)base;
+        tess.indices[first + 1] = (unsigned short)(base + 1);
+        tess.indices[first + 2] = (unsigned short)(base + 2);
+        tess.indices[first + 3] = (unsigned short)(base + 2);
+        tess.indices[first + 4] = (unsigned short)(base + 3);
+        tess.indices[first + 5] = (unsigned short)base;
+        tess.vertexCount += 4;
+        tess.indexCount += 6;
+    }
+    RB_EndSurface();
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 10031d20: role name; retain packet arrays/counts across surface callbacks.
+static void RB_DrawTriangles(const Material *material, int technique, short indexCount,
+    const unsigned short *indices, short vertexCount, const float (*xyzw)[4],
+    const float (*normals)[3], const GfxColor *colors, const float (*texCoords)[2])
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (backEnd.projection2D)
+        RB_Set3D();
+    if (tess.material != material || tess.techType != technique)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, technique, 31);
+    }
+    if (tess.vertexCount + vertexCount > 5450 || tess.indexCount + indexCount > 0x100000)
+        RB_TessOverflow();
+    for (int index = 0; index < indexCount; ++index)
+        tess.indices[tess.indexCount + index] = (unsigned short)(tess.vertexCount + indices[index]);
+    for (int vertex = 0; vertex < vertexCount; ++vertex)
+        RB_SetLitVertex4D(tess.vertexCount + vertex, xyzw[vertex][0], xyzw[vertex][1],
+            xyzw[vertex][2], xyzw[vertex][3], normals[vertex][0], normals[vertex][1],
+            normals[vertex][2], texCoords[vertex][0], texCoords[vertex][1], colors + vertex);
+    tess.indexCount += indexCount;
+    tess.vertexCount += vertexCount;
+    RB_EndSurface();
+}
+
+// PINNED 10031e90, command32: signed short counts determine the five packed arrays.
+static void RB_DrawTrianglesCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdDrawTriangles *cmd = (const GfxCmdDrawTriangles *)state->cmd;
+    int count = cmd->vertexCount;
+    const byte *positions = (const byte *)cmd + sizeof(*cmd);
+    const byte *normals = positions + count * 16;
+    const byte *colors = normals + count * 12;
+    const byte *texCoords = colors + count * 4;
+    const unsigned short *indices = (const unsigned short *)(texCoords + count * 8);
+    RB_DrawTriangles(cmd->material, cmd->techType, cmd->indexCount, indices, cmd->vertexCount,
+        (const float (*)[4])positions, (const float (*)[3])normals,
+        (const GfxColor *)colors, (const float (*)[2])texCoords);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
 // Backend presentation.
 extern const dvar_t *r_gamma;
 extern const dvar_t *r_ignoreHwGamma;

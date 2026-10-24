@@ -164,3 +164,48 @@ struct GfxCmdBlendSavedScreen
 
 typedef char commandBlendSavedScreenLayoutCheck[(sizeof(GfxCmdBlendSavedScreen) == 12
     && offsetof(GfxCmdBlendSavedScreen, fadeMsec) == 4) ? 1 : -1];
+
+struct GfxCmdStencilPlanes
+{
+    GfxCmdHeader header;
+    float nearDist;
+    int planeCount;
+    float planeDists[1];
+};
+
+struct GfxCmdDrawTriangles
+{
+    GfxCmdHeader header;
+    const Material *material;
+    int techType;
+    short indexCount, vertexCount;
+};
+
+struct GfxPointVertex
+{
+    float xyz[3];
+    byte color[4];
+};
+
+struct GfxCmdDrawPoints
+{
+    GfxCmdHeader header;
+    short pointCount, size;
+    GfxPointVertex verts[1];
+};
+
+struct GfxCmdDrawLines
+{
+    GfxCmdHeader header;
+    short lineCount, width;
+    GfxPointVertex verts[2];
+};
+
+typedef char commandGeometryLayoutCheck[(sizeof(GfxCmdStencilPlanes) == 16
+    && offsetof(GfxCmdStencilPlanes, planeDists) == 12
+    && sizeof(GfxCmdDrawTriangles) == 16
+    && offsetof(GfxCmdDrawTriangles, indexCount) == 12
+    && offsetof(GfxCmdDrawTriangles, vertexCount) == 14
+    && sizeof(GfxPointVertex) == 16 && offsetof(GfxPointVertex, color) == 12
+    && sizeof(GfxCmdDrawPoints) == 24 && offsetof(GfxCmdDrawPoints, verts) == 8
+    && sizeof(GfxCmdDrawLines) == 40 && offsetof(GfxCmdDrawLines, verts) == 8) ? 1 : -1];

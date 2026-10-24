@@ -1656,3 +1656,39 @@ Vertices(-d,-d,d-near,d),(-d,d,d-near,d),(d,d,d-near,d),(d,-d,d-near,d), UV0,0,
 white. Indices0,1,2,2,3,0 relative live base; counts publish AFTER writes. Count is
 reloaded after each plane. EndSurface even for no planes, then live cursor advance.
 No Set2D or Set3D call occurs. New source is still required; this is input evidence.
+
+### Stencil planes and packed triangles - 2026-10-24
+
+PINNED command7=2faf0/619B, command32=31e90/93B and its actual31d20/361B helper.
+Do not use the earlier unverified assumption that31cc0 is triangles: PC31cc0
+is line dispatch (count4/width6, vertices8; 2D31470(count,verts), 3D31780 with
+count,width,verts,1). PC31420 is point dispatch (2D30de0,3D31070), command30.
+The Mac command table leaves several of these primary slots empty.
+
+Stencil packet is header4/nearDist4/planeCount8/float distancesc. Capture packet
+and rgp.stencilPlaneMaterial before the initial material/technique flush. No Set2D/
+Set3D. Reuse strict4/6 capacity and actual RB_TessOverflow; geometry is read AFTER
+that callback. Four RB_SetVertex4D calls reload live vertexCount each time while
+keeping distance/depth fixed within the quad. White/UV0,0, winding0,1,2,2,3,0.
+Counts publish only afterward, vertex before index. Reload planeCount per loop;
+EndSurface even for zero planes and advance the live cursor after the final flush.
+
+Triangle prefix16 bytes: material4,tech8,signed short indexCountc/vertexCounte.
+Payload arrays: xyzw16*n, normal12*n, color4*n, UV8*n, then u16 indices. Wrapper
+computes these from the original count before calling31d20. The helper captures
+scalar counts/material/tech by value across callbacks; only the array contents
+remain live. Flush pending, switch to3D IF projection2D is true (Mac draft's
+condition was reversed), then original material/tech handling and capacity.
+Copy base-shifted indices BEFORE vertex calls; each RB_SetLitVertex4D uses live
+vertexCount+i and the original packet color pointer. Add signed counts AFTER all
+writes, index then vertex, and EndSurface unconditionally before live advancement.
+
+New source reuses the actual overflow helper and existing verified vertex writers.
+SDK header now pins stencil/triangle and future point/line packet records; the
+latter two are structure evidence, not restored handler credit. No new state,
+flags, roots, TU/order or assembly. Native2160 stencil and8640 direct/packed
+triangle cases pass, including changing packet payloads/counts, pointer/counter
+changes during vertex calls, original packed offsets, late publication, index
+wrap/guards and nested overflow declaration restore. GPU submission and full
+vertex encoding are covered by separate existing helpers, not claimed here as
+new hardware evidence. All1448 old address/extents survive the original build.

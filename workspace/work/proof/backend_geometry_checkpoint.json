@@ -1,0 +1,110 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "4bc757c",
+  "scope": "stencil-plane command and packed-triangle helper/wrapper with shared geometry records",
+  "source_functions_restored": [
+    "RB_StencilPlanesCmd",
+    "RB_DrawTriangles",
+    "RB_DrawTrianglesCmd"
+  ],
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 23,
+  "new_command_ids": [
+    7,
+    32
+  ],
+  "point_line_records_only_not_handler_credit": true,
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "a88cc40c883fb22725daa28694c5344065dda09f7e121b30626fb10e7852fc22",
+  "same_file_offset_percent": 9.053728221792035,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 954322,
+      "sha256": "3d2bed005b9ca5a1ee6eca5f5fddb3ee0e03d8dd4d867be41a7e5149a9d45fb1"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602748,
+      "sha256": "f1c04feb1865b2081ae24bcdec3cf6f50d9234061cad9d8e95f05878537f567b"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "59b428b42eef3d23166920b05556a26ee6a7e7fc32cbc076b99186a3246ae555"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88258,
+      "sha256": "4bc7fb75feebc7b49ff45bff8a1868c9f17d9ecd840974d861051ae673102df4"
+    }
+  ],
+  "cpp_executable_bytes": 104237,
+  "cpp_percent_legacy_inventory": 41.106159791781685,
+  "cpp_game_bodies": 617,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1448,
+  "full_source_fixtures_passed": 133,
+  "native_cases": {
+    "stencil_packets": 2160,
+    "direct_packed_triangles": 8640
+  },
+  "native_reuses_actual_RB_TessOverflow": true,
+  "tu_order_unchanged": true,
+  "named_import_set_identical": true,
+  "temporary_exports": 157,
+  "GetRefAPI_present": false,
+  "binding_snapshot": {
+    "path": "target/work/proof/image_residency_warm_bind.json",
+    "sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59"
+  },
+  "assembly_review": {
+    "old_backend_sha256": "b93e35024c33ea25737a84cdd204253ee53b17390b1987f908458e1e20dccb7c",
+    "new_backend_sha256": "9ad86b11002b4e234f72d4922aeba93795c8c406e5b7613077abf6f685ff7f98",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only new stencil/triangle section; reconstruct full previous source exactly",
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "9ad86b11002b4e234f72d4922aeba93795c8c406e5b7613077abf6f685ff7f98",
+    "target/work/src/gfx_d3d/rb_commands.h": "fba2e63fc48e5a87154f1b41a7945922042696bf883205724c75ee6718ce4a7d",
+    "target/work/src/gfx_d3d/rb_2d.cpp": "4b821018963ad73067b90e69eaf6161b7e6ef271413814b1bd142b5a9e2901fe",
+    "target/work/tools/source_coverage.py": "206260575e46e032a11ec970d4fd19a4e9260d0ab685f8933b15687fd6105b49",
+    "target/work/tests/test_backend_screen.py": "537239946de217e37161dd77e66a322f00cd68634339c5bdde147e2247abac90",
+    "target/work/tests/test_backend_geometry.py": "3f44149d68f6bbbbbb881fe6aaf021277e3ff6c35b60690f59c7741e270f260a"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_geometry_build.log": "e155ae5df40f81d254961e0ed15278ffd24220a4013a618e05fed9be39ce3ce6",
+    "target/work/proof/latest/backend_geometry_fixtures.log": "29fc5fc6ffcf161430d77d2eb2c6110bb9723b3e87f7436d658653420ca031c9"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "limits": [
+    "three new private bodies remain uncredited and await genuine command table",
+    "native vertex/surface mocks test routing and buffer/count ownership; no GPU or full vertex-encoding proof in this fixture",
+    "point/line records do not imply restored point/line helpers or handlers",
+    "dispatcher/API/world load/final layout/whole SHA remain open"
+  ]
+}
