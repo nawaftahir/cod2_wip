@@ -44,13 +44,13 @@ int FUN_0047d980(const char *expr, const char *file, int line, int a4, int a5);
 
 extern int g_assertsDisabled;
 
-// always fires (unless asserts are off), e.g. an unhandled switch case
-#define assertFail(fmt, a1) \
+// always fires unless asserts are off; type is the handler's 4th argument (1 for an unhandled switch case)
+#define assertFail(type, fmt, a1) \
 	do { \
 		static bool s_assertDisable; \
 		if ( !g_assertsDisabled && !s_assertDisable ) \
 		{ \
-			switch ( FUN_0047d980( va( fmt, a1 ), __FILE__, __LINE__, 1, 1 ) ) \
+			switch ( FUN_0047d980( va( fmt, a1 ), __FILE__, __LINE__, type, 1 ) ) \
 			{ \
 			case 0: \
 				DebugBreak(); \

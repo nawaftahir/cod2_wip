@@ -30,3 +30,4 @@ addr	agent	date	reason
 0x0048e330	claude	2026-10-24	Dvar_Get*: ~45%, retail inlines Dvar_FindVar two levels deep with the stack form; ours calls it out of line with no callers in the tree yet; asserted body in scratch/claude/dvar_get_deferred.cpp
 0x0048e640	claude	2026-10-24	Dvar_Get*: ~45%, retail inlines Dvar_FindVar two levels deep with the stack form; ours calls it out of line with no callers in the tree yet; asserted body in scratch/claude/dvar_get_deferred.cpp
 0x0048e710	claude	2026-10-24	Dvar_Get*: ~45%, retail inlines Dvar_FindVar two levels deep with the stack form; ours calls it out of line with no callers in the tree yet; asserted body in scratch/claude/dvar_get_deferred.cpp
+0x0048a560	claude	2026-10-24	Hunk_AllocInternal: matches with the stack form only while its callers exist; alone LTCG gives it a register argument (14/19 B)

@@ -28,6 +28,7 @@ def functions(lines):
 src = open(sys.argv[1]).read().split("\n")
 new = open(sys.argv[2]).read().split("\n")
 have = functions(src)
+appended = []
 for name, (a, b) in sorted(functions(new).items(), key=lambda x: -x[1][0]):
     body = new[a:b + 1]
     if name in have:
@@ -35,7 +36,9 @@ for name, (a, b) in sorted(functions(new).items(), key=lambda x: -x[1][0]):
         src[x:y + 1] = body
         have = functions(src)
     else:
-        src += [""] + body
-        have = functions(src)
+        appended.insert(0, body)
     print("merged", name)
+# new functions go at the end in their own order
+for body in appended:
+    src += [""] + body
 open(sys.argv[1], "w").write("\n".join(src))

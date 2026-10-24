@@ -58,3 +58,9 @@ enum CriticalSection
 
 void Sys_EnterCriticalSection(int section);
 void Sys_LeaveCriticalSection(int section);
+
+void Sys_OutOfMemErrorInternal(const char *filename, int line);
+int Sys_MilliSeconds(void);
+
+typedef void (*xcommand_t)(void);
+void Cmd_AddCommand(const char *cmd_name, xcommand_t function);

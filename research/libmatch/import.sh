@@ -24,6 +24,9 @@ grep "^#" build/pair1.txt || tail -20 build/pair1.txt
 grep "^0x" build/pair1.txt | cut -f4 > build/keep.txt
 python3 research/libmatch/strip.py "src/$F" build/keep.txt 2>/dev/null
 ledger build/pair1.txt
+# asserts onto retail lines; build/<file>_names.tsv names functions not in the ledger yet
+NAMES="build/$(basename $F .cpp)_names.tsv"
+python3 research/libmatch/layout.py "src/$F" $( [ -f "$NAMES" ] && echo "$NAMES" )
 $RUN sh -c "python3 tools/link.py >/dev/null && python3 research/libmatch/pair.py src/$F" > build/pair2.txt 2>&1 || true
 grep "^#" build/pair2.txt || tail -20 build/pair2.txt
 ledger build/pair2.txt
