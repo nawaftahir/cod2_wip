@@ -1465,3 +1465,21 @@ production source unchanged. Native424 routes pass. An initial full suite was
 started before fresh cmp/bind reports: dependency-origin freshness guard rejected
 it correctly. Repeat the entire suite only AFTER the original build completes;
 never weaken freshness or accept that initial failed run.
+
+### Backend begin-view and 3D setup - 2026-10-24
+
+PINNED primary321f0/274B:48-byte packet, sceneDef4/16B, viewParms14h,
+lodParms18h/20B and viewCount2ch. Packet captured BEFORE flush; copy view count,
+scene, view pointer, LOD, viewport and viewProjection. Publish tile0/1 and live
+vidConfig dimensions, update viewport constants only for behavior0, then actual
+32120 frustum helper and2e380 Set3D. No Mac nextPow2/pixel-dimension scaling.
+
+PINNED2e380/230B: flush pending work, clear projection2D, identity world matrix
+at the current codeMatrixStack level, call existing ChangedWorldMatrix(1.0f),
+then existing SetMatricesForView using live viewParms. Reload viewParms AFTER
+that callback for origin/axis constants11..14 with w=1/0/0/0. Do not cache the
+view pointer before matrix callbacks or restore a different stack's identity.
+The prior code and assembly source restore exactly by removing the new view
+section; no new assembly, roots, globals, flags or TU entries are introduced.
+Native checks cover240 begin-view and240 direct3D setups; COM/matrix side effects
+are mocked, so this is not complete GPU or game execution proof.

@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "cfd7e46",
+  "scope": "actual begin-view command and shared 3D matrix restoration",
+  "source_functions_restored": [
+    "RB_Set3D",
+    "RB_BeginViewCmd"
+  ],
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 16,
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "b42804f52a114a37adb84716352611f4515a6f3ab1a57823898f7705fee80a88",
+  "same_file_offset_percent": 9.062694448285399,
+  "cpp_executable_bytes": 104181,
+  "cpp_percent_legacy_inventory": 41.08407603123275,
+  "cpp_game_bodies": 616,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1447,
+  "full_source_fixtures_passed": 128,
+  "tu_order_unchanged": true,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "assembly_review": {
+    "old_backend_sha256": "2f872623b541762013b204f9006a8c0cbd1483f5dc6e19328e8748271add8ff5",
+    "new_backend_sha256": "f0cfac755d4a5adb208b270403bf9128c28180b574120b7101693fdad9b780c1",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only the new Backend view setup section; restore full previous source exactly",
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 954306,
+      "sha256": "417ffb13c6bd20e47a47625e660e1f7f7aca28da0737d980e688f4b83af4fc69"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602783,
+      "sha256": "cfd1e93f12c137e04b764148c3038b06ee5f62308691f2e7dc2e74266230e0d5"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "2118773302f4d2a15ea39b5c4be031a451b33829897fa923f6fcb1c3ec24da9e"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88252,
+      "sha256": "6fa919da4683581b88a50d80b52809c0d8f6471cc02c7d6ecfbed62bedc0362f"
+    }
+  ],
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "f0cfac755d4a5adb208b270403bf9128c28180b574120b7101693fdad9b780c1",
+    "target/work/src/gfx_d3d/rb_commands.h": "53966bf4c18ba249b4141869b7bfca2a7d4a63691862a497c995ddbdb35b4a70",
+    "target/work/tools/source_coverage.py": "a7ce497a55972329cbae6fadfd1eb42f32d613a25066b45af832647f6fc78692",
+    "target/work/tests/test_backend_state_commands.py": "7bcc039428b2864524df7e5d710deafe2ce2fa5de320e77b1ac03d603184a1f1",
+    "target/work/tests/test_backend_view.py": "a36a8c2dc06f4c8776f01ed32649bd73a97a85f36c7860c4c80ddfd3591e1c91"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_view_build.log": "4f89f0cdb4452975bc2e44c5096cf8d5035b4f1447b5cd48d436a8204cc0e4fd",
+    "target/work/proof/latest/backend_view_fixtures.log": "8659606f175273a5a79e06612830d73f06ebf348ea378fc8f352e36d9295a54e"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "limits": [
+    "new bodies remain uncredited; private begin-view awaits genuine command table",
+    "native matrix/COM mocks do not prove complete GPU/game execution or all IEEE arithmetic",
+    "scene/LOD byte views still need typed shared recovery",
+    "dispatcher/API/world load/final layout/whole SHA remain open"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "named_import_set_identical": true,
+  "native_begin_view_cases": 240,
+  "native_3d_restore_cases": 240
+}

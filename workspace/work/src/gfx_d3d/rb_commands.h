@@ -126,3 +126,18 @@ typedef char commandStatePayloadLayoutCheck[(sizeof(GfxCmdSetLightProperties) ==
     && sizeof(GfxCmdSetShadowCookie) == 72
     && offsetof(GfxCmdSetShadowCookie, fade) == 68
     && offsetof(GfxCmdSetClipPlanes, clipPlanes) == 8) ? 1 : -1];
+
+struct GfxViewParms;
+struct GfxCmdBeginView
+{
+    GfxCmdHeader header;
+    char sceneDef[16];
+    const GfxViewParms *viewParms;
+    char lodParms[20];
+    int viewCount;
+};
+
+typedef char commandBeginViewLayoutCheck[(sizeof(GfxCmdBeginView) == 48
+    && offsetof(GfxCmdBeginView, viewParms) == 20
+    && offsetof(GfxCmdBeginView, lodParms) == 24
+    && offsetof(GfxCmdBeginView, viewCount) == 44) ? 1 : -1];

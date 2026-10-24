@@ -803,6 +803,54 @@ static void RB_SetClipPlanesCmd(GfxRenderCommandExecState *state)
     state->cmd = (const byte *)header + header->byteCount;
 }
 
+// Backend view setup.
+void MatrixIdentity44(float matrix[4][4]);
+void RB_ChangedWorldMatrix(float scale);
+void RB_SetMatricesForView(const GfxViewParms *viewParms);
+
+// PINNED 1002e380: restore 3D matrices before publishing fresh view vectors.
+void RB_Set3D()
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    backEnd.projection2D = 0;
+    MatrixIdentity44(backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0].m);
+    RB_ChangedWorldMatrix(1.0f);
+    RB_SetMatricesForView(backEnd.viewParms);
+    const GfxViewParms *viewParms = backEnd.viewParms;
+    RB_SetCodeConstant(11, viewParms->origin[0], viewParms->origin[1], viewParms->origin[2], 1.0f);
+    RB_SetCodeConstant(12, viewParms->axis[0][0], viewParms->axis[0][1], viewParms->axis[0][2], 0.0f);
+    RB_SetCodeConstant(13, viewParms->axis[1][0], viewParms->axis[1][1], viewParms->axis[1][2], 0.0f);
+    RB_SetCodeConstant(14, viewParms->axis[2][0], viewParms->axis[2][1], viewParms->axis[2][2], 0.0f);
+}
+
+// PINNED 100321f0: retain packet across flush, then use shared viewport/matrix code.
+static void RB_BeginViewCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdBeginView *cmd = (const GfxCmdBeginView *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    backEnd.viewCount = cmd->viewCount;
+    memcpy(backEnd.sceneDef, cmd->sceneDef, sizeof(backEnd.sceneDef));
+    backEnd.viewParms = cmd->viewParms;
+    memcpy(backEnd.lodParms, cmd->lodParms, sizeof(backEnd.lodParms));
+    backEnd.sceneViewport.x = backEnd.viewParms->viewport.X;
+    backEnd.sceneViewport.y = backEnd.viewParms->viewport.Y;
+    backEnd.sceneViewport.width = backEnd.viewParms->viewport.Width;
+    backEnd.sceneViewport.height = backEnd.viewParms->viewport.Height;
+    backEnd.viewProjectionMatrix = backEnd.viewParms->viewProjectionMatrix;
+    backEnd.tileIndex = 0;
+    backEnd.tileCount = 1;
+    backEnd.width = vidConfig.width;
+    backEnd.height = vidConfig.height;
+    if (!dxState.viewportBehavior)
+        RB_UpdateViewportConstants();
+    RB_SetFrustumConstants();
+    RB_Set3D();
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
 // Backend presentation.
 extern const dvar_t *r_gamma;
 extern const dvar_t *r_ignoreHwGamma;

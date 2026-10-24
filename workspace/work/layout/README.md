@@ -456,3 +456,9 @@ same backend TU. Shared records are76/8/72 bytes and variable plane tail at8.
 Existing light[2], DxState cache and shared shadow matrices retain sole owners.
 PC shadow command invalidates stack zero even at a nonzero active stack level;
 clip commands do not flush surfaces. No TU/order or state allocation change.
+
+Backend begin-view uses a48-byte shared packet with existing16-byte scene and
+20-byte LOD records, unchanged backend state ownership. RB_Set3D uses existing
+matrix-stack/global state and existing rb_state.cpp invalidation and matrix
+installation helpers; no duplicate implementation or allocation is added.
+The scene/LOD byte views remain an explicitly incomplete type recovery task.

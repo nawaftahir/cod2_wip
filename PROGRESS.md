@@ -5,7 +5,34 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: backend light, stencil, shadow and clipping
+### Latest: begin-view and 3D matrix restoration
+
+RB_BeginViewCmd and RB_Set3D now have actual source in rb_backend.cpp. The48-byte
+shared command record carries scene, view, LOD and view-count payloads. Begin-view
+retains the original packet across a flush, publishes viewport/matrix/tile/video
+state, and calls the existing viewport, PC frustum and matrix implementations.
+Set3D restores identity at the active stack level and uses fresh camera state
+after existing matrix callbacks. No Mac pixel/power-of-two scaling is introduced.
+
+Source exists for16 of33 non-null command handlers;17 remain, plus the genuine
+dispatcher/table, world-load and remaining API closure. Scene/LOD byte views still
+need typed shared recovery. Stages1-3 are NOT complete; no whole-file/GPU claim.
+
+Original-toolchain build, both referees and all128 full fixtures pass, retaining
+the exact1447 accepted extents. Native240 begin-view plus240 direct3D cases check
+shared ABI, pre-flush capture, callback-mutated cameras/cursors, selected matrix
+stack, payload copies, viewport sequencing and unscaled PC frustum arithmetic.
+Native matrix/COM hooks do not prove real GPU behavior or all IEEE cases.
+
+NO new V2 credit: C++104181/253580=41.084076031%,616 bodies, frozen inventory;
+31 assembly exclusions/7787 bytes unchanged. Same-offset equality9.062694448%
+is only diagnostic. Named imports stay exact;159 temporary exports and no
+GetRefAPI remain. No new roots, flags, globals, TU/order or authored assembly.
+Removing only the new section restores all prior backend source exactly.
+Proof: proof/backend_view_checkpoint.json. Next: typed scene/LOD ownership and
+remaining genuine command chains, then world/API closure; no leaf flag sweeps.
+
+### Earlier: backend light, stencil, shadow and clipping
 
 Four more actual handlers now have source in rb_backend.cpp: light properties,
 stencil reference, shadow cookie and clip planes.15 of33 non-null handler bodies
