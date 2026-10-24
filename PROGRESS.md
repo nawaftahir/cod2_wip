@@ -5,7 +5,36 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: genuine 2D/3D point commands
+### Latest: actual line geometry and XYZ vertex writer
+
+Restored XYZ/UV/color-pointer writer1002e550/229B, 2D line helper10031470/760B,
+3D/debug line helper10031780/1332B and command31 wrapper10031cc0/91B. PC2D has
+no width argument. Both paths reuse actual Vec2Normalize and RB_TessOverflow;
+3D preserves the real depthTest byte input, temporary identity projection/view,
+and fresh-view/fresh-material restoration. No point-style Z bias or extra guards.
+Offsets precede overflow; 2D XYZ remains live per setter, 3D clip math stays fixed.
+Counts publish index-before-vertices and vertex-after. Material-state view owns
+no storage. Volatile preserves the two primary stores; no historical claim.
+
+Original build, BOTH referees and all135 fixtures pass. Native17280 direct/
+command line cases cover fixed count/width across callbacks, negative/zero
+counts/widths, exact/overflow limits, NaN/infinite/degenerate endpoints, original
+normalization/overflow, live color/XYZ/cursor, frozen clip math/offsets and depth/
+view restoration. Vertex tests now check2688 complete DX7/DX9 buffers. Initial
+VC7.1 offsetof(array-element) assertion failed; equivalent member-offset-plus-
+word-size assertion passes. No executable workaround or compiler flag change.
+
+All1448 accepted extents and their exact set remain; C++104237/253580=
+41.106159792%,617 bodies. NO new byte credit;31 assembly exclusions/7787B
+unchanged. Source now25/33 command handlers; eight plus full dispatcher/API/
+RenderScene/world closure remain. Stages1-3 are OPEN. Same-offset9.138583293%
+is diagnostic;157 temporary exports, no GetRefAPI. No new TU/order/flags/roots/
+exports/globals/assembly. One output, no workers; tokens unavailable.
+Receipt: proof/backend_lines_checkpoint.json. GPU and exact x87 remain unproved.
+Next: command25 early-post uses the existing copy helper; dependencies and eight
+remaining primary table entries are pinned in ATTEMPTS.md.
+
+### Earlier: genuine 2D/3D point commands
 
 Restored RB_DrawPoints2D10030de0/655B, RB_DrawPoints3D10031070/931B and command30
 wrapper10031420/70B in rb_backend.cpp. Reuse shared point packets, original

@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/rb_backend.cpp').read_text()
-source = text[text.index('// Backend point geometry.'):text.index('// Backend presentation.')]
+source = text[text.index('// Backend point geometry.'):text.index('// Backend line geometry.')]
 header = (work / 'src/gfx_d3d/rb_commands.h').read_text().replace('#pragma once', '')
 tess = (work / 'src/gfx_d3d/rb_tess.h').read_text().replace('#pragma once', '')
 overflow = (work / 'src/gfx_d3d/rb_2d.cpp').read_text()

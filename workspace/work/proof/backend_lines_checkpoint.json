@@ -1,0 +1,115 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "356dda5",
+  "scope": "actual 2D/3D line helpers, command31 and XYZ vertex writer",
+  "source_functions_restored": [
+    "RB_SetVertex3D",
+    "RB_DrawLines2D",
+    "RB_DrawLines3D",
+    "RB_DrawLinesCmd"
+  ],
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 25,
+  "new_command_ids": [
+    31
+  ],
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "f812d1f8702d328421ba8131b4e2ed2a71eaae26a0de4fae210ccedfb347c185",
+  "same_file_offset_percent": 9.138583293003318,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 958464,
+      "virtual_bytes": 955826,
+      "sha256": "53b7231ec686747118f6e78c0560d037a8b9af8696fc8243875f02f920d60590"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xeb000",
+      "file_offset": "0xeb000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602748,
+      "sha256": "1e2b383460251b607e4a23dd258bc766d9b80fbb92b0121c41c528e448126e88"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17f000",
+      "file_offset": "0x17f000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "63dca2030789e4ee30db60b354005e33ce750097280760e494bba84094925ff2"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74d000",
+      "file_offset": "0x18d000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88404,
+      "sha256": "ab5f16c98343e2429d20f752f1d27b98e660d7e8a7480c6675211ee66b6cad38"
+    }
+  ],
+  "cpp_executable_bytes": 104237,
+  "cpp_percent_legacy_inventory": 41.106159791781685,
+  "cpp_game_bodies": 617,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1448,
+  "full_source_fixtures_passed": 135,
+  "native_cases": {
+    "direct_and_command_lines": 17280,
+    "vertex_writer_full_buffers": 2688
+  },
+  "native_reuses_actual_RB_TessOverflow": true,
+  "tu_order_unchanged": true,
+  "named_import_set_identical": true,
+  "temporary_exports": 157,
+  "GetRefAPI_present": false,
+  "binding_snapshot": {
+    "path": "target/work/proof/image_residency_warm_bind.json",
+    "sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59"
+  },
+  "assembly_review": {
+    "old_backend_sha256": "c0e48ea7ee271a46be95598f8b81c97e33f89370f980b2e717a9ebc323dd97b9",
+    "new_backend_sha256": "4f880f8275890351b203f620ddba2d2c48b368c2757a0cef9e5d332479057484",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only XYZ writer and line section; reconstruct full previous source exactly",
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "4f880f8275890351b203f620ddba2d2c48b368c2757a0cef9e5d332479057484",
+    "target/work/src/gfx_d3d/rb_commands.h": "fba2e63fc48e5a87154f1b41a7945922042696bf883205724c75ee6718ce4a7d",
+    "target/work/src/gfx_d3d/rb_2d.cpp": "4b821018963ad73067b90e69eaf6161b7e6ef271413814b1bd142b5a9e2901fe",
+    "target/work/src/universal/com_math.cpp": "b9e18556b994bcdd1c0fabe0f82fb285045f3dc9dfaf4c4470f5ba8c324bf0b1",
+    "target/work/tools/source_coverage.py": "375fc2f6ecaac4f5f5b8057b8c74a8cfa66afd92a82ff893298be8b2eef8e90f",
+    "target/work/tests/test_backend_lines.py": "ba50ab22aeda934e2f2687b53bccbcdeffce4c502b54819e94fb7401c01b00e5",
+    "target/work/tests/test_backend_points.py": "165e34d1026376dcd9cde7e7675b29a910f28cf20498a0ec63aa1e399e6e48d8",
+    "target/work/tests/test_vertex_writers.py": "c4a6295c664d435c5eedff06b0817b4bdbd23d03b5930e69664869426171ea49"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_lines_build.log": "e155ae5df40f81d254961e0ed15278ffd24220a4013a618e05fed9be39ce3ce6",
+    "target/work/proof/latest/backend_lines_fixtures.log": "0ebbbb5178f789b2bfaf7c3edb5eb9851ecc7405043c9f5bb37f9e023580a4a4"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "limits": [
+    "source restoration not new byte credit; actual command/debug graph still missing",
+    "native vertex/surface/matrix mocks and host floats do not prove GPU or exact x87 instructions",
+    "dispatcher/API/world closure, final layout and whole SHA remain open"
+  ],
+  "workers": 0,
+  "build_outputs": 1,
+  "agent_token_cost": "unavailable",
+  "native_reuses_actual_Vec2Normalize": true,
+  "material_state_view_not_allocation": true,
+  "historical_volatile_provenance_claimed": false
+}

@@ -1757,3 +1757,43 @@ store, then OR2 and store. On exit EndSurface then restore LIVE view, reload
 LIVE lineMaterial, clear bitsE/store then OR4/store. Do not restore saved bits or
 saved material. Preserve the two target writes explicitly; no claim that volatile
 was present in historical source. All this is pinned research, not source credit.
+
+### Line source closure - 2026-10-24
+
+Restored the preceding pinned2D/3D helpers and command31, plus the actual XYZ
+vertex writer1002e550/229B. All are in existing rb_backend.cpp;3D remains public
+for the real debug callers, with no artificial root/export. Existing Vec2Normalize
+supplies the target's sqrt/zero predicate; no new authored FP-status assembly.
+Shared GfxPointVertex remains16 bytes. A named material-state VIEW pins stateBits
+at2c/30 over the sole existing material, not a duplicate Material allocation.
+Volatile on the two local write sites preserves the two PC stores; historical
+volatile source provenance is not claimed. Direct3D depthTest consumes a byte,
+as target317ce and31c87 show; the inactive reference header's int is not authority.
+
+Initial VC7.1 build rejected offsetof(View,stateBits[1]) as nonconstant (C2057/
+C2466). Replaced only the assertion with offsetof(View,stateBits)+sizeof(uint),
+which pins the same30h field and changes no executable source. No flag trial.
+
+Native17280 actual-source line routes cover direct/command dispatch, signed
+count/width, zero/negative counts and widths, material/tech mismatch, exact and
+exceeded capacity, original normalize/overflow source, NaN/infinite/degenerate
+endpoints, setup/overflow/setter/restore mutations, fixed scalar arguments, live
+color/XYZ/cursor, retained clip math/offsets, fresh line-material depth restoration
+and early index/late vertex publication. Existing vertex writer fixture expands
+to2688 full-buffer DX7/DX9 cases including the XYZ writer; no GPU/x87 byte proof.
+
+Next connected target PINNED: command25 early-post10030c10/126B already calls
+our actual CopyBackBufferToSurface1002eaa0. Flush pending ordinary/optimized
+indices first, then set backEnd.resolvedPostSunTarget=14. Copy target1 image
+(dx target image101d4834) if r_distortion enabled OR (renderer!=2 AND
+hasSeparateAlphaBlend AND r_glow enabled AND !r_fullbright). Only after copy
+returns set resolvedPostSunTarget=1; always advance LIVE cursor afterward.
+The OR short circuit bypasses every glow/capability test when distortion is on.
+Primary registration pins r_distortion101ce650 (literal10192818,call1000b751,
+store1000b763), r_glow101ce71c (literal10192810,call1000b768,store1000b787),
+r_fullbright101ce6d0 (literal10192ed4,call1000abb2,store1000abc9). Existing typed
+hasSeparateAlphaBlend offset2d7d is101d496d; loader already asserts that offset.
+No new helper body or state allocation needed for this next handler.
+Remaining table entries after point/line source:19=2eff0 sprite,21=32c10 text,
+22=32c60 text-space,23=2f900 surfaces,24=2f970 sun,25=30c10 early-post,
+26=30ba0 late-post,27=30b60 sun-post. Table10190518 is primary, not Mac holes.

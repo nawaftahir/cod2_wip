@@ -435,6 +435,43 @@ void RB_SetVertex2D(int index, float x, float y, float s, float t, GfxColor colo
     }
 }
 
+// PINNED 1002e550: XYZ is unprojected and packed color is passed by pointer.
+void RB_SetVertex3D(int index, float x, float y, float z,
+    float s, float t, const GfxColor *color)
+{
+    if (r_rendererInUse->current.integer == 2)
+    {
+        ((GfxVertexDx7 *)tess.vertexData)[index].xyz[0] = x;
+        ((GfxVertexDx7 *)tess.vertexData)[index].xyz[1] = y;
+        ((GfxVertexDx7 *)tess.vertexData)[index].xyz[2] = z;
+        ((GfxVertexDx7 *)tess.vertexData)[index].normal[0] = 0.0f;
+        ((GfxVertexDx7 *)tess.vertexData)[index].normal[1] = 0.0f;
+        ((GfxVertexDx7 *)tess.vertexData)[index].normal[2] = 1.0f;
+        ((GfxVertexDx7 *)tess.vertexData)[index].color = *color;
+        ((GfxVertexDx7 *)tess.vertexData)[index].texCoord[0] = s;
+        ((GfxVertexDx7 *)tess.vertexData)[index].texCoord[1] = t;
+    }
+    else
+    {
+        ((GfxVertex *)tess.vertexData)[index].xyzw[0] = x;
+        ((GfxVertex *)tess.vertexData)[index].xyzw[1] = y;
+        ((GfxVertex *)tess.vertexData)[index].xyzw[2] = z;
+        ((GfxVertex *)tess.vertexData)[index].xyzw[3] = 1.0f;
+        ((GfxVertex *)tess.vertexData)[index].normal[0] = 0.0f;
+        ((GfxVertex *)tess.vertexData)[index].normal[1] = 0.0f;
+        ((GfxVertex *)tess.vertexData)[index].normal[2] = 1.0f;
+        ((GfxVertex *)tess.vertexData)[index].color = *color;
+        ((GfxVertex *)tess.vertexData)[index].texCoord[0] = s;
+        ((GfxVertex *)tess.vertexData)[index].texCoord[1] = t;
+        ((GfxVertex *)tess.vertexData)[index].tangent[0] = 1.0f;
+        ((GfxVertex *)tess.vertexData)[index].tangent[1] = 0.0f;
+        ((GfxVertex *)tess.vertexData)[index].tangent[2] = 0.0f;
+        ((GfxVertex *)tess.vertexData)[index].binormal[0] = 0.0f;
+        ((GfxVertex *)tess.vertexData)[index].binormal[1] = 1.0f;
+        ((GfxVertex *)tess.vertexData)[index].binormal[2] = 0.0f;
+    }
+}
+
 // PINNED 1002e640: only DX7 divides homogeneous coordinates by W.
 void RB_SetVertex4D(int index, float x, float y, float z, float w,
     float s, float t, const GfxColor *color)
@@ -1182,6 +1219,152 @@ static void RB_DrawPointsCmd(GfxRenderCommandExecState *state)
         RB_DrawPoints2D(cmd);
     else
         RB_DrawPoints3D(cmd);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// Backend line geometry.
+struct GfxLineMaterialStateView
+{
+    byte prefix[0x2c];
+    unsigned int stateBits[2];
+};
+typedef char lineMaterialStateLayoutCheck[(offsetof(GfxLineMaterialStateView, stateBits) + sizeof(unsigned int) == 0x30) ? 1 : -1];
+
+// PINNED 10031470: PC takes no width; perpendicular offsets precede overflow.
+static void RB_DrawLines2D(int count, const GfxPointVertex *verts)
+{
+    const Material *material = rgp.whiteMaterial;
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    for (; count > 0; --count, verts += 2)
+    {
+        float delta[2];
+        delta[0] = verts[1].xyz[1] - verts[0].xyz[1];
+        delta[1] = verts[0].xyz[0] - verts[1].xyz[0];
+        Vec2Normalize(delta);
+        delta[0] *= 0.5f;
+        delta[1] *= 0.5f;
+        if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+            RB_TessOverflow();
+        int first = tess.indexCount;
+        int base = tess.vertexCount;
+        tess.indices[first] = (unsigned short)(base + 1);
+        tess.indices[first + 1] = (unsigned short)base;
+        tess.indices[first + 2] = (unsigned short)(base + 2);
+        tess.indices[first + 3] = (unsigned short)(base + 2);
+        tess.indices[first + 4] = (unsigned short)base;
+        tess.indices[first + 5] = (unsigned short)(base + 3);
+        tess.indexCount += 6;
+        RB_SetVertex3D(tess.vertexCount, verts[0].xyz[0] - delta[0],
+            verts[0].xyz[1] - delta[1], verts[0].xyz[2], 0.0f, 0.0f, (const GfxColor *)verts[0].color);
+        RB_SetVertex3D(tess.vertexCount + 1, verts[1].xyz[0] - delta[0],
+            verts[1].xyz[1] - delta[1], verts[1].xyz[2], 0.0f, 1.0f, (const GfxColor *)verts[1].color);
+        RB_SetVertex3D(tess.vertexCount + 2, verts[1].xyz[0] + delta[0],
+            verts[1].xyz[1] + delta[1], verts[1].xyz[2], 1.0f, 1.0f, (const GfxColor *)verts[1].color);
+        RB_SetVertex3D(tess.vertexCount + 3, verts[0].xyz[0] + delta[0],
+            verts[0].xyz[1] + delta[1], verts[0].xyz[2], 1.0f, 0.0f, (const GfxColor *)verts[0].color);
+        tess.vertexCount += 4;
+    }
+}
+
+// PINNED 10031780: debug callers also pass depthTest0; command31 passes1.
+void RB_DrawLines3D(int count, int width, const GfxPointVertex *verts, bool depthTest)
+{
+    const Material *material = rgp.lineMaterial;
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    if (!depthTest)
+    {
+        // Preserve both PC stores without claiming historical volatile provenance.
+        volatile unsigned int *bits = &((GfxLineMaterialStateView *)rgp.lineMaterial)->stateBits[1];
+        unsigned int cleared = *bits & ~0xeu;
+        *bits = cleared;
+        *bits = cleared | 2;
+    }
+    D3DMATRIX identity;
+    MatrixIdentity44(identity.m);
+    backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0] = identity;
+    RB_ProjectionMatrixChanged();
+    RB_SetViewMatrix(&identity);
+    const D3DMATRIX *matrix = &backEnd.viewParms->viewProjectionMatrix;
+    float scaleX = (float)width / (float)dxState.renderTargetWidth;
+    float scaleY = (float)width / (float)dxState.renderTargetHeight;
+    for (; count > 0; --count, verts += 2)
+    {
+        float from[4], to[4];
+        from[0] = verts[0].xyz[0] * matrix->m[0][0] + verts[0].xyz[1] * matrix->m[1][0]
+            + verts[0].xyz[2] * matrix->m[2][0] + matrix->m[3][0];
+        from[1] = verts[0].xyz[1] * matrix->m[1][1] + verts[0].xyz[2] * matrix->m[2][1]
+            + verts[0].xyz[0] * matrix->m[0][1] + matrix->m[3][1];
+        from[2] = verts[0].xyz[2] * matrix->m[2][2] + verts[0].xyz[0] * matrix->m[0][2]
+            + verts[0].xyz[1] * matrix->m[1][2] + matrix->m[3][2];
+        from[3] = verts[0].xyz[1] * matrix->m[1][3] + verts[0].xyz[2] * matrix->m[2][3]
+            + verts[0].xyz[0] * matrix->m[0][3] + matrix->m[3][3];
+        to[0] = verts[1].xyz[2] * matrix->m[2][0] + verts[1].xyz[1] * matrix->m[1][0]
+            + verts[1].xyz[0] * matrix->m[0][0] + matrix->m[3][0];
+        to[1] = verts[1].xyz[2] * matrix->m[2][1] + verts[1].xyz[1] * matrix->m[1][1]
+            + verts[1].xyz[0] * matrix->m[0][1] + matrix->m[3][1];
+        to[2] = verts[1].xyz[0] * matrix->m[0][2] + verts[1].xyz[2] * matrix->m[2][2]
+            + verts[1].xyz[1] * matrix->m[1][2] + matrix->m[3][2];
+        to[3] = verts[1].xyz[2] * matrix->m[2][3] + verts[1].xyz[1] * matrix->m[1][3]
+            + verts[1].xyz[0] * matrix->m[0][3] + matrix->m[3][3];
+        float delta[2];
+        delta[0] = from[3] * to[1] - from[1] * to[3];
+        delta[1] = from[0] * to[3] - from[3] * to[0];
+        Vec2Normalize(delta);
+        delta[0] *= scaleX;
+        delta[1] *= scaleY;
+        float fromX = from[3] * delta[0], fromY = from[3] * delta[1];
+        float toX = to[3] * delta[0], toY = to[3] * delta[1];
+        if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+            RB_TessOverflow();
+        int first = tess.indexCount;
+        int base = tess.vertexCount;
+        tess.indices[first] = (unsigned short)(base + 3);
+        tess.indices[first + 1] = (unsigned short)base;
+        tess.indices[first + 2] = (unsigned short)(base + 2);
+        tess.indices[first + 3] = (unsigned short)(base + 2);
+        tess.indices[first + 4] = (unsigned short)base;
+        tess.indices[first + 5] = (unsigned short)(base + 1);
+        tess.indexCount += 6;
+        RB_SetVertex4D(tess.vertexCount, from[0] - fromX, from[1] - fromY,
+            from[2], from[3], 0.0f, 0.0f, (const GfxColor *)verts[0].color);
+        RB_SetVertex4D(tess.vertexCount + 1, to[0] - toX, to[1] - toY,
+            to[2], to[3], 0.0f, 1.0f, (const GfxColor *)verts[1].color);
+        RB_SetVertex4D(tess.vertexCount + 2, to[0] + toX, to[1] + toY,
+            to[2], to[3], 1.0f, 1.0f, (const GfxColor *)verts[1].color);
+        RB_SetVertex4D(tess.vertexCount + 3, from[0] + fromX, from[1] + fromY,
+            from[2], from[3], 1.0f, 0.0f, (const GfxColor *)verts[0].color);
+        tess.vertexCount += 4;
+    }
+    RB_EndSurface();
+    RB_SetMatricesForView(backEnd.viewParms);
+    if (!depthTest)
+    {
+        volatile unsigned int *bits = &((GfxLineMaterialStateView *)rgp.lineMaterial)->stateBits[1];
+        unsigned int cleared = *bits & ~0xeu;
+        *bits = cleared;
+        *bits = cleared | 4;
+    }
+}
+
+// PINNED 10031cc0: capture signed scalar arguments, advance the live cursor.
+static void RB_DrawLinesCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdDrawLines *cmd = (const GfxCmdDrawLines *)state->cmd;
+    if (backEnd.projection2D)
+        RB_DrawLines2D(cmd->lineCount, cmd->verts);
+    else
+        RB_DrawLines3D(cmd->lineCount, cmd->width, cmd->verts, true);
     const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
     state->cmd = (const byte *)header + header->byteCount;
 }

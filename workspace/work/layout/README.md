@@ -537,3 +537,10 @@ allocation supplies whiteMaterial1038/pointMaterial1040; rb_state owns matrix
 changes and r_sky owns tess. No TU/order/flag/global/root/export change. Real
 command-table reachability remains pending; do not retain these private bodies
 through artificial exports or count source restoration as a new byte match.
+
+Line commands,2026-10-24: XYZ writer,2D helper, public3D/debug helper and command31
+stay in rb_backend.cpp. Public3D is justified by five primary debug call sites,
+not by an extra export. Shared packet/color and sole tess/rgp owners are reused.
+Material-state view reads the existing object's words2c/30; it allocates nothing.
+No new TU/order/flag/root/export. Actual command table and debug caller source
+still determine final retention; this wave does not certify their closure.

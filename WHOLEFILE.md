@@ -315,3 +315,10 @@ not a complete dispatcher/API.7776 focused routes, original build, both referees
 and all134 fixtures pass; all1448 extents unchanged. No new byte credit, TU,
 root, flag or assembly; stages1-3 remain OPEN. Next line31 and genuine remaining
 command/API/RenderScene/world closure. See PROGRESS.md and backend_points_checkpoint.json.
+
+2026-10-24 line closure: actual XYZ vertex writer,2D/3D line helpers and command31
+reuse original normalize/overflow and sole state owners; no new TU/order/root/flag.
+Source25/33 handlers, full API/dispatcher/world still open.17280 line routes and
+2688 writer cases, both referees/all135 fixtures pass with all1448 extents
+unchanged. C++ byte meter stays41.106159792%; no source-only credit inflation.
+Next early-post25 already reuses our real copy helper; see ATTEMPTS.md.
