@@ -145,14 +145,7 @@ extern int alwaysfails;
 typedef unsigned long(__stdcall *D3DReleaseFn)(void *obj);
 #define D3D_VTABLE(obj) (*(void ***)((void *)(obj)))
 
-static void R_FreeStaticIndexBuffer(IDirect3DIndexBuffer9 *ib)
-{
-    do
-    {
-        ((D3DReleaseFn)D3D_VTABLE(ib)[0x08 / 4])((void *)ib);
-        ib = NULL;
-    } while (alwaysfails != 0);
-}
+void R_FreeStaticIndexBuffer(IDirect3DIndexBuffer9 *ib);
 
 // Out-of-line copies of both helpers exist in retail (0x1002db50, 0x1002dc40), so they are not static.
 void XSurfaceFreeVertexBuffer(XSurface *surf)

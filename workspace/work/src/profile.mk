@@ -7,6 +7,3 @@ $(B)/obj/gfx_d3d/r_surfbounds.obj: CFLAGS += /Op
 $(B)/obj/gfx_d3d/r_shadowcookie.obj: CFLAGS += /Op
 $(B)/obj/gfx_d3d/r_lightgrid_weights.obj: CFLAGS += /Op
 $(B)/obj/gfx_d3d/r_model_lod.obj: CFLAGS += /Op
-$(B)/obj/gfx_d3d/r_dpvs_winding.obj: $(SRCDIR)/gfx_d3d/r_dpvs_winding.c
-	@mkdir -p $(dir $@)
-	@$(CL) $(CFLAGS) /TC /Fd$(call W,$@).pdb /Fo$(call W,$@) $(call W,$<) > $@.log 2>&1 || (cat $@.log; false)

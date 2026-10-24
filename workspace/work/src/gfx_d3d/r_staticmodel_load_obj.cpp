@@ -24,6 +24,15 @@ int R_GetMaxModelSurfaceCount(const XModel *model)
     return maxSurfaces;
 }
 
+// PINNED 10029780: the second retail copy of the rounded BGRA helper.
+static __declspec(noinline) void R_QuantizeStaticModelColor(byte *out, const float *color)
+{
+    out[2] = (byte)I_max(0, I_min(255, I_fround(color[0] * 255.0f)));
+    out[1] = (byte)I_max(0, I_min(255, I_fround(color[1] * 255.0f)));
+    out[0] = (byte)I_max(0, I_min(255, I_fround(color[2] * 255.0f)));
+    out[3] = (byte)I_max(0, I_min(255, I_fround(color[3] * 255.0f)));
+}
+
 // Lighting cache image being built while the entity lump loads.
 static struct
 {
@@ -354,6 +363,82 @@ static void R_FilterStaticModelIntoCells_r(GfxWorld *world, mnode_t *node, GfxSt
 // Name unconfirmed: bounds of the model's lod 0 surfaces under the instance axis.
 void R_StaticModelBounds(XModel *model, const float *axis, float *mins, float *maxs);
 
+// PINNED 1002a360/441; descriptive name for the static-model bounds helper.
+void R_StaticModelBounds(XModel *model, const float *axis, float *mins, float *maxs)
+{
+    XSurface **surfaces;
+    int *partBits;
+    DObjSkelMat *matArray;
+    float *verts;
+    DObjSkelMat *mat;
+    const DObjAnimMat *basePose;
+    const float *vert;
+    float dot;
+    int surfaceCount;
+    int numBones;
+    int surfIndex;
+    int vertCount;
+    int i;
+
+    mins[0] = FLT_MAX;
+    mins[1] = FLT_MAX;
+    mins[2] = FLT_MAX;
+    maxs[0] = -FLT_MAX;
+    maxs[1] = -FLT_MAX;
+    maxs[2] = -FLT_MAX;
+    surfaceCount = ri.XModelGetSurfaces(model, &surfaces, 0, &partBits);
+    matArray = (DObjSkelMat *)ri.Hunk_AllocateTempMemoryInternal(0x2000);
+    verts = (float *)ri.Hunk_AllocateTempMemoryInternal(0xff78);
+    numBones = ri.XModelNumBones(model);
+    basePose = (const DObjAnimMat *)ri.XModelGetBasePose(model);
+    if (numBones > 0)
+    {
+        mat = matArray;
+        do
+        {
+            R_ConvertAnimMatToSkelMat(basePose, mat);
+            ++mat;
+            ++basePose;
+            --numBones;
+        } while (numBones);
+    }
+    surfIndex = 0;
+    if (surfaceCount > 0)
+    do
+    {
+        vertCount = surfaces[surfIndex]->vertCount;
+        XSurfaceGetVerts(surfaces[surfIndex], matArray, verts, 0, 0);
+        if (vertCount > 0)
+        {
+            vert = verts;
+            do
+            {
+                dot = vert[2] * axis[6] + vert[0] * axis[0] + axis[3] * vert[1];
+                if (dot < mins[0])
+                    mins[0] = dot;
+                if (dot > maxs[0])
+                    maxs[0] = dot;
+                dot = vert[0] * axis[1] + axis[7] * vert[2] + vert[1] * axis[4];
+                if (dot < mins[1])
+                    mins[1] = dot;
+                if (dot > maxs[1])
+                    maxs[1] = dot;
+                dot = vert[0] * axis[2] + vert[2] * axis[8] + axis[5] * vert[1];
+                if (dot < mins[2])
+                    mins[2] = dot;
+                if (dot > maxs[2])
+                    maxs[2] = dot;
+                vert += 3;
+                --vertCount;
+            } while (vertCount);
+        }
+        ++surfIndex;
+    } while (surfIndex < surfaceCount);
+    ri.Hunk_FreeTempMemory(verts);
+    ri.Hunk_FreeTempMemory(matArray);
+}
+
+// PINNED 1002a520: scale directional lighting and sun visibility.
 void R_ScaleStaticModelLighting(float directLightScale, float indirectLightScale, float *sunVisibility, vec4_t *colorForDir)
 {
     vec4_t *color = colorForDir;
@@ -371,28 +456,63 @@ void R_ScaleStaticModelLighting(float directLightScale, float indirectLightScale
     } while (i);
 }
 
+float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *origin, vec4_t *colors);
+
+// PINNED 1002a570/341: each model owns a 2x2 block in both lighting-image layers.
+void R_CacheStaticModelLighting(const GfxWorld *world, GfxStaticModelInstance *instance,
+    float sunVisibility, vec4_t *colorForDir)
+{
+    int modelIndex = world->smodelCount - 1;
+    if (r_rendererInUse->current.integer == 2)
+    {
+        memcpy(world->smodelLightingColorTable[modelIndex], colorForDir, sizeof(vec4_t) * 6);
+        world->smodelLightingSunVisTable[modelIndex] = sunVisibility;
+        return;
+    }
+    int x = (modelIndex % smodelLoadGlob.width) * 2;
+    int y = (modelIndex / smodelLoadGlob.width) * 2;
+    int component = 0;
+    for (int layer = 0; layer < 2; ++layer)
+        for (int row = y; row < y + 2; ++row)
+            for (int column = x; column < x + 2; ++column, ++component)
+            {
+                vec4_t color;
+                color[0] = ((float *)colorForDir)[component];
+                color[1] = ((float *)colorForDir)[component + 8];
+                color[2] = ((float *)colorForDir)[component + 16];
+                color[3] = sunVisibility;
+                R_QuantizeStaticModelColor(&smodelLoadGlob.pixels[
+                    ((row + smodelLoadGlob.height * 2 * layer) * smodelLoadGlob.width * 2 + column) * 4], color);
+            }
+    instance->baseLightingCoords[0] = (x + 1.0f) * smodelLoadGlob.texelScaleX;
+    instance->baseLightingCoords[1] = (y + 1.0f) * smodelLoadGlob.texelScaleY;
+    instance->baseLightingCoords[2] = 0.5f;
+}
+
+// PINNED 1002a6d0: sample the midpoint of the instance's world bounds.
+void R_GetStaticModelLightingFromGrid(const GfxWorld *world,
+    GfxStaticModelInstance *instance, float *sunVisibility, vec4_t *colorForDir)
+{
+    vec3_t origin;
+    for (int index = 0; index < 3; ++index)
+        origin[index] = (instance->mins[index] + instance->maxs[index]) * 0.5f;
+    *sunVisibility = RB_GetLightingAtPoint(&world->lightGrid, origin, colorForDir);
+}
+
+// PINNED 1002a730: eight copies per ground-light channel.
 void R_GetStaticModelLightingFromGround(const vec_t *groundLight, float *sunVisibility, vec4_t *colorForDir)
 {
-    float *base = (float *)colorForDir;
-    int i;
-    vec_t v;
-
-    for (i = 0; i < 3; i++)
+    vec4_t *color = colorForDir;
+    int index = 0;
+    do
     {
-        v = groundLight[i];
-        base[i * 8 + 0] = v;
-        base[i * 8 + 1] = v;
-        base[i * 8 + 2] = v;
-        base[i * 8 + 3] = v;
-        v = groundLight[i];
-        base[i * 8 + 4] = v;
-        base[i * 8 + 5] = v;
-        base[i * 8 + 6] = v;
-        base[i * 8 + 7] = v;
-    }
+        Vector4Set(*color++, groundLight[index], groundLight[index], groundLight[index], groundLight[index]);
+        Vector4Set(*color++, groundLight[index], groundLight[index], groundLight[index], groundLight[index]);
+    } while (++index != 3);
     *sunVisibility = groundLight[3];
 }
 
+// PINNED 1002a780: allocate the DX7 tables or a two-layer DX9 image.
 void R_PrepareStaticModelLightingCache(GfxWorld *world, int smodelCount)
 {
     int width;
@@ -421,6 +541,7 @@ void R_PrepareStaticModelLightingCache(GfxWorld *world, int smodelCount)
     memset(smodelLoadGlob.pixels, 0x80, size);
 }
 
+// PINNED 1002a860: publish image coordinates before clearing the load state.
 void R_FinishStaticModelLightingCache(GfxWorld *world)
 {
     GfxImage *image;

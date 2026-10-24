@@ -52,7 +52,7 @@ for name, result in (('VectorCopy','void'), ('VectorScale','void'), ('VectorSubt
     en = header.index('\n}', st)+2
     program += header[st:en].replace('TU_STATIC','static inline')+'\n'
 program += dpvs[start:end] + source
-program += 'extern "C" {\n' + (packet / 'gfx_d3d/r_dpvs_winding.c').read_text() + '\n}\n'
+program += fragment('gfx_d3d/r_dpvs_winding.c')
 program += r'''
 int main() {
     D3DMATRIX matrix = {}; for(int i=0;i<4;++i)matrix.m[i][i]=1;

@@ -1858,3 +1858,92 @@ These primary traces explain connected missing-source work; do not fabricate a
 complete GetRefAPI table to bypass it. Preserve ABI inputs (both API material
 wrappers have three args; baseImageFlags is unused on PC). No function flag/
 spelling sweeps are authorized by this audit.
+
+### Codex 2026-10-24 command-file move
+
+The original build and both referees retain all1448 protected extents with
+R_RegisterCmds/R_UnregisterCmds in r_cmds.cpp. The first fixture replay
+stopped in test_begin_registration.py: its slice ended at the old moved
+10005360 marker. Repointed the boundary to R_UnregisterCmds's declaration
+in r_init; test registration/shutdown sources read r_cmds directly through
+the fragment map. No compiler-input or referee change was needed. The old
+fixture is preserved under scratch/codex_1024_structure/before_cmds/tests.
+
+The second replay reached test_renderer_systems.py and found one more old
+end marker (R_ScreenShot_f's moved declaration). Repointed it to the new
+R_RegisterCmds declaration and checked all moved callback names in tests.
+Both failures were fixture slicing, not source or extent regressions.
+
+### PINNED static-model chain boundaries, 2026-10-24
+
+Primary RETs: entity loader10003880..10003d3d is1214 bytes, not the GLM
+inventory's1206; it omits the last POP, stack adjustment and RET. Lighting
+cache writer1002a570..1002a6c4 is341 bytes, not335. Float lookup10002e80/72,
+vec3 lookup10002ed0/115, hex lookup10002f50/192, validation10003030/328,
+misc-model loader100031b0/626, grid sample1002a6d0/81, ground sample
+1002a730/79, cache prepare1002a780/223 and cache finish1002a860/214. These
+are primary boundaries, not new V2 credit. Caller100032b2 reads RI+198
+(101d4b60), which is XModelGetFlags; GLM incorrectly labels it GetName.
+At10003296 the caller loads modelscale_vec[2]; scalar modelscale fills all
+three entries only when modelscale_vec is absent. Evidence: scratch/
+codex_1024_structure/static_model_primary.asm plus the retail tail at3d2d.
+
+### Static-model caller group, bounded trials1-4 (Codex 2026-10-24)
+
+All four original builds retain all1448 protected extents. Vec3 lookup
+10002ed0/115 and hex lookup10002f50/192 pass BOTH byte and binding referees:
+307 provisional new C++ bytes. Native spawn, entity and lighting fixtures
+pass on trial3; final full-suite replay is pending the settled batch.
+
+- R_RegisterModel expanded into validation, growing it to488 vs328. A
+  noinline declaration in the caller TU did not prevent this under VC7.1
+  LTCG. The primary-justified annotation on its actual r_model definition
+  reduces validation to349 and preserves all protected matches. No historical
+  annotation provenance is claimed. Moving vars to the final parameter alone
+  still produces349. Trial5 changes the model-name lookup join shape.
+- Float lookup double/early-return and float/early-return both produce65,
+  vs retail72. An explicit guarded scan with float return produces81.
+  Trial5 tests that guarded scan with double return; caller ABI and every
+  accepted extent remain guarded. Do not infer /GL impossibility.
+- Grid midpoint: scalar fields produce81 with Y/Z add operands reversed
+  from retail; reversing source operands does not fix it. Vec3Add followed
+  by Vec3Scale grows to92, rejected; restored scalar form in trial4.
+- Ground lighting: inherited cached-value loop unrolls to97 vs79. Two
+  Vector4Set calls with an ordinary for loop unroll to145. Explicit eight
+  assignments with do/while(++index !=3) produce a rolled73-byte body;
+  trial5 uses Vector4Set with that retained-loop form.
+- A real local rounded-color copy belongs at10029780 (same retail bytes
+  as1000f180). First local signature produces285 bytes with no byte hit,
+  vs the shared helper's already accepted285. Trial5 reverses only the
+  local helper's argument order and its caller. Existing I_fround is reused;
+  no authored assembly definition or accounting guard has changed.
+
+Source snapshots and referee JSONs: scratch/codex_1024_structure/static_trial*;
+validation side-by-side: proof/latest/static_validation_trial3.diff. The new
+source lives in the existing retail files; no TU/root/export/flag was added.
+
+### Static-model trials5-6 and settled source
+
+Both builds retain all1448 protected extents and the two new accepted leaves.
+The full139-fixture suite passes on trial6; two accepted-leaf binding checks
+now have ten target/length/owner/closure/removal negatives. No referee or
+assembly accounting gate changed, and no authored assembly was added.
+
+- Guarded float scan stays81 with either float or double return. Restored
+  the simpler double-return scan65; the retail72-byte double-exit layout
+  remains DEFER. No compiler/TU impossibility claim.
+- Index/value join lookup reduces validation349->336; original parameter
+  order plus explicit found-label reduces it to332 vs328. Misc-model
+  caller becomes625 vs626; loader stays1232 vs1214. These remain drafts.
+- do/while(++index !=3) retains the ground loop; Vector4Set yields78 vs79.
+  Post-incrementing the output pointer also yields78. Remaining difference
+  is index/pointer scheduling around the first four captured channel loads.
+- Grid array loop stays81 vs81 but does not match normalized bytes. Color
+  helper with reversed parameters stays285 without a byte hit. Cache
+  writer stays356 vs341. All remain uncredited drafts. The new private
+  color copy reuses existing I_fround and receives no C++ credit.
+
+The bounds1002a360 helper also moved into r_staticmodel_load_obj before
+1002a520, with unchanged flags/signature. Its old /Op comment was stale.
+Original build/referees retain all1448 extents and307 new C++ bytes; bounds
+remains406 vs441. Final fixture replay: codex_static_bounds_merge_fixtures.log.

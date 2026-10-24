@@ -261,6 +261,23 @@ Bool SMC_GetFreeBlockOfSize(static_model_cache_t *cache, int listIndex)
     return 1;
 }
 
+typedef HRESULT (__stdcall *CacheCreateVertexBufferFn)(void *, UINT, DWORD,
+    DWORD, int, IDirect3DVertexBuffer9 **, void *);
+
+// PINNED 1002b920/128: size is captured before the original logging/retry loop.
+void R_CreateSmodelCacheVertexBuffer()
+{
+    int size;
+
+    size = (r_rendererInUse->current.integer == 2 ? 0x24 : 0x40) * 0x10000;
+    do
+    {
+        RB_LogPrint("dx.device->CreateVertexBuffer( size, (0x00000200L) | (0x00000008L), 0, D3DPOOL_DEFAULT, &dx.smodelCacheVb, 0 )\n");
+        ((CacheCreateVertexBufferFn)(*(void ***)dx.device)[0x68 / 4])(
+            (void *)dx.device, size, 0x208, 0, 0, &dx.smodelCacheVb, 0);
+    } while (alwaysfails);
+}
+
 void SMC_ClearCache()
 {
     static_model_node_list_t *freenode;

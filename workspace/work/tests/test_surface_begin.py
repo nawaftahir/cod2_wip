@@ -8,7 +8,7 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 source = (work / 'src/gfx_d3d/rb_shade.cpp').read_text()
-source = (source[source.index('// PINNED 10037930'):source.index('// PINNED 100388f0')]
+source = (source[source.index('// PINNED 10037930'):source.index('// Dynamic index and vertex uploads.')]
     + source[source.index('// PINNED 1003a5f0'):])
 header = (work / 'src/gfx_d3d/rb_tess.h').read_text()
 header = header[header.index('struct Material;'):header.index('#ifdef _MSC_VER')]

@@ -1,8 +1,8 @@
 {
-  "functions": 649,
-  "bytes": 112167,
+  "functions": 651,
+  "bytes": 112474,
   "total": 253580,
-  "percent": 44.23337802665825,
+  "percent": 44.354444356810475,
   "baseline_lost": [],
   "gains": [
     {
@@ -18,6 +18,18 @@
       "object": "rb_imagefilter.obj"
     },
     {
+      "target": "0x10002ed0",
+      "bytes": 115,
+      "name": "?R_Vec3ForKey@@YAEPBD0PAY01PBDHPAM@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10002f50",
+      "bytes": 192,
+      "name": "?R_Vec4ForKeyHex@@YAEPBD0PAY01PBDHPAM@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
       "target": "0x10003430",
       "bytes": 939,
       "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
@@ -27,19 +39,19 @@
       "target": "0x100050e0",
       "bytes": 73,
       "name": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
-      "object": "r_dxbuffers.obj"
+      "object": "r_buffers.obj"
     },
     {
       "target": "0x100052c0",
       "bytes": 151,
       "name": "?R_RegisterCmds@@YAXXZ",
-      "object": "r_init.obj"
+      "object": "r_cmds.obj"
     },
     {
       "target": "0x10005360",
       "bytes": 114,
       "name": "?R_UnregisterCmds@@YAXXZ",
-      "object": "r_init.obj"
+      "object": "r_cmds.obj"
     },
     {
       "target": "0x10005420",
@@ -339,7 +351,7 @@
       "target": "0x100113e0",
       "bytes": 49,
       "name": "?R_FatalBufferLockError@@YAXJ@Z",
-      "object": "rb_buffer_upload.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10011460",
@@ -381,19 +393,19 @@
       "target": "0x10011a40",
       "bytes": 129,
       "name": "?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z",
-      "object": "r_dxbuffers.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10011ad0",
       "bytes": 129,
       "name": "?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z",
-      "object": "r_dxbuffers.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10011b60",
       "bytes": 143,
       "name": "?R_CreateDynamicBuffers@@YAXXZ",
-      "object": "r_dxbuffers.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10012320",
@@ -939,7 +951,7 @@
       "target": "0x100386b0",
       "bytes": 282,
       "name": "?RB_SetIndexData@@YAHPBGH@Z",
-      "object": "rb_buffer_upload.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x100388f0",

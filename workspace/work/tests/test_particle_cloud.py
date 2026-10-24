@@ -1,5 +1,6 @@
 """Actual particle-cloud geometry, RNG order, buffer ownership and retail failure behavior."""
 from pathlib import Path
+from fragment import fragment
 import subprocess
 import tempfile
 import struct
@@ -9,8 +10,8 @@ work = Path(__file__).resolve().parents[1]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 for address, value in [(0x1019be48,1.0/32767),(0x1019bdc8,.25),(0x1019bdac,.125),(0x1019bc78,1.0)]:
     assert retail.get_data(address-0x10000000,4) == struct.pack('<f',value)
-text = (work / 'src/gfx_d3d/r_dxbuffers.cpp').read_text()
-source = text[text.index('struct ParticleCloudVertex'):]
+text = fragment('gfx_d3d/r_dxbuffers.cpp')
+source = text[text.index('struct ParticleCloudVertex'):text.index('// PINNED 10011e60:')]
 program = r'''
 #include <cassert>
 #include <cstdio>

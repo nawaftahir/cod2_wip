@@ -633,29 +633,40 @@ tools/sdk_guard.py from `cl /EP` of r_local.h + the PC header list in gfx.h;
 rerun it on pristine headers (git checkout) whenever that list changes.
 TUs that include only gfx.h see the headers unchanged.
 
-### Still to merge (by Mac file + retail address)
+### File placement checkpoint - 2026-10-24 (Codex)
 
-| Retail file | Candidate TUs | Blocker |
+All handoff moves and the later-confirmed bounds move pass the original
+build, both referees, all1448 protected extents and the final139-fixture
+suite. No move was reverted. Placement alone held C++104380 bytes; the
+subsequent vec3/hex leaves raise it to104687/253580=41.283618582%,620 bodies.
+Final same-offset9.185953056% is diagnostic. The starting runner had135
+fixtures, not the handoff's139. Cache allocation and three load-chain
+fixtures raise it to139; ten negatives protect the accepted leaves.
+
+| Retail file | Moved source | Result or remaining blocker |
 | --- | --- | --- |
-| r_init.cpp | 5 r_dxbuffers fns | per-function move (other 2 go to r_buffers) |
-| r_model.cpp | r_model_lod | r_model_lod is /Op, rest of r_model is not |
-| rb_shade.cpp | 2 rb_buffer_upload fns | per-function move |
-| r_image_load_obj.cpp | r_lightgrid_weights | /Op and the fabs constraint |
-| r_buffers.cpp (missing) | 3 fns in r_bsp_load_obj, 1 in r_dxbuffers, 1 in r_xsurface_load_obj | per-function move |
-| r_cmds.cpp (missing) | 2 fns in r_init | per-function move |
-| r_dpvs.cpp | r_dpvs_winding.c | C TU with C names |
+| r_init.cpp | 5 r_dxbuffers initialization/release bodies | gated |
+| rb_shade.cpp | 2 rb_buffer_upload functions | gated |
+| r_buffers.cpp | 3 r_bsp_load_obj helpers, index unlock and index free | gated |
+| r_cmds.cpp | registration and unregistration from r_init | gated |
+| r_staticmodelcache.cpp | R_CreateSmodelCacheVertexBuffer1002b920 | gated; placement support below |
+| r_staticmodel_load_obj.cpp | bounds1002a360 from isolated research TU | gated; same flags and ABI |
+| r_dpvs.cpp | both winding extrema, now C++ | gated; C TU and /TC rule removed |
+| r_model.cpp | r_model_lod | DEFER: /Op differs from the rest of r_model |
+| r_image_load_obj.cpp | r_lightgrid_weights | DEFER: /Op and first-fabs constraint |
 
-The root blocker is the two type views: gfx.h (Mac common types) and
-r_local.h (SDK types). Consolidating them into one header set is the next
-structural task; after that the r_init/material/screenshot/rb_shade merges
-are mechanical. Retail files with no candidate yet: r_buffers, r_cmds,
-r_font_load_obj, r_light_load_obj, r_loadworld_new, r_model_load_obj,
-r_sky_load_obj, r_staticmodel, rb_debug, rb_tess.
+r_local.h and gfx.h can coexist through the generated SDK guards; the earlier
+blocked material, initialization, screenshot and shading merges are done.
+Candidate file placement is not proof of original PC TU boundaries. Other
+unclassified/scattered bodies remain in file_layout.tsv for future evidence
+work; do not move shared inline helpers by address alone. Retail files with
+no candidate yet include r_font_load_obj, r_light_load_obj, r_loadworld_new,
+r_model_load_obj, r_sky_load_obj, r_staticmodel, rb_debug and rb_tess.
 
 ### Flags (src/profile.mk, plus the /Op column in tus.txt for universal)
 
 /Op: r_surfbounds, r_shadowcookie, r_lightgrid_weights, r_model_lod (profile.mk);
-com_rotate+com_math, com_plane (tus.txt column). r_dpvs_winding is C (/TC).
+com_rotate+com_math, com_plane (tus.txt column). Winding helpers now compile in r_dpvs.cpp.
 jpeg-6b: /O2 /GL /MT /TC /DNO_GETENV. Moving the universal /Op flags into
 profile.mk was tried and backed out with the order bisect; it is equivalent
 but untested alone. Libraries: d3d9 d3dx9 DxErr9 user32 gdi32 advapi32
@@ -715,3 +726,22 @@ directly above a body, so move such addresses onto the body when you touch it. B
 find its retail address (glm/data/decomp start) and cite it above the body,
 or leave it out of new work. Do not delete them in bulk: adding or removing
 bodies re-rolls LTCG placement of accepted code; each removal needs a gated build.
+
+### Cache-buffer owner correction
+
+SUPPORTED: R_CreateSmodelCacheVertexBuffer1002b920 is between the PC cached
+skinning chain and SMC_ClearCache1002b9a0, not the r_buffers interval at
+10004f40..10005143. It now lives in r_staticmodelcache, using its existing
+Mac-type COM view and the primary CreateVertexBuffer slot/flags/log string.
+The handoff's instruction to put both remaining r_dxbuffers helpers in
+r_buffers was inconsistent with these addresses. Historical TU ownership
+of this unnamed PC-only helper is still unconfirmed; this is candidate
+placement, not original-source proof. Both referees, all1448 extents and 136/136 fixtures pass.
+
+### Static-model bounds owner
+
+PINNED: retail caller1002a9c0 calls bounds1002a360..1002a518, immediately
+before the static-model lighting family. The old r_staticmodel_bounds TU
+used the same flags as r_staticmodel_load_obj (its /Op comment was stale).
+The helper is now in the load file before lighting scale1002a520; its name
+remains descriptive. No ABI/type/flag/root change. Both referees, all1448 extents and139 fixtures pass.

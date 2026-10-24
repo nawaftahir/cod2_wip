@@ -1,12 +1,13 @@
 """Actual uploads: rollover, lock modes, copy bounds, cache and callback mutation."""
 from pathlib import Path
+from fragment import fragment
 import subprocess
 import tempfile
 import capstone
 import pefile
 
 work = Path(__file__).resolve().parents[1]
-source = (work/'src/gfx_d3d/rb_buffer_upload.cpp').read_text()
+source = fragment('gfx_d3d/rb_buffer_upload.cpp')
 source = source[source.index('// Both retail upload'):]
 retail = pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)

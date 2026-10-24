@@ -5,7 +5,93 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: one type view, r_init/r_model/r_screenshot merged
+### Latest: handoff file moves complete; static-model source wave (Codex)
+
+Eighteen bodies now live in their retail files across seven gated moves,
+including the later-confirmed1002a360 bounds owner. No move was reverted.
+The original build, BOTH referees, all1448 protected extents and139/139
+fixtures pass. Immutable protected bind SHA is unchanged. Ten negative
+controls now reject losing/misbinding either accepted spawn leaf.
+
+New accepted C++: vec3 lookup10002ed0/115 and hex lookup10002f50/192,
+307 bytes. C++104380 ->104687/253580=41.283618582%,618 ->620 bodies.
+Same-offset9.067717696% ->9.185953056% is diagnostic.
+The actual initial runner had135 fixtures (handoff139 was stale); cache
+allocation and three static-model fixtures raise it to139.31 inherited
+assembly exclusions/7787 bytes and the accounting/referee tools are unchanged.
+
+Restored the genuine two-pass entity/misc-model load path, validated model
+fallback, flags/transforms, and DX7/DX9 lighting-cache paths in existing TUs.
+Other new bodies remain uncredited drafts: their exact sizes/differences and
+six bounded source trials are in ATTEMPTS.md. R_RegisterModel's definition
+has a primary-justified noinline guard; this is not historical provenance.
+No new TU/root/export/flag or authored assembly definition in the source wave.
+
+r_model_lod and r_lightgrid_weights retain the handoff's explicit /Op/fabs
+DEFERs. Layout/evidence maps are fresh. Stages1-3 and whole-file/runtime
+remain OPEN. No commits or pushes; inherited staged work preserved.
+Receipts: proof/structure_checkpoint.json and proof/static_model_checkpoint.json;
+final logs: proof/latest/codex_static_bounds_merge_*.log. Token cost unavailable
+per move. Next work: caller/TU evidence for the listed residual load-chain
+mismatches, then genuine world/API closure; no tiny repeated spelling sweeps.
+
+### Earlier: convex winding helpers merged into r_dpvs as C++ (Codex)
+
+Original build, both referees and all1448 protected extents pass;
+136/136 actual-source fixtures. C++104380/253580=
+41.162552252%,618 bodies; same-offset9.064800971%.
+No new byte credit from file placement. Logs/receipt: proof/latest/codex_winding_merge_*.
+No commits or pushes; inherited staged work preserved. Token cost unavailable
+per move. Whole-file identity and runtime remain open.
+
+### Earlier: cache vertex-buffer initializer moved into r_staticmodelcache (Codex)
+
+Original build, both referees and all1448 protected extents pass;
+136/136 actual-source fixtures. C++104380/253580=
+41.162552252%,618 bodies; same-offset9.065827226%.
+No new byte credit from file placement. Logs/receipt: proof/latest/codex_cache_buffer_merge_*.
+No commits or pushes; inherited staged work preserved. Token cost unavailable
+per move. Whole-file identity and runtime remain open.
+
+### Earlier: console command registration moved into r_cmds (Codex)
+
+Original build, both referees and all1448 protected extents pass;
+135/135 actual-source fixtures. C++104380/253580=
+41.162552252%,618 bodies; same-offset9.070418366%.
+No new byte credit from file placement. Logs/receipt: proof/latest/codex_cmds_merge_*.
+No commits or pushes; inherited staged work preserved. Token cost unavailable
+per move. Whole-file identity and runtime remain open.
+
+### Earlier: five static-buffer helpers moved into r_buffers (Codex)
+
+Original build, both referees and all1448 protected extents pass;
+135/135 actual-source fixtures. C++104380/253580=
+41.162552252%,618 bodies; same-offset9.077656164%.
+No new byte credit from file placement. Logs/receipt: proof/latest/codex_buffers_merge_*.
+No commits or pushes; inherited staged work preserved. Token cost unavailable
+per move. Whole-file identity and runtime remain open.
+
+### Earlier: dynamic index and vertex uploads moved into rb_shade (Codex)
+
+Original build, both referees and all1448 protected extents pass;
+135/135 actual-source fixtures. C++104380/253580=
+41.162552252%,618 bodies; same-offset9.068581910%.
+No new byte credit from file placement. Logs/receipt: proof/latest/codex_upload_merge_*.
+No commits or pushes; inherited staged work preserved. Token cost unavailable
+per move. Whole-file identity and runtime remain open.
+
+### Earlier: buffer initialization moved into r_init (Codex)
+
+Moved five r_dxbuffers initialization/release bodies into r_init in retail
+address order, retaining the original section boundaries through fragments.json.
+Original build, both referees and all1448 protected extents pass. The actual
+current runner discovers135 fixtures, all passing (the handoff said139).
+C++104380/253580=41.162552252%,618 bodies; same-offset9.067393615%.
+No new byte credit. Logs: proof/latest/codex_dxbuffers_merge_{build,fixtures}.log.
+Static-buffer and cache helpers remain in r_dxbuffers pending their moves.
+No commits; prior staged work preserved. Token cost is not available per move.
+
+### Earlier: one type view, r_init/r_model/r_screenshot merged
 
 gfx.h and r_local.h now work in one file (r_local.h first): the Mac header
 declarations that the real SDK/PC headers own are skipped by generated

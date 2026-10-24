@@ -102,7 +102,8 @@ static bool R_ValidXModelName(const char *name)
     return name[6] == '/' || name[6] == '\\';
 }
 
-XModel *R_RegisterModel(const char *name)
+// PINNED 100030d9/10003128 call this body out of line.
+__declspec(noinline) XModel *R_RegisterModel(const char *name)
 {
     if (!R_ValidXModelName(name))
     {

@@ -2,6 +2,7 @@
 #include "r_local.h"
 #include <dxerr9.h>
 #include <float.h>
+#include <stdlib.h>
 #include <stddef.h>
 #include <algorithm>
 #include "gfx.h"
@@ -15,6 +16,125 @@ void R_FatalInitError(const char *msg)
 	ri.Printf(0, "********** Consult the readme for how to continue from this problem            **********\n");
 	ri.Printf(0, "\n%s\n", msg);
 	ri.Sys_DirectXFatalError();
+}
+
+// Direct3D buffer creation.
+// PINNED 10011a40/129: total is the requested byte count, not a vertex count.
+void R_CreateDynamicVertexBuffer(r_vb_state_t *state, int bytes)
+{
+    state->used = 0;
+    state->total = bytes;
+    HRESULT result = dx.device->CreateVertexBuffer(bytes,
+        D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, 0, D3DPOOL_DEFAULT, &state->buffer, 0);
+    if (result < 0)
+        R_FatalInitError(va("Couldn't create a %i-byte dynamic vertex buffer: %s",
+            bytes, DXGetErrorDescription9(result)));
+}
+
+// PINNED 10011ad0/129: dynamic index entries use the SDK's 16-bit format.
+void R_CreateDynamicIndexBuffer(r_ib_state_t *state, int bytes)
+{
+    state->used = 0;
+    state->total = bytes;
+    HRESULT result = dx.device->CreateIndexBuffer(bytes,
+        D3DUSAGE_DYNAMIC | D3DUSAGE_WRITEONLY, D3DFMT_INDEX16, D3DPOOL_DEFAULT, &state->buffer, 0);
+    if (result < 0)
+        R_FatalInitError(va("Couldn't create a %i-byte dynamic index buffer: %s",
+            bytes, DXGetErrorDescription9(result)));
+}
+
+// PINNED 10011b60/143: reserve the skin arena; committing it belongs elsewhere.
+void R_CreateDynamicBuffers()
+{
+    R_CreateDynamicVertexBuffer(&dx.dynamicVertexBufferPool[0],
+        (r_rendererInUse->current.integer == 2 ? 36 : 64) * 32768);
+    dx.dynamicVertexBuffer = &dx.dynamicVertexBufferPool[0];
+    for (int index = 0; index != 2; ++index)
+        R_CreateDynamicVertexBuffer(&dx.skinnedCacheVbPool[index],
+            (r_rendererInUse->current.integer == 2 ? 36 : 64) * 131072);
+    R_CreateDynamicIndexBuffer(&dx.dynamicIndexBufferPool[0], 2097152);
+    dx.dynamicIndexBuffer = &dx.dynamicIndexBufferPool[0];
+    dx.tempSkinBuf = (byte *)ri.Z_VirtualReserveInternal(10485760);
+}
+
+void R_FinishStaticIndexBuffer(IDirect3DIndexBuffer9 *ib);
+void *R_AllocStaticVertexBuffer(void **buffer, int bytes);
+void R_FinishStaticVertexBuffer(void *buffer);
+
+struct ParticleCloudVertex
+{
+    float xyz[3];
+    float uv[2];
+};
+
+// PINNED 10011bf0/544: allocation/lock failure still reaches the original writes.
+void R_CreateParticleCloudBuffer()
+{
+    const unsigned short quadIndices[6] = {0, 1, 2, 2, 1, 3};
+    const float quadTexCoords[4][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+    ParticleCloudVertex *vertices = (ParticleCloudVertex *)R_AllocStaticVertexBuffer(
+        (void **)&dx.particleCloudVertexBuffer, 81920);
+    unsigned short *indices;
+    HRESULT result = dx.device->CreateIndexBuffer(12288, D3DUSAGE_WRITEONLY,
+        D3DFMT_INDEX16, D3DPOOL_DEFAULT, &dx.particleCloudIndexBuffer, 0);
+    if (result < 0)
+        indices = 0;
+    else if (dx.particleCloudIndexBuffer->Lock(0, 0, (void **)&indices, 0) < 0)
+    {
+        dx.particleCloudIndexBuffer->Release();
+        indices = 0;
+    }
+    for (int x = 0; x < 8; ++x)
+        for (int y = 0; y < 8; ++y)
+            for (int z = 0; z < 16; ++z)
+            {
+                int particle = (x * 8 + y) * 16 + z;
+                float px = (rand() * (1.0f / 32767.0f) + x) * 0.25f - 1.0f;
+                float py = (rand() * (1.0f / 32767.0f) + y) * 0.25f - 1.0f;
+                float pz = (rand() * (1.0f / 32767.0f) + z) * 0.125f - 1.0f;
+                for (int corner = 0; corner < 4; ++corner, ++vertices)
+                {
+                    vertices->xyz[0] = px;
+                    vertices->xyz[1] = py;
+                    vertices->xyz[2] = pz;
+                    vertices->uv[0] = quadTexCoords[corner][0];
+                    vertices->uv[1] = quadTexCoords[corner][1];
+                }
+                for (int index = 0; index < 6; ++index)
+                    *indices++ = (unsigned short)(4 * particle + quadIndices[index]);
+            }
+    R_FinishStaticIndexBuffer(dx.particleCloudIndexBuffer);
+    R_FinishStaticVertexBuffer(dx.particleCloudVertexBuffer);
+}
+
+// PINNED 10011e60: release pools before freeing the reserved skin arena.
+void R_ReleaseDynamicBuffers()
+{
+    if (dx.dynamicIndexBufferPool[0].buffer)
+        do
+        {
+            dx.dynamicIndexBufferPool[0].buffer->Release();
+            dx.dynamicIndexBufferPool[0].buffer = 0;
+        } while (alwaysfails);
+    if (dx.dynamicVertexBufferPool[0].buffer)
+        do
+        {
+            dx.dynamicVertexBufferPool[0].buffer->Release();
+            dx.dynamicVertexBufferPool[0].buffer = 0;
+        } while (alwaysfails);
+    for (int index = 0; index < 2; ++index)
+        if (dx.skinnedCacheVbPool[index].buffer)
+            do
+            {
+                dx.skinnedCacheVbPool[index].buffer->Release();
+                dx.skinnedCacheVbPool[index].buffer = 0;
+            } while (alwaysfails);
+    if (dx.tempSkinBuf)
+    {
+        ri.Z_VirtualFreeInternal(dx.tempSkinBuf);
+        dx.tempSkinBuf = 0;
+        dx.tempSkinPos = 0;
+    }
 }
 
 // Direct3D presentation setup and device creation.
@@ -902,29 +1022,7 @@ void R_InitSystems()
     rg.registered = 1;
 }
 
-void R_ScreenShot_f();
-void R_ScreenShotJpeg_f();
-void R_ImageList_f();
-void R_ApplyPicmip_f();
-void Material_ReloadTextures_f();
-void R_LoadSun_f();
-void R_SaveSun_f();
-void R_StaticModelCacheStats_f();
-void R_StaticModelCacheFlush_f();
-
-// PINNED 100052c0/151: every callback has real source in its owning module.
-void R_RegisterCmds()
-{
-    ri.Cmd_AddCommand("screenshot", R_ScreenShot_f);
-    ri.Cmd_AddCommand("screenshotJpeg", R_ScreenShotJpeg_f);
-    ri.Cmd_AddCommand("imagelist", R_ImageList_f);
-    ri.Cmd_AddCommand("r_applyPicmip", R_ApplyPicmip_f);
-    ri.Cmd_AddCommand("reloadmaterialtextures", Material_ReloadTextures_f);
-    ri.Cmd_AddCommand("r_loadsun", R_LoadSun_f);
-    ri.Cmd_AddCommand("r_savesun", R_SaveSun_f);
-    ri.Cmd_AddCommand("r_smc_stats", R_StaticModelCacheStats_f);
-    ri.Cmd_AddCommand("r_smc_flush", R_StaticModelCacheFlush_f);
-}
+void R_RegisterCmds();
 
 void Swap_Init();
 void R_RegisterDvars();
@@ -968,20 +1066,7 @@ void R_BeginRegistration(vidConfig_t *config)
     *config = vidConfig;
 }
 
-// PINNED 10005360: shutdown also removes the legacy vertex-cache command.
-void R_UnregisterCmds()
-{
-    ri.Cmd_RemoveCommand("r_applyPicmip");
-    ri.Cmd_RemoveCommand("r_vc_stats");
-    ri.Cmd_RemoveCommand("screenshot");
-    ri.Cmd_RemoveCommand("screenshotJpeg");
-    ri.Cmd_RemoveCommand("imagelist");
-    ri.Cmd_RemoveCommand("reloadmaterialtextures");
-    ri.Cmd_RemoveCommand("r_loadsun");
-    ri.Cmd_RemoveCommand("r_savesun");
-    ri.Cmd_RemoveCommand("r_smc_stats");
-    ri.Cmd_RemoveCommand("r_smc_flush");
-}
+void R_UnregisterCmds();
 
 void RB_ClearAllStreamSources();
 void R_ShutdownBackendData();

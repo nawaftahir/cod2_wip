@@ -4,6 +4,187 @@
 #include <stdlib.h>
 
 
+typedef char staticModelEntityLayoutCheck[(sizeof(GfxStaticModelInstance) == 96
+    && offsetof(GfxWorld, smodelCount) == 0xf4
+    && offsetof(GfxWorld, smodelInsts) == 0xf8
+    && offsetof(GfxWorld, smodelLightingColorTable) == 0x12c
+    && offsetof(GfxWorld, smodelLightingSunVisTable) == 0x130
+    && offsetof(GfxBspLoad, fileBase) == 4
+    && offsetof(dheader_t, lumps) + sizeof(lump_t) * 37 == 0x130
+    && offsetof(refimport_t, XModelBad) == 0x178
+    && offsetof(refimport_t, XModelGetFlags) == 0x198) ? 1 : -1];
+
+extern GfxWorld s_world;
+extern const dvar_t *r_fullbright;
+// PINNED 100030d9/10003128 call model registration out of line.
+__declspec(noinline) XModel *R_RegisterModel(const char *name);
+bool R_ValidateStaticModel(XModel *model);
+void R_CreateStaticModel(GfxWorld *world, XModel *model, const float *origin,
+    const float *angles, float scale, GfxStaticModelInstance *instance);
+void R_GetStaticModelLightingFromGrid(const GfxWorld *world,
+    GfxStaticModelInstance *instance, float *sunVisibility, vec4_t *colorForDir);
+void R_GetStaticModelLightingFromGround(const float *groundLight,
+    float *sunVisibility, vec4_t *colorForDir);
+void R_ScaleStaticModelLighting(float directScale, float indirectScale,
+    float *sunVisibility, vec4_t *colorForDir);
+void R_CacheStaticModelLighting(const GfxWorld *world,
+    GfxStaticModelInstance *instance, float sunVisibility, vec4_t *colorForDir);
+
+// PINNED 10002e80; descriptive name.
+double R_FloatForKey(const char *key, float defaultValue,
+    const char *(*vars)[2], int count)
+{
+    const char *value = 0;
+    for (int index = 1; index < count; ++index)
+        if (!_stricmp(vars[index][0], key))
+        {
+            value = vars[index][1];
+            break;
+        }
+    if (value)
+        return atof(value);
+    return defaultValue;
+}
+
+// PINNED 10002ed0; descriptive name.
+Bool R_Vec3ForKey(const char *key, const char *defaultValue,
+    const char *(*vars)[2], int count, float *out)
+{
+    const char *value = 0;
+    Bool found = 1;
+    for (int index = 1; index < count; ++index)
+        if (!_stricmp(vars[index][0], key))
+        {
+            value = vars[index][1];
+            break;
+        }
+    if (!value)
+    {
+        value = defaultValue;
+        found = 0;
+    }
+    out[0] = 0.0f;
+    out[1] = 0.0f;
+    out[2] = 0.0f;
+    sscanf(value, "%f %f %f", &out[0], &out[1], &out[2]);
+    return found;
+}
+
+// PINNED 10002f50: four unsigned hex components.
+Bool R_Vec4ForKeyHex(const char *key, const char *defaultValue,
+    const char *(*vars)[2], int count, float *out)
+{
+    const char *value = 0;
+    Bool found = 1;
+    for (int index = 1; index < count; ++index)
+        if (!_stricmp(vars[index][0], key))
+        {
+            value = vars[index][1];
+            break;
+        }
+    if (!value)
+    {
+        value = defaultValue;
+        found = 0;
+    }
+    unsigned int components[4];
+    if (sscanf(value, "%02x%02x%02x%02x", &components[0], &components[1],
+        &components[2], &components[3]) != 4)
+        R_Error(ERR_DROP, "\x15R_Vec4ForKeyHex: invalid value\n");
+    for (int index = 0; index != 4; ++index)
+        out[index] = (float)components[index] * (1.0f / 255.0f);
+    return found;
+}
+
+// PINNED 10003030: validation failure retries the original default static model.
+Bool R_IsValidStaticModel(const char *(*vars)[2], int count,
+    XModel **outModel, float *outOrigin)
+{
+    vec3_t origin;
+    if (!R_Vec3ForKey("origin", "0 0 0", vars, count, origin))
+        R_Error(ERR_DROP, "\x15R_LoadMiscModel: no origin specified\n");
+    const char *name;
+    for (int index = 1; index < count; ++index)
+        if (!_stricmp(vars[index][0], "model"))
+        {
+            name = vars[index][1];
+            goto foundModel;
+        }
+    name = 0;
+foundModel:
+    if (!name)
+        R_Error(ERR_DROP, "\x15R_LoadMiscModel: no model specified in misc_model at (%.0f %.0f %.0f)\n",
+            origin[0], origin[1], origin[2]);
+    if (!_strnicmp(name, "xmodel/shadow_", 14))
+        return 0;
+    XModel *model = R_RegisterModel(name);
+    if (!model || ri.XModelBad(model) || !R_ValidateStaticModel(model))
+    {
+        Com_Printf("^1bad static model '%s' at (%.0f %.0f %.0f)\n",
+            name, origin[0], origin[1], origin[2]);
+        model = R_RegisterModel("xmodel/default_static_model");
+    }
+    if (!model || ri.XModelBad(model))
+        return 0;
+    if (outModel)
+        *outModel = model;
+    if (outOrigin)
+        VectorCopy(origin, outOrigin);
+    return 1;
+}
+
+// PINNED 100031b0: use the Z component of modelscale_vec, as in the PC caller.
+void R_LoadMiscModel(const char *(*vars)[2], int count)
+{
+    XModel *model;
+    vec3_t origin;
+    if (!R_IsValidStaticModel(vars, count, &model, origin))
+        return;
+    GfxStaticModelInstance *instance = &s_world.smodelInsts[s_world.smodelCount++];
+    vec3_t angles;
+    float yaw = (float)R_FloatForKey("angle", 0.0f, vars, count);
+    if (yaw == 0.0f)
+        R_Vec3ForKey("angles", "0 0 0", vars, count, angles);
+    else
+    {
+        angles[0] = 0.0f;
+        angles[1] = yaw;
+        angles[2] = 0.0f;
+    }
+    vec3_t scale;
+    if (!R_Vec3ForKey("modelscale_vec", "1 1 1", vars, count, scale))
+        scale[0] = scale[1] = scale[2] = (float)R_FloatForKey("modelscale", 1.0f, vars, count);
+    R_CreateStaticModel(&s_world, model, origin, angles, scale[2], instance);
+    bool hasGroundLight = (ri.XModelGetFlags(model) & 1) != 0;
+    vec4_t ground;
+    Bool foundGround = R_Vec4ForKeyHex("gndLt", "FF000000", vars, count, ground);
+    float sunVisibility;
+    vec4_t colors[6];
+    if (r_fullbright->current.enabled)
+    {
+        ground[0] = hasGroundLight && foundGround ? 0.0f : 1.0f;
+        ground[1] = hasGroundLight ? 1.0f : 0.0f;
+        ground[2] = 0.0f;
+        ground[3] = 0.0f;
+        R_GetStaticModelLightingFromGround(ground, &sunVisibility, colors);
+    }
+    else
+    {
+        if (hasGroundLight && foundGround)
+            R_GetStaticModelLightingFromGround(ground, &sunVisibility, colors);
+        else
+            R_GetStaticModelLightingFromGrid(&s_world, instance, &sunVisibility, colors);
+        float direct = (float)R_FloatForKey("directLightScale", 1.0f, vars, count);
+        if (direct < 0.0f)
+            R_Error(ERR_DROP, "\x15'directLightScale' may not be negative.");
+        float indirect = (float)R_FloatForKey("indirectLightScale", 1.0f, vars, count);
+        if (indirect < 0.0f)
+            R_Error(ERR_DROP, "\x15'indirectLightScale' may not be negative.");
+        R_ScaleStaticModelLighting(direct, indirect, &sunVisibility, colors);
+    }
+    R_CacheStaticModelLighting(&s_world, instance, sunVisibility, colors);
+}
+
 const char *R_ParseSunLight(SunLightParseParams *params, const char *text)
 {
     const char *token;
@@ -112,52 +293,6 @@ void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, Gfx
     }
 }
 
-extern DxGlobals dx;
-extern int alwaysfails;
-void RB_LogPrint(const char *text);
-void R_FatalInitError(const char *msg);
-extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT hr);
-
-typedef HRESULT(__stdcall *CreateVertexBufferFn)(void *device, UINT length, DWORD usage, DWORD fvf, int pool, IDirect3DVertexBuffer9 **ppVB, void *sharedHandle);
-typedef HRESULT(__stdcall *BufferLockFn)(void *buffer, UINT offsetToLock, UINT sizeToLock, void **ppbData, DWORD flags);
-typedef HRESULT(__stdcall *BufferUnlockFn)(void *buffer);
-#define VTABLE(obj) (*(void ***)((void *)(obj)))
-
-void *R_AllocStaticVertexBuffer(void **vb, int sizeInBytes)
-{
-    void *vertexBufferData;
-    HRESULT hr;
-
-    hr = ((CreateVertexBufferFn)VTABLE(dx.device)[0x68 / 4])((void *)dx.device, sizeInBytes, 8, 0, 0, (IDirect3DVertexBuffer9 **)vb, NULL);
-    if (hr < 0)
-        R_FatalInitError(va("DirectX didn't create a %i-byte vertex buffer: %s\n", sizeInBytes, DXGetErrorDescription9A(hr)));
-    hr = ((BufferLockFn)VTABLE(*vb)[0x2c / 4])((void *)*vb, 0, 0, &vertexBufferData, 0);
-    if (hr < 0)
-        R_FatalInitError(va("DirectX didn't lock a vertex buffer: %s\n", DXGetErrorDescription9A(hr)));
-    return vertexBufferData;
-}
-
-// Opaque COM handle shared by the Mac-union and Windows SDK pointer views.
-void R_FinishStaticVertexBuffer(void *vb)
-{
-    do
-    {
-        RB_LogPrint("vb->Unlock()\n");
-        ((BufferUnlockFn)VTABLE(vb)[0x30 / 4])((void *)vb);
-    } while (*(volatile int *)&alwaysfails != 0);
-}
-
-typedef ULONG(__stdcall *ReleaseFn)(void *obj);
-
-void R_FreeStaticVertexBuffer(IDirect3DVertexBuffer9 *vb)
-{
-    do
-    {
-        ((ReleaseFn)VTABLE(vb)[0x08 / 4])((void *)vb);
-        vb = NULL;
-    } while (*(volatile int *)&alwaysfails != 0);
-}
-
 // name unconfirmed: local BSP node layout
 struct BspNodeA
 {
@@ -196,4 +331,79 @@ void R_BuildCellAabbTrees()
         R_AllocStaticModels(s_world.cells[cellIndex].aabbTree);
     for (cellIndex = 0; cellIndex < s_world.cellCount; cellIndex++)
         R_SortGfxAabbTree(&s_world, s_world.cells[cellIndex].aabbTree);
+}
+
+void R_PrepareStaticModelLightingCache(GfxWorld *world, int count);
+void R_FinishStaticModelLightingCache(GfxWorld *world);
+void R_BuildCellAabbTrees();
+
+// PINNED 10003880: both passes inline the same entity key/value loop.
+static __forceinline int R_ParseEntitySpawnVars(const char **text,
+    char *characters, const char *(*vars)[2])
+{
+    vars[0][0] = "";
+    int count = 1;
+    int used = 0;
+    for (;;)
+    {
+        const char *token = Com_Parse(text);
+        if (!token[0] || token[0] == '}')
+            break;
+        int slot;
+        if (!strcmp(token, "classname"))
+            slot = 0;
+        else
+        {
+            if (count == 64)
+                R_Error(ERR_DROP, "\x15R_LoadEntities: MAX_SPAWN_VARS (%i) reached\n", 64);
+            slot = count++;
+        }
+        vars[slot][0] = characters + used;
+        int length = strlen(token) + 1;
+        memcpy(characters + used, token, length);
+        used += length;
+        token = Com_Parse(text);
+        vars[slot][1] = characters + used;
+        length = strlen(token) + 1;
+        memcpy(characters + used, token, length);
+        used += length;
+    }
+    if (!vars[0][0][0])
+        R_Error(ERR_DROP, "\x15R_LoadEntities: entity without a classname\n");
+    return count;
+}
+
+// PINNED 10003880/1214: count valid models before allocating and loading them.
+void R_LoadEntities(GfxBspLoad *load)
+{
+    const char *start = (const char *)load->fileBase + load->header->lumps[37].fileofs;
+    char *characters = (char *)ri.Hunk_AllocateTempMemoryInternal(load->header->lumps[37].filelen);
+    const char *vars[64][2];
+    int modelCount = 0;
+    const char *text = start;
+    for (;;)
+    {
+        const char *token = Com_Parse(&text);
+        if (!text || token[0] != '{')
+            break;
+        int count = R_ParseEntitySpawnVars(&text, characters, vars);
+        if (!_stricmp(vars[0][1], "misc_model") && R_IsValidStaticModel(vars, count, 0, 0))
+            ++modelCount;
+    }
+    s_world.smodelInsts = (GfxStaticModelInstance *)ri.Hunk_AllocInternal(modelCount * sizeof(GfxStaticModelInstance));
+    s_world.smodelCount = 0;
+    R_PrepareStaticModelLightingCache(&s_world, modelCount);
+    text = start;
+    for (;;)
+    {
+        const char *token = Com_Parse(&text);
+        if (token[0] != '{')
+            break;
+        int count = R_ParseEntitySpawnVars(&text, characters, vars);
+        if (!_stricmp(vars[0][1], "misc_model"))
+            R_LoadMiscModel(vars, count);
+    }
+    R_FinishStaticModelLightingCache(&s_world);
+    R_BuildCellAabbTrees();
+    ri.Hunk_ClearTempMemory();
 }

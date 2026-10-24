@@ -3,10 +3,11 @@
 # take their alphabetical slot, which the observed order follows. See layout/README.md.
 gfx_d3d/r_bsp.cpp
 gfx_d3d/r_bsp_load_obj.cpp
+gfx_d3d/r_buffers.cpp
 gfx_d3d/r_caps.cpp
+gfx_d3d/r_cmds.cpp
 gfx_d3d/r_debug.cpp
 gfx_d3d/r_dpvs.cpp
-gfx_d3d/r_dpvs_winding.c
 gfx_d3d/r_dvars.cpp
 gfx_d3d/r_flares.cpp
 gfx_d3d/r_fog.cpp
@@ -17,7 +18,6 @@ gfx_d3d/r_image_load_obj.cpp
 gfx_d3d/r_specularityimage.cpp
 gfx_d3d/r_image_wavelet.cpp
 gfx_d3d/r_init.cpp
-gfx_d3d/r_dxbuffers.cpp
 gfx_d3d/r_jpeg.cpp
 gfx_d3d/r_light.cpp
 gfx_d3d/r_marks.cpp
@@ -34,7 +34,6 @@ gfx_d3d/r_shadowcookie.cpp
 gfx_d3d/r_skin_transform.cpp
 gfx_d3d/r_sky.cpp
 gfx_d3d/r_splitscreen.cpp
-gfx_d3d/r_staticmodel_bounds.cpp
 gfx_d3d/r_staticmodel_load_obj.cpp
 gfx_d3d/r_staticmodelcache.cpp
 gfx_d3d/r_surfbounds.cpp
@@ -47,7 +46,6 @@ gfx_d3d/r_xsurface.cpp
 gfx_d3d/r_xsurface_load_obj.cpp
 gfx_d3d/r_xsurface_optimize.cpp
 gfx_d3d/rb_backend.cpp
-gfx_d3d/rb_buffer_upload.cpp
 gfx_d3d/rb_fog.cpp
 gfx_d3d/rb_imagefilter.cpp
 gfx_d3d/rb_imagetouch.cpp

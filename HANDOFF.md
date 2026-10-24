@@ -169,8 +169,40 @@ Target bytes outrank every reference. Do not assume reference code is PC1.0.
 
 ## Codex report (fill in when you stop)
 
-- Moves done (file, functions, build result, extents kept):
-- Moves reverted and why:
-- New bodies (address, name, file, matched bytes):
-- Coverage before/after, same-offset before/after, fixtures count:
+- Moves done: all five listed steps, plus the cache initializer in r_staticmodelcache. Eighteen bodies relocated across seven gated moves; all1448 extents retained.
+- Moves reverted: none. Two stale fixture boundaries were corrected; no compiler gate was relaxed.
+- New bodies: structure work adds no byte credit. The next source wave binds vec3 lookup10002ed0/115 and hex lookup10002f50/192 in r_bsp_load_obj.cpp:307 new C++ bytes.
+- Coverage:104380 ->104687/253580 (41.283618582%),618 ->620 bodies. Same-offset9.067717696% ->9.185953056%. Actual fixtures135 ->139. Original starting handoff139 count was stale.
 
+
+- Codex codex_upload_merge: dynamic index and vertex uploads moved into rb_shade; build/referees and1448 extents pass, 135/135 fixtures. C++104380/253580 (41.162552252%), 618 bodies; same-offset9.068581910%. No new byte credit; no move reverted.
+
+- Codex codex_buffers_merge: five static-buffer helpers moved into r_buffers; build/referees and1448 extents pass, 135/135 fixtures. C++104380/253580 (41.162552252%), 618 bodies; same-offset9.077656164%. No new byte credit; no move reverted.
+
+- Codex codex_cmds_merge: console command registration moved into r_cmds; build/referees and1448 extents pass, 135/135 fixtures. C++104380/253580 (41.162552252%), 618 bodies; same-offset9.070418366%. No new byte credit; no move reverted.
+
+- Codex codex_cache_buffer_merge: cache vertex-buffer initializer moved into r_staticmodelcache; build/referees and1448 extents pass, 136/136 fixtures. C++104380/253580 (41.162552252%), 618 bodies; same-offset9.065827226%. No new byte credit; no move reverted.
+
+- Codex codex_winding_merge: convex winding helpers merged into r_dpvs as C++; build/referees and1448 extents pass, 136/136 fixtures. C++104380/253580 (41.162552252%), 618 bodies; same-offset9.064800971%. No new byte credit; no move reverted.
+
+Structure checkpoint: target/work/proof/structure_checkpoint.json. The first five r_dxbuffers moves also pass; their logs are proof/latest/codex_dxbuffers_merge_*.log. No commits or pushes. Task2 source is now in the canonical retail files; accepted leaves and remaining drafts are described below.
+
+## Final Codex checkpoint - 2026-10-24
+
+- All five handoff steps plus cache-buffer ownership correction and the
+  later-confirmed bounds move pass:18 relocated bodies, no move reverted.
+  r_model_lod/lightgrid_weights remain the explicitly deferred flag splits.
+- Added the genuine static-model entity/validation/transform/lighting chain
+  in r_bsp_load_obj.cpp and r_staticmodel_load_obj.cpp. Only two new bodies
+  receive byte credit:10002ed0/115 and10002f50/192. Other bodies are drafts;
+  exact residuals and rejected source forms are in ATTEMPTS.md. No impossible
+  compiler claim, assembly addition, fake API/root or relaxed referee.
+- Original build + BOTH referees + all1448 protected extents +139/139
+  fixtures pass, including ten new binding-corruption negatives. Old31
+  assembly exclusions/7787 bytes and protected bind hash remain unchanged.
+- C++104380 ->104687/253580 (41.283618582%),618 ->620 bodies.
+  Same-offset9.067717696 ->9.185953056% (diagnostic).
+  Candidate SHA256:9efd41a9f8999c8598dc3c8a9f6a104037dfecb3fa4e53438b3bf73012ef1070. Whole-file SHA/runtime OPEN.
+- Final receipts: target/work/proof/static_model_checkpoint.json and
+  static_model_checkpoint_inputs.json. Final build/fixtures:
+  proof/latest/codex_static_bounds_merge_*.log. No commits or pushes.

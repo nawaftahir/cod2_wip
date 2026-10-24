@@ -1,0 +1,16 @@
+{
+  "status": "V2/V3 structure checkpoint; not whole-file identity",
+  "protected_extents": 1448,
+  "fixtures": 136,
+  "cpp_bytes": 104380,
+  "cpp_percent": 41.16255225175487,
+  "cpp_bodies": 618,
+  "same_offset_percent": 9.064800971377212,
+  "candidate_sha256": "509a3a9fab11b3d40805c619d8efd7be21f0fab8e1eeb169e061643362195ec8",
+  "protected_bind_sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59",
+  "moves_reverted": [],
+  "deferred": [
+    "r_model_lod /Op split",
+    "r_lightgrid_weights /Op and first fabs ownership"
+  ]
+}

@@ -10,7 +10,8 @@ from fragment import fragment
 work = Path(__file__).resolve().parents[1]
 text = fragment('gfx_d3d/r_init.cpp')
 source = text[text.index('void R_Shutdown(int destroyWindow)'):]
-unregister = text[text.index('// PINNED 10005360:'):text.index('void RB_ClearAllStreamSources();')]
+commands = fragment('gfx_d3d/r_cmds.cpp')
+unregister = commands[commands.index('// PINNED 10005360:'):]
 material = (work / 'src/gfx_d3d/r_material_globals.h').read_text().replace('#pragma once', '')
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)

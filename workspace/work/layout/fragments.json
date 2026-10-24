@@ -22,7 +22,7 @@
  "gfx_d3d/r_dpvs.cpp": {
   "host": "gfx_d3d/r_dpvs.cpp",
   "start": null,
-  "next": "// Portal clip planes; PC 1.0 addresses pinned from the renderer anchor."
+  "next": "// Convex winding extrema."
  },
  "gfx_d3d/r_dpvs_clipplanes.cpp": {
   "host": "gfx_d3d/r_dpvs.cpp",
@@ -113,5 +113,35 @@
   "host": "gfx_d3d/r_screenshot.cpp",
   "start": "// Console screenshot and level shot capture.",
   "next": null
+ },
+ "gfx_d3d/r_dxbuffers.cpp": {
+  "host": "gfx_d3d/r_init.cpp",
+  "start": "// Direct3D buffer creation.",
+  "next": "// Direct3D presentation setup and device creation."
+ },
+ "gfx_d3d/rb_buffer_upload.cpp": {
+  "host": "gfx_d3d/rb_shade.cpp",
+  "start": "// Dynamic index and vertex uploads.",
+  "next": "// PINNED 100388f0/39: mode 0 leaves the original image and sampler untouched."
+ },
+ "gfx_d3d/r_buffers.cpp": {
+  "host": "gfx_d3d/r_buffers.cpp",
+  "start": null,
+  "next": null
+ },
+ "gfx_d3d/r_cmds.cpp": {
+  "host": "gfx_d3d/r_cmds.cpp",
+  "start": null,
+  "next": null
+ },
+ "gfx_d3d/r_dpvs_winding.c": {
+  "host": "gfx_d3d/r_dpvs.cpp",
+  "start": "// Convex winding extrema.",
+  "next": "// Portal clip planes; PC 1.0 addresses pinned from the renderer anchor."
+ },
+ "gfx_d3d/r_staticmodel_bounds.cpp": {
+  "host": "gfx_d3d/r_staticmodel_load_obj.cpp",
+  "start": "// PINNED 1002a360/441; descriptive name for the static-model bounds helper.",
+  "next": "// PINNED 1002a520: scale directional lighting and sun visibility."
  }
 }

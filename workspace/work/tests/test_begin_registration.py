@@ -6,7 +6,7 @@ from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
 text = fragment('gfx_d3d/r_init.cpp')
-source = text[text.index('typedef char rendererRegistrationLayoutCheck'):text.index('// PINNED 10005360:')]
+source = text[text.index('typedef char rendererRegistrationLayoutCheck'):text.index('void R_UnregisterCmds();')]
 program = r'''
 #include <cassert>
 #include <cstring>
