@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
+
+// MSVC 7.1 has no stdint.h
+typedef __int64 int64_t;
+typedef unsigned __int64 uint64_t;
 #include <math.h>
 
 #include "com_math.h"
@@ -382,12 +386,12 @@ static inline float FloatFromBits( int l )
 {
 	return FloatIdentity( *(float *)&l );
 }
-__int64 LittleLong64( __int64 l );
-float   LittleFloat( float l );
+int64_t LittleLong64( int64_t l );
+float   LittleFloat( int l );
 
 short   BigShort( short l );
 int BigLong( int l );
-__int64  BigLong64( __int64 l );
+int64_t  BigLong64( int64_t l );
 float   BigFloat( float l );
 
 void Swap_Init( void );

@@ -64,9 +64,40 @@ def run(cmd):
         return subprocess.CompletedProcess(cmd, 1, "timed out: %s" % cmd)
 
 
+TREE = BASE / "build" / "edrive" / "trees" / "cod2src"
+
+
+def edrive():
+    """Wine's E: is build/edrive, holding retail's tree e:\\trees\\cod2src (links into src/)."""
+    for name, target in (("radiant", "radiant"), ("common", "common"), ("libs", "libs")):
+        link_to(TREE / name, BASE / "src" / target)
+    for d in (BASE / "src").iterdir():
+        if d.is_dir() and d.name not in ("radiant", "common", "libs", "res"):
+            link_to(TREE / "src" / d.name, d)
+    dos = pathlib.Path(os.environ.get("WINEPREFIX", os.path.expanduser("~/.wine"))) / "dosdevices" / "e:"
+    if not dos.exists():
+        dos.symlink_to(BASE / "build" / "edrive")
+
+
+def link_to(path, target):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    if not path.is_symlink():
+        path.symlink_to(os.path.relpath(target, path.parent))
+
+
 def compile_source(source, obj):
+    # retail ran cl from the radiant folder as .\\X.cpp, and on everything else as \\trees\\cod2src\\...;
+    # __FILE__ in asserts records exactly that (RULES.md)
     (BASE / obj).parent.mkdir(parents=True, exist_ok=True)
-    res = run("wine /opt/msvc710/Vc7/bin/cl.exe /nologo /c %s /Fo%s %s" % (" ".join(flags_for(source)), obj, source))
+    rel = pathlib.Path(source).relative_to("src")
+    if rel.parts[0] == "radiant":
+        cwd, arg = TREE / "radiant", ".\\" + "\\".join(rel.parts[1:])
+    else:
+        top = () if rel.parts[0] in ("common", "libs") else ("src",)
+        cwd, arg = TREE, "\\trees\\cod2src\\" + "\\".join(top + rel.parts)
+    out = "Z:" + str(BASE / obj).replace("/", "\\")
+    res = subprocess.run(["wine", "/opt/msvc710/Vc7/bin/cl.exe", "/nologo", "/c"] + flags_for(source) + ["/Fo" + out, arg],
+                         cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, timeout=900)
     if res.returncode != 0:
         print(res.stdout, file=sys.stderr)
         return False
@@ -142,6 +173,7 @@ def build(includes=(), quiet=False):
     """Compile stale sources and link. Returns True when an exe was produced."""
     # a header or flag change rebuilds everything
     headers = max([p.stat().st_mtime for p in (BASE / "src").rglob("*.h")] + [(BASE / "data" / "flags.tsv").stat().st_mtime])
+    edrive()
     objs = []
     for src in sources():
         obj = obj_path(src)
@@ -150,11 +182,7 @@ def build(includes=(), quiet=False):
             return False
         objs.append(str(obj))
     # the exe records the retail PDB path; Wine's E: points into build/ so that path exists
-    edrive = BASE / "build" / "edrive"
-    (edrive / "trees" / "cod2" / "bin").mkdir(parents=True, exist_ok=True)
-    dos = pathlib.Path(os.environ.get("WINEPREFIX", os.path.expanduser("~/.wine"))) / "dosdevices" / "e:"
-    if not dos.exists():
-        dos.symlink_to(edrive)
+    (BASE / "build" / "edrive" / "trees" / "cod2" / "bin").mkdir(parents=True, exist_ok=True)
     res = resources()
     EXE.unlink(missing_ok=True)
     inc = ["/INCLUDE:%s" % s for s in sorted(set(ledger_includes()) | set(includes))]

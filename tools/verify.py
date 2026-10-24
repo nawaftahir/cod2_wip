@@ -150,8 +150,12 @@ def verify_all():
         ledger_syms = {r["symbol"] for r in rows}
         ours = {link.obj_path(s).name.lower() for s in link.sources()}
         # "i" in the map = an inline header function, emitted in whichever file first uses it; not src code
+        # header "static inline" helpers come out as local copies without the flag; also header code
+        in_header = set()
+        for h in (BASE / "src").rglob("*.h"):
+            in_header.update(re.findall(r"\b([A-Za-z_]\w*)\s*\([^;{]*\)\s*\{", h.read_text(errors="replace")))
         extras = sorted(s for s, o in linked.obj.items() if o.lower() in ours and s not in ledger_syms
-                        and s not in linked.inline)
+                        and s not in linked.inline and re.sub(r"^[?_]+", "", s).split("@")[0] not in in_header)
         # emit order: a file's functions must sit in retail order (warning until the 7.1 emit rule is pinned)
         by_source = collections.defaultdict(list)
         for res in results:

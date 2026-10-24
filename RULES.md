@@ -137,8 +137,23 @@ Owner-edited only.
   alphabetically, then `src/xanim/dobj.cpp`, `src/script/*`, the rest of `src/xanim/*`, then MFC/CRT.
   `xmodel.cpp` interleaves with `scr_memorytree.cpp`; unresolved.
 - `__FILE__` spelling: engine files are `\trees\cod2src\src\...` (some `e:\trees\...` in headers);
-  radiant files are `.\Name.cpp`. Compiling them with the same paths is a link-stage task.
-- Asserts embed `__LINE__`, so source line layout is part of the SHA.
+  radiant files are `.\Name.cpp`. PINNED 2026-10-24 by a probe: `tools/link.py` compiles radiant files
+  from `build/edrive/trees/cod2src/radiant` as `.\X.cpp` and the rest from the tree root as
+  `\trees\cod2src\src\...`, which gives retail's `__FILE__` and `e:\trees\cod2src\src\universal\../xanim/X.h`.
+- Asserts embed `__LINE__`, so source line layout is part of the SHA. Retail keeps asserts on; the forms
+  (`assert`, `assertMsg`, `assertFail`) are in `src/universal/assertive.h`. The handler's name is unknown
+  (`FUN_0047d980`).
+- Engine files come from the finished server source (`research/libmatch/import.sh`): copy, merge the
+  asserted bodies (`merge.py`, before stripping), strip the unmatched functions (`strip.py`), then
+  `layout.py` pads blank lines so each assert lands on its retail line. The server files are already in
+  retail function order; don't reorder them.
+- dvar (PINNED 2026-10-24): Radiant's `Dvar_FindMalleableVar` has no critical section. Retail has two
+  identical 55 B EDI-argument lookups at 0x48de60 (`Dvar_FindMalleableVar`) and 0x48dea0 (`Dvar_FindVar`);
+  both are missing from the function inventory. 0x48b990 is `Dvar_AllocNameString` (jmp CopyString), not
+  FindVar. `Dvar_Get*` inline FindVar two levels deep and keep the stack form; ours don't until their
+  editor callers exist (DEFER, no `__forceinline`).
+- Inline functions from headers are COMDATs with the map's `i` flag; `verify.py` does not count them as
+  unverified code in `src/`.
 - Each function gets its own COMDAT section; emission order can differ from definition order
   (`Hunk_AllocInternal`). The emit rule is not pinned yet, so `WARN-ORD` is only a warning.
 

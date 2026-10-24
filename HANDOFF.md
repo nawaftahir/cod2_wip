@@ -6,7 +6,9 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
 
 ## State
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 76 ledger rows, all matching inside the linked exe. Whole file 1.017% in place (report only).
+- 262 ledger rows, all matching inside the linked exe; game code 5.34% (37,365 B); whole file 1.076% in place.
+  Engine files come from the server source (`research/libmatch/import.sh`, RULES.md); done so far: com_math,
+  q_shared, dvar. Next: com_memory, com_files, q_parse, xanim, script, then the asserted functions per file.
   `.rsrc` 99.71% (the rest is section RVAs).
 - Game functions 3,580 (699,591 B), 3,510 with a known file; MFC/CRT 3,940 are linked from libs.
 - Fleet stopped. GitHub Actions minutes are out: the workflow is manual-only, and `tools/ci_local.sh` runs the

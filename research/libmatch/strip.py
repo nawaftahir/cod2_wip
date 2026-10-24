@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Keep only some functions of a source file: strip.py <file> <keep.txt>
 keep.txt holds obj symbols (?Name@@... or _Name), one per line. Every other top-level function
-(and the /* */ banner right above it) is removed. Declarations, data and macros stay."""
+(and the /* */ banner right above it) is blanked, so line numbers stay. Declarations, data and macros stay."""
+import os
 import re
 import sys
 
@@ -33,21 +34,26 @@ while i < len(lines):
         k = j
         while not lines[k].startswith("}"):
             k += 1
-        # drop the banner comment and blank line above it
-        while out and out[-1].strip() == "":
-            out.pop()
-        if out and out[-1].strip() == "*/":
-            while out and not out[-1].lstrip().startswith("/*"):
-                out.pop()
-            out.pop()
-        while out and out[-1].lstrip().startswith("//"):
-            out.pop()
-        out.append("")
-        # still called by kept code: leave the prototype
+        used = re.search(r"\b%s\b" % m.group(1), "\n".join(out + lines[k + 1:]))
+        # still called by kept code: keep the body, LTCG may have inlined it there (it stays unverified)
+        if used:
+            out.extend(lines[i:k + 1])
+            i = k + 1
+            continue
+        # blank the banner comment above it too; lines keep their numbers (asserts record __LINE__)
+        start = len(out)
+        if start and out[start - 1].strip() == "*/":
+            while start and not out[start - 1].lstrip().startswith("/*"):
+                start -= 1
+            start -= 1
+        removed = len(out) - start + k + 1 - i
+        del out[start:]
         rest = "\n".join(out + lines[k + 1:])
-        if re.search(r"\b%s\s*\(" % m.group(1), rest):
+        # still used by kept code: leave the prototype
+        if re.search(r"\b%s\b" % m.group(1), rest):
             out.append(" ".join(l.strip() for l in lines[i:j]) + ";")
-            out.append("")
+            removed -= 1
+        out.extend([""] * removed)
         dropped.append(m.group(1))
         i = k + 1
         continue
@@ -55,3 +61,6 @@ while i < len(lines):
     i += 1
 open(src, "w").write("\n".join(out))
 print("kept %d names, dropped %d functions: %s" % (len(keep), len(dropped), " ".join(dropped)), file=sys.stderr)
+# a dropped function may have been the last user of another; repeat until nothing drops
+if dropped:
+    os.execv(sys.executable, [sys.executable] + sys.argv)
