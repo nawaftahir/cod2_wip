@@ -1,0 +1,4 @@
+# Retail address of functions in src/ that have no ledger row yet (not matched). Owner-edited; each needs evidence.
+# link.py uses it to keep address-taken functions on the stack convention (RULES.md).
+addr	symbol	evidence
+0x0048a580	_Hunk_AllocAlignInternal	Hunk_AllocInternal 0x48a560 calls it with (size, 32); asserts 1367..1403 in com_memory.cpp

@@ -53,9 +53,7 @@ FUNCTIONS = load_functions()
 
 
 def carve(address):
-    key = address.lower()
-    if not key.startswith("0x"):
-        key = "0x" + key.lstrip("0")
+    key = "0x%08x" % int(address, 16)
     function = FUNCTIONS.get(key)
     if not function:
         raise KeyError("function is absent from inventory: %s" % address)
@@ -222,7 +220,7 @@ def absolute_masks(payload, existing):
     mask = set(existing)
     for instruction in disassembler.disasm(payload, 0):
         for operand in instruction.operands:
-            if operand.type == X86_OP_MEM and operand.mem.base == 0:
+            if operand.type == X86_OP_MEM:
                 displacement = operand.mem.disp & 0xFFFFFFFF
                 if IMAGE_BASE <= displacement < IMAGE_END:
                     pos = bytes(instruction.bytes).find(struct.pack('<I', displacement))

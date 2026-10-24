@@ -1,3 +1,3 @@
 # cl.exe flags per source, first matching glob wins. Owner-edited only; changes need evidence.
 glob	flags
-*	/O2 /Oy- /Op
+*	/O2 /Oy- /Op /GL

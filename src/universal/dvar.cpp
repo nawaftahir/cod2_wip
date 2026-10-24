@@ -13,7 +13,7 @@ int AssertFailed(const char *expr, const char *file, int line, int a4, int a5);
 char *va(const char *format, ...);
 int tolower(int c);
 void Com_Error(int code, const char *fmt, ...);
-int I_strcmp(const char *s1, const char *s2);
+int I_stricmp(const char *s0, const char *s1);
 bool Vector2Compare(const float *a, const float *b);
 bool VectorCompare(const float *a, const float *b);
 bool Vector4Compare(const float *a, const float *b);
@@ -47,7 +47,7 @@ static __forceinline dvar_t *Dvar_FindVar(const char *dvarName)
     dvar_t *dvar;
     for (dvar = dvarHashTable[hash]; dvar; dvar = dvar->hashNext)
     {
-        if (!I_strcmp(dvarName, dvar->name))
+        if (!I_stricmp(dvarName, dvar->name))
             break;
     }
     return dvar;
@@ -174,7 +174,7 @@ static float Dvar_StringToFloat(const char *string)
     return (float)atof(string);
 }
 
-static void __declspec(noinline) Dvar_ClampVectorToDomain(float *vector, int components, float min, float max)
+void Dvar_ClampVectorToDomain(float *vector, int components, float min, float max)
 {
     int channel;
 
@@ -187,16 +187,7 @@ static void __declspec(noinline) Dvar_ClampVectorToDomain(float *vector, int com
     }
 }
 
-typedef void Dvar_ClampVectorToDomain_keep_fp(float *, float, float);
-
-static void Dvar_ClampVectorToDomain_keepalive(float *vector, float min, float max)
-{
-    Dvar_ClampVectorToDomain(vector, 3, min, max);
-}
-
-Dvar_ClampVectorToDomain_keep_fp *dvar_keep_0048ccd0 = &Dvar_ClampVectorToDomain_keepalive;
-
-static bool __declspec(noinline) Dvar_VectorInDomain(const float *vector, int components, float min, float max)
+bool Dvar_VectorInDomain(const float *vector, int components, float min, float max)
 {
     int channel;
 
@@ -211,16 +202,7 @@ static bool __declspec(noinline) Dvar_VectorInDomain(const float *vector, int co
     return true;
 }
 
-typedef bool Dvar_VectorInDomain_keep_fp(const float *, float, float);
-
-static bool Dvar_VectorInDomain_keepalive(const float *vector, float min, float max)
-{
-    return Dvar_VectorInDomain(vector, 3, min, max);
-}
-
-Dvar_VectorInDomain_keep_fp *dvar_keep_0048cd10 = &Dvar_VectorInDomain_keepalive;
-
-static void __declspec(noinline) Dvar_VectorDomainToString(int components, DvarLimits domain, char *outBuffer, int outBufferLen)
+void Dvar_VectorDomainToString(int components, DvarLimits domain, char *outBuffer, int outBufferLen)
 {
     if (domain.decimal.min != -FLT_MAX)
     {
@@ -237,19 +219,6 @@ static void __declspec(noinline) Dvar_VectorDomainToString(int components, DvarL
             _snprintf(outBuffer, outBufferLen, "Domain is any %iD vector", components);
     }
 }
-
-typedef void Dvar_VectorDomainToString_keep_fp(char *, int, float, float);
-
-static void Dvar_VectorDomainToString_keepalive(char *outBuffer, int outBufferLen, float min, float max)
-{
-    DvarLimits domain;
-
-    domain.decimal.min = min;
-    domain.decimal.max = max;
-    Dvar_VectorDomainToString(2, domain, outBuffer, outBufferLen);
-}
-
-Dvar_VectorDomainToString_keep_fp *dvar_keep_0048d2c0 = &Dvar_VectorDomainToString_keepalive;
 
 static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
 {
@@ -378,7 +347,7 @@ const char *Dvar_GetVariantString(const char *dvarName)
 
 #define DVAR_CHANGEABLE_RESET 0x1000
 
-static void __declspec(noinline) Dvar_UpdateRegistration(dvar_t *dvar, const char *dvarName, unsigned char type, unsigned short flags, DvarValue resetValue, DvarLimits domain)
+void Dvar_UpdateRegistration(dvar_t *dvar, const char *dvarName, unsigned char type, unsigned short flags, DvarValue resetValue, DvarLimits domain)
 {
     if (flags & DVAR_EXTERNAL)
         return;
@@ -390,16 +359,5 @@ static void __declspec(noinline) Dvar_UpdateRegistration(dvar_t *dvar, const cha
             dvar->domain = domain;
     }
 }
-
-typedef void Dvar_UpdateRegistration_fp(dvar_t *, const char *, unsigned char, unsigned short, DvarValue, DvarLimits);
-
-static void Dvar_UpdateRegistration_keepalive(dvar_t *dvar, const char *dvarName, unsigned char type, unsigned short flags, DvarValue resetValue, DvarLimits domain)
-{
-    Dvar_UpdateRegistration(dvar, dvarName, type, flags, resetValue, domain);
-    if (domain.enumeration.stringCount == 12345)
-        dvar->modified = true;
-}
-
-Dvar_UpdateRegistration_fp *dvar_keep_0048f240 = &Dvar_UpdateRegistration_keepalive;
 
 }

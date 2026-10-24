@@ -41,7 +41,8 @@ Owner-edited only.
   which one unit cannot produce. The map has 102 game files (89 .cpp + 13 zlib .c) against 104 prodid-99
   objects, and the 96 nafxcw.lib objects nearly fill the 106 prodid-96 slots. So the game files are the
   `/GL` objects and the cross-file register calls below are LTCG. Open: our image stamps `/GL` C++ as 100,
-  not 99 (`research/richtest/flags.sh`). The paragraph below is kept for its evidence; its unit conclusion
+  not 99 (`research/richtest/flags.sh`; /G6, /G7, /arch:SSE, /GX /GR, /Gm, PCH and a .c built /TP all give
+  100: `research/richtest/gl99.sh`). The paragraph below is kept for its evidence; its unit conclusion
   is wrong.
 - **Unity build (was PINNED 2026-10-21, see above).** Plain `/O2` gives register arguments only to `static` functions
   (`research/richtest/nonstatic.sh`: non-static and `inline` stay on the stack). Retail has 72 register-argument
@@ -64,7 +65,14 @@ Owner-edited only.
   emits all `/GL` code in its own order, interleaved with the plain objects, so contiguity-based SUPPORTED
   entries in `data/tu_map.tsv` are unreliable around LTCG code. Only PINNED (assert string) entries are
   solid. Resolve before trusting any SUPPORTED file assignment.
-- The linked-exe referee (`tools/linkcheck.py`) proves rows inside the real linked exe; all 61 pass.
+- **The referee checks the linked exe (2026-10-24).** With `/GL` an object holds no machine code, so
+  `tools/verify.py` builds every file `/GL`, links `/LTCG` and compares each function as linked (same
+  length, only outside call targets and absolute addresses masked, callees by name). A function with no
+  visible caller gets register arguments from LTCG; retail keeps the stack form for any function whose
+  address is taken, so link.py passes `/INCLUDE` for ledger functions whose address appears in the retail
+  image until the code taking it is written (`research/filemap/probe/addr/run.sh`, PINNED: 32 rows).
+  `data/symbols.tsv` gives the address of in-tree functions with no ledger row yet. Under this build the
+  old `static`/`noinline`/keepalive-wrapper workarounds were not needed: removed, all 76 rows still match.
 - Link options: retail keeps 238 groups of byte-identical functions at separate addresses, so no `/OPT:ICF`.
   With `/DEBUG`, 7.1 defaults to NOREF and NOICF, so link.py passes no `/OPT`. SUPPORTED.
 

@@ -1,6 +1,6 @@
 # CoD2Radiant.exe 1.0 reconstruction. Every target runs inside the toolchain image.
 #   make show A=0x...          everything about one retail function
-#   make try S=src/x.cpp A=0x...   compile one file and check one function
+#   make try S=src/x.cpp A=0x...   build the exe and check one function of that file
 #   make build    link the whole exe in retail order (build/CoD2Radiant.exe)
 #   make sections per-section bytes in place vs retail
 #   make verify recompile every ledger row and check it (the referee)
@@ -29,7 +29,7 @@ verify:
 	$(RUN) python3 tools/verify.py --all
 
 build:
-	$(RUN) sh -c 'python3 tools/link.py && python3 tools/linkcheck.py'
+	$(RUN) python3 tools/link.py
 
 sections:
 	$(RUN) python3 tools/sections.py
@@ -38,10 +38,10 @@ meter:
 	$(RUN) python3 tools/meter.py
 
 gate:
-	$(RUN) sh -c 'python3 tools/verify.py --all; python3 tools/link.py; python3 tools/meter.py --gate'
+	$(RUN) sh -c 'python3 tools/verify.py --all; python3 tools/meter.py --gate'
 
 accept:
-	$(RUN) sh -c 'python3 tools/verify.py --all && python3 tools/link.py && python3 tools/meter.py --update'
+	$(RUN) sh -c 'python3 tools/verify.py --all && python3 tools/meter.py --update'
 
 queue:
 	$(RUN) python3 tools/gen_queue.py

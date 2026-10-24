@@ -42,13 +42,11 @@ def measure():
     lib_rows = [l.split("\t") for l in lib_path.read_text().splitlines()[1:]] if lib_path.exists() else []
     same, identical = whole_file()
     text = m.SECTIONS[".text"]["vs"]
-    lc = BASE / "build" / "linkcheck.json"
-    linked = json.loads(lc.read_text())["match"] if lc.exists() else 0
     libs = {r[0] for r in lib_rows}
     tu_rows = [l.split("\t") for l in (BASE / "data" / "tu_map.tsv").read_text().splitlines()[1:]]
     game = [r for r in tu_rows if r[0] not in libs and r[3] not in ("AUTO", "EXTLIB")]
     return {
-        "linked_matches": linked,
+        "linked_matches": verify["matched"],
         "game_functions": len(game),
         "game_bytes": sum(int(r[1]) for r in game),
         "placed_functions": sum(1 for r in game if r[3] in ("PINNED", "SUPPORTED")),

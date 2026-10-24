@@ -74,3 +74,4 @@ addr	size	source	symbol	name	tag
 0x004b30a0	864	src/zlib/unzip.c	_unzlocal_GetCurrentFileInfoInternal	unzlocal_GetCurrentFileInfoInternal	PINNED
 0x004b3670	412	src/zlib/unzip.c	_unzlocal_CheckCurrentFileCoherencyHeader	unzlocal_CheckCurrentFileCoherencyHeader	PINNED
 0x004b3ce0	17	src/zlib/zutil.c	_zcfree	zcfree	PINNED
+0x004965d0	169	src/universal/q_shared.cpp	_I_stricmp	I_stricmp	SUPPORTED

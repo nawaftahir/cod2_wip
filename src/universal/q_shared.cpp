@@ -160,7 +160,7 @@ int I_strncmp(const char *s0, const char *s1, int n)
     return 0;
 }
 
-int I_strcmp(const char *s0, const char *s1)
+int I_stricmp(const char *s0, const char *s1)
 {
     AssertAt(s0, 608);
     AssertAt(s1, 609);
@@ -169,7 +169,7 @@ int I_strcmp(const char *s0, const char *s1)
 
 extern char va_info[];
 
-static int __declspec(noinline) CanKeepStringPointer(const char *string)
+static int CanKeepStringPointer(const char *string)
 {
     int stackLocal;
 

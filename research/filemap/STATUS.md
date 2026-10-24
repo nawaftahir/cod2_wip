@@ -27,8 +27,9 @@ Facts found
   string block in file order (strings reversed inside).
 
 Open for step 2
-- The build must move from src/unit.cpp to per-file objects + /GL + /LTCG (verify.py, link.py, flags.tsv,
-  gen_unit.py, AGENTS.md "one unit" text). Settle the prodid 99/100 question first.
+- DONE 10-24: per-file /GL objects + /LTCG link; verify.py checks every row inside the linked exe (76/76,
+  0 order warnings). Prodid 99 vs 100 still open (gl99.sh: no flag gives 99), Rich header bytes only.
+- Next: per-file skeletons (every function's address + symbol in its file, seeding data/symbols.tsv).
 - Unnamed files: radiant/UNKNOWN_00408f20, UNKNOWN_00420930, UNKNOWN_00425080 (game P4 StdClientUser layer),
   src/universal/UNKNOWN_00494480 (value noise), UNKNOWN_004985d0 (engine stubs). 2 /GL objects not found yet.
 - HYPOTHESIS boundary calls in proposals/*.md (brush head 0x453d70/0x453da0, brush tail 0x45f6a0, trees.c
