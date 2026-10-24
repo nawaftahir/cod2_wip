@@ -145,17 +145,17 @@ void R_LoadMiscModel(const char *(*vars)[2], int count)
     GfxStaticModelInstance *instance = &s_world.smodelInsts[s_world.smodelCount++];
     vec3_t angles;
     float yaw = (float)R_FloatForKey("angle", 0.0f, vars, count);
-    if (yaw == 0.0f)
-        R_Vec3ForKey("angles", "0 0 0", vars, count, angles);
-    else
+    if (yaw != 0.0f)
     {
         angles[0] = 0.0f;
         angles[1] = yaw;
         angles[2] = 0.0f;
     }
+    else
+        R_Vec3ForKey("angles", "0 0 0", vars, count, angles);
     vec3_t scale;
     if (!R_Vec3ForKey("modelscale_vec", "1 1 1", vars, count, scale))
-        scale[0] = scale[1] = scale[2] = (float)R_FloatForKey("modelscale", 1.0f, vars, count);
+        scale[2] = scale[1] = scale[0] = (float)R_FloatForKey("modelscale", 1.0f, vars, count);
     R_CreateStaticModel(&s_world, model, origin, angles, scale[2], instance);
     bool hasGroundLight = (ri.XModelGetFlags(model) & 1) != 0;
     vec4_t ground;
@@ -164,10 +164,18 @@ void R_LoadMiscModel(const char *(*vars)[2], int count)
     vec4_t colors[6];
     if (r_fullbright->current.enabled)
     {
-        ground[0] = hasGroundLight && foundGround ? 0.0f : 1.0f;
-        ground[1] = hasGroundLight ? 1.0f : 0.0f;
         ground[2] = 0.0f;
         ground[3] = 0.0f;
+        if (hasGroundLight)
+        {
+            ground[1] = 1.0f;
+            ground[0] = foundGround ? 0.0f : 1.0f;
+        }
+        else
+        {
+            ground[1] = 0.0f;
+            ground[0] = 1.0f;
+        }
         R_GetStaticModelLightingFromGround(ground, &sunVisibility, colors);
     }
     else
