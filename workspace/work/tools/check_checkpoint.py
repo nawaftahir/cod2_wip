@@ -114,6 +114,9 @@ required.update(accepted(renderer_shutdown))
 frame_start = Path(__file__).resolve().parents[1] / 'proof/frame_start_warm_bind.json'
 assert hashlib.sha256(frame_start.read_bytes()).hexdigest() == '369e04bcb8252b756b7112c163100a112bd398e21c33ac97ffc00811fa6494d1'
 required.update(accepted(frame_start))
+image_residency = Path(__file__).resolve().parents[1] / 'proof/image_residency_warm_bind.json'
+assert hashlib.sha256(image_residency.read_bytes()).hexdigest() == '3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59'
+required.update(accepted(image_residency))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

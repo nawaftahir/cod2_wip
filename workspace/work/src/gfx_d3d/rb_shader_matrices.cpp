@@ -569,7 +569,7 @@ typedef char passDx7LayoutCheck[(sizeof(MaterialPassDx7) == 92
 // PINNED 100399d0: D3DCOLOR byte order and truncation, not I_fround.
 __declspec(noinline) void RB_GetObjectiveColorDx7(byte *color)
 {
-    float time = *(const float *)(backEnd.sceneDef + 4);
+    float time = backEnd.sceneDef.floatTime;
     float fraction = time - (float)floor(time);
     float minimum[4], maximum[4];
     minimum[0] = r_objectiveColorDx7Min->current.color[0] * (1.0f / 255.0f);

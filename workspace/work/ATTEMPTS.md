@@ -1483,3 +1483,55 @@ The prior code and assembly source restore exactly by removing the new view
 section; no new assembly, roots, globals, flags or TU entries are introduced.
 Native checks cover240 begin-view and240 direct3D setups; COM/matrix side effects
 are mocked, so this is not complete GPU or game execution proof.
+
+### Typed scene/LOD and image-residency chain - 2026-10-24
+
+PINNED scene/LOD packet extents and offsets at321f0; shader399d0 reads scene's
+float time at+4. Field names/types agree with active common/Mac GfxSceneDef and
+GfxLodParms (SUPPORTED); consumed offsets are compile-pinned. r_scene_records.h
+now shares16/20-byte SDK records; backend and command use them directly. Replace
+the shader's raw scene+4 load with sceneDef.floatTime. Reverse only the two
+struct-copy spellings to reconstruct all prior backend source after removing
+the new image command; existing assembly is unchanged. Common/SDK ABI fixture
+now checks both records and rejects a double-width floatTime.
+
+Primary35850/56B comparison prioritizes SECOND image semantic==0, returning-1
+including when BOTH semantics are zero. Do not normalize it into a conventional
+reflexive comparator. Then first-zero returns+1; otherwise signed platform0
+memory descending, semantic ascending. Pointer-array entries are real GfxImage*.
+
+Primary35890/171B reuses registry iteration (excluding13 program images) and
+original CRT qsort. Stop at semantic0; draw only mapType3 through LIVE
+rgp.feedbackReplaceMaterial with(0,0,8,8,0,0,1,1,ffffffff), EndSurface per image,
+then clear backEnd.currentFeedbackImage. Do not add an initial flush, restore a
+prior feedback pointer or clear it on an interrupted draw. Primary31ef0/20B
+calls traversal then advances the LIVE command cursor.
+
+ImageList actual shared size is0x2004 (count4 +2048 pointers8192);
+retail35890 stack probe0x2008 includes an extra local/alignment slot. Never
+inflate the struct to the stack allocation. Registry sole storage is unchanged.
+New rb_imagetouch.cpp TU follows backend in CANDIDATE order, supported by Mac
+ownership; this placement is not proof of original object/link order.
+Native196608 comparison cases,144 registry/command traversals and60 interrupted
+draws pass, reusing actual registry iterator source. These mock drawing; no GPU
+texture-residency result is claimed.
+
+### Next raw-frame command: primary evidence, not yet source - 2026-10-24
+
+PINNED command17=2f260/53B forwards x4/y8/wc/h10/cols14/rows18/data1c
+from a32-byte packet, then advances live execution cursor. Actual2f110/331B
+helper calls IDirect3DDevice9::CreateOffscreenPlainSurface(cols,rows,
+X8R8G8B8=22,DEFAULT=0,&surface,0), NOT Mac's CreateTexture/GetSurfaceLevel
+substitute. Creation failure returns immediately. LockRect(&locked,0,DISCARD=
+2000h) is retried via the existing logging/alwaysfails path; HRESULT ignored.
+Copy rows of RGBA to BGRA (swap R/B, preserve G/A), destination stride=Pitch,
+source tightly packed. UnlockRect is NOT a logged/retried call. StretchRect
+uses current dx.renderTargets[0].colorSurface, no source rect, destination
+(x,y,x+w,y+h), LINEAR=2. Release the one surface once. No command-start surface
+flush, extra texture object, invented clamp or error-reporting callback exists.
+Helper original name remains unconfirmed; use a role name when reconstructed.
+Raw-copy target keeps one advancing destination pointer and adds Pitch-4*cols
+after each row. With cols<=0 the inner loop is skipped but that signed skip is
+still applied; do not replace it with row*Pitch if testing artificial successful
+creation for invalid widths. Creation uses HRESULT>=0 as success; no separate
+null-surface guard is present. Device/target are read live for final StretchRect.

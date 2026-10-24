@@ -1,5 +1,6 @@
 // Image registry and Direct3D texture creation.
 #include "r_local.h"
+#include "r_image_registry.h"
 #include <string.h>
 #include <dxerr9.h>
 #include <algorithm>
@@ -64,12 +65,6 @@ const char *g_imageProgNames[13] = {
     "$dynamic_shadows", "$shadow_cookie", "$shadow_cookie_blur", "$floatz",
     "$blurred_screen", "$glow_0", "$glow_1", "$pingpong_0", "$pingpong_1",
     "$resolved_post_sun", "$resolved_scene", "$savedscreen", "$raw"
-};
-
-struct ImageList
-{
-    int count;
-    GfxImage *image[2048];
 };
 
 struct Image_MemUsage

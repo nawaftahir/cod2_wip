@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/rb_backend.cpp').read_text()
-source = text[text.index('// Backend view setup.'):text.index('// Backend presentation.')]
+source = text[text.index('// Backend view setup.'):text.index('// Backend image residency command.')]
 setter = text[text.index('void RB_SetCodeConstant('):text.index('// PINNED 100307e0:')]
 frustum = text[text.index('void RB_SetFrustumConstants()'):text.index('extern const dvar_t *r_glow;')]
 backend = (work / 'src/gfx_d3d/rb_backend.h').read_text().replace('#pragma once','').replace('__declspec(align(16)) struct','struct alignas(16)')
@@ -30,7 +30,7 @@ GfxRenderCommandExecState *live;int kind,mutation,flushes,viewportCalls,initialL
 const GfxViewParms *installed;std::vector<int> events;
 void RB_EndSurface() {
     ++flushes;events.push_back(0);tess.indexCount=tess.optimizedIndexCount=0;
-    if(mutation==1){original.viewParms=&views[1];original.viewCount=23;memset(original.sceneDef,0x37,16);memset(original.lodParms,0x48,20);backEnd.viewParms=&views[1];live->cmd=&alternate;}
+    if(mutation==1){original.viewParms=&views[1];original.viewCount=23;memset(&original.sceneDef,0x37,16);memset(&original.lodParms,0x48,20);backEnd.viewParms=&views[1];live->cmd=&alternate;}
 }
 void MatrixIdentity44(float matrix[4][4]) {
     assert(!backEnd.projection2D&&matrix==backEnd.codeMatrixStack[initialLevel].world.matrix[0].m);events.push_back(2);
@@ -47,7 +47,7 @@ void RB_SetMatricesForView(const GfxViewParms *view) {
 void RB_UpdateViewportConstants() {
     ++viewportCalls;events.push_back(1);
     assert(backEnd.tileIndex==0&&backEnd.tileCount==1&&backEnd.width==vidConfig.width&&backEnd.height==vidConfig.height);
-    assert(backEnd.viewCount==original.viewCount&&!memcmp(backEnd.sceneDef,original.sceneDef,16)&&!memcmp(backEnd.lodParms,original.lodParms,20));
+    assert(backEnd.viewCount==original.viewCount&&!memcmp(&backEnd.sceneDef,&original.sceneDef,16)&&!memcmp(&backEnd.lodParms,&original.lodParms,20));
     if(mutation==4){backEnd.viewParms=&views[1];live->cmd=&alternate;}
 }
 ''' + setter + frustum + source + r'''
@@ -61,7 +61,7 @@ int main() {
             views[k].viewport={unsigned(k+2),unsigned(k+3),unsigned(k+640),unsigned(k+480),0,1};
             for(int i=0;i<4;++i)for(int j=0;j<4;++j){views[k].viewProjectionMatrix.m[i][j]=k*16+i*4+j+1;views[k].inverseViewProjectionMatrix.m[i][j]=(k+1)*(i*4+j+1);}
         }
-        memset(&original,0,sizeof(original));memset(original.sceneDef,0x16,16);memset(original.lodParms,0x27,20);original.header.byteCount=48;original.viewParms=&views[0];original.viewCount=17;
+        memset(&original,0,sizeof(original));memset(&original.sceneDef,0x16,16);memset(&original.lodParms,0x27,20);original.header.byteCount=48;original.viewParms=&views[0];original.viewCount=17;
         alternate=original;alternate.header.byteCount=64;alternate.viewParms=&views[2];finalCommand=alternate;finalCommand.header.byteCount=96;
         GfxRenderCommandExecState state={&original,1,{&original,&alternate}};live=&state;
         backEnd.viewParms=&views[0];tess.indexCount=pending&1?6:0;tess.optimizedIndexCount=pending&2?12:0;
@@ -78,7 +78,7 @@ int main() {
         assert(backEnd.codeMatrixStackLevel==(mutation==2?(initialLevel+1)%3:initialLevel));
         for(int j=0;j<4;++j){assert(backEnd.codeConsts[11][j]==(j==3?1:camera->origin[j]));for(int i=0;i<3;++i)assert(backEnd.codeConsts[12+i][j]==(j==3?0:camera->axis[i][j]));}
         if(kind){
-            assert(backEnd.viewCount==original.viewCount&&!memcmp(backEnd.sceneDef,original.sceneDef,16)&&!memcmp(backEnd.lodParms,original.lodParms,20));
+            assert(backEnd.viewCount==original.viewCount&&!memcmp(&backEnd.sceneDef,&original.sceneDef,16)&&!memcmp(&backEnd.lodParms,&original.lodParms,20));
             assert(backEnd.sceneViewport.x==(int)packet->viewport.X&&backEnd.sceneViewport.y==(int)packet->viewport.Y&&backEnd.sceneViewport.width==(int)packet->viewport.Width&&backEnd.sceneViewport.height==(int)packet->viewport.Height);
             assert(!memcmp(&backEnd.viewProjectionMatrix,&packet->viewProjectionMatrix,64));
             const GfxViewParms *fv=!behavior&&mutation==4?&views[1]:packet;double inv=1.0/fv->inverseViewProjectionMatrix._44;
@@ -94,5 +94,5 @@ int main() {
 '''
 with tempfile.TemporaryDirectory(prefix='gfx_backend_view_') as directory:
     binary = str(Path(directory) / 'test')
-    subprocess.run(['g++','-m32','-std=c++11','-O2','-x','c++','-','-o',binary],input=program,text=True,check=True)
+    subprocess.run(['g++','-I',str(work / 'src/gfx_d3d'),'-m32','-std=c++11','-O2','-x','c++','-','-o',binary],input=program,text=True,check=True)
     subprocess.run([binary],check=True)

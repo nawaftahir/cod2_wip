@@ -462,3 +462,19 @@ Backend begin-view uses a48-byte shared packet with existing16-byte scene and
 matrix-stack/global state and existing rb_state.cpp invalidation and matrix
 installation helpers; no duplicate implementation or allocation is added.
 The scene/LOD byte views remain an explicitly incomplete type recovery task.
+
+### Typed frame records and image residency - 2026-10-24
+
+r_scene_records.h owns the SDK16-byte GfxSceneDef and20-byte GfxLodParms views,
+matching the existing common schema. BackEnd and BeginView share typed records;
+shader objective time reads the named floatTime field. Ownership/storage and all
+PC offsets remain unchanged. Field names agree with common/Mac; original lost
+header wording is not claimed. This replaces the earlier scene/LOD opaque views.
+
+r_image_registry.h owns the sole ImageList schema (0x2004 on PC) shared by
+r_image.cpp and the new rb_imagetouch.cpp. Registry allocation/iteration remains
+in r_image.cpp; no second image table or feedback field is allocated. The new
+TU uses r_permanent.h's existing feedbackReplaceMaterial10a8 and backend's sole
+currentFeedbackImage2b5c. Candidate TU order places it after rb_backend.cpp,
+without claiming original final placement. New command33 remains private until
+the actual complete table is restored; no fake marker array/export is added.

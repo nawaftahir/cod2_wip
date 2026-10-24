@@ -831,9 +831,9 @@ static void RB_BeginViewCmd(GfxRenderCommandExecState *state)
     if (tess.indexCount || tess.optimizedIndexCount)
         RB_EndSurface();
     backEnd.viewCount = cmd->viewCount;
-    memcpy(backEnd.sceneDef, cmd->sceneDef, sizeof(backEnd.sceneDef));
+    backEnd.sceneDef = cmd->sceneDef;
     backEnd.viewParms = cmd->viewParms;
-    memcpy(backEnd.lodParms, cmd->lodParms, sizeof(backEnd.lodParms));
+    backEnd.lodParms = cmd->lodParms;
     backEnd.sceneViewport.x = backEnd.viewParms->viewport.X;
     backEnd.sceneViewport.y = backEnd.viewParms->viewport.Y;
     backEnd.sceneViewport.width = backEnd.viewParms->viewport.Width;
@@ -847,6 +847,17 @@ static void RB_BeginViewCmd(GfxRenderCommandExecState *state)
         RB_UpdateViewportConstants();
     RB_SetFrustumConstants();
     RB_Set3D();
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// Backend image residency command.
+void RB_TouchAllImages();
+
+// PINNED 10031ef0: image traversal may replace the live command cursor.
+static void RB_TouchAllImagesCmd(GfxRenderCommandExecState *state)
+{
+    RB_TouchAllImages();
     const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
     state->cmd = (const byte *)header + header->byteCount;
 }

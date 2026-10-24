@@ -2,6 +2,7 @@
 #pragma once
 
 #include <stddef.h>
+#include "r_scene_records.h"
 
 // Mac type; PINNED PC gamma builders consume exactly256 ushort entries.
 struct GfxGammaRamp
@@ -64,9 +65,9 @@ struct r_backEndGlobals_t
 	float codeConsts[59][4];
 	int frameCount;
 	int viewCount;
-	char sceneDef[16];
+	GfxSceneDef sceneDef;
 	const GfxViewParms *viewParms;
-	char lodParms[20];
+	GfxLodParms lodParms;
 	GfxViewport sceneViewport;
 	D3DMATRIX viewProjectionMatrix;
 	int tileIndex;

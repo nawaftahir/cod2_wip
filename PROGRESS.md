@@ -5,7 +5,39 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: begin-view and 3D matrix restoration
+### Latest: typed scene/LOD and image residency
+
+r_scene_records.h replaces SDK backend/command opaque scene and LOD arrays with
+shared16/20-byte records matching the common view. Objective shader time uses
+sceneDef.floatTime. Both views pass size/offset checks and reject wrong-width
+time. Storage/offsets stay unchanged. r_image_registry.h shares the actual0x2004-
+byte ImageList between the existing registry and new rb_imagetouch.cpp.
+
+Image residency now has real comparator, traversal and command33 source. It uses
+actual registry iteration, original CRT qsort, live feedbackReplaceMaterial and
+existing DrawStretchPic/EndSurface, then clears the sole feedback pointer. The
+primary comparator's unusual second-zero-semantic rule is preserved. There is
+NO duplicate registry/global, partial command table, new export or assembly.
+Source exists for17 of33 non-null handlers;16 and genuine dispatcher/API/world
+closure remain. Stages1-3 are NOT complete.
+
+Original build/both referees match the real56-byte comparator entry10035850;
+all1447 prior extents survive. C++104237/253580=41.106159792%,617 bodies on the
+frozen legacy inventory, NOT whole-DLL completion. The full129-fixture suite
+passes, including196608 comparator cases,144 actual registry/command traversals
+and60 interrupted draws. Traversal and command source remain uncredited. Draws
+are mocked: no GPU residency/client execution proof.31 assembly exclusions/
+7787 bytes stay unchanged. Same-offset equality9.153328955% is diagnostic only.
+
+The new frozen bind ratchets the gate to1448 extents; comparator removal,
+wrong extent and lost binding negatives each fail correctly. No byte-spelling
+sweep was used. Candidate new TU follows backend, without a historical order
+claim. All named imports remain exact;159 temporary exports and no GetRefAPI.
+Proof: proof/backend_residency_checkpoint.json and image_residency_warm_bind.json.
+Next actual chain: raw-frame command17; primary PC offscreen-surface behavior
+is recorded in ATTEMPTS.md and differs from the Mac texture substitute.
+
+### Earlier: begin-view and 3D matrix restoration
 
 RB_BeginViewCmd and RB_Set3D now have actual source in rb_backend.cpp. The48-byte
 shared command record carries scene, view, LOD and view-count payloads. Begin-view

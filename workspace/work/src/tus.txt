@@ -51,6 +51,7 @@ gfx_d3d/r_texturemem.cpp
 gfx_d3d/r_surfbounds.cpp
 gfx_d3d/r_utils.cpp
 gfx_d3d/rb_backend.cpp
+gfx_d3d/rb_imagetouch.cpp
 gfx_d3d/rb_fog.cpp
 gfx_d3d/rb_filter_generate.cpp
 gfx_d3d/rb_light_derive.cpp

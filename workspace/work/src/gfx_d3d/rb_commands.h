@@ -1,6 +1,7 @@
 // PC backend command records; include r_local.h and rb_backend.h first.
 #pragma once
 #include <stddef.h>
+#include "r_scene_records.h"
 struct Material;
 
 struct GfxCmdHeader
@@ -131,9 +132,9 @@ struct GfxViewParms;
 struct GfxCmdBeginView
 {
     GfxCmdHeader header;
-    char sceneDef[16];
+    GfxSceneDef sceneDef;
     const GfxViewParms *viewParms;
-    char lodParms[20];
+    GfxLodParms lodParms;
     int viewCount;
 };
 

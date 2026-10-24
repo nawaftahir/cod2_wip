@@ -51,4 +51,23 @@ with tempfile.TemporaryDirectory(prefix='gfx_backend_layout_') as directory:
         wrong = program.replace('GfxCodeMatrix worldOutdoorLookup;', 'GfxCodeMatrix worldOutdoorLookup; GfxCodeMatrix extraOglMatrix;')
         result = subprocess.run(['g++','-m32','-std=c++11','-x','c++','-c','-','-o',str(Path(directory)/'layout.o')],input=wrong,text=True,capture_output=True)
         assert result.returncode != 0 and 'PC frame stride' in result.stderr, (label,result.stderr)
-print('PASS: both real matrix header views agree on PC sizes, alignment, offsets and three-frame stride; extra OGL field rejected')
+records = (work / 'src/gfx_d3d/r_scene_records.h').read_text()
+record_checks = r'''
+static_assert(sizeof(GfxSceneDef)==16,"scene size");
+static_assert(offsetof(GfxSceneDef,floatTime)==4,"scene time");
+static_assert(offsetof(GfxSceneDef,entityCount)==8,"scene count");
+static_assert(offsetof(GfxSceneDef,entities)==12,"scene entities");
+static_assert(sizeof(GfxLodParms)==20,"LOD size");
+static_assert(offsetof(GfxLodParms,scale)==12,"LOD scale");
+static_assert(offsetof(GfxLodParms,bias)==16,"LOD bias");
+'''
+with tempfile.TemporaryDirectory(prefix='gfx_scene_layout_') as directory:
+    for label, header in [('common',common),('sdk',records)]:
+        program = '#include <cstddef>\nstruct GfxEntity;typedef float vec3_t[3];\n'
+        program += declaration(header,'GfxSceneDef') + '\n' + declaration(header,'GfxLodParms') + '\n' + record_checks
+        result = subprocess.run(['g++','-m32','-std=c++11','-x','c++','-c','-','-o',str(Path(directory)/'layout.o')],input=program,text=True,capture_output=True)
+        assert result.returncode == 0, (label,result.stderr)
+        wrong = program.replace('float floatTime;', 'double floatTime;')
+        result = subprocess.run(['g++','-m32','-std=c++11','-x','c++','-c','-','-o',str(Path(directory)/'layout.o')],input=wrong,text=True,capture_output=True)
+        assert result.returncode != 0, (label,result.stderr)
+print('PASS: common/SDK matrix and typed scene/LOD schemas agree on PC sizes/offsets; extra OGL field and wrong-width time rejected')

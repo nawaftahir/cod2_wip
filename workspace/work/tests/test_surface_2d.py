@@ -145,5 +145,5 @@ int main() {
 '''
 with tempfile.TemporaryDirectory(prefix='gfx_surface_2d_') as directory:
     binary=str(Path(directory)/'test')
-    subprocess.run(['g++','-m32','-std=c++11','-O2','-x','c++','-','-o',binary],input=program,text=True,check=True)
+    subprocess.run(['g++','-I',str(work / 'src/gfx_d3d'),'-m32','-std=c++11','-O2','-x','c++','-','-o',binary],input=program,text=True,check=True)
     subprocess.run([binary],check=True)

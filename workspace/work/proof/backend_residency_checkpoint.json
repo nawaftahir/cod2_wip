@@ -1,0 +1,132 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "6e45b32",
+  "scope": "typed shared scene/LOD records, registry schema and image-residency chain",
+  "source_functions_restored": [
+    "RB_CompareTouchImages",
+    "RB_TouchAllImages",
+    "RB_TouchAllImagesCmd"
+  ],
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 17,
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "997ecc9fdef6c086cb00c3404be8808d5665a764e8a6c35da5285d877cd51872",
+  "same_file_offset_percent": 9.153328954646017,
+  "cpp_executable_bytes": 104237,
+  "cpp_percent_legacy_inventory": 41.106159791781685,
+  "cpp_game_bodies": 617,
+  "new_verified_engine_bytes": 56,
+  "accepted_address_extent_set_unchanged": false,
+  "protected_extents_retained": 1447,
+  "full_source_fixtures_passed": 129,
+  "tu_order_unchanged": false,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "assembly_review": {
+    "old_backend_sha256": "f0cfac755d4a5adb208b270403bf9128c28180b574120b7101693fdad9b780c1",
+    "new_backend_sha256": "3e9d5b7f5c681f839792df4fb83aa9e9208922f6cbb4e7f6c826a83824df9424",
+    "prior_executable_and_assembly_source_unchanged_except_typed_scene_lod_copies": true,
+    "method": "remove new image command and reverse two equivalent typed-copy spellings; reconstruct full previous source exactly",
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 958464,
+      "virtual_bytes": 954546,
+      "sha256": "aaa0d8653bbb1f066a8989fd9ed3bc59e3090a9de7f03d8286042350298b7577"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xeb000",
+      "file_offset": "0xeb000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602783,
+      "sha256": "01b39ee3be6c11ecf215e69d3a77e3e88e79a51410b3d0b1c632b86e2ae7ef51"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17f000",
+      "file_offset": "0x17f000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "e510ad256ef993214762c426e6d835eb7a30941eab2d5c645ca432de3163f9e4"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74d000",
+      "file_offset": "0x18d000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88272,
+      "sha256": "a0f53204f722a9bf9752625bca07fb30a699ff72f60df841885308973cd85cf3"
+    }
+  ],
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/r_scene_records.h": "f62a90ca397a03c57c8e4090163b84f59706ad6192263014533e89b57b4904a5",
+    "target/work/src/gfx_d3d/r_image_registry.h": "2a8e2a52d01467b040d822a60e728642c0d2f0a81ce9213eaa65bd615986357d",
+    "target/work/src/gfx_d3d/r_image.cpp": "aabf0780588ec4568f145f098a437db6affd15ae1c969fd1f6036568caf24c07",
+    "target/work/src/gfx_d3d/rb_imagetouch.cpp": "14cd781e57a2e4fec1b005ced996f35cd2b7bdfce0075318394d472624f0ee8c",
+    "target/work/src/gfx_d3d/rb_backend.cpp": "3e9d5b7f5c681f839792df4fb83aa9e9208922f6cbb4e7f6c826a83824df9424",
+    "target/work/src/gfx_d3d/rb_backend.h": "ea38189570c8e19bf1f5bf7c6d26c7cae60651d25849d98b565f114ff5373949",
+    "target/work/src/gfx_d3d/rb_commands.h": "684b36555632c341f45e15aa9951a7e7394389444c340421c4d1956605fd0fe2",
+    "target/work/src/gfx_d3d/rb_shader_matrices.cpp": "5c9345546f03515aa4010bb3eb1fae4fc4e25d290a79e87885628b2feb723fa1",
+    "target/work/src/tus.txt": "1046b9dabd295602eb2e265f51bf697b4de93aa18d18f2b56b29be1f6394583f",
+    "target/work/tools/source_coverage.py": "6fa0c75f226c1b08d0e5a41e437ef50c8c0dd97e97a0051f4bc115329c5bb5d6",
+    "target/work/tools/check_checkpoint.py": "2e1a5456374f14ed3146509ddc87758f762bcecc5130eca07a1beb487414abf5",
+    "target/work/tests/test_backend_common_layout.py": "d55bf851eabca353da1497657ca03ed90719c87bd98617e82b4faea5873eb731",
+    "target/work/tests/test_backend_commands.py": "0e3237bae55e8cc47449d65b664a6855e57f32480dfd20dd419ba77d1bf0dfe1",
+    "target/work/tests/test_backend_2d_commands.py": "3182b5cff5a4840278c73d410ece683ab96bc37168290fac4b68720415756ee4",
+    "target/work/tests/test_backend_state_commands.py": "eae47153509f83755d4e985f650cbeadb3a2b5f0f18425d289eca40fc9e3554d",
+    "target/work/tests/test_backend_view.py": "568f73aed6c839723ba29ba357d8dbe52a85419e436b49a54d2295b599fd7296",
+    "target/work/tests/test_surface_2d.py": "cfb6efa301f5ed2e30134c7369c49d6139103bb2b3624ef6e240a7b41d454a6e",
+    "target/work/tests/test_image_memory.py": "f136477fb9817d5eb1ba1e707f516287e672f9f996719daca52d8991e86ba9b4",
+    "target/work/tests/test_image_list.py": "b24af9b0eba8edf3ead67f6c913dc3a2a67fe8f8fa3682677029586064c4e88e",
+    "target/work/tests/test_image_shutdown.py": "368eb5ff900628b8581b8cbfccb608b5d46ed137d648c67635e2b605ce567ef8",
+    "target/work/tests/test_image_residency.py": "2dcb005530c798664eb09c0713b8c721dfb926cf268b6d9f35ebbfe65de1699a"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_residency_build.log": "4f89f0cdb4452975bc2e44c5096cf8d5035b4f1447b5cd48d436a8204cc0e4fd",
+    "target/work/proof/latest/backend_residency_fixtures.log": "a760b6040c85c293e764ccbc8184fd58cd9cee5586ce0d85e754f915b9256f4f",
+    "target/work/proof/latest/backend_residency_gate.log": "d73874ae333e144a1812d88ba55c57ad07a71bf4adea21170facb0bacd8a577f"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "limits": [
+    "traversal and private command source uncredited; full command table absent",
+    "mock drawing does not prove GPU texture residency or client execution",
+    "new TU order is candidate, not historical object-order proof",
+    "dispatcher/API/world load/final layout/whole SHA remain open"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "named_import_set_identical": true,
+  "protected_extents_after_ratchet": 1448,
+  "native_comparator_cases": 196608,
+  "native_registry_command_cases": 144,
+  "native_interrupted_draw_cases": 60,
+  "native_common_sdk_scene_lod_layouts_passed": true,
+  "matched_new_body": {
+    "name": "RB_CompareTouchImages",
+    "target": "0x10035850",
+    "bytes": 56,
+    "object": "rb_imagetouch.obj"
+  },
+  "binding_snapshot": {
+    "path": "target/work/proof/image_residency_warm_bind.json",
+    "sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59"
+  },
+  "new_gate_negative_controls": [
+    "remove comparator",
+    "change extent to55",
+    "mark binding rejected"
+  ]
+}
