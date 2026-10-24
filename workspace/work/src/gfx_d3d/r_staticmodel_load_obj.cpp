@@ -494,8 +494,9 @@ void R_GetStaticModelLightingFromGrid(const GfxWorld *world,
     GfxStaticModelInstance *instance, float *sunVisibility, vec4_t *colorForDir)
 {
     vec3_t origin;
-    for (int index = 0; index < 3; ++index)
-        origin[index] = (instance->mins[index] + instance->maxs[index]) * 0.5f;
+    origin[0] = (instance->mins[0] + instance->maxs[0]) * 0.5f;
+    origin[1] = (instance->maxs[1] + instance->mins[1]) * 0.5f;
+    origin[2] = (instance->maxs[2] + instance->mins[2]) * 0.5f;
     *sunVisibility = RB_GetLightingAtPoint(&world->lightGrid, origin, colorForDir);
 }
 
@@ -515,6 +516,7 @@ void R_GetStaticModelLightingFromGround(const vec_t *groundLight, float *sunVisi
 // PINNED 1002a780: allocate the DX7 tables or a two-layer DX9 image.
 void R_PrepareStaticModelLightingCache(GfxWorld *world, int smodelCount)
 {
+    int height;
     int width;
     int size;
 
@@ -524,19 +526,25 @@ void R_PrepareStaticModelLightingCache(GfxWorld *world, int smodelCount)
         world->smodelLightingSunVisTable = (float *)ri.Hunk_AllocInternal(smodelCount * 4);
         return;
     }
-    smodelLoadGlob.width = 1;
     width = 1;
-    while (smodelCount > width * width)
+    smodelLoadGlob.width = width;
+    if (smodelCount > 1)
     {
-        width += width;
+        do
+            width += width;
+        while (width * width < smodelCount);
         smodelLoadGlob.width = width;
     }
-    smodelLoadGlob.height = width;
-    if (width * smodelLoadGlob.width >= smodelCount + smodelCount)
-        smodelLoadGlob.height = (width + 1) >> 1;
-    smodelLoadGlob.texelScaleX = 1.0f / (float)(smodelLoadGlob.width + smodelLoadGlob.width);
-    smodelLoadGlob.texelScaleY = 1.0f / (float)(smodelLoadGlob.height + smodelLoadGlob.height);
-    size = smodelLoadGlob.width * smodelLoadGlob.height << 5;
+    height = width;
+    smodelLoadGlob.height = height;
+    if (width * width >= smodelCount + smodelCount)
+    {
+        height = (width + 1) >> 1;
+        smodelLoadGlob.height = height;
+    }
+    smodelLoadGlob.texelScaleX = 1.0f / (float)(width + width);
+    smodelLoadGlob.texelScaleY = 1.0f / (float)(height + height);
+    size = height * width << 5;
     smodelLoadGlob.pixels = (unsigned char *)ri.Hunk_AllocateTempMemoryInternal(size);
     memset(smodelLoadGlob.pixels, 0x80, size);
 }

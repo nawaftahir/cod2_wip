@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "c2a8a809decea8eac81f9de50d4f4f1c6b9df6859f5443f2980f2047a7e6d6f6",
+  "candidate_sha256": "d73b86fc0fff1938fe252f451576480d2c61cccdad352d25749be3cef331ece9",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 169761,
+  "same_file_offset_equal_bytes": 169758,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 9.169370938191372,
+  "same_file_offset_percent": 9.16920889795354,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -47,7 +47,7 @@
       "file_offset": "0x1000",
       "raw_bytes": 962560,
       "virtual_bytes": 959106,
-      "sha256": "a017acd027b224c0ddc1af25b5f8d5a02258bc17f778c285356cc3c28262106f"
+      "sha256": "b6a04010451d1ff7b6787c4e1ef9bea99dca0f7ac9f4715e5b7197690d9dbc8d"
     },
     {
       "name": ".rdata",
@@ -55,7 +55,7 @@
       "file_offset": "0xec000",
       "raw_bytes": 606208,
       "virtual_bytes": 603340,
-      "sha256": "4730001561ee4b911cafdb5418bcc5243d732f4df642c01456360b2e687bbb86"
+      "sha256": "651793fb6cca114c0a4194272d841b0c308b724232ba55bd4f46f003092bf960"
     },
     {
       "name": ".data",
@@ -71,7 +71,7 @@
       "file_offset": "0x18e000",
       "raw_bytes": 90112,
       "virtual_bytes": 88616,
-      "sha256": "ff82a875455315fedaecb35a117ae224b41a674d319845fe3ed2dc5c9de12548"
+      "sha256": "b3d9dcc49c1df0b8c91b3647ad07d12bc0d1aed8e3b133b6f70d209c72ddf4af"
     }
   ],
   "retail_image": {
@@ -739,7 +739,7 @@
   "candidate_image": {
     "file_bytes": 1720320,
     "machine": "0x14c",
-    "timestamp": 1792861316,
+    "timestamp": 1792862142,
     "image_base": "0x10000000",
     "entrypoint_rva": "0xd7dd1",
     "image_bytes": 7749632,
@@ -2170,11 +2170,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1792861316,
+        "timestamp": 1792862142,
         "bytes": 71,
         "rva": "0x17d680",
         "file_offset": "0x17d680",
-        "data_sha256": "eb48e1d783dd6db9bb897260efae41465f49c39b55daa922053d69af7c20977b"
+        "data_sha256": "cc390785b3653bd278e7cae2bc1d1910a5fcb22e27c4819bf7b21a4c6ad47e48"
       }
     ]
   },
