@@ -399,7 +399,7 @@ gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_FloatForKey@@YANPBDMPAY01PBDH@Z	10002e80	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_Vec3ForKey@@YAEPBD0PAY01PBDHPAM@Z	10002ed0	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_Vec4ForKeyHex@@YAEPBD0PAY01PBDHPAM@Z	10002f50	bind	-	-	unknown
-gfx_d3d/r_bsp_load_obj.cpp	?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z	10003030	pinned	gfx_d3d/r_bsp_load_obj	gfx_d3d/r_bsp_load_obj	mac-name
+gfx_d3d/r_bsp_load_obj.cpp	?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z	10003030	bind	gfx_d3d/r_bsp_load_obj	gfx_d3d/r_bsp_load_obj	mac-name
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadMiscModel@@YAXPAY01PBDH@Z	100031b0	pinned	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z	10003430	bind	gfx_d3d/r_bsp_load_obj	gfx_d3d/r_bsp_load_obj	mac-name
 gfx_d3d/r_bsp_load_obj.cpp	?R_BuildCellAabbTrees@@YAXXZ	10003810	bind	-	gfx_d3d/r_bsp_load_obj	interval

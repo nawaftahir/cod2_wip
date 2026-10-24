@@ -143,8 +143,10 @@
 {
 "name": "?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 332,
-"hits": []
+"size": 328,
+"hits": [
+"0x10003030"
+]
 },
 {
 "name": "?R_LoadMiscModel@@YAXPAY01PBDH@Z",

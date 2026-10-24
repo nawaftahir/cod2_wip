@@ -85,6 +85,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z": {
+"t": "0x10003030",
+"n": 328,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z": {
 "t": "0x10003430",
 "n": 939,

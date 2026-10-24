@@ -10,6 +10,7 @@ accepted	gfx_d3d/r_bsp.cpp	R_UpdateLightsFromDvars	100013d0	mac
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_BuildCellAabbTrees	10003810	doubt
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_FloatForKey	10002e80	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_InterpretSunLightParseParamsIntoLights	10004dc0	mac
+accepted	gfx_d3d/r_bsp_load_obj.cpp	R_IsValidStaticModel	10003030	mac
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_ParseSunLight	10003430	mac
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_SetParentAndCell_r	100046e0	mac
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_Vec3ForKey	10002ed0	bind
@@ -734,7 +735,6 @@ accepted	universal/xanim_matrix.cpp	ConvertQuatToMat	1001d660	mac
 accepted	universal/xanim_matrix.cpp	MatrixTransformVectorQuatTrans	10058310	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ReloadWorld	100017b0	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ResetSunLightParseParams	10001280	mac
-draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_IsValidStaticModel	10003030	mac
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadEntities	10003880	mac
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadMiscModel	100031b0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_ParseEntitySpawnVars	10003880	-

@@ -124,7 +124,9 @@ foundModel:
             name, origin[0], origin[1], origin[2]);
         model = R_RegisterModel("xmodel/default_static_model");
     }
-    if (!model || ri.XModelBad(model))
+    if (!model)
+        return 0;
+    if (ri.XModelBad(model))
         return 0;
     if (outModel)
         *outModel = model;

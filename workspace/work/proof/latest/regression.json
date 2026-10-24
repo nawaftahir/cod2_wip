@@ -1,8 +1,8 @@
 {
-  "functions": 652,
-  "bytes": 112546,
+  "functions": 653,
+  "bytes": 112874,
   "total": 253580,
-  "percent": 44.38283776323054,
+  "percent": 44.51218550358861,
   "baseline_lost": [],
   "gains": [
     {
@@ -33,6 +33,12 @@
       "target": "0x10002f50",
       "bytes": 192,
       "name": "?R_Vec4ForKeyHex@@YAEPBD0PAY01PBDHPAM@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10003030",
+      "bytes": 328,
+      "name": "?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {

@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 112546,
-  "cpp_executable_bytes": 104759,
-  "cpp_percent": 41.31201198832716,
-  "cpp_game_bodies": 621,
+  "mixed_executable_bytes": 112874,
+  "cpp_executable_bytes": 105087,
+  "cpp_percent": 41.44135972868523,
+  "cpp_game_bodies": 622,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -262,7 +262,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "9233f16bd49fb1745414da1e38613a4b9acef4956909a0d4f7fd141fa37d0d71",
   "regression_sha256": "d174136b8643fb10ffbfef1ac6e70dc36e1702615c6df9a94693c87e1c3b5f7b",
-  "bind_sha256": "ff0b9448ed8666141909a8c5c2a103278361cd7adacc8737bdaf1d555cc09c5c",
+  "bind_sha256": "44ad9c9b8d3f19e6dde098f26a013ec87303ac7b77672bec5479a62d8cc8ea73",
   "source_sha256": {
     "profile.mk": "360a65a9c10b596657ff44ef2b75dc33c7127e3f0d3eb3ec4a8abf3b18370370",
     "roots.txt": "484eedc53bf1747bbde7a67e524959944250114d9b61d0894612a3fd1273129e",
@@ -335,7 +335,7 @@
     "gfx_d3d/r_water.cpp": "a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b",
     "gfx_d3d/r_image_load_obj.cpp": "88914c3bc68cf520e70b7651ca9b7f60df8d61fc1669bee1ec79c8f7d00e2026",
     "gfx_d3d/r_shadowcookie.cpp": "4e22281fe8449fda03e96f0d7eaa7b79a39a12078c42cbed165e4fbc64e59eb6",
-    "gfx_d3d/r_bsp_load_obj.cpp": "d4dcbb905596d549e0baaffe0c697a4f92d27164506a05b03403cdb5fcce152a",
+    "gfx_d3d/r_bsp_load_obj.cpp": "0485789db2078f07a448c71ce2100baa1262acf67ab042309bfef22df046f8c1",
     "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",
     "gfx_d3d/r_buffers.cpp": "e86aee523eb5ae941898dce04ee6dab10545d7ece099d5ebdbd81cc1e7dd0fd4",
     "gfx_d3d/rb_sky.cpp": "059a302f03e505d95083b24cc5dae81ebface31ca1472e1d56fa82003faa8e60",
