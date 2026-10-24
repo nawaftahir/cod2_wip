@@ -544,3 +544,17 @@ not by an extra export. Shared packet/color and sole tess/rgp owners are reused.
 Material-state view reads the existing object's words2c/30; it allocates nothing.
 No new TU/order/flag/root/export. Actual command table and debug caller source
 still determine final retention; this wave does not certify their closure.
+
+Early post-effects,2026-10-24: private command25 remains beside actual screen
+copy in rb_backend.cpp. Existing backEnd.resolvedPostSunTarget+2b54, dx target1
+and hasSeparateAlphaBlend+2d7d retain their owners; no new allocation, header,
+TU/order/flag/root/export. Whole command/API graph is still incomplete.
+
+API candidate ownership,2026-10-24: api_callbacks.tsv now records the actual
+source TU for all54 byte-and-binding-accepted callback slots. Each owner is
+resolved through the fresh bind object's unique src/tus.txt entry and an existing
+source file. UNVERIFIED entries do not claim missing source; UNUSED_ZERO marks
+the ten unwritten slots. This pins
+current candidate ownership, NOT the original historical TU grouping/order or
+completion of the108-slot API59 implementation. Existing raw addresses, legacy
+UNVERIFIED labels and accepted symbols remain unchanged.

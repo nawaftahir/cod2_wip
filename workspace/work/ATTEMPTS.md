@@ -1797,3 +1797,35 @@ No new helper body or state allocation needed for this next handler.
 Remaining table entries after point/line source:19=2eff0 sprite,21=32c10 text,
 22=32c60 text-space,23=2f900 surfaces,24=2f970 sun,25=30c10 early-post,
 26=30ba0 late-post,27=30b60 sun-post. Table10190518 is primary, not Mac holes.
+
+### Early post-effects source - 2026-10-24
+
+Command25 now uses the primary126-byte behavior pinned above. Existing enum
+NONE14/RESOLVED_POST_SUN1 and existing RG/dvars/device state are reused. Current
+source adds only a private handler and r_distortion declaration, not a new table,
+allocation, root or flag. Native3076 routes extend the existing screen fixture,
+which still executes real Image_GetSurface and R_DX_CALL retry/logging code.
+All16 flag combinations and four renderer values exercise ordinary/optimized
+flushes, three retry counts and callback mutations. Tests check NONE throughout
+the surface calls, final target1 after copy even if Release mutates the field,
+live target after initial flush and live cursor after COM. Null skipped dvar
+pointers prove distortion/capability short circuit rather than eager evaluation.
+Prior48 copies/48 saves/240 blurs/1536 blends remain in the same fixture.
+
+Next sun closure primary: draw command24=2f970/27B calls3bff0(viewIndex); sun-post
+command27=30b60/60B flushes then calls3c050(viewIndex), both live cursor afterward.
+3bff0/87B gates on r_sun101ce684 and world.sun.hasValidData at+160; sets3D only
+if projection2D, then3b550(state) and3bf00(state). State=existing10764590+48*index.
+3c050/96B reads scene time1072ddb8 and state.lastTime+12 BEFORE gating; delta10
+if lastTime0 or lastTime>now, otherwise wrapped int subtraction; always stores
+now first. Then same sun/world gate and calls3bce0(state,delta),3bf60(state).
+Do not copy Mac's return type into PC void wrappers or omit disabled timestamp
+updates. Helpers3b550/3bf00/3bce0/3bf60 and their actual geometry/query/filter
+callees still need source; wrappers alone do not close these command chains.
+
+Late-post helper10030a40/111B is AL-only RB_NeedsSceneCopy(float), ALREADY
+accepted by both current referees. Preserve existing source: primary TEST AH,41
+accepts only ordered >0 for either blur value; NaN does not independently request
+a copy. GLM's relational reconstruction obscures this. Existing >0 predicates
+are correct; no rewrite/FP-status assembly is needed. Late command26's other
+helpers30ab0/308c0 and their glow/blur/debug chains still need source.

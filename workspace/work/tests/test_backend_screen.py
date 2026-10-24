@@ -34,13 +34,14 @@ struct Texture {int id;HRESULT GetSurfaceLevel(unsigned,IDirect3DSurface9 **);} 
 struct GfxImage {int mapType;struct {Texture *map;} texture;} images[2]={{3,{&textures[0]}},{3,{&textures[1]}}};
 struct Material {int id;} materials[4]={{0},{1},{2},{3}};
 ''' + backend + commands + permanent + tess + r'''
-enum {D3DTEXF_LINEAR=2,R_RENDERTARGET_SAVED_SCREEN=7,R_RENDERTARGET_SHADOWCOOKIE_BLUR=5};
+enum {D3DTEXF_LINEAR=2,R_RENDERTARGET_SAVED_SCREEN=7,R_RENDERTARGET_SHADOWCOOKIE_BLUR=5,R_RENDERTARGET_NONE=14,R_RENDERTARGET_RESOLVED_POST_SUN=1};
 struct Device {HRESULT StretchRect(IDirect3DSurface9 *,void *,IDirect3DSurface9 *,void *,int);} devices[2];
-struct {Device *device;struct {GfxImage *image;} renderTargets[13];} dx;
+struct {Device *device;struct {GfxImage *image;} renderTargets[13];byte hasSeparateAlphaBlend;} dx;
 struct {int renderTargetWidth,renderTargetHeight;IDirect3DSurface9 *renderTargetSurface;} dxState;
 r_backEndGlobals_t backEnd;r_global_permanent_t rgp;GfxTess tess;
-struct dvar_t {struct {int integer;} current;} blur,otherBlur;
+struct dvar_t {union {int integer;byte enabled;} current;} blur,otherBlur,distortion,glow,fullbright,renderer;
 const dvar_t *sc_blur=&blur;
+const dvar_t *r_distortion=&distortion,*r_glow=&glow,*r_fullbright=&fullbright,*r_rendererInUse=&renderer;
 struct Packet {GfxCmdBlendSavedScreen cmd;byte spare[52];} original,alternate,finalCommand;
 GfxRenderCommandExecState *live;const void *cursorBase;
 int mode,mutation,retry,alwaysfails,stageTry,copies,draws,ends,sets,rounds,roundResult;char stage;
@@ -57,6 +58,7 @@ void RB_LogPrint(const char *message) {
 }
 HRESULT Texture::GetSurfaceLevel(unsigned level,IDirect3DSurface9 **out) {
     assert(stage=='G'&&!level);if(mode==1||mode==2)assert(&images[id]==dx.renderTargets[mode==1?7:5].image);copyImage=&images[id];*out=&surfaces[(id+stageTry)&1];imageSurface=*out;
+    if(mode==4)assert(&images[id]==dx.renderTargets[1].image&&backEnd.resolvedPostSunTarget==14);
     alwaysfails=stageTry<=retry;
     if(!alwaysfails&&mutation==1){dx.device=&devices[1];dxState.renderTargetSurface=&targets[1];dxState.renderTargetWidth+=17;dxState.renderTargetHeight+=11;dx.renderTargets[5].image=&images[1-id];cursor(&alternate);}
     return -11;
@@ -67,11 +69,13 @@ HRESULT Device::StretchRect(IDirect3DSurface9 *src,void *srcRect,IDirect3DSurfac
 }
 unsigned IDirect3DSurface9::Release() {
     assert(stage=='R'&&this==imageSurface);alwaysfails=stageTry<=retry;
+    if(mode==4){assert(backEnd.resolvedPostSunTarget==14);if(!alwaysfails&&mutation==1){backEnd.resolvedPostSunTarget=99;dx.renderTargets[1].image=&images[1-copyImage->texture.map->id];}}
     if(!alwaysfails&&mutation==1){rgp.shadowCookieBlurMaterial=&materials[1];backEnd.sceneDef.time=1234;cursor(&finalCommand);}
     return 0;
 }
 void RB_EndSurface(){++ends;events.push_back('E');tess.indexCount=tess.optimizedIndexCount=0;
-    if(!draws&&mutation==2){sc_blur=&otherBlur;otherBlur.current.integer=1;dx.renderTargets[5].image=&images[1];dx.renderTargets[7].image=&images[0];backEnd.sceneDef.time=20;rgp.savedScreenTime=0;original.cmd.fadeMsec=100;cursor(&alternate);}}
+    if(!draws&&mutation==2){sc_blur=&otherBlur;otherBlur.current.integer=1;dx.renderTargets[5].image=&images[1];dx.renderTargets[7].image=&images[0];backEnd.sceneDef.time=20;rgp.savedScreenTime=0;original.cmd.fadeMsec=100;cursor(&alternate);
+        if(mode==4){distortion.current.enabled=1;dx.renderTargets[1].image=&images[0];backEnd.resolvedPostSunTarget=88;}}}
 void RB_Set2D(){++sets;events.push_back('S');backEnd.projection2D=1;
     if(mutation==3){backEnd.sceneDef.time=50;rgp.savedScreenTime=10;original.cmd.fadeMsec=200;dxState.renderTargetWidth=-32;dxState.renderTargetHeight=0;cursor(&finalCommand);}}
 int I_fround(float value){++rounds;roundValue=value;roundResult=(int)std::lrintl((long double)value+1.0L/(1u<<30));return roundResult;}
@@ -90,7 +94,7 @@ void reset(int which,int pending,int change,int attempts,GfxRenderCommandExecSta
     memset(&backEnd,0,sizeof(backEnd));memset(&rgp,0,sizeof(rgp));
     original.cmd.header.byteCount=12;alternate.cmd.header.byteCount=32;finalCommand.cmd.header.byteCount=48;
     state={&original,1,{&original,&alternate}};live=&state;cursorBase=&original;
-    dx.device=&devices[0];dx.renderTargets[5].image=&images[0];dx.renderTargets[7].image=&images[1];
+    dx.device=&devices[0];dx.renderTargets[5].image=&images[0];dx.renderTargets[7].image=&images[1];dx.renderTargets[1].image=&images[1];
     dxState.renderTargetWidth=641;dxState.renderTargetHeight=359;dxState.renderTargetSurface=&targets[0];
     rgp.shadowCookieBlurMaterial=&materials[0];rgp.shellShockMaterial=&materials[3];rgp.savedScreenTime=-77;backEnd.sceneDef.time=17;
     backEnd.currentFeedbackImage=&images[0];sc_blur=&blur;otherBlur.current.integer=1;
@@ -99,7 +103,7 @@ void reset(int which,int pending,int change,int attempts,GfxRenderCommandExecSta
 void advance(const GfxRenderCommandExecState &state){assert(state.cmd==(const byte *)cursorBase+((const GfxCmdHeader *)cursorBase)->byteCount&&state.stackPos==1&&state.retCmd[0]==&original&&state.retCmd[1]==&alternate);}
 void copyEvents(int count){int get=0,stretch=0,release=0;for(char e:events){get+=e=='G';stretch+=e=='T';release+=e=='R';}assert(copies==count&&get==count*(retry+1)&&stretch==get&&release==get);}
 int main() {
-    int copyCases=0,saveCases=0,blurCases=0,blendCases=0;
+    int copyCases=0,saveCases=0,blurCases=0,blendCases=0,earlyCases=0;
     GfxRenderCommandExecState state;
     for(int pending=0;pending<4;++pending)for(int change=0;change<4;++change)for(int attempts=0;attempts<3;++attempts) {
         reset(0,pending,change,attempts,state);RB_CopyBackBufferToSurface(&images[0]);copyEvents(1);assert(!ends&&!sets&&!draws&&state.cmd==cursorBase&&backEnd.currentFeedbackImage==&images[0]);++copyCases;
@@ -119,7 +123,19 @@ int main() {
             unsigned expectedColor=(unsigned(byte(roundResult))<<24)|0xffffff;assert(drawColor==expectedColor&&tess.indexCount==6&&backEnd.currentFeedbackImage==dx.renderTargets[7].image);
         }else assert(backEnd.currentFeedbackImage==&images[0]);advance(state);++blendCases;
     }
-    printf("PASS: %d actual copies, %d saves, %d blur commands and %d blends; real Image_GetSurface, retries/logs, captured dimensions/image, fresh material/time, live blur pointer, wrapped ticks, high-byte alpha and full UVs\n",copyCases,saveCases,blurCases,blendCases);
+    for(int pending=0;pending<4;++pending)for(int change=0;change<4;++change)for(int attempts=0;attempts<3;++attempts)
+    for(int flags=0;flags<16;++flags)for(int render:{0,1,2,3}){
+        reset(4,pending,change,attempts,state);distortion.current.enabled=flags&1;glow.current.enabled=(flags>>1)&1;fullbright.current.enabled=(flags>>2)&1;dx.hasSeparateAlphaBlend=(flags>>3)&1;renderer.current.integer=render;
+        bool expected=(pending&&change==2)||(flags&1)||(render!=2&&(flags&8)&&(flags&2)&&!(flags&4));
+        RB_ApplyEarlyPostEffectsCmd(&state);copyEvents(expected);assert(ends==(pending!=0)&&!sets&&!draws&&backEnd.resolvedPostSunTarget==(expected?1:14));advance(state);++earlyCases;
+    }
+    for(int render:{0,2}){
+        reset(4,0,0,0,state);distortion.current.enabled=1;r_rendererInUse=r_glow=r_fullbright=0;RB_ApplyEarlyPostEffectsCmd(&state);copyEvents(1);advance(state);++earlyCases;
+        r_rendererInUse=&renderer;r_glow=&glow;r_fullbright=&fullbright;
+        reset(4,0,0,0,state);distortion.current.enabled=0;renderer.current.integer=render;dx.hasSeparateAlphaBlend=0;r_glow=r_fullbright=0;RB_ApplyEarlyPostEffectsCmd(&state);copyEvents(0);advance(state);++earlyCases;
+        r_glow=&glow;r_fullbright=&fullbright;
+    }
+    printf("PASS: %d actual copies, %d saves, %d blur commands, %d blends and %d early-post commands; real Image_GetSurface, retries/logs, captured dimensions/image, fresh material/time, live blur pointer, wrapped ticks, high-byte alpha, full UVs and short-circuit target publication\n",copyCases,saveCases,blurCases,blendCases,earlyCases);
 }
 '''
 with tempfile.TemporaryDirectory(prefix='gfx_backend_screen_') as directory:

@@ -5,7 +5,36 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: actual line geometry and XYZ vertex writer
+### Latest: early post-effects and accepted callback source ownership
+
+Restored command25=10030c10/126B in rb_backend.cpp, reusing the actual screen
+copy and existing dvar/device/target owners. Flush before checking live flags,
+set resolvedPostSunTarget14 first, copy target1 only for distortion OR the real
+renderer/capability/glow/fullbright predicate, then publish1 after copy returns.
+Advance the live cursor after COM callbacks. No new state, TU/order/root/flag.
+
+Original build, BOTH referees and all135 fixtures pass.3076 new early-post cases
+exercise all flag/renderer combinations, ordinary/optimized flushes, retries,
+callback mutations, target publication and null skipped dvars. Existing48 copy,
+48 save,240 blur and1536 blend cases remain. Actual Image_GetSurface and original
+DX retry/logging macro run in the fixture; COM is mocked, no GPU claim.
+
+API59 manifest now records source ownership for all54 accepted callback slots,
+using fresh bind object -> unique current tus.txt entry -> existing source.
+All prior slots/addresses/status/symbol/UNVERIFIED-label columns are unchanged.
+44 callback owners remain UNVERIFIED, ten slots UNUSED_ZERO. This establishes
+candidate ownership only, not historical grouping or complete API source.
+
+All1448 accepted extents and their exact set remain; C++104237/253580=
+41.106159792%,617 bodies, no new byte credit;31 assembly exclusions/7787B
+unchanged. Source26/33 backend handlers; seven plus dispatcher/API/RenderScene/
+world chains remain. Stages1-3 are OPEN. Same-offset9.138583293%
+is diagnostic;157 temporary exports, no GetRefAPI. One output, no workers;
+tokens unavailable. Receipt: proof/early_post_checkpoint.json.
+Next: genuine sun/query/drawing and late glow/blur/debug chains. Existing111-byte
+RB_NeedsSceneCopy already matches; keep it. Primary dependencies in ATTEMPTS.md.
+
+### Earlier: actual line geometry and XYZ vertex writer
 
 Restored XYZ/UV/color-pointer writer1002e550/229B, 2D line helper10031470/760B,
 3D/debug line helper10031780/1332B and command31 wrapper10031cc0/91B. PC2D has

@@ -1,109 +1,109 @@
-slot	retail_target	status	accepted_symbols	legacy_label_UNVERIFIED
-0	0x10013080	not_verified		Shutdown
-1	0x10013190	not_verified		BeginRegistration
-2	0x1001d830	byte_and_binding_accepted	?R_RegisterModel@@YAPAUXModel@@PBD@Z	RegisterModel
-3	0x1001d8a0	byte_and_binding_accepted	?R_RegisterInlineModel@@YAPAUGfxBrushModel@@H@Z	RegisterInlineModel
-4	0x10017290	not_verified		RegisterMaterial
-5	0x100172b0	not_verified		RegisterRawImage
-6	0x10017020	byte_and_binding_accepted	?Material_IsDefault@@YAEPBUMaterial@@@Z	Material_IsDefault
-7	0x10001690	not_verified		LoadWorld
-8	0x10001230	byte_and_binding_accepted	?R_GetWorldBounds@@YAXPAM0@Z	GetWorldBounds
-9	0x1001d8c0	masked_only_not_bound		FinishLoadingModels
-10	0x1001d8f0	byte_and_binding_accepted	?R_SetIgnorePrecacheErrors@@YAXH@Z	SetIgnorePrecacheErrors
-11	0x1001d900	byte_and_binding_accepted	?R_GetIgnorePrecacheErrors@@YA_NXZ	GetIgnorePrecacheErrors
-12	0x1000c8d0	not_verified		GetMinSpecImageMemory
-13	0x10017300	not_verified		GetMaterialName
-14	0x10017310	byte_and_binding_accepted	?R_GetMaterialSubimageCount@@YAHPBUMaterialInfoView@@@Z	GetMaterialSubimageCount
-15	0x10017320	byte_and_binding_accepted	?R_IsMaterialRefractive@@YA_NPBURefractMaterial@@@Z	IsMaterialRefractive
-16	0x1000aa60	byte_and_binding_accepted	?R_GetFarPlaneDist@@YAMXZ	GetFarPlaneDist
-17	0x100131b0	masked_only_not_bound		EndRegistration
-18	0x10025510	byte_and_binding_accepted	?R_ClearScene@@YAXXZ	ClearScene
-19	0x10020ce0	not_verified		AddPolyToScene
-20	0x10023db0	not_verified		R_AddRefEntityToScene
-21	0x10020cd0	not_verified		AddLightToScene
-22	0x10020cb0	not_verified		ri[178] callback
-23	0x10020cc0	not_verified		ri[177] callback
-24	0x10023e90	byte_and_binding_accepted	?R_ResetEntries@@YAXHPAY0BB@M@Z	noop (v60: unused)
-25	0x10023ed0	not_verified		DefaultVertexFrames
-26	0x10023fd0	byte_and_binding_accepted	?R_AddLightToScene@@YAXPBMMMMM@Z	AddPolyToScene
-27	0x10001390	byte_and_binding_accepted	?R_InterpretSunLightParseParams@@YAXPAUSunLightParseParams@@@Z	AddLightToScene
-28	0x10001280	not_verified		InterpretSunLightParseParams
-29	0x1000aac0	byte_and_binding_accepted	?R_SetCullDist@@YAXM@Z	ResetSunLightParseParams
-30	0x1000bb30	not_verified		SetCullDist
-31	0x1000bbc0	byte_and_binding_accepted	?R_SwitchFog@@YAXHHH@Z	SetFog
-32	0x1000bc40	byte_and_binding_accepted	?R_ArchiveFogState@@YAXPAUMemoryFile@@@Z	SwitchFog
-33	0x1000bb10	byte_and_binding_accepted	?R_ClearFogs@@YAXXZ	ArchiveFogState
-34	0x10001430	byte_and_binding_accepted	?R_SetSunLightOverride@@YAXPBM@Z	ClearFogs
-35	0x10001460	byte_and_binding_accepted	?R_ResetSunLightOverride@@YAXXZ	SetSunLightOverride
-36	0x100257a0	not_verified		ResetSunLightOverride
-37	0x10020f10	byte_and_binding_accepted	?R_BeginDelayedDrawing@@YAHXZ	RenderScene
-38	0x10020f70	byte_and_binding_accepted	?R_EndDelayedDrawing@@YAXH@Z	BeginDelayedDrawing
-39	0x10020fe0	byte_and_binding_accepted	?R_IssueDelayedDrawing@@YAXH@Z	EndDelayedDrawing
-40	0x1000bad0	not_verified		IssueDelayedDrawing
-41	0x100216f0	byte_and_binding_accepted	?R_AddCmdSetMaterialColor@@YAXPBM@Z	ClearFlares
-42	0x10021100	byte_and_binding_accepted	?R_AddCmdDrawStretchPic@@YAXMMMMMMMMPBMPAUMaterial@@@Z	SetMaterialColor
-43	0x100211a0	byte_and_binding_accepted	?R_AddCmdDrawStretchPicRotate@@YAXMMMMMMMMMPBMPAUMaterial@@@Z	DrawStretchPic
-44	0x10021270	byte_and_binding_accepted	?R_AddCmdDrawStretchRaw@@YAXHHHHHHPBEHH@Z	DrawStretchPicRotate
-45	0x100214e0	byte_and_binding_accepted	?R_AddCmdDrawQuadPic@@YAXPAY01MPBMPAUMaterial@@@Z	DrawStretchRaw
-46	0x100215d0	byte_and_binding_accepted	?R_AddCmdDrawSprite@@YAXPAUMaterial@@PBEPBMMMH@Z	DrawQuadPic
-47	0x10021f40	not_verified		DrawSprite
-48	0x10021f90	not_verified		BeginFrame
-49	0x10021ff0	byte_and_binding_accepted	?R_BeginDebugFrame@@YAXXZ	EndFrame
-50	0x10022040	not_verified		BeginDebugFrame
-51	0x10013200	byte_and_binding_accepted	?R_EndView@@YAXH@Z	EndDebugFrame
-52	0x10013250	not_verified		EndView
-53	0x100222a0	byte_and_binding_accepted	?R_AddCmdSaveScreen@@YAXXZ	DoneRenderingViews
-54	0x100222f0	byte_and_binding_accepted	?R_AddCmdBlendSavedScreen@@YAXH@Z	SaveScreen
-55	0x10022220	byte_and_binding_accepted	?R_AddCmdClearScreen@@YAXHPBMMH@Z	BlendSavedScreen
-56	0x10021bf0	byte_and_binding_accepted	?R_AddCmdSetViewport@@YAXHHHH@Z	ClearScreen
-57	0x10015ba0	not_verified		SetViewport
-58	0x1001d910	byte_and_binding_accepted	?R_ModelBounds@@YAXPBMPAM1@Z	MarkFragments
-59	0x10013260	not_verified		ModelBounds
-60	0x1002c100	byte_and_binding_accepted	?R_PickMaterial@@YAHPBM0PAD11I@Z	TrackStatistics
-61	0x1000bce0	not_verified		PickMaterial
-62	0x1000ce60	not_verified		RegisterFont
-63	0x1000ce70	not_verified		ResetImageAllocations
-64	0x10026a50	not_verified		FreeImageAllocations
-65	0x10026a70	not_verified		BeginCubemapShot
-66	0x10026a90	not_verified		EndCubemapShot
-67	0x100270e0	not_verified		SaveCubemapShot
-68	0x10005980	byte_and_binding_accepted	?R_LocateDebugStrings@@YAXPAUtrDebugString_t@@HH@Z	LightingFromCubemapShots
-69	0x100059e0	byte_and_binding_accepted	?R_LocateDebugLines@@YAXPAUtrDebugLine_t@@HH@Z	LocateDebugStrings
-70	0x10005a40	byte_and_binding_accepted	?R_AddPlume@@YAXPBMH0H@Z	LocateDebugLines
-71	0x10005970	not_verified		AddPlume
-72	0x10032540	not_verified		ShutdownDebug
-73	0x1000bf40	byte_and_binding_accepted	?R_NormalizedTextScale@@YAMPAUFont_s@@M@Z	UpdateColor
-74	0x1000bf60	byte_and_binding_accepted	?R_TextWidth@@YAHPBDHPAUFont_s@@@Z	NormalizedTextScale
-75	0x1000c000	byte_and_binding_accepted	?R_TextHeight@@YAHPAUFont_s@@@Z	TextWidth
-76	0x1000c010	byte_and_binding_accepted	?R_AddCmdDrawText@@YAXPBDHPAUFont_s@@MMMMPBMH@Z	TextHeight
-77	0x100213f0	byte_and_binding_accepted	?R_AddCmdDrawTextInSpace@@YAXPBDPAUFont_s@@PBM222@Z	DrawText
-78	0x1000c390	not_verified		DrawTextInSpace
-79	0x1000c4b0	not_verified		ConsoleTextWidth
-80	0x10021300	byte_and_binding_accepted	?R_AddCmdDrawTextWithCursor@@YAXPBDHPAUFont_s@@MMMMPBMHHD@Z	DrawConsoleText
-81	0x100201b0	byte_and_binding_accepted	?R_DObjGetSurfMaterials@@YAXPAUDObj_s@@DPAPAUMaterial@@@Z	DrawTextWithCursor
-82	0x10020270	byte_and_binding_accepted	?R_DObjReplaceMaterial@@YAXPAUDObj_s@@DHPAUMaterial@@@Z	DObjGetSurfMaterials
-83	0x10003430	byte_and_binding_accepted	?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z	DObjReplaceMaterial
-84	0x10016f30	byte_and_binding_accepted	?Material_Duplicate@@YAPAUMaterial@@PBU1@PBD@Z	ParseSunLight
-85	0x1000bdc0	byte_and_binding_accepted	?R_DuplicateFont@@YAXPAUFont_s@@PBD@Z	Material_Duplicate
-86	0x0	unused_zero		DuplicateFont
-87	0x0	unused_zero		
-88	0x0	unused_zero		
-89	0x0	unused_zero		
-90	0x0	unused_zero		
-91	0x0	unused_zero		
-92	0x0	unused_zero		
-93	0x0	unused_zero		
-94	0x0	unused_zero		
-95	0x0	unused_zero		
-96	0x1002d4a0	not_verified		
-97	0x10020400	not_verified		R_LoadXModelSurfsSurface
-98	0x1002cee0	not_verified		R_RegisterXModelSurfs
-99	0x1002ce40	byte_and_binding_accepted	?XSurfaceGetTris@@YAXPBUXSurface_s@@PAGF@Z	
-100	0x1002ce30	not_verified		
-101	0x1002ce20	not_verified		
-102	0x10020cf0	not_verified		
-103	0x10020dc0	byte_and_binding_accepted	?R_AbortRenderCommands@@YAXXZ	SyncRenderThread
-104	0x10032f40	byte_and_binding_accepted	?RB_IsGpuFenceFinished@@YAHXZ	AbortRenderCommands
-105	0x10032d80	byte_and_binding_accepted	?RB_AdaptiveGpuSyncWait@@YAXXZ	IsGpuFenceFinished
-106	0x10032d70	not_verified		GpuWaited
-107	0x100256c0	not_verified		SetLodOrigin
+slot	retail_target	status	accepted_symbols	legacy_label_UNVERIFIED	accepted_candidate_tu
+0	0x10013080	not_verified		Shutdown	UNVERIFIED
+1	0x10013190	not_verified		BeginRegistration	UNVERIFIED
+2	0x1001d830	byte_and_binding_accepted	?R_RegisterModel@@YAPAUXModel@@PBD@Z	RegisterModel	gfx_d3d/r_model.cpp
+3	0x1001d8a0	byte_and_binding_accepted	?R_RegisterInlineModel@@YAPAUGfxBrushModel@@H@Z	RegisterInlineModel	gfx_d3d/r_model.cpp
+4	0x10017290	not_verified		RegisterMaterial	UNVERIFIED
+5	0x100172b0	not_verified		RegisterRawImage	UNVERIFIED
+6	0x10017020	byte_and_binding_accepted	?Material_IsDefault@@YAEPBUMaterial@@@Z	Material_IsDefault	gfx_d3d/r_material.cpp
+7	0x10001690	not_verified		LoadWorld	UNVERIFIED
+8	0x10001230	byte_and_binding_accepted	?R_GetWorldBounds@@YAXPAM0@Z	GetWorldBounds	gfx_d3d/r_bsp.cpp
+9	0x1001d8c0	masked_only_not_bound		FinishLoadingModels	UNVERIFIED
+10	0x1001d8f0	byte_and_binding_accepted	?R_SetIgnorePrecacheErrors@@YAXH@Z	SetIgnorePrecacheErrors	gfx_d3d/r_model.cpp
+11	0x1001d900	byte_and_binding_accepted	?R_GetIgnorePrecacheErrors@@YA_NXZ	GetIgnorePrecacheErrors	gfx_d3d/r_model.cpp
+12	0x1000c8d0	not_verified		GetMinSpecImageMemory	UNVERIFIED
+13	0x10017300	not_verified		GetMaterialName	UNVERIFIED
+14	0x10017310	byte_and_binding_accepted	?R_GetMaterialSubimageCount@@YAHPBUMaterialInfoView@@@Z	GetMaterialSubimageCount	gfx_d3d/r_material.cpp
+15	0x10017320	byte_and_binding_accepted	?R_IsMaterialRefractive@@YA_NPBURefractMaterial@@@Z	IsMaterialRefractive	gfx_d3d/r_material.cpp
+16	0x1000aa60	byte_and_binding_accepted	?R_GetFarPlaneDist@@YAMXZ	GetFarPlaneDist	gfx_d3d/r_dpvs.cpp
+17	0x100131b0	masked_only_not_bound		EndRegistration	UNVERIFIED
+18	0x10025510	byte_and_binding_accepted	?R_ClearScene@@YAXXZ	ClearScene	gfx_d3d/r_scene.cpp
+19	0x10020ce0	not_verified		AddPolyToScene	UNVERIFIED
+20	0x10023db0	not_verified		R_AddRefEntityToScene	UNVERIFIED
+21	0x10020cd0	not_verified		AddLightToScene	UNVERIFIED
+22	0x10020cb0	not_verified		ri[178] callback	UNVERIFIED
+23	0x10020cc0	not_verified		ri[177] callback	UNVERIFIED
+24	0x10023e90	byte_and_binding_accepted	?R_ResetEntries@@YAXHPAY0BB@M@Z	noop (v60: unused)	gfx_d3d/r_scene.cpp
+25	0x10023ed0	not_verified		DefaultVertexFrames	UNVERIFIED
+26	0x10023fd0	byte_and_binding_accepted	?R_AddLightToScene@@YAXPBMMMMM@Z	AddPolyToScene	gfx_d3d/r_scene.cpp
+27	0x10001390	byte_and_binding_accepted	?R_InterpretSunLightParseParams@@YAXPAUSunLightParseParams@@@Z	AddLightToScene	gfx_d3d/r_bsp.cpp
+28	0x10001280	not_verified		InterpretSunLightParseParams	UNVERIFIED
+29	0x1000aac0	byte_and_binding_accepted	?R_SetCullDist@@YAXM@Z	ResetSunLightParseParams	gfx_d3d/r_dpvs.cpp
+30	0x1000bb30	not_verified		SetCullDist	UNVERIFIED
+31	0x1000bbc0	byte_and_binding_accepted	?R_SwitchFog@@YAXHHH@Z	SetFog	gfx_d3d/r_fog.cpp
+32	0x1000bc40	byte_and_binding_accepted	?R_ArchiveFogState@@YAXPAUMemoryFile@@@Z	SwitchFog	gfx_d3d/r_fog.cpp
+33	0x1000bb10	byte_and_binding_accepted	?R_ClearFogs@@YAXXZ	ArchiveFogState	gfx_d3d/r_fog.cpp
+34	0x10001430	byte_and_binding_accepted	?R_SetSunLightOverride@@YAXPBM@Z	ClearFogs	gfx_d3d/r_bsp.cpp
+35	0x10001460	byte_and_binding_accepted	?R_ResetSunLightOverride@@YAXXZ	SetSunLightOverride	gfx_d3d/r_bsp.cpp
+36	0x100257a0	not_verified		ResetSunLightOverride	UNVERIFIED
+37	0x10020f10	byte_and_binding_accepted	?R_BeginDelayedDrawing@@YAHXZ	RenderScene	gfx_d3d/r_rendercmds.cpp
+38	0x10020f70	byte_and_binding_accepted	?R_EndDelayedDrawing@@YAXH@Z	BeginDelayedDrawing	gfx_d3d/r_rendercmds.cpp
+39	0x10020fe0	byte_and_binding_accepted	?R_IssueDelayedDrawing@@YAXH@Z	EndDelayedDrawing	gfx_d3d/r_rendercmds.cpp
+40	0x1000bad0	not_verified		IssueDelayedDrawing	UNVERIFIED
+41	0x100216f0	byte_and_binding_accepted	?R_AddCmdSetMaterialColor@@YAXPBM@Z	ClearFlares	gfx_d3d/r_rendercmds.cpp
+42	0x10021100	byte_and_binding_accepted	?R_AddCmdDrawStretchPic@@YAXMMMMMMMMPBMPAUMaterial@@@Z	SetMaterialColor	gfx_d3d/r_rendercmds.cpp
+43	0x100211a0	byte_and_binding_accepted	?R_AddCmdDrawStretchPicRotate@@YAXMMMMMMMMMPBMPAUMaterial@@@Z	DrawStretchPic	gfx_d3d/r_rendercmds.cpp
+44	0x10021270	byte_and_binding_accepted	?R_AddCmdDrawStretchRaw@@YAXHHHHHHPBEHH@Z	DrawStretchPicRotate	gfx_d3d/r_rendercmds.cpp
+45	0x100214e0	byte_and_binding_accepted	?R_AddCmdDrawQuadPic@@YAXPAY01MPBMPAUMaterial@@@Z	DrawStretchRaw	gfx_d3d/r_rendercmds.cpp
+46	0x100215d0	byte_and_binding_accepted	?R_AddCmdDrawSprite@@YAXPAUMaterial@@PBEPBMMMH@Z	DrawQuadPic	gfx_d3d/r_rendercmds.cpp
+47	0x10021f40	not_verified		DrawSprite	UNVERIFIED
+48	0x10021f90	not_verified		BeginFrame	UNVERIFIED
+49	0x10021ff0	byte_and_binding_accepted	?R_BeginDebugFrame@@YAXXZ	EndFrame	gfx_d3d/r_rendercmds.cpp
+50	0x10022040	not_verified		BeginDebugFrame	UNVERIFIED
+51	0x10013200	byte_and_binding_accepted	?R_EndView@@YAXH@Z	EndDebugFrame	gfx_d3d/r_init.cpp
+52	0x10013250	not_verified		EndView	UNVERIFIED
+53	0x100222a0	byte_and_binding_accepted	?R_AddCmdSaveScreen@@YAXXZ	DoneRenderingViews	gfx_d3d/r_rendercmds.cpp
+54	0x100222f0	byte_and_binding_accepted	?R_AddCmdBlendSavedScreen@@YAXH@Z	SaveScreen	gfx_d3d/r_rendercmds.cpp
+55	0x10022220	byte_and_binding_accepted	?R_AddCmdClearScreen@@YAXHPBMMH@Z	BlendSavedScreen	gfx_d3d/r_rendercmds.cpp
+56	0x10021bf0	byte_and_binding_accepted	?R_AddCmdSetViewport@@YAXHHHH@Z	ClearScreen	gfx_d3d/r_rendercmds.cpp
+57	0x10015ba0	not_verified		SetViewport	UNVERIFIED
+58	0x1001d910	byte_and_binding_accepted	?R_ModelBounds@@YAXPBMPAM1@Z	MarkFragments	gfx_d3d/r_model.cpp
+59	0x10013260	not_verified		ModelBounds	UNVERIFIED
+60	0x1002c100	byte_and_binding_accepted	?R_PickMaterial@@YAHPBM0PAD11I@Z	TrackStatistics	gfx_d3d/r_utils.cpp
+61	0x1000bce0	not_verified		PickMaterial	UNVERIFIED
+62	0x1000ce60	not_verified		RegisterFont	UNVERIFIED
+63	0x1000ce70	not_verified		ResetImageAllocations	UNVERIFIED
+64	0x10026a50	not_verified		FreeImageAllocations	UNVERIFIED
+65	0x10026a70	not_verified		BeginCubemapShot	UNVERIFIED
+66	0x10026a90	not_verified		EndCubemapShot	UNVERIFIED
+67	0x100270e0	not_verified		SaveCubemapShot	UNVERIFIED
+68	0x10005980	byte_and_binding_accepted	?R_LocateDebugStrings@@YAXPAUtrDebugString_t@@HH@Z	LightingFromCubemapShots	gfx_d3d/r_debug.cpp
+69	0x100059e0	byte_and_binding_accepted	?R_LocateDebugLines@@YAXPAUtrDebugLine_t@@HH@Z	LocateDebugStrings	gfx_d3d/r_debug.cpp
+70	0x10005a40	byte_and_binding_accepted	?R_AddPlume@@YAXPBMH0H@Z	LocateDebugLines	gfx_d3d/r_debug.cpp
+71	0x10005970	not_verified		AddPlume	UNVERIFIED
+72	0x10032540	not_verified		ShutdownDebug	UNVERIFIED
+73	0x1000bf40	byte_and_binding_accepted	?R_NormalizedTextScale@@YAMPAUFont_s@@M@Z	UpdateColor	gfx_d3d/r_font.cpp
+74	0x1000bf60	byte_and_binding_accepted	?R_TextWidth@@YAHPBDHPAUFont_s@@@Z	NormalizedTextScale	gfx_d3d/r_font.cpp
+75	0x1000c000	byte_and_binding_accepted	?R_TextHeight@@YAHPAUFont_s@@@Z	TextWidth	gfx_d3d/r_font.cpp
+76	0x1000c010	byte_and_binding_accepted	?R_AddCmdDrawText@@YAXPBDHPAUFont_s@@MMMMPBMH@Z	TextHeight	gfx_d3d/r_font.cpp
+77	0x100213f0	byte_and_binding_accepted	?R_AddCmdDrawTextInSpace@@YAXPBDPAUFont_s@@PBM222@Z	DrawText	gfx_d3d/r_rendercmds.cpp
+78	0x1000c390	not_verified		DrawTextInSpace	UNVERIFIED
+79	0x1000c4b0	not_verified		ConsoleTextWidth	UNVERIFIED
+80	0x10021300	byte_and_binding_accepted	?R_AddCmdDrawTextWithCursor@@YAXPBDHPAUFont_s@@MMMMPBMHHD@Z	DrawConsoleText	gfx_d3d/r_rendercmds.cpp
+81	0x100201b0	byte_and_binding_accepted	?R_DObjGetSurfMaterials@@YAXPAUDObj_s@@DPAPAUMaterial@@@Z	DrawTextWithCursor	gfx_d3d/r_model.cpp
+82	0x10020270	byte_and_binding_accepted	?R_DObjReplaceMaterial@@YAXPAUDObj_s@@DHPAUMaterial@@@Z	DObjGetSurfMaterials	gfx_d3d/r_model.cpp
+83	0x10003430	byte_and_binding_accepted	?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z	DObjReplaceMaterial	gfx_d3d/r_bsp_load_obj.cpp
+84	0x10016f30	byte_and_binding_accepted	?Material_Duplicate@@YAPAUMaterial@@PBU1@PBD@Z	ParseSunLight	gfx_d3d/r_material.cpp
+85	0x1000bdc0	byte_and_binding_accepted	?R_DuplicateFont@@YAXPAUFont_s@@PBD@Z	Material_Duplicate	gfx_d3d/r_font.cpp
+86	0x0	unused_zero		DuplicateFont	UNUSED_ZERO
+87	0x0	unused_zero			UNUSED_ZERO
+88	0x0	unused_zero			UNUSED_ZERO
+89	0x0	unused_zero			UNUSED_ZERO
+90	0x0	unused_zero			UNUSED_ZERO
+91	0x0	unused_zero			UNUSED_ZERO
+92	0x0	unused_zero			UNUSED_ZERO
+93	0x0	unused_zero			UNUSED_ZERO
+94	0x0	unused_zero			UNUSED_ZERO
+95	0x0	unused_zero			UNUSED_ZERO
+96	0x1002d4a0	not_verified			UNVERIFIED
+97	0x10020400	not_verified		R_LoadXModelSurfsSurface	UNVERIFIED
+98	0x1002cee0	not_verified		R_RegisterXModelSurfs	UNVERIFIED
+99	0x1002ce40	byte_and_binding_accepted	?XSurfaceGetTris@@YAXPBUXSurface_s@@PAGF@Z		gfx_d3d/r_xsurface.cpp
+100	0x1002ce30	not_verified			UNVERIFIED
+101	0x1002ce20	not_verified			UNVERIFIED
+102	0x10020cf0	not_verified			UNVERIFIED
+103	0x10020dc0	byte_and_binding_accepted	?R_AbortRenderCommands@@YAXXZ	SyncRenderThread	gfx_d3d/r_model.cpp
+104	0x10032f40	byte_and_binding_accepted	?RB_IsGpuFenceFinished@@YAHXZ	AbortRenderCommands	gfx_d3d/rb_backend.cpp
+105	0x10032d80	byte_and_binding_accepted	?RB_AdaptiveGpuSyncWait@@YAXXZ	IsGpuFenceFinished	gfx_d3d/rb_backend.cpp
+106	0x10032d70	not_verified		GpuWaited	UNVERIFIED
+107	0x100256c0	not_verified		SetLodOrigin	UNVERIFIED

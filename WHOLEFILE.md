@@ -322,3 +322,10 @@ Source25/33 handlers, full API/dispatcher/world still open.17280 line routes and
 2688 writer cases, both referees/all135 fixtures pass with all1448 extents
 unchanged. C++ byte meter stays41.106159792%; no source-only credit inflation.
 Next early-post25 already reuses our real copy helper; see ATTEMPTS.md.
+
+2026-10-24 early-post closure: command25 reuses genuine screen copy, existing
+flags/device/target state and live cursor; source26/33 backend handlers.3076
+focused routes, both referees and all135 fixtures pass; all1448 extents unchanged.
+API manifest now pins current source TUs for54 accepted slots,44 unverified
+owners and ten zero slots. Candidate ownership is not historical TU proof.
+C++ meter unchanged; stages1-3 remain OPEN. See early_post_checkpoint.json.

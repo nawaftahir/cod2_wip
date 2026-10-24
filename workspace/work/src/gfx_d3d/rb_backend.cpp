@@ -951,6 +951,7 @@ static void RB_StretchRawCmd(GfxRenderCommandExecState *state)
 #include "r_permanent.h"
 #include <math.h>
 extern const dvar_t *sc_blur;
+extern const dvar_t *r_distortion;
 IDirect3DSurface9 *Image_GetSurface(GfxImage *image);
 
 // PINNED 1002eaa0: both the copy and the release use the original retry path.
@@ -959,6 +960,22 @@ static void RB_CopyBackBufferToSurface(GfxImage *image)
     IDirect3DSurface9 *imageSurface = Image_GetSurface(image);
     R_DX_CALL(dx.device->StretchRect( dxState.renderTargetSurface, 0, imageSurface, 0, D3DTEXF_LINEAR ));
     R_DX_CALL(imageSurface->Release());
+}
+
+// PINNED 10030c10, command25: publish the resolved target only after copying.
+static void RB_ApplyEarlyPostEffectsCmd(GfxRenderCommandExecState *state)
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    backEnd.resolvedPostSunTarget = R_RENDERTARGET_NONE;
+    if (r_distortion->current.enabled || (r_rendererInUse->current.integer != 2
+        && dx.hasSeparateAlphaBlend && r_glow->current.enabled && !r_fullbright->current.enabled))
+    {
+        RB_CopyBackBufferToSurface(dx.renderTargets[R_RENDERTARGET_RESOLVED_POST_SUN].image);
+        backEnd.resolvedPostSunTarget = R_RENDERTARGET_RESOLVED_POST_SUN;
+    }
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
 }
 
 // PINNED 10030c90: publish current scene time after the surface callbacks.

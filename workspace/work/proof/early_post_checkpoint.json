@@ -1,0 +1,117 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "25f681d",
+  "scope": "early-post-effects command25 plus accepted API callback candidate ownership",
+  "source_functions_restored": [
+    "RB_ApplyEarlyPostEffectsCmd"
+  ],
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 26,
+  "new_command_ids": [
+    25
+  ],
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "2cede0c8d63e87127bac11e6aafb04c7f47827e5706e139d46edb3162dd1afaa",
+  "same_file_offset_percent": 9.138583293003318,
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 958464,
+      "virtual_bytes": 955826,
+      "sha256": "53b7231ec686747118f6e78c0560d037a8b9af8696fc8243875f02f920d60590"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xeb000",
+      "file_offset": "0xeb000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602748,
+      "sha256": "1da1d02792714faafe822a651e184c1910a8dd77bd2b16cb2f8fa463ad498f3b"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17f000",
+      "file_offset": "0x17f000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "63dca2030789e4ee30db60b354005e33ce750097280760e494bba84094925ff2"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74d000",
+      "file_offset": "0x18d000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88404,
+      "sha256": "ab5f16c98343e2429d20f752f1d27b98e660d7e8a7480c6675211ee66b6cad38"
+    }
+  ],
+  "cpp_executable_bytes": 104237,
+  "cpp_percent_legacy_inventory": 41.106159791781685,
+  "cpp_game_bodies": 617,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1448,
+  "full_source_fixtures_passed": 135,
+  "native_cases": {
+    "screen_copies": 48,
+    "screen_saves": 48,
+    "shadow_blur_commands": 240,
+    "screen_blends": 1536,
+    "early_post_commands": 3076
+  },
+  "tu_order_unchanged": true,
+  "named_import_set_identical": true,
+  "temporary_exports": 157,
+  "GetRefAPI_present": false,
+  "binding_snapshot": {
+    "path": "target/work/proof/image_residency_warm_bind.json",
+    "sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59"
+  },
+  "assembly_review": {
+    "old_backend_sha256": "4f880f8275890351b203f620ddba2d2c48b368c2757a0cef9e5d332479057484",
+    "new_backend_sha256": "9a933e7f0393c89446d41205a3b36f85b68c597e43b35239babf2d6646b82e8a",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only early-post function and new extern; reconstruct full previous source exactly",
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "9a933e7f0393c89446d41205a3b36f85b68c597e43b35239babf2d6646b82e8a",
+    "target/work/src/tus.txt": "1046b9dabd295602eb2e265f51bf697b4de93aa18d18f2b56b29be1f6394583f",
+    "target/work/tools/source_coverage.py": "e1ff0dfa85d1529c0bf8133171c5735c56125324fdc2103db7d4274ce216fff4",
+    "target/work/tests/test_backend_screen.py": "911c8401a4951d9f9b83f7a5449ede537cafa1a868219fa5d4c98e932e42a8c1",
+    "target/work/layout/api_callbacks.tsv": "3af77f8f60f60ec501576067b626d56e6ac4bab38ddc4490fb5c83ee2bedbf61"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/early_post_build.log": "e155ae5df40f81d254961e0ed15278ffd24220a4013a618e05fed9be39ce3ce6",
+    "target/work/proof/latest/early_post_fixtures.log": "698678ff55d777afe4f20d9f66d42709d4147a537cb5f4109523da8520e22a23"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "limits": [
+    "new private command is restored source, not new byte credit or a complete dispatcher",
+    "candidate callback source ownership is not original historical TU/order proof",
+    "native COM/vertex/surface mocks do not establish GPU behavior or exact x87 instructions",
+    "dispatcher/API/world closure, final layout and whole SHA remain open"
+  ],
+  "workers": 0,
+  "build_outputs": 1,
+  "agent_token_cost": "unavailable",
+  "native_reuses_actual_Image_GetSurface": true,
+  "native_reuses_actual_DX_retry_macro": true,
+  "api_callback_candidate_source_owners": 54,
+  "api_callback_unverified_owners": 44,
+  "api_zero_slots": 10,
+  "original_api_manifest_columns_unchanged": true,
+  "api_owner_mapping_evidence": "fresh accepted bind objects -> unique current tus.txt entry -> existing source file",
+  "current_bind_sha256": "6c22b2ea7e6532821137b75bed685da3cb61ceaae9c1bd952a0bdff128f746f7"
+}
