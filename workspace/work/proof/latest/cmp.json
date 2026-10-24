@@ -125,6 +125,14 @@
 ]
 },
 {
+"name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 140,
+"hits": [
+"0x10002db0"
+]
+},
+{
 "name": "?R_FloatForKey@@YANPBDMPAY01PBDH@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 72,
@@ -205,6 +213,14 @@
 "obj": "r_bsp_load_obj.obj",
 "size": 1214,
 "hits": []
+},
+{
+"name": "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 240,
+"hits": [
+"0x10004080"
+]
 },
 {
 "name": "?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z",

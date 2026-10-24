@@ -73,6 +73,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10002db0",
+"n": 140,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_FloatForKey@@YANPBDMPAY01PBDH@Z": {
 "t": "0x10002e80",
 "n": 72,
@@ -118,6 +124,12 @@
 "?R_BuildCellAabbTrees@@YAXXZ": {
 "t": "0x10003810",
 "n": 104,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10004080",
+"n": 240,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },

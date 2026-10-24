@@ -1,8 +1,8 @@
 {
-  "functions": 662,
-  "bytes": 114011,
+  "functions": 664,
+  "bytes": 114391,
   "total": 253580,
-  "percent": 44.960564713305466,
+  "percent": 45.1104188027447,
   "baseline_lost": [],
   "gains": [
     {
@@ -21,6 +21,12 @@
       "target": "0x10001940",
       "bytes": 118,
       "name": "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10002db0",
+      "bytes": 140,
+      "name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
@@ -51,6 +57,12 @@
       "target": "0x10003430",
       "bytes": 939,
       "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10004080",
+      "bytes": 240,
+      "name": "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {

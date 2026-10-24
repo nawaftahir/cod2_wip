@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_bsp_load_obj.cpp').read_text()
-source = text[text.index('// PINNED 10003880: both passes'):text.index('// PINNED 100043d0')]
+source = text[text.index('// PINNED 10003880: both passes'):text.index('// PINNED 10004080')]
 program = r'''
 #include <cassert>
 #include <cstdio>

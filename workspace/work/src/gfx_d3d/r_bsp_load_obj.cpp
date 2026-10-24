@@ -47,6 +47,38 @@ static int R_GetLumpElemCount(const GfxBspLoad *load, int lumpIndex, int elemSiz
     return count;
 }
 
+// Disk layout of lump 35: 48 bytes, Kisak DiskBrushModel.
+struct DiskBrushModel
+{
+    float mins[3];
+    float maxs[3];
+    int firstSurface;
+    int surfaceCount;
+    int unused[4];
+};
+
+// PINNED 10002db0: Kisak R_LoadSubmodels.
+void R_LoadSubmodels(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 35, sizeof(DiskBrushModel));
+    const DiskBrushModel *in = (const DiskBrushModel *)(load->fileBase + load->header->lumps[35].fileofs);
+    GfxBrushModel *out = (GfxBrushModel *)ri.Hunk_AllocInternal(count * sizeof(GfxBrushModel));
+    s_world.models = out;
+    s_world.modelCount = count;
+    for (int index = 0; index < count; ++index)
+    {
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            out->bounds[0][axis] = in->mins[axis];
+            out->bounds[1][axis] = in->maxs[axis];
+        }
+        out->surfaceCount = in->surfaceCount;
+        out->startSurfIndex = out->surfaceCount ? in->firstSurface : -1;
+        ++in;
+        ++out;
+    }
+}
+
 // PINNED 10002e80; descriptive name.
 double R_FloatForKey(const char *key, float defaultValue,
     const char *(*vars)[2], int count)
@@ -434,6 +466,21 @@ void R_LoadEntities(GfxBspLoad *load)
     R_FinishStaticModelLightingCache(&s_world);
     R_BuildCellAabbTrees();
     ri.Hunk_ClearTempMemory();
+}
+
+// PINNED 10004080: lump 17, Kisak name.
+void R_LoadPortalVerts(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 17, sizeof(vec3_t));
+    const vec3_t *in = (const vec3_t *)(load->fileBase + load->header->lumps[17].fileofs);
+    vec3_t *out = (vec3_t *)ri.Hunk_AllocInternal(count * sizeof(vec3_t));
+    rgl.portalVerts = out;
+    for (int index = 0; index < count; ++index)
+    {
+        out[index][0] = in[index][0];
+        out[index][1] = in[index][1];
+        out[index][2] = in[index][2];
+    }
 }
 
 // PINNED 100043d0: lump 11, Kisak name.
