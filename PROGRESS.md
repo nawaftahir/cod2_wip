@@ -5,7 +5,35 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: typed scene/LOD and image residency
+### Latest: PC raw-frame surface and command
+
+RB_StretchRawCmd and the primary-pinned role helper RB_DrawRawSurface now have
+source in rb_backend.cpp. Actual PC behavior creates ONE offscreen surface,
+locks/retries through the existing logging path, copies RGBA to BGRA with the
+returned pitch, unlocks, stretches to the live target0 and releases once. It
+does not use the Mac texture/GetSurfaceLevel substitute or add a surface flush.
+The actual32-byte payload is shared in rb_commands.h; arguments are captured
+before COM work and command advancement uses live execution state afterward.
+
+Original-toolchain build and both referees retain the exact1448 accepted extent
+set; all130 final fixtures pass. Native4320 direct/command routes check creation
+failure, zero dimensions, padding/canaries, channel order, retries and ignored
+lock/unlock/stretch errors, exact retail log, live device/target/cursor changes
+and release order. COM is mocked; no GPU/client run or arbitrary overlap proof.
+
+NO new byte credit: C++104237/253580=41.106159792%,617 bodies on the frozen
+inventory, not whole-DLL completion.31 assembly exclusions/7787 bytes unchanged.
+Source exists for18 of33 non-null command handlers;15 plus the genuine table/
+dispatcher and world/API closure remain. No new globals, roots, TU/order, flags,
+exports or authored assembly. Removing only the new section restores every prior
+backend source byte. Named imports stay exact;159 temporary exports, no GetRefAPI.
+Same-offset equality9.153328955% is diagnostic. Stages1-3 remain OPEN.
+Proof: proof/backend_raw_checkpoint.json; protected bind remains
+image_residency_warm_bind.json. ATTEMPTS.md also records a frontend type/name
+trap: matched writer22220 emits clear-screen despite its old blend-screen label.
+Confirm its true client-facing signature before building the typed API table.
+
+### Earlier: typed scene/LOD and image residency
 
 r_scene_records.h replaces SDK backend/command opaque scene and LOD arrays with
 shared16/20-byte records matching the common view. Objective shader time uses

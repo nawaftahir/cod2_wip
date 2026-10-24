@@ -15,7 +15,7 @@ commands = (work / 'src/gfx_d3d/rb_commands.h').read_text().replace('#pragma onc
 permanent = (work / 'src/gfx_d3d/r_permanent.h').read_text().replace('#pragma once','')
 header = (work / 'src/gfx_d3d/r_image_registry.h').read_text().replace('#pragma once','')
 text = (work / 'src/gfx_d3d/rb_backend.cpp').read_text()
-command = text[text.index('// PINNED 10031ef0:'):text.index('// Backend presentation.')]
+command = text[text.index('// PINNED 10031ef0:'):text.index('// Backend raw-frame command.')]
 program = r'''
 #include <cassert>
 #include <cstdio>

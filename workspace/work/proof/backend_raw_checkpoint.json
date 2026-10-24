@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "4687a1e",
+  "scope": "actual PC raw-frame surface copy and command17",
+  "source_functions_restored": [
+    "RB_DrawRawSurface",
+    "RB_StretchRawCmd"
+  ],
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 18,
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "2a7722dad8be4a09699d637c7e43c13a677dcb92572e23ff3a3cf6ce3d5b3ead",
+  "same_file_offset_percent": 9.153328954646017,
+  "cpp_executable_bytes": 104237,
+  "cpp_percent_legacy_inventory": 41.106159791781685,
+  "cpp_game_bodies": 617,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1448,
+  "full_source_fixtures_passed": 130,
+  "tu_order_unchanged": true,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "assembly_review": {
+    "old_backend_sha256": "3e9d5b7f5c681f839792df4fb83aa9e9208922f6cbb4e7f6c826a83824df9424",
+    "new_backend_sha256": "5619b0abf80f73d7eea4a1c8d1ae7c2e3201b5f9686837839f295ea7d885ba10",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only new raw-frame section; reconstruct full previous backend source exactly",
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 958464,
+      "virtual_bytes": 954546,
+      "sha256": "aaa0d8653bbb1f066a8989fd9ed3bc59e3090a9de7f03d8286042350298b7577"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xeb000",
+      "file_offset": "0xeb000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602783,
+      "sha256": "88581a9896515fecfed119eff00e4d8403b676c969d2744c51588385ce1f22f3"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17f000",
+      "file_offset": "0x17f000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "e510ad256ef993214762c426e6d835eb7a30941eab2d5c645ca432de3163f9e4"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74d000",
+      "file_offset": "0x18d000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88272,
+      "sha256": "a0f53204f722a9bf9752625bca07fb30a699ff72f60df841885308973cd85cf3"
+    }
+  ],
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "5619b0abf80f73d7eea4a1c8d1ae7c2e3201b5f9686837839f295ea7d885ba10",
+    "target/work/src/gfx_d3d/rb_commands.h": "efa38624d953a53f330813aeafbe5afa6625c8dbb862aebc0777ba63f5be8cc0",
+    "target/work/tools/source_coverage.py": "2acfdda981b078ab03e102649bfeabf1db86775841789a5fb9ded50be730ff18",
+    "target/work/tests/test_backend_raw.py": "08142a9b1aba9cfc411d1d1627d9c2c9c61203612c22e884bd8f1bbb9e4d9c99",
+    "target/work/tests/test_image_residency.py": "78a65ef9fc47da62aa7547bc174c354db9ba387220dfd8e434d0bbd78ca5703d"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_raw_build.log": "e155ae5df40f81d254961e0ed15278ffd24220a4013a618e05fed9be39ce3ce6",
+    "target/work/proof/latest/backend_raw_fixtures.log": "560e119734e612d0865c32c6cb365f543ce7c61c88e4eb4a5a6ba41048618b06"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "limits": [
+    "private raw-frame helper/command remain uncredited and await genuine command table",
+    "native COM mocks do not prove GPU/client execution or arbitrary buffer overlap",
+    "dispatcher/API/world load/final layout/whole SHA remain open"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "named_import_set_identical": true,
+  "protected_extents_after_ratchet": 1448,
+  "binding_snapshot": {
+    "path": "target/work/proof/image_residency_warm_bind.json",
+    "sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59"
+  },
+  "native_raw_frame_cases": 4320
+}

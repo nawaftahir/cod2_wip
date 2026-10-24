@@ -862,6 +862,54 @@ static void RB_TouchAllImagesCmd(GfxRenderCommandExecState *state)
     state->cmd = (const byte *)header + header->byteCount;
 }
 
+// Backend raw-frame command.
+// PINNED 1002f110: role name; PC creates a surface rather than a texture.
+static void RB_DrawRawSurface(int x, int y, int w, int h, int cols, int rows,
+    const byte *data)
+{
+    IDirect3DSurface9 *rawSurf;
+    HRESULT result = dx.device->CreateOffscreenPlainSurface(cols, rows,
+        D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT, &rawSurf, 0);
+    if (result < 0)
+        return;
+    D3DLOCKED_RECT lockedRect;
+    R_DX_CALL(rawSurf->LockRect( &lockedRect, 0, D3DLOCK_DISCARD ));
+    byte *destination = (byte *)lockedRect.pBits;
+    int rowSkip = lockedRect.Pitch - 4 * cols;
+    for (int row = 0; row < rows; ++row)
+    {
+        for (int col = 0; col < cols; ++col)
+        {
+            byte green = data[1], alpha = data[3], blue = data[2], red = data[0];
+            destination[2] = red;
+            destination[1] = green;
+            destination[0] = blue;
+            destination[3] = alpha;
+            data += 4;
+            destination += 4;
+        }
+        destination += rowSkip;
+    }
+    rawSurf->UnlockRect();
+    RECT rect;
+    rect.left = x;
+    rect.top = y;
+    rect.right = x + w;
+    rect.bottom = y + h;
+    dx.device->StretchRect(rawSurf, 0, dx.renderTargets[0].colorSurface, &rect,
+        D3DTEXF_LINEAR);
+    rawSurf->Release();
+}
+
+// PINNED 1002f260: capture arguments before COM work; advance from live state.
+static void RB_StretchRawCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdStretchRaw *cmd = (const GfxCmdStretchRaw *)state->cmd;
+    RB_DrawRawSurface(cmd->x, cmd->y, cmd->w, cmd->h, cmd->cols, cmd->rows, cmd->data);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
 // Backend presentation.
 extern const dvar_t *r_gamma;
 extern const dvar_t *r_ignoreHwGamma;

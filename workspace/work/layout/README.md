@@ -478,3 +478,9 @@ TU uses r_permanent.h's existing feedbackReplaceMaterial10a8 and backend's sole
 currentFeedbackImage2b5c. Candidate TU order places it after rb_backend.cpp,
 without claiming original final placement. New command33 remains private until
 the actual complete table is restored; no fake marker array/export is added.
+
+Raw-frame command17 and its surface helper remain in rb_backend.cpp. The32-byte
+packet is shared in rb_commands.h; target system supplies its pixel pointer.
+PC uses one temporary IDirect3DSurface9, stack D3DLOCKED_RECT/RECT and existing
+DxGlobals device/target. No engine globals, image registry entry, texture object,
+TU, root or export is added. Command reachability awaits the genuine full table.

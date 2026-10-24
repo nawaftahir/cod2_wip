@@ -1516,7 +1516,7 @@ Native196608 comparison cases,144 registry/command traversals and60 interrupted
 draws pass, reusing actual registry iterator source. These mock drawing; no GPU
 texture-residency result is claimed.
 
-### Next raw-frame command: primary evidence, not yet source - 2026-10-24
+### Raw-frame command: primary evidence - 2026-10-24
 
 PINNED command17=2f260/53B forwards x4/y8/wc/h10/cols14/rows18/data1c
 from a32-byte packet, then advances live execution cursor. Actual2f110/331B
@@ -1535,3 +1535,26 @@ after each row. With cols<=0 the inner loop is skipped but that signed skip is
 still applied; do not replace it with row*Pitch if testing artificial successful
 creation for invalid widths. Creation uses HRESULT>=0 as success; no separate
 null-surface guard is present. Device/target are read live for final StretchRect.
+
+Raw-frame source now lives in rb_backend.cpp: private role helper RB_DrawRawSurface
+and actual RB_StretchRawCmd. Pixel reads capture G/A/B/R before stores R/G/B/A;
+this preserves target ordering even when a source pixel aliases its destination.
+R_DX_CALL stringization reproduces the pinned rawSurf/lockedRect/DISCARD log.
+The32-byte command schema is shared in rb_commands.h. Removing only the new raw
+section reconstructs all prior backend executable/assembly source exactly.
+Native4320 direct/command routes pass with actual R_DX_CALL macro: positive and
+failed creation, zero dimensions, pitches, canaries, lock retries, failed lock/
+unlock/stretch results, changing COM device/target and live command packets.
+The tests mock COM and do not prove GPU execution or arbitrary input overlap.
+
+### Typed frontend/API follow-up - 2026-10-24
+
+PINNED existing matched writer22220/118B is currently named R_BlendSavedScreen
+in this tree, but emits command0xb/28B. The primary handler table maps0xb to
+ClearScreen2ff50; its fields match mask/stencil/depth/color, not a screen blend
+rectangle. Current raw-bit int/pointer prototype is NOT proof of a genuine API
+name/type. Before wiring API59 slot55, confirm client call sites and recover the
+actual clear-command signature; do not propagate the legacy label into a typed
+public table. Likewise21890/108B DrawSurfs writer's three opaque int payloads
+need pointer/count/tech typing from primary consumers before genuine render-scene
+source calls it. Existing byte matches stay protected while types are corrected.

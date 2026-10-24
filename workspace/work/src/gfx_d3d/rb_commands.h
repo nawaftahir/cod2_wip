@@ -142,3 +142,15 @@ typedef char commandBeginViewLayoutCheck[(sizeof(GfxCmdBeginView) == 48
     && offsetof(GfxCmdBeginView, viewParms) == 20
     && offsetof(GfxCmdBeginView, lodParms) == 24
     && offsetof(GfxCmdBeginView, viewCount) == 44) ? 1 : -1];
+
+struct GfxCmdStretchRaw
+{
+    GfxCmdHeader header;
+    int x, y, w, h;
+    int cols, rows;
+    const byte *data;
+};
+
+typedef char commandStretchRawLayoutCheck[(sizeof(GfxCmdStretchRaw) == 32
+    && offsetof(GfxCmdStretchRaw, cols) == 20
+    && offsetof(GfxCmdStretchRaw, data) == 28) ? 1 : -1];
