@@ -444,3 +444,9 @@ definition is removed in favor of rb_tess.h, preserving all prior used offsets
 and the sole r_sky.cpp allocation. Existing executable/assembly text is unchanged;
 source accounting keeps the same31 exclusions/7787 bytes after pin re-review.
 Gamma presentation reuses R_SetColorMappings; no second ramp/global is owned here.
+
+Four additional private2D handlers remain in rb_backend.cpp, sharing44/48/44/28-
+byte records in rb_commands.h. No TU, root, allocation or link-order change.
+There are now11 of33 handler source bodies; the actual table is still absent.
+Existing FastSinCos is reused by rotation; containing future V2 bodies require
+assembly attribution. No new assembly is authored or accepted in this wave.

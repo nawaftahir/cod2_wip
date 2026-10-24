@@ -625,6 +625,109 @@ static void RB_SetViewportCmd(GfxRenderCommandExecState *state)
     state->cmd = (const byte *)header + header->byteCount;
 }
 
+// Backend 2D commands.
+void RB_DrawStretchPic(const Material *material, float x, float y, float w, float h,
+    float s0, float t0, float s1, float t1, unsigned int color);
+void RB_Set2D();
+void RB_BeginSurface(const Material *material, int technique, int lightmap);
+void RB_TessOverflow();
+
+// PINNED 1002ebb0: arguments are captured before the drawing helper runs.
+static void RB_StretchPicCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdStretchPic *cmd = (const GfxCmdStretchPic *)state->cmd;
+    RB_DrawStretchPic(cmd->material, cmd->x, cmd->y, cmd->w, cmd->h,
+        cmd->s0, cmd->t0, cmd->s1, cmd->t1, cmd->color);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 1002f0c0: use the current target extent, not the scene viewport.
+static void RB_DrawFullScreenColoredQuadCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdDrawFullScreenColoredQuad *cmd = (const GfxCmdDrawFullScreenColoredQuad *)state->cmd;
+    RB_DrawStretchPic(cmd->material, 0.0f, 0.0f,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight,
+        cmd->s0, cmd->t0, cmd->s1, cmd->t1, cmd->color);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 1002ee80: publish counts before calling the vertex setters.
+static void RB_DrawQuadPicCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdDrawQuadPic *cmd = (const GfxCmdDrawQuadPic *)state->cmd;
+    if (!backEnd.projection2D)
+        RB_Set2D();
+    const Material *material = cmd->material;
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+        RB_TessOverflow();
+    int vertex = (unsigned short)tess.vertexCount;
+    int index = tess.indexCount;
+    tess.vertexCount += 4;
+    tess.indexCount += 6;
+    tess.indices[index] = (unsigned short)(vertex + 3);
+    tess.indices[index + 1] = (unsigned short)vertex;
+    tess.indices[index + 2] = (unsigned short)(vertex + 2);
+    tess.indices[index + 3] = (unsigned short)(vertex + 2);
+    tess.indices[index + 4] = (unsigned short)vertex;
+    tess.indices[index + 5] = (unsigned short)(vertex + 1);
+    RB_SetVertex2D(vertex, cmd->verts[0][0], cmd->verts[0][1], 0.0f, 0.0f, cmd->color);
+    RB_SetVertex2D(vertex + 1, cmd->verts[1][0], cmd->verts[1][1], 1.0f, 0.0f, cmd->color);
+    RB_SetVertex2D(vertex + 2, cmd->verts[2][0], cmd->verts[2][1], 1.0f, 1.0f, cmd->color);
+    RB_SetVertex2D(vertex + 3, cmd->verts[3][0], cmd->verts[3][1], 0.0f, 1.0f, cmd->color);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 1002ec00: reuse the existing FSINCOS helper; no new authored assembly.
+static void RB_StretchPicRotateCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdStretchPicRotate *cmd = (const GfxCmdStretchPicRotate *)state->cmd;
+    if (!backEnd.projection2D)
+        RB_Set2D();
+    const Material *material = cmd->material;
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+        RB_TessOverflow();
+    int vertex = (unsigned short)tess.vertexCount;
+    int index = tess.indexCount;
+    tess.vertexCount += 4;
+    tess.indexCount += 6;
+    tess.indices[index] = (unsigned short)(vertex + 3);
+    tess.indices[index + 1] = (unsigned short)vertex;
+    tess.indices[index + 2] = (unsigned short)(vertex + 2);
+    tess.indices[index + 3] = (unsigned short)(vertex + 2);
+    tess.indices[index + 4] = (unsigned short)vertex;
+    tess.indices[index + 5] = (unsigned short)(vertex + 1);
+    float halfWidth = cmd->w * 0.5f, halfHeight = cmd->h * 0.5f;
+    float centerX = cmd->x + halfWidth, centerY = cmd->y + halfHeight;
+    float sine, cosine;
+    FastSinCos(cmd->rotation * 0.017453292f, &sine, &cosine);
+    float widthCos = cosine * halfWidth, widthSin = sine * halfWidth;
+    float heightSin = -(sine * halfHeight), heightCos = cosine * halfHeight;
+    float leftX = centerX - widthCos, topY = centerY - widthSin;
+    RB_SetVertex2D(vertex, leftX - heightSin, topY - heightCos, cmd->s0, cmd->t0, cmd->color);
+    RB_SetVertex2D(vertex + 1, centerX + widthCos - heightSin,
+        centerY + widthSin - heightCos, cmd->s1, cmd->t0, cmd->color);
+    RB_SetVertex2D(vertex + 2, centerX + widthCos + heightSin,
+        centerY + widthSin + heightCos, cmd->s1, cmd->t1, cmd->color);
+    RB_SetVertex2D(vertex + 3, leftX + heightSin, topY + heightCos, cmd->s0, cmd->t1, cmd->color);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
 // Backend presentation.
 extern const dvar_t *r_gamma;
 extern const dvar_t *r_ignoreHwGamma;

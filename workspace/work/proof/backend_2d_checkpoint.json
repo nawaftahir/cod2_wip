@@ -1,0 +1,101 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "2b3cc78",
+  "scope": "four real backend 2D command handlers and shared records",
+  "source_functions_restored": [
+    "RB_StretchPicCmd",
+    "RB_StretchPicRotateCmd",
+    "RB_DrawQuadPicCmd",
+    "RB_DrawFullScreenColoredQuadCmd"
+  ],
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 11,
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "7bf9429b5dc9e29c76a320d8cf29673f500bed0ee32e720d3269b19fa7b351d0",
+  "same_file_offset_percent": 9.068527896847344,
+  "cpp_executable_bytes": 104181,
+  "cpp_percent_legacy_inventory": 41.08407603123275,
+  "cpp_game_bodies": 616,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1447,
+  "full_source_fixtures_passed": 126,
+  "native_quad_cases": 540,
+  "native_rotation_cases": 3240,
+  "native_wrapper_cases": 12,
+  "tu_order_unchanged": true,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "assembly_review": {
+    "old_backend_sha256": "c2d33a39a5947c131e90d638b0e4fb89c8dedcf8944a1ed3b715140b6109ae94",
+    "new_backend_sha256": "17082ec54fc3cafe3cdae9800ada5d5db75fb184a5d525ee4effbc6bf3483e19",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only the new Backend 2D commands section; full previous source restored exactly",
+    "new_authored_assembly": false,
+    "rotation_reuses_existing_FastSinCos": true,
+    "future_containing_matches_require_assembly_attribution": true,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 954066,
+      "sha256": "cf82b19bf7708d7a482fba49e56034b9a33c0f20797e18d10dc9d51e2756af82"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602783,
+      "sha256": "d878fb6513c7ad00712395a6b64c1df293e3b90999d6684838a66bce4fd27213"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "f3efc192fe6f67022eb3e16dccfebe61d213766089c5170c9526bcdbc1bb4c29"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88204,
+      "sha256": "bf521e6e95fe5d3b2c79cf0144abbb0ace23fb5d256222e032a9685748250448"
+    }
+  ],
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "17082ec54fc3cafe3cdae9800ada5d5db75fb184a5d525ee4effbc6bf3483e19",
+    "target/work/src/gfx_d3d/rb_commands.h": "17dc3c1defd589b2cb2ccdc307a85247f789ea97c3f80e3d654f2c9cf58db7ac",
+    "target/work/tools/source_coverage.py": "80da6d6e7505f6a694e0f2e254b1669532b67c2d1d6241b74618b0a5cf52ba0e",
+    "target/work/tests/test_backend_commands.py": "6a9bc41779de090c6c919a6d1001018c49c911350b91f996ce1589d1b319fa33",
+    "target/work/tests/test_backend_2d_commands.py": "bc65f08a8bca589687fd55aba89cb803db2602ac105b0298464a5cf925e77897"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_2d_preflight.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "target/work/proof/latest/backend_2d_build.log": "4f89f0cdb4452975bc2e44c5096cf8d5035b4f1447b5cd48d436a8204cc0e4fd",
+    "target/work/proof/latest/backend_2d_fixtures.log": "9bc866da66d665aed9a476273480111037a42a8a62b53727eb8a6f8bc201923c"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "limits": [
+    "four new private bodies remain uncredited and await genuine command table",
+    "mock trigonometry tests do not prove exact x87/IEEE or GPU behavior",
+    "dispatcher/API/world load/final layout/whole SHA remain open"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "named_import_set_identical": true
+}

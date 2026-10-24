@@ -5,7 +5,28 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: backend control/state commands and presentation
+### Latest: four backend 2D commands
+
+RB_StretchPicCmd, RB_StretchPicRotateCmd, RB_DrawQuadPicCmd and
+RB_DrawFullScreenColoredQuadCmd now have real source in rb_backend.cpp, with
+shared, size-asserted command records. Source exists for11 of33 non-null
+handlers;22 and the actual dispatcher/table still remain. These private bodies
+await genuine table reachability and receive NO new byte-match credit.
+
+The original compiler build and both referees retain all1447 protected extents;
+all126 fixtures pass. Focused native checks cover540 arbitrary quads,3240 rotated
+quads and12 forwarding cases, including early count publication, capacity,
+callback-mutated materials/colors and live cursor advancement. Rotation reuses
+existing FastSinCos assembly; no new assembly is authored. Future acceptance
+must audit containing expansions separately. Mock trigonometry/COM checks do
+not establish exact x87 arithmetic, GPU execution or complete command execution.
+
+C++ remains104181/253580=41.084076031%,616 bodies on the frozen inventory;
+31 assembly-containing bodies/7787 bytes remain excluded. Same-offset equality
+9.068527897% is a layout diagnostic. Stages1-3, API/world-load closure and
+whole-file identity remain OPEN. Proof: proof/backend_2d_checkpoint.json.
+
+### Earlier: backend control/state commands and presentation
 
 Six private handlers now have real source in the existing rb_backend.cpp:
 Goto/Call/Return, material color, viewport and render target. Together with the

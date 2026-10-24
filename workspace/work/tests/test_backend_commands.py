@@ -7,7 +7,7 @@ work = Path(__file__).resolve().parents[1]
 header = (work / 'src/gfx_d3d/rb_commands.h').read_text().replace('#pragma once','')
 tess = (work / 'src/gfx_d3d/rb_tess.h').read_text().replace('#pragma once','')
 text = (work / 'src/gfx_d3d/rb_backend.cpp').read_text()
-source = text[text.index('// PINNED 1002eb60:'):text.index('// Backend presentation.')]
+source = text[text.index('// PINNED 1002eb60:'):text.index('// Backend 2D commands.')]
 program = r'''
 #include <cassert>
 #include <cstdio>

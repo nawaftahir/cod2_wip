@@ -1424,3 +1424,19 @@ assembly. Source accounting still requires the same exclusions and fail-closed
 negative controls. No TU/order edit remains. A test filename collision was fixed
 by restoring test_backend_frame.py verbatim and adding test_backend_presentation.py;
 the entire final suite is rerun, not accepted from the overwritten-fixture run.
+
+### Backend 2D command records - 2026-10-24
+
+PINNED primary2ebb0/2ec00/2ee80/2f0c0: stretch, rotate, arbitrary quad and
+fullscreen wrappers. Quad/rotation publish counts before vertex setters and use
+ushort base indices with3,0,2,2,0,1 ordering. Capture material after Set2D but
+before EndSurface; advance from live exec cursor after callbacks. Fullscreen
+uses signed dxState target dimensions, without Mac viewport or clamp additions.
+Rotation uses the existing FastSinCos helper, not newly authored assembly.
+
+New2D section removal reconstructs the entire prior backend source exactly;
+reviewed pin c2d33a39... ->17082ec5..., unchanged31 exclusions/7787 bytes.
+The host x87 fixture's literal UV comparison rejected correct serialized floats;
+exact memcmp against the input UV bytes fixes the test without production edits
+or compiler flags. Original build retains1447 extents and all126 fixtures pass.
+No V2 gain: genuine command-table reachability is still absent.
