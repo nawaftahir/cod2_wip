@@ -90,3 +90,39 @@ typedef char command2DLayoutCheck[(sizeof(GfxCmdStretchPic) == 44
     && sizeof(GfxCmdDrawFullScreenColoredQuad) == 28
     && offsetof(GfxCmdStretchPic, color) == 40
     && offsetof(GfxCmdStretchPicRotate, rotation) == 44) ? 1 : -1];
+
+struct GfxLightDef;
+struct GfxCmdSetLightProperties
+{
+    GfxCmdHeader header;
+    int lightIndex;
+    float position[4], ambient[4], color[4], specular[4];
+    GfxLightDef *lightDef;
+};
+
+struct GfxCmdSetStencilRefValue
+{
+    GfxCmdHeader header;
+    int refValue;
+};
+
+struct GfxCmdSetShadowCookie
+{
+    GfxCmdHeader header;
+    float shadowLookupMatrix[4][4];
+    float fade;
+};
+
+struct GfxCmdSetClipPlanes
+{
+    GfxCmdHeader header;
+    int clipPlaneCount;
+    float clipPlanes[1][4];
+};
+
+typedef char commandStatePayloadLayoutCheck[(sizeof(GfxCmdSetLightProperties) == 76
+    && offsetof(GfxCmdSetLightProperties, lightDef) == 72
+    && sizeof(GfxCmdSetStencilRefValue) == 8
+    && sizeof(GfxCmdSetShadowCookie) == 72
+    && offsetof(GfxCmdSetShadowCookie, fade) == 68
+    && offsetof(GfxCmdSetClipPlanes, clipPlanes) == 8) ? 1 : -1];

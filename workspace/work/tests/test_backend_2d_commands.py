@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/rb_backend.cpp').read_text()
-source = text[text.index('// Backend 2D commands.'):text.index('// Backend presentation.')]
+source = text[text.index('// Backend 2D commands.'):text.index('// Backend light, stencil, shadow and clip commands.')]
 header = (work / 'src/gfx_d3d/rb_commands.h').read_text().replace('#pragma once','')
 tess = (work / 'src/gfx_d3d/rb_tess.h').read_text().replace('#pragma once','')
 program = r'''

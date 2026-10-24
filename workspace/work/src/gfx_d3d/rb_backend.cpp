@@ -728,6 +728,81 @@ static void RB_StretchPicRotateCmd(GfxRenderCommandExecState *state)
     state->cmd = (const byte *)header + header->byteCount;
 }
 
+// Backend light, stencil, shadow and clip commands.
+// PINNED 10031f60: keep the original payload across the surface flush.
+static void RB_SetLightPropertiesCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdSetLightProperties *cmd = (const GfxCmdSetLightProperties *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    GfxBackEndLightSettings *light = &backEnd.light[cmd->lightIndex];
+    memcpy(light->ambient, cmd->ambient, sizeof(light->ambient));
+    memcpy(light->color, cmd->color, sizeof(light->color));
+    memcpy(light->specular, cmd->specular, sizeof(light->specular));
+    light->def = cmd->lightDef;
+    memcpy(light->position, cmd->position, sizeof(light->position));
+    memcpy(backEnd.codeConsts[3 + cmd->lightIndex], light->position, 16);
+    memcpy(backEnd.codeConsts[7 + cmd->lightIndex], light->ambient, 16);
+    memcpy(backEnd.codeConsts[5 + cmd->lightIndex], light->color, 16);
+    memcpy(backEnd.codeConsts[9 + cmd->lightIndex], light->specular, 16);
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 1002fa50: cache publication follows the retried device call.
+static void RB_SetStencilRefValueCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdSetStencilRefValue *cmd = (const GfxCmdSetStencilRefValue *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (dxState.stencilRefValue != cmd->refValue)
+    {
+        R_DX_CALL(dx.device->SetRenderState( D3DRS_STENCILREF, cmd->refValue ));
+        dxState.stencilRefValue = cmd->refValue;
+    }
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 1002f990: invalidate stack zero, regardless of the active stack level.
+static void RB_SetShadowCookieCmd(GfxRenderCommandExecState *state)
+{
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    const GfxCmdSetShadowCookie *cmd = (const GfxCmdSetShadowCookie *)state->cmd;
+    float size = (float)dx.renderTargets[R_RENDERTARGET_SHADOWCOOKIE].width;
+    memcpy(&backEnd.shadowLookupMatrix, cmd->shadowLookupMatrix, 64);
+    for (int index = 0; index < 4; ++index)
+        backEnd.codeMatrixStack[0].shadowLookupMatrix.valid[index] = 0;
+    backEnd.codeConsts[44][0] = size;
+    backEnd.codeConsts[44][1] = size;
+    backEnd.codeConsts[44][2] = 1.0f / size;
+    backEnd.codeConsts[44][3] = 1.0f / size;
+    backEnd.codeConsts[45][0] = 0.0f;
+    backEnd.codeConsts[45][1] = 0.0f;
+    backEnd.codeConsts[45][2] = 0.0f;
+    backEnd.codeConsts[45][3] = cmd->fade;
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
+// PINNED 1002fd60: no surface flush; counts are reloaded after device callbacks.
+static void RB_SetClipPlanesCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdSetClipPlanes *cmd = (const GfxCmdSetClipPlanes *)state->cmd;
+    if (dxState.clipPlaneCount != cmd->clipPlaneCount)
+    {
+        R_DX_CALL(dx.device->SetRenderState( D3DRS_CLIPPLANEENABLE,
+            (1u << (cmd->clipPlaneCount & 31)) - 1 ));
+        dxState.clipPlaneCount = cmd->clipPlaneCount;
+    }
+    const float *plane = &cmd->clipPlanes[0][0];
+    for (int index = 0; index < cmd->clipPlaneCount; ++index, plane += 4)
+        R_DX_CALL(dx.device->SetClipPlane( index, plane ));
+    const GfxCmdHeader *header = (const GfxCmdHeader *)state->cmd;
+    state->cmd = (const byte *)header + header->byteCount;
+}
+
 // Backend presentation.
 extern const dvar_t *r_gamma;
 extern const dvar_t *r_ignoreHwGamma;

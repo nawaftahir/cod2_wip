@@ -1440,3 +1440,28 @@ The host x87 fixture's literal UV comparison rejected correct serialized floats;
 exact memcmp against the input UV bytes fixes the test without production edits
 or compiler flags. Original build retains1447 extents and all126 fixtures pass.
 No V2 gain: genuine command-table reachability is still absent.
+
+### Backend light/stencil/shadow/clip payloads - 2026-10-24
+
+PINNED primary31f60/371B captures light payload BEFORE EndSurface. Ambient,
+color, specular, definition and position publish in that order; constants use
+position3+i, ambient7+i, color5+i and specular9+i, preserving raw bits. PC2fa50/156B captures stencil payload before flush, reloads its value on
+each R_DX_CALL retry and publishes cache from payload only after the call.
+
+Primary2f990/185B instead takes the live shadow packet AFTER EndSurface. Copy
+matrix to backEnd.shadowLookupMatrix, invalidate stack ZERO shadow.valid[0..3]
+regardless of active level. Shadow-cookie target4 signed width feeds44=(w,w,
+1/w,1/w),45=(0,0,0,fade); no zero-width or negative-width guard exists.
+
+Primary2fd60/271B never flushes tess. Plane count is live across SetRenderState
+and SetClipPlane callbacks/retries; enable mask uses x86 low-five-bit shift.
+Cache publication reloads the packet count after SetRenderState. Matrix/plane
+records live in rb_commands.h; four original functions are static in backend TU.
+No new state allocation, source assembly, roots or TU/order change.
+
+Focused test oracle initially expected retry-mutated clip count2 even when the
+final callback changed it to1; correcting the expected publication order leaves
+production source unchanged. Native424 routes pass. An initial full suite was
+started before fresh cmp/bind reports: dependency-origin freshness guard rejected
+it correctly. Repeat the entire suite only AFTER the original build completes;
+never weaken freshness or accept that initial failed run.

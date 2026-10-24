@@ -5,7 +5,32 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: four backend 2D commands
+### Latest: backend light, stencil, shadow and clipping
+
+Four more actual handlers now have source in rb_backend.cpp: light properties,
+stencil reference, shadow cookie and clip planes.15 of33 non-null handler bodies
+are source-restored;18, the genuine table/dispatcher and API closure remain.
+Original packet ownership, live retries/counts and stack-zero shadow invalidation
+are pinned against retail, rather than copied from the different Mac wrappers.
+The shared packet header gains actual76/8/72-byte records and variable planes.
+
+Original build and both referees retain the exact1447 accepted extent set;
+all127 final fixtures pass. Focused native checks cover64 light,120 shadow,
+72 stencil and168 clip cases, including raw special-value bits, live command/
+device changes, retries, cached state publication and nonzero matrix-stack level.
+No new assembly, state owners, roots, flags or TU-order changes. Every prior
+backend source byte is recovered by removing only the new four-handler section.
+
+NO new V2 byte credit: C++104181/253580=41.084076031%,616 bodies on the frozen
+inventory;31 assembly exclusions/7787 bytes unchanged. Same-offset equality
+9.068527897% is diagnostic only. COM calls are mocked, no client/GPU execution.
+The initial concurrent fixture run was rejected by its freshness guard; the
+entire final suite ran after fresh build/referees and passed unchanged guards.
+Stages1-3 and whole-file identity remain OPEN. Next connected source work is
+BeginView and Set3D, then remaining actual command chains and world/API closure.
+Proof: proof/backend_state_checkpoint.json.
+
+### Earlier: four backend 2D commands
 
 RB_StretchPicCmd, RB_StretchPicRotateCmd, RB_DrawQuadPicCmd and
 RB_DrawFullScreenColoredQuadCmd now have real source in rb_backend.cpp, with

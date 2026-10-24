@@ -450,3 +450,9 @@ byte records in rb_commands.h. No TU, root, allocation or link-order change.
 There are now11 of33 handler source bodies; the actual table is still absent.
 Existing FastSinCos is reused by rotation; containing future V2 bodies require
 assembly attribution. No new assembly is authored or accepted in this wave.
+
+The next four private command bodies (light/stencil/shadow/clip) stay in the
+same backend TU. Shared records are76/8/72 bytes and variable plane tail at8.
+Existing light[2], DxState cache and shared shadow matrices retain sole owners.
+PC shadow command invalidates stack zero even at a nonzero active stack level;
+clip commands do not flush surfaces. No TU/order or state allocation change.

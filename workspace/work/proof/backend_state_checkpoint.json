@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "500f1d1",
+  "scope": "four real backend light/stencil/shadow/clip handlers",
+  "source_functions_restored": [
+    "RB_SetLightPropertiesCmd",
+    "RB_SetStencilRefValueCmd",
+    "RB_SetShadowCookieCmd",
+    "RB_SetClipPlanesCmd"
+  ],
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 15,
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "893ea12c822ec9291dd785e96d4a3b7cb7d271815aa51dbc926a21c313c398e7",
+  "same_file_offset_percent": 9.068527896847344,
+  "cpp_executable_bytes": 104181,
+  "cpp_percent_legacy_inventory": 41.08407603123275,
+  "cpp_game_bodies": 616,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1447,
+  "full_source_fixtures_passed": 127,
+  "tu_order_unchanged": true,
+  "temporary_exports": 159,
+  "GetRefAPI_present": false,
+  "assembly_review": {
+    "old_backend_sha256": "17082ec54fc3cafe3cdae9800ada5d5db75fb184a5d525ee4effbc6bf3483e19",
+    "new_backend_sha256": "2f872623b541762013b204f9006a8c0cbd1483f5dc6e19328e8748271add8ff5",
+    "prior_executable_and_assembly_source_unchanged": true,
+    "method": "remove only the new light/stencil/shadow/clip section; restore full previous source exactly",
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 954066,
+      "sha256": "cf82b19bf7708d7a482fba49e56034b9a33c0f20797e18d10dc9d51e2756af82"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602783,
+      "sha256": "3309d8ee32a71e006a54b51c274689ab7a37058f24de03daa35dc4a6002ac177"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "f3efc192fe6f67022eb3e16dccfebe61d213766089c5170c9526bcdbc1bb4c29"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88204,
+      "sha256": "bf521e6e95fe5d3b2c79cf0144abbb0ace23fb5d256222e032a9685748250448"
+    }
+  ],
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/rb_backend.cpp": "2f872623b541762013b204f9006a8c0cbd1483f5dc6e19328e8748271add8ff5",
+    "target/work/src/gfx_d3d/rb_commands.h": "f2af9d01bd94d1f13e8e909221cef55b3829931fdcc7a3592e9cdb7c07add3bc",
+    "target/work/tools/source_coverage.py": "a76c3bb1b03aa5bc21eaae9b2f8d50afa4f4c1035c8d370af914768ec7676e31",
+    "target/work/tests/test_backend_2d_commands.py": "d087927512a513192b39aad426f7bd3068b80bcc60aae8bad50712fd5e497a86",
+    "target/work/tests/test_backend_state_commands.py": "a53a28b92f93035c16078fefbefdff3df2b21133181c85f6f75f55232d83b57b"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/backend_state_build.log": "4f89f0cdb4452975bc2e44c5096cf8d5035b4f1447b5cd48d436a8204cc0e4fd",
+    "target/work/proof/latest/backend_state_fixtures.log": "d6e0fb0356bccd02c3fbe24562be9c3b356fee465463089e8d594444f42d2e4e"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "limits": [
+    "four new private bodies remain uncredited and await genuine command table",
+    "native COM mocks are not GPU proof",
+    "dispatcher/API/world load/final layout/whole SHA remain open"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "named_import_set_identical": true,
+  "native_light_cases": 64,
+  "native_shadow_cases": 120,
+  "native_stencil_cases": 72,
+  "native_clip_cases": 168
+}

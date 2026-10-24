@@ -21,13 +21,13 @@ separately accounted; changing the main meter does not turn it into C++.
 
 ## Current evidence, not a release claim
 
-Latest source checkpoint: target/work/proof/backend_2d_checkpoint.json.
+Latest source checkpoint: target/work/proof/backend_state_checkpoint.json.
 Protected bindings: target/work/proof/frame_start_warm_bind.json.
 Readable source is target/work/src; some bodies remain unmatched drafts. The
 regression gate protects1447 source/library extents. Accepted authored C/C++ is
 104181/253580=41.084076031% on the frozen legacy inventory denominator, not a
 whole-DLL completion percentage. Startup/registration/shutdown, console callbacks, BeginFrame and device recovery
-have real source. Backend presentation and eleven command handlers also have source;
+have real source. Backend presentation and fifteen command handlers also have source;
 GetRefAPI and the remaining callback graph are still open. PROGRESS.md is the
 current log; the chronological notes below are historical wave measurements.
 
