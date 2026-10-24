@@ -53,9 +53,9 @@ slot	retail_target	status	accepted_symbols	legacy_label_UNVERIFIED
 51	0x10013200	byte_and_binding_accepted	?R_EndView@@YAXH@Z	EndDebugFrame
 52	0x10013250	not_verified		EndView
 53	0x100222a0	byte_and_binding_accepted	?R_AddCmdSaveScreen@@YAXXZ	DoneRenderingViews
-54	0x100222f0	byte_and_binding_accepted	?R_SaveScreen@@YAXH@Z	SaveScreen
-55	0x10022220	byte_and_binding_accepted	?R_BlendSavedScreen@@YAXEPBHHE@Z	BlendSavedScreen
-56	0x10021bf0	byte_and_binding_accepted	?R_ClearScreen@@YAXHHHH@Z	ClearScreen
+54	0x100222f0	byte_and_binding_accepted	?R_AddCmdBlendSavedScreen@@YAXH@Z	SaveScreen
+55	0x10022220	byte_and_binding_accepted	?R_AddCmdClearScreen@@YAXHPBMMH@Z	BlendSavedScreen
+56	0x10021bf0	byte_and_binding_accepted	?R_AddCmdSetViewport@@YAXHHHH@Z	ClearScreen
 57	0x10015ba0	not_verified		SetViewport
 58	0x1001d910	byte_and_binding_accepted	?R_ModelBounds@@YAXPBMPAM1@Z	MarkFragments
 59	0x10013260	not_verified		ModelBounds

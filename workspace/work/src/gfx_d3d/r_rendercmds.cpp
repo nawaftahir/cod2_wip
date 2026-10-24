@@ -177,48 +177,37 @@ bool R_ClearModifiedLightDvars()
 }
 
 // PC 1.0 layouts of the small commands, PINNED by the retail writers (fields named by role where known).
-struct RcCmdClearScreen { GfxCmdHeader header; int arg[4]; };
-struct RcCmdRenderScene { GfxCmdHeader header; int reserved; };
 struct RcCmdDelayedEnd { GfxCmdHeader header; };
 struct RcCmdDelayedBegin { GfxCmdHeader header; int marker; };
-struct RcCmdSaveScreen { GfxCmdHeader header; int arg; int reserved; };
-struct RcCmdBlendSavedScreen { GfxCmdHeader header; byte b0; byte b1; short pad; int arg; int rect[4]; };
-struct RcCmdDrawSurfs { GfxCmdHeader header; int order; int arg[3]; };
+struct RcCmdBlendSavedScreen { GfxCmdHeader header; int fadeMsec; int unused; };
 struct RcWords16 { int w[16]; };
 struct RcCmdId9 { GfxCmdHeader header; RcWords16 data; int extra; };
 
-void R_ClearScreen(int a, int b, int c, int d)
+// PINNED 10021bf0, API59 slot56: these are viewport integers, not clear flags.
+void R_AddCmdSetViewport(int x, int y, int width, int height)
 {
-    RcCmdClearScreen *cmd;
+    GfxCmdSetViewport *cmd;
 
-    cmd = (RcCmdClearScreen *)R_GetCommandBuffer(0xd, sizeof(RcCmdClearScreen));
-    cmd->arg[0] = a;
-    cmd->arg[1] = b;
-    cmd->arg[2] = c;
-    cmd->arg[3] = d;
+    cmd = (GfxCmdSetViewport *)R_GetCommandBuffer(0xd, sizeof(GfxCmdSetViewport));
+    cmd->viewport.x = x;
+    cmd->viewport.y = y;
+    cmd->viewport.width = width;
+    cmd->viewport.height = height;
 }
 
-void R_SaveScreen(int arg)
+// PINNED 100222f0, API59 slot54: enqueue blending only for a positive duration.
+void R_AddCmdBlendSavedScreen(int fadeMsec)
 {
-    RcCmdSaveScreen *cmd;
+    RcCmdBlendSavedScreen *cmd;
 
-    if (arg > 0)
+    if (fadeMsec > 0)
     {
-        cmd = (RcCmdSaveScreen *)R_GetCommandBuffer(0x1d, sizeof(RcCmdSaveScreen));
+        cmd = (RcCmdBlendSavedScreen *)R_GetCommandBuffer(0x1d, sizeof(RcCmdBlendSavedScreen));
         if (!cmd)
             return;
-        cmd->arg = arg;
+        cmd->fadeMsec = fadeMsec;
     }
 }
-
-void R_RenderScene()
-{
-    RcCmdRenderScene *cmd;
-
-    cmd = (RcCmdRenderScene *)R_GetCommandBuffer(1, sizeof(RcCmdRenderScene));
-    cmd->reserved = 0;
-}
-
 
 int R_BeginDelayedDrawing()
 {
@@ -245,17 +234,19 @@ void R_IssueDelayedDrawing(int marker)
     cmd->marker = (int)((byte *)s_cmdList + 8 + marker);
 }
 
-void R_AddCmdDrawSurfs(int a, int b, int c, int order)
+// PINNED 10021890: PC has an explicit fourth order argument.
+void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
+    MaterialTechniqueType techType, GfxDrawSurfOrder order)
 {
-    RcCmdDrawSurfs *cmd;
+    GfxCmdDrawSurfs *cmd;
 
-    cmd = (RcCmdDrawSurfs *)R_GetCommandBuffer(0x17, sizeof(RcCmdDrawSurfs));
+    cmd = (GfxCmdDrawSurfs *)R_GetCommandBuffer(0x17, sizeof(GfxCmdDrawSurfs));
     if (!cmd)
         return;
     cmd->order = order;
-    cmd->arg[0] = a;
-    cmd->arg[1] = b;
-    cmd->arg[2] = c;
+    cmd->drawSurfs = drawSurfs;
+    cmd->drawSurfCount = drawSurfCount;
+    cmd->techType = techType;
 }
 
 void R_AddCmdId9(const RcWords16 *data, int extra)
@@ -267,18 +258,19 @@ void R_AddCmdId9(const RcWords16 *data, int extra)
     cmd->extra = extra;
 }
 
-void R_BlendSavedScreen(byte b0, const int *rect, int arg, byte b1)
+// PINNED 10022220, API59 slot55: copy float payloads without arithmetic.
+void R_AddCmdClearScreen(int whichToClear, const float *color, float depth, int stencil)
 {
-    RcCmdBlendSavedScreen *cmd;
+    GfxCmdClearScreen *cmd;
 
-    cmd = (RcCmdBlendSavedScreen *)R_GetCommandBuffer(0xb, sizeof(RcCmdBlendSavedScreen));
-    cmd->b0 = b0;
-    cmd->b1 = b1;
-    cmd->arg = arg;
-    cmd->rect[0] = rect[0];
-    cmd->rect[1] = rect[1];
-    cmd->rect[2] = rect[2];
-    cmd->rect[3] = rect[3];
+    cmd = (GfxCmdClearScreen *)R_GetCommandBuffer(0xb, sizeof(GfxCmdClearScreen));
+    cmd->whichToClear = (byte)whichToClear;
+    cmd->stencil = (byte)stencil;
+    memcpy(&cmd->depth, &depth, sizeof(depth));
+    memcpy(&cmd->color[0], &color[0], sizeof(float));
+    memcpy(&cmd->color[1], &color[1], sizeof(float));
+    memcpy(&cmd->color[2], &color[2], sizeof(float));
+    memcpy(&cmd->color[3], &color[3], sizeof(float));
 }
 
 
@@ -495,22 +487,6 @@ void R_AddCmdEndOfList()
 void R_AddCmdSaveScreen()
 {
     R_GetCommandBuffer(0xa, sizeof(GfxCmdHeader));
-}
-
-void R_AddCmdClearScreen(int whichToClear, const vec_t *color, float depth, int stencil)
-{
-    GfxCmdClearScreen *cmd;
-
-    cmd = (GfxCmdClearScreen *)R_GetCommandBuffer(0xb, sizeof(GfxCmdClearScreen));
-    if (!cmd)
-        return;
-    cmd->whichToClear = (byte)whichToClear;
-    cmd->stencil = (byte)stencil;
-    cmd->depth = depth;
-    cmd->color[0] = color[0];
-    cmd->color[1] = color[1];
-    cmd->color[2] = color[2];
-    cmd->color[3] = color[3];
 }
 
 void R_AddCmdApplyLatePostEffects(float blurRadius)

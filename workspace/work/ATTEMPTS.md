@@ -1558,3 +1558,54 @@ actual clear-command signature; do not propagate the legacy label into a typed
 public table. Likewise21890/108B DrawSurfs writer's three opaque int payloads
 need pointer/count/tech typing from primary consumers before genuine render-scene
 source calls it. Existing byte matches stay protected while types are corrected.
+
+### Genuine PC frontend types and names - 2026-10-24
+
+PINNED client anchor SHA8caf434c9509020b9c94720d0407a31d61411312996dab9964f46865f070900e.
+40f147 copies108 words to re=60f080. Client41332a/413351 calls clear at60f15c
+(slot55);402238 calls viewport60f160(slot56);402261 calls blend60f158(slot54).
+Those pair with renderer22220/118B,21bf0/98B and222f0/93B respectively. Client
+source prototypes agree (SUPPORTED): clear(int,const float*,float,int), viewport
+four ints, blend(int). Caller table positions are primary proof, not Mac labels.
+
+R_ClearScreen(int4) was actually the viewport writer; rename R_AddCmdSetViewport.
+R_SaveScreen(int) was actually blend; rename R_AddCmdBlendSavedScreen. Existing
+R_BlendSavedScreen(byte,int*,int,byte) was the matched clear writer, while the
+same TU also contained an UNMATCHED typed R_AddCmdClearScreen draft with an
+extra allocation-null guard. Consolidate into one typed clear writer, preserving
+the primary's unguarded allocation and raw float payload bits; remove the duplicate
+root. Do not introduce a casted API callback or keep two implementations.
+
+21890's actual20-byte DrawSurfs packet is order4/pointer8/countc/tech10. Use the
+existing common GfxCmdDrawSurfs and enum/pointer types; PC has a fourth order
+argument beyond the Mac reference's three-argument declaration. Allocator failure
+still returns early. Blend12-byte packet writes only fadeMsec4; extra word8 stays
+untouched. Viewport20-byte packet and clear28-byte packet remain unguarded.
+
+The old no-argument R_RenderScene draft merely appended a null-target Goto, had
+NO referee hits (candidate81B), and had no source caller, only a temporary root.
+It is removed from the active source/root, recoverable in git. It must not stand
+in for actual API36 RenderScene257a0, which remains missing. No verified extent
+or completion credit is discarded by retiring that draft.
+
+Native typed-writer fixture passes840 clear/81 viewport/10 blend/120 draw-surface
+cases with actual common records; masks/stencil truncate, float bits survive,
+allocator mutation changes live colors, padding/unused words stay untouched and
+only the original checked allocations accept null. Primary client copy/calls
+calibrate the API slots; this is not end-to-end client/renderer execution.
+
+The first typed-clear probe used one16-byte memcpy for color and a4-byte depth
+copy. Native cases passed, but original compiler produced120B vs protected118B
+and changed source/base registers and copy scheduling; regression rejected ONLY
+22220. New viewport, blend and draw-surface types survived. This was NOT accepted.
+Failed source SHA79657186e7934765489508787214f900fa925bdffc323d3a263a59be420d4136.
+Next bounded structural probe uses four explicit4-byte color copies, preserving
+the primary word-copy shape and raw float bits. Do not relax the118-byte gate or
+claim the prototype change matched before both unchanged referees pass.
+
+The second typed-clear probe (four4-byte color copies) passes BOTH referees at
+the original22220/118B. Correctly typed viewport21bf0/98B, blend222f0/93B and
+DrawSurfs21890/108B also pass. The full1448 accepted address/extent set is
+identical to the frozen image-residency baseline. No old match was waived.
+Temporary exports drop159->157 by consolidating the unmatched typed clear and
+removing the unmatched null-jump RenderScene draft. This is not GetRefAPI closure.

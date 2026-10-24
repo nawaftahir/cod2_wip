@@ -1,0 +1,153 @@
+{
+  "date": "2026-10-24",
+  "previous_source_checkpoint": "8b5628d",
+  "scope": "four correct frontend writer interfaces and removal of two unmatched duplicate/draft roots",
+  "retail_command_table_slots": 34,
+  "non_null_command_handlers": 33,
+  "source_restored_command_handlers": 18,
+  "command_dispatcher_complete": false,
+  "stages_1_to_3_complete": false,
+  "whole_file_identical": false,
+  "client_gpu_smoke_tested": false,
+  "candidate_sha256": "b768097713d290c8f221c94cef20e37e55a98e8abc1bbfffcdc232f4f5b87439",
+  "same_file_offset_percent": 9.053728221792035,
+  "cpp_executable_bytes": 104237,
+  "cpp_percent_legacy_inventory": 41.106159791781685,
+  "cpp_game_bodies": 617,
+  "new_verified_engine_bytes": 0,
+  "accepted_address_extent_set_unchanged": true,
+  "protected_extents_retained": 1448,
+  "full_source_fixtures_passed": 131,
+  "tu_order_unchanged": true,
+  "temporary_exports": 157,
+  "GetRefAPI_present": false,
+  "assembly_review": {
+    "backend_assembly_source_unchanged": true,
+    "new_authored_assembly": false,
+    "excluded_body_count": 31,
+    "excluded_bytes": 7787
+  },
+  "candidate_sections": [
+    {
+      "name": ".text",
+      "rva": "0x1000",
+      "file_offset": "0x1000",
+      "raw_bytes": 954368,
+      "virtual_bytes": 954322,
+      "sha256": "3d2bed005b9ca5a1ee6eca5f5fddb3ee0e03d8dd4d867be41a7e5149a9d45fb1"
+    },
+    {
+      "name": ".rdata",
+      "rva": "0xea000",
+      "file_offset": "0xea000",
+      "raw_bytes": 606208,
+      "virtual_bytes": 602748,
+      "sha256": "0d033e33f6009680d0f291a7e563533793a700e58bcae599a38bc7d24b6aac65"
+    },
+    {
+      "name": ".data",
+      "rva": "0x17e000",
+      "file_offset": "0x17e000",
+      "raw_bytes": 57344,
+      "virtual_bytes": 6084628,
+      "sha256": "59b428b42eef3d23166920b05556a26ee6a7e7fc32cbc076b99186a3246ae555"
+    },
+    {
+      "name": ".reloc",
+      "rva": "0x74c000",
+      "file_offset": "0x18c000",
+      "raw_bytes": 90112,
+      "virtual_bytes": 88258,
+      "sha256": "4bc7fb75feebc7b49ff45bff8a1868c9f17d9ecd840974d861051ae673102df4"
+    }
+  ],
+  "source_and_test_sha256": {
+    "target/work/src/gfx_d3d/r_rendercmds.cpp": "534b7e30e624aabac2d2a901bc82e482326a6acb55e06d43bfabf82f97b3f6e4",
+    "target/work/src/roots.txt": "484eedc53bf1747bbde7a67e524959944250114d9b61d0894612a3fd1273129e",
+    "target/work/tests/test_frontend_command_types.py": "da32dea78fe02dad04d4f517b58575b7ffbd39687cdb25aea77d499ce83d1224",
+    "target/work/layout/api_callbacks.tsv": "0f03617421ae06e9ec138ea64f059935dceb5b9ba9b7a12c5456b20458844a79"
+  },
+  "log_sha256": {
+    "target/work/proof/latest/frontend_types_build.log": "508de3764be6b38c505acff126ce2be77a975f0f5fa03f588a2c64f6e1dd1853",
+    "target/work/proof/latest/frontend_types_words_build.log": "e155ae5df40f81d254961e0ed15278ffd24220a4013a618e05fed9be39ce3ce6",
+    "target/work/proof/latest/frontend_types_fixtures.log": "34c22b29e2e3a57fe502473b99c2ee9cfc714440f7ede41fa85237a44f08a26f"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "limits": [
+    "typed API fields are calibrated from primary callers but full GetRefAPI table/graph is absent",
+    "actual RenderScene257a0 remains missing, not replaced by retired null-jump draft",
+    "native allocation mocks and disassembly do not prove client/renderer GPU execution",
+    "dispatcher/world load/final layout/whole SHA remain open"
+  ],
+  "commands": [
+    "sh target/work/tools/build.sh",
+    "python3 target/work/tests/run.py"
+  ],
+  "named_import_set_identical": true,
+  "protected_extents_after_ratchet": 1448,
+  "binding_snapshot": {
+    "path": "target/work/proof/image_residency_warm_bind.json",
+    "sha256": "3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59"
+  },
+  "source_functions_retyped": [
+    "R_AddCmdSetViewport",
+    "R_AddCmdBlendSavedScreen",
+    "R_AddCmdDrawSurfs",
+    "R_AddCmdClearScreen"
+  ],
+  "native_typed_writers": {
+    "clear": 840,
+    "viewport": 81,
+    "blend": 10,
+    "draw_surfs": 120
+  },
+  "client_calibration": {
+    "anchor_sha256": "8caf434c9509020b9c94720d0407a31d61411312996dab9964f46865f070900e",
+    "table_base": "0x60f080",
+    "copied_words": 108,
+    "copy_instruction": "0x40f147",
+    "clear_slot": 55,
+    "viewport_slot": 56,
+    "blend_slot": 54,
+    "primary_caller_instructions": [
+      "0x41332a",
+      "0x413351",
+      "0x402238",
+      "0x402261"
+    ]
+  },
+  "retained_retyped_matches": [
+    {
+      "name": "R_AddCmdSetViewport",
+      "target": "0x10021bf0",
+      "bytes": 98
+    },
+    {
+      "name": "R_AddCmdBlendSavedScreen",
+      "target": "0x100222f0",
+      "bytes": 93
+    },
+    {
+      "name": "R_AddCmdDrawSurfs",
+      "target": "0x10021890",
+      "bytes": 108
+    },
+    {
+      "name": "R_AddCmdClearScreen",
+      "target": "0x10022220",
+      "bytes": 118
+    }
+  ],
+  "removed_unmatched_drafts": [
+    "duplicate guarded typed clear writer",
+    "no-argument null-jump R_RenderScene draft with no referee hit and no source callers"
+  ],
+  "rejected_probe": {
+    "variant": "one16-byte color copy",
+    "candidate_function_bytes": 120,
+    "protected_retail_bytes": 118,
+    "lost_target": "0x10022220",
+    "accepted": false
+  },
+  "accepted_probe": "four explicit4-byte raw color copies; all protected extents retained"
+}

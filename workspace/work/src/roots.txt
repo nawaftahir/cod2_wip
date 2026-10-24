@@ -75,10 +75,8 @@ R_GetFarPlaneDist
 R_ChooseMonitor
 R_ReleaseLostImages
 Image_GetSunHalfAngleForVector
-R_ClearScreen
-R_SaveScreen
-R_RenderScene
-R_BlendSavedScreen
+R_AddCmdSetViewport
+R_AddCmdBlendSavedScreen
 R_BeginDelayedDrawing
 R_EndDelayedDrawing
 R_IssueDelayedDrawing

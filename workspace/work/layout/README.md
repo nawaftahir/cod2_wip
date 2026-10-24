@@ -484,3 +484,22 @@ packet is shared in rb_commands.h; target system supplies its pixel pointer.
 PC uses one temporary IDirect3DSurface9, stack D3DLOCKED_RECT/RECT and existing
 DxGlobals device/target. No engine globals, image registry entry, texture object,
 TU, root or export is added. Command reachability awaits the genuine full table.
+
+### Frontend/API command types - 2026-10-24
+
+r_rendercmds.cpp now uses the existing common GfxCmdClearScreen, SetViewport and
+DrawSurfs schemas. RcCmdBlendSavedScreen is the actual12-byte fade packet;
+its unused trailing word is preserved. Pointer/count/technique/order inputs
+replace opaque integers in DrawSurfs. Clear uses raw4-byte float copies so its
+118-byte protected body stays exact; one16-byte color copy was rejected.
+
+Correct public roles:22220 R_AddCmdClearScreen,21bf0 R_AddCmdSetViewport,
+222f0 R_AddCmdBlendSavedScreen. Primary client re=60f080 and108-word copy pins
+slots55/56/54. Function names agree with semantic reference roles, without a
+claim about lost source spelling. The three API inventory symbol rows are
+refreshed; old UNVERIFIED legacy labels remain explicitly historical.
+
+The duplicate unmatched typed clear and false no-argument RenderScene null-jump
+are removed, reducing temporary roots/exports159->157. Real RenderScene257a0
+remains missing. No actual API body is substituted by the old draft, and no
+retail table is partially advertised. No TU or state/data owner changes.

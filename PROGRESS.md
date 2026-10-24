@@ -5,7 +5,39 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: PC raw-frame surface and command
+### Latest: genuine frontend command interfaces
+
+Four writers in r_rendercmds.cpp now use correct roles and shared typed records:
+R_AddCmdSetViewport(21bf0/98B), R_AddCmdBlendSavedScreen(222f0/93B),
+R_AddCmdClearScreen(22220/118B) and four-argument R_AddCmdDrawSurfs(21890/108B).
+Retail client copies108 API words to60f080 and directly calls slots56/54/55 for
+viewport/blend/clear; its source declarations agree. The API inventory's three
+accepted symbol rows now use these actual writer names, with historical legacy
+labels still explicitly unverified. No partial GetRefAPI table is advertised.
+
+The duplicate unmatched typed clear draft and false no-argument RenderScene
+null-jump draft are removed; both remain recoverable in git. Real API36
+RenderScene257a0 is still missing. Temporary exports drop159->157, while every
+verified extent stays protected. Clear/viewport remain unguarded allocations;
+blend/draw-surfaces retain their actual null checks and unused bytes.
+
+First probe's16-byte color copy lost the118-byte clear match and was rejected.
+Four explicit4-byte copies preserve typed float payloads and the original
+instructions: final original build and BOTH referees retain all1448 extents.
+All131 full fixtures pass;1051 focused typed cases test raw float bits, live
+allocator-mutated colors, padding and exact allocation/null policies. Primary
+client instruction checks calibrate slots; this is not a client/GPU run.
+
+NO new byte credit: C++104237/253580=41.106159792%,617 bodies, frozen inventory;
+31 assembly exclusions/7787 bytes unchanged. Same-offset equality9.053728222%
+is diagnostic only. Named imports remain exact. No new globals, TU/order, flags
+or authored assembly. Backend handler source remains18/33. Stages1-3 remain
+OPEN: full dispatcher, remaining callbacks, real RenderScene/world loading and
+GetRefAPI still need source. Proof: proof/frontend_types_checkpoint.json.
+Next connected backend group: actual screen copy/save/blend, using shared state
+rather than duplicating buffers or substituting Mac-only behavior.
+
+### Earlier: PC raw-frame surface and command
 
 RB_StretchRawCmd and the primary-pinned role helper RB_DrawRawSurface now have
 source in rb_backend.cpp. Actual PC behavior creates ONE offscreen surface,
