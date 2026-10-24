@@ -600,7 +600,7 @@ void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filen
 // PINNED 10026330/101: savegame thumbnails use512-square resampled JPEGs.
 void R_SaveGameShot(const char *name)
 {
-    char filename[264];
+    char filename[256];
     sprintf(filename, "%s.jpg", name);
     byte *buffer = R_TakeResampledScreenshot(512, 512, 3, 0);
     if (buffer)

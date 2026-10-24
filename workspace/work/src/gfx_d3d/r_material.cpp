@@ -937,7 +937,9 @@ static bool Material_Compare(const Material *left, const Material *right)
         return diff < 0;
     diff = (const MaterialTechniqueSet *)left->techniqueSet
         - (const MaterialTechniqueSet *)right->techniqueSet;
-    return diff < 0;
+    if (diff)
+        return diff < 0;
+    return false;
 }
 
 // PINNED 10016e70: sort the existing table, then publish every sorted index.

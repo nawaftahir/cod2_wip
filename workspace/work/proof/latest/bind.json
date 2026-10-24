@@ -801,6 +801,12 @@
 "obj": "r_init.obj",
 "why": []
 },
+"?R_ReleaseDynamicBuffers@@YAXXZ": {
+"t": "0x10011e60",
+"n": 160,
+"obj": "r_init.obj",
+"why": []
+},
 "?R_CreateDeviceResources@@YAEXZ": {
 "t": "0x10012100",
 "n": 261,
@@ -1344,6 +1350,12 @@
 "?Material_Shutdown@@YAXXZ": {
 "t": "0x10017540",
 "n": 171,
+"obj": "r_material.obj",
+"why": []
+},
+"?Material_Compare@@YA_NPBUMaterial@@0@Z": {
+"t": "0x10016890",
+"n": 74,
 "obj": "r_material.obj",
 "why": []
 },
@@ -2293,6 +2305,14 @@
 "obj": "r_screenshot.obj",
 "why": [
 "call ?R_SaveJpg@@YAXPBDHHHPAE@Z"
+]
+},
+"?R_SaveGameShot@@YAXPBD@Z": {
+"t": "0x10026330",
+"n": 101,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
 ]
 },
 "?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z": {

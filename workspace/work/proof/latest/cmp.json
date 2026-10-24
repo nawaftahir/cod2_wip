@@ -1749,7 +1749,9 @@
 "name": "?R_ReleaseDynamicBuffers@@YAXXZ",
 "obj": "r_init.obj",
 "size": 160,
-"hits": []
+"hits": [
+"0x10011e60"
+]
 },
 {
 "name": "?R_CreateDeviceResources@@YAEXZ",
@@ -2782,8 +2784,10 @@
 {
 "name": "?Material_Compare@@YA_NPBUMaterial@@0@Z",
 "obj": "r_material.obj",
-"size": 68,
-"hits": []
+"size": 74,
+"hits": [
+"0x10016890"
+]
 },
 {
 "name": "?Material_Sort@@YAXXZ",
@@ -4833,7 +4837,9 @@
 "name": "?R_SaveGameShot@@YAXPBD@Z",
 "obj": "r_screenshot.obj",
 "size": 101,
-"hits": []
+"hits": [
+"0x10026330"
+]
 },
 {
 "name": "?R_ScreenShotCmd@@YAXH@Z",

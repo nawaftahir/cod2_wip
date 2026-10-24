@@ -592,7 +592,7 @@ gfx_d3d/r_init.cpp	?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z	10011a4
 gfx_d3d/r_init.cpp	?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z	10011ad0	bind	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_CreateDynamicBuffers@@YAXXZ	10011b60	bind	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_CreateParticleCloudBuffer@@YAXXZ	10011bf0	pinned	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
-gfx_d3d/r_init.cpp	?R_ReleaseDynamicBuffers@@YAXXZ	10011e60	pinned	-	gfx_d3d/r_init	interval
+gfx_d3d/r_init.cpp	?R_ReleaseDynamicBuffers@@YAXXZ	10011e60	bind	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_SetColorMappings@@YAXXZ	10011fb0	hit	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_init.cpp	?R_GammaCorrect@@YAXHPAE@Z	10011fe0	hit	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_init.cpp	?R_InitSystems@@YAXXZ	10012040	hit	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
@@ -657,7 +657,7 @@ gfx_d3d/r_material.cpp	?Material_ClearStringTable@@YAXXZ	10016540	bind	-	gfx_d3d
 gfx_d3d/r_material.cpp	?Material_BuildVertexDecl@@YAPAUIDirect3DVertexDeclaration9@@PBUMaterialStreamRouting@@HPBUstream_source_info_t@@@Z	100165c0	bind	-	gfx_d3d/r_material	interval
 gfx_d3d/r_material.cpp	?Material_BuildVertexDecls@@YAXPAPAUMaterialVertexDeclaration@@@Z	10016740	bind	-	gfx_d3d/r_material	interval
 gfx_d3d/r_material.cpp	?Material_AllocVertexDecl@@YAPAUMaterialVertexDeclaration@@PAUMaterialStreamRouting@@HPAE@Z	10016780	bind	gfx_d3d/r_material	gfx_d3d/r_material	mac-name
-gfx_d3d/r_material.cpp	?Material_Compare@@YA_NPBUMaterial@@0@Z	10016890	pinned	gfx_d3d/r_material	gfx_d3d/r_material	mac-name
+gfx_d3d/r_material.cpp	?Material_Compare@@YA_NPBUMaterial@@0@Z	10016890	bind	gfx_d3d/r_material	gfx_d3d/r_material	mac-name
 gfx_d3d/r_material.cpp	?Material_FindTechniqueSlot@@YA_NPBDPAH@Z	100168e0	bind	-	gfx_d3d/r_material	interval
 gfx_d3d/r_material.cpp	?Material_SetTechnique@@YAXPBDPAUMaterialTechnique@@@Z	10016960	bind	gfx_d3d/r_material	gfx_d3d/r_material	mac-name
 gfx_d3d/r_material.cpp	?Material_FindTechniqueSetSlot@@YA_NPBDPAH@Z	100169e0	bind	-	gfx_d3d/r_material	interval
@@ -874,7 +874,7 @@ gfx_d3d/r_screenshot.cpp	?R_GetFrontBufferData@@YAEHHHHHPAE@Z	10025e80	bind	gfx_
 gfx_d3d/r_screenshot.cpp	?R_TakeResampledScreenshot@@YAPAEHHHH@Z	10026110	hit	gfx_d3d/r_screenshot	gfx_d3d/r_screenshot	mac-name
 gfx_d3d/r_screenshot.cpp	?R_TakeScreenshotTga@@YAXHHHHPBD@Z	100261b0	bind	-	gfx_d3d/r_screenshot	interval
 gfx_d3d/r_screenshot.cpp	?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z	10026240	hit	-	gfx_d3d/r_screenshot	interval
-gfx_d3d/r_screenshot.cpp	?R_SaveGameShot@@YAXPBD@Z	10026330	pinned	-	gfx_d3d/r_screenshot	interval
+gfx_d3d/r_screenshot.cpp	?R_SaveGameShot@@YAXPBD@Z	10026330	hit	-	gfx_d3d/r_screenshot	interval
 gfx_d3d/r_screenshot.cpp	?R_ScreenShotCmd@@YAXH@Z	100263a0	pinned	-	gfx_d3d/r_screenshot	interval
 gfx_d3d/r_screenshot.cpp	?R_FlipCubemapShot@@YAXPAE@Z	100266f0	bind	-	gfx_d3d/r_screenshot	interval
 gfx_d3d/r_screenshot.cpp	?R_WriteCubemapShotAlpha@@YAXHMMPAE@Z	10026840	hit	-	gfx_d3d/r_screenshot	interval

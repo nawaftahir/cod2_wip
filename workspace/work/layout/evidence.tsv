@@ -123,6 +123,7 @@ accepted	gfx_d3d/r_init.cpp	R_InitGlobalStructs	10012e70	bind
 accepted	gfx_d3d/r_init.cpp	R_InitModelDObj	10012f40	doubt
 accepted	gfx_d3d/r_init.cpp	R_InitSinTable	10012ee0	doubt
 accepted	gfx_d3d/r_init.cpp	R_MonitorEnumCallback	10012750	bind
+accepted	gfx_d3d/r_init.cpp	R_ReleaseDynamicBuffers	10011e60	bind
 accepted	gfx_d3d/r_init.cpp	R_SetD3DPresentParameters	100114d0	bind
 accepted	gfx_d3d/r_init.cpp	R_SetupAntiAliasing	10011460	bind
 accepted	gfx_d3d/r_init.cpp	R_StoreDirect3DCaps	10011900	bind
@@ -142,6 +143,7 @@ accepted	gfx_d3d/r_material.cpp	Material_BuildVertexDecl	100165c0	bind
 accepted	gfx_d3d/r_material.cpp	Material_BuildVertexDecls	10016740	bind
 accepted	gfx_d3d/r_material.cpp	Material_ClearStateMapTable	10016bb0	bind
 accepted	gfx_d3d/r_material.cpp	Material_ClearStringTable	10016540	doubt
+accepted	gfx_d3d/r_material.cpp	Material_Compare	10016890	mac
 accepted	gfx_d3d/r_material.cpp	Material_Duplicate	10016f30	mac
 accepted	gfx_d3d/r_material.cpp	Material_FindHashSlot	10017050	bind
 accepted	gfx_d3d/r_material.cpp	Material_FindRegistered	10017250	doubt
@@ -792,7 +794,6 @@ draft-addressed	gfx_d3d/r_init.cpp	R_InitHardware	10012c80	-
 draft-addressed	gfx_d3d/r_init.cpp	R_InitSystems	10012040	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_RecoverLostDevice	100137f0	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_ReduceWindowSettings	10012c20	-
-draft-addressed	gfx_d3d/r_init.cpp	R_ReleaseDynamicBuffers	10011e60	-
 draft-addressed	gfx_d3d/r_init.cpp	R_ReleaseForShutdownOrReset	10012210	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_ResetDevice	10013690	-
 draft-addressed	gfx_d3d/r_init.cpp	R_SetColorMappings	10011fb0	mac
@@ -809,7 +810,6 @@ draft-addressed	gfx_d3d/r_light_load_obj.cpp	R_LoadLightImage	10015090	-
 draft-addressed	gfx_d3d/r_marks.cpp	R_BoxSurfaces_r	10015740	mac
 draft-addressed	gfx_d3d/r_material.cpp	Material_ClearTechniqueSetTable	-	-
 draft-addressed	gfx_d3d/r_material.cpp	Material_ClearTechniqueTable	-	-
-draft-addressed	gfx_d3d/r_material.cpp	Material_Compare	10016890	mac
 draft-addressed	gfx_d3d/r_material.cpp	Material_FindTechnique	-	mac
 draft-addressed	gfx_d3d/r_material.cpp	Material_FindTechniqueSet	-	mac
 draft-addressed	gfx_d3d/r_material.cpp	Material_Init	100173e0	mac

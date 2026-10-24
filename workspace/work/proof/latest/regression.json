@@ -1,8 +1,8 @@
 {
-  "functions": 655,
-  "bytes": 113105,
+  "functions": 657,
+  "bytes": 113339,
   "total": 253580,
-  "percent": 44.603281015852986,
+  "percent": 44.6955595867182,
   "baseline_lost": [],
   "gains": [
     {
@@ -420,6 +420,12 @@
       "object": "r_init.obj"
     },
     {
+      "target": "0x10011e60",
+      "bytes": 160,
+      "name": "?R_ReleaseDynamicBuffers@@YAXXZ",
+      "object": "r_init.obj"
+    },
+    {
       "target": "0x10012320",
       "bytes": 51,
       "name": "?R_DisplayModeLess@@YA_NABU_D3DDISPLAYMODE@@0@Z",
@@ -495,6 +501,12 @@
       "target": "0x10016740",
       "bytes": 53,
       "name": "?Material_BuildVertexDecls@@YAXPAPAUMaterialVertexDeclaration@@@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016890",
+      "bytes": 74,
+      "name": "?Material_Compare@@YA_NPBUMaterial@@0@Z",
       "object": "r_material.obj"
     },
     {

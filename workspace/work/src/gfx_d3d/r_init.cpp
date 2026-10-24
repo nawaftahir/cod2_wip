@@ -122,7 +122,7 @@ void R_ReleaseDynamicBuffers()
             dx.dynamicVertexBufferPool[0].buffer->Release();
             dx.dynamicVertexBufferPool[0].buffer = 0;
         } while (alwaysfails);
-    for (int index = 0; index < 2; ++index)
+    for (int index = 0; index != 2; ++index)
         if (dx.skinnedCacheVbPool[index].buffer)
             do
             {
