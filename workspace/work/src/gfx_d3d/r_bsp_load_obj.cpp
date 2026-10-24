@@ -15,7 +15,7 @@ typedef char staticModelEntityLayoutCheck[(sizeof(GfxStaticModelInstance) == 96
     && offsetof(refimport_t, XModelGetFlags) == 0x198) ? 1 : -1];
 
 extern GfxWorld s_world;
-extern const dvar_t *r_fullbright;
+extern const dvar_t *r_showGroundLit;
 // PINNED 100030d9/10003128 call model registration out of line.
 __declspec(noinline) XModel *R_RegisterModel(const char *name);
 bool R_ValidateStaticModel(XModel *model);
@@ -685,7 +685,7 @@ void R_LoadMiscModel(const char *(*vars)[2], int count)
     Bool foundGround = R_Vec4ForKeyHex("gndLt", "FF000000", vars, count, ground);
     float sunVisibility;
     vec4_t colors[6];
-    if (r_fullbright->current.enabled)
+    if (r_showGroundLit->current.enabled)
     {
         ground[2] = 0.0f;
         ground[3] = 0.0f;
@@ -1214,4 +1214,104 @@ void R_LoadAabbTrees(GfxBspLoad *load)
     }
     for (int index = 0; index < count; )
         index = R_FinishLoadingAabbTrees_r(&rgl.aabbTrees[index], index + 1);
+}
+
+const char *R_ParseSunLight(SunLightParseParams *params, const char *text);
+void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight);
+void R_LoadSun(const char *name, sunflare_t *sun);
+void R_ComputeOutdoorBounds(const GfxWorld *world);
+void R_ComputeOutdoorScale();
+void R_ComputeOutdoorLookupMatrix(GfxWorld *world);
+GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+void Com_StripExtension(const char *in, char *out);
+
+typedef char loadWorldSlotCheck[(offsetof(refimport_t, Cbuf_ExecuteText) - offsetof(refimport_t, Printf) == 0x114
+    && offsetof(refimport_t, Com_GetBsp) - offsetof(refimport_t, Cbuf_ExecuteText) == 0xc
+    && offsetof(refimport_t, Hunk_AllocInternal) - offsetof(refimport_t, Printf) == 0xc) ? 1 : -1];
+
+static void R_LoadStep(const char *what)
+{
+    ri.Printf(0, "Loading %s...\n", what);
+    ri.Cbuf_ExecuteText(0, "updatescreen\n");
+}
+
+// PINNED 10004890: load every BSP lump into s_world.
+GfxWorld *R_LoadWorldInternal(const char *name)
+{
+    GfxBspLoad load;
+    char baseName[64];
+    const char *skip;
+    const char *p;
+
+    memset(&s_world, 0, sizeof(s_world));
+    memset(&rgl, 0, sizeof(rgl));
+    load.header = ri.Com_GetBsp(&load.fileSize, &s_world.checksum);
+    load.fileBase = (const byte *)load.header;
+
+    s_world.name = (const char *)ri.Hunk_AllocInternal(strlen(name) + 1);
+    strcpy((char *)s_world.name, name);
+    skip = name;
+    for (p = name; *p; p++)
+    {
+        if (*p == '/')
+            skip = p + 1;
+    }
+    I_strncpyz(baseName, skip, sizeof(baseName));
+    Com_StripExtension(baseName, baseName);
+    s_world.baseName = (const char *)ri.Hunk_AllocInternal(strlen(baseName) + 1);
+    strcpy((char *)s_world.baseName, baseName);
+
+    R_LoadStep("materials");
+    load.materialCount = R_GetLumpElemCount(&load, 0, sizeof(dmaterial_t));
+    load.materials = (const dmaterial_t *)(load.fileBase + load.header->lumps[0].fileofs);
+    R_LoadStep("sun settings");
+    R_ParseSunLight(&s_world.sunParse, (const char *)(load.fileBase + load.header->lumps[37].fileofs));
+    R_InterpretSunLightParseParamsIntoLights(&s_world.sunParse, &s_world.sunLight);
+    R_LoadStep("lightmaps");
+    R_LoadLightmaps(&load);
+    R_LoadStep("lightgrid coefficients");
+    s_world.lightGrid.colorCount = R_GetLumpElemCount(&load, 3, sizeof(GfxLightGridColors));
+    s_world.lightGrid.colors = (GfxLightGridColors *)ri.Hunk_AllocInternal(load.header->lumps[3].filelen);
+    Com_Memcpy(s_world.lightGrid.colors, load.fileBase + load.header->lumps[3].fileofs, load.header->lumps[3].filelen);
+    R_LoadStep("lightgrid hash");
+    R_LoadLightGridPoints(&load);
+    R_LoadStep("surfaces");
+    R_LoadSurfaces(&load);
+    R_LoadStep("cull groups");
+    R_LoadCullGroups(&load);
+    R_LoadStep("cull group indices");
+    R_LoadCullGroupIndices(&load);
+    R_LoadStep("portal vertices");
+    R_LoadPortalVerts(&load);
+    R_LoadStep("occluders");
+    R_LoadOccluders(&load);
+    R_LoadStep("occluder indices");
+    R_LoadOccluderIndices(&load);
+    R_LoadStep("AABB trees");
+    R_LoadAabbTrees(&load);
+    R_LoadStep("cells");
+    R_LoadCells(&load);
+    R_LoadStep("portals");
+    R_LoadPortals(&load);
+    R_LoadStep("nodes and leafs");
+    R_LoadNodesAndLeafs(&load);
+    R_LoadStep("submodels");
+    R_LoadSubmodels(&load);
+    R_LoadStep("entities");
+    R_LoadEntities(&load);
+
+    memset(&rgl, 0, sizeof(rgl));
+    R_LoadSun(name, &s_world.sun);
+    if (r_rendererInUse->current.integer == 2)
+    {
+        s_world.outdoorImage = 0;
+    }
+    else
+    {
+        R_ComputeOutdoorBounds(&s_world);
+        R_ComputeOutdoorScale();
+        R_ComputeOutdoorLookupMatrix(&s_world);
+        s_world.outdoorImage = Image_Register("$outdoor", 0, 1);
+    }
+    return &s_world;
 }

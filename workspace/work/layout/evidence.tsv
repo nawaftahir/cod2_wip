@@ -1,4 +1,5 @@
 # class	tu	function	retail_addr	name_evidence
+accepted	gfx_d3d/r_bsp.cpp	R_CopyParseParamsToDvars	10001490	bind
 accepted	gfx_d3d/r_bsp.cpp	R_GetSunLightParseParamsFromDvars	100012c0	doubt
 accepted	gfx_d3d/r_bsp.cpp	R_GetWorldBounds	10001230	mac
 accepted	gfx_d3d/r_bsp.cpp	R_InterpretSunLightParseParams	10001390	mac
@@ -13,6 +14,7 @@ accepted	gfx_d3d/r_bsp_load_obj.cpp	R_GetLumpElemCount	10001940	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_InterpretSunLightParseParamsIntoLights	10004dc0	mac
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_IsValidStaticModel	10003030	mac
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCullGroupIndices	100043d0	bind
+accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadOccluderIndices	10004670	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadPortalVerts	10004080	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadSubmodels	10002db0	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_ParseSunLight	10003430	mac
@@ -744,6 +746,7 @@ accepted	universal/q_shared.cpp	VectorSet	10001860	bind
 accepted	universal/q_shared.cpp	va	10060c70	mac
 accepted	universal/xanim_matrix.cpp	ConvertQuatToMat	1001d660	mac
 accepted	universal/xanim_matrix.cpp	MatrixTransformVectorQuatTrans	10058310	mac
+draft-addressed	gfx_d3d/r_bsp.cpp	R_LoadWorld	10001690	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ReloadWorld	100017b0	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ResetSunLightParseParams	10001280	mac
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_BuildLightmapCoupling	10001a20	-
@@ -760,10 +763,10 @@ draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadLightGridPoints	10002620	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadLightmaps	10001fb0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadMiscModel	100031b0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadNodesAndLeafs	10004730	-
-draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadOccluderIndices	10004670	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadOccluders	10004430	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadPortals	10004170	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadSurfaces	100029c0	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadWorldInternal	10004890	mac
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_ParseEntitySpawnVars	10003880	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_SetSkyImage	10002940	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_SetSurfaceBoundsAndLmapCoords	100026c0	-
@@ -917,6 +920,7 @@ draft-addressed	gfx_d3d/r_screenshot.cpp	R_TakeResampledScreenshot	10026110	mac
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_TakeScreenshotJpeg	10026240	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_WriteCubemapShot	10026920	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_WriteCubemapShotAlpha	10026840	-
+draft-addressed	gfx_d3d/r_shadowcookie.cpp	R_ResetShadowCookies	100016e9	mac
 draft-addressed	gfx_d3d/r_sky.cpp	R_LoadSun_f	10029010	-
 draft-addressed	gfx_d3d/r_sky.cpp	R_SetSunFromDvars	10028cd0	mac
 draft-addressed	gfx_d3d/r_sky_load_obj.cpp	R_LoadSun	10029230	mac
@@ -928,6 +932,7 @@ draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_GetStaticModelLightingFromG
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_PrepareStaticModelLightingCache	1002a780	mac
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_QuantizeStaticModelColor	10029780	-
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_StaticModelBounds	1002a360	-
+draft-addressed	gfx_d3d/r_staticmodelcache.cpp	R_InitStaticModelIndexCache	100016fd	mac
 draft-addressed	gfx_d3d/r_staticmodelcache.cpp	R_LightCachedVertex	1002b0c0	-
 draft-addressed	gfx_d3d/r_staticmodelcache.cpp	R_SkinCachedVertices	1002adb0	-
 draft-addressed	gfx_d3d/r_staticmodelcache.cpp	R_SkinCachedVerticesDx7	1002b3c0	-
@@ -1395,6 +1400,7 @@ library-jpeg	jpeg-6b/jutils.c	jdiv_round_up	10057970	-
 library-jpeg	jpeg-6b/jutils.c	jround_up	10057980	-
 library-jpeg	jpeg-6b/jutils.c	jzero_far	100579f0	-
 unverified	gfx_d3d/r_bsp.cpp	R_InitWorldDynamicData	-	-
+unverified	gfx_d3d/r_bsp_load_obj.cpp	R_LoadStep	-	-
 unverified	gfx_d3d/r_dpvs.cpp	R_AddBevelPlanes	-	-
 unverified	gfx_d3d/r_dpvs.cpp	R_AddOccluderDebugLine	-	-
 unverified	gfx_d3d/r_dpvs.cpp	R_AddPortalDebugLine	-	-

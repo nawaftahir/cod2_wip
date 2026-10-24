@@ -61,6 +61,12 @@
 "call ?R_CreateWorldVertexBuffer@@YAPATIDirect3DVertexBuffer9@@PAUGfxWorldVertex@@H@Z"
 ]
 },
+"?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z": {
+"t": "0x10001490",
+"n": 285,
+"obj": "r_bsp.obj",
+"why": []
+},
 "?VectorScale@@YAXQBMMQAM@Z": {
 "t": "0x10001880",
 "n": 29,
@@ -103,6 +109,14 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_LoadMiscModel@@YAXPAY01PBDH@Z": {
+"t": "0x100031b0",
+"n": 626,
+"obj": "r_bsp_load_obj.obj",
+"why": [
+"call ?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z"
+]
+},
 "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z": {
 "t": "0x10003430",
 "n": 939,
@@ -138,6 +152,20 @@
 "n": 82,
 "obj": "r_bsp_load_obj.obj",
 "why": []
+},
+"?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10004670",
+"n": 109,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10003ee0",
+"n": 164,
+"obj": "r_bsp_load_obj.obj",
+"why": [
+"call ?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z"
+]
 },
 "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z": {
 "t": "0x10004f40",

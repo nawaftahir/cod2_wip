@@ -1,8 +1,8 @@
 {
-  "functions": 664,
-  "bytes": 114391,
+  "functions": 666,
+  "bytes": 114785,
   "total": 253580,
-  "percent": 45.1104188027447,
+  "percent": 45.26579383232116,
   "baseline_lost": [],
   "gains": [
     {
@@ -10,6 +10,12 @@
       "bytes": 11,
       "name": "?Vector2Copy@@YAXQBMQAM@Z",
       "object": "com_convexhull.obj"
+    },
+    {
+      "target": "0x10001490",
+      "bytes": 285,
+      "name": "?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z",
+      "object": "r_bsp.obj"
     },
     {
       "target": "0x100018a0",
@@ -69,6 +75,12 @@
       "target": "0x100043d0",
       "bytes": 82,
       "name": "?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10004670",
+      "bytes": 109,
+      "name": "?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {

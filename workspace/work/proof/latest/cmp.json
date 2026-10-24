@@ -86,16 +86,32 @@
 ]
 },
 {
+"name": "?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z",
+"obj": "r_bsp.obj",
+"size": 285,
+"hits": [
+"0x10001490"
+]
+},
+{
 "name": "?R_InitWorldDynamicData@@YAXXZ",
 "obj": "r_bsp.obj",
 "size": 217,
 "hits": []
 },
 {
+"name": "?R_LoadWorld@@YAXPBDPAH@Z",
+"obj": "r_bsp.obj",
+"size": 146,
+"hits": []
+},
+{
 "name": "?I_fround@@YAHM@Z",
 "obj": "q_shared.obj",
-"size": 31,
-"hits": []
+"size": 33,
+"hits": [
+"0x10001810"
+]
 },
 {
 "name": "?VectorClear@@YAXQAM@Z",
@@ -233,8 +249,10 @@
 {
 "name": "?R_LoadMiscModel@@YAXPAY01PBDH@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 623,
-"hits": []
+"size": 626,
+"hits": [
+"0x100031b0"
+]
 },
 {
 "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
@@ -283,7 +301,7 @@
 {
 "name": "?R_LoadCells@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 864,
+"size": 883,
 "hits": []
 },
 {
@@ -317,8 +335,10 @@
 {
 "name": "?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 103,
-"hits": []
+"size": 109,
+"hits": [
+"0x10004670"
+]
 },
 {
 "name": "?R_LoadNodesAndLeafs@@YAXPAUGfxBspLoad@@@Z",
@@ -341,7 +361,21 @@
 {
 "name": "?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 158,
+"size": 164,
+"hits": [
+"0x10003ee0"
+]
+},
+{
+"name": "?R_LoadStep@@YAXPBD@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 31,
+"hits": []
+},
+{
+"name": "?R_LoadWorldInternal@@YAPAUGfxWorld@@PBD@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 1776,
 "hits": []
 },
 {
@@ -5044,6 +5078,12 @@
 ]
 },
 {
+"name": "?R_ResetShadowCookies@@YAXXZ",
+"obj": "r_shadowcookie.obj",
+"size": 21,
+"hits": []
+},
+{
 "name": "?R_TransformSkelVector@@YAXPBUDObjSkelMat_s@@PBMPAM@Z",
 "obj": "r_skin_transform.obj",
 "size": 71,
@@ -5070,8 +5110,10 @@
 {
 "name": "?I_fround@@YAHM@Z",
 "obj": "q_shared.obj",
-"size": 31,
-"hits": []
+"size": 33,
+"hits": [
+"0x10001810"
+]
 },
 {
 "name": "?R_FlushSun@@YAXXZ",
@@ -5130,7 +5172,7 @@
 {
 "name": "?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z",
 "obj": "r_sky_load_obj.obj",
-"size": 205,
+"size": 208,
 "hits": []
 },
 {
@@ -5208,8 +5250,10 @@
 {
 "name": "?I_fround@@YAHM@Z",
 "obj": "q_shared.obj",
-"size": 31,
-"hits": []
+"size": 33,
+"hits": [
+"0x10001810"
+]
 },
 {
 "name": "?VectorCopy@@YAXQBMQAM@Z",
@@ -5255,7 +5299,10 @@
 "name": "?R_QuantizeStaticModelColor@@YAXPAEPBM@Z",
 "obj": "r_staticmodel_load_obj.obj",
 "size": 285,
-"hits": []
+"hits": [
+"0x1000f180",
+"0x10029780"
+]
 },
 {
 "name": "?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z",
@@ -5497,6 +5544,12 @@
 "hits": [
 "0x1002baf0"
 ]
+},
+{
+"name": "?R_InitStaticModelIndexCache@@YAXXZ",
+"obj": "r_staticmodelcache.obj",
+"size": 20,
+"hits": []
 },
 {
 "name": "?R_StaticModelCacheStats_f@@YAXXZ",

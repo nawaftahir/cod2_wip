@@ -156,3 +156,4 @@ R_UpdateGfxEntityBoundsCmd
 RB_ClearScreenCmd
 Image_GetLightGridWeightsForVector
 FresnelTerm
+R_LoadWorld

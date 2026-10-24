@@ -320,6 +320,14 @@ void R_FlushStaticModelCache()
     SMC_ClearCache();
 }
 
+typedef char smodelCacheIndicesCheck[offsetof(DxGlobals, smodelCacheIndices) == 0x2dc8 ? 1 : -1];
+
+// PINNED 100016fd: inlined into R_LoadWorld.
+void R_InitStaticModelIndexCache()
+{
+    dx.smodelCacheIndices = (r_index_t *)ri.Hunk_AllocInternal(0xc0000);
+}
+
 // PINNED 1002bb90/84: the denominator is the fixed65536-vertex cache capacity.
 void R_StaticModelCacheStats_f()
 {
@@ -335,3 +343,4 @@ void R_StaticModelCacheFlush_f()
 {
     R_FlushStaticModelCache();
 }
+

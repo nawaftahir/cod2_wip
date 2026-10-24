@@ -166,6 +166,25 @@ typedef char WorldDynamicLayoutCheck[(offsetof(GfxWorld, smodelCount) == 0xf4
     && offsetof(r_globals_t, smodelDyncs) == 0x3194
     && sizeof(GfxStaticModelDynamic) == 8 && sizeof(GfxStaticSurface) == 16) ? 1 : -1];
 
+// PINNED 10001490: copy the BSP sun settings into the tweak dvars.
+static void R_CopyParseParamsToDvars(const SunLightParseParams *sunParse)
+{
+    ri.Dvar_SetFloat(r_lightTweakAmbient, sunParse->ambientScale);
+    ri.Dvar_SetFloat(r_lightTweakDiffuseFraction, sunParse->diffuseFraction);
+    ri.Dvar_SetFloat(r_lightTweakSunLight, sunParse->sunLight);
+    ri.Dvar_SetColor(r_lightTweakAmbientColor, sunParse->ambientColor[0], sunParse->ambientColor[1], sunParse->ambientColor[2], 1.0f);
+    ri.Dvar_SetColor(r_lightTweakSunColor, sunParse->sunColor[0], sunParse->sunColor[1], sunParse->sunColor[2], 1.0f);
+    ri.Dvar_SetColor(r_lightTweakSunDiffuseColor, sunParse->diffuseColor[0], sunParse->diffuseColor[1], sunParse->diffuseColor[2], 1.0f);
+    ri.Dvar_SetVec3(r_lightTweakSunDirection, sunParse->angles[0], sunParse->angles[1], sunParse->angles[2]);
+    ri.Dvar_ChangeResetValue(r_lightTweakAmbient, r_lightTweakAmbient->current);
+    ri.Dvar_ChangeResetValue(r_lightTweakDiffuseFraction, r_lightTweakDiffuseFraction->current);
+    ri.Dvar_ChangeResetValue(r_lightTweakSunLight, r_lightTweakSunLight->current);
+    ri.Dvar_ChangeResetValue(r_lightTweakAmbientColor, r_lightTweakAmbientColor->current);
+    ri.Dvar_ChangeResetValue(r_lightTweakSunColor, r_lightTweakSunColor->current);
+    ri.Dvar_ChangeResetValue(r_lightTweakSunDiffuseColor, r_lightTweakSunDiffuseColor->current);
+    ri.Dvar_ChangeResetValue(r_lightTweakSunDirection, r_lightTweakSunDirection->current);
+}
+
 // PINNED100015b0/217; descriptive name for world dynamic-array initialization.
 void R_InitWorldDynamicData()
 {
@@ -184,4 +203,30 @@ void R_InitWorldDynamicData()
         dynamic->staticSurfs = (GfxStaticSurface *)ri.Hunk_AllocAlignInternal(size, 4);
         memset(dynamic->staticSurfs, 0, size);
     }
+}
+
+void RB_InitLightVisHistory(const char *bspName);
+GfxWorld *R_LoadWorldInternal(const char *name);
+void R_FlushSun();
+void R_ResetShadowCookies();
+void R_InitStaticModelIndexCache();
+GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+
+typedef char loadWorldChecksumCheck[offsetof(GfxWorld, checksum) == 0x154 ? 1 : -1];
+
+// PINNED 10001690: load the BSP and set up per-world state.
+void R_LoadWorld(const char *name, int *checksum)
+{
+    RB_InitLightVisHistory(name);
+    rgp.world = R_LoadWorldInternal(name);
+    if (checksum)
+        *checksum = rgp.world->checksum;
+    R_CopyParseParamsToDvars(&rgp.world->sunParse);
+    R_UpdateLightsFromDvars();
+    R_FlushSun();
+    R_ResetShadowCookies();
+    R_InitStaticModelIndexCache();
+    R_InitWorldDynamicData();
+    if (r_rendererInUse->current.integer == 2)
+        rgp.sunHalfAngleImage = Image_Register("$sunhalfangle", 0, 1);
 }

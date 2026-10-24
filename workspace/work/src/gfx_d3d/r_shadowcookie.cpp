@@ -57,3 +57,12 @@ void R_PopulateCandidates(const float *viewOrigin, ShadowCandidate *candidates)
         }
     }
 }
+
+ShadowCookieGlob shadowCookieGlob;
+
+// PINNED 100016e9: inlined into R_LoadWorld.
+void R_ResetShadowCookies()
+{
+    shadowCookieGlob.weightCap = 10.0f;
+    shadowCookieGlob.lastTime = -1;
+}

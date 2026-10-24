@@ -39,7 +39,7 @@ struct XModel {int bad,valid;unsigned char flags;} model, fallback;
 struct GfxStaticModelInstance {int marker;} instances[8];
 struct GfxWorld {GfxStaticModelInstance *smodelInsts;int smodelCount;} s_world;
 struct dvar_t {struct {bool enabled;} current;} fullbright;
-const dvar_t *r_fullbright=&fullbright;
+const dvar_t *r_showGroundLit=&fullbright;
 int badCalls,validCalls,createCalls,gridCalls,cacheCalls,flagMutation;
 float cachedSun,lastScale;vec3_t lastOrigin,lastAngles;vec4_t cachedColors[6];
 XModel *registeredModel;
