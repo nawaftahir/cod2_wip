@@ -30,6 +30,10 @@ void R_ScaleStaticModelLighting(float directScale, float indirectScale,
 void R_CacheStaticModelLighting(const GfxWorld *world,
     GfxStaticModelInstance *instance, float sunVisibility, vec4_t *colorForDir);
 
+Material *Material_Register(const char *name, int imageTrack);
+IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int vertexCount);
+extern "C" void Com_Memcpy(void *dest, const void *src, int count);
+
 r_globals_load_t rgl;
 typedef char occluderSizeCheck[sizeof(GfxOccluder) == 0x24 ? 1 : -1];
 
@@ -73,6 +77,197 @@ void R_LoadLightGridPoints(GfxBspLoad *load)
         ++in;
         ++out;
     }
+}
+
+// PINNED 100026c0: triangle bounds and merged lightmap coords per index.
+static void R_SetSurfaceBoundsAndLmapCoords(srfTriangles_t *tris, GfxWorldVertex *verts,
+    const DiskGfxVertex *diskVerts, const r_lightmapMerge_t *merge)
+{
+    tris->bounds[0][0] = 131072.0f;
+    tris->bounds[0][1] = 131072.0f;
+    tris->bounds[0][2] = 131072.0f;
+    tris->bounds[1][0] = -131072.0f;
+    tris->bounds[1][1] = -131072.0f;
+    tris->bounds[1][2] = -131072.0f;
+    for (int index = 0; index < tris->indexCount; ++index)
+    {
+        int vertIndex = ((const unsigned short *)tris->indices)[index] + tris->firstVertex;
+        GfxWorldVertex *vert = &verts[vertIndex];
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            if (tris->bounds[0][axis] > vert->xyz[axis])
+                tris->bounds[0][axis] = vert->xyz[axis];
+            if (tris->bounds[1][axis] < vert->xyz[axis])
+                tris->bounds[1][axis] = vert->xyz[axis];
+        }
+        vert->lmapCoord[0] = diskVerts[vertIndex].lmapCoord[0] * merge->scale[0] + merge->shift[0];
+        vert->lmapCoord[1] = diskVerts[vertIndex].lmapCoord[1] * merge->scale[1] + merge->shift[1];
+    }
+}
+
+// PINNED 100027c0: reuse the sort group of an identical earlier surface.
+static unsigned short R_GetSurfaceSortGroup(const Material *material, const GfxSurface *surfaces,
+    int surfCount, const srfTriangles_t *tris)
+{
+    unsigned short sortGroup = 0;
+    for (int index = 0; index < surfCount; ++index)
+    {
+        if (surfaces[index].material != material)
+            continue;
+        if (surfaces[index].tris->firstVertex == tris->firstVertex
+            && surfaces[index].tris->vertexCount == tris->vertexCount)
+            return surfaces[index].sortGroup;
+        if (sortGroup <= surfaces[index].sortGroup)
+            sortGroup = surfaces[index].sortGroup + 1;
+    }
+    if (sortGroup >= 0x800)
+        Com_Error(ERR_DROP, "Material %s has more than %i sort groups\n", material->info.name, 0x800);
+    return sortGroup;
+}
+
+// PINNED 10002840: the first surface seeds the bounds.
+static void R_CalculateWorldBounds(float *mins, float *maxs)
+{
+    bool seeded = false;
+    mins[0] = 0.0f;
+    mins[1] = 0.0f;
+    mins[2] = 0.0f;
+    maxs[0] = 0.0f;
+    maxs[1] = 0.0f;
+    maxs[2] = 0.0f;
+    for (int index = 0; index < s_world.surfaceCount; ++index)
+    {
+        const srfTriangles_t *tris = s_world.surfaces[index].tris;
+        if (!seeded)
+        {
+            mins[0] = tris->bounds[0][0];
+            mins[1] = tris->bounds[0][1];
+            mins[2] = tris->bounds[0][2];
+            maxs[0] = tris->bounds[1][0];
+            maxs[1] = tris->bounds[1][1];
+            maxs[2] = tris->bounds[1][2];
+            seeded = true;
+        }
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            if (mins[axis] > tris->bounds[0][axis])
+                mins[axis] = tris->bounds[0][axis];
+            if (maxs[axis] < tris->bounds[1][axis])
+                maxs[axis] = tris->bounds[1][axis];
+        }
+    }
+}
+
+// PINNED 10002940: Kisak R_SetSkyImage, name compare instead of hash.
+static void R_SetSkyImage(const Material *skyMaterial)
+{
+    int index;
+    const MaterialTextureDef *texdef;
+    for (index = 0; index < skyMaterial->textureCount; ++index)
+    {
+        texdef = &skyMaterial->textures[index];
+        if (!_stricmp(texdef->name, "colorMap"))
+            break;
+    }
+    if (index == skyMaterial->textureCount)
+        return;
+    if (texdef->semantic == 5 || texdef->u.image->mapType != 5)
+        R_Error(ERR_DROP, "colorMap '%s' for sky material '%s' is not a cubemap\n",
+            texdef->u.image->name, skyMaterial->info.name);
+    s_world.skyImage = texdef->u.image;
+    s_world.skySamplerState = texdef->samplerState;
+}
+
+// PINNED 100029c0: lumps 7-9, vertices then triangle surfaces.
+void R_LoadSurfaces(GfxBspLoad *load)
+{
+    int surfCount = R_GetLumpElemCount(load, 7, sizeof(DiskTriangleSoup));
+    const DiskTriangleSoup *in = (const DiskTriangleSoup *)(load->fileBase + load->header->lumps[7].fileofs);
+    if (!surfCount)
+        R_Error(ERR_DROP, "\x15LoadMap: no surfaces in %s", s_world.name);
+    int vertCount = R_GetLumpElemCount(load, 8, sizeof(DiskGfxVertex));
+    if (!vertCount)
+        R_Error(ERR_DROP, "\x15LoadMap: no vertices in %s", s_world.name);
+    const DiskGfxVertex *diskVerts = (const DiskGfxVertex *)(load->fileBase + load->header->lumps[8].fileofs);
+    s_world.vertexCount = vertCount;
+    s_world.vd.vertices = (GfxWorldVertex *)ri.Hunk_AllocInternal(vertCount * sizeof(GfxWorldVertex));
+    for (int index = 0; index < vertCount; ++index)
+    {
+        GfxWorldVertex *out = &s_world.vd.vertices[index];
+        const DiskGfxVertex *src = &diskVerts[index];
+        out->xyz[0] = src->xyz[0];
+        out->xyz[1] = src->xyz[1];
+        out->xyz[2] = src->xyz[2];
+        out->color.packed = *(const unsigned int *)src->color;
+        out->texCoord[0] = src->texCoord[0];
+        out->texCoord[1] = src->texCoord[1];
+        out->lmapCoord[0] = src->lmapCoord[0];
+        out->lmapCoord[1] = src->lmapCoord[1];
+        out->tangent[0] = src->tangent[0];
+        out->tangent[1] = src->tangent[1];
+        out->tangent[2] = src->tangent[2];
+        out->binormal[0] = src->binormal[0];
+        out->binormal[1] = src->binormal[1];
+        out->binormal[2] = src->binormal[2];
+        out->normal[0] = src->normal[0];
+        out->normal[1] = src->normal[1];
+        out->normal[2] = src->normal[2];
+    }
+    R_GetLumpElemCount(load, 9, sizeof(unsigned short));
+    const unsigned short *indices = (const unsigned short *)(load->fileBase + load->header->lumps[9].fileofs);
+    s_world.surfaceCount = surfCount;
+    s_world.surfaces = (GfxSurface *)ri.Hunk_AllocInternal(surfCount * sizeof(GfxSurface));
+    int indexBytes = 0;
+    for (int index = 0; index < surfCount; ++index)
+        indexBytes = (indexBytes + 31 + in[index].indexCount * 2) & ~31;
+    byte *indexMem = (byte *)ri.Hunk_AllocInternal(indexBytes);
+    srfTriangles_t *tris = (srfTriangles_t *)ri.Hunk_AllocInternal(surfCount * sizeof(srfTriangles_t));
+    const Material *skyMaterial = 0;
+    s_world.skySurfCount = 0;
+    for (int index = 0; index < surfCount; ++index, ++tris)
+    {
+        tris->firstVertex = in[index].firstVertex;
+        tris->vertexCount = in[index].vertexCount;
+        tris->surfaceType = SF_TRIANGLES;
+        tris->indexCount = in[index].indexCount;
+        tris->indices = (int (*)[4])indexMem;
+        Com_Memcpy(indexMem, &indices[in[index].firstIndex], tris->indexCount * 2);
+        const r_lightmapMerge_t *merge = &load->lmapMergeInfo[(short)in[index].lightmapIndex];
+        R_SetSurfaceBoundsAndLmapCoords(tris, s_world.vd.vertices, diskVerts, merge);
+        Material *material = Material_Register(load->materials[(short)in[index].materialIndex].material, 9);
+        GfxSurface *surf = &s_world.surfaces[index];
+        surf->material = material;
+        surf->sortGroup = R_GetSurfaceSortGroup(material, s_world.surfaces, index, tris);
+        surf->tris = tris;
+        surf->lightmapIndex = merge->index;
+        indexMem += (tris->indexCount * 2 + 31) & ~31;
+        if (material->info.gameFlags & 8)
+        {
+            if (skyMaterial && skyMaterial != material)
+                Com_Error(ERR_DROP, "map has at least two different skies: %s and %s\nOnly one sky per map is supported\n",
+                    material->info.name, skyMaterial->info.name);
+            ++s_world.skySurfCount;
+            skyMaterial = material;
+        }
+    }
+    if (s_world.skySurfCount)
+    {
+        R_SetSkyImage(skyMaterial);
+        s_world.skyStartSurfs = (int *)ri.Hunk_AllocInternal(s_world.skySurfCount * sizeof(int));
+        s_world.skySurfCount = 0;
+        for (int index = 0; index < surfCount; ++index)
+        {
+            if (s_world.surfaces[index].material == skyMaterial)
+                s_world.skyStartSurfs[s_world.skySurfCount++] = index;
+        }
+    }
+    else
+    {
+        s_world.skyImage = 0;
+        s_world.skyStartSurfs = 0;
+    }
+    R_CalculateWorldBounds(s_world.mins, s_world.maxs);
+    s_world.vd.worldVb = R_CreateWorldVertexBuffer(s_world.vd.vertices, s_world.vertexCount);
 }
 
 // PINNED 10002db0: Kisak R_LoadSubmodels.

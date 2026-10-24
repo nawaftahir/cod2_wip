@@ -131,6 +131,36 @@
 "hits": []
 },
 {
+"name": "?R_SetSurfaceBoundsAndLmapCoords@@YAXPAUsrfTriangles_t@@PAUGfxWorldVertex@@PBUDiskGfxVertex@@PBUr_lightmapMerge_t@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 227,
+"hits": []
+},
+{
+"name": "?R_GetSurfaceSortGroup@@YAGPBUMaterial@@PBUGfxSurface@@HPBUsrfTriangles_t@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 123,
+"hits": []
+},
+{
+"name": "?R_CalculateWorldBounds@@YAXPAM0@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 228,
+"hits": []
+},
+{
+"name": "?R_SetSkyImage@@YAXPBUMaterial@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 130,
+"hits": []
+},
+{
+"name": "?R_LoadSurfaces@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 1625,
+"hits": []
+},
+{
 "name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 140,

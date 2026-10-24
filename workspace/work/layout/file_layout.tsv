@@ -398,6 +398,11 @@ gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z	10001940	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z	10002620	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_SetSurfaceBoundsAndLmapCoords@@YAXPAUsrfTriangles_t@@PAUGfxWorldVertex@@PBUDiskGfxVertex@@PBUr_lightmapMerge_t@@@Z	100026c0	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_GetSurfaceSortGroup@@YAGPBUMaterial@@PBUGfxSurface@@HPBUsrfTriangles_t@@@Z	100027c0	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_CalculateWorldBounds@@YAXPAM0@Z	10002840	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_SetSkyImage@@YAXPBUMaterial@@@Z	10002940	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadSurfaces@@YAXPAUGfxBspLoad@@@Z	100029c0	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z	10002db0	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_FloatForKey@@YANPBDMPAY01PBDH@Z	10002e80	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_Vec3ForKey@@YAEPBD0PAY01PBDHPAM@Z	10002ed0	bind	-	-	unknown
