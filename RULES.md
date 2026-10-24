@@ -102,6 +102,15 @@ Owner-edited only.
 - `src/zlib/` is the verified server copy (`cod2engine/archive/lnxded-1.0/src/zlib`). Against the official
   zlib-1.1.4.tar.gz (sha256 9e3e9731...6a8291e): 15 files identical; infblock/inftrees/infutil/zutil differ by
   2-14 lines; unzip.c/.h are IW's heavily modified minizip 0.15. 14 functions match byte-identical as is.
+- **Flags (PINNED 2026-10-24):** the stock zlib files are `/O2 /GL` without `/Oy-` (retail adler32 etc. have
+  no frame pointer); IW's unzip.c and zutil.c have the game flags `/O2 /Oy- /Op /GL`. The P4 API (not /GL)
+  calls deflate/inflate directly, so link.py also /INCLUDEs functions called from extlib ranges.
+  compress.c and uncompr.c are the official 1.1.4 files. 85 of 94 functions match.
+
+## Splines (2026-10-24)
+- `src/universal/splines/` math_*.cpp and util_str.cpp are Q3Radiant's `q3radiant/splines` files as released
+  (id GPL source). 20 functions match as is; the unmatched rest is IW changes still to find. splines.cpp is
+  modified (retail has no OpenGL import; Q3 draws with qgl), so it stays a placeholder.
 
 ## Resources (PINNED 2026-10-21)
 - `src/res/CoD2Radiant.rc` (from `tools/rc_extract.py`, numeric ids, styles written out) compiled by the
