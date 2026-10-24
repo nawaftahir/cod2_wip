@@ -337,10 +337,8 @@ accepted	gfx_d3d/rb_backend.cpp	RB_NeedsSceneCopy	10030a40	doubt
 accepted	gfx_d3d/rb_backend.cpp	RB_SetFrustumConstants	10032120	doubt
 accepted	gfx_d3d/rb_backend.cpp	RB_SetGammaRamp	100307e0	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_UpdateColorInternal	10032490	mac
-accepted	gfx_d3d/rb_backend.cpp	R_AccumulateBytes24	10036100	bind
 accepted	gfx_d3d/rb_backend.cpp	R_FinishGpuFence	10032cd0	bind
 accepted	gfx_d3d/rb_backend.cpp	R_InsertGpuFence	10032d10	bind
-accepted	gfx_d3d/rb_backend.cpp	R_ScaleFloats24	100361e0	bind
 accepted	gfx_d3d/rb_fog.cpp	RB_FogOffset	100348f0	mac
 accepted	gfx_d3d/rb_fog.cpp	RB_SetIteratorFog	10034910	mac
 accepted	gfx_d3d/rb_fog.cpp	RB_UpdateFogColor	10034bb0	mac
@@ -355,6 +353,7 @@ accepted	gfx_d3d/rb_imagefilter.cpp	Vector4Set	100018a0	bind
 accepted	gfx_d3d/rb_imagefilter.cpp	Vector4Set	100018a0	bind
 accepted	gfx_d3d/rb_imagetouch.cpp	RB_CompareTouchImages	10035850	mac
 accepted	gfx_d3d/rb_light.cpp	BuildGridFilename	10037670	mac
+accepted	gfx_d3d/rb_light.cpp	RB_AccumulateGridColors	10036100	bind
 accepted	gfx_d3d/rb_light.cpp	RB_AverageLightColors	100367b0	bind
 accepted	gfx_d3d/rb_light.cpp	RB_DeriveAmbientEntityLights	10037420	bind
 accepted	gfx_d3d/rb_light.cpp	RB_DeriveDirectionalEntityLights	10037500	bind
@@ -935,7 +934,6 @@ draft-addressed	gfx_d3d/rb_backend.cpp	RB_SetVertex3D	1002e550	-
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_SetVertex4D	1002e640	-
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_TessOverflow	1002df40	-
 draft-addressed	gfx_d3d/rb_imagetouch.cpp	RB_TouchAllImages	10035890	mac
-draft-addressed	gfx_d3d/rb_light.cpp	RB_AccumulateGridColors	10036100	-
 draft-addressed	gfx_d3d/rb_light.cpp	RB_DefaultGridColors	100362d0	-
 draft-addressed	gfx_d3d/rb_light.cpp	RB_DrawGridCellBox	100359c0	-
 draft-addressed	gfx_d3d/rb_light.cpp	RB_GetLightingAtPoint	100363a0	mac

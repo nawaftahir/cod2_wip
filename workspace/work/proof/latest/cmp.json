@@ -6010,22 +6010,6 @@
 "hits": []
 },
 {
-"name": "?R_ScaleFloats24@@YAXPAMM@Z",
-"obj": "rb_backend.obj",
-"size": 239,
-"hits": [
-"0x100361e0"
-]
-},
-{
-"name": "?R_AccumulateBytes24@@YAXPAMPBEM@Z",
-"obj": "rb_backend.obj",
-"size": 209,
-"hits": [
-"0x10036100"
-]
-},
-{
 "name": "?RB_SetVertex2D@@YAXHMMMMI@Z",
 "obj": "rb_backend.obj",
 "size": 217,
@@ -6258,8 +6242,10 @@
 {
 "name": "?RB_AccumulateGridColors@@YAXPAY03MPBUGfxLightGridColors@@M@Z",
 "obj": "rb_light.obj",
-"size": 217,
-"hits": []
+"size": 209,
+"hits": [
+"0x10036100"
+]
 },
 {
 "name": "?RB_ScaleGridColors@@YAXPAY03MM@Z",

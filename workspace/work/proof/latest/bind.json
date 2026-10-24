@@ -2807,18 +2807,6 @@
 "obj": "rb_backend.obj",
 "why": []
 },
-"?R_ScaleFloats24@@YAXPAMM@Z": {
-"t": "0x100361e0",
-"n": 239,
-"obj": "rb_backend.obj",
-"why": []
-},
-"?R_AccumulateBytes24@@YAXPAMPBEM@Z": {
-"t": "0x10036100",
-"n": 209,
-"obj": "rb_backend.obj",
-"why": []
-},
 "?RB_Set3D@@YAXXZ": {
 "t": "0x1002e380",
 "n": 230,
@@ -2880,6 +2868,12 @@
 "?RB_FindGridPoint@@YA_NPBUGfxLightGrid@@HHHPAH@Z": {
 "t": "0x10035fb0",
 "n": 141,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_AccumulateGridColors@@YAXPAY03MPBUGfxLightGridColors@@M@Z": {
+"t": "0x10036100",
+"n": 209,
 "obj": "rb_light.obj",
 "why": []
 },

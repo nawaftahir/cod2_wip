@@ -390,58 +390,6 @@ void RB_UpdateColor(const float *color_allies, const float *color_axis)
 	RB_UpdateColorInternal(color_axis, (unsigned char *)&backEnd.color_axis);
 }
 
-void R_ScaleFloats24(float *values, float scale)
-{
-	values[0] = scale * values[0];
-	values[1] = scale * values[1];
-	values[2] = scale * values[2];
-	values[3] = scale * values[3];
-	values[4] = scale * values[4];
-	values[5] = scale * values[5];
-	values[6] = scale * values[6];
-	values[7] = scale * values[7];
-	values[8] = scale * values[8];
-	values[9] = scale * values[9];
-	values[10] = scale * values[10];
-	values[11] = scale * values[11];
-	values[12] = scale * values[12];
-	values[13] = scale * values[13];
-	values[14] = scale * values[14];
-	values[15] = scale * values[15];
-	values[16] = scale * values[16];
-	values[17] = scale * values[17];
-	values[18] = scale * values[18];
-	values[19] = scale * values[19];
-	values[20] = scale * values[20];
-	values[21] = scale * values[21];
-	values[22] = scale * values[22];
-	values[23] = scale * values[23];
-}
-
-void R_AccumulateBytes24(float *sum, const unsigned char *bytes, float scale)
-{
-	float *dst;
-	const unsigned char *src;
-	int row;
-
-	src = bytes + 2;
-	scale = scale * (1.0f / 255.0f);
-	dst = sum + 2;
-	for (row = 3; row; row--)
-	{
-		dst[-2] = (float)src[-2] * scale + dst[-2];
-		dst[-1] = (float)src[-1] * scale + dst[-1];
-		dst[0] = (float)src[0] * scale + dst[0];
-		dst[1] = (float)src[1] * scale + dst[1];
-		dst[2] = (float)src[2] * scale + dst[2];
-		dst[3] = (float)src[3] * scale + dst[3];
-		dst[4] = (float)src[4] * scale + dst[4];
-		dst[5] = (float)src[5] * scale + dst[5];
-		dst += 8;
-		src += 8;
-	}
-}
-
 typedef unsigned int GfxColor;
 
 struct GfxVertex

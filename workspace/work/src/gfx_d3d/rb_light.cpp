@@ -52,14 +52,22 @@ bool RB_FindGridPoint(const GfxLightGrid *grid, int x, int y, int z, int *index)
 // PINNED 10036100: three groups of eight coefficients, not RGB per direction.
 void RB_AccumulateGridColors(vec4_t *out, const GfxLightGridColors *colors, float weight)
 {
-    weight *= 1.0f / 255.0f;
-    float *destination = &out[0][0];
-    for (int group = 0; group < 3; ++group)
-        for (int coefficient = 0; coefficient < 8; ++coefficient)
-        {
-            *destination += colors->rgb[group][coefficient] * weight;
-            ++destination;
-        }
+    const unsigned char *src = &colors->rgb[0][0] + 2;
+    weight = weight * (1.0f / 255.0f);
+    float *dst = &out[0][0] + 2;
+    for (int row = 3; row; row--)
+    {
+        dst[-2] = (float)src[-2] * weight + dst[-2];
+        dst[-1] = (float)src[-1] * weight + dst[-1];
+        dst[0] = (float)src[0] * weight + dst[0];
+        dst[1] = (float)src[1] * weight + dst[1];
+        dst[2] = (float)src[2] * weight + dst[2];
+        dst[3] = (float)src[3] * weight + dst[3];
+        dst[4] = (float)src[4] * weight + dst[4];
+        dst[5] = (float)src[5] * weight + dst[5];
+        dst += 8;
+        src += 8;
+    }
 }
 
 // PINNED 100361e0.
