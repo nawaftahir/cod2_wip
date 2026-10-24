@@ -49,12 +49,14 @@ class Linked:
     def __init__(self):
         self.pe = pefile.PE(str(link.EXE), fast_load=True)
         self.base = self.pe.OPTIONAL_HEADER.ImageBase
-        self.syms, self.obj = {}, {}
+        self.syms, self.obj, self.inline = {}, {}, set()
         for line in link.MAP.read_text(errors="replace").splitlines():
-            m = re.match(r"\s*0001:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8}) f\s+(?:i\s+)?(\S+)", line)
+            m = re.match(r"\s*0001:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8}) f\s+(i\s+)?(\S+)", line)
             if m:
+                if m.group(3):
+                    self.inline.add(m.group(1))
                 self.syms.setdefault(m.group(1), int(m.group(2), 16))
-                self.obj.setdefault(m.group(1), m.group(3))
+                self.obj.setdefault(m.group(1), m.group(4))
         self.starts = sorted(set(self.syms.values()))
         self.at = {}
         for name, va in self.syms.items():
@@ -147,7 +149,9 @@ def verify_all():
     if ok:
         ledger_syms = {r["symbol"] for r in rows}
         ours = {link.obj_path(s).name.lower() for s in link.sources()}
-        extras = sorted(s for s, o in linked.obj.items() if o.lower() in ours and s not in ledger_syms)
+        # "i" in the map = an inline header function, emitted in whichever file first uses it; not src code
+        extras = sorted(s for s, o in linked.obj.items() if o.lower() in ours and s not in ledger_syms
+                        and s not in linked.inline)
         # emit order: a file's functions must sit in retail order (warning until the 7.1 emit rule is pinned)
         by_source = collections.defaultdict(list)
         for res in results:
