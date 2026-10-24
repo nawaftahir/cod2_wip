@@ -1,8 +1,8 @@
 {
-  "functions": 657,
-  "bytes": 113339,
+  "functions": 659,
+  "bytes": 113563,
   "total": 253580,
-  "percent": 44.6955595867182,
+  "percent": 44.783894628913956,
   "baseline_lost": [],
   "gains": [
     {
@@ -916,6 +916,18 @@
       "bytes": 56,
       "name": "?RB_CompareTouchImages@@YAHPBX0@Z",
       "object": "rb_imagetouch.obj"
+    },
+    {
+      "target": "0x10035940",
+      "bytes": 118,
+      "name": "?RB_DrawGridSampleBox@@YAXPBM@Z",
+      "object": "rb_light.obj"
+    },
+    {
+      "target": "0x10035a50",
+      "bytes": 106,
+      "name": "?RB_DrawGridPointBox@@YAXPBMM0@Z",
+      "object": "rb_light.obj"
     },
     {
       "target": "0x10035fb0",

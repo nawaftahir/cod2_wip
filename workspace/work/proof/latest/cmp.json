@@ -6287,19 +6287,25 @@
 "name": "?RB_GridVisLogIndex@@YAHHHHH@Z",
 "obj": "rb_light.obj",
 "size": 129,
-"hits": []
+"hits": [
+"0x10035c40"
+]
 },
 {
 "name": "?RB_DrawGridPointBox@@YAXPBMM0@Z",
 "obj": "rb_light.obj",
 "size": 106,
-"hits": []
+"hits": [
+"0x10035a50"
+]
 },
 {
 "name": "?RB_DrawGridSampleBox@@YAXPBM@Z",
 "obj": "rb_light.obj",
 "size": 118,
-"hits": []
+"hits": [
+"0x10035940"
+]
 },
 {
 "name": "?RB_DrawGridCellBox@@YAXHHH@Z",
@@ -6317,7 +6323,9 @@
 "name": "?RB_GetValidGridPoint@@YAPBUGfxLightGridPoint@@PBUGfxLightGrid@@HHHIPBM@Z",
 "obj": "rb_light.obj",
 "size": 188,
-"hits": []
+"hits": [
+"0x10036040"
+]
 },
 {
 "name": "?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z",

@@ -112,11 +112,11 @@ bool RB_InsertGridVisLog(int index, unsigned short x, unsigned short y, unsigned
 // PINNED 10035c40: existing keys do not consume capacity.
 int RB_GridVisLogIndex(int x, int y, int z, int insert)
 {
-    int bottom = 0;
     int top = s_vc_logCount - 1;
+    int bottom = 0;
     while (bottom <= top)
     {
-        int middle = (top + bottom) >> 1;
+        int middle = (bottom + top) >> 1;
         const unsigned short *entry = (const unsigned short *)(s_vc_log + middle * 6);
         int compare = x - entry[0];
         if (!compare)
@@ -144,10 +144,9 @@ void RB_DrawGridPointBox(const float *origin, float radius, const float *color)
 {
     vec3_t mins, maxs;
     for (int axis = 0; axis < 3; ++axis)
-    {
         mins[axis] = origin[axis] - radius;
+    for (int axis = 0; axis < 3; ++axis)
         maxs[axis] = origin[axis] + radius;
-    }
     R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, color);
 }
 
@@ -156,10 +155,9 @@ void RB_DrawGridSampleBox(const float *origin)
 {
     vec3_t mins, maxs;
     for (int axis = 0; axis < 3; ++axis)
-    {
         mins[axis] = origin[axis] - 0.5f;
+    for (int axis = 0; axis < 3; ++axis)
         maxs[axis] = origin[axis] + 0.5f;
-    }
     R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, colorBlue);
 }
 
@@ -215,8 +213,7 @@ const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
     origin[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
     origin[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
     origin[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
-    const GfxLightGridPoint *point = &grid->points[index];
-    if (!RB_IsGridPointVisible(point, corner, origin, sampleOrigin))
+    if (!RB_IsGridPointVisible(&grid->points[index], corner, origin, sampleOrigin))
         return 0;
     return &grid->points[index];
 }

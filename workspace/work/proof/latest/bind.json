@@ -2877,6 +2877,34 @@
 "obj": "rb_light.obj",
 "why": []
 },
+"?RB_GridVisLogIndex@@YAHHHHH@Z": {
+"t": "0x10035c40",
+"n": 129,
+"obj": "rb_light.obj",
+"why": [
+"call ?RB_InsertGridVisLog@@YA_NHGGG@Z"
+]
+},
+"?RB_DrawGridPointBox@@YAXPBMM0@Z": {
+"t": "0x10035a50",
+"n": 106,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_DrawGridSampleBox@@YAXPBM@Z": {
+"t": "0x10035940",
+"n": 118,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_GetValidGridPoint@@YAPBUGfxLightGridPoint@@PBUGfxLightGrid@@HHHIPBM@Z": {
+"t": "0x10036040",
+"n": 188,
+"obj": "rb_light.obj",
+"why": [
+"call ?RB_GridVisLogIndex@@YAHHHHH@Z"
+]
+},
 "?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
 "t": "0x100366b0",
 "n": 100,
