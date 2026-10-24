@@ -92,6 +92,12 @@
 "hits": []
 },
 {
+"name": "?I_fround@@YAHM@Z",
+"obj": "q_shared.obj",
+"size": 31,
+"hits": []
+},
+{
 "name": "?VectorClear@@YAXQAM@Z",
 "obj": "q_shared.obj",
 "size": 11,
@@ -123,6 +129,30 @@
 "hits": [
 "0x10001940"
 ]
+},
+{
+"name": "?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 406,
+"hits": []
+},
+{
+"name": "?R_BuildLightmapMergability@@YAHPBUGfxBspLoad@@PAUr_lightmapGroup_t@@PAH@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 626,
+"hits": []
+},
+{
+"name": "?R_CombineLightmapsForDx7@@YAXPAPAEHHPBM@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 402,
+"hits": []
+},
+{
+"name": "?R_LoadLightmaps@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 1453,
+"hits": []
 },
 {
 "name": "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z",

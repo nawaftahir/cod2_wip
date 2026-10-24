@@ -34,6 +34,12 @@ Material *Material_Register(const char *name, int imageTrack);
 IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int vertexCount);
 extern "C" void Com_Memcpy(void *dest, const void *src, int count);
 
+extern const dvar_t *r_optimizeLightmaps;
+extern vidConfig_t vidConfig;
+GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
+void Image_Setup(GfxImage *image, int width, int height, int depth, int imageFlags, DWORD usage, D3DFORMAT imageFormat);
+void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubemapFace, unsigned int mipLevel, const unsigned char *src);
+
 r_globals_load_t rgl;
 typedef char occluderSizeCheck[sizeof(GfxOccluder) == 0x24 ? 1 : -1];
 
@@ -60,6 +66,261 @@ struct DiskBrushModel
     int surfaceCount;
     int unused[4];
 };
+
+// PINNED 10001a20: vertex weight shared by each lightmap pair, per material.
+static int R_BuildLightmapCoupling(const GfxBspLoad *load, int (*coupling)[31])
+{
+    int surfCount = R_GetLumpElemCount(load, 7, sizeof(DiskTriangleSoup));
+    const DiskTriangleSoup *in = (const DiskTriangleSoup *)(load->fileBase + load->header->lumps[7].fileofs);
+    int pageCount = R_GetLumpElemCount(load, 1, 0x400000);
+    int lmapCount = 0;
+    for (int index = 0; index < surfCount; ++index)
+    {
+        int lmapIndex = (short)in[index].lightmapIndex;
+        if (lmapIndex != 31 && lmapIndex >= lmapCount)
+            lmapCount = lmapIndex + 1;
+    }
+    if (pageCount && pageCount != lmapCount)
+        R_Error(ERR_DROP, "\x15LoadMap: funny lump size in %s", s_world.name);
+    int vertCount[31];
+    memset(vertCount, 0, sizeof(vertCount));
+    memset(coupling, 0, sizeof(int) * 31 * 31);
+    for (int materialIndex = 0; materialIndex < load->materialCount; ++materialIndex)
+    {
+        for (int index = 0; index < surfCount; ++index)
+        {
+            if ((short)in[index].materialIndex == materialIndex && (short)in[index].lightmapIndex != 31)
+                vertCount[(short)in[index].lightmapIndex] += (short)in[index].vertexCount;
+        }
+        for (int lmapIndex = 0; lmapIndex < lmapCount; ++lmapIndex)
+        {
+            if (!vertCount[lmapIndex])
+                continue;
+            for (int otherIndex = lmapIndex + 1; otherIndex < lmapCount; ++otherIndex)
+            {
+                if (!vertCount[otherIndex])
+                    continue;
+                int *weight = &coupling[lmapIndex][otherIndex];
+                *weight = *weight + vertCount[otherIndex] + vertCount[lmapIndex];
+                if (*weight < 0)
+                    *weight = 0x7fffffff;
+                coupling[otherIndex][lmapIndex] = *weight;
+            }
+            vertCount[lmapIndex] = 0;
+        }
+    }
+    return lmapCount;
+}
+
+// PINNED 10001bc0: greedy grouping of strongly coupled lightmaps into tiles.
+static int R_BuildLightmapMergability(const GfxBspLoad *load, r_lightmapGroup_t *groupInfo, int *reorder)
+{
+    int coupling[31][31];
+    int lmapCount = R_BuildLightmapCoupling(load, coupling);
+    byte used[31] = { 0 };
+    int groupCount = 0;
+    int highCount = r_optimizeLightmaps->current.enabled ? vidConfig.maxTextureSize / 1024 : 1;
+    int wideCount = highCount;
+    int placed = 0;
+    while (placed < lmapCount)
+    {
+        int remaining = lmapCount - placed;
+        while (remaining < wideCount * highCount)
+        {
+            if (wideCount < highCount)
+                highCount >>= 1;
+            else
+                wideCount >>= 1;
+        }
+        int tileCount = wideCount * highCount;
+        if (tileCount < 2)
+        {
+            for (int index = 0; index < lmapCount; ++index)
+            {
+                if (!used[index])
+                {
+                    reorder[placed++] = index;
+                    used[index] = 1;
+                    break;
+                }
+            }
+        }
+        else
+        {
+            int first = 31;
+            int best = 31;
+            for (int index = 0; index < lmapCount; ++index)
+            {
+                if (used[index])
+                    continue;
+                for (int other = index + 1; other < lmapCount; ++other)
+                {
+                    if (!used[other] && (first == 31 || coupling[first][best] < coupling[index][other]))
+                    {
+                        first = index;
+                        best = other;
+                    }
+                }
+            }
+            reorder[placed] = best;
+            reorder[placed + 1] = first;
+            placed += 2;
+            used[best] = 1;
+            used[first] = 1;
+            for (int left = tileCount - 2; left > 0; --left)
+            {
+                for (int index = 0; index < lmapCount; ++index)
+                {
+                    coupling[first][index] += coupling[best][index];
+                    coupling[index][first] = coupling[first][index];
+                }
+                best = 31;
+                for (int index = 0; index < lmapCount; ++index)
+                {
+                    if (!used[index] && (best == 31 || coupling[first][best] < coupling[first][index]))
+                        best = index;
+                }
+                reorder[placed++] = best;
+                used[best] = 1;
+            }
+        }
+        groupInfo[groupCount].wideCount = wideCount;
+        groupInfo[groupCount].highCount = highCount;
+        ++groupCount;
+    }
+    Com_Printf("%i merged lightmaps from %i original lightmaps\n", groupCount, lmapCount);
+    return lmapCount;
+}
+
+// PINNED 10001e30: fold sun visibility into one half-res lightmap for DX7.
+static void R_CombineLightmapsForDx7(byte **images, int height, int width, const float *sunColor)
+{
+    int pixel = 0;
+    int sunRow = 0;
+    for (int y = 0; y < height; ++y)
+    {
+        int sunPixel = sunRow;
+        for (int x = 0; x < width; ++x)
+        {
+            float sunVis = images[3][sunPixel];
+            int r = I_fround((images[0][pixel] + sunVis * sunColor[0]) * 0.5f);
+            int g = I_fround((images[1][pixel] + sunVis * sunColor[1]) * 0.5f);
+            int b = I_fround((images[2][pixel] + sunVis * sunColor[2]) * 0.5f);
+            if (r > 255)
+                r = 255;
+            images[0][pixel + 2] = (byte)r;
+            if (g > 255)
+                g = 255;
+            images[0][pixel + 1] = (byte)g;
+            if (b > 255)
+                b = 255;
+            images[0][pixel] = (byte)b;
+            images[0][pixel + 3] = 255;
+            pixel += 4;
+            sunPixel += 2;
+        }
+        sunRow += width * 4;
+    }
+}
+
+// PINNED 10001fb0: merge the lump 1 pages into tiled lightmap images.
+void R_LoadLightmaps(GfxBspLoad *load)
+{
+    vec3_t sunColor;
+    VectorCopy(s_world.sunLight.color, sunColor);
+    load->lmapMergeInfo[31].index = 31;
+    load->lmapMergeInfo[31].shift[0] = 0.0f;
+    load->lmapMergeInfo[31].shift[1] = 0.0f;
+    load->lmapMergeInfo[31].scale[0] = 1.0f;
+    load->lmapMergeInfo[31].scale[1] = 1.0f;
+    r_lightmapGroup_t groupInfo[31];
+    int reorder[31];
+    int lmapCount = R_BuildLightmapMergability(load, groupInfo, reorder);
+    if (!lmapCount)
+    {
+        s_world.lightmapCount = 0;
+        return;
+    }
+    int bytesPerPixel[4];
+    int heights[4];
+    int widths[4];
+    for (int k = 0; k < 3; ++k)
+    {
+        bytesPerPixel[k] = 4;
+        heights[k] = 512;
+        widths[k] = 512;
+    }
+    bytesPerPixel[3] = 1;
+    heights[3] = 1024;
+    widths[3] = 1024;
+    byte *images[4];
+    images[0] = (byte *)ri.Hunk_AllocateTempMemoryInternal(groupInfo[0].wideCount * groupInfo[0].highCount * 0x400000);
+    for (int k = 1; k < 4; ++k)
+        images[k] = images[k - 1] + bytesPerPixel[k - 1] * widths[k - 1] * heights[k - 1] * groupInfo[0].wideCount * groupInfo[0].highCount;
+    int lmapDataSize = load->header->lumps[1].filelen;
+    const byte *lmapData = load->fileBase + load->header->lumps[1].fileofs;
+    if (!lmapDataSize)
+        memset(images[0], 0xff, groupInfo[0].wideCount * groupInfo[0].highCount * 0x400000);
+    s_world.lightmaps = (GfxLightmapArray *)ri.Hunk_AllocInternal(32 * sizeof(GfxLightmapArray));
+    short groupIndex = 0;
+    int placed = 0;
+    do
+    {
+        int wide = groupInfo[groupIndex].wideCount;
+        int high = groupInfo[groupIndex].highCount;
+        int tileCount = wide * high;
+        for (int tile = 0; tile < tileCount; ++tile)
+        {
+            int row = tile / wide;
+            int col = tile % wide;
+            int oldIndex = reorder[placed + tile];
+            if (lmapDataSize)
+            {
+                const byte *src = lmapData + oldIndex * 0x400000;
+                for (int k = 0; k < 4; ++k)
+                {
+                    int rowBytes = widths[k] * bytesPerPixel[k];
+                    byte *dst = images[k] + (heights[k] * wide * row + col) * rowBytes;
+                    for (int y = 0; y < heights[k]; ++y)
+                    {
+                        Com_Memcpy(dst, src, rowBytes);
+                        src += rowBytes;
+                        dst += wide * rowBytes;
+                    }
+                }
+            }
+            r_lightmapMerge_t *merge = &load->lmapMergeInfo[oldIndex];
+            merge->index = groupIndex;
+            merge->shift[0] = col * (1.0f / wide);
+            merge->scale[0] = 1.0f / wide;
+            merge->scale[1] = 1.0f / high;
+            merge->shift[1] = row * (1.0f / high);
+        }
+        if (r_rendererInUse->current.integer == 2)
+        {
+            s_world.lightmaps[groupIndex][0] = Image_Alloc(va("*lightmap%i", groupIndex), 2, 1, 4);
+            R_CombineLightmapsForDx7(images, high * 512, wide * 512, sunColor);
+            GfxImage *image = s_world.lightmaps[groupIndex][0];
+            Image_Setup(image, wide * 512, high * 512, 1, 3, 0, D3DFMT_A8R8G8B8);
+            Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, images[0]);
+        }
+        else
+        {
+            for (int k = 0; k < 4; ++k)
+            {
+                s_world.lightmaps[groupIndex][k] = Image_Alloc(va("*lightmap%i_%i", groupIndex, k), 2, 1, 4);
+                GfxImage *image = s_world.lightmaps[groupIndex][k];
+                D3DFORMAT format = bytesPerPixel[k] == 4 ? D3DFMT_A8R8G8B8 : D3DFMT_L8;
+                Image_Setup(image, widths[k] * wide, heights[k] * high, 1, 3, 0, format);
+                Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, images[k]);
+            }
+        }
+        placed += tileCount;
+        ++groupIndex;
+    } while (placed < lmapCount);
+    s_world.lightmapCount = groupIndex;
+    ri.Hunk_FreeTempMemory(images[0]);
+}
 
 // PINNED 10002620: lump 2, 8-byte points copied field by field.
 void R_LoadLightGridPoints(GfxBspLoad *load)

@@ -746,7 +746,10 @@ accepted	universal/xanim_matrix.cpp	ConvertQuatToMat	1001d660	mac
 accepted	universal/xanim_matrix.cpp	MatrixTransformVectorQuatTrans	10058310	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ReloadWorld	100017b0	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ResetSunLightParseParams	10001280	mac
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_BuildLightmapCoupling	10001a20	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_BuildLightmapMergability	10001bc0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_CalculateWorldBounds	10002840	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_CombineLightmapsForDx7	10001e30	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_FinishLoadingAabbTrees_r	10003d40	mac
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_GetSurfaceSortGroup	100027c0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadAabbTrees	10003ee0	-
@@ -754,6 +757,7 @@ draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCells	10003f90	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCullGroups	10004300	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadEntities	10003880	mac
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadLightGridPoints	10002620	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadLightmaps	10001fb0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadMiscModel	100031b0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadNodesAndLeafs	10004730	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadOccluderIndices	10004670	-
@@ -1004,6 +1008,7 @@ draft-addressed	universal/q_parse.cpp	Com_SetParseNegativeNumbers	-	-
 draft-addressed	universal/q_parse.cpp	Com_SetScriptErrorPrefix	-	-
 draft-addressed	universal/q_parse.cpp	Com_SetScriptWarningPrefix	-	mac
 draft-addressed	universal/q_parse.cpp	Com_SetSpaceDelimited	-	mac
+draft-addressed	universal/q_shared.cpp	I_fround	10001810	-
 draft-addressed	universal/q_shared.cpp	I_fround	10001810	-
 draft-addressed	universal/q_shared.cpp	I_fround	10001810	-
 draft-addressed	universal/q_shared.cpp	I_fround	10001810	-

@@ -376,6 +376,7 @@ universal/q_shared.cpp	?I_fround@@YAHM@Z	10001810	hit	-	-	unknown
 universal/q_shared.cpp	?I_fround@@YAHM@Z	10001810	hit	-	-	unknown
 universal/q_shared.cpp	?I_fround@@YAHM@Z	10001810	hit	-	-	unknown
 universal/q_shared.cpp	?I_fround@@YAHM@Z	10001810	hit	-	-	unknown
+universal/q_shared.cpp	?I_fround@@YAHM@Z	10001810	hit	-	-	unknown
 universal/com_math.cpp	?Vector2Set@@YAXQAMMM@Z	10001840	bind	-	-	unknown
 universal/com_math.cpp	?Vector2Set@@YAXQAMMM@Z	10001840	bind	-	-	unknown
 universal/q_shared.cpp	?VectorSet@@YAXQAMMMM@Z	10001860	bind	-	-	unknown
@@ -397,6 +398,10 @@ gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z	10001940	bind	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z	10001a20	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_BuildLightmapMergability@@YAHPBUGfxBspLoad@@PAUr_lightmapGroup_t@@PAH@Z	10001bc0	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_CombineLightmapsForDx7@@YAXPAPAEHHPBM@Z	10001e30	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadLightmaps@@YAXPAUGfxBspLoad@@@Z	10001fb0	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z	10002620	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_SetSurfaceBoundsAndLmapCoords@@YAXPAUsrfTriangles_t@@PAUGfxWorldVertex@@PBUDiskGfxVertex@@PBUr_lightmapMerge_t@@@Z	100026c0	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_GetSurfaceSortGroup@@YAGPBUMaterial@@PBUGfxSurface@@HPBUsrfTriangles_t@@@Z	100027c0	pinned	-	-	unknown
