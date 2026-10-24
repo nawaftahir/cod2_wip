@@ -10,6 +10,7 @@ retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx
 assert struct.unpack('<d',retail.get_data(0x19bd68,8))[0] == .5-1.0/(1<<30)
 text = (work / 'src/gfx_d3d/r_outdoor.cpp').read_text()
 source = text[text.index('void R_GenerateOutdoorLookup('):]
+source = source[:source.index('GfxImage *Image_Register(')] + source[source.index('// PINNED 10020a70'):]
 program = r'''
 #include <cassert>
 #include <cmath>

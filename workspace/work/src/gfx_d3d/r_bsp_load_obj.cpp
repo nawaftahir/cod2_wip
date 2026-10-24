@@ -1219,10 +1219,7 @@ void R_LoadAabbTrees(GfxBspLoad *load)
 const char *R_ParseSunLight(SunLightParseParams *params, const char *text);
 void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight);
 void R_LoadSun(const char *name, sunflare_t *sun);
-void R_ComputeOutdoorBounds(const GfxWorld *world);
-void R_ComputeOutdoorScale();
-void R_ComputeOutdoorLookupMatrix(GfxWorld *world);
-GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+void R_RegisterOutdoorImage(GfxWorld *world);
 void Com_StripExtension(const char *in, char *out);
 
 typedef char loadWorldSlotCheck[(offsetof(refimport_t, Cbuf_ExecuteText) - offsetof(refimport_t, Printf) == 0x114
@@ -1302,16 +1299,6 @@ GfxWorld *R_LoadWorldInternal(const char *name)
 
     memset(&rgl, 0, sizeof(rgl));
     R_LoadSun(name, &s_world.sun);
-    if (r_rendererInUse->current.integer == 2)
-    {
-        s_world.outdoorImage = 0;
-    }
-    else
-    {
-        R_ComputeOutdoorBounds(&s_world);
-        R_ComputeOutdoorScale();
-        R_ComputeOutdoorLookupMatrix(&s_world);
-        s_world.outdoorImage = Image_Register("$outdoor", 0, 1);
-    }
+    R_RegisterOutdoorImage(&s_world);
     return &s_world;
 }

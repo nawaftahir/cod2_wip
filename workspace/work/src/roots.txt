@@ -157,3 +157,4 @@ RB_ClearScreenCmd
 Image_GetLightGridWeightsForVector
 FresnelTerm
 R_LoadWorld
+R_RegisterOutdoorImage

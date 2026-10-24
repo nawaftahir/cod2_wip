@@ -101,6 +101,7 @@ gfx_d3d/r_image.cpp	?Image_AllocProg@@YAPAUGfxImage@@HH@Z	-	-	gfx_d3d/r_image	gf
 gfx_d3d/r_specularityimage.cpp	?Image_BuildSpecularityMap@@YAXMPAE@Z	-	-	gfx_d3d/r_specularityimage	gfx_d3d/r_specularityimage	mac-name
 gfx_d3d/r_image.cpp	?Image_IsCodeImage@@YAEPBUGfxImage@@@Z	-	-	-	-	unknown
 gfx_d3d/r_image_load_obj.cpp	?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z	-	-	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
+gfx_d3d/r_image.cpp	?Image_Register@@YAPAUGfxImage@@PBDHH@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_lightgrid_weights.cpp	?Image_TransformLightGridVector@@YAXMMMPAM@Z	-	-	-	-	unknown
 universal/com_plane.cpp	?IntersectPlanes@@YAHPAPBMQAM@Z	-	-	-	-	unknown
@@ -547,7 +548,6 @@ gfx_d3d/r_image.cpp	?Image_SetupSystem@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z	1000d
 gfx_d3d/r_image.cpp	?Image_PicmipForSemantic@@YAXEPAUPicmip@@@Z	1000d090	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z	1000d0f0	pinned	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image.cpp	?Image_FindExisting@@YAPAUGfxImage@@PBD@Z	1000d140	pinned	-	-	unknown
-gfx_d3d/r_image.cpp	?Image_Register@@YAPAUGfxImage@@PBDHH@Z	1000d200	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_ReleaseLostImages@@YAXXZ	1000d260	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_ReloadLostImages@@YAXXZ	1000d2e0	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_Reload@@YAXPAUGfxImage@@@Z	1000d450	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
@@ -833,6 +833,7 @@ gfx_d3d/r_outdoor.cpp	?R_ComputeOutdoorScale@@YAXXZ	10020790	pinned	-	-	unknown
 gfx_d3d/r_outdoor.cpp	?R_ComputeOutdoorLookupMatrix@@YAXPAUGfxWorld@@@Z	100207f0	pinned	-	-	unknown
 gfx_d3d/r_outdoor.cpp	?R_OutdoorTexelToWorld@@YAMHH@Z	10020890	pinned	-	-	unknown
 gfx_d3d/r_outdoor.cpp	?R_GenerateOutdoorLookup@@YAXXZ	10020950	pinned	-	-	unknown
+gfx_d3d/r_outdoor.cpp	?R_RegisterOutdoorImage@@YAXPAUGfxWorld@@@Z	10020a20	pinned	gfx_d3d/r_outdoor	gfx_d3d/r_outdoor	mac-name
 gfx_d3d/r_outdoor.cpp	?R_CreateOutdoorImage@@YAXPAUGfxImage@@@Z	10020a70	hit	-	-	unknown
 gfx_d3d/r_rendercmds.cpp	?R_InitRenderCmds@@YAXXZ	10020b50	hit	-	-	unknown
 gfx_d3d/r_rendercmds.cpp	?R_AbortRenderCommands@@YAXXZ	10020dc0	bind	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name

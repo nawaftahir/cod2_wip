@@ -375,7 +375,7 @@
 {
 "name": "?R_LoadWorldInternal@@YAPAUGfxWorld@@PBD@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1311,
+"size": 1271,
 "hits": []
 },
 {
@@ -4217,6 +4217,12 @@
 "name": "?R_GenerateOutdoorLookup@@YAXXZ",
 "obj": "r_outdoor.obj",
 "size": 211,
+"hits": []
+},
+{
+"name": "?R_RegisterOutdoorImage@@YAXPAUGfxWorld@@@Z",
+"obj": "r_outdoor.obj",
+"size": 79,
 "hits": []
 },
 {

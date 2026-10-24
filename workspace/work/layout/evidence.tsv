@@ -892,6 +892,7 @@ draft-addressed	gfx_d3d/r_outdoor.cpp	R_ComputeOutdoorScale	10020790	-
 draft-addressed	gfx_d3d/r_outdoor.cpp	R_CreateOutdoorImage	10020a70	-
 draft-addressed	gfx_d3d/r_outdoor.cpp	R_GenerateOutdoorLookup	10020950	-
 draft-addressed	gfx_d3d/r_outdoor.cpp	R_OutdoorTexelToWorld	10020890	-
+draft-addressed	gfx_d3d/r_outdoor.cpp	R_RegisterOutdoorImage	10020a20	mac
 draft-addressed	gfx_d3d/r_rendercmds.cpp	R_AddCmdTouchAllImages	-	mac
 draft-addressed	gfx_d3d/r_rendercmds.cpp	R_BeginFrame	10021f40	mac
 draft-addressed	gfx_d3d/r_rendercmds.cpp	R_InitFrameBackendData	10021040	-

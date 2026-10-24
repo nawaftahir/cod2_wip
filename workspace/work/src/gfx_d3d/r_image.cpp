@@ -598,8 +598,8 @@ void Image_Reload(GfxImage *image)
 
 GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic);
 
-// PINNED 1000d200/94: cache hits keep their existing semantic and tracking category.
-GfxImage *Image_Register(const char *name, int imageTrack, int semantic)
+// PINNED 1000d200/94: cache hits keep their existing semantic and tracking category; 12 retail calls, never inlined.
+__declspec(noinline) GfxImage *Image_Register(const char *name, int imageTrack, int semantic)
 {
     GfxImage *image = Image_FindExisting(name);
     if (image)

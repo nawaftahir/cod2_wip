@@ -124,6 +124,22 @@ void R_GenerateOutdoorLookup()
     }
 }
 
+GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+
+// PINNED 10020a20: DX7 has no outdoor image.
+void R_RegisterOutdoorImage(GfxWorld *world)
+{
+    if (r_rendererInUse->current.integer == 2)
+    {
+        world->outdoorImage = NULL;
+        return;
+    }
+    R_ComputeOutdoorBounds(world);
+    R_ComputeOutdoorScale();
+    R_ComputeOutdoorLookupMatrix(world);
+    world->outdoorImage = Image_Register("$outdoor", 0, 1);
+}
+
 // PINNED 10020a70/136: the saved upload pointer and the pointer freed later differ in ownership.
 void R_CreateOutdoorImage(GfxImage *image)
 {
