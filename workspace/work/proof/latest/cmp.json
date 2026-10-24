@@ -1909,7 +1909,9 @@
 "name": "?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z",
 "obj": "r_init.obj",
 "size": 248,
-"hits": []
+"hits": [
+"0x100129c0"
+]
 },
 {
 "name": "?R_ChooseRefreshRate@@YAHHHH@Z",

@@ -1,8 +1,8 @@
 {
-  "functions": 659,
-  "bytes": 113563,
+  "functions": 660,
+  "bytes": 113811,
   "total": 253580,
-  "percent": 44.783894628913956,
+  "percent": 44.8816941399164,
   "baseline_lost": [],
   "gains": [
     {
@@ -447,6 +447,12 @@
       "target": "0x100126d0",
       "bytes": 113,
       "name": "?R_CreateDeviceInternal@@YAJPAUHWND__@@KPAU_D3DPRESENT_PARAMETERS_@@@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x100129c0",
+      "bytes": 248,
+      "name": "?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z",
       "object": "r_init.obj"
     },
     {

@@ -112,6 +112,7 @@ accepted	gfx_d3d/r_init.cpp	R_CreateDeviceInternal	100126d0	bind
 accepted	gfx_d3d/r_init.cpp	R_CreateDynamicBuffers	10011b60	bind
 accepted	gfx_d3d/r_init.cpp	R_CreateDynamicIndexBuffer	10011ad0	bind
 accepted	gfx_d3d/r_init.cpp	R_CreateDynamicVertexBuffer	10011a40	bind
+accepted	gfx_d3d/r_init.cpp	R_CreateGameWindow	100129c0	bind
 accepted	gfx_d3d/r_init.cpp	R_DisplayModeLess	10012320	mac
 accepted	gfx_d3d/r_init.cpp	R_EndView	10013200	mac
 accepted	gfx_d3d/r_init.cpp	R_Error	100138c0	mac
@@ -787,7 +788,6 @@ draft-addressed	gfx_d3d/r_init.cpp	R_BuildGammaTable	10011f10	-
 draft-addressed	gfx_d3d/r_init.cpp	R_CreateDevice	100128b0	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_CreateDeviceResources	10012100	-
 draft-addressed	gfx_d3d/r_init.cpp	R_CreateDirect3D	10012820	-
-draft-addressed	gfx_d3d/r_init.cpp	R_CreateGameWindow	100129c0	-
 draft-addressed	gfx_d3d/r_init.cpp	R_CreateParticleCloudBuffer	10011bf0	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_EndRegistration	-	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_GammaCorrect	10011fe0	mac

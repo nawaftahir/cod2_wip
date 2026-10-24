@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 113563,
-  "cpp_executable_bytes": 105776,
-  "cpp_percent": 41.713068854010565,
-  "cpp_game_bodies": 628,
+  "mixed_executable_bytes": 113811,
+  "cpp_executable_bytes": 106024,
+  "cpp_percent": 41.810868365013015,
+  "cpp_game_bodies": 629,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -262,7 +262,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "9233f16bd49fb1745414da1e38613a4b9acef4956909a0d4f7fd141fa37d0d71",
   "regression_sha256": "d174136b8643fb10ffbfef1ac6e70dc36e1702615c6df9a94693c87e1c3b5f7b",
-  "bind_sha256": "50bdc18fc75b09328275c3781f053ad6462406178c31b23f4c8583a2227094d6",
+  "bind_sha256": "b87ea5fd1e5e1fe2a27d8ec2a060fbba3bb304252cbc7581ec71e3b4431fcb09",
   "source_sha256": {
     "profile.mk": "360a65a9c10b596657ff44ef2b75dc33c7127e3f0d3eb3ec4a8abf3b18370370",
     "roots.txt": "484eedc53bf1747bbde7a67e524959944250114d9b61d0894612a3fd1273129e",
@@ -363,7 +363,7 @@
     "gfx_d3d/ri.h": "d0ab995bb648950724efab0bb1a5a2adeba9d11aa7c5fa73d77cbb719fddb05b",
     "gfx_d3d/r_lightgrid_weights.cpp": "690d8bb14a397610208626f7e17669789462d28d6a6fd1e7b1bfda4e14b19113",
     "gfx_d3d/r_font.cpp": "207f07409273c323f8840e29cf4864c9c16c1838d384fdc5f071cd18d9cbc171",
-    "gfx_d3d/r_init.cpp": "0839fde281e9c36ff7d995bc7ddb7c6f513b64627993490fbcac872b49483e66",
+    "gfx_d3d/r_init.cpp": "2c70d4d1a409111713c77a7a72ecdd5c22b6b751f57021816c032a09e8f4ed2a",
     "gfx_d3d/r_surfbounds.cpp": "1157ea5664b71f3f45b27fffab606897a36cda882db7d4be6e94d05510446dd3",
     "gfx_d3d/r_sky.cpp": "a5e93a6e24ef396a53baec20dea5a92d090e19717ca106708397924f1aa8a853",
     "gfx_d3d/rb_backend.cpp": "b91856ee6b8203728c8b60ed3bf398c526355ce4353c29af866473479f12382d",

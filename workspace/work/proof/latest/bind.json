@@ -889,6 +889,12 @@
 "obj": "r_init.obj",
 "why": []
 },
+"?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z": {
+"t": "0x100129c0",
+"n": 248,
+"obj": "r_init.obj",
+"why": []
+},
 "?R_ChooseRefreshRate@@YAHHHH@Z": {
 "t": "0x10012b00",
 "n": 131,

@@ -703,13 +703,14 @@ Bool R_CreateGameWindow(GfxWindowParms *parms)
     }
     RECT rect;
     rect.left = 0;
-    rect.top = 0;
     rect.right = parms->width;
+    rect.top = 0;
     rect.bottom = parms->height;
     AdjustWindowRectEx(&rect, style, FALSE, extendedStyle);
+    HINSTANCE instance = GetModuleHandleA(0);
     parms->hwnd = CreateWindowExA(extendedStyle, "CoD2", "Call of Duty 2 Multiplayer",
         style, parms->x, parms->y, rect.right - rect.left, rect.bottom - rect.top,
-        0, 0, GetModuleHandleA(0), 0);
+        0, 0, instance, 0);
     if (!parms->hwnd)
     {
         ri.Printf(0, "Couldn't create a window.\n");

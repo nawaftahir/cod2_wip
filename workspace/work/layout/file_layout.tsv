@@ -607,7 +607,7 @@ gfx_d3d/r_init.cpp	?R_ChooseMonitor@@YAPAUHMONITOR__@@XZ	10012770	bind	-	gfx_d3d
 gfx_d3d/r_init.cpp	?R_ChooseAdapter@@YAIXZ	100127d0	bind	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_CreateDirect3D@@YA_NXZ	10012820	hit	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_CreateDevice@@YAEPBUGfxWindowParms@@@Z	100128b0	pinned	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
-gfx_d3d/r_init.cpp	?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z	100129c0	pinned	-	gfx_d3d/r_init	interval
+gfx_d3d/r_init.cpp	?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z	100129c0	bind	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_ChooseRefreshRate@@YAHHHH@Z	10012b00	bind	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_SetupWindowParms@@YAXPAUGfxWindowParms@@@Z	10012b90	pinned	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_ReduceWindowSettings@@YAEXZ	10012c20	pinned	-	gfx_d3d/r_init	interval
