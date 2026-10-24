@@ -57,6 +57,24 @@ struct DiskBrushModel
     int unused[4];
 };
 
+// PINNED 10002620: lump 2, 8-byte points copied field by field.
+void R_LoadLightGridPoints(GfxBspLoad *load)
+{
+    s_world.lightGrid.pointCount = R_GetLumpElemCount(load, 2, sizeof(GfxLightGridPoint));
+    GfxLightGridPoint *out = (GfxLightGridPoint *)ri.Hunk_AllocInternal(load->header->lumps[2].filelen);
+    const GfxLightGridPoint *in = (const GfxLightGridPoint *)(load->fileBase + load->header->lumps[2].fileofs);
+    s_world.lightGrid.points = out;
+    for (int index = 0; index < s_world.lightGrid.pointCount; ++index)
+    {
+        out->xyzHighBits = in->xyzHighBits;
+        out->xyzLowBitsAndSunVisible = in->xyzLowBitsAndSunVisible;
+        out->needsTrace = in->needsTrace;
+        out->colorsIndex = in->colorsIndex;
+        ++in;
+        ++out;
+    }
+}
+
 // PINNED 10002db0: Kisak R_LoadSubmodels.
 void R_LoadSubmodels(GfxBspLoad *load)
 {
@@ -358,7 +376,11 @@ struct BspNodeA
     int childCount;
     BspNodeA *parent;
     int leafIndex;
-    int pad;
+    union
+    {
+        const void *plane;
+        int cluster;
+    };
     BspNodeA *front;
     BspNodeA *back;
 };
@@ -468,6 +490,36 @@ void R_LoadEntities(GfxBspLoad *load)
     ri.Hunk_ClearTempMemory();
 }
 
+// PINNED 10003f90: lump 23; portals hold an index until R_LoadPortals.
+void R_LoadCells(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 23, sizeof(DiskGfxCell));
+    const DiskGfxCell *in = (const DiskGfxCell *)(load->fileBase + load->header->lumps[23].fileofs);
+    GfxCell *out = (GfxCell *)ri.Hunk_AllocInternal(count * sizeof(GfxCell));
+    s_world.cells = out;
+    s_world.cellCount = count;
+    for (int index = 0; index < count; ++index)
+    {
+        out->mins[0] = in->mins[0];
+        out->mins[1] = in->mins[1];
+        out->mins[2] = in->mins[2];
+        out->maxs[0] = in->maxs[0];
+        out->maxs[1] = in->maxs[1];
+        out->maxs[2] = in->maxs[2];
+        out->aabbTree = &rgl.aabbTrees[in->aabbTreeIndex];
+        out->portals = (GfxPortal *)(in->firstPortal * sizeof(GfxPortal));
+        out->portalCount = in->portalCount;
+        int cullGroupCount = in->cullGroupCount;
+        out->cullGroups = cullGroupCount ? &rgl.cullGroupIndices[in->firstCullGroup] : 0;
+        out->cullGroupCount = cullGroupCount;
+        int occluderCount = in->occluderCount;
+        out->occluders = occluderCount ? &rgl.occluderIndices[in->firstOccluder] : 0;
+        out->occluderCount = occluderCount;
+        ++in;
+        ++out;
+    }
+}
+
 // PINNED 10004080: lump 17, Kisak name.
 void R_LoadPortalVerts(GfxBspLoad *load)
 {
@@ -480,6 +532,64 @@ void R_LoadPortalVerts(GfxBspLoad *load)
         out[index][0] = in[index][0];
         out[index][1] = in[index][1];
         out[index][2] = in[index][2];
+    }
+}
+
+typedef char planeSlotCheck[offsetof(refimport_t, CM_GetPlaneNum)
+    - offsetof(refimport_t, Hunk_AllocInternal) == 0x240 ? 1 : -1];
+void PerpendicularVector(const vec3_t src, vec3_t dst);
+
+// PINNED 10004170: lump 24, then cell portal indices become pointers.
+void R_LoadPortals(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 24, sizeof(DiskGfxPortal));
+    const DiskGfxPortal *in = (const DiskGfxPortal *)(load->fileBase + load->header->lumps[24].fileofs);
+    GfxPortal *portals = (GfxPortal *)ri.Hunk_AllocInternal(count * sizeof(GfxPortal));
+    for (int index = 0; index < count; ++index)
+    {
+        const float *plane = (const float *)ri.CM_GetPlaneNum(in[index].planeIndex);
+        GfxPortal *out = &portals[index];
+        DpvsPlane *outPlane = &out->plane;
+        outPlane->coeffs[0] = plane[0];
+        outPlane->coeffs[1] = plane[1];
+        outPlane->coeffs[2] = plane[2];
+        out->plane.coeffs[3] = -plane[3];
+        out->plane.side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
+        outPlane->side[1] = *(const int *)&out->plane.coeffs[1] <= 0 ? 4 : 16;
+        outPlane->side[2] = *(const int *)&out->plane.coeffs[2] <= 0 ? 8 : 20;
+        out->cell = &s_world.cells[in[index].cellIndex];
+        out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
+        out->vertexCount = (byte)in[index].portalVertexCount;
+        out->hullPointCount = 0;
+        out->hullPoints = 0;
+        PerpendicularVector(plane, out->hullAxis[0]);
+        Vec3Cross(plane, out->hullAxis[0], out->hullAxis[1]);
+    }
+    for (int index = 0; index < s_world.cellCount; ++index)
+    {
+        GfxCell *cell = &s_world.cells[index];
+        cell->portals = cell->portalCount ? &portals[(int)cell->portals / (int)sizeof(GfxPortal)] : 0;
+    }
+}
+
+// PINNED 10004300: lump 10, Kisak R_LoadCullGroups.
+void R_LoadCullGroups(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 10, sizeof(DiskGfxCullGroup));
+    const DiskGfxCullGroup *in = (const DiskGfxCullGroup *)(load->fileBase + load->header->lumps[10].fileofs);
+    GfxCullGroup *out = (GfxCullGroup *)ri.Hunk_AllocInternal(count * sizeof(GfxCullGroup));
+    s_world.cullGroups = out;
+    s_world.cullGroupCount = count;
+    for (int index = 0; index < count; ++index)
+    {
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            out[index].mins[axis] = in[index].mins[axis];
+            out[index].maxs[axis] = in[index].maxs[axis];
+        }
+        int surfaceCount = in[index].surfaceCount;
+        out[index].surfaceCount = surfaceCount;
+        out[index].startSurfIndex = surfaceCount ? in[index].firstSurface : -1;
     }
 }
 
@@ -503,4 +613,149 @@ void R_LoadOccluderIndices(GfxBspLoad *load)
     rgl.occluderIndices = out;
     for (int index = 0; index < count; ++index)
         out[index] = &rgl.occluders[in[index]];
+}
+
+// PINNED 10004730: nodes (lump 25) then leafs (lump 26), 36 bytes each.
+void R_LoadNodesAndLeafs(GfxBspLoad *load)
+{
+    int nodeCount = R_GetLumpElemCount(load, 25, 36);
+    const int *inNode = (const int *)(load->fileBase + load->header->lumps[25].fileofs);
+    int leafCount = R_GetLumpElemCount(load, 26, sizeof(DiskLeaf));
+    s_world.nodeCount = leafCount + nodeCount;
+    const DiskLeaf *inLeaf = (const DiskLeaf *)(load->fileBase + load->header->lumps[26].fileofs);
+    BspNodeA *nodes = (BspNodeA *)ri.Hunk_AllocInternal(s_world.nodeCount * sizeof(BspNodeA));
+    s_world.nodes = (mnode_t *)nodes;
+    BspNodeA *out = nodes;
+    for (int index = 0; index < nodeCount; ++index)
+    {
+        out->plane = ri.CM_GetPlaneNum(inNode[0]);
+        out->childCount = -1;
+        int child = inNode[1];
+        if (child < 0)
+            child = nodeCount - 1 - child;
+        out->front = &nodes[child];
+        child = inNode[2];
+        if (child < 0)
+            child = nodeCount - 1 - child;
+        out->back = &nodes[child];
+        inNode += 9;
+        ++out;
+    }
+    for (int index = 0; index < leafCount; ++index)
+    {
+        out->leafIndex = inLeaf->cellNum;
+        out->cluster = inLeaf->cluster;
+        ++inLeaf;
+        ++out;
+    }
+    R_SetParentAndCell_r(nodes, 0);
+}
+
+// PINNED 10004430: lumps 18-20, planes come from the collision map.
+void R_LoadOccluders(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 18, sizeof(DiskGfxOccluder));
+    const DiskGfxOccluder *in = (const DiskGfxOccluder *)(load->fileBase + load->header->lumps[18].fileofs);
+    GfxOccluder *occluders = (GfxOccluder *)ri.Hunk_AllocInternal(count * sizeof(GfxOccluder));
+    int planeCount = R_GetLumpElemCount(load, 19, 4);
+    const int *planeIndices = (const int *)(load->fileBase + load->header->lumps[19].fileofs);
+    DpvsPlane *planes = (DpvsPlane *)ri.Hunk_AllocInternal(planeCount * sizeof(DpvsPlane));
+    int edgeCount = R_GetLumpElemCount(load, 20, sizeof(DiskGfxOccluderEdge));
+    const DiskGfxOccluderEdge *inEdges = (const DiskGfxOccluderEdge *)(load->fileBase + load->header->lumps[20].fileofs);
+    GfxOccluderEdge *edges = (GfxOccluderEdge *)ri.Hunk_AllocInternal(edgeCount * sizeof(GfxOccluderEdge));
+    rgl.occluders = occluders;
+    for (int index = 0; index < count; ++index)
+    {
+        GfxOccluder *out = &occluders[index];
+        out->planeCount = in[index].planeCount;
+        out->planes = &planes[in[index].firstPlane];
+        for (int planeIndex = 0; planeIndex < out->planeCount; ++planeIndex)
+        {
+            const float *plane = (const float *)ri.CM_GetPlaneNum(planeIndices[in[index].firstPlane + planeIndex]);
+            DpvsPlane *outPlane = &out->planes[planeIndex];
+            outPlane->coeffs[0] = plane[0];
+            outPlane->coeffs[1] = plane[1];
+            outPlane->coeffs[2] = plane[2];
+            out->planes[planeIndex].coeffs[3] = -plane[3];
+            outPlane = &out->planes[planeIndex];
+            outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
+            outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
+            outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
+        }
+        out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
+        out->vertexCount = in[index].portalVertexCount;
+        out->edgeCount = in[index].edgeCount;
+        out->edges = &edges[in[index].firstEdge];
+        for (int edgeIndex = 0; edgeIndex < out->edgeCount; ++edgeIndex)
+        {
+            const DiskGfxOccluderEdge *inEdge = &inEdges[edgeIndex];
+            out->edges[edgeIndex].plane[0] = &out->planes[inEdge->planeIndex[0]];
+            out->edges[edgeIndex].plane[1] = &out->planes[inEdge->planeIndex[1]];
+            out->edges[edgeIndex].vertex[0] = &out->vertices[inEdge->vertexIndex[0]];
+            out->edges[edgeIndex].vertex[1] = &out->vertices[inEdge->vertexIndex[1]];
+        }
+        out->viewPlaneCount = 0;
+        out->viewPlanes = 0;
+    }
+}
+
+// PINNED 10003d40: bounds come from the surfaces or the child trees.
+static int R_FinishLoadingAabbTrees_r(GfxAabbTree *tree, int totalTreesUsed)
+{
+    tree->mins[0] = 131072.0f;
+    tree->mins[1] = 131072.0f;
+    tree->mins[2] = 131072.0f;
+    tree->maxs[0] = -131072.0f;
+    tree->maxs[1] = -131072.0f;
+    tree->maxs[2] = -131072.0f;
+    if (!tree->childCount)
+    {
+        const GfxSurface *surf = &s_world.surfaces[tree->startSurfIndex];
+        for (int surfIndex = 0; surfIndex < tree->surfaceCount; ++surfIndex, ++surf)
+        {
+            const srfTriangles_t *tris = surf->tris;
+            for (int axis = 0; axis < 3; ++axis)
+            {
+                if (tree->mins[axis] > tris->bounds[0][axis])
+                    tree->mins[axis] = tris->bounds[0][axis];
+                if (tree->maxs[axis] < tris->bounds[1][axis])
+                    tree->maxs[axis] = tris->bounds[1][axis];
+            }
+        }
+        return totalTreesUsed;
+    }
+    int nextTree = totalTreesUsed + tree->childCount;
+    tree->children = &rgl.aabbTrees[totalTreesUsed];
+    for (int childIndex = 0; childIndex < tree->childCount; ++childIndex)
+    {
+        nextTree = R_FinishLoadingAabbTrees_r(&tree->children[childIndex], nextTree);
+        const GfxAabbTree *child = &tree->children[childIndex];
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            if (child->mins[axis] < tree->mins[axis])
+                tree->mins[axis] = child->mins[axis];
+            if (tree->maxs[axis] < child->maxs[axis])
+                tree->maxs[axis] = child->maxs[axis];
+        }
+    }
+    return nextTree;
+}
+
+// PINNED 10003ee0: lump 22, then each root tree claims its children.
+void R_LoadAabbTrees(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 22, sizeof(DiskGfxAabbTree));
+    const DiskGfxAabbTree *in = (const DiskGfxAabbTree *)(load->fileBase + load->header->lumps[22].fileofs);
+    GfxAabbTree *out = (GfxAabbTree *)ri.Hunk_AllocInternal(count * sizeof(GfxAabbTree));
+    rgl.aabbTrees = out;
+    rgl.aabbTreeCount = count;
+    for (int index = 0; index < count; ++index)
+    {
+        int surfaceCount = in[index].surfaceCount;
+        out[index].startSurfIndex = surfaceCount ? in[index].firstSurface : -1;
+        out[index].surfaceCount = surfaceCount;
+        out[index].childCount = in[index].childCount;
+    }
+    for (int index = 0; index < count; )
+        index = R_FinishLoadingAabbTrees_r(&rgl.aabbTrees[index], index + 1);
 }

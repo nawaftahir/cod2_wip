@@ -125,6 +125,12 @@
 ]
 },
 {
+"name": "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 110,
+"hits": []
+},
+{
 "name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 140,
@@ -215,12 +221,30 @@
 "hits": []
 },
 {
+"name": "?R_LoadCells@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 864,
+"hits": []
+},
+{
 "name": "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 240,
 "hits": [
 "0x10004080"
 ]
+},
+{
+"name": "?R_LoadPortals@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 389,
+"hits": []
+},
+{
+"name": "?R_LoadCullGroups@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 180,
+"hits": []
 },
 {
 "name": "?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z",
@@ -234,6 +258,30 @@
 "name": "?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 103,
+"hits": []
+},
+{
+"name": "?R_LoadNodesAndLeafs@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 313,
+"hits": []
+},
+{
+"name": "?R_LoadOccluders@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 568,
+"hits": []
+},
+{
+"name": "?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 410,
+"hits": []
+},
+{
+"name": "?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 158,
 "hits": []
 },
 {
@@ -5018,6 +5066,12 @@
 "hits": [
 "0x100291c0"
 ]
+},
+{
+"name": "?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z",
+"obj": "r_sky_load_obj.obj",
+"size": 205,
+"hits": []
 },
 {
 "name": "?R_InitDrawGroups@@YAXXZ",
@@ -20568,6 +20622,22 @@
 ]
 },
 {
+"name": "_$$$00001",
+"obj": "LIBCMT:strchr.obj",
+"size": 16,
+"hits": [
+"0x100f65a0"
+]
+},
+{
+"name": "_strchr",
+"obj": "LIBCMT:strchr.obj",
+"size": 190,
+"hits": [
+"0x100f65b0"
+]
+},
+{
 "name": "_fabs",
 "obj": "LIBCMT:fabs.obj",
 "size": 177,
@@ -20800,22 +20870,6 @@
 "size": 167,
 "hits": [
 "0x100f7434"
-]
-},
-{
-"name": "_$$$00001",
-"obj": "LIBCMT:strchr.obj",
-"size": 16,
-"hits": [
-"0x100f65a0"
-]
-},
-{
-"name": "_strchr",
-"obj": "LIBCMT:strchr.obj",
-"size": 190,
-"hits": [
-"0x100f65b0"
 ]
 },
 {

@@ -397,6 +397,7 @@ gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z	10001940	bind	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z	10002620	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z	10002db0	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_FloatForKey@@YANPBDMPAY01PBDH@Z	10002e80	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_Vec3ForKey@@YAEPBD0PAY01PBDHPAM@Z	10002ed0	bind	-	-	unknown
@@ -407,10 +408,17 @@ gfx_d3d/r_bsp_load_obj.cpp	?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z	
 gfx_d3d/r_bsp_load_obj.cpp	?R_BuildCellAabbTrees@@YAXXZ	10003810	bind	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadEntities@@YAXPAUGfxBspLoad@@@Z	10003880	pinned	gfx_d3d/r_bsp_load_obj	gfx_d3d/r_bsp_load_obj	mac-name
 gfx_d3d/r_bsp_load_obj.cpp	?R_ParseEntitySpawnVars@@YAHPAPBDPADPAY01PBD@Z	10003880	pinned	-	gfx_d3d/r_bsp_load_obj	interval
+gfx_d3d/r_bsp_load_obj.cpp	?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z	10003d40	pinned	gfx_d3d/r_bsp_load_obj	gfx_d3d/r_bsp_load_obj	mac-name
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z	10003ee0	pinned	-	gfx_d3d/r_bsp_load_obj	interval
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadCells@@YAXPAUGfxBspLoad@@@Z	10003f90	pinned	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z	10004080	bind	-	gfx_d3d/r_bsp_load_obj	interval
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadPortals@@YAXPAUGfxBspLoad@@@Z	10004170	pinned	-	gfx_d3d/r_bsp_load_obj	interval
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadCullGroups@@YAXPAUGfxBspLoad@@@Z	10004300	pinned	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z	100043d0	bind	-	gfx_d3d/r_bsp_load_obj	interval
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadOccluders@@YAXPAUGfxBspLoad@@@Z	10004430	pinned	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z	10004670	pinned	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_SetParentAndCell_r@@YAXPAUBspNodeA@@0@Z	100046e0	bind	gfx_d3d/r_bsp_load_obj	gfx_d3d/r_bsp_load_obj	mac-name
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadNodesAndLeafs@@YAXPAUGfxBspLoad@@@Z	10004730	pinned	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_InterpretSunLightParseParamsIntoLights@@YAXPAUSunLightParseParams@@PAUGfxLight@@@Z	10004dc0	bind	gfx_d3d/r_bsp_load_obj	gfx_d3d/r_bsp_load_obj	mac-name
 gfx_d3d/r_buffers.cpp	?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z	10004f40	bind	gfx_d3d/r_buffers	gfx_d3d/r_buffers	mac-name
 gfx_d3d/r_buffers.cpp	?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z	100050e0	bind	gfx_d3d/r_buffers	gfx_d3d/r_buffers	mac-name
@@ -898,6 +906,7 @@ gfx_d3d/r_sky.cpp	?R_SaveSun@@YAXPBD@Z	10029080	bind	-	gfx_d3d/r_sky	interval
 gfx_d3d/r_sky.cpp	?R_SaveSun_f@@YAXXZ	100290f0	bind	-	gfx_d3d/r_sky	interval
 gfx_d3d/r_sky.cpp	?R_FlushSun@@YAXXZ	10029120	bind	gfx_d3d/r_sky	gfx_d3d/r_sky	mac-name
 gfx_d3d/r_sky_load_obj.cpp	?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z	100291c0	hit	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
+gfx_d3d/r_sky_load_obj.cpp	?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z	10029230	pinned	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_InitDrawGroups@@YAXXZ	10029430	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_BeginDrawGroupSection@@YAHH@Z	10029470	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_BeginDrawGroupLoop@@YAXHH@Z	100294a0	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name

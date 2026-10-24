@@ -746,9 +746,17 @@ accepted	universal/xanim_matrix.cpp	ConvertQuatToMat	1001d660	mac
 accepted	universal/xanim_matrix.cpp	MatrixTransformVectorQuatTrans	10058310	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ReloadWorld	100017b0	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ResetSunLightParseParams	10001280	mac
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_FinishLoadingAabbTrees_r	10003d40	mac
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadAabbTrees	10003ee0	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCells	10003f90	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCullGroups	10004300	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadEntities	10003880	mac
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadLightGridPoints	10002620	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadMiscModel	100031b0	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadNodesAndLeafs	10004730	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadOccluderIndices	10004670	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadOccluders	10004430	-
+draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadPortals	10004170	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_ParseEntitySpawnVars	10003880	-
 draft-addressed	gfx_d3d/r_buffers.cpp	R_FinishStaticVertexBuffer	-	mac
 draft-addressed	gfx_d3d/r_buffers.cpp	R_FreeStaticIndexBuffer	-	mac
@@ -902,6 +910,7 @@ draft-addressed	gfx_d3d/r_screenshot.cpp	R_WriteCubemapShot	10026920	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_WriteCubemapShotAlpha	10026840	-
 draft-addressed	gfx_d3d/r_sky.cpp	R_LoadSun_f	10029010	-
 draft-addressed	gfx_d3d/r_sky.cpp	R_SetSunFromDvars	10028cd0	mac
+draft-addressed	gfx_d3d/r_sky_load_obj.cpp	R_LoadSun	10029230	mac
 draft-addressed	gfx_d3d/r_sky_load_obj.cpp	R_LoadSunThroughDvars	100291c0	mac
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_CacheStaticModelLighting	1002a570	-
 draft-addressed	gfx_d3d/r_staticmodel_load_obj.cpp	R_CreateStaticModel	1002a9c0	-

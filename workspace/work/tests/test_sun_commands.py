@@ -53,6 +53,8 @@ char *va(const char *format,...) {
 }
 void message(const char *format,va_list args) {char buffer[256];vsnprintf(buffer,sizeof(buffer),format,args);prints.push_back(buffer);}
 void print(int channel,const char *format,...) {assert(channel==0);va_list args;va_start(args,format);message(format,args);va_end(args);}
+void Com_Memset(void *dest,int value,int size){memset(dest,value,size);}
+void I_strncpyz(char *dest,const char *src,int size){strncpy(dest,src,size-1);dest[size-1]=0;}
 void Com_Printf(const char *format,...) {va_list args;va_start(args,format);message(format,args);va_end(args);}
 int count(){return argc;}
 char *arg(int index){assert(index==1);return argument;}

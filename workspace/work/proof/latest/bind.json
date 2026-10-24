@@ -12867,6 +12867,20 @@
 "call __math_exit"
 ]
 },
+"_$$$00001": {
+"t": "0x101040c0",
+"n": 252,
+"obj": "LIBCMT:87trigh.obj",
+"why": [
+"call __rttospop"
+]
+},
+"_strchr": {
+"t": "0x100f65b0",
+"n": 190,
+"obj": "LIBCMT:strchr.obj",
+"why": []
+},
 "__flush": {
 "t": "0x100f6add",
 "n": 93,
@@ -13050,20 +13064,6 @@
 "call __getptd"
 ]
 },
-"_$$$00001": {
-"t": "0x101040c0",
-"n": 252,
-"obj": "LIBCMT:87trigh.obj",
-"why": [
-"call __rttospop"
-]
-},
-"_strchr": {
-"t": "0x100f65b0",
-"n": 190,
-"obj": "LIBCMT:strchr.obj",
-"why": []
-},
 "__tolower": {
 "t": "0x100f74db",
 "n": 8,
@@ -13083,9 +13083,9 @@
 "n": 385,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 1018fd1c",
-"unresolved 1018fd1c",
-"unresolved 1018fd1c"
+"unresolved 10190d1c",
+"unresolved 10190d1c",
+"unresolved 10190d1c"
 ]
 },
 "__DllMainCRTStartup@12": {
@@ -13093,7 +13093,7 @@
 "n": 228,
 "obj": "LIBCMT:dllcrt0.obj",
 "why": [
-"unresolved 1018fd1c"
+"unresolved 10190d1c"
 ]
 },
 "__amsg_exit": {
