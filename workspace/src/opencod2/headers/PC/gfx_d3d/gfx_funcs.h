@@ -70,7 +70,9 @@ void *R_AllocStaticIndexBuffer(IDirect3DIndexBuffer9 **ib, int sizeInBytes);
 void R_FinishStaticIndexBuffer(IDirect3DIndexBuffer9 *ib);
 void R_FreeStaticIndexBuffer(IDirect3DIndexBuffer9 *ib);
 
+#ifndef COD2_SDK_TYPES
 int R_CheckDxCaps(const D3DCAPS9 *caps);
+#endif
 
 void R_RegisterCmds(void);
 void R_UnregisterCmds(void);
@@ -125,7 +127,9 @@ Font *R_LoadFont(const char *fontName, int imageTrack);
 
 refexport_t *GetRefAPI_v60_adapt(refimport_t *rimp_v60);
 
+#ifndef COD2_SDK_TYPES
 void R_GetImageList(ImageList *imageList);
+#endif
 int R_GetMinSpecImageMemory(void);
 void R_ResetImageAllocations(void);
 void R_FreeImageAllocations(void);
@@ -179,7 +183,9 @@ const char *R_ErrorDescription(HRESULT hr);
 void R_UpdateGpuSyncType(void);
 void R_EndRegistration(void);
 refexport_t *GetRefAPI(int apiVersion, refimport_t *rimp);
+#ifndef COD2_SDK_TYPES
 void R_Error(errorParm_t errorLevel, const char *msg, ...);
+#endif
 void R_GammaCorrect(byte *buffer, int bufSize);
 void R_FatalLockError(HRESULT hr);
 void R_SetColorMappings(void);
@@ -193,7 +199,9 @@ boolean empty_output_buffer(j_compress_ptr cinfo);
 void R_SaveJpg(const char *filename, int quality, int image_width, int image_height, unsigned char *image_buffer);
 void R_LoadJpg(const char *filepath, byte **file, byte **pic, int *width, int *height, D3DFORMAT *imageFormat);
 
+#ifndef COD2_SDK_TYPES
 GfxLightDef *R_RegisterLightDef(const char *name);
+#endif
 void R_InitLightDefs(void);
 void R_ShutdownLightDefs(void);
 int R_GetPointLightPartitions(const GfxDrawSurf *drawSurfs, int drawSurfCount, PointLightPartition *partitions, int partitionLimit);
@@ -426,7 +434,9 @@ void XModelUnoptimize(XModel *model);
 
 void rdsl_log_null_technique2(void *material, int techType);
 void RB_EndFrame(void);
+#ifndef COD2_SDK_TYPES
 void RB_SetCodeConstant(int constant, vec_t x, vec_t y, vec_t z, vec_t w);
+#endif
 void RB_SetGammaRamp(const GfxGammaRamp *gammaTable);
 qboolean RB_IsGpuFenceFinished(void);
 void RB_GpuWaited(int ticks);
@@ -506,7 +516,9 @@ void RB_SetSampler(int samplerIndex, int samplerState, GfxImage *image);
 void RB_BindDefaultImages(void);
 void RB_UnbindAllImages(void);
 void RB_UnbindImage(const GfxImage *image);
+#ifndef COD2_SDK_TYPES
 void RB_UpdateViewportConstants(void);
+#endif
 void RB_InitImages(void);
 void RB_SetRenderTarget(GfxRenderTargetId newTargetId);
 void RB_ClearAllStreamSources(void);

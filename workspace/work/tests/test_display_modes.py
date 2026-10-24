@@ -2,8 +2,9 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
-text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_display_modes.cpp').read_text()
+text = fragment('gfx_d3d/r_display_modes.cpp')
 source = text[text.index('struct GfxResolution'):text.index('bool R_CreateDirect3D(')]
 program = r'''
 #include <algorithm>

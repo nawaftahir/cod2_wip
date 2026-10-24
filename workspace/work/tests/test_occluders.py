@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 packet = Path(__file__).resolve().parent.parent / 'src'
-source = (packet / 'gfx_d3d/r_dpvs_occluders.cpp').read_text()
+source = fragment('gfx_d3d/r_dpvs_occluders.cpp')
 source = source[source.index('extern const dvar_t *r_showPortals;'):]
 program = r'''
 #include <cassert>
@@ -17,6 +18,8 @@ struct DpvsPlane { vec4_t coeffs;byte side[3];union {byte frontal;} u; };
 struct GfxOccluderEdge { DpvsPlane *plane[2];vec3_t *vertex[2]; };
 struct GfxOccluder { int planeCount;DpvsPlane *planes;int edgeCount;GfxOccluderEdge *edges;int vertexCount;vec3_t *vertices;int ignoreStackLevel,viewPlaneCount;DpvsPlane *viewPlanes; };
 struct GfxCell { int occluderCount;GfxOccluder **occluders; };
+struct ActiveOccluders { int count;GfxOccluder **list; };
+extern ActiveOccluders activeOccluders;
 struct trDebugLine_t { vec3_t start,end;vec4_t color;int depthTest; };
 struct DebugGlobals { trDebugLine_t *lines;int lineCount,lineLimit; };
 struct GfxBackEndData { DebugGlobals debugGlobals; };

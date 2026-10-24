@@ -98,28 +98,37 @@ void RB_DrawTessSurface()
     tess.vertexCount = 0;
 }
 
+// Descriptive name; inlined into RB_EndSurface, no PC symbol.
+static bool RB_IsTechniqueDrawable(const SurfaceTechniqueView *technique)
+{
+    if (backEnd.viewportIsDirty)
+        RB_UpdateViewport();
+    if (dxState.viewportIsNull)
+        return false;
+    if ((technique->flags & 1) && backEnd.resolvedPostSunTarget == 14)
+        return false;
+    if ((technique->flags & 2) && backEnd.resolvedSceneTarget == 14)
+        return false;
+    return true;
+}
+
 // PINNED 1003a8d0: missing/blocked techniques clear only the three draw counts.
 void RB_EndSurface()
 {
     const SurfaceTechniqueView *technique = ((const SurfaceMaterialView *)tess.material)
         ->techniqueSet->techniques[tess.techType];
-    if (technique)
+    if (!technique || !RB_IsTechniqueDrawable(technique))
     {
-        if (backEnd.viewportIsDirty)
-            RB_UpdateViewport();
-        if (!dxState.viewportIsNull
-            && (!(technique->flags & 1) || backEnd.resolvedPostSunTarget != 14)
-            && (!(technique->flags & 2) || backEnd.resolvedSceneTarget != 14))
-        {
-            if (tess.optimizedIndexCount)
-                RB_DrawOptimizedTessSurface();
-            if (tess.indexCount)
-                RB_DrawTessSurface();
-            RB_LogPrint("---------- RB_EndSurface\n");
-            return;
-        }
+        tess.optimizedIndexCount = 0;
+        tess.indexCount = 0;
+        tess.vertexCount = 0;
     }
-    tess.optimizedIndexCount = 0;
-    tess.indexCount = 0;
-    tess.vertexCount = 0;
+    else
+    {
+        if (tess.optimizedIndexCount)
+            RB_DrawOptimizedTessSurface();
+        if (tess.indexCount)
+            RB_DrawTessSurface();
+        RB_LogPrint("---------- RB_EndSurface\n");
+    }
 }

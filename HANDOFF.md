@@ -1,18 +1,76 @@
 # Claude handoff: renderer layout preparation
 
-## Owner's latest instruction comes first
+## Codex, start here (2026-10-24, after the structure merges)
 
-The owner PAUSED the old "stage 1-3 now" goal. Do not resume the reconstruction
-campaign from PROGRESS.md's old next-action text. The immediate request is the
-initial file/layout setup that makes later byte matching easier. Keep this small
-and concrete. The owner is frustrated with days of tiny function waves, repeated
-full suites and little movement on the requested structural checkpoint.
+The owner's current goal: finish putting the source into the retail file
+structure, then go back to byte-matching new functions INSIDE that
+structure. When you stop, write a short report (what you did, measured
+numbers, what you reverted) at the end of this file: Claude reviews it.
 
-Do the layout preparation first. It does NOT require implementing every missing
-callback, world loader, scene renderer or backend command. Mark genuine missing
-code/interfaces as open entries. Do not turn a preparatory layout pass into an
-open-ended source-recovery campaign. Do not claim a layout plan is historical
-proof, source completion or a matching retail binary.
+### State you start from
+
+- Every candidate TU that had a retail home is merged into it, in retail
+  address order. Latest: r_material_shader -> r_material_load_obj (real
+  ID3DXConstantTable, no SDK shim); rb_shade_lights + rb_shader_matrices
+  -> rb_shade (PC types; rb_backend.h currentEntity/currentEntityLighting
+  are now typed). RB_ScaleWorldMatrix was removed: a duplicate of
+  RB_ScaleCodeMatrix at 10038c60.
+- Build + all gates green, 1448 protected extents kept, 139/139 fixtures.
+- C++ coverage 104380/253580 = 41.16255%, 618 bodies.
+- Same-offset 167879/1851392 = 9.068% (layout diagnostic only).
+- Candidate SHA256 65137c74a69f1ee97e189c94ec0846ecf5a17c3950910c2f897f1d6d95eb0600.
+- Protected bind SHA256 unchanged (3a19cc20...c59, see below).
+
+### Task 1: the remaining file moves (layout/README.md "Still to merge")
+
+Do these one at a time; one gated build each (tools/build.sh must end with
+"Build, referees and checkpoint regression passed"). Revert any move that
+loses an extent; do not "fix" the gate.
+
+1. 5 r_dxbuffers fns -> r_init.cpp; the other 2 -> r_buffers.cpp.
+2. 2 rb_buffer_upload fns -> rb_shade.cpp.
+3. New r_buffers.cpp (retail file, missing): its fns now in r_bsp_load_obj
+   (3), r_dxbuffers (1), r_xsurface_load_obj (1). Add it to tus.txt in its
+   retail slot.
+4. New r_cmds.cpp (missing): 2 fns now in r_init.
+5. r_dpvs_winding (C, /TC) -> r_dpvs.cpp only if it keeps every extent
+   (C names change to C++ mangling; check bindcheck).
+
+Leave alone (blocked, not tasks): r_model_lod (/Op vs non-/Op r_model) and
+r_lightgrid_weights (moving it costs 9 extents, fabs link-order rule).
+
+For every move: keep the section comment fixtures slice on, repoint the
+fixtures that read the old file (grep tests/ for the old file name), update
+layout/README.md tables and layout/fragments.json, then
+`python3 target/work/tools/file_layout.py target/build/codex_boundsoutside_1016_02`
+and `python3 target/work/tools/evidence.py target/build/codex_boundsoutside_1016_02`.
+Run the full fixture suite once after the build.
+
+### Task 2: new functions, inside the structure
+
+Look the address up in layout/file_layout.tsv; put the body in that retail
+file in address order. No new TUs. Next lead: the static-model load chain
+(about 3 KB): 10003880 (entity loader, two passes, "misc_model") ->
+100031b0 (misc_model) -> 10002e80 / 10002ed0 (float / vec3 spawn-var
+lookups; 10002ed0 has the shape of CoD2rev G_SpawnVector, index starts at 1
+because slot 0 is classname) plus unwritten r_staticmodel_load_obj fns
+1002a570, 1002a6d0, 1002a730, 1002a780, 1002a860. The two leaves take
+register arguments (LTCG custom convention), so they only match together
+with their callers: write the chain caller-first. Decompiles:
+../glm/data/decomp/<addr>_*.c (shape hints only; retail bytes decide).
+Diff helper: `python3 target/build/probe/fdis.py OURADDR RETAILADDR SIZE`.
+
+### Rules that do not change
+
+Game source only: JPEG, CRT, std:: and D3DX are dependencies. Every new body
+cites `// PINNED 1000xxxx` (retail start); unconfirmed names get a
+"descriptive name" comment. No dummy callbacks, filler, _emit, retail byte
+copies, /FORCE links. A file may mix real-D3D and Mac-type code:
+`#include "r_local.h"` first, then `#include "gfx.h"`; regenerate SDK guards
+with tools/sdk_guard.py, never hand-edit them. Comments: one short ASCII //
+line. Never edit compiler inputs while a build or the fixture suite runs.
+Do not commit; the owner commits (explicit paths only, never the whole
+index).
 
 ## Workspace and reading
 
@@ -38,63 +96,19 @@ Do not create another source tree, worktree or build directory. Do not delete
 codex/, foreign tracks, SDKs, original binaries or reference inputs. No broad
 cleanup or rm -rf. Existing drafts need provenance, not deletion by filename.
 
-## The short layout task
-
-Use the existing tree and manifests rather than reorganizing everything.
-
-1. Record the intended source-file groups and which existing TU owns each
-   shared global, table and helper. Reuse layout/README.md. Keep one allocation
-   for ri/rg/rgp/vidConfig, backEnd, tess, scene, dx/dxState and sunFlareState.
-2. Make tus.txt the explicit candidate object order and profile.mk the actual
-   per-TU flags authority. Separate observed order constraints from guesses.
-   Do not sort files mechanically by the earliest shared helper address.
-3. Outline whole-file contributors: real entrypoint/GetRefAPI and tables,
-   .text, constants/strings, initialized/zero-initialized data, SDK/CRT/JPEG
-   library members, imports/exports, relocations and PE/debug metadata. List
-   missing contributors explicitly, with source owner/path where known.
-4. Leave one concise layout checkpoint/next-action list in PROGRESS.md and
-   the existing layout notes. State what is settled, what is a candidate and
-   what remains unknown. Preserve the current verified source. A full source
-   rewrite, speculative compiler sweep or new parser framework is not this task.
-
-Only run a build when changing compiler inputs/order or when verification is
-needed for the layout change. Batch related edits into ONE build/referee/full
-regression pass. Documentation-only classification does not need a rebuild.
-No dummy callback table, marker root, size filler or unresolved /FORCE link.
-
 ## Verified checkpoint to preserve
 
-HEAD at handoff: a019106 (API dependency audit; metadata only).
-Last code commit: e3bce0e (early-post command).
-Earlier code commits:25f681d lines/XYZ writer;356dda5 points;a2eb71b triangles.
-
-Last original build and BOTH unchanged byte/binding referees passed, followed
-by all135 fixtures. Logs:
-
-    target/work/proof/latest/early_post_build.log
-    target/work/proof/latest/early_post_fixtures.log
-    target/work/proof/early_post_checkpoint.json
-
-Protected accepted address/extents:1448, exact set unchanged.
-Authored C/C++104237/253580=41.106159792%,617 bodies on a frozen legacy game
-inventory; NOT whole-file completion.31 assembly-bearing bodies/7787 bytes
-excluded. Latest backend command source:26/33 handlers, not a complete dispatcher.
-Current whole-file same-offset equality:9.138583293%, a layout diagnostic only.
-157 temporary exports, GetRefAPI absent. No GPU/game smoke or retail SHA claim.
-Candidate SHA256: 2cede0c8d63e87127bac11e6aafb04c7f47827e5706e139d46edb3162dd1afaa
-Retail SHA256:4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6.
+Numbers are in "State you start from" above. Older numbers in PROGRESS.md
+and WHOLEFILE.md are history. Build log: target/build/codex_boundsoutside_1016_02/build.log.
 
 Immutable protected bind:
     target/work/proof/image_residency_warm_bind.json
 SHA256:3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59.
 Do not change its hash or weaken tools/check_checkpoint.py/source_coverage.py.
 
-Two generated tracked files are modified after the last build:
-    target/work/layout/current.json
-    target/work/proof/source_coverage_current.json
-These are expected current evidence, not uncommitted source changes. No pending
-source edits from this session. Many unrelated legacy paths were ALREADY staged;
-never commit that entire index. Use explicit paths and git commit --only.
+The structure merges are uncommitted working-tree changes; the owner decides
+when to commit them. Many unrelated legacy paths were ALREADY staged; never
+commit that entire index. Use explicit paths and git commit --only.
 Configured git identity is Nawaf. No Co-Authored-By; never push without "push it".
 
 ## Important existing structural facts
@@ -152,3 +166,11 @@ SDK:../sdk/sum2004. Retail anchor:
 ../cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll.
 Read-only references:../glm,../refrences/cod2-mp-macho,opencod2/KisakCOD.
 Target bytes outrank every reference. Do not assume reference code is PC1.0.
+
+## Codex report (fill in when you stop)
+
+- Moves done (file, functions, build result, extents kept):
+- Moves reverted and why:
+- New bodies (address, name, file, matched bytes):
+- Coverage before/after, same-offset before/after, fixtures count:
+

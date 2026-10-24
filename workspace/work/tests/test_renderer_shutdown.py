@@ -5,9 +5,10 @@ import subprocess
 import tempfile
 import pefile
 import capstone
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-text = (work / 'src/gfx_d3d/r_init.cpp').read_text()
+text = fragment('gfx_d3d/r_init.cpp')
 source = text[text.index('void R_Shutdown(int destroyWindow)'):]
 unregister = text[text.index('// PINNED 10005360:'):text.index('void RB_ClearAllStreamSources();')]
 material = (work / 'src/gfx_d3d/r_material_globals.h').read_text().replace('#pragma once', '')

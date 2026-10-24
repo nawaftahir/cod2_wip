@@ -4,15 +4,16 @@ import subprocess
 import tempfile
 import struct
 import pefile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 assert struct.unpack('<4I',retail.get_data(0x116b0,16)) == (0x1001162e,0x1001167a,0x10011686,0x1001166e)
 assert struct.unpack('<f',retail.get_data(0x19bdc4,4))[0] == 16.0
 assert struct.unpack('<d',retail.get_data(0x19bd80,8))[0] == 1.0/(1<<30)
-monitor = (work / 'src/gfx_d3d/r_monitor.cpp').read_text()
+monitor = fragment('gfx_d3d/r_monitor.cpp')
 monitor = monitor[monitor.index('void R_GetMonitorDimensions('):]
-init = (work / 'src/gfx_d3d/r_init.cpp').read_text()
+init = fragment('gfx_d3d/r_init.cpp')
 video = init[init.index('void R_StoreWindowSettings('):init.index('// r_material.cpp keeps')]
 program = r'''
 #include <cassert>

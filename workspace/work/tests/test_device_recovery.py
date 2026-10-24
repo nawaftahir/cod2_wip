@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-text = (work / 'src/gfx_d3d/r_device.cpp').read_text()
+text = fragment('gfx_d3d/r_device.cpp')
 source = text[text.index('// Role name; PINNED 10013690:'):]
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
 types = local[local.index('struct GfxRenderTarget\n'):local.index('extern DxGlobals dx;')]

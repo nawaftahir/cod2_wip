@@ -8,8 +8,8 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 source = (work / 'src/gfx_d3d/rb_shade.cpp').read_text()
-source = source[source.index('// PINNED 10037930'):]
-source = source[:source.index('extern r_backEndGlobals_t backEnd;')]
+source = (source[source.index('// PINNED 10037930'):source.index('// PINNED 100388f0')]
+    + source[source.index('// PINNED 1003a5f0'):])
 header = (work / 'src/gfx_d3d/rb_tess.h').read_text()
 header = header[header.index('struct Material;'):header.index('#ifdef _MSC_VER')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
@@ -34,7 +34,7 @@ program = r'''
 #include <climits>
 ''' + header + r'''
 GfxTess tess, before;
-struct Material {struct {const char *name;} info;};
+struct Material {const char *name;};
 struct dvar_t {struct {int integer;} current;} logDvar;
 const dvar_t *r_logFile=&logDvar;
 int logCalls,vaCalls;
@@ -52,7 +52,7 @@ int main() {
     static_assert(sizeof(GfxTess)==0x5a7ec,"PC complete tess extent");
     static_assert(offsetof(GfxTess,optimizedIndexCount)==0x5a7e0,"optimized count");
     static_assert(offsetof(GfxTess,firstOptimizedVertex)==0x5a7e8,"last member");
-    Material materials[]={{{"first"}},{{"second"}}};
+    Material materials[]={{"first"},{"second"}};
     int fills[]={0,0x5a,0xff},logs[]={-1,0,1,2},lmaps[]={INT_MIN,-1,0,31,INT_MAX};
     int cases=0;
     for(int fill:fills)for(int log:logs)for(int type=0;type<35;++type)for(auto &material:materials)for(int lmap:lmaps) {
@@ -65,7 +65,7 @@ int main() {
         RB_BeginSurface(&material,type,lmap);
         assert(!memcmp(&tess,&expected,sizeof(tess)));
         assert(logCalls==(log!=0)&&vaCalls==(log!=0));
-        if(log) {char expectedMessage[1024];snprintf(expectedMessage,sizeof(expectedMessage),"---------- RB_BeginSurface( %s, %s )\n",material.info.name,expectedNames[type]);assert(!strcmp(message,expectedMessage));}
+        if(log) {char expectedMessage[1024];snprintf(expectedMessage,sizeof(expectedMessage),"---------- RB_BeginSurface( %s, %s )\n",material.name,expectedNames[type]);assert(!strcmp(message,expectedMessage));}
         ++cases;
     }
     printf("PASS: %d actual surface begins,35 retail names, logging-before-reset, complete shared extent and untouched optimized counts/material time\n",cases);

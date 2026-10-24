@@ -4,8 +4,11 @@ import subprocess
 import tempfile
 
 work = Path(__file__).resolve().parents[1]
-text = (work / 'src/gfx_d3d/r_material_shader.cpp').read_text()
-source = text[text.index('extern "C" HRESULT __stdcall IncludeClass_Close('):]
+text = (work / 'src/gfx_d3d/r_material_load_obj.cpp').read_text()
+close = text.index('extern "C" HRESULT __stdcall IncludeClass_Close(')
+create = text.index('// PINNED 1001a4c0:')
+source = (text[close:text.index('\n\n', text.index('struct ShaderInclude\n', close))]
+    + '\n' + text[create:text.index('MaterialShader *Material_LoadPassShader(', create)])
 header = (work / 'src/gfx_d3d/r_material_shader.h').read_text().replace('#pragma once', '')
 program = r'''
 #include <cassert>

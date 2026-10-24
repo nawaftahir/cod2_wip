@@ -1,0 +1,117 @@
+{
+ "gfx_d3d/rb_light_grid.cpp": {
+  "host": "gfx_d3d/rb_light.cpp",
+  "start": null,
+  "next": "// PINNED Win 1.0 light fitting helpers 10036720--1003766b."
+ },
+ "gfx_d3d/rb_light_derive.cpp": {
+  "host": "gfx_d3d/rb_light.cpp",
+  "start": "// PINNED Win 1.0 light fitting helpers 10036720--1003766b.",
+  "next": null
+ },
+ "gfx_d3d/rb_state.cpp": {
+  "host": "gfx_d3d/rb_state.cpp",
+  "start": null,
+  "next": "// Viewport calculation."
+ },
+ "gfx_d3d/rb_viewport.cpp": {
+  "host": "gfx_d3d/rb_state.cpp",
+  "start": "// Viewport calculation.",
+  "next": null
+ },
+ "gfx_d3d/r_dpvs.cpp": {
+  "host": "gfx_d3d/r_dpvs.cpp",
+  "start": null,
+  "next": "// Portal clip planes; PC 1.0 addresses pinned from the renderer anchor."
+ },
+ "gfx_d3d/r_dpvs_clipplanes.cpp": {
+  "host": "gfx_d3d/r_dpvs.cpp",
+  "start": "// Portal clip planes; PC 1.0 addresses pinned from the renderer anchor.",
+  "next": "// PINNED Win 1.0 occluder setup: 10005d70 and 100079d0--10007d4f."
+ },
+ "gfx_d3d/r_dpvs_occluders.cpp": {
+  "host": "gfx_d3d/r_dpvs.cpp",
+  "start": "// PINNED Win 1.0 occluder setup: 10005d70 and 100079d0--10007d4f.",
+  "next": null
+ },
+ "universal/com_rotate.cpp": {
+  "host": "universal/com_math.cpp",
+  "start": null,
+  "next": null
+ },
+ "universal/com_math.cpp": {
+  "host": "universal/com_math.cpp",
+  "start": null,
+  "next": null
+ },
+ "universal/axis_transform.cpp": {
+  "host": "universal/com_math.cpp",
+  "start": null,
+  "next": null
+ },
+ "gfx_d3d/rb_shade.cpp": {
+  "host": "gfx_d3d/rb_shade.cpp",
+  "start": null,
+  "next": null
+ },
+ "gfx_d3d/r_model.cpp": {
+  "host": "gfx_d3d/r_model.cpp",
+  "start": null,
+  "next": "// PC 1.0 model bounds/debug cohort, 1001d9f0--100201a3."
+ },
+ "gfx_d3d/r_model_bounds.cpp": {
+  "host": "gfx_d3d/r_model.cpp",
+  "start": "// PC 1.0 model bounds/debug cohort, 1001d9f0--100201a3.",
+  "next": "// PINNED PC rigid vertex transforms, 1001e260/1001e3a0/1001ed70/1001ee00."
+ },
+ "gfx_d3d/r_skin_rigid.cpp": {
+  "host": "gfx_d3d/r_model.cpp",
+  "start": "// PINNED PC rigid vertex transforms, 1001e260/1001e3a0/1001ed70/1001ee00.",
+  "next": null
+ },
+ "gfx_d3d/r_fatal_init.cpp": {
+  "host": "gfx_d3d/r_init.cpp",
+  "start": "// Fatal initialization errors.",
+  "next": "// Direct3D presentation setup and device creation."
+ },
+ "gfx_d3d/r_device.cpp": {
+  "host": "gfx_d3d/r_init.cpp",
+  "start": "// Direct3D presentation setup and device creation.",
+  "next": "// PINNED PC 1.0 capability query, renderer selection, and capability storage."
+ },
+ "gfx_d3d/r_caps_device.cpp": {
+  "host": "gfx_d3d/r_init.cpp",
+  "start": "// PINNED PC 1.0 capability query, renderer selection, and capability storage.",
+  "next": "// Monitor selection."
+ },
+ "gfx_d3d/r_monitor.cpp": {
+  "host": "gfx_d3d/r_init.cpp",
+  "start": "// Monitor selection.",
+  "next": "// Game window creation."
+ },
+ "gfx_d3d/r_window.cpp": {
+  "host": "gfx_d3d/r_init.cpp",
+  "start": "// Game window creation.",
+  "next": "// Renderer initialization."
+ },
+ "gfx_d3d/r_init.cpp": {
+  "host": "gfx_d3d/r_init.cpp",
+  "start": "// Renderer initialization.",
+  "next": "// PINNED PC 1.0 10012320/10012360/100123a0/100123d0/10012820."
+ },
+ "gfx_d3d/r_display_modes.cpp": {
+  "host": "gfx_d3d/r_init.cpp",
+  "start": "// PINNED PC 1.0 10012320/10012360/100123a0/100123d0/10012820.",
+  "next": null
+ },
+ "gfx_d3d/r_screenshot.cpp": {
+  "host": "gfx_d3d/r_screenshot.cpp",
+  "start": "// r_screenshot.cpp - cubemap shots and screenshots.",
+  "next": "// Console screenshot and level shot capture."
+ },
+ "gfx_d3d/r_screenshot_capture.cpp": {
+  "host": "gfx_d3d/r_screenshot.cpp",
+  "start": "// Console screenshot and level shot capture.",
+  "next": null
+ }
+}

@@ -2,12 +2,13 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 packet = Path(__file__).resolve().parent.parent / 'src'
 model = (packet / 'gfx_d3d/r_model.cpp').read_text()
 model = model[model.index('void R_ConvertAnimMatToSkelMat('):model.index('static void *Hunk_AllocXModelPrecache(')]
 transform = (packet / 'gfx_d3d/r_skin_transform.cpp').read_text().replace('#include "gfx.h"', '')
-skin = (packet / 'gfx_d3d/r_skin_rigid.cpp').read_text().replace('#include "gfx.h"', '')
+skin = fragment('gfx_d3d/r_skin_rigid.cpp')
 xsurface = (packet / 'gfx_d3d/r_xsurface.cpp').read_text()
 xsurface = xsurface[xsurface.index('static inline __attribute__((always_inline)) void XSurfaceRotateNormal'):]
 program = r'''

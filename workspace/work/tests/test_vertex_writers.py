@@ -4,7 +4,7 @@ import subprocess
 import tempfile
 
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/rb_backend.cpp').read_text()
-source = text[text.index('void RB_SetVertex2D('):text.index('// name unconfirmed: write a lit +Z-facing')]
+source = text[text.index('void RB_SetVertex2D(', text.index('// PINNED 1002e470:')):text.index('// name unconfirmed: write a lit +Z-facing')]
 program = r'''
 #include <cassert>
 #include <cstring>

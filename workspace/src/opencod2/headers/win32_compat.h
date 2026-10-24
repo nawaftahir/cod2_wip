@@ -10,7 +10,9 @@
 #define mkdir(path, mode) _mkdir(path)
 #endif
 
+#ifndef COD2_SDK_TYPES
 static __inline int pthread_main_np(void) { return 1; }
+#endif
 
 #endif
 #endif

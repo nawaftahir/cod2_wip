@@ -35,7 +35,7 @@ void R_CreateDynamicBuffers()
     R_CreateDynamicVertexBuffer(&dx.dynamicVertexBufferPool[0],
         (r_rendererInUse->current.integer == 2 ? 36 : 64) * 32768);
     dx.dynamicVertexBuffer = &dx.dynamicVertexBufferPool[0];
-    for (int index = 0; index < 2; ++index)
+    for (int index = 0; index != 2; ++index)
         R_CreateDynamicVertexBuffer(&dx.skinnedCacheVbPool[index],
             (r_rendererInUse->current.integer == 2 ? 36 : 64) * 131072);
     R_CreateDynamicIndexBuffer(&dx.dynamicIndexBufferPool[0], 2097152);

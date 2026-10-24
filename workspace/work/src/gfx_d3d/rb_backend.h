@@ -4,6 +4,8 @@
 #include <stddef.h>
 #include "r_scene_records.h"
 
+struct GfxEntityLighting;
+
 // Mac type; PINNED PC gamma builders consume exactly256 ushort entries.
 struct GfxGammaRamp
 {
@@ -74,8 +76,8 @@ struct r_backEndGlobals_t
 	int tileCount;
 	int width;
 	int height;
-	void *currentEntity;
-	void *currentEntityLighting;
+	GfxEntity *currentEntity;
+	GfxEntityLighting *currentEntityLighting;
 	int worldEntityReType;	// GfxEntity worldEntity; only its leading reType is modelled
 	char worldEntityRest[0x70];
 	Bool viewportIsDirty;

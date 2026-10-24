@@ -2,6 +2,7 @@
 #include "r_local.h"
 #include "rb_backend.h"
 #include "rb_tess.h"
+#include "r_sun_state.h"
 #include "universal/com_math.h"
 
 union GfxColor
@@ -30,6 +31,47 @@ struct GfxVertexDx7
 
 GfxTess tess;
 
+// Sun sprite query calibration.
+void RB_ClearScreen(byte which, const float *color, float depth, byte stencil);
+void RB_EndSurface();
+void RB_DrawStretchPic(const Material *material, float x, float y, float width, float height,
+    float s0, float t0, float s1, float t1, unsigned int color);
+
+// PINNED 101d1b38: a read-only view of the existing rgp allocation.
+struct TwoDPermanentView
+{
+    byte beforeWhiteMaterial[0x1038];
+    const Material *whiteMaterial;
+};
+struct r_global_permanent_t;
+extern r_global_permanent_t rgp;
+typedef char twoDPermanentLayoutCheck[(offsetof(TwoDPermanentView, whiteMaterial) == 0x1038) ? 1 : -1];
+
+// PINNED 1003a9d0: calibration of the sun sprite query, not a CPU benchmark.
+int RB_CalcSunSpriteSamples()
+{
+    IDirect3DQuery9 *occlusionQuery = sunFlareState[0].sunQuery[0];
+    if (!occlusionQuery)
+        return 0;
+    R_DX_CALL(dx.device->BeginScene());
+    RB_ClearScreen(2, colorWhite, 1.0f, 0);
+    R_DX_CALL(occlusionQuery->Issue( (1 << 1) ));
+    RB_DrawStretchPic(((const TwoDPermanentView *)&rgp)->whiteMaterial,
+        0.0f, 0.0f, 16.0f, 16.0f, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
+    RB_EndSurface();
+    R_DX_CALL(occlusionQuery->Issue( (1 << 0) ));
+    R_DX_CALL(dx.device->EndScene());
+    DWORD sampleCount;
+    HRESULT result = occlusionQuery->GetData(&sampleCount, sizeof(sampleCount), 1);
+    while (result == S_FALSE)
+    {
+        Sleep(0);
+        result = occlusionQuery->GetData(&sampleCount, sizeof(sampleCount), 1);
+    }
+    return result == S_OK ? sampleCount : 256;
+}
+
+// Sun fade and quads.
 // name unconfirmed
 float RB_FadeToGoal(float current, float goal, int fadeInTime, int fadeOutTime, int frameTime)
 {

@@ -31,9 +31,13 @@
     typedef char COD2_ASSERT_CAT(cod2_size_assert_, __LINE__)[(sizeof(T) == (size)) ? 1 : -1]
 #endif
 
+#ifndef COD2_SDK_TYPES
 typedef int BOOL;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef unsigned char byte;
+#endif
 
 typedef unsigned short word;
 typedef unsigned int dword;
@@ -124,6 +128,7 @@ enum CubemapShot {
     CUBEMAPSHOT_COUNT = 7
 };
 
+#ifndef COD2_SDK_TYPES
 enum D3DDEVTYPE {
     D3DDEVTYPE_HAL = 1,
     D3DDEVTYPE_REF = 2,
@@ -131,7 +136,9 @@ enum D3DDEVTYPE {
     D3DDEVTYPE_NULLREF = 4,
     D3DDEVTYPE_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum D3DFOGMODE {
     D3DFOG_NONE = 0,
     D3DFOG_EXP = 1,
@@ -139,7 +146,9 @@ enum D3DFOGMODE {
     D3DFOG_LINEAR = 3,
     D3DFOG_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum D3DMULTISAMPLE_TYPE {
     D3DMULTISAMPLE_NONE = 0,
     D3DMULTISAMPLE_NONMASKABLE = 1,
@@ -160,7 +169,9 @@ enum D3DMULTISAMPLE_TYPE {
     D3DMULTISAMPLE_16_SAMPLES = 16,
     D3DMULTISAMPLE_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum D3DRENDERSTATETYPE {
     D3DRS_ZENABLE = 7,
     D3DRS_FILLMODE = 8,
@@ -267,7 +278,9 @@ enum D3DRENDERSTATETYPE {
     D3DRS_BLENDOPALPHA = 209,
     D3DRS_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum D3DTEXTURESTAGESTATETYPE {
     D3DTSS_COLOROP = 1,
     D3DTSS_COLORARG1 = 2,
@@ -289,7 +302,9 @@ enum D3DTEXTURESTAGESTATETYPE {
     D3DTSS_CONSTANT = 32,
     D3DTSS_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum D3DXIMAGE_FILEFORMAT {
     D3DXIFF_BMP = 0,
     D3DXIFF_JPG = 1,
@@ -302,7 +317,9 @@ enum D3DXIMAGE_FILEFORMAT {
     D3DXIFF_PFM = 8,
     D3DXIFF_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum D3DXPARAMETER_CLASS {
     D3DXPC_SCALAR = 0,
     D3DXPC_VECTOR = 1,
@@ -312,7 +329,9 @@ enum D3DXPARAMETER_CLASS {
     D3DXPC_STRUCT = 5,
     D3DXPC_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum D3DXPARAMETER_TYPE {
     D3DXPT_VOID = 0,
     D3DXPT_BOOL = 1,
@@ -335,7 +354,9 @@ enum D3DXPARAMETER_TYPE {
     D3DXPT_VERTEXFRAGMENT = 18,
     D3DXPT_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum D3DXREGISTER_SET {
     D3DXRS_BOOL = 0,
     D3DXRS_INT4 = 1,
@@ -343,6 +364,7 @@ enum D3DXREGISTER_SET {
     D3DXRS_SAMPLER = 3,
     D3DXRS_FORCE_DWORD = 2147483647
 };
+#endif
 
 enum DemoType {
     DEMO_TYPE_NONE = 0,
@@ -407,6 +429,7 @@ enum GfxLightType {
     GFX_LIGHT_TYPE_COUNT = 3
 };
 
+#ifndef COD2_SDK_TYPES
 enum GfxRenderTargetId {
     R_RENDERTARGET_FRAME_BUFFER = 0,
     R_RENDERTARGET_RESOLVED_POST_SUN = 1,
@@ -424,11 +447,14 @@ enum GfxRenderTargetId {
     R_RENDERTARGET_COUNT = 13,
     R_RENDERTARGET_NONE = 14
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum GfxViewportBehavior {
     GFX_USE_VIEWPORT_FOR_VIEW = 0,
     GFX_USE_VIEWPORT_FULL = 1
 };
+#endif
 
 enum JPEG_MARKER {
     M_SOF0 = 192,
@@ -646,8 +672,11 @@ typedef enum CGLError _CGLError;
 
 typedef enum CGLPixelFormatAttribute _CGLPixelFormatAttribute;
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DFOGMODE _D3DFOGMODE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum _D3DFORMAT {
     D3DFMT_UNKNOWN = 0,
     D3DFMT_R8G8B8 = 20,
@@ -711,7 +740,9 @@ enum _D3DFORMAT {
     D3DFMT_CxV8U8 = 117,
     D3DFMT_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum _D3DRESOURCETYPE {
     D3DRTYPE_SURFACE = 1,
     D3DRTYPE_VOLUME = 2,
@@ -722,18 +753,31 @@ enum _D3DRESOURCETYPE {
     D3DRTYPE_INDEXBUFFER = 7,
     D3DRTYPE_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DSTATEBLOCKTYPE _D3DSTATEBLOCKTYPE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXIMAGE_FILEFORMAT _D3DXIMAGE_FILEFORMAT;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXINCLUDE_TYPE _D3DXINCLUDE_TYPE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXPARAMETER_CLASS _D3DXPARAMETER_CLASS;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXPARAMETER_TYPE _D3DXPARAMETER_TYPE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXREGISTER_SET _D3DXREGISTER_SET;
+#endif
 
 typedef enum J_DITHER_MODE __darwin_suseconds_t;
 
@@ -776,6 +820,7 @@ enum connstate_t {
     CA_ACTIVE = 8
 };
 
+#ifndef COD2_SDK_TYPES
 enum e_status {
     FMV_IDLE = 0,
     FMV_PLAY = 1,
@@ -785,6 +830,7 @@ enum e_status {
     FMV_LOOPED = 5,
     FMV_ID_WAIT = 6
 };
+#endif
 
 enum fieldtype_t {
     F_INT = 0,
@@ -798,12 +844,14 @@ enum fieldtype_t {
     F_MODEL = 8
 };
 
+#ifndef COD2_SDK_TYPES
 enum fsMode_t {
     FS_READ = 0,
     FS_WRITE = 1,
     FS_APPEND = 2,
     FS_APPEND_SYNC = 3
 };
+#endif
 
 enum he_type_t {
     HE_TYPE_FREE = 0,
@@ -1150,7 +1198,9 @@ typedef int Pointer;
 typedef int RawFile;
 typedef int SndDriverGlobals;
 typedef int TrackType;
+#ifndef COD2_SDK_TYPES
 typedef int UINT;
+#endif
 typedef int _11;
 typedef int _12;
 typedef int _13;
@@ -1197,7 +1247,9 @@ typedef int blens;
 typedef int bool;
 #endif
 
+#ifndef COD2_SDK_TYPES
 typedef int boolean;
+#endif
 typedef int bound;
 typedef int brushmodel;
 
@@ -1218,7 +1270,9 @@ typedef int channels;
 typedef int channelvolume;
 typedef int check;
 typedef int classnum;
+#ifndef COD2_SDK_TYPES
 typedef int code;
+#endif
 typedef int codes;
 
 typedef int colorForDir;
@@ -1506,12 +1560,22 @@ typedef struct ConversionArguments ConversionArguments;
 typedef struct CopyParam CopyParam;
 typedef struct Cursor Cursor;
 
+#ifndef COD2_SDK_TYPES
 typedef struct D3DDISPLAYMODE D3DDISPLAYMODE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef struct D3DXFLOAT16 D3DXFLOAT16;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct D3DXMATRIX D3DXMATRIX;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct D3DXVECTOR3 D3DXVECTOR3;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct D3DXVECTOR4 D3DXVECTOR4;
+#endif
 
 typedef struct DInfo DInfo;
 
@@ -1763,28 +1827,66 @@ typedef struct HVolumeParam HVolumeParam;
 typedef struct HWND__ HWND__;
 
 typedef struct HashEntry HashEntry;
+#ifndef COD2_SDK_TYPES
 typedef struct ID3DXBuffer ID3DXBuffer;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct ID3DXConstantTable ID3DXConstantTable;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct ID3DXFont ID3DXFont;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct ID3DXInclude ID3DXInclude;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct ID3DXSprite ID3DXSprite;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3D9 IDirect3D9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DBaseTexture9 IDirect3DBaseTexture9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DCubeTexture9 IDirect3DCubeTexture9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DDevice9 IDirect3DDevice9;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DIndexBuffer9 IDirect3DIndexBuffer9;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DPixelShader9 IDirect3DPixelShader9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DQuery9 IDirect3DQuery9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DSurface9 IDirect3DSurface9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DSwapChain9 IDirect3DSwapChain9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DTexture9 IDirect3DTexture9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef union IDirect3DVertexBuffer9 IDirect3DVertexBuffer9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DVertexDeclaration9 IDirect3DVertexDeclaration9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DVertexShader9 IDirect3DVertexShader9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DVolumeTexture9 IDirect3DVolumeTexture9;
+#endif
 
 typedef struct ITab ITab;
 
@@ -1797,7 +1899,9 @@ typedef struct JHUFF_TBL JHUFF_TBL;
 typedef struct JQUANT_TBL JQUANT_TBL;
 typedef struct KeyStruct KeyStruct;
 
+#ifndef COD2_SDK_TYPES
 typedef struct LARGE_INTEGER LARGE_INTEGER;
+#endif
 
 typedef struct LargeLocal LargeLocal;
 typedef struct LegacyHacks LegacyHacks;
@@ -1886,7 +1990,9 @@ typedef struct ProcessInfoRec ProcessInfoRec;
 typedef struct ProcessSerialNumber ProcessSerialNumber;
 
 typedef struct QElem QElem;
+#ifndef COD2_SDK_TYPES
 typedef struct RTL_CRITICAL_SECTION RTL_CRITICAL_SECTION;
+#endif
 typedef struct RefString RefString;
 typedef struct RemoveDirectoryInfo RemoveDirectoryInfo;
 typedef struct SBDecState SBDecState;
@@ -2625,31 +2731,75 @@ typedef enum CGLPixelFormatAttribute CGLPixelFormatAttribute;
 
 typedef enum CubemapShot CubemapShot;
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DBACKBUFFER_TYPE D3DBACKBUFFER_TYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DBASISTYPE D3DBASISTYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DDEGREETYPE D3DDEGREETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DDEVTYPE D3DDEVTYPE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DFOGMODE D3DFOGMODE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DLIGHTTYPE D3DLIGHTTYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DMULTISAMPLE_TYPE D3DMULTISAMPLE_TYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DPOOL D3DPOOL;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DPRIMITIVETYPE D3DPRIMITIVETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DQUERYTYPE D3DQUERYTYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DRENDERSTATETYPE D3DRENDERSTATETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DSAMPLERSTATETYPE D3DSAMPLERSTATETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DSTATEBLOCKTYPE D3DSTATEBLOCKTYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DSWAPEFFECT D3DSWAPEFFECT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DTEXTURESTAGESTATETYPE D3DTEXTURESTAGESTATETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DTEXTURETRANSFORMFLAGS D3DTEXTURETRANSFORMFLAGS;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DTRANSFORMSTATETYPE D3DTRANSFORMSTATETYPE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXIMAGE_FILEFORMAT D3DXIMAGE_FILEFORMAT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXINCLUDE_TYPE D3DXINCLUDE_TYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXPARAMETER_CLASS D3DXPARAMETER_CLASS;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXPARAMETER_TYPE D3DXPARAMETER_TYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DXREGISTER_SET D3DXREGISTER_SET;
+#endif
 
 typedef enum DemoType DemoType;
 typedef enum DpvsClipChildren DpvsClipChildren;
@@ -2775,49 +2925,107 @@ typedef enum weapType_t weapType_t;
 typedef struct _ADPCMDATATAG ADPCMDATA;
 typedef struct _AILMIXINFO AILMIXINFO;
 typedef struct _AILSOUNDINFO AILSOUNDINFO;
+#ifndef COD2_SDK_TYPES
 typedef struct tagBITMAPFILEHEADER BITMAPFILEHEADER;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct tagBITMAPINFO BITMAPINFO;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct tagBITMAPINFOHEADER BITMAPINFOHEADER;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DCAPS9 D3DCAPS9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DCOLORVALUE D3DCOLORVALUE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DMATRIX D3DMATRIX;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DPSHADERCAPS2_0 D3DPSHADERCAPS2_0;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DRECT D3DRECT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DVECTOR D3DVECTOR;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DVIEWPORT9 D3DVIEWPORT9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DVSHADERCAPS2_0 D3DVSHADERCAPS2_0;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DXCONSTANTTABLE_DESC D3DXCONSTANTTABLE_DESC;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DXCONSTANT_DESC D3DXCONSTANT_DESC;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DXFONT_DESCA D3DXFONT_DESCA;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DXFONT_DESCW D3DXFONT_DESCW;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DXIMAGE_INFO D3DXIMAGE_INFO;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DXMACRO D3DXMACRO;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DXSHADER_CONSTANTTABLE D3DXSHADER_CONSTANTTABLE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DXSHADER_TYPEINFO D3DXSHADER_TYPEINFO;
+#endif
 
 typedef struct _DDCOLORKEY DDCOLORKEY;
 typedef struct _DDPIXELFORMAT DDPIXELFORMAT;
 typedef struct _DDSCAPS2 DDSCAPS2;
 typedef struct _DDSURFACEDESC2 DDSURFACEDESC2;
+#ifndef COD2_SDK_TYPES
 typedef struct DObjAnimMat_s DObjAnimMat;
+#endif
 typedef struct DObjSkelMat_s DObjSkelMat;
+#ifndef COD2_SDK_TYPES
 typedef struct _FILETIME FILETIME;
+#endif
 
 typedef struct Font_s Font;
 
+#ifndef COD2_SDK_TYPES
 typedef struct _GUID GUID;
+#endif
 typedef struct MaterialConstantDefObj MaterialConstantDef;
 typedef struct MaterialInfoObj_s MaterialInfoObj;
+#ifndef COD2_SDK_TYPES
 typedef struct tagRECT RECT;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef struct tagRGBQUAD RGBQUAD;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _RGNDATAHEADER RGNDATAHEADER;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef struct _SYSTEMTIME SYSTEMTIME;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct tagTEXTMETRICA TEXTMETRICA;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct tagTEXTMETRICW TEXTMETRICW;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef union _ULARGE_INTEGER ULARGE_INTEGER;
+#endif
 
 typedef struct VariableValue_s VariableValue;
 
@@ -2825,13 +3033,17 @@ typedef struct WSAData WSADATA;
 
 typedef struct XBlendInfo_s XBlendInfo;
 
+#ifndef COD2_SDK_TYPES
 typedef struct XBoneInfo_s XBoneInfo;
+#endif
 typedef struct XModelCollSurf_s XModelCollSurf;
 typedef struct XModelCollTri_s XModelCollTri;
 typedef struct XModelParts_s XModelParts;
 typedef struct XModelSurfs_s XModelSurfs;
 
+#ifndef COD2_SDK_TYPES
 typedef struct XSurface_s XSurface;
+#endif
 typedef struct XVertexInfo_s XVertexInfo;
 
 typedef struct CResInfo _ValueType;
@@ -2944,11 +3156,15 @@ typedef OpaqueAudioConverter * AudioConverterRef;
 
 typedef void (*BG_RegisterWeapon)();
 
+#ifndef COD2_SDK_TYPES
 typedef unsigned char BYTE;
+#endif
 
 typedef short int Bits16[16];
 
+#ifndef COD2_SDK_TYPES
 typedef unsigned char Bool;
+#endif
 
 typedef unsigned char Boolean;
 
@@ -2976,7 +3192,9 @@ typedef _CGLContextObject * CGLContextObj;
 typedef _CGLPixelFormatObject * CGLPixelFormatObj;
 typedef _CGLRendererInfoObject * CGLRendererInfoObj;
 typedef uint32_t CGOpenGLDisplayMask;
+#ifndef COD2_SDK_TYPES
 typedef char CHAR;
+#endif
 typedef void (*CInfoPBPtr)();
 typedef CProcRec * CProcPtr;
 typedef ColorTable * CTabPtr;
@@ -2990,14 +3208,22 @@ typedef inflate_blocks_statef (*ControlEditTextValidationProcPtr)();
 typedef OpaqueControlRef * ControlRef;
 typedef inflate_blocks_statef (*ControlUserPaneDrawProcPtr)();
 typedef Cursor * CursPtr;
+#ifndef COD2_SDK_TYPES
 typedef _D3DFORMAT D3DFORMAT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _D3DRESOURCETYPE D3DRESOURCETYPE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef _D3DXSHADER_CONSTANTINFO D3DXSHADER_CONSTANTINFO;
+#endif
 
 typedef int DCTELEM;
 
+#ifndef COD2_SDK_TYPES
 typedef long unsigned int DWORD;
+#endif
 typedef OpaqueDialogPtr * DialogPtr;
 
 typedef __EventLoopTimer * EventLoopTimerRef;
@@ -3005,7 +3231,9 @@ typedef byte EventParm;
 
 typedef OpaqueEventTargetRef * EventTargetRef;
 typedef double EventTime;
+#ifndef COD2_SDK_TYPES
 typedef float FLOAT;
+#endif
 typedef float FLOAT_MULT_TYPE;
 
 typedef void (*FSSpecPtr)();
@@ -3038,27 +3266,41 @@ typedef OpaqueGrafPtr * GrafPtr;
 typedef short unsigned int GridSamplePoint[3];
 typedef void * H3DPOBJECT;
 
+#ifndef COD2_SDK_TYPES
 typedef jpeg_alloc * HANDLE;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef HCURSOR__ * HCURSOR;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef HINSTANCE__ * HINSTANCE;
+#endif
 
 typedef long unsigned int HPROENUM;
 typedef long unsigned int HPROVIDER;
 typedef _SAMPLE * HSAMPLE;
 typedef _STREAM * HSTREAM;
 
+#ifndef COD2_SDK_TYPES
 typedef HWND__ * HWND;
+#endif
 
 typedef short unsigned int HashIndex;
 typedef OpaqueIBNibRef * IBNibRef;
 typedef int IFAST_MULT_TYPE;
 
+#ifndef COD2_SDK_TYPES
 typedef int INT;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef short int INT16;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef int INT32;
+#endif
 
 typedef unsigned char (*IOCompletionProcPtr)();
 typedef int ISLOW_MULT_TYPE;
@@ -3073,35 +3315,85 @@ typedef boolean (*JSAMPARRAY)();
 typedef unsigned char JSAMPLE;
 typedef int LOCFSERROR;
 
+#ifndef COD2_SDK_TYPES
 typedef long int LONG;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef long long int LONGLONG;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef long int LONG_PTR;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef BOOL * LPBOOL;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef const jpeg_alloc * LPCVOID;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef ID3DXBuffer * LPD3DXBUFFER;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef ID3DXConstantTable * LPD3DXCONSTANTTABLE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef ID3DXFont * LPD3DXFONT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef ID3DXInclude * LPD3DXINCLUDE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _D3DXSHADER_CONSTANTINFO * LPD3DXSHADER_CONSTANTINFO;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _D3DXSHADER_TYPEINFO * LPD3DXSHADER_TYPEINFO;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef ID3DXSprite * LPD3DXSPRITE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef IDirect3DDevice9 * LPDIRECT3DDEVICE9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef IDirect3DSurface9 * LPDIRECT3DSURFACE9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _FILETIME * LPFILETIME;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef long int * LPLONG;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _MEMORYSTATUS * LPMEMORYSTATUS;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _OSVERSIONINFOA * LPOSVERSIONINFOA;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _OVERLAPPED * LPOVERLAPPED;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef tagPOINT * LPPOINT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef tagRECT * LPRECT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _SECURITY_ATTRIBUTES * LPSECURITY_ATTRIBUTES;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _SYSTEMTIME * LPSYSTEMTIME;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef jpeg_alloc * LPVOID;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef _WIN32_FIND_DATAA * LPWIN32_FIND_DATAA;
+#endif
 typedef WSADATA * LPWSADATA;
 
 typedef long int M3DRESULT;
@@ -3123,18 +3415,28 @@ typedef int (*ODITHER_MATRIX_PTR)[16];
 
 typedef long unsigned int OSAID;
 
+#ifndef COD2_SDK_TYPES
 typedef _MEMORY_BASIC_INFORMATION * PMEMORY_BASIC_INFORMATION;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef RTL_CRITICAL_SECTION * PRTL_CRITICAL_SECTION;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef unsigned int * PUINT32;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef jpeg_alloc * PVOID;
+#endif
 typedef PixMap * PixMapPtr;
 
 typedef char * Ptr;
 
 typedef QElem * QElemPtr;
 typedef OpaqueRgnHandle * RgnHandle;
+#ifndef COD2_SDK_TYPES
 typedef short int SHORT;
+#endif
 
 typedef short int SInt16;
 typedef long int SInt32;
@@ -3167,14 +3469,22 @@ typedef byte TextureSemantic;
 
 typedef TrackType * * Track;
 
+#ifndef COD2_SDK_TYPES
 typedef short unsigned int UINT16;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef unsigned int UINT32;
+#endif
 
 typedef long unsigned int UINT4;
 
+#ifndef COD2_SDK_TYPES
 typedef unsigned char UINT8;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef unsigned int UINT_PTR;
+#endif
 
 typedef short unsigned int UInt16;
 typedef long unsigned int UInt32;
@@ -3183,12 +3493,20 @@ typedef long long unsigned int UInt64;
 
 typedef unsigned char UInt8;
 
+#ifndef COD2_SDK_TYPES
 typedef long long unsigned int ULONGLONG;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef long unsigned int ULONG_PTR;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef wchar_t WCHAR;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef short unsigned int WORD;
+#endif
 
 typedef OpaqueWindowPtr * WindowPtr;
 
@@ -3240,7 +3558,9 @@ typedef int (*encode_func)();
 typedef int (*encoder_ctl_func)();
 typedef void (*encoder_destroy_func)();
 typedef void * (*encoder_init_func)();
+#ifndef COD2_SDK_TYPES
 typedef int fileHandle_t;
+#endif
 
 typedef float float16;
 
@@ -3342,11 +3662,15 @@ typedef unsigned int u_int32_t;
 typedef long unsigned int u_long;
 typedef void (*upsample1_ptr)();
 
+#ifndef COD2_SDK_TYPES
 typedef float vec_t;
+#endif
 
 typedef unsigned char * voidp;
 typedef unsigned char * voidpf;
+#ifndef COD2_SDK_TYPES
 typedef void (*xcommand_t)();
+#endif
 typedef unsigned int yy_size_t;
 
 typedef z_stream * z_streamp;
@@ -3363,8 +3687,12 @@ typedef Boolean (*MacBuilderProcPtr)();
 typedef Boolean (*string)();
 typedef CFTypeRef CFPropertyListRef;
 
+#ifndef COD2_SDK_TYPES
 typedef const CHAR * LPCSTR;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef CHAR * LPSTR;
+#endif
 
 typedef CProcPtr * CProcHndl;
 typedef CTabPtr * CTabHandle;
@@ -3380,15 +3708,25 @@ typedef ControlRef HIViewRef;
 typedef ControlUserPaneDrawProcPtr ControlUserPaneDrawUPP;
 typedef CursPtr * CursHandle;
 
+#ifndef COD2_SDK_TYPES
 typedef DWORD D3DCOLOR;
+#endif
 
 typedef void *FFItemList;
+#ifndef COD2_SDK_TYPES
 typedef DWORD LCID;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef DWORD * LPDWORD;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef DWORD (*PTHREAD_START_ROUTINE)();
+#endif
+#ifndef COD2_SDK_TYPES
 typedef DWORD (*PULARGE_INTEGER)();
+#endif
 
 typedef Font * FontHandle;
 
@@ -3399,8 +3737,12 @@ typedef GfxImagePtr GfxLightmapArray[4];
 typedef GrafPtr CGrafPtr;
 
 typedef H3DPOBJECT H3DSAMPLE;
+#ifndef COD2_SDK_TYPES
 typedef HANDLE HGLOBAL;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef HINSTANCE HMODULE;
+#endif
 typedef INT16 FSERROR;
 typedef INT32 bit_buf_type;
 typedef IOCompletionProcPtr IOCompletionUPP;
@@ -3413,10 +3755,16 @@ typedef JSAMPARRAY * JSAMPIMAGE;
 typedef JSAMPARRAY (*hist3d)[257];
 typedef JSAMPLE * JSAMPROW;
 
+#ifndef COD2_SDK_TYPES
 typedef LONG * PLONG;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef LONG_PTR LRESULT;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef PRTL_CRITICAL_SECTION LPCRITICAL_SECTION;
+#endif
 
 typedef PixMapPtr * PixMapHandle;
 
@@ -3449,7 +3797,9 @@ typedef SoundDescriptionPtr * SoundDescriptionHandle;
 typedef Str63 StrFileName;
 typedef UINT16 histcell;
 
+#ifndef COD2_SDK_TYPES
 typedef UINT32 D3DXHANDLE;
+#endif
 
 typedef UINT_PTR SOCKET;
 typedef UInt16 ATSUFontFeatureSelector;
@@ -3482,10 +3832,16 @@ typedef UInt32 ThemeCursor;
 typedef UInt32 UniCharCount;
 typedef UInt32 UnsignedFixed;
 typedef UInt8 Byte;
+#ifndef COD2_SDK_TYPES
 typedef ULONG_PTR SIZE_T;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef const WCHAR * LPCWSTR;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef WCHAR * LPWSTR;
+#endif
 
 typedef WindowPtr WindowRef;
 #if !defined(__GNUC__) && !defined(__clang__)
@@ -3511,18 +3867,28 @@ typedef uLong (*check_func)();
 typedef uLong uLongf;
 typedef u_int32_t spx_uint32_t;
 
+#ifndef COD2_SDK_TYPES
 typedef vec_t vec2_t[2];
+#endif
+#ifndef COD2_SDK_TYPES
 typedef vec_t vec3_t[3];
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef vec_t vec4_t[4];
+#endif
 
 typedef voidp unzFile;
 typedef voidpf (*alloc_func)();
 typedef ColorComplementProcPtr ColorComplementUPP;
 typedef ColorSearchProcPtr ColorSearchUPP;
 
+#ifndef COD2_SDK_TYPES
 typedef LPCSTR LPCTSTR;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef PTHREAD_START_ROUTINE LPTHREAD_START_ROUTINE;
+#endif
 
 typedef CGrafPtr AGLDrawable;
 typedef CGrafPtr GWorldPtr;
@@ -3549,7 +3915,9 @@ typedef FourCharCode TXNTypeRunAttributes;
 typedef OptionBits LSItemInfoFlags;
 #if !defined(__GNUC__) && !defined(__clang__)
 
+#ifndef COD2_SDK_TYPES
 typedef __gnuc_va_list va_list;
+#endif
 #endif
 typedef natural_t mach_port_name_t;
 typedef vec2_t hullPointsPool_t[16384];
@@ -3687,9 +4055,11 @@ struct CVAOPacket {
     int _placeholder;
 };
 
+#ifndef COD2_SDK_TYPES
 struct CardMemory {
     int platform[2];
 };
+#endif
 
 struct CatPositionRec {
     long int initialize;
@@ -3748,9 +4118,11 @@ struct ControlEditTextSelectionRec {
     SInt16 selEnd;
 };
 
+#ifndef COD2_SDK_TYPES
 struct D3DXFLOAT16 {
     int _placeholder;
 };
+#endif
 
 struct DObjAnimMat_s {
     float quat[4];
@@ -4005,13 +4377,16 @@ COD2_ASSERT_FIELD(struct DpvsGlobals, drawWorld,                   0x64);
 COD2_ASSERT_FIELD(struct DpvsGlobals, drawBmodels,                 0x68);
 COD2_ASSERT_SIZE (struct DpvsGlobals, 224);
 
+#ifndef COD2_SDK_TYPES
 union DvarLimits {
     struct { int stringCount; const char * *strings; } enumeration;
     struct { int min; int max; } integer;
     struct { float min; float max; } value;
     struct { vec_t min; vec_t max; } vector;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 union DvarValue {
     Bool enabled;
     int integer;
@@ -4020,6 +4395,7 @@ union DvarValue {
     const char *string;
     byte color[4];
 };
+#endif
 
 struct EffectTemplate {
     const char *mEffectName;
@@ -4279,10 +4655,12 @@ struct GfxCmdArray {
     GfxCmdHeader *lastCmd;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdHeader {
     short unsigned int id;
     short unsigned int byteCount;
 };
+#endif
 
 union GfxColor {
     unsigned int packed;
@@ -4340,10 +4718,12 @@ struct GfxLightGrid {
     GfxLightGridColors *colors;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxLightImage {
     GfxImage *image;
     GfxSamplerState samplerState;
 };
+#endif
 
 union GfxLightInfo {
     struct GfxLightDir dir;
@@ -4356,11 +4736,13 @@ struct GfxLight {
     union GfxLightInfo u;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxLodParms {
     vec3_t origin;
     float scale;
     float bias;
 };
+#endif
 
 struct GfxMarkPoint {
     vec3_t xyz;
@@ -4396,6 +4778,7 @@ struct GfxPostProcessParms {
     Bool isRenderingFullScreen;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxRenderTarget {
     GfxImage *image;
     IDirect3DSurface9 *colorSurface;
@@ -4403,6 +4786,7 @@ struct GfxRenderTarget {
     int width;
     int height;
 };
+#endif
 
 struct GfxSModelCachedVertex {
     vec3_t xyz;
@@ -4420,12 +4804,14 @@ struct GfxSModelCachedVertexDx7 {
     vec2_t texCoord;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxSceneDef {
     int time;
     float floatTime;
     int entityCount;
     GfxEntity *entities;
 };
+#endif
 
 struct GfxSceneEntity {
     int refCount;
@@ -4457,6 +4843,7 @@ struct GfxSurfaceDynamic {
     int viewCount;
 };
 
+#ifndef COD2_SDK_TYPES
 union GfxTexture {
     IDirect3DBaseTexture9 *basemap;
     IDirect3DTexture9 *map;
@@ -4464,13 +4851,16 @@ union GfxTexture {
     IDirect3DCubeTexture9 *cubemap;
     GfxImageLoadDef *loadDef;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxViewport {
     int x;
     int y;
     int width;
     int height;
 };
+#endif
 
 struct GfxWorldVertex {
     vec3_t xyz;
@@ -4491,15 +4881,18 @@ struct HCURSOR__ {
     int unused;
 };
 
+#ifndef COD2_SDK_TYPES
 struct HINSTANCE__ {
     int unused;
 };
+#endif
 
 struct HISize {
     float width;
     float height;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxWindowParms {
     HWND hwnd;
     int hz;
@@ -4511,38 +4904,51 @@ struct GfxWindowParms {
     int tileCount;
     int aaSamples;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxWindowTarget {
     HWND hwnd;
     IDirect3DSwapChain9 *swapChain;
     int width;
     int height;
 };
+#endif
 
 struct HashEntry {
     HashIndex status_next;
     union { HashIndex prev; HashIndex str; } u;
 };
 
+#ifndef COD2_SDK_TYPES
 struct ID3DXConstantTable {
     int _placeholder;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct ID3DXFont {
     int _placeholder;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct ID3DXSprite {
     int _placeholder;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct IDirect3DIndexBuffer9 {
     int _placeholder;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct IDirect3DVertexShader9 {
     int _placeholder;
 };
+#endif
 
 struct ITab {
     long int iTabSeed;
@@ -4918,6 +5324,7 @@ union MaterialTextureDefInfo {
     MaterialWaterDef *water;
 };
 
+#ifndef COD2_SDK_TYPES
 struct MaterialTextureDef {
     const char *name;
     GfxSamplerState samplerState;
@@ -4926,6 +5333,7 @@ struct MaterialTextureDef {
     byte unused_1;
     union MaterialTextureDefInfo u;
 };
+#endif
 
 struct MemoryFile {
     byte *buffer;
@@ -5058,10 +5466,13 @@ struct Particle {
 
 };
 
+#ifndef COD2_SDK_TYPES
 struct Picmip {
     byte platform[2];
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxImage {
     int mapType;
     union GfxTexture texture;
@@ -5076,6 +5487,7 @@ struct GfxImage {
     GfxImageCategory category;
     const char *name;
 };
+#endif
 
 struct PixMap {
     Ptr baseAddr;
@@ -5431,10 +5843,12 @@ struct ObjParam {
     long int ioObjID;
 };
 
+#ifndef COD2_SDK_TYPES
 struct RTL_CRITICAL_SECTION {
     long int __sig;
     char __opaque[40];
 };
+#endif
 
 struct RefString {
     union { struct { unsigned int byteLen; unsigned int user; unsigned int refCount; }; };
@@ -6653,10 +7067,13 @@ struct _AILMIXINFO {
     long int right_val;
 };
 
+#ifndef COD2_SDK_TYPES
 struct _D3DMATRIX {
     union { struct { float _11; float _12; float _13; float _14; float _21; float _22; float _23; float _24; float _31; float _32; float _33; float _34; float _41; float _42; float _43; float _44; }; float m[4][4]; };
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 #ifdef _MSC_VER
 __declspec(align(16))
 #endif
@@ -6664,7 +7081,9 @@ struct GfxCodeMatrix {
     D3DMATRIX matrix[4];
     Bool valid[4];
 } COD2_ALIGNED(16);
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCodeMatrices {
     float worldScale;
     struct GfxCodeMatrix world;
@@ -6680,6 +7099,7 @@ struct GfxCodeMatrices {
     GfxCodeMatrix lightGridLookupMatrix;
     GfxCodeMatrix worldOutdoorLookup;
 };
+#endif
 
 struct ShadowCookie {
     int firstCasterDrawSurf;
@@ -6697,6 +7117,7 @@ struct ShadowCookieList {
     int cookieCount;
 };
 
+#ifndef COD2_SDK_TYPES
 struct _D3DPSHADERCAPS2_0 {
     DWORD Caps;
     INT DynamicFlowControlDepth;
@@ -6704,14 +7125,18 @@ struct _D3DPSHADERCAPS2_0 {
     INT StaticFlowControlDepth;
     INT NumInstructionSlots;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DRECT {
     LONG x1;
     LONG y1;
     LONG x2;
     LONG y2;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DVIEWPORT9 {
     DWORD X;
     DWORD Y;
@@ -6720,7 +7145,9 @@ struct _D3DVIEWPORT9 {
     float MinZ;
     float MaxZ;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxViewParms {
     vec3_t origin;
     vec3_t axis[3];
@@ -6731,14 +7158,18 @@ struct GfxViewParms {
     D3DMATRIX inverseViewProjectionMatrix;
     float depthHackNearClip;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DVSHADERCAPS2_0 {
     DWORD Caps;
     INT DynamicFlowControlDepth;
     INT NumTemps;
     INT StaticFlowControlDepth;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DCAPS9 {
     D3DDEVTYPE DeviceType;
     UINT AdapterOrdinal;
@@ -6810,13 +7241,17 @@ struct _D3DCAPS9 {
     DWORD MaxVertexShader30InstructionSlots;
     DWORD MaxPixelShader30InstructionSlots;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXCONSTANTTABLE_DESC {
     LPCSTR Creator;
     DWORD Version;
     UINT Constants;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXFONT_DESCA {
     INT Height;
     UINT Width;
@@ -6829,7 +7264,9 @@ struct _D3DXFONT_DESCA {
     BYTE PitchAndFamily;
     CHAR FaceName[32];
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXFONT_DESCW {
     INT Height;
     UINT Width;
@@ -6842,7 +7279,9 @@ struct _D3DXFONT_DESCW {
     BYTE PitchAndFamily;
     WCHAR FaceName[32];
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXIMAGE_INFO {
     UINT Width;
     UINT Height;
@@ -6852,12 +7291,16 @@ struct _D3DXIMAGE_INFO {
     D3DRESOURCETYPE ResourceType;
     D3DXIMAGE_FILEFORMAT ImageFileFormat;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXMACRO {
     LPCSTR Name;
     LPCSTR Definition;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXSHADER_CONSTANTINFO {
     DWORD Name;
     WORD RegisterSet;
@@ -6867,7 +7310,9 @@ struct _D3DXSHADER_CONSTANTINFO {
     DWORD TypeInfo;
     DWORD DefaultValue;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXSHADER_CONSTANTTABLE {
     DWORD Size;
     DWORD Creator;
@@ -6877,7 +7322,9 @@ struct _D3DXSHADER_CONSTANTTABLE {
     DWORD Flags;
     DWORD Target;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXSHADER_TYPEINFO {
     WORD Class;
     WORD Type;
@@ -6887,6 +7334,7 @@ struct _D3DXSHADER_TYPEINFO {
     WORD StructMembers;
     DWORD StructMemberInfo;
 };
+#endif
 
 struct _DDCOLORKEY {
     DWORD dwColorSpaceLowValue;
@@ -6945,10 +7393,12 @@ struct _Deque_impl {
     _Deque_iterator_UINT16_UINT16ref_UINT16ptr _M_finish;
 };
 
+#ifndef COD2_SDK_TYPES
 struct _FILETIME {
     DWORD dwLowDateTime;
     DWORD dwHighDateTime;
 };
+#endif
 
 struct _List_iterator_CFenceptr {
     _List_node_base *_M_node;
@@ -6974,6 +7424,7 @@ struct _List_node_Tuple {
     Tuple _M_data;
 };
 
+#ifndef COD2_SDK_TYPES
 struct _MEMORYSTATUS {
     DWORD dwLength;
     DWORD dwMemoryLoad;
@@ -6984,7 +7435,9 @@ struct _MEMORYSTATUS {
     SIZE_T dwTotalVirtual;
     SIZE_T dwAvailVirtual;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _OSVERSIONINFOA {
     DWORD dwOSVersionInfoSize;
     DWORD dwMajorVersion;
@@ -6993,7 +7446,9 @@ struct _OSVERSIONINFOA {
     DWORD dwPlatformId;
     CHAR szCSDVersion[128];
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _SYSTEMTIME {
     WORD wYear;
     WORD wMonth;
@@ -7004,12 +7459,15 @@ struct _SYSTEMTIME {
     WORD wSecond;
     WORD wMilliseconds;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 union _ULARGE_INTEGER {
     struct { DWORD LowPart; DWORD HighPart; };
     struct { DWORD LowPart; DWORD HighPart; } u;
     ULONGLONG QuadPart;
 };
+#endif
 
 struct __darwin_pthread_handler_rec {
     jpeg_alloc (*__routine)();
@@ -7524,6 +7982,7 @@ struct dsound_sample_t {
     byte playMode;
 };
 
+#ifndef COD2_SDK_TYPES
 struct dvar_s {
     const char *name;
     short unsigned int flags;
@@ -7536,6 +7995,7 @@ struct dvar_s {
     intptr_t next;
     intptr_t hashNext;
 };
+#endif
 
 struct editFieldDef_s {
     float minVal;
@@ -7746,6 +8206,7 @@ struct jpeg_alloc {
     void (*free)();
 };
 
+#ifndef COD2_SDK_TYPES
 struct _D3DXCONSTANT_DESC {
     LPCSTR Name;
     D3DXREGISTER_SET RegisterSet;
@@ -7760,7 +8221,9 @@ struct _D3DXCONSTANT_DESC {
     UINT Bytes;
     LPCVOID DefaultValue;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _MEMORY_BASIC_INFORMATION {
     PVOID BaseAddress;
     PVOID AllocationBase;
@@ -7770,19 +8233,24 @@ struct _MEMORY_BASIC_INFORMATION {
     DWORD Protect;
     DWORD Type;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _OVERLAPPED {
     ULONG_PTR Internal;
     ULONG_PTR InternalHigh;
     union { struct { DWORD Offset; DWORD OffsetHigh; }; PVOID Pointer; };
     HANDLE hEvent;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct _SECURITY_ATTRIBUTES {
     DWORD nLength;
     LPVOID lpSecurityDescriptor;
     BOOL bInheritHandle;
 };
+#endif
 
 struct jpeg_c_coef_controller {
     void (*start_pass)();
@@ -9032,11 +9500,13 @@ struct qtime_s {
     int tm_isdst;
 };
 
+#ifndef COD2_SDK_TYPES
 struct r_ib_state_t {
     int used;
     int total;
     IDirect3DIndexBuffer9 *buffer;
 };
+#endif
 
 struct r_lightmapMerge_t {
     short int index;
@@ -9044,11 +9514,13 @@ struct r_lightmapMerge_t {
     float scale[2];
 };
 
+#ifndef COD2_SDK_TYPES
 struct r_vb_state_t {
     int used;
     int total;
     void (*buffer)();
 };
+#endif
 
 struct random_access_iterator_tag {
     int _placeholder;
@@ -9801,6 +10273,7 @@ struct sysEvent_t {
     void *evPtr;
 };
 
+#ifndef COD2_SDK_TYPES
 struct tagBITMAPFILEHEADER {
     WORD bfType;
     DWORD bfSize;
@@ -9808,7 +10281,9 @@ struct tagBITMAPFILEHEADER {
     WORD bfReserved2;
     DWORD bfOffBits;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct tagBITMAPINFOHEADER {
     DWORD biSize;
     LONG biWidth;
@@ -9822,14 +10297,18 @@ struct tagBITMAPINFOHEADER {
     DWORD biClrUsed;
     DWORD biClrImportant;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct tagRECT {
     LONG left;
     LONG top;
     LONG right;
     LONG bottom;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct LARGE_INTEGER {
     void (*Format)();
     netProfilePacket_t Type;
@@ -9840,19 +10319,25 @@ struct LARGE_INTEGER {
     IDirect3DBaseTexture9 *Width;
     IDirect3DBaseTexture9 *Height;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct tagRGBQUAD {
     BYTE rgbBlue;
     BYTE rgbGreen;
     BYTE rgbRed;
     BYTE rgbReserved;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct tagBITMAPINFO {
     BITMAPINFOHEADER bmiHeader;
     RGBQUAD bmiColors[1];
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct tagTEXTMETRICA {
     LONG tmHeight;
     LONG tmAscent;
@@ -9875,7 +10360,9 @@ struct tagTEXTMETRICA {
     BYTE tmPitchAndFamily;
     BYTE tmCharSet;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct tagTEXTMETRICW {
     LONG tmHeight;
     LONG tmAscent;
@@ -9898,6 +10385,7 @@ struct tagTEXTMETRICW {
     BYTE tmPitchAndFamily;
     BYTE tmCharSet;
 };
+#endif
 
 struct tempBanSlot_t {
     int guid;
@@ -10161,13 +10649,16 @@ struct trigger_info_t {
     int otherUseCount;
 };
 
+#ifndef COD2_SDK_TYPES
 struct D3DDISPLAYMODE {
     UINT Width;
     UINT Height;
     UINT RefreshRate;
     D3DFORMAT Format;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct IDirect3DPixelShader9 {
     MaterialShaderArgument *adr;
     MaterialPassDx9 netType;
@@ -10192,6 +10683,7 @@ struct IDirect3DPixelShader9 {
     D3DCAPS9 game;
     D3DDISPLAYMODE gameType;
 };
+#endif
 
 struct uiClientState_t {
     connstate_t connState;
@@ -10420,6 +10912,7 @@ struct value_s {
 };
 #pragma pack(pop)
 
+#ifndef COD2_SDK_TYPES
 struct vidConfig_t {
     int width;
     int height;
@@ -10433,6 +10926,7 @@ struct vidConfig_t {
     int maxActiveLights;
     Bool deviceSupportsGamma;
 };
+#endif
 
 struct clientStatic_t {
     qboolean quit;
@@ -10768,7 +11262,9 @@ struct file_in_zip_read_info_s {
     uLong byte_before_the_zipfile;
 };
 
+#ifndef COD2_SDK_TYPES
 typedef StdConverterARGB (*PUINT8)[4];
+#endif
 typedef jpeg_decompress_struct (*hist2d)[64];
 typedef jpeg_d_post_controller (*histptr)[4];
 typedef jpeg_component_info * (*my_fdct_ptr)[10];

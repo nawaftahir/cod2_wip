@@ -91,11 +91,13 @@ typedef struct MaterialTechniqueSet MaterialTechniqueSet;
 typedef struct MaterialVertexDeclaration MaterialVertexDeclaration;
 typedef struct MaterialWaterDef MaterialWaterDef;
 
+#ifndef COD2_SDK_TYPES
 enum D3DXINCLUDE_TYPE {
     D3DXINC_LOCAL = 0,
     D3DXINC_SYSTEM = 1,
     D3DXINC_FORCE_DWORD = 2147483647
 };
+#endif
 
 enum DpvsClipChildren {
     DPVS_DONT_CLIP_CHILDREN = 0,
@@ -249,6 +251,7 @@ struct GfxCmdCall {
     const void *subCmd;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdClearScreen {
     GfxCmdHeader header;
     byte whichToClear;
@@ -256,6 +259,7 @@ struct GfxCmdClearScreen {
     float depth;
     vec4_t color;
 };
+#endif
 
 struct GfxCmdDrawSunPostEffects {
     GfxCmdHeader header;
@@ -270,12 +274,15 @@ struct GfxCmdDrawSurfs {
     MaterialTechniqueType techType;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdSetClipPlanes {
     GfxCmdHeader header;
     int clipPlaneCount;
     vec4_t clipPlanes[1];
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdSetLightProperties {
     GfxCmdHeader header;
     int lightIndex;
@@ -285,17 +292,23 @@ struct GfxCmdSetLightProperties {
     vec4_t specular;
     GfxLightDef *lightDef;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdSetMaterialColor {
     GfxCmdHeader header;
     vec4_t color;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdSetRenderTarget {
     GfxCmdHeader header;
     GfxRenderTargetId renderTargetId;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdStretchRaw {
     GfxCmdHeader header;
     int x;
@@ -308,7 +321,9 @@ struct GfxCmdStretchRaw {
     int client;
     qboolean dirty;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdStretchPic {
     GfxCmdHeader header;
     const Material *material;
@@ -322,6 +337,7 @@ struct GfxCmdStretchPic {
     float t1;
     GfxColor color;
 };
+#endif
 
 struct GfxCullGroup {
     vec3_t mins;
@@ -357,12 +373,14 @@ struct GfxLightGridPoint {
     short unsigned int colorsIndex;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxLightDef {
     GfxLightType type;
     struct GfxLightImage cookie;
     GfxLightImage attenuation;
     const char *name;
 };
+#endif
 
 struct GfxModelRigidSurface {
     GfxModelSurface surf;
@@ -403,11 +421,13 @@ struct GfxPortal {
     vec3_t hullAxis[2];
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxRenderCommandExecState {
     const void *cmd;
     int stackPos;
     const void * retCmd[2];
 };
+#endif
 
 struct GfxScene {
     int viewCount;
@@ -466,15 +486,19 @@ struct GfxSurface {
     union { surfaceType_t *data; srfTriangles_t *tris; };
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdSetViewport {
     GfxCmdHeader header;
     GfxViewport viewport;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct ImageList {
     int count;
     GfxImage * image[2048];
 };
+#endif
 
 struct GfxCmdDrawText {
     GfxCmdHeader header;
@@ -572,6 +596,7 @@ struct SkinXModelCmd {
     byte matOffset[64];
 };
 
+#ifndef COD2_SDK_TYPES
 struct WaveletDecode {
     short unsigned int value;
     short unsigned int bit;
@@ -583,18 +608,22 @@ struct WaveletDecode {
     int mipLevel;
     Bool dataInitialized;
 };
+#endif
 
 struct WaveletHuffmanDecode {
     short int value;
     short int bits;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdSetShadowCookie {
     GfxCmdHeader header;
     D3DMATRIX lookupMatrix;
     float fade;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct DxState {
     vec4_t vertexShaderConsts[256];
     vec4_t pixelShaderConsts[256];
@@ -632,6 +661,7 @@ struct DxState {
     int clipPlaneCount;
     struct { union GfxColor color; D3DFOGMODE mode; float start; float end; float density; } fog;
 };
+#endif
 
 struct WaterGlob {
     complex_t H[16384];
@@ -650,6 +680,7 @@ struct mnode_t {
     union mnode_info_t u;
 };
 
+#ifndef COD2_SDK_TYPES
 struct r_global_permanent_t {
     qboolean materialLoaded;
     int materialCount;
@@ -703,6 +734,7 @@ struct r_global_permanent_t {
     int savedScreenTime;
     MaterialTextureDef rawTexdef;
 };
+#endif
 
 struct r_globals_load_t {
     GfxOccluder * *occluderIndices;
@@ -761,6 +793,7 @@ struct stream_source_info_t {
     BYTE Type;
 };
 
+#ifndef COD2_SDK_TYPES
 struct DxGlobals {
     HINSTANCE hinst;
     IDirect3D9 *d3d9;
@@ -815,6 +848,7 @@ struct DxGlobals {
     byte *tempSkinBuf;
     int tempSkinPos;
 };
+#endif
 
 struct r_globals_t {
     Bool registered;
@@ -848,6 +882,7 @@ struct MaterialConstantDefObj {
     vec4_t literal;
 };
 
+#ifndef COD2_SDK_TYPES
 struct MaterialShader {
     const char *name;
     void (*program)();
@@ -856,6 +891,7 @@ struct MaterialShader {
     byte shaderVersion;
     union MaterialShaderPtr u;
 };
+#endif
 
 struct MaterialStateMap {
     const char *name;

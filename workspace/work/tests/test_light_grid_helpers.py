@@ -5,9 +5,10 @@ import subprocess
 import tempfile
 import capstone
 import pefile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-source = (work/'src/gfx_d3d/rb_light_grid.cpp').read_text()
+source = fragment('gfx_d3d/rb_light_grid.cpp')
 source = source[source.index('// PINNED 10035fb0'):]
 source = source[:source.index('// PINNED 10035bd0:')]
 retail = pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))

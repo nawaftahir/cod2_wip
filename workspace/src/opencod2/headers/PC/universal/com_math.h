@@ -3,6 +3,7 @@
 
 #include "../../cod2_fwd.h"
 
+#ifndef COD2_SDK_TYPES
 enum errorParm_t {
     ERR_FATAL = 0,
     ERR_DROP = 1,
@@ -12,6 +13,7 @@ enum errorParm_t {
     ERR_SCRIPT_DROP = 5,
     ERR_LOCALIZATION = 6
 };
+#endif
 typedef struct FxHelper FxHelper;
 
 typedef struct GfxGammaRamp GfxGammaRamp;
@@ -36,7 +38,9 @@ typedef struct viewState_t viewState_t;
 typedef struct weaponParms weaponParms;
 typedef enum errorParm_t errorParm_t;
 
+#ifndef COD2_SDK_TYPES
 typedef struct DObj_s DObj;
+#endif
 typedef struct DObjTrace_s DObjTrace;
 
 typedef struct XAnim_s XAnim;
@@ -58,9 +62,11 @@ struct FxHelper {
     float adsZoomFactor;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxGammaRamp {
     short unsigned int entries[256];
 };
+#endif
 
 struct XAnimTree_s {
     XAnim *anims;
@@ -189,6 +195,7 @@ struct refexport_t {
     void (*SetLodOrigin)(const refdef_t *refdef);
 };
 
+#ifndef COD2_SDK_TYPES
 struct refimport_t {
     void (*Printf)(int print_level, const char *fmt, ...);
     void (*Error)(errorParm_t code, const char *fmt, ...);
@@ -330,6 +337,7 @@ struct refimport_t {
     void * (*CM_GetPlaneNum)(int planeNum);
 #endif
 };
+#endif
 
 struct sightclip_t {
     vec3_t mins;

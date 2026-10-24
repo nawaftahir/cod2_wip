@@ -3,21 +3,51 @@
 
 #include "../cod2_fwd.h"
 
+#ifndef COD2_SDK_TYPES
 typedef enum D3DBACKBUFFER_TYPE _D3DBACKBUFFER_TYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DBASISTYPE _D3DBASISTYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DDEGREETYPE _D3DDEGREETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DDEVTYPE _D3DDEVTYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DLIGHTTYPE _D3DLIGHTTYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DMULTISAMPLE_TYPE _D3DMULTISAMPLE_TYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DPOOL _D3DPOOL;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DPRIMITIVETYPE _D3DPRIMITIVETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DQUERYTYPE _D3DQUERYTYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DRENDERSTATETYPE _D3DRENDERSTATETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DSAMPLERSTATETYPE _D3DSAMPLERSTATETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DSWAPEFFECT _D3DSWAPEFFECT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DTEXTURESTAGESTATETYPE _D3DTEXTURESTAGESTATETYPE;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DTEXTURETRANSFORMFLAGS _D3DTEXTURETRANSFORMFLAGS;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef enum D3DTRANSFORMSTATETYPE _D3DTRANSFORMSTATETYPE;
+#endif
 typedef struct ATI4CompsConverterABGR ATI4CompsConverterABGR;
 typedef struct ATI4CompsConverterARGB ATI4CompsConverterARGB;
 typedef struct AbsoluteTime AbsoluteTime;
@@ -54,7 +84,9 @@ typedef struct CVAOPacketFixedFunction CVAOPacketFixedFunction;
 typedef struct CVAOPacketProgrammable CVAOPacketProgrammable;
 typedef struct ComponentDescription ComponentDescription;
 typedef struct ComponentRecord ComponentRecord;
+#ifndef COD2_SDK_TYPES
 typedef struct D3DTEXTUREOP D3DTEXTUREOP;
+#endif
 typedef struct GfxCmdApplyLatePostEffects GfxCmdApplyLatePostEffects;
 typedef struct GfxCmdBeginView GfxCmdBeginView;
 typedef struct GfxCmdBlendSavedScreen GfxCmdBlendSavedScreen;
@@ -64,11 +96,21 @@ typedef struct HDC__ HDC__;
 typedef struct HFSUniStr255 HFSUniStr255;
 typedef struct HICommand HICommand;
 typedef struct HMONITOR__ HMONITOR__;
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DResource9 IDirect3DResource9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DStateBlock9 IDirect3DStateBlock9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IDirect3DVolume9 IDirect3DVolume9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IID IID;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct IUnknown IUnknown;
+#endif
 typedef struct LSItemInfoRecord LSItemInfoRecord;
 typedef struct LightInfoType LightInfoType;
 typedef struct OpenGLStateInfoType OpenGLStateInfoType;
@@ -94,48 +136,104 @@ typedef enum SurfaceType SurfaceType;
 typedef enum VAOStatus VAOStatus;
 typedef enum _D3DTEXTUREADDRESS _D3DTEXTUREADDRESS;
 typedef enum _D3DTEXTUREOP _D3DTEXTUREOP;
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DADAPTER_IDENTIFIER9 D3DADAPTER_IDENTIFIER9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DBOX D3DBOX;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DCLIPSTATUS9 D3DCLIPSTATUS9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DDEVICE_CREATION_PARAMETERS D3DDEVICE_CREATION_PARAMETERS;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DGAMMARAMP D3DGAMMARAMP;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DINDEXBUFFER_DESC D3DINDEXBUFFER_DESC;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DLIGHT9 D3DLIGHT9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DLOCKED_BOX D3DLOCKED_BOX;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DLOCKED_RECT D3DLOCKED_RECT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DMATERIAL9 D3DMATERIAL9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DPRESENT_PARAMETERS_ D3DPRESENT_PARAMETERS;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DRASTER_STATUS D3DRASTER_STATUS;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DRECTPATCH_INFO D3DRECTPATCH_INFO;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DSURFACE_DESC D3DSURFACE_DESC;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DTRIPATCH_INFO D3DTRIPATCH_INFO;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DVERTEXBUFFER_DESC D3DVERTEXBUFFER_DESC;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DVERTEXELEMENT9 D3DVERTEXELEMENT9;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _D3DVOLUME_DESC D3DVOLUME_DESC;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct tagPALETTEENTRY PALETTEENTRY;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct tagPOINT POINT;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef struct _RGNDATA RGNDATA;
+#endif
 typedef const __CFDictionary * CFDictionaryRef;
 typedef uint32_t CGTableCount;
 typedef long int (*Component)();
 typedef OpaqueContextRef * ContextRef;
+#ifndef COD2_SDK_TYPES
 typedef _D3DCUBEMAP_FACES D3DCUBEMAP_FACES;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef _D3DTEXTUREFILTERTYPE D3DTEXTUREFILTERTYPE;
+#endif
 typedef OpaqueEventHandlerRef * EventHandlerRef;
 typedef OpaqueEventRef * EventRef;
 typedef OpaqueFSIterator * FSIterator;
 typedef double GLdouble;
 typedef unsigned char GLubyte;
+#ifndef COD2_SDK_TYPES
 typedef HDC__ * HDC;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef HMONITOR__ * HMONITOR;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef short unsigned int * PUINT16;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef long unsigned int ULONG;
+#endif
 typedef unsigned long VAOSet;
 typedef long unsigned int __darwin_size_t;
 typedef int (*__vtbl_ptr_type)();
 typedef int kern_return_t;
 typedef DialogPtr DialogRef;
+#ifndef COD2_SDK_TYPES
 typedef LONG HRESULT;
+#endif
 typedef SInt16 DialogItemIndex;
 typedef UInt16 UniChar;
 typedef AudioObjectID AudioDeviceID;
@@ -160,7 +258,9 @@ typedef struct CStreamSound CStreamSound;
 typedef struct CThread CThread;
 typedef struct ControlID ControlID;
 typedef struct ControlKind ControlKind;
+#ifndef COD2_SDK_TYPES
 typedef struct D3DXVECTOR3 D3DXVECTOR3;
+#endif
 typedef struct FSSpec FSSpec;
 typedef struct CGGammaValue CGGammaValue;
 typedef struct ControlFontStyleRec ControlFontStyleRec;
@@ -208,6 +308,7 @@ enum VAOStatus {
     USING_CACHED_VAO = 3
 };
 
+#ifndef COD2_SDK_TYPES
 enum _D3DTEXTUREADDRESS {
     D3DTADDRESS_WRAP = 1,
     D3DTADDRESS_MIRROR = 2,
@@ -216,7 +317,9 @@ enum _D3DTEXTUREADDRESS {
     D3DTADDRESS_MIRRORONCE = 5,
     D3DTADDRESS_FORCE_DWORD = 2147483647
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 enum _D3DTEXTUREOP {
     D3DTOP_DISABLE = 1,
     D3DTOP_SELECTARG1 = 2,
@@ -246,6 +349,7 @@ enum _D3DTEXTUREOP {
     D3DTOP_LERP = 26,
     D3DTOP_FORCE_DWORD = 2147483647
 };
+#endif
 
 struct ATI4CompsConverterABGR {
     int _placeholder;
@@ -429,21 +533,26 @@ struct ComponentRecord {
     long int data[1];
 };
 
+#ifndef COD2_SDK_TYPES
 struct D3DTEXTUREOP {
     bool unused;
 };
+#endif
 
 struct GfxCmdApplyLatePostEffects {
     GfxCmdHeader header;
     float blurRadius;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdBlendSavedScreen {
     GfxCmdHeader header;
     int fadeMsec;
     const Material *material;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdDrawFullScreenColoredQuad {
     GfxCmdHeader header;
     const Material *material;
@@ -453,6 +562,7 @@ struct GfxCmdDrawFullScreenColoredQuad {
     float t1;
     GfxColor color;
 };
+#endif
 
 struct GfxImageFilter {
     int passCount;
@@ -462,6 +572,7 @@ struct GfxImageFilter {
     GfxRenderTargetId pingPongTargets[2];
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdBeginView {
     GfxCmdHeader header;
     struct GfxSceneDef sceneDef;
@@ -469,10 +580,13 @@ struct GfxCmdBeginView {
     struct GfxLodParms lodParms;
     int viewCount;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct HDC__ {
     int unused;
 };
+#endif
 
 struct HICommand {
     UInt32 attributes;
@@ -480,28 +594,38 @@ struct HICommand {
     struct { MenuRef menuRef; MenuItemIndex menuItemIndex; } menu;
 };
 
+#ifndef COD2_SDK_TYPES
 struct HMONITOR__ {
     int unused;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct IDirect3DResource9 {
     int _placeholder;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct IDirect3DStateBlock9 {
     int _placeholder;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct IID {
     long unsigned int Data1;
     short unsigned int Data2;
     short unsigned int Data3;
     unsigned char Data4[8];
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct IUnknown {
     int _vptr$IUnknown;
 };
+#endif
 
 struct LSItemInfoRecord {
     LSItemInfoFlags flags;
@@ -606,18 +730,22 @@ struct _Alloc_hider {
     char *_M_p;
 };
 
+#ifndef COD2_SDK_TYPES
 struct _D3DDISPLAYMODE {
     UINT Width;
     UINT Height;
     UINT RefreshRate;
     D3DFORMAT Format;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 union _LARGE_INTEGER {
     struct { DWORD LowPart; LONG HighPart; };
     struct { DWORD LowPart; LONG HighPart; } u;
     LONGLONG QuadPart;
 };
+#endif
 
 struct _List_impl {
     struct _List_node_base _M_node;
@@ -670,6 +798,7 @@ struct HFSUniStr255 {
     const FSRef *dct_table;
 };
 
+#ifndef COD2_SDK_TYPES
 struct IDirect3DVolume9 {
     const char *next;
     const TextureInfoType *marker;
@@ -677,6 +806,7 @@ struct IDirect3DVolume9 {
     const COpenGLTexture *data_length;
     unsigned char *data;
 };
+#endif
 
 struct AudioChannelDescription {
     AudioChannelLabel mChannelLabel;
@@ -804,9 +934,11 @@ struct ControlKind {
     OSType kind;
 };
 
+#ifndef COD2_SDK_TYPES
 struct D3DXVECTOR3 {
     int _placeholder;
 };
+#endif
 
 struct FSSpec {
     short int vRefNum;
@@ -888,6 +1020,7 @@ struct CRectList {
     MacRGBColor data[1];
 };
 
+#ifndef COD2_SDK_TYPES
 struct _WIN32_FIND_DATAA {
     DWORD dwFileAttributes;
     FILETIME ftCreationTime;
@@ -903,4 +1036,5 @@ struct _WIN32_FIND_DATAA {
     DWORD dwCreatorType;
     WORD wFinderFlags;
 };
+#endif
 #endif

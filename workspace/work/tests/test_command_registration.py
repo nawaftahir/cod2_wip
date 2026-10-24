@@ -6,9 +6,10 @@ import subprocess
 import tempfile
 import pefile
 import capstone
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-text = (work / 'src/gfx_d3d/r_init.cpp').read_text()
+text = fragment('gfx_d3d/r_init.cpp')
 source = text[text.index('void R_RegisterCmds()'):]
 source = source[:source.index('\nvoid Swap_Init();')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))

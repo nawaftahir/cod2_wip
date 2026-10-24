@@ -4,6 +4,7 @@ import subprocess
 import tempfile
 import pefile
 import capstone
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
@@ -16,7 +17,7 @@ assert not any('esi + 0x1c]' in operand for _, operand in ops)
 for address, expected in [(0x10193c84,b'%ix%i'),(0x10193c74,b'%i Hz')]:
     assert retail.get_string_at_rva(address-0x10000000) == expected
 header = (work / 'src/gfx_d3d/r_window.h').read_text().replace('#pragma once', '')
-text = (work / 'src/gfx_d3d/r_window.cpp').read_text()
+text = fragment('gfx_d3d/r_window.cpp')
 source = text[text.index('int R_ChooseRefreshRate('):]
 program = r'''
 #include <cassert>

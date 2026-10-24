@@ -1,6 +1,25 @@
 // gfx_d3d_mp_x86_s.dll 1.0 shared declarations.
 #pragma once
 
+/* After r_local.h (real d3d9.h): the PC headers own their types and the Mac
+   copies are skipped (COD2_SDK_TYPES guards, tools/sdk_guard.py). */
+#ifdef DIRECT3D_VERSION
+#include <d3dx9shader.h>
+#include "r_window.h"
+#include "r_permanent.h"
+#include "r_sun_state.h"
+#include "rb_backend.h"
+#include "rb_tess.h"
+#include "rb_commands.h"
+#include "rb_drawargs.h"
+#include "r_light.h"
+#include "r_image_registry.h"
+#include "r_material_shader.h"
+#include "r_image_wavelet_types.h"
+#include "universal/com_math.h"
+#define COD2_SDK_TYPES
+#endif
+
 // Mac 1.3 decompile types (opencod2); PC 1.0 layouts are confirmed per function by bindcheck.
 #define refimport_t refimport_mac_t
 #include "common_types.h"

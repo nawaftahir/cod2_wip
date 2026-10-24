@@ -5,8 +5,8 @@ import tempfile
 
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_material_load_obj.cpp').read_text()
 source = text[text.index('unsigned int Material_FindShaderConstant('):text.index('// PINNED 100198c0:')]
-source += text[text.index('// PINNED 1001a160:'):text.index('// PINNED 1001a810:')]
-source += text[text.index('// SDK interface prefix;'):text.index('// PINNED 10018f90:')]
+source += text[text.index('// PINNED 1001a160:'):text.index('// PINNED 1001a4c0:')]
+source += text[text.index('// PINNED 1001a920:'):text.index('// PINNED 10018f90:')]
 program = r'''
 #include <cassert>
 #include <cstdint>
@@ -62,17 +62,26 @@ Bool Material_DefaultShaderArgument(const char *name,ShaderConstantRouting *,Mat
 MaterialShaderArgument allocated[256];int allocations;
 void *allocate(int bytes) { assert(bytes>0&&bytes<=sizeof(allocated)&&bytes%8==0);++allocations;return allocated; }
 struct { void *(*Hunk_AllocInternal)(int); } ri={allocate};
+// SDK interface prefix; unused reflection methods are not invoked here.
+struct ID3DXConstantTable {
+    virtual HRESULT __stdcall QueryInterface(const GUID &,void **)=0;
+    virtual ULONG __stdcall AddRef()=0;
+    virtual ULONG __stdcall Release()=0;
+    virtual void *__stdcall GetBufferPointer()=0;
+};
+extern "C" HRESULT __stdcall D3DXGetShaderConstantTable(const DWORD *,ID3DXConstantTable **);
+extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT);
 #define printf testPrintf
 '''+source+r'''
 #undef printf
 HRESULT sdkResult;int sdkCalls,bufferCalls,releases;
-struct MockTable : ShaderConstantTableInterface {
+struct MockTable : ID3DXConstantTable {
     HRESULT __stdcall QueryInterface(const GUID &,void **) {return 0;}
     ULONG __stdcall AddRef() {return 1;}
     ULONG __stdcall Release() {++releases;return 0;}
     void *__stdcall GetBufferPointer() {++bufferCalls;return &blob.table;}
 } comTable;
-extern "C" HRESULT __stdcall D3DXGetShaderConstantTable(const DWORD *,ShaderConstantTableInterface **output) {++sdkCalls;*output=&comTable;return sdkResult;}
+extern "C" HRESULT __stdcall D3DXGetShaderConstantTable(const DWORD *,ID3DXConstantTable **output) {++sdkCalls;*output=&comTable;return sdkResult;}
 extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT result) {assert(result==sdkResult&&result<0);return "test SDK error";}
 void setup(int count) {
     memset(&blob,0,sizeof(blob));blob.table.Constants=count;blob.table.ConstantInfo=offsetof(Blob,info);

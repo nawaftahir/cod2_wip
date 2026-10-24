@@ -4,9 +4,10 @@ import json
 import subprocess
 import tempfile
 import pefile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-text = (work / 'src/gfx_d3d/r_device.cpp').read_text()
+text = fragment('gfx_d3d/r_device.cpp')
 source = text[text.index('Bool R_ReduceWindowSettings()'):text.index('void R_ShutdownRenderTargets();')]
 header = (work / 'src/gfx_d3d/r_window.h').read_text().replace('#pragma once', '')
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))

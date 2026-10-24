@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 packet = Path(__file__).resolve().parent.parent / 'src'
-source = (packet / 'gfx_d3d/r_dpvs_clipplanes.cpp').read_text().replace('#include "gfx.h"', '')
+source = fragment('gfx_d3d/r_dpvs_clipplanes.cpp').replace('#include "gfx.h"', '')
 dpvs = (packet / 'gfx_d3d/r_dpvs.cpp').read_text()
 start = dpvs.index('void R_GetSidePlaneNormals(')
 end = dpvs.index('// PINNED 10007ef0', start)

@@ -4,6 +4,7 @@ import subprocess
 import tempfile
 import pefile
 import capstone
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
@@ -18,7 +19,7 @@ for pair in [('mov', 'edi, 8'), ('mov', 'ebp, 0x80000000'), ('mov', 'ebp, 0xc800
     assert pair in ops, pair
 assert ops[-1] == ('ret', '')
 header = (work / 'src/gfx_d3d/r_window.h').read_text().replace('#pragma once', '')
-text = (work / 'src/gfx_d3d/r_window.cpp').read_text()
+text = fragment('gfx_d3d/r_window.cpp')
 source = text[text.index('Bool R_CreateGameWindow('):text.index('// PINNED 10012b00/')]
 program = r'''
 #include <cassert>

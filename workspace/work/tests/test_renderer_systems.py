@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-text = (work / 'src/gfx_d3d/r_init.cpp').read_text()
+text = fragment('gfx_d3d/r_init.cpp')
 source = text[text.index('typedef char rendererSystemsLayoutCheck'):text.index('void R_ScreenShot_f();')]
 types = (work.parent / 'src/opencod2/headers/common_types.h').read_text()
 start = types.index('struct DebugGlobals {')

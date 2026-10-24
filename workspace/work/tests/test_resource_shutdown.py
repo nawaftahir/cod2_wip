@@ -4,6 +4,7 @@ import subprocess
 import tempfile
 import capstone
 import pefile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
@@ -13,7 +14,7 @@ buffers = (work / 'src/gfx_d3d/r_dxbuffers.cpp').read_text()
 buffers = buffers[buffers.index('// PINNED 10011e60:'):buffers.index('void R_FinishStaticIndexBuffer(')]
 targets = (work / 'src/gfx_d3d/r_rendertarget.cpp').read_text()
 targets = targets[targets.index('// PINNED 10023560:'):targets.index('// PINNED 0x10022710:')]
-device = (work / 'src/gfx_d3d/r_device.cpp').read_text()
+device = fragment('gfx_d3d/r_device.cpp')
 device = device[device.index('void R_ShutdownRenderTargets();'):device.index('// Role name; PINNED 10013690:')]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)

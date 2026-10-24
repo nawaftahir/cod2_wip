@@ -1,4 +1,8 @@
-// Material and technique loading.
+// Material and technique loading, shader compilation and device creation.
+#include "r_local.h"
+#include <d3dx9shader.h>
+#include <dxerr9.h>
+#include <float.h>
 #include <algorithm>
 #define CodeSamplerSource MacCodeSamplerSource
 #define CodeConstantSource MacCodeConstantSource
@@ -41,6 +45,10 @@ typedef char ConstantRoutingSize[(sizeof(ShaderConstantRouting) == 16) ? 1 : -1]
 #include "r_material_state_tables.h"
 #include <stddef.h>
 #include <stdio.h>
+
+typedef char ShaderHeaderSize[(sizeof(MaterialShader) == 16) ? 1 : -1];
+typedef char ShaderLengthOffset[(offsetof(MaterialShader, programLen) == 8) ? 1 : -1];
+typedef char ShaderHandleOffset[(offsetof(MaterialShader, u) == 12) ? 1 : -1];
 
 extern DxGlobals dx;
 extern int Com_MatchToken(const char **text, const char *match, int warning);
@@ -1071,6 +1079,23 @@ extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYP
         (const char **)data, (int *)byteCount);
 }
 
+// PINNED 10018310: cached include text is borrowed, so Close does not free it.
+extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data)
+{
+    return 0;
+}
+
+struct ShaderIncludeVtable
+{
+    HRESULT (__stdcall *Open)(const void *, D3DXINCLUDE_TYPE, const char *, const void *, const void **, unsigned int *);
+    HRESULT (__stdcall *Close)(const void *, const void *);
+};
+static const ShaderIncludeVtable shaderIncludeVtable = { IncludeClass_Open, IncludeClass_Close };
+struct ShaderInclude
+{
+    const ShaderIncludeVtable *vtable;
+};
+
 // Retail passes the material in EDI (LTCG).
 static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args)
 {
@@ -1507,6 +1532,88 @@ Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
     return 0;
 }
 
+// PINNED 1001a4c0: compile cached PC text, retain the original failure cleanup.
+MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion)
+{
+    ShaderInclude include = { &shaderIncludeVtable };
+    D3DXMACRO defines[] = { { "PC", "" }, { 0, 0 } };
+    char profile[16];
+    char path[64];
+    const char *entry;
+    if (!shaderType)
+    {
+        Com_sprintf(profile, sizeof(profile), "vs_%i_%i", shaderVersion / 10, shaderVersion % 10);
+        entry = "vs_main";
+    }
+    else
+    {
+        Com_sprintf(profile, sizeof(profile), "ps_%i_%i", shaderVersion / 10, shaderVersion % 10);
+        entry = "ps_main";
+    }
+    Com_sprintf(path, sizeof(path), "materials/shaders/%s", name);
+    const char *text;
+    int textSize;
+    if (!Material_FindCachedShaderText(name, &text, &textSize))
+    {
+        Com_ScriptWarning("Shader '%s' wasn't preloaded\n", path);
+        return 0;
+    }
+    ID3DXBuffer *code;
+    ID3DXBuffer *messages;
+    ID3DXConstantTable *constants;
+    HRESULT result = D3DXCompileShader(text, textSize, defines, (ID3DXInclude *)&include,
+        entry, profile, 0, &code, &messages, &constants);
+    _clearfp();
+    _controlfp(_PC_24, _MCW_PC);
+    _controlfp(_MCW_EM, _MCW_EM);
+    if (messages)
+    {
+        Com_Printf("compiler message(s) for %s:\n%s\n", path, messages->GetBufferPointer());
+        messages->Release();
+    }
+    if (result < 0)
+    {
+        Com_ScriptWarning("%s compilation failed - %s\n", path, DXGetErrorDescription9A(result));
+        return 0;
+    }
+    if (!code)
+    {
+        if (constants)
+            constants->Release();
+        Com_ScriptWarning("%s compilation failed - NULL shader\n", path);
+        return 0;
+    }
+    if (!constants)
+    {
+        code->Release();
+        Com_ScriptWarning("%s compilation failed - NULL constants\n", path);
+        return 0;
+    }
+    unsigned int codeSize = code->GetBufferSize();
+    unsigned int nameSize = strlen(name) + 1;
+    MaterialShader *shader = (MaterialShader *)ri.Hunk_AllocInternal(sizeof(MaterialShader) + codeSize + nameSize);
+    shader->program = (const DWORD *)(shader + 1);
+    shader->name = (char *)(shader + 1) + codeSize;
+    memcpy((void *)shader->name, name, nameSize);
+    memcpy((void *)shader->program, code->GetBufferPointer(), codeSize);
+    shader->programLen = (unsigned short)codeSize >> 2;
+    shader->shaderType = (byte)shaderType;
+    shader->shaderVersion = (byte)shaderVersion;
+    if (!shader->shaderType)
+        result = dx.device->CreateVertexShader(shader->program, &shader->u.vertexShader);
+    else
+        result = dx.device->CreatePixelShader(shader->program, &shader->u.pixelShader);
+    if (result < 0)
+    {
+        Com_ScriptWarning("shader creation failed for %s %s %s: %s\n",
+            path, profile, entry, DXGetErrorDescription9A(result));
+        return 0;
+    }
+    code->Release();
+    constants->Release();
+    return shader;
+}
+
 // PINNED 1001a810: PC does not clamp the requested shader version.
 MaterialShader *Material_LoadPassShader(const char **text, int shaderType)
 {
@@ -1522,22 +1629,11 @@ MaterialShader *Material_LoadPassShader(const char **text, int shaderType)
     return shader;
 }
 
-// SDK interface prefix; unused reflection methods are not invoked here.
-struct ShaderConstantTableInterface
-{
-    virtual HRESULT __stdcall QueryInterface(const GUID &iid, void **object) = 0;
-    virtual ULONG __stdcall AddRef() = 0;
-    virtual ULONG __stdcall Release() = 0;
-    virtual void *__stdcall GetBufferPointer() = 0;
-};
-extern "C" HRESULT __stdcall D3DXGetShaderConstantTable(const DWORD *program, ShaderConstantTableInterface **table);
-extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT result);
-
 // PINNED 1001a920: narrow Constants before allocation and release on both paths.
 Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *shader,
     byte *techFlags, unsigned short *argumentCount, MaterialShaderArgument **arguments)
 {
-    ShaderConstantTableInterface *constants;
+    ID3DXConstantTable *constants;
     HRESULT result = D3DXGetShaderConstantTable((const DWORD *)shader->program, &constants);
     if (result < 0)
     {

@@ -173,12 +173,13 @@ typedef struct XAnimParts_s
 static_assert((sizeof(XAnimParts) == 44), "ERROR: XAnimParts size is invalid!");
 #endif
 
-struct DObjAnimMat
+// Mac STABS tag; the renderer headers use the same name.
+typedef struct DObjAnimMat_s
 {
 	vec4_t quat;
 	vec3_t trans;
 	float transWeight;
-};
+} DObjAnimMat;
 #if defined(__i386__)
 static_assert((sizeof(DObjAnimMat) == 32), "ERROR: DObjAnimMat size is invalid!");
 #endif

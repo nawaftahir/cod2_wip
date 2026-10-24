@@ -4,8 +4,11 @@ import subprocess
 import tempfile
 
 work=Path(__file__).resolve().parents[1]
-source=(work/'src/gfx_d3d/rb_2d.cpp').read_text()
-source=source[source.index('// PINNED 101d1b38:'):]
+backend=(work/'src/gfx_d3d/rb_backend.cpp').read_text()
+sky=(work/'src/gfx_d3d/rb_sky.cpp').read_text()
+source=sky[sky.index('// PINNED 101d1b38:'):sky.index('// PINNED 1003a9d0:')]
+source+=backend[backend.index('// PINNED 1002e020:'):backend.index('// Backend frame driver.\n')]
+source+=sky[sky.index('// PINNED 1003a9d0:'):sky.index('// Sun fade and quads.')]
 header=(work/'src/gfx_d3d/rb_backend.h').read_text().replace('__declspec(align(16)) struct','struct alignas(16)').replace('#pragma once','')
 tess=(work/'src/gfx_d3d/rb_tess.h').read_text().replace('#pragma once','')
 sun=(work/'src/gfx_d3d/r_sun_state.h').read_text().replace('#pragma once','')

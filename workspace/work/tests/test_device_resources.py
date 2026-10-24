@@ -5,6 +5,7 @@ import tempfile
 import json
 import pefile
 import capstone
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
@@ -16,7 +17,7 @@ assert ('push','9') in ops and ('push','8') in ops
 assert ('call','0x1003c2a0') in ops
 messages = [retail.get_string_at_rva(a-0x10000000).decode() for a in
             [0x10193dc4,0x10193da0,0x10193d7c,0x10193d54,0x10193d34,0x10193cbc,0x10193d08,0x10193cd8]]
-text = (work / 'src/gfx_d3d/r_device.cpp').read_text()
+text = fragment('gfx_d3d/r_device.cpp')
 source = text[text.index('Bool R_CreateDeviceResources('):text.index('// PINNED 10011460/')]
 header = (work / 'src/gfx_d3d/r_sun_state.h').read_text().replace('#pragma once','')
 program = r'''

@@ -3,9 +3,10 @@ from pathlib import Path
 import re
 import subprocess
 import tempfile
+from fragment import fragment
 
 root = Path(__file__).resolve().parent.parent / 'src'
-source = (root / 'gfx_d3d/r_model_bounds.cpp').read_text()
+source = fragment('gfx_d3d/r_model_bounds.cpp')
 math_header = (root / 'universal/com_math.h').read_text()
 math_source = (root / 'universal/com_math.cpp').read_text()
 anim_header = (root / 'xanim/xanim_public.h').read_text()

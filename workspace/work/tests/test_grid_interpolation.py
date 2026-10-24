@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work=Path(__file__).resolve().parents[1]
-text=(work/'src/gfx_d3d/rb_light_grid.cpp').read_text()
+text=fragment('gfx_d3d/rb_light_grid.cpp')
 helpers=text[text.index('// PINNED 10036100:'):text.index('// PINNED 10036320:')]
 source=text[text.index('float RB_GetLightingAtPoint('):text.index('typedef char entityLightingLayoutCheck')]
 program=r'''

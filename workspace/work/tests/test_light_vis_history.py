@@ -2,8 +2,9 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
-text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/rb_light_derive.cpp').read_text()
+text = fragment('gfx_d3d/rb_light_derive.cpp')
 source = text[text.index('static void BuildGridFilename('):]
 program = r'''
 #include <cassert>

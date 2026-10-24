@@ -70,20 +70,27 @@ typedef enum hitLocation_t hitLocation_t;
 typedef struct DObjModel_s DObjModel;
 typedef struct XAnimNotify_s XAnimNotify;
 
+#ifndef COD2_SDK_TYPES
 typedef struct dvar_s dvar_t;
+#endif
 typedef struct leafList_s leafList_t;
 typedef struct localEntity_s localEntity_t;
+#ifndef COD2_SDK_TYPES
 typedef int clipHandle_t;
+#endif
 
 typedef short unsigned int scr_thread_t;
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdDrawQuadPic {
     GfxCmdHeader header;
     const Material *material;
     vec2_t verts[4];
     GfxColor color;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdStretchPicRotate {
     GfxCmdHeader header;
     const Material *material;
@@ -98,13 +105,16 @@ struct GfxCmdStretchPicRotate {
     GfxColor color;
     float rotation;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxDrawPrimArgs {
     int firstVertexFromBase;
     int vertexCount;
     int primCount;
     union { struct { int baseVertex; int baseIndex; } buf; struct { int vertexStride; } tess; } u;
 };
+#endif
 
 struct MantleResults {
     vec3_t dir;

@@ -2,13 +2,14 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-image = (work / 'src/gfx_d3d/r_screenshot.cpp').read_text()
+image = fragment('gfx_d3d/r_screenshot.cpp')
 capture = image[image.index('static __declspec(noinline) void R_FlipCubemapShot('):
                 image.index('// PINNED 100269c0;')]
 end = image[image.index('void R_EndCubemapShot('):image.index('// PINNED 0x101903a8')]
-init = (work / 'src/gfx_d3d/r_init.cpp').read_text()
+init = fragment('gfx_d3d/r_init.cpp')
 gamma = init[init.index('#pragma intrinsic(pow)'):init.index('\nGfxImage *Image_Register(')]
 program = r'''
 #include <cassert>

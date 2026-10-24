@@ -2,13 +2,14 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work=Path(__file__).resolve().parents[1]
-grid=(work/'src/gfx_d3d/rb_light_grid.cpp').read_text()
+grid=fragment('gfx_d3d/rb_light_grid.cpp')
 entity=grid[grid.index('// PINNED 100366b0:'):]
 shade=(work/'src/gfx_d3d/rb_shade.cpp').read_text()
 lighting=shade[shade.index('// PINNED 1003a340:'):shade.index('// PINNED 10190690:')]
-dispatch=shade[shade.index('// PINNED 10190690:'):]
+dispatch=shade[shade.index('// PINNED 10190690:'):shade.index('// PINNED 1003a5f0')]
 program=r'''
 #include <cassert>
 #include <cstdio>

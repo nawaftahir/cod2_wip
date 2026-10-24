@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-text = (work / 'src/gfx_d3d/r_screenshot_capture.cpp').read_text()
+text = fragment('gfx_d3d/r_screenshot_capture.cpp')
 source = text[text.index('byte *R_TakeResampledScreenshot('):]
 program = r'''
 #include <cassert>

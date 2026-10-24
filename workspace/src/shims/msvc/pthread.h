@@ -30,6 +30,7 @@ typedef int   pthread_attr_t;
 
 /* Hand-rolled __stdcall (WINAPI) prototypes -- resolved from kernel32 at link,
  * no SDK header needed. void* stands in for LPCRITICAL_SECTION / HANDLE. */
+#ifndef _WINBASE_
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -44,6 +45,15 @@ __declspec(dllimport) void *__stdcall GetCurrentThread(void);
 #ifdef __cplusplus
 }
 #endif
+#define COD2_CS(m) (m)
+#else
+#define COD2_CS(m) ((CRITICAL_SECTION *)(m))
+/* windows.h hides it below _WIN32_WINNT 0x400 */
+#ifdef __cplusplus
+extern "C"
+#endif
+__declspec(dllimport) BOOL __stdcall TryEnterCriticalSection(LPCRITICAL_SECTION);
+#endif
 /* _beginthreadex: include the CRT header (no Win32 type collisions) so its
  * exact linkage matches -- a hand-rolled prototype clashes (C2375). */
 #include <process.h>
@@ -53,12 +63,12 @@ static __inline int pthread_mutexattr_destroy(pthread_mutexattr_t *a)         { 
 static __inline int pthread_mutexattr_settype(pthread_mutexattr_t *a, int t)  { if (a) *a = t; return 0; }
 
 static __inline int pthread_mutex_init(pthread_mutex_t *m, const pthread_mutexattr_t *a) {
-    (void)a; InitializeCriticalSection(m); return 0;   /* CRITICAL_SECTION is recursive */
+    (void)a; InitializeCriticalSection(COD2_CS(m)); return 0;   /* CRITICAL_SECTION is recursive */
 }
-static __inline int pthread_mutex_destroy(pthread_mutex_t *m) { DeleteCriticalSection(m); return 0; }
-static __inline int pthread_mutex_lock(pthread_mutex_t *m)    { EnterCriticalSection(m);  return 0; }
-static __inline int pthread_mutex_unlock(pthread_mutex_t *m)  { LeaveCriticalSection(m);  return 0; }
-static __inline int pthread_mutex_trylock(pthread_mutex_t *m) { return TryEnterCriticalSection(m) ? 0 : 16 /*EBUSY*/; }
+static __inline int pthread_mutex_destroy(pthread_mutex_t *m) { DeleteCriticalSection(COD2_CS(m)); return 0; }
+static __inline int pthread_mutex_lock(pthread_mutex_t *m)    { EnterCriticalSection(COD2_CS(m));  return 0; }
+static __inline int pthread_mutex_unlock(pthread_mutex_t *m)  { LeaveCriticalSection(COD2_CS(m));  return 0; }
+static __inline int pthread_mutex_trylock(pthread_mutex_t *m) { return TryEnterCriticalSection(COD2_CS(m)) ? 0 : 16 /*EBUSY*/; }
 
 static __inline int pthread_create(pthread_t *t, const pthread_attr_t *a,
                                    void *(*fn)(void *), void *arg) {

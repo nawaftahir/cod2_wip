@@ -4,25 +4,46 @@
 
 #if defined(COD2_VC71_COMPAT_H)
 
+#ifndef COD2_SDK_TYPES
 typedef unsigned int WPARAM;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef long LPARAM;
+#endif
+#ifndef COD2_SDK_TYPES
 typedef unsigned long COLORREF;
+#endif
 
 struct HMENU__;
+#ifndef COD2_SDK_TYPES
 typedef struct HMENU__ *HMENU;
+#endif
 struct HICON__;
+#ifndef COD2_SDK_TYPES
 typedef struct HICON__ *HICON;
+#endif
 struct HBRUSH__;
+#ifndef COD2_SDK_TYPES
 typedef struct HBRUSH__ *HBRUSH;
+#endif
 struct HFONT__;
+#ifndef COD2_SDK_TYPES
 typedef struct HFONT__ *HFONT;
+#endif
 struct HBITMAP__;
+#ifndef COD2_SDK_TYPES
 typedef struct HBITMAP__ *HBITMAP;
+#endif
 struct HGDIOBJ__;
+#ifndef COD2_SDK_TYPES
 typedef struct HGDIOBJ__ *HGDIOBJ;
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef LRESULT(__stdcall *WNDPROC)(HWND, UINT, WPARAM, LPARAM);
+#endif
 
+#ifndef COD2_SDK_TYPES
 typedef struct tagWNDCLASSA {
     UINT style;
     WNDPROC lpfnWndProc;
@@ -35,6 +56,7 @@ typedef struct tagWNDCLASSA {
     LPCSTR lpszMenuName;
     LPCSTR lpszClassName;
 } WNDCLASSA, *LPWNDCLASSA;
+#endif
 #    define WNDCLASS WNDCLASSA
 
 BM_EXTERN_C

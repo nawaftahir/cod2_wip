@@ -4,6 +4,7 @@ import subprocess
 import tempfile
 import pefile
 import capstone
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
@@ -15,7 +16,7 @@ assert ops[-1] == ('ret', '')
 assert retail.get_string_at_rva(0x193c40) == b'Creating Direct3D device...\n'
 assert retail.get_string_at_rva(0x192b74) == b'r_swapInterval'
 header = (work / 'src/gfx_d3d/r_window.h').read_text().replace('#pragma once', '')
-text = (work / 'src/gfx_d3d/r_device.cpp').read_text()
+text = fragment('gfx_d3d/r_device.cpp')
 source = text[text.index('void R_SetupAntiAliasing('):text.index('extern const dvar_t *r_gamma;')]
 program = r'''
 #include <cassert>

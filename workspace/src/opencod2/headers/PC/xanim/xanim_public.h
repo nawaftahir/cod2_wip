@@ -5,7 +5,9 @@
 
 typedef struct XModelConfig XModelConfig;
 typedef struct DSurface_s DSurface;
+#ifndef COD2_SDK_TYPES
 typedef void * (*Alloc_t)(int);   /* real allocator(size) sig; matches common_types.h */
+#endif
 
 typedef struct TestLod TestLod;
 typedef struct XAnimCalcAnimInfo XAnimCalcAnimInfo;

@@ -1,8 +1,8 @@
 {
-  "functions": 630,
-  "bytes": 109992,
+  "functions": 649,
+  "bytes": 112167,
   "total": 253580,
-  "percent": 43.375660541052135,
+  "percent": 44.23337802665825,
   "baseline_lost": [],
   "gains": [
     {
@@ -15,7 +15,7 @@
       "target": "0x100018a0",
       "bytes": 28,
       "name": "?Vector4Set@@YAXQAMMMMM@Z",
-      "object": "rb_filter_generate.obj"
+      "object": "rb_imagefilter.obj"
     },
     {
       "target": "0x10003430",
@@ -30,10 +30,22 @@
       "object": "r_dxbuffers.obj"
     },
     {
+      "target": "0x100052c0",
+      "bytes": 151,
+      "name": "?R_RegisterCmds@@YAXXZ",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10005360",
+      "bytes": 114,
+      "name": "?R_UnregisterCmds@@YAXXZ",
+      "object": "r_init.obj"
+    },
+    {
       "target": "0x10005420",
       "bytes": 23,
       "name": "?VectorCopy4@@YAXQBMQAM@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10005440",
@@ -75,19 +87,19 @@
       "target": "0x10005c10",
       "bytes": 29,
       "name": "?DotProduct4@@YAMQBM0@Z",
-      "object": "r_dpvs_occluders.obj"
+      "object": "r_dpvs.obj"
     },
     {
       "target": "0x100063e0",
       "bytes": 205,
       "name": "?R_IsBoundsOutsideViewNoStack@@YA_NPAUDpvsPlane@@HPBM@Z",
-      "object": "r_dpvs_occluders.obj"
+      "object": "r_dpvs.obj"
     },
     {
       "target": "0x100079d0",
       "bytes": 68,
       "name": "?R_OccluderBehindPlane@@YA_NPBUGfxOccluder@@PBUDpvsPlane@@@Z",
-      "object": "r_dpvs_occluders.obj"
+      "object": "r_dpvs.obj"
     },
     {
       "target": "0x10007dc0",
@@ -171,6 +183,12 @@
       "target": "0x1000c7e0",
       "bytes": 17,
       "name": "?R_AddImageToList@@YAXPAUGfxImage@@PAX@Z",
+      "object": "r_image.obj"
+    },
+    {
+      "target": "0x1000c820",
+      "bytes": 168,
+      "name": "?R_GetImageMemory@@YAXPAUImage_MemUsage@@@Z",
       "object": "r_image.obj"
     },
     {
@@ -318,40 +336,46 @@
       "object": "r_image_wavelet.obj"
     },
     {
+      "target": "0x100113e0",
+      "bytes": 49,
+      "name": "?R_FatalBufferLockError@@YAXJ@Z",
+      "object": "rb_buffer_upload.obj"
+    },
+    {
       "target": "0x10011460",
       "bytes": 100,
       "name": "?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z",
-      "object": "r_device.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x100114d0",
       "bytes": 137,
       "name": "?R_SetD3DPresentParameters@@YAXPAU_D3DPRESENT_PARAMETERS_@@PBUGfxWindowParms@@@Z",
-      "object": "r_device.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10011560",
       "bytes": 132,
       "name": "?R_GetMonitorDimensions@@YAXPAH0@Z",
-      "object": "r_monitor.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x100116c0",
       "bytes": 139,
       "name": "?R_GetDeviceCaps@@YAXIPAU_D3DCAPS9@@@Z",
-      "object": "r_caps_device.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10011760",
       "bytes": 358,
       "name": "?R_ChooseRenderer@@YAXPBU_D3DCAPS9@@@Z",
-      "object": "r_caps_device.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10011900",
       "bytes": 307,
       "name": "?R_StoreDirect3DCaps@@YAXI@Z",
-      "object": "r_caps_device.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10011a40",
@@ -366,34 +390,58 @@
       "object": "r_dxbuffers.obj"
     },
     {
+      "target": "0x10011b60",
+      "bytes": 143,
+      "name": "?R_CreateDynamicBuffers@@YAXXZ",
+      "object": "r_dxbuffers.obj"
+    },
+    {
       "target": "0x10012320",
       "bytes": 51,
       "name": "?R_DisplayModeLess@@YA_NABU_D3DDISPLAYMODE@@0@Z",
-      "object": "r_display_modes.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10012360",
       "bytes": 55,
       "name": "?R_AddRefreshRate@@YAHHPAHH@Z",
-      "object": "r_display_modes.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x100123a0",
       "bytes": 41,
       "name": "?R_AddResolution@@YAHHPAUGfxResolution@@HH@Z",
-      "object": "r_display_modes.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x100126d0",
       "bytes": 113,
       "name": "?R_CreateDeviceInternal@@YAJPAUHWND__@@KPAU_D3DPRESENT_PARAMETERS_@@@Z",
-      "object": "r_device.obj"
+      "object": "r_init.obj"
     },
     {
       "target": "0x10012b00",
       "bytes": 131,
       "name": "?R_ChooseRefreshRate@@YAHHHH@Z",
-      "object": "r_window.obj"
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10014580",
+      "bytes": 19,
+      "name": "?init_destination@@YAXPAUjpeg_compress_struct@@@Z",
+      "object": "r_jpeg.obj"
+    },
+    {
+      "target": "0x100145b0",
+      "bytes": 20,
+      "name": "?term_destination@@YAXPAUjpeg_compress_struct@@@Z",
+      "object": "r_jpeg.obj"
+    },
+    {
+      "target": "0x100145d0",
+      "bytes": 62,
+      "name": "?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z",
+      "object": "r_jpeg.obj"
     },
     {
       "target": "0x10015260",
@@ -423,6 +471,12 @@
       "target": "0x10016740",
       "bytes": 53,
       "name": "?Material_BuildVertexDecls@@YAXPAPAUMaterialVertexDeclaration@@@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016e70",
+      "bytes": 87,
+      "name": "?Material_Sort@@YAXXZ",
       "object": "r_material.obj"
     },
     {
@@ -578,7 +632,7 @@
     {
       "target": "0x1001d660",
       "bytes": 181,
-      "name": "?ConvertQuatToMat@@YAXPBUDObjAnimMat@@QAY02M@Z",
+      "name": "?ConvertQuatToMat@@YAXPBUDObjAnimMat_s@@QAY02M@Z",
       "object": "xanim_matrix.obj"
     },
     {
@@ -597,37 +651,37 @@
       "target": "0x1001d9f0",
       "bytes": 98,
       "name": "?R_GetSurfaceData@@YAHPBUGfxEntity@@PBUDObj_s@@PAUDSurface_s@@PAHPAD@Z",
-      "object": "r_model_bounds.obj"
+      "object": "r_model.obj"
     },
     {
       "target": "0x1001da60",
       "bytes": 20,
       "name": "?R_CalcSceneEntityPose@@YAXPBUGfxSceneEntity@@PBUDObj_s@@PAH@Z",
-      "object": "r_model_bounds.obj"
+      "object": "r_model.obj"
     },
     {
       "target": "0x1001e660",
       "bytes": 58,
       "name": "?R_SkinPositionSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z",
-      "object": "r_skin_rigid.obj"
+      "object": "r_model.obj"
     },
     {
       "target": "0x1001e6a0",
       "bytes": 51,
       "name": "?R_SkinVectorSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z",
-      "object": "r_skin_rigid.obj"
+      "object": "r_model.obj"
     },
     {
       "target": "0x1001fda0",
       "bytes": 35,
       "name": "?R_SetEntityOriginBounds@@YAXPAUGfxSceneEntity@@PBM@Z",
-      "object": "r_model_bounds.obj"
+      "object": "r_model.obj"
     },
     {
       "target": "0x1001fdd0",
       "bytes": 470,
       "name": "?R_ExpandBoneBounds@@YAXPAY02$$CBMPBM0PAY02M@Z",
-      "object": "r_model_bounds.obj"
+      "object": "r_model.obj"
     },
     {
       "target": "0x10020590",
@@ -690,6 +744,12 @@
       "object": "r_rendertarget.obj"
     },
     {
+      "target": "0x10023560",
+      "bytes": 162,
+      "name": "?R_ShutdownRenderTargets@@YAXXZ",
+      "object": "r_rendertarget.obj"
+    },
+    {
       "target": "0x100236c0",
       "bytes": 77,
       "name": "?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z",
@@ -711,7 +771,19 @@
       "target": "0x10027d00",
       "bytes": 573,
       "name": "?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z",
-      "object": "r_shadowcookie_candidates.obj"
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x10029080",
+      "bytes": 101,
+      "name": "?R_SaveSun@@YAXPBD@Z",
+      "object": "r_sky.obj"
+    },
+    {
+      "target": "0x100290f0",
+      "bytes": 46,
+      "name": "?R_SaveSun_f@@YAXXZ",
+      "object": "r_sky.obj"
     },
     {
       "target": "0x10029120",
@@ -724,6 +796,12 @@
       "bytes": 73,
       "name": "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z",
       "object": "r_staticmodel_load_obj.obj"
+    },
+    {
+      "target": "0x1002bb90",
+      "bytes": 84,
+      "name": "?R_StaticModelCacheStats_f@@YAXXZ",
+      "object": "r_staticmodelcache.obj"
     },
     {
       "target": "0x1002bc60",
@@ -777,43 +855,61 @@
       "target": "0x10034ca0",
       "bytes": 536,
       "name": "?RB_GaussianFilterPoints1D@@YAHMHHHPAM0@Z",
-      "object": "rb_filter_generate.obj"
+      "object": "rb_imagefilter.obj"
     },
     {
       "target": "0x10034ec0",
       "bytes": 282,
       "name": "?RB_GenerateGaussianFilter1D@@YAXMPAHHPAUGfxImageFilterPass@@@Z",
-      "object": "rb_filter_generate.obj"
+      "object": "rb_imagefilter.obj"
+    },
+    {
+      "target": "0x10035850",
+      "bytes": 56,
+      "name": "?RB_CompareTouchImages@@YAHPBX0@Z",
+      "object": "rb_imagetouch.obj"
+    },
+    {
+      "target": "0x10035fb0",
+      "bytes": 141,
+      "name": "?RB_FindGridPoint@@YA_NPBUGfxLightGrid@@HHHPAH@Z",
+      "object": "rb_light.obj"
     },
     {
       "target": "0x100368a0",
       "bytes": 2834,
       "name": "?RB_FitDirectionalLight@@YA_NHPAY02MPAU_D3DLIGHT9@@@Z",
-      "object": "rb_light_derive.obj"
+      "object": "rb_light.obj"
     },
     {
       "target": "0x10037420",
       "bytes": 213,
       "name": "?RB_DeriveAmbientEntityLights@@YAHPBMMPAU_D3DLIGHT9@@H@Z",
-      "object": "rb_light_derive.obj"
+      "object": "rb_light.obj"
     },
     {
       "target": "0x10037500",
       "bytes": 294,
       "name": "?RB_DeriveDirectionalEntityLights@@YAHPBMMPAU_D3DLIGHT9@@H@Z",
-      "object": "rb_light_derive.obj"
+      "object": "rb_light.obj"
     },
     {
       "target": "0x10037630",
       "bytes": 60,
       "name": "?RB_DeriveEntityLights@@YAHPAY03MMPBUMaterial@@PAU_D3DLIGHT9@@H@Z",
-      "object": "rb_light_derive.obj"
+      "object": "rb_light.obj"
     },
     {
       "target": "0x10037670",
       "bytes": 78,
       "name": "?BuildGridFilename@@YAXPBDPAD@Z",
-      "object": "rb_light_derive.obj"
+      "object": "rb_light.obj"
+    },
+    {
+      "target": "0x10037930",
+      "bytes": 304,
+      "name": "?RB_TechniqueName@@YAPBDH@Z",
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10038430",
@@ -840,52 +936,64 @@
       "object": "rb_state.obj"
     },
     {
+      "target": "0x100386b0",
+      "bytes": 282,
+      "name": "?RB_SetIndexData@@YAHPBGH@Z",
+      "object": "rb_buffer_upload.obj"
+    },
+    {
       "target": "0x100388f0",
       "bytes": 39,
       "name": "?RB_ApplyImageOverride@@YAXPBUdvar_s@@PAPAUGfxImage@@PAE@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10038cf0",
       "bytes": 733,
       "name": "?RB_GetCodeMatrix@@YAPBMIHH@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10038fd0",
       "bytes": 198,
       "name": "?RB_DeriveOutdoorLookupMatrix@@YAXQAY03M@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x100390a0",
       "bytes": 65,
       "name": "?RB_GetShaderCodeConstant@@YAXPBUMaterialArgumentCodeConst@@PAPBMPAI@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x100390f0",
       "bytes": 52,
       "name": "?RB_GetMaterialConstant@@YAXPBDPAPBMPAI@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10039610",
       "bytes": 95,
       "name": "?RB_ApplyStateMapRules@@YAEPBUMaterialStateMapRuleSet@@PBHPAH@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x10039670",
       "bytes": 91,
       "name": "?RB_EvaluateStateMap@@YAXPBHPBUMaterialStateMap@@PAH@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x100399d0",
       "bytes": 358,
       "name": "?RB_GetObjectiveColorDx7@@YAXPAE@Z",
-      "object": "rb_shader_matrices.obj"
+      "object": "rb_shade.obj"
+    },
+    {
+      "target": "0x1003a5f0",
+      "bytes": 153,
+      "name": "?RB_BeginSurface@@YAXPBUMaterial@@HH@Z",
+      "object": "rb_shade.obj"
     },
     {
       "target": "0x1003ad40",
@@ -915,6 +1023,12 @@
       "target": "0x1003ddb0",
       "bytes": 45,
       "name": "?RB_InitImages@@YAXXZ",
+      "object": "rb_state.obj"
+    },
+    {
+      "target": "0x1003ec50",
+      "bytes": 33,
+      "name": "?RB_BindWhiteImages@@YAXXZ",
       "object": "rb_state.obj"
     },
     {
@@ -956,7 +1070,7 @@
     {
       "target": "0x10058310",
       "bytes": 105,
-      "name": "?MatrixTransformVectorQuatTrans@@YAXPBMPBUDObjAnimMat@@PAM@Z",
+      "name": "?MatrixTransformVectorQuatTrans@@YAXPBMPBUDObjAnimMat_s@@PAM@Z",
       "object": "xanim_matrix.obj"
     },
     {
@@ -985,7 +1099,31 @@
     }
   ],
   "checkpoint_lost": [],
-  "excluded_new_library_functions": 36,
+  "excluded_new_library_functions": 58,
+  "dependency_objects": [
+    "jcapimin.obj",
+    "jcapistd.obj",
+    "jccoefct.obj",
+    "jccolor.obj",
+    "jcdctmgr.obj",
+    "jchuff.obj",
+    "jcinit.obj",
+    "jcmainct.obj",
+    "jcmarker.obj",
+    "jcmaster.obj",
+    "jcomapi.obj",
+    "jcparam.obj",
+    "jcphuff.obj",
+    "jcprepct.obj",
+    "jcsample.obj",
+    "jerror.obj",
+    "jfdctflt.obj",
+    "jfdctfst.obj",
+    "jfdctint.obj",
+    "jmemmgr.obj",
+    "jmemnobs.obj",
+    "jutils.obj"
+  ],
   "excluded_new_embedded_table_bytes": 482,
-  "excluded_new_library_bytes": 7245
+  "excluded_new_library_bytes": 10408
 }

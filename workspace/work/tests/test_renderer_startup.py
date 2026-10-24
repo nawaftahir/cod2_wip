@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work=Path(__file__).resolve().parents[1]
-text=(work/'src/gfx_d3d/r_init.cpp').read_text()
+text=fragment('gfx_d3d/r_init.cpp')
 source=text[text.index('// PINNED 10012f80:'):text.index('typedef char rendererRegistrationLayoutCheck')]
 program=r'''
 #include <cassert>

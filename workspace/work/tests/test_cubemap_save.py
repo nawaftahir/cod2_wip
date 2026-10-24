@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-text = (work / 'src/gfx_d3d/r_screenshot.cpp').read_text()
+text = fragment('gfx_d3d/r_screenshot.cpp')
 source = text[text.index('const float cubemapShotAxis[7][3][3]'):
               text.index('static void R_GetDirForCubemapPixel(')]
 program = r'''

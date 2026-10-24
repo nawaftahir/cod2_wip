@@ -3,7 +3,7 @@ from pathlib import Path
 import subprocess
 import tempfile
 
-text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/rb_shader_matrices.cpp').read_text()
+text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/rb_shade.cpp').read_text()
 start = text.index('static void RB_GetCodeImage(')
 source = text[start:text.index('\nextern const dvar_t *r_colorMap', start)]
 program = r'''
@@ -21,7 +21,7 @@ struct { World *world;union { struct { GfxImage *whiteImage,*blackImage,*identit
     GfxImage *waterColorImage,*sunHalfAngleImage; } rgp;
 struct { struct { GfxImage *image; } renderTargets[13]; } dx;
 struct { int lmapIndex;Material *material; } tess;
-struct { void *currentEntity;GfxImage *currentFeedbackImage;
+struct { GfxEntity *currentEntity;GfxImage *currentFeedbackImage;
     int resolvedPostSunTarget,resolvedSceneTarget;struct { LightDef *def; } light[2]; } backEnd;
 struct dvar_t { struct { bool enabled; } current; } enabled,lightMap;
 const dvar_t *sc_enable=&enabled,*r_lightMap=&lightMap;

@@ -5,7 +5,44 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: API dependency audit and execution priority corrected
+### Latest: one type view, r_init/r_model/r_screenshot merged
+
+gfx.h and r_local.h now work in one file (r_local.h first): the Mac header
+declarations that the real SDK/PC headers own are skipped by generated
+COD2_SDK_TYPES guards (tools/sdk_guard.py; gfx.h-only TUs unchanged).
+Merged: r_init (+r_fatal_init, r_device, r_caps_device, r_monitor,
+r_window, r_display_modes), r_model (+r_model_bounds, r_skin_rigid),
+r_screenshot (+r_screenshot_capture), rb_2d split into rb_backend/rb_sky.
+DObjAnimMat/XBoneInfo now use the Mac _s tags everywhere. tus.txt 93 TUs.
+Build, both referees, 1448/1448 extents and all fixtures pass (logs
+proof/latest/{model_backend,rinit_header,screenshot}_merge_*.log). C++
+104237/253580 = 41.106159792%, 617 bodies, unchanged; same-offset 9.0616%.
+Left (layout/README.md): material and rb_shade need one type definition
+each (duplicate CodeSamplerSource tables; opaque GfxTess fields), r_model_lod
+and r_lightgrid_weights are /Op, per-function moves into r_buffers/r_cmds.
+layout/evidence.tsv lists 93 bodies with no retail address to verify.
+
+### Earlier: retail file layout (owner request: lay out files like retail)
+
+tus.txt now follows retail body order (path order gfx_d3d/r_*, rb_*, jpeg-6b,
+universal), from the median accepted address per TU; bodyless TUs take their
+alphabetical slot. Five groups merged into their retail files (rb_light,
+rb_state, r_dpvs, com_math, rb_shade) and two renamed (rb_imagefilter,
+r_shadowcookie), named by the Mac 1.3 source tree. New tools/file_layout.py
+writes layout/file_layout.tsv: retail address + Mac file + retail file for
+every linked function, the map for placing new code. Details, constraints,
+remaining merges and whole-file contributors: layout/README.md, last section.
+
+Original build, BOTH referees, all1448 extents and all fixtures pass (logs
+proof/latest/retail_files_{build,fixtures}.log). C++104237/253580=
+41.106159792%,617 bodies, unchanged. Same-offset9.060749965% (was9.138583293,
+diagnostic). .text -288 B from fewer duplicate static-inline copies.
+PINNED: the first object referencing fabs sets its form for all /Op TUs;
+r_lightgrid_weights must follow r_water_load_obj until retail's earlier
+fabs user exists. Next structural step: merge gfx.h and r_local.h type views,
+then the r_init/material/screenshot/rb_shade merges are mechanical.
+
+### Earlier: API dependency audit and execution priority corrected
 
 No new source or coverage claimed in this audit.54 API slots remain byte/binding
 accepted. Six more callbacks already have matching bodies but OPEN callee

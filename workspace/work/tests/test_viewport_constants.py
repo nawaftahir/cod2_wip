@@ -2,8 +2,9 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
-source = (Path(__file__).resolve().parent.parent / 'src' / 'gfx_d3d/rb_viewport.cpp').read_text()
+source = fragment('gfx_d3d/rb_viewport.cpp')
 backend = (Path(__file__).resolve().parent.parent / 'src' / 'gfx_d3d/rb_backend.cpp').read_text()
 setter_start = backend.index('void RB_SetCodeConstant(')
 setter = backend[setter_start:backend.index('\n}', setter_start) + 2]

@@ -129,12 +129,24 @@ struct ConversionArguments;
 struct CopyParam;
 struct Cursor;
 struct Cylinder;
+#ifndef COD2_SDK_TYPES
 struct D3DDISPLAYMODE;
+#endif
+#ifndef COD2_SDK_TYPES
 struct D3DTEXTUREOP;
+#endif
+#ifndef COD2_SDK_TYPES
 struct D3DXFLOAT16;
+#endif
+#ifndef COD2_SDK_TYPES
 struct D3DXMATRIX;
+#endif
+#ifndef COD2_SDK_TYPES
 struct D3DXVECTOR3;
+#endif
+#ifndef COD2_SDK_TYPES
 struct D3DXVECTOR4;
+#endif
 struct DIR;
 struct DInfo;
 struct DObjAnimMat_s;
@@ -358,31 +370,79 @@ union HParamBlockRec;
 struct HVolumeParam;
 struct HWND__;
 struct HashEntry;
+#ifndef COD2_SDK_TYPES
 struct ID3DXBuffer;
+#endif
+#ifndef COD2_SDK_TYPES
 struct ID3DXConstantTable;
+#endif
+#ifndef COD2_SDK_TYPES
 struct ID3DXFont;
+#endif
+#ifndef COD2_SDK_TYPES
 struct ID3DXInclude;
+#endif
+#ifndef COD2_SDK_TYPES
 struct ID3DXSprite;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3D9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DBaseTexture9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DCubeTexture9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DDevice9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DIndexBuffer9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DPixelShader9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DQuery9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DResource9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DStateBlock9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DSurface9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DSwapChain9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DTexture9;
+#endif
+#ifndef COD2_SDK_TYPES
 union IDirect3DVertexBuffer9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DVertexDeclaration9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DVertexShader9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DVolume9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IDirect3DVolumeTexture9;
+#endif
+#ifndef COD2_SDK_TYPES
 struct IID;
+#endif
 struct ITab;
+#ifndef COD2_SDK_TYPES
 struct IUnknown;
+#endif
 struct ImageDescription;
 struct ImageList;
 struct Image_MemUsage;
@@ -391,7 +451,9 @@ struct ItemKeyHandler;
 struct JHUFF_TBL;
 struct JQUANT_TBL;
 struct KeyStruct;
+#ifndef COD2_SDK_TYPES
 struct LARGE_INTEGER;
+#endif
 struct LSItemInfoRecord;
 struct LargeLocal;
 struct LegacyHacks;
@@ -471,7 +533,9 @@ struct ProcessInfoRec;
 struct ProcessSerialNumber;
 struct ProgrammableShaderType;
 struct QElem;
+#ifndef COD2_SDK_TYPES
 struct RTL_CRITICAL_SECTION;
+#endif
 struct RefString;
 struct RemoveDirectoryInfo;
 struct SBDecState;

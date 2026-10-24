@@ -4,6 +4,7 @@ import subprocess
 import tempfile
 import capstone
 import pefile
+from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
@@ -13,7 +14,7 @@ assert ops[-1] == ('ret','')
 for expected in [('cmp','edi, 0x10'),('mov','byte ptr [0x101d1be8], 0x32'),
                  ('mov','byte ptr [0x101d1be9], 0'),('mov','dword ptr [0x101d1bec], ecx')]:
     assert expected in ops, expected
-text = (work / 'src/gfx_d3d/r_init.cpp').read_text()
+text = fragment('gfx_d3d/r_init.cpp')
 source = text[text.index('void R_RegisterBuiltinImages('):text.index('void Material_Init();')]
 program = r'''
 #include <cassert>

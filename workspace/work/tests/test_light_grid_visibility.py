@@ -2,9 +2,10 @@
 from pathlib import Path
 import subprocess
 import tempfile
+from fragment import fragment
 
 work=Path(__file__).resolve().parents[1]
-source=(work/'src/gfx_d3d/rb_light_grid.cpp').read_text()
+source=fragment('gfx_d3d/rb_light_grid.cpp')
 source=source[source.index('// PINNED 10035fb0'):]
 source=source[:source.index('/* PINNED 100363a0.')]
 program=r'''

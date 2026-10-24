@@ -13,6 +13,7 @@ typedef struct SunFlareDynamic SunFlareDynamic;
 typedef struct materialCommands_t materialCommands_t;
 typedef struct r_backEndGlobals_t r_backEndGlobals_t;
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdDrawTriangles {
     GfxCmdHeader header;
     const Material *material;
@@ -20,18 +21,23 @@ struct GfxCmdDrawTriangles {
     short int indexCount;
     short int vertexCount;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdSetStencilRefValue {
     GfxCmdHeader header;
     int refValue;
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdStencilPlanes {
     GfxCmdHeader header;
     vec_t nearDist;
     int planeCount;
     vec_t planeDists[1];
 };
+#endif
 
 struct GfxCmdDrawSprite {
     GfxCmdHeader header;
@@ -43,6 +49,7 @@ struct GfxCmdDrawSprite {
     int renderFxFlags;
 };
 
+#ifndef COD2_SDK_TYPES
 struct SunFlareDynamic {
     float flareIntensity;
     float currentBlind;
@@ -56,6 +63,7 @@ struct SunFlareDynamic {
     IDirect3DQuery9 * sunQuery[2];
     Bool sunQueryIssued[2];
 };
+#endif
 
 enum GfxOptimizedVertexSource {
     OPT_VERTS_NONE = 0,
@@ -72,6 +80,7 @@ enum MaterialVertexDeclType {
     VERTDECL_COUNT = 4
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxBackEndLightSettings {
     vec4_t position;
     vec4_t ambient;
@@ -79,6 +88,7 @@ struct GfxBackEndLightSettings {
     vec4_t specular;
     GfxLightDef *def;
 };
+#endif
 
 struct GfxDebugPlume {
     vec3_t origin;
@@ -100,10 +110,12 @@ struct GfxEntityLighting {
     vec4_t colorForDir[6];
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxPointVertex {
     vec3_t xyz;
     byte color[4];
 };
+#endif
 
 struct GfxVertex {
     vec4_t xyzw;
@@ -163,19 +175,23 @@ struct trDebugString_t {
     char text[96];
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdDrawLines {
     GfxCmdHeader header;
     short int lineCount;
     short int width;
     GfxPointVertex verts[2];
 };
+#endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdDrawPoints {
     GfxCmdHeader header;
     short int pointCount;
     short int size;
     GfxPointVertex verts[1];
 };
+#endif
 
 struct materialCommands_t {
     union { union { GfxVertex generic[5450]; GfxWorldVertex world[5450]; } dx9; union { GfxVertexDx7 generic[5450]; GfxWorldVertexDx7 world[5450]; } dx7; } verts;
@@ -197,6 +213,7 @@ struct materialCommands_t {
     int firstOptimizedVertex;
 };
 
+#ifndef COD2_SDK_TYPES
 struct r_backEndGlobals_t {
     vec4_t codeConsts[59];
     int frameCount;
@@ -233,4 +250,5 @@ struct r_backEndGlobals_t {
     D3DMATRIX shadowLookupMatrix;
     FontHandle debugFont;
 };
+#endif
 #endif
