@@ -329,3 +329,26 @@ focused routes, both referees and all135 fixtures pass; all1448 extents unchange
 API manifest now pins current source TUs for54 accepted slots,44 unverified
 owners and ten zero slots. Candidate ownership is not historical TU proof.
 C++ meter unchanged; stages1-3 remain OPEN. See early_post_checkpoint.json.
+
+### Execution correction: API closure before more isolated commands - 2026-10-24
+
+The structure-first work became too granular: individual backend handlers were
+restored and fully replayed while the real API graph stayed disconnected. Keep
+those verified checkpoints, but the next implementation batch must address the
+API/startup/world/scene graph and its shared owners; command count is secondary.
+
+Current API source audit separates54 binding-accepted callback slots from six
+matching-body/open-callee callbacks and38 still-unclassified slots. Six exact
+callee reasons and source owners are in layout/api_callbacks.tsv. Unverified
+binding does not mean missing source. Classify the38 against primary entries,
+actual current source and client calls before estimating how much code is absent.
+
+Known source gaps include LoadWorld1690, actual RenderScene257a0, API material
+wrapper17290 and the raw-image172b0/171f0/fc30/14940 chain. Existing Material_Register
+17100 and IWI loaderfa40 are different, already reconstructed dependencies;
+reuse them only where retail actually does. Restore each missing connected group
+with its real interfaces/ownership, then wire the entire API59 table and genuine
+retention. No partial advertised API, dummy callbacks or unresolved release link.
+Batch source/interface fixes and perform one original build/referee/full regression
+pass per connected batch. Byte spelling and unrelated renderer leaves wait.
+Stages1-3 remain OPEN; this audit is not source or whole-file completion.

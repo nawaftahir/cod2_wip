@@ -558,3 +558,9 @@ the ten unwritten slots. This pins
 current candidate ownership, NOT the original historical TU grouping/order or
 completion of the108-slot API59 implementation. Existing raw addresses, legacy
 UNVERIFIED labels and accepted symbols remain unchanged.
+
+API dependency frontier,2026-10-24: six additional current candidates have exact
+body matches but rejected callee bindings. api_callbacks.tsv records their real
+symbols/TUs and exact current referee reasons separately from the54 accepted
+owners.38 other callback sources remain unclassified, not asserted missing.
+This is current candidate/call-edge evidence, not original TU grouping proof.

@@ -5,7 +5,28 @@
 Work only in gfx; actual source is `target/work/src/`. This is the sole current
 status log. WHOLEFILE.md remains the roadmap. Stages1-3 are NOT complete.
 
-### Latest: early post-effects and accepted callback source ownership
+### Latest: API dependency audit and execution priority corrected
+
+No new source or coverage claimed in this audit.54 API slots remain byte/binding
+accepted. Six more callbacks already have matching bodies but OPEN callee
+bindings, now explicitly mapped with actual symbols/source owners/exact reasons
+in layout/api_callbacks.tsv. Other38 unverified slots still need classification;
+44 unverified bindings must not be described as44 missing callback bodies.
+
+Known actual source gaps include LoadWorld1690, real RenderScene257a0, material
+API wrapper17290 and raw-image172b0/171f0/fc30/14940. Existing material17100 and
+IWI imagefa40 code must not be confused with those gaps. Primary traces and the
+six exact dependency edges are in ATTEMPTS.md. Keep existing command work, but
+prioritize a connected API/interface/owner batch before further isolated backend
+handlers or tiny full-suite waves. WHOLEFILE.md records that execution order.
+
+Metadata was checked against the existing fresh bind and all108 old manifest
+rows; old columns are unchanged. No compiler inputs changed, so no repeat build
+or135-test replay was needed. Last code checkpoint remains e3bce0e:135 fixtures,
+all1448 extents, C++41.106159792%, same-offset9.138583293%,26/33 command-source
+handlers. One build/output, no workers; token cost unavailable. Stages1-3 OPEN.
+
+### Earlier: early post-effects and accepted callback source ownership
 
 Restored command25=10030c10/126B in rb_backend.cpp, reusing the actual screen
 copy and existing dvar/device/target owners. Flush before checking live flags,

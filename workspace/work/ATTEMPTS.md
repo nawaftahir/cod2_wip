@@ -1829,3 +1829,32 @@ accepts only ordered >0 for either blur value; NaN does not independently reques
 a copy. GLM's relational reconstruction obscures this. Existing >0 predicates
 are correct; no rewrite/FP-status assembly is needed. Late command26's other
 helpers30ab0/308c0 and their glow/blur/debug chains still need source.
+
+### API-first sequencing audit - 2026-10-24
+
+Owner challenged the time spent on small backend waves. Stop using individual
+command coverage as the execution priority for stages1-3. Real API/startup/world/
+scene ownership and dependency closure are the priority; keep already verified
+commands and helpers, and batch further implementation before the next full pass.
+No text source/header changes were made during the research preceding this audit.
+
+Fresh bind identifies SIX API callbacks with matching bodies but open callee
+bindings: slot0 R_Shutdown -> RB_SaveLightVisHistory;1 R_BeginRegistration ->
+R_Init;47 R_BeginFrame -> R_UpdateFrameDvars;61 R_RegisterFont -> R_LoadFont;
+64 R_BeginCubemapShot -> R_ClearForCubemapShot;66 R_SaveCubemapShot ->
+R_WriteCubemapShot. api_callbacks.tsv now records these actual candidate symbols,
+source TUs and exact referee reasons. These are NOT six missing callback bodies
+and are NOT binding-accepted credit. The other38 unverified callback slots still
+need source/ABI classification; never call all44 missing implementations.
+
+Verified source gaps directly relevant to GetRefAPI: current compiled source has
+no R_LoadWorld10001690 or actual R_RenderScene100257a0. Material_Register10017100
+already exists in r_material.cpp, but API wrapper R_RegisterMaterial10017290 does
+not. Raw-image API100172b0 also needs its actual171f0 helper, which calls image
+loader1000fc30; this is NOT existing IWI Image_LoadFromFile1000fa40. Raw loader
+fc30 calls14940, image setup ee30 and format-dependent ec00/ea20 before freeing
+both temporary allocations. Do not hook it to the IWI loader by a similar name.
+These primary traces explain connected missing-source work; do not fabricate a
+complete GetRefAPI table to bypass it. Preserve ABI inputs (both API material
+wrappers have three args; baseImageFlags is unused on PC). No function flag/
+spelling sweeps are authorized by this audit.
