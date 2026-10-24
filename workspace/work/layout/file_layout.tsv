@@ -997,7 +997,7 @@ gfx_d3d/rb_light.cpp	?RB_FindGridPoint@@YA_NPBUGfxLightGrid@@HHHPAH@Z	10035fb0	b
 gfx_d3d/rb_light.cpp	?RB_GetValidGridPoint@@YAPBUGfxLightGridPoint@@PBUGfxLightGrid@@HHHIPBM@Z	10036040	hit	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_AccumulateGridColors@@YAXPAY03MPBUGfxLightGridColors@@M@Z	10036100	pinned	-	-	unknown
 gfx_d3d/rb_backend.cpp	?R_AccumulateBytes24@@YAXPAMPBEM@Z	10036100	bind	-	-	unknown
-gfx_d3d/rb_light.cpp	?RB_ScaleGridColors@@YAXPAY03MM@Z	100361e0	pinned	-	-	unknown
+gfx_d3d/rb_light.cpp	?RB_ScaleGridColors@@YAXPAY03MM@Z	100361e0	bind	-	-	unknown
 gfx_d3d/rb_backend.cpp	?R_ScaleFloats24@@YAXPAMM@Z	100361e0	bind	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_DefaultGridColors@@YAXPAY03M@Z	100362d0	pinned	-	-	unknown
 gfx_d3d/rb_light.cpp	?RB_GetNearestGridColors@@YA_NPBUGfxLightGrid@@HHHPAY03MPAM@Z	10036320	pinned	-	-	unknown

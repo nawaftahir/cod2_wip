@@ -364,6 +364,7 @@ accepted	gfx_d3d/rb_light.cpp	RB_DrawGridSampleBox	10035940	bind
 accepted	gfx_d3d/rb_light.cpp	RB_FindGridPoint	10035fb0	bind
 accepted	gfx_d3d/rb_light.cpp	RB_FitDirectionalLight	100368a0	bind
 accepted	gfx_d3d/rb_light.cpp	RB_InterleaveLightColors	10036720	bind
+accepted	gfx_d3d/rb_light.cpp	RB_ScaleGridColors	100361e0	bind
 accepted	gfx_d3d/rb_logfile.cpp	RB_IsLogging	10037870	bind
 accepted	gfx_d3d/rb_logfile.cpp	RB_LogBlend	10037a60	bind
 accepted	gfx_d3d/rb_logfile.cpp	RB_LogBlendOp	10037b20	bind
@@ -943,7 +944,6 @@ draft-addressed	gfx_d3d/rb_light.cpp	RB_GetValidGridPoint	10036040	-
 draft-addressed	gfx_d3d/rb_light.cpp	RB_GridVisLogIndex	10035c40	-
 draft-addressed	gfx_d3d/rb_light.cpp	RB_InsertGridVisLog	10035bd0	-
 draft-addressed	gfx_d3d/rb_light.cpp	RB_IsGridPointVisible	10035ac0	-
-draft-addressed	gfx_d3d/rb_light.cpp	RB_ScaleGridColors	100361e0	-
 draft-addressed	gfx_d3d/rb_light.cpp	RB_SetupEntityLighting	100366b0	mac
 draft-addressed	gfx_d3d/rb_shade.cpp	RB_ApplyMaterialImageOverride	10038920	-
 draft-addressed	gfx_d3d/rb_shade.cpp	RB_DrawSingleTechnique	1003a000	mac

@@ -439,8 +439,12 @@ void Image_WaterColorForDirection(const float *direction, int color, byte *pixel
 void Image_GenerateWaterColor(GfxImage *image, byte blue, byte green, byte red)
 {
     byte pixels[6 * 16 * 16 * 4];
-    int color = (int)(blue | ((unsigned int)green << 8) | ((unsigned int)red << 16) | 0xff000000U);
-    Image_GenerateCubemapFunction(image, pixels, 16, color, Image_WaterColorForDirection);
+    byte color[4];
+    color[2] = red;
+    color[1] = green;
+    color[0] = blue;
+    color[3] = 0xff;
+    Image_GenerateCubemapFunction(image, pixels, 16, *(int *)color, Image_WaterColorForDirection);
 }
 
 void R_CreateOutdoorImage(GfxImage *image);

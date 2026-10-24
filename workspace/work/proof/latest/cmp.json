@@ -1586,7 +1586,7 @@
 {
 "name": "?Image_GenerateWaterColor@@YAXPAUGfxImage@@EEE@Z",
 "obj": "r_image_load_obj.obj",
-"size": 72,
+"size": 70,
 "hits": []
 },
 {
@@ -6264,8 +6264,10 @@
 {
 "name": "?RB_ScaleGridColors@@YAXPAY03MM@Z",
 "obj": "rb_light.obj",
-"size": 55,
-"hits": []
+"size": 239,
+"hits": [
+"0x100361e0"
+]
 },
 {
 "name": "?RB_DefaultGridColors@@YAXPAY03M@Z",
@@ -6332,7 +6334,7 @@
 {
 "name": "?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z",
 "obj": "rb_light.obj",
-"size": 722,
+"size": 674,
 "hits": []
 },
 {

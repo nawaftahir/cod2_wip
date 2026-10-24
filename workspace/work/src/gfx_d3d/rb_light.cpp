@@ -65,9 +65,12 @@ void RB_AccumulateGridColors(vec4_t *out, const GfxLightGridColors *colors, floa
 // PINNED 100361e0.
 void RB_ScaleGridColors(vec4_t *out, float scale)
 {
-    for (int direction = 0; direction < 6; ++direction)
-        for (int channel = 0; channel < 4; ++channel)
-            out[direction][channel] *= scale;
+    out[0][0] *= scale; out[0][1] *= scale; out[0][2] *= scale; out[0][3] *= scale;
+    out[1][0] *= scale; out[1][1] *= scale; out[1][2] *= scale; out[1][3] *= scale;
+    out[2][0] *= scale; out[2][1] *= scale; out[2][2] *= scale; out[2][3] *= scale;
+    out[3][0] *= scale; out[3][1] *= scale; out[3][2] *= scale; out[3][3] *= scale;
+    out[4][0] *= scale; out[4][1] *= scale; out[4][2] *= scale; out[4][3] *= scale;
+    out[5][0] *= scale; out[5][1] *= scale; out[5][2] *= scale; out[5][3] *= scale;
 }
 
 // PINNED 100362d0.

@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "0e62b5d35ad03184774e2fc7fe11b5bf9f4c0819dcc2c87a018a3ba26b8a33bf",
+  "candidate_sha256": "985cc70929262cddc24c057c42f1de4f284f47fc2a7e87df8d5ef615361c5b9b",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 169776,
+  "same_file_offset_equal_bytes": 169343,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 9.170181139380531,
+  "same_file_offset_percent": 9.146793331720133,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -46,8 +46,8 @@
       "rva": "0x1000",
       "file_offset": "0x1000",
       "raw_bytes": 962560,
-      "virtual_bytes": 959106,
-      "sha256": "0d5986b61e6f8907fceb58dd3e0c0ca2f9e5a231ea2b1d7482869df55e0855c8"
+      "virtual_bytes": 959234,
+      "sha256": "f86e865113bed6257eca90932516920ab832ffb7df5da12721cd7141c3203232"
     },
     {
       "name": ".rdata",
@@ -55,7 +55,7 @@
       "file_offset": "0xec000",
       "raw_bytes": 606208,
       "virtual_bytes": 603324,
-      "sha256": "93ac74154e2093c2dfc90994ccdc966c2bde537283cf6f74b0ffeb52916cb507"
+      "sha256": "2f0a5a3e4b190b473722453b5b10b3a0ab21ab48bee40230cb175e354449b561"
     },
     {
       "name": ".data",
@@ -63,7 +63,7 @@
       "file_offset": "0x180000",
       "raw_bytes": 57344,
       "virtual_bytes": 6084628,
-      "sha256": "24e75abec1584576decb86cf1cdc670e005dd10b70675c14ae0df4a6a3bca490"
+      "sha256": "f0586075ef5efb6097c2375c1522780dec16feb1b0e685790ad7af3b5377bf1f"
     },
     {
       "name": ".reloc",
@@ -71,7 +71,7 @@
       "file_offset": "0x18e000",
       "raw_bytes": 90112,
       "virtual_bytes": 88616,
-      "sha256": "57a091ec881d20fe411322a464fe7e693a69466afb90f57e6a1c910628596880"
+      "sha256": "7b86ad548792ad28fdb257f19b4b74150637b17691f338b6f068f575485a28d7"
     }
   ],
   "retail_image": {
@@ -739,9 +739,9 @@
   "candidate_image": {
     "file_bytes": 1720320,
     "machine": "0x14c",
-    "timestamp": 1792865675,
+    "timestamp": 1792866818,
     "image_base": "0x10000000",
-    "entrypoint_rva": "0xd7dd1",
+    "entrypoint_rva": "0xd7e51",
     "image_bytes": 7749632,
     "header_bytes": 4096,
     "section_alignment": 4096,
@@ -752,12 +752,12 @@
       {
         "name": "BoxOnPlaneSide",
         "ordinal": 1,
-        "rva": "0x3e3e0"
+        "rva": "0x3e460"
       },
       {
         "name": "FFT_Init",
         "ordinal": 2,
-        "rva": "0x3f5a0"
+        "rva": "0x3f620"
       },
       {
         "name": "FresnelTerm",
@@ -862,12 +862,12 @@
       {
         "name": "RB_ChangeState_0",
         "ordinal": 23,
-        "rva": "0x2b050"
+        "rva": "0x2b0d0"
       },
       {
         "name": "RB_ChangeState_1",
         "ordinal": 24,
-        "rva": "0x2b890"
+        "rva": "0x2b910"
       },
       {
         "name": "RB_ClearScreenCmd",
@@ -877,7 +877,7 @@
       {
         "name": "RB_DrawSingleTechnique",
         "ordinal": 26,
-        "rva": "0x29e60"
+        "rva": "0x29ee0"
       },
       {
         "name": "RB_EndBenchmarkGpu",
@@ -902,7 +902,7 @@
       {
         "name": "RB_InitLightVisHistory",
         "ordinal": 31,
-        "rva": "0x27a00"
+        "rva": "0x27a80"
       },
       {
         "name": "RB_IsGpuFenceFinished",
@@ -912,27 +912,27 @@
       {
         "name": "RB_SaveLightVisHistory",
         "ordinal": 33,
-        "rva": "0x27ad0"
+        "rva": "0x27b50"
       },
       {
         "name": "RB_SetAnisotropy",
         "ordinal": 34,
-        "rva": "0x2aa10"
+        "rva": "0x2aa90"
       },
       {
         "name": "RB_SetDepthHackNearClip",
         "ordinal": 35,
-        "rva": "0x2cdd0"
+        "rva": "0x2ce50"
       },
       {
         "name": "RB_SetDepthRange",
         "ordinal": 36,
-        "rva": "0x2a970"
+        "rva": "0x2a9f0"
       },
       {
         "name": "RB_SetEntityHwLightsDx7",
         "ordinal": 37,
-        "rva": "0x29ff0"
+        "rva": "0x2a070"
       },
       {
         "name": "RB_SetIteratorFog",
@@ -942,7 +942,7 @@
       {
         "name": "RB_SetSamplerFromArgument",
         "ordinal": 39,
-        "rva": "0x28b60"
+        "rva": "0x28be0"
       },
       {
         "name": "RB_UpdateColor",
@@ -952,7 +952,7 @@
       {
         "name": "RB_UpdateLogging",
         "ordinal": 41,
-        "rva": "0x27bc0"
+        "rva": "0x27c40"
       },
       {
         "name": "RB_UploadWaterTexture",
@@ -2170,11 +2170,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1792865675,
+        "timestamp": 1792866818,
         "bytes": 71,
         "rva": "0x17d678",
         "file_offset": "0x17d678",
-        "data_sha256": "398acbd1986afdc0daa37b0ff0c1359d3f04285c356ec4ea6e236e7a1b86b536"
+        "data_sha256": "8c7b9b2c07066859d4020e02eb8b35d3f88946bd6f710712876a26c3f8cf9061"
       }
     ]
   },
