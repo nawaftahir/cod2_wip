@@ -3104,8 +3104,7 @@ addr	size	tu	evidence
 0x00494ef0	139	src/universal/q_parse.cpp	SUPPORTED
 0x00494f80	6	src/universal/q_parse.cpp	SUPPORTED
 0x00494f90	197	src/universal/q_parse.cpp	SUPPORTED
-0x00495060	496	src/universal/q_parse.cpp	PINNED
-0x00495250	494	src/universal/q_parse.cpp	SUPPORTED
+0x00495060	990	src/universal/q_parse.cpp	PINNED
 0x00495440	65	src/universal/q_parse.cpp	SUPPORTED
 0x00495490	75	src/universal/q_parse.cpp	SUPPORTED
 0x004954e0	176	src/universal/q_parse.cpp	SUPPORTED

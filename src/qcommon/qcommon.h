@@ -64,3 +64,5 @@ int Sys_MilliSeconds(void);
 
 typedef void (*xcommand_t)(void);
 void Cmd_AddCommand(const char *cmd_name, xcommand_t function);
+
+#define MAXPRINTMSG 4096

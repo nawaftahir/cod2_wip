@@ -14,6 +14,10 @@ Owner-edited only.
   The old `cod2-msvc71-build` image (Wine 8, SP1 SDK, no x86 MFC) is not used.
 - Flags `/O2 /Oy- /Op` for the engine-shared files: 6 of 35 ledger rows fail without `/Op`; `/Gy`
   makes no difference to them. Radiant's own files are not tested yet (`data/flags.tsv`).
+- **`/GS` is on everywhere. PINNED 2026-10-24:** retail calls `__security_check_cookie` from game files
+  (dvar 11, com_files 17, q_shared 6, q_parse 2), zlib, MFC and the CRT. Only functions with char buffers
+  get a cookie, so adding it changed no other row and matched 8 more (ScriptError/Warning, PrintDomain,
+  3 `idStr::operator+=`, gen_codes, unzLocateFile).
 - Rich header, build 3077 entries: prodid 95 x225, 96 x106, 99 x104, 15 x52, 90 x1 (the linker).
   Older builds also appear (2067/2179/9466/8491/9210: prebuilt lib objects).
 - **Mixed build: 104 objects are C compiled with `/GL` (link-time code generation). PINNED** 2026-10-21 by
@@ -152,6 +156,10 @@ Owner-edited only.
   both are missing from the function inventory. 0x48b990 is `Dvar_AllocNameString` (jmp CopyString), not
   FindVar. `Dvar_Get*` inline FindVar two levels deep and keep the stack form; ours don't until their
   editor callers exist (DEFER, no `__forceinline`).
+- q_parse (PINNED 2026-10-24): Radiant's strings have no server `\x15` prefix (the masked match hid it in
+  `Com_EndParseSession`). Use `strlen`, not the server's `I_strlen`: retail inlines it. The inventory split
+  `Com_ParseExt` at 0x495250 (no callers, starts mid-loop); merged to 0x495060/990 B. ParseExt is DEFER at
+  25%: retail calls `SkipWhitespace` at both sites, ours still inlines the 2nd.
 - Inline functions from headers are COMDATs with the map's `i` flag; `verify.py` does not count them as
   unverified code in `src/`.
 - Each function gets its own COMDAT section; emission order can differ from definition order
@@ -161,6 +169,7 @@ Owner-edited only.
 - Relocation-normalized byte equality, both relocation masks combined; a candidate longer than retail
   (non-padding tail) fails.
 - Calls to functions already in the ledger or `data/lib_funcs.tsv` must name the same function (`CALLEE`).
+  Any map label at the call target counts, so aliases (`__alloca_probe` = `__chkstk`) pass.
 - Rejects `__asm`, `_emit`, naked functions and code byte arrays anywhere in `src/`.
 - `make verify` recompiles every ledger row from scratch. A row counts only while it passes.
 

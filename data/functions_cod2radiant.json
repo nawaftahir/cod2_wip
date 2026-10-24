@@ -18633,13 +18633,7 @@
   {
    "name": "FUN_00495060",
    "addr": "0x00495060",
-   "size": 496,
-   "thunk": false
-  },
-  {
-   "name": "FUN_00495250",
-   "addr": "0x00495250",
-   "size": 494,
+   "size": 990,
    "thunk": false
   },
   {

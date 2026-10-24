@@ -50,7 +50,12 @@ class Linked:
         self.pe = pefile.PE(str(link.EXE), fast_load=True)
         self.base = self.pe.OPTIONAL_HEADER.ImageBase
         self.syms, self.obj, self.inline = {}, {}, set()
+        # every label at an address, so aliases like __alloca_probe/__chkstk both count
+        self.labels = collections.defaultdict(set)
         for line in link.MAP.read_text(errors="replace").splitlines():
+            m = re.match(r"\s*0001:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8})\s", line)
+            if m:
+                self.labels[int(m.group(2), 16)].add(m.group(1))
             m = re.match(r"\s*0001:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8}) f\s+(i\s+)?(\S+)", line)
             if m:
                 if m.group(3):
@@ -119,7 +124,7 @@ def check(linked, address, symbol, names):
         if dest not in names:
             continue
         got = linked.at.get(ocalls.get(field))
-        if got != names[dest]:
+        if names[dest] not in linked.labels.get(ocalls.get(field), ()):
             return "CALLEE", "+0x%x calls %s but retail calls %s (0x%08x)" % (field - 1, got or "an unresolved symbol",
                                                                             names[dest], dest)
     return "MATCH", "at 0x%08x" % ours_va
