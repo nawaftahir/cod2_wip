@@ -619,6 +619,14 @@
 "obj": "r_image.obj",
 "why": []
 },
+"?Image_Reload@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000d450",
+"n": 42,
+"obj": "r_image.obj",
+"why": [
+"call ?Image_LoadFromFile@@YAEPAUGfxImage@@@Z"
+]
+},
 "?Image_GetSurface@@YAPAUIDirect3DSurface9@@PAUGfxImage@@@Z": {
 "t": "0x1000d4b0",
 "n": 87,

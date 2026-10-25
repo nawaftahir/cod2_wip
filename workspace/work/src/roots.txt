@@ -144,7 +144,6 @@ R_PortalQueuePush
 RB_GenerateGaussianFilterChain
 R_PopulateCandidates
 RB_SetEntityHwLightsDx7
-Image_Reload
 R_CullBrushEntity
 R_PortalClipPlanes
 RB_SetIteratorFog

@@ -1245,8 +1245,10 @@
 {
 "name": "?Image_Reload@@YAXPAUGfxImage@@@Z",
 "obj": "r_image.obj",
-"size": 44,
-"hits": []
+"size": 42,
+"hits": [
+"0x1000d450"
+]
 },
 {
 "name": "?Image_Register@@YAPAUGfxImage@@PBDHH@Z",

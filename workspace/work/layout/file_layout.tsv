@@ -550,7 +550,7 @@ gfx_d3d/r_image_load_obj.cpp	?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z	1000d0f0	p
 gfx_d3d/r_image.cpp	?Image_FindExisting@@YAPAUGfxImage@@PBD@Z	1000d140	pinned	-	-	unknown
 gfx_d3d/r_image.cpp	?R_ReleaseLostImages@@YAXXZ	1000d260	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_ReloadLostImages@@YAXXZ	1000d2e0	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
-gfx_d3d/r_image.cpp	?Image_Reload@@YAXPAUGfxImage@@@Z	1000d450	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
+gfx_d3d/r_image.cpp	?Image_Reload@@YAXPAUGfxImage@@@Z	1000d450	hit	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_Iterate@@YAXP6AXPAUGfxImage@@PAX@Z1@Z	1000d480	bind	-	gfx_d3d/r_image	interval
 gfx_d3d/r_image.cpp	?Image_GetSurface@@YAPAUIDirect3DSurface9@@PAUGfxImage@@@Z	1000d4b0	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_RegisterBuiltinImages@@YAXXZ	1000d560	pinned	-	gfx_d3d/r_image	interval
