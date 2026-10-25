@@ -1,8 +1,8 @@
 {
-  "functions": 668,
-  "bytes": 115119,
+  "functions": 669,
+  "bytes": 115529,
   "total": 253580,
-  "percent": 45.397507689880904,
+  "percent": 45.5591923653285,
   "baseline_lost": [],
   "gains": [
     {
@@ -27,6 +27,12 @@
       "target": "0x10001940",
       "bytes": 118,
       "name": "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10001a20",
+      "bytes": 410,
+      "name": "?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {

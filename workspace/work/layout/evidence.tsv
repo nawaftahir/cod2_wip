@@ -9,6 +9,7 @@ accepted	gfx_d3d/r_bsp.cpp	R_SetSunLightOverride	10001430	mac
 accepted	gfx_d3d/r_bsp.cpp	R_ShutdownWorld	10001740	mac
 accepted	gfx_d3d/r_bsp.cpp	R_UpdateLightsFromDvars	100013d0	mac
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_BuildCellAabbTrees	10003810	doubt
+accepted	gfx_d3d/r_bsp_load_obj.cpp	R_BuildLightmapCoupling	10001a20	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_FloatForKey	10002e80	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_GetLumpElemCount	10001940	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_InterpretSunLightParseParamsIntoLights	10004dc0	mac
@@ -751,7 +752,6 @@ accepted	universal/xanim_matrix.cpp	MatrixTransformVectorQuatTrans	10058310	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_LoadWorld	10001690	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ReloadWorld	100017b0	mac
 draft-addressed	gfx_d3d/r_bsp.cpp	R_ResetSunLightParseParams	10001280	mac
-draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_BuildLightmapCoupling	10001a20	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_BuildLightmapMergability	10001bc0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_CalculateWorldBounds	10002840	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_CombineLightmapsForDx7	10001e30	-

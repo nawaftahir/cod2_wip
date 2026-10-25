@@ -79,6 +79,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z": {
+"t": "0x10001a20",
+"n": 410,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10002620",
 "n": 108,

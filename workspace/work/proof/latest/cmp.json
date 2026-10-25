@@ -149,8 +149,10 @@
 {
 "name": "?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 406,
-"hits": []
+"size": 410,
+"hits": [
+"0x10001a20"
+]
 },
 {
 "name": "?R_BuildLightmapMergability@@YAHPBUGfxBspLoad@@PAUr_lightmapGroup_t@@PAH@Z",

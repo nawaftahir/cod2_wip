@@ -404,7 +404,7 @@ gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/rb_imagefilter.cpp	?Vector4Set@@YAXQAMMMMM@Z	100018a0	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z	10001940	bind	-	-	unknown
-gfx_d3d/r_bsp_load_obj.cpp	?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z	10001a20	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z	10001a20	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_BuildLightmapMergability@@YAHPBUGfxBspLoad@@PAUr_lightmapGroup_t@@PAH@Z	10001bc0	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_CombineLightmapsForDx7@@YAXPAPAEHHPBM@Z	10001e30	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadLightmaps@@YAXPAUGfxBspLoad@@@Z	10001fb0	pinned	-	-	unknown

@@ -70,14 +70,15 @@ struct DiskBrushModel
 // PINNED 10001a20: vertex weight shared by each lightmap pair, per material.
 static int R_BuildLightmapCoupling(const GfxBspLoad *load, int (*coupling)[31])
 {
+    const lump_t *lump = &load->header->lumps[7];
     int surfCount = R_GetLumpElemCount(load, 7, sizeof(DiskTriangleSoup));
-    const DiskTriangleSoup *in = (const DiskTriangleSoup *)(load->fileBase + load->header->lumps[7].fileofs);
+    const DiskTriangleSoup *in = (const DiskTriangleSoup *)(load->fileBase + lump->fileofs);
     int pageCount = R_GetLumpElemCount(load, 1, 0x400000);
     int lmapCount = 0;
     for (int index = 0; index < surfCount; ++index)
     {
         int lmapIndex = (short)in[index].lightmapIndex;
-        if (lmapIndex != 31 && lmapIndex >= lmapCount)
+        if (lmapIndex != 31 && lmapCount <= lmapIndex)
             lmapCount = lmapIndex + 1;
     }
     if (pageCount && pageCount != lmapCount)
@@ -89,8 +90,11 @@ static int R_BuildLightmapCoupling(const GfxBspLoad *load, int (*coupling)[31])
     {
         for (int index = 0; index < surfCount; ++index)
         {
-            if ((short)in[index].materialIndex == materialIndex && (short)in[index].lightmapIndex != 31)
-                vertCount[(short)in[index].lightmapIndex] += (short)in[index].vertexCount;
+            if ((short)in[index].materialIndex != materialIndex)
+                continue;
+            int lmapIndex = (short)in[index].lightmapIndex;
+            if (lmapIndex != 31)
+                vertCount[lmapIndex] += (short)in[index].vertexCount;
         }
         for (int lmapIndex = 0; lmapIndex < lmapCount; ++lmapIndex)
         {
