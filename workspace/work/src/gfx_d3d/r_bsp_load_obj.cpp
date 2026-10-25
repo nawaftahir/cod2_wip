@@ -450,28 +450,27 @@ void R_LoadSurfaces(GfxBspLoad *load)
         R_Error(ERR_DROP, "\x15LoadMap: no vertices in %s", s_world.name);
     const DiskGfxVertex *diskVerts = (const DiskGfxVertex *)(load->fileBase + load->header->lumps[8].fileofs);
     s_world.vertexCount = vertCount;
-    s_world.vd.vertices = (GfxWorldVertex *)ri.Hunk_AllocInternal(vertCount * sizeof(GfxWorldVertex));
-    GfxWorldVertex *out = s_world.vd.vertices;
-    const DiskGfxVertex *src = diskVerts;
-    for (int index = 0; index < vertCount; ++index, ++out, ++src)
+    GfxWorldVertex *verts = (GfxWorldVertex *)ri.Hunk_AllocInternal(vertCount * sizeof(GfxWorldVertex));
+    s_world.vd.vertices = verts;
+    for (int index = 0; index < vertCount; ++index)
     {
-        out->xyz[0] = src->xyz[0];
-        out->xyz[1] = src->xyz[1];
-        out->xyz[2] = src->xyz[2];
-        out->color.packed = *(const unsigned int *)src->color;
-        out->texCoord[0] = src->texCoord[0];
-        out->texCoord[1] = src->texCoord[1];
-        out->lmapCoord[0] = src->lmapCoord[0];
-        out->lmapCoord[1] = src->lmapCoord[1];
-        out->tangent[0] = src->tangent[0];
-        out->tangent[1] = src->tangent[1];
-        out->tangent[2] = src->tangent[2];
-        out->binormal[0] = src->binormal[0];
-        out->binormal[1] = src->binormal[1];
-        out->binormal[2] = src->binormal[2];
-        out->normal[0] = src->normal[0];
-        out->normal[1] = src->normal[1];
-        out->normal[2] = src->normal[2];
+        verts[index].xyz[0] = diskVerts[index].xyz[0];
+        verts[index].xyz[1] = diskVerts[index].xyz[1];
+        verts[index].xyz[2] = diskVerts[index].xyz[2];
+        verts[index].color.packed = *(const unsigned int *)diskVerts[index].color;
+        verts[index].texCoord[0] = diskVerts[index].texCoord[0];
+        verts[index].texCoord[1] = diskVerts[index].texCoord[1];
+        verts[index].lmapCoord[0] = diskVerts[index].lmapCoord[0];
+        verts[index].lmapCoord[1] = diskVerts[index].lmapCoord[1];
+        verts[index].tangent[0] = diskVerts[index].tangent[0];
+        verts[index].tangent[1] = diskVerts[index].tangent[1];
+        verts[index].tangent[2] = diskVerts[index].tangent[2];
+        verts[index].binormal[0] = diskVerts[index].binormal[0];
+        verts[index].binormal[1] = diskVerts[index].binormal[1];
+        verts[index].binormal[2] = diskVerts[index].binormal[2];
+        verts[index].normal[0] = diskVerts[index].normal[0];
+        verts[index].normal[1] = diskVerts[index].normal[1];
+        verts[index].normal[2] = diskVerts[index].normal[2];
     }
     R_GetLumpElemCount(load, 9, sizeof(unsigned short));
     const unsigned short *indices = (const unsigned short *)(load->fileBase + load->header->lumps[9].fileofs);

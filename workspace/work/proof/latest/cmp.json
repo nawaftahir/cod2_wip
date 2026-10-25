@@ -205,7 +205,7 @@
 {
 "name": "?R_LoadSurfaces@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1577,
+"size": 905,
 "hits": []
 },
 {
