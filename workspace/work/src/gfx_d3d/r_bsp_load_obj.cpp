@@ -1179,7 +1179,7 @@ static int R_FinishLoadingAabbTrees_r(GfxAabbTree *tree, int totalTreesUsed)
         const GfxAabbTree *child = &tree->children[childIndex];
         for (int axis = 0; axis < 3; ++axis)
         {
-            if (child->mins[axis] < tree->mins[axis])
+            if (tree->mins[axis] > child->mins[axis])
                 tree->mins[axis] = child->mins[axis];
             if (tree->maxs[axis] < child->maxs[axis])
                 tree->maxs[axis] = child->maxs[axis];

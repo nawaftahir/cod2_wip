@@ -1,6 +1,6 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "f7ba59ee568885c94bd6e3252de112165d58ac7cad70ede9aa3ea57e5582da30",
+  "candidate_sha256": "9f88f709ec9dcf844a532a515cda1d5ffc3b6fb5179a610173a3af49ba0e7359",
   "whole_file_identical": false,
   "same_file_offset_equal_bytes": 175593,
   "compared_bytes": 1851392,
@@ -47,7 +47,7 @@
       "file_offset": "0x1000",
       "raw_bytes": 970752,
       "virtual_bytes": 968722,
-      "sha256": "53928e11a4c7914b6b40ac7cb37facb0c69884a7d737d9e9be3cf4ed72b532e7"
+      "sha256": "afac0399d305b498430bd925c71bb22966368e164b2fe98b049bbf22d46aaa3f"
     },
     {
       "name": ".rdata",
@@ -55,7 +55,7 @@
       "file_offset": "0xee000",
       "raw_bytes": 606208,
       "virtual_bytes": 604099,
-      "sha256": "3a5116853a0a36734da9dcaf9cfd1d34bd8c9ef4f74c32d0e98da958890a125f"
+      "sha256": "359225365c54fbba6787b214d258a5040d1bcb9fa7234ddafe2372154b02d831"
     },
     {
       "name": ".data",
@@ -739,7 +739,7 @@
   "candidate_image": {
     "file_bytes": 1728512,
     "machine": "0x14c",
-    "timestamp": 1792905403,
+    "timestamp": 1792905871,
     "image_base": "0x10000000",
     "entrypoint_rva": "0xda35c",
     "image_bytes": 7757824,
@@ -2180,11 +2180,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1792905403,
+        "timestamp": 1792905871,
         "bytes": 71,
         "rva": "0x17f948",
         "file_offset": "0x17f948",
-        "data_sha256": "24076a8e4afda8fa84365428096525ff026aed7ed62c3f1b4f041b90f8dc8fc4"
+        "data_sha256": "ac35569c5232e9068a8c4f1930fa12e02eff564c029c86073c3b1fcd60a96eda"
       }
     ]
   },
