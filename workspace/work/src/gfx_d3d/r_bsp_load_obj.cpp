@@ -1074,23 +1074,18 @@ void R_LoadNodesAndLeafs(GfxBspLoad *load)
     int nodeCount = R_GetLumpElemCount(load, 25, 36);
     const int *inNode = (const int *)(load->fileBase + load->header->lumps[25].fileofs);
     int leafCount = R_GetLumpElemCount(load, 26, sizeof(DiskLeaf));
-    s_world.nodeCount = leafCount + nodeCount;
     const DiskLeaf *inLeaf = (const DiskLeaf *)(load->fileBase + load->header->lumps[26].fileofs);
-    BspNodeA *nodes = (BspNodeA *)ri.Hunk_AllocInternal(s_world.nodeCount * sizeof(BspNodeA));
-    s_world.nodes = (mnode_t *)nodes;
-    BspNodeA *out = nodes;
+    s_world.nodeCount = leafCount + nodeCount;
+    s_world.nodes = (mnode_t *)ri.Hunk_AllocInternal(s_world.nodeCount * sizeof(BspNodeA));
+    BspNodeA *out = (BspNodeA *)s_world.nodes;
     for (int index = 0; index < nodeCount; ++index)
     {
         out->plane = ri.CM_GetPlaneNum(inNode[0]);
         out->childCount = -1;
         int child = inNode[1];
-        if (child < 0)
-            child = nodeCount - 1 - child;
-        out->front = &nodes[child];
+        out->front = &((BspNodeA *)s_world.nodes)[child >= 0 ? child : nodeCount - 1 - child];
         child = inNode[2];
-        if (child < 0)
-            child = nodeCount - 1 - child;
-        out->back = &nodes[child];
+        out->back = &((BspNodeA *)s_world.nodes)[child >= 0 ? child : nodeCount - 1 - child];
         inNode += 9;
         ++out;
     }
@@ -1101,7 +1096,7 @@ void R_LoadNodesAndLeafs(GfxBspLoad *load)
         ++inLeaf;
         ++out;
     }
-    R_SetParentAndCell_r(nodes, 0);
+    R_SetParentAndCell_r((BspNodeA *)s_world.nodes, 0);
 }
 
 // PINNED 10004430: lumps 18-20, planes come from the collision map.
