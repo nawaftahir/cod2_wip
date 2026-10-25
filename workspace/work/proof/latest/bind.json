@@ -79,6 +79,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10002620",
+"n": 108,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10002db0",
 "n": 140,

@@ -325,18 +325,17 @@ void R_LoadLightmaps(GfxBspLoad *load)
 // PINNED 10002620: lump 2, 8-byte points copied field by field.
 void R_LoadLightGridPoints(GfxBspLoad *load)
 {
+    const lump_t *lump = &load->header->lumps[2];
     s_world.lightGrid.pointCount = R_GetLumpElemCount(load, 2, sizeof(GfxLightGridPoint));
-    GfxLightGridPoint *out = (GfxLightGridPoint *)ri.Hunk_AllocInternal(load->header->lumps[2].filelen);
-    const GfxLightGridPoint *in = (const GfxLightGridPoint *)(load->fileBase + load->header->lumps[2].fileofs);
-    s_world.lightGrid.points = out;
-    for (int index = 0; index < s_world.lightGrid.pointCount; ++index)
+    s_world.lightGrid.points = (GfxLightGridPoint *)ri.Hunk_AllocInternal(lump->filelen);
+    const GfxLightGridPoint *in = (const GfxLightGridPoint *)(load->fileBase + lump->fileofs);
+    GfxLightGridPoint *out = s_world.lightGrid.points;
+    for (int index = 0; index < s_world.lightGrid.pointCount; ++index, ++in, ++out)
     {
         out->xyzHighBits = in->xyzHighBits;
         out->xyzLowBitsAndSunVisible = in->xyzLowBitsAndSunVisible;
         out->needsTrace = in->needsTrace;
         out->colorsIndex = in->colorsIndex;
-        ++in;
-        ++out;
     }
 }
 
