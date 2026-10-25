@@ -1005,10 +1005,10 @@ void R_LoadPortals(GfxBspLoad *load)
         outPlane->coeffs[0] = plane[0];
         outPlane->coeffs[1] = plane[1];
         outPlane->coeffs[2] = plane[2];
-        out->plane.coeffs[3] = -plane[3];
-        out->plane.side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
-        outPlane->side[1] = *(const int *)&out->plane.coeffs[1] <= 0 ? 4 : 16;
-        outPlane->side[2] = *(const int *)&out->plane.coeffs[2] <= 0 ? 8 : 20;
+        outPlane->coeffs[3] = -plane[3];
+        outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
+        outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
+        outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
         out->cell = &s_world.cells[in[index].cellIndex];
         out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
         out->vertexCount = (byte)in[index].portalVertexCount;
