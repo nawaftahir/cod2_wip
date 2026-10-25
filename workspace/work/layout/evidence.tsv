@@ -13,7 +13,9 @@ accepted	gfx_d3d/r_bsp_load_obj.cpp	R_FloatForKey	10002e80	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_GetLumpElemCount	10001940	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_InterpretSunLightParseParamsIntoLights	10004dc0	mac
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_IsValidStaticModel	10003030	mac
+accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCells	10003f90	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCullGroupIndices	100043d0	bind
+accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadLightGridPoints	10002620	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadOccluderIndices	10004670	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadPortalVerts	10004080	bind
 accepted	gfx_d3d/r_bsp_load_obj.cpp	R_LoadSubmodels	10002db0	bind
@@ -756,10 +758,8 @@ draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_CombineLightmapsForDx7	10001e30	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_FinishLoadingAabbTrees_r	10003d40	mac
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_GetSurfaceSortGroup	100027c0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadAabbTrees	10003ee0	-
-draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCells	10003f90	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadCullGroups	10004300	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadEntities	10003880	mac
-draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadLightGridPoints	10002620	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadLightmaps	10001fb0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadMiscModel	100031b0	-
 draft-addressed	gfx_d3d/r_bsp_load_obj.cpp	R_LoadNodesAndLeafs	10004730	-

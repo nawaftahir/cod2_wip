@@ -955,23 +955,21 @@ void R_LoadCells(GfxBspLoad *load)
     s_world.cellCount = count;
     for (int index = 0; index < count; ++index)
     {
-        out->mins[0] = in->mins[0];
-        out->mins[1] = in->mins[1];
-        out->mins[2] = in->mins[2];
-        out->maxs[0] = in->maxs[0];
-        out->maxs[1] = in->maxs[1];
-        out->maxs[2] = in->maxs[2];
-        out->aabbTree = &rgl.aabbTrees[in->aabbTreeIndex];
-        out->portals = (GfxPortal *)(in->firstPortal * sizeof(GfxPortal));
-        out->portalCount = in->portalCount;
-        int cullGroupCount = in->cullGroupCount;
-        out->cullGroups = cullGroupCount ? &rgl.cullGroupIndices[in->firstCullGroup] : 0;
-        out->cullGroupCount = cullGroupCount;
-        int occluderCount = in->occluderCount;
-        out->occluders = occluderCount ? &rgl.occluderIndices[in->firstOccluder] : 0;
-        out->occluderCount = occluderCount;
-        ++in;
-        ++out;
+        out[index].mins[0] = in[index].mins[0];
+        out[index].mins[1] = in[index].mins[1];
+        out[index].mins[2] = in[index].mins[2];
+        out[index].maxs[0] = in[index].maxs[0];
+        out[index].maxs[1] = in[index].maxs[1];
+        out[index].maxs[2] = in[index].maxs[2];
+        out[index].aabbTree = &rgl.aabbTrees[in[index].aabbTreeIndex];
+        out[index].portals = (GfxPortal *)(in[index].firstPortal * sizeof(GfxPortal));
+        out[index].portalCount = in[index].portalCount;
+        int cullGroupCount = in[index].cullGroupCount;
+        out[index].cullGroups = cullGroupCount ? &rgl.cullGroupIndices[in[index].firstCullGroup] : 0;
+        out[index].cullGroupCount = cullGroupCount;
+        int occluderCount = in[index].occluderCount;
+        out[index].occluders = occluderCount ? &rgl.occluderIndices[in[index].firstOccluder] : 0;
+        out[index].occluderCount = occluderCount;
     }
 }
 

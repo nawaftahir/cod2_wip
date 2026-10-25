@@ -1,8 +1,8 @@
 {
-  "functions": 667,
-  "bytes": 114893,
+  "functions": 668,
+  "bytes": 115119,
   "total": 253580,
-  "percent": 45.308383941951256,
+  "percent": 45.397507689880904,
   "baseline_lost": [],
   "gains": [
     {
@@ -69,6 +69,12 @@
       "target": "0x10003430",
       "bytes": 939,
       "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10003f90",
+      "bytes": 226,
+      "name": "?R_LoadCells@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {

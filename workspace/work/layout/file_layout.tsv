@@ -408,7 +408,7 @@ gfx_d3d/r_bsp_load_obj.cpp	?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@
 gfx_d3d/r_bsp_load_obj.cpp	?R_BuildLightmapMergability@@YAHPBUGfxBspLoad@@PAUr_lightmapGroup_t@@PAH@Z	10001bc0	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_CombineLightmapsForDx7@@YAXPAPAEHHPBM@Z	10001e30	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadLightmaps@@YAXPAUGfxBspLoad@@@Z	10001fb0	pinned	-	-	unknown
-gfx_d3d/r_bsp_load_obj.cpp	?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z	10002620	pinned	-	-	unknown
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z	10002620	bind	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_SetSurfaceBoundsAndLmapCoords@@YAXPAUsrfTriangles_t@@PAUGfxWorldVertex@@PBUDiskGfxVertex@@PBUr_lightmapMerge_t@@@Z	100026c0	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_GetSurfaceSortGroup@@YAGPBUMaterial@@PBUGfxSurface@@HPBUsrfTriangles_t@@@Z	100027c0	pinned	-	-	unknown
 gfx_d3d/r_bsp_load_obj.cpp	?R_CalculateWorldBounds@@YAXPAM0@Z	10002840	pinned	-	-	unknown
@@ -426,7 +426,7 @@ gfx_d3d/r_bsp_load_obj.cpp	?R_LoadEntities@@YAXPAUGfxBspLoad@@@Z	10003880	pinned
 gfx_d3d/r_bsp_load_obj.cpp	?R_ParseEntitySpawnVars@@YAHPAPBDPADPAY01PBD@Z	10003880	pinned	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z	10003d40	pinned	gfx_d3d/r_bsp_load_obj	gfx_d3d/r_bsp_load_obj	mac-name
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z	10003ee0	hit	-	gfx_d3d/r_bsp_load_obj	interval
-gfx_d3d/r_bsp_load_obj.cpp	?R_LoadCells@@YAXPAUGfxBspLoad@@@Z	10003f90	pinned	-	gfx_d3d/r_bsp_load_obj	interval
+gfx_d3d/r_bsp_load_obj.cpp	?R_LoadCells@@YAXPAUGfxBspLoad@@@Z	10003f90	bind	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z	10004080	bind	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadPortals@@YAXPAUGfxBspLoad@@@Z	10004170	pinned	-	gfx_d3d/r_bsp_load_obj	interval
 gfx_d3d/r_bsp_load_obj.cpp	?R_LoadCullGroups@@YAXPAUGfxBspLoad@@@Z	10004300	pinned	-	gfx_d3d/r_bsp_load_obj	interval

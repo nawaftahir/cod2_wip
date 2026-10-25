@@ -147,6 +147,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_LoadCells@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10003f90",
+"n": 226,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10004080",
 "n": 240,
