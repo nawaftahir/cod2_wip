@@ -452,10 +452,10 @@ void R_LoadSurfaces(GfxBspLoad *load)
     const DiskGfxVertex *diskVerts = (const DiskGfxVertex *)(load->fileBase + load->header->lumps[8].fileofs);
     s_world.vertexCount = vertCount;
     s_world.vd.vertices = (GfxWorldVertex *)ri.Hunk_AllocInternal(vertCount * sizeof(GfxWorldVertex));
-    for (int index = 0; index < vertCount; ++index)
+    GfxWorldVertex *out = s_world.vd.vertices;
+    const DiskGfxVertex *src = diskVerts;
+    for (int index = 0; index < vertCount; ++index, ++out, ++src)
     {
-        GfxWorldVertex *out = &s_world.vd.vertices[index];
-        const DiskGfxVertex *src = &diskVerts[index];
         out->xyz[0] = src->xyz[0];
         out->xyz[1] = src->xyz[1];
         out->xyz[2] = src->xyz[2];
