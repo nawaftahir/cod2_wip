@@ -157,7 +157,7 @@
 {
 "name": "?R_BuildLightmapMergability@@YAHPBUGfxBspLoad@@PAUr_lightmapGroup_t@@PAH@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 626,
+"size": 620,
 "hits": []
 },
 {

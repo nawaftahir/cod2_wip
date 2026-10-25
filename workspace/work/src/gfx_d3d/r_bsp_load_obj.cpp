@@ -124,37 +124,22 @@ static int R_BuildLightmapMergability(const GfxBspLoad *load, r_lightmapGroup_t 
     byte used[31];
     memset(used, 0, sizeof(used));
     int groupCount = 0;
-    int highCount;
-    if (r_optimizeLightmaps->current.enabled)
-        highCount = vidConfig.maxTextureSize / 1024;
-    else
-        highCount = 1;
-    int wideCount = highCount;
+    int maxCount = r_optimizeLightmaps->current.enabled ? vidConfig.maxTextureSize / 1024 : 1;
+    int highCount = maxCount;
+    int wideCount = maxCount;
     int placed = 0;
     while (placed < lmapCount)
     {
         int remaining = lmapCount - placed;
-        while (wideCount * highCount > remaining)
+        while (highCount * wideCount > remaining)
         {
             if (wideCount >= highCount)
                 wideCount >>= 1;
             else
                 highCount >>= 1;
         }
-        int tileCount = wideCount * highCount;
-        if (tileCount < 2)
-        {
-            for (int index = 0; index < lmapCount; ++index)
-            {
-                if (!used[index])
-                {
-                    reorder[placed++] = index;
-                    used[index] = 1;
-                    break;
-                }
-            }
-        }
-        else
+        int tileCount = highCount * wideCount;
+        if (tileCount >= 2)
         {
             int first = 31;
             int best = 31;
@@ -164,19 +149,18 @@ static int R_BuildLightmapMergability(const GfxBspLoad *load, r_lightmapGroup_t 
                     continue;
                 for (int other = index + 1; other < lmapCount; ++other)
                 {
-                    if (!used[other] && (first == 31 || coupling[first][best] < coupling[index][other]))
+                    if (!used[other] && (first == 31 || coupling[index][other] > coupling[first][best]))
                     {
                         first = index;
                         best = other;
                     }
                 }
             }
-            reorder[placed] = best;
-            reorder[placed + 1] = first;
-            placed += 2;
+            reorder[placed++] = best;
+            reorder[placed++] = first;
             used[best] = 1;
             used[first] = 1;
-            for (int left = tileCount - 2; left > 0; --left)
+            for (int placedInGroup = 2; placedInGroup < tileCount; ++placedInGroup)
             {
                 for (int index = 0; index < lmapCount; ++index)
                 {
@@ -186,11 +170,23 @@ static int R_BuildLightmapMergability(const GfxBspLoad *load, r_lightmapGroup_t 
                 best = 31;
                 for (int index = 0; index < lmapCount; ++index)
                 {
-                    if (!used[index] && (best == 31 || coupling[first][best] < coupling[first][index]))
+                    if (!used[index] && (best == 31 || coupling[first][index] > coupling[first][best]))
                         best = index;
                 }
                 reorder[placed++] = best;
                 used[best] = 1;
+            }
+        }
+        else
+        {
+            for (int index = 0; index < lmapCount; ++index)
+            {
+                if (!used[index])
+                {
+                    reorder[placed++] = index;
+                    used[index] = 1;
+                    break;
+                }
             }
         }
         groupInfo[groupCount].wideCount = wideCount;
