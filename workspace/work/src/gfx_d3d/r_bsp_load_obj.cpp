@@ -121,20 +121,25 @@ static int R_BuildLightmapMergability(const GfxBspLoad *load, r_lightmapGroup_t 
 {
     int coupling[31][31];
     int lmapCount = R_BuildLightmapCoupling(load, coupling);
-    byte used[31] = { 0 };
+    byte used[31];
+    memset(used, 0, sizeof(used));
     int groupCount = 0;
-    int highCount = r_optimizeLightmaps->current.enabled ? vidConfig.maxTextureSize / 1024 : 1;
+    int highCount;
+    if (r_optimizeLightmaps->current.enabled)
+        highCount = vidConfig.maxTextureSize / 1024;
+    else
+        highCount = 1;
     int wideCount = highCount;
     int placed = 0;
     while (placed < lmapCount)
     {
         int remaining = lmapCount - placed;
-        while (remaining < wideCount * highCount)
+        while (wideCount * highCount > remaining)
         {
-            if (wideCount < highCount)
-                highCount >>= 1;
-            else
+            if (wideCount >= highCount)
                 wideCount >>= 1;
+            else
+                highCount >>= 1;
         }
         int tileCount = wideCount * highCount;
         if (tileCount < 2)

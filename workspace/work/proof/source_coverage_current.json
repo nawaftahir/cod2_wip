@@ -335,7 +335,7 @@
     "gfx_d3d/r_water.cpp": "a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b",
     "gfx_d3d/r_image_load_obj.cpp": "58802c120a4740969d56be87d78323a15df28de537a8115f7f3352821b666c58",
     "gfx_d3d/r_shadowcookie.cpp": "b460695b540909bc881aa8891caec9fff8620d6cb367281fd78e544386796d41",
-    "gfx_d3d/r_bsp_load_obj.cpp": "80bd04659d9c7e3a67c0b84e611a5cddf3ff7e1f0d9ca9d297d49f70c9861711",
+    "gfx_d3d/r_bsp_load_obj.cpp": "1f7cd047bff14213b78e37d36dcd84e22ccb9cf5310d3b5abe839c02d1a3fa59",
     "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",
     "gfx_d3d/r_buffers.cpp": "e86aee523eb5ae941898dce04ee6dab10545d7ece099d5ebdbd81cc1e7dd0fd4",
     "gfx_d3d/rb_sky.cpp": "059a302f03e505d95083b24cc5dae81ebface31ca1472e1d56fa82003faa8e60",
