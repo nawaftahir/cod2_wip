@@ -271,9 +271,9 @@ void R_LoadLightmaps(GfxBspLoad *load)
         int tileCount = wide * high;
         for (int tile = 0; tile < tileCount; ++tile)
         {
-            int row = tile / wide;
-            int col = tile % wide;
             int oldIndex = reorder[placed + tile];
+            int col = tile % wide;
+            int row = tile / wide;
             if (lmapDataSize)
             {
                 const byte *src = lmapData + oldIndex * 0x400000;
@@ -291,10 +291,10 @@ void R_LoadLightmaps(GfxBspLoad *load)
             }
             r_lightmapMerge_t *merge = &load->lmapMergeInfo[oldIndex];
             merge->index = groupIndex;
-            merge->shift[0] = col * (1.0f / wide);
             merge->scale[0] = 1.0f / wide;
             merge->scale[1] = 1.0f / high;
-            merge->shift[1] = row * (1.0f / high);
+            merge->shift[0] = col * merge->scale[0];
+            merge->shift[1] = row * merge->scale[1];
         }
         if (r_rendererInUse->current.integer == 2)
         {
