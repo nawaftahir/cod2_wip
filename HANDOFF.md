@@ -1,4 +1,4 @@
-# Radiant handoff (2026-10-24)
+# Radiant handoff (2026-10-28)
 
 Read this first, then `ROADMAP.md` (what's done and what's next), `RULES.md` (facts, all evidence-tagged)
 and `AGENTS.md` (the agent contract).
@@ -6,14 +6,22 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
 
 ## State
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 304 ledger rows, all matching inside the linked exe; game code 5.82% (40,711 B); whole file 1.186% in place;
+- 341 ledger rows, all matching inside the linked exe; game code 6.47% (45,266 B); whole file 1.217% in place;
   unverified in src/ 50. Engine files come from the server source (`research/libmatch/import.sh`, RULES.md);
-  done so far: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md). Next: com_files,
-  com_shared, assertive, xanim, script, then the asserted functions per file (Com_ParseExt is DEFER at 25%).
+  existing files: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md).
+  com_files now has 38 verified functions (37 net new, 4,555 B gained). File finish is deferred:
+  the CRT map incorrectly calls DeleteFileA's wrapper __rmdir; details in research/codex_notes.md.
+  Seven caller-dependent trial hits stay in scratch, not src/. A com_shared trial was rejected:
+  three normalized matches cost 260 whole-file same-offset bytes. Next: resolve the com_files
+  library binding, finish com_shared, then assertive and the remaining universal files before
+  splines, xanim and script (Com_ParseExt is DEFER at 25%).
   `.rsrc` 99.71% (the rest is section RVAs).
 - Game functions 3,579 (699,591 B), 3,509 with a known file; MFC/CRT 3,940 are linked from libs.
 - Fleet stopped. GitHub Actions minutes are out: the workflow is manual-only, and `tools/ci_local.sh` runs the
   same gate and posts to Discord (webhook in `.secrets/`, gitignored).
+- This checkpoint is on branch agent/codex in .agents/codex, code commit 7589c4a; main is untouched.
+  make gate, make accept and local CI passed; all 304 previous matches remain, with the original
+  50 unverified bodies and one existing order warning. No exact-RVA, whole-file SHA or boot claim.
 
 ## Structure facts that drive everything (details in RULES.md)
 1. **One object per file, `/GL` + `/LTCG`.** The old "one unity unit" claim is refuted (`__FILE__` forms,
