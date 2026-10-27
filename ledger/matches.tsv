@@ -338,5 +338,8 @@ addr	size	source	symbol	name	tag
 0x00481020	7	src/universal/com_files.cpp	?FS_FullPath_f@@YAXXZ	FS_FullPath_f	SUPPORTED
 0x00481030	7	src/universal/com_files.cpp	?FS_Path_f@@YAXXZ	FS_Path_f	SUPPORTED
 0x00481fa0	36	src/universal/com_files.cpp	?FS_ClearIwdReferences@@YAXXZ	FS_ClearIwdReferences	SUPPORTED
+0x0047d7b0	114	src/universal/assertive.cpp	_CopyMessageToClipboard	CopyMessageToClipboard	SUPPORTED
+0x0047da40	8	src/universal/assertive.cpp	_FUN_0047da40	FUN_0047da40	UNNAMED
+0x0047da50	10	src/universal/assertive.cpp	_FUN_0047da50	FUN_0047da50	UNNAMED
 0x004823b0	13	src/universal/com_files.cpp	?FS_Flush@@YAXH@Z	FS_Flush	SUPPORTED
 0x004823c0	115	src/universal/com_files.cpp	?GetBspExtension@@YAPBDXZ	GetBspExtension	SUPPORTED
