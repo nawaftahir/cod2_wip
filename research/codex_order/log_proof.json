@@ -1,0 +1,32 @@
+{
+  "retail_sha256": "b6fc8cff6bbfa06b262e6e499022748517646a0aa3f7b2344ba96c9b59616bb8",
+  "harness_sha256": "dae127017531c4e4034faee32f68b6075926932511783b8c1ed4717313ed67e7",
+  "source_sha256": "5c4ea2e3835fad2f11fa5642406e0999fd1d42fc9e63e15ce8fd029270f71ac6",
+  "address": "0x004d7a20",
+  "mapped_base": "0x00400000",
+  "retail_entry_point_run": false,
+  "cases": [
+    [
+      1,
+      0
+    ],
+    [
+      2,
+      0.6931471805599453
+    ],
+    [
+      4,
+      1.3862943611198906
+    ],
+    [
+      0.5,
+      -0.6931471805599453
+    ],
+    [
+      2.718281828459045,
+      1
+    ]
+  ],
+  "exit_code": 0,
+  "output": "PASS: retail log, five cases; no retail entry point"
+}

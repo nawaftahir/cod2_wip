@@ -362,3 +362,5 @@ addr	size	source	symbol	name	tag
 0x00401aa0	35	src/radiant/AdvCurveDlg.cpp	?DefWindowProcA@CAdvCurveEditDlg@@MAEJIIJ@Z	CAdvCurveEditDlg::DefWindowProc	PINNED
 0x00401ad0	167	src/radiant/AdvCurveDlg.cpp	?OnHScroll@CAdvCurveEditDlg@@QAEXIIPAVCScrollBar@@@Z	CAdvCurveEditDlg::OnHScroll	PINNED
 0x00402190	8	src/radiant/AdvCurveDlg.cpp	?FUN_00402190@CAdvCurveEditDlg@@QAEXXZ	FUN_00402190	UNNAMED
+0x00401cd0	81	src/radiant/AdvCurveDlg.cpp	?FUN_00401cd0@CAdvCurveEditDlg@@QAEXM@Z	FUN_00401cd0	UNNAMED
+0x00402420	139	src/radiant/AdvCurveDlg.cpp	?OnDrawItem@CAdvCurveEditDlg@@QAEXHPAUtagDRAWITEMSTRUCT@@@Z	CAdvCurveEditDlg::OnDrawItem	PINNED

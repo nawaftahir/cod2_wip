@@ -6,7 +6,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
 
 ## State
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 363 ledger rows, all matching inside the linked exe; game code 6.76% (47,320 B); whole file 1.427% in place;
+- 365 ledger rows, all matching inside the linked exe; game code 6.80% (47,540 B); whole file 1.401% in place;
   unverified in src/ 50. Engine files come from the server source (`research/libmatch/import.sh`, RULES.md);
   existing files: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md).
   com_files now has 38 verified functions (37 net new, 4,555 B gained). File finish is deferred:
@@ -16,11 +16,13 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   starting with AdvCurveDlg (Com_ParseExt is DEFER at 25%).
   assertive now has five verified bodies (three new, 132 B gained). Four additional helper matches
   and three q_shared info-string matches remain in scratch because they lower same-offset bytes.
-  Whole-file same-offset progress is strict: do not accept normalized matches that lower it.
+  The owner selected retail-file order after the counter-policy question: retain verified
+  code in that file and report same-offset changes. The earlier rejected offset trials remain
+  historical evidence; do not resume broad unrelated batches.
   A tested verifier boundary correction is proposed in research/codex_fixes/; tools/verify.py is unchanged
   pending a separate explicit exception. Repeated static map names currently hide boundaries.
   `.rsrc` 99.71% (the rest is section RVAs).
-- Retail-order continuation accepted: src/radiant/AdvCurveDlg.cpp has nineteen matches (1,922 B).
+- Retail-order continuation accepted: src/radiant/AdvCurveDlg.cpp has twenty-one matches (2,142 B).
   The first ten are at exact retail RVAs 0x401000, 0x401090, 0x4010c0, 0x401180, 0x401310,
   0x401340, 0x401450, 0x401550, 0x401560, 0x401580. The owner explicitly approved tools/link.py plus data/flags.tsv,
   data/lib_funcs.tsv and data/lib_overrides.tsv corrections. Only this first TU is explicitly ordered;
@@ -31,6 +33,10 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   scroll changes and placement saving now match; the 453 B edit-reading body and its two callers
   remain drafts with a calling-convention mismatch. The live model test also checks shared global
   bindings and all known message callbacks. Normal per-function checks, gate, accept, both model tests and local CI pass.
+  The scale setter (81 B) and color/alpha swatch handler (139 B) also match. This pair
+  moves same-offset bytes from 25,600 to 25,134 (-466), while retaining all ten exact addresses.
+  Native retail log tests and two linked _log call-site bindings pass; no flags or library data
+  changed. Plain-TU and noinline experiments for the edit-handler gap failed and stay in scratch.
   Continue this first file: add its genuine global instance/lifetime accounting and its
   remaining message handlers before proceeding to the next TU. SHA identity and GUI boot remain open.
 - Game functions 3,579 (699,591 B), 3,509 with a known file; MFC/CRT 3,940 are linked from libs.

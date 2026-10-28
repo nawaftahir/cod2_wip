@@ -46,8 +46,21 @@ assert pow_proof['retail_sha256']==hashlib.sha256(link.RETAIL.read_bytes()).hexd
 assert pow_proof['source_sha256']==hashlib.sha256(Path('research/codex_order/prove_pow.cpp').read_bytes()).hexdigest()
 assert pow_proof['exit_code']==0 and not pow_proof['retail_entry_point_run']
 assert len(pow_proof['cases'])==5 and new['0x004d7790']['symbol']=='_pow'
+log_proof=json.loads(Path('research/codex_order/log_proof.json').read_text())
+assert log_proof['retail_sha256']==hashlib.sha256(link.RETAIL.read_bytes()).hexdigest()
+assert log_proof['source_sha256']==hashlib.sha256(Path('research/codex_order/prove_log.cpp').read_bytes()).hexdigest()
+assert log_proof['exit_code']==0 and not log_proof['retail_entry_point_run']
+assert len(log_proof['cases'])==5 and log_proof['address']=='0x004d7a20'
 # Compare actual message dispatch IDs/signatures; callback bodies remain to be reconstructed.
 image=verify.Linked();ours=pefile.PE(str(link.EXE),fast_load=True)
+# The log wrapper is absent from the name table; prove its two actual caller bindings.
+address,code=image.code('?FUN_00401cd0@CAdvCurveEditDlg@@QAEXM@Z')
+target,_=verify.matcher.carve('0x00401cd0')
+_,target_calls=verify.masks(target,0x401cd0)
+_,actual_calls=verify.masks(code,address)
+log_calls=[field for field,destination in target_calls.items() if destination==0x4d7a20]
+assert len(log_calls)==2
+for field in log_calls:assert '_log' in image.labels.get(actual_calls[field],())
 mapping=link.MAP.read_text(errors='replace')
 def data_symbol(prefix):
  match=re.search(r'^\s+\d{4}:[0-9a-f]{8}\s+'+re.escape(prefix)+r'\S*\s+([0-9a-f]{8})\s',mapping,re.M)

@@ -100,6 +100,7 @@ public:
     afx_msg void FUN_00402240();
     void FUN_00401c90(float value);
     void FUN_00401cb0(float value);
+    void FUN_00401cd0(float value);
 
     CButton control_042e;
     CButton control_042d;
@@ -246,7 +247,31 @@ void CAdvCurveEditDlg::FUN_00401cb0(float value)
     FUN_004010c0(1425, value);
 }
 
+void CAdvCurveEditDlg::FUN_00401cd0(float value)
+{
+    float denominator = log(2.0f);
+    FUN_004010c0(1426, log(value) / denominator + 8.0f);
+}
+
 void CAdvCurveEditDlg::FUN_00402190()
 {
     g_curveUpdatePending |= 1;
+}
+
+void CAdvCurveEditDlg::OnDrawItem(int id, LPDRAWITEMSTRUCT item)
+{
+    if (id == 0x5b6)
+    {
+        HBRUSH brush = CreateSolidBrush(color);
+        ::FillRect(item->hDC, &item->rcItem, brush);
+        DeleteObject(brush);
+    }
+    else if (id == 0x5ba)
+    {
+        HBRUSH brush = CreateSolidBrush(RGB(alpha, alpha, alpha));
+        ::FillRect(item->hDC, &item->rcItem, brush);
+        DeleteObject(brush);
+    }
+    else
+        CDialog::OnDrawItem(id, item);
 }

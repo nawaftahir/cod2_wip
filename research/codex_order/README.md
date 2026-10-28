@@ -4,8 +4,11 @@ The owner approved the first-TU build/model and source corrections; both
 are applied. The approved model first reached 357/357 matches,
 46,987 game bytes (6.72%), and 25,428 whole-file same-offset bytes (1.417%).
 That added thirteen functions / 1,589 bytes and 3,540 same-offset bytes.
-The next six handlers bring the checkpoint to 363/363, 47,320 game bytes
-(6.76%) and 25,600 same-offset bytes (1.427%, another +172).
+Six more handlers reached 363/363, 47,320 game bytes (6.76%) and 25,600
+same-offset bytes (1.427%, another +172). The scale setter and swatch drawing
+handler now bring source matches to 365/365 and 47,540 bytes (6.80%). Their
+layout moves same-offset bytes to 25,134 (1.401%, -466). The owner selected
+retail-file reconstruction; the ten-function prefix remains exactly placed.
 The original fifty unverified bodies and single order warning remain.
 
 The change preserves existing flags and enables exceptions/RTTI only for
@@ -31,6 +34,7 @@ Approved patches, earlier prototypes and preparation scripts are archived under
 scratch/codex_1028_advcurve/order_prototypes and must not be reapplied.
 
 `prove_pow.cpp` maps the original at 0x400000 without running its entry point.
-Compile it without CRT startup; commands are in research/codex_notes.md.
+`prove_log.cpp` uses the same mapping discipline for five logarithm inputs.
+Compile both without CRT startup; commands are in research/codex_notes.md.
 No GUI boot or whole-file SHA identity is claimed. No filler, copied code or
 post-link retail patches are used.

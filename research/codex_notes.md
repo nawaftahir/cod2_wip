@@ -393,3 +393,57 @@ The applied six-body source passes stock make try, gate, accept and local CI.
 Both model tests pass, including exact control-table bytes, shared-global
 operand bindings, known callback routing and all ten leading function addresses.
 The compact accepted record is research/codex_order/handlers_proof.json.
+
+## 2026-10-28: retail-file continuation, scale and swatches
+
+Added the actual 81-byte scale setter at 0x401cd0 and 139-byte OnDrawItem at
+0x402420, in their original AdvCurveDlg order. The setter uses the float log
+overloads, stores log(2) in a float, and sends log(value)/log(2)+8 through the
+existing quantized setter for control 1426. OnDrawItem paints the color field
+for 0x5b6, the alpha gray swatch for 0x5ba, and forwards other IDs to CWnd.
+Both brush paths delete their real GDI brush after FillRect. No attributes,
+flag changes, fake references or comparison changes enter the source.
+
+PINNED log identity: retail 0x4d7a20 branches to known __log_default at
+0x4d7aaf. A second bare kernel32 harness maps the original at 0x400000,
+skips its entry point, and checks log(1), log(2), log(4), log(0.5) and log(e)
+to 1e-12. All five pass. The source, hashes and result are retained in
+research/codex_order/{prove_log.cpp,log_proof.json}. No library tables changed.
+The live model test checks both scale-setter call sites bind to actual _log.
+
+The 0x4015a0 gap is still unresolved. A plain first-TU /GX /GR build with
+static generic helpers gives 362/366, with the 453-byte target at 81%/454 B,
+but breaks the accepted constructor, destructor and deleting destructor.
+Reject that build model. Adding the real scale setter under the approved
+flags yields an exact 81-byte callee and exact five-byte caller stubs, but
+inlines the scale conversion into the shared edit body (75%/511 B). Bounded
+noinline probes retain the scale body but revert the shared edit body to an
+ESI convention (55%/450 B) and its callers to ten bytes. These attributes are
+not shipped. All existing 363 matches survive the GL probes. The complete
+source/context attempts and direct-symbol results are retained in
+scratch/codex_1028_advcurve_gap; no claim of compiler impossibility is made.
+
+The paired trial reports 365/365, 47,540 game bytes (6.80%), fifty unverified
+bodies, one order warning, and the same ten leading exact retail addresses.
+Whole-file same-offset bytes are 25,134 (1.401%), down 466 from 25,600.
+The drawing handler alone is 364/364 but also drops same-offset bytes by 315.
+The owner selected retail-file reconstruction in response to the two-counter
+question. Continue that file in real order and report layout fluctuations;
+do not discard verified bodies solely to chase an incidental offset count.
+The earlier strict per-batch offset rule records the superseded interpretation.
+The whole-file SHA goal is unchanged; this group proves source byte matches,
+not complete whole-file placement or a runnable editor.
+
+Reproduce the standalone log check inside the pinned image from the worktree:
+
+    wine /opt/msvc710/Vc7/bin/cl.exe /nologo /c /O2 /Fobuild/prove_log.obj research/codex_order/prove_log.cpp
+    wine /opt/msvc710/Vc7/bin/link.exe /nologo /OUT:build/prove_log.exe /ENTRY:entry /SUBSYSTEM:CONSOLE /BASE:0x10000000 /FIXED /NODEFAULTLIB build/prove_log.obj kernel32.lib
+    wine build/prove_log.exe
+
+Stock make try reports both new symbols MATCH, and make gate / make accept
+report 365/365 with the measurements above. Both model tests pass. The live
+checks pin the control table and shared state, all known dispatch pointers,
+the two calls to _log, and the ten exact prefix addresses.
+
+Local CI also passed: 365/365, zero failures, no added unverified bodies or
+order warnings. Same-offset remains 25,134; SHA identity remains false.
