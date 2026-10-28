@@ -1,0 +1,4 @@
+addr	size	source	symbol	name	tag
+0x0048af50	88	src/universal/com_shared.cpp	?Com_StringContains@@YAPBDPBD0P6AH00@Z@Z	Com_StringContains	SUPPORTED
+0x0048b2a0	67	src/universal/com_shared.cpp	?Com_HashKey@@YAHPBDH@Z	Com_HashKey	SUPPORTED
+0x0048b2f0	96	src/universal/com_shared.cpp	?Com_RealTime@@YAHPAUqtime_s@@@Z	Com_RealTime	SUPPORTED
