@@ -1,5 +1,17 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## CamWnd mouse checkpoint integrated
+
+Main now includes e97beb5: five more real mouse methods / 389 B. Fresh stock
+gate, binding tests and local CI pass 421/421 game rows: 11.76% of game
+functions and 51,629 / 699,591 B (7.38% of game code). Whole-file same-offset
+is 25,807 / 1,794,048 B (1.438%, +96). Compiler helpers remain 2 / 35 B,
+unverified bodies 50, order warnings one, failures zero. Full SHA and boot
+remain unfinished. Gemini has committed its three com_shared seeds but is
+still editing its next batch; preserve that active work until a clean delivery.
+Codex is recovering three previously verified q_shared info-string routines
+that were rejected solely for the old same-offset rule.
+
 ## Gemini delivery integrated
 
 Main a507db4 lands Gemini's three commits through tools/land.sh gemini. One net

@@ -5,6 +5,11 @@ and `AGENTS.md` (the agent contract).
 Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matching second.
 
 ## State
+- Latest integrated checkpoint: 421/421 game matches, 11.76% of functions;
+  51,629 / 699,591 game bytes (7.38%); whole-file same-offset 25,807 B (1.438%).
+  Five new CamWnd mouse routines add 389 B; stock gate, binding checks and local CI pass.
+  Compiler 2 / 35 B; failures zero, unverified 50, order warnings one.
+  Gemini is actively continuing com_shared; Codex is recovering q_shared offset-only rejects.
 - The 407-row camera-window checkpoint is integrated after independent gate and
   data-binding checks in .agents/overseer. Worker local CI passed. Zero failures,
   unchanged 50 unverified bodies and one order warning; compiler helpers 2 / 35 B.
