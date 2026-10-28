@@ -98,7 +98,7 @@ qboolean Com_Memcmp(const void *src0, const void *src1, const unsigned int count
 	return qtrue;
 }
 
-int __fastcall VectorCompare2(const float *v1, const float *v2)
+int FUN_0048b760(const float *v1, const float *v2)
 {
 	if (v1[0] == v2[0] && v1[1] == v2[1])
 		return 1;
