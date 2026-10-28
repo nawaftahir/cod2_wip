@@ -2667,82 +2667,82 @@ void FS_Path_f(void)
 	FS_DisplayPath(0);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+static const char* IwdFileLanguage(const char *instr)
+{
+	signed int i;
+	static char Array64[128];
+	static qboolean flip;
+
+	flip ^= 1u;
+	if ( strlen(instr) < 10 )
+	{
+		Array64[64 * flip] = 0;
+	}
+	else
+	{
+		i = 10;
+		memset(&Array64[64 * flip], 0, 64);
+		for(; i < 64 && instr[i] != '\0' && isalpha(instr[i]) != '\0'; i++)
+		{
+			Array64[(64 * flip) + i - 10] = instr[i];
+		}
+	}
+
+	return &Array64[64 * flip];
+}
+
+signed int iwdsort(const void *cmp1_arg, const void *cmp2_arg)
+{
+	const char *cmp1;
+	const char *cmp2;
+	const char *lang1;
+	const char *lang2;
+
+	cmp1 = *(const char**)cmp1_arg;
+	cmp2 = *(const char**)cmp2_arg;
+
+	if ( !I_strncmp(cmp1, "          ", 10) )
+	{
+		if ( !I_strncmp(cmp2, "          ", 10) )
+		{
+			lang1 = IwdFileLanguage(cmp1);
+			lang2 = IwdFileLanguage(cmp2);
+
+			if ( !I_stricmp(lang1, "english") )
+			{
+				if ( I_stricmp(lang2, "english") )
+				{
+					return -1;
+				}
+			}
+			else
+			{
+				if ( !I_stricmp(lang2, "english") )
+				{
+					return 1;
+				}
+			}
+		}
+	}
+
+	return FS_PathCmp(cmp1, cmp2);
+}
+
+void FS_AddSearchPath(searchpath_t* search)
+{
+	searchpath_t** pSearch;
+
+	pSearch = &fs_searchpaths;
+	if (search->localized)
+	{
+		while (*pSearch && !(*pSearch)->localized)
+		{
+			pSearch = (searchpath_t**)*pSearch;
+		}
+	}
+	search->next = *pSearch;
+	*pSearch = search;
+}
 
 
 
