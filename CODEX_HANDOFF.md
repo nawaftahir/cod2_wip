@@ -1,5 +1,16 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Latest integrated source checkpoint
+
+Main 04bf4a3 restores three q_shared info-string routines / 818 B after the
+CamWnd mouse batch. Fresh stock gate, literal-binding check and local CI pass
+424/424 game rows: 11.85% of game functions, 52,447 / 699,591 game B (7.50%).
+Whole-file same-offset is 25,947 / 1,794,048 B (1.446%, +140); compiler 2 /
+35 B, failures zero, unverified 50 and one order warning. Both source batches
+are pushed. Full SHA and boot remain unfinished. Gemini has one committed
+com_shared seed checkpoint (e5865ab) and active unsaved batch-two work; review
+and land via tools/land.sh gemini once its worktree is clean. Do not reset it.
+
 ## CamWnd mouse checkpoint integrated
 
 Main now includes e97beb5: five more real mouse methods / 389 B. Fresh stock

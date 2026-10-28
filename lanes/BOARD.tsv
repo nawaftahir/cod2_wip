@@ -73,7 +73,7 @@ src/radiant/drag.cpp	cheap	open	-	17	9922	0	9	Q3Radiant DRAG.CPP (6/6 string fun
 src/radiant/filtersettings.cpp	cheap	open	-	74	11209	0	2	Q3Radiant MainFrm.cpp (1/44 string funcs); iw3xo (1/44)
 src/radiant/map.cpp	cheap	open	-	53	15674	0	5	Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
 src/script/scr_stringlist.cpp	codex	open	-	43	7557	0	16	server source (copy-ready)
-src/universal/q_shared.cpp	codex	in-progress	codex	71	8299	39	17	server source (copy-ready)
+src/universal/q_shared.cpp	codex	partial	codex	71	8299	42	17	server source (copy-ready)
 src/universal/com_files.cpp	gemini	partial	-	97	19485	42	21	server source (copy-ready)
 src/xanim/dobj.cpp	codex	open	-	56	23494	5	19	server source (copy-ready)
 src/universal/dvar.cpp	codex	open	-	121	24678	21	45	server source (copy-ready)
