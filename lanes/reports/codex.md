@@ -17,3 +17,19 @@ Logs: scratch/codex_1028_assertive_helpers/resumed_{try,gate,tests}.log.
 Assertive remains partial. Next source batch is the real CamWnd mouse-down
 caller group; its first bounded probes already preserve every existing row.
 Main's board will be updated after integration. No GUI boot or full SHA claim.
+
+## CamWnd mouse caller batch
+
+Five more routines / 389 B match: OnLButtonDown 0x4032f0, OnMButtonDown
+0x403390, OnRButtonDown 0x403420, OriginalMouseDown 0x403520 and Cam_MouseUp
+0x404d70. Source follows Q3 plus pinned retail state-reset/cursor additions.
+The callback map binds each real handler; imports and class offsets are checked.
+No fake callers, noinline attributes, flags or comparison-rule changes.
+
+Fresh stock try/gate: 421/421 rows, 51,629 game B (7.38%), 11.76% of game
+functions, compiler 2 / 35 B. Same-offset 25,807 B / 1.438%, +96 from the
+previous checkpoint. Zero failures, unchanged 50 unverified bodies / 1 warning.
+Window, restored-helper, camera-target, lifetime and accounting tests pass.
+The release callback group and mouse-move body remain in scratch: its first
+trial inlines differently; no unmatched source from it ships.
+Logs: scratch/codex_1028_cam_mouse/accepted_{try,gate,tests,ci}.log.

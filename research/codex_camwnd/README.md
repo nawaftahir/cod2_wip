@@ -39,3 +39,18 @@ Run inside the pinned image:
 Current proof logs: scratch/codex_1028_camwnd/accepted_{try,gate,tests,ci}.log.
 Remaining work is camera motion/rendering and the global state shared with the
 other editor TUs. Preserve proven field offsets while decoding the remaining data.
+
+## Mouse caller group
+
+Q3's OriginalMouseDown body also matches the retail middle/right callbacks
+in the reference sweep. Reconstructing the real wrappers and helper together
+matches all four bodies (94 + 78 + 78 + 74 B). The retail mouse-up core also
+matches (65 B): clear buttons, call 0x462760, reset the two pinned integers and
+cursor byte, and restore cursor visibility. Class size/fields remain unchanged.
+The live import check now covers fifteen accesses across all accepted methods.
+
+The full initial ten-method group retained the existing ledger, but release
+wrappers were 27/55 B and OriginalMouseUp was 106/46 B due to different inlining.
+Mouse move was 71/69 B (57%, first +0x1a). Pruning those unmatched definitions
+retains the five passing methods without fabricated keepalive callers. Their
+real declarations remain for later reconstruction with new caller evidence.
