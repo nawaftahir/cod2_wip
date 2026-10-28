@@ -41,3 +41,14 @@ bytes; constructor at 0x402f50 clears 31 dwords starting at +0x54. Q3's giant
 trans-brush array is absent here, so do not copy its class layout. The free window
 procedure at 0x403010 matches the Q3 reference logic and is referenced by the
 actual PreCreateWindow handler at 0x403090. Inspect their primary bytes first.
+
+Camera-window setup: ten routines / 569 B pass at 407 game matches / 50,836 B,
+26,210 same-offset B. Unknown storage +0xec..+0x11b and +0x12c..+0x137 remains
+explicitly opaque; do not assign field meanings without target evidence. Main
+next blocker is shared g_qeglobals and renderer callback ownership/layout: OnCreate
+writes 0x10bcd58, OnSize reads it and calls a callback at 0x59c448; registry helpers
+read 0x11298f0/+4. Determine their actual owning globals before defining fragments.
+Do not duplicate globals or invent class fields to match masked addresses.
+AfxRegisterClass: full 257-byte raw extent matches, including EH cleanup. The map's
+local $L197921 label splits its main body at 241 B, explaining the standalone
+referee size mismatch; masks/inventory/referee remain unchanged.

@@ -396,3 +396,13 @@ addr	size	source	symbol	name	tag
 0x00402a20	46	src/radiant/cameratargetdlg.cpp	?DoDataExchange@CCameraTargetDlg@@MAEXPAVCDataExchange@@@Z	CCameraTargetDlg::DoDataExchange	SUPPORTED
 0x00402a50	6	src/radiant/cameratargetdlg.cpp	?GetMessageMap@CCameraTargetDlg@@MBEPBUAFX_MSGMAP@@XZ	CCameraTargetDlg::GetMessageMap	SUPPORTED
 0x00402a60	1	src/radiant/cameratargetdlg.cpp	?OnPopupNewcameraFixed@CCameraTargetDlg@@IAEXXZ	CCameraTargetDlg::OnPopupNewcameraFixed	SUPPORTED
+0x00402ee0	91	src/radiant/CamWnd.cpp	?CreateObject@CCamWnd@@SGPAVCObject@@XZ	CCamWnd::CreateObject	SUPPORTED
+0x00402f40	6	src/radiant/CamWnd.cpp	?GetRuntimeClass@CCamWnd@@UBEPAUCRuntimeClass@@XZ	CCamWnd::GetRuntimeClass	SUPPORTED
+0x00402f50	100	src/radiant/CamWnd.cpp	??0CCamWnd@@QAE@XZ	CCamWnd::CCamWnd	SUPPORTED
+0x00402ff0	11	src/radiant/CamWnd.cpp	??1CCamWnd@@UAE@XZ	CCamWnd::~CCamWnd	SUPPORTED
+0x00403000	6	src/radiant/CamWnd.cpp	?GetMessageMap@CCamWnd@@MBEPBUAFX_MSGMAP@@XZ	CCamWnd::GetMessageMap	SUPPORTED
+0x00403010	124	src/radiant/CamWnd.cpp	?CamWndProc@@YGJPAUHWND__@@IIJ@Z	CamWndProc	SUPPORTED
+0x00403090	179	src/radiant/CamWnd.cpp	?PreCreateWindow@CCamWnd@@MAEHAAUtagCREATESTRUCTA@@@Z	CCamWnd::PreCreateWindow	SUPPORTED
+0x00403280	4	src/radiant/CamWnd.cpp	?SetXYFriend@CCamWnd@@QAEXPAVCXYWnd@@@Z	CCamWnd::SetXYFriend	SUPPORTED
+0x00403290	5	src/radiant/CamWnd.cpp	?OnClose@CCamWnd@@IAEXXZ	CCamWnd::OnClose	SUPPORTED
+0x00403570	43	src/radiant/CamWnd.cpp	?Cam_Init@CCamWnd@@QAEXXZ	CCamWnd::Cam_Init	SUPPORTED
