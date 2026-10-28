@@ -2,3 +2,7 @@
 addr	member	symbol	evidence
 0x004da73a	build\intel\mt_obj\toupper.obj	_toupper	internal call e818ffffff is _toupper's; _tolower has e819ffffff
 0x004d8070	build\intel\mt_obj\87ctriga.obj	_atan2	mov edx,0x58ee90 names "atan2" in the 87c stub table
+0x004d7790	..\build\intel\mt_obj\pow.obj	_pow	PINNED: original fixed image returns pow for five two-double inputs; bare harness skips the retail entry point
+0x004f57ba	INTEL\$NW\winctrl2.obj	??1CSliderCtrl@@UAE@XZ	PINNED: writes vtable 0x52e12c; RTTI type .?AVCSliderCtrl@@
+0x00516647	INTEL\$NW\winctrl1.obj	??1CButton@@UAE@XZ	PINNED: writes vtable 0x52cf5c; RTTI type .?AVCButton@@
+0x005168e8	INTEL\$NW\winctrl1.obj	??1CEdit@@UAE@XZ	PINNED: writes vtable 0x52d34c; RTTI type .?AVCEdit@@

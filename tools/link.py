@@ -169,6 +169,16 @@ def resources():
     return ["build/res/radiant.res"]
 
 
+def function_order():
+    """Keep reconstructed first-file code before compiler header helpers."""
+    first = sources()[0]
+    rows = [row for row in read_tsv("ledger/matches.tsv") if row["source"] == first]
+    rows.sort(key=lambda row: int(row["addr"], 16))
+    path = BASE / "build" / "function_order.txt"
+    path.write_text("\n".join(row["symbol"] for row in rows) + "\n")
+    return "/ORDER:@build/function_order.txt"
+
+
 def build(includes=(), quiet=False):
     """Compile stale sources and link. Returns True when an exe was produced."""
     # a header or flag change rebuilds everything
@@ -186,7 +196,7 @@ def build(includes=(), quiet=False):
     res = resources()
     EXE.unlink(missing_ok=True)
     inc = ["/INCLUDE:%s" % s for s in sorted(set(ledger_includes()) | set(includes))]
-    (BASE / "build" / "link.rsp").write_text("\n".join(FLAGS + inc + ["/OUT:build/CoD2Radiant.exe",
+    (BASE / "build" / "link.rsp").write_text("\n".join(FLAGS + [function_order()] + inc + ["/OUT:build/CoD2Radiant.exe",
                                              "/MAP:build/CoD2Radiant.map"] + objs + res + LIBS) + "\n")
     out = run("wine /opt/msvc710/Vc7/bin/link.exe @build/link.rsp").stdout.splitlines()
     unresolved = sum(1 for l in out if "LNK2001" in l or "LNK2019" in l)

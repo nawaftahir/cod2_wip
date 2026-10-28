@@ -1,0 +1,137 @@
+{
+  "baseline_commit": "b27ff56",
+  "new_functions": 6,
+  "new_bytes": 333,
+  "matches": 363,
+  "matched_bytes": 47320,
+  "baseline_same_offset_bytes": 25428,
+  "same_offset_bytes": 25600,
+  "order_warnings": 1,
+  "unverified_in_src": 50,
+  "source_sha256": "ba4ba8f5eae6276e5a80bfa5583f1983470c7d0de85cd855dd890fdf554cc2df",
+  "retail_sha256": "b6fc8cff6bbfa06b262e6e499022748517646a0aa3f7b2344ba96c9b59616bb8",
+  "functions": [
+    {
+      "addr": "0x00401560",
+      "size": "28",
+      "source": "src/radiant/AdvCurveDlg.cpp",
+      "symbol": "?FUN_00401560@@YAHXZ",
+      "name": "FUN_00401560",
+      "tag": "UNNAMED",
+      "status": "MATCH",
+      "detail": "at 0x00401560"
+    },
+    {
+      "addr": "0x00401580",
+      "size": "28",
+      "source": "src/radiant/AdvCurveDlg.cpp",
+      "symbol": "?OnCancel@CAdvCurveEditDlg@@MAEXXZ",
+      "name": "CAdvCurveEditDlg::OnCancel",
+      "tag": "PINNED",
+      "status": "MATCH",
+      "detail": "at 0x00401580"
+    },
+    {
+      "addr": "0x00401780",
+      "size": "67",
+      "source": "src/radiant/AdvCurveDlg.cpp",
+      "symbol": "?OnDestroy@CAdvCurveEditDlg@@QAEXXZ",
+      "name": "CAdvCurveEditDlg::OnDestroy",
+      "tag": "PINNED",
+      "status": "MATCH",
+      "detail": "at 0x004015a0"
+    },
+    {
+      "addr": "0x00401aa0",
+      "size": "35",
+      "source": "src/radiant/AdvCurveDlg.cpp",
+      "symbol": "?DefWindowProcA@CAdvCurveEditDlg@@MAEJIIJ@Z",
+      "name": "CAdvCurveEditDlg::DefWindowProc",
+      "tag": "PINNED",
+      "status": "MATCH",
+      "detail": "at 0x004015f0"
+    },
+    {
+      "addr": "0x00401ad0",
+      "size": "167",
+      "source": "src/radiant/AdvCurveDlg.cpp",
+      "symbol": "?OnHScroll@CAdvCurveEditDlg@@QAEXIIPAVCScrollBar@@@Z",
+      "name": "CAdvCurveEditDlg::OnHScroll",
+      "tag": "PINNED",
+      "status": "MATCH",
+      "detail": "at 0x00401620"
+    },
+    {
+      "addr": "0x00402190",
+      "size": "8",
+      "source": "src/radiant/AdvCurveDlg.cpp",
+      "symbol": "?FUN_00402190@CAdvCurveEditDlg@@QAEXXZ",
+      "name": "FUN_00402190",
+      "tag": "UNNAMED",
+      "status": "MATCH",
+      "detail": "at 0x00401820"
+    }
+  ],
+  "prefix": [
+    {
+      "addr": "0x00401000",
+      "symbol": "?FUN_00401000@@YAXH@Z",
+      "status": "MATCH",
+      "detail": "at 0x00401000"
+    },
+    {
+      "addr": "0x00401090",
+      "symbol": "?FUN_00401090@@YAMH@Z",
+      "status": "MATCH",
+      "detail": "at 0x00401090"
+    },
+    {
+      "addr": "0x004010c0",
+      "symbol": "?FUN_004010c0@@YAXHM@Z",
+      "status": "MATCH",
+      "detail": "at 0x004010c0"
+    },
+    {
+      "addr": "0x00401180",
+      "symbol": "??0CAdvCurveEditDlg@@QAE@PAVCWnd@@@Z",
+      "status": "MATCH",
+      "detail": "at 0x00401180"
+    },
+    {
+      "addr": "0x00401310",
+      "symbol": "??_GCAdvCurveEditDlg@@UAEPAXI@Z",
+      "status": "MATCH",
+      "detail": "at 0x00401310"
+    },
+    {
+      "addr": "0x00401340",
+      "symbol": "??1CAdvCurveEditDlg@@UAE@XZ",
+      "status": "MATCH",
+      "detail": "at 0x00401340"
+    },
+    {
+      "addr": "0x00401450",
+      "symbol": "?DoDataExchange@CAdvCurveEditDlg@@UAEXPAVCDataExchange@@@Z",
+      "status": "MATCH",
+      "detail": "at 0x00401450"
+    },
+    {
+      "addr": "0x00401550",
+      "symbol": "?GetMessageMap@CAdvCurveEditDlg@@MBEPBUAFX_MSGMAP@@XZ",
+      "status": "MATCH",
+      "detail": "at 0x00401550"
+    },
+    {
+      "addr": "0x00401560",
+      "symbol": "?FUN_00401560@@YAHXZ",
+      "status": "MATCH",
+      "detail": "at 0x00401560"
+    },
+    {
+      "addr": "0x00401580",
+      "symbol": "?OnCancel@CAdvCurveEditDlg@@MAEXXZ",
+      "status": "MATCH",
+      "detail": "at 0x00401580"
+    }
+  ]
+}

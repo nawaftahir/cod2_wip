@@ -1,4 +1,6 @@
 #include <stdlib.h>
+#include <string.h>
+#include <windows.h>
 
 extern "C" {
 
@@ -33,4 +35,38 @@ MapNode *MapNode::destroy(int destroy)
     return this;
 }
 
+
+char assertMessage[4096];
+bool g_assertUnknownFlag;
+
+void CopyMessageToClipboard()
+{
+    if (OpenClipboard(GetDesktopWindow()))
+    {
+        EmptyClipboard();
+        HGLOBAL memory = GlobalAlloc(GMEM_MOVEABLE, strlen(assertMessage) + 1);
+        if (memory)
+        {
+            char *dest = (char *)GlobalLock(memory);
+            if (dest)
+            {
+                strcpy(dest, assertMessage);
+                GlobalUnlock(memory);
+                SetClipboardData(CF_TEXT, memory);
+            }
+        }
+        CloseClipboard();
+    }
+}
+
+void FUN_0047da40()
+{
+    g_assertUnknownFlag = false;
+}
+
+bool FUN_0047da50()
+{
+    g_assertUnknownFlag = false;
+    return false;
+}
 }

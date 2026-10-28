@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stddef.h>
 #include "../zlib/unzip.h"
 
 #define MAX_IWDFILES 1024
@@ -65,17 +66,14 @@ struct iwd_t
 	char iwdBasename[MAX_OSPATH];
 	char iwdGamename[MAX_OSPATH];
 	unzFile handle;
-	int checksum;
-	int pure_checksum;
 	int numFiles;
 	bool referenced;
 	int hashSize;
 	fileInIwd_t **hashTable;
 	fileInIwd_t *buildBuffer;
 };
-#if defined(__i386__)
-static_assert((sizeof(iwd_t) == 800), "ERROR: iwd_t size is invalid!");
-#endif
+/* PINNED: allocation at 0x48005e, file count at 0x480fb3, reference byte at 0x481fb7. */
+typedef char iwd_layout_check[(sizeof(iwd_t) == 0x318 && offsetof(iwd_t, numFiles) == 0x304 && offsetof(iwd_t, referenced) == 0x308) ? 1 : -1];
 
 struct fileHandleData_t
 {

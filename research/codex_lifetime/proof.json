@@ -1,0 +1,46 @@
+{
+  "baseline_commit": "b899ba4",
+  "game_matches": 383,
+  "game_bytes": 48845,
+  "compiler_matches": 2,
+  "compiler_bytes": 35,
+  "unverified_in_src": 50,
+  "order_warnings": 1,
+  "baseline_same_offset_bytes": 25329,
+  "same_offset_bytes": 25291,
+  "same_offset_delta": -38,
+  "masks_and_comparison_ast_unchanged": true,
+  "negative_fixture_failed_rows": 1,
+  "negative_fixture_game_matches": 383,
+  "lifetime_binding_test": "PASS",
+  "compiler_rows": [
+    {
+      "addr": "0x00526a10",
+      "size": "24",
+      "source": "src/radiant/AdvCurveDlg.cpp",
+      "symbol": "_$E1",
+      "name": "global dialog initialization",
+      "tag": "AUTO",
+      "status": "MATCH",
+      "detail": "at 0x0045c130"
+    },
+    {
+      "addr": "0x00526f50",
+      "size": "11",
+      "source": "src/radiant/AdvCurveDlg.cpp",
+      "symbol": "_$E2",
+      "name": "global dialog destruction",
+      "tag": "AUTO",
+      "status": "MATCH",
+      "detail": "at 0x0045c1b0"
+    }
+  ],
+  "retail_sha256": "b6fc8cff6bbfa06b262e6e499022748517646a0aa3f7b2344ba96c9b59616bb8",
+  "baseline_verifier_sha256": "12e971c585f2193917f44528330189738bfba68f3a21c201bdbd383f5442461f",
+  "proposed_verifier_sha256": "8640d79ccfaf6f24e35bb2c70c07a4c84f939954282f57eb5c7d666ed4043b7a",
+  "proposed_source_sha256": "d9137392f3f9404d159d33758e94c431b84c9881403ee6d6da883bd46bdb8e91",
+  "verifier_patch_sha256": "99bab1dfbbdb28cf9f413b49b412d95f7b4f575d5725ec1bec198d01ffeea412",
+  "approved_and_applied": true,
+  "accepted_verifier_sha256": "3768a061ba926c578e3950baecf27776047b2f58fa543ff9dfd6fb6f555b5308",
+  "duplicate_hex_address_guard": "normalized integer comparison; regression fixture included"
+}

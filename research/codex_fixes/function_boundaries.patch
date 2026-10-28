@@ -1,0 +1,24 @@
+--- a/tools/verify.py
++++ b/tools/verify.py
+@@ -50,6 +50,7 @@
+         self.pe = pefile.PE(str(link.EXE), fast_load=True)
+         self.base = self.pe.OPTIONAL_HEADER.ImageBase
+         self.syms, self.obj, self.inline = {}, {}, set()
++        starts = set()
+         # every label at an address, so aliases like __alloca_probe/__chkstk both count
+         self.labels = collections.defaultdict(set)
+         for line in link.MAP.read_text(errors="replace").splitlines():
+@@ -58,11 +59,12 @@
+                 self.labels[int(m.group(2), 16)].add(m.group(1))
+             m = re.match(r"\s*0001:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8}) f\s+(i\s+)?(\S+)", line)
+             if m:
++                starts.add(int(m.group(2), 16))
+                 if m.group(3):
+                     self.inline.add(m.group(1))
+                 self.syms.setdefault(m.group(1), int(m.group(2), 16))
+                 self.obj.setdefault(m.group(1), m.group(4))
+-        self.starts = sorted(set(self.syms.values()))
++        self.starts = sorted(starts)
+         self.at = {}
+         for name, va in self.syms.items():
+             self.at.setdefault(va, name)
