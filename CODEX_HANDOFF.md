@@ -1,5 +1,15 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Gemini delivery integrated
+
+Main a507db4 lands Gemini's three commits through tools/land.sh gemini. One net
+new game body: FS_Printf / 105 B. Its ten xmodel_utils matches were already in
+main; the getter has a new eight-try deferral. Combined-tree gate and merged CI
+pass 416/416, 51,240 game B (7.32%), compiler 2 / 35 B, same-offset 25,711 B
+(1.433%), unchanged 50 unverified bodies and one warning. Main is pushed.
+Gemini's next file is com_shared.cpp; seed source and prospective rows live in
+research/gemini_seeds/com_shared. The board and claim reserve it for Gemini.
+
 ## Resumed lane contract
 
 The owner resumed Codex and adopted lanes/CODEX_MERGE.md / lanes/BOARD.tsv.

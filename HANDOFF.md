@@ -28,7 +28,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   included in checkpoint `AdvCurveDlg: 18 functions match` (parent 3330005).
   Continue the same first retail TU.
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 415 ledger rows, all matching inside the linked exe; game code 7.31% (51,135 B); whole file 1.456% in place (26,114 B);
+- 416 ledger rows, all matching inside the linked exe; game code 7.32% (51,240 B); whole file 1.433% in place (25,711 B);
   unverified in src/ 50. Engine files come from the server source (`research/libmatch/import.sh`, RULES.md);
   existing files: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md).
   com_files now has 41 verified functions. Gemini 754c328 adds three functions / 438 B.

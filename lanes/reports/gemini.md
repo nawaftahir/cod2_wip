@@ -37,3 +37,20 @@
 - `verify.py --all`: **413 / 413 rows match, 0 failures**
 - Compiler rows: **2 / 2 match**
 - Unverified in src: strictly **50** (0 growth)
+
+## Codex merge review
+
+Accepted d85c356 / ca716f2 / a238d36 through tools/land.sh gemini; main merge
+is a507db4. Net new source: one FS_Printf body / 105 B. The ten xmodel_utils
+rows were baseline coverage; the new getter deferral has eight recorded tries.
+Independent combined-tree gate and the lander's merged-tree CI pass 416/416,
+compiler 2 / 35 B, 50 unverified bodies and one existing order warning. Live
+review also checks FS_Printf's actual FS_Write binding and known CRT callees.
+Game-code coverage is 7.32%; same-offset coverage is 1.433% and remains reported.
+
+Corrections: main already maps 0x4dad56 to _remove / DeleteFileA, so that reported
+library blocker is stale. Fifty-five unimplemented filesystem functions are
+not fifty-five individually proven deferrals. A missing SL_GetString definition
+is a dependency to test, not a guarantee that enabling its TU will match.
+Codex owns the cross-linked TexWnd/script dependencies. Gemini's next assigned
+file is com_shared.cpp, seeded with the three former offset-only rejections.
