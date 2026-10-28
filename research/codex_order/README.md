@@ -9,6 +9,10 @@ same-offset bytes (1.427%, another +172). The scale setter and swatch drawing
 handler now bring source matches to 365/365 and 47,540 bytes (6.80%). Their
 layout moves same-offset bytes to 25,134 (1.401%, -466). The owner selected
 retail-file reconstruction; the ten-function prefix remains exactly placed.
+Initialization and selection reconstruction then add eighteen functions / 1,305 B:
+383/383, 48,845 game bytes (6.98%), and 25,329 same-offset bytes (1.412%, +195).
+The seven selection and seventeen subclass records precede the control table;
+all table bytes and accessed globals are checked against the original.
 The original fifty unverified bodies and single order warning remain.
 
 The change preserves existing flags and enables exceptions/RTTI only for

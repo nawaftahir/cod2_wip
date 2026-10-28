@@ -1,4 +1,41 @@
-# Codex handoff: CoD2Radiant.exe (2026-10-27)
+# Codex handoff: CoD2Radiant.exe (2026-10-28)
+
+## Resumed checkpoint
+
+The owner resumed work after the documented pause.
+Private worktree: `.agents/codex`, branch `agent/codex`; main and foreign tracks
+are untouched. The eighteen-function batch below is included in the checkpoint
+commit `AdvCurveDlg: 18 functions match`; its parent is `3330005`.
+
+- 383/383 linked ledger matches; 48,845 / 699,591 game bytes (6.98%).
+- Whole-file same-offset: 25,329 / 1,794,048 bytes (1.412%), +195 this batch.
+- AdvCurveDlg: 39 matched functions / 3,447 bytes, ten leading function starts
+  at exact retail virtual addresses. This does not imply unmasked file identity.
+- New batch: 18 functions / 1,305 bytes, including OnInitDialog, its actual window
+  callback, selection helpers, boolean queries and color/alpha/text accessors.
+- Seven selection records and seventeen subclass records are reconstructed in
+  original data order, before the existing three-control table.
+- Stock make try, gate, accept, both model tests and local CI passed; zero
+  failures, the existing fifty unverified bodies and one order warning remain.
+- Full-file SHA identity and GUI boot are still unverified.
+
+The owner selected retail-file order after the two-counter question. Continue
+this first retail TU; report same-offset changes rather than discarding correct
+source solely for incidental layout fluctuations. The latest batch raises both
+meters. The approved first-TU /GX /GR, function ordering and four library
+corrections are already committed; no further owner-file changes are included.
+No verifier predicates or comparison masks were changed. Never push without
+"push it"; the older push and universal-files-first instructions below are
+superseded by the owner's current directions.
+
+The eighteen-function checkpoint has been reviewed. Its proof logs are under
+`scratch/codex_1028_advcurve_selection/accepted_{try,gate,accept,ci}.log`.
+Then continue `src/radiant/AdvCurveDlg.cpp`, especially the genuine global
+instance/lifetime accounting and remaining handlers. The 0x4015a0 edit body
+and its two callers still have a calling-context mismatch; bounded plain-TU
+and noinline trials failed and remain in scratch. Do not repeat them blindly.
+The registry load caller at OnCreate and several remaining MFC bindings also
+need direct evidence. Read HANDOFF.md and research/codex_notes.md for details.
 
 You are continuing Step 3 of `ROADMAP.md` (match the code, file by file). Read, in order:
 `HANDOFF.md` (state, commands), `ROADMAP.md`, `RULES.md` (evidence-tagged facts), `AGENTS.md` (agent contract).

@@ -90,8 +90,18 @@ for slot,target in ((68,0x401aa0),(81,0x4018e0),(83,0x401770),(84,0x401580)):
 # Relocation masking must still bind the shared state to the correct source globals.
 controls=data_symbol('?g_curveControls@@')
 assert ours.get_data(controls-ours.OPTIONAL_HEADER.ImageBase,96)==retail.get_data(0x58fb80-base,96)
-globals_map=[(0x58fb80,96,controls),(0x1233488,4,data_symbol('?g_curveParent@@')),(0x123348c,4,data_symbol('?g_curveUpdatePending@@'))]
-bound=0
+selection=data_symbol('?g_curveSelection@@')
+subclass=data_symbol('?g_curveSubclass@@')
+assert ours.get_data(selection-ours.OPTIONAL_HEADER.ImageBase,84)==retail.get_data(0x58fa58-base,84)
+assert ours.get_data(subclass-ours.OPTIONAL_HEADER.ImageBase,204)==retail.get_data(0x58fab0-base,204)
+assert selection<subclass<controls,(selection,subclass,controls)
+globals_map=[(0x58fa58,84,selection),(0x58fab0,204,subclass),(0x58fb80,96,controls),(0x1233488,4,data_symbol('?g_curveParent@@')),(0x123348c,4,data_symbol('?g_curveUpdatePending@@'))]
+globals_map.append((0x401860,1,image.syms['?FUN_00401860@@YGJPAUHWND__@@IIJ@Z']))
+def import_names(pe):
+ pe.parse_data_directories(directories=[pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_IMPORT']])
+ return {item.address:(entry.dll.lower(),item.name or item.ordinal) for entry in pe.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+retail_imports=import_names(retail);actual_imports=import_names(ours)
+bound=0;import_bound=0
 for row in read('ledger/matches.tsv'):
  if row['source']!='src/radiant/AdvCurveDlg.cpp':continue
  target,_=verify.matcher.carve(row['addr']);address,actual=image.code(row['symbol'])
@@ -100,6 +110,10 @@ for row in read('ledger/matches.tsv'):
    if operand.type==X86_OP_IMM:value=operand.imm
    elif operand.type==X86_OP_MEM:value=operand.mem.disp
    else:continue
+   if operand.type==X86_OP_MEM and value in retail_imports:
+    assert replacement.type==X86_OP_MEM
+    assert actual_imports.get(replacement.mem.disp)==retail_imports[value],(row['addr'],retail_imports[value])
+    import_bound+=1
    for start,size,mapped in globals_map:
     if not start<=value<start+size:continue
     assert replacement.type==operand.type
@@ -107,9 +121,10 @@ for row in read('ledger/matches.tsv'):
     assert actual_value==mapped+value-start,(row['addr'],hex(value),hex(actual_value))
     bound+=1
 assert bound>=20,bound
+assert import_bound>=20,import_bound
 names=verify.known_names()
 for address in ('0x00401000','0x00401090','0x004010c0','0x00401180','0x00401310','0x00401340','0x00401450','0x00401550','0x00401560','0x00401580'):
  symbol=names[int(address,16)]
  assert image.syms[symbol]==int(address,16),(address,symbol)
  assert verify.check(image,address,symbol,names)[0]=='MATCH',address
-print('PASS: live flags/bindings, 20 dispatch entries, virtual routing, shared data bindings, ten exact retail RVAs')
+print('PASS: live flags/bindings, 20 dispatch entries, virtual routing, shared data bindings, ten exact retail addresses')

@@ -447,3 +447,51 @@ the two calls to _log, and the ten exact prefix addresses.
 
 Local CI also passed: 365/365, zero failures, no added unverified bodies or
 order warnings. Same-offset remains 25,134; SHA identity remains false.
+
+## 2026-10-28: first-file initialization and selection group
+
+The original contains seven 12-byte selection records at 0x58fa58 and seventeen
+12-byte subclass records at 0x58fab0, followed by the existing control table at
+0x58fb80. Both tables are now typed C++ data, in that same declaration order.
+Selection records contain control ID, returned value and an unclaimed field_08;
+only record 1 has field_08 = 1. The subclass records contain control ID, HWND
+and previous WNDPROC, with both pointers initially zero. No names or meaning
+are invented for the unused field. Raw recovered tables are saved in
+scratch/codex_1028_advcurve_selection/tables.json.
+
+The first batch matched nine methods / 861 B with all 365 old rows preserved.
+Changing the callback's window comparison operand order matches the 116-byte
+window procedure. Explicit false/true returns reproduce the seven checkbox
+queries' AL result instead of the 1-byte-longer EAX canonicalization. The
+visibility/selection predicate uses the same early false exits followed by a
+float <= false exit and explicit true return, matching all 90 bytes. This
+preserves the binary's unordered float result too; it is not replaced by a
+strict ordered < comparison. These are bounded readable source choices, not
+claims about the exact historical spelling.
+
+All eighteen bodies then match (1,305 B): callback 116, OnInitDialog 448,
+visibility/selection predicate 90, selection getter/setter 92/93, seven boolean
+queries 35/35/35/35/35/35/28, color and alpha accessors 21/7/21/7, and numeric
+text setter/getter 87/85. Initialization installs the seventeen real subclass
+callbacks, configures the three sliders with float rounding, captures slider
+and edit HWNDs, and selects mode 6. The checkbox defaults are checked, checked,
+unchecked at IDs 0x5bd, 0x597, 0x598, and ID 0x5bb starts with text "0".
+The callback handles WM_KEYDOWN / Y by posting the existing parent command;
+other messages dispatch through the matching control's saved WNDPROC, with
+zero returned for an unknown HWND. The two code tables and every accessed
+field are confirmed on the original. No flags, compiler attributes, fake
+callers or library mappings changed.
+
+Final checkpoint before the owner requested pause: stock make try, gate,
+accept and local CI all passed (CI exit 0). The extended live model tests
+also pass: all three table initializers and their order, accessed globals,
+known dispatch entries, the actual subclass callback pointer, and Win32 import
+identities are checked independently of address masking. Current accepted
+meter: 383/383, 48,845 B (6.98%), 25,329 same-offset bytes (1.412%, +195).
+The eighteen-function source/ledger/test/docs batch remains UNCOMMITTED at
+pause. Last commit is 3330005. No new matching, builds or probes were started
+after the pause request. CODEX_HANDOFF.md and HANDOFF.md record the resume point.
+
+The owner resumed the goal. Reviewed the eighteen-function checkpoint,
+confirmed its source/ledger and successful CI, and included it in commit
+"AdvCurveDlg: 18 functions match" before starting further reconstruction.

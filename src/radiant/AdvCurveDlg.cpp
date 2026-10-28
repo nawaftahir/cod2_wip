@@ -20,6 +20,55 @@ typedef char CurveControlSize[(sizeof(CurveControl) == 32) ? 1 : -1];
 typedef char CurveControlValue[(offsetof(CurveControl, value) == 8) ? 1 : -1];
 typedef char CurveControlEdit[(offsetof(CurveControl, edit) == 28) ? 1 : -1];
 
+struct CurveSelection
+{
+    int controlId;
+    int value;
+    int field_08;
+};
+
+struct CurveSubclass
+{
+    int controlId;
+    HWND window;
+    WNDPROC previous;
+};
+
+typedef char CurveSelectionSize[(sizeof(CurveSelection) == 12) ? 1 : -1];
+typedef char CurveSubclassSize[(sizeof(CurveSubclass) == 12) ? 1 : -1];
+
+CurveSelection g_curveSelection[7] =
+{
+    {1435, 0, 0},
+    {1439, 1, 1},
+    {1437, 2, 0},
+    {1436, 3, 0},
+    {1438, 4, 0},
+    {1468, 5, 0},
+    {1440, 6, 0},
+};
+
+CurveSubclass g_curveSubclass[17] =
+{
+    {1424, NULL, NULL},
+    {1425, NULL, NULL},
+    {1426, NULL, NULL},
+    {1431, NULL, NULL},
+    {1432, NULL, NULL},
+    {1435, NULL, NULL},
+    {1439, NULL, NULL},
+    {1437, NULL, NULL},
+    {1436, NULL, NULL},
+    {1438, NULL, NULL},
+    {1440, NULL, NULL},
+    {1069, NULL, NULL},
+    {1070, NULL, NULL},
+    {1071, NULL, NULL},
+    {1428, NULL, NULL},
+    {1429, NULL, NULL},
+    {1430, NULL, NULL},
+};
+
 CurveControl g_curveControls[3] =
 {
     {1424, 1428, 16.0f, 0.0f, 1024.0f, 16.0f, NULL, NULL},
@@ -101,6 +150,23 @@ public:
     void FUN_00401c90(float value);
     void FUN_00401cb0(float value);
     void FUN_00401cd0(float value);
+    int FUN_00401d90();
+    void FUN_00401df0(int selected);
+    bool FUN_00401d30();
+    bool FUN_00401e50();
+    bool FUN_00401e80();
+    bool FUN_00401eb0();
+    bool FUN_00401ee0();
+    bool FUN_00401f10();
+    bool FUN_00401f40();
+    bool FUN_00401f70();
+    void FUN_00402300(COLORREF value);
+    COLORREF FUN_00402320();
+    void FUN_00402330(BYTE value);
+    BYTE FUN_00402350();
+    void FUN_00402360(float value);
+    float FUN_004023c0();
+
 
     CButton control_042e;
     CButton control_042d;
@@ -194,6 +260,55 @@ void CAdvCurveEditDlg::OnDestroy()
         FUN_0047a140("Radiant::AdvCurveDlgPlace", (const BYTE *)&placement, sizeof(placement));
 }
 
+LRESULT CALLBACK FUN_00401860(HWND window, UINT message, WPARAM wparam, LPARAM lparam)
+{
+    if (message == WM_KEYDOWN && wparam == 'Y')
+    {
+        ::PostMessageA(g_curveParent->m_hWnd, WM_COMMAND, 0x816a, 0);
+        return 0;
+    }
+    for (unsigned int i = 0; i < 17; ++i)
+        if (window == g_curveSubclass[i].window)
+            return g_curveSubclass[i].previous(window, message, wparam, lparam);
+    return 0;
+}
+
+BOOL CAdvCurveEditDlg::OnInitDialog()
+{
+    CDialog::OnInitDialog();
+    for (unsigned int i = 0; i < 17; ++i)
+    {
+        g_curveSubclass[i].window = ::GetDlgItem(GetSafeHwnd(), g_curveSubclass[i].controlId);
+        g_curveSubclass[i].previous = (WNDPROC)::GetWindowLongA(g_curveSubclass[i].window, GWL_WNDPROC);
+        ::SetWindowLongA(g_curveSubclass[i].window, GWL_WNDPROC, (LONG)FUN_00401860);
+    }
+    for (unsigned int i = 0; i < 3; ++i)
+    {
+        CSliderCtrl *slider = (CSliderCtrl *)GetDlgItem(g_curveControls[i].sliderId);
+        if (slider)
+        {
+            int maximum = (int)floor((float)((g_curveControls[i].maximum - g_curveControls[i].minimum) / g_curveControls[i].step + 0.5f));
+            int position = (int)floor((float)((g_curveControls[i].value - g_curveControls[i].minimum) / g_curveControls[i].step + 0.5f));
+            slider->SetRange(0, maximum, FALSE);
+            slider->SetPos(position);
+            g_curveControls[i].slider = slider->m_hWnd;
+            g_curveControls[i].edit = ::GetDlgItem(GetSafeHwnd(), g_curveControls[i].editId);
+            FUN_00401000(i);
+        }
+        else
+        {
+            g_curveControls[i].slider = NULL;
+            g_curveControls[i].edit = NULL;
+        }
+    }
+    FUN_00401df0(6);
+    GetDlgItem(0x5bd)->SendMessage(BM_SETCHECK, 1, 0);
+    GetDlgItem(0x5bb)->SetWindowText("0");
+    control_0597.SetCheck(1);
+    control_0598.SetCheck(0);
+    return TRUE;
+}
+
 LRESULT CAdvCurveEditDlg::DefWindowProc(UINT message, WPARAM wparam, LPARAM lparam)
 {
     if (message == WM_CLOSE)
@@ -253,9 +368,128 @@ void CAdvCurveEditDlg::FUN_00401cd0(float value)
     FUN_004010c0(1426, log(value) / denominator + 8.0f);
 }
 
+bool CAdvCurveEditDlg::FUN_00401d30()
+{
+    if (control_0597.GetCheck() && !::IsWindowVisible(m_hWnd))
+        return false;
+    if (FUN_00401d90() == 6)
+        return false;
+    float first = FUN_00401b80();
+    if (FUN_00401bd0() <= first)
+        return false;
+    return true;
+}
+
+int CAdvCurveEditDlg::FUN_00401d90()
+{
+    for (unsigned int i = 0; i < 7; ++i)
+    {
+        CWnd *control = GetDlgItem(g_curveSelection[i].controlId);
+        if (control && control->SendMessage(BM_GETCHECK, 0, 0))
+            return g_curveSelection[i].value;
+    }
+    return 6;
+}
+
+void CAdvCurveEditDlg::FUN_00401df0(int selected)
+{
+    for (unsigned int i = 0; i < 7; ++i)
+    {
+        CWnd *control = GetDlgItem(g_curveSelection[i].controlId);
+        if (control)
+            control->SendMessage(BM_SETCHECK, selected == g_curveSelection[i].value, 0);
+    }
+    ::InvalidateRect(m_hWnd, NULL, FALSE);
+}
+
+bool CAdvCurveEditDlg::FUN_00401e50()
+{
+    if (!GetDlgItem(0x5bd)->SendMessage(BM_GETCHECK, 0, 0))
+        return false;
+    return true;
+}
+
+bool CAdvCurveEditDlg::FUN_00401e80()
+{
+    if (!GetDlgItem(0x5be)->SendMessage(BM_GETCHECK, 0, 0))
+        return false;
+    return true;
+}
+
+bool CAdvCurveEditDlg::FUN_00401eb0()
+{
+    if (!GetDlgItem(0x5bf)->SendMessage(BM_GETCHECK, 0, 0))
+        return false;
+    return true;
+}
+
+bool CAdvCurveEditDlg::FUN_00401ee0()
+{
+    if (!GetDlgItem(0x5c0)->SendMessage(BM_GETCHECK, 0, 0))
+        return false;
+    return true;
+}
+
+bool CAdvCurveEditDlg::FUN_00401f10()
+{
+    if (!GetDlgItem(0x5c1)->SendMessage(BM_GETCHECK, 0, 0))
+        return false;
+    return true;
+}
+
+bool CAdvCurveEditDlg::FUN_00401f40()
+{
+    if (!GetDlgItem(0x5c2)->SendMessage(BM_GETCHECK, 0, 0))
+        return false;
+    return true;
+}
+
+bool CAdvCurveEditDlg::FUN_00401f70()
+{
+    if (!control_0598.GetCheck())
+        return false;
+    return true;
+}
+
 void CAdvCurveEditDlg::FUN_00402190()
 {
     g_curveUpdatePending |= 1;
+}
+
+void CAdvCurveEditDlg::FUN_00402300(COLORREF value)
+{
+    color = value;
+    ::InvalidateRect(m_hWnd, NULL, FALSE);
+}
+
+COLORREF CAdvCurveEditDlg::FUN_00402320()
+{
+    return color;
+}
+
+void CAdvCurveEditDlg::FUN_00402330(BYTE value)
+{
+    alpha = value;
+    ::InvalidateRect(m_hWnd, NULL, FALSE);
+}
+
+BYTE CAdvCurveEditDlg::FUN_00402350()
+{
+    return alpha;
+}
+
+void CAdvCurveEditDlg::FUN_00402360(float value)
+{
+    char text[256];
+    sprintf(text, "%.0f", value);
+    GetDlgItem(0x5bb)->SetWindowText(text);
+}
+
+float CAdvCurveEditDlg::FUN_004023c0()
+{
+    char text[256];
+    GetDlgItem(0x5bb)->GetWindowText(text, sizeof(text));
+    return (float)atof(text);
 }
 
 void CAdvCurveEditDlg::OnDrawItem(int id, LPDRAWITEMSTRUCT item)
