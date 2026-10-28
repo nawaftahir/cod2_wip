@@ -1,4 +1,10 @@
 addr	size	source	symbol	name	tag
+0x0047da80	14	src/universal/com_files.cpp	?FS_Initialized@@YAHXZ	FS_Initialized	SUPPORTED
+0x0047da90	25	src/universal/com_files.cpp	?FS_CheckFileSystemStarted@@YAXXZ	FS_CheckFileSystemStarted	SUPPORTED
+0x0047dab0	6	src/universal/com_files.cpp	?FS_LoadStack@@YAHXZ	FS_LoadStack	SUPPORTED
+0x0047dac0	29	src/universal/com_files.cpp	?FS_UseSearchPath@@YAHPBUsearchpath_t@@@Z	FS_UseSearchPath	SUPPORTED
+0x0047dae0	43	src/universal/com_files.cpp	?FS_LanguageHasAssets@@YAHH@Z	FS_LanguageHasAssets	SUPPORTED
+0x0047db10	89	src/universal/com_files.cpp	?FS_HashFileName@@YAJPBDH@Z	FS_HashFileName	SUPPORTED
 0x0047f2b0	37	src/universal/com_files.cpp	_FUN_0047f2b0	FUN_0047f2b0	UNNAMED
 0x00498750	306	src/universal/splines/math_angles.cpp	?toAngles@@YAXAAVmat3_t@@AAVangles_t@@@Z	toAngles	SUPPORTED
 0x0049fd70	42	src/universal/splines/util_str.cpp	?toupper@idStr@@SAPADPAD@Z	idStr::toupper	SUPPORTED
