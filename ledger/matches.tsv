@@ -411,3 +411,4 @@ addr	size	source	symbol	name	tag
 0x0047a580	33	src/radiant/win_qe3.cpp	?Sys_ClearPrintf@@YAXXZ	Sys_ClearPrintf	SUPPORTED
 0x0047a6b0	33	src/radiant/win_qe3.cpp	?Sys_DoubleTime@@YANXZ	Sys_DoubleTime	SUPPORTED
 0x0046c2a0	21	src/radiant/mru.cpp	?IsWin395OrHigher@@YAHXZ	IsWin395OrHigher	SUPPORTED
+0x0047f700	105	src/universal/com_files.cpp	?FS_Printf@@YAXHPBDZZ	FS_Printf	SUPPORTED
