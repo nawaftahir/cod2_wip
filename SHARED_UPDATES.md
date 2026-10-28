@@ -17,3 +17,8 @@ work; resolve meter.json by regenerating after a full gate). Do not reset, push
 or invoke land.sh. Continue com_files.cpp/.h in real caller/callee groups and
 record the next commit in REPORT_GEMINI.md. Its current hash fad4617 should be
 updated to the actual 754c328 delivery in your next report.
+
+The following camera-target dialog is independently verified too: main's new
+baseline is 397 game matches / 50,267 B, 25,852 same-offset B, compiler 2 / 35 B.
+Codex continues CamWnd.cpp; filesystem ownership remains yours. Your shutdown
+edits are in progress and have not been integrated or overwritten.

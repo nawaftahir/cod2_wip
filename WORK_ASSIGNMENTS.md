@@ -8,7 +8,7 @@ remain mandatory. No pushes, fabricated callers, assembly blobs or byte patches.
 | Owner | Worktree | Exclusive source ownership |
 |---|---|---|
 | Gemini | /home/nawaf/cod2/test/dev/radiant/.agents/gemini | src/universal/com_files.cpp and com_files.h |
-| Codex | /home/nawaf/cod2/test/dev/radiant/.agents/codex | src/radiant/AdvCurveDlg.cpp and cameratargetdlg.cpp; shared tools, library identities and layout |
+| Codex | /home/nawaf/cod2/test/dev/radiant/.agents/codex | src/radiant/AdvCurveDlg.cpp, cameratargetdlg.cpp and CamWnd.cpp; shared tools, library identities and layout |
 | Codex integration | /home/nawaf/cod2/test/dev/radiant/.agents/overseer | independent review and main-tree integration |
 
 Only Codex integrates main. Workers commit locally, and never merge, reset or

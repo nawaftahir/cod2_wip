@@ -5,6 +5,10 @@ and `AGENTS.md` (the agent contract).
 Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matching second.
 
 ## State
+- Camera-target dialog: all five dialog game routines match (212 B), independently
+  rebuilt in .agents/overseer. RTTI, message-map, constructor and library bindings
+  pass. Logs: build/cameratarget-review-{gate,tests}.log in that worktree.
+  Current combined baseline: 397 game matches plus 2 compiler helpers / 35 B.
 - Codex is now overseer and main-tree integrator. Gemini owns com_files.cpp/h
   in .agents/gemini; Codex owns AdvCurveDlg.cpp and shared build/library/layout
   work in .agents/codex. See WORK_ASSIGNMENTS.md and TASK_GEMINI.md.
@@ -15,7 +19,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   included in checkpoint `AdvCurveDlg: 18 functions match` (parent 3330005).
   Continue the same first retail TU.
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 392 ledger rows, all matching inside the linked exe; game code 7.15% (50,055 B); whole file 1.423% in place (25,533 B);
+- 397 ledger rows, all matching inside the linked exe; game code 7.19% (50,267 B); whole file 1.441% in place (25,852 B);
   unverified in src/ 50. Engine files come from the server source (`research/libmatch/import.sh`, RULES.md);
   existing files: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md).
   com_files now has 41 verified functions. Gemini 754c328 adds three functions / 438 B.

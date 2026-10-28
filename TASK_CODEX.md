@@ -33,3 +33,11 @@ needs the real g_qeglobals use_ini/registry fields and owner layout, rather than
 inventing independent globals from masked operands. Evidence in
 scratch/codex_1028_registry_group. Continue another editor TU while these await
 new source/caller/global context.
+
+Camera-target five-routine batch is accepted at 397 matches / 50,267 game B,
+25,852 same-offset B. Next is CamWnd.cpp, immediately after it in retail order.
+Preserve real camera struct/caller context: allocation at 0x402ee0 requests 0x168
+bytes; constructor at 0x402f50 clears 31 dwords starting at +0x54. Q3's giant
+trans-brush array is absent here, so do not copy its class layout. The free window
+procedure at 0x403010 matches the Q3 reference logic and is referenced by the
+actual PreCreateWindow handler at 0x403090. Inspect their primary bytes first.
