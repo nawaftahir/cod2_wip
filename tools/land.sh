@@ -19,7 +19,7 @@ git rev-parse -q --verify "$BR" >/dev/null || { echo "no branch $BR"; exit 0; }
 git checkout -q main
 NEW=$(git rev-list --count main.."$BR")
 [ "$NEW" -gt 0 ] || { echo "$AGENT: nothing to land"; exit 0; }
-BAD=$(git diff --name-only main..."$BR" | grep -v -E '^(src/|ledger/(matches|defer)\.tsv$)' || true)
+BAD=$(git diff --name-only main..."$BR" | grep -v -E '^(src/|ledger/(matches|defer)\.tsv$|lanes/reports/)' || true)
 if [ -n "$BAD" ]; then
   echo "$AGENT: REJECTED, touches files outside src/ and ledger/:"; echo "$BAD"
   reset_agent
