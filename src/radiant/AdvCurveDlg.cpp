@@ -509,3 +509,5 @@ void CAdvCurveEditDlg::OnDrawItem(int id, LPDRAWITEMSTRUCT item)
     else
         CDialog::OnDrawItem(id, item);
 }
+
+CAdvCurveEditDlg g_curveDialog(NULL);

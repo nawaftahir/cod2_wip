@@ -495,3 +495,49 @@ after the pause request. CODEX_HANDOFF.md and HANDOFF.md record the resume point
 The owner resumed the goal. Reviewed the eighteen-function checkpoint,
 confirmed its source/ledger and successful CI, and included it in commit
 "AdvCurveDlg: 18 functions match" before starting further reconstruction.
+
+## 2026-10-28: genuine global dialog and compiler accounting
+
+The owner explicitly approved the tested global-dialog proposal. Added the
+real `CAdvCurveEditDlg g_curveDialog(NULL)` definition. The original initializes
+object 0x1233b68 at startup 0x526a10 and registers cleanup 0x526f50; the compiled
+24-byte initializer and 11-byte cleanup both match, bind the correct source
+object, and use the actual CRT constructor table. They are recorded separately
+in ledger/compiler.tsv, not added to game function or byte coverage.
+
+Applied the reviewed tools/verify.py patch. It keeps every linker-map function
+start for extent calculation, including repeated local names, and checks the
+compiler ledger with the unchanged per-function byte masks and callee checks.
+Compiler failures fail the gate; duplicate game/compiler addresses are rejected.
+A retained negative fixture deliberately binds the initializer to the cleanup
+and verifies failure while game count/bytes stay unchanged; the accepted report
+is restored afterwards. The old three-line boundary proposal is therefore now
+applied as part of this explicitly approved change, not still pending.
+
+LTCG reports the actual initializer's map owner as math_vector.obj. Its real
+constructor call, object reference and CRT registration prove which lifetime
+it implements. The cleanup's old library label is also wrong; the compiler
+ledger now supplies the verified identity, while library data remains untouched.
+Trying to swap parent/pending declarations did not establish their retail BSS
+order under LTCG. That ineffective edit is excluded, and absolute BSS layout
+remains open. Approved patch snapshots are archived in
+scratch/codex_1028_advcurve_lifetime/approved; hashes are retained in
+research/codex_lifetime/proof.json.
+
+Stock make gate / make accept pass: 383/383 game rows, 48,845 B (6.98%),
+plus 2/2 compiler rows / 35 B; fifty unverified bodies and one order warning
+remain. All live model, lifetime-binding and negative-accounting tests pass.
+The ten leading game function addresses remain exact. Whole-file same-offset
+is 25,291 (1.410%, -38), reported as approved. SHA identity and GUI boot remain
+unverified. Continue this first file with its remaining real handlers.
+
+The applied duplicate-address guard also normalizes hexadecimal spelling,
+so capitalization or omitted leading zeros cannot duplicate a game address
+in the compiler ledger. The retained fixture exercises this rejection too.
+This affects metadata validation only; byte masks and comparison logic remain
+unchanged. The accepted verifier hash is recorded separately from the reviewed
+patch hash in research/codex_lifetime/proof.json.
+
+Final local CI passed with the normalized duplicate-address guard: 383/383
+game rows and 2/2 compiler rows, zero failures. Both regression fixtures pass.
+No push or GUI boot was performed.

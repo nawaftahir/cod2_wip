@@ -13,7 +13,7 @@
  "matched_bytes": 48845,
  "lib_bytes": 316234,
  "text_bytes": 1204750,
- "same_offset_bytes": 25329,
+ "same_offset_bytes": 25291,
  "file_bytes": 1794048,
  "sha_identical": false
 }

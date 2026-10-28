@@ -1,10 +1,12 @@
-# Proposed function-boundary correction
+# Function-boundary correction history
 
-Owner review only: `tools/` is unchanged. The patch collects every function
+The boundary correction was approved and applied with the later global-dialog
+compiler-accounting change. Do not reapply this old patch or run its preparation
+script against the updated tool. The historical patch collects every function
 address in the linker map, including repeated static names, while keeping the
 existing symbol lookup, byte masks and callee checks.
 
-From the worktree root, inside the pinned toolchain image:
+Historical commands for the pre-approval tool only, inside the pinned image:
 
 ```
 python3 research/codex_fixes/prepare_boundary_fix.py

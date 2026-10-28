@@ -9,7 +9,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   included in checkpoint `AdvCurveDlg: 18 functions match` (parent 3330005).
   Continue the same first retail TU.
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 383 ledger rows, all matching inside the linked exe; game code 6.98% (48,845 B); whole file 1.412% in place;
+- 383 ledger rows, all matching inside the linked exe; game code 6.98% (48,845 B); whole file 1.410% in place;
   unverified in src/ 50. Engine files come from the server source (`research/libmatch/import.sh`, RULES.md);
   existing files: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md).
   com_files now has 38 verified functions (37 net new, 4,555 B gained). File finish is deferred:
@@ -22,8 +22,9 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   The owner selected retail-file order after the counter-policy question: retain verified
   code in that file and report same-offset changes. The earlier rejected offset trials remain
   historical evidence; do not resume broad unrelated batches.
-  A tested verifier boundary correction is proposed in research/codex_fixes/; tools/verify.py is unchanged
-  pending a separate explicit exception. Repeated static map names currently hide boundaries.
+  The owner approved the verifier boundary fix with the global-dialog proposal.
+  All map function starts now bound repeated local names; compiler helpers are verified
+  separately through ledger/compiler.tsv, never added to game coverage.
   `.rsrc` 99.71% (the rest is section RVAs).
 - Retail-order continuation accepted: src/radiant/AdvCurveDlg.cpp has thirty-nine matches (3,447 B).
   The first ten are at exact retail addresses 0x401000, 0x401090, 0x4010c0, 0x401180, 0x401310,
@@ -31,7 +32,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   data/lib_funcs.tsv and data/lib_overrides.tsv corrections. Only this first TU is explicitly ordered;
   later TU internals retain their existing ordering. This TU enables C++ exceptions and RTTI.
   Four incorrect library bindings are corrected from direct RTTI/runtime evidence. No comparison
-  masks or verifier predicates were changed. The separate verifier boundary proposal is still pending.
+  masks or per-function byte/callee predicates were changed. The boundary correction was subsequently approved and applied with compiler accounting.
   The six additional handlers add 333 B and 172 same-offset bytes. Cancel, window closing,
   scroll changes and placement saving now match; the 453 B edit-reading body and its two callers
   remain drafts with a calling-convention mismatch. The live model test also checks shared global
@@ -45,8 +46,11 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   Seven selection records and seventeen subclass records are typed from raw retail data,
   placed before the existing control table. Full regression is 383/383 and same-offset rises
   from 25,134 to 25,329 (+195). Model checks verify all three tables, their relative order,
-  referenced globals and callbacks. Continue this first file: add its genuine global instance/lifetime accounting and its
-  remaining message handlers before proceeding to the next TU. SHA identity and GUI boot remain open.
+  referenced globals and callbacks. The genuine global dialog instance is now restored. Its 24-byte initializer and
+  11-byte cleanup match, are registered through the actual CRT table, and bind the same
+  object. Two compiler matches / 35 B are separate from the unchanged 383 game matches.
+  Same-offset becomes 25,291 (-38); all ten leading game addresses remain exact.
+  Continue this first file with its remaining handlers. SHA identity and GUI boot remain open.
 - Game functions 3,579 (699,591 B), 3,509 with a known file; MFC/CRT 3,940 are linked from libs.
 - Fleet stopped. GitHub Actions minutes are out: the workflow is manual-only, and `tools/ci_local.sh` runs the
   same gate and posts to Discord (webhook in `.secrets/`, gitignored).
