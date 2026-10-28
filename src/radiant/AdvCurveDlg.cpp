@@ -1,5 +1,6 @@
 #include <afxwin.h>
 #include <afxcmn.h>
+#include <afxdlgs.h>
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -36,6 +37,21 @@ struct CurveSubclass
 
 typedef char CurveSelectionSize[(sizeof(CurveSelection) == 12) ? 1 : -1];
 typedef char CurveSubclassSize[(sizeof(CurveSubclass) == 12) ? 1 : -1];
+
+const char *g_curveScalePresets[8] =
+{
+    "0.125", "0.25", "0.5", "1.0", "2.0", "4.0", "8.0", "16.0"
+};
+
+const char *g_curveSecondPresets[7] =
+{
+    "16", "32", "64", "128", "256", "512", "1024"
+};
+
+const char *g_curveFirstPresets[7] =
+{
+    "0", "16", "32", "64", "128", "256", "512"
+};
 
 CurveSelection g_curveSelection[7] =
 {
@@ -150,6 +166,7 @@ public:
     void FUN_00401c90(float value);
     void FUN_00401cb0(float value);
     void FUN_00401cd0(float value);
+    int FUN_00401fa0(const char *const *items, int count, int x, int y);
     int FUN_00401d90();
     void FUN_00401df0(int selected);
     bool FUN_00401d30();
@@ -451,9 +468,75 @@ bool CAdvCurveEditDlg::FUN_00401f70()
     return true;
 }
 
+int CAdvCurveEditDlg::FUN_00401fa0(const char *const *items, int count, int x, int y)
+{
+    CMenu menu;
+    menu.CreatePopupMenu();
+    for (int i = 0; i < count; ++i)
+        menu.AppendMenu(MF_STRING, i + 1, items[i]);
+    int result = menu.TrackPopupMenu(TPM_RETURNCMD, x, y, this);
+    return result - 1;
+}
+
+void CAdvCurveEditDlg::FUN_00402050()
+{
+    RECT rect;
+    control_042d.GetWindowRect(&rect);
+    int index = FUN_00401fa0(g_curveFirstPresets, sizeof(g_curveFirstPresets) / sizeof(g_curveFirstPresets[0]), rect.right, rect.top);
+    if (index >= 0 && index < sizeof(g_curveFirstPresets) / sizeof(g_curveFirstPresets[0]))
+    {
+        float value = (float)atof(g_curveFirstPresets[index]);
+        FUN_004010c0(1424, value);
+    }
+}
+
+void CAdvCurveEditDlg::FUN_004020c0()
+{
+    RECT rect;
+    control_042e.GetWindowRect(&rect);
+    int index = FUN_00401fa0(g_curveSecondPresets, sizeof(g_curveSecondPresets) / sizeof(g_curveSecondPresets[0]), rect.right, rect.top);
+    if (index >= 0 && index < sizeof(g_curveSecondPresets) / sizeof(g_curveSecondPresets[0]))
+    {
+        float value = (float)atof(g_curveSecondPresets[index]);
+        FUN_004010c0(1425, value);
+    }
+}
+
+void CAdvCurveEditDlg::FUN_00402130()
+{
+    RECT rect;
+    control_042f.GetWindowRect(&rect);
+    int index = FUN_00401fa0(g_curveScalePresets, sizeof(g_curveScalePresets) / sizeof(g_curveScalePresets[0]), rect.right, rect.top);
+    if (index >= 0 && index < sizeof(g_curveScalePresets) / sizeof(g_curveScalePresets[0]))
+    {
+        FUN_00401cd0((float)atof(g_curveScalePresets[index]));
+    }
+}
+
 void CAdvCurveEditDlg::FUN_00402190()
 {
     g_curveUpdatePending |= 1;
+}
+
+void CAdvCurveEditDlg::FUN_004021a0()
+{
+    CColorDialog dialog(color, 0, NULL);
+    if (dialog.DoModal() == IDOK)
+    {
+        color = dialog.GetColor();
+        ::InvalidateRect(m_hWnd, NULL, FALSE);
+    }
+}
+
+void CAdvCurveEditDlg::FUN_00402240()
+{
+    CColorDialog dialog(RGB(alpha, alpha, alpha), 0, NULL);
+    if (dialog.DoModal() == IDOK)
+    {
+        COLORREF value = dialog.GetColor();
+        alpha = (BYTE)((GetRValue(value) + GetGValue(value) + GetBValue(value)) / 3);
+        ::InvalidateRect(m_hWnd, NULL, FALSE);
+    }
 }
 
 void CAdvCurveEditDlg::FUN_00402300(COLORREF value)

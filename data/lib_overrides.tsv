@@ -6,3 +6,8 @@ addr	member	symbol	evidence
 0x004f57ba	INTEL\$NW\winctrl2.obj	??1CSliderCtrl@@UAE@XZ	PINNED: writes vtable 0x52e12c; RTTI type .?AVCSliderCtrl@@
 0x00516647	INTEL\$NW\winctrl1.obj	??1CButton@@UAE@XZ	PINNED: writes vtable 0x52cf5c; RTTI type .?AVCButton@@
 0x005168e8	INTEL\$NW\winctrl1.obj	??1CEdit@@UAE@XZ	PINNED: writes vtable 0x52d34c; RTTI type .?AVCEdit@@
+0x004f39f1	INTEL\$NW\dlgclr.obj	?DoModal@CColorDialog@@UAEHXZ	PINNED: retail calls ChooseColorA at IAT 0x52896c; matching dlgclr.obj export
+0x00500740	INTEL\$NW\winmenu.obj	?Attach@CMenu@@QAEHPAUHMENU__@@@Z	PINNED: retail calls afxMapHMENU at 0x50069c; matching winmenu.obj export
+0x0050076d	INTEL\$NW\winmenu.obj	?Detach@CMenu@@QAEPAUHMENU__@@XZ	PINNED: matching winmenu.obj export called by CMenu::DestroyMenu at 0x500797
+0x00500797	INTEL\$NW\winmenu.obj	?DestroyMenu@CMenu@@QAEHXZ	PINNED: retail calls DestroyMenu at IAT 0x528624 and CMenu::Detach at 0x50076d
+0x004dad56	build\intel\mt_obj\unlink.obj	_remove	PINNED: retail calls DeleteFileA at IAT 0x5283ac; unlink.obj defines _remove; __unlink jumps to _remove; rmdir.obj calls RemoveDirectoryA

@@ -464,7 +464,7 @@ addr	size	lib	member	symbol
 0x004dac27	88	libcmt.lib	build\intel\mt_obj\fputc.obj	_fputc
 0x004dacdc	20	libcmt.lib	build\intel\mt_obj\purevirt.obj	__purecall
 0x004dad00	86	libcmt.lib	build\intel\mt_obj\vsnprint.obj	__vsnprintf
-0x004dad56	42	libcmt.lib	build\intel\mt_obj\rmdir.obj	__rmdir
+0x004dad56	42	libcmt.lib	build\intel\mt_obj\unlink.obj	_remove
 0x004dadcf	189	libcmt.lib	build\intel\mt_obj\stat.obj	___dtoxmode
 0x004dae8c	109	libcmt.lib	build\intel\mt_obj\stat.obj	_IsRootUNCName
 0x004daef9	839	libcmt.lib	build\intel\mt_obj\stat.obj	__stat
@@ -1585,7 +1585,7 @@ addr	size	lib	member	symbol
 0x004f396b	8	libcmt.lib	build\intel\mt_obj\fileno.obj	__fileno
 0x004f3980	91	libcmt.lib	build\intel\mt_obj\memccpy.obj	__memccpy
 0x004f39db	22	libcmt.lib	build\intel\mt_obj\umask.obj	__umask
-0x004f39f1	45	nafxcw.lib	INTEL\$NW\dlgprnt.obj	?DoModal@CPageSetupDialog@@UAEHXZ
+0x004f39f1	45	nafxcw.lib	INTEL\$NW\dlgclr.obj	?DoModal@CColorDialog@@UAEHXZ
 0x004f3a21	26	nafxcw.lib	INTEL\$NW\dlgclr.obj	??0_AFX_COLOR_STATE@@QAE@XZ
 0x004f3a3b	24	nafxcw.lib	INTEL\$NW\dlgclr.obj	?SetCurrentColor@CColorDialog@@QAEXK@Z
 0x004f3a53	27	nafxcw.lib	INTEL\$NW\afxstate.obj	??_G_AFX_THREAD_STATE@@UAEPAXI@Z
@@ -2253,9 +2253,9 @@ addr	size	lib	member	symbol
 0x0050069c	124	nafxcw.lib	INTEL\$NW\winmenu.obj	?afxMapHMENU@@YGPAVCHandleMap@@H@Z
 0x00500718	14	nafxcw.lib	INTEL\$NW\winctrl2.obj	?FromHandle@CImageList@@SGPAV1@PAU_IMAGELIST@@@Z
 0x00500726	26	nafxcw.lib	INTEL\$NW\wincore.obj	?FromHandlePermanent@CWnd@@SGPAV1@PAUHWND__@@@Z
-0x00500740	45	nafxcw.lib	INTEL\$NW\winctrl2.obj	?Attach@CImageList@@QAEHPAU_IMAGELIST@@@Z
-0x0050076d	42	nafxcw.lib	INTEL\$NW\winctrl2.obj	?Detach@CImageList@@QAEPAU_IMAGELIST@@XZ
-0x00500797	22	nafxcw.lib	INTEL\$NW\winctrl2.obj	?DeleteImageList@CImageList@@QAEHXZ
+0x00500740	45	nafxcw.lib	INTEL\$NW\winmenu.obj	?Attach@CMenu@@QAEHPAUHMENU__@@@Z
+0x0050076d	42	nafxcw.lib	INTEL\$NW\winmenu.obj	?Detach@CMenu@@QAEPAUHMENU__@@XZ
+0x00500797	22	nafxcw.lib	INTEL\$NW\winmenu.obj	?DestroyMenu@CMenu@@QAEHXZ
 0x005007ad	130	nafxcw.lib	INTEL\$NW\winmenu.obj	??0CChevronOwnerDrawMenu@@QAE@XZ
 0x0050082f	89	nafxcw.lib	INTEL\$NW\winmenu.obj	?GetMenuStringA@CMenu@@QBEHIAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@I@Z
 0x00500888	28	nafxcw.lib	INTEL\$NW\except.obj	??_GCMemoryException@@UAEPAXI@Z

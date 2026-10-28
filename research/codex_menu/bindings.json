@@ -1,0 +1,26 @@
+{
+  "0x004f39f1": {
+    "symbol": "?DoModal@CColorDialog@@UAEHXZ",
+    "lib": "nafxcw.lib",
+    "member": "INTEL\\$NW\\dlgclr.obj",
+    "size": 45
+  },
+  "0x00500740": {
+    "symbol": "?Attach@CMenu@@QAEHPAUHMENU__@@@Z",
+    "lib": "nafxcw.lib",
+    "member": "INTEL\\$NW\\winmenu.obj",
+    "size": 45
+  },
+  "0x0050076d": {
+    "symbol": "?Detach@CMenu@@QAEPAUHMENU__@@XZ",
+    "lib": "nafxcw.lib",
+    "member": "INTEL\\$NW\\winmenu.obj",
+    "size": 42
+  },
+  "0x00500797": {
+    "symbol": "?DestroyMenu@CMenu@@QAEHXZ",
+    "lib": "nafxcw.lib",
+    "member": "INTEL\\$NW\\winmenu.obj",
+    "size": 22
+  }
+}
