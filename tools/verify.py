@@ -38,7 +38,7 @@ def known_names():
     names = {}
     for row in read_tsv("data/lib_funcs.tsv"):
         names[int(row["addr"], 16)] = row["symbol"]
-    for row in read_tsv("ledger/matches.tsv"):
+    for row in read_tsv("ledger/matches.tsv") + read_tsv("ledger/compiler.tsv"):
         names[int(row["addr"], 16)] = row["symbol"]
     return names
 
@@ -50,6 +50,7 @@ class Linked:
         self.pe = pefile.PE(str(link.EXE), fast_load=True)
         self.base = self.pe.OPTIONAL_HEADER.ImageBase
         self.syms, self.obj, self.inline = {}, {}, set()
+        starts = set()
         # every label at an address, so aliases like __alloca_probe/__chkstk both count
         self.labels = collections.defaultdict(set)
         for line in link.MAP.read_text(errors="replace").splitlines():
@@ -58,11 +59,12 @@ class Linked:
                 self.labels[int(m.group(2), 16)].add(m.group(1))
             m = re.match(r"\s*0001:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8}) f\s+(i\s+)?(\S+)", line)
             if m:
+                starts.add(int(m.group(2), 16))
                 if m.group(3):
                     self.inline.add(m.group(1))
                 self.syms.setdefault(m.group(1), int(m.group(2), 16))
                 self.obj.setdefault(m.group(1), m.group(4))
-        self.starts = sorted(set(self.syms.values()))
+        self.starts = sorted(starts)
         self.at = {}
         for name, va in self.syms.items():
             self.at.setdefault(va, name)
@@ -140,11 +142,15 @@ def banned_sources():
 
 def verify_all():
     rows = read_tsv("ledger/matches.tsv")
+    compiler = read_tsv("ledger/compiler.tsv")
+    game_addresses = {r["addr"] for r in rows}
+    if {int(a, 16) for a in game_addresses} & {int(r["addr"], 16) for r in compiler}:
+        raise ValueError("compiler rows must not duplicate game rows")
     names = known_names()
     ok = link.build(quiet=True)
     linked = Linked() if ok else None
     results = []
-    for row in rows:
+    for row in rows + compiler:
         if not ok:
             status, detail = "COMPILE", "the tree failed to compile or link"
         else:
@@ -152,7 +158,7 @@ def verify_all():
         results.append(dict(row, status=status, detail=detail))
     extras = []
     if ok:
-        ledger_syms = {r["symbol"] for r in rows}
+        ledger_syms = {r["symbol"] for r in rows + compiler}
         ours = {link.obj_path(s).name.lower() for s in link.sources()}
         # "i" in the map = an inline header function, emitted in whichever file first uses it; not src code
         # header "static inline" helpers come out as local copies without the flag; also header code
@@ -164,7 +170,7 @@ def verify_all():
         # emit order: a file's functions must sit in retail order (warning until the 7.1 emit rule is pinned)
         by_source = collections.defaultdict(list)
         for res in results:
-            if res["status"] == "MATCH":
+            if res["status"] == "MATCH" and res["addr"] in game_addresses:
                 by_source[res["source"]].append(res)
         for group in by_source.values():
             group.sort(key=lambda r: int(r["addr"], 16))
@@ -183,13 +189,18 @@ def verify_all():
             print("%-10s %s %s %s  %s" % ("WARN-ORD", res["addr"], res["name"], res["source"], res["order"]))
     for e in extras:
         print("UNVERIFIED %s" % e)
-    matched = [r for r in results if r["status"] == "MATCH"]
+    matched = [r for r in results if r["status"] == "MATCH" and r["addr"] in game_addresses]
+    compiler_matched = [r for r in results if r["status"] == "MATCH" and r["addr"] not in game_addresses]
     summary = {"rows": len(rows), "matched": len(matched), "failed": failed,
                "order_warnings": sum(1 for r in results if r.get("order")),
                "unverified_in_src": len(extras),
-               "matched_bytes": sum(int(r["size"]) for r in matched), "results": results}
+               "matched_bytes": sum(int(r["size"]) for r in matched),
+               "compiler_rows": len(compiler), "compiler_matched": len(compiler_matched),
+               "compiler_matched_bytes": sum(int(r["size"]) for r in compiler_matched), "results": results}
     (BASE / "build" / "verify.json").write_text(json.dumps(summary, indent=1))
     print("verify: %d/%d rows match, %d failures" % (len(matched), len(rows), failed))
+    if compiler:
+        print("compiler: %d/%d rows match (excluded from game coverage)" % (len(compiler_matched), len(compiler)))
     return failed == 0
 
 

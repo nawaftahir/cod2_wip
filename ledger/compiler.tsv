@@ -1,0 +1,3 @@
+addr	size	source	symbol	name	tag
+0x00526a10	24	src/radiant/AdvCurveDlg.cpp	_$E1	global dialog initialization	AUTO
+0x00526f50	11	src/radiant/AdvCurveDlg.cpp	_$E2	global dialog destruction	AUTO
