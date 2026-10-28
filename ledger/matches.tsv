@@ -385,3 +385,9 @@ addr	size	source	symbol	name	tag
 0x00402350	7	src/radiant/AdvCurveDlg.cpp	?FUN_00402350@CAdvCurveEditDlg@@QAEEXZ	FUN_00402350	UNNAMED
 0x00402360	87	src/radiant/AdvCurveDlg.cpp	?FUN_00402360@CAdvCurveEditDlg@@QAEXM@Z	FUN_00402360	UNNAMED
 0x004023c0	85	src/radiant/AdvCurveDlg.cpp	?FUN_004023c0@CAdvCurveEditDlg@@QAEMXZ	FUN_004023c0	UNNAMED
+0x00401fa0	168	src/radiant/AdvCurveDlg.cpp	?FUN_00401fa0@CAdvCurveEditDlg@@QAEHPBQBDHHH@Z	FUN_00401fa0	UNNAMED
+0x00402050	99	src/radiant/AdvCurveDlg.cpp	?FUN_00402050@CAdvCurveEditDlg@@QAEXXZ	FUN_00402050	UNNAMED
+0x004020c0	99	src/radiant/AdvCurveDlg.cpp	?FUN_004020c0@CAdvCurveEditDlg@@QAEXXZ	FUN_004020c0	UNNAMED
+0x00402130	93	src/radiant/AdvCurveDlg.cpp	?FUN_00402130@CAdvCurveEditDlg@@QAEXXZ	FUN_00402130	UNNAMED
+0x004021a0	134	src/radiant/AdvCurveDlg.cpp	?FUN_004021a0@CAdvCurveEditDlg@@QAEXXZ	FUN_004021a0	UNNAMED
+0x00402240	179	src/radiant/AdvCurveDlg.cpp	?FUN_00402240@CAdvCurveEditDlg@@QAEXXZ	FUN_00402240	UNNAMED

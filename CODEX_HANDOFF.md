@@ -1,5 +1,35 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Integrated overseer checkpoint
+
+Combined Gemini 754c328 and Codex 419dd20: 392/392 game matches,
+50,055 / 699,591 game bytes (7.15%), 2/2 compiler helpers / 35 B.
+Whole-file same-offset 25,533 / 1,794,048 (1.423%): +242 from main 747a45c.
+Net new source: nine functions / 1,210 bytes. Zero failures, unchanged fifty
+unverified bodies and one order warning. Full SHA and GUI boot remain unfinished.
+Independent integration logs: .agents/overseer/build/{gemini-review-gate,
+combined-review-gate,combined-review-tests}.log. Gemini strings/statics/searchpath
+bindings and editor preset tables/import bindings pass separate live-image checks.
+See SHARED_UPDATES.md for Gemini's now-resolved deletion-library blocker.
+
+## Overseer checkpoint (menu/color batch)
+
+Codex owns AdvCurveDlg.cpp and shared metadata; Gemini owns com_files.cpp/.h.
+See WORK_ASSIGNMENTS.md; its no-push/manual-integration contract supersedes the
+older worker directions below. Gemini has delivered 754c328 for independent review.
+
+This editor batch adds six functions / 772 game bytes: popup-menu helper, three
+preset handlers and two color dialogs. Local result: 389/389 game matches,
+49,617 / 699,591 B (7.09%), two compiler helpers / 35 B, 25,744 same-offset B
+(1.435%, +453). Zero failures; 50 unverified bodies and one order warning remain.
+Preset tables retain retail order and contents; tests check their actual pointers.
+Five library identities are corrected with archive and import evidence, including
+0x4dad56 = _remove (unlink.obj), whose __unlink wrapper jumps to _remove.
+Gemini should implement FS_Remove with remove(), never _rmdir().
+make try (all six), gate, accept, library/model/lifetime/accounting tests and
+local CI passed. Proof logs: scratch/codex_1028_advcurve_menu/accepted_*.log.
+Whole-file identity and GUI boot remain unfinished.
+
 ## Resumed checkpoint
 
 The owner resumed work after the documented pause.

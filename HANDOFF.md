@@ -8,15 +8,19 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
 - Codex is now overseer and main-tree integrator. Gemini owns com_files.cpp/h
   in .agents/gemini; Codex owns AdvCurveDlg.cpp and shared build/library/layout
   work in .agents/codex. See WORK_ASSIGNMENTS.md and TASK_GEMINI.md.
+- The combined editor/filesystem wave adds nine functions / 1,210 B and 242
+  whole-file same-offset bytes over 747a45c. Independent stock gates, binding
+  tests and local CI pass in .agents/overseer. No push or GUI boot was run.
 - The owner resumed work. The verified eighteen-function / 1,305 B batch is
   included in checkpoint `AdvCurveDlg: 18 functions match` (parent 3330005).
   Continue the same first retail TU.
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 383 ledger rows, all matching inside the linked exe; game code 6.98% (48,845 B); whole file 1.410% in place;
+- 392 ledger rows, all matching inside the linked exe; game code 7.15% (50,055 B); whole file 1.423% in place (25,533 B);
   unverified in src/ 50. Engine files come from the server source (`research/libmatch/import.sh`, RULES.md);
   existing files: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md).
-  com_files now has 38 verified functions (37 net new, 4,555 B gained). File finish is deferred:
-  the CRT map incorrectly calls DeleteFileA's wrapper __rmdir; details in research/codex_notes.md.
+  com_files now has 41 verified functions. Gemini 754c328 adds three functions / 438 B.
+  The CRT map is corrected: 0x4dad56 is _remove, calling DeleteFileA. Gemini owns
+  the pending filesystem source; see SHARED_UPDATES.md.
   Seven caller-dependent trial hits stay in scratch, not src/. A com_shared trial was rejected:
   three normalized matches cost 260 whole-file same-offset bytes. Earlier universal-file work remains deferred; the owner now requests retail-file order,
   starting with AdvCurveDlg (Com_ParseExt is DEFER at 25%).

@@ -94,8 +94,20 @@ selection=data_symbol('?g_curveSelection@@')
 subclass=data_symbol('?g_curveSubclass@@')
 assert ours.get_data(selection-ours.OPTIONAL_HEADER.ImageBase,84)==retail.get_data(0x58fa58-base,84)
 assert ours.get_data(subclass-ours.OPTIONAL_HEADER.ImageBase,204)==retail.get_data(0x58fab0-base,204)
-assert selection<subclass<controls,(selection,subclass,controls)
+presets = []
+for start, count, symbol in ((0x58f9fc, 8, '?g_curveScalePresets@@'), (0x58fa1c, 7, '?g_curveSecondPresets@@'), (0x58fa38, 7, '?g_curveFirstPresets@@')):
+ actual_address = data_symbol(symbol)
+ target_pointers = struct.unpack('<%dI' % count, retail.get_data(start-base, 4*count))
+ actual_pointers = struct.unpack('<%dI' % count, ours.get_data(actual_address-ours.OPTIONAL_HEADER.ImageBase, 4*count))
+ for target_pointer, actual_pointer in zip(target_pointers, actual_pointers):
+  target_string = retail.get_data(target_pointer-base, 128).split(b'\0', 1)[0]
+  actual_string = ours.get_data(actual_pointer-ours.OPTIONAL_HEADER.ImageBase, 128).split(b'\0', 1)[0]
+  assert target_string == actual_string, (symbol, target_string, actual_string)
+ presets.append((start, 4*count, actual_address))
+assert [item[2] for item in presets] == sorted(item[2] for item in presets)
+assert presets[-1][2]<selection<subclass<controls,(presets,selection,subclass,controls)
 globals_map=[(0x58fa58,84,selection),(0x58fab0,204,subclass),(0x58fb80,96,controls),(0x1233488,4,data_symbol('?g_curveParent@@')),(0x123348c,4,data_symbol('?g_curveUpdatePending@@'))]
+globals_map.extend(presets)
 globals_map.append((0x401860,1,image.syms['?FUN_00401860@@YGJPAUHWND__@@IIJ@Z']))
 def import_names(pe):
  pe.parse_data_directories(directories=[pefile.DIRECTORY_ENTRY['IMAGE_DIRECTORY_ENTRY_IMPORT']])
