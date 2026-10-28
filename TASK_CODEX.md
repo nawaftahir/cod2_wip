@@ -19,3 +19,17 @@ CRT archive inspection is already complete: rmdir.obj exports __rmdir and
 imports RemoveDirectoryA; unlink.obj exports _remove and __unlink and imports
 DeleteFileA. Evidence is saved in scratch/overseer/crt_delete_binding.json.
 Pin 0x4dad56 to the actual remove/unlink identity, retaining its 42-byte extent.
+
+Menu/color and CRT metadata corrections are integrated in b550929. Current work:
+finish the camera-target dialog immediately following AdvCurveDlg in retail order.
+Gemini remains exclusive owner of com_files.cpp/.h, including its current shutdown
+batch. Check its commits/report without editing its tree.
+
+New evidence for AdvCurveDlg: after adding real menu callers, edit body remains
+511/453 B (75%), while its two wrappers match. /Ob1 makes the body 450/453 B
+(55%) and breaks three accepted getters. Both trials were restored; no flags or
+unmatched source from them ship. Do not repeat. Registry load/save source also
+needs the real g_qeglobals use_ini/registry fields and owner layout, rather than
+inventing independent globals from masked operands. Evidence in
+scratch/codex_1028_registry_group. Continue another editor TU while these await
+new source/caller/global context.

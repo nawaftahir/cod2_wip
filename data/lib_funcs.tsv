@@ -2181,7 +2181,7 @@ addr	size	lib	member	symbol
 0x004ff450	43	nafxcw.lib	INTEL\$NW\afxmem.obj	??2@YAPAXI@Z
 0x004ff48a	31	nafxcw.lib	INTEL\$NW\strcore.obj	??$HashKey@PB_W@@YGIPB_W@Z
 0x004ff4a9	26	nafxcw.lib	INTEL\$NW\strcore.obj	??$HashKey@PBD@@YGIPBD@Z
-0x004ff4c3	6	nafxcw.lib	INTEL\$NW\objcore.obj	?GetRuntimeClass@CObject@@UBEPAUCRuntimeClass@@XZ
+0x004ff4c3	6	nafxcw.lib	INTEL\$NW\strcore.obj	?AfxGetStringManager@@YGPAUIAtlStringMgr@ATL@@XZ
 0x004ff4c9	59	nafxcw.lib	INTEL\$NW\strcore.obj	?Allocate@CAfxStringMgr@@UAEPAUCStringData@ATL@@HH@Z
 0x004ff511	47	nafxcw.lib	INTEL\$NW\strcore.obj	?Reallocate@CAfxStringMgr@@UAEPAUCStringData@ATL@@PAU23@HH@Z
 0x004ff55e	24	nafxcw.lib	INTEL\$NW\strcore.obj	?CopyChars@?$CSimpleStringT@_W$0A@@ATL@@SAXPA_WPB_WH@Z
