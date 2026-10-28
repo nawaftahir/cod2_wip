@@ -415,6 +415,11 @@ addr	size	source	symbol	name	tag
 0x0047c560	19	src/universal/assertive.cpp	_FUN_0047c560	FUN_0047c560	UNNAMED
 0x0047c580	12	src/universal/assertive.cpp	_FUN_0047c580	FUN_0047c580	UNNAMED
 0x0047f700	105	src/universal/com_files.cpp	?FS_Printf@@YAXHPBDZZ	FS_Printf	SUPPORTED
+0x0048af50	88	src/universal/com_shared.cpp	?Com_StringContains@@YAPBDPBD0P6AH00@Z@Z	Com_StringContains	SUPPORTED
+0x0048b2a0	67	src/universal/com_shared.cpp	?Com_HashKey@@YAHPBDH@Z	Com_HashKey	SUPPORTED
+0x0048b2f0	96	src/universal/com_shared.cpp	?Com_RealTime@@YAHPAUqtime_s@@@Z	Com_RealTime	SUPPORTED
+0x0048b650	153	src/universal/com_shared.cpp	?Com_Memcmp@@YAHPBX0I@Z	Com_Memcmp	SUPPORTED
+0x0048b760	37	src/universal/com_shared.cpp	?FUN_0048b760@@YAHPBM0@Z	FUN_0048b760	UNNAMED
 0x004032f0	94	src/radiant/CamWnd.cpp	?OnLButtonDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnLButtonDown	SUPPORTED
 0x00403390	78	src/radiant/CamWnd.cpp	?OnMButtonDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnMButtonDown	SUPPORTED
 0x00403420	78	src/radiant/CamWnd.cpp	?OnRButtonDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnRButtonDown	SUPPORTED
