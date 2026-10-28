@@ -1,5 +1,18 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Camera-target checkpoint
+
+The next editor file, cameratargetdlg.cpp, now has all five dialog game routines
+matched: 212 B. Source follows the Q3 class and target IDs/field offsets. The
+scalar destructor and CString header bodies are excluded from the new game count.
+The shared getter at 0x4ff4c3 is AfxGetStringManager (strcore.obj), confirmed by
+its archive export and original constructor's IAtlStringMgr::GetNilString flow.
+Per-TU /GX and /GR reproduce target EH and CCameraTargetDlg RTTI.
+Local stock try/gate/accept and structural/accounting tests pass: 397 game rows,
+50,267 / 699,591 B (7.19%), 25,852 same-offset B (1.441%, +319 over b550929),
+2 compiler helpers / 35 B, zero failures, unchanged 50 unverified bodies / 1 warning.
+Shared header contributor order and full binary SHA remain unfinished.
+
 ## Integrated overseer checkpoint
 
 Combined Gemini 754c328 and Codex 419dd20: 392/392 game matches,

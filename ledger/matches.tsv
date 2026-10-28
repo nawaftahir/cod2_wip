@@ -391,3 +391,8 @@ addr	size	source	symbol	name	tag
 0x00402130	93	src/radiant/AdvCurveDlg.cpp	?FUN_00402130@CAdvCurveEditDlg@@QAEXXZ	FUN_00402130	UNNAMED
 0x004021a0	134	src/radiant/AdvCurveDlg.cpp	?FUN_004021a0@CAdvCurveEditDlg@@QAEXXZ	FUN_004021a0	UNNAMED
 0x00402240	179	src/radiant/AdvCurveDlg.cpp	?FUN_00402240@CAdvCurveEditDlg@@QAEXXZ	FUN_00402240	UNNAMED
+0x00402940	123	src/radiant/cameratargetdlg.cpp	??0CCameraTargetDlg@@QAE@PAVCWnd@@@Z	CCameraTargetDlg::CCameraTargetDlg	SUPPORTED
+0x004029f0	36	src/radiant/cameratargetdlg.cpp	??1CCameraTargetDlg@@UAE@XZ	CCameraTargetDlg::~CCameraTargetDlg	SUPPORTED
+0x00402a20	46	src/radiant/cameratargetdlg.cpp	?DoDataExchange@CCameraTargetDlg@@MAEXPAVCDataExchange@@@Z	CCameraTargetDlg::DoDataExchange	SUPPORTED
+0x00402a50	6	src/radiant/cameratargetdlg.cpp	?GetMessageMap@CCameraTargetDlg@@MBEPBUAFX_MSGMAP@@XZ	CCameraTargetDlg::GetMessageMap	SUPPORTED
+0x00402a60	1	src/radiant/cameratargetdlg.cpp	?OnPopupNewcameraFixed@CCameraTargetDlg@@IAEXXZ	CCameraTargetDlg::OnPopupNewcameraFixed	SUPPORTED

@@ -43,5 +43,10 @@
     "symbol": "_remove",
     "member": "build\\intel\\mt_obj\\unlink.obj",
     "evidence": "PINNED: retail calls DeleteFileA at IAT 0x5283ac; unlink.obj defines _remove; __unlink jumps to _remove; rmdir.obj calls RemoveDirectoryA"
+  },
+  "0x004ff4c3": {
+    "member": "INTEL\\$NW\\strcore.obj",
+    "symbol": "?AfxGetStringManager@@YGPAUIAtlStringMgr@ATL@@XZ",
+    "evidence": "PINNED: CString construction at 0x40297d calls this getter, then IAtlStringMgr slot 3 and adds sizeof(CStringData)=16; matching strcore.obj export; returned runtime-class metadata has no such vtable"
   }
 }
