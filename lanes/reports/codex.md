@@ -33,3 +33,18 @@ Window, restored-helper, camera-target, lifetime and accounting tests pass.
 The release callback group and mouse-move body remain in scratch: its first
 trial inlines differently; no unmatched source from it ships.
 Logs: scratch/codex_1028_cam_mouse/accepted_{try,gate,tests,ci}.log.
+
+## q_shared info-string recovery
+
+Restored Info_ValueForKey (0x496aa0 / 256 B), Info_RemoveKey (0x496bf0 /
+281 B), and Info_RemoveKey_Big (0x496d10 / 281 B), using the preserved
+server-derived source previously rejected solely for same-offset movement.
+Current source was byte-identical to the saved pre-trial file before recovery.
+Removed the three obsolete deferrals; retail function order is retained.
+
+Fresh make try and full gate pass 424/424 game rows: 11.85% of functions,
+52,447 / 699,591 B (7.50% of game code). Same-offset is 25,947 B / 1.446%,
++140 over the CamWnd checkpoint. Compiler 2 / 35 B, unverified 50, warning
+one, failures zero. The live binding check also compares all three actual
+error strings with retail; no masks, flags, library mappings or verifier changes.
+Proof: scratch/codex_1028_q_shared_resume/{try,gate,tests,ci}.log.

@@ -779,7 +779,72 @@ void Com_WideToNarrow( const char *in, char *out, int len )
 char infoValue[2][BIG_INFO_VALUE];
 
 // searches a string of the form \key\value\key\value
-const char *Info_ValueForKey( const char *s, const char *key );
+const char *Info_ValueForKey( const char *s, const char *key )
+{
+	char pkey[BIG_INFO_KEY];
+	static int valueindex = 0;
+	char *dst;
+	char *o;
+
+	if ( !s || !key )
+	{
+		return "";
+	}
+
+	if ( strlen( s ) >= BIG_INFO_STRING )
+	{
+		Com_Error( ERR_DROP, "Info_ValueForKey: oversize infostring" );
+	}
+
+	valueindex ^= 1;
+
+	if ( *s == '\\' )
+	{
+		s++;
+	}
+
+nextPair:
+	o = pkey;
+
+	while ( *s != '\\' )
+	{
+		if ( !*s )
+		{
+			return "";
+		}
+
+		*o++ = *s++;
+	}
+
+	*o = 0;
+	s++;
+
+	dst = infoValue[valueindex];
+	o = dst;
+
+	while ( *s != '\\' && *s )
+	{
+		*o++ = *s++;
+	}
+
+	*o = 0;
+
+	if ( !I_stricmp( key, pkey ) )
+	{
+		return dst;
+	}
+
+	if ( !*s )
+	{
+		goto notFound;
+	}
+
+	s++;
+	goto nextPair;
+
+notFound:
+	return "";
+}
 
 // used to iterate through all the key/value pairs in an info string
 void Info_NextPair( const char **head, char *key, char *value )
@@ -826,75 +891,141 @@ void Info_NextPair( const char **head, char *key, char *value )
 	*head = s;
 }
 
-void Info_RemoveKey( char *s, const char *key );
+void Info_RemoveKey( char *s, const char *key )
+{
+	char *start;
+	char pkey[MAX_INFO_KEY];
+	char value[MAX_INFO_VALUE];
+	char *o;
+
+	if ( strlen( s ) >= MAX_INFO_STRING )
+	{
+		Com_Error( ERR_DROP, "Info_RemoveKey: oversize infostring" );
+	}
+
+	if ( strchr( key, '\\' ) )
+	{
+		return;
+	}
+
+nextPair:
+	start = s;
+
+	if ( *s == '\\' )
+	{
+		s++;
+	}
+
+	o = pkey;
+
+	while ( *s != '\\' )
+	{
+		if ( !*s )
+		{
+			return;
+		}
+
+		*o++ = *s++;
+	}
+
+	*o = 0;
+	s++;
+
+	o = value;
+
+	while ( *s != '\\' && *s )
+	{
+		if ( !*s )
+		{
+			return;
+		}
+
+		*o++ = *s++;
+	}
+
+	*o = 0;
+
+	if ( !strcmp( key, pkey ) )
+	{
+		strcpy( start, s ); // remove this part
+		return;
+	}
+
+	if ( !*s )
+	{
+		return;
+	}
+
+	goto nextPair;
+}
+
+void Info_RemoveKey_Big( char *s, const char *key )
+{
+	char *start;
+	char pkey[BIG_INFO_KEY];
+	char value[BIG_INFO_VALUE];
+	char *o;
+
+	if ( strlen( s ) >= BIG_INFO_STRING )
+	{
+		Com_Error( ERR_DROP, "Info_RemoveKey_Big: oversize infostring" );
+	}
+
+	if ( strchr( key, '\\' ) )
+	{
+		return;
+	}
+
+nextPair:
+	start = s;
+
+	if ( *s == '\\' )
+	{
+		s++;
+	}
+
+	o = pkey;
+
+	while ( *s != '\\' )
+	{
+		if ( !*s )
+		{
+			return;
+		}
 
+		*o++ = *s++;
+	}
 
+	*o = 0;
+	s++;
 
+	o = value;
 
+	while ( *s != '\\' && *s )
+	{
+		if ( !*s )
+		{
+			return;
+		}
 
+		*o++ = *s++;
+	}
 
+	*o = 0;
 
+	if ( !strcmp( key, pkey ) )
+	{
+		strcpy( start, s ); // remove this part
+		return;
+	}
 
+	if ( !*s )
+	{
+		return;
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void Info_RemoveKey_Big( char *s, const char *key );
+	goto nextPair;
+}
 
 // some characters are illegal in info strings because they can mess up the server's parsing
 qboolean Info_Validate( const char *s )

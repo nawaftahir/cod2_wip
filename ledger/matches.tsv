@@ -420,3 +420,6 @@ addr	size	source	symbol	name	tag
 0x00403420	78	src/radiant/CamWnd.cpp	?OnRButtonDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OnRButtonDown	SUPPORTED
 0x00403520	74	src/radiant/CamWnd.cpp	?OriginalMouseDown@CCamWnd@@IAEXIVCPoint@@@Z	CCamWnd::OriginalMouseDown	SUPPORTED
 0x00404d70	65	src/radiant/CamWnd.cpp	?Cam_MouseUp@CCamWnd@@IAEXHHH@Z	CCamWnd::Cam_MouseUp	SUPPORTED
+0x00496aa0	256	src/universal/q_shared.cpp	?Info_ValueForKey@@YAPBDPBD0@Z	Info_ValueForKey	SUPPORTED
+0x00496bf0	281	src/universal/q_shared.cpp	?Info_RemoveKey@@YAXPADPBD@Z	Info_RemoveKey	SUPPORTED
+0x00496d10	281	src/universal/q_shared.cpp	?Info_RemoveKey_Big@@YAXPADPBD@Z	Info_RemoveKey_Big	SUPPORTED
