@@ -531,12 +531,12 @@ void *Z_VirtualAllocInternal(unsigned int size)
 }
 
 // unreferenced; its name is not known
-static void *Z_VirtualReserve(int size);
+void *Z_VirtualReserve(int size);
 
-
-
-
-
+void *Z_VirtualReserve(int size)
+{
+    return VirtualAlloc(0, size, MEM_RESERVE, PAGE_READWRITE);
+}
 
 
 
@@ -557,32 +557,32 @@ void Z_VirtualCommitInternal(void *ptr, int size)
 // unreferenced; its name is not known
 
 
-char *CopyStringInternal( const char *in );
+char *CopyStringInternal( const char *in )
+{
+    int len = strlen( in ) + 1;
+    char *buf = (char *)Z_MallocInternal( len );
+    strcpy( buf, in );
+    return buf;
+}
 
 
 
+void ReplaceStringInternal( const char **str, const char *in )
+{
+    int newLen = strlen( in );
+    char *newStr = (char *)*str;
 
-
-
-
-
-
-void ReplaceStringInternal( const char **str, const char *in );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if ( !newStr || strlen( newStr ) < newLen )
+    {
+        if ( newStr )
+        {
+            Z_FreeInternal( newStr );
+        }
+        newStr = (char *)Z_MallocInternal( newLen + 1 );
+        *str = newStr;
+    }
+    strcpy( newStr, in );
+}
 
 
 
@@ -1007,7 +1007,6 @@ void Hunk_AddData( int type, void *data, void *(*alloc)(int) )
 	com_hunkData = fileData;
 }
 
-void Hunk_OverrideDataForFile( int type, const char *name, void *data );
 
 
 
@@ -1020,49 +1019,50 @@ void Hunk_OverrideDataForFile( int type, const char *name, void *data );
 
 
 
+void Hunk_OverrideDataForFile( int type, const char *name, void *data )
+{
+	int hash;
+	fileData_t *fd;
 
+	hash = FS_HashFileName( name, 1024 );
+	for ( fd = com_fileDataHashTable[hash]; fd; fd = fd->next )
+	{
+		if ( fd->type == type && !stricmp( fd->name, name ) )
+		{
+			fd->data = data;
+			return;
+		}
+	}
 
-
-
-
+	assertFailMsg( 0, "Hunk_OverrideDataForFile: could not find data" );
+}
 
 
 void Hunk_ClearDataFor( fileData_t **pFileData, unsigned char *low, unsigned char *high )
 {
-	fileData_t *fileData;
-	void *data;
-
 	while ( *pFileData )
 	{
-		fileData = *pFileData;
+		fileData_t *fileData = *pFileData;
 
-		if ( fileData < (fileData_t *)low || fileData >= (fileData_t *)high )
+		if ( (unsigned char *)fileData >= low && (unsigned char *)fileData < high )
 		{
-			pFileData = &fileData->next;
+			*pFileData = fileData->next;
 		}
 		else
 		{
-			*pFileData = fileData->next;
-			data = fileData->data;
-
-			switch ( fileData->type )
-			{
-			case FILEDATA_XMODELPARTS:
-				XModelPartsFree( (XModelParts *)data );
-				break;
-			case FILEDATA_XMODEL:
-				XModelFree( (XModel *)data );
-				break;
-			case FILEDATA_XANIM:
-				XAnimFree( (XAnimParts *)data );
-				break;
-			case FILEDATA_XANIMLIST:
-				XAnimFreeList( (XAnim *)data );
-				break;
-			}
+			pFileData = &fileData->next;
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
 
 void Hunk_ClearData( void )
 {
@@ -1121,33 +1121,33 @@ void DB_EnumXAssets( XAssetType type, void (*func)(XAssetHeader, void *), void *
 
 
 
+int Hunk_SetMark( void )
+{
+	Hunk_CheckTempMemoryHighClear();
+	return hunk_high.permanent;
+}
 
+void Hunk_ClearHigh( int memory )
+{
+	Hunk_CheckTempMemoryHighClear();
+	hunk_high.temp = memory;
+	hunk_high.permanent = memory;
+	Hunk_ClearData();
+}
 
+int Hunk_GetLowPermanent( void )
+{
+	Hunk_CheckTempMemoryClear();
+	return hunk_low.permanent;
+}
 
-
-
-int Hunk_SetMark( void );
-
-
-
-
-void Hunk_ClearHigh( int memory );
-
-
-
-
-
-int Hunk_GetLowPermanent( void );
-
-
-
-
-void Hunk_ClearLow( int memory );
-
-
-
-
-
+void Hunk_ClearLow( int memory )
+{
+	Hunk_CheckTempMemoryClear();
+	hunk_low.temp = memory;
+	hunk_low.permanent = memory;
+	Hunk_ClearData();
+}
 void Hunk_Clear( void )
 {
 	hunk_low.permanent = 0;
