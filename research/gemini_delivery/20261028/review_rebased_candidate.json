@@ -1,0 +1,52 @@
+{
+  "source_sha256": "95f8332d152069e15639f8f89a7cb3a6d5834deb1ba586babb236a9f76613995",
+  "checks": [
+    {
+      "addr": "0x0047e9a0",
+      "symbol": "?FS_IsBackupSubStr@@YA_NPBD@Z",
+      "status": "MATCH",
+      "detail": "at 0x004047e0",
+      "string_differences": []
+    },
+    {
+      "addr": "0x0047e9c0",
+      "symbol": "?FS_IsPathSepChar@@YAHD@Z",
+      "status": "MATCH",
+      "detail": "at 0x00404800",
+      "string_differences": []
+    },
+    {
+      "addr": "0x0047e9e0",
+      "symbol": "?FS_SanitizeFilename@@YA_NPBDPADH@Z",
+      "status": "MATCH",
+      "detail": "at 0x00404820",
+      "string_differences": []
+    },
+    {
+      "addr": "0x0047ec70",
+      "symbol": "?FS_FilesAreLoadedGlobally@@YA_NPBD@Z",
+      "status": "MATCH",
+      "detail": "at 0x00404ab0",
+      "string_differences": []
+    },
+    {
+      "addr": "0x0047ed20",
+      "symbol": "?FS_FOpenFileRead_Internal@@YAHPBDPAHHW4FsThread@@@Z",
+      "status": "MISMATCH",
+      "detail": "39%, sizes 1343/1396, first difference at +0x10",
+      "string_differences": []
+    }
+  ],
+  "regressions": [
+    {
+      "addr": "0x0047f2a0",
+      "status": "MISMATCH",
+      "detail": "35%, sizes 20/14, first difference at +0x0"
+    },
+    {
+      "addr": "0x0047f2b0",
+      "status": "MISMATCH",
+      "detail": "54%, sizes 36/37, first difference at +0x8"
+    }
+  ]
+}

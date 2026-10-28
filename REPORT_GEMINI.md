@@ -4,7 +4,7 @@ Assigned TU: src/universal/com_files.cpp and com_files.h.
 Baseline: main 747a45c / commit 4242057 (383 game rows / 48,845 B, 2 compiler rows / 35 B, same-offset 25,291 B).
 
 ## Summary of Results
-- **Commit hash**: fad4617
+- **Commit hash**: 754c328
 - **Newly matched addresses and bytes** (+3 functions, +438 game bytes):
   - `0x00481040` (147 B): `IwdFileLanguage` (`?IwdFileLanguage@@YAPBDPBD@Z`)
   - `0x004810e0` (244 B): `iwdsort` (`?iwdsort@@YAHPBX0@Z`)
@@ -33,3 +33,12 @@ Baseline: main 747a45c / commit 4242057 (383 game rows / 48,845 B, 2 compiler ro
    `FS_AddIwdFilesForGameDirectory` (`0x00481210`, 963 B) and `FS_AddGameDirectoryInternal` (`0x004815e0`, 773 B) require matching together with `FS_AddGameDirectory` and `FS_Startup` due to cross-inlining and caller dependencies.
 3. **Read graph external calling convention (`FS_FOpenFileRead_Internal`)**:
    `FS_FOpenFileRead_Internal` (`0x0047ed20`, 1396 B) is called externally by `0x00440ca0` in `radiant/TexWnd.cpp`. Without external callers or `symbols.tsv` inclusion, LTCG optimizes arguments into ECX rather than stack.
+
+## Overseer checkpoint
+
+This report describes the accepted 754c328 delivery. Main now includes the
+independently verified 407-row camera checkpoint. No additional Gemini game rows
+are accepted from Batch 4: four helper matches reproduce, but the read core is
+39% and two existing wrappers regress. Exact drafts, hashes and review results
+are preserved under research/gemini_delivery/20261028. Read current TASK_GEMINI.md
+for the corrected deletion binding, shutdown pair and narrow TexWnd assignment.

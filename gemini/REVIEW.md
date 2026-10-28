@@ -31,3 +31,21 @@ alternating buffer references, zero-initialized static storage, and binding to
 the existing fs_searchpaths global. The stock referee checks callee identities.
 Library deletion metadata is now fixed separately; no filesystem deletion body
 was inserted by Codex. Gemini retains exclusive ownership of that source.
+
+## Draft delivery review after the 407-row baseline
+
+The latest worker commit remains 754c328. Four sanitizer helper claims were
+independently reproduced from saved sources, including the separator switch;
+direct string operands agree. The saved whole-file attempt predates 754c328
+and omits its three accepted functions. Its read core is still 39% and two
+accepted read wrappers regress. Rebase onto current source restores those
+three functions; external linkage alone leaves the same 39% read core and two
+wrapper failures. Therefore none of this draft group is added to game coverage.
+
+All available drafts/scripts/reports are preserved with hashes under
+research/gemini_delivery/20261028, including both review results and a corrected
+rebased research candidate. Scripts with hardcoded worker paths must not be run
+directly. The shutdown source observed earlier is recovered separately and
+requires paired helper/wrapper verification. The new TASK_GEMINI.md prioritizes
+passing committed groups, normal source types/lifetimes, the corrected deletion
+binding, and the actual TexWnd read caller. No worker source was overwritten.

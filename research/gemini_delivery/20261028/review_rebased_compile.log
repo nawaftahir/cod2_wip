@@ -1,0 +1,11 @@
+com_files.cpp
+\trees\cod2src\src\universal\com_files.cpp(1450) : error C2065: 'fs_copyfiles' : undeclared identifier
+\trees\cod2src\src\universal\com_files.cpp(1450) : error C2227: left of '->current' must point to class/struct/union
+        type is ''unknown-type''
+\trees\cod2src\src\universal\com_files.cpp(1450) : error C2228: left of '.boolean' must have class/struct/union type
+
+Traceback (most recent call last):
+  File "/w/research/review_gemini.py", line 12, in <module>
+    assert link.build(quiet=True)
+AssertionError
+compile failed: src/universal/com_files.cpp
