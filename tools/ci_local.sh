@@ -28,6 +28,7 @@ agent=$(git log -1 --format=%s | sed -n 's/^land \([a-z0-9]*\).*/\1/p')
 } > build/ci-summary.md
 echo "local CI: $result"; cat build/ci-summary.md
 
+[ "${RADIANT_CI_NO_NOTIFY:-0}" = 1 ] && exit "$rc"
 HOOK=$(cat .secrets/discord_webhook 2>/dev/null)
 [ -n "$HOOK" ] || exit "$rc"
 python3 - "$HOOK" "$result" <<'EOF'
