@@ -406,3 +406,8 @@ addr	size	source	symbol	name	tag
 0x00403280	4	src/radiant/CamWnd.cpp	?SetXYFriend@CCamWnd@@QAEXPAVCXYWnd@@@Z	CCamWnd::SetXYFriend	SUPPORTED
 0x00403290	5	src/radiant/CamWnd.cpp	?OnClose@CCamWnd@@IAEXXZ	CCamWnd::OnClose	SUPPORTED
 0x00403570	43	src/radiant/CamWnd.cpp	?Cam_Init@CCamWnd@@QAEXXZ	CCamWnd::Cam_Init	SUPPORTED
+0x0047a460	26	src/radiant/win_qe3.cpp	?Sys_BeginWait@@YAXXZ	Sys_BeginWait	SUPPORTED
+0x0047a480	27	src/radiant/win_qe3.cpp	?Sys_EndWait@@YAXXZ	Sys_EndWait	SUPPORTED
+0x0047a580	33	src/radiant/win_qe3.cpp	?Sys_ClearPrintf@@YAXXZ	Sys_ClearPrintf	SUPPORTED
+0x0047a6b0	33	src/radiant/win_qe3.cpp	?Sys_DoubleTime@@YANXZ	Sys_DoubleTime	SUPPORTED
+0x0046c2a0	21	src/radiant/mru.cpp	?IsWin395OrHigher@@YAHXZ	IsWin395OrHigher	SUPPORTED
