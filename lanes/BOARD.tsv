@@ -11,7 +11,7 @@ src/radiant/LstToolBar.cpp	cheap	open	-	5	75	0	0	none: from make show
 src/radiant/CapDialog.cpp	cheap	open	-	6	111	0	0	none: from make show
 src/radiant/DialogThick.cpp	cheap	open	-	5	126	0	0	none: from make show
 src/radiant/ScaleDialog.cpp	cheap	open	-	4	136	0	0	none: from make show
-src/radiant/UNKNOWN_00408f20.cpp	cheap	open	-	4	153	0	0	none: from make show
+src/radiant/UNKNOWN_00408f20.cpp	cheap	open	-	4	153	0	0	iw3xo (1/1)
 src/radiant/NewProjDlg.cpp	cheap	open	-	4	180	0	0	none: from make show
 src/radiant/EditWnd.cpp	cheap	open	-	7	182	0	0	none: from make show
 src/universal/UNKNOWN_004985d0.cpp	cheap	open	-	16	196	0	3	none: from make show
@@ -26,52 +26,52 @@ src/radiant/TerrainDensityDlg.cpp	cheap	open	-	6	422	0	0	none: from make show
 src/radiant/KeyValueSelectDlg.cpp	cheap	open	-	5	458	0	1	none: from make show
 src/universal/splines/math_quaternion.cpp	cheap	open	-	4	539	1	1	none: from make show
 src/universal/UNKNOWN_00494480.cpp	cheap	open	-	3	816	0	1	none: from make show
-src/radiant/FindTextureDlg.cpp	cheap	open	-	16	1046	0	1	none: from make show
-src/radiant/UNKNOWN_00420930.cpp	cheap	open	-	29	1202	0	3	none: from make show
+src/radiant/FindTextureDlg.cpp	cheap	open	-	16	1046	0	1	Q3Radiant FindTextureDlg.cpp (4/4 string funcs)
+src/radiant/UNKNOWN_00420930.cpp	cheap	open	-	29	1202	0	3	Q3Radiant PatchDialog.cpp (3/6 string funcs); iw3xo (4/6)
 src/universal/splines/math_angles.cpp	cheap	open	-	12	1269	4	7	none: from make show
 src/universal/splines/math_matrix.cpp	cheap	open	-	10	1405	6	7	none: from make show
-src/radiant/points.cpp	cheap	open	-	7	1433	0	0	Q3Radiant/iw3xo
-src/radiant/EntityListDlg.cpp	cheap	open	-	22	1480	0	0	none: from make show
+src/radiant/points.cpp	cheap	open	-	7	1433	0	0	Q3Radiant POINTS.CPP (3/3 string funcs)
+src/radiant/EntityListDlg.cpp	cheap	open	-	22	1480	0	0	Q3Radiant Win_ent.cpp (1/1 string funcs)
 src/radiant/RotateDlg.cpp	cheap	open	-	11	1502	0	0	none: from make show
-src/radiant/CommandsDlg.cpp	cheap	open	-	16	1515	0	0	none: from make show
-src/radiant/ZWnd.cpp	cheap	open	-	26	1552	0	0	none: from make show
-src/radiant/TextureBar.cpp	cheap	open	-	15	1608	0	0	Q3Radiant/iw3xo
-src/radiant/UNKNOWN_00425080.cpp	cheap	open	-	22	1655	0	1	none: from make show
+src/radiant/CommandsDlg.cpp	cheap	open	-	16	1515	0	0	Q3Radiant CommandsDlg.cpp (1/1 string funcs); iw3xo (1/1)
+src/radiant/ZWnd.cpp	cheap	open	-	26	1552	0	0	Q3Radiant ZWnd.cpp (2/2 string funcs)
+src/radiant/TextureBar.cpp	cheap	open	-	15	1608	0	0	iw3xo (2/2)
+src/radiant/UNKNOWN_00425080.cpp	cheap	open	-	22	1655	0	1	Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
 src/zlib/inflate.c	cheap	open	-	8	1750	4	1	none: from make show
 src/universal/win_common.cpp	cheap	open	-	11	1951	0	0	none: from make show
-src/radiant/mru.cpp	cheap	open	-	16	2055	0	6	none: from make show
+src/radiant/mru.cpp	cheap	open	-	16	2055	0	6	Q3Radiant MRU.CPP (5/5 string funcs)
 src/universal/linearmapping.cpp	cheap	open	-	6	2119	0	5	none: from make show
 src/radiant/draw.cpp	cheap	open	-	12	2150	0	2	none: from make show
-src/radiant/vertsel.cpp	cheap	open	-	8	2272	0	2	none: from make show
-src/radiant/Radiant.cpp	cheap	open	-	15	2465	0	2	none: from make show
-src/radiant/win_qe3.cpp	cheap	open	-	23	2628	0	1	Q3Radiant/iw3xo
-src/universal/splines/math_vector.cpp	cheap	open	-	33	2742	2	11	none: from make show
-src/radiant/PatchDialog.cpp	cheap	open	-	28	2793	0	3	none: from make show
-src/radiant/GfxWrapper.cpp	cheap	open	-	31	3126	0	0	none: from make show
-src/common/texturevecs.cpp	cheap	open	-	4	3319	0	2	none: from make show
-src/radiant/win_main.cpp	cheap	open	-	21	3498	0	2	none: from make show
-src/libs/cmdlib/cmdlib.cpp	cheap	open	-	40	3505	0	7	none: from make show
-src/radiant/VehicleDlg.cpp	cheap	open	-	77	3696	0	1	none: from make show
-src/radiant/csg.cpp	cheap	open	-	12	3984	0	5	Q3Radiant/iw3xo
-src/radiant/ModelDlg.cpp	cheap	open	-	24	4295	0	2	none: from make show
-src/radiant/MapInfo.cpp	cheap	open	-	30	4585	0	1	Q3Radiant/iw3xo
-src/radiant/win_dlg.cpp	cheap	open	-	19	4848	0	2	Q3Radiant/iw3xo
-src/radiant/z.cpp	cheap	open	-	8	5635	0	2	Q3Radiant/iw3xo
-src/universal/splines/util_str.cpp	cheap	open	-	23	5842	12	6	Q3Radiant/iw3xo
+src/radiant/vertsel.cpp	cheap	open	-	8	2272	0	2	Q3Radiant VERTSEL.CPP (3/3 string funcs)
+src/radiant/Radiant.cpp	cheap	open	-	15	2465	0	2	Q3Radiant Radiant.cpp (1/1 string funcs)
+src/radiant/win_qe3.cpp	cheap	open	-	23	2628	0	1	Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
+src/universal/splines/math_vector.cpp	cheap	open	-	33	2742	2	11	Q3Radiant splines.h (3/3 string funcs); iw3xo (1/3)
+src/radiant/PatchDialog.cpp	cheap	open	-	28	2793	0	3	Q3Radiant PatchDialog.cpp (2/2 string funcs)
+src/radiant/GfxWrapper.cpp	cheap	open	-	31	3126	0	0	Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
+src/common/texturevecs.cpp	cheap	open	-	4	3319	0	2	Q3Radiant QE3.H (1/3 string funcs); iw3xo (1/3)
+src/radiant/win_main.cpp	cheap	open	-	21	3498	0	2	Q3Radiant Win_main.cpp (5/7 string funcs); iw3xo (2/7)
+src/libs/cmdlib/cmdlib.cpp	cheap	open	-	40	3505	0	7	Q3Radiant splines.cpp (1/8 string funcs)
+src/radiant/VehicleDlg.cpp	cheap	open	-	77	3696	0	1	Q3Radiant DRAG.CPP (1/52 string funcs); iw3xo (1/52)
+src/radiant/csg.cpp	cheap	open	-	12	3984	0	5	Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)
+src/radiant/ModelDlg.cpp	cheap	open	-	24	4295	0	2	Q3Radiant WIN_DLG.CPP (3/3 string funcs); iw3xo (3/3)
+src/radiant/MapInfo.cpp	cheap	open	-	30	4585	0	1	Q3Radiant WIN_DLG.CPP (1/2 string funcs); iw3xo (1/2)
+src/radiant/win_dlg.cpp	cheap	open	-	19	4848	0	2	Q3Radiant WIN_DLG.CPP (3/6 string funcs); iw3xo (3/6)
+src/radiant/z.cpp	cheap	open	-	8	5635	0	2	Q3Radiant DRAG.CPP (1/2 string funcs); iw3xo (1/2)
+src/universal/splines/util_str.cpp	cheap	open	-	23	5842	12	6	Q3Radiant util_str.h (5/6 string funcs); iw3xo (2/6)
 src/zlib/deflate.c	cheap	open	-	17	5938	13	7	none: from make show
 src/radiant/VertEditDlg.cpp	cheap	open	-	21	6334	0	0	none: from make show
-src/radiant/qe3.cpp	cheap	open	-	25	6362	0	6	Q3Radiant/iw3xo
-src/radiant/eclass.cpp	cheap	open	-	25	6910	0	5	Q3Radiant/iw3xo
-src/xanim/xmodel_load_obj.cpp	cheap	open	-	16	7366	0	7	CoD2rev
-src/radiant/PrefsDlg.cpp	cheap	open	-	10	7543	0	1	none: from make show
-src/radiant/Undo.cpp	cheap	open	-	30	7580	0	9	Q3Radiant/iw3xo
-src/universal/g_vehicle_path.cpp	cheap	open	-	27	7880	0	12	none: from make show
+src/radiant/qe3.cpp	cheap	open	-	25	6362	0	6	Q3Radiant QE3.CPP (10/18 string funcs); iw3xo (6/18)
+src/radiant/eclass.cpp	cheap	open	-	25	6910	0	5	Q3Radiant ECLASS.CPP (7/13 string funcs); iw3xo (4/13)
+src/xanim/xmodel_load_obj.cpp	cheap	open	-	16	7366	0	7	Q3Radiant WIN_DLG.CPP (1/13 string funcs); iw3xo (1/13)
+src/radiant/PrefsDlg.cpp	cheap	open	-	10	7543	0	1	Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)
+src/radiant/Undo.cpp	cheap	open	-	30	7580	0	9	Q3Radiant Undo.cpp (11/14 string funcs); iw3xo (5/14)
+src/universal/g_vehicle_path.cpp	cheap	open	-	27	7880	0	12	Q3Radiant DRAG.CPP (1/3 string funcs); iw3xo (1/3)
 src/radiant/mesh.cpp	cheap	open	-	16	8113	0	6	none: from make show
-src/radiant/SurfaceDlg.cpp	cheap	open	-	45	9048	0	3	Q3Radiant/iw3xo
-src/radiant/win_ent.cpp	cheap	open	-	23	9585	0	5	Q3Radiant/iw3xo
-src/radiant/drag.cpp	cheap	open	-	17	9922	0	9	Q3Radiant/iw3xo
-src/radiant/filtersettings.cpp	cheap	open	-	74	11209	0	2	none: from make show
-src/radiant/map.cpp	cheap	open	-	53	15674	0	5	Q3Radiant/iw3xo
+src/radiant/SurfaceDlg.cpp	cheap	open	-	45	9048	0	3	Q3Radiant QE3.CPP (3/8 string funcs); iw3xo (4/8)
+src/radiant/win_ent.cpp	cheap	open	-	23	9585	0	5	Q3Radiant Win_ent.cpp (10/12 string funcs); iw3xo (11/12)
+src/radiant/drag.cpp	cheap	open	-	17	9922	0	9	Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
+src/radiant/filtersettings.cpp	cheap	open	-	74	11209	0	2	Q3Radiant MainFrm.cpp (1/44 string funcs); iw3xo (1/44)
+src/radiant/map.cpp	cheap	open	-	53	15674	0	5	Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
 src/script/scr_stringlist.cpp	codex	open	-	43	7557	0	16	server source (copy-ready)
 src/universal/q_shared.cpp	codex	open	-	71	8299	39	17	server source (copy-ready)
 src/universal/com_files.cpp	gemini	in-progress	-	97	19485	41	21	server source (copy-ready)
@@ -90,15 +90,15 @@ src/zlib/infcodes.c	done	done	-	3	1853	3	2	none: from make show
 src/zlib/infblock.c	done	done	-	6	3286	6	3	none: from make show
 src/zlib/unzip.c	done	done	-	25	4015	25	11	none: from make show
 src/radiant/AdvCurveDlg.cpp	codex	in-progress	-	96	5658	45	5	none: from make show
-src/radiant/Winding.cpp	codex	open	-	24	6379	0	14	Q3Radiant/iw3xo
+src/radiant/Winding.cpp	codex	open	-	24	6379	0	14	Q3Radiant Winding.cpp (7/7 string funcs)
 src/zlib/trees.c	done	done	-	21	6664	21	16	none: from make show
-src/radiant/dlgcamera.cpp	codex	open	-	126	8125	0	20	none: from make show
-src/radiant/TexWnd.cpp	codex	open	-	69	10857	0	10	Q3Radiant/iw3xo
-src/radiant/entity.cpp	codex	open	-	64	12409	0	35	Q3Radiant/iw3xo
-src/radiant/CamWnd.cpp	codex	in-progress	-	111	19709	10	20	Q3Radiant/iw3xo
-src/universal/splines/splines.cpp	codex	open	-	85	22997	0	31	Q3Radiant/iw3xo
-src/radiant/select.cpp	codex	open	-	83	27211	0	12	Q3Radiant/iw3xo
-src/radiant/XYWnd.cpp	codex	open	-	136	40524	0	32	Q3Radiant/iw3xo
-src/radiant/brush.cpp	codex	open	-	121	47013	0	60	Q3Radiant/iw3xo
-src/radiant/MainFrm.cpp	codex	open	-	545	54369	0	28	Q3Radiant/iw3xo
-src/radiant/Pmesh.cpp	codex	open	-	215	80201	0	70	Q3Radiant/iw3xo
+src/radiant/dlgcamera.cpp	codex	open	-	126	8125	0	20	Q3Radiant util_list.h (16/17 string funcs); iw3xo (1/17)
+src/radiant/TexWnd.cpp	codex	open	-	69	10857	0	10	Q3Radiant TexWnd.cpp (7/23 string funcs); iw3xo (3/23)
+src/radiant/entity.cpp	codex	open	-	64	12409	0	35	Q3Radiant DRAG.CPP (23/28 string funcs); iw3xo (20/28)
+src/radiant/CamWnd.cpp	codex	in-progress	-	111	19709	10	20	Q3Radiant DRAG.CPP (7/9 string funcs); iw3xo (5/9)
+src/universal/splines/splines.cpp	codex	open	-	85	22997	0	31	Q3Radiant splines.cpp (32/33 string funcs); iw3xo (3/33)
+src/radiant/select.cpp	codex	open	-	83	27211	0	12	Q3Radiant DRAG.CPP (22/39 string funcs); iw3xo (24/39)
+src/radiant/XYWnd.cpp	codex	open	-	136	40524	0	32	Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
+src/radiant/brush.cpp	codex	open	-	121	47013	0	60	Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
+src/radiant/MainFrm.cpp	codex	open	-	545	54369	0	28	Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
+src/radiant/Pmesh.cpp	codex	open	-	215	80201	0	70	Q3Radiant PMESH.CPP (24/89 string funcs); iw3xo (10/89)
