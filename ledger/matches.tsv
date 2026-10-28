@@ -428,3 +428,15 @@ addr	size	source	symbol	name	tag
 0x00496aa0	256	src/universal/q_shared.cpp	?Info_ValueForKey@@YAPBDPBD0@Z	Info_ValueForKey	SUPPORTED
 0x00496bf0	281	src/universal/q_shared.cpp	?Info_RemoveKey@@YAXPADPBD@Z	Info_RemoveKey	SUPPORTED
 0x00496d10	281	src/universal/q_shared.cpp	?Info_RemoveKey_Big@@YAXPADPBD@Z	Info_RemoveKey_Big	SUPPORTED
+0x00489c70	17	src/universal/com_memory.cpp	?FUN_00489c70@@YAPAXH@Z	FUN_00489c70	UNNAMED
+0x00489c90	131	src/universal/com_memory.cpp	?Z_VirtualAllocInternal@@YAPAXI@Z	Z_VirtualAllocInternal	SUPPORTED
+0x00489d40	138	src/universal/com_memory.cpp	?Z_VirtualCommitInternal@@YAXPAXH@Z	Z_VirtualCommitInternal	SUPPORTED
+0x00489fc0	218	src/universal/com_memory.cpp	?Hunk_Shutdown@@YAXXZ	Hunk_Shutdown	SUPPORTED
+0x0048a0a0	56	src/universal/com_memory.cpp	?Hunk_FindDataForFileInternal@@YAPAXHPBDH@Z	Hunk_FindDataForFileInternal	SUPPORTED
+0x0048a0e0	23	src/universal/com_memory.cpp	?Hunk_FindDataForFile@@YAPAXHPBD@Z	Hunk_FindDataForFile	SUPPORTED
+0x0048a100	97	src/universal/com_memory.cpp	?Hunk_DataOnHunk@@YAHPAX@Z	Hunk_DataOnHunk	SUPPORTED
+0x0048a270	124	src/universal/com_memory.cpp	?Hunk_AddData@@YAXHPAXP6APAXH@Z@Z	Hunk_AddData	SUPPORTED
+0x0048a580	435	src/universal/com_memory.cpp	?Hunk_AllocAlignInternal@@YAPAXHH@Z	Hunk_AllocAlignInternal	SUPPORTED
+0x0048a740	266	src/universal/com_memory.cpp	?Hunk_AllocateTempMemoryHighInternal@@YAPAXH@Z	Hunk_AllocateTempMemoryHighInternal	SUPPORTED
+0x0048a860	15	src/universal/com_memory.cpp	?Hunk_AllocLowInternal@@YAPAXH@Z	Hunk_AllocLowInternal	SUPPORTED
+0x0048a870	430	src/universal/com_memory.cpp	?Hunk_AllocLowAlignInternal@@YAPAXHH@Z	Hunk_AllocLowAlignInternal	SUPPORTED
