@@ -541,3 +541,17 @@ patch hash in research/codex_lifetime/proof.json.
 Final local CI passed with the normalized duplicate-address guard: 383/383
 game rows and 2/2 compiler rows, zero failures. Both regression fixtures pass.
 No push or GUI boot was performed.
+
+## 2026-10-28: resumed lanes and global-layout review
+
+The owner resumed Codex and adopted lanes/CODEX_MERGE.md. Same-offset bytes
+remain report-only; restore the three previously rejected assertive helpers.
+No new Gemini commits exist above main at this check. Keep a safety branch
+before every land.sh invocation: rejection still hard-resets the worker.
+
+Escalation for Claude: the newly landed win_qe3.cpp models qeglobals_t as a
+single HWND at offset zero. Its Sys_ClearPrintf bytes pass the masked referee,
+but the global object's base/field binding has not been independently pinned.
+Do not reuse that one-field view as the full shared editor-global layout.
+The existing camera/registry blockers require the actual owner and field offsets.
+This is a data-layout limitation, not evidence against the instruction match.

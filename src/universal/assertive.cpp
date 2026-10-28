@@ -1,8 +1,37 @@
 #include <stdlib.h>
 #include <string.h>
 #include <windows.h>
+#include <direct.h>
 
 extern "C" {
+
+void FixWindowsDesktop()
+{
+    ChangeDisplaySettingsA(NULL, 0);
+    HWND desktop = GetDesktopWindow();
+    HDC dc = GetDC(desktop);
+    WORD ramp[3][256];
+    for (WORD i = 0; i < 256; ++i)
+    {
+        ramp[0][i] = 257 * i;
+        ramp[1][i] = 257 * i;
+        ramp[2][i] = 257 * i;
+    }
+    SetDeviceGammaRamp(dc, ramp);
+    ReleaseDC(desktop, dc);
+}
+
+char assertWorkingDirectory[1024];
+
+void FUN_0047c560()
+{
+    _getcwd(assertWorkingDirectory, sizeof(assertWorkingDirectory));
+}
+
+void FUN_0047c580()
+{
+    _chdir(assertWorkingDirectory);
+}
 
 void __fastcall FUN_0047c6c0(void *self)
 {
