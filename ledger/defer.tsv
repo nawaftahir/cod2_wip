@@ -47,3 +47,12 @@ addr	agent	date	reason
 0x00496d10	codex	2026-10-28	Info_RemoveKey_Big: 100% (281 B), correct retail error string; same-offset regression in three-function batch. Source restored; trial in scratch/codex_1028_q_shared/.
 0x0046c510	claude	2026-10-28	GetWin32Kind: Q3Radiant MRU.CPP body is byte-identical compiled alone, 44%% (37/43 B) inside the LTCG link while its caller is unwritten; body in research/q3sweep (MRU.obj)
 0x004acb70	gemini	2026-10-28	best 93%; sizes 193/191 (+0xa2); SL_GetString (0x4a87b0 in scr_stringlist.cpp) takes stringValue in EAX, but defaults to __cdecl push until scr_stringlist.cpp is compiled with /GL.
+0x0048afb0	gemini	2026-10-28	best 31%; sizes 645/587 (+0x5); LTCG inlines Com_StringContains (0x48af50); comparator I_strcmp (0x496680 in q_shared.cpp) unwritten
+0x0048b200	gemini	2026-10-28	best 87%; sizes 154/153 (+0x79) without internal Com_Filter; passes register ECX to Com_Filter only when Com_Filter is compiled in TU
+0x0048b350	gemini	2026-10-28	best 0%; Q3 _copyDWord assembly block with test [edx+ecx*4+28], ebx; clean check bans __asm in src
+0x0048b3e0	gemini	2026-10-28	best 39%; asserts at lines 386/387 (src || !count, dest || !count); calls Q3 inline asm Com_Prefetch
+0x0048b5a0	gemini	2026-10-28	best 24%; Com_Memset calls _copyDWord (0x48b350); blocked until _copyDWord is available
+0x0048b6f0	gemini	2026-10-28	best 0%; Q3 Com_Prefetch assembly block with test byte ptr [ebx], al; clean check bans __asm in src
+0x0048b730	gemini	2026-10-28	best 52%; sizes 32/44 (+0x15); com_math.h TU_STATIC inline helper I_fmin emitted at TU end when used
+0x0048b790	gemini	2026-10-28	best 65%; sizes 23/23 (+0x1); com_math.h TU_STATIC inline helper VectorCopy4 emitted at TU end when used
+0x0048b7b0	gemini	2026-10-28	best 0%; com_math.h TU_STATIC inline helper Byte4Compare emitted at TU end when used

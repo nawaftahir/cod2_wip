@@ -67,3 +67,40 @@ int Com_RealTime( qtime_t *qtime )
 	}
 	return t;
 }
+
+qboolean Com_Memcmp(const void *src0, const void *src1, const unsigned int count)
+{
+	unsigned int i;
+
+	if (count >= 16)
+	{
+		unsigned int *dw = (unsigned int*)(src0);
+		unsigned int *sw = (unsigned int*)(src1);
+
+		unsigned int nm2 = count/16;
+		for (i = 0; i < nm2; i+=4)
+		{
+			unsigned int tmp = (dw[i+0]-sw[i+0])|(dw[i+1]-sw[i+1])|
+						  (dw[i+2]-sw[i+2])|(dw[i+3]-sw[i+3]);
+			if (tmp)
+				return qfalse;
+		}
+	}
+	if (count & 15)
+	{
+		byte *d = (byte*)src0;
+		byte *s = (byte*)src1;
+		for (i = count & 0xfffffff0; i < count; i++)
+		if (d[i]!=s[i])
+			return qfalse;
+	}
+
+	return qtrue;
+}
+
+int __fastcall VectorCompare2(const float *v1, const float *v2)
+{
+	if (v1[0] == v2[0] && v1[1] == v2[1])
+		return 1;
+	return 0;
+}
