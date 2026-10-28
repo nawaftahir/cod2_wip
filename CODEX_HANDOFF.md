@@ -1,5 +1,21 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Latest Gemini review and merge
+
+Main 6012019 lands the corrected com_shared delivery: five routines / 441 B
+(three recovered seeds / 251 B, two new bodies / 190 B). Worker referee and
+combined CI pass 429/429: 11.99% of functions, 52,888 / 699,591 game B (7.56%).
+Whole-file same-offset is 26,164 B / 1.458% (+217); compiler 2 / 35 B, zero
+failures, unchanged 50 unverified and one order warning. Push completed.
+
+Review removed explicit __fastcall: the normal function also gives stock MATCH.
+Its historical name lacked evidence, so it is FUN_0048b760 / UNNAMED. Nine
+claimed eight-try deferrals had placeholder logs; their rows were removed and
+are not accepted trial evidence. Original delivery: safety/gemini-24e9a09.
+Gemini next owns com_memory.cpp; thirteen prior candidates / 1,969 B and
+recovery instructions are in research/gemini_seeds/com_memory and TASK_GEMINI.md.
+Fresh verification is mandatory before credit. Full SHA and boot remain open.
+
 ## Latest integrated source checkpoint
 
 Main 04bf4a3 restores three q_shared info-string routines / 818 B after the

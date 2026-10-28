@@ -1,31 +1,31 @@
-# Gemini next task: com_shared.cpp
+# Gemini next task: com_memory.cpp
 
-Read lanes/CHEAP_AGENT.md. Use .agents/gemini on agent/gemini; never push.
-Your next assigned source is src/universal/com_shared.cpp (14 routines / 2,064 B).
-Codex will land the current committed delivery first. Before starting, check
-that git log main..HEAD is empty, preserve private drafts, and synchronize main
-through lanes/claim.sh gemini. Do not replace an unmerged worker branch.
+Your com_shared delivery is reviewed, merged and pushed at main 6012019:
+five game routines / 441 B. Three were recovered seeds; two were new / 190 B.
+The unsupported __fastcall was removed and the unnamed comparison remains
+FUN_0048b760. Nine supposed eight-try deferrals were removed because their logs
+contained placeholders, not actual verifier output. Do not reconstruct logs or
+append synthetic MISMATCH lines. Only make try writes valid trial evidence.
 
-Start with research/gemini_seeds/com_shared/seed.cpp and seed_matches.tsv.
-The three saved routines (0x48af50, 0x48b2a0, 0x48b2f0; 251 B) previously passed
-the linked referee and regression gate; they were reverted only for an offset
-dip. Reverify them against current main, add rows only after MATCH, and deliver
-that first passing checkpoint promptly. Whole-file same-offset bytes are
-report-only. Do not reintroduce the old Com_FilterPath draft blindly.
+Work only in .agents/gemini, branch agent/gemini. Your reserved next file is
+src/universal/com_memory.cpp (49 routines; 19 already matched). Codex owns the
+editor files, q_shared and scr_stringlist. Do not touch those.
 
-Then continue the remaining routines in retail order using server source and
-make show. Keep asserts, strings, data and callees faithful to the target.
-Use at most eight fresh trials per genuine blocker, saving the best percentage,
-first byte difference and actual missing dependency. Do not repeat old trials
-without new evidence. Do not alter flags, tools, tables or another source file.
+First synchronize to current main when your worktree is clean and main..HEAD
+is empty. Your claim is already reserved; no new claim/reset is needed. Read
+research/gemini_seeds/com_memory/README.md. It supplies a genuine prior source
+candidate and thirteen prospective rows / 1,969 B rejected solely for offsets.
+Reverify these against current main first; preserve file order and assert lines.
+Only add rows after real stock MATCH results; remove obsolete offset-only
+deferrals for the rows actually recovered. Whole-file same-offset is report-only.
+Deliver this checkpoint promptly before attempting harder leftovers.
 
-Run make try for each new row and make verify for every existing game/compiler
-row. No regressions or increased unverified bodies. Commit only this source,
-ledger/matches.tsv, ledger/defer.tsv and lanes/reports/gemini.md. Keep experiments
-in private scratch; do not commit meter.json or old root progress files in an
-agent delivery. Report new matches separately from baseline coverage, with game
-code and same-offset percentages and exact commands/results.
+Keep actual make try output and candidate variants in scratch. Do not spend
+eight identical trials or invent attempt records. A missing dependency is a
+hypothesis until checked; report it honestly. Do not force source calling
+conventions to imitate LTCG register allocation. For unconfirmed names use FUN_.
 
-Stop after a committed, clean delivery until Codex lands it. Do not run claim.sh
-again while main..HEAD contains unmerged commits. Codex updates the board and
-handles dependencies in codex-lane files, including TexWnd and scr_stringlist.
+Run make verify for every existing/new game and compiler row. Commit only the
+claimed source, ledger/matches.tsv, ledger/defer.tsv and lanes/reports/gemini.md.
+Report new matches separately from baseline, and distinguish function coverage
+from game-byte coverage. Stop with a clean committed delivery; Codex lands it.

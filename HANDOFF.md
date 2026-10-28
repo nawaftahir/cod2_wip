@@ -5,6 +5,10 @@ and `AGENTS.md` (the agent contract).
 Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matching second.
 
 ## State
+- Latest: Gemini com_shared merged and pushed (6012019). 429/429 game rows,
+  11.99% of game functions; 52,888 B / 7.56% game code; 26,164 B / 1.458%
+  whole-file same-offset. Corrected worker referee and combined CI pass.
+  Nine unsupported deferral claims were removed. Gemini next owns com_memory.
 - Latest integrated checkpoint: 424/424 game matches, 11.85% of functions;
   52,447 / 699,591 game bytes (7.50%); whole-file same-offset 25,947 B (1.446%).
   Five CamWnd methods and three q_shared routines add 1,207 B; gates, binding checks and local CI pass.
