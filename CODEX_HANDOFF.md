@@ -1,5 +1,29 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Resumed lane contract
+
+The owner resumed Codex and adopted lanes/CODEX_MERGE.md / lanes/BOARD.tsv.
+These current directions supersede the older no-land/no-push paragraphs below.
+Codex owns the board's codex files, prioritizing AdvCurveDlg, CamWnd and
+cameratargetdlg. Gemini owns com_files and then one cheap-lane claim at a time.
+TexWnd is Codex-owned; the earlier narrow Gemini exception is superseded.
+
+The three requested assertive helpers are restored: +3 rows / 159 B. Fresh gate
+and local CI: 415/415 game rows, 51,135 B / 7.31% of game code, compiler 2 / 35 B,
+zero failures, unchanged 50 unverified bodies and one order warning. Same-offset
+26,114 B / 1.456% is report-only, including its -96 against the stored checkpoint.
+This also verifies Claude's five new Q3 functions. Commit d1ed44c holds the helpers.
+
+Review each new Gemini commit and its lanes/reports/gemini.md; preserve a safety
+ref and require a clean committed worker. Use RADIANT_CI_NO_NOTIFY=1 tools/land.sh
+gemini. The lander now preserves rejected/newer work and requires merged-tree
+CI before pushing. Eight isolated Git workflow cases pass. Update the board and
+push after each merge; push permission is explicit in the latest owner message.
+
+Current CamWnd probes reproduce five more methods / 389 B without regressions.
+Their candidate and results are in scratch/codex_1028_cam_mouse; not integrated
+yet. Release callbacks inline differently; those bodies remain research only.
+
 ## Camera-window setup checkpoint
 
 Ten camera-window routines now match in retail source order: 569 B, including

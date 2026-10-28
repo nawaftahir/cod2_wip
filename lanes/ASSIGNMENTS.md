@@ -6,7 +6,7 @@ Paste the prompt into each tool, started in `~/cod2/test/dev/radiant`. Claude re
 Prompt:
 > Read `lanes/CHEAP_AGENT.md` and follow it exactly. Your agent name is `gemini`.
 > First finish `src/universal/com_files.cpp` (already yours, log in `gemini/PROGRESS.md`), and commit
-> `gemini/PROGRESS.md` with it. Then run `lanes/claim.sh gemini` and take files one after another until the
+> `lanes/reports/gemini.md` with it. Then run `lanes/claim.sh gemini` and take files one after another until the
 > board has no open cheap files. Start each file with its hits in `research/q3sweep_game.tsv`.
 > Work only in `.agents/gemini/`, commit there, write `lanes/reports/gemini.md`, never push.
 

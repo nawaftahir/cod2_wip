@@ -1,11 +1,11 @@
 # Who works which file. Codex updates status/owner on merge. Owner/Claude edit lanes.
 file	lane	status	owner	functions	bytes	matched	register_args	reference
-src/xanim/xmodel_utils.cpp	cheap	open	-	11	1090	10	0	server source (copy-ready)
+src/xanim/xmodel_utils.cpp	cheap	in-progress	gemini	11	1090	10	0	server source (copy-ready)
 src/xanim/xmodel.cpp	cheap	open	-	31	1850	0	6	server source (copy-ready)
 src/universal/com_shared.cpp	cheap	open	-	14	2064	0	3	server source (copy-ready)
 src/universal/q_parse.cpp	cheap	open	-	37	4698	26	8	server source (copy-ready)
 src/universal/com_memory.cpp	cheap	open	-	49	4768	19	6	server source (copy-ready)
-src/universal/assertive.cpp	cheap	open	-	35	5253	5	5	server source (copy-ready)
+src/universal/assertive.cpp	cheap	partial	-	35	5253	8	5	server source (copy-ready)
 src/script/scr_memorytree.cpp	cheap	open	-	21	5332	0	11	server source (copy-ready)
 src/radiant/LstToolBar.cpp	cheap	open	-	5	75	0	0	none: from make show
 src/radiant/CapDialog.cpp	cheap	open	-	6	111	0	0	none: from make show
@@ -39,12 +39,12 @@ src/radiant/TextureBar.cpp	cheap	open	-	15	1608	0	0	iw3xo (2/2)
 src/radiant/UNKNOWN_00425080.cpp	cheap	open	-	22	1655	0	1	Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
 src/zlib/inflate.c	cheap	open	-	8	1750	4	1	none: from make show
 src/universal/win_common.cpp	cheap	open	-	11	1951	0	0	none: from make show
-src/radiant/mru.cpp	cheap	open	-	16	2055	0	6	Q3Radiant MRU.CPP (5/5 string funcs)
+src/radiant/mru.cpp	cheap	partial	-	16	2055	1	6	Q3Radiant MRU.CPP (5/5 string funcs)
 src/universal/linearmapping.cpp	cheap	open	-	6	2119	0	5	none: from make show
 src/radiant/draw.cpp	cheap	open	-	12	2150	0	2	none: from make show
 src/radiant/vertsel.cpp	cheap	open	-	8	2272	0	2	Q3Radiant VERTSEL.CPP (3/3 string funcs)
 src/radiant/Radiant.cpp	cheap	open	-	15	2465	0	2	Q3Radiant Radiant.cpp (1/1 string funcs)
-src/radiant/win_qe3.cpp	cheap	open	-	23	2628	0	1	Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
+src/radiant/win_qe3.cpp	cheap	partial	-	23	2628	4	1	Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
 src/universal/splines/math_vector.cpp	cheap	open	-	33	2742	2	11	Q3Radiant splines.h (3/3 string funcs); iw3xo (1/3)
 src/radiant/PatchDialog.cpp	cheap	open	-	28	2793	0	3	Q3Radiant PatchDialog.cpp (2/2 string funcs)
 src/radiant/GfxWrapper.cpp	cheap	open	-	31	3126	0	0	Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
@@ -74,28 +74,28 @@ src/radiant/filtersettings.cpp	cheap	open	-	74	11209	0	2	Q3Radiant MainFrm.cpp (
 src/radiant/map.cpp	cheap	open	-	53	15674	0	5	Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
 src/script/scr_stringlist.cpp	codex	open	-	43	7557	0	16	server source (copy-ready)
 src/universal/q_shared.cpp	codex	open	-	71	8299	39	17	server source (copy-ready)
-src/universal/com_files.cpp	gemini	in-progress	-	97	19485	41	21	server source (copy-ready)
+src/universal/com_files.cpp	gemini	in-progress	gemini	97	19485	41	21	server source (copy-ready)
 src/xanim/dobj.cpp	codex	open	-	56	23494	5	19	server source (copy-ready)
 src/universal/dvar.cpp	codex	open	-	121	24678	21	45	server source (copy-ready)
-src/universal/com_math.cpp	codex	open	-	155	27968	69	89	server source (copy-ready)
+src/universal/com_math.cpp	codex	open	-	155	27968	70	89	server source (copy-ready)
 src/zlib/zutil.c	done	done	-	4	96	4	0	none: from make show
 src/zlib/uncompr.c	done	done	-	1	139	1	1	none: from make show
 src/zlib/compress.c	done	done	-	2	169	2	1	none: from make show
 src/zlib/adler32.c	done	done	-	1	297	1	0	none: from make show
 src/zlib/infutil.c	done	done	-	1	310	1	1	none: from make show
 src/zlib/inffast.c	done	done	-	1	917	1	0	none: from make show
-src/radiant/cameratargetdlg.cpp	codex	in-progress	-	27	1243	5	1	none: from make show
+src/radiant/cameratargetdlg.cpp	codex	partial	codex	27	1243	5	1	none: from make show
 src/zlib/inftrees.c	done	done	-	4	1830	4	3	none: from make show
 src/zlib/infcodes.c	done	done	-	3	1853	3	2	none: from make show
 src/zlib/infblock.c	done	done	-	6	3286	6	3	none: from make show
 src/zlib/unzip.c	done	done	-	25	4015	25	11	none: from make show
-src/radiant/AdvCurveDlg.cpp	codex	in-progress	-	96	5658	45	5	none: from make show
+src/radiant/AdvCurveDlg.cpp	codex	partial	codex	96	5658	45	5	none: from make show
 src/radiant/Winding.cpp	codex	open	-	24	6379	0	14	Q3Radiant Winding.cpp (7/7 string funcs)
 src/zlib/trees.c	done	done	-	21	6664	21	16	none: from make show
 src/radiant/dlgcamera.cpp	codex	open	-	126	8125	0	20	Q3Radiant util_list.h (16/17 string funcs); iw3xo (1/17)
 src/radiant/TexWnd.cpp	codex	open	-	69	10857	0	10	Q3Radiant TexWnd.cpp (7/23 string funcs); iw3xo (3/23)
 src/radiant/entity.cpp	codex	open	-	64	12409	0	35	Q3Radiant DRAG.CPP (23/28 string funcs); iw3xo (20/28)
-src/radiant/CamWnd.cpp	codex	in-progress	-	111	19709	10	20	Q3Radiant DRAG.CPP (7/9 string funcs); iw3xo (5/9)
+src/radiant/CamWnd.cpp	codex	partial	codex	111	19709	10	20	Q3Radiant DRAG.CPP (7/9 string funcs); iw3xo (5/9)
 src/universal/splines/splines.cpp	codex	open	-	85	22997	0	31	Q3Radiant splines.cpp (32/33 string funcs); iw3xo (3/33)
 src/radiant/select.cpp	codex	open	-	83	27211	0	12	Q3Radiant DRAG.CPP (22/39 string funcs); iw3xo (24/39)
 src/radiant/XYWnd.cpp	codex	open	-	136	40524	0	32	Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
