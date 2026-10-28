@@ -6,7 +6,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
 
 ## State
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 357 ledger rows, all matching inside the linked exe; game code 6.72% (46,987 B); whole file 1.417% in place;
+- 363 ledger rows, all matching inside the linked exe; game code 6.76% (47,320 B); whole file 1.427% in place;
   unverified in src/ 50. Engine files come from the server source (`research/libmatch/import.sh`, RULES.md);
   existing files: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md).
   com_files now has 38 verified functions (37 net new, 4,555 B gained). File finish is deferred:
@@ -20,14 +20,17 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   A tested verifier boundary correction is proposed in research/codex_fixes/; tools/verify.py is unchanged
   pending a separate explicit exception. Repeated static map names currently hide boundaries.
   `.rsrc` 99.71% (the rest is section RVAs).
-- Retail-order continuation accepted: src/radiant/AdvCurveDlg.cpp has thirteen matches (1,589 B).
-  The first eight are at exact retail RVAs 0x401000, 0x401090, 0x4010c0, 0x401180, 0x401310,
-  0x401340, 0x401450, 0x401550. The owner explicitly approved tools/link.py plus data/flags.tsv,
+- Retail-order continuation accepted: src/radiant/AdvCurveDlg.cpp has nineteen matches (1,922 B).
+  The first ten are at exact retail RVAs 0x401000, 0x401090, 0x4010c0, 0x401180, 0x401310,
+  0x401340, 0x401450, 0x401550, 0x401560, 0x401580. The owner explicitly approved tools/link.py plus data/flags.tsv,
   data/lib_funcs.tsv and data/lib_overrides.tsv corrections. Only this first TU is explicitly ordered;
   later TU internals retain their existing ordering. This TU enables C++ exceptions and RTTI.
   Four incorrect library bindings are corrected from direct RTTI/runtime evidence. No comparison
   masks or verifier predicates were changed. The separate verifier boundary proposal is still pending.
-  Research/model tests, all thirteen make try checks, make gate, make accept and local CI passed.
+  The six additional handlers add 333 B and 172 same-offset bytes. Cancel, window closing,
+  scroll changes and placement saving now match; the 453 B edit-reading body and its two callers
+  remain drafts with a calling-convention mismatch. The live model test also checks shared global
+  bindings and all known message callbacks. Normal per-function checks, gate, accept, both model tests and local CI pass.
   Continue this first file: add its genuine global instance/lifetime accounting and its
   remaining message handlers before proceeding to the next TU. SHA identity and GUI boot remain open.
 - Game functions 3,579 (699,591 B), 3,509 with a known file; MFC/CRT 3,940 are linked from libs.
@@ -35,7 +38,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   same gate and posts to Discord (webhook in `.secrets/`, gitignored).
 - This checkpoint is on branch agent/codex in .agents/codex; main is untouched.
   make gate, make accept and local CI passed; all 304 starting matches remain, with the original
-  50 unverified bodies and one existing order warning. The eight exact-RVA matches above are verified; whole-file SHA and boot remain open.
+  50 unverified bodies and one existing order warning. The ten exact-RVA matches above are verified; whole-file SHA and boot remain open.
 
 ## Structure facts that drive everything (details in RULES.md)
 1. **One object per file, `/GL` + `/LTCG`.** The old "one unity unit" claim is refuted (`__FILE__` forms,

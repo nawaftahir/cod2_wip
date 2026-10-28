@@ -62,6 +62,8 @@ for i in range(21):
  actual=struct.unpack('<6I',ours.get_data(entries+24*i,24))
  assert target[:5]==actual[:5],(i,target,actual)
  if i==20:assert actual==(0,0,0,0,0,0)
+ callback=verify.known_names().get(target[5])
+ if callback:assert callback in image.labels.get(actual[5],()),(i,target[5],actual[5],callback)
 vtable=data_symbol('??_7CAdvCurveEditDlg@@6B@')-ours.OPTIONAL_HEADER.ImageBase
 for slot,address in [(1,0x401310),(10,0x401550),(61,0x401450)]:
  assert struct.unpack('<I',ours.get_data(vtable+4*slot,4))[0]==address
@@ -72,9 +74,29 @@ for slot,target in ((68,0x401aa0),(81,0x4018e0),(83,0x401770),(84,0x401580)):
   assert names[target] in image.labels.get(actual,()),(slot,target,actual)
  else:
   assert actual==ours.OPTIONAL_HEADER.ImageBase,(slot,target,actual)
+# Relocation masking must still bind the shared state to the correct source globals.
+controls=data_symbol('?g_curveControls@@')
+assert ours.get_data(controls-ours.OPTIONAL_HEADER.ImageBase,96)==retail.get_data(0x58fb80-base,96)
+globals_map=[(0x58fb80,96,controls),(0x1233488,4,data_symbol('?g_curveParent@@')),(0x123348c,4,data_symbol('?g_curveUpdatePending@@'))]
+bound=0
+for row in read('ledger/matches.tsv'):
+ if row['source']!='src/radiant/AdvCurveDlg.cpp':continue
+ target,_=verify.matcher.carve(row['addr']);address,actual=image.code(row['symbol'])
+ for original,reconstructed in zip(md.disasm(target,int(row['addr'],16)),md.disasm(actual,address)):
+  for operand,replacement in zip(original.operands,reconstructed.operands):
+   if operand.type==X86_OP_IMM:value=operand.imm
+   elif operand.type==X86_OP_MEM:value=operand.mem.disp
+   else:continue
+   for start,size,mapped in globals_map:
+    if not start<=value<start+size:continue
+    assert replacement.type==operand.type
+    actual_value=replacement.imm if operand.type==X86_OP_IMM else replacement.mem.disp
+    assert actual_value==mapped+value-start,(row['addr'],hex(value),hex(actual_value))
+    bound+=1
+assert bound>=20,bound
 names=verify.known_names()
-for address in ('0x00401000','0x00401090','0x004010c0','0x00401180','0x00401310','0x00401340','0x00401450','0x00401550'):
+for address in ('0x00401000','0x00401090','0x004010c0','0x00401180','0x00401310','0x00401340','0x00401450','0x00401550','0x00401560','0x00401580'):
  symbol=names[int(address,16)]
  assert image.syms[symbol]==int(address,16),(address,symbol)
  assert verify.check(image,address,symbol,names)[0]=='MATCH',address
-print('PASS: live first-TU flags, four proven library identities, 20 dispatch entries, verified virtual routing, eight exact retail RVAs')
+print('PASS: live flags/bindings, 20 dispatch entries, virtual routing, shared data bindings, ten exact retail RVAs')

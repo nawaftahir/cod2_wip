@@ -28,6 +28,8 @@ CurveControl g_curveControls[3] =
 };
 
 int g_curveUpdatePending;
+CWnd *g_curveParent;
+typedef char CurveParentWindowOffset[(offsetof(CWnd, m_hWnd) == 0x1c) ? 1 : -1];
 
 float FUN_00401c20();
 
@@ -169,6 +171,53 @@ BEGIN_MESSAGE_MAP(CAdvCurveEditDlg, CDialog)
     ON_BN_CLICKED(0x5b8, FUN_00402240)
 END_MESSAGE_MAP()
 
+BOOL FUN_00401560()
+{
+    return ::PostMessageA(g_curveParent->m_hWnd, WM_COMMAND, 0x816a, 0);
+}
+
+void CAdvCurveEditDlg::OnCancel()
+{
+    ::PostMessageA(g_curveParent->m_hWnd, WM_COMMAND, 0x816a, 0);
+}
+
+bool FUN_0047a140(const char *name, const BYTE *data, DWORD size);
+
+void CAdvCurveEditDlg::OnDestroy()
+{
+    CDialog::OnDestroy();
+    WINDOWPLACEMENT placement;
+    HWND window = GetSafeHwnd();
+    placement.length = sizeof(placement);
+    if (::GetWindowPlacement(window, &placement))
+        FUN_0047a140("Radiant::AdvCurveDlgPlace", (const BYTE *)&placement, sizeof(placement));
+}
+
+LRESULT CAdvCurveEditDlg::DefWindowProc(UINT message, WPARAM wparam, LPARAM lparam)
+{
+    if (message == WM_CLOSE)
+        return 0;
+    return CDialog::DefWindowProc(message, wparam, lparam);
+}
+
+void CAdvCurveEditDlg::OnHScroll(UINT code, UINT position, CScrollBar *bar)
+{
+    HWND window = bar->GetSafeHwnd();
+    for (unsigned int i = 0; i < 3; ++i)
+    {
+        if (g_curveControls[i].slider == window)
+        {
+            int sliderPosition = (int)::SendMessageA(bar->m_hWnd, 0x400, 0, 0);
+            g_curveControls[i].value = (float)sliderPosition * g_curveControls[i].step + g_curveControls[i].minimum;
+            if (g_curveControls[i].value > g_curveControls[i].maximum)
+                g_curveControls[i].value = g_curveControls[i].maximum;
+            FUN_00401000(i);
+            break;
+        }
+    }
+    CDialog::OnHScroll(code, position, bar);
+}
+
 float FUN_00401b80()
 {
     return FUN_00401090(1424);
@@ -195,4 +244,9 @@ void CAdvCurveEditDlg::FUN_00401c90(float value)
 void CAdvCurveEditDlg::FUN_00401cb0(float value)
 {
     FUN_004010c0(1425, value);
+}
+
+void CAdvCurveEditDlg::FUN_00402190()
+{
+    g_curveUpdatePending |= 1;
 }

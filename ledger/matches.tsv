@@ -356,3 +356,9 @@ addr	size	source	symbol	name	tag
 0x00401450	247	src/radiant/AdvCurveDlg.cpp	?DoDataExchange@CAdvCurveEditDlg@@UAEXPAVCDataExchange@@@Z	CAdvCurveEditDlg::DoDataExchange	SUPPORTED
 0x00401550	6	src/radiant/AdvCurveDlg.cpp	?GetMessageMap@CAdvCurveEditDlg@@MBEPBUAFX_MSGMAP@@XZ	CAdvCurveEditDlg::GetMessageMap	SUPPORTED
 0x00401c20	97	src/radiant/AdvCurveDlg.cpp	?FUN_00401c20@@YAMXZ	FUN_00401c20	UNNAMED
+0x00401560	28	src/radiant/AdvCurveDlg.cpp	?FUN_00401560@@YAHXZ	FUN_00401560	UNNAMED
+0x00401580	28	src/radiant/AdvCurveDlg.cpp	?OnCancel@CAdvCurveEditDlg@@MAEXXZ	CAdvCurveEditDlg::OnCancel	PINNED
+0x00401780	67	src/radiant/AdvCurveDlg.cpp	?OnDestroy@CAdvCurveEditDlg@@QAEXXZ	CAdvCurveEditDlg::OnDestroy	PINNED
+0x00401aa0	35	src/radiant/AdvCurveDlg.cpp	?DefWindowProcA@CAdvCurveEditDlg@@MAEJIIJ@Z	CAdvCurveEditDlg::DefWindowProc	PINNED
+0x00401ad0	167	src/radiant/AdvCurveDlg.cpp	?OnHScroll@CAdvCurveEditDlg@@QAEXIIPAVCScrollBar@@@Z	CAdvCurveEditDlg::OnHScroll	PINNED
+0x00402190	8	src/radiant/AdvCurveDlg.cpp	?FUN_00402190@CAdvCurveEditDlg@@QAEXXZ	FUN_00402190	UNNAMED

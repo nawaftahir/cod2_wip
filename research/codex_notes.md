@@ -354,3 +354,42 @@ verifier proposal still requires its own review. Previous "prepared" and
 
 Local CI completed successfully: 357/357 rows match, zero failures, both meters
 retained. No webhook is present in this private worktree; no message was sent.
+
+## 2026-10-28: first-file handlers, six more matches
+
+The next verified group is 0x401560 (28 B), OnCancel 0x401580 (28 B),
+OnDestroy 0x401780 (67 B), DefWindowProc 0x401aa0 (35 B), OnHScroll 0x401ad0
+(167 B), and the shared button notification 0x402190 (8 B). The parent pointer
+at 0x1233488 supplies CWnd::m_hWnd at +0x1c; a compile-time offset check pins
+that layout. Both close-command entries post WM_COMMAND / 0x816a / zero.
+The unnamed free entry preserves PostMessageA's observable BOOL in EAX;
+its original C++ return declaration is not recoverable from the unused result.
+OnCancel's void signature is pinned by its CDialog virtual slot.
+
+OnDestroy calls CWnd::OnDestroy, gets the safe HWND before initializing the
+44-byte WINDOWPLACEMENT, then saves only on successful GetWindowPlacement.
+The registry callee at 0x47a140 was inspected directly: three stack arguments
+(name, binary data, byte count), binary REG_BINARY write and bool success.
+It belongs to win_main.cpp and is declared here without an invented body.
+DefWindowProc suppresses WM_CLOSE and otherwise forwards all three arguments.
+OnHScroll gets the slider position before calculating the float value, clamps
+only the upper bound, refreshes its edit control, then forwards the original
+three arguments to CWnd::OnHScroll. Moving the message result to a local was
+the bounded source correction that reproduced the target's evaluation order.
+
+The pruned six-body source passes 363/363 with 47,320 bytes (6.76%), no added
+unverified bodies or order warnings, and 25,600 same-offset bytes (1.427%, +172).
+The leading TEN functions, through OnCancel at 0x401580, now occupy exact
+retail addresses. The 453-byte edit-reading body and its two five-byte callers
+remain drafts. Two out-of-line source forms and an inline-member form gave
+453/450-byte bodies at 59/55%, while the target takes this in ECX and LTCG
+chose ESI; both actual callers (0x401770, 0x401f90) were confirmed from decoded
+instructions. A generic make-try search initially picked an unrelated header
+jump for the five-byte target; direct symbol checks rejected that false choice.
+No such row was added. No compiler/flag changes or fake callers were used.
+Drafts and the complete results remain in scratch/codex_1028_advcurve_handlers/.
+
+The applied six-body source passes stock make try, gate, accept and local CI.
+Both model tests pass, including exact control-table bytes, shared-global
+operand bindings, known callback routing and all ten leading function addresses.
+The compact accepted record is research/codex_order/handlers_proof.json.
