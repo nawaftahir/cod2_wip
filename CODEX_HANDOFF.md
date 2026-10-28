@@ -1,5 +1,38 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Latest integrated source checkpoint
+
+Main 04bf4a3 restores three q_shared info-string routines / 818 B after the
+CamWnd mouse batch. Fresh stock gate, literal-binding check and local CI pass
+424/424 game rows: 11.85% of game functions, 52,447 / 699,591 game B (7.50%).
+Whole-file same-offset is 25,947 / 1,794,048 B (1.446%, +140); compiler 2 /
+35 B, failures zero, unverified 50 and one order warning. Both source batches
+are pushed. Full SHA and boot remain unfinished. Gemini has one committed
+com_shared seed checkpoint (e5865ab) and active unsaved batch-two work; review
+and land via tools/land.sh gemini once its worktree is clean. Do not reset it.
+
+## CamWnd mouse checkpoint integrated
+
+Main now includes e97beb5: five more real mouse methods / 389 B. Fresh stock
+gate, binding tests and local CI pass 421/421 game rows: 11.76% of game
+functions and 51,629 / 699,591 B (7.38% of game code). Whole-file same-offset
+is 25,807 / 1,794,048 B (1.438%, +96). Compiler helpers remain 2 / 35 B,
+unverified bodies 50, order warnings one, failures zero. Full SHA and boot
+remain unfinished. Gemini has committed its three com_shared seeds but is
+still editing its next batch; preserve that active work until a clean delivery.
+Codex is recovering three previously verified q_shared info-string routines
+that were rejected solely for the old same-offset rule.
+
+## Gemini delivery integrated
+
+Main a507db4 lands Gemini's three commits through tools/land.sh gemini. One net
+new game body: FS_Printf / 105 B. Its ten xmodel_utils matches were already in
+main; the getter has a new eight-try deferral. Combined-tree gate and merged CI
+pass 416/416, 51,240 game B (7.32%), compiler 2 / 35 B, same-offset 25,711 B
+(1.433%), unchanged 50 unverified bodies and one warning. Main is pushed.
+Gemini's next file is com_shared.cpp; seed source and prospective rows live in
+research/gemini_seeds/com_shared. The board and claim reserve it for Gemini.
+
 ## Resumed lane contract
 
 The owner resumed Codex and adopted lanes/CODEX_MERGE.md / lanes/BOARD.tsv.

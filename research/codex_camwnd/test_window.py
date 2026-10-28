@@ -63,7 +63,7 @@ for row in model['read']('ledger/matches.tsv'):
             elif operand.type == model['X86_OP_MEM'] and operand.mem.disp in retail_imports:
                 assert actual_imports[replacement.mem.disp] == retail_imports[operand.mem.disp]
                 imports += 1
-assert imports == 6 and strings == 5 and callbacks == 1, (imports, strings, callbacks)
+assert imports == 15 and strings == 5 and callbacks == 1, (imports, strings, callbacks)
 register = '?AfxRegisterClass@@YGHPAUtagWNDCLASSA@@@Z'
 target, meta = verify.matcher.carve('0x004fae53')
 address, main_body = image.code(register)

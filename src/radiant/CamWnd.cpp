@@ -46,6 +46,11 @@ public:
     int cullIndices[2][3];
 protected:
     virtual BOOL PreCreateWindow(CREATESTRUCT &create);
+    void OriginalMouseDown(UINT flags, CPoint point);
+    void OriginalMouseUp(UINT flags, CPoint point);
+    void Cam_MouseDown(int x, int y, int buttons);
+    void Cam_MouseUp(int x, int y, int buttons);
+    void Cam_MouseMoved(int x, int y, int buttons);
     afx_msg void OnKeyDown(UINT key, UINT repeat, UINT flags);
     afx_msg void OnPaint();
     afx_msg void OnClose();
@@ -160,6 +165,41 @@ void CCamWnd::OnClose()
     Default();
 }
 
+
+
+void CCamWnd::OnLButtonDown(UINT flags, CPoint point)
+{
+    m_ptLastCursor = point;
+    OriginalMouseDown(flags, point);
+}
+
+
+
+void CCamWnd::OnMButtonDown(UINT flags, CPoint point)
+{
+    OriginalMouseDown(flags, point);
+}
+
+
+
+void CCamWnd::OnRButtonDown(UINT flags, CPoint point)
+{
+    OriginalMouseDown(flags, point);
+}
+
+
+
+
+
+void CCamWnd::OriginalMouseDown(UINT flags, CPoint point)
+{
+    CRect rect;
+    GetClientRect(rect);
+    SetFocus();
+    SetCapture();
+    Cam_MouseDown(point.x, rect.bottom - 1 - point.y, flags);
+}
+
 void CCamWnd::Cam_Init()
 {
     m_Camera.timing = 0;
@@ -169,4 +209,17 @@ void CCamWnd::Cam_Init()
     m_Camera.color[0] = 0.3f;
     m_Camera.color[1] = 0.3f;
     m_Camera.color[2] = 0.3f;
+}
+
+void FUN_00462760(int buttons);
+
+void CCamWnd::Cam_MouseUp(int x, int y, int buttons)
+{
+    m_nCambuttonstate = 0;
+    FUN_00462760(buttons);
+    field_120 = 0;
+    field_124 = 0;
+    field_128 = true;
+    while (ShowCursor(TRUE) < 0)
+        ;
 }

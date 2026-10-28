@@ -5,6 +5,11 @@ and `AGENTS.md` (the agent contract).
 Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matching second.
 
 ## State
+- Latest integrated checkpoint: 424/424 game matches, 11.85% of functions;
+  52,447 / 699,591 game bytes (7.50%); whole-file same-offset 25,947 B (1.446%).
+  Five CamWnd methods and three q_shared routines add 1,207 B; gates, binding checks and local CI pass.
+  Compiler 2 / 35 B; failures zero, unverified 50, order warnings one.
+  Gemini is actively continuing com_shared; Codex recovered the three q_shared offset-only rejects.
 - The 407-row camera-window checkpoint is integrated after independent gate and
   data-binding checks in .agents/overseer. Worker local CI passed. Zero failures,
   unchanged 50 unverified bodies and one order warning; compiler helpers 2 / 35 B.
@@ -28,7 +33,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
   included in checkpoint `AdvCurveDlg: 18 functions match` (parent 3330005).
   Continue the same first retail TU.
 - Steps 1 (file map) and 2 (build model) of `ROADMAP.md` are done. Next is matching, file by file.
-- 415 ledger rows, all matching inside the linked exe; game code 7.31% (51,135 B); whole file 1.456% in place (26,114 B);
+- 416 ledger rows, all matching inside the linked exe; game code 7.32% (51,240 B); whole file 1.433% in place (25,711 B);
   unverified in src/ 50. Engine files come from the server source (`research/libmatch/import.sh`, RULES.md);
   existing files: com_math, q_shared, dvar, com_memory, q_parse. `/GS` is on (RULES.md).
   com_files now has 41 verified functions. Gemini 754c328 adds three functions / 438 B.
