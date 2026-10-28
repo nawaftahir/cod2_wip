@@ -362,7 +362,7 @@ addr	size	lib	member	symbol
 0x004d7599	88	libcmt.lib	build\intel\mt_obj\sprintf.obj	_sprintf
 0x004d75f1	49	libcmt.lib	build\intel\mt_obj\sprintf.obj	__scprintf
 0x004d7751	56	libcmt.lib	build\intel\mt_obj\atof.obj	_atof
-0x004d7790	63	libcmt.lib	..\build\intel\mt_obj\atan.obj	_atan
+0x004d7790	63	libcmt.lib	..\build\intel\mt_obj\pow.obj	_pow
 0x004d780b	25	libcmt.lib	..\build\intel\mt_obj\pow.obj	__CIpow_default
 0x004d7824	502	libcmt.lib	..\build\intel\mt_obj\pow.obj	__pow_default
 0x004d7aaf	193	libcmt.lib	..\build\intel\mt_obj\log.obj	__log_default
@@ -1688,7 +1688,7 @@ addr	size	lib	member	symbol
 0x004f5726	44	nafxcw.lib	INTEL\$NW\winctrl2.obj	?GetRange@CSpinButtonCtrl@@QBEXAAH0@Z
 0x004f5752	49	nafxcw.lib	INTEL\$NW\winctrl2.obj	?Create@CToolBarCtrl@@UAEHKABUtagRECT@@PAVCWnd@@I@Z
 0x004f5783	55	nafxcw.lib	INTEL\$NW\winctrl2.obj	?CreateEx@CToolBarCtrl@@UAEHKKABUtagRECT@@PAVCWnd@@I@Z
-0x004f57ba	56	nafxcw.lib	INTEL\$NW\bardlg.obj	??1CDialogBar@@UAE@XZ
+0x004f57ba	56	nafxcw.lib	INTEL\$NW\winctrl2.obj	??1CSliderCtrl@@UAE@XZ
 0x004f57f2	55	nafxcw.lib	INTEL\$NW\winctrl2.obj	?GetSelection@CSliderCtrl@@QBEXAAH0@Z
 0x004f5829	47	nafxcw.lib	INTEL\$NW\winctrl2.obj	?SetSelection@CSliderCtrl@@QAEXHH@Z
 0x004f5858	49	nafxcw.lib	INTEL\$NW\winctrl2.obj	?Create@CProgressCtrl@@UAEHKABUtagRECT@@PAVCWnd@@I@Z
@@ -2978,7 +2978,7 @@ addr	size	lib	member	symbol
 0x005165c9	56	nafxcw.lib	INTEL\$NW\bardlg.obj	??1CDialogBar@@UAE@XZ
 0x00516604	33	nafxcw.lib	INTEL\$NW\winctrl1.obj	?OnChildNotify@CStatic@@MAEHIIJPAJ@Z
 0x00516625	34	nafxcw.lib	INTEL\$NW\winctrl1.obj	?Create@CStatic@@UAEHPBDKABUtagRECT@@PAVCWnd@@I@Z
-0x00516647	56	nafxcw.lib	INTEL\$NW\bardlg.obj	??1CDialogBar@@UAE@XZ
+0x00516647	56	nafxcw.lib	INTEL\$NW\winctrl1.obj	??1CButton@@UAE@XZ
 0x0051667f	40	nafxcw.lib	INTEL\$NW\winctrl1.obj	?GetCheckedRadioButton@CWnd@@QAEHHH@Z
 0x005166aa	33	nafxcw.lib	INTEL\$NW\winctrl1.obj	?OnChildNotify@CStatic@@MAEHIIJPAJ@Z
 0x005166cb	33	nafxcw.lib	INTEL\$NW\winctrl1.obj	?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z
@@ -2989,7 +2989,7 @@ addr	size	lib	member	symbol
 0x00516827	56	nafxcw.lib	INTEL\$NW\bardlg.obj	??1CDialogBar@@UAE@XZ
 0x0051686d	90	nafxcw.lib	INTEL\$NW\winctrl1.obj	?OnChildNotify@CComboBox@@MAEHIIJPAJ@Z
 0x005168c7	33	nafxcw.lib	INTEL\$NW\winctrl1.obj	?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z
-0x005168e8	56	nafxcw.lib	INTEL\$NW\bardlg.obj	??1CDialogBar@@UAE@XZ
+0x005168e8	56	nafxcw.lib	INTEL\$NW\winctrl1.obj	??1CEdit@@UAE@XZ
 0x00516920	33	nafxcw.lib	INTEL\$NW\winctrl1.obj	?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z
 0x00516941	56	nafxcw.lib	INTEL\$NW\bardlg.obj	??1CDialogBar@@UAE@XZ
 0x00516979	49	nafxcw.lib	INTEL\$NW\winctrl1.obj	?GetText@CListBox@@QBEXHAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z

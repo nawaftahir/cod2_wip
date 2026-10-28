@@ -1,0 +1,22 @@
+{
+  "0x00516647": {
+    "symbol": "??1CButton@@UAE@XZ",
+    "member": "INTEL\\$NW\\winctrl1.obj",
+    "evidence": "PINNED: writes vtable 0x52cf5c; RTTI type .?AVCButton@@"
+  },
+  "0x005168e8": {
+    "symbol": "??1CEdit@@UAE@XZ",
+    "member": "INTEL\\$NW\\winctrl1.obj",
+    "evidence": "PINNED: writes vtable 0x52d34c; RTTI type .?AVCEdit@@"
+  },
+  "0x004f57ba": {
+    "symbol": "??1CSliderCtrl@@UAE@XZ",
+    "member": "INTEL\\$NW\\winctrl2.obj",
+    "evidence": "PINNED: writes vtable 0x52e12c; RTTI type .?AVCSliderCtrl@@"
+  },
+  "0x004d7790": {
+    "symbol": "_pow",
+    "member": "..\\build\\intel\\mt_obj\\pow.obj",
+    "evidence": "PINNED: original fixed image returns pow for five two-double inputs; bare harness skips the retail entry point"
+  }
+}

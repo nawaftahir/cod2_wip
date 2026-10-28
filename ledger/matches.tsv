@@ -343,3 +343,16 @@ addr	size	source	symbol	name	tag
 0x0047da50	10	src/universal/assertive.cpp	_FUN_0047da50	FUN_0047da50	UNNAMED
 0x004823b0	13	src/universal/com_files.cpp	?FS_Flush@@YAXH@Z	FS_Flush	SUPPORTED
 0x004823c0	115	src/universal/com_files.cpp	?GetBspExtension@@YAPBDXZ	GetBspExtension	SUPPORTED
+0x00401000	142	src/radiant/AdvCurveDlg.cpp	?FUN_00401000@@YAXH@Z	FUN_00401000	UNNAMED
+0x00401090	37	src/radiant/AdvCurveDlg.cpp	?FUN_00401090@@YAMH@Z	FUN_00401090	UNNAMED
+0x004010c0	184	src/radiant/AdvCurveDlg.cpp	?FUN_004010c0@@YAXHM@Z	FUN_004010c0	UNNAMED
+0x00401b80	66	src/radiant/AdvCurveDlg.cpp	?FUN_00401b80@@YAMXZ	FUN_00401b80	UNNAMED
+0x00401bd0	66	src/radiant/AdvCurveDlg.cpp	?FUN_00401bd0@@YAMXZ	FUN_00401bd0	UNNAMED
+0x00401c90	24	src/radiant/AdvCurveDlg.cpp	?FUN_00401c90@CAdvCurveEditDlg@@QAEXM@Z	FUN_00401c90	UNNAMED
+0x00401cb0	24	src/radiant/AdvCurveDlg.cpp	?FUN_00401cb0@CAdvCurveEditDlg@@QAEXM@Z	FUN_00401cb0	UNNAMED
+0x00401180	393	src/radiant/AdvCurveDlg.cpp	??0CAdvCurveEditDlg@@QAE@PAVCWnd@@@Z	CAdvCurveEditDlg::CAdvCurveEditDlg	PINNED
+0x00401310	34	src/radiant/AdvCurveDlg.cpp	??_GCAdvCurveEditDlg@@UAEPAXI@Z	FUN_00401310	UNNAMED
+0x00401340	269	src/radiant/AdvCurveDlg.cpp	??1CAdvCurveEditDlg@@UAE@XZ	CAdvCurveEditDlg::~CAdvCurveEditDlg	PINNED
+0x00401450	247	src/radiant/AdvCurveDlg.cpp	?DoDataExchange@CAdvCurveEditDlg@@UAEXPAVCDataExchange@@@Z	CAdvCurveEditDlg::DoDataExchange	SUPPORTED
+0x00401550	6	src/radiant/AdvCurveDlg.cpp	?GetMessageMap@CAdvCurveEditDlg@@MBEPBUAFX_MSGMAP@@XZ	CAdvCurveEditDlg::GetMessageMap	SUPPORTED
+0x00401c20	97	src/radiant/AdvCurveDlg.cpp	?FUN_00401c20@@YAMXZ	FUN_00401c20	UNNAMED

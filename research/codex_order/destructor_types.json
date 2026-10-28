@@ -1,0 +1,17 @@
+[
+  {
+    "instruction": "0x516658",
+    "vtable": "0x52cf5c",
+    "type": ".?AVCButton@@"
+  },
+  {
+    "instruction": "0x5168f9",
+    "vtable": "0x52d34c",
+    "type": ".?AVCEdit@@"
+  },
+  {
+    "instruction": "0x4f57cb",
+    "vtable": "0x52e12c",
+    "type": ".?AVCSliderCtrl@@"
+  }
+]

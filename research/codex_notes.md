@@ -188,3 +188,169 @@ the prefix was removed before final checks. Same-offset bytes fall by
 Canonical source and ledger are restored to b4d4b6d. Full and pruned
 trials, primary disassembly, per-function results and gate output remain
 in scratch/codex_1028_q_shared/. No extra progress is credited.
+
+## 2026-10-28: memory-file Windows adaptation
+
+All 49 assigned retail functions were extracted once. A whole-file server
+import preserved the 21 existing bodies and their globals. PINNED Windows
+differences: allocation primitives distinguish MEM_COMMIT and MEM_RESERVE;
+shutdown uses VirtualFree with MEM_RELEASE; data-name lookup uses CRT
+_stricmp at 0x4e752e, rather than the engine's I_stricmp. The packed
+fileData_t type byte is at +8, name at +9; Hunk_AddData allocates 9 B.
+
+Added the original assertion expressions and lines for virtual allocation,
+shutdown, hunk data, alignment, and high/low allocators. Hunk_AllocAlign
+checks lines 1367/1374/1375/1403; the low allocator checks
+1526/1533/1534/1562. Both call the genuine matching temp-memory check.
+No extra commit/decommit path was borrowed from the later CoD4 reference.
+
+After removing every new unmatched body, 13 new functions survive:
+17 B allocation primitive, Z_VirtualAllocInternal (131 B),
+Z_VirtualCommitInternal (138 B), Hunk_Shutdown (218 B), internal/public
+data lookup (56/23 B), Hunk_DataOnHunk (97 B), Hunk_AddData (124 B),
+high temporary allocator (266 B), and high/low allocation wrappers and
+aligning allocators (19/435/15/430 B). Total 1,969 B. Stock regression
+passes 357/357 with 50 existing unverified bodies and one order warning.
+
+The first pruning script added one blank line per removed function;
+correcting it restores all retail assertion immediates. No comparison
+predicate was changed. The full unmatched Hunk_FreeTempMemory trial had
+also changed protected FS_FreeFile; pruning restores that row.
+
+Same-offset bytes fall by 360 (21,528 versus accepted 21,888), so the
+entire gain is rejected under the strict user requirement. Canonical
+source and ledger are restored. All primary evidence, source variants,
+names, final candidate source, ledger and gate results are saved in
+scratch/codex_1028_com_memory/. No new match is credited.
+
+## 2026-10-28: retail-order continuation
+
+The owner clarified that the retail file order and correct placement are the
+priority. Investigation moved to the first fixed-map TU, AdvCurveDlg.cpp,
+which had no source file. No link/file map or per-TU flags were edited.
+
+Primary evidence pins its three 32-byte control records at 0x58fb80: IDs
+1424/1428, 1425/1429, 1426/1430; initial values 16/64/8; ranges 0..1024,
+0..1024, 0..16; steps 16/16/1. Value is +8, slider HWND +24, edit HWND +28.
+The first helper formats %g, special-cases control 1426, updates the edit
+and sets the update flag. The setter clamps inclusively, rounds half up,
+sets slider message 0x405, then calls the display helper. Native tests cover
+bounds, disabled controls, clamping, rounding and exponential display.
+
+Seven reconstructed functions pass make try with stock tools (543 B):
+0x401000, 0x401090, 0x4010c0, 0x401b80, 0x401bd0, 0x401c90, 0x401cb0.
+The power-display helper 0x401c20 is deferred: bytes agree, but the CRT map
+labels its two-double math call _atan and rejects the source _pow call.
+Actual stub slow path at 0x4d7824 accesses both stack doubles. Do not change
+pow to atan to satisfy the map. Full proof is still needed for an override.
+
+Default /GL emits ATL header helpers first, putting the first application
+function at 0x401b30. Isolated plain/public, plain/static, /GL /Gy-, and
+plain/static /Gy- probes do not restore the first retail RVA. Plain/static
+still reproduces all seven bodies; this is not evidence that source
+matching is impossible, and changing the per-TU flags is not proposed.
+
+A linker /ORDER input generated from verified ledger addresses gives the
+first three functions their exact retail RVAs: 0x401000, 0x401090, 0x4010c0.
+All 351 candidate rows match with the unchanged byte/callee referee. The
+trimmed candidate has 21,688 same-offset bytes, while an earlier untrimmed
+probe has 22,480. The accepted checkpoint remains 21,888 and 344/344.
+These are different images; do not report the larger trial as accepted.
+This recreates recovered order; original use of /ORDER is not established.
+The reviewed ten-line proposal, tests and hashed proof are in
+research/codex_order/. tools/ is unchanged pending the specific exception.
+
+RTTI pins CAdvCurveEditDlg, and all fourteen member control vtables in its
+constructor: three CButton, six CEdit, three CSliderCtrl, two CButton,
+at +0x70 through +0x480 in 0x50-byte steps. The DDX IDs and vtable/type
+proof are saved in scratch/codex_1028_advcurve/. The next actual file work
+is its constructor/destructor and DDX method, before moving to the next TU.
+
+Additional bounded trials: dvar full import preserves its 43 existing
+bodies and yields only the four already-deferred static helpers. The full
+caller graph changes protected GetBspExtension (115/115 B, first +1).
+Canonical dvar was restored. The util_str file's four CRT assertions were
+changed to the engine handler with lines 307/321/360/420. All four methods
+match (707 B), regression is 348/348 and unverified count drops to 46, but
+same-offset bytes fall by 74; that trial was restored before the owner's
+retail-order clarification. Both attempts and primary disassembly remain
+in their corresponding scratch/codex_1028_* folders. No extra matches are
+credited for them.
+
+A fourteen-control class-group probe confirms DoDataExchange at 0x401450
+(247 B) exactly, including all thirteen DDX_Control IDs and member offsets;
+all 351 prepared rows remain matching. Constructor is 287/393 B (47%,
+first +0), deleting destructor 33/34 B (47%, +6), destructor 168/269 B
+(34%, +0). Retail has EH registration and cleanup states which this fixed
+flag build does not emit. No flags were changed to count them. These
+bodies stay in scratch/codex_1028_advcurve/members.cpp, and the reviewed
+seven-function source was restored. The class color at +0x4d0 is passed
+to CColorDialog and CreateSolidBrush; the byte at +0x4d4 is separately
+read/written. Do not claim an original total allocation size until its
+allocation site is confirmed.
+
+## 2026-10-28: first-TU constructor and data model confirmed
+
+The fixed compiler invocation has both _CPPUNWIND and _CPPRTTI off (confirmed
+with the pinned compiler's preprocessor). A private /GX /GR probe gives the
+exact 393 B constructor. An implicit C++ destructor reproduces the 34 B
+scalar deleting destructor and all 269 B of the destructor; the explicit
+empty out-of-line destructor did not. This is a matching source choice,
+not a claim about the historical spelling of the original source.
+
+The destructor's three remaining CALLEE failures were incorrect library
+names. PINNED directly on each callee: 0x516647 writes vtable 0x52cf5c whose
+RTTI names CButton; 0x5168e8 writes 0x52d34c, CEdit; 0x4f57ba writes 0x52e12c,
+CSliderCtrl. The current map calls all three CDialogBar. Their real library
+member paths were checked in nafxcw.lib. Proposed overrides preserve sizes.
+
+The original CRT address 0x4d7790 was tested directly with (2,0), (2,1),
+(2,3), (2,-2), (9,0.5), yielding 1,2,8,0.25,3. The bare harness loads the
+original fixed image with DONT_RESOLVE_DLL_REFERENCES, refuses any base other
+than 0x400000, calls the two-double function, and never runs the retail entry
+point. A conventional CRT harness mapped at 0x440000 and was rejected before
+any call. The bare kernel32-only executable avoids that allocation conflict.
+Working commands, from this worktree inside the pinned image:
+
+    wine /opt/msvc710/Vc7/bin/cl.exe /nologo /c /O2 /Foscratch/codex_1028_advcurve/math_probe_bare.obj scratch/codex_1028_advcurve/math_probe_bare.cpp
+    wine /opt/msvc710/Vc7/bin/link.exe /nologo /OUT:scratch/codex_1028_advcurve/math_probe_bare.exe /ENTRY:entry /SUBSYSTEM:CONSOLE /BASE:0x10000000 /FIXED /NODEFAULTLIB scratch/codex_1028_advcurve/math_probe_bare.obj kernel32.lib
+    wine scratch/codex_1028_advcurve/math_probe_bare.exe
+
+The twenty-entry MFC message table and its CDialog parent map are reconstructed
+from raw target data. The independent table audit caught an incorrect draft
+EN_CHANGE macro: retail uses EN_KILLFOCUS (0x200). It was corrected before
+proposing the final model. Vtable slots also confirm DefWindowProc, OnInitDialog,
+OnOK and OnCancel overrides; these are declared without fake bodies.
+
+A global /ORDER prototype caused eight new ordering warnings in later private
+helpers. That version is rejected. The refined first-TU-only proposal retains
+all later TU ordering, while placing all eight leading functions exactly at
+0x401000, 0x401090, 0x4010c0, 0x401180, 0x401310, 0x401340, 0x401450, 0x401550.
+The first eight contain 1,312 source bytes. The full prepared group has thirteen
+new functions / 1,589 B, total 357/357 and 46,987 game bytes, with the original
+50 unverified bodies and one order warning. Same-offset bytes are 25,428,
+up 3,540 from the accepted 21,888. Proof, tests, source diff and the combined
+build/config patch are in research/codex_order/. No owner files were changed.
+
+Further primary lifetime evidence: the startup thunk at 0x526a10 pushes parent
+NULL and object 0x1233b68, calls 0x401180, then registers cleanup 0x526f50 with
+atexit. Cleanup calls 0x401340 on that same object. The next object initializer
+uses 0x1234040, exactly 0x4d8 later, confirming the class extent alongside its
+last byte field at +0x4d4. The actual global dialog instance and its two compiler
+lifetime thunks remain to be added and accounted separately from game functions.
+
+## 2026-10-28: reviewed model applied and accepted
+
+The owner replied "Apply the reviewed corrections" to the combined first-TU
+proposal. Applied exactly tools/link.py and data/{flags,lib_funcs,lib_overrides}.tsv,
+then installed the thirteen-function source and ledger. Stock make try confirms
+all thirteen; make gate and make accept report 357/357, 46,987 matched game
+bytes (6.72%), 25,428 same-offset bytes (1.417%, +3,540). The first eight
+functions are at their exact retail addresses; the other five are normalized
+matches awaiting the intervening handlers. Both live regression tests pass.
+No verifier predicates, masks or boundary fixes were changed. The separate
+verifier proposal still requires its own review. Previous "prepared" and
+"owner files unchanged" notes above describe the pre-approval experiments.
+
+Local CI completed successfully: 357/357 rows match, zero failures, both meters
+retained. No webhook is present in this private worktree; no message was sent.

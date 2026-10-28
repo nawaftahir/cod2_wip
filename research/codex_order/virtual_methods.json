@@ -1,0 +1,91 @@
+[
+  {
+    "slot": 1,
+    "target": "0x401310",
+    "current": "0x401310",
+    "labels": [
+      "??_ECAdvCurveEditDlg@@UAEPAXI@Z",
+      "??_GCAdvCurveEditDlg@@UAEPAXI@Z"
+    ]
+  },
+  {
+    "slot": 2,
+    "target": "0x4024f0",
+    "current": "0x4021d0",
+    "labels": [
+      "?Serialize@CObject@@UAEXAAVCArchive@@@Z"
+    ]
+  },
+  {
+    "slot": 10,
+    "target": "0x401550",
+    "current": "0x401550",
+    "labels": [
+      "?GetMessageMap@CAdvCurveEditDlg@@MBEPBUAFX_MSGMAP@@XZ"
+    ]
+  },
+  {
+    "slot": 61,
+    "target": "0x401450",
+    "current": "0x401450",
+    "labels": [
+      "?DoDataExchange@CAdvCurveEditDlg@@UAEXPAVCDataExchange@@@Z"
+    ]
+  },
+  {
+    "slot": 62,
+    "target": "0x4024e0",
+    "current": "0x402210",
+    "labels": [
+      "?BeginModalState@CWnd@@UAEXXZ"
+    ]
+  },
+  {
+    "slot": 63,
+    "target": "0x4024d0",
+    "current": "0x402220",
+    "labels": [
+      "?EndModalState@CWnd@@UAEXXZ"
+    ]
+  },
+  {
+    "slot": 68,
+    "target": "0x401aa0",
+    "current": "0x438c51",
+    "labels": [
+      "?DefWindowProcA@CWnd@@MAEJIIJ@Z"
+    ]
+  },
+  {
+    "slot": 76,
+    "target": "0x4024b0",
+    "current": "0x402230",
+    "labels": [
+      "?Create@CDialog@@UAEHIPAVCWnd@@@Z"
+    ]
+  },
+  {
+    "slot": 81,
+    "target": "0x4018e0",
+    "current": "0x438520",
+    "labels": [
+      "?OnInitDialog@CDialog@@UAEHXZ"
+    ]
+  },
+  {
+    "slot": 83,
+    "target": "0x401770",
+    "current": "0x438236",
+    "labels": [
+      "?OnOK@CDialog@@MAEXXZ"
+    ]
+  },
+  {
+    "slot": 84,
+    "target": "0x401580",
+    "current": "0x43824f",
+    "labels": [
+      "?OnCancel@CDialog@@MAEXXZ"
+    ]
+  }
+]
