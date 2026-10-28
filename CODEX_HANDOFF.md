@@ -1,5 +1,24 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Camera-window setup checkpoint
+
+Ten camera-window routines now match in retail source order: 569 B, including
+factory/runtime metadata, constructor/destructor, message-map getter, real window
+procedure, class registration, friend setter, close handler and camera defaults.
+Stock game gate: 407/407, 50,836 / 699,591 B (7.27%), same-offset 26,210 B
+(1.461%, +358 over e76fe1a), compiler helpers 2 / 35 B, zero failures,
+unchanged 50 unverified bodies and one order warning. /GX /GR apply to this TU.
+
+The class extent is pinned to its factory's 0x168 allocation and runtime record.
+Storage at +0xec..+0x11b and +0x12c..+0x137 stays explicitly undecoded; accepted
+routines do not access it. Camera motion/rendering and shared globals remain open.
+Live checks prove factory/class size, getters' different data targets, 19 message
+entries, actual callback, literals, imports, and AfxRegisterClass call identity.
+AfxRegisterClass's 16-byte EH cleanup has a separate map label ($L197921): the
+inventory includes it in 257 B, while Linked.code reports the 241-byte main body.
+The research check compares all 257 linked bytes and callees, including cleanup.
+No verifier, mask, function inventory or game accounting rule was changed.
+
 ## Camera-target checkpoint
 
 The next editor file, cameratargetdlg.cpp, now has all five dialog game routines
