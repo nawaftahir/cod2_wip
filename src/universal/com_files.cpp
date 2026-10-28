@@ -1293,17 +1293,17 @@ int FS_Write(const void *buffer, int len, fileHandle_t h)
 	return len;
 }
 
+void FS_Printf(fileHandle_t h, const char *fmt, ...)
+{
+	va_list argptr;
+	char msg[4096];
 
+	va_start(argptr, fmt);
+	_vsnprintf(msg, sizeof(msg), fmt, argptr);
+	va_end(argptr);
 
-
-
-
-
-
-
-
-
-
+	FS_Write(msg, strlen(msg), h);
+}
 
 /*
 ==============
