@@ -1162,10 +1162,10 @@ int Hunk_Used( void )
 	return hunk_low.permanent + hunk_high.permanent;
 }
 
-
-
-
-
+void *Hunk_AllocInternal( int size )
+{
+	return Hunk_AllocAlignInternal( size, 32 );
+}
 
 
 
@@ -1565,12 +1565,65 @@ void *Hunk_AllocLowAlignInternal( int size, int alignment )
 	return buf;
 }
 
-void Hunk_ConvertTempToPermLowInternal( void );
+
+
+
+
+
+
+
+
+
+void Hunk_ConvertTempToPermLowInternal( void )
+{
+	assert( s_hunkData );
+
+	assert( hunk_low.temp >= hunk_low.permanent );
+	hunk_low.permanent = hunk_low.temp;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 void *Hunk_AllocateTempMemoryInternal( int size );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1628,10 +1681,42 @@ void *Hunk_ReallocateTempMemoryInternal( int size );
 
 
 
-void Hunk_FreeTempMemory( void *buf );
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void Hunk_FreeTempMemory( void *buf )
+{
+	hunkHeader_t *hdr;
+
+	if ( !s_hunkData )
+	{
+		free( buf );
+		return;
+	}
+
+	hdr = (hunkHeader_t *)buf - 1;
+	if ( hdr->magic != 0x89537892 )
+		Com_Error( ERR_FATAL, "Hunk_FreeTempMemory: bad magic" );
+
+	hdr->magic = 0x89537893;
+
+	assert( hdr == (void *)( s_hunkData + ((hunk_low.temp - hdr->size + 15) & ~15) ) );
+	hunk_low.temp -= hdr->size;
+}
 
 
 
@@ -1652,91 +1737,6 @@ void Hunk_ClearTempMemoryInternal( void )
 	if ( s_hunkData )
 		hunk_low.temp = hunk_low.permanent;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

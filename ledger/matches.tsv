@@ -450,3 +450,6 @@ addr	size	source	symbol	name	tag
 0x0048a740	266	src/universal/com_memory.cpp	?Hunk_AllocateTempMemoryHighInternal@@YAPAXH@Z	Hunk_AllocateTempMemoryHighInternal	SUPPORTED
 0x0048a860	15	src/universal/com_memory.cpp	?Hunk_AllocLowInternal@@YAPAXH@Z	Hunk_AllocLowInternal	SUPPORTED
 0x0048a870	430	src/universal/com_memory.cpp	?Hunk_AllocLowAlignInternal@@YAPAXHH@Z	Hunk_AllocLowAlignInternal	SUPPORTED
+0x0048a560	19	src/universal/com_memory.cpp	?Hunk_AllocInternal@@YAPAXH@Z	Hunk_AllocInternal	SUPPORTED
+0x0048aa20	182	src/universal/com_memory.cpp	?Hunk_ConvertTempToPermLowInternal@@YAXXZ	Hunk_ConvertTempToPermLowInternal	PINNED
+0x0048acc0	174	src/universal/com_memory.cpp	?Hunk_FreeTempMemory@@YAXPAX@Z	Hunk_FreeTempMemory	PINNED

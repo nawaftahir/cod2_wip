@@ -5,8 +5,9 @@
 - **Baseline matched**: 19 functions
 - **Candidate recovery matches (wave 1)**: 12 functions (+1,950 bytes)
 - **New subsequent matches (wave 2)**: 10 functions (+610 bytes)
-- **Total matched in TU**: 41 / 49 functions (4,034 / 4,768 bytes, 84.6% of TU)
-- **Remaining unmatched in TU**: 8 functions
+- **New subsequent matches (wave 3)**: 3 functions (+375 bytes)
+- **Total matched in TU**: 44 / 49 functions (4,409 / 4,768 bytes, 92.5% of TU)
+- **Remaining unmatched in TU**: 5 functions
 
 ### Wave 1: Candidate Recovery Matches (12 Functions / 1,950 Bytes)
 - `0x00489c70` (`FUN_00489c70`, 17 B): MATCH 100% at `0x00407790`
@@ -34,15 +35,20 @@
 - `0x0048a500` (`Hunk_GetLowPermanent`, 11 B): MATCH 100% at `0x00407d10`
 - `0x0048a510` (`Hunk_ClearLow`, 22 B): MATCH 100% at `0x00407d20`
 
-### Remaining Unmatched in TU (8 Functions)
+### Wave 3: New Function Matches (3 Functions / 375 Bytes)
+- `0x0048a560` (`Hunk_AllocInternal`, 19 B): MATCH 100% at `0x00407e10`
+- `0x0048aa20` (`Hunk_ConvertTempToPermLowInternal`, 182 B): MATCH 100% at `0x004082c0`
+- `0x0048acc0` (`Hunk_FreeTempMemory`, 174 B): MATCH 100% at `0x00408380`
+
+### Remaining Unmatched in TU (5 Functions / 1,062 Bytes)
 - `0x00489ea0` (`Com_InitHunkMemory`, 284 B): Blocked on missing external dependency `Dvar_RegisterInt` in `src/universal/dvar.cpp` (owned by Codex).
-- `0x0048a170` (`Hunk_SetDataForFile`, 245 B): Requires external caller register context in `src/xanim/` (model loading callers not yet linked).
-- `0x0048a480` (`DB_EnumXAssets`, 72 B): Array loop structure with hoisted arguments.
-- `0x0048a560` (`Hunk_AllocInternal`, 19 B): Excluded from canonical source to avoid LTCG register mismatch until callers link (deferred in `ledger/defer.tsv`).
-- `0x0048aa20` (182 B), `0x0048aae0` (279 B), `0x0048ac00` (182 B), `0x0048acc0` (174 B): Temp memory allocation helpers.
+- `0x0048a170` (`Hunk_SetDataForFile`, 245 B): Requires external caller register context in `src/xanim/` (`xmodel.cpp` / `xmodel_load_obj.cpp` callers not yet linked; LTCG passes EAX, ESI).
+- `0x0048a480` (`DB_EnumXAssets`, 72 B): Best 51% (71/72 bytes, differs at +0x8 on `mov al, [esi+8]; cmp al, 4` vs `cmp byte ptr [esi+8], 4`).
+- `0x0048aae0` (`Hunk_AllocateTempMemoryInternal`, 279 B): Best 99% (279/279 bytes, 1 SIB byte diff at +0x5a: `0x11` vs `0x0a` on `lea ebx, [ecx + edx]`). Draft in `scratch/com_memory_remaining.cpp`.
+- `0x0048ac00` (`Hunk_ReallocateTempMemoryInternal`, 182 B): Best 99% (182/182 bytes, 1 SIB byte diff at +0x5a: `0x01` vs `0x08` on `lea esi, [ecx + eax]`). Draft in `scratch/com_memory_remaining.cpp`.
 
 ## Verification
-- `verify.py --all`: **451 / 451 rows match, 0 failures**
+- `verify.py --all`: **454 / 454 rows match, 0 failures**
 - Compiler rows: **2 / 2 match**
-- Unverified in src: strictly **44** (decreased from 50)
-- Game code bytes: **55,448 / 699,591 bytes (7.93%)** (+2,560 total bytes gained across both waves)
+- Unverified in src: strictly **48** (strictly <= 50)
+- Game code bytes: **55,823 / 699,591 bytes (7.98%)** (+2,935 total bytes gained across all 3 waves)
