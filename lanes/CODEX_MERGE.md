@@ -4,7 +4,8 @@ You own the `codex` files in `BOARD.tsv` (see `../CODEX_HANDOFF.md`) **and** you
 
 ## Merge a delivery
 1. `git -C .agents/<agent> log --oneline main..HEAD` and read `lanes/reports/<agent>.md` on that branch.
-2. Review the diff: only the claimed file, `ledger/*.tsv` and the report; real readable C/C++; names backed by
+2. Audit the candidate game ledger with research/gemini_review/test_game_ledger.py: unique retail
+   addresses, exact anchor sizes, no AUTO/library credit. Then review the diff: only the claimed file, `ledger/*.tsv` and the report; real readable C/C++; names backed by
    evidence; asserts on retail lines; no asm, byte arrays, fake callers or wrappers.
 3. Preserve the delivery SHA and a safety branch; require a clean committed worker and a clean main
    checkout (save unrelated owner changes and restore them afterwards). Run

@@ -5,6 +5,11 @@ and `AGENTS.md` (the agent contract).
 Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matching second.
 
 ## State
+- Latest main a369057: corrected MRU/path subset merged and pushed. Net gain
+  27 / 2,637 B; 494/494 game matches (13.80%), 58,731 B (8.40% game code).
+  Same-offset 26,105 B (1.455%); compiler 2/35 B, unverified 48, warning one.
+  All gates, ledger audit and live import/literal/state checks pass. Four hard
+  remainders transfer to Codex; Gemini retains 61 easy files.
 - Latest main: cf9e736, reviewed Gemini dialog snapshot landed without touching
   its active MRU work. +13 game routines / 271 B; 467/467 (13.05% functions),
   56,094 B (8.02% game code), same-offset 26,053 B (1.452%). Compiler 2/35 B,

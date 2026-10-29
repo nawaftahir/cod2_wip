@@ -7,8 +7,8 @@ uses its private worktree. No worker edits another worker's assigned source.
 
 | Worker | Scope | Task |
 |---|---|---|
-| Gemini | 65 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
-| Codex | 26 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
+| Gemini | 61 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
+| Codex | 30 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
 
 Gemini starts EditWnd, RADEditWnd and TexEdit, using the existing Q3 candidate
 list, then the small dialogs and remaining queue. One TU at a time; one commit

@@ -1,9 +1,25 @@
 # Codex: hard files and integration (2026-10-29)
 
 The owner assigns Gemini the easy-file queue and Codex the hard work. Follow
-WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 65 files in
+WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 61 files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;
 do not reconstruct or change their headers while its checkpoint is active.
+
+## Batch-three hard handoff
+
+Own MRU, CapDialog, points and win_common leftovers now. MRU's registry
+loader source is 299 B, but the inventory splits 96/203 at 0x46c440, whose
+first instruction reads preceding compare flags. Source and disassembly are
+in .agents/gemini_review/scratch/batch3_review; no inventory changes shipped.
+CapDialog needs generated-helper/RTTI work and the 13-byte strlen helper's
+proper classification. Points Next/Prev require the actual shared camera/main
+window layouts, not the delivery's conflicting simplified classes; Draw needs
+the real renderer caller group. Windows enumeration has five held dependencies.
+
+A stale ledger mapped both angle functions to 0x487180. They now independently
+MATCH at 0x487180 / AngleMod and 0x4872d0 / AngleNormalize360, with retail source
+order restored. Before every delivery run test_game_ledger.py plus the referee;
+never trust row sizes, duplicate addresses, AUTO rows or a self-reported count.
 
 ## New reviewed leftovers
 
@@ -36,7 +52,7 @@ checks actual vtable stores, defaults, parent maps, callbacks and helper status.
 Explicit transfers from Gemini: com_memory.cpp, com_shared.cpp, q_parse.cpp,
 xmodel_utils.cpp and com_files.cpp. Their five/ nine/ parser/ getter/ filesystem
 leftovers are hard work now; existing verified source remains intact. Other
-hard files are the 26 codex-lane rows in BOARD.tsv. Work on one TU at a time.
+hard files are the 30 codex-lane rows in BOARD.tsv. Work on one TU at a time.
 No ABI hacks, guessed globals, invented names, fake callers or relaxed masks.
 
 ## Integration
@@ -59,7 +75,7 @@ push the checkpoint, then fast-forward the worker only if clean. A file with
 only hard leftovers transfers to Codex in the board and is removed from the
 Gemini queue before Codex edits it. Keep the rest of Gemini's queue available.
 
-Baseline: 454/454 game matches / 55,823 B (12.69% of functions, 7.98% game code),
-compiler 2 / 35 B, unverified 48, order warning one. Same-offset 25,555 B / 1.424%
+Baseline: 494/494 game matches / 58,731 B (13.80% of functions, 8.40% game code),
+compiler 2 / 35 B, unverified 48, order warning one. Same-offset 26,105 B / 1.455%
 is report-only. No full SHA or boot claim. Never discard passing source for an
 incidental offset dip. Current user permission includes pushing after merges.

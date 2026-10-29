@@ -1,5 +1,31 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## MRU/path delivery: corrected and integrated
+
+Main a369057 lands fbca31a plus review correction 28a4efd through
+tools/land.sh gemini_review. Worker and combined CI pass 494/494 game rows:
+13.80% of functions, 58,731 / 699,591 B (8.40%). Net gain 27 / 2,637 B.
+Compiler 2 / 35 B; failures zero, unverified 48, order warning one. Same-offset
+26,105 B / 1.455% (+52). Pushed.
+
+Accepted file totals: MRU 14 / 1,756 B (one baseline / 21 B), CapDialog 4 /
+65 B, points 4 / 656 B, Windows helpers 6 / 181 B. Removed AUTO game credit,
+pruned incomplete bodies and conflicting pointfile camera class models, fixed
+all incorrect row byte totals and preserved assertion line 82. No flags,
+inventory, comparison masks or verifier predicates changed. The angle ledger
+now maps its two actual functions to separate proven 42-byte retail addresses,
+with source order restored; no duplicate game addresses remain.
+
+Live review passes 28 MRU/path game rows, 55 actual import accesses, 11 literals
+and seven consistent state references. A reusable game-ledger audit checks
+unique addresses, exact anchor spans and separate AUTO/library accounting.
+Logs: build/{batch3-land-review,batch3-binding-review,ci-last}.log.
+
+Unmatched MRU registry loading, camera/drawing and Windows enumeration are held
+in scratch, with original source preserved by safety/gemini-fbca31a. Those four
+partial TUs transfer to Codex; Gemini keeps 61 easy files and Codex 30 hard files.
+No whole-TU completion, full SHA or GUI boot claim.
+
 ## Small-dialog delivery reviewed without interrupting Gemini
 
 Committed snapshot 325080e was isolated in .agents/gemini_review while Gemini
