@@ -265,4 +265,4 @@ void SV_MatchEnd( void )
 
 
 // Unreferenced storage; original declarations unknown (sized from the layout).
-static int unusedStorage[3];
+static int unusedStorage;

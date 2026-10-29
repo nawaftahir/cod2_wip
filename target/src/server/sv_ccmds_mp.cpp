@@ -974,12 +974,6 @@ void SV_AddOperatorCommands( void )
 	Cmd_SetAutoComplete("devmap", "maps/mp", "d3dbsp");
 	Cmd_AddCommand("killserver", SV_KillServer_f);
 
-// Name and signature from the CoD2 Mac 1.3 symbols; PunkBuster screen-message hook.
-void PbMsgToScreen( char *prefix, char *msg )
-{
-	Com_Printf("%s: %s\n", prefix, msg);
-}
-
 	if ( com_dedicated->current.integer )
 	{
 		SV_AddDedicatedCommands();
@@ -987,6 +981,12 @@ void PbMsgToScreen( char *prefix, char *msg )
 
 	Cmd_AddCommand("scriptUsage", SV_ScriptUsage_f);
 	Cmd_AddCommand("stringUsage", SV_StringUsage_f);
+}
+
+// Name and signature from the CoD2 Mac 1.3 symbols; PunkBuster screen-message hook.
+void PbMsgToScreen( char *prefix, char *msg )
+{
+	Com_Printf("%s: %s\n", prefix, msg);
 }
 
 /*

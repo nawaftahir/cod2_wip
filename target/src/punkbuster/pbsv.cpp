@@ -4,10 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <strings.h>
-#include <dlfcn.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#include <windows.h>
+#include <direct.h>
+#include <io.h>
 
 struct Pb_Sv_Client_s;
 
@@ -77,7 +76,7 @@ inline char *itoa(int val, char *str, int radix)
 // name unknown (no Mac symbol)
 inline void pbChmod_813cbd4(char *path)
 {
-	chmod(path, 0777);
+	_chmod(path, 0777);
 }
 
 // name unknown (no Mac symbol)
@@ -124,9 +123,9 @@ struct stPbSv
 {
 	unsigned long m_svId;
 	void *m_Md5;
-	void *m_SvInstance;
-	void *m_ClInstance;
-	void *m_AgInstance;
+	HMODULE m_SvInstance;
+	HMODULE m_ClInstance;
+	HMODULE m_AgInstance;
 	char m_msgPrefix[32];
 	char m_cwd[257];
 	int m_ReloadServer;
@@ -176,7 +175,7 @@ struct stPbSv
 			return;
 		m_GameQuery(103, strcpy(m_cwd, "fs_homepath"));
 		if ( !*m_cwd )
-			getcwd(m_cwd, 251);
+			_getcwd(m_cwd, 251);
 		// *"/" (not '/'): retail compares the promoted int
 		if ( *m_cwd && m_cwd[strlen(m_cwd) - 1] != *"/" )
 			strcat(m_cwd, "/");
@@ -191,15 +190,15 @@ struct stPbSv
 		{
 			getHomePath();
 			getBasePath(basepath);
-			if ( basepath[strlen(basepath) - 1] != *"/" )
-				strcat(basepath, "/");
-			strcat(basepath, "pb/");
-			if ( strcasecmp(basepath, m_cwd) && *basepath && *m_cwd )
+			if ( basepath[strlen(basepath) - 1] != *"\\" )
+				strcat(basepath, "\\");
+			strcat(basepath, "pb\\");
+			if ( _stricmp(basepath, m_cwd) && *basepath && *m_cwd )
 			{
-				mkdir(m_cwd, 0777);
-				copyIfNotExists("pbsv.so", basepath);
-				copyIfNotExists("pbcl.so", basepath);
-				copyIfNotExists("pbag.so", basepath);
+				_mkdir(m_cwd);
+				copyIfNotExists("pbsv.dll", basepath);
+				copyIfNotExists("pbcl.dll", basepath);
+				copyIfNotExists("pbag.dll", basepath);
 			}
 		}
 		strcpy(buf, m_cwd);
@@ -210,7 +209,7 @@ struct stPbSv
 	void UnloadClientDll()
 	{
 		if ( m_ClInstance )
-			dlclose(m_ClInstance);
+			FreeLibrary(m_ClInstance);
 		m_ClInstance = 0;
 	}
 
@@ -218,7 +217,7 @@ struct stPbSv
 	{
 		m_Agent = 0;
 		if ( m_AgInstance )
-			dlclose(m_AgInstance);
+			FreeLibrary(m_AgInstance);
 		m_AgInstance = 0;
 	}
 
@@ -249,7 +248,7 @@ struct stPbSv
 		m_AuthClient = 0;
 		m_TrapConsole = 0;
 		if ( m_SvInstance )
-			dlclose(m_SvInstance);
+			FreeLibrary(m_SvInstance);
 		m_SvInstance = 0;
 	}
 
@@ -262,22 +261,22 @@ struct stPbSv
 		if ( m_SvInstance )
 			return NULL;
 		UnloadServerDll();
-		f = fopen(makefn(fn, "pbsvnew.so"), "rb");
+		f = fopen(makefn(fn, "pbsvnew.dll"), "rb");
 		if ( f )
 		{
 			fclose(f);
-			pbChmod_813cbd4(makefn(fn, "pbsvold.so"));
-			remove(makefn(fn, "pbsvold.so"));
-			rename(makefn(fn, "pbsv.so"), makefn(extrafn, "pbsvold.so"));
-			pbChmod_813cbd4(makefn(fn, "pbsv.so"));
-			remove(makefn(fn, "pbsv.so"));
-			rename(makefn(fn, "pbsvnew.so"), makefn(extrafn, "pbsv.so"));
+			pbChmod_813cbd4(makefn(fn, "pbsvold.dll"));
+			remove(makefn(fn, "pbsvold.dll"));
+			rename(makefn(fn, "pbsv.dll"), makefn(extrafn, "pbsvold.dll"));
+			pbChmod_813cbd4(makefn(fn, "pbsv.dll"));
+			remove(makefn(fn, "pbsv.dll"));
+			rename(makefn(fn, "pbsvnew.dll"), makefn(extrafn, "pbsv.dll"));
 		}
-		m_SvInstance = dlopen(makefn(fn, "pbsv.so"), RTLD_LAZY);
+		m_SvInstance = LoadLibraryA(makefn(fn, "pbsv.dll"));
 		if ( !m_SvInstance )
 			return "PB Error: Server DLL Load Failure";
-		m_ProcessPbEvents = (tdPbProcessPbEvents)dlsym(m_SvInstance, "sa");
-		m_AddPbEvent = (tdPbAddSvEvent)dlsym(m_SvInstance, "sb");
+		m_ProcessPbEvents = (tdPbProcessPbEvents)GetProcAddress(m_SvInstance, "sa");
+		m_AddPbEvent = (tdPbAddSvEvent)GetProcAddress(m_SvInstance, "sb");
 		if ( !m_ProcessPbEvents || !m_AddPbEvent )
 		{
 			UnloadServerDll();
@@ -442,21 +441,21 @@ void PbCaptureConsoleOutput(char *msg, int msglen)
 
 char *PbSvGameCommand(char *Cmd, char *Result)
 {
-	if ( !strcasecmp(Cmd, "set_sv_punkbuster") )
+	if ( !_stricmp(Cmd, "set_sv_punkbuster") )
 	{
 		set_sv_punkbuster(Result);
 	}
-	else if ( !strcasecmp(Cmd, "ConCapBufLen") )
+	else if ( !_stricmp(Cmd, "ConCapBufLen") )
 	{
 		g_ConsoleCaptureBufLen = (long)Result;
 	}
-	else if ( !strcasecmp(Cmd, "ConCapBuf") )
+	else if ( !_stricmp(Cmd, "ConCapBuf") )
 	{
 		g_ConsoleCaptureBuf = Result;
 	}
-	else if ( !strcasecmp(Cmd, "Cmd_Exec") )
+	else if ( !_stricmp(Cmd, "Cmd_Exec") )
 	{
-		int pbCmd = !strncasecmp(Result, "pb_", 3);
+		int pbCmd = !_strnicmp(Result, "pb_", 3);
 		Cmd_ExecuteString(Result);
 		if ( pbCmd )
 			PbServerForceProcess();
@@ -474,11 +473,11 @@ char *PbSvGameCommand(char *Cmd, char *Result)
 		end = arg1;
 		while ( *arg1 == ' ' )
 			arg1++;
-		if ( !strcasecmp(Cmd, "DropClient") )
+		if ( !_stricmp(Cmd, "DropClient") )
 		{
 			PB_DropClient(atoi(Result), arg1);
 		}
-		else if ( !strcasecmp(Cmd, "Cvar_Set") || !strcasecmp(Cmd, "Dvar_Set") )
+		else if ( !_stricmp(Cmd, "Cvar_Set") || !_stricmp(Cmd, "Dvar_Set") )
 		{
 			hold = *end;
 			*end = 0;
@@ -518,7 +517,7 @@ char *PbSvGameQuery(int Qtype, char *Data)
 
 char *PbSvGameMsg(char *Msg, int Type)
 {
-	if ( strncasecmp(pbsv.m_msgPrefix, "[skipnotify]", 12) )
+	if ( _strnicmp(pbsv.m_msgPrefix, "[skipnotify]", 12) )
 		PbMsgToScreen(pbsv.m_msgPrefix, Msg);
 	else
 		Com_Printf("%s: %s\n", pbsv.m_msgPrefix + 12, Msg);

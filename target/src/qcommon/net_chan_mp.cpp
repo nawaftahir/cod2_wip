@@ -3,6 +3,12 @@
 
 void CL_Netchan_AddOOBProfilePacket( int iLength );
 
+/* net_chan.c sees a plain prototype, not glibc's builtin-tagged one:
+ * the builtin form stages the first argument in a register before the size,
+ * which the shipped code does not do. */
+int memcmp( const void *, const void *, unsigned ) throw();
+char *strstr( const char *, const char * ) throw();
+
 #define PACKET_HEADER           10          // two ints and a short
 #define FRAGMENT_BIT    ( 1 << 31 )
 
@@ -1080,9 +1086,11 @@ void NET_OutOfBandVoiceData( netsrc_t sock, netadr_t adr, byte *format, int len 
 
 	if ( sock == NS_SERVER )
 		SV_Netchan_AddOOBProfilePacket(iLen);
+	else
+		CL_Netchan_AddOOBProfilePacket(iLen);
 }
 
-// Original name unknown. Byte-identical twin of NET_OutOfBandVoiceData, used by SV_SendClientVoiceData.
+// Original name unknown. Twin of NET_OutOfBandVoiceData, used by SV_SendClientVoiceData.
 void NET_OutOfBandVoiceData2( netsrc_t sock, netadr_t adr, byte *format, int len )
 {
 	LargeLocal stringLarge( MAX_MSGLEN + 4 );
@@ -1116,9 +1124,6 @@ void NET_OutOfBandVoiceData2( netsrc_t sock, netadr_t adr, byte *format, int len
 		SV_Netchan_AddOOBProfilePacket(iLen);
 	else
 		CL_Netchan_AddOOBProfilePacket(iLen);
-
-// Unreferenced storage; original declarations unknown (sized from the layout).
-static char net_chan_unreferenced[32];
 }
 
 /*

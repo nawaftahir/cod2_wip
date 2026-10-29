@@ -154,7 +154,6 @@ winding_t *CopyWinding( winding_t *w )
 
 	return c;
 }
-static int polylib_unreferenced;	// unreferenced storage, sized from the layout
 
 void ChopWindingInPlace( winding_t **inout, vec3_t normal, float dist, float epsilon )
 {

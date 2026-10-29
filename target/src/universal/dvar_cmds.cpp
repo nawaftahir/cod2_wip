@@ -4,10 +4,6 @@
 
 const char *CL_GetUsernameForLocalClient(int controllerIndex);
 
-// 1.2c: file-scope result buffers (Mac 1.3 symbols: info1, info2)
-static char info1[MAX_INFO_STRING];
-static char info2[BIG_INFO_STRING];
-
 void Dvar_ForEach(void (*callback)(const char *dvarName))
 {
 	dvar_t *dvar;
@@ -700,9 +696,6 @@ void Dvar_AddCommands()
 	Cmd_AddCommand("togglep", Dvar_TogglePrint_f);
 	Cmd_AddCommand("set", Dvar_Set_f);
 	Cmd_AddCommand("sets", Dvar_SetS_f);
-
-// Unreferenced storage; original declarations unknown (sized from the layout).
-static char dvar_cmds_unreferenced[96];
 	Cmd_AddCommand("seta", Dvar_SetA_f);
 	Cmd_AddCommand("setfromdvar", Dvar_SetFromDvar_f);
 	Cmd_AddCommand("reset", Dvar_Reset_f);

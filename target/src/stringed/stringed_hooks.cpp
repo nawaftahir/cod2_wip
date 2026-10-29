@@ -28,11 +28,6 @@ static languageInfo_t g_languages[MAX_LANGUAGES] =
 	{ "czech", 0 }
 };
 
-dvar_t *loc_language;
-dvar_t *loc_forceEnglish;
-dvar_t *loc_translate;
-dvar_t *loc_warnings;
-dvar_t *loc_warningsAsErrors;
 static int g_currentAsian;
 
 // Original name and purpose unknown; unreferenced.

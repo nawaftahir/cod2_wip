@@ -801,3 +801,6 @@ bool Mantle_IsWeaponInactive( const playerState_t *ps )
 	return animIndex != MANTLE_OVER_LOW;
 }
 
+
+// Unreferenced storage; original declarations unknown (sized from the layout).
+static int unusedStorage;

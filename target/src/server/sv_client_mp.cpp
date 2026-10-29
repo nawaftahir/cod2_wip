@@ -665,6 +665,10 @@ void SV_DirectConnect( netadr_t from )
 	int startIndex;
 	const char *denied;
 	int count;
+	int cl_punkbuster;
+	char PBguid[33];
+	char clientPBguid[33];
+	char *PBdenied;
 	int ping;
 
 	Com_DPrintf("SV_DirectConnect()\n");
@@ -710,8 +714,8 @@ void SV_DirectConnect( netadr_t from )
 			if ( NET_CompareAdr( from, svs.challenges[i].adr ) && challenge == svs.challenges[i].challenge )
 			{
 				guid = svs.challenges[i].guid;
-					I_strncpyz( PBguid, svs.challenges[i].PBguid, sizeof( PBguid ) );
-					I_strncpyz( clientPBguid, svs.challenges[i].clientPBguid, sizeof( clientPBguid ) );
+				I_strncpyz( PBguid, svs.challenges[i].PBguid, sizeof( PBguid ) );
+				I_strncpyz( clientPBguid, svs.challenges[i].clientPBguid, sizeof( clientPBguid ) );
 				break;
 			}
 		}

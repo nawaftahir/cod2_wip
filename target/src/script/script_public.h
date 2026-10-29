@@ -341,7 +341,7 @@ typedef struct scrVmGlob_s
 	VariableValue eval_stack[2];
 	const char *dialog_error_message;
 	int loading;
-	unsigned int unknownTsc;	// rdtsc >> 16, written by Scr_ResetTimeout, never read; original name unknown
+	unsigned int unknownTsc;	// rdtsc >> 16 at Scr_ResetTimeout; original name unknown
 	int starttime;
 	unsigned int localVarsStack[MAX_VM_OPERAND_STACK];
 } scrVmGlob_t;

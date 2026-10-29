@@ -61,6 +61,7 @@ static ALIGNED(128) sysEvent_t com_pushedEvents[MAX_PUSHED_EVENTS];
 static char com_unreferenced3[0x3c0];
 
 static qboolean com_safemode = 0;
+static int com_unreferenced4;
 static int iWeaponInfoSource = 0;
 
 static char		*rd_buffer;
@@ -1681,8 +1682,6 @@ static bool Com_ParseCpuConfig( const SysInfo *info, const char **text )
 
 	Com_Printf( "configure_mp.csv: using CPU configuration %.0f GHz %i MB\n", best.cpuGHz, best.sysMB );
 
-// Unreferenced storage; original declarations unknown (sized from the layout).
-static char com_unreferenced8[192];
 	Cbuf_AddText( "exec configure_mp.cfg" );
 	Cbuf_Execute();
 	Com_SetConfigureDvars( dvarCount, dvarNames, dvarValues );
@@ -2030,7 +2029,7 @@ Com_Init
 */
 void Com_Init( char* commandLine )
 {
-	if ( !setjmp(*(jmp_buf*)Sys_GetValue(THREAD_VALUE_COM_ERROR)) )
+	if ( !__sigsetjmp(*(jmp_buf*)Sys_GetValue(THREAD_VALUE_COM_ERROR), 0) )
 	{
 		Com_Init_Try_Block_Function(commandLine);
 	}
