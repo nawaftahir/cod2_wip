@@ -257,23 +257,43 @@ Extent: `0x00424090` .. `0x004241da` (278 B code + 6 B alignment padding `0xCC` 
   - `??_R0?AVCNameDlg@@@8` (TypeDescriptor): Retail `0x005988e0` (`.?AVCNameDlg@@`) vs Built `0x004849c0`
   - `?messageMap@CNameDlg@@1UAFX_MSGMAP@@B`: Retail `0x00545a98` (parent `0x0052e4f0`, empty message entries) vs Built `0x004710f0`
 
+#### 4. `src/radiant/NewProjDlg.cpp` (PARTIAL)
+Extent: `0x004241e0` .. `0x004242b6` (180 B code + 10 B alignment padding `0xCC` to `0x004242c0`)
+- **Game code (3 routines / 147 B)**:
+  - `0x004241e0` (116 B): `??0CNewProjDlg@@QAE@PAVCWnd@@@Z` -> **MATCH 100%**
+  - `0x00424290` (25 B): `?DoDataExchange@CNewProjDlg@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
+  - `0x004242b0` (6 B): `?GetMessageMap@CNewProjDlg@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
+- **Generated helpers (1 routine / 33 B - excluded from game ledger)**:
+  - `0x00424260` (33 B): `??_ECNewProjDlg@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
+- **Omitted Routines**: None. Every byte between `0x004241e0` and `0x004242c0` is accounted for.
+- **Data & RTTI Bindings**:
+  - `??_7CNewProjDlg@@6B@` (vtable): Retail `0x00545adc` vs Built `0x00471fec`
+  - `??_R4CNewProjDlg@@6B@` (CompleteObjectLocator): Retail `0x005597a8` vs Built `0x00476770`
+  - `??_R0?AVCNewProjDlg@@@8` (TypeDescriptor): Retail `0x005988d8` (`.?AVCNewProjDlg@@`) vs Built `0x00485998`
+  - `?messageMap@CNewProjDlg@@1UAFX_MSGMAP@@B`: Retail `0x00545c34` (parent `0x0052e4f0`, empty message entries) vs Built `0x00472144`
+
 ---
 
 ### Subsequent Drafts Preserved in `scratch/`
 
-The following drafts have matching 100% byte bodies in `scratch/` and will be advanced one at a time following review:
+The following drafts have matching byte bodies in `scratch/` and will be advanced one at a time following review:
 1. `scratch/DlgEvent.cpp` (4 routines, 208 B matched = 100%)
-2. `scratch/NewProjDlg.cpp` (4 routines, 180 B matched = 100%)
-3. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
+2. `scratch/DialogInfo.cpp` (7/8 routines matched = 80%, blocked on `ShowInfoDialog` `0x00409690` LTCG caller in `src/radiant/Pmesh.cpp`)
+3. `scratch/RotateDlg.cpp` (6/11 routines matched = 516/1502 B, blocked on `select.cpp` and `com_math.cpp` LTCG)
+4. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
 
 ---
 
 ### Hard Blockers Handed to Codex
 
-1. **`src/radiant/TexEdit.cpp`**:
+1. **`src/radiant/DialogInfo.cpp`**:
+   - `0x00409690` (`ShowInfoDialog`): Takes `pText` in register `esi` because its only callers are inside `src/radiant/Pmesh.cpp` (`0x00433b79`, `0x00433dc4`, `0x004340d7`). Unresolved external calls force MSVC to emit a standard `__cdecl` stack frame (73 B vs 66 B).
+2. **`src/radiant/RotateDlg.cpp`**:
+   - 5 routines (`0x0043c2a0`, `0x0043c2b0`, `0x0043c4f0`, `0x0043c5a0`, `0x0043c650`) call `Select_GetMid` (`0x00470c50`, passes `origin` in `eax`), `MatrixIdentity33` (`0x00485040`, passes `matrix` in `esi`), and `Select_ApplyMatrix` (`0x00470ce0`). Because `select.cpp` and `com_math.cpp` do not yet define these functions, LTCG cannot synthesize the matching register calling conventions.
+3. **`src/radiant/TexEdit.cpp`**:
    - `0x0043eec0`: Retail calls `?DeleteObject@CGdiObject@@QAEHXZ` at `0x0050582e` (which imports `GDI32.dll DeleteObject` at IAT `0x528198`), but inventory `data/lib_funcs.tsv` aliased `0x0050582e` to `CImageList::DeleteImageList`. Adding an override in `data/lib_overrides.tsv` and regenerating `lib_funcs.tsv` will resolve this referee check.
    - `0x0043ef60` (`OnChange`): LTCG customizes calling convention (`edi = this, esi = str`) for `CTexWnd::UpdateFilter` (`0x00442d60`) in `src/radiant/TexWnd.cpp`. Because `TexWnd.cpp` is currently unconstructed, the unresolved linker stub creates a standard `thiscall` calling convention mismatch.
-2. **Whole-Program `.rdata` Data Placement & RTTI Alignment**:
+4. **Whole-Program `.rdata` Data Placement & RTTI Alignment**:
    - Exact `.rdata` ordering of vtables, CompleteObjectLocators, TypeDescriptors, and MFC message map tables is determined globally by link order and object contributor layout. Codex integration must establish final whole-image data placement.
 
 ---
@@ -281,11 +301,11 @@ The following drafts have matching 100% byte bodies in `scratch/` and will be ad
 ### Audit & Gate Status
 
 - **Game Ledger Audit** (`python3 research/gemini_review/test_game_ledger.py`):
-  `PASS: 510 unique game addresses, exact retail byte spans, separate library/compiler accounting`
+  `PASS: 513 unique game addresses, exact retail byte spans, separate library/compiler accounting`
 - **Full Referee** (`python3 tools/verify.py --all`):
-  `510/510 rows match, 0 failures` (compiler 2/2 match, unverified 48 <= 48).
+  `513/513 rows match, 0 failures` (compiler 2/2 match, unverified 48 <= 48).
 - **Progress Gate** (`python3 tools/meter.py --gate`):
-  - Game functions matched from source: 510 / 3579 (14.25%) (+16)
-  - Game code bytes matched: 8.50% (59,445 / 699,591 bytes) (+714 B)
+  - Game functions matched from source: 513 / 3579 (14.33%) (+19)
+  - Game code bytes matched: 8.52% (59,592 / 699,591 bytes) (+861 B)
   - Unverified in `src/`: 48 (strictly within quota <= 48)
   - Failing rows: 0

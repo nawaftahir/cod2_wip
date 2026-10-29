@@ -509,3 +509,6 @@ addr	size	source	symbol	name	tag
 0x004241a0	6	src/radiant/NameDlg.cpp	?GetMessageMap@CNameDlg@@MBEPBUAFX_MSGMAP@@XZ	CNameDlg::GetMessageMap	SUPPORTED
 0x004241b0	5	src/radiant/NameDlg.cpp	?OnOK@CNameDlg@@MAEXXZ	CNameDlg::OnOK	SUPPORTED
 0x004241c0	26	src/radiant/NameDlg.cpp	?OnInitDialog@CNameDlg@@MAEHXZ	CNameDlg::OnInitDialog	SUPPORTED
+0x004241e0	116	src/radiant/NewProjDlg.cpp	??0CNewProjDlg@@QAE@PAVCWnd@@@Z	CNewProjDlg::CNewProjDlg	SUPPORTED
+0x00424290	25	src/radiant/NewProjDlg.cpp	?DoDataExchange@CNewProjDlg@@MAEXPAVCDataExchange@@@Z	CNewProjDlg::DoDataExchange	SUPPORTED
+0x004242b0	6	src/radiant/NewProjDlg.cpp	?GetMessageMap@CNewProjDlg@@MBEPBUAFX_MSGMAP@@XZ	CNewProjDlg::GetMessageMap	SUPPORTED
