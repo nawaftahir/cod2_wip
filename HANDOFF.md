@@ -5,6 +5,11 @@ and `AGENTS.md` (the agent contract).
 Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matching second.
 
 ## State
+- Latest combined main: Codex two memory allocators / 461 B plus Gemini
+  RADEditWnd five game routines / 320 B, independently verified and pushed.
+  Combined CI: 507/507 (14.17% functions), 59,661 B (8.53% game code),
+  same-offset 26,582 B (1.482%). Compiler 2/35 B, unverified 48, warning one.
+  Gemini continues its current drafts, then RotateDlg; TexEdit is now Codex.
 - Latest: main 842db93 integrates EditWnd. Six game routines / 149 B plus
   separately checked generated destructor and normalized class metadata pass.
   Full gate/merged CI: 500/500 (13.97% game functions), 58,880 B (8.42% game

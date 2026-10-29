@@ -4,7 +4,7 @@ The owner's easy/hard split is recorded in ../WORK_ASSIGNMENTS.md and BOARD.tsv.
 
 ## Gemini prompt
 
-> Read TASK_GEMINI.md and lanes/GEMINI_QUEUE.tsv. You own all 60 queued easy
+> Read TASK_GEMINI.md and lanes/GEMINI_QUEUE.tsv. You own all 58 queued easy
 > files in .agents/gemini. EditWnd is integrated; start RADEditWnd.cpp, then TexEdit.cpp,
 > then follow the queue. Complete each file at 100% before calling it finished
 > or moving on; commit verified checkpoints. Deliver a clean completed file or
@@ -14,7 +14,7 @@ The owner's easy/hard split is recorded in ../WORK_ASSIGNMENTS.md and BOARD.tsv.
 
 ## Codex prompt
 
-> Read TASK_CODEX.md and lanes/CODEX_MERGE.md. You own the 30 hard files and
+> Read TASK_CODEX.md and lanes/CODEX_MERGE.md. You own the 31 hard files and
 > main integration. Start the two 99% memory drafts; continue editor caller and
 > shared-global reconstruction and real dependency groups. Review and land
 > Gemini checkpoints with tools/land.sh gemini, update the board and push.

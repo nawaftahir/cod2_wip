@@ -283,3 +283,14 @@ The vtable has 77 function slots; its following EDIT literal is not two extra
 slots. All primary class metadata values/bindings match after normalization.
 Code sums to 182 B plus 42 B padding in the full 224-byte TU interval.
 Global image offsets/SHA remain unfinished. Next assigned file: RADEditWnd.cpp.
+
+## Codex RADEditWnd acceptance
+
+Main 2f1135e lands five game rows / 320 B after independent gate and metadata
+review. The 33-byte generated helper passes separately. All 76 virtual slots,
+RTTI/base fields, two message entries and child CEditWnd bindings agree after
+normalization. /GX /GR is an owner-reviewed change for this TU only. Fresh
+unverified count is 48, not the stale 44 in the submitted report. After Codex's
+independent allocator pair, combined CI is 507/507 / 59,661 B. Current drafts
+are left untouched; next independent file is RotateDlg. TexEdit's blockers are
+now Codex-owned. No exact whole-image placement/SHA claim.

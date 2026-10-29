@@ -4,7 +4,7 @@ src/xanim/xmodel_utils.cpp	codex	partial	codex	11	1090	10	0	server source (copy-
 src/xanim/xmodel.cpp	cheap	open	gemini	31	1850	0	6	server source (copy-ready)
 src/universal/com_shared.cpp	codex	partial	codex	14	2064	7	3	server source (copy-ready)
 src/universal/q_parse.cpp	codex	partial	codex	37	4698	26	8	server source (copy-ready)
-src/universal/com_memory.cpp	codex	partial	codex	49	4768	44	6	server source (copy-ready)
+src/universal/com_memory.cpp	codex	partial	codex	49	4768	46	6	46 matched; three routines left; allocator source uses verified global update flow
 src/universal/assertive.cpp	cheap	partial	gemini	35	5253	8	5	server source (copy-ready)
 src/script/scr_memorytree.cpp	cheap	open	gemini	21	5332	0	11	server source (copy-ready)
 src/radiant/LstToolBar.cpp	codex	partial	codex	5	75	4	0	game methods matched; generated helpers/RTTI remain (Codex review)
@@ -19,8 +19,8 @@ src/radiant/DlgEvent.cpp	cheap	open	gemini	4	208	0	0	none: from make show
 src/radiant/NameDlg.cpp	cheap	open	gemini	6	278	0	0	none: from make show
 src/radiant/DialogInfo.cpp	cheap	open	gemini	8	332	0	0	none: from make show
 src/radiant/TextureLayout.cpp	cheap	open	gemini	6	339	0	0	none: from make show
-src/radiant/RADEditWnd.cpp	cheap	open	gemini	6	353	0	0	none: from make show
-src/radiant/TexEdit.cpp	cheap	open	gemini	7	397	0	0	none: from make show
+src/radiant/RADEditWnd.cpp	cheap	merged	gemini	6	353	5	0	5/5 game + generated destructor; parent/member/RTTI/message metadata verified
+src/radiant/TexEdit.cpp	codex	partial	codex	7	397	0	0	hard handoff: GDI DeleteObject alias and CTexWnd::UpdateFilter caller group
 src/radiant/PatchDensityDlg.cpp	cheap	open	gemini	6	422	0	0	none: from make show
 src/radiant/TerrainDensityDlg.cpp	cheap	open	gemini	6	422	0	0	none: from make show
 src/radiant/KeyValueSelectDlg.cpp	cheap	open	gemini	5	458	0	1	none: from make show

@@ -665,3 +665,35 @@ files remain. Any new flag/library proposals are reviewed by Codex. Current
 worker edits are never overwritten during synchronization. Evidence: research/
 gemini_review/test_editwnd.py, build/editwnd-accepted-tests.log, build/ci-last.log,
 and .agents/gemini_review/scratch/editwnd_review/.
+
+## Combined Codex memory and Gemini RADEditWnd checkpoint
+
+Codex independently matched Hunk_AllocateTempMemoryInternal (279 B) and
+Hunk_ReallocateTempMemoryInternal (182 B), commit 3401110, merged as 32ea535.
+The final source follows the reference's direct global-state update sequence
+and uses hunkHeader_t; no addresses, integer-pointer tricks, assembly, custom
+ABI or flag changes. Six bounded variants are archived; no mask was relaxed
+for their final one-byte SIB differences. Assertion lines remain 1639/1667.
+
+Gemini's 0a1f154 RADEditWnd source was independently reviewed and landed as
+2f1135e: five game routines / 320 B. Its generated destructor / 33 B is
+checked separately. The 76 vtable slots, RTTI/base offsets, two callbacks and
+real CEditWnd child vtable stores pass normalized metadata checks. Only this
+TU's proposed /GX /GR row was adopted after proof.
+
+Combined CI and live checks pass 507/507 game rows, 59,661 / 699,591 B
+(8.53%), 14.17% of functions. Net gain this wave: seven routines / 781 B,
+separately Codex two / 461 B and Gemini five / 320 B. Compiler 2 / 35 B,
+unverified 48, one order warning, zero failures. Whole-file same-offset
+26,582 B / 1.482%. All source is pushed.
+
+Memory TU is now 46/49 functions, 4,167/4,768 B (87.40% byte coverage).
+The extended memory test passes 66 literals, 29 import accesses and 37 shared
+state identities; the game ledger has 507 unique exact-span rows. Evidence:
+build/combined-memory-radedit-tests.log, build/codex-memory-combined-ci.log,
+research/codex_memory/README.md and research/gemini_review/test_radeditwnd.py.
+
+Gemini keeps 58 easy files; Codex has 31 hard files, including TexEdit's known
+GDI alias/caller blockers. Current NameDlg/NewProjDlg/DlgEvent drafts are left
+untouched; next independent file is RotateDlg.cpp. Exact whole-image layout,
+SHA and boot remain unfinished.
