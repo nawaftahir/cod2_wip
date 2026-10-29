@@ -257,23 +257,77 @@ Extent: `0x00424090` .. `0x004241da` (278 B code + 6 B alignment padding `0xCC` 
   - `??_R0?AVCNameDlg@@@8` (TypeDescriptor): Retail `0x005988e0` (`.?AVCNameDlg@@`) vs Built `0x004849c0`
   - `?messageMap@CNameDlg@@1UAFX_MSGMAP@@B`: Retail `0x00545a98` (parent `0x0052e4f0`, empty message entries) vs Built `0x004710f0`
 
+#### 4. `src/radiant/NewProjDlg.cpp` (PARTIAL)
+Extent: `0x004241e0` .. `0x004242b6` (180 B code + 10 B alignment padding `0xCC` to `0x004242c0`)
+- **Game code (3 routines / 147 B)**:
+  - `0x004241e0` (116 B): `??0CNewProjDlg@@QAE@PAVCWnd@@@Z` -> **MATCH 100%**
+  - `0x00424290` (25 B): `?DoDataExchange@CNewProjDlg@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
+  - `0x004242b0` (6 B): `?GetMessageMap@CNewProjDlg@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
+- **Generated helpers (1 routine / 33 B - excluded from game ledger)**:
+  - `0x00424260` (33 B): `??_ECNewProjDlg@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
+- **Omitted Routines**: None. Every byte between `0x004241e0` and `0x004242c0` is accounted for.
+- **Data & RTTI Bindings**:
+  - `??_7CNewProjDlg@@6B@` (vtable): Retail `0x00545adc` vs Built `0x00471fec`
+  - `??_R4CNewProjDlg@@6B@` (CompleteObjectLocator): Retail `0x005597a8` vs Built `0x00476770`
+  - `??_R0?AVCNewProjDlg@@@8` (TypeDescriptor): Retail `0x005988d8` (`.?AVCNewProjDlg@@`) vs Built `0x00485998`
+  - `?messageMap@CNewProjDlg@@1UAFX_MSGMAP@@B`: Retail `0x00545c34` (parent `0x0052e4f0`, empty message entries) vs Built `0x00472144`
+
+#### 5. `src/radiant/DlgEvent.cpp` (PARTIAL)
+Extent: `0x0040bcf0` .. `0x0040bdd6` (208 B code + 10 B alignment padding `0xCC` to `0x0040bde0`)
+- **Game code (3 routines / 175 B)**:
+  - `0x0040bcf0` (123 B): `??0CDlgEvent@@QAE@PAVCWnd@@@Z` -> **MATCH 100%**
+  - `0x0040bda0` (46 B): `?DoDataExchange@CDlgEvent@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
+  - `0x0040bdd0` (6 B): `?GetMessageMap@CDlgEvent@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
+- **Generated helpers (1 routine / 33 B - excluded from game ledger)**:
+  - `0x0040bd70` (33 B): `??_ECDlgEvent@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
+- **Omitted Routines**: None. Every byte between `0x0040bcf0` and `0x0040bde0` is accounted for.
+- **Data & RTTI Bindings**:
+  - `??_7CDlgEvent@@6B@` (vtable): Retail `0x0053ff64` vs Built `0x00471b3c`
+  - `??_R4CDlgEvent@@6B@` (CompleteObjectLocator): Retail `0x005591f4` vs Built `0x00476848`
+  - `??_R0?AVCDlgEvent@@@8` (TypeDescriptor): Retail `0x00598654` (`.?AVCDlgEvent@@`) vs Built `0x00485968`
+  - `?messageMap@CDlgEvent@@1UAFX_MSGMAP@@B`: Retail `0x005400bc` (parent `0x0052e4f0`, empty message entries) vs Built `0x00471c94`
+
+#### 6. `src/radiant/TextureLayout.cpp` (PARTIAL)
+Extent: `0x0043f710` .. `0x0043f891` (339 B code + 15 B alignment padding `0xCC` to `0x0043f8a0`)
+- **Game code (5 routines / 305 B)**:
+  - `0x0043f710` (135 B): `??0CTextureLayout@@QAE@PAVCWnd@@@Z` -> **MATCH 100%**
+  - `0x0043f7d0` (94 B): `?DoDataExchange@CTextureLayout@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
+  - `0x0043f830` (6 B): `?GetMessageMap@CTextureLayout@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
+  - `0x0043f840` (5 B): `?OnOK@CTextureLayout@@MAEXXZ` -> **MATCH 100%**
+  - `0x0043f850` (65 B): `?OnInitDialog@CTextureLayout@@MAEHXZ` -> **MATCH 100%**
+- **Generated helpers (1 routine / 34 B - excluded from game ledger)**:
+  - `0x0043f7a0` (34 B): `??_ECTextureLayout@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
+- **Omitted Routines**: None. Every byte between `0x0043f710` and `0x0043f8a0` is accounted for.
+- **Data & RTTI Bindings**:
+  - `??_7CTextureLayout@@6B@` (vtable): Retail `0x00548ec4` vs Built `0x004725ec`
+  - `??_R4CTextureLayout@@6B@` (CompleteObjectLocator): Retail `0x00559cbc` vs Built `0x00476b60`
+  - `??_R0?AVCTextureLayout@@@8` (TypeDescriptor): Retail `0x00598ad4` (`.?AVCTextureLayout@@`) vs Built `0x004859e8`
+  - `?messageMap@CTextureLayout@@1UAFX_MSGMAP@@B`: Retail `0x0054901c` (parent `0x0052e4f0`, empty message entries) vs Built `0x00472744`
+
 ---
 
 ### Subsequent Drafts Preserved in `scratch/`
 
-The following drafts have matching 100% byte bodies in `scratch/` and will be advanced one at a time following review:
-1. `scratch/DlgEvent.cpp` (4 routines, 208 B matched = 100%)
-2. `scratch/NewProjDlg.cpp` (4 routines, 180 B matched = 100%)
-3. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
+The following drafts have matching byte bodies in `scratch/` and will be advanced one at a time following review:
+1. `scratch/DialogInfo.cpp` (7/8 routines matched = 80%, blocked on `ShowInfoDialog` `0x00409690` LTCG caller in `src/radiant/Pmesh.cpp`)
+2. `scratch/KeyValueSelectDlg.cpp` (4/5 routines matched = 80%, blocked on `~CKeyValueSelectDlg` `0x00410f90` LTCG caller in `src/radiant/select.cpp`)
+3. `scratch/RotateDlg.cpp` (6/11 routines matched = 516/1502 B, blocked on `select.cpp` and `com_math.cpp` LTCG)
+4. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
 
 ---
 
 ### Hard Blockers Handed to Codex
 
-1. **`src/radiant/TexEdit.cpp`**:
+1. **`src/radiant/DialogInfo.cpp`**:
+   - `0x00409690` (`ShowInfoDialog`): Takes `pText` in register `esi` because its only callers are inside `src/radiant/Pmesh.cpp` (`0x00433b79`, `0x00433dc4`, `0x004340d7`). Unresolved external calls force MSVC to emit a standard `__cdecl` stack frame (73 B vs 66 B).
+2. **`src/radiant/KeyValueSelectDlg.cpp`**:
+   - `0x00410f90` (`??1CKeyValueSelectDlg@@UAE@XZ`): Takes `this` in register `esi` because its external call site is inside `src/radiant/select.cpp` (`0x00471b6a`). Unresolved external callers force MSVC to emit a standard `__thiscall` prologue (`push esi; mov esi, ecx`).
+3. **`src/radiant/RotateDlg.cpp`**:
+   - 5 routines (`0x0043c2a0`, `0x0043c2b0`, `0x0043c4f0`, `0x0043c5a0`, `0x0043c650`) call `Select_GetMid` (`0x00470c50`, passes `origin` in `eax`), `MatrixIdentity33` (`0x00485040`, passes `matrix` in `esi`), and `Select_ApplyMatrix` (`0x00470ce0`). Because `select.cpp` and `com_math.cpp` do not yet define these functions, LTCG cannot synthesize the matching register calling conventions.
+4. **`src/radiant/TexEdit.cpp`**:
    - `0x0043eec0`: Retail calls `?DeleteObject@CGdiObject@@QAEHXZ` at `0x0050582e` (which imports `GDI32.dll DeleteObject` at IAT `0x528198`), but inventory `data/lib_funcs.tsv` aliased `0x0050582e` to `CImageList::DeleteImageList`. Adding an override in `data/lib_overrides.tsv` and regenerating `lib_funcs.tsv` will resolve this referee check.
    - `0x0043ef60` (`OnChange`): LTCG customizes calling convention (`edi = this, esi = str`) for `CTexWnd::UpdateFilter` (`0x00442d60`) in `src/radiant/TexWnd.cpp`. Because `TexWnd.cpp` is currently unconstructed, the unresolved linker stub creates a standard `thiscall` calling convention mismatch.
-2. **Whole-Program `.rdata` Data Placement & RTTI Alignment**:
+5. **Whole-Program `.rdata` Data Placement & RTTI Alignment**:
    - Exact `.rdata` ordering of vtables, CompleteObjectLocators, TypeDescriptors, and MFC message map tables is determined globally by link order and object contributor layout. Codex integration must establish final whole-image data placement.
 
 ---
@@ -281,12 +335,12 @@ The following drafts have matching 100% byte bodies in `scratch/` and will be ad
 ### Audit & Gate Status
 
 - **Game Ledger Audit** (`python3 research/gemini_review/test_game_ledger.py`):
-  `PASS: 510 unique game addresses, exact retail byte spans, separate library/compiler accounting`
+  `PASS: 521 unique game addresses, exact retail byte spans, separate library/compiler accounting`
 - **Full Referee** (`python3 tools/verify.py --all`):
-  `510/510 rows match, 0 failures` (compiler 2/2 match, unverified 48 <= 48).
+  `521/521 rows match, 0 failures` (compiler 2/2 match, unverified 48 <= 48).
 - **Progress Gate** (`python3 tools/meter.py --gate`):
-  - Game functions matched from source: 510 / 3579 (14.25%) (+16)
-  - Game code bytes matched: 8.50% (59,445 / 699,591 bytes) (+714 B)
+  - Game functions matched from source: 521 / 3579 (14.56%) (+27)
+  - Game code bytes matched: 8.59% (60,072 / 699,591 bytes) (+305 B)
   - Unverified in `src/`: 48 (strictly within quota <= 48)
   - Failing rows: 0
 
@@ -341,3 +395,30 @@ RotateDlg is still scratch-only with empty handlers; its gate did not cover it.
 The additional emitted three-byte CString conversion header body also MATCHes
 the shared body at 0x402740; equal clones exist, so no unique historical ownership
 or game credit is claimed. All locally emitted NameDlg symbols are accounted for.
+
+## Codex review of 965e352 (supersedes the completion/metadata figures above)
+
+Accepted game source: NewProjDlg 3 / 147 B, DlgEvent 3 / 175 B,
+TextureLayout 5 / 305 B: eleven new routines / 627 B. Combined review tree
+passes 523/523, zero failures, unverified 48. Main has two additional allocator
+matches compared with the worker's 521-row report; neither was lost.
+
+NewProjDlg and DlgEvent are FILE VERIFIED for normalized source/code/metadata:
+all 86 vtable slots, full RTTI, runtime-class inheritance, message maps, constructor
+bindings, shared destructors, EH handlers/cleanup and tables pass. Each has a
+separate 33-byte scalar, 36-byte shared destructor and 29 B constructor cleanup
+code. No generated helper is game credit. Actual interval padding is 44 / 32 B.
+
+TextureLayout's five game routines, 34-byte class scalar, 89-byte shared destructor,
+class metadata and 58 B of EH code pass. Its shared SpinButton constructor / 16 B
+and SetRange / 30 B match, but the member scalar is 33/30 B, first difference
++0x0. Thus the file remains PARTIAL, transferred to Codex for original header
+contributor/compiler context. Do not call it a complete TU. Actual padding is
+61 B. Message-map parent is CDialog at 0x52cae4, correcting the earlier report.
+
+Removed the duplicate NameDlg AUTO proposal; TextureLayout generated code is
+separately verified without inventory changes. Owner-reviewed /GX /GR rows and
+the proven spin library destructor correction are integrated separately on main.
+Proof: research/gemini_review/DIALOG_BATCH.md and test_dialog_batch.py. Exact
+whole-image placement, SHA and GUI boot remain unfinished. Rotate/Tex/DialogInfo/
+KeyValueSelect drafts remain preserved and unaccepted; no empty handlers land.
