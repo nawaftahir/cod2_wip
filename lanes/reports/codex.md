@@ -78,3 +78,40 @@ actual literals/import/state identities. Unique-address/anchor-size audit passes
 Main's final combined numbers include separately reviewed Gemini work.
 
 All attempts and evidence: scratch/codex_1029_memory_work/.
+
+
+## NameDlg integrated; ScaleDialog completed; new Gemini dispatch
+
+Main f535098 lands independently reviewed NameDlg through tools/land.sh
+gemini_review; worker referee and merged-tree CI pass and the merge is pushed.
+Five new game routines / 245 B. All 512 rows match: 14.31% functions,
+59,906 / 699,591 B (8.56% game code). Compiler ledger 2/2 / 35 B; zero
+failures, unchanged 48 unverified bodies and one order warning. Same-offset
+26,113 / 1,794,048 B (1.456%),
+report-only; exact whole-executable SHA and GUI boot remain unfinished.
+
+Codex finished ScaleDialog's full normalized code/class metadata review:
+three game routines / 103 B and separate deleting helper / 33 B, 86 vtable
+slots, full RTTI/base offsets, defaults/DDX and message-map bindings. /GR alone
+restores named RTTI; no EH is emitted. This completes a previously partial
+file and adds no game bytes. NameDlg's five game routines, 33-byte scalar,
+65-byte shared destructor, 40 B of EH helpers, 3-byte shared CString conversion
+and complete metadata/EH tables are separately verified. Absolute image
+placement remains PENDING for both files; no whole-image identity is claimed.
+Proof/manifest: research/gemini_review/DIALOG_COMPLETION.md. Final actual-main
+checks: build/dialog-final-tests.log; owner CI: build/dialog-owner-ci.log;
+merge CI: build/ci-last.log. Source, flags and GDI correction: ff14985.
+
+The original NameDlg report had wrong message-map/parent addresses and omitted
+internal padding/shared helpers; reviewed corrections are recorded. Removed its
+new duplicate AUTO row. No inventory, referee predicate or mask was changed.
+Both GDI aliases 0x505804 and 0x50582e are proven wingdi.obj CGdiObject methods;
+archive bytes, import relocation and retail GDI32 DeleteObject binding agree.
+TexEdit's missing real CTexWnd callback/caller group remains unconstructed.
+
+Gemini next: DialogInfo.cpp, NewProjDlg.cpp, DlgEvent.cpp, one TU at a time.
+56 easy candidates remain. RotateDlg's reported completion is not accepted:
+HEAD 59b3db9 contains only NameDlg; RotateDlg is scratch-only, with empty
+OnApply vs retail 475 B and incomplete spin callbacks. Preserve that draft;
+Codex takes the hard remainder (32 files). No Rotate flag proposal is adopted
+without a genuine verified source delivery. Never overwrite active worker edits.

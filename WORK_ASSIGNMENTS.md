@@ -11,8 +11,8 @@ uses its private worktree. No worker edits another worker's assigned source.
 
 | Worker | Scope | Task |
 |---|---|---|
-| Gemini | 58 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
-| Codex | 31 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
+| Gemini | 56 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
+| Codex | 32 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
 
 Gemini follows its remaining queue and reports complete-file evidence.
 TexEdit is a Codex-owned hard handoff; existing drafts are preserved. One TU at a time; one commit
@@ -23,8 +23,8 @@ the resetting claim helper or synchronize over unmerged commits. A hard blocker 
 report with evidence; trying eight times is not a prerequisite to reporting it.
 
 Codex takes over the remaining com_memory, com_shared, q_parse, xmodel_utils and
-com_files work. The two temporary allocators are already matched. Codex completes ScaleDialog.cpp metadata as its current primary file while
-independently reviewing worker submissions. com_memory remains partial pending
+com_files work. The two temporary allocators are already matched. Codex completed ScaleDialog.cpp metadata. Its next primary file is RotateDlg.cpp,
+whose incomplete scratch draft transferred from Gemini; independent reviews continue. com_memory remains partial pending
 real registration/caller dependencies; do not repeat its matched allocator trials.
 The remaining existing codex lane ownership is unchanged. A hard leftover in a
 Gemini file is transferred only after a clean delivery and board update.

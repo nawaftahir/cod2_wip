@@ -45,7 +45,10 @@ helper / 33 B, complete 86-slot class metadata/RTTI/default/message-map bindings
 The reviewed /GR row restores named RTTI without adding EH. Exact image placement
 remains pending. Proof: research/gemini_review/DIALOG_COMPLETION.md and its tests.
 Memory remains partial at 46/49; allocator trials are already resolved.
-RotateDlg scratch is an incomplete hard handoff; never merge its empty handlers.
+RotateDlg is the next primary source file. Its scratch is an incomplete hard
+handoff: actual OnApply at 0x43c2b0 is 475 B, whereas the draft is empty.
+Spin handlers also omit their retail work. Never merge those placeholders.
+Proof: build/rotate-onapply-show.log; preserve the entire Gemini draft.
 
 ## Immediate hard work
 
@@ -64,7 +67,7 @@ RotateDlg scratch is an incomplete hard handoff; never merge its empty handlers.
 Explicit transfers from Gemini: com_memory.cpp, com_shared.cpp, q_parse.cpp,
 xmodel_utils.cpp and com_files.cpp. Their five/ nine/ parser/ getter/ filesystem
 leftovers are hard work now; existing verified source remains intact. Other
-hard files are the 31 codex-lane rows in BOARD.tsv. Work on one TU at a time.
+hard files are the 32 codex-lane rows in BOARD.tsv. Work on one TU at a time.
 No ABI hacks, guessed globals, invented names, fake callers or relaxed masks.
 
 ## Integration

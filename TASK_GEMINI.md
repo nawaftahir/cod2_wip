@@ -12,7 +12,8 @@ before FILE VERIFIED. Partial checkpoints remain PARTIAL.
 3. src/radiant/DlgEvent.cpp
 
 One TU at a time. Deliver a clean commit with full code/helper/metadata evidence.
-NameDlg is under completed independent review; do not edit it. RotateDlg has
+NameDlg is accepted and merged at f535098 (five game routines / 245 B).
+Combined main: 512/512, 8.56% game bytes; do not edit it. RotateDlg has
 no committed delivery: scratch/RotateDlg.cpp contains empty OnApply and spin
 handlers, and the quoted 510-row gate does not cover that file. Preserve the
 scratch draft. Codex takes its hard remainder for review; do not claim it done.
@@ -20,7 +21,7 @@ TexEdit stays with Codex. Compiler flags/library changes are proposals only.
 
 The owner assigned you all easy files; Codex takes the hard files and integration.
 This task supersedes the previous instruction to finish the five memory blockers.
-Your reserved queue is lanes/GEMINI_QUEUE.tsv: 58 files, in priority order.
+Your reserved queue is lanes/GEMINI_QUEUE.tsv: 56 files, in priority order.
 Ownership in lanes/BOARD.tsv is authoritative. Work only in .agents/gemini on
 agent/gemini; never push, merge main yourself, reset a branch, or run claim.sh.
 Codex syncs your clean worktree after each reviewed delivery. The current dispatch above determines your next file. No extra permission is needed to
