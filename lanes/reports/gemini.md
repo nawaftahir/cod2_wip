@@ -272,15 +272,29 @@ Extent: `0x004241e0` .. `0x004242b6` (180 B code + 10 B alignment padding `0xCC`
   - `??_R0?AVCNewProjDlg@@@8` (TypeDescriptor): Retail `0x005988d8` (`.?AVCNewProjDlg@@`) vs Built `0x00485998`
   - `?messageMap@CNewProjDlg@@1UAFX_MSGMAP@@B`: Retail `0x00545c34` (parent `0x0052e4f0`, empty message entries) vs Built `0x00472144`
 
+#### 5. `src/radiant/DlgEvent.cpp` (PARTIAL)
+Extent: `0x0040bcf0` .. `0x0040bdd6` (208 B code + 10 B alignment padding `0xCC` to `0x0040bde0`)
+- **Game code (3 routines / 175 B)**:
+  - `0x0040bcf0` (123 B): `??0CDlgEvent@@QAE@PAVCWnd@@@Z` -> **MATCH 100%**
+  - `0x0040bda0` (46 B): `?DoDataExchange@CDlgEvent@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
+  - `0x0040bdd0` (6 B): `?GetMessageMap@CDlgEvent@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
+- **Generated helpers (1 routine / 33 B - excluded from game ledger)**:
+  - `0x0040bd70` (33 B): `??_ECDlgEvent@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
+- **Omitted Routines**: None. Every byte between `0x0040bcf0` and `0x0040bde0` is accounted for.
+- **Data & RTTI Bindings**:
+  - `??_7CDlgEvent@@6B@` (vtable): Retail `0x0053ff64` vs Built `0x00471b3c`
+  - `??_R4CDlgEvent@@6B@` (CompleteObjectLocator): Retail `0x005591f4` vs Built `0x00476848`
+  - `??_R0?AVCDlgEvent@@@8` (TypeDescriptor): Retail `0x00598654` (`.?AVCDlgEvent@@`) vs Built `0x00485968`
+  - `?messageMap@CDlgEvent@@1UAFX_MSGMAP@@B`: Retail `0x005400bc` (parent `0x0052e4f0`, empty message entries) vs Built `0x00471c94`
+
 ---
 
 ### Subsequent Drafts Preserved in `scratch/`
 
 The following drafts have matching byte bodies in `scratch/` and will be advanced one at a time following review:
-1. `scratch/DlgEvent.cpp` (4 routines, 208 B matched = 100%)
-2. `scratch/DialogInfo.cpp` (7/8 routines matched = 80%, blocked on `ShowInfoDialog` `0x00409690` LTCG caller in `src/radiant/Pmesh.cpp`)
-3. `scratch/RotateDlg.cpp` (6/11 routines matched = 516/1502 B, blocked on `select.cpp` and `com_math.cpp` LTCG)
-4. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
+1. `scratch/DialogInfo.cpp` (7/8 routines matched = 80%, blocked on `ShowInfoDialog` `0x00409690` LTCG caller in `src/radiant/Pmesh.cpp`)
+2. `scratch/RotateDlg.cpp` (6/11 routines matched = 516/1502 B, blocked on `select.cpp` and `com_math.cpp` LTCG)
+3. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
 
 ---
 
@@ -301,11 +315,11 @@ The following drafts have matching byte bodies in `scratch/` and will be advance
 ### Audit & Gate Status
 
 - **Game Ledger Audit** (`python3 research/gemini_review/test_game_ledger.py`):
-  `PASS: 513 unique game addresses, exact retail byte spans, separate library/compiler accounting`
+  `PASS: 516 unique game addresses, exact retail byte spans, separate library/compiler accounting`
 - **Full Referee** (`python3 tools/verify.py --all`):
-  `513/513 rows match, 0 failures` (compiler 2/2 match, unverified 48 <= 48).
+  `516/516 rows match, 0 failures` (compiler 2/2 match, unverified 48 <= 48).
 - **Progress Gate** (`python3 tools/meter.py --gate`):
-  - Game functions matched from source: 513 / 3579 (14.33%) (+19)
-  - Game code bytes matched: 8.52% (59,592 / 699,591 bytes) (+861 B)
+  - Game functions matched from source: 516 / 3579 (14.42%) (+22)
+  - Game code bytes matched: 8.54% (59,767 / 699,591 bytes) (+175 B)
   - Unverified in `src/`: 48 (strictly within quota <= 48)
   - Failing rows: 0

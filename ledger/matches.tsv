@@ -512,3 +512,6 @@ addr	size	source	symbol	name	tag
 0x004241e0	116	src/radiant/NewProjDlg.cpp	??0CNewProjDlg@@QAE@PAVCWnd@@@Z	CNewProjDlg::CNewProjDlg	SUPPORTED
 0x00424290	25	src/radiant/NewProjDlg.cpp	?DoDataExchange@CNewProjDlg@@MAEXPAVCDataExchange@@@Z	CNewProjDlg::DoDataExchange	SUPPORTED
 0x004242b0	6	src/radiant/NewProjDlg.cpp	?GetMessageMap@CNewProjDlg@@MBEPBUAFX_MSGMAP@@XZ	CNewProjDlg::GetMessageMap	SUPPORTED
+0x0040bcf0	123	src/radiant/DlgEvent.cpp	??0CDlgEvent@@QAE@PAVCWnd@@@Z	CDlgEvent::CDlgEvent	SUPPORTED
+0x0040bda0	46	src/radiant/DlgEvent.cpp	?DoDataExchange@CDlgEvent@@MAEXPAVCDataExchange@@@Z	CDlgEvent::DoDataExchange	SUPPORTED
+0x0040bdd0	6	src/radiant/DlgEvent.cpp	?GetMessageMap@CDlgEvent@@MBEPBUAFX_MSGMAP@@XZ	CDlgEvent::GetMessageMap	SUPPORTED
