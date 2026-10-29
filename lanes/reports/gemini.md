@@ -79,3 +79,36 @@ research/gemini_review/test_memory.py passes all 44 MATCH checks plus 60
 actual literals, 27 import accesses and 35 consistent distinct shared-state
 identities. Logs: build/{memory-land-review,memory-binding-review,ci-last}.log.
 Whole-file SHA and GUI boot remain unfinished.
+
+---
+
+## Batch 2 (3 Whole Files + com_shared progress): 2026-10-29
+
+### 1. `src/radiant/LstToolBar.cpp` (100% Whole File Match: 5/5 funcs, 75/75 bytes)
+- `0x00411040` (16 B): `??0CLstToolBar@@QAE@XZ` (`CLstToolBar::CLstToolBar`) -> MATCH 100%
+- `0x00411050` (33 B): `??_GCLstToolBar@@UAEPAXI@Z` (`CLstToolBar::scalar_deleting_dtor`) -> MATCH 100%
+- `0x00411080` (11 B): `??1CLstToolBar@@UAE@XZ` (`CLstToolBar::~CLstToolBar`) -> MATCH 100%
+- `0x00411090` (6 B): `?GetMessageMap@CLstToolBar@@MBEPBUAFX_MSGMAP@@XZ` (`CLstToolBar::GetMessageMap`) -> MATCH 100%
+- `0x004110a0` (9 B): `?OnParentNotify@CLstToolBar@@IAEXIJ@Z` (`CLstToolBar::OnParentNotify`) -> MATCH 100%
+
+### 2. `src/radiant/ScaleDialog.cpp` (100% Whole File Match: 4/4 funcs, 136/136 bytes)
+- `0x0043c710` (36 B): `??0CScaleDialog@@QAE@PAVCWnd@@@Z` (`CScaleDialog::CScaleDialog`) -> MATCH 100%
+- `0x0043c740` (33 B): `??_GCScaleDialog@@UAEPAXI@Z` (`CScaleDialog::scalar_deleting_dtor`) -> MATCH 100%
+- `0x0043c770` (61 B): `?DoDataExchange@CScaleDialog@@MAEXPAVCDataExchange@@@Z` (`CScaleDialog::DoDataExchange`) -> MATCH 100%
+- `0x0043c7b0` (6 B): `?GetMessageMap@CScaleDialog@@MBEPBUAFX_MSGMAP@@XZ` (`CScaleDialog::GetMessageMap`) -> MATCH 100%
+
+### 3. `src/radiant/DialogThick.cpp` (100% Whole File Match: 4/4 class funcs, 121/121 bytes)
+- `0x004097d0` (36 B): `??0CDialogThick@@QAE@PAVCWnd@@@Z` (`CDialogThick::CDialogThick`) -> MATCH 100%
+- `0x00409800` (33 B): `??_GCDialogThick@@UAEPAXI@Z` (`CDialogThick::scalar_deleting_dtor`) -> MATCH 100%
+- `0x00409840` (46 B): `?DoDataExchange@CDialogThick@@MAEXPAVCDataExchange@@@Z` (`CDialogThick::DoDataExchange`) -> MATCH 100%
+- `0x00409870` (6 B): `?GetMessageMap@CDialogThick@@MBEPBUAFX_MSGMAP@@XZ` (`CDialogThick::GetMessageMap`) -> MATCH 100%
+
+### 4. `src/universal/com_shared.cpp` (+2 Functions Matched / +33 Bytes)
+- `0x0048b790` (23 B): `?FUN_0048b790@@YAXPBMPAM@Z` (`void FUN_0048b790(const float *in, float *out)`) -> MATCH 100%
+- `0x0048b7b0` (10 B): `?FUN_0048b7b0@@YAHPBH0@Z` (`int FUN_0048b7b0(const int *a, const int *b)`) -> MATCH 100%
+
+### Batch Referee Verification
+- `verify.py --all`: **469 / 469 rows match, 0 failures**
+- Compiler rows: **2 / 2 match**
+- Unverified in src: **48** (strictly $\le 50$)
+
