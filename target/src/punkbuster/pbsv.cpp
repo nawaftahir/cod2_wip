@@ -6,7 +6,6 @@
 #include <string.h>
 #include <windows.h>
 #include <direct.h>
-#include <io.h>
 
 struct Pb_Sv_Client_s;
 
@@ -76,7 +75,7 @@ inline char *itoa(int val, char *str, int radix)
 // name unknown (no Mac symbol)
 inline void pbChmod_813cbd4(char *path)
 {
-	_chmod(path, 0777);
+	chmod(path, 0777);
 }
 
 // name unknown (no Mac symbol)
