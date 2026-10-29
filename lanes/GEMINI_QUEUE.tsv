@@ -1,6 +1,6 @@
 priority	file	baseline_matched	functions	bytes	reference_candidates	candidate_bytes	reference
-1	src/radiant/DialogInfo.cpp	0	8	332	1	22	none: from make show
-2	src/radiant/NewProjDlg.cpp	0	4	180	0	0	none: from make show
+1	src/radiant/NewProjDlg.cpp	0	4	180	0	0	none: from make show
+2	src/radiant/DialogInfo.cpp	0	8	332	1	22	none: from make show
 3	src/radiant/DlgEvent.cpp	0	4	208	0	0	none: from make show
 4	src/radiant/TextureLayout.cpp	0	6	339	0	0	none: from make show
 5	src/radiant/PatchDensityDlg.cpp	0	6	422	0	0	none: from make show

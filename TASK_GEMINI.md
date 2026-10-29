@@ -7,8 +7,8 @@ before FILE VERIFIED. Partial checkpoints remain PARTIAL.
 
 ## Current dispatch (supersedes historical next-file instructions below)
 
-1. src/radiant/DialogInfo.cpp
-2. src/radiant/NewProjDlg.cpp
+1. src/radiant/NewProjDlg.cpp (already active; finish this first)
+2. src/radiant/DialogInfo.cpp
 3. src/radiant/DlgEvent.cpp
 
 One TU at a time. Deliver a clean commit with full code/helper/metadata evidence.

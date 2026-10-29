@@ -109,7 +109,8 @@ Both GDI aliases 0x505804 and 0x50582e are proven wingdi.obj CGdiObject methods;
 archive bytes, import relocation and retail GDI32 DeleteObject binding agree.
 TexEdit's missing real CTexWnd callback/caller group remains unconstructed.
 
-Gemini next: DialogInfo.cpp, NewProjDlg.cpp, DlgEvent.cpp, one TU at a time.
+Latest worker check found active uncommitted NewProjDlg.cpp; preserve and finish
+that file first, then DialogInfo.cpp, then DlgEvent.cpp, one TU at a time.
 56 easy candidates remain. RotateDlg's reported completion is not accepted:
 HEAD 59b3db9 contains only NameDlg; RotateDlg is scratch-only, with empty
 OnApply vs retail 475 B and incomplete spin callbacks. Preserve that draft;
