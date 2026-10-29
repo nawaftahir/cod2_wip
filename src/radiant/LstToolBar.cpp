@@ -5,7 +5,7 @@ class CLstToolBar : public CToolBar
 {
 public:
 	CLstToolBar();
-	__declspec(noinline) virtual ~CLstToolBar();
+	virtual ~CLstToolBar();
 
 protected:
 	afx_msg void OnParentNotify(UINT message, LPARAM lParam);
@@ -25,7 +25,7 @@ BEGIN_MESSAGE_MAP(CLstToolBar, CToolBar)
 	ON_WM_PARENTNOTIFY()
 END_MESSAGE_MAP()
 
-void CLstToolBar::OnParentNotify(UINT message, LPARAM lParam) 
+void CLstToolBar::OnParentNotify(UINT message, LPARAM lParam)
 {
 	CToolBar::OnParentNotify(message, lParam);
 }

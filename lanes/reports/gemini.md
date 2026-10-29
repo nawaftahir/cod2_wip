@@ -112,3 +112,41 @@ Whole-file SHA and GUI boot remain unfinished.
 - Compiler rows: **2 / 2 match**
 - Unverified in src: **48** (strictly $\le 50$)
 
+## Independent committed-snapshot review (supersedes batch headline)
+
+Reviewed immutable delivery 325080e in .agents/gemini_review; Gemini's active
+MRU source/inventory edits were neither used nor modified. Restored its board
+changes to main's authoritative state before landing; Codex updates the board.
+
+Removed LstToolBar's forbidden noinline attribute. All four actual game methods
+still MATCH. Its generated deleting destructor becomes 39/33 B (61%, first
++0x6), so the original whole-TU claim is not accepted. Need real caller/compiler
+context, not a source attribute workaround. ScaleDialog and DialogThick use
+ordinary Q3-derived definitions with no attributes or compiler changes.
+
+Removed three AUTO scalar destructors / 99 B from the game ledger. Their
+verification belongs to separate compiler/header accounting, never game credit.
+Found the omitted implicit CDialogThick destructor at 0x409830: normal source
+emits the correct five-byte CDialog destructor jump; added its real MATCH row.
+An explicit empty destructor trial instead mismatches and is not shipped.
+
+Net game source: thirteen routines / 271 B (four LstToolBar / 42 B, three
+ScaleDialog / 103 B, four DialogThick / 93 B, two unnamed helpers / 33 B).
+The helper bodies are retained as a reviewed source exception in Codex-owned
+com_shared, with UNNAMED tags. No flags, masks, inventory or verifier changes.
+
+Source game routines are complete in each of the three editor TUs, but only
+stock verification and separate binding/helper checks establish the actual
+linked result. LstToolBar's compiler helper and full binary layout remain open.
+Full gate passes 467/467 game rows (13.05%), 56,094 B (8.02% game code),
+compiler 2/2 / 35 B, unchanged 48 unverified bodies and one warning.
+
+Deeper helper/data review: CScaleDialog's generated deleting destructor also
+passes separately (33 B, not game credit). CDialogThick's helper is CALLEE once
+its real destructor is known: retail calls the five-byte class destructor,
+ours calls CDialog directly. LstToolBar's helper is 39/33 B. All three retail
+vtable locators carry their named RTTI; the current new TUs emit none under
+the existing flags. No full-TU or whole-file identity is claimed. These
+compiler/caller/RTTI tasks transfer to Codex; no attributes or flags are forced.
+Actual constructor vtables/defaults, parent maps and dispatch entries pass
+the separate live-image checks. Evidence: scratch/dialog_review/{gate,bindings}.log.
