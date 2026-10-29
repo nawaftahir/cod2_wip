@@ -104,3 +104,16 @@ int FUN_0048b760(const float *v1, const float *v2)
 		return 1;
 	return 0;
 }
+
+void FUN_0048b790(const float *in, float *out)
+{
+	out[0] = in[0];
+	out[1] = in[1];
+	out[2] = in[2];
+	out[3] = in[3];
+}
+
+int FUN_0048b7b0(const int *a, const int *b)
+{
+	return *a == *b;
+}
