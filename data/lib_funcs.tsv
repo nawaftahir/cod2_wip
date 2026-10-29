@@ -2462,8 +2462,8 @@ addr	size	lib	member	symbol
 0x0050574d	124	nafxcw.lib	INTEL\$NW\wingdi.obj	?afxMapHGDIOBJ@@YGPAVCHandleMap@@H@Z
 0x005057c9	14	nafxcw.lib	INTEL\$NW\winctrl2.obj	?FromHandle@CImageList@@SGPAV1@PAU_IMAGELIST@@@Z
 0x005057d7	45	nafxcw.lib	INTEL\$NW\winctrl2.obj	?Attach@CImageList@@QAEHPAU_IMAGELIST@@@Z
-0x00505804	42	nafxcw.lib	INTEL\$NW\winctrl2.obj	?Detach@CImageList@@QAEPAU_IMAGELIST@@XZ
-0x0050582e	22	nafxcw.lib	INTEL\$NW\winctrl2.obj	?DeleteImageList@CImageList@@QAEHXZ
+0x00505804	42	nafxcw.lib	INTEL\$NW\wingdi.obj	?Detach@CGdiObject@@QAEPAXXZ
+0x0050582e	22	nafxcw.lib	INTEL\$NW\wingdi.obj	?DeleteObject@CGdiObject@@QAEHXZ
 0x00505844	50	nafxcw.lib	INTEL\$NW\wingdi.obj	?CreateDIBPatternBrush@CBrush@@QAEHPAXI@Z
 0x00505876	28	nafxcw.lib	INTEL\$NW\except.obj	??_GCMemoryException@@UAEPAXI@Z
 0x00505892	23	nafxcw.lib	INTEL\$NW\winfrmx.obj	?WindowFromPoint@CWnd@@SGPAV1@UtagPOINT@@@Z

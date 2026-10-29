@@ -38,6 +38,15 @@ These need evidence-backed compiler/caller/RTTI work; do not restore the
 attribute or change flags blindly. research/gemini_review/test_small_dialogs.py
 checks actual vtable stores, defaults, parent maps, callbacks and helper status.
 
+## Current complete-file checkpoint
+
+ScaleDialog is FILE VERIFIED: all three game routines / 103 B, generated deleting
+helper / 33 B, complete 86-slot class metadata/RTTI/default/message-map bindings.
+The reviewed /GR row restores named RTTI without adding EH. Exact image placement
+remains pending. Proof: research/gemini_review/DIALOG_COMPLETION.md and its tests.
+Memory remains partial at 46/49; allocator trials are already resolved.
+RotateDlg scratch is an incomplete hard handoff; never merge its empty handlers.
+
 ## Immediate hard work
 
 1. The two temporary allocators now MATCH and are landed. Do not repeat those
