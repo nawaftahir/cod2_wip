@@ -607,7 +607,7 @@ forbidden noinline; the real toolbar destructor still matches.
 
 All 467 game rows pass (13.05% functions), 56,094 / 699,591 B (8.02% game code).
 Compiler ledger remains 2 / 35 B; zero failures, 48 unverified, one order warning.
-Whole-file same-offset 26,054 B / 1.452% (+499). Actual vtable/default, parent-map
+Whole-file same-offset 26,053 B / 1.452% (+498). Actual vtable/default, parent-map
 and message-dispatch checks pass. Full-TU completion is not accepted: all three
 need RTTI; toolbar helper is 39/33 B, thick-dialog helper fails CALLEE. Scale's
 generated helper separately MATCHes, outside game credit. No flags, masks,

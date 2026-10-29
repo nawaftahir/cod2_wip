@@ -7,7 +7,7 @@ Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matc
 ## State
 - Latest main: cf9e736, reviewed Gemini dialog snapshot landed without touching
   its active MRU work. +13 game routines / 271 B; 467/467 (13.05% functions),
-  56,094 B (8.02% game code), same-offset 26,054 B (1.452%). Compiler 2/35 B,
+  56,094 B (8.02% game code), same-offset 26,053 B (1.452%). Compiler 2/35 B,
   zero failures, unverified 48, warning one. Generated helper/RTTI leftovers
   transfer to Codex; the three whole-TU completion claims are not accepted.
 - Latest integrated main: baaf02a, all three Gemini memory commits merged and
