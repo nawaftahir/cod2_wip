@@ -1,5 +1,9 @@
 # Cheap-agent contract (read all of it)
 
+The mandatory file-completion contract in ../CLAUDE.md applies to this role: one active TU,
+complete routine/helper inventory, real metadata bindings and a full regression
+before FILE VERIFIED. Partial checkpoints remain PARTIAL.
+
 You rebuild one source file of `CoD2Radiant.exe` so it compiles **byte-identical** to retail. You work in
 your own folder `.agents/<your-name>/` (a git worktree). Never touch anything outside it.
 

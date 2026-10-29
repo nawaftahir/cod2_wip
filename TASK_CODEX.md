@@ -1,5 +1,9 @@
 # Codex: hard files and integration (2026-10-29)
 
+The mandatory file-completion contract in CLAUDE.md applies to this role: one active TU,
+complete routine/helper inventory, real metadata bindings and a full regression
+before FILE VERIFIED. Partial checkpoints remain PARTIAL.
+
 The owner assigns Gemini the easy-file queue and Codex the hard work. Follow
 WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 58 files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;

@@ -1,111 +1,106 @@
-# CoD2Radiant.exe reconstruction: agent contract
+<!-- Generated from CLAUDE.md by sync-agents.sh. Edit CLAUDE.md, not this file. -->
 
-You are rebuilding `CoD2Radiant.exe` 1.0 (the Call of Duty 2 map editor, 2005) as C/C++ source.
-Compiled with the original compiler, the result must be **byte-identical** to the retail exe
-(`binaries/CoD2Radiant.exe`, SHA-256 in `checksums.yml`). You work one function at a time.
-This file is all you need. Follow it exactly.
+# CoD2Radiant reconstruction workspace
 
-## The loop
+Target: CoD2Radiant.exe 1.0, rebuilt from readable C/C++ with the original MSVC
+7.1 toolchain to the anchored whole-file SHA-256 in checksums.yml. Work stays
+inside radiant/. References outside this tree are read-only. No other project,
+server, game installation, binary, asset or Ghidra project may be changed.
 
-You work in your own worktree, `.agents/<your-name>/`, on branch `agent/<your-name>`. Stay in it.
+This is the authoritative track contract. After editing it, run
+./sync-agents.sh to regenerate AGENTS.md and GEMINI.md. Current ownership is in
+WORK_ASSIGNMENTS.md and lanes/BOARD.tsv; tasks and the queue refine that scope.
 
-1. **Get your rows.** If your task message lists rows, use those. Otherwise run
-   `python3 tools/claim.py <your-name> cheap`. It locks one whole source file for you and
-   prints up to 5 functions (`addr  source  note`). If it prints nothing, there is no work: stop.
-2. **Look at it.** `make show A=<addr>`. It prints:
-   - the source file the function belongs to, and which matched functions it goes between;
-   - the retail disassembly, with call targets and strings resolved;
-   - the Ghidra decompile, if there is one. It's a hint only; its names and types are guesses.
-3. **Write it in place.** Edit the real file under `src/` (your worktree is private), between the
-   two neighbours `show` named. Every file is its own object, built `/GL` and linked `/LTCG`, exactly
-   as retail was: the linker inlines across files and picks calling conventions for the whole program.
-   - If `make show` shows the function reading `eax`, `edx`, `esi`, `edi` or `ebx` before writing it, the
-     linker gave it **register arguments**. Write it as a normal function; LTCG picks the registers from
-     its callers. If they differ and its callers aren't written yet, say so in the defer reason.
-4. **Test.** `make try S=<the src file> A=<addr>`. It builds the whole exe and checks the function as
-   linked. `MATCH` means done.
-   On a mismatch it prints the first differing byte offset; compare with `make show`.
-   **At most 8 tries per function.** After the 8th failure, append a row to `ledger/defer.tsv`
-   (`addr  your-name  date  what you tried and what still differs`), delete your claim, and go to step 1.
-5. **Land it.**
-   - Put the function into the real file under `src/` at the same spot.
-   - Add a row to `ledger/matches.tsv`: `addr size source symbol name tag`. `symbol` is the
-     name in the .obj: `_Name` for C/`extern "C"`, the mangled `?Name@@...` for C++. `make try` prints it.
-   - Run `make try S=<the src file> A=<addr>` once more.
-6. **Commit (don't push).**
-   ```
-   git add <the src file> ledger/matches.tsv      # only your files, never `git add -A`
-   git commit -m "match <name> <addr>"
-   ```
-   The lander (`tools/land.sh`) merges your branch into main later. It rejects any commit that
-   touches anything except `src/` and `ledger/`. CI then rechecks everything and posts the numbers.
-7. Next row. When your rows are done, run `python3 tools/claim.py --release <your-name>` and stop.
+## One proper file at a time: mandatory for Codex and Gemini
 
-## What gets checked when your work lands
+Each worker has one active source TU. Reconstruct it in its existing retail
+file and function/data order, then verify the entire file before calling it
+complete or moving to unrelated source. Codex's independent review of submitted
+worker files may run alongside its primary reconstruction file.
 
-- `make try` compares **only your function's bytes** with retail. Where it sits in the exe, its
-  address and the other functions in the file don't affect the result. Don't defer because of "slots", "RVA" or "scaffold".
-- Every `make try` is recorded. **A deferral with fewer than 8 recorded tries is thrown out** and
-  the function goes back to the queue. Use the tries: change types, operand order, locals, loop form,
-  `if` vs `?:`, signed vs unsigned, and read the reference source again.
-- A deferral reason must say the best % reached and what differs at the first differing offset.
-- The referee reruns on your whole tree before merging. One false `MATCH` rejects your entire batch.
+A passing function is progress, not proof that its whole file is complete.
+Verified partial checkpoints may be committed and integrated without losing
+work, but the file stays PARTIAL. Continue that same file. A genuine dependency
+blocker must identify the address, real best result, first differing byte,
+needed caller/type/global, saved candidate and actual trial output. Resolve a
+bounded dependency or arrange an explicit ownership handoff/reassignment before
+switching files. Never hide a blocker or label the file complete to move on.
 
-## Shell commands you may run
+A FILE VERIFIED report requires all of the following:
 
-Only these, one command per call: no `&&`, `;` or `|` chains, no `python3`, no `find`, no `rm`.
-`make show|try|verify`, `git add|commit|status|diff|log`, `ls`, `cat`, `grep`, `head`, `tail`,
-`mkdir`, `cp`, `wc`, `sed`, `sort`, `diff`, `pwd`, `echo`. Anything else gets refused automatically.
-Read and edit files with your file tools, not the shell.
+1. Account for every original routine owned by the file, including routines
+   omitted from the game ledger, generated destructors, inlines, EH/unwind
+   helpers and emitted code outside the contiguous main TU range. Record each
+   address, symbol, target byte span, status and source/evidence. A suspected
+   bad inventory boundary is a proposal to review, not permission to drop code.
+2. Every game routine passes the unchanged linked-executable referee at 100%.
+   Game addresses are unique, row sizes equal anchored spans, and known callees
+   bind correctly. AUTO/compiler/library code is verified separately and never
+   inflates game function or byte coverage. A near-match is not a match.
+3. Verify the file's actual constants, strings, globals, field offsets, tables,
+   vtables, RTTI hierarchy/base offsets, runtime-class records, message maps,
+   callback identities and relevant initialization/cleanup references. Compare
+   contents and referenced identities after relocation normalization. Matching
+   instructions with masked addresses does not establish these data bindings.
+4. Preserve original source ownership, class definitions, storage/contributor
+   order, assertion expressions and retail line numbers. No conflicting class
+   views, fabricated fields/callees, duplicate helpers or later planned moves.
+5. Run the game-ledger audit, full regression gate and relevant binding checks.
+   Existing game matches/bytes may not decrease; unverified canonical bodies
+   may not increase. New unmatched bodies stay in scratch. Merged-tree CI must
+   pass before publication; never mistake stale build artifacts for proof.
+6. Commit the verified result and report the completed file to the user with
+   exact per-file game/helper/metadata totals, proof commands, remaining layout
+   work and project function %, game-byte % and whole-file same-offset %.
 
-## Rules that make it byte-identical
+PARTIAL means any required routine, helper or data binding is missing, failed
+or unchecked. FILE VERIFIED means the above source/code/metadata checks pass
+under relocation normalization. It does not mean its current addresses equal
+retail. Report absolute image placement as PENDING until demonstrated. Only a
+rebuilt whole-executable SHA-256 equal to the anchor establishes whole-file
+identity; report GUI boot/smoke separately. Never describe a green submitted
+ledger as a 100% whole-TU or whole-executable match.
 
-- **Line numbers are part of the binary.** Asserts store `__LINE__`. `make show` prints the
-  numbers (`push 0x75 ; 117`). The assert must sit on exactly that line of the file. Use blank
-  lines to get there. Never move other functions' lines.
-- **Order is part of the binary.** The exe stores a file's functions in the order the compiler emits
-  them, which mostly follows the file. Always insert at the spot `make show` names. `make verify`
-  prints `WARN-ORD` when the emitted order is off. Note it in your commit message, don't try to fix it.
-- **One file = one original source file.** The file list and order come from `link/order.txt`.
-  Don't create new `src/` files unless `make show` names one that doesn't exist yet.
-- **C vs C++:** files are `.cpp`. Use `extern "C"` only if the ledger's existing symbols in that
-  file are plain `_Name`.
-- **Compiler flags are fixed** (`data/flags.tsv`). Don't add `#pragma optimize` or change flags.
+## Source and evidence
 
-## Names
+The retail binary is authoritative, followed by the track analysis DB and
+independent agreeing references. Use the verified server source for shared
+engine files and Q3Radiant/CoD4 structural references for editor files. Inspect
+make show before editing. Names require target strings or agreeing reference
+logic; otherwise use FUN_<addr> / UNNAMED. Confirm types and layout from target
+instructions, allocation sizes, actual call sites and data. Never guess.
 
-- Use the real name only if you can point to evidence: an assert or error string in the
-  function, or the same function in a reference with the same logic. Then tag the ledger row
-  `PINNED` (string in the binary) or `SUPPORTED` (reference).
-- Otherwise name it `FUN_<addr>` (e.g. `FUN_0040b600`) and tag it `UNNAMED`. A wrong name is worse than no name.
-- References (read-only), best first:
-  - `../refrences/Quake-III-Arena/q3radiant/`: Q3Radiant, the editor CoD2Radiant grew from
-  - `../cod2engine/archive/lnxded-1.0/src/`: the finished CoD2 server source, same `src/universal`, `src/xanim`, `src/script` files
-  - `../refrences/CoD2rev_Server/src/`
-  - `../refrences/iw3xo-radiant/`: the CoD4 radiant, a later version of this editor
-  - `../refrences/KisakCOD/src/radiant/`: CoD4 Radiant rebuilt per file (camwnd, xywnd, brush, select, ...); best name and logic guide for editor files
-  - `../refrences/cod2map/cod2src/` and `../refrences/opencod2/cod2rad/src/`: rebuilt CoD2 map compiler and
-    light tool. Same `universal` files (com_math, dvar, q_parse...), so good for names and logic. Their line
-    numbers and file layout are not the original ones; use the server source for those.
-  - `research/opencode/`: old guesses per address (hints, not evidence)
+Real C/C++ only. No retail-byte arrays, copying/patching retail bytes after link,
+asm/_emit/naked functions, fake callers/wrappers, forced noinline, invented ABI
+annotations or weakened comparison masks. Numeric constants are allowed when
+proved by the target (for example window-style flags and allocator magic);
+absolute retail addresses must not substitute for proper source symbols.
 
-## Never
+Use make try with the exact known symbol when best-match guessing chooses the
+wrong routine. LTCG register conventions require real source/caller context,
+not ABI hacks. Keep bounded, distinct source trials and their actual outputs.
+Eight tries is a ceiling, not a quota. Never fabricate or pad try logs; ledger
+deferrals require the recorded evidence. Do not repeat exhausted variants.
 
-- Never use `__asm`, `_emit`, naked functions, or byte arrays of code. The referee rejects them.
-- Never edit `tools/`, `data/`, `link/`, `toolchain/`, `binaries/`, `.github/` or this file. If one
-  looks wrong, write it in your defer reason and move on.
-- Never touch anything outside this `radiant/` folder.
-- Never push. Never merge into main. Never rewrite history.
-- Never mark something matched that `make try` didn't call `MATCH`.
-- Never add a wrapper or fake caller just to make the compiler emit a function. If a `static`
-  or inline function only appears when called, defer it until its real caller is written.
-- Never leave an unmatched function in `src/`. Drafts stay in `scratch/`. `src/` holds only verified code,
-  and CI fails if the count of unverified functions in `src/` goes up.
+## Ownership, integration and cost
 
-## Words
+Workers use .agents/<name> and agent/<name>, one TU at a time. Gemini edits only
+its assigned source, matches/defer rows and report. Shared headers, flags,
+inventory, tools, library identities and link layout require Codex/owner review;
+Gemini submits evidence-backed proposals. Codex may adopt those changes only
+after target evidence and regression proof, documenting the decision.
 
-- **retail**: the original exe we compare against.
-- **TU**: one source file (`.cpp`) = one `.obj` in the original build.
-- **MATCH**: our compiled function has the same bytes as retail; addresses of other functions/data are ignored.
-- **CALLEE**: bytes match but your code calls a different known function than retail does. Fix the call.
-- **lib**: functions from Microsoft's MFC/C runtime (`data/lib_funcs.tsv`). They are linked, never rewritten, never in the queue.
+Codex reviews committed snapshots without interrupting active worker edits,
+preserves safety refs and integrates through tools/land.sh where applicable.
+A dirty worker is preserved; review an isolated committed snapshot instead.
+Never reset, overwrite or claim over unmerged/newer work. Preserve unrelated
+owner files and drafts. Only Codex integrates/pushes main under the owner's
+existing authorization; workers never push. Use the configured Nawaf identity,
+short messages, no Co-Authored-By, and never commit binaries/assets/projects.
+
+Use RADIANT_CI_NO_NOTIFY=1 unless notifications are separately requested.
+Same-offset bytes are report-only while layout is incomplete; do not discard
+passing source because offsets moved. Keep structure correct as each file goes.
+Reuse fresh objects for a source cohort, run independent reads in parallel and
+keep builds in the background. Do not overlap links in the same worktree or
+repeat successful checks without a changed input or an unresolved concern.

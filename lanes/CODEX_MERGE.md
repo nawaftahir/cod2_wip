@@ -1,5 +1,9 @@
 # Codex: merging cheap-agent work
 
+The mandatory file-completion contract in ../CLAUDE.md applies to this role: one active TU,
+complete routine/helper inventory, real metadata bindings and a full regression
+before FILE VERIFIED. Partial checkpoints remain PARTIAL.
+
 You own the `codex` files in `BOARD.tsv` (see `../CODEX_HANDOFF.md`) **and** you are the integrator.
 
 ## Merge a delivery

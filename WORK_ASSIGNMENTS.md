@@ -1,5 +1,9 @@
 # Radiant ownership (2026-10-29)
 
+The mandatory file-completion contract in CLAUDE.md applies to this role: one active TU,
+complete routine/helper inventory, real metadata bindings and a full regression
+before FILE VERIFIED. Partial checkpoints remain PARTIAL.
+
 The owner assigned Gemini all easy files and Codex the hard files plus main-tree
 integration. This split supersedes earlier single-file Gemini tasks and automatic
 claim directions. Main lanes/BOARD.tsv records exclusive ownership; each worker
@@ -10,8 +14,8 @@ uses its private worktree. No worker edits another worker's assigned source.
 | Gemini | 58 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
 | Codex | 31 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
 
-Gemini continues RADEditWnd and TexEdit, using the existing Q3 candidate
-list, then the small dialogs and remaining queue. One TU at a time; one commit
+Gemini follows its remaining queue and reports complete-file evidence.
+TexEdit is a Codex-owned hard handoff; existing drafts are preserved. One TU at a time; one commit
 per file; target 100% of each TU before calling it finished or moving on. Stop
 cleanly for Codex to review a completed file or a documented hard-blocker
 handoff, then resume after synchronization or dependency resolution. Never run
@@ -19,8 +23,9 @@ the resetting claim helper or synchronize over unmerged commits. A hard blocker 
 report with evidence; trying eight times is not a prerequisite to reporting it.
 
 Codex takes over the remaining com_memory, com_shared, q_parse, xmodel_utils and
-com_files work. The two 99% temporary-allocation drafts are its immediate source
-target, alongside the editor caller/global group and cross-file dependencies.
+com_files work. The two temporary allocators are already matched. Codex keeps the remaining
+com_memory.cpp work as its active reconstruction file, resolving necessary
+dependencies while independently reviewing worker submissions.
 The remaining existing codex lane ownership is unchanged. A hard leftover in a
 Gemini file is transferred only after a clean delivery and board update.
 

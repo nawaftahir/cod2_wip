@@ -1,5 +1,9 @@
 # Gemini: easy-file queue (2026-10-29)
 
+The mandatory file-completion contract in CLAUDE.md applies to this role: one active TU,
+complete routine/helper inventory, real metadata bindings and a full regression
+before FILE VERIFIED. Partial checkpoints remain PARTIAL.
+
 The owner assigned you all easy files; Codex takes the hard files and integration.
 This task supersedes the previous instruction to finish the five memory blockers.
 Your reserved queue is lanes/GEMINI_QUEUE.tsv: 58 files, in priority order.
