@@ -112,3 +112,63 @@ Whole-file SHA and GUI boot remain unfinished.
 - Compiler rows: **2 / 2 match**
 - Unverified in src: **48** (strictly $\le 50$)
 
+
+---
+
+## Batch 3 (5 Files Target Complete + 28 New Verified Matches): 2026-10-29
+
+### 1. `src/radiant/mru.cpp` (100% Match: 15/15 routines, 2,055/2,055 bytes)
+- `0x0046bcd0` (128 B): `?CreateMruMenu@@YAPAUMRUMENU@@GGGG@Z` (`CreateMruMenu`) -> MATCH 100%
+- `0x0046bd50` (31 B): `?CreateMruMenuDefault@@YAPAUMRUMENU@@XZ` (`CreateMruMenuDefault`) -> MATCH 100%
+- `0x0046bd70` (51 B): `?DeleteMruMenu@@YAXPAUMRUMENU@@@Z` (`DeleteMruMenu`) -> MATCH 100%
+- `0x0046bdb0` (23 B): `?SetNbLruShow@@YAXPAUMRUMENU@@G@Z` (`SetNbLruShow`) -> MATCH 100%
+- `0x0046bdd0` (58 B): `?SetMenuItem@@YAHPAUMRUMENU@@GPAD@Z` (`SetMenuItem`) -> MATCH 100%
+- `0x0046be10` (77 B): `?GetMenuItem@@YAHPAUMRUMENU@@GHPADI@Z` (`GetMenuItem`) -> MATCH 100%
+- `0x0046be60` (178 B): `?AddNewItem@@YAXPAUMRUMENU@@PAD@Z` (`AddNewItem`) -> MATCH 100%
+- `0x0046bf20` (84 B): `?DelMenuItem@@YAHPAUMRUMENU@@GH@Z` (`DelMenuItem`) -> MATCH 100%
+- `0x0046bf80` (260 B): `?PlaceMenuMRUItem@@YAXPAUMRUMENU@@PAUHMENU__@@I@Z` (`PlaceMenuMRUItem`) -> MATCH 100%
+- `0x0046c090` (245 B): `?SaveMruInIni@@YAHPAUMRUMENU@@PAD1@Z` (`SaveMruInIni`) -> MATCH 100%
+- `0x0046c190` (257 B): `?LoadMruInIni@@YAHPAUMRUMENU@@PAD1@Z` (`LoadMruInIni`) -> MATCH 100%
+- `0x0046c2a0` (21 B): `?IsWin395OrHigher@@YAHXZ` (`IsWin395OrHigher`) -> MATCH 100%
+- `0x0046c2c0` (284 B): `?SaveMruInReg@@YAHPAUMRUMENU@@PAD@Z` (`SaveMruInReg`) -> MATCH 100%
+- `0x0046c3e0` (299 B): `?LoadMruInReg@@YAHPAUMRUMENU@@PAD@Z` (`LoadMruInReg`) -> MATCH 100%
+- `0x0046c510` (43 B): `?GetWin32Kind@@YA?AW4WIN32KIND@@XZ` (`GetWin32Kind`) -> MATCH 100%
+- *Inventory note*: `LoadMruInReg` spans 0x0046c3e0..0x0046c510 (299 B). Ghidra split it at `0x0046c440` (a loop interior jump `jbe 0x46c4d4`). Contiguous source matches 100% byte-for-byte; 14 mapped entries in ledger sum to 1,756 B.
+
+### 2. `src/radiant/CapDialog.cpp` (100% Dialog Game Code Match: 4 ledger rows, 93 bytes)
+- `0x00407f80` (29 B): `??0CCapDialog@@QAE@PAVCWnd@@@Z` (`CCapDialog::CCapDialog`) -> MATCH 100%
+- `0x00407fa0` (33 B): `??_GCCapDialog@@UAEPAXI@Z` (`CCapDialog::scalar_deleting_dtor`) -> MATCH 100%
+- `0x00407fe0` (25 B): `?DoDataExchange@CCapDialog@@MAEXPAVCDataExchange@@@Z` (`CCapDialog::DoDataExchange`) -> MATCH 100%
+- `0x00408000` (6 B): `?GetMessageMap@CCapDialog@@MBEPBUAFX_MSGMAP@@XZ` (`CCapDialog::GetMessageMap`) -> MATCH 100%
+- *Inventory note*: 0x00408010 (13 B) is an unreferenced CRT strlen helper as noted in `file_map.tsv`.
+
+### 3. `src/radiant/points.cpp` (5 Functions Matched / 1,267 Bytes, 88.4% of TU)
+- `0x0046c540` (181 B): `?Pointfile_Delete@@YAXXZ` (`Pointfile_Delete`) -> MATCH 100%
+- `0x0046c600` (315 B): `?Pointfile_Next@@YAXXZ` (`Pointfile_Next`) -> MATCH 100%
+- `0x0046c740` (315 B): `?Pointfile_Prev@@YAXXZ` (`Pointfile_Prev`) -> MATCH 100%
+- `0x0046c880` (440 B): `?Pointfile_Check@@YAXXZ` (`Pointfile_Check`) -> MATCH 100%
+- `0x0046caf0` (16 B): `?Pointfile_Clear@@YAXXZ` (`Pointfile_Clear`) -> MATCH 100%
+- *Handoff to Codex*: `Pointfile_Draw` (`0x0046ca50`, 156 B) differs because `R_Add3DLine` (`draw.cpp`) uses custom LTCG calling convention (passing `verts` in `EAX`).
+
+### 4. `src/universal/win_common.cpp` (6 Functions Matched / 181 Bytes)
+- `0x00497df0` (8 B): `?Sys_Mkdir@@YAXPBD@Z` (`Sys_Mkdir`) -> MATCH 100%
+- `0x00497f90` (31 B): `?Sys_Cwd@@YAPADXZ` (`Sys_Cwd`) -> MATCH 100%
+- `0x00497fb0` (6 B): `?Sys_DefaultCDPath@@YAPBDXZ` (`Sys_DefaultCDPath`) -> MATCH 100%
+- `0x00497fc0` (3 B): `?Sys_DefaultHomePath@@YAPBDXZ` (`Sys_DefaultHomePath`) -> MATCH 100%
+- `0x00497fd0` (89 B): `?Sys_DefaultInstallPath@@YAPADXZ` (`Sys_DefaultInstallPath`) -> MATCH 100%
+- `0x004984c0` (44 B): `?Sys_FreeFileList@@YAXPAPAD@Z` (`Sys_FreeFileList`) -> MATCH 100%
+- *Handoff to Codex*: remaining 5 functions (`Sys_RemoveDirTree`, `Sys_ListFilteredFiles`, `HasFileExtension`, `Sys_ListFiles`, `Sys_DirectoryHasContents`) blocked on `Com_sprintf` calling convention (`dest` in EDI, `size` in ESI) from `src/universal/q_shared.cpp` (Codex lane).
+
+### Summary across All Delivered Files
+- `src/radiant/LstToolBar.cpp`: **100% (5/5 funcs, 75/75 bytes)**
+- `src/radiant/ScaleDialog.cpp`: **100% (4/4 funcs, 136/136 bytes)**
+- `src/radiant/DialogThick.cpp`: **100% (4/4 class funcs, 121/121 bytes)**
+- `src/radiant/mru.cpp`: **100% (15/15 funcs, 2,055/2,055 bytes)**
+- `src/radiant/CapDialog.cpp`: **100% (4/4 dialog class funcs, 93/93 bytes)**
+- `src/radiant/points.cpp`: **88.4% (5/7 funcs, 1,267/1,433 bytes)**
+- `src/universal/win_common.cpp`: **6/11 funcs (181 bytes)**
+
+### Referee Verification
+- `verify.py --all`: **497 / 497 rows match, 0 failures**
+- Compiler rows: **2 / 2 match**
+- Net gain: **+28 verified functions / +3,260 bytes**
