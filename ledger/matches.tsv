@@ -517,3 +517,14 @@ addr	size	source	symbol	name	tag
 0x0043c2a0	16	src/radiant/RotateDlg.cpp	?OnOK@CRotateDlg@@MAEXXZ	CRotateDlg::OnOK	SUPPORTED
 0x0043c490	86	src/radiant/RotateDlg.cpp	?OnInitDialog@CRotateDlg@@MAEHXZ	CRotateDlg::OnInitDialog	SUPPORTED
 0x0043c700	1	src/radiant/RotateDlg.cpp	?ApplyNoPaint@CRotateDlg@@IAEXXZ	CRotateDlg::ApplyNoPaint	SUPPORTED
+0x004241e0	116	src/radiant/NewProjDlg.cpp	??0CNewProjDlg@@QAE@PAVCWnd@@@Z	CNewProjDlg::CNewProjDlg	SUPPORTED
+0x00424290	25	src/radiant/NewProjDlg.cpp	?DoDataExchange@CNewProjDlg@@MAEXPAVCDataExchange@@@Z	CNewProjDlg::DoDataExchange	SUPPORTED
+0x004242b0	6	src/radiant/NewProjDlg.cpp	?GetMessageMap@CNewProjDlg@@MBEPBUAFX_MSGMAP@@XZ	CNewProjDlg::GetMessageMap	SUPPORTED
+0x0040bcf0	123	src/radiant/DlgEvent.cpp	??0CDlgEvent@@QAE@PAVCWnd@@@Z	CDlgEvent::CDlgEvent	SUPPORTED
+0x0040bda0	46	src/radiant/DlgEvent.cpp	?DoDataExchange@CDlgEvent@@MAEXPAVCDataExchange@@@Z	CDlgEvent::DoDataExchange	SUPPORTED
+0x0040bdd0	6	src/radiant/DlgEvent.cpp	?GetMessageMap@CDlgEvent@@MBEPBUAFX_MSGMAP@@XZ	CDlgEvent::GetMessageMap	SUPPORTED
+0x0043f710	135	src/radiant/TextureLayout.cpp	??0CTextureLayout@@QAE@PAVCWnd@@@Z	CTextureLayout::CTextureLayout	SUPPORTED
+0x0043f7d0	94	src/radiant/TextureLayout.cpp	?DoDataExchange@CTextureLayout@@MAEXPAVCDataExchange@@@Z	CTextureLayout::DoDataExchange	SUPPORTED
+0x0043f830	6	src/radiant/TextureLayout.cpp	?GetMessageMap@CTextureLayout@@MBEPBUAFX_MSGMAP@@XZ	CTextureLayout::GetMessageMap	SUPPORTED
+0x0043f840	5	src/radiant/TextureLayout.cpp	?OnOK@CTextureLayout@@MAEXXZ	CTextureLayout::OnOK	SUPPORTED
+0x0043f850	65	src/radiant/TextureLayout.cpp	?OnInitDialog@CTextureLayout@@MAEHXZ	CTextureLayout::OnInitDialog	SUPPORTED
