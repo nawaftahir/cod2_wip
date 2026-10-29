@@ -132,3 +132,44 @@ actual output are in scratch/codex_rotate. The candidate matrix helper matches
 107 B only in that cohort and is not separately credited or retained. All
 experimental select.cpp/com_math.cpp changes were restored. Evidence and next
 steps: research/gemini_review/DIALOG_BATCH.md. No ABI hacks or guessed layouts.
+
+## Paused after RotateDlg and three-dialog integration
+
+The owner requested a pause after finishing these reviews. Both source merges
+are pushed: c7ce6d5 (Codex RotateDlg) and df92ba1 (Gemini snapshot 965e352).
+All 529 game rows pass merged CI and the unique-address/exact-span audit:
+14.78% functions, 61,031 / 699,591 B (8.72% game code), same-offset
+26,127 / 1,794,048 B (1.456%).
+Compiler ledger 2/2 / 35 B, zero failures, unchanged 48 unverified bodies and
+one order warning. Relative to the prior 512-row checkpoint: +17 game routines /
+1,125 B, separately Codex +6 / 498 B and Gemini +11 / 627 B. Same-offset +14 B.
+
+NewProjDlg (3 / 147 B) and DlgEvent (3 / 175 B) are FILE VERIFIED under
+normalized code/helper/metadata checks, including their shared 36-byte destructors,
+constructor EH/unwind tables and all 86 vtable slots. Their padding is 44 / 32 B,
+correcting the worker's final-gap-only totals. TextureLayout adds five / 305 B
+and its class scalar/destructor/EH/metadata pass, but it remains PARTIAL:
+shared member SpinButton scalar is 33/30 B, first +0x0. Its real 16-byte header
+constructor and 30-byte SetRange body match their target shared bodies.
+
+RotateDlg adds six / 498 B; scalar 34 B and shared destructor 200 B match
+separately. Four rotation handlers remain scratch-only after three real caller/
+callee trials. No near-match or temporary matrix/SinCos helper is credited.
+select.cpp and com_math.cpp were restored; no ABI annotation, fake caller or
+partial guessed brush/prefs layout was retained. The corrected spin destructor
+alias 0x4f56ee is proven by target RTTI and 56 normalized archive bytes.
+The remaining SpinButton scalar/context gap also applies to RotateDlg; complete
+EH/helper ownership auditing and real callback bodies are still pending.
+
+Proof: research/gemini_review/DIALOG_BATCH.md, test_dialog_batch.py,
+test_rotate_checkpoint.py, test_spin_binding.py and build/pause-dialog-final-tests.log.
+Both landers' worker/merged CI are retained in build/rotate-land.log,
+build/dialog-batch-land.log and build/ci-last.log. No comparison masks, referee
+predicates or inventory were changed. Whole-image placement, final SHA and GUI
+boot remain pending. Original drafts/safety refs and the unrelated near.py stay.
+
+Board: 51 queued easy candidates for Gemini, 35 Codex lane files including
+explicit TextureLayout/DialogInfo/KeyValueSelect hard handoffs. No code from
+undelivered DialogInfo/KeyValueSelect scratch is accepted. Next Gemini files
+when the owner continues: PatchDensityDlg.cpp then TerrainDensityDlg.cpp.
+Codex remains paused, with RotateDlg its next primary continuation.

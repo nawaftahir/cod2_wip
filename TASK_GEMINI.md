@@ -5,23 +5,27 @@ complete routine/helper inventory, real metadata bindings and a full regression
 before FILE VERIFIED. Partial checkpoints remain PARTIAL.
 
 
-## Current dispatch (supersedes historical next-file instructions below)
+## Current checkpoint and next dispatch
 
-1. src/radiant/NewProjDlg.cpp (already active; finish this first)
-2. src/radiant/DialogInfo.cpp
-3. src/radiant/DlgEvent.cpp
+Codex has reviewed 965e352 and integrated NewProjDlg, DlgEvent and TextureLayout.
+Main passes 529/529 game rows, 8.72% game bytes, unverified 48. NewProjDlg and
+DlgEvent pass full normalized file audits. TextureLayout remains PARTIAL because
+its member SpinButton scalar is 33/30 B; its hard remainder belongs to Codex.
+RotateDlg has six accepted game routines; its four hard bodies remain Codex's.
+DialogInfo and KeyValueSelect scratch handoffs now belong to Codex for review.
+Do not restore their scratch code or helper shortcuts into your source tree.
 
-One TU at a time. Deliver a clean commit with full code/helper/metadata evidence.
-NameDlg is accepted and merged at f535098 (five game routines / 245 B).
-Combined main: 512/512, 8.56% game bytes; do not edit it. RotateDlg has
-no committed delivery: scratch/RotateDlg.cpp contains empty OnApply and spin
-handlers, and the quoted 510-row gate does not cover that file. Preserve the
-scratch draft. Codex takes its hard remainder for review; do not claim it done.
-TexEdit stays with Codex. Compiler flags/library changes are proposals only.
+When the owner continues your lane, take:
+1. src/radiant/PatchDensityDlg.cpp
+2. src/radiant/TerrainDensityDlg.cpp
+
+One TU at a time, full code/helper/metadata evidence, clean committed delivery.
+Flags and library identities are proposals only. All original scratch drafts
+remain preserved. Codex is paused after completing the owner's review request.
 
 The owner assigned you all easy files; Codex takes the hard files and integration.
 This task supersedes the previous instruction to finish the five memory blockers.
-Your reserved queue is lanes/GEMINI_QUEUE.tsv: 56 files, in priority order.
+Your reserved queue is lanes/GEMINI_QUEUE.tsv: 51 files, in priority order.
 Ownership in lanes/BOARD.tsv is authoritative. Work only in .agents/gemini on
 agent/gemini; never push, merge main yourself, reset a branch, or run claim.sh.
 Codex syncs your clean worktree after each reviewed delivery. The current dispatch above determines your next file. No extra permission is needed to

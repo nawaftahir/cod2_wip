@@ -11,8 +11,8 @@ uses its private worktree. No worker edits another worker's assigned source.
 
 | Worker | Scope | Task |
 |---|---|---|
-| Gemini | 56 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
-| Codex | 32 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
+| Gemini | 51 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
+| Codex | 35 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
 
 Gemini follows its remaining queue and reports complete-file evidence.
 TexEdit is a Codex-owned hard handoff; existing drafts are preserved. One TU at a time; one commit
@@ -37,3 +37,8 @@ Keep unrelated owner files and all worker drafts. Do not send notifications.
 Only linked referee MATCHes count. Game matched functions/bytes never decrease;
 whole-file same-offset is report-only. Report function %, game-byte % and
 same-offset % separately. No fabricated attempts, source, provenance or ABI.
+
+Codex is paused after the reviewed 529-row checkpoint at the owner's request.
+NewProjDlg and DlgEvent are finished under normalized file checks; TextureLayout,
+DialogInfo and KeyValueSelect are explicit Codex handoffs. Gemini's next queued
+files, when the owner continues it, are PatchDensityDlg and TerrainDensityDlg.

@@ -12,18 +12,18 @@ src/radiant/CapDialog.cpp	codex	partial	codex	6	111	4	0	4 game rows matched; com
 src/radiant/DialogThick.cpp	codex	partial	codex	5	126	4	0	game methods matched; generated helpers/RTTI remain (Codex review)
 src/radiant/ScaleDialog.cpp	codex	merged	codex	4	136	3	0	FILE VERIFIED: 3 game / 103 B + scalar 33 B; full normalized class metadata; absolute image placement pending
 src/radiant/UNKNOWN_00408f20.cpp	cheap	open	gemini	4	153	0	0	iw3xo (1/1)
-src/radiant/NewProjDlg.cpp	cheap	open	gemini	4	180	0	0	none: from make show
+src/radiant/NewProjDlg.cpp	cheap	merged	gemini	4	180	3	0	FILE VERIFIED: 3 game / 147 B; scalar/shared destructor/EH/full normalized metadata; absolute image placement pending
 src/radiant/EditWnd.cpp	cheap	merged	gemini	7	182	6	0	6/6 game + generated destructor; normalized class metadata verified; image placement open
 src/universal/UNKNOWN_004985d0.cpp	cheap	open	gemini	16	196	0	3	none: from make show
-src/radiant/DlgEvent.cpp	cheap	open	gemini	4	208	0	0	none: from make show
+src/radiant/DlgEvent.cpp	cheap	merged	gemini	4	208	3	0	FILE VERIFIED: 3 game / 175 B; scalar/shared destructor/EH/full normalized metadata; absolute image placement pending
 src/radiant/NameDlg.cpp	cheap	merged	gemini	6	278	5	0	FILE VERIFIED: 5 game / 245 B; helpers and full normalized metadata verified; absolute placement pending
-src/radiant/DialogInfo.cpp	cheap	open	gemini	8	332	0	0	none: from make show
-src/radiant/TextureLayout.cpp	cheap	open	gemini	6	339	0	0	none: from make show
+src/radiant/DialogInfo.cpp	codex	partial	codex	8	332	0	0	scratch preserved; reported ShowInfoDialog 73/66 B requires Pmesh caller review; no accepted source
+src/radiant/TextureLayout.cpp	codex	partial	codex	6	339	5	0	5 game / 305 B; own class metadata verified; member Spin scalar 33/30 B first +0; hard handoff
 src/radiant/RADEditWnd.cpp	cheap	merged	gemini	6	353	5	0	5/5 game + generated destructor; parent/member/RTTI/message metadata verified
 src/radiant/TexEdit.cpp	codex	partial	codex	7	397	0	0	hard handoff: GDI DeleteObject alias and CTexWnd::UpdateFilter caller group
 src/radiant/PatchDensityDlg.cpp	cheap	open	gemini	6	422	0	0	none: from make show
 src/radiant/TerrainDensityDlg.cpp	cheap	open	gemini	6	422	0	0	none: from make show
-src/radiant/KeyValueSelectDlg.cpp	cheap	open	gemini	5	458	0	1	none: from make show
+src/radiant/KeyValueSelectDlg.cpp	codex	partial	codex	5	458	0	1	scratch preserved; reported destructor ESI caller context in select.cpp; no accepted source
 src/universal/splines/math_quaternion.cpp	cheap	open	gemini	4	539	1	1	none: from make show
 src/universal/UNKNOWN_00494480.cpp	cheap	open	gemini	3	816	0	1	none: from make show
 src/radiant/FindTextureDlg.cpp	cheap	open	gemini	16	1046	0	1	Q3Radiant FindTextureDlg.cpp (4/4 string funcs)
@@ -32,7 +32,7 @@ src/universal/splines/math_angles.cpp	cheap	open	gemini	12	1269	4	7	none: from m
 src/universal/splines/math_matrix.cpp	cheap	open	gemini	10	1405	6	7	none: from make show
 src/radiant/points.cpp	codex	partial	codex	7	1433	4	0	4 matched; camera layouts and renderer caller group pending
 src/radiant/EntityListDlg.cpp	cheap	open	gemini	22	1480	0	0	Q3Radiant Win_ent.cpp (1/1 string funcs)
-src/radiant/RotateDlg.cpp	codex	partial	codex	11	1502	0	0	scratch only: OnApply is empty vs retail 475 B; spin callbacks incomplete; no matched canonical source
+src/radiant/RotateDlg.cpp	codex	partial	codex	11	1502	6	0	6 game / 498 B; scalar 34 B and shared dtor 200 B verified; four rotation bodies and member-header context pending
 src/radiant/CommandsDlg.cpp	cheap	open	gemini	16	1515	0	0	Q3Radiant CommandsDlg.cpp (1/1 string funcs); iw3xo (1/1)
 src/radiant/ZWnd.cpp	cheap	open	gemini	26	1552	0	0	Q3Radiant ZWnd.cpp (2/2 string funcs)
 src/radiant/TextureBar.cpp	cheap	open	gemini	15	1608	0	0	iw3xo (2/2)
