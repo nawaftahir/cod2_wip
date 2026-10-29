@@ -8,6 +8,7 @@ src/radiant/RADEditWnd.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
 src/radiant/NameDlg.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
 src/radiant/NewProjDlg.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
 src/radiant/DlgEvent.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
+src/radiant/TextureLayout.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
 src/zlib/unzip.c	/O2 /Oy- /Op /GS /GL
 src/zlib/zutil.c	/O2 /Oy- /Op /GS /GL
 src/zlib/*	/O2 /GS /GL

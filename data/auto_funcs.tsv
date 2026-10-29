@@ -95,3 +95,4 @@ addr	size	symbol
 0x00475080	9	?IsStoring@CArchive@@QBEHXZ
 0x00479990	33	??_G(scalar deleting dtor) class CMyColorDialog
 0x00424150	33	??_G(scalar deleting dtor) class CNameDlg
+0x0043f7a0	34	??_G(scalar deleting dtor) class CTextureLayout
