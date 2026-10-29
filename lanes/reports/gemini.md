@@ -185,3 +185,64 @@ functions; compiler 2/2 / 35 B, unverified 48, failures zero. Full SHA, RTTI and
 all remaining source are unfinished. Final main CI/meter and live import/literal
 checks are recorded in the integration checkpoint. Primary review logs and
 submitted bodies: .agents/gemini_review/scratch/batch3_review/.
+
+
+## Batch four: 5 Complete Whole-File Matches (2026-10-29)
+
+Completed 5 whole files from `lanes/GEMINI_QUEUE.tsv` with 100% relocation-normalized byte match across all inventoried routines:
+
+### 1. `src/radiant/EditWnd.cpp` (7/7 routines, 182/182 B matched = 100%)
+- `0x0040c6b0` (80 B): `?CreateObject@CEditWnd@@SGPAVCObject@@XZ` -> MATCH 100%
+- `0x0040c700` (6 B): `?GetRuntimeClass@CEditWnd@@UBEPAUCRuntimeClass@@XZ` -> MATCH 100%
+- `0x0040c710` (16 B): `??0CEditWnd@@QAE@XZ` -> MATCH 100%
+- `0x0040c720` (33 B): `??_ECEditWnd@@UAEPAXI@Z` (AUTO scalar dtor) -> MATCH 100%
+- `0x0040c750` (11 B): `??1CEditWnd@@UAE@XZ` -> MATCH 100%
+- `0x0040c760` (6 B): `?GetMessageMap@CEditWnd@@MBEPBUAFX_MSGMAP@@XZ` -> MATCH 100%
+- `0x0040c770` (30 B): `?PreCreateWindow@CEditWnd@@MAEHAAUtagCREATESTRUCTA@@@Z` -> MATCH 100%
+- Game ledger gain: 6 routines / 149 B.
+
+### 2. `src/radiant/RADEditWnd.cpp` (6/6 routines, 353/353 B matched = 100%)
+- `0x0043b500` (85 B): `??0CRADEditWnd@@QAE@XZ` -> MATCH 100%
+- `0x0043b560` (33 B): `??_ECRADEditWnd@@UAEPAXI@Z` (AUTO scalar dtor) -> MATCH 100%
+- `0x0043b590` (87 B): `??1CRADEditWnd@@UAE@XZ` -> MATCH 100%
+- `0x0043b5f0` (6 B): `?GetMessageMap@CRADEditWnd@@MBEPBUAFX_MSGMAP@@XZ` -> MATCH 100%
+- `0x0043b600` (75 B): `?OnCreate@CRADEditWnd@@IAEHPAUtagCREATESTRUCTA@@@Z` -> MATCH 100%
+- `0x0043b650` (67 B): `?OnSize@CRADEditWnd@@IAEXIHH@Z` -> MATCH 100%
+- Game ledger gain: 5 routines / 320 B.
+
+### 3. `src/radiant/DlgEvent.cpp` (4/4 routines, 208/208 B matched = 100%)
+- `0x0040bcf0` (123 B): `??0CDlgEvent@@QAE@PAVCWnd@@@Z` -> MATCH 100%
+- `0x0040bd70` (33 B): `??_ECDlgEvent@@UAEPAXI@Z` (AUTO scalar dtor) -> MATCH 100%
+- `0x0040bda0` (46 B): `?DoDataExchange@CDlgEvent@@MAEXPAVCDataExchange@@@Z` -> MATCH 100%
+- `0x0040bdd0` (6 B): `?GetMessageMap@CDlgEvent@@MBEPBUAFX_MSGMAP@@XZ` -> MATCH 100%
+- Game ledger gain: 3 routines / 175 B.
+
+### 4. `src/radiant/NewProjDlg.cpp` (4/4 routines, 180/180 B matched = 100%)
+- `0x004241e0` (116 B): `??0CNewProjDlg@@QAE@PAVCWnd@@@Z` -> MATCH 100%
+- `0x00424260` (33 B): `??_GCNewProjDlg@@UAEPAXI@Z` (AUTO scalar dtor) -> MATCH 100%
+- `0x00424290` (25 B): `?DoDataExchange@CNewProjDlg@@MAEXPAVCDataExchange@@@Z` -> MATCH 100%
+- `0x004242b0` (6 B): `?GetMessageMap@CNewProjDlg@@MBEPBUAFX_MSGMAP@@XZ` -> MATCH 100%
+- Game ledger gain: 3 routines / 147 B.
+
+### 5. `src/radiant/NameDlg.cpp` (6/6 routines, 278/278 B matched = 100%)
+- `0x00424090` (183 B): `??0CNameDlg@@QAE@PBDPAVCWnd@@@Z` -> MATCH 100%
+- `0x00424150` (33 B): `??_GCNameDlg@@UAEPAXI@Z` (AUTO scalar dtor) -> MATCH 100%
+- `0x00424180` (25 B): `?DoDataExchange@CNameDlg@@MAEXPAVCDataExchange@@@Z` -> MATCH 100%
+- `0x004241a0` (6 B): `?GetMessageMap@CNameDlg@@MBEPBUAFX_MSGMAP@@XZ` -> MATCH 100%
+- `0x004241b0` (5 B): `?OnOK@CNameDlg@@MAEXXZ` -> MATCH 100%
+- `0x004241c0` (26 B): `?OnInitDialog@CNameDlg@@MAEHXZ` -> MATCH 100%
+- Game ledger gain: 5 routines / 245 B.
+
+### Note on `src/radiant/TexEdit.cpp` (PARTIAL, saved in scratch)
+- 5 of 7 routines match 100% (ctor, sdd, message map, CtlColor, OnCreate).
+- Blocked on 2 issues:
+  1. `0x0043eec0`: callee discrepancy on `0x0050582e`. In retail PE imports, `0x0050582e` calls `GDI32.dll DeleteObject` (IAT `0x528198`), matching `CGdiObject::DeleteObject`, but `data/lib_funcs.tsv` mapped it to `CImageList::DeleteImageList`.
+  2. `0x0043ef60` (`OnChange`): LTCG inlines/customizes register calling convention (`edi = this, esi = str`) for `CTexWnd::UpdateFilter` in `TexWnd.cpp`. Because `TexWnd.cpp` is currently a placeholder, linker creates standard `thiscall` stub at `0x400000`.
+- Retained in `scratch/TexEdit.cpp` pending `TexWnd.cpp` and lib alias resolution.
+
+### Total Batch Verification
+- Net game gain: 22 game routines / 1,036 B.
+- Plus 5 AUTO scalar deleting destructors verified (165 B).
+- Total routines matched across 5 files: 27 / 27 routines (1,201 / 1,201 bytes = 100%).
+- `research/gemini_review/test_game_ledger.py`: **PASS: 516 unique game addresses, exact retail byte spans, separate library/compiler accounting**.
+- `tools/verify.py --all`: **516/516 rows match, 0 failures** (compiler 2/2 match, unverified 44 <= 48).
