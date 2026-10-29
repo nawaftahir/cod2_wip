@@ -504,3 +504,5 @@ addr	size	source	symbol	name	tag
 0x0043b5f0	6	src/radiant/RADEditWnd.cpp	?GetMessageMap@CRADEditWnd@@MBEPBUAFX_MSGMAP@@XZ	CRADEditWnd::GetMessageMap	SUPPORTED
 0x0043b600	75	src/radiant/RADEditWnd.cpp	?OnCreate@CRADEditWnd@@IAEHPAUtagCREATESTRUCTA@@@Z	CRADEditWnd::OnCreate	SUPPORTED
 0x0043b650	67	src/radiant/RADEditWnd.cpp	?OnSize@CRADEditWnd@@IAEXIHH@Z	CRADEditWnd::OnSize	SUPPORTED
+0x0048aae0	279	src/universal/com_memory.cpp	?Hunk_AllocateTempMemoryInternal@@YAPAXH@Z	Hunk_AllocateTempMemoryInternal	PINNED
+0x0048ac00	182	src/universal/com_memory.cpp	?Hunk_ReallocateTempMemoryInternal@@YAPAXH@Z	Hunk_ReallocateTempMemoryInternal	PINNED

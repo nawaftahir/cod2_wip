@@ -1611,6 +1611,36 @@ void *Hunk_AllocateTempMemoryInternal( int size );
 
 
 
+void *Hunk_AllocateTempMemoryInternal( int size )
+{
+	void *buf;
+	hunkHeader_t *hdr;
+	int prevTemp;
+	if ( !s_hunkData )
+		return Z_MallocInternal( size );
+	size += sizeof( hunkHeader_t );
+	prevTemp = hunk_low.temp;
+	hunk_low.temp = PAD( hunk_low.temp, 16 );
+	buf = &s_hunkData[hunk_low.temp];
+	hunk_low.temp += size;
+	if ( hunk_low.temp + hunk_high.temp > s_hunkTotal )
+	{
+		Com_Error(
+		    ERR_DROP,
+		    "Hunk_AllocateTempMemory: failed on %i bytes (total %i MB, low %i MB, high %i MB), needs %i more hunk bytes",
+		    size,
+		    s_hunkTotal / ( 1024 * 1024 ),
+		    hunk_low.temp / ( 1024 * 1024 ),
+		    hunk_high.temp / ( 1024 * 1024 ),
+		    hunk_low.temp + hunk_high.temp - s_hunkTotal );
+	}
+	hdr = (hunkHeader_t *)buf;
+	buf = hdr + 1;
+	assert( !(((int)buf) & 15) );
+	hdr->magic = HUNK_MAGIC;
+	hdr->size = hunk_low.temp - prevTemp;
+	return buf;
+}
 
 
 
@@ -1631,55 +1661,25 @@ void *Hunk_AllocateTempMemoryInternal( int size );
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void *Hunk_ReallocateTempMemoryInternal( int size );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void *Hunk_ReallocateTempMemoryInternal( int size )
+{
+	void *buf;
+	assert( s_hunkData );
+	hunk_low.temp = PAD( hunk_low.permanent, 32 );
+	buf = &s_hunkData[hunk_low.temp];
+	hunk_low.temp += size;
+	if ( hunk_low.temp + hunk_high.temp > s_hunkTotal )
+	{
+		Com_Error(
+		    ERR_DROP,
+		    "Hunk_ReallocateTempMemory: failed on %i bytes (total %i MB, low %i MB, high %i MB)",
+		    size,
+		    s_hunkTotal / ( 1024 * 1024 ),
+		    hunk_low.temp / ( 1024 * 1024 ),
+		    hunk_high.temp / ( 1024 * 1024 ) );
+	}
+	return buf;
+}
 
 
 
