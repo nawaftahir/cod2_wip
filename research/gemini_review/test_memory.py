@@ -29,6 +29,6 @@ for row in rows:
                 got = ours.get_data(replacement.imm - ours.OPTIONAL_HEADER.ImageBase, 256).split(b'\0', 1)[0]
                 assert expected == got, (row['addr'], expected, got)
                 literals += 1
-assert len(rows) == 44 and literals >= 20 and imports >= 5 and len(state) >= 10, (len(rows), literals, imports, len(state))
+assert len(rows) == 46 and literals >= 20 and imports >= 5 and len(state) >= 10, (len(rows), literals, imports, len(state))
 assert len(set(state.values())) == len(state), 'distinct retail state addresses were aliased'
 print('PASS: %d memory routines, %d literals, %d import accesses, %d shared-state identities' % (len(rows), literals, imports, len(state)))

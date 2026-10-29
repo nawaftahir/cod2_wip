@@ -499,3 +499,5 @@ addr	size	source	symbol	name	tag
 0x0040c750	11	src/radiant/EditWnd.cpp	??1CEditWnd@@UAE@XZ	CEditWnd::~CEditWnd	SUPPORTED
 0x0040c760	6	src/radiant/EditWnd.cpp	?GetMessageMap@CEditWnd@@MBEPBUAFX_MSGMAP@@XZ	CEditWnd::GetMessageMap	SUPPORTED
 0x0040c770	30	src/radiant/EditWnd.cpp	?PreCreateWindow@CEditWnd@@MAEHAAUtagCREATESTRUCTA@@@Z	CEditWnd::PreCreateWindow	SUPPORTED
+0x0048aae0	279	src/universal/com_memory.cpp	?Hunk_AllocateTempMemoryInternal@@YAPAXH@Z	Hunk_AllocateTempMemoryInternal	PINNED
+0x0048ac00	182	src/universal/com_memory.cpp	?Hunk_ReallocateTempMemoryInternal@@YAPAXH@Z	Hunk_ReallocateTempMemoryInternal	PINNED
