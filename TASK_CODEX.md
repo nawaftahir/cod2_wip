@@ -1,9 +1,22 @@
 # Codex: hard files and integration (2026-10-29)
 
 The owner assigns Gemini the easy-file queue and Codex the hard work. Follow
-WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 68 files in
+WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 65 files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;
 do not reconstruct or change their headers while its checkpoint is active.
+
+## New reviewed leftovers
+
+LstToolBar.cpp, ScaleDialog.cpp and DialogThick.cpp now belong to Codex. All
+their game rows match (4/42 B, 3/103 B, 4/93 B), but the full TUs are not done.
+Retail has named RTTI for each class; current new TUs emit none. LstToolBar's
+generated deleting destructor is 39/33 B after removing forbidden noinline.
+DialogThick's generated helper fails CALLEE once the five-byte real class
+destructor is known: it calls CDialog directly instead. ScaleDialog's generated
+helper separately MATCHes 33 B. Keep AUTO code separate from game credit.
+These need evidence-backed compiler/caller/RTTI work; do not restore the
+attribute or change flags blindly. research/gemini_review/test_small_dialogs.py
+checks actual vtable stores, defaults, parent maps, callbacks and helper status.
 
 ## Immediate hard work
 
@@ -23,7 +36,7 @@ do not reconstruct or change their headers while its checkpoint is active.
 Explicit transfers from Gemini: com_memory.cpp, com_shared.cpp, q_parse.cpp,
 xmodel_utils.cpp and com_files.cpp. Their five/ nine/ parser/ getter/ filesystem
 leftovers are hard work now; existing verified source remains intact. Other
-hard files are the 23 codex-lane rows in BOARD.tsv. Work on one TU at a time.
+hard files are the 26 codex-lane rows in BOARD.tsv. Work on one TU at a time.
 No ABI hacks, guessed globals, invented names, fake callers or relaxed masks.
 
 ## Integration

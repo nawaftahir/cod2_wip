@@ -2,15 +2,15 @@
 file	lane	status	owner	functions	bytes	matched	register_args	reference
 src/xanim/xmodel_utils.cpp	codex	partial	codex	11	1090	10	0	server source (copy-ready)
 src/xanim/xmodel.cpp	cheap	open	gemini	31	1850	0	6	server source (copy-ready)
-src/universal/com_shared.cpp	codex	partial	codex	14	2064	5	3	server source (copy-ready)
+src/universal/com_shared.cpp	codex	partial	codex	14	2064	7	3	server source (copy-ready)
 src/universal/q_parse.cpp	codex	partial	codex	37	4698	26	8	server source (copy-ready)
 src/universal/com_memory.cpp	codex	partial	codex	49	4768	44	6	server source (copy-ready)
 src/universal/assertive.cpp	cheap	partial	gemini	35	5253	8	5	server source (copy-ready)
 src/script/scr_memorytree.cpp	cheap	open	gemini	21	5332	0	11	server source (copy-ready)
-src/radiant/LstToolBar.cpp	cheap	open	gemini	5	75	0	0	none: from make show
+src/radiant/LstToolBar.cpp	codex	partial	codex	5	75	4	0	game methods matched; generated helpers/RTTI remain (Codex review)
 src/radiant/CapDialog.cpp	cheap	open	gemini	6	111	0	0	none: from make show
-src/radiant/DialogThick.cpp	cheap	open	gemini	5	126	0	0	none: from make show
-src/radiant/ScaleDialog.cpp	cheap	open	gemini	4	136	0	0	none: from make show
+src/radiant/DialogThick.cpp	codex	partial	codex	5	126	4	0	game methods matched; generated helpers/RTTI remain (Codex review)
+src/radiant/ScaleDialog.cpp	codex	partial	codex	4	136	3	0	game methods matched; generated helpers/RTTI remain (Codex review)
 src/radiant/UNKNOWN_00408f20.cpp	cheap	open	gemini	4	153	0	0	iw3xo (1/1)
 src/radiant/NewProjDlg.cpp	cheap	open	gemini	4	180	0	0	none: from make show
 src/radiant/EditWnd.cpp	cheap	open	gemini	7	182	0	0	none: from make show

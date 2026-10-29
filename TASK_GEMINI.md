@@ -2,12 +2,29 @@
 
 The owner assigned you all easy files; Codex takes the hard files and integration.
 This task supersedes the previous instruction to finish the five memory blockers.
-Your reserved queue is lanes/GEMINI_QUEUE.tsv: 68 files, in priority order.
+Your reserved queue is lanes/GEMINI_QUEUE.tsv: 65 files, in priority order.
 Ownership in lanes/BOARD.tsv is authoritative. Work only in .agents/gemini on
 agent/gemini; never push, merge main yourself, reset a branch, or run claim.sh.
 Codex syncs your clean worktree after each reviewed delivery. Your first file,
 src/radiant/EditWnd.cpp, is already reserved. No extra permission is needed to
 advance within this queue. Work on one TU at a time, preserving retail order.
+
+## Latest review: keep your active work
+
+Your committed 325080e snapshot is integrated with corrections at cf9e736.
+Do not reset or overwrite your active MRU draft. Source-game routines in
+LstToolBar, ScaleDialog and DialogThick are verified; their generated helper /
+RTTI leftovers now belong to Codex. They are removed from your queue.
+The forbidden noinline attribute was removed. Three AUTO scalar destructors
+were excluded from game credit, and the missing implicit DialogThick destructor
+was verified. The accepted net game gain is thirteen routines / 271 B.
+
+Your active uncommitted data/functions_cod2radiant.json and data/tu_map.tsv edits
+were NOT included. Do not commit owner-only inventory changes with a worker
+delivery. Save any boundary proposal and target disassembly in scratch and
+report it to Codex. Finish the current MRU source work within the existing
+inventory, or report the exact boundary blocker for review. Do not touch the
+three transferred editor files or com_shared while Codex resolves their context.
 
 ## Completion requirement
 
@@ -53,7 +70,7 @@ entries. Use the queue's reference field and the track's read-only references.
   A blocked report is enough to hand work back; ledger/defer.tsv requires eight
   genuine recorded trials. Never fabricate, pad or reconstruct trial logs.
 - Keep only linked MATCH bodies in src/. Drafts stay in scratch. No regression
-  from 454 game rows / 55,823 B, compiler 2 / 35 B, or 48 unverified bodies.
+  from 467 game rows / 56,094 B, compiler 2 / 35 B, or 48 unverified bodies.
   If main advances, use the newer integrated baseline. Same-offset is report-only.
 - Commit one file at a time, with its actual ledger changes and your report.
   Keep checkpoints on the current branch; do not reset, synchronize or claim
@@ -98,7 +115,7 @@ these claims independently and lands/pushes only verified work.
 ## Full assigned queue
 
 This is the complete file list, in order; the matching TSV is
-lanes/GEMINI_QUEUE.tsv. Baseline counts are from the 454-row main checkpoint.
+lanes/GEMINI_QUEUE.tsv. Baseline counts describe the queue at assignment; main now has 467 verified game rows.
 Every row has the same target: 100% of its inventoried game routines and bytes.
 Board totals describe mapped routines; existing compiler/header/library
 classifications stay separate and must be listed explicitly in the report.
@@ -112,65 +129,62 @@ The reference candidates are hints, not credited linked matches.
 | 4 | `src/radiant/RotateDlg.cpp` | 0 / 11 | 1502 | 2 |
 | 5 | `src/radiant/NameDlg.cpp` | 0 / 6 | 278 | 1 |
 | 6 | `src/radiant/DialogInfo.cpp` | 0 / 8 | 332 | 1 |
-| 7 | `src/radiant/LstToolBar.cpp` | 0 / 5 | 75 | 0 |
-| 8 | `src/radiant/CapDialog.cpp` | 0 / 6 | 111 | 0 |
-| 9 | `src/radiant/DialogThick.cpp` | 0 / 5 | 126 | 0 |
-| 10 | `src/radiant/ScaleDialog.cpp` | 0 / 4 | 136 | 0 |
-| 11 | `src/radiant/NewProjDlg.cpp` | 0 / 4 | 180 | 0 |
-| 12 | `src/radiant/DlgEvent.cpp` | 0 / 4 | 208 | 0 |
-| 13 | `src/radiant/TextureLayout.cpp` | 0 / 6 | 339 | 0 |
-| 14 | `src/radiant/PatchDensityDlg.cpp` | 0 / 6 | 422 | 0 |
-| 15 | `src/radiant/TerrainDensityDlg.cpp` | 0 / 6 | 422 | 0 |
-| 16 | `src/radiant/KeyValueSelectDlg.cpp` | 0 / 5 | 458 | 0 |
-| 17 | `src/radiant/ZWnd.cpp` | 0 / 26 | 1552 | 4 |
-| 18 | `src/radiant/PatchDialog.cpp` | 0 / 28 | 2793 | 3 |
-| 19 | `src/radiant/win_main.cpp` | 0 / 21 | 3498 | 3 |
-| 20 | `src/radiant/win_ent.cpp` | 0 / 23 | 9585 | 3 |
-| 21 | `src/radiant/FindTextureDlg.cpp` | 0 / 16 | 1046 | 1 |
-| 22 | `src/radiant/EntityListDlg.cpp` | 0 / 22 | 1480 | 1 |
-| 23 | `src/radiant/TextureBar.cpp` | 0 / 15 | 1608 | 1 |
-| 24 | `src/radiant/mru.cpp` | 1 / 16 | 2055 | 1 |
-| 25 | `src/radiant/Radiant.cpp` | 0 / 15 | 2465 | 1 |
-| 26 | `src/libs/cmdlib/cmdlib.cpp` | 0 / 40 | 3505 | 1 |
-| 27 | `src/radiant/ModelDlg.cpp` | 0 / 24 | 4295 | 1 |
-| 28 | `src/radiant/MapInfo.cpp` | 0 / 30 | 4585 | 1 |
-| 29 | `src/radiant/z.cpp` | 0 / 8 | 5635 | 1 |
-| 30 | `src/radiant/Undo.cpp` | 0 / 30 | 7580 | 1 |
-| 31 | `src/radiant/SurfaceDlg.cpp` | 0 / 45 | 9048 | 1 |
-| 32 | `src/radiant/filtersettings.cpp` | 0 / 74 | 11209 | 1 |
-| 33 | `src/universal/assertive.cpp` | 8 / 35 | 5253 | 0 |
-| 34 | `src/xanim/xmodel.cpp` | 0 / 31 | 1850 | 0 |
-| 35 | `src/script/scr_memorytree.cpp` | 0 / 21 | 5332 | 0 |
-| 36 | `src/radiant/UNKNOWN_00408f20.cpp` | 0 / 4 | 153 | 0 |
-| 37 | `src/radiant/points.cpp` | 0 / 7 | 1433 | 0 |
-| 38 | `src/radiant/CommandsDlg.cpp` | 0 / 16 | 1515 | 0 |
-| 39 | `src/universal/win_common.cpp` | 0 / 11 | 1951 | 0 |
-| 40 | `src/radiant/GfxWrapper.cpp` | 0 / 31 | 3126 | 0 |
-| 41 | `src/radiant/VertEditDlg.cpp` | 0 / 21 | 6334 | 0 |
-| 42 | `src/universal/splines/math_quaternion.cpp` | 1 / 4 | 539 | 0 |
-| 43 | `src/universal/UNKNOWN_00494480.cpp` | 0 / 3 | 816 | 0 |
-| 44 | `src/radiant/UNKNOWN_00425080.cpp` | 0 / 22 | 1655 | 0 |
-| 45 | `src/zlib/inflate.c` | 4 / 8 | 1750 | 0 |
-| 46 | `src/radiant/win_qe3.cpp` | 4 / 23 | 2628 | 0 |
-| 47 | `src/radiant/VehicleDlg.cpp` | 0 / 77 | 3696 | 0 |
-| 48 | `src/radiant/PrefsDlg.cpp` | 0 / 10 | 7543 | 0 |
-| 49 | `src/radiant/draw.cpp` | 0 / 12 | 2150 | 0 |
-| 50 | `src/radiant/vertsel.cpp` | 0 / 8 | 2272 | 0 |
-| 51 | `src/common/texturevecs.cpp` | 0 / 4 | 3319 | 0 |
-| 52 | `src/radiant/win_dlg.cpp` | 0 / 19 | 4848 | 0 |
-| 53 | `src/universal/UNKNOWN_004985d0.cpp` | 0 / 16 | 196 | 0 |
-| 54 | `src/radiant/UNKNOWN_00420930.cpp` | 0 / 29 | 1202 | 0 |
-| 55 | `src/universal/linearmapping.cpp` | 0 / 6 | 2119 | 0 |
-| 56 | `src/radiant/csg.cpp` | 0 / 12 | 3984 | 0 |
-| 57 | `src/radiant/eclass.cpp` | 0 / 25 | 6910 | 0 |
-| 58 | `src/radiant/map.cpp` | 0 / 53 | 15674 | 0 |
-| 59 | `src/universal/splines/util_str.cpp` | 12 / 23 | 5842 | 0 |
-| 60 | `src/radiant/qe3.cpp` | 0 / 25 | 6362 | 0 |
-| 61 | `src/radiant/mesh.cpp` | 0 / 16 | 8113 | 0 |
-| 62 | `src/universal/splines/math_angles.cpp` | 4 / 12 | 1269 | 0 |
-| 63 | `src/universal/splines/math_matrix.cpp` | 6 / 10 | 1405 | 0 |
-| 64 | `src/zlib/deflate.c` | 13 / 17 | 5938 | 0 |
-| 65 | `src/xanim/xmodel_load_obj.cpp` | 0 / 16 | 7366 | 0 |
-| 66 | `src/radiant/drag.cpp` | 0 / 17 | 9922 | 0 |
-| 67 | `src/universal/splines/math_vector.cpp` | 2 / 33 | 2742 | 0 |
-| 68 | `src/universal/g_vehicle_path.cpp` | 0 / 27 | 7880 | 0 |
+| 7 | `src/radiant/CapDialog.cpp` | 0 / 6 | 111 | 0 |
+| 8 | `src/radiant/NewProjDlg.cpp` | 0 / 4 | 180 | 0 |
+| 9 | `src/radiant/DlgEvent.cpp` | 0 / 4 | 208 | 0 |
+| 10 | `src/radiant/TextureLayout.cpp` | 0 / 6 | 339 | 0 |
+| 11 | `src/radiant/PatchDensityDlg.cpp` | 0 / 6 | 422 | 0 |
+| 12 | `src/radiant/TerrainDensityDlg.cpp` | 0 / 6 | 422 | 0 |
+| 13 | `src/radiant/KeyValueSelectDlg.cpp` | 0 / 5 | 458 | 0 |
+| 14 | `src/radiant/ZWnd.cpp` | 0 / 26 | 1552 | 4 |
+| 15 | `src/radiant/PatchDialog.cpp` | 0 / 28 | 2793 | 3 |
+| 16 | `src/radiant/win_main.cpp` | 0 / 21 | 3498 | 3 |
+| 17 | `src/radiant/win_ent.cpp` | 0 / 23 | 9585 | 3 |
+| 18 | `src/radiant/FindTextureDlg.cpp` | 0 / 16 | 1046 | 1 |
+| 19 | `src/radiant/EntityListDlg.cpp` | 0 / 22 | 1480 | 1 |
+| 20 | `src/radiant/TextureBar.cpp` | 0 / 15 | 1608 | 1 |
+| 21 | `src/radiant/mru.cpp` | 1 / 16 | 2055 | 1 |
+| 22 | `src/radiant/Radiant.cpp` | 0 / 15 | 2465 | 1 |
+| 23 | `src/libs/cmdlib/cmdlib.cpp` | 0 / 40 | 3505 | 1 |
+| 24 | `src/radiant/ModelDlg.cpp` | 0 / 24 | 4295 | 1 |
+| 25 | `src/radiant/MapInfo.cpp` | 0 / 30 | 4585 | 1 |
+| 26 | `src/radiant/z.cpp` | 0 / 8 | 5635 | 1 |
+| 27 | `src/radiant/Undo.cpp` | 0 / 30 | 7580 | 1 |
+| 28 | `src/radiant/SurfaceDlg.cpp` | 0 / 45 | 9048 | 1 |
+| 29 | `src/radiant/filtersettings.cpp` | 0 / 74 | 11209 | 1 |
+| 30 | `src/universal/assertive.cpp` | 8 / 35 | 5253 | 0 |
+| 31 | `src/xanim/xmodel.cpp` | 0 / 31 | 1850 | 0 |
+| 32 | `src/script/scr_memorytree.cpp` | 0 / 21 | 5332 | 0 |
+| 33 | `src/radiant/UNKNOWN_00408f20.cpp` | 0 / 4 | 153 | 0 |
+| 34 | `src/radiant/points.cpp` | 0 / 7 | 1433 | 0 |
+| 35 | `src/radiant/CommandsDlg.cpp` | 0 / 16 | 1515 | 0 |
+| 36 | `src/universal/win_common.cpp` | 0 / 11 | 1951 | 0 |
+| 37 | `src/radiant/GfxWrapper.cpp` | 0 / 31 | 3126 | 0 |
+| 38 | `src/radiant/VertEditDlg.cpp` | 0 / 21 | 6334 | 0 |
+| 39 | `src/universal/splines/math_quaternion.cpp` | 1 / 4 | 539 | 0 |
+| 40 | `src/universal/UNKNOWN_00494480.cpp` | 0 / 3 | 816 | 0 |
+| 41 | `src/radiant/UNKNOWN_00425080.cpp` | 0 / 22 | 1655 | 0 |
+| 42 | `src/zlib/inflate.c` | 4 / 8 | 1750 | 0 |
+| 43 | `src/radiant/win_qe3.cpp` | 4 / 23 | 2628 | 0 |
+| 44 | `src/radiant/VehicleDlg.cpp` | 0 / 77 | 3696 | 0 |
+| 45 | `src/radiant/PrefsDlg.cpp` | 0 / 10 | 7543 | 0 |
+| 46 | `src/radiant/draw.cpp` | 0 / 12 | 2150 | 0 |
+| 47 | `src/radiant/vertsel.cpp` | 0 / 8 | 2272 | 0 |
+| 48 | `src/common/texturevecs.cpp` | 0 / 4 | 3319 | 0 |
+| 49 | `src/radiant/win_dlg.cpp` | 0 / 19 | 4848 | 0 |
+| 50 | `src/universal/UNKNOWN_004985d0.cpp` | 0 / 16 | 196 | 0 |
+| 51 | `src/radiant/UNKNOWN_00420930.cpp` | 0 / 29 | 1202 | 0 |
+| 52 | `src/universal/linearmapping.cpp` | 0 / 6 | 2119 | 0 |
+| 53 | `src/radiant/csg.cpp` | 0 / 12 | 3984 | 0 |
+| 54 | `src/radiant/eclass.cpp` | 0 / 25 | 6910 | 0 |
+| 55 | `src/radiant/map.cpp` | 0 / 53 | 15674 | 0 |
+| 56 | `src/universal/splines/util_str.cpp` | 12 / 23 | 5842 | 0 |
+| 57 | `src/radiant/qe3.cpp` | 0 / 25 | 6362 | 0 |
+| 58 | `src/radiant/mesh.cpp` | 0 / 16 | 8113 | 0 |
+| 59 | `src/universal/splines/math_angles.cpp` | 4 / 12 | 1269 | 0 |
+| 60 | `src/universal/splines/math_matrix.cpp` | 6 / 10 | 1405 | 0 |
+| 61 | `src/zlib/deflate.c` | 13 / 17 | 5938 | 0 |
+| 62 | `src/xanim/xmodel_load_obj.cpp` | 0 / 16 | 7366 | 0 |
+| 63 | `src/radiant/drag.cpp` | 0 / 17 | 9922 | 0 |
+| 64 | `src/universal/splines/math_vector.cpp` | 2 / 33 | 2742 | 0 |
+| 65 | `src/universal/g_vehicle_path.cpp` | 0 / 27 | 7880 | 0 |

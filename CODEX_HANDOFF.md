@@ -1,5 +1,30 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Small-dialog delivery reviewed without interrupting Gemini
+
+Committed snapshot 325080e was isolated in .agents/gemini_review while Gemini
+continued MRU. Main cf9e736 lands that snapshot with correction 36fe8a1 through
+tools/land.sh gemini_review; merged CI passed before push. Active MRU source
+and inventory edits were neither used nor modified. Safety ref preserves the
+original commit. The snapshot's board edits were discarded; Codex owns updates.
+
+Net game gain: thirteen routines / 271 B. Four toolbar methods / 42 B, three
+scale-dialog methods / 103 B, four thick-dialog methods / 93 B (including the
+omitted five-byte implicit destructor), two unnamed shared helpers / 33 B.
+Three AUTO scalar destructors / 99 B are excluded from game credit. Removed
+forbidden noinline; the real toolbar destructor still matches.
+
+All 467 game rows pass (13.05% functions), 56,094 / 699,591 B (8.02% game code).
+Compiler ledger remains 2 / 35 B; zero failures, 48 unverified, one order warning.
+Whole-file same-offset 26,054 B / 1.452% (+499). Actual vtable/default, parent-map
+and message-dispatch checks pass. Full-TU completion is not accepted: all three
+need RTTI; toolbar helper is 39/33 B, thick-dialog helper fails CALLEE. Scale's
+generated helper separately MATCHes, outside game credit. No flags, masks,
+inventory or referee changes. The three leftover TUs transfer to Codex;
+Gemini retains 65 queued files and its current MRU draft. SHA/boot remain open.
+Evidence: build/{dialogs-land-review,small-dialog-binding-review,ci-last}.log
+and .agents/gemini_review/scratch/dialog_review/.
+
 ## Easy/hard split: 2026-10-29
 
 The owner assigned all easy files to Gemini and hard work to Codex. Board and

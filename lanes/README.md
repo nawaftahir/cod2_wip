@@ -1,7 +1,7 @@
 # Lanes: many agents, one tree, no rework
 
-Current owner-authorized split: Gemini has the 68 easy-candidate files in
-GEMINI_QUEUE.tsv; Codex has the 23 hard files and integration. See
+Current owner-authorized split: Gemini has the 65 easy-candidate files in
+GEMINI_QUEUE.tsv; Codex has the 26 hard files and integration. See
 ../WORK_ASSIGNMENTS.md and ../TASK_GEMINI.md before the general flow below.
 Gemini does not use the resetting automatic claim helper.
 
