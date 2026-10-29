@@ -94,3 +94,4 @@ addr	size	symbol
 0x00464b30	22	AMBIG:??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@D@Z|??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@E@Z|??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@G@Z
 0x00475080	9	?IsStoring@CArchive@@QBEHXZ
 0x00479990	33	??_G(scalar deleting dtor) class CMyColorDialog
+0x00424150	33	??_G(scalar deleting dtor) class CNameDlg

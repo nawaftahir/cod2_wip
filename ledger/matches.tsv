@@ -504,3 +504,8 @@ addr	size	source	symbol	name	tag
 0x0043b5f0	6	src/radiant/RADEditWnd.cpp	?GetMessageMap@CRADEditWnd@@MBEPBUAFX_MSGMAP@@XZ	CRADEditWnd::GetMessageMap	SUPPORTED
 0x0043b600	75	src/radiant/RADEditWnd.cpp	?OnCreate@CRADEditWnd@@IAEHPAUtagCREATESTRUCTA@@@Z	CRADEditWnd::OnCreate	SUPPORTED
 0x0043b650	67	src/radiant/RADEditWnd.cpp	?OnSize@CRADEditWnd@@IAEXIHH@Z	CRADEditWnd::OnSize	SUPPORTED
+0x00424090	183	src/radiant/NameDlg.cpp	??0CNameDlg@@QAE@PBDPAVCWnd@@@Z	CNameDlg::CNameDlg	SUPPORTED
+0x00424180	25	src/radiant/NameDlg.cpp	?DoDataExchange@CNameDlg@@MAEXPAVCDataExchange@@@Z	CNameDlg::DoDataExchange	SUPPORTED
+0x004241a0	6	src/radiant/NameDlg.cpp	?GetMessageMap@CNameDlg@@MBEPBUAFX_MSGMAP@@XZ	CNameDlg::GetMessageMap	SUPPORTED
+0x004241b0	5	src/radiant/NameDlg.cpp	?OnOK@CNameDlg@@MAEXXZ	CNameDlg::OnOK	SUPPORTED
+0x004241c0	26	src/radiant/NameDlg.cpp	?OnInitDialog@CNameDlg@@MAEHXZ	CNameDlg::OnInitDialog	SUPPORTED

@@ -198,6 +198,7 @@ The claim of "complete whole-TU match" is formally withdrawn. While all hand-wri
 Both files are designated **PARTIAL**:
 - `src/radiant/EditWnd.cpp` (PARTIAL)
 - `src/radiant/RADEditWnd.cpp` (PARTIAL)
+- `src/radiant/NameDlg.cpp` (PARTIAL)
 
 ---
 
@@ -239,6 +240,23 @@ Extent: `0x0043b500` .. `0x0043b693` (353 B code + 13 B alignment padding `0xCC`
   - `??_R0?AVCRADEditWnd@@@8` (TypeDescriptor): Retail `0x005989a0` (`.?AVCRADEditWnd@@`) vs Built `0x00484980`
   - `?messageMap@CRADEditWnd@@1UAFX_MSGMAP@@B`: Retail `0x00547efc` (parent `0x0052ea90`, entries `0x00547f08` with WM_CREATE and WM_SIZE dispatch) vs Built `0x00470f9c`
 
+#### 3. `src/radiant/NameDlg.cpp` (PARTIAL)
+Extent: `0x00424090` .. `0x004241da` (278 B code + 6 B alignment padding `0xCC` to `0x004241e0`)
+- **Game code (5 routines / 245 B)**:
+  - `0x00424090` (183 B): `??0CNameDlg@@QAE@PBDPAVCWnd@@@Z` -> **MATCH 100%**
+  - `0x00424180` (25 B): `?DoDataExchange@CNameDlg@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
+  - `0x004241a0` (6 B): `?GetMessageMap@CNameDlg@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
+  - `0x004241b0` (5 B): `?OnOK@CNameDlg@@MAEXXZ` -> **MATCH 100%**
+  - `0x004241c0` (26 B): `?OnInitDialog@CNameDlg@@MAEHXZ` -> **MATCH 100%**
+- **Generated helpers (1 routine / 33 B - excluded from game ledger)**:
+  - `0x00424150` (33 B): `??_ECNameDlg@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
+- **Omitted Routines**: None. Every byte between `0x00424090` and `0x004241e0` is accounted for.
+- **Data & RTTI Bindings**:
+  - `??_7CNameDlg@@6B@` (vtable): Retail `0x0054595c` vs Built `0x00470fb4`
+  - `??_R4CNameDlg@@6B@` (CompleteObjectLocator): Retail `0x00559774` vs Built `0x004754ac`
+  - `??_R0?AVCNameDlg@@@8` (TypeDescriptor): Retail `0x005988e0` (`.?AVCNameDlg@@`) vs Built `0x004849c0`
+  - `?messageMap@CNameDlg@@1UAFX_MSGMAP@@B`: Retail `0x00545a98` (parent `0x0052e4f0`, empty message entries) vs Built `0x004710f0`
+
 ---
 
 ### Subsequent Drafts Preserved in `scratch/`
@@ -246,16 +264,15 @@ Extent: `0x0043b500` .. `0x0043b693` (353 B code + 13 B alignment padding `0xCC`
 The following drafts have matching 100% byte bodies in `scratch/` and will be advanced one at a time following review:
 1. `scratch/DlgEvent.cpp` (4 routines, 208 B matched = 100%)
 2. `scratch/NewProjDlg.cpp` (4 routines, 180 B matched = 100%)
-3. `scratch/NameDlg.cpp` (6 routines, 278 B matched = 100%)
-4. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
+3. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
 
 ---
 
 ### Hard Blockers Handed to Codex
 
 1. **`src/radiant/TexEdit.cpp`**:
-   - `0x0043eec0`: Retail calls `?DeleteObject@CGdiObject@@QAEHXZ` at `0x0050582e` (which imports `GDI32.dll DeleteObject` at IAT `0x528198`), but inventory `data/lib_funcs.tsv` aliased `0x0050582e` to `CImageList::DeleteImageList`.
-   - `0x0043ef60` (`OnChange`): LTCG customizes calling convention (`edi = this, esi = str`) for `CTexWnd::UpdateFilter` in `src/radiant/TexWnd.cpp`. Because `TexWnd.cpp` is currently unconstructed, the unresolved linker stub creates a standard `thiscall` calling convention mismatch.
+   - `0x0043eec0`: Retail calls `?DeleteObject@CGdiObject@@QAEHXZ` at `0x0050582e` (which imports `GDI32.dll DeleteObject` at IAT `0x528198`), but inventory `data/lib_funcs.tsv` aliased `0x0050582e` to `CImageList::DeleteImageList`. Adding an override in `data/lib_overrides.tsv` and regenerating `lib_funcs.tsv` will resolve this referee check.
+   - `0x0043ef60` (`OnChange`): LTCG customizes calling convention (`edi = this, esi = str`) for `CTexWnd::UpdateFilter` (`0x00442d60`) in `src/radiant/TexWnd.cpp`. Because `TexWnd.cpp` is currently unconstructed, the unresolved linker stub creates a standard `thiscall` calling convention mismatch.
 2. **Whole-Program `.rdata` Data Placement & RTTI Alignment**:
    - Exact `.rdata` ordering of vtables, CompleteObjectLocators, TypeDescriptors, and MFC message map tables is determined globally by link order and object contributor layout. Codex integration must establish final whole-image data placement.
 
@@ -264,11 +281,11 @@ The following drafts have matching 100% byte bodies in `scratch/` and will be ad
 ### Audit & Gate Status
 
 - **Game Ledger Audit** (`python3 research/gemini_review/test_game_ledger.py`):
-  `PASS: 505 unique game addresses, exact retail byte spans, separate library/compiler accounting`
+  `PASS: 510 unique game addresses, exact retail byte spans, separate library/compiler accounting`
 - **Full Referee** (`python3 tools/verify.py --all`):
-  `505/505 rows match, 0 failures` (compiler 2/2 match, unverified 44 <= 48).
+  `510/510 rows match, 0 failures` (compiler 2/2 match, unverified 48 <= 48).
 - **Progress Gate** (`python3 tools/meter.py --gate`):
-  - Game functions matched from source: 505 / 3579 (14.11%) (+11)
-  - Game code bytes matched: 8.46% (59,200 / 699,591 bytes) (+469 B)
-  - Unverified in `src/`: 44 (within strict quota <= 48)
+  - Game functions matched from source: 510 / 3579 (14.25%) (+16)
+  - Game code bytes matched: 8.50% (59,445 / 699,591 bytes) (+714 B)
+  - Unverified in `src/`: 48 (strictly within quota <= 48)
   - Failing rows: 0
