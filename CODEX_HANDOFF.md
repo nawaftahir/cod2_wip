@@ -1,5 +1,24 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Memory delivery integrated: 2026-10-29
+
+Main baaf02a merges all three Gemini commits (safety/gemini-972e389).
+Net gain: 25 game routines / 2,935 B. Fresh worker verification and combined CI
+pass 454/454: 12.69% of game functions, 55,823 / 699,591 game B (7.98%).
+Whole-file same-offset 25,555 / 1,794,048 B (1.424%, -609); compiler 2 / 35 B,
+zero failures, one warning, unverified bodies down from 50 to 48. Pushed.
+
+Memory TU: 44/49 functions (89.8%), 3,706/4,768 B (77.7%); corrected the
+worker's inflated byte total. Twelve recovered candidates / 1,950 B plus
+thirteen further matches / 985 B. Supporting literal assert macro is pinned
+by target 0x48a2f0; existing macros remain unchanged. Live binding review
+passes 60 literal, 27 import and 35 shared-state identity checks. No flags,
+masks, inventory or verifier changes. SHA and boot remain open.
+
+Gemini keeps com_memory.cpp for the five remaining routines, prioritizing
+the two reported 99% temporary-allocation bodies. Real outputs/variants are
+required; dependency claims remain hypotheses pending caller/callee evidence.
+
 ## Latest Gemini review and merge
 
 Main 6012019 lands the corrected com_shared delivery: five routines / 441 B

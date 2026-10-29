@@ -6,7 +6,7 @@
 - **Candidate recovery matches (wave 1)**: 12 functions (+1,950 bytes)
 - **New subsequent matches (wave 2)**: 10 functions (+610 bytes)
 - **New subsequent matches (wave 3)**: 3 functions (+375 bytes)
-- **Total matched in TU**: 44 / 49 functions (4,409 / 4,768 bytes, 92.5% of TU)
+- **Total matched in TU**: 44 / 49 functions (3,706 / 4,768 bytes, 77.7% of TU)
 - **Remaining unmatched in TU**: 5 functions
 
 ### Wave 1: Candidate Recovery Matches (12 Functions / 1,950 Bytes)
@@ -52,3 +52,30 @@
 - Compiler rows: **2 / 2 match**
 - Unverified in src: strictly **48** (strictly <= 50)
 - Game code bytes: **55,823 / 699,591 bytes (7.98%)** (+2,935 total bytes gained across all 3 waves)
+
+## Codex integration review: 2026-10-29
+
+All three commits are landed through tools/land.sh gemini and pushed as
+baaf02a. Net new source is 25 routines / 2,935 B: twelve recovered candidates
+/ 1,950 B and thirteen further matches / 985 B. The five unresolved routines
+remain research only; their dependency claims and best percentages above are
+Gemini's observations, not independently established compiler limitations.
+
+Corrected the TU byte total: ledger rows sum to 3,706 B, so byte coverage is
+77.7%, while function coverage is 44/49 (89.8%). The original 4,409 B / 92.5%
+figure was arithmetic error. Five unresolved routines total the remaining 1,062 B.
+
+The supporting assertive.h macro passes the message literal directly, with
+retail's global/per-site disable checks and handler cases 0/2. Target 0x48a2f0
+confirms the source path, line 1037, message, handler and DebugBreak path.
+No existing macro, flags, masks or verifier predicates changed.
+
+Worker verification and merged CI pass 454/454 game rows (12.69%), 55,823 B
+/ 7.98% game code. Compiler rows 2/2 / 35 B; failures zero, order warnings one,
+unverified bodies decrease 50 -> 48. Same-offset is 25,555 B / 1.424%, down
+609 B as newly added code changes following offsets; report-only by contract.
+
+research/gemini_review/test_memory.py passes all 44 MATCH checks plus 60
+actual literals, 27 import accesses and 35 consistent distinct shared-state
+identities. Logs: build/{memory-land-review,memory-binding-review,ci-last}.log.
+Whole-file SHA and GUI boot remain unfinished.

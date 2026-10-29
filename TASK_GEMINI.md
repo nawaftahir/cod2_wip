@@ -1,31 +1,30 @@
-# Gemini next task: com_memory.cpp
+# Gemini next task: finish com_memory.cpp
 
-Your com_shared delivery is reviewed, merged and pushed at main 6012019:
-five game routines / 441 B. Three were recovered seeds; two were new / 190 B.
-The unsupported __fastcall was removed and the unnamed comparison remains
-FUN_0048b760. Nine supposed eight-try deferrals were removed because their logs
-contained placeholders, not actual verifier output. Do not reconstruct logs or
-append synthetic MISMATCH lines. Only make try writes valid trial evidence.
+Your three memory commits are reviewed, merged and pushed as main baaf02a.
+Net gain: 25 functions / 2,935 B; all 454 game rows and both compiler rows pass.
+Your source file now has 44/49 functions / 3,706 B matched: 89.8% of functions,
+77.7% of bytes. The report's earlier 4,409 B / 92.5% total was incorrect.
+The literal assert macro was independently checked against target 0x48a2f0.
 
-Work only in .agents/gemini, branch agent/gemini. Your reserved next file is
-src/universal/com_memory.cpp (49 routines; 19 already matched). Codex owns the
-editor files, q_shared and scr_stringlist. Do not touch those.
+Continue only src/universal/com_memory.cpp in .agents/gemini, agent/gemini.
+Your claim is retained. Before editing, synchronize current main with a clean
+worktree and no unmerged delivery; do not run a resetting claim command.
 
-First synchronize to current main when your worktree is clean and main..HEAD
-is empty. Your claim is already reserved; no new claim/reset is needed. Read
-research/gemini_seeds/com_memory/README.md. It supplies a genuine prior source
-candidate and thirteen prospective rows / 1,969 B rejected solely for offsets.
-Reverify these against current main first; preserve file order and assert lines.
-Only add rows after real stock MATCH results; remove obsolete offset-only
-deferrals for the rows actually recovered. Whole-file same-offset is report-only.
-Deliver this checkpoint promptly before attempting harder leftovers.
+Prioritize the two 99% drafts in scratch/com_memory_remaining.cpp:
+- 0x48aae0 / 279 B: Hunk_AllocateTempMemoryInternal.
+- 0x48ac00 / 182 B: Hunk_ReallocateTempMemoryInternal.
+Compare real target/source address-expression order before changing anything.
+Preserve documented tries and best source variants. Never pad or reconstruct
+trial logs; only real make try output counts. Do not repeat exhausted variants.
 
-Keep actual make try output and candidate variants in scratch. Do not spend
-eight identical trials or invent attempt records. A missing dependency is a
-hypothesis until checked; report it honestly. Do not force source calling
-conventions to imitate LTCG register allocation. For unconfirmed names use FUN_.
+Then 0x48a480 / 72 B DB_EnumXAssets. The remaining Com_InitHunkMemory
+(0x489ea0 / 284 B) and Hunk_SetDataForFile (0x48a170 / 245 B) have reported
+external-dependency hypotheses; verify those before asserting a compiler limit.
+Codex owns dvar, q_shared and scr_stringlist. Do not edit other source/header
+files, flags, tools, inventory or ABI conventions to force a match.
 
-Run make verify for every existing/new game and compiler row. Commit only the
-claimed source, ledger/matches.tsv, ledger/defer.tsv and lanes/reports/gemini.md.
-Report new matches separately from baseline, and distinguish function coverage
-from game-byte coverage. Stop with a clean committed delivery; Codex lands it.
+Source order and original assertion lines must stay intact. All 454 existing
+game matches and 2 compiler rows must remain green; unverified count must not
+increase above 48. Whole-file same-offset remains report-only. Stage only
+this source, matches/defer ledger rows and lanes/reports/gemini.md. Deliver
+any genuine matched checkpoint promptly, then stop cleanly for Codex to land.

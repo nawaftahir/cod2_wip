@@ -5,6 +5,12 @@ and `AGENTS.md` (the agent contract).
 Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matching second.
 
 ## State
+- Latest integrated main: baaf02a, all three Gemini memory commits merged and
+  pushed. +25 game routines / 2,935 B; 454/454 passing (12.69% functions),
+  55,823 B (7.98% game code), 25,555 B (1.424% whole-file same-offset).
+  Compiler 2 / 35 B, failures zero, warning one, unverified 48. Stock worker
+  verification, merged CI and live memory-binding review pass. Gemini keeps
+  com_memory for five remaining routines; TU byte coverage is 77.7%.
 - Latest: Gemini com_shared merged and pushed (6012019). 429/429 game rows,
   11.99% of game functions; 52,888 B / 7.56% game code; 26,164 B / 1.458%
   whole-file same-offset. Corrected worker referee and combined CI pass.

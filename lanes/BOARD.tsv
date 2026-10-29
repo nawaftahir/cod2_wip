@@ -4,7 +4,7 @@ src/xanim/xmodel_utils.cpp	cheap	partial	-	11	1090	10	0	server source (copy-read
 src/xanim/xmodel.cpp	cheap	open	-	31	1850	0	6	server source (copy-ready)
 src/universal/com_shared.cpp	cheap	partial	-	14	2064	5	3	server source (copy-ready)
 src/universal/q_parse.cpp	cheap	open	-	37	4698	26	8	server source (copy-ready)
-src/universal/com_memory.cpp	cheap	in-progress	gemini	49	4768	19	6	server source (copy-ready)
+src/universal/com_memory.cpp	cheap	partial	gemini	49	4768	44	6	server source (copy-ready)
 src/universal/assertive.cpp	cheap	partial	-	35	5253	8	5	server source (copy-ready)
 src/script/scr_memorytree.cpp	cheap	open	-	21	5332	0	11	server source (copy-ready)
 src/radiant/LstToolBar.cpp	cheap	open	-	5	75	0	0	none: from make show
