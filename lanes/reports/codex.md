@@ -116,3 +116,19 @@ HEAD 59b3db9 contains only NameDlg; RotateDlg is scratch-only, with empty
 OnApply vs retail 475 B and incomplete spin callbacks. Preserve that draft;
 Codex takes the hard remainder (32 files). No Rotate flag proposal is adopted
 without a genuine verified source delivery. Never overwrite active worker edits.
+
+## RotateDlg verified partial checkpoint
+
+Six new game routines / 498 B pass the unchanged linked referee. The generated
+34-byte scalar and 200-byte shared destructor at 0x416350 are checked separately.
+Correcting the proven CSpinButtonCtrl library alias makes its destructor check
+pass; no mask changed. Canonical source has no unmatched/empty rotation handlers.
+Private gate: 518/518, zero failures, unverified 48, one order warning.
+
+RotateDlg stays PARTIAL: OnApply and three spin handlers need the real selection
+caller/callee context; the member SpinButton scalar also differs 33/30 B from
+retail. Three genuine source trials, exact differences, saved candidates and
+actual output are in scratch/codex_rotate. The candidate matrix helper matches
+107 B only in that cohort and is not separately credited or retained. All
+experimental select.cpp/com_math.cpp changes were restored. Evidence and next
+steps: research/gemini_review/DIALOG_BATCH.md. No ABI hacks or guessed layouts.
