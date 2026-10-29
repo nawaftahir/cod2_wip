@@ -187,27 +187,22 @@ checks are recorded in the integration checkpoint. Primary review logs and
 submitted bodies: .agents/gemini_review/scratch/batch3_review/.
 
 
-## Batch four: Progress on 5 Queued Files (PARTIAL) (2026-10-29)
+## Batch four: Single File Focus — `src/radiant/EditWnd.cpp` (PARTIAL) (2026-10-29)
 
 ### Withdrawal of Complete-TU Claim
-The claim of "five complete whole-TU matches" is withdrawn. While all 22 hand-written game routines and all 5 compiler-generated scalar deleting destructors in these five translation units achieve a 100% relocation-normalized byte match under `verify.py`, these files are classified as **PARTIAL** because:
-1. Whole-TU completion requires exact data and `.rdata` layout, which remains unsettled until full program link order and data contributors are unified.
-2. Compiler-generated helpers (`AUTO` scalar deleting destructors `??_G` / `??_E`) are tracked separately and do not constitute source game code.
-3. RTTI records (`type_info`, `CompleteObjectLocator`), class descriptors (`CRuntimeClass`), message map arrays (`_messageEntries`), and vtables currently sit at build-assigned offsets rather than retail anchor addresses.
+The claim of "complete whole-TU match" is formally withdrawn. While all 6 hand-written game routines and the compiler-generated scalar deleting destructor in `src/radiant/EditWnd.cpp` achieve a 100% relocation-normalized byte match under `verify.py`, this file is classified as **PARTIAL** because:
+1. Whole-TU completion requires exact data and `.rdata` layout, which remains unsettled until full program link order and data contributors are unified across the executable.
+2. Compiler-generated helpers (`AUTO` scalar deleting destructors `??_G` / `??_E`) are tracked separately and excluded from the game ledger.
+3. RTTI records (`type_info`, `CompleteObjectLocator`), class descriptors (`CRuntimeClass`), message map arrays (`_messageEntries`), and vtables sit at build-assigned offsets rather than retail anchor addresses.
 
-All five files are designated **PARTIAL**:
-- `src/radiant/EditWnd.cpp` (PARTIAL)
-- `src/radiant/RADEditWnd.cpp` (PARTIAL)
-- `src/radiant/DlgEvent.cpp` (PARTIAL)
-- `src/radiant/NewProjDlg.cpp` (PARTIAL)
-- `src/radiant/NameDlg.cpp` (PARTIAL)
+`src/radiant/EditWnd.cpp` is designated **PARTIAL**.
 
 ---
 
 ### Detailed Retail Routine Breakdown & Verification Status
 
-#### 1. `src/radiant/EditWnd.cpp` (PARTIAL)
-Extent: `0x0040c6b0` .. `0x0040c78e` (182 B code + 2 B pad to `0x0040c790`)
+#### `src/radiant/EditWnd.cpp` (PARTIAL)
+Extent: `0x0040c6b0` .. `0x0040c78e` (182 B code + 2 B alignment padding `0xCC` to `0x0040c790`)
 - **Game code (6 routines / 149 B)**:
   - `0x0040c6b0` (80 B): `?CreateObject@CEditWnd@@SGPAVCObject@@XZ` -> **MATCH 100%**
   - `0x0040c700` (6 B): `?GetRuntimeClass@CEditWnd@@UBEPAUCRuntimeClass@@XZ` -> **MATCH 100%**
@@ -215,95 +210,47 @@ Extent: `0x0040c6b0` .. `0x0040c78e` (182 B code + 2 B pad to `0x0040c790`)
   - `0x0040c750` (11 B): `??1CEditWnd@@UAE@XZ` -> **MATCH 100%**
   - `0x0040c760` (6 B): `?GetMessageMap@CEditWnd@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
   - `0x0040c770` (30 B): `?PreCreateWindow@CEditWnd@@MAEHAAUtagCREATESTRUCTA@@@Z` -> **MATCH 100%**
-- **Generated helpers (1 routine / 33 B)**:
+- **Generated helpers (1 routine / 33 B - excluded from game ledger)**:
   - `0x0040c720` (33 B): `??_ECEditWnd@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
-- **Data & RTTI Bindings (UNSETTLED)**:
-  - Vtable: Retail `0x0054012c` vs Built `0x00471cbc` (`??_7CEditWnd@@6B@`)
-  - RTTI Locator: Retail `0x00559248` vs Built `0x0047689c` (`??_R4CEditWnd@@6B@`)
-  - TypeDescriptor: Retail `0x0059866c` (`.?AVCEditWnd@@`) vs Built `0x00485980`
-  - Message Map: Retail `0x00540268` (parent `0x0052ea90`, entries `0x00540270`) vs Built `0x00471df8`
-  - RuntimeClass: Retail `0x00540288` vs Built `0x00471e18` (`?classCEditWnd@CEditWnd@@2UCRuntimeClass@@B`)
+- **Omitted Routines**: None. Every byte between `0x0040c6b0` and `0x0040c790` is accounted for.
+- **Data & RTTI Bindings**:
+  - `??_7CEditWnd@@6B@` (vtable): Retail `0x0054012c` vs Built `0x00471cbc`
+  - `??_R4CEditWnd@@6B@` (CompleteObjectLocator): Retail `0x00559248` vs Built `0x0047689c`
+  - `??_R0?AVCEditWnd@@@8` (TypeDescriptor): Retail `0x0059866c` (`.?AVCEditWnd@@`) vs Built `0x00485980`
+  - `?messageMap@CEditWnd@@1UAFX_MSGMAP@@B`: Retail `0x00540268` (parent `0x0052ea90`, entries `0x00540270`) vs Built `0x00471df8`
+  - `?classCEditWnd@CEditWnd@@2UCRuntimeClass@@B`: Retail `0x00540288` vs Built `0x00471e18`
 
-#### 2. `src/radiant/RADEditWnd.cpp` (PARTIAL)
-Extent: `0x0043b500` .. `0x0043b693` (353 B code + 13 B pad to `0x0043b6a0`)
-- **Game code (5 routines / 320 B)**:
-  - `0x0043b500` (85 B): `??0CRADEditWnd@@QAE@XZ` -> **MATCH 100%**
-  - `0x0043b590` (87 B): `??1CRADEditWnd@@UAE@XZ` -> **MATCH 100%**
-  - `0x0043b5f0` (6 B): `?GetMessageMap@CRADEditWnd@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
-  - `0x0043b600` (75 B): `?OnCreate@CRADEditWnd@@IAEHPAUtagCREATESTRUCTA@@@Z` -> **MATCH 100%**
-  - `0x0043b650` (67 B): `?OnSize@CRADEditWnd@@IAEXIHH@Z` -> **MATCH 100%**
-- **Generated helpers (1 routine / 33 B)**:
-  - `0x0043b560` (33 B): `??_ECRADEditWnd@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
-- **Data & RTTI Bindings (UNSETTLED)**:
-  - Vtable: Retail `0x00547dcc` vs Built `0x004722ec` (`??_7CRADEditWnd@@6B@`)
-  - RTTI Locator: Retail `0x005599d4` vs Built `0x00476998` (`??_R4CRADEditWnd@@6B@`)
-  - TypeDescriptor: Retail `0x005989a0` (`.?AVCRADEditWnd@@`) vs Built `0x004859cc`
-  - Message Map: Retail `0x00547efc` (parent `0x0052ea90`, entries `0x00547f08` with WM_CREATE and WM_SIZE dispatch) vs Built `0x0047241c`
+---
 
-#### 3. `src/radiant/DlgEvent.cpp` (PARTIAL)
-Extent: `0x0040bcf0` .. `0x0040bdd6` (208 B code + 10 B pad to `0x0040bde0`)
-- **Game code (3 routines / 175 B)**:
-  - `0x0040bcf0` (123 B): `??0CDlgEvent@@QAE@PAVCWnd@@@Z` -> **MATCH 100%**
-  - `0x0040bda0` (46 B): `?DoDataExchange@CDlgEvent@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
-  - `0x0040bdd0` (6 B): `?GetMessageMap@CDlgEvent@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
-- **Generated helpers (1 routine / 33 B)**:
-  - `0x0040bd70` (33 B): `??_ECDlgEvent@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
-- **Data & RTTI Bindings (UNSETTLED)**:
-  - Vtable: Retail `0x0053ff64` vs Built `0x00471b3c` (`??_7CDlgEvent@@6B@`)
-  - RTTI Locator: Retail `0x005591f4` vs Built `0x00476848` (`??_R4CDlgEvent@@6B@`)
-  - TypeDescriptor: Retail `0x00598654` (`.?AVCDlgEvent@@`) vs Built `0x00485968`
-  - Message Map: Retail `0x005400bc` (parent `0x0052cae4`, entries `0x005400c4`) vs Built `0x00471c94`
+### Subsequent Drafts Preserved in `scratch/`
 
-#### 4. `src/radiant/NewProjDlg.cpp` (PARTIAL)
-Extent: `0x004241e0` .. `0x004242b6` (180 B code + 10 B pad to `0x004242c0`)
-- **Game code (3 routines / 147 B)**:
-  - `0x004241e0` (116 B): `??0CNewProjDlg@@QAE@PAVCWnd@@@Z` -> **MATCH 100%**
-  - `0x00424290` (25 B): `?DoDataExchange@CNewProjDlg@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
-  - `0x004242b0` (6 B): `?GetMessageMap@CNewProjDlg@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
-- **Generated helpers (1 routine / 33 B)**:
-  - `0x00424260` (33 B): `??_GCNewProjDlg@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
-- **Data & RTTI Bindings (UNSETTLED)**:
-  - Vtable: Retail `0x00545adc` vs Built `0x0047216c` (`??_7CNewProjDlg@@6B@`)
-  - RTTI Locator: Retail `0x005597a8` vs Built `0x00476944` (`??_R4CNewProjDlg@@6B@`)
-  - TypeDescriptor: Retail `0x005988d8` (`.?AVCNewProjDlg@@`) vs Built `0x004859b0`
-  - Message Map: Retail `0x00545c34` (parent `0x0052cae4`, entries `0x00545c3c`) vs Built `0x004722c4`
-
-#### 5. `src/radiant/NameDlg.cpp` (PARTIAL)
-Extent: `0x00424090` .. `0x004241da` (278 B code + 6 B pad to `0x004241e0`)
-- **Game code (5 routines / 245 B)**:
-  - `0x00424090` (183 B): `??0CNameDlg@@QAE@PBDPAVCWnd@@@Z` -> **MATCH 100%**
-  - `0x00424180` (25 B): `?DoDataExchange@CNameDlg@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
-  - `0x004241a0` (6 B): `?GetMessageMap@CNameDlg@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
-  - `0x004241b0` (5 B): `?OnOK@CNameDlg@@MAEXXZ` -> **MATCH 100%**
-  - `0x004241c0` (26 B): `?OnInitDialog@CNameDlg@@MAEHXZ` -> **MATCH 100%**
-- **Generated helpers (1 routine / 33 B)**:
-  - `0x00424150` (33 B): `??_GCNameDlg@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
-- **Data & RTTI Bindings (UNSETTLED)**:
-  - Vtable: Retail `0x0054595c` vs Built `0x00471fec` (`??_7CNameDlg@@6B@`)
-  - RTTI Locator: Retail `0x00559754` vs Built `0x004768f0` (`??_R4CNameDlg@@6B@`)
-  - TypeDescriptor: Retail `0x005988c0` (`.?AVCNameDlg@@`) vs Built `0x00485998`
-  - Message Map: Retail `0x00545ab4` (parent `0x0052cae4`, entries `0x00545abc`) vs Built `0x00472144`
+The following drafts have matching 100% byte bodies in `scratch/` and will be advanced one at a time following review:
+1. `scratch/RADEditWnd.cpp` (6 routines, 353 B matched = 100%)
+2. `scratch/DlgEvent.cpp` (4 routines, 208 B matched = 100%)
+3. `scratch/NewProjDlg.cpp` (4 routines, 180 B matched = 100%)
+4. `scratch/NameDlg.cpp` (6 routines, 278 B matched = 100%)
+5. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
 
 ---
 
 ### Hard Blockers Handed to Codex
 
-1. **`src/radiant/TexEdit.cpp` (PARTIAL, saved in `scratch/TexEdit.cpp`)**:
+1. **`src/radiant/TexEdit.cpp`**:
    - `0x0043eec0`: Retail calls `?DeleteObject@CGdiObject@@QAEHXZ` at `0x0050582e` (which imports `GDI32.dll DeleteObject` at IAT `0x528198`), but inventory `data/lib_funcs.tsv` aliased `0x0050582e` to `CImageList::DeleteImageList`.
    - `0x0043ef60` (`OnChange`): LTCG customizes calling convention (`edi = this, esi = str`) for `CTexWnd::UpdateFilter` in `src/radiant/TexWnd.cpp`. Because `TexWnd.cpp` is currently unconstructed, the unresolved linker stub creates a standard `thiscall` calling convention mismatch.
-2. **Whole-Program `.rdata` Data Placement & RTTI Layout**:
-   - While `/GX /GR` correctly causes MSVC 7.1 to emit full RTTI structures and exception frames, the exact `.rdata` ordering of vtables, CompleteObjectLocators, TypeDescriptors, and MFC message map tables is determined globally by link order and object contributor layout. Codex integration must establish final whole-image data placement.
+2. **Whole-Program `.rdata` Data Placement & RTTI Alignment**:
+   - Exact `.rdata` ordering of vtables, CompleteObjectLocators, TypeDescriptors, and MFC message map tables is determined globally by link order and object contributor layout. Codex integration must establish final whole-image data placement.
 
 ---
 
 ### Audit & Gate Status
 
 - **Game Ledger Audit** (`python3 research/gemini_review/test_game_ledger.py`):
-  `PASS: 516 unique game addresses, exact retail byte spans, separate library/compiler accounting`
+  `PASS: 500 unique game addresses, exact retail byte spans, separate library/compiler accounting`
 - **Full Referee** (`python3 tools/verify.py --all`):
-  `516/516 rows match, 0 failures` (compiler 2/2 match, unverified 44 <= 48).
+  `500/500 rows match, 0 failures` (compiler 2/2 match, unverified 44 <= 48).
 - **Progress Gate** (`python3 tools/meter.py --gate`):
-  - Game functions matched from source: 516 / 3579 (14.42%) (+22)
-  - Game code bytes matched: 8.54% (59,767 / 699,591 bytes) (+1,036 B)
+  - Game functions matched from source: 500 / 3579 (13.97%) (+6)
+  - Game code bytes matched: 8.42% (58,880 / 699,591 bytes) (+149 B)
   - Unverified in `src/`: 44 (within strict quota <= 48)
   - Failing rows: 0
