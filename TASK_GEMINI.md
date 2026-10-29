@@ -4,13 +4,26 @@ The mandatory file-completion contract in CLAUDE.md applies to this role: one ac
 complete routine/helper inventory, real metadata bindings and a full regression
 before FILE VERIFIED. Partial checkpoints remain PARTIAL.
 
+
+## Current dispatch (supersedes historical next-file instructions below)
+
+1. src/radiant/DialogInfo.cpp
+2. src/radiant/NewProjDlg.cpp
+3. src/radiant/DlgEvent.cpp
+
+One TU at a time. Deliver a clean commit with full code/helper/metadata evidence.
+NameDlg is under completed independent review; do not edit it. RotateDlg has
+no committed delivery: scratch/RotateDlg.cpp contains empty OnApply and spin
+handlers, and the quoted 510-row gate does not cover that file. Preserve the
+scratch draft. Codex takes its hard remainder for review; do not claim it done.
+TexEdit stays with Codex. Compiler flags/library changes are proposals only.
+
 The owner assigned you all easy files; Codex takes the hard files and integration.
 This task supersedes the previous instruction to finish the five memory blockers.
 Your reserved queue is lanes/GEMINI_QUEUE.tsv: 58 files, in priority order.
 Ownership in lanes/BOARD.tsv is authoritative. Work only in .agents/gemini on
 agent/gemini; never push, merge main yourself, reset a branch, or run claim.sh.
-Codex syncs your clean worktree after each reviewed delivery. Your next independent file is
-src/radiant/RotateDlg.cpp after your current NameDlg/NewProjDlg/DlgEvent drafts. No extra permission is needed to
+Codex syncs your clean worktree after each reviewed delivery. The current dispatch above determines your next file. No extra permission is needed to
 advance within this queue. Work on one TU at a time, preserving retail order.
 
 ## Latest review: RADEditWnd and Codex allocators accepted
@@ -99,8 +112,7 @@ continue. Checkpoints inside a file are welcome; the completion target stays 100
 
 ## Start here
 
-Finish your current NameDlg, NewProjDlg and DlgEvent drafts one file at a time.
-The next independent file is src/radiant/RotateDlg.cpp. Then follow the queue.
+Follow the current dispatch above, then the remaining queue.
 TexEdit and its dependency fixes belong to Codex. Reference candidates still
 require fresh linked proof. Keep generated code outside game accounting.
 

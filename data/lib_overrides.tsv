@@ -12,3 +12,5 @@ addr	member	symbol	evidence
 0x00500797	INTEL\$NW\winmenu.obj	?DestroyMenu@CMenu@@QAEHXZ	PINNED: retail calls DestroyMenu at IAT 0x528624 and CMenu::Detach at 0x50076d
 0x004dad56	build\intel\mt_obj\unlink.obj	_remove	PINNED: retail calls DeleteFileA at IAT 0x5283ac; unlink.obj defines _remove; __unlink jumps to _remove; rmdir.obj calls RemoveDirectoryA
 0x004ff4c3	INTEL\$NW\strcore.obj	?AfxGetStringManager@@YGPAUIAtlStringMgr@ATL@@XZ	PINNED: CString construction at 0x40297d calls this getter, then IAtlStringMgr slot 3 and adds sizeof(CStringData)=16; matching strcore.obj export; returned runtime-class metadata has no such vtable
+0x00505804	INTEL\$NW\wingdi.obj	?Detach@CGdiObject@@QAEPAXXZ	PINNED: matching wingdi.obj export called by CGdiObject::DeleteObject at 0x50582e; its archive calls afxMapHGDIOBJ
+0x0050582e	INTEL\$NW\wingdi.obj	?DeleteObject@CGdiObject@@QAEHXZ	PINNED: retail calls GDI32 DeleteObject at IAT 0x528198; matching wingdi.obj export

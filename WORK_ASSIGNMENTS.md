@@ -23,9 +23,9 @@ the resetting claim helper or synchronize over unmerged commits. A hard blocker 
 report with evidence; trying eight times is not a prerequisite to reporting it.
 
 Codex takes over the remaining com_memory, com_shared, q_parse, xmodel_utils and
-com_files work. The two temporary allocators are already matched. Codex keeps the remaining
-com_memory.cpp work as its active reconstruction file, resolving necessary
-dependencies while independently reviewing worker submissions.
+com_files work. The two temporary allocators are already matched. Codex completes ScaleDialog.cpp metadata as its current primary file while
+independently reviewing worker submissions. com_memory remains partial pending
+real registration/caller dependencies; do not repeat its matched allocator trials.
 The remaining existing codex lane ownership is unchanged. A hard leftover in a
 Gemini file is transferred only after a clean delivery and board update.
 
