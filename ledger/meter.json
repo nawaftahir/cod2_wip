@@ -1,19 +1,19 @@
 {
- "linked_matches": 494,
+ "linked_matches": 500,
  "game_functions": 3579,
  "game_bytes": 699591,
  "placed_functions": 3509,
  "lib_functions": 3940,
  "auto_functions": 637,
  "extlib_functions": 1779,
- "matched_functions": 494,
+ "matched_functions": 500,
  "failed_rows": 0,
  "order_warnings": 1,
  "unverified_in_src": 48,
- "matched_bytes": 58731,
+ "matched_bytes": 58880,
  "lib_bytes": 316234,
  "text_bytes": 1204750,
- "same_offset_bytes": 26105,
+ "same_offset_bytes": 26213,
  "file_bytes": 1794048,
  "sha_identical": false
 }

@@ -1,7 +1,7 @@
 # Codex: hard files and integration (2026-10-29)
 
 The owner assigns Gemini the easy-file queue and Codex the hard work. Follow
-WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 61 files in
+WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 60 files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;
 do not reconstruct or change their headers while its checkpoint is active.
 

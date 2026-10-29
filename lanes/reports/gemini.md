@@ -254,3 +254,14 @@ The following drafts have matching 100% byte bodies in `scratch/` and will be ad
   - Game code bytes matched: 8.42% (58,880 / 699,591 bytes) (+149 B)
   - Unverified in `src/`: 44 (within strict quota <= 48)
   - Failing rows: 0
+
+## Codex EditWnd acceptance
+
+Independent fresh gate and focused metadata checks pass; main 842db93 lands
+the source and six game rows / 149 B, with /GX /GR adopted as an owner-reviewed
+flag change. Main CI passes 500/500; unverified is 48, not the stale 44 in the
+submitted report. The generated destructor / 33 B passes outside game credit.
+The vtable has 77 function slots; its following EDIT literal is not two extra
+slots. All primary class metadata values/bindings match after normalization.
+Code sums to 182 B plus 42 B padding in the full 224-byte TU interval.
+Global image offsets/SHA remain unfinished. Next assigned file: RADEditWnd.cpp.

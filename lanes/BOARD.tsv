@@ -13,7 +13,7 @@ src/radiant/DialogThick.cpp	codex	partial	codex	5	126	4	0	game methods matched; 
 src/radiant/ScaleDialog.cpp	codex	partial	codex	4	136	3	0	game methods matched; generated helpers/RTTI remain (Codex review)
 src/radiant/UNKNOWN_00408f20.cpp	cheap	open	gemini	4	153	0	0	iw3xo (1/1)
 src/radiant/NewProjDlg.cpp	cheap	open	gemini	4	180	0	0	none: from make show
-src/radiant/EditWnd.cpp	cheap	open	gemini	7	182	0	0	none: from make show
+src/radiant/EditWnd.cpp	cheap	merged	gemini	7	182	6	0	6/6 game + generated destructor; normalized class metadata verified; image placement open
 src/universal/UNKNOWN_004985d0.cpp	cheap	open	gemini	16	196	0	3	none: from make show
 src/radiant/DlgEvent.cpp	cheap	open	gemini	4	208	0	0	none: from make show
 src/radiant/NameDlg.cpp	cheap	open	gemini	6	278	0	0	none: from make show

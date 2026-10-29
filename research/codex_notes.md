@@ -641,3 +641,27 @@ Unmatched MRU registry loading, camera/drawing and Windows enumeration are held
 in scratch, with original source preserved by safety/gemini-fbca31a. Those four
 partial TUs transfer to Codex; Gemini keeps 61 easy files and Codex 30 hard files.
 No whole-TU completion, full SHA or GUI boot claim.
+
+## EditWnd accepted: code and normalized class metadata
+
+Main 842db93 integrates the focused 2fcf82b delivery after independent review.
+Six game routines / 149 B pass; the 33-byte generated destructor is checked
+separately and excluded from game coverage. Focused checks pass all 77 vtable
+slots against overrides/inherited CEdit entries, RTTI hierarchy and base offsets,
+all runtime-class fields/factory/base binding, message map and retail padding.
+The seven routine spans total 182 B; internal/final padding totals 42 B, making
+the mapped interval 224 B. This corrects the report's incomplete padding count.
+
+Codex adopted only EditWnd's /GX /GR row as a reviewed owner change after
+retail factory/EH and named RTTI evidence plus regression; other flags remain
+unchanged. Game audit, worker gate, merged CI and actual main-image metadata
+checks pass 500/500 rows (13.97%), 58,880 / 699,591 B (8.42%). Compiler 2 /
+35 B; unverified 48 (the report's 44 was stale), warning one, failures zero.
+Main same-offset 26,213 B / 1.461%. Exact whole-image layout/SHA and boot
+remain unfinished; normalized metadata agreement is not an absolute-RVA claim.
+
+Gemini next owns RADEditWnd.cpp; its scratch draft is preserved. Sixty queued
+files remain. Any new flag/library proposals are reviewed by Codex. Current
+worker edits are never overwritten during synchronization. Evidence: research/
+gemini_review/test_editwnd.py, build/editwnd-accepted-tests.log, build/ci-last.log,
+and .agents/gemini_review/scratch/editwnd_review/.

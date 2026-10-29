@@ -5,6 +5,11 @@ and `AGENTS.md` (the agent contract).
 Goal: `CoD2Radiant.exe` 1.0 rebuilt **SHA-256 identical**, structure first, matching second.
 
 ## State
+- Latest: main 842db93 integrates EditWnd. Six game routines / 149 B plus
+  separately checked generated destructor and normalized class metadata pass.
+  Full gate/merged CI: 500/500 (13.97% game functions), 58,880 B (8.42% game
+  code), same-offset 26,213 B. Compiler 2/35 B, unverified 48, warning one.
+  Gemini next takes RADEditWnd; full image placement/SHA and boot remain open.
 - Latest main a369057: corrected MRU/path subset merged and pushed. Net gain
   27 / 2,637 B; 494/494 game matches (13.80%), 58,731 B (8.40% game code).
   Same-offset 26,105 B (1.455%); compiler 2/35 B, unverified 48, warning one.

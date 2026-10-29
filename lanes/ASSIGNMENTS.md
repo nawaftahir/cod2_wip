@@ -4,8 +4,8 @@ The owner's easy/hard split is recorded in ../WORK_ASSIGNMENTS.md and BOARD.tsv.
 
 ## Gemini prompt
 
-> Read TASK_GEMINI.md and lanes/GEMINI_QUEUE.tsv. You own all 61 queued easy
-> files in .agents/gemini. Start EditWnd.cpp, RADEditWnd.cpp and TexEdit.cpp,
+> Read TASK_GEMINI.md and lanes/GEMINI_QUEUE.tsv. You own all 60 queued easy
+> files in .agents/gemini. EditWnd is integrated; start RADEditWnd.cpp, then TexEdit.cpp,
 > then follow the queue. Complete each file at 100% before calling it finished
 > or moving on; commit verified checkpoints. Deliver a clean completed file or
 > an explicit hard-blocker handoff for Codex review. Hand hard blockers
