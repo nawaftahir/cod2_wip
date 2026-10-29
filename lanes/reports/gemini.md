@@ -337,3 +337,7 @@ FILE VERIFIED for source/code/normalized metadata, with absolute image placement
 whole-executable SHA and GUI boot still pending. Proof: research/gemini_review/
 test_dialog_completion.py name and scratch/namedlg_review/{gate,metadata}.log.
 RotateDlg is still scratch-only with empty handlers; its gate did not cover it.
+
+The additional emitted three-byte CString conversion header body also MATCHes
+the shared body at 0x402740; equal clones exist, so no unique historical ownership
+or game credit is claimed. All locally emitted NameDlg symbols are accounted for.
