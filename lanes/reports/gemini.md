@@ -150,3 +150,38 @@ the existing flags. No full-TU or whole-file identity is claimed. These
 compiler/caller/RTTI tasks transfer to Codex; no attributes or flags are forced.
 Actual constructor vtables/defaults, parent maps and dispatch entries pass
 the separate live-image checks. Evidence: scratch/dialog_review/{gate,bindings}.log.
+
+## Batch three: independently reviewed MRU/path subset
+
+Immutable delivery fbca31a preserved at safety/gemini-fbca31a. Its claimed
+497 matches included a generated destructor in game credit, duplicate aliases,
+incorrect row sizes and 57 unverified routines. No full-file completion claim
+from that report is accepted. Reviewed in the isolated gemini_review worktree.
+
+Accepted net gain: 27 game routines / 2,637 B. MRU has 14 matched routines /
+1,756 B (one / 21 B already in main); CapDialog 4 / 65 B; pointfiles 4 /
+656 B; Windows helpers 6 / 181 B. Actual anchor spans, not hand-summed sizes,
+are used for every ledger row. No AUTO or library rows enter game accounting.
+
+Removed the AUTO CapDialog deleting destructor from game credit and verified
+its omitted five-byte implicit destructor instead. Pointfile_HasPoints also
+passes stock comparison. Pointfile_Delete and Pointfile_Check use equivalent
+local extension scanning, preserving target assertion line 82, without emitting
+an unmatched StripExtension function. Existing assertive.h supplies the macro.
+
+Held out Pointfile_Next/Prev: the delivered camera/window classes conflict with
+the existing CCamWnd model. Drawing and five unfinished Windows routines are
+scratch-only; no guessed layouts or register-ABI declarations ship. MRU's
+299-byte registry loader is held in scratch pending the demonstrated inventory
+split at 0x46c440; no referee metadata was altered to credit it.
+
+Fixed an existing duplicate mapping: AngleMod remains 0x487180, while a fresh
+linked check verifies AngleNormalize360 at the separate 0x4872d0 clone recorded
+in data/duplicates.tsv. Its definition now follows AnglesSubtract, matching
+retail order; all old code retains MATCH and the warning count remains one.
+
+Fresh gate: 494/494 game rows, 58,731 / 699,591 B (8.40%), 13.80% of game
+functions; compiler 2/2 / 35 B, unverified 48, failures zero. Full SHA, RTTI and
+all remaining source are unfinished. Final main CI/meter and live import/literal
+checks are recorded in the integration checkpoint. Primary review logs and
+submitted bodies: .agents/gemini_review/scratch/batch3_review/.

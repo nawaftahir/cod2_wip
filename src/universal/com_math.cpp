@@ -1058,16 +1058,6 @@ float AngleMod( float a )
 
 /*
 ==============
-AngleNormalize360
-==============
-*/
-float AngleNormalize360( float angle )
-{
-	return ( 360.0f / 65536 ) * ( (int)( angle * ( 65536 / 360.0f ) ) & 65535 );
-}
-
-/*
-==============
 LerpAngle
 
 Lerps from -> to along the shorter arc.
@@ -1122,6 +1112,16 @@ void AnglesSubtract( const vec3_t v1, const vec3_t v2, vec3_t v3 )
 	v3[0] = AngleSubtract(v1[0], v2[0]);
 	v3[1] = AngleSubtract(v1[1], v2[1]);
 	v3[2] = AngleSubtract(v1[2], v2[2]);
+}
+
+/*
+==============
+AngleNormalize360
+==============
+*/
+float AngleNormalize360( float angle )
+{
+	return ( 360.0f / 65536 ) * ( (int)( angle * ( 65536 / 360.0f ) ) & 65535 );
 }
 
 /*
