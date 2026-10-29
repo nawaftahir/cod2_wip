@@ -3,6 +3,14 @@
 You rebuild one source file of `CoD2Radiant.exe` so it compiles **byte-identical** to retail. You work in
 your own folder `.agents/<your-name>/` (a git worktree). Never touch anything outside it.
 
+## Current Gemini assignment
+
+Gemini follows ../TASK_GEMINI.md and GEMINI_QUEUE.tsv. That preassigned queue
+replaces the automatic claim step below. Its target is 100% per assigned TU;
+a completed file or explicit hard-blocker handoff goes to Codex for review.
+Never run claim.sh or reset over unmerged commits. Other cheap workers follow
+the general single-file flow below unless assigned otherwise.
+
 ## Start
 From `~/cod2/test/dev/radiant` run `lanes/claim.sh <your-name>`. It prints your file and its function list.
 Then work inside `.agents/<your-name>/`.

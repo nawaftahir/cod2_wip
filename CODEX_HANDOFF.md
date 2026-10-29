@@ -1,5 +1,23 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Easy/hard split: 2026-10-29
+
+The owner assigned all easy files to Gemini and hard work to Codex. Board and
+WORK_ASSIGNMENTS.md now reserve 68 cheap-lane files for Gemini, ordered in
+lanes/GEMINI_QUEUE.tsv. Start EditWnd, RADEditWnd and TexEdit, then small
+dialogs and reference-backed candidates. One TU at a time, with a 100%
+whole-TU target before calling it complete or moving on. Codex reviews each
+completed file or explicit hard-blocker handoff. No resetting claims.
+These are candidates, never credited until the linked referee passes.
+
+Codex now owns 23 hard files, including transferred com_memory, com_shared,
+q_parse, xmodel_utils and com_files leftovers. Its next concrete source group
+is the two 99% temporary-allocation drafts, followed by editor caller/global
+work and cross-file dependencies. Gemini's memory drafts are preserved and
+copied into Codex scratch/codex_1029_memory_remaining/candidate.cpp.
+TASK_GEMINI.md and TASK_CODEX.md replace the obsolete narrow tasks.
+No source or progress counter changed in this assignment update.
+
 ## Memory delivery integrated: 2026-10-29
 
 Main baaf02a merges all three Gemini commits (safety/gemini-972e389).

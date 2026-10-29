@@ -1,30 +1,34 @@
-# Radiant coordination
+# Radiant ownership (2026-10-29)
 
-The owner resumed work under lanes/BOARD.tsv, lanes/CODEX_MERGE.md and
-lanes/CHEAP_AGENT.md. Those lane contracts supersede older manual-only, no-land,
-no-push and narrow TexWnd directions. Codex integrates main and has explicit
-permission to push after merges. Workers never push or write another worktree.
+The owner assigned Gemini all easy files and Codex the hard files plus main-tree
+integration. This split supersedes earlier single-file Gemini tasks and automatic
+claim directions. Main lanes/BOARD.tsv records exclusive ownership; each worker
+uses its private worktree. No worker edits another worker's assigned source.
 
-Codex owns the board's codex files, with AdvCurveDlg.cpp, CamWnd.cpp and
-cameratargetdlg.cpp first. Gemini finishes com_files.cpp/.h, then takes one
-cheap-lane file at a time through lanes/claim.sh. TexWnd.cpp is Codex-owned;
-report its real filesystem caller dependency rather than editing it as Gemini.
+| Worker | Scope | Task |
+|---|---|---|
+| Gemini | 68 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
+| Codex | 23 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
 
-A worker delivers source, ledger/matches.tsv, ledger/defer.tsv and its
-lanes/reports/<agent>.md. Keep drafts in private scratch and stop after the
-committed delivery until it is merged. Do not claim another file while new
-commits remain above main: claim.sh may otherwise replace an unmerged branch.
-Report net new rows against the starting main revision, actual percentages and
-precise deferred mismatches. Existing matches are baseline coverage.
+Gemini starts EditWnd, RADEditWnd and TexEdit, using the existing Q3 candidate
+list, then the small dialogs and remaining queue. One TU at a time; one commit
+per file; target 100% of each TU before calling it finished or moving on. Stop
+cleanly for Codex to review a completed file or a documented hard-blocker
+handoff, then resume after synchronization or dependency resolution. Never run
+the resetting claim helper or synchronize over unmerged commits. A hard blocker goes into the
+report with evidence; trying eight times is not a prerequisite to reporting it.
 
-Codex preserves a safety ref, checks scope and call/data bindings, and runs
-RADIANT_CI_NO_NOTIFY=1 tools/land.sh <agent> for a clean committed delivery.
-The lander verifies the merged tree before push and preserves rejected or
-newer worker work. It never hard-resets a worker. Restore unrelated saved owner
-changes afterwards, update the board, and push the board checkpoint too.
+Codex takes over the remaining com_memory, com_shared, q_parse, xmodel_utils and
+com_files work. The two 99% temporary-allocation drafts are its immediate source
+target, alongside the editor caller/global group and cross-file dependencies.
+The remaining existing codex lane ownership is unchanged. A hard leftover in a
+Gemini file is transferred only after a clean delivery and board update.
 
-The referee remains authoritative. Matched game functions and bytes may never
-drop; whole-file same-offset bytes are report-only until layout is complete.
-No asm blobs, fake callers, invented ABI changes or lowered comparison masks.
-Only evidence-backed globals, strings, types and library identities may ship.
-The corrected deletion binding remains _remove / DeleteFileA, not _rmdir.
+Codex checks each delivery, preserves a safety ref and lands through
+RADIANT_CI_NO_NOTIFY=1 tools/land.sh gemini. Worker referee and merged-tree CI
+must pass before push. Update the board, meter, report and handoff after landing.
+Keep unrelated owner files and all worker drafts. Do not send notifications.
+
+Only linked referee MATCHes count. Game matched functions/bytes never decrease;
+whole-file same-offset is report-only. Report function %, game-byte % and
+same-offset % separately. No fabricated attempts, source, provenance or ABI.

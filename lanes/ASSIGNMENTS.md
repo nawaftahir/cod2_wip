@@ -1,23 +1,28 @@
-# Current assignments (2026-10-28)
+# Current assignments (2026-10-29)
 
-Paste the prompt into each tool, started in `~/cod2/test/dev/radiant`. Claude reviews both afterwards.
+The owner's easy/hard split is recorded in ../WORK_ASSIGNMENTS.md and BOARD.tsv.
 
-## Gemini (Antigravity)
-Prompt:
-> Read `lanes/CHEAP_AGENT.md` and follow it exactly. Your agent name is `gemini`.
-> First finish `src/universal/com_files.cpp` (already yours, log in `gemini/PROGRESS.md`), and commit
-> `lanes/reports/gemini.md` with it. Then run `lanes/claim.sh gemini` and take files one after another until the
-> board has no open cheap files. Start each file with its hits in `research/q3sweep_game.tsv`.
-> Work only in `.agents/gemini/`, commit there, write `lanes/reports/gemini.md`, never push.
+## Gemini prompt
 
-## Codex
-Prompt:
-> Read `CODEX_HANDOFF.md` and `lanes/CODEX_MERGE.md` and follow them. Keep working your `codex` files in
-> `lanes/BOARD.tsv` (AdvCurveDlg, CamWnd, cameratargetdlg first). Whenever `.agents/gemini` has new commits,
-> review and merge them with `tools/land.sh gemini`, then update the board. Re-land the helpers you reverted
-> for the same-offset dip (0x47c4e0, 0x47c560, 0x47c580). Push after each merge.
+> Read TASK_GEMINI.md and lanes/GEMINI_QUEUE.tsv. You own all 68 queued easy
+> files in .agents/gemini. Start EditWnd.cpp, RADEditWnd.cpp and TexEdit.cpp,
+> then follow the queue. Complete each file at 100% before calling it finished
+> or moving on; commit verified checkpoints. Deliver a clean completed file or
+> an explicit hard-blocker handoff for Codex review. Hand hard blockers
+> back with real evidence; do not grind or pad logs. Never run claim.sh, reset,
+> push or edit Codex source, shared headers, flags, tools or data tables.
 
-## Claude (review, when asked)
-- `git log` since `9803e71`, every merge's diff, `lanes/reports/*`, `research/codex_notes.md`.
-- Check: matches really verify inside the linked exe (`make verify`), code is real C/C++ in retail order,
-  names have evidence, deferrals have 8 tries and a reason, the board matches reality.
+## Codex prompt
+
+> Read TASK_CODEX.md and lanes/CODEX_MERGE.md. You own the 23 hard files and
+> main integration. Start the two 99% memory drafts; continue editor caller and
+> shared-global reconstruction and real dependency groups. Review and land
+> Gemini checkpoints with tools/land.sh gemini, update the board and push.
+
+## Review
+
+Check actual stock linked MATCH results, baseline versus net gains, readable
+source in retail order, assertion coordinates and call/data identities. A
+blocked report may have fewer than eight real trials; a ledger deferral requires
+eight genuine trials. No invented logs or dependency certainty. All easy-file
+candidates still require verification in the linked exe before credit.

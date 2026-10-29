@@ -1,5 +1,10 @@
 # Lanes: many agents, one tree, no rework
 
+Current owner-authorized split: Gemini has the 68 easy-candidate files in
+GEMINI_QUEUE.tsv; Codex has the 23 hard files and integration. See
+../WORK_ASSIGNMENTS.md and ../TASK_GEMINI.md before the general flow below.
+Gemini does not use the resetting automatic claim helper.
+
 Fastest path: many agents in parallel, **one file each**, all judged by the same referee inside the linked
 exe, merged by one integrator, audited at the end.
 
