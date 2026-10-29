@@ -511,3 +511,9 @@ addr	size	source	symbol	name	tag
 0x004241a0	6	src/radiant/NameDlg.cpp	?GetMessageMap@CNameDlg@@MBEPBUAFX_MSGMAP@@XZ	CNameDlg::GetMessageMap	SUPPORTED
 0x004241b0	5	src/radiant/NameDlg.cpp	?OnOK@CNameDlg@@MAEXXZ	CNameDlg::OnOK	SUPPORTED
 0x004241c0	26	src/radiant/NameDlg.cpp	?OnInitDialog@CNameDlg@@MAEHXZ	CNameDlg::OnInitDialog	SUPPORTED
+0x0043c0d0	268	src/radiant/RotateDlg.cpp	??0CRotateDlg@@QAE@PAVCWnd@@@Z	CRotateDlg::CRotateDlg	SUPPORTED
+0x0043c210	121	src/radiant/RotateDlg.cpp	?DoDataExchange@CRotateDlg@@MAEXPAVCDataExchange@@@Z	CRotateDlg::DoDataExchange	SUPPORTED
+0x0043c290	6	src/radiant/RotateDlg.cpp	?GetMessageMap@CRotateDlg@@MBEPBUAFX_MSGMAP@@XZ	CRotateDlg::GetMessageMap	SUPPORTED
+0x0043c2a0	16	src/radiant/RotateDlg.cpp	?OnOK@CRotateDlg@@MAEXXZ	CRotateDlg::OnOK	SUPPORTED
+0x0043c490	86	src/radiant/RotateDlg.cpp	?OnInitDialog@CRotateDlg@@MAEHXZ	CRotateDlg::OnInitDialog	SUPPORTED
+0x0043c700	1	src/radiant/RotateDlg.cpp	?ApplyNoPaint@CRotateDlg@@IAEXXZ	CRotateDlg::ApplyNoPaint	SUPPORTED
