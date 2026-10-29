@@ -493,3 +493,9 @@ addr	size	source	symbol	name	tag
 0x00407fd0	5	src/radiant/CapDialog.cpp	??1CCapDialog@@UAE@XZ	CCapDialog::~CCapDialog	SUPPORTED
 0x0046cb00	14	src/radiant/points.cpp	?Pointfile_HasPoints@@YAHXZ	Pointfile_HasPoints	SUPPORTED
 0x004872d0	42	src/universal/com_math.cpp	?AngleNormalize360@@YAMM@Z	AngleNormalize360	SUPPORTED
+0x0040c6b0	80	src/radiant/EditWnd.cpp	?CreateObject@CEditWnd@@SGPAVCObject@@XZ	CEditWnd::CreateObject	SUPPORTED
+0x0040c700	6	src/radiant/EditWnd.cpp	?GetRuntimeClass@CEditWnd@@UBEPAUCRuntimeClass@@XZ	CEditWnd::GetRuntimeClass	SUPPORTED
+0x0040c710	16	src/radiant/EditWnd.cpp	??0CEditWnd@@QAE@XZ	CEditWnd::CEditWnd	SUPPORTED
+0x0040c750	11	src/radiant/EditWnd.cpp	??1CEditWnd@@UAE@XZ	CEditWnd::~CEditWnd	SUPPORTED
+0x0040c760	6	src/radiant/EditWnd.cpp	?GetMessageMap@CEditWnd@@MBEPBUAFX_MSGMAP@@XZ	CEditWnd::GetMessageMap	SUPPORTED
+0x0040c770	30	src/radiant/EditWnd.cpp	?PreCreateWindow@CEditWnd@@MAEHAAUtagCREATESTRUCTA@@@Z	CEditWnd::PreCreateWindow	SUPPORTED
