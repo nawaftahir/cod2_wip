@@ -13,6 +13,12 @@ def blob(ta, oa, size):
     left, right = t.get_data(ta-t.OPTIONAL_HEADER.ImageBase, size), o.get_data(oa-o.OPTIONAL_HEADER.ImageBase, size)
     lm, lc = v.masks(left, ta); rm, rc = v.masks(right, oa)
     assert v.matcher.normalize(left, lm | rm) == v.matcher.normalize(right, lm | rm), hex(ta)
+    # Decode helper branches: an E8 byte inside a relocated MOV immediate is not a call.
+    def branches(code,start):
+        return {ins.address-start:ins.operands[0].imm for ins in m['md'].disasm(code,start)
+                if ins.mnemonic in ('call','jmp') and ins.operands[0].type == m['X86_OP_IMM']
+                and not start <= ins.operands[0].imm < start+len(code)}
+    lc,rc=branches(left,ta),branches(right,oa)
     assert lc.keys() == rc.keys(), hex(ta)
     for field, target in lc.items():
         if target in names:
@@ -22,13 +28,13 @@ def blob(ta, oa, size):
             assert v.check(img, hex(target), candidate, names)[0] == 'MATCH', (hex(target), candidate)
     return left, right
 
-def dialog(cls, ctor, getter, tv, helper, end):
+def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=()):
     rows = [r for r in v.read_tsv('ledger/matches.tsv') if r['source'] == 'src/radiant/'+cls[1:]+'.cpp']
-    assert len(rows) == (3 if cls == 'CScaleDialog' else 5)
+    assert len(rows) == (expected_count if expected_count is not None else (3 if cls == 'CScaleDialog' else 5))
     owned = img.of_source('src/radiant/'+cls[1:]+'.cpp')
     expected = {r['symbol'] for r in rows} | {'??_G'+cls+'@@UAEPAXI@Z', '??_E'+cls+'@@UAEPAXI@Z', '??1'+cls+'@@UAE@XZ'}
     if cls == 'CNameDlg': expected.add('??B?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ')
-    assert set(owned) == expected, (cls, set(owned)-expected)
+    assert expected <= set(owned) <= expected | set(expected_shared), (cls, set(owned)-expected)
     for r in rows:
         assert v.check(img, r['addr'], r['symbol'], names)[0] == 'MATCH', r
     deleting = '??_G'+cls+'@@UAEPAXI@Z'
@@ -74,7 +80,7 @@ def dialog(cls, ctor, getter, tv, helper, end):
     for i,r in enumerate(rs):
         stop = int(r['addr'],16)+int(r['size']); nxt = int(rs[i+1]['addr'],16) if i+1<len(rs) else end
         assert set(t.get_data(stop-t.OPTIONAL_HEADER.ImageBase,nxt-stop)) <= {0xcc,0x90}
-    print('PASS:',cls,len(rows),'game routines; 33-byte deleting helper; 86 virtual slots, full RTTI, inherited runtime class, empty message map, constructor bindings and padding')
+    print('PASS:',cls,len(rows),'game routines;',len(v.matcher.carve(hex(helper))[0]),'byte deleting helper; 86 virtual slots, full RTTI, inherited runtime class, empty message map, constructor bindings and padding')
 
 mode = sys.argv[1] if len(sys.argv)>1 else 'all'
 if mode in ('scale','all'):

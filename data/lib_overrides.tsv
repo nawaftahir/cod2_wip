@@ -14,3 +14,4 @@ addr	member	symbol	evidence
 0x004ff4c3	INTEL\$NW\strcore.obj	?AfxGetStringManager@@YGPAUIAtlStringMgr@ATL@@XZ	PINNED: CString construction at 0x40297d calls this getter, then IAtlStringMgr slot 3 and adds sizeof(CStringData)=16; matching strcore.obj export; returned runtime-class metadata has no such vtable
 0x00505804	INTEL\$NW\wingdi.obj	?Detach@CGdiObject@@QAEPAXXZ	PINNED: matching wingdi.obj export called by CGdiObject::DeleteObject at 0x50582e; its archive calls afxMapHGDIOBJ
 0x0050582e	INTEL\$NW\wingdi.obj	?DeleteObject@CGdiObject@@QAEHXZ	PINNED: retail calls GDI32 DeleteObject at IAT 0x528198; matching wingdi.obj export
+0x004f56ee	INTEL\$NW\winctrl2.obj	??1CSpinButtonCtrl@@UAE@XZ	PINNED: destructor writes vtable 0x52dfdc with CSpinButtonCtrl RTTI; all 56 archive bytes agree outside relocations
