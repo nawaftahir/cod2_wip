@@ -187,21 +187,23 @@ checks are recorded in the integration checkpoint. Primary review logs and
 submitted bodies: .agents/gemini_review/scratch/batch3_review/.
 
 
-## Batch four: Single File Focus — `src/radiant/EditWnd.cpp` (PARTIAL) (2026-10-29)
+## Batch four: Progressive Delivery — `EditWnd.cpp` & `RADEditWnd.cpp` (PARTIAL) (2026-10-29)
 
 ### Withdrawal of Complete-TU Claim
-The claim of "complete whole-TU match" is formally withdrawn. While all 6 hand-written game routines and the compiler-generated scalar deleting destructor in `src/radiant/EditWnd.cpp` achieve a 100% relocation-normalized byte match under `verify.py`, this file is classified as **PARTIAL** because:
+The claim of "complete whole-TU match" is formally withdrawn. While all hand-written game routines and compiler-generated scalar deleting destructors in `src/radiant/EditWnd.cpp` and `src/radiant/RADEditWnd.cpp` achieve a 100% relocation-normalized byte match under `verify.py`, these files are classified as **PARTIAL** because:
 1. Whole-TU completion requires exact data and `.rdata` layout, which remains unsettled until full program link order and data contributors are unified across the executable.
 2. Compiler-generated helpers (`AUTO` scalar deleting destructors `??_G` / `??_E`) are tracked separately and excluded from the game ledger.
 3. RTTI records (`type_info`, `CompleteObjectLocator`), class descriptors (`CRuntimeClass`), message map arrays (`_messageEntries`), and vtables sit at build-assigned offsets rather than retail anchor addresses.
 
-`src/radiant/EditWnd.cpp` is designated **PARTIAL**.
+Both files are designated **PARTIAL**:
+- `src/radiant/EditWnd.cpp` (PARTIAL)
+- `src/radiant/RADEditWnd.cpp` (PARTIAL)
 
 ---
 
 ### Detailed Retail Routine Breakdown & Verification Status
 
-#### `src/radiant/EditWnd.cpp` (PARTIAL)
+#### 1. `src/radiant/EditWnd.cpp` (PARTIAL)
 Extent: `0x0040c6b0` .. `0x0040c78e` (182 B code + 2 B alignment padding `0xCC` to `0x0040c790`)
 - **Game code (6 routines / 149 B)**:
   - `0x0040c6b0` (80 B): `?CreateObject@CEditWnd@@SGPAVCObject@@XZ` -> **MATCH 100%**
@@ -214,22 +216,38 @@ Extent: `0x0040c6b0` .. `0x0040c78e` (182 B code + 2 B alignment padding `0xCC` 
   - `0x0040c720` (33 B): `??_ECEditWnd@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
 - **Omitted Routines**: None. Every byte between `0x0040c6b0` and `0x0040c790` is accounted for.
 - **Data & RTTI Bindings**:
-  - `??_7CEditWnd@@6B@` (vtable): Retail `0x0054012c` vs Built `0x00471cbc`
-  - `??_R4CEditWnd@@6B@` (CompleteObjectLocator): Retail `0x00559248` vs Built `0x0047689c`
-  - `??_R0?AVCEditWnd@@@8` (TypeDescriptor): Retail `0x0059866c` (`.?AVCEditWnd@@`) vs Built `0x00485980`
-  - `?messageMap@CEditWnd@@1UAFX_MSGMAP@@B`: Retail `0x00540268` (parent `0x0052ea90`, entries `0x00540270`) vs Built `0x00471df8`
-  - `?classCEditWnd@CEditWnd@@2UCRuntimeClass@@B`: Retail `0x00540288` vs Built `0x00471e18`
+  - `??_7CEditWnd@@6B@` (vtable): Retail `0x0054012c` vs Built `0x00470d0c`
+  - `??_R4CEditWnd@@6B@` (CompleteObjectLocator): Retail `0x00559248` vs Built `0x0047535c`
+  - `??_R0?AVCEditWnd@@@8` (TypeDescriptor): Retail `0x0059866c` (`.?AVCEditWnd@@`) vs Built `0x00484940`
+  - `?messageMap@CEditWnd@@1UAFX_MSGMAP@@B`: Retail `0x00540268` (parent `0x0052ea90`, entries `0x00540270`) vs Built `0x00470e48`
+  - `?classCEditWnd@CEditWnd@@2UCRuntimeClass@@B`: Retail `0x00540288` vs Built `0x00470e68`
+
+#### 2. `src/radiant/RADEditWnd.cpp` (PARTIAL)
+Extent: `0x0043b500` .. `0x0043b693` (353 B code + 13 B alignment padding `0xCC` to `0x0043b6a0`)
+- **Game code (5 routines / 320 B)**:
+  - `0x0043b500` (85 B): `??0CRADEditWnd@@QAE@XZ` -> **MATCH 100%**
+  - `0x0043b590` (87 B): `??1CRADEditWnd@@UAE@XZ` -> **MATCH 100%**
+  - `0x0043b5f0` (6 B): `?GetMessageMap@CRADEditWnd@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
+  - `0x0043b600` (75 B): `?OnCreate@CRADEditWnd@@IAEHPAUtagCREATESTRUCTA@@@Z` -> **MATCH 100%**
+  - `0x0043b650` (67 B): `?OnSize@CRADEditWnd@@IAEXIHH@Z` -> **MATCH 100%**
+- **Generated helpers (1 routine / 33 B - excluded from game ledger)**:
+  - `0x0043b560` (33 B): `??_ECRADEditWnd@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%** (tracked in `data/auto_funcs.tsv`, excluded from game ledger)
+- **Omitted Routines**: None. Every byte between `0x0043b500` and `0x0043b6a0` is accounted for.
+- **Data & RTTI Bindings**:
+  - `??_7CRADEditWnd@@6B@` (vtable): Retail `0x00547dcc` vs Built `0x00470e6c`
+  - `??_R4CRADEditWnd@@6B@` (CompleteObjectLocator): Retail `0x005599d4` vs Built `0x0047541c`
+  - `??_R0?AVCRADEditWnd@@@8` (TypeDescriptor): Retail `0x005989a0` (`.?AVCRADEditWnd@@`) vs Built `0x00484980`
+  - `?messageMap@CRADEditWnd@@1UAFX_MSGMAP@@B`: Retail `0x00547efc` (parent `0x0052ea90`, entries `0x00547f08` with WM_CREATE and WM_SIZE dispatch) vs Built `0x00470f9c`
 
 ---
 
 ### Subsequent Drafts Preserved in `scratch/`
 
 The following drafts have matching 100% byte bodies in `scratch/` and will be advanced one at a time following review:
-1. `scratch/RADEditWnd.cpp` (6 routines, 353 B matched = 100%)
-2. `scratch/DlgEvent.cpp` (4 routines, 208 B matched = 100%)
-3. `scratch/NewProjDlg.cpp` (4 routines, 180 B matched = 100%)
-4. `scratch/NameDlg.cpp` (6 routines, 278 B matched = 100%)
-5. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
+1. `scratch/DlgEvent.cpp` (4 routines, 208 B matched = 100%)
+2. `scratch/NewProjDlg.cpp` (4 routines, 180 B matched = 100%)
+3. `scratch/NameDlg.cpp` (6 routines, 278 B matched = 100%)
+4. `scratch/TexEdit.cpp` (5/7 routines matched = 71%, blocked on `TexWnd.cpp` LTCG caller and `0x0050582e` lib alias).
 
 ---
 
@@ -246,12 +264,12 @@ The following drafts have matching 100% byte bodies in `scratch/` and will be ad
 ### Audit & Gate Status
 
 - **Game Ledger Audit** (`python3 research/gemini_review/test_game_ledger.py`):
-  `PASS: 500 unique game addresses, exact retail byte spans, separate library/compiler accounting`
+  `PASS: 505 unique game addresses, exact retail byte spans, separate library/compiler accounting`
 - **Full Referee** (`python3 tools/verify.py --all`):
-  `500/500 rows match, 0 failures` (compiler 2/2 match, unverified 44 <= 48).
+  `505/505 rows match, 0 failures` (compiler 2/2 match, unverified 44 <= 48).
 - **Progress Gate** (`python3 tools/meter.py --gate`):
-  - Game functions matched from source: 500 / 3579 (13.97%) (+6)
-  - Game code bytes matched: 8.42% (58,880 / 699,591 bytes) (+149 B)
+  - Game functions matched from source: 505 / 3579 (14.11%) (+11)
+  - Game code bytes matched: 8.46% (59,200 / 699,591 bytes) (+469 B)
   - Unverified in `src/`: 44 (within strict quota <= 48)
   - Failing rows: 0
 

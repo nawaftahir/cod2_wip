@@ -499,3 +499,8 @@ addr	size	source	symbol	name	tag
 0x0040c750	11	src/radiant/EditWnd.cpp	??1CEditWnd@@UAE@XZ	CEditWnd::~CEditWnd	SUPPORTED
 0x0040c760	6	src/radiant/EditWnd.cpp	?GetMessageMap@CEditWnd@@MBEPBUAFX_MSGMAP@@XZ	CEditWnd::GetMessageMap	SUPPORTED
 0x0040c770	30	src/radiant/EditWnd.cpp	?PreCreateWindow@CEditWnd@@MAEHAAUtagCREATESTRUCTA@@@Z	CEditWnd::PreCreateWindow	SUPPORTED
+0x0043b500	85	src/radiant/RADEditWnd.cpp	??0CRADEditWnd@@QAE@XZ	CRADEditWnd::CRADEditWnd	SUPPORTED
+0x0043b590	87	src/radiant/RADEditWnd.cpp	??1CRADEditWnd@@UAE@XZ	CRADEditWnd::~CRADEditWnd	SUPPORTED
+0x0043b5f0	6	src/radiant/RADEditWnd.cpp	?GetMessageMap@CRADEditWnd@@MBEPBUAFX_MSGMAP@@XZ	CRADEditWnd::GetMessageMap	SUPPORTED
+0x0043b600	75	src/radiant/RADEditWnd.cpp	?OnCreate@CRADEditWnd@@IAEHPAUtagCREATESTRUCTA@@@Z	CRADEditWnd::OnCreate	SUPPORTED
+0x0043b650	67	src/radiant/RADEditWnd.cpp	?OnSize@CRADEditWnd@@IAEXIHH@Z	CRADEditWnd::OnSize	SUPPORTED

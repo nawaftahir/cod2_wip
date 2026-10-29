@@ -4,6 +4,7 @@ src/radiant/AdvCurveDlg.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
 src/radiant/cameratargetdlg.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
 src/radiant/CamWnd.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
 src/radiant/EditWnd.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
+src/radiant/RADEditWnd.cpp	/O2 /Oy- /Op /GS /GL /GX /GR
 src/zlib/unzip.c	/O2 /Oy- /Op /GS /GL
 src/zlib/zutil.c	/O2 /Oy- /Op /GS /GL
 src/zlib/*	/O2 /GS /GL
