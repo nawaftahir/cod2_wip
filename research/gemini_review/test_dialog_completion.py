@@ -28,7 +28,7 @@ def blob(ta, oa, size):
             assert v.check(img, hex(target), candidate, names)[0] == 'MATCH', (hex(target), candidate)
     return left, right
 
-def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=(), base='CDialog', slots=86, dispatches=0):
+def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=(), base='CDialog', slots=86, dispatches=0, pending_callbacks=()):
     rows = [r for r in v.read_tsv('ledger/matches.tsv') if r['source'] == 'src/radiant/'+cls[1:]+'.cpp']
     assert len(rows) == (expected_count if expected_count is not None else (3 if cls == 'CScaleDialog' else 5))
     owned = img.of_source('src/radiant/'+cls[1:]+'.cpp')
@@ -59,6 +59,7 @@ def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_sha
     for i, (a,b,pa,pb) in enumerate(zip(u(t,tv,slots), u(o,vt,slots), u(t,base_vt,slots), u(o,sym('??_7'+base+'@@6B@'),slots))):
         if a == pa: assert b == pb, (cls, i)
         elif a == helper: assert b == img.syms[deleting]
+        elif a in pending_callbacks: assert b == o.OPTIONAL_HEADER.ImageBase, (cls, i, hex(a), hex(b))
         else: assert names[a] in img.labels[b], (cls, i, hex(a))
     tm = struct.unpack_from('<I', v.matcher.carve(hex(getter))[0], 1)[0]
     am = sym('?messageMap@'+cls+'@@')
@@ -88,7 +89,8 @@ def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_sha
     for i,r in enumerate(rs):
         stop = int(r['addr'],16)+int(r['size']); nxt = int(rs[i+1]['addr'],16) if i+1<len(rs) else end
         assert set(t.get_data(stop-t.OPTIONAL_HEADER.ImageBase,nxt-stop)) <= {0xcc,0x90}
-    print('PASS:',cls,len(rows),'game routines;',len(v.matcher.carve(hex(helper))[0]),'byte deleting helper;',slots,'virtual slots, full RTTI, inherited runtime class, message map, constructor bindings and padding')
+    print('PARTIAL:' if pending_callbacks else 'PASS:',cls,len(rows),'game routines;',len(v.matcher.carve(hex(helper))[0]),'byte deleting helper;',slots,'virtual slots, full RTTI, inherited runtime class, message map, constructor bindings and padding; pending callbacks',list(map(hex,pending_callbacks)))
+    return not pending_callbacks
 
 mode = sys.argv[1] if len(sys.argv)>1 else 'all'
 if mode in ('scale','all'):

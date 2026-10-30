@@ -21,8 +21,8 @@ src/radiant/DialogInfo.cpp	codex	partial	codex	8	332	0	0	scratch preserved; repo
 src/radiant/TextureLayout.cpp	codex	merged	codex	6	339	5	0	FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
 src/radiant/RADEditWnd.cpp	cheap	merged	gemini	6	353	5	0	FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
 src/radiant/TexEdit.cpp	codex	partial	codex	7	397	0	0	hard handoff: GDI DeleteObject alias and CTexWnd::UpdateFilter caller group
-src/radiant/PatchDensityDlg.cpp	codex	partial	codex	6	422	0	0	REVIEW dd98dac rejected: dummy Pmesh/noinline dependency and generated scalar credit; useful draft preserved; no accepted source
-src/radiant/TerrainDensityDlg.cpp	codex	partial	codex	6	422	0	0	REVIEW dd98dac rejected: dummy Pmesh/noinline dependency and generated scalar credit; useful draft preserved; no accepted source
+src/radiant/PatchDensityDlg.cpp	codex	partial	codex	6	422	4	0	4 game / 240 B verified without stubs; scalar/shared destructor/EH/metadata checked; OnOK unresolved pending real Pmesh; PARTIAL
+src/radiant/TerrainDensityDlg.cpp	codex	partial	codex	6	422	4	0	4 game / 240 B verified without stubs; scalar/shared destructor/EH/metadata checked; OnOK unresolved pending real Pmesh; PARTIAL
 src/radiant/KeyValueSelectDlg.cpp	codex	merged	codex	5	458	3	1	FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
 src/universal/splines/math_quaternion.cpp	cheap	open	gemini	4	539	1	1	none: from make show
 src/universal/UNKNOWN_00494480.cpp	cheap	open	gemini	3	816	0	1	none: from make show

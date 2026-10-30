@@ -1,5 +1,17 @@
 # Radiant handoff (2026-10-28)
 
+## Owner takeover: clean density source recovered
+
+The user parked Gemini and assigned its corrections to Codex. Eight real density
+routines / 480 game B are recovered without dummy callees, noinline, fake header
+overloads or flag changes. Gate/CI pass 541/541, 61,884 game B (8.85%), 15.12%
+functions, zero failures, 48 unverified and one order warning. Full-file audited
+count stays 11/102; density OnOK callbacks remain explicitly unresolved.
+Separate scalars, shared destructors, ComboBox SDK bodies, EH/unwind tables,
+class metadata and saved-selection bindings pass test_density_partial.py.
+Details/next real Pmesh group: research/codex_density/README.md. Worker WIP is
+preserved in scratch/gemini_takeover_20261031; .agents/gemini is untouched.
+
 ## Resumed: eleven files fully audited
 
 The owner resumed completion work. ledger/files.tsv now lists all 102 game TUs;

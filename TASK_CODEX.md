@@ -21,6 +21,17 @@ WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 49 files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;
 do not reconstruct or change their headers while its checkpoint is active.
 
+## Current primary file: Pmesh dependency repair
+
+The owner parked Gemini and asked Codex to repair its submissions. Keep working
+in .agents/codex, preserve the worker's drafts, and use the unchanged referee.
+The clean density checkpoint adds eight / 480 B and leaves both OnOK callbacks
+explicitly unresolved. Reconstruct real Pmesh helpers/generators next, using
+research/codex_density/README.md and scratch/density_repair. Do not reintroduce
+fake stubs, suppress unverified names, or count generated scalars as new game.
+TexEdit's prior six trials are preserved and remain pending; this is the
+owner-authorized priority change to repairing the reviewed delivery.
+
 ## Batch-three hard handoff
 
 Own MRU, CapDialog, points and win_common leftovers now. MRU's registry

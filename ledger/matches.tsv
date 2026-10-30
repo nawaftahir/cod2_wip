@@ -532,3 +532,11 @@ addr	size	source	symbol	name	tag
 0x00410fe0	76	src/radiant/KeyValueSelectDlg.cpp	?DoDataExchange@CKeyValueSelectDlg@@MAEXPAVCDataExchange@@@Z	CKeyValueSelectDlg::DoDataExchange	SUPPORTED
 0x00411030	6	src/radiant/KeyValueSelectDlg.cpp	?GetMessageMap@CKeyValueSelectDlg@@MBEPBUAFX_MSGMAP@@XZ	CKeyValueSelectDlg::GetMessageMap	SUPPORTED
 0x00408010	13	src/radiant/CapDialog.cpp	?FUN_00408010@@YAHPBD@Z	FUN_00408010	UNNAMED
+0x004242c0	117	src/radiant/PatchDensityDlg.cpp	??0CPatchDensityDlg@@QAE@PAVCWnd@@@Z	CPatchDensityDlg::CPatchDensityDlg	SUPPORTED
+0x00424370	49	src/radiant/PatchDensityDlg.cpp	?DoDataExchange@CPatchDensityDlg@@MAEXPAVCDataExchange@@@Z	CPatchDensityDlg::DoDataExchange	SUPPORTED
+0x004243b0	6	src/radiant/PatchDensityDlg.cpp	?GetMessageMap@CPatchDensityDlg@@MBEPBUAFX_MSGMAP@@XZ	CPatchDensityDlg::GetMessageMap	SUPPORTED
+0x00424460	68	src/radiant/PatchDensityDlg.cpp	?OnInitDialog@CPatchDensityDlg@@MAEHXZ	CPatchDensityDlg::OnInitDialog	SUPPORTED
+0x0043ec80	117	src/radiant/TerrainDensityDlg.cpp	??0CTerrainDensityDlg@@QAE@PAVCWnd@@@Z	CTerrainDensityDlg::CTerrainDensityDlg	SUPPORTED
+0x0043ed30	49	src/radiant/TerrainDensityDlg.cpp	?DoDataExchange@CTerrainDensityDlg@@MAEXPAVCDataExchange@@@Z	CTerrainDensityDlg::DoDataExchange	SUPPORTED
+0x0043ed70	6	src/radiant/TerrainDensityDlg.cpp	?GetMessageMap@CTerrainDensityDlg@@MBEPBUAFX_MSGMAP@@XZ	CTerrainDensityDlg::GetMessageMap	SUPPORTED
+0x0043ed80	68	src/radiant/TerrainDensityDlg.cpp	?OnInitDialog@CTerrainDensityDlg@@MAEHXZ	CTerrainDensityDlg::OnInitDialog	SUPPORTED
