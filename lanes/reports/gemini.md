@@ -504,6 +504,37 @@ Extent: `0x0043ec80` .. `0x0043ee64` (422 B code + 12 B alignment padding `0xCC`
   - Because `src/radiant/Pmesh.cpp` is currently unconstructed, `Create_Terrain` is an unresolved external symbol. The linker emits a standard 5-argument `__cdecl` stack frame (`push 0; push 1; push ecx; push esi; push ebx; call; add esp, 0x14`).
   - Full candidate preserved in `scratch/TerrainDensityDlg.cpp`. File remains in `scratch/` until `Pmesh.cpp` calling convention is resolved.
 
+## Gemini candidate evaluation: CommandsDlg.cpp (PARTIAL - Preserved in scratch/)
+
+Inventory: 16 routines totaling 1,515 B; interval `0x00408fe0` .. `0x00409640` is 1,632 B, including 117 B of internal/final gaps. Five game routines total 884 B; 11 compiler/header routines total 631 B. These are inventory totals, not accepted matches.
+- **Game code (4 routines / 199 B matched 100%, 1 routine / 685 B blocked on LTCG inline)**:
+  - `0x00408fe0` (94 B): `??0CCommandsDlg@@QAE@PAVCWnd@@@Z` (`CCommandsDlg::CCommandsDlg`) -> **MATCH 100%**
+  - `0x00409070` (74 B): `??1CCommandsDlg@@UAE@XZ` (`CCommandsDlg::~CCommandsDlg`) -> **MATCH 100%** (verified with PINNED `??1CListBox@@UAE@XZ` library override at `0x005166ec`)
+  - `0x004090c0` (25 B): `?DoDataExchange@CCommandsDlg@@MAEXPAVCDataExchange@@@Z` (`CCommandsDlg::DoDataExchange`) -> **MATCH 100%**
+  - `0x004090e0` (6 B): `?GetMessageMap@CCommandsDlg@@MBEPBUAFX_MSGMAP@@XZ` (`CCommandsDlg::GetMessageMap`) -> **MATCH 100%**
+  - `0x004090f0` (685 B): `?OnInitDialog@CCommandsDlg@@MAEHXZ` (`CCommandsDlg::OnInitDialog`) -> **MISMATCH (sizes 1079/685)**: In the partial build, MSVC LTCG inlines `CString::Append` 3 times into `OnInitDialog` (+394 B), whereas retail calls the out-of-line routine at `0x00409540`. Missing whole-program caller context is a hypothesis; 33 call sites alone do not prove why the optimizer chose that form.
+- **Generated helpers and header routines (6 routines / 400 B matched 100% - excluded from game ledger)**:
+  - `0x00409040` (34 B): `??_GCCommandsDlg@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%**
+  - `0x004093a0` (167 B): `??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@DH@Z` (`CString(char, int)`) -> **MATCH 100%**
+  - `0x004094d0` (36 B): `?FloodCharacters@?$ChTraitsCRT@D@ATL@@SAXDHPAD@Z` -> **MATCH 100%**
+  - `0x00409540` (128 B): `?Append@?$CSimpleStringT@D$0A@@ATL@@QAEXPBDH@Z` (`CString::Append(const char*, int)`) -> **MATCH 100%**
+  - `0x004095f0` (19 B): `?SetTabStops@CListBox@@QAEHABH@Z` -> **MATCH 100%**
+  - `0x00409610` (16 B): `??0CListBox@@QAE@XZ` -> **MATCH 100%**
+- **Unchecked routines**: `0x409450` / 61 B, `0x409490` / 61 B, `0x409500` / 54 B, `0x4095d0` / 25 B, and `0x409620` / 30 B. The report omits their proof; no full-file completion is accepted. Metadata addresses and proposed library alias still require independent verification.
+- **Data & RTTI Metadata**:
+  - `??_7CCommandsDlg@@6B@` (vtable): Retail `0x0053f4fc`
+  - `??_R4CCommandsDlg@@6B@` (CompleteObjectLocator): Retail `0x00558fd0`
+  - `??_R0?AVCCommandsDlg@@@8` (TypeDescriptor): Retail `0x00598004` (`.?AVCCommandsDlg@@`)
+  - `?messageMap@CCommandsDlg@@1UAFX_MSGMAP@@B`: Retail `0x0053f6b0` (parent `0x0052cae4` `CDialog`, empty message entries terminating at `0x0053f6c8`)
+- **Library Override Proposal for Codex**:
+  - `0x005166ec`: `nafxcw.lib` member `INTEL\$NW\winctrl1.obj` symbol `??1CListBox@@UAE@XZ` (PINNED: writes vtable `0x52d0a4` with CListBox RTTI `.?AVCListBox@@`; `lib_sweep` previously tied and picked `??1CDialogBar@@UAE@XZ`).
+- **Flags Proposal for Codex**:
+  - `src/radiant/CommandsDlg.cpp	/O2 /Oy- /Op /GS /GL /GX /GR`
+- **Candidate Preservation**:
+  - Full candidate preserved in `scratch/CommandsDlg.cpp`. Source removed from `src/radiant/` to keep unverified count at 48 until `OnInitDialog` inlining context is resolved.
+
+- **Owner review**: report-only delivery; zero canonical source or game credit. Four authored routines / 199 B and six helpers / 400 B are worker-reported scratch results, not newly accepted main matches. Candidate remains in the active Gemini scratch workspace. Current main already supplies the editor C++ feature defaults; the extra flags row is unnecessary.
+
 
 Board: 51 queued easy candidates for Gemini, 35 Codex lane files including
 explicit TextureLayout/DialogInfo/KeyValueSelect hard handoffs. No code from
