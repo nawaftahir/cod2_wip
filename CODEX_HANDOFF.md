@@ -1,5 +1,23 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Batch review and TexEdit continuation
+
+Gemini is authorized to work through its entire reserved queue in TASK_GEMINI.md,
+one committed file at a time; Codex reviews batches. Active ZWnd edits and shared
+file proposals in .agents/gemini are preserved, not synchronized or overwritten.
+CommandsDlg's report-only delivery was landed through tools/land.sh gemini_review
+and pushed (79a7e74). Its missing five helper proofs and 117 B of interval gaps
+are now explicit; no source or coverage is credited. Board/file ledger mark it
+PARTIAL rather than UNSTARTED.
+
+Codex's six TexEdit game routines plus its separate scalar all match in the real
+TexWnd source cohort. Comparator and SortTextures now also match, but UpdateFilter
+remains 239/242 B after six bounded trials. All candidates/logs are preserved in
+.agents/codex/scratch/finish_texedit; unmatched canonical experiments were returned
+to scratch. Full evidence and next checks: research/codex_texedit/README.md.
+Main stays 533/533, 8.78% game bytes, 14.89% functions, 11/102 audited files,
+48 unverified, one order warning, no failures. No new coverage from this checkpoint.
+
 ## Resumed: eleven files fully audited
 
 The owner resumed completion work. ledger/files.tsv now lists all 102 game TUs;

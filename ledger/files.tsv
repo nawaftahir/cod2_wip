@@ -5,7 +5,7 @@ src/radiant/CamWnd.cpp	PARTIAL	15	958	PENDING	PENDING		Q3Radiant DRAG.CPP (7/9 s
 src/radiant/CapDialog.cpp	VERIFIED	5	78	PASS	PENDING	research/gemini_review/test_finished_small.py	
 src/libs/cmdlib/cmdlib.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant splines.cpp (1/8 string funcs)
 src/radiant/UNKNOWN_00408f20.cpp	UNSTARTED	0	0	PENDING	PENDING		iw3xo (1/1)
-src/radiant/CommandsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant CommandsDlg.cpp (1/1 string funcs); iw3xo (1/1)
+src/radiant/CommandsDlg.cpp	PARTIAL	0	0	PENDING	PENDING		Reviewed report only: OnInitDialog 1079/685 B; five omitted helpers unchecked; zero accepted source; draft preserved
 src/radiant/DialogInfo.cpp	PARTIAL	0	0	PENDING	PENDING		scratch preserved; reported ShowInfoDialog 73/66 B requires Pmesh caller review; no accepted source
 src/radiant/DialogThick.cpp	VERIFIED	4	93	PASS	PENDING	research/gemini_review/test_finished_small.py	
 src/radiant/dlgcamera.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant util_list.h (16/17 string funcs); iw3xo (1/17)
