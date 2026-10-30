@@ -458,6 +458,30 @@ build/dialog-batch-land.log and build/ci-last.log. No comparison masks, referee
 predicates or inventory were changed. Whole-image placement, final SHA and GUI
 boot remain pending. Original drafts/safety refs and the unrelated near.py stay.
 
+## Gemini candidate evaluation: PatchDensityDlg.cpp (PARTIAL - Preserved in scratch/)
+
+Extent: `0x004242c0` .. `0x004244a4` (422 B code + 12 B alignment padding `0xCC` to `0x004244b0`)
+- **Game code (5 routines / 274 B matched 100%, 1 routine / 148 B blocked on cross-TU LTCG)**:
+  - `0x004242c0` (117 B): `??0CPatchDensityDlg@@QAE@PAVCWnd@@@Z` -> **MATCH 100%**
+  - `0x00424370` (49 B): `?DoDataExchange@CPatchDensityDlg@@MAEXPAVCDataExchange@@@Z` -> **MATCH 100%**
+  - `0x004243b0` (6 B): `?GetMessageMap@CPatchDensityDlg@@MBEPBUAFX_MSGMAP@@XZ` -> **MATCH 100%**
+  - `0x00424460` (68 B): `?OnInitDialog@CPatchDensityDlg@@MAEHXZ` -> **MATCH 100%**
+  - `0x004243c0` (148 B): `?OnOK@CPatchDensityDlg@@MAEXXZ` -> **89% byte match, exact 148/148 byte size match** (first diff at +0xe)
+- **Generated helpers (1 routine / 34 B - excluded from game ledger)**:
+  - `0x00424340` (34 B): `??_ECPatchDensityDlg@@UAEPAXI@Z` (`AUTO` scalar deleting dtor) -> **MATCH 100%**
+- **Omitted Routines**: None. Every byte across the 422 B interval is accounted for.
+- **Data & RTTI Metadata**:
+  - `??_7CPatchDensityDlg@@6B@` (vtable): Retail `0x00545c5c`
+  - `??_R4CPatchDensityDlg@@6B@` (CompleteObjectLocator): Retail `0x005597fc`
+  - `??_R0?AVCPatchDensityDlg@@@8` (TypeDescriptor): Retail `0x005988f4` (`.?AVCPatchDensityDlg@@`)
+  - `?messageMap@CPatchDensityDlg@@1UAFX_MSGMAP@@B`: Retail `0x00545db4` (parent `0x0052cae4` `CDialog`, empty message entries)
+- **Exact Failure Details & Hard Blocker Handed to Codex**:
+  - In `0x004243c0` (`OnOK`), the function calls `Patch_GenericMesh` (`0x004293f0`). In retail, whole-program optimization (`/GL /LTCG`) customizes `Patch_GenericMesh`'s calling convention to receive `bOverwrite` in `al`, emitting:
+    `xor al, al; push 1; push ecx; push edx; push eax; call 0x4293f0; add esp, 0x10`
+  - Because `src/radiant/Pmesh.cpp` is currently unconstructed, `Patch_GenericMesh` is an unresolved external symbol. The linker emits a standard 5-argument `__cdecl` stack frame (`push 0; push 1; push ecx; push edx; push eax; call; add esp, 0x14`), which also leads to a register assignment swap (`esi/edi`).
+  - Full candidate preserved in `scratch/PatchDensityDlg.cpp`. File remains in `scratch/` until `Pmesh.cpp` calling convention is resolved.
+
+
 Board: 51 queued easy candidates for Gemini, 35 Codex lane files including
 explicit TextureLayout/DialogInfo/KeyValueSelect hard handoffs. No code from
 undelivered DialogInfo/KeyValueSelect scratch is accepted. Next Gemini files
