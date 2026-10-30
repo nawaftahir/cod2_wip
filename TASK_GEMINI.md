@@ -26,25 +26,22 @@ Their code is preserved for Codex. Continue with the next reserved candidate.
 
 ## Current checkpoint and next dispatch
 
-Codex has reviewed 965e352 and integrated NewProjDlg, DlgEvent and TextureLayout.
-Main passes 529/529 game rows, 8.72% game bytes, unverified 48. NewProjDlg and
-DlgEvent pass full normalized file audits. TextureLayout remains PARTIAL because
-its member SpinButton scalar is 33/30 B; its hard remainder belongs to Codex.
-RotateDlg has six accepted game routines; its four hard bodies remain Codex's.
-DialogInfo and KeyValueSelect scratch handoffs now belong to Codex for review.
-Do not restore their scratch code or helper shortcuts into your source tree.
+Main has 11 fully audited files in ledger/files.tsv and passes 533 game rows.
+Use the synced stdafx.h for all editor source. The owner-reviewed editor default
+already enables the C++ exception/RTTI features; flags still remain owner-only.
+Do not duplicate HWND hwndEnt[33] in win_ent.cpp or the class in EditWnd.h.
+Those shared definitions now exist and must stay in their proper source owners.
 
-When the owner continues your lane, take:
-1. src/radiant/PatchDensityDlg.cpp
-2. src/radiant/TerrainDensityDlg.cpp
-
-One TU at a time, full code/helper/metadata evidence, clean committed delivery.
-Flags and library identities are proposals only. All original scratch drafts
-remain preserved. Codex is paused after completing the owner's review request.
+The density candidates are preserved hard handoffs to Codex. Continue through
+all 49 remaining reserved files in lanes/GEMINI_QUEUE.tsv; start ZWnd.cpp,
+then PatchDialog.cpp, with a source commit per file. Batch review is allowed;
+no new permission is needed between reserved files. Preserve every real blocker
+and continue the queue under the authorization above. Do not restore held
+DialogInfo, TexEdit or rotation stubs into canonical source.
 
 The owner assigned you all easy files; Codex takes the hard files and integration.
 This task supersedes the previous instruction to finish the five memory blockers.
-Your reserved queue is lanes/GEMINI_QUEUE.tsv: 51 files, in priority order.
+Your reserved queue is lanes/GEMINI_QUEUE.tsv: 49 files, in priority order.
 Ownership in lanes/BOARD.tsv is authoritative. Work only in .agents/gemini on
 agent/gemini; never push, merge main yourself, reset a branch, or run claim.sh.
 Codex syncs your clean worktree after each reviewed delivery. The current dispatch above determines your next file. No extra permission is needed to

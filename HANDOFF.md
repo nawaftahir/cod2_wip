@@ -6,7 +6,7 @@ The owner resumed completion work. ledger/files.tsv now lists all 102 game TUs;
 11 pass complete normalized source/helper/metadata audits. Newly finished:
 KeyValueSelectDlg, CapDialog, DialogThick, LstToolBar, TextureLayout, EditWnd,
 and RADEditWnd. Existing four completed dialogs are rechecked on the same image.
-Private regression is 533/533, 61,404 game B (8.78%), 14.89% functions;
+Main regression is 533/533, 61,404 game B (8.78%), 14.89% functions;
 unverified 48 and one order warning. New authored credit: +4 / 373 B.
 
 Shared stdafx.h models the measured MFC header frame profile and consistent
