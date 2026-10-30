@@ -194,3 +194,15 @@ Owner-edited only.
   an unchanged unverified count alone does not prove those bodies are reconstructed.
   Preserve the existing referee; reject such source during review. No dummy caller,
   stub callee or forced noinline earns reconstructed-source credit.
+
+## Patch geometry and sqrt evidence (2026-10-31)
+- PINNED: MakeNewPatch at 0x425770 allocates 0x3838 bytes; controls start at
+  +0x24, with 16x16 entries of stride 0x38. Position floats are first in each
+  control. Pmesh.h preserves all other storage as explicitly undecoded bytes.
+- PINNED: distance helpers 0x426b80 / 139 B and 0x426c10 / 127 B round their
+  squared norm to float before the double sqrt call, then round its result.
+  The matching component order is recorded in research/codex_density/README.md.
+- PINNED: __CIsqrt at 0x4d98c0 and _sqrt at 0x4d98d4 share the original
+  sqrt.obj's 186-byte FSQRT section. Inventory spans 20/9/157 B split entries
+  and shared tail; comparing a masked prefix alone cannot identify the callee.
+  Proof: research/codex_density/test_patch_distance.py; inventory unchanged.

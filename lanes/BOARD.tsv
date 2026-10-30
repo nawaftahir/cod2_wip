@@ -34,7 +34,7 @@ src/radiant/points.cpp	codex	partial	codex	7	1433	4	0	4 matched; camera layouts 
 src/radiant/EntityListDlg.cpp	cheap	open	gemini	22	1480	0	0	Q3Radiant Win_ent.cpp (1/1 string funcs)
 src/radiant/RotateDlg.cpp	codex	partial	codex	11	1502	6	0	6 game / 498 B; scalar 34 B and shared dtor 200 B verified; four rotation bodies and member-header context pending
 src/radiant/CommandsDlg.cpp	cheap	partial	gemini	16	1515	0	0	Reviewed report only: OnInitDialog 1079/685 B; five omitted helpers unchecked; zero accepted source; draft preserved
-src/radiant/ZWnd.cpp	cheap	partial	gemini	26	1552	0	0	REVIEW dd98dac rejected: hidden unverified dependency bodies, conflicting class views and AUTO game credit; draft preserved; no accepted source
+src/radiant/ZWnd.cpp	codex	partial	codex	26	1552	0	0	Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
 src/radiant/TextureBar.cpp	cheap	open	gemini	15	1608	0	0	iw3xo (2/2)
 src/radiant/UNKNOWN_00425080.cpp	cheap	open	gemini	22	1655	0	1	Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
 src/zlib/inflate.c	cheap	open	gemini	8	1750	4	1	none: from make show
@@ -56,7 +56,7 @@ src/radiant/csg.cpp	cheap	open	gemini	12	3984	0	5	Q3Radiant CSG.CPP (1/7 string 
 src/radiant/ModelDlg.cpp	cheap	open	gemini	24	4295	0	2	Q3Radiant WIN_DLG.CPP (3/3 string funcs); iw3xo (3/3)
 src/radiant/MapInfo.cpp	cheap	open	gemini	30	4585	0	1	Q3Radiant WIN_DLG.CPP (1/2 string funcs); iw3xo (1/2)
 src/radiant/win_dlg.cpp	cheap	open	gemini	19	4848	0	2	Q3Radiant WIN_DLG.CPP (3/6 string funcs); iw3xo (3/6)
-src/radiant/z.cpp	cheap	open	gemini	8	5635	0	2	Q3Radiant DRAG.CPP (1/2 string funcs); iw3xo (1/2)
+src/radiant/z.cpp	codex	partial	codex	8	5635	0	2	Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
 src/universal/splines/util_str.cpp	cheap	open	gemini	23	5842	12	6	Q3Radiant util_str.h (5/6 string funcs); iw3xo (2/6)
 src/zlib/deflate.c	cheap	open	gemini	17	5938	13	7	none: from make show
 src/radiant/VertEditDlg.cpp	cheap	open	gemini	21	6334	0	0	none: from make show
@@ -101,4 +101,4 @@ src/radiant/select.cpp	codex	open	codex	83	27211	0	12	Q3Radiant DRAG.CPP (22/39 
 src/radiant/XYWnd.cpp	codex	open	codex	136	40524	0	32	Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
 src/radiant/brush.cpp	codex	open	codex	121	47013	0	60	Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
 src/radiant/MainFrm.cpp	codex	open	codex	545	54369	0	28	Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
-src/radiant/Pmesh.cpp	codex	open	codex	215	80201	0	70	Q3Radiant PMESH.CPP (24/89 string funcs); iw3xo (10/89)
+src/radiant/Pmesh.cpp	codex	partial	codex	215	80201	2	70	2 game / 266 B verified: real width/height distance helpers and patch layout; sqrt binding pinned; generators pending

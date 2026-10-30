@@ -540,3 +540,5 @@ addr	size	source	symbol	name	tag
 0x0043ed30	49	src/radiant/TerrainDensityDlg.cpp	?DoDataExchange@CTerrainDensityDlg@@MAEXPAVCDataExchange@@@Z	CTerrainDensityDlg::DoDataExchange	SUPPORTED
 0x0043ed70	6	src/radiant/TerrainDensityDlg.cpp	?GetMessageMap@CTerrainDensityDlg@@MBEPBUAFX_MSGMAP@@XZ	CTerrainDensityDlg::GetMessageMap	SUPPORTED
 0x0043ed80	68	src/radiant/TerrainDensityDlg.cpp	?OnInitDialog@CTerrainDensityDlg@@MAEHXZ	CTerrainDensityDlg::OnInitDialog	SUPPORTED
+0x00426b80	139	src/radiant/Pmesh.cpp	?Patch_WidthDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_WidthDistanceTo	SUPPORTED
+0x00426c10	127	src/radiant/Pmesh.cpp	?Patch_HeightDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_HeightDistanceTo	SUPPORTED

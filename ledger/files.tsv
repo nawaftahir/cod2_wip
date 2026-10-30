@@ -28,7 +28,7 @@ src/radiant/NewProjDlg.cpp	VERIFIED	3	147	PASS	PENDING	research/gemini_review/te
 src/radiant/PatchDensityDlg.cpp	PARTIAL	4	240	PENDING	PENDING		4 game / 240 B verified without stubs; scalar/shared destructor/EH/metadata checked; OnOK unresolved pending real Pmesh; PARTIAL
 src/radiant/PatchDialog.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PatchDialog.cpp (2/2 string funcs)
 src/radiant/UNKNOWN_00425080.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
-src/radiant/Pmesh.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PMESH.CPP (24/89 string funcs); iw3xo (10/89)
+src/radiant/Pmesh.cpp	PARTIAL	2	266	PENDING	PENDING		2 game / 266 B verified: real width/height distance helpers and patch layout; sqrt binding pinned; generators pending
 src/radiant/PrefsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)
 src/radiant/RADEditWnd.cpp	VERIFIED	5	320	PASS	PENDING	research/gemini_review/test_editor_completion.py	
 src/radiant/Radiant.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Radiant.cpp (1/1 string funcs)
@@ -46,7 +46,7 @@ src/radiant/VehicleDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/
 src/radiant/VertEditDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
 src/radiant/Winding.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Winding.cpp (7/7 string funcs)
 src/radiant/XYWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
-src/radiant/ZWnd.cpp	PARTIAL	0	0	PENDING	PENDING		REVIEW dd98dac rejected: hidden unverified dependency bodies, conflicting class views and AUTO game credit; draft preserved; no accepted source
+src/radiant/ZWnd.cpp	PARTIAL	0	0	PENDING	PENDING		Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
 src/radiant/brush.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
 src/radiant/csg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)
 src/radiant/drag.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
@@ -62,7 +62,7 @@ src/radiant/win_dlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (3/
 src/radiant/win_ent.cpp	PARTIAL	0	0	PENDING	PENDING		Codex seeded proven hwndEnt[33] in original owner; preserve definition; remaining methods belong to Gemini
 src/radiant/win_main.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (5/7 string funcs); iw3xo (2/7)
 src/radiant/win_qe3.cpp	PARTIAL	4	119	PENDING	PENDING		Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
-src/radiant/z.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/2 string funcs); iw3xo (1/2)
+src/radiant/z.cpp	PARTIAL	0	0	PENDING	PENDING		Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
 src/universal/assertive.cpp	PARTIAL	8	386	PENDING	PENDING		server source (copy-ready)
 src/universal/com_files.cpp	PARTIAL	42	5135	PENDING	PENDING		server source (copy-ready)
 src/universal/com_math.cpp	PARTIAL	70	7104	PENDING	PENDING		server source (copy-ready)

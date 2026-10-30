@@ -1,5 +1,23 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Real patch distance helpers matched
+
+The repaired density checkpoint is published as 7b5db22. Codex also matched
+Patch_WidthDistanceTo / 139 B and Patch_HeightDistanceTo / 127 B using the real
+patch layout, existing math helpers and retail floating-point order. No fake
+callee, ABI annotation or noinline. The _sqrt binding is pinned against the
+complete original 186-byte CRT section; the two emitted SDK wrappers are
+checked separately, with ownership/placement explicitly pending.
+
+The combined gate is 543/543, 62,150 game B (8.88%), 15.17% functions, compiler
+2/2 / 35 B, zero failures, 48 unverified, one order warning. Takeover gain:
+10 / 746 game B. Audited full files stay 11/102; densities and Pmesh are PARTIAL.
+The real generators/brush/selection group is next; OnOK remains unresolved.
+Proof/details: research/codex_density/{README.md,test_patch_distance.py} and
+scratch/density_repair. ZWnd/z.cpp now belong to Codex for proper repair;
+Gemini's 47-file reserved queue starts PatchDialog, then win_main. Its active
+worktree and original drafts remain untouched and backed up.
+
 ## Owner takeover: clean density source recovered
 
 The user parked Gemini and assigned its corrections to Codex. Eight real density

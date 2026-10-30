@@ -50,3 +50,36 @@ routines. Their custom argument passing must follow real source context. Do not
 restore print stubs or force noinline. Pmesh allocation at 0x425770 pins a 0x3838
 patch with control data at 0x24, 16x16 entries of stride 0x38; positions are the
 first three floats. This supports the real distance-helper reconstruction next.
+
+## Two real Pmesh helpers recovered
+
+Patch_WidthDistanceTo (0x426b80 / 139 B) and Patch_HeightDistanceTo
+(0x426c10 / 127 B) now match in the linked image. Pmesh.h defines one shared
+0x3838 patch layout with a 0x24 control start and 16x16 controls of stride
+0x38. Only the position floats and width/height are decoded; other storage is
+explicitly opaque. No temporary caller, ABI annotation, noinline or stub is used.
+
+Three bounded trials are preserved under scratch/density_repair. Direct double
+sqrt expressions produced 133/139 and 121/127 B. Reusing the real VectorSubtract,
+VectorLength and I_sqrt helpers restored float rounding and reached 97%/96% with
+correct lengths. The retail norm adds squared Z, X, then Y in this compiler
+context; the corresponding explicit component order with I_sqrt makes both
+routines exact. No shared math helper was changed.
+
+research/codex_density/test_patch_distance.py verifies both routines and their
+actual _sqrt callee, plus the two emitted 28-byte SDK wrappers against the retail
+representative at 0x41f0f0. Equal wrapper code does not establish original TU
+ownership or absolute placement. These SDK bodies add no game credit.
+
+The original CRT sqrt object is also pinned: __CIsqrt at 0x4d98c0, _sqrt at
+0x4d98d4 (+20), and their shared FSQRT tail. All 186 bytes agree with the original
+sqrt.obj after relocation normalization. The inventory divides that section into
+20-, 9- and 157-byte spans; its entries and the referee are unchanged. A masked
+nine-byte prefix alone would not have established sqrt's identity.
+
+Combined corrected checkpoint: 543 game matches / 62,150 B (8.88%), 15.17%
+functions, 48 unverified bodies, one order warning and zero failures. Total
+recovery this takeover: eight density routines plus two Pmesh helpers, 10 / 746 B.
+Compiler ledger stays 2 / 35 B. Eleven fully audited files remain verified;
+these three files remain PARTIAL. The real generators and their mesh/brush/
+selection dependencies are still required before either OnOK can be restored.
