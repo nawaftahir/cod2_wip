@@ -33,7 +33,7 @@ src/universal/splines/math_matrix.cpp	cheap	open	gemini	10	1405	6	7	none: from m
 src/radiant/points.cpp	codex	partial	codex	7	1433	4	0	4 matched; camera layouts and renderer caller group pending
 src/radiant/EntityListDlg.cpp	cheap	open	gemini	22	1480	0	0	Q3Radiant Win_ent.cpp (1/1 string funcs)
 src/radiant/RotateDlg.cpp	codex	partial	codex	11	1502	6	0	6 game / 498 B; scalar 34 B and shared dtor 200 B verified; four rotation bodies and member-header context pending
-src/radiant/CommandsDlg.cpp	cheap	open	gemini	16	1515	0	0	Q3Radiant CommandsDlg.cpp (1/1 string funcs); iw3xo (1/1)
+src/radiant/CommandsDlg.cpp	cheap	partial	gemini	16	1515	0	0	Reviewed report only: OnInitDialog 1079/685 B; five omitted helpers unchecked; zero accepted source; draft preserved
 src/radiant/ZWnd.cpp	cheap	open	gemini	26	1552	0	0	Q3Radiant ZWnd.cpp (2/2 string funcs)
 src/radiant/TextureBar.cpp	cheap	open	gemini	15	1608	0	0	iw3xo (2/2)
 src/radiant/UNKNOWN_00425080.cpp	cheap	open	gemini	22	1655	0	1	Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
