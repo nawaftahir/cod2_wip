@@ -1,4 +1,4 @@
-#include <afxwin.h>
+#include "stdafx.h"
 #include <stddef.h>
 #include <string.h>
 

@@ -1,5 +1,4 @@
-#include <afxwin.h>
-#include <afxcmn.h>
+#include "stdafx.h"
 
 class CTextureLayout : public CDialog
 {

@@ -58,9 +58,7 @@ for item in manifest:print('MANIFEST:',*item)
 
 # MFC header bodies may be emitted by the earliest TU that uses them.
 spin_scalar=u(t,0x52dfdc+4)[0]
-status,detail=v.check(img,hex(spin_scalar),'??_GCSpinButtonCtrl@@UAEPAXI@Z',names)
-assert status=='MISMATCH' and 'sizes 33/30' in detail,(status,detail)
-print('PENDING: TextureLayout member SpinButton scalar at',hex(spin_scalar),status,detail,'requires original header contributor/compiler context')
+assert v.check(img,hex(spin_scalar),'??_GCSpinButtonCtrl@@UAEPAXI@Z',names)[0]=='MATCH'
 for symbol in ('??0CSpinButtonCtrl@@QAE@XZ','?SetRange@CSpinButtonCtrl@@QAEXFF@Z'):
     a,code=img.code(symbol)
     candidates=[]
@@ -74,5 +72,7 @@ for symbol in ('??0CSpinButtonCtrl@@QAE@XZ','?SetRange@CSpinButtonCtrl@@QAEXFF@Z
                 if xo.type==MEM and xo.mem.disp in d['m']['retail_imports']:
                     assert d['m']['actual_imports'][yo.mem.disp]==d['m']['retail_imports'][xo.mem.disp]
         candidates.append(r['addr'])
+    assert candidates,(symbol,len(code))
     print('SHARED HEADER:',symbol,len(code),'bytes; equal retail bodies',candidates)
-print('PASS: NewProjDlg and DlgEvent normalized file audits; TextureLayout game/class checks pass, member header code remains PARTIAL; no helper game credit')
+runpy.run_path('research/gemini_review/test_sdk_context.py')
+print('PASS: NewProjDlg, DlgEvent and TextureLayout FILE VERIFIED, including complete member-class helper and metadata bindings; no helper game credit')

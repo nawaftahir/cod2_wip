@@ -1,5 +1,4 @@
-#include <afxwin.h>
-#include <afxext.h>
+#include "stdafx.h"
 
 class CLstToolBar : public CToolBar
 {

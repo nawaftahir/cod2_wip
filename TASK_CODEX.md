@@ -1,3 +1,15 @@
+# Codex current run
+
+The owner resumed work to complete held files and publish a reviewable file ledger.
+Eleven files now pass complete normalized code/helper/metadata audits; see
+ledger/files.tsv and research/gemini_review/FINISHED_FILES.md. Continue the
+remaining hard files without changing masks or fabricating caller contexts.
+TextureLayout and KeyValueSelect are complete; next primary target is TexEdit.
+RotateDlg's four real bodies and DialogInfo's caller still need completion.
+The two density/Pmesh reports are preserved hard handoffs with no accepted source.
+Use the common stdafx.h SDK context for MFC TUs. Update the file ledger after
+fresh regression and file audits; never mark an unaudited partial as VERIFIED.
+
 # Codex: hard files and integration (2026-10-29)
 
 The mandatory file-completion contract in CLAUDE.md applies to this role: one active TU,
@@ -5,7 +17,7 @@ complete routine/helper inventory, real metadata bindings and a full regression
 before FILE VERIFIED. Partial checkpoints remain PARTIAL.
 
 The owner assigns Gemini the easy-file queue and Codex the hard work. Follow
-WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 51 files in
+WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 49 files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;
 do not reconstruct or change their headers while its checkpoint is active.
 
@@ -38,7 +50,7 @@ These need evidence-backed compiler/caller/RTTI work; do not restore the
 attribute or change flags blindly. research/gemini_review/test_small_dialogs.py
 checks actual vtable stores, defaults, parent maps, callbacks and helper status.
 
-## Owner pause after the reviewed checkpoint
+## Prior owner pause after the reviewed checkpoint
 
 Paused at the owner's explicit request after both source merges and final checks.
 Main: 529/529, 61,031 game B / 8.72%, unverified 48. RotateDlg remains the
@@ -47,7 +59,7 @@ TextureLayout's member-header context, DialogInfo's Pmesh caller and KeyValueSel
 select.cpp caller are explicit hard handoffs. Preserve every scratch candidate.
 Resume only when the owner asks. Full evidence: research/gemini_review/DIALOG_BATCH.md.
 
-## Current complete-file checkpoint
+## Earlier complete-file checkpoint
 
 ScaleDialog is FILE VERIFIED: all three game routines / 103 B, generated deleting
 helper / 33 B, complete 86-slot class metadata/RTTI/default/message-map bindings.
@@ -76,7 +88,7 @@ Proof: build/rotate-onapply-show.log; preserve the entire Gemini draft.
 Explicit transfers from Gemini: com_memory.cpp, com_shared.cpp, q_parse.cpp,
 xmodel_utils.cpp and com_files.cpp. Their five/ nine/ parser/ getter/ filesystem
 leftovers are hard work now; existing verified source remains intact. Other
-hard files are the 35 codex-lane rows in BOARD.tsv. Work on one TU at a time.
+hard files are the 37 codex-lane rows in BOARD.tsv. Work on one TU at a time.
 No ABI hacks, guessed globals, invented names, fake callers or relaxed masks.
 
 ## Integration

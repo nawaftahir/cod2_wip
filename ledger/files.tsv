@@ -1,0 +1,103 @@
+source	status	matched_game_functions	matched_game_bytes	metadata	image_placement	proof	remaining
+src/radiant/AdvCurveDlg.cpp	PARTIAL	45	4219	PENDING	PENDING		none: from make show
+src/radiant/cameratargetdlg.cpp	PARTIAL	5	212	PENDING	PENDING		none: from make show
+src/radiant/CamWnd.cpp	PARTIAL	15	958	PENDING	PENDING		Q3Radiant DRAG.CPP (7/9 string funcs); iw3xo (5/9)
+src/radiant/CapDialog.cpp	VERIFIED	5	78	PASS	PENDING	research/gemini_review/test_finished_small.py	
+src/libs/cmdlib/cmdlib.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant splines.cpp (1/8 string funcs)
+src/radiant/UNKNOWN_00408f20.cpp	UNSTARTED	0	0	PENDING	PENDING		iw3xo (1/1)
+src/radiant/CommandsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant CommandsDlg.cpp (1/1 string funcs); iw3xo (1/1)
+src/radiant/DialogInfo.cpp	PARTIAL	0	0	PENDING	PENDING		scratch preserved; reported ShowInfoDialog 73/66 B requires Pmesh caller review; no accepted source
+src/radiant/DialogThick.cpp	VERIFIED	4	93	PASS	PENDING	research/gemini_review/test_finished_small.py	
+src/radiant/dlgcamera.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant util_list.h (16/17 string funcs); iw3xo (1/17)
+src/radiant/DlgEvent.cpp	VERIFIED	3	175	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
+src/radiant/draw.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/radiant/EditWnd.cpp	VERIFIED	6	149	PASS	PENDING	research/gemini_review/test_editor_completion.py	
+src/radiant/EntityListDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_ent.cpp (1/1 string funcs)
+src/radiant/filtersettings.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MainFrm.cpp (1/44 string funcs); iw3xo (1/44)
+src/radiant/FindTextureDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant FindTextureDlg.cpp (4/4 string funcs)
+src/radiant/GfxWrapper.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
+src/radiant/KeyValueSelectDlg.cpp	VERIFIED	3	360	PASS	PENDING	research/gemini_review/test_keyvalue_complete.py	
+src/radiant/LstToolBar.cpp	VERIFIED	4	42	PASS	PENDING	research/gemini_review/test_finished_small.py	
+src/radiant/MainFrm.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
+src/radiant/MapInfo.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (1/2 string funcs); iw3xo (1/2)
+src/radiant/UNKNOWN_00420930.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PatchDialog.cpp (3/6 string funcs); iw3xo (4/6)
+src/radiant/mesh.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/radiant/ModelDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (3/3 string funcs); iw3xo (3/3)
+src/radiant/NameDlg.cpp	VERIFIED	5	245	PASS	PENDING	research/gemini_review/test_dialog_completion.py all	
+src/radiant/NewProjDlg.cpp	VERIFIED	3	147	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
+src/radiant/PatchDensityDlg.cpp	PARTIAL	0	0	PENDING	PENDING		scratch handoff: 4 game / 240 B reported; OnOK depends on Pmesh; no canonical source accepted
+src/radiant/PatchDialog.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PatchDialog.cpp (2/2 string funcs)
+src/radiant/UNKNOWN_00425080.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
+src/radiant/Pmesh.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PMESH.CPP (24/89 string funcs); iw3xo (10/89)
+src/radiant/PrefsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)
+src/radiant/RADEditWnd.cpp	VERIFIED	5	320	PASS	PENDING	research/gemini_review/test_editor_completion.py	
+src/radiant/Radiant.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Radiant.cpp (1/1 string funcs)
+src/radiant/RotateDlg.cpp	PARTIAL	6	498	PENDING	PENDING		6 game / 498 B; scalar 34 B and shared dtor 200 B verified; four rotation bodies and member-header context pending
+src/radiant/ScaleDialog.cpp	VERIFIED	3	103	PASS	PENDING	research/gemini_review/test_dialog_completion.py all	
+src/radiant/SurfaceDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.CPP (3/8 string funcs); iw3xo (4/8)
+src/radiant/TerrainDensityDlg.cpp	PARTIAL	0	0	PENDING	PENDING		scratch handoff: 4 game / 240 B reported; OnOK depends on Pmesh; no canonical source accepted
+src/radiant/TexEdit.cpp	PARTIAL	0	0	PENDING	PENDING		hard handoff: GDI DeleteObject alias and CTexWnd::UpdateFilter caller group
+src/radiant/TextureBar.cpp	UNSTARTED	0	0	PENDING	PENDING		iw3xo (2/2)
+src/radiant/TextureLayout.cpp	VERIFIED	5	305	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
+src/common/texturevecs.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.H (1/3 string funcs); iw3xo (1/3)
+src/radiant/TexWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant TexWnd.cpp (7/23 string funcs); iw3xo (3/23)
+src/radiant/Undo.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Undo.cpp (11/14 string funcs); iw3xo (5/14)
+src/radiant/VehicleDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/52 string funcs); iw3xo (1/52)
+src/radiant/VertEditDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/radiant/Winding.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Winding.cpp (7/7 string funcs)
+src/radiant/XYWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
+src/radiant/ZWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant ZWnd.cpp (2/2 string funcs)
+src/radiant/brush.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
+src/radiant/csg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)
+src/radiant/drag.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
+src/radiant/eclass.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant ECLASS.CPP (7/13 string funcs); iw3xo (4/13)
+src/radiant/entity.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (23/28 string funcs); iw3xo (20/28)
+src/radiant/map.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
+src/radiant/mru.cpp	PARTIAL	14	1756	PENDING	PENDING		14 matched; registry loader inventory split pending Codex review
+src/radiant/points.cpp	PARTIAL	4	656	PENDING	PENDING		4 matched; camera layouts and renderer caller group pending
+src/radiant/qe3.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.CPP (10/18 string funcs); iw3xo (6/18)
+src/radiant/select.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (22/39 string funcs); iw3xo (24/39)
+src/radiant/vertsel.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant VERTSEL.CPP (3/3 string funcs)
+src/radiant/win_dlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (3/6 string funcs); iw3xo (3/6)
+src/radiant/win_ent.cpp	PARTIAL	0	0	PENDING	PENDING		Codex seeded proven hwndEnt[33] in original owner; preserve definition; remaining methods belong to Gemini
+src/radiant/win_main.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (5/7 string funcs); iw3xo (2/7)
+src/radiant/win_qe3.cpp	PARTIAL	4	119	PENDING	PENDING		Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
+src/radiant/z.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/2 string funcs); iw3xo (1/2)
+src/universal/assertive.cpp	PARTIAL	8	386	PENDING	PENDING		server source (copy-ready)
+src/universal/com_files.cpp	PARTIAL	42	5135	PENDING	PENDING		server source (copy-ready)
+src/universal/com_math.cpp	PARTIAL	70	7104	PENDING	PENDING		server source (copy-ready)
+src/universal/com_memory.cpp	PARTIAL	46	4167	PENDING	PENDING		46 matched; three routines left; allocator source uses verified global update flow
+src/universal/com_shared.cpp	PARTIAL	7	474	PENDING	PENDING		server source (copy-ready)
+src/universal/dvar.cpp	PARTIAL	21	1405	PENDING	PENDING		server source (copy-ready)
+src/universal/g_vehicle_path.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/3 string funcs); iw3xo (1/3)
+src/universal/linearmapping.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/universal/UNKNOWN_00494480.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/universal/q_parse.cpp	PARTIAL	26	2304	PENDING	PENDING		server source (copy-ready)
+src/universal/q_shared.cpp	PARTIAL	42	2547	PENDING	PENDING		server source (copy-ready)
+src/universal/win_common.cpp	PARTIAL	6	181	PENDING	PENDING		6 matched; five enumeration/path dependency drafts held
+src/universal/UNKNOWN_004985d0.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/universal/splines/math_angles.cpp	PARTIAL	4	443	PENDING	PENDING		none: from make show
+src/universal/splines/math_matrix.cpp	PARTIAL	6	771	PENDING	PENDING		none: from make show
+src/universal/splines/math_quaternion.cpp	PARTIAL	1	24	PENDING	PENDING		none: from make show
+src/universal/splines/math_vector.cpp	PARTIAL	2	68	PENDING	PENDING		Q3Radiant splines.h (3/3 string funcs); iw3xo (1/3)
+src/universal/splines/splines.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant splines.cpp (32/33 string funcs); iw3xo (3/33)
+src/universal/splines/util_str.cpp	PARTIAL	12	734	PENDING	PENDING		Q3Radiant util_str.h (5/6 string funcs); iw3xo (2/6)
+src/xanim/dobj.cpp	PARTIAL	5	149	PENDING	PENDING		server source (copy-ready)
+src/script/scr_memorytree.cpp	UNSTARTED	0	0	PENDING	PENDING		server source (copy-ready)
+src/script/scr_stringlist.cpp	UNSTARTED	0	0	PENDING	PENDING		server source (copy-ready)
+src/xanim/xmodel.cpp	UNSTARTED	0	0	PENDING	PENDING		server source (copy-ready)
+src/xanim/xmodel_load_obj.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (1/13 string funcs); iw3xo (1/13)
+src/xanim/xmodel_utils.cpp	PARTIAL	10	899	PENDING	PENDING		server source (copy-ready)
+src/zlib/adler32.c	PARTIAL	1	297	PENDING	PENDING		none: from make show
+src/zlib/compress.c	PARTIAL	2	169	PENDING	PENDING		none: from make show
+src/zlib/deflate.c	PARTIAL	13	3478	PENDING	PENDING		none: from make show
+src/zlib/infblock.c	PARTIAL	6	3286	PENDING	PENDING		none: from make show
+src/zlib/infcodes.c	PARTIAL	3	1853	PENDING	PENDING		none: from make show
+src/zlib/inffast.c	PARTIAL	1	917	PENDING	PENDING		none: from make show
+src/zlib/inflate.c	PARTIAL	4	1124	PENDING	PENDING		none: from make show
+src/zlib/inftrees.c	PARTIAL	4	1830	PENDING	PENDING		none: from make show
+src/zlib/infutil.c	PARTIAL	1	310	PENDING	PENDING		none: from make show
+src/zlib/trees.c	PARTIAL	21	6664	PENDING	PENDING		none: from make show
+src/zlib/uncompr.c	PARTIAL	1	139	PENDING	PENDING		none: from make show
+src/zlib/unzip.c	PARTIAL	25	4015	PENDING	PENDING		none: from make show
+src/zlib/zutil.c	PARTIAL	4	96	PENDING	PENDING		none: from make show
