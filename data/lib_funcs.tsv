@@ -2449,7 +2449,7 @@ addr	size	lib	member	symbol
 0x0050537e	105	nafxcw.lib	INTEL\$NW\wingdi.obj	?LPtoDP@CDC@@QBEXPAUtagSIZE@@@Z
 0x005053e7	105	nafxcw.lib	INTEL\$NW\wingdi.obj	?DPtoLP@CDC@@QBEXPAUtagSIZE@@@Z
 0x00505450	124	nafxcw.lib	INTEL\$NW\wingdi.obj	?afxMapHDC@@YGPAVCHandleMap@@H@Z
-0x005054cc	14	nafxcw.lib	INTEL\$NW\winctrl2.obj	?FromHandle@CImageList@@SGPAV1@PAU_IMAGELIST@@@Z
+0x005054cc	14	nafxcw.lib	INTEL\$NW\wingdi.obj	?FromHandle@CDC@@SGPAV1@PAUHDC__@@@Z
 0x005054da	55	nafxcw.lib	INTEL\$NW\wingdi.obj	?Attach@CDC@@QAEHPAUHDC__@@@Z
 0x00505511	49	nafxcw.lib	INTEL\$NW\wingdi.obj	?Detach@CDC@@QAEPAUHDC__@@XZ
 0x00505558	25	nafxcw.lib	INTEL\$NW\wingdi.obj	??1CDC@@UAE@XZ
@@ -2986,7 +2986,7 @@ addr	size	lib	member	symbol
 0x00516742	140	nafxcw.lib	INTEL\$NW\winctrl1.obj	?OnChildNotify@CListBox@@MAEHIIJPAJ@Z
 0x005167ce	56	nafxcw.lib	INTEL\$NW\winctrl1.obj	?ItemFromPoint@CListBox@@QBEIVCPoint@@AAH@Z
 0x00516806	33	nafxcw.lib	INTEL\$NW\winctrl1.obj	?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z
-0x00516827	56	nafxcw.lib	INTEL\$NW\bardlg.obj	??1CDialogBar@@UAE@XZ
+0x00516827	56	nafxcw.lib	INTEL\$NW\winctrl1.obj	??1CComboBox@@UAE@XZ
 0x0051686d	90	nafxcw.lib	INTEL\$NW\winctrl1.obj	?OnChildNotify@CComboBox@@MAEHIIJPAJ@Z
 0x005168c7	33	nafxcw.lib	INTEL\$NW\winctrl1.obj	?Create@CListBox@@UAEHKABUtagRECT@@PAVCWnd@@I@Z
 0x005168e8	56	nafxcw.lib	INTEL\$NW\winctrl1.obj	??1CEdit@@UAE@XZ

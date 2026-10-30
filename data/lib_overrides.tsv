@@ -16,3 +16,5 @@ addr	member	symbol	evidence
 0x0050582e	INTEL\$NW\wingdi.obj	?DeleteObject@CGdiObject@@QAEHXZ	PINNED: retail calls GDI32 DeleteObject at IAT 0x528198; matching wingdi.obj export
 0x004f56ee	INTEL\$NW\winctrl2.obj	??1CSpinButtonCtrl@@UAE@XZ	PINNED: destructor writes vtable 0x52dfdc with CSpinButtonCtrl RTTI; all 56 archive bytes agree outside relocations
 0x004f56b7	INTEL\$NW\winctrl2.obj	?CreateEx@CSpinButtonCtrl@@UAEHKKABUtagRECT@@PAVCWnd@@I@Z	PINNED: CSpinButtonCtrl vtable 0x52dfdc slot 77 calls this 55-byte wrapper; matching SDK export and library object
+0x00516827	INTEL\$NW\winctrl1.obj	??1CComboBox@@UAE@XZ	PINNED: writes vtable 0x52d204; RTTI type .?AVCComboBox@@
+0x005054cc	INTEL\$NW\wingdi.obj	?FromHandle@CDC@@SGPAV1@PAUHDC__@@@Z	PINNED: sits between afxMapHDC and CDC::Attach in wingdi.obj; called by CZWnd::OnPaint; lib_sweep previously tied with CImageList::FromHandle

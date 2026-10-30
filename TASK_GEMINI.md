@@ -5,6 +5,17 @@ complete routine/helper inventory, real metadata bindings and a full regression
 before FILE VERIFIED. Partial checkpoints remain PARTIAL.
 
 
+## Latest delivery review: corrections required
+
+Read research/gemini_review/REVIEW_dd98dac.md before the next completion claim.
+The density/ZWnd snapshot is preserved but not accepted: print-and-return Pmesh
+stubs, forced noinline and six empty header overloads invalidate its proof.
+Three generated scalars also entered game credit. Preserve useful drafts and
+active edits; make correction commits, never reset or overwrite work. The owner
+retains only the two independently proven library-name proposals. No new source
+or game coverage from these three submissions is merged. Keep hard dependency
+work in scratch and continue the active reserved TU with an accurate report.
+
 ## Current owner authorization: complete the reserved queue
 
 Work through every file still reserved to Gemini in lanes/GEMINI_QUEUE.tsv.

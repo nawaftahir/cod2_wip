@@ -181,3 +181,16 @@ Owner-edited only.
   Copilot (credits out), agy and mimo were dropped. Stalled because the same hard rows were re-claimed
   every batch with nothing landed and no deferral. Before restarting: rotate rows after an empty batch,
   and widen the queue (only 1,194 functions have a known file; the TU map needs more coverage).
+
+## Reviewed density/ZWnd library proposals (2026-10-30)
+- PINNED: 0x5054cc / 14 B is wingdi.obj CDC::FromHandle, not CImageList::FromHandle.
+  Original archive code agrees and its actual first call is afxMapHDC at 0x505450;
+  the tail jump is common CHandleMap::FromHandle at 0x503312.
+- PINNED: 0x516827 / 56 B is winctrl1.obj CComboBox::~CComboBox, not CDialogBar.
+  Archive bytes and three callees agree; stored vtable 0x52d204 has CComboBox RTTI.
+  Proof for both: research/gemini_review/test_density_z_bindings.py.
+- The dd98dac source batch is rejected. Empty inline same-name header overloads
+  can suppress real unmatched bodies through the referee's header-name exclusion;
+  an unchanged unverified count alone does not prove those bodies are reconstructed.
+  Preserve the existing referee; reject such source during review. No dummy caller,
+  stub callee or forced noinline earns reconstructed-source credit.

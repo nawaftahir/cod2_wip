@@ -25,7 +25,7 @@ src/radiant/mesh.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
 src/radiant/ModelDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (3/3 string funcs); iw3xo (3/3)
 src/radiant/NameDlg.cpp	VERIFIED	5	245	PASS	PENDING	research/gemini_review/test_dialog_completion.py all	
 src/radiant/NewProjDlg.cpp	VERIFIED	3	147	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
-src/radiant/PatchDensityDlg.cpp	PARTIAL	0	0	PENDING	PENDING		scratch handoff: 4 game / 240 B reported; OnOK depends on Pmesh; no canonical source accepted
+src/radiant/PatchDensityDlg.cpp	PARTIAL	0	0	PENDING	PENDING		REVIEW dd98dac rejected: dummy Pmesh/noinline dependency and generated scalar credit; useful draft preserved; no accepted source
 src/radiant/PatchDialog.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PatchDialog.cpp (2/2 string funcs)
 src/radiant/UNKNOWN_00425080.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
 src/radiant/Pmesh.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PMESH.CPP (24/89 string funcs); iw3xo (10/89)
@@ -35,7 +35,7 @@ src/radiant/Radiant.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Radiant.cpp (1/
 src/radiant/RotateDlg.cpp	PARTIAL	6	498	PENDING	PENDING		6 game / 498 B; scalar 34 B and shared dtor 200 B verified; four rotation bodies and member-header context pending
 src/radiant/ScaleDialog.cpp	VERIFIED	3	103	PASS	PENDING	research/gemini_review/test_dialog_completion.py all	
 src/radiant/SurfaceDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.CPP (3/8 string funcs); iw3xo (4/8)
-src/radiant/TerrainDensityDlg.cpp	PARTIAL	0	0	PENDING	PENDING		scratch handoff: 4 game / 240 B reported; OnOK depends on Pmesh; no canonical source accepted
+src/radiant/TerrainDensityDlg.cpp	PARTIAL	0	0	PENDING	PENDING		REVIEW dd98dac rejected: dummy Pmesh/noinline dependency and generated scalar credit; useful draft preserved; no accepted source
 src/radiant/TexEdit.cpp	PARTIAL	0	0	PENDING	PENDING		hard handoff: GDI DeleteObject alias and CTexWnd::UpdateFilter caller group
 src/radiant/TextureBar.cpp	UNSTARTED	0	0	PENDING	PENDING		iw3xo (2/2)
 src/radiant/TextureLayout.cpp	VERIFIED	5	305	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
@@ -46,7 +46,7 @@ src/radiant/VehicleDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/
 src/radiant/VertEditDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
 src/radiant/Winding.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Winding.cpp (7/7 string funcs)
 src/radiant/XYWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
-src/radiant/ZWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant ZWnd.cpp (2/2 string funcs)
+src/radiant/ZWnd.cpp	PARTIAL	0	0	PENDING	PENDING		REVIEW dd98dac rejected: hidden unverified dependency bodies, conflicting class views and AUTO game credit; draft preserved; no accepted source
 src/radiant/brush.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
 src/radiant/csg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)
 src/radiant/drag.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)

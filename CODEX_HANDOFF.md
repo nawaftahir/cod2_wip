@@ -1,5 +1,20 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Density/ZWnd snapshot reviewed; source rejected
+
+Reviewed dd98dac and its density parents, preserved by safety/gemini-dd98dac.
+No submitted source or game rows are accepted: fake Pmesh print stubs, forced
+noinline, six empty header overloads that suppress unverified names, three
+scalars counted as game, and inconsistent shared class/global views. Active
+Gemini edits remain untouched. Full findings/correction assignment:
+research/gemini_review/REVIEW_dd98dac.md and the top of TASK_GEMINI.md.
+
+Two owner-reviewed library corrections are retained: 0x5054cc CDC::FromHandle
+and 0x516827 CComboBox destructor; original archive bytes and actual callee/type
+bindings pass test_density_z_bindings.py. Main regression remains 533/533,
+61,404 game B (8.78%), 14.89% functions, zero failures, 48 unverified and one
+order warning. No game-byte progress from this delivery; 11 audited files.
+
 ## Batch review and TexEdit continuation
 
 Gemini is authorized to work through its entire reserved queue in TASK_GEMINI.md,
