@@ -28,21 +28,20 @@ priority	file	baseline_matched	functions	bytes	reference_candidates	candidate_by
 27	src/radiant/PrefsDlg.cpp	0	10	7543	0	0	Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)
 28	src/radiant/draw.cpp	0	12	2150	0	0	none: from make show
 29	src/radiant/vertsel.cpp	0	8	2272	0	0	Q3Radiant VERTSEL.CPP (3/3 string funcs)
-30	src/common/texturevecs.cpp	0	4	3319	0	0	Q3Radiant QE3.H (1/3 string funcs); iw3xo (1/3)
-31	src/radiant/win_dlg.cpp	0	19	4848	0	0	Q3Radiant WIN_DLG.CPP (3/6 string funcs); iw3xo (3/6)
-32	src/universal/UNKNOWN_004985d0.cpp	0	16	196	0	0	none: from make show
-33	src/radiant/UNKNOWN_00420930.cpp	0	29	1202	0	0	Q3Radiant PatchDialog.cpp (3/6 string funcs); iw3xo (4/6)
-34	src/universal/linearmapping.cpp	0	6	2119	0	0	none: from make show
-35	src/radiant/csg.cpp	0	12	3984	0	0	Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)
-36	src/radiant/eclass.cpp	0	25	6910	0	0	Q3Radiant ECLASS.CPP (7/13 string funcs); iw3xo (4/13)
-37	src/radiant/map.cpp	0	53	15674	0	0	Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
-38	src/universal/splines/util_str.cpp	12	23	5842	0	0	Q3Radiant util_str.h (5/6 string funcs); iw3xo (2/6)
-39	src/radiant/qe3.cpp	0	25	6362	0	0	Q3Radiant QE3.CPP (10/18 string funcs); iw3xo (6/18)
-40	src/radiant/mesh.cpp	0	16	8113	0	0	none: from make show
-41	src/universal/splines/math_angles.cpp	4	12	1269	0	0	none: from make show
-42	src/universal/splines/math_matrix.cpp	6	10	1405	0	0	none: from make show
-43	src/zlib/deflate.c	13	17	5938	0	0	none: from make show
-44	src/xanim/xmodel_load_obj.cpp	0	16	7366	0	0	Q3Radiant WIN_DLG.CPP (1/13 string funcs); iw3xo (1/13)
-45	src/radiant/drag.cpp	0	17	9922	0	0	Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
-46	src/universal/splines/math_vector.cpp	2	33	2742	0	0	Q3Radiant splines.h (3/3 string funcs); iw3xo (1/3)
-47	src/universal/g_vehicle_path.cpp	0	27	7880	0	0	Q3Radiant DRAG.CPP (1/3 string funcs); iw3xo (1/3)
+30	src/radiant/win_dlg.cpp	0	19	4848	0	0	Q3Radiant WIN_DLG.CPP (3/6 string funcs); iw3xo (3/6)
+31	src/universal/UNKNOWN_004985d0.cpp	0	16	196	0	0	none: from make show
+32	src/radiant/UNKNOWN_00420930.cpp	0	29	1202	0	0	Q3Radiant PatchDialog.cpp (3/6 string funcs); iw3xo (4/6)
+33	src/universal/linearmapping.cpp	0	6	2119	0	0	none: from make show
+34	src/radiant/csg.cpp	0	12	3984	0	0	Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)
+35	src/radiant/eclass.cpp	0	25	6910	0	0	Q3Radiant ECLASS.CPP (7/13 string funcs); iw3xo (4/13)
+36	src/radiant/map.cpp	0	53	15674	0	0	Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
+37	src/universal/splines/util_str.cpp	12	23	5842	0	0	Q3Radiant util_str.h (5/6 string funcs); iw3xo (2/6)
+38	src/radiant/qe3.cpp	0	25	6362	0	0	Q3Radiant QE3.CPP (10/18 string funcs); iw3xo (6/18)
+39	src/radiant/mesh.cpp	0	16	8113	0	0	none: from make show
+40	src/universal/splines/math_angles.cpp	4	12	1269	0	0	none: from make show
+41	src/universal/splines/math_matrix.cpp	6	10	1405	0	0	none: from make show
+42	src/zlib/deflate.c	13	17	5938	0	0	none: from make show
+43	src/xanim/xmodel_load_obj.cpp	0	16	7366	0	0	Q3Radiant WIN_DLG.CPP (1/13 string funcs); iw3xo (1/13)
+44	src/radiant/drag.cpp	0	17	9922	0	0	Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
+45	src/universal/splines/math_vector.cpp	2	33	2742	0	0	Q3Radiant splines.h (3/3 string funcs); iw3xo (1/3)
+46	src/universal/g_vehicle_path.cpp	0	27	7880	0	0	Q3Radiant DRAG.CPP (1/3 string funcs); iw3xo (1/3)

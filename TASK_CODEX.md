@@ -21,6 +21,18 @@ WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 49 files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;
 do not reconstruct or change their headers while its checkpoint is active.
 
+## Active bounded dependency: common/texturevecs.cpp
+
+Pmesh's three real geometry helpers are published at 74d3ac5. Its texture
+projection helper 0x426c90 / 304 B needs the real matrix builder 0x4401d0 / 985 B.
+Take common/texturevecs.cpp's entire four-routine TU before resuming Pmesh.
+References: refrences/cod2map/cod2src/common/texturevecs.c and
+refrences/KisakCOD/src/radiant/texturevecs.cpp (hints, not authority).
+Retail logs and candidates: .agents/codex/scratch/texturevecs_repair and
+scratch/density_repair. Keep all four original routines in order, assertions
+on real lines, and verify the actual basis table, not a shifted decompile.
+No source or new coverage from this TU is accepted yet.
+
 ## Current primary file: Pmesh dependency repair
 
 The owner parked Gemini and asked Codex to repair its submissions. Keep working

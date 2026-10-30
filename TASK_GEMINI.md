@@ -1,7 +1,7 @@
 # Gemini assignment
 
 Read the root CLAUDE.md first. lanes/BOARD.tsv owns file assignments;
-lanes/GEMINI_QUEUE.tsv is the complete current 47-file reserved queue.
+lanes/GEMINI_QUEUE.tsv is the complete current 46-file reserved queue.
 
 ## Current owner takeover
 
@@ -13,7 +13,7 @@ main yourself. Codex handles synchronization before the next worker run.
 Codex recovered four real routines / 240 B in each density dialog and three real
 Pmesh bounds/distance helpers / 676 B. Combined main is 544 game matches / 62,560 B
 (8.94%), with eleven fully audited files. Density OnOK callbacks remain pending.
-Pmesh, both density files, ZWnd.cpp and z.cpp now belong to Codex. Do not redo them.
+Pmesh, both density files, ZWnd.cpp, z.cpp and common/texturevecs.cpp now belong to Codex. Do not redo them.
 
 ## Work when resumed
 

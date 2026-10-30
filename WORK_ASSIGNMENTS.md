@@ -11,8 +11,8 @@ uses its private worktree. No worker edits another worker's assigned source.
 
 | Worker | Scope | Task |
 |---|---|---|
-| Gemini | 47 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
-| Codex | 39 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
+| Gemini | 46 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
+| Codex | 40 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
 
 Gemini follows its remaining queue and reports complete-file evidence.
 TexEdit is a Codex-owned hard handoff; existing drafts are preserved. One TU at a time; one commit
@@ -48,3 +48,6 @@ The owner parked Gemini on 2026-10-31 and assigned its corrections to Codex.
 ZWnd.cpp and z.cpp transfer to Codex along with their real dependency repair.
 Gemini resumes at PatchDialog.cpp, then win_main.cpp, from the reserved TSV;
 its current dirty worktree remains preserved until owner synchronization.
+
+Codex also owns common/texturevecs.cpp as the bounded Pmesh matrix dependency;
+its four-routine TU is the current active reconstruction file.

@@ -39,7 +39,7 @@ src/radiant/TerrainDensityDlg.cpp	PARTIAL	4	240	PENDING	PENDING		4 game / 240 B 
 src/radiant/TexEdit.cpp	PARTIAL	0	0	PENDING	PENDING		hard handoff: GDI DeleteObject alias and CTexWnd::UpdateFilter caller group
 src/radiant/TextureBar.cpp	UNSTARTED	0	0	PENDING	PENDING		iw3xo (2/2)
 src/radiant/TextureLayout.cpp	VERIFIED	5	305	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
-src/common/texturevecs.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.H (1/3 string funcs); iw3xo (1/3)
+src/common/texturevecs.cpp	PARTIAL	0	0	PENDING	PENDING		Codex Pmesh dependency: real texture-vector matrix builder 0x4401d0 / 985 B; complete four-routine TU
 src/radiant/TexWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant TexWnd.cpp (7/23 string funcs); iw3xo (3/23)
 src/radiant/Undo.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Undo.cpp (11/14 string funcs); iw3xo (5/14)
 src/radiant/VehicleDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/52 string funcs); iw3xo (1/52)
