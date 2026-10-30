@@ -5,6 +5,25 @@ complete routine/helper inventory, real metadata bindings and a full regression
 before FILE VERIFIED. Partial checkpoints remain PARTIAL.
 
 
+## Current owner authorization: complete the reserved queue
+
+Work through every file still reserved to Gemini in lanes/GEMINI_QUEUE.tsv.
+Commit one source file at a time. Codex may review several deliveries together;
+you do not need a new assignment between files. Preserve all passing work.
+
+If a real dependency blocks a file, save the complete candidate plus actual
+referee output, report the exact blocker and commit the report separately.
+Codex takes the hard remainder; proceed to the next reserved file. Do not
+leave guessed bodies or empty replacement handlers in canonical source.
+Flags, shared headers, library identities and inventory remain owner-only.
+Use stdafx.h once Codex's verified MFC header-profile change is synchronized;
+do not invent local optimizer or calling-convention workarounds.
+
+PatchDensityDlg and TerrainDensityDlg have reported Pmesh dependencies. Their
+current scratch results are four authored game routines / 240 B apiece; each
+34-byte generated destructor is separate. Those reports add no source matches.
+Their code is preserved for Codex. Continue with the next reserved candidate.
+
 ## Current checkpoint and next dispatch
 
 Codex has reviewed 965e352 and integrated NewProjDlg, DlgEvent and TextureLayout.
