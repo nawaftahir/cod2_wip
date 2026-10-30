@@ -1,4 +1,4 @@
-#include <afxwin.h>
+#include "stdafx.h"
 
 class CNameDlg : public CDialog
 {

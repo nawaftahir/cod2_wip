@@ -70,6 +70,13 @@ make show before editing. Names require target strings or agreeing reference
 logic; otherwise use FUN_<addr> / UNNAMED. Confirm types and layout from target
 instructions, allocation sizes, actual call sites and data. Never guess.
 
+Editor C++ files include stdafx.h for the measured MFC header frame profile.
+The shared SDK header context omits frames; game bodies retain them. Editor
+C++ exception/RTTI features are the owner-reviewed default in data/flags.tsv.
+Do not replace that context with local ABI or noinline workarounds. The full
+file completion table is ledger/files.tsv, regenerated only after the fresh
+referee and every complete-file audit pass: python3 tools/file_ledger.py.
+
 Real C/C++ only. No retail-byte arrays, copying/patching retail bytes after link,
 asm/_emit/naked functions, fake callers/wrappers, forced noinline, invented ABI
 annotations or weakened comparison masks. Numeric constants are allowed when

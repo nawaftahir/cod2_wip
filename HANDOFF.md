@@ -1,5 +1,26 @@
 # Radiant handoff (2026-10-28)
 
+## Resumed: eleven files fully audited
+
+The owner resumed completion work. ledger/files.tsv now lists all 102 game TUs;
+11 pass complete normalized source/helper/metadata audits. Newly finished:
+KeyValueSelectDlg, CapDialog, DialogThick, LstToolBar, TextureLayout, EditWnd,
+and RADEditWnd. Existing four completed dialogs are rechecked on the same image.
+Private regression is 533/533, 61,404 game B (8.78%), 14.89% functions;
+unverified 48 and one order warning. New authored credit: +4 / 373 B.
+
+Shared stdafx.h models the measured MFC header frame profile and consistent
+C++ exception/RTTI features; game bodies retain their frame setting. All existing
+rows and the first ten retail RVAs remain exact. No ABI/noinline workaround,
+retail-byte patch, comparison-mask or inventory change. Full proof/details:
+research/gemini_review/FINISHED_FILES.md and python3 tools/file_ledger.py.
+
+The HWND controls array is now backed by its real win_ent.cpp definition;
+Gemini preserves that definition. Both density scratch reports are reviewed
+handoffs to Codex; they add no accepted source. Next primary hard file: TexEdit,
+then the remaining real selection/Pmesh caller groups. Whole-image placement,
+SHA and GUI boot remain pending; this is not a whole-executable completion claim.
+
 ## Paused after RotateDlg and three-dialog integration
 
 The owner requested a pause after finishing these reviews. Both source merges

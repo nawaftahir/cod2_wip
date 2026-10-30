@@ -28,7 +28,7 @@ def blob(ta, oa, size):
             assert v.check(img, hex(target), candidate, names)[0] == 'MATCH', (hex(target), candidate)
     return left, right
 
-def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=()):
+def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=(), base='CDialog', slots=86, dispatches=0):
     rows = [r for r in v.read_tsv('ledger/matches.tsv') if r['source'] == 'src/radiant/'+cls[1:]+'.cpp']
     assert len(rows) == (expected_count if expected_count is not None else (3 if cls == 'CScaleDialog' else 5))
     owned = img.of_source('src/radiant/'+cls[1:]+'.cpp')
@@ -37,6 +37,7 @@ def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_sha
     assert expected <= set(owned) <= expected | set(expected_shared), (cls, set(owned)-expected)
     for r in rows:
         assert v.check(img, r['addr'], r['symbol'], names)[0] == 'MATCH', r
+        a,code=img.code(r['symbol']);blob(int(r['addr'],16),a,len(code))
     deleting = '??_G'+cls+'@@UAEPAXI@Z'
     assert v.check(img, hex(helper), deleting, names)[0] == 'MATCH'
     vt = sym('??_7'+cls+'@@6B@')
@@ -50,19 +51,26 @@ def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_sha
         x, y = u(t, a, 6), u(o, b, 6)
         assert x[1:] == y[1:] and td(t, x[0]) == td(o, y[0])
     base_td = u(t, u(t, h[0][3], h[0][2])[1], 6)[0]
-    assert td(t, base_td) == (0, b'.?AVCDialog@@')
+    assert td(t, base_td) == (0, ('.?AV'+base+'@@').encode())
     section = next(s for s in t.sections if s.Name.rstrip(b'\0') == b'.rdata')
     data = section.get_data(); rb = t.OPTIONAL_HEADER.ImageBase + section.VirtualAddress
     base_col = rb + data.index(struct.pack('<4I', 0, 0, 0, base_td))
     base_vt = rb + data.index(struct.pack('<I', base_col)) + 4
-    for i, (a,b,pa,pb) in enumerate(zip(u(t,tv,86), u(o,vt,86), u(t,base_vt,86), u(o,sym('??_7CDialog@@6B@'),86))):
+    for i, (a,b,pa,pb) in enumerate(zip(u(t,tv,slots), u(o,vt,slots), u(t,base_vt,slots), u(o,sym('??_7'+base+'@@6B@'),slots))):
         if a == pa: assert b == pb, (cls, i)
         elif a == helper: assert b == img.syms[deleting]
         else: assert names[a] in img.labels[b], (cls, i, hex(a))
     tm = struct.unpack_from('<I', v.matcher.carve(hex(getter))[0], 1)[0]
     am = sym('?messageMap@'+cls+'@@')
-    assert u(t,tm)[0] == 0x52cae4 and u(o,am)[0] == sym('?messageMap@CDialog@@')
-    assert u(t,u(t,tm,2)[1],6) == u(o,u(o,am,2)[1],6) == (0,)*6
+    getter=t.get_data(u(t,base_vt,11)[10]-t.OPTIONAL_HEADER.ImageBase,6)
+    assert len(getter)==6 and getter[0]==0xb8 and getter[-1]==0xc3
+    assert u(t,tm)[0] == int.from_bytes(getter[1:5],'little')
+    assert u(o,am)[0] == sym('?messageMap@'+base+'@@')
+    for j in range(dispatches+1):
+        x,y=u(t,u(t,tm,2)[1]+24*j,6),u(o,u(o,am,2)[1]+24*j,6)
+        assert x[:5]==y[:5]
+        if j==dispatches: assert x==y==(0,)*6
+        else: assert names[x[5]] in img.labels[y[5]]
     target, _ = v.matcher.carve(hex(ctor)); start, code = img.code(names[ctor])
     stores = []
     for a,b in zip(m['md'].disasm(target,ctor),m['md'].disasm(code,start)):
@@ -80,7 +88,7 @@ def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_sha
     for i,r in enumerate(rs):
         stop = int(r['addr'],16)+int(r['size']); nxt = int(rs[i+1]['addr'],16) if i+1<len(rs) else end
         assert set(t.get_data(stop-t.OPTIONAL_HEADER.ImageBase,nxt-stop)) <= {0xcc,0x90}
-    print('PASS:',cls,len(rows),'game routines;',len(v.matcher.carve(hex(helper))[0]),'byte deleting helper; 86 virtual slots, full RTTI, inherited runtime class, empty message map, constructor bindings and padding')
+    print('PASS:',cls,len(rows),'game routines;',len(v.matcher.carve(hex(helper))[0]),'byte deleting helper;',slots,'virtual slots, full RTTI, inherited runtime class, message map, constructor bindings and padding')
 
 mode = sys.argv[1] if len(sys.argv)>1 else 'all'
 if mode in ('scale','all'):

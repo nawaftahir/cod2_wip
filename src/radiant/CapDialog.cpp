@@ -1,4 +1,4 @@
-#include <afxwin.h>
+#include "stdafx.h"
 
 class CCapDialog : public CDialog
 {
@@ -26,3 +26,8 @@ void CCapDialog::DoDataExchange(CDataExchange* pDX)
 
 BEGIN_MESSAGE_MAP(CCapDialog, CDialog)
 END_MESSAGE_MAP()
+
+int FUN_00408010(const char *text)
+{
+    return (int)strlen(text);
+}

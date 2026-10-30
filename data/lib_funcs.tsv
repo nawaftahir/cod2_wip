@@ -1683,7 +1683,7 @@ addr	size	lib	member	symbol
 0x004f560f	57	nafxcw.lib	INTEL\$NW\winctrl2.obj	?GetCheck@CTreeCtrl@@QBEHPAU_TREEITEM@@@Z
 0x004f5648	65	nafxcw.lib	INTEL\$NW\winctrl2.obj	?SetCheck@CTreeCtrl@@QAEHPAU_TREEITEM@@H@Z
 0x004f5689	46	nafxcw.lib	INTEL\$NW\winctrl2.obj	?Create@CSpinButtonCtrl@@UAEHKABUtagRECT@@PAVCWnd@@I@Z
-0x004f56b7	55	nafxcw.lib	INTEL\$NW\winctrl2.obj	?CreateEx@CToolBarCtrl@@UAEHKKABUtagRECT@@PAVCWnd@@I@Z
+0x004f56b7	55	nafxcw.lib	INTEL\$NW\winctrl2.obj	?CreateEx@CSpinButtonCtrl@@UAEHKKABUtagRECT@@PAVCWnd@@I@Z
 0x004f56ee	56	nafxcw.lib	INTEL\$NW\winctrl2.obj	??1CSpinButtonCtrl@@UAE@XZ
 0x004f5726	44	nafxcw.lib	INTEL\$NW\winctrl2.obj	?GetRange@CSpinButtonCtrl@@QBEXAAH0@Z
 0x004f5752	49	nafxcw.lib	INTEL\$NW\winctrl2.obj	?Create@CToolBarCtrl@@UAEHKABUtagRECT@@PAVCWnd@@I@Z

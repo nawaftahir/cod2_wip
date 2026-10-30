@@ -528,3 +528,7 @@ addr	size	source	symbol	name	tag
 0x0043f830	6	src/radiant/TextureLayout.cpp	?GetMessageMap@CTextureLayout@@MBEPBUAFX_MSGMAP@@XZ	CTextureLayout::GetMessageMap	SUPPORTED
 0x0043f840	5	src/radiant/TextureLayout.cpp	?OnOK@CTextureLayout@@MAEXXZ	CTextureLayout::OnOK	SUPPORTED
 0x0043f850	65	src/radiant/TextureLayout.cpp	?OnInitDialog@CTextureLayout@@MAEHXZ	CTextureLayout::OnInitDialog	SUPPORTED
+0x00410e40	278	src/radiant/KeyValueSelectDlg.cpp	??0CKeyValueSelectDlg@@QAE@PAVCWnd@@@Z	CKeyValueSelectDlg::CKeyValueSelectDlg	SUPPORTED
+0x00410fe0	76	src/radiant/KeyValueSelectDlg.cpp	?DoDataExchange@CKeyValueSelectDlg@@MAEXPAVCDataExchange@@@Z	CKeyValueSelectDlg::DoDataExchange	SUPPORTED
+0x00411030	6	src/radiant/KeyValueSelectDlg.cpp	?GetMessageMap@CKeyValueSelectDlg@@MBEPBUAFX_MSGMAP@@XZ	CKeyValueSelectDlg::GetMessageMap	SUPPORTED
+0x00408010	13	src/radiant/CapDialog.cpp	?FUN_00408010@@YAHPBD@Z	FUN_00408010	UNNAMED

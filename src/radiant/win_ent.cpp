@@ -1,1 +1,3 @@
-// win_ent.cpp: placeholder, no function reconstructed yet. Code goes here in retail order.
+#include "entityw.h"
+
+HWND hwndEnt[EntLast];

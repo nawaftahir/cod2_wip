@@ -30,4 +30,4 @@ for j in range(5):
     if j==4:assert x==y==(0,)*6
     else:assert y[5]==o.OPTIONAL_HEADER.ImageBase
 print('PASS: six RotateDlg game routines / 498 B, separate 34/200 B helpers, three string literals, four constructor vtables, import and message identities')
-print('PARTIAL: four callback bodies remain unresolved; member SpinButton scalar context and complete EH audit pending; no full-file claim')
+print('PARTIAL: four callback bodies remain unresolved; complete EH audit pending; no full-file claim')

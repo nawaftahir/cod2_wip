@@ -1,6 +1,4 @@
-#include <afxwin.h>
-#include <afxcmn.h>
-#include <afxdlgs.h>
+#include "stdafx.h"
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>

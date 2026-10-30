@@ -15,3 +15,4 @@ addr	member	symbol	evidence
 0x00505804	INTEL\$NW\wingdi.obj	?Detach@CGdiObject@@QAEPAXXZ	PINNED: matching wingdi.obj export called by CGdiObject::DeleteObject at 0x50582e; its archive calls afxMapHGDIOBJ
 0x0050582e	INTEL\$NW\wingdi.obj	?DeleteObject@CGdiObject@@QAEHXZ	PINNED: retail calls GDI32 DeleteObject at IAT 0x528198; matching wingdi.obj export
 0x004f56ee	INTEL\$NW\winctrl2.obj	??1CSpinButtonCtrl@@UAE@XZ	PINNED: destructor writes vtable 0x52dfdc with CSpinButtonCtrl RTTI; all 56 archive bytes agree outside relocations
+0x004f56b7	INTEL\$NW\winctrl2.obj	?CreateEx@CSpinButtonCtrl@@UAEHKKABUtagRECT@@PAVCWnd@@I@Z	PINNED: CSpinButtonCtrl vtable 0x52dfdc slot 77 calls this 55-byte wrapper; matching SDK export and library object

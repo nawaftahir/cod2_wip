@@ -50,9 +50,6 @@ for cls, ctor, getter, parent, count, helper in [
         else:
             assert verify.known_names()[expected[5]] in image.labels[actual[5]]
     status, detail = verify.check(image, helper, '??_G' + cls + '@@UAEPAXI@Z', verify.known_names())
-    if cls == 'CScaleDialog':
-        assert status == 'MATCH', (cls, status, detail)
-    else:
-        assert status in ('MISMATCH', 'CALLEE'), (cls, status, detail)
+    assert status == 'MATCH', (cls, status, detail)
     print(cls, 'generated helper:', status, detail, 'RTTI:', type_name(retail, stores[0][0]), '/', type_name(ours, vtable))
-print('PASS: three constructor vtables/default constants, parent maps and real dispatch entries; ScaleDialog generated helper MATCH; two helper blockers diagnosed')
+print('PASS: three constructor vtables/default constants, parent maps and real dispatch entries; all three generated helpers MATCH under the proven C++ feature settings')
