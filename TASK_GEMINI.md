@@ -10,9 +10,9 @@ all scratch candidates and dirty source/configuration are preserved. The existin
 .agents/gemini worktree is not synchronized; never reset or overwrite it or merge
 main yourself. Codex handles synchronization before the next worker run.
 
-Codex recovered four real routines / 240 B in each density dialog and two real
-Pmesh distance helpers / 266 B. Combined main is 543 game matches / 62,150 B
-(8.88%), with eleven fully audited files. Density OnOK callbacks remain pending.
+Codex recovered four real routines / 240 B in each density dialog and three real
+Pmesh bounds/distance helpers / 676 B. Combined main is 544 game matches / 62,560 B
+(8.94%), with eleven fully audited files. Density OnOK callbacks remain pending.
 Pmesh, both density files, ZWnd.cpp and z.cpp now belong to Codex. Do not redo them.
 
 ## Work when resumed

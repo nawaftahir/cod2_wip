@@ -28,7 +28,7 @@ src/radiant/NewProjDlg.cpp	VERIFIED	3	147	PASS	PENDING	research/gemini_review/te
 src/radiant/PatchDensityDlg.cpp	PARTIAL	4	240	PENDING	PENDING		4 game / 240 B verified without stubs; scalar/shared destructor/EH/metadata checked; OnOK unresolved pending real Pmesh; PARTIAL
 src/radiant/PatchDialog.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PatchDialog.cpp (2/2 string funcs)
 src/radiant/UNKNOWN_00425080.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
-src/radiant/Pmesh.cpp	PARTIAL	2	266	PENDING	PENDING		2 game / 266 B verified: real width/height distance helpers and patch layout; sqrt binding pinned; generators pending
+src/radiant/Pmesh.cpp	PARTIAL	3	676	PENDING	PENDING		3 game / 676 B verified: real bounds and distance helpers; version/layout/sqrt/FP bindings pinned; generators pending
 src/radiant/PrefsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)
 src/radiant/RADEditWnd.cpp	VERIFIED	5	320	PASS	PENDING	research/gemini_review/test_editor_completion.py	
 src/radiant/Radiant.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Radiant.cpp (1/1 string funcs)

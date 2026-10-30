@@ -83,3 +83,31 @@ recovery this takeover: eight density routines plus two Pmesh helpers, 10 / 746 
 Compiler ledger stays 2 / 35 B. Eleven fully audited files remain verified;
 these three files remain PARTIAL. The real generators and their mesh/brush/
 selection dependencies are still required before either OnOK can be restored.
+
+## Real bounds helper recovered
+
+Patch_CalcBounds (0x426280 / 410 B) now matches as well. It reuses the existing
+matched ClearBounds and AddPointToBounds engine routines. A direct reference-style
+loop with a cached coordinate compiled to 422 B with different registers; using
+the real shared helpers yields all 410 retail bytes with no calling-convention
+annotations. Both distance routines remain exact in this cohort.
+
+The version counter at +0x382c is decoded as a 16-bit field, matching both the
+factory initialization and the bounds routine's word increment. Its offset and
+the full patch extent are compile-time assertions. Other footer storage remains
+explicitly opaque. Bounds use +/-131072 and optionally expand any dimension
+smaller than eight units about its midpoint. The 8.0, 0.5 and 4.0 constants are
+checked against their actual referenced retail and linked data, not just masked
+instruction addresses. All prior matched math helpers remain exact.
+
+Combined checkpoint: 544/544 game routines, 62,560 B (8.94%), 15.20% functions,
+zero failures, 48 unverified and one order warning. Total takeover gain is
+11 authored routines / 1,156 B; Pmesh contributes three / 676 B. Compiler ledger
+and eleven audited-file count are unchanged. OnOK still requires the real mesh
+creation/selection group; no complete density or Pmesh file is claimed.
+
+Saved next-group evidence includes texture-find-retail.log and
+brush-ref-alloc.log. The 0x458440 call receives a definition and owner, confirmed
+by the target's assertions at brush.cpp lines 1610-1612, including
+"def->owner == owner->def". It is not a no-argument allocator. Do not adopt a
+prototype from its call instruction alone or invent the wrapper/owner layouts.

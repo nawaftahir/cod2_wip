@@ -206,3 +206,9 @@ Owner-edited only.
   sqrt.obj's 186-byte FSQRT section. Inventory spans 20/9/157 B split entries
   and shared tail; comparing a masked prefix alone cannot identify the callee.
   Proof: research/codex_density/test_patch_distance.py; inventory unchanged.
+
+- PINNED: Patch_CalcBounds 0x426280 / 410 B uses the real ClearBounds and
+  AddPointToBounds routines, increments the word at patch +0x382c, and optionally
+  expands dimensions below 8 units using midpoint +/-4. Original constants at
+  0x556bb4/0x556b30/0x556b6c are 8.0/0.5/4.0 and their linked bindings are checked.
+  Proof: research/codex_density/test_patch_distance.py; no ABI/flag changes.

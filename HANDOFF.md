@@ -1,5 +1,23 @@
 # Radiant handoff (2026-10-28)
 
+## Patch bounds now matched; owner repair continues
+
+The two real distance helpers are published as 8a9a2e3. Patch_CalcBounds now also
+matches all 410 retail bytes by reusing the real ClearBounds/AddPointToBounds
+helpers; no new ABI or optimizer annotations. Pmesh.h pins the 16-bit version
+field at +0x382c, full allocation and controls; the referenced padding constants
+are independently checked. Full regression: 544/544 / 62,560 game B (8.94%),
+15.20% functions, compiler 2/2 / 35 B, zero failures, 48 unverified, one warning.
+Takeover gain is 11 / 1,156 B. Eleven completed-file audits remain green; both
+density files, Pmesh and ZWnd remain PARTIAL. No whole-image SHA/boot claim.
+
+Continue the real Pmesh mesh-generation, material/texture-state and brush/owner
+reference group. Source types and true callees must be pinned before replacing
+the held OnOK callbacks. Target 0x458440 takes def and owner (brush.cpp asserts
+1610-1612), not zero arguments. Saved binary/source trials and tests are under
+scratch/density_repair and research/codex_density. Gemini remains parked, its
+worktree untouched/backed up; its next reserved file when resumed is PatchDialog.
+
 ## Real patch distance helpers matched
 
 The repaired density checkpoint is published as 7b5db22. Codex also matched

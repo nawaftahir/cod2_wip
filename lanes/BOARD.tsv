@@ -101,4 +101,4 @@ src/radiant/select.cpp	codex	open	codex	83	27211	0	12	Q3Radiant DRAG.CPP (22/39 
 src/radiant/XYWnd.cpp	codex	open	codex	136	40524	0	32	Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
 src/radiant/brush.cpp	codex	open	codex	121	47013	0	60	Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
 src/radiant/MainFrm.cpp	codex	open	codex	545	54369	0	28	Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
-src/radiant/Pmesh.cpp	codex	partial	codex	215	80201	2	70	2 game / 266 B verified: real width/height distance helpers and patch layout; sqrt binding pinned; generators pending
+src/radiant/Pmesh.cpp	codex	partial	codex	215	80201	3	70	3 game / 676 B verified: real bounds and distance helpers; version/layout/sqrt/FP bindings pinned; generators pending

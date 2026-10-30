@@ -2,6 +2,31 @@
 #include "Pmesh.h"
 #include "../universal/com_math.h"
 
+void Patch_CalcBounds(patchMesh_t *patch, vec3_t &mins, vec3_t &maxs, bool enlarge)
+{
+    ClearBounds(mins, maxs);
+    ++patch->version;
+    for (int w = 0; w < patch->width; ++w)
+    {
+        for (int h = 0; h < patch->height; ++h)
+        {
+            AddPointToBounds(patch->ctrl[w][h].xyz, mins, maxs);
+        }
+    }
+    if (enlarge)
+    {
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            if (maxs[axis] - mins[axis] < 8.0f)
+            {
+                float minimum = (mins[axis] + maxs[axis]) * 0.5f - 4.0f;
+                mins[axis] = minimum;
+                maxs[axis] = minimum + 8.0f;
+            }
+        }
+    }
+}
+
 float Patch_WidthDistanceTo(patchMesh_t *patch, int count)
 {
     float length = 0;
