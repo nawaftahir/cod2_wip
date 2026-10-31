@@ -1,7 +1,7 @@
 # Gemini assignment
 
 Read the root CLAUDE.md first. lanes/BOARD.tsv owns file assignments;
-lanes/GEMINI_QUEUE.tsv is the complete current 46-file reserved queue.
+lanes/GEMINI_QUEUE.tsv is the complete current 45-file reserved queue.
 
 ## Current owner takeover
 
@@ -48,3 +48,5 @@ placement and whole-executable SHA separately.
 
 Commit with the configured Nawaf identity. Workers never push or send notices.
 Run RADIANT_CI_NO_NOTIFY=1; do not change the referee or comparison masks.
+
+Codex now owns deflate.c for its four hard leftovers; do not reclaim it.

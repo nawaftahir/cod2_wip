@@ -11,8 +11,8 @@ uses its private worktree. No worker edits another worker's assigned source.
 
 | Worker | Scope | Task |
 |---|---|---|
-| Gemini | 46 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
-| Codex | 40 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
+| Gemini | 45 easy-candidate files in lanes/GEMINI_QUEUE.tsv | TASK_GEMINI.md |
+| Codex | 41 hard files in the codex lane; shared headers, dependencies, build/layout evidence and integration | TASK_CODEX.md |
 
 Gemini follows its remaining queue and reports complete-file evidence.
 TexEdit is a Codex-owned hard handoff; existing drafts are preserved. One TU at a time; one commit
@@ -53,3 +53,8 @@ Codex also owns common/texturevecs.cpp as the bounded Pmesh matrix dependency;
 its four-routine TU is active: three routines / 1,779 B match; inverse and
 external math bindings remain pending. No complete-file claim.
 MRU now has all 15 routines / 2,055 B and a complete binding audit.
+
+The owner requested two more completed files on 2026-10-31. Codex audits
+cameratargetdlg.cpp and takes deflate.c's four hard leftovers from the parked
+Gemini queue. No worker checkout is changed. Texturevecs remains held with
+its concrete inverse/math blockers and preserved source trials.

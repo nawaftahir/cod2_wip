@@ -1,5 +1,22 @@
 # Codex current run
 
+## Current two-file run
+
+The owner requests one or two further complete files, continuing until they
+say quota is low. Audit cameratargetdlg.cpp completely: its five game methods
+match; the remaining 22 in-range entries are deleting/header code, not new game
+credit. Use the existing dialog/RTTI/EH proof helpers and cover every emitted
+SDK representative and actual binding. No source change is needed unless a
+real audit failure requires it.
+
+Then finish deflate.c (13/17 / 3478/5938 B). The four remaining helpers show
+additional inline expansions. Test one bounded TU/compiler context at a time,
+retain all thirteen existing matches and verify its configuration table,
+function pointers and constants. This file transfers from Gemini to Codex;
+its parked workspace remains untouched. Baseline 548/548 / 64,638 B, 9.24%,
+15.32% functions, 48 unverified, one order warning, 12 audited complete files.
+
+
 The owner resumed work to complete held files and publish a reviewable file ledger.
 Twelve files now pass complete normalized code/helper/metadata audits; see
 ledger/files.tsv and research/gemini_review/FINISHED_FILES.md. Continue the

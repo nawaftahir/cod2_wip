@@ -40,7 +40,6 @@ priority	file	baseline_matched	functions	bytes	reference_candidates	candidate_by
 39	src/radiant/mesh.cpp	0	16	8113	0	0	none: from make show
 40	src/universal/splines/math_angles.cpp	4	12	1269	0	0	none: from make show
 41	src/universal/splines/math_matrix.cpp	6	10	1405	0	0	none: from make show
-42	src/zlib/deflate.c	13	17	5938	0	0	none: from make show
 43	src/xanim/xmodel_load_obj.cpp	0	16	7366	0	0	Q3Radiant WIN_DLG.CPP (1/13 string funcs); iw3xo (1/13)
 44	src/radiant/drag.cpp	0	17	9922	0	0	Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
 45	src/universal/splines/math_vector.cpp	2	33	2742	0	0	Q3Radiant splines.h (3/3 string funcs); iw3xo (1/3)
