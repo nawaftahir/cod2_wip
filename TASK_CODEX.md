@@ -4,9 +4,9 @@ The owner resumed work to complete held files and publish a reviewable file ledg
 Twelve files now pass complete normalized code/helper/metadata audits; see
 ledger/files.tsv and research/gemini_review/FINISHED_FILES.md. Continue the
 remaining hard files without changing masks or fabricating caller contexts.
-TextureLayout and KeyValueSelect are complete; next primary target is TexEdit.
+TextureLayout and KeyValueSelect are complete; active target is texturevecs/Pmesh.
 RotateDlg's four real bodies and DialogInfo's caller still need completion.
-The two density/Pmesh reports are preserved hard handoffs with no accepted source.
+The density and Pmesh checkpoints remain partial; their real leftovers are held.
 Use the common stdafx.h SDK context for MFC TUs. Update the file ledger after
 fresh regression and file audits; never mark an unaudited partial as VERIFIED.
 
@@ -17,7 +17,7 @@ complete routine/helper inventory, real metadata bindings and a full regression
 before FILE VERIFIED. Partial checkpoints remain PARTIAL.
 
 The owner assigns Gemini the easy-file queue and Codex the hard work. Follow
-WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 49 files in
+WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All reserved files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;
 do not reconstruct or change their headers while its checkpoint is active.
 
@@ -30,7 +30,7 @@ owned/helper inventory and full regression before FILE VERIFIED. Evidence:
 research/codex_mru and scratch/finish_mru. All 15 / 2,055 B and bindings pass;
 12/102 audited files. No flags or referee changes.
 
-## Next bounded dependency: common/texturevecs.cpp
+## Active bounded dependency: common/texturevecs.cpp
 
 Pmesh's three real geometry helpers are published at 74d3ac5. Its texture
 projection helper 0x426c90 / 304 B needs the real matrix builder 0x4401d0 / 985 B.
@@ -40,13 +40,26 @@ refrences/KisakCOD/src/radiant/texturevecs.cpp (hints, not authority).
 Retail logs and candidates: .agents/codex/scratch/texturevecs_repair and
 scratch/density_repair. Keep all four original routines in order, assertions
 on real lines, and verify the actual basis table, not a shifted decompile.
-First two routines now match 335/335 and 459/459 in axis-v3.log; their source
-is preserved in scratch/texturevecs_repair/axis-v3.cpp, with no new game credit.
-The two larger bodies need real math helpers 0x4897c0/306 and 0x489940/471.
-SinCos includes an FSINCOS sequence; prior C++ candidate is 286/306, first +3.
-Do not repeat that context or add forbidden assembly. DialogInfo was separately
-rechecked with stdafx: ShowInfoDialog remains 73/66, first +0, needs real Pmesh
-callers. Its draft is preserved in the same scratch directory.
+Three authored routines / 1,779 B now match: TextureAxisFromPlane / 335 B,
+TextureVecsForNormal / 459 B, BuildTextureVecs / 985 B. The 216-byte basis,
+17 constant refs, 31 strings, eight imports and 12 assertion flags pass the
+supplementary audit. Shared vassert supplies measured level-1 assertions;
+existing macros, flags and referee are unchanged. The file remains PARTIAL.
+
+The inverse is held after the saved bounded trials (best normalized result
+1533/1540, first +5; vector snapshots 1536/1540, first +0xc). Preserve the
+retail repeated row-0 projection, not the later reference's row-1 version.
+Source, outputs and Pmesh caller trials are in scratch/texturevecs_repair;
+research/codex_texturevecs/README.md records every result. No near-match is
+canonical or credited. Real math/caller context is needed before more variants.
+
+SinCos 0x4897c0/306 and granularity snap 0x489940/471 have target x87 sequences
+not matched by the tested C++ forms. Assertion handler 0x47d980 and va 0x4969e0
+are also unresolved. The audit explicitly reports these pending bindings.
+Do not add forbidden assembly, fake callees or calling-convention annotations.
+Pmesh projection/caller trials (277/304, 81/84, 190/150, first +5) and proposed
+types are held, with no source/header changes or game credit from that group.
+Use a distinct projection-packet type, not the later full texdef_t name.
 
 ## Current primary file: Pmesh dependency repair
 

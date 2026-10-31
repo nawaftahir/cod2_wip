@@ -1,5 +1,14 @@
 # Codex delivery
 
+Texture-vector checkpoint: three authored routines / 1,779 B match in the
+linked image, with full basis/constants/strings/import/assert-flag audit.
+548/548, 9.24% game bytes, 15.32% functions; zero failures, 48 unverified,
+one order warning and twelve complete-file audits. Texturevecs remains PARTIAL:
+inverse and external definitions are pending, with honest unresolved-call checks.
+All inverse/caller near-matches are scratch-only. No ABI hack, fake caller,
+assembly, flags, inventory or referee change. Proof: research/codex_texturevecs.
+
+
 MRU is FILE VERIFIED: all 15 routines / 2,055 B, complete source-owned
 helper/metadata/padding audit and actual API/literal/cookie bindings. Restored
 Gemini's real LoadMruInReg body adds one routine / 299 B. Reviewed inventory

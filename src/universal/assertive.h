@@ -42,6 +42,24 @@ int FUN_0047d980(const char *expr, const char *file, int line, int a4, int a5);
 		} \
 	} while ( 0 )
 
+// Retail level-1 assertions keep the same per-site ignore state.
+#define vassert(expr, fmt, a1) \
+	do { \
+		static bool s_assertDisable; \
+		if ( !(expr) && !s_assertDisable ) \
+		{ \
+			switch ( FUN_0047d980( va( "%s\n\t" fmt, #expr, a1 ), __FILE__, __LINE__, 1, 1 ) ) \
+			{ \
+			case 0: \
+				DebugBreak(); \
+				break; \
+			case 2: \
+				s_assertDisable = true; \
+				break; \
+			} \
+		} \
+	} while ( 0 )
+
 extern int g_assertsDisabled;
 
 #define assertFailMsg(type, msg) \

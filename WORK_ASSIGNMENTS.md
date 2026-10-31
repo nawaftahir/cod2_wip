@@ -50,5 +50,6 @@ Gemini resumes at PatchDialog.cpp, then win_main.cpp, from the reserved TSV;
 its current dirty worktree remains preserved until owner synchronization.
 
 Codex also owns common/texturevecs.cpp as the bounded Pmesh matrix dependency;
-its four-routine TU is the next dependency after the completed MRU repair.
+its four-routine TU is active: three routines / 1,779 B match; inverse and
+external math bindings remain pending. No complete-file claim.
 MRU now has all 15 routines / 2,055 B and a complete binding audit.

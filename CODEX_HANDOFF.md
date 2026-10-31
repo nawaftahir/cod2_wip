@@ -1,5 +1,29 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Three texture-vector routines recovered
+
+The unchanged referee passes 548/548 game routines / 64,638 B (9.24%), 15.32%
+functions. New: TextureAxisFromPlane / 335 B, TextureVecsForNormal / 459 B,
+BuildTextureVecs / 985 B. Full 216-byte basis table, 17 constant references,
+31 strings, eight imports and twelve per-site assertion flags are audited.
+Shared vassert adds measured level-1 reporting while leaving old macros intact.
+Proof: research/codex_texturevecs/{README.md,test_vectors.py}.
+
+Compiler 2/2 / 35 B, zero failures, 48 unverified and one order warning remain.
+Twelve completed-file audits stay green; texturevecs remains PARTIAL. Runtime
+assertion/formatting/SinCos targets are explicitly unresolved, not proven by
+masked call addresses. No flags, masks, referee or inventory changed here.
+Takeover gain is now 15 authored routines / 3,234 B. SHA/placement/boot unfinished.
+Same-offset 26,410 B / 1.472% (-19 B), report-only.
+
+Inverse candidates stay in scratch after actual 1533/1540 (+5) and snapshot
+1536/1540 (+0xc) results; it repeats row-0 projection after testing row 1 in
+retail. The later reference's behavior is different. Do not repeat old trials.
+Pmesh's real caller group remains 277/304, 81/84 and 190/150 (+5); held sources
+and proposed layouts are preserved, with no accepted caller/header changes.
+Real caller/math context is next. Gemini remains parked and untouched.
+
+
 ## MRU repaired and fully audited
 
 The owner asked to finish one Gemini leftover. Restored LoadMruInReg matches
