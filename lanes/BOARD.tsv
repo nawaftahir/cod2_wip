@@ -84,7 +84,7 @@ src/zlib/compress.c	done	done	-	2	169	2	1	none: from make show
 src/zlib/adler32.c	done	done	-	1	297	1	0	none: from make show
 src/zlib/infutil.c	done	done	-	1	310	1	1	none: from make show
 src/zlib/inffast.c	done	done	-	1	917	1	0	none: from make show
-src/radiant/cameratargetdlg.cpp	codex	partial	codex	27	1243	5	1	none: from make show
+src/radiant/cameratargetdlg.cpp	codex	merged	codex	27	1243	5	1	FILE VERIFIED: 5 game / 212 B, scalar / 33 B, 21 SDK / 998 B; full metadata/EH and 29 SDK-label audit; placement pending
 src/zlib/inftrees.c	done	done	-	4	1830	4	3	none: from make show
 src/zlib/infcodes.c	done	done	-	3	1853	3	2	none: from make show
 src/zlib/infblock.c	done	done	-	6	3286	6	3	none: from make show

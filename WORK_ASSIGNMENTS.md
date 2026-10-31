@@ -38,7 +38,7 @@ Only linked referee MATCHes count. Game matched functions/bytes never decrease;
 whole-file same-offset is report-only. Report function %, game-byte % and
 same-offset % separately. No fabricated attempts, source, provenance or ABI.
 
-The owner resumed held-file completion. Twelve audited files are recorded in
+The owner resumed held-file completion. Thirteen audited files are recorded in
 ledger/files.tsv. TextureLayout and KeyValueSelect are complete; density/Pmesh
 remainders transferred to Codex. When resumed, Gemini continues its reserved queue with
 individual commits and batch review. Codex seeded hwndEnt[33] in win_ent.cpp;
@@ -58,3 +58,5 @@ The owner requested two more completed files on 2026-10-31. Codex audits
 cameratargetdlg.cpp and takes deflate.c's four hard leftovers from the parked
 Gemini queue. No worker checkout is changed. Texturevecs remains held with
 its concrete inverse/math blockers and preserved source trials.
+
+CameraTargetDlg is now FILE VERIFIED; deflate.c is the active second file.

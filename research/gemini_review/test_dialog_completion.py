@@ -28,10 +28,11 @@ def blob(ta, oa, size):
             assert v.check(img, hex(target), candidate, names)[0] == 'MATCH', (hex(target), candidate)
     return left, right
 
-def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=(), base='CDialog', slots=86, dispatches=0, pending_callbacks=()):
-    rows = [r for r in v.read_tsv('ledger/matches.tsv') if r['source'] == 'src/radiant/'+cls[1:]+'.cpp']
+def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=(), base='CDialog', slots=86, dispatches=0, pending_callbacks=(), source=None):
+    source = source or 'src/radiant/'+cls[1:]+'.cpp'
+    rows = [r for r in v.read_tsv('ledger/matches.tsv') if r['source'] == source]
     assert len(rows) == (expected_count if expected_count is not None else (3 if cls == 'CScaleDialog' else 5))
-    owned = img.of_source('src/radiant/'+cls[1:]+'.cpp')
+    owned = img.of_source(source)
     expected = {r['symbol'] for r in rows} | {'??_G'+cls+'@@UAEPAXI@Z', '??_E'+cls+'@@UAEPAXI@Z', '??1'+cls+'@@UAE@XZ'}
     if cls == 'CNameDlg': expected.add('??B?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ')
     assert expected <= set(owned) <= expected | set(expected_shared), (cls, set(owned)-expected)
@@ -85,7 +86,7 @@ def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_sha
             if x.type == m['X86_OP_MEM'] and x.mem.disp not in m['retail_imports'] and 0x52720e < x.mem.disp < 0x58f800:
                 assert u(t,x.mem.disp) == u(o,y.mem.disp)
     assert len(stores) == 1
-    rs = [r for r in v.read_tsv('data/tu_map.tsv') if r['tu'] == 'radiant/'+cls[1:]+'.cpp']
+    rs = [r for r in v.read_tsv('data/tu_map.tsv') if r['tu'] in (source, source.removeprefix('src/'))]
     for i,r in enumerate(rs):
         stop = int(r['addr'],16)+int(r['size']); nxt = int(rs[i+1]['addr'],16) if i+1<len(rs) else end
         assert set(t.get_data(stop-t.OPTIONAL_HEADER.ImageBase,nxt-stop)) <= {0xcc,0x90}

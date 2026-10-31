@@ -1,0 +1,344 @@
+{
+  "sdk_owned": [
+    "??0?$CSimpleStringT@D$0A@@ATL@@QAE@PAUIAtlStringMgr@1@@Z",
+    "??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ",
+    "??1?$CSimpleStringT@D$0A@@ATL@@QAE@XZ",
+    "??1?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ",
+    "??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@PBD@Z",
+    "??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBD@Z",
+    "?Attach@?$CSimpleStringT@D$0A@@ATL@@AAEXPAUCStringData@2@@Z",
+    "?CopyChars@?$CSimpleStringT@D$0A@@ATL@@SAXPADPBDH@Z",
+    "?CopyCharsOverlapped@?$CSimpleStringT@D$0A@@ATL@@SAXPADPBDH@Z",
+    "?Empty@?$CSimpleStringT@D$0A@@ATL@@QAEXXZ",
+    "?Fork@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z",
+    "?GetBuffer@?$CSimpleStringT@D$0A@@ATL@@QAEPADH@Z",
+    "?GetData@?$CSimpleStringT@D$0A@@ATL@@ABEPAUCStringData@2@XZ",
+    "?GetDefaultManager@?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@SAPAUIAtlStringMgr@ATL@@XZ",
+    "?GetLength@?$CSimpleStringT@D$0A@@ATL@@QBEHXZ",
+    "?GetString@?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ",
+    "?IsLocked@CStringData@ATL@@QBE_NXZ",
+    "?IsShared@CStringData@ATL@@QBE_NXZ",
+    "?PrepareWrite2@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z",
+    "?PrepareWrite@?$CSimpleStringT@D$0A@@ATL@@AAEPADH@Z",
+    "?Reallocate@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z",
+    "?Release@CStringData@ATL@@QAEXXZ",
+    "?ReleaseBufferSetLength@?$CSimpleStringT@D$0A@@ATL@@QAEXH@Z",
+    "?SetLength@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z",
+    "?SetString@?$CSimpleStringT@D$0A@@ATL@@QAEXPBD@Z",
+    "?SetString@?$CSimpleStringT@D$0A@@ATL@@QAEXPBDH@Z",
+    "?StringLength@?$CSimpleStringT@D$0A@@ATL@@SAHPBD@Z",
+    "?ThrowMemoryException@?$CSimpleStringT@D$0A@@ATL@@KAXXZ",
+    "?data@CStringData@ATL@@QAEPAXXZ"
+  ],
+  "original": [
+    {
+      "addr": "0x00402940",
+      "size": 123,
+      "symbol": "??0CCameraTargetDlg@@QAE@PAVCWnd@@@Z",
+      "role": "game"
+    },
+    {
+      "addr": "0x004029c0",
+      "size": 33,
+      "symbol": "??_ECCameraTargetDlg@@UAEPAXI@Z",
+      "role": "scalar"
+    },
+    {
+      "addr": "0x004029f0",
+      "size": 36,
+      "symbol": "??1CCameraTargetDlg@@UAE@XZ",
+      "role": "game"
+    },
+    {
+      "addr": "0x00402a20",
+      "size": 46,
+      "symbol": "?DoDataExchange@CCameraTargetDlg@@MAEXPAVCDataExchange@@@Z",
+      "role": "game"
+    },
+    {
+      "addr": "0x00402a50",
+      "size": 6,
+      "symbol": "?GetMessageMap@CCameraTargetDlg@@MBEPBUAFX_MSGMAP@@XZ",
+      "role": "game"
+    },
+    {
+      "addr": "0x00402a60",
+      "size": 1,
+      "symbol": "?OnPopupNewcameraFixed@CCameraTargetDlg@@IAEXXZ",
+      "role": "game"
+    },
+    {
+      "addr": "0x00402a70",
+      "size": 61,
+      "symbol": "??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@PBD@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402ab0",
+      "size": 61,
+      "symbol": "??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@PBD@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402af0",
+      "size": 54,
+      "symbol": "?SetString@?$CSimpleStringT@D$0A@@ATL@@QAEXPBD@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402b30",
+      "size": 164,
+      "symbol": "?SetString@?$CSimpleStringT@D$0A@@ATL@@QAEXPBDH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402be0",
+      "size": 97,
+      "symbol": "?Empty@?$CSimpleStringT@D$0A@@ATL@@QAEXXZ",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402c50",
+      "size": 11,
+      "symbol": "?IsLocked@CStringData@ATL@@QBE_NXZ",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402c60",
+      "size": 40,
+      "symbol": "?ReleaseBufferSetLength@?$CSimpleStringT@D$0A@@ATL@@QAEXH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402c90",
+      "size": 22,
+      "symbol": "?AtlThrow@ATL@@YGXJ@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402cb0",
+      "size": 6,
+      "symbol": "?GetLength@?$CSimpleStringT@D$0A@@ATL@@QBEHXZ",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402cc0",
+      "size": 3,
+      "symbol": "?GetString@?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402cd0",
+      "size": 48,
+      "symbol": "?GetBuffer@?$CSimpleStringT@D$0A@@ATL@@QAEPADH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402d00",
+      "size": 48,
+      "symbol": "?PrepareWrite@?$CSimpleStringT@D$0A@@ATL@@AAEPADH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402d30",
+      "size": 77,
+      "symbol": "?PrepareWrite2@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402d80",
+      "size": 12,
+      "symbol": "?IsShared@CStringData@ATL@@QBE_NXZ",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402d90",
+      "size": 129,
+      "symbol": "?Fork@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402e20",
+      "size": 10,
+      "symbol": "?ThrowMemoryException@?$CSimpleStringT@D$0A@@ATL@@KAXXZ",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402e30",
+      "size": 47,
+      "symbol": "?Reallocate@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402e60",
+      "size": 9,
+      "symbol": "?CopyCharsOverlapped@?$CSimpleStringT@D$0A@@ATL@@SAXPADPBDH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402e70",
+      "size": 32,
+      "symbol": "?CopyChars@?$CSimpleStringT@D$0A@@ATL@@SAXPADPBDH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402e90",
+      "size": 40,
+      "symbol": "?SetLength@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z",
+      "role": "SDK"
+    },
+    {
+      "addr": "0x00402ec0",
+      "size": 27,
+      "symbol": "?StringLength@?$CSimpleStringT@D$0A@@ATL@@SAHPBD@Z",
+      "role": "SDK"
+    }
+  ],
+  "representatives": [
+    {
+      "addr": "0x004027e0",
+      "size": 26,
+      "symbol": "??0?$CSimpleStringT@D$0A@@ATL@@QAE@PAUIAtlStringMgr@1@@Z"
+    },
+    {
+      "addr": "0x004027c0",
+      "size": 24,
+      "symbol": "??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ"
+    },
+    {
+      "addr": "0x00402750",
+      "size": 29,
+      "symbol": "??1?$CSimpleStringT@D$0A@@ATL@@QAE@XZ"
+    },
+    {
+      "addr": "0x00402750",
+      "size": 29,
+      "symbol": "??1?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ"
+    },
+    {
+      "addr": "0x00402a70",
+      "size": 61,
+      "symbol": "??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@PBD@Z"
+    },
+    {
+      "addr": "0x00402a70",
+      "size": 61,
+      "symbol": "??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBD@Z"
+    },
+    {
+      "addr": "0x00402800",
+      "size": 15,
+      "symbol": "?Attach@?$CSimpleStringT@D$0A@@ATL@@AAEXPAUCStringData@2@@Z"
+    },
+    {
+      "addr": "0x00402e70",
+      "size": 32,
+      "symbol": "?CopyChars@?$CSimpleStringT@D$0A@@ATL@@SAXPADPBDH@Z"
+    },
+    {
+      "addr": "0x00402e60",
+      "size": 9,
+      "symbol": "?CopyCharsOverlapped@?$CSimpleStringT@D$0A@@ATL@@SAXPADPBDH@Z"
+    },
+    {
+      "addr": "0x00402be0",
+      "size": 97,
+      "symbol": "?Empty@?$CSimpleStringT@D$0A@@ATL@@QAEXXZ"
+    },
+    {
+      "addr": "0x00402d90",
+      "size": 129,
+      "symbol": "?Fork@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z"
+    },
+    {
+      "addr": "0x00402cd0",
+      "size": 48,
+      "symbol": "?GetBuffer@?$CSimpleStringT@D$0A@@ATL@@QAEPADH@Z"
+    },
+    {
+      "addr": "0x00402790",
+      "size": 6,
+      "symbol": "?GetData@?$CSimpleStringT@D$0A@@ATL@@ABEPAUCStringData@2@XZ"
+    },
+    {
+      "addr": "0x00402820",
+      "size": 5,
+      "symbol": "?GetDefaultManager@?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@SAPAUIAtlStringMgr@ATL@@XZ"
+    },
+    {
+      "addr": "0x00402cb0",
+      "size": 6,
+      "symbol": "?GetLength@?$CSimpleStringT@D$0A@@ATL@@QBEHXZ"
+    },
+    {
+      "addr": "0x00402cc0",
+      "size": 3,
+      "symbol": "?GetString@?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ"
+    },
+    {
+      "addr": "0x00402c50",
+      "size": 11,
+      "symbol": "?IsLocked@CStringData@ATL@@QBE_NXZ"
+    },
+    {
+      "addr": "0x00402d80",
+      "size": 12,
+      "symbol": "?IsShared@CStringData@ATL@@QBE_NXZ"
+    },
+    {
+      "addr": "0x00402d30",
+      "size": 77,
+      "symbol": "?PrepareWrite2@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z"
+    },
+    {
+      "addr": "0x00402d00",
+      "size": 48,
+      "symbol": "?PrepareWrite@?$CSimpleStringT@D$0A@@ATL@@AAEPADH@Z"
+    },
+    {
+      "addr": "0x00402e30",
+      "size": 47,
+      "symbol": "?Reallocate@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z"
+    },
+    {
+      "addr": "0x004027a0",
+      "size": 26,
+      "symbol": "?Release@CStringData@ATL@@QAEXXZ"
+    },
+    {
+      "addr": "0x00402c60",
+      "size": 40,
+      "symbol": "?ReleaseBufferSetLength@?$CSimpleStringT@D$0A@@ATL@@QAEXH@Z"
+    },
+    {
+      "addr": "0x00402e90",
+      "size": 40,
+      "symbol": "?SetLength@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z"
+    },
+    {
+      "addr": "0x00402af0",
+      "size": 54,
+      "symbol": "?SetString@?$CSimpleStringT@D$0A@@ATL@@QAEXPBD@Z"
+    },
+    {
+      "addr": "0x00402b30",
+      "size": 164,
+      "symbol": "?SetString@?$CSimpleStringT@D$0A@@ATL@@QAEXPBDH@Z"
+    },
+    {
+      "addr": "0x00402ec0",
+      "size": 27,
+      "symbol": "?StringLength@?$CSimpleStringT@D$0A@@ATL@@SAHPBD@Z"
+    },
+    {
+      "addr": "0x00402e20",
+      "size": 10,
+      "symbol": "?ThrowMemoryException@?$CSimpleStringT@D$0A@@ATL@@KAXXZ"
+    },
+    {
+      "addr": "0x00402810",
+      "size": 4,
+      "symbol": "?data@CStringData@ATL@@QAEPAXXZ"
+    }
+  ]
+}

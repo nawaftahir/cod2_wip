@@ -1,5 +1,12 @@
 # Codex delivery
 
+CameraTargetDlg is FILE VERIFIED, with all original/extra SDK helper code,
+complete class/message/runtime/EH metadata and pinned 0x78 caller allocation.
+13/102 completed-file audits; game coverage unchanged at 548/548 / 9.24%,
+15.32% functions. No new game-byte credit; no source, masks, flags or inventory
+change. Proof: research/codex_camera/README.md. Deflate is the next active TU.
+
+
 Texture-vector checkpoint: three authored routines / 1,779 B match in the
 linked image, with full basis/constants/strings/import/assert-flag audit.
 548/548, 9.24% game bytes, 15.32% functions; zero failures, 48 unverified,

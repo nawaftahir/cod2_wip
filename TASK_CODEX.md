@@ -9,7 +9,8 @@ credit. Use the existing dialog/RTTI/EH proof helpers and cover every emitted
 SDK representative and actual binding. No source change is needed unless a
 real audit failure requires it.
 
-Then finish deflate.c (13/17 / 3478/5938 B). The four remaining helpers show
+CameraTargetDlg now passes the complete audit (13/102 files).
+Finish deflate.c (13/17 / 3478/5938 B). The four remaining helpers show
 additional inline expansions. Test one bounded TU/compiler context at a time,
 retain all thirteen existing matches and verify its configuration table,
 function pointers and constants. This file transfers from Gemini to Codex;
@@ -18,7 +19,7 @@ its parked workspace remains untouched. Baseline 548/548 / 64,638 B, 9.24%,
 
 
 The owner resumed work to complete held files and publish a reviewable file ledger.
-Twelve files now pass complete normalized code/helper/metadata audits; see
+Thirteen files now pass complete normalized code/helper/metadata audits; see
 ledger/files.tsv and research/gemini_review/FINISHED_FILES.md. Continue the
 remaining hard files without changing masks or fabricating caller contexts.
 TextureLayout and KeyValueSelect are complete; active target is texturevecs/Pmesh.

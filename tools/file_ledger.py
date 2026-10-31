@@ -17,6 +17,7 @@ CHECKS = (
     ('test_finished_small.py', None, ('CapDialog', 'DialogThick', 'LstToolBar')),
     ('test_editor_completion.py', None, ('EditWnd', 'RADEditWnd')),
     ('test_mru_complete.py', None, ('mru',)),
+    ('test_camera_complete.py', None, ('cameratargetdlg',)),
 )
 
 def read(path):

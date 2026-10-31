@@ -1,13 +1,19 @@
 # Finished-file checkpoint
 
-Twelve translation units pass the full normalized code/helper/metadata audits.
+Thirteen translation units pass the full normalized code/helper/metadata audits.
 `python3 tools/file_ledger.py` reruns every complete-file proof and writes
 `ledger/files.tsv`; it rejects stale source verification or a failing audit.
 The table covers all 102 game TUs in retail link order. VERIFIED is the track's
 normalized source/code/metadata milestone. Image placement is separately PENDING;
 whole-program SHA identity and boot have not been established.
 
-MRU is now complete: 15 routines / 2,055 B, with 105 original padding bytes,
+CameraTargetDlg is complete: five existing game routines / 212 B, its 33-byte
+scalar, 21 in-range SDK bodies / 998 B, all 29 emitted SDK labels, complete
+RTTI/vtable/runtime/message bindings and constructor EH. No new game byte
+credit. The retail caller pins its 0x78 allocation. Proof: test_camera_complete.py
+and research/codex_camera/README.md.
+
+MRU is also complete: 15 routines / 2,055 B, with 105 original padding bytes,
 61 import accesses, six literal references and four actual CRT cookie bindings.
 The reviewed registry-loader boundary joins 96+203 into one exact 299-byte
 routine; all inventory bytes are preserved. See research/codex_mru/README.md

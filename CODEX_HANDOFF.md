@@ -1,5 +1,29 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## Camera-target file fully audited; deflate completion active
+
+The owner requested two more completed files. cameratargetdlg.cpp now passes
+all 27 original entries: five existing game routines / 212 B, scalar / 33 B,
+21 SDK entries / 998 B. All 29 emitted SDK labels have validated representatives
+and recursively checked helper bindings. Complete 86-slot vtable/RTTI, inherited
+CDialog runtime record, DDX/default/message data, interval padding, constructor
+EH and the real caller's 0x78 object allocation pass. Proof/manifest:
+research/codex_camera and test_camera_complete.py. The SDK CRT copy sections
+are checked in full (829 B each), including internal jump-table destinations.
+
+Thirteen of 102 files are FILE VERIFIED. Game counts stay 548/548 / 64,638 B
+(9.24%), 15.32% functions, compiler 2/35 B, zero failures, 48 unverified and
+one order warning. This is audit completion, with no new game credit or source
+changes. Exact placement, whole-executable identity and boot remain pending.
+
+Deflate.c transfers from parked Gemini to Codex. Its 13/17 existing matches
+must remain. The initial /Ob1 experiment matches fill_window, deflate_fast,
+and deflate_slow but regresses deflateParams/compress2 and leaves stored wrong;
+canonical object/flags are restored. Evidence: scratch/zlib_finish/ob1-valid.log.
+Test the measured inline contexts next; no flags are adopted blindly. Gemini's
+workspace remains untouched; its remaining queue has 45 files.
+
+
 ## Three texture-vector routines recovered
 
 The unchanged referee passes 548/548 game routines / 64,638 B (9.24%), 15.32%
