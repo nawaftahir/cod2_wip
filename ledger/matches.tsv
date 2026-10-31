@@ -543,3 +543,4 @@ addr	size	source	symbol	name	tag
 0x00426b80	139	src/radiant/Pmesh.cpp	?Patch_WidthDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_WidthDistanceTo	SUPPORTED
 0x00426c10	127	src/radiant/Pmesh.cpp	?Patch_HeightDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_HeightDistanceTo	SUPPORTED
 0x00426280	410	src/radiant/Pmesh.cpp	?Patch_CalcBounds@@YAXPAUpatchMesh_t@@AAY02M1_N@Z	Patch_CalcBounds	SUPPORTED
+0x0046c3e0	299	src/radiant/mru.cpp	?LoadMruInReg@@YAHPAUMRUMENU@@PAD@Z	LoadMruInReg	SUPPORTED

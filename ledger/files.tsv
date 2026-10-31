@@ -53,7 +53,7 @@ src/radiant/drag.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (6/6 stri
 src/radiant/eclass.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant ECLASS.CPP (7/13 string funcs); iw3xo (4/13)
 src/radiant/entity.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (23/28 string funcs); iw3xo (20/28)
 src/radiant/map.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
-src/radiant/mru.cpp	PARTIAL	14	1756	PENDING	PENDING		14 matched; registry loader inventory split pending Codex review
+src/radiant/mru.cpp	VERIFIED	15	2055	PASS	PENDING	research/gemini_review/test_mru_complete.py	
 src/radiant/points.cpp	PARTIAL	4	656	PENDING	PENDING		4 matched; camera layouts and renderer caller group pending
 src/radiant/qe3.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.CPP (10/18 string funcs); iw3xo (6/18)
 src/radiant/select.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (22/39 string funcs); iw3xo (24/39)

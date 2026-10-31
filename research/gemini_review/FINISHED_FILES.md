@@ -1,13 +1,19 @@
 # Finished-file checkpoint
 
-Eleven translation units pass the full normalized code/helper/metadata audits.
+Twelve translation units pass the full normalized code/helper/metadata audits.
 `python3 tools/file_ledger.py` reruns every complete-file proof and writes
 `ledger/files.tsv`; it rejects stale source verification or a failing audit.
 The table covers all 102 game TUs in retail link order. VERIFIED is the track's
 normalized source/code/metadata milestone. Image placement is separately PENDING;
 whole-program SHA identity and boot have not been established.
 
-Newly completed here: KeyValueSelectDlg, CapDialog, DialogThick, LstToolBar,
+MRU is now complete: 15 routines / 2,055 B, with 105 original padding bytes,
+61 import accesses, six literal references and four actual CRT cookie bindings.
+The reviewed registry-loader boundary joins 96+203 into one exact 299-byte
+routine; all inventory bytes are preserved. See research/codex_mru/README.md
+and test_mru_complete.py. The referee and comparison masks are unchanged.
+
+Previously completed here: KeyValueSelectDlg, CapDialog, DialogThick, LstToolBar,
 TextureLayout, EditWnd and RADEditWnd. Existing complete ScaleDialog, NameDlg,
 NewProjDlg and DlgEvent are rechecked against the same fresh linked image.
 

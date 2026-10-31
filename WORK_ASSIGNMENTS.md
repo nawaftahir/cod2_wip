@@ -38,9 +38,9 @@ Only linked referee MATCHes count. Game matched functions/bytes never decrease;
 whole-file same-offset is report-only. Report function %, game-byte % and
 same-offset % separately. No fabricated attempts, source, provenance or ABI.
 
-The owner resumed held-file completion. Eleven audited files are recorded in
+The owner resumed held-file completion. Twelve audited files are recorded in
 ledger/files.tsv. TextureLayout and KeyValueSelect are complete; density/Pmesh
-remainders transferred to Codex. Gemini continues its full reserved queue with
+remainders transferred to Codex. When resumed, Gemini continues its reserved queue with
 individual commits and batch review. Codex seeded hwndEnt[33] in win_ent.cpp;
 Gemini must preserve that shared definition when reconstructing its methods.
 
@@ -50,4 +50,5 @@ Gemini resumes at PatchDialog.cpp, then win_main.cpp, from the reserved TSV;
 its current dirty worktree remains preserved until owner synchronization.
 
 Codex also owns common/texturevecs.cpp as the bounded Pmesh matrix dependency;
-its four-routine TU is the current active reconstruction file.
+its four-routine TU is the next dependency after the completed MRU repair.
+MRU now has all 15 routines / 2,055 B and a complete binding audit.

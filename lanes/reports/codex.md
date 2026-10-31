@@ -1,5 +1,14 @@
 # Codex delivery
 
+MRU is FILE VERIFIED: all 15 routines / 2,055 B, complete source-owned
+helper/metadata/padding audit and actual API/literal/cookie bindings. Restored
+Gemini's real LoadMruInReg body adds one routine / 299 B. Reviewed inventory
+correction joins 96+203 B without losing any bytes or altering the referee.
+Gate 545/545, 8.99% game bytes, 15.23% functions; 12/102 completed-file audits,
+zero failures, unchanged 48 unverified and one order warning. Absolute image
+placement, SHA and GUI boot remain pending. Proof: research/codex_mru/README.md.
+
+
 Restored the three requested assertive helpers at 0x47c4e0 / 128 B,
 0x47c560 / 19 B and 0x47c580 / 12 B: three game rows / 159 B.
 The old same-offset-only deferrals are removed. Source order is unchanged.

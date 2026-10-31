@@ -2356,8 +2356,7 @@ addr	size	tu	evidence
 0x0046c190	257	radiant/mru.cpp	SUPPORTED
 0x0046c2a0	21	radiant/mru.cpp	SUPPORTED
 0x0046c2c0	284	radiant/mru.cpp	SUPPORTED
-0x0046c3e0	96	radiant/mru.cpp	SUPPORTED
-0x0046c440	203	radiant/mru.cpp	SUPPORTED
+0x0046c3e0	299	radiant/mru.cpp	SUPPORTED
 0x0046c510	43	radiant/mru.cpp	SUPPORTED
 0x0046c540	181	radiant/points.cpp	SUPPORTED
 0x0046c600	315	radiant/points.cpp	SUPPORTED

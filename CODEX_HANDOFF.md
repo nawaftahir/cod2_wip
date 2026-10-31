@@ -1,5 +1,30 @@
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
+## MRU repaired and fully audited
+
+The owner asked to finish one Gemini leftover. Restored LoadMruInReg matches
+all 299 retail bytes, independently checked before correcting the false
+96+203-byte split at 0x46c440. All inventoried bytes are preserved; no other
+boundary, referee predicate, mask or flags changed. MRU now passes its entire
+15-routine / 2,055 B audit: owned/helper inventory, all 105 padding bytes,
+61 imports, six literal refs, four CRT cookie bindings and all known callees.
+Proof: research/codex_mru/README.md and test_mru_complete.py.
+
+Gate: 545/545 / 62,859 B (8.99%), 15.23% functions; game denominator 3,578
+because one spurious entry was removed, with 699,591 game bytes unchanged.
+Compiler 2/2 / 35 B, zero failures, unchanged 48 unverified / one warning.
+Twelve of 102 files pass full normalized audits. SHA/placement/boot remain
+unfinished. User takeover gain is 12 routines / 1,455 B.
+
+Texturevecs' first two routines now match 335/335 and 459/459, preserved in
+scratch/texturevecs_repair/axis-v3.cpp, without new ledger credit. The larger
+pair needs real math helpers 0x4897c0/306 and 0x489940/471; target FSINCOS and
+prior C++ 286/306 / +3 remain an explicit blocker, not an ABI workaround.
+DialogInfo's current-stdafx recheck remains 73/66 / +0, needs real Pmesh
+callers; its draft is preserved. Canonical experiments were removed. Gemini
+stays parked, its worktree untouched. Continue the real dependency group next.
+
+
 ## Patch bounds now matched; owner repair continues
 
 The two real distance helpers are published as 8a9a2e3. Patch_CalcBounds now also

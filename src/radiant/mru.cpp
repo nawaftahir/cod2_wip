@@ -219,35 +219,35 @@ BOOL SaveMruInReg(LPMRUMENU lpMruMenu, LPSTR lpszKey)
     return TRUE;
 }
 
-BOOL LoadMruInReg(LPMRUMENU lpMruMenu, LPSTR lpszKey);
+BOOL LoadMruInReg(LPMRUMENU lpMruMenu, LPSTR lpszKey)
+{
+    LPSTR lpTxt;
+    WORD i;
+    HKEY hCurKey;
+    DWORD dwType;
+    lpTxt = (LPSTR)GlobalAllocPtr(GHND, lpMruMenu->wMaxSizeLruItem + 20);
+    if (lpTxt == NULL)
+        return FALSE;
 
+    RegOpenKeyEx(HKEY_CURRENT_USER, lpszKey, 0, KEY_READ, &hCurKey);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    for (i = 0; i < lpMruMenu->wNbLruMenu; i++)
+    {
+        char szEntry[16];
+        DWORD dwSizeBuf;
+        wsprintf(szEntry, "File%lu", (DWORD)i + 1);
+        *lpTxt = '\0';
+        dwSizeBuf = lpMruMenu->wMaxSizeLruItem + 10;
+        RegQueryValueEx(hCurKey, szEntry, NULL, &dwType, (LPBYTE)lpTxt, &dwSizeBuf);
+        *(lpTxt + dwSizeBuf) = '\0';
+        if (*lpTxt == '\0')
+            break;
+        SetMenuItem(lpMruMenu, i, lpTxt);
+    }
+    RegCloseKey(hCurKey);
+    GlobalFreePtr(lpTxt);
+    return TRUE;
+}
 
 typedef enum 
 {

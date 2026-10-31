@@ -1,7 +1,7 @@
 # Codex current run
 
 The owner resumed work to complete held files and publish a reviewable file ledger.
-Eleven files now pass complete normalized code/helper/metadata audits; see
+Twelve files now pass complete normalized code/helper/metadata audits; see
 ledger/files.tsv and research/gemini_review/FINISHED_FILES.md. Continue the
 remaining hard files without changing masks or fabricating caller contexts.
 TextureLayout and KeyValueSelect are complete; next primary target is TexEdit.
@@ -21,7 +21,16 @@ WORK_ASSIGNMENTS.md, lanes/BOARD.tsv and lanes/CODEX_MERGE.md. All 49 files in
 lanes/GEMINI_QUEUE.tsv are exclusive Gemini scope until a reviewed handoff;
 do not reconstruct or change their headers while its checkpoint is active.
 
-## Active bounded dependency: common/texturevecs.cpp
+## Completed reviewed leftover: mru.cpp
+
+The owner asked to finish one Gemini leftover. Restore the held 299-byte
+LoadMruInReg and review its false inventory split at 0x46c440; preserve all
+96+203 bytes. Complete all fifteen routines, imports, literals, cookie binding,
+owned/helper inventory and full regression before FILE VERIFIED. Evidence:
+research/codex_mru and scratch/finish_mru. All 15 / 2,055 B and bindings pass;
+12/102 audited files. No flags or referee changes.
+
+## Next bounded dependency: common/texturevecs.cpp
 
 Pmesh's three real geometry helpers are published at 74d3ac5. Its texture
 projection helper 0x426c90 / 304 B needs the real matrix builder 0x4401d0 / 985 B.
@@ -31,7 +40,13 @@ refrences/KisakCOD/src/radiant/texturevecs.cpp (hints, not authority).
 Retail logs and candidates: .agents/codex/scratch/texturevecs_repair and
 scratch/density_repair. Keep all four original routines in order, assertions
 on real lines, and verify the actual basis table, not a shifted decompile.
-No source or new coverage from this TU is accepted yet.
+First two routines now match 335/335 and 459/459 in axis-v3.log; their source
+is preserved in scratch/texturevecs_repair/axis-v3.cpp, with no new game credit.
+The two larger bodies need real math helpers 0x4897c0/306 and 0x489940/471.
+SinCos includes an FSINCOS sequence; prior C++ candidate is 286/306, first +3.
+Do not repeat that context or add forbidden assembly. DialogInfo was separately
+rechecked with stdafx: ShowInfoDialog remains 73/66, first +0, needs real Pmesh
+callers. Its draft is preserved in the same scratch directory.
 
 ## Current primary file: Pmesh dependency repair
 
@@ -46,12 +61,9 @@ owner-authorized priority change to repairing the reviewed delivery.
 
 ## Batch-three hard handoff
 
-Own MRU, CapDialog, points and win_common leftovers now. MRU's registry
-loader source is 299 B, but the inventory splits 96/203 at 0x46c440, whose
-first instruction reads preceding compare flags. Source and disassembly are
-in .agents/gemini_review/scratch/batch3_review; no inventory changes shipped.
-CapDialog needs generated-helper/RTTI work and the 13-byte strlen helper's
-proper classification. Points Next/Prev require the actual shared camera/main
+MRU and CapDialog are now FILE VERIFIED; their full proofs are registered
+in tools/file_ledger.py. MRU's reviewed split preserves all 299 loader bytes;
+do not repeat the old inventory blocker. Points Next/Prev require the actual shared camera/main
 window layouts, not the delivery's conflicting simplified classes; Draw needs
 the real renderer caller group. Windows enumeration has five held dependencies.
 

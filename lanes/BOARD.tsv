@@ -39,7 +39,7 @@ src/radiant/TextureBar.cpp	cheap	open	gemini	15	1608	0	0	iw3xo (2/2)
 src/radiant/UNKNOWN_00425080.cpp	cheap	open	gemini	22	1655	0	1	Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
 src/zlib/inflate.c	cheap	open	gemini	8	1750	4	1	none: from make show
 src/universal/win_common.cpp	codex	partial	codex	11	1951	6	0	6 matched; five enumeration/path dependency drafts held
-src/radiant/mru.cpp	codex	partial	codex	16	2055	14	6	14 matched; registry loader inventory split pending Codex review
+src/radiant/mru.cpp	codex	merged	codex	15	2055	15	6	FILE VERIFIED: 15 / 2055 B; complete Win32/CRT/data audit; reviewed loader split 96+203=299 B; placement pending
 src/universal/linearmapping.cpp	cheap	open	gemini	6	2119	0	5	none: from make show
 src/radiant/draw.cpp	cheap	open	gemini	12	2150	0	2	none: from make show
 src/radiant/vertsel.cpp	cheap	open	gemini	8	2272	0	2	Q3Radiant VERTSEL.CPP (3/3 string funcs)

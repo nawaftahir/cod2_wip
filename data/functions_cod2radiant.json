@@ -14145,13 +14145,7 @@
   {
    "name": "FUN_0046c3e0",
    "addr": "0x0046c3e0",
-   "size": 96,
-   "thunk": false
-  },
-  {
-   "name": "FUN_0046c440",
-   "addr": "0x0046c440",
-   "size": 203,
+   "size": 299,
    "thunk": false
   },
   {

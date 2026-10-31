@@ -16,6 +16,7 @@ CHECKS = (
     ('test_keyvalue_complete.py', None, ('KeyValueSelectDlg',)),
     ('test_finished_small.py', None, ('CapDialog', 'DialogThick', 'LstToolBar')),
     ('test_editor_completion.py', None, ('EditWnd', 'RADEditWnd')),
+    ('test_mru_complete.py', None, ('mru',)),
 )
 
 def read(path):
