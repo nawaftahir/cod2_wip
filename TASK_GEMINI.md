@@ -3,19 +3,23 @@
 Read the root CLAUDE.md first. lanes/BOARD.tsv owns file assignments;
 lanes/GEMINI_QUEUE.tsv is the complete current 45-file reserved queue.
 
-## Current owner takeover
+## Current worker run
 
-The owner parked Gemini and assigned its corrections to Codex. Original commits,
-all scratch candidates and dirty source/configuration are preserved. The existing
-.agents/gemini worktree is not synchronized; never reset or overwrite it or merge
-main yourself. Codex handles synchronization before the next worker run.
+The owner resumed Gemini on 2026-11-01. Keep using .agents/gemini; its active
+source and unmerged history are preserved. Do not reset, overwrite or merge
+main into this dirty worker. Codex reviews committed snapshots independently.
 
-Codex recovered four real routines / 240 B in each density dialog and three real
-Pmesh bounds/distance helpers / 676 B. Combined main is 544 game matches / 62,560 B
-(8.94%), with eleven fully audited files. Density OnOK callbacks remain pending.
-Pmesh, both density files, ZWnd.cpp, z.cpp and common/texturevecs.cpp now belong to Codex. Do not redo them.
+Read research/gemini_review/REVIEW_0cfaf5b.md in the root tree. The cleanup is
+useful but the older density/ZWnd source still fails the shared-type/ABI rules.
+Do not redo those Codex-owned files. Fix the active PatchDialog draft first:
+no auto_inline suppression, correct stdafx.h context, shared CTextureLayout and
+Pmesh type proposals with target evidence, and actual whole-file audit results.
 
-## Work when resumed
+Main is 548 game matches / 64,638 B (9.24%), with 13 fully audited files.
+Pmesh, both density files, ZWnd.cpp, z.cpp, common/texturevecs.cpp and deflate.c
+belong to Codex. Keep unverified bodies in scratch and commit only proved rows.
+
+## Current queue
 
 Start PatchDialog.cpp, then win_main.cpp, then continue through the entire
 reserved TSV in order. One active TU and one source commit per file. Codex can
