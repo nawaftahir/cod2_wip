@@ -1,0 +1,18 @@
+{
+  "binaries/CoD2Radiant.exe": {
+    "size": 1794048,
+    "sha256": "b6fc8cff6bbfa06b262e6e499022748517646a0aa3f7b2344ba96c9b59616bb8"
+  },
+  "/home/nawaf/cod2/test/dev/refrences/iw3xo-radiant/assets/bin/IW3xRadiant.exe": {
+    "size": 4349952,
+    "sha256": "9806acda4d4a6660d920ac3ddf5f74028bff03a91cbb170c4b70b6c23439b237"
+  },
+  "/home/nawaf/cod2/test/dev/refrences/KisakCOD/src/radiant/patchdialog.cpp": {
+    "size": 42850,
+    "sha256": "0c180bc5f4ccf002032141f19424a61a81fca2d17e7627e49906d042d0d70743"
+  },
+  "/home/nawaf/cod2/test/dev/refrences/iw3xo-radiant/src/game/structs.hpp": {
+    "size": 90496,
+    "sha256": "d402102cdc1ef020ab30cbdd025b930c0df1d4b83cc8cb2f048fc8d47930e0f8"
+  }
+}

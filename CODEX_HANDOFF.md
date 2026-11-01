@@ -1,3 +1,38 @@
+# Latest checkpoint - Codex owns the parked Gemini queue
+
+The owner stopped Gemini for quota and gave its remaining queue/drafts to Codex.
+The .agents/gemini tree, branch and uncommitted files remain untouched. No worker
+agent was spawned. The former 45-file queue is the backlog; PatchDialog is still
+the primary TU, with genuine real-callee/type blockers documented below.
+
+New source: fifteen PatchDialog game routines / 1,391 B plus two real registry
+routines / 260 B in win_main. The shared registry header also binds AdvCurve's
+old FUN_0047a140 call to the actual recovered SaveRegistryInfo. All 552 previous
+matches survive. Both files remain PARTIAL; no new FILE VERIFIED claim.
+
+Fresh referee: 569/569, 68,749/699,591 game B (9.83%), 569/3,578 functions
+(15.90%), zero failures, 44 unverified, one order warning. Compiler ledger:
+3/3 / 69 B; another 35 B of global lifetime code is separately global-object-qualified
+in the partial proof, with no game credit. Same-offset: 26,574/1,794,048 B
+(1.481%), +275 B. The fourteen complete-file proofs remain required unchanged.
+
+BinDiff actually ran: CoD2Radiant versus iw3xo's IW3xRadiant, 5,652 candidate
+pairs; overall similarity 39.63%, confidence 84.24%. These are research hints,
+not coverage. Initial Ghidra analyses hit the bounded time limit. KisakCOD has
+source but no Radiant executable here. Input hashes, exporter, query tool and
+useful/rejected pair reports are in research/codex_refdiff; cached exports and
+database are in .agents/codex/scratch/bindiff_takeover. Ghidra project paths
+must avoid hidden .agents components; projects are in root scratch.
+
+research/codex_patchdialog/README.md records the real best results and saved
+candidates. Three additional passing bodies are held with their 199/199 B
+(98%, +0xaf) row-update dependency. Spinners and its notification match with
+the real 262/261 B texture-info candidate, which needs the actual 416/336/328 B
+rotation/scale/shift group. No fake callee or forced noinline is accepted.
+The explicit TextureLayout destructor trial changes helper bytes and ownership;
+reject it. Do not repeat the exhausted arithmetic/type-context sweep. Shared
+qv/QEGlobals shapes inferred from later references remain hypotheses here.
+
 # Latest checkpoint - two-file run complete
 
 CameraTargetDlg and deflate.c are FILE VERIFIED under normalized code/metadata

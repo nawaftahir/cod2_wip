@@ -46,10 +46,10 @@ src/radiant/vertsel.cpp	cheap	open	codex	8	2272	0	2	Q3Radiant VERTSEL.CPP (3/3 s
 src/radiant/Radiant.cpp	cheap	open	codex	15	2465	0	2	Q3Radiant Radiant.cpp (1/1 string funcs)
 src/radiant/win_qe3.cpp	cheap	partial	codex	23	2628	4	1	Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
 src/universal/splines/math_vector.cpp	cheap	open	codex	33	2742	2	11	Q3Radiant splines.h (3/3 string funcs); iw3xo (1/3)
-src/radiant/PatchDialog.cpp	cheap	partial	codex	28	2793	0	3	Codex takeover: preserved Gemini draft; Kisak/iw3xo comparison, proper shared types and complete TU proof required
+src/radiant/PatchDialog.cpp	cheap	partial	codex	28	2793	15	3	15 game / 1391 B; class, scalar/lifetime, RTTI, message map audit; eight authored entries / 1203 B and globals/callees pending; research/codex_patchdialog
 src/radiant/GfxWrapper.cpp	cheap	open	codex	31	3126	0	0	Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
 src/common/texturevecs.cpp	codex	partial	codex	4	3319	3	2	3 / 1779 B matched; 216-byte basis and assertion bindings audited; inverse and external math definitions pending; PARTIAL
-src/radiant/win_main.cpp	cheap	open	codex	21	3498	0	2	Q3Radiant Win_main.cpp (5/7 string funcs); iw3xo (2/7)
+src/radiant/win_main.cpp	cheap	partial	codex	21	3498	2	2	2 game / 260 B: real Save/LoadRegistryInfo; CoD2 key and return flow pinned; 19 original entries remain; research/codex_patchdialog
 src/libs/cmdlib/cmdlib.cpp	cheap	open	codex	40	3505	0	7	Q3Radiant splines.cpp (1/8 string funcs)
 src/radiant/VehicleDlg.cpp	cheap	open	codex	77	3696	0	1	Q3Radiant DRAG.CPP (1/52 string funcs); iw3xo (1/52)
 src/radiant/csg.cpp	cheap	open	codex	12	3984	0	5	Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)

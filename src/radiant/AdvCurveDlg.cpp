@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "win_main.h"
 #include <math.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -263,7 +264,6 @@ void CAdvCurveEditDlg::OnCancel()
     ::PostMessageA(g_curveParent->m_hWnd, WM_COMMAND, 0x816a, 0);
 }
 
-bool FUN_0047a140(const char *name, const BYTE *data, DWORD size);
 
 void CAdvCurveEditDlg::OnDestroy()
 {
@@ -272,7 +272,7 @@ void CAdvCurveEditDlg::OnDestroy()
     HWND window = GetSafeHwnd();
     placement.length = sizeof(placement);
     if (::GetWindowPlacement(window, &placement))
-        FUN_0047a140("Radiant::AdvCurveDlgPlace", (const BYTE *)&placement, sizeof(placement));
+        SaveRegistryInfo("Radiant::AdvCurveDlgPlace", &placement, sizeof(placement));
 }
 
 LRESULT CALLBACK FUN_00401860(HWND window, UINT message, WPARAM wparam, LPARAM lparam)

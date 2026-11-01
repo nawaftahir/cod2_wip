@@ -1,0 +1,2 @@
+0x00424d50 ?UpdateRowColInfo@CPatchDialog@@IAEXXZ MISMATCH 98%, sizes 199/199, first difference at +0xaf
+0x00424e30 ?OnApply@CPatchDialog@@IAEXXZ MISMATCH 61%, sizes 208/213, first difference at +0x11

@@ -1,0 +1,29 @@
+0x004244b0 211 ??1CPatchDialog@@UAE@XZ MATCH at 0x004048f0
+0x00424590 371 ??0CPatchDialog@@QAE@PAVCWnd@@@Z MATCH at 0x004049d0
+0x00424710 34 ??_GCPatchDialog@@UAEPAXI@Z MATCH at 0x00404b50
+0x00424740 355 ?DoDataExchange@CPatchDialog@@UAEXPAVCDataExchange@@@Z MATCH at 0x00404b80
+0x004248b0 6 ?GetMessageMap@CPatchDialog@@MBEPBUAFX_MSGMAP@@XZ MATCH at 0x00404cf0
+0x004248c0 30 ?OnBtnPatchdetails@CPatchDialog@@QAEXXZ MATCH at 0x00404d00
+0x004248e0 31 ?OnBtnPatchfit@CPatchDialog@@QAEXXZ MATCH at 0x00404d20
+0x00424900 30 ?OnBtnPatchnatural@CPatchDialog@@QAEXXZ MATCH at 0x00404d40
+0x00424920 133 ?OnBtnPatchreset@CPatchDialog@@QAEXXZ MISMATCH 67%, sizes 168/133, first difference at +0x60
+0x004249b0 89 ??1CTextureLayout@@UAE@XZ MATCH at 0x00404e10
+0x00424a10 10 ?OnSelchangeComboCol@CPatchDialog@@QAEXXZ MATCH at 0x00404e70
+0x00424a20 10 ?OnSelchangeComboCol@CPatchDialog@@QAEXXZ MATCH at 0x00404e70
+0x00424a30 1 ?OnSelchangeComboType@CPatchDialog@@QAEXXZ MATCH at 0x00404e90
+0x00424a40 12 ?OnOK@CPatchDialog@@UAEXXZ MATCH at 0x00404ea0
+0x00424a50 40 ??_GCPatchDialog@@UAEPAXI@Z MISMATCH 35%, sizes 34/40, first difference at +0x3
+0x00424a80 135 ?OnInitDialog@CPatchDialog@@UAEHXZ MATCH at 0x00404ee0
+0x00424b10 321 ?GetPatchInfo@CPatchDialog@@QAEXXZ MATCH at 0x00404f70
+0x00424c60 1 ?OnSelchangeComboType@CPatchDialog@@QAEXXZ MATCH at 0x00404e90
+0x00424c70 121 ?DoPatchInspector@@YAXXZ MATCH at 0x004050d0
+0x00424cf0 20 ?UpdatePatchInspector@@YAXXZ MATCH at 0x00405150
+0x00424d10 62 ?OnDestroy@CPatchDialog@@QAEXXZ MATCH at 0x00405170
+0x00424d50 199 ?UpdateRowColInfo@CPatchDialog@@QAEXXZ MISMATCH 86%, sizes 197/199, first difference at +0x27
+0x00424e20 5 ?UpdateInfo@CPatchDialog@@QAEXXZ MATCH at 0x00405280
+0x00424e30 213 ?OnApply@CPatchDialog@@QAEXXZ MISMATCH 60%, sizes 208/213, first difference at +0x11
+0x00424f10 277 ??0CPatchDialog@@QAE@PAVCWnd@@@Z MISMATCH 33%, sizes 371/277, first difference at +0x3
+0x00425030 30 ?SetRange@CSpinButtonCtrl@@QAEXFF@Z MATCH at 0x004048d0
+0x00425050 16 ??0CSpinButtonCtrl@@QAE@XZ MATCH at 0x004048a0
+0x00425060 30 ??_GCSpinButtonCtrl@@UAEPAXI@Z MATCH at 0x004048b0
+OWNED ['?GetCurSel@CComboBox@@QBEHXZ', '?AddString@CComboBox@@QAEHPBD@Z', '?ResetContent@CComboBox@@QAEXXZ', '??0CSpinButtonCtrl@@QAE@XZ', '??_GCSpinButtonCtrl@@UAEPAXI@Z', '??_ECSpinButtonCtrl@@UAEPAXI@Z', '?SetRange@CSpinButtonCtrl@@QAEXFF@Z', '??1CPatchDialog@@UAE@XZ', '??0CPatchDialog@@QAE@PAVCWnd@@@Z', '??_GCPatchDialog@@UAEPAXI@Z', '??_ECPatchDialog@@UAEPAXI@Z', '?DoDataExchange@CPatchDialog@@UAEXPAVCDataExchange@@@Z', '?GetMessageMap@CPatchDialog@@MBEPBUAFX_MSGMAP@@XZ', '?OnBtnPatchdetails@CPatchDialog@@QAEXXZ', '?OnBtnPatchfit@CPatchDialog@@QAEXXZ', '?OnBtnPatchnatural@CPatchDialog@@QAEXXZ', '?OnBtnPatchreset@CPatchDialog@@QAEXXZ', '??1CTextureLayout@@UAE@XZ', '?OnSelchangeComboCol@CPatchDialog@@QAEXXZ', '?OnSelchangeComboRow@CPatchDialog@@QAEXXZ', '?OnSelchangeComboType@CPatchDialog@@QAEXXZ', '?OnOK@CPatchDialog@@UAEXXZ', '?OnDeltaposSpin@CPatchDialog@@QAEXPAUtagNMHDR@@PAJ@Z', '?OnInitDialog@CPatchDialog@@UAEHXZ', '?GetPatchInfo@CPatchDialog@@QAEXXZ', '?SetPatchInfo@CPatchDialog@@QAEXXZ', '?DoPatchInspector@@YAXXZ', '?UpdatePatchInspector@@YAXXZ', '?OnDestroy@CPatchDialog@@QAEXXZ', '?UpdateRowColInfo@CPatchDialog@@QAEXXZ', '?UpdateInfo@CPatchDialog@@QAEXXZ', '?OnApply@CPatchDialog@@QAEXXZ', '?UpdateSpinners@CPatchDialog@@QAEX_NH@Z', '?Format@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAAXPBDZZ', '?FormatV@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEXPBDPAD@Z', '?GetFormattedLength@?$ChTraitsCRT@D@ATL@@SAHPBDPAD@Z', '?Format@?$ChTraitsCRT@D@ATL@@SAHPADPBD0@Z', '_$E2']
