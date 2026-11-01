@@ -102,7 +102,7 @@ for name, expected in copyrights:
     print('DATA diagnostic', name, 'retail exact index', retail.__data__.find(expected + b'\0'),
           'retail partial index', retail.__data__.find(b'inflate 1.1.4'),
           'candidate', string(image.pe, ours), flush=True)
-    assert expected + b'\0' in retail.__data__, (name, 'retail copyright')
+    assert retail.__data__.find(expected + b'\0') >= 0, (name, 'retail copyright')
     print('PASS:', name, 'retail/candidate constant match')
 
 # The actual linked zlib version string should be backed by the source object,
