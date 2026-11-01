@@ -1,0 +1,5 @@
+addr	symbol
+0x004b0180	_inflateEnd
+0x004b02d0	_inflateInit_
+0x004b02e0	_inflate
+0x004b0820	_inflateSyncPoint

@@ -1,2 +1,2 @@
-source	draft
-src/zlib/inflate.c	research/web/drafts/inflate.c
+source	draft	flags
+src/zlib/inflate.c	research/web/drafts/inflate.c	/O2 /GS /GL /Ob1

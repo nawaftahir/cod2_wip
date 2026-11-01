@@ -31,7 +31,8 @@ def read_rows(path):
 
 def target():
     rows = read_rows(TARGET)
-    assert len(rows) == 1 and set(rows[0]) == {'source', 'draft'}, 'target.tsv needs one source/draft row'
+    assert len(rows) == 1 and set(rows[0]) in ({'source', 'draft'}, {'source', 'draft', 'flags'}), \
+        'target.tsv needs one source/draft row, with optional flags'
     row = rows[0]
     assert row['source'].startswith('src/') and '..' not in row['source'], row
     assert row['draft'].startswith('research/web/drafts/') and '..' not in row['draft'], row
@@ -71,10 +72,17 @@ def main():
     saved = source.read_bytes() if source.exists() else None
     symbols = Path('data/symbols.tsv')
     saved_symbols = symbols.read_bytes()
+    flags_path = Path('data/flags.tsv')
+    saved_flags = flags_path.read_bytes()
     results = []
     try:
         source.parent.mkdir(parents=True, exist_ok=True)
         source.write_bytes(draft.read_bytes())
+        if cfg.get('flags'):
+            lines = saved_flags.decode().splitlines()
+            flags_path.write_text(lines[0] + '\n' + cfg['source'] + '\t' + cfg['flags'] + '\n' +
+                                  '\n'.join(lines[1:]) + '\n')
+            print('trial flags', cfg['source'], cfg['flags'], flush=True)
         with symbols.open('a') as f:
             for row in rows:
                 f.write(row['addr'] + '\t' + row['symbol'] + '\tisolated generic web TU trial\n')
@@ -118,6 +126,7 @@ def main():
         return 0 if all(r['status'] == 'MATCH' for r in results if r['mode'] == 'request') else 1
     finally:
         symbols.write_bytes(saved_symbols)
+        flags_path.write_bytes(saved_flags)
         if saved is None:
             source.unlink(missing_ok=True)
         else:
