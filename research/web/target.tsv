@@ -1,2 +1,2 @@
-source	draft	flags
-src/zlib/inflate.c	research/web/drafts/inflate.c	/O2 /GS /GL /Ob1
+source	draft
+src/universal/splines/math_quaternion.cpp	research/web/drafts/math_quaternion.cpp
