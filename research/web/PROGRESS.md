@@ -183,3 +183,43 @@ With the corrected address-taken model, the hosted web trial verifies 584/584 ga
 ## Complete-file proof
 
 A dedicated FindTexture proof is now registered with the file ledger. It covers the 15 exact game routines / 1,013 B, scalar helper, 86-slot CDialog RTTI/vtable, three message callbacks, retail TU padding, registry literal, constructor EH/unwind tables, g_bFindActive initialization, the g_dlgFind reference initializer, and the global constructor/destructor lifetime routines. The existing CName proof is adjusted only for an LTCG ownership fact exposed by adding this earlier TU: generated destructor aliases may be owned by another object, while all CName game symbols and generated symbols remain required and their existing byte/RTTI checks remain unchanged.
+
+## 2026-11-01 — fresh CI audit of complete-file claim
+
+Checked branch commit `38d6398ca0c6273d3101c884b1de00b4028a02ca`
+(run https://github.com/nawaftahir/cod2radiant/actions/runs/41310169673)
+and later `4780358c6c9ea88ab2cd9be3d39f7f2d55b1f2b1`
+(run https://github.com/nawaftahir/cod2radiant/actions/runs/41310427143).
+
+- The **unchanged full retail referee passes 584/584 game rows**,
+  69,762 of 699,591 game bytes (9.97%), and all 4/4 compiler rows. The
+  fifteen unique FindTexture game rows / 1,013 B are included. No new
+  FindTexture source was needed; the canonical C++ and header are already
+  present and must not be rewritten without target-driven evidence.
+- **FILE VERIFIED is not yet established.** The complete-file gate fails in
+  `research/web/test_findtexture_complete.py` while its shared
+  `dialog(...)` helper recursively validates an unregistered external callee:
+  `AssertionError: ('0x473940', '$L187386')`. The failure occurs inside
+  `blob()` when comparing a retail call target whose address is absent from
+  `known_names()`, so the helper tries to compare the other function's
+  implementation by bytes. Both retail callers are demonstrably in this TU:
+  `OnBtnApply` 0x0040fe10 calls 0x00473940 at +0x54, and
+  `OnOK` 0x0040fe80 calls 0x00473940 at +0x54. The authored source calls
+  `FindReplaceTextures`; the complete 97 B and 104 B dialog caller
+  functions themselves pass the canonical referee.
+- **Owner/Codex dependency:** confirm the external callee identity against
+  retail's code/callers and the linked map, then add an owner-reviewed
+  `data/symbols.tsv` binding and a narrow audit binding check if justified.
+  Alternatively reconstruct that callee in its actual owner TU. Do not
+  mask the call, weaken the audit, add dummy wrappers, or claim complete-file
+  verification from the passing caller rows alone. The web worker's allowed
+  edit scope excludes shared audit, symbols, and other source TUs.
+- The current `web-trial` CI job runs the generic xmodel request because
+  `research/web/target.tsv` exists. Its 0x004acb70 / 193-vs-191 B
+  mismatch at +0xa2 is **unrelated** to FindTexture. The proper
+  FindTexture `research/web/trial.tsv` still requests the exact proven
+  `isOpen` BOOL symbol but is not the active CI selector.
+- At this commit, FindTexture remains **PARTIAL for metadata/whole-file
+  proof**, despite fifteen exact authored functions. Whole-image SHA and GUI
+  boot remain pending. Avoid changing the 15 verified bodies to satisfy an
+  unrelated proof dependency.
