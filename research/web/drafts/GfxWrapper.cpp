@@ -10,5 +10,5 @@ extern "C" void FUN_00410240() {}
 extern "C" void FUN_00410260() {}
 extern "C" void FUN_00410270() {}
 extern "C" void FUN_00410280() {}
-extern "C" bool FUN_00410210() { return false; }
-extern "C" bool FUN_004103f0() { return false; }
+extern "C" int FUN_00410210() { return 0; }
+extern "C" int FUN_004103f0() { return 0; }
