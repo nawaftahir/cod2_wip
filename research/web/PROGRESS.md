@@ -102,3 +102,7 @@ used.
 
 Only 0x410000 is requested, with the restored Q3 source. This reruns the earlier
 setter isolation without overlapping Actions, so its result is usable.
+
+## Web CI diagnostic update
+
+Owner authorized web-branch CI changes to make reconstruction feedback actionable. The web branch no longer cancels an in-flight web run when the next web commit arrives; main/PR cancellation behavior is unchanged. tools/web_trial.py now adds a diagnostic-only instruction diff to the log, JSON and summary. The existing referee, relocation masks, thresholds, baseline and MATCH decision remain untouched.

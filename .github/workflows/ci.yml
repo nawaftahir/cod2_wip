@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: radiant-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/heads/web/') }}
 
 env:
   IMAGE: ghcr.io/nawaftahir/cod2-radiant-msvc71@sha256:be71e0d2b7f7e51a873c472e81872d0aa125a4fe5b2a4522bf8abb247b45008f

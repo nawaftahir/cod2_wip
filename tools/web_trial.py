@@ -3,6 +3,7 @@
 import csv
 import io
 import json
+import difflib
 import os
 from pathlib import Path
 import sys
@@ -62,11 +63,34 @@ def main():
                 print('\n', result, file=out)
                 target, _ = v.matcher.carve(row['addr'])
                 bodies = [('retail', int(row['addr'], 16), target)]
-                if row['symbol'] in image.syms: bodies.append(('candidate', *image.code(row['symbol'])))
+                if row['symbol'] in image.syms:
+                    bodies.append(('candidate', *image.code(row['symbol'])))
+
+                disassembled = {}
                 for label, start, code in bodies:
+                    insns = list(md.disasm(code, start))
+                    disassembled[label] = insns
                     print(label, hex(start), len(code), file=out)
-                    for ins in md.disasm(code, start):
+                    for ins in insns:
                         print(hex(ins.address-start), ins.bytes.hex(), ins.mnemonic, ins.op_str, file=out)
+
+                # Diagnostic-only instruction diff. Never affects MATCH/MISMATCH.
+                if 'candidate' in disassembled:
+                    def norm(insns, start):
+                        return ['+0x%x  %-7s %s' % (ins.address-start, ins.mnemonic, ins.op_str)
+                                for ins in insns]
+                    rstart = int(row['addr'], 16)
+                    cstart = image.syms[row['symbol']]
+                    rd = norm(disassembled['retail'], rstart)
+                    cd = norm(disassembled['candidate'], cstart)
+                    diff = list(difflib.unified_diff(rd, cd, fromfile='retail', tofile='candidate', lineterm=''))
+                    result['instruction_diff'] = diff
+                    if diff:
+                        print('instruction diff:', flush=True)
+                        for line in diff[:80]:
+                            print(line, flush=True)
+                        print('instruction diff', file=out)
+                        print('\n'.join(diff), file=out)
         return 0 if all(r['status'] == 'MATCH' for r in results) else 1
     finally:
         symbols.write_bytes(saved_symbols)
@@ -78,6 +102,11 @@ def main():
                  '| Retail | Symbol | Result | Detail |', '|---|---|---|---|']
         for r in results:
             lines.append('| ' + ' | '.join(r[k] for k in ('addr', 'symbol', 'status', 'detail')) + ' |')
+            diff = r.get('instruction_diff') or []
+            if diff:
+                lines += ['', '### ' + r['addr'] + ' instruction diff', '', '```diff']
+                lines += diff[:80]
+                lines += ['```']
         if not results: lines.append('\nBuild/request failed; read the job log.')
         summary.write_text('\n'.join(lines) + '\n')
 
