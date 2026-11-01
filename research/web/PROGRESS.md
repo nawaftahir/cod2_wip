@@ -67,3 +67,9 @@ Only 0x410000 setReplaceStr is requested. The source is unchanged from the
 matching twin setFindStr except for the retail-proven CString member offset
 (+0x78 instead of +0x74). This checks whether its prior stack-argument body was
 also an artifact of requesting the whole caller/callee group at once.
+
+## Trial 5 queued — isolate isOpen without source changes
+
+The draft keeps the original Q3 ternary spelling. Only 0x40ff80 is requested.
+This avoids conflating a real source mismatch with the trial harness's temporary
+symbol registration, the same issue already proven for updateTextures.
