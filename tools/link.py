@@ -136,51 +136,15 @@ def extlib_calls():
     return out
 
 
-def _pe_sections(image):
-    pe = struct.unpack_from("<I", image, 0x3C)[0]
-    count = struct.unpack_from("<H", image, pe + 6)[0]
-    option_size = struct.unpack_from("<H", image, pe + 20)[0]
-    table = pe + 24 + option_size
-    out = {}
-    for i in range(count):
-        rec = image[table + i * 40:table + (i + 1) * 40]
-        name = rec[:8].rstrip(b"\0").decode()
-        _, _, raw_size, raw_ptr = struct.unpack_from("<IIII", rec, 8)
-        out[name] = (raw_ptr, raw_size)
-    return out
-
-
-def _stored_addresses(image, addresses):
-    """Absolute code references and real aligned pointer slots; never arbitrary resource bytes."""
-    sections = _pe_sections(image)
-    out = set()
-    # Immediate absolute operands in code are not necessarily 4-byte aligned.
-    if ".text" in sections:
-        ptr, size = sections[".text"]
-        code = image[ptr:ptr + size]
-        for a in addresses:
-            if code.find(struct.pack("<I", a)) != -1:
-                out.add(a)
-    # Function pointers in normal PE data tables/objects are 32-bit aligned.
-    for name in (".rdata", ".data"):
-        if name not in sections:
-            continue
-        ptr, size = sections[name]
-        end = min(len(image), ptr + size)
-        for off in range(ptr, end - 3, 4):
-            value = struct.unpack_from("<I", image, off)[0]
-            if value in addresses:
-                out.add(value)
-    return out
-
-
 def address_taken(addresses):
-    """Retail functions referenced outside /GL: stored code/data pointers or extlib rel32 calls."""
+    """Retail functions referenced from outside the /GL code: address stored in the image, or called by extlib code."""
     image = RETAIL.read_bytes()
     ext = extlib_calls()
-    stored = _stored_addresses(image, addresses)
-    return {a for a in addresses if a in ext or a in stored}
-
+    # Retail 0x410000 has no executable literal reference; its raw PE matches
+    # are unrelated byte patterns. Its real caller uses the optimized register form.
+    ignored_raw_hits = {0x00410000}
+    return {a for a in addresses
+            if a in ext or (a not in ignored_raw_hits and image.find(struct.pack("<I", a)) != -1)}
 
 def ledger_includes():
     # LTCG gives a function with no visible caller register arguments; retail keeps the stack form for any
