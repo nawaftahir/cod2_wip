@@ -119,3 +119,13 @@ updateTextures (0x40fc60) is proven exact in the correct caller context but stay
 draft-only because it calls the still-unmatched setReplaceStr. isOpen
 (0x40ff80) and setReplaceStr (0x410000) remain draft-only. This avoids putting
 an unmatched body into canonical source merely to satisfy a dependency.
+
+## Observe-only LTCG diagnostic
+
+The web trial now supports research/web/observe.tsv. Observe rows are compared
+after the same build but are not appended to data/symbols.tsv and do not control
+the job exit status. This lets us inspect a callee without changing the very
+caller/LTCG context we are trying to reproduce.
+
+The next build requests only updateTextures (already proven exact in that
+context) and observes isOpen + setReplaceStr without registering them.

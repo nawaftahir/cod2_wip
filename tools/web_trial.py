@@ -13,6 +13,7 @@ import verify as v
 SOURCE = 'src/radiant/FindTextureDlg.cpp'
 DRAFT = 'research/web/drafts/FindTextureDlg.cpp'
 REQUEST = 'research/web/trial.tsv'
+OBSERVE = 'research/web/observe.tsv'
 
 
 def requests(text):
@@ -29,6 +30,7 @@ def requests(text):
 def main():
     os.chdir(v.BASE)
     draft, request, source = Path(DRAFT), Path(REQUEST), Path(SOURCE)
+    observe = Path(OBSERVE)
     Path('build').mkdir(exist_ok=True)
     summary = Path('build/web-trial.md')
     if not draft.exists() and not request.exists():
@@ -37,6 +39,8 @@ def main():
         return 0
     assert draft.is_file() and not draft.is_symlink() and request.is_file(), 'Supply both draft and trial.tsv'
     rows = requests(request.read_text())
+    observed = requests(observe.read_text()) if observe.exists() else []
+    assert not ({r['addr'] for r in rows} & {r['addr'] for r in observed}), 'Do not request and observe the same retail address'
     saved = source.read_bytes() if source.exists() else None
     symbols = Path('data/symbols.tsv')
     saved_symbols = symbols.read_bytes()
@@ -52,12 +56,12 @@ def main():
         assert v.verify_all(), 'Existing ledger regressed or compilation failed'
         image = v.Linked()
         names = v.known_names()
-        names.update({int(r['addr'], 16): r['symbol'] for r in rows})
+        names.update({int(r['addr'], 16): r['symbol'] for r in rows + observed})
         md = v.matcher.Cs(v.matcher.CS_ARCH_X86, v.matcher.CS_MODE_32)
         with Path('build/web-trial-assembly.txt').open('w') as out:
-            for row in rows:
+            for row in rows + observed:
                 status, detail = v.check(image, row['addr'], row['symbol'], names)
-                result = dict(row, status=status, detail=detail)
+                result = dict(row, status=status, detail=detail, mode=('request' if row in rows else 'observe'))
                 results.append(result)
                 print(row['addr'], row['symbol'], status, detail, flush=True)
                 print('\n', result, file=out)
@@ -91,7 +95,7 @@ def main():
                             print(line, flush=True)
                         print('instruction diff', file=out)
                         print('\n'.join(diff), file=out)
-        return 0 if all(r['status'] == 'MATCH' for r in results) else 1
+        return 0 if all(r['status'] == 'MATCH' for r in results if r['mode'] == 'request') else 1
     finally:
         symbols.write_bytes(saved_symbols)
         if saved is None: source.unlink(missing_ok=True)
@@ -99,9 +103,9 @@ def main():
         Path('build/web-trial.json').write_text(json.dumps(results, indent=2) + '\n')
         lines = ['# Web trial: relocation-normalized function results', '',
                  'This isolated draft is not accepted source or whole-file completion.', '',
-                 '| Retail | Symbol | Result | Detail |', '|---|---|---|---|']
+                 '| Mode | Retail | Symbol | Result | Detail |', '|---|---|---|---|---|']
         for r in results:
-            lines.append('| ' + ' | '.join(r[k] for k in ('addr', 'symbol', 'status', 'detail')) + ' |')
+            lines.append('| ' + ' | '.join(r[k] for k in ('mode', 'addr', 'symbol', 'status', 'detail')) + ' |')
             diff = r.get('instruction_diff') or []
             if diff:
                 lines += ['', '### ' + r['addr'] + ' instruction diff', '', '```diff']
