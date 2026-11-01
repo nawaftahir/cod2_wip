@@ -1,4 +1,5 @@
 addr	symbol
-0x004acb50	?XModelGetName@@YAPBDPBUXModel@@@Z
-0x004acb60	?XModelGetFlags@@YADPBUXModel@@@Z
-0x004acc30	?XModelGetSurfaces@@YAHPBUXModel@@PAPAUXSurface@@HPAPAH@Z
+0x004b0180	_inflateEnd
+0x004b02d0	_inflateInit_
+0x004b02e0	_inflate
+0x004b0820	_inflateSyncPoint
