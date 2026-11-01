@@ -108,7 +108,15 @@ def main():
         # It does not affect verification or game credit.
         locals_e = sorted((s, a) for s, a in image.syms.items() if s.startswith('_$E'))
         print('WEB-LIFETIME candidate locals:', locals_e, flush=True)
-        retail_bytes = v.RETAIL.read_bytes()
+        retail_bytes = v.link.RETAIL.read_bytes()
+        for addr in (0x0040fc60, 0x0040ff80, 0x00410000):
+            needle = struct.pack('<I', addr)
+            hits = []
+            pos = retail_bytes.find(needle)
+            while pos != -1:
+                hits.append(hex(pos))
+                pos = retail_bytes.find(needle, pos + 1)
+            print('WEB-LTCG raw-address hits', hex(addr), hits, flush=True)
         funcs = json.loads(Path('data/functions_cod2radiant.json').read_text())['functions']
         func_ranges = [(int(f['addr'], 16), int(f['size']), f['name']) for f in funcs]
         for target in (0x0040fca0, 0x0040fc10):

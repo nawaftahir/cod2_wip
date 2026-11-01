@@ -165,3 +165,7 @@ After adding the final three proven game rows, the full referee compiled updateT
 ## Diagnostic sequencing fix
 
 The web trial now preserves the exact same referee assertion/exit behavior but constructs the linked-image diagnostic view before asserting the existing ledger. This allows LTCG/lifetime diagnostics to print even when the canonical ledger is the thing under investigation.
+
+## Address-taken false-positive probe
+
+The prior diagnostic proved link.address_taken(0x410000) is true and therefore ledger_includes adds setReplaceStr, even though retail's own body/caller use the LTCG ESI argument convention. The probe now prints every raw occurrence of the three relevant addresses in the retail PE and fixes the lifetime scan to read link.RETAIL. This will distinguish a real code/data pointer from an unrelated resource/byte-pattern hit before changing link.py.
