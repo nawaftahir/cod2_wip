@@ -54,7 +54,7 @@ def main():
             for row in rows:
                 f.write(row['addr'] + '\t' + row['symbol'] + '\tisolated web trial\n')
         # Keep the unchanged full referee; trial extras receive no canonical credit.
-        assert v.verify_all(), 'Existing ledger regressed or compilation failed'
+        existing_ok = v.verify_all()
         image = v.Linked()
         names = v.known_names()
         names.update({int(r['addr'], 16): r['symbol'] for r in rows + observed})
@@ -128,6 +128,7 @@ def main():
             print('WEB-LIFETIME _$E4', hex(start), len(code), code.hex(), flush=True)
             for ins in md.disasm(code, start):
                 print('WEB-LIFETIME', hex(ins.address-start), ins.bytes.hex(), ins.mnemonic, ins.op_str, flush=True)
+        assert existing_ok, 'Existing ledger regressed or compilation failed'
         return 0 if all(r['status'] == 'MATCH' for r in results if r['mode'] == 'request') else 1
     finally:
         symbols.write_bytes(saved_symbols)
