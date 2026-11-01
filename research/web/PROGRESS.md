@@ -30,3 +30,26 @@ setFindStr already matches exactly, and its different codegen can depend on the
 caller/callee optimization context. Only these three symbols are requested.
 
 No new game credit is claimed until the hosted trial reports exact MATCH.
+
+## Trial 2 result — commit 2e1fc85
+
+Hosted web-trial still failed the same caller group. updateTextures stayed 57/53 B
+at 84%; setReplaceStr stayed 85/79 B at 44%. The explicit-return isOpen variant
+became worse (32/36 B, 55%): it compiled to early AL returns and SETNE, while
+retail uses full EAX constants. That source spelling is rejected and the Q3
+ternary is restored.
+
+The paired assembly shows the actionable difference: retail updateTextures calls
+both setFindStr and setReplaceStr with the texture pointer already in ESI.
+Trial 1/2 emits setFindStr in that register form, but setReplaceStr is compiled
+as a normal stack-argument function, forcing `push esi / call / add esp,4` and
+making updateTextures four bytes too long. This is compiler/caller context, not
+a guessed dialog-field difference.
+
+## Trial 3 — isolate the caller
+
+Only updateTextures is requested. setFindStr, setReplaceStr and isOpen remain
+present as its real callees but are not independently appended to data/symbols
+by web_trial.py. This tests whether the trial's temporary symbol registration is
+what suppresses LTCG's register-argument form for setReplaceStr. No source ABI
+annotation or noinline workaround is introduced.
