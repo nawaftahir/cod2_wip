@@ -33,12 +33,24 @@ Numeric offsets in research evidence are fine; executable address casts are not.
 
 ## Compile remotely, inspect the result, then iterate
 
-Use the connected GitHub tools to read and commit files on web/reconstruction.
-If your ChatGPT connection only supports reading, say so immediately: ordinary
-web browsing cannot commit code or run a compiler. Do not pretend to have run
-commands. The branch has the binary, reference text and workflow; the private
-compiler is pulled by GitHub Actions with its repository token. No OpenAI API
-key or local compiler is required for this path.
+The standard ChatGPT GitHub app is read-only. A live test here fetched the
+retail checksum successfully but branch creation returned HTTP 403, "Resource
+not accessible by integration". Do not assume tool names establish permission.
+Official limitation: https://help.openai.com/en/articles/11145903-connecting-github-to-chatgpt
+
+With a separately write-enabled connection, commit only web/reconstruction.
+Otherwise use this working manual handoff: produce complete changed text files
+and a unified diff (or downloadable files if the chat supports downloads). The
+owner commits them in GitHub's web editor on web/reconstruction, then you read
+the resulting Actions logs and iterate. Start the editor at:
+https://github.com/nawaftahir/cod2radiant/edit/web/reconstruction/research/web/PROGRESS.md
+Use the file tree to add/edit the draft, request and assigned header together.
+Do not stop at planning because the app cannot write; produce reviewable source.
+
+The branch has the binary, reference text and workflow. GitHub Actions pulls
+the private compiler with its repository token. No OpenAI API key or local
+compiler is required. Custom MCP write support depends on account/workspace
+permissions; it is not a switch that makes the standard GitHub app writable.
 
 Unmatched source goes in `research/web/drafts/FindTextureDlg.cpp`; a necessary
 new class header may go in `src/radiant/FindTextureDlg.h`. To request a trial,
@@ -51,7 +63,7 @@ addr	symbol
 
 The example symbol is reference-informed: confirm your emitted symbol, rather
 than assuming a method signature. Request one or more original inventory
-addresses, each with its exact candidate decorated symbol. Every branch push
+addresses, each with its exact candidate decorated symbol. Every branch commit/push
 starts the `radiant` workflow. Read BOTH jobs for that exact commit:
 
 - `gate`: canonical source, all existing ledger matches, regression meter,
@@ -102,8 +114,9 @@ Continue this same TU until complete or a documented ownership handoff.
 > Use the GitHub connection for nawaftahir/cod2radiant on web/reconstruction.
 > Read TASK_WEB.md, AGENTS.md and research/web/README.md, then reconstruct your
 > exclusive FindTextureDlg.cpp from its retail evidence and bundled references.
-> Commit a real source draft and trial.tsv, inspect the resulting Actions logs,
-> and iterate toward exact matches. Keep all other files owned by Codex intact.
+> Produce a real source draft and trial.tsv; commit them if write tools work,
+> otherwise give me complete files to commit through GitHub. Inspect the resulting
+> Actions logs and iterate toward exact matches. Keep all other files owned by Codex intact.
 > Follow the complete-file contract; report the tested commit/run and remaining
-> evidence. Do the work, rather than only describing a plan. If write tools or
-> Actions logs are unavailable, state that specific blocker immediately.
+> evidence. Do the work, rather than only describing a plan. State unavailable
+> capabilities honestly and use the manual handoff when the connection is read-only.

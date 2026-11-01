@@ -41,3 +41,10 @@ contains the existing retail anchor but no compiler image or authentication
 secrets. This workflow requires a same-repository branch; fork pull requests
 cannot pull the private compiler. It emits text/JSON evidence, never rebuilt
 binaries or extracted game assets. No API-paid AI job is configured.
+
+Connection check: GitHub file and Actions job reads work; the connected app's
+branch write returned HTTP 403. Ordinary ChatGPT's GitHub app is read-only.
+TASK_WEB.md includes a manual source-file handoff through GitHub's web editor,
+which triggers the same compiler/referee workflow. Account/workspace settings
+for any separate write-capable app must be configured by the owner. See
+https://help.openai.com/en/articles/11145903-connecting-github-to-chatgpt

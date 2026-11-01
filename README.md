@@ -8,6 +8,8 @@ reconstruction is still in progress.
 
 - Contract: [AGENTS.md](AGENTS.md); evidence: [RULES.md](RULES.md).
 - Browser worker: [TASK_WEB.md](TASK_WEB.md), branch `web/reconstruction`.
+  The standard ChatGPT GitHub app is read-only; the task includes a manual
+  source-file handoff that triggers CI.
 - Bundled references and retail disassembly: [research/web](research/web/README.md).
 - CI: pushes to main and web/**, plus same-repository pull requests. Full source
   gate, complete-file audits, logs and summaries; isolated draft comparisons on
