@@ -187,7 +187,7 @@ struct static_tree_desc_s {int dummy;}; /* for buggy compilers */
     zmemzero((Bytef *)s->head, (unsigned)(s->hash_size-1)*sizeof(*s->head));
 
 /* ========================================================================= */
-int ZEXPORT deflateInit_(strm, level, version, stream_size)
+__inline int ZEXPORT deflateInit_(strm, level, version, stream_size)
     z_streamp strm;
     int level;
     const char *version;
@@ -433,7 +433,7 @@ local void flush_pending(strm)
 }
 
 /* ========================================================================= */
-int ZEXPORT deflate (strm, flush)
+__inline int ZEXPORT deflate (strm, flush)
     z_streamp strm;
     int flush;
 {
@@ -1116,7 +1116,28 @@ local block_state deflate_stored(s, flush)
 	    /* strstart == 0 is possible when wraparound on 16-bit machine */
 	    s->lookahead = (uInt)(s->strstart - max_start);
 	    s->strstart = (uInt)max_start;
-            FLUSH_BLOCK(s, 0);
+            /* PINNED: the first stored-block flush copies pending output here. */
+            _tr_flush_block(s, (s->block_start >= 0L ?
+                (charf *)&s->window[(unsigned)s->block_start] : (charf *)Z_NULL),
+                (ulg)((long)s->strstart - s->block_start), 0);
+            s->block_start = s->strstart;
+            {
+                z_streamp strm = s->strm;
+                unsigned len = strm->state->pending;
+                if (len > strm->avail_out) len = strm->avail_out;
+                if (len != 0) {
+                    zmemcpy(strm->next_out, strm->state->pending_out, len);
+                    strm->next_out += len;
+                    strm->state->pending_out += len;
+                    strm->total_out += len;
+                    strm->avail_out -= len;
+                    strm->state->pending -= len;
+                    if (strm->state->pending == 0)
+                        strm->state->pending_out = strm->state->pending_buf;
+                }
+            }
+            Tracev((stderr,"[FLUSH]"));
+            if (s->strm->avail_out == 0) return need_more;
 	}
 	/* Flush if we may have to slide, otherwise block_start may become
          * negative and the data will be gone:

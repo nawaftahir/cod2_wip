@@ -1,3 +1,24 @@
+# Latest checkpoint - two-file run complete
+
+CameraTargetDlg and deflate.c are FILE VERIFIED under normalized code/metadata
+checks, bringing the file ledger to 14/102. Deflate adds four routines / 2,460 B;
+all its 17 routines / 5,938 B pass, including full dispatch/code tables,
+allocator callbacks, referenced data, version/errors/copyright and padding.
+Proof and actual bounded source/compiler trials: research/codex_deflate.
+
+Fresh gate: 552/552 game rows, 67,098/699,591 B (9.59%), 552/3,578 functions
+(15.43%); compiler remains 2/35 B. Unverified decreases 48 to 44, order warnings
+stay one. Same-offset is 26,299/1,794,048 B (1.466%), down 111 B as source moves.
+Whole-executable SHA identity, exact placement and GUI boot remain pending.
+
+Gemini is active again per owner, still in its preserved .agents/gemini tree.
+Latest committed snapshot 0cfaf5b fixes some previously rejected shortcuts but
+has no newly accepted game credit; conflicting types/ABI/context remain.
+Read research/gemini_review/REVIEW_0cfaf5b.md and updated TASK_GEMINI.md.
+PatchDialog and win_main are uncommitted drafts; their read-only snapshots/hashes
+are preserved in scratch/gemini-review-0cfaf5b. Never reset or synchronize the
+active worker. Gemini continues PatchDialog first, then win_main.
+
 # Codex handoff: CoD2Radiant.exe (2026-10-28)
 
 ## Camera-target file fully audited; deflate completion active

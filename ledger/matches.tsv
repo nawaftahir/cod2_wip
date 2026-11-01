@@ -547,3 +547,7 @@ addr	size	source	symbol	name	tag
 0x0043f8a0	335	src/common/texturevecs.cpp	?TextureAxisFromPlane@@YAXQBMQAM1@Z	TextureAxisFromPlane	SUPPORTED
 0x0043f9f0	459	src/common/texturevecs.cpp	?TextureVecsForNormal@@YAXQBMQAM1PAH2@Z	TextureVecsForNormal	SUPPORTED
 0x004401d0	985	src/common/texturevecs.cpp	?BuildTextureVecs@@YAXQBM00MMQAY03M@Z	BuildTextureVecs	SUPPORTED
+0x004adfa0	279	src/zlib/deflate.c	_fill_window	fill_window	SUPPORTED
+0x004ae0c0	433	src/zlib/deflate.c	_deflate_stored	deflate_stored	SUPPORTED
+0x004ae280	758	src/zlib/deflate.c	_deflate_fast	deflate_fast	SUPPORTED
+0x004ae580	990	src/zlib/deflate.c	_deflate_slow	deflate_slow	SUPPORTED

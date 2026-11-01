@@ -18,6 +18,7 @@ CHECKS = (
     ('test_editor_completion.py', None, ('EditWnd', 'RADEditWnd')),
     ('test_mru_complete.py', None, ('mru',)),
     ('test_camera_complete.py', None, ('cameratargetdlg',)),
+    ('research/codex_deflate/test_complete.py', None, ('src/zlib/deflate.c',)),
 )
 
 def read(path):
@@ -40,13 +41,13 @@ def main():
     proofs = {}
     log = []
     for script, mode, files in CHECKS:
-        command = [sys.executable, 'research/gemini_review/' + script]
+        command = [sys.executable, script if script.startswith('research/') else 'research/gemini_review/' + script]
         if mode: command.append(mode)
         run = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
         log += ['$ ' + ' '.join(command), run.stdout, run.stderr]
         (ROOT / 'build/file-ledger-audit.log').write_text('\n'.join(log))
         assert run.returncode == 0, 'File audit failed: ' + script
-        for name in files: proofs['src/radiant/' + name + '.cpp'] = ' '.join(command[1:])
+        for name in files: proofs[name if name.startswith('src/') else 'src/radiant/' + name + '.cpp'] = ' '.join(command[1:])
     assert hashlib.sha256(image.read_bytes()).hexdigest() == image_hash, 'Linked image changed during audits'
     sources = []
     for line in (ROOT / 'link/order.txt').read_text().splitlines():

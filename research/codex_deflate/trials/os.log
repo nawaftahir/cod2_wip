@@ -1,0 +1,21 @@
+EXPERIMENT src/zlib/deflate.c ['/O2', '/GS', '/GL', '/Os']
+CL SHA256 2ecf86a3edfd3deae498e08298e210e984537ce9e11759930561e43f40bd2515
+0x004ad1a0 _deflateInit_ MISMATCH 24%, sizes 33/25, first difference at +0x0
+0x004ad1c0 _deflateInit2_ MISMATCH 11%, sizes 487/487, first difference at +0x0
+0x004ad3b0 _deflateSetDictionary MISMATCH 18%, sizes 236/238, first difference at +0x0
+0x004ad4a0 _deflateReset MISMATCH 52%, sizes 101/104, first difference at +0x4
+0x004ad510 _deflateParams MISMATCH 7%, sizes 176/625, first difference at +0x0
+0x004ad790 _putShortMSB MISMATCH 28%, sizes 34/39, first difference at +0x4
+0x004ad7c0 _flush_pending MISMATCH 44%, sizes 84/100, first difference at +0x13
+0x004ad830 _deflate MISMATCH 19%, sizes 566/654, first difference at +0x5
+0x004adac0 _deflateEnd MISMATCH 7%, sizes 149/178, first difference at +0x7
+0x004adb80 _deflateCopy MISMATCH 17%, sizes 407/425, first difference at +0x0
+0x004add30 _read_buf MISMATCH 14%, sizes 94/109, first difference at +0x0
+0x004adda0 _lm_init MISMATCH 76%, sizes 133/135, first difference at +0x5
+0x004ade30 _longest_match MISMATCH 7%, sizes 328/359, first difference at +0x0
+0x004adfa0 _fill_window MISMATCH 16%, sizes 273/279, first difference at +0x2
+0x004ae0c0 _deflate_stored MISMATCH 13%, sizes 300/433, first difference at +0x0
+0x004ae280 _deflate_fast MISMATCH 14%, sizes 687/758, first difference at +0xa
+0x004ae580 _deflate_slow MISMATCH 13%, sizes 884/990, first difference at +0x9
+OLD ROW REGRESSIONS 13 [('0x004ad790', '_putShortMSB', 'MISMATCH', '28%, sizes 34/39, first difference at +0x4'), ('0x004ad7c0', '_flush_pending', 'MISMATCH', '44%, sizes 84/100, first difference at +0x13'), ('0x004adda0', '_lm_init', 'MISMATCH', '76%, sizes 133/135, first difference at +0x5'), ('0x004ad4a0', '_deflateReset', 'MISMATCH', '52%, sizes 101/104, first difference at +0x4'), ('0x004ad3b0', '_deflateSetDictionary', 'MISMATCH', '18%, sizes 236/238, first difference at +0x0'), ('0x004ad510', '_deflateParams', 'MISMATCH', '7%, sizes 176/625, first difference at +0x0'), ('0x004add30', '_read_buf', 'MISMATCH', '14%, sizes 94/109, first difference at +0x0'), ('0x004ade30', '_longest_match', 'MISMATCH', '7%, sizes 328/359, first difference at +0x0'), ('0x004ad1a0', '_deflateInit_', 'MISMATCH', '24%, sizes 33/25, first difference at +0x0'), ('0x004ad1c0', '_deflateInit2_', 'MISMATCH', '11%, sizes 487/487, first difference at +0x0'), ('0x004ad830', '_deflate', 'MISMATCH', '19%, sizes 566/654, first difference at +0x5'), ('0x004adac0', '_deflateEnd', 'MISMATCH', '7%, sizes 149/178, first difference at +0x7')]
+RESTORED canonical object and flags

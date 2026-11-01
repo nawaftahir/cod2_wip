@@ -1,0 +1,21 @@
+EXPERIMENT src/zlib/deflate.c ['/O2', '/GS', '/GL', '/Ob1']
+CL SHA256 2ecf86a3edfd3deae498e08298e210e984537ce9e11759930561e43f40bd2515
+0x004ad1a0 _deflateInit_ MATCH at 0x004121b0
+0x004ad1c0 _deflateInit2_ MATCH at 0x004121d0
+0x004ad3b0 _deflateSetDictionary MATCH at 0x004123c0
+0x004ad4a0 _deflateReset MATCH at 0x004124b0
+0x004ad510 _deflateParams MISMATCH 6%, sizes 180/625, first difference at +0x0
+0x004ad790 _putShortMSB MATCH at 0x004125e0
+0x004ad7c0 _flush_pending MATCH at 0x00412610
+0x004ad830 _deflate MATCH at 0x00412680
+0x004adac0 _deflateEnd MATCH at 0x00412910
+0x004adb80 _deflateCopy MATCH at 0x004129d0
+0x004add30 _read_buf MATCH at 0x00412b80
+0x004adda0 _lm_init MATCH at 0x00412bf0
+0x004ade30 _longest_match MATCH at 0x00412c80
+0x004adfa0 _fill_window MATCH at 0x00412df0
+0x004ae0c0 _deflate_stored MISMATCH 14%, sizes 322/433, first difference at +0x0
+0x004ae280 _deflate_fast MATCH at 0x00413060
+0x004ae580 _deflate_slow MATCH at 0x00413360
+OLD ROW REGRESSIONS 2 [('0x004ad510', '_deflateParams', 'MISMATCH', '6%, sizes 180/625, first difference at +0x0'), ('0x004ad0f0', '_compress2', 'MISMATCH', '38%, sizes 150/158, first difference at +0x3')]
+RESTORED canonical object and flags

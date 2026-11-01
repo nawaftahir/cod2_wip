@@ -1,11 +1,17 @@
 # Finished-file checkpoint
 
-Thirteen translation units pass the full normalized code/helper/metadata audits.
+Fourteen translation units pass the full normalized code/helper/metadata audits.
 `python3 tools/file_ledger.py` reruns every complete-file proof and writes
 `ledger/files.tsv`; it rejects stale source verification or a failing audit.
 The table covers all 102 game TUs in retail link order. VERIFIED is the track's
 normalized source/code/metadata milestone. Image placement is separately PENDING;
 whole-program SHA identity and boot have not been established.
+
+Deflate is complete: all 17 game routines / 5,938 B, with 142 original padding
+bytes and no extra emitted helpers or initializers. Its full configuration table,
+ten compression callbacks, 768 B of referenced code tables, error/version strings,
+copyright and allocator/data bindings pass. Four new routines add 2,460 B.
+Proof: research/codex_deflate/test_complete.py and README.md.
 
 CameraTargetDlg is complete: five existing game routines / 212 B, its 33-byte
 scalar, 21 in-range SDK bodies / 998 B, all 29 emitted SDK labels, complete

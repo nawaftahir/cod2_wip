@@ -9,20 +9,22 @@ credit. Use the existing dialog/RTTI/EH proof helpers and cover every emitted
 SDK representative and actual binding. No source change is needed unless a
 real audit failure requires it.
 
-CameraTargetDlg now passes the complete audit (13/102 files).
-Finish deflate.c (13/17 / 3478/5938 B). The four remaining helpers show
-additional inline expansions. Test one bounded TU/compiler context at a time,
-retain all thirteen existing matches and verify its configuration table,
-function pointers and constants. This file transfers from Gemini to Codex;
-its parked workspace remains untouched. Baseline 548/548 / 64,638 B, 9.24%,
-15.32% functions, 48 unverified, one order warning, 12 audited complete files.
+CameraTargetDlg and deflate.c now pass complete audits: 14/102 files.
+Deflate has all 17 routines / 5,938 B, adding four / 2,460 B. The canonical
+regression is 552/552 / 67,098 B (9.59%), 15.43% functions, 44 unverified,
+one order warning; same-offset is 26,299 B (1.466%). Evidence and the bounded
+compiler/source trials are in research/codex_deflate. Its normal inline hints
+and direct C pending copy preserve every prior match; no ABI/asm workaround.
+The requested two-file run is complete. Publish after actual main CI and all
+file audits. Review Gemini snapshots independently: REVIEW_0cfaf5b.md records
+its remaining type/context issues; its active drafts remain untouched.
 
 
 The owner resumed work to complete held files and publish a reviewable file ledger.
-Thirteen files now pass complete normalized code/helper/metadata audits; see
+Fourteen files now pass complete normalized code/helper/metadata audits; see
 ledger/files.tsv and research/gemini_review/FINISHED_FILES.md. Continue the
 remaining hard files without changing masks or fabricating caller contexts.
-TextureLayout and KeyValueSelect are complete; active target is texturevecs/Pmesh.
+TextureLayout and KeyValueSelect are complete; texturevecs/Pmesh remains a documented hard remainder.
 RotateDlg's four real bodies and DialogInfo's caller still need completion.
 The density and Pmesh checkpoints remain partial; their real leftovers are held.
 Use the common stdafx.h SDK context for MFC TUs. Update the file ledger after

@@ -15,7 +15,7 @@ Do not redo those Codex-owned files. Fix the active PatchDialog draft first:
 no auto_inline suppression, correct stdafx.h context, shared CTextureLayout and
 Pmesh type proposals with target evidence, and actual whole-file audit results.
 
-Main is 548 game matches / 64,638 B (9.24%), with 13 fully audited files.
+Main now has 552 game matches / 67,098 B (9.59%), with 14 fully audited files.
 Pmesh, both density files, ZWnd.cpp, z.cpp, common/texturevecs.cpp and deflate.c
 belong to Codex. Keep unverified bodies in scratch and commit only proved rows.
 

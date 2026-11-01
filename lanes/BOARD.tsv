@@ -58,7 +58,7 @@ src/radiant/MapInfo.cpp	cheap	open	gemini	30	4585	0	1	Q3Radiant WIN_DLG.CPP (1/2
 src/radiant/win_dlg.cpp	cheap	open	gemini	19	4848	0	2	Q3Radiant WIN_DLG.CPP (3/6 string funcs); iw3xo (3/6)
 src/radiant/z.cpp	codex	partial	codex	8	5635	0	2	Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
 src/universal/splines/util_str.cpp	cheap	open	gemini	23	5842	12	6	Q3Radiant util_str.h (5/6 string funcs); iw3xo (2/6)
-src/zlib/deflate.c	codex	partial	codex	17	5938	13	7	Owner completion handoff: 13/17 matched; four helpers differ through inline expansion; whole TU and tables required
+src/zlib/deflate.c	codex	merged	codex	17	5938	17	7	FILE VERIFIED: 17 routines / 5938 B; full configuration, code tables, callbacks, version/errors and padding; image placement pending
 src/radiant/VertEditDlg.cpp	cheap	open	gemini	21	6334	0	0	none: from make show
 src/radiant/qe3.cpp	cheap	open	gemini	25	6362	0	6	Q3Radiant QE3.CPP (10/18 string funcs); iw3xo (6/18)
 src/radiant/eclass.cpp	cheap	open	gemini	25	6910	0	5	Q3Radiant ECLASS.CPP (7/13 string funcs); iw3xo (4/13)
