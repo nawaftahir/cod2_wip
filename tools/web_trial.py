@@ -107,6 +107,12 @@ def main():
         print('WEB-LTCG ledger-includes FindTexture',
               [s for s in v.link.ledger_includes() if 'CFindTextureDlg' in s],
               flush=True)
+        name_rows = [r for r in v.read_tsv('ledger/matches.tsv')
+                     if r['source'] == 'src/radiant/NameDlg.cpp']
+        print('WEB-OWNERS NameDlg',
+              [(r['symbol'], image.obj.get(r['symbol']), hex(image.syms.get(r['symbol'], 0)))
+               for r in name_rows],
+              flush=True)
 
         # Diagnostic-only global lifetime probe for the assigned TU.
         # It does not affect verification or game credit.
