@@ -86,3 +86,19 @@ The control flow remains identical, but false/true literals are replaced by
 integer 0/1 returns. This is a source-level spelling consistent with the retail
 full-EAX return sequence and does not alter ABI, flags, or surrounding callers.
 Only isOpen is requested.
+
+## Trial 6 result — commit 9bed7b4
+
+Numeric 0/1 returns did not change isOpen codegen: 72%, 33/36 B, first
+difference +0x8. The canonical gate stayed green. The experiment is rejected
+and the evidence-backed Q3 ternary spelling is restored.
+
+The remaining discrepancy is now isolated to compiler/LTCG context: retail
+returns full EAX constants while the current pinned /GL build emits AL for this
+otherwise equivalent bool function. No ABI hack or noinline workaround will be
+used.
+
+## Trial 7 — isolate setReplaceStr (rerun after cancelled Trial 4)
+
+Only 0x410000 is requested, with the restored Q3 source. This reruns the earlier
+setter isolation without overlapping Actions, so its result is usable.
