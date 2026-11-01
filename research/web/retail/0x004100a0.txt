@@ -3,5 +3,5 @@ source   src/radiant/FindTextureDlg.cpp
 place it after  (start of file)
 place it before (end of file)
 
-  004100a0  c605ecfb580001           mov    byte ptr [0x58fbec], 1         
-  004100a7  c3                       ret                                   
+  004100a0  c605ecfb580001           mov    byte ptr [0x58fbec], 1
+  004100a7  c3                       ret

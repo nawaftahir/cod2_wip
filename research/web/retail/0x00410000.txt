@@ -3,35 +3,35 @@ source   src/radiant/FindTextureDlg.cpp
 place it after  (start of file)
 place it before (end of file)
 
-  00410000  8b0d68382301             mov    ecx, dword ptr [0x1233868]     
-  00410006  6a01                     push   1                              
+  00410000  8b0d68382301             mov    ecx, dword ptr [0x1233868]
+  00410006  6a01                     push   1
   00410008  e85cc00e00               call   0x4fc069                       ; ?UpdateData@CWnd@@QAEHH@Z [lib]
-  0041000d  a168382301               mov    eax, dword ptr [0x1233868]     
-  00410012  8b8884000000             mov    ecx, dword ptr [eax + 0x84]    
-  00410018  85c9                     test   ecx, ecx                       
-  0041001a  7432                     je     0x41004e                       
-  0041001c  85f6                     test   esi, esi                       
-  0041001e  8d4878                   lea    ecx, [eax + 0x78]              
-  00410021  7504                     jne    0x410027                       
-  00410023  33c0                     xor    eax, eax                       
-  00410025  eb13                     jmp    0x41003a                       
-  00410027  8bc6                     mov    eax, esi                       
-  00410029  57                       push   edi                            
-  0041002a  8d7801                   lea    edi, [eax + 1]                 
-  0041002d  8d4900                   lea    ecx, [ecx]                     
-  00410030  8a10                     mov    dl, byte ptr [eax]             
-  00410032  40                       inc    eax                            
-  00410033  84d2                     test   dl, dl                         
-  00410035  75f9                     jne    0x410030                       
-  00410037  2bc7                     sub    eax, edi                       
-  00410039  5f                       pop    edi                            
-  0041003a  50                       push   eax                            
-  0041003b  56                       push   esi                            
+  0041000d  a168382301               mov    eax, dword ptr [0x1233868]
+  00410012  8b8884000000             mov    ecx, dword ptr [eax + 0x84]
+  00410018  85c9                     test   ecx, ecx
+  0041001a  7432                     je     0x41004e
+  0041001c  85f6                     test   esi, esi
+  0041001e  8d4878                   lea    ecx, [eax + 0x78]
+  00410021  7504                     jne    0x410027
+  00410023  33c0                     xor    eax, eax
+  00410025  eb13                     jmp    0x41003a
+  00410027  8bc6                     mov    eax, esi
+  00410029  57                       push   edi
+  0041002a  8d7801                   lea    edi, [eax + 1]
+  0041002d  8d4900                   lea    ecx, [ecx]
+  00410030  8a10                     mov    dl, byte ptr [eax]
+  00410032  40                       inc    eax
+  00410033  84d2                     test   dl, dl
+  00410035  75f9                     jne    0x410030
+  00410037  2bc7                     sub    eax, edi
+  00410039  5f                       pop    edi
+  0041003a  50                       push   eax
+  0041003b  56                       push   esi
   0041003c  e8ef2affff               call   0x402b30                       ; FUN_00402b30
-  00410041  8b0d68382301             mov    ecx, dword ptr [0x1233868]     
-  00410047  6a00                     push   0                              
+  00410041  8b0d68382301             mov    ecx, dword ptr [0x1233868]
+  00410047  6a00                     push   0
   00410049  e81bc00e00               call   0x4fc069                       ; ?UpdateData@CWnd@@QAEHH@Z [lib]
-  0041004e  c3                       ret                                   
+  0041004e  c3                       ret
 
 --- Ghidra decompile (a hint only: names and types are guesses) ---
 
@@ -42,7 +42,7 @@ void FUN_00410000(void)
   int iVar2;
   char *pcVar3;
   char *unaff_ESI;
-  
+
   FUN_004fc069(1);
   if (*(int *)(DAT_01233868 + 0x84) != 0) {
     if (unaff_ESI == (char *)0x0) {
@@ -61,5 +61,3 @@ void FUN_00410000(void)
   }
   return;
 }
-
-

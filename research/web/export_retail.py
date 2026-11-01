@@ -18,7 +18,7 @@ with (folder / 'inventory.tsv').open('w') as f:
     writer.writerows(rows)
 for row in rows:
     run = subprocess.run([sys.executable, 'tools/show.py', row['addr']], capture_output=True, text=True, check=True)
-    (folder / (row['addr'] + '.txt')).write_text(run.stdout)
+    (folder / (row['addr'] + '.txt')).write_text('\n'.join(line.rstrip() for line in run.stdout.splitlines()).rstrip() + '\n')
 manifest = {'anchor_sha256': hashlib.sha256(Path('binaries/CoD2Radiant.exe').read_bytes()).hexdigest(),
             'command': 'python3 research/web/export_retail.py',
             'files': {str(p): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(folder.iterdir()) if p.name != 'manifest.json'}}

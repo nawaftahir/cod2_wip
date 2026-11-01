@@ -3,24 +3,24 @@ source   src/radiant/FindTextureDlg.cpp
 place it after  (start of file)
 place it before (end of file)
 
-  0040fc60  56                       push   esi                            
-  0040fc61  8bf0                     mov    esi, eax                       
-  0040fc63  a168382301               mov    eax, dword ptr [0x1233868]     
-  0040fc68  85c0                     test   eax, eax                       
-  0040fc6a  7427                     je     0x40fc93                       
-  0040fc6c  8b401c                   mov    eax, dword ptr [eax + 0x1c]    
-  0040fc6f  85c0                     test   eax, eax                       
-  0040fc71  7420                     je     0x40fc93                       
-  0040fc73  50                       push   eax                            
+  0040fc60  56                       push   esi
+  0040fc61  8bf0                     mov    esi, eax
+  0040fc63  a168382301               mov    eax, dword ptr [0x1233868]
+  0040fc68  85c0                     test   eax, eax
+  0040fc6a  7427                     je     0x40fc93
+  0040fc6c  8b401c                   mov    eax, dword ptr [eax + 0x1c]
+  0040fc6f  85c0                     test   eax, eax
+  0040fc71  7420                     je     0x40fc93
+  0040fc73  50                       push   eax
   0040fc74  ff15b8885200             call   dword ptr [0x5288b8]           ; imported function (pointer at 0x005288b8)
-  0040fc7a  85c0                     test   eax, eax                       
-  0040fc7c  7415                     je     0x40fc93                       
-  0040fc7e  a0ecfb5800               mov    al, byte ptr [0x58fbec]        
-  0040fc83  84c0                     test   al, al                         
-  0040fc85  7407                     je     0x40fc8e                       
+  0040fc7a  85c0                     test   eax, eax
+  0040fc7c  7415                     je     0x40fc93
+  0040fc7e  a0ecfb5800               mov    al, byte ptr [0x58fbec]
+  0040fc83  84c0                     test   al, al
+  0040fc85  7407                     je     0x40fc8e
   0040fc87  e824030000               call   0x40ffb0                       ; FUN_0040ffb0
-  0040fc8c  5e                       pop    esi                            
-  0040fc8d  c3                       ret                                   
+  0040fc8c  5e                       pop    esi
+  0040fc8d  c3                       ret
   0040fc8e  e86d030000               call   0x410000                       ; FUN_00410000
-  0040fc93  5e                       pop    esi                            
-  0040fc94  c3                       ret                                   
+  0040fc93  5e                       pop    esi
+  0040fc94  c3                       ret

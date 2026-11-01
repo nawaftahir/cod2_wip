@@ -27,7 +27,7 @@ match. Do not invent an IW3x source counterpart or copy later target addresses.
 
 Canonical build context: src/radiant/stdafx.h, data/flags.tsv, link/order.txt,
 tools/link.py. Real reviewed MFC examples: NameDlg.cpp, RotateDlg.cpp and
-CameraTargetDlg/cameratargetdlg.cpp as present in src/radiant. Read their matching
+cameratargetdlg.cpp in src/radiant. Read their matching
 headers and complete-file proofs. The real registry declarations are in
 src/radiant/win_main.h. Shared context is read-only for the web worker.
 
