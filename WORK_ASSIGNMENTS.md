@@ -1,3 +1,12 @@
+# Current ownership - Codex takeover, 2026-11-01
+
+The owner parked Gemini for quota and assigned its entire remaining queue and
+all saved candidates to Codex. Work stays in .agents/codex; .agents/gemini is
+preserved as a source of drafts and evidence. No worker or delegation is active.
+PatchDialog.cpp is the single active TU; win_main.cpp follows. BinDiff against
+available reference binaries and KisakCOD/iw3xo source comparisons guide real
+reconstruction; only the linked retail referee grants game credit.
+
 # Radiant ownership (2026-10-29)
 
 The mandatory file-completion contract in CLAUDE.md applies to this role: one active TU,

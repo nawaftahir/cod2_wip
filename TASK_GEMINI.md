@@ -1,3 +1,11 @@
+# Gemini parked - Codex owns the backlog
+
+The owner stopped Gemini for quota on 2026-11-01. Codex owns every remaining
+reserved file and the existing drafts. No Gemini process or agent is needed.
+Keep .agents/gemini and its unmerged commits/drafts preserved; do not reset it.
+The former 45-file queue remains in lanes/GEMINI_QUEUE.tsv as the backlog.
+Current primary TU: PatchDialog.cpp, then win_main.cpp. See TASK_CODEX.md.
+
 # Gemini assignment
 
 Read the root CLAUDE.md first. lanes/BOARD.tsv owns file assignments;

@@ -1,3 +1,13 @@
+# Current run - take over Gemini and compare references
+
+The owner assigns the remaining Gemini queue and drafts to Codex. Reconstruct
+PatchDialog.cpp first in retail order with stdafx.h and proper shared types;
+retain all 552 matches / 67,098 B. Use installed BinDiff on CoD2Radiant versus
+IW3xRadiant, and both KisakCOD/iw3xo sources as reference evidence. KisakCOD has
+no Radiant executable in this checkout; do not invent a binary comparison.
+Win_main.cpp follows after completion or a documented genuine blocker. No new
+Gemini agent/process is authorized or required; preserve its current workspace.
+
 # Codex current run
 
 ## Current two-file run
