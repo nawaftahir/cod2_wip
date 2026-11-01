@@ -25,6 +25,10 @@ CHECKS = (
         'src/zlib/adler32.c', 'src/zlib/compress.c', 'src/zlib/inffast.c',
         'src/zlib/infutil.c', 'src/zlib/uncompr.c',
     )),
+    ('research/web/test_zlib_remaining_complete.py', None, (
+        'src/zlib/infblock.c', 'src/zlib/infcodes.c', 'src/zlib/inftrees.c',
+        'src/zlib/trees.c', 'src/zlib/unzip.c', 'src/zlib/zutil.c',
+    )),
     ('research/codex_deflate/test_complete.py', None, ('src/zlib/deflate.c',)),
 )
 
