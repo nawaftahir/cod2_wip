@@ -1,0 +1,6 @@
+function 0x00410090  size 5  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  00410090  e9d9c90e00               jmp    0x4fca6e                       ; ?DestroyWindow@CWnd@@UAEHXZ [lib]

@@ -1,0 +1,42 @@
+function 0x00410050  size 54  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  00410050  55                       push   ebp                            
+  00410051  8bec                     mov    ebp, esp                       
+  00410053  83ec10                   sub    esp, 0x10                      
+  00410056  56                       push   esi                            
+  00410057  8bf1                     mov    esi, ecx                       
+  00410059  8b4e1c                   mov    ecx, dword ptr [esi + 0x1c]    
+  0041005c  8d45f0                   lea    eax, [ebp - 0x10]              
+  0041005f  50                       push   eax                            
+  00410060  51                       push   ecx                            
+  00410061  ff15a8885200             call   dword ptr [0x5288a8]           ; imported function (pointer at 0x005288a8)
+  00410067  6a10                     push   0x10                           ; 16 (an assert line number if next to a file string)
+  00410069  8d55f0                   lea    edx, [ebp - 0x10]              
+  0041006c  52                       push   edx                            
+  0041006d  68d40d5400               push   0x540dd4                       ; 'Radiant::TextureFindWindow'
+  00410072  e8c9a00600               call   0x47a140                       ; SaveRegistryInfo
+  00410077  83c40c                   add    esp, 0xc                       
+  0041007a  8bce                     mov    ecx, esi                       
+  0041007c  e81ea30e00               call   0x4fa39f                       ; ?OnCancel@CDialog@@MAEXXZ [lib]
+  00410081  5e                       pop    esi                            
+  00410082  8be5                     mov    esp, ebp                       
+  00410084  5d                       pop    ebp                            
+  00410085  c3                       ret                                   
+
+--- Ghidra decompile (a hint only: names and types are guesses) ---
+
+void __fastcall FUN_00410050(int param_1)
+
+{
+  tagRECT local_14;
+  
+  GetWindowRect(*(HWND *)(param_1 + 0x1c),&local_14);
+  FUN_0047a140("Radiant::TextureFindWindow",&local_14,0x10);
+  FUN_004fa39f();
+  return;
+}
+
+

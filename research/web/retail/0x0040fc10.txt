@@ -1,0 +1,65 @@
+function 0x0040fc10  size 65  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  0040fc10  8b4678                   mov    eax, dword ptr [esi + 0x78]    
+  0040fc13  83e810                   sub    eax, 0x10                      
+  0040fc16  8d480c                   lea    ecx, [eax + 0xc]               
+  0040fc19  83caff                   or     edx, 0xffffffff                
+  0040fc1c  f00fc111                 lock xadd dword ptr [ecx], edx           
+  0040fc20  4a                       dec    edx                            
+  0040fc21  85d2                     test   edx, edx                       
+  0040fc23  7f08                     jg     0x40fc2d                       
+  0040fc25  8b08                     mov    ecx, dword ptr [eax]           
+  0040fc27  8b11                     mov    edx, dword ptr [ecx]           
+  0040fc29  50                       push   eax                            
+  0040fc2a  ff5204                   call   dword ptr [edx + 4]            
+  0040fc2d  8b4674                   mov    eax, dword ptr [esi + 0x74]    
+  0040fc30  83e810                   sub    eax, 0x10                      
+  0040fc33  8d480c                   lea    ecx, [eax + 0xc]               
+  0040fc36  83caff                   or     edx, 0xffffffff                
+  0040fc39  f00fc111                 lock xadd dword ptr [ecx], edx           
+  0040fc3d  4a                       dec    edx                            
+  0040fc3e  85d2                     test   edx, edx                       
+  0040fc40  7f08                     jg     0x40fc4a                       
+  0040fc42  8b08                     mov    ecx, dword ptr [eax]           
+  0040fc44  8b11                     mov    edx, dword ptr [ecx]           
+  0040fc46  50                       push   eax                            
+  0040fc47  ff5204                   call   dword ptr [edx + 4]            
+  0040fc4a  8bce                     mov    ecx, esi                       
+  0040fc4c  e9b0a50e00               jmp    0x4fa201                       ; ??1CDialog@@UAE@XZ [lib]
+
+--- Ghidra decompile (a hint only: names and types are guesses) ---
+
+void FUN_0040fc10(void)
+
+{
+  int *piVar1;
+  int iVar2;
+  undefined4 *puVar3;
+  CDialog *unaff_ESI;
+  
+  puVar3 = (undefined4 *)(*(int *)(unaff_ESI + 0x78) + -0x10);
+  piVar1 = (int *)(*(int *)(unaff_ESI + 0x78) + -4);
+  LOCK();
+  iVar2 = *piVar1;
+  *piVar1 = *piVar1 + -1;
+  UNLOCK();
+  if (iVar2 + -1 < 1) {
+    (**(code **)(*(int *)*puVar3 + 4))(puVar3);
+  }
+  puVar3 = (undefined4 *)(*(int *)(unaff_ESI + 0x74) + -0x10);
+  piVar1 = (int *)(*(int *)(unaff_ESI + 0x74) + -4);
+  LOCK();
+  iVar2 = *piVar1;
+  *piVar1 = *piVar1 + -1;
+  UNLOCK();
+  if (iVar2 == 1 || iVar2 + -1 < 0) {
+    (**(code **)(*(int *)*puVar3 + 4))(puVar3);
+  }
+  CDialog::~CDialog(unaff_ESI);
+  return;
+}
+
+

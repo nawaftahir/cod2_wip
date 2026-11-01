@@ -1,7 +1,5 @@
 #!/bin/bash
-# Local CI, same checks as .github/workflows/ci.yml without GitHub minutes: tools/ci_local.sh
-# Verifies every ledger row, links the exe, scores it, checks the meters against the previous
-# commit and posts the result to Discord (webhook in .secrets/discord_webhook, never committed).
+# Run the same complete gate as GitHub; notifications require separate authorization.
 # land.sh runs it after every push; run it by hand after your own pushes.
 set -u
 cd "$(dirname "$0")/.."
@@ -9,10 +7,9 @@ IMAGE=${RADIANT_IMAGE:-cod2-radiant-msvc71}
 mkdir -p build
 git show HEAD~1:ledger/meter.json > build/meter.prev.json 2>/dev/null || cp ledger/meter.json build/meter.prev.json
 docker run --rm -v "$PWD:/w" -w /w -e METER_BASELINE=/w/build/meter.prev.json "$IMAGE" sh -c \
-  'python3 tools/verify.py --all > build/ci-verify.log 2>&1;
-   python3 tools/sections.py > build/ci-sections.log 2>&1; python3 tools/meter.py --gate > build/ci-meter.log 2>&1; echo $? > build/ci.rc;
-   chown -R '"$(id -u):$(id -g)"' build ledger src 2>/dev/null'
-rc=$(cat build/ci.rc)
+  'python3 -u tools/ci_gate.py; rc=$?;
+   chown -R '"$(id -u):$(id -g)"' build ledger src 2>/dev/null; exit "$rc"'
+rc=$?
 result=$([ "$rc" = 0 ] && echo success || echo failure)
 
 git diff HEAD~1 HEAD -- ledger/matches.tsv | grep '^+0x' | cut -c2- | awk -F'\t' '{printf "- `%s` %s (%s bytes, %s)\n", $1, $5, $2, $3}' > build/ci-new.md

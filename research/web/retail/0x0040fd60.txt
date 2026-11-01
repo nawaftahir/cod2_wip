@@ -1,0 +1,33 @@
+function 0x0040fd60  size 33  file radiant/FindTextureDlg.cpp (AUTO)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  0040fd60  55                       push   ebp                            
+  0040fd61  8bec                     mov    ebp, esp                       
+  0040fd63  56                       push   esi                            
+  0040fd64  8bf1                     mov    esi, ecx                       
+  0040fd66  e8a5feffff               call   0x40fc10                       ; FUN_0040fc10
+  0040fd6b  f6450801                 test   byte ptr [ebp + 8], 1          
+  0040fd6f  7409                     je     0x40fd7a                       
+  0040fd71  56                       push   esi                            
+  0040fd72  e804f70e00               call   0x4ff47b                       ; FUN_004ff47b
+  0040fd77  83c404                   add    esp, 4                         
+  0040fd7a  8bc6                     mov    eax, esi                       
+  0040fd7c  5e                       pop    esi                            
+  0040fd7d  5d                       pop    ebp                            
+  0040fd7e  c20400                   ret    4                              
+
+--- Ghidra decompile (a hint only: names and types are guesses) ---
+
+void * __thiscall FUN_0040fd60(void *param_1,byte param_2)
+
+{
+  FUN_0040fc10();
+  if ((param_2 & 1) != 0) {
+    _free(param_1);
+  }
+  return param_1;
+}
+
+

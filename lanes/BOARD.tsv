@@ -26,7 +26,7 @@ src/radiant/TerrainDensityDlg.cpp	codex	partial	codex	6	422	4	0	4 game / 240 B v
 src/radiant/KeyValueSelectDlg.cpp	codex	merged	codex	5	458	3	1	FILE VERIFIED: full normalized code/helpers/metadata; see ledger/files.tsv; image placement pending
 src/universal/splines/math_quaternion.cpp	cheap	open	codex	4	539	1	1	none: from make show
 src/universal/UNKNOWN_00494480.cpp	cheap	open	codex	3	816	0	1	none: from make show
-src/radiant/FindTextureDlg.cpp	cheap	open	codex	16	1046	0	1	Q3Radiant FindTextureDlg.cpp (4/4 string funcs)
+src/radiant/FindTextureDlg.cpp	cheap	open	web	16	1046	0	1	Q3Radiant FindTextureDlg.cpp (4/4 string funcs)
 src/radiant/UNKNOWN_00420930.cpp	cheap	open	codex	29	1202	0	3	Q3Radiant PatchDialog.cpp (3/6 string funcs); iw3xo (4/6)
 src/universal/splines/math_angles.cpp	cheap	open	codex	12	1269	4	7	none: from make show
 src/universal/splines/math_matrix.cpp	cheap	open	codex	10	1405	6	7	none: from make show

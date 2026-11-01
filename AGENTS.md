@@ -11,7 +11,7 @@ This is the authoritative track contract. After editing it, run
 ./sync-agents.sh to regenerate AGENTS.md and GEMINI.md. Current ownership is in
 WORK_ASSIGNMENTS.md and lanes/BOARD.tsv; tasks and the queue refine that scope.
 
-## One proper file at a time: mandatory for Codex and Gemini
+## One proper file at a time: mandatory for every worker
 
 Each worker has one active source TU. Reconstruct it in its existing retail
 file and function/data order, then verify the entire file before calling it
@@ -91,7 +91,9 @@ deferrals require the recorded evidence. Do not repeat exhausted variants.
 
 ## Ownership, integration and cost
 
-Workers use .agents/<name> and agent/<name>, one TU at a time. Gemini edits only
+Local workers use .agents/<name> and agent/<name>, one TU at a time.
+The browser worker uses web/reconstruction and TASK_WEB.md; its exclusive file
+is FindTextureDlg.cpp. Codex does not edit that file during the reservation. Gemini edits only
 its assigned source, matches/defer rows and report. Shared headers, flags,
 inventory, tools, library identities and link layout require Codex/owner review;
 Gemini submits evidence-backed proposals. Codex may adopt those changes only
@@ -102,7 +104,8 @@ preserves safety refs and integrates through tools/land.sh where applicable.
 A dirty worker is preserved; review an isolated committed snapshot instead.
 Never reset, overwrite or claim over unmerged/newer work. Preserve unrelated
 owner files and drafts. Only Codex integrates/pushes main under the owner's
-existing authorization; workers never push. Use the configured Nawaf identity,
+existing authorization. The browser worker may commit/push only its assigned
+web/reconstruction branch, following TASK_WEB.md. Other workers never push. Use the configured Nawaf identity,
 short messages, no Co-Authored-By, and never commit binaries/assets/projects.
 
 Use RADIANT_CI_NO_NOTIFY=1 unless notifications are separately requested.

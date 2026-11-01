@@ -1,0 +1,7 @@
+function 0x004100b0  size 8  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  004100b0  c605ecfb580000           mov    byte ptr [0x58fbec], 0         
+  004100b7  c3                       ret                                   

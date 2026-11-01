@@ -1,3 +1,25 @@
+# Browser worker setup - 2026-11-01
+
+Public repository: github.com/nawaftahir/cod2radiant. The existing retail anchor
+is retained at the owner's explicit request. Compiler GHCR package stays private.
+Web owns FindTextureDlg.cpp exclusively on web/reconstruction; TASK_WEB.md is
+its startup prompt, scope and complete-file contract. Codex retains PatchDialog
+and the remaining backlog. Gemini stays parked and untouched.
+
+research/web contains the full Q3 dialog source/header and Kisak comparison with
+licenses, commits and SHA-256 provenance, plus all sixteen original target entry
+exports / 1046 B (one AUTO scalar / 33 B). No new game credit from this setup.
+Local full gate passes 569/569, 68749 game B (9.83%), 15.90% functions,
+fourteen complete-file audits; same-offset 26574 B (1.481%). Four infrastructure
+failure-path tests and actionlint pass. Hosted CI confirmation is pending.
+
+Actions now runs the complete fail-fast gate and separate isolated draft trials.
+Requested symbols use the existing retail address-taken inclusion mechanism only
+inside the disposable checkout. Source/symbol files are restored after a trial;
+no masks or referee changed. Artifacts contain text/JSON evidence, no binaries.
+No notifications or paid API AI jobs. tools/ci_local.sh uses this same full gate
+and propagates compiler/Docker failures instead of reading a stale status file.
+
 # Latest checkpoint - Codex owns the parked Gemini queue
 
 The owner stopped Gemini for quota and gave its remaining queue/drafts to Codex.

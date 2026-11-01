@@ -2,25 +2,31 @@
 
 ![radiant CI](../../actions/workflows/ci.yml/badge.svg)
 
-C/C++ source for the Call of Duty 2 map editor that compiles, with the original MSVC 7.1
-compiler, to the retail `CoD2Radiant.exe` byte for byte. Private repo.
+Readable C/C++ reconstruction of the Call of Duty 2 map editor using the
+original MSVC 7.1 compiler. Whole-executable SHA-256 identity is the goal;
+reconstruction is still in progress.
 
-- Agents: `AGENTS.md` is the whole contract.
-- Facts and evidence: `RULES.md`.
-- Progress: every push runs CI. The numbers show up in the run summary, as a commit comment,
-  and in Discord if `DISCORD_WEBHOOK` is set.
+- Contract: [AGENTS.md](AGENTS.md); evidence: [RULES.md](RULES.md).
+- Browser worker: [TASK_WEB.md](TASK_WEB.md), branch `web/reconstruction`.
+- Bundled references and retail disassembly: [research/web](research/web/README.md).
+- CI: pushes to main and web/**, plus same-repository pull requests. Full source
+  gate, complete-file audits, logs and summaries; isolated draft comparisons on
+  web branches. The compiler container stays private. No API AI jobs are used.
 
-## Status (2026-10-20)
+## Status (2026-11-01)
 
-| | functions | bytes |
-|---|---:|---:|
-| All functions (Ghidra inventory) | 6,234 | 998,174 of 1,204,750 `.text` |
-| MFC/CRT library code (identified; linked, never written) | 2,173 | 235,493 |
-| Game code (must be written) | 4,061 | 762,681 |
-| ... with a known source file (48 files) | 1,194 | 424,466 |
-| ... source file still unknown | 2,867 | 338,215 |
-| Matched from source | 61 | 3,816 (0.50%) |
-| Rebuilt exe bytes in place (the SHA goal) | | 0% (no link step yet) |
+| Measure | Verified result |
+|---|---:|
+| Authored game functions | 569 / 3,578 (15.90%) |
+| Authored game code bytes | 68,749 / 699,591 (9.83%) |
+| Complete-file normalized code/metadata audits | 14 / 102 |
+| Whole-file same-offset bytes | 26,574 / 1,794,048 (1.481%) |
+| Whole-executable SHA identity | Pending |
+| GUI boot/smoke | Pending |
+
+Function matching is relocation-normalized and checks known callees. Exact
+placement, generated code and data require further work. See the latest
+[handoff](CODEX_HANDOFF.md) and [file ledger](ledger/files.tsv).
 
 The rest of the file is `.rdata` 240,948, `.data` 221,184 raw (13.5 MB in memory), `.rsrc` 117,464,
 and 4,096 bytes of headers. All of it must match too.

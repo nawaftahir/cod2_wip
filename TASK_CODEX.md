@@ -1,7 +1,8 @@
 # Current checkpoint - Codex owns the parked Gemini queue
 
 The owner stopped Gemini for quota and assigned all of its remaining work and
-drafts to Codex. No worker/delegation is active. Keep .agents/gemini preserved;
+drafts to Codex. The web worker exclusively owns FindTextureDlg.cpp on web/reconstruction;
+do not overlap its source. TASK_WEB.md defines its review contract. Keep .agents/gemini preserved;
 work in .agents/codex. lanes/BOARD.tsv records ownership. The former 45-file
 GEMINI_QUEUE.tsv remains the backlog order.
 

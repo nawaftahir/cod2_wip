@@ -1,11 +1,12 @@
 # Radiant ownership - 2026-11-01
 
 Codex owns reconstruction, the former Gemini backlog, shared types/build/layout,
-verification and main integration. Gemini is parked for quota; no delegation
-or background worker is active. Preserve every existing worker tree and draft.
+verification and main integration. Gemini is parked for quota. The browser worker owns FindTextureDlg.cpp only
+on web/reconstruction; see TASK_WEB.md. Codex retains all other source. Preserve every existing worker tree and draft.
 
 Use .agents/codex, branch agent/codex. Main lanes/BOARD.tsv is authoritative:
-50 cheap-lane and 41 hard-lane files now belong to Codex; eleven earlier done
+49 cheap-lane and 41 hard-lane files belong to Codex; one cheap file belongs
+to the browser worker; eleven earlier done
 entries keep their historical owner marker. The former 45-file reserved queue
 remains in lanes/GEMINI_QUEUE.tsv as the ordered backlog, not an active worker.
 

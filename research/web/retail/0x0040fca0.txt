@@ -1,0 +1,96 @@
+function 0x0040fca0  size 180  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  0040fca0  55                       push   ebp                            
+  0040fca1  8bec                     mov    ebp, esp                       
+  0040fca3  64a100000000             mov    eax, dword ptr fs:[0]          
+  0040fca9  6aff                     push   -1                             
+  0040fcab  68ce545200               push   0x5254ce                       ; __ehhandler$?CreateObject@CRuntimeClass@@QAEPAVCObject@@XZ [lib]
+  0040fcb0  50                       push   eax                            
+  0040fcb1  8b450c                   mov    eax, dword ptr [ebp + 0xc]     
+  0040fcb4  64892500000000           mov    dword ptr fs:[0], esp          
+  0040fcbb  53                       push   ebx                            
+  0040fcbc  56                       push   esi                            
+  0040fcbd  8b7508                   mov    esi, dword ptr [ebp + 8]       
+  0040fcc0  57                       push   edi                            
+  0040fcc1  50                       push   eax                            
+  0040fcc2  6893000000               push   0x93                           ; 147 (an assert line number if next to a file string)
+  0040fcc7  8bce                     mov    ecx, esi                       
+  0040fcc9  e81aa60e00               call   0x4fa2e8                       ; ??0CDialog@@QAE@IPAVCWnd@@@Z [lib]
+  0040fcce  c745fc00000000           mov    dword ptr [ebp - 4], 0         
+  0040fcd5  c7067c0c5400             mov    dword ptr [esi], 0x540c7c      
+  0040fcdb  8d7e74                   lea    edi, [esi + 0x74]              
+  0040fcde  e8e0f70e00               call   0x4ff4c3                       ; ?AfxGetStringManager@@YGPAUIAtlStringMgr@ATL@@XZ [lib]
+  0040fce3  8b10                     mov    edx, dword ptr [eax]           
+  0040fce5  8bc8                     mov    ecx, eax                       
+  0040fce7  ff520c                   call   dword ptr [edx + 0xc]          ; imported function (pointer at 0x0000000c)
+  0040fcea  83c010                   add    eax, 0x10                      
+  0040fced  8907                     mov    dword ptr [edi], eax           
+  0040fcef  c645fc01                 mov    byte ptr [ebp - 4], 1          
+  0040fcf3  8d5e78                   lea    ebx, [esi + 0x78]              
+  0040fcf6  e8c8f70e00               call   0x4ff4c3                       ; ?AfxGetStringManager@@YGPAUIAtlStringMgr@ATL@@XZ [lib]
+  0040fcfb  8b10                     mov    edx, dword ptr [eax]           
+  0040fcfd  8bc8                     mov    ecx, eax                       
+  0040fcff  ff520c                   call   dword ptr [edx + 0xc]          ; imported function (pointer at 0x0000000c)
+  0040fd02  83c010                   add    eax, 0x10                      
+  0040fd05  8903                     mov    dword ptr [ebx], eax           
+  0040fd07  6a00                     push   0                              
+  0040fd09  c645fc02                 mov    byte ptr [ebp - 4], 2          
+  0040fd0d  6853d75300               push   0x53d753                       
+  0040fd12  8bcf                     mov    ecx, edi                       
+  0040fd14  c7467000000000           mov    dword ptr [esi + 0x70], 0      
+  0040fd1b  e8102effff               call   0x402b30                       ; FUN_00402b30
+  0040fd20  6a00                     push   0                              
+  0040fd22  6853d75300               push   0x53d753                       
+  0040fd27  8bcb                     mov    ecx, ebx                       
+  0040fd29  e8022effff               call   0x402b30                       ; FUN_00402b30
+  0040fd2e  8b4df4                   mov    ecx, dword ptr [ebp - 0xc]     
+  0040fd31  5f                       pop    edi                            
+  0040fd32  c7467c00000000           mov    dword ptr [esi + 0x7c], 0      
+  0040fd39  c7868400000001000000     mov    dword ptr [esi + 0x84], 1      
+  0040fd43  8bc6                     mov    eax, esi                       
+  0040fd45  5e                       pop    esi                            
+  0040fd46  64890d00000000           mov    dword ptr fs:[0], ecx          
+  0040fd4d  5b                       pop    ebx                            
+  0040fd4e  8be5                     mov    esp, ebp                       
+  0040fd50  5d                       pop    ebp                            
+  0040fd51  c20800                   ret    8                              
+
+--- Ghidra decompile (a hint only: names and types are guesses) ---
+
+CDialog * FUN_0040fca0(CDialog *param_1,CWnd *param_2)
+
+{
+  int *piVar1;
+  int iVar2;
+  void *local_10;
+  undefined1 *puStack_c;
+  undefined4 local_8;
+  
+  local_8 = 0xffffffff;
+  puStack_c = &LAB_005254ce;
+  local_10 = ExceptionList;
+  ExceptionList = &local_10;
+  CDialog::CDialog(param_1,0x93,param_2);
+  local_8 = 0;
+  *(undefined ***)param_1 = &PTR_LAB_00540c7c;
+  piVar1 = (int *)FUN_004ff4c3();
+  iVar2 = (**(code **)(*piVar1 + 0xc))();
+  *(int *)(param_1 + 0x74) = iVar2 + 0x10;
+  local_8._0_1_ = 1;
+  piVar1 = (int *)FUN_004ff4c3();
+  iVar2 = (**(code **)(*piVar1 + 0xc))();
+  *(int *)(param_1 + 0x78) = iVar2 + 0x10;
+  local_8 = CONCAT31(local_8._1_3_,2);
+  *(undefined4 *)(param_1 + 0x70) = 0;
+  FUN_00402b30(&DAT_0053d753,0);
+  FUN_00402b30(&DAT_0053d753,0);
+  *(undefined4 *)(param_1 + 0x7c) = 0;
+  *(undefined4 *)(param_1 + 0x84) = 1;
+  ExceptionList = local_10;
+  return param_1;
+}
+
+

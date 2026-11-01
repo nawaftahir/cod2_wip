@@ -1,0 +1,7 @@
+function 0x0040fe00  size 6  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  0040fe00  b8f00d5400               mov    eax, 0x540df0                  
+  0040fe05  c3                       ret                                   

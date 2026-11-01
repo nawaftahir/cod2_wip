@@ -1,97 +1,108 @@
 name: radiant
-# manual only while GitHub Actions minutes are out; tools/ci_local.sh runs the same checks on every landing
+
 on:
+  push:
+    branches: [main, 'web/**']
+  pull_request:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   packages: read
 
+concurrency:
+  group: radiant-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
-  IMAGE: ghcr.io/${{ github.repository_owner }}/cod2-radiant-msvc71:1
+  IMAGE: ghcr.io/nawaftahir/cod2-radiant-msvc71@sha256:be71e0d2b7f7e51a873c472e81872d0aa125a4fe5b2a4522bf8abb247b45008f
 
 jobs:
   gate:
-    # the compiler image is i386, so GitHub's own actions run on the host and the image runs via docker
-    runs-on: ubuntu-latest
-    outputs:
-      sha_identical: ${{ steps.gate.outputs.sha_identical }}
+    # Private compiler access is limited to branches in this repository.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          fetch-depth: 2
-      - name: Pull compiler image
+          fetch-depth: 0
+      - name: Select immutable regression baseline
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BRANCH_NAME: ${{ github.ref_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
         run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u "${{ github.actor }}" --password-stdin
-          docker pull -q "$IMAGE"
-      - name: Previous numbers
-        run: git show HEAD~1:ledger/meter.json > ledger/meter.json 2>/dev/null || git checkout -- ledger/meter.json || true
-      - id: gate
-        name: Verify every ledger row + meters
+          mkdir -p build
+          if [ "$EVENT_NAME" = pull_request ]; then
+            base="$PR_BASE"
+          elif [ "$BRANCH_NAME" = main ] && git cat-file -e "${BEFORE_SHA}:ledger/meter.json" 2>/dev/null; then
+            base="$BEFORE_SHA"
+          else
+            base=$(git merge-base HEAD origin/main)
+          fi
+          git show "$base:ledger/meter.json" > build/baseline.json
+          echo "Baseline: $base"
+      - name: Pull pinned private compiler
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          docker run --rm -v "$PWD:/w" -w /w "$IMAGE" sh -c \
-            'python3 tools/verify.py --all > build-verify.log 2>&1; python3 tools/sections.py > sections.log 2>&1; python3 tools/meter.py --gate > meter.log 2>&1; echo $? > meter.rc'
-          rc=$(cat meter.rc)
-          cat build-verify.log meter.log
-          # what this push added, from the ledger diff (HEAD~1 = previous main)
-          git diff HEAD~1 HEAD -- ledger/matches.tsv | grep '^+0x' | cut -c2- | awk -F'\t' '{printf "- `%s` %s (%s bytes, %s)\n", $1, $5, $2, $3}' > new.md || true
-          git diff HEAD~1 HEAD -- ledger/defer.tsv | grep '^+0x' | cut -c2- | awk -F'\t' '{printf "- `%s` deferred by %s: %s\n", $1, $2, substr($4,1,90)}' > deferred.md || true
-          agent=$(git log -1 --format=%s | sed -n 's/^land \([a-z]*\).*/\1/p')
-          queue_left=$(awk -F'\t' 'NR==FNR{d[$1]=1;next} FNR>1 && !($3 in d)' <(cut -f1 ledger/matches.tsv ledger/defer.tsv) queue/queue.tsv | wc -l)
-          {
-            echo "**by:** ${agent:-owner}  **new matches:** $(wc -l < new.md)  **deferred:** $(wc -l < deferred.md)  **queue left:** $queue_left  **total deferred:** $(( $(grep -c . ledger/defer.tsv) - 1 ))"
-            echo
-            cat build/summary.md
-            if [ -s new.md ]; then echo; echo "**New matches**"; head -12 new.md; fi
-            if [ -s deferred.md ]; then echo; echo "**Deferred**"; head -5 deferred.md; fi
-            echo; echo '**Rebuilt exe vs retail**'; echo '```'; cat link.log sections.log; echo '```'
-            echo; echo '```'; grep -v '^verify:' build-verify.log | grep -v '^UNVERIFIED' | head -30; tail -1 build-verify.log; echo '```'
-          } > summary.md
-          cat summary.md >> "$GITHUB_STEP_SUMMARY"
-          echo "sha_identical=$(jq -r .sha_identical build/meter.json)" >> "$GITHUB_OUTPUT"
-          exit "$rc"
-      - uses: actions/upload-artifact@v4
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$IMAGE"
+      - name: Full retail source gate
+        run: |
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w \
+            -e METER_BASELINE=/w/build/baseline.json -e RADIANT_CI_NO_NOTIFY=1 \
+            "$IMAGE" python3 -u tools/ci_gate.py
+      - name: Job summary
+        if: always()
+        run: |
+          if [ -f build/ci-summary.md ]; then cat build/ci-summary.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
-          name: summary
-          path: summary.md
+          name: radiant-gate-${{ github.sha }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            build/ci-*.log
+            build/ci-summary.md
+            build/ci-results.json
+            build/summary.md
+            build/meter.json
+            build/verify.json
+            build/file-ledger-audit.log
+            build/file-ledger-proof.json
 
-  report:
-    needs: gate
-    if: always()
-    runs-on: ubuntu-latest
+  web-trial:
+    if: startsWith(github.ref, 'refs/heads/web/')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Pull pinned private compiler
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$IMAGE"
+      - name: Isolated draft comparison
+        run: |
+          mkdir -p build
+          set -o pipefail
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" \
+            python3 -u tools/web_trial.py 2>&1 | tee build/web-trial.log
+      - name: Trial summary
+        if: always()
+        run: |
+          if [ -f build/web-trial.md ]; then cat build/web-trial.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
         with:
-          name: summary
-      - name: Commit comment
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          RESULT: ${{ needs.gate.result }}
-        run: |
-          { echo "**radiant CI: $RESULT**"; echo; cat summary.md; } > body.md
-          gh api "repos/${{ github.repository }}/commits/${{ github.sha }}/comments" -F body=@body.md > /dev/null
-      - name: Discord
-        env:
-          HOOK: ${{ secrets.DISCORD_WEBHOOK }}
-          RESULT: ${{ needs.gate.result }}
-          MSG: ${{ github.event.head_commit.message }}
-        if: env.HOOK != ''
-        run: |
-          icon=$([ "$RESULT" = success ] && echo "✅" || echo "❌")
-          head_line=$(head -1 summary.md)
-          table=$(grep '^| ' summary.md | tail -n +3 | sed 's/^| //; s/ |$//; s/ | /: **/; s/$/**/; s/^/• /')
-          extra=$(sed -n '/^\*\*New matches\*\*/,/^```/p; /^\*\*Deferred\*\*/,/^```/p' summary.md | grep -v '^```' | head -20)
-          text=$(printf '%s **CoD2Radiant** `%s` %s\n%s\n\n%s\n\n%s\n<%s>' "$icon" "${GITHUB_SHA::7}" "$(echo "$MSG" | head -1)" \
-            "$head_line" "$table" "$extra" \
-            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}")
-          text=${text:0:1990}
-          jq -n --arg c "$text" '{content: $c}' | curl -fsS -H 'Content-Type: application/json' -d @- "$HOOK"
-      - name: Tag the first SHA-identical build
-        if: needs.gate.outputs.sha_identical == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh release view sha-identical -R "${{ github.repository }}" >/dev/null 2>&1 || \
-            gh release create sha-identical -R "${{ github.repository }}" --target "${{ github.sha }}" \
-              --title "SHA-identical CoD2Radiant.exe" --notes "Rebuilt exe matches retail SHA-256."
+          name: radiant-web-trial-${{ github.sha }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            build/web-trial.*
+            build/web-trial-assembly.txt
