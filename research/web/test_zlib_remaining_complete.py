@@ -99,6 +99,9 @@ copyrights = (
 for name, expected in copyrights:
     ours = data_symbol(name)
     assert string(image.pe, ours) == expected, (name, 'candidate copyright')
+    print('DATA diagnostic', name, 'retail exact index', retail.__data__.find(expected + b'\0'),
+          'retail partial index', retail.__data__.find(b'inflate 1.1.4'),
+          'candidate', string(image.pe, ours), flush=True)
     assert expected + b'\0' in retail.__data__, (name, 'retail copyright')
     print('PASS:', name, 'retail/candidate constant match')
 
