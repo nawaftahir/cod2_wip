@@ -1,17 +1,4 @@
 addr	symbol
-0x0040fc10	??1CFindTextureDlg@@UAE@XZ
 0x0040fc60	?updateTextures@CFindTextureDlg@@SAXPBD@Z
-0x0040fca0	??0CFindTextureDlg@@QAE@PAVCWnd@@@Z
-0x0040fd60	??_GCFindTextureDlg@@UAEPAXI@Z
-0x0040fd90	?DoDataExchange@CFindTextureDlg@@MAEXPAVCDataExchange@@@Z
-0x0040fe00	?GetMessageMap@CFindTextureDlg@@MBEPBUAFX_MSGMAP@@XZ
-0x0040fe10	?OnBtnApply@CFindTextureDlg@@IAEXXZ
-0x0040fe80	?OnOK@CFindTextureDlg@@MAEXXZ
-0x0040fef0	?show@CFindTextureDlg@@SAXXZ
 0x0040ff80	?isOpen@CFindTextureDlg@@SA_NXZ
-0x0040ffb0	?setFindStr@CFindTextureDlg@@SAXPBD@Z
 0x00410000	?setReplaceStr@CFindTextureDlg@@SAXPBD@Z
-0x00410050	?OnCancel@CFindTextureDlg@@MAEXXZ
-0x00410090	?DestroyWindow@CFindTextureDlg@@UAEHXZ
-0x004100a0	?OnSetfocusEditFind@CFindTextureDlg@@IAEXXZ
-0x004100b0	?OnSetfocusEditReplace@CFindTextureDlg@@IAEXXZ

@@ -2,20 +2,31 @@
 
 Assignment: src/radiant/FindTextureDlg.cpp, exclusively on web/reconstruction.
 
-## Trial 1 — reference reconstruction
+## Trial 1 — full reference reconstruction — commit a8d5746
 
-A full first-pass class draft is reconstructed from the bundled Q3 source and the
-retail instruction inventory. CoD2-specific evidence adds the BOOL at +0x80
-(DDX control 1525 and the fifth FindReplaceTextures argument) while preserving
-the Q3 field order. The constructor deliberately does not assign that +0x80
-member: retail initializes +0x70, +0x7c and +0x84 but has no +0x80 store; the
-global object's zero-initialized storage supplies its initial zero.
+Hosted run 41304519850 completed. The canonical gate passed unchanged at
+569/569 game rows, 68,749 B, fourteen verified files, zero failures and one
+order warning.
 
-The draft also preserves the Q3 global object + reference pattern, the live
-find/replace routing flag, registry window placement, five-argument replacement
-call, and message-map order. All sixteen inventoried entries are requested in
-research/web/trial.tsv so CI can classify authored, generated and message-map
-bodies in one bounded attempt.
+The isolated FindTexture trial matched 13 of 16 inventoried entries exactly:
+destructor 0x40fc10; constructor 0x40fca0; scalar deleting destructor 0x40fd60
+(AUTO); DoDataExchange 0x40fd90; GetMessageMap 0x40fe00; OnBtnApply 0x40fe10;
+OnOK 0x40fe80; show 0x40fef0; setFindStr 0x40ffb0; OnCancel 0x410050;
+DestroyWindow 0x410090; and both focus handlers 0x4100a0/0x4100b0.
 
-Result: PENDING hosted web-trial. No new game credit is claimed until exact
-MATCH results are observed. Baseline remains 569 / 68,749 game bytes.
+Three authored bodies remain:
+- 0x40fc60 updateTextures: 84%, candidate/retail 57/53 B, first diff +0xb.
+- 0x40ff80 isOpen: 72%, candidate/retail 33/36 B, first diff +0x8.
+- 0x410000 setReplaceStr: 44%, candidate/retail 85/79 B, first diff +0x0.
+
+## Trial 2 — branch-shape correction
+
+Retail isOpen uses two explicit early-false exits followed by a literal true
+return. Trial 1 used the Q3 ternary spelling; the compiler shortened it to 33 B.
+The draft now spells the two early exits explicitly. Because updateTextures
+inlines/propagates isOpen under the linked build, this is also a bounded attempt
+to repair its +0xb divergence. setReplaceStr is retained unchanged: its twin
+setFindStr already matches exactly, and its different codegen can depend on the
+caller/callee optimization context. Only these three symbols are requested.
+
+No new game credit is claimed until the hosted trial reports exact MATCH.
