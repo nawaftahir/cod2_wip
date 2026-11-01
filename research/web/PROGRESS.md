@@ -53,3 +53,17 @@ present as its real callees but are not independently appended to data/symbols
 by web_trial.py. This tests whether the trial's temporary symbol registration is
 what suppresses LTCG's register-argument form for setReplaceStr. No source ABI
 annotation or noinline workaround is introduced.
+
+## Trial 3 result — commit 8382e1b
+
+Hosted web-trial MATCHED updateTextures exactly at candidate 0x404160.
+The normal gate also passed. This proves the existing Q3-shaped updateTextures
+source is correct and its earlier 57/53 mismatch was caused by the multi-symbol
+trial context changing setReplaceStr's argument convention.
+
+## Trial 4 — isolate setReplaceStr
+
+Only 0x410000 setReplaceStr is requested. The source is unchanged from the
+matching twin setFindStr except for the retail-proven CString member offset
+(+0x78 instead of +0x74). This checks whether its prior stack-argument body was
+also an artifact of requesting the whole caller/callee group at once.
