@@ -157,3 +157,7 @@ All fifteen SUPPORTED authored entries are now proven: 1,013 game bytes total. T
 ## Lifetime thunk probe
 
 All game rows are now in canonical source. The only known meter regression is compiler local `_$E4` emitted by the real global g_TexFindDlg. A diagnostic-only probe now reports the candidate local body and scans retail .text for functions calling the already-proven FindTexture constructor/destructor. This is used to bind the generated helper without changing masks, thresholds or game credit.
+
+## Canonical LTCG regression diagnostic
+
+After adding the final three proven game rows, the full referee compiled updateTextures as 57/53 and setReplaceStr as 85/79 again. This is not a source change: the same draft matched both immediately before ledger promotion. The diagnostic now prints link.address_taken and resulting /INCLUDE decisions for 0x40fc60, 0x40ff80 and 0x410000 to determine whether ledger promotion is incorrectly forcing a stack ABI.

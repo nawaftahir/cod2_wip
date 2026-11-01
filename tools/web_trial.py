@@ -96,6 +96,14 @@ def main():
                             print(line, flush=True)
                         print('instruction diff', file=out)
                         print('\n'.join(diff), file=out)
+        print('WEB-LTCG address-taken', {
+            hex(a): (a in v.link.address_taken({a}))
+            for a in (0x0040fc60, 0x0040ff80, 0x00410000)
+        }, flush=True)
+        print('WEB-LTCG ledger-includes FindTexture',
+              [s for s in v.link.ledger_includes() if 'CFindTextureDlg' in s],
+              flush=True)
+
         # Diagnostic-only global lifetime probe for the assigned TU.
         # It does not affect verification or game credit.
         locals_e = sorted((s, a) for s, a in image.syms.items() if s.startswith('_$E'))
