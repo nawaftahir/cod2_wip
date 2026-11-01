@@ -21,7 +21,7 @@ assert dialog(
     0x40fd60,
     0x4100c0,
     expected_count=15,
-    expected_shared=('_$E4',),
+    expected_shared=('_$E4', '??B?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ'),
     dispatches=3,
     source=source,
     allow_generated_elsewhere=True,
