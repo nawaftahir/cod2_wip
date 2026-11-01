@@ -169,3 +169,9 @@ The web trial now preserves the exact same referee assertion/exit behavior but c
 ## Address-taken false-positive probe
 
 The prior diagnostic proved link.address_taken(0x410000) is true and therefore ledger_includes adds setReplaceStr, even though retail's own body/caller use the LTCG ESI argument convention. The probe now prints every raw occurrence of the three relevant addresses in the retail PE and fixes the lifetime scan to read link.RETAIL. This will distinguish a real code/data pointer from an unrelated resource/byte-pattern hit before changing link.py.
+
+## Evidence-backed address-taken correction
+
+Retail 0x410000 occurs as raw bytes only outside .text. The .rdata/.data hits are all unaligned and the remaining hits are resources, while retail's actual caller passes the argument in ESI. tools/link.py now recognizes address-taken functions from rel32 extlib calls, absolute .text references, or aligned 32-bit .rdata/.data pointer slots; arbitrary .rsrc bytes no longer force /INCLUDE. The full referee will validate all prior rows under this correction.
+
+The lifetime diagnostic also compares rebuilt `_$E4` against the three nearby 11-byte retail startup helpers, with 0x5269b0 favored by placement immediately after the proven 0x526990 FindTexture constructor thunk.

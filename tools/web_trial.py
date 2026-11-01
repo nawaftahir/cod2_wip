@@ -136,6 +136,11 @@ def main():
             print('WEB-LIFETIME _$E4', hex(start), len(code), code.hex(), flush=True)
             for ins in md.disasm(code, start):
                 print('WEB-LIFETIME', hex(ins.address-start), ins.bytes.hex(), ins.mnemonic, ins.op_str, flush=True)
+            for retail_addr in (0x005269b0, 0x00526a00, 0x00526af0):
+                probe_names = dict(names)
+                probe_names[retail_addr] = '_$E4'
+                status, detail = v.check(image, hex(retail_addr), '_$E4', probe_names)
+                print('WEB-LIFETIME _$E4 candidate', hex(retail_addr), status, detail, flush=True)
         assert existing_ok, 'Existing ledger regressed or compilation failed'
         return 0 if all(r['status'] == 'MATCH' for r in results if r['mode'] == 'request') else 1
     finally:
