@@ -175,3 +175,7 @@ The prior diagnostic proved link.address_taken(0x410000) is true and therefore l
 Retail 0x410000 occurs as raw bytes only outside .text. The .rdata/.data hits are all unaligned and the remaining hits are resources, while retail's actual caller passes the argument in ESI. tools/link.py now recognizes address-taken functions from rel32 extlib calls, absolute .text references, or aligned 32-bit .rdata/.data pointer slots; arbitrary .rsrc bytes no longer force /INCLUDE. The full referee will validate all prior rows under this correction.
 
 The lifetime diagnostic also compares rebuilt `_$E4` against the three nearby 11-byte retail startup helpers, with 0x5269b0 favored by placement immediately after the proven 0x526990 FindTexture constructor thunk.
+
+## Generated reference initializer binding
+
+With the corrected address-taken model, the hosted web trial verifies 584/584 game rows. The newly emitted `_$E4` is an 11-byte initializer that stores the g_TexFindDlg object address into the g_dlgFind reference. It matches the retail 11-byte initializer family; ownership is pinned to 0x5269b0 because that helper immediately follows the independently proven 0x526990 / 24 B FindTexture global constructor thunk. The row is added to ledger/compiler.tsv as AUTO and is not counted as game reconstruction credit.
