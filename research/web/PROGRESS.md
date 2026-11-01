@@ -106,3 +106,16 @@ setter isolation without overlapping Actions, so its result is usable.
 ## Web CI diagnostic update
 
 Owner authorized web-branch CI changes to make reconstruction feedback actionable. The web branch no longer cancels an in-flight web run when the next web commit arrives; main/PR cancellation behavior is unchanged. tools/web_trial.py now adds a diagnostic-only instruction diff to the log, JSON and summary. The existing referee, relocation masks, thresholds, baseline and MATCH decision remain untouched.
+
+## Canonical partial landing
+
+Twelve authored game routines that matched exactly in the hosted isolated trial
+and do not require an unmatched callee are promoted to
+src/radiant/FindTextureDlg.cpp: 845 game bytes total. The AUTO scalar deleting
+destructor at 0x40fd60 remains classified separately and is not counted as game
+credit.
+
+updateTextures (0x40fc60) is proven exact in the correct caller context but stays
+draft-only because it calls the still-unmatched setReplaceStr. isOpen
+(0x40ff80) and setReplaceStr (0x410000) remain draft-only. This avoids putting
+an unmatched body into canonical source merely to satisfy a dependency.

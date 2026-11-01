@@ -568,3 +568,15 @@ addr	size	source	symbol	name	tag
 0x00424e20	5	src/radiant/PatchDialog.cpp	?UpdateInfo@CPatchDialog@@QAEXXZ	CPatchDialog::UpdateInfo	SUPPORTED
 0x0047a140	141	src/radiant/win_main.cpp	?SaveRegistryInfo@@YAHPBDPAXJ@Z	SaveRegistryInfo	SUPPORTED
 0x0047a1d0	119	src/radiant/win_main.cpp	?LoadRegistryInfo@@YAHPBDPAXPAJ@Z	LoadRegistryInfo	SUPPORTED
+0x0040fc10	65	src/radiant/FindTextureDlg.cpp	??1CFindTextureDlg@@UAE@XZ	CFindTextureDlg::~CFindTextureDlg	SUPPORTED
+0x0040fca0	180	src/radiant/FindTextureDlg.cpp	??0CFindTextureDlg@@QAE@PAVCWnd@@@Z	CFindTextureDlg::CFindTextureDlg	SUPPORTED
+0x0040fd90	109	src/radiant/FindTextureDlg.cpp	?DoDataExchange@CFindTextureDlg@@MAEXPAVCDataExchange@@@Z	CFindTextureDlg::DoDataExchange	SUPPORTED
+0x0040fe00	6	src/radiant/FindTextureDlg.cpp	?GetMessageMap@CFindTextureDlg@@MBEPBUAFX_MSGMAP@@XZ	CFindTextureDlg::GetMessageMap	SUPPORTED
+0x0040fe10	97	src/radiant/FindTextureDlg.cpp	?OnBtnApply@CFindTextureDlg@@IAEXXZ	CFindTextureDlg::OnBtnApply	SUPPORTED
+0x0040fe80	104	src/radiant/FindTextureDlg.cpp	?OnOK@CFindTextureDlg@@MAEXXZ	CFindTextureDlg::OnOK	SUPPORTED
+0x0040fef0	130	src/radiant/FindTextureDlg.cpp	?show@CFindTextureDlg@@SAXXZ	CFindTextureDlg::show	SUPPORTED
+0x0040ffb0	79	src/radiant/FindTextureDlg.cpp	?setFindStr@CFindTextureDlg@@SAXPBD@Z	CFindTextureDlg::setFindStr	SUPPORTED
+0x00410050	54	src/radiant/FindTextureDlg.cpp	?OnCancel@CFindTextureDlg@@MAEXXZ	CFindTextureDlg::OnCancel	SUPPORTED
+0x00410090	5	src/radiant/FindTextureDlg.cpp	?DestroyWindow@CFindTextureDlg@@UAEHXZ	CFindTextureDlg::DestroyWindow	SUPPORTED
+0x004100a0	8	src/radiant/FindTextureDlg.cpp	?OnSetfocusEditFind@CFindTextureDlg@@IAEXXZ	CFindTextureDlg::OnSetfocusEditFind	SUPPORTED
+0x004100b0	8	src/radiant/FindTextureDlg.cpp	?OnSetfocusEditReplace@CFindTextureDlg@@IAEXXZ	CFindTextureDlg::OnSetfocusEditReplace	SUPPORTED
