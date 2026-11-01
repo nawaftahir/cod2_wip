@@ -113,6 +113,10 @@ def main():
               [(r['symbol'], image.obj.get(r['symbol']), hex(image.syms.get(r['symbol'], 0)))
                for r in name_rows],
               flush=True)
+        cstring_conv = '??B?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ'
+        print('WEB-OWNER CString conversion',
+              (image.obj.get(cstring_conv), hex(image.syms.get(cstring_conv, 0))),
+              flush=True)
 
         # Diagnostic-only global lifetime probe for the assigned TU.
         # It does not affect verification or game credit.
