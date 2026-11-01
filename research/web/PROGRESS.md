@@ -223,3 +223,45 @@ and later `4780358c6c9ea88ab2cd9be3d39f7f2d55b1f2b1`
   proof**, despite fifteen exact authored functions. Whole-image SHA and GUI
   boot remain pending. Avoid changing the 15 verified bodies to satisfy an
   unrelated proof dependency.
+
+## Five complete zlib leaf files — 2026-11-01
+
+Hosted run https://github.com/nawaftahir/cod2radiant/actions/runs/41311990123
+(at commit `a0988f4aa0c686db29c21d88bb9ebac6920ad408`) **passed the
+canonical `gate` job**, preserving 584/584 exact game ledger rows / 69,762 B,
+4/4 compiler rows and all other mandatory regression checks. The complete-file
+audit reported **19 VERIFIED / 102 files**, up from fourteen.
+
+The five newly verified files, each independently checked by the unmodified
+retail byte referee and `research/web/test_zlib_leaf_complete.py`, are:
+
+| Source TU | Exact game routines | Exact game bytes | Retail padding |
+|---|---:|---:|---:|
+| `src/zlib/adler32.c` | 1 | 297 | 7 |
+| `src/zlib/compress.c` | 2 | 169 | 7 |
+| `src/zlib/inffast.c` | 1 | 917 | 0 |
+| `src/zlib/infutil.c` | 1 | 310 | 0 |
+| `src/zlib/uncompr.c` | 1 | 139 | 0 |
+| **Total** | **6** | **1,832** | **14** |
+
+The source was already checked into the repository, and the five-file proof
+was staged on the branch before this investigation. This checkpoint
+**certifies existing source**, rather than claiming six newly written
+routines or 1,832 newly recovered game bytes. The game coverage meter does
+not increase. The branch's `ledger/files.tsv` was updated to preserve the
+five newly proven statuses and the honest `PARTIAL` status of FindTexture.
+
+The earlier overall workflow failure was from the separate generic
+`web-trial` testing unfinished xmodel_utils (93% at 0x004acb70), even
+though the authoritative `gate` passed. Removed only the generic
+`research/web/target.tsv` selector, preserving its xmodel draft and
+requests for later experiments. `web-trial` now selects the original
+FindTexture request, so any subsequent run proves that isolated dialog
+comparison rather than an unrelated unfinished file. Neither threshold
+nor comparison mask has been changed.
+
+The FindTexture complete-file audit is intentionally not in the VERIFIED
+set: the external `FindReplaceTextures` target at 0x00473940 remains
+unimplemented/unbound in the current link. Its diagnostic test is retained
+for review and the fifteen matching game bodies remain in the ledger.
+Whole-image placement, hash equality, and GUI boot all remain pending.
