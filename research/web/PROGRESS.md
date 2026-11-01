@@ -265,3 +265,57 @@ set: the external `FindReplaceTextures` target at 0x00473940 remains
 unimplemented/unbound in the current link. Its diagnostic test is retained
 for review and the fifteen matching game bodies remain in the ledger.
 Whole-image placement, hash equality, and GUI boot all remain pending.
+
+## 2026-11-01 — second six-file proof cohort (request for ten additional complete files)
+
+Accepted on the web branch: six **previously source-matched but unverified**
+zlib TUs now have dedicated complete-inventory audits, wired into the canonical
+`tools/file_ledger.py` gate. Run 41313713712 at
+`d31ca746fe0f6ec64c2ea3e9f6aa139594a36a7f` passed BOTH jobs. The
+complete-files gate reports **25 VERIFIED / 102** (previously 19).
+The unchanged referee passes **584/584 game rows / 69,762 B** plus
+**4/4 AUTO/compiler rows**. These TUs contribute **63/63 pre-existing matched
+routines / 17,744 game bytes**, with 419 bytes of verified retail padding
+and no extra emitted function bodies:
+
+| TU | Rows | Game bytes | Padding |
+|---|---:|---:|---:|
+| `src/zlib/infblock.c` | 6 | 3286 | 21 |
+| `src/zlib/infcodes.c` | 3 | 1853 | 15 |
+| `src/zlib/inftrees.c` | 4 | 1830 | 20 |
+| `src/zlib/trees.c` | 21 | 6664 | 154 |
+| `src/zlib/unzip.c` | 25 | 4015 | 176 |
+| `src/zlib/zutil.c` | 4 | 96 | 33 |
+
+Proof: `python3 research/web/test_zlib_remaining_complete.py`.
+The audit independently checks the entire TU inventory against the original
+mapping, object-symbol ownership, code order, unchanged referee results,
+function/padding extents, absent compiler helpers and the original zlib
+inflate copyright literal. The previously existing deflate complete-file proof
+checks the shared zlib error-string/version and compression tables.
+
+**Accounting:** no new game rows or newly authored source bytes were added.
+The 17,744 verified bytes were already in the 69,762-byte ledger.
+Only the complete-file certifications and committed file ledger changed.
+Absolute placement and SHA remain pending; whole executable is *not* bit-identical.
+
+Two other candidate file trials remain **rejected, not promoted**:
+
+1. `src/zlib/inflate.c`, run 41313888475:
+   `inflateReset` 137/63 B (2%);
+   `inflateInit2_` 252/254 B (75%);
+   `inflateSetDictionary` 152/129 B (20%);
+   `inflateSync` 185/180 B (12%). Existing four matched
+   bodies still pass. Draft was identical to the canonical 1.1.4 source.
+2. `src/universal/splines/math_quaternion.cpp`, run 41314095915:
+   `toQuat(angles_t&)` 38/32 B (60%), `toQuat(mat3_t&)` 742/482 B
+   (28%). Existing `toQuat(idVec3_t&)` 24 B still matches.
+   A fourth original 1-byte entry remains unclassified.
+   No trial made a source change.
+
+The existing xmodel_utils draft and original inactive generic trial request
+are retained; `research/web/target.tsv` is absent so the normal web-trial
+returns to the proven FindTexture `isOpen` comparison.
+**Ten more completed files were requested; only six additional
+complete-file audits are proven.** Four further files cannot yet be claimed,
+and no unverified or byte-mismatched source was promoted to canonical.
