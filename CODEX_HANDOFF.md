@@ -11,7 +11,14 @@ licenses, commits and SHA-256 provenance, plus all sixteen original target entry
 exports / 1046 B (one AUTO scalar / 33 B). No new game credit from this setup.
 Local full gate passes 569/569, 68749 game B (9.83%), 15.90% functions,
 fourteen complete-file audits; same-offset 26574 B (1.481%). Four infrastructure
-failure-path tests and actionlint pass. Hosted CI confirmation is pending.
+failure-path tests and actionlint pass. Hosted CI is confirmed green:
+main run 41303685216 and web/reconstruction run 41303707091 at fe1588c.
+Both pulled the private compiler and passed the full canonical gate; web's
+no-draft job passed and uploaded its summary. Connected Actions log reads work.
+The current GitHub app reads files but branch writes return HTTP 403; ordinary
+ChatGPT's app is officially read-only. TASK_WEB.md includes a manual source-file
+handoff through GitHub's editor. Do not promise autonomous browser commits without
+a separately tested write-capable connection.
 
 Actions now runs the complete fail-fast gate and separate isolated draft trials.
 Requested symbols use the existing retail address-taken inclusion mechanism only
