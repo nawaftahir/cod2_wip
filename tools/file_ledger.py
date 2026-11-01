@@ -18,7 +18,9 @@ CHECKS = (
     ('test_editor_completion.py', None, ('EditWnd', 'RADEditWnd')),
     ('test_mru_complete.py', None, ('mru',)),
     ('test_camera_complete.py', None, ('cameratargetdlg',)),
-    ('research/web/test_findtexture_complete.py', None, ('src/radiant/FindTextureDlg.cpp',)),
+# FindTexture remains PARTIAL: its metadata audit currently cannot bind the
+# unreconstructed FindReplaceTextures callee at retail 0x00473940. Keep its
+# separate test diagnostic, but do not mark it FILE VERIFIED until it passes.
     ('research/web/test_zlib_leaf_complete.py', None, (
         'src/zlib/adler32.c', 'src/zlib/compress.c', 'src/zlib/inffast.c',
         'src/zlib/infutil.c', 'src/zlib/uncompr.c',
