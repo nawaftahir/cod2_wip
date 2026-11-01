@@ -19,6 +19,10 @@ CHECKS = (
     ('test_mru_complete.py', None, ('mru',)),
     ('test_camera_complete.py', None, ('cameratargetdlg',)),
     ('research/web/test_findtexture_complete.py', None, ('src/radiant/FindTextureDlg.cpp',)),
+    ('research/web/test_zlib_leaf_complete.py', None, (
+        'src/zlib/adler32.c', 'src/zlib/compress.c', 'src/zlib/inffast.c',
+        'src/zlib/infutil.c', 'src/zlib/uncompr.c',
+    )),
     ('research/codex_deflate/test_complete.py', None, ('src/zlib/deflate.c',)),
 )
 
