@@ -14,7 +14,7 @@ src/radiant/draw.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
 src/radiant/EditWnd.cpp	VERIFIED	6	149	PASS	PENDING	research/gemini_review/test_editor_completion.py	
 src/radiant/EntityListDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_ent.cpp (1/1 string funcs)
 src/radiant/filtersettings.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MainFrm.cpp (1/44 string funcs); iw3xo (1/44)
-src/radiant/FindTextureDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant FindTextureDlg.cpp (4/4 string funcs)
+src/radiant/FindTextureDlg.cpp	PARTIAL	15	1013	PENDING	PENDING		15 game rows pass; external FindReplaceTextures 0x00473940 blocks complete-file proof
 src/radiant/GfxWrapper.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
 src/radiant/KeyValueSelectDlg.cpp	VERIFIED	3	360	PASS	PENDING	research/gemini_review/test_keyvalue_complete.py	
 src/radiant/LstToolBar.cpp	VERIFIED	4	42	PASS	PENDING	research/gemini_review/test_finished_small.py	
@@ -88,16 +88,16 @@ src/script/scr_stringlist.cpp	UNSTARTED	0	0	PENDING	PENDING		server source (copy
 src/xanim/xmodel.cpp	UNSTARTED	0	0	PENDING	PENDING		server source (copy-ready)
 src/xanim/xmodel_load_obj.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (1/13 string funcs); iw3xo (1/13)
 src/xanim/xmodel_utils.cpp	PARTIAL	10	899	PENDING	PENDING		server source (copy-ready)
-src/zlib/adler32.c	PARTIAL	1	297	PENDING	PENDING		none: from make show
-src/zlib/compress.c	PARTIAL	2	169	PENDING	PENDING		none: from make show
+src/zlib/adler32.c	VERIFIED	1	297	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
+src/zlib/compress.c	VERIFIED	2	169	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
 src/zlib/deflate.c	VERIFIED	17	5938	PASS	PENDING	research/codex_deflate/test_complete.py	
 src/zlib/infblock.c	PARTIAL	6	3286	PENDING	PENDING		none: from make show
 src/zlib/infcodes.c	PARTIAL	3	1853	PENDING	PENDING		none: from make show
-src/zlib/inffast.c	PARTIAL	1	917	PENDING	PENDING		none: from make show
+src/zlib/inffast.c	VERIFIED	1	917	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
 src/zlib/inflate.c	PARTIAL	4	1124	PENDING	PENDING		none: from make show
 src/zlib/inftrees.c	PARTIAL	4	1830	PENDING	PENDING		none: from make show
-src/zlib/infutil.c	PARTIAL	1	310	PENDING	PENDING		none: from make show
+src/zlib/infutil.c	VERIFIED	1	310	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
 src/zlib/trees.c	PARTIAL	21	6664	PENDING	PENDING		none: from make show
-src/zlib/uncompr.c	PARTIAL	1	139	PENDING	PENDING		none: from make show
+src/zlib/uncompr.c	VERIFIED	1	139	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
 src/zlib/unzip.c	PARTIAL	25	4015	PENDING	PENDING		none: from make show
 src/zlib/zutil.c	PARTIAL	4	96	PENDING	PENDING		none: from make show
