@@ -73,3 +73,16 @@ also an artifact of requesting the whole caller/callee group at once.
 The draft keeps the original Q3 ternary spelling. Only 0x40ff80 is requested.
 This avoids conflating a real source mismatch with the trial harness's temporary
 symbol registration, the same issue already proven for updateTextures.
+
+## Trial 5 result — commit 85e1e45
+
+The isolated Q3-style isOpen still mismatched: 72%, 33/36 B, first difference
++0x8. The candidate returns through AL; retail returns full EAX constants.
+The normal gate passed.
+
+## Trial 6 — numeric bool returns
+
+The control flow remains identical, but false/true literals are replaced by
+integer 0/1 returns. This is a source-level spelling consistent with the retail
+full-EAX return sequence and does not alter ABI, flags, or surrounding callers.
+Only isOpen is requested.
