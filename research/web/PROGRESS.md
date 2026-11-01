@@ -143,3 +143,7 @@ and request the emitted ?isOpen@CFindTextureDlg@@SAHXZ symbol. updateTextures
 and setReplaceStr are observe-only to ensure the type change does not regress
 their already-proven bodies. No ABI annotation, noinline, assembly or dummy
 caller is introduced.
+
+## Target-width BOOL constant trial
+
+The prior BOOL signature still used C++ false/true, so MSVC formed AL and then zero-extended it. This bounded variant keeps the target-supported BOOL signature but uses the MFC integer constants FALSE/TRUE, testing whether MSVC71 emits the retail full-width `xor eax,eax` / `mov eax,1` sequence directly. updateTextures and setReplaceStr remain observe-only.

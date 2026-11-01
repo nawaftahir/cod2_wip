@@ -106,7 +106,7 @@ void CFindTextureDlg::show()
 BOOL CFindTextureDlg::isOpen()
 {
 	return (g_dlgFind.GetSafeHwnd() == NULL ||
-	        ::IsWindowVisible(g_dlgFind.GetSafeHwnd()) == FALSE) ? false : true;
+	        ::IsWindowVisible(g_dlgFind.GetSafeHwnd()) == FALSE) ? FALSE : TRUE;
 }
 
 void CFindTextureDlg::setFindStr(const char *p)
