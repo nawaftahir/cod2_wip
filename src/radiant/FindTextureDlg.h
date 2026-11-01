@@ -7,7 +7,7 @@ class CFindTextureDlg : public CDialog
 public:
 	static void setReplaceStr(const char *p);
 	static void setFindStr(const char *p);
-	static bool isOpen();
+	static BOOL isOpen();
 	static void show();
 	static void updateTextures(const char *p);
 	CFindTextureDlg(CWnd *pParent = NULL);

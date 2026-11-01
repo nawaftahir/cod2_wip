@@ -129,3 +129,17 @@ caller/LTCG context we are trying to reproduce.
 
 The next build requests only updateTextures (already proven exact in that
 context) and observes isOpen + setReplaceStr without registering them.
+
+## Final bounded type trial — target-driven isOpen return type
+
+Observe-only context proved updateTextures and setReplaceStr both exact together.
+isOpen remained 33/36 B with an otherwise instruction-identical body; the sole
+semantic codegen difference is 8-bit bool returns (AL) versus retail full-width
+EAX constants. The bool signature is inherited from Q3 reference source, not a
+retail symbol.
+
+Trial 8 tests the target-supported MFC type hypothesis: declare isOpen as BOOL
+and request the emitted ?isOpen@CFindTextureDlg@@SAHXZ symbol. updateTextures
+and setReplaceStr are observe-only to ensure the type change does not regress
+their already-proven bodies. No ABI annotation, noinline, assembly or dummy
+caller is introduced.

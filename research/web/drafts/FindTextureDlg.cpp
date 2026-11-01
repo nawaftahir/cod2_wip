@@ -103,7 +103,7 @@ void CFindTextureDlg::show()
 	}
 }
 
-bool CFindTextureDlg::isOpen()
+BOOL CFindTextureDlg::isOpen()
 {
 	return (g_dlgFind.GetSafeHwnd() == NULL ||
 	        ::IsWindowVisible(g_dlgFind.GetSafeHwnd()) == FALSE) ? false : true;
