@@ -179,3 +179,7 @@ The lifetime diagnostic also compares rebuilt `_$E4` against the three nearby 11
 ## Generated reference initializer binding
 
 With the corrected address-taken model, the hosted web trial verifies 584/584 game rows. The newly emitted `_$E4` is an 11-byte initializer that stores the g_TexFindDlg object address into the g_dlgFind reference. It matches the retail 11-byte initializer family; ownership is pinned to 0x5269b0 because that helper immediately follows the independently proven 0x526990 / 24 B FindTexture global constructor thunk. The row is added to ledger/compiler.tsv as AUTO and is not counted as game reconstruction credit.
+
+## Complete-file proof
+
+A dedicated FindTexture proof is now registered with the file ledger. It covers the 15 exact game routines / 1,013 B, scalar helper, 86-slot CDialog RTTI/vtable, three message callbacks, retail TU padding, registry literal, constructor EH/unwind tables, g_bFindActive initialization, the g_dlgFind reference initializer, and the global constructor/destructor lifetime routines. The existing CName proof is adjusted only for an LTCG ownership fact exposed by adding this earlier TU: generated destructor aliases may be owned by another object, while all CName game symbols and generated symbols remain required and their existing byte/RTTI checks remain unchanged.

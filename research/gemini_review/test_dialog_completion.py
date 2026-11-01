@@ -28,15 +28,21 @@ def blob(ta, oa, size):
             assert v.check(img, hex(target), candidate, names)[0] == 'MATCH', (hex(target), candidate)
     return left, right
 
-def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=(), base='CDialog', slots=86, dispatches=0, pending_callbacks=(), source=None):
+def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_shared=(), base='CDialog', slots=86, dispatches=0, pending_callbacks=(), source=None, allow_generated_elsewhere=False):
     source = source or 'src/radiant/'+cls[1:]+'.cpp'
     rows = [r for r in v.read_tsv('ledger/matches.tsv') if r['source'] == source]
     assert len(rows) == (expected_count if expected_count is not None else (3 if cls == 'CScaleDialog' else 5))
     owned = img.of_source(source)
-    expected = {r['symbol'] for r in rows} | {'??_G'+cls+'@@UAEPAXI@Z', '??_E'+cls+'@@UAEPAXI@Z', '??1'+cls+'@@UAE@XZ'}
+    game = {r['symbol'] for r in rows}
+    generated = {'??_G'+cls+'@@UAEPAXI@Z', '??_E'+cls+'@@UAEPAXI@Z', '??1'+cls+'@@UAE@XZ'}
+    expected = game | generated
     if cls == 'CNameDlg': expected.add('??B?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ')
     actual = set(owned)
-    assert expected <= actual <= expected | set(expected_shared), (cls, {'missing': expected-actual, 'extra': actual-expected})
+    if allow_generated_elsewhere:
+        assert game <= actual <= expected | set(expected_shared), (cls, {'missing_game': game-actual, 'extra': actual-expected})
+        assert generated <= set(img.syms), (cls, {'missing_generated': generated-set(img.syms)})
+    else:
+        assert expected <= actual <= expected | set(expected_shared), (cls, {'missing': expected-actual, 'extra': actual-expected})
     for r in rows:
         assert v.check(img, r['addr'], r['symbol'], names)[0] == 'MATCH', r
         a,code=img.code(r['symbol']);blob(int(r['addr'],16),a,len(code))
@@ -104,7 +110,7 @@ if mode in ('scale','all'):
     assert not any('ehhandler$' in name and 'CScaleDialog@@' in name for name in img.syms)
     print('PASS: implicit ScaleDialog destructor folds to the real CDialog destructor; no EH contributor emitted')
 if mode in ('name','all'):
-    dialog('CNameDlg',0x424090,0x4241a0,0x54595c,0x424150,0x4241e0)
+    dialog('CNameDlg',0x424090,0x4241a0,0x54595c,0x424150,0x4241e0,allow_generated_elsewhere=True)
     assert v.check(img,'0x00402740','??B?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ',names)[0]=='MATCH'
     assert v.check(img,'0x0040a890','??1CNameDlg@@UAE@XZ',names)[0]=='MATCH'
     a=img.syms['__ehhandler$??0CNameDlg@@QAE@PBDPAVCWnd@@@Z']

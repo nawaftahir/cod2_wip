@@ -18,6 +18,7 @@ CHECKS = (
     ('test_editor_completion.py', None, ('EditWnd', 'RADEditWnd')),
     ('test_mru_complete.py', None, ('mru',)),
     ('test_camera_complete.py', None, ('cameratargetdlg',)),
+    ('research/web/test_findtexture_complete.py', None, ('src/radiant/FindTextureDlg.cpp',)),
     ('research/codex_deflate/test_complete.py', None, ('src/zlib/deflate.c',)),
 )
 
