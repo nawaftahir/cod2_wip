@@ -55,6 +55,10 @@ def main():
                 f.write(row['addr'] + '\t' + row['symbol'] + '\tisolated web trial\n')
         # Keep the unchanged full referee; trial extras receive no canonical credit.
         existing_ok = v.verify_all()
+        # Failure-path tests can stop before a linked image exists. Real
+        # mismatch runs still have the EXE and continue into diagnostics.
+        if not v.link.EXE.is_file():
+            assert existing_ok, 'Existing ledger regressed or compilation failed'
         image = v.Linked()
         names = v.known_names()
         names.update({int(r['addr'], 16): r['symbol'] for r in rows + observed})
