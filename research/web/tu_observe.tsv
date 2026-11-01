@@ -1,2 +1,4 @@
 addr	symbol
-0x00499270	?toQuat@@YAXAAVidVec3_t@@AAVquat_t@@@Z
+0x004acb50	?XModelGetName@@YAPBDPBUXModel@@@Z
+0x004acb60	?XModelGetFlags@@YADPBUXModel@@@Z
+0x004acc30	?XModelGetSurfaces@@YAHPBUXModel@@PAPAUXSurface@@HPAPAH@Z
