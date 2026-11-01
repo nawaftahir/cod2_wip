@@ -1,5 +1,3 @@
 addr	symbol
-0x004b0140	_inflateReset
-0x004b01d0	_inflateInit2_
-0x004b06d0	_inflateSetDictionary
-0x004b0760	_inflateSync
+0x00499290	?toQuat@@YAXAAVangles_t@@AAVquat_t@@@Z
+0x004992b0	?toQuat@@YAXAAVmat3_t@@AAVquat_t@@@Z
