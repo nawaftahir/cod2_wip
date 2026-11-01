@@ -80,8 +80,9 @@ def main():
         source.write_bytes(draft.read_bytes())
         if cfg.get('flags'):
             lines = saved_flags.decode().splitlines()
-            flags_path.write_text(lines[0] + '\n' + cfg['source'] + '\t' + cfg['flags'] + '\n' +
-                                  '\n'.join(lines[1:]) + '\n')
+            flags_path.write_text(lines[0] + '\n' + lines[1] + '\n' +
+                                  cfg['source'] + '\t' + cfg['flags'] + '\n' +
+                                  '\n'.join(lines[2:]) + '\n')
             print('trial flags', cfg['source'], cfg['flags'], flush=True)
         with symbols.open('a') as f:
             for row in rows:
