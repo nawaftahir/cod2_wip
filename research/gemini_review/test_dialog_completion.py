@@ -35,7 +35,8 @@ def dialog(cls, ctor, getter, tv, helper, end, expected_count=None, expected_sha
     owned = img.of_source(source)
     expected = {r['symbol'] for r in rows} | {'??_G'+cls+'@@UAEPAXI@Z', '??_E'+cls+'@@UAEPAXI@Z', '??1'+cls+'@@UAE@XZ'}
     if cls == 'CNameDlg': expected.add('??B?$CSimpleStringT@D$0A@@ATL@@QBEPBDXZ')
-    assert expected <= set(owned) <= expected | set(expected_shared), (cls, set(owned)-expected)
+    actual = set(owned)
+    assert expected <= actual <= expected | set(expected_shared), (cls, {'missing': expected-actual, 'extra': actual-expected})
     for r in rows:
         assert v.check(img, r['addr'], r['symbol'], names)[0] == 'MATCH', r
         a,code=img.code(r['symbol']);blob(int(r['addr'],16),a,len(code))
