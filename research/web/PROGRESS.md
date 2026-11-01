@@ -147,3 +147,9 @@ caller is introduced.
 ## Target-width BOOL constant trial
 
 The prior BOOL signature still used C++ false/true, so MSVC formed AL and then zero-extended it. This bounded variant keeps the target-supported BOOL signature but uses the MFC integer constants FALSE/TRUE, testing whether MSVC71 emits the retail full-width `xor eax,eax` / `mov eax,1` sequence directly. updateTextures and setReplaceStr remain observe-only.
+
+## All authored game bodies exact
+
+Hosted run 41306787818 proved the final target-driven type correction. `isOpen` is a 32-bit MFC BOOL in CoD2 and uses FALSE/TRUE constants; the result matches retail 0x40ff80 exactly at 36 B. The same build observes updateTextures 0x40fc60 / 53 B and setReplaceStr 0x410000 / 79 B exact.
+
+All fifteen SUPPORTED authored entries are now proven: 1,013 game bytes total. The 33-byte scalar deleting destructor remains AUTO. These final three bodies are promoted to canonical source and game ledger; remaining work is generated lifetime/metadata accounting and complete-file proof, not authored game logic.

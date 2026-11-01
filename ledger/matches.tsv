@@ -580,3 +580,6 @@ addr	size	source	symbol	name	tag
 0x00410090	5	src/radiant/FindTextureDlg.cpp	?DestroyWindow@CFindTextureDlg@@UAEHXZ	CFindTextureDlg::DestroyWindow	SUPPORTED
 0x004100a0	8	src/radiant/FindTextureDlg.cpp	?OnSetfocusEditFind@CFindTextureDlg@@IAEXXZ	CFindTextureDlg::OnSetfocusEditFind	SUPPORTED
 0x004100b0	8	src/radiant/FindTextureDlg.cpp	?OnSetfocusEditReplace@CFindTextureDlg@@IAEXXZ	CFindTextureDlg::OnSetfocusEditReplace	SUPPORTED
+0x0040fc60	53	src/radiant/FindTextureDlg.cpp	?updateTextures@CFindTextureDlg@@SAXPBD@Z	CFindTextureDlg::updateTextures	SUPPORTED
+0x0040ff80	36	src/radiant/FindTextureDlg.cpp	?isOpen@CFindTextureDlg@@SAHXZ	CFindTextureDlg::isOpen	SUPPORTED
+0x00410000	79	src/radiant/FindTextureDlg.cpp	?setReplaceStr@CFindTextureDlg@@SAXPBD@Z	CFindTextureDlg::setReplaceStr	SUPPORTED

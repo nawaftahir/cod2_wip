@@ -19,6 +19,21 @@ CFindTextureDlg g_TexFindDlg;
 CFindTextureDlg& g_dlgFind = g_TexFindDlg;
 static bool g_bFindActive = true;
 
+void CFindTextureDlg::updateTextures(const char *p)
+{
+	if (isOpen())
+	{
+		if (g_bFindActive)
+		{
+			setFindStr(p);
+		}
+		else
+		{
+			setReplaceStr(p);
+		}
+	}
+}
+
 CFindTextureDlg::CFindTextureDlg(CWnd *pParent /*=NULL*/)
 	: CDialog(CFindTextureDlg::IDD, pParent)
 {
@@ -88,12 +103,28 @@ void CFindTextureDlg::show()
 	}
 }
 
+BOOL CFindTextureDlg::isOpen()
+{
+	return (g_dlgFind.GetSafeHwnd() == NULL ||
+	        ::IsWindowVisible(g_dlgFind.GetSafeHwnd()) == FALSE) ? FALSE : TRUE;
+}
+
 void CFindTextureDlg::setFindStr(const char *p)
 {
 	g_dlgFind.UpdateData(TRUE);
 	if (g_dlgFind.m_bLive)
 	{
 		g_dlgFind.m_strFind = p;
+		g_dlgFind.UpdateData(FALSE);
+	}
+}
+
+void CFindTextureDlg::setReplaceStr(const char *p)
+{
+	g_dlgFind.UpdateData(TRUE);
+	if (g_dlgFind.m_bLive)
+	{
+		g_dlgFind.m_strReplace = p;
 		g_dlgFind.UpdateData(FALSE);
 	}
 }
