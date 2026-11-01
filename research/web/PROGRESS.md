@@ -153,3 +153,7 @@ The prior BOOL signature still used C++ false/true, so MSVC formed AL and then z
 Hosted run 41306787818 proved the final target-driven type correction. `isOpen` is a 32-bit MFC BOOL in CoD2 and uses FALSE/TRUE constants; the result matches retail 0x40ff80 exactly at 36 B. The same build observes updateTextures 0x40fc60 / 53 B and setReplaceStr 0x410000 / 79 B exact.
 
 All fifteen SUPPORTED authored entries are now proven: 1,013 game bytes total. The 33-byte scalar deleting destructor remains AUTO. These final three bodies are promoted to canonical source and game ledger; remaining work is generated lifetime/metadata accounting and complete-file proof, not authored game logic.
+
+## Lifetime thunk probe
+
+All game rows are now in canonical source. The only known meter regression is compiler local `_$E4` emitted by the real global g_TexFindDlg. A diagnostic-only probe now reports the candidate local body and scans retail .text for functions calling the already-proven FindTexture constructor/destructor. This is used to bind the generated helper without changing masks, thresholds or game credit.

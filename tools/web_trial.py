@@ -4,6 +4,7 @@ import csv
 import io
 import json
 import difflib
+import struct
 import os
 from pathlib import Path
 import sys
@@ -95,6 +96,30 @@ def main():
                             print(line, flush=True)
                         print('instruction diff', file=out)
                         print('\n'.join(diff), file=out)
+        # Diagnostic-only global lifetime probe for the assigned TU.
+        # It does not affect verification or game credit.
+        locals_e = sorted((s, a) for s, a in image.syms.items() if s.startswith('_$E'))
+        print('WEB-LIFETIME candidate locals:', locals_e, flush=True)
+        retail_bytes = v.RETAIL.read_bytes()
+        funcs = json.loads(Path('data/functions_cod2radiant.json').read_text())['functions']
+        func_ranges = [(int(f['addr'], 16), int(f['size']), f['name']) for f in funcs]
+        for target in (0x0040fca0, 0x0040fc10):
+            callers = []
+            for off in range(0x1000, min(len(retail_bytes) - 4, 0x12720e)):
+                if retail_bytes[off] != 0xE8:
+                    continue
+                va = 0x400000 + off
+                dest = (va + 5 + struct.unpack_from('<i', retail_bytes, off + 1)[0]) & 0xffffffff
+                if dest != target:
+                    continue
+                owner = next(((a, z, n) for a, z, n in func_ranges if a <= va < a + z), None)
+                callers.append((hex(va), owner))
+            print('WEB-LIFETIME retail callers of', hex(target), callers, flush=True)
+        if '_$E4' in image.syms:
+            start, code = image.code('_$E4')
+            print('WEB-LIFETIME _$E4', hex(start), len(code), code.hex(), flush=True)
+            for ins in md.disasm(code, start):
+                print('WEB-LIFETIME', hex(ins.address-start), ins.bytes.hex(), ins.mnemonic, ins.op_str, flush=True)
         return 0 if all(r['status'] == 'MATCH' for r in results if r['mode'] == 'request') else 1
     finally:
         symbols.write_bytes(saved_symbols)
