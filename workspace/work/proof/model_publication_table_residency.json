@@ -1,0 +1,20 @@
+{
+  "symbol": "?s_XModelSurfaceSize@@3PAEA",
+  "source_owner": "gfx_d3d/r_scene.cpp",
+  "object_owner": "r_scene.obj",
+  "candidate_va": "0x10195a24",
+  "section": ".data",
+  "bytes": [
+    0,
+    0,
+    0,
+    16,
+    56,
+    16,
+    0,
+    0
+  ],
+  "retail_va": "0x101a5a30",
+  "final_position_matched": false,
+  "filler_added": false
+}

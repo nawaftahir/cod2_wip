@@ -1,0 +1,450 @@
+{
+  "status": "authored-assembly attribution; not whole-file identity",
+  "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
+  "game_denominator": 253580,
+  "mixed_executable_bytes": 116080,
+  "cpp_executable_bytes": 108260,
+  "cpp_percent": 42.6926413755028,
+  "cpp_game_bodies": 649,
+  "bytes_needed_for_40_percent": 0,
+  "excluded_assembly_bodies": [
+    {
+      "target": "0x10001810",
+      "bytes": 33,
+      "name": "?I_fround@@YAHM@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x10004dc0",
+      "bytes": 371,
+      "name": "?R_InterpretSunLightParseParamsIntoLights@@YAXPAUSunLightParseParams@@PAUGfxLight@@@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1000f180",
+      "bytes": 285,
+      "name": "?R_QuantizeCachedColor@@YAXPBMPAE@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x100106b0",
+      "bytes": 256,
+      "name": "?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x10032490",
+      "bytes": 165,
+      "name": "?RB_UpdateColorInternal@@YAXPBMPAE@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x10032d80",
+      "bytes": 160,
+      "name": "?RB_AdaptiveGpuSyncWait@@YAXXZ",
+      "reasons": [
+        "rdtsc"
+      ]
+    },
+    {
+      "target": "0x10032e80",
+      "bytes": 177,
+      "name": "?RB_AdaptiveGpuSyncFinal@@YAXXZ",
+      "reasons": [
+        "rdtsc"
+      ]
+    },
+    {
+      "target": "0x10034ca0",
+      "bytes": 536,
+      "name": "?RB_GaussianFilterPoints1D@@YAHMHHHPAM0@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x100584a0",
+      "bytes": 98,
+      "name": "?PointInCircleFromUniformDeviates@@YAXMMPAM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x10058510",
+      "bytes": 130,
+      "name": "?PointOnSphereFromUniformDeviates@@YAXMMPAM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x100585a0",
+      "bytes": 116,
+      "name": "?PointOnHemisphereFromUniformDeviates@@YAXMMPAM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x10059360",
+      "bytes": 144,
+      "name": "?Vec3PackUnitVec@@YAHQBM@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x10059d80",
+      "bytes": 347,
+      "name": "?AngleVectors@@YAXQBMQAM11@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x10059ee0",
+      "bytes": 100,
+      "name": "?YawVectors@@YAXMQAM0@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005b550",
+      "bytes": 99,
+      "name": "?VectorAngleMultiply@@YAXPAMM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005b950",
+      "bytes": 69,
+      "name": "?QuatFromPitch@@YAXMQAM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005b9a0",
+      "bytes": 69,
+      "name": "?QuatFromYaw@@YAXMQAM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005b9f0",
+      "bytes": 57,
+      "name": "?QuatFromRoll@@YAXMQAM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005ba30",
+      "bytes": 82,
+      "name": "?QuatFromAxisAngle@@YAXMQBMQAM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005bb00",
+      "bytes": 106,
+      "name": "?MatrixRotationY@@YAXQAY02MM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005bb70",
+      "bytes": 106,
+      "name": "?MatrixRotationZ@@YAXQAY02MM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005cf60",
+      "bytes": 639,
+      "name": "?SnapPointToIntersectingPlanes@@YAXPAPBMQAMMM@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x1005d1e0",
+      "bytes": 1554,
+      "name": "?SnapPointToPlanes@@YAXPAY03$$CBMHQAMMM@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x1005da30",
+      "bytes": 567,
+      "name": "?BoxOnPlaneSide@@YAHQAM0PAUcplane_s@@@Z",
+      "reasons": [
+        "explicit out-of-line assembly"
+      ]
+    },
+    {
+      "target": "0x1005e100",
+      "bytes": 120,
+      "name": "?SphericalToCartesian@@YAXQAMMM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005e180",
+      "bytes": 145,
+      "name": "?PitchForYawOnNormal@@YAMMQBM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005e4f0",
+      "bytes": 172,
+      "name": "?SinCosDegrees@@YAXMPAM0@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    },
+    {
+      "target": "0x1005e5e0",
+      "bytes": 157,
+      "name": "?SnapFloatToGrid@@YAMMMM@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x1005ea60",
+      "bytes": 138,
+      "name": "?_copyDWord@@YAXPAIII@Z",
+      "reasons": [
+        "explicit out-of-line assembly"
+      ]
+    },
+    {
+      "target": "0x1005eaf0",
+      "bytes": 295,
+      "name": "_Com_Memcpy",
+      "reasons": [
+        "explicit out-of-line assembly"
+      ]
+    },
+    {
+      "target": "0x1005ec20",
+      "bytes": 170,
+      "name": "?Com_Memset@@YAXPAXHH@Z",
+      "reasons": [
+        "explicit out-of-line assembly"
+      ]
+    },
+    {
+      "target": "0x10061600",
+      "bytes": 357,
+      "name": "?AddLeanToPosition@@YAXPAMMMMM@Z",
+      "reasons": [
+        "fsincos"
+      ]
+    }
+  ],
+  "memory_helpers_cannot_inline": true,
+  "naked_box_separate": true,
+  "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
+  "counter_sha256": "067641372a57c1fcbfb89b26b449b41d6fc404e697822f4d3e1dce1fe6445f1a",
+  "regression_sha256": "d174136b8643fb10ffbfef1ac6e70dc36e1702615c6df9a94693c87e1c3b5f7b",
+  "bind_sha256": "60cfe44424b63ca3683a2b87ad8195e7c50c2b907398c0fd771c0427279d3fd1",
+  "source_sha256": {
+    "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
+    "roots.txt": "9a296b4e8d21549119ad73383c58d47ea7923410a729778710b5c219222dee13",
+    "tus.txt": "18d3d8e0f1cc66c2bd703c8c6ed5e907876532e6530c78776b598bf15050844d",
+    "script/script_public.h": "f9de6fc1bfb7f5bfbe34c671db3f800afd9366a820e3d987b32569920f035029",
+    "server/server.h": "811bbc2f26a2aed0b542fc70ab2ce13e5891326036b74decda39e34eb85d8e4b",
+    "universal/com_math.h": "3db79f6a1d997c939eec59d402f1435f744fe11caa6c1199d9ec451705524bcc",
+    "universal/fft.cpp": "d5d07561bd34baafbb20d32e6597aae5ca12f974cf50beab6325f20ab70bf1bc",
+    "universal/com_convexhull.cpp": "16a83964cd61cf311d94b72d8f356f77d7f5776918da0c2a6f360670d56989cf",
+    "universal/surfaceflags.h": "965aae3c5a05c0e7b963cd91b57ff5fc0fc5beaa5446f993f9e40d319466f95f",
+    "universal/com_memory.h": "39e31ff4c9e7335f33b3ae7734590c8ef0da067049b6a6f39ccab671f2e553ee",
+    "universal/com_shared.cpp": "d19acbee13742932acea6b76556326489b6fce44ed742acccfa59072770818a3",
+    "universal/dvar.h": "b2e2bf60ad25907abec3d14d9dbbbc125196fe919d27a22f45c7b6472a677024",
+    "universal/q_parse.cpp": "98891b147e252f08c887d3a171d52c4f3524df3e6f595b2cd116920f26cd0ff6",
+    "universal/universal_public.h": "55a6695d3bd6d3b6c3e2775c4c0a950a45f8a351beb875f23446c54f908117dd",
+    "universal/q_shared.h": "37e05137f766ebecc64f0021173c25ccf714b20b0bb8b387867cf0987345dbe8",
+    "universal/com_files.h": "dd420439ee14502a262ad401cf6b9b313b65286a03646e0d3ddc4699754e7e01",
+    "universal/q_shared.cpp": "34879ff4608fe8d69090656e60b047d85f7a6b72b3fa45d01745da1ddcd96104",
+    "universal/com_math.cpp": "a4318c864e50272ce393e142f05bcb80bc95c581b88a68163573c3ccd8382cdd",
+    "universal/box_on_plane_side_x86.inc": "01447f1d547da40d7d228d91157964b259f8ad8180074b6a95f0df332771328d",
+    "universal/com_plane.cpp": "5683d3eb5bc1c28309ed37792d0db518905c875be2f72778e84615f58edf69df",
+    "bgame/bg_public.h": "72a1d3d2d2168ff8ad6524834f94efdc6bd19d6da665820910ef30f632adac44",
+    "game/g_shared.h": "648fffb7d46e85d7acf06093c20a1a89ecd7081ea6f340d98e0f48f286799376",
+    "xanim/xanim_public.h": "4b5eb4e0020f95d589462603cbaf702a60a4f38600d018065353f653436401cd",
+    "zlib/zconf.h": "7f991f3b845b18fe68520af54f800c2e2756c26be419b42b46e59b57c492e56a",
+    "zlib/zlib.h": "7388aeb8cc550dcbc158fd43dc90ee900f5fc6a3d055ceaf4c83aa441e6d387f",
+    "zlib/unzip.h": "39d1727cce9a3cbae0d607251602f068fb5cfc241ce330cbce3f056a28459ad3",
+    "gfx_d3d/r_xsurface_load_obj.cpp": "13274e0ea5fc93c50c525db904643f098822596e1771f96b693c1607a3b92a01",
+    "gfx_d3d/r_xsurface.cpp": "31a74cffcd294b8fe124fd0fb94b5e22ff5eea55ed35ad2af7a704a0a1f097da",
+    "gfx_d3d/r_permanent.h": "3a5a46e2728d308a5a75a40d0f61f5172c85b283aa7bade98e56d4a2615b2983",
+    "gfx_d3d/r_scene.cpp": "be50dab27b927371c30eb61b5bfd4a350b9b2d1151915357a8fb91a4ed784225",
+    "gfx_d3d/rb_fog.cpp": "f18e127c1a7f5e087dc04ab7517b1b80dde7e9b6a76f3a750fce0b398b24b0e3",
+    "gfx_d3d/r_model.cpp": "24f5f1ab20000f6e00db9ccae4deb764589e893fd142b44c2f8bffb5ffd4482f",
+    "gfx_d3d/r_light.cpp": "7d9763dfc12b0aa3e3675b05eba5ffaf50322a965d427ec9c7fa4f06c464f95d",
+    "gfx_d3d/rb_sunsprite.cpp": "e06f6a10635b5c83a0d7105a39819e15a20b10ce18b21158985fc9cdefb0110a",
+    "gfx_d3d/r_utils.cpp": "a403db00f1a7ecfca9ac4a4d2ab15d6e2caef85bac190e98e947744dfb172c46",
+    "gfx_d3d/r_outdoor.cpp": "4504dbde9f96f6f6b5ad8aa1a31b6e7854c36cdd2502ec05e88641389500267a",
+    "gfx_d3d/r_texturemem.cpp": "01708aec4001af84f5f90ff537d432b1363de0b15744dcd8537142107c64dfa3",
+    "gfx_d3d/rb_backend.h": "2651f2a1d2fae221261636905612bb4edc2508e3d72b4708620e06301235fa26",
+    "gfx_d3d/r_sky_load_obj.cpp": "412fe32c549caefe32849d1c751a5ed10c1f931db2b04b1d66b3a6955dfba179",
+    "gfx_d3d/r_staticmodel_load_obj.cpp": "4334556495e8ff44e7bcafda48420a7a0d084405ddc0e6d7f86cb994b6cdc60a",
+    "gfx_d3d/r_dpvs_state.h": "fc4a51ce8a8eeb03bdf8879f7544eea579654f6d3ea401fa893df4310c0689ec",
+    "gfx_d3d/r_bsp.cpp": "22ae99bb7c5c7a8a17b565cc5d7b857e3b669b229e1d5161d2ab1cedd33b652e",
+    "gfx_d3d/r_material.cpp": "1978980a45da901d9e32a2cc4c7a2d18ca8b0908881f9207eb517c944752e666",
+    "gfx_d3d/r_material_state_tables.h": "2d19ad921b5ae1f8cf0a1c6b43a466243c00a8d30126d18835720ea5478ae0a2",
+    "gfx_d3d/r_material_load_obj.cpp": "24cf6f066460e64a8f795d36a3bb4c9b67d66a5531fb631017d07a14299c9c9d",
+    "gfx_d3d/r_xsurface_optimize.cpp": "1838dd7aa1196a01f2d4373b8abb3a5646c5a5eae62323f1512b54f7738f05d3",
+    "gfx_d3d/r_flares.cpp": "55f7a278e82e5f4a540f797c82b7d03a89ab66521c63b22bbcf2eaf66bfe99b7",
+    "gfx_d3d/rb_shade.cpp": "353abfb934fa94a5db0feb96129996d2f7f80a9e2f1ad8efea65155ccd2f45ae",
+    "gfx_d3d/r_scene_records.h": "f62a90ca397a03c57c8e4090163b84f59706ad6192263014533e89b57b4904a5",
+    "gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",
+    "gfx_d3d/r_rendercmds.cpp": "087104a000d568096388b52f11a2db2db4fc91e6bd06d651e477551206cacdbb",
+    "gfx_d3d/rb_light.cpp": "4ab04972aebc145d2f0422ea25ea1c74b165a5120a3ec4e6fdc157de3fe88265",
+    "gfx_d3d/r_specularityimage.cpp": "6db8fff9952099fcaff2cf3e36789dcce42ef3046311d2d2851acf0bcfc1c1a9",
+    "gfx_d3d/r_font_load_obj.cpp": "8afb05946367f422dc2c5935f5d3db2e340daa27a109992e5f45cd41d6370f16",
+    "gfx_d3d/r_marks.cpp": "04a4a0a8b6fdfd38bc468ae5f1abd420fa466aa5490093ffbf6565d1f55b0c07",
+    "gfx_d3d/r_image_wavelet_tables.h": "110975acfdb93dc5158b2e522c1fd09551c8d4375bd9986406e1c4e1cd542b4e",
+    "gfx_d3d/r_image_wavelet.cpp": "7673699bc0fef2c9d7cca3fcee1852129366da50a5f88c4abf59b638053fb015",
+    "gfx_d3d/r_debug.cpp": "3eadfc47096edbfcc16f5d847469119bf7f73085c50163e96fb241e6365a2e72",
+    "gfx_d3d/r_image.cpp": "35325939d972b2f72c7663a798fbea8527b6f9533877fe2dbabe3d1966784240",
+    "gfx_d3d/r_light.h": "6331e16982d11a7843a09689581baef86a96ea6f2f2b90e66621da1b55fde15f",
+    "gfx_d3d/r_cmds.cpp": "c0500e921edb7ea725208b0f3b63cad7598a6845056c86e0a6ad306dd6b36e1f",
+    "gfx_d3d/r_splitscreen.cpp": "96e3a9df5ac985ef1f0ff6f9c97b5d58ae526917885708722d444b8efefecf02",
+    "gfx_d3d/r_rendertarget.cpp": "1fd39c9f42cb21f7d82c706ca5564d8f02acd52a47e5864d0158e3d2cbf2c2bb",
+    "gfx_d3d/rb_surface.cpp": "0861a1b6a50097ca0a747b3ff696ccad59aff6e48aca0ea78b5eddbd706b004d",
+    "gfx_d3d/rb_commands.h": "fba2e63fc48e5a87154f1b41a7945922042696bf883205724c75ee6718ce4a7d",
+    "gfx_d3d/r_local.h": "a0fed723210a12c8274e7708ab84d3807b51e5a35f88b62fe412926f0954fa03",
+    "gfx_d3d/r_dvars.cpp": "25f30828efb9a8c60414a8ab712c94ace2b7bb4f7dc8704768b82f8c2f8ae8a6",
+    "gfx_d3d/r_jpeg.cpp": "723d17df4c5515e44e8aeae7311cf99185132a7906627521cf0633f24a9e5674",
+    "gfx_d3d/r_water.cpp": "a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b",
+    "gfx_d3d/r_image_load_obj.cpp": "48e67ac64bfab2b23bb1d1ae8d5fc922827f747fd8aff4aa6d7b5292dc987f32",
+    "gfx_d3d/r_shadowcookie.cpp": "c85d83f02123bfaa6b7ce090bddd20629187b66a6cf795b5f7e41c4e201e2e41",
+    "gfx_d3d/r_bsp_load_obj.cpp": "a4003f303f54ad93c79b036e693ac12e9dcbb59473aa6c6a545ed0ddc35fed39",
+    "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",
+    "gfx_d3d/r_buffers.cpp": "e86aee523eb5ae941898dce04ee6dab10545d7ece099d5ebdbd81cc1e7dd0fd4",
+    "gfx_d3d/rb_sky.cpp": "059a302f03e505d95083b24cc5dae81ebface31ca1472e1d56fa82003faa8e60",
+    "gfx_d3d/rb_tess.h": "3a8b6d3bf2209d6f25bb5efb8594fea8c1845afef306a6bae18394af8f2343d0",
+    "gfx_d3d/r_caps.cpp": "5d85bff3833adb73471710b729cc25fe3b3c9becc3ea78ec917d65d27d77036d",
+    "gfx_d3d/rb_state.cpp": "bc76b18cf1e6a9808e38a8a596fac259ae061abc3f20a769c382f83eeb6fed13",
+    "gfx_d3d/a1_d3d.h": "e1eecc8c443840b0f6ce362b4645c9199b16b4f6317db0cd7c9a83445241f683",
+    "gfx_d3d/rb_drawargs.h": "107f5be251b48f118f616ae61c461f9472c0a63e748a6a9f005383b42e8bb77a",
+    "gfx_d3d/common.cpp": "f098178eb5a04cfc4ac83704b1bac538950f1d271aca8897e044135ec2d13de2",
+    "gfx_d3d/gfx.h": "a7dea0f270a780016abf289558ef3df0926c9829517bae5386c01a4eddb03667",
+    "gfx_d3d/r_water_load_obj.cpp": "3f7ef14abc6136abb22d1874094669bfb887ba4a34af7113c6eae0e09559f243",
+    "gfx_d3d/r_skin_transform.cpp": "74644c7c76ff32cc3fdbf2da0efc0a6bf5e7bef96fade4dfdb03c4fc4cbe7dc0",
+    "gfx_d3d/r_image_wavelet_types.h": "aec7f905d88c0a61d9f0813acd4958b04e3af39515a4662da5797669a441c45d",
+    "gfx_d3d/r_image_load_common.cpp": "3812411a1642dc0ab68301194d36f5188d3dc5f3aaa0ad6a6c1cab07f069a543",
+    "gfx_d3d/rb_imagefilter.cpp": "22df9f5e6a677e7f36f2beb1e02018a4916072d41a0aae2daf159cd29fffa14c",
+    "gfx_d3d/rb_imagetouch.cpp": "14cd781e57a2e4fec1b005ced996f35cd2b7bdfce0075318394d472624f0ee8c",
+    "gfx_d3d/r_image_registry.h": "2a8e2a52d01467b040d822a60e728642c0d2f0a81ce9213eaa65bd615986357d",
+    "gfx_d3d/r_dpvs.cpp": "cc768e281f5803160d65fbd8a7ff4a0224a026cd85c2c4662ee358479e5b2b57",
+    "gfx_d3d/r_material_globals.h": "c167c5fa166909ae5e0d2753682a816391f8cbbfe6def24fff049368197a2614",
+    "gfx_d3d/r_material_shader.h": "31c21ae3e44f4f68e804af13d71f4aea919c797dd078f0cbe0c78e1c66121cf6",
+    "gfx_d3d/r_light_load_obj.cpp": "218a4e681ee1db68a8b955211f2549fa3a07ddf26ef302847a7f205b48a19bfb",
+    "gfx_d3d/r_screenshot.cpp": "ec8621d23c7abe0069544e3a85d269d1771e5dcebb0ff8c044e05fac176cd583",
+    "gfx_d3d/r_staticmodelcache.cpp": "5dfb5f69c69f168b66986c26c7ab1e06a1beb9f97043f0b561b83f20b4e8cc83",
+    "gfx_d3d/r_sun_state.h": "419ff7fe0c06e590a7014b9ba5a47de61008284d2d759e0bccf9419e090743c5",
+    "gfx_d3d/ri.h": "d0ab995bb648950724efab0bb1a5a2adeba9d11aa7c5fa73d77cbb719fddb05b",
+    "gfx_d3d/r_font.cpp": "207f07409273c323f8840e29cf4864c9c16c1838d384fdc5f071cd18d9cbc171",
+    "gfx_d3d/r_init.cpp": "2c70d4d1a409111713c77a7a72ecdd5c22b6b751f57021816c032a09e8f4ed2a",
+    "gfx_d3d/r_surfbounds.cpp": "13a0df881215bdcacc88c5e722f29d28d8dcd67f17c9266b47e5cc43ded05d2c",
+    "gfx_d3d/r_sky.cpp": "a5e93a6e24ef396a53baec20dea5a92d090e19717ca106708397924f1aa8a853",
+    "gfx_d3d/rb_backend.cpp": "d138b855f087a9330c6167469229e3ee7d2904213ff5daef554d49d203af360e",
+    "gfx_d3d/rb_logfile.cpp": "8c41ddf9e10c61e97f0a8cc3d1b196e79dfe1da25f5d109166f2456e5d9fb953",
+    "qcommon/cm_public.h": "392e51831d9ec39b659124500e13329afb28d3b46086b07248b31bcc205a3cd5",
+    "qcommon/cm_local.h": "ca108902283e8d17df5e278ef6bdf31ad2640ea7576c1247e2674c936439d775",
+    "qcommon/qcommon.h": "966db572ca2f85dc43c8f28c10e826c80762a90481849dbca5eceec26b8e8120",
+    "qcommon/netchan.h": "a5e19c15610310e286615d0ae7c2f3f7c25ddcb95cdf8c6f8fc725dadf0f8826",
+    "qcommon/cmd.h": "6dac9cec1260ea8046abacf51b0ceec20d5a9ac73fae8ffe6bacd0e41b977895",
+    "qcommon/common.cpp": "3a6cc5d55ea5ceebab66cd402ee73e9d4fa3b5db4fe5bc0ad9205d28aaae81a1",
+    "compat/msvc71.h": "8b793ebbd41492a4289a9d26c7f39543022351c2e847273bfd68ec96f3598dab",
+    "win32/win_threads.cpp": "78caa83aa1ea969ce925af894ee9a0f087f672bc20d078dd22870e64064f7d40",
+    "jpeg-6b/jdsample.c": "acca64d28c61b87e77993dd0bd51d089ecd68f8989f93e7d17156314ca58670d",
+    "jpeg-6b/jcmarker.c": "c4eadb83aeaa63df9a17364fbddb1df1b96fb1281f2d395dff6ec8371373cfcc",
+    "jpeg-6b/jdapistd.c": "1b062e70e891819f4603f83baf49462ea737255a0c39df3ef941ef543f94fbab",
+    "jpeg-6b/jdct.h": "4cde9d7c12ffc920e1dd525c6b7f41f88a3ea573af8c66a4b6d0d6ed3d7fd770",
+    "jpeg-6b/jchuff.h": "0aa206ea4abf0e68df14745c114fbe1db7705ce5c881b0964babf5acfbc38764",
+    "jpeg-6b/jdphuff.c": "75db83bd4bf1f3f6f6fe7b1d2e195efcf5e3ab65597089807aaeeffbdb013627",
+    "jpeg-6b/jcsample.c": "8e0b73f54bafcd87f7117795de04987eb1a5a3ac74fb8d256833ceb59f8b31d4",
+    "jpeg-6b/jddctmgr.c": "f50d9b1414b44782d4ef46761a53f930b06764468b4cbbf0bf0761ac0751defd",
+    "jpeg-6b/jfdctint.c": "807dd95d59692db94d2fa23557d8a16e2a20cb4d851ba5a82f26fa1a674b52c8",
+    "jpeg-6b/jchuff.c": "1255c27a8fae13ad2b53d5fa17697b3b7cdb4983f6bdbf96876326189d2efba0",
+    "jpeg-6b/jmorecfg.h": "68a0f8e44b2bb8e041a3f1f389cc5e18345c3e0b043c7100d21db37e7bafcab7",
+    "jpeg-6b/jpegint.h": "f2fbbf47da9fe7cc9e4813235d71e1252ec4662e3ecb8823bd4d499492125153",
+    "jpeg-6b/jutils.c": "2cab735c6ea1bca55f4c94a72c73035a0a161378403a6bd849b350df71db92d6",
+    "jpeg-6b/jdmainct.c": "f9a8331d0a58f6ae74bbfc27e9640d66afb067793586358e0bb47bdb7cb754df",
+    "jpeg-6b/jconfig.h": "1d0894775067d15163181f26d3039e24b34501ca7e5380dd2ddb8526dd05b250",
+    "jpeg-6b/jdtrans.c": "c97867f861168d81844a9c9fd8c0b643ce835534a605a93aaab758ec36c56d8a",
+    "jpeg-6b/jdapimin.c": "61681f9233b7e372cfbfe9775629e15aae53b4e1532447c2f77dcc1c57ba7826",
+    "jpeg-6b/jdhuff.h": "9474219e38bd98af7fd427e25462857854f3391fe4eaf329a0d0cb5e438e56f3",
+    "jpeg-6b/README": "4cf9c190f184019b61c36bcc49d4a24ffeb2a838c6f1690d6c4db14cfb2d0478",
+    "jpeg-6b/jidctfst.c": "c864b3dcfe494f9c8bda25a6fa5fc0a330e636b32eb4bcb6febe8cb01ed1d433",
+    "jpeg-6b/jmemnobs.c": "d26df98be70e5d89ac66803a4bcaab64350260eaffa02953ba9d1273e01ff166",
+    "jpeg-6b/jdpostct.c": "f873dd3a08eedee9a32c1e343cfbdc3380d2e245e1eab2c416d4e1a62cc9586e",
+    "jpeg-6b/jdcoefct.c": "d84af1a89ea5f91d68607d5620a492f986b7515c141bc3666c5a70dc44df57db",
+    "jpeg-6b/jcphuff.c": "7a428d6d13f786ba53d200ba96ab1fa3ff9f7dad61737ad96f3ce199b748c367",
+    "jpeg-6b/jerror.c": "f6b0fc0548e2236bce873df854ab3bdf9252d1a680d8ebb494f9e3579c917e5d",
+    "jpeg-6b/jfdctflt.c": "07c7ec15785f5709515424da1b45deacfa822197b761e319f45fbaa45e17caf9",
+    "jpeg-6b/jmemmgr.c": "2b57e48bb6dd369c2d46e5827cd1e2553d50e02b062d94c2c17725ca26b642e3",
+    "jpeg-6b/jpeglib.h": "7cfce09abfac36d666aeceaa9cdd39a275b53bdb30d503bff52dbfeadbd96cc4",
+    "jpeg-6b/jdmerge.c": "a47ca108ebf955104abbe3f9a64383532be2c70c6f956b5844b412f151f50453",
+    "jpeg-6b/jfdctfst.c": "1c28ec690d4a69bdc285eac01bef668e31866ad0018fe9b4f68bcdce8a9ec044",
+    "jpeg-6b/jquant1.c": "556df5715cf5d915e5190066ff4e542a9911b651e45b34d322a6f6c2b0098fbc",
+    "jpeg-6b/jversion.h": "7a8c12a9d52f62342b46b64a8d91d148ae7b0398e9663ad03da3e0b882cd2f14",
+    "jpeg-6b/jidctflt.c": "0988f6ba29f57b691dabdd3f0541839fb651dc74abd36c395130b12a30937155",
+    "jpeg-6b/jmemsys.h": "dbe87b534bc93f9ea54492589e69307b492aff8a377fa3c9c8b54a54de488397",
+    "jpeg-6b/jdinput.c": "f1f6b042aa907fe622aa7c94b21d71e61f7f306e10988148c42cc7d50f667e76",
+    "jpeg-6b/jcmainct.c": "a51f469b02429189ad0c5a52fb2d789d7025c1802b87168a9fe9180fc135c07e",
+    "jpeg-6b/jcdctmgr.c": "58adbdb02c125057964569e56fad59df8dc7d61e751a476006c34e24c030d1dd",
+    "jpeg-6b/jidctred.c": "df25adc646b0fdd69aed54361928aeb36972a8293c917f8ec1b0d62e8f764252",
+    "jpeg-6b/jcprepct.c": "4713a51fd7ecb9cc7c7162b30bc26243342361a4e083f43f2afbd10e977a92fc",
+    "jpeg-6b/jquant2.c": "9b6844e18480d7003618e8f473a0900743d15fc8516aee7229a77adce470eb0b",
+    "jpeg-6b/jdcolor.c": "de64bfa0416fa45c8a55cec82c7da468b329c3c3fc9cc55eb5f56509a80332cf",
+    "jpeg-6b/jcmaster.c": "44a467046fc8eee886359e1c738fb8289a5bb3533b06de62d332d5b409ddfb2b",
+    "jpeg-6b/jcparam.c": "c24c98d067ba1424a578e91a0ab584533983eafbcc399d681895974225478629",
+    "jpeg-6b/jccolor.c": "2c2b7417c2da845e5dcd959b4fb6264b8848c0de689d95dcc2a5b407ecaba5b5",
+    "jpeg-6b/jdmarker.c": "1200c42679f318768025f8e45457d02c5ce5dfecbd72b37dc0bd1da9adb4dba0",
+    "jpeg-6b/jcomapi.c": "d8a79c2a19310e0bc918324d7174a1e1bc1b9e316f63fd90449abf46c041711d",
+    "jpeg-6b/jcapistd.c": "371517d8285ca47d286be53a6c1bf8f1a0372e12e6e7f7c84b324d7f441b6581",
+    "jpeg-6b/COD2.md": "c8ab03c130fe8a1497d18d21cc60070d2a7a75c10cb2cf7ed9e909af39db26b4",
+    "jpeg-6b/jcinit.c": "31aa9f72d8e6250790328512ae9c646b3c2b32887f79fa3df01af7d5345e061c",
+    "jpeg-6b/jinclude.h": "a6433e5ea0030f4bffd41bcc2f064008afd79de4270cf28494bd43d2fbc5da06",
+    "jpeg-6b/jdatasrc.c": "8ed6d29cf7e5227623b7dda01a852b4628043bdc0703dc6fabb0bf996d2eb1d7",
+    "jpeg-6b/jdmaster.c": "c9f18a007511047a50db0b14c54e4d88c279571ec36824b70c3c20232ef7a8fe",
+    "jpeg-6b/jccoefct.c": "3ae6713a9b2a3fe717703dcdcb37f5dfdf123c19736207b71c132c4e1caa7099",
+    "jpeg-6b/jidctint.c": "3b7123ba9a66c10eb1f96d7432637b051278f3538d1b06884f9d21a39fd78f9a",
+    "jpeg-6b/jdhuff.c": "980d1bdeb8bc631a3528560a4f01bfae28efd8f3ecce4a76d32c97a71e6d1f52",
+    "jpeg-6b/jerror.h": "324f058e0dc17408ea83a8d47d0a7a1f6ba7553d653f709a9be275971f539fec",
+    "jpeg-6b/jcapimin.c": "48bf379c3de7790388df3dbcedab408cd80aa7d38a5b3c91d900c46d7801e66f",
+    "compat/include/dirent.h": "75b548b8f0b673bda2fda594115da74d612efa141b8430c00718b6affa122a19",
+    "compat/include/d3d9.h": "563c48c15dc738eb288a15261dab35436dbf0306304bc2f9134563b915a571fe",
+    "compat/include/unistd.h": "75b548b8f0b673bda2fda594115da74d612efa141b8430c00718b6affa122a19",
+    "compat/include/strings.h": "4fea897c1a12e2c276fcf5b8879f540ea7bc7a2b1d113ce8e78f563069f080da",
+    "compat/include/stdint.h": "bb6a4de35e566e197a83b617d2e83d24982415da4f8ca85fdd471a864f7f2e0d",
+    "compat/include/sys/time.h": "75b548b8f0b673bda2fda594115da74d612efa141b8430c00718b6affa122a19"
+  }
+}

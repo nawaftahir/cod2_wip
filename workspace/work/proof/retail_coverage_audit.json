@@ -1,0 +1,12 @@
+{
+  "verified_file_bytes": 1025344,
+  "code_region_rechecks": 1955,
+  "data_region_rechecks": 8946,
+  "authored_assembly_overlap": false,
+  "retail_file_bytes": 1851392,
+  "percent": 55.38232853982301,
+  "input_sha256_rechecked": true,
+  "union_recount_agrees": true,
+  "coverage_sha256": "b87180e606810725572763c878cfc7952f5234a03ffc71c416a2f4e9f1f2ccce",
+  "final_guards": "DLL agrees with build layout; replayed binding equals build proof; accepted code rechecked; report spans unchanged after freshness guards."
+}

@@ -1,0 +1,28 @@
+?R_GetPointLightPartitions@@YAHPBUGfxDrawSurf@@HPAUPointLightPartition@@H@Z 0x100124f0 193
+--- ours
++++ retail
+@@ -22,9 +22,9 @@
+ mov eax, dword ptr [A]
+ mov eax, dword ptr [eax + 8]
+-cmp esi, eax
++cmp eax, esi
++jge A
++mov esi, eax
++cmp ebx, esi
+ jle A
+-mov esi, eax
+-cmp esi, ebx
+-jge A
+ push esi
+ push ebx
+@@ -69,2 +69,10 @@
+ add esp, 0x80
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 

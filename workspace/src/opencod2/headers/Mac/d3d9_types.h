@@ -41,7 +41,7 @@ typedef struct IDirect3DSwapChain9 IDirect3DSwapChain9;
 typedef struct IDirect3DTexture9 IDirect3DTexture9;
 #endif
 #ifndef COD2_SDK_TYPES
-typedef union IDirect3DVertexBuffer9 IDirect3DVertexBuffer9;
+typedef struct IDirect3DVertexBuffer9 IDirect3DVertexBuffer9;
 #endif
 #ifndef COD2_SDK_TYPES
 typedef struct IDirect3DVertexDeclaration9 IDirect3DVertexDeclaration9;
@@ -502,10 +502,8 @@ struct _D3DMATERIAL9 {
 #endif
 
 #ifndef COD2_SDK_TYPES
-union IDirect3DVertexBuffer9 {
-    struct { float _11; float _12; float _13; float _14; float _21; float _22; float _23; float _24; float _31; float _32; float _33; float _34; float _41; float _42; float _43; float _44; };
-    D3DMATRIX m[4];
-};
+// PC uses the opaque Windows COM interface, not a matrix-shaped Mac placeholder.
+struct IDirect3DVertexBuffer9;
 #endif
 
 #ifndef COD2_SDK_TYPES

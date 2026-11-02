@@ -1,0 +1,23 @@
+?R_CullSceneLights@@YAXPBUDpvsPlane@@H@Z 0x10008ba0 129
+--- ours
++++ retail
+@@ -22,6 +22,6 @@
+ fmul dword ptr [esi + 4]
+ faddp st(1)
+-fld dword ptr [ecx]
+-fmul dword ptr [esi]
++fld dword ptr [esi]
++fmul dword ptr [ecx]
+ faddp st(1)
+ fadd dword ptr [ecx + 8]
+@@ -50,2 +50,10 @@
+ mov eax, 2
+ jmp A
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 

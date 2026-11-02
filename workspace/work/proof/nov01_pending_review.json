@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-01",
+  "scope": "owner-authorized step1 only: review two inputs changed since skinned checkpoint",
+  "result": "PASS: preserve pending edits; no source correction needed",
+  "reconstruction_goal": "paused; no broader source work authorized",
+  "prior_receipt": "target/work/proof/skinned_tess_checkpoint.json",
+  "prior_receipt_sha256": "5884029bdc15d16cfd9f3c4be7125abd1884154b3b74f471d87a71ac41ea3617",
+  "source_change": {
+    "path": "target/work/src/gfx_d3d/rb_tess.cpp",
+    "sha256": "d751ba4d5de30850795649e97cc759e127c87b08bfd36d1950e2dcc8eeafe676",
+    "previous_sha256": "3770e2a49b09502b8763de967cec6cacb6d65d2c4a74708e029263b9e3a62678",
+    "previous_source_reconstructed_exactly": true,
+    "method": "remove appended particle block and its separating blank line",
+    "new_functions": [
+      "RB_RotateParticleCloudDirection",
+      "RB_ProjectParticleCloudAxis",
+      "RB_ParticleCloudOriginsMatch",
+      "RB_SetParticleCloudConstants",
+      "RB_TessParticleCloud"
+    ]
+  },
+  "fixture_change": {
+    "path": "target/work/tests/test_tess_skinned.py",
+    "sha256": "a11d8a6f78e0ee363786cf4d2e9f217bc3eb12952a46d0a772e63c6d457b14bc",
+    "previous_sha256": "b86ec24cf2ebb937e759922f720bf91f0d83e3324ccef466540caa24e91c776f",
+    "previous_fixture_reconstructed_exactly": true,
+    "method": "restore only the old unbounded source slice; no assertions removed"
+  },
+  "primary_review": {
+    "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+    "functions_reviewed": [
+      "0x1003ee10",
+      "0x10040ca0",
+      "0x10040d40",
+      "0x10040df0",
+      "0x10040f30"
+    ],
+    "findings": "signed threshold/epsilon comparisons, Z/Y/X rotation, radius/origin branches, RGBA/255 constants, declaration2, 4096 vertices, 2048 primitives and live buffer binding agree with retail; no new assembly"
+  },
+  "focused_tests": {
+    "test_tess_skinned": 1255,
+    "test_tess_particles": 494,
+    "existing_index_copier_reused": true,
+    "surface_device_calls_mocked": true
+  },
+  "original_build": "PASS; same pinned image and existing build output",
+  "both_byte_and_binding_referees": "PASS",
+  "protected_extents": 2381,
+  "accepted_address_extent_set_unchanged": true,
+  "cpp_executable_bytes": 108306,
+  "cpp_percent": 42.71078160738229,
+  "cpp_game_bodies": 650,
+  "new_verified_bytes": 0,
+  "assembly_excluded_bodies": 32,
+  "current_compiler_source_hashes_checked": 176,
+  "candidate_sha256": "5ce474db2252b1fe864a10081b27c61dc6b96c78e3938bd833f012d733ee438d",
+  "same_file_offset_percent": 8.77242636891593,
+  "full_suite_rerun": false,
+  "last_historical_full_suite_count": 160,
+  "limits": [
+    "new particle routines remain unmatched; native behavior checks do not establish byte identity",
+    "focused regression only; no new claim that all161 current fixtures pass",
+    "no new normalized whole-file span audit, whole-file SHA match or GPU smoke"
+  ],
+  "logs_sha256": {
+    "target/work/proof/latest/nov01_pending_build.log": "1b533434768b3798a64d35ebb7a274b3449f0145d5aa76c3614539cdd4f83eee",
+    "target/work/proof/latest/nov01_skinned_review.log": "596b05a9ce55c5f56d86d7876e135077049c87ea080eb21734b278f98acf043b",
+    "target/work/proof/latest/nov01_particles_review.log": "577ec023d634c59508e42f7bfdf050f8daaabd604fa3713f3f99a71bb7cb82d0"
+  },
+  "current_artifact_sha256": {
+    "target/work/build/gfx.dll": "5ce474db2252b1fe864a10081b27c61dc6b96c78e3938bd833f012d733ee438d",
+    "target/work/build/bind.json": "95130806722f50fdb12abdeba8b8ed1e6151e66e711e56decead6fc590135fcf",
+    "target/work/proof/source_coverage_current.json": "8e537f9cb352237316af1a05bbcae5decaabc2c033c1437a558ba1c1258714df",
+    "target/work/layout/current.json": "d254574ef2a8e3fd20de79d8e0dcbf6ae4ad5ca41fc540cf4cb328034ddf2a15",
+    "target/work/tests/test_tess_particles.py": "34ab37f5fe9b57647482953a66de9172c03cf12b0de4e4c71eeb27d8064beb4f"
+  }
+}

@@ -1,4 +1,4 @@
-# IJG6b encoder dependency
+# IJG6b codec dependency
 
 This is based in part on the work of the Independent JPEG Group. Original
 README/copyright retained. Source imported from the authenticated upstream
@@ -27,8 +27,15 @@ The encoder C files use /O2 /GL /MT /TC and NO_GETENV; primary memory-manager
 initialization ends after publishing its state, with no JPEGMEM getenv/parser
 branch. This is a supported candidate configuration, not historical flag proof.
 
-Only the encoder modules needed by R_SaveJpg are built here. The decoder and
-stdio adapters are not imported or advertised as working. Its remaining
-upstream declarations are not an implemented CoD2 decoder adapter. These
-library bytes never count as authored engine C/C++ recovery, even where the
-old address inventory incorrectly includes early JPEG routines in game ranges.
+Decoder modules now come from the same authenticated upstream archive.
+jdapimin.c preserves the per-object allocator pair while clearing the object,
+as pinned by PC10049e5b..10049e8b. jdatasrc.c is the original memory-only interface
+reconstructed from the PC instructions:32-byte source, init/skip/term callbacks,
+resync callback and NULL refill callback. It consumes the complete FS_ReadFile
+buffer; it does not provide a streaming/truncated-input recovery adapter.
+No stdio adapters are built. proof/jpeg_decoder_origin.json records per-file
+upstream/candidate hashes and the one modified upstream decoder module.
+Native fixtures decode baseline/progressive images against Pillow, check BGR
+expansion/alpha and both texture limits, grayscale/CMYK rejection and ownership.
+Library bytes remain separate from authored game credit, even where the old
+inventory incorrectly includes early JPEG routines in game ranges.

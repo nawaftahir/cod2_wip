@@ -1,5 +1,6 @@
 // Font registry.
 #include "gfx.h"
+#include "r_font.h"
 #include <string.h>
 
 static int registeredFontCount;
@@ -66,7 +67,7 @@ void R_DuplicateFont(Font_s *fontCopy, const char *name)
     registeredFontCount++;
 }
 
-static Glyph *R_GetCharacterGlyph(Font_s *font, unsigned int letter)
+Glyph *R_GetCharacterGlyph(Font_s *font, unsigned int letter)
 {
     int top;
     int bottom;

@@ -1,0 +1,54 @@
+{
+  "binary_sha256": "ac26590b3de6ec718b767dd976b0e93e0f4fe18996a8259cbabcc7e4302eb66c",
+  "scope": "Mac naming/type oracle only, not PC bytes",
+  "records": [
+    {
+      "module": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/rb_state.cpp",
+      "name": "_Z18RB_PushMatrixStackv:F(0,1)",
+      "kind": "0x24",
+      "value": "0xcdbac"
+    },
+    {
+      "module": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/rb_tess.cpp",
+      "name": "_Z10RB_TessBadPK13surfaceType_t:F(0,1)",
+      "kind": "0x24",
+      "value": "0xfdb04"
+    },
+    {
+      "module": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/rb_tess.cpp",
+      "name": "_Z18RB_TessXModelRigidPK13surfaceType_t:F(0,1)",
+      "kind": "0x24",
+      "value": "0xfde5c"
+    },
+    {
+      "module": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/rb_tess.cpp",
+      "name": "_Z20RB_TessBackEndEntityPK13surfaceType_t:F(0,1)",
+      "kind": "0x24",
+      "value": "0x100810"
+    },
+    {
+      "module": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/rb_tess.cpp",
+      "name": "_Z11RB_TessPolyPK13surfaceType_t:F(0,1)",
+      "kind": "0x24",
+      "value": "0x100828"
+    },
+    {
+      "module": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/rb_tess.cpp",
+      "name": "_Z24RB_TessStaticModelCachedPK13surfaceType_t:F(0,1)",
+      "kind": "0x24",
+      "value": "0x100ada"
+    },
+    {
+      "module": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/rb_tess.cpp",
+      "name": "_Z20RB_TessXModelSkinnedPK13surfaceType_t:F(0,1)",
+      "kind": "0x24",
+      "value": "0x100be4"
+    },
+    {
+      "module": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/rb_tess.cpp",
+      "name": "_Z16RB_TessTrianglesPK13surfaceType_t:F(0,1)",
+      "kind": "0x24",
+      "value": "0x100ee0"
+    }
+  ]
+}

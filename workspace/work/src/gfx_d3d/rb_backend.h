@@ -4,7 +4,12 @@
 #include <stddef.h>
 #include "r_scene_records.h"
 
-struct GfxEntityLighting;
+struct GfxEntityLighting
+{
+    int viewCount;
+    float sunVisibility;
+    float colorForDir[6][4];
+};
 
 // Mac type; PINNED PC gamma builders consume exactly256 ushort entries.
 struct GfxGammaRamp
@@ -53,6 +58,7 @@ struct GfxViewParms
 	D3DMATRIX projectionMatrix;
 	D3DMATRIX viewProjectionMatrix;
 	D3DMATRIX inverseViewProjectionMatrix;
+	float depthHackNearClip;
 };
 
 struct GfxLightDef;
@@ -86,7 +92,10 @@ struct r_backEndGlobals_t
 	char pad1[1];
 	unsigned int color_axis;
 	unsigned int color_allies;
-	char pad1b[0x14];
+	unsigned int fogColor;
+	int glowIndexFirst;
+	int glowCount;
+	GfxImage *glowImage[2];
 	float texScrollAmountDx7;
 	GfxCodeMatrices codeMatrixStack[3];
 	int codeMatrixStackLevel;
@@ -94,7 +103,7 @@ struct r_backEndGlobals_t
 	int resolvedSceneTarget;
 	GfxImage *currentFeedbackImage;
 	GfxBackEndLightSettings light[2];
-	char pad2[0x33f30];	// entityLighting, not modelled yet
+	GfxEntityLighting entityLighting[2046];
 	D3DMATRIX shadowLookupMatrix;
 	void *debugFont;
 };
@@ -108,6 +117,11 @@ typedef char backEndLayoutCheck[
 	&& offsetof(r_backEndGlobals_t, resolvedPostSunTarget) == 0x2b54
 	&& offsetof(r_backEndGlobals_t, currentFeedbackImage) == 0x2b5c
 	&& offsetof(r_backEndGlobals_t, light) == 0x2b60
+	&& offsetof(r_backEndGlobals_t, glowIndexFirst) == 0x4cc
+	&& offsetof(r_backEndGlobals_t, glowImage) == 0x4d4
+	&& sizeof(GfxEntityLighting) == 104
+	&& offsetof(r_backEndGlobals_t, entityLighting) == 0x2be8
+	&& offsetof(GfxViewParms, depthHackNearClip) == 0x148
 	&& offsetof(r_backEndGlobals_t, shadowLookupMatrix) == 0x36b18
 	&& sizeof(r_backEndGlobals_t) == 0x36b60) ? 1 : -1];
 

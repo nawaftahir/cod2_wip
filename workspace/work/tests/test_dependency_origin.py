@@ -22,10 +22,14 @@ def report(data):
     return json.loads(output.getvalue())
 
 before = report(rows)
-# This is a counter fixture, not a claimed byte match. Baseline has no body here.
-fixture = {name:row for name,row in rows.items() if row['t']!='0x10041850'}
+# This counter fixture must never remove a protected real body.
+functions = json.loads((work.parents[2] / 'glm/data/functions_gfx10.json').read_text())['functions']
+occupied = {int(row['t'],16) for row in rows.values()}
+address = next(int(f['addr'],16) for f in functions
+               if 0x10001000 <= int(f['addr'],16) < 0x10041db0 and int(f['addr'],16) not in occupied)
+fixture = dict(rows)
 base = report(fixture)
-fixture['synthetic JPEG attribution check'] = {'t':'0x10041850','n':1,'obj':'jcapistd.obj','why':[]}
+fixture['synthetic JPEG attribution check'] = {'t':hex(address),'n':1,'obj':'jcapistd.obj','why':[]}
 after = report(fixture)
 assert (after['bytes'],after['functions']) == (base['bytes'],base['functions'])
 assert after['excluded_new_library_bytes'] == base['excluded_new_library_bytes']+1

@@ -1,0 +1,41 @@
+?R_AddClearCommandsForFrameBuffer@@YAXH@Z 0x10020750 94
+--- ours
++++ retail
+@@ -3,7 +3,8 @@
+ test eax, eax
+ push esi
+-mov esi, 7
+ je A
+-cmp dword ptr [esp + 0x18], 1
++mov eax, dword ptr [esp + 0x18]
++mov esi, 1
++cmp eax, esi
+ je A
+ mov eax, dword ptr [A]
+@@ -16,11 +17,12 @@
+ mov eax, dword ptr [A]
+ test eax, eax
+-je A
+-mov esi, 1
++jne A
++mov esi, 7
++lea eax, [esp + 4]
++call A
+ push 0
+ push 0x3f800000
+-lea eax, [esp + 0xc]
+-call A
+-push eax
++mov edx, eax
++push edx
+ push esi
+ call A
+@@ -29,2 +31,8 @@
+ add esp, 0x10
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 

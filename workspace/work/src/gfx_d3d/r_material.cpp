@@ -644,6 +644,35 @@ Material *Material_Register(const char *name, int imageTrack)
 
 void Image_Reload(GfxImage *image);
 void Image_Release(GfxImage *image);
+Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack);
+
+// PINNED 100171f0/81: a default raw material never releases or loads an image.
+Material *Material_RegisterRawImage(const char *name, int imageTrack)
+{
+    if (Material_IsDefault(rgp.rawMaterial))
+        return rgp.rawMaterial;
+    Image_Release(rgp.rawImage);
+    if (!Image_LoadRaw(rgp.rawImage, name, imageTrack))
+        return rgp.defaultMaterial;
+    return rgp.rawMaterial;
+}
+
+// PINNED 10017290/29: API59 retains its unused middle argument.
+Material *R_RegisterMaterial(const char *name, int baseImageFlags, int imageTrack)
+{
+    if (!*name)
+        return rgp.defaultMaterial;
+    return Material_Register(name, imageTrack);
+}
+
+// PINNED 100172b0/30: empty names return the live default material.
+Material *R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrack)
+{
+    if (!*name)
+        return rgp.defaultMaterial;
+    return Material_RegisterRawImage(name, imageTrack);
+}
+
 Bool Image_LoadFromFile(GfxImage *image);
 void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip);
 void R_SetPicmip();

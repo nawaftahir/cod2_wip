@@ -32,7 +32,7 @@
  "gfx_d3d/r_dpvs_occluders.cpp": {
   "host": "gfx_d3d/r_dpvs.cpp",
   "start": "// PINNED Win 1.0 occluder setup: 10005d70 and 100079d0--10007d4f.",
-  "next": null
+  "next": "// PINNED PC scene model drawing, 10008330/112."
  },
  "universal/com_rotate.cpp": {
   "host": "universal/com_math.cpp",
@@ -67,7 +67,7 @@
  "gfx_d3d/r_skin_rigid.cpp": {
   "host": "gfx_d3d/r_model.cpp",
   "start": "// PINNED PC rigid vertex transforms, 1001e260/1001e3a0/1001ed70/1001ee00.",
-  "next": null
+  "next": "// PINNED PC pre-skin surface publication, 1001f120/1001f2a0."
  },
  "gfx_d3d/r_fatal_init.cpp": {
   "host": "gfx_d3d/r_init.cpp",

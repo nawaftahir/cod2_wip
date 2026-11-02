@@ -61,6 +61,8 @@ union XAssetHeader;
 
 // Engine services passed to GetRefAPI. Slot order pinned from the 1.0 client's
 // CL_InitRef stores; names from matched client functions or the GLM table.
+struct centity_s;
+
 struct refimport_t
 {
     void (*Printf)(int print_level, const char *fmt, ...);
@@ -81,9 +83,9 @@ struct refimport_t
     void (*Hunk_ShowTempMemory)(void *mark);
     void * (*Hunk_AllocateTempMemoryHighInternal)(int size);
     void (*Hunk_ClearTempMemoryHigh)();
-    void (*HiAlloc)();  // signature unverified
-    void (*HiSetOffset)();  // signature unverified
-    void (*HiOffToPtr)();  // signature unverified
+    int (*HiAlloc)(int size);  // PINNED LargeLocalBegin, import18
+    void (*HiSetOffset)(int offset);  // PINNED LargeLocalEnd, import19
+    void *(*HiOffToPtr)(int offset);  // PINNED LargeLocalGetBuf, import20
     void (*Sys_DirectXFatalError)();
     void (*Sys_ShowSplashWindow)();
     void (*Sys_HideSplashWindow)();
@@ -203,12 +205,12 @@ struct refimport_t
     int (*CIN_PlayCinematic)(const char *arg, int x, int y, int w, int h, int systemBits);  // Mac order between pinned neighbours
     e_status (*CIN_RunCinematic)(int handle);  // Mac order between pinned neighbours
     void (*slot139)();  // unidentified
-    void (*slot140)();  // unidentified
-    void (*slot141)();  // unidentified
-    void (*slot142)();  // unidentified
+    void (*CG_CullIn)(const centity_s *cent);
+    void (*CG_UsedDObjCalcPose)(const centity_s *cent);
+    void (*CG_AddMarks)();
     void (*slot143)();  // unidentified
     void (*slot144)();  // unidentified
-    void (*slot145)();  // unidentified
+    float (*GetVirtualWidthFromRealWidth)(float width);  // PINNED slot145 call at10030719
     void (*slot146)();  // unidentified
     void * (*CM_GetPlaneNum)(int planeNum);
     void (*slot148)();  // unidentified

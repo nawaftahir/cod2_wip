@@ -1,0 +1,52 @@
+?R_AddCmdLightProperties@@YAXHPBUGfxLight@@@Z 0x1001e3e0 192
+--- ours
++++ retail
+@@ -26,23 +26,23 @@
+ mov edx, dword ptr [ecx + 0x10]
+ mov dword ptr [eax + 0x14], edx
++fld dword ptr [ecx + 0x1c]
+ mov edx, dword ptr [ecx + 0x14]
++fld dword ptr [ecx + 0x18]
++fstp dword ptr [eax + 0x2c]
+ mov dword ptr [eax + 0x28], edx
+-mov edx, dword ptr [ecx + 0x18]
+-mov dword ptr [eax + 0x2c], edx
+-mov edx, dword ptr [ecx + 0x1c]
+-mov dword ptr [eax + 0x30], edx
+ mov edx, 0x3f800000
++fstp dword ptr [eax + 0x30]
+ mov dword ptr [eax + 0x34], edx
++fld dword ptr [ecx + 0x28]
+ mov esi, dword ptr [ecx + 0x20]
+-mov dword ptr [eax + 0x18], esi
+-mov esi, dword ptr [ecx + 0x24]
+-mov dword ptr [eax + 0x1c], esi
+-mov esi, dword ptr [ecx + 0x28]
++fld dword ptr [ecx + 0x24]
+ mov dword ptr [eax + 0x24], edx
+ mov edx, dword ptr [A]
+-mov dword ptr [eax + 0x20], esi
++fstp dword ptr [eax + 0x1c]
++mov dword ptr [eax + 0x18], esi
++fstp dword ptr [eax + 0x20]
++pop esi
+ fld dword ptr [edx + 8]
+ fld st(0)
+-pop esi
+ fmul dword ptr [eax + 0x28]
+ fstp dword ptr [eax + 0x38]
+@@ -53,6 +53,14 @@
+ fmul dword ptr [eax + 0x30]
+ fstp dword ptr [eax + 0x40]
++fmul dword ptr [eax + 0x34]
+ fstp dword ptr [eax + 0x44]
+ mov ecx, dword ptr [ecx]
+ mov dword ptr [eax + 0x48], ecx
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 

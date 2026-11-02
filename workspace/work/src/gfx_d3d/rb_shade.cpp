@@ -940,12 +940,6 @@ void RB_SetEntityHwLightsDx7(vec4_t *colorForDir, float sunVisibility)
         R_DX_CALL(dx.device->LightEnable( lightIndex, 0 ));
 }
 
-struct GfxEntityLighting
-{
-    int viewCount;
-    float sunVisibility;
-    vec4_t colorForDir[6];
-};
 void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting);
 void RB_UpdateViewport();
 void RB_SetIteratorFog();

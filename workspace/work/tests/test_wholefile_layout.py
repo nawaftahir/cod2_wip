@@ -21,4 +21,6 @@ assert [row['name'] for row in same['retail_image']['exports']] == ['GetRefAPI']
 current = report(work / 'build/gfx.dll')
 assert current['whole_file_identical'] == (current['candidate_sha256'] == current['anchor_sha256'])
 assert current['candidate_image']['machine'] == '0x14c'
+assert [row['name'] for row in current['candidate_image']['exports']] == ['GetRefAPI']
+assert not current['missing_named_exports'] and not current['extra_named_exports']
 print('PASS: whole-file identity control, exact retail export and header/import/debug reporting')

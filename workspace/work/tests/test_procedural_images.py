@@ -7,7 +7,8 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_image_load_obj.cpp').read_text()
-source = text[text.index('// PINNED 1000fbd0/'):text.index('static unsigned int Image_CountMipmapsForFile(')]
+source = (text[text.index('// PINNED 1000fbd0/'):text.index('void R_LoadJpg(')] +
+          text[text.index('// PINNED 1000fce0/'):text.index('static unsigned int Image_CountMipmapsForFile(')])
 retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 decoder.detail = True

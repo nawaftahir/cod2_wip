@@ -3,6 +3,15 @@
 #include "rb_backend.h"
 #include "rb_tess.h"
 #include <dxerr9.h>
+#include "r_tess_dispatch.h"
+#include "r_entity.h"
+
+// PINNED: seven surface implementations and the raw-geometry null entry.
+GfxTessSurfaceFunction const rb_tessTable[SF_NUM_SURFACE_TYPES] =
+{
+    RB_TessBad, RB_TessPoly, RB_TessBackEndEntity, RB_TessXModelSkinned,
+    RB_TessXModelRigid, RB_TessStaticModelCached, RB_TessTriangles, 0
+};
 
 // 2D state, stretch quads and tess overflow.
 extern const float identityMatrix44[4][4];
@@ -1430,4 +1439,995 @@ void RB_EndFrame()
         if (!r_ignoreHwGamma->current.enabled && vidConfig.deviceSupportsGamma)
             R_SetColorMappings();
     }
+}
+
+// PINNED PC backend dvar updates, 10033c50/207.
+extern const dvar_t *r_textureMode;
+extern const dvar_t *r_anisotropy;
+extern const dvar_t *r_cosinePowerMapShift;
+extern const dvar_t *r_outdoorFeather;
+extern const dvar_t *r_aaAlpha;
+void RB_DecideDefaultSamplerState();
+void RB_SetAnisotropy();
+void RB_SetAlphaAntiAliasingState(int stateBits0);
+void Image_RebuildCosinePowerMap(float shift);
+
+typedef char backendDvarFieldsCheck[(offsetof(r_backEndGlobals_t, codeConsts) + 50 * 16 == 0x320
+    && offsetof(DxGlobals, hasTransparencyMsaa) == 0x2d7e
+    && offsetof(DxState, activeStateBits) == 0x2008) ? 1 : -1];
+
+// The private PC helper name is unconfirmed.
+void RB_UpdateBackendDvars()
+{
+    if (r_textureMode->modified)
+    {
+        ri.Dvar_ClearModified(r_textureMode);
+        RB_DecideDefaultSamplerState();
+    }
+    if (r_anisotropy->modified)
+    {
+        ri.Dvar_ClearModified(r_anisotropy);
+        RB_SetAnisotropy();
+    }
+    if (r_cosinePowerMapShift->modified)
+    {
+        ri.Dvar_ClearModified(r_cosinePowerMapShift);
+        Image_RebuildCosinePowerMap(r_cosinePowerMapShift->current.value);
+    }
+    if (r_outdoorFeather->modified)
+    {
+        ri.Dvar_ClearModified(r_outdoorFeather);
+        float value = r_outdoorFeather->current.value;
+        backEnd.codeConsts[50][0] = value;
+        backEnd.codeConsts[50][1] = value;
+        backEnd.codeConsts[50][2] = value;
+        backEnd.codeConsts[50][3] = value;
+    }
+    if (r_aaAlpha->modified)
+    {
+        ri.Dvar_ClearModified(r_aaAlpha);
+        if (dx.hasTransparencyMsaa)
+            RB_SetAlphaAntiAliasingState(dxState.activeStateBits[0]);
+    }
+}
+
+// PINNED PC text drawing, 10032370..10032c92.
+
+#include "r_font.h"
+struct GfxCmdDrawText
+{
+    GfxCmdHeader header;
+    float x, y;
+    Font_s *font;
+    float xScale, yScale;
+    unsigned int color;
+    int style, cursorPos;
+    char cursor;
+    int maxChars;
+    char text[3];
+};
+struct GfxCmdDrawTextInSpace
+{
+    GfxCmdHeader header;
+    float org[3];
+    Font_s *font;
+    float xPixelStep[3], yPixelStep[3];
+    unsigned int color;
+    char text[4];
+};
+typedef char commandTextLayoutCheck[(sizeof(Glyph) == 24 && sizeof(Font_s) == 20
+    && offsetof(Glyph, s0) == 8 && offsetof(Font_s, material) == 12
+    && offsetof(GfxCmdDrawText, color) == 24 && offsetof(GfxCmdDrawText, maxChars) == 40
+    && offsetof(GfxCmdDrawText, text) == 44
+    && offsetof(GfxCmdDrawTextInSpace, font) == 16
+    && offsetof(GfxCmdDrawTextInSpace, color) == 44
+    && offsetof(GfxCmdDrawTextInSpace, text) == 48) ? 1 : -1];
+
+void RB_LookupColor(byte c, byte *color)
+{
+    static const byte color_table[8][4] = {
+        {0, 0, 0, 255}, {255, 0, 0, 255}, {0, 255, 0, 255}, {255, 255, 0, 255},
+        {0, 0, 255, 255}, {0, 255, 255, 255}, {255, 0, 255, 255}, {255, 255, 255, 255}
+    };
+    unsigned int index = (byte)(c - '0');
+    if (index >= 10)
+        index = 7;
+    if (index < 8)
+        memcpy(color, color_table[index], 4);
+    else if (c == '8')
+        memcpy(color, &backEnd.color_allies, 4);
+    else if (c == '9')
+        memcpy(color, &backEnd.color_axis, 4);
+    else
+        color[0] = color[1] = color[2] = color[3] = 255;
+}
+
+// Private name unconfirmed; the PC cursor has one pass and signed time division.
+static void RB_DrawTextCursor(const Material *material, char cursor, float x, float y,
+    Font_s *font, float xScale, float yScale, GfxColor color)
+{
+    if ((ri.Milliseconds() / 256) & 1)
+        return;
+    Glyph *glyph = R_GetCharacterGlyph(font, (byte)cursor);
+    RB_DrawStretchPic(material, x, glyph->y0 * yScale + y,
+        glyph->pixelWidth * xScale, glyph->pixelHeight * yScale,
+        glyph->s0, glyph->t0, glyph->s1, glyph->t1, color);
+}
+
+static void RB_DrawTextWithCursor(const char *text, int maxChars, Font_s *font,
+    float x, float y, float xScale, float yScale, GfxColor color,
+    int style, int cursorPos, char cursor)
+{
+    const Material *material = font->material;
+    GfxColor newColor = color;
+    GfxColor black = color & 0xff000000;
+    x -= xScale * 0.5f;
+    y -= yScale * 0.5f;
+    float startX = x;
+    float xOffset = 0.0f;
+    int count = 0;
+    while (*text && maxChars)
+    {
+        unsigned int letter = ri.SEH_ReadCharFromString(&text, 0);
+        if (letter == '^' && text && *text != '^' && *text >= '0' && *text <= '9')
+        {
+            if ((byte)(*text - '0') == 7)
+                newColor = color;
+            else
+            {
+                byte rgba[4];
+                RB_LookupColor((byte)*text, rgba);
+                newColor = (color & 0xff000000) | (rgba[0] << 16) | (rgba[1] << 8) | rgba[2];
+            }
+            ++text;
+            count += 2;
+            continue;
+        }
+        if (letter == '\n')
+        {
+            y += font->pixelHeight * yScale;
+            x = startX;
+            continue;
+        }
+        if (letter == '\r')
+        {
+            x = startX;
+            continue;
+        }
+        Glyph *glyph = R_GetCharacterGlyph(font, letter);
+        xOffset = glyph->x0 * xScale;
+        float yOffset = glyph->y0 * yScale;
+        if (style == 3 || style == 6)
+        {
+            float offset = (float)(byte)((style != 3) + 1);
+            RB_DrawStretchPic(material, offset + xOffset + x, yOffset + offset + y,
+                glyph->pixelWidth * xScale, glyph->pixelHeight * yScale,
+                glyph->s0, glyph->t0, glyph->s1, glyph->t1, black);
+        }
+        float glyphX = xOffset + x;
+        RB_DrawStretchPic(material, glyphX, yOffset + y,
+            glyph->pixelWidth * xScale, glyph->pixelHeight * yScale,
+            glyph->s0, glyph->t0, glyph->s1, glyph->t1, newColor);
+        if (count == cursorPos)
+            RB_DrawTextCursor(material, cursor, glyphX, y, font, xScale, yScale, newColor);
+        ++count;
+        --maxChars;
+        x += glyph->dx * xScale;
+    }
+    if (count == cursorPos)
+        RB_DrawTextCursor(material, cursor, xOffset + x, y, font, xScale, yScale, newColor);
+}
+
+static void RB_DrawTextCmd(GfxRenderCommandExecState *execState)
+{
+    const GfxCmdDrawText *cmd = (const GfxCmdDrawText *)execState->cmd;
+    RB_DrawTextWithCursor(cmd->text, cmd->maxChars, cmd->font, cmd->x, cmd->y,
+        cmd->xScale, cmd->yScale, cmd->color, cmd->style, cmd->cursorPos, cmd->cursor);
+    const byte *next = (const byte *)execState->cmd;
+    execState->cmd = next + ((const GfxCmdHeader *)next)->byteCount;
+}
+
+// Private name unconfirmed; PC 10032890 uses a 16-bit index write cursor.
+static void RB_DrawTextQuad(const Material *material, const float *org,
+    const float *width, const float *height, const Glyph *glyph, GfxColor color)
+{
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
+        RB_TessOverflow();
+    int vertex = tess.vertexCount;
+    unsigned short index = (unsigned short)tess.indexCount;
+    tess.vertexCount += 4;
+    tess.indexCount += 6;
+    tess.indices[index] = (unsigned short)(vertex + 3);
+    tess.indices[index + 1] = (unsigned short)vertex;
+    tess.indices[index + 2] = (unsigned short)(vertex + 2);
+    tess.indices[index + 3] = (unsigned short)(vertex + 2);
+    tess.indices[index + 4] = (unsigned short)vertex;
+    tess.indices[index + 5] = (unsigned short)(vertex + 1);
+    vertex = (unsigned short)vertex;
+    RB_SetVertex3D(vertex, org[0], org[1], org[2], glyph->s0, glyph->t0, &color);
+    RB_SetVertex3D(vertex + 1, org[0] + width[0], width[1] + org[1], org[2] + width[2],
+        glyph->s1, glyph->t0, &color);
+    RB_SetVertex3D(vertex + 2, org[0] + width[0] + height[0], width[1] + org[1] + height[1],
+        org[2] + width[2] + height[2], glyph->s1, glyph->t1, &color);
+    RB_SetVertex3D(vertex + 3, org[0] + height[0], org[1] + height[1], org[2] + height[2],
+        glyph->s0, glyph->t1, &color);
+}
+
+void RB_DrawTextInSpace(const char *text, Font_s *font, const float *org,
+    const float *xPixelStep, const float *yPixelStep, GfxColor color)
+{
+    const Material *material = font->material;
+    RB_SetMatricesForView(backEnd.viewParms);
+    float start[3];
+    start[0] = org[0] - xPixelStep[0] * 0.5f - yPixelStep[0] * 0.5f;
+    start[1] = org[1] - xPixelStep[1] * 0.5f - yPixelStep[1] * 0.5f;
+    start[2] = org[2] - xPixelStep[2] * 0.5f - yPixelStep[2] * 0.5f;
+    while (*text)
+    {
+        unsigned int letter = ri.SEH_ReadCharFromString(&text, 0);
+        Glyph *glyph = R_GetCharacterGlyph(font, letter);
+        float pos[3], width[3], height[3];
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            pos[axis] = glyph->x0 * xPixelStep[axis] + start[axis] + glyph->y0 * yPixelStep[axis];
+            width[axis] = glyph->pixelWidth * xPixelStep[axis];
+            height[axis] = glyph->pixelHeight * yPixelStep[axis];
+        }
+        RB_DrawTextQuad(material, pos, width, height, glyph, color);
+        for (int axis = 0; axis < 3; ++axis)
+            start[axis] += glyph->dx * xPixelStep[axis];
+    }
+}
+
+static void RB_DrawTextInSpaceCmd(GfxRenderCommandExecState *execState)
+{
+    const GfxCmdDrawTextInSpace *cmd = (const GfxCmdDrawTextInSpace *)execState->cmd;
+    RB_DrawTextInSpace(cmd->text, cmd->font, cmd->org, cmd->xPixelStep, cmd->yPixelStep, cmd->color);
+    const byte *next = (const byte *)execState->cmd;
+    execState->cmd = next + ((const GfxCmdHeader *)next)->byteCount;
+}
+
+// Backend sprite command.
+void RB_TessEntity(const GfxEntity *ent);
+
+// PINNED 1002eff0: capture packet, read fields after callbacks, advance live cursor.
+static void RB_DrawSpriteCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdDrawSprite *cmd = (const GfxCmdDrawSprite *)state->cmd;
+    if (backEnd.projection2D)
+        RB_Set3D();
+    const Material *material = cmd->material;
+    if (tess.material != material || tess.techType != 3)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        RB_BeginSurface(material, 3, 31);
+    }
+    GfxEntity entity;
+    memset(&entity, 0, sizeof(entity));
+    entity.reType = RT_SPRITE;
+    entity.renderFxFlags = cmd->renderFxFlags;
+    for (int axis = 0; axis < 3; ++axis)
+        entity.origin[axis] = cmd->pos[axis];
+    entity.customMaterial = cmd->material;
+    memcpy(entity.materialRGBA, &cmd->rgbaColor, sizeof(entity.materialRGBA));
+    entity.radius[0] = entity.radius[1] = cmd->radius;
+    entity.minScreenRadius = cmd->minScreenRadius;
+    RB_TessEntity(&entity);
+    const byte *next = (const byte *)state->cmd;
+    state->cmd = next + ((const GfxCmdHeader *)next)->byteCount;
+}
+
+// Backend draw-surface dispatch.
+struct GfxDrawSurf
+{
+    unsigned int sort;
+    const surfaceType_t *surface;
+};
+struct GfxDrawMaterialView
+{
+    byte beforeState[0x2c];
+    unsigned int stateBits[2];
+    unsigned short textureCount, constantCount;
+    struct TechniqueSet { const char *name; const void *techniques[34]; } *techniqueSet;
+};
+typedef char drawMaterialLayoutCheck[(offsetof(GfxDrawMaterialView, techniqueSet) == 0x38
+    && sizeof(GfxDrawSurf) == 8) ? 1 : -1];
+enum GfxFogOffset { FOG_OFFSET_NONE, FOG_OFFSET_LINEAR, FOG_OFFSET_EXP, FOG_OFFSET_COUNT };
+GfxFogOffset RB_FogOffset();
+extern const dvar_t *r_depthPrepassModels, *r_drawDecals;
+void RB_PushMatrixStack();
+void RB_PopMatrixStack();
+void RB_SetDepthRange(float nearValue, float farValue);
+void RB_SetDepthHackNearClip(float nearClip);
+void RB_ProjectionMatrixChanged();
+void RB_UpdateViewport();
+void MatrixSet44(float out[4][4], const vec3_t origin, const vec3_t axis[3], float scale);
+
+// PINNED 1019806c: entity types whose vertices already use world coordinates.
+static const Bool refEntIsInWorldSpace[10] = {0,0,0,0,1,1,0,1,1,1};
+
+// PINNED 1002f2a0: keep the fractional frame time for both render paths.
+static void RB_SetMaterialTime(float time)
+{
+    float fraction = (float)(time - floor((double)time));
+    if (r_rendererInUse->current.integer == 2)
+        backEnd.texScrollAmountDx7 = fraction;
+    else
+    {
+        float sine, cosine;
+        FastSinCos(fraction * 6.2831855f, &sine, &cosine);
+        backEnd.codeConsts[2][0] = sine;
+        backEnd.codeConsts[2][1] = cosine;
+        backEnd.codeConsts[2][2] = fraction;
+        backEnd.codeConsts[2][3] = time;
+    }
+}
+
+// PINNED 1002f330: choose the light source and filter model depth passes.
+static int RB_DrawSurfTechnique(int technique, int entityIndex, int lightmap)
+{
+    if (technique == 6 && lightmap == 31)
+    {
+        if (entityIndex == 2046)
+            technique = 9;
+        else if (entityIndex == 2047)
+            technique = 15;
+        else
+            technique = backEnd.sceneDef.entities[entityIndex].reType == RT_STATICMODEL ? 12 : 9;
+        return technique + RB_FogOffset();
+    }
+    if (!r_depthPrepassModels->current.enabled && (technique == 0 || technique == 2))
+    {
+        if (entityIndex == 2047 || (entityIndex < 2046
+            && backEnd.sceneDef.entities[entityIndex].reType <= RT_STATICMODEL
+            && !(backEnd.sceneDef.entities[entityIndex].renderFxFlags & 0x100)))
+            return -1;
+    }
+    if (technique >= 3 && technique <= 26)
+        technique += RB_FogOffset();
+    return technique;
+}
+
+// PINNED 1002f430: sorted runs share surfaces only across compatible entities.
+static void RB_RenderDrawSurfList(GfxDrawSurf *drawSurfs, int count, int technique, int order)
+{
+    const Material *previousMaterial = 0;
+    int previousLightmap = 31, previousTechnique = technique, previousEntity = 2046;
+    unsigned int previousSort = 0xffffffff;
+    float materialTime = 0.0f, previousTime = 3.402823466e+38F;
+    bool ignored = false, previousWorldSpace = true, worldSpace = true;
+    int depthRange = 0;
+    backEnd.currentEntity = (GfxEntity *)&backEnd.worldEntityReType;
+    backEnd.currentEntityLighting = 0;
+    GfxDrawSurf *drawSurf = order ? drawSurfs + count - 1 : drawSurfs;
+    int step = order ? -1 : 1;
+    for (int remaining = count; remaining > 0; --remaining, drawSurf += step)
+    {
+        unsigned int sort = drawSurf->sort;
+        if (sort != previousSort)
+        {
+            previousSort = sort;
+            bool extended = (sort & 0x80000000) != 0;
+            int entityIndex = (sort >> (extended ? 19 : 4)) & 0xfff;
+            if (entityIndex >= 2048)
+                entityIndex = 2046;
+            const Material *material = rgp.sortedMaterials[(sort >> (extended ? 9 : 21)) & 0x3ff];
+            int lightmap = (sort >> (extended ? 4 : 16)) & 31;
+            int actualTechnique = RB_DrawSurfTechnique(technique, entityIndex, lightmap);
+            const GfxDrawMaterialView *view = (const GfxDrawMaterialView *)material;
+            if ((!r_drawDecals->current.enabled && (view->stateBits[1] & 0x30))
+                || actualTechnique == -1 || !view->techniqueSet->techniques[actualTechnique])
+            {
+                ignored = true;
+                continue;
+            }
+            ignored = false;
+            bool mergeable = true;
+            if (entityIndex != previousEntity)
+            {
+                worldSpace = entityIndex == 2046 || entityIndex == 2047
+                    || refEntIsInWorldSpace[backEnd.sceneDef.entities[entityIndex].reType] != 0;
+                mergeable = worldSpace && previousWorldSpace;
+                materialTime = entityIndex == 2046 ? 0.0f
+                    : backEnd.sceneDef.entities[entityIndex].materialTime;
+            }
+            if (material != previousMaterial || lightmap != previousLightmap
+                || actualTechnique != previousTechnique || materialTime != previousTime || !mergeable)
+            {
+                if (tess.indexCount || tess.optimizedIndexCount)
+                    RB_EndSurface();
+                if (materialTime != previousTime)
+                    RB_SetMaterialTime(backEnd.sceneDef.floatTime - materialTime);
+                RB_BeginSurface(material, actualTechnique, lightmap);
+                previousMaterial = material;
+                previousLightmap = lightmap;
+                previousTechnique = actualTechnique;
+                previousTime = materialTime;
+            }
+            if (entityIndex != previousEntity)
+            {
+                if (entityIndex == 2046 || entityIndex == 2047)
+                {
+                    backEnd.currentEntity = (GfxEntity *)&backEnd.worldEntityReType;
+                    backEnd.currentEntityLighting = 0;
+                }
+                else
+                {
+                    backEnd.currentEntity = &backEnd.sceneDef.entities[entityIndex];
+                    backEnd.currentEntityLighting = backEnd.currentEntity->reType <= RT_XMODEL
+                        ? &backEnd.entityLighting[entityIndex] : 0;
+                }
+                if (worldSpace)
+                {
+                    if (!previousWorldSpace)
+                        RB_PopMatrixStack();
+                    if (depthRange)
+                    {
+                        RB_SetDepthRange(0.0f, 1.0f);
+                        depthRange = 0;
+                    }
+                }
+                else
+                {
+                    if (previousWorldSpace)
+                        RB_PushMatrixStack();
+                    GfxEntity *entity = backEnd.currentEntity;
+                    MatrixSet44(backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0].m,
+                        entity->origin, entity->axis, entity->scale);
+                    RB_ChangedWorldMatrix(entity->scale);
+                    int nextDepth = backEnd.currentEntity->renderFxFlags & 0x18;
+                    if (nextDepth != depthRange)
+                    {
+                        if (tess.indexCount || tess.optimizedIndexCount)
+                            RB_TessOverflow();
+                        switch (nextDepth)
+                        {
+                        case 0: RB_SetDepthRange(0.0f, 1.0f); break;
+                        case 8:
+                            RB_SetDepthHackNearClip(backEnd.viewParms->depthHackNearClip);
+                            RB_SetDepthRange(0.0f, 0.2f);
+                            break;
+                        case 16: case 24: RB_SetDepthRange(0.0f, 0.5f); break;
+                        }
+                        if (depthRange == 8)
+                        {
+                            backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0]._43 =
+                                backEnd.viewParms->projectionMatrix._43;
+                            RB_ProjectionMatrixChanged();
+                        }
+                        depthRange = nextDepth;
+                    }
+                }
+                previousWorldSpace = worldSpace;
+                previousEntity = entityIndex;
+            }
+        }
+        if (!ignored)
+            rb_tessTable[*drawSurf->surface](drawSurf->surface);
+    }
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (depthRange)
+    {
+        RB_SetDepthRange(0.0f, 1.0f);
+        if (depthRange == 8)
+        {
+            backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0]._43 =
+                backEnd.viewParms->projectionMatrix._43;
+            RB_ProjectionMatrixChanged();
+        }
+    }
+    if (!previousWorldSpace)
+        RB_PopMatrixStack();
+    backEnd.currentEntity = 0;
+    backEnd.currentEntityLighting = 0;
+}
+
+// PINNED 1002f900: advance the packet before any render callbacks.
+static void RB_DrawSurfsCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdDrawSurfs *cmd = (const GfxCmdDrawSurfs *)state->cmd;
+    state->cmd = (const byte *)cmd + cmd->header.byteCount;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (backEnd.projection2D)
+        RB_Set3D();
+    if (backEnd.viewportIsDirty)
+        RB_UpdateViewport();
+    if (!dxState.viewportIsNull)
+        RB_RenderDrawSurfList(cmd->drawSurfs, cmd->drawSurfCount, cmd->techType, cmd->order);
+}
+
+// Backend sun commands.
+struct GfxCmdSunView { GfxCmdHeader header; int viewIndex; };
+void RB_DrawSun(int viewIndex);
+void RB_DrawSunPostEffects(int viewIndex);
+
+// PINNED 1002f970: draw directly, then advance the live packet.
+static void RB_DrawSunCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdSunView *cmd = (const GfxCmdSunView *)state->cmd;
+    RB_DrawSun(cmd->viewIndex);
+    const byte *next = (const byte *)state->cmd;
+    state->cmd = next + ((const GfxCmdHeader *)next)->byteCount;
+}
+
+// PINNED 10030b60: capture packet before the flush; advance live state after effects.
+static void RB_DrawSunPostEffectsCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdSunView *cmd = (const GfxCmdSunView *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    RB_DrawSunPostEffects(cmd->viewIndex);
+    const byte *next = (const byte *)state->cmd;
+    state->cmd = next + ((const GfxCmdHeader *)next)->byteCount;
+}
+
+// Backend late-post effects.
+extern const dvar_t *r_glowRadius[2], *r_glowSkyBleedIntensity[2], *r_glowBloomIntensity[2];
+extern const dvar_t *r_glowBloomCutoff, *r_glowBloomDesaturation, *r_showFloatZDebug, *sc_showDebug;
+void RB_GlowFilterImage(float radius[2]);
+void RB_GaussianFilterImage(float radius, GfxRenderTargetId target);
+struct GfxPostWorldView { byte beforeSky[0x20]; GfxImage *skyImage; };
+
+// PINNED 1002ff80: preserve constant27 across four channel mixer draws.
+static void RB_DrawResolvedChannelDebug()
+{
+    float width = dxState.renderTargetWidth * 0.5f;
+    float height = dxState.renderTargetHeight * 0.5f;
+    float saved[4]; memcpy(saved, backEnd.codeConsts[27], sizeof(saved));
+    backEnd.currentFeedbackImage = dx.renderTargets[R_RENDERTARGET_DYNAMICSHADOWS].image;
+    float quarterWidth = width * 0.5f, quarterHeight = height * 0.5f;
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+    for (int channel = 0; channel < 4; ++channel)
+    {
+        for (int component = 0; component < 4; ++component)
+            backEnd.codeConsts[27][component] = component == channel ? 1.0f : 0.0f;
+        float x = channel & 1 ? width : quarterWidth;
+        float y = channel & 2 ? height : quarterHeight;
+        float s = channel & 1 ? 0.5f : 0.25f;
+        float t = channel & 2 ? 0.5f : 0.25f;
+        RB_DrawStretchPic(rgp.colorChannelMixerMaterial, x, y, quarterWidth, quarterHeight,
+            s, t, s + 0.25f, t + 0.25f, 0xffffffff);
+        RB_EndSurface();
+    }
+    memcpy(backEnd.codeConsts[27], saved, sizeof(saved));
+}
+
+// PINNED 10030190: three color quadrants and a separate alpha quadrant.
+static void RB_DrawFrameColorDebug()
+{
+    float width = dxState.renderTargetWidth * 0.5f;
+    float height = dxState.renderTargetHeight * 0.5f;
+    float quarterWidth = width * 0.5f, quarterHeight = height * 0.5f;
+    RB_DrawStretchPic(rgp.frameColorDebugMaterial, quarterWidth, quarterHeight, quarterWidth,
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffff0000);
+    RB_DrawStretchPic(rgp.frameColorDebugMaterial, width, quarterHeight, quarterWidth,
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xff00ff00);
+    RB_DrawStretchPic(rgp.frameColorDebugMaterial, quarterWidth, height, quarterWidth,
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xff0000ff);
+    RB_DrawStretchPic(rgp.frameAlphaDebugMaterial, width, height, quarterWidth,
+        quarterHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
+    RB_EndSurface();
+}
+
+// PINNED 100302b0: the existence check tests the float-Z SURFACE, not its image.
+static void RB_DrawFloatZDebug()
+{
+    if (!dx.renderTargets[R_RENDERTARGET_FLOAT_Z].colorSurface)
+        return;
+    float width = dxState.renderTargetWidth * 0.5f;
+    float height = dxState.renderTargetHeight * 0.5f;
+    float saved[4]; memcpy(saved, backEnd.codeConsts[27], sizeof(saved));
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+    backEnd.currentFeedbackImage = dx.renderTargets[R_RENDERTARGET_FLOAT_Z].image;
+    backEnd.codeConsts[27][0] = 0.001f;
+    backEnd.codeConsts[27][1] = backEnd.codeConsts[27][2] = backEnd.codeConsts[27][3] = 0.0f;
+    RB_DrawStretchPic(rgp.colorChannelMixerMaterial, width * 0.5f, height * 0.5f,
+        width, height, 0.25f, 0.25f, 0.75f, 0.75f, 0xffffffff);
+    RB_EndSurface();
+    memcpy(backEnd.codeConsts[27], saved, sizeof(saved));
+}
+
+// PINNED 100303c0: the dynamic-shadow RGB view uses the original luminance mix.
+static void RB_DrawShadowDebug()
+{
+    float width = dxState.renderTargetWidth * 0.5f;
+    float height = dxState.renderTargetHeight * 0.5f;
+    float saved[4]; memcpy(saved, backEnd.codeConsts[27], sizeof(saved));
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+    backEnd.currentFeedbackImage = dx.renderTargets[R_RENDERTARGET_DYNAMICSHADOWS].image;
+    backEnd.codeConsts[27][0] = 0.333f;
+    backEnd.codeConsts[27][1] = 0.334f;
+    backEnd.codeConsts[27][2] = 0.333f;
+    backEnd.codeConsts[27][3] = 0.0f;
+    RB_DrawStretchPic(rgp.colorChannelMixerMaterial, width * 0.5f, height * 0.5f,
+        width, height, 0.25f, 0.25f, 0.75f, 0.75f, 0xffffffff);
+    RB_EndSurface();
+    memcpy(backEnd.codeConsts[27], saved, sizeof(saved));
+}
+
+// PINNED 100304d0: intensity indexing follows the sorted glow radius index.
+static void RB_DrawGlowImage(int index, GfxImage *image)
+{
+    float sky = ((const GfxPostWorldView *)rgp.world)->skyImage
+        ? r_glowSkyBleedIntensity[index]->current.value : 0.0f;
+    float bloom = r_glowBloomIntensity[index]->current.value;
+    const Material *material = sky == 0.0f ? rgp.glowApplyBloomMaterial : rgp.glowApplySkyBleedMaterial;
+    backEnd.codeConsts[33][0] = sky;
+    backEnd.codeConsts[33][1] = 0.0f;
+    backEnd.codeConsts[33][2] = 0.0f;
+    backEnd.codeConsts[33][3] = bloom;
+    backEnd.currentFeedbackImage = image;
+    RB_DrawStretchPic(material, 0.0f, 0.0f, (float)dxState.renderTargetWidth,
+        (float)dxState.renderTargetHeight, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
+    RB_EndSurface();
+}
+
+// PINNED 10030580: images stay in filter order; intensity index alternates.
+static void RB_DrawGlowImages()
+{
+    int index = backEnd.glowIndexFirst;
+    for (int pass = 0; pass < backEnd.glowCount; ++pass)
+    {
+        RB_DrawGlowImage(index, backEnd.glowImage[pass]);
+        index = 1 - index;
+    }
+    backEnd.glowCount = 0;
+}
+
+// PINNED 100305d0: ascending active radii and their original intensity ordering.
+static int RB_GetGlowRadii(float radius[2])
+{
+    radius[0] = 0.0f;
+    if (r_glowBloomIntensity[0]->current.value > 0.0f
+        || (((const GfxPostWorldView *)rgp.world)->skyImage && r_glowSkyBleedIntensity[0]->current.value > 0.0f))
+        radius[0] = r_glowRadius[0]->current.value;
+    radius[1] = 0.0f;
+    if (r_glowBloomIntensity[1]->current.value > 0.0f
+        || (((const GfxPostWorldView *)rgp.world)->skyImage && r_glowSkyBleedIntensity[1]->current.value > 0.0f))
+        radius[1] = r_glowRadius[1]->current.value;
+    if (radius[1] != 0.0f && (radius[0] == 0.0f || radius[0] > radius[1]))
+    {
+        float swap = radius[0]; radius[0] = radius[1]; radius[1] = swap;
+        return 1;
+    }
+    return 0;
+}
+
+// PINNED 100306b0: float desaturation, no invented pass counters.
+static void RB_GenerateGlowImages()
+{
+    float cutoff = r_glowBloomCutoff->current.value;
+    float desaturation = r_glowBloomDesaturation->current.value;
+    backEnd.codeConsts[32][0] = cutoff;
+    backEnd.codeConsts[32][1] = 1.0f / (1.0f - cutoff);
+    backEnd.codeConsts[32][2] = 0.0f;
+    backEnd.codeConsts[32][3] = desaturation;
+    float radius[2];
+    backEnd.glowIndexFirst = RB_GetGlowRadii(radius);
+    RB_GlowFilterImage(radius);
+}
+
+// PINNED 10030710: small radii use a fixed filter with reduced HIGH alpha.
+static void RB_DrawBlur(float radius)
+{
+    float minimum = ri.GetVirtualWidthFromRealWidth(3.0f);
+    unsigned int color = 0xffffffff;
+    if (radius < minimum)
+    {
+        byte alpha = (byte)I_fround(radius / minimum * 255.0f);
+        color = (color & 0xffffff) | ((unsigned int)alpha << 24);
+        radius = minimum;
+    }
+    RB_GaussianFilterImage(radius, R_RENDERTARGET_BLURRED_SCREEN);
+    RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+    backEnd.currentFeedbackImage = dx.renderTargets[R_RENDERTARGET_BLURRED_SCREEN].image;
+    RB_DrawStretchPic(rgp.feedbackBlendMaterial, 0.0f, 0.0f, (float)dxState.renderTargetWidth,
+        (float)dxState.renderTargetHeight, 0.0f, 0.0f, 1.0f, 1.0f, color);
+    RB_EndSurface();
+}
+
+// PINNED 100308c0: debug paths are mutually exclusive and ordered.
+static void RB_DrawPostDebug()
+{
+    int debug = r_showFbColorDebug->current.integer;
+    if (debug == 1)
+        RB_DrawFrameColorDebug();
+    else if (r_rendererInUse->current.integer != 2)
+    {
+        if (debug == 2)
+            RB_DrawResolvedChannelDebug();
+        else if (r_showFloatZDebug->current.enabled)
+            RB_DrawFloatZDebug();
+        else if (sc_showDebug->current.enabled)
+            RB_DrawShadowDebug();
+    }
+}
+
+// PINNED 10030ab0: resolve once, glow first, blur second.
+static void RB_ApplyLatePostEffects(float blurRadius)
+{
+    if (backEnd.resolvedSceneTarget == R_RENDERTARGET_NONE)
+    {
+        RB_CopyBackBufferToSurface(dx.renderTargets[R_RENDERTARGET_RESOLVED_SCENE].image);
+        backEnd.resolvedSceneTarget = R_RENDERTARGET_RESOLVED_SCENE;
+    }
+    if (r_rendererInUse->current.integer != 2 && dx.hasSeparateAlphaBlend
+        && r_glow->current.enabled && !r_fullbright->current.enabled)
+    {
+        RB_GenerateGlowImages();
+        RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+        RB_DrawGlowImages();
+    }
+    if (r_rendererInUse->current.integer != 2
+        && (r_blur->current.value > 0.0f || blurRadius > 0.0f))
+    {
+        float blur = r_blur->current.value;
+        RB_DrawBlur(sqrtf(blur * blur + blurRadius * blurRadius));
+    }
+}
+
+struct GfxCmdLatePost { GfxCmdHeader header; float blurRadius; };
+
+// PINNED 10030ba0: capture packet before flush, target after it; advance live cursor.
+static void RB_ApplyLatePostEffectsCmd(GfxRenderCommandExecState *state)
+{
+    const GfxCmdLatePost *cmd = (const GfxCmdLatePost *)state->cmd;
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    GfxRenderTargetId target = dxState.renderTargetId;
+    backEnd.resolvedSceneTarget = R_RENDERTARGET_NONE;
+    if (RB_NeedsSceneCopy(cmd->blurRadius))
+        RB_ApplyLatePostEffects(cmd->blurRadius);
+    RB_SetRenderTarget(target);
+    RB_DrawPostDebug();
+    const byte *next = (const byte *)state->cmd;
+    state->cmd = next + ((const GfxCmdHeader *)next)->byteCount;
+}
+
+// Complete retail command dispatch.
+typedef void (*GfxRenderCommandFunction)(GfxRenderCommandExecState *state);
+extern GfxRenderCommandFunction const RB_RenderCommandTable[34];
+// PINNED 10190518: command0 terminates; every other slot is a real handler.
+GfxRenderCommandFunction const RB_RenderCommandTable[34] =
+{
+    0,
+    RB_GotoCmd,
+    RB_CallCmd,
+    RB_ReturnCmd,
+    RB_SetMaterialColorCmd,
+    RB_SetLightPropertiesCmd,
+    RB_StencilPlanesCmd,
+    RB_SetStencilRefValueCmd,
+    RB_SetShadowCookieCmd,
+    RB_SetClipPlanesCmd,
+    RB_SaveScreenCmd,
+    RB_ClearScreenCmd,
+    RB_BeginViewCmd,
+    RB_SetViewportCmd,
+    RB_SetRenderTargetCmd,
+    RB_StretchPicCmd,
+    RB_StretchPicRotateCmd,
+    RB_StretchRawCmd,
+    RB_DrawQuadPicCmd,
+    RB_DrawSpriteCmd,
+    RB_DrawFullScreenColoredQuadCmd,
+    RB_DrawTextCmd,
+    RB_DrawTextInSpaceCmd,
+    RB_DrawSurfsCmd,
+    RB_DrawSunCmd,
+    RB_ApplyEarlyPostEffectsCmd,
+    RB_ApplyLatePostEffectsCmd,
+    RB_DrawSunPostEffectsCmd,
+    RB_BlurShadowCookieCmd,
+    RB_BlendSavedScreenCmd,
+    RB_DrawTrianglesCmd,
+    RB_DrawLinesCmd,
+    RB_DrawPointsCmd,
+    RB_TouchAllImagesCmd
+};
+
+// GPU fill and transform benchmarks.
+extern const dvar_t *r_testFill, *r_testFillEnable, *r_testTransform;
+Bool Material_IsDefault(const Material *material);
+void MatrixForViewer(float matrix[4][4], const vec3_t origin, const vec3_t axis[3]);
+void InfinitePerspectiveMatrix(float matrix[4][4], float fovX, float fovY, float nearClip);
+
+// PINNED 100330c0: count is captured before timing; default aliases return zero.
+static double RB_Benchmark2D(const Material *material, float width, float height, int count)
+{
+    if (Material_IsDefault(material))
+        return 0.0;
+    LARGE_INTEGER start, end;
+    RB_BeginBenchmarkGpu(&start);
+    for (int index = 0; index < count; ++index)
+        RB_DrawStretchPic(material, 0.0f, 0.0f, width, height, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
+    RB_EndSurface();
+    RB_EndBenchmarkGpu(&end);
+    return count / RB_BenchmarkSeconds(&end, &start);
+}
+
+// PINNED 100331d0: retail writes all four setup corners to vertex ZERO.
+static float RB_Benchmark3D(const Material *material, int technique)
+{
+    vec3_t origin = {0.0f, 0.0f, 0.0f};
+    vec3_t axis[3] = {{1.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 1.0f}};
+    D3DMATRIX view, projection;
+    MatrixForViewer(view.m, origin, axis);
+    InfinitePerspectiveMatrix(projection.m, 90.0f, 90.0f, 0.9f);
+    RB_Set3D();
+    RB_PushMatrixStack();
+    memcpy(&backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].world.matrix[0], identityMatrix44, 64);
+    RB_ChangedWorldMatrix(1.0f);
+    RB_SetViewMatrix(&view);
+    backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0] = projection;
+    RB_ProjectionMatrixChanged();
+    backEnd.currentEntity = (GfxEntity *)&backEnd.worldEntityReType;
+    backEnd.currentEntityLighting = 0;
+    RB_SetCodeConstant(5, 1.0f, 1.0f, 1.0f, 1.0f);
+    RB_SetCodeConstant(3, 0.0f, 0.0f, 0.0f, 1.0f);
+    RB_SetCodeConstant(11, 0.0f, 0.0f, 0.0f, 1.0f);
+    RB_BeginSurface(material, technique, 0);
+    vec3_t center;
+    for (int component = 0; component < 3; ++component)
+        center[component] = origin[component] + axis[0][component];
+    GfxColor color = 0xffffffff;
+    RB_SetVertex3D(0, center[0] + axis[1][0] + axis[2][0],
+        center[1] + axis[1][1] + axis[2][1], center[2] + axis[1][2] + axis[2][2], 0.0f, 0.0f, &color);
+    RB_SetVertex3D(0, center[0] - axis[1][0] + axis[2][0],
+        center[1] - axis[1][1] + axis[2][1], center[2] - axis[1][2] + axis[2][2], 1.0f, 0.0f, &color);
+    RB_SetVertex3D(0, center[0] - axis[1][0] - axis[2][0],
+        center[1] - axis[1][1] - axis[2][1], center[2] - axis[1][2] - axis[2][2], 1.0f, 1.0f, &color);
+    RB_SetVertex3D(0, center[0] + axis[1][0] - axis[2][0],
+        center[1] + axis[1][1] - axis[2][1], center[2] + axis[1][2] - axis[2][2], 0.0f, 1.0f, &color);
+    tess.vertexCount = 4;
+    int count = r_testFill->current.integer;
+    for (int index = 0; index < count; ++index)
+    {
+        tess.indices[tess.indexCount] = 3;
+        tess.indices[tess.indexCount + 1] = 0;
+        tess.indices[tess.indexCount + 2] = 2;
+        tess.indices[tess.indexCount + 3] = 2;
+        tess.indices[tess.indexCount + 4] = 0;
+        tess.indices[tess.indexCount + 5] = 1;
+        tess.indexCount += 6;
+    }
+    LARGE_INTEGER start, end;
+    RB_BeginBenchmarkGpu(&start);
+    RB_EndSurface();
+    RB_EndBenchmarkGpu(&end);
+    RB_PopMatrixStack();
+    return (float)(count / RB_BenchmarkSeconds(&end, &start) / 60.0);
+}
+
+// PINNED 100335d0: preserve the live iteration count and original report order.
+static void RB_TestFill()
+{
+    if (!r_testFillEnable->current.enabled)
+    {
+        ri.Printf(0, "Fill testing uses extra textures and materials, so it is usually unavailable.\n");
+        ri.Printf(0, "You must set 'r_testFillEnable' to 1 and vid_restart to test fill rates.\n");
+        return;
+    }
+    ri.Printf(0, "-----------------------------------------------\n");
+    ri.Printf(0, "normal fill                 %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.normalFillMaterial,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    ri.Printf(0, "alpha blend fill            %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.alphaBlendFillMaterial,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    ri.Printf(0, "alpha test pass fill        %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.alphaTestPassFillMaterial,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    ri.Printf(0, "alpha test fail fill        %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.alphaTestFailFillMaterial,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    ri.Printf(0, "additive fill               %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.additiveFillMaterial,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    ri.Printf(0, "depth only fill             %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.depthOnlyFillMaterial,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    ri.Printf(0, "1-sided stencil keep fill   %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.stencilOneSideKeepFillMaterial,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    ri.Printf(0, "1-sided stencil reject fill %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.stencilOneSideRejectFillMaterial,
+        (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    if (dx.stencilTwoSided)
+    {
+        ri.Printf(0, "2-sided stencil keep fill   %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.stencilTwoSideKeepFillMaterial,
+            (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+        ri.Printf(0, "2-sided stencil reject fill %4.1f overdraw @ 60Hz\n", RB_Benchmark2D(rgp.stencilTwoSideRejectFillMaterial,
+            (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight, r_testFill->current.integer) * 0.016666668f);
+    }
+    ri.Printf(0, "phong point bump fill       %4.1f overdraw @ 60Hz\n", (double)RB_Benchmark3D(rgp.phongBumpFillMaterial, 18));
+    ri.Printf(0, "phong point bump+spec fill  %4.1f overdraw @ 60Hz\n", (double)RB_Benchmark3D(rgp.phongBumpSpecFillMaterial, 18));
+    ri.Printf(0, "phong dir bump fill         %4.1f overdraw @ 60Hz\n", (double)RB_Benchmark3D(rgp.phongBumpFillMaterial, 9));
+    ri.Printf(0, "phong dir bump+spec fill    %4.1f overdraw @ 60Hz\n", (double)RB_Benchmark3D(rgp.phongBumpSpecFillMaterial, 9));
+    ri.Printf(0, "-----------------------------------------------\n");
+}
+
+// PINNED 100339b0: four static/skinned report values are genuinely zero.
+static void RB_TestTransform()
+{
+    float result = (float)(RB_Benchmark2D(rgp.whiteMaterial, 0.0f, 0.0f, 1362) * 0.016666668f);
+    ri.Printf(0, "-----------------------------------------------\n");
+    ri.Printf(0, "static vertex data    %8.0f verts/sec @ 60Hz\n", 0.0);
+    ri.Printf(0, "static vertex data    %8.0f tris/sec @ 60Hz\n", 0.0);
+    ri.Printf(0, "skinned vertex data   %8.0f verts/sec @ 60Hz\n", 0.0);
+    ri.Printf(0, "skinned vertex data   %8.0f tris/sec @ 60Hz\n", 0.0);
+    ri.Printf(0, "dynamic vertex data   %8.0f verts/sec @ 60Hz\n", (double)result * 4.0);
+    ri.Printf(0, "dynamic vertex data   %8.0f tris/sec @ 60Hz\n", (double)result * 2.0);
+    ri.Printf(0, "-----------------------------------------------\n");
+}
+
+// Render-command execution.
+// Role name from the reference; PINNED standalone zero-initialized word101d0a8c.
+int g_disableRendering;
+extern const dvar_t *r_skipBackEnd, *developer;
+Bool R_RecoverLostDevice();
+void RB_DrawDebug(const GfxViewParms *view);
+void RB_ChangeIndices(IDirect3DIndexBuffer9 *indices);
+void RB_ClearAllStreamSources();
+
+// PINNED 10033d20: recover, begin, dispatch, clean up, benchmark, then fence.
+void RB_ExecuteRenderCommands(const void *data)
+{
+    int disabled = g_disableRendering;
+    backEndData = 0;
+    if (disabled)
+        return;
+    if (!dx.deviceLost)
+    {
+        HRESULT result = dx.device->TestCooperativeLevel();
+        if (result == D3DERR_DEVICELOST || result == D3DERR_DEVICENOTRESET)
+            dx.deviceLost = 1;
+    }
+    Bool touchImages = dx.deviceLost;
+    if (touchImages && !R_RecoverLostDevice())
+        return;
+    backEndData = (GfxBackEndData *)data;
+    RB_UpdateBackendDvars();
+    RB_BeginScene();
+    if (touchImages)
+        RB_TouchAllImages();
+    if (!r_skipBackEnd->current.enabled)
+    {
+        GfxRenderCommandExecState state;
+        // PINNED frame command array begins at219d0c; see r_rendercmds layout check.
+        state.cmd = (const byte *)backEndData + 0x219d0c;
+        state.stackPos = 0;
+        while (((const GfxCmdHeader *)state.cmd)->id)
+            RB_RenderCommandTable[((const GfxCmdHeader *)state.cmd)->id](&state);
+    }
+    else
+    {
+        if (backEnd.viewportIsDirty)
+            RB_UpdateViewport();
+        R_DX_CALL(dx.device->Clear( 0, 0, D3DCLEAR_TARGET, 0, 0, 0 ));
+    }
+    if (tess.indexCount || tess.optimizedIndexCount)
+        RB_EndSurface();
+    if (backEnd.viewParms && developer->current.integer)
+        RB_DrawDebug(backEnd.viewParms);
+    if (dxState.indexBuffer)
+        RB_ChangeIndices(0);
+    RB_ClearAllStreamSources();
+    R_DX_CALL(dx.device->EndScene());
+    dx.inScene = 0;
+    if (r_testFill->current.integer > 0)
+    {
+        RB_TestFill();
+        ri.Dvar_SetInt(r_testFill, 0);
+    }
+    if (r_testTransform->current.integer > 0)
+    {
+        RB_TestTransform();
+        ri.Dvar_SetInt(r_testTransform, 0);
+    }
+    if (dx.gpuSync == 2)
+        R_FinishGpuFence();
+    if (dx.gpuSync == 2 || dx.gpuSync == 3)
+        R_InsertGpuFence();
 }

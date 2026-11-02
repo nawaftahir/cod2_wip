@@ -54,3 +54,17 @@ Preserve other agents' work and unrelated staged changes. Do not edit foreign
 tracks or promote to the release tree without owner direction. Never commit
 retail binaries, objects, assets, SDK payloads or Ghidra projects. Use configured
 Nawaf identity, short commits, no Co-Authored-By; never push without "push it".
+
+## Work scope and cost
+
+- Read the current owner direction and PROGRESS.md before historical next steps.
+  A paused goal is not resumed by old ACTIVE statements in a receipt/handoff.
+- Reuse the existing retail-file layout, source tree, manifests and tools.
+  Finish a bounded requested layout pass without requiring full source recovery.
+- Batch connected source/interface/layout edits before the original build and
+  regression pass. Do not run the full suite after each small leaf addition.
+  Documentation-only updates need relevant consistency checks, not a rebuild.
+- Compare current inputs/output with a receipt before quoting it as current proof.
+  Keep C/C++ bytes, normalized file spans and raw same-offset equality distinct.
+- Record net verified progress and open dependencies; tests written/passed and
+  unmatched bodies do not by themselves increase verified reconstruction.

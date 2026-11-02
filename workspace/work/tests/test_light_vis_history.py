@@ -5,7 +5,7 @@ import tempfile
 from fragment import fragment
 
 text = fragment('gfx_d3d/rb_light_derive.cpp')
-source = text[text.index('static void BuildGridFilename('):]
+source = text[text.index('static void BuildGridFilename('):text.index('// PINNED 10035cd0/670:')]
 program = r'''
 #include <cassert>
 #include <cstring>

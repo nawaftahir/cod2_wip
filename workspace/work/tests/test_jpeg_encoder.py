@@ -7,7 +7,7 @@ from PIL import Image
 work = Path(__file__).resolve().parents[1]
 codec = work / 'src/jpeg-6b'
 text = (work / 'src/gfx_d3d/r_jpeg.cpp').read_text()
-source = text[text.index('struct JpegMemoryDestination'):]
+source = text[text.index('struct JpegMemoryDestination'):text.index('// PINNED 10014940/785:')]
 sources = [work / 'src' / line.split()[0] for line in (work / 'src/tus.txt').read_text().splitlines() if line.startswith('jpeg-6b/')]
 program = r'''
 #include <cassert>

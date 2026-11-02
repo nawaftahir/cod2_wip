@@ -1,0 +1,112 @@
+?R_PointLightRanksBefore@@YAEPBUGfxLight@@0@Z 0x10012360 212
+--- ours
++++ retail
+@@ -1,61 +1,69 @@
+-sub esp, 0x1c
+-mov edx, dword ptr [eax + 0x10]
++sub esp, 0x20
++mov edx, dword ptr [ecx + 0x10]
+ mov dword ptr [esp], edx
+ fld dword ptr [esp]
+-mov edx, dword ptr [ecx + 0x10]
+ fmul dword ptr [esp]
++mov edx, dword ptr [eax + 0x10]
+ mov dword ptr [esp], edx
+ fstp dword ptr [esp + 0xc]
+ fld dword ptr [esp]
+ fmul dword ptr [esp]
++fstp dword ptr [esp + 0x10]
++fld dword ptr [A]
++fsub dword ptr [ecx + 4]
++fstp dword ptr [esp]
++fld dword ptr [A]
++fsub dword ptr [ecx + 8]
+ fstp dword ptr [esp + 4]
+ fld dword ptr [A]
++fsub dword ptr [ecx + 0xc]
++fstp dword ptr [esp + 8]
++fld dword ptr [esp + 8]
++fmul dword ptr [esp + 8]
++fld dword ptr [esp + 4]
++fmul dword ptr [esp + 4]
++faddp st(1)
++fld dword ptr [esp]
++fmul dword ptr [esp]
++faddp st(1)
++fstp dword ptr [esp]
++fld dword ptr [A]
+ fsub dword ptr [eax + 4]
+-fstp dword ptr [esp + 0x10]
++fstp dword ptr [esp + 0x14]
+ fld dword ptr [A]
+ fsub dword ptr [eax + 8]
+-fstp dword ptr [esp + 0x14]
++fstp dword ptr [esp + 0x18]
+ fld dword ptr [A]
+ fsub dword ptr [eax + 0xc]
+-fstp dword ptr [esp + 0x18]
+-fld dword ptr [esp + 0x10]
+-fmul dword ptr [esp + 0x10]
++fstp dword ptr [esp + 0x1c]
++fld dword ptr [esp + 0x1c]
++fmul dword ptr [esp + 0x1c]
++fld dword ptr [esp + 0x18]
++fmul dword ptr [esp + 0x18]
++faddp st(1)
+ fld dword ptr [esp + 0x14]
+ fmul dword ptr [esp + 0x14]
+ faddp st(1)
+-fld dword ptr [esp + 0x18]
+-fmul dword ptr [esp + 0x18]
+-faddp st(1)
+-fstp dword ptr [esp]
+-fld dword ptr [A]
+-fsub dword ptr [ecx + 4]
+-fstp dword ptr [esp + 0x10]
+-fld dword ptr [A]
+-fsub dword ptr [ecx + 8]
+-fstp dword ptr [esp + 0x14]
+-fld dword ptr [A]
+-fsub dword ptr [ecx + 0xc]
+-fstp dword ptr [esp + 0x18]
+-fld dword ptr [esp + 0x10]
++fstp dword ptr [esp + 4]
++fld dword ptr [esp + 4]
++fmul dword ptr [esp + 0xc]
++fld dword ptr [esp]
+ fmul dword ptr [esp + 0x10]
+-fld dword ptr [esp + 0x14]
+-fmul dword ptr [esp + 0x14]
+-faddp st(1)
+-fld dword ptr [esp + 0x18]
+-fmul dword ptr [esp + 0x18]
+-faddp st(1)
+-fstp dword ptr [esp + 8]
+-fld dword ptr [esp]
+-fmul dword ptr [esp + 4]
+-fld dword ptr [esp + 8]
+-fmul dword ptr [esp + 0xc]
+ fcompp 
+ fnstsw ax
+-test ah, 1
+-jne A
+-mov al, 1
+-add esp, 0x1c
++test ah, 0x41
++jp A
++mov eax, 1
++add esp, 0x20
+ ret 
+-xor al, al
+-add esp, 0x1c
++xor eax, eax
++add esp, 0x20
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 

@@ -1,0 +1,225 @@
+{
+  "evidence": "Unique byte placements across every codec TU constrain contributor order; no overlapping per-TU placement ranges. Final offsets remain open.",
+  "module_ranges": [
+    {
+      "object": "jcapimin.obj",
+      "first_unique_hit": "0x10041850",
+      "last_unique_hit": "0x10041ae0"
+    },
+    {
+      "object": "jcapistd.obj",
+      "first_unique_hit": "0x10041b70",
+      "last_unique_hit": "0x10041ca0"
+    },
+    {
+      "object": "jccoefct.obj",
+      "first_unique_hit": "0x10041db0",
+      "last_unique_hit": "0x100425b0"
+    },
+    {
+      "object": "jccolor.obj",
+      "first_unique_hit": "0x100426d0",
+      "last_unique_hit": "0x10042bf0"
+    },
+    {
+      "object": "jcdctmgr.obj",
+      "first_unique_hit": "0x10042e10",
+      "last_unique_hit": "0x10043bd0"
+    },
+    {
+      "object": "jchuff.obj",
+      "first_unique_hit": "0x10043c60",
+      "last_unique_hit": "0x10044b20"
+    },
+    {
+      "object": "jcinit.obj",
+      "first_unique_hit": "0x10044b70",
+      "last_unique_hit": "0x10044b70"
+    },
+    {
+      "object": "jcmainct.obj",
+      "first_unique_hit": "0x10044c80",
+      "last_unique_hit": "0x10044d80"
+    },
+    {
+      "object": "jcmarker.obj",
+      "first_unique_hit": "0x10044e40",
+      "last_unique_hit": "0x10045de0"
+    },
+    {
+      "object": "jcmaster.obj",
+      "first_unique_hit": "0x10045e30",
+      "last_unique_hit": "0x100468d0"
+    },
+    {
+      "object": "jcomapi.obj",
+      "first_unique_hit": "0x100469e0",
+      "last_unique_hit": "0x10046a00"
+    },
+    {
+      "object": "jcparam.obj",
+      "first_unique_hit": "0x10046a20",
+      "last_unique_hit": "0x10047580"
+    },
+    {
+      "object": "jcphuff.obj",
+      "first_unique_hit": "0x100477e0",
+      "last_unique_hit": "0x10048560"
+    },
+    {
+      "object": "jcprepct.obj",
+      "first_unique_hit": "0x100485a0",
+      "last_unique_hit": "0x10048c10"
+    },
+    {
+      "object": "jcsample.obj",
+      "first_unique_hit": "0x10048cd0",
+      "last_unique_hit": "0x10049500"
+    },
+    {
+      "object": "jdapimin.obj",
+      "first_unique_hit": "0x10049e00",
+      "last_unique_hit": "0x1004a310"
+    },
+    {
+      "object": "jdapistd.obj",
+      "first_unique_hit": "0x1004a400",
+      "last_unique_hit": "0x1004a780"
+    },
+    {
+      "object": "jdatasrc.obj",
+      "first_unique_hit": "0x1004a950",
+      "last_unique_hit": "0x1004a960"
+    },
+    {
+      "object": "jdcoefct.obj",
+      "first_unique_hit": "0x1004a9e0",
+      "last_unique_hit": "0x1004b940"
+    },
+    {
+      "object": "jdcolor.obj",
+      "first_unique_hit": "0x1004bab0",
+      "last_unique_hit": "0x1004bf10"
+    },
+    {
+      "object": "jddctmgr.obj",
+      "first_unique_hit": "0x1004c0e0",
+      "last_unique_hit": "0x1004c410"
+    },
+    {
+      "object": "jdhuff.obj",
+      "first_unique_hit": "0x1004c490",
+      "last_unique_hit": "0x1004cf60"
+    },
+    {
+      "object": "jdinput.obj",
+      "first_unique_hit": "0x1004cfa0",
+      "last_unique_hit": "0x1004d560"
+    },
+    {
+      "object": "jdmainct.obj",
+      "first_unique_hit": "0x1004d5a0",
+      "last_unique_hit": "0x1004db80"
+    },
+    {
+      "object": "jdmarker.obj",
+      "first_unique_hit": "0x1004dc50",
+      "last_unique_hit": "0x1004f920"
+    },
+    {
+      "object": "jdmaster.obj",
+      "first_unique_hit": "0x1004f960",
+      "last_unique_hit": "0x10050050"
+    },
+    {
+      "object": "jdmerge.obj",
+      "first_unique_hit": "0x10050080",
+      "last_unique_hit": "0x10050600"
+    },
+    {
+      "object": "jdphuff.obj",
+      "first_unique_hit": "0x10050680",
+      "last_unique_hit": "0x10051320"
+    },
+    {
+      "object": "jdpostct.obj",
+      "first_unique_hit": "0x10051390",
+      "last_unique_hit": "0x10051650"
+    },
+    {
+      "object": "jdsample.obj",
+      "first_unique_hit": "0x100516e0",
+      "last_unique_hit": "0x10051c10"
+    },
+    {
+      "object": "jdtrans.obj",
+      "first_unique_hit": "0x10051e10",
+      "last_unique_hit": "0x10051ed0"
+    },
+    {
+      "object": "jerror.obj",
+      "first_unique_hit": "0x10051f90",
+      "last_unique_hit": "0x10052120"
+    },
+    {
+      "object": "jfdctflt.obj",
+      "first_unique_hit": "0x10052180",
+      "last_unique_hit": "0x10052180"
+    },
+    {
+      "object": "jfdctfst.obj",
+      "first_unique_hit": "0x100532c0",
+      "last_unique_hit": "0x100532c0"
+    },
+    {
+      "object": "jfdctint.obj",
+      "first_unique_hit": "0x100534d0",
+      "last_unique_hit": "0x100534d0"
+    },
+    {
+      "object": "jidctflt.obj",
+      "first_unique_hit": "0x10053800",
+      "last_unique_hit": "0x10053800"
+    },
+    {
+      "object": "jidctfst.obj",
+      "first_unique_hit": "0x10053c30",
+      "last_unique_hit": "0x10053c30"
+    },
+    {
+      "object": "jidctint.obj",
+      "first_unique_hit": "0x10054020",
+      "last_unique_hit": "0x10054020"
+    },
+    {
+      "object": "jidctred.obj",
+      "first_unique_hit": "0x10054550",
+      "last_unique_hit": "0x10054ce0"
+    },
+    {
+      "object": "jmemmgr.obj",
+      "first_unique_hit": "0x10054d20",
+      "last_unique_hit": "0x10055840"
+    },
+    {
+      "object": "jmemnobs.obj",
+      "first_unique_hit": "0x10055930",
+      "last_unique_hit": "0x10055930"
+    },
+    {
+      "object": "jquant1.obj",
+      "first_unique_hit": "0x10055960",
+      "last_unique_hit": "0x10056520"
+    },
+    {
+      "object": "jquant2.obj",
+      "first_unique_hit": "0x100565c0",
+      "last_unique_hit": "0x10057840"
+    },
+    {
+      "object": "jutils.obj",
+      "first_unique_hit": "0x10057970",
+      "last_unique_hit": "0x100579f0"
+    }
+  ]
+}

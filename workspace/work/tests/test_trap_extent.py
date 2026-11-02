@@ -1,12 +1,16 @@
 """Preserve a branch-targeted INT3; ordinary alignment remains excluded."""
 import ast
 from pathlib import Path
+import sys
 import capstone
 
 tool = Path(__file__).parents[3] / 'tools/cmp.py'
+sys.path.insert(0,str(tool.parent))
+from x86_instructions import instructions
 node = next(n for n in ast.parse(tool.read_text()).body
             if isinstance(n, ast.FunctionDef) and n.name == 'trim_padding')
-scope = {'md': capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)}
+scope = {'md': capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32),
+         'instructions':instructions,'relocation_bytes':set()}
 exec(compile(ast.Module(body=[node], type_ignores=[]), str(tool), 'exec'), scope)
 trim = scope['trim_padding']
 assert trim(b'\x90\xc3\xcc\xcc', 0x1000) == b'\x90\xc3'

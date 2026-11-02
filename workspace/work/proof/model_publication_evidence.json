@@ -1,0 +1,52 @@
+{
+  "scope": "PC primary fields/control flow and independently supported Mac names; no historical source wording claim",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "bodies": [
+    {
+      "name": "R_SkinXModel",
+      "target": "0x1001f6f0",
+      "retail_bytes": 886
+    },
+    {
+      "name": "R_SkinSceneDObj",
+      "target": "0x1001fa70",
+      "retail_bytes": 766
+    },
+    {
+      "name": "R_ProcessFrontendCmdInternal",
+      "target": "0x10020be0",
+      "retail_bytes": 153
+    },
+    {
+      "name": "R_SkinGfxEntity",
+      "target": "0x10023d70",
+      "retail_bytes": 61
+    },
+    {
+      "name": "R_DrawModel",
+      "target": "0x10008330",
+      "retail_bytes": 112
+    },
+    {
+      "name": "R_AddXModelSurfaces",
+      "target": "0x10024680",
+      "retail_bytes": 286
+    }
+  ],
+  "pinned": [
+    "Atomic scene state acquire exchange3/comparand2, then wait for state>=4 if owned elsewhere; published skinning state4 and draw state5.",
+    "R_SkinXModel uses an XModel** surface-list output and int** partBits output, not a direct partBits buffer.",
+    "Material pool4096, unsigned allocation-end check; backend surface byte pool0x20000, unsigned allocation-end check; each caller shares one warning frame for both exhaustion paths.",
+    "Caller stack surface area3584 bytes, permitting64 rigid records56 bytes each. No reference3520-byte buffer or Mach executable-base constant.",
+    "R_SkinXModel single-bone path executes R_SkinRigidXModelCmd directly; DObj single-bone path dispatches case2. Multi-bone path chooses6 or7 at surfaceCount>10, context0; DObj per-surface bone offsets narrow tobyte.",
+    "PC draw checks dpvsGlob.debug.drawXModels and uses scene arrays by entity index, bounds then skin then cullState5 then surface submission.",
+    "s_XModelSurfaceSize is eight writable bytes in retail.data:0,0,0,16,56,16,0,0. Reuse existing R_AddDrawSurf and colorCyan; no duplicate draw key or constant owner.",
+    "Submission advances compact packed cursor only for nonnull materials; type5 uses entity2047, lightmap31; debug tri>vert>surf precedence with signedshort counts.",
+    "Three-argument dispatcher is R_ProcessFrontendCmdInternal. Ordinary R_AddFrontendCmd has two arguments and dispatches contextzero; original naming corrected before final packet. All eight real cases restored."
+  ],
+  "artifact_sha256": {
+    "model_publication_primary.asm": "0bb707dcb9c2ec59318361c790d71efac044387899ae9047e2b04dd2dc641fae",
+    "model_publication_names.json": "075e8946210790ccfcbe9b46974b99dad912cb1de7f51b946dbd51d6e8af7dd6",
+    "current_model_diffs.txt": "7c1eb6468d637fcdd17d2341059fbd26b78f80616aa63aedea14b010e05cb08d"
+  }
+}

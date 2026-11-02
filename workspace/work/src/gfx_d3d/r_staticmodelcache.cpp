@@ -21,7 +21,6 @@ void RB_LogPrint(const char *text);
 extern "C" void Com_Memcpy(void *out, const void *in, int count);
 extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT hr);
 
-void R_TransformCachedVector(const vec3_t *axis, float x, float y, float z, float *out);
 
 // PINNED 1000f180: round and clamp each RGBA channel, store BGRA.
 void R_QuantizeCachedColor(const float *color, byte *out)
@@ -98,16 +97,16 @@ static void R_SkinCachedVertices(const vec3_t *axis, const vec3_t *normalAxis,
     {
         const XVertexInfo *in = &src[vertexIndex];
         GfxSModelCachedVertex *vertex = &out[vertexIndex];
-        R_TransformCachedVector(axis, in->offset[0], in->offset[1], in->offset[2], vertex->xyz);
+        AxisTransformVector(axis, in->offset[0], in->offset[1], in->offset[2], vertex->xyz);
         VectorAdd(vertex->xyz, axis[3], vertex->xyz);
-        R_TransformCachedVector(normalAxis, in->normal[0], in->normal[1], in->normal[2], vertex->normal);
+        AxisTransformVector(normalAxis, in->normal[0], in->normal[1], in->normal[2], vertex->normal);
         vertex->color = *(const GfxColor *)in->color;
         vertex->texCoord[0] = in->texCoordX;
         vertex->texCoord[1] = in->texCoordY;
         vertex->baseLightingCoords[0] = baseLighting[0];
         vertex->baseLightingCoords[1] = baseLighting[1];
-        R_TransformCachedVector(normalAxis, in->binormal[0], in->binormal[1], in->binormal[2], vertex->binormal);
-        R_TransformCachedVector(normalAxis, in->tangent[0], in->tangent[1], in->tangent[2], vertex->tangent);
+        AxisTransformVector(normalAxis, in->binormal[0], in->binormal[1], in->binormal[2], vertex->binormal);
+        AxisTransformVector(normalAxis, in->tangent[0], in->tangent[1], in->tangent[2], vertex->tangent);
     }
     R_UploadCachedVertices(baseVert, vertCount * sizeof(*out), out, sizeof(*out));
 }
@@ -126,11 +125,11 @@ static void R_SkinCachedVerticesDx7(const vec3_t *axis, const vec3_t *normalAxis
         vec3_t normal;
         const XVertexInfo *in = &src[vertexIndex];
         GfxSModelCachedVertexDx7 *vertex = &out[vertexIndex];
-        R_TransformCachedVector(axis, in->offset[0], in->offset[1], in->offset[2], vertex->xyz);
+        AxisTransformVector(axis, in->offset[0], in->offset[1], in->offset[2], vertex->xyz);
         VectorAdd(vertex->xyz, axis[3], vertex->xyz);
         vertex->texCoord[0] = in->texCoordX;
         vertex->texCoord[1] = in->texCoordY;
-        R_TransformCachedVector(normalAxis, in->normal[0], in->normal[1], in->normal[2], normal);
+        AxisTransformVector(normalAxis, in->normal[0], in->normal[1], in->normal[2], normal);
         R_LightCachedVertex(normal, in->color, lights, lightCount, vertex->color.array);
     }
     R_UploadCachedVertices(baseVert, vertCount * sizeof(*out), out, sizeof(*out));
@@ -253,6 +252,103 @@ Bool SMC_GetFreeBlockOfSize(static_model_cache_t *cache, int listIndex)
     freelist->next = (intptr_t)buddy;
     ((static_model_node_list_t *)buddy->next)->prev = (intptr_t)buddy;
     return 1;
+}
+
+typedef char cachePublicationLayoutCheck[(sizeof(static_model_tree_t) == 392 &&
+    sizeof(static_model_cache_t) == 0xc438 && sizeof(GfxStaticModelSurfaceCached) == 16 &&
+    offsetof(static_model_tree_t, nodes) == 12 && offsetof(static_model_tree_t, leafs) == 136 &&
+    offsetof(static_model_cache_t, freelist) == 0xc400 &&
+    offsetof(static_model_cache_t, usedlist) == 0xc428 &&
+    offsetof(static_model_cache_t, stats) == 0xc430 &&
+    offsetof(XSurface, vertCount) == 2 && offsetof(XSurface, triCount) == 4 &&
+    offsetof(XSurface, triIndices) == 8 && sizeof(SkinStaticModelCachedCmd) == 12) ? 1 : -1];
+
+// PINNED 1002acd0/215; allocation helper name unconfirmed.
+static GfxStaticModelSurfaceCached *SMC_AllocCachedSurface(static_model_cache_t *cache, int sizeBits)
+{
+    int listIndex = 9 - sizeBits;
+    static_model_node_list_t *head = &cache->freelist[listIndex];
+    if (head->next == (intptr_t)head && !SMC_GetFreeBlockOfSize(cache, listIndex))
+        return 0;
+    static_model_node_list_t *block = (static_model_node_list_t *)head->next;
+    ((static_model_node_list_t *)block->next)->prev = block->prev;
+    ((static_model_node_list_t *)block->prev)->next = block->next;
+    int treeIndex = ((byte *)block - (byte *)cache) / (int)sizeof(static_model_tree_t);
+    static_model_tree_t *tree = &cache->trees[treeIndex];
+    if (!listIndex)
+    {
+        static_model_tree_list_t *used = &cache->usedlist;
+        tree->usedlist.prev = (intptr_t)used;
+        tree->usedlist.next = used->next;
+        used->next = (intptr_t)&tree->usedlist;
+        ((static_model_tree_list_t *)tree->usedlist.next)->prev = (intptr_t)&tree->usedlist;
+    }
+    int leafIndex = (static_model_leaf_t *)block - tree->leafs;
+    int nodeIndex = ((leafIndex + 16) >> (4 - listIndex)) - 1;
+    tree->nodes[nodeIndex].inuse = 1;
+    for (; nodeIndex >= 0; nodeIndex = (nodeIndex - 1) >> 1)
+        tree->nodes[nodeIndex].usedVerts += 1 << sizeBits;
+    GfxStaticModelSurfaceCached *surface = &tree->leafs[leafIndex].surf;
+    surface->baseVertIndex = (treeIndex * 16 + leafIndex) * 32;
+    return surface;
+}
+
+// PINNED 1002b790/82: each iteration copies two packed triangles.
+static void R_CopyCachedSurfaceIndices(const GfxStaticModelSurfaceCached *cached)
+{
+    unsigned int base = cached->baseVertIndex;
+    unsigned int add = (base << 16) | base;
+    const unsigned int *src = (const unsigned int *)cached->xsurf->triIndices;
+    unsigned int *dst = (unsigned int *)((byte *)dx.smodelCacheIndices + base * 12);
+    int pairs = cached->xsurf->triCount / 2;
+    do
+    {
+        *dst++ = *src++ + add;
+        *dst++ = *src++ + add;
+        *dst++ = *src++ + add;
+    } while (--pairs);
+}
+
+extern SkinBuffers g_skinBuffers[1];
+
+// PINNED 1002b7f0/193: allocate vertices, upload them, then publish the indices.
+GfxStaticModelSurfaceCached *R_CacheStaticModelSurface(GfxStaticSurface *surface,
+    const XSurface *xsurf, int smodelIndex, const Material *material)
+{
+    if (dx.deviceLost || xsurf->vertCount > 512)
+        return 0;
+    int sizeBits = 5;
+    while ((1 << sizeBits) < xsurf->vertCount)
+        ++sizeBits;
+    GfxStaticModelSurfaceCached *cached = SMC_AllocCachedSurface(&s_cache, sizeBits);
+    if (!cached)
+        return 0;
+    s_cache.stats.allocatedVerts += 1 << sizeBits;
+    s_cache.stats.usedVerts += xsurf->vertCount;
+    cached->surface = surface;
+    cached->xsurf = xsurf;
+    cached->smodelIndex = smodelIndex;
+    SkinStaticModelCachedCmd command;
+    command.cached = cached;
+    command.smodelIndex = smodelIndex;
+    command.material = material;
+    R_SkinStaticModelCachedCmd(&command, &g_skinBuffers[0]);
+    R_CopyCachedSurfaceIndices(cached);
+    return cached;
+}
+
+// PINNED 1002b8c0/87: move the containing tree to the front of the used list.
+void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface)
+{
+    int treeIndex = ((byte *)surface - (byte *)&s_cache) / (int)sizeof(static_model_tree_t);
+    static_model_tree_t *tree = &s_cache.trees[treeIndex];
+    tree->frameCount = frontEndDataOut->frameCount;
+    ((static_model_tree_list_t *)tree->usedlist.next)->prev = tree->usedlist.prev;
+    ((static_model_tree_list_t *)tree->usedlist.prev)->next = tree->usedlist.next;
+    tree->usedlist.prev = (intptr_t)&s_cache.usedlist;
+    tree->usedlist.next = s_cache.usedlist.next;
+    s_cache.usedlist.next = (intptr_t)&tree->usedlist;
+    ((static_model_tree_list_t *)tree->usedlist.next)->prev = (intptr_t)&tree->usedlist;
 }
 
 typedef HRESULT (__stdcall *CacheCreateVertexBufferFn)(void *, UINT, DWORD,

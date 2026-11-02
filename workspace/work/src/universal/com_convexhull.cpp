@@ -49,12 +49,6 @@ static int Com_AddPointToHull(const vec2_t point, int newIndex, vec2_t *hull, in
     return hullPointCount + 1;
 }
 
-// Source helper for the repeated inlined two-dimensional dot product.
-static inline float HullDot2(const vec2_t a, const vec2_t b)
-{
-    return a[1] * b[1] + a[0] * b[0];
-}
-
 static int Com_RecursivelyGrowHull(vec2_t *points, int pointCount,
     int firstIndex, int secondIndex, vec2_t *hull, int hullPointCount)
 {
@@ -65,7 +59,7 @@ static int Com_RecursivelyGrowHull(vec2_t *points, int pointCount,
     edgeEq[0] = hull[firstIndex][1] - hull[secondIndex][1];
     edgeEq[1] = hull[secondIndex][0] - hull[firstIndex][0];
     Vec2Normalize(edgeEq);
-    edgeEq[2] = HullDot2(edgeEq, hull[firstIndex]);
+    edgeEq[2] = Dot2Product(edgeEq, hull[firstIndex]);
     botIndex = 0;
     topIndex = pointCount - 1;
     maxDist = 0.001f;
@@ -73,7 +67,7 @@ static int Com_RecursivelyGrowHull(vec2_t *points, int pointCount,
 
     if (botIndex <= topIndex) {
         do {
-            d = HullDot2(edgeEq, points[botIndex]) - edgeEq[2];
+            d = Dot2Product(edgeEq, points[botIndex]) - edgeEq[2];
             // PINNED: unordered distances follow the front scan.
             while (!(d <= 0.0f)) {
                 if (maxDist < d) {
@@ -82,13 +76,13 @@ static int Com_RecursivelyGrowHull(vec2_t *points, int pointCount,
                 }
                 if (++botIndex > topIndex)
                     goto finished;
-                d = HullDot2(edgeEq, points[botIndex]) - edgeEq[2];
+                d = Dot2Product(edgeEq, points[botIndex]) - edgeEq[2];
             }
-            d = HullDot2(edgeEq, points[topIndex]) - edgeEq[2];
+            d = Dot2Product(edgeEq, points[topIndex]) - edgeEq[2];
             while (!(d > 0.0f)) {
                 if (botIndex > --topIndex)
                     goto finished;
-                d = HullDot2(edgeEq, points[topIndex]) - edgeEq[2];
+                d = Dot2Product(edgeEq, points[topIndex]) - edgeEq[2];
             }
             if (maxDist < d) {
                 maxDist = d;
@@ -124,7 +118,7 @@ static int Com_GrowInitialHull(vec2_t *points, int pointCount, vec2_t *hull)
     edgeEq[0] = hull[1][1] - hull[0][1];
     edgeEq[1] = hull[0][0] - hull[1][0];
     Vec2Normalize(edgeEq);
-    edgeEq[2] = HullDot2(edgeEq, hull[0]);
+    edgeEq[2] = Dot2Product(edgeEq, hull[0]);
     botIndex = 0;
     topIndex = pointCount - 1;
     maxFrontDist = 0.001f;
@@ -134,7 +128,7 @@ static int Com_GrowInitialHull(vec2_t *points, int pointCount, vec2_t *hull)
 
     if (botIndex <= topIndex) {
         do {
-            d = HullDot2(edgeEq, points[botIndex]) - edgeEq[2];
+            d = Dot2Product(edgeEq, points[botIndex]) - edgeEq[2];
             while (!(d < 0.0f)) {
                 if (maxFrontDist < d) {
                     maxFrontDist = d;
@@ -142,13 +136,13 @@ static int Com_GrowInitialHull(vec2_t *points, int pointCount, vec2_t *hull)
                 }
                 if (++botIndex > topIndex)
                     goto finished;
-                d = HullDot2(edgeEq, points[botIndex]) - edgeEq[2];
+                d = Dot2Product(edgeEq, points[botIndex]) - edgeEq[2];
             }
             if (maxBackDist > d) {
                 maxBackDist = d;
                 backIndex = botIndex;
             }
-            d = HullDot2(edgeEq, points[topIndex]) - edgeEq[2];
+            d = Dot2Product(edgeEq, points[topIndex]) - edgeEq[2];
             while (!(d > 0.0f)) {
                 if (maxBackDist > d) {
                     maxBackDist = d;
@@ -156,7 +150,7 @@ static int Com_GrowInitialHull(vec2_t *points, int pointCount, vec2_t *hull)
                 }
                 if (botIndex > --topIndex)
                     goto finished;
-                d = HullDot2(edgeEq, points[topIndex]) - edgeEq[2];
+                d = Dot2Product(edgeEq, points[topIndex]) - edgeEq[2];
             }
             if (maxFrontDist < d) {
                 maxFrontDist = d;

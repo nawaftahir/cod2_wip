@@ -1,3 +1,248 @@
+## Skinned-model source and resource field - 2026-10-27
+
+## Current layout validation - 2026-11-01
+
+The existing layout is the working baseline; do not recreate it.111 compiled
+files exist with unique full object paths:58 renderer,44 IJG6b,7 universal,
+1 qcommon and1 win32. All29 preserved source fragments resolve; the12 shared
+globals listed below each have one definition. src/tus.txt, src/profile.mk and
+closed.mk remain the compile/order/flag authorities and were NOT changed.
+
+Refreshed file_layout.tsv from the current map/PDB. Its basename-only lookup
+had assigned I_strlen to qcommon/common.cpp because both that file and
+renderer common.cpp produce common.obj. The existing generator now uses full
+PDB procedure object paths for collisions and rejects unresolved owners.
+I_strlen belongs to gfx_d3d/common.cpp; Com_Printf/Com_Error to qcommon/common.cpp.
+The real-PDB regression fixture checks both. No engine inputs/order/build changed.
+Receipt: proof/nov01_layout_review.json. Original PC TU boundaries and exact
+final placement are still unproven; interval/Mac-name rows are discovery only.
+Historical slot lists and counts later in this document describe older snapshots;
+use tus.txt and the refreshed report for today's candidate, including rb_tess.
+
+
+Both skinned helpers/selector and the actual empty TessBad belong to the same
+rb_tess TU. Existing backend VB ownership, copy/flush/bind/draw and matched
+XSurfaceGetTris are reused. No data owner, TU, root/export or assembly added.
+r_vb_state_t+8 now names the real IDirect3DVertexBuffer9 pointer, matching the
+SDK/r_local; size12 and all field offsets stay fixed. Native tests check live
+resource selection and captured stride/args across the index-bind boundary.
+
+All2381 extents,160 fixtures and independent union audit pass. New bodies remain
+unmatched/unplaced. C++42.710781607%; normalized spans68.549286159%; exact
+same offsets8.810235758%. Receipt: proof/skinned_tess_checkpoint.json.
+Entity primitives/table, command graph and final layout/metadata remain open.
+
+## Original tessellation TU and shared buffer type - 2026-10-27
+
+rb_tess.cpp now owns the four restored surface/model drivers, in its real Mac
+source home; its current link-order slot follows rb_surface. rb_state owns the
+matched46-byte matrix-stack push. No extra roots/exports, assembly, padding,
+data owner or partial dispatch table. Final contributor order remains open.
+
+The three active reference headers now agree with the SDK/state code's struct
+IDirect3DVertexBuffer9. The old union tag prevented a real cross-TU bind; the
+matrix-shaped Mac placeholder payload was unused and removed. No ABI wrappers
+or casts. Correct PC matrix strides/field offsets are compiler-checked and the
+native matrix fixture now retains align16. Full rebuild retains all2380 old
+extents plus the new push;159 fixtures pass. New tess drivers remain unmatched.
+C++42.710781607%; normalized file spans68.549286159%; exact offsets8.809533583%.
+Receipt: proof/tess_surfaces_checkpoint.json. No V4/V5 claim.
+
+## PC text ownership - 2026-10-27
+
+Text/cursor/world-quad kernels and both text handlers live in rb_backend. The
+8x4 RGBA color_table is one function-local owner in RB_LookupColor (Mac STABS).
+Glyph lookup stays in r_font; only its linkage changes, preserving its accepted
+103 bytes. Shared Font/Glyph layouts use r_font.h. No root/export/TU, duplicate
+storage, padding or assembly added. Commands remain local backend records with
+producer-compatible offsets44/48; first placement in rb_commands.h conflicted
+with r_init's later gfx include and was corrected before the accepted build.
+
+All2380 extents and157 fixtures pass. New text bodies remain unmatched, and
+both handlers/static2D await the actual table/executor before emission.
+C++42.692641376%; normalized file spans68.546261408%; exact offsets8.729215639%.
+Receipt: proof/text_graph_checkpoint.json. Final placement remains unfinished.
+
+## Backend dvar and image ownership - 2026-10-27
+
+Image_RebuildCosinePowerMap belongs to r_image; backend dvar updates belong to
+rb_backend. Existing sampler table, image globals and code-constant/AA state
+owners are reused. No TU, root, export, duplicate storage or padding added.
+The appended backend C++ leaves every prior assembly definition unchanged.
+All2380 extents and156 fixtures pass; both new bodies remain unmatched.
+C++42.692641376%; normalized file spans68.546261408%; exact offsets8.779772193%.
+Receipt: proof/backend_dvars_checkpoint.json. Final placement remains unfinished.
+
+## Ref-entity token and source owner - 2026-10-26
+
+The ref-entity callback/helpers live in r_scene. One writable four-byte entity
+surface token2 now immediately precedes the existing eight-byte stride table;
+both map to r_scene.obj in .data. Native fixture checks exact12 bytes and+4
+adjacency. No padding array, duplicate owner, root/export/TU or assembly added.
+All2380 extents and155 fixtures pass. Ref-entity bodies still lack byte matches.
+C++42.692641376%; file spans68.546261408%; same offsets8.705449737%.
+Receipt: proof/ref_entity_checkpoint.json. Final positions remain unfinished.
+
+## Model graph ownership and writable stride table - 2026-10-26
+
+Model callers stay in r_model, the scene worker/submission in r_scene,
+R_ProcessFrontendCmdInternal and its two-argument wrapper in r_rendercmds, and
+R_DrawModel in r_dpvs using the real state owner. No new TU/root/export/assembly.
+Existing draw-key/debug/cache/GPU helpers and colorCyan are reused. The stride
+table is one eight-byte writable .data contributor in r_scene, verified from
+the current linked map and bytes. Entity-surface token2 belongs just before
+this table when the next callback draft is integrated; do not add a second
+stride array or import the six-element Mac stand-in.
+
+All 2376 extents and 154 fixtures pass. New graph source is still unmatched:
+no C++ credit. Verified file spans68.544857059%; same offsets8.717656769%.
+Final positions remain unfinished. Receipt: proof/model_publication_checkpoint.json.
+
+## DPVS state and cache publication - 2026-10-26
+
+The 108-byte DPVS owner replaces eleven split globals. Its real debug record
+occupies bytes 100..104 and separate cull configuration follows at +108 in the
+linked PDB. Type evidence and all thirteen PC initializer operands are frozen
+in proof/dpvs_state_type_evidence.json. The reference 224-byte record is wrong.
+
+Cache publication stays in r_staticmodelcache.cpp with its existing tree pool,
+index allocation and upload command. No new TU, root, export or filler. Only
+R_UsedCachedStaticModelSurface adds accepted byte credit (87 bytes). Current
+PDB-aware file/evidence tables reflect actual owners. All 2376 extents survive;
+150 fixtures pass. Whole-file spans 68.544857059%; same offsets 8.831517042%.
+Receipt: proof/cache_publication_checkpoint.json. Placement remains unfinished.
+
+## Shared helper instances consolidated - 2026-10-26
+
+The shared math TU_STATIC macro is now C++ inline. r_shadowcookie parses shared
+headers without /Op, then enables precise math on its function definitions.
+This retains all2375 extents including the three fsqrt-dependent bodies lost
+in the first broad trial. All seven matched alias groups are gone; canonical
+original names come from Mac STABS and PC bodies. No helper definition body,
+assembly instruction, export/root or source TU was added.
+
+110 physical functions/2695 extent bytes and3520 .text virtual bytes disappear.
+The remaining2375 accepted rows are all unique retail extents. This prevents
+extra copies from being mistaken for final placement. C++42.653206089%; retail
+spans68.539509731%; exact same offsets8.828870385%. Final source layout and
+metadata remain unfinished. Receipt: proof/shared_helpers_checkpoint.json.
+
+Next owner correction: Mac dpvsGlob type is108 bytes, not the reference's224.
+Its five-byte debug record starts100; cullDist is separate. Existing split
+queue/hull/plane/occluder/projection owners already cover most of it. Fold the
+actual fields; do not add a new padded buffer or duplicate those globals.
+Primary PC/type evidence: scratch/codex_1026_helpers/dpvs_*.
+
+
+The corrected private-symbol reader also exposes23 retail extents with86 extra
+candidate procedure rows (proof/api_raw_duplicate_extents.json). The coverage
+union counts each retail byte once; these are not86 extra recovered functions.
+Many are TU_STATIC static-inline math copies. Inspect actual candidate addresses
+and real caller targets before consolidating shared helpers. Preserve all2375
+retail extents, not every redundant candidate instance. Test bounded source/
+linkage groups and log failures; final single-instance ownership is required for
+whole-file identity, regardless of current binding acceptance.
+
+## Raw-image/codec contributor checkpoint - 2026-10-26
+
+Raw material API lives in r_material; Image_LoadRaw in r_image_load_obj; real
+JPEG wrapper and allocator callbacks stay in r_jpeg. Codec TUs come from pinned
+IJG6b and now follow retail-constrained order across all44 modules, with inverse
+DCT after forward DCT and quantizers after memory manager. Evidence:
+proof/jpeg_contributor_order.json and jpeg_decoder_origin.json. Ordering these
+contributors is current layout work; their exact output offsets remain open.
+
+The source-level decoder is functional under native fixtures; byte matches and
+original library closures add193362 dependency code bytes without new authored
+C++ credit. All2375 accepted unique extents are ratcheted. The file-span union
+is68.540049865%, while exact same-offset equality8.812450308% and API/metadata
+closure remain unfinished. No filler, extra root/export, post-link patching or
+assembly definition was introduced. Source-private map labels can have wrong
+owners; PDB procedure records at the actual VA are authoritative.
+Proof/current status: proof/api_raw_checkpoint.json and PROGRESS.md. Earlier
+layout notes, including the five resolved source-home issues, are historical.
+
+## Retail file coverage checkpoint; paused
+
+The five source-home moves below remain finished. The latest whole-file ledger
+is proof/retail_50_checkpoint.json:55.382328540% address-normalized file spans,
+9.461367447% same-file-offset equality. Candidate source/link inputs are unchanged
+in this wave; corrected tiny-leaf discovery and library-private PDB identities
+close original dependency/data graphs. Archive/member qualification prevents
+memcpy.obj and memmove.obj static UnwindUpVec labels from sharing false identity.
+All1987 binding rows survive, including the1496 earlier checkpoint rows.
+Code553553, initialized data419275 and relocation entries52516 bytes form the
+non-overlapping file union. Headers/BSS/unowned padding/authored assembly are
+excluded. Exact positions, full ownership/order, API/scene and SHA remain open.
+No layout filler, source replacement or post-link byte copying was introduced.
+
+## Five placement exceptions resolved - 2026-10-25
+
+All five known source-home disagreements are resolved, with every one of1481
+starting accepted address-extents retained. r_surfbounds's corner transform and
+brush culler moved into r_dpvs under local precise math; the light-grid callback
+moved into r_image_load_obj; shared quaternion instances now come from com_math.
+Retired r_lightgrid_weights.cpp and xanim_matrix.cpp; no replacement split TUs.
+The shared xanim header is restored unchanged. The culler's older cell-filter
+callee mismatch remains an uncredited code issue, not an owner exception.
+
+The light-grid move required correcting real CRT contributor order. profile.mk
+extracts four original members from the pinned VC7.1 LIBCMT and links their
+float formats/code pages/matherr/month records in retail order. The entire404
+bytes match retail101a5490..101a5623, including the flag before the month table.
+No vendor object is edited or credited as authored source. All checker and
+assembly-attribution policies are unchanged;31 exclusions/7787 bytes remain.
+Original archive/member hashes belong in the final checkpoint receipt.
+
+New native checks cover3072 brush routes and the404-byte CRT block; the existing
+512 model corner oracles now enforce both quaternion bindings/owners. Focused
+checks pass. The full141-fixture replay passes, followed by fresh build/referee and focused
+checks after EOF whitespace cleanup. Six newly matched shared C/C++ helpers add
+214 bytes:108160/253580=42.653206089%,646 bodies. Nine original library matches
+add1519 dependency bytes separately. All1496 current accepted bindings are frozen
+in proof/placement_five_bind.json; preserve them in future waves.
+Exact DLL offsets, unclassified helper/constant ownership, data/library ordering
+outside this block, API/scene closure and whole-file SHA are still open. These
+source settings are matching reconstruction choices, not proof of original
+pragma spelling. The earlier exception lists below are historical.
+
+## Retail-position audit - 2026-10-25
+
+Source homes and final DLL addresses are different checkpoints. New image
+and world-loader source is being written in its supported retail file homes;
+whole-file link order, anonymous constants and data contributions remain open.
+Source definitions also contain inherited address-order reversals. Under LTCG,
+source line order does not establish final machine-code order; do not promise
+fixed offsets or cosmetically resort protected source without a gated trial.
+
+The current map has820 known-owner rows and673 unknown-owner rows (including
+library/templates/shared helper copies). Unknown rows are not proof of correct
+placement. Five mapped-owner exceptions remain: R_TransformBoundsCorners and
+R_CullBrushEntity in r_surfbounds (/Op-sensitive); Image_GetLightGridWeightsForVector
+in its separate /Op TU (first-fabs constraint); ConvertQuatToMat and
+MatrixTransformVectorQuatTrans in non-/Op xanim_matrix (shared inline ownership).
+These are explicit continuing layout work, not a claim that all structure is done.
+The old r_model_lod split is already resolved; its earlier DEFER below is history.
+
+Corrected file_layout.py: r_loadworld_new is a modern reference rewrite, not
+an original retail TU. Original Mac STABS assigns R_LoadWorldInternal to
+PC/gfx_d3d/r_bsp_load_obj.cpp, where the candidate already lives. No code move
+is warranted. The correction and all five exceptions are pinned in
+proof/retail_position_audit.json. Game compiler inputs and the DLL are unchanged:
+C/C++42.568814575%, same-offset9.483404919%, prior139-fixture checkpoint retained.
+No rebuild was needed for this mapping/documentation correction. Continue
+ownership/flags/data/link work alongside each code wave; whole-file SHA remains
+required. Mac1.3 paths support grouping but do not independently prove PC1.0 TUs.
+
+Image recovery,2026-10-25: native C++ bool for TU-private Image_IsCodeImage
+keeps the predicate and lookup in r_image.cpp and matches1000cc80/23 plus
+1000d140/181. Image_BuildWaterMap stays in its mapped retail owner,
+r_image_load_obj.cpp; separate DX9/DX7 calls restore the primary branch shape
+but its two dimension loads still differ. No TU/order, globals, flag, root,
+SDK or assembly change. The unproductive stored-dimension creator trial was
+reverted. All1479 recovered accepted source/library extents survive; the
+immutable1448 protected set is unchanged. Same-offset remains diagnostic.
+
 # Layout is part of every reconstruction wave
 
 Sun commands,2026-10-23: population/load/save and the original21-name pointer
@@ -577,8 +822,9 @@ and the retail file it belongs to. Use it to pick the file for new code.
 
 ### Link order (src/tus.txt)
 
-Retail body order follows source path order: gfx_d3d/r_*, gfx_d3d/rb_*,
-jpeg-6b/*, universal/*, then d3dx9, DxErr9, LIBCMT. tus.txt follows it.
+Observed body groups broadly follow source path order: gfx_d3d/r_*, gfx_d3d/rb_*,
+jpeg-6b/*, universal/*, then d3dx9, DxErr9, LIBCMT. tus.txt follows this candidate
+sequence; this is not proof of the final original link order.
 
 - OBSERVED: TU slots come from the median address of accepted bodies
   (proof/image_residency_warm_bind.json, bodies >= 48 B).
@@ -587,17 +833,12 @@ jpeg-6b/*, universal/*, then d3dx9, DxErr9, LIBCMT. tus.txt follows it.
   r_staticmodel_bounds, r_water, r_xsurface_optimize, rb_2d,
   rb_buffer_upload, rb_sunsprite, rb_surface, com_plane,
   fft, xanim_matrix.
-- CONSTRAINT (PINNED by the gate): r_lightgrid_weights (/Op) must come after
-  r_water_load_obj. Under /LTCG the first object that references fabs fixes
-  its form for every /Op TU; with r_lightgrid_weights first, com_math and
-  q_shared lose 9 extents (they call CRT fabs instead of the fabs opcode).
-  Retail must have an earlier non-/Op fabs user we have not rebuilt yet;
-  when it exists, move r_lightgrid_weights to its retail slot (100104a0,
-  inside r_image_load_obj). Same rule as sqrt/log/pow (r_specularityimage
-  before com_math).
-- CONSTRAINT: universal keeps xanim_matrix, com_convexhull, com_math (with
-  com_rotate first), com_plane, ... The non-/Op xanim_matrix supplies the
-  ConvertQuatToMat instance.
+- RESOLVED: light-grid weights now live in r_image_load_obj with a local
+  precise region. This preserves the9 shared fabs matches without a late TU.
+  The original intrncvt/mbctype/matherr/days data order is explicit in profile.mk;
+  its404-byte block is retail-identical and retains the time-function bindings.
+- RESOLVED: quaternion header instances now come from com_math, parsed without
+  /Op before enabling precise math for its main definitions. No xanim_matrix TU.
 - Conflicts kept as listed: rb_surface's RB_DrawTessSurface is at 1003a7b0
   (before rb_sky); common.cpp's bodies sit after q_shared (10061c80).
 
@@ -652,21 +893,25 @@ fixtures raise it to139; ten negatives protect the accepted leaves.
 | r_staticmodelcache.cpp | R_CreateSmodelCacheVertexBuffer1002b920 | gated; placement support below |
 | r_staticmodel_load_obj.cpp | bounds1002a360 from isolated research TU | gated; same flags and ABI |
 | r_dpvs.cpp | both winding extrema, now C++ | gated; C TU and /TC rule removed |
-| r_model.cpp | r_model_lod | DEFER: /Op differs from the rest of r_model |
-| r_image_load_obj.cpp | r_lightgrid_weights | DEFER: /Op and first-fabs constraint |
+| r_model.cpp | r_model_lod | merged in the earlier Claude wave |
+| r_image_load_obj.cpp | r_lightgrid_weights | merged with local precise math and original CRT contributor order |
 
 r_local.h and gfx.h can coexist through the generated SDK guards; the earlier
 blocked material, initialization, screenshot and shading merges are done.
 Candidate file placement is not proof of original PC TU boundaries. Other
 unclassified/scattered bodies remain in file_layout.tsv for future evidence
 work; do not move shared inline helpers by address alone. Retail files with
-no candidate yet include r_font_load_obj, r_light_load_obj, r_loadworld_new,
-r_model_load_obj, r_sky_load_obj, r_staticmodel, rb_debug and rb_tess.
+no compiled candidate yet include r_model_load_obj, r_staticmodel, rb_debug and
+rb_tess. r_font_load_obj, r_light_load_obj and r_sky_load_obj now have TU slots.
+r_loadworld_new is a modern reference rewrite, not an original source file.
 
 ### Flags (src/profile.mk, plus the /Op column in tus.txt for universal)
 
-/Op: r_surfbounds, r_shadowcookie, r_lightgrid_weights, r_model_lod (profile.mk);
-com_rotate+com_math, com_plane (tus.txt column). Winding helpers now compile in r_dpvs.cpp.
+/Op: r_surfbounds and r_shadowcookie (profile.mk), com_plane (tus.txt).
+com_math parses headers without /Op, then enables precise math locally for its
+definitions and disables it for the existing anim wrapper. The two DPVS brush
+helpers and light-grid callback use local precise regions. Winding helpers
+compile in r_dpvs.cpp. The global quaternion header is unchanged.
 jpeg-6b: /O2 /GL /MT /TC /DNO_GETENV. Moving the universal /Op flags into
 profile.mk was tried and backed out with the order bisect; it is equivalent
 but untested alone. Libraries: d3d9 d3dx9 DxErr9 user32 gdi32 advapi32
@@ -770,3 +1015,97 @@ qcommon/win32 use the renderer flags via a static pattern rule in profile.mk; th
   in com_math, r_model_lod merged into r_model (its /Op line removed). No extent lost.
 - DEFERRED: ConvertQuatToMat/MatrixTransformVectorQuatTrans are xanim_public.h inlines whose
   retail copy is the non-/Op form; Image_GetLightGridWeightsForVector costs 9 extents (above).
+
+Sprite dispatch dependency batch,2026-11-01: stamps, material atlas/projection,
+sprite and oriented quad remain in the existing rb_tess.cpp slot. They write the
+sole rb_sky tess, read the existing rb_state backEnd and reuse the real com_math
+MakeNormalVectors. No new allocation, shared helper copy, TU/order, root/export
+or compiler setting. Complete table retention waits for remaining real entity
+handlers; do not add dummy entries or extra ABI roots to force these matches.
+
+November1 step3 continuation: line/rail/cylinder/entity primitives stay in the
+existing rb_tess.cpp slot. Complete eight-pointer rb_tessTable and genuine
+sprite-command caller stay in rb_backend.cpp, their supported original owner.
+The shared r_entity.h and r_tess_dispatch.h add types/declarations only; no new
+TU/order, shared-state copies, roots/exports or compiler flags. SDK sprite packet
+uses the existing PC header guard convention. Table linked in the first original
+build at candidate10182e94; exact offset is not historical layout proof.
+
+November1 continuation: draw-surface loop/material-time helper and sun command
+handlers stay in rb_backend.cpp. Sun geometry/query/sprite/flare/effects stay
+in rb_sky.cpp. Existing rb_sunsprite.cpp owns the screen-fraction helper. Shared
+backend lighting[2046] replaces the exact33f30-byte opaque field at2be8; no
+allocation or offsets changed. SDK viewParms now includes real nearclip at148.
+No TU/order/flags/root/export changes.19 source routines added, no new byte
+credit. See proof/nov01_drawsurfs_sun_checkpoint.json for current evidence.
+
+November2 late-post batch: backend owns the complete retail34-pointer command
+table and late-post/glow presentation/debug routines; rb_imagefilter owns the
+existing generators plus filter application/glow/blur image generation. Reused
+existing GfxImageFilter type; no duplicate allocation. Backend glow fields
+replace the exact20-byte opaque region, no offset/sizeof change. Import145
+keeps its slot and pointer width with the target-proven float(float) prototype.
+No new TU, link-order/flags/roots/exports or assembly. Original build and gate
+results are recorded in proof/nov02_late_post_checkpoint.json when verified.
+
+November2 executor batch: restore original rb_debug.cpp as its own TU between
+rb_backend and rb_fog;111 existing TUs keep relative order (112 total). Mac
+STABS original path PC/gfx_d3d/rb_debug.cpp plus retail34010..348e9 interval
+support this file boundary. Backend owns executor and benchmark code in the
+existing body interval. The4-byte rendering-disable word101d0a8c has a supported
+reference name; exact original TU ownership is unproved, candidate owner backend.
+No new worker/build tree, flags, artificial roots/exports or authored assembly.
+
+2026-11-02 frame submission: R_IssueRenderCommands10020d50,
+R_EndFrame10021f90 and R_EndDebugFrame10022040 live with their allocator,
+frame storage and debug-frame state in r_rendercmds.cpp. Existing relative
+TU order unchanged; no new data owner. API59 slots48/50 pinned, genuine
+GetRefAPI publication still pending. Their executor/presentation calls use
+real rb_backend source, not substitutes.
+
+2026-11-02 scene dependencies: real point-to-cell BSP traversal lives in
+r_dpvs.cpp alongside existing node/cell operations (reference original TU).
+Shortsort/quicksort remain in r_scene.cpp. Four scene packet producers remain
+with the sole allocator and command storage in r_rendercmds.cpp. No new global,
+TU, flag, export, assembly or source ownership duplication; link order unchanged.
+
+2026-11-02 scene modes/clear functions remain in r_scene.cpp, beside the
+original scene and LOD owners. Shared packet/group functions are reused;
+no new TU/storage/flags/export/root. Scene mode names describe pinned roles,
+not proof of the lost PC identifier spelling. The sole source remains work/src.
+
+Source browsing: gfx/SOURCE.md links the actual active files and proof status.
+No second clean-source copy was created; incomplete files are explicitly mixed
+verified/draft source, distinct from target/src/opencod2 reference inputs.
+
+2026-11-02 normal pipeline: R_DrawPointLightSurfs/R_ClearFloatZ/depth, normal
+mode and mode dispatcher stay in r_scene.cpp; real cookie command drawing in
+r_shadowcookie.cpp. Point-light gather/selection stays with r_light.cpp;
+scene light culling in r_dpvs.cpp. The command9 matrix record moved unchanged
+into r_scene_commands.h, shared by its existing allocator and genuine caller.
+No new TU/data allocation/export/root. r_light's new float section tests precise
+FP locally; candidate source pragma, not proof of the lost compiler settings.
+Root src/ remains unchanged, verified snapshots only; no mixed files promoted.
+
+## API59 and connected scene ownership - 2026-11-02
+
+The genuine GetRefAPI and its432-byte zero-initialized export table belong to
+r_init.cpp. r_refapi.h shares explicit callback signatures; it owns no storage.
+All98 nonzero slots now reference actual compiled source; ten slots86..95 stay
+zero. api_callbacks.tsv lists source owner, linked address and separate byte
+acceptance for every slot. Legacy shifted names are no longer used as identity.
+The only export is GetRefAPI. No synthetic retention array or /INCLUDE roots.
+
+r_dpvs owns world/frustum/portal visibility; r_scene owns the outer scene driver
+and real RenderScene callback. r_shadowcookie owns generation and the original
+VC7.1 STL sort instantiation; r_utils owns the shared sphere classifier. The
+model-skin loader reuses Material_Register and existing model imports. Existing
+112-TU link order and flags remain; no new object or source-level assembly.
+Gamma initialization calls imported SetModified slot38, not ClearModified37.
+Glow zero stores follow field1 thenfield2; original assignment's final values
+were equal, but its reversed store order caused contradictory binding evidence.
+
+This closes the source callback/dispatch structure, not original TU-boundary
+proof, every body match, final contributor offsets, whole SHA or GPU execution.
+Refreshed file_layout/evidence reports distinguish accepted, addressed drafts,
+Mac naming evidence and unverified functions; inferred intervals are not proof.

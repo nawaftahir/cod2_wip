@@ -1,0 +1,13 @@
+{
+  "scope": "Final matched helper instances; each retail extent counted once",
+  "candidate_function_count_before": 3501,
+  "candidate_function_count_after": 3391,
+  "removed_physical_instances": 110,
+  "removed_candidate_extent_bytes": 2695,
+  "removed_text_virtual_bytes": 3520,
+  "accepted_binding_rows": 2375,
+  "accepted_unique_extents": 2375,
+  "remaining_accepted_duplicate_extents": [],
+  "candidate_sha256": "c18262c0f0a3bd97b2751caa6b1dc5178b20329a804ce1eab95d68daf65f23a9",
+  "binding_sha256": "44d8c34fb386498985adeb2cc82c99f7f72c78c972f9ff328d3fe5b6abe6dafd"
+}

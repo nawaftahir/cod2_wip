@@ -2,7 +2,7 @@
 """Map every linked game function to its retail source file.
 
 Address: accepted bind > unique byte hit > PINNED comment in source.
-File: Mac 1.3 decompile (refrences/cod2-mp-macho/PC) by function name.
+File: Mac 1.3 decompile by function name, with original STABS corrections.
 Retail file intervals come from functions that have both; a function with
 an address but no Mac name takes the file whose interval holds it.
 Writes layout/file_layout.tsv and prints a per-TU move summary.
@@ -15,18 +15,33 @@ dev = work.parents[2]
 build = Path(sys.argv[1]) if len(sys.argv) > 1 else work / 'build'
 mac_root = dev / 'refrences/cod2-mp-macho/PC'
 tus = [l.split()[0] for l in open(work / 'src/tus.txt') if l.strip() and not l.startswith('#')]
-tu_of_obj = {t.split('/')[-1].rsplit('.', 1)[0]: t for t in tus}
+tu_of_obj = collections.defaultdict(list)
+for tu in tus:
+    tu_of_obj[Path(tu).stem].append(tu)
+sys.path.insert(0, str(work.parents[1] / 'tools'))
+from pdbsyms import map_symbols, syms
 
 def plain(sym):
     m = re.match(r'\?([A-Za-z_]\w*)@', sym) or re.match(r'_([A-Za-z_]\w*?)(@\d+)?$', sym)
     return m.group(1) if m else None
 
 # linked game functions: (obj, symbol)
+pdb_owners = {va: obj.replace('\\', '/').lower()
+              for va, kind, name, obj in syms(str(build / 'gfx.dll'), str(build / 'gfx.pdb'))
+              if kind in ('lproc', 'gproc')}
 funcs = []
-for l in open(build / 'gfx.map'):
-    m = re.match(r'\s*0001:[0-9a-f]+\s+(\S+)\s+[0-9a-f]{8}\s+f\s+(?:i\s+)?(\w+)\.obj$', l)
-    if m and m.group(2) in tu_of_obj:
-        funcs.append((m.group(2), m.group(1)))
+for va, name, obj, isfn in map_symbols(build / 'gfx.map', str(build / 'gfx.dll'), str(build / 'gfx.pdb')):
+    owner = Path(obj).stem
+    if isfn and owner in tu_of_obj:
+        candidates = tu_of_obj[owner]
+        if len(candidates) > 1:
+            # The linker map omits directories for both common.obj files.
+            path = pdb_owners.get(va, '')
+            candidates = [tu for tu in candidates
+                          if path.endswith('/' + str(Path(tu).with_suffix('.obj')).lower())]
+        if len(candidates) != 1:
+            raise ValueError('Unresolved source owner: ' + name + ' in ' + obj)
+        funcs.append((candidates[0], name))
 
 bind = json.load(open(build / 'bind.json'))
 hits = {}
@@ -59,10 +74,12 @@ for f in glob.glob(str(mac_root / '*/*.c')):
         if m:
             mac[m.group(1)].add(rel)
 
+# Mac STABS places this in r_bsp_load_obj; r_loadworld_new is a modern rewrite.
+mac['R_LoadWorldInternal'] = {'gfx_d3d/r_bsp_load_obj'}
+
 rows = []
-for obj, sym in funcs:
+for tu, sym in funcs:
     name = plain(sym)
-    tu = tu_of_obj[obj]
     b = bind.get(sym)
     if b and not b.get('why'):
         addr, src = int(b['t'], 16), 'bind'

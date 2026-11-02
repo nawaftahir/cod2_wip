@@ -1,0 +1,26 @@
+[
+  {
+    "name": "?RB_GotoCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
+    "target": "0x1002eb60",
+    "bytes": 12,
+    "removal_rejected": true
+  },
+  {
+    "name": "?RB_CallCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
+    "target": "0x1002eb70",
+    "bytes": 30,
+    "removal_rejected": true
+  },
+  {
+    "name": "?RB_ReturnCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
+    "target": "0x1002eb90",
+    "bytes": 18,
+    "removal_rejected": true
+  },
+  {
+    "name": "?RB_CopyBackBufferToSurface@@YAXPAUGfxImage@@@Z",
+    "target": "0x1002eaa0",
+    "bytes": 186,
+    "removal_rejected": true
+  }
+]

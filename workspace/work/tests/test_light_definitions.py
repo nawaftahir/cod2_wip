@@ -17,7 +17,7 @@ assert ops[at-1:at+3] == [('push','eax'),('push','0x10194260'),('push','1'),('ca
 header = (work / 'src/gfx_d3d/r_light.h').read_text().replace('#pragma once','')
 text = (work / 'src/gfx_d3d/r_light.cpp').read_text()
 load = (work / 'src/gfx_d3d/r_light_load_obj.cpp').read_text()
-source = load[load.index('// PINNED 10015090/'):] + text[text.index('struct LightGlobals'):]
+source = load[load.index('// PINNED 10015090/'):] + text[text.index('struct LightGlobals'):text.index('// Point-light scene gathering.')]
 program = r'''
 #include <cassert>
 #include <cstdio>

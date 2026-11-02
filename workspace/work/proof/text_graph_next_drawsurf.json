@@ -1,0 +1,144 @@
+{
+  "scope": "PINNED primary; future source work, not progress",
+  "signature": "RB_RenderDrawSurfList(drawSurfs,count,techType,order): EAX pointer,ECX count,stack technique then order; NOT a list-descriptor pointer",
+  "handler": "1002f951 mov edx,[esi+4] loads order VALUE, not LEA; pushes order then tech; no producer/header layout change needed",
+  "remaining_handlers": 5,
+  "callees": [
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f558",
+      "callee": "0x1002f330",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f633",
+      "callee": "0x1003a8d0",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f657",
+      "callee": "0x1002f2a0",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f660",
+      "callee": "0x1003a5f0",
+      "accepted": [
+        "?RB_BeginSurface@@YAXPBUMaterial@@HH@Z"
+      ]
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f6e4",
+      "callee": "0x1003e4b0",
+      "accepted": [
+        "?RB_PopMatrixStack@@YAXXZ"
+      ]
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f6fc",
+      "callee": "0x1003e800",
+      "accepted": [
+        "?RB_SetDepthRange@@YAXMM@Z"
+      ]
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f75f",
+      "callee": "0x1005a3a0",
+      "accepted": [
+        "?MatrixSet44@@YAXQAY03MQBMQAY02$$CBMM@Z"
+      ]
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f76a",
+      "callee": "0x1003de30",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f79f",
+      "callee": "0x1002df40",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f7cf",
+      "callee": "0x1003e250",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f7e5",
+      "callee": "0x1003e800",
+      "accepted": [
+        "?RB_SetDepthRange@@YAXMM@Z"
+      ]
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f814",
+      "callee": "0x1003e130",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f870",
+      "callee": "0x1003a8d0",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f87f",
+      "callee": "0x1003e800",
+      "accepted": [
+        "?RB_SetDepthRange@@YAXMM@Z"
+      ]
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f8ad",
+      "callee": "0x1003e130",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f430",
+      "site": "0x1002f8ba",
+      "callee": "0x1003e4b0",
+      "accepted": [
+        "?RB_PopMatrixStack@@YAXXZ"
+      ]
+    },
+    {
+      "caller": "0x1002f900",
+      "site": "0x1002f927",
+      "callee": "0x1003a8d0",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f900",
+      "site": "0x1002f935",
+      "callee": "0x1002e380",
+      "accepted": []
+    },
+    {
+      "caller": "0x1002f900",
+      "site": "0x1002f943",
+      "callee": "0x1003e9b0",
+      "accepted": [
+        "?RB_UpdateViewport@@YAXXZ"
+      ]
+    },
+    {
+      "caller": "0x1002f900",
+      "site": "0x1002f95f",
+      "callee": "0x1002f430",
+      "accepted": []
+    }
+  ]
+}

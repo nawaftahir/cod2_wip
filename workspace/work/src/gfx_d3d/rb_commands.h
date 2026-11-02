@@ -209,3 +209,29 @@ typedef char commandGeometryLayoutCheck[(sizeof(GfxCmdStencilPlanes) == 16
     && sizeof(GfxPointVertex) == 16 && offsetof(GfxPointVertex, color) == 12
     && sizeof(GfxCmdDrawPoints) == 24 && offsetof(GfxCmdDrawPoints, verts) == 8
     && sizeof(GfxCmdDrawLines) == 40 && offsetof(GfxCmdDrawLines, verts) == 8) ? 1 : -1];
+
+struct GfxCmdDrawSprite
+{
+    GfxCmdHeader header;
+    Material *material;
+    unsigned int rgbaColor;
+    float pos[3];
+    float radius;
+    float minScreenRadius;
+    int renderFxFlags;
+};
+typedef char commandSpriteLayoutCheck[(sizeof(GfxCmdDrawSprite) == 36
+    && offsetof(GfxCmdDrawSprite, pos) == 12
+    && offsetof(GfxCmdDrawSprite, renderFxFlags) == 32) ? 1 : -1];
+
+struct GfxDrawSurf;
+struct GfxCmdDrawSurfs
+{
+    GfxCmdHeader header;
+    int order;
+    GfxDrawSurf *drawSurfs;
+    int drawSurfCount;
+    int techType;
+};
+typedef char commandDrawSurfsLayoutCheck[(sizeof(GfxCmdDrawSurfs) == 20
+    && offsetof(GfxCmdDrawSurfs, drawSurfs) == 8) ? 1 : -1];

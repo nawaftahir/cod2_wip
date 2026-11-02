@@ -1,0 +1,26 @@
+{
+  "scope": "One bounded caller-local precise-math trial on two debug functions",
+  "trial": "pragma optimize p on before Boxes, p off after Axes; definitions/signatures/callers otherwise unchanged",
+  "result": "Neither 985-byte Boxes nor 959-byte Axes gains a byte hit; all2376 protected extents retained; revert unnecessary flag change",
+  "rows": [
+    {
+      "name": "?R_XModelDebugBoxes@@YAXPBUGfxSceneEntity@@PBUGfxEntity@@PBUDObj_s@@@Z",
+      "obj": "r_model.obj",
+      "size": 985,
+      "hits": []
+    },
+    {
+      "name": "?R_XModelDebugAxes@@YAXPBUGfxSceneEntity@@PBUGfxEntity@@PBUDObj_s@@@Z",
+      "obj": "r_model.obj",
+      "size": 959,
+      "hits": []
+    }
+  ],
+  "trial_source_sha256": "741d09ce427b5631a188834f4b45e7fcdbcf4724411e0fa4e91cb7c192b9d771",
+  "restored_source_sha256": "24f5f1ab20000f6e00db9ccae4deb764589e893fd142b44c2f8bffb5ffd4482f",
+  "artifact_sha256": {
+    "trial_bind.json": "333ffde9ff379fa4d264e692a920195a945442026a76887e2c3a513e9092e68e",
+    "trial_cmp.json": "2100280c50553ef9a6daa74263d64bf5213e31602694e6ab0590a1cb7ccfed1e",
+    "build.log": "6fc36e6855ce3cf1cc3f27442b72fbe3340d2ffecaa4508d25b79dbc8cf990db"
+  }
+}

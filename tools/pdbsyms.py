@@ -1,6 +1,6 @@
 # pdbsyms.py <dll> <pdb>: print "va kind name" for data/proc symbols in an MSVC 7.x PDB (MSF 7.00).
 # Supplies the static data the linker map omits, so bindcheck can bind file-static globals.
-import struct, sys, pefile
+import collections, re, struct, sys, pefile
 
 def msf_streams(path):
     d = open(path, 'rb').read()
@@ -30,6 +30,36 @@ def records(buf):
 
 DATA = {0x110c: 'ldata', 0x110d: 'gdata', 0x1007: 'ldata', 0x1008: 'gdata',
         0x110f: 'lproc', 0x1110: 'gproc', 0x100a: 'lproc', 0x100b: 'gproc'}
+
+def local_name(name, kind, archive, module):
+    if name and kind == 'ldata' and module:
+        return f'{name}${archive}${module}'
+    return name
+
+def map_symbols(map_path, dll=None, pdb=None):
+    """Keep distinct file-private names; LTCG's map can mislabel their owner."""
+    rows, private = [], False
+    for line in open(map_path, errors='replace'):
+        if line.strip() == 'Static symbols':
+            private = True
+        m = re.match(r'\s*[0-9a-f]{4}:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8})\s+(f\s+)?(?:i\s+)?(\S+)\s*$', line)
+        if m:
+            rows.append((int(m[2], 16), m[1], m[4], bool(m[3]), private))
+    definitions = collections.defaultdict(set)
+    for va, name, obj, isfn, private in rows:
+        definitions[name].add(va)
+    owners = {va: obj for va, kind, name, obj in syms(dll, pdb)
+              if kind == 'lproc'} if dll and pdb else {}
+    identities = {}
+    for va, name, obj, isfn, private in rows:
+        if private and va in owners and not owners[va].lower().endswith('.lib'):
+            obj = owners[va].replace('/', '\\').rsplit('\\', 1)[-1]
+        if private and len(definitions[name]) > 1:
+            name = f'{name}$private${obj}'
+        if name in identities and identities[name] != va:
+            raise ValueError('Ambiguous map symbol; supply its owning PDB: ' + name)
+        identities[name] = va
+        yield va, name, obj, isfn
 
 def contributions(dll, pdb):
     """Exact linked section contributions, including unnamed compiler tables."""
@@ -71,14 +101,15 @@ def syms(dll, pdb):
         mstream, symsz = struct.unpack_from('<HI', dbi, i + 34)
         j = i + 64
         k = dbi.index(b'\0', j) + 1
+        module = dbi[j:k - 1].decode('latin1')
         obj = dbi[k:dbi.index(b'\0', k)].decode('latin1')
         j = dbi.index(b'\0', k) + 1
         i = (j + 3) & ~3
         if mstream != 0xffff:
-            bufs.append((st[mstream][4:symsz], obj))
-    bufs.append((st[symrec], ''))  # after modules, so module-owned records keep their object name
+            bufs.append((st[mstream][4:symsz], obj, module))
+    bufs.append((st[symrec], '', ''))  # module-owned records take precedence
     seen = set()
-    for buf, obj in bufs:
+    for buf, obj, module in bufs:
         for kind, r in records(buf):
             if kind not in DATA: continue
             if kind in (0x110c, 0x110d, 0x1007, 0x1008):
@@ -96,7 +127,7 @@ def syms(dll, pdb):
             key = va
             if key in seen: continue
             seen.add(key)
-            yield va, DATA[kind], nm.decode('latin1'), obj
+            yield va, DATA[kind], local_name(nm.decode('latin1'), DATA[kind], obj, module), obj
 
 if __name__ == '__main__':
     for va, k, n, o in sorted(syms(sys.argv[1], sys.argv[2])):

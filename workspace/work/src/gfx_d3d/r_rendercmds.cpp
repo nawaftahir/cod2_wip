@@ -1,6 +1,7 @@
 // Render command buffers.
 #include "gfx.h"
 #include "rb_tess.h"
+#include "r_scene_commands.h"
 #include <stddef.h>
 
 GfxBackEndData *frontEndDataOut;
@@ -34,6 +35,11 @@ typedef char debugFrameLayoutCheck[
 
 extern DxGlobals dx;
 void R_UnlockSkinnedCache();
+void R_LockSkinnedCache(int lockType);
+void RB_ExecuteRenderCommands(const void *data);
+void RB_EndFrame();
+void RB_AdaptiveGpuSyncTarget();
+void R_TransferDebugGlobals(DebugGlobals *debugGlobalsEntry);
 
 typedef char normalFrameLayoutCheck[
     sizeof(GfxBackEndData) == 0x249d6c &&
@@ -180,7 +186,6 @@ bool R_ClearModifiedLightDvars()
 struct RcCmdDelayedEnd { GfxCmdHeader header; };
 struct RcCmdDelayedBegin { GfxCmdHeader header; int marker; };
 struct RcCmdBlendSavedScreen { GfxCmdHeader header; int fadeMsec; int unused; };
-struct RcWords16 { int w[16]; };
 struct RcCmdId9 { GfxCmdHeader header; RcWords16 data; int extra; };
 
 // PINNED 10021bf0, API59 slot56: these are viewport integers, not clear flags.
@@ -484,6 +489,40 @@ void R_AddCmdEndOfList()
     R_GetCommandBuffer(0, sizeof(GfxCmdHeader));
 }
 
+// PINNED 10020d50: counters reset before execution, while command bytes remain.
+void R_IssueRenderCommands()
+{
+    R_AddCmdEndOfList();
+    frontEndDataOut->commands.usedTotal = 0;
+    frontEndDataOut->commands.usedCritical = 0;
+    frontEndDataOut->commands.lastCmd = 0;
+    RB_ExecuteRenderCommands(frontEndDataOut);
+    RB_EndFrame();
+    R_InitFrameBackendData();
+}
+
+// PINNED 10022040: restore saved pointers before relocking the normal frame.
+void R_EndDebugFrame()
+{
+    if (!rg.registered)
+        return;
+    R_AddCmdEndOfList();
+    frontEndDataOut->commands.usedTotal = 0;
+    frontEndDataOut->commands.usedCritical = 0;
+    frontEndDataOut->commands.lastCmd = 0;
+    RB_ExecuteRenderCommands(frontEndDataOut);
+    RB_EndFrame();
+    s_cmdList = s_debugFrameGlob.restoreCmdList;
+    frontEndDataOut = s_debugFrameGlob.restoreFrontEndDataOut;
+    if (s_debugFrameGlob.restoreSkinnedCache)
+    {
+        s_debugFrameGlob.restoreSkinnedCache = 0;
+        R_LockSkinnedCache(1);
+    }
+    s_debugFrameGlob.restoreCmdList = 0;
+    s_debugFrameGlob.restoreFrontEndDataOut = 0;
+}
+
 void R_AddCmdSaveScreen()
 {
     R_GetCommandBuffer(0xa, sizeof(GfxCmdHeader));
@@ -522,7 +561,6 @@ extern const dvar_t *r_lowestLodDist;
 void R_UpdateLightsFromDvars();
 void R_SetSunFromDvars(sunflare_t *sun);
 void Material_Sort();
-void R_LockSkinnedCache(int lockType);
 
 typedef char frameDvarLayoutCheck[(offsetof(dvar_t, reset) == 0x10
     && offsetof(GfxWorld, sun) == 0x160
@@ -587,6 +625,26 @@ void R_BeginFrame()
         R_LockSkinnedCache(0);
 }
 
+// PINNED 10021f90: API59 slot48 and import74 precede frame submission.
+typedef char frameDebugImportOffset[
+    offsetof(refimport_t, CL_UpdateDebugData) == 74 * 4 ? 1 : -1];
+
+void R_EndFrame()
+{
+    if (!rg.registered)
+        return;
+    RB_AdaptiveGpuSyncTarget();
+    R_UnlockSkinnedCache();
+    ri.CL_UpdateDebugData();
+    R_TransferDebugGlobals(&frontEndDataOut->debugGlobals);
+    R_IssueRenderCommands();
+    if (dx.tempSkinPos)
+    {
+        ri.Z_VirtualDecommitInternal(dx.tempSkinBuf, dx.tempSkinPos);
+        dx.tempSkinPos = 0;
+    }
+}
+
 void R_AbortRenderCommands()
 {
     if (!rg.registered)
@@ -604,4 +662,106 @@ void R_AbortRenderCommands()
 // PC 1.0 has no render thread, so the sync is empty and only the main-thread query survives.
 void R_SyncRenderThread()
 {
+}
+
+void R_UpdateGfxEntityBounds(GfxEntity *ent);
+void R_SkinGfxEntity(GfxEntity *ent);
+// PINNED 10020ce0/12: API59's wrapper calls the shared entity skinning body.
+void R_SkinGfxEntityCmd(GfxEntity *ent)
+{
+    R_SkinGfxEntity(ent);
+}
+
+void R_SkinRigidXModelCmd(SkinRigidXModelCmd *cmd);
+void R_SkinXModelCmd(SkinXModelCmd *cmd, int context);
+void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *cmd, SkinBuffers *buffers);
+extern SkinBuffers g_skinBuffers[1];
+
+// PINNED 10020be0/153: the PC renderer executes all eight frontend cases inline.
+static void R_ProcessFrontendCmdInternal(int type, void *data, int context)
+{
+    switch (type)
+    {
+    case 0:
+        R_UpdateGfxEntityBounds(*(GfxEntity **)data);
+        return;
+    case 1:
+        R_SkinGfxEntity(*(GfxEntity **)data);
+        return;
+    case 2:
+        R_SkinRigidXModelCmd((SkinRigidXModelCmd *)data);
+        return;
+    case 3:
+        ri.FX_UpdateNonBolt();
+        return;
+    case 4:
+        ri.FX_UpdateBolt();
+        return;
+    case 5:
+        R_SkinStaticModelCachedCmd((SkinStaticModelCachedCmd *)data, &g_skinBuffers[context]);
+        return;
+    case 6:
+    case 7:
+        R_SkinXModelCmd((SkinXModelCmd *)data, context);
+        return;
+    }
+}
+
+// SUPPORTED Mac wrapper; PC callers fold this context-zero dispatch.
+void R_AddFrontendCmd(int type, void *data)
+{
+    R_ProcessFrontendCmdInternal(type, data, 0);
+}
+
+// Scene command producers.
+extern const dvar_t *r_specularColorScale;
+
+// PINNED 10021770/195: critical allocation; specular alpha also receives the scale.
+void R_AddCmdLightProperties(int lightIndex, const GfxLight *light)
+{
+    GfxCmdSetLightProperties *cmd = (GfxCmdSetLightProperties *)R_GetCommandBuffer(5, sizeof(GfxCmdSetLightProperties));
+    cmd->lightIndex = lightIndex;
+    cmd->position[0] = light->position[0];
+    cmd->position[1] = light->position[1];
+    cmd->position[2] = light->position[2];
+    cmd->position[3] = light->position[3];
+    cmd->color[0] = light->color[0];
+    cmd->color[1] = light->color[1];
+    cmd->color[2] = light->color[2];
+    cmd->color[3] = 1.0f;
+    cmd->ambient[0] = light->u.dir.ambientColor[0];
+    cmd->ambient[1] = light->u.dir.ambientColor[1];
+    cmd->ambient[2] = light->u.dir.ambientColor[2];
+    cmd->ambient[3] = 1.0f;
+    float scale = r_specularColorScale->current.value;
+    cmd->specular[0] = scale * cmd->color[0];
+    cmd->specular[1] = scale * cmd->color[1];
+    cmd->specular[2] = scale * cmd->color[2];
+    cmd->specular[3] = scale * cmd->color[3];
+    cmd->lightDef = light->def;
+}
+
+// PINNED 10021840/79: target selection consumes critical command space.
+void R_AddCmdSetRenderTarget(GfxRenderTargetId renderTargetId)
+{
+    GfxCmdSetRenderTarget *cmd = (GfxCmdSetRenderTarget *)R_GetCommandBuffer(0xe, sizeof(GfxCmdSetRenderTarget));
+    cmd->renderTargetId = renderTargetId;
+}
+
+// PINNED 10021920/87: sun commands use the noncritical reservation rule.
+void R_AddCmdDrawSun(int viewIndex)
+{
+    GfxCmdDrawSunPostEffects *cmd = (GfxCmdDrawSunPostEffects *)R_GetCommandBuffer(0x18, sizeof(GfxCmdDrawSunPostEffects));
+    cmd->viewIndex = viewIndex;
+}
+
+// PINNED 10021b50/146: copy scene/LOD state, retain the view-parameter pointer.
+void R_AddCmdBeginView(int viewCount, const GfxSceneDef *sceneDef,
+    const GfxViewParms *viewParms, const GfxLodParms *lodParms)
+{
+    GfxCmdBeginView *cmd = (GfxCmdBeginView *)R_GetCommandBuffer(0xc, sizeof(GfxCmdBeginView));
+    cmd->viewCount = viewCount;
+    cmd->sceneDef = *sceneDef;
+    cmd->viewParms = viewParms;
+    cmd->lodParms = *lodParms;
 }

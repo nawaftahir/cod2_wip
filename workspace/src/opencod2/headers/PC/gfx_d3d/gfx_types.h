@@ -266,6 +266,7 @@ struct GfxCmdDrawSunPostEffects {
     int viewIndex;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdDrawSurfs {
     GfxCmdHeader header;
     GfxDrawSurfOrder order;
@@ -273,6 +274,7 @@ struct GfxCmdDrawSurfs {
     int drawSurfCount;
     MaterialTechniqueType techType;
 };
+#endif
 
 #ifndef COD2_SDK_TYPES
 struct GfxCmdSetClipPlanes {

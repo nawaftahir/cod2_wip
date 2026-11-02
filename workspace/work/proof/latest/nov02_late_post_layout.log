@@ -1,0 +1,113 @@
+gfx_d3d/r_bsp.cpp {'gfx_d3d/r_bsp': 13, '-': 2}
+gfx_d3d/r_bsp_load_obj.cpp {'-': 19, 'gfx_d3d/r_bsp_load_obj': 19}
+gfx_d3d/r_buffers.cpp {'gfx_d3d/r_buffers': 5}
+gfx_d3d/r_caps.cpp {'-': 1, 'gfx_d3d/r_caps': 1}
+gfx_d3d/r_cmds.cpp {'gfx_d3d/r_cmds': 2}
+gfx_d3d/r_debug.cpp {'gfx_d3d/r_debug': 11, '-': 3}
+gfx_d3d/r_dpvs.cpp {'gfx_d3d/r_dpvs': 26, '-': 16}
+gfx_d3d/r_dvars.cpp {'gfx_d3d/r_dvars': 1}
+gfx_d3d/r_flares.cpp {'gfx_d3d/r_flares': 1}
+gfx_d3d/r_fog.cpp {'gfx_d3d/r_fog': 4}
+gfx_d3d/r_font.cpp {'gfx_d3d/r_font': 12}
+gfx_d3d/r_font_load_obj.cpp {'gfx_d3d/r_font_load_obj': 1}
+gfx_d3d/r_image.cpp {'gfx_d3d/r_image': 36, '-': 27}
+gfx_d3d/r_image_load_common.cpp {'-': 5, 'gfx_d3d/r_image_load_common': 5}
+gfx_d3d/r_image_load_obj.cpp {'gfx_d3d/r_image_load_obj': 21, '-': 10}
+gfx_d3d/r_specularityimage.cpp {'-': 2, 'gfx_d3d/r_specularityimage': 1}
+gfx_d3d/r_image_wavelet.cpp {'-': 3, 'gfx_d3d/r_image_wavelet': 1}
+gfx_d3d/r_init.cpp {'gfx_d3d/r_init': 47, '-': 32}
+gfx_d3d/r_jpeg.cpp {'gfx_d3d/r_jpeg': 10}
+gfx_d3d/r_light.cpp {'gfx_d3d/r_light': 2}
+gfx_d3d/r_light_load_obj.cpp {'-': 1, 'gfx_d3d/r_light_load_obj': 1}
+gfx_d3d/r_marks.cpp {'gfx_d3d/r_marks': 5, '-': 5}
+gfx_d3d/r_material.cpp {'gfx_d3d/r_material': 42, '-': 29}
+gfx_d3d/r_material_load_obj.cpp {'-': 53, 'gfx_d3d/r_material_load_obj': 42}
+gfx_d3d/r_model.cpp {'gfx_d3d/r_model': 40, '-': 9}
+gfx_d3d/r_outdoor.cpp {'-': 7, 'gfx_d3d/r_outdoor': 1}
+gfx_d3d/r_rendercmds.cpp {'gfx_d3d/r_rendercmds': 38, '-': 2}
+gfx_d3d/r_rendertarget.cpp {'gfx_d3d/r_rendertarget': 11, '-': 2}
+gfx_d3d/r_scene.cpp {'gfx_d3d/r_scene': 16, '-': 8}
+gfx_d3d/r_screenshot.cpp {'gfx_d3d/r_screenshot': 18, '-': 10}
+gfx_d3d/r_shadowcookie.cpp {'-': 3, 'gfx_d3d/r_shadowcookie': 1}
+gfx_d3d/r_skin_transform.cpp {'-': 2}
+gfx_d3d/r_sky.cpp {'gfx_d3d/r_sky': 6, '-': 2}
+gfx_d3d/r_sky_load_obj.cpp {'gfx_d3d/r_sky_load_obj': 2}
+gfx_d3d/r_splitscreen.cpp {'gfx_d3d/r_splitscreen': 6}
+gfx_d3d/r_staticmodel_load_obj.cpp {'gfx_d3d/r_staticmodel_load_obj': 10, '-': 8}
+gfx_d3d/r_staticmodelcache.cpp {'-': 12, 'gfx_d3d/r_staticmodelcache': 7}
+gfx_d3d/r_surfbounds.cpp {'gfx_d3d/r_surfbounds': 4}
+gfx_d3d/r_texturemem.cpp {'-': 5, 'gfx_d3d/r_texturemem': 1}
+gfx_d3d/r_utils.cpp {'gfx_d3d/r_utils': 6, '-': 1}
+gfx_d3d/r_water.cpp {'-': 5, 'gfx_d3d/r_water': 1}
+gfx_d3d/r_water_load_obj.cpp {'-': 6, 'gfx_d3d/r_water_load_obj': 2}
+gfx_d3d/r_xsurface.cpp {'gfx_d3d/r_xsurface': 11}
+gfx_d3d/r_xsurface_load_obj.cpp {'-': 7, 'gfx_d3d/r_xsurface_load_obj': 1}
+gfx_d3d/r_xsurface_optimize.cpp {'gfx_d3d/r_xsurface_optimize': 3, '-': 1}
+gfx_d3d/rb_backend.cpp {'gfx_d3d/rb_backend': 85, '-': 9}
+gfx_d3d/rb_fog.cpp {'gfx_d3d/rb_fog': 3, '-': 2}
+gfx_d3d/rb_imagefilter.cpp {'gfx_d3d/rb_imagefilter': 9}
+gfx_d3d/rb_imagetouch.cpp {'gfx_d3d/rb_imagetouch': 2}
+gfx_d3d/rb_light.cpp {'-': 13, 'gfx_d3d/rb_light': 11}
+gfx_d3d/rb_logfile.cpp {'-': 10}
+gfx_d3d/rb_shade.cpp {'gfx_d3d/rb_shade': 25, '-': 4}
+gfx_d3d/rb_sky.cpp {'gfx_d3d/rb_sky': 17, '-': 2}
+gfx_d3d/rb_state.cpp {'gfx_d3d/rb_state': 37, '-': 8}
+gfx_d3d/rb_sunsprite.cpp {'-': 1}
+gfx_d3d/rb_surface.cpp {'-': 4}
+gfx_d3d/rb_tess.cpp {'gfx_d3d/rb_tess': 25, '-': 5}
+jpeg-6b/jcapimin.c {'-': 9}
+jpeg-6b/jcapistd.c {'-': 3}
+jpeg-6b/jccoefct.c {'-': 6}
+jpeg-6b/jccolor.c {'-': 8}
+jpeg-6b/jcdctmgr.c {'-': 4}
+jpeg-6b/jchuff.c {'-': 14}
+jpeg-6b/jcinit.c {'-': 1}
+jpeg-6b/jcmainct.c {'-': 3}
+jpeg-6b/jcmarker.c {'-': 19}
+jpeg-6b/jcmaster.c {'-': 8}
+jpeg-6b/jcomapi.c {'-': 4}
+jpeg-6b/jcparam.c {'-': 13}
+jpeg-6b/jcphuff.c {'-': 15}
+jpeg-6b/jcprepct.c {'-': 6}
+jpeg-6b/jcsample.c {'-': 10}
+jpeg-6b/jdapimin.c {'-': 9}
+jpeg-6b/jdapistd.c {'-': 6}
+jpeg-6b/jdatasrc.c {'-': 4}
+jpeg-6b/jdcoefct.c {'-': 10}
+jpeg-6b/jdcolor.c {'-': 8}
+jpeg-6b/jddctmgr.c {'-': 2}
+jpeg-6b/jdhuff.c {'-': 7}
+jpeg-6b/jdinput.c {'-': 8}
+jpeg-6b/jdmainct.c {'-': 9}
+jpeg-6b/jdmarker.c {'-': 20}
+jpeg-6b/jdmaster.c {'-': 8}
+jpeg-6b/jdmerge.c {'-': 7}
+jpeg-6b/jdphuff.c {'-': 7}
+jpeg-6b/jdpostct.c {'-': 5}
+jpeg-6b/jdsample.c {'-': 10}
+jpeg-6b/jdtrans.c {'-': 2}
+jpeg-6b/jerror.c {'-': 6}
+jpeg-6b/jfdctflt.c {'-': 1}
+jpeg-6b/jfdctfst.c {'-': 1}
+jpeg-6b/jfdctint.c {'-': 1}
+jpeg-6b/jidctflt.c {'-': 1}
+jpeg-6b/jidctfst.c {'-': 1}
+jpeg-6b/jidctint.c {'-': 1}
+jpeg-6b/jidctred.c {'-': 3}
+jpeg-6b/jmemmgr.c {'-': 15}
+jpeg-6b/jmemnobs.c {'-': 8}
+jpeg-6b/jquant1.c {'-': 17}
+jpeg-6b/jquant2.c {'-': 18}
+jpeg-6b/jutils.c {'-': 5}
+universal/com_convexhull.cpp {'-': 4, 'universal/com_convexhull': 3}
+universal/com_math.cpp {'universal/com_math': 145, '-': 19}
+universal/com_plane.cpp {'-': 1}
+universal/com_shared.cpp {'universal/com_shared': 2, '-': 1}
+universal/fft.cpp {'universal/fft': 2}
+universal/q_parse.cpp {'universal/q_parse': 28, '-': 8}
+universal/q_shared.cpp {'universal/q_shared': 50, '-': 22}
+gfx_d3d/common.cpp {'-': 1}
+qcommon/common.cpp {'qcommon/common': 2}
+win32/win_threads.cpp {'win32/win_threads': 1}
+PASS: distinct real memcpy/memmove local labels, source-private identity, same-member stability, cross-archive separation and unchanged publics
+PASS: same-name common.obj files retain their distinct real source owners

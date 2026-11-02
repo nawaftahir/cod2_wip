@@ -815,6 +815,14 @@ void RB_SetMatricesForView(const GfxViewParms *viewParms)
 	}
 }
 
+// PINNED in 1002f71c and 100414ae: copy all 0xcd0 bytes before advancing.
+void RB_PushMatrixStack()
+{
+    backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel + 1] =
+        backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
+    ++backEnd.codeMatrixStackLevel;
+}
+
 void RB_PopMatrixStack()
 {
 	backEnd.codeMatrixStackLevel -= 1;

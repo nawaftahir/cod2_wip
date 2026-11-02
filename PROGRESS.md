@@ -1,5 +1,888 @@
 # Renderer progress
 
+## Step3 source closure complete - 2026-11-02
+
+Step3 source/API/dispatch closure is COMPLETE (2026-11-02). The owner resumed
+work; old PAUSED sections below are historical. All98 actual API59 callbacks
+have compiled source and the DLL exports ONLY GetRefAPI. The initializer is
+1051-byte/binding-identical;108 slots include ten genuine zeros. Visibility/
+portal gathering, shadow generation, outer scene/RenderScene and the complete
+backend/tess dispatch tables now connect through real callers. No placeholder
+callbacks, synthetic retention array, extra TU, new assembly or flags.
+
+C++111616/253580=44.016089597%,670 accepted bodies: +2079B/+8 bodies since
+the previous pipeline checkpoint.34 assembly-bearing bodies/8149B are excluded,
+including existing water/FFT helpers newly retained by the real graph. Original
+compiler/link, both referees and all2393 prior extents pass; protection now2419.
+Both strengthened gates reject removing GetRefAPI.188 fixtures pass across
+recorded runs resumed at repaired fixtures, plus independent byte/data replay.
+Normalized verified retail spans1275503/1851392=68.894269825%; raw same-offset
+12.908179359%. These are different meters. Whole SHA remains unmatched.
+
+112 TUs,29 preserved fragments, unique full object paths and12 shared global
+owners checked. API table:57 callback bodies accepted,41 still unmatched.
+Root src/ stays seven verified-only files/39 emitted matches (be356f3); mixed
+working files are NOT promoted. Actual active source is target/work/src/.
+
+This completes the requested connected-source structure pass, not historical
+PC TU-boundary proof, every original code/data contributor, final offsets,
+whole-file identity or GPU smoke. Next is bounded matching of the41 callback
+bodies and shared dependencies using this fixed graph/order, then remaining
+contributors, exact data/library/layout/metadata and SHA. Keep the real single
+export; never restore artificial roots to gain a meter. One active build only.
+
+Receipt: target/work/proof/nov02_step3_checkpoint.json. Failed single-export
+trial and accounting/fixture corrections are retained in ATTEMPTS.md. The
+final link passed byte/binding/regression; the build wrapper then stopped on
+its old assembly-exclusion expectation. Attribution was reviewed, extended to
+EXCLUDE the two existing asm-bearing bodies, and rerun successfully on the
+same unchanged DLL. No build or game binary is committed; no push.
+
+## Historical checkpoints below
+
+## Current: PAUSED at pipeline checkpoint - 2026-11-02
+
+Owner requested checkpoint then pause. Work is PAUSED; no own live build/test
+job remains. Step3 is still IN PROGRESS and not complete. Eleven retail roles
+restored this continuation: point-light draw, floatZ clear, depth setup, normal
+mode, mode dispatch and shadow-cookie drawing; point-light surface gathering,
+ranking/selection/partition generation and scene-light culling. Actual code in
+working r_scene/r_shadowcookie/r_light/r_dpvs.cpp. Existing command9 matrix
+record moved unchanged to r_scene_commands.h; same allocator/ABI,112 TUs.
+
+Three successful original build/both-referee passes; one failed material-slot
+layout assertion corrected before acceptance. All2392 previous extents retained.
+27 affected fixtures plus verified-source snapshot check pass, including120
+normal-chain and631 gather/cull cases. Only floatZ clear10024a40/53 gains new
+byte credit. Other new bodies remain uncredited; body presence/native behavior
+is not acceptance. Partition193B has a retail placement but unmatched selector
+callees block it. Culling129B still has one multiply-load-order residual.
+
+C++109484 ->109537/253580=43.196229987%,661 ->662 bodies.32 authored-assembly
+bodies/7820B remain excluded. Both gates now2393, two removal negatives pass.
+Same-offset10.424534620%, diagnostic only; candidate SHA256:
+d40e530a2acb00eff3dc78f9df4f5cf8d8f23de8c3db11068b42f8d33c6d3aef.
+Root src/ unchanged: seven verified-only snapshots/39 emitted matches, commit
+be356f3; no mixed source promoted. New working source is saved, not published.
+
+Why slow: batches were too small, with repeated build/review cycles before
+closing larger dependencies. The plan also understated step3: missing outer
+visibility/portal/shadow-generation implementations and the actual RenderScene/
+API59 callback graph are real source work. No false claim that source presence
+finishes it. Resume with larger connected implementation batches and one build
+per prepared wave; avoid repeated tuning/reporting before main graph closure.
+Exact next dependencies and residuals are in HANDOFF.md. No further work until
+owner resumes. Receipt:target/work/proof/nov02_pipeline_pause_checkpoint.json.
+
+## Current: scene modes and verified-only source snapshot - 2026-11-02
+
+Step3 remains IN PROGRESS. Five real routines restored in working r_scene.cpp:
+GetClearColor, frame-clear selection, DX7/fullbright/debug-shader scene modes.
+Original compiler, both referees and all2391 old extents pass;20 affected
+fixtures pass, including1152 clear/mode cases. GetClearColor10024920/156 adds
+verified credit. Four other bodies remain unmatched; native correctness alone
+is not byte proof. Explicit layout check caught registered/clearScreen field
+confusion before acceptance; correction and failed build retained.
+
+C++109328 ->109484/253580=43.175329285%,661 bodies.32 authored assembly
+bodies/7820B still excluded. Both gates strengthened to2392, with two removal
+negatives. Same-offset10.390290117%, diagnostic only. Candidate SHA256:
+5dcf29d6e56b68e13a7a9e7775009cf597d173e42cb1a40f2390fd5baad72128.
+
+Owner requested actual source files, then ONLY verified files in root src/.
+Committed verified-only snapshot be356f3: seven C++ files,39 matched emitted
+functions, every source definition accounted for, pinned build evidence and
+check script. No mixed r_scene/r_rendercmds/backend files promoted. Validate:
+python3 tools/check_verified_source.py. src/ is an immutable inspection/release
+snapshot, not a standalone renderer build or second development tree. Working
+code stays in target/work/src. SOURCE.md explains both locations. Unrelated
+staged scratch changes preserved byte-for-byte; no push or deletion/cleanup.
+
+Next: normal scene mode/depth/light/shadow dependencies, visibility and main
+RenderScene driver, genuine API59 GetRefAPI. Direct primary normal dependency
+records saved; source for those is not claimed. No full-suite/GPU/V4/V5 claim.
+No own live jobs. Receipt:target/work/proof/nov02_scene_modes_checkpoint.json.
+
+## Current: verified scene-dependency checkpoint - 2026-11-02
+
+Step3 remains IN PROGRESS. Restored seven real source routines: point-to-cell
+BSP traversal in r_dpvs.cpp; shortsort/quicksort in r_scene.cpp; begin-view,
+light-properties, render-target and sun command producers in r_rendercmds.cpp.
+Six now pass BOTH referees:93+70+301+146+79+87=776 new C++ bytes. Light writer
+is still unmatched192B versus195B and receives no credit. Existing matched
+allocator, packet layouts and data owners reused; no new TU/global/assembly/
+export/root or compiler change.112 TUs, link order unchanged.
+
+C++108552 ->109328/253580=43.113810237%,654 ->660 bodies. All32 authored-
+assembly bodies/7820B remain excluded. All2385 previous extents retained;
+both gates strengthened to2391 using hash-pinned scene_dependencies_warm_bind.
+All12 independent deletion negatives pass.23 affected fixtures pass, including
+86 sort/cell cases,33 real32-bit producer cases and fresh linked table/PDB checks.
+Main sort's retail double division by record size is preserved. Two bounded
+source corrections, exact before/after residuals and primary evidence retained.
+
+Same-offset10.187469752% is diagnostic only. Candidate SHA256:
+5d4fd19e1b4936ead60588fb8a2d8efbf0cc759da3331e2207c3ad9b5ae7e0dd.
+Next: genuine scene-mode/visibility/shadow/light graph, RenderScene and API59
+GetRefAPI. Their direct primary instruction records are ready; no simplified
+Mac driver or guessed callback substituted. No full-suite/GPU/V4/V5 claim.
+No live own build/test job; no cleanup/commit/push. Receipt:
+target/work/proof/nov02_scene_dependencies_checkpoint.json.
+
+## Current: executor and frame-submission checkpoint - 2026-11-02
+
+Step3 remains IN PROGRESS. Restored16 genuine source routines: eight debug
+rendering routines in the original rb_debug.cpp TU, four backend GPU benchmark
+routines, the actual RB_ExecuteRenderCommands executor and three frontend
+submission routines (R_IssueRenderCommands, R_EndFrame, R_EndDebugFrame).
+The existing complete command/surface tables and real recovery, timer, fence,
+cache, debug-transfer and presentation helpers are reused. No new assembly,
+exports or artificial roots.112 TUs; previous relative order preserved.
+
+Original compiler, BOTH referees and all2385 protected extents pass.11 focused
+fixtures pass on the final build, including fresh linked table/PDB checks;
+the earlier executor wave also passed27 affected fixtures. New native cases:
+57 debug-render,84 executor,28 benchmark and22 submission. Tests mock engine/
+device boundaries; they do not prove GPU operation or byte acceptance.
+
+New verified C++ credit: ZERO. C++108552/253580=42.807792413%,654 bodies.
+All32 authored-assembly bodies/7820B remain separately excluded. All three
+submission bodies have unique masked retail placements (111+114+86=311B),
+but binding rejects them on the unmatched executor/debug-transfer callees.
+They remain uncredited; actual executor candidate598B versus retail608B.
+Same-offset10.184877109% is diagnostic only. Candidate SHA256:
+23d0d185385ab051b0d3b8a8a84cb1ed97e0d1fc89043485d21f9c70fd6db746.
+
+Next: genuine RenderScene visibility/shadow/compositor graph and GetRefAPI
+API59. Primary records for scene driver/dependencies are saved; import142 is
+still unidentified and must not be invented. Executor matching would also
+unlock two already-shaped submission bodies, but step3 closure remains the
+current priority. No full-suite/GPU/V4/V5 claim. No commit/push or new cleanup.
+One active build, no own live jobs. Checkpoint:
+target/work/proof/nov02_executor_submission_checkpoint.json.
+
+## Current: complete command-table checkpoint - 2026-11-02
+
+Checkpoint saved at owner request. Step3 is still IN PROGRESS. All33 backend
+command roles now have genuine source, with the complete34-slot retail table
+linked: only terminating slot0 is NULL. All33 linked pointers independently
+resolve to their real retained implementations. Surface table still resolves
+all seven real implementations and its original raw-geometry null entry.
+No dummy callbacks, marker roots, new exports, TUs, flags or order changes.
+
+This batch restored17 source routines:12 late-post/glow presentation/debug
+routines in src/gfx_d3d/rb_backend.cpp and five filter application/glow/blur
+drivers in rb_imagefilter.cpp. Existing filter generation and identical
+GfxImageFilter record are reused. Shared glow fields replace exactly the old
+opaque20B; import145 is now typed float(float), with identical slot/size.
+Primary/ref differences and the original-build declaration correction are in
+ATTEMPTS.md; failed build/native diagnostic logs are retained.
+
+Original compiler and BOTH referees pass. All2381 prior extents retained, plus
+four newly verified bodies/246 C++ bytes: Goto12B,Call30B,Return18B,real surface
+copy186B. New acceptance/protection count2385. Strengthened both existing gates
+using hash-pinned late_post_warm_bind.json; each body's independent removal
+negative is rejected. No weakening or assembly reclassification.
+
+C++:108552/253580=42.807792413%,654 bodies (+246B).
+All32 authored-assembly bodies/7820B remain separately excluded. Same-offset
+9.998044714% is only a whole-file diagnostic.
+Candidate SHA256:e805a6d4a537d48d611fee1299ecdf1f9a9366ceff67ef9a2ab0ac96103c1e39.
+
+22 affected renderer fixtures pass, including34 real filter cases and119
+late-post cases. Fresh linked command/surface pointer and PDB-owner checks pass.
+No full-suite/GPU/V4/V5 claim. The new table now retains the formerly omitted
+private handlers and sorted driver; this closes that earlier source/link gap.
+
+Next: actual RB_ExecuteRenderCommands with its debug/benchmark dependencies,
+then RenderScene scene generation and genuine GetRefAPI/API59. Restored table
+is not a working-frame/complete-step3 or retail-SHA claim. One active build;
+no extra cleanup, commit or push. Receipt:proof/nov02_late_post_checkpoint.json.
+
+## Current: step3 draw-surface and sun source checkpoint - 2026-11-01
+
+Step3 remains ACTIVE and IN PROGRESS. This continuation restored19 source
+routines: sorted-surface time/technique helpers, the draw-surface driver and
+command,13 sun routines and two sun commands.32/33 command roles now have
+source. Only late-post remains among command roles; its blur/glow/debug
+implementation dependencies still require genuine source. The complete command
+table/executor and RenderScene/GetRefAPI graph are also still required.
+
+Actual source: src/gfx_d3d/rb_backend.cpp and rb_sky.cpp. The shared backend
+now models the real2046x104B lighting array and near-clip field at view+148.
+All existing offsets/sizeof backend remain unchanged. Duplicate lighting type
+in rb_shade was removed without changing any shader body. Failed build and
+correction are preserved in ATTEMPTS.md and proof/latest/nov01_drawsurfs_failed_build.log.
+
+Original compiler/both referees pass, retaining all2381 accepted extents.750
+draw-surface cases,94 sun cases (distinct DX7/DX9 matrix owners),24 sun command
+cases,22 affected fixtures, full lighting chain and PDB/table pointer checks
+pass. Public sun drivers are emitted in the DLL. Private command handlers and
+sorted driver remain omitted until their genuine command-table caller exists;
+no artificial root/export was added. No full-suite/GPU or complete-step3 claim.
+
+C++ remains108306/253580=42.710781607%,650 bodies:0 new verified
+C++ bytes. Source restoration and tested behavior are distinct from byte credit.
+Same-offset diagnostic9.045842264%; retail SHA not matched.
+Candidate SHA256:1620cd3afd2b63ebb1c7dbfe15612d61daf24c3048a7e9b26f2d709f65e27fe4.
+Receipt: target/work/proof/nov01_drawsurfs_sun_checkpoint.json.
+No additional build copies, deletions, commits or pushes in this continuation.
+
+## Current: step3 entity dispatch source checkpoint - 2026-11-01
+
+Owner-authorized step3 is IN PROGRESS. Steps1/2 are complete. Cleanup freed
+2481555665 bytes from32966 obsolete generated files; source, proofs, maps,
+logs, symlinks and the one active build were retained. No broad deletion.
+
+This request restored18 real source routines: nine sprite/oriented-quad helpers,
+four line/rail helpers, two cylinder paths, entity selector/backend adapter and
+the sprite command caller. Source lives in src/gfx_d3d/rb_tess.cpp and
+rb_backend.cpp. Complete8-slot rb_tessTable is linked in its real backend
+owner; all seven pointers bind genuine implementations and slot7 is retail NULL.
+No new TU/order, flags, roots/exports or authored assembly. Existing I_fround/
+FastSinCos reuse retains their separate attribution. SDK entity layout is116B.
+
+Original compiler and both referees pass, retaining all2381 accepted extents.
+Geometry fixtures pass including3888 line/rail and468 cylinder/entity routes;
+120 sprite-command routes and all17 affected backend/entity fixtures pass.
+PDB-owner and linked-table checks pass. Prior sprite source restores exactly
+when removing only this batch's appended geometry and includes; no old source
+or fixture assertions discarded. The SDK packet duplicate was fixed using the
+existing COD2_SDK_TYPES guard; the failed build is explained in ATTEMPTS.md.
+
+Verified C++ remains108306/253580=42.710781607%,650 bodies;
+zero new matched-byte credit. Same-offset8.940786176%
+is only a file diagnostic. Candidate SHA256:
+357f97a241edbdc087aa642441f904ebf52cf4bb335b945f0006517b69b33421.
+
+29/33 backend command roles now have source. The private sprite handler is
+not emitted until its genuine command-table caller is restored; no artificial
+retention root was added. Four command roles/dependencies, full command table/
+executor, RenderScene/GetRefAPI and final byte/layout/SHA identity remain open.
+No complete-step3, full-suite, GPU, V4 or V5 claim.
+Receipt: target/work/proof/nov01_entity_dispatch_checkpoint.json.
+
+## Current: step3 sprite dependency checkpoint - 2026-11-01
+
+Owner authorized step3; it is IN PROGRESS, not complete. Earlier pause notes
+are historical. Cleanup removed32966 obsolete generated files/2481555665 bytes;
+active build/source/proof/logs/maps/symlinks preserved. See cleanup receipt.
+
+Nine real source functions now close sprite and oriented-quad geometry in
+rb_tess.cpp, reusing atlas fields, original MakeNormalVectors, shared tess and
+backend state. Primary geometry/projection/NaN/BGRA behavior is pinned in
+ATTEMPTS.md. Old file remains an exact prefix, no assertions removed, no new
+TU/order/root/export/global/flag/assembly or partial dispatch table.
+
+Original compiler, both referees and all2381 protected extents pass; their exact
+accepted set is unchanged. Affected native checks pass:2129 surfaces,386 rigid,
+1255 skinned,494 particles,72 stamps,10800 sprites and54 oriented quads, plus
+PDB owner regression. MakeNormalVectors's array declarator was restored after
+a link error; no alias/ABI adapter. No full162-fixture replay or GPU test.
+
+C++ remains108306/253580=42.710781607%,650 bodies; zero new byte credit. These
+new dependencies remain uncredited until a real byte/binding match. Same-offset
+8.785929722% is diagnostic, no normalized-span audit this batch.
+Candidate SHA256:1ab2bef1b0484f6b17e693e9757c8bab52d068176fabce436bad832243060a09.
+Receipt: proof/nov01_sprite_group_checkpoint.json. Full tess/command dispatch,
+RenderScene/API and whole-file identity remain open. Continue remaining real
+line/rail/cylinder dependencies and genuine table/caller graph, not leaf tuning.
+
+## Previous: existing layout validated and reused - 2026-11-01
+
+Owner-authorized step2 complete. Kept the established tree, compile settings and
+candidate order:111 unique TUs, all source/object paths present,29 preserved
+fragments resolving and one definition for each of12 shared globals. No engine
+source, headers, compiler flags, roots or object order changed. No rebuild needed.
+
+Corrected one report-only ambiguity in the existing file_layout.py: both common
+files compile to common.obj, so a basename dictionary overwrote the renderer
+owner. Full PDB paths now resolve the collision; unresolved ambiguity fails
+instead of guessing. Refreshed file_layout.tsv and extended the existing
+PDB-owner test; it passes with I_strlen in gfx_d3d/common.cpp and printing/error
+functions in qcommon/common.cpp. Step1 DLL/bind/accounting hashes are unchanged.
+
+Receipt: proof/nov01_layout_review.json. This establishes a usable candidate
+layout, not proof of exact original PC file boundaries/order or retail SHA.
+Code coverage remains42.710781607%; no new verified bytes. No new build, full
+suite or GPU run for a metadata-only correction. The broader goal stays PAUSED;
+no API/dispatch implementation was started under the step2 request.
+
+## Historical: pending-edit verification passed - 2026-11-01
+
+Owner authorized step1 only. Review is complete; the broader reconstruction goal
+remains PAUSED. No source or test changes were needed. The previous refresh's
+uncertainty about two edits is resolved at the scope described here.
+
+rb_tess.cpp is the exact old file plus an appended particle-cloud block. Removing
+only that block restores the old source SHA exactly. test_tess_skinned.py changes
+only its extraction end to exclude that block; restoring that line reproduces
+the exact previous fixture hash. No old assertions or skinned source were removed.
+
+Existing native checks pass:1255 skinned and494 particle routes. Review against
+retail3ee10/40ca0/40d40/40df0/40f30 found no discrepancy in the epsilon/signed
+branches, rotation, constants or draw/binding paths checked. Original-toolchain
+incremental build, both referees and all2381 protected extents pass. The accepted
+address/extent set is unchanged; all176 current accounting source hashes match.
+C++ stays108306/253580=42.710781607%,650 bodies: zero new verified bytes. New
+particle source remains unmatched, not promoted to a byte match by these tests.
+
+Receipt: proof/nov01_pending_review.json. Fresh candidate SHA256:
+5ce474db2252b1fe864a10081b27c61dc6b96c78e3938bd833f012d733ee438d
+Same-offset equality8.772426369% is diagnostic only. One
+existing build output reused. No full-suite replay, new normalized-span audit,
+retail SHA or GPU test was performed. The160-suite result below is historical;
+this review does not claim that all161 current fixtures were rerun. No further
+implementation started. Pending/untracked work and unrelated staging preserved.
+
+## Historical workspace refresh - 2026-11-01
+
+Codex reconstruction goal: PAUSED. This refresh updates documentation only;
+it does not authorize resuming code work. Previous "ACTIVE" statements below
+are historical observations, not current instructions.
+
+The retail file/TU layout pass already exists: target/work/layout/README.md,
+section "Retail file layout checkpoint - 2026-10-24", plus file_layout.tsv,
+fragments.json, src/tus.txt and src/profile.mk. Reuse these; do not repeat the
+layout setup or require all missing code before acknowledging the layout map.
+Candidate ordering and original historical ordering remain different claims.
+
+Last recorded receipt examined: proof/skinned_tess_checkpoint.json,2026-10-27.
+It records160 fixtures,2381 protected extents, C++108306/253580=42.710781607%,
+and address-normalized file spans68.549286159%. The latter includes verified
+non-source regions; it is NOT C/C++ source coverage or a retail-identical file.
+Its same-offset equality is8.810235758%; no V4/V5 or GetRefAPI completion.
+
+Read-only hash check today:363 recorded source/header/tool/fixture/artifact/log
+files checked;361 match. Two differ from that receipt:
+- src/gfx_d3d/rb_tess.cpp
+- tests/test_tess_skinned.py
+
+The current DLL and generated layout agree on SHA256
+83a00007c88c38cfaa11835ccb9db7cd74520146df5b9aac4eae742363703a37,
+which differs from the receipt's255ca9c0bec76892519271a38161bd2d6df83002331a47450987925d05465e11.
+Therefore that receipt does not certify the current source/output pair. Preserve
+pending work; inspect the exact two edits and existing build logs before deciding
+what verification is needed. No builds/tests were run in this documentation pass.
+
+Continuation: read HANDOFF.md. Classify pending edits before further code; then
+use the owner's current scope. Work in connected source/layout batches, reuse
+one build, and avoid another full-suite cycle for every small function. Report
+verified code/file deltas separately from reconstructed-but-unmatched source.
+Never stage the entire index: unrelated legacy artifacts were already staged.
+
+## Recorded checkpoint: skinned-model tessellation - 2026-10-27
+
+rb_tess now contains both real skinned-model paths and their signed-offset
+selector. Cached drawing flushes, captures stride/args, binds IB, reloads the
+live backend VB and draws. Uncached drawing handles capacity and odd-index
+flushes separately, copies vertices, then uses the existing matched120-byte
+XSurfaceGetTris for rebasing. No duplicate index copier, storage, root, export,
+TU or assembly. TessBad is the actual empty RET at1003ef20; it does not stand
+in for any missing kind. r_vb_state_t+8 now has the real typed Windows VB pointer
+instead of a function-pointer placeholder; its12-byte layout is unchanged.
+
+Original compiler and both referees retain all2381 protected extents. All160
+fixtures pass, including1255 new routes and live callback/count publication
+checks. Independent2349-code/9387-data union audit passes. New bodies remain
+unmatched: cached274/276, uncached278/304, selector20/38, empty1 unplaced. Zero
+new verified bytes. No source/register sweeps until actual caller/table context
+exists. C++108306/253580 =42.710781607%,650 bodies; verified address-normalized
+file spans1269116/1851392 =68.549286159%; exact same offsets8.810235758%.
+All32 authored assembly bodies/7820 bytes remain excluded.55 API slots accepted;
+GetRefAPI absent. Receipt: target/work/proof/skinned_tess_checkpoint.json.
+Candidate SHA256:
+255ca9c0bec76892519271a38161bd2d6df83002331a47450987925d05465e11.
+Goal token observation2050903, +48308 since tess-surfaces, zero new verified
+bytes. Goal ACTIVE; no V4/V5, pause, commit or push.
+
+Next restore entity tessellation primitives in rb_tess, then its complete real
+table and the draw-surface/command graph. The actual jump table1004110c maps
+4 sprite1003fb50,5 rail10040c00,6 particle10040f30,7 quad1003fba0,8 line10041030,
+9 cylinder DX7=100401a0/other=1003fdb0. Physical block order differs. The active
+enum is correct. PC particle driver has4096 vertices/2048 primitives/baseIndex0
+and no reference DX7 early return; do not import the reference's wrong args.
+Sealed next evidence: skinned_tess_entity_switch.json and skinned_tess_next_entity_primary.asm
+(read windows, not certified full extents). Five backend command roles still
+lack source; complete actual dependencies before adding tables/executor.
+
+## Historical checkpoint: tessellation source and Windows buffer ABI - 2026-10-27
+
+The original rb_tess.cpp TU now holds real polygon, world-triangle, cached-model
+and rigid-model submission. Its current link-order slot follows rb_surface.
+Existing flush/overflow, copy, logging, buffer binding and draw helpers are
+reused. rb_state owns RB_PushMatrixStack, now accepted at1003e480/46 bytes.
+Raw Mac STABS confirms the names and source homes. The four new drivers remain
+unmatched: poly408/489, triangles132/153, cached203/209 and rigid417 versus
+retail326 plus its outlined123-byte matrix helper. Explicit primary-proven
+matrix assignments reduce rigid512 to417; no compiler-impossibility claim.
+Poly's Ghidra477 inventory truncates its final block; actual extent is489.
+
+A real cross-TU link failure exposed IDirect3DVertexBuffer9 incorrectly tagged
+as a union in the active reference headers. All three active declarations now
+use the SDK's opaque struct COM interface. The bogus Mac matrix payload was
+removed; no cast, ABI adapter or root was added. Full original-toolchain build
+passes. The disabled common_types.h legacy body was left alone. Matrix native
+fixtures now preserve align16 and assert actual0x110/0xcd0 strides.
+
+All159 fixtures pass, including2129 surface and386 rigid routes. Both referees
+retain all2380 old extents plus the new46-byte push; the2381 ratchet rejects
+its removal. Independent audit rechecks2349 code/9387 data regions and union.
+C++108306/253580 =42.710781607%,650 bodies (+46). Verified address-normalized
+file spans1269116/1851392 =68.549286159% (+56, including10 relocation bytes).
+Exact same-file offsets8.809533583%; all32 assembly bodies/7820 bytes excluded.
+55 API slots have accepted bodies; GetRefAPI is absent. No V4/V5 claim.
+Receipt: target/work/proof/tess_surfaces_checkpoint.json. Candidate SHA256:
+26e288a39046757e9db4a6510186e08e8e24cb2f59866715fe2299203e1c677b.
+Goal token observation2002595, +310060 since text-graph, for46 new C++ bytes.
+Goal ACTIVE; no pause, commit or push. One real original TU, no new export/root/
+assembly or partial dispatch table.
+
+Next close the skinned cached/noncached paths and entity tessellation primitives
+in rb_tess, then restore the complete actual tess table and draw-surface kernel.
+The real empty TessBad is separately pinned; do not substitute it for missing
+handlers. Remaining PC tess slots are recorded in
+proof/tess_surfaces_remaining_table_inventory.json. Five backend command roles
+still lack source: sprite, draw-surfs, sun, late-post-effects, sun-post-effects.
+Finish those actual dependencies before linking the full command table/executor.
+
+## Historical checkpoint: PC text command graph - 2026-10-27
+
+Both text command handlers, the real 2D cursor/text kernel and the world-space
+text/quad graph now have source in rb_backend. Existing matrix, surface and
+DX7/DX9 vertex helpers are reused. R_GetCharacterGlyph remains one r_font owner:
+its static linkage was corrected to public, with its body and accepted103-byte
+extent unchanged. Font/Glyph use a shared r_font header. The8x4 color table is
+function-local to RB_LookupColor, as raw Mac STABS confirms. No extra root,
+export, TU, assembly, duplicate table or partial command table was added.
+
+PC instructions require one foreground/shadow/cursor pass, BGRA color with
+original alpha, signed time/256 blink, color escapes counted+2 without glyph
+budget cost, and a16-bit world-quad index cursor. Reference extra draws and
+alpha-low-byte handling were rejected. Primary text extent is743 contiguous
+bytes; the Ghidra740 inventory omits three epilogue bytes. Helper names for the
+cursor/quad remain descriptive. Two handlers/static2D kernel await the actual
+command table/executor before emission; do not add ABI-only roots.
+
+All157 fixtures pass, including1207 new text routes. Original compiler/both
+referees, all2380 protected extents and independent2348-code/9387-data audit
+pass. New emitted bodies remain unmatched: lookup83/76, quad434/440, space425/442;
+zero new verified bytes. C++ remains108260/253580 =42.692641376%,649 bodies.
+Verified address-normalized file spans remain1269060/1851392 =68.546261408%.
+Exact same-file offsets8.729215639%; all32 assembly bodies/7820 bytes excluded.
+55 API slots have accepted bodies; GetRefAPI remains absent. No V4/V5 claim.
+Receipt: target/work/proof/text_graph_checkpoint.json. Candidate SHA256:
+b773d5abf4d565992202cdc0f145ce1e9876b2af57b32859fa62d68300c539ae.
+Goal token observation1692535, +128236 since backend-dvars, zero new verified
+bytes. Goal ACTIVE; no pause, commit or push.
+
+Five handler roles still lack source: sprite, draw-surfs, sun, late-post-effects,
+sun-post-effects. Next close the actual draw-surface dependencies/table. Primary
+1002f951 MOV loads the order value, not a descriptor pointer: kernel1002f430
+really takes four arguments (surfs/count in EAX/ECX, tech/order on stack).
+Existing producer/record layout needs no change. Evidence and next-callee
+inventory are sealed as text_graph_next_drawsurf.json and tess_table.json in
+proof. Keep Mac diagnostic counters/NULL placeholders out of PC source.
+
+## Historical checkpoint: backend dvar updates and image rebuild - 2026-10-27
+
+Real source now restores Image_RebuildCosinePowerMap in r_image and the backend
+dvar updater in rb_backend, reusing existing sampler, anisotropy, image and AA
+helpers. PC order, callback mutations and live globals are preserved. The image
+path directly releases the texture without changing tracking; it recreates the
+32x256 L8 map and uploads its 8192-byte payload. No new TU, root, export, table
+owner or assembly. The private updater name remains descriptive.
+
+All 156 fixtures pass, including 422 new source routes. Original compiler,
+byte/binding referees and all 2380 protected extents pass. The two new bodies
+remain unmatched (image200/202, updater202/207), with zero new verified bytes.
+Debug-expression and entity-declaration trials did not match and were reverted.
+An image-buffer alignment trial lost Image_Create2DTexture and was also reverted.
+No compiler-impossibility claim. Fixtures reading the DLL must run after linking;
+a concurrent mmap reader received SIGBUS and its failed run was discarded.
+
+C++ remains108260/253580 =42.692641376%,649 bodies. Independently audited verified
+address-normalized file spans remain1269060/1851392 =68.546261408%. Exact same-file
+offsets are8.779772193%, not whole-file identity. All32 authored assembly bodies/
+7820 bytes stay excluded.55 API slots have accepted bodies; GetRefAPI is absent.
+Receipt: target/work/proof/backend_dvars_checkpoint.json. Candidate SHA256:
+ab4a86f33dd7997cf65abdb28309e8f4ee4f8f2a10fbbbb6f8f09a3b8d8db3d9.
+The assembly source guard was reviewed: the entire old rb_backend file remains
+an identical prefix; only non-assembly C++ was appended. No predicate relaxed.
+Goal token observation1564299, +563538 since the previous sealed checkpoint,
+with zero new verified bytes. Goal ACTIVE; no V4/V5, pause, commit or push.
+
+Next complete the real backend command graph. Primary PC table10190518 has34
+slots, with only slot0 NULL. Seven handler roles still lack source: sprite,
+text, text-in-space, draw-surfs, sun, late-post-effects and sun-post-effects.
+Verify their actual payloads/callees before implementing; Mac reference NULLs
+and WASM diagnostic counters are not PC evidence. Existing static handlers need
+the real table/executor to become linked contributors. Then close the actual
+API/frontend drivers and remaining byte/layout/metadata differences.
+
+## Historical checkpoint: ref-entity submission and short-body discovery - 2026-10-26
+
+R_AddRefEntityToScene and its two private helpers now have real source in
+r_scene.cpp, using the existing allocator, draw-key helper and model draw graph.
+PC order/limits, signed type paths, warning strings/imports, copy116/clear52,
+zero/NaN scale and model/cent routing are preserved. The single four-byte entity
+surface token precedes the existing eight-byte stride table in writable .data;
+linked owner, values and +4 displacement are verified. No filler or extra TU,
+root, export or assembly. Private helper names remain descriptive.
+
+All 155 fixtures pass, including 2708 actual ref-entity routes, warning-import
+mutation, error return/throw, capacities, aliasing and untouched guards. The
+callback201 vs retail209 and helpers125/128 vs retail128/128 remain unmatched
+and receive no credit. Raw instruction differences are saved in
+scratch/codex_1026_refentity/first_diffs.txt. No compiler-impossibility claim.
+
+Discovery now admits unique unrelocated6/7-byte straight-line return bodies.
+All previous byte/binding/relocation/import/data/extent/closure predicates are
+unchanged. The first broader rule was rejected by regression: truncated short
+hit lists displaced existing caller proofs. Final logic preserves caller-only
+placement for1/3/5-byte, masked, branching and ambiguous short functions. The
+expanded existing fixture covers all these negatives and retains the old tests.
+
+Both referees accept four previously undiscovered leaves: R_GetMaterialName7
+and ShortNoSwap6 are C++; the two SDK bodies7+6 stay dependency-only. All2376
+old extents survive; the ratchet now protects2380 and rejects removal of the new
+material accessor. Independent audit checks2348 code and9387 data regions and
+the union. C++ is108260/253580 =42.692641376%,649 bodies (+13 bytes). Verified
+file spans1269060/1851392 =68.546261408% (+26 bytes including dependencies).
+Exact same-file-offset equality is8.705449737%; final positions remain open.
+All32 authored assembly bodies/7820 bytes remain excluded.55 API slots have
+accepted bodies; a complete real GetRefAPI/table is still absent.
+
+Candidate SHA256:
+28e45df055ac34dbafaed50848505a8466e398fd1fad586a61555ec9f679354e.
+Receipt: target/work/proof/ref_entity_checkpoint.json. The current audit is
+ref_entity_short_coverage_audit.json; the earlier pre-discovery audit remains
+historical and is not the final receipt's audit. V2/V3 only; no V4/V5 claim.
+Goal token observation1000761, +96533 since the model checkpoint observation;
+this group gains13 C++ bytes and13 dependency bytes. Goal ACTIVE, no pause,
+commit, push or subagent.
+
+Next prioritize closing the nearly matched model/scene graph. R_SkinGfxEntity
+now has a61-byte hit from the restored caller context, but its bounds callee
+still fails closure. Boxes985/Axes959 have one normalized x87 addition-order
+difference each; the local precision trial failed and was reverted. Entity
+helper instruction order also differs from primary before record copying.
+Missing API/table and remaining frontend/backend drivers/handlers must be real
+source, not placeholder callbacks. API legacy labels are shifted after slot19:
+use pinned targets and verified source mapping, never their unverified names.
+The current mapping audit is scratch/codex_1026_refentity/api_source_audit_final.json.
+
+## Historical checkpoint: model publication and draw graph - 2026-10-26
+
+Real source now connects model pre-skinning, static-cache publication, DObj/
+XModel skinning callers, the scene worker, the complete frontend dispatcher,
+DPVS model drawing and packed draw-surface submission. Each stays in its
+original file. Existing cache/GPU commands, DPVS state, draw-key helper, shared
+debug drawing and colorCyan are reused. No new TU, root, export or assembly.
+
+The dispatcher is R_ProcessFrontendCmdInternal(type,data,context), with the
+original two-argument R_AddFrontendCmd wrapper. This corrects the initial name
+conflation before the final proof. All eight cases and default have real
+implementations. Native checks cover 155 caller routes, 778 dispatcher routes
+and 5184 draw/submission routes, including state ordering, command payloads,
+capacity limits, warnings, compact null-material walking and packed strides.
+The eight-byte stride table has its real writable .data owner in r_scene.
+
+Fresh original build/referees retain all 2376 protected extents. All 154 fixtures
+and the independent code/data/union audit pass. The new group remains unmatched
+and gets zero C++ credit. R_SkinSceneEnt has a 29-byte hit but its callee binding
+is unresolved. Debug Boxes985/Axes959 each show one normalized x87 expression
+ordering difference; a bounded local precision trial gives no hit and its
+unnecessary flags were reverted. This does not establish compiler impossibility.
+
+C++ remains 108247/253580 = 42.687514788%, 647 bodies. Verified address-normalized
+file spans remain 1269034/1851392 = 68.544857059%. Exact same-file-offset equality
+is 8.717656769%, down from the pre-skin checkpoint's 8.927714930% as contributors
+move. Layout structure is being restored; final positions are unfinished. All
+32 authored assembly bodies/7820 bytes remain excluded. Candidate SHA256:
+91276df9f887d79177f660eafe58aeafce3996d6c6e45e9db38f01cfa432d011.
+Receipt: target/work/proof/model_publication_checkpoint.json. V3 only for this
+group; no V4/V5 claim. Goal token observation 904228, +96783 since the pre-skin
+observation, with zero additional verified C++ bytes in this group.
+
+Next: R_AddRefEntityToScene10023db0/209 and its two128-byte helpers. Its real
+model dependency graph now exists. Draft and primary notes are in
+scratch/codex_1026_cache/ref_entity_draft.cpp and ref_entity_next.json, not active
+source or progress. Place the single writable entity-surface token immediately
+before the existing stride table when integrating it. Do not import the Mac
+six-element stand-in. GetRefAPI, remaining callbacks/code/data, final layout/
+metadata, retail SHA and runtime/GPU smoke remain open. Goal ACTIVE; no pause,
+commit, push or subagent.
+
+## Historical checkpoint: DPVS ownership and model-cache publication - 2026-10-26
+
+DPVS now owns one real 108-byte state record and a separate 4-byte cull
+configuration. Mac STABS and thirteen PC initializer operands pin its fields;
+the five debug flags start at offset 100. Eleven split storage owners were
+removed. The linked configuration follows the state at +108. No filler was
+added. Frozen proof: target/work/proof/dpvs_state_checkpoint.json.
+
+The model-cache source now allocates tree blocks, publishes cached vertices
+and packed indices, and updates the LRU tree. It uses the existing cache,
+GPU skinning command and skin buffer. R_UsedCachedStaticModelSurface matches
+1002b8c0/87. The other three new bodies are behavior-tested but unmatched;
+the two private helper names are descriptive, not historical claims.
+
+The clean original-compiler build retains all 2375 prior extents and adds one,
+for 2376 accepted extents. The strengthened ratchet rejects removal of the
+new extent. All 150 fixtures pass, including DPVS ABI/flags and cache size
+boundaries, packed indices, full capacity, eviction, backreferences and LRU.
+The independent audit rechecks 2344 code and 9387 data regions and the union.
+
+Accepted authored C++ is 108247/253580 = 42.687514788%, 647 bodies (+87 bytes).
+Verified address-normalized file spans are 1269034/1851392 = 68.544857059%.
+Exact same-file-offset equality is 8.831517042%. These are distinct meters;
+neither proves whole-file identity. All 32 authored assembly bodies/7820 bytes
+remain excluded from C++ credit. Candidate SHA256:
+3d0a73414760f4b9d5520caf574b938b6c2fa6198d370ac8fe73ffbefc71b163.
+Frozen receipt: target/work/proof/cache_publication_checkpoint.json.
+
+Continue the connected model/scene/frontend API graph and bounded cache ABI/
+copy scheduling checks. GetRefAPI, missing callback bodies, remaining code/data,
+final placement and metadata, retail SHA and GPU/runtime smoke remain open.
+Goal ACTIVE; V2/V3 only. No commits, pushes, subagents or extra TUs/roots/exports.
+Goal token observation 695731; this cache wave adds 87 verified C++ bytes.
+
+## Historical checkpoint: shared helper ownership - 2026-10-26
+
+Removed110 physical helper copies (2695 candidate function bytes;3520 .text
+virtual bytes including their alignment). The shared math header now emits
+C++ inline definitions with one instance. Shadow-cookie headers parse without
+/Op, then its real function bodies enable precise math locally. A broad initial
+trial lost the two vector lengths and UnGetLeanFraction by selecting CRT sqrt;
+separating header precision restores their exact fsqrt bodies. All2375 protected
+retail extents survive. No new assembly instructions or definition bodies.
+
+Removed all seven remaining matched alias groups. Callers share VectorAdd/
+VectorScale, DotProduct/Dot2Product and the supported original names
+VectorAngleMultiply, GetRotatedBounds and AxisTransformVector. Declarations and
+native fixtures use these actual owners. The final2375 accepted rows now equal
+2375 unique retail extents; the previous2461 rows included aliases. This is
+physical consolidation, not lost recovered functions or added C++ credit.
+
+Clean original build/referees/ratchet and all148 fixtures pass. Independent
+recheck covers2343 code and9387 data regions, symmetric masks, the union and
+all32/7820 assembly exclusions. The header's approved hash was re-reviewed only
+after proving exact linkage/prototype diffs and unchanged assembly definitions;
+six mutation/unreviewed-assembly controls still pass. Source-placement metadata
+now uses the referee's PDB/private-symbol reader. No roots/exports/TUs added.
+
+C++ remains108160/253580=42.653206089%,646 bodies. Verified address-normalized
+file spans are1,268,935/1,851,392=68.539509731%, ten conservatively counted data
+bytes fewer after eliminating duplicate contributions. Exact same-file-offset
+equality improves8.812450308% ->8.828870385% (+304 equal bytes). Neither metric
+is whole-file identity. Candidate SHA256:
+c18262c0f0a3bd97b2751caa6b1dc5178b20329a804ce1eab95d68daf65f23a9.
+
+Receipt:proof/shared_helpers_checkpoint.json, with frozen binding/coverage/source/
+layout packets and helper_linkage_review.json. All historical raw-image packet
+hashes remain intact. An audit writer reused its old output path; restored that
+file byte-for-byte from its SHA-verified original log, archived the exact auditor
+source, and made an explicit output path mandatory. Current audit has its own
+shared_helpers_coverage_audit.json. No evidence was inferred or regenerated from
+the new DLL for the old receipt.
+
+Next: consolidate the real DPVS owner, then continue the connected scene/model/
+frontend/backend API graph. Raw Mac STABS defines dpvsGlob as108 bytes with an
+embedded five-byte DpvsDebug at100, and separate4-byte cullDist configuration.
+PC initializer/queue/hull/plane fields agree; the reference's224-byte buffer and
+119-byte tail are wrong for this record. Existing active source already owns
+most fields as split globals; fold them without duplicate storage/filler, not
+by adding108 new bytes. Type/PC evidence is in scratch/codex_1026_helpers/
+dpvs_stabs.json and dpvs_pc_fields.json. No DPVS owner source change yet.
+
+Goal stays ACTIVE: API59, missing scene/model/DPVS/backend source, unmatched code/
+data, final metadata/positions, SHA and runtime/GPU remain open. No commits,
+pushes or subagents. Goal token observation154794 (43972 at turn start), no added
+C++ bytes; the measured gain here is removal of duplicate machine-code instances.
+Earlier checkpoints, including all five finished source-home moves, are history.
+
+## Active checkpoint: raw-image API and codec graph - 2026-10-26
+
+Owner resumed for100% readable reconstruction and whole-retail SHA identity;
+work remains ACTIVE. This batch restores raw-image material callbacks, the real
+JPEG file loader, memory source and decoder in their source homes. All44 codec
+TUs follow the non-overlapping order constrained by retail byte placements.
+Source/native checks pass; raw caller/helper bodies match but remain unaccepted
+through R_LoadJpg (724 candidate vs785 retail). The two API wrappers need their
+final address-taken API context; no exports/roots or dummy callbacks were added.
+
+Fresh original build, all148 fixtures, full binding replay and independent byte/
+interval audit pass.2461 binding rows/2375 unique target extents retain every
+previous1987 row's target/extent. The build ratchet now protects all2375 extents;
+removed/resized negative controls fail. Receipt:proof/api_raw_checkpoint.json;
+frozen bindings, file coverage, source coverage and layout have api_raw prefixes.
+
+Verified address-normalized retail file spans:1,268,945/1,851,392=68.540049865%.
+Code746915, initialized data464860, HIGHLOW entries57170 bytes, unioned once.
+This adds243601 proven file bytes, including193362 original dependency code
+bytes, while authored C++ remains108160/253580=42.653206089%,646 bodies.
+The newly resolved existing I_fround10001810/33 is assembly, bringing exclusions
+to32 bodies/7820 bytes. All31 previous exclusions and assembly-source hashes
+remain protected. No headers/BSS/unowned padding credit or new authored assembly.
+Same-file-offset equality is8.812450308% (previous9.461367447%); genuine added
+contributors shift addresses. Final placement/metadata is still unfinished.
+Candidate SHA256:21a4a1663c0d1a20385e89a76e1f9831b36872ddf095b7472008dec33d0176b6.
+
+Referee corrections preserve distinct source-private procedures/data and actual
+PDB owners despite misleading map labels. Instruction discovery resynchronizes
+after inline HIGHLOW tables instead of inventing a bogus memmove jump outside
+the image. Byte/relocation/import/data-binding/callee-closure checks stay enforced;
+tests retain real calls and relocated MOV operands. Empty PDB labels stay empty.
+These are documented checker fixes, not a claim that the referee file is unchanged.
+
+Next connected group: API20 scene/entity submission and its genuine DPVS/model/
+skinning helpers; primary assembly and exact PC/reference disagreements are
+recorded in ATTEMPTS.md. Do not wire a partial advertised GetRefAPI or invent an
+independent DPVS draw flag. RenderScene, frame/backend dispatch, unmatched bodies,
+final file layout/metadata, V4 SHA and V5 runtime/GPU remain open. No commits,
+pushes or subagents; tokens per verified byte unavailable. Earlier notes are
+historical, including the requested pause and the previous five completed moves.
+
+## Latest checkpoint: retail file spans verified; paused at owner request
+
+Verified1,025,344/1,851,392 retail file bytes =55.382328540%, counting
+address-normalized code, initialized data and HIGHLOW entries. This is distinct
+from exact same-file-offset equality, which remains9.461367447%. Whole-file
+SHA identity and runtime/GPU verification remain open (V2/V3 evidence only).
+Original compiler/SDK dependencies are included in file coverage, separately
+from authored game C++:108160/253580=42.653206089%,646 bodies, unchanged.
+The full-file union includes553553 code bytes,419275 data bytes and52516
+relocation-entry bytes. No headers, unowned zero padding, BSS or any of the
+31 authored-assembly bodies/7787 bytes receive credit in this file-span meter.
+
+Corrected candidate discovery for tiny return leaves and qualified library-private
+PDB data by archive plus actual COFF member. Five-byte jump thunks retain their
+original specialized proof path. The unchanged binding referee accepts1987 rows
+(1979 unique target extents); all1496 previous rows survive. Newly proved original
+dependency extents add152145 bytes. No compiler source or layout inputs changed
+in this wave. The previous five source-home fixes remain finished.
+
+Both builds and all144 fixtures pass. Final accounting freshness checks also
+pass: current DLL must agree with layout, replayed bindings with build proof,
+and every accepted code extent is freshly rechecked. Independent audit rechecks
+1955 code and8946 data regions, their union and assembly exclusions. Receipt:
+target/work/proof/retail_50_checkpoint.json; frozen coverage and bindings are
+retail_50_coverage.json and retail_50_bind.json in the same directory. Candidate
+SHA256:7925c380767a13c1fd5986e1bc1da107a96c851fb63d6b50fd032ab56196c377.
+
+PAUSED after this checkpoint as requested. Resume preserving all1987 accepted
+rows and the immutable1448 gate. Remaining work includes API/scene closure,
+unmatched game bodies, library/data/link order, headers and exact DLL positions.
+Known library edges include Error -> vsnprintf -> __output and EvalRange ->
+__CIpow (including __CIpow_pentium4 extent). No new research on those edges
+was started for this pause. No commits/pushes or subagents. Token cost per new
+verified byte is unavailable; no new authored C++ bytes in this wave.
+Earlier sections below are historical checkpoints, including their hashes/counts.
+
+## Latest: five placement issues finished - 2026-10-25
+
+This supersedes the earlier open-exception lists. All five mapped-owner issues
+are resolved: the corner transform/brush culler are in r_dpvs, the light-grid
+callback is in r_image_load_obj, and both quaternion instances are emitted by
+com_math. Retired the two split TUs; no replacement source tree or worker.
+VC7.1 local precise regions retain the DPVS/light-grid code, while com_math
+headers parse without /Op before precise math is enabled for its definitions.
+The shared xanim header is unchanged. These are matching reconstruction choices,
+not recovered historical pragma spelling. No compiler/ABI excuse or new assembly.
+
+The light-grid merge exposed the CRT month-table negative-base dependency.
+Four original pinned LIBCMT members now link in retail data order: intrncvt,
+mbctype,matherr,days. Their entire404-byte initialized block matches retail.
+Vendor objects remain build artifacts/dependencies, with no authored credit.
+No referee/accounting policy, protected hash, padding or game bytes were patched.
+
+A forced rebuild and full141-fixture replay pass. After an EOF-only cleanup,
+a fresh build/referee pass and brush/BSP/model/CRT/layout/assembly-attribution
+checks also pass. All1481 starting accepted bindings survive;1496 now accepted.
+Six newly accepted C/C++ header instances add214 bytes; nine new CRT matches
+add1519 library bytes separately. C/C++108160/253580=42.653206089%,646 bodies.
+All31 authored-assembly exclusions/7787 bytes remain unchanged.
+Same-offset9.461367447% is diagnostic; candidate SHA256:
+d026a6149fcf1d000448c11c5e1ef88bf5c966e8409000b75f6f9dc62fd4463c.
+Zero disagreements in the current mapped-owner inventory; unclassified shared
+helpers/constants and exact PC file boundaries/offsets are not proved complete.
+
+Receipts: proof/placement_five_checkpoint.json, placement_five_bind.json and
+updated retail_position_audit.json. Preserve all1496 accepted final bindings in
+future waves, not only the immutable1448 gate. Logs: proof/latest/placement_five_*
+plus the bounded trials documented in ATTEMPTS.md. No commits/pushes. Token cost
+per accepted byte is unavailable; no subagents were used.
+
+Continued matching after the moves: a cell-filter precise-region trial and
+three wavelet source forms give no additional accepted bytes; all are reverted.
+R_CullBrushEntity's existing335-byte filter dependency and Image_LoadWavelet's
+539-vs537-byte mismatch remain code work. The culler is byte-matched/source-placed
+but not binding-accepted. The image loader/reload wrappers remain unaccepted
+through the wavelet edge. Whole-DLL SHA, full API/scene closure and runtime/GPU
+remain open. Do not re-run the finished moves or reintroduce the split TUs.
+
+## Retail-position audit - 2026-10-25
+
+Source homes and final DLL addresses are different checkpoints. New image
+and world-loader source is being written in its supported retail file homes;
+whole-file link order, anonymous constants and data contributions remain open.
+Source definitions also contain inherited address-order reversals. Under LTCG,
+source line order does not establish final machine-code order; do not promise
+fixed offsets or cosmetically resort protected source without a gated trial.
+
+The current map has820 known-owner rows and673 unknown-owner rows (including
+library/templates/shared helper copies). Unknown rows are not proof of correct
+placement. Five mapped-owner exceptions remain: R_TransformBoundsCorners and
+R_CullBrushEntity in r_surfbounds (/Op-sensitive); Image_GetLightGridWeightsForVector
+in its separate /Op TU (first-fabs constraint); ConvertQuatToMat and
+MatrixTransformVectorQuatTrans in non-/Op xanim_matrix (shared inline ownership).
+These are explicit continuing layout work, not a claim that all structure is done.
+The old r_model_lod split is already resolved; its earlier DEFER below is history.
+
+Corrected file_layout.py: r_loadworld_new is a modern reference rewrite, not
+an original retail TU. Original Mac STABS assigns R_LoadWorldInternal to
+PC/gfx_d3d/r_bsp_load_obj.cpp, where the candidate already lives. No code move
+is warranted. The correction and all five exceptions are pinned in
+proof/retail_position_audit.json. Game compiler inputs and the DLL are unchanged:
+C/C++42.568814575%, same-offset9.483404919%, prior139-fixture checkpoint retained.
+No rebuild was needed for this mapping/documentation correction. Continue
+ownership/flags/data/link work alongside each code wave; whole-file SHA remains
+required. Mac1.3 paths support grouping but do not independently prove PC1.0 TUs.
+
+## Latest recovery checkpoint - 2026-10-25 (Codex)
+
+This section supersedes the historical instructions and numbers below. Claude
+continued through commit bdacf3c (Image_Reload register argument) but left the
+handoff stale and two uncommitted r_image.cpp edits. Those edits are preserved.
+The remaining file moves listed below were already completed; do not repeat them.
+Claude restored the world-loader driver/BSP helper source and further matches.
+Fresh baseline:107742 C/C++ bytes,638 bodies,139 fixtures; all1448 protected
+extents pass. None of Claude's work was reset or overwritten.
+
+Continuation: native C++ bool for private Image_IsCodeImage matches1000cc80/23
+and unlocks Image_FindExisting1000d140/181:204 new verified C/C++ bytes.
+The lost-image water builder now follows the primary's separate DX9/DX7 calls;
+it remains an uncredited74-byte draft with two MOVZX vs MOV AX/CX differences.
+The stored-dimension texture-creator experiment gave no gain and was reverted.
+No new TU/order, roots, flags, globals, SDK, assembly or referee changes.
+
+Final original build + both referees +139/139 fixtures pass. All1479 accepted
+source/library bindings from the recovered state survive, including the1448
+immutable protected extents. C/C++107946/253580=42.568814575%,640 bodies;
+same-offset9.483404919%. Candidate SHA256:
+c0413d8d51c19d52773f641057d58d1f06ff87b1125e7b36108112fabd918721.
+Whole-DLL identity and GPU/runtime testing remain OPEN. No commits or pushes.
+Token cost per accepted byte is unavailable; no subagents were used.
+
+Receipt: target/work/proof/image_resume_checkpoint.json (152 compiler-source
+hashes,139 fixture hashes and retained/new bindings). Final logs:
+proof/latest/codex_image_resume_final_{build,fixtures}.log. Bounded attempts:
+ATTEMPTS.md and scratch/codex_1025_resume. Next investigate water's dimension
+call context and Image_LoadWavelet1000f380: its unaccepted539-byte body blocks
+Image_LoadFromData, Image_LoadFromFile and Image_Reload. Their byte hits alone
+are not accepted closure. World/API/scene and final layout still need completion.
+
 ## Structure-first renderer checkpoint - 2026-10-24
 
 Work only in gfx; actual source is `target/work/src/`. This is the sole current

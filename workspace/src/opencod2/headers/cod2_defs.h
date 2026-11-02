@@ -1876,7 +1876,7 @@ typedef struct IDirect3DSwapChain9 IDirect3DSwapChain9;
 typedef struct IDirect3DTexture9 IDirect3DTexture9;
 #endif
 #ifndef COD2_SDK_TYPES
-typedef union IDirect3DVertexBuffer9 IDirect3DVertexBuffer9;
+typedef struct IDirect3DVertexBuffer9 IDirect3DVertexBuffer9;
 #endif
 #ifndef COD2_SDK_TYPES
 typedef struct IDirect3DVertexDeclaration9 IDirect3DVertexDeclaration9;
@@ -9518,7 +9518,7 @@ struct r_lightmapMerge_t {
 struct r_vb_state_t {
     int used;
     int total;
-    void (*buffer)();
+    IDirect3DVertexBuffer9 *buffer;
 };
 #endif
 

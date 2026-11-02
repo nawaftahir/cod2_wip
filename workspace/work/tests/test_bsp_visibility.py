@@ -5,7 +5,7 @@ import tempfile
 
 root = Path(__file__).resolve().parents[1] / 'src/gfx_d3d'
 dpvs = (root / 'r_dpvs.cpp').read_text()
-dpvs = dpvs[dpvs.index('int R_FilterEntityIntoCells_r('):dpvs.index('// PINNED: free-list pointer')]
+dpvs = dpvs[dpvs.index('int R_FilterEntityIntoCells_r('):dpvs.index('// Brush entity bounds and cell routing.')]
 marks = (root / 'r_marks.cpp').read_text()
 marks = marks[marks.index('static __declspec(noinline) void R_CellSurfaces('):marks.index('\nvoid R_BoxSurfaces_r(')]
 marks = marks.replace('__declspec(noinline) ', '')

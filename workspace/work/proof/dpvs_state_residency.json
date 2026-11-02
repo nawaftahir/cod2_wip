@@ -1,0 +1,8 @@
+{
+  "scope": "Actual linked PDB owner check",
+  "dpvs_state_va": "0x101bd4a0",
+  "cull_configuration_va": "0x101bd50c",
+  "relative_configuration_offset": 108,
+  "retired_split_symbols_present": [],
+  "candidate_sha256": "37c5a15a49b51dcc6d7ea11c1523409d70cf1a5adfafa2d4c354a40b82ac0bef"
+}

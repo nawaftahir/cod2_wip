@@ -1,0 +1,84 @@
+RUN test_source_coverage.py
+PASS: C/C++ source accounting, all34 separately excluded assembly-bearing bodies including newly retained water/FFT helpers, and six assembly negatives
+RUN test_state_map_cache.py
+PASS: state-map cache/load and pass syntax,output retention,failed loads and semicolons
+RUN test_state_rules.py
+PASS: actual state rules, conditional chains, grouped values, copy semantics, errors and256/257 bounds
+RUN test_static_model_entities.py
+PASS: actual two-pass entities, classname slot/case/duplicates, shared token-buffer copies, model count/allocation, invalid filtering, 63-key limit and publication/cleanup order
+RUN test_static_model_lighting.py
+PASS: actual static lighting DX7/DX9 allocation, 14 capacities, all eight texels/model, face/channel order, coordinates, midpoint sampling, image upload and state clearing
+RUN test_static_model_spawn.py
+PASS: actual spawn defaults/duplicates/nulls/partial vectors/hex, validation/fallback/shadow filtering, transforms, Z scale, live fullbright and lighting/error routes
+PASS: two accepted spawn leaves, exact extents/source owners and ten binding-corruption negatives
+RUN test_string_literal_bounds.py
+PASS: 11146 compiler-named string extents, byte/truncation negatives, embedded NUL and wide controls
+RUN test_sun_commands.py
+PASS: 144 actual sun routes, 21 retail dvar names, PC layout, rounding modes, material track/defaults, parse/free order and load/save command gates
+RUN test_sun_flush.py
+PASS: 255 actual four-view sun resets; visibility/query/error/padding bytes preserved and reset idempotent
+RUN test_sun_render.py
+PASS: 94 actual sun geometry/query/post-effect cases, both formats, polar fallback, collision visibility, delayed/error queries, packed colors and disabled-time publication
+RUN test_surface_2d.py
+PASS: 864 matrix routes, 8 overflows, 240 quads and 109 calibration queries; shared caches, bounds, D3D retries, captured query and fallback
+RUN test_surface_begin.py
+PASS: 4200 actual surface begins,35 retail names, logging-before-reset, complete shared extent and untouched optimized counts/material time
+RUN test_surface_drivers.py
+PASS: 96 ordinary drivers, 48 optimized drivers and 1024 EndSurface routes; exact args, capacity boundary, cache, captured technique and live callback state
+RUN test_symbol_bounds.py
+PASS: encoded string extents, unnamed-data overruns, wide counts and unchanged ordinary data
+RUN test_technique_files.py
+PASS: 50 actual DX7/DX9 technique-file routes, four-pass cap, read/parse failures, frees-before-allocation and untouched DX7 flags
+RUN test_technique_sets.py
+PASS: 51 actual technique-set routes, pinned 34-byte mask, quoted labels, inactive/mixed groups, 34-label cap, both caches and original error ownership
+RUN test_tess_cylinders.py
+PASS: 468 actual cylinder/entity routes, both formats, clamped LOD rings, seam/indices/guards, untouched normals, post-overflow basis/color, full selector and live backend entity
+RUN test_tess_dispatch.py
+PASS: complete retail surface table order, real definitions, raw-geometry null and shared enum
+PASS: all seven linked table pointers bind their genuine implementations; eighth is null
+RUN test_tess_lines.py
+PASS: 3888 actual direct/line/rail routes, original vector math, full buffer guards, BGRA/UV, degeneracy/NaNs, negative widths, capacity and pre-frame/post-endpoint overflow timing
+RUN test_tess_particles.py
+PASS: 494 actual particle routes, shader constant/neighbor guards, signed fallback, epsilon, rotation order, RGBA bits, DX7 execution, live buffers and PC draw counts
+RUN test_tess_rigid.py
+PASS: 386 actual rigid routes, conditional buffer binds, captured args, 0xcd0-byte stack copy, bone matrix, scale, logging and live renderer changes
+RUN test_tess_skinned.py
+PASS: 1255 actual skinned routes, signed cache dispatch, live VB binding, stride capture, vertex bits, padded index rebasing, parity/capacity flush and count publication
+RUN test_tess_sprites.py
+PASS: 72 direct quad stamps 10800 sprite routes and 54 oriented quads; both vertex formats, all buffer guards, BGRA/atlas, signed frames, rotation/lift, minimum/screen projection, NaNs and overflow capture
+RUN test_tess_surfaces.py
+PASS: 2129 actual tessellation routes, DX7/DX9 vertex fields, fan winding, declaration/capacity flushes, live inputs and separate optimized counts
+RUN test_texture_arguments.py
+PASS: DX7 arguments,operators,stage syntax,coordinate generators,sampler wiring and partial writes
+RUN test_trap_extent.py
+PASS: targeted traps, short/long branches, external jumps, calls and padding
+RUN test_vertex_writers.py
+PASS: 2,688 vertex cases, DX7/DX9 strides, W edge cases and all untouched bytes
+RUN test_video_configuration.py
+PASS: monitor fallback and aspect selector source, primary16*height/width, invalid selector preservation and untouched state
+PASS: 126 actual video configuration routes
+RUN test_view_matrices.py
+PASS: actual view/projection copies, cache flags, three stack levels and DX7 routing
+RUN test_viewport_constants.py
+PASS: 240 actual viewport-constant cases, full/scene modes, half-pixel offsets, zero/negative sizes and untouched constants
+RUN test_visibility_tree.py
+PASS: 23 actual visibility paths, NaN/stamps/occluders, surface dedup, model distance, groups and captured model owner
+RUN test_water.py
+PASS: water sizes, tolerances, direction, zero vector, target NaN distinction
+RUN test_water_color.py
+PASS: 54 actual watercolor routes, packed BGRA, normalized Fresnel input, alpha rounding and callback binding
+RUN test_water_setup_owner.py
+PASS: 40 actual renderer-owned water routes, reuse, capacity, callback count reload and count-only shutdown
+RUN test_wavelet_loader.py
+PASS: 2048 actual wavelet-loader cases, mip routing, RGB expansion, six faces and reverse frees
+RUN test_wholefile_layout.py
+PASS: whole-file identity control, exact retail export and header/import/debug reporting
+RUN test_window_parms.py
+PASS: 927 actual refresh and startup parameter routes, exact/lower/upper rates and preserved tile count
+RUN test_world_dynamic_data.py
+PASS: 112 world-array initializations, 11 LOD bounds, allocation order/strides, untouched fields and guards
+RUN test_world_vertex_buffer.py
+PASS: 72 actual world uploads, PC layouts, DX7 conversion, full DX9 copies and guards
+RUN test_xsurface_stream.py
+PASS: 288 packed surface streams, rigid/skinned weights, all fields, four bone-bit words, padding and guards
+PASS: all 40 final fixtures

@@ -1,0 +1,60 @@
+{
+  "scope": "PINNED PC instructions; Mac names/types; native source tests; no newly matched bytes",
+  "functions": {
+    "lookup": "10032370/76",
+    "cursor (descriptive)": "10032400/144",
+    "RB_DrawTextWithCursor": "10032560/743 contiguous bytes; Ghidra inventory740 omits three epilogue bytes",
+    "quad (descriptive)": "10032890/440",
+    "RB_DrawTextInSpace": "10032a50/442",
+    "RB_DrawTextCmd": "10032c10/73",
+    "RB_DrawTextInSpaceCmd": "10032c60/51"
+  },
+  "candidate_rows": [
+    {
+      "name": "?R_GetCharacterGlyph@@YAPAUGlyph@@PAUFont_s@@I@Z",
+      "obj": "r_font.obj",
+      "size": 103,
+      "hits": [
+        "0x1000bc70"
+      ]
+    },
+    {
+      "name": "?RB_LookupColor@@YAXEPAE@Z",
+      "obj": "rb_backend.obj",
+      "size": 83,
+      "hits": []
+    },
+    {
+      "name": "?RB_DrawTextQuad@@YAXPBUMaterial@@PBM11PBUGlyph@@I@Z",
+      "obj": "rb_backend.obj",
+      "size": 434,
+      "hits": []
+    },
+    {
+      "name": "?RB_DrawTextInSpace@@YAXPBDPAUFont_s@@PBM22I@Z",
+      "obj": "rb_backend.obj",
+      "size": 425,
+      "hits": []
+    }
+  ],
+  "glyph_lookup": {
+    "?R_GetCharacterGlyph@@YAPAUGlyph@@PAUFont_s@@I@Z": {
+      "t": "0x1000bc70",
+      "n": 103,
+      "obj": "r_font.obj",
+      "why": []
+    }
+  },
+  "new_source_credit": 0,
+  "native_routes": 1207,
+  "same_owner": "rb_backend.cpp, function-local 8x4 color_table; glyph lookup stays r_font.cpp, corrected public linkage without body change",
+  "remaining_handlers": 5,
+  "artifact_sha256": {
+    "primary.asm": "04ef9cd4f39dc14caec57933f73c5fa6bfc449f31b3ac5216d53619d393c0f5c",
+    "names_stabs.json": "304a9cdc25152d965fbe250dc6706e782563cbb153944becf5ca8f5779b70291",
+    "assembly_review.json": "6d72c2e946405b963c9c3c86d5dcdadf4a06baf99926e3f4b58a7fed52639ab2",
+    "drawsurf_primary.asm": "9ed059d2ba36a667d4a7e89d6ea01e26bd1ba95fcb20e3e8f3eb76b24b0b17c8",
+    "next_drawsurf.json": "965df4591508197348887f7617faade36278e4f6ce52a77ded298a4349cc8834"
+  },
+  "limitations": "Two text command handlers and static 2D kernel are not emitted until the real command table/executor links them. No ABI-only roots or partial table. Original names of cursor/quad helpers unconfirmed. Native GPU boundaries stubbed. No V4 or V5."
+}

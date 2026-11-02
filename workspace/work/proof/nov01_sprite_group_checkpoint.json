@@ -1,0 +1,62 @@
+{
+  "date": "2026-11-01",
+  "scope": "step3 dependency batch: sprite and oriented-quad geometry; not complete API/dispatch",
+  "previous_source_receipt": "target/work/proof/nov01_pending_review.json",
+  "source_restored": [
+    "RB_AddQuadStamp",
+    "RB_AddQuadStampDx7",
+    "RB_GetEntityAtlasCoords",
+    "RB_BuildSprite",
+    "RB_ScreenRadiusToWorld",
+    "RB_WorldRadiusToScreen",
+    "RB_TessWorldSprite",
+    "RB_TessSprite",
+    "RB_TessOrientedQuad"
+  ],
+  "prior_source_prefix_restored_exactly": true,
+  "no_existing_assertions_removed": true,
+  "new_authored_assembly": false,
+  "new_tu_root_export_global_or_flag": false,
+  "build_and_both_referees": "PASS",
+  "protected_extents_retained": 2381,
+  "accepted_address_extent_set_unchanged": true,
+  "new_verified_bytes": 0,
+  "cpp_executable_bytes": 108306,
+  "cpp_percent": 42.71078160738229,
+  "cpp_game_bodies": 650,
+  "candidate_sha256": "1ab2bef1b0484f6b17e693e9757c8bab52d068176fabce436bad832243060a09",
+  "same_file_offset_percent": 8.785929722068584,
+  "affected_native_routes": {
+    "surfaces": 2129,
+    "rigid": 386,
+    "skinned": 1255,
+    "particles": 494,
+    "direct_quad_stamps": 72,
+    "sprites": 10800,
+    "oriented_quads": 54
+  },
+  "pdb_owner_regression": "PASS",
+  "full_suite_rerun": false,
+  "step3_complete": false,
+  "GetRefAPI_complete": false,
+  "full_tess_or_command_table_complete": false,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "original_compiler_fix": "MakeNormalVectors declaration uses original const vec3_t / vec3_t array parameters; raw pointer declaration had a different VC7.1 symbol",
+  "limitations": [
+    "new dependency bodies have no byte-match credit; original complete callers/tables still needed",
+    "native surface/device/basis boundaries mocked; no GPU proof",
+    "remaining line/rail/cylinder tessellation and five backend roles, RenderScene/API closure remain open"
+  ],
+  "sha256": {
+    "target/work/src/gfx_d3d/rb_tess.cpp": "172fb0113c0526e03c5e67e454c2b370ac9d34b7a724bf98edc2548b746b1556",
+    "target/work/tests/test_tess_sprites.py": "3252e9a66fb1f105bdf23cd76cc73751a6dc1582afa93a8bbb3f3ed63443252d",
+    "target/work/tests/test_tess_particles.py": "d819e9b72aad89aa68c93d4b72faf42e741ea4159194a47e82731489064e039d",
+    "target/work/proof/latest/nov01_sprite_group_build.log": "1b533434768b3798a64d35ebb7a274b3449f0145d5aa76c3614539cdd4f83eee",
+    "target/work/proof/latest/nov01_sprite_group_focused.log": "5cdd13261724ff7bcedde7c4497e51850c654a825f8c473445323390061328ba",
+    "target/work/build/bind.json": "95130806722f50fdb12abdeba8b8ed1e6151e66e711e56decead6fc590135fcf",
+    "target/work/proof/source_coverage_current.json": "c1524db9b3e55fa55398490857ec78452ad04b0624a2b1a0c55736e242d16f52",
+    "target/work/layout/current.json": "9a8a0f748c8bce006e8e75c51517a385842ba5f0aee44dd82ad389825c50c1d0",
+    "target/work/layout/file_layout.tsv": "6f862698e634450c027e65595dc45ff4529053b670130ea2d4c33d4efa2be1d4"
+  }
+}

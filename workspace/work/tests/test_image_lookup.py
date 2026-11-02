@@ -5,7 +5,7 @@ import tempfile
 
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_image.cpp').read_text()
 utils = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_utils.cpp').read_text()
-source = utils[utils.index('int R_HashAssetName('):utils.index('bool R_ValidXModelName(')] + text[text.index('inline Bool Image_IsCodeImage('):text.index('static int Image_GetAvailableHashLocation(')]
+source = utils[utils.index('int R_HashAssetName('):utils.index('bool R_ValidXModelName(')] + text[text.index('inline bool Image_IsCodeImage('):text.index('static int Image_GetAvailableHashLocation(')]
 program = r'''
 #include <cassert>
 #include <cstring>
@@ -38,7 +38,7 @@ int main() {
     imageGlobals.imageHashTable[R_HashAssetName(image.name)&2047]=&image;
     assert(Image_FindExisting("CaseSensitive")==&image);
     assert(!Image_FindExisting("casesensitive"));
-    for(int i:{0,12}) {
+    for(int i=0;i<13;++i) {
         memset(&imageGlobals,0,sizeof(imageGlobals));
         g_imageProgs[i].name="program_image";
         imageGlobals.imageHashTable[R_HashAssetName("program_image")&2047]=g_imageProgs+i;
@@ -54,3 +54,14 @@ with tempfile.TemporaryDirectory(prefix='gfx_image_lookup_') as directory:
                    input=program, text=True, check=True)
     subprocess.run([binary], check=True)
 print('PASS: image lookup misses/hits, collisions, bucket wrap, case, program endpoints and signed hash')
+
+import json
+
+bindings = json.loads((Path(__file__).resolve().parents[1] / 'build/bind.json').read_text())
+for symbol, address, size in [
+    ('?Image_IsCodeImage@@YA_NPBUGfxImage@@@Z', '0x1000cc80', 23),
+    ('?Image_FindExisting@@YAPAUGfxImage@@PBD@Z', '0x1000d140', 181),
+]:
+    row = bindings[symbol]
+    assert (row['t'], row['n'], row['obj'], row['why']) == (address, size, 'r_image.obj', []), (symbol, row)
+print('PASS: image predicate/lookup exact bytes, bindings and source owner')

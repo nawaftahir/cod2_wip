@@ -4,9 +4,10 @@ import subprocess
 import tempfile
 
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_scene.cpp').read_text()
-helper = text[text.index('static void R_AddDrawSurf('):text.index('// PINNED 10023ed0/')]
+helper = text[text.index('__declspec(noinline) void R_AddDrawSurf('):text.index('// PINNED 10023ed0/')]
 callback = text[text.index('void R_AddPolyToScene('):text.index('// PINNED 10024610/')]
 program = r'''
+#define __declspec(x) __attribute__((x))
 #include <cassert>
 #include <cstring>
 #include <cstdio>

@@ -5,7 +5,7 @@ import tempfile
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/rb_backend.cpp').read_text()
-source = text[text.index('// PINNED 10033b20:'):]
+source = text[text.index('// PINNED 10033b20:'):text.index('// PINNED PC backend dvar updates, 10033c50/207.')]
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
 types = local[local.index('struct GfxRenderTarget\n'):local.index('extern DxGlobals dx;')]
 video = local[local.index('struct vidConfig_t\n'):local.index('extern vidConfig_t vidConfig;')]

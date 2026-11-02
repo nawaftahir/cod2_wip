@@ -199,6 +199,38 @@ void R_DObjGetSurfMaterials(DObj *obj, char lod, MaterialHandle *matHandleArray)
     }
 }
 
+Material *Material_Register(const char *name, int imageTrack);
+char *_strlwr(char *string);
+
+// PINNED 10020400/278: API59 slot97; the descriptive name is not historical proof.
+Material ***R_LoadXModelSkins(const XModel *model)
+{
+    XSurface **surfaces;
+    int *partBits;
+    int lodCount = ri.XModelGetNumLods(model);
+    int surfaceCount = 0;
+    for (int lod = 0; lod < lodCount; ++lod)
+        surfaceCount += ri.XModelGetSurfaces(model, &surfaces, lod, &partBits);
+    Material ***skins = (Material ***)ri.Hunk_AllocInternal(
+        (surfaceCount + lodCount) * sizeof(void *));
+    Material **next = (Material **)(skins + lodCount);
+    for (int lod = 0; lod < lodCount; ++lod)
+    {
+        int count = ri.XModelGetSurfaces(model, &surfaces, lod, &partBits);
+        Material **end = next + count;
+        skins[lod] = next;
+        for (int index = 0; index < count; ++index)
+        {
+            char name[64];
+            strcpy(name, ri.XModelGetSurfaceName(model, index, lod));
+            _strlwr(name);
+            skins[lod][index] = *name ? Material_Register(name, 8) : rgp.defaultMaterial;
+        }
+        next = end;
+    }
+    return skins;
+}
+
 void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle material)
 {
     char lods[8];
@@ -300,7 +332,6 @@ float R_GetModelLodDistance(const float *origin, float scale)
 }
 void ConvertQuatToMat(const DObjAnimMat *mat, vec3_t axis[3]);
 void TransformVectorByAnimMat(const float *in, const DObjAnimMat *mat, float *out);
-void TransformBounds(const vec3_t bounds[2], const vec3_t origin, const vec3_t axis[3], vec3_t out[2]);
 void R_AddDebugLine(DebugGlobals *debug, const float *start, const float *end, const float *color);
 
 typedef char model_bounds_layout[(offsetof(GfxEntity, origin) == 0x3c
@@ -336,8 +367,8 @@ static const int boxVerts[24][3] = {
     {0,1,0},{0,1,1}, {1,1,0},{1,1,1},
 };
 
-static void R_XModelDebugBoxes(const DObj *obj, const GfxEntity *ent,
-    const GfxSceneEntity *sceneEnt)
+static void R_XModelDebugBoxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
+    const DObj *obj)
 {
     DSurface_s surfaces[64];
     int partBits[4];
@@ -379,8 +410,8 @@ static void R_XModelDebugBoxes(const DObj *obj, const GfxEntity *ent,
     }
 }
 
-static void R_XModelDebugAxes(const DObj *obj, const GfxEntity *ent,
-    const GfxSceneEntity *sceneEnt)
+static void R_XModelDebugAxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
+    const DObj *obj)
 {
     DSurface_s surfaces[64];
     int partBits[4];
@@ -464,8 +495,8 @@ void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent)
     {
         if (developer->current.integer)
         {
-            R_XModelDebugBoxes(obj, ent, sceneEnt);
-            R_XModelDebugAxes(obj, ent, sceneEnt);
+            R_XModelDebugBoxes(sceneEnt, ent, obj);
+            R_XModelDebugAxes(sceneEnt, ent, obj);
         }
         R_SetEntityOriginBounds(sceneEnt, ent->origin);
         sceneEnt->cullState = 2;
@@ -496,7 +527,7 @@ void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent)
             R_ExpandBoneBounds(boneInfo[bone]->bounds, boneMatrix[bone].trans, axis, bounds);
         }
     }
-    TransformBounds(bounds, ent->origin, ent->axis, (vec3_t *)&sceneEnt->curMins);
+    GetRotatedBounds(bounds, ent->origin, ent->axis, (vec3_t *)&sceneEnt->curMins);
     sceneEnt->cullState = 2;
 }
 
@@ -875,4 +906,396 @@ void R_SkinXModelCmd(SkinXModelCmd *cmd, int context)
             cursor += 56;
         }
     }
+}
+
+// PINNED PC pre-skin surface publication, 1001f120/1001f2a0.
+extern const dvar_t *r_skinCache;
+extern const dvar_t *r_smc_enable;
+GfxStaticModelSurfaceCached *R_CacheStaticModelSurface(GfxStaticSurface *surface,
+    const XSurface *xsurf, int smodelIndex, const Material *material);
+void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface);
+
+typedef char preSkinSurfaceLayoutCheck[(offsetof(XSurface, surfRigid) == 16
+    && offsetof(XSurface, indexBuffer) == 20
+    && offsetof(GfxSceneEntity, materials) == 44
+    && offsetof(GfxBackEndData, skinnedCacheVb) == 0x217c78
+    && offsetof(DxGlobals, skinnedCacheLockAddr) == 0x2dc0
+    && offsetof(DxGlobals, tempSkinBuf) == 0x2dd0
+    && offsetof(DxGlobals, tempSkinPos) == 0x2dd4
+    && offsetof(Material, techniqueSet) == 56
+    && offsetof(MaterialTechniqueSet, techniques) == 4
+    && offsetof(MaterialTechnique, passCount) == 6
+    && offsetof(MaterialTechnique, passArray) + offsetof(MaterialPassDx7, gridLighting) == 12
+    && sizeof(GfxStaticModelCachedSurface) == 16) ? 1 : -1];
+
+// PINNED 1001f120/347: material assignment precedes every allocation path.
+static int R_PreSkinXSurface(GfxSceneEntity *sceneEnt, const DObj *obj,
+    const DSurface_s *surface, int surfaceIndex, const char *lods, byte *surfPos)
+{
+    static int dynamicSkinWarnFrame;
+    int modelIndex = surface->modelIndex;
+    const trXSkin_t *skins = ri.XModelGetSkins(ri.DObjGetModel(obj, modelIndex));
+    if (!skins)
+        return 0;
+    int lod = lods[modelIndex];
+    const Material *material = ((MaterialHandle **)skins)[lod][surface->subMatIndex];
+    XSurface *xsurf = ri.DObjGetSurface(obj, modelIndex, surface->subMatIndex, lod);
+    sceneEnt->materials[surfaceIndex] = material;
+    GfxModelSkinnedSurface *out = (GfxModelSkinnedSurface *)surfPos;
+    if (xsurf->surfRigid.vb)
+    {
+        out->surf.xsurf = xsurf;
+        out->surf.surfType = (surfaceType_t)4;
+        return sizeof(GfxModelRigidSurface);
+    }
+    if (r_skinCache->current.enabled && xsurf->indexBuffer)
+    {
+        out->skinnedVert.variant = 0;
+        out->skinnedCachedOffset = R_AllocSkinnedCachedVerts(xsurf->vertCount);
+        if (out->skinnedCachedOffset >= 0
+            && (uintptr_t)dx.skinnedCacheLockAddr + frontEndDataOut->skinnedCacheVb->used)
+            goto done;
+    }
+    out->skinnedCachedOffset = -1;
+    {
+        int needed = (r_rendererInUse->current.integer == 2 ? 36 : 64) * xsurf->vertCount;
+        if (dx.tempSkinPos + needed > 0xa00000)
+        {
+            if (dynamicSkinWarnFrame != frontEndDataOut->frameCount)
+            {
+                dynamicSkinWarnFrame = frontEndDataOut->frameCount;
+                ri.Printf(2, "TEMP_SKIN_BUF_SIZE exceeded - not skinning surface\n");
+            }
+            return 0;
+        }
+        out->skinnedVert.variant = dx.tempSkinBuf + dx.tempSkinPos;
+        dx.tempSkinPos += needed;
+        ri.Z_VirtualCommitInternal(out->skinnedVert.variant, needed);
+    }
+done:
+    out->surf.xsurf = xsurf;
+    out->surf.surfType = (surfaceType_t)3;
+    return sizeof(GfxModelSkinnedSurface);
+}
+
+// PINNED 1001f2a0/479: DX7 cache publication requires a grid-lighting pass.
+static int R_PreSkinStaticSurface(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex,
+    const XModel *model, XSurface *xsurf, int surfaceIndex, int lod,
+    qboolean *needSkinningSurf, byte *surfPos)
+{
+    static int dynamicSkinWarnFrame;
+    const trXSkin_t *skins = ri.XModelGetSkins(model);
+    if (!skins)
+        return 0;
+    const Material *material = ((MaterialHandle **)skins)[lod][surfaceIndex];
+    sceneEnt->materials[surfaceIndex] = material;
+    if (ent->reType == 2 && r_smc_enable->current.enabled && xsurf->boneOffset != -1)
+    {
+        if (r_rendererInUse->current.integer == 2)
+        {
+            const MaterialTechnique *technique = material->techniqueSet->techniques[12];
+            if (!technique || !technique->passCount || !technique->passArray.dx7[0].gridLighting)
+                goto uncached;
+        }
+        GfxStaticSurface *surface = &rg.smodelDyncs[smodelIndex].staticSurfs[surfaceIndex];
+        if (!surface->cachedLods[lod])
+            surface->cachedLods[lod] = R_CacheStaticModelSurface(surface, xsurf, smodelIndex, material);
+        GfxStaticModelSurfaceCached *cached = surface->cachedLods[lod];
+        if (cached)
+        {
+            R_UsedCachedStaticModelSurface(cached);
+            GfxStaticModelCachedSurface *out = (GfxStaticModelCachedSurface *)surfPos;
+            out->surf.surfType = (surfaceType_t)5;
+            out->surf.xsurf = xsurf;
+            out->surface = cached;
+            out->ent = ent;
+            return sizeof(GfxStaticModelCachedSurface);
+        }
+    }
+uncached:
+    GfxModelSkinnedSurface *out = (GfxModelSkinnedSurface *)surfPos;
+    if (xsurf->surfRigid.vb)
+    {
+        out->surf.xsurf = xsurf;
+        out->surf.surfType = (surfaceType_t)4;
+        *needSkinningSurf = 1;
+        return sizeof(GfxModelRigidSurface);
+    }
+    if (r_skinCache->current.enabled && xsurf->indexBuffer)
+    {
+        out->skinnedVert.variant = 0;
+        out->skinnedCachedOffset = R_AllocSkinnedCachedVerts(xsurf->vertCount);
+        if (out->skinnedCachedOffset >= 0
+            && (uintptr_t)dx.skinnedCacheLockAddr + frontEndDataOut->skinnedCacheVb->used)
+            goto done;
+    }
+    out->skinnedCachedOffset = -1;
+    {
+        int needed = (r_rendererInUse->current.integer == 2 ? 36 : 64) * xsurf->vertCount;
+        if (dx.tempSkinPos + needed > 0xa00000)
+        {
+            if (dynamicSkinWarnFrame != frontEndDataOut->frameCount)
+            {
+                dynamicSkinWarnFrame = frontEndDataOut->frameCount;
+                ri.Printf(2, "TEMP_SKIN_BUF_SIZE exceeded - not skinning surface\n");
+            }
+            return 0;
+        }
+        out->skinnedVert.variant = dx.tempSkinBuf + dx.tempSkinPos;
+        dx.tempSkinPos += needed;
+        ri.Z_VirtualCommitInternal(out->skinnedVert.variant, needed);
+    }
+done:
+    out->surf.surfType = (surfaceType_t)3;
+    out->surf.xsurf = xsurf;
+    *needSkinningSurf = 1;
+    return sizeof(GfxModelSkinnedSurface);
+}
+
+// PINNED PC model scene publication, 1001f6f0/1001fa70.
+typedef char modelPublicationLayoutCheck[(offsetof(GfxScene, sceneEntMaterialCount) == 0x1a55c
+    && offsetof(GfxScene, sceneMaterials) == 0x1a560
+    && offsetof(GfxBackEndData, surfPos) == 0x80008
+    && offsetof(GfxBackEndData, surfsBuffer) == 0x8000c
+    && sizeof(((GfxBackEndData *)0)->surfsBuffer) == 0x20000) ? 1 : -1];
+
+extern const dvar_t *r_xdebug;
+void R_AddFrontendCmd(int type, void *data);
+
+// PINNED 1001e220/50; composite debug helper name unconfirmed.
+static void R_DebugModelSurfaces(const DObj *obj, const GfxEntity *ent, const GfxSceneEntity *sceneEnt)
+{
+    if (r_xdebug->current.integer & 1)
+        R_XModelDebugBoxes(sceneEnt, ent, obj);
+    if (r_xdebug->current.integer & 2)
+        R_XModelDebugAxes(sceneEnt, ent, obj);
+}
+
+// PINNED 1001fa70/766: acquire state 2 -> 3 before publishing scene surfaces.
+void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent)
+{
+    static int skinWarnFrame;
+    long volatile *state = (long volatile *)&sceneEnt->cullState;
+    if (*state >= 4)
+        return;
+    if (InterlockedCompareExchange(state, 3, 2) != 2)
+    {
+        while (*state < 4) {}
+        return;
+    }
+    const DObj *obj = sceneEnt->u.obj;
+    if (ri.DObjBad(obj))
+    {
+        if (developer->current.integer)
+        {
+            R_XModelDebugBoxes(sceneEnt, ent, obj);
+            R_XModelDebugAxes(sceneEnt, ent, obj);
+        }
+        *state = 4;
+        return;
+    }
+    int boneCount = ri.DObjNumBones(obj);
+    DSurface_s surfaces[64];
+    int partBits[4];
+    char lods[8];
+    int surfaceCount = R_GetSurfaceData(ent, obj, surfaces, partBits, lods);
+    const DObjAnimMat *boneMatrix;
+    if (!surfaceCount || !(boneMatrix = ri.DObjGetRotTransArray(obj)))
+    {
+        *state = 4;
+        return;
+    }
+    int firstMaterial = InterlockedExchangeAdd((long *)&scene.sceneEntMaterialCount, surfaceCount);
+    if ((unsigned int)(firstMaterial + surfaceCount) > 4096)
+    {
+        scene.sceneEntMaterialCount = 4096;
+        if (skinWarnFrame != frontEndDataOut->frameCount)
+        {
+            skinWarnFrame = frontEndDataOut->frameCount;
+            ri.Printf(2, "MAX_SCENE_MATERIALS exceeded - not drawing surface\n");
+        }
+        *state = 4;
+        return;
+    }
+    sceneEnt->materials = scene.sceneMaterials + firstMaterial;
+    byte surfBuffer[3584];
+    byte *cursor = surfBuffer;
+    for (int index = 0; index < surfaceCount; ++index)
+    {
+        int bytes = R_PreSkinXSurface(sceneEnt, obj, &surfaces[index], index, lods, cursor);
+        if (!bytes)
+        {
+            *state = 4;
+            return;
+        }
+        cursor += bytes;
+    }
+    int size = cursor - surfBuffer;
+    int offset = InterlockedExchangeAdd((long *)&frontEndDataOut->surfPos, size);
+    if ((unsigned int)(offset + size) > 0x20000)
+    {
+        frontEndDataOut->surfPos = 0x20000;
+        if (skinWarnFrame != frontEndDataOut->frameCount)
+        {
+            skinWarnFrame = frontEndDataOut->frameCount;
+            ri.Printf(2, "MAX_SCENE_SURFS_SIZE exceeded - not drawing surface\n");
+        }
+        *state = 4;
+        return;
+    }
+    sceneEnt->surfs = (surfaceType_t *)(frontEndDataOut->surfsBuffer + offset);
+    memcpy(sceneEnt->surfs, surfBuffer, size);
+    sceneEnt->surfCount = surfaceCount;
+    if (r_xdebug->current.integer)
+        R_DebugModelSurfaces(obj, ent, sceneEnt);
+    if (boneCount == 1)
+    {
+        SkinRigidXModelCmd command;
+        command.surfs = sceneEnt->surfs;
+        command.surfCount = surfaceCount;
+        command.e = ent;
+        command.mat = *boneMatrix;
+        R_AddFrontendCmd(2, &command);
+    }
+    else
+    {
+        SkinXModelCmd command;
+        for (int index = 0; index < surfaceCount; ++index)
+            command.matOffset[index] = (byte)ri.DObjGetMatOffset(obj, surfaces[index].modelIndex);
+        command.surfs = sceneEnt->surfs;
+        command.e = ent;
+        command.mat = boneMatrix;
+        memcpy(command.surfacePartBits, partBits, sizeof(partBits));
+        command.surfCount = (byte)surfaceCount;
+        command.boneCount = (byte)boneCount;
+        R_AddFrontendCmd(surfaceCount > 10 ? 7 : 6, &command);
+    }
+    *state = 4;
+}
+
+// PINNED 1001f6f0/886: all-cached static surfaces need no further skinning.
+static void R_SkinXModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex)
+{
+    static int skinWarnFrame;
+    long volatile *state = (long volatile *)&sceneEnt->cullState;
+    if (*state >= 4)
+        return;
+    if (InterlockedCompareExchange(state, 3, 2) != 2)
+    {
+        while (*state < 4) {}
+        return;
+    }
+    const XModel *model = sceneEnt->u.model;
+    if (ri.XModelBad(model))
+    {
+        if (developer->current.integer)
+        {
+            ri.DObjSetModel(rg.modelDObj, model);
+            R_XModelDebugBoxes(sceneEnt, ent, rg.modelDObj);
+            R_XModelDebugAxes(sceneEnt, ent, rg.modelDObj);
+        }
+        *state = 4;
+        return;
+    }
+    int boneCount = ri.XModelNumBones(model);
+    float distance = R_GetModelLodDistance(ent->origin, ent->scale);
+    int lod = ri.XModelGetLodForDist(model, distance);
+    if (lod < 0)
+    {
+        *state = 4;
+        return;
+    }
+    XSurface **surfaces;
+    int *partBits;
+    int surfaceCount = ri.XModelGetSurfaces(model, &surfaces, lod, &partBits);
+    int firstMaterial = InterlockedExchangeAdd((long *)&scene.sceneEntMaterialCount, surfaceCount);
+    if ((unsigned int)(firstMaterial + surfaceCount) > 4096)
+    {
+        scene.sceneEntMaterialCount = 4096;
+        if (skinWarnFrame != frontEndDataOut->frameCount)
+        {
+            skinWarnFrame = frontEndDataOut->frameCount;
+            ri.Printf(2, "MAX_SCENE_MATERIALS exceeded - not drawing surface\n");
+        }
+        *state = 4;
+        return;
+    }
+    sceneEnt->materials = scene.sceneMaterials + firstMaterial;
+    byte surfBuffer[3584];
+    byte *cursor = surfBuffer;
+    qboolean needSkinningSurf = 0;
+    for (int index = 0; index < surfaceCount; ++index)
+    {
+        int bytes = R_PreSkinStaticSurface(sceneEnt, ent, smodelIndex, model,
+            surfaces[index], index, lod, &needSkinningSurf, cursor);
+        if (!bytes)
+        {
+            *state = 4;
+            return;
+        }
+        cursor += bytes;
+    }
+    int size = cursor - surfBuffer;
+    int offset = InterlockedExchangeAdd((long *)&frontEndDataOut->surfPos, size);
+    if ((unsigned int)(offset + size) > 0x20000)
+    {
+        frontEndDataOut->surfPos = 0x20000;
+        if (skinWarnFrame != frontEndDataOut->frameCount)
+        {
+            skinWarnFrame = frontEndDataOut->frameCount;
+            ri.Printf(2, "MAX_SCENE_SURFS_SIZE exceeded - not drawing surface\n");
+        }
+        *state = 4;
+        return;
+    }
+    sceneEnt->surfs = (surfaceType_t *)(frontEndDataOut->surfsBuffer + offset);
+    memcpy(sceneEnt->surfs, surfBuffer, size);
+    sceneEnt->surfCount = surfaceCount;
+    if (r_xdebug->current.integer)
+    {
+        ri.DObjSetModel(rg.modelDObj, model);
+        R_DebugModelSurfaces(rg.modelDObj, ent, sceneEnt);
+    }
+    if (!needSkinningSurf)
+    {
+        *state = 4;
+        return;
+    }
+    const DObjAnimMat *boneMatrix = ri.XModelGetBasePose(model);
+    if (boneCount == 1)
+    {
+        SkinRigidXModelCmd command;
+        command.surfs = sceneEnt->surfs;
+        command.surfCount = surfaceCount;
+        command.e = ent;
+        command.mat = *boneMatrix;
+        R_SkinRigidXModelCmd(&command);
+    }
+    else
+    {
+        SkinXModelCmd command;
+        memcpy(command.surfacePartBits, partBits, sizeof(command.surfacePartBits));
+        memset(command.matOffset, 0, surfaceCount);
+        command.surfs = sceneEnt->surfs;
+        command.e = ent;
+        command.mat = boneMatrix;
+        command.surfCount = (byte)surfaceCount;
+        command.boneCount = (byte)boneCount;
+        R_AddFrontendCmd(surfaceCount > 10 ? 7 : 6, &command);
+    }
+    *state = 4;
+}
+
+// SUPPORTED Mac entry points; the PC draw caller inlines this routing.
+void R_SkinStaticModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex)
+{
+    R_SkinXModel(sceneEnt, ent, smodelIndex);
+}
+
+void R_SkinSceneEnt(GfxSceneEntity *sceneEnt, GfxEntity *ent)
+{
+    if (ent->reType == 1)
+        R_SkinXModel(sceneEnt, ent, -1);
+    else
+        R_SkinSceneDObj(sceneEnt, ent);
 }

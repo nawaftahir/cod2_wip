@@ -1,0 +1,13 @@
+{
+  "scope": "Assembly-bearing file hash review for appended C++ backend dvar helper",
+  "source": "gfx_d3d/rb_backend.cpp",
+  "before_sha256": "d138b855f087a9330c6167469229e3ee7d2904213ff5daef554d49d203af360e",
+  "after_sha256": "c038678e20db54fd964e4266e150d09eb289b3c560e516b8555cd70ef4414867",
+  "entire_previous_file_is_identical_prefix": true,
+  "appended_bytes": 1639,
+  "appended_assembly": false,
+  "all_previous_assembly_definitions_unchanged": true,
+  "other_compiler_inputs_unchanged_by_review": true,
+  "new_root_or_export": false,
+  "regression": "All2380 protected extents passed before the source-attribution guard stopped the first build"
+}

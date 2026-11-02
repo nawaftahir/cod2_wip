@@ -8,9 +8,9 @@ text = (work / 'src/gfx_d3d/r_image.cpp').read_text()
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
 types = local[local.index('union GfxTexture'):local.index('// Stringized after expansion')]
 globals_type = text[text.index('struct ImageGlobals\n'):text.index('ImageGlobals imageGlobals;')]
-predicate = text[text.index('inline Bool Image_IsCodeImage('):text.index('GfxImage *Image_FindExisting(')]
+predicate = text[text.index('inline bool Image_IsCodeImage('):text.index('GfxImage *Image_FindExisting(')]
 load = (work / 'src/gfx_d3d/r_image_load_obj.cpp').read_text()
-water = load[load.index('// PINNED 1000d0f0:'):load.index('// Cubemap pixel callback: half-angle')]
+water = load[load.index('// PINNED 1000d0f0:'):load.index('// Light-grid cubemap weights.')]
 source = water + text[text.index('// PINNED 1000d2e0:'):text.index('Bool Image_LoadFromFile(')]
 program = r'''
 #include <cassert>

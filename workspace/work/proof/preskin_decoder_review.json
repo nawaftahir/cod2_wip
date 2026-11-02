@@ -1,0 +1,9 @@
+{
+  "scope": "Decoder advances across invalid inline relocated pointer bytes, preserving byte masks, extent tests and transfer predicates",
+  "before_sha256": "51bab548cc1b166b7d4ea654eb6fa1b40c6cfbdf3c76a2a4ea7a067a4f9339a3",
+  "after_sha256": "7e1d79f9a8364add59d5f07d8d75925d74178e15dded35cfc97569bc096a4e90",
+  "behavioral_test": "target/work/tests/test_inline_pointer_tables.py",
+  "negative": "Unrelocated invalid opcode stream remains undecodable; relocated MOV still decodes and external CALL is retained",
+  "new_masks_added": false,
+  "branch_closure_predicates_changed": false
+}

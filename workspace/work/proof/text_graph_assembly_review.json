@@ -1,0 +1,10 @@
+{
+  "source": "target/work/src/gfx_d3d/rb_backend.cpp",
+  "before_sha256": "c038678e20db54fd964e4266e150d09eb289b3c560e516b8555cd70ef4414867",
+  "after_sha256": "95894fabcb0d4625edfd4487cfb2a72cb05380ea176f5479f276c663c94d1141",
+  "entire_previous_file_is_identical_prefix": true,
+  "appended_bytes": 7834,
+  "appended_assembly": false,
+  "all_previous_assembly_definitions_unchanged": true,
+  "new_root_or_export": false
+}

@@ -1,0 +1,14 @@
+?R_CellForPoint@@YAHPBM@Z 0x10008af0 93
+--- ours
++++ retail
+@@ -31,2 +31,10 @@
+ mov eax, dword ptr [ecx + 8]
+ ret 
++int3 
++int3 
++int3 
++movzx edx, byte ptr [eax + 0x24]
++test edx, edx
++mov ecx, dword ptr [eax + 0x20]
++je A
++jmp A

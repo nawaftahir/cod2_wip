@@ -1,0 +1,12 @@
+{
+  "s_entitySurface": {
+    "va": "0x10195a24",
+    "object": "r_scene.obj",
+    "section": ".data"
+  },
+  "s_XModelSurfaceSize": {
+    "va": "0x10195a28",
+    "object": "r_scene.obj",
+    "section": ".data"
+  }
+}

@@ -1,4 +1,249 @@
+## 2026-10-27 - particle cloud constants and submission
+
+rb_tess now owns the real particle driver and its three shader-constant helpers.
+Source uses existing VecNCompareCustomEpsilon and matched Vec3Normalize. PC draw
+args4096/2048/0, declaration2,20-byte stream and no DX7 early return are retained.
+Axis49/RGBA48 publishing, per-coordinate squared epsilon, signed projection
+fallback and Z/Y/X matrix accumulation follow primary. Native494 cases pass.
+Original compiler/referees retain2381 extents; new bodies still unmatched.
+
+Primary loads all nine view-matrix coefficients before writes; explicit3x3
+snapshot restores alias behavior and moves candidate rotation79 to134 vs158.
+GCC native1/255 expression retained excess precision (byte61 gave3e74f4f5 while
+retail float factor yields3e74f4f6). Source now spells the exact pinned float
+0.003921568859368563f at1019bd54; all256 byte values match. No volatile tricks,
+new assembly, source flags, roots, exports or TU. Native epsilon hook checks
+actual argument bits3a83126f; a host floating-literal comparison was unreliable.
+Full161 fixtures/independent audit pending; zero new byte credit at this entry.
+
+## 2026-10-27 - skinned-model tessellation
+
+rb_tess now has real cached/uncached skinned helpers and public dispatcher.
+It reuses matched XSurfaceGetTris1002ce40/120, original backend VB ownership,
+buffer binding, flush/overflow/log/copy/draw helpers. Actual empty TessBad is
+pinned at1003ef20; no placeholder fills another dispatch role. The shared
+r_vb_state_t+8 field is corrected from a function-pointer placeholder to the
+real typed Windows vertex buffer, matching r_local and the producer; size12
+and field offset8 unchanged. Full original build retains2381 extents.
+Native1255 paths pass; no new byte acceptance. Candidates cached274/276,
+uncached278/304, dispatcher20/38, bad1 unplaced. No syntax/register sweeps before
+restoring the full real tess table/caller context. All160 fixtures and independent2349-code/9387-data union audit pass.
+Receipt: proof/skinned_tess_checkpoint.json.
+
+Next entity table1004110c is read directly: type4 sprite1003fb50,5 rail10040c00,
+6 particle10040f30,7 quad1003fba0,8 line10041030,9 cylinder DX7=100401a0/other=
+1003fdb0. Physical block order differs; do not map by linear disassembly order.
+PC particle draw args are4096 vertices/2048 primitives/baseIndex0; reference's
+zero counts/baseIndex2048 and DX7 early return are wrong for the PC driver.
+
+## 2026-10-27 - restore rb_tess and shared Windows vertex-buffer ABI
+
+New original rb_tess.cpp TU, located after rb_surface in the current source
+order, restores polygon, optimized world-triangle, cached-model and rigid-model
+drivers. rb_state owns the original public matrix-stack push. Raw Mac STABS
+confirms all names/TU owners. Primary PC confirms world68/DX7world32 vertices,
+polygon declaration1/fan indices, separate ordinary/optimized counts, cached
+source2/65536 vertices and count publication BEFORE Com_Memcpy (world triangles
+publish AFTER). Native2129 surface and386 rigid routes pass. Original byte/binding gates and all159 fixtures pass. RB_PushMatrixStack
+adds46 C++ bytes at1003e480; all2380 old extents survive and ratchet2381 rejects
+its removal. Independent union audit passes. Explicit matrix stores reduce
+rigid512 to417, still unmatched; no further syntax/flag sweeps. Other three
+drivers remain unmatched. Receipt: proof/tess_surfaces_checkpoint.json.
+
+First cached build caught Material's actual info.name member. Rigid linking
+then exposed an existing union/struct vertex-buffer tag mismatch across TUs.
+The real SDK declares a struct COM interface; active reference headers requested
+PAT union while RB_ChangeStreamSource supplies PAU struct. Corrected all three
+active header declarations together and removed the matrix-shaped Mac fake
+payload: usage is opaque pointers only. No casts, ABI wrappers or roots. The
+inactive common_types.h #if0 body was not changed. Always read active
+cod2_types/cod2_defs/PC headers, not that disabled legacy body.
+
+## 2026-10-27 - PC text command graph
+
+PINNED primary RB_LookupColor10032370/76, cursor10032400/144,
+text10032560/743 (inventory740 omits three epilogue bytes), quad10032890/440, space10032a50/442 and commands
+10032c10/73,10032c60/51. Two text handlers now have actual source and existing
+vertex/surface/matrix helpers. Raw Mac STABS confirms source owner, static
+RB_DrawTextWithCursor, one function-local color_table and public glyph lookup.
+The PC has one foreground/shadow/cursor pass, BGRA output with original alpha,
+signed time/256 cursor blink, count+2 color escapes and no glyph budget cost for
+newlines/CR. The reference's extra .25-pixel draws and alpha-low-byte path were
+rejected. Space quad uses ushort index cursor even above65535, and reversed
+3,0,2 / 2,0,1 winding. First header placement collided with r_init's later gfx
+include; command records moved into their backend consumer, Font/Glyph shared
+through r_font.h. No root/export/TU or duplicate table added. Original glyph
+lookup body unchanged, static linkage corrected to its actual public role.
+Native1207 routes and all157 fixtures pass; all2380 extents and independent
+coverage audit pass. Zero new verified bytes; emitted bodies remain unmatched,
+static2D/handlers await the real command table. Receipt: proof/text_graph_checkpoint.json.
+
 # Reconstruction attempts
+
+## Model/record ordering trials and real backend dvar dependencies
+
+Two bounded debug endpoint trials (explicit per-endpoint sum and then local
+precise math) retain2380 extents but fail985/959-byte matching; both reverted.
+Moving entity/scene pointer declarations before copy makes both helpers129
+bytes, still unmatched; reverted. An early Python native fixture read the DLL
+during link and got SIGBUS; discarded that run and serialized its passing rerun.
+Evidence in scratch/codex_1026_model_order/result.json and
+scratch/codex_1026_entity_order/result.json. No impossibility claim.
+
+Restored real Image_RebuildCosinePowerMap202 and backend dvar-update207 source
+in r_image/rb_backend, reusing existing lookup generator/texture/state helpers.
+422 native routes and all156 fixtures pass. Incorrect initial activeStateBits
+assert0x88 was caught at compile; actual arrays/header and matched DxState base
+pin0x2008. Existing assembly-bearing backend file is an unchanged prefix plus
+C++ only; source_coverage hash reviewed with exact prefix/no-assembly proof.
+
+Candidate sizes200/202 differ from retail202/207 in stack/call cleanup. One
+8-byte lookup-buffer alignment hypothesis makes body187 and loses protected
+Image_Create2DTexture; rejected and restored ordinary byte[8192]. Mac STABS
+also confirms that byte array and double baseInterpolant/exponent locals.
+No filler/padding/extra roots/TUs/exports/assembly are retained. Alignment and
+all prior failed trials are saved, not progress credit.
+
+PC backend table has33 nonnull entries; only entry0 is NULL.26 handler source
+definitions exist, but seven remain missing. Static handlers mostly disappear
+from the official link until a complete real table/driver exists. Reference
+NULL placeholders must not be imported. Current inventory is in
+scratch/codex_1026_model_order/backend_source_roles.json and backend_primary_heads.json.
+
+## Ref-entity callback and unique short returns
+
+Real source10023db0/209 and two128-byte helpers is in r_scene, reusing the real
+allocator/model/draw graph. Native2708 routes pass; full155 fixtures pass.
+Candidate sizes201/128/125 remain unmatched. Token2 is four writable bytes
+before the existing stride table, not the Mac six-element array. No extra roots.
+
+Existing R_GetMaterialName is exactly the sole retail seven-byte sequence but
+fell below the discovery threshold. First global short rule was too broad:
+1/3/5-byte ambiguous hit lists truncated at8 prevented old caller placements,
+and the2376-extent guard rejected it. Final discovery only adds unique,
+unrelocated6/7-byte straight-line returns. All1/3/5-byte, ambiguous, masked and
+control-flow short bodies retain caller placement; all old acceptance predicates
+remain unchanged. Four new leaves13 C+++13 SDK bytes; all2376 retained and2380
+protected. Existing short fixture keeps old assertions and adds negative cases.
+Failed/final evidence: scratch/codex_1026_refentity/short_discovery and
+proof/ref_entity_discovery_review.json. No failed-trial credit is retained.
+
+## Model publication, frontend dispatch and draw path
+
+Restored real R_SkinSceneDObj and R_SkinXModel, the two original entry wrappers,
+R_SkinGfxEntity, all eight frontend cases, R_DrawModel and R_AddXModelSurfaces
+in their original source owners. Reused cache/upload commands, DPVS state,
+R_AddDrawSurf, debug rendering and colorCyan. The temporary skin buffer cap is
+0xa00000; material cap4096 and surface-byte cap0x20000 use PC conditions and
+warning strings. No extra root, export, TU, assembly or dispatcher stub.
+
+Mac STABS distinguishes R_ProcessFrontendCmdInternal(type,data,context) from
+R_AddFrontendCmd(type,data). The first draft conflated these names; corrected
+the dispatcher and its context-zero wrapper, all callers and native fixtures
+before sealing evidence. No erroneous name received accepted byte credit.
+
+One source/signature trial restores Mac debug argument order (scene,entity,obj)
+and static pre-skin/model helpers; original public skin wrappers keep the static
+model body in the real graph. Packed index postincrements give the retail82-byte
+size but no byte hit. Debug Box985/Axes959 now differ only in a single normalized
+floating-point expression ordering each; bindings still do not close. This is
+not a compiler-impossibility conclusion. A bounded caller-local /Op pragma
+trial still gives no hit and preserves all2376 extents; reverted its unnecessary
+flags. Packet: scratch/codex_1026_cache/debug_precision_trial/result.json.
+
+Target table101a5a30 is eight writable bytes, not const rdata. Corrected owner
+s_XModelSurfaceSize in r_scene and added a linked-section/byte check. Target
+100246dd calls the existing draw helper, so retain a separate helper with
+noinline; this reduces the candidate submission399->293 bytes (retail286).
+The helper's body remains unmatched; native polygon and model tests pass.
+
+## DPVS owner and cache publication
+
+PINNED DPVS STABS size 108 and PC fields replace eleven split owners, not a
+new padded buffer. First compile collided with reference DpvsGlobals/Debug:
+use DpvsState and the existing correct five-byte Debug type. All old extents
+survive; actual PDB configuration displacement is +108. New ABI/flags fixture
+brings the suite to 149. Receipt: proof/dpvs_state_checkpoint.json.
+
+PINNED cache bodies 1002acd0/215, 1002b790/82, 1002b7f0/193 and 1002b8c0/87
+restore actual allocation, packed copies, upload and LRU. No stub dispatcher.
+First compiler result accepts only the 87-byte LRU; others are 215,72,200 bytes
+versus 215,82,193 retail. Register/prologue and pointer scheduling differences
+remain; no compiler-impossibility claim. All 150 fixtures pass; new protected
+extent and independent coverage audit pass. Native tests give no byte credit
+to the other three bodies. Receipt: proof/cache_publication_checkpoint.json.
+
+
+## Resumed for full retail identity: raw-image API and decoder group
+
+PINNED raw registration chain10017290/29,100172b0/30,100171f0/81,
+1000fc30/169 and10014940/785 restored in r_material/r_image_load_obj/r_jpeg.
+Actual PC default predicate returns the raw pointer on equal resources, unlike
+Mac source. The JPEG loader preserves original ownership/failure paths and
+backward BGR expansion. Original IJG6b decoder modules come from the same
+SHA-pinned upstream archive as the encoder; only decoder creation preserves
+CoD2's per-object allocator pair. PC memory-source callbacks/32-byte record are
+reconstructed, not replaced by a stdio or streaming adapter.
+
+First compile exposed duplicate a1_d3d/r_local types and Windows INT32 vs IJG;
+use the shared r_local definition and a TU-local IJG type rename. Missing upstream
+jdhuff.h produced C1083; the failing container was stopped and the authenticated
+header added before a fresh build. No concurrent compiler-input edits.
+
+The combined codec exposes two symbol-loader defects: C statics with equal
+names overwrite one another, and the LTCG map itself can report the wrong owner.
+PDB lproc VA owners distinguish jccolor/jdcolor grayscale_convert, and source
+ldata now gets module identity like archive data. Empty PDB labels must stay
+empty. Predicates still require exact bytes, relocation/import agreement,
+one-to-one data binding and closed real callees; no mismatch is accepted.
+The first rejected full bind had398 old extents missing; scoping restores the
+encoder graph. Empty-label qualification was rejected when it fabricated a
+single module-wide anonymous symbol and broke image upload proofs.
+
+A remaining library regression is primary-proved decoder drift in memmove:
+linear disassembly enters three HIGHLOW pointer entries and emerges misaligned,
+inventing a jump to1255ddb7 outside the image. Shared instruction decoding now
+skips data when an instruction starts inside a relocation operand, then resumes
+at the next byte after that pointer run. Real relocated instructions and real
+external calls remain checked. Retail/candidate memmove and synthetic positives/
+negatives cover this. It is an instruction-discovery correction, not a new rule
+allowing unmatched code or an external-call bypass.
+
+After those corrections2461 binding rows passed with every1987 prior row's
+address/extent preserved; the source meter correctly stopped on an additional
+I_fround instance10001810/33. This unchanged allowed header assembly body must
+be excluded too: preserve all31 previous exclusions, then add this33-byte body
+(32/7820 total), never credit it as C++. Final source accounting remains gated.
+
+Unique placements from every codec TU establish their non-overlapping retail
+order. All codec TUs are now in that evidenced order, including inverse DCT
+AFTER jerror/forward DCT and quantizers AFTER memory manager. See
+proof/jpeg_contributor_order.json. Final build/gates/full fixtures pending;
+intermediate counters above are diagnostics, not the accepted final checkpoint.
+
+## Whole-file checkpoint: discovery and private-symbol ownership
+
+PINNED short RET/constructor leaves were omitted by the six-byte discovery
+threshold, blocking genuine original-library caller graphs. Including all short
+bodies also disturbed24 old library proofs through E9 jump thunks; rejected that
+trial (scratch/codex_1026_wholefile/short_all_trial). Kept the original specialized
+five-byte E9 route and enabled other nonempty short bodies. All old rows survive.
+
+PINNED PDB module records store actual COFF member first, archive second. Bare
+private ldata names conflate distinct memcpy.obj/memmove.obj UnwindUpVec tables.
+Qualifying only archive-local ldata by archive/member fixes identity without
+changing public/source symbol names or binding predicates. Accepted _memmove829,
+___sbh_free_block792, _free113 and connected original SDK graphs now close.
+All1496 old rows retained;1987 accepted;152145 added dependency extent bytes.
+
+Read-only retail_coverage.py replays the unchanged referee, freshly rechecks code,
+counts only closed roots and bounded initialized data, and derives HIGHLOW entry
+credit. Unknown zero-only objects/trailing padding, BSS, headers and authored asm
+are excluded. Frozen proof/retail_50_coverage.json gives55.382328540% of the full
+1851392-byte retail file; exact same-offset equality remains9.461367447%.
+All144 fixtures pass; final freshness guards reject stale DLL/binding proofs and
+pass the final focused test plus complete report replay. Independent union/byte
+audit agrees. Paused at requested checkpoint; no new compiler source/layout wave.
 
 ## 2026-10-23 sun commands and JPEG dependency boundary
 
@@ -1947,3 +2192,762 @@ The bounds1002a360 helper also moved into r_staticmodel_load_obj before
 1002a520, with unchanged flags/signature. Its old /Op comment was stale.
 Original build/referees retain all1448 extents and307 new C++ bytes; bounds
 remains406 vs441. Final fixture replay: codex_static_bounds_merge_fixtures.log.
+
+
+### Codex recovery and image caller group - 2026-10-25
+
+Claude stopped at bdacf3c (Image_Reload artificial root removed), leaving two
+r_image.cpp edits: a direct lookup ternary and an unsigned lost-image index.
+The old handoff was not updated. Fresh original build, both referees,1448
+protected extents and all139 fixtures pass before further changes. Recovered
+C/C++107742/253580 (42.488366590%),638 bodies; same-offset9.483296892%.
+The frozen starting accepted set has1479 source/library address-extents.
+Claude added world-loader/source and matching BSP/static-model/light helpers;
+these are preserved. No commits or staging by Codex.
+
+Trial1: native C++ bool for private Image_IsCodeImage matches1000cc80/23 and
+unlocks Image_FindExisting1000d140/181. The previous unsigned-char Bool emits
+MOV AL,1 and XOR AL,AL; retail uses EAX for both constants. The lookup's rest
+already agrees. Both unchanged referees accept204 new C/C++ bytes, no starting
+accepted extent lost. Three actual-source fixture slice markers follow the
+private type change. The lookup fixture now covers all13 program images and
+checks both exact binding rows/owners, not only a masked byte hit.
+
+The same trial splits Image_BuildWaterMap1000d0f0 into the primary's separate
+DX9/DX7 Create2DTexture calls. It grows68->74, the exact retail extent, but two
+MOVZX word loads differ from retail MOV AX/CX. This is a source-restored draft,
+not credited bytes; no type/ABI change or compiler-impossibility claim.
+
+Trial2 reads the just-stored image width/height in CreateTexture instead of
+casting the input dimensions. The113-byte creator remains matched, but the two
+caller loads are unchanged. Reverted this unproductive callee edit. No flags,
+TU/order, roots, globals, SDK or referee/accounting changes. Snapshots and cmp/
+bind rows are in scratch/codex_1025_resume; logs proof/latest/codex_image_resume_*.
+The final source keeps trial1 plus the primary citation and fixture guards.
+
+
+### Completing the five placement exceptions - 2026-10-25
+
+DPVS trial1 moves the2317-byte corner helper and117-byte brush culler into
+r_dpvs.cpp, bracketing only these definitions with VC7.1 pragma optimize("p",
+on/off). The compiler accepts the pragma without warnings. The corner helper
+still passes both referees; all1481 starting accepted address-extents survive.
+The culler's existing R_FilterEntityIntoCells_r binding is still open, so no
+new credit. Final source places the section after the cell filter, before
+portal helpers, and updates the affected BSP fixture boundary.
+
+Light-grid trial1 merges the465-byte callback into r_image_load_obj with the
+same local precise region. It matches both referees in its proper owner and
+retains the9 old floating-point extents that a whole-TU /Op move lost. However,
+the unchanged gate rejects two CRT rows: _cvtdate440 and __isindst_lk391.
+This is a real layout dependency to resolve, not accepted placement yet.
+
+PINNED: _cvtdate indexes month tables from __lpdays-4 and __days-4. Retail
+FloatFormat is101a54a8, the original five code-page records start101a54c8,
+__lpdays is101a55bc. The trial puts code-page records10189538 before the CRT
+float-format contribution10189628/48 (FloatFormat at10189640), then __lpdays
+10189660. The negative table base now resolves to FloatFormat+1c and fails
+binding. Testing the original intrncvt.obj from the pinned LIBCMT before
+archive extraction restores the evidenced contribution order, without filler,
+byte patching or referee edits. The original linker /lib mode extracts it;
+lib.exe is not installed. The first make attempt used an uppercase Linux file
+prerequisite; corrected to actual libcmt.lib. No candidate release proof from
+that failed build. Snapshots: scratch/codex_1025_placement/lightgrid_trial1.
+
+
+The CRT single-object trial still fails: the month-table negative base is then
+unresolved padding beside the code-page contribution. Primary bytes identify
+9876 immediately before __lpdays as the original matherr flag. Linking all four
+original objects in retail data order (intrncvt48,mbctype248,matherr4,days104)
+produces an exact404-byte block at candidate10182040 vs retail101a5490 and
+restores both CRT bindings. No original object contents were edited. Four
+vendor objects are build artifacts, not authored source/credit. The first group
+extraction used the wrong archive prefix for matherr; link /lib /list confirms
+it shares the '..\build' prefix with intrncvt. Retried with an output-existence
+check. placement_lightgrid_crt_group_retry_build.log passes every gate and all
+1481 starting accepted extents. Original archive SHA:
+6e2b3742e58245de52149137f64281b73db1487a07a31e165fff269fbf9b2ee8.
+
+Math trial1 moves the existing anim wrapper to com_math and locally disables p
+for the two inline definitions via a private source macro. Under global /Op,
+ConvertQuatToMat still grows181->253, and both accepted quaternion bindings
+are lost. Rejected; the shared header is restored byte-for-byte and no macro
+is kept. Trial2 parses com_math headers without /Op, enables p for its source
+math definitions, and disables it for the anim wrapper. Both181/105-byte shared
+instances match in com_math.obj, and all1481 starting extents survive. The old
+xanim_matrix TU is retired. Generated ownership map has zero disagreements.
+No historical pragma spelling is claimed. Snapshots: math_trial1/five_accepted.
+
+The next cell-filter trial enables p over its335-byte definition; no byte gain.
+Reverted this change, retaining the five accepted placements. An overbroad
+cleanup removed rgp's declaration from r_surfbounds although its cached-model
+bounds callback still uses it; compile caught this and the declaration was
+restored before retry. No failed build is a release proof. Three focused native
+checks pass (3072 brush routes,404-byte CRT block and512 model corner oracles).
+Added exact owner/binding guards for the accepted quaternion and brush helpers.
+
+Next source trial follows the primary wavelet loop's shift-before-count update,
+replacing the earlier count-before-shift for loop. The existing2048-route native
+wavelet fixture covers the same mip allocations/uploads/free order. No type or
+ABI change and no invented callback. The final full-suite replay follows the
+settled source trial. Source before trial: image_load_before_wavelet.cpp.
+
+
+Wavelet loop-shift trial and independent-field initialization-order trial both
+remain539 bytes, without a byte hit; all old extents survive. Reusing the actual
+Image_CountMipmapsForFile helper instead of spelling out the count produces553
+bytes, also unaccepted, while retaining the helper's own47-byte match. All three
+image experiments are reverted. No signature/ABI or assembly change. The original
+539-byte draft remains, with no new byte credit or impossibility claim. Snapshot
+folders wavelet_loop_trial, wavelet_init_trial, wavelet_shared_count_trial retain
+cmp/bind evidence. The final forced rebuild and141-fixture pass certify only
+the settled five placement fixes and original CRT data order.
+
+
+The forced final rebuild also accepts six existing C/C++ header instances:
+I_fsel10023630/27, I_fmax10023650/31, VectorLength10005bb0/33,
+I_fclamp10058220/59, Vec2Length1003edf0/22 and Vec4LengthSq100582e0/42.
+Total214 new authored C/C++ bytes, independent of the source moves. Nine original
+CRT bodies add1519 library bytes separately. All1481 starting extents survive;
+C/C++108160/253580=42.653206089%,646 bodies. The full141-fixture suite passes.
+An EOF-only whitespace cleanup then receives a fresh build/referee pass and
+focused brush/BSP/model/CRT/layout/source-attribution rechecks; no logic changes
+or additional source trials are included. No tests or referee policy relaxed.
+
+
+Next API source lead, pinned directly during this wave: slot4 callback
+10017290 is29 bytes; slot5 callback100172b0 is30 bytes. Both dereference name
+at stack arg1, return the current pointer at101d1b2c for an empty string, and
+ignore stack arg2. Slot4 forwards arg3 to Material_Register10017100; slot5
+forwards name/arg3 to the missing raw-material helper100171f0. Do not implement
+these as unconditional tail forwards or confuse the raw loader with IWI.
+No API callback source was added in this placement wave.
+
+### Next connected API group: scene entity submission (primary notes)
+
+PINNED API20 at10023db0/209 dispatches signed reType<2 to10023cc0/128.
+Higher types first check StatMon at101ce624 and entityCount>7364, warning with
+(type5,duration3000,"gfx/2d/warning@models.jpg"); invalid signed type<0 or>9
+uses ERR_DROP. Full backend buffer (>8183) warns once per frame using a separate
+warnCount1076a878 and returnsNULL. Otherwise it calls existing allocator23af0,
+then23780(index,refEnt,model) and returns scene.def.entities[index].
+
+23780 copies116 bytes, changes exactly-zero scale to1 (NaNs unchanged), clears
+52-byte scene record, then either emits the real SF_ENTITY surface101a5a2c for
+reType>3 or stores the GfxModel union for types2/3. Model helper23cc0 performs
+same copy/scale/clear, stores model+cent pointers and calls DPVS8330 on type1.
+Current shared headers already describe these116/52-byte records; existing
+R_AllocSceneEntity is the allocator, not a substitute copied allocation policy.
+
+The remaining blocker for implementing this as a linked connected group is
+real R_DrawModel8330 and its bounds/skin/surface dependency graph. Its byte flag
+101ce5ef belongs to DPVS state, which current active source only partly owns;
+do not invent a new independent draw flag or omit the call. It invokes1ffc0,
+then1f6f0(sceneEnt,ent,-1) for type1 or1fa70(sceneEnt,ent), sets cullState5 and
+calls24680(index). Primary assembly is in scratch/codex_1026_api/
+scene_entity_primary.asm. Restore real owners/helpers before wiring API20.
+Mac's large combined AddRefEntity source and warning texts differ from this PC
+split; no wholesale reference import. Full API/RenderScene/frame closure stays
+open. This research added no source, filler, roots or byte credit.
+
+### Raw-image batch final acceptance - 2026-10-26
+
+Final original build after codec-order correction retains every previous1987
+accepted row's target/extent and passes the1448 historical gate. Current2461
+rows/2375 unique extents are frozen as api_raw_warm_bind.json and added to the
+ratchet, so future builds must retain them all. Negative removal/size controls
+fail. Raw/JPEG/procedural/encoder tests pass; all148 full fixtures pass. Two
+fixture slices were narrowed around the new raw registration block, and CRT
+FloatFormat lookup now respects its qualified private name/actual intrncvt
+owner; their original behavioral/404-byte block checks remain intact.
+
+Fresh complete coverage replay and independent byte/relocation/interval audit
+agree on1,268,945/1,851,392=68.540049865% address-normalized file spans. Audit
+rechecks2424 code regions and9388 data regions with symmetric relocation and
+branch masks, all32 assembly exclusions and HIGHLOW record credit. Authored C++
+remains108160/253580=42.653206089%; same-offset8.812450308%. This is not100%,
+V4 or V5. Exact source bodies still pending: R_LoadJpg724 vs785 bytes and the
+API wrappers' final address-taken context. No speculative spelling/flag sweep.
+Receipt proof/api_raw_checkpoint.json seals artifacts, tools, fixtures and logs.
+The full-retail objective remains active; next connected API research is above.
+
+The corrected private-symbol reader also exposes23 retail extents with86 extra
+candidate procedure rows (proof/api_raw_duplicate_extents.json). The coverage
+union counts each retail byte once; these are not86 extra recovered functions.
+Many are TU_STATIC static-inline math copies. Inspect actual candidate addresses
+and real caller targets before consolidating shared helpers. Preserve all2375
+retail extents, not every redundant candidate instance. Test bounded source/
+linkage groups and log failures; final single-instance ownership is required for
+whole-file identity, regardless of current binding acceptance.
+
+## Shared math helper ownership trials - 2026-10-26
+
+The completed raw-image packet exposed13 physical VectorCopy copies. Changing
+only its linkage from TU_STATIC (static inline) to C++ inline leaves one copy
+and retains all2375 protected retail extents. A second group does the same for
+Vector2Copy, VectorCopy4, Vector4Set and integer I_min/I_max/I_sel: all seven
+now have one physical definition (46 original instances ->7), and all2375
+extents still pass. Both runs correctly stop at source_coverage's whole-header
+hash because com_math.h also contains reviewed assembly. No checker bypass or
+hash acceptance has occurred; exact diffs contain no body/assembly changes.
+Evidence: scratch/codex_1026_helpers/{vectorcopy_trial,copy_integer_trial}.
+The broader same-macro shared-math linkage trial is running next; if its strict
+callee/byte gates fail, retain the verified seven-helper group and record why.
+
+Next API research confirms current R_UpdateXModelBounds already represents
+1ffc0. Missing skinning builders1f120/1f2a0 and main1fa70/1f6f0 connect through
+frontend dispatch20be0 and model-cache upload2b690; don't duplicate the existing
+bounds/rigid/SSE kernels or replace the real dispatcher with direct calls for
+only two kinds. Call inventory: scratch/codex_1026_helpers/
+model_skin_call_inventory.json. Reference DObj atomic claim arguments are
+reversed; primary1fa70 uses InterlockedCompareExchange(state,3,2).
+
+### Shared helper final result
+
+The broad macro trial loses exactly Vec2Length1003edf0/22,
+VectorLength10005bb0/33 and UnGetLeanFraction100615e0/19. Candidate lengths
+become56/73/30 and all call CRT sqrt. r_shadowcookie's whole-TU /Op parsed
+shared inline definitions in precise mode. Parsing gfx.h before enabling local
+precise math restores the intrinsic header instances and every2375 extent;
+no source body/assembly spelling or ABI was changed to bypass a mismatch.
+
+All remaining matched alias groups also consolidate under the2375 gate.
+Vec3Add/Scale, WindingDot3 and HullDot2 use the actual shared math definitions;
+RotateVec2, TransformBounds/extra GetRotatedBounds and the three axis-transform
+variants collapse to the supported original owners. Source prototypes/callers
+and affected native slices are updated. Final clean build/gates, all148 fixtures
+and independent coverage audit pass. Macro/prototype-only header review pins
+unchanged assembly bodies at the new hash; source-meter mutation negatives stay.
+Record: proof/shared_helpers_checkpoint.json.110 physical copies/2695 extent
+bytes removed; C++ no gain; all2375 unique extents retained. File spans68.539509731%
+(-10 data bytes); exact offsets8.828870385% (+304 bytes). This is not V4/V5.
+
+Next primary/type discovery: original Mac dpvsGlob is108 bytes, debug at100,
+not the port's224-byte padded representation. Raw typed records and13 PC
+initializer-field instructions are in scratch/codex_1026_helpers/dpvs_*. The
+existing queue/free-list/view/fog/near/far/occluder/projection globals already
+cover100 bytes of the real record. Fold them into one owner and supply the
+five real flags, not a duplicate108-byte allocation. Actual natural alignment
+accounts for the remaining three bytes; no arbitrary tail. The4-byte cullDist
+configuration remains separate. This research has not changed DPVS owner source.
+
+## Sprite/oriented-quad dispatch dependencies - 2026-11-01
+
+Owner authorized obsolete build-output cleanup and step3. Cleanup receipt is
+proof/nov01_old_build_cleanup.json:32966 generated files/2481555665 bytes removed
+only from inactive target/build dirs and archive/old_renderer_builds_20261020.
+Objects/debug/link artifacts and generated gfx.dll/gfx.lib only; no sources,
+maps/logs/proofs/symlinks or active output removed. Active DLL hash preserved.
+
+PINNED sprite family source now appended in existing rb_tess.cpp: quad stamps
+3f120(DX9)/3f410(DX7), atlas3f620, builder3f6c0, screen-to-world3f930,
+world-to-screen3f9b0, minimum-size wrapper3fae0 and sprite3fb50. Oriented quad
+3fba0 reuses the same stamps/atlas and existing accepted MakeNormalVectors597d0.
+Old source restores exactly by removing the appended section and separator;
+particle fixture only narrows its source slice. No old assertions removed.
+
+Primary stamps: strict4/6 capacity then original overflow before geometry reads;
+indices0,1,3,3,1,2. Vertex base truncates to ushort. Corners are sum+origin,
+origin-difference,origin-sum,difference+origin where sum=left+up,difference=left-up.
+Normal is negative LIVE view.axis0. DX9 W1/binormal=up/tangent=-left; DX7 has no
+W/tangent/binormal. UVs(s0,t0),(s1,t0),(s1,t1),(s0,t1). Counts publish vertex+4
+then index+6 after writes. No invented normal normalization or vertex helper.
+
+Atlas uses material bytes e(rows)/f(columns), frame signed division by columns,
+no new zero-dimension guard. Product1 returns full UVs. Color is BGRA, alpha
+HIGH, unlike the modified Mac draft. Sprite lifts originZ by radiusY for flag1000.
+Rotation uses stored single-precision radians(rotation*0.017453292f), cosine and
+sine through C++ calls; no authored fsincos assembly. World sprite minimum-size
+path enters only for ordered-positive minScreenRadius: NaN SKIPS it. Projection
+helpers reject ordered W<=0 but ACCEPT unordered W (TEST AH,41/JP). Screen flag
+2000 yields one world radius for both axes. Oriented quad ignores sprite flags
+and minimum-screen-radius, uses entity.axis0 with real MakeNormalVectors, then
+same material atlas/BGRA and renderer selection. Existing rgp/tess/state owners
+unchanged; no new TU, export, root, compiler setting or partial dispatch table.
+
+Focused native evidence:72 complete quad buffers +10800 sprite routes +54
+oriented quads, both formats, all vertex/index guards, positive/negative atlas
+frames, rotations, lift/screen/minimum sizing, zero/negative/NaN W and mutation
+on overflow. MakeNormalVectors is mocked only for oriented-quad call routing;
+its production148-byte body is an existing independent accepted dependency.
+No GPU or byte-match claim from native tests. New source remains a dependency
+batch toward genuine dispatch; the full tess/command/API tables are still open.
+
+Original MSVC link caught MakeNormalVectors's declaration shape: raw pointers
+produced ?MakeNormalVectors@@YAXPBMPAM1@Z, but the existing accepted definition
+uses const vec3_t/vec3_t parameters and symbol ?MakeNormalVectors@@YAXQBMQAM1@Z.
+Corrected the declaration in rb_tess to the exact existing definition. No ABI
+adapter, alternate body, symbol alias, old-source change or compiler flag trial.
+This is an observed cross-TU declaration requirement in13.10.3077; GCC's native
+compatibility did not catch it. Keep actual array declarators on this boundary.
+
+## Line, rail, cylinder and complete surface dispatch - 2026-11-01
+
+PINNED RB_AddLine10040580/DX710040920, rail10040c00 and line10041030:
+normalize cross(start-view,end-view) for tangent, normalize end-start for
+binormal, normal=cross(tangent,binormal). Compute frame before overflow, read
+positions after overflow. Both formats use the full integer vertex base;
+DX9 writes W1/T/B/N and DX7 only N. UVs(s0,t0),(s1,t0),(s0,t1),(s1,t1),
+indices0,1,2,2,1,3; publish counts late. Rail uses r_railCoreWidth and
+length/256, line uses radius0 and the genuine material atlas. BGRA high alpha.
+Native3888 routes check geometry/guards/NaNs/negative widths/overflow mutation.
+
+PINNED cylinder1003fdb0/DX7100401a0: choose8..32 segments from midpoint
+LOD before overflow using the existing I_fround; then normalize origin-endpos
+and call existing MakeNormalVectors after overflow. Radius1 belongs to start,
+radius0 to end. Existing FastSinCos supplies ring recurrence, no new assembly.
+Only position/W,color,UV are written; normal/T/B remain untouched. Seam copies
+position fields only. Two triangles per segment, late vertex count publication.
+Native468 cylinder/entity routes exercise both formats, clamp/degeneracy,
+post-overflow mutation, guards/seam, all selector cases and live currentEntity.
+Host lrintl/sin/cos validate structure, not retail x87 bit identity.
+
+PINNED entity selector100410b0 routes4 sprite,5 rail,6 particles,7 oriented
+quad,8 line,9 renderer-specific cylinder; all other types return untouched.
+Backend entity10041130 ignores surface input and reads backEnd.currentEntity.
+All real targets now have source. rb_backend owns the complete8-slot surface
+table, unique retail sequence at file offset1904f8: Bad,Poly,BackEndEntity,
+Skinned,Rigid,StaticCached,Triangles,NULL. No placeholder function/root/export.
+Shared r_tess_dispatch.h preserves the existing enum values and typed calls.
+Removing ONLY the table and its include restores the exact prior backend hash,
+so the reviewed rdtsc body is unchanged; source-meter hash updated accordingly.
+This table is not the34-slot command table or a completed GetRefAPI.
+
+## Genuine sprite command caller - 2026-11-01
+
+PINNED command19 table slot10190564 points1002eff0 (204 bytes). Primary
+instructions, unlike the Mac draft, call RB_Set3D when projection2D IS set.
+Capture packet before callback; capture material after Set3D. Change surface
+on material/technique3 mismatch; EndSurface only for index/optimized counts,
+BeginSurface(material,3,31). Zero the real116-byte entity and fill reType4,
+flags+4,origin+60,material+84,RGBA+88,radii+100/+104,minRadius+112.
+All fields are read from the captured packet after surface callbacks. Call
+the real RB_TessEntity, then advance LIVE state->cmd by its own ushort length.
+Do not copy the Mac reference's inverse projection predicate or byte-array
+entity draft. r_entity.h exposes the exact existing SDK-compatible record,
+with shared layout assertions also compiled against the common-type version.
+
+Native120 sprite command routes pass: full116-byte zero/field comparison,
+projection/material/technique and both count kinds, mutation at Set3D/End/
+Begin/Tess callbacks, captured packet versus live cursor and preserved stack.
+The existing text fixture narrows its end to exclude the appended sprite block;
+its assertions and production text code remain unchanged. All17 affected
+backend/entity fixtures pass. No full-suite/GPU claim from these native checks.
+
+First original build found GfxCmdDrawSprite redefinition in the Mac PC backend
+header when gfx.h follows the SDK headers in r_init. Applied exactly the
+existing COD2_SDK_TYPES guard pattern to that one real declaration in
+headers/PC/gfx_d3d/rb_backend.h. Non-SDK declaration tokens unchanged; no ABI,
+compiler flags or function implementations altered. Rebuild is mandatory.
+
+## Sorted drawing driver and real lighting storage - 2026-11-01
+
+PINNED text_graph_drawsurf_primary.asm:1002f330 selects technique,1002f430
+walks8-byte records in either direction,1002f900 advances the packet BEFORE
+callbacks. Both sort layouts, 2046/2047 sentinels, >=2048 fallback, same-sort
+skip runs, stateBits[1]&30 decal filtering, missing techniques and ordered/NaN
+material-time comparisons follow the target. Existing fog/matrix/depth/overflow
+helpers are reused. The real backend entityLighting[2046] occupies exactly the
+old33f30-byte opaque block,104-byte stride at backend+2be8. SDK view parms now
+include the real near-clip float at148; other field offsets remain unchanged.
+
+Original build caught the duplicate local GfxEntityLighting definition in
+rb_shade. Removed only that identical definition; rb_backend.h owns it, with
+COD2_SDK_TYPES guard on the original Mac header declaration. No shader body
+was edited. Saved failed-build log nov01_drawsurfs_failed_build.log. Original
+compiler/both referees then passed all2381 protected extents, unchanged C++
+credit.750 native driver cases and full lighting-chain fixtures pass. No new
+root/temporary export/TU/flag. Private command/driver source remains unretained
+until the complete command table is restored; no claim of a working game path.
+
+## Full sun drawing dependencies and two command handlers - 2026-11-01
+
+Primary: nov01_sun_driver_primary.asm and nov01_sun_quad_dx7_primary.asm.
+New code in existing rb_sky.cpp: two billboard formats, collision fallback,
+query visibility, two directional sprite formats, flare draw/update, blind/glare
+calculation, per-view sprite, fullscreen blend and the two public sun drivers.
+RB_DrawSunCmd24 and RB_DrawSunPostEffectsCmd27 live in rb_backend.cpp. No
+new TU, roots, exports, global-state copy, compiler flags or authored assembly.
+Only existing I_fround/FastSinCos assembly helpers are reused where applicable.
+
+PINNED sun params96B at world+160; direction+1b4. DX7 billboards project using
+viewParms->viewProjectionMatrix, divide by W, and subtract .001 from Z. DX9
+uses backEnd.viewProjectionMatrix, keeps W and adds -.001*W to Z. Both install
+identity projection/view and use the existing real quad helpers. Directional
+sprites use technique1, scale0.001311093*spriteSize, Z^2>.99 polar fallback,
+normalized cross product and a second unnormalized cross. DX9 W0; DX7 switches
+view W0 then W1 around flush. No invented geometry bounds or direction guards.
+
+Query slot=tileIndex*2+signed(frameCount%2). Missing query uses the existing
+screen fraction then import90 CM_BoxSightTrace (old hit, point sweep, model0,
+mask2003, sun direction*262144). Zero fraction skips trace; NaN enters. Existing
+query result uses GetData flags1, Sleep0 while S_FALSE, sticky status/sample
+errors; accumulate tile visibility, clamp only ordered >1 and publish only
+when the final tile is error-free. Issue2, flush, Issue1, issued flag, pop.
+No logging wrappers on the direct query methods: none occur in target bytes.
+
+The Mac draft gets several critical details wrong: flare intensity fades toward
+LAST VISIBILITY, then multiplies angular alpha; it does not fade angular alpha.
+Flare packed color uses RGB intensity/opaque FF alpha. Fullscreen effect uses
+RGB glare and alpha blind, with integer truncation. Post-effect time publishes
+even when sun is disabled. DrawSun only switches to3D when projection2D is set.
+Sun post command captures the packet before flushing and advances LIVE cursor
+later; draw-surfs advances cursor before rendering.24 native sun-command cases
+and94 full sun geometry/query/post-effect cases pass, with target-pinned fields.
+Original-build result is recorded in the next checkpoint, not inferred here.
+
+## Late-post dependency chain and complete command table - 2026-11-02
+
+PINNED primary files: nov01_late_post_primary.asm (backend) and
+nov01_filter_apply_primary.asm (filter drivers). Restored17 real routines in
+existing rb_backend.cpp/rb_imagefilter.cpp and all34 command-table entries at
+retail10190518: NULL terminator plus33 genuine handlers. No partial slots,
+marker callbacks, new root/export, TU/order/flag or authored assembly.
+
+Filter application: passCount0,16x98-byte passes at4,sourceImage984,final988,
+ping-pong98c/990. Existing identical GfxImageFilter in Mac/mac_types.h is used;
+removed an accidental duplicate declaration after original compiler caught it.
+Added missing existing backEnd/dx/vidConfig externs, no new storage. Prior
+failed original-build log retained as nov02_late_post_failed_build.log.
+
+PINNED constants are uploaded to codeConsts33+i, not35+i. Source feedback
+comes from the previous ping-pong target; final output uses finalTarget. No
+vertical-swap branch or fabricated global pass counters from the port. Blur
+radii scale with unsigned viewport height/480 and pixel aspect; source is
+resolved-scene. A zero/empty glow chain returns SOURCE, not destination. The
+resolved-scene glow setup uses full0..1 UVs; radii compose by variance. Existing
+Gaussian generation is reused unchanged, no library/dependency additions.
+
+Glow state replaces the exact20 opaque bytes after fog/color with real fog,
+first-index/count and two image pointers; offsets4cc/4d0/4d4 remain pinned.
+Active radii sort ascending; return index tracks the associated intensity.
+Images remain in filter order while intensity index alternates. Sky bleed is
+zero when no sky image exists; material choice tests exact zero, not positivity.
+Bloom desaturation is a float. No global pass counters occur in target.
+
+Import145 at101d4c0c is now the typed float(float) service called with3 by
+10030719 (reference name GetVirtualWidthFromRealWidth). Pointer size and table
+ordering unchanged. Retail blur uses a MINIMUM filter radius: smaller blur
+uses high-byte alpha I_fround(radius/minimum*255), then filters at minimum.
+Large/equal/unordered values keep full alpha and the original radius. Port's
+opposite clamp and low-byte-alpha behavior were rejected by primary bytes.
+
+Post debug paths are exclusive: framebuffer channels1 even inDX7; thenDX9
+resolved channels2, float-Z, shadow in priority order. Float-Z gates on its
+colorSurface, not image. Mixer constant27 is saved/restored bit-exact; shadow
+mix is3eaa7efa/3eab020c/3eaa7efa. GCC's native x87 excess-precision comparison
+against decimal .334f/.001f failed despite correct stored floats; fixture now
+asserts retail bit patterns instead. Source wasn't changed to accommodate the
+fixture. Diagnostic saved in nov01_late_post_failed_test.log.
+
+Command26 captures packet before the flush, captures restore target after it,
+resolves if needed, glows before blur, restores target before debug, and advances
+LIVE cursor. Native34 real filter cases and119 real late-post cases pass,
+including zero radii, ping-pong/constants guards, ordering, alpha, debug priority,
+constant restoration and callback mutation. Complete command source-order test
+passes. Fresh link/referees and linked-pointer results belong to the checkpoint,
+not to these native-test claims. Step3 still needs executor and RenderScene/API.
+
+## Executor dependencies: original debug TU - 2026-11-02
+
+PINNED nov02_debug_render_primary.asm: eight actual bodies34010/340f0/341d0/
+343d0/34500/345e0/34700/34840. Added rb_debug.cpp after rb_backend.cpp in tus.txt,
+matching the original file identity from Mac STABS and the contiguous retail
+body interval, before rb_fog/imagefilter.112 TUs now; no existing TU moved.
+No new shim/table framework. Reuse real frame/debug/vertex types and existing
+line/text/surface drawing; no new global state or authored assembly in this TU.
+
+Target differs from the Mac combined draft: debug BGRA color conversion
+TRUNCATES color*255 (no rounding/clamp), null line color is white, polygon
+outlines are white rather than fill color, fan order first/current/previous.
+Live counts/frame pointers reload after callback groups.2725-vertex line batches
+flush on capacity or depth-test changes. Signed nonzero string/line counts
+still perform setup/teardown even if negative, as the primary branches do.
+Plume endpoints are inclusive, with original float012566371/064 and4 constants;
+second-half alpha fade, sideways sine, vertical drift. Debug strings use live
+backend camera/font, distinct from the plume helper's camera argument.
+
+Native57 cases pass: full vertex fields/guards, fans, null/color packing,
+capacity/depth groups, negative/zero counts, strings, plume lifetime/position and
+frame-owner replacement. Original build and both referees retain2385 extents.
+The next batch then adds the actual executor/benchmarks; not yet a V4/V5 claim.
+
+## Actual command executor and genuine benchmarks - 2026-11-02
+
+PINNED nov01_executor_primary.asm (33d20/608) and nov02_benchmark_primary.asm.
+The zero-initialized flag word at101d0a8c is read only by this target instruction;
+reference name g_disableRendering is SUPPORTED, not recovered PC debug naming.
+It is outside the currently modelled image-registry fields (registrybase101cea68,
+modelled end101d0a7c), rg/rgp/dx/material allocations. Candidate source owner is
+rb_backend.cpp; original object ownership is unproved, not a historical claim.
+No zero-constant substitution, copied byte padding or duplicate known state.
+
+Executor clears backEndData before any early return, tests cooperative level
+only if not already lost, captures the touch-images flag before recovery,
+publishes the frame only after success, then updates dvars/begins scene/touches
+images before dispatch. Uses genuine34-slot table and producer-owned two-level
+call stack. Command array starts frame+219d0c, checked in r_rendercmds.
+CLEAR is in the SKIP-BACKEND branch only: normal drawing is not cleared after
+execution. The Mac combined draft places that clear incorrectly. Flush/debug,
+index/stream release, retried EndScene, live benchmark counts then fence follow.
+Sync2 finishes/inserts,3 inserts only. All actual runtime paths have source.
+
+Four benchmark routines restored using existing matrix/timer/fence/vertex
+helpers.2D default-material alias returns zero, captures count/dimensions before
+timing, and returns double count/(ticks/frequency).3D returns float iterations/
+seconds/60. It writes all four initial setup corners to vertex ZERO in retail,
+then sets count4 and repeats winding3,0,2,2,0,1: confirmed from four xorEAX0
+instructions before1002e550 calls, not a mistake to fix during reconstruction.
+No fabricated geometry fix or reallocation. Four static/skinned transform
+report values really are constant double0 in the target; dynamic values use
+the white-material1362-quad benchmark and x4/x2. Exact target report strings
+retained, optional two-sided stencil path preserved, settings reloaded live.
+
+Native84 executor cases and28 actual benchmark cases pass, including disabled,
+lost/reset/other failures, failed/successful recovery, real goto/call/return,
+callback frame replacement, conditional clear/retry/debug/cleanup, changing
+benchmark pointer, timer/count capture, geometry/index guards and print ordering.
+No GPU proof from mocks. Fresh original build/referees are recorded in the next
+checkpoint; do not infer byte credit merely because this source now exists.
+
+## 2026-11-02 frame submission after the actual executor
+
+PINNED nov02_frame_submission_primary.asm:10020d50/111 appends the existing
+terminator, resets the live frame counters before execution, presents then
+selects the normal frame.10021f90/86 is API59 EndFrame: adaptive sync, unlock,
+import74 CL_UpdateDebugData, transfer live debug globals, submit, then decommit
+live temporary skin storage. Compile-time import74 check added.10022040/114
+ends the debug frame: execute/present before saved-pointer restoration, clear
+the relock flag before Lock(1), clear saved pointers after that callback.
+Reuse original helpers and owners; no new globals/TUs/flags/exports/assembly.
+22 native routes exercise real allocator/end-marker bodies, full-buffer failure,
+reset timing, callback pointer replacement and cleanup. Existing frame-start
+fixture ended at AbortRenderCommands and accidentally included new EndFrame;
+narrowed only that extraction to its actual previous end. No gate weakened.
+
+RenderScene follow-up evidence: nov02_scene_dependencies_primary.asm records
+10007d60/93 (point-to-BSP-cell traversal),1000a8d0/399 (DPVS gather driver),
+100244b0/301 (draw-surface quicksort) and10025300/126 (render-mode dispatch).
+The parent10025380 reads imports142/167 at101d4c00/101d4c64, not guessed
+engine routines.167 has a SUPPORTED FX_UpdateAndDraw name;142 is still unknown.
+No source/callback identity claim for either until the client import assignment
+and target calling convention are confirmed. These direct records prevent
+reusing the unrelated Mac scene driver as if it were PC1.0 source.
+
+## 2026-11-02 scene sorting, BSP lookup and missing scene producers
+
+PINNED nov02_scene_sort_primary.asm: shortsort10024460/70 selects the maximum
+unsigned key and swaps the entire8B surface. Main sort100244b0/301 uses two
+30-pointer stacks and repeats division by8 after pointer subtraction; preserve
+that retail partition/cutoff quirk. Stable sorting is not promised. First build
+accepts the genuine70B shortsort in both referees. Main sort remains unmatched
+at301B; cell traversal98B versus retail93B. No byte credit for either.
+
+Point traversal10007d60 follows the existing world nodes/planes; dot sum is
+Z+Y thenX, equality/unordered take child1, and a returning bad-world error
+reloads rgp.world.86 native cases cover sort sizes through8192, signed trivial
+counts, unsigned keys, duplicate payload identity, buffer guards, cell boundary,
+NaN, cancellation, leaf return and callback world replacement.
+
+Four scene producers restored in r_rendercmds using the actual allocator:
+light properties10021770/195, target10021840/79, sun10021920/87,
+begin-view10021b50/146. No invented allocation failure guard; primary code
+assumes allocation succeeded before writes. Exact existing76B/8B/8B/48B records
+and reservation classes reused. Scalar light scale101ce638 is pinned by the
+registration call at1000aeae, preceding literal r_specularColorScale; primary
+nov02_light_scale_primary.asm. Native32 tests33 payload/accounting/copy routes.
+Frontend dispatcher fixture previously extracted toEOF, accidentally absorbing
+the new producers; extraction now ends at the producer section. No gate changed.
+
+Render mode drivers10024c80/261,10024d90/451,10024f60/217,10025040/694 have
+primary instructions preserved in nov02_scene_modes_primary.asm. They are still
+missing source; the Mac scene draft's simplified groups are not substituted.
+
+Bounded second source forms after exact instruction diffs: quicksort301B body
+otherwise identical; moving the stack-pointer initialization after the count<2
+return restores retail's save/restore order. Cell98B body's sole mismatch was
+conditional array-index selection; spelling child0/child1 as branches removes
+index materialization, matching the target's direct loads. Logs preserve both
+first residuals. No compiler settings, ABI, assembly or referee change.
+Existing model-draw/ref-entity native fixtures also extracted toEOF; narrow
+only those extraction ends to the new independent sort/cell sections.
+
+Second-form diff now has no instruction differences for either quicksort301B
+or point-to-cell93B (fdiff's trailing padding/next-function context excluded).
+Acceptance still waits for BOTH final referees, never inferred from that diff.
+Unmatched light-producer192B residual also saved for later, not endlessly swept.
+
+Final scene dependency build passes original compiler and BOTH referees: six
+accepted C++ bodies/776B, including both second-form corrections. Light producer
+remains unmatched192B vs195B (x87-copy/scheduling/alpha-multiply residual saved).
+All2385 previous protected extents retained. New hash-pinned warm binding packet
+strengthens both gates to2391;12 independent deletion negatives reject removal
+of each of the six additions.23 affected native/layout/dispatch/PDB fixtures pass.
+No authored assembly, compiler/ABI change, fake API, new export/root, or new TU.
+
+## 2026-11-02 clear color and three scene rendering modes
+
+Primary records: nov02_scene_modes_primary.asm, nov02_clear_color_primary.asm,
+nov02_frame_clear_primary.asm and nov02_scene_clear_settings_primary.asm.
+PINNED: dvar101ce694 is r_zFeather,101ce798 is r_clearColor. MSAA quality
+is dx+2c28; renderTargets[6].colorSurface is dx+2cac. Initial build's explicit
+layout assertion rejected interpreting rg+14c8 as clearScreen: it is the fog
+REGISTERED byte; clearScreen is two bytes later. Corrected the source and made
+native fixtures set those two flags oppositely. Failed original build retained
+at proof/latest/nov02_scene_modes_build.log. No shared ABI/header changes.
+
+Restored GetClearColor10024920/156, AddClearCommandsForFrameBuffer100249c0/97,
+DX7 mode10024c80/261, fullbright10024d90/451, debug shader10024f60/217. Reuse
+actual group/packet functions. Clear color reverses fog BGR, preserves dvar RGB,
+forces alpha1. Clear flags1 only with nonzero MSAA quality and either shadow
+kind1 or DX9+zFeather+floatZ surface; otherwise7. DX7 repeats ordinary clear
+selection with shadow0; fullbright opens group4 without closing it here. Native
+1152 cases cover independent fog flags, bytes, all clear gates, group branches,
+signed draw counts and a callback replacing the world before light emission.
+
+First corrected build passes original compiler/both referees and2391 extents.
+R_GetClearColor receives156B of real new byte/binding acceptance. Other four
+bodies remain unmatched. Bounded residual correction: select flags in explicit
+if/else, then evaluate R_GetClearColor into a local before calling the clear
+producer. Target evaluates it before pushing the other clear arguments; the
+original nested-call spelling let the compiler push those arguments first.
+First residuals saved in nov02_frame_clear_residual.log/nov02_debug_mode_residual.log.
+No flag/ABI/assembly/export/root change. Second original build pending.
+
+Second ordered build retains2391 extents; GetClearColor remains the sole new
+accepted body156B. Other four scene-mode/clear drivers remain genuine source
+with bounded saved residuals, not new byte credit.20 affected fixtures pass.
+Both gates strengthened to2392 with immutable scene_modes_warm_bind; independent
+clear-color deletion rejected by each. No ABI/flag/assembly/export changes.
+
+Owner requested only verified files in root src/, committed. Exported seven
+complete candidate source files after auditing every definition/emitted body:
+r_caps,r_cmds,r_surfbounds,r_image_wavelet,rb_logfile,r_image_load_common and
+com_convexhull.39 emitted bodies all accepted; source hashes equal pinned build
+inputs, no authored assembly or mixed file admitted. Their immutable snapshot
+and proof/checker committed as be356f3; unrelated staged index preserved exactly.
+These are per-body byte/binding verified files, not standalone DLL/object SHA
+proof or a claim of complete historical TU recovery. Mixed r_scene stays out.
+
+## 2026-11-02 connected normal/depth/light/shadow generation
+
+Restored six connected real functions: point-light draw296B, floatZ clear53B,
+depth/group setup456B, normal scene694B, mode dispatch126B in r_scene.cpp;
+shadow-cookie draw839B in r_shadowcookie.cpp. All four mode branches now have
+source and genuine helpers. Shared command9's existing64B matrix word record
+moved unchanged into r_scene_commands.h for the real shadow caller; no new
+producer, ABI, marker, assembly or root. Tuple matrix/fade copied with memcpy
+so arbitrary float payload bits survive without aliasing assumptions.
+
+Static source layout assertion caught material slot104c: it is the existing
+shadowClearMaterial, not depthOnlyFillMaterial. Corrected before acceptance;
+first failed build retained. Primary10191488 is white1111, not black or zero;
+both depth and receiver clears preserve it. Actual shadow records108B/count at
+a20 pinned. Scaled producer/table/group helpers reused. Point partitions captured
+before callbacks, scene draw buffer reloaded each iteration; group1 empty new
+shadow list still selects/clears receiver target. Group4 remains open for later
+UI; early post only on newly created group2 end and full-screen, late post per
+full-screen view; technique24 only when live zFeather+floatZ surface allows.
+120 actual native chain cases pass, including mode precedence, depth fallback,
+new/existing groups, eligible/empty/capped shadow lists, matrix/fade bits,
+blur/caster/receiver gates, signed counts and callback-mutated point partitions.
+These mock engine boundaries, not GPU/byte proof. Original full build pending.
+
+Point-light outer-driver closure: added four real light gathering/selection
+routines in r_light.cpp and scene-light culling129B in r_dpvs.cpp. Read primary
+nov02_point_light_gather_primary.asm, rather than importing GLM's byte wrappers.
+The independent GLM decompile confirms this call graph. Existing matched
+R_BoundsForDrawSurf and PointToBoxDistSq reused. Unculled32-light pool, limit
+clamping and prefix partitioning, reverse surface walk, inclusive radius test,
+nonempty partition compaction and both scene/frame counters retained. Light
+comparator stages float distance/radius products, ordered ties true, NaN false.
+Culling sums X+Z thenY, tangencies and unordered distances stay visible. Native
+631 real cases pass, including all selection counts0..32 and empty partitions.
+Light-definition fixture narrowed to exclude the new independent gather section.
+Original compile/bind/referee batch pending; no new byte credit yet.
+
+One bounded second source test, then owner requested pause at a checkpoint:
+retail light comparator stages float products/distances, so tested precise-FP
+pragma only for the new r_light section (candidate, not historical proof).
+Restored the reference-supported inlined point/radius classifier returning2/0;
+that removes compiler's initial four-plane loop unrolling (328 ->129B). Light
+comparator159 ->212B, light partition193B now has its unique retail byte
+placement after ordered comparison spelling. Sizes/placements alone are not
+accepted coverage; selector/callee bindings still need final referees. Saved
+first residuals rather than continuing a tuning sweep after pause request.
+
+Planning/cost lesson: step3 was repeatedly described as a small structural
+closure while its actual contract still includes missing visibility, shadow
+selection and complete API callback implementations. Repeated small builds,
+assertion corrections and reports consumed time before closing that graph.
+Resume with larger connected source batches, one build per prepared wave and
+one checkpoint receipt. Do not promise step3 completion from just mode/source
+presence; do not rename an unclosed graph as a completed step.
+
+Final pause checkpoint: three successful original build/referee passes and one
+failed layout assertion in this continuation.27 affected fixtures and the
+committed verified-source checker pass. Eleven retail roles now have genuine
+source; only R_ClearFloatZ10024a40/53 gains byte/binding credit. Light partition
+body has a unique193B placement but is blocked by unmatched selection callees.
+Culling129B has one remaining multiply-operand load-order difference; exact
+residual saved for a later bounded batch. Comparator212B and selector124B still
+have genuine stack/register/branch residuals, no credit. No further tuning after
+owner pause. Ratchet2393 in both gates, independent53B-removal negatives pass.
+C++109537/253580=43.196229987%,662 bodies;32/7820 authored asm still excluded.
+The outer scene visibility/shadow-selection pipeline and actual RenderScene/
+GetRefAPI callback graph remain open. Step3 is not complete and is not claimed.
+
+Owner resumed step3 after the pause checkpoint. Visibility closure now uses
+original GLM data/decomp C plus pinned instructions, not src/f byte wrappers.
+New PC import facts: slots140/141 take centity pointers (CG_CullIn /
+CG_UsedDObjCalcPose),142 CG_AddMarks no args. GLM's RI_DObjCalcSkel/Anim labels
+at these slots are WRONG; target sceneEnt+8 is cent, not u.obj+4. Client
+CL_InitRef assignment and cg_ents prototypes agree. Hi imports18/19/20 are
+LargeLocalBegin(int)->int, End(int), GetBuf(int)->void*, confirmed in client.
+Canonical import size/slot order unchanged. Existing slot139 pose typing retained.
+
+New visibility code includes stack-stamped box/occluder culling, near-corner
+recursion classification, world surface/direct/cull, static-model direct/cull
+publication, AABB traversal, cull-group output, broad model bounds/routing,
+per-cell model/brush drawing, visible-cell gathering, sky and near/far appends.
+Existing shared R_AddDrawSurf made external (same body/noinline) for the real
+cross-TU world callers; verify existing117B protection, no duplicate helper.
+New routines are NOT accepted by source presence. Original build pending.
+
+## 2026-11-02: genuine API59 graph and temporary-export removal
+
+The initializer now has readable typed source in r_init/r_refapi.h. All98
+callbacks are real source, ten reserved slots zero; copy imports before API
+check and preserve retail store order. R_SkinGfxEntityCmd12 and model-skin
+loader278 added from primary instructions. First linked initializer passes
+both referees1051B; retained all2393 old extents, C++110731/253580.
+
+Single-export link built cleanly but strict regression rejected it.179
+previous accepted extents lose bindings (83 in game regression): two newly
+placed masked shapes cause contradictory shared-data bindings. Primary
+diagnosis, not a compiler excuse: R_CreateDevice uses ClearModified slot37
+but target calls SetModified slot38 at101d4a60. Corrected actual call and
+fixture now explicitly asserts the primary operand. RB_DrawGlowImage's two
+zero stores appear in reverse field order from chained assignment; both
+values are zero, behavior was equal, but relocation binding must preserve
+actual fields. Split into field1 thenfield2 statements, no volatile/asm.
+No gate relaxed. Failed receipts nov02_api59_single_export_{bind,cmp}.json and
+latest/nov02_single_export_losses.json retained. Rebuild required.
+
+Single-export correction retained all2393 old extents. No assembly was added
+or altered: inverse substitution of the two glow statements reproduces the
+previous reviewed backend SHA exactly. Water160 and FFT_Init169 now match
+with their existing inlined I_fround/FastSinCos assembly; BOTH containing
+bodies are excluded.34 exclusions/8149B, never added to C++ credit.
+C++111616/253580=44.016089597%,670 bodies.26 new code/library extents, ratchet
+2419; both gates reject an independently removed GetRefAPI1051 body.
+
+Full-suite repair1: dependency-origin fixture removed now-protected41850;
+it now keeps every real row and chooses an unoccupied inventoried address
+for synthetic dependency-accounting input. Repair2: light history fixture's
+EOF slice included newly appended visibility debug code; narrowed at its
+explicit section boundary. Repair3: strict assembly fixture now expects the
+two newly retained existing asm-bearing bodies, still tests all six rejection
+cases. Linked API fixture reads loaded BSS rather than nonexistent raw bytes.
+Earlier passing fixtures are retained and execution resumes at failures to
+avoid repeated native builds. No production requirement weakened.

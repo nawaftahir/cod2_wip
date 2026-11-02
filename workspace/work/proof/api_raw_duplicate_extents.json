@@ -1,0 +1,581 @@
+{
+  "scope": "Multiple candidate procedures bound to one retail extent; not proof of final instance ownership",
+  "duplicate_target_extents": 23,
+  "extra_candidate_rows": 86,
+  "rows": [
+    {
+      "target": "0x10001010",
+      "bytes": 17,
+      "candidate_symbols": [
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_bsp.obj",
+          "object": "r_bsp.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_bsp_load_obj.obj",
+          "object": "r_bsp_load_obj.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_debug.obj",
+          "object": "r_debug.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_dpvs.obj",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_marks.obj",
+          "object": "r_marks.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_model.obj",
+          "object": "r_model.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_rendercmds.obj",
+          "object": "r_rendercmds.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_scene.obj",
+          "object": "r_scene.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_staticmodel_load_obj.obj",
+          "object": "r_staticmodel_load_obj.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$r_xsurface.obj",
+          "object": "r_xsurface.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$rb_light.obj",
+          "object": "rb_light.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$rb_shade.obj",
+          "object": "rb_shade.obj"
+        },
+        {
+          "name": "?VectorCopy@@YAXQBMQAM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10001810",
+      "bytes": 33,
+      "candidate_symbols": [
+        {
+          "name": "?I_fround@@YAHM@Z$private$r_bsp_load_obj.obj",
+          "object": "r_bsp_load_obj.obj"
+        },
+        {
+          "name": "?I_fround@@YAHM@Z$private$r_screenshot.obj",
+          "object": "r_screenshot.obj"
+        },
+        {
+          "name": "?I_fround@@YAHM@Z$private$r_sky.obj",
+          "object": "r_sky.obj"
+        },
+        {
+          "name": "?I_fround@@YAHM@Z$private$r_staticmodel_load_obj.obj",
+          "object": "r_staticmodel_load_obj.obj"
+        },
+        {
+          "name": "?I_fround@@YAHM@Z$private$r_staticmodelcache.obj",
+          "object": "r_staticmodelcache.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10001880",
+      "bytes": 29,
+      "candidate_symbols": [
+        {
+          "name": "?VectorScale@@YAXQBMMQAM@Z$private$r_bsp_load_obj.obj",
+          "object": "r_bsp_load_obj.obj"
+        },
+        {
+          "name": "?VectorScale@@YAXQBMMQAM@Z$private$r_dpvs.obj",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?VectorScale@@YAXQBMMQAM@Z$private$r_image_load_obj.obj",
+          "object": "r_image_load_obj.obj"
+        },
+        {
+          "name": "?VectorScale@@YAXQBMMQAM@Z$private$r_marks.obj",
+          "object": "r_marks.obj"
+        },
+        {
+          "name": "?VectorScale@@YAXQBMMQAM@Z$private$r_model.obj",
+          "object": "r_model.obj"
+        },
+        {
+          "name": "?VectorScale@@YAXQBMMQAM@Z$private$r_screenshot.obj",
+          "object": "r_screenshot.obj"
+        },
+        {
+          "name": "?Vec3Scale@@YAXPBMMPAM@Z",
+          "object": "r_staticmodel_load_obj.obj"
+        },
+        {
+          "name": "?VectorScale@@YAXQBMMQAM@Z$private$rb_light.obj",
+          "object": "rb_light.obj"
+        },
+        {
+          "name": "?VectorScale@@YAXQBMMQAM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x100053e0",
+      "bytes": 25,
+      "candidate_symbols": [
+        {
+          "name": "?VectorSubtract@@YAXQBM0QAM@Z$private$r_debug.obj",
+          "object": "r_debug.obj"
+        },
+        {
+          "name": "?VectorSubtract@@YAXQBM0QAM@Z$private$r_dpvs.obj",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?VectorSubtract@@YAXQBM0QAM@Z$private$r_marks.obj",
+          "object": "r_marks.obj"
+        },
+        {
+          "name": "?VectorSubtract@@YAXQBM0QAM@Z$private$r_shadowcookie.obj",
+          "object": "r_shadowcookie.obj"
+        },
+        {
+          "name": "?VectorSubtract@@YAXQBM0QAM@Z$private$rb_light.obj",
+          "object": "rb_light.obj"
+        },
+        {
+          "name": "?VectorSubtract@@YAXQBM0QAM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10005400",
+      "bytes": 21,
+      "candidate_symbols": [
+        {
+          "name": "?DotProduct@@YAMQBM0@Z$private$r_debug.obj",
+          "object": "r_debug.obj"
+        },
+        {
+          "name": "?DotProduct@@YAMQBM0@Z$private$r_dpvs.obj",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?WindingDot3@@YAMPBM0@Z",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?DotProduct@@YAMQBM0@Z$private$r_marks.obj",
+          "object": "r_marks.obj"
+        },
+        {
+          "name": "?DotProduct@@YAMQBM0@Z$private$rb_light.obj",
+          "object": "rb_light.obj"
+        },
+        {
+          "name": "?DotProduct@@YAMQBM0@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        },
+        {
+          "name": "?DotProduct@@YAMQBM0@Z$private$q_shared.obj",
+          "object": "q_shared.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10005420",
+      "bytes": 23,
+      "candidate_symbols": [
+        {
+          "name": "?VectorCopy4@@YAXQBMQAM@Z$private$r_debug.obj",
+          "object": "r_debug.obj"
+        },
+        {
+          "name": "?VectorCopy4@@YAXQBMQAM@Z$private$r_dpvs.obj",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?VectorCopy4@@YAXQBMQAM@Z$private$rb_shade.obj",
+          "object": "rb_shade.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10001000",
+      "bytes": 11,
+      "candidate_symbols": [
+        {
+          "name": "?Vector2Copy@@YAXQBMQAM@Z$private$r_dpvs.obj",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?Vector2Copy@@YAXQBMQAM@Z$private$r_marks.obj",
+          "object": "r_marks.obj"
+        },
+        {
+          "name": "?Vector2Copy@@YAXQBMQAM@Z$private$com_convexhull.obj",
+          "object": "com_convexhull.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10005b60",
+      "bytes": 37,
+      "candidate_symbols": [
+        {
+          "name": "?VectorMA@@YAXQBMM0QAM@Z$private$r_dpvs.obj",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?VectorMA@@YAXQBMM0QAM@Z$private$r_image_load_obj.obj",
+          "object": "r_image_load_obj.obj"
+        },
+        {
+          "name": "?VectorMA@@YAXQBMM0QAM@Z$private$r_screenshot.obj",
+          "object": "r_screenshot.obj"
+        },
+        {
+          "name": "?VectorMA@@YAXQBMM0QAM@Z$private$rb_light.obj",
+          "object": "rb_light.obj"
+        },
+        {
+          "name": "?VectorMA@@YAXQBMM0QAM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        },
+        {
+          "name": "?VectorMA@@YAXQBMM0QAM@Z$private$q_shared.obj",
+          "object": "q_shared.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x100018a0",
+      "bytes": 28,
+      "candidate_symbols": [
+        {
+          "name": "?Vector4Set@@YAXQAMMMMM@Z$private$r_dpvs.obj",
+          "object": "r_dpvs.obj"
+        },
+        {
+          "name": "?Vector4Set@@YAXQAMMMMM@Z$private$r_staticmodel_load_obj.obj",
+          "object": "r_staticmodel_load_obj.obj"
+        },
+        {
+          "name": "?Vector4Set@@YAXQAMMMMM@Z$private$rb_fog.obj",
+          "object": "rb_fog.obj"
+        },
+        {
+          "name": "?Vector4Set@@YAXQAMMMMM@Z$private$rb_imagefilter.obj",
+          "object": "rb_imagefilter.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x100017d0",
+      "bytes": 13,
+      "candidate_symbols": [
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_image.obj",
+          "object": "r_image.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_image_load_common.obj",
+          "object": "r_image_load_common.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_image_load_obj.obj",
+          "object": "r_image_load_obj.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_model.obj",
+          "object": "r_model.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_rendertarget.obj",
+          "object": "r_rendertarget.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_screenshot.obj",
+          "object": "r_screenshot.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_staticmodel_load_obj.obj",
+          "object": "r_staticmodel_load_obj.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_staticmodelcache.obj",
+          "object": "r_staticmodelcache.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$r_water.obj",
+          "object": "r_water.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$rb_state.obj",
+          "object": "rb_state.obj"
+        },
+        {
+          "name": "?I_sel@@YAHHHH@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x1000c790",
+      "bytes": 9,
+      "candidate_symbols": [
+        {
+          "name": "?I_max@@YAHHH@Z$private$r_image.obj",
+          "object": "r_image.obj"
+        },
+        {
+          "name": "?I_max@@YAHHH@Z$private$r_image_load_common.obj",
+          "object": "r_image_load_common.obj"
+        },
+        {
+          "name": "?I_max@@YAHHH@Z$private$r_image_load_obj.obj",
+          "object": "r_image_load_obj.obj"
+        },
+        {
+          "name": "?I_max@@YAHHH@Z$private$r_rendertarget.obj",
+          "object": "r_rendertarget.obj"
+        },
+        {
+          "name": "?I_max@@YAHHH@Z$private$r_screenshot.obj",
+          "object": "r_screenshot.obj"
+        },
+        {
+          "name": "?I_max@@YAHHH@Z$private$r_staticmodel_load_obj.obj",
+          "object": "r_staticmodel_load_obj.obj"
+        },
+        {
+          "name": "?I_max@@YAHHH@Z$private$r_staticmodelcache.obj",
+          "object": "r_staticmodelcache.obj"
+        },
+        {
+          "name": "?I_max@@YAHHH@Z$private$r_water.obj",
+          "object": "r_water.obj"
+        },
+        {
+          "name": "?I_max@@YAHHH@Z$private$rb_state.obj",
+          "object": "rb_state.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x100017e0",
+      "bytes": 9,
+      "candidate_symbols": [
+        {
+          "name": "?I_min@@YAHHH@Z$private$r_image_load_common.obj",
+          "object": "r_image_load_common.obj"
+        },
+        {
+          "name": "?I_min@@YAHHH@Z$private$r_staticmodel_load_obj.obj",
+          "object": "r_staticmodel_load_obj.obj"
+        },
+        {
+          "name": "?I_min@@YAHHH@Z$private$r_staticmodelcache.obj",
+          "object": "r_staticmodelcache.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x1000f140",
+      "bytes": 25,
+      "candidate_symbols": [
+        {
+          "name": "?Vec3Add@@YAXPBM0PAM@Z$private$r_marks.obj",
+          "object": "r_marks.obj"
+        },
+        {
+          "name": "?VectorAdd@@YAXQBM0QAM@Z$private$r_model.obj",
+          "object": "r_model.obj"
+        },
+        {
+          "name": "?Vec3Add@@YAXPBM0PAM@Z$private$r_staticmodel_load_obj.obj",
+          "object": "r_staticmodel_load_obj.obj"
+        },
+        {
+          "name": "?VectorAdd@@YAXQBM0QAM@Z$private$r_staticmodelcache.obj",
+          "object": "r_staticmodelcache.obj"
+        },
+        {
+          "name": "?VectorAdd@@YAXQBM0QAM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10023630",
+      "bytes": 27,
+      "candidate_symbols": [
+        {
+          "name": "?I_fsel@@YAMMMM@Z$private$r_scene.obj",
+          "object": "r_scene.obj"
+        },
+        {
+          "name": "?I_fsel@@YAMMMM@Z$private$r_screenshot.obj",
+          "object": "r_screenshot.obj"
+        },
+        {
+          "name": "?I_fsel@@YAMMMM@Z$private$rb_imagefilter.obj",
+          "object": "rb_imagefilter.obj"
+        },
+        {
+          "name": "?I_fsel@@YAMMMM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10023650",
+      "bytes": 31,
+      "candidate_symbols": [
+        {
+          "name": "?I_fmax@@YAMMM@Z$private$r_scene.obj",
+          "object": "r_scene.obj"
+        },
+        {
+          "name": "?I_fmax@@YAMMM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10025920",
+      "bytes": 31,
+      "candidate_symbols": [
+        {
+          "name": "?I_fmin@@YAMMM@Z$private$r_screenshot.obj",
+          "object": "r_screenshot.obj"
+        },
+        {
+          "name": "?I_fmin@@YAMMM@Z$private$rb_imagefilter.obj",
+          "object": "rb_imagefilter.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10025940",
+      "bytes": 25,
+      "candidate_symbols": [
+        {
+          "name": "?Vec3Mul@@YAXQBM0QAM@Z$private$r_screenshot.obj",
+          "object": "r_screenshot.obj"
+        },
+        {
+          "name": "?Vec3Mul@@YAXQBM0QAM@Z$private$r_shadowcookie.obj",
+          "object": "r_shadowcookie.obj"
+        },
+        {
+          "name": "?Vec3Mul@@YAXQBM0QAM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10001840",
+      "bytes": 14,
+      "candidate_symbols": [
+        {
+          "name": "?Vector2Set@@YAXQAMMM@Z$private$rb_sky.obj",
+          "object": "rb_sky.obj"
+        },
+        {
+          "name": "?Vector2Set@@YAXQAMMM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x10001860",
+      "bytes": 21,
+      "candidate_symbols": [
+        {
+          "name": "?VectorSet@@YAXQAMMMM@Z$private$rb_sky.obj",
+          "object": "rb_sky.obj"
+        },
+        {
+          "name": "?VectorSet@@YAXQAMMMM@Z$private$com_math.obj",
+          "object": "com_math.obj"
+        },
+        {
+          "name": "?VectorSet@@YAXQAMMMM@Z$private$q_shared.obj",
+          "object": "q_shared.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x1002ca40",
+      "bytes": 13,
+      "candidate_symbols": [
+        {
+          "name": "?HullDot2@@YAMQBM0@Z",
+          "object": "com_convexhull.obj"
+        },
+        {
+          "name": "?Dot2Product@@YAMQBM0@Z",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x1005b550",
+      "bytes": 99,
+      "candidate_symbols": [
+        {
+          "name": "?VectorAngleMultiply@@YAXPAMM@Z",
+          "object": "com_math.obj"
+        },
+        {
+          "name": "?RotateVec2@@YAXQAMM@Z",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x1005c8c0",
+      "bytes": 167,
+      "candidate_symbols": [
+        {
+          "name": "?TransformBounds@@YAXQAY02$$CBMQBM0QAY02M@Z",
+          "object": "com_math.obj"
+        },
+        {
+          "name": "?GetRotatedBounds@@YAXPAY02MPBM00@Z",
+          "object": "com_math.obj"
+        }
+      ]
+    },
+    {
+      "target": "0x1005ca50",
+      "bytes": 83,
+      "candidate_symbols": [
+        {
+          "name": "?AxisTransformComponents@@YAXQAY02$$CBMMMMQAM@Z",
+          "object": "com_math.obj"
+        },
+        {
+          "name": "?AxisTransformVector@@YAXPAY02$$CBMMMMPAM@Z",
+          "object": "com_math.obj"
+        },
+        {
+          "name": "?R_TransformCachedVector@@YAXPAY02$$CBMMMMPAM@Z",
+          "object": "com_math.obj"
+        }
+      ]
+    }
+  ]
+}

@@ -27,6 +27,26 @@ void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
     }
 }
 
+void R_LoadJpg(const char *filename, byte **file, byte **pixels,
+    int *width, int *height, D3DFORMAT *format);
+
+// PINNED 1000fc30/169: imageTrack is unused by the PC raw loader.
+Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack)
+{
+    byte *pixels = 0;
+    byte *file;
+    int width, height;
+    D3DFORMAT format;
+    R_LoadJpg(filename, &file, &pixels, &width, &height, &format);
+    if (!pixels)
+        return 0;
+    Image_Setup(image, width, height, 1, 3, 0, format);
+    Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+    ri.Hunk_FreeTempMemory(pixels);
+    ri.FS_FreeFile(file);
+    return 1;
+}
+
 // PINNED 1000fce0/119: original lookup is32 by256, one luminance byte per texel.
 void Image_GenerateSpecularity(GfxImage *image)
 {
@@ -522,11 +542,60 @@ GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic)
 void Image_BuildWaterMap(GfxImage *image)
 {
     if (image->category == 5)
-        Image_Create2DTexture(image, image->width, image->height,
-            r_rendererInUse->current.integer == 2 ? 1 : 0, D3DUSAGE_DYNAMIC,
-            r_rendererInUse->current.integer == 2 ? D3DFMT_X8R8G8B8 : D3DFMT_L8,
-            D3DPOOL_DEFAULT);
+    {
+        if (r_rendererInUse->current.integer == 2)
+            Image_Create2DTexture(image, image->width, image->height, 1,
+                D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
+        else
+            Image_Create2DTexture(image, image->width, image->height, 0,
+                D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
+    }
 }
+
+// Light-grid cubemap weights.
+#pragma optimize("p", on)
+int VecLargestAxis(const float vector[3]);
+void R_QuantizeCachedColor(const float *color, byte *out);
+
+static __forceinline void Image_TransformLightGridVector(float x, float y, float z, float *out)
+{
+    static const vec3_t basis[3] = {
+        {0.81649655f, -0.40824828f, -0.40824828f},
+        {0.0f, 0.70710677f, -0.70710677f},
+        {0.57735026f, 0.57735026f, 0.57735026f}
+    };
+    AxisTransformVector(basis, x, y, z, out);
+}
+
+void Image_GetLightGridWeightsForVector(const float *facePos, int subMap, byte *pixel)
+{
+    float transformed[3];
+    float weights[4];
+    float smooth[3];
+    float value;
+    Image_TransformLightGridVector(facePos[0], facePos[1], facePos[2], transformed);
+    int majorAxis = VecLargestAxis(transformed);
+    float scale = 1.0f / fabsf(transformed[majorAxis]);
+    VectorScale(transformed, scale, transformed);
+    value = (transformed[0] + 1.0f) * 0.5f;
+    smooth[0] = (3.0f - (value + value)) * value * value;
+    value = (transformed[1] + 1.0f) * 0.5f;
+    smooth[1] = (3.0f - (value + value)) * value * value;
+    if (subMap == 0)
+        value = 0.5f - transformed[2] * 0.5f;
+    else
+        value = (transformed[2] + 1.0f) * 0.5f;
+    smooth[2] = (3.0f - (value + value)) * value * value;
+    float bottom = 1.0f - smooth[1];
+    float left = 1.0f - smooth[0];
+    weights[0] = left * bottom * smooth[2];
+    weights[1] = bottom * smooth[2] * smooth[0];
+    weights[2] = left * smooth[2] * smooth[1];
+    weights[3] = smooth[2] * smooth[1] * smooth[0];
+    R_QuantizeCachedColor(weights, pixel);
+}
+
+#pragma optimize("p", off)
 
 // Cubemap pixel callback: half-angle between the sun and the face direction, packed as a byte color.
 void Image_GetSunHalfAngleForVector(const float *facePos, int unused, unsigned char *pixel)

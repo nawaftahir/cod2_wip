@@ -1,0 +1,18 @@
+{
+  "scope": "Assembly-source re-review after shared helper linkage change; no assembly instruction or definition body changed",
+  "previous_header_sha256": "dae8001e68bd0cb4d03066b214d2d49a0b7cadecafdbd955178b7835145c9091",
+  "current_header_sha256": "f38b573a6120cf8662ab753d166966d86db4e8985dea4adb9e12ffff950d6d8d",
+  "exact_header_difference": "TU_STATIC macro changes static inline to inline; all definition bodies and conditional compilation remain byte-identical source text",
+  "shadow_header_precision": "Remove whole-TU /Op, enable precise math only after gfx.h, preserving precise candidate function bodies and intrinsic shared-header instances",
+  "all_other_reviewed_assembly_sources_unchanged": true,
+  "retained_extents": 2375,
+  "lost_extents": [],
+  "final_header_sha256": "3db79f6a1d997c939eec59d402f1435f744fe11caa6c1199d9ec451705524bcc",
+  "final_header_difference": "Original header changes only TU_STATIC linkage and replaces unused RotateVec2 declaration with canonical shared-helper prototypes. Every definition and assembly body remains unchanged.",
+  "final_accepted_binding_rows": 2375,
+  "final_unique_extents": 2375,
+  "initial_shared_math_candidate_sha256": "fb5a037ea72c07c836e2fd3c1b6661f307dc6d3c707c4bd50a4ba556e787ceb0",
+  "initial_shared_math_binding_sha256": "8d11c4b231284fd21e6c6ba38236900cb60e1d8f03acdfb160cb76ed1ea7cc53",
+  "final_candidate_sha256": "c18262c0f0a3bd97b2751caa6b1dc5178b20329a804ce1eab95d68daf65f23a9",
+  "final_binding_sha256": "44d8c34fb386498985adeb2cc82c99f7f72c78c972f9ff328d3fe5b6abe6dafd"
+}

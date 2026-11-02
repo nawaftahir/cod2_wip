@@ -66,7 +66,7 @@ float Q_fabs( float f );
 float Q_acos( float c );
 
 #ifndef TU_STATIC
-#define TU_STATIC static inline   /* one copy per TU that uses it */
+#define TU_STATIC inline
 #endif
 
 // Scalar helpers. Definition order is emission order: each TU's used copies
@@ -885,7 +885,9 @@ float DiffTrack(float tgt, float cur, float rate, float deltaTime);
 float DiffTrackAngle(float tgt, float cur, float rate, float deltaTime);
 float AngleNormalize180Accurate(float angle);
 float AngleNormalize360Accurate(float angle);
-void RotateVec2( vec2_t v, float degrees );
+void VectorAngleMultiply(float *vec, float angle);
+void GetRotatedBounds(const vec3_t bounds[2], const vec3_t origin, const vec3_t axis[3], vec3_t out[2]);
+void AxisTransformVector(const vec3_t *axis, float x, float y, float z, float *out);
 float vectoyaw( const vec3_t vec );
 float vectopitch( const vec3_t vec );
 float PitchForYawOnNormal(const float fYaw, const vec3_t normal);

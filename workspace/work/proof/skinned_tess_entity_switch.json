@@ -1,0 +1,68 @@
+{
+  "scope": "PINNED primary switch table; physical case-code order is NOT enum order",
+  "table": "0x1004110c,6 entries",
+  "cases": [
+    {
+      "entity_type": 4,
+      "block": "0x100410c2",
+      "head": [
+        "100410c2 call 0x1003fb50",
+        "100410c7 pop ecx",
+        "100410c8 ret "
+      ]
+    },
+    {
+      "entity_type": 5,
+      "block": "0x100410d0",
+      "head": [
+        "100410d0 mov ecx, eax",
+        "100410d2 call 0x10040c00",
+        "100410d7 pop ecx",
+        "100410d8 ret "
+      ]
+    },
+    {
+      "entity_type": 6,
+      "block": "0x10041101",
+      "head": [
+        "10041101 push eax",
+        "10041102 call 0x10040f30",
+        "10041107 add esp, 4",
+        "1004110a pop ecx",
+        "1004110b ret "
+      ]
+    },
+    {
+      "entity_type": 7,
+      "block": "0x100410c9",
+      "head": [
+        "100410c9 call 0x1003fba0",
+        "100410ce pop ecx",
+        "100410cf ret "
+      ]
+    },
+    {
+      "entity_type": 8,
+      "block": "0x100410d9",
+      "head": [
+        "100410d9 call 0x10041030",
+        "100410de pop ecx",
+        "100410df ret "
+      ]
+    },
+    {
+      "entity_type": 9,
+      "block": "0x100410e0",
+      "head": [
+        "100410e0 mov ecx, dword ptr [0x101ce708]",
+        "100410e6 cmp dword ptr [ecx + 8], 2",
+        "100410ea push eax",
+        "100410eb jne 0x100410f7",
+        "100410ed call 0x100401a0",
+        "100410f2 add esp, 4",
+        "100410f5 pop ecx",
+        "100410f6 ret "
+      ]
+    }
+  ]
+}

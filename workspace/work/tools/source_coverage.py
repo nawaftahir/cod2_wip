@@ -20,10 +20,10 @@ assert hashlib.sha256(anchor.read_bytes()).hexdigest() == '4553b22daff76e1f628d7
 
 # These are the only authored assembly definitions in this source snapshot.
 allowed = {
-    'universal/com_math.h': 'dae8001e68bd0cb4d03066b214d2d49a0b7cadecafdbd955178b7835145c9091',
+    'universal/com_math.h': '3db79f6a1d997c939eec59d402f1435f744fe11caa6c1199d9ec451705524bcc',
     'universal/com_shared.cpp': 'd19acbee13742932acea6b76556326489b6fce44ed742acccfa59072770818a3',
     'universal/box_on_plane_side_x86.inc': '01447f1d547da40d7d228d91157964b259f8ad8180074b6a95f0df332771328d',
-    'gfx_d3d/rb_backend.cpp': 'd138b855f087a9330c6167469229e3ee7d2904213ff5daef554d49d203af360e',
+    'gfx_d3d/rb_backend.cpp': 'f794cd57ce5f9de842216191be5bcc82a7e073a4e2083fb76edaf06c9aba057f',
     'compat/msvc71.h': '8b793ebbd41492a4289a9d26c7f39543022351c2e847273bfd68ec96f3598dab',
 }
 sources = {}
@@ -82,7 +82,16 @@ for address, row in sorted(rows.items()):
     if reasons:
         excluded.append(dict(target=hex(address), bytes=row['n'], name=row['name'], reasons=reasons))
 assert set(direct) <= set(rows)
-assert len(excluded) == 31 and sum(row['bytes'] for row in excluded) == 7787
+previous = work / 'proof/jpeg_commands_source_coverage.json'
+assert hashlib.sha256(previous.read_bytes()).hexdigest() == '3ccd24cb59013d7cc0b77a17bfefb436ab5ecc4370ca1732e46c4b62c5fba22c'
+required = {row['target']: row['bytes'] for row in json.loads(previous.read_text())['excluded_assembly_bodies']}
+# Newly resolved header instance; its unchanged I_fround definition contains fistp.
+required['0x10001810'] = 33
+# Existing inlined rounding/trig assembly, newly matched after real API retention.
+required['0x1002c7b0'] = 160
+required['0x1005edb0'] = 169
+assert {row['target']: row['bytes'] for row in excluded} == required
+assert len(excluded) == 34 and sum(row['bytes'] for row in excluded) == 8149
 cpp = report['bytes'] - sum(row['bytes'] for row in excluded)
 print(json.dumps(dict(
     status='authored-assembly attribution; not whole-file identity',

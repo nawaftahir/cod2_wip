@@ -153,6 +153,26 @@ cubemap = gfx / 'target/work/proof/cubemap_warm_bind.json'
 assert hashlib.sha256(cubemap.read_bytes()).hexdigest() == '7896c2b0d6673e0221d3ceacacc77ed9ca2f467929320b2d9f7fcf2da8a658e1'
 required.update({va: row for va, row in accepted(cubemap).items()
                  if va in old or '@std@@' not in row['name']})
+late_post = gfx / 'target/work/proof/late_post_warm_bind.json'
+assert hashlib.sha256(late_post.read_bytes()).hexdigest() == '22902b3b57dc9c2d9bcf89fd041a9f43c4874016c58e4aa10c59ec1f4aef3d30'
+required.update({va: row for va, row in accepted(late_post).items()
+                 if va in old or '@std@@' not in row['name']})
+scene_dependencies = gfx / 'target/work/proof/scene_dependencies_warm_bind.json'
+assert hashlib.sha256(scene_dependencies.read_bytes()).hexdigest() == '1ae246e5a2e30b0f8f89ce6b1adb7d667d558bd14639043f71cab1be4be23185'
+required.update({va: row for va, row in accepted(scene_dependencies).items()
+                 if va in old or '@std@@' not in row['name']})
+scene_modes = gfx / 'target/work/proof/scene_modes_warm_bind.json'
+assert hashlib.sha256(scene_modes.read_bytes()).hexdigest() == 'c037a3baa711ea7b2f3402679a4a4f3fe14cfc4e5b759fb14d458cc67a3bdeab'
+required.update({va: row for va, row in accepted(scene_modes).items()
+                 if va in old or '@std@@' not in row['name']})
+normal_pipeline = gfx / 'target/work/proof/normal_pipeline_warm_bind.json'
+assert hashlib.sha256(normal_pipeline.read_bytes()).hexdigest() == 'f9119c24b3ab3249dfaf9912c36091c885cb701fbcdb5b100df0ecc214f4dcb6'
+required.update({va: row for va, row in accepted(normal_pipeline).items()
+                 if va in old or '@std@@' not in row['name']})
+api59_graph = gfx / 'target/work/proof/api59_graph_warm_bind.json'
+assert hashlib.sha256(api59_graph.read_bytes()).hexdigest() == 'b4230ffb38e0c233d8313bec93987af5d9d83a9fc28fa8512026a0a403c49152'
+required.update({va: row for va, row in accepted(api59_graph).items()
+                 if va in old or '@std@@' not in row['name']})
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

@@ -1,0 +1,28 @@
+{
+  "scope": "Active canonical source, primary bytes and native behavior evidence; byte acceptance separately measured",
+  "target": "0x10023db0",
+  "bytes": 209,
+  "dependencies": "All real owners now exist: R_AllocSceneEntity, R_AddDrawSurf, R_DrawModel, proper model skin graph",
+  "source": "target/work/src/gfx_d3d/r_scene.cpp",
+  "pinned": [
+    "Signed reType<=1 takes the model path before the statmon/error path; negative initial types follow that path.",
+    "StatMon uses unsigned backend count>=7365, duration3000, type5 and material gfx/2d/warning@models.jpg. StatMon can mutate input before the subsequent reType reload.",
+    "Nonmodel capacity check is unsigned>=8184 BEFORE R_AllocSceneEntity; prints refEntity buffer exceeded - not drawing model newline once per separate frame counter.",
+    "Error string has leading byte0x15; ERROR DROP1; error-return behavior must match target rather than assuming noreturn.",
+    "Helpers copy exactly116 entity bytes and clear52 scene bytes. Ordered positive/negative zero scale becomes1; NaN stays NaN.",
+    "Model helper assigns union and cent, and calls R_DrawModel only for reType1. Other helper assigns union for type2/3 or draws token2 for type>=4, lightmap31.",
+    "s_entitySurface is one writable4-byte value2 at101a5a2c, adjacent BEFORE s_XModelSurfaceSize8; do not import six-element Mac array or duplicate the token."
+  ],
+  "next_tests": [
+    "actual callback/model helper/copy helper plus existing allocator/draw-key helper, 32-bit record layouts",
+    "all types0..9 and initial negative fast path; error returning/throwing; input mutation from StatMon",
+    "both limits, disabled drawing, full backend before allocator, shared/separate warning frames",
+    "copy116/zero52, signedzero and NaN, cent/model routing, FX sort token and buffer guards"
+  ],
+  "integration": "Entity surface token placed immediately before stride table; both have original writable r_scene owner, linked delta+4 verified by native fixture.",
+  "artifact_sha256": {
+    "primary.asm": "144e852b80a9751f2683fa0389969071e38c5f9dca79536e44e763a1176f4286",
+    "first_diffs.txt": "47e712af5ad3ff4ca7629c1d4754369bb4b063b0fa95bd08a823574f9f9b2eb6",
+    "api_source_audit.json": "4c6ff30dbff099818173f1a2bfb76ad3d8e410630eff9124a6ae6ea8cacc7bd1"
+  }
+}

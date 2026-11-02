@@ -1,0 +1,93 @@
+{
+  "date": "2026-11-02",
+  "scope": "genuine executor, debug renderer, GPU benchmarks and normal/debug frame submission",
+  "step3_complete": false,
+  "new_source_routines": 16,
+  "tu_count": 112,
+  "original_build_and_both_referees": "PASS",
+  "protected_extents_retained": 2385,
+  "new_accepted_cpp_bytes": 0,
+  "new_accepted_cpp_bodies": 0,
+  "cpp_executable_bytes": 108552,
+  "cpp_percent": 42.80779241265084,
+  "cpp_bodies": 654,
+  "denominator": 253580,
+  "authored_assembly_bodies": 32,
+  "authored_assembly_bytes": 7820,
+  "candidate_sha256": "23d0d185385ab051b0d3b8a8a84cb1ed97e0d1fc89043485d21f9c70fd6db746",
+  "same_offset_percent": 10.184877108683628,
+  "whole_file_identical": false,
+  "focused_fixtures": 11,
+  "earlier_executor_focused_fixtures": 27,
+  "native_submission_cases": 22,
+  "submission_shape_bytes_not_credited": 311,
+  "submission_binding_blockers": {
+    "?R_IssueRenderCommands@@YAXXZ": {
+      "t": "0x10020d50",
+      "n": 111,
+      "obj": "r_rendercmds.obj",
+      "why": [
+        "call ?RB_ExecuteRenderCommands@@YAXPBX@Z"
+      ]
+    },
+    "?R_EndDebugFrame@@YAXXZ": {
+      "t": "0x10022040",
+      "n": 114,
+      "obj": "r_rendercmds.obj",
+      "why": [
+        "call ?RB_ExecuteRenderCommands@@YAXPBX@Z"
+      ]
+    },
+    "?R_EndFrame@@YAXXZ": {
+      "t": "0x10021f90",
+      "n": 86,
+      "obj": "r_rendercmds.obj",
+      "why": [
+        "call ?R_TransferDebugGlobals@@YAXPAUDebugGlobals@@@Z"
+      ]
+    }
+  },
+  "unmatched_callee_sizes": {
+    "RB_ExecuteRenderCommands": {
+      "candidate": 598,
+      "retail": 608
+    },
+    "R_TransferDebugGlobals": {
+      "candidate": 193
+    }
+  },
+  "remaining": [
+    "RenderScene and its real visibility/shadow/compositor graph",
+    "genuine GetRefAPI API59, all98 callbacks and ten initial zero slots",
+    "remaining code/data/layout matching and final whole-file SHA/smoke"
+  ],
+  "checks_not_run": [
+    "full fixture suite",
+    "GPU/runtime smoke",
+    "whole-file SHA identity"
+  ],
+  "hashes": {
+    "target/work/src/gfx_d3d/rb_debug.cpp": "15d9d42177ea218b9954ba1bbb74345234fdbb36c7485ef112ee873644110c45",
+    "target/work/src/gfx_d3d/rb_backend.cpp": "de0ba3bf72c1f5a6ae4316103783468229c7df8b67259af895681fea06ed7afd",
+    "target/work/src/gfx_d3d/r_rendercmds.cpp": "bc28ece86f753f9d6527598638aecc7f916606a507093fdad1e0a8de3fa31b1d",
+    "target/work/src/tus.txt": "afe48cb6f48463a9740331d0f26251e63cd8cc9348cd47cb89f105a65ffb1c50",
+    "target/work/tools/source_coverage.py": "33331bdd3bd92bdfa8d4cd60392c1383df6e605255423ad4b502d626b608cdd8",
+    "target/work/tests/test_frame_submission.py": "e27ca5c64663f684c675d25083556548deba4126466eb23756261d68609c37fa",
+    "target/work/tests/test_frame_start.py": "38bff428e95cf283d6d11b3e6b4a9ddfd25377a8a6fbad3e66efb1ebae446261",
+    "target/work/tests/test_backend_executor.py": "909de2f7d11025b6af66d2f9623e537dd3d3130e0dba37e95f50e27055bd3fd5",
+    "target/work/tests/test_backend_benchmarks.py": "6d76f450b33c4603d2f8a67c98e0dec493d7b1c8899b8a35412411f9cbe80394",
+    "target/work/tests/test_debug_render.py": "db12c9a4f5ab98728ec80399d119dda4afb3bc4b5f224b9bc3a446a727c34d0d",
+    "target/work/proof/nov02_debug_render_primary.asm": "a3c767b1c91ab6d9058a692fce38fc033551588a638dbb6ddbe5ae8a53fc2f2b",
+    "target/work/proof/nov02_benchmark_primary.asm": "1df99a81d43da4991849dbc7e939e0456267b7fc9202161005b64f204b1d9edb",
+    "target/work/proof/nov02_frame_submission_primary.asm": "ba7910b7583e871ac9ddf95b37c244c36703a7e4dc1106b4a698e9950a89de1c",
+    "target/work/proof/nov02_scene_dependencies_primary.asm": "13eb39eb3a990f87993a00624da2f24084094f6d395ea9a304937845b4b7b415",
+    "target/work/proof/late_post_warm_bind.json": "22902b3b57dc9c2d9bcf89fd041a9f43c4874016c58e4aa10c59ec1f4aef3d30",
+    "target/work/proof/latest/nov02_frame_submission_build.log": "c8075d47e1c8870ad8a76ccae8c1b1b86a0c8dddd69d9400c310a1b3d1c906d8",
+    "target/work/proof/latest/nov02_submission_focused.log": "eaab39672c822a4f2cd6ed6672a6ba1e29fc534d1b20daa0c62d4149b894b881",
+    "target/work/proof/latest/nov02_submission_layout.log": "7edbf134044b7223ff243198f1d2942168120a564c8bb600a5dd994fde24234b",
+    "target/work/proof/latest/nov02_executor_focused.log": "1a67b624bf513c7f2210e8517d35a97d1de4ada9878b35caf5f02f7a7796786b",
+    "target/work/proof/source_coverage_current.json": "661dd0a2a65e325d6b4e13b44809d69c55d610eeb1208826aeb0a682b33f5ef5",
+    "target/work/layout/current.json": "19a9a705ee44d0006a866f2eeb1e706ce8278b5e8f407ee13b1c7777fc030676",
+    "target/work/layout/file_layout.tsv": "15cfe1b4a741580bc62f735b63cb5efb88023c0a8f81281fd0622aca74509996"
+  }
+}

@@ -144,8 +144,8 @@ void R_SortGfxAabbTree(GfxWorld *world, GfxAabbTree *tree)
     }
     if (tree->staticModelCount < 8)
         return;
-    Vec3Add(mins, maxs, middle);
-    Vec3Scale(middle, 0.5f, middle);
+    VectorAdd(mins, maxs, middle);
+    VectorScale(middle, 0.5f, middle);
     staticModels = tree->staticModels;
     staticModelCount = tree->staticModelCount;
 

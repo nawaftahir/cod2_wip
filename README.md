@@ -1,5 +1,10 @@
 # gfx — shared renderer reconstruction
 
+Verified C++ file snapshots are in [src/](src/README.md), committed with pinned
+byte/binding evidence. Mixed or unfinished source stays in target/work/src/.
+Start with [the source map](SOURCE.md) and [current progress](PROGRESS.md).
+The renderer is unfinished; source snapshots are not a standalone retail DLL.
+
 Active work: [target/work](target/work/README.md). Read [rules](RULES.md).
 Current progress and continuation: [PROGRESS.md](PROGRESS.md), the only live status log.
 Execution plan: [whole-file retail reconstruction](WHOLEFILE.md).

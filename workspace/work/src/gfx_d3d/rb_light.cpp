@@ -553,3 +553,50 @@ void RB_SaveLightVisHistory()
     s_vc_log = NULL;
     s_vc_logCount = 0;
 }
+
+// PINNED 10035cd0/670: display unlogged grid points in the backend debug frame.
+extern const dvar_t *r_vc_showlog;
+int R_CullPointAndRadius(const vec_t *origin, float radius,
+    const DpvsPlane *planes, int planeCount);
+void R_AddDebugString(DebugGlobals *debug, const float *origin, const float *color,
+    float scale, const char *text);
+
+void RB_ShowLightVisCachePoints(const GfxViewParms *viewParms,
+    const DpvsPlane *planes, int planeCount)
+{
+    if (!s_vc_log)
+        return;
+    int count = r_vc_showlog->current.integer;
+    if (count <= 0)
+        return;
+    int centerX = I_fround(viewParms->origin[0] + 131072.0f) >> 5;
+    int centerY = I_fround(viewParms->origin[1] + 131072.0f) >> 5;
+    int centerZ = I_fround((viewParms->origin[2] + 131072.0f) - 0.5f) >> 6;
+    for (int dz = -1; dz < 2; ++dz)
+    {
+        int z = centerZ + dz;
+        if (z < 0 || (int)((unsigned int)z << 6) > 0x80000)
+            continue;
+        for (int dy = -count; dy <= count; ++dy)
+        {
+            int y = centerY + dy;
+            if (y < 0 || (int)((unsigned int)y << 5) > 0x80000)
+                continue;
+            for (int dx = -count; dx <= count; ++dx)
+            {
+                int x = centerX + dx;
+                if (x < 0 || (int)((unsigned int)x << 5) > 0x80000)
+                    continue;
+                if (RB_GridVisLogIndex(x, y, z, 0) >= 0)
+                    continue;
+                vec3_t origin;
+                origin[0] = (float)(int)(((unsigned int)x - 4096u) << 5);
+                origin[1] = (float)(int)(((unsigned int)y - 4096u) << 5);
+                origin[2] = (float)(int)(((unsigned int)z - 2048u) << 6);
+                if (R_CullPointAndRadius(origin, 0.0f, planes, planeCount) != 2)
+                    R_AddDebugString(&backEndData->debugGlobals, origin,
+                        dz == 0 || dz == 1 ? colorGreen : colorYellow, 1.0f, ".");
+            }
+        }
+    }
+}

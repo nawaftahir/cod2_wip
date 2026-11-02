@@ -915,6 +915,8 @@ EXTERN(void) jpeg_CreateDecompress JPP((j_decompress_ptr cinfo,
 /* Destruction of JPEG compression objects */
 EXTERN(void) jpeg_destroy_compress JPP((j_compress_ptr cinfo));
 EXTERN(void) jpeg_destroy_decompress JPP((j_decompress_ptr cinfo));
+EXTERN(void) jpeg_memory_src JPP((j_decompress_ptr cinfo,
+                                const JOCTET *data, size_t size));
 
 /* Standard data source and destination managers: stdio streams. */
 /* Caller is responsible for opening the file before and closing after. */

@@ -1,0 +1,43 @@
+?R_SelectPointLights@@YAXPAPBUGfxLight@@HH@Z 0x10012440 124
+--- ours
++++ retail
+@@ -4,6 +4,6 @@
+ push edi
+ mov edi, eax
++mov ebx, dword ptr [esp + 0x14]
+ mov ebp, dword ptr [edi]
+-mov ebx, dword ptr [esp + 0x14]
+ xor esi, esi
+ mov edi, edi
+@@ -11,6 +11,6 @@
+ cmp esi, ebx
+ jge A
+-mov eax, dword ptr [edi + esi*4]
+-mov ecx, ebp
++mov ecx, dword ptr [edi + esi*4]
++mov eax, ebp
+ call A
+ test al, al
+@@ -19,9 +19,12 @@
+ cmp ebx, esi
+ jl A
+-mov ecx, dword ptr [edi + ebx*4]
+-mov eax, ebp
++mov eax, dword ptr [edi + ebx*4]
++mov ecx, ebp
+ call A
+ test al, al
+ jne A
++cmp esi, ebx
++jg A
++mov ecx, dword ptr [edi + ebx*4]
+ mov eax, dword ptr [edi + esi*4]
+ mov dword ptr [edi + esi*4], ecx
+@@ -53,2 +56,7 @@
+ pop ebx
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 

@@ -135,7 +135,7 @@ static void R_GetMarkFragmentBounds(const vec3_t *points, const float *axis, flo
     VectorScale(axis, radius, scaledAxis);
     for (pointIndex = 0; pointIndex < 4; ++pointIndex)
     {
-        Vec3Add(points[pointIndex], scaledAxis, xyz);
+        VectorAdd(points[pointIndex], scaledAxis, xyz);
         AddPointToBounds(xyz, mins, maxs);
         VectorSubtract(points[pointIndex], scaledAxis, xyz);
         AddPointToBounds(xyz, mins, maxs);

@@ -1,0 +1,9 @@
+test: <stdin>:478: int main(): Assertion `observedObj==&original' failed.
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tests/test_visibility_tree.py", line 74, in <module>
+    exe=str(Path(d)/'test');subprocess.run(['g++','-std=c++11','-O2','-x','c++','-','-o',exe],input=program,text=True,check=True);subprocess.run([exe],check=True)
+                                                                                                                                  ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/tmp/gfx_visibility_tree_875cloq6/test']' died with <Signals.SIGABRT: 6>.

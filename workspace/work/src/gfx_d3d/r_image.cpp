@@ -357,7 +357,8 @@ void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int w
     }
 }
 
-inline Bool Image_IsCodeImage(const GfxImage *image)
+// PINNED 1000cc80: native bool preserves the full-register true/false constants.
+inline bool Image_IsCodeImage(const GfxImage *image)
 {
     uintptr_t address = (uintptr_t)image;
     return address >= (uintptr_t)g_imageProgs && address < (uintptr_t)(g_imageProgs + 13);
@@ -373,7 +374,7 @@ GfxImage *Image_FindExisting(const char *name)
         index = (index + 1) & 0x7ff;
         image = imageGlobals.imageHashTable[index];
     }
-    return (GfxImage *)(intptr_t)I_sel((int)(bool)Image_IsCodeImage(image) - 1, 0, (intptr_t)image);
+    return Image_IsCodeImage(image) ? 0 : image;
 }
 
 static int Image_GetAvailableHashLocation(const char *name)
@@ -578,7 +579,7 @@ void R_ReleaseLostImages()
 // PINNED 1000d2e0: retained program images and already-created textures are skipped.
 void R_ReloadLostImages()
 {
-    for (int index = 0; index < 2048; ++index)
+    for (unsigned int index = 0; index < 2048; ++index)
     {
         GfxImage *image = imageGlobals.imageHashTable[index];
         if (image && image->category >= 5 && !image->texture.basemap && !Image_IsCodeImage(image))
@@ -809,4 +810,29 @@ water_t *R_LoadWaterSetup(const water_t *water)
 	R_CreateWaterSetup(water, waterMapSetupIndex, &rg.sceneWaterMapSetups[waterMapSetupIndex]);
 	++rg.sceneWaterMapSetupsCount;
 	return &rg.sceneWaterMapSetups[waterMapSetupIndex];
+}
+
+// PINNED 1000d320/202: rebuild the existing lookup without changing its tracking.
+void RB_UnbindImage(const GfxImage *image);
+void Image_BuildSpecularityMap(float shift, unsigned char *pic);
+void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubeFace,
+    unsigned int mipLevel, const unsigned char *pixels);
+
+typedef char specularityOwnerCheck[(offsetof(r_global_permanent_t, specularityImage) == 0x1014
+    && offsetof(GfxImage, texture) == 4) ? 1 : -1];
+
+void Image_RebuildCosinePowerMap(float shift)
+{
+    byte pixels[32 * 256];
+    if (r_rendererInUse->current.integer == 2)
+        return;
+    RB_UnbindImage(rgp.specularityImage);
+    do
+    {
+        rgp.specularityImage->texture.basemap->Release();
+        rgp.specularityImage->texture.basemap = 0;
+    } while (alwaysfails);
+    Image_Create2DTexture(rgp.specularityImage, 32, 256, 1, 0, D3DFMT_L8, D3DPOOL_MANAGED);
+    Image_BuildSpecularityMap(shift, pixels);
+    Image_UploadData(rgp.specularityImage, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
 }

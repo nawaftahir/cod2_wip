@@ -6,11 +6,11 @@ import tempfile
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_staticmodel_load_obj.cpp').read_text()
 source = text[text.index('void R_ScaleStaticModelLighting('):text.index('bool R_ValidateStaticModel(')]
-common = (work / 'src/gfx_d3d/gfx.h').read_text()
+common = (work / 'src/universal/com_math.h').read_text()
 helpers = ''
-for name in ['Vec3Add', 'Vec3Scale']:
-    start = common.index('static inline void ' + name + '(')
-    helpers += common[start:common.index('\n}', start) + 2] + '\n'
+for name in ['VectorAdd', 'VectorScale']:
+    start = common.index('TU_STATIC void ' + name + '(')
+    helpers += common[start:common.index('\n}', start) + 2].replace('TU_STATIC', 'static inline') + '\n'
 program = r'''
 #include <cassert>
 #include <cmath>

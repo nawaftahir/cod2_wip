@@ -1,0 +1,39 @@
+{
+  "scope": "PINNED PC operations and agreeing Mac source/type names; newly reconstructed bodies not byte-accepted",
+  "bodies": [
+    {
+      "name": "Image_RebuildCosinePowerMap",
+      "target": "0x1000d320",
+      "bytes": 202,
+      "source": "gfx_d3d/r_image.cpp"
+    },
+    {
+      "name": "RB_UpdateBackendDvars (descriptive name)",
+      "target": "0x10033c50",
+      "bytes": 207,
+      "source": "gfx_d3d/rb_backend.cpp"
+    }
+  ],
+  "facts": [
+    "Dvar order: textureMode,anisotropy,cosinePowerMapShift,outdoorFeather,aaAlpha. Clear each modified flag before its action; reload values/pointers after callback.",
+    "Reuse existing defaultSamplerStateTable/RB_DecideDefaultSamplerState, RB_SetAnisotropy, RB_SetAlphaAntiAliasingState and existing image build/create/upload; no duplicate owners.",
+    "Outdoor feather fills codeConsts50 at offset0x320; AA capability at DxGlobals+0x2d7e and activeStateBits0 at DxState+0x2008, using target base10764680.",
+    "Specularity rebuild skips renderer2, unbinds existing image, directly releases and clears live global texture, recreates32x256 L8/managed/mip1, builds8192 bytes and uploadsface0/mip0. It must not call Image_Release, which changes tracking.",
+    "rgp.specularityImage offset0x1014; texture offset4. The global image is reloaded after callbacks; Mac confirms image helper name/source owner and byte[8192] pic.",
+    "Mac specularity builder locals baseInterpolant and exponent are double; PC constants include special exponent30 and 32power/256intensity dimensions. Existing builder276 vs target259 is still unmatched.",
+    "8-byte buffer-alignment trial failed, causing loss of Image_Create2DTexture; reverted. No alignment requirement or padding retained."
+  ],
+  "native": "422 actual source paths, all32 dvar masks, live pointer/value changes, DX7 bypass, 8192-byte payload, AA state and tracking guards; GPU/kernel primitives stubbed at tested boundaries.",
+  "failed_trials": [
+    "scratch/codex_1026_model_order/result.json",
+    "scratch/codex_1026_entity_order/result.json",
+    "scratch/codex_1026_backend_dvars/alignment_trial/result.json"
+  ],
+  "artifact_sha256": {
+    "primary.asm": "396569df3adc72cf2b079ad45665bfe8c3177748696cad36e77e80ad9d9efda4",
+    "dvar_symbol_witnesses.json": "7c07ad216b277126a3aec18fad8ce1deb9c484b2bc2f4270b0384ae4a552c96e",
+    "specularity_stabs.json": "cf20197b75c3093889a814e76f4998709e617d54c77f79ae09e72eb6dbed8707",
+    "differences.txt": "75b1bbb3c496bba1dfe3e0df01138e7c28a7a64b1bc532f5d15a761463936f46",
+    "alignment_trial/result.json": "29d7df558e08d82b53a38753c1ff6b0a846d63e7ed66b4145658bae60cbd8fe6"
+  }
+}

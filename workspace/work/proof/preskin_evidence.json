@@ -1,0 +1,31 @@
+{
+  "scope": "PC1.0 bodies and Mac naming oracle; primary binary outranks reference source",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "bodies": [
+    {
+      "name": "R_PreSkinXSurface",
+      "target": "0x1001f120",
+      "bytes": 347
+    },
+    {
+      "name": "R_PreSkinStaticSurface",
+      "target": "0x1001f2a0",
+      "bytes": 479
+    }
+  ],
+  "facts": [
+    "Material assignment precedes rigid/cache/dynamic paths; missing skins returns zero before assignment.",
+    "xsurf rigid VB at16; indexBuffer20; signed vertCount2 and boneOffset6.",
+    "Skinned cache calls existing1001e5b0; offset>=0 plus locked-base+used nonzero admits type3/16-byte surface.",
+    "DX7 renderer integer2 requires technique12, passCount>0 and gridLighting for static cache; other renderers bypass that test. Reference source reverses the renderer branch.",
+    "Only reType2, r_smc_enable and boneOffset!=-1 admit static cache; cachedLods published before LRU; type5 leaves needSkinningSurf untouched.",
+    "Rigid fallback emits type4/56bytes; dynamic fallback emits type3/16bytes; both static fallbacks set needSkinningSurf=1 only on success.",
+    "Temporary vertex stride36 for renderer2, otherwise64; signed sum is bounded by0xa00000 inclusive; overflow warns once per function/frame and returnszero beforecommit.",
+    "Warning text from PC10196978: TEMP_SKIN_BUF_SIZE exceeded - not skinning surface\\n."
+  ],
+  "source_attribution": "Proper owner gfx_d3d/r_model.cpp; no new TU, root, export or assembly",
+  "artifact_sha256": {
+    "target/scratch/codex_1026_cache/preskin_primary.asm": "b93bc9ed6cd7d7827831da9b7f0c185a940970a8055d0df89a52bce39032e32d",
+    "target/scratch/codex_1026_cache/model_names.json": "d10181987fc87387bc6755c5d810ab0984563ff1f2be9b6422ef6fc4b4c5605c"
+  }
+}

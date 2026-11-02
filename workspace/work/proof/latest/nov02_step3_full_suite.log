@@ -1,0 +1,112 @@
+RUN test_api59_table.py
+PASS: actual API59 copy-before-check,108 slot offsets,98 callback bindings,ten zeros and repeated-call reset
+RUN test_backend_2d_commands.py
+PASS: 540 quad,3240 rotated and12 wrapper routes; captured records, surface/overflow boundaries, early counts, live color/advance and finite geometry with mocked trig/surfaces
+RUN test_backend_benchmarks.py
+PASS: 28 actual benchmark cases, default aliases, timer/count capture, vertex-zero setup, winding/guards and original reports
+RUN test_backend_commands.py
+PASS: 30 actual jump/call/return cases and96 state handlers;16-byte execution state, two return slots, raw color payload, pre-flush capture and live advancement
+RUN test_backend_common_layout.py
+PASS: common/SDK matrix and typed scene/LOD schemas agree on PC sizes/offsets; extra OGL field and wrong-width time rejected
+RUN test_backend_drawsurfs.py
+PASS: 750 actual sorted-surface/technique/packet cases, both sort layouts and directions, batching, filtering, entity transforms, depth cleanup and cursor timing
+RUN test_backend_dvar_updates.py
+PASS: 422 backend dvar/rebuild routes, all32 masks, clear/live replacement order, DX7 skip, 8192-byte upload and image tracking guards
+RUN test_backend_executor.py
+PASS: 84 actual executor cases, device/recovery gates, real call/return dispatch, skip-only clear, debug/binding cleanup, retry loops and live benchmark/fence state
+RUN test_backend_frame.py
+PASS: 24 actual normal-backend routes, signed frame selection, unlock order, pointer reload and untouched command/debug fields
+RUN test_backend_geometry.py
+PASS: 2160 actual stencil packets and 8640 direct/packed triangles; signed-short layouts, five arrays, captures/live counts, late publication, indices/guards, real overflow declaration restore and final flush
+RUN test_backend_late_post.py
+PASS: 119 real late-post cases, glow ordering, filter/clamp alpha, debug precedence/constant restoration, effect gates and callback/cursor timing
+RUN test_backend_lines.py
+PASS: 17280 actual 2D/3D lines and command packets; original normalization/overflow, signed widths/counts, NaNs/degeneracy, frozen offsets, live geometry/cursor and depth/view restoration
+RUN test_backend_points.py
+PASS: 7776 actual 2D/3D point commands; signed packets, capacity, captured matrices/size, live geometry/cursor, index publication and restoration
+RUN test_backend_presentation.py
+PASS: 260 actual backend frame routes; Present args, lost/fatal branches, live buffer/logging/gamma state, exact clear order and interrupted publication
+RUN test_backend_raw.py
+PASS: 4320 actual raw-frame routes;32-byte packet, creation failure, RGBA/BGRA, pitch/canaries, retried locks, ignored HRESULTs, exact log, live target/device/cursor and release order
+RUN test_backend_screen.py
+PASS: 48 actual copies, 48 saves, 240 blur commands, 1536 blends and 3076 early-post commands; real Image_GetSurface, retries/logs, captured dimensions/image, fresh material/time, live blur pointer, wrapped ticks, high-byte alpha, full UVs and short-circuit target publication
+RUN test_backend_sprite.py
+PASS: 120 actual sprite commands, full116-byte entity, projection/material flush, callback mutation, captured packet and live cursor
+RUN test_backend_state_commands.py
+PASS: 64 light, 120 shadow, 72 stencil and 168 clip routes; raw bits, shared ABI, original/live payloads, retries, cache publication and stack-zero invalidation
+RUN test_backend_sun.py
+PASS: 24 actual sun commands, captured packet/live fields, post flush and live cursor publication
+RUN test_backend_text.py
+PASS: 1207 PC text routes, all256 colors, signed blink, limits/escapes, single-pass shadows, DX7/DX9 quads and live command cursor
+RUN test_backend_view.py
+PASS: 240 actual begin-view and 240 3D restore routes; shared48-byte payload, live views, stack identity, raw scene/LOD copies, viewport and unscaled PC frustum constants
+RUN test_begin_registration.py
+PASS: registration copies all44 bytes after every startup; guards, startup failure and self-alias preserved
+RUN test_brush_entity_bounds.py
+PASS: 3072 actual brush cull routes, corner extrema, shear/reflection, cell returns and live world reload
+RUN test_bsp_visibility.py
+PASS: actual BSP front/back routing, clamps, early exits, AABB NaNs/mark skips and 49 x87 relation pairs
+RUN test_buffer_upload.py
+PASS: 768 index uploads, 1296 vertex uploads and 4 lock failures; rollover, exact flags, guards, retries, cache skips and live pointer publication
+RUN test_cache_commands.py
+PASS: 48 actual cache-stat routes, fixed capacity, live callback-modified counts, zero guard and real flush forward
+RUN test_cache_publication.py
+PASS: actual cache allocation/publication, 29 size/index/failure routes, 128-tree capacity, frame-age eviction, back references, LRU and buffer guards
+RUN test_cache_vertex_buffer.py
+PASS: 24 cache allocations, original log/slot/flags, captured size, live device, retries and ignored HRESULTs
+RUN test_code_constant_parser.py
+PASS: 136 actual constant-parser paths, typed hierarchy, arrays, matrix transpose/rows, literals and failure writes
+RUN test_code_images.py
+PASS: actual code-image switch, sampler states, shadow entity routing and fatal guards
+RUN test_command_dispatch.py
+PASS: all34 source command slots match retail order; only slot0 is null
+PASS: all33 linked command pointers bind their genuine retained handlers
+RUN test_command_registration.py
+PASS: actual nine-command registration, retail names/order and distinct callback identities; callback bodies tested separately
+PASS: linked DLL has all nine actual callback addresses, names and RI+104 command import; callback/import-slot corruptions rejected
+RUN test_console_text.py
+PASS: 2048 console-run,2052 icon and14 integrated callback routes; retail controls/cap, spaces, material ownership, limit updates, color and draw geometry
+RUN test_constant_array_offset.py
+PASS: 112 constant-array range, implicit/unget, syntax, ending-index and partial-write cases
+RUN test_crt_contributor_order.py
+PASS: original CRT 404-byte data block, matherr/month adjacency and both time bindings
+RUN test_cubemap_begin.py
+PASS: 90 actual cubemap-begin cases, ushort narrowing, target/log/clear order and retries
+RUN test_cubemap_capture.py
+PASS: 576 capture paths, six faces, flip/gamma after failed capture, 35 gamma buffers and canaries
+RUN test_cubemap_save.py
+PASS: 144 actual TGA saves, 257-pixel headers, BGRA/alpha rays, six faces, failed writes, both frees and retained pointers
+RUN test_debug_boxes.py
+PASS: 11,560 box cases, exact edge order, lazy allocation, capacity and untouched storage
+RUN test_debug_frame.py
+PASS: eight actual debug-frame routes, saved pointers and unlock ordering
+RUN test_debug_plumes.py
+PASS: 1,458 plume cases, swap ordering, expiry boundaries, allocation and null source
+RUN test_debug_polygons.py
+PASS: 7,200 polygon append/limit cases, allocation order, metadata and untouched storage
+RUN test_debug_render.py
+PASS: 57 actual debug drawing cases, vertex formats/fans/guards, white outlines, depth/capacity batches, signed counts, BGRA truncation, plume timing and live frame ownership
+RUN test_debug_strings.py
+PASS: 280 string cases, truncation/padding, terminator, signed-zero scale and untouched records
+RUN test_dependency_origin.py
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tests/test_dependency_origin.py", line 27, in <module>
+    base = report(fixture)
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tests/test_dependency_origin.py", line 21, in report
+    runpy.run_path(str(tool),run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tools/regression.py", line 216, in <module>
+    assert not checkpoint_lost, ('checkpoint loss', checkpoint_lost)
+           ^^^^^^^^^^^^^^^^^^^
+AssertionError: ('checkpoint loss', ['0x10041850'])
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tests/run.py", line 10, in <module>
+    subprocess.run([sys.executable, str(test)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/nawaf/cod2/test/dev/gfx/target/work/tests/test_dependency_origin.py']' returned non-zero exit status 1.

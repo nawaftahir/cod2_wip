@@ -1,0 +1,113 @@
+{
+  "scope": "Real PC surface drivers and proper source owners; only matrix-stack push is byte accepted",
+  "new_matched_cpp": {
+    "name": "RB_PushMatrixStack",
+    "target": "0x1003e480",
+    "bytes": 46,
+    "source": "gfx_d3d/rb_state.cpp"
+  },
+  "new_tu": "gfx_d3d/rb_tess.cpp follows rb_surface in existing source order, original Mac STABS owner",
+  "candidate_rows": [
+    {
+      "name": "?RB_PushMatrixStack@@YAXXZ",
+      "obj": "rb_state.obj",
+      "size": 46,
+      "hits": [
+        "0x1003e480"
+      ]
+    },
+    {
+      "name": "?RB_TessPoly@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 408,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessTriangles@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 132,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessStaticModelCached@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 203,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessXModelRigid@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 417,
+      "hits": []
+    }
+  ],
+  "before_explicit_rows": [
+    {
+      "name": "?RB_PushMatrixStack@@YAXXZ",
+      "obj": "rb_state.obj",
+      "size": 46,
+      "hits": [
+        "0x1003e480"
+      ]
+    },
+    {
+      "name": "?RB_TessPoly@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 408,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessTriangles@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 132,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessStaticModelCached@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 203,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessXModelRigid@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 512,
+      "hits": []
+    }
+  ],
+  "explicit_matrix_result": "Primary-proven sixteen assignments reduce rigid512 to417 candidate bytes; still unmatched vs retail326 plus outlined123. No further register/flag sweeps. All previous extents retained.",
+  "native_routes": {
+    "poly_world_cached": 2129,
+    "rigid": 386,
+    "matrix_push": "Existing matrix fixture strengthened to actual align16/0xcd0 strides and two push levels"
+  },
+  "gates": "Original compiler and both referees pass; all2380 old extents retained plus new46-byte push. Ratchet2381 and negative control pass; all159 fixtures and independent2349-code/9387-data union audit pass.",
+  "source_constraints": {
+    "new_roots": 0,
+    "new_exports": 0,
+    "new_assembly": 0,
+    "original_new_tus": 1
+  },
+  "remaining": "TessBad actual empty target, BackEndEntity/entity primitive graph, skinned cached/noncached paths, then complete actual rb_tessTable and draw-surface/backend handler graph; no partial table or placeholder bodies added",
+  "artifact_sha256": {
+    "primary.asm": "c78173306ddabfd9049db5f6d1a7d0342becf53ea181360f28cc32146fc3a1be",
+    "primary_extents.json": "995785321a247c627da23653b7777622257e4d8febe2dd7c69fbe644ce4a484a",
+    "names_stabs.json": "e9a2a3d435f027a5dfdc2fb221bf6ce18e61e241e283ba0cc9c7cdc4f40eaabb",
+    "vertex_buffer_type_review.json": "5553e3cb1413eec20e4b46766a966d0fbabab27de83bc0fe6a1f4e6dc961fbae",
+    "before_explicit_tess.cpp": "f0e44dee8169c04ca5af02eb7713b5091ae3c9a443797d7d32f8860d643cacc9",
+    "before_explicit_cmp.json": "2329a42fa339c0abeb11e35a0e6bbc953c5679988dff16ad1fa04e7954469277",
+    "before_explicit_bind.json": "95130806722f50fdb12abdeba8b8ed1e6151e66e711e56decead6fc590135fcf",
+    "vertex_buffer_union_link_failure.log": "cd90d2ceb79c00158c1090170e9b8fd738cb9530661c9c72cbd0a6994459929c",
+    "cached_material_member_failure.log": "ca39fbcffcd6c25ca395ed2fbe6e61af867c536c60ad9e3b7a66074ee48b8eed",
+    "remaining_table_inventory.json": "e7fe8efd74727841c46ae7153f1c68ebf2238ae8d69426dfcd029e70ad83b1f9",
+    "remaining_table_primary.asm": "f4cf6d7c4a5a569f9b975e2f5f3b61146fa131fbf9e8eb18b7951b4572cd7f95"
+  },
+  "cpp_executable_bytes": 108306,
+  "new_file_bytes": 56,
+  "new_relocation_entry_bytes": 10,
+  "header_sha256": {
+    "target/src/opencod2/headers/cod2_fwd.h": "ce2ae356af07f278d392de39eda63f39bf27c29a4f24ba8eed33108cb15d7532",
+    "target/src/opencod2/headers/cod2_defs.h": "0e6650a9d14f0d6645072f19cb46cc645ad44b218c57e5037c10d8f4c9e56a1d",
+    "target/src/opencod2/headers/Mac/d3d9_types.h": "45fa5b436803fb2203a63d1b8a9f679f034140e6f0d03771d822d3fe2877934c"
+  }
+}

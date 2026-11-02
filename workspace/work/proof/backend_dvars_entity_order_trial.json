@@ -1,0 +1,28 @@
+{
+  "scope": "Bounded record-pointer declaration order trial in two entity helpers",
+  "trial": "Declare both entity and scene-record pointers before copy116/clear52, agreeing with primary pointer arithmetic ordering",
+  "outcome": "Both helper candidates become129 bytes without a byte hit; all2380 protected extents retained. Revert trial.",
+  "candidates": [
+    {
+      "name": "?R_CopyRefEntityToScene@@YAXHPBUGfxEntity@@TGfxModel@@@Z",
+      "obj": "r_scene.obj",
+      "size": 129,
+      "hits": []
+    },
+    {
+      "name": "?R_AddModelRefEntity@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z",
+      "obj": "r_scene.obj",
+      "size": 129,
+      "hits": []
+    }
+  ],
+  "native": "2708 routes pass after serialization with the linker; an earlier concurrent DLL-reading Python fixture got SIGBUS and was discarded, not counted as source failure.",
+  "artifacts": {
+    "trial_scene.cpp": "5180f4fc21d4f5bd5ec92724bc3defa4bbbdc6afc0d0e1e58edd230e7697ecdf",
+    "trial_bind.json": "60cfe44424b63ca3683a2b87ad8195e7c50c2b907398c0fd771c0427279d3fd1",
+    "trial_build.log": "5f765bbba084e25a5df182076ef59b1fa9a7e1b01fea46b7752f2bccd6ed3867",
+    "trial_cmp.json": "648e1d527cef61fb352c60fab7f3c3616414d9fcc569011e31fc84b92862b41e",
+    "trial_native.log": "54724b3a1975ee46fbcbda8f0e62da855965b9321a86a983a964995263c937e9"
+  },
+  "restored_source_sha256": "be50dab27b927371c30eb61b5bfd4a350b9b2d1151915357a8fb91a4ed784225"
+}

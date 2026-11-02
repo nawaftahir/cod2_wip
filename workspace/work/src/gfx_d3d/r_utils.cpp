@@ -199,3 +199,18 @@ bool R_ValidXModelName(const char *name)
         return false;
     return name[6] == '/' || name[6] == '\\';
 }
+
+// PINNED 1002c060/71: strict sphere/plane rejection; unordered values stay visible.
+int R_CullPointAndRadius(const vec_t *origin, float radius,
+    const DpvsPlane *planes, int planeCount)
+{
+    for (int i = 0; i < planeCount; ++i)
+    {
+        const float *plane = planes[i].coeffs;
+        float distance = origin[1] * plane[1] + plane[2] * origin[2]
+            + plane[0] * origin[0] + plane[3];
+        if (distance < -radius)
+            return 2;
+    }
+    return 0;
+}

@@ -1,0 +1,11 @@
+{
+  "scope": "Bounded8-byte lookup-buffer alignment hypothesis",
+  "outcome": "Rejected: candidate image body187 vs retail202 and baseline Image_Create2DTexture1000ce80 lost; original alignment/source/fixture restored. No padding or byte credit retained.",
+  "source_evidence": "Mac STABS confirms byte[8192]; no explicit alignment provenance established.",
+  "artifact_sha256": {
+    "trial_bind.json": "80d2d52386e3e8a9e30d94a9964259bc9dbe5b0fd7b08028b229f23888db8608",
+    "trial_build.log": "b25cc753b9170b8cdfec3a5e0ee97573c8b010f780058b33a54fed0fb65b112a",
+    "trial_cmp.json": "6b9364114a05d16a40b7ff4e7280cc668419be1c62bcce206d9fa0637bc166ba",
+    "trial_image.cpp": "fee2c28fbde9427aeb04f8770b10dfadfef6ac4f66f7f977ede95239219d1aba"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "scope": "Real vertex-buffer resource pointer at r_vb_state_t+8; unify active reference record with r_local/SDK type",
+  "source": "target/src/opencod2/headers/cod2_defs.h",
+  "before_sha256": "0e6650a9d14f0d6645072f19cb46cc645ad44b218c57e5037c10d8f4c9e56a1d",
+  "after_sha256": "04f19950fc12ee2e67a72d417a1fcf828884e87a5236f51ca0b3488b759afe90",
+  "pc": "10041210 reads backend+217c78;10041216 reads buffer+8 before RB_ChangeStreamSource",
+  "no_layout_change": "12-byte used,total,buffer record; pointer remains4 bytes",
+  "existing_producer": "R_InitFrameBackendData / r_rendercmds.cpp and skinned cache producer / r_model.cpp use the existing same buffer pool"
+}

@@ -1,0 +1,70 @@
+[
+  {
+    "slot": 0,
+    "target": "0x1003ef20",
+    "inventory": null,
+    "accepted": []
+  },
+  {
+    "slot": 1,
+    "target": "0x1003ef30",
+    "inventory": {
+      "name": "FUN_1003ef30",
+      "addr": "1003ef30",
+      "size": 477,
+      "thunk": false
+    },
+    "accepted": []
+  },
+  {
+    "slot": 2,
+    "target": "0x10041130",
+    "inventory": null,
+    "accepted": []
+  },
+  {
+    "slot": 3,
+    "target": "0x10041390",
+    "inventory": {
+      "name": "FUN_10041390",
+      "addr": "10041390",
+      "size": 38,
+      "thunk": false
+    },
+    "accepted": []
+  },
+  {
+    "slot": 4,
+    "target": "0x100413c0",
+    "inventory": {
+      "name": "FUN_100413c0",
+      "addr": "100413c0",
+      "size": 326,
+      "thunk": false
+    },
+    "accepted": []
+  },
+  {
+    "slot": 5,
+    "target": "0x10041510",
+    "inventory": null,
+    "accepted": []
+  },
+  {
+    "slot": 6,
+    "target": "0x100415f0",
+    "inventory": {
+      "name": "FUN_100415f0",
+      "addr": "100415f0",
+      "size": 153,
+      "thunk": false
+    },
+    "accepted": []
+  },
+  {
+    "slot": 7,
+    "target": "0x0",
+    "inventory": null,
+    "accepted": []
+  }
+]

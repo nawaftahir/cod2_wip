@@ -1,5 +1,41 @@
 # Renderer roadmap: readable source to the exact retail DLL
 
+Step3 source/API/dispatch closure is COMPLETE (2026-11-02). The owner resumed
+work; old PAUSED sections below are historical. All98 actual API59 callbacks
+have compiled source and the DLL exports ONLY GetRefAPI. The initializer is
+1051-byte/binding-identical;108 slots include ten genuine zeros. Visibility/
+portal gathering, shadow generation, outer scene/RenderScene and the complete
+backend/tess dispatch tables now connect through real callers. No placeholder
+callbacks, synthetic retention array, extra TU, new assembly or flags.
+
+C++111616/253580=44.016089597%,670 accepted bodies: +2079B/+8 bodies since
+the previous pipeline checkpoint.34 assembly-bearing bodies/8149B are excluded,
+including existing water/FFT helpers newly retained by the real graph. Original
+compiler/link, both referees and all2393 prior extents pass; protection now2419.
+Both strengthened gates reject removing GetRefAPI.188 fixtures pass across
+recorded runs resumed at repaired fixtures, plus independent byte/data replay.
+Normalized verified retail spans1275503/1851392=68.894269825%; raw same-offset
+12.908179359%. These are different meters. Whole SHA remains unmatched.
+
+112 TUs,29 preserved fragments, unique full object paths and12 shared global
+owners checked. API table:57 callback bodies accepted,41 still unmatched.
+Root src/ stays seven verified-only files/39 emitted matches (be356f3); mixed
+working files are NOT promoted. Actual active source is target/work/src/.
+
+This completes the requested connected-source structure pass, not historical
+PC TU-boundary proof, every original code/data contributor, final offsets,
+whole-file identity or GPU smoke. Next is bounded matching of the41 callback
+bodies and shared dependencies using this fixed graph/order, then remaining
+contributors, exact data/library/layout/metadata and SHA. Keep the real single
+export; never restore artificial roots to gain a meter. One active build only.
+
+Receipt: target/work/proof/nov02_step3_checkpoint.json. Failed single-export
+trial and accounting/fixture corrections are retained in ATTEMPTS.md. The
+final link passed byte/binding/regression; the build wrapper then stopped on
+its old assembly-exclusion expectation. Attribution was reviewed, extended to
+EXCLUDE the two existing asm-bearing bodies, and rerun successfully on the
+same unchanged DLL. No build or game binary is committed; no push.
+
 Owner direction, 2026-10-21: use gfx as the sole renderer workspace and make
 whole-file identity the main objective now, not a sequence of coverage targets.
 This supersedes the old40%/45% execution priorities. Source coverage remains
@@ -19,27 +55,37 @@ No retail-code arrays, dummy callbacks, padding stand-ins or post-link copying
 of retail bytes may substitute for source. Existing authored assembly stays
 separately accounted; changing the main meter does not turn it into C++.
 
-## Current evidence, not a release claim
+## Historical measurements before API59 closure
 
-Latest source checkpoint: target/work/proof/backend_geometry_checkpoint.json.
-Protected bindings: target/work/proof/image_residency_warm_bind.json.
-Readable source is target/work/src; some bodies remain unmatched drafts. The
-regression gate protects1448 source/library extents. Accepted authored C/C++ is
-104237/253580=41.106159792% on the frozen legacy inventory denominator, not a
-whole-DLL completion percentage. Startup/registration/shutdown, console callbacks, BeginFrame and device recovery
-have real source. Backend presentation and twenty-three command handlers also have source;
-GetRefAPI and the remaining callback graph are still open. PROGRESS.md is the
+Last recorded checkpoint: target/work/proof/skinned_tess_checkpoint.json.
+Its results below describe that snapshot, not the pending current edits.
+The current goal is PAUSED; see the November1 status refresh.
+Cached/uncached skinned-model drivers and signed selector now have source in
+rb_tess, reusing the matched index copier and original buffer owner. The shared
+VB record's pointer type is corrected without layout change. All160 fixtures,
+original compiler/referees,2381-extent ratchet and independent2349-code/9387-data
+audit pass. New bodies remain unmatched; zero new bytes. C++108306/253580 =
+42.710781607%,650 bodies; all32/7820 assembly exclusions remain. Verified
+normalized file spans1269116/1851392 =68.549286159%; exact same offsets8.810235758%.
+No V4/V5 claim. Entity primitives remain before the real tess table. Then close
+the draw-surface/kernel and five missing command roles, tables/executor/API.
+GetRefAPI is still absent.
+Startup/registration/shutdown, console callbacks, BeginFrame and device recovery
+have real source. Backend presentation and twenty-eight command handler roles also have source;
+Claude subsequently restored the world loader driver and its BSP loading helpers.
+Their source presence is distinct from byte acceptance. GetRefAPI and the
+remaining callback graph are still open. PROGRESS.md is the
 current log; the chronological notes below are historical wave measurements.
 
 | Whole-file component | Retail | Current candidate |
 | --- | --- | --- |
-| File length |1851392 bytes |1712128 bytes |
-| Named exports |GetRefAPI only |157 temporary exports; GetRefAPI absent |
-| API table |108 slots,98 written callbacks,10 initial zeros |54 callback slots have accepted implementations; other slots are not yet byte-verified |
-| .text virtual length |1089680 |954322 |
-| .rdata virtual length |595105 |602748 |
-| .data virtual length, including zero-initialized storage |6086100 |6084628 |
-| .reloc virtual length |95704 |88258 |
+| File length |1851392 bytes |1785856 bytes |
+| Named exports |GetRefAPI only |158 temporary exports; GetRefAPI absent |
+| API table |108 slots,98 written callbacks,10 initial zeros |55 callback slots have accepted implementations; other slots are not yet byte-verified |
+| .text virtual length |1089680 |1019984 |
+| .rdata virtual length |595105 |605436 |
+| .data virtual length, including zero-initialized storage |6086100 |6084708 |
+| .reloc virtual length |95704 |90422 |
 | Whole SHA |Anchor above |NOT matched |
 
 Sizes identify missing contributors; they do not tell us to add filler. Callback
@@ -352,3 +398,13 @@ retention. No partial advertised API, dummy callbacks or unresolved release link
 Batch source/interface fixes and perform one original build/referee/full regression
 pass per connected batch. Byte spelling and unrelated renderer leaves wait.
 Stages1-3 remain OPEN; this audit is not source or whole-file completion.
+
+2026-10-24 Codex checkpoint: remaining handoff file moves and the confirmed
+static-model bounds owner are gated (18 relocated bodies; no lost extent).
+New vec3/hex spawn leaves add307 accepted C++ bytes:104687/253580=
+41.283618582%,620 bodies. Both referees,1448 protected extents and
+139 fixtures pass; ten negatives protect the new leaves. The rest of the
+new entity/model/lighting chain is source with tests, not accepted byte
+coverage. Original /Op/fabs DEFERs and stages1-3/API/world/runtime/whole-file
+identity remain open. Current details: PROGRESS.md, HANDOFF.md and
+target/work/proof/static_model_checkpoint.json.

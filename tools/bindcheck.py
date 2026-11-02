@@ -15,6 +15,7 @@ usage: bindcheck.py ours.dll ours.map anchor.dll cmp.json [--exclude objregex] [
 import bisect, json, re, sys
 import pefile, capstone
 from string_literal import string_equal, string_size
+from x86_instructions import instructions
 
 args = sys.argv[1:]
 img, mapf, anchor, cmpf = args[:4]
@@ -62,10 +63,8 @@ def overlaps_reloc(address, size, relocbytes):
 
 # every symbol with its object, for resolving relocation targets
 syms, contribution_sizes = [], {}
-for line in open(mapf, errors='replace'):
-    m = re.match(r'\s*[0-9a-f]{4}:[0-9a-f]{8}\s+(\S+)\s+([0-9a-f]{8})\s+(f\s+)?(?:i\s+)?(\S+)\s*$', line)
-    if m and int(m.group(2), 16) >= obase + 0x1000:
-        syms.append((int(m.group(2), 16), m.group(1), m.group(4), bool(m.group(3))))
+import pdbsyms
+syms = [s for s in pdbsyms.map_symbols(mapf, ours, pdb) if s[0] >= obase + 0x1000]
 if pdb:
     # the map omits file-static data; the PDB has it
     import pdbsyms
@@ -163,7 +162,7 @@ def masked_eq(va, t, n):
     for k in range(n):
         if va + k in orel:
             mask.update(range(k, k + 4))
-    for ins in md.disasm(code, va):
+    for ins in instructions(md, code, va, orelocbytes):
         if ins.bytes[0] in (0xe8, 0xe9) and ins.size == 5 or ins.size == 6 and ins.bytes[0] == 0x0f and 0x80 <= ins.bytes[1] <= 0x8f:
             if not va <= ins.address + ins.size + int.from_bytes(ins.bytes[-4:], 'little', signed=True) < va + n:
                 mask.update(range(ins.address - va + ins.size - 4, ins.address - va + ins.size))
@@ -177,7 +176,7 @@ while changed and multi:
         if va is None:
             continue
         code, tcode = read(osecs, va, r['size']), read(asecs, t, r['size'])
-        for ins in md.disasm(code, va):
+        for ins in instructions(md, code, va, orelocbytes):
             if ins.bytes[0] in (0xe8, 0xe9) and ins.size == 5 and not overlaps_reloc(ins.address, ins.size, orelocbytes):
                 ot = ins.address + 5 + int.from_bytes(ins.bytes[1:], 'little', signed=True)
                 k = ins.address - va
@@ -238,7 +237,7 @@ for name, r in cands.items():
     for k in range(n):
         if t + k in arel and va + k not in orel:
             why.append(f'treloc@{k:x}')
-    for ins in md.disasm(code, va):
+    for ins in instructions(md, code, va, orelocbytes):
         if ins.bytes[0] in (0xe8, 0xe9) and ins.size == 5 or ins.bytes[0] == 0x0f and ins.size == 6 and 0x80 <= ins.bytes[1] <= 0x8f:
             if overlaps_reloc(ins.address, ins.size, orelocbytes):
                 continue

@@ -1,0 +1,26 @@
+test_frame_submission.py
+PASS: 22 submission routes, real terminators, reset timing, restoration and live cleanup
+test_frame_start.py
+PASS: 4105 actual BeginFrame routes; retail order, flags, inverse forced LOD, live dvar/world/client mutations and untouched state
+test_debug_frame.py
+PASS: eight actual debug-frame routes, saved pointers and unlock ordering
+test_backend_frame.py
+PASS: 24 actual normal-backend routes, signed frame selection, unlock order, pointer reload and untouched command/debug fields
+test_rendercmd_init.py
+PASS: four render-command startup routes, debug limits, allocation order and callback ownership changes
+test_backend_executor.py
+PASS: 84 actual executor cases, device/recovery gates, real call/return dispatch, skip-only clear, debug/binding cleanup, retry loops and live benchmark/fence state
+test_backend_benchmarks.py
+PASS: 28 actual benchmark cases, default aliases, timer/count capture, vertex-zero setup, winding/guards and original reports
+test_debug_render.py
+PASS: 57 actual debug drawing cases, vertex formats/fans/guards, white outlines, depth/capacity batches, signed counts, BGRA truncation, plume timing and live frame ownership
+test_command_dispatch.py
+PASS: all34 source command slots match retail order; only slot0 is null
+PASS: all33 linked command pointers bind their genuine retained handlers
+test_tess_dispatch.py
+PASS: complete retail surface table order, real definitions, raw-geometry null and shared enum
+PASS: all seven linked table pointers bind their genuine implementations; eighth is null
+test_pdb_local_owners.py
+PASS: distinct real memcpy/memmove local labels, source-private identity, same-member stability, cross-archive separation and unchanged publics
+PASS: same-name common.obj files retain their distinct real source owners
+PASS: all 11 focused fixtures

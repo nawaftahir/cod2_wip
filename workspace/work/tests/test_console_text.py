@@ -8,7 +8,7 @@ import capstone
 
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_font.cpp').read_text()
-source = text[text.index('static Glyph *R_GetCharacterGlyph('):]
+source = text[text.index('Glyph *R_GetCharacterGlyph('):]
 start = source.index('typedef char consoleIconImportCheck')
 source = source[:start] + source[source.index('];', start)+2:]
 header = (work.parents[0] / 'src/opencod2/headers/PC/gfx_d3d/rb_backend.h').read_text()

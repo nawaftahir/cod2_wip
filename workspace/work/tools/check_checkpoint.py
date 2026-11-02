@@ -117,6 +117,33 @@ required.update(accepted(frame_start))
 image_residency = Path(__file__).resolve().parents[1] / 'proof/image_residency_warm_bind.json'
 assert hashlib.sha256(image_residency.read_bytes()).hexdigest() == '3a19cc20bd06656bbc5b30274f423feda712364f22fda7155c8ff58122f67c59'
 required.update(accepted(image_residency))
+api_raw = Path(__file__).resolve().parents[1] / 'proof/api_raw_warm_bind.json'
+assert hashlib.sha256(api_raw.read_bytes()).hexdigest() == 'fa04bc1db1ce12cef75649510023f0c9c9fcbff140b320193a7a55642e3bee78'
+required.update(accepted(api_raw))
+cache_publication = Path(__file__).resolve().parents[1] / 'proof/cache_publication_warm_bind.json'
+assert hashlib.sha256(cache_publication.read_bytes()).hexdigest() == '018de1c200dbf960742a30364570ec17fdac3ee5735720ea8272b956c3bba369'
+required.update(accepted(cache_publication))
+ref_entity = Path(__file__).resolve().parents[1] / 'proof/ref_entity_warm_bind.json'
+assert hashlib.sha256(ref_entity.read_bytes()).hexdigest() == '60cfe44424b63ca3683a2b87ad8195e7c50c2b907398c0fd771c0427279d3fd1'
+required.update(accepted(ref_entity))
+tess_surfaces = Path(__file__).resolve().parents[1] / 'proof/tess_surfaces_warm_bind.json'
+assert hashlib.sha256(tess_surfaces.read_bytes()).hexdigest() == '95130806722f50fdb12abdeba8b8ed1e6151e66e711e56decead6fc590135fcf'
+required.update(accepted(tess_surfaces))
+late_post = Path(__file__).resolve().parents[1] / 'proof/late_post_warm_bind.json'
+assert hashlib.sha256(late_post.read_bytes()).hexdigest() == '22902b3b57dc9c2d9bcf89fd041a9f43c4874016c58e4aa10c59ec1f4aef3d30'
+required.update(accepted(late_post))
+scene_dependencies = Path(__file__).resolve().parents[1] / 'proof/scene_dependencies_warm_bind.json'
+assert hashlib.sha256(scene_dependencies.read_bytes()).hexdigest() == '1ae246e5a2e30b0f8f89ce6b1adb7d667d558bd14639043f71cab1be4be23185'
+required.update(accepted(scene_dependencies))
+scene_modes = Path(__file__).resolve().parents[1] / 'proof/scene_modes_warm_bind.json'
+assert hashlib.sha256(scene_modes.read_bytes()).hexdigest() == 'c037a3baa711ea7b2f3402679a4a4f3fe14cfc4e5b759fb14d458cc67a3bdeab'
+required.update(accepted(scene_modes))
+normal_pipeline = Path(__file__).resolve().parents[1] / 'proof/normal_pipeline_warm_bind.json'
+assert hashlib.sha256(normal_pipeline.read_bytes()).hexdigest() == 'f9119c24b3ab3249dfaf9912c36091c885cb701fbcdb5b100df0ecc214f4dcb6'
+required.update(accepted(normal_pipeline))
+api59_graph = Path(__file__).resolve().parents[1] / 'proof/api59_graph_warm_bind.json'
+assert hashlib.sha256(api59_graph.read_bytes()).hexdigest() == 'b4230ffb38e0c233d8313bec93987af5d9d83a9fc28fa8512026a0a403c49152'
+required.update(accepted(api59_graph))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

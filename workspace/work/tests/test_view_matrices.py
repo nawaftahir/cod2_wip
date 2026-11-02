@@ -29,7 +29,7 @@ const int D3DTS_VIEW=2,D3DTS_PROJECTION=3;
 '''
 for name in ['GfxCodeMatrix', 'GfxCodeMatrices', 'GfxViewParms']:
     declaration = ('__declspec(align(16)) ' if name == 'GfxCodeMatrix' else '') + 'struct ' + name + '\n'
-    program += body(header, declaration) + ';\n'
+    program += body(header, declaration).replace('__declspec(align(16)) struct GfxCodeMatrix', 'struct alignas(16) GfxCodeMatrix') + ';\n'
 program += r'''
 struct { GfxCodeMatrices codeMatrixStack[3];int codeMatrixStackLevel; } backEnd;
 struct dvar_t { struct { int integer; } current; } renderer;
@@ -49,13 +49,24 @@ for declaration in ['static GfxCodeMatrices *RB_GetActiveCodeMatrices()',
                     'static __declspec(noinline) void RB_CopyViewParmsMatrices(',
                     'void RB_ChangedWorldMatrix(',
                     'void RB_ProjectionMatrixChanged()',
-                    'void RB_SetMatricesForView(']:
+                    'void RB_SetMatricesForView(',
+                    'void RB_PushMatrixStack()']:
     program += body(source, declaration) + '\n'
 program += r'''
 void valid(const GfxCodeMatrix &m,int a,int b,int c,int d) {
     assert(m.valid[0]==a && m.valid[1]==b && m.valid[2]==c && m.valid[3]==d);
 }
 int main() {
+    static_assert(sizeof(GfxCodeMatrix)==0x110 && sizeof(GfxCodeMatrices)==0xcd0,"PC matrix strides");
+    for(int level=0;level<2;++level) {
+        memset(&backEnd,0x5a,sizeof(backEnd));backEnd.codeMatrixStackLevel=level;
+        GfxCodeMatrices original=backEnd.codeMatrixStack[level];
+        RB_PushMatrixStack();
+        assert(backEnd.codeMatrixStackLevel==level+1);
+        assert(!memcmp(&original,&backEnd.codeMatrixStack[level],sizeof(original)));
+        assert(!memcmp(&original,&backEnd.codeMatrixStack[level+1],sizeof(original)));
+    }
+
     for(int level=0;level<3;++level)for(int mode=1;mode<=2;++mode) {
         memset(&backEnd,0x5a,sizeof(backEnd));backEnd.codeMatrixStackLevel=level;
         renderer.current.integer=mode;device.count=0;

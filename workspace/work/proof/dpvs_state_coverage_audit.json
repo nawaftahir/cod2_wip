@@ -1,0 +1,19 @@
+{
+  "verified_file_bytes": 1268935,
+  "retail_file_bytes": 1851392,
+  "percent": 68.53950973105641,
+  "code_region_rechecks": 2343,
+  "data_region_rechecks": 9387,
+  "assembly_bodies_excluded": 32,
+  "assembly_overlap": false,
+  "counts": {
+    "authored_compiled_extent": 108642,
+    "dependency_compiled_extent": 638273,
+    "verified_data": 464850,
+    "relocation_entries": 57170
+  },
+  "all_input_hashes_rechecked": true,
+  "union_recount_agrees": true,
+  "coverage_sha256": "ca1e942bfd43f0f8ce4b85f015e4df83d5d601bf1cab4488952cc414f47edbec",
+  "auditor_sha256": "e18a0e5602b04b96226fe27a8d1f83197d9f87aa5b3a0e7d2113353c87621f7d"
+}

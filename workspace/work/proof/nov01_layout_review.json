@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-01",
+  "scope": "step2 only: reuse and validate established file layout",
+  "result": "PASS: existing source tree/order/settings reused; reporting ownership ambiguity fixed",
+  "engine_compiler_inputs_changed": false,
+  "engine_link_order_changed": false,
+  "build_performed": false,
+  "prior_verified_build_receipt": "target/work/proof/nov01_pending_review.json",
+  "translation_units": 111,
+  "source_groups": {
+    "gfx_d3d": 58,
+    "jpeg-6b": 44,
+    "universal": 7,
+    "qcommon": 1,
+    "win32": 1
+  },
+  "duplicate_source_entries": 0,
+  "missing_sources": 0,
+  "missing_object_files": 0,
+  "duplicate_full_object_paths": 0,
+  "preserved_source_fragments_checked": 29,
+  "shared_global_owners": {
+    "ri": "gfx_d3d/r_init.cpp",
+    "rg": "gfx_d3d/r_init.cpp",
+    "rgp": "gfx_d3d/r_init.cpp",
+    "vidConfig": "gfx_d3d/r_init.cpp",
+    "dx": "gfx_d3d/r_init.cpp",
+    "dxState": "gfx_d3d/rb_state.cpp",
+    "backEnd": "gfx_d3d/rb_state.cpp",
+    "tess": "gfx_d3d/rb_sky.cpp",
+    "scene": "gfx_d3d/r_scene.cpp",
+    "sunFlareState": "gfx_d3d/r_sky.cpp",
+    "frontEndDataOut": "gfx_d3d/r_rendercmds.cpp",
+    "backEndData": "gfx_d3d/rb_backend.cpp"
+  },
+  "report_bug": {
+    "cause": "basename-only common.obj lookup overwrote gfx_d3d/common.cpp with qcommon/common.cpp",
+    "fix": "resolve duplicate basenames through full PDB procedure object paths; fail closed if ambiguous",
+    "corrected_owners": {
+      "I_strlen": "gfx_d3d/common.cpp",
+      "Com_Printf": "qcommon/common.cpp",
+      "Com_Error": "qcommon/common.cpp"
+    }
+  },
+  "linked_function_rows": 1586,
+  "historical_order_proven": false,
+  "layout_discovery_tools_not_byte_referees": true,
+  "new_verified_bytes": 0,
+  "goal": "broader reconstruction remains paused; bounded step2 request complete",
+  "checks": [
+    "111 unique existing TUs and object paths",
+    "29 nonempty preserved fragments",
+    "one current source definition for each of12 shared globals",
+    "fresh function-owner report generated from current map/PDB",
+    "test_pdb_local_owners.py PASS",
+    "step1 DLL/bind/accounting hashes unchanged"
+  ],
+  "sha256": {
+    "target/work/src/tus.txt": "ab6c300b2e579a45b751204a4e3757190ac8667cf5d7cdf40f2f304bc72a4392",
+    "target/work/src/profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
+    "target/closed.mk": "7164205f6dcecd96dfd0db1e0543b601eab87c89d59b6c112043344c8b71faa8",
+    "target/work/layout/fragments.json": "4d93e2bda2056fd87940e84a401ecea21fa87e57cd2ccf374f0a77f3043f33b2",
+    "target/work/layout/file_layout.tsv": "02b2ba3abe3132fe7e2a84e9ff180c33245dd5d257bc1b20527ab0bf9792f090",
+    "target/work/tools/file_layout.py": "54d8a983df384369c903eb5b84bf1dce9c4d0f4f9f4d8ae1776d211acb7de8b8",
+    "target/work/tests/test_pdb_local_owners.py": "0e228070c281bab0cb2e171060069e23f0b1619d964107feb46a595e91a68f18",
+    "target/work/proof/latest/nov01_layout_refresh.log": "95e1517decd42dc9deecc1278d062508aef645de1e10f490e3a63411d55a89ee",
+    "target/work/build/gfx.dll": "5ce474db2252b1fe864a10081b27c61dc6b96c78e3938bd833f012d733ee438d",
+    "target/work/build/gfx.map": "c632801e2129275fc516f72a31c09a139a8acdfd954fbad82e01ba18a903fa04",
+    "target/work/build/gfx.pdb": "3d91fa4fde4ce49e765799e9d64863509e230a468d8ed5215ce63ee87e1bf7b0",
+    "target/work/build/bind.json": "95130806722f50fdb12abdeba8b8ed1e6151e66e711e56decead6fc590135fcf"
+  },
+  "limits": [
+    "this validates candidate source organization, not exact original PC TU boundaries or final byte placement",
+    "Mac-name and interval file placements remain discovery evidence; no automatic source moves",
+    "no engine rebuild, full-suite replay or GPU test for this metadata-only correction"
+  ]
+}

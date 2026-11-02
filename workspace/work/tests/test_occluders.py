@@ -40,6 +40,9 @@ float DotProduct(const float *a,const float *b) { return a[0]*b[0]+a[1]*b[1]+a[2
 float DotProduct4(const float *a,const float *b) { return DotProduct(a,b)+a[3]*b[3]; }
 float Vec3Normalize(float *v) { float n=std::sqrt(DotProduct(v,v));if(n!=0){v[0]/=n;v[1]/=n;v[2]/=n;}return n; }
 '''
+state = (packet / 'gfx_d3d/r_dpvs_state.h').read_text()
+start = state.index('struct ActiveOccluderPlanes\n')
+program += state[start:state.index('\n};', start)+3] + '\nActiveOccluderPlanes activeOccluderPlanes;\n'
 program += source
 program += r'''
 ActiveOccluders activeOccluders;

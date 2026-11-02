@@ -1,4 +1,12 @@
 include closed.mk
+# Retail data order: float formats, code pages, matherr flag, month tables.
+CRT_ORDER := $(addprefix $(B)/vendor/,intrncvt.obj mbctype.obj matherr.obj days.obj)
+OBJS += $(CRT_ORDER)
+$(OUT): $(CRT_ORDER)
+$(B)/vendor/%.obj: /opt/msvc710/Vc7/lib/libcmt.lib
+	@mkdir -p $(dir $@)
+	@$(LINK) /lib /nologo '/extract:$(if $(filter intrncvt matherr,$*),..\build,build)\intel\mt_obj\$*.obj' /out:$(call W,$@) Z:\\opt\\msvc710\\Vc7\\lib\\LIBCMT.lib
+	@test -s $@
 $(OUT): $(SRCDIR)/roots.txt $(SRCDIR)/tus.txt
 $(B)/obj/jpeg-6b/%.obj: $(SRCDIR)/jpeg-6b/%.c $(wildcard $(SRCDIR)/jpeg-6b/*.h)
 	@mkdir -p $(dir $@)
@@ -8,5 +16,3 @@ $(B)/obj/qcommon/common.obj $(B)/obj/win32/win_threads.obj: $(B)/obj/%.obj: $(SR
 	@mkdir -p $(dir $@)
 	@$(CL) $(CFLAGS) $(if $(DBG),/Fd$(call W,$@).pdb) /Fo$(call W,$@) $(call W,$<) > $@.log 2>&1 || (cat $@.log; false)
 $(B)/obj/gfx_d3d/r_surfbounds.obj: CFLAGS += /Op
-$(B)/obj/gfx_d3d/r_shadowcookie.obj: CFLAGS += /Op
-$(B)/obj/gfx_d3d/r_lightgrid_weights.obj: CFLAGS += /Op

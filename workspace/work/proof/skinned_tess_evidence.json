@@ -1,0 +1,59 @@
+{
+  "scope": "PINNED PC skinned paths, original helper/source home and existing matched index copier",
+  "bodies": [
+    {
+      "name": "?RB_TessXModelSkinnedCached@@YAXPBUGfxModelSkinnedSurface@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 274,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessXModelSkinnedUncached@@YAXPBUGfxModelSkinnedSurface@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 278,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessXModelSkinned@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 20,
+      "hits": []
+    },
+    {
+      "name": "?RB_TessBad@@YAXPBW4surfaceType_t@@@Z",
+      "obj": "rb_tess.obj",
+      "size": 1,
+      "hits": []
+    }
+  ],
+  "new_byte_credit": 0,
+  "native_routes": 1255,
+  "existing_index_helper": {
+    "?XSurfaceGetTris@@YAXPBUXSurface_s@@PAGF@Z": {
+      "t": "0x1002ce40",
+      "n": 120,
+      "obj": "r_xsurface.obj",
+      "why": []
+    }
+  },
+  "facts": [
+    "Signed offset>=0 chooses cached; renderer only chooses36/64 stride.",
+    "Cached flushes pending ordinary/optimized counts, logs, captures args/stride, binds IB, reloads live backend VB after callback, binds stream0 and draws declaration0.",
+    "Uncached logs, captures XSurface/counts, checks capacity then odd-index count separately, reloads vertex pointer after overflow, copies into ushort(baseVertex)*stride, then publishes vertexCount, rebases indices with original captured16-bit offset, then publishes indexCount.",
+    "Existing index copier expects loader-padded even triangle counts, as R_LoadXSurface already guarantees. No duplicate index copier or memory owner.",
+    "r_vb_state_t resource is typed IDirect3DVertexBuffer9* at+8, matching PC/SDK and existing r_local record. No layout change or ABI casts.",
+    "TessBad is the actual empty RET at1003ef20; no empty replacement added for missing kinds."
+  ],
+  "remaining": "Only actual entity tessellation graph remains before complete rb_tessTable; backend command graph and full API still incomplete",
+  "next_particle_cautions": [
+    "Primary PC particle driver10040f30 does not have reference DX7 early return. Actual draw args: vertexCount4096,primCount2048,baseIndex0,first/baseVertex0; reference zeros and baseIndex2048 are wrong.",
+    "Use actual jump table1004110c: physical case block order is not enum order. Active enum roles are correct."
+  ],
+  "artifact_sha256": {
+    "primary.asm": "eee0bbdfa444f029694c361a035d0fc6c24fea4d71b3fb579b0ffc7ada9464fd",
+    "buffer_field_review.json": "b09c3a1b86603addda89bfe5622bd9771cb6e8509d9c5b7952e92aefb4408444",
+    "entity_switch.json": "23d34ccc89ca1896a9a37f7ccc33a9047256942e97ee732431ed6dd5d2e3f50b",
+    "next_entity_primary.asm": "dd7a86cf8ec31b7aaadad7ffa67aa8c3ccc51b130edcc032d8a55b41be37e35d"
+  },
+  "gates": "Original toolchain and both referees pass; all2381 extents retained. All160 fixtures and independent2349-code/9387-data union audit pass."
+}

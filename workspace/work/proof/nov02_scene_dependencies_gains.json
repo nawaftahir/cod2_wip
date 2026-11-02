@@ -1,0 +1,44 @@
+[
+  {
+    "name": "?R_CellForPoint@@YAHPBM@Z",
+    "t": "0x10007d60",
+    "n": 93,
+    "obj": "r_dpvs.obj",
+    "why": []
+  },
+  {
+    "name": "?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z",
+    "t": "0x10021840",
+    "n": 79,
+    "obj": "r_rendercmds.obj",
+    "why": []
+  },
+  {
+    "name": "?R_AddCmdDrawSun@@YAXH@Z",
+    "t": "0x10021920",
+    "n": 87,
+    "obj": "r_rendercmds.obj",
+    "why": []
+  },
+  {
+    "name": "?R_AddCmdBeginView@@YAXHPBUGfxSceneDef@@PBUGfxViewParms@@PBUGfxLodParms@@@Z",
+    "t": "0x10021b50",
+    "n": 146,
+    "obj": "r_rendercmds.obj",
+    "why": []
+  },
+  {
+    "name": "?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z",
+    "t": "0x10024460",
+    "n": 70,
+    "obj": "r_scene.obj",
+    "why": []
+  },
+  {
+    "name": "?qsortDrawSurfs@@YAXPAUGfxDrawSurf@@H@Z",
+    "t": "0x100244b0",
+    "n": 301,
+    "obj": "r_scene.obj",
+    "why": []
+  }
+]

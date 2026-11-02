@@ -1,15 +1,15 @@
 {
-  "functions": 669,
-  "bytes": 115529,
+  "functions": 704,
+  "bytes": 119765,
   "total": 253580,
-  "percent": 45.5591923653285,
+  "percent": 47.22967110970897,
   "baseline_lost": [],
   "gains": [
     {
       "target": "0x10001000",
       "bytes": 11,
       "name": "?Vector2Copy@@YAXQBMQAM@Z",
-      "object": "com_convexhull.obj"
+      "object": "r_dpvs.obj"
     },
     {
       "target": "0x10001490",
@@ -18,10 +18,16 @@
       "object": "r_bsp.obj"
     },
     {
+      "target": "0x10001810",
+      "bytes": 33,
+      "name": "?I_fround@@YAHM@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
       "target": "0x100018a0",
       "bytes": 28,
       "name": "?Vector4Set@@YAXQAMMMMM@Z",
-      "object": "rb_imagefilter.obj"
+      "object": "r_dpvs.obj"
     },
     {
       "target": "0x10001940",
@@ -123,7 +129,7 @@
       "target": "0x10005420",
       "bytes": 23,
       "name": "?VectorCopy4@@YAXQBMQAM@Z",
-      "object": "rb_shade.obj"
+      "object": "r_debug.obj"
     },
     {
       "target": "0x10005440",
@@ -156,15 +162,33 @@
       "object": "r_debug.obj"
     },
     {
+      "target": "0x100058b0",
+      "bytes": 184,
+      "name": "?R_TransferDebugGlobals@@YAXPAUDebugGlobals@@@Z",
+      "object": "r_debug.obj"
+    },
+    {
       "target": "0x10005b40",
       "bytes": 23,
       "name": "?VectorNegate@@YAXQBMQAM@Z",
       "object": "r_dpvs.obj"
     },
     {
+      "target": "0x10005bb0",
+      "bytes": 33,
+      "name": "?VectorLength@@YAMQBM@Z",
+      "object": "r_shadowcookie.obj"
+    },
+    {
       "target": "0x10005c10",
       "bytes": 29,
       "name": "?DotProduct4@@YAMQBM0@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x100062a0",
+      "bytes": 95,
+      "name": "?R_AppendNearFarPlanes@@YAHPAUDpvsPlane@@H@Z",
       "object": "r_dpvs.obj"
     },
     {
@@ -177,6 +201,12 @@
       "target": "0x100079d0",
       "bytes": 68,
       "name": "?R_OccluderBehindPlane@@YA_NPBUGfxOccluder@@PBUDpvsPlane@@@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10007d60",
+      "bytes": 93,
+      "name": "?R_CellForPoint@@YAHPBM@Z",
       "object": "r_dpvs.obj"
     },
     {
@@ -288,6 +318,12 @@
       "object": "r_image.obj"
     },
     {
+      "target": "0x1000cc80",
+      "bytes": 23,
+      "name": "?Image_IsCodeImage@@YA_NPBUGfxImage@@@Z",
+      "object": "r_image.obj"
+    },
+    {
       "target": "0x1000d010",
       "bytes": 53,
       "name": "?Image_SetupRenderTarget@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z",
@@ -297,6 +333,12 @@
       "target": "0x1000d050",
       "bytes": 56,
       "name": "?Image_SetupSystem@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z",
+      "object": "r_image.obj"
+    },
+    {
+      "target": "0x1000d140",
+      "bytes": 181,
+      "name": "?Image_FindExisting@@YAPAUGfxImage@@PBD@Z",
       "object": "r_image.obj"
     },
     {
@@ -381,7 +423,7 @@
       "target": "0x100104a0",
       "bytes": 465,
       "name": "?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z",
-      "object": "r_lightgrid_weights.obj"
+      "object": "r_image_load_obj.obj"
     },
     {
       "target": "0x10010b30",
@@ -516,6 +558,12 @@
       "object": "r_init.obj"
     },
     {
+      "target": "0x10013270",
+      "bytes": 1051,
+      "name": "_GetRefAPI",
+      "object": "r_init.obj"
+    },
+    {
       "target": "0x10014580",
       "bytes": 19,
       "name": "?init_destination@@YAXPAUjpeg_compress_struct@@@Z",
@@ -573,6 +621,12 @@
       "target": "0x10016e70",
       "bytes": 87,
       "name": "?Material_Sort@@YAXXZ",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10017300",
+      "bytes": 7,
+      "name": "?R_GetMaterialName@@YAPBDPBUMaterialInfoView@@@Z",
       "object": "r_material.obj"
     },
     {
@@ -729,7 +783,7 @@
       "target": "0x1001d660",
       "bytes": 181,
       "name": "?ConvertQuatToMat@@YAXPBUDObjAnimMat_s@@QAY02M@Z",
-      "object": "xanim_matrix.obj"
+      "object": "com_math.obj"
     },
     {
       "target": "0x1001d720",
@@ -784,6 +838,24 @@
       "bytes": 175,
       "name": "?R_OutdoorTraceHeight@@YAMMM@Z",
       "object": "r_outdoor.obj"
+    },
+    {
+      "target": "0x10021840",
+      "bytes": 79,
+      "name": "?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10021920",
+      "bytes": 87,
+      "name": "?R_AddCmdDrawSun@@YAXH@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10021b50",
+      "bytes": 146,
+      "name": "?R_AddCmdBeginView@@YAXHPBUGfxSceneDef@@PBUGfxViewParms@@PBUGfxLodParms@@@Z",
+      "object": "r_rendercmds.obj"
     },
     {
       "target": "0x10021db0",
@@ -852,10 +924,52 @@
       "object": "r_rendertarget.obj"
     },
     {
+      "target": "0x10023630",
+      "bytes": 27,
+      "name": "?I_fsel@@YAMMMM@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10023650",
+      "bytes": 31,
+      "name": "?I_fmax@@YAMMM@Z",
+      "object": "r_scene.obj"
+    },
+    {
       "target": "0x100236c0",
       "bytes": 77,
       "name": "?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z",
       "object": "rb_fog.obj"
+    },
+    {
+      "target": "0x10023b90",
+      "bytes": 299,
+      "name": "?R_AddStaticModelToScene@@YAHH@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10024460",
+      "bytes": 70,
+      "name": "?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x100244b0",
+      "bytes": 301,
+      "name": "?qsortDrawSurfs@@YAXPAUGfxDrawSurf@@H@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10024920",
+      "bytes": 156,
+      "name": "?R_GetClearColor@@YAPAMPAM@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10024a40",
+      "bytes": 53,
+      "name": "?R_ClearFloatZ@@YAXXZ",
+      "object": "r_scene.obj"
     },
     {
       "target": "0x10025570",
@@ -868,6 +982,12 @@
       "bytes": 97,
       "name": "?R_FlipCubemapShot@@YAXPAE@Z",
       "object": "r_screenshot.obj"
+    },
+    {
+      "target": "0x10027170",
+      "bytes": 30,
+      "name": "?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z",
+      "object": "r_shadowcookie.obj"
     },
     {
       "target": "0x10027d00",
@@ -906,6 +1026,12 @@
       "object": "r_staticmodel_load_obj.obj"
     },
     {
+      "target": "0x1002b8c0",
+      "bytes": 87,
+      "name": "?R_UsedCachedStaticModelSurface@@YAXPAUGfxStaticModelSurfaceCached@@@Z",
+      "object": "r_staticmodelcache.obj"
+    },
+    {
       "target": "0x1002bb90",
       "bytes": 84,
       "name": "?R_StaticModelCacheStats_f@@YAXXZ",
@@ -930,10 +1056,52 @@
       "object": "r_utils.obj"
     },
     {
+      "target": "0x1002c7b0",
+      "bytes": 160,
+      "name": "?R_WaterHeightMap@@YAXPAUcomplex_s@@PAEPAUwater_t@@@Z",
+      "object": "r_water.obj"
+    },
+    {
+      "target": "0x1002ce20",
+      "bytes": 9,
+      "name": "?XSurfaceGetNumVerts@@YAHPBUXSurface_s@@@Z",
+      "object": "r_xsurface.obj"
+    },
+    {
+      "target": "0x1002ce30",
+      "bytes": 9,
+      "name": "?XSurfaceGetNumTris@@YAHPBUXSurface_s@@@Z",
+      "object": "r_xsurface.obj"
+    },
+    {
       "target": "0x1002d240",
       "bytes": 403,
       "name": "?XSurfaceTransferDx7@@YAXPBUXVertexBuffer@@PAUGfxVertexDx7@@H@Z",
       "object": "r_xsurface.obj"
+    },
+    {
+      "target": "0x1002eaa0",
+      "bytes": 186,
+      "name": "?RB_CopyBackBufferToSurface@@YAXPAUGfxImage@@@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002eb60",
+      "bytes": 12,
+      "name": "?RB_GotoCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002eb70",
+      "bytes": 30,
+      "name": "?RB_CallCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002eb90",
+      "bytes": 18,
+      "name": "?RB_ReturnCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
+      "object": "rb_backend.obj"
     },
     {
       "target": "0x100307e0",
@@ -1110,6 +1278,12 @@
       "object": "rb_shade.obj"
     },
     {
+      "target": "0x1003a1a0",
+      "bytes": 402,
+      "name": "?RB_SetEntityHwLightsDx7@@YAXPAY03MM@Z",
+      "object": "rb_shade.obj"
+    },
+    {
       "target": "0x1003a5f0",
       "bytes": 153,
       "name": "?RB_BeginSurface@@YAXPBUMaterial@@HH@Z",
@@ -1146,10 +1320,22 @@
       "object": "rb_state.obj"
     },
     {
+      "target": "0x1003e480",
+      "bytes": 46,
+      "name": "?RB_PushMatrixStack@@YAXXZ",
+      "object": "rb_state.obj"
+    },
+    {
       "target": "0x1003ec50",
       "bytes": 33,
       "name": "?RB_BindWhiteImages@@YAXXZ",
       "object": "rb_state.obj"
+    },
+    {
+      "target": "0x1003edf0",
+      "bytes": 22,
+      "name": "?Vec2Length@@YAMQBM@Z",
+      "object": "com_math.obj"
     },
     {
       "target": "0x10057a10",
@@ -1188,16 +1374,34 @@
       "object": "com_convexhull.obj"
     },
     {
+      "target": "0x10058220",
+      "bytes": 59,
+      "name": "?I_fclamp@@YAMMMM@Z",
+      "object": "com_math.obj"
+    },
+    {
+      "target": "0x100582e0",
+      "bytes": 42,
+      "name": "?Vec4LengthSq@@YAMQBM@Z",
+      "object": "com_math.obj"
+    },
+    {
       "target": "0x10058310",
       "bytes": 105,
       "name": "?MatrixTransformVectorQuatTrans@@YAXPBMPBUDObjAnimMat_s@@PAM@Z",
-      "object": "xanim_matrix.obj"
+      "object": "com_math.obj"
     },
     {
       "target": "0x1005da30",
       "bytes": 567,
       "name": "?BoxOnPlaneSide@@YAHQAM0PAUcplane_s@@@Z",
       "object": "com_math.obj"
+    },
+    {
+      "target": "0x1005edb0",
+      "bytes": 169,
+      "name": "?FFT_Init@@YAXPAHPAUcomplex_s@@@Z",
+      "object": "fft.obj"
     },
     {
       "target": "0x1005ff30",
@@ -1212,6 +1416,12 @@
       "object": "q_parse.obj"
     },
     {
+      "target": "0x100604f0",
+      "bytes": 6,
+      "name": "?ShortNoSwap@@YAFF@Z",
+      "object": "q_shared.obj"
+    },
+    {
       "target": "0x10061440",
       "bytes": 384,
       "name": "?ParseConfigStringToStruct@@YAHPAEPBUcspField_t@@HPBDHP6AH02H@ZP6AX02@Z@Z",
@@ -1219,7 +1429,7 @@
     }
   ],
   "checkpoint_lost": [],
-  "excluded_new_library_functions": 58,
+  "excluded_new_library_functions": 73,
   "dependency_objects": [
     "jcapimin.obj",
     "jcapistd.obj",
@@ -1236,14 +1446,36 @@
     "jcphuff.obj",
     "jcprepct.obj",
     "jcsample.obj",
+    "jdapimin.obj",
+    "jdapistd.obj",
+    "jdatasrc.obj",
+    "jdcoefct.obj",
+    "jdcolor.obj",
+    "jddctmgr.obj",
+    "jdhuff.obj",
+    "jdinput.obj",
+    "jdmainct.obj",
+    "jdmarker.obj",
+    "jdmaster.obj",
+    "jdmerge.obj",
+    "jdphuff.obj",
+    "jdpostct.obj",
+    "jdsample.obj",
+    "jdtrans.obj",
     "jerror.obj",
     "jfdctflt.obj",
     "jfdctfst.obj",
     "jfdctint.obj",
+    "jidctflt.obj",
+    "jidctfst.obj",
+    "jidctint.obj",
+    "jidctred.obj",
     "jmemmgr.obj",
     "jmemnobs.obj",
+    "jquant1.obj",
+    "jquant2.obj",
     "jutils.obj"
   ],
   "excluded_new_embedded_table_bytes": 482,
-  "excluded_new_library_bytes": 10408
+  "excluded_new_library_bytes": 12315
 }

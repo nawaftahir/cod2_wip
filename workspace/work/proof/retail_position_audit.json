@@ -1,0 +1,54 @@
+{
+  "status": "Five original mapped-owner exceptions resolved; exact linked offsets and unclassified owners remain open",
+  "mac_stabs_source_sha256": "01a86c7e0c6464e055d5317b6ac70eb6206997d392821687d46dec3d8d109cc8",
+  "driver_original_stabs": {
+    "path": "/Users/kevin/Development/i5works/Aspyr/COD2/Project/PC/gfx_d3d/r_bsp_load_obj.cpp",
+    "symbol": "_Z19R_LoadWorldInternalPKc",
+    "address": "0xe4fa0"
+  },
+  "corrected_modern_rewrite_label": "gfx_d3d/r_loadworld_new",
+  "placement_rows": 1490,
+  "mapped_owner_rows": 821,
+  "unknown_owner_rows": 669,
+  "source_order_is_not_linked_ltcg_order": true,
+  "game_compiler_inputs_changed": true,
+  "resolved_exceptions": [
+    {
+      "tu": "gfx_d3d/r_surfbounds.cpp",
+      "symbol": "?R_TransformBoundsCorners@@YAXPBUGfxEntity@@QAM1PAY02$$CBM@Z",
+      "retail_address": "100088c0",
+      "mapped_owner": "gfx_d3d/r_dpvs",
+      "basis": "interval"
+    },
+    {
+      "tu": "gfx_d3d/r_surfbounds.cpp",
+      "symbol": "?R_CullBrushEntity@@YAXHPAUDpvsPlane@@H@Z",
+      "retail_address": "100091d0",
+      "mapped_owner": "gfx_d3d/r_dpvs",
+      "basis": "interval"
+    },
+    {
+      "tu": "gfx_d3d/r_lightgrid_weights.cpp",
+      "symbol": "?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z",
+      "retail_address": "100104a0",
+      "mapped_owner": "gfx_d3d/r_image_load_obj",
+      "basis": "mac-name"
+    },
+    {
+      "tu": "universal/xanim_matrix.cpp",
+      "symbol": "?ConvertQuatToMat@@YAXPBUDObjAnimMat_s@@QAY02M@Z",
+      "retail_address": "1001d660",
+      "mapped_owner": "universal/com_math",
+      "basis": "mac-name"
+    },
+    {
+      "tu": "universal/xanim_matrix.cpp",
+      "symbol": "?MatrixTransformVectorQuatTrans@@YAXPBMPBUDObjAnimMat_s@@PAM@Z",
+      "retail_address": "10058310",
+      "mapped_owner": "universal/com_math",
+      "basis": "mac-name"
+    }
+  ],
+  "remaining_mapped_owner_exceptions": [],
+  "checkpoint": "placement_five_checkpoint.json"
+}

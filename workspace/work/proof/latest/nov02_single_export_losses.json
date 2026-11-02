@@ -1,0 +1,4575 @@
+[
+  {
+    "name": "?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z",
+    "old": {
+      "t": "0x10001490",
+      "n": 285,
+      "obj": "r_bsp.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10001490",
+      "n": 285,
+      "obj": "r_bsp.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z",
+      "obj": "r_bsp.obj",
+      "size": 285,
+      "hits": [
+        "0x10001490"
+      ]
+    }
+  },
+  {
+    "name": "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z",
+    "old": {
+      "t": "0x10001940",
+      "n": 118,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10001940",
+      "n": 118,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 118,
+      "hits": [
+        "0x10001940"
+      ]
+    }
+  },
+  {
+    "name": "?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z",
+    "old": {
+      "t": "0x10001a20",
+      "n": 410,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10001a20",
+      "n": 410,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "call ?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 410,
+      "hits": [
+        "0x10001a20"
+      ]
+    }
+  },
+  {
+    "name": "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z",
+    "old": {
+      "t": "0x10002620",
+      "n": 108,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10002620",
+      "n": 108,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 108,
+      "hits": [
+        "0x10002620"
+      ]
+    }
+  },
+  {
+    "name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
+    "old": {
+      "t": "0x10002db0",
+      "n": 140,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10002db0",
+      "n": 140,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 140,
+      "hits": [
+        "0x10002db0"
+      ]
+    }
+  },
+  {
+    "name": "?R_Vec4ForKeyHex@@YAEPBD0PAY01PBDHPAM@Z",
+    "old": {
+      "t": "0x10002f50",
+      "n": 192,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10002f50",
+      "n": 192,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_Vec4ForKeyHex@@YAEPBD0PAY01PBDHPAM@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 192,
+      "hits": [
+        "0x10002f50"
+      ]
+    }
+  },
+  {
+    "name": "?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z",
+    "old": {
+      "t": "0x10003030",
+      "n": 328,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10003030",
+      "n": 328,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 328,
+      "hits": [
+        "0x10003030"
+      ]
+    }
+  },
+  {
+    "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
+    "old": {
+      "t": "0x10003430",
+      "n": 939,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10003430",
+      "n": 939,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "call ?Com_Printf@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 939,
+      "hits": [
+        "0x10003430"
+      ]
+    }
+  },
+  {
+    "name": "?R_BuildCellAabbTrees@@YAXXZ",
+    "old": {
+      "t": "0x10003810",
+      "n": 104,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10003810",
+      "n": 104,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "call ?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_BuildCellAabbTrees@@YAXXZ",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 104,
+      "hits": [
+        "0x10003810"
+      ]
+    }
+  },
+  {
+    "name": "?R_LoadCells@@YAXPAUGfxBspLoad@@@Z",
+    "old": {
+      "t": "0x10003f90",
+      "n": 226,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10003f90",
+      "n": 226,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LoadCells@@YAXPAUGfxBspLoad@@@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 226,
+      "hits": [
+        "0x10003f90"
+      ]
+    }
+  },
+  {
+    "name": "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z",
+    "old": {
+      "t": "0x10004080",
+      "n": 240,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10004080",
+      "n": 240,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 240,
+      "hits": [
+        "0x10004080"
+      ]
+    }
+  },
+  {
+    "name": "?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z",
+    "old": {
+      "t": "0x100043d0",
+      "n": 82,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100043d0",
+      "n": 82,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LoadCullGroupIndices@@YAXPAUGfxBspLoad@@@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 82,
+      "hits": [
+        "0x100043d0"
+      ]
+    }
+  },
+  {
+    "name": "?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z",
+    "old": {
+      "t": "0x10004670",
+      "n": 109,
+      "obj": "r_bsp_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10004670",
+      "n": 109,
+      "obj": "r_bsp_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z",
+      "obj": "r_bsp_load_obj.obj",
+      "size": 109,
+      "hits": [
+        "0x10004670"
+      ]
+    }
+  },
+  {
+    "name": "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z",
+    "old": {
+      "t": "0x10004f40",
+      "n": 222,
+      "obj": "r_buffers.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10004f40",
+      "n": 222,
+      "obj": "r_buffers.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z",
+      "obj": "r_buffers.obj",
+      "size": 222,
+      "hits": [
+        "0x10004f40"
+      ]
+    }
+  },
+  {
+    "name": "?R_RespondToMissingCaps@@YAXW4DxCapsResponse@@PBDPAH@Z",
+    "old": {
+      "t": "0x10005150",
+      "n": 135,
+      "obj": "r_caps.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005150",
+      "n": 135,
+      "obj": "r_caps.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_RespondToMissingCaps@@YAXW4DxCapsResponse@@PBDPAH@Z",
+      "obj": "r_caps.obj",
+      "size": 135,
+      "hits": [
+        "0x10005150"
+      ]
+    }
+  },
+  {
+    "name": "?R_CheckDxCaps@@YAHPBU_D3DCAPS9@@@Z",
+    "old": {
+      "t": "0x100051e0",
+      "n": 165,
+      "obj": "r_caps.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100051e0",
+      "n": 165,
+      "obj": "r_caps.obj",
+      "why": [
+        "call ?R_RespondToMissingCaps@@YAXW4DxCapsResponse@@PBDPAH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CheckDxCaps@@YAHPBU_D3DCAPS9@@@Z",
+      "obj": "r_caps.obj",
+      "size": 165,
+      "hits": [
+        "0x100051e0"
+      ]
+    }
+  },
+  {
+    "name": "?R_RegisterCmds@@YAXXZ",
+    "old": {
+      "t": "0x100052c0",
+      "n": 151,
+      "obj": "r_cmds.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100052c0",
+      "n": 151,
+      "obj": "r_cmds.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_RegisterCmds@@YAXXZ",
+      "obj": "r_cmds.obj",
+      "size": 151,
+      "hits": [
+        "0x100052c0"
+      ]
+    }
+  },
+  {
+    "name": "?R_UnregisterCmds@@YAXXZ",
+    "old": {
+      "t": "0x10005360",
+      "n": 114,
+      "obj": "r_cmds.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005360",
+      "n": 114,
+      "obj": "r_cmds.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_UnregisterCmds@@YAXXZ",
+      "obj": "r_cmds.obj",
+      "size": 114,
+      "hits": [
+        "0x10005360"
+      ]
+    }
+  },
+  {
+    "name": "?R_AddDebugPolygon@@YAXPAUDebugGlobals@@PBMHPAY02$$CBM@Z",
+    "old": {
+      "t": "0x10005440",
+      "n": 197,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005440",
+      "n": 197,
+      "obj": "r_debug.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AddDebugPolygon@@YAXPAUDebugGlobals@@PBMHPAY02$$CBM@Z",
+      "obj": "r_debug.obj",
+      "size": 197,
+      "hits": [
+        "0x10005440"
+      ]
+    }
+  },
+  {
+    "name": "?R_AddDebugLine@@YAXPAUDebugGlobals@@PBM11@Z",
+    "old": {
+      "t": "0x10005510",
+      "n": 119,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005510",
+      "n": 119,
+      "obj": "r_debug.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AddDebugLine@@YAXPAUDebugGlobals@@PBM11@Z",
+      "obj": "r_debug.obj",
+      "size": 119,
+      "hits": [
+        "0x10005510"
+      ]
+    }
+  },
+  {
+    "name": "?R_AddDebugBox@@YAXPAUDebugGlobals@@PBM11@Z",
+    "old": {
+      "t": "0x10005590",
+      "n": 240,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005590",
+      "n": 240,
+      "obj": "r_debug.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AddDebugBox@@YAXPAUDebugGlobals@@PBM11@Z",
+      "obj": "r_debug.obj",
+      "size": 240,
+      "hits": [
+        "0x10005590"
+      ]
+    }
+  },
+  {
+    "name": "?R_AddDebugString@@YAXPAUDebugGlobals@@PBM1MPBD@Z",
+    "old": {
+      "t": "0x10005680",
+      "n": 131,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005680",
+      "n": 131,
+      "obj": "r_debug.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AddDebugString@@YAXPAUDebugGlobals@@PBM1MPBD@Z",
+      "obj": "r_debug.obj",
+      "size": 131,
+      "hits": [
+        "0x10005680"
+      ]
+    }
+  },
+  {
+    "name": "?R_AddScaledDebugString@@YAXPAUDebugGlobals@@PBUGfxViewParms@@PBM2PBD@Z",
+    "old": {
+      "t": "0x10005710",
+      "n": 145,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005710",
+      "n": 145,
+      "obj": "r_debug.obj",
+      "why": [
+        "call ?R_AddDebugString@@YAXPAUDebugGlobals@@PBM1MPBD@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AddScaledDebugString@@YAXPAUDebugGlobals@@PBUGfxViewParms@@PBM2PBD@Z",
+      "obj": "r_debug.obj",
+      "size": 145,
+      "hits": [
+        "0x10005710"
+      ]
+    }
+  },
+  {
+    "name": "?R_ShutdownDebugEntry@@YAXPAUDebugGlobals@@@Z",
+    "old": {
+      "t": "0x10005820",
+      "n": 143,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005820",
+      "n": 143,
+      "obj": "r_debug.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_ShutdownDebugEntry@@YAXPAUDebugGlobals@@@Z",
+      "obj": "r_debug.obj",
+      "size": 143,
+      "hits": [
+        "0x10005820"
+      ]
+    }
+  },
+  {
+    "name": "?R_LocateDebugStrings@@YAXPAUtrDebugString_t@@HH@Z",
+    "old": {
+      "t": "0x10005980",
+      "n": 93,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005980",
+      "n": 93,
+      "obj": "r_debug.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LocateDebugStrings@@YAXPAUtrDebugString_t@@HH@Z",
+      "obj": "r_debug.obj",
+      "size": 93,
+      "hits": [
+        "0x10005980"
+      ]
+    }
+  },
+  {
+    "name": "?R_LocateDebugLines@@YAXPAUtrDebugLine_t@@HH@Z",
+    "old": {
+      "t": "0x100059e0",
+      "n": 93,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100059e0",
+      "n": 93,
+      "obj": "r_debug.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LocateDebugLines@@YAXPAUtrDebugLine_t@@HH@Z",
+      "obj": "r_debug.obj",
+      "size": 93,
+      "hits": [
+        "0x100059e0"
+      ]
+    }
+  },
+  {
+    "name": "?R_AddPlume@@YAXPBMH0H@Z",
+    "old": {
+      "t": "0x10005a40",
+      "n": 199,
+      "obj": "r_debug.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10005a40",
+      "n": 199,
+      "obj": "r_debug.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AddPlume@@YAXPBMH0H@Z",
+      "obj": "r_debug.obj",
+      "size": 199,
+      "hits": [
+        "0x10005a40"
+      ]
+    }
+  },
+  {
+    "name": "?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z",
+    "old": {
+      "t": "0x10008570",
+      "n": 139,
+      "obj": "r_dpvs.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10008570",
+      "n": 139,
+      "obj": "r_dpvs.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z",
+      "obj": "r_dpvs.obj",
+      "size": 139,
+      "hits": [
+        "0x10008570"
+      ]
+    }
+  },
+  {
+    "name": "?R_AddVertToPortalHullPoints@@YAXPAUGfxPortal@@PBM@Z",
+    "old": {
+      "t": "0x10009910",
+      "n": 253,
+      "obj": "r_dpvs.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10009910",
+      "n": 253,
+      "obj": "r_dpvs.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AddVertToPortalHullPoints@@YAXPAUGfxPortal@@PBM@Z",
+      "obj": "r_dpvs.obj",
+      "size": 253,
+      "hits": [
+        "0x10009910"
+      ]
+    }
+  },
+  {
+    "name": "?R_ChopPortalAndAddHullPoints@@YA_NPAUGfxPortal@@PBUDpvsPlane@@1H@Z",
+    "old": {
+      "t": "0x10009b30",
+      "n": 91,
+      "obj": "r_dpvs.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10009b30",
+      "n": 91,
+      "obj": "r_dpvs.obj",
+      "why": [
+        "call ?R_AddVertToPortalHullPoints@@YAXPAUGfxPortal@@PBM@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_ChopPortalAndAddHullPoints@@YA_NPAUGfxPortal@@PBUDpvsPlane@@1H@Z",
+      "obj": "r_dpvs.obj",
+      "size": 91,
+      "hits": [
+        "0x10009b30"
+      ]
+    }
+  },
+  {
+    "name": "?R_CellForPoint@@YAHPBM@Z",
+    "old": {
+      "t": "0x10007d60",
+      "n": 93,
+      "obj": "r_dpvs.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10007d60",
+      "n": 93,
+      "obj": "r_dpvs.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CellForPoint@@YAHPBM@Z",
+      "obj": "r_dpvs.obj",
+      "size": 93,
+      "hits": [
+        "0x10007d60"
+      ]
+    }
+  },
+  {
+    "name": "?R_RegisterDvars@@YAXXZ",
+    "old": {
+      "t": "0x1000aaf0",
+      "n": 4046,
+      "obj": "r_dvars.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000aaf0",
+      "n": 4046,
+      "obj": "r_dvars.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_RegisterDvars@@YAXXZ",
+      "obj": "r_dvars.obj",
+      "size": 4046,
+      "hits": [
+        "0x1000aaf0"
+      ]
+    }
+  },
+  {
+    "name": "?R_DuplicateFont@@YAXPAUFont_s@@PBD@Z",
+    "old": {
+      "t": "0x1000bdc0",
+      "n": 340,
+      "obj": "r_font.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000bdc0",
+      "n": 340,
+      "obj": "r_font.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_DuplicateFont@@YAXPAUFont_s@@PBD@Z",
+      "obj": "r_font.obj",
+      "size": 340,
+      "hits": [
+        "0x1000bdc0"
+      ]
+    }
+  },
+  {
+    "name": "?R_TextWidth@@YAHPBDHPAUFont_s@@@Z",
+    "old": {
+      "t": "0x1000bf60",
+      "n": 153,
+      "obj": "r_font.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000bf60",
+      "n": 153,
+      "obj": "r_font.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_TextWidth@@YAHPBDHPAUFont_s@@@Z",
+      "obj": "r_font.obj",
+      "size": 153,
+      "hits": [
+        "0x1000bf60"
+      ]
+    }
+  },
+  {
+    "name": "?R_ImageList_f@@YAXXZ",
+    "old": {
+      "t": "0x1000d940",
+      "n": 1070,
+      "obj": "r_image.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000d940",
+      "n": 1070,
+      "obj": "r_image.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_ImageList_f@@YAXXZ",
+      "obj": "r_image.obj",
+      "size": 1070,
+      "hits": [
+        "0x1000d940"
+      ]
+    }
+  },
+  {
+    "name": "?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z",
+    "old": {
+      "t": "0x1000ce80",
+      "n": 113,
+      "obj": "r_image.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000ce80",
+      "n": 113,
+      "obj": "r_image.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z",
+      "obj": "r_image.obj",
+      "size": 113,
+      "hits": [
+        "0x1000ce80"
+      ]
+    }
+  },
+  {
+    "name": "?Image_Create3DTexture@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z",
+    "old": {
+      "t": "0x1000cf00",
+      "n": 130,
+      "obj": "r_image.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000cf00",
+      "n": 130,
+      "obj": "r_image.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_Create3DTexture@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z",
+      "obj": "r_image.obj",
+      "size": 130,
+      "hits": [
+        "0x1000cf00"
+      ]
+    }
+  },
+  {
+    "name": "?Image_CreateCubeTexture@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@W4_D3DPOOL@@@Z",
+    "old": {
+      "t": "0x1000cf90",
+      "n": 119,
+      "obj": "r_image.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000cf90",
+      "n": 119,
+      "obj": "r_image.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_CreateCubeTexture@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@W4_D3DPOOL@@@Z",
+      "obj": "r_image.obj",
+      "size": 119,
+      "hits": [
+        "0x1000cf90"
+      ]
+    }
+  },
+  {
+    "name": "?Image_SetupRenderTarget@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z",
+    "old": {
+      "t": "0x1000d010",
+      "n": 53,
+      "obj": "r_image.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000d010",
+      "n": 53,
+      "obj": "r_image.obj",
+      "why": [
+        "call ?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_SetupRenderTarget@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z",
+      "obj": "r_image.obj",
+      "size": 53,
+      "hits": [
+        "0x1000d010"
+      ]
+    }
+  },
+  {
+    "name": "?Image_SetupSystem@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z",
+    "old": {
+      "t": "0x1000d050",
+      "n": 56,
+      "obj": "r_image.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000d050",
+      "n": 56,
+      "obj": "r_image.obj",
+      "why": [
+        "call ?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_SetupSystem@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z",
+      "obj": "r_image.obj",
+      "size": 56,
+      "hits": [
+        "0x1000d050"
+      ]
+    }
+  },
+  {
+    "name": "?Image_Alloc@@YAPAUGfxImage@@PBDHHH@Z",
+    "old": {
+      "t": "0x1000cc10",
+      "n": 109,
+      "obj": "r_image.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000cc10",
+      "n": 109,
+      "obj": "r_image.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_Alloc@@YAPAUGfxImage@@PBDHHH@Z",
+      "obj": "r_image.obj",
+      "size": 109,
+      "hits": [
+        "0x1000cc10"
+      ]
+    }
+  },
+  {
+    "name": "?Image_Setup@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@@Z",
+    "old": {
+      "t": "0x1000ee30",
+      "n": 246,
+      "obj": "r_image_load_common.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000ee30",
+      "n": 246,
+      "obj": "r_image_load_common.obj",
+      "why": [
+        "call ?Image_CreateCubeTexture@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@W4_D3DPOOL@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_Setup@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@@Z",
+      "obj": "r_image_load_common.obj",
+      "size": 246,
+      "hits": [
+        "0x1000ee30"
+      ]
+    }
+  },
+  {
+    "name": "?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z",
+    "old": {
+      "t": "0x100100f0",
+      "n": 102,
+      "obj": "r_image_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100100f0",
+      "n": 102,
+      "obj": "r_image_load_obj.obj",
+      "why": [
+        "call ?Image_Setup@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z",
+      "obj": "r_image_load_obj.obj",
+      "size": 102,
+      "hits": [
+        "0x100100f0"
+      ]
+    }
+  },
+  {
+    "name": "?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z",
+    "old": {
+      "t": "0x10010b30",
+      "n": 99,
+      "obj": "r_image_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10010b30",
+      "n": 99,
+      "obj": "r_image_load_obj.obj",
+      "why": [
+        "call ?Image_Alloc@@YAPAUGfxImage@@PBDHHH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z",
+      "obj": "r_image_load_obj.obj",
+      "size": 99,
+      "hits": [
+        "0x10010b30"
+      ]
+    }
+  },
+  {
+    "name": "?Image_LoadBitmap@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z",
+    "old": {
+      "t": "0x1000f5a0",
+      "n": 527,
+      "obj": "r_image_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000f5a0",
+      "n": 527,
+      "obj": "r_image_load_obj.obj",
+      "why": [
+        "call ?Image_Setup@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_LoadBitmap@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z",
+      "obj": "r_image_load_obj.obj",
+      "size": 527,
+      "hits": [
+        "0x1000f5a0"
+      ]
+    }
+  },
+  {
+    "name": "?Image_LoadDxtc@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z",
+    "old": {
+      "t": "0x1000f7b0",
+      "n": 331,
+      "obj": "r_image_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000f7b0",
+      "n": 331,
+      "obj": "r_image_load_obj.obj",
+      "why": [
+        "call ?Image_Setup@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_LoadDxtc@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z",
+      "obj": "r_image_load_obj.obj",
+      "size": 331,
+      "hits": [
+        "0x1000f7b0"
+      ]
+    }
+  },
+  {
+    "name": "?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z",
+    "old": {
+      "t": "0x1000f2a0",
+      "n": 67,
+      "obj": "r_image_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1000f2a0",
+      "n": 67,
+      "obj": "r_image_load_obj.obj",
+      "why": [
+        "call ?Com_Printf@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z",
+      "obj": "r_image_load_obj.obj",
+      "size": 67,
+      "hits": [
+        "0x1000f2a0"
+      ]
+    }
+  },
+  {
+    "name": "?R_FatalInitError@@YAXPBD@Z",
+    "old": {
+      "t": "0x10011390",
+      "n": 66,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10011390",
+      "n": 66,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_FatalInitError@@YAXPBD@Z",
+      "obj": "r_init.obj",
+      "size": 66,
+      "hits": [
+        "0x10011390"
+      ]
+    }
+  },
+  {
+    "name": "?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z",
+    "old": {
+      "t": "0x10011a40",
+      "n": 129,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10011a40",
+      "n": 129,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z",
+      "obj": "r_init.obj",
+      "size": 129,
+      "hits": [
+        "0x10011a40"
+      ]
+    }
+  },
+  {
+    "name": "?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z",
+    "old": {
+      "t": "0x10011ad0",
+      "n": 129,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10011ad0",
+      "n": 129,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z",
+      "obj": "r_init.obj",
+      "size": 129,
+      "hits": [
+        "0x10011ad0"
+      ]
+    }
+  },
+  {
+    "name": "?R_CreateDynamicBuffers@@YAXXZ",
+    "old": {
+      "t": "0x10011b60",
+      "n": 143,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10011b60",
+      "n": 143,
+      "obj": "r_init.obj",
+      "why": [
+        "call ?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CreateDynamicBuffers@@YAXXZ",
+      "obj": "r_init.obj",
+      "size": 143,
+      "hits": [
+        "0x10011b60"
+      ]
+    }
+  },
+  {
+    "name": "?R_FatalBufferLockError@@YAXJ@Z",
+    "old": {
+      "t": "0x100113e0",
+      "n": 49,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100113e0",
+      "n": 49,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_FatalBufferLockError@@YAXJ@Z",
+      "obj": "r_init.obj",
+      "size": 49,
+      "hits": [
+        "0x100113e0"
+      ]
+    }
+  },
+  {
+    "name": "?R_GetDeviceCaps@@YAXIPAU_D3DCAPS9@@@Z",
+    "old": {
+      "t": "0x100116c0",
+      "n": 139,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100116c0",
+      "n": 139,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_GetDeviceCaps@@YAXIPAU_D3DCAPS9@@@Z",
+      "obj": "r_init.obj",
+      "size": 139,
+      "hits": [
+        "0x100116c0"
+      ]
+    }
+  },
+  {
+    "name": "?R_ChooseRenderer@@YAXPBU_D3DCAPS9@@@Z",
+    "old": {
+      "t": "0x10011760",
+      "n": 358,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10011760",
+      "n": 358,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_ChooseRenderer@@YAXPBU_D3DCAPS9@@@Z",
+      "obj": "r_init.obj",
+      "size": 358,
+      "hits": [
+        "0x10011760"
+      ]
+    }
+  },
+  {
+    "name": "?R_StoreDirect3DCaps@@YAXI@Z",
+    "old": {
+      "t": "0x10011900",
+      "n": 307,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10011900",
+      "n": 307,
+      "obj": "r_init.obj",
+      "why": [
+        "call ?R_GetDeviceCaps@@YAXIPAU_D3DCAPS9@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_StoreDirect3DCaps@@YAXI@Z",
+      "obj": "r_init.obj",
+      "size": 307,
+      "hits": [
+        "0x10011900"
+      ]
+    }
+  },
+  {
+    "name": "?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z",
+    "old": {
+      "t": "0x100129c0",
+      "n": 248,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100129c0",
+      "n": 248,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z",
+      "obj": "r_init.obj",
+      "size": 248,
+      "hits": [
+        "0x100129c0"
+      ]
+    }
+  },
+  {
+    "name": "?R_InitGlobalStructs@@YAXXZ",
+    "old": {
+      "t": "0x10012e70",
+      "n": 109,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10012e70",
+      "n": 109,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_InitGlobalStructs@@YAXXZ",
+      "obj": "r_init.obj",
+      "size": 109,
+      "hits": [
+        "0x10012e70"
+      ]
+    }
+  },
+  {
+    "name": "?R_InitModelDObj@@YAXXZ",
+    "old": {
+      "t": "0x10012f40",
+      "n": 51,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10012f40",
+      "n": 51,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_InitModelDObj@@YAXXZ",
+      "obj": "r_init.obj",
+      "size": 51,
+      "hits": [
+        "0x10012f40"
+      ]
+    }
+  },
+  {
+    "name": "?R_Error@@YAXW4errorParm_t@@PBDZZ",
+    "old": {
+      "t": "0x100138c0",
+      "n": 112,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100138c0",
+      "n": 112,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_Error@@YAXW4errorParm_t@@PBDZZ",
+      "obj": "r_init.obj",
+      "size": 112,
+      "hits": [
+        "0x100138c0"
+      ]
+    }
+  },
+  {
+    "name": "_GetRefAPI",
+    "old": {
+      "t": "0x10013270",
+      "n": 1051,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10013270",
+      "n": 1051,
+      "obj": "r_init.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "_GetRefAPI",
+      "obj": "r_init.obj",
+      "size": 1051,
+      "hits": [
+        "0x10013270"
+      ]
+    }
+  },
+  {
+    "name": "?Material_RegisterLiteral@@YAPBMPBM@Z",
+    "old": {
+      "t": "0x10016390",
+      "n": 150,
+      "obj": "r_material.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10016390",
+      "n": 150,
+      "obj": "r_material.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_RegisterLiteral@@YAPBMPBM@Z",
+      "obj": "r_material.obj",
+      "size": 150,
+      "hits": [
+        "0x10016390"
+      ]
+    }
+  },
+  {
+    "name": "?Material_RegisterString@@YAPBDPBD@Z",
+    "old": {
+      "t": "0x10016440",
+      "n": 246,
+      "obj": "r_material.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10016440",
+      "n": 246,
+      "obj": "r_material.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_RegisterString@@YAPBDPBD@Z",
+      "obj": "r_material.obj",
+      "size": 246,
+      "hits": [
+        "0x10016440"
+      ]
+    }
+  },
+  {
+    "name": "?Material_AllocVertexDecl@@YAPAUMaterialVertexDeclaration@@PAUMaterialStreamRouting@@HPAE@Z",
+    "old": {
+      "t": "0x10016780",
+      "n": 261,
+      "obj": "r_material.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10016780",
+      "n": 261,
+      "obj": "r_material.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_AllocVertexDecl@@YAPAUMaterialVertexDeclaration@@PAUMaterialStreamRouting@@HPAE@Z",
+      "obj": "r_material.obj",
+      "size": 261,
+      "hits": [
+        "0x10016780"
+      ]
+    }
+  },
+  {
+    "name": "?Material_SetTechnique@@YAXPBDPAUMaterialTechnique@@@Z",
+    "old": {
+      "t": "0x10016960",
+      "n": 72,
+      "obj": "r_material.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10016960",
+      "n": 72,
+      "obj": "r_material.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_SetTechnique@@YAXPBDPAUMaterialTechnique@@@Z",
+      "obj": "r_material.obj",
+      "size": 72,
+      "hits": [
+        "0x10016960"
+      ]
+    }
+  },
+  {
+    "name": "?Material_SetShader@@YAXPBDHHPAUMaterialShader@@@Z",
+    "old": {
+      "t": "0x10016cf0",
+      "n": 77,
+      "obj": "r_material.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10016cf0",
+      "n": 77,
+      "obj": "r_material.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_SetShader@@YAXPBDHHPAUMaterialShader@@@Z",
+      "obj": "r_material.obj",
+      "size": 77,
+      "hits": [
+        "0x10016cf0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_AddToTable@@YAXPAUMaterial@@G@Z",
+    "old": {
+      "t": "0x10016ed0",
+      "n": 83,
+      "obj": "r_material.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10016ed0",
+      "n": 83,
+      "obj": "r_material.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_AddToTable@@YAXPAUMaterial@@G@Z",
+      "obj": "r_material.obj",
+      "size": 83,
+      "hits": [
+        "0x10016ed0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_Duplicate@@YAPAUMaterial@@PBU1@PBD@Z",
+    "old": {
+      "t": "0x10016f30",
+      "n": 173,
+      "obj": "r_material.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10016f30",
+      "n": 173,
+      "obj": "r_material.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_Duplicate@@YAPAUMaterial@@PBU1@PBD@Z",
+      "obj": "r_material.obj",
+      "size": 173,
+      "hits": [
+        "0x10016f30"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseVector@@YAEPAPBDHPAM@Z",
+    "old": {
+      "t": "0x100197a0",
+      "n": 281,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100197a0",
+      "n": 281,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseVector@@YAEPAPBDHPAM@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 281,
+      "hits": [
+        "0x100197a0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParsePassOptionDx7@@YAXPAPBDPAUMaterialPassDx7@@PAE2@Z",
+    "old": {
+      "t": "0x1001ab70",
+      "n": 311,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001ab70",
+      "n": 311,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParsePassOptionDx7@@YAXPAPBDPAUMaterialPassDx7@@PAE2@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 311,
+      "hits": [
+        "0x1001ab70"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseNamedIndex@@YAEPAPBDPBDH@Z",
+    "old": {
+      "t": "0x100183c0",
+      "n": 90,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100183c0",
+      "n": 90,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseNamedIndex@@YAEPAPBDPBDH@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 90,
+      "hits": [
+        "0x100183c0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseTextureArgumentDx7@@YAEPAPBDHPAH@Z",
+    "old": {
+      "t": "0x1001ad80",
+      "n": 393,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001ad80",
+      "n": 393,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseTextureArgumentDx7@@YAEPAPBDHPAH@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 393,
+      "hits": [
+        "0x1001ad80"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseTextureArgumentsDx7@@YAEPAPBDHHPAH@Z",
+    "old": {
+      "t": "0x1001af10",
+      "n": 165,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001af10",
+      "n": 165,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseTextureArgumentsDx7@@YAEPAPBDHHPAH@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 165,
+      "hits": [
+        "0x1001af10"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseTextureFunctionDx7@@YAEPAPBDHHPAH@Z",
+    "old": {
+      "t": "0x1001afc0",
+      "n": 316,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001afc0",
+      "n": 316,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_Printf@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseTextureFunctionDx7@@YAEPAPBDHHPAH@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 316,
+      "hits": [
+        "0x1001afc0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_LoadPassTexCoordDx7@@YAEPAPBDHPAE@Z",
+    "old": {
+      "t": "0x1001b100",
+      "n": 364,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001b100",
+      "n": 364,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_LoadPassTexCoordDx7@@YAEPAPBDHPAE@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 364,
+      "hits": [
+        "0x1001b100"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseArrayOffset@@YAEPAPBDHHPAH@Z",
+    "old": {
+      "t": "0x10019480",
+      "n": 103,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10019480",
+      "n": 103,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseArrayOffset@@YAEPAPBDHHPAH@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 103,
+      "hits": [
+        "0x10019480"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseLiteralVector@@YAEPAPBDPBDPAM@Z",
+    "old": {
+      "t": "0x100198c0",
+      "n": 170,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100198c0",
+      "n": 170,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Material_ParseVector@@YAEPAPBDHPAM@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseLiteralVector@@YAEPAPBDPBDPAM@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 170,
+      "hits": [
+        "0x100198c0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseStateValue@@YAPBUMtlStateMapBitName@@PAPBDPBU1@@Z",
+    "old": {
+      "t": "0x10018420",
+      "n": 163,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10018420",
+      "n": 163,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_ScriptWarning@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseStateValue@@YAPBUMtlStateMapBitName@@PAPBDPBU1@@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 163,
+      "hits": [
+        "0x10018420"
+      ]
+    }
+  },
+  {
+    "name": "?Material_MatchToken@@YAEPAPBDPBD@Z",
+    "old": {
+      "t": "0x10018350",
+      "n": 17,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10018350",
+      "n": 17,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_MatchToken@@YAEPAPBDPBD@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 17,
+      "hits": [
+        "0x10018350"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseRuleSetConditionTest@@YA?AW4MtlParseSuccess@@PAPBDPBDPAUMaterialStateMapRule@@@Z",
+    "old": {
+      "t": "0x100184d0",
+      "n": 220,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100184d0",
+      "n": 220,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseRuleSetConditionTest@@YA?AW4MtlParseSuccess@@PAPBDPBDPAUMaterialStateMapRule@@@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 220,
+      "hits": [
+        "0x100184d0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseRuleSetValue@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAUMaterialStateMapRule@@@Z",
+    "old": {
+      "t": "0x10018710",
+      "n": 375,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10018710",
+      "n": 375,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseRuleSetValue@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAUMaterialStateMapRule@@@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 375,
+      "hits": [
+        "0x10018710"
+      ]
+    }
+  },
+  {
+    "name": "?Material_AllocRuleSet@@YAPAUMaterialStateMapRuleSet@@HPBUMaterialStateMapRule@@@Z",
+    "old": {
+      "t": "0x10018890",
+      "n": 75,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10018890",
+      "n": 75,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_AllocRuleSet@@YAPAUMaterialStateMapRuleSet@@HPBUMaterialStateMapRule@@@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 75,
+      "hits": [
+        "0x10018890"
+      ]
+    }
+  },
+  {
+    "name": "_IncludeClass_Open@24",
+    "old": {
+      "t": "0x100182c0",
+      "n": 74,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100182c0",
+      "n": 74,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "_IncludeClass_Open@24",
+      "obj": "r_material_load_obj.obj",
+      "size": 74,
+      "hits": [
+        "0x100182c0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseConstantArrayOffset@@YAEPAPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAH@Z",
+    "old": {
+      "t": "0x10019970",
+      "n": 271,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10019970",
+      "n": 271,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_ScriptWarning@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseConstantArrayOffset@@YAEPAPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAH@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 271,
+      "hits": [
+        "0x10019970"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseShaderArgumentArray@@YAEPAPBDPAUShaderConstantRouting@@@Z",
+    "old": {
+      "t": "0x10019f10",
+      "n": 285,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10019f10",
+      "n": 285,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_ScriptWarning@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseShaderArgumentArray@@YAEPAPBDPAUShaderConstantRouting@@@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 285,
+      "hits": [
+        "0x10019f10"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z",
+    "old": {
+      "t": "0x10018f90",
+      "n": 89,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10018f90",
+      "n": 89,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 89,
+      "hits": [
+        "0x10018f90"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseStreamDestination@@YAEPAPBDPBDPAE@Z",
+    "old": {
+      "t": "0x10018ff0",
+      "n": 197,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10018ff0",
+      "n": 197,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseStreamDestination@@YAEPAPBDPBDPAE@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 197,
+      "hits": [
+        "0x10018ff0"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z",
+    "old": {
+      "t": "0x100190c0",
+      "n": 216,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100190c0",
+      "n": 216,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 216,
+      "hits": [
+        "0x100190c0"
+      ]
+    }
+  },
+  {
+    "name": "?R_RegisterModel@@YAPAUXModel@@PBD@Z",
+    "old": {
+      "t": "0x1001d830",
+      "n": 107,
+      "obj": "r_model.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001d830",
+      "n": 107,
+      "obj": "r_model.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_RegisterModel@@YAPAUXModel@@PBD@Z",
+      "obj": "r_model.obj",
+      "size": 107,
+      "hits": [
+        "0x1001d830"
+      ]
+    }
+  },
+  {
+    "name": "?R_LockSkinnedCache@@YAXH@Z",
+    "old": {
+      "t": "0x1001e4b0",
+      "n": 138,
+      "obj": "r_model.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001e4b0",
+      "n": 138,
+      "obj": "r_model.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_LockSkinnedCache@@YAXH@Z",
+      "obj": "r_model.obj",
+      "size": 138,
+      "hits": [
+        "0x1001e4b0"
+      ]
+    }
+  },
+  {
+    "name": "?R_DObjGetSurfMaterials@@YAXPAUDObj_s@@DPAPAUMaterial@@@Z",
+    "old": {
+      "t": "0x100201b0",
+      "n": 189,
+      "obj": "r_model.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100201b0",
+      "n": 189,
+      "obj": "r_model.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_DObjGetSurfMaterials@@YAXPAUDObj_s@@DPAPAUMaterial@@@Z",
+      "obj": "r_model.obj",
+      "size": 189,
+      "hits": [
+        "0x100201b0"
+      ]
+    }
+  },
+  {
+    "name": "?R_DObjReplaceMaterial@@YAXPAUDObj_s@@DHPAUMaterial@@@Z",
+    "old": {
+      "t": "0x10020270",
+      "n": 160,
+      "obj": "r_model.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10020270",
+      "n": 160,
+      "obj": "r_model.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_DObjReplaceMaterial@@YAXPAUDObj_s@@DHPAUMaterial@@@Z",
+      "obj": "r_model.obj",
+      "size": 160,
+      "hits": [
+        "0x10020270"
+      ]
+    }
+  },
+  {
+    "name": "?R_CalcSceneEntityPose@@YAXPBUGfxSceneEntity@@PBUDObj_s@@PAH@Z",
+    "old": {
+      "t": "0x1001da60",
+      "n": 20,
+      "obj": "r_model.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001da60",
+      "n": 20,
+      "obj": "r_model.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CalcSceneEntityPose@@YAXPBUGfxSceneEntity@@PBUDObj_s@@PAH@Z",
+      "obj": "r_model.obj",
+      "size": 20,
+      "hits": [
+        "0x1001da60"
+      ]
+    }
+  },
+  {
+    "name": "?R_GetSurfaceData@@YAHPBUGfxEntity@@PBUDObj_s@@PAUDSurface_s@@PAHPAD@Z",
+    "old": {
+      "t": "0x1001d9f0",
+      "n": 98,
+      "obj": "r_model.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1001d9f0",
+      "n": 98,
+      "obj": "r_model.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_GetSurfaceData@@YAHPBUGfxEntity@@PBUDObj_s@@PAUDSurface_s@@PAHPAD@Z",
+      "obj": "r_model.obj",
+      "size": 98,
+      "hits": [
+        "0x1001d9f0"
+      ]
+    }
+  },
+  {
+    "name": "?R_OutdoorTraceHeight@@YAMMM@Z",
+    "old": {
+      "t": "0x10020590",
+      "n": 175,
+      "obj": "r_outdoor.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10020590",
+      "n": 175,
+      "obj": "r_outdoor.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_OutdoorTraceHeight@@YAMMM@Z",
+      "obj": "r_outdoor.obj",
+      "size": 175,
+      "hits": [
+        "0x10020590"
+      ]
+    }
+  },
+  {
+    "name": "?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z",
+    "old": {
+      "t": "0x10021c60",
+      "n": 23,
+      "obj": "r_rendercmds.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10021c60",
+      "n": 23,
+      "obj": "r_rendercmds.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z",
+      "obj": "r_rendercmds.obj",
+      "size": 23,
+      "hits": [
+        "0x10021c60"
+      ]
+    }
+  },
+  {
+    "name": "?R_ClearModifiedLightDvars@@YA_NXZ",
+    "old": {
+      "t": "0x10021c80",
+      "n": 225,
+      "obj": "r_rendercmds.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10021c80",
+      "n": 225,
+      "obj": "r_rendercmds.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_ClearModifiedLightDvars@@YA_NXZ",
+      "obj": "r_rendercmds.obj",
+      "size": 225,
+      "hits": [
+        "0x10021c80"
+      ]
+    }
+  },
+  {
+    "name": "?R_UpdateLodDistances@@YAXXZ",
+    "old": {
+      "t": "0x10021db0",
+      "n": 152,
+      "obj": "r_rendercmds.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10021db0",
+      "n": 152,
+      "obj": "r_rendercmds.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_UpdateLodDistances@@YAXXZ",
+      "obj": "r_rendercmds.obj",
+      "size": 152,
+      "hits": [
+        "0x10021db0"
+      ]
+    }
+  },
+  {
+    "name": "?R_DescribeFormat@@YAPBDW4_D3DFORMAT@@@Z",
+    "old": {
+      "t": "0x10022710",
+      "n": 172,
+      "obj": "r_rendertarget.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10022710",
+      "n": 172,
+      "obj": "r_rendertarget.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_DescribeFormat@@YAPBDW4_D3DFORMAT@@@Z",
+      "obj": "r_rendertarget.obj",
+      "size": 172,
+      "hits": [
+        "0x10022710"
+      ]
+    }
+  },
+  {
+    "name": "?R_InitFrameBuffer@@YAXPAUGfxRenderTarget@@@Z",
+    "old": {
+      "t": "0x10022940",
+      "n": 261,
+      "obj": "r_rendertarget.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10022940",
+      "n": 261,
+      "obj": "r_rendertarget.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_InitFrameBuffer@@YAXPAUGfxRenderTarget@@@Z",
+      "obj": "r_rendertarget.obj",
+      "size": 261,
+      "hits": [
+        "0x10022940"
+      ]
+    }
+  },
+  {
+    "name": "?R_GetOrCreateDepthStencil@@YAPAUIDirect3DSurface9@@XZ",
+    "old": {
+      "t": "0x10022830",
+      "n": 145,
+      "obj": "r_rendertarget.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10022830",
+      "n": 145,
+      "obj": "r_rendertarget.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_GetOrCreateDepthStencil@@YAPAUIDirect3DSurface9@@XZ",
+      "obj": "r_rendertarget.obj",
+      "size": 145,
+      "hits": [
+        "0x10022830"
+      ]
+    }
+  },
+  {
+    "name": "?R_CreateSmallDepthStencil@@YAPAUIDirect3DSurface9@@XZ",
+    "old": {
+      "t": "0x100228d0",
+      "n": 100,
+      "obj": "r_rendertarget.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100228d0",
+      "n": 100,
+      "obj": "r_rendertarget.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CreateSmallDepthStencil@@YAPAUIDirect3DSurface9@@XZ",
+      "obj": "r_rendertarget.obj",
+      "size": 100,
+      "hits": [
+        "0x100228d0"
+      ]
+    }
+  },
+  {
+    "name": "?R_InitRenderTargetImage@@YAXHHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z",
+    "old": {
+      "t": "0x10022a60",
+      "n": 150,
+      "obj": "r_rendertarget.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10022a60",
+      "n": 150,
+      "obj": "r_rendertarget.obj",
+      "why": [
+        "call ?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_InitRenderTargetImage@@YAXHHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z",
+      "obj": "r_rendertarget.obj",
+      "size": 150,
+      "hits": [
+        "0x10022a60"
+      ]
+    }
+  },
+  {
+    "name": "?R_CompareDumpSceneEntities@@YAHPBX0@Z",
+    "old": {
+      "t": "0x10023800",
+      "n": 200,
+      "obj": "r_scene.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10023800",
+      "n": 200,
+      "obj": "r_scene.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_CompareDumpSceneEntities@@YAHPBX0@Z",
+      "obj": "r_scene.obj",
+      "size": 200,
+      "hits": [
+        "0x10023800"
+      ]
+    }
+  },
+  {
+    "name": "?R_AllocSceneEntity@@YAHXZ",
+    "old": {
+      "t": "0x10023af0",
+      "n": 149,
+      "obj": "r_scene.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10023af0",
+      "n": 149,
+      "obj": "r_scene.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AllocSceneEntity@@YAHXZ",
+      "obj": "r_scene.obj",
+      "size": 149,
+      "hits": [
+        "0x10023af0"
+      ]
+    }
+  },
+  {
+    "name": "?R_GetFrontBufferData@@YAEHHHHHPAE@Z",
+    "old": {
+      "t": "0x10025e80",
+      "n": 656,
+      "obj": "r_screenshot.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10025e80",
+      "n": 656,
+      "obj": "r_screenshot.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_GetFrontBufferData@@YAEHHHHHPAE@Z",
+      "obj": "r_screenshot.obj",
+      "size": 656,
+      "hits": [
+        "0x10025e80"
+      ]
+    }
+  },
+  {
+    "name": "?R_TakeScreenshotTga@@YAXHHHHPBD@Z",
+    "old": {
+      "t": "0x100261b0",
+      "n": 138,
+      "obj": "r_screenshot.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100261b0",
+      "n": 138,
+      "obj": "r_screenshot.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_TakeScreenshotTga@@YAXHHHHPBD@Z",
+      "obj": "r_screenshot.obj",
+      "size": 138,
+      "hits": [
+        "0x100261b0"
+      ]
+    }
+  },
+  {
+    "name": "?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z",
+    "old": {
+      "t": "0x10027d00",
+      "n": 573,
+      "obj": "r_shadowcookie.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10027d00",
+      "n": 573,
+      "obj": "r_shadowcookie.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z",
+      "obj": "r_shadowcookie.obj",
+      "size": 573,
+      "hits": [
+        "0x10027d00"
+      ]
+    }
+  },
+  {
+    "name": "?R_RegisterSunDvars@@YAXXZ",
+    "old": {
+      "t": "0x10028a10",
+      "n": 702,
+      "obj": "r_sky.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10028a10",
+      "n": 702,
+      "obj": "r_sky.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_RegisterSunDvars@@YAXXZ",
+      "obj": "r_sky.obj",
+      "size": 702,
+      "hits": [
+        "0x10028a10"
+      ]
+    }
+  },
+  {
+    "name": "?R_SaveSun@@YAXPBD@Z",
+    "old": {
+      "t": "0x10029080",
+      "n": 101,
+      "obj": "r_sky.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10029080",
+      "n": 101,
+      "obj": "r_sky.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_SaveSun@@YAXPBD@Z",
+      "obj": "r_sky.obj",
+      "size": 101,
+      "hits": [
+        "0x10029080"
+      ]
+    }
+  },
+  {
+    "name": "?R_SaveSun_f@@YAXXZ",
+    "old": {
+      "t": "0x100290f0",
+      "n": 46,
+      "obj": "r_sky.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100290f0",
+      "n": 46,
+      "obj": "r_sky.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_SaveSun_f@@YAXXZ",
+      "obj": "r_sky.obj",
+      "size": 46,
+      "hits": [
+        "0x100290f0"
+      ]
+    }
+  },
+  {
+    "name": "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z",
+    "old": {
+      "t": "0x100296a0",
+      "n": 73,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100296a0",
+      "n": 73,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z",
+      "obj": "r_staticmodel_load_obj.obj",
+      "size": 73,
+      "hits": [
+        "0x100296a0"
+      ]
+    }
+  },
+  {
+    "name": "?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z",
+    "old": {
+      "t": "0x100298a0",
+      "n": 97,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100298a0",
+      "n": 97,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z",
+      "obj": "r_staticmodel_load_obj.obj",
+      "size": 97,
+      "hits": [
+        "0x100298a0"
+      ]
+    }
+  },
+  {
+    "name": "?R_SortGfxAabbTree@@YAXPAUGfxWorld@@PAUGfxAabbTree@@@Z",
+    "old": {
+      "t": "0x10029bf0",
+      "n": 1056,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10029bf0",
+      "n": 1056,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_SortGfxAabbTree@@YAXPAUGfxWorld@@PAUGfxAabbTree@@@Z",
+      "obj": "r_staticmodel_load_obj.obj",
+      "size": 1056,
+      "hits": [
+        "0x10029bf0"
+      ]
+    }
+  },
+  {
+    "name": "?R_AddStaticModelToAabbTree_r@@YAXPAUGfxWorld@@PAUGfxAabbTree@@H@Z",
+    "old": {
+      "t": "0x1002a010",
+      "n": 489,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1002a010",
+      "n": 489,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_AddStaticModelToAabbTree_r@@YAXPAUGfxWorld@@PAUGfxAabbTree@@H@Z",
+      "obj": "r_staticmodel_load_obj.obj",
+      "size": 489,
+      "hits": [
+        "0x1002a010"
+      ]
+    }
+  },
+  {
+    "name": "?R_ValidateStaticModel@@YA_NPAUXModel@@@Z",
+    "old": {
+      "t": "0x1002a940",
+      "n": 128,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1002a940",
+      "n": 128,
+      "obj": "r_staticmodel_load_obj.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_ValidateStaticModel@@YA_NPAUXModel@@@Z",
+      "obj": "r_staticmodel_load_obj.obj",
+      "size": 128,
+      "hits": [
+        "0x1002a940"
+      ]
+    }
+  },
+  {
+    "name": "?R_StaticModelCacheStats_f@@YAXXZ",
+    "old": {
+      "t": "0x1002bb90",
+      "n": 84,
+      "obj": "r_staticmodelcache.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1002bb90",
+      "n": 84,
+      "obj": "r_staticmodelcache.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A",
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_StaticModelCacheStats_f@@YAXXZ",
+      "obj": "r_staticmodelcache.obj",
+      "size": 84,
+      "hits": [
+        "0x1002bb90"
+      ]
+    }
+  },
+  {
+    "name": "?R_PickMaterial@@YAHPBM0PAD11I@Z",
+    "old": {
+      "t": "0x1002c100",
+      "n": 552,
+      "obj": "r_utils.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1002c100",
+      "n": 552,
+      "obj": "r_utils.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?R_PickMaterial@@YAHPBM0PAD11I@Z",
+      "obj": "r_utils.obj",
+      "size": 552,
+      "hits": [
+        "0x1002c100"
+      ]
+    }
+  },
+  {
+    "name": "?RB_BeginScene@@YAXXZ",
+    "old": {
+      "t": "0x10033a90",
+      "n": 135,
+      "obj": "rb_backend.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10033a90",
+      "n": 135,
+      "obj": "rb_backend.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_BeginScene@@YAXXZ",
+      "obj": "rb_backend.obj",
+      "size": 135,
+      "hits": [
+        "0x10033a90"
+      ]
+    }
+  },
+  {
+    "name": "?RB_SetFrustumConstants@@YAXXZ",
+    "old": {
+      "t": "0x10032120",
+      "n": 198,
+      "obj": "rb_backend.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10032120",
+      "n": 198,
+      "obj": "rb_backend.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_SetFrustumConstants@@YAXXZ",
+      "obj": "rb_backend.obj",
+      "size": 198,
+      "hits": [
+        "0x10032120"
+      ]
+    }
+  },
+  {
+    "name": "?RB_InitBackendGlobalStructs@@YAXXZ",
+    "old": {
+      "t": "0x10033f80",
+      "n": 64,
+      "obj": "rb_backend.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10033f80",
+      "n": 64,
+      "obj": "rb_backend.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_InitBackendGlobalStructs@@YAXXZ",
+      "obj": "rb_backend.obj",
+      "size": 64,
+      "hits": [
+        "0x10033f80"
+      ]
+    }
+  },
+  {
+    "name": "?RB_UpdateFogColor@@YAXW4FogColorSrcEnum@@@Z",
+    "old": {
+      "t": "0x10034bb0",
+      "n": 172,
+      "obj": "rb_fog.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10034bb0",
+      "n": 172,
+      "obj": "rb_fog.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_UpdateFogColor@@YAXW4FogColorSrcEnum@@@Z",
+      "obj": "rb_fog.obj",
+      "size": 172,
+      "hits": [
+        "0x10034bb0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_SetIteratorFog@@YAXXZ",
+    "old": {
+      "t": "0x10034910",
+      "n": 657,
+      "obj": "rb_fog.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10034910",
+      "n": 657,
+      "obj": "rb_fog.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_SetIteratorFog@@YAXXZ",
+      "obj": "rb_fog.obj",
+      "size": 657,
+      "hits": [
+        "0x10034910"
+      ]
+    }
+  },
+  {
+    "name": "?RB_DrawGridPointBox@@YAXPBMM0@Z",
+    "old": {
+      "t": "0x10035a50",
+      "n": 106,
+      "obj": "rb_light.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10035a50",
+      "n": 106,
+      "obj": "rb_light.obj",
+      "why": [
+        "call ?R_AddDebugBox@@YAXPAUDebugGlobals@@PBM11@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_DrawGridPointBox@@YAXPBMM0@Z",
+      "obj": "rb_light.obj",
+      "size": 106,
+      "hits": [
+        "0x10035a50"
+      ]
+    }
+  },
+  {
+    "name": "?RB_DrawGridSampleBox@@YAXPBM@Z",
+    "old": {
+      "t": "0x10035940",
+      "n": 118,
+      "obj": "rb_light.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10035940",
+      "n": 118,
+      "obj": "rb_light.obj",
+      "why": [
+        "call ?R_AddDebugBox@@YAXPAUDebugGlobals@@PBM11@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_DrawGridSampleBox@@YAXPBM@Z",
+      "obj": "rb_light.obj",
+      "size": 118,
+      "hits": [
+        "0x10035940"
+      ]
+    }
+  },
+  {
+    "name": "?BuildGridFilename@@YAXPBDPAD@Z",
+    "old": {
+      "t": "0x10037670",
+      "n": 78,
+      "obj": "rb_light.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10037670",
+      "n": 78,
+      "obj": "rb_light.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?BuildGridFilename@@YAXPBDPAD@Z",
+      "obj": "rb_light.obj",
+      "size": 78,
+      "hits": [
+        "0x10037670"
+      ]
+    }
+  },
+  {
+    "name": "?RB_UpdateLogging@@YAXXZ",
+    "old": {
+      "t": "0x10037890",
+      "n": 87,
+      "obj": "rb_logfile.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10037890",
+      "n": 87,
+      "obj": "rb_logfile.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_UpdateLogging@@YAXXZ",
+      "obj": "rb_logfile.obj",
+      "size": 87,
+      "hits": [
+        "0x10037890"
+      ]
+    }
+  },
+  {
+    "name": "?RB_LogBlend@@YAXPBDH@Z",
+    "old": {
+      "t": "0x10037a60",
+      "n": 186,
+      "obj": "rb_logfile.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10037a60",
+      "n": 186,
+      "obj": "rb_logfile.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_LogBlend@@YAXPBDH@Z",
+      "obj": "rb_logfile.obj",
+      "size": 186,
+      "hits": [
+        "0x10037a60"
+      ]
+    }
+  },
+  {
+    "name": "?RB_LogBlendOp@@YAXPBDH@Z",
+    "old": {
+      "t": "0x10037b20",
+      "n": 122,
+      "obj": "rb_logfile.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10037b20",
+      "n": 122,
+      "obj": "rb_logfile.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_LogBlendOp@@YAXPBDH@Z",
+      "obj": "rb_logfile.obj",
+      "size": 122,
+      "hits": [
+        "0x10037b20"
+      ]
+    }
+  },
+  {
+    "name": "?RB_LogBool@@YAXPBDHHH00@Z",
+    "old": {
+      "t": "0x10037ba0",
+      "n": 106,
+      "obj": "rb_logfile.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10037ba0",
+      "n": 106,
+      "obj": "rb_logfile.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_LogBool@@YAXPBDHHH00@Z",
+      "obj": "rb_logfile.obj",
+      "size": 106,
+      "hits": [
+        "0x10037ba0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_LogFromTable@@YAXPBDHHHPBUStateBitsTable@@H@Z",
+    "old": {
+      "t": "0x10037c10",
+      "n": 208,
+      "obj": "rb_logfile.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10037c10",
+      "n": 208,
+      "obj": "rb_logfile.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_LogFromTable@@YAXPBDHHHPBUStateBitsTable@@H@Z",
+      "obj": "rb_logfile.obj",
+      "size": 208,
+      "hits": [
+        "0x10037c10"
+      ]
+    }
+  },
+  {
+    "name": "?RB_LogPrintState_0@@YAXHH@Z",
+    "old": {
+      "t": "0x10037ce0",
+      "n": 1060,
+      "obj": "rb_logfile.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10037ce0",
+      "n": 1060,
+      "obj": "rb_logfile.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_LogPrintState_0@@YAXHH@Z",
+      "obj": "rb_logfile.obj",
+      "size": 1060,
+      "hits": [
+        "0x10037ce0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_LogPrintState_1@@YAXHH@Z",
+    "old": {
+      "t": "0x10038110",
+      "n": 211,
+      "obj": "rb_logfile.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10038110",
+      "n": 211,
+      "obj": "rb_logfile.obj",
+      "why": [
+        "call ?RB_LogBool@@YAXPBDHHH00@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_LogPrintState_1@@YAXHH@Z",
+      "obj": "rb_logfile.obj",
+      "size": 211,
+      "hits": [
+        "0x10038110"
+      ]
+    }
+  },
+  {
+    "name": "?RB_SetIndexData@@YAHPBGH@Z",
+    "old": {
+      "t": "0x100386b0",
+      "n": 282,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100386b0",
+      "n": 282,
+      "obj": "rb_shade.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_SetIndexData@@YAHPBGH@Z",
+      "obj": "rb_shade.obj",
+      "size": 282,
+      "hits": [
+        "0x100386b0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_DeriveOutdoorLookupMatrix@@YAXQAY03M@Z",
+    "old": {
+      "t": "0x10038fd0",
+      "n": 198,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10038fd0",
+      "n": 198,
+      "obj": "rb_shade.obj",
+      "why": [
+        "call ?RB_GetCodeMatrix@@YAPBMIHH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_DeriveOutdoorLookupMatrix@@YAXQAY03M@Z",
+      "obj": "rb_shade.obj",
+      "size": 198,
+      "hits": [
+        "0x10038fd0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_GetCodeMatrix@@YAPBMIHH@Z",
+    "old": {
+      "t": "0x10038cf0",
+      "n": 733,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10038cf0",
+      "n": 733,
+      "obj": "rb_shade.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_GetCodeMatrix@@YAPBMIHH@Z",
+      "obj": "rb_shade.obj",
+      "size": 733,
+      "hits": [
+        "0x10038cf0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_GetShaderCodeConstant@@YAXPBUMaterialArgumentCodeConst@@PAPBMPAI@Z",
+    "old": {
+      "t": "0x100390a0",
+      "n": 65,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100390a0",
+      "n": 65,
+      "obj": "rb_shade.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_GetShaderCodeConstant@@YAXPBUMaterialArgumentCodeConst@@PAPBMPAI@Z",
+      "obj": "rb_shade.obj",
+      "size": 65,
+      "hits": [
+        "0x100390a0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_ChangeVertexShaderConstants@@YAXHPBMI@Z",
+    "old": {
+      "t": "0x10039130",
+      "n": 310,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10039130",
+      "n": 310,
+      "obj": "rb_shade.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_ChangeVertexShaderConstants@@YAXHPBMI@Z",
+      "obj": "rb_shade.obj",
+      "size": 310,
+      "hits": [
+        "0x10039130"
+      ]
+    }
+  },
+  {
+    "name": "?RB_ChangePixelShaderConstants@@YAXHPBMI@Z",
+    "old": {
+      "t": "0x10039270",
+      "n": 310,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10039270",
+      "n": 310,
+      "obj": "rb_shade.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_ChangePixelShaderConstants@@YAXHPBMI@Z",
+      "obj": "rb_shade.obj",
+      "size": 310,
+      "hits": [
+        "0x10039270"
+      ]
+    }
+  },
+  {
+    "name": "?RB_EvaluateStateMap@@YAXPBHPBUMaterialStateMap@@PAH@Z",
+    "old": {
+      "t": "0x10039670",
+      "n": 91,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10039670",
+      "n": 91,
+      "obj": "rb_shade.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_EvaluateStateMap@@YAXPBHPBUMaterialStateMap@@PAH@Z",
+      "obj": "rb_shade.obj",
+      "size": 91,
+      "hits": [
+        "0x10039670"
+      ]
+    }
+  },
+  {
+    "name": "?RB_GetObjectiveColorDx7@@YAXPAE@Z",
+    "old": {
+      "t": "0x100399d0",
+      "n": 358,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100399d0",
+      "n": 358,
+      "obj": "rb_shade.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_GetObjectiveColorDx7@@YAXPAE@Z",
+      "obj": "rb_shade.obj",
+      "size": 358,
+      "hits": [
+        "0x100399d0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_BeginSurface@@YAXPBUMaterial@@HH@Z",
+    "old": {
+      "t": "0x1003a5f0",
+      "n": 153,
+      "obj": "rb_shade.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003a5f0",
+      "n": 153,
+      "obj": "rb_shade.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_BeginSurface@@YAXPBUMaterial@@HH@Z",
+      "obj": "rb_shade.obj",
+      "size": 153,
+      "hits": [
+        "0x1003a5f0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_SetSampler@@YAXHEPAUGfxImage@@@Z",
+    "old": {
+      "t": "0x1003d950",
+      "n": 1041,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003d950",
+      "n": 1041,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_SetSampler@@YAXHEPAUGfxImage@@@Z",
+      "obj": "rb_state.obj",
+      "size": 1041,
+      "hits": [
+        "0x1003d950"
+      ]
+    }
+  },
+  {
+    "name": "?RB_UnbindImage@@YAXPBUGfxImage@@@Z",
+    "old": {
+      "t": "0x1003dd70",
+      "n": 49,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003dd70",
+      "n": 49,
+      "obj": "rb_state.obj",
+      "why": [
+        "call ?RB_SetSampler@@YAXHEPAUGfxImage@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_UnbindImage@@YAXPBUGfxImage@@@Z",
+      "obj": "rb_state.obj",
+      "size": 49,
+      "hits": [
+        "0x1003dd70"
+      ]
+    }
+  },
+  {
+    "name": "?RB_InitImages@@YAXXZ",
+    "old": {
+      "t": "0x1003ddb0",
+      "n": 45,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003ddb0",
+      "n": 45,
+      "obj": "rb_state.obj",
+      "why": [
+        "call ?RB_SetSampler@@YAXHEPAUGfxImage@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_InitImages@@YAXXZ",
+      "obj": "rb_state.obj",
+      "size": 45,
+      "hits": [
+        "0x1003ddb0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_ChangeState_0@@YAXH@Z",
+    "old": {
+      "t": "0x1003c430",
+      "n": 2086,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003c430",
+      "n": 2086,
+      "obj": "rb_state.obj",
+      "why": [
+        "call ?RB_LogPrintState_0@@YAXHH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_ChangeState_0@@YAXH@Z",
+      "obj": "rb_state.obj",
+      "size": 2086,
+      "hits": [
+        "0x1003c430"
+      ]
+    }
+  },
+  {
+    "name": "?RB_ChangeState_1@@YAXH@Z",
+    "old": {
+      "t": "0x1003cc60",
+      "n": 1452,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003cc60",
+      "n": 1452,
+      "obj": "rb_state.obj",
+      "why": [
+        "call ?RB_LogPrintState_1@@YAXHH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_ChangeState_1@@YAXH@Z",
+      "obj": "rb_state.obj",
+      "size": 1452,
+      "hits": [
+        "0x1003cc60"
+      ]
+    }
+  },
+  {
+    "name": "?RB_SetViewport@@YAXPBUGfxViewport@@@Z",
+    "old": {
+      "t": "0x1003e8a0",
+      "n": 262,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003e8a0",
+      "n": 262,
+      "obj": "rb_state.obj",
+      "why": [
+        "call ?va@@YAPADPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_SetViewport@@YAXPBUGfxViewport@@@Z",
+      "obj": "rb_state.obj",
+      "size": 262,
+      "hits": [
+        "0x1003e8a0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z",
+    "old": {
+      "t": "0x10038610",
+      "n": 150,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10038610",
+      "n": 150,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z",
+      "obj": "rb_state.obj",
+      "size": 150,
+      "hits": [
+        "0x10038610"
+      ]
+    }
+  },
+  {
+    "name": "?RB_ChangeGenTexCoords@@YAXHH@Z",
+    "old": {
+      "t": "0x1003d4c0",
+      "n": 896,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003d4c0",
+      "n": 896,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_ChangeGenTexCoords@@YAXHH@Z",
+      "obj": "rb_state.obj",
+      "size": 896,
+      "hits": [
+        "0x1003d4c0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_SetViewMatrix@@YAXPBU_D3DMATRIX@@@Z",
+    "old": {
+      "t": "0x1003df90",
+      "n": 283,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003df90",
+      "n": 283,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_SetViewMatrix@@YAXPBU_D3DMATRIX@@@Z",
+      "obj": "rb_state.obj",
+      "size": 283,
+      "hits": [
+        "0x1003df90"
+      ]
+    }
+  },
+  {
+    "name": "?RB_SetViewMatrixForWDx7@@YAXM@Z",
+    "old": {
+      "t": "0x1003e0b0",
+      "n": 126,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003e0b0",
+      "n": 126,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_SetViewMatrixForWDx7@@YAXM@Z",
+      "obj": "rb_state.obj",
+      "size": 126,
+      "hits": [
+        "0x1003e0b0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_CopyViewParmsMatrices@@YAXPBUGfxViewParms@@@Z",
+    "old": {
+      "t": "0x1003e2a0",
+      "n": 94,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003e2a0",
+      "n": 94,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_CopyViewParmsMatrices@@YAXPBUGfxViewParms@@@Z",
+      "obj": "rb_state.obj",
+      "size": 94,
+      "hits": [
+        "0x1003e2a0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_PushMatrixStack@@YAXXZ",
+    "old": {
+      "t": "0x1003e480",
+      "n": 46,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003e480",
+      "n": 46,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_PushMatrixStack@@YAXXZ",
+      "obj": "rb_state.obj",
+      "size": 46,
+      "hits": [
+        "0x1003e480"
+      ]
+    }
+  },
+  {
+    "name": "?RB_PopMatrixStack@@YAXXZ",
+    "old": {
+      "t": "0x1003e4b0",
+      "n": 347,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003e4b0",
+      "n": 347,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_PopMatrixStack@@YAXXZ",
+      "obj": "rb_state.obj",
+      "size": 347,
+      "hits": [
+        "0x1003e4b0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_UpdateViewport@@YAXXZ",
+    "old": {
+      "t": "0x1003e9b0",
+      "n": 101,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003e9b0",
+      "n": 101,
+      "obj": "rb_state.obj",
+      "why": [
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A",
+        "bind ?backEnd@@3Ur_backEndGlobals_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_UpdateViewport@@YAXXZ",
+      "obj": "rb_state.obj",
+      "size": 101,
+      "hits": [
+        "0x1003e9b0"
+      ]
+    }
+  },
+  {
+    "name": "?Com_BeginParseSession@@YAXPBD@Z",
+    "old": {
+      "t": "0x1005f0e0",
+      "n": 213,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1005f0e0",
+      "n": 213,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_Printf@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_BeginParseSession@@YAXPBD@Z",
+      "obj": "q_parse.obj",
+      "size": 213,
+      "hits": [
+        "0x1005f0e0"
+      ]
+    }
+  },
+  {
+    "name": "?Com_ScriptErrorDrop@@YAXPBDZZ",
+    "old": {
+      "t": "0x1005f2d0",
+      "n": 144,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1005f2d0",
+      "n": 144,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_ScriptErrorDrop@@YAXPBDZZ",
+      "obj": "q_parse.obj",
+      "size": 144,
+      "hits": [
+        "0x1005f2d0"
+      ]
+    }
+  },
+  {
+    "name": "?Com_ScriptWarning@@YAXPBDZZ",
+    "old": {
+      "t": "0x1005f360",
+      "n": 140,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1005f360",
+      "n": 140,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_Printf@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_ScriptWarning@@YAXPBDZZ",
+      "obj": "q_parse.obj",
+      "size": 140,
+      "hits": [
+        "0x1005f360"
+      ]
+    }
+  },
+  {
+    "name": "?Com_UngetToken@@YAXXZ",
+    "old": {
+      "t": "0x1005f3f0",
+      "n": 82,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1005f3f0",
+      "n": 82,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_ScriptErrorDrop@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_UngetToken@@YAXXZ",
+      "obj": "q_parse.obj",
+      "size": 82,
+      "hits": [
+        "0x1005f3f0"
+      ]
+    }
+  },
+  {
+    "name": "?Com_MatchToken@@YAHPAPBDPBDH@Z",
+    "old": {
+      "t": "0x1005faf0",
+      "n": 181,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1005faf0",
+      "n": 181,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_ScriptWarning@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_MatchToken@@YAHPAPBDPBDH@Z",
+      "obj": "q_parse.obj",
+      "size": 181,
+      "hits": [
+        "0x1005faf0"
+      ]
+    }
+  },
+  {
+    "name": "?Com_ParseRestOfLine@@YAPBDPAPBD@Z",
+    "old": {
+      "t": "0x1005fd60",
+      "n": 275,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1005fd60",
+      "n": 275,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_ParseRestOfLine@@YAPBDPAPBD@Z",
+      "obj": "q_parse.obj",
+      "size": 275,
+      "hits": [
+        "0x1005fd60"
+      ]
+    }
+  },
+  {
+    "name": "?Com_Parse1DMatrix@@YAXPAPBDHPAM@Z",
+    "old": {
+      "t": "0x1005ffe0",
+      "n": 221,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1005ffe0",
+      "n": 221,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_Parse1DMatrix@@YAXPAPBDHPAM@Z",
+      "obj": "q_parse.obj",
+      "size": 221,
+      "hits": [
+        "0x1005ffe0"
+      ]
+    }
+  },
+  {
+    "name": "?Com_Parse2DMatrix@@YAXPAPBDHHPAM@Z",
+    "old": {
+      "t": "0x100600c0",
+      "n": 167,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x100600c0",
+      "n": 167,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_Parse2DMatrix@@YAXPAPBDHHPAM@Z",
+      "obj": "q_parse.obj",
+      "size": 167,
+      "hits": [
+        "0x100600c0"
+      ]
+    }
+  },
+  {
+    "name": "?Com_Parse3DMatrix@@YAXPAPBDHHHPAM@Z",
+    "old": {
+      "t": "0x10060170",
+      "n": 181,
+      "obj": "q_parse.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10060170",
+      "n": 181,
+      "obj": "q_parse.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_Parse3DMatrix@@YAXPAPBDHHHPAM@Z",
+      "obj": "q_parse.obj",
+      "size": 181,
+      "hits": [
+        "0x10060170"
+      ]
+    }
+  },
+  {
+    "name": "?Com_AssembleFilepath@@YAXPBD00PADH@Z",
+    "old": {
+      "t": "0x10060260",
+      "n": 188,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10060260",
+      "n": 188,
+      "obj": "q_shared.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_AssembleFilepath@@YAXPBD00PADH@Z",
+      "obj": "q_shared.obj",
+      "size": 188,
+      "hits": [
+        "0x10060260"
+      ]
+    }
+  },
+  {
+    "name": "?I_strncat@@YAXPADHPBD@Z",
+    "old": {
+      "t": "0x10060b30",
+      "n": 76,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10060b30",
+      "n": 76,
+      "obj": "q_shared.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?I_strncat@@YAXPADHPBD@Z",
+      "obj": "q_shared.obj",
+      "size": 76,
+      "hits": [
+        "0x10060b30"
+      ]
+    }
+  },
+  {
+    "name": "?va@@YAPADPBDZZ",
+    "old": {
+      "t": "0x10060c70",
+      "n": 103,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10060c70",
+      "n": 103,
+      "obj": "q_shared.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?va@@YAPADPBDZZ",
+      "obj": "q_shared.obj",
+      "size": 103,
+      "hits": [
+        "0x10060c70"
+      ]
+    }
+  },
+  {
+    "name": "?Info_ValueForKey@@YAPBDPBD0@Z",
+    "old": {
+      "t": "0x10060d10",
+      "n": 241,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10060d10",
+      "n": 241,
+      "obj": "q_shared.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Info_ValueForKey@@YAPBDPBD0@Z",
+      "obj": "q_shared.obj",
+      "size": 241,
+      "hits": [
+        "0x10060d10"
+      ]
+    }
+  },
+  {
+    "name": "?Info_RemoveKey@@YAXPADPBD@Z",
+    "old": {
+      "t": "0x10060e60",
+      "n": 244,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10060e60",
+      "n": 244,
+      "obj": "q_shared.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Info_RemoveKey@@YAXPADPBD@Z",
+      "obj": "q_shared.obj",
+      "size": 244,
+      "hits": [
+        "0x10060e60"
+      ]
+    }
+  },
+  {
+    "name": "?Info_RemoveKey_Big@@YAXPADPBD@Z",
+    "old": {
+      "t": "0x10060f60",
+      "n": 244,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10060f60",
+      "n": 244,
+      "obj": "q_shared.obj",
+      "why": [
+        "call ?Com_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Info_RemoveKey_Big@@YAXPADPBD@Z",
+      "obj": "q_shared.obj",
+      "size": 244,
+      "hits": [
+        "0x10060f60"
+      ]
+    }
+  },
+  {
+    "name": "?Info_SetValueForKey@@YAXPADPBD1@Z",
+    "old": {
+      "t": "0x10061090",
+      "n": 451,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10061090",
+      "n": 451,
+      "obj": "q_shared.obj",
+      "why": [
+        "call ?Com_Printf@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Info_SetValueForKey@@YAXPADPBD1@Z",
+      "obj": "q_shared.obj",
+      "size": 451,
+      "hits": [
+        "0x10061090"
+      ]
+    }
+  },
+  {
+    "name": "?Info_SetValueForKey_Big@@YAXPADPBD1@Z",
+    "old": {
+      "t": "0x10061260",
+      "n": 467,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10061260",
+      "n": 467,
+      "obj": "q_shared.obj",
+      "why": [
+        "call ?Com_Printf@@YAXPBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Info_SetValueForKey_Big@@YAXPADPBD1@Z",
+      "obj": "q_shared.obj",
+      "size": 467,
+      "hits": [
+        "0x10061260"
+      ]
+    }
+  },
+  {
+    "name": "?ParseConfigStringToStruct@@YAHPAEPBUcspField_t@@HPBDHP6AH02H@ZP6AX02@Z@Z",
+    "old": {
+      "t": "0x10061440",
+      "n": 384,
+      "obj": "q_shared.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10061440",
+      "n": 384,
+      "obj": "q_shared.obj",
+      "why": [
+        "call ?Info_ValueForKey@@YAPBDPBD0@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?ParseConfigStringToStruct@@YAHPAEPBUcspField_t@@HPBDHP6AH02H@ZP6AX02@Z@Z",
+      "obj": "q_shared.obj",
+      "size": 384,
+      "hits": [
+        "0x10061440"
+      ]
+    }
+  },
+  {
+    "name": "?Com_Printf@@YAXPBDZZ",
+    "old": {
+      "t": "0x10061c80",
+      "n": 74,
+      "obj": "common.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10061c80",
+      "n": 74,
+      "obj": "common.obj",
+      "why": [
+        "bind ?ri@@3Urefimport_t@@A"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_Printf@@YAXPBDZZ",
+      "obj": "common.obj",
+      "size": 74,
+      "hits": [
+        "0x10061c80"
+      ]
+    }
+  },
+  {
+    "name": "?Com_Error@@YAXW4errorParm_t@@PBDZZ",
+    "old": {
+      "t": "0x10061cd0",
+      "n": 79,
+      "obj": "common.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10061cd0",
+      "n": 79,
+      "obj": "common.obj",
+      "why": [
+        "call ?R_Error@@YAXW4errorParm_t@@PBDZZ"
+      ]
+    },
+    "cmp": {
+      "name": "?Com_Error@@YAXW4errorParm_t@@PBDZZ",
+      "obj": "common.obj",
+      "size": 79,
+      "hits": [
+        "0x10061cd0"
+      ]
+    }
+  },
+  {
+    "name": "?RB_BindWhiteImages@@YAXXZ",
+    "old": {
+      "t": "0x1003ec50",
+      "n": 33,
+      "obj": "rb_state.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x1003ec50",
+      "n": 33,
+      "obj": "rb_state.obj",
+      "why": [
+        "call ?RB_SetSampler@@YAXHEPAUGfxImage@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?RB_BindWhiteImages@@YAXXZ",
+      "obj": "rb_state.obj",
+      "size": 33,
+      "hits": [
+        "0x1003ec50",
+        "0x1003ec80"
+      ]
+    }
+  },
+  {
+    "name": "?Material_ParseIndex@@YAEPAPBDH@Z",
+    "old": {
+      "t": "0x10018370",
+      "n": 73,
+      "obj": "r_material_load_obj.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10018370",
+      "n": 73,
+      "obj": "r_material_load_obj.obj",
+      "why": [
+        "call ?Com_MatchToken@@YAHPAPBDPBDH@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?Material_ParseIndex@@YAEPAPBDH@Z",
+      "obj": "r_material_load_obj.obj",
+      "size": 73,
+      "hits": [
+        "0x10018370",
+        "0x100183d1"
+      ]
+    }
+  },
+  {
+    "name": "?R_InitShadowCookieRenderTarget@@YAXPAUGfxRenderTarget@@@Z",
+    "old": {
+      "t": "0x10022b90",
+      "n": 160,
+      "obj": "r_rendertarget.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10022b90",
+      "n": 160,
+      "obj": "r_rendertarget.obj",
+      "why": [
+        "call ?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_InitShadowCookieRenderTarget@@YAXPAUGfxRenderTarget@@@Z",
+      "obj": "r_rendertarget.obj",
+      "size": 160,
+      "hits": [
+        "0x10022b90",
+        "0x10022c30"
+      ]
+    }
+  },
+  {
+    "name": "?R_InitShadowCookieBlurRenderTarget@@YAXPAUGfxRenderTarget@@@Z",
+    "old": {
+      "t": "0x10022c30",
+      "n": 160,
+      "obj": "r_rendertarget.obj",
+      "why": []
+    },
+    "now": {
+      "t": "0x10022c30",
+      "n": 160,
+      "obj": "r_rendertarget.obj",
+      "why": [
+        "call ?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z"
+      ]
+    },
+    "cmp": {
+      "name": "?R_InitShadowCookieBlurRenderTarget@@YAXPAUGfxRenderTarget@@@Z",
+      "obj": "r_rendertarget.obj",
+      "size": 160,
+      "hits": [
+        "0x10022b90",
+        "0x10022c30"
+      ]
+    }
+  }
+]

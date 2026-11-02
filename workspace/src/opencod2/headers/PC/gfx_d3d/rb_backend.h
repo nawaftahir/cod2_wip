@@ -39,6 +39,7 @@ struct GfxCmdStencilPlanes {
 };
 #endif
 
+#ifndef COD2_SDK_TYPES
 struct GfxCmdDrawSprite {
     GfxCmdHeader header;
     Material *material;
@@ -48,6 +49,7 @@ struct GfxCmdDrawSprite {
     float minScreenRadius;
     int renderFxFlags;
 };
+#endif
 
 #ifndef COD2_SDK_TYPES
 struct SunFlareDynamic {
@@ -104,11 +106,13 @@ struct GfxDebugPoly {
     int vertCount;
 };
 
+#ifndef COD2_SDK_TYPES
 struct GfxEntityLighting {
     int viewCount;
     float sunVisibility;
     vec4_t colorForDir[6];
 };
+#endif
 
 #ifndef COD2_SDK_TYPES
 struct GfxPointVertex {

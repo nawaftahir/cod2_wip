@@ -2,6 +2,10 @@
 #include "gfx.h"
 #include <math.h>
 
+extern r_backEndGlobals_t backEnd;
+extern DxGlobals dx;
+extern vidConfig_t vidConfig;
+
 typedef char filter_pass_size[(sizeof(GfxImageFilterPass) == 0x98) ? 1 : -1];
 typedef char filter_material_offset[(offsetof(r_global_permanent_t, symmetricFilterMaterial) == 0x10b0) ? 1 : -1];
 
@@ -168,4 +172,109 @@ int RB_GenerateGaussianFilterChain(float radiusX, float radiusY, int srcWidth,
         ++curPass;
     } while (passCount < 16);
     return passCount;
+}
+
+// Filter application and glow images.
+
+typedef char imageFilterLayoutCheck[(offsetof(GfxImageFilter, sourceImage) == 0x984
+    && offsetof(GfxImageFilter, pingPongTargets) == 0x98c) ? 1 : -1];
+void RB_SetRenderTarget(GfxRenderTargetId target);
+void RB_DrawStretchPic(const Material *material, float x, float y, float width, float height,
+    float s0, float t0, float s1, float t1, unsigned int color);
+void RB_EndSurface();
+
+// PINNED 100353c0: filter constants begin at slot33, not the Mac draft's35.
+static void RB_SetFilterConstants(const GfxImageFilterPass *pass)
+{
+    for (int index = 0; index < pass->tapHalfCount; ++index)
+        for (int component = 0; component < 4; ++component)
+            backEnd.codeConsts[33 + index][component] = pass->tapOffsetsAndWeights[index][component];
+}
+
+// PINNED 10035490: live count, source from the preceding ping-pong target.
+static void RB_ApplyFilterPasses(GfxImageFilter *filter)
+{
+    for (int index = 0; index < filter->passCount; ++index)
+    {
+        GfxImageFilterPass *pass = &filter->passes[index];
+        int pingPong = index & 1;
+        backEnd.currentFeedbackImage = index
+            ? dx.renderTargets[filter->pingPongTargets[1 - pingPong]].image : filter->sourceImage;
+        RB_SetRenderTarget(index == filter->passCount - 1 ? filter->finalTarget : filter->pingPongTargets[pingPong]);
+        RB_SetFilterConstants(pass);
+        RB_DrawStretchPic(pass->material, 0.0f, 0.0f, (float)pass->dstWidth,
+            (float)pass->dstHeight, 0.0f, 0.0f, pass->srcWidth, pass->srcHeight, 0xffffffff);
+        RB_EndSurface();
+    }
+}
+
+// PINNED 10035560: scale radius by viewport height and the pixel aspect ratio.
+void RB_GaussianFilterImage(float radius, GfxRenderTargetId target)
+{
+    float radiusY = (float)backEnd.viewParms->viewport.Height * radius * 0.0020833334f;
+    float radiusX = vidConfig.aspectRatioPixel * radiusY;
+    GfxImageFilter filter;
+    filter.sourceImage = dx.renderTargets[R_RENDERTARGET_RESOLVED_SCENE].image;
+    filter.finalTarget = target;
+    filter.pingPongTargets[0] = R_RENDERTARGET_PINGPONG_0;
+    filter.pingPongTargets[1] = R_RENDERTARGET_PINGPONG_1;
+    filter.passCount = RB_GenerateGaussianFilterChain(radiusX, radiusY,
+        vidConfig.width, vidConfig.height, dx.renderTargets[target].width,
+        dx.renderTargets[target].height, filter.passes);
+    RB_ApplyFilterPasses(&filter);
+}
+
+// PINNED 10035620: zero radius or an empty chain returns the SOURCE target.
+static GfxRenderTargetId RB_ApplyGlowFilter(GfxRenderTargetId source, GfxRenderTargetId target, float radius)
+{
+    if (radius == 0.0f)
+        return source;
+    float radiusY = (float)backEnd.viewParms->viewport.Height * radius * 0.0020833334f;
+    float radiusX = vidConfig.aspectRatioPixel * radiusY;
+    int width = dx.renderTargets[target].width, height = dx.renderTargets[target].height;
+    GfxImageFilter filter;
+    filter.sourceImage = dx.renderTargets[source].image;
+    filter.finalTarget = target;
+    filter.pingPongTargets[0] = R_RENDERTARGET_PINGPONG_0;
+    filter.pingPongTargets[1] = R_RENDERTARGET_PINGPONG_1;
+    filter.passCount = 0;
+    if (source == R_RENDERTARGET_RESOLVED_SCENE)
+    {
+        GfxImageFilterPass *pass = &filter.passes[0];
+        pass->material = rgp.glowSetupMaterial;
+        pass->srcWidth = pass->srcHeight = 1.0f;
+        pass->dstWidth = width;
+        pass->dstHeight = height;
+        pass->tapHalfCount = 0;
+        filter.passCount = 1;
+    }
+    filter.passCount += RB_GenerateGaussianFilterChain(radiusX, radiusY,
+        width, height, width, height, &filter.passes[filter.passCount]);
+    if (!filter.passCount)
+        return source;
+    RB_ApplyFilterPasses(&filter);
+    return target;
+}
+
+// PINNED 10035740: the second blur adds variance to the already blurred first.
+void RB_GlowFilterImage(float radius[2])
+{
+    if (radius[0] == 0.0f)
+        return;
+    float ratio = (float)dx.renderTargets[R_RENDERTARGET_GLOW_0].width
+        / (float)dx.renderTargets[R_RENDERTARGET_RESOLVED_SCENE].width;
+    radius[0] *= ratio;
+    radius[1] *= ratio;
+    GfxRenderTargetId source = RB_ApplyGlowFilter(backEnd.resolvedSceneTarget,
+        R_RENDERTARGET_GLOW_0, radius[0]);
+    backEnd.glowImage[0] = dx.renderTargets[source].image;
+    if (radius[1] == 0.0f)
+        backEnd.glowCount = 1;
+    else
+    {
+        radius[1] = sqrtf(radius[1] * radius[1] - radius[0] * radius[0]);
+        GfxRenderTargetId result = RB_ApplyGlowFilter(source, R_RENDERTARGET_GLOW_0, radius[1]);
+        backEnd.glowImage[1] = dx.renderTargets[result].image;
+        backEnd.glowCount = 2;
+    }
 }

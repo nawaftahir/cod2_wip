@@ -1,0 +1,51 @@
+test_backend_frame.py
+PASS: 24 actual normal-backend routes, signed frame selection, unlock order, pointer reload and untouched command/debug fields
+test_brush_entity_bounds.py
+PASS: 3072 actual brush cull routes, corner extrema, shear/reflection, cell returns and live world reload
+test_bsp_visibility.py
+PASS: actual BSP front/back routing, clamps, early exits, AABB NaNs/mark skips and 49 x87 relation pairs
+test_command_dispatch.py
+PASS: all34 source command slots match retail order; only slot0 is null
+PASS: all33 linked command pointers bind their genuine retained handlers
+test_debug_frame.py
+PASS: eight actual debug-frame routes, saved pointers and unlock ordering
+test_dpvs_state.py
+PASS: actual 108-byte DPVS owner, 15 original fields, 32 debug states, queue/hull aliases, natural padding and separate cull configuration
+PASS: copied original type evidence and 13 real PC initializer instructions agree
+test_effect_callbacks.py
+PASS: 128 actual effect callback forwards; both retail tail-jump operands pin the correct imports
+test_frame_start.py
+PASS: 4105 actual BeginFrame routes; retail order, flags, inverse forced LOD, live dvar/world/client mutations and untouched state
+test_frame_submission.py
+PASS: 22 submission routes, real terminators, reset timing, restoration and live cleanup
+test_frontend_command_types.py
+PASS: 840 typed clear, 81 viewport, 10 blend and 120 draw-surface writers; actual shared records, raw float bits, live colors, untouched bytes/null policy and primary108-slot client ABI
+test_frontend_dispatch.py
+PASS: 778 actual frontend routes, eight PC jump-table cases, context zero, scene indexing and bounds-before-skin order
+test_lod_api.py
+PASS: 192 actual LOD/view routes, lock updates, near-clip NaNs and matrix ownership
+test_model_draw.py
+PASS: 5184 actual model submission/draw routes, compact null-material walk, strides, sort keys, caps, count precedence and DPVS flag/state order
+test_pdb_local_owners.py
+PASS: distinct real memcpy/memmove local labels, source-private identity, same-member stability, cross-archive separation and unchanged publics
+PASS: same-name common.obj files retain their distinct real source owners
+test_portal_planes.py
+PASS: actual projection, small/near/NaN cases, nearest-plane scan, plane copies and debug-line capacity
+test_ref_entity_submission.py
+PASS: 2708 actual ref-entity routes, signed types, PC warnings/errors, import mutation, limits, copy116/clear52, NaNs, aliasing and packed draw keys
+test_rendercmd_init.py
+PASS: four render-command startup routes, debug limits, allocation order and callback ownership changes
+test_renderer_shutdown.py
+PASS: 300 actual logical-shutdown routes, retail command names/order, table clears, late world reset, optional hardware and interrupted cleanup
+test_scene_bounds_callback.py
+PASS: 96 actual callback/worker routes, nonzero scene bases and untouched records
+test_scene_command_producers.py
+PASS: 33 actual producer cases,32-bit layouts, critical reservation and value/pointer copies
+test_scene_polygons.py
+PASS: 6480 actual polygon routes, limits, copies, fallback and signed sort keys
+test_scene_sort_cell.py
+PASS: 86 sort/cell cases, payload preservation, guards, boundary/NaN and callback reload
+test_tess_dispatch.py
+PASS: complete retail surface table order, real definitions, raw-geometry null and shared enum
+PASS: all seven linked table pointers bind their genuine implementations; eighth is null
+PASS: all 23 affected fixtures

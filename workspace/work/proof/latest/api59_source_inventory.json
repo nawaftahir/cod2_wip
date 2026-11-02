@@ -1,0 +1,1080 @@
+[
+  {
+    "slot": 0,
+    "target": "0x10013080",
+    "name": "R_Shutdown",
+    "definitions": [
+      [
+        "gfx_d3d/r_init.cpp",
+        "void R_Shutdown(int destroyWindow)"
+      ]
+    ]
+  },
+  {
+    "slot": 1,
+    "target": "0x10013190",
+    "name": "R_BeginRegistration",
+    "definitions": [
+      [
+        "gfx_d3d/r_init.cpp",
+        "void R_BeginRegistration(vidConfig_t *config)"
+      ]
+    ]
+  },
+  {
+    "slot": 2,
+    "target": "0x1001d830",
+    "name": "R_RegisterModel",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "__declspec(noinline) XModel *R_RegisterModel(const char *name)"
+      ]
+    ]
+  },
+  {
+    "slot": 3,
+    "target": "0x1001d8a0",
+    "name": "R_RegisterInlineModel",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "GfxBrushModel *R_RegisterInlineModel(int index)"
+      ]
+    ]
+  },
+  {
+    "slot": 4,
+    "target": "0x10017290",
+    "name": "R_RegisterMaterial",
+    "definitions": [
+      [
+        "gfx_d3d/r_material.cpp",
+        "Material *R_RegisterMaterial(const char *name, int baseImageFlags, int imageTrack)"
+      ]
+    ]
+  },
+  {
+    "slot": 5,
+    "target": "0x100172b0",
+    "name": "R_RegisterRawImage",
+    "definitions": [
+      [
+        "gfx_d3d/r_material.cpp",
+        "Material *R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrack)"
+      ]
+    ]
+  },
+  {
+    "slot": 6,
+    "target": "0x10017020",
+    "name": "Material_IsDefault",
+    "definitions": [
+      [
+        "gfx_d3d/r_material.cpp",
+        "Bool Material_IsDefault(const Material *material)"
+      ]
+    ]
+  },
+  {
+    "slot": 7,
+    "target": "0x10001690",
+    "name": "R_LoadWorld",
+    "definitions": [
+      [
+        "gfx_d3d/r_bsp.cpp",
+        "void R_LoadWorld(const char *name, int *checksum)"
+      ]
+    ]
+  },
+  {
+    "slot": 8,
+    "target": "0x10001230",
+    "name": "R_GetWorldBounds",
+    "definitions": [
+      [
+        "gfx_d3d/r_bsp.cpp",
+        "void R_GetWorldBounds(vec_t *mins, vec_t *maxs)"
+      ]
+    ]
+  },
+  {
+    "slot": 9,
+    "target": "0x1001d8c0",
+    "name": "R_FinishLoadingModels",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "void R_FinishLoadingModels()"
+      ]
+    ]
+  },
+  {
+    "slot": 10,
+    "target": "0x1001d8f0",
+    "name": "R_SetIgnorePrecacheErrors",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "void R_SetIgnorePrecacheErrors(int ignore)"
+      ]
+    ]
+  },
+  {
+    "slot": 11,
+    "target": "0x1001d900",
+    "name": "R_GetIgnorePrecacheErrors",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "bool R_GetIgnorePrecacheErrors()"
+      ]
+    ]
+  },
+  {
+    "slot": 12,
+    "target": "0x1000c8d0",
+    "name": "R_GetMinSpecImageMemory",
+    "definitions": [
+      [
+        "gfx_d3d/r_image.cpp",
+        "int R_GetMinSpecImageMemory()"
+      ]
+    ]
+  },
+  {
+    "slot": 13,
+    "target": "0x10017300",
+    "name": "R_GetMaterialName",
+    "definitions": [
+      [
+        "gfx_d3d/r_material.cpp",
+        "const char *R_GetMaterialName(const MaterialInfoView *handle)"
+      ]
+    ]
+  },
+  {
+    "slot": 14,
+    "target": "0x10017310",
+    "name": "R_GetMaterialSubimageCount",
+    "definitions": [
+      [
+        "gfx_d3d/r_material.cpp",
+        "int R_GetMaterialSubimageCount(const MaterialInfoView *handle)"
+      ]
+    ]
+  },
+  {
+    "slot": 15,
+    "target": "0x10017320",
+    "name": "R_IsMaterialRefractive",
+    "definitions": [
+      [
+        "gfx_d3d/r_material.cpp",
+        "bool R_IsMaterialRefractive(const RefractMaterial *material)"
+      ]
+    ]
+  },
+  {
+    "slot": 16,
+    "target": "0x1000aa60",
+    "name": "R_GetFarPlaneDist",
+    "definitions": [
+      [
+        "gfx_d3d/r_dpvs.cpp",
+        "float R_GetFarPlaneDist()"
+      ]
+    ]
+  },
+  {
+    "slot": 17,
+    "target": "0x100131b0",
+    "name": "R_EndRegistration",
+    "definitions": [
+      [
+        "gfx_d3d/r_init.cpp",
+        "void R_EndRegistration()"
+      ]
+    ]
+  },
+  {
+    "slot": 18,
+    "target": "0x10025510",
+    "name": "R_ClearScene",
+    "definitions": [
+      [
+        "gfx_d3d/r_scene.cpp",
+        "void R_ClearScene()"
+      ]
+    ]
+  },
+  {
+    "slot": 19,
+    "target": "0x10020ce0",
+    "name": "R_SkinGfxEntityCmd",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_SkinGfxEntityCmd(GfxEntity *ent)"
+      ]
+    ]
+  },
+  {
+    "slot": 20,
+    "target": "0x10023db0",
+    "name": "R_AddRefEntityToScene",
+    "definitions": [
+      [
+        "gfx_d3d/r_scene.cpp",
+        "GfxEntity *R_AddRefEntityToScene(const GfxEntity *refEnt, GfxModel sceneModel, const centity_s *cent)"
+      ]
+    ]
+  },
+  {
+    "slot": 21,
+    "target": "0x10020cd0",
+    "name": "R_UpdateGfxEntityBoundsCmd",
+    "definitions": [
+      [
+        "gfx_d3d/r_scene.cpp",
+        "void R_UpdateGfxEntityBoundsCmd(GfxEntity *ent)"
+      ]
+    ]
+  },
+  {
+    "slot": 22,
+    "target": "0x10020cb0",
+    "name": "R_UpdateEffectsBolt",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_UpdateEffectsBolt()"
+      ]
+    ]
+  },
+  {
+    "slot": 23,
+    "target": "0x10020cc0",
+    "name": "R_UpdateEffectsNonBolt",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_UpdateEffectsNonBolt()"
+      ]
+    ]
+  },
+  {
+    "slot": 24,
+    "target": "0x10023e90",
+    "name": "R_ResetEntries",
+    "definitions": [
+      [
+        "gfx_d3d/r_scene.cpp",
+        "void R_ResetEntries(int count, float (*entries)[17])"
+      ]
+    ]
+  },
+  {
+    "slot": 25,
+    "target": "0x10023ed0",
+    "name": "R_AddPolyToScene",
+    "definitions": [
+      [
+        "gfx_d3d/r_scene.cpp",
+        "void R_AddPolyToScene(Material *material, int lmapIndex, unsigned short vertCount, const GfxWorldVertex *verts)"
+      ]
+    ]
+  },
+  {
+    "slot": 26,
+    "target": "0x10023fd0",
+    "name": "R_AddLightToScene",
+    "definitions": [
+      [
+        "gfx_d3d/r_scene.cpp",
+        "void R_AddLightToScene(const vec_t *org, float radius, float r, float g, float b)"
+      ]
+    ]
+  },
+  {
+    "slot": 27,
+    "target": "0x10001390",
+    "name": "R_InterpretSunLightParseParams",
+    "definitions": [
+      [
+        "gfx_d3d/r_bsp.cpp",
+        "void R_InterpretSunLightParseParams(SunLightParseParams *sunParse)"
+      ]
+    ]
+  },
+  {
+    "slot": 28,
+    "target": "0x10001280",
+    "name": "R_ResetSunLightParseParams",
+    "definitions": [
+      [
+        "gfx_d3d/r_bsp.cpp",
+        "void R_ResetSunLightParseParams()"
+      ]
+    ]
+  },
+  {
+    "slot": 29,
+    "target": "0x1000aac0",
+    "name": "R_SetCullDist",
+    "definitions": [
+      [
+        "gfx_d3d/r_dpvs.cpp",
+        "void R_SetCullDist(float dist)"
+      ]
+    ]
+  },
+  {
+    "slot": 30,
+    "target": "0x1000bb30",
+    "name": "R_SetFog",
+    "definitions": [
+      [
+        "gfx_d3d/r_fog.cpp",
+        "void R_SetFog(int fogvar, float start, float end, int r, int g, int b, float density)"
+      ]
+    ]
+  },
+  {
+    "slot": 31,
+    "target": "0x1000bbc0",
+    "name": "R_SwitchFog",
+    "definitions": [
+      [
+        "gfx_d3d/r_fog.cpp",
+        "void R_SwitchFog(int fogvar, int startTime, int transitionTime)"
+      ]
+    ]
+  },
+  {
+    "slot": 32,
+    "target": "0x1000bc40",
+    "name": "R_ArchiveFogState",
+    "definitions": [
+      [
+        "gfx_d3d/r_fog.cpp",
+        "void R_ArchiveFogState(MemoryFile *memFile)"
+      ]
+    ]
+  },
+  {
+    "slot": 33,
+    "target": "0x1000bb10",
+    "name": "R_ClearFogs",
+    "definitions": [
+      [
+        "gfx_d3d/r_fog.cpp",
+        "void R_ClearFogs()"
+      ]
+    ]
+  },
+  {
+    "slot": 34,
+    "target": "0x10001430",
+    "name": "R_SetSunLightOverride",
+    "definitions": [
+      [
+        "gfx_d3d/r_bsp.cpp",
+        "void R_SetSunLightOverride(const vec_t *sunColor)"
+      ]
+    ]
+  },
+  {
+    "slot": 35,
+    "target": "0x10001460",
+    "name": "R_ResetSunLightOverride",
+    "definitions": [
+      [
+        "gfx_d3d/r_bsp.cpp",
+        "void R_ResetSunLightOverride()"
+      ]
+    ]
+  },
+  {
+    "slot": 36,
+    "target": "0x100257a0",
+    "name": "R_RenderScene",
+    "definitions": [
+      [
+        "gfx_d3d/r_scene.cpp",
+        "void R_RenderScene(const refdef_t *refdef)"
+      ]
+    ]
+  },
+  {
+    "slot": 37,
+    "target": "0x10020f10",
+    "name": "R_BeginDelayedDrawing",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "int R_BeginDelayedDrawing()"
+      ]
+    ]
+  },
+  {
+    "slot": 38,
+    "target": "0x10020f70",
+    "name": "R_EndDelayedDrawing",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_EndDelayedDrawing(int marker)"
+      ]
+    ]
+  },
+  {
+    "slot": 39,
+    "target": "0x10020fe0",
+    "name": "R_IssueDelayedDrawing",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_IssueDelayedDrawing(int marker)"
+      ]
+    ]
+  },
+  {
+    "slot": 40,
+    "target": "0x1000bad0",
+    "name": "R_ClearFlares",
+    "definitions": [
+      [
+        "gfx_d3d/r_flares.cpp",
+        "void R_ClearFlares()"
+      ]
+    ]
+  },
+  {
+    "slot": 41,
+    "target": "0x100216f0",
+    "name": "R_AddCmdSetMaterialColor",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdSetMaterialColor(const vec_t *color)"
+      ]
+    ]
+  },
+  {
+    "slot": 42,
+    "target": "0x10021100",
+    "name": "R_AddCmdDrawStretchPic",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdDrawStretchPic(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material)"
+      ]
+    ]
+  },
+  {
+    "slot": 43,
+    "target": "0x100211a0",
+    "name": "R_AddCmdDrawStretchPicRotate",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdDrawStretchPicRotate(float x, float y, float w, float h, float s0, float t0, float s1, float t1, float angle, const vec_t *color, MaterialHandle material)"
+      ]
+    ]
+  },
+  {
+    "slot": 44,
+    "target": "0x10021270",
+    "name": "R_AddCmdDrawStretchRaw",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdDrawStretchRaw(int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty)"
+      ]
+    ]
+  },
+  {
+    "slot": 45,
+    "target": "0x100214e0",
+    "name": "R_AddCmdDrawQuadPic",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdDrawQuadPic(vec2_t *verts, const vec_t *color, MaterialHandle material)"
+      ]
+    ]
+  },
+  {
+    "slot": 46,
+    "target": "0x100215d0",
+    "name": "R_AddCmdDrawSprite",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdDrawSprite(MaterialHandle material, const byte *rgbaColor, const vec_t *pos, float radius, float minScreenRadius, int renderFxFlags)"
+      ]
+    ]
+  },
+  {
+    "slot": 47,
+    "target": "0x10021f40",
+    "name": "R_BeginFrame",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_BeginFrame()"
+      ]
+    ]
+  },
+  {
+    "slot": 48,
+    "target": "0x10021f90",
+    "name": "R_EndFrame",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_EndFrame()"
+      ]
+    ]
+  },
+  {
+    "slot": 49,
+    "target": "0x10021ff0",
+    "name": "R_BeginDebugFrame",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_BeginDebugFrame()"
+      ]
+    ]
+  },
+  {
+    "slot": 50,
+    "target": "0x10022040",
+    "name": "R_EndDebugFrame",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_EndDebugFrame()"
+      ]
+    ]
+  },
+  {
+    "slot": 51,
+    "target": "0x10013200",
+    "name": "R_EndView",
+    "definitions": [
+      [
+        "gfx_d3d/r_init.cpp",
+        "void R_EndView(int viewIndex)"
+      ]
+    ]
+  },
+  {
+    "slot": 52,
+    "target": "0x10013250",
+    "name": "R_DoneRenderingViews",
+    "definitions": [
+      [
+        "gfx_d3d/r_init.cpp",
+        "void R_DoneRenderingViews()"
+      ]
+    ]
+  },
+  {
+    "slot": 53,
+    "target": "0x100222a0",
+    "name": "R_AddCmdSaveScreen",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdSaveScreen()"
+      ]
+    ]
+  },
+  {
+    "slot": 54,
+    "target": "0x100222f0",
+    "name": "R_AddCmdBlendSavedScreen",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdBlendSavedScreen(int fadeMsec)"
+      ]
+    ]
+  },
+  {
+    "slot": 55,
+    "target": "0x10022220",
+    "name": "R_AddCmdClearScreen",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdClearScreen(int whichToClear, const float *color, float depth, int stencil)"
+      ]
+    ]
+  },
+  {
+    "slot": 56,
+    "target": "0x10021bf0",
+    "name": "R_AddCmdSetViewport",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdSetViewport(int x, int y, int width, int height)"
+      ]
+    ]
+  },
+  {
+    "slot": 57,
+    "target": "0x10015ba0",
+    "name": "R_MarkFragments",
+    "definitions": [
+      [
+        "gfx_d3d/r_marks.cpp",
+        "int R_MarkFragments(vec3_t *points, const float *origin, vec3_t *axis, float radius, int maxPoints, GfxWorldVertex *verts, int maxFragments, GfxMarkFragment *fragments, MaterialHandle markMaterial)"
+      ]
+    ]
+  },
+  {
+    "slot": 58,
+    "target": "0x1001d910",
+    "name": "R_ModelBounds",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "void R_ModelBounds(const vec_t *bounds, vec_t *mins, vec_t *maxs)"
+      ]
+    ]
+  },
+  {
+    "slot": 59,
+    "target": "0x10013260",
+    "name": "R_TrackStatistics",
+    "definitions": [
+      [
+        "gfx_d3d/r_init.cpp",
+        "void R_TrackStatistics(trStatistics_t *stats)"
+      ]
+    ]
+  },
+  {
+    "slot": 60,
+    "target": "0x1002c100",
+    "name": "R_PickMaterial",
+    "definitions": [
+      [
+        "gfx_d3d/r_utils.cpp",
+        "int R_PickMaterial(const vec_t *org, const vec_t *dir, char *name, char *surfaceFlags, char *contents, size_t charLimit)"
+      ]
+    ]
+  },
+  {
+    "slot": 61,
+    "target": "0x1000bce0",
+    "name": "R_RegisterFont",
+    "definitions": [
+      [
+        "gfx_d3d/r_font.cpp",
+        "Font_s *R_RegisterFont(const char *name, int imageTrack)"
+      ]
+    ]
+  },
+  {
+    "slot": 62,
+    "target": "0x1000ce60",
+    "name": "R_ResetImageAllocations",
+    "definitions": [
+      [
+        "gfx_d3d/r_image.cpp",
+        "void R_ResetImageAllocations()"
+      ]
+    ]
+  },
+  {
+    "slot": 63,
+    "target": "0x1000ce70",
+    "name": "R_FreeImageAllocations",
+    "definitions": [
+      [
+        "gfx_d3d/r_image.cpp",
+        "void R_FreeImageAllocations()"
+      ]
+    ]
+  },
+  {
+    "slot": 64,
+    "target": "0x10026a50",
+    "name": "R_BeginCubemapShot",
+    "definitions": [
+      [
+        "gfx_d3d/r_screenshot.cpp",
+        "void R_BeginCubemapShot(int pixelWidthHeight, int pixelBorder)"
+      ]
+    ]
+  },
+  {
+    "slot": 65,
+    "target": "0x10026a70",
+    "name": "R_EndCubemapShot",
+    "definitions": [
+      [
+        "gfx_d3d/r_screenshot.cpp",
+        "void R_EndCubemapShot(int shotIndex)"
+      ]
+    ]
+  },
+  {
+    "slot": 66,
+    "target": "0x10026a90",
+    "name": "R_SaveCubemapShot",
+    "definitions": [
+      [
+        "gfx_d3d/r_screenshot.cpp",
+        "void R_SaveCubemapShot(const char *filename, int shotIndex, float n0, float n1)"
+      ]
+    ]
+  },
+  {
+    "slot": 67,
+    "target": "0x100270e0",
+    "name": "R_LightingFromCubemapShots",
+    "definitions": [
+      [
+        "gfx_d3d/r_screenshot.cpp",
+        "void R_LightingFromCubemapShots(const float *baseColor)"
+      ]
+    ]
+  },
+  {
+    "slot": 68,
+    "target": "0x10005980",
+    "name": "R_LocateDebugStrings",
+    "definitions": [
+      [
+        "gfx_d3d/r_debug.cpp",
+        "void R_LocateDebugStrings(trDebugString_t *strings, int stringCount, int maxStringCount)"
+      ]
+    ]
+  },
+  {
+    "slot": 69,
+    "target": "0x100059e0",
+    "name": "R_LocateDebugLines",
+    "definitions": [
+      [
+        "gfx_d3d/r_debug.cpp",
+        "void R_LocateDebugLines(trDebugLine_t *lines, int lineCount, int maxLineCount)"
+      ]
+    ]
+  },
+  {
+    "slot": 70,
+    "target": "0x10005a40",
+    "name": "R_AddPlume",
+    "definitions": [
+      [
+        "gfx_d3d/r_debug.cpp",
+        "void R_AddPlume(const vec_t *origin, int score, const vec_t *color, int duration)"
+      ]
+    ]
+  },
+  {
+    "slot": 71,
+    "target": "0x10005970",
+    "name": "R_ShutdownDebug",
+    "definitions": [
+      [
+        "gfx_d3d/r_debug.cpp",
+        "void R_ShutdownDebug()"
+      ]
+    ]
+  },
+  {
+    "slot": 72,
+    "target": "0x10032540",
+    "name": "RB_UpdateColor",
+    "definitions": [
+      [
+        "gfx_d3d/rb_backend.cpp",
+        "void RB_UpdateColor(const float *color_allies, const float *color_axis)"
+      ]
+    ]
+  },
+  {
+    "slot": 73,
+    "target": "0x1000bf40",
+    "name": "R_NormalizedTextScale",
+    "definitions": [
+      [
+        "gfx_d3d/r_font.cpp",
+        "float R_NormalizedTextScale(Font_s *font, float scale)"
+      ]
+    ]
+  },
+  {
+    "slot": 74,
+    "target": "0x1000bf60",
+    "name": "R_TextWidth",
+    "definitions": [
+      [
+        "gfx_d3d/r_font.cpp",
+        "int R_TextWidth(const char *text, int maxChars, Font_s *font)"
+      ]
+    ]
+  },
+  {
+    "slot": 75,
+    "target": "0x1000c000",
+    "name": "R_TextHeight",
+    "definitions": [
+      [
+        "gfx_d3d/r_font.cpp",
+        "int R_TextHeight(Font_s *font)"
+      ]
+    ]
+  },
+  {
+    "slot": 76,
+    "target": "0x1000c010",
+    "name": "R_AddCmdDrawText",
+    "definitions": [
+      [
+        "gfx_d3d/r_font.cpp",
+        "void R_AddCmdDrawText(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style)"
+      ]
+    ]
+  },
+  {
+    "slot": 77,
+    "target": "0x100213f0",
+    "name": "R_AddCmdDrawTextInSpace",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdDrawTextInSpace(const char *text, FontHandle font, const vec_t *org, const vec_t *xPixelStep, const vec_t *yPixelStep, const vec_t *color)"
+      ]
+    ]
+  },
+  {
+    "slot": 78,
+    "target": "0x1000c390",
+    "name": "R_ConsoleTextWidth",
+    "definitions": [
+      [
+        "gfx_d3d/r_font.cpp",
+        "int R_ConsoleTextWidth(const short *string, int maxChars, Font_s *font)"
+      ]
+    ]
+  },
+  {
+    "slot": 79,
+    "target": "0x1000c4b0",
+    "name": "R_DrawConsoleText",
+    "definitions": [
+      [
+        "gfx_d3d/r_font.cpp",
+        "void R_DrawConsoleText(const short *string, int maxChars, Font_s *font, float x, float y, float xScale, float yScale, const float *color, int style)"
+      ]
+    ]
+  },
+  {
+    "slot": 80,
+    "target": "0x10021300",
+    "name": "R_AddCmdDrawTextWithCursor",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AddCmdDrawTextWithCursor(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style, int cursorPos, char cursor)"
+      ]
+    ]
+  },
+  {
+    "slot": 81,
+    "target": "0x100201b0",
+    "name": "R_DObjGetSurfMaterials",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "void R_DObjGetSurfMaterials(DObj *obj, char lod, MaterialHandle *matHandleArray)"
+      ]
+    ]
+  },
+  {
+    "slot": 82,
+    "target": "0x10020270",
+    "name": "R_DObjReplaceMaterial",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle material)"
+      ]
+    ]
+  },
+  {
+    "slot": 83,
+    "target": "0x10003430",
+    "name": "R_ParseSunLight",
+    "definitions": [
+      [
+        "gfx_d3d/r_bsp_load_obj.cpp",
+        "const char *R_ParseSunLight(SunLightParseParams *params, const char *text)"
+      ]
+    ]
+  },
+  {
+    "slot": 84,
+    "target": "0x10016f30",
+    "name": "Material_Duplicate",
+    "definitions": [
+      [
+        "gfx_d3d/r_material.cpp",
+        "Material *Material_Duplicate(const Material *mtlCopy, const char *name)"
+      ]
+    ]
+  },
+  {
+    "slot": 85,
+    "target": "0x1000bdc0",
+    "name": "R_DuplicateFont",
+    "definitions": [
+      [
+        "gfx_d3d/r_font.cpp",
+        "void R_DuplicateFont(Font_s *fontCopy, const char *name)"
+      ]
+    ]
+  },
+  {
+    "slot": 96,
+    "target": "0x1002d4a0",
+    "name": "XModelReadSurface",
+    "definitions": [
+      [
+        "gfx_d3d/r_xsurface_load_obj.cpp",
+        "XSurface *XModelReadSurface(XModel *model, int *partBits, const byte **pos, Alloc_t Alloc)"
+      ]
+    ]
+  },
+  {
+    "slot": 97,
+    "target": "0x10020400",
+    "name": "R_LoadXModelSkins",
+    "definitions": [
+      [
+        "gfx_d3d/r_model.cpp",
+        "Material ***R_LoadXModelSkins(const XModel *model)"
+      ]
+    ]
+  },
+  {
+    "slot": 98,
+    "target": "0x1002cee0",
+    "name": "XSurfaceGetVerts",
+    "definitions": [
+      [
+        "gfx_d3d/r_xsurface.cpp",
+        "void XSurfaceGetVerts(const XSurface *surf, DObjSkelMat *boneMatrix, float *pVert, float *pTexCoord, float *pNormal)"
+      ]
+    ]
+  },
+  {
+    "slot": 99,
+    "target": "0x1002ce40",
+    "name": "XSurfaceGetTris",
+    "definitions": [
+      [
+        "gfx_d3d/r_xsurface.cpp",
+        "void XSurfaceGetTris(const XSurface *surface, r_index_t *dstIndices, short offset)"
+      ]
+    ]
+  },
+  {
+    "slot": 100,
+    "target": "0x1002ce30",
+    "name": "XSurfaceGetNumTris",
+    "definitions": [
+      [
+        "gfx_d3d/r_xsurface.cpp",
+        "int XSurfaceGetNumTris(const XSurface *surface)"
+      ]
+    ]
+  },
+  {
+    "slot": 101,
+    "target": "0x1002ce20",
+    "name": "XSurfaceGetNumVerts",
+    "definitions": [
+      [
+        "gfx_d3d/r_xsurface.cpp",
+        "int XSurfaceGetNumVerts(const XSurface *surface)"
+      ]
+    ]
+  },
+  {
+    "slot": 102,
+    "target": "0x10020cf0",
+    "name": "R_SyncRenderThread",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_SyncRenderThread()"
+      ]
+    ]
+  },
+  {
+    "slot": 103,
+    "target": "0x10020dc0",
+    "name": "R_AbortRenderCommands",
+    "definitions": [
+      [
+        "gfx_d3d/r_rendercmds.cpp",
+        "void R_AbortRenderCommands()"
+      ]
+    ]
+  },
+  {
+    "slot": 104,
+    "target": "0x10032f40",
+    "name": "RB_IsGpuFenceFinished",
+    "definitions": [
+      [
+        "gfx_d3d/rb_backend.cpp",
+        "int RB_IsGpuFenceFinished()"
+      ]
+    ]
+  },
+  {
+    "slot": 105,
+    "target": "0x10032d80",
+    "name": "RB_AdaptiveGpuSyncWait",
+    "definitions": [
+      [
+        "gfx_d3d/rb_backend.cpp",
+        "void RB_AdaptiveGpuSyncWait()"
+      ]
+    ]
+  },
+  {
+    "slot": 106,
+    "target": "0x10032d70",
+    "name": "RB_GpuWaited",
+    "definitions": [
+      [
+        "gfx_d3d/rb_backend.cpp",
+        "void RB_GpuWaited(int ticks)"
+      ]
+    ]
+  },
+  {
+    "slot": 107,
+    "target": "0x100256c0",
+    "name": "R_SetLodOrigin",
+    "definitions": [
+      [
+        "gfx_d3d/r_scene.cpp",
+        "void R_SetLodOrigin(const refdef_t *refdef)"
+      ]
+    ]
+  }
+]

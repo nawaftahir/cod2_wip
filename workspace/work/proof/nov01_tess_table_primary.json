@@ -1,0 +1,16 @@
+{
+  "file_offset": "0x1904f8",
+  "targets": [
+    "0x1003ef20",
+    "0x1003ef30",
+    "0x10041130",
+    "0x10041390",
+    "0x100413c0",
+    "0x10041510",
+    "0x100415f0",
+    "0x0"
+  ],
+  "backend_before_sha256": "95894fabcb0d4625edfd4487cfb2a72cb05380ea176f5479f276c663c94d1141",
+  "backend_after_sha256": "238e4d316497aeeb2e57da79ff25b0ae65f5ff219630202e6946e5cb9b1f244b",
+  "audit": "Removing only new include/table reproduces prior assembly-bearing backend exactly; no new assembly."
+}

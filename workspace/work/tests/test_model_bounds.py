@@ -95,7 +95,7 @@ long InterlockedCompareExchange(long volatile *pointer,long exchange,long compar
 for name in ('I_sel', 'I_sqrt', 'VectorCopy', 'VectorCopy4', 'VectorScale',
              'VectorAdd', 'VectorSubtract', 'DotProduct', 'VectorLength', 'VectorSet'):
     program += function(math_header, name + '(')
-for name in ('Vec3Distance', 'ClearBounds', 'MatrixTransformVector', 'TransformBounds'):
+for name in ('Vec3Distance', 'ClearBounds', 'MatrixTransformVector', 'GetRotatedBounds'):
     program += function(math_source, name + '(')
 program += function(anim_header, 'inline void ConvertQuatToMat(')
 program += function(anim_header, 'inline void MatrixTransformVectorQuatTrans(').replace(
@@ -171,7 +171,7 @@ int main() {
   for(int j=0;j<3;++j){near(line.end[j]-line.start[j],axis==j?6:0);near(line.color[j],axis==j?1:0);}
   assert(!line.color[3]&&!line.depthTest);
  }
- R_XModelDebugBoxes(&object,&e,&s);assert(data.debugGlobals.lineCount==15&&allocations.size()==1);
+ R_XModelDebugBoxes(&s,&e,&object);assert(data.debugGlobals.lineCount==15&&allocations.size()==1);
  reset();
 }
 '''
@@ -181,3 +181,14 @@ with tempfile.TemporaryDirectory(prefix='codex_model_bounds_') as directory:
                    input=program, text=True, check=True)
     subprocess.run([binary], check=True)
 print('PASS: actual model cohort, 512 corner oracles, LOD scale/NaN cases, state/fallback/model routing, all four bone-bit words, 12 box edges, 3 axes and line capacity')
+
+import json
+
+bindings = json.loads((root.parent / 'build/bind.json').read_text())
+for symbol, address, size in [
+    ('?ConvertQuatToMat@@YAXPBUDObjAnimMat_s@@QAY02M@Z', '0x1001d660', 181),
+    ('?MatrixTransformVectorQuatTrans@@YAXPBMPBUDObjAnimMat_s@@PAM@Z', '0x10058310', 105),
+]:
+    row = bindings[symbol]
+    assert (row['t'], row['n'], row['obj'], row['why']) == (address, size, 'com_math.obj', []), (symbol, row)
+print('PASS: both quaternion instances retain their exact bytes/bindings in com_math')

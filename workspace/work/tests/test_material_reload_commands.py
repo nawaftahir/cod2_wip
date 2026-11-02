@@ -14,7 +14,8 @@ def declaration(text, name):
 types = ''.join(declaration(local, name) for name in ['Picmip', 'CardMemory', 'GfxImage'])
 permanent = (work / 'src/gfx_d3d/r_permanent.h').read_text()
 types += declaration(permanent, 'MaterialTextureDef') + declaration(material, 'Material')
-source = material[material.index('void Image_Reload('):material.index('struct BuiltInMaterialTable')]
+source = (material[material.index('void Image_Reload('):material.index('// PINNED 100171f0/81:')] +
+          material[material.index('Bool Image_LoadFromFile('):material.index('struct BuiltInMaterialTable')])
 state = (work / 'src/gfx_d3d/rb_state.cpp').read_text()
 binding = state[state.index('void RB_BindWhiteImages()'):state.index('void RB_InitImages()')]
 image = (work / 'src/gfx_d3d/r_image.cpp').read_text()

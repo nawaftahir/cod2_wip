@@ -51,6 +51,12 @@ for name, result in (('VectorCopy','void'), ('VectorScale','void'), ('VectorSubt
     st = header.index('TU_STATIC '+result+' '+name+'(')
     en = header.index('\n}', st)+2
     program += header[st:en].replace('TU_STATIC','static inline')+'\n'
+state = (packet / 'gfx_d3d/r_dpvs_state.h').read_text()
+projection = state.index('struct PortalProjectionState\n')
+program += state[projection:state.index('\n};', projection)+3]
+program += '\nPortalProjectionState portalProjectionState;\n'
+program += '#define portalViewProjectionMatrix portalProjectionState.viewProjectionMatrix\n'
+program += '#define portalInverseViewProjectionMatrix portalProjectionState.inverseViewProjectionMatrix\n'
 program += dpvs[start:end] + source
 program += fragment('gfx_d3d/r_dpvs_winding.c')
 program += r'''

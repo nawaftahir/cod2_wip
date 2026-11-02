@@ -14,7 +14,7 @@ retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 ops = [(i.mnemonic, i.op_str) for i in decoder.disasm(retail.get_data(0x128b0,271),0x100128b0)]
 assert ops[-1] == ('ret', '')
-for pair in [('push','0x30000'),('push','0x20000'),('push','0x8001f'),('call','0x10012040'),
+for pair in [('push','0x30000'),('push','0x20000'),('push','0x8001f'),('call','0x10012040'),('call','dword ptr [0x101d4a60]'),
              ('mov','dword ptr [0x1072dde8], eax'),('mov','dword ptr [0x1072ddec], ecx')]:
     assert pair in ops, pair
 assert retail.get_string_at_rva(0x193bd0) == b"Couldn't create a Direct3D device: %s\n"
@@ -66,8 +66,8 @@ Bool R_CreateDeviceResources() {
     assert(events.back()=="video"&&backEnd.sceneViewport.width==vidConfig.width&&backEnd.sceneViewport.height==vidConfig.height);
     events.push_back("resources");return failure!=2;
 }
-void clear(const dvar_t *value) {assert(value==r_gamma&&events.back()=="resources");events.push_back("gamma");}
-struct {void (*Printf)(int,const char*,...);void (*Dvar_ClearModified)(const dvar_t*);} ri={print,clear};
+void setModified(const dvar_t *value) {assert(value==r_gamma&&events.back()=="resources");events.push_back("gamma");}
+struct {void (*Printf)(int,const char*,...);void (*Dvar_SetModified)(const dvar_t*);} ri={print,setModified};
 void R_InitSystems() {
     assert(events.back()=="gamma"&&dx.windows[0].width==-1&&dx.windowCount==0);events.push_back("systems");
     if(mutate){parms.width=1024;parms.height=768;}

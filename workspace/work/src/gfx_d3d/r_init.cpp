@@ -297,7 +297,7 @@ Bool R_CreateDevice(const GfxWindowParms *parms)
     backEnd.sceneViewport.height = vidConfig.height;
     if (!R_CreateDeviceResources())
         return 0;
-    ri.Dvar_ClearModified(r_gamma);
+    ri.Dvar_SetModified(r_gamma);
     R_InitSystems();
     dx.windows[dx.windowCount].hwnd = parms->hwnd;
     dx.windows[dx.windowCount].width = parms->width;
@@ -1212,4 +1212,119 @@ void R_Error(errorParm_t code, const char *fmt, ...)
     va_end(ap);
     text[sizeof(text) - 1] = 0;
     ri.Error(code, "%s", text);
+}
+
+// PINNED 10013270: copy imports and clear all108 exports before version validation.
+#include "r_refapi.h"
+
+static RendererExports59 re;
+
+extern "C" RendererExports59 *GetRefAPI(int apiVersion, const refimport_t *imports)
+{
+    memcpy(&ri, imports, sizeof(ri));
+    memset(&re, 0, sizeof(re));
+    if (apiVersion != 59)
+    {
+        ri.Printf(0, "Mismatched REF_API_VERSION: expected %i, got %i\n", 59, apiVersion);
+        return 0;
+    }
+    re.R_Shutdown = R_Shutdown;
+    re.R_BeginRegistration = R_BeginRegistration;
+    re.R_RegisterModel = R_RegisterModel;
+    re.R_RegisterInlineModel = R_RegisterInlineModel;
+    re.R_GetMinSpecImageMemory = R_GetMinSpecImageMemory;
+    re.R_RegisterMaterial = R_RegisterMaterial;
+    re.R_RegisterRawImage = R_RegisterRawImage;
+    re.Material_IsDefault = Material_IsDefault;
+    re.R_LoadWorld = R_LoadWorld;
+    re.R_GetWorldBounds = R_GetWorldBounds;
+    re.R_FinishLoadingModels = R_FinishLoadingModels;
+    re.R_SetIgnorePrecacheErrors = R_SetIgnorePrecacheErrors;
+    re.R_GetIgnorePrecacheErrors = R_GetIgnorePrecacheErrors;
+    re.R_EndRegistration = R_EndRegistration;
+    re.R_GetMaterialName = R_GetMaterialName;
+    re.R_GetMaterialSubimageCount = R_GetMaterialSubimageCount;
+    re.R_IsMaterialRefractive = R_IsMaterialRefractive;
+    re.R_GetFarPlaneDist = R_GetFarPlaneDist;
+    re.R_BeginFrame = R_BeginFrame;
+    re.R_EndFrame = R_EndFrame;
+    re.R_BeginDebugFrame = R_BeginDebugFrame;
+    re.R_EndDebugFrame = R_EndDebugFrame;
+    re.R_EndView = R_EndView;
+    re.R_DoneRenderingViews = R_DoneRenderingViews;
+    re.R_AddCmdSaveScreen = R_AddCmdSaveScreen;
+    re.R_AddCmdBlendSavedScreen = R_AddCmdBlendSavedScreen;
+    re.R_AddCmdClearScreen = R_AddCmdClearScreen;
+    re.R_AddCmdSetViewport = R_AddCmdSetViewport;
+    re.R_MarkFragments = R_MarkFragments;
+    re.R_ModelBounds = R_ModelBounds;
+    re.R_ClearScene = R_ClearScene;
+    re.R_SkinGfxEntityCmd = R_SkinGfxEntityCmd;
+    re.R_AddRefEntityToScene = R_AddRefEntityToScene;
+    re.R_UpdateGfxEntityBoundsCmd = R_UpdateGfxEntityBoundsCmd;
+    re.R_UpdateEffectsBolt = R_UpdateEffectsBolt;
+    re.R_UpdateEffectsNonBolt = R_UpdateEffectsNonBolt;
+    re.R_ResetEntries = R_ResetEntries;
+    re.R_AddPolyToScene = R_AddPolyToScene;
+    re.R_AddLightToScene = R_AddLightToScene;
+    re.R_InterpretSunLightParseParams = R_InterpretSunLightParseParams;
+    re.R_ResetSunLightParseParams = R_ResetSunLightParseParams;
+    re.R_SetCullDist = R_SetCullDist;
+    re.R_SetFog = R_SetFog;
+    re.R_SwitchFog = R_SwitchFog;
+    re.R_ArchiveFogState = R_ArchiveFogState;
+    re.R_ClearFogs = R_ClearFogs;
+    re.R_SetSunLightOverride = R_SetSunLightOverride;
+    re.R_ResetSunLightOverride = R_ResetSunLightOverride;
+    re.R_RenderScene = R_RenderScene;
+    re.R_BeginDelayedDrawing = R_BeginDelayedDrawing;
+    re.R_EndDelayedDrawing = R_EndDelayedDrawing;
+    re.R_IssueDelayedDrawing = R_IssueDelayedDrawing;
+    re.R_ClearFlares = R_ClearFlares;
+    re.R_AddCmdDrawStretchPic = R_AddCmdDrawStretchPic;
+    re.R_AddCmdDrawStretchPicRotate = R_AddCmdDrawStretchPicRotate;
+    re.R_AddCmdDrawStretchRaw = R_AddCmdDrawStretchRaw;
+    re.R_AddCmdDrawQuadPic = R_AddCmdDrawQuadPic;
+    re.R_AddCmdDrawSprite = R_AddCmdDrawSprite;
+    re.R_AddCmdSetMaterialColor = R_AddCmdSetMaterialColor;
+    re.R_RegisterFont = R_RegisterFont;
+    re.R_ResetImageAllocations = R_ResetImageAllocations;
+    re.R_FreeImageAllocations = R_FreeImageAllocations;
+    re.R_BeginCubemapShot = R_BeginCubemapShot;
+    re.R_EndCubemapShot = R_EndCubemapShot;
+    re.R_SaveCubemapShot = R_SaveCubemapShot;
+    re.R_LightingFromCubemapShots = R_LightingFromCubemapShots;
+    re.R_LocateDebugStrings = R_LocateDebugStrings;
+    re.R_LocateDebugLines = R_LocateDebugLines;
+    re.R_AddPlume = R_AddPlume;
+    re.R_ShutdownDebug = R_ShutdownDebug;
+    re.R_TrackStatistics = R_TrackStatistics;
+    re.R_PickMaterial = R_PickMaterial;
+    re.RB_UpdateColor = RB_UpdateColor;
+    re.R_NormalizedTextScale = R_NormalizedTextScale;
+    re.R_TextWidth = R_TextWidth;
+    re.R_TextHeight = R_TextHeight;
+    re.R_AddCmdDrawText = R_AddCmdDrawText;
+    re.R_AddCmdDrawTextInSpace = R_AddCmdDrawTextInSpace;
+    re.R_ConsoleTextWidth = R_ConsoleTextWidth;
+    re.R_DrawConsoleText = R_DrawConsoleText;
+    re.R_AddCmdDrawTextWithCursor = R_AddCmdDrawTextWithCursor;
+    re.R_DObjGetSurfMaterials = R_DObjGetSurfMaterials;
+    re.R_DObjReplaceMaterial = R_DObjReplaceMaterial;
+    re.R_ParseSunLight = R_ParseSunLight;
+    re.Material_Duplicate = Material_Duplicate;
+    re.R_DuplicateFont = R_DuplicateFont;
+    re.XModelReadSurface = XModelReadSurface;
+    re.R_LoadXModelSkins = R_LoadXModelSkins;
+    re.XSurfaceGetVerts = XSurfaceGetVerts;
+    re.XSurfaceGetTris = XSurfaceGetTris;
+    re.XSurfaceGetNumTris = XSurfaceGetNumTris;
+    re.XSurfaceGetNumVerts = XSurfaceGetNumVerts;
+    re.R_SyncRenderThread = R_SyncRenderThread;
+    re.R_AbortRenderCommands = R_AbortRenderCommands;
+    re.RB_IsGpuFenceFinished = RB_IsGpuFenceFinished;
+    re.RB_AdaptiveGpuSyncWait = RB_AdaptiveGpuSyncWait;
+    re.RB_GpuWaited = RB_GpuWaited;
+    re.R_SetLodOrigin = R_SetLodOrigin;
+    return &re;
 }

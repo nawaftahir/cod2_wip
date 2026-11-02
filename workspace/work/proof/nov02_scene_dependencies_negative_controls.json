@@ -1,0 +1,74 @@
+[
+  {
+    "target": "0x10007d60",
+    "gate": "check_checkpoint.py",
+    "rejected": true,
+    "reason": "AssertionError: ('checkpoint regression', {'0x10007d60': 93})"
+  },
+  {
+    "target": "0x10007d60",
+    "gate": "regression.py",
+    "rejected": true,
+    "reason": "}"
+  },
+  {
+    "target": "0x10021840",
+    "gate": "check_checkpoint.py",
+    "rejected": true,
+    "reason": "AssertionError: ('checkpoint regression', {'0x10021840': 79})"
+  },
+  {
+    "target": "0x10021840",
+    "gate": "regression.py",
+    "rejected": true,
+    "reason": "}"
+  },
+  {
+    "target": "0x10021920",
+    "gate": "check_checkpoint.py",
+    "rejected": true,
+    "reason": "AssertionError: ('checkpoint regression', {'0x10021920': 87})"
+  },
+  {
+    "target": "0x10021920",
+    "gate": "regression.py",
+    "rejected": true,
+    "reason": "}"
+  },
+  {
+    "target": "0x10021b50",
+    "gate": "check_checkpoint.py",
+    "rejected": true,
+    "reason": "AssertionError: ('checkpoint regression', {'0x10021b50': 146})"
+  },
+  {
+    "target": "0x10021b50",
+    "gate": "regression.py",
+    "rejected": true,
+    "reason": "}"
+  },
+  {
+    "target": "0x10024460",
+    "gate": "check_checkpoint.py",
+    "rejected": true,
+    "reason": "AssertionError: ('checkpoint regression', {'0x10024460': 70})"
+  },
+  {
+    "target": "0x10024460",
+    "gate": "regression.py",
+    "rejected": true,
+    "reason": "}"
+  },
+  {
+    "target": "0x100244b0",
+    "gate": "check_checkpoint.py",
+    "rejected": true,
+    "reason": "AssertionError: ('checkpoint regression', {'0x100244b0': 301})"
+  },
+  {
+    "target": "0x100244b0",
+    "gate": "regression.py",
+    "rejected": true,
+    "reason": "}"
+  }
+]

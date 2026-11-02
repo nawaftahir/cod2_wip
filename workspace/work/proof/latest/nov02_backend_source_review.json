@@ -1,0 +1,5 @@
+{
+  "prior_sha256": "de0ba3bf72c1f5a6ae4316103783468229c7df8b67259af895681fea06ed7afd",
+  "current_sha256": "f794cd57ce5f9de842216191be5bcc82a7e073a4e2083fb76edaf06c9aba057f",
+  "only_change": "split zero stores into field1 then field2 statements; all assembly and other bytes unchanged"
+}

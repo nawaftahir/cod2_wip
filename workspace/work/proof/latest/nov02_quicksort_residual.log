@@ -1,0 +1,35 @@
+?qsortDrawSurfs@@YAXPAUGfxDrawSurf@@H@Z 0x10020590 301
+--- ours
++++ retail
+@@ -1,12 +1,12 @@
+ sub esp, 0xf4
+-push ebx
+-xor ebx, ebx
+ cmp eax, 2
+ push esi
+ mov esi, ecx
+-mov dword ptr [esp + 8], ebx
+ jl A
++push ebx
+ push edi
++xor ebx, ebx
+ mov edi, esi
++mov dword ptr [esp + 0xc], ebx
+ lea esi, [esi + eax*8 - 8]
+ push ebp
+@@ -105,6 +105,14 @@
+ pop ebp
+ pop edi
++pop ebx
+ pop esi
+-pop ebx
+ add esp, 0xf4
+ ret 
++int3 
++int3 
++int3 
++mov eax, dword ptr [A]
++mov ecx, dword ptr [eax + 8]
++xor eax, eax
++cmp ecx, 2
++je A

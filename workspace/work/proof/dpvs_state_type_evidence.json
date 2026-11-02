@@ -1,0 +1,138 @@
+{
+  "mac": {
+    "binary_sha256": "ac26590b3de6ec718b767dd976b0e93e0f4fe18996a8259cbabcc7e4302eb66c",
+    "scope": "Mac1.3 naming/type evidence; PC addresses require primary confirmation",
+    "module": "PC/gfx_d3d/r_dpvs.cpp",
+    "records": [
+      {
+        "kind": "0x26",
+        "value": "0x32b420",
+        "name": "color:V(0,790)"
+      },
+      {
+        "kind": "0x28",
+        "value": "0xd51e00",
+        "name": "dpvsConfig:S(0,839)=xs$_3718:"
+      },
+      {
+        "kind": "0x80",
+        "value": "0x0",
+        "name": "$_3718:Tt(0,839)=s4cullDist:(0,26),0,32;;"
+      },
+      {
+        "kind": "0x28",
+        "value": "0xd51f00",
+        "name": "dpvsScene:S(0,840)=xsDpvsScene:"
+      },
+      {
+        "kind": "0x28",
+        "value": "0xd51e20",
+        "name": "dpvsGlob:S(0,842)=xs$_3719:"
+      },
+      {
+        "kind": "0x80",
+        "value": "0x0",
+        "name": "$_3719:Tt(0,842)=s108viewPlane:(0,717),0,160;fogPlane:(0,717),160,160;nearPlane:(0,722),320,32;farPlane:(0,722),352,32;viewProjMtx:(0,243),384,32;invViewProjMtx:(0,243),416,32;activeOccluderCount:(0,2),448,32;activeOccluders:(0,740),480,32;occluderPlaneCount:(0,2),512,32;occluderPlanes:(0,722),544,32;viewOrg:(0,58),576,128;queuedCount:(0,2),704,32;portalQueue:(0,814),736,32;nextFreeHullPoints:(0,748),768,32;debug:(0,843)=xsDpvsDebug:,800,40;;"
+      },
+      {
+        "kind": "0x80",
+        "value": "0x0",
+        "name": "DpvsDebug:t(0,843)=s5drawWorld:(0,77),0,8;drawEntities:(0,77),8,8;drawSModels:(0,77),16,8;drawXModels:(0,77),24,8;drawBModels:(0,77),32,8;;"
+      },
+      {
+        "kind": "0x26",
+        "value": "0x32b3e0",
+        "name": "standardFrustumSidePlanes:S(0,844)"
+      },
+      {
+        "kind": "0x80",
+        "value": "0x0",
+        "name": "DpvsDebug:Tt(0,843)"
+      }
+    ]
+  },
+  "pc": {
+    "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+    "function": "R_AddWorldSurfacesDpvs1000a8d0/399",
+    "references": [
+      {
+        "instruction": "0x1000a911",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x101ce5cc], eax",
+        "referenced_address": "0x101ce5cc"
+      },
+      {
+        "instruction": "0x1000a91b",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x101ce5c4], esi",
+        "referenced_address": "0x101ce5c4"
+      },
+      {
+        "instruction": "0x1000a92a",
+        "mnemonic": "mov",
+        "operands": "byte ptr [0x101ce5ec], cl",
+        "referenced_address": "0x101ce5ec"
+      },
+      {
+        "instruction": "0x1000a933",
+        "mnemonic": "mov",
+        "operands": "byte ptr [0x101ce5ed], al",
+        "referenced_address": "0x101ce5ed"
+      },
+      {
+        "instruction": "0x1000a948",
+        "mnemonic": "mov",
+        "operands": "byte ptr [0x101ce5f0], dl",
+        "referenced_address": "0x101ce5f0"
+      },
+      {
+        "instruction": "0x1000a950",
+        "mnemonic": "mov",
+        "operands": "byte ptr [0x101ce5f0], cl",
+        "referenced_address": "0x101ce5f0"
+      },
+      {
+        "instruction": "0x1000a963",
+        "mnemonic": "mov",
+        "operands": "byte ptr [0x101ce5ee], dl",
+        "referenced_address": "0x101ce5ee"
+      },
+      {
+        "instruction": "0x1000a96b",
+        "mnemonic": "mov",
+        "operands": "byte ptr [0x101ce5ee], cl",
+        "referenced_address": "0x101ce5ee"
+      },
+      {
+        "instruction": "0x1000a97e",
+        "mnemonic": "mov",
+        "operands": "byte ptr [0x101ce5ef], dl",
+        "referenced_address": "0x101ce5ef"
+      },
+      {
+        "instruction": "0x1000a986",
+        "mnemonic": "mov",
+        "operands": "byte ptr [0x101ce5ef], cl",
+        "referenced_address": "0x101ce5ef"
+      },
+      {
+        "instruction": "0x1000a98c",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x101ce5c0], ecx",
+        "referenced_address": "0x101ce5c0"
+      },
+      {
+        "instruction": "0x1000a9a9",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x101ce5b8], eax",
+        "referenced_address": "0x101ce5b8"
+      },
+      {
+        "instruction": "0x1000a9ae",
+        "mnemonic": "mov",
+        "operands": "dword ptr [0x101ce5bc], ecx",
+        "referenced_address": "0x101ce5bc"
+      }
+    ]
+  }
+}

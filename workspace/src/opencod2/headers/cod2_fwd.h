@@ -422,7 +422,7 @@ struct IDirect3DSwapChain9;
 struct IDirect3DTexture9;
 #endif
 #ifndef COD2_SDK_TYPES
-union IDirect3DVertexBuffer9;
+struct IDirect3DVertexBuffer9;
 #endif
 #ifndef COD2_SDK_TYPES
 struct IDirect3DVertexDeclaration9;

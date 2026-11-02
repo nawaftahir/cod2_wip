@@ -1,0 +1,98 @@
+rb_imagefilter.cpp
+z:\w\src\opencod2\headers\cod2_defs.h(4472) : warning C4114: same type qualifier used more than once
+z:\w\src\opencod2\headers\cod2_defs.h(5885) : warning C4114: same type qualifier used more than once
+z:\w\src\opencod2\headers\cod2_defs.h(5947) : warning C4114: same type qualifier used more than once
+z:\w\src\opencod2\headers\cod2_defs.h(6110) : warning C4114: same type qualifier used more than once
+z:\w\src\opencod2\headers\cod2_defs.h(8458) : warning C4114: same type qualifier used more than once
+z:\w\src\opencod2\headers\cod2_defs.h(8460) : warning C4114: same type qualifier used more than once
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(175) : error C2011: 'GfxImageFilter' : 'struct' type redefinition
+        z:\w\src\opencod2\headers\Mac\mac_types.h(567) : see declaration of 'GfxImageFilter'
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(194) : error C2065: 'backEnd' : undeclared identifier
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(194) : error C2228: left of '.codeConsts' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(204) : error C2228: left of '.currentFeedbackImage' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(205) : error C2065: 'dx' : undeclared identifier
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(205) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(205) : error C2228: left of '.image' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(204) : error C3861: 'backEnd': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(217) : error C2228: left of '.viewParms' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(217) : error C2227: left of '->viewport' must point to class/struct/union
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(217) : error C2228: left of '.Height' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(217) : error C3861: 'backEnd': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(218) : error C2065: 'vidConfig' : undeclared identifier
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(218) : error C2228: left of '.aspectRatioPixel' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(220) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(220) : error C2228: left of '.image' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(220) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(225) : error C2228: left of '.width' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(225) : error C2228: left of '.height' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(225) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(225) : error C2228: left of '.width' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(226) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(226) : error C2228: left of '.height' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(225) : error C3861: 'vidConfig': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(225) : error C3861: 'vidConfig': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(225) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(226) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(235) : error C2228: left of '.viewParms' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(235) : error C2227: left of '->viewport' must point to class/struct/union
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(235) : error C2228: left of '.Height' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(235) : error C3861: 'backEnd': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(236) : error C2228: left of '.aspectRatioPixel' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(236) : error C3861: 'vidConfig': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(237) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(237) : error C2228: left of '.width' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(237) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(237) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(237) : error C2228: left of '.height' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(237) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(239) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(239) : error C2228: left of '.image' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(239) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(267) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(268) : error C2228: left of '.width' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(268) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(268) : error C2228: left of '.width' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(267) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(268) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(271) : error C2228: left of '.resolvedSceneTarget' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(271) : error C3861: 'backEnd': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(273) : error C2228: left of '.glowImage' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(273) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(273) : error C2228: left of '.image' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(273) : error C3861: 'backEnd': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(273) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(275) : error C2228: left of '.glowCount' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(275) : error C3861: 'backEnd': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(280) : error C2228: left of '.glowImage' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(280) : error C2228: left of '.renderTargets' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(280) : error C2228: left of '.image' must have class/struct/union type
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(280) : error C3861: 'backEnd': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(280) : error C3861: 'dx': identifier not found, even with argument-dependent lookup
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(281) : error C2228: left of '.glowCount' must have class/struct/union type
+        type is ''unknown-type''
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\rb_imagefilter.cpp(281) : error C3861: 'backEnd': identifier not found, even with argument-dependent lookup
+make: *** [closed.mk:56: build/codex_boundsoutside_1016_02/obj/gfx_d3d/rb_imagefilter.obj] Error 1
+make: *** Waiting for unfinished jobs....

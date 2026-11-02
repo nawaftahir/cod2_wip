@@ -1,0 +1,112 @@
+{
+  "date": "2026-11-02",
+  "scope": "retail scene sorting, BSP camera cell and four scene command producers",
+  "step3_complete": false,
+  "new_source_routines": 7,
+  "new_accepted_cpp_bytes": 776,
+  "new_accepted_cpp_bodies": 6,
+  "new_accepted_bodies": [
+    {
+      "name": "?R_CellForPoint@@YAHPBM@Z",
+      "t": "0x10007d60",
+      "n": 93,
+      "obj": "r_dpvs.obj",
+      "why": []
+    },
+    {
+      "name": "?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z",
+      "t": "0x10021840",
+      "n": 79,
+      "obj": "r_rendercmds.obj",
+      "why": []
+    },
+    {
+      "name": "?R_AddCmdDrawSun@@YAXH@Z",
+      "t": "0x10021920",
+      "n": 87,
+      "obj": "r_rendercmds.obj",
+      "why": []
+    },
+    {
+      "name": "?R_AddCmdBeginView@@YAXHPBUGfxSceneDef@@PBUGfxViewParms@@PBUGfxLodParms@@@Z",
+      "t": "0x10021b50",
+      "n": 146,
+      "obj": "r_rendercmds.obj",
+      "why": []
+    },
+    {
+      "name": "?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z",
+      "t": "0x10024460",
+      "n": 70,
+      "obj": "r_scene.obj",
+      "why": []
+    },
+    {
+      "name": "?qsortDrawSurfs@@YAXPAUGfxDrawSurf@@H@Z",
+      "t": "0x100244b0",
+      "n": 301,
+      "obj": "r_scene.obj",
+      "why": []
+    }
+  ],
+  "cpp_executable_bytes": 109328,
+  "cpp_percent": 43.11381023740043,
+  "cpp_bodies": 660,
+  "denominator": 253580,
+  "authored_assembly_bodies": 32,
+  "authored_assembly_bytes": 7820,
+  "previous_protected_extents_retained": 2385,
+  "protected_extents_now": 2391,
+  "original_build_and_both_referees": "PASS",
+  "affected_fixtures": 23,
+  "independent_deletion_negatives": 12,
+  "sort_cell_native_cases": 86,
+  "producer_native32_cases": 33,
+  "candidate_sha256": "5d4fd19e1b4936ead60588fb8a2d8efbf0cc759da3331e2207c3ad9b5ae7e0dd",
+  "same_offset_percent": 10.187469752488939,
+  "whole_file_identical": false,
+  "unmatched_source": [
+    "R_AddCmdLightProperties192B vs195B retail"
+  ],
+  "remaining": [
+    "real scene modes and main visibility/shadow/light scene generation",
+    "genuine API59 GetRefAPI",
+    "remaining code/data/layout and whole-file SHA/smoke"
+  ],
+  "checks_not_run": [
+    "full fixture suite",
+    "GPU smoke",
+    "whole-file identity"
+  ],
+  "hashes": {
+    "target/work/src/gfx_d3d/r_scene.cpp": "1bcf9e4cd4fef46daa2f6914dd0cf0997a2e27ddc3fd652b9256f6b65c859d1b",
+    "target/work/src/gfx_d3d/r_dpvs.cpp": "fc93f0b5cb1cc288c3ec4d8b33c5328e7e812bd14e986295a58314bf7d2e3812",
+    "target/work/src/gfx_d3d/r_rendercmds.cpp": "2cff29b1665ef3e35388b15c15615777fc6ad26667975e826ad5bc36842cafa4",
+    "target/work/src/tus.txt": "afe48cb6f48463a9740331d0f26251e63cd8cc9348cd47cb89f105a65ffb1c50",
+    "target/work/tests/test_scene_sort_cell.py": "9934003ad242d87a9c03b37d82ae9b2e8b6716ce936388da64d4f2451be3b065",
+    "target/work/tests/test_scene_command_producers.py": "135ad32c7e98df88721346bbc4dcddd39e69a01fb1991985966424b738069783",
+    "target/work/tests/test_frontend_dispatch.py": "4783a125dceb4f998f82520e11a2de74d982c6b27d26d8a711fdf8aaf32db58e",
+    "target/work/tests/test_model_draw.py": "7614116e1ec6cabc5b3f60f661d8cc3a70ea1acb6443ae0a8341557910e27db2",
+    "target/work/tests/test_ref_entity_submission.py": "23c3fb7debc8dcf70b91817dc25918115b308eaa37a3bd6e10749744210b2094",
+    "target/work/tools/check_checkpoint.py": "52147d5a11f9f278ef874afca30543c523a0642e9ffbda24142b5a0cb41a17ba",
+    "target/work/tools/regression.py": "c88278cf58d66c8649941361e01a982b791c4c9265c0665c4e66acae35e4a422",
+    "target/work/proof/scene_dependencies_warm_bind.json": "1ae246e5a2e30b0f8f89ce6b1adb7d667d558bd14639043f71cab1be4be23185",
+    "target/work/proof/nov02_scene_dependencies_negative_controls.json": "6bda4f450173e8854df8d3dcb05d6659851bf754137f22945e697db987082b4d",
+    "target/work/proof/nov02_scene_dependencies_gains.json": "a616077c4f31e20af06491f0df89daee6159867e741bf44e50f2fdddd7cc1754",
+    "target/work/proof/nov02_scene_sort_primary.asm": "c6c46215dbcfdf980d3b997f97de1095a60b5ec62104a79e9470470d90997153",
+    "target/work/proof/nov02_scene_producers_primary.asm": "32fbcdb55a2ab4ea7b59cecb16500ab83c44265fb347952e55749e6a9e195f3e",
+    "target/work/proof/nov02_light_scale_primary.asm": "92c00cb5aeaf2d258b5342a27de7bcd6eccc6f2b61193225a12bc0ac687271e3",
+    "target/work/proof/latest/nov02_scene_dependencies_build.log": "c8075d47e1c8870ad8a76ccae8c1b1b86a0c8dddd69d9400c310a1b3d1c906d8",
+    "target/work/proof/latest/nov02_scene_dependencies_focused.log": "c8100f311f54c4e1e0497aa4cc0cddc77bf7222ee41241aec5570c6ef3bbb4f3",
+    "target/work/proof/latest/nov02_scene_dependencies_gate.log": "5d7e18153fd7e18c59e630ef31d42f9a78345cc4dc2e5bc8e88b7adfe9a6016f",
+    "target/work/proof/latest/nov02_scene_dependencies_gate.json": "1ef7d47702c55efd95e3e42ba6783cf6da33f8f7581ca2a82787af0759379a2d",
+    "target/work/proof/latest/nov02_scene_dependencies_layout.log": "4d6084024d8cf70cef0a17ded68c5609ba4adbab184627779c3db7a29ba364d1",
+    "target/work/proof/latest/nov02_quicksort_residual.log": "5d15323e2ea805817c77aea879fc804c98584e25257f42d8e8a20b20b548cfda",
+    "target/work/proof/latest/nov02_cell_residual.log": "9434a4bcb150588a19a95636d92a1bbf59935975c2e65ab4016e3f36ed0e14cf",
+    "target/work/proof/latest/nov02_quicksort_second_residual.log": "8f2969abcdc390c100dbc1d4f6c23a8dd446a0c8c5c5e8065ddf516d3bc4811d",
+    "target/work/proof/latest/nov02_cell_second_residual.log": "0a475dc37917d26eaddfecddffd3a775a95720fd7bab70f70c43e28926a1e3f6",
+    "target/work/proof/latest/nov02_light_producer_residual.log": "76e8515a937f7f54bf239fcc65e8eee7802389a001659e7a4bceb85711f59ac1",
+    "target/work/proof/source_coverage_current.json": "9f8bb68f33f6046a958015624fb09f03c08823acabb70670645f7e1af43ef2b6",
+    "target/work/layout/current.json": "98913996d04ec81bbc9809088728d281bce390a961f9ffc02c884e014d29b7c2"
+  }
+}

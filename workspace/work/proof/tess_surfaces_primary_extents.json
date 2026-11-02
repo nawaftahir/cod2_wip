@@ -1,0 +1,63 @@
+[
+  {
+    "name": "RB_PushMatrixStack",
+    "target": "0x1003e480",
+    "inventory_bytes": 46,
+    "last_instruction": "0x1003e4ad",
+    "last_kind": "ret",
+    "last_end": "0x1003e4ae",
+    "contiguous_bytes": 46,
+    "primary_contiguous_bytes": 46
+  },
+  {
+    "name": "RB_TessPoly",
+    "target": "0x1003ef30",
+    "inventory_bytes": 477,
+    "last_instruction": "0x1003f118",
+    "last_kind": "ret",
+    "last_end": "0x1003f119",
+    "contiguous_bytes": 489,
+    "primary_contiguous_bytes": 489,
+    "inventory_caveat": "Ghidra477 truncates an instruction and omits the final small-count block; actual PC extent489 through1003f118 RET"
+  },
+  {
+    "name": "RB_TessTriangles",
+    "target": "0x100415f0",
+    "inventory_bytes": 153,
+    "last_instruction": "0x10041688",
+    "last_kind": "ret",
+    "last_end": "0x10041689",
+    "contiguous_bytes": 153,
+    "primary_contiguous_bytes": 153
+  },
+  {
+    "name": "RB_TessStaticModelCached",
+    "target": "0x10041510",
+    "inventory_bytes": 209,
+    "last_instruction": "0x100415e0",
+    "last_kind": "ret",
+    "last_end": "0x100415e1",
+    "contiguous_bytes": 209,
+    "primary_contiguous_bytes": 209
+  },
+  {
+    "name": "RB_TessXModelRigid",
+    "target": "0x100413c0",
+    "inventory_bytes": 326,
+    "last_instruction": "0x10041505",
+    "last_kind": "ret",
+    "last_end": "0x10041506",
+    "contiguous_bytes": 326,
+    "primary_contiguous_bytes": 326
+  },
+  {
+    "name": "outlined rigid matrix copy (descriptive)",
+    "target": "0x1003eea0",
+    "inventory_bytes": 123,
+    "last_instruction": "0x1003ef16",
+    "last_kind": "jmp",
+    "last_end": "0x1003ef1b",
+    "contiguous_bytes": 123,
+    "primary_contiguous_bytes": 123
+  }
+]

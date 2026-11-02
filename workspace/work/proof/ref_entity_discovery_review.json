@@ -1,0 +1,36 @@
+{
+  "scope": "Discovery only: complete unrelocated6/7-byte straight-line return bodies with one exact occurrence; byte/relocation/import/data/extent/closure predicates unchanged",
+  "before_sha256": "b112c3a04b0dbea4ccb710c08118e012fde7cace6e32ece4db27d52a2b09c03a",
+  "current_sha256": "fe9978b1afcf53696f64c1c0cd2c3c5b13e62ba064fb67db34c914cc41fa937f",
+  "rejected_attempt": "Overbroad1/3/5-byte global discovery truncated ambiguous hit lists, preventing existing caller placement; regression guard rejected it. Exact failed script/cmp/bind/log retained in scratch/short_discovery/overbroad_*.",
+  "final_rule": "Keep1/3/5-byte and all ambiguous/masked/control-flow short bodies on original caller placement path; global discovery for unique unmasked6/7-byte straight-line returns only.",
+  "native_controls": "Existing short-candidate fixture retains all old tests and adds unique6/7, duplicate leaves, relocations, internal call, conditional branch, immediate-C3 and trap negatives.",
+  "required_extents": 2380,
+  "old_extent_losses": [],
+  "new_bodies": [
+    {
+      "target": "0x10017300",
+      "name": "R_GetMaterialName",
+      "bytes": 7,
+      "kind": "authored C++"
+    },
+    {
+      "target": "0x100604f0",
+      "name": "ShortNoSwap",
+      "bytes": 6,
+      "kind": "authored C++"
+    },
+    {
+      "target": "0x10063df0",
+      "name": "D3DXShader::CPPPragmaDef constructor",
+      "bytes": 7,
+      "kind": "pinned SDK dependency"
+    },
+    {
+      "target": "0x10086d26",
+      "name": "D3DXShader::CTransform::Apply",
+      "bytes": 6,
+      "kind": "pinned SDK dependency"
+    }
+  ]
+}

@@ -1,6 +1,8 @@
 #include "../qcommon/qcommon.h"
 #include "../xanim/xanim_public.h"
 #include "com_math.h"
+// Keep precise math separate from the shared quaternion instances.
+#pragma optimize("p", on)
 
 void PerpendicularVector(const vec3_t src, vec3_t dst);
 
@@ -1963,23 +1965,6 @@ void MatrixTransformVector43Equals( vec3_t inout, const float in2[4][3] )
 
 /*
 ==============
-RotateVec2
-==============
-*/
-void RotateVec2( vec2_t v, float degrees )
-{
-	float c;
-	float s;
-	float x;
-
-	FastSinCos(degrees * 0.017453292519943295f, &s, &c);
-	x = v[0] * c - v[1] * s;
-	v[1] = v[1] * c + v[0] * s;
-	v[0] = x;
-}
-
-/*
-==============
 QuatMultiply
 ==============
 */
@@ -2934,13 +2919,13 @@ void ExpandBounds2D( const vec2_t addedmins, const vec2_t addedmaxs, vec2_t mins
 
 /*
 ==============
-TransformBounds
+GetRotatedBounds
 
 Axis-aligned bounds of a box after rotating by axis and moving to origin;
 the sign bit of each axis entry picks the min or max corner.
 ==============
 */
-void TransformBounds( const vec3_t bounds[2], const vec3_t origin, const vec3_t axis[3], vec3_t out[2] )
+void GetRotatedBounds( const vec3_t bounds[2], const vec3_t origin, const vec3_t axis[3], vec3_t out[2] )
 {
 	int i;
 	int offset;
@@ -2973,7 +2958,7 @@ void TransformBoundsExpand( const vec3_t bounds[2], const vec3_t origin, const v
 {
 	vec3_t transformed[2];
 
-	TransformBounds(bounds, origin, axis, transformed);
+	GetRotatedBounds(bounds, origin, axis, transformed);
 	ExpandBounds(transformed[0], transformed[1], out[0], out[1]);
 }
 
@@ -3027,12 +3012,12 @@ void AxisTranspose( const vec3_t in[3], vec3_t out[3] )
 
 /*
 ==============
-AxisTransformComponents
+AxisTransformVector
 
 x * axis[0] + y * axis[1] + z * axis[2]
 ==============
 */
-void AxisTransformComponents( const vec3_t axis[3], float x, float y, float z, vec3_t out )
+void AxisTransformVector(const vec3_t *axis, float x, float y, float z, float *out)
 {
 	out[0] = x * axis[0][0] + y * axis[1][0] + z * axis[2][0];
 	out[1] = x * axis[0][1] + y * axis[1][1] + z * axis[2][1];
@@ -3891,38 +3876,13 @@ float SnapFloatToGrid( float value, float grid, float epsilon )
 
 	return value;
 }
-void GetRotatedBounds(vec3_t *baseBounds, const vec_t *origin, vec3_t *axis, vec3_t *rotatedBounds)
+// PINNED 1001d660/10058310: retain the non-/Op shared quaternion instances.
+#pragma optimize("p", off)
+// Existing wrapper, grouped with its non-/Op transform calculation.
+void TransformVectorByAnimMat(const float *in, const DObjAnimMat *mat, float *out)
 {
-	int i;
-	int j;
-	for (i = 0; i < 3; ++i)
-	{
-		rotatedBounds[0][i] = origin[i];
-		rotatedBounds[1][i] = origin[i];
-		for (j = 0; j < 3; ++j)
-		{
-			// PINNED PC1005c8c0 selects on float sign bits, including negative zero/NaN.
-			int offset = I_sel(*(int *)&axis[j][i], 0, sizeof(vec3_t));
-			const vec_t *minBounds = (const vec_t *)((const byte *)baseBounds + offset);
-			const vec_t *maxBounds = (const vec_t *)((const byte *)baseBounds + sizeof(vec3_t) - offset);
-			rotatedBounds[0][i] += minBounds[j] * axis[j][i];
-			rotatedBounds[1][i] += maxBounds[j] * axis[j][i];
-		}
-	}
+    MatrixTransformVectorQuatTrans(in, mat, out);
 }
 
-void AxisTransformVector(const vec3_t *axes, float x, float y, float z, float *out)
-{
-    out[0] = x * axes[0][0] + y * axes[1][0] + z * axes[2][0];
-    out[1] = x * axes[0][1] + y * axes[1][1] + z * axes[2][1];
-    out[2] = x * axes[0][2] + y * axes[1][2] + z * axes[2][2];
-}
 
-// PINNED 1005ca50; name unconfirmed, retail keeps one out-of-line copy here.
-void R_TransformCachedVector(const vec3_t *axis,
-    float x, float y, float z, float *out)
-{
-    out[0] = y * axis[1][0] + z * axis[2][0] + x * axis[0][0];
-    out[1] = z * axis[2][1] + x * axis[0][1] + y * axis[1][1];
-    out[2] = z * axis[2][2] + x * axis[0][2] + y * axis[1][2];
-}
+#pragma optimize("p", on)

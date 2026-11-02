@@ -1,0 +1,2 @@
+PASS: all34 source command slots match retail order; only slot0 is null
+PASS: all33 linked command pointers bind their genuine retained handlers

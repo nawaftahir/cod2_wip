@@ -1,0 +1,17 @@
+RUN test_visibility_tree.py
+PASS: 23 actual visibility paths, NaN/stamps/occluders, surface dedup, model distance, groups and captured model owner
+RUN test_portal_world_driver.py
+PASS: 31 actual portal/world driver paths, queue cleanup, walk limits, immediate/further cells, matrix planes and arena LIFO
+RUN test_shadow_generation.py
+PASS: 10 actual shadow generation paths, STL order, view/lookup geometry, degenerate/capped casters, receiver counters, fade bits and cap rates
+RUN test_point_light_gather.py
+PASS: 631 actual light gather/selection/cull cases, limits, empty compaction, reverse draws and FP boundaries
+RUN test_normal_scene_chain.py
+PASS: 120 actual normal/depth/shadow/light/dispatch paths, payload capture, group lifecycle and priorities
+RUN test_outer_scene_api.py
+PASS: 131 actual RenderScene/outer-command routes,early gates,effects snapshot,shadow/light modes and debug ownership
+RUN test_api59_table.py
+PASS: actual API59 copy-before-check,108 slot offsets,98 callback bindings,ten zeros and repeated-call reset
+RUN test_model_skin_api.py
+PASS: 16 real model-skin loader LOD/empty/multi-surface paths,contiguous allocation,lowercase names and live default
+PASS: 8 connected fixtures

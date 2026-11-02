@@ -1,0 +1,14 @@
+[
+  {
+    "gate": "check_checkpoint.py",
+    "target": "0x10024920",
+    "rejected": true,
+    "reason": "AssertionError: ('checkpoint regression', {'0x10024920': 156})"
+  },
+  {
+    "gate": "regression.py",
+    "target": "0x10024920",
+    "rejected": true,
+    "reason": "AssertionError: ('checkpoint loss', ['0x10024920'])"
+  }
+]

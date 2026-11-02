@@ -1,0 +1,125 @@
+{
+  "date": "2026-11-01",
+  "authorization": "owner requested obsolete build outputs only",
+  "scope": "inactive target/build directories and archive/old_renderer_builds_20261020; regular generated artifacts only",
+  "active_build_preserved": "target/build/codex_boundsoutside_1016_02",
+  "active_dll_sha256_unchanged": "5ce474db2252b1fe864a10081b27c61dc6b96c78e3938bd833f012d733ee438d",
+  "deleted_extensions": [
+    ".obj",
+    ".pdb",
+    ".idb",
+    ".pch",
+    ".ilk",
+    ".exp"
+  ],
+  "other_deleted_names": [
+    "gfx.dll",
+    "gfx.lib"
+  ],
+  "source_proof_logs_maps_and_symlinks_deleted": false,
+  "deleted_files": 32966,
+  "deleted_bytes": 2481555665,
+  "allocated_bytes_unlinked": 2514038784,
+  "by_root": {
+    "target/build/probe": {
+      "files": 1,
+      "bytes": 135892
+    },
+    "target/build/port": {
+      "files": 60,
+      "bytes": 4111195
+    },
+    "target/build/v_base_0928": {
+      "files": 70,
+      "bytes": 8642185
+    },
+    "target/build/agent_setpic_1015_base": {
+      "files": 144,
+      "bytes": 15630384
+    },
+    "target/build/agent_setpic_1015_02": {
+      "files": 144,
+      "bytes": 15646770
+    },
+    "target/build/pm": {
+      "files": 92,
+      "bytes": 10305906
+    },
+    "target/build/agent_setpic_1015_03": {
+      "files": 144,
+      "bytes": 15646758
+    },
+    "target/build/agent_intersect_1015_base": {
+      "files": 144,
+      "bytes": 15646775
+    },
+    "target/build/pt1": {
+      "files": 92,
+      "bytes": 10308029
+    },
+    "target/build/agent_setpic_1015_01": {
+      "files": 144,
+      "bytes": 15646758
+    },
+    "target/build/agent_display_1015_00": {
+      "files": 24,
+      "bytes": 2133485
+    },
+    "target/build/w50_water": {
+      "files": 144,
+      "bytes": 15713687
+    },
+    "target/build/agent_setpic_1015_04": {
+      "files": 146,
+      "bytes": 15845279
+    },
+    "target/build/w50_xsurf": {
+      "files": 144,
+      "bytes": 15679500
+    },
+    "target/build/v": {
+      "files": 96,
+      "bytes": 11303593
+    },
+    "target/build/w50_image": {
+      "files": 152,
+      "bytes": 30592910
+    },
+    "target/build/agent_display_1015_01": {
+      "files": 144,
+      "bytes": 15630678
+    },
+    "target/build/closed": {
+      "files": 22,
+      "bytes": 2655134
+    },
+    "target/build/w50_cache": {
+      "files": 1156,
+      "bytes": 125932872
+    },
+    "target/build/w50_xsurf2": {
+      "files": 144,
+      "bytes": 15679729
+    },
+    "target/build/agent_bevel_1015_base": {
+      "files": 144,
+      "bytes": 15646784
+    },
+    "target/build/pt2": {
+      "files": 92,
+      "bytes": 10307805
+    },
+    "target/build/nodbg": {
+      "files": 50,
+      "bytes": 3591432
+    },
+    "target/build/obj": {
+      "files": 125,
+      "bytes": 5922870
+    },
+    "archive/old_renderer_builds_20261020": {
+      "files": 29348,
+      "bytes": 2083199255
+    }
+  }
+}

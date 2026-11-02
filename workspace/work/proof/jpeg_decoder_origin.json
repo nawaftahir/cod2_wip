@@ -1,0 +1,139 @@
+{
+  "archive_sha256": "75c3ec241e9996504fe02a9ed4d12f16b74ade713972f3db9e65ce95cd27e35d",
+  "upstream_files": {
+    "jdapimin": {
+      "file": "jdapimin.c",
+      "upstream_sha256": "4f6e8865e4ef356b90131327f6fa847fb12e8ef03e823bde946d3e2f9d9356c3",
+      "candidate_sha256": "61681f9233b7e372cfbfe9775629e15aae53b4e1532447c2f77dcc1c57ba7826",
+      "unchanged_upstream": false
+    },
+    "jdapistd": {
+      "file": "jdapistd.c",
+      "upstream_sha256": "1b062e70e891819f4603f83baf49462ea737255a0c39df3ef941ef543f94fbab",
+      "candidate_sha256": "1b062e70e891819f4603f83baf49462ea737255a0c39df3ef941ef543f94fbab",
+      "unchanged_upstream": true
+    },
+    "jdcoefct": {
+      "file": "jdcoefct.c",
+      "upstream_sha256": "d84af1a89ea5f91d68607d5620a492f986b7515c141bc3666c5a70dc44df57db",
+      "candidate_sha256": "d84af1a89ea5f91d68607d5620a492f986b7515c141bc3666c5a70dc44df57db",
+      "unchanged_upstream": true
+    },
+    "jdcolor": {
+      "file": "jdcolor.c",
+      "upstream_sha256": "de64bfa0416fa45c8a55cec82c7da468b329c3c3fc9cc55eb5f56509a80332cf",
+      "candidate_sha256": "de64bfa0416fa45c8a55cec82c7da468b329c3c3fc9cc55eb5f56509a80332cf",
+      "unchanged_upstream": true
+    },
+    "jddctmgr": {
+      "file": "jddctmgr.c",
+      "upstream_sha256": "f50d9b1414b44782d4ef46761a53f930b06764468b4cbbf0bf0761ac0751defd",
+      "candidate_sha256": "f50d9b1414b44782d4ef46761a53f930b06764468b4cbbf0bf0761ac0751defd",
+      "unchanged_upstream": true
+    },
+    "jdhuff": {
+      "file": "jdhuff.c",
+      "upstream_sha256": "980d1bdeb8bc631a3528560a4f01bfae28efd8f3ecce4a76d32c97a71e6d1f52",
+      "candidate_sha256": "980d1bdeb8bc631a3528560a4f01bfae28efd8f3ecce4a76d32c97a71e6d1f52",
+      "unchanged_upstream": true
+    },
+    "jdinput": {
+      "file": "jdinput.c",
+      "upstream_sha256": "f1f6b042aa907fe622aa7c94b21d71e61f7f306e10988148c42cc7d50f667e76",
+      "candidate_sha256": "f1f6b042aa907fe622aa7c94b21d71e61f7f306e10988148c42cc7d50f667e76",
+      "unchanged_upstream": true
+    },
+    "jdmainct": {
+      "file": "jdmainct.c",
+      "upstream_sha256": "f9a8331d0a58f6ae74bbfc27e9640d66afb067793586358e0bb47bdb7cb754df",
+      "candidate_sha256": "f9a8331d0a58f6ae74bbfc27e9640d66afb067793586358e0bb47bdb7cb754df",
+      "unchanged_upstream": true
+    },
+    "jdmarker": {
+      "file": "jdmarker.c",
+      "upstream_sha256": "1200c42679f318768025f8e45457d02c5ce5dfecbd72b37dc0bd1da9adb4dba0",
+      "candidate_sha256": "1200c42679f318768025f8e45457d02c5ce5dfecbd72b37dc0bd1da9adb4dba0",
+      "unchanged_upstream": true
+    },
+    "jdmaster": {
+      "file": "jdmaster.c",
+      "upstream_sha256": "c9f18a007511047a50db0b14c54e4d88c279571ec36824b70c3c20232ef7a8fe",
+      "candidate_sha256": "c9f18a007511047a50db0b14c54e4d88c279571ec36824b70c3c20232ef7a8fe",
+      "unchanged_upstream": true
+    },
+    "jdmerge": {
+      "file": "jdmerge.c",
+      "upstream_sha256": "a47ca108ebf955104abbe3f9a64383532be2c70c6f956b5844b412f151f50453",
+      "candidate_sha256": "a47ca108ebf955104abbe3f9a64383532be2c70c6f956b5844b412f151f50453",
+      "unchanged_upstream": true
+    },
+    "jdphuff": {
+      "file": "jdphuff.c",
+      "upstream_sha256": "75db83bd4bf1f3f6f6fe7b1d2e195efcf5e3ab65597089807aaeeffbdb013627",
+      "candidate_sha256": "75db83bd4bf1f3f6f6fe7b1d2e195efcf5e3ab65597089807aaeeffbdb013627",
+      "unchanged_upstream": true
+    },
+    "jdpostct": {
+      "file": "jdpostct.c",
+      "upstream_sha256": "f873dd3a08eedee9a32c1e343cfbdc3380d2e245e1eab2c416d4e1a62cc9586e",
+      "candidate_sha256": "f873dd3a08eedee9a32c1e343cfbdc3380d2e245e1eab2c416d4e1a62cc9586e",
+      "unchanged_upstream": true
+    },
+    "jdsample": {
+      "file": "jdsample.c",
+      "upstream_sha256": "acca64d28c61b87e77993dd0bd51d089ecd68f8989f93e7d17156314ca58670d",
+      "candidate_sha256": "acca64d28c61b87e77993dd0bd51d089ecd68f8989f93e7d17156314ca58670d",
+      "unchanged_upstream": true
+    },
+    "jdtrans": {
+      "file": "jdtrans.c",
+      "upstream_sha256": "c97867f861168d81844a9c9fd8c0b643ce835534a605a93aaab758ec36c56d8a",
+      "candidate_sha256": "c97867f861168d81844a9c9fd8c0b643ce835534a605a93aaab758ec36c56d8a",
+      "unchanged_upstream": true
+    },
+    "jidctflt": {
+      "file": "jidctflt.c",
+      "upstream_sha256": "0988f6ba29f57b691dabdd3f0541839fb651dc74abd36c395130b12a30937155",
+      "candidate_sha256": "0988f6ba29f57b691dabdd3f0541839fb651dc74abd36c395130b12a30937155",
+      "unchanged_upstream": true
+    },
+    "jidctfst": {
+      "file": "jidctfst.c",
+      "upstream_sha256": "c864b3dcfe494f9c8bda25a6fa5fc0a330e636b32eb4bcb6febe8cb01ed1d433",
+      "candidate_sha256": "c864b3dcfe494f9c8bda25a6fa5fc0a330e636b32eb4bcb6febe8cb01ed1d433",
+      "unchanged_upstream": true
+    },
+    "jidctint": {
+      "file": "jidctint.c",
+      "upstream_sha256": "3b7123ba9a66c10eb1f96d7432637b051278f3538d1b06884f9d21a39fd78f9a",
+      "candidate_sha256": "3b7123ba9a66c10eb1f96d7432637b051278f3538d1b06884f9d21a39fd78f9a",
+      "unchanged_upstream": true
+    },
+    "jidctred": {
+      "file": "jidctred.c",
+      "upstream_sha256": "df25adc646b0fdd69aed54361928aeb36972a8293c917f8ec1b0d62e8f764252",
+      "candidate_sha256": "df25adc646b0fdd69aed54361928aeb36972a8293c917f8ec1b0d62e8f764252",
+      "unchanged_upstream": true
+    },
+    "jquant1": {
+      "file": "jquant1.c",
+      "upstream_sha256": "556df5715cf5d915e5190066ff4e542a9911b651e45b34d322a6f6c2b0098fbc",
+      "candidate_sha256": "556df5715cf5d915e5190066ff4e542a9911b651e45b34d322a6f6c2b0098fbc",
+      "unchanged_upstream": true
+    },
+    "jquant2": {
+      "file": "jquant2.c",
+      "upstream_sha256": "9b6844e18480d7003618e8f473a0900743d15fc8516aee7229a77adce470eb0b",
+      "candidate_sha256": "9b6844e18480d7003618e8f473a0900743d15fc8516aee7229a77adce470eb0b",
+      "unchanged_upstream": true
+    },
+    "jdhuff.h": {
+      "file": "jdhuff.h",
+      "upstream_sha256": "9474219e38bd98af7fd427e25462857854f3391fe4eaf329a0d0cb5e438e56f3",
+      "candidate_sha256": "9474219e38bd98af7fd427e25462857854f3391fe4eaf329a0d0cb5e438e56f3",
+      "unchanged_upstream": true
+    }
+  },
+  "custom_memory_adapter": "src/jpeg-6b/jdatasrc.c; pinned PC1004a950,1004a960,1004a980 and inlined creation10014a1d..10014a75",
+  "decompressor_change": "Preserve per-object allocator callbacks while clearing440-byte object, pinned PC10049e5b..10049e8b."
+}

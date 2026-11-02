@@ -1,0 +1,14 @@
+?qsortDrawSurfs@@YAXPAUGfxDrawSurf@@H@Z 0x10020580 301
+--- ours
++++ retail
+@@ -109,2 +109,10 @@
+ add esp, 0xf4
+ ret 
++int3 
++int3 
++int3 
++mov eax, dword ptr [A]
++mov ecx, dword ptr [eax + 8]
++xor eax, eax
++cmp ecx, 2
++je A

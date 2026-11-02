@@ -1,0 +1,26 @@
+{
+  "scope": "Windows COM interface tag correction across all active reference headers; no casts, wrappers, roots or exports",
+  "sdk": "Summer2004 d3d9.h DECLARE_INTERFACE_(IDirect3DVertexBuffer9, IDirect3DResource9)",
+  "observed": "RB_ChangeStreamSource caller requested PAT union, existing real state callee provides PAU struct",
+  "opaque_usage": "No source instances, sizeof or payload member reads; actual source only uses interface pointers",
+  "legacy": "common_types.h is an inactive #if0 legacy body; not changed. Active cod2_types/cod2_defs/PC headers are authoritative",
+  "files": [
+    {
+      "path": "target/src/opencod2/headers/cod2_fwd.h",
+      "before_sha256": "636e371e16d33ce5aa30fa56aaa9e869a622fdfef6f15dbd641e3b24a11634d5",
+      "after_sha256": "ce2ae356af07f278d392de39eda63f39bf27c29a4f24ba8eed33108cb15d7532"
+    },
+    {
+      "path": "target/src/opencod2/headers/cod2_defs.h",
+      "before_sha256": "fa9a3c72084dcac650e62019f57815d69c62794d97783db732cbbada9934bc93",
+      "after_sha256": "0e6650a9d14f0d6645072f19cb46cc645ad44b218c57e5037c10d8f4c9e56a1d"
+    },
+    {
+      "path": "target/src/opencod2/headers/Mac/d3d9_types.h",
+      "before_sha256": "97cc4ac68a07d6e1b511da95300b6344d4fa94ea8c81201868170d8f141de516",
+      "after_sha256": "45fa5b436803fb2203a63d1b8a9f679f034140e6f0d03771d822d3fe2877934c"
+    }
+  ],
+  "sdk_sha256": "8fd111cf992e41bf0ecf6b748fccc3a10a30809f072a0ed09e816189fc9d32eb",
+  "sdk_line": 1393
+}

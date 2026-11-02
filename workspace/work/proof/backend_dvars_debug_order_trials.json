@@ -1,0 +1,19 @@
+{
+  "scope": "Two source-order debug endpoint trials, no added roots or helper definitions",
+  "trials": [
+    "Explicit end[0] PC sum after shared transform call; native bounds fixture passed, neither985/959 byte hit, all2380 extents retained",
+    "Same explicit source plus caller-local precise pragma; neither985/959 byte hit, all2380 extents retained"
+  ],
+  "outcome": "Both source/flag changes reverted; no gained bytes, no compiler-impossibility claim",
+  "restored_source_sha256": "24f5f1ab20000f6e00db9ccae4deb764589e893fd142b44c2f8bffb5ffd4482f",
+  "artifacts": {
+    "explicit_model.cpp": "45ab2e86311349be703910fb797dc2f90818737951adead4d63155cb8d11e2d0",
+    "explicit_cmp.json": "6d15d958045a01ece0e71f264cd0f0ffc2321be5f423ab321796ec2f2bede3ef",
+    "explicit_build.log": "5f765bbba084e25a5df182076ef59b1fa9a7e1b01fea46b7752f2bccd6ed3867",
+    "explicit_precise_cmp.json": "6d15d958045a01ece0e71f264cd0f0ffc2321be5f423ab321796ec2f2bede3ef",
+    "explicit_precise_build.log": "5f765bbba084e25a5df182076ef59b1fa9a7e1b01fea46b7752f2bccd6ed3867",
+    "explicit_precise_model.cpp": "ef429991c3144664ea4828cb91315494d9b0791925fd7802f6e4d9de68316788",
+    "explicit_bind.json": "60cfe44424b63ca3683a2b87ad8195e7c50c2b907398c0fd771c0427279d3fd1",
+    "explicit_precise_bind.json": "60cfe44424b63ca3683a2b87ad8195e7c50c2b907398c0fd771c0427279d3fd1"
+  }
+}

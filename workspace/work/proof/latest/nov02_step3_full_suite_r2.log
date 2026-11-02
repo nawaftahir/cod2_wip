@@ -1,0 +1,221 @@
+RUN test_api59_table.py
+PASS: actual API59 copy-before-check,108 slot offsets,98 callback bindings,ten zeros and repeated-call reset
+RUN test_backend_2d_commands.py
+PASS: 540 quad,3240 rotated and12 wrapper routes; captured records, surface/overflow boundaries, early counts, live color/advance and finite geometry with mocked trig/surfaces
+RUN test_backend_benchmarks.py
+PASS: 28 actual benchmark cases, default aliases, timer/count capture, vertex-zero setup, winding/guards and original reports
+RUN test_backend_commands.py
+PASS: 30 actual jump/call/return cases and96 state handlers;16-byte execution state, two return slots, raw color payload, pre-flush capture and live advancement
+RUN test_backend_common_layout.py
+PASS: common/SDK matrix and typed scene/LOD schemas agree on PC sizes/offsets; extra OGL field and wrong-width time rejected
+RUN test_backend_drawsurfs.py
+PASS: 750 actual sorted-surface/technique/packet cases, both sort layouts and directions, batching, filtering, entity transforms, depth cleanup and cursor timing
+RUN test_backend_dvar_updates.py
+PASS: 422 backend dvar/rebuild routes, all32 masks, clear/live replacement order, DX7 skip, 8192-byte upload and image tracking guards
+RUN test_backend_executor.py
+PASS: 84 actual executor cases, device/recovery gates, real call/return dispatch, skip-only clear, debug/binding cleanup, retry loops and live benchmark/fence state
+RUN test_backend_frame.py
+PASS: 24 actual normal-backend routes, signed frame selection, unlock order, pointer reload and untouched command/debug fields
+RUN test_backend_geometry.py
+PASS: 2160 actual stencil packets and 8640 direct/packed triangles; signed-short layouts, five arrays, captures/live counts, late publication, indices/guards, real overflow declaration restore and final flush
+RUN test_backend_late_post.py
+PASS: 119 real late-post cases, glow ordering, filter/clamp alpha, debug precedence/constant restoration, effect gates and callback/cursor timing
+RUN test_backend_lines.py
+PASS: 17280 actual 2D/3D lines and command packets; original normalization/overflow, signed widths/counts, NaNs/degeneracy, frozen offsets, live geometry/cursor and depth/view restoration
+RUN test_backend_points.py
+PASS: 7776 actual 2D/3D point commands; signed packets, capacity, captured matrices/size, live geometry/cursor, index publication and restoration
+RUN test_backend_presentation.py
+PASS: 260 actual backend frame routes; Present args, lost/fatal branches, live buffer/logging/gamma state, exact clear order and interrupted publication
+RUN test_backend_raw.py
+PASS: 4320 actual raw-frame routes;32-byte packet, creation failure, RGBA/BGRA, pitch/canaries, retried locks, ignored HRESULTs, exact log, live target/device/cursor and release order
+RUN test_backend_screen.py
+PASS: 48 actual copies, 48 saves, 240 blur commands, 1536 blends and 3076 early-post commands; real Image_GetSurface, retries/logs, captured dimensions/image, fresh material/time, live blur pointer, wrapped ticks, high-byte alpha, full UVs and short-circuit target publication
+RUN test_backend_sprite.py
+PASS: 120 actual sprite commands, full116-byte entity, projection/material flush, callback mutation, captured packet and live cursor
+RUN test_backend_state_commands.py
+PASS: 64 light, 120 shadow, 72 stencil and 168 clip routes; raw bits, shared ABI, original/live payloads, retries, cache publication and stack-zero invalidation
+RUN test_backend_sun.py
+PASS: 24 actual sun commands, captured packet/live fields, post flush and live cursor publication
+RUN test_backend_text.py
+PASS: 1207 PC text routes, all256 colors, signed blink, limits/escapes, single-pass shadows, DX7/DX9 quads and live command cursor
+RUN test_backend_view.py
+PASS: 240 actual begin-view and 240 3D restore routes; shared48-byte payload, live views, stack identity, raw scene/LOD copies, viewport and unscaled PC frustum constants
+RUN test_begin_registration.py
+PASS: registration copies all44 bytes after every startup; guards, startup failure and self-alias preserved
+RUN test_brush_entity_bounds.py
+PASS: 3072 actual brush cull routes, corner extrema, shear/reflection, cell returns and live world reload
+RUN test_bsp_visibility.py
+PASS: actual BSP front/back routing, clamps, early exits, AABB NaNs/mark skips and 49 x87 relation pairs
+RUN test_buffer_upload.py
+PASS: 768 index uploads, 1296 vertex uploads and 4 lock failures; rollover, exact flags, guards, retries, cache skips and live pointer publication
+RUN test_cache_commands.py
+PASS: 48 actual cache-stat routes, fixed capacity, live callback-modified counts, zero guard and real flush forward
+RUN test_cache_publication.py
+PASS: actual cache allocation/publication, 29 size/index/failure routes, 128-tree capacity, frame-age eviction, back references, LRU and buffer guards
+RUN test_cache_vertex_buffer.py
+PASS: 24 cache allocations, original log/slot/flags, captured size, live device, retries and ignored HRESULTs
+RUN test_code_constant_parser.py
+PASS: 136 actual constant-parser paths, typed hierarchy, arrays, matrix transpose/rows, literals and failure writes
+RUN test_code_images.py
+PASS: actual code-image switch, sampler states, shadow entity routing and fatal guards
+RUN test_command_dispatch.py
+PASS: all34 source command slots match retail order; only slot0 is null
+PASS: all33 linked command pointers bind their genuine retained handlers
+RUN test_command_registration.py
+PASS: actual nine-command registration, retail names/order and distinct callback identities; callback bodies tested separately
+PASS: linked DLL has all nine actual callback addresses, names and RI+104 command import; callback/import-slot corruptions rejected
+RUN test_console_text.py
+PASS: 2048 console-run,2052 icon and14 integrated callback routes; retail controls/cap, spaces, material ownership, limit updates, color and draw geometry
+RUN test_constant_array_offset.py
+PASS: 112 constant-array range, implicit/unget, syntax, ending-index and partial-write cases
+RUN test_crt_contributor_order.py
+PASS: original CRT 404-byte data block, matherr/month adjacency and both time bindings
+RUN test_cubemap_begin.py
+PASS: 90 actual cubemap-begin cases, ushort narrowing, target/log/clear order and retries
+RUN test_cubemap_capture.py
+PASS: 576 capture paths, six faces, flip/gamma after failed capture, 35 gamma buffers and canaries
+RUN test_cubemap_save.py
+PASS: 144 actual TGA saves, 257-pixel headers, BGRA/alpha rays, six faces, failed writes, both frees and retained pointers
+RUN test_debug_boxes.py
+PASS: 11,560 box cases, exact edge order, lazy allocation, capacity and untouched storage
+RUN test_debug_frame.py
+PASS: eight actual debug-frame routes, saved pointers and unlock ordering
+RUN test_debug_plumes.py
+PASS: 1,458 plume cases, swap ordering, expiry boundaries, allocation and null source
+RUN test_debug_polygons.py
+PASS: 7,200 polygon append/limit cases, allocation order, metadata and untouched storage
+RUN test_debug_render.py
+PASS: 57 actual debug drawing cases, vertex formats/fans/guards, white outlines, depth/capacity batches, signed counts, BGRA truncation, plume timing and live frame ownership
+RUN test_debug_strings.py
+PASS: 280 string cases, truncation/padding, terminator, signed-zero scale and untouched records
+RUN test_dependency_origin.py
+PASS: JPEG-origin matches stay dependency-only even inside the legacy game address range; unchanged baseline gates still run
+RUN test_device_creation.py
+PASS: 1204 actual AA/presentation/device routes, unsigned quality, twenty-try retries and adapter fallback
+RUN test_device_recovery.py
+PASS: 2304 actual reset/recovery routes; shared PC owners, exact lost-only deferral, pre-release snapshots, FPU restoration, returning/throwing fatal callbacks, live world/device and final calibration publication
+RUN test_device_resources.py
+PASS: 16 actual resource routes, helper order, event failure, all eight occlusion slots and shared-state preservation
+RUN test_device_startup.py
+PASS: 48 actual higher-device startup routes, FP controls on failure, shared viewport, multi-GPU, resources/gamma/systems order and late window publication
+RUN test_display_modes.py
+PASS: display sorting, unique resolutions/rates, defaults, failed modes and256-mode cap
+RUN test_dpvs_state.py
+PASS: actual 108-byte DPVS owner, 15 original fields, 32 debug states, queue/hull aliases, natural padding and separate cull configuration
+PASS: copied original type evidence and 13 real PC initializer instructions agree
+RUN test_dx7_material_tables.py
+PASS: all376 DX7 table bytes,26 names/offsets/operators/counts/validity fields against retail
+RUN test_dx9_pass_loading.py
+PASS: 96 actual DX9 stream/pass routes, sorting, warning-only bounds, 16-route rejection, cache reuse, four device declarations and partial writes
+RUN test_dynamic_buffers.py
+PASS: 24 actual dynamic buffer routes, errors, sizes, pool ownership, renderer reload and virtual reservation
+RUN test_effect_callbacks.py
+PASS: 128 actual effect callback forwards; both retail tail-jump operands pin the correct imports
+RUN test_fft.py
+PASS:168 actual FFT cases,4..256 samples,three strides and untouched gaps
+RUN test_filter_apply.py
+PASS: 34 real filter application/generator/glow cases, slot33 constants/guards, ping-pong targets, source-return shortcuts and variance composition
+RUN test_font_loading.py
+PASS: 60 actual font load/registry cases; exact disk/runtime fixups,16-font cap, case cache, file ownership, ignored read returns and error publication
+RUN test_frame_start.py
+PASS: 4105 actual BeginFrame routes; retail order, flags, inverse forced LOD, live dvar/world/client mutations and untouched state
+RUN test_frame_submission.py
+PASS: 22 submission routes, real terminators, reset timing, restoration and live cleanup
+RUN test_fresnel.py
+PASS: 96 Fresnel oracle cases, sign symmetry, total reflection and preserved NaNs
+RUN test_frontend_command_types.py
+PASS: 840 typed clear, 81 viewport, 10 blend and 120 draw-surface writers; actual shared records, raw float bits, live colors, untouched bytes/null policy and primary108-slot client ABI
+RUN test_frontend_dispatch.py
+PASS: 778 actual frontend routes, eight PC jump-table cases, context zero, scene indexing and bounds-before-skin order
+RUN test_frontend_fog.py
+PASS: 13,720 actual fog-setter cases, colors, boundaries, NaN and untouched slots
+RUN test_fullscreen_targets.py
+PASS: actual PC format switch/fullscreen/init bodies, 1152 allocation cases plus three usage paths, signed clamps/ushort sizes, z-feather/DX7, depth and call order
+RUN test_game_window.py
+PASS: 36 actual window routes, styles, adjusted extents, failure handling and untouched parameters
+RUN test_gamma_ramp.py
+PASS: 48 actual hardware gamma ramps, all RGB entries, swap-chain indices and unmodified inputs
+RUN test_grid_interpolation.py
+PASS: 65536 actual interpolation routes, all256 occupancy masks, four rounding modes,24/64-bit precision, fallback/threshold and guards; bounded world coordinates, not FP byte identity
+RUN test_hardware_startup.py
+PASS: 361 actual hardware startup routes, AA/refresh/resolution thresholds, cached device, ignored factory status, fatal return and splash/window publication
+RUN test_image_list.py
+PASS: image-list sorting,10 formats,2 platforms,3 texture types,all option,13th code image and2048 capacity
+RUN test_image_list_tables.py
+PASS: image comparator49; listing1070 comprises1015 code,1 pad,24 pointers and30 selectors
+RUN test_image_lookup.py
+PASS: image lookup misses/hits, collisions, bucket wrap, case, program endpoints and signed hash
+PASS: image predicate/lookup exact bytes, bindings and source owner
+RUN test_image_memory.py
+PASS: 129 image-table populations, all13 programmable images, list order and both memory counters
+RUN test_image_registration.py
+PASS: 92 actual builtin/file/cache image routes, semantic narrowing, identity alpha, allocation and error ownership
+RUN test_image_residency.py
+PASS: 196608 actual comparator cases, 144 registry/command traversals and 60 interrupted draws; program-image exclusion, eligible memory order, live material/cursor and feedback publication
+RUN test_image_setup.py
+PASS: actual setup, picmip clamp, mip/cube sizes, 256 tracks, fullscreen accumulation and48 render/system wrapper cases
+RUN test_image_shutdown.py
+PASS: 2048 actual image-shutdown routes; retained program range, colliding rehash order, track memory, null textures and live sampler bounds
+RUN test_image_startup.py
+PASS: 44 actual image startup routes, DX7/DX9 branch,16 live samplers, raw publication, untouched fields and error order
+RUN test_initial_state.py
+PASS: actual initializer, retail-sized32-bit cache, all5 sampler defaults, state/call order, scene dimensions and8192 invalid cache bytes
+RUN test_inline_pointer_tables.py
+PASS: real retail/candidate memmove tables, relocation operands, mid-pointer resynchronization and retained real external call
+RUN test_interior_code.py
+PASS: exact interior instruction offset, enclosing-call dependency and six ambiguity/bounds negatives
+RUN test_jpeg_decoder.py
+PASS: actual JPEG decoder baseline/progressive, BGR expansion, grayscale/CMYK rejection, both size limits, missing files, guards and allocation ownership
+RUN test_jpeg_encoder.py
+PASS: actual IJG/renderer JPEG encoding, four BGR images, allocator and output guards, write-failure cleanup, original destination exhaustion and fatal/print callbacks
+PASS: independent Pillow decoder confirms dimensions and BGR-to-RGB color mapping
+RUN test_light_definitions.py
+PASS: 21 actual light routes, packed layout, empty/missing files, hunk ownership, case-insensitive registry, fallback and exact capacity error call
+RUN test_light_grid_helpers.py
+PASS: 4000 packed searches, 576 predecessor/early-return cases and 60 coefficient cases; exact retail default writes and guards
+RUN test_light_grid_visibility.py
+PASS: 135 sorted cache cases, 54 exact debug boxes and 1152 actual visibility routes; trace ABI, shared history, masks and late state changes
+RUN test_light_vis_history.py
+<stdin>:91:14: error: ‘dvar_t’ does not name a type
+<stdin>:92:32: error: ‘vec_t’ does not name a type
+<stdin>:93:11: error: ‘DpvsPlane’ does not name a type
+<stdin>:94:6: error: variable or field ‘R_AddDebugString’ declared void
+<stdin>:94:23: error: ‘DebugGlobals’ was not declared in this scope
+<stdin>:94:37: error: ‘debug’ was not declared in this scope
+<stdin>:94:44: error: expected primary-expression before ‘const’
+<stdin>:94:65: error: expected primary-expression before ‘const’
+<stdin>:95:5: error: expected primary-expression before ‘float’
+<stdin>:95:18: error: expected primary-expression before ‘const’
+<stdin>:97:39: error: ‘GfxViewParms’ does not name a type
+<stdin>:98:11: error: ‘DpvsPlane’ does not name a type
+<stdin>: In function ‘void RB_ShowLightVisCachePoints(const int*, const int*, int)’:
+<stdin>:102:17: error: ‘r_vc_showlog’ was not declared in this scope; did you mean ‘r_vc_makelog’?
+<stdin>:105:39: error: request for member ‘origin’ in ‘* viewParms’, which is of non-class type ‘const int’
+<stdin>:105:19: error: ‘I_fround’ was not declared in this scope
+<stdin>:106:39: error: request for member ‘origin’ in ‘* viewParms’, which is of non-class type ‘const int’
+<stdin>:107:40: error: request for member ‘origin’ in ‘* viewParms’, which is of non-class type ‘const int’
+<stdin>:123:21: error: ‘RB_GridVisLogIndex’ was not declared in this scope
+<stdin>:125:17: error: ‘vec3_t’ was not declared in this scope
+<stdin>:126:17: error: ‘origin’ was not declared in this scope
+<stdin>:130:39: error: ‘backEndData’ was not declared in this scope
+<stdin>:131:46: error: ‘colorGreen’ was not declared in this scope
+<stdin>:131:59: error: ‘colorYellow’ was not declared in this scope
+<stdin>:130:21: error: ‘R_AddDebugString’ was not declared in this scope
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tests/test_light_vis_history.py", line 84, in <module>
+    subprocess.run(['g++', '-std=c++11', '-O2', '-x', 'c++', '-', '-o', binary],
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                   input=program, text=True, check=True)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['g++', '-std=c++11', '-O2', '-x', 'c++', '-', '-o', '/tmp/gfx_light_history_ocplfe10/test']' returned non-zero exit status 1.
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tests/run.py", line 10, in <module>
+    subprocess.run([sys.executable, str(test)], check=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', '/home/nawaf/cod2/test/dev/gfx/target/work/tests/test_light_vis_history.py']' returned non-zero exit status 1.

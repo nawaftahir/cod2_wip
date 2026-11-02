@@ -61,20 +61,6 @@ int I_stricmp(const char *s0, const char *s1);
 int I_strnicmp(const char *s0, const char *s1, int n);
 float Vec3ScaleToUnitMax(const vec3_t v, vec3_t out);
 
-static inline void Vec3Add(const float *a, const float *b, float *sum)
-{
-    sum[0] = a[0] + b[0];
-    sum[1] = a[1] + b[1];
-    sum[2] = a[2] + b[2];
-}
-
-static inline void Vec3Scale(const float *v, float scale, float *result)
-{
-    result[0] = scale * v[0];
-    result[1] = scale * v[1];
-    result[2] = scale * v[2];
-}
-
 void AxisCopy(const float in[3][3], float out[3][3]);
 
 extern const dvar_t *r_drawEntities;

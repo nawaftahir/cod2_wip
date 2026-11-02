@@ -1,0 +1,77 @@
+{
+  "date": "2026-11-02",
+  "scope": "clear-color, clear command and DX7/fullbright/debug modes plus verified-only source snapshot",
+  "step3_complete": false,
+  "new_source_routines": 5,
+  "new_accepted_cpp_bytes": 156,
+  "new_accepted_bodies": [
+    {
+      "name": "?R_GetClearColor@@YAPAMPAM@Z",
+      "t": "0x10024920",
+      "n": 156,
+      "obj": "r_scene.obj",
+      "why": []
+    }
+  ],
+  "cpp_executable_bytes": 109484,
+  "cpp_percent": 43.1753292846439,
+  "cpp_bodies": 661,
+  "denominator": 253580,
+  "authored_assembly_bodies": 32,
+  "authored_assembly_bytes": 7820,
+  "protected_extents_retained": 2391,
+  "protection_now": 2392,
+  "build_and_both_referees": "PASS",
+  "affected_fixtures": 20,
+  "native_clear_mode_cases": 1152,
+  "independent_deletion_negatives": 2,
+  "candidate_sha256": "5dcf29d6e56b68e13a7a9e7775009cf597d173e42cb1a40f2390fd5baad72128",
+  "same_offset_percent": 10.390290116841815,
+  "whole_file_identical": false,
+  "verified_export": {
+    "directory": "src",
+    "files": 7,
+    "emitted_matched_functions": 39,
+    "commit": "be356f3",
+    "snapshot_only": true,
+    "standalone_build": false,
+    "proof_manifest": "proof/verified_source_20261102/manifest.json"
+  },
+  "unmatched_routines": [
+    "R_AddClearCommandsForFrameBuffer95B vs97B",
+    "R_RenderSceneDx7 259B vs261B",
+    "R_RenderSceneFullbright448B vs451B",
+    "R_RenderSceneDebugShader215B vs217B"
+  ],
+  "remaining": [
+    "normal scene mode and its depth/light/shadow dependencies",
+    "visibility/shadow/light scene generation and RenderScene",
+    "genuine API59 GetRefAPI",
+    "remaining whole-file code/data/layout/SHA/runtime"
+  ],
+  "checks_not_run": [
+    "full fixture suite",
+    "GPU smoke",
+    "whole-DLL identity"
+  ],
+  "hashes": {
+    "target/work/src/gfx_d3d/r_scene.cpp": "32e70ae7b2e2785f6b359ed0dfcdd465a1cf2dcc9ca0fd6b44951d41385b691f",
+    "target/work/tests/test_scene_modes.py": "cd38c3f0b993df7eebdcfe398368811b272bc8aa54f5360051d892b51dda306d",
+    "target/work/tests/test_scene_sort_cell.py": "727d1ef4190711a21192b617582f665a6cff6aacd0a5ab2a9941725f65654464",
+    "target/work/tools/check_checkpoint.py": "b11b1c5bcdc5182ee6a6795cbfca2f1998f84f8d31b6a8273e4f11a035310cf7",
+    "target/work/tools/regression.py": "6b1fe7ee9f1ada043e7f6965d2e3dcb5d5fe0ee95d2d8a47185a082acfef2ebd",
+    "target/work/proof/scene_modes_warm_bind.json": "c037a3baa711ea7b2f3402679a4a4f3fe14cfc4e5b759fb14d458cc67a3bdeab",
+    "target/work/proof/nov02_scene_modes_negative_controls.json": "35952c5503fd16b9f90eda652ab70ac2d0a4a6c2436036f86d3958954dd224cc",
+    "target/work/proof/nov02_clear_color_primary.asm": "366b4e04c4f318ae4e48da7364780a89cd7f66ad9861f067691af0d11aeebd68",
+    "target/work/proof/nov02_frame_clear_primary.asm": "8e0d63906e2575023e44fb1a87796a35fcee5387b5d32f040357e1a1cd1bca35",
+    "target/work/proof/nov02_scene_clear_settings_primary.asm": "8bf2bf83a37b08d905bfc505e7a3c98d3c9d0a41402c3eec0384634a8eb83af5",
+    "target/work/proof/nov02_scene_modes_primary.asm": "2cf1af488061fe5f4a2c4eec10890b6aa3aacae3be4a538c74a130ac9d83bb8e",
+    "target/work/proof/latest/nov02_scene_modes_fixed_build.log": "4aed099161c089f6a63bde7c4f2ae3415b2a8ad063560830e44a2a4f26477062",
+    "target/work/proof/latest/nov02_scene_modes_ordered_build.log": "4aed099161c089f6a63bde7c4f2ae3415b2a8ad063560830e44a2a4f26477062",
+    "target/work/proof/latest/nov02_scene_modes_focused.log": "1f2ee7f7ffe0f230aed75920ad8b60ea94ef1d8861676bc0299ff66000f489ec",
+    "target/work/proof/latest/nov02_scene_modes_native.log": "0181323778293e96c42aa747958e0027a69c5c8b2f46774f30ea779063b9f9f9",
+    "target/work/proof/latest/nov02_scene_modes_gate.log": "a6daeed8faecb67a30e33acfed62b1f22a9c0867209d9df369889b6e51f22951",
+    "target/work/proof/source_coverage_current.json": "3cc4e2aa7ddefed1f84247f4fb9f663c99bc26fbead28cfe313435ad02fb36f0",
+    "target/work/layout/current.json": "d1b37b878876c770eeaac97df3dc74e052dea6ea416e97e0059fea8dd682e453"
+  }
+}

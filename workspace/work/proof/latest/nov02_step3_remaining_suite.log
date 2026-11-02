@@ -1,0 +1,138 @@
+RUN test_light_vis_history.py
+PASS: 60 history load/save paths, 60 filename limits, cap/divisibility, failed I/O, frees and guards
+RUN test_lighting_chain.py
+PASS: 7 actual entity routes, 2240 full lighting cases and 420 draw dispatches; cache reload, exact shader constants/override and live callback state
+RUN test_linked_api59.py
+PASS: sole retail export/ordinal,1051-byte initializer bound,98 linked callback targets in correct slots,432-byte zero table
+RUN test_literal_vectors.py
+PASS: 20 literal-vector cases, defaults, dispatch and ignored value-parser failure
+RUN test_lod_api.py
+PASS: 192 actual LOD/view routes, lock updates, near-clip NaNs and matrix ownership
+RUN test_lost_image_reload.py
+PASS: 1536 actual water rebuilds,2048 lost-image selector routes and live mutation; all categories, ushort dimensions, DX7/DX9 format/mips,13 program images and existing-texture skips
+RUN test_material_binary.py
+PASS: 77 actual material fixup/load/register routes, PC layouts, DX7 skips, water, partial failures and permanent ownership
+RUN test_material_literals.py
+PASS: 153 literal-table cases, signed-zero reuse, four NaN lanes, exact limit and unchanged count
+RUN test_material_lookup_helpers.py
+PASS: 560 array parse/range cases, scalar-only sampler lookup and 16 serialized constant lookups
+RUN test_material_reload_commands.py
+PASS: 26 actual material command routes, address-ordered unique reloads, live sampler/white state, hash lookup, picmip platform-zero guard and failure ownership
+RUN test_material_sort.py
+PASS: 589824 actual material comparisons and128 sorts;140-byte technique elements, all byte keys, table bounds and sole sorted-index writes
+RUN test_material_startup.py
+PASS: 32 actual material startup routes, 40 retail names/destinations, globals reset, optional tables, raw fallback/rebinding and preserved sampler/image
+RUN test_material_strings.py
+PASS: string deduplication, folded-hash/case-sensitive identity, wrap, empty string and 63-entry limit
+RUN test_model_bounds.py
+PASS: actual model cohort, 512 corner oracles, LOD scale/NaN cases, state/fallback/model routing, all four bone-bit words, 12 box edges, 3 axes and line capacity
+PASS: both quaternion instances retain their exact bytes/bindings in com_math
+RUN test_model_draw.py
+PASS: 5184 actual model submission/draw routes, compact null-material walk, strides, sort keys, caps, count precedence and DPVS flag/state order
+RUN test_model_publication.py
+PASS: 155 model caller routes, atomic state, materials, capacities, packed publication, debug and command payloads
+RUN test_model_skin_api.py
+PASS: 16 real model-skin loader LOD/empty/multi-surface paths,contiguous allocation,lowercase names and live default
+RUN test_normal_scene_chain.py
+PASS: 120 actual normal/depth/shadow/light/dispatch paths, payload capture, group lifecycle and priorities
+RUN test_occluders.py
+PASS: actual occluder culling, silhouette planes, NaN, debug allocation and brush/face limits
+RUN test_outdoor_image.py
+PASS: 8 full outdoor maps, all pixels/trace coordinates, four rounding modes, bounds and saved-upload/current-free ownership
+RUN test_outdoor_mapping.py
+PASS: 106 actual outdoor routes, flags, sentinel/NaN bounds, scales, matrix guards, centers and trace direction
+RUN test_outer_scene_api.py
+PASS: 131 actual RenderScene/outer-command routes,early gates,effects snapshot,shadow/light modes and debug ownership
+RUN test_particle_cloud.py
+PASS: three full 1024-particle buffers, all vertices/UVs/indices, RNG order, guards and two preserved retail failure faults
+RUN test_pass_options.py
+PASS:32 DX7 option combinations,duplicates,token retention,syntax errors and untouched pass bytes
+RUN test_pdb_contributions.py
+PASS: exact anonymous contribution owner/extent, empty span and six malformed-record negatives
+RUN test_pdb_local_owners.py
+PASS: distinct real memcpy/memmove local labels, source-private identity, same-member stability, cross-archive separation and unchanged publics
+PASS: same-name common.obj files retain their distinct real source owners
+RUN test_picmip.py
+PASS: 1248 texture-detail policies, unsigned thresholds, manual override and dvar writes
+RUN test_point_light_gather.py
+PASS: 631 actual light gather/selection/cull cases, limits, empty compaction, reverse draws and FP boundaries
+RUN test_portal_planes.py
+PASS: actual projection, small/near/NaN cases, nearest-plane scan, plane copies and debug-line capacity
+RUN test_portal_world_driver.py
+PASS: 31 actual portal/world driver paths, queue cleanup, walk limits, immediate/further cells, matrix planes and arena LIFO
+RUN test_preskin_surfaces.py
+PASS: 140 actual pre-skin calls, PC renderer/cache paths, packed outputs, limits and warning frames
+RUN test_private_functions.py
+PASS: real encoder/decoder static procedures keep distinct identity and actual PDB source owners; public and unique names stay stable
+RUN test_procedural_images.py
+PASS: 134 actual procedural image routes, BGRA, L8, six axes, texel centers, guards and submap forwarding
+RUN test_raw_material.py
+PASS: 128 actual raw-material API routes, PC default-pointer branch, ignored flags, loader failure and upload cleanup order
+RUN test_ref_entity_submission.py
+PASS: 2708 actual ref-entity routes, signed types, PC warnings/errors, import mutation, limits, copy116/clear52, NaNs, aliasing and packed draw keys
+RUN test_refapi_anchor.py
+PASS: 108 API slots, 98 writes, ten zeros, four genuine empty callbacks and sun-reset tail
+RUN test_render_target_switch.py
+PASS: 3120 actual render-target transitions, cache skips, all13 policies, none sentinel, unbind/device order, null depth, logging and viewport reset
+RUN test_rendercmd_init.py
+PASS: four render-command startup routes, debug limits, allocation order and callback ownership changes
+RUN test_renderer_shutdown.py
+PASS: 300 actual logical-shutdown routes, retail command names/order, table clears, late world reset, optional hardware and interrupted cleanup
+RUN test_renderer_startup.py
+PASS: 32 actual R_Init routes;13 retail steps, exact font/FFT arguments, exception boundaries and final sun-sample publication
+RUN test_renderer_systems.py
+PASS: 51 actual renderer systems routes, image/material/light order, shared water count, five fogs and exact debug reset limits
+RUN test_resource_shutdown.py
+PASS: 4096 actual shutdown/reset routes, shared PC layouts, release order, aliases, optional resources, Win32 reloads and untouched state; normal retry flag only
+RUN test_retail_coverage.py
+PASS: raw-file bounds, BSS exclusion, interval union, bounded literals, no zero-padding credit and symmetric relocations
+RUN test_sampler.py
+PASS: sampler caching, defaults, anisotropy, address modes, null/unbind, initialization
+RUN test_sampler_source_parser.py
+PASS: 99 nested sampler cases and 10 real-table caller/error paths; not byte-match proof
+RUN test_sampler_tables.py
+PASS: all 159 sampler/constant rows, names, sources, child bindings, counts and strides match retail
+RUN test_scaled_debug_strings.py
+PASS: 2,048 scaled-string cases, routing, lower clamp, zero-vector and NaN behavior
+RUN test_scene_bounds_callback.py
+PASS: 96 actual callback/worker routes, nonzero scene bases and untouched records
+RUN test_scene_command_producers.py
+PASS: 33 actual producer cases,32-bit layouts, critical reservation and value/pointer copies
+RUN test_scene_modes.py
+PASS: 1152 actual clear/mode cases, BGRA/RGBA, flags, signed counts, group branches and live world
+RUN test_scene_polygons.py
+PASS: 6480 actual polygon routes, limits, copies, fallback and signed sort keys
+RUN test_scene_sort_cell.py
+PASS: 86 sort/cell cases, payload preservation, guards, boundary/NaN and callback reload
+RUN test_screenshot_commands.py
+PASS: 63 actual screenshot command routes, JPEG/TGA wrappers, level/savegame paths, cached dimensions, numbering edge cases, capture failures and ownership
+RUN test_shader_argument_list.py
+PASS: actual argument-list parser through256 entries, defaults/errors/flags;12 source COM wrapper paths (byte match still required)
+RUN test_shader_argument_tables.py
+PASS: shader argument extents164/128 include24 non-code bytes each;140/104 executable bytes
+RUN test_shader_arguments.py
+PASS: 14 lookup,112 narrowed-array,42 explicit-dispatch and21 default-dispatch cases
+RUN test_shader_creation.py
+PASS: 252 actual shader creation routes, SDK macros/profiles/includes, FP restoration, ushort length and original failure cleanup
+RUN test_shader_pass_loading.py
+PASS: 36 actual shader parse/cache/create routes, no version clamp, cache hits and failed compilation
+RUN test_shader_preload.py
+PASS: 9 actual shader preload/cache scenarios, >32-entry original-library sort, owned text, prefixes, short/failed opens and original case-sort mismatch
+RUN test_shadow_generation.py
+PASS: 10 actual shadow generation paths, STL order, view/lookup geometry, degenerate/capped casters, receiver counters, fade bits and cap rates
+RUN test_short_candidates.py
+PASS: 1/3/5-byte candidates, zero aliases and separate jump thunks, caller-only 1/3/5-byte and ambiguous leaves, unique 6/7-byte discovery, relocation/control-flow negatives, exact bodies and closed extents
+RUN test_skinning.py
+PASS: actual 32-bit skinning, 512 scalar/SSE/cache cases plus XSurfaceGetVerts rigid/skinned/empty/optional-output cases, signed bone offsets, weighted positions, normals, color/UV bits and canaries
+RUN test_source_coverage.py
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tests/test_source_coverage.py", line 23, in <module>
+    assert len(actual['excluded_assembly_bodies']) == 32
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+  File "/usr/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/usr/bin/python3', 'target/work/tests/test_source_coverage.py']' returned non-zero exit status 1.
