@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 120261,
-  "cpp_executable_bytes": 112112,
-  "cpp_percent": 44.21168861897626,
-  "cpp_game_bodies": 679,
+  "mixed_executable_bytes": 121051,
+  "cpp_executable_bytes": 112640,
+  "cpp_percent": 44.4199069327234,
+  "cpp_game_bodies": 682,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -36,6 +36,14 @@
       "target": "0x100106b0",
       "bytes": 256,
       "name": "?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x10029320",
+      "bytes": 262,
+      "name": "?Image_BuildSpecularityMap@@YAXMPAE@Z",
       "reasons": [
         "fistp"
       ]
@@ -284,9 +292,9 @@
   "memory_helpers_cannot_inline": true,
   "naked_box_separate": true,
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
-  "counter_sha256": "f3714e712459c85f8fae016f900ed82e86172a79d53ede290e0ea5eace963790",
-  "regression_sha256": "eab065620e97fb4b0cc30fac370845c8d45ece3660c275b4ddacdd4acc16a2f9",
-  "bind_sha256": "4160b4d788f441f843755d5cdc2057a3400ccf80927816d632aa31e770bf8ed5",
+  "counter_sha256": "87e666524a639ae5910683e2021f5e42b1dae729c9d021e296698820ac0008f1",
+  "regression_sha256": "3438b427074d08e013688be44125e0948ca0c25fb3a0f42676b124127673d46c",
+  "bind_sha256": "28c9f6f07fc93b4d20a43c24524fb3758270517d8447024a96023d96456a3801",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -343,7 +351,7 @@
     "gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",
     "gfx_d3d/r_rendercmds.cpp": "143641667903b22aeda627fac60150e7531fcd1e00aa303595c4637b916fb011",
     "gfx_d3d/rb_light.cpp": "9d7165285f0870c797df2b3f3f8eb0f31a66a8161fdb39b69badc9e8991f251e",
-    "gfx_d3d/r_specularityimage.cpp": "fd36415f10ac8af0c7f2e65ee0fca035edd6b2321167708194cb59d87d81d907",
+    "gfx_d3d/r_specularityimage.cpp": "1212bfdddc0b89573e2cd69d2a9f11ea98d21f0ff95a238fa500a373ce2fb3c0",
     "gfx_d3d/r_font_load_obj.cpp": "8afb05946367f422dc2c5935f5d3db2e340daa27a109992e5f45cd41d6370f16",
     "gfx_d3d/r_marks.cpp": "04a4a0a8b6fdfd38bc468ae5f1abd420fa466aa5490093ffbf6565d1f55b0c07",
     "gfx_d3d/r_image_wavelet_tables.h": "110975acfdb93dc5158b2e522c1fd09551c8d4375bd9986406e1c4e1cd542b4e",

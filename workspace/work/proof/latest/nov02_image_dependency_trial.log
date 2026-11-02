@@ -1,0 +1,6 @@
+PASS: all 2428 checkpoint source/library address-extents retained
+Traceback (most recent call last):
+  File "/home/nawaf/cod2/test/dev/gfx/target/work/tools/source_coverage.py", line 43, in <module>
+    assert path.stat().st_mtime <= (build / 'gfx.dll').stat().st_mtime, ('source newer than build', relative)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('source newer than build', 'gfx_d3d/r_specularityimage.cpp')

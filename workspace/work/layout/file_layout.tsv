@@ -94,7 +94,6 @@ gfx_d3d/r_shadowcookie.cpp	?I_sqrt@@YAMM@Z	-	-	-	-	unknown
 universal/q_shared.cpp	?I_strcmp@@YAHPBD0@Z	-	-	universal/q_shared	universal/q_shared	mac-name
 universal/q_shared.cpp	?I_stricmp@@YAHPBD0@Z	-	-	universal/q_shared	universal/q_shared	mac-name
 gfx_d3d/r_image.cpp	?Image_AllocProg@@YAPAUGfxImage@@HH@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
-gfx_d3d/r_specularityimage.cpp	?Image_BuildSpecularityMap@@YAXMPAE@Z	-	-	gfx_d3d/r_specularityimage	gfx_d3d/r_specularityimage	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z	-	-	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image.cpp	?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_TransformLightGridVector@@YAXMMMPAM@Z	-	-	-	-	unknown
@@ -496,7 +495,7 @@ gfx_d3d/r_image.cpp	?Image_FindExisting@@YAPAUGfxImage@@PBD@Z	1000d140	bind	-	-	
 gfx_d3d/r_image.cpp	?Image_Register@@YAPAUGfxImage@@PBDHH@Z	1000d200	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_ReleaseLostImages@@YAXXZ	1000d260	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_ReloadLostImages@@YAXXZ	1000d2e0	hit	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
-gfx_d3d/r_image.cpp	?Image_RebuildCosinePowerMap@@YAXM@Z	1000d320	hit	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
+gfx_d3d/r_image.cpp	?Image_RebuildCosinePowerMap@@YAXM@Z	1000d320	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_Reload@@YAXPAUGfxImage@@@Z	1000d450	hit	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_Iterate@@YAXP6AXPAUGfxImage@@PAX@Z1@Z	1000d480	bind	-	gfx_d3d/r_image	interval
 gfx_d3d/r_image.cpp	?Image_GetSurface@@YAPAUIDirect3DSurface9@@PAUGfxImage@@@Z	1000d4b0	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
@@ -536,7 +535,7 @@ gfx_d3d/r_image_load_obj.cpp	?Image_LoadFromData@@YAXPAUGfxImage@@PBUGfxImageFil
 gfx_d3d/r_image_load_obj.cpp	?Image_LoadFromFile@@YAEPAUGfxImage@@@Z	1000fa40	hit	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_GenerateCube@@YAXPAUGfxImage@@HPBEHW4_D3DFORMAT@@@Z	1000fbd0	pinned	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z	1000fc30	hit	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
-gfx_d3d/r_image_load_obj.cpp	?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z	1000fce0	hit	-	gfx_d3d/r_image_load_obj	interval
+gfx_d3d/r_image_load_obj.cpp	?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z	1000fce0	bind	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?R_GetLightmapWeightsForDir@@YAXPBMPAM@Z	1000fd70	bind	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z	100100f0	bind	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z	10010160	pinned	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
@@ -929,6 +928,7 @@ gfx_d3d/r_sky.cpp	?R_SaveSun_f@@YAXXZ	100290f0	bind	-	gfx_d3d/r_sky	interval
 gfx_d3d/r_sky.cpp	?R_FlushSun@@YAXXZ	10029120	bind	gfx_d3d/r_sky	gfx_d3d/r_sky	mac-name
 gfx_d3d/r_sky_load_obj.cpp	?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z	100291c0	hit	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
 gfx_d3d/r_sky_load_obj.cpp	?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z	10029230	pinned	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
+gfx_d3d/r_specularityimage.cpp	?Image_BuildSpecularityMap@@YAXMPAE@Z	10029320	bind	gfx_d3d/r_specularityimage	gfx_d3d/r_specularityimage	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_InitDrawGroups@@YAXXZ	10029430	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_BeginDrawGroupSection@@YAHH@Z	10029470	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_BeginDrawGroupLoop@@YAXHH@Z	100294a0	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
@@ -1081,7 +1081,7 @@ gfx_d3d/rb_backend.cpp	?RB_TestFill@@YAXXZ	100335d0	pinned	-	gfx_d3d/rb_backend	
 gfx_d3d/rb_backend.cpp	?RB_TestTransform@@YAXXZ	100339b0	pinned	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_BeginScene@@YAXXZ	10033a90	bind	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_EndFrame@@YAXXZ	10033b20	hit	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
-gfx_d3d/rb_backend.cpp	?RB_UpdateBackendDvars@@YAXXZ	10033c50	hit	-	gfx_d3d/rb_backend	interval
+gfx_d3d/rb_backend.cpp	?RB_UpdateBackendDvars@@YAXXZ	10033c50	bind	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_ExecuteRenderCommands@@YAXPBX@Z	10033d20	pinned	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_InitBackendGlobalStructs@@YAXXZ	10033f80	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_debug.cpp	?RB_AddDebugLine@@YAHPBM00_NHHPAUGfxPointVertex@@@Z	10034010	pinned	gfx_d3d/rb_debug	gfx_d3d/rb_debug	mac-name

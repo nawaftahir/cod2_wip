@@ -1978,8 +1978,10 @@
 {
 "name": "?Image_BuildSpecularityMap@@YAXMPAE@Z",
 "obj": "r_specularityimage.obj",
-"size": 277,
-"hits": []
+"size": 262,
+"hits": [
+"0x10029320"
+]
 },
 {
 "name": "?Wavelet_ConsumeBits@@YAXGPAUWaveletDecode@@@Z",

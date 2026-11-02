@@ -1,5 +1,38 @@
 # Renderer progress
 
+## Specular dependency closure - 2026-11-02
+
+C++112640/253580=44.419906933%,682 bodies: +528B/+3 C++ bodies.
+Image_GenerateSpecularity119B, Image_RebuildCosinePowerMap202B and
+RB_UpdateBackendDvars207B now pass both referees. Their shared lookup also
+matches262B, but its existing inline I_fround assembly excludes that entire
+body from C++ coverage. Mixed gain790B/+4 bodies;35 assembly bodies/8411B
+excluded. All2428 previous extents retained; both gates now protect2432.
+API callback count remains64/98 accepted. No new assembly or synthetic roots.
+
+The source fix is one explicit double intermediate before the original clamp.
+It restores retail x87 comparisons and unlocks the three real callers through
+their dependency chain. Target RET at10029425 confirms262B; the old GLM259B
+inventory omitted the final three-byte stack adjustment. No target truncation.
+
+Cost: six original builds, one reused output, zero workers; token meter not
+available. Rejected clamp/cubemap trials recorded in target/work/ATTEMPTS.md.
+The first trial correctly failed stale-source accounting, and new lookup
+acceptance correctly demanded a separate assembly exclusion. Both were handled
+without weakening the checks. All eight removal negatives pass. Final source
+fixtures cover8192-byte lookup,134 procedural image routes and422 backend/
+image rebuild routes. Full-suite/GPU/whole-SHA work remains unfinished.
+
+Image_LoadBuiltin519B remains UNCOUNTED: next binding blocker is
+Image_LoadLightmapWeights, followed by the remaining generated-image helpers.
+Do not repeat the rejected cubemap precision, rowBase-hoist or VectorCopy trials.
+Root src/ remains seven verified-only files/39 matches. Whole-TU promotion of
+the lookup was refused: two emitted11B float-log symbols have ambiguous retail
+placements. The lookup body remains verified in target/work/src/gfx_d3d/;
+no partial file was promoted. Raw same-offset12.906504943%; separate from C++ coverage.
+Candidate SHA is in the receipt. No fresh normalized-span audit.
+Receipt: target/work/proof/nov02_specular_checkpoint.json. Work remains active.
+
 ## Image/API verification checkpoint - 2026-11-02
 
 C++112112/253580=44.211688619%,679 bodies: +29B/+6 existing callbacks

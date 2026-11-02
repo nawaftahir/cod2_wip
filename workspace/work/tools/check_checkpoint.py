@@ -153,6 +153,9 @@ required.update(accepted(clear_log))
 api_short_callbacks = Path(__file__).resolve().parents[1] / 'proof/api_short_callbacks_warm_bind.json'
 assert hashlib.sha256(api_short_callbacks.read_bytes()).hexdigest() == '4160b4d788f441f843755d5cdc2057a3400ccf80927816d632aa31e770bf8ed5'
 required.update(accepted(api_short_callbacks))
+specular_closure = Path(__file__).resolve().parents[1] / 'proof/specular_closure_warm_bind.json'
+assert hashlib.sha256(specular_closure.read_bytes()).hexdigest() == '28c9f6f07fc93b4d20a43c24524fb3758270517d8447024a96023d96456a3801'
+required.update(accepted(specular_closure))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

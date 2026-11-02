@@ -1,0 +1,7 @@
+RUN test_specular_lookup.py
+PASS: actual8192-byte lookup,lower/upper saturation,target preserved NaN exponent,last exponent and endpoint rows
+RUN test_procedural_images.py
+PASS: 134 actual procedural image routes, BGRA, L8, six axes, texel centers, guards and submap forwarding
+RUN test_backend_dvar_updates.py
+PASS: 422 backend dvar/rebuild routes, all32 masks, clear/live replacement order, DX7 skip, 8192-byte upload and image tracking guards
+PASS: three final affected-source fixtures

@@ -90,8 +90,10 @@ required['0x10001810'] = 33
 # Existing inlined rounding/trig assembly, newly matched after real API retention.
 required['0x1002c7b0'] = 160
 required['0x1005edb0'] = 169
+# The lookup inlines the same unchanged I_fround assembly.
+required['0x10029320'] = 262
 assert {row['target']: row['bytes'] for row in excluded} == required
-assert len(excluded) == 34 and sum(row['bytes'] for row in excluded) == 8149
+assert len(excluded) == 35 and sum(row['bytes'] for row in excluded) == 8411
 cpp = report['bytes'] - sum(row['bytes'] for row in excluded)
 print(json.dumps(dict(
     status='authored-assembly attribution; not whole-file identity',

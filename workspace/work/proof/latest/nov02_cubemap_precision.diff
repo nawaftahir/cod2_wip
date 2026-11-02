@@ -1,0 +1,347 @@
+?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z 0x1000eb40 754
+--- ours
++++ retail
+@@ -1,91 +1,86 @@
+-sub esp, 0xa4
+-fild dword ptr [esp + 0xb0]
++sub esp, 0x9c
++fild dword ptr [esp + 0xa8]
+ push ebx
+-mov ebx, dword ptr [esp + 0xb4]
+ push ebp
+-fstp dword ptr [esp + 0x1c]
++mov ebp, dword ptr [esp + 0xb0]
++fdivr dword ptr [A]
++mov edx, 4
+ push esi
++mov eax, 3
++mov esi, 1
++mov ecx, 5
++push edi
++xor edi, edi
++mov dword ptr [esp + 0x74], edx
++mov dword ptr [esp + 0x84], edx
++mov dword ptr [esp + 0x94], edx
++lea edx, [esp + 0x68]
++mov dword ptr [esp + 0x70], esi
++mov dword ptr [esp + 0xa4], esi
++mov dword ptr [esp + 0x64], edi
++mov dword ptr [esp + 0x68], ecx
++mov dword ptr [esp + 0x6c], eax
++mov dword ptr [esp + 0x78], eax
++mov dword ptr [esp + 0x7c], 2
++mov dword ptr [esp + 0x80], edi
++mov dword ptr [esp + 0x88], eax
++mov dword ptr [esp + 0x8c], edi
++mov dword ptr [esp + 0x90], ecx
++mov dword ptr [esp + 0x98], edi
++mov dword ptr [esp + 0x9c], eax
++mov dword ptr [esp + 0xa0], ecx
++mov dword ptr [esp + 0xa8], eax
++xor esi, esi
++mov dword ptr [esp + 0x4c], edx
++mov dword ptr [esp + 0x50], 6
++fstp dword ptr [esp + 0x10]
++mov ecx, dword ptr [edx - 4]
++mov eax, ecx
++sar eax, 1
++test cl, 1
++mov dword ptr [esp + 0x14], 0
++mov dword ptr [esp + 0x18], 0
++mov dword ptr [esp + 0x1c], 0
++je A
+ fld dword ptr [A]
+-mov esi, 4
+-fdiv dword ptr [esp + 0x20]
+-xor ecx, ecx
+-mov eax, 3
+-push edi
+-mov edi, 1
+-mov edx, 5
+-mov dword ptr [esp + 0x7c], esi
+-mov dword ptr [esp + 0x8c], esi
+-mov dword ptr [esp + 0x9c], esi
+-lea esi, [esp + 0x70]
+-mov dword ptr [esp + 0x78], edi
+-mov dword ptr [esp + 0xac], edi
+-mov dword ptr [esp + 0x6c], ecx
+-mov dword ptr [esp + 0x70], edx
+-mov dword ptr [esp + 0x74], eax
+-mov dword ptr [esp + 0x80], eax
+-mov dword ptr [esp + 0x84], 2
+-mov dword ptr [esp + 0x88], ecx
+-mov dword ptr [esp + 0x90], eax
+-mov dword ptr [esp + 0x94], ecx
+-mov dword ptr [esp + 0x98], edx
+-mov dword ptr [esp + 0xa0], ecx
+-mov dword ptr [esp + 0xa4], eax
+-mov dword ptr [esp + 0xa8], edx
+-mov dword ptr [esp + 0xb0], eax
+-xor edi, edi
+-mov dword ptr [esp + 0x48], esi
+-mov dword ptr [esp + 0x24], 6
+-fstp dword ptr [esp + 0x10]
+-mov eax, dword ptr [esi - 4]
+-test al, 1
+-mov dword ptr [esp + 0x4c], ecx
+-mov dword ptr [esp + 0x50], ecx
+-mov dword ptr [esp + 0x54], ecx
+-mov edx, 0xbf800000
+-jne A
+-mov edx, 0x3f800000
++jmp A
++fld dword ptr [A]
++mov ecx, dword ptr [edx]
++fstp dword ptr [esp + eax*4 + 0x14]
++mov eax, ecx
+ sar eax, 1
+-mov dword ptr [esp + eax*4 + 0x4c], edx
+-mov eax, dword ptr [esi]
+-test al, 1
+-mov dword ptr [esp + 0x18], ecx
+-mov dword ptr [esp + 0x1c], ecx
+-mov dword ptr [esp + 0x20], ecx
+-mov edx, 0x3f800000
+-jne A
+-mov edx, 0xbf800000
+-mov dword ptr [esp + 0x44], edx
+-fld dword ptr [esp + 0x44]
++test cl, 1
++mov dword ptr [esp + 0x20], 0
++mov dword ptr [esp + 0x24], 0
++mov dword ptr [esp + 0x28], 0
++je A
++fld dword ptr [A]
++jmp A
++fld dword ptr [A]
++mov ecx, dword ptr [edx + 4]
++fst dword ptr [esp + eax*4 + 0x14]
++fmul dword ptr [A]
++fstp dword ptr [esp + eax*4 + 0x20]
++mov eax, ecx
+ sar eax, 1
++test cl, 1
++mov dword ptr [esp + 0x2c], 0
++mov dword ptr [esp + 0x30], 0
++mov dword ptr [esp + 0x34], 0
++je A
++fld dword ptr [A]
++jmp A
++fld dword ptr [A]
++cmp ebp, edi
++fst dword ptr [esp + eax*4 + 0x14]
+ fmul dword ptr [A]
+-shl eax, 2
+-mov dword ptr [esp + eax + 0x4c], edx
+-mov dword ptr [esp + 0x28], ecx
+-fstp dword ptr [esp + eax + 0x18]
+-mov eax, dword ptr [esi + 4]
+-test al, 1
+-mov dword ptr [esp + 0x2c], ecx
+-mov dword ptr [esp + 0x30], ecx
+-mov edx, 0x3f800000
+-jne A
+-mov edx, 0xbf800000
+-mov dword ptr [esp + 0x58], edx
+-fld dword ptr [esp + 0x58]
+-sar eax, 1
+-fmul dword ptr [A]
+-shl eax, 2
+-cmp ebx, ecx
+-mov dword ptr [esp + eax + 0x4c], edx
+-fstp dword ptr [esp + eax + 0x28]
+-mov dword ptr [esp + 0x34], ecx
+-fld dword ptr [esp + 0x18]
+-fmul dword ptr [esp + 0x10]
+-fstp dword ptr [esp + 0x18]
+-fld dword ptr [esp + 0x1c]
+-fmul dword ptr [esp + 0x10]
+-fstp dword ptr [esp + 0x1c]
++mov dword ptr [esp + 0x38], edi
++fstp dword ptr [esp + eax*4 + 0x2c]
+ fld dword ptr [esp + 0x20]
+ fmul dword ptr [esp + 0x10]
+ fstp dword ptr [esp + 0x20]
++fld dword ptr [esp + 0x24]
++fmul dword ptr [esp + 0x10]
++fstp dword ptr [esp + 0x24]
+ fld dword ptr [esp + 0x28]
+ fmul dword ptr [esp + 0x10]
+@@ -97,89 +92,97 @@
+ fmul dword ptr [esp + 0x10]
+ fstp dword ptr [esp + 0x30]
+-fld dword ptr [esp + 0x18]
++fld dword ptr [esp + 0x34]
++fmul dword ptr [esp + 0x10]
++fstp dword ptr [esp + 0x34]
++jle A
++fld dword ptr [esp + 0x20]
++mov eax, dword ptr [esp + 0xb4]
+ fmul dword ptr [A]
++mov ecx, ebp
++imul ecx, ebp
++fadd dword ptr [esp + 0x14]
++fstp dword ptr [esp + 0x54]
++fld dword ptr [esp + 0x24]
++fmul dword ptr [A]
++lea ebx, [eax + esi*4]
++add esi, ecx
++fadd dword ptr [esp + 0x18]
++mov dword ptr [esp + 0x60], esi
++fstp dword ptr [esp + 0x58]
++fld dword ptr [esp + 0x28]
++fmul dword ptr [A]
++fadd dword ptr [esp + 0x1c]
++fstp dword ptr [esp + 0x5c]
++jmp A
++lea ecx, [ecx]
++fld dword ptr [esp + 0x54]
++mov edx, dword ptr [esp + 0x5c]
++fld dword ptr [esp + 0x58]
++mov dword ptr [esp + 0x48], edx
++fild dword ptr [esp + 0x38]
++lea eax, [ebp*4]
++mov esi, ebx
++mov edi, ebp
++fadd dword ptr [A]
++add ebx, eax
++fstp dword ptr [esp + 0x3c]
++fld dword ptr [esp + 0x2c]
++fmul dword ptr [esp + 0x3c]
++fadd st(2)
++fstp dword ptr [esp + 0x40]
++fld dword ptr [esp + 0x30]
++fmul dword ptr [esp + 0x3c]
++fadd st(1)
++fstp dword ptr [esp + 0x44]
++fstp st(0)
++fstp st(0)
++fld dword ptr [esp + 0x34]
++fmul dword ptr [esp + 0x3c]
++fadd dword ptr [esp + 0x48]
++fstp dword ptr [esp + 0x48]
++jmp A
++lea ecx, [ecx]
++mov eax, dword ptr [esp + 0xbc]
++push esi
++push eax
++lea ecx, [esp + 0x48]
++push ecx
++call dword ptr [esp + 0xcc]
++fld dword ptr [esp + 0x2c]
+ fadd dword ptr [esp + 0x4c]
+-fstp dword ptr [esp + 0x60]
+-fld dword ptr [esp + 0x1c]
+-fmul dword ptr [A]
+-fadd dword ptr [esp + 0x50]
+-fstp dword ptr [esp + 0x64]
+-fld dword ptr [esp + 0x20]
+-fmul dword ptr [A]
+-fadd dword ptr [esp + 0x54]
+-fstp dword ptr [esp + 0x68]
+-jle A
+-mov eax, dword ptr [esp + 0xbc]
+-mov ecx, ebx
+-imul ecx, ebx
+-lea ebp, [eax + edi*4]
+-add edi, ecx
+-mov dword ptr [esp + 0x5c], edi
+-jmp A
+-lea esp, [esp]
+-nop 
+-fild dword ptr [esp + 0x34]
+-lea eax, [ebx*4]
+-mov esi, ebp
+-mov edi, ebx
+-fstp dword ptr [esp + 0x14]
+-add ebp, eax
+-fld dword ptr [esp + 0x14]
+-fadd dword ptr [A]
+-fstp dword ptr [esp + 0x14]
+-fld dword ptr [esp + 0x14]
+-fmul dword ptr [esp + 0x28]
+-fadd dword ptr [esp + 0x60]
+-fstp dword ptr [esp + 0x38]
+-fld dword ptr [esp + 0x14]
+-fmul dword ptr [esp + 0x2c]
+-fadd dword ptr [esp + 0x64]
+-fstp dword ptr [esp + 0x3c]
+-fld dword ptr [esp + 0x14]
+-fmul dword ptr [esp + 0x30]
+-fadd dword ptr [esp + 0x68]
+-fstp dword ptr [esp + 0x40]
+-mov edx, dword ptr [esp + 0xc4]
+-push esi
+-push edx
+-lea eax, [esp + 0x40]
+-push eax
+-call dword ptr [esp + 0xd4]
+-fld dword ptr [esp + 0x44]
+-fadd dword ptr [esp + 0x24]
+ add esp, 0xc
+ add esi, 4
+ dec edi
+-fstp dword ptr [esp + 0x38]
+-fld dword ptr [esp + 0x3c]
+-fadd dword ptr [esp + 0x1c]
+-fstp dword ptr [esp + 0x3c]
+-fld dword ptr [esp + 0x40]
+-fadd dword ptr [esp + 0x20]
+ fstp dword ptr [esp + 0x40]
++fld dword ptr [esp + 0x24]
++fadd dword ptr [esp + 0x44]
++fstp dword ptr [esp + 0x44]
++fld dword ptr [esp + 0x28]
++fadd dword ptr [esp + 0x48]
++fstp dword ptr [esp + 0x48]
+ jne A
+-mov eax, dword ptr [esp + 0x34]
++mov eax, dword ptr [esp + 0x38]
+ inc eax
+-cmp eax, ebx
+-mov dword ptr [esp + 0x34], eax
++cmp eax, ebp
++mov dword ptr [esp + 0x38], eax
+ jl A
+-mov esi, dword ptr [esp + 0x48]
+-mov edi, dword ptr [esp + 0x5c]
+-xor ecx, ecx
+-mov eax, dword ptr [esp + 0x24]
+-add esi, 0xc
++mov esi, dword ptr [esp + 0x60]
++mov edx, dword ptr [esp + 0x4c]
++xor edi, edi
++mov eax, dword ptr [esp + 0x50]
++add edx, 0xc
+ dec eax
+-mov dword ptr [esp + 0x48], esi
+-mov dword ptr [esp + 0x24], eax
++mov dword ptr [esp + 0x4c], edx
++mov dword ptr [esp + 0x50], eax
+ jne A
+-mov edx, dword ptr [esp + 0xbc]
+-mov ecx, ebx
+-imul ecx, ebx
+-shl ecx, 2
++mov eax, dword ptr [esp + 0xb4]
++mov ecx, dword ptr [esp + 0xb0]
++mov edx, ebp
++imul edx, ebp
+ push 0x15
+-push ecx
+-mov ecx, dword ptr [esp + 0xc0]
++shl edx, 2
+ push edx
+-mov eax, ebx
++push eax
++mov eax, ebp
+ call A
+ add esp, 0xc
+@@ -188,2 +191,7 @@
+ pop ebp
+ pop ebx
++add esp, 0x9c
++ret 
++int3 
++int3 
++int3 

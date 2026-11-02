@@ -185,6 +185,10 @@ api_short_callbacks = gfx / 'target/work/proof/api_short_callbacks_warm_bind.jso
 assert hashlib.sha256(api_short_callbacks.read_bytes()).hexdigest() == '4160b4d788f441f843755d5cdc2057a3400ccf80927816d632aa31e770bf8ed5'
 required.update({va: row for va, row in accepted(api_short_callbacks).items()
                  if va in old or '@std@@' not in row['name']})
+specular_closure = gfx / 'target/work/proof/specular_closure_warm_bind.json'
+assert hashlib.sha256(specular_closure.read_bytes()).hexdigest() == '28c9f6f07fc93b4d20a43c24524fb3758270517d8447024a96023d96456a3801'
+required.update({va: row for va, row in accepted(specular_closure).items()
+                 if va in old or '@std@@' not in row['name']})
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

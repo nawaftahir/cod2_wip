@@ -1,3 +1,15 @@
+# Latest specular closure checkpoint - 2026-11-02
+
+Read PROGRESS.md and target/work/proof/nov02_specular_checkpoint.json first.
+C++44.419906933%,682 bodies; +528B from three newly verified real callers.
+The262B lookup is matched too, separately EXCLUDED for inherited inline rounding
+assembly.35 assembly bodies/8411B excluded.2432 protected extents,64/98 API
+callbacks accepted. No new assembly, flags or roots in the final source.
+Image_LoadBuiltin519B remains blocked by Image_LoadLightmapWeights and later
+helpers. Do not repeat rejected cubemap/clamp probes in target/work/ATTEMPTS.md.
+Six builds, one reused output, no workers. No whole-SHA/GPU or completion claim.
+Earlier entries below are historical; this checkpoint does not pause the work.
+
 # Latest image/API checkpoint - 2026-11-02
 
 Read PROGRESS.md and target/work/proof/nov02_image_api_checkpoint.json first.

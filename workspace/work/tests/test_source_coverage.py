@@ -20,10 +20,10 @@ def run():
 
 
 actual = run()
-assert len(actual['excluded_assembly_bodies']) == 34
-assert sum(row['bytes'] for row in actual['excluded_assembly_bodies']) == 8149
-assert actual['cpp_executable_bytes'] == actual['mixed_executable_bytes'] - 8149
-assert {row['target']:row['bytes'] for row in actual['excluded_assembly_bodies'] if row['target'] in ('0x10001810','0x1002c7b0','0x1005edb0')} == {'0x10001810':33,'0x1002c7b0':160,'0x1005edb0':169}
+assert len(actual['excluded_assembly_bodies']) == 35
+assert sum(row['bytes'] for row in actual['excluded_assembly_bodies']) == 8411
+assert actual['cpp_executable_bytes'] == actual['mixed_executable_bytes'] - 8411
+assert {row['target']:row['bytes'] for row in actual['excluded_assembly_bodies'] if row['target'] in ('0x10001810','0x1002c7b0','0x1005edb0','0x10029320')} == {'0x10001810':33,'0x1002c7b0':160,'0x1005edb0':169,'0x10029320':262}
 original_bytes = Path.read_bytes
 for relative in ('universal/com_math.h', 'universal/com_shared.cpp',
                  'universal/box_on_plane_side_x86.inc', 'gfx_d3d/rb_backend.cpp',
@@ -58,4 +58,4 @@ with patch.object(Path, 'read_text', altered_text):
         assert 'unreviewed assembly source' in str(error)
     else:
         raise AssertionError('accepted assembly outside reviewed sources')
-print('PASS: C/C++ source accounting, all34 separately excluded assembly-bearing bodies including newly retained water/FFT helpers, and six assembly negatives')
+print('PASS: C/C++ source accounting, all35 separately excluded assembly-bearing bodies including newly retained water/FFT/lookup helpers, and six assembly negatives')

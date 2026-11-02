@@ -1,0 +1,39 @@
+?Image_BuildSpecularityMap@@YAXMPAE@Z 0x100100f0 262
+--- ours
++++ retail
+@@ -21,11 +21,11 @@
+ fcomp st(1)
+ fnstsw ax
+-test ah, 5
+-jnp A
++test ah, 0x41
++je A
+ fld qword ptr [A]
+ fcomp st(1)
+ fnstsw ax
+-test ah, 0x41
+-jne A
++test ah, 5
++jp A
+ fstp st(0)
+ fld qword ptr [A]
+@@ -34,6 +34,6 @@
+ fcomp st(1)
+ fnstsw ax
+-test ah, 5
+-jp A
++test ah, 0x41
++jne A
+ fstp st(0)
+ fld qword ptr [A]
+@@ -81,2 +81,10 @@
+ add esp, 0x1c
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 

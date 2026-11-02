@@ -1,8 +1,8 @@
 {
-  "functions": 713,
-  "bytes": 120261,
+  "functions": 717,
+  "bytes": 121051,
   "total": 253580,
-  "percent": 47.42527013171386,
+  "percent": 47.73680889660068,
   "baseline_lost": [],
   "gains": [
     {
@@ -366,6 +366,12 @@
       "object": "r_image.obj"
     },
     {
+      "target": "0x1000d320",
+      "bytes": 202,
+      "name": "?Image_RebuildCosinePowerMap@@YAXM@Z",
+      "object": "r_image.obj"
+    },
+    {
       "target": "0x1000d480",
       "bytes": 47,
       "name": "?Image_Iterate@@YAXP6AXPAUGfxImage@@PAX@Z1@Z",
@@ -435,6 +441,12 @@
       "target": "0x1000f7b0",
       "bytes": 331,
       "name": "?Image_LoadDxtc@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x1000fce0",
+      "bytes": 119,
+      "name": "?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z",
       "object": "r_image_load_obj.obj"
     },
     {
@@ -1050,6 +1062,12 @@
       "object": "r_sky.obj"
     },
     {
+      "target": "0x10029320",
+      "bytes": 262,
+      "name": "?Image_BuildSpecularityMap@@YAXMPAE@Z",
+      "object": "r_specularityimage.obj"
+    },
+    {
       "target": "0x100296a0",
       "bytes": 73,
       "name": "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z",
@@ -1161,6 +1179,12 @@
       "target": "0x10032d70",
       "bytes": 10,
       "name": "?RB_GpuWaited@@YAXH@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x10033c50",
+      "bytes": 207,
+      "name": "?RB_UpdateBackendDvars@@YAXXZ",
       "object": "rb_backend.obj"
     },
     {

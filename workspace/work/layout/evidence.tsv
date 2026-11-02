@@ -99,6 +99,7 @@ accepted	gfx_d3d/r_image.cpp	Image_IsCodeImage	1000cc80	bind
 accepted	gfx_d3d/r_image.cpp	Image_IsCodeTrack	1000c7c0	bind
 accepted	gfx_d3d/r_image.cpp	Image_Iterate	1000d480	bind
 accepted	gfx_d3d/r_image.cpp	Image_PicmipForSemantic	1000d090	mac
+accepted	gfx_d3d/r_image.cpp	Image_RebuildCosinePowerMap	1000d320	mac
 accepted	gfx_d3d/r_image.cpp	Image_Release	1000c910	mac
 accepted	gfx_d3d/r_image.cpp	Image_SetupRenderTarget	1000d010	mac
 accepted	gfx_d3d/r_image.cpp	Image_SetupSystem	1000d050	mac
@@ -123,6 +124,7 @@ accepted	gfx_d3d/r_image_load_common.cpp	Image_Upload3D	1000ec00	doubt
 accepted	gfx_d3d/r_image_load_common.cpp	Image_UploadData	1000ed60	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_CountMipmapsForFile	1000f320	bind
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_GenerateSolidColor	100100f0	bind
+accepted	gfx_d3d/r_image_load_obj.cpp	Image_GenerateSpecularity	1000fce0	bind
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_GetLightGridWeightsForVector	100104a0	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_GetSunHalfAngleForVector	100106b0	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_LoadBitmap	1000f5a0	mac
@@ -323,6 +325,7 @@ accepted	gfx_d3d/r_sky.cpp	R_FlushSun	10029120	mac
 accepted	gfx_d3d/r_sky.cpp	R_RegisterSunDvars	10028a10	mac
 accepted	gfx_d3d/r_sky.cpp	R_SaveSun	10029080	bind
 accepted	gfx_d3d/r_sky.cpp	R_SaveSun_f	100290f0	bind
+accepted	gfx_d3d/r_specularityimage.cpp	Image_BuildSpecularityMap	10029320	mac
 accepted	gfx_d3d/r_splitscreen.cpp	R_BeginDrawGroupLoop	100294a0	mac
 accepted	gfx_d3d/r_splitscreen.cpp	R_BeginDrawGroupSection	10029470	mac
 accepted	gfx_d3d/r_splitscreen.cpp	R_EndDrawGroupLoop	100294e0	mac
@@ -393,6 +396,7 @@ accepted	gfx_d3d/rb_backend.cpp	RB_NeedsSceneCopy	10030a40	doubt
 accepted	gfx_d3d/rb_backend.cpp	RB_ReturnCmd	1002eb90	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_SetFrustumConstants	10032120	doubt
 accepted	gfx_d3d/rb_backend.cpp	RB_SetGammaRamp	100307e0	mac
+accepted	gfx_d3d/rb_backend.cpp	RB_UpdateBackendDvars	10033c50	doubt
 accepted	gfx_d3d/rb_backend.cpp	RB_UpdateColorInternal	10032490	mac
 accepted	gfx_d3d/rb_backend.cpp	R_FinishGpuFence	10032cd0	bind
 accepted	gfx_d3d/rb_backend.cpp	R_InsertGpuFence	10032d10	bind
@@ -768,7 +772,6 @@ draft-addressed	gfx_d3d/r_font.cpp	R_GetConsoleIcon	1000c250	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_GetConsoleString	1000c0f0	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_RegisterFont	1000bce0	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_ShutdownFonts	10013080	mac
-draft-addressed	gfx_d3d/r_image.cpp	Image_RebuildCosinePowerMap	1000d320	mac
 draft-addressed	gfx_d3d/r_image.cpp	Image_Register	1000d200	mac
 draft-addressed	gfx_d3d/r_image.cpp	Image_Reload	1000d450	mac
 draft-addressed	gfx_d3d/r_image.cpp	Image_TrackFullscreenTexture	1000c9d0	mac
@@ -782,7 +785,6 @@ draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_BuildWaterMap	1000d0f0	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateCube	1000fbd0	-
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateCubemapFunction	10010160	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateLightGridWeights	10010680	-
-draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateSpecularity	1000fce0	-
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateSunHalfAngle	100107b0	-
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateWaterColor	10010850	-
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_LoadBuiltin	100108a0	-
@@ -1044,7 +1046,6 @@ draft-addressed	gfx_d3d/rb_backend.cpp	RB_TessOverflow	1002df40	-
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_TestFill	100335d0	-
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_TestTransform	100339b0	-
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_TouchAllImagesCmd	10031ef0	mac
-draft-addressed	gfx_d3d/rb_backend.cpp	RB_UpdateBackendDvars	10033c50	doubt
 draft-addressed	gfx_d3d/rb_debug.cpp	RB_AddDebugLine	10034010	mac
 draft-addressed	gfx_d3d/rb_debug.cpp	RB_DrawDebug	10034840	mac
 draft-addressed	gfx_d3d/rb_debug.cpp	RB_DrawDebugLines	10034500	mac
@@ -1188,7 +1189,6 @@ draft-mac-name	gfx_d3d/r_scene.cpp	R_AddPolyToScene	-	mac
 draft-mac-name	gfx_d3d/r_screenshot.cpp	R_DownsamplePixelData	-	mac
 draft-mac-name	gfx_d3d/r_screenshot.cpp	R_LightingFromCubemapShots	-	mac
 draft-mac-name	gfx_d3d/r_screenshot.cpp	R_UpsamplePixelData	-	mac
-draft-mac-name	gfx_d3d/r_specularityimage.cpp	Image_BuildSpecularityMap	-	mac
 draft-mac-name	gfx_d3d/r_staticmodel_load_obj.cpp	R_FilterStaticModelIntoCells_r	-	mac
 draft-mac-name	gfx_d3d/r_staticmodelcache.cpp	R_SkinStaticModelCachedCmd	-	mac
 draft-mac-name	gfx_d3d/r_utils.cpp	FresnelTerm	-	mac

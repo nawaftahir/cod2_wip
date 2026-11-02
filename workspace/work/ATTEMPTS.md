@@ -1,3 +1,41 @@
+# Verified-only source gate - 2026-11-02
+
+Do not promote r_specularityimage.cpp to root src/ yet. Besides its matched
+lookup262B, its real math header emits _logf and ?log@@YAMM@Z (11B), each with
+two byte hits at10029300/10029310 and no accepted unique binding. The whole-file
+snapshot gate correctly refused it. No file or manifest was changed. Root src/
+remains seven fully audited files/39 emitted matches. Do not force a placement
+or strip legitimate emitted helpers merely to label the file complete.
+
+# Specular dependency closure - 2026-11-02
+
+PINNED: the lookup needs an explicit double intermediate BEFORE the original
+__min(1.0,__max(0.0,normalized)) expression. This reproduces the target x87
+comparison direction and order. Both referees accept Image_BuildSpecularityMap
+262B, Image_GenerateSpecularity119B, Image_RebuildCosinePowerMap202B and
+RB_UpdateBackendDvars207B. The lookup inlines the unchanged header I_fround
+assembly: EXCLUDE its entire262B from C/C++ coverage. Net C++528B, mixed790B.
+No new assembly was written. Protect all four and preserve the old2432 extents.
+
+The old GLM inventory reports259B for the lookup; direct decoding shows the
+real RET at10029425, hence262B. It had omitted the final three-byte add esp.
+The referee verifies the full262B, including the RET; do not truncate it.
+
+Rejected: reversing clamp nesting alone277B; adding a double intermediate
+with that reversed nesting262B but wrong comparisons. The original nesting
+plus explicit double is the winner. Moving cubemap rowBase inside its row
+loop and copying rowBase into direction were optimized to the same754B body;
+no acceptance gained. Full cubemap precision mode changes integer conversion
+and grows other differences: rejected, restore the original source/flags.
+Do not repeat these trials. A temporary VectorCopy trial lacked a mock in the
+procedural fixture; that draft was removed, and final affected fixtures rerun.
+
+The first trial's final source-accounting check correctly refused source edited
+after its DLL was linked. Subsequent trials were serialized through all gates.
+The newly matched lookup also correctly tripped the fixed assembly-exclusion
+set; its inlined fistp was inspected and added to the EXCLUSION, not C++ credit.
+Final accounting35 assembly bodies/8411B; negative attribution tests retained.
+
 # Image and API short-callback pass - 2026-11-02
 
 Final receipt: proof/nov02_image_api_checkpoint.json.10 original builds in the

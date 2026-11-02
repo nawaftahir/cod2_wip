@@ -19,7 +19,8 @@ void Image_BuildSpecularityMap(float shift, unsigned char *pic)
 		}
 		else
 		{
-			normalized = __min(1.0, __max(0.0, power * (1.0f / 30.0f) + shift));
+			normalized = power * (1.0f / 30.0f) + shift;
+			normalized = __min(1.0, __max(0.0, normalized));
 			// cos^n of the half angle falls to 0.1 at the lobe edge
 			exponent = log(0.1f) / log(cos((180.0 - normalized * 175.0) * (M_PI / 720.0)));
 		}
