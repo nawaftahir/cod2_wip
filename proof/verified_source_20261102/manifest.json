@@ -1,0 +1,387 @@
+{
+  "scope": "Verified C/C++ translation-unit snapshots; not a standalone build or whole-DLL SHA claim",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "candidate_sha256": "5dcf29d6e56b68e13a7a9e7775009cf597d173e42cb1a40f2390fd5baad72128",
+  "build_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "compiler": "MSVC13.10.3077 /O2 /GL /MT, link /LTCG; candidate flags, not historical proof",
+  "files": [
+    {
+      "path": "src/gfx_d3d/r_caps.cpp",
+      "working_source": "target/work/src/gfx_d3d/r_caps.cpp",
+      "sha256": "5d85bff3833adb73471710b729cc25fe3b3c9becc3ea78ec917d65d27d77036d",
+      "source_definitions": [
+        "R_RespondToMissingCaps",
+        "R_CheckDxCaps"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?R_RespondToMissingCaps@@YAXW4DxCapsResponse@@PBDPAH@Z",
+          "t": "0x10005150",
+          "n": 135,
+          "obj": "r_caps.obj",
+          "why": []
+        },
+        {
+          "name": "?R_CheckDxCaps@@YAHPBU_D3DCAPS9@@@Z",
+          "t": "0x100051e0",
+          "n": 165,
+          "obj": "r_caps.obj",
+          "why": []
+        }
+      ]
+    },
+    {
+      "path": "src/gfx_d3d/r_cmds.cpp",
+      "working_source": "target/work/src/gfx_d3d/r_cmds.cpp",
+      "sha256": "c0500e921edb7ea725208b0f3b63cad7598a6845056c86e0a6ad306dd6b36e1f",
+      "source_definitions": [
+        "R_RegisterCmds",
+        "R_UnregisterCmds"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?R_RegisterCmds@@YAXXZ",
+          "t": "0x100052c0",
+          "n": 151,
+          "obj": "r_cmds.obj",
+          "why": []
+        },
+        {
+          "name": "?R_UnregisterCmds@@YAXXZ",
+          "t": "0x10005360",
+          "n": 114,
+          "obj": "r_cmds.obj",
+          "why": []
+        }
+      ]
+    },
+    {
+      "path": "src/gfx_d3d/r_surfbounds.cpp",
+      "working_source": "target/work/src/gfx_d3d/r_surfbounds.cpp",
+      "sha256": "13a0df881215bdcacc88c5e722f29d28d8dcd67f17c9266b47e5cc43ded05d2c",
+      "source_definitions": [
+        "R_BoundsForSurf_Triangles",
+        "R_BoundsForSurf_ModelInst",
+        "R_BoundsForSurf_StaticModelCached",
+        "R_BoundsForDrawSurf"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?R_BoundsForSurf_Triangles@@YAPBMPBUGfxDrawSurf@@H@Z",
+          "t": "0x1002bc60",
+          "n": 60,
+          "obj": "r_surfbounds.obj",
+          "why": []
+        },
+        {
+          "name": "?R_BoundsForSurf_ModelInst@@YAPBMPBUGfxDrawSurf@@H@Z",
+          "t": "0x1002bca0",
+          "n": 13,
+          "obj": "r_surfbounds.obj",
+          "why": []
+        },
+        {
+          "name": "?R_BoundsForSurf_StaticModelCached@@YAPBMPBUGfxDrawSurf@@H@Z",
+          "t": "0x1002bcb0",
+          "n": 36,
+          "obj": "r_surfbounds.obj",
+          "why": []
+        },
+        {
+          "name": "?R_BoundsForDrawSurf@@YAPBMPBUGfxDrawSurf@@@Z",
+          "t": "0x1002bce0",
+          "n": 58,
+          "obj": "r_surfbounds.obj",
+          "why": []
+        }
+      ]
+    },
+    {
+      "path": "src/gfx_d3d/r_image_wavelet.cpp",
+      "working_source": "target/work/src/gfx_d3d/r_image_wavelet.cpp",
+      "sha256": "7673699bc0fef2c9d7cca3fcee1852129366da50a5f88c4abf59b638053fb015",
+      "source_definitions": [
+        "Wavelet_ConsumeBits",
+        "Wavelet_DecodeValue",
+        "Wavelet_AddDeltaToMipmap",
+        "Wavelet_DecompressLevel"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?Wavelet_ConsumeBits@@YAXGPAUWaveletDecode@@@Z",
+          "t": "0x10010ba0",
+          "n": 87,
+          "obj": "r_image_wavelet.obj",
+          "why": []
+        },
+        {
+          "name": "?Wavelet_DecodeValue@@YAHPBUWaveletHuffmanDecode@@GHPAUWaveletDecode@@@Z",
+          "t": "0x10010c00",
+          "n": 168,
+          "obj": "r_image_wavelet.obj",
+          "why": []
+        },
+        {
+          "name": "?Wavelet_AddDeltaToMipmap@@YAXPAEHPAUWaveletDecode@@@Z",
+          "t": "0x10010cb0",
+          "n": 134,
+          "obj": "r_image_wavelet.obj",
+          "why": []
+        },
+        {
+          "name": "?Wavelet_DecompressLevel@@YAXPAE0PAUWaveletDecode@@@Z",
+          "t": "0x10010d40",
+          "n": 1471,
+          "obj": "r_image_wavelet.obj",
+          "why": []
+        }
+      ]
+    },
+    {
+      "path": "src/gfx_d3d/rb_logfile.cpp",
+      "working_source": "target/work/src/gfx_d3d/rb_logfile.cpp",
+      "sha256": "8c41ddf9e10c61e97f0a8cc3d1b196e79dfe1da25f5d109166f2456e5d9fb953",
+      "source_definitions": [
+        "RB_OpenLogFile",
+        "RB_IsLogging",
+        "RB_UpdateLogging",
+        "RB_LogPrint",
+        "RB_LogBlend",
+        "RB_LogBlendOp",
+        "RB_LogBool",
+        "RB_LogFromTable",
+        "RB_LogPrintState_0",
+        "RB_LogPrintState_1"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?RB_OpenLogFile@@YAXXZ",
+          "t": "0x10037810",
+          "n": 96,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_IsLogging@@YA_NXZ",
+          "t": "0x10037870",
+          "n": 29,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_UpdateLogging@@YAXXZ",
+          "t": "0x10037890",
+          "n": 87,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_LogPrint@@YAXPBD@Z",
+          "t": "0x100378f0",
+          "n": 54,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_LogBlend@@YAXPBDH@Z",
+          "t": "0x10037a60",
+          "n": 186,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_LogBlendOp@@YAXPBDH@Z",
+          "t": "0x10037b20",
+          "n": 122,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_LogBool@@YAXPBDHHH00@Z",
+          "t": "0x10037ba0",
+          "n": 106,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_LogFromTable@@YAXPBDHHHPBUStateBitsTable@@H@Z",
+          "t": "0x10037c10",
+          "n": 208,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_LogPrintState_0@@YAXHH@Z",
+          "t": "0x10037ce0",
+          "n": 1060,
+          "obj": "rb_logfile.obj",
+          "why": []
+        },
+        {
+          "name": "?RB_LogPrintState_1@@YAXHH@Z",
+          "t": "0x10038110",
+          "n": 211,
+          "obj": "rb_logfile.obj",
+          "why": []
+        }
+      ]
+    },
+    {
+      "path": "src/gfx_d3d/r_image_load_common.cpp",
+      "working_source": "target/work/src/gfx_d3d/r_image_load_common.cpp",
+      "sha256": "3812411a1642dc0ab68301194d36f5188d3dc5f3aaa0ad6a6c1cab07f069a543",
+      "source_definitions": [
+        "Image_SourceBytesPerSlice",
+        "Image_Upload2D_CopyDataBlock",
+        "Image_Upload2D",
+        "Image_Upload3D",
+        "Image_UploadData",
+        "Image_ClampPicmip",
+        "Image_Setup",
+        "Image_GetCardMemoryAmountForMipLevel",
+        "Image_GetCardMemoryAmount"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?I_min@@YAHHH@Z",
+          "t": "0x100017e0",
+          "n": 9,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_SourceBytesPerSlice@@YAHW4_D3DFORMAT@@HH@Z",
+          "t": "0x1000e840",
+          "n": 187,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_Upload2D_CopyDataBlock@@YAXHHPBEW4_D3DFORMAT@@HPAE@Z",
+          "t": "0x1000e900",
+          "n": 274,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_Upload2D@@YAXPAUGfxImage@@W4_D3DFORMAT@@W4_D3DCUBEMAP_FACES@@IPBE@Z",
+          "t": "0x1000ea20",
+          "n": 472,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_Upload3D@@YAXPAUGfxImage@@W4_D3DFORMAT@@IPBE@Z",
+          "t": "0x1000ec00",
+          "n": 348,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_UploadData@@YAXPAUGfxImage@@W4_D3DFORMAT@@W4_D3DCUBEMAP_FACES@@IPBE@Z",
+          "t": "0x1000ed60",
+          "n": 63,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_ClampPicmip@@YAXW4_D3DFORMAT@@HHPAUPicmip@@@Z",
+          "t": "0x1000edc0",
+          "n": 79,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_Setup@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@@Z",
+          "t": "0x1000ee30",
+          "n": 246,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_GetCardMemoryAmountForMipLevel@@YAHW4_D3DFORMAT@@HHH@Z",
+          "t": "0x1000ef40",
+          "n": 219,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        },
+        {
+          "name": "?Image_GetCardMemoryAmount@@YAHHW4_D3DFORMAT@@HHH@Z",
+          "t": "0x1000f020",
+          "n": 135,
+          "obj": "r_image_load_common.obj",
+          "why": []
+        }
+      ]
+    },
+    {
+      "path": "src/universal/com_convexhull.cpp",
+      "working_source": "target/work/src/universal/com_convexhull.cpp",
+      "sha256": "16a83964cd61cf311d94b72d8f356f77d7f5776918da0c2a6f360670d56989cf",
+      "source_definitions": [
+        "Com_SwapHullPoints",
+        "Com_InitialHull",
+        "Com_AddPointToHull",
+        "Com_RecursivelyGrowHull",
+        "Com_GrowInitialHull",
+        "Com_ConvexHull"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?Dot2Product@@YAMQBM0@Z",
+          "t": "0x1002ca40",
+          "n": 13,
+          "obj": "com_convexhull.obj",
+          "why": []
+        },
+        {
+          "name": "?Com_SwapHullPoints@@YAXPAY01MHH@Z",
+          "t": "0x10057a10",
+          "n": 37,
+          "obj": "com_convexhull.obj",
+          "why": []
+        },
+        {
+          "name": "?Com_InitialHull@@YAXPAY01MH0@Z",
+          "t": "0x10057a40",
+          "n": 648,
+          "obj": "com_convexhull.obj",
+          "why": []
+        },
+        {
+          "name": "?Com_AddPointToHull@@YAHQBMHPAY01MH@Z",
+          "t": "0x10057cd0",
+          "n": 40,
+          "obj": "com_convexhull.obj",
+          "why": []
+        },
+        {
+          "name": "?Com_RecursivelyGrowHull@@YAHPAY01MHHH0H@Z",
+          "t": "0x10057d00",
+          "n": 518,
+          "obj": "com_convexhull.obj",
+          "why": []
+        },
+        {
+          "name": "?Com_GrowInitialHull@@YAHPAY01MH0@Z",
+          "t": "0x10057f10",
+          "n": 715,
+          "obj": "com_convexhull.obj",
+          "why": []
+        },
+        {
+          "name": "?Com_ConvexHull@@YAHPAY01MH0@Z",
+          "t": "0x100581e0",
+          "n": 27,
+          "obj": "com_convexhull.obj",
+          "why": []
+        }
+      ]
+    }
+  ],
+  "proof_hashes": {
+    "bind.json": "c037a3baa711ea7b2f3402679a4a4f3fe14cfc4e5b759fb14d458cc67a3bdeab",
+    "cmp.json": "91cacdb8c20c0d4852afad083259cb440f6734354d8d521301784b6e4c585d6f",
+    "source_coverage.json": "b55189f79feee59b14da3793863b255ed8891a4a9866164959e5a433b0d88e60"
+  }
+}

@@ -1,0 +1,27 @@
+# Verified renderer source
+
+Only audited C/C++ files whose **every emitted function** passes both retail
+byte and binding checks belong here. Each source-level function in these files
+also has an accepted emitted body. Mixed or unmatched files stay outside this
+folder in target/work/src/. No assembly wrappers or copied reference tree.
+
+This is an immutable source snapshot for inspection and eventual release
+assembly, not a second development tree. The files are byte-for-byte copies
+of the source used by the verified original-toolchain build. Develop in the
+working tree; replace a snapshot only after fresh verification of the entire
+file. This folder does not yet contain the complete renderer or its build
+headers, and is not independently buildable. Header/support dependencies remain
+in the working tree and are not being labelled verified source files here.
+
+Verification means relocation-normalized function bytes and correct bindings.
+It does not mean that the C++ text is the lost original text, that we have
+proved every historical translation-unit boundary, or that the entire DLL
+matches its retail SHA. No partial file is promoted just because some of its
+functions match. These snapshots add no new coverage by being copied here.
+
+Run from gfx:
+
+    python3 tools/check_verified_source.py
+
+The pinned build evidence and per-file/function manifest are in
+proof/verified_source_20261102/. Current whole-renderer progress is PROGRESS.md.
