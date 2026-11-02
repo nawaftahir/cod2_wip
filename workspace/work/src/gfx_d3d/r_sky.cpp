@@ -95,10 +95,10 @@ void R_LoadSunThroughDvars(const char *name, sunflare_t *sun);
 void R_SetSunFromDvars(sunflare_t *sun)
 {
     const char *name = r_sunsprite_shader->current.string;
-    sun->spriteMaterial = name[0] ? Material_Register(name, 6) : rgp.defaultMaterial;
+    sun->spriteMaterial = !name[0] ? rgp.defaultMaterial : Material_Register(name, 6);
     sun->spriteSize = r_sunsprite_size->current.value;
     name = r_sunflare_shader->current.string;
-    sun->flareMaterial = name[0] ? Material_Register(name, 6) : rgp.defaultMaterial;
+    sun->flareMaterial = !name[0] ? rgp.defaultMaterial : Material_Register(name, 6);
     sun->flareMinSize = r_sunflare_min_size->current.value * 0.5f;
     sun->flareMinDot = (float)cos(r_sunflare_min_angle->current.value * 0.017453292f);
     sun->flareMaxSize = r_sunflare_max_size->current.value * 0.5f;

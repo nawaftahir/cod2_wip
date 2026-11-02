@@ -604,7 +604,7 @@ static void R_UpdateFrameDvars()
         R_SetSunFromDvars(&rgp.world->sun);
     bool gpuChanged = R_ClearModifiedDvar(r_gpuSync);
     bool multiChanged = R_ClearModifiedDvar(r_multiGpu);
-    if (gpuChanged || multiChanged)
+    if (gpuChanged | multiChanged)
         dx.gpuSync = r_multiGpu->current.enabled ? 0 : r_gpuSync->current.integer;
     R_UpdateLodDistances();
 }

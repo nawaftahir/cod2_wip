@@ -1,0 +1,2 @@
+test: <stdin>:121: GfxImage* Image_Register(const char*, int, int): Assertion `!strcmp(name,"image")&&track==expectedTrack&&semantic!=5' failed.
+PASS: new table-replacement case rejects the prior indexed/reloaded-table implementation

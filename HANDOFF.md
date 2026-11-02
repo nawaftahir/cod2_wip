@@ -1,3 +1,12 @@
+# Current: callback matching underway - 2026-11-02
+
+Read PROGRESS.md first and proof/nov02_callback_match_checkpoint.json.
+C++44.099692405%,671 bodies;58/98 callbacks accepted,40 unmatched;2420
+protected extents. Net212B from FOV callback; material cursor fixes pass native
+regression but remain unmatched. Three bounded builds, one tree; no pause.
+Current matching residuals are in ATTEMPTS.md. Earlier step3 receipt below is
+historical. Do not repeat size pragmas or restore temporary exports.
+
 # Renderer continuation - 2026-11-02
 
 Step3 source/API/dispatch closure is COMPLETE (2026-11-02). The owner resumed

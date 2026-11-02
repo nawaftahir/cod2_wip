@@ -373,7 +373,7 @@
 {
 "name": "?R_LoadWorldInternal@@YAPAUGfxWorld@@PBD@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1256,
+"size": 1293,
 "hits": []
 },
 {
@@ -1415,7 +1415,7 @@
 {
 "name": "?Image_Register@@YAPAUGfxImage@@PBDHH@Z",
 "obj": "r_image.obj",
-"size": 90,
+"size": 93,
 "hits": []
 },
 {
@@ -1435,7 +1435,7 @@
 {
 "name": "?R_RegisterBuiltinImages@@YAXXZ",
 "obj": "r_image.obj",
-"size": 186,
+"size": 264,
 "hits": []
 },
 {
@@ -3892,13 +3892,13 @@
 {
 "name": "?Material_FixupBinary@@YA_NPAUMaterial@@H@Z",
 "obj": "r_material_load_obj.obj",
-"size": 532,
+"size": 600,
 "hits": []
 },
 {
 "name": "?Material_LoadBinary@@YAPAUMaterial@@PBDH@Z",
 "obj": "r_material_load_obj.obj",
-"size": 182,
+"size": 183,
 "hits": []
 },
 {
@@ -4765,8 +4765,10 @@
 {
 "name": "?R_UpdateFrameDvars@@YAXXZ",
 "obj": "r_rendercmds.obj",
-"size": 236,
-"hits": []
+"size": 232,
+"hits": [
+"0x10021e50"
+]
 },
 {
 "name": "?R_BeginFrame@@YAXXZ",

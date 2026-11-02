@@ -43,7 +43,8 @@ struct {struct {int integer;} current;} renderer;
 auto r_rendererInUse=&renderer;
 std::vector<std::string> events;
 std::string failIntern;
-bool imageFail,waterFail,setFail,validateFail,hit,loadFail;
+bool imageFail,waterFail,setFail,validateFail,hit,loadFail,replaceTextures,replaceConstants;
+MaterialTextureDef alternateTextures[2];MaterialConstantDef alternateConstants[2];
 int validationCalls,images,waters,expectedTrack=7,fileLength,readResult;
 byte buffer[1024];Material *m=(Material*)buffer;
 Material loaded,defaultMaterial,duplicate;
@@ -58,7 +59,10 @@ int Com_sprintf(char *out,unsigned length,const char *format,...) {
     va_list args;va_start(args,format);int n=vsnprintf(out,length,format,args);va_end(args);return n;
 }
 const char *Material_RegisterString(const char *name) {
-    events.push_back(std::string("intern:")+name);return failIntern==name?0:name;
+    events.push_back(std::string("intern:")+name);
+    if(replaceTextures&&!strcmp(name,"texture")){replaceTextures=false;m->textures=alternateTextures;}
+    if(replaceConstants&&!strcmp(name,"constant")){replaceConstants=false;m->constants=alternateConstants;}
+    return failIntern==name?0:name;
 }
 GfxImage *Image_Register(const char *name,int track,int semantic) {
     assert(!strcmp(name,"image")&&track==expectedTrack&&semantic!=5);++images;
@@ -106,7 +110,7 @@ void R_Error(int code,const char *message) {
 void reset(int semantic=1) {
     memset(buffer,0,sizeof(buffer));memset(&set,0,sizeof(set));
     events.clear();failIntern.clear();imageFail=waterFail=setFail=validateFail=false;
-    validationCalls=images=waters=0;renderer.current.integer=0;
+    validationCalls=images=waters=0;replaceTextures=replaceConstants=false;renderer.current.integer=0;
     m->info.name=(const char*)400;m->info.refImageName=0;
     m->textureCount=m->constantCount=1;m->textures=(MaterialTextureDef*)80;
     m->constants=(MaterialConstantDef*)104;m->techniqueSet=(MaterialTechniqueSet*)440;
@@ -147,6 +151,14 @@ int main() {
         if(failure==6)assert(validationCalls==1);
         ++cases;
     }
+    reset();m->textureCount=m->constantCount=2;
+    memcpy(buffer+92,buffer+80,sizeof(MaterialTextureDef));
+    memcpy(buffer+124,buffer+104,sizeof(MaterialConstantDef));
+    replaceTextures=replaceConstants=true;
+    assert(Material_FixupBinary(m,7)&&images==2&&validationCalls==2);
+    assert(m->textures==alternateTextures&&m->constants==alternateConstants);
+    assert(((MaterialTextureDef*)(buffer+92))->u.image==&image);
+    assert(((MaterialConstantDef*)(buffer+124))->name==(const char*)buffer+430);++cases;
     reset();m->textureCount=m->constantCount=0;m->textures=0;m->constants=0;
     assert(Material_FixupBinary(m,7)&&m->textures==(MaterialTextureDef*)buffer&&m->constants==(MaterialConstantDef*)buffer);++cases;
     for(int length:{-1,0,1024})for(const char *name:{"sample","$default"})for(int fail=0;fail<2;++fail) {

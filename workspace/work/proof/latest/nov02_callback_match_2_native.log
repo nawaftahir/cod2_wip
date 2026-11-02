@@ -1,0 +1,8 @@
+RUN test_lod_api.py
+PASS: 192 actual LOD/view routes, lock updates, near-clip NaNs and matrix ownership
+RUN test_frame_start.py
+PASS: 4105 actual BeginFrame routes; retail order, flags, inverse forced LOD, live dvar/world/client mutations and untouched state
+RUN test_image_registration.py
+PASS: 92 actual builtin/file/cache image routes, semantic narrowing, identity alpha, allocation and error ownership
+RUN test_material_binary.py
+PASS: 77 actual material fixup/load/register routes, PC layouts, DX7 skips, water, partial failures and permanent ownership

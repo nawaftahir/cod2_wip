@@ -2297,6 +2297,14 @@
 "obj": "r_rendercmds.obj",
 "why": []
 },
+"?R_UpdateFrameDvars@@YAXXZ": {
+"t": "0x10021e50",
+"n": 232,
+"obj": "r_rendercmds.obj",
+"why": [
+"call ?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z"
+]
+},
 "?R_BeginFrame@@YAXXZ": {
 "t": "0x10021f40",
 "n": 70,
@@ -2417,9 +2425,7 @@
 "t": "0x100256c0",
 "n": 212,
 "obj": "r_scene.obj",
-"why": [
-"data __real@3fe6571840000000"
-]
+"why": []
 },
 "?R_ClearScene@@YAXXZ": {
 "t": "0x10025510",

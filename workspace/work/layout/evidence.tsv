@@ -300,6 +300,7 @@ accepted	gfx_d3d/r_scene.cpp	R_ClearScene	10025510	mac
 accepted	gfx_d3d/r_scene.cpp	R_CompareDumpSceneEntities	10023800	mac
 accepted	gfx_d3d/r_scene.cpp	R_GetClearColor	10024920	bind
 accepted	gfx_d3d/r_scene.cpp	R_ResetEntries	10023e90	doubt
+accepted	gfx_d3d/r_scene.cpp	R_SetLodOrigin	100256c0	mac
 accepted	gfx_d3d/r_scene.cpp	R_SetViewParmsForScene	10025570	bind
 accepted	gfx_d3d/r_scene.cpp	R_ShortSortDrawSurfs	10024460	bind
 accepted	gfx_d3d/r_scene.cpp	R_UpdateFrameFog	10024080	bind
@@ -913,7 +914,6 @@ draft-addressed	gfx_d3d/r_scene.cpp	R_RenderSceneDx7	10024c80	-
 draft-addressed	gfx_d3d/r_scene.cpp	R_RenderSceneFullbright	10024d90	-
 draft-addressed	gfx_d3d/r_scene.cpp	R_RenderSceneMode	10025300	-
 draft-addressed	gfx_d3d/r_scene.cpp	R_RenderSceneNormal	10025040	-
-draft-addressed	gfx_d3d/r_scene.cpp	R_SetLodOrigin	100256c0	mac
 draft-addressed	gfx_d3d/r_scene.cpp	R_SkinGfxEntity	10023d70	mac
 draft-addressed	gfx_d3d/r_scene.cpp	R_UpdateGfxEntityBounds	10023d40	mac
 draft-addressed	gfx_d3d/r_scene.cpp	R_UpdateGfxEntityBoundsCmd	10020cd0	-

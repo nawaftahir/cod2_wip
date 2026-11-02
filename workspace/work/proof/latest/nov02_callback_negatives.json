@@ -1,0 +1,12 @@
+[
+  {
+    "gate": "check_checkpoint.py",
+    "returncode": 1,
+    "stderr": "Traceback (most recent call last):\n  File \"/home/nawaf/cod2/test/dev/gfx/target/work/tools/check_checkpoint.py\", line 152, in <module>\n    assert not lost, ('checkpoint regression', lost)\n           ^^^^^^^^\nAssertionError: ('checkpoint regression', {'0x100256c0': 212})\n"
+  },
+  {
+    "gate": "regression.py",
+    "returncode": 1,
+    "stderr": "Traceback (most recent call last):\n  File \"/home/nawaf/cod2/test/dev/gfx/target/work/tools/regression.py\", line 224, in <module>\n    assert not checkpoint_lost, ('checkpoint loss', checkpoint_lost)\n           ^^^^^^^^^^^^^^^^^^^\nAssertionError: ('checkpoint loss', ['0x100256c0'])\n"
+  }
+]

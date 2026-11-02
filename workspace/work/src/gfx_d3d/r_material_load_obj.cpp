@@ -2040,9 +2040,10 @@ bool Material_FixupBinary(Material *material, int imageTrack)
     material->info.name = (const char *)(base + (uintptr_t)material->info.name);
     material->info.refImageName = (const char *)(base + (uintptr_t)material->info.refImageName);
     material->textures = (MaterialTextureDef *)(base + (uintptr_t)material->textures);
-    for (int index = 0; index < material->textureCount; ++index)
+    MaterialTextureDef *texture = material->textures;
+    for (int index = 0; index < material->textureCount; ++index, ++texture)
     {
-        MaterialTextureDef *texture = &material->textures[index];
+        bool loaded;
         texture->name = Material_RegisterString((const char *)(base + (uintptr_t)texture->name));
         if (texture->semantic == 5)
         {
@@ -2060,24 +2061,27 @@ bool Material_FixupBinary(Material *material, int imageTrack)
             water.amplitude = definition->amplitude;
             water.image = 0;
             definition->map = R_LoadWaterSetup(&water);
-            if (!definition->map)
-                return false;
+            loaded = definition->map != 0;
         }
         else if (r_rendererInUse->current.integer == 2 &&
             (texture->semantic == 3 || texture->semantic == 4))
+        {
             texture->u.image = 0;
+            loaded = true;
+        }
         else
         {
             texture->u.image = Image_Register((const char *)(base + (uintptr_t)texture->u.image),
                 imageTrack, texture->semantic);
-            if (!texture->u.image)
-                return false;
+            loaded = texture->u.image != 0;
         }
+        if (!loaded)
+            return false;
     }
     material->constants = (MaterialConstantDef *)(base + (uintptr_t)material->constants);
-    for (int index = 0; index < material->constantCount; ++index)
+    MaterialConstantDef *constant = material->constants;
+    for (int index = 0; index < material->constantCount; ++index, ++constant)
     {
-        MaterialConstantDef *constant = &material->constants[index];
         constant->name = Material_RegisterString((const char *)(base + (uintptr_t)constant->name));
         if (!constant->name)
             return false;

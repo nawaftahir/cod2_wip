@@ -96,7 +96,6 @@ universal/q_shared.cpp	?I_stricmp@@YAHPBD0@Z	-	-	universal/q_shared	universal/q_
 gfx_d3d/r_image.cpp	?Image_AllocProg@@YAPAUGfxImage@@HH@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_specularityimage.cpp	?Image_BuildSpecularityMap@@YAXMPAE@Z	-	-	gfx_d3d/r_specularityimage	gfx_d3d/r_specularityimage	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z	-	-	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
-gfx_d3d/r_image.cpp	?Image_Register@@YAPAUGfxImage@@PBDHH@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_TransformLightGridVector@@YAXMMMPAM@Z	-	-	-	-	unknown
 universal/com_plane.cpp	?IntersectPlanes@@YAHPAPBMQAM@Z	-	-	-	-	unknown
@@ -496,6 +495,7 @@ gfx_d3d/r_image.cpp	?Image_SetupSystem@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z	1000d
 gfx_d3d/r_image.cpp	?Image_PicmipForSemantic@@YAXEPAUPicmip@@@Z	1000d090	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z	1000d0f0	pinned	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image.cpp	?Image_FindExisting@@YAPAUGfxImage@@PBD@Z	1000d140	bind	-	-	unknown
+gfx_d3d/r_image.cpp	?Image_Register@@YAPAUGfxImage@@PBDHH@Z	1000d200	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_ReleaseLostImages@@YAXXZ	1000d260	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_ReloadLostImages@@YAXXZ	1000d2e0	hit	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_RebuildCosinePowerMap@@YAXM@Z	1000d320	hit	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
@@ -827,7 +827,7 @@ gfx_d3d/r_rendercmds.cpp	?R_AddCmdSetViewport@@YAXHHHH@Z	10021bf0	bind	gfx_d3d/r
 gfx_d3d/r_rendercmds.cpp	?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z	10021c60	bind	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
 gfx_d3d/r_rendercmds.cpp	?R_ClearModifiedLightDvars@@YA_NXZ	10021c80	bind	-	gfx_d3d/r_rendercmds	interval
 gfx_d3d/r_rendercmds.cpp	?R_UpdateLodDistances@@YAXXZ	10021db0	bind	-	gfx_d3d/r_rendercmds	interval
-gfx_d3d/r_rendercmds.cpp	?R_UpdateFrameDvars@@YAXXZ	10021e50	pinned	-	gfx_d3d/r_rendercmds	interval
+gfx_d3d/r_rendercmds.cpp	?R_UpdateFrameDvars@@YAXXZ	10021e50	hit	-	gfx_d3d/r_rendercmds	interval
 gfx_d3d/r_rendercmds.cpp	?R_BeginFrame@@YAXXZ	10021f40	hit	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
 gfx_d3d/r_rendercmds.cpp	?R_EndFrame@@YAXXZ	10021f90	hit	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
 gfx_d3d/r_rendercmds.cpp	?R_BeginDebugFrame@@YAXXZ	10021ff0	bind	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
@@ -879,7 +879,7 @@ gfx_d3d/r_scene.cpp	?R_RenderSceneMode@@YAXHPBUGfxViewParms@@PBUGfxSceneRenderOp
 gfx_d3d/r_scene.cpp	?R_GenerateSceneCommands@@YAXPBUGfxViewParms@@H0PBUGfxSceneRenderOptions@@@Z	10025380	pinned	-	gfx_d3d/r_scene	interval
 gfx_d3d/r_scene.cpp	?R_ClearScene@@YAXXZ	10025510	bind	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
 gfx_d3d/r_scene.cpp	?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z	10025570	bind	-	gfx_d3d/r_scene	interval
-gfx_d3d/r_scene.cpp	?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z	100256c0	hit	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
+gfx_d3d/r_scene.cpp	?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z	100256c0	bind	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
 gfx_d3d/r_scene.cpp	?R_RenderScene@@YAXPBUrefdef_s@@@Z	100257a0	pinned	gfx_d3d/r_scene	gfx_d3d/r_scene	mac-name
 gfx_d3d/r_screenshot.cpp	?I_fmin@@YAMMM@Z	10025920	bind	-	-	unknown
 gfx_d3d/r_screenshot.cpp	?Vec3Mul@@YAXQBM0QAM@Z	10025940	bind	-	-	unknown

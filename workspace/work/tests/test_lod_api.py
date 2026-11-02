@@ -12,6 +12,7 @@ for name in ('I_fsel', 'I_fmax'):
     start = math.index('TU_STATIC float ' + name + '(')
     helpers += math[start:math.index('\n}', start)+2] + '\n'
 types = (work.parents[0] / 'src/opencod2/headers/common_types.h').read_text()
+macros = '#undef M_PI\n' + '\n'.join(line for line in math.splitlines() if line.startswith(('#define M_PI ', '#define DEG2RAD('))) + '\n'
 structs = ''
 for name in ('GfxViewParms', 'refdef_s'):
     start = types.index('struct ' + name + ' {')
@@ -48,7 +49,7 @@ void MatrixMultiply44(const float a[4][4],const float b[4][4],float out[4][4]) {
     assert(matrices++==2 && a[0][0]==17 && b[0][0]==23);out[0][0]=29;
 }
 void MatrixInverse44(const float *in,float *out) { assert(matrices++==3 && in[0]==29);out[0]=31; }
-'''+helpers+source+r'''
+'''+macros+helpers+source+r'''
 int main() {
     refdef_t ref={};ref.x=3;ref.y=4;ref.width=640;ref.height=480;ref.fov_y=70;
     ref.vieworg[0]=11;ref.vieworg[1]=12;ref.vieworg[2]=13;ref.viewaxis[2][2]=9;
@@ -71,7 +72,9 @@ int main() {
             assert(lockPvsViewParms.depthHackNearClip==0.125f);
             assert(lockPvsViewParms.inverseViewProjectionMatrix.m[0][0]==31);
         }
-        double ratio=std::tan(fov*0.5*0.017453292f)/std::tan(double(80.0f*0.5f*0.017453292f));
+        float referenceRadians=DEG2RAD(80.0f*0.5f);
+        assert(double(referenceRadians)==0.6981317400932312);
+        double ratio=std::tan(fov*0.5*0.017453292f)/std::tan(double(referenceRadians));
         assert(std::fabs(rg.lodParms.scale-2*(fov==80?1:ratio))<0.000001);
         assert(std::fabs(rg.lodParms.bias+5*(fov==80?1:ratio))<0.000001);
     }

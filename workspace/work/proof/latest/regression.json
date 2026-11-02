@@ -1,8 +1,8 @@
 {
-  "functions": 704,
-  "bytes": 119765,
+  "functions": 705,
+  "bytes": 119977,
   "total": 253580,
-  "percent": 47.22967110970897,
+  "percent": 47.31327391750138,
   "baseline_lost": [],
   "gains": [
     {
@@ -975,6 +975,12 @@
       "target": "0x10025570",
       "bytes": 286,
       "name": "?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x100256c0",
+      "bytes": 212,
+      "name": "?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z",
       "object": "r_scene.obj"
     },
     {

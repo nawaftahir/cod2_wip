@@ -2951,3 +2951,38 @@ two newly retained existing asm-bearing bodies, still tests all six rejection
 cases. Linked API fixture reads loaded BSS rather than nonexistent raw bytes.
 Earlier passing fixtures are retained and execution resumes at failures to
 avoid repeated native builds. No production requirement weakened.
+
+## 2026-11-02: callback matching batch1
+
+Bounded /Os source pragmas on fog, light-history save, material fixup/load
+retain all2419 extents but NONE reproduce target bodies (139/93/335/156B).
+Removed all four probes, not adopted as historical flags. Frame dvar branch
+requires boolean bitwise OR (target OR AL,BL);232B now placed, blocked on sun.
+LOD numerator uses the existing float pi/180 factor; denominator must use
+existing DEG2RAD macro's float evaluation, target double0.6981317400932312, not previous0.6981316804885864. Full macro on variable
+numerator produces an extra multiply; keep folded factor, macro on constant.
+
+A prior Image_Register comment inferred never-inline from12 direct calls;
+primary Material_FixupBinary603 contains the image registration path inline.
+Remove the unsupported noinline restriction and test the actual caller group.
+Sun826 has two opposite material-name branch layouts; reverse conditional
+arms to match retail empty-name fallthrough. Other sun schedule difference
+remains unclaimed until original referees accept. No roots/assembly added.
+
+Callback batch final: FOV212 accepted by both referees after folding the
+variable factor M_PI/180 and preserving DEG2RAD constant evaluation. All2419
+old extents retained; ratchet now2420 with independent removal negatives.
+Frame232 is byte-placed but still blocked on sun826. Branch-arm reversal
+removes both sun branch differences; one pointer-load scheduling difference
+remains. Do not spend a rebuild only on it.
+
+Image_Register's unsupported noinline restriction removed; actual registration
+path now inlines into material fixup as retail does. Explicit error return0
+preserves the returning-error path. Material fixup now holds texture/constant
+cursors across callbacks and uses one shared load-result check, matching
+primary control flow.78 native cases pass, including replacement of BOTH
+table owners during callbacks; the previous indexed implementation fails that
+new case. Candidate600 vs retail603 still differs substantially in register
+allocation/control flow; size proximity is not acceptance. Material loader183
+vs171, image-register93 vs94 remain unmatched. Save these real source fixes
+without fake credit; avoid repeating the rejected /Os probes.

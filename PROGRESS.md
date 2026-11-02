@@ -1,5 +1,33 @@
 # Renderer progress
 
+## Callback matching batch1 - 2026-11-02
+
+Verified C++111828/253580=44.099692405%,671 bodies (+212B/+1). API callbacks
+58 accepted/40 unmatched. R_SetLodOrigin212 now passes both referees: fix the
+constant FOV conversion using existing float DEG2RAD evaluation. All2419 prior
+extents retained; both gates ratcheted to2420 and reject removing this body.
+34/8149 authored-assembly exclusions unchanged; only GetRefAPI exported.
+
+Material fixup now retains texture/constant cursors across callbacks, as retail
+does.78 material cases pass, including a new owner-replacement regression
+that rejects the previous implementation. Image registration may inline in
+that real caller; an earlier never-inline assertion was unsupported. These
+material bodies remain UNMATCHED, with no added coverage. Sun branch layout
+and frame OR branch are closer; shared callee closure remains open.
+
+Three bounded original builds, zero workers, affected source fixtures only.
+Rejected size pragmas all removed; no new parser, build tree, roots or assembly.
+LOD192, frame4105, image92, material78, sun144 and raw-material fixtures pass;
+linked API, source attribution and verified-only snapshot checks pass. No full
+suite repeat or fresh whole-file span audit; previous188-fixture/audit result
+is historical. Raw same-offset 12.917307625829647%, NOT source coverage. SHA/GPU unfinished.
+
+Receipt: target/work/proof/nov02_callback_match_checkpoint.json. Active source
+stays target/work/src; root src/ stays seven verified-only snapshots/39 matches.
+Next: connected material helper/loader matching; do not repeat /Os probes or
+chase isolated scheduling changes before shared callees. Exact residuals in
+ATTEMPTS.md and target/work/scratch/callback_match_1/.
+
 ## Step3 source closure complete - 2026-11-02
 
 Step3 source/API/dispatch closure is COMPLETE (2026-11-02). The owner resumed
