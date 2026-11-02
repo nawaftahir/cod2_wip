@@ -1,0 +1,51 @@
+?Image_BuildSpecularityMap@@YAXMPAE@Z 0x10010130 261
+--- ours
++++ retail
+@@ -18,5 +18,17 @@
+ fmul dword ptr [A]
+ fadd dword ptr [esp + 0x30]
+-fst qword ptr [esp + 0x18]
++fld qword ptr [A]
++fcomp st(1)
++fnstsw ax
++test ah, 0x41
++je A
++fld qword ptr [A]
++fcomp st(1)
++fnstsw ax
++test ah, 5
++jp A
++fstp st(0)
++fld qword ptr [A]
++jmp A
+ fld qword ptr [A]
+ fcomp st(1)
+@@ -24,12 +36,4 @@
+ test ah, 0x41
+ jne A
+-fstp st(0)
+-fld qword ptr [A]
+-jmp A
+-fld qword ptr [A]
+-fcomp qword ptr [esp + 0x18]
+-fnstsw ax
+-test ah, 5
+-jp A
+ fstp st(0)
+ fld qword ptr [A]
+@@ -51,6 +55,4 @@
+ mov dword ptr [esp + 0x10], esi
+ lea edi, [ebx + ebp]
+-jmp A
+-lea ebx, [ebx]
+ fild dword ptr [esp + 0x10]
+ fmul dword ptr [A]
+@@ -79,2 +81,8 @@
+ add esp, 0x1c
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 

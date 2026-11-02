@@ -53,7 +53,7 @@ void Print(int channel,const char *format,...) {
 }
 struct {int (*FS_ReadFile)(const char*,void**);void (*FS_FreeFile)(void*);void *(*Hunk_AllocInternal)(int);void (*Printf)(int,const char*,...);} ri={Read,Free,Alloc,Print};
 char *va(const char *format,...) {static char out[512];va_list args;va_start(args,format);vsnprintf(out,sizeof(out),format,args);va_end(args);return out;}
-GfxImage *Image_Register(const char *name,int track,int semantic) {
+GfxImage *Image_Register(const char *name,int semantic,int track) {
     assert(track==5&&semantic==1);images.push_back(name);return images.size()==1?&cookieImage:&attenImage;
 }
 char *I_strlwr(char *name){for(char *p=name;*p;++p)*p=tolower((unsigned char)*p);return name;}

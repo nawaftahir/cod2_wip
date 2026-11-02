@@ -2,7 +2,7 @@
 #include "r_local.h"
 #include "r_light.h"
 
-GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+GfxImage *Image_Register(const char *name, int semantic, int imageTrack);
 char *I_strlwr(char *text);
 
 // PINNED 10015090/68: packed sampler byte and a NUL-terminated image name.
@@ -10,7 +10,7 @@ const byte *R_LoadLightImage(const byte *data, GfxLightImage *image)
 {
     image->samplerState = *data++;
     int length = strlen((const char *)data);
-    image->image = length ? Image_Register((const char *)data, 5, 1) : 0;
+    image->image = length ? Image_Register((const char *)data, 1, 5) : 0;
     return data + length + 1;
 }
 

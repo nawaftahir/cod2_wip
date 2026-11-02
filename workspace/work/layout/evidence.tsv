@@ -74,6 +74,7 @@ accepted	gfx_d3d/r_dpvs.cpp	Vector4Set	100018a0	bind
 accepted	gfx_d3d/r_dpvs.cpp	VectorMA	10005b60	bind
 accepted	gfx_d3d/r_dpvs.cpp	VectorNegate	10005b40	bind
 accepted	gfx_d3d/r_dvars.cpp	R_RegisterDvars	1000aaf0	mac
+accepted	gfx_d3d/r_flares.cpp	R_ClearFlares	1000bad0	mac
 accepted	gfx_d3d/r_fog.cpp	R_ArchiveFogState	1000bc40	mac
 accepted	gfx_d3d/r_fog.cpp	R_ClearFogs	1000bb10	mac
 accepted	gfx_d3d/r_fog.cpp	R_SwitchFog	1000bbc0	mac
@@ -103,9 +104,12 @@ accepted	gfx_d3d/r_image.cpp	Image_SetupRenderTarget	1000d010	mac
 accepted	gfx_d3d/r_image.cpp	Image_SetupSystem	1000d050	mac
 accepted	gfx_d3d/r_image.cpp	Image_TrackTexture	1000ca70	mac
 accepted	gfx_d3d/r_image.cpp	R_AddImageToList	1000c7e0	mac
+accepted	gfx_d3d/r_image.cpp	R_FreeImageAllocations	1000ce70	mac
 accepted	gfx_d3d/r_image.cpp	R_GetImageMemory	1000c820	bind
+accepted	gfx_d3d/r_image.cpp	R_GetMinSpecImageMemory	1000c8d0	mac
 accepted	gfx_d3d/r_image.cpp	R_ImageList_f	1000d940	mac
 accepted	gfx_d3d/r_image.cpp	R_ReleaseLostImages	1000d260	mac
+accepted	gfx_d3d/r_image.cpp	R_ResetImageAllocations	1000ce60	mac
 accepted	gfx_d3d/r_image.cpp	imagecompare	1000d900	mac
 accepted	gfx_d3d/r_image_load_common.cpp	I_min	100017e0	bind
 accepted	gfx_d3d/r_image_load_common.cpp	Image_ClampPicmip	1000edc0	doubt
@@ -157,6 +161,7 @@ accepted	gfx_d3d/r_init.cpp	R_ReleaseDynamicBuffers	10011e60	bind
 accepted	gfx_d3d/r_init.cpp	R_SetD3DPresentParameters	100114d0	bind
 accepted	gfx_d3d/r_init.cpp	R_SetupAntiAliasing	10011460	bind
 accepted	gfx_d3d/r_init.cpp	R_StoreDirect3DCaps	10011900	bind
+accepted	gfx_d3d/r_init.cpp	R_TrackStatistics	10013260	mac
 accepted	gfx_d3d/r_jpeg.cpp	init_destination	10014580	mac
 accepted	gfx_d3d/r_jpeg.cpp	jpeg_memory_dest	100145d0	doubt
 accepted	gfx_d3d/r_jpeg.cpp	term_destination	100145b0	mac
@@ -375,9 +380,12 @@ accepted	gfx_d3d/rb_backend.cpp	RB_AdaptiveGpuSyncWait	10032d80	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_BeginBenchmarkGpu	10032f90	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_BeginScene	10033a90	doubt
 accepted	gfx_d3d/rb_backend.cpp	RB_CallCmd	1002eb70	mac
+accepted	gfx_d3d/rb_backend.cpp	RB_ClearScreen	1002fe70	mac
+accepted	gfx_d3d/rb_backend.cpp	RB_ClearScreenCmd	1002ff50	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_CopyBackBufferToSurface	1002eaa0	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_EndBenchmarkGpu	10033010	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_GotoCmd	1002eb60	mac
+accepted	gfx_d3d/rb_backend.cpp	RB_GpuWaited	10032d70	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_InitBackendGlobalStructs	10033f80	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_IsGpuFenceFinished	10032f40	mac
 accepted	gfx_d3d/rb_backend.cpp	RB_IsGpuFinished	10032ca0	bind
@@ -754,7 +762,6 @@ draft-addressed	gfx_d3d/r_dpvs.cpp	R_PublishStaticModel	10009480	-
 draft-addressed	gfx_d3d/r_dpvs.cpp	R_SetupDpvsForPoint	1000a3c0	-
 draft-addressed	gfx_d3d/r_dpvs.cpp	R_VisitPortals	1000a020	mac
 draft-addressed	gfx_d3d/r_dpvs.cpp	R_VisitPortalsForCell	10009df0	mac
-draft-addressed	gfx_d3d/r_flares.cpp	R_ClearFlares	1000bad0	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_ConsoleTextWidth	1000c390	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_DrawConsoleText	1000c4b0	mac
 draft-addressed	gfx_d3d/r_font.cpp	R_GetConsoleIcon	1000c250	mac
@@ -770,7 +777,6 @@ draft-addressed	gfx_d3d/r_image.cpp	R_InitImages	1000d880	mac
 draft-addressed	gfx_d3d/r_image.cpp	R_LoadWaterSetup	1000dd70	mac
 draft-addressed	gfx_d3d/r_image.cpp	R_RegisterBuiltinImages	1000d560	-
 draft-addressed	gfx_d3d/r_image.cpp	R_ReloadLostImages	1000d2e0	mac
-draft-addressed	gfx_d3d/r_image.cpp	R_ResetImageAllocations	1000ce60	mac
 draft-addressed	gfx_d3d/r_image.cpp	R_ShutdownImages	1000cd10	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_BuildWaterMap	1000d0f0	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_GenerateCube	1000fbd0	-
@@ -981,8 +987,6 @@ draft-addressed	gfx_d3d/rb_backend.cpp	RB_Benchmark3D	100331d0	-
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_BlendSavedScreenCmd	10030cd0	mac
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_BlurShadowCookieCmd	100309a0	mac
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_BlurShadowCookiePass	10030920	-
-draft-addressed	gfx_d3d/rb_backend.cpp	RB_ClearScreen	1002fe70	mac
-draft-addressed	gfx_d3d/rb_backend.cpp	RB_ClearScreenCmd	1002ff50	mac
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_DrawBlur	10030710	-
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_DrawFloatZDebug	100302b0	-
 draft-addressed	gfx_d3d/rb_backend.cpp	RB_DrawFrameColorDebug	10030190	-
@@ -1155,12 +1159,9 @@ draft-mac-name	gfx_d3d/r_dpvs.cpp	R_PortalQueuePopMin	-	mac
 draft-mac-name	gfx_d3d/r_fog.cpp	R_SetFog	-	mac
 draft-mac-name	gfx_d3d/r_font_load_obj.cpp	R_LoadFont	-	mac
 draft-mac-name	gfx_d3d/r_image.cpp	Image_AllocProg	-	mac
-draft-mac-name	gfx_d3d/r_image.cpp	R_FreeImageAllocations	-	mac
 draft-mac-name	gfx_d3d/r_image.cpp	R_GetImageList	-	mac
-draft-mac-name	gfx_d3d/r_image.cpp	R_GetMinSpecImageMemory	-	mac
 draft-mac-name	gfx_d3d/r_image.cpp	R_SetPicmip	-	mac
 draft-mac-name	gfx_d3d/r_init.cpp	R_DoneRenderingViews	-	mac
-draft-mac-name	gfx_d3d/r_init.cpp	R_TrackStatistics	-	mac
 draft-mac-name	gfx_d3d/r_jpeg.cpp	ExitJpeg	-	mac
 draft-mac-name	gfx_d3d/r_jpeg.cpp	PrintfJpeg	-	mac
 draft-mac-name	gfx_d3d/r_jpeg.cpp	Z_FreeJpeg	-	mac
@@ -1203,7 +1204,6 @@ draft-mac-name	gfx_d3d/r_xsurface_optimize.cpp	XModelUnoptimize	-	mac
 draft-mac-name	gfx_d3d/r_xsurface_optimize.cpp	XSurfaceOptimizeRigid	-	mac
 draft-mac-name	gfx_d3d/rb_backend.cpp	RB_DrawTextInSpace	-	mac
 draft-mac-name	gfx_d3d/rb_backend.cpp	RB_DrawTextWithCursor	-	mac
-draft-mac-name	gfx_d3d/rb_backend.cpp	RB_GpuWaited	-	mac
 draft-mac-name	gfx_d3d/rb_backend.cpp	RB_LookupColor	-	mac
 draft-mac-name	gfx_d3d/rb_backend.cpp	RB_SetCodeConstant	-	mac
 draft-mac-name	gfx_d3d/rb_backend.cpp	RB_UpdateColor	-	mac

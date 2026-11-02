@@ -2023,7 +2023,7 @@ MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name)
     return set;
 }
 
-GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+GfxImage *Image_Register(const char *name, int semantic, int imageTrack);
 water_t *R_LoadWaterSetup(const water_t *water);
 
 typedef char materialBinaryLayoutCheck[(sizeof(Material) == 68 &&
@@ -2072,7 +2072,7 @@ bool Material_FixupBinary(Material *material, int imageTrack)
         else
         {
             texture->u.image = Image_Register((const char *)(base + (uintptr_t)texture->u.image),
-                imageTrack, texture->semantic);
+                texture->semantic, imageTrack);
             loaded = texture->u.image != 0;
         }
         if (!loaded)

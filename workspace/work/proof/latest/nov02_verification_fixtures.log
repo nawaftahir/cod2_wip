@@ -1,0 +1,23 @@
+RUN test_api_pointer_placement.py
+PASS: actual paired API store extraction;missing relocations,wrong opcodes,non-data destinations,ambiguous targets and unreferenced RET rejected
+RUN test_short_candidates.py
+PASS: 1/3/5-byte candidates, zero aliases and separate jump thunks, caller-only 1/3/5-byte and ambiguous leaves, unique 6/7-byte discovery, relocation/control-flow negatives, exact bodies and closed extents
+RUN test_refapi_anchor.py
+PASS: 108 API slots, 98 writes, ten zeros, four genuine empty callbacks and sun-reset tail
+RUN test_interior_code.py
+PASS: exact interior instruction offset, enclosing-call dependency and six ambiguity/bounds negatives
+RUN test_linked_api59.py
+PASS: sole retail export/ordinal,1051-byte initializer bound,98 linked callback targets in correct slots,432-byte zero table
+RUN test_source_coverage.py
+PASS: C/C++ source accounting, all34 separately excluded assembly-bearing bodies including newly retained water/FFT helpers, and six assembly negatives
+RUN test_symbol_bounds.py
+PASS: encoded string extents, unnamed-data overruns, wide counts and unchanged ordinary data
+RUN test_trap_extent.py
+PASS: targeted traps, short/long branches, external jumps, calls and padding
+RUN test_api59_table.py
+PASS: actual API59 copy-before-check,108 slot offsets,98 callback bindings,ten zeros and repeated-call reset
+RUN test_dependency_origin.py
+PASS: JPEG-origin matches stay dependency-only even inside the legacy game address range; unchanged baseline gates still run
+RUN test_specular_lookup.py
+PASS: actual8192-byte lookup,lower/upper saturation,target preserved NaN exponent,last exponent and endpoint rows
+PASS: 11 focused verification fixtures

@@ -49,7 +49,7 @@ int main() {
     }
     for(int b:{0,77,255})for(int g:{0,64,255})for(int r:{0,51,255}) {
         expectedColor=(int)((unsigned)b|((unsigned)g<<8)|((unsigned)r<<16)|0xff000000U);
-        cubes=0;Image_GenerateWaterColor(&image,b,g,r);assert(cubes==1);++cases;
+        cubes=0;Image_GenerateWaterColor(&image,r,g,b);assert(cubes==1);++cases;
     }
     printf("PASS: %d actual watercolor routes, packed BGRA, normalized Fresnel input, alpha rounding and callback binding\n",cases);
 }

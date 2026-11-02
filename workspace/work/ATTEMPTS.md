@@ -1,3 +1,41 @@
+# Image and API short-callback pass - 2026-11-02
+
+Final receipt: proof/nov02_image_api_checkpoint.json.10 original builds in the
+single existing output, no workers. Net29B verified existing C++ only; no new
+algorithm body accepted. Preserve this bounded-failure record to avoid repeats.
+
+PINNED: builtin calls and accepted Image_Alloc show semantic then imageTrack;
+Mac r_image.c/r_image_load_obj.c agree on int semantic. Narrowing builtin's
+formal semantic parameter to byte added30 MOVZX bytes: rejected. All genuine
+callers and native fixture mocks updated together. RGB helper formals restored;
+pixel output remains BGRA. Image_LoadBuiltin519B matches instructions at
+100108a0 but shared-callee closure fails, so it is deliberately uncredited.
+Image_Register91B still differs from retail94B in private ABI/register choices.
+
+PINNED: specular coefficient at1019be08 is abaaaaaa46df713f, float M_PI divided
+by720.0, not a full double PI literal. Restored target loop increment/store order.
+The lookup at10029320/259 remains unmatched. Macro clamp, std::min/max,
+by-value forced-inline min/max helpers and branch boundary variants failed;
+all experimental helper/STL additions removed from production. Final source
+retains the original simple clamp, corrected coefficient and real loop order.
+Retail preserves NaN (target parity branch); the initial claim otherwise was
+wrong and corrected. Quantized pixels alone hid the difference; the final
+fixture records pow exponents and confirms31*256 NaN exponents for NaN shift.
+The wrong NaN-to-upper variant fails. No NaN behavior improvement is claimed.
+
+Water squared-norm operand/assignment-order probes failed. r_water_load_obj.cpp
+is restored to HEAD. R_WatersEquivalent240B and R_CreateWaterSetup115B remain
+unmatched. Do not narrow their integer fields based on scheduling guesses.
+
+Verification gap found: old placement used direct E8/E9 only. GetRefAPI's real
+C7 05 relocated callback stores independently pin six <=12B known functions.
+New placement requires both operand relocation pairs, .data destinations,
+non-conflicting proposals, exact target inventory start/size and masked equality;
+all existing downstream checks remain. No global RET search or gate weakening.
+Independent old-referee replay with only those six candidate addresses supplied
+accepts exactly the same set as the new checker. Both retention gates reject
+removing each of the six (12 negatives). Net29B, not newly written algorithms.
+
 ## 2026-10-27 - particle cloud constants and submission
 
 rb_tess now owns the real particle driver and its three shader-constant helpers.

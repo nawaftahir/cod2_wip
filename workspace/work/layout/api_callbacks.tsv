@@ -11,16 +11,16 @@ slot	retail_target	source_status	source_function	source_owner	linked_address	byt
 9	0x1001d8c0	present_compiled	R_FinishLoadingModels	gfx_d3d/r_model.cpp	0x1001ca20	unmatched	0	no accepted full body placement
 10	0x1001d8f0	present_compiled	R_SetIgnorePrecacheErrors	gfx_d3d/r_model.cpp	0x1001c9e0	accepted	15	
 11	0x1001d900	present_compiled	R_GetIgnorePrecacheErrors	gfx_d3d/r_model.cpp	0x1001c9f0	accepted	14	
-12	0x1000c8d0	present_compiled	R_GetMinSpecImageMemory	gfx_d3d/r_image.cpp	0x1000c400	unmatched	0	no accepted full body placement
+12	0x1000c8d0	present_compiled	R_GetMinSpecImageMemory	gfx_d3d/r_image.cpp	0x1000c410	accepted	6	
 13	0x10017300	present_compiled	R_GetMaterialName	gfx_d3d/r_material.cpp	0x10015dd0	accepted	7	
 14	0x10017310	present_compiled	R_GetMaterialSubimageCount	gfx_d3d/r_material.cpp	0x10015de0	accepted	16	
 15	0x10017320	present_compiled	R_IsMaterialRefractive	gfx_d3d/r_material.cpp	0x10015da0	accepted	37	
-16	0x1000aa60	present_compiled	R_GetFarPlaneDist	gfx_d3d/r_dpvs.cpp	0x10007110	accepted	82	
+16	0x1000aa60	present_compiled	R_GetFarPlaneDist	gfx_d3d/r_dpvs.cpp	0x10007120	accepted	82	
 17	0x100131b0	present_compiled	R_EndRegistration	gfx_d3d/r_init.cpp	0x10011f90	unmatched	0	no accepted full body placement
 18	0x10025510	present_compiled	R_ClearScene	gfx_d3d/r_scene.cpp	0x10021ee0	accepted	87	
 19	0x10020ce0	present_compiled	R_SkinGfxEntityCmd	gfx_d3d/r_rendercmds.cpp	0x10020770	unmatched	0	no accepted full body placement
 20	0x10023db0	present_compiled	R_AddRefEntityToScene	gfx_d3d/r_scene.cpp	0x100228e0	unmatched	0	no accepted full body placement
-21	0x10020cd0	present_compiled	R_UpdateGfxEntityBoundsCmd	gfx_d3d/r_scene.cpp	0x10021af0	unmatched	0	no accepted full body placement
+21	0x10020cd0	present_compiled	R_UpdateGfxEntityBoundsCmd	gfx_d3d/r_scene.cpp	0x10021af0	unmatched	0	call ?R_UpdateGfxEntityBounds@@YAXPAUGfxEntity@@@Z
 22	0x10020cb0	present_compiled	R_UpdateEffectsBolt	gfx_d3d/r_rendercmds.cpp	0x1001f4b0	unmatched	0	no accepted full body placement
 23	0x10020cc0	present_compiled	R_UpdateEffectsNonBolt	gfx_d3d/r_rendercmds.cpp	0x1001f4c0	unmatched	0	no accepted full body placement
 24	0x10023e90	present_compiled	R_ResetEntries	gfx_d3d/r_scene.cpp	0x100225b0	accepted	57	
@@ -28,18 +28,18 @@ slot	retail_target	source_status	source_function	source_owner	linked_address	byt
 26	0x10023fd0	present_compiled	R_AddLightToScene	gfx_d3d/r_scene.cpp	0x100225f0	accepted	126	
 27	0x10001390	present_compiled	R_InterpretSunLightParseParams	gfx_d3d/r_bsp.cpp	0x10001320	accepted	62	
 28	0x10001280	present_compiled	R_ResetSunLightParseParams	gfx_d3d/r_bsp.cpp	0x10001240	unmatched	0	no accepted full body placement
-29	0x1000aac0	present_compiled	R_SetCullDist	gfx_d3d/r_dpvs.cpp	0x10007170	accepted	38	
-30	0x1000bb30	present_compiled	R_SetFog	gfx_d3d/r_fog.cpp	0x1000b630	unmatched	0	no accepted full body placement
-31	0x1000bbc0	present_compiled	R_SwitchFog	gfx_d3d/r_fog.cpp	0x1000b6c0	accepted	116	
-32	0x1000bc40	present_compiled	R_ArchiveFogState	gfx_d3d/r_fog.cpp	0x1000b740	accepted	35	
-33	0x1000bb10	present_compiled	R_ClearFogs	gfx_d3d/r_fog.cpp	0x1000b610	accepted	22	
+29	0x1000aac0	present_compiled	R_SetCullDist	gfx_d3d/r_dpvs.cpp	0x10007180	accepted	38	
+30	0x1000bb30	present_compiled	R_SetFog	gfx_d3d/r_fog.cpp	0x1000b640	unmatched	0	no accepted full body placement
+31	0x1000bbc0	present_compiled	R_SwitchFog	gfx_d3d/r_fog.cpp	0x1000b6d0	accepted	116	
+32	0x1000bc40	present_compiled	R_ArchiveFogState	gfx_d3d/r_fog.cpp	0x1000b750	accepted	35	
+33	0x1000bb10	present_compiled	R_ClearFogs	gfx_d3d/r_fog.cpp	0x1000b620	accepted	22	
 34	0x10001430	present_compiled	R_SetSunLightOverride	gfx_d3d/r_bsp.cpp	0x100013c0	accepted	42	
 35	0x10001460	present_compiled	R_ResetSunLightOverride	gfx_d3d/r_bsp.cpp	0x100013f0	accepted	39	
 36	0x100257a0	present_compiled	R_RenderScene	gfx_d3d/r_scene.cpp	0x100237d0	unmatched	0	no accepted full body placement
 37	0x10020f10	present_compiled	R_BeginDelayedDrawing	gfx_d3d/r_rendercmds.cpp	0x1001f8e0	accepted	92	
 38	0x10020f70	present_compiled	R_EndDelayedDrawing	gfx_d3d/r_rendercmds.cpp	0x1001f940	accepted	107	
 39	0x10020fe0	present_compiled	R_IssueDelayedDrawing	gfx_d3d/r_rendercmds.cpp	0x1001f9b0	accepted	91	
-40	0x1000bad0	present_compiled	R_ClearFlares	gfx_d3d/r_flares.cpp	0x1000b600	unmatched	0	no accepted full body placement
+40	0x1000bad0	present_compiled	R_ClearFlares	gfx_d3d/r_flares.cpp	0x1000b610	accepted	1	
 41	0x100216f0	present_compiled	R_AddCmdSetMaterialColor	gfx_d3d/r_rendercmds.cpp	0x1001fb70	accepted	119	
 42	0x10021100	present_compiled	R_AddCmdDrawStretchPic	gfx_d3d/r_rendercmds.cpp	0x1001fbf0	accepted	158	
 43	0x100211a0	present_compiled	R_AddCmdDrawStretchPicRotate	gfx_d3d/r_rendercmds.cpp	0x1001fc90	accepted	207	
@@ -58,33 +58,33 @@ slot	retail_target	source_status	source_function	source_owner	linked_address	byt
 56	0x10021bf0	present_compiled	R_AddCmdSetViewport	gfx_d3d/r_rendercmds.cpp	0x1001f810	accepted	98	
 57	0x10015ba0	present_compiled	R_MarkFragments	gfx_d3d/r_marks.cpp	0x10014ed0	unmatched	0	no accepted full body placement
 58	0x1001d910	present_compiled	R_ModelBounds	gfx_d3d/r_model.cpp	0x1001c970	accepted	77	
-59	0x10013260	present_compiled	R_TrackStatistics	gfx_d3d/r_init.cpp	0x10012040	unmatched	0	no accepted full body placement
+59	0x10013260	present_compiled	R_TrackStatistics	gfx_d3d/r_init.cpp	0x10012040	accepted	10	
 60	0x1002c100	present_compiled	R_PickMaterial	gfx_d3d/r_utils.cpp	0x10029f30	accepted	552	
-61	0x1000bce0	present_compiled	R_RegisterFont	gfx_d3d/r_font.cpp	0x1000b780	unmatched	0	no accepted full body placement
-62	0x1000ce60	present_compiled	R_ResetImageAllocations	gfx_d3d/r_image.cpp	0x1000c3e0	unmatched	0	no accepted full body placement
-63	0x1000ce70	present_compiled	R_FreeImageAllocations	gfx_d3d/r_image.cpp	0x1000c3f0	unmatched	0	no accepted full body placement
+61	0x1000bce0	present_compiled	R_RegisterFont	gfx_d3d/r_font.cpp	0x1000b790	unmatched	0	no accepted full body placement
+62	0x1000ce60	present_compiled	R_ResetImageAllocations	gfx_d3d/r_image.cpp	0x1000c3f0	accepted	1	
+63	0x1000ce70	present_compiled	R_FreeImageAllocations	gfx_d3d/r_image.cpp	0x1000c400	accepted	1	
 64	0x10026a50	present_compiled	R_BeginCubemapShot	gfx_d3d/r_screenshot.cpp	0x10024380	unmatched	0	call ?R_ClearForCubemapShot@@YAXXZ
 65	0x10026a70	present_compiled	R_EndCubemapShot	gfx_d3d/r_screenshot.cpp	0x100243a0	unmatched	0	no accepted full body placement
 66	0x10026a90	present_compiled	R_SaveCubemapShot	gfx_d3d/r_screenshot.cpp	0x10024640	unmatched	0	call ?R_WriteCubemapShot@@YAXHPBDMM@Z
 67	0x100270e0	present_compiled	R_LightingFromCubemapShots	gfx_d3d/r_screenshot.cpp	0x10024bc0	unmatched	0	no accepted full body placement
-68	0x10005980	present_compiled	R_LocateDebugStrings	gfx_d3d/r_debug.cpp	0x10005590	accepted	93	
-69	0x100059e0	present_compiled	R_LocateDebugLines	gfx_d3d/r_debug.cpp	0x100055f0	accepted	93	
-70	0x10005a40	present_compiled	R_AddPlume	gfx_d3d/r_debug.cpp	0x10005650	accepted	199	
-71	0x10005970	present_compiled	R_ShutdownDebug	gfx_d3d/r_debug.cpp	0x10005580	unmatched	0	no accepted full body placement
+68	0x10005980	present_compiled	R_LocateDebugStrings	gfx_d3d/r_debug.cpp	0x100055a0	accepted	93	
+69	0x100059e0	present_compiled	R_LocateDebugLines	gfx_d3d/r_debug.cpp	0x10005600	accepted	93	
+70	0x10005a40	present_compiled	R_AddPlume	gfx_d3d/r_debug.cpp	0x10005660	accepted	199	
+71	0x10005970	present_compiled	R_ShutdownDebug	gfx_d3d/r_debug.cpp	0x10005590	unmatched	0	no accepted full body placement
 72	0x10032540	present_compiled	RB_UpdateColor	gfx_d3d/rb_backend.cpp	0x1002ca60	unmatched	0	no accepted full body placement
-73	0x1000bf40	present_compiled	R_NormalizedTextScale	gfx_d3d/r_font.cpp	0x1000ba30	accepted	18	
-74	0x1000bf60	present_compiled	R_TextWidth	gfx_d3d/r_font.cpp	0x1000ba50	accepted	153	
-75	0x1000c000	present_compiled	R_TextHeight	gfx_d3d/r_font.cpp	0x1000baf0	accepted	8	
-76	0x1000c010	present_compiled	R_AddCmdDrawText	gfx_d3d/r_font.cpp	0x1000bb00	accepted	219	
+73	0x1000bf40	present_compiled	R_NormalizedTextScale	gfx_d3d/r_font.cpp	0x1000ba40	accepted	18	
+74	0x1000bf60	present_compiled	R_TextWidth	gfx_d3d/r_font.cpp	0x1000ba60	accepted	153	
+75	0x1000c000	present_compiled	R_TextHeight	gfx_d3d/r_font.cpp	0x1000bb00	accepted	8	
+76	0x1000c010	present_compiled	R_AddCmdDrawText	gfx_d3d/r_font.cpp	0x1000bb10	accepted	219	
 77	0x100213f0	present_compiled	R_AddCmdDrawTextInSpace	gfx_d3d/r_rendercmds.cpp	0x1001fee0	accepted	229	
-78	0x1000c390	present_compiled	R_ConsoleTextWidth	gfx_d3d/r_font.cpp	0x1000be10	unmatched	0	no accepted full body placement
-79	0x1000c4b0	present_compiled	R_DrawConsoleText	gfx_d3d/r_font.cpp	0x1000bed0	unmatched	0	no accepted full body placement
+78	0x1000c390	present_compiled	R_ConsoleTextWidth	gfx_d3d/r_font.cpp	0x1000be20	unmatched	0	no accepted full body placement
+79	0x1000c4b0	present_compiled	R_DrawConsoleText	gfx_d3d/r_font.cpp	0x1000bee0	unmatched	0	no accepted full body placement
 80	0x10021300	present_compiled	R_AddCmdDrawTextWithCursor	gfx_d3d/r_rendercmds.cpp	0x1001fdf0	accepted	230	
 81	0x100201b0	present_compiled	R_DObjGetSurfMaterials	gfx_d3d/r_model.cpp	0x1001c700	accepted	189	
 82	0x10020270	present_compiled	R_DObjReplaceMaterial	gfx_d3d/r_model.cpp	0x1001c8d0	accepted	160	
 83	0x10003430	present_compiled	R_ParseSunLight	gfx_d3d/r_bsp_load_obj.cpp	0x10003080	accepted	939	
 84	0x10016f30	present_compiled	Material_Duplicate	gfx_d3d/r_material.cpp	0x10015fd0	accepted	173	
-85	0x1000bdc0	present_compiled	R_DuplicateFont	gfx_d3d/r_font.cpp	0x1000b860	accepted	340	
+85	0x1000bdc0	present_compiled	R_DuplicateFont	gfx_d3d/r_font.cpp	0x1000b870	accepted	340	
 86	0x0	reserved_zero	-	-	-	not_code	0	-
 87	0x0	reserved_zero	-	-	-	not_code	0	-
 88	0x0	reserved_zero	-	-	-	not_code	0	-
@@ -105,5 +105,5 @@ slot	retail_target	source_status	source_function	source_owner	linked_address	byt
 103	0x10020dc0	present_compiled	R_AbortRenderCommands	gfx_d3d/r_rendercmds.cpp	0x10020710	accepted	73	
 104	0x10032f40	present_compiled	RB_IsGpuFenceFinished	gfx_d3d/rb_backend.cpp	0x1002c3f0	accepted	59	
 105	0x10032d80	present_compiled	RB_AdaptiveGpuSyncWait	gfx_d3d/rb_backend.cpp	0x1002c4e0	accepted	160	
-106	0x10032d70	present_compiled	RB_GpuWaited	gfx_d3d/rb_backend.cpp	0x1002c4d0	unmatched	0	no accepted full body placement
+106	0x10032d70	present_compiled	RB_GpuWaited	gfx_d3d/rb_backend.cpp	0x1002c4d0	accepted	10	
 107	0x100256c0	present_compiled	R_SetLodOrigin	gfx_d3d/r_scene.cpp	0x10021c20	accepted	212	

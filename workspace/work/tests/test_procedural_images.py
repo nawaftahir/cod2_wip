@@ -92,7 +92,7 @@ int main() {
     int cases=0;
     for(unsigned b:{0u,1u,128u,255u})for(unsigned g:{0u,63u,255u})
     for(unsigned r:{0u,127u,255u})for(unsigned a:{0u,128u,255u}) {
-        reset();Image_GenerateSolidColor(&image,b,g,r,a);
+        reset();Image_GenerateSolidColor(&image,r,g,b,a);
         assert(setup.width==1&&setup.height==1&&setup.depth==1&&setup.flags==3);
         assert(setup.format==D3DFMT_A8R8G8B8&&uploads.size()==1);
         assert(uploads[0].bytes==std::vector<byte>({byte(b),byte(g),byte(r),byte(a)}));++cases;

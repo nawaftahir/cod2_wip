@@ -1,0 +1,1 @@
+PASS: actual8192-byte lookup,lower/upper saturation,target preserved NaN exponent,last exponent and endpoint rows

@@ -597,16 +597,16 @@ void Image_Reload(GfxImage *image)
         R_Error(ERR_DROP, "failed to load image '%s'", image->name);
 }
 
-GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic);
+GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack);
 
 // PINNED 1000d200/94; also inlined in Material_FixupBinary at1001c4e0.
-GfxImage *Image_Register(const char *name, int imageTrack, int semantic)
+GfxImage *Image_Register(const char *name, int semantic, int imageTrack)
 {
     GfxImage *image = Image_FindExisting(name);
     if (image)
         return image;
     if (name[0] == '$')
-        image = Image_LoadBuiltin(name, imageTrack, (byte)semantic);
+        image = Image_LoadBuiltin(name, (byte)semantic, imageTrack);
     else
     {
         image = Image_Alloc(name, 3, semantic, imageTrack);
@@ -614,10 +614,7 @@ GfxImage *Image_Register(const char *name, int imageTrack, int semantic)
             image = 0;
     }
     if (!image)
-    {
         R_Error(ERR_DROP, "failed to load image '%s'", name);
-        return 0;
-    }
     return image;
 }
 
@@ -764,17 +761,17 @@ setDvars:
 // PINNED 1000d560/276: DX7 creates water color instead of the DX9 lookup family.
 void R_RegisterBuiltinImages()
 {
-    rgp.whiteImage = Image_Register("$white", 0, 1);
-    rgp.blackImage = Image_Register("$black", 0, 1);
+    rgp.whiteImage = Image_Register("$white", 1, 0);
+    rgp.blackImage = Image_Register("$black", 1, 0);
     if (r_rendererInUse->current.integer == 2)
-        rgp.waterColorImage = Image_Register("$watercolor", 0, 1);
+        rgp.waterColorImage = Image_Register("$watercolor", 1, 0);
     else
     {
-        rgp.identityNormalMapImage = Image_Register("$identitynormalmap", 0, 1);
-        rgp.specularityImage = Image_Register("$specularity", 0, 1);
-        rgp.lightGridWeightsImage[0] = Image_Register("$lightgridweights0", 0, 1);
-        rgp.lightGridWeightsImage[1] = Image_Register("$lightgridweights1", 0, 1);
-        rgp.lightmapWeightsImage = Image_Register("$lightmapweights", 0, 1);
+        rgp.identityNormalMapImage = Image_Register("$identitynormalmap", 1, 0);
+        rgp.specularityImage = Image_Register("$specularity", 1, 0);
+        rgp.lightGridWeightsImage[0] = Image_Register("$lightgridweights0", 1, 0);
+        rgp.lightGridWeightsImage[1] = Image_Register("$lightgridweights1", 1, 0);
+        rgp.lightmapWeightsImage = Image_Register("$lightmapweights", 1, 0);
     }
 }
 

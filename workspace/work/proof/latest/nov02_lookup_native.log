@@ -1,0 +1,2 @@
+PASS: actual8192-byte lookup,lower/upper saturation,target NaN-to-upper clamp,last exponent and endpoint rows
+PASS: water sizes, tolerances, direction, zero vector, target NaN distinction

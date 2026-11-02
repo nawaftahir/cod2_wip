@@ -144,7 +144,6 @@ gfx_d3d/rb_imagefilter.cpp	?RB_GenerateGaussianFilter2D@@YAXMHHHHPAUGfxImageFilt
 gfx_d3d/rb_imagefilter.cpp	?RB_GenerateGaussianFilterChain@@YAHMMHHHHPAUGfxImageFilterPass@@@Z	-	-	gfx_d3d/rb_imagefilter	gfx_d3d/rb_imagefilter	mac-name
 gfx_d3d/rb_state.cpp	?RB_GetActiveCodeMatrices@@YAPAUGfxCodeMatrices@@XZ	-	-	gfx_d3d/rb_state	gfx_d3d/rb_state	mac-name
 gfx_d3d/rb_shade.cpp	?RB_GetCodeImage@@YAXHPAPAUGfxImage@@PAE@Z	-	-	-	-	unknown
-gfx_d3d/rb_backend.cpp	?RB_GpuWaited@@YAXH@Z	-	-	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_light.cpp	?RB_InitLightVisHistory@@YAXPBD@Z	-	-	gfx_d3d/rb_light	gfx_d3d/rb_light	mac-name
 gfx_d3d/rb_state.cpp	?RB_InitSceneViewport@@YAXXZ	-	-	gfx_d3d/rb_state	gfx_d3d/rb_state	mac-name
 gfx_d3d/rb_state.cpp	?RB_InvalidateCodeMatrix@@YAXPAUGfxCodeMatrix@@@Z	-	-	gfx_d3d/rb_state	gfx_d3d/rb_state	mac-name
@@ -201,7 +200,6 @@ gfx_d3d/r_init.cpp	?R_EnumerateDisplayModes@@YAXI@Z	-	-	-	-	unknown
 gfx_d3d/r_staticmodel_load_obj.cpp	?R_FilterStaticModelIntoCells_r@@YAXPAUGfxWorld@@PAUmnode_t@@PAUGfxStaticModelInstance@@PBM3@Z	-	-	gfx_d3d/r_staticmodel_load_obj	gfx_d3d/r_staticmodel_load_obj	mac-name
 gfx_d3d/r_model.cpp	?R_FinishLoadingModels@@YAXXZ	-	-	gfx_d3d/r_model	gfx_d3d/r_model	mac-name
 gfx_d3d/r_buffers.cpp	?R_FinishStaticVertexBuffer@@YAXPAX@Z	-	-	gfx_d3d/r_buffers	gfx_d3d/r_buffers	mac-name
-gfx_d3d/r_image.cpp	?R_FreeImageAllocations@@YAXXZ	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_buffers.cpp	?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z	-	-	gfx_d3d/r_buffers	gfx_d3d/r_buffers	mac-name
 gfx_d3d/r_buffers.cpp	?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z	-	-	gfx_d3d/r_buffers	gfx_d3d/r_buffers	mac-name
 gfx_d3d/r_dpvs.cpp	?R_FurthestPointOnWinding@@YANPAY02$$CBMHPBM@Z	-	-	-	-	unknown
@@ -209,7 +207,6 @@ gfx_d3d/r_rendercmds.cpp	?R_GetCommandBuffer@@YAPAUGfxCmdHeader@@HH@Z	-	-	-	-	un
 gfx_d3d/r_rendertarget.cpp	?R_GetDesktopExtent@@YAXPAH0@Z	-	-	-	-	unknown
 gfx_d3d/r_image.cpp	?R_GetImageList@@YAXPAUImageList@@@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_init.cpp	?R_GetMaterialHashTable@@YAPAPAUMaterial@@XZ	-	-	-	-	unknown
-gfx_d3d/r_image.cpp	?R_GetMinSpecImageMemory@@YAHXZ	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_rendertarget.cpp	?R_InitCookieRenderTarget@@YAXHPAUGfxRenderTarget@@@Z	-	-	-	-	unknown
 gfx_d3d/r_rendertarget.cpp	?R_InitFullscreenRenderTargetImage@@YAXHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z	-	-	gfx_d3d/r_rendertarget	gfx_d3d/r_rendertarget	mac-name
 gfx_d3d/r_bsp.cpp	?R_InitWorldDynamicData@@YAXXZ	-	-	-	-	unknown
@@ -244,7 +241,6 @@ gfx_d3d/r_model.cpp	?R_SkinXSurfaceRigidDx7@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@
 gfx_d3d/r_model.cpp	?R_SkinXSurfaceSkinned@@YAXPAUGfxModelSkinnedSurface@@PBUDObjSkelMat_s@@@Z	-	-	-	-	unknown
 gfx_d3d/r_shadowcookie.cpp	?R_SortShadowCandidates@@YAXPAUShadowCandidate@@@Z	-	-	-	-	unknown
 gfx_d3d/r_rendercmds.cpp	?R_SyncRenderThread@@YAXXZ	-	-	gfx_d3d/r_rendercmds	gfx_d3d/r_rendercmds	mac-name
-gfx_d3d/r_init.cpp	?R_TrackStatistics@@YAXPAUtrStatistics_t@@@Z	-	-	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_model.cpp	?R_TransformRigidVertex@@YAXPBUDObjSkelMat_s@@PBM111PAUGfxVertex@@@Z	-	-	-	-	unknown
 gfx_d3d/r_model.cpp	?R_TransformRigidVertexDx7@@YAXPBUDObjSkelMat_s@@PBM1PAUGfxVertexDx7@@@Z	-	-	-	-	unknown
 gfx_d3d/r_skin_transform.cpp	?R_TransformSkelPosition@@YAXPBUDObjSkelMat_s@@PBMPAM@Z	-	-	-	-	unknown
@@ -459,7 +455,7 @@ gfx_d3d/r_dpvs.cpp	?R_AddWorldSurfacesDpvs@@YAXPBUGfxViewParms@@H@Z	1000a8d0	pin
 gfx_d3d/r_dpvs.cpp	?R_GetFarPlaneDist@@YAMXZ	1000aa60	bind	gfx_d3d/r_dpvs	gfx_d3d/r_dpvs	mac-name
 gfx_d3d/r_dpvs.cpp	?R_SetCullDist@@YAXM@Z	1000aac0	bind	gfx_d3d/r_dpvs	gfx_d3d/r_dpvs	mac-name
 gfx_d3d/r_dvars.cpp	?R_RegisterDvars@@YAXXZ	1000aaf0	bind	gfx_d3d/r_dvars	gfx_d3d/r_dvars	mac-name
-gfx_d3d/r_flares.cpp	?R_ClearFlares@@YAXXZ	1000bad0	pinned	gfx_d3d/r_flares	gfx_d3d/r_flares	mac-name
+gfx_d3d/r_flares.cpp	?R_ClearFlares@@YAXXZ	1000bad0	bind	gfx_d3d/r_flares	gfx_d3d/r_flares	mac-name
 gfx_d3d/r_fog.cpp	?R_ClearFogs@@YAXXZ	1000bb10	bind	gfx_d3d/r_fog	gfx_d3d/r_fog	mac-name
 gfx_d3d/r_fog.cpp	?R_SwitchFog@@YAXHHH@Z	1000bbc0	bind	gfx_d3d/r_fog	gfx_d3d/r_fog	mac-name
 gfx_d3d/r_fog.cpp	?R_ArchiveFogState@@YAXPAUMemoryFile@@@Z	1000bc40	bind	gfx_d3d/r_fog	gfx_d3d/r_fog	mac-name
@@ -478,6 +474,7 @@ gfx_d3d/r_image.cpp	?I_max@@YAHHH@Z	1000c790	bind	-	-	unknown
 gfx_d3d/r_image.cpp	?Image_IsCodeTrack@@YAEH@Z	1000c7c0	bind	-	-	unknown
 gfx_d3d/r_image.cpp	?R_AddImageToList@@YAXPAUGfxImage@@PAX@Z	1000c7e0	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?R_GetImageMemory@@YAXPAUImage_MemUsage@@@Z	1000c820	bind	-	gfx_d3d/r_image	interval
+gfx_d3d/r_image.cpp	?R_GetMinSpecImageMemory@@YAHXZ	1000c8d0	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_Release@@YAXPAUGfxImage@@@Z	1000c910	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_GetPlatformScreenWidth@@YAHH@Z	1000c9b0	bind	-	gfx_d3d/r_image	interval
 gfx_d3d/r_image.cpp	?Image_GetPlatformScreenHeight@@YAHH@Z	1000c9c0	bind	-	gfx_d3d/r_image	interval
@@ -486,7 +483,8 @@ gfx_d3d/r_image.cpp	?Image_GetAvailableHashLocation@@YAHPBD@Z	1000cb40	bind	-	gf
 gfx_d3d/r_image.cpp	?Image_Alloc@@YAPAUGfxImage@@PBDHHH@Z	1000cc10	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_IsCodeImage@@YA_NPBUGfxImage@@@Z	1000cc80	bind	-	gfx_d3d/r_image	interval
 gfx_d3d/r_image.cpp	?R_ShutdownImages@@YAXXZ	1000cd10	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
-gfx_d3d/r_image.cpp	?R_ResetImageAllocations@@YAXXZ	1000ce60	pinned	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
+gfx_d3d/r_image.cpp	?R_ResetImageAllocations@@YAXXZ	1000ce60	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
+gfx_d3d/r_image.cpp	?R_FreeImageAllocations@@YAXXZ	1000ce70	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z	1000ce80	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_Create3DTexture@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z	1000cf00	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image.cpp	?Image_CreateCubeTexture@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@W4_D3DPOOL@@@Z	1000cf90	bind	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
@@ -548,7 +546,7 @@ gfx_d3d/r_image_load_obj.cpp	?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z	10010
 gfx_d3d/r_image_load_obj.cpp	?Image_GenerateSunHalfAngle@@YAXPAUGfxImage@@@Z	100107b0	hit	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?Image_WaterColorForDirection@@YAXPBMHPAE@Z	100107e0	hit	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?Image_GenerateWaterColor@@YAXPAUGfxImage@@EEE@Z	10010850	pinned	-	gfx_d3d/r_image_load_obj	interval
-gfx_d3d/r_image_load_obj.cpp	?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHE@Z	100108a0	pinned	-	gfx_d3d/r_image_load_obj	interval
+gfx_d3d/r_image_load_obj.cpp	?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHH@Z	100108a0	hit	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z	10010b30	bind	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image_wavelet.cpp	?Wavelet_ConsumeBits@@YAXGPAUWaveletDecode@@@Z	10010ba0	bind	-	-	unknown
 gfx_d3d/r_image_wavelet.cpp	?Wavelet_DecodeValue@@YAHPBUWaveletHuffmanDecode@@GHPAUWaveletDecode@@@Z	10010c00	bind	-	-	unknown
@@ -595,6 +593,7 @@ gfx_d3d/r_init.cpp	?R_Init@@YAXXZ	10012f80	hit	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_Shutdown@@YAXH@Z	10013080	hit	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_init.cpp	?R_BeginRegistration@@YAXPAUvidConfig_t@@@Z	10013190	hit	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_init.cpp	?R_EndView@@YAXH@Z	10013200	bind	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
+gfx_d3d/r_init.cpp	?R_TrackStatistics@@YAXPAUtrStatistics_t@@@Z	10013260	bind	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_init.cpp	_GetRefAPI	10013270	bind	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
 gfx_d3d/r_init.cpp	?R_ResetDevice@@YAXXZ	10013690	pinned	-	gfx_d3d/r_init	interval
 gfx_d3d/r_init.cpp	?R_RecoverLostDevice@@YAEXZ	100137f0	pinned	gfx_d3d/r_init	gfx_d3d/r_init	mac-name
@@ -1025,8 +1024,8 @@ gfx_d3d/rb_backend.cpp	?RB_SetShadowCookieCmd@@YAXPAUGfxRenderCommandExecState@@
 gfx_d3d/rb_backend.cpp	?RB_SetStencilRefValueCmd@@YAXPAUGfxRenderCommandExecState@@@Z	1002fa50	hit	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_StencilPlanesCmd@@YAXPAUGfxRenderCommandExecState@@@Z	1002faf0	pinned	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_SetClipPlanesCmd@@YAXPAUGfxRenderCommandExecState@@@Z	1002fd60	pinned	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
-gfx_d3d/rb_backend.cpp	?RB_ClearScreen@@YAXEPBMME@Z	1002fe70	hit	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
-gfx_d3d/rb_backend.cpp	?RB_ClearScreenCmd@@YAXPAUGfxRenderCommandExecState@@@Z	1002ff50	hit	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
+gfx_d3d/rb_backend.cpp	?RB_ClearScreen@@YAXEPBMME@Z	1002fe70	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
+gfx_d3d/rb_backend.cpp	?RB_ClearScreenCmd@@YAXPAUGfxRenderCommandExecState@@@Z	1002ff50	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_DrawResolvedChannelDebug@@YAXXZ	1002ff80	pinned	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_DrawFrameColorDebug@@YAXXZ	10030190	pinned	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_DrawFloatZDebug@@YAXXZ	100302b0	pinned	-	gfx_d3d/rb_backend	interval
@@ -1069,6 +1068,7 @@ gfx_d3d/rb_backend.cpp	?RB_DrawTextInSpaceCmd@@YAXPAUGfxRenderCommandExecState@@
 gfx_d3d/rb_backend.cpp	?RB_IsGpuFinished@@YAEXZ	10032ca0	bind	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?R_FinishGpuFence@@YAXXZ	10032cd0	bind	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?R_InsertGpuFence@@YAXXZ	10032d10	bind	-	gfx_d3d/rb_backend	interval
+gfx_d3d/rb_backend.cpp	?RB_GpuWaited@@YAXH@Z	10032d70	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_AdaptiveGpuSyncWait@@YAXXZ	10032d80	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_AdaptiveGpuSyncTarget@@YAXXZ	10032e20	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_AdaptiveGpuSyncFinal@@YAXXZ	10032e80	bind	-	gfx_d3d/rb_backend	interval

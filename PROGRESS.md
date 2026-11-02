@@ -1,5 +1,36 @@
 # Renderer progress
 
+## Image/API verification checkpoint - 2026-11-02
+
+C++112112/253580=44.211688619%,679 bodies: +29B/+6 existing callbacks
+newly verified through the actual GetRefAPI pointer stores. All2422 prior
+extents retained; both gates ratcheted to2428. API64/98 accepted,34 unmatched.
+34 assembly-bearing bodies/8149B excluded, unchanged. No new algorithm body
+accepted. This is a small verification gain, not a reconstruction breakthrough.
+
+Short callback placement is limited to real relocated API MOV stores, exact
+known retail starts/extents <=12B and unchanged byte/binding checks. An
+independent replay of the previous unmodified referee with those API-pinned
+candidate addresses accepts exactly the same set.12 removal negatives pass.
+
+Image interface/callers now use semantic then imageTrack; solid/water color
+helpers use RGB arguments while preserving BGRA pixels. Corrected specular
+PI precision and loop order from target evidence. Image_LoadBuiltin519B now
+matches instructions but remains UNCOUNTED because shared callees do not bind.
+Specular lookup and Image_Register remain unmatched; rejected clamp/helper/
+water probes are documented in target/work/ATTEMPTS.md. Retail preserves NaN;
+no NaN behavior fix is claimed.
+
+Cost:10 original builds, one reused output, zero workers; token meter unavailable.
+This was poor matching yield.11 verifier fixtures, eight final image fixtures,
+original-referee replay and verified-only snapshot check pass. No full-suite
+repeat or fresh normalized-span audit. Raw same-offset12.915741237%, separate
+from source coverage; whole SHA and GPU smoke unfinished. Root src/ remains
+seven verified-only snapshots/39 matches; active source target/work/src/.
+Receipt: target/work/proof/nov02_image_api_checkpoint.json. No push or goal pause.
+Next: use the fixed graph and recorded residuals; do not repeat rejected
+specular clamp helper/std::min/max or water operand-order probes.
+
 ## Small screen-clear checkpoint - 2026-11-02
 
 Verified C++112083/253580=44.200252386%,673 bodies. Added255B/+2 bodies:

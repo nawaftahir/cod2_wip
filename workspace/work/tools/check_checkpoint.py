@@ -150,6 +150,9 @@ required.update(accepted(callback_match_1))
 clear_log = Path(__file__).resolve().parents[1] / 'proof/clear_log_warm_bind.json'
 assert hashlib.sha256(clear_log.read_bytes()).hexdigest() == '7bef6675fc2343bcde64b6a0f6e6975b6d03aef8d35aa7eee9fbf423935e35f8'
 required.update(accepted(clear_log))
+api_short_callbacks = Path(__file__).resolve().parents[1] / 'proof/api_short_callbacks_warm_bind.json'
+assert hashlib.sha256(api_short_callbacks.read_bytes()).hexdigest() == '4160b4d788f441f843755d5cdc2057a3400ccf80927816d632aa31e770bf8ed5'
+required.update(accepted(api_short_callbacks))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

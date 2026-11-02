@@ -1,0 +1,62 @@
+[
+  {
+    "removed": "0x1000c8d0",
+    "gate": "check_checkpoint.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x1000c8d0",
+    "gate": "regression.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x1000bad0",
+    "gate": "check_checkpoint.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x1000bad0",
+    "gate": "regression.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x1000ce60",
+    "gate": "check_checkpoint.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x1000ce60",
+    "gate": "regression.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x1000ce70",
+    "gate": "check_checkpoint.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x1000ce70",
+    "gate": "regression.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x10013260",
+    "gate": "check_checkpoint.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x10013260",
+    "gate": "regression.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x10032d70",
+    "gate": "check_checkpoint.py",
+    "exit": 1
+  },
+  {
+    "removed": "0x10032d70",
+    "gate": "regression.py",
+    "exit": 1
+  }
+]

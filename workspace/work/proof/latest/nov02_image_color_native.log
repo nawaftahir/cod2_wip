@@ -1,0 +1,7 @@
+RUN test_image_registration.py
+PASS: 92 actual builtin/file/cache image routes, semantic narrowing, identity alpha, allocation and error ownership
+RUN test_procedural_images.py
+PASS: 134 actual procedural image routes, BGRA, L8, six axes, texel centers, guards and submap forwarding
+RUN test_water_color.py
+PASS: 54 actual watercolor routes, packed BGRA, normalized Fresnel input, alpha rounding and callback binding
+PASS: three color/image fixtures

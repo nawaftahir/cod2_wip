@@ -373,7 +373,7 @@
 {
 "name": "?R_LoadWorldInternal@@YAPAUGfxWorld@@PBD@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1293,
+"size": 1298,
 "hits": []
 },
 {
@@ -1415,7 +1415,7 @@
 {
 "name": "?Image_Register@@YAPAUGfxImage@@PBDHH@Z",
 "obj": "r_image.obj",
-"size": 93,
+"size": 91,
 "hits": []
 },
 {
@@ -1435,7 +1435,7 @@
 {
 "name": "?R_RegisterBuiltinImages@@YAXXZ",
 "obj": "r_image.obj",
-"size": 264,
+"size": 274,
 "hits": []
 },
 {
@@ -1922,10 +1922,12 @@
 "hits": []
 },
 {
-"name": "?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHE@Z",
+"name": "?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHH@Z",
 "obj": "r_image_load_obj.obj",
-"size": 549,
-"hits": []
+"size": 519,
+"hits": [
+"0x100108a0"
+]
 },
 {
 "name": "?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z",
@@ -3892,7 +3894,7 @@
 {
 "name": "?Material_FixupBinary@@YA_NPAUMaterial@@H@Z",
 "obj": "r_material_load_obj.obj",
-"size": 600,
+"size": 599,
 "hits": []
 },
 {

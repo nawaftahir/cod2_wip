@@ -1,0 +1,4 @@
+PASS: actual8192-byte lookup,lower/upper saturation,target preserved NaN exponent,last exponent and endpoint rows
+test: <stdin>:50: int main(): Assertion `nanExponents==31*256' failed.
+PASS: exponent observation rejects the incorrect intermediate NaN-to-upper variant
+PASS: target float-PI/720 confirmed [{'instruction': '0x100293b4', 'constant': '0x1019be08', 'bytes': 'abaaaaaa46df713f', 'value': 0.004363323251406352}]

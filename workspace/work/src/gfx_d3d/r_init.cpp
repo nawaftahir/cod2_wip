@@ -927,7 +927,7 @@ void R_GammaCorrect(int bufferSize, byte *buffer)
         buffer[index] = (byte)(gammaTable.entries[buffer[index]] * 255 / 65535);
 }
 
-GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+GfxImage *Image_Register(const char *name, int semantic, int imageTrack);
 GfxImage *Image_AllocProg(int imageProgType, int category);
 void R_SetPicmip();
 void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);

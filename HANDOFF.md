@@ -1,3 +1,15 @@
+# Latest image/API checkpoint - 2026-11-02
+
+Read PROGRESS.md and target/work/proof/nov02_image_api_checkpoint.json first.
+C++44.211688619%,679 bodies; +29B from six existing short callbacks newly
+verified using real API pointer stores. Original unchanged referee replay
+accepts exactly the same set.2428 protected extents;64/98 API bodies accepted.
+Image_LoadBuiltin519 instruction bytes match but remain uncredited pending
+callee bindings. No new algorithm body accepted.10 original builds; failed
+math/helper/water probes recorded in target/work/ATTEMPTS.md, do not repeat.
+Active source target/work/src/; root src/ unchanged seven verified-only files.
+No whole-SHA/GPU claim, no goal pause. Earlier status sections are historical.
+
 # Latest small checkpoint - 2026-11-02
 
 Read PROGRESS.md and proof/nov02_clear_checkpoint.json first. C++44.200252386%,

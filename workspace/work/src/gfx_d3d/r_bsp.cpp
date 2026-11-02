@@ -210,7 +210,7 @@ GfxWorld *R_LoadWorldInternal(const char *name);
 void R_FlushSun();
 void R_ResetShadowCookies();
 void R_InitStaticModelIndexCache();
-GfxImage *Image_Register(const char *name, int imageTrack, int semantic);
+GfxImage *Image_Register(const char *name, int semantic, int imageTrack);
 
 typedef char loadWorldChecksumCheck[offsetof(GfxWorld, checksum) == 0x154 ? 1 : -1];
 
@@ -228,5 +228,5 @@ void R_LoadWorld(const char *name, int *checksum)
     R_InitStaticModelIndexCache();
     R_InitWorldDynamicData();
     if (r_rendererInUse->current.integer == 2)
-        rgp.sunHalfAngleImage = Image_Register("$sunhalfangle", 0, 1);
+        rgp.sunHalfAngleImage = Image_Register("$sunhalfangle", 1, 0);
 }

@@ -168,6 +168,25 @@ def masked_eq(va, t, n):
                 mask.update(range(ins.address - va + ins.size - 4, ins.address - va + ins.size))
     return all(code[k] == tcode[k] for k in range(n) if k not in mask)
 
+def api_pointer_places(code, tcode, va, t, orel, arel):
+    """GetRefAPI stores absolute callback pointers into its writable table."""
+    proposals = {}
+    for ins in md.disasm(code, va):
+        k = ins.address - va
+        if ins.size != 10 or ins.bytes[:2] != b'\xc7\x05' or tcode[k:k + 2] != b'\xc7\x05':
+            continue
+        if not all(va + k + off in orel and t + k + off in arel for off in (2, 6)):
+            continue
+        od = int.from_bytes(code[k + 2:k + 6], 'little')
+        td = int.from_bytes(tcode[k + 2:k + 6], 'little')
+        if secname(osecs, od) != '.data' or secname(asecs, td) != '.data':
+            continue
+        ov = int.from_bytes(code[k + 6:k + 10], 'little')
+        tv = int.from_bytes(tcode[k + 6:k + 10], 'little')
+        proposals.setdefault(ov, set()).add(tv)
+    return {ov: next(iter(tv)) for ov, tv in proposals.items() if len(tv) == 1}
+
+
 changed = True
 while changed and multi:
     changed = False
@@ -176,6 +195,14 @@ while changed and multi:
         if va is None:
             continue
         code, tcode = read(osecs, va, r['size']), read(asecs, t, r['size'])
+        if n == '_GetRefAPI':
+            sizes = {int(f['addr'], 16): f['size'] for f in glm}
+            for ot, tt in api_pointer_places(code, tcode, va, t, orel, arel).items():
+                m = multi.get(ot)
+                if (m and m['name'] not in cands and m['size'] <= 12
+                        and sizes.get(tt) == m['size'] and masked_eq(ot, tt, m['size'])):
+                    cands[m['name']] = dict(m, hits=[hex(tt)])
+                    changed = True
         for ins in instructions(md, code, va, orelocbytes):
             if ins.bytes[0] in (0xe8, 0xe9) and ins.size == 5 and not overlaps_reloc(ins.address, ins.size, orelocbytes):
                 ot = ins.address + 5 + int.from_bytes(ins.bytes[1:], 'little', signed=True)

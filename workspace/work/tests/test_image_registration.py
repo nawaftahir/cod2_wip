@@ -43,7 +43,7 @@ GfxImage *Image_Alloc(const char *name,int category,int semantic,int track) {
     assert(semantic==(name[0]=='$'?(byte)expectedSemantic:expectedSemantic));++allocations;return &allocated;
 }
 void mark(GfxImage *image,int id){assert(image==&allocated&&allocations==1&&!generator);generator=id;}
-void Image_GenerateSolidColor(GfxImage *image,byte b,byte g,byte r,byte a) {
+void Image_GenerateSolidColor(GfxImage *image,byte r,byte g,byte b,byte a) {
     if(!strcmp(expectedName,"$white")){assert(b==255&&g==255&&r==255&&a==255);mark(image,1);}
     else if(!strcmp(expectedName,"$black")){assert(!b&&!g&&!r&&a==255);mark(image,2);}
     else {assert(!strcmp(expectedName,"$identitynormalmap")&&b==255&&g==128&&r==128&&a==128);mark(image,3);}
@@ -52,7 +52,7 @@ void Image_GenerateSpecularity(GfxImage *i){mark(i,4);}
 void R_CreateOutdoorImage(GfxImage *i){mark(i,5);}
 void Image_LoadLightmapWeights(GfxImage *i){mark(i,6);}
 void Image_GenerateLightGridWeights(GfxImage *i,int sub){assert(sub==(!strcmp(expectedName,"$lightgridweights1")));mark(i,7+sub);}
-void Image_GenerateWaterColor(GfxImage *i,byte b,byte g,byte r){assert(b==77&&g==64&&r==51);mark(i,9);}
+void Image_GenerateWaterColor(GfxImage *i,byte r,byte g,byte b){assert(b==77&&g==64&&r==51);mark(i,9);}
 void Image_GenerateSunHalfAngle(GfxImage *i){mark(i,10);}
 void Com_Printf(const char *format,...) {
     assert(!strcmp(format,"ERROR: Unknown built-in image '%s'"));
@@ -72,7 +72,7 @@ int main() {
     int cases=0;
     for(int index=0;index<10;++index)for(int track:{5,700})for(int semantic:{-1,1,257}) {
         reset(names[index]);expectedTrack=track;expectedSemantic=semantic;hit=false;
-        assert(Image_Register(names[index],track,semantic)==&allocated);
+        assert(Image_Register(names[index],semantic,track)==&allocated);
         assert(lookups==1&&allocations==1&&generator==index+1&&!errors&&!logs&&!fileLoads);++cases;
     }
     for(const char *name:{"file","","$white","$unknown"})for(int cache=0;cache<2;++cache)
@@ -80,7 +80,7 @@ int main() {
         reset(name);expectedTrack=5;expectedSemantic=257;hit=cache;loadSuccess=success;throwError=throws;
         bool failure=!hit&&((name[0]=='$'&&strcmp(name,"$white"))||(name[0]!='$'&&!loadSuccess));
         bool threw=false;GfxImage *result=0;
-        try{result=Image_Register(name,5,257);}catch(const std::runtime_error&){threw=true;}
+        try{result=Image_Register(name,257,5);}catch(const std::runtime_error&){threw=true;}
         assert(threw==(failure&&throwError)&&errors==int(failure)&&lookups==1);
         if(!threw)assert(result==(hit?&cached:failure?0:&allocated));
         assert(allocations==(!hit&&(name[0]!='$'||!strcmp(name,"$white"))));

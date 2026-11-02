@@ -64,7 +64,7 @@ const char *Material_RegisterString(const char *name) {
     if(replaceConstants&&!strcmp(name,"constant")){replaceConstants=false;m->constants=alternateConstants;}
     return failIntern==name?0:name;
 }
-GfxImage *Image_Register(const char *name,int track,int semantic) {
+GfxImage *Image_Register(const char *name,int semantic,int track) {
     assert(!strcmp(name,"image")&&track==expectedTrack&&semantic!=5);++images;
     return imageFail?0:&image;
 }

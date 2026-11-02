@@ -57,7 +57,7 @@ void Image_GenerateSpecularity(GfxImage *image)
 }
 
 // PINNED 100100f0/102: the four bytes reach the texture in BGRA order.
-void Image_GenerateSolidColor(GfxImage *image, byte blue, byte green, byte red, byte alpha)
+void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, byte alpha)
 {
     byte pixel[4];
     pixel[0] = blue;
@@ -456,7 +456,7 @@ void Image_WaterColorForDirection(const float *direction, int color, byte *pixel
 }
 
 // PINNED 10010850/70: the callback receives packed color by value, not a stack pointer.
-void Image_GenerateWaterColor(GfxImage *image, byte blue, byte green, byte red)
+void Image_GenerateWaterColor(GfxImage *image, byte red, byte green, byte blue)
 {
     byte pixels[6 * 16 * 16 * 4];
     byte color[4];
@@ -471,7 +471,7 @@ void R_CreateOutdoorImage(GfxImage *image);
 void Com_Printf(const char *format, ...);
 
 // PINNED 100108a0/519: unknown builtins return null before allocating an image.
-GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic)
+GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack)
 {
     GfxImage *image;
     if (!strcmp(name, "$white"))
@@ -489,7 +489,7 @@ GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic)
     if (!strcmp(name, "$identitynormalmap"))
     {
         image = Image_Alloc(name, 1, semantic, imageTrack);
-        Image_GenerateSolidColor(image, 255, 128, 128, 128);
+        Image_GenerateSolidColor(image, 128, 128, 255, 128);
         return image;
     }
     if (!strcmp(name, "$specularity"))
@@ -525,7 +525,7 @@ GfxImage *Image_LoadBuiltin(const char *name, int imageTrack, byte semantic)
     if (!strcmp(name, "$watercolor"))
     {
         image = Image_Alloc(name, 1, semantic, imageTrack);
-        Image_GenerateWaterColor(image, 77, 64, 51);
+        Image_GenerateWaterColor(image, 51, 64, 77);
         return image;
     }
     if (!strcmp(name, "$sunhalfangle"))

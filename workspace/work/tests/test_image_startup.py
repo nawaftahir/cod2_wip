@@ -37,7 +37,7 @@ struct {struct {int integer;} current;} renderer;
 const decltype(renderer) *r_rendererInUse=&renderer;
 std::vector<std::string> registrations;
 int samplers,picmip,rawAlloc,errorAt,overrideRenderer;bool changeWhite;
-GfxImage *Image_Register(const char *name,int track,int semantic) {
+GfxImage *Image_Register(const char *name,int semantic,int track) {
     assert(!track&&semantic==1&&samplers==0&&!rawAlloc);
     registrations.push_back(name);int index=registrations.size();
     if(index==errorAt)throw std::runtime_error("expected image error");

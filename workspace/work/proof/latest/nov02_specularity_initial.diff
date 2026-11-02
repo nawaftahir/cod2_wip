@@ -1,0 +1,83 @@
+?Image_BuildSpecularityMap@@YAXMPAE@Z 0x100100f0 277
+--- ours
++++ retail
+@@ -18,14 +18,12 @@
+ fmul dword ptr [A]
+ fadd dword ptr [esp + 0x30]
+-fld st(0)
+-fcomp qword ptr [A]
+-fnstsw ax
+-test ah, 5
+-jnp A
+-fld st(0)
+ fld qword ptr [A]
+ fcomp st(1)
+ fnstsw ax
+-fstp st(0)
++test ah, 0x41
++je A
++fld qword ptr [A]
++fcomp st(1)
++fnstsw ax
+ test ah, 5
+ jp A
+@@ -33,9 +31,9 @@
+ fld qword ptr [A]
+ jmp A
+-fld st(0)
+-fcomp qword ptr [A]
++fld qword ptr [A]
++fcomp st(1)
+ fnstsw ax
+-test ah, 5
+-jp A
++test ah, 0x41
++jne A
+ fstp st(0)
+ fld qword ptr [A]
+@@ -53,11 +51,8 @@
+ fyl2x 
+ fdivp st(1)
+-xor edi, edi
++xor esi, esi
+ fstp qword ptr [esp + 0x18]
+-lea esi, [ebx + ebp]
+-mov dword ptr [esp + 0x10], edi
+-jmp A
+-lea esp, [esp]
+-mov edi, edi
++mov dword ptr [esp + 0x10], esi
++lea edi, [ebx + ebp]
+ fild dword ptr [esp + 0x10]
+ fmul dword ptr [A]
+@@ -70,9 +65,9 @@
+ fistp dword ptr [esp + 0x14]
+ mov al, byte ptr [esp + 0x14]
+-mov byte ptr [esi], al
+-add esi, 0x20
+-inc edi
+-cmp edi, 0x100
+-mov dword ptr [esp + 0x10], edi
++inc esi
++mov byte ptr [edi], al
++add edi, 0x20
++cmp esi, 0x100
++mov dword ptr [esp + 0x10], esi
+ jl A
+ inc ebx
+@@ -86,2 +81,15 @@
+ add esp, 0x1c
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++push esi
++xor dl, dl
++mov eax, A
