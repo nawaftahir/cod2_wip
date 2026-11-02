@@ -1,0 +1,8 @@
+{
+  "target": "0x1002fe70",
+  "log_address": "0x10197f40",
+  "expected_log": "dx.device->Clear( 0, 0, clearFlags, nativeColor.packed, depth, stencil )\n",
+  "prior_source_sha256": "f794cd57ce5f9de842216191be5bcc82a7e073a4e2083fb76edaf06c9aba057f",
+  "current_source_sha256": "f7a43a613dfd743a36694e06d0bace8359601b18e728458381400f52944e17d5",
+  "review": "Only RB_ClearScreen color local and stringized member spelling changed; all assembly text unchanged"
+}

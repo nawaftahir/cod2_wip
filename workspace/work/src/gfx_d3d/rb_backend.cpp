@@ -174,11 +174,9 @@ void RB_ClearScreen(byte whichToClear, const float *color, float depth, byte ste
 	viewport.height = dxState.renderTargetHeight;
 	RB_SetViewport(&viewport);
 	backEnd.viewportIsDirty = 1;
-	byte nativeColor[4];
-	DWORD packedColor;
-	R_QuantizeCachedColor(color, nativeColor);
-	packedColor = *(DWORD *)nativeColor;
-	R_DX_CALL(dx.device->Clear( 0, 0, clearFlags, packedColor, depth, stencil ));
+	union { DWORD packed; byte array[4]; } nativeColor;
+	R_QuantizeCachedColor(color, nativeColor.array);
+	R_DX_CALL(dx.device->Clear( 0, 0, clearFlags, nativeColor.packed, depth, stencil ));
 }
 
 // PINNED 1002ff50: advance using the possibly updated execution-state pointer.

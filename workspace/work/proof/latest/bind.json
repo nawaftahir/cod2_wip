@@ -3115,17 +3115,13 @@
 "t": "0x1002fe70",
 "n": 211,
 "obj": "rb_backend.obj",
-"why": [
-"data ??_C@_0ED@IPABLLIN@dx?4device?9?$DOClear?$CI?50?0?50?0?5clearFla@"
-]
+"why": []
 },
 "?RB_ClearScreenCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
 "t": "0x1002ff50",
 "n": 44,
 "obj": "rb_backend.obj",
-"why": [
-"call ?RB_ClearScreen@@YAXEPBMME@Z"
-]
+"why": []
 },
 "?RB_IsGpuFinished@@YAEXZ": {
 "t": "0x10032ca0",

@@ -1,8 +1,8 @@
 {
-  "functions": 705,
-  "bytes": 119977,
+  "functions": 707,
+  "bytes": 120232,
   "total": 253580,
-  "percent": 47.31327391750138,
+  "percent": 47.41383389857244,
   "baseline_lost": [],
   "gains": [
     {
@@ -1107,6 +1107,18 @@
       "target": "0x1002eb90",
       "bytes": 18,
       "name": "?RB_ReturnCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002fe70",
+      "bytes": 211,
+      "name": "?RB_ClearScreen@@YAXEPBMME@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x1002ff50",
+      "bytes": 44,
+      "name": "?RB_ClearScreenCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
       "object": "rb_backend.obj"
     },
     {

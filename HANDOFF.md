@@ -1,3 +1,10 @@
+# Latest small checkpoint - 2026-11-02
+
+Read PROGRESS.md and proof/nov02_clear_checkpoint.json first. C++44.200252386%,
+673 bodies; +255B clear/helper command.2422 protected extents,58/98 API bodies
+accepted. One original build, no assembly changes or new roots. Prior material
+matching residuals below still apply; no goal pause or completion claim.
+
 # Current: callback matching underway - 2026-11-02
 
 Read PROGRESS.md first and proof/nov02_callback_match_checkpoint.json.

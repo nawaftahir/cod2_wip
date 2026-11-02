@@ -2986,3 +2986,15 @@ new case. Candidate600 vs retail603 still differs substantially in register
 allocation/control flow; size proximity is not acceptance. Material loader183
 vs171, image-register93 vs94 remain unmatched. Save these real source fixes
 without fake credit; avoid repeating the rejected /Os probes.
+
+## 2026-11-02: small clear-log checkpoint
+
+PINNED push at1002fefb references10197f40: retail log uses
+"dx.device->Clear( 0, 0, clearFlags, nativeColor.packed, depth, stencil )\n".
+Restore a four-byte local color union instead of array+separate DWORD. Both
+instructions and diagnostic data now match: Clear211 and command44 accepted.
+All2420 previous extents pass, ratchet2422, four removal negatives pass.
+Backend source hash re-reviewed for this function-only delta; existing asm
+unchanged. An early attribution run correctly rejected pending build timestamps;
+only the post-build passing attribution is checkpoint evidence. One build, no
+full-suite repeat, no GPU/whole-SHA claim. Total C++112083B/44.200252386%.

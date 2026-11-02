@@ -1,5 +1,20 @@
 # Renderer progress
 
+## Small screen-clear checkpoint - 2026-11-02
+
+Verified C++112083/253580=44.200252386%,673 bodies. Added255B/+2 bodies:
+RB_ClearScreen211 and RB_ClearScreenCmd44. All2420 previous extents retained;
+ratchet now2422, with both new removals rejected by both gates.34 assembly
+bodies/8149B remain excluded. API callback count stays58 accepted/40 unmatched.
+
+Retail's clear log names nativeColor.packed. Restored the four-byte local
+color union and its exact stringized expression; the prior instructions
+already matched but the diagnostic string prevented acceptance. One original
+build, both referees, log/old-spelling negative, source attribution/six assembly
+negatives, linked API and verified-only snapshot checks pass. No full-suite or
+fresh normalized-span audit repeated. SHA/GPU unfinished. Root src/ unchanged.
+Receipt: target/work/proof/nov02_clear_checkpoint.json. Matching remains active.
+
 ## Callback matching batch1 - 2026-11-02
 
 Verified C++111828/253580=44.099692405%,671 bodies (+212B/+1). API callbacks

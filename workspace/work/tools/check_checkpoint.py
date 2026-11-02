@@ -147,6 +147,9 @@ required.update(accepted(api59_graph))
 callback_match_1 = Path(__file__).resolve().parents[1] / 'proof/callback_match_1_warm_bind.json'
 assert hashlib.sha256(callback_match_1.read_bytes()).hexdigest() == 'ead94b4984133ef52ea12f5354e5fcbae6c37a6de63e1de1d9861a9a87bd8b16'
 required.update(accepted(callback_match_1))
+clear_log = Path(__file__).resolve().parents[1] / 'proof/clear_log_warm_bind.json'
+assert hashlib.sha256(clear_log.read_bytes()).hexdigest() == '7bef6675fc2343bcde64b6a0f6e6975b6d03aef8d35aa7eee9fbf423935e35f8'
+required.update(accepted(clear_log))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

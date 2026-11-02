@@ -177,6 +177,10 @@ callback_match_1 = gfx / 'target/work/proof/callback_match_1_warm_bind.json'
 assert hashlib.sha256(callback_match_1.read_bytes()).hexdigest() == 'ead94b4984133ef52ea12f5354e5fcbae6c37a6de63e1de1d9861a9a87bd8b16'
 required.update({va: row for va, row in accepted(callback_match_1).items()
                  if va in old or '@std@@' not in row['name']})
+clear_log = gfx / 'target/work/proof/clear_log_warm_bind.json'
+assert hashlib.sha256(clear_log.read_bytes()).hexdigest() == '7bef6675fc2343bcde64b6a0f6e6975b6d03aef8d35aa7eee9fbf423935e35f8'
+required.update({va: row for va, row in accepted(clear_log).items()
+                 if va in old or '@std@@' not in row['name']})
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]
