@@ -339,3 +339,4 @@ lay: dropping 'static' from static __forceinline helpers in one .cpp is a no-op 
   XAnimCreateTree, so rejected (contradicts evidence). Clue: retail sees the size address as a separate pointer value.
   FX_CalcOriginAndAxis: Mac cylinder forms (FX=bc/bw) identical to base, 172.
 - 11-03 PAID +4 (agent fr11, inl_notes "First-ref rule (agent 11-03)"): client BG_GetSpeed squares as v[1]*v[1] + v[0]*v[0] (with the sm2_cv5 cgArray stand-in) gives CG_CalcViewValues retail term order, 0 lines; spelling HYPOTHESIS. Total 1,698,963 / 1,699,840. CursorHint/GrenadePointer/XAnimCalc: nothing new to try.
+- 11-03 DEAD (agent fx11, inl_notes "FX slots (agent 11-03)"): FX_CalcOriginAndAxis width-before-height 215, height*flrand 215, block-local height 414 (frame 0x4c), both block-local 414, reused GetVal 206, block-local width 172 (=base). Slot reorders by statement/scope do not fix it.
