@@ -83,5 +83,22 @@
   - HTMLPDTD.c: 0x576440 (between HTTPReq.c and HTMerge.c)
   - HTMulti.c: 0x5775b0 (between HTLog.c and HTNewsRq.c)
   All 95 TUs placed in tus.txt in this exact order. Ratchet: +1051 bytes (114607 -> 115658).
+- PINNED (libwww compiled without /GL):
+  Inspection of retail function prologues in `HTReqMan` at 0x547f20 showed standard `__cdecl` stack passing
+  (`push 0x11c; push 1; call HTMemory_calloc`) rather than fastcall register passing. Stock libwww was
+  shipped to Infinity Ward as a precompiled static library built without `/GL`. Removing `/GL` from
+  `WFLAGS` in `target/Makefile` restored exact COFF opcode generation across all 95 TUs, jumping the
+  same-offset score from 115,658 to 137,627 (+21,969 bytes gained in one step).
+- PINNED (Infinity Ward libwww extensions & `qcommon/dl_main.cpp`):
+  Infinity Ward extended libwww with several custom helpers:
+  - `HTFTP.c`/`HTFTP.h`: `HTFTP_setRawBytesCount(HTRequest *request)` at 0x54bc00 and
+    `HTFTP_getDNetRawBytesCount(HTRequest *request)` at 0x54bc30.
+  - `HTEvtLst.c`/`HTEvtLst.h`: `HTEventList_init(HTRequest *request)` at 0x54ec90 and
+    `HTEventList_pump(void)` at 0x54eca0 (pumps Win32 MSG loop via PeekMessage).
+  - `HTAABrow.c`/`HTAABrow.h`: `HTBasic_new` and `basic_credentials` made `PUBLIC`.
+  Reconstructed `qcommon/dl_main.cpp` and `dl_main.h` containing all 13 functions (`DL_VPrintf`,
+  `terminate_handler`, `HTAlertCallback_progress`, `HTAlertCallback_confirm`, `HTAlertCallback_prompt`,
+  `DL_CancelDownload`, `DL_InitDownload`, `DL_Shutdown`, `DL_BeginDownload(local, remote)`,
+  `DL_BeginDownload(remote)` for MOTD, `DL_DownloadLoop`, `DL_InProgress`, `DL_DLIsMotd`).
 
 
