@@ -2,7 +2,7 @@
 
 Goal: C/C++ source that recompiles with the original compiler to the retail Call of Duty 2 **1.3**
 multiplayer client, byte for byte. This worktree (`~/cod2/test/dev/claude_client13`, branch
-`client-1.3`) is YOURS. The 1.0 client (`~/cod2/test/dev/claude_client`, branch `master`) is
+`client-1.3`) is run by the main Claude session (owner, 11-04). The 1.0 client (`~/cod2/test/dev/claude_client`, branch `master`) is
 finished separately by the main session: never touch it, its `lab/` slots or `cod2engine/`.
 
 Target: `../cod2engineold/binaries/windows/1.3/CoD2MP_s.exe` (read only), built 2006-05-02,
