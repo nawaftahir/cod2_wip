@@ -18,7 +18,7 @@ $(OUT) all:
 	@mkdir -p build && python3 ../rsrc.py $(ANCHOR) build/cod2mp.ico
 	@mkdir -p build/lib && cp -p $(DXSDK)/Lib/d3d9.lib build/lib/d3d9.lib
 	@gcc -m32 -shared -fPIC -O2 -o build/guidpin.so guidpin.c
-	docker run --rm -v $(CURDIR):/w -w /w $(IMAGE) sh -c 'make -j$$(nproc) -k IN_IMAGE=1 $(OUT); s=$$?; chown -R $(shell id -u):$(shell id -g) build; exit $$s'
+	docker run --rm -v $(CURDIR):/w -v $(CURDIR)/src:/builds/pc_1.3_1_1/pc/cod2src -w /w $(IMAGE) sh -c 'make -j$$(nproc) -k IN_IMAGE=1 $(OUT); s=$$?; chown -R $(shell id -u):$(shell id -g) build; exit $$s'
 
 measure: all
 	python3 ../cmp.py $(OUT) build/CoD2MP_s.map $(ANCHOR) build/cmp.json >/dev/null
@@ -30,7 +30,7 @@ measure: all
 release:
 	@mkdir -p build && python3 ../rsrc.py $(ANCHOR) build/cod2mp.ico
 	@mkdir -p build/lib && cp -p $(DXSDK)/Lib/d3d9.lib build/lib/d3d9.lib
-	docker run --rm -v $(CURDIR):/w -w /w $(IMAGE) sh -c 'make -j$$(nproc) -k IN_IMAGE=1 $(REL); s=$$?; chown -R $(shell id -u):$(shell id -g) build; exit $$s'
+	docker run --rm -v $(CURDIR):/w -v $(CURDIR)/src:/builds/pc_1.3_1_1/pc/cod2src -w /w $(IMAGE) sh -c 'make -j$$(nproc) -k IN_IMAGE=1 $(REL); s=$$?; chown -R $(shell id -u):$(shell id -g) build; exit $$s'
 	@sha256sum $(REL) $(ANCHOR)
 
 check: release
@@ -87,6 +87,19 @@ build/obj/%.obj: src/%.c
 	@$(deps)
 
 IMPLIBS := build/lib/mss32.lib build/lib/d3d9.lib
+
+# libwww TUs: __FILE__ must render exactly \builds\pc_1.3_1_1\pc\cod2src\... (retail strings),
+# so cl gets the drive-relative source arg and a cmd batch that first parks the DOS cwd on that drive.
+WCL      := wine cmd /c
+CLDOS    := Z:/opt/msvc710/Vc7/bin/cl.exe
+WFLAGS   := /nologo /c /O2 /GL /MT /DNDEBUG /DWIN32 /D_WINDOWS /I\builds\pc_1.3_1_1\pc\cod2src\libwww\Library\src
+
+build/obj/libwww/%.obj: src/libwww/%.c src/libwww/Library/src/windows/config.h
+	@mkdir -p $(dir $@)
+	@printf '%s\r\n' '@echo off' 'cd \builds\pc_1.3_1_1\pc' \
+		'$(subst /,\,$(CLDOS)) $(WFLAGS) $(call tuflags,libwww/$*.c) /showIncludes /Fo$(subst /,\,Z:/w/$@) \builds\pc_1.3_1_1\pc\cod2src\$(subst /,\,libwww/$*.c)' \
+		> $@.bat
+	@$(WCL) '$(subst /,\,Z:/w/$@.bat)' > $@.log 2>&1 || (grep -v including $@.log; rm -f $@; false)
 LIBS   := winmm.lib wsock32.lib $(call win,$(IMPLIBS)) dsound.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib libcmt.lib
 
 build/lib/%.lib: src/lib/%.def src/lib/impname.pl

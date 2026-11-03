@@ -77,10 +77,10 @@
 /* #undef HT_MYSQL */
 
 /* Define to enable expat XML parser. */
-#define HT_EXPAT 1
+/* #undef HT_EXPAT */
 
 /* Define to enable Zlib compression / decompression support. */
-#define HT_ZLIB 1
+/* #undef HT_ZLIB */
 
 /* Define to enable POSIX RegEx support. */
 /* HT_POSIX_REGEX: off, the 1.3 client has no regex code */
