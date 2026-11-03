@@ -20,7 +20,7 @@ static dvar_t *fs_basegame;
 static dvar_t *fs_useOldAssets;
 dvar_t *fs_cdpath;
 dvar_t *fs_copyfiles;
-static dvar_t *fs_gameDirVar;
+dvar_t *fs_gameDirVar;
 dvar_t *fs_restrict;
 dvar_t *fs_ignoreLocalized;
 

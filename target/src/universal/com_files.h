@@ -226,6 +226,7 @@ extern dvar_t *fs_cdpath;
 extern dvar_t *fs_basepath;
 extern dvar_t *fs_homepath;
 extern dvar_t *fs_restrict;
+extern dvar_t *fs_gameDirVar;
 extern searchpath_t *fs_searchpaths;
 extern fileHandleData_t fsh[MAX_FILE_HANDLES];
 extern int fs_checksumFeed;

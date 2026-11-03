@@ -151,6 +151,7 @@ stringed/stringed_interface.cpp
 oc/win32/cinematics.cpp
 oc/client_mp/cl_main_pc_mp.cpp
 oc/client_mp/cl_ui_pc_mp.cpp
+qcommon/dl_main.cpp /I.\\libwww\\Library\\src /D_WINDOWS
 oc/win32/snd_driver.cpp
 server/sv_main_pc_mp.cpp
 oc/win32/win_voice.cpp

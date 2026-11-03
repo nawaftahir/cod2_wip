@@ -92,7 +92,7 @@ IMPLIBS := build/lib/mss32.lib build/lib/d3d9.lib
 # so cl gets the drive-relative source arg and a cmd batch that first parks the DOS cwd on that drive.
 WCL      := wine cmd /c
 CLDOS    := Z:/opt/msvc710/Vc7/bin/cl.exe
-WFLAGS   := /nologo /c /O2 /GL /MT /DNDEBUG /DWIN32 /D_WINDOWS /I\builds\pc_1.3_1_1\pc\cod2src\libwww\Library\src
+WFLAGS   := /nologo /c /O2 /MT /DNDEBUG /DWIN32 /D_WINDOWS /I\builds\pc_1.3_1_1\pc\cod2src\libwww\Library\src
 
 build/obj/libwww/%.obj: src/libwww/%.c src/libwww/Library/src/windows/config.h
 	@mkdir -p $(dir $@)

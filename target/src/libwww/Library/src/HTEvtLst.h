@@ -24,4 +24,6 @@ extern BOOL HTEventTerminate (void);
 extern int HTEventList_newLoop (void);
 extern int HTEventList_loop (HTRequest * request);
 extern void HTEventList_stopLoop (void);
+extern int HTEventList_init (HTRequest * request);
+extern int HTEventList_pump (void);
 #endif /* HTEVTLST_H */

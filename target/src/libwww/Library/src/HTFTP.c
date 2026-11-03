@@ -1613,3 +1613,19 @@ PUBLIC FTPControlMode HTFTP_controlMode (void)
 {
     return g_FTPControlMode;
 }
+
+PUBLIC void HTFTP_setRawBytesCount (HTRequest * request)
+{
+    HTNet * net = HTRequest_net(request);
+    ftp_ctrl * ctrl = (ftp_ctrl *) HTNet_context(net);
+    HTNet_setRawBytesCount(ctrl->dnet, YES);
+    HTNet_setRawBytesCount(ctrl->cnet, YES);
+}
+
+PUBLIC long HTFTP_getDNetRawBytesCount (HTRequest * request)
+{
+    HTNet * net = HTRequest_net(request);
+    ftp_ctrl * ctrl = (ftp_ctrl *) HTNet_context(net);
+    return HTNet_bytesRead(ctrl->dnet);
+}
+

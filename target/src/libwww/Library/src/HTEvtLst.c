@@ -615,6 +615,27 @@ PUBLIC void HTEventList_stopLoop (void)
     HTEndLoop = 1;
 }
 
+PUBLIC int HTEventList_init (HTRequest * theRequest)
+{
+    HTEndLoop = 0;
+    return 0;
+}
+
+PUBLIC int HTEventList_pump (void)
+{
+    MSG msg;
+    if (!HTEndLoop) {
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+            return 1;
+        }
+    }
+    HTTRACE(PROT_TRACE, "Exiting pump loop: %d\n" _ HTEndLoop);
+    HTEndLoop = 0;
+    return 0;
+}
+
 /*
 **  There are now two versions of the event loop. The first is if you want
 **  to use async I/O on windows, and the other is if you want to use normal

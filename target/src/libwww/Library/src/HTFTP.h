@@ -39,4 +39,8 @@ typedef enum _FTPControlMode {
 
 extern FTPControlMode HTFTP_controlMode (void);
 extern void HTFTP_setControlMode (FTPControlMode mode);
+
+extern void HTFTP_setRawBytesCount (HTRequest * request);
+extern long HTFTP_getDNetRawBytesCount (HTRequest * request);
+
 #endif

@@ -74,13 +74,6 @@
 #define DIGEST_AI       "authentication-info"
 #define PROXY_DIGEST_AI "proxy-authentication-info"
 
-typedef struct _HTBasic {		  /* Basic challenge and credentials */
-    char *	uid;
-    char *	pw;
-    BOOL	retry;			    /* Should we ask the user again? */
-    BOOL	proxy;				     /* Proxy authentication */
-} HTBasic;
-
 typedef struct _HTDigest {		 /* Digest challenge and credentials */
   /* digest info can be shared by one or more UT entries */
     int         references;              
@@ -186,7 +179,7 @@ PRIVATE int prompt_user (HTRequest * request, const char * realm,
     return HT_OK;
 }
 
-PRIVATE HTBasic * HTBasic_new()
+PUBLIC HTBasic * HTBasic_new(void)
 {
     HTBasic * me = NULL;
     if ((me = (HTBasic *) HT_CALLOC(1, sizeof(HTBasic))) == NULL)
@@ -221,7 +214,7 @@ PUBLIC int HTBasic_delete (void * context)
 **	The function can both create normal and proxy credentials
 **	Returns	HT_OK or HT_ERROR
 */
-PRIVATE BOOL basic_credentials (HTRequest * request, HTBasic * basic)
+PUBLIC BOOL basic_credentials (HTRequest * request, HTBasic * basic)
 {
     if (request && basic) {
 	char * cleartext = NULL;

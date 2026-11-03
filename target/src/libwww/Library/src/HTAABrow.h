@@ -6,6 +6,17 @@
 #define HTAABROW_H
 #include "HTUTree.h"
 #include "HTNet.h"
+
+typedef struct _HTBasic {		  /* Basic challenge and credentials */
+    char *	uid;
+    char *	pw;
+    BOOL	retry;			    /* Should we ask the user again? */
+    BOOL	proxy;				     /* Proxy authentication */
+} HTBasic;
+
+extern HTBasic * HTBasic_new (void);
+extern BOOL basic_credentials (HTRequest * request, HTBasic * basic);
+
 extern HTNetBefore	HTBasic_generate;
 extern HTNetAfter 	HTBasic_parse;
 extern HTUTree_gc	HTBasic_delete;
