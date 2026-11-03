@@ -6,9 +6,9 @@
 IMAGE  := cod2-msvc71-vs2003-ft
 OUT    := build/CoD2MP_s.exe
 REL    := build/release/CoD2MP_s.exe
-ANCHOR ?= ../../cod2engineold/binaries/windows/1.0/CoD2MP_s.exe
-# retail CodeView PDB GUID {6CEB0951-BCF5-4A4F-9E5B-D3394FBBD38F} in exe byte order; guidpin.c feeds it to UuidCreate
-PDB_GUID := 5109eb6cf5bc4f4a9e5bd3394fbbd38f
+ANCHOR ?= ../../cod2engineold/binaries/windows/1.3/CoD2MP_s.exe
+# retail 1.3 CodeView PDB GUID in exe byte order (1.0 was 5109eb6c...); guidpin.c feeds it to UuidCreate
+PDB_GUID := d63b22ed86b6044d8f11e90a07d878f0
 # retail Direct3DCreate9 import hint is 9 = Summer/Oct 2004 d3d9.lib (dec2004 gives 10)
 DXSDK  ?= ../../sdk/sum2004
 
@@ -114,11 +114,11 @@ $(OUT): $(OBJS) $(IMPLIBS) build/cod2mp.res src/tus.txt
 
 $(REL): $(OBJS) $(IMPLIBS) build/cod2mp.res src/tus.txt Makefile
 	@mkdir -p $(dir $@)
-	@mkdir -p "$$(winepath -u 'c:\builds\crc6_v1\pc\cod2\pc')"
+	@mkdir -p "$$(winepath -u 'c:\builds\pc_1.3_1_1\pc\cod2\pc')"
 	@printf '%s\n' $(call win,$(OBJS)) > build/objs.rsp
-	wineserver -k 2>/dev/null; export FAKETIME='2005-10-07 02:19:36' GUIDPIN=$(PDB_GUID) LD_PRELOAD="$(wildcard /usr/lib/*/faketime/libfaketime.so.1) $(CURDIR)/build/guidpin.so"; $(LINK) $(subst /FIXED:NO,/FIXED,$(subst build\\CoD2MP_s.map,build\\release\\CoD2MP_s.map,$(LFLAGS))) /DEBUG '/PDB:c:\builds\crc6_v1\pc\cod2\pc\CoD2MP_s.pdb' /OUT:$(call win,$@) @build\\objs.rsp build\\cod2mp.res $(LIBS) > build/release/link.log 2>&1 || { tail -10 build/release/link.log; exit 1; }
+	wineserver -k 2>/dev/null; export FAKETIME='2006-05-02 00:09:51' GUIDPIN=$(PDB_GUID) LD_PRELOAD="$(wildcard /usr/lib/*/faketime/libfaketime.so.1) $(CURDIR)/build/guidpin.so"; $(LINK) $(subst /FIXED:NO,/FIXED,$(subst build\\CoD2MP_s.map,build\\release\\CoD2MP_s.map,$(LFLAGS))) /DEBUG '/PDB:c:\builds\pc_1.3_1_1\pc\cod2\pc\CoD2MP_s.pdb' /OUT:$(call win,$@) @build\\objs.rsp build\\cod2mp.res $(LIBS) > build/release/link.log 2>&1 || { tail -10 build/release/link.log; exit 1; }
 	@! grep -E 'LNK2001|LNK2019|fatal error' build/release/link.log
-	@perl postlink.pl $@
-	@cp "$$(winepath -u 'c:\builds\crc6_v1\pc\cod2\pc\CoD2MP_s.pdb')" build/release/CoD2MP_s.pdb
+	@: 1.0-only postlink (mixerGetRecordLevel 0x4b5b09) disabled for 1.3
+	@cp "$$(winepath -u 'c:\builds\pc_1.3_1_1\pc\cod2\pc\CoD2MP_s.pdb')" build/release/CoD2MP_s.pdb
 
 endif
