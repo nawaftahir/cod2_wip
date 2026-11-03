@@ -58,4 +58,30 @@
   `\builds\pc_1.3_1_1\pc\cod2src\libwww\Library\src\HTxxx.c` (drive-relative, no drive letter).
   Plan: inside the docker image create `<root>/builds/pc_1.3_1_1/pc/cod2src` symlink to
   /w/target/src and pass the drive-relative path; test with one TU first.
+- PINNED (libwww 95 TUs exact retail link order):
+  By disassembly inspection of code bodies, string pointers, and static tables in retail
+  0x547f20-0x57a640, every single one of the 19 libwww TUs missing __FILE__ path strings
+  was located and pinned to its exact retail slot:
+  - HTTrace.c: 0x54e540 (between HTInit.c and HTEvtLst.c)
+  - HTProfil.c: 0x54eeb0 (between HTEvtLst.c and HTAccess.c)
+  - HTMemory.c: 0x550e80 (between HTAccess.c and HTAlert.c)
+  - HTLib.c: 0x555e50 (between HTAtom.c and HTResponse.c)
+  - HTStream.c: 0x5593e0 (between HTEvent.c and HTFormat.c)
+  - HTTCP.c: 0x55b160 (between HTUser.c and HTFTPDir.c)
+  - HTUU.c: 0x55ca90 (between HTBind.c and HTAAUtil.c)
+  - HTMethod.c: 0x55e5e7 (between HTWWWStr.c and HTRules.c)
+  - HTFilter.c: 0x567150 (between HTTChunk.c and HTPEP.c)
+  - HTHeader.c: 0x567990 (between HTPEP.c and HTDialog.c)
+  - HTDialog.c: 0x567ca0 (between HTHeader.c and HTANSI.c)
+  - HTTelnet.c: 0x569760 (between HTWriter.c and HTFile.c)
+  - HTMIMImp.c: 0x56d020 (between HTIcons.c and HTTimer.c)
+  - HTBInit.c: 0x56e9e0 (between HTInet.c and HTHInit.c)
+  - HTHInit.c: 0x56f7d0 (between HTBInit.c and HTProxy.c)
+  - HTDigest.c: 0x572a40 (between HTDir.c and md5.c)
+  - md5.c: 0x572ac0 (between HTDigest.c and HTLocal.c)
+  - HTLocal.c: 0x573610 (between md5.c and HTNDir.c)
+  - HTMLPDTD.c: 0x576440 (between HTTPReq.c and HTMerge.c)
+  - HTMulti.c: 0x5775b0 (between HTLog.c and HTNewsRq.c)
+  All 95 TUs placed in tus.txt in this exact order. Ratchet: +1051 bytes (114607 -> 115658).
+
 
