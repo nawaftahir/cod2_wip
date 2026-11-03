@@ -30,6 +30,12 @@ Same toolchain as 1.0 (MSVC 7.1 /O2 /GL, link /LTCG, Wine in docker image `cod2-
 4. Append what you learned to `NOTES_1.3.md`: what paid (+bytes), what did not, and why. Tag facts
    PINNED (measured), SUPPORTED (a reference agrees) or HYPOTHESIS (never ship on it alone).
 
+## Baseline (2026-11-03, commit 42513f0)
+Whole file same-offset 101,687 / 1,970,176 = 5.16% (`ratchet13.best`). Ours .text vsize 1,427,773 vs
+retail 1,645,581: about 218 KB of 1.3 code is still MISSING, so everything after the first gap is
+shifted and the % stays low until the missing code is in. Early on, judge progress by .text size
+closing on retail plus the ratchet number.
+
 ## Where the bytes are (best first)
 - **1.3 code that 1.0 does not have**: the Linux 1.3 server diff (`../cod2engine/archive/lnxded-1.3/README.md`
   "Source" lists it: protocol 118, 128 KB MAX_MSGLEN, LargeLocal buffers, 32-bit fragment offsets, voice size
