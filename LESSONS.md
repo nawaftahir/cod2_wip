@@ -338,3 +338,4 @@ lay: dropping 'static' from static __forceinline helpers in one .cpp is a no-op 
   spills to [esp+0x10] like retail) but it needs the XAnimCreateTree body hand-inlined in both loops; Mac 1.3 calls
   XAnimCreateTree, so rejected (contradicts evidence). Clue: retail sees the size address as a separate pointer value.
   FX_CalcOriginAndAxis: Mac cylinder forms (FX=bc/bw) identical to base, 172.
+- 11-03 PAID +4 (agent fr11, inl_notes "First-ref rule (agent 11-03)"): client BG_GetSpeed squares as v[1]*v[1] + v[0]*v[0] (with the sm2_cv5 cgArray stand-in) gives CG_CalcViewValues retail term order, 0 lines; spelling HYPOTHESIS. Total 1,698,963 / 1,699,840. CursorHint/GrenadePointer/XAnimCalc: nothing new to try.
