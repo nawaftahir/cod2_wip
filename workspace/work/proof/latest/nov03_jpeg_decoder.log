@@ -1,0 +1,1 @@
+PASS: actual JPEG decoder baseline/progressive, BGR expansion, grayscale/CMYK rejection, both size limits, missing files, guards and allocation ownership

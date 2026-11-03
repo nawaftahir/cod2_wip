@@ -207,7 +207,7 @@ int R_CullPointAndRadius(const vec_t *origin, float radius,
     for (int i = 0; i < planeCount; ++i)
     {
         const float *plane = planes[i].coeffs;
-        float distance = origin[1] * plane[1] + plane[2] * origin[2]
+        float distance = plane[1] * origin[1] + plane[2] * origin[2]
             + plane[0] * origin[0] + plane[3];
         if (distance < -radius)
             return 2;

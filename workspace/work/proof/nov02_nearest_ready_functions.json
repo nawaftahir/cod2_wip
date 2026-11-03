@@ -1,0 +1,569 @@
+[
+  {
+    "name": "R_InitRenderCmds",
+    "target": "0x10020b50",
+    "retail_bytes": 126,
+    "changed_lines": 8,
+    "tu": "gfx_d3d/r_rendercmds.cpp"
+  },
+  {
+    "name": "R_PrepareStaticModelLightingCache",
+    "target": "0x1002a780",
+    "retail_bytes": 223,
+    "changed_lines": 10,
+    "tu": "gfx_d3d/r_staticmodel_load_obj.cpp"
+  },
+  {
+    "name": "Material_CacheShaderText",
+    "target": "0x1001c7f0",
+    "retail_bytes": 173,
+    "changed_lines": 10,
+    "tu": "gfx_d3d/r_material_load_obj.cpp"
+  },
+  {
+    "name": "R_GetModelEntityBounds",
+    "target": "0x100084c0",
+    "retail_bytes": 161,
+    "changed_lines": 10,
+    "tu": "gfx_d3d/r_dpvs.cpp"
+  },
+  {
+    "name": "R_AddClearCommandsForFrameBuffer",
+    "target": "0x100249c0",
+    "retail_bytes": 97,
+    "changed_lines": 10,
+    "tu": "gfx_d3d/r_scene.cpp"
+  },
+  {
+    "name": "RB_SetVertex3D",
+    "target": "0x1002e550",
+    "retail_bytes": 229,
+    "changed_lines": 12,
+    "tu": "gfx_d3d/rb_backend.cpp"
+  },
+  {
+    "name": "Image_GenerateCube",
+    "target": "0x1000fbd0",
+    "retail_bytes": 86,
+    "changed_lines": 12,
+    "tu": "gfx_d3d/r_image_load_obj.cpp"
+  },
+  {
+    "name": "R_CopyCachedSurfaceIndices",
+    "target": "0x1002b790",
+    "retail_bytes": 82,
+    "changed_lines": 12,
+    "tu": "gfx_d3d/r_staticmodelcache.cpp"
+  },
+  {
+    "name": "Image_BuildWaterMap",
+    "target": "0x1000d0f0",
+    "retail_bytes": 74,
+    "changed_lines": 12,
+    "tu": "gfx_d3d/r_image_load_obj.cpp"
+  },
+  {
+    "name": "R_CullPointAndRadius",
+    "target": "0x1002c060",
+    "retail_bytes": 71,
+    "changed_lines": 12,
+    "tu": "gfx_d3d/r_utils.cpp"
+  },
+  {
+    "name": "RB_GetGlowRadii",
+    "target": "0x100305d0",
+    "retail_bytes": 212,
+    "changed_lines": 14,
+    "tu": "gfx_d3d/rb_backend.cpp"
+  },
+  {
+    "name": "R_RenderSceneDebugShader",
+    "target": "0x10024f60",
+    "retail_bytes": 217,
+    "changed_lines": 16,
+    "tu": "gfx_d3d/r_scene.cpp"
+  },
+  {
+    "name": "RB_InsertGridVisLog",
+    "target": "0x10035bd0",
+    "retail_bytes": 111,
+    "changed_lines": 16,
+    "tu": "gfx_d3d/rb_light.cpp"
+  },
+  {
+    "name": "R_GenerateOutdoorLookup",
+    "target": "0x10020950",
+    "retail_bytes": 201,
+    "changed_lines": 18,
+    "tu": "gfx_d3d/r_outdoor.cpp"
+  },
+  {
+    "name": "RB_CalcSunBlindGlare",
+    "target": "0x1003bda0",
+    "retail_bytes": 352,
+    "changed_lines": 20,
+    "tu": "gfx_d3d/rb_sky.cpp"
+  },
+  {
+    "name": "RB_DrawSunSpriteForView",
+    "target": "0x1003bf00",
+    "retail_bytes": 87,
+    "changed_lines": 20,
+    "tu": "gfx_d3d/rb_sky.cpp"
+  },
+  {
+    "name": "RB_SetMaterialTime",
+    "target": "0x1002f2a0",
+    "retail_bytes": 140,
+    "changed_lines": 22,
+    "tu": "gfx_d3d/rb_backend.cpp"
+  },
+  {
+    "name": "R_GetSurfaceSortGroup",
+    "target": "0x100027c0",
+    "retail_bytes": 113,
+    "changed_lines": 22,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "RB_SetVertex4D",
+    "target": "0x1002e640",
+    "retail_bytes": 255,
+    "changed_lines": 24,
+    "tu": "gfx_d3d/rb_backend.cpp"
+  },
+  {
+    "name": "R_StoreWindowSettings",
+    "target": "0x100115f0",
+    "retail_bytes": 190,
+    "changed_lines": 24,
+    "tu": "gfx_d3d/r_init.cpp"
+  },
+  {
+    "name": "R_AddPointLightSurfaces",
+    "target": "0x10014d90",
+    "retail_bytes": 184,
+    "changed_lines": 24,
+    "tu": "gfx_d3d/r_light.cpp"
+  },
+  {
+    "name": "R_GetRigidTransform",
+    "target": "0x1001ee70",
+    "retail_bytes": 399,
+    "changed_lines": 26,
+    "tu": "gfx_d3d/r_model.cpp"
+  },
+  {
+    "name": "RB_SetLitVertex4D",
+    "target": "0x1002e740",
+    "retail_bytes": 270,
+    "changed_lines": 26,
+    "tu": "gfx_d3d/rb_backend.cpp"
+  },
+  {
+    "name": "RB_ScreenRadiusToWorld",
+    "target": "0x1003f930",
+    "retail_bytes": 120,
+    "changed_lines": 26,
+    "tu": "gfx_d3d/rb_tess.cpp"
+  },
+  {
+    "name": "R_SetupDpvsForPoint",
+    "target": "0x1000a3c0",
+    "retail_bytes": 389,
+    "changed_lines": 28,
+    "tu": "gfx_d3d/r_dpvs.cpp"
+  },
+  {
+    "name": "RB_DrawRawSurface",
+    "target": "0x1002f110",
+    "retail_bytes": 331,
+    "changed_lines": 28,
+    "tu": "gfx_d3d/rb_backend.cpp"
+  },
+  {
+    "name": "R_AddCmdLightProperties",
+    "target": "0x10021770",
+    "retail_bytes": 195,
+    "changed_lines": 28,
+    "tu": "gfx_d3d/r_rendercmds.cpp"
+  },
+  {
+    "name": "RB_ProjectParticleCloudAxis",
+    "target": "0x10040d40",
+    "retail_bytes": 161,
+    "changed_lines": 28,
+    "tu": "gfx_d3d/rb_tess.cpp"
+  },
+  {
+    "name": "R_InitFrameBackendData",
+    "target": "0x10021040",
+    "retail_bytes": 143,
+    "changed_lines": 28,
+    "tu": "gfx_d3d/r_rendercmds.cpp"
+  },
+  {
+    "name": "RB_SetVertex2D",
+    "target": "0x1002e470",
+    "retail_bytes": 217,
+    "changed_lines": 30,
+    "tu": "gfx_d3d/rb_backend.cpp"
+  },
+  {
+    "name": "RB_SetFilterConstants",
+    "target": "0x100353c0",
+    "retail_bytes": 110,
+    "changed_lines": 30,
+    "tu": "gfx_d3d/rb_imagefilter.cpp"
+  },
+  {
+    "name": "RB_GetEntityAtlasCoords",
+    "target": "0x1003f620",
+    "retail_bytes": 145,
+    "changed_lines": 34,
+    "tu": "gfx_d3d/rb_tess.cpp"
+  },
+  {
+    "name": "R_SaveJpg",
+    "target": "0x10014670",
+    "retail_bytes": 713,
+    "changed_lines": 36,
+    "tu": "gfx_d3d/r_jpeg.cpp"
+  },
+  {
+    "name": "R_GetShadowLightAxis",
+    "target": "0x100271b0",
+    "retail_bytes": 220,
+    "changed_lines": 36,
+    "tu": "gfx_d3d/r_shadowcookie.cpp"
+  },
+  {
+    "name": "SMC_AllocCachedSurface",
+    "target": "0x1002acd0",
+    "retail_bytes": 215,
+    "changed_lines": 36,
+    "tu": "gfx_d3d/r_staticmodelcache.cpp"
+  },
+  {
+    "name": "R_SetupWindowParms",
+    "target": "0x10012b90",
+    "retail_bytes": 133,
+    "changed_lines": 36,
+    "tu": "gfx_d3d/r_init.cpp"
+  },
+  {
+    "name": "RB_GetNearestGridColors",
+    "target": "0x10036320",
+    "retail_bytes": 121,
+    "changed_lines": 36,
+    "tu": "gfx_d3d/rb_light.cpp"
+  },
+  {
+    "name": "RB_SetRenderTarget",
+    "target": "0x1003ea30",
+    "retail_bytes": 480,
+    "changed_lines": 38,
+    "tu": "gfx_d3d/rb_state.cpp"
+  },
+  {
+    "name": "R_RenderSceneDepth",
+    "target": "0x10024a90",
+    "retail_bytes": 456,
+    "changed_lines": 40,
+    "tu": "gfx_d3d/r_scene.cpp"
+  },
+  {
+    "name": "RB_IsGridPointVisible",
+    "target": "0x10035ac0",
+    "retail_bytes": 271,
+    "changed_lines": 40,
+    "tu": "gfx_d3d/rb_light.cpp"
+  },
+  {
+    "name": "RB_SetVertexShaderArguments",
+    "target": "0x100393b0",
+    "retail_bytes": 226,
+    "changed_lines": 42,
+    "tu": "gfx_d3d/rb_shade.cpp"
+  },
+  {
+    "name": "R_FinishStaticModelLightingCache",
+    "target": "0x1002a860",
+    "retail_bytes": 214,
+    "changed_lines": 42,
+    "tu": "gfx_d3d/r_staticmodel_load_obj.cpp"
+  },
+  {
+    "name": "R_RenderSceneFullbright",
+    "target": "0x10024d90",
+    "retail_bytes": 451,
+    "changed_lines": 44,
+    "tu": "gfx_d3d/r_scene.cpp"
+  },
+  {
+    "name": "RB_DrawSurfTechnique",
+    "target": "0x1002f330",
+    "retail_bytes": 187,
+    "changed_lines": 44,
+    "tu": "gfx_d3d/rb_backend.cpp"
+  },
+  {
+    "name": "RB_DrawGridCellBox",
+    "target": "0x100359c0",
+    "retail_bytes": 142,
+    "changed_lines": 46,
+    "tu": "gfx_d3d/rb_light.cpp"
+  },
+  {
+    "name": "R_CalculateWorldBounds",
+    "target": "0x10002840",
+    "retail_bytes": 246,
+    "changed_lines": 48,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "Material_CreateShader",
+    "target": "0x1001a4c0",
+    "retail_bytes": 705,
+    "changed_lines": 54,
+    "tu": "gfx_d3d/r_material_load_obj.cpp"
+  },
+  {
+    "name": "R_PreSkinXSurface",
+    "target": "0x1001f120",
+    "retail_bytes": 347,
+    "changed_lines": 54,
+    "tu": "gfx_d3d/r_model.cpp"
+  },
+  {
+    "name": "RB_SetVertexData",
+    "target": "0x100387d0",
+    "retail_bytes": 282,
+    "changed_lines": 54,
+    "tu": "gfx_d3d/rb_shade.cpp"
+  },
+  {
+    "name": "R_IsBoundsOutsideView",
+    "target": "0x10006300",
+    "retail_bytes": 214,
+    "changed_lines": 54,
+    "tu": "gfx_d3d/r_dpvs.cpp"
+  },
+  {
+    "name": "R_IsShadowReceiverOutside",
+    "target": "0x10027540",
+    "retail_bytes": 69,
+    "changed_lines": 54,
+    "tu": "gfx_d3d/r_shadowcookie.cpp"
+  },
+  {
+    "name": "Material_LoadPassVertexDecl",
+    "target": "0x100191a0",
+    "retail_bytes": 587,
+    "changed_lines": 60,
+    "tu": "gfx_d3d/r_material_load_obj.cpp"
+  },
+  {
+    "name": "RB_RotateParticleCloudDirection",
+    "target": "0x10040ca0",
+    "retail_bytes": 158,
+    "changed_lines": 64,
+    "tu": "gfx_d3d/rb_tess.cpp"
+  },
+  {
+    "name": "R_SetSkyImage",
+    "target": "0x10002940",
+    "retail_bytes": 118,
+    "changed_lines": 64,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "R_SetSurfaceBoundsAndLmapCoords",
+    "target": "0x100026c0",
+    "retail_bytes": 244,
+    "changed_lines": 68,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "RB_SetDebugVertex",
+    "target": "0x100340f0",
+    "retail_bytes": 211,
+    "changed_lines": 68,
+    "tu": "gfx_d3d/rb_debug.cpp"
+  },
+  {
+    "name": "R_ComputeOutdoorScale",
+    "target": "0x10020790",
+    "retail_bytes": 82,
+    "changed_lines": 70,
+    "tu": "gfx_d3d/r_outdoor.cpp"
+  },
+  {
+    "name": "R_ReleaseForShutdownOrReset",
+    "target": "0x10012210",
+    "retail_bytes": 269,
+    "changed_lines": 76,
+    "tu": "gfx_d3d/r_init.cpp"
+  },
+  {
+    "name": "R_ShutdownImages",
+    "target": "0x1000cd10",
+    "retail_bytes": 331,
+    "changed_lines": 80,
+    "tu": "gfx_d3d/r_image.cpp"
+  },
+  {
+    "name": "R_LoadNodesAndLeafs",
+    "target": "0x10004730",
+    "retail_bytes": 315,
+    "changed_lines": 84,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "R_PointLightRanksBefore",
+    "target": "0x10014e50",
+    "retail_bytes": 212,
+    "changed_lines": 86,
+    "tu": "gfx_d3d/r_light.cpp"
+  },
+  {
+    "name": "RB_WorldRadiusToScreen",
+    "target": "0x1003f9b0",
+    "retail_bytes": 250,
+    "changed_lines": 94,
+    "tu": "gfx_d3d/rb_tess.cpp"
+  },
+  {
+    "name": "R_LoadCullGroups",
+    "target": "0x10004300",
+    "retail_bytes": 194,
+    "changed_lines": 96,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "R_ComputeOutdoorLookupMatrix",
+    "target": "0x100207f0",
+    "retail_bytes": 141,
+    "changed_lines": 96,
+    "tu": "gfx_d3d/r_outdoor.cpp"
+  },
+  {
+    "name": "R_LoadPortals",
+    "target": "0x10004170",
+    "retail_bytes": 389,
+    "changed_lines": 100,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "R_LoadJpg",
+    "target": "0x10014940",
+    "retail_bytes": 785,
+    "changed_lines": 110,
+    "tu": "gfx_d3d/r_jpeg.cpp"
+  },
+  {
+    "name": "R_LightCachedVertex",
+    "target": "0x1002b0c0",
+    "retail_bytes": 764,
+    "changed_lines": 110,
+    "tu": "gfx_d3d/r_staticmodelcache.cpp"
+  },
+  {
+    "name": "R_BuildLightmapMergability",
+    "target": "0x10001bc0",
+    "retail_bytes": 611,
+    "changed_lines": 112,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "R_IsAabbOutsideView",
+    "target": "0x100064b0",
+    "retail_bytes": 264,
+    "changed_lines": 112,
+    "tu": "gfx_d3d/r_dpvs.cpp"
+  },
+  {
+    "name": "RB_DrawDebugPlumes",
+    "target": "0x10034700",
+    "retail_bytes": 297,
+    "changed_lines": 114,
+    "tu": "gfx_d3d/rb_debug.cpp"
+  },
+  {
+    "name": "R_GetConsoleString",
+    "target": "0x1000c0f0",
+    "retail_bytes": 345,
+    "changed_lines": 118,
+    "tu": "gfx_d3d/r_font.cpp"
+  },
+  {
+    "name": "R_ProjectPortal",
+    "target": "0x10006da0",
+    "retail_bytes": 595,
+    "changed_lines": 134,
+    "tu": "gfx_d3d/r_dpvs.cpp"
+  },
+  {
+    "name": "Image_LoadWavelet",
+    "target": "0x1000f380",
+    "retail_bytes": 537,
+    "changed_lines": 134,
+    "tu": "gfx_d3d/r_image_load_obj.cpp"
+  },
+  {
+    "name": "R_ComputeOutdoorBounds",
+    "target": "0x10020640",
+    "retail_bytes": 329,
+    "changed_lines": 142,
+    "tu": "gfx_d3d/r_outdoor.cpp"
+  },
+  {
+    "name": "R_FrustumClipPlanes",
+    "target": "0x10006be0",
+    "retail_bytes": 446,
+    "changed_lines": 174,
+    "tu": "gfx_d3d/r_dpvs.cpp"
+  },
+  {
+    "name": "R_CombineLightmapsForDx7",
+    "target": "0x10001e30",
+    "retail_bytes": 364,
+    "changed_lines": 176,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "R_SkinXSurfaceBlendedDx7Sse",
+    "target": "0x1001ea80",
+    "retail_bytes": 408,
+    "changed_lines": 196,
+    "tu": "gfx_d3d/r_model.cpp"
+  },
+  {
+    "name": "R_LoadOccluders",
+    "target": "0x10004430",
+    "retail_bytes": 568,
+    "changed_lines": 232,
+    "tu": "gfx_d3d/r_bsp_load_obj.cpp"
+  },
+  {
+    "name": "R_SkinXSurfaceBlendedSse",
+    "target": "0x1001e6e0",
+    "retail_bytes": 552,
+    "changed_lines": 242,
+    "tu": "gfx_d3d/r_model.cpp"
+  },
+  {
+    "name": "R_AabbNeedsChildClipping",
+    "target": "0x100065c0",
+    "retail_bytes": 157,
+    "changed_lines": 322,
+    "tu": "gfx_d3d/r_dpvs.cpp"
+  },
+  {
+    "name": "R_SkinCachedVertices",
+    "target": "0x1002adb0",
+    "retail_bytes": 777,
+    "changed_lines": 332,
+    "tu": "gfx_d3d/r_staticmodelcache.cpp"
+  }
+]

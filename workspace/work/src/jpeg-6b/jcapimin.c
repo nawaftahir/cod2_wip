@@ -27,8 +27,7 @@
  */
 
 GLOBAL(void)
-jpeg_CreateCompress (j_compress_ptr cinfo, int version, size_t structsize,
-                     void *(*alloc) (size_t), void (*dealloc) (void *, size_t))
+jpeg_CreateCompress (j_compress_ptr cinfo, int version, size_t structsize)
 {
   int i;
 
@@ -49,11 +48,11 @@ jpeg_CreateCompress (j_compress_ptr cinfo, int version, size_t structsize,
   {
     struct jpeg_error_mgr * err = cinfo->err;
     void * client_data = cinfo->client_data; /* ignore Purify complaint here */
+    struct jpeg_alloc allocator = cinfo->alloc;
     MEMZERO(cinfo, SIZEOF(struct jpeg_compress_struct));
     cinfo->err = err;
     cinfo->client_data = client_data;
-    cinfo->alloc.malloc = alloc;
-    cinfo->alloc.free = dealloc;
+    cinfo->alloc = allocator;
   }
   cinfo->is_decompressor = FALSE;
 

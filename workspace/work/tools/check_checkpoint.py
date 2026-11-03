@@ -156,6 +156,15 @@ required.update(accepted(api_short_callbacks))
 specular_closure = Path(__file__).resolve().parents[1] / 'proof/specular_closure_warm_bind.json'
 assert hashlib.sha256(specular_closure.read_bytes()).hexdigest() == '28c9f6f07fc93b4d20a43c24524fb3758270517d8447024a96023d96456a3801'
 required.update(accepted(specular_closure))
+jpeg_load = Path(__file__).resolve().parents[1] / 'proof/jpeg_load_20261103_warm_bind.json'
+assert hashlib.sha256(jpeg_load.read_bytes()).hexdigest() == '1f42a8cfc114e5b571392f021670f670ca4a3828a64977a3f840e47e3c893ef1'
+required.update(accepted(jpeg_load))
+jpeg_compress_abi = Path(__file__).resolve().parents[1] / 'proof/jpeg_compress_abi_warm_bind.json'
+assert hashlib.sha256(jpeg_compress_abi.read_bytes()).hexdigest() == 'e6dd295f4445f442f0d498a86c5b6cec8a5bfef6dd9d4e35276bf7e1f46e4c22'
+required.update(accepted(jpeg_compress_abi))
+jpeg_save = Path(__file__).resolve().parents[1] / 'proof/jpeg_save_20261103_warm_bind.json'
+assert hashlib.sha256(jpeg_save.read_bytes()).hexdigest() == '9fe76c04ed8c732c218e8ce2b4a83a4e29f2fda6d3aa10447faa81f5e941aad1'
+required.update(accepted(jpeg_save))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

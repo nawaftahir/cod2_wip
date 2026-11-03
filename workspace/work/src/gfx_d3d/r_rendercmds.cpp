@@ -55,9 +55,12 @@ void R_InitFrameBackendData()
     frontEndDataOut = &s_backEndData;
     frontEndDataOut->frameCount = ++rg.frameCountInternal;
     R_UnlockSkinnedCache();
-    dx.dynamicBufferFrame = (dx.dynamicBufferFrame + 1) % 2;
+    int bufferFrame = (dx.dynamicBufferFrame + 1) % 2;
+    // Publish buffer selection before reading the active frame.
+    *(volatile int *)&dx.dynamicBufferFrame = bufferFrame;
+    r_vb_state_t *skinnedCacheVb = &dx.skinnedCacheVbPool[bufferFrame];
     GfxBackEndData *data = frontEndDataOut;
-    data->skinnedCacheVb = &dx.skinnedCacheVbPool[dx.dynamicBufferFrame];
+    data->skinnedCacheVb = skinnedCacheVb;
     data->skinnedCacheVb->used = 0;
     data->drawSurfCount = 0;
     data->surfPos = 0;

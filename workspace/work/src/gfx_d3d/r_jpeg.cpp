@@ -86,7 +86,9 @@ void R_SaveJpg(const char *filename, int quality, int width, int height, byte *p
     jpeg_compress_struct cinfo;
     jpeg_error_mgr error;
     cinfo.err = jpeg_std_error(&error, ExitJpeg, PrintfJpeg);
-    jpeg_create_compress(&cinfo, Z_MallocJpeg, Z_FreeJpeg);
+    cinfo.alloc.malloc = Z_MallocJpeg;
+    cinfo.alloc.free = Z_FreeJpeg;
+    jpeg_create_compress(&cinfo);
     int size = width * height * 3;
     byte *output = (byte *)ri.Hunk_AllocateTempMemoryInternal(size);
     jpeg_memory_dest(&cinfo, output, size);

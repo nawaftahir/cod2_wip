@@ -1,0 +1,5 @@
+section	file_offset	rva	raw_bytes	assignment	status	scope
+.text	0x1000	0x1000	1093632	COORDINATOR	WHOLE_FILE_GATE_OPEN	TU queue plus toolchain libraries
+.rdata	0x10c000	0x10c000	598016	COORDINATOR	WHOLE_FILE_GATE_OPEN	data/resource/linker ownership; do not invent contributors
+.data	0x19e000	0x19e000	57344	COORDINATOR	WHOLE_FILE_GATE_OPEN	data/resource/linker ownership; do not invent contributors
+.reloc	0x1ac000	0x76c000	98304	COORDINATOR	WHOLE_FILE_GATE_OPEN	data/resource/linker ownership; do not invent contributors

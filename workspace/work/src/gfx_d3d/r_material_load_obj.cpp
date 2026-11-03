@@ -676,7 +676,7 @@ void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedSha
     char *buffer = (char *)ri.Hunk_AllocAlignInternal(strlen(prefix) + strlen(name) + length + 2, 1);
     cached->name = buffer;
     int nameLength = sprintf(buffer, "%s%s", prefix, name);
-    char *text = buffer + nameLength + 1;
+    char *text = buffer + (nameLength + 1);
     cached->text = text;
     ri.FS_Read(text, length, file);
     ri.FS_FCloseFile(file);

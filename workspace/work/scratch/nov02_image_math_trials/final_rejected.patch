@@ -1,0 +1,147 @@
+diff --git a/target/work/src/gfx_d3d/r_image_load_obj.cpp b/target/work/src/gfx_d3d/r_image_load_obj.cpp
+index ef8fd54..80de189 100644
+--- a/target/work/src/gfx_d3d/r_image_load_obj.cpp
++++ b/target/work/src/gfx_d3d/r_image_load_obj.cpp
+@@ -82,17 +82,29 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
+     int pixelIndex = 0;
+     for (int face = 0; face < 6; ++face)
+     {
+-        float origin[3] = { 0.0f, 0.0f, 0.0f };
++        float origin[3];
++        float right[3];
++        float up[3];
+         int axis = faceAxis[face][0];
+-        origin[axis >> 1] = axis & 1 ? -1.0f : 1.0f;
+-        float right[3] = { 0.0f, 0.0f, 0.0f };
++        int axisIndex = axis >> 1;
++        origin[0] = 0.0f;
++        origin[1] = 0.0f;
++        origin[2] = 0.0f;
++        origin[axisIndex] = axis & 1 ? -1.0f : 1.0f;
+         axis = faceAxis[face][1];
+-        origin[axis >> 1] = axis & 1 ? 1.0f : -1.0f;
+-        right[axis >> 1] = origin[axis >> 1] * -2.0f;
+-        float up[3] = { 0.0f, 0.0f, 0.0f };
++        axisIndex = axis >> 1;
++        right[0] = 0.0f;
++        right[1] = 0.0f;
++        right[2] = 0.0f;
++        origin[axisIndex] = axis & 1 ? 1.0f : -1.0f;
++        right[axisIndex] = origin[axisIndex] * -2.0f;
+         axis = faceAxis[face][2];
+-        origin[axis >> 1] = axis & 1 ? 1.0f : -1.0f;
+-        up[axis >> 1] = origin[axis >> 1] * -2.0f;
++        axisIndex = axis >> 1;
++        up[0] = 0.0f;
++        up[1] = 0.0f;
++        up[2] = 0.0f;
++        origin[axisIndex] = axis & 1 ? 1.0f : -1.0f;
++        up[axisIndex] = origin[axisIndex] * -2.0f;
+         VectorScale(right, inverseResolution, right);
+         VectorScale(up, inverseResolution, up);
+         float rowBase[3];
+@@ -100,8 +112,12 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
+         for (int row = 0; row < resolution; ++row)
+         {
+             float direction[3];
+-            float rowOffset = row + 0.5f;
+-            VectorMA(rowBase, rowOffset, up, direction);
++            VectorCopy(rowBase, direction);
++            // Retain retail's single-precision row offset.
++            volatile float rowOffset = row + 0.5f;
++            direction[0] += rowOffset * up[0];
++            direction[1] += rowOffset * up[1];
++            direction[2] += rowOffset * up[2];
+             for (int column = 0; column < resolution; ++column)
+             {
+                 callback(direction, userData, pixels + pixelIndex * 4);
+@@ -399,10 +415,13 @@ void R_GetLightmapWeightsForDir(const float *dir, float *weights)
+     weights[3] *= 1.0f - weights[0];
+ }
+ 
++#pragma optimize("p", on)
++
+ // Mac 1.3 name (SUPPORTED); 32x32 blend-weight image, 0x1000fe90.
+ void Image_LoadLightmapWeights(GfxImage *image)
+ {
+-    unsigned char pic[32][32][4];
++    unsigned char pic[32 * 32 * 4];
++    unsigned char *pixel = pic;
+     float dir[3];
+     float weights[4];
+     float lengthSq;
+@@ -422,27 +441,31 @@ void Image_LoadLightmapWeights(GfxImage *image)
+             zSq = 1.0f - lengthSq;
+             if (zSq < 0.0f)
+             {
+-                length = sqrt(lengthSq);
+-                if (length != 0.0f)
++                volatile float roundedLengthSq = lengthSq;
++                length = sqrtf(roundedLengthSq);
++                if (length)
+                 {
+-                    invLength = 1.0f / length;
++                    invLength = 1 / length;
+                     dir[0] *= invLength;
+                     dir[1] *= invLength;
+                 }
+                 zSq = 0.0f;
+             }
+-            dir[2] = sqrt(zSq);
++            dir[2] = I_sqrt(zSq);
+             R_GetLightmapWeightsForDir(dir, weights);
+-            pic[y][x][0] = (unsigned char)I_fround(weights[0] * 255.0f);
+-            pic[y][x][1] = (unsigned char)I_fround(weights[1] * 255.0f);
+-            pic[y][x][2] = (unsigned char)I_fround(weights[2] * 255.0f);
+-            pic[y][x][3] = (unsigned char)I_fround(weights[3] * 255.0f);
++            pixel[0] = (unsigned char)I_fround(weights[0] * 255.0f);
++            pixel[1] = (unsigned char)I_fround(weights[1] * 255.0f);
++            pixel[2] = (unsigned char)I_fround(weights[2] * 255.0f);
++            pixel[3] = (unsigned char)I_fround(weights[3] * 255.0f);
++            pixel += 4;
+         }
+     }
+     Image_Setup(image, 32, 32, 1, 3, 0, D3DFMT_A8R8G8B8);
+-    Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, &pic[0][0][0]);
++    Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pic);
+ }
+ 
++#pragma optimize("p", off)
++
+ float FresnelTerm(float n0, float n1, float cosIncidentAngle);
+ 
+ // PINNED 100107e0/98: copy the BGRA color, then replace only alpha with Fresnel reflectance.
+diff --git a/target/work/src/gfx_d3d/r_utils.cpp b/target/work/src/gfx_d3d/r_utils.cpp
+index ba9632d..d0b3a21 100644
+--- a/target/work/src/gfx_d3d/r_utils.cpp
++++ b/target/work/src/gfx_d3d/r_utils.cpp
+@@ -45,6 +45,7 @@ float FresnelTerm(float n0, float n1, float cosIncidentAngle)
+     return result;
+ }
+ 
++
+ infoParm_t infoParms[] =
+ {
+     { "bark", 0, 0x100000, 0, 0 },
+diff --git a/target/work/src/profile.mk b/target/work/src/profile.mk
+index a444def..8ffedf5 100644
+--- a/target/work/src/profile.mk
++++ b/target/work/src/profile.mk
+@@ -16,3 +16,5 @@ $(B)/obj/qcommon/common.obj $(B)/obj/win32/win_threads.obj: $(B)/obj/%.obj: $(SR
+ 	@mkdir -p $(dir $@)
+ 	@$(CL) $(CFLAGS) $(if $(DBG),/Fd$(call W,$@).pdb) /Fo$(call W,$@) $(call W,$<) > $@.log 2>&1 || (cat $@.log; false)
+ $(B)/obj/gfx_d3d/r_surfbounds.obj: CFLAGS += /Op
++
++$(B)/obj/gfx_d3d/r_utils.obj: CFLAGS += /G7
+diff --git a/target/work/tests/test_procedural_images.py b/target/work/tests/test_procedural_images.py
+index cca7f97..055edc4 100644
+--- a/target/work/tests/test_procedural_images.py
++++ b/target/work/tests/test_procedural_images.py
+@@ -33,6 +33,7 @@ program = r'''
+ #include <cstring>
+ #include <vector>
+ typedef unsigned char byte;
++void VectorCopy(const float *v,float *out) {for(int i=0;i<3;++i)out[i]=v[i];}
+ void VectorScale(const float *v,float s,float *out) {for(int i=0;i<3;++i)out[i]=s*v[i];}
+ void VectorMA(const float *v,float s,const float *b,float *out) {for(int i=0;i<3;++i)out[i]=v[i]+s*b[i];}
+ enum D3DFORMAT {D3DFMT_A8R8G8B8=21,D3DFMT_L8=50};

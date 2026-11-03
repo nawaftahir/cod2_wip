@@ -1,0 +1,37 @@
+{
+  "mission": "SCENE_01",
+  "branch": "workers/gemini-gfx",
+  "base_commit": "871d13e",
+  "primary": "/home/nawaf/cod2/test/dev/gfx",
+  "worker": "/home/nawaf/cod2/test/dev/gfx/worktrees/gemini",
+  "source": "target/work/src/gfx_d3d/r_scene.cpp",
+  "source_sha256": "1fdd61de27d1a862ebc4fa02925b03dd0eaca6adec3ee0c2d90b12e4e6015548",
+  "allowed_tests": [
+    "target/work/tests/test_scene_modes.py"
+  ],
+  "functions": {
+    "R_GetClearColor": {
+      "target": "0x10024920",
+      "bytes": 156
+    },
+    "R_AddClearCommandsForFrameBuffer": {
+      "target": "0x100249c0",
+      "bytes": 97
+    },
+    "R_RenderSceneDepth": {
+      "target": "0x10024a90",
+      "bytes": 442
+    },
+    "R_RenderSceneFullbright": {
+      "target": "0x10024d90",
+      "bytes": 451
+    },
+    "R_RenderSceneDebugShader": {
+      "target": "0x10024f60",
+      "bytes": 217
+    }
+  },
+  "target_bytes": 1363,
+  "status": "assigned, not completed",
+  "validation": "native tests in worker; original linked byte/binding/regression gate serialized by coordinator; no coverage before acceptance"
+}

@@ -1,3 +1,70 @@
+# PAUSED after JPEG checkpoint - 2026-11-03
+
+Read PROGRESS.md and target/work/proof/nov03_jpeg_checkpoint.json first.
+C++45.151825854%,114496B/688 bodies; +1856B/+6 engine bodies since871d13e.
+IJG constructor221B is extra dependency verification, not C++ meter credit.
+2439 protected extents,65/98 API bodies accepted,35/8411 assembly exclusions.
+Encoder/decoder/independent Pillow, frame/image and source-attribution tests pass.
+Whole SHA/GPU unfinished. All input hashes are in the receipt. No build running.
+
+Gemini: worktrees/gemini, workers/gemini-gfx, source base871d13e, SCENE_01 owns
+five r_scene.cpp bodies/1363 target bytes. Read WORKERS.md. Do not modify its
+source or merge its claims without fresh gates. Setup backup is
+ target/work/workers/SCENE_01/. Worker work is not credited yet. No build copied.
+
+Next main task: investigate sparse function-pointer callback placement so the
+whole JPEG TU can be verified/promoted. r_jpeg.cpp has five accepted bodies,
+but empty_output_buffer3B, Z_MallocJpeg6B, Z_FreeJpeg13B, ExitJpeg17B and
+PrintfJpeg22B have NO_ACCEPTED_PLACEMENT. Their target starts are0x100145a0,0x10014610,
+0x10014620,0x10014630,0x10014650, observed through real loader/save code. Direct
+inspection suggests matching instructions, not full per-body evidence yet.
+Do NOT change boolean types: retail's empty callback also returns via AL.
+
+Possible bounded automation: derive callback candidates from paired HIGHLOW
+relocations in MOV-immediate instructions inside already verified producers.
+Check opcode/nonrelocated bytes, both relocation sites, source function identity,
+known target start/full extent and every existing binding/import/closure check.
+Do not scan globally for RET, hardcode a naked address as proof, invent helpers,
+or relax masks. Independently replay the unchanged old referee with only those
+producer-pinned candidate addresses; accepted sets must agree. Add ambiguity,
+wrong-destination/reloc/extent negatives before trusting new placement. This is
+an IDEA for the next session, not implemented or counted in this checkpoint.
+
+JPEG source fixes are actual C/C++/library-interface changes: jpeg_memory_src
+forced inline and caches its manager pointer; jpeg_CreateCompress takes standard
+three args and preserves struct jpeg_alloc as an aggregate. Both the standalone
+constructor and the inlined R_SaveJpg match; preserve both. Public renderer ABI,
+TU order and compiler profile stay unchanged. No new assembly.
+
+Unmatched drafts not to confuse with accepted work: frame selection/pointer
+lifetime and volatile publication, cube facePixels/volatile stride, shader text
+pointer grouping, cull product order and model entity pointer. They preserve
+all matches and pass affected tests but did NOT solve their own byte differences.
+Do not repeat these exact forms, size/G7/math spelling sweeps. Full attempts and
+rejected image/math patch are recorded in target/work/ATTEMPTS.md.
+
+Root src/ still seven fully verified snapshots/39 matches. A JPEG promotion
+was intentionally withheld. Keep the primary's unrelated354 staged files exactly
+as found; do not include them in our checkpoint commit. No push authorized.
+
+Earlier handoffs below are historical.
+
+Active again2026-11-03; read PROGRESS.md and WORKERS.md. The PAUSED entries
+below are historical. Primary work continues; Gemini has its own scene mission.
+
+# PAUSED at owner request - 2026-11-02
+
+Read PROGRESS.md and target/work/proof/nov02_pause_checkpoint.json first.
+C++44.419906933%,682 bodies; this pass gained ZERO verified bytes.2432 protected
+extents retained;35 assembly bodies/8411B excluded. API64/98 accepted. Eight
+builds, one output, zero workers. All image/math/CPU probes were reverted;
+last rejected patch and exact no-repeat notes are in target/work/ATTEMPTS.md.
+Three tiny shader-cache/cull/model-pointer drafts remain unmatched but tested;
+do not credit or repeat them. Root src/ stays seven verified files/39 matches.
+Ranking tools count only some direct dependencies: inspect bind.json before
+assuming a supposedly ready function is closed. No SHA/GPU completion claim.
+No compiler left running. Resume only when the owner asks; no push performed.
+
 # Latest specular closure checkpoint - 2026-11-02
 
 Read PROGRESS.md and target/work/proof/nov02_specular_checkpoint.json first.

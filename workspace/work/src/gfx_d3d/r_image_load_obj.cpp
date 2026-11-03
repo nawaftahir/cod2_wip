@@ -17,13 +17,14 @@ void Wavelet_DecompressLevel(byte *src, byte *dst, WaveletDecode *decode);
 
 // PINNED 1000fbd0/86: every face is uploaded from its own source slice.
 void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
-    int faceBytes, D3DFORMAT format)
+    volatile int faceBytes, D3DFORMAT format)
 {
     Image_Setup(image, resolution, resolution, 1, 7, 0, format);
+    const byte *facePixels = pixels;
     for (int face = 0; face < 6; ++face)
     {
-        Image_UploadData(image, format, (D3DCUBEMAP_FACES)face, 0, pixels);
-        pixels += faceBytes;
+        Image_UploadData(image, format, (D3DCUBEMAP_FACES)face, 0, facePixels);
+        facePixels += faceBytes;
     }
 }
 

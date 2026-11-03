@@ -1,3 +1,86 @@
+# JPEG matches and placement follow-up - 2026-11-03
+
+Real source-level wins, separately retained: decoder785/raw image169/raw
+material81/API wrapper30, encoder713/screenshot JPEG78. Net1856 C++ bytes.
+Additional IJG jpeg_CreateCompress221 is a dependency, never game-meter credit.
+All protected extents pass; native actual IJG encode/decode and Pillow agree.
+
+jpeg_memory_src must inline in R_LoadJpg. Inlining alone yielded837B because
+repeated cinfo->src reads remained. Capture the manager pointer once, then set
+its fields; loader becomes785B and four real callers close. No matching-tool
+change was needed. The source manager remains32 bytes, callbacks unchanged.
+
+Compression's prior five-argument API was a reconstruction error. Restored
+three-argument constructor and preinitialized cinfo.alloc pair. Scalar callback
+preservation matches the standalone constructor221 but not inlined save713;
+preserving/restoring struct jpeg_alloc as an aggregate matches BOTH. Real native
+encoder and decoder fixtures pass. Do not restore allocator arguments or swap
+this aggregate back to two scalar saves to make an instruction diff look small.
+
+Cube facePixels local fixes load timing, but parameter volatile does not fix the
+remaining MOV-stride/ADD vs memory-ADD difference. Frame counter/pointer locals
+and volatile publication did not fix147 vs143 either. These remain uncredited
+working drafts. Do not repeat these exact attempts. Original compiler profile
+remains unchanged; no CPU or size pragma survives from rejected experiments.
+
+Whole JPEG TU is NOT yet accepted. Five sparse callbacks lack placements;
+root src/ promotion is blocked. A future code-pointer relocation placement pass
+must retain existing gates, prove the producer and exact callback extents, reject
+ambiguous/invalid pairs and replay the unchanged referee independently. The
+specific five callbacks and proposed method are in HANDOFF.md. No such matcher
+change was made in this checkpoint. Do not call this already verified source.
+
+# Image/math bounded trials and dependency-ready pivot - 2026-11-02
+
+Eight original builds in one reused output; no workers or new authored assembly.
+The first attempted escalation timed out before execution; the simple established
+build command succeeded on retry. No build was duplicated concurrently.
+
+Image math trials produced NO newly accepted bodies. All old2432 extents were
+retained. Reject/revert all of these; do not burn another matching pass on them:
+- Lightmap-only precision mode:501B ->581B; float spills/calls move toward retail,
+  but stack locals and register ownership differ.
+- Reusing Vec2Normalize/I_sqrt:593B, still different temporary ownership.
+- Flat4096B buffer with a sequential pixel pointer fixes the image register/pixel
+  base; manual normalization still differs. Retail actually carries normalized
+  Y into later columns. Target stores at1000ff06/1000ffbb pin this; the new
+  fixture checks all1024 directions/4096 bytes and rejects a per-column Y reset.
+- Volatile length/input and explicit sqrt(double), sqrtf and I_sqrt variants:
+  best prefix matches retail's1060 stack frame, but conversion temporaries,
+  compare order and division operands still differ. No exact605B acceptance.
+- Cubemap explicit axis indices, reordered declarations, vector copies, a
+  volatile row offset and per-component updates change754 ->761/770B, still
+  different array lifetimes/stack ordering and row math. No786B acceptance.
+- Fresnel sum operand reversal and size mode do not fix the x87 cleanup;
+  size mode also changes frame/constant loading. /G7 on r_utils preserves the
+  old accepted set but still gives203 vs target201B. Do not claim impossibility.
+
+The pinned VC7.1 math.h confirms sqrt(float)->sqrtf(float)->(float)sqrt(double).
+Extracted declarations are proof/latest/nov02_original_sqrt_declarations.txt.
+All image/utility/CPU trial source was reverted before the final build. The
+last complete trial patch is scratch/nov02_image_math_trials/final_rejected.patch.
+Math regression fixtures remain; they pass the restored source. No guessed
+volatile source spelling, CPU flag or extra helper is promoted as retail code.
+
+Pivot: tools/ready.py lists166 zero-open direct GAME-call candidates/47090B.
+This ignores imports, indirect/data bindings and calls outside its game ranges.
+It is a ranking heuristic, NOT proof that all dependencies verify. For example,
+R_InitRenderCmds has zero open calls there but fails binding closure on
+R_InitFrameBackendData. Read bind.json reasons before selecting any candidate.
+Reused fdiff.py on known source/target pairs; diagnostic ranking is
+proof/nov02_nearest_ready_functions.json and scratch/nov02_priority_diffs/.
+This ranking was made on the rejected trial DLL, so rerun for fresh proof.
+No parser or alternate build pipeline was added. The final source batch tests:
+- Material_CacheShaderText: group nameLength+1 before adding the buffer pointer,
+  matching the target SIB operand order without changing text ownership.
+- R_CullPointAndRadius: reverse only the Y product operands to retail order.
+- R_GetModelEntityBounds: keep the existing scene-entity pointer for both reads.
+The final build accepted NONE of these three drafts either. All previously
+accepted bodies remained. Do not repeat these syntax-only forms expecting gains.
+The final referee/coverage receipt decides credit; short instruction diffs are
+not evidence of a full match. Existing shader preload and
+visibility fixtures pass. Root src/ remains seven verified-only files/39 bodies.
+
 # Verified-only source gate - 2026-11-02
 
 Do not promote r_specularityimage.cpp to root src/ yet. Besides its matched

@@ -1,0 +1,137 @@
+134- * M_PI_4     - pi/4
+135- * M_1_PI     - 1/pi
+136- * M_2_PI     - 2/pi
+137: * M_2_SQRTPI - 2/sqrt(pi)
+138: * M_SQRT2    - sqrt(2)
+139: * M_SQRT1_2  - 1/sqrt(2)
+140- */
+141-
+142-#define M_E        2.71828182845904523536
+143-#define M_LOG2E    1.44269504088896340736
+144-#define M_LOG10E   0.434294481903251827651
+145-#define M_LN2      0.693147180559945309417
+146-#define M_LN10     2.30258509299404568402
+--
+177-_CRTIMP double  __cdecl sinh(double);
+178-_CRTIMP double  __cdecl tan(double);
+179-_CRTIMP double  __cdecl tanh(double);
+180:_CRTIMP double  __cdecl sqrt(double);
+181-#else
+182-        int     __cdecl abs(int);
+183-        double  __cdecl acos(double);
+184-        double  __cdecl asin(double);
+185-        double  __cdecl atan(double);
+186-        double  __cdecl atan2(double, double);
+187-        double  __cdecl cos(double);
+--
+197-        double  __cdecl sinh(double);
+198-        double  __cdecl tan(double);
+199-        double  __cdecl tanh(double);
+200:        double  __cdecl sqrt(double);
+201-#endif
+202-_CRTIMP double  __cdecl atof(const char *);
+203-_CRTIMP double  __cdecl _cabs(struct _complex);
+204-#if     defined(_M_ALPHA)
+205-        double  __cdecl ceil(double);
+206-        double  __cdecl floor(double);
+207-#else
+--
+256-
+257-/* 4.5.5 Power functions */
+258-_CRTIMP float  __cdecl powf( float , float );
+259:        float  __cdecl sqrtf( float );
+260-
+261-/* 4.5.6 Nearest integer, absolute value, and remainder functions */
+262-        float  __cdecl ceilf( float );
+263-        float  __cdecl fabsf( float );
+264-        float  __cdecl floorf( float );
+265-_CRTIMP float  __cdecl fmodf( float , float );
+266-
+--
+296-
+297-/* 4.5.5 Power functions */
+298-        float  __cdecl powf( float , float );
+299:        float  __cdecl sqrtf( float );
+300-
+301-/* 4.5.6 Nearest integer, absolute value, and remainder functions */
+302-        float  __cdecl ceilf( float );
+303-        float  __cdecl fabsf( float );
+304-        float  __cdecl floorf( float );
+305-        float  __cdecl fmodf( float , float );
+306-
+--
+335-
+336-/* 4.5.5 Power functions */
+337-        float  __cdecl powf( float , float );
+338:        float  __cdecl sqrtf( float );
+339-
+340-/* 4.5.6 Nearest integer, absolute value, and remainder functions */
+341-        float  __cdecl ceilf( float );
+342-        float  __cdecl fabsf( float );
+343-        float  __cdecl floorf( float );
+344-        float  __cdecl fmodf( float , float );
+345-
+--
+374-#define powl(x,y)   ((long double)pow((double)(x), (double)(y)))
+375-#define sinl(x)     ((long double)sin((double)(x)))
+376-#define sinhl(x)    ((long double)sinh((double)(x)))
+377:#define sqrtl(x)    ((long double)sqrt((double)(x)))
+378-#define tanl(x)     ((long double)tan((double)(x)))
+379-#define tanhl(x)    ((long double)tanh((double)(x)))
+380-#else   /* __cplusplus */
+381-inline long double acosl(long double _X)
+382-        {return (acos((double)_X)); }
+383-inline long double asinl(long double _X)
+384-        {return (asin((double)_X)); }
+--
+418-        {return (sin((double)_X)); }
+419-inline long double sinhl(long double _X)
+420-        {return (sinh((double)_X)); }
+421:inline long double sqrtl(long double _X)
+422:        {return (sqrt((double)_X)); }
+423-inline long double tanl(long double _X)
+424-        {return (tan((double)_X)); }
+425-inline long double tanhl(long double _X)
+426-        {return (tanh((double)_X)); }
+427-
+428-inline float frexpf(float _X, int *_Y)
+429-        {return ((float)frexp((double)_X, _Y)); }
+--
+466-        {return ((float)sin((double)_X)); }
+467-inline float sinhf(float _X)
+468-        {return ((float)sinh((double)_X)); }
+469:inline float sqrtf(float _X)
+470:        {return ((float)sqrt((double)_X)); }
+471-inline float tanf(float _X)
+472-        {return ((float)tan((double)_X)); }
+473-inline float tanhf(float _X)
+474-        {return ((float)tanh((double)_X)); }
+475-#endif  /* !defined(_M_MRX000) && !defined(_M_ALPHA) && !defined(_M_IA64) */
+476-#endif  /* __cplusplus */
+477-#endif  /* __assembler */
+--
+575-        {return (sinf(_X)); }
+576-inline float __cdecl sinh(float _X)
+577-        {return (sinhf(_X)); }
+578:inline float __cdecl sqrt(float _X)
+579:        {return (sqrtf(_X)); }
+580-inline float __cdecl tan(float _X)
+581-        {return (tanf(_X)); }
+582-inline float __cdecl tanh(float _X)
+583-        {return (tanhf(_X)); }
+584-inline long double __cdecl abs(long double _X)
+585-        {return (fabsl(_X)); }
+586-inline long double __cdecl acos(long double _X)
+--
+623-        {return (sinl(_X)); }
+624-inline long double __cdecl sinh(long double _X)
+625-        {return (sinhl(_X)); }
+626:inline long double __cdecl sqrt(long double _X)
+627:        {return (sqrtl(_X)); }
+628-inline long double __cdecl tan(long double _X)
+629-        {return (tanl(_X)); }
+630-inline long double __cdecl tanh(long double _X)
+631-        {return (tanhl(_X)); }
+632-
+633-}
+634-#endif  /* __cplusplus */

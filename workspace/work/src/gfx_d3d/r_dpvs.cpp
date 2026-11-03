@@ -1258,11 +1258,12 @@ static void R_AddCellCullGroups(const GfxCell *cell, DpvsPlane *planes, int plan
 static void R_GetModelEntityBounds(int entIndex, float *mins, float *maxs)
 {
     const GfxEntity *ent = &scene.def.entities[entIndex];
-    const DObj *obj = scene.sceneEnts[entIndex].u.obj;
+    const GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    const DObj *obj = sceneEnt->u.obj;
     if (ent->reType != 0)
     {
         DObj *modelObj = rg.modelDObj;
-        ri.DObjSetModel(modelObj, scene.sceneEnts[entIndex].u.model);
+        ri.DObjSetModel(modelObj, sceneEnt->u.model);
         obj = modelObj;
     }
     vec3_t localMins, localMaxs;

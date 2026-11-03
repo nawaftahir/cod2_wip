@@ -1,8 +1,8 @@
 {
-  "functions": 717,
-  "bytes": 121051,
+  "functions": 723,
+  "bytes": 122907,
   "total": 253580,
-  "percent": 47.73680889660068,
+  "percent": 48.468727817651235,
   "baseline_lost": [],
   "gains": [
     {
@@ -444,6 +444,12 @@
       "object": "r_image_load_obj.obj"
     },
     {
+      "target": "0x1000fc30",
+      "bytes": 169,
+      "name": "?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
       "target": "0x1000fce0",
       "bytes": 119,
       "name": "?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z",
@@ -624,6 +630,18 @@
       "object": "r_jpeg.obj"
     },
     {
+      "target": "0x10014670",
+      "bytes": 713,
+      "name": "?R_SaveJpg@@YAXPBDHHHPAE@Z",
+      "object": "r_jpeg.obj"
+    },
+    {
+      "target": "0x10014940",
+      "bytes": 785,
+      "name": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
+      "object": "r_jpeg.obj"
+    },
+    {
       "target": "0x10015260",
       "bytes": 386,
       "name": "?R_ChopPolyBehindPlane@@YAHHPAUClipPoint@@0PBMM@Z",
@@ -663,6 +681,18 @@
       "target": "0x10016e70",
       "bytes": 87,
       "name": "?Material_Sort@@YAXXZ",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x100171f0",
+      "bytes": 81,
+      "name": "?Material_RegisterRawImage@@YAPAUMaterial@@PBDH@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x100172b0",
+      "bytes": 30,
+      "name": "?R_RegisterRawImage@@YAPAUMaterial@@PBDHH@Z",
       "object": "r_material.obj"
     },
     {
@@ -1024,6 +1054,12 @@
       "bytes": 212,
       "name": "?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z",
       "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10026240",
+      "bytes": 78,
+      "name": "?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z",
+      "object": "r_screenshot.obj"
     },
     {
       "target": "0x100266f0",
@@ -1507,7 +1543,7 @@
     }
   ],
   "checkpoint_lost": [],
-  "excluded_new_library_functions": 73,
+  "excluded_new_library_functions": 74,
   "dependency_objects": [
     "jcapimin.obj",
     "jcapistd.obj",
@@ -1555,5 +1591,5 @@
     "jutils.obj"
   ],
   "excluded_new_embedded_table_bytes": 482,
-  "excluded_new_library_bytes": 12315
+  "excluded_new_library_bytes": 12536
 }

@@ -1,0 +1,42 @@
+[
+  {
+    "removed": "?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Material_RegisterRawImage@@YAPAUMaterial@@PBDH@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Material_RegisterRawImage@@YAPAUMaterial@@PBDH@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_RegisterRawImage@@YAPAUMaterial@@PBDHH@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_RegisterRawImage@@YAPAUMaterial@@PBDHH@Z",
+    "gate": "regression.py",
+    "rejected": true
+  }
+]

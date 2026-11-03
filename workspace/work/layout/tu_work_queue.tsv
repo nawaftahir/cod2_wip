@@ -1,0 +1,113 @@
+link_slot	tu	assignment	complexity	complexity_reason	emitted_symbols	accepted_symbols	pending_symbols	pending_known_inventory_bytes	pending_without_target	source_sha256
+1	gfx_d3d/r_bsp.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	15	10	5	173	2	38d9c02c902b52cbf96f6245d24f0ec203ec73f2f5a09960a5bb89d429cf5e7d
+2	gfx_d3d/r_bsp_load_obj.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	38	18	20	10556	2	a4003f303f54ad93c79b036e693ac12e9dcbb59473aa6c6a545ed0ddc35fed39
+3	gfx_d3d/r_buffers.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	5	2	3	0	3	e86aee523eb5ae941898dce04ee6dab10545d7ece099d5ebdbd81cc1e7dd0fd4
+4	gfx_d3d/r_caps.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	2	2	0	0	0	5d85bff3833adb73471710b729cc25fe3b3c9becc3ea78ec917d65d27d77036d
+5	gfx_d3d/r_cmds.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	2	2	0	0	0	c0500e921edb7ea725208b0f3b63cad7598a6845056c86e0a6ad306dd6b36e1f
+6	gfx_d3d/r_debug.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	14	13	1	0	1	3eadfc47096edbfcc16f5d847469119bf7f73085c50163e96fb241e6365a2e72
+7	gfx_d3d/r_dpvs.cpp	CODEX_ACTIVE	reserved	current coordinator work	69	26	43	8449	18	9702c483a8d51a8ddc0cc03aa32c3cc879f2232ce005cda246cc32729b464d45
+8	gfx_d3d/r_dvars.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	1	1	0	0	0	25f30828efb9a8c60414a8ab712c94ace2b7bb4f7dc8704768b82f8c2f8ae8a6
+9	gfx_d3d/r_flares.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	1	1	0	0	0	55f7a278e82e5f4a540f797c82b7d03a89ab66521c63b22bbcf2eaf66bfe99b7
+10	gfx_d3d/r_fog.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	4	3	1	0	1	cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017
+11	gfx_d3d/r_font.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	12	6	6	1515	1	0d317ca87413fcdef66bc94998d2de71f7de2e47fc32a78db021aac99692db10
+12	gfx_d3d/r_font_load_obj.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	1	0	1	0	1	8afb05946367f422dc2c5935f5d3db2e340daa27a109992e5f45cd41d6370f16
+13	gfx_d3d/r_image.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	63	38	25	1047	18	67a18fd16ad40229564b5efd00a2138fef9f8f7e1365e37b7a558de32e361e50
+14	gfx_d3d/r_image_load_common.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	10	10	0	0	0	3812411a1642dc0ab68301194d36f5188d3dc5f3aaa0ad6a6c1cab07f069a543
+15	gfx_d3d/r_image_load_obj.cpp	CODEX_ACTIVE	reserved	current coordinator work	30	11	19	2754	8	afefe21bbbe7e7450303221d0a8a6a30c1a02edf8505bfdd6a097e0fb7a7dab6
+16	gfx_d3d/r_specularityimage.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	3	1	2	0	2	1212bfdddc0b89573e2cd69d2a9f11ea98d21f0ff95a238fa500a373ce2fb3c0
+17	gfx_d3d/r_image_wavelet.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	4	4	0	0	0	7673699bc0fef2c9d7cca3fcee1852129366da50a5f88c4abf59b638053fb015
+18	gfx_d3d/r_init.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	80	41	39	3393	21	06bd6ced7008856614cc4e47a4ce68a24aef13f8e7988bd177545987a8ce3dd1
+19	gfx_d3d/r_jpeg.cpp	CODEX_ACTIVE	reserved	current coordinator work	10	5	5	0	4	b0499dd2c333e9679960bd7d483349b03232652a98708e30e57b1c3f30f2fcbf
+20	gfx_d3d/r_light.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	6	0	6	955	1	e5f88d04e173e8c5b5ce67e82b125eae86b2892a801db31d67e6a57b292a3a4c
+21	gfx_d3d/r_light_load_obj.cpp	UNASSIGNED	small cohort	estimate only; inspect compiler and binding blockers	2	0	2	240	0	835b9a81e1cc05a11f970a4ccee953511d2c36bff96d204867cbbdfba2f27aa8
+22	gfx_d3d/r_marks.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	10	7	3	146	2	04a4a0a8b6fdfd38bc468ae5f1abd420fa466aa5490093ffbf6565d1f55b0c07
+23	gfx_d3d/r_material.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	71	45	26	991	17	1978980a45da901d9e32a2cc4c7a2d18ca8b0908881f9207eb517c944752e666
+24	gfx_d3d/r_material_load_obj.cpp	CODEX_ACTIVE	reserved	current coordinator work	95	44	51	7900	26	ff623a5c1d6faf4adcdbf17ee2786ebbdea01345b25e0f92d72dc6f972bc7b20
+25	gfx_d3d/r_model.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	50	18	32	5394	16	f9a2cf6db56cd81c1e84e047bb814cf2eaff97e49653b00e1b95dec9ae7e98ee
+26	gfx_d3d/r_outdoor.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	8	1	7	889	0	20cff29ccb45cde737056fb3b7d6b3dcb70d560e840c7338c808d9218f58953a
+27	gfx_d3d/r_rendercmds.cpp	CODEX_ACTIVE	reserved	current coordinator work	48	31	17	1388	7	da18179b0d7c199cef73e6e97278b4912eb3d783f571b6373257ec9117f70ec1
+28	gfx_d3d/r_rendertarget.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	13	9	4	2102	3	1fd39c9f42cb21f7d82c706ca5564d8f02acd52a47e5864d0158e3d2cbf2c2bb
+29	gfx_d3d/r_scene.cpp	GEMINI_SCENE_01	medium cohort / hard TU	five assigned bodies; remaining source frozen	38	15	23	4027	6	1fdd61de27d1a862ebc4fa02925b03dd0eaca6adec3ee0c2d90b12e4e6015548
+30	gfx_d3d/r_screenshot.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	28	7	21	1357	9	ec8621d23c7abe0069544e3a85d269d1771e5dcebb0ff8c044e05fac176cd583
+31	gfx_d3d/r_shadowcookie.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	37	18	19	3011	11	938fa0db1ddca2995adca076d57d877187b58cb857aeb51917c8036263cecdab
+32	gfx_d3d/r_skin_transform.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	2	0	2	0	2	74644c7c76ff32cc3fdbf2da0efc0a6bf5e7bef96fade4dfdb03c4fc4cbe7dc0
+33	gfx_d3d/r_sky.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	8	4	4	826	2	1eb0845fa04334cc352000608b4bc99c7d3e9c052d841f5cee67448c1905c94c
+34	gfx_d3d/r_sky_load_obj.cpp	UNASSIGNED	small cohort	estimate only; inspect compiler and binding blockers	2	0	2	310	0	412fe32c549caefe32849d1c751a5ed10c1f931db2b04b1d66b3a6955dfba179
+35	gfx_d3d/r_splitscreen.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	6	6	0	0	0	96e3a9df5ac985ef1f0ff6f9c97b5d58ae526917885708722d444b8efefecf02
+36	gfx_d3d/r_staticmodel_load_obj.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	18	9	9	1533	3	4334556495e8ff44e7bcafda48420a7a0d084405ddc0e6d7f86cb994b6cdc60a
+37	gfx_d3d/r_staticmodelcache.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	19	9	10	2654	2	5dfb5f69c69f168b66986c26c7ab1e06a1beb9f97043f0b561b83f20b4e8cc83
+38	gfx_d3d/r_surfbounds.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	4	4	0	0	0	13a0df881215bdcacc88c5e722f29d28d8dcd67f17c9266b47e5cc43ded05d2c
+39	gfx_d3d/r_texturemem.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	6	5	1	0	1	01708aec4001af84f5f90ff537d432b1363de0b15744dcd8537142107c64dfa3
+40	gfx_d3d/r_utils.cpp	CODEX_ACTIVE	reserved	current coordinator work	8	4	4	71	3	2c221233716fe66077df8c253439bf84672027b74023a92ed97f3eb634754c85
+41	gfx_d3d/r_water.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	6	1	5	234	4	a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b
+42	gfx_d3d/r_water_load_obj.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	8	2	6	0	6	3f7ef14abc6136abb22d1874094669bfb887ba4a34af7113c6eae0e09559f243
+43	gfx_d3d/r_xsurface.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	11	7	4	0	4	31a74cffcd294b8fe124fd0fb94b5e22ff5eea55ed35ad2af7a704a0a1f097da
+44	gfx_d3d/r_xsurface_load_obj.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	8	4	4	0	4	13274e0ea5fc93c50c525db904643f098822596e1771f96b693c1607a3b92a01
+45	gfx_d3d/r_xsurface_optimize.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	4	0	4	282	2	1838dd7aa1196a01f2d4373b8abb3a5646c5a5eae62323f1512b54f7738f05d3
+46	gfx_d3d/rb_backend.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	99	23	76	17372	11	f7a43a613dfd743a36694e06d0bace8359601b18e728458381400f52944e17d5
+47	gfx_d3d/rb_debug.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	10	2	8	2097	0	15d9d42177ea218b9954ba1bbb74345234fdbb36c7485ef112ee873644110c45
+48	gfx_d3d/rb_fog.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	5	4	1	0	1	f18e127c1a7f5e087dc04ab7517b1b80dde7e9b6a76f3a750fce0b398b24b0e3
+49	gfx_d3d/rb_imagefilter.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	9	2	7	957	2	b4915594e81cc8dc172004ad46c0e77513f4ca0162c35d042335ecf020c5f5cf
+50	gfx_d3d/rb_imagetouch.cpp	UNASSIGNED	small cohort	estimate only; inspect compiler and binding blockers	2	1	1	165	0	14cd781e57a2e4fec1b005ced996f35cd2b7bdfce0075318394d472624f0ee8c
+51	gfx_d3d/rb_light.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	25	12	13	1846	4	9d7165285f0870c797df2b3f3f8eb0f31a66a8161fdb39b69badc9e8991f251e
+52	gfx_d3d/rb_logfile.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	10	10	0	0	0	8c41ddf9e10c61e97f0a8cc3d1b196e79dfe1da25f5d109166f2456e5d9fb953
+53	gfx_d3d/rb_shade.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	29	15	14	3978	3	3aafb1cfb856509586f77fb1c6a0fe8151d5ca363fab9743208fa1f6fa0f8edc
+54	gfx_d3d/rb_sky.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	17	3	14	4566	0	9a5fc70cf4b9c813f2fe953664f41e280dc6360f619b17bec998a5b2ca4f196b
+55	gfx_d3d/rb_state.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	45	30	15	760	12	1f41ff67e6743d138115c4a94299061e8d3510e3ce8b161710a3ffd4deb9936d
+56	gfx_d3d/rb_sunsprite.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	1	0	1	0	1	e06f6a10635b5c83a0d7105a39819e15a20b10ce18b21158985fc9cdefb0110a
+57	gfx_d3d/rb_surface.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	4	0	4	674	1	0861a1b6a50097ca0a747b3ff696ccad59aff6e48aca0ea78b5eddbd706b004d
+58	gfx_d3d/rb_tess.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	30	0	30	8836	3	a49434087dd3a08ce5d84acd8ec35c47d04013a7b0469f61d024573bcd54852a
+59	jpeg-6b/jcapimin.c	DEPENDENCY	specialist	library code; not engine coverage	9	7	2	0	2	44c3adb9f793f34c0ee84ffbfbbef06788a1df42e4d28daa89304894eeeddf2a
+60	jpeg-6b/jcapistd.c	DEPENDENCY	specialist	library code; not engine coverage	3	3	0	0	0	371517d8285ca47d286be53a6c1bf8f1a0372e12e6e7f7c84b324d7f441b6581
+61	jpeg-6b/jccoefct.c	DEPENDENCY	specialist	library code; not engine coverage	6	5	1	0	1	3ae6713a9b2a3fe717703dcdcb37f5dfdf123c19736207b71c132c4e1caa7099
+62	jpeg-6b/jccolor.c	DEPENDENCY	specialist	library code; not engine coverage	8	7	1	0	1	2c2b7417c2da845e5dcd959b4fb6264b8848c0de689d95dcc2a5b407ecaba5b5
+63	jpeg-6b/jcdctmgr.c	DEPENDENCY	specialist	library code; not engine coverage	4	4	0	0	0	58adbdb02c125057964569e56fad59df8dc7d61e751a476006c34e24c030d1dd
+64	jpeg-6b/jchuff.c	DEPENDENCY	specialist	library code; not engine coverage	14	14	0	0	0	1255c27a8fae13ad2b53d5fa17697b3b7cdb4983f6bdbf96876326189d2efba0
+65	jpeg-6b/jcinit.c	DEPENDENCY	specialist	library code; not engine coverage	1	1	0	0	0	31aa9f72d8e6250790328512ae9c646b3c2b32887f79fa3df01af7d5345e061c
+66	jpeg-6b/jcmainct.c	DEPENDENCY	specialist	library code; not engine coverage	3	3	0	0	0	a51f469b02429189ad0c5a52fb2d789d7025c1802b87168a9fe9180fc135c07e
+67	jpeg-6b/jcmarker.c	DEPENDENCY	specialist	library code; not engine coverage	19	17	2	0	2	c4eadb83aeaa63df9a17364fbddb1df1b96fb1281f2d395dff6ec8371373cfcc
+68	jpeg-6b/jcmaster.c	DEPENDENCY	specialist	library code; not engine coverage	8	8	0	0	0	44a467046fc8eee886359e1c738fb8289a5bb3533b06de62d332d5b409ddfb2b
+69	jpeg-6b/jcomapi.c	DEPENDENCY	specialist	library code; not engine coverage	4	2	2	0	2	d8a79c2a19310e0bc918324d7174a1e1bc1b9e316f63fd90449abf46c041711d
+70	jpeg-6b/jcparam.c	DEPENDENCY	specialist	library code; not engine coverage	13	13	0	0	0	c24c98d067ba1424a578e91a0ab584533983eafbcc399d681895974225478629
+71	jpeg-6b/jcphuff.c	DEPENDENCY	specialist	library code; not engine coverage	15	15	0	0	0	7a428d6d13f786ba53d200ba96ab1fa3ff9f7dad61737ad96f3ce199b748c367
+72	jpeg-6b/jcprepct.c	DEPENDENCY	specialist	library code; not engine coverage	6	6	0	0	0	4713a51fd7ecb9cc7c7162b30bc26243342361a4e083f43f2afbd10e977a92fc
+73	jpeg-6b/jcsample.c	DEPENDENCY	specialist	library code; not engine coverage	10	9	1	0	1	8e0b73f54bafcd87f7117795de04987eb1a5a3ac74fb8d256833ceb59f8b31d4
+74	jpeg-6b/jdapimin.c	DEPENDENCY	specialist	library code; not engine coverage	9	7	2	0	2	61681f9233b7e372cfbfe9775629e15aae53b4e1532447c2f77dcc1c57ba7826
+75	jpeg-6b/jdapistd.c	DEPENDENCY	specialist	library code; not engine coverage	6	6	0	0	0	1b062e70e891819f4603f83baf49462ea737255a0c39df3ef941ef543f94fbab
+76	jpeg-6b/jdatasrc.c	CODEX_ACTIVE	reserved	current coordinator work	4	2	2	0	2	4713b1f34c2ce0669154cfe9a7156a51c7ff2f80944e386a724cfee828dc17de
+77	jpeg-6b/jdcoefct.c	DEPENDENCY	specialist	library code; not engine coverage	10	9	1	0	1	d84af1a89ea5f91d68607d5620a492f986b7515c141bc3666c5a70dc44df57db
+78	jpeg-6b/jdcolor.c	DEPENDENCY	specialist	library code; not engine coverage	8	7	1	0	1	de64bfa0416fa45c8a55cec82c7da468b329c3c3fc9cc55eb5f56509a80332cf
+79	jpeg-6b/jddctmgr.c	DEPENDENCY	specialist	library code; not engine coverage	2	2	0	0	0	f50d9b1414b44782d4ef46761a53f930b06764468b4cbbf0bf0761ac0751defd
+80	jpeg-6b/jdhuff.c	DEPENDENCY	specialist	library code; not engine coverage	7	7	0	0	0	980d1bdeb8bc631a3528560a4f01bfae28efd8f3ecce4a76d32c97a71e6d1f52
+81	jpeg-6b/jdinput.c	DEPENDENCY	specialist	library code; not engine coverage	8	8	0	0	0	f1f6b042aa907fe622aa7c94b21d71e61f7f306e10988148c42cc7d50f667e76
+82	jpeg-6b/jdmainct.c	DEPENDENCY	specialist	library code; not engine coverage	9	9	0	0	0	f9a8331d0a58f6ae74bbfc27e9640d66afb067793586358e0bb47bdb7cb754df
+83	jpeg-6b/jdmarker.c	DEPENDENCY	specialist	library code; not engine coverage	20	20	0	0	0	1200c42679f318768025f8e45457d02c5ce5dfecbd72b37dc0bd1da9adb4dba0
+84	jpeg-6b/jdmaster.c	DEPENDENCY	specialist	library code; not engine coverage	8	8	0	0	0	c9f18a007511047a50db0b14c54e4d88c279571ec36824b70c3c20232ef7a8fe
+85	jpeg-6b/jdmerge.c	DEPENDENCY	specialist	library code; not engine coverage	7	7	0	0	0	a47ca108ebf955104abbe3f9a64383532be2c70c6f956b5844b412f151f50453
+86	jpeg-6b/jdphuff.c	DEPENDENCY	specialist	library code; not engine coverage	7	7	0	0	0	75db83bd4bf1f3f6f6fe7b1d2e195efcf5e3ab65597089807aaeeffbdb013627
+87	jpeg-6b/jdpostct.c	DEPENDENCY	specialist	library code; not engine coverage	5	5	0	0	0	f873dd3a08eedee9a32c1e343cfbdc3380d2e245e1eab2c416d4e1a62cc9586e
+88	jpeg-6b/jdsample.c	DEPENDENCY	specialist	library code; not engine coverage	10	10	0	0	0	acca64d28c61b87e77993dd0bd51d089ecd68f8989f93e7d17156314ca58670d
+89	jpeg-6b/jdtrans.c	DEPENDENCY	specialist	library code; not engine coverage	2	2	0	0	0	c97867f861168d81844a9c9fd8c0b643ce835534a605a93aaab758ec36c56d8a
+90	jpeg-6b/jerror.c	DEPENDENCY	specialist	library code; not engine coverage	6	6	0	0	0	f6b0fc0548e2236bce873df854ab3bdf9252d1a680d8ebb494f9e3579c917e5d
+91	jpeg-6b/jfdctflt.c	DEPENDENCY	specialist	library code; not engine coverage	1	1	0	0	0	07c7ec15785f5709515424da1b45deacfa822197b761e319f45fbaa45e17caf9
+92	jpeg-6b/jfdctfst.c	DEPENDENCY	specialist	library code; not engine coverage	1	1	0	0	0	1c28ec690d4a69bdc285eac01bef668e31866ad0018fe9b4f68bcdce8a9ec044
+93	jpeg-6b/jfdctint.c	DEPENDENCY	specialist	library code; not engine coverage	1	1	0	0	0	807dd95d59692db94d2fa23557d8a16e2a20cb4d851ba5a82f26fa1a674b52c8
+94	jpeg-6b/jidctflt.c	DEPENDENCY	specialist	library code; not engine coverage	1	1	0	0	0	0988f6ba29f57b691dabdd3f0541839fb651dc74abd36c395130b12a30937155
+95	jpeg-6b/jidctfst.c	DEPENDENCY	specialist	library code; not engine coverage	1	1	0	0	0	c864b3dcfe494f9c8bda25a6fa5fc0a330e636b32eb4bcb6febe8cb01ed1d433
+96	jpeg-6b/jidctint.c	DEPENDENCY	specialist	library code; not engine coverage	1	1	0	0	0	3b7123ba9a66c10eb1f96d7432637b051278f3538d1b06884f9d21a39fd78f9a
+97	jpeg-6b/jidctred.c	DEPENDENCY	specialist	library code; not engine coverage	3	3	0	0	0	df25adc646b0fdd69aed54361928aeb36972a8293c917f8ec1b0d62e8f764252
+98	jpeg-6b/jmemmgr.c	DEPENDENCY	specialist	library code; not engine coverage	15	15	0	0	0	2b57e48bb6dd369c2d46e5827cd1e2553d50e02b062d94c2c17725ca26b642e3
+99	jpeg-6b/jmemnobs.c	DEPENDENCY	specialist	library code; not engine coverage	8	1	7	0	7	d26df98be70e5d89ac66803a4bcaab64350260eaffa02953ba9d1273e01ff166
+100	jpeg-6b/jquant1.c	DEPENDENCY	specialist	library code; not engine coverage	17	16	1	0	1	556df5715cf5d915e5190066ff4e542a9911b651e45b34d322a6f6c2b0098fbc
+101	jpeg-6b/jquant2.c	DEPENDENCY	specialist	library code; not engine coverage	18	17	1	0	1	9b6844e18480d7003618e8f473a0900743d15fc8516aee7229a77adce470eb0b
+102	jpeg-6b/jutils.c	DEPENDENCY	specialist	library code; not engine coverage	5	5	0	0	0	2cab735c6ea1bca55f4c94a72c73035a0a161378403a6bd849b350df71db92d6
+103	universal/com_convexhull.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	7	7	0	0	0	16a83964cd61cf311d94b72d8f356f77d7f5776918da0c2a6f360670d56989cf
+104	universal/com_math.cpp	COORDINATOR	hard	shared helpers and cross-TU ABI	164	143	21	386	18	a4318c864e50272ce393e142f05bcb80bc95c581b88a68163573c3ccd8382cdd
+105	universal/com_plane.cpp	COORDINATOR	hard	shared helpers and cross-TU ABI	1	0	1	0	1	5683d3eb5bc1c28309ed37792d0db518905c875be2f72778e84615f58edf69df
+106	universal/com_shared.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	3	3	0	0	0	d19acbee13742932acea6b76556326489b6fce44ed742acccfa59072770818a3
+107	universal/fft.cpp	COORDINATOR	hard	shared helpers and cross-TU ABI	2	1	1	0	1	d5d07561bd34baafbb20d32e6597aae5ca12f974cf50beab6325f20ab70bf1bc
+108	universal/q_parse.cpp	COORDINATOR	hard	shared helpers and cross-TU ABI	36	25	11	0	11	98891b147e252f08c887d3a171d52c4f3524df3e6f595b2cd116920f26cd0ff6
+109	universal/q_shared.cpp	COORDINATOR	hard	shared helpers and cross-TU ABI	72	56	16	0	16	34879ff4608fe8d69090656e60b047d85f7a6b72b3fa45d01745da1ddcd96104
+110	gfx_d3d/common.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	1	1	0	0	0	f098178eb5a04cfc4ac83704b1bac538950f1d271aca8897e044135ec2d13de2
+111	qcommon/common.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	2	2	0	0	0	3a6cc5d55ea5ceebab66cd402ee73e9d4fa3b5db4fe5bc0ad9205d28aaae81a1
+112	win32/win_threads.cpp	COORDINATOR	hard	shared helpers and cross-TU ABI	1	0	1	0	1	78caa83aa1ea969ce925af894ee9a0f087f672bc20d078dd22870e64064f7d40

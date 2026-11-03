@@ -797,9 +797,7 @@
 "t": "0x1000fc30",
 "n": 169,
 "obj": "r_image_load_obj.obj",
-"why": [
-"call ?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z"
-]
+"why": []
 },
 "?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z": {
 "t": "0x1000fce0",
@@ -1277,6 +1275,18 @@
 "obj": "r_jpeg.obj",
 "why": []
 },
+"?R_SaveJpg@@YAXPBDHHHPAE@Z": {
+"t": "0x10014670",
+"n": 713,
+"obj": "r_jpeg.obj",
+"why": []
+},
+"?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z": {
+"t": "0x10014940",
+"n": 785,
+"obj": "r_jpeg.obj",
+"why": []
+},
 "?R_GetPointLightPartitions@@YAHPBUGfxDrawSurf@@HPAUPointLightPartition@@H@Z": {
 "t": "0x10014fc0",
 "n": 193,
@@ -1483,9 +1493,7 @@
 "t": "0x100171f0",
 "n": 81,
 "obj": "r_material.obj",
-"why": [
-"call ?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z"
-]
+"why": []
 },
 "?R_RegisterMaterial@@YAPAUMaterial@@PBDHH@Z": {
 "t": "0x10017290",
@@ -1499,9 +1507,7 @@
 "t": "0x100172b0",
 "n": 30,
 "obj": "r_material.obj",
-"why": [
-"call ?Material_RegisterRawImage@@YAPAUMaterial@@PBDH@Z"
-]
+"why": []
 },
 "?Material_ReloadTextures@@YAXPAUMaterial@@@Z": {
 "t": "0x10017640",
@@ -2615,9 +2621,7 @@
 "t": "0x10026240",
 "n": 78,
 "obj": "r_screenshot.obj",
-"why": [
-"call ?R_SaveJpg@@YAXPBDHHHPAE@Z"
-]
+"why": []
 },
 "?R_SaveGameShot@@YAXPBD@Z": {
 "t": "0x10026330",
@@ -4074,6 +4078,12 @@
 "why": [
 "call ?RB_ScreenRadiusToWorld@@YA_NPBMMPAM@Z"
 ]
+},
+"_jpeg_CreateCompress": {
+"t": "0x10041710",
+"n": 221,
+"obj": "jcapimin.obj",
+"why": []
 },
 "_jpeg_suppress_tables": {
 "t": "0x10041850",

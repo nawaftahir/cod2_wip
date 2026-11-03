@@ -1,5 +1,94 @@
 # Renderer progress
 
+## PAUSED after JPEG checkpoint - 2026-11-03
+
+Verified C++114496/253580=45.151825854%,688 bodies. Since871d13e:
++1856B/+6 engine C++ bodies, plus221B of IJG dependency code counted separately.
+All2432 prior extents retained; both gates now protect2439. All14 new-removal
+negatives pass.35 assembly bodies/8411B remain excluded. API65/98 bodies accepted.
+Raw same-offset12.896674502% is a separate meter. Whole-DLL
+SHA and GPU smoke remain unfinished. No full-suite repeat or new normalized-span
+audit; affected real JPEG encoder/decoder and frame/image tests pass.
+
+New engine matches: R_LoadJpg785, Image_LoadRaw169,
+Material_RegisterRawImage81, R_RegisterRawImage30, R_SaveJpg713 and
+R_TakeScreenshotJpeg78. Library jpeg_CreateCompress221 also matches.
+Memory-source setup needed actual inlining and one captured source-manager
+pointer. Compression needed the three-argument constructor with allocator
+callbacks set on cinfo, preserved as an aggregate across clearing the object.
+This preserves the independently matched constructor and fixes its inlined save
+path. Existing real IJG tests and an independent Pillow decode pass.
+
+One build output, no spawned workers. Fourteen original builds since the last
+commit: eight earlier image/math trials gave zero gains and were set aside;
+the resumed source-lifetime/JPEG work used six. No new assembly or CPU flags.
+Small unmatched cache/cull/model/frame/cube drafts remain identified in the
+handoff; they are not credited. Their native behavior is tested.
+
+Root src/ remains seven verified files/39 emitted matches. DO NOT promote
+r_jpeg.cpp yet: five sparse callback bodies still lack accepted placements.
+They are a candidate-discovery gap to investigate, not permission to relax the
+referee. Exact follow-up is in HANDOFF.md and target/work/ATTEMPTS.md.
+
+Gemini's separate worktree/branch and five-body SCENE_01 mission are preserved.
+Its1152-case native baseline passes. WORKERS.md records disjoint ownership;
+Codex did not edit r_scene.cpp. A setup backup is target/work/workers/SCENE_01/.
+Worker results do not count until the serialized original-toolchain gate here.
+Receipt: target/work/proof/nov03_jpeg_checkpoint.json. No push performed.
+
+## Active JPEG/image gain and worker setup - 2026-11-03
+
+Verified C++113705/253580=44.839892736%,686 bodies: +1065B/+4 bodies.
+R_LoadJpg785B, Image_LoadRaw169B, Material_RegisterRawImage81B and
+R_RegisterRawImage30B now pass both referees. All2432 prior extents retained;
+retention now2436, and both gates reject removing each new body (eight negatives).
+35 assembly-bearing bodies/8411B stay excluded. No new assembly or verifier
+relaxation. Whole SHA and GPU smoke remain unfinished.
+
+The real IJG memory-source setup now inlines in the image loader and retains
+one source-manager pointer, as retail does. Forcing inlining alone gave837B
+with repeated cinfo->src reloads; capturing that pointer restored the785B body.
+Existing JPEG decoder and frame/image native fixtures pass. This is active
+work, not a paused checkpoint. No commit or push was made for this wave.
+
+Gemini checkout: worktrees/gemini on workers/gemini-gfx, based on871d13e.
+SCENE_01 owns r_scene.cpp's five scene-command bodies/1363 target bytes.
+WORKERS.md and its GEMINI_START_HERE.md define ownership, references and the
+single serialized whole-DLL gate. The worker's native1152-case scene baseline
+passes; no duplicate build was copied. Code changes here remain in the primary.
+Queue/map generator: target/work/tools/work_queue.py. Ownership gaps and
+heuristic complexity are explicit, not asserted original PC TU provenance.
+
+Active again at owner request, 2026-11-03. Resume matching; no checkpoint requested.
+The PAUSED entry below is the previous saved state.
+
+## PAUSED - owner requested checkpoint, 2026-11-02
+
+Verified C++112640/253580=44.419906933%,682 bodies, UNCHANGED.
+This pass added ZERO verified bytes or bodies. All2432 protected extents remain;
+35 assembly bodies/8411B excluded. API64/98 accepted; raw same-offset
+12.913634714% is a separate meter. Whole SHA/GPU unfinished.
+
+Cost: eight original builds, one reused output, no workers. This was poor yield.
+Bounded lightmap/cubemap/Fresnel/CPU trials did not match and were reverted.
+Their results and complete last trial patch are saved; do not repeat them.
+The final three small shader-cache/cull/model-pointer source edits remain
+UNMATCHED drafts in target/work/src; they pass behavior fixtures and retain
+all prior matches. They add no coverage. Compiler profile and image source
+are restored to the previous checkpoint. No new assembly or retained CPU flags.
+
+New tests pin1024 lightmap directions/4096 bytes, retail's carried normalized Y,
+and Fresnel values/symmetry/NaNs. Existing shader preload and visibility cases,
+assembly-exclusion negatives and the verified-only source gate pass. Root src/
+remains seven fully verified snapshots/39 emitted matches, unchanged.
+
+Resume from this build; no compiler is left running. Read target/work/ATTEMPTS.md
+first. The nearest-diff ranking in proof/nov02_nearest_ready_functions.json is
+DIAGNOSTIC ONLY: its zero-open count ignores indirect/data/import/out-of-range
+bindings. R_InitRenderCmds is an explicit counterexample. Inspect actual bind
+reasons before selecting another group. Do not repeat the final three syntax
+forms or count near matches as progress. Receipt: target/work/proof/nov02_pause_checkpoint.json.
+
 ## Specular dependency closure - 2026-11-02
 
 C++112640/253580=44.419906933%,682 bodies: +528B/+3 C++ bodies.

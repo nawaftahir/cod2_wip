@@ -953,7 +953,7 @@
 {
 "name": "?R_GetModelEntityBounds@@YAXHPAM0@Z",
 "obj": "r_dpvs.obj",
-"size": 159,
+"size": 161,
 "hits": []
 },
 {
@@ -2677,13 +2677,17 @@
 "name": "?R_SaveJpg@@YAXPBDHHHPAE@Z",
 "obj": "r_jpeg.obj",
 "size": 713,
-"hits": []
+"hits": [
+"0x10014670"
+]
 },
 {
 "name": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
 "obj": "r_jpeg.obj",
-"size": 724,
-"hits": []
+"size": 785,
+"hits": [
+"0x10014940"
+]
 },
 {
 "name": "?R_ShutdownLightDefs@@YAXXZ",
@@ -8517,8 +8521,10 @@
 {
 "name": "_jpeg_CreateCompress",
 "obj": "jcapimin.obj",
-"size": 201,
-"hits": []
+"size": 221,
+"hits": [
+"0x10041710"
+]
 },
 {
 "name": "_jpeg_destroy_compress",
@@ -9649,7 +9655,7 @@
 {
 "name": "_jpeg_memory_src",
 "obj": "jdatasrc.obj",
-"size": 93,
+"size": 75,
 "hits": []
 },
 {

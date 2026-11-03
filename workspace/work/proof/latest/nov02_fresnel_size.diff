@@ -1,0 +1,113 @@
+?FresnelTerm@@YAMMMM@Z 0x10029ea5 203
+--- ours
++++ retail
+@@ -1,21 +1,19 @@
+-push ebp
+-mov ebp, esp
+ sub esp, 0x10
+-fld dword ptr [ebp + 0x10]
++fld dword ptr [esp + 0x1c]
+ fabs 
+-fst dword ptr [ebp + 0x10]
++fst dword ptr [esp + 0x1c]
+ call A
+-fst qword ptr [ebp - 0x10]
++fst qword ptr [esp + 8]
+ fsin 
+-fld dword ptr [ebp + 8]
+-fdiv dword ptr [ebp + 0xc]
++fld dword ptr [esp + 0x14]
++fdiv dword ptr [esp + 0x18]
+ fmulp st(1)
+ fcom qword ptr [A]
+-fst qword ptr [ebp - 8]
++fst qword ptr [esp]
+ fnstsw ax
+ test ah, 0x41
+ jne A
+ fstp st(0)
+-fld1 
++fld qword ptr [A]
+ jmp A
+ fcomp qword ptr [A]
+@@ -24,20 +22,20 @@
+ jp A
+ fld qword ptr [A]
+-fstp qword ptr [ebp - 8]
+-fld qword ptr [ebp - 8]
++fstp qword ptr [esp]
++fld qword ptr [esp]
+ call A
+-fld qword ptr [ebp - 0x10]
++fld qword ptr [esp + 8]
+ fadd st(1)
+-fstp qword ptr [ebp - 8]
+-fsubr qword ptr [ebp - 0x10]
++fstp qword ptr [esp]
++fsubr qword ptr [esp + 8]
+ fld st(0)
+ fsin 
+-fld qword ptr [ebp - 8]
++fld qword ptr [esp]
+ fsin 
+ fdivp st(1)
+-fstp qword ptr [ebp - 0x10]
++fxch st(1)
+ fptan 
+ fstp st(0)
+-fld qword ptr [ebp - 8]
++fld qword ptr [esp]
+ fptan 
+ fstp st(0)
+@@ -45,9 +43,11 @@
+ fld st(0)
+ fmul st(1)
+-fld qword ptr [ebp - 0x10]
+-fmul qword ptr [ebp - 0x10]
++fld st(2)
++fmul st(3)
+ faddp st(1)
+ fmul qword ptr [A]
++fxch st(2)
+ fstp st(1)
++fstp st(0)
+ fcom dword ptr [A]
+ fnstsw ax
+@@ -55,5 +55,7 @@
+ jp A
+ fstp st(0)
+-fldz 
++fld dword ptr [A]
++add esp, 0x10
++ret 
+ fcom dword ptr [A]
+ fnstsw ax
+@@ -61,6 +63,6 @@
+ jne A
+ fstp st(0)
+-fld1 
+-leave 
++fld dword ptr [A]
++add esp, 0x10
+ ret 
+ int3 
+@@ -71,8 +73,14 @@
+ int3 
+ int3 
++push eax
++call dword ptr [A]
++mov dword ptr [esi], eax
++add esp, 4
++mov eax, esi
++ret 
+ int3 
+-int3 
+-sub esp, 0x30
+-mov ecx, dword ptr [esp + 0x38]
+-fld dword ptr [ecx]
+-mov eax, dword ptr [esp + 0x34]
++mov ecx, dword ptr [eax]
++push ecx
++call dword ptr [A]
++pop ecx
++ret 

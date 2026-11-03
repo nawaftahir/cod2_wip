@@ -189,6 +189,18 @@ specular_closure = gfx / 'target/work/proof/specular_closure_warm_bind.json'
 assert hashlib.sha256(specular_closure.read_bytes()).hexdigest() == '28c9f6f07fc93b4d20a43c24524fb3758270517d8447024a96023d96456a3801'
 required.update({va: row for va, row in accepted(specular_closure).items()
                  if va in old or '@std@@' not in row['name']})
+jpeg_load = gfx / 'target/work/proof/jpeg_load_20261103_warm_bind.json'
+assert hashlib.sha256(jpeg_load.read_bytes()).hexdigest() == '1f42a8cfc114e5b571392f021670f670ca4a3828a64977a3f840e47e3c893ef1'
+required.update({va: row for va, row in accepted(jpeg_load).items()
+                 if va in old or '@std@@' not in row['name']})
+jpeg_compress_abi = gfx / 'target/work/proof/jpeg_compress_abi_warm_bind.json'
+assert hashlib.sha256(jpeg_compress_abi.read_bytes()).hexdigest() == 'e6dd295f4445f442f0d498a86c5b6cec8a5bfef6dd9d4e35276bf7e1f46e4c22'
+required.update({va: row for va, row in accepted(jpeg_compress_abi).items()
+                 if va in old or '@std@@' not in row['name']})
+jpeg_save = gfx / 'target/work/proof/jpeg_save_20261103_warm_bind.json'
+assert hashlib.sha256(jpeg_save.read_bytes()).hexdigest() == '9fe76c04ed8c732c218e8ce2b4a83a4e29f2fda6d3aa10447faa81f5e941aad1'
+required.update({va: row for va, row in accepted(jpeg_save).items()
+                 if va in old or '@std@@' not in row['name']})
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

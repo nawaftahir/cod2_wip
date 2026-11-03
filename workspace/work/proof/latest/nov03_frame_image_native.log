@@ -1,0 +1,6 @@
+RUN test_backend_frame.py
+PASS: 24 actual normal-backend routes, signed frame selection, unlock order, pointer reload and untouched command/debug fields
+RUN test_rendercmd_init.py
+PASS: four render-command startup routes, debug limits, allocation order and callback ownership changes
+RUN test_procedural_images.py
+PASS: 134 actual procedural image routes, BGRA, L8, six axes, texel centers, guards and submap forwarding

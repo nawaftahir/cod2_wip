@@ -1,3 +1,19 @@
+## Current worker-ready structure - 2026-11-03
+
+112 candidate TUs remain in src/tus.txt link order. The generated
+retail_functions.tsv maps every inventory entry plus verified extra starts;
+tu_work_queue.tsv preserves link slots and records candidate ownership,
+pending emitted symbols, source hashes, ownership locks and estimated difficulty.
+section_work_queue.tsv keeps non-code work explicit. Unknown owners remain
+unknown; no complete historical PC TU-boundary or final-offset claim is made.
+work_queue.json pins the inputs. Queue counts/bytes are NOT progress meters.
+
+Gemini's isolated checkout is ../../../worktrees/gemini from this directory;
+read the primary WORKERS.md and that checkout's GEMINI_START_HERE.md.
+SCENE_01 owns r_scene.cpp's five scene-command bodies. Shared headers/data,
+link order, compiler rules and the single whole-DLL build stay coordinator-owned.
+Older layout notes below describe their dated snapshots, not today's TU count.
+
 ## Skinned-model source and resource field - 2026-10-27
 
 ## Current layout validation - 2026-11-01

@@ -129,6 +129,7 @@ accepted	gfx_d3d/r_image_load_obj.cpp	Image_GetLightGridWeightsForVector	100104a
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_GetSunHalfAngleForVector	100106b0	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_LoadBitmap	1000f5a0	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_LoadDxtc	1000f7b0	mac
+accepted	gfx_d3d/r_image_load_obj.cpp	Image_LoadRaw	1000fc30	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	Image_ValidateHeader	1000f2a0	bind
 accepted	gfx_d3d/r_image_load_obj.cpp	R_CreateWaterMap	10010b30	mac
 accepted	gfx_d3d/r_image_load_obj.cpp	R_GetLightmapWeightsForDir	1000fd70	doubt
@@ -164,6 +165,8 @@ accepted	gfx_d3d/r_init.cpp	R_SetD3DPresentParameters	100114d0	bind
 accepted	gfx_d3d/r_init.cpp	R_SetupAntiAliasing	10011460	bind
 accepted	gfx_d3d/r_init.cpp	R_StoreDirect3DCaps	10011900	bind
 accepted	gfx_d3d/r_init.cpp	R_TrackStatistics	10013260	mac
+accepted	gfx_d3d/r_jpeg.cpp	R_LoadJpg	10014940	mac
+accepted	gfx_d3d/r_jpeg.cpp	R_SaveJpg	10014670	mac
 accepted	gfx_d3d/r_jpeg.cpp	init_destination	10014580	mac
 accepted	gfx_d3d/r_jpeg.cpp	jpeg_memory_dest	100145d0	doubt
 accepted	gfx_d3d/r_jpeg.cpp	term_destination	100145b0	mac
@@ -192,6 +195,7 @@ accepted	gfx_d3d/r_material.cpp	Material_FindTechniqueSetSlot	100169e0	bind
 accepted	gfx_d3d/r_material.cpp	Material_FindTechniqueSlot	100168e0	bind
 accepted	gfx_d3d/r_material.cpp	Material_IsDefault	10017020	mac
 accepted	gfx_d3d/r_material.cpp	Material_RegisterLiteral	10016390	mac
+accepted	gfx_d3d/r_material.cpp	Material_RegisterRawImage	100171f0	bind
 accepted	gfx_d3d/r_material.cpp	Material_RegisterString	10016440	mac
 accepted	gfx_d3d/r_material.cpp	Material_ReleaseAll	10017520	mac
 accepted	gfx_d3d/r_material.cpp	Material_ReleaseShaders	10016db0	doubt
@@ -207,6 +211,7 @@ accepted	gfx_d3d/r_material.cpp	Material_Sort	10016e70	mac
 accepted	gfx_d3d/r_material.cpp	R_GetMaterialName	10017300	mac
 accepted	gfx_d3d/r_material.cpp	R_GetMaterialSubimageCount	10017310	mac
 accepted	gfx_d3d/r_material.cpp	R_IsMaterialRefractive	10017320	mac
+accepted	gfx_d3d/r_material.cpp	R_RegisterRawImage	100172b0	mac
 accepted	gfx_d3d/r_material_load_obj.cpp	IncludeClass_Open	100182c0	mac
 accepted	gfx_d3d/r_material_load_obj.cpp	Material_AllocRuleSet	10018890	bind
 accepted	gfx_d3d/r_material_load_obj.cpp	Material_CompareShaderText	1001c8d0	bind
@@ -316,6 +321,7 @@ accepted	gfx_d3d/r_screenshot.cpp	I_fmin	10025920	bind
 accepted	gfx_d3d/r_screenshot.cpp	R_CubemapShotExtractLinearLight	10026fe0	bind
 accepted	gfx_d3d/r_screenshot.cpp	R_FlipCubemapShot	100266f0	bind
 accepted	gfx_d3d/r_screenshot.cpp	R_GetFrontBufferData	10025e80	mac
+accepted	gfx_d3d/r_screenshot.cpp	R_TakeScreenshotJpeg	10026240	bind
 accepted	gfx_d3d/r_screenshot.cpp	R_TakeScreenshotTga	100261b0	bind
 accepted	gfx_d3d/r_screenshot.cpp	Vec3Mul	10025940	bind
 accepted	gfx_d3d/r_shadowcookie.cpp	R_CompareShadowCandidates	10027170	bind
@@ -791,7 +797,6 @@ draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_LoadBuiltin	100108a0	-
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_LoadFromData	1000f900	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_LoadFromFile	1000fa40	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_LoadLightmapWeights	1000fe90	mac
-draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_LoadRaw	1000fc30	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_LoadWavelet	1000f380	mac
 draft-addressed	gfx_d3d/r_image_load_obj.cpp	Image_WaterColorForDirection	100107e0	-
 draft-addressed	gfx_d3d/r_init.cpp	R_BeginRegistration	10013190	mac
@@ -814,8 +819,6 @@ draft-addressed	gfx_d3d/r_init.cpp	R_SetupWindowParms	10012b90	-
 draft-addressed	gfx_d3d/r_init.cpp	R_Shutdown	10013080	mac
 draft-addressed	gfx_d3d/r_init.cpp	R_ShutdownHardware	10012db0	-
 draft-addressed	gfx_d3d/r_init.cpp	R_StoreWindowSettings	100115f0	-
-draft-addressed	gfx_d3d/r_jpeg.cpp	R_LoadJpg	10014940	mac
-draft-addressed	gfx_d3d/r_jpeg.cpp	R_SaveJpg	10014670	mac
 draft-addressed	gfx_d3d/r_jpeg.cpp	empty_output_buffer	100145a0	mac
 draft-addressed	gfx_d3d/r_light.cpp	R_AddPointLightSurfaces	10014d90	-
 draft-addressed	gfx_d3d/r_light.cpp	R_GetPointLightPartitions	10014fc0	mac
@@ -833,14 +836,12 @@ draft-addressed	gfx_d3d/r_material.cpp	Material_FindTechniqueSet	-	mac
 draft-addressed	gfx_d3d/r_material.cpp	Material_Init	100173e0	mac
 draft-addressed	gfx_d3d/r_material.cpp	Material_Register	10017100	mac
 draft-addressed	gfx_d3d/r_material.cpp	Material_RegisterBuiltins	10017350	doubt
-draft-addressed	gfx_d3d/r_material.cpp	Material_RegisterRawImage	100171f0	-
 draft-addressed	gfx_d3d/r_material.cpp	Material_RegisterRawMaterial	10017190	doubt
 draft-addressed	gfx_d3d/r_material.cpp	Material_ReloadTextures	10017640	-
 draft-addressed	gfx_d3d/r_material.cpp	Material_ReloadTextures_f	100178b0	-
 draft-addressed	gfx_d3d/r_material.cpp	R_ApplyPicmip	10017730	-
 draft-addressed	gfx_d3d/r_material.cpp	R_ApplyPicmip_f	10005290	-
 draft-addressed	gfx_d3d/r_material.cpp	R_RegisterMaterial	10017290	-
-draft-addressed	gfx_d3d/r_material.cpp	R_RegisterRawImage	100172b0	mac
 draft-addressed	gfx_d3d/r_material_load_obj.cpp	Material_CacheShaderText	1001c7f0	-
 draft-addressed	gfx_d3d/r_material_load_obj.cpp	Material_CreateShader	1001a4c0	-
 draft-addressed	gfx_d3d/r_material_load_obj.cpp	Material_FixupBinary	1001c4e0	-
@@ -938,7 +939,6 @@ draft-addressed	gfx_d3d/r_screenshot.cpp	R_ScreenShotCmd	100263a0	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_ScreenShotJpeg_f	100052b0	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_ScreenShot_f	100052a0	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_TakeResampledScreenshot	10026110	mac
-draft-addressed	gfx_d3d/r_screenshot.cpp	R_TakeScreenshotJpeg	10026240	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_WriteCubemapShot	10026920	-
 draft-addressed	gfx_d3d/r_screenshot.cpp	R_WriteCubemapShotAlpha	10026840	-
 draft-addressed	gfx_d3d/r_shadowcookie.cpp	R_AddShadowReceivers	10027590	-
@@ -1373,7 +1373,7 @@ library-compiler	gfx_d3d/r_water_load_obj.cpp	exp	-	-
 library-compiler	gfx_d3d/r_water_load_obj.cpp	expf	-	-
 library-compiler	gfx_d3d/rb_shade.cpp	floor	-	-
 library-compiler	gfx_d3d/rb_shade.cpp	floorf	-	-
-library-jpeg	jpeg-6b/jcapimin.c	jpeg_CreateCompress	-	-
+library-jpeg	jpeg-6b/jcapimin.c	jpeg_CreateCompress	10041710	-
 library-jpeg	jpeg-6b/jcapimin.c	jpeg_abort_compress	-	-
 library-jpeg	jpeg-6b/jcapimin.c	jpeg_destroy_compress	-	-
 library-jpeg	jpeg-6b/jcapimin.c	jpeg_finish_compress	100418c0	-

@@ -1,0 +1,27 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "row_y_stack_operand": "esp+0x28",
+  "references": [
+    {
+      "address": "0x1000ff06",
+      "instruction": "fstp dword ptr [esp + 0x28]"
+    },
+    {
+      "address": "0x1000ff3c",
+      "instruction": "fld dword ptr [esp + 0x28]"
+    },
+    {
+      "address": "0x1000ff40",
+      "instruction": "fmul dword ptr [esp + 0x28]"
+    },
+    {
+      "address": "0x1000ffb7",
+      "instruction": "fmul dword ptr [esp + 0x28]"
+    },
+    {
+      "address": "0x1000ffbb",
+      "instruction": "fstp dword ptr [esp + 0x28]"
+    }
+  ],
+  "conclusion": "Y is initialized once per row; outside-disc normalization writes it, and subsequent columns reuse the stored value."
+}

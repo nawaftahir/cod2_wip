@@ -28,18 +28,24 @@ term_source (j_decompress_ptr cinfo)
 {
 }
 
+/* Retail expands this setup into the image loader. */
+#ifdef _MSC_VER
+__forceinline
+#endif
 GLOBAL(void)
 jpeg_memory_src (j_decompress_ptr cinfo, const JOCTET *data, size_t size)
 {
+  struct jpeg_source_mgr *src;
   if (cinfo->src == NULL)
     cinfo->src = (struct jpeg_source_mgr *)
       (*cinfo->mem->alloc_small) ((j_common_ptr)cinfo, JPOOL_PERMANENT,
                                 SIZEOF(memory_source_mgr));
-  cinfo->src->bytes_in_buffer = size;
-  cinfo->src->init_source = init_source;
-  cinfo->src->fill_input_buffer = NULL;
-  cinfo->src->skip_input_data = skip_input_data;
-  cinfo->src->resync_to_restart = jpeg_resync_to_restart;
-  cinfo->src->term_source = term_source;
-  cinfo->src->next_input_byte = data;
+  src = cinfo->src;
+  src->bytes_in_buffer = size;
+  src->init_source = init_source;
+  src->fill_input_buffer = NULL;
+  src->skip_input_data = skip_input_data;
+  src->resync_to_restart = jpeg_resync_to_restart;
+  src->term_source = term_source;
+  src->next_input_byte = data;
 }

@@ -1,0 +1,38 @@
+?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z 0x1000f870 597
+--- ours
++++ retail
+@@ -53,18 +53,16 @@
+ mov dword ptr [esp + 0x18], eax
+ fld dword ptr [esp + 0x18]
+-fstp dword ptr [esp + 0x14]
+-fld dword ptr [esp + 0x14]
+ call A
+ fstp dword ptr [esp + 0x14]
+ fld dword ptr [esp + 0x14]
+ fstp dword ptr [esp + 0x18]
++fld dword ptr [A]
+ fld dword ptr [esp + 0x18]
+-fld dword ptr [A]
+ fucompp 
+ fnstsw ax
+ test ah, 0x44
+ jnp A
+-fld dword ptr [esp + 0x18]
+-fdivr dword ptr [A]
++fld dword ptr [A]
++fdiv dword ptr [esp + 0x18]
+ fstp dword ptr [esp + 0x14]
+ fld dword ptr [esp + 0x14]
+@@ -156,2 +154,12 @@
+ xor ebx, ebx
+ mov esi, ebp
++call A
++add esp, 8
++pop edi
++pop esi
++pop ebp
++pop ebx
++add esp, 0x1060
++ret 
++int3 
++int3 

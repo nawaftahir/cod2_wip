@@ -1,0 +1,23 @@
+?FresnelTerm@@YAMMMM@Z 0x10029ed0 203
+--- ours
++++ retail
+@@ -48,6 +48,5 @@
+ fmul qword ptr [A]
+ fxch st(2)
+-fxch st(1)
+-fstp st(0)
++fstp st(1)
+ fstp st(0)
+ fcom dword ptr [A]
+@@ -67,2 +66,11 @@
+ add esp, 0x10
+ ret 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++int3 
++push eax
++call dword ptr [A]

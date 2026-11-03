@@ -1,0 +1,2 @@
+PASS: actual IJG/renderer JPEG encoding, four BGR images, allocator and output guards, write-failure cleanup, original destination exhaustion and fatal/print callbacks
+PASS: independent Pillow decoder confirms dimensions and BGR-to-RGB color mapping
