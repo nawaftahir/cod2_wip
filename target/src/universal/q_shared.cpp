@@ -291,20 +291,28 @@ float FloatSwap( float f )
 	union
 	{
 		float f;
+		int i;
 		byte b[4];
 	} dat1, dat2;
 
-	byte *p = (byte *)&f;
-	dat2.b[0] = p[3];
-	dat2.b[1] = p[2];
-	dat2.b[2] = p[1];
-	dat2.b[3] = p[0];
+	dat1.i = *(int *)&f;
+	dat2.b[0] = dat1.b[3];
+	dat2.b[1] = dat1.b[2];
+	dat2.b[2] = dat1.b[1];
+	dat2.b[3] = dat1.b[0];
 
 	return dat2.f;
 }
 float FloatNoSwap( float f )
 {
-	return FloatIdentity( f );
+	union
+	{
+		float f;
+		int i;
+	} dat;
+
+	dat.i = *(int *)&f;
+	return dat.f;
 }
 int FloatSwapAsInt( float f )
 {
@@ -406,9 +414,40 @@ void I_strncpyz( char *dest, const char *src, int destsize )
 
 int I_strnicmp( const char *s0, const char *s1, int n )
 {
-#define PP_RETVAL( v ) return v
-#include "q_shared_strnicmp.inl"
-#undef PP_RETVAL
+	int c0;
+	int c1;
+
+	do
+	{
+		c0 = *s0++;
+		c1 = *s1++;
+
+		if ( !n-- )
+		{
+			return 0; // strings are equal until end point
+		}
+
+		if ( c0 != c1 )
+		{
+			if ( I_islower( c0 ) )
+			{
+				c0 -= 'a' - 'A';
+			}
+
+			if ( I_islower( c1 ) )
+			{
+				c1 -= 'a' - 'A';
+			}
+
+			if ( c0 != c1 )
+			{
+				return c0 < c1 ? -1 : 1;
+			}
+		}
+	}
+	while ( c0 );
+
+	return 0; // strings are equal
 }
 
 int I_strncmp( const char *s0, const char *s1, int n )
@@ -491,11 +530,19 @@ int I_stricmpwild( const char *wild, const char *s )
 	return 0;
 }
 
-__declspec(noinline) char *I_strlwr( char *pp_s )
+char *I_strlwr( char *s )
 {
-#define PP_RETVAL( v ) return v
-#include "q_shared_strlwr.inl"
-#undef PP_RETVAL
+	char *iter;
+
+	for ( iter = s; *iter; iter++ )
+	{
+		if ( I_isupper( *iter ) )
+		{
+			*iter += 'a' - 'A';
+		}
+	}
+
+	return s;
 }
 
 char *I_strupr( char *s )

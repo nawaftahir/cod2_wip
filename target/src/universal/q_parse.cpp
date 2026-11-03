@@ -58,13 +58,18 @@ void Com_BeginParseSession( const char *filename )
 	I_strncpyz( pi->parseFile, filename, sizeof( pi->parseFile ) );
 }
 
-extern const char *const com_endParseSessionUnderflow = "\x15" "Com_EndParseSession: session underflow";
-
-__declspec(noinline) void Com_EndParseSession( void )
+void Com_EndParseSession( void )
 {
-#define PP_RETURN return
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
+	ParseThreadInfo *parse;
+
+	parse = Com_GetParseThreadInfo();
+
+	if ( parse->parseInfoNum == 0 )
+	{
+		Com_Error( ERR_FATAL, "\x15" "Com_EndParseSession: session underflow" );
+	}
+
+	parse->parseInfoNum--;
 }
 
 
@@ -840,11 +845,34 @@ qboolean Com_SkipBracedSection( const char **program, int maxNesting )
 	return nestingExceeded;
 }
 
-void Com_SkipRestOfLine( const char **pp_data )
+void Com_SkipRestOfLine( const char **data )
 {
-#define PP_RETURN return
-#include "q_parse_skipline.inl"
-#undef PP_RETURN
+	const char *p;
+	int c;
+	ParseThreadInfo *parse;
+	parseInfo_t *pi;
+
+	parse = Com_GetParseThreadInfo();
+	pi = &parse->parseInfo[parse->parseInfoNum];
+	p = *data;
+
+	if ( !p )
+	{
+		return;
+	}
+
+	while ( ( c = *p ) != 0 )
+	{
+		p++;
+
+		if ( c == '\n' )
+		{
+			pi->lines++;
+			break;
+		}
+	}
+
+	*data = p;
 }
 
 

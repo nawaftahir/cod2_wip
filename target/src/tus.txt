@@ -207,7 +207,7 @@ speex/exc_10_16_table.c /TP
 speex/exc_10_32_table.c /TP
 speex/lbr_48k_tables.c /TP
 speex/speex.c /TP
-speex/bits.c /TP
+speex/bits.c
 speex/modes.c /TP
 speex/misc.c /TP
 speex/quant_lsp.c /TP

@@ -50,7 +50,7 @@ bool Dvar_IsSystemActive()
 	return isDvarSystemActive;
 }
 
-__declspec(noinline) int generateHashValue(const char *fname)
+int generateHashValue(const char *fname)
 {
 	int i;
 	int hash;
@@ -327,7 +327,7 @@ static float *Dvar_StringToVec4(const char *string)
 }
 
 // accepts a name, an index, or an unambiguous name prefix
-int Dvar_StringToEnum(const DvarLimits *domain, const char *string)
+static int Dvar_StringToEnum(const DvarLimits *domain, const char *string)
 {
 	int stringIndex;
 	const char *digit;
@@ -698,7 +698,7 @@ static bool Dvar_ValuesEqual(unsigned char type, DvarValue val0, DvarValue val1)
 	}
 }
 
-void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source);
+static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source);
 
 static void Dvar_SetLatchedValue(dvar_t *dvar, DvarValue value)
 {
@@ -733,7 +733,7 @@ bool Dvar_IsAtDefaultValue(const dvar_t *dvar)
 	return Dvar_ValuesEqual(dvar->type, dvar->current, dvar->reset);
 }
 
-void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)
+static void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source)
 {
 	Com_PrintMessage(PMSG_LOGFILE, va("      dvar set %s %s\n", dvar->name, Dvar_ValueToString(dvar, value)));
 
@@ -1840,7 +1840,7 @@ void Dvar_ClearServerInfoNoUpdateFlags()
 	Sys_LeaveCriticalSection( 4 );
 }
 
-__declspec(noinline) bool Dvar_AnyLatchedValues()
+bool Dvar_AnyLatchedValues()
 {
 	dvar_t *dvar;
 
@@ -1996,12 +1996,7 @@ nextLine:
 		Com_SkipRestOfLine(&buffer);
 	}
 
-	{
-#define PP_RETURN goto pp_done_15
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_15:;
+	Com_EndParseSession();
 
 	if ( numRead == numDvars )
 		return qtrue;

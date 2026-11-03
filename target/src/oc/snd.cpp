@@ -416,7 +416,7 @@ int SND_Stub_44a6a0(void)
     return 0;
 }
 
-static __declspec(noinline) Bool SND_AnyActiveListeners(void)
+static Bool SND_AnyActiveListeners(void)
 {
     int i;
 
@@ -524,7 +524,8 @@ Bool SND_IsAliasChannel3D(int channel)
     }
 }
 
-// com_math helpers, not visible in this TU
+extern void VectorSubtract(const vec3_t a, const vec3_t b, vec3_t c);
+extern float DotProduct(const vec3_t a, const vec3_t b);
 
 void SND_SetChannelInfo(int index, int entnum, const snd_alias_t *pAlias0, const snd_alias_t *pAlias1, float lerp, const vec_t *origin, float volume, float pitch, int srcChannelCount, int baserate, int total_msec, int start_msec, int startDelay, Bool master, snd_alias_system_t system)
 {
@@ -534,21 +535,10 @@ void SND_SetChannelInfo(int index, int entnum, const snd_alias_t *pAlias0, const
 
     if (entnum >= 0 && entnum < 1024 && SND_IsAliasChannel3D((pAlias0->flags & 0x780) >> 7)) {
         CG_GetEntityOrientation(entnum, org, axis);
-        {
-            const float *va = origin;
-            const float *vb = org;
-            delta[0] = va[0] - vb[0];
-            delta[1] = va[1] - vb[1];
-            delta[2] = va[2] - vb[2];
-        }
-        {
-            const float *ax = axis[0];
-            g_snd.chaninfo[index].offset[0] = delta[0] * ax[0] + delta[1] * ax[1] + delta[2] * ax[2];
-            ax = axis[1];
-            g_snd.chaninfo[index].offset[1] = delta[0] * ax[0] + delta[1] * ax[1] + delta[2] * ax[2];
-            ax = axis[2];
-            g_snd.chaninfo[index].offset[2] = delta[0] * ax[0] + delta[1] * ax[1] + delta[2] * ax[2];
-        }
+        VectorSubtract(origin, org, delta);
+        g_snd.chaninfo[index].offset[0] = DotProduct(delta, axis[0]);
+        g_snd.chaninfo[index].offset[1] = DotProduct(delta, axis[1]);
+        g_snd.chaninfo[index].offset[2] = DotProduct(delta, axis[2]);
     } else {
         g_snd.chaninfo[index].offset[0] = 0.0f;
         g_snd.chaninfo[index].offset[1] = 0.0f;
@@ -752,19 +742,8 @@ static __attribute_regparm__(3) int SND_StartAliasStream(const snd_alias_t *pAli
     if (!*(unsigned char *)((char *)snd_enableStream + 8))
         return 0;
 
-    switch ((pAlias0->flags & 0x780) >> 7) {
-    case 1:
-    case 2:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-        break;
-    default:
-        if (!SND_AnyActiveListeners())
-            Com_Error(ERR_DROP, "attempted to play spatialized alias '%s' while there is no active listener. Most likely this means you tried to play a spatialized sound while not in a level.\n", pAlias0->pszAliasName);
-        break;
-    }
+    if (SND_IsAliasChannel3D((pAlias0->flags & 0x780) >> 7) && !SND_AnyActiveListeners())
+        Com_Error(ERR_DROP, "attempted to play spatialized alias '%s' while there is no active listener. Most likely this means you tried to play a spatialized sound while not in a level.\n", pAlias0->pszAliasName);
 
     return SND_StartAliasStreamOnChannel(pAlias0, pAlias1, lerp, entnum, org, volume, pitch, timeshift, fraction, pAlias0->startDelay, treatAsMaster || (pAlias0->flags & 2), channel, system);
 }

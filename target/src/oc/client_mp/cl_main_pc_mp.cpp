@@ -136,8 +136,8 @@ void CL_SetServerInfo(serverInfo_t *server, const char *info, int ping);
 void CL_SetServerInfoByAddress(netadr_t from, const char *info, int ping)
 {
     int i;
-    int low;
     int high;
+    int low;
     int mid;
     int compare;
 
@@ -148,9 +148,9 @@ void CL_SetServerInfoByAddress(netadr_t from, const char *info, int ping)
             CL_SetServerInfo(&cls.localServers[i], info, ping);
     }
 
+    low = 0;
     high = cls.numglobalservers;
     {
-        low = 0;
         while (low < high) {
             mid = (low + high) / 2;
             compare = NET_CompareAdrSigned(&from, &cls.globalServers[mid].adr);
@@ -404,13 +404,22 @@ void CL_SortGlobalServers(void)
     qsort(cls->globalServers, count, sizeof(serverInfo_t), CL_CompareAdrSigned);
 }
 
-static __declspec(noinline) void CL_InitServerInfo(serverInfo_t *server, netadr_t adr)
+static void CL_InitServerInfo(serverInfo_t *server, netadr_t adr)
 {
-#define pp_server (server)
-#define pp_adr (adr)
-#include "cl_init_server_info.inl"
-#undef pp_adr
-#undef pp_server
+    server->adr = adr;
+    server->clients = 0;
+    server->hostName[0] = '\0';
+    server->mapName[0] = '\0';
+    server->maxClients = 0;
+    server->maxPing = 0;
+    server->minPing = 0;
+    server->ping = -1;
+    server->game[0] = '\0';
+    server->gameType[0] = '\0';
+    server->netType = 0;
+    server->allowAnonymous = 0;
+    server->dirty = 1;
+    server->requestCount = 0;
 }
 
 // Original name unknown.
@@ -428,18 +437,20 @@ static int CL_RefreshKnownGlobalServer(netadr_t adr)
         cmp = NET_CompareAdrSigned(&adr, &cls.globalServers[mid].adr);
         if (cmp < 0) {
             high = mid;
-        } else if (cmp > 0) {
-            low = mid + 1;
-        } else {
-            while (--mid >= 0 && !NET_CompareAdrSigned(&adr, &cls.globalServers[mid].adr))
-                ;
-            mid++;
-            do {
-                CL_InitServerInfo(&cls.globalServers[mid], adr);
-                mid++;
-            } while (mid < cls.numglobalservers && !NET_CompareAdrSigned(&adr, &cls.globalServers[mid].adr));
-            return 1;
+            continue;
         }
+        if (cmp > 0) {
+            low = mid + 1;
+            continue;
+        }
+        while (--mid >= 0 && !NET_CompareAdrSigned(&adr, &cls.globalServers[mid].adr))
+            ;
+        mid++;
+        do {
+            CL_InitServerInfo(&cls.globalServers[mid], adr);
+            mid++;
+        } while (mid < cls.numglobalservers && !NET_CompareAdrSigned(&adr, &cls.globalServers[mid].adr));
+        return 1;
     }
     return 0;
 }
@@ -510,11 +521,7 @@ void CL_ServersResponsePacket(netadr_t from, msg_t *msg)
         if (!CL_RefreshKnownGlobalServer(adr)) {
             server = &cls.globalServers[count];
             count++;
-#define pp_server (server)
-#define pp_adr (adr)
-#include "cl_init_server_info.inl"
-#undef pp_adr
-#undef pp_server
+            CL_InitServerInfo(server, adr);
         }
     }
 
@@ -765,7 +772,7 @@ void CL_Ping_f(void)
     NET_OutOfBandPrint(NS_CLIENT1, to, "getinfo xxx");
 }
 
-__declspec(noinline) serverStatusRequest_t *CL_GetServerStatus(netadr_t from)
+serverStatusRequest_t *CL_GetServerStatus(netadr_t from)
 {
     int i;
     int oldest;

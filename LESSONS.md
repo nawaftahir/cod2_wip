@@ -124,3 +124,217 @@ lay: dropping 'static' from static __forceinline helpers in one .cpp is a no-op 
 - 10-29 FX vtable order: Mac puts Cylinder/OP/Cloud/Line/Tail/Emitter ctors in the inline tail (header-defined), but on PC retail the ctors sit at our out-of-line .cpp positions (code same-offset), so PC defines them in FxPrimitives.cpp. Inline ctors (vt2) move code, 97.1%. Dead end.
 - 10-29 Rich header +1: qcommon/com_profilemapload.cpp (Mac STABS: only Com_IsMapProfilerActive, returns 0) holds the retail 0x42bc80 bool stub (was Com_Stub_42bc80 in com_playerprofile.cpp); link order by basename between com_playerprofile and com_shared. C++ /GL objects 264 -> 265 (retail 271), same address/bytes. Ruled out for the rest: PunkBuster/libwww (1.2 additions), fft/com_convexhull (renderer DLL), Kisak speex extras (no strings). Our 15 unknown/after_*.cpp placeholders have invented identities; the other 6 TUs need per-TU evidence (likely PC-only code-free files).
 - 10-29 SND_RawSamples: buf index forms (rs1-3) and early-return shapes (rr1-3) leave fn at 11 lines (imul register pair, one extra ret block). G_OverrideModel looks like a raw (uncompiled) inline of G_ModelName in retail: compile-order effect, macro stand-in imitates it.
+- 10-29 Argon/Codex leftovers landed (+204, 99.676%): FxPrimitives forward class declarations (Light Particle OrientedParticle Cloud Cylinder Effect Tail Line Emitter), bg_pmove sqrt(v0*v0+v1*v1) for Vec2Length, cg_event obituary case order 12 before 9, cl_main_pc_mp whitespace.
+- 10-29 data-address pair swaps (bsspairs.py BUILD '?cgArray@@3PAUcg_t@@A'): +8/-8 pairs inside one function = statement/store order, not struct layout. PAID: CG_Respawn shared VectorClear instead of a local chain macro (+16), CG_ScreenFade natural [0..3] fade colour copy (+6), CG_PulseLowHealthOverlay pulseTime + pulseDuration (+2), CG_DrawActive offset angles first (+6), CG_PlayLoopedFx cull from predictedPlayerState.origin (not refdef.vieworg; retail address pinned) (+9). FX vtable order fixed by Argon's forward class declarations. Not moved: CG_OffsetFirstPersonView vieworg[2] += viewHeightCurrent (spellings, Q3 origin/angles pointer locals -> size change), CG_CalcViewValues BG_GetSpeed term order (x87 numbering).
+- 10-29 .rdata +4 group: the com_endParseSessionUnderflow pointer (shared by the q_parse_endsession.inl stand-ins) is an extra 4-byte item before the colour table (retail colorBlack at 0x55cd1c). Removing it and writing the literal at each site moves the string early (first stand-in site compiles before Com_EndParseSession): .rdata 92.55%. Needs the stand-ins replaced by real calls first.
+- 10-29 endsession stand-ins: real Com_Parse + Com_EndParseSession in Com_ParseVolumeFalloffCurve/Com_LoadVolumeModGroups (no noinline) -> only those 2 fns change size; oracle (rebuilt /tmp/orcy, lmv.sh 15 s): loop Com_Parse sites count 0.254/0.077 (r 87/166) refused, pre-loop 1e8 r 62 inlined; retail inlines all 3. Same loop shape as Kisak. Unresolved.
+- 10-29 FloatSwap: retail keeps f in memory, re-reads it, logical shifts (b0 = >>24, b1 = >>16 via ecx, b2 = ah, b3 = al, push ecx local). Shift forms via int copy (fs1), union int (fs2/fs3), unsigned pointer to the param (fs4, closest: 17 lines) and per-statement casts (fs5) are all worse than the byte-pointer form. CG_ConfigStringModified: no CG_ConfigString wrapper in the tree (Q3 has one; not added without evidence).
+- 10-29 aw1-aw3: definition order of G_ModelName/G_OverrideModel and XAnimGetInfo/XAnimCopy has no effect (compile-order theory out for these). The if (!cs[i]) load shape itself makes LTCG pass defaultModelName in eax (G_OverrideModel 64 -> 47 B); only cs ? cs : "" keeps 64 B. Next: callee register-preservation summaries (SV_XModelGet, Hunk_OverrideDataForFile; Com_Error for XAnimGetInfo).
+- 10-29 tracer tz1-6: CalcTracerFinalScale matches retail and clobbers only eax; /Og- on it flips ScaleTracer to the retail convention, so the decider is whether the callee joins LTCG register-preservation analysis at all, not its clobber set. Tried: definition order, fn pointer (folded), pragma p, auto_inline(off), __cdecl (+1 noise), Kisak branches. Retail CG_DrawTracer starts 0x4d1480 (ScaleTracer retail 239 B vs ours 222 B). Dot products (tiny cl harness, ~20 forms): only inline subtractions give retail in-place x87 style but wrong term order; retail behaves as if forward[1],[2] are dying temps and forward[0] a variable.
+- 10-29 endsession/Com_Parse stand-ins (oracle over all 24 ES + CP sites, real calls, noinline removed; tools lab/w200/es_all.sh, es_sites.py): ES cost 30 (size 31), CP cost 62 (size 68). All ES sites outside com_sndalias_load_obj.cpp inline as retail. Wrong only: Com_ParseVolumeFalloffCurve in-loop ES x2 (ours inline, retail call), Com_LoadVolumeModGroups post-loop ES (inline vs call), Com_LoadSoundAliasFile first ES (call vs inline), and the in-loop Com_Parse sites of Falloff and ModGroups (ours call, retail inline; ModGroups retail confirmed: 2 inlined Com_ParseExt, 3 calls to Com_EndParseSession). No source shape fits under the count model (Falloff CP2 needs >= 0.5 while ES1 upstream needs <= 0.095), and r alone does not decide (r 34 inlined in one fn, called in another). A real Com_Parse at a loop top gets the pre-loop count; the macro-expanded body gets the loop-header count: site counts depend on the function state at decision time (decision order). Next: decode decision order / per-function factor in c2.
+- 10-29 Lagometer: CalcScreenPlacement is __declspec(noinline) (stand-in in oc/client_mp/screen_placement_mp.cpp), so the nested site never reaches the inline model. Without noinline + lg1 + by-value CL_DrawStretchPic in both snapshot sites (lgo1): CG_DrawLagometer 6 diff lines (from 393 B), but 15 other constant-align sites inline that retail calls (CG_DrawAdsOverlay x7, CG_DrawReticleSides x4, CG_DrawReticleCenter, CG_DrawAdsAimIndicator, CG_DrawTurretCrossHair; oracle c1 431, cost ~6) -> ALL 62.6%. Same pattern as Com_EndParseSession: our model inlines everywhere, retail refuses at some sites. Shared unknown = what makes retail refuse (compile order or callee IL at those callers). Tools: lab/w200/lgo_sp.sh, lgo_run.sh, lgo_try.sh, lgo_ni.py, lgo_all4.py.
+- 10-29 RETAIL REFUSALS round (lab/w200/inl_notes.txt): an UNCOMPILED callee takes a budget path, not the cost model: caller budget starts 1000 minus what it already inlined; refuse if [0x10882b5c] > 35000 or (budget < callee IL size [callee+0x6d] and IL > 40). Compile order ruled out for CalcScreenPlacement (a non-cycle leaf always compiles before its callers). Retail census: 48 calls to CalcScreenPlacement = our 33 variable-align sites + the 15 constant-align sites; retail inlines it only in CG_DrawLagometer (via CL_DrawStretchPic), CG_DrawDevString, SCR_DrawDemoRecording, Con_DrawSay. Retail CalcScreenPlacement uses switch jump tables like ours, yet its normal sites behave as if the constant-arg discount (FUN_10797769) does not apply. Open: what blocks the discount in retail.
+- 10-29 KEY LEAD (unifies two dead ends): the constant-arg discount (c2 FUN_10797769, decompile lab/w200/ghx/discount_10797769.c) walks a CALLEE-side branch summary built when the callee compiles (per node: param index, flag bit 1 = depends on the param, weights /0xfffe scaled by size); FUN_1079c4f0 tests whether the constant arg eliminates the branch. So retail CalcScreenPlacement behaves as if it has NO such summary (all 15 constant-align sites refused), just as retail CalcTracerFinalScale behaves as if it has NO register summary (CLIENT_KNOWLEDGE 1.4b), both with code byte-identical to ours. Next: find what makes c2 skip recording per-function LTCG summaries for a function whose code is unchanged (TU-level flag? record field cleared on a second pass? function emitted from a different module/partition?). Check other functions of screen_placement_mp.cpp and cg_weapons.cpp in retail for the same symptom. Ghidra: ~/tools/ghidra_12.1.4_PUBLIC, project lab/w200/ghx/proj/c2, script ghx/Dec.java (analyzeHeadless PROJ c2 -process c2.dll -noanalysis -readOnly -scriptPath ghx -postScript Dec.java OUTDIR ADDR...).
+- 10-29 AUDIT: CLIENT_KNOWLEDGE.md reconciled with today. Superseded: "uncompiled callee = raw-body inline" (it is a budget path), "G_OverrideModel = raw inline" (definition order has no effect; own RA), FX vtables still differ (fixed). When this log and CLIENT_KNOWLEDGE.md disagree, CLIENT_KNOWLEDGE.md wins.
+- 10-29 PAID +550 (99.711%): CalcTracerFinalScale as non-static inline (selectany COMDAT -> callers distrust its register summary, PINNED on bench + build) + CG_DrawTracer dots with a scalar f0 and inline (finish[1] - start[1]) / (finish[2] - start[2]) terms (x87 block rule) -> ScaleTracer and CG_AddMovingTracer full matches, CG_DrawTracer 684 B, 58 diff lines.
+- 10-29 DISPROVED: CalcScreenPlacement as a header non-static inline (lab/w200/spmk.py -> sp2.patch): links, but 34 calls vs retail 48 (constant-align sites still inline; discount still applies) and the kept copy moves to 0x401240. Do not retry.
+- 10-30 PINNED (oracle, CalcScreenPlacement noinline removed, lab/w200/noop.py + lmv.sh): compile order in ours CalcScreenPlacement F10420 < CL_DrawStretchPic F13115 < CG_DrawAdsOverlay F16486 < CG_DrawLagometer F55154. In CG_DrawAdsOverlay the 5 CSP sites nested in the inlined, already-compiled CL_DrawStretchPic (size 32, it keeps its own CSP call: param aligns, no discount) are RE-DECIDED in the caller with folded constants: c0 31, c1 431, count 1.0, cost ~6 -> inline; the 2 direct literal sites c0 25, c1 431, cost ~12 -> inline. So nested sites of a compiled callee are reconsidered with the caller constants; retail keeps calls at all 7. Lagometer (3,3) cost ~2. Open: what makes retail not fold the aligns at these sites, or not reconsider nested sites.
+- 10-30 CalcScreenPlacement SOLVED (PINNED, builds adl/adl2/adl3/adl4/adl5A, commits 11bf12d 35f3db2): retail's 15
+  constant-align cgame sites pass the aligns through locals (horzAlign = 2; vertAlign = 2;), the CoD4 shape
+  (KisakCOD cg_draw_reticles.cpp). LTCG sees no folded constant at decision time -> no discount -> call; the
+  optimiser folds the local later (retail mov ebx,2; mov edi,ebx). adl: AdsOverlay alone -> its 7 calls == retail.
+  adl2: all 5 functions -> per-function CSP call counts == retail (48), .text vsize == retail, noinline gone.
+  Lagometer real calls (frame loop + snapshot loop CL_DrawStretchPic, .inl stand-ins gone) + snapshot bar
+  'y = ay + ah - v; x = ax + aw - a;' (y first) -> CG_DrawLagometer full match. ALL 99.711 -> 99.734%.
+  x first instead (adl5B) not measured (parallel lv.sh run collided). Lesson: check CoD4 (KisakCOD) for locals
+  feeding constant args before attacking the inliner.
+- 10-30 stand-in sweep (PINNED, builds nis/ni8/lw1/lw2/cdt2/isi; tools lab/w200/sites.py = per (callee, caller) call
+  counts vs retail, inlconv.py = .inl block -> call). All noinline removed (nis): 8 marks change nothing (dropped,
+  6db5545). Real I_strlwr at its 6 .inl sites: all inline like retail, and G_FindConfigstringIndex then needs no
+  noinline (3bed9e2). CL_DrawText real calls in DevString/Con_DrawSay, real CSP call in SCR_DrawDemoRecording
+  (0301dbe). Still load-bearing: CL_InitServerInfo (oracle: size 87, c0 5, inline at both sites; retail calls in
+  CL_RefreshKnownGlobalServer cnt 5.0 r 52, inlines in CL_ServersResponsePacket cnt 1.25 r 67 -> cost model gives
+  no split; unresolved), ClearVariableValue/RemoveVariable/GetNewVariableIndexInternal2/Scr_TerminateThread
+  (VM_Notify, VM_Resume), ConnectBreakStatements (EmitSwitchStatement), Dvar_AnyLatchedValues/FS_FreeFile/
+  Sys_ArchiveInfo (Com_SetRecommended, Com_HasConfigureChecksumChanged), GetBestOffhand (CG_DrawOffHandIcon),
+  Item_ListBox_HandleKey (Scroll_ListBox_AutoFunc), SND_AnyActiveListeners (SND_StartAliasStream),
+  Com_EndParseSession (sound alias loaders). Running two lv.sh at once collides (adl5B lost); lv.sh + gate is fine.
+- 10-30 XAnimSetTime real call in CG_UpdateKillCam (xst, oracle lmv): size 50, c0 10, cnt 0.078 (loop 1.25 x four
+  halvings), r 107 >= 71 -> refused; retail inlines. Source shape equals CoD4 (KisakCOD cg_snapshot_mp.cpp:556).
+  Unresolved; the .inl stand-in stays (bytes already match).
+- 10-30 Dvar_SetFromStringFromSource 169 (alignment; aligndiff.py: the ONLY function in the binary whose and-esp
+  prologue differs). Chain PINNED from the binary: Dvar_StringToColor (8 double stack slots from the inlined
+  I_fround bias, no self-align in either binary) <- Dvar_StringToValue <- Dvar_SetFromStringFromSource; ours
+  hoists the alignment into the last one, retail does not. Compile order (fp_t ordq): StringToColor F21603,
+  StringToValue F32184, SetFromStringFromSource F72364. No byte change from: Dvar_SetVariant/Dvar_StringToEnum
+  static like the server (lk1, kept 2926047), DvarValue as the server's struct-with-anonymous-union (dvs; the only
+  struct/union kind mismatch vs server, kinddiff.py). Next lever: how I_fround (TU_STATIC inline, double bias)
+  reaches StringToColor in retail. Also no gain: CL_GetConfigString &array[] form (gcs1), StartWeaponAnim i=1..20
+  loop (swa1, -119), AdsOverlay else-branch order (aov1 size change, aov2 identical), XAnimSetTime real call (xst).
+- 10-30 tools: lab/w200/sites_all.py (every (callee, caller) call-count difference vs retail: NONE left on main),
+  aligndiff.py, fnqword.py, linkdiff.py (static/inline linkage vs server; noisy on forward decls), kinddiff.py.
+- 10-30 TU_STATIC as the server's 'static inline' (tus1, com_math.h + com_files.h): .text +16 KB, ALL 22.88%,
+  alignment flips in AddPointToBounds2D/IntersectPlanes/Com_Error/Dvar_* -> DISPROVED; the client's plain 'inline'
+  (selectany) is right for PC.
+- 10-30 CG_DrawTracer vertex block: explicit b*s expansion instead of VectorMA (tbs1) and declaration order
+  widths-first (tdo1) give byte-identical output: commutative operand order is not decided by source order or
+  declaration order here. Server VectorMA is s*b (verified).
+- 10-30 stand-in fixes via shapes (PINNED, builds isc/cc1/snd1, sites.py == retail):
+  CL_InitServerInfo: continue after the search arms in CL_RefreshKnownGlobalServer (like CL_SetServerInfoByAddress),
+  real call at the other site, noinline gone (43ac906). FS_FreeFile/Sys_ArchiveInfo/Dvar_AnyLatchedValues: the
+  checksum loop belongs to Com_ConfigureChecksum = the retail 0x431a50 'unreferenced' copy (CoD4 name); calling it
+  from both functions puts the later sites at retail's counts, 3 noinline gone (99e2f42). SND_AnyActiveListeners:
+  CoD4 shape 'if (SND_IsAliasChannel3D(...) && !SND_AnyActiveListeners())' replaces our hand-inlined switch (snd1).
+  GetBestOffhand NOT solved: real call at the first sites inlines the icon site too (gbo1, gbo3); the CoD4 nested
+  equipped/best shape gives retail's call (gbo2) but different branch code (-75 B); retail's code is our current
+  'if (!weapon || class != type) { weapon = GetBestOffhand(); if (!weapon) return; }'.
+  Bare '&' inside wsl.exe bash -lc dies with the shell (lost a build and left a gate half-applied): always use the
+  tool's background mode.
+- 10-30 vmn1: VM_Notify / VM_Resume / VM_TerminateTime written exactly as the verified server (RemoveObjectVariable,
+  GetNewObjectVariable(GetArray(GetVariable(..)))) with the 4 script noinline marks removed: ALL 47.1%, the same 4
+  sites still inline that retail calls (ClearVariableValue in VM_Resume, GetNewVariableIndexInternal2,
+  RemoveVariable x3, Scr_TerminateThread in VM_Notify). Not a source-shape problem; next: oracle W lines for
+  VM_Notify (cost path vs budget path, compile order inside the script SCC). ConnectBreakStatements: callers and
+  callee equal the server, TempMalloc equal too -> same class (oracle needed).
+- 10-30 sa1 (script family = verified server bodies for CopyArray, CopyEntity, Scr_KillThread,
+  GetNewVariableIndexInternal2, Scr_UsingTreeInternal, ScriptCompile + vmn1, script noinline marks removed):
+  ALL 45.3%; RemoveVariable now also inlines in Scr_KillThread. Oracle (fp_t, vmn1 + no noinline): RemoveVariable
+  cost ~85 (size 91, c0 5), VM_Notify site counts 1.56-11.3 -> r 59-75; retail calls at all 4, which needs
+  counts <= ~2 or the budget path (VM_Notify compiled before RemoveVariable: ours F97637 vs F20307). Server shape
+  is not enough; the script noinline marks stay until the compile-order/count cause is found. Tools: srvsub.py
+  (swap a function for its server body, SPEC= extra edits), fpobj.sh (rebuild one fp_t obj for the oracle).
+- 10-30 Item_ListBox_HandleKey in Scroll_ListBox_AutoFunc (oracle, noinline removed): size 1439, c0 17, c1 1334 =
+  constant-arg discount from the literal (down 1, force 0) args, cnt 0.5, r 66 -> inline; retail calls. Same class
+  as CalcScreenPlacement (constants must not be folded at decision time) but no evidence yet for the original form
+  (CoD4 decompile shows literals). Item_HandleKey site: cnt 0.011, r 842, refused like retail.
+- 10-30 CG_ConfigStringModified: per-branch CL_GetConfigString(num) instead of one str (csm1): no hoisting, code
+  grows to 639 B (-563k ALL). Disproved; the lea-after-cmp placement is not from CSE/hoisting.
+- 10-30 CG_AddPlayerWeapon: BG_GetViewmodelWeaponIndex is INLINED in both retail and main (sites.py); the older
+  note that the if/else shape 'inlines it where retail calls' is obsolete. Oracle (rebuilt, fp_t objs resynced to
+  main 10-30): accepted in both shapes (size 35, c0 3, cnt 0.5, r 36). WSL restart 10:20 wiped /tmp/orcy: oracle
+  now lives in ~/orcy/vc (lab/w200/mkoracle.sh), lmv.sh refuses a stale ordq.txt, fp_t/build/obj synced from
+  claude_client/target/build/obj (old set kept as obj_1028).
+- 10-30 apwA (if/else assigning bViewModel and weaponNum together): CG_AddPlayerWeapon 758 B vs 776 (size change, ALL 68.1%). No.
+- 10-30 fw1 (CG_FireWeapon checks through ent->weapon, Q3 form): 542 vs 550 B, size change. No.
+- 10-30 Rich (28,9466)/(25,9466) order: mss32.lib member order does not matter (ms0 vs ms2 identical); first mss reference order in the LTCG output decides (MSS_auto_cleanup only in snd_driver.cpp). Whole Rich block also needs the 6 missing LTCG C++ objects (id 100: 271 vs 265) since the XOR key covers all entries.
+- 10-30 XModelCalcBasePose (179 B; ours hand-expands QuatMultiply + MatrixTransformVectorQuatTrans under #pragma
+  optimize p): server form (real calls) + /Op as a TU flag on xmodel_load (xcb1) or also com_math (xcb2): identical,
+  605 B vs 712, ALL 41.6%. Oracle (xcb_a): QuatMultiply size 124, c0 10, cnt 9.0, r 73 -> refused by 2 (retail inlines);
+  MatrixTransformVectorQuatTrans (header inline) r 68 inlined; ConvertQuatToMat r 114 called (= retail). Passing
+  QuatMultiply's args through locals leaves c0 at 10 (copy-propagated). Our hand-expanded term order differs from
+  QuatMultiply's source order (tuned for /Op emission). Open: what makes retail's site r < 71 (count >= ~15 or 4 more
+  arg savings).
+- 10-30 ruled out for the script split decisions: '#pragma inline_depth(1)' before VM_Notify (vmd1, oracle: every
+  decision unchanged); a TU-wide /Ob1 for scr_variable.cpp (server marks none of its functions inline, yet retail
+  inlines FindVariable/GetObjectType/... into VM_Notify). RemoveVariable is a SPLIT decision in retail: inlined in
+  VM_Resume/VM_TerminateTime/Scr_KillThread (our scr_remove_variable.inl copies), called at 22 sites (noinline).
+  All remaining noinline/.inl stand-ins are split decisions; the cause sits in counts/compile order, not in the callee.
+- 10-30 Sys_IsLANAddress switch(adr.ip[0]) (lan1): jump table, 367 B. No. Retail = if-chain whose shared return-1 block sits right after the 127 test and whose 169/172/192 arms keep separate mov eax,1/pop ebx/ret tails (ours cross-jumps them).
+- 10-30 CG_CalcCrosshairPosition head: retail fld [cg->gunYaw] directly into the inlined AngleVectors (yaw never stored), pitch via a stack copy; ours stores both via int moves. No change from: CoD4 gunYaw local (chy1, PDB-named in KisakCOD), VectorSet(gunAng, pitch, yaw, roll) with a local inline VectorSet (chy2).
+- 10-30 ret-count scan (lab/w200/retdiff.py, every fn, our map bounds): ONLY Sys_IsLANAddress differs (retail 6 rets, ours 4). SND_RawSamples/CL_MouseEvent extra ret was a diff-window artifact; CL_MouseEvent is dy in eax (retail) vs edx (ours), an LTCG register-convention choice. No systematic tail-merge cause.
+- 10-30 PAID (source, 0 B, 8f98194): agent-decoded frequency estimator -> Com_EndParseSession real calls at 21 sites
+  (noinline gone), sound-alias Com_Parse real calls, Falloff/ModGroups loops 'X = 0; for (;;) { ...; X++; }' (a
+  'for (X = 0; ; X++)' loop is flagged non-natural and skips the loop-exit shares). Every ES/Com_Parse/Com_ParseExt
+  site == retail (esn1/esn3); Com_LoadSoundAliasFile keeps its stand-ins (its first error ES cnt 0.0586 called, retail
+  inlines; real SkipRestOfLine/ParseOnLine there are refused, esn2). Pointer removal (esn4): the literal then lands in
+  com_sndalias_load_obj's string block (from LoadSoundAliasFile's .inl), .rdata 92.55% -> needs that function solved first.
+- 10-30 PAID (+116, 40e0fdb): the rect static (Item_CorrectedTextRect) needed one more call level. Genuine vanished callee:
+  Item_Getter_5338c0 indexes the per-local-client textRect array with the unreferenced cl_main stub CL_Zero_40b4d0()
+  (retail body xor eax,eax; ret, 0 callers). Fixes rect, fs_mapBaseName, MSG_Read* buffers, cddir shifts (address-only
+  183 -> 67 B). Doing it in all seven UI getters is worse (-157): only the textRect getter has it.
+  Lead: retail's other unnamed constant stubs with 0 callers (lab/w200/tinyfn.py) are candidates for the remaining
+  depth/placement items (Key_Zero_40b450, CL_True_40b610, SND_Stub_44a6a0, CG_Stub_4c0160, GScr_Stub, G_Unused,
+  Sys_ReturnFalse_45f960/970, CL_IsRenderingSplitScreen).
+- 10-30 PAID (c132034, d55063a): PDB GUID pinned through guidpin.c (LD_PRELOAD shim answering Wine UuidCreate's 16-byte
+  /dev/urandom read with GUIDPIN); six empty unknown/empty_N.cpp TUs make Rich id 100 = 271. Header now differs only by
+  the (28,9466)/(25,9466) entry order (4 B; follows first mss reference in LTCG output order, i.e. compile order).
+- 10-30 PINNED (relink lab ~/rl.sh, lab/w200/tuspos.py + fdelta.py): some register/stack-slot ties depend on how many
+  objects precede a function's TU in link order. Empties before TU index 58 (k = 0..6): SV_DirectConnect good at
+  1,2,3,5,6; SV_ArchiveSnapshot good at 0,1; DSound_UpdateSample (160) good at 4..6; Scr_ParseGameTypeList (228) at 6;
+  SP_worldspawn (231, 51 B) good at 0..3. Constraints conflict; chosen: 1 empty first, 5 last (+4).
+- 10-30 PAID (+591, 2b8137d, agent): CG_AddPlayerWeapon full match. weapInfo->viewModelDObj in the gun block (stops
+  the weaponNum*0x1b4 CSE so weapInfo outranks the parent->axis temp) + BG_GetViewmodelWeaponIndex with one weapIndex
+  local and if / else if / else (gives the weaponNum piece n16 > 0, so it takes edi). The server rebuild with that
+  helper shape is SHA-identical (GCC 3.3.4 -O0 cannot tell the two apart): server-equal source is a constraint, not
+  a single fixed spelling. Toolchain image cod2engine-linux-2005 is now built locally for such checks.
+- 10-30 agent (no gain, measured): Com_ProcessSoundAliasFileLocalization: f's large piece n3 104, n16 0 (one point
+  short; a piece needs n16 > 0); the literal does not compete for esi (sal_d1) nor does the '\n' write (sal_d2); server
+  copy token-identical, -O0 pins order/decls. Sys_IsLANAddress: our c2 cross-jumps the 172/192 return tails into 169's
+  and moves return-true to the end, retail keeps them; 7 shapes (mac/ptr/ipblk/or1/or2/sw, /Zi) 17-43 lines. Matched
+  fns keep identical jcc;ret tails unmerged, so the trigger is local; next: probe c2's tail-merge site. Notes in
+  lab/w200/inl_notes.txt 'SoundAlias/LAN RA (agent 10-30 night)'.
+- 10-30 PAID (+651, agent): CG_ConfigStringModified: the status/head-icon arms call CL_GetConfigString(num) again
+  (opencod1 CoD1 shape, SUPPORTED); a repeated getter makes the top value a shared CSE that lowers to lea, which is
+  flags-free, so the cmp schedules first (retail). add vs lea is chosen at lowering, not by a scheduler rewrite.
+  CG_DrawTracer: '= 0.0f' inits on startWidth/finishWidth (HYPOTHESIS spelling, no source shows them; inferred from
+  the x87 rule: the lower-numbered value, by first reference, becomes the memory operand) + vertex 0 VectorMA before
+  its constants (Q3 CG_Tracer order). Tools: /home/nawaf/x8t7 (DrawTracer harness), x8t7/tiny/cx.py (CSM clone).
+- 10-30 agent: CG_CalcCrosshairPosition chx2 (dots inside the divides, no horiz/vert locals = Mac STABS locals
+  gunAng/gunDir/dot; float tan overload) 38 -> 20 oracle lines, same size, but release bytes -12 (the remaining yaw
+  copy shifts what follows): NOT landed; keep as the first half. Remaining cause: retail forwards cg->gunYaw into the
+  inlined FastSinCos; ours stores it to gunAng[1]. AngleVectors comes from com_math.cpp '#pragma optimize(p, on)'
+  so the caller is /Op after inlining; under /Op a global stored into a user array element is never forwarded;
+  inline by-value parameter substitution does forward (diagnostic chx_d9 reproduces retail's head). Retail __CItan
+  only here, G_RunMissile_Destabilize, InfinitePerspectiveMatrix. CG_DrawCrosshairNames: local codegen scratch
+  rotation (eax/ecx/edx), colour picks equal retail; Mac locals chx20/21 42, target ci pointer chx22 68.
+  Console ConDrawInput_DetailedCmdMatch y/fontHeight swaps in the inlined helpers (cdi1 a/b/c): no gain.
+- 10-30 agent (no landing): FX_CalcOriginAndAxis is code-identical with stack offsets masked; retail statement order
+  is height*cosPitch first, one radius*sinPitch temp for dir[1]/dir[0] (PINNED from FastSinCos pCos=edx slot); specs
+  with that order (lab/w200/xrf_fx.py FX=a/b/c) are 0 masked lines but frame 0x4c vs retail 0x54 (retail keeps an
+  unused bottom dword + 4 scalar slots) -> worse in bytes until that slot is explained. CG_InitXAnimTrees: retail is
+  the only fn in the binary that spills a hoisted field address (hoistscan8.py); 13 shapes 35-67 lines, an explicit
+  &anims->size local gets folded back. SND_RawSamples: imul operand order only; 10 shapes no change.
+- 10-30 PAID (+213, agent, server SHA-identical via srvcheck): G_RegisterWeapon full match; G_MODEL_NAME_INLINE gone.
+  SV_GetConfigstringConst as 'return sv.configstrings[index] ? sv.configstrings[index] : "";' + real G_ModelName in
+  G_OverrideModel / G_UpdateClientInfo. GCC 3.3.4 -O0 compiles 'return a ? a : b;' (side-effect-free a) exactly like
+  'cs = a; if (!a) cs = b; return cs;', so the server does not pin the cs local; MSVC folds the re-test into cs, the
+  ternary gives retail's load-test-copy. XAnimGetInfo/XAnimCopyAnimTreeNoNotify: the client-matching form gx_r5.py
+  (re-read g_xAnimInfo->next at the test and index) changes the server at those reads -> real conflict, not landed.
+- 10-31 PAID round (agents, all gated): (void)unused in PM_Weapon emits the 0x28 const at retail's slot (+191; server
+  SHA-identical; within one object .rdata items follow reverse definition order of their functions). Sys_IsLANAddress
+  (+153): split type tests (LOOPBACK/BOT/IPX) and split 10/127 tests -> retail's separate return tails (tiny clone
+  fp_t6/tiny/lan.py). Com_ProcessSoundAliasFileLocalization (+268): 'for ( ;; ) { if ( !data ) { break; } ...'
+  instead of 'while ( data )' (GCC -O0 identical, MSVC gives f an esi piece). Alignment pass located (c2 0x1070cd11,
+  simulator fp_t3/aln/sim.py): levels bottom-up, first-visited level-7 node aligns, edge order = first prototype
+  declaration order in the caller's TU; ui_main_mp externs before its static prototypes fixed
+  Dvar_SetFromStringFromSource (+169). G_Debug* compiled at the end of cg_drawtools_mp (retail .text/.rdata order)
+  + empty_1 at the link end (+53 net, sign/edges table fixed). Whole exe 1,434 differing bytes.
+- 10-31 not landed (measured): XAnimGetInfo/CopyNoNotify client form needs global re-reads the server lacks (likely
+  different revisions); crosshair yaw store under /Op never forwards; FX_CalcOriginAndAxis needs a cylinder-live
+  value in slot group E_B; CG_InitXAnimTrees hoist from register pressure, no evidence for a helper.
+- 10-31b PAID: FloatSwap = server two-union shape with an int member and 'dat1.i = *(int *)&f' (server SHA identical,
+  +14). Parked: speex bits.c as C (sme_sp1.py) gives _speex_bits_pack +29 in the release build but the gate link
+  loses a 16 B tie (numbering class); all speex as C + upstream nb_celp.c (sme_sp3.py) fixes nb_decode but costs
+  ~23 B in ties. CG_DrawCursorhint moves only with a (double) sum (no evidence). AxisTransformVector needs a scalar
+  normal copy in XModelTraceLine that breaks the server. CL_MouseEvent: dy must outrank two mouseIndex load temps.
+- 10-31c PINNED (lab/w200/possearch6.sh, release relinks, step 8, greedy over all six empty TUs with sp1only.patch):
+  only empty_1 moves (after devgui/devgui_input.cpp, +4); empty_2..6 gain nothing anywhere. Link-order ties are spent.
+  The gate "LOST 16 ?_speex_putc" was only the C++ name vanishing (bits.c as C gives __speex_putc, 0 diff at 0x4dc150
+  in the release link); listed in lab/ties.txt with that reason and landed (e3f381a).
+- 10-31d DECISION (owner delegated): XAnimGetInfo uses the client spelling (gx_r5: re-read g_xAnimInfo->next at the test
+  and index, CoD2rev form) in the client tree only; cod2engine/archive/lnxded-1.0 keeps the server-equal local. PINNED
+  (gx clone, both compilers) that no single spelling gives both binaries, so client 1.0 and server 1.0 were built from
+  different revisions of this function. +184 release bytes (XAnimGetInfo and XAnimCopyAnimTreeNoNotify both 0).
+- 10-31e PAID +32 (same rule as 10-31d): XModelTraceLine copies tri->plane into results->normal as three plain statements
+  (client tree only) with the plain server AxisTransformVector body; the server archive keeps VectorCopy. Evidence:
+  inl_notes "AxisTransformVector / XModelTraceLine" (every VectorCopy form numbers p2,p0,p1; server -O0 needs the call).
+- 10-31f PAID +220 (388db1c, agent rnm, notes inl_notes "CrosshairNames / RawSamples (agent 10-31 late)"):
+  CG_DrawCrosshairNames reuses the name pointer for the va result (Mac STABS: one pointer); local code generator hands
+  scratch regs out in IL order, a user variable takes no turn. SND_RawSamples: imul destination follows first field
+  reference order (like x87); 'int copy = milesGlob.raw.bufSize;' dead init flips it (mechanism PINNED, spelling
+  HYPOTHESIS: no reference shows where retail's early bufSize reference sits).
+- 10-31g PINNED (agent cxh, c2 hooks, inl_notes "Crosshair /Op forwarding hook (agent 10-31 late)"): /Op is global
+  0x108a9204, set per function and by the inliner flag merge (0x1078dbd7). Two reads block yaw forwarding: 0x107f3877
+  (float mem->mem copy tuple 0x263 lowered to an int copy under /Op) and 0x1071083e -> 0x1077f087 (every float object's
+  definition dropped from the dataflow sets under /Op). Neither looks at volatile, alias class, base or address-taken,
+  so no spelling of gunAng[1] = cg->gunYaw can forward. Only a real by-value formal does (propagated before gate Y).
+  Retail shape (HYPOTHESIS): yaw arrived as a param/by-value formal; no helper confirmed. Stop re-spelling the store.
+- 10-31h PAID +66 (agent sm2, inl_notes "Small RA items (agent 10-31 night)"): CL_MouseEvent sm2_me1 (duplicate add arms
+  give dx/dy a third region so dy outranks the mouseIndex temps; c2 merges the copies). CG_CalcViewValues sm2_cv5
+  stand-in (&cgArray[0] address). Pinned, not landed: EvalPrimitiveExpression gap is the x87 order inside each inlined
+  EvalFloat, not the tail merge; CG_DrawAdsOverlay/GrenadePointer are x87-vs-int ordering ties.
+- 10-31i PINNED, NOT LANDED (agent hs2, inl_notes "Hoist/Slots round 2 (agent 10-31 night)"): CG_InitXAnimTrees 67 -> 0
+  only with hs2_xa.py XA=pn: a second global read 'animsSize = &cg->bgs.generic_human.tree.anims->size' (not folded,
+  spills to [esp+0x10] like retail) but it needs the XAnimCreateTree body hand-inlined in both loops; Mac 1.3 calls
+  XAnimCreateTree, so rejected (contradicts evidence). Clue: retail sees the size address as a separate pointer value.
+  FX_CalcOriginAndAxis: Mac cylinder forms (FX=bc/bw) identical to base, 172.

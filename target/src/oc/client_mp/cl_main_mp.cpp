@@ -154,8 +154,6 @@ extern qboolean CL_ShutdownUI(void);
 extern void Dvar_SetInt(dvar_t *dvar, int value);
 extern void Dvar_SetBool(dvar_t *dvar, bool value);
 extern void Dvar_SetString(dvar_t *dvar, const char *value);
-extern int Dvar_StringToEnum(const DvarLimits *domain, const char *string);
-extern void Dvar_SetVariant(dvar_t *dvar, DvarValue value, DvarSetSource source);
 extern void UI_SetMap(const char *mapname, const char *gametype);
 extern void SCR_UpdateScreenInternal(void);
 extern void SetScreenScaling(float safeAreaH, float safeAreaV, float vpX, float vpY, float vpW, float vpH);
@@ -491,7 +489,7 @@ cplane_t *CM_GetPlaneNum(int planeNum);
 void DB_EnumXAssets(enum XAssetType type, void (*func)(union XAssetHeader, void *), void *inData, bool includeOverride);
 void *Sys_GetValue(int valueIndex);
 Bool Sys_ReturnFalse(void);
-void Dvar_ChangeResetValue(struct dvar_s *dvar, union DvarValue value);
+void Dvar_ChangeResetValue(struct dvar_s *dvar, struct DvarValue value);
 bool Dvar_IsAtDefaultValue(struct dvar_s const *);
 char * XModelGetBasePoseOffset(struct XModel const *,unsigned int);
 char ** FS_ListFiles(char const *,char const *,enum FsListBehavior,int *,int);
@@ -2046,8 +2044,7 @@ void CL_RunOncePerClientFrame(int msec)
         if (clc.state == 8 || cl_forceavidemo->current.enabled) {
             Cbuf_ExecuteText(0, "screenshot silent\n");
         }
-        float timescale = com_timescaleValue;
-        msec = (int)(1000.0f / (float)cl_avidemo->current.integer * timescale);
+        msec = (int)(com_timescaleValue * (1000.0f / cl_avidemo->current.integer));
         if (msec == 0)
             msec = 1;
     }

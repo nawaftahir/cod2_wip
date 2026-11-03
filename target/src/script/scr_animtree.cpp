@@ -59,12 +59,7 @@ void AnimTreeCompileError( const char *msg )
 {
 	const char *pos = Com_GetLastTokenPos();
 
-	{
-#define PP_RETURN goto pp_done_2
-#include "../universal/q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_2:;
+	Com_EndParseSession();
 	CompileError(pos - scrAnimGlob.start, "%s", msg);
 }
 
@@ -171,99 +166,10 @@ unsigned int FindVariableIndexHash( unsigned int parentId, unsigned int name );
 unsigned int GetNewVariableIndexInternal3( unsigned int parentId, unsigned int name, unsigned int index );
 
 // retail inlines these at the first AnimTreeParseInternal sites only
-#define SCR_IS_IDENTIFIER_INLINE(res, token) \
-	{ \
-		const char *p_ = (token); \
-		(res) = true; \
-		while ( p_[0] ) \
-		{ \
-			if ( !isalnum(p_[0]) && p_[0] != '_' ) \
-			{ \
-				(res) = false; \
-				break; \
-			} \
-			p_++; \
-		} \
-	}
 
-#define GET_VARIABLE_INLINE(res, a_parentId, a_name) \
-	{ \
-			unsigned int parentId_GV = (a_parentId); \
-			unsigned int name_GV = (a_name); \
-		VariableValueInternal *entry_GV; \
-		VariableValueInternal *siblingEntry_GV; \
-		unsigned short siblingId_GV; \
-		VariableValueInternal *siblingValue_GV; \
-		VariableValueInternal *parentValue_GV; \
-		unsigned int hash_GV; \
-		unsigned int index_GV; \
-		hash_GV = ( name_GV + parentId_GV ) % ( VARIABLELIST_CHILD_SIZE - 1 ) + 1; \
-		index_GV = FindVariableIndexInternal(name_GV, hash_GV); \
-		if ( !index_GV ) \
-		{ \
-			index_GV = GetNewVariableIndexInternal3(parentId_GV, name_GV, hash_GV); \
-			parentValue_GV = &scrVarGlob.variableList[parentId_GV]; \
-			siblingId_GV = parentValue_GV->nextSibling; \
-			siblingValue_GV = &scrVarGlob.variableList[siblingId_GV]; \
-			entry_GV = &scrVarGlob.variableList[index_GV]; \
-			siblingEntry_GV = &scrVarGlob.variableList[entry_GV->hash.id]; \
-			siblingEntry_GV->nextSibling = siblingId_GV; \
-			siblingValue_GV->hash.u.prevSibling = index_GV; \
-			entry_GV->hash.u.prevSibling = parentValue_GV->v.next; \
-			parentValue_GV->nextSibling = index_GV; \
-		} \
-		res = scrVarGlob.variableList[index_GV].hash.id; \
-	}
 
-#define REMOVE_REF_TO_VALUE_INLINE(a_type, a_u) \
-	{ \
-			int type_RRTV = (a_type); \
-			VariableUnion u_RRTV = (a_u); \
-		switch ( type_RRTV ) \
-		{ \
-		case VAR_POINTER: \
-			RemoveRefToObject(u_RRTV.pointerValue); \
-			break; \
-		case VAR_STRING: \
-		case VAR_ISTRING: \
-			SL_RemoveRefToString(u_RRTV.stringValue); \
-			break; \
-		case VAR_VECTOR: \
-			if ( *((byte *)u_RRTV.vectorValue - 1) ) \
-			{ \
-				break; \
-			} \
-			if ( *((unsigned short *)((byte *)u_RRTV.vectorValue - 4)) ) \
-			{ \
-				(*((unsigned short *)((byte *)u_RRTV.vectorValue - 4)))--; \
-				break; \
-			} \
-			MT_FreeIndex( (MemoryNode *)((byte *)u_RRTV.vectorValue - 4) - scrMemTreeGlob.nodes, 16 ); \
-			break; \
-		} \
-	}
 
-#define FREE_VALUE_INLINE(a_id) \
-	{ \
-			unsigned int id_FV = (a_id); \
-		VariableValueInternal *entryValue_FV = &scrVarGlob.variableList[id_FV]; \
-		REMOVE_REF_TO_VALUE_INLINE(entryValue_FV->w.type & VAR_MASK, entryValue_FV->u.u); \
-		FreeVariable(id_FV); \
-	}
 
-#define REMOVE_VARIABLE_INLINE(a_parentId, a_name) \
-	{ \
-			unsigned int parentId_RV = (a_parentId); \
-			unsigned int name_RV = (a_name); \
-		VariableValueInternal *entryValue_RV; \
-		unsigned int index_RV; \
-		unsigned int id_RV; \
-		index_RV = FindVariableIndexHash(parentId_RV, name_RV); \
-		entryValue_RV = &scrVarGlob.variableList[index_RV]; \
-		id_RV = entryValue_RV->hash.id; \
-		MakeVariableExternal(entryValue_RV, &scrVarGlob.variableList[parentId_RV]); \
-		FREE_VALUE_INLINE(id_RV); \
-	}
 
 /*
 ============
@@ -297,14 +203,11 @@ bool AnimTreeParseInternal( unsigned int parentNode, unsigned int names, bool bI
 			break;
 		}
 
-		bool isIdent_;
-		SCR_IS_IDENTIFIER_INLINE(isIdent_, token);
-
-		if ( isIdent_ )
+		if ( Scr_IsIdentifier(token) )
 		{
 			if ( bResolve )
 			{
-				REMOVE_VARIABLE_INLINE(parentNode, animName);
+				RemoveVariable(parentNode, animName);
 			}
 
 			animName = SL_GetLowercaseString_(token, 2, 4);
@@ -314,9 +217,7 @@ bool AnimTreeParseInternal( unsigned int parentNode, unsigned int names, bool bI
 				AnimTreeCompileError("duplicate animation");
 			}
 
-			unsigned int inl_gv1;
-			GET_VARIABLE_INLINE(inl_gv1, parentNode, animName);
-			animId = inl_gv1;
+			animId = GetVariable(parentNode, animName);
 			bResolve = !bComplete && !FindVariable(names, animName) && !scrAnimGlob.bAnimCheck;
 			flags = 0;
 			token = Com_ParseOnLine(&scrAnimGlob.pos);
@@ -326,9 +227,7 @@ bool AnimTreeParseInternal( unsigned int parentNode, unsigned int names, bool bI
 				continue;
 			}
 
-			SCR_IS_IDENTIFIER_INLINE(isIdent_, token);
-
-			if ( isIdent_ )
+			if ( Scr_IsIdentifier(token) )
 			{
 				AnimTreeCompileError("FIXME: aliases not yet implemented");
 			}
@@ -435,12 +334,7 @@ void Scr_AnimTreeParse( const char *pos, unsigned int parentNode, unsigned int n
 		AnimTreeCompileError("bad token");
 	}
 
-	{
-#define PP_RETURN goto pp_done_3
-#include "../universal/q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_3:;
+	Com_EndParseSession();
 }
 
 /*
@@ -731,17 +625,7 @@ unsigned int Scr_UsingTreeInternal( const char *filename, unsigned int *index, i
 		}
 	}
 
-	unsigned int gvi_site;
-	{
-#define pp_parentId (fileId)
-#define pp_name (ANIMTREE_NAMES)
-#define pp_result gvi_site
-#include "scr_get_variable_index.inl"
-#undef pp_result
-#undef pp_name
-#undef pp_parentId
-	}
-	names = GetArray( scrVarGlob.variableList[ gvi_site ].hash.id );
+	names = GetArray(GetVariable(fileId, ANIMTREE_NAMES));
 	SL_RemoveRefToString(filenameId);
 
 	return names;

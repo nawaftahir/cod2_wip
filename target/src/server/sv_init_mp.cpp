@@ -229,14 +229,7 @@ SV_GetConfigstring
 */
 const char* SV_GetConfigstringConst( int index )
 {
-	const char *cs;
-
-	cs = sv.configstrings[index];
-
-	if ( !sv.configstrings[index] )
-		cs = "";
-
-	return cs;
+	return sv.configstrings[index] ? sv.configstrings[index] : "";
 }
 
 /*

@@ -223,7 +223,7 @@ static void StartWeaponAnim(int weaponNum, struct XAnimTree_s *tree, int activeA
 
 
 // kisak name; retail 0x4cd480
-static __declspec(noinline) void StartWeaponAnim(int weaponNum, struct XAnimTree_s *tree, int activeAnim)
+static void StartWeaponAnim(int weaponNum, struct XAnimTree_s *tree, int activeAnim)
 {
     int i;
     weaponInfo_t *weapInfo;
@@ -1201,7 +1201,7 @@ void CG_AddPlayerWeapon(GfxEntity *parent, playerState_t *ps, centity_t *cent, q
             gun.origin[2] = parent->origin[2];
             AxisCopy(parent->axis, gun.axis);
 
-            model.obj = (&cg_weaponsArray[weaponNum])->viewModelDObj;
+            model.obj = weapInfo->viewModelDObj;
             skinEnt = R_AddRefEntityToScene(&gun, model, 0);
 #if COD2_TRACE
             {
@@ -1848,17 +1848,11 @@ void CG_FireWeapon(centity_t *cent, int event, int barrel)
         CG_EjectWeaponBrass(ent, event);
 }
 
-#define VEC3_SUB_INLINE(a_a, a_b, a_out) \
-	{ \
-			const vec_t * a_VS = (a_a); \
-			const vec_t * b_VS = (a_b); \
-			vec_t * out_VS = (a_out); \
-			    out_VS[0] = a_VS[0] - b_VS[0]; \
-			    out_VS[1] = a_VS[1] - b_VS[1]; \
-			    out_VS[2] = a_VS[2] - b_VS[2]; \
-	}
-#define VEC3_DOT_INLINE(a, b) ((a)[0] * (b)[0] + (a)[1] * (b)[1] + (a)[2] * (b)[2])
-#define VEC3_LENGTH_INLINE(v) (sqrtf((v)[2] * (v)[2] + ((v)[1] * (v)[1] + (v)[0] * (v)[0])))
+extern void VectorSubtract(const vec3_t a, const vec3_t b, vec3_t c);
+extern float DotProduct(const vec3_t a, const vec3_t b);
+extern void VectorMA(const vec3_t va, float scale, const vec3_t vb, vec3_t vc);
+extern float VectorLength(const vec3_t v);
+
 void CG_WhizbySound(vec_t *vStart, vec_t *vEnd)
 {
     vec3_t viewDelta;
@@ -1868,24 +1862,20 @@ void CG_WhizbySound(vec_t *vStart, vec_t *vEnd)
     float dist;
     float viewDist;
 
-    VEC3_SUB_INLINE(vEnd, vStart, delta);
+    VectorSubtract(vEnd, vStart, delta);
     Vec3NormalizeTo(delta, dir);
-    dist = VEC3_DOT_INLINE(dir, delta);
-    VEC3_SUB_INLINE(cg->refdef.vieworg, vStart, viewDelta);
-    viewDist = VEC3_DOT_INLINE(dir, viewDelta);
+    dist = DotProduct(dir, delta);
+    VectorSubtract(cg->refdef.vieworg, vStart, viewDelta);
+    viewDist = DotProduct(dir, viewDelta);
     if (viewDist < 64.0f)
         return;
     if (viewDist - -64.0f > dist)
         return;
-    projPos[0] = dir[0] * viewDist + vStart[0];
-    projPos[1] = dir[1] * viewDist + vStart[1];
-    projPos[2] = dir[2] * viewDist + vStart[2];
-    VEC3_SUB_INLINE(projPos, cg->refdef.vieworg, delta);
-    if (VEC3_LENGTH_INLINE(delta) > 140.0f)
+    VectorMA(vStart, viewDist, dir, projPos);
+    VectorSubtract(projPos, cg->refdef.vieworg, delta);
+    if (VectorLength(delta) > 140.0f)
         return;
-    projPos[0] = projPos[0] - dir[0] * 16.0f;
-    projPos[1] = projPos[1] - dir[1] * 16.0f;
-    projPos[2] = projPos[2] - dir[2] * 16.0f;
+    VectorMA(projPos, -16.0f, dir, projPos);
     CG_PlaySoundAlias(0x3fe, projPos, cgs->media.bulletWhizby);
 }
 
@@ -1910,7 +1900,7 @@ void CG_SpawnTracer(vec_t *pstart, vec_t *pend)
     end[1] = pend[1];
     end[2] = pend[2];
 
-    VEC3_SUB_INLINE(end, start, dir);
+    VectorSubtract(end, start, dir);
 
     dist = Vec3Normalize(dir);
     le = CG_AllocLocalEntity();
@@ -1931,7 +1921,7 @@ void CG_SpawnTracer(vec_t *pstart, vec_t *pend)
 }
 
 // retail 0x4d1340; Kisak name (SUPPORTED)
-__declspec(noinline) static float CalcTracerFinalScale(float tracerScaleDistRange, float dist, float tracerScale)
+inline float CalcTracerFinalScale(float tracerScaleDistRange, float dist, float tracerScale)
 {
     float scale;
 
@@ -1980,16 +1970,14 @@ void CG_DrawTracer(vec_t *start, vec_t *finish)
     vec3_t right;
     vec3_t line;
     float scale;
-    float startWidth;
-    float finishWidth;
+    float startWidth = 0.0f;
+    float finishWidth = 0.0f;
     GfxWorldVertex verts[4];
 
-    forward[0] = finish[0] - start[0];
-    forward[1] = finish[1] - start[1];
-    forward[2] = finish[2] - start[2];
+    float f0 = finish[0] - start[0];
 
-    line[0] = forward[0] * cg->refdef.viewaxis[1][0] + forward[1] * cg->refdef.viewaxis[1][1] + forward[2] * cg->refdef.viewaxis[1][2];
-    line[1] = forward[0] * cg->refdef.viewaxis[2][0] + forward[1] * cg->refdef.viewaxis[2][1] + forward[2] * cg->refdef.viewaxis[2][2];
+    line[0] = f0 * cg->refdef.viewaxis[1][0] + (finish[1] - start[1]) * cg->refdef.viewaxis[1][1] + (finish[2] - start[2]) * cg->refdef.viewaxis[1][2];
+    line[1] = f0 * cg->refdef.viewaxis[2][0] + (finish[1] - start[1]) * cg->refdef.viewaxis[2][1] + (finish[2] - start[2]) * cg->refdef.viewaxis[2][2];
 
     VectorScale(cg->refdef.viewaxis[1], line[1], right);
     scale = -line[0];
@@ -2002,12 +1990,12 @@ void CG_DrawTracer(vec_t *start, vec_t *finish)
     finishWidth = cg_tracerWidth->current.value;
     ScaleTracer(start, finish, &startWidth, &finishWidth);
 
+    VectorMA(finish, finishWidth, right, verts[0].xyz);
     verts[0].texCoord[0] = 1.0f;
     verts[0].texCoord[1] = 1.0f;
     verts[0].lmapCoord[0] = 1.0f;
     verts[0].lmapCoord[1] = 1.0f;
     verts[0].color.packed = 0xffffffff;
-    VectorMA(finish, finishWidth, right, verts[0].xyz);
 
     verts[1].texCoord[0] = 1.0f;
     verts[1].texCoord[1] = 0.0f;

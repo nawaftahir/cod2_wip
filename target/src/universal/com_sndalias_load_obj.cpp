@@ -563,9 +563,10 @@ void Com_LoadVolumeModGroups( VolumeModGroup *groups )
 	FS_FCloseFile(f);
 	Com_BeginParseSession(path);
 	data = buffer;
-	for ( i = 0; ; i++ )
+	i = 0;
+	for ( ;; )
 	{
-		COM_PARSE_INLINE(token, &data);
+		token = Com_Parse(&data);
 		if ( !*token || *token == '}' )
 		{
 			break;
@@ -577,7 +578,7 @@ void Com_LoadVolumeModGroups( VolumeModGroup *groups )
 			return;
 		}
 		strcpy(groups[i].name, token);
-		COM_PARSE_INLINE(token, &data);
+		token = Com_Parse(&data);
 		if ( !*token || *token == '}' )
 		{
 			Com_EndParseSession();
@@ -585,6 +586,7 @@ void Com_LoadVolumeModGroups( VolumeModGroup *groups )
 			return;
 		}
 		groups[i].value = atof(token);
+		i++;
 	}
 	Com_EndParseSession();
 }
@@ -627,23 +629,16 @@ void Com_LoadSoundAliasFile( const char *loadspec, const char *loadspecCurGame, 
 	Com_SetCSV(qtrue);
 	data = buffer;
 	columnCount = 0;
-	while ( 1 )
+	for ( ;; )
 	{
-		COM_PARSE_INLINE(token, &data);
+		token = Com_Parse(&data);
 		if ( !data )
 		{
 			break;
 		}
 		if ( !*token || *token == '#' )
 		{
-			{
-#define pp_data (&data)
-#define PP_RETURN goto pp_done_1
-#include "q_parse_skipline.inl"
-#undef PP_RETURN
-#undef pp_data
-			}
-pp_done_1:;
+			Com_SkipRestOfLine(&data);
 			continue;
 		}
 		if ( !columnCount )
@@ -673,29 +668,16 @@ pp_done_1:;
 				{
 					break;
 				}
-				if ( data && *data != '\n' )
+				if ( !data || *data == '\n' )
 				{
-					{
-#define pp_data_p (&data)
-#define PP_RETVAL( v ) { token = v; goto pp_line_1; }
-#include "q_parse_online.inl"
-#undef PP_RETVAL
-#undef pp_data_p
-					}
-pp_line_1:;
-					continue;
+					break;
 				}
-				break;
+				token = Com_ParseOnLine(&data);
 			}
 			if ( !hasName || !hasFile )
 			{
 				Com_Printf("^1ERROR: Sound alias file %s: missing 'name' and/or 'file' columns\n", sourceFile);
-				{
-#define PP_RETURN goto pp_done_4
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-				}
-pp_done_4:;
+				Com_EndParseSession();
 				return;
 			}
 		}
@@ -714,24 +696,12 @@ pp_done_4:;
 				{
 					break;
 				}
-				{
-#define pp_data_p (&data)
-#define PP_RETVAL( v ) { token = v; goto pp_line_2; }
-#include "q_parse_online.inl"
-#undef PP_RETVAL
-#undef pp_data_p
-				}
-pp_line_2:;
+				token = Com_ParseOnLine(&data);
 			}
 			if ( !fieldSet[SA_NAME] || !fieldSet[SA_FILE] )
 			{
 				Com_Printf("^1ERROR: Sound alias file %s: alias entry missing name and/or file\n", sourceFile);
-				{
-#define PP_RETURN goto pp_done_5
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-				}
-pp_done_5:;
+				Com_EndParseSession();
 				return;
 			}
 			if ( alias.keep && !alias.error && Com_ValidateSoundAlias(&alias) )
@@ -739,21 +709,9 @@ pp_done_5:;
 				Com_AddBuildSoundAlias(&alias);
 			}
 		}
-		{
-#define pp_data (&data)
-#define PP_RETURN goto pp_done_2
-#include "q_parse_skipline.inl"
-#undef PP_RETURN
-#undef pp_data
-		}
-pp_done_2:;
+		Com_SkipRestOfLine(&data);
 	}
-	{
-#define PP_RETURN goto pp_done_6
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_6:;
+	Com_EndParseSession();
 }
 
 int AliasNameCompare( snd_alias_build_t *alias0, snd_alias_build_t *alias1 )
@@ -1132,33 +1090,24 @@ bool Com_ParseVolumeFalloffCurve( const char *buffer, const char *filename, SndC
 	int knotIndex;
 
 	Com_BeginParseSession(filename);
-	COM_PARSE_INLINE(token, &buffer);
+	token = Com_Parse(&buffer);
 	curve->knotCount = atoi(token);
 	if ( curve->knotCount < 2 )
 	{
-		{
-#define PP_RETURN goto pp_done_7
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-		}
-pp_done_7:;
+		Com_EndParseSession();
 		Com_Printf("^1ERROR: sndcurve parse failure on file \"%s\": knot count (%d) is less than 2\n", filename, curve->knotCount);
 		return false;
 	}
 	if ( curve->knotCount > MAX_SNDCURVE_KNOTS )
 	{
-		{
-#define PP_RETURN goto pp_done_8
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-		}
-pp_done_8:;
+		Com_EndParseSession();
 		Com_Printf("^1ERROR: sndcurve parse failure on file \"%s\": knot count (%d) is greater than maxKnots (%d)\n", filename, curve->knotCount, MAX_SNDCURVE_KNOTS);
 		return false;
 	}
-	for ( knotIndex = 0; ; knotIndex++ )
+	knotIndex = 0;
+	for ( ;; )
 	{
-		COM_PARSE_INLINE(token, &buffer);
+		token = Com_Parse(&buffer);
 		if ( !*token || *token == '}' )
 		{
 			break;
@@ -1176,7 +1125,7 @@ pp_done_8:;
 			Com_Printf("^1ERROR: sndcurve parse failure on file \"%s\": knot x-coord '%f' is not in the range 0-1.\n", filename, curve->knots[knotIndex][0]);
 			return false;
 		}
-		COM_PARSE_INLINE(token, &buffer);
+		token = Com_Parse(&buffer);
 		if ( !*token || *token == '}' )
 		{
 			break;
@@ -1188,13 +1137,9 @@ pp_done_8:;
 			Com_Printf("^1ERROR: sndcurve parse failure on file \"%s\": knot x-coord '%f' is not in the range 0-1.\n", filename, curve->knots[knotIndex][1]);
 			return false;
 		}
+		knotIndex++;
 	}
-	{
-#define PP_RETURN goto pp_done_9
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_9:;
+	Com_EndParseSession();
 	if ( knotIndex != curve->knotCount )
 	{
 		Com_Printf("^1ERROR: sndcurve parse failure on file \"%s\": knot count (%d) does not match knots parsed (%d).\n", filename, curve->knotCount, knotIndex);
@@ -1329,42 +1274,23 @@ qboolean Com_SubtitleReferenceExists( const char *reference )
 	Com_BeginParseSession("soundaliases/subtitle.st");
 	for ( data = buffer; ; )
 	{
-		COM_PARSE_INLINE(token, &data);
+		token = Com_Parse(&data);
 		if ( !data )
 		{
 			break;
 		}
 		if ( !strcmp(token, "REFERENCE") )
 		{
-			{
-#define pp_data_p (&data)
-#define PP_RETVAL( v ) { token = v; goto pp_line_3; }
-#include "q_parse_online.inl"
-#undef PP_RETVAL
-#undef pp_data_p
-			}
-pp_line_3:;
+			token = Com_ParseOnLine(&data);
 			if ( !I_stricmp(reference + 9, token) )
 			{
 				found = qtrue;
 				break;
 			}
 		}
-		{
-#define pp_data (&data)
-#define PP_RETURN goto pp_done_3
-#include "q_parse_skipline.inl"
-#undef PP_RETURN
-#undef pp_data
-		}
-pp_done_3:;
+		Com_SkipRestOfLine(&data);
 	}
-	{
-#define PP_RETURN goto pp_done_10
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_10:;
+	Com_EndParseSession();
 	FS_FreeFile(buffer);
 	return found;
 }
@@ -1407,24 +1333,14 @@ const char *Com_GetSubtitleStringEdReference( const char *text )
 			token = Com_ParseOnLine(&data);
 			if ( !I_stricmp(text, token) )
 			{
-				{
-#define PP_RETURN goto pp_done_11
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-				}
-pp_done_11:;
+				Com_EndParseSession();
 				FS_FreeFile(buffer);
 				return com_subtitleReference;
 			}
 		}
 		Com_SkipRestOfLine(&data);
 	}
-	{
-#define PP_RETURN goto pp_done_12
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_12:;
+	Com_EndParseSession();
 	FS_FreeFile(buffer);
 	return NULL;
 }
@@ -1525,12 +1441,7 @@ skipLine:
 	{
 		Com_WriteStringEdReferenceToFile(name, subtitle, f);
 	}
-	{
-#define PP_RETURN goto pp_done_13
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_13:;
+	Com_EndParseSession();
 	FS_FreeFile(buffer);
 	token = "\r\nENDMARKER\r\n\r\n\r\n";
 	FS_Write(token, strlen(token), f);
@@ -1594,8 +1505,12 @@ void Com_ProcessSoundAliasFileLocalization( const char *sourceFile, const char *
 	data = buffer;
 	columnCount = 0;
 	localizedCount = 0;
-	while ( data )
+	for ( ;; )
 	{
+		if ( !data )
+		{
+			break;
+		}
 		if ( *data == '\r' )
 		{
 			while ( *data == '\r' )
@@ -1787,12 +1702,7 @@ void Com_ProcessSoundAliasFileLocalization( const char *sourceFile, const char *
 			Com_SkipRestOfLine(&data);
 		}
 	}
-	{
-#define PP_RETURN goto pp_done_14
-#include "q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_14:;
+	Com_EndParseSession();
 	FS_FCloseFile(f);
 	FS_BuildOSPath(fs_basepath->current.string, fs_gamedir, tempFile, tempOSPath);
 	FS_BuildOSPath(fs_basepath->current.string, fs_gamedir, path, aliasOSPath);

@@ -163,7 +163,7 @@ void SetVariableValue( unsigned int id, VariableValue *value );
 void SetNewVariableValue( unsigned int id, VariableValue *value );
 VariableUnion *GetVariableValueAddress( unsigned int id );
 void SetVariableEntityFieldValue( unsigned int entId, unsigned int fieldName, VariableValue *value );
-__declspec(noinline) void ClearVariableValue( unsigned int id );
+void ClearVariableValue( unsigned int id );
 void SetVariableFieldValue( unsigned int id, VariableValue *value );
 VariableValue Scr_EvalVariable( unsigned int id );
 unsigned int Scr_EvalVariableObject( unsigned int id );
@@ -796,11 +796,25 @@ unsigned int GetNewVariableIndexInternal3( unsigned int parentId, unsigned int n
 GetNewVariableIndexInternal2
 ==============
 */
-__declspec(noinline) unsigned int GetNewVariableIndexInternal2( unsigned int i2_parentId, unsigned int i2_name, unsigned int i2_index )
+unsigned int GetNewVariableIndexInternal2( unsigned int parentId, unsigned int name, unsigned int index )
 {
-#define PP_RETVAL( v ) return v
-#include "scr_new_variable_index2.inl"
-#undef PP_RETVAL
+	VariableValueInternal *entry;
+	VariableValueInternal *siblingEntry;
+	unsigned short siblingId;
+	VariableValueInternal *siblingValue;
+	VariableValueInternal *parentValue;
+
+	index = GetNewVariableIndexInternal3(parentId, name, index);
+	parentValue = &scrVarGlob.variableList[parentId];
+	siblingId = parentValue->nextSibling;
+	siblingValue = &scrVarGlob.variableList[siblingId];
+	entry = &scrVarGlob.variableList[index];
+	siblingEntry = &scrVarGlob.variableList[entry->hash.id];
+	siblingEntry->nextSibling = siblingId;
+	siblingValue->hash.u.prevSibling = index;
+	entry->hash.u.prevSibling = parentValue->v.next;
+	parentValue->nextSibling = index;
+	return index;
 }
 
 /*
@@ -1257,13 +1271,7 @@ void Scr_KillThread( unsigned int parentId )
 
 			VM_CancelNotify(GetVariableValueAddress(FindObjectVariable(selfNameId, nameIndex))->pointerValue, nameIndex);
 			Scr_KillEndonThread(nameIndex);
-			{
-#define pp_parentId (selfNameId)
-#define pp_name (nameIndex + SL_MAX_STRING_INDEX)
-#include "scr_remove_variable.inl"
-#undef pp_name
-#undef pp_parentId
-			}
+			RemoveVariable(selfNameId, nameIndex + SL_MAX_STRING_INDEX);
 		}
 
 		assert(!GetArraySize(selfNameId));
@@ -2121,10 +2129,21 @@ unsigned int GetNewObjectVariableReverse( unsigned int parentId, unsigned int id
 RemoveVariable
 ==============
 */
-// retail never inlines RemoveVariable
-__declspec(noinline) void RemoveVariable( unsigned int pp_parentId, unsigned int pp_name )
+void RemoveVariable( unsigned int parentId, unsigned int name )
 {
-#include "scr_remove_variable.inl"
+	VariableValueInternal *entryValue;
+	unsigned int index;
+	unsigned int id;
+
+	assert((scrVarGlob.variableList[parentId].w.status & VAR_STAT_MASK) != VAR_STAT_FREE);
+	index = FindVariableIndexHash(parentId, name);
+	entryValue = &scrVarGlob.variableList[index];
+
+	id = entryValue->hash.id;
+	assert(id);
+
+	MakeVariableExternal(entryValue, &scrVarGlob.variableList[parentId]);
+	FreeValue(id);
 }
 
 /*
@@ -2237,17 +2256,7 @@ void CopyArray( unsigned int parentId, unsigned int newParentId )
 		entryValue = &scrVarGlob.variableList[id];
 		type = entryValue->w.type & VAR_MASK;
 
-		unsigned int gvi_site;
-		{
-#define pp_parentId (newParentId)
-#define pp_name (entryValue->w.name >> VAR_NAME_BITS)
-#define pp_result gvi_site
-#include "scr_get_variable_index.inl"
-#undef pp_result
-#undef pp_name
-#undef pp_parentId
-		}
-		newValue = &scrVarGlob.variableList[ gvi_site ].hash.id;
+		newValue = &scrVarGlob.variableList[ GetVariableIndexInternal( newParentId, entryValue->w.name >> VAR_NAME_BITS ) ].hash.id;
 		newEntryValue = &scrVarGlob.variableList[ *newValue ];
 
 		newEntryValue->w.type |= type;
@@ -2383,7 +2392,7 @@ void SetVariableEntityFieldValue( unsigned int entId, unsigned int fieldName, Va
 ClearVariableValue
 ==============
 */
-__declspec(noinline) void ClearVariableValue( unsigned int id )
+void ClearVariableValue( unsigned int id )
 {
 	VariableValueInternal *entryValue;
 
@@ -4454,17 +4463,7 @@ void CopyEntity( unsigned int parentId, unsigned int newParentId )
 		}
 
 		assert(!FindVariableIndexHash( newParentId, name ));
-		unsigned int gvi_site;
-		{
-#define pp_parentId (newParentId)
-#define pp_name (name)
-#define pp_result gvi_site
-#include "scr_get_variable_index.inl"
-#undef pp_result
-#undef pp_name
-#undef pp_parentId
-		}
-		newEntryValue = &scrVarGlob.variableList[scrVarGlob.variableList[gvi_site].hash.id];
+		newEntryValue = &scrVarGlob.variableList[GetVariable(newParentId, name)];
 
 		assert((newEntryValue->w.status & VAR_STAT_MASK) != VAR_STAT_FREE && (newEntryValue->w.status & VAR_STAT_MASK) != VAR_STAT_EXTERNAL);
 		assert((newEntryValue->w.type & VAR_MASK) == VAR_UNDEFINED);
@@ -4768,12 +4767,7 @@ void Scr_AddFieldsForFile( const char *filename )
 		*targetPos = 0;
 	}
 
-	{
-#define PP_RETURN goto pp_done_1
-#include "../universal/q_parse_endsession.inl"
-#undef PP_RETURN
-	}
-pp_done_1:;
+	Com_EndParseSession();
 	Hunk_ClearTempMemoryHighInternal();
 }
 
