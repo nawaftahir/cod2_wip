@@ -1,0 +1,269 @@
+{
+  "candidate_sha256": "eec34f5bcd1613b0e786683932b61ad231752c597254d9bad4ba16ec93a43b1f",
+  "source_span": 515,
+  "source_base": "0x10004d20",
+  "target_base": "0x10004f40",
+  "positions": [
+    {
+      "name": "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z",
+      "offset": 0,
+      "bytes": 222,
+      "gap_bytes": 0,
+      "gap_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "?R_FinishStaticVertexBuffer@@YAXPAX@Z",
+      "offset": 224,
+      "bytes": 73,
+      "gap_bytes": 2,
+      "gap_sha256": "e3966e3275be536a16092ec0cadf1638f718218e616fbbe8ff1c5e67fff4def2"
+    },
+    {
+      "name": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
+      "offset": 304,
+      "bytes": 19,
+      "gap_bytes": 7,
+      "gap_sha256": "f145eca66705de68ff53c6d80e34d8f9a5b535ffa157194aa98bdb68aea4368d"
+    },
+    {
+      "name": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
+      "offset": 336,
+      "bytes": 72,
+      "gap_bytes": 13,
+      "gap_sha256": "0d0bb866505bc0e2d4276fcdee1afdc8887662d04cce9e4bbb4c10fba6d0f1ce"
+    },
+    {
+      "name": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+      "offset": 416,
+      "bytes": 73,
+      "gap_bytes": 8,
+      "gap_sha256": "3d2f424783df5853c8d7121b1371650c04241f318e1b0cd46bedbc805b9164c3"
+    },
+    {
+      "name": "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+      "offset": 496,
+      "bytes": 19,
+      "gap_bytes": 7,
+      "gap_sha256": "f145eca66705de68ff53c6d80e34d8f9a5b535ffa157194aa98bdb68aea4368d"
+    }
+  ],
+  "placements": [
+    {
+      "name": "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z",
+      "raw_hits": [
+        "0x10004f40"
+      ],
+      "source": "0x10004d20",
+      "target": "0x10004f40",
+      "kind": "unique raw bytes"
+    },
+    {
+      "name": "?R_FinishStaticVertexBuffer@@YAXPAX@Z",
+      "raw_hits": [
+        "0x10005020",
+        "0x100050e0"
+      ],
+      "source": "0x10004e00",
+      "target": "0x10005020",
+      "kind": "paired call in verified particle builder",
+      "calls": [
+        {
+          "offset": 531,
+          "source_caller": "0x10010c80",
+          "target_caller": "0x10011bf0",
+          "source_callee": "0x10004e00",
+          "target_callee": "0x10005020"
+        }
+      ]
+    },
+    {
+      "name": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
+      "raw_hits": [
+        "0x10005070",
+        "0x10005130"
+      ],
+      "source": "0x10004e50",
+      "target": "0x10005070",
+      "kind": "independently certified surrounding code",
+      "certificate": {
+        "name": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
+        "target": "0x10005070",
+        "source": "0x10004e50",
+        "left_anchor": "?R_FinishStaticVertexBuffer@@YAXPAX@Z",
+        "right_anchor": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
+        "source_start": "0x10004e00",
+        "target_start": "0x10005020",
+        "span": 184,
+        "source_sha256": "577cb52cefc3d64960fa8657f23d6d76335bf23af7b898f8f26c6bf0482d5547",
+        "target_sha256": "bcca3860f14c1478aef966b8e7205d73119372d0a36407809a1c24a80c0f2406",
+        "masked_offsets": [
+          1,
+          2,
+          3,
+          4,
+          13,
+          14,
+          15,
+          16,
+          27,
+          28,
+          29,
+          30,
+          32,
+          33,
+          34,
+          35,
+          38,
+          39,
+          40,
+          41,
+          44,
+          45,
+          46,
+          47,
+          50,
+          51,
+          52,
+          53,
+          64,
+          65,
+          66,
+          67,
+          88,
+          89,
+          90,
+          91,
+          119,
+          120,
+          121,
+          122
+        ]
+      }
+    },
+    {
+      "name": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
+      "raw_hits": [
+        "0x10005090"
+      ],
+      "source": "0x10004e70",
+      "target": "0x10005090",
+      "kind": "unique raw bytes"
+    },
+    {
+      "name": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+      "raw_hits": [
+        "0x10005020",
+        "0x100050e0"
+      ],
+      "source": "0x10004ec0",
+      "target": "0x100050e0",
+      "kind": "paired call in verified particle builder",
+      "calls": [
+        {
+          "offset": 520,
+          "source_caller": "0x10010c80",
+          "target_caller": "0x10011bf0",
+          "source_callee": "0x10004ec0",
+          "target_callee": "0x100050e0"
+        }
+      ]
+    },
+    {
+      "name": "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+      "raw_hits": [
+        "0x10005070",
+        "0x10005130"
+      ],
+      "source": "0x10004f10",
+      "target": "0x10005130",
+      "kind": "independently certified surrounding code",
+      "certificate": {
+        "name": "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+        "target": "0x10005130",
+        "source": "0x10004f10",
+        "left_anchor": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+        "right_anchor": "?R_RespondToMissingCaps@@YAXW4DxCapsResponse@@PBDPAH@Z",
+        "source_start": "0x10004ec0",
+        "target_start": "0x100050e0",
+        "span": 247,
+        "source_sha256": "79912d7ab17dd71d3a1fb6a4cf1f92d0e2c368673b69aaab34f1ace3193c6f64",
+        "target_sha256": "7ab5d9eec2bcc350ee9172e1290638fe780af58f29666562863c7f1a898be270",
+        "masked_offsets": [
+          1,
+          2,
+          3,
+          4,
+          13,
+          14,
+          15,
+          16,
+          27,
+          28,
+          29,
+          30,
+          32,
+          33,
+          34,
+          35,
+          38,
+          39,
+          40,
+          41,
+          44,
+          45,
+          46,
+          47,
+          50,
+          51,
+          52,
+          53,
+          64,
+          65,
+          66,
+          67,
+          88,
+          89,
+          90,
+          91,
+          142,
+          143,
+          144,
+          145,
+          149,
+          150,
+          151,
+          152,
+          175,
+          176,
+          177,
+          178,
+          188,
+          189,
+          190,
+          191,
+          203,
+          204,
+          205,
+          206,
+          216,
+          217,
+          218,
+          219,
+          229,
+          230,
+          231,
+          232,
+          236,
+          237,
+          238,
+          239
+        ]
+      }
+    }
+  ],
+  "old_referee_sha256": "103be9413ee71391c4bcc05ed7d31aaa071010451813c81594fc3fd171576e5c",
+  "old_replay_sha256": "15990e4b87fd91e7b15e70f13a0999b78be199a13cd146523d4dcbe8077eb874",
+  "scope": "Exact emitted-function order and padding; not historical TU-boundary proof or whole-DLL identity",
+  "old_replay_file": "buffers_old_referee_replay.json",
+  "old_referee_file": "buffers_old_referee.txt"
+}

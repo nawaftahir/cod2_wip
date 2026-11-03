@@ -72,15 +72,22 @@ direct = {0x1005da30: 567, 0x1005ea60: 138, 0x1005eaf0: 295, 0x1005ec20: 170}
 pe = pefile.PE(str(anchor), fast_load=True)
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 excluded = []
+code_lengths = {0x100115f0: 190}
 for address, row in sorted(rows.items()):
-    instructions = list(decoder.disasm(pe.get_data(address - pe.OPTIONAL_HEADER.ImageBase, row['n']), address))
+    code_length = code_lengths.get(address, row['n'])
+    instructions = list(decoder.disasm(pe.get_data(address - pe.OPTIONAL_HEADER.ImageBase, code_length), address))
     reasons = sorted({ins.mnemonic for ins in instructions
                       if ins.mnemonic in ('rdtsc', 'fsincos') or ins.mnemonic.startswith('fist')})
     if address in direct:
         assert row['n'] == direct[address]
         reasons.append('explicit out-of-line assembly')
     if reasons:
-        excluded.append(dict(target=hex(address), bytes=row['n'], name=row['name'], reasons=reasons))
+        entry = dict(target=hex(address), bytes=code_length, name=row['name'], reasons=reasons)
+        if code_length != row['n']:
+            assert row['n'] == 208 and instructions[-1].mnemonic == 'ret'
+            assert instructions[-1].address + instructions[-1].size == address + code_length
+            entry['referee_extent'] = row['n']
+        excluded.append(entry)
 assert set(direct) <= set(rows)
 previous = work / 'proof/jpeg_commands_source_coverage.json'
 assert hashlib.sha256(previous.read_bytes()).hexdigest() == '3ccd24cb59013d7cc0b77a17bfefb436ab5ecc4370ca1732e46c4b62c5fba22c'
@@ -92,8 +99,10 @@ required['0x1002c7b0'] = 160
 required['0x1005edb0'] = 169
 # The lookup inlines the same unchanged I_fround assembly.
 required['0x10029320'] = 262
+# Window settings inlines the unchanged rounding helper; its table is not code.
+required['0x100115f0'] = 190
 assert {row['target']: row['bytes'] for row in excluded} == required
-assert len(excluded) == 35 and sum(row['bytes'] for row in excluded) == 8411
+assert len(excluded) == 36 and sum(row['bytes'] for row in excluded) == 8601
 cpp = report['bytes'] - sum(row['bytes'] for row in excluded)
 print(json.dumps(dict(
     status='authored-assembly attribution; not whole-file identity',

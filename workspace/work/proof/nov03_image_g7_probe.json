@@ -1,0 +1,24 @@
+{
+  "profile_sha256": "c4c1962c6fde00a3ac398e13ff22d215c41e2bca6f8850df28c29db4d14f11a4",
+  "rows": [
+    {
+      "name": "?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z",
+      "obj": "r_image.obj",
+      "size": 149,
+      "hits": []
+    },
+    {
+      "name": "?R_SetPicmip@@YAXXZ",
+      "obj": "r_image.obj",
+      "size": 511,
+      "hits": []
+    },
+    {
+      "name": "?R_CopyCubemapShot@@YAXPBEPAE@Z",
+      "obj": "r_screenshot.obj",
+      "size": 89,
+      "hits": []
+    }
+  ],
+  "accepted": false
+}

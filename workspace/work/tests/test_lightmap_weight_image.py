@@ -9,12 +9,16 @@ source = text[text.index('void Image_LoadLightmapWeights('):text.index('float Fr
 math = (work / 'src/universal/com_math.cpp').read_text()
 start = math.index('vec_t Vec2Normalize(')
 normalize = math[start:math.index('/*', start)]
+header = (work / 'src/universal/com_math.h').read_text()
+start = header.index('TU_STATIC float Vec2Multiply(')
+length_sq = header[start:header.index('/*', start)].replace('TU_STATIC ', 'inline ')
 program = r'''
 #include <cassert>
 #include <cmath>
 #include <cstdio>
 #include <cstring>
 typedef float vec_t;
+typedef float vec2_t[2];
 typedef float vec3_t[3];
 float I_sqrt(float value) {return std::sqrt(value);}
 struct GfxImage {unsigned guard;} image={0x12345678};
@@ -48,7 +52,7 @@ void Image_UploadData(GfxImage *im,int format,int face,unsigned mip,const unsign
         assert(pixels[i*4+c]==(i*11+c*43)%256);
     ++uploads;
 }
-'''+normalize+source+r'''
+'''+normalize+length_sq+source+r'''
 int main() {
     Image_LoadLightmapWeights(&image);
     assert(calls==1024&&setups==1&&uploads==1&&outside>0&&outside<1024);

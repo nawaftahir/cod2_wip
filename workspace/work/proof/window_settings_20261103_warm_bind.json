@@ -1,0 +1,8 @@
+{
+  "?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z": {
+    "t": "0x100115f0",
+    "n": 208,
+    "obj": "r_init.obj",
+    "why": []
+  }
+}

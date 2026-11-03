@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 124342,
-  "cpp_executable_bytes": 115931,
-  "cpp_percent": 45.717722217840524,
-  "cpp_game_bodies": 705,
+  "mixed_executable_bytes": 124923,
+  "cpp_executable_bytes": 116322,
+  "cpp_percent": 45.871914188816156,
+  "cpp_game_bodies": 714,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -39,6 +39,15 @@
       "reasons": [
         "fistp"
       ]
+    },
+    {
+      "target": "0x100115f0",
+      "bytes": 190,
+      "name": "?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z",
+      "reasons": [
+        "fistp"
+      ],
+      "referee_extent": 208
     },
     {
       "target": "0x10029320",
@@ -292,9 +301,9 @@
   "memory_helpers_cannot_inline": true,
   "naked_box_separate": true,
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
-  "counter_sha256": "87e666524a639ae5910683e2021f5e42b1dae729c9d021e296698820ac0008f1",
-  "regression_sha256": "daf0c64b81378f72a8fe0668e2c6daddeacc0c972aef4430adb10e446718f392",
-  "bind_sha256": "12e15ab063812aebb03b3d60671b15da873bb2320346af426ed27fab1645aaa2",
+  "counter_sha256": "da14ea716974df944e2ea25eb187ef918e23a633abb38543750c8ed306af721d",
+  "regression_sha256": "6d4a52bea5cea688cc8c111d1b3a4db0bf5c9bb47568acbd71ff3c8ac9d7da34",
+  "bind_sha256": "044c5a8f3dee6d5fc2724dfef091974ee1dc69657eb620c1b79850cd0143a6c7",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -357,7 +366,7 @@
     "gfx_d3d/r_image_wavelet_tables.h": "110975acfdb93dc5158b2e522c1fd09551c8d4375bd9986406e1c4e1cd542b4e",
     "gfx_d3d/r_image_wavelet.cpp": "7673699bc0fef2c9d7cca3fcee1852129366da50a5f88c4abf59b638053fb015",
     "gfx_d3d/r_debug.cpp": "3eadfc47096edbfcc16f5d847469119bf7f73085c50163e96fb241e6365a2e72",
-    "gfx_d3d/r_image.cpp": "210bfaceb04b29536975afc36460336535a73f9a44a70ee475b090725c56f546",
+    "gfx_d3d/r_image.cpp": "50f26bd6c2c44b99983a08582df36668b8e7192993bc13cfd4787d973e68ab43",
     "gfx_d3d/r_light.h": "6331e16982d11a7843a09689581baef86a96ea6f2f2b90e66621da1b55fde15f",
     "gfx_d3d/r_cmds.cpp": "c0500e921edb7ea725208b0f3b63cad7598a6845056c86e0a6ad306dd6b36e1f",
     "gfx_d3d/r_splitscreen.cpp": "96e3a9df5ac985ef1f0ff6f9c97b5d58ae526917885708722d444b8efefecf02",
@@ -371,11 +380,11 @@
     "gfx_d3d/r_font.h": "8ecc1feaed3ffbfe659fdedce70ebbc50d405917cb550e00ace1344f5cb49e19",
     "gfx_d3d/r_refapi.h": "c4785fadac5897e34089812c0fda3b4ddfd0966c65a428c42628f25e2fd2c8d8",
     "gfx_d3d/r_water.cpp": "a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b",
-    "gfx_d3d/r_image_load_obj.cpp": "cc544d58469adad3ab11ec910216ea0677c8aae750a7a6aa4c1dd64e45c41bff",
+    "gfx_d3d/r_image_load_obj.cpp": "018e59f0ae5dab1e5996e8b7f5729f8c158229fbcb3243d3aa47c39ee35e77a2",
     "gfx_d3d/r_shadowcookie.cpp": "938fa0db1ddca2995adca076d57d877187b58cb857aeb51917c8036263cecdab",
     "gfx_d3d/r_bsp_load_obj.cpp": "60dfd9305f7a3eef52907c91ee25da2edbbf59f2a1f757ed5186a22971d8aeea",
     "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",
-    "gfx_d3d/r_buffers.cpp": "f52304bf64b5dd00a3ee643ec7c5d57fc0d6e1b31859d7f23ec33a75d68016c3",
+    "gfx_d3d/r_buffers.cpp": "09a0c0eb10c18b87f88b00dd8cd0fad8be482b4a33bdcf6baf47c93d0ab26d3c",
     "gfx_d3d/rb_sky.cpp": "9a5fc70cf4b9c813f2fe953664f41e280dc6360f619b17bec998a5b2ca4f196b",
     "gfx_d3d/rb_tess.h": "3a8b6d3bf2209d6f25bb5efb8594fea8c1845afef306a6bae18394af8f2343d0",
     "gfx_d3d/r_caps.cpp": "5d85bff3833adb73471710b729cc25fe3b3c9becc3ea78ec917d65d27d77036d",
@@ -401,7 +410,7 @@
     "gfx_d3d/r_sun_state.h": "419ff7fe0c06e590a7014b9ba5a47de61008284d2d759e0bccf9419e090743c5",
     "gfx_d3d/ri.h": "01f47cb20c4d65ac0ea787c4c3ad5a1cae6c16df719a8ee3c9afe7f5fa82a8d1",
     "gfx_d3d/r_font.cpp": "0d317ca87413fcdef66bc94998d2de71f7de2e47fc32a78db021aac99692db10",
-    "gfx_d3d/r_init.cpp": "95d2d79dedd7db03381b75cd6195690fb983f96bd805a9fa67f438c282b021e7",
+    "gfx_d3d/r_init.cpp": "27422549562fc39dd4ac5079cf4396e4d7fe178cbb905923f3e1058386a466b0",
     "gfx_d3d/r_surfbounds.cpp": "13a0df881215bdcacc88c5e722f29d28d8dcd67f17c9266b47e5cc43ded05d2c",
     "gfx_d3d/r_sky.cpp": "1eb0845fa04334cc352000608b4bc99c7d3e9c052d841f5cee67448c1905c94c",
     "gfx_d3d/rb_backend.cpp": "f7a43a613dfd743a36694e06d0bace8359601b18e728458381400f52944e17d5",

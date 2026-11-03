@@ -1,0 +1,56 @@
+{
+  "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z": {
+    "t": "0x10005070",
+    "n": 19,
+    "obj": "r_buffers.obj",
+    "why": []
+  },
+  "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z": {
+    "t": "0x10005130",
+    "n": 19,
+    "obj": "r_buffers.obj",
+    "why": []
+  },
+  "?MatrixTranspose@@YAXQAY02$$CBMQAY02M@Z": {
+    "t": "0x1005aa90",
+    "n": 53,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?MatrixTransformVector@@YAXQBMQAY02$$CBMQAM@Z": {
+    "t": "0x1005b2f0",
+    "n": 71,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?MatrixTransposeTransformVector@@YAXQBMQAY02$$CBMQAM@Z": {
+    "t": "0x1005b3c0",
+    "n": 71,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?AngleMod@@YAMM@Z": {
+    "t": "0x1005be90",
+    "n": 43,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?AngleNormalize360@@YAMM@Z": {
+    "t": "0x1005bff0",
+    "n": 43,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?AxisTranspose@@YAXQAY02$$CBMQAY02M@Z": {
+    "t": "0x1005ca10",
+    "n": 53,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?I_isupper@@YA_NH@Z": {
+    "t": "0x10060860",
+    "n": 19,
+    "obj": "q_shared.obj",
+    "why": []
+  }
+}

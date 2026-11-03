@@ -403,15 +403,13 @@ void R_GetLightmapWeightsForDir(const float *dir, float *weights)
 }
 
 // Mac 1.3 name (SUPPORTED); 32x32 blend-weight image, 0x1000fe90.
+#pragma optimize("p", on)
 void Image_LoadLightmapWeights(GfxImage *image)
 {
     unsigned char pic[32][32][4];
     float dir[3];
     float weights[4];
-    float lengthSq;
     float zSq;
-    float length;
-    float invLength;
     int y;
     int x;
 
@@ -421,20 +419,13 @@ void Image_LoadLightmapWeights(GfxImage *image)
         for (x = 0; x < 32; x++)
         {
             dir[0] = ((float)x + 0.5f) / 32.0f * 2.0f - 1.0f;
-            lengthSq = dir[0] * dir[0] + dir[1] * dir[1];
-            zSq = 1.0f - lengthSq;
+            zSq = 1.0f - Vec2Multiply(dir);
             if (zSq < 0.0f)
             {
-                length = sqrt(lengthSq);
-                if (length != 0.0f)
-                {
-                    invLength = 1.0f / length;
-                    dir[0] *= invLength;
-                    dir[1] *= invLength;
-                }
+                Vec2Normalize(dir);
                 zSq = 0.0f;
             }
-            dir[2] = sqrt(zSq);
+            dir[2] = I_sqrt(zSq);
             R_GetLightmapWeightsForDir(dir, weights);
             pic[y][x][0] = (unsigned char)I_fround(weights[0] * 255.0f);
             pic[y][x][1] = (unsigned char)I_fround(weights[1] * 255.0f);
@@ -445,6 +436,8 @@ void Image_LoadLightmapWeights(GfxImage *image)
     Image_Setup(image, 32, 32, 1, 3, 0, D3DFMT_A8R8G8B8);
     Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, &pic[0][0][0]);
 }
+
+#pragma optimize("", on)
 
 float FresnelTerm(float n0, float n1, float cosIncidentAngle);
 

@@ -1,3 +1,42 @@
+# Verified buffer layout and window settings - 2026-11-03
+
+C/C++116322/253580=45.871914189%,714 bodies; +391B/+9 bodies sincecfe7803.
+The neighboring-region rule only narrows existing engine C++ raw hits, requires
+both surrounding anchors at one translation, compares the complete intervening
+code/padding and HIGHLOW sites, and rejects omitted functions. Independent
+certification from a frozen pre-discovery seed and unchanged old-referee replay
+reproduce the entire final accepted set.18 removal negatives pass. Dependencies
+from the unrestricted81-row preview are NOT canonical progress.
+
+r_buffers now has retail function order and identical offsets0/224/304/336/416/496
+in a515-byte span, including padding. All6 bodies pass both referees; the exact
+source is in clean src/. Ten complete files/61 emitted functions are verified.
+
+R_StoreWindowSettings now matches208 bytes:190 code +18 table/padding. The
+shared case-result labels reproduce retail JE/JGE order and share the forced
+aspect stores. The existing I_fround assembly excludes190 from C++ credit;
+its18 table/padding bytes are also excluded.36 assembly-bearing bodies/8601 code
+bytes are excluded in total. Both ratchets reject deleting this new extent.
+R_CreateDevice remains blocked by resource initialization, so adds no credit.
+
+Native126 video cases,1248 picmip policies,1024 lightmap directions and snapshot/
+discovery fixtures pass.2498 protected extents survive. The coverage publication
+fixture exercises the actual shell fragment: failed producers preserve the prior
+JSON; successful producers atomically replace it. No new assembly or workers.
+
+Failed probes: image/G7 leaves fullscreen149 and picmip511 unmatched; restored
+profile. Local precise lightmap mode501->581; I_sqrt calls alone unchanged581.
+Precise headers break UnGetLeanFraction19; reverted. Volatile normalization
+length597; Vec2Normalize593; Vec2Multiply+Vec2Normalize589, still not605. A
+channel loop produces472 and is reverted. Existing shared helpers are retained
+in the tested589-byte draft. Vec2LengthSq was only declared, not implemented;
+its trial link failed and the call was corrected to the real Vec2Multiply.
+Fullscreen counter scope and shared shutdown-image local give no match; reverted.
+Volatile picmip store, BSP product order and cubemap pointer spellings add zero;
+reverted. Do not repeat these exact variants or count size proximity.
+
+Receipt: proof/nov03_buffer_window_checkpoint.json. Whole SHA/GPU smoke unfinished.
+
 # Accepted direct-callee ambiguity resolution - 2026-11-03
 
 Six existing C++ bodies add513 verified bytes: two angle trackers174 each,

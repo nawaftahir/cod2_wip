@@ -730,7 +730,8 @@ void R_SetPicmip()
             changed = false;
             if (picmip < minPicmip)
             {
-                picmip = imageGlobals.picmip = minPicmip;
+                picmip = minPicmip;
+                imageGlobals.picmip = picmip;
                 changed = true;
             }
             if (imageGlobals.picmipBump < minPicmip)

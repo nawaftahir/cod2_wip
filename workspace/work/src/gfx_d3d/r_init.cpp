@@ -781,22 +781,21 @@ void R_StoreWindowSettings(const GfxWindowParms *parms)
         R_GetMonitorDimensions(&width, &height);
         float ratio = (float)height * 16.0f / width;
         int rounded = I_fround(ratio);
-        if (rounded < 10)
-            vidConfig.aspectRatioWindow = 16.0f / 9.0f;
-        else if (rounded == 10)
-            vidConfig.aspectRatioWindow = 16.0f / 10.0f;
-        else
-            vidConfig.aspectRatioWindow = 4.0f / 3.0f;
-        break;
+        if (rounded == 10)
+            goto aspect16x10;
+        if (rounded >= 10)
+            goto aspect4x3;
     }
+    case 3:
+        vidConfig.aspectRatioWindow = 16.0f / 9.0f;
+        break;
     case 1:
+aspect4x3:
         vidConfig.aspectRatioWindow = 4.0f / 3.0f;
         break;
     case 2:
+aspect16x10:
         vidConfig.aspectRatioWindow = 16.0f / 10.0f;
-        break;
-    case 3:
-        vidConfig.aspectRatioWindow = 16.0f / 9.0f;
         break;
     }
     vidConfig.aspectRatioPixel = (float)vidConfig.height * vidConfig.aspectRatioWindow / vidConfig.width;

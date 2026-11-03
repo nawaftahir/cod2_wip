@@ -1,0 +1,121 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "target": "0x1000fe90",
+  "size": 605,
+  "body_sha256": "fa58e37e77fc1bc1dd389c394cc67754f0be0463fcb4a69e2672e7653c4fea99",
+  "instructions": [
+    {
+      "address": "0x1000fea0",
+      "instruction": "fstp qword ptr [esp + 0x50]"
+    },
+    {
+      "address": "0x1000feb3",
+      "instruction": "fstp qword ptr [esp + 0x50]"
+    },
+    {
+      "address": "0x1000febe",
+      "instruction": "fstp qword ptr [esp + 0x4c]"
+    },
+    {
+      "address": "0x1000fecd",
+      "instruction": "fstp qword ptr [esp + 0x68]"
+    },
+    {
+      "address": "0x1000fee6",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x1000fef8",
+      "instruction": "fdiv dword ptr [0x1019be9c]"
+    },
+    {
+      "address": "0x1000ff06",
+      "instruction": "fstp dword ptr [esp + 0x28]"
+    },
+    {
+      "address": "0x1000ff14",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x1000ff22",
+      "instruction": "fdiv dword ptr [0x1019be9c]"
+    },
+    {
+      "address": "0x1000ff30",
+      "instruction": "fstp dword ptr [esp + 0x24]"
+    },
+    {
+      "address": "0x1000ff46",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x1000ff54",
+      "instruction": "fstp dword ptr [esp + 0x20]"
+    },
+    {
+      "address": "0x1000ff7a",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x1000ff82",
+      "instruction": "fstp dword ptr [esp + 0x18]"
+    },
+    {
+      "address": "0x1000ff9f",
+      "instruction": "fdiv dword ptr [esp + 0x18]"
+    },
+    {
+      "address": "0x1000ffa3",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x1000ffaf",
+      "instruction": "fstp dword ptr [esp + 0x24]"
+    },
+    {
+      "address": "0x1000ffbb",
+      "instruction": "fstp dword ptr [esp + 0x28]"
+    },
+    {
+      "address": "0x1000ffd0",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x1000ffdc",
+      "instruction": "fstp dword ptr [esp + 0x2c]"
+    },
+    {
+      "address": "0x1000fff3",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x1000ffff",
+      "instruction": "fistp dword ptr [esp + 0x34]"
+    },
+    {
+      "address": "0x10010013",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x1001001f",
+      "instruction": "fistp dword ptr [esp + 0x3c]"
+    },
+    {
+      "address": "0x10010034",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x10010040",
+      "instruction": "fistp dword ptr [esp + 0x38]"
+    },
+    {
+      "address": "0x10010055",
+      "instruction": "fstp dword ptr [esp + 0x14]"
+    },
+    {
+      "address": "0x10010061",
+      "instruction": "fistp dword ptr [esp + 0x30]"
+    }
+  ],
+  "inference": "Precise floating-point compilation is a hypothesis under test, not established historical flags."
+}

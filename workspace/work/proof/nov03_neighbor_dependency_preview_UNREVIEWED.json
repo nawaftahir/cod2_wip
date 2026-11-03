@@ -1,0 +1,488 @@
+{
+  "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z": {
+    "t": "0x10005070",
+    "n": 19,
+    "obj": "r_buffers.obj",
+    "why": []
+  },
+  "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z": {
+    "t": "0x10005130",
+    "n": 19,
+    "obj": "r_buffers.obj",
+    "why": []
+  },
+  "??0?$pair@PAPAUGfxImage@@PAPAU1@@std@@QAE@ABQAPAUGfxImage@@0@Z": {
+    "t": "0x1000e320",
+    "n": 16,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "??$swap@PAUGfxImage@@@std@@YAXAAPAUGfxImage@@0@Z": {
+    "t": "0x1000e660",
+    "n": 11,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "??0?$pair@PAU_D3DDISPLAYMODE@@PAU1@@std@@QAE@ABQAU_D3DDISPLAYMODE@@0@Z": {
+    "t": "0x10013f20",
+    "n": 16,
+    "obj": "r_init.obj",
+    "why": []
+  },
+  "??$swap@U_D3DDISPLAYMODE@@@std@@YAXAAU_D3DDISPLAYMODE@@0@Z": {
+    "t": "0x100141e0",
+    "n": 71,
+    "obj": "r_init.obj",
+    "why": []
+  },
+  "??0?$pair@PAPAUMaterial@@PAPAU1@@std@@QAE@ABQAPAUMaterial@@0@Z": {
+    "t": "0x10017d30",
+    "n": 16,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "??$swap@PAUMaterial@@@std@@YAXAAPAUMaterial@@0@Z": {
+    "t": "0x10018070",
+    "n": 11,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "??0?$pair@PAUGfxCachedShaderText@@PAU1@@std@@QAE@ABQAUGfxCachedShaderText@@0@Z": {
+    "t": "0x1001d060",
+    "n": 16,
+    "obj": "r_material_load_obj.obj",
+    "why": []
+  },
+  "??$swap@UGfxCachedShaderText@@@std@@YAXAAUGfxCachedShaderText@@0@Z": {
+    "t": "0x1001d2f0",
+    "n": 45,
+    "obj": "r_material_load_obj.obj",
+    "why": []
+  },
+  "??0?$pair@PAUShadowCandidate@@PAU1@@std@@QAE@ABQAUShadowCandidate@@0@Z": {
+    "t": "0x10028570",
+    "n": 16,
+    "obj": "r_shadowcookie.obj",
+    "why": []
+  },
+  "??$swap@UShadowCandidate@@@std@@YAXAAUShadowCandidate@@0@Z": {
+    "t": "0x10028790",
+    "n": 25,
+    "obj": "r_shadowcookie.obj",
+    "why": []
+  },
+  "_jpeg_destroy_compress": {
+    "t": "0x100417f0",
+    "n": 25,
+    "obj": "jcapimin.obj",
+    "why": []
+  },
+  "_jpeg_abort_compress": {
+    "t": "0x10041810",
+    "n": 49,
+    "obj": "jcapimin.obj",
+    "why": []
+  },
+  "_start_iMCU_row$private$jccoefct.obj": {
+    "t": "0x10041d60",
+    "n": 74,
+    "obj": "jccoefct.obj",
+    "why": []
+  },
+  "_emit_byte": {
+    "t": "0x10044e00",
+    "n": 54,
+    "obj": "jcmarker.obj",
+    "why": []
+  },
+  "_jpeg_abort": {
+    "t": "0x10046980",
+    "n": 49,
+    "obj": "jcomapi.obj",
+    "why": []
+  },
+  "_jpeg_destroy": {
+    "t": "0x100469c0",
+    "n": 25,
+    "obj": "jcomapi.obj",
+    "why": []
+  },
+  "_jpeg_destroy_decompress": {
+    "t": "0x10049f40",
+    "n": 25,
+    "obj": "jdapimin.obj",
+    "why": []
+  },
+  "_jpeg_abort_decompress": {
+    "t": "0x10049f60",
+    "n": 49,
+    "obj": "jdapimin.obj",
+    "why": []
+  },
+  "?MatrixTranspose@@YAXQAY02$$CBMQAY02M@Z": {
+    "t": "0x1005aa90",
+    "n": 53,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?MatrixTransformVector@@YAXQBMQAY02$$CBMQAM@Z": {
+    "t": "0x1005b2f0",
+    "n": 71,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?MatrixTransposeTransformVector@@YAXQBMQAY02$$CBMQAM@Z": {
+    "t": "0x1005b3c0",
+    "n": 71,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?AngleMod@@YAMM@Z": {
+    "t": "0x1005be90",
+    "n": 43,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?AngleNormalize360@@YAMM@Z": {
+    "t": "0x1005bff0",
+    "n": 43,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?AxisTranspose@@YAXQAY02$$CBMQAY02M@Z": {
+    "t": "0x1005ca10",
+    "n": 53,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?I_isupper@@YA_NH@Z": {
+    "t": "0x10060860",
+    "n": 19,
+    "obj": "q_shared.obj",
+    "why": []
+  },
+  "_IsEqualGUID@8": {
+    "t": "0x1007d82f",
+    "n": 29,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "_==@8": {
+    "t": "0x1007d84c",
+    "n": 29,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$00$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007dc32",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$00$00$01@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007dc94",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$00$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007dd18",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$00$01$02@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007ddbb",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$01$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007ddd9",
+    "n": 61,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$01$01$02@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007ded0",
+    "n": 61,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@CGKPBXIII@Z": {
+    "t": "0x1007df0d",
+    "n": 41,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@CGKPBXII@Z": {
+    "t": "0x1007df36",
+    "n": 32,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$0A@$00$00$0A@@D3DXShader@@CGKPBXI@Z": {
+    "t": "0x1007df56",
+    "n": 18,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@CGKPBXIII@Z": {
+    "t": "0x1007df68",
+    "n": 41,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@CGKPBXII@Z": {
+    "t": "0x1007df91",
+    "n": 32,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$00$00$00$0A@@D3DXShader@@CGKPBXI@Z": {
+    "t": "0x1007dfb1",
+    "n": 18,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@CGKPBXIII@Z": {
+    "t": "0x1007dfc3",
+    "n": 41,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@CGKPBXII@Z": {
+    "t": "0x1007dfec",
+    "n": 32,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$01$00$00$0A@@D3DXShader@@CGKPBXI@Z": {
+    "t": "0x1007e00c",
+    "n": 18,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@CGKPBXIII@Z": {
+    "t": "0x1007e01e",
+    "n": 41,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@CGKPBXII@Z": {
+    "t": "0x1007e047",
+    "n": 32,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Read@?$SetTyped@$0A@$02$00$00$0A@@D3DXShader@@CGKPBXI@Z": {
+    "t": "0x1007e067",
+    "n": 18,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$0A@$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007e354",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$0A@$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007e372",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$0A@$00$0A@@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007e423",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$0A@$00$01@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007e485",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$0A@$01$0A@@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007e509",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$0A@$01$02@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007e5ac",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$00$0A@$0A@@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007e5ca",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?Set@?$SetShaderConstant@$00$0A@$00@D3DXShader@@SGJPBXI0PAKI@Z": {
+    "t": "0x1007e5e8",
+    "n": 30,
+    "obj": "d3dx9:cconstanttable.obj",
+    "why": []
+  },
+  "?AddRef@CBuffer@D3DXCore@@UAGKXZ": {
+    "t": "0x10081a3e",
+    "n": 18,
+    "obj": "d3dx9:cbuffer.obj",
+    "why": []
+  },
+  "?GetBufferPointer@CBuffer@D3DXCore@@UAGPAXXZ": {
+    "t": "0x10081a75",
+    "n": 15,
+    "obj": "d3dx9:cbuffer.obj",
+    "why": []
+  },
+  "?GetBufferSize@CBuffer@D3DXCore@@UAGKXZ": {
+    "t": "0x10081a84",
+    "n": 15,
+    "obj": "d3dx9:cbuffer.obj",
+    "why": []
+  },
+  "?AddRef@CTextureShader@D3DXShader@@UAGKXZ": {
+    "t": "0x10081eda",
+    "n": 18,
+    "obj": "d3dx9:ctextureshader.obj",
+    "why": []
+  },
+  "?CompareIndex@D3DXShader@@YGHIIPBX@Z": {
+    "t": "0x100865c6",
+    "n": 26,
+    "obj": "d3dx9:cprogram.obj",
+    "why": []
+  },
+  "?Constrain@C30Program@D3DXShader@@MAEJXZ": {
+    "t": "0x100a50cd",
+    "n": 58,
+    "obj": "d3dx9:c30program.obj",
+    "why": []
+  },
+  "?EmitSize@C30Program@D3DXShader@@MAEJXZ": {
+    "t": "0x100a5107",
+    "n": 32,
+    "obj": "d3dx9:c30program.obj",
+    "why": []
+  },
+  "?EmitObjectDCL@C30Program@D3DXShader@@MAEJPAVCArgument@2@@Z": {
+    "t": "0x100a5127",
+    "n": 183,
+    "obj": "d3dx9:c30program.obj",
+    "why": []
+  },
+  "?EmitVersion@C30Program@D3DXShader@@MAEJXZ": {
+    "t": "0x100a51de",
+    "n": 58,
+    "obj": "d3dx9:c30program.obj",
+    "why": []
+  },
+  "?EmitSrc@C30Program@D3DXShader@@MAEJKKK@Z": {
+    "t": "0x100a5766",
+    "n": 156,
+    "obj": "d3dx9:c30program.obj",
+    "why": []
+  },
+  "?ViolatesWriteLim@CPSLegacyProgram@D3DXShader@@MAEHPAVCInstruction@2@I@Z": {
+    "t": "0x100b03e2",
+    "n": 98,
+    "obj": "d3dx9:cpslegacyprogram.obj",
+    "why": []
+  },
+  "?EmitSize@CPSProgram@D3DXShader@@MAEJXZ": {
+    "t": "0x100b3a34",
+    "n": 32,
+    "obj": "d3dx9:cpsprogram.obj",
+    "why": []
+  },
+  "?EmitVersion@CPSProgram@D3DXShader@@MAEJXZ": {
+    "t": "0x100b3a54",
+    "n": 58,
+    "obj": "d3dx9:cpsprogram.obj",
+    "why": []
+  },
+  "?EmitObjectDCL@CPSProgram@D3DXShader@@MAEJPAVCArgument@2@@Z": {
+    "t": "0x100b3a8e",
+    "n": 183,
+    "obj": "d3dx9:cpsprogram.obj",
+    "why": []
+  },
+  "?ViolatesWriteLim@CPSProgram@D3DXShader@@MAEHPAVCInstruction@2@I@Z": {
+    "t": "0x100b59f1",
+    "n": 98,
+    "obj": "d3dx9:cpsprogram.obj",
+    "why": []
+  },
+  "?Constrain@CVSProgram@D3DXShader@@MAEJXZ": {
+    "t": "0x100b653b",
+    "n": 58,
+    "obj": "d3dx9:cvsprogram.obj",
+    "why": []
+  },
+  "?EmitVersion@CVSProgram@D3DXShader@@MAEJXZ": {
+    "t": "0x100b6962",
+    "n": 58,
+    "obj": "d3dx9:cvsprogram.obj",
+    "why": []
+  },
+  "?ViolatesWriteLim@CVSProgram@D3DXShader@@MAEHPAVCInstruction@2@I@Z": {
+    "t": "0x100b80be",
+    "n": 98,
+    "obj": "d3dx9:cvsprogram.obj",
+    "why": []
+  },
+  "?CompareIndex@CTReorderInstructions@D3DXShader@@KGHIIPBX@Z": {
+    "t": "0x100cbbac",
+    "n": 26,
+    "obj": "d3dx9:ctransform.obj",
+    "why": []
+  },
+  "_DXGetErrorDescription9W@4": {
+    "t": "0x100f2b25",
+    "n": 11497,
+    "obj": "DxErr9:dxerr9.obj",
+    "why": []
+  },
+  "_get_int_arg$private$LIBCMT:output.obj": {
+    "t": "0x100fa4c7",
+    "n": 9,
+    "obj": "LIBCMT:output.obj",
+    "why": []
+  },
+  "_get_int64_arg$private$LIBCMT:output.obj": {
+    "t": "0x100fa4d0",
+    "n": 12,
+    "obj": "LIBCMT:output.obj",
+    "why": []
+  },
+  "_fix_grouping$private$LIBCMT:initnum.obj": {
+    "t": "0x100ffb08",
+    "n": 51,
+    "obj": "LIBCMT:initnum.obj",
+    "why": []
+  },
+  "_fix_grouping$private$LIBCMT:initmon.obj": {
+    "t": "0x100ffd67",
+    "n": 51,
+    "obj": "LIBCMT:initmon.obj",
+    "why": []
+  },
+  "_get_int_arg$private$LIBCMT:woutput.obj": {
+    "t": "0x10105517",
+    "n": 9,
+    "obj": "LIBCMT:woutput.obj",
+    "why": []
+  },
+  "_get_int64_arg$private$LIBCMT:woutput.obj": {
+    "t": "0x10105520",
+    "n": 12,
+    "obj": "LIBCMT:woutput.obj",
+    "why": []
+  }
+}

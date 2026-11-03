@@ -1,6 +1,38 @@
 # Renderer progress
 
-## Active work toward above50% - 2026-11-03
+## Current verified checkpoint - 2026-11-03
+
+C/C++116322/253580=45.871914189%,714 bodies; +391B/+9 bodies since
+cfe7803. Both referees agree on the complete accepted set. All2498 protected
+source/library extents pass. The denominator is inventory-based/provisional,
+not whole-DLL completion.36 assembly-bearing bodies/8601 code bytes stay out.
+
+Clean src/ now contains10 complete verified files/61 emitted functions. The
+buffer TU has all6 bodies verified, in retail order across515 bytes including
+matching padding. Four established bodies anchor the two previously ambiguous
+free helpers. Other newly verified bodies are six math helpers and I_isupper.
+Independent region certificates use a frozen pre-discovery seed; the unchanged
+old referee reproduces the exact final accepted set.18 deletion negatives pass.
+
+Window settings now matches its208-byte extent:190 code +18 table/padding bytes.
+Shared aspect-result labels reproduce retail's block order. Its existing rounding
+assembly excludes the whole190-byte code body from C/C++ credit. Both retention
+gates reject deleting it. Device creation271 is still uncredited: resource
+initialization has other unresolved calls. Do not infer closure from its first
+reported blocker alone.
+
+Native126 video routes,1248 picmip policies and1024 lightmap directions pass.
+The lightmap generator remains an unmatched589/605-byte draft; its closer size
+adds zero coverage. Failed header-precision, channel-loop, store and scope trials
+add zero. Coverage publication now preserves the last valid report on failure;
+the actual shell-fragment failure/success fixture passes. One build output, no
+workers. Token totals are unavailable; no cost estimate is invented.
+
+Receipt: target/work/proof/nov03_buffer_window_checkpoint.json. Same-offset
+file equality12.929784724%; whole-DLL SHA and GPU smoke remain unfinished.
+No push. Unrelated354 staged files and rb_state.c are preserved.
+
+## Earlier checkpoint - 2026-11-03
 
 Latest verified C/C++:115931/253580=45.717722218%,705 bodies. +513B/+6
 existing C++ bodies newly verified through direct-callee disambiguation;38 new

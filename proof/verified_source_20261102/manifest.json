@@ -529,6 +529,69 @@
         "coverage": "texturemem_source_coverage.json"
       },
       "candidate_sha256": "c4df07b5b3004fbe1139b50eb663514ac6a655dde9e5c3b1f866c3166eb546e5"
+    },
+    {
+      "path": "src/gfx_d3d/r_buffers.cpp",
+      "working_source": "target/work/src/gfx_d3d/r_buffers.cpp",
+      "sha256": "09a0c0eb10c18b87f88b00dd8cd0fad8be482b4a33bdcf6baf47c93d0ab26d3c",
+      "candidate_sha256": "eec34f5bcd1613b0e786683932b61ad231752c597254d9bad4ba16ec93a43b1f",
+      "source_definitions": [
+        "R_AllocStaticVertexBuffer",
+        "R_FinishStaticVertexBuffer",
+        "R_FreeStaticVertexBuffer",
+        "R_AllocStaticIndexBuffer",
+        "R_FinishStaticIndexBuffer",
+        "R_FreeStaticIndexBuffer"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z",
+          "t": "0x10004f40",
+          "n": 222,
+          "obj": "r_buffers.obj",
+          "why": []
+        },
+        {
+          "name": "?R_FinishStaticVertexBuffer@@YAXPAX@Z",
+          "t": "0x10005020",
+          "n": 73,
+          "obj": "r_buffers.obj",
+          "why": []
+        },
+        {
+          "name": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
+          "t": "0x10005070",
+          "n": 19,
+          "obj": "r_buffers.obj",
+          "why": []
+        },
+        {
+          "name": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
+          "t": "0x10005090",
+          "n": 72,
+          "obj": "r_buffers.obj",
+          "why": []
+        },
+        {
+          "name": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+          "t": "0x100050e0",
+          "n": 73,
+          "obj": "r_buffers.obj",
+          "why": []
+        },
+        {
+          "name": "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+          "t": "0x10005130",
+          "n": 19,
+          "obj": "r_buffers.obj",
+          "why": []
+        }
+      ],
+      "proof_files": {
+        "bind": "buffers_bind.json",
+        "cmp": "buffers_cmp.json",
+        "coverage": "buffers_source_coverage.json"
+      }
     }
   ],
   "proof_hashes": {
@@ -542,7 +605,13 @@
     "texturemem_bind.json": "57350a5bb21446a8fb908deb95c972db841b11b62da087fb4340808c9da01443",
     "texturemem_cmp.json": "9d8eaa2b7b98bf9a44d27b2c25281f4d7913b940f3ae0a1b034b7ebe390b036c",
     "texturemem_source_coverage.json": "412738f963bbdca298ffacd7573913a5932aecbf7850fa41ba0c1fa6bf6f3031",
-    "texturemem_callee_pins.json": "24b546c54baf9e7368fde5600fadcdc475e84078a7742ba5441c9fd6bce1ae42"
+    "texturemem_callee_pins.json": "24b546c54baf9e7368fde5600fadcdc475e84078a7742ba5441c9fd6bce1ae42",
+    "buffers_bind.json": "7cbc19b5ff316b310a8813fc43728f6b51a8a4410301cb854d7a36ca8dbdd478",
+    "buffers_cmp.json": "a3047021a45b56a2bacb7bde3dcf26deeaab5a47362877157a6bc6f3592d2702",
+    "buffers_source_coverage.json": "6017a93f10015b1703a6ef94eceb66d821839cac846ad27424c2cff1ff9f4750",
+    "buffers_review.json": "86d196b2d6e64f8349553067b58f3f9a4864c08b77fd289b085255c5394e0fad",
+    "buffers_old_referee_replay.json": "15990e4b87fd91e7b15e70f13a0999b78be199a13cd146523d4dcbe8077eb874",
+    "buffers_old_referee.txt": "103be9413ee71391c4bcc05ed7d31aaa071010451813c81594fc3fd171576e5c"
   },
   "candidate_derivation": "Five JPEG callback placements derive from paired MOV-immediate HIGHLOW sites in previously verified producers; old unmodified referee replay agrees. Copying snapshots adds no coverage. Texture-memory callback placement derives from calls to an independently verified device-memory function; unchanged old-referee replay agrees. Its separate proof_files preserve the original eight TU snapshots."
 }

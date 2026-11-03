@@ -1,8 +1,8 @@
 {
-  "functions": 740,
-  "bytes": 124342,
+  "functions": 750,
+  "bytes": 124923,
   "total": 253580,
-  "percent": 49.0346241817178,
+  "percent": 49.26374319741304,
   "baseline_lost": [],
   "gains": [
     {
@@ -114,6 +114,12 @@
       "object": "r_buffers.obj"
     },
     {
+      "target": "0x10005070",
+      "bytes": 19,
+      "name": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
+      "object": "r_buffers.obj"
+    },
+    {
       "target": "0x10005090",
       "bytes": 72,
       "name": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
@@ -123,6 +129,12 @@
       "target": "0x100050e0",
       "bytes": 73,
       "name": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+      "object": "r_buffers.obj"
+    },
+    {
+      "target": "0x10005130",
+      "bytes": 19,
+      "name": "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
       "object": "r_buffers.obj"
     },
     {
@@ -423,7 +435,7 @@
       "target": "0x1000f120",
       "bytes": 20,
       "name": "?Vec2Multiply@@YAMQBM@Z",
-      "object": "r_water_load_obj.obj"
+      "object": "r_image_load_obj.obj"
     },
     {
       "target": "0x1000f180",
@@ -531,6 +543,12 @@
       "target": "0x10011560",
       "bytes": 132,
       "name": "?R_GetMonitorDimensions@@YAXPAH0@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x100115f0",
+      "bytes": 208,
+      "name": "?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z",
       "object": "r_init.obj"
     },
     {
@@ -1602,6 +1620,42 @@
       "object": "com_math.obj"
     },
     {
+      "target": "0x1005aa90",
+      "bytes": 53,
+      "name": "?MatrixTranspose@@YAXQAY02$$CBMQAY02M@Z",
+      "object": "com_math.obj"
+    },
+    {
+      "target": "0x1005b2f0",
+      "bytes": 71,
+      "name": "?MatrixTransformVector@@YAXQBMQAY02$$CBMQAM@Z",
+      "object": "com_math.obj"
+    },
+    {
+      "target": "0x1005b3c0",
+      "bytes": 71,
+      "name": "?MatrixTransposeTransformVector@@YAXQBMQAY02$$CBMQAM@Z",
+      "object": "com_math.obj"
+    },
+    {
+      "target": "0x1005be90",
+      "bytes": 43,
+      "name": "?AngleMod@@YAMM@Z",
+      "object": "com_math.obj"
+    },
+    {
+      "target": "0x1005bff0",
+      "bytes": 43,
+      "name": "?AngleNormalize360@@YAMM@Z",
+      "object": "com_math.obj"
+    },
+    {
+      "target": "0x1005ca10",
+      "bytes": 53,
+      "name": "?AxisTranspose@@YAXQAY02$$CBMQAY02M@Z",
+      "object": "com_math.obj"
+    },
+    {
       "target": "0x1005da30",
       "bytes": 567,
       "name": "?BoxOnPlaneSide@@YAHQAM0PAUcplane_s@@@Z",
@@ -1635,6 +1689,12 @@
       "target": "0x100604f0",
       "bytes": 6,
       "name": "?ShortNoSwap@@YAFF@Z",
+      "object": "q_shared.obj"
+    },
+    {
+      "target": "0x10060860",
+      "bytes": 19,
+      "name": "?I_isupper@@YA_NH@Z",
       "object": "q_shared.obj"
     },
     {
@@ -1692,6 +1752,6 @@
     "jquant2.obj",
     "jutils.obj"
   ],
-  "excluded_new_embedded_table_bytes": 482,
+  "excluded_new_embedded_table_bytes": 500,
   "excluded_new_library_bytes": 13068
 }

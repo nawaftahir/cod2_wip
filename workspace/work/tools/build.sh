@@ -41,7 +41,8 @@ python3 ../tools/bindcheck.py "$build/gfx.dll" "$build/gfx.map" "$anchor" "$buil
   --json "$build/bind.json" --pdb "$build/gfx.pdb" >"$build/bind.log"
 python3 work/tools/regression.py "$build/bind.json" >work/proof/latest/regression.json
 python3 work/tools/check_checkpoint.py "$build/bind.json"
-python3 work/tools/source_coverage.py "$build" >work/proof/source_coverage_current.json
+python3 work/tools/source_coverage.py "$build" >work/proof/source_coverage_current.json.pending
+mv work/proof/source_coverage_current.json.pending work/proof/source_coverage_current.json
 python3 work/tools/layout.py "$build/gfx.dll" >work/layout/current.json
 cp "$build/bind.json" "$build/cmp.json" work/proof/latest/
 cp "$build/gfx.map" work/layout/current.map

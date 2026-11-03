@@ -313,7 +313,7 @@
 {
 "name": "?R_LoadPortals@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 405,
+"size": 389,
 "hits": []
 },
 {
@@ -347,7 +347,7 @@
 {
 "name": "?R_LoadOccluders@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 570,
+"size": 587,
 "hits": []
 },
 {
@@ -394,20 +394,20 @@
 ]
 },
 {
-"name": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
-"obj": "r_buffers.obj",
-"size": 72,
-"hits": [
-"0x10005090"
-]
-},
-{
 "name": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
 "obj": "r_buffers.obj",
 "size": 19,
 "hits": [
 "0x10005070",
 "0x10005130"
+]
+},
+{
+"name": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
+"obj": "r_buffers.obj",
+"size": 72,
+"hits": [
+"0x10005090"
 ]
 },
 {
@@ -1788,6 +1788,20 @@
 "hits": []
 },
 {
+"name": "?I_sqrt@@YAMM@Z",
+"obj": "r_image_load_obj.obj",
+"size": 7,
+"hits": []
+},
+{
+"name": "?Vec2Multiply@@YAMQBM@Z",
+"obj": "r_image_load_obj.obj",
+"size": 20,
+"hits": [
+"0x1000f120"
+]
+},
+{
 "name": "?Image_GenerateCube@@YAXPAUGfxImage@@HPBEHW4_D3DFORMAT@@@Z",
 "obj": "r_image_load_obj.obj",
 "size": 86,
@@ -1912,7 +1926,7 @@
 {
 "name": "?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z",
 "obj": "r_image_load_obj.obj",
-"size": 501,
+"size": 589,
 "hits": []
 },
 {
@@ -2281,7 +2295,9 @@
 "name": "?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z",
 "obj": "r_init.obj",
 "size": 208,
-"hits": []
+"hits": [
+"0x100115f0"
+]
 },
 {
 "name": "?R_GetMaterialHashTable@@YAPAPAUMaterial@@XZ",
@@ -5447,12 +5463,6 @@
 "hits": []
 },
 {
-"name": "?I_sqrt@@YAMM@Z",
-"obj": "r_shadowcookie.obj",
-"size": 7,
-"hits": []
-},
-{
 "name": "?VectorLength@@YAMQBM@Z",
 "obj": "r_shadowcookie.obj",
 "size": 33,
@@ -6312,14 +6322,6 @@
 "obj": "r_water_load_obj.obj",
 "size": 7,
 "hits": []
-},
-{
-"name": "?Vec2Multiply@@YAMQBM@Z",
-"obj": "r_water_load_obj.obj",
-"size": 20,
-"hits": [
-"0x1000f120"
-]
 },
 {
 "name": "?R_WatersEquivalent@@YAHPBUwater_t@@0@Z",

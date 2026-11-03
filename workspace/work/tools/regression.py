@@ -225,6 +225,14 @@ callee_placement = gfx / 'target/work/proof/callee_placement_20261103_warm_bind.
 assert hashlib.sha256(callee_placement.read_bytes()).hexdigest() == 'e3ca7b5a5ec4e8dda6b4006923ad6860ac6f1cac5dcffe415c01c0399d7daf30'
 required.update({va: row for va, row in accepted(callee_placement).items()
                  if va in old or '@std@@' not in row['name']})
+neighbor_placement = gfx / 'target/work/proof/neighbor_placement_20261103_warm_bind.json'
+assert hashlib.sha256(neighbor_placement.read_bytes()).hexdigest() == 'c26a5050b269fe08be26c04cd7f358a3e775ac12d7b5ad9929fd9d2f11866305'
+required.update({va: row for va, row in accepted(neighbor_placement).items()
+                 if va in old or '@std@@' not in row['name']})
+window_settings = gfx / 'target/work/proof/window_settings_20261103_warm_bind.json'
+assert hashlib.sha256(window_settings.read_bytes()).hexdigest() == 'caebf75db26b6154b0e0d247244c0909b585ee1b4b5a685119098916560517f8'
+required.update({va: row for va, row in accepted(window_settings).items()
+                 if va in old or '@std@@' not in row['name']})
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]
@@ -256,6 +264,7 @@ for va, extent, code, label in [
     (0x1001a030, 164, 140, 'shader argument dispatch'),
     (0x1001a0e0, 128, 104, 'default shader argument dispatch'),
     (0x1000d940, 1070, 1015, 'image list command'),
+    (0x100115f0, 208, 190, 'window aspect settings'),
 ]:
     if va in scored:
         assert scored[va]['n'] == extent, label + ' extent changed'

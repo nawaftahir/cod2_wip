@@ -1,12 +1,50 @@
 # Active renderer work - 2026-11-03
 
-Current C/C++115931B/705 bodies=45.717722218%,2488 protected extents.
-Receipt: target/work/proof/nov03_callee_checkpoint.json. Final build
+Current C/C++116322B/714 bodies=45.871914189%,2498 protected extents.
+Receipt: target/work/proof/nov03_buffer_window_checkpoint.json. Final build
 and all retention/source-freshness gates pass. Read PROGRESS.md for details. The older
 PAUSED/JPEG-placement entries below are historical. JPEG callback placement is
 now implemented, independently replayed against the unchanged old referee,
-and covered by rejection fixtures. Root src/ has9 complete files/55 emitted
-matches, including r_jpeg.cpp and r_texturemem.cpp. Run tools/check_verified_source.py.
+and covered by rejection fixtures. Root src/ has10 complete files/61 emitted
+matches, including r_buffers.cpp. Run tools/check_verified_source.py.
+
+Latest: +391 C++ bytes/9 existing source bodies since cfe7803, independently
+certified through surrounding code and replayed through the unchanged old
+referee. New discovery is scoped to engine C++; dependency previews are not
+accepted progress. Require coherent anchors on BOTH sides, all intervening code
+and padding, identical relocation sites, compatible complete raw hits and no
+omitted functions. No new byte masks or acceptance exceptions. The standalone
+certificate uses the immutable nov03_callee_old_referee_replay.json seed, not
+mutable latest/bind.json.18 removal negatives pass.
+
+r_buffers order is now alloc VB, finish VB, free VB, alloc IB, finish IB,
+free IB. All six function offsets and padding match the retail515-byte region;
+the unchanged verified file is in clean src/. This does not prove historical
+TU boundaries or whole-file identity. The root proof preserves its old replay.
+
+R_StoreWindowSettings is now fully matched at100115f0/208. Its shared aspect
+labels are necessary for the measured block order; do not replace them with the
+failed if/switch forms.190 code bytes contain existing I_fround assembly and
+are excluded;18 table/padding bytes are also excluded. Total excluded assembly
+is now36 bodies/8601 code bytes. No new assembly was authored. Device creation
+still has unresolved resource/state dependencies, so it adds zero C++ bytes.
+
+Next useful blockers: Image_TrackFullscreenTexture149 -> InitRenderTargets2102;
+RB_UpdateViewportConstants366 -> SetRenderTarget486 -> SetInitialState252.
+CreateDeviceResources261 calls BOTH chains, plus other helpers. Confirm every
+direct callee before predicting a caller gain; bind why reports the first one.
+Lightmap generator589 vs605 remains a tested draft using Vec2Multiply and
+Vec2Normalize in a caller-local precise region. Whole-header precision broke
+UnGetLeanFraction19 and was reverted. Channel-loop expansion produced472 and
+was reverted. Do not repeat these exact probes. Existing native fixtures pass.
+
+Build uses one output and source-coverage publication is atomic: failed checks
+keep the last valid JSON. Run test_coverage_publication.py. Whole SHA/GPU smoke
+remain unfinished; raw same-offset12.929784724%. No push. Preserve the owner's
+354 staged files (staged-diff SHA4b889edd6a58e44a377171102558f9071956da089fb1bc0e03fb01ea657e7251)
+and unrelated target/src/gfx_d3d/rb_state.c. No goal completion is claimed.
+
+Earlier checkpoint notes follow.
 
 Direct-callee filtering of existing ambiguous hits adds six C++ bodies/513B:
 LinearTrackAngle174, DiffTrackAngle174, Com_ParseFloat74, the two technique

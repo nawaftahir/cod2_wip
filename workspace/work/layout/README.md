@@ -1115,6 +1115,10 @@ The only export is GetRefAPI. No synthetic retention array or /INCLUDE roots.
 r_buffers owns R_AllocStaticIndexBuffer (PINNED10005090/72), alongside the
 vertex allocator. r_init calls it for particle indices; LTCG inlines that call
 and retains the real out-of-line body. Both allocations use the SDK declarations.
+Its measured function offsets are0,224,304,336,416,496 over515 bytes, including
+matching padding. The two free helpers are now between the same established
+neighbors as retail; all6 bodies pass both referees. This is measured layout
+compatibility, not a claim about the lost original source-file boundaries.
 
 r_dpvs owns world/frustum/portal visibility; r_scene owns the outer scene driver
 and real RenderScene callback. r_shadowcookie owns generation and the original

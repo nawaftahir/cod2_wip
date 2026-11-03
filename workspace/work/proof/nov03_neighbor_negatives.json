@@ -1,0 +1,92 @@
+[
+  {
+    "removed": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?MatrixTranspose@@YAXQAY02$$CBMQAY02M@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?MatrixTranspose@@YAXQAY02$$CBMQAY02M@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?MatrixTransformVector@@YAXQBMQAY02$$CBMQAM@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?MatrixTransformVector@@YAXQBMQAY02$$CBMQAM@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?MatrixTransposeTransformVector@@YAXQBMQAY02$$CBMQAM@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?MatrixTransposeTransformVector@@YAXQBMQAY02$$CBMQAM@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?AngleMod@@YAMM@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?AngleMod@@YAMM@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?AngleNormalize360@@YAMM@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?AngleNormalize360@@YAMM@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?AxisTranspose@@YAXQAY02$$CBMQAY02M@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?AxisTranspose@@YAXQAY02$$CBMQAY02M@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?I_isupper@@YA_NH@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?I_isupper@@YA_NH@Z",
+    "gate": "regression.py",
+    "rejected": true
+  }
+]

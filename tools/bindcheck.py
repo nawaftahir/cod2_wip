@@ -230,8 +230,8 @@ def callee_placement(va, row, callees):
     for hit in row['hits']:
         t = int(hit, 16)
         other = read(asecs, t, row['size'])
-        if other is not None and masked_eq(va, t, row['size']) and all(t + k + 5 + int.from_bytes(other[k + 1:k + 5], 'little', signed=True) == target
-                                     for k, target in sites):
+        if other is not None and all(t + k + 5 + int.from_bytes(other[k + 1:k + 5], 'little', signed=True) == target
+                                     for k, target in sites) and masked_eq(va, t, row['size']):
             hits.append(hit)
     return hits[0] if len(hits) == 1 else None
 
@@ -281,6 +281,42 @@ while changed and multi:
         if padded_callback(ot, tt, m['size']) and masked_eq(ot, tt, m['size']):
             cands[m['name']] = dict(m, hits=[hex(tt)])
             changed = True
+
+
+def neighbor_places(rows, addresses, placed):
+    """Project raw hits only when the entire bracketed code region matches."""
+    anchors = {addresses[n]: r for n, r in placed.items()
+               if n in addresses and r['size'] >= 32}
+    starts = sorted(anchors)
+    proposals = {}
+    for name, row in rows.items():
+        if not name.startswith('?') or '@std@@' in name or ':' in row['obj']:
+            continue
+        if name in placed or name not in addresses or len(row['hits']) < 2:
+            continue
+        va = addresses[name]
+        i = bisect.bisect_left(starts, va)
+        if not 0 < i < len(starts):
+            continue
+        lo, right = starts[i - 1], starts[i]
+        target = int(anchors[lo]['hits'][0], 16)
+        delta = target - lo
+        end = right + anchors[right]['size']
+        if int(anchors[right]['hits'][0], 16) - right != delta or va + row['size'] > right:
+            continue
+        members = {n: r for n, r in rows.items() if n in addresses and lo <= addresses[n] < end}
+        if any(n not in members for n, a in addresses.items() if lo <= a < end):
+            continue
+        if any(hex(addresses[n] + delta) not in r['hits'] for n, r in members.items()):
+            continue
+        if {a - lo for a in orel if lo <= a < end} != {a - target for a in arel if target <= a < end + delta}:
+            continue
+        if masked_eq(lo, target, end - lo):
+            proposals[name] = dict(row, hits=[hex(va + delta)])
+    return proposals
+
+
+cands.update(neighbor_places(allc, fnva, cands))
 
 
 def closed_end(code, va, n):

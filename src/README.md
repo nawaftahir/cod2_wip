@@ -31,6 +31,6 @@ callbacks use producer-derived placements; the pinned proof includes their
 relocation certificate, original discovery and independent old-referee replay.
 These are genuine source bodies, not emitted retail bytes or assembly wrappers.
 
-The complete r_texturemem.cpp is also included: all six emitted functions pass.
-Its separate per-file proof preserves the original eight snapshots. Nine files,
-55 emitted functions; copying them here adds no coverage.
+The complete r_texturemem.cpp and r_buffers.cpp are also included: all six
+emitted functions in each pass. Separate per-file evidence preserves the earlier
+snapshots. Ten files,61 emitted functions; copying them here adds no coverage.

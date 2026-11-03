@@ -39,6 +39,15 @@ void R_FinishStaticVertexBuffer(void *vb)
 
 typedef ULONG(__stdcall *ReleaseFn)(void *obj);
 
+void R_FreeStaticVertexBuffer(IDirect3DVertexBuffer9 *vb)
+{
+    do
+    {
+        ((ReleaseFn)VTABLE(vb)[0x08 / 4])((void *)vb);
+        vb = NULL;
+    } while (*(volatile int *)&alwaysfails != 0);
+}
+
 // PINNED 10005090/72: either COM failure returns null; a failed lock releases.
 void *R_AllocStaticIndexBuffer(IDirect3DIndexBuffer9 **ib, int sizeInBytes)
 {
@@ -52,15 +61,6 @@ void *R_AllocStaticIndexBuffer(IDirect3DIndexBuffer9 **ib, int sizeInBytes)
         return 0;
     }
     return data;
-}
-
-void R_FreeStaticVertexBuffer(IDirect3DVertexBuffer9 *vb)
-{
-    do
-    {
-        ((ReleaseFn)VTABLE(vb)[0x08 / 4])((void *)vb);
-        vb = NULL;
-    } while (*(volatile int *)&alwaysfails != 0);
 }
 
 // PINNED 100050e0: the original index-buffer unlock log and retry loop.

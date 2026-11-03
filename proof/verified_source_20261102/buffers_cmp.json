@@ -1,0 +1,50 @@
+[
+  {
+    "name": "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z",
+    "obj": "r_buffers.obj",
+    "size": 222,
+    "hits": [
+      "0x10004f40"
+    ]
+  },
+  {
+    "name": "?R_FinishStaticVertexBuffer@@YAXPAX@Z",
+    "obj": "r_buffers.obj",
+    "size": 73,
+    "hits": [
+      "0x10005020"
+    ]
+  },
+  {
+    "name": "?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z",
+    "obj": "r_buffers.obj",
+    "size": 19,
+    "hits": [
+      "0x10005070"
+    ]
+  },
+  {
+    "name": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
+    "obj": "r_buffers.obj",
+    "size": 72,
+    "hits": [
+      "0x10005090"
+    ]
+  },
+  {
+    "name": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+    "obj": "r_buffers.obj",
+    "size": 73,
+    "hits": [
+      "0x100050e0"
+    ]
+  },
+  {
+    "name": "?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+    "obj": "r_buffers.obj",
+    "size": 19,
+    "hits": [
+      "0x10005130"
+    ]
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "gate": "regression.py",
+    "rejected": true
+  }
+]
