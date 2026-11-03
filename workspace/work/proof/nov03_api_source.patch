@@ -1,0 +1,136 @@
+diff --git a/target/work/src/gfx_d3d/r_image.cpp b/target/work/src/gfx_d3d/r_image.cpp
+index b602323..3020605 100644
+--- a/target/work/src/gfx_d3d/r_image.cpp
++++ b/target/work/src/gfx_d3d/r_image.cpp
+@@ -541,23 +541,23 @@ void R_ShutdownImages()
+     if (!dx.deviceLost)
+         for (int sampler = 0; sampler < vidConfig.maxTextureMaps; ++sampler)
+             RB_SetSampler(sampler, 0, 0);
+-    ImageList keep;
+-    keep.count = 0;
+-    for (int index = 0; index < 2048; ++index)
++    GfxImage *keep[2048];
++    int keepCount = 0;
++    for (unsigned int index = 0; index < 2048; ++index)
+     {
+         GfxImage *image = imageGlobals.imageHashTable[index];
+         if (image)
+         {
+             if (Image_IsCodeImage(image))
+-                keep.image[keep.count++] = image;
++                keep[keepCount++] = image;
+             else
+                 Image_Release(image);
+         }
+     }
+     memset(imageGlobals.imageHashTable, 0, sizeof(imageGlobals.imageHashTable));
+-    for (int index = 0; index < keep.count; ++index)
++    for (int index = 0; index < keepCount; ++index)
+     {
+-        GfxImage *image = keep.image[index];
++        GfxImage *image = keep[index];
+         imageGlobals.imageHashTable[Image_GetAvailableHashLocation(image->name)] = image;
+     }
+ }
+diff --git a/target/work/src/gfx_d3d/r_init.cpp b/target/work/src/gfx_d3d/r_init.cpp
+index 7a8d984..c8dfe9a 100644
+--- a/target/work/src/gfx_d3d/r_init.cpp
++++ b/target/work/src/gfx_d3d/r_init.cpp
+@@ -1103,12 +1103,13 @@ static int R_AddRefreshRate(int count, int *rates, int rate)
+ 
+ static int R_AddResolution(int count, GfxResolution *resolutions, int width, int height)
+ {
+-    if (count > 0 && resolutions[count - 1].width == width && resolutions[count - 1].height == height)
++    GfxResolution *next = resolutions + count;
++    if (count > 0 && next[-1].width == width && next[-1].height == height)
+         return count;
+     if (width >= 640 && height >= 480)
+     {
+-        resolutions[count].width = width;
+-        resolutions[count].height = height;
++        next->width = width;
++        next->height = height;
+         ++count;
+     }
+     return count;
+@@ -1121,12 +1122,13 @@ void R_EnumerateDisplayModes(UINT adapter)
+     unsigned int modeCount;
+     unsigned int index;
+     int resolutionCount;
+-    int refreshCount = 0;
++    int refreshCount;
+     int defaultIndex;
+     int i;
+     char *text;
+ 
+     modeCount = dx.d3d9->GetAdapterModeCount(adapter, D3DFMT_X8R8G8B8);
++    refreshCount = 0;
+     dx.displayModeCount = 0;
+     for (index = 0; index < modeCount; ++index)
+     {
+diff --git a/target/work/src/gfx_d3d/r_material_load_obj.cpp b/target/work/src/gfx_d3d/r_material_load_obj.cpp
+index 1fd5389..059053e 100644
+--- a/target/work/src/gfx_d3d/r_material_load_obj.cpp
++++ b/target/work/src/gfx_d3d/r_material_load_obj.cpp
+@@ -727,11 +727,6 @@ static const MtlStateMapBitName *Material_ParseStateValue(const char **text,
+ }
+ 
+ // Bool conversion is pinned at 100185d4; the helper name is supported by KisakCOD.
+-static Bool Material_MatchToken(const char **text, const char *match)
+-{
+-    return Com_MatchToken(text, match, 1) != 0;
+-}
+-
+ static MtlParseSuccess Material_ParseRuleSetConditionTest(const char **text, const char *token,
+     MaterialStateMapRule *rule)
+ {
+@@ -762,7 +757,10 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
+ {
+     MtlParseSuccess result;
+     if (!strcmp(token, "default"))
+-        return Material_MatchToken(text, ":") ? MTL_PARSE_SUCCESS : MTL_PARSE_ERROR;
++    {
++        int matched = Material_MatchToken(text, ":") != 0;
++        return static_cast<MtlParseSuccess>((matched - 1) & MTL_PARSE_ERROR);
++    }
+     result = Material_ParseRuleSetConditionTest(text, token, rule);
+     if (result == MTL_PARSE_SUCCESS)
+     {
+@@ -776,7 +774,8 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
+                 Com_ScriptWarning("expected ':' or '&&', found '%s'\n", token);
+                 return MTL_PARSE_ERROR;
+             }
+-            result = Material_ParseRuleSetConditionTest(text, Com_Parse(text), rule);
++            token = Com_Parse(text);
++            result = Material_ParseRuleSetConditionTest(text, token, rule);
+         } while (result == MTL_PARSE_SUCCESS);
+         if (result == MTL_PARSE_NO_MATCH)
+             Com_ScriptWarning("failed parsing conditional after '&&'\n");
+@@ -785,6 +784,11 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
+     return result;
+ }
+ 
++static Bool Material_MatchToken(const char **text, const char *match)
++{
++    return Com_MatchToken(text, match, 1) != 0;
++}
++
+ static Bool Material_ParseRuleSetValue(const char **text, const char *token,
+     const MtlStateMapBitGroup *stateSet, MaterialStateMapRule *rule)
+ {
+diff --git a/target/work/src/gfx_d3d/r_staticmodel_load_obj.cpp b/target/work/src/gfx_d3d/r_staticmodel_load_obj.cpp
+index b2f6120..f8ad3c2 100644
+--- a/target/work/src/gfx_d3d/r_staticmodel_load_obj.cpp
++++ b/target/work/src/gfx_d3d/r_staticmodel_load_obj.cpp
+@@ -495,8 +495,9 @@ void R_GetStaticModelLightingFromGrid(const GfxWorld *world,
+ {
+     vec3_t origin;
+     origin[0] = (instance->mins[0] + instance->maxs[0]) * 0.5f;
+-    origin[1] = (instance->maxs[1] + instance->mins[1]) * 0.5f;
+-    origin[2] = (instance->maxs[2] + instance->mins[2]) * 0.5f;
++    // Keep the Y/Z input load order used by the PC renderer.
++    origin[1] = (*(const volatile float *)&instance->mins[1] + instance->maxs[1]) * 0.5f;
++    origin[2] = (*(const volatile float *)&instance->mins[2] + instance->maxs[2]) * 0.5f;
+     *sunVisibility = RB_GetLightingAtPoint(&world->lightGrid, origin, colorForDir);
+ }
+ 

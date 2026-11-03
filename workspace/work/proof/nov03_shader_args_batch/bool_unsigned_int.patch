@@ -1,0 +1,13 @@
+--- baseline
++++ bool_unsigned_int
+@@ -1457,8 +1457,8 @@
+ {
+     const D3DXSHADER_CONSTANTINFO *info =
+         (const D3DXSHADER_CONSTANTINFO *)((const byte *)table + table->ConstantInfo);
+-    byte usedConstant[256];
+-    int usedCount = 0;
++    bool usedConstant[256];
++    unsigned int usedCount = 0;
+     ShaderConstantRouting routing;
+     memset(usedConstant, 0, table->Constants);
+     if (!Com_MatchToken(text, "{", 1))

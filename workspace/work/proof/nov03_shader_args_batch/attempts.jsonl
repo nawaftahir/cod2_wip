@@ -1,0 +1,5 @@
+{"variant": "byte_unsigned_int", "source_sha256": "bd746729ca476db7afe42c7f2627c0ed9d1f9276789b488a24d8d92e7c03cea1", "exit_code": 3}
+{"variant": "char_int", "source_sha256": "ac769051f40409b1cc44e3b299840d1921fdf3ef87dba0bace917c2d10b1ba04", "exit_code": 3}
+{"variant": "char_unsigned_int", "source_sha256": "60b32382337272c28e6ace296949f89264446f501823741bd4c87e9d077c7931", "exit_code": 3}
+{"variant": "bool_int", "source_sha256": "f9e68d1fd06aeb08a259987e4319f39e2c966f6d8ca4de23b68420595d7950fb", "exit_code": 3}
+{"variant": "bool_unsigned_int", "source_sha256": "31c98c677ae590630313d424180798e27dea1bc42eacd7328d8cbc2c917160c0", "exit_code": 3}

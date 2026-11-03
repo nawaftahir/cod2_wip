@@ -15,6 +15,7 @@ program = r'''
 #include <vector>
 #include <initializer_list>
 typedef unsigned char Bool;
+static Bool Material_MatchToken(const char **text, const char *match);
 enum MtlParseSuccess { MTL_PARSE_SUCCESS,MTL_PARSE_NO_MATCH,MTL_PARSE_ERROR };
 struct MtlStateMapBitName { const char *name;int bits; };
 struct MtlStateMapBitGroup { const char *name;const MtlStateMapBitName *bitNames;int stateBitsMask[2]; };

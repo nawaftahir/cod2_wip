@@ -1,0 +1,22 @@
+[
+  {
+    "removed": "?R_CreateParticleCloudBuffer@@YAXXZ",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_CreateParticleCloudBuffer@@YAXXZ",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_FinishStaticVertexBuffer@@YAXPAX@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_FinishStaticVertexBuffer@@YAXPAX@Z",
+    "gate": "regression.py",
+    "rejected": true
+  }
+]

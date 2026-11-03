@@ -132,7 +132,7 @@
 "n": 626,
 "obj": "r_bsp_load_obj.obj",
 "why": [
-"call ?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z"
+"call ?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z"
 ]
 },
 "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z": {
@@ -194,6 +194,12 @@
 "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z": {
 "t": "0x10004f40",
 "n": 222,
+"obj": "r_buffers.obj",
+"why": []
+},
+"?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z": {
+"t": "0x10005090",
+"n": 72,
 "obj": "r_buffers.obj",
 "why": []
 },
@@ -961,6 +967,12 @@
 "obj": "r_init.obj",
 "why": []
 },
+"?R_CreateParticleCloudBuffer@@YAXXZ": {
+"t": "0x10011bf0",
+"n": 544,
+"obj": "r_init.obj",
+"why": []
+},
 "?R_ReleaseDynamicBuffers@@YAXXZ": {
 "t": "0x10011e60",
 "n": 160,
@@ -972,7 +984,7 @@
 "n": 261,
 "obj": "r_init.obj",
 "why": [
-"call ?R_CreateParticleCloudBuffer@@YAXXZ"
+"call ?R_InitRenderTargets@@YAXXZ"
 ]
 },
 "?R_FatalBufferLockError@@YAXJ@Z": {
@@ -1711,15 +1723,15 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_MatchToken@@YAEPAPBDPBD@Z": {
-"t": "0x10018350",
-"n": 17,
-"obj": "r_material_load_obj.obj",
-"why": []
-},
 "?Material_ParseRuleSetConditionTest@@YA?AW4MtlParseSuccess@@PAPBDPBDPAUMaterialStateMapRule@@@Z": {
 "t": "0x100184d0",
 "n": 220,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Material_MatchToken@@YAEPAPBDPBD@Z": {
+"t": "0x10018350",
+"n": 17,
 "obj": "r_material_load_obj.obj",
 "why": []
 },
@@ -2878,6 +2890,14 @@
 "n": 67,
 "obj": "r_staticmodel_load_obj.obj",
 "why": []
+},
+"?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z": {
+"t": "0x1002a6d0",
+"n": 81,
+"obj": "r_staticmodel_load_obj.obj",
+"why": [
+"call ?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z"
+]
 },
 "?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z": {
 "t": "0x1002a730",
@@ -16197,6 +16217,18 @@
 "obj": "LIBCMT:pow.obj",
 "why": []
 },
+"?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z": {
+"t": "0x100050e0",
+"n": 73,
+"obj": "r_buffers.obj",
+"why": []
+},
+"?R_FinishStaticVertexBuffer@@YAXPAX@Z": {
+"t": "0x10005020",
+"n": 73,
+"obj": "r_buffers.obj",
+"why": []
+},
 "_Direct3DCreate9@4": {
 "t": "0x1006221a",
 "n": 6,
@@ -16207,6 +16239,18 @@
 "t": "0x1000c8d0",
 "n": 6,
 "obj": "r_image.obj",
+"why": []
+},
+"?R_FinishLoadingModels@@YAXXZ": {
+"t": "0x1001d8c0",
+"n": 33,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_EndRegistration@@YAXXZ": {
+"t": "0x100131b0",
+"n": 79,
+"obj": "r_init.obj",
 "why": []
 },
 "?R_UpdateGfxEntityBoundsCmd@@YAXPAUGfxEntity@@@Z": {
@@ -16311,12 +16355,6 @@
 "t": "0x100f5c2e",
 "n": 6,
 "obj": "ddraw:DDRAW.dll",
-"why": []
-},
-"?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z": {
-"t": "0x100050e0",
-"n": 73,
-"obj": "r_buffers.obj",
 "why": []
 },
 "_floor": {

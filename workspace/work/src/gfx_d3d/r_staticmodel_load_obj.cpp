@@ -495,8 +495,9 @@ void R_GetStaticModelLightingFromGrid(const GfxWorld *world,
 {
     vec3_t origin;
     origin[0] = (instance->mins[0] + instance->maxs[0]) * 0.5f;
-    origin[1] = (instance->maxs[1] + instance->mins[1]) * 0.5f;
-    origin[2] = (instance->maxs[2] + instance->mins[2]) * 0.5f;
+    // Keep the Y/Z input load order used by the PC renderer.
+    origin[1] = (*(const volatile float *)&instance->mins[1] + instance->maxs[1]) * 0.5f;
+    origin[2] = (*(const volatile float *)&instance->mins[2] + instance->maxs[2]) * 0.5f;
     *sunVisibility = RB_GetLightingAtPoint(&world->lightGrid, origin, colorForDir);
 }
 

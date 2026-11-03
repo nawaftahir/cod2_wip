@@ -67,40 +67,36 @@ struct ParticleCloudVertex
     float uv[2];
 };
 
+void *R_AllocStaticIndexBuffer(IDirect3DIndexBuffer9 **ib, int sizeInBytes);
+
 // PINNED 10011bf0/544: allocation/lock failure still reaches the original writes.
 void R_CreateParticleCloudBuffer()
 {
-    const unsigned short quadIndices[6] = {0, 1, 2, 2, 1, 3};
     const float quadTexCoords[4][2] = {{0, 0}, {0, 1}, {1, 0}, {1, 1}};
+    const unsigned short quadIndices[6] = {0, 1, 2, 2, 1, 3};
     ParticleCloudVertex *vertices = (ParticleCloudVertex *)R_AllocStaticVertexBuffer(
         (void **)&dx.particleCloudVertexBuffer, 81920);
-    unsigned short *indices;
-    HRESULT result = dx.device->CreateIndexBuffer(12288, D3DUSAGE_WRITEONLY,
-        D3DFMT_INDEX16, D3DPOOL_DEFAULT, &dx.particleCloudIndexBuffer, 0);
-    if (result < 0)
-        indices = 0;
-    else if (dx.particleCloudIndexBuffer->Lock(0, 0, (void **)&indices, 0) < 0)
-    {
-        dx.particleCloudIndexBuffer->Release();
-        indices = 0;
-    }
-    for (int x = 0; x < 8; ++x)
-        for (int y = 0; y < 8; ++y)
-            for (int z = 0; z < 16; ++z)
+    unsigned short *indices = (unsigned short *)R_AllocStaticIndexBuffer(
+        &dx.particleCloudIndexBuffer, 12288);
+    for (int x = 0; x != 8; ++x)
+        for (int y = 0; y != 8; ++y)
+            for (int z = 0; z != 16; ++z)
             {
                 int particle = (x * 8 + y) * 16 + z;
-                float px = (rand() * (1.0f / 32767.0f) + x) * 0.25f - 1.0f;
-                float py = (rand() * (1.0f / 32767.0f) + y) * 0.25f - 1.0f;
-                float pz = (rand() * (1.0f / 32767.0f) + z) * 0.125f - 1.0f;
-                for (int corner = 0; corner < 4; ++corner, ++vertices)
+                float xyz[3];
+                xyz[0] = (rand() * (1.0f / 32767.0f) + x) * 0.25f - 1.0f;
+                xyz[1] = (rand() * (1.0f / 32767.0f) + y) * 0.25f - 1.0f;
+                xyz[2] = (rand() * (1.0f / 32767.0f) + z) * 0.125f - 1.0f;
+                for (int corner = 0; corner != 4; ++corner)
                 {
-                    vertices->xyz[0] = px;
-                    vertices->xyz[1] = py;
-                    vertices->xyz[2] = pz;
+                    vertices->xyz[0] = xyz[0];
+                    vertices->xyz[1] = xyz[1];
+                    vertices->xyz[2] = xyz[2];
                     vertices->uv[0] = quadTexCoords[corner][0];
                     vertices->uv[1] = quadTexCoords[corner][1];
+                    ++vertices;
                 }
-                for (int index = 0; index < 6; ++index)
+                for (int index = 0; index != 6; ++index)
                     *indices++ = (unsigned short)(4 * particle + quadIndices[index]);
             }
     R_FinishStaticIndexBuffer(dx.particleCloudIndexBuffer);
@@ -1103,12 +1099,13 @@ static int R_AddRefreshRate(int count, int *rates, int rate)
 
 static int R_AddResolution(int count, GfxResolution *resolutions, int width, int height)
 {
-    if (count > 0 && resolutions[count - 1].width == width && resolutions[count - 1].height == height)
+    GfxResolution *next = resolutions + count;
+    if (count > 0 && next[-1].width == width && next[-1].height == height)
         return count;
     if (width >= 640 && height >= 480)
     {
-        resolutions[count].width = width;
-        resolutions[count].height = height;
+        next->width = width;
+        next->height = height;
         ++count;
     }
     return count;
@@ -1121,12 +1118,13 @@ void R_EnumerateDisplayModes(UINT adapter)
     unsigned int modeCount;
     unsigned int index;
     int resolutionCount;
-    int refreshCount = 0;
+    int refreshCount;
     int defaultIndex;
     int i;
     char *text;
 
     modeCount = dx.d3d9->GetAdapterModeCount(adapter, D3DFMT_X8R8G8B8);
+    refreshCount = 0;
     dx.displayModeCount = 0;
     for (index = 0; index < modeCount; ++index)
     {

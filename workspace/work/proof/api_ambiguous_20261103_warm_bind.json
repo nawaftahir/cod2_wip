@@ -1,0 +1,14 @@
+{
+  "?R_EndRegistration@@YAXXZ": {
+    "t": "0x100131b0",
+    "n": 79,
+    "obj": "r_init.obj",
+    "why": []
+  },
+  "?R_FinishLoadingModels@@YAXXZ": {
+    "t": "0x1001d8c0",
+    "n": 33,
+    "obj": "r_model.obj",
+    "why": []
+  }
+}

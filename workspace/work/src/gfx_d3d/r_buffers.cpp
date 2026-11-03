@@ -1,4 +1,5 @@
 // Static vertex and index buffers.
+#include "r_local.h"
 #include "gfx.h"
 
 extern DxGlobals dx;
@@ -37,6 +38,21 @@ void R_FinishStaticVertexBuffer(void *vb)
 }
 
 typedef ULONG(__stdcall *ReleaseFn)(void *obj);
+
+// PINNED 10005090/72: either COM failure returns null; a failed lock releases.
+void *R_AllocStaticIndexBuffer(IDirect3DIndexBuffer9 **ib, int sizeInBytes)
+{
+    void *data;
+    if (dx.device->CreateIndexBuffer(sizeInBytes, D3DUSAGE_WRITEONLY,
+        D3DFMT_INDEX16, D3DPOOL_DEFAULT, ib, 0) < 0)
+        return 0;
+    if ((*ib)->Lock(0, 0, &data, 0) < 0)
+    {
+        (*ib)->Release();
+        return 0;
+    }
+    return data;
+}
 
 void R_FreeStaticVertexBuffer(IDirect3DVertexBuffer9 *vb)
 {

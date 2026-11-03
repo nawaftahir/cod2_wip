@@ -541,23 +541,23 @@ void R_ShutdownImages()
     if (!dx.deviceLost)
         for (int sampler = 0; sampler < vidConfig.maxTextureMaps; ++sampler)
             RB_SetSampler(sampler, 0, 0);
-    ImageList keep;
-    keep.count = 0;
-    for (int index = 0; index < 2048; ++index)
+    GfxImage *keep[2048];
+    int keepCount = 0;
+    for (unsigned int index = 0; index < 2048; ++index)
     {
         GfxImage *image = imageGlobals.imageHashTable[index];
         if (image)
         {
             if (Image_IsCodeImage(image))
-                keep.image[keep.count++] = image;
+                keep[keepCount++] = image;
             else
                 Image_Release(image);
         }
     }
     memset(imageGlobals.imageHashTable, 0, sizeof(imageGlobals.imageHashTable));
-    for (int index = 0; index < keep.count; ++index)
+    for (int index = 0; index < keepCount; ++index)
     {
-        GfxImage *image = keep.image[index];
+        GfxImage *image = keep[index];
         imageGlobals.imageHashTable[Image_GetAvailableHashLocation(image->name)] = image;
     }
 }
@@ -730,8 +730,7 @@ void R_SetPicmip()
             changed = false;
             if (picmip < minPicmip)
             {
-                picmip = minPicmip;
-                imageGlobals.picmip = picmip;
+                picmip = imageGlobals.picmip = minPicmip;
                 changed = true;
             }
             if (imageGlobals.picmipBump < minPicmip)

@@ -209,6 +209,18 @@ screenshot_filename = gfx / 'target/work/proof/screenshot_filename_20261103_warm
 assert hashlib.sha256(screenshot_filename.read_bytes()).hexdigest() == '16953b3b6b3f7fb81c1ff35d221c672cb13a3461935e1700821c68146ab1e9dc'
 required.update({va: row for va, row in accepted(screenshot_filename).items()
                  if va in old or '@std@@' not in row['name']})
+api_ambiguous = gfx / 'target/work/proof/api_ambiguous_20261103_warm_bind.json'
+assert hashlib.sha256(api_ambiguous.read_bytes()).hexdigest() == '705cb6c46c05ff546c25f6195df82564583d817d584f5c10dffccdee6a129a96'
+required.update({va: row for va, row in accepted(api_ambiguous).items()
+                 if va in old or '@std@@' not in row['name']})
+index_allocator = gfx / 'target/work/proof/index_allocator_20261103_warm_bind.json'
+assert hashlib.sha256(index_allocator.read_bytes()).hexdigest() == 'e283343e0249a689c0fead8d60a84440ca14a3c433a247e65b2c69611687e7b2'
+required.update({va: row for va, row in accepted(index_allocator).items()
+                 if va in old or '@std@@' not in row['name']})
+particle_cloud = gfx / 'target/work/proof/particle_cloud_20261103_warm_bind.json'
+assert hashlib.sha256(particle_cloud.read_bytes()).hexdigest() == '54b43fd76076e8df08fe4b211dd1233d1756d6c2a2a43d3585f160d37bd1b971'
+required.update({va: row for va, row in accepted(particle_cloud).items()
+                 if va in old or '@std@@' not in row['name']})
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

@@ -1,0 +1,151 @@
+{
+  "retail": {
+    "sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+    "linker": [
+      7,
+      10
+    ],
+    "rich": [
+      {
+        "product_id": "0x69",
+        "build": 2067,
+        "count": 3
+      },
+      {
+        "product_id": "0x60",
+        "build": 3077,
+        "count": 4
+      },
+      {
+        "product_id": "0xf",
+        "build": 3077,
+        "count": 48
+      },
+      {
+        "product_id": "0x5f",
+        "build": 3077,
+        "count": 149
+      },
+      {
+        "product_id": "0x5f",
+        "build": 2179,
+        "count": 1
+      },
+      {
+        "product_id": "0x5d",
+        "build": 2067,
+        "count": 2
+      },
+      {
+        "product_id": "0x5d",
+        "build": 2179,
+        "count": 6
+      },
+      {
+        "product_id": "0x19",
+        "build": 9210,
+        "count": 2
+      },
+      {
+        "product_id": "0x5f",
+        "build": 4035,
+        "count": 1
+      },
+      {
+        "product_id": "0x60",
+        "build": 4035,
+        "count": 30
+      },
+      {
+        "product_id": "0x5d",
+        "build": 4035,
+        "count": 3
+      },
+      {
+        "product_id": "0x1",
+        "build": 0,
+        "count": 120
+      },
+      {
+        "product_id": "0x64",
+        "build": 3077,
+        "count": 121
+      },
+      {
+        "product_id": "0x5c",
+        "build": 3077,
+        "count": 1
+      },
+      {
+        "product_id": "0x5a",
+        "build": 3077,
+        "count": 1
+      }
+    ]
+  },
+  "trial": {
+    "sha256": "a41176de916b2d008ef5176376168f3d599cb7be3c083712b18ba67866d947ad",
+    "linker": [
+      7,
+      10
+    ],
+    "rich": [
+      {
+        "product_id": "0x19",
+        "build": 9210,
+        "count": 2
+      },
+      {
+        "product_id": "0x60",
+        "build": 3077,
+        "count": 4
+      },
+      {
+        "product_id": "0xf",
+        "build": 3077,
+        "count": 48
+      },
+      {
+        "product_id": "0x5f",
+        "build": 4035,
+        "count": 2
+      },
+      {
+        "product_id": "0x60",
+        "build": 4035,
+        "count": 31
+      },
+      {
+        "product_id": "0x5d",
+        "build": 4035,
+        "count": 11
+      },
+      {
+        "product_id": "0x1",
+        "build": 0,
+        "count": 120
+      },
+      {
+        "product_id": "0x64",
+        "build": 3077,
+        "count": 112
+      },
+      {
+        "product_id": "0x5f",
+        "build": 3077,
+        "count": 148
+      },
+      {
+        "product_id": "0x5c",
+        "build": 3077,
+        "count": 1
+      },
+      {
+        "product_id": "0x5a",
+        "build": 3077,
+        "count": 1
+      }
+    ]
+  },
+  "scope": "Raw metadata only. Counts do not prove source TU ownership, historical boundaries or matching SDK libraries."
+}

@@ -1,3 +1,111 @@
+# Accepted particle source - 2026-11-03
+
+The final source matches10011bf0/544 fully: UV table declared before the index
+table, const ordinary arrays, != loop bounds, three-float xyz local and vertex
+increment inside the corner-loop body. All544 bytes and bindings pass. Its real
+call site disambiguates R_FinishStaticVertexBuffer10005020/73. Net +617B;
+C/C++115418/253580=45.515419197%,699 bodies. Device-resource creation261
+remains blocked by R_InitRenderTargets, so it adds zero. Both retention gates
+now protect2450 extents and reject deleting either new accepted body. No ASM.
+
+Volatile UVs produce x87 copies absent from retail and were rejected/reverted.
+Scalar positions remove a stack slot; UV memcpy makes a countdown loop. Neither
+matches. Reversing the two local table declarations alone fixes all remaining
+initialization instructions after the position-array and allocator corrections.
+No claim is made that the exact historical source spelling has been recovered.
+
+BSP memcpy/side-expression/pointer-cache batch gives portal405 vs389 and
+occluder570 vs568; no accepted coverage. All prior protected extents survive.
+Fresh coverage snapshot: proof/nov03_particle_cloud_source_coverage.json.
+Deletion negatives: proof/nov03_particle_cloud_negatives.json.
+
+# Accepted index allocator and ongoing particle matching - 2026-11-03
+
+Verified C/C++114801/253580=45.272103478%,697 bodies. Added the genuine
+R_AllocStaticIndexBuffer10005090/72 in r_buffers, using SDK COM interfaces.
+The fresh original compiler, both referees and all2447 prior extents passed.
+Both gates now protect2448 extents and reject removing the allocator. No new
+assembly. The existing particle fixture passes all3x1024 particles and2 fault
+paths using the actual extracted allocator. Frozen coverage and rejection proof:
+proof/nov03_index_allocator_source_coverage.json and
+proof/nov03_index_allocator_negatives.json.
+
+GetRefAPI ambiguity resolution previously added112 verified bytes, with an
+unchanged old-referee replay and four deletion negatives. Old pending-build
+entries below are historical; unsigned-byte Material_MatchToken is retained.
+
+Particle trials: != loop exits retain the real4/6 loops instead of unrolling.
+UV memcpy introduced a pointer/down-counter loop absent from the target;
+restored scalar UV copies. Recovering the allocator corrected its inlined COM
+failure flow and index-pointer register lifetime. Const tables + != + scalar
+UV copies produce528 vs target544, with nearly identical control/data flow;
+remaining stack slots suggest a three-float position local. That lifetime and
+vertex-before-corner increment are under test, uncredited. Mutable tables alone,
+scoped size optimization, five shader declaration variants and both picmip
+assignment-chain directions failed. Failed byte probes stop before slow binding
+checks and never refresh accepted coverage.
+
+Lightmap row-cache trial620->601 vs target611 changed global register allocation
+and was rejected/reverted. Do not repeat this exact cache form. Existing BSP
+source remains unchanged. One build directory, no workers, no token-cost estimate
+available. Whole SHA and GPU execution remain unfinished.
+
+# Definition-order follow-up pending build - 2026-11-03
+
+Last accepted C++ meter stays114617/253580=45.199542551%. No net accepted
+C++ bytes from these resumed trials. Do not confuse matching own bytes with
+call-closure acceptance. The midpoint helper1002a6d0/81 now byte-matches using
+ordered volatile Y/Z minimum reads; its callee RB_GetLightingAtPoint remains
+unmatched674 vs target784, so BOTH this helper and the626-byte model caller
+remain uncredited. A ranking based only on why strings wrongly treated an
+unplaced function as a leaf; inspect its actual direct-call graph too.
+
+The image forceinline trial still emitted216 and was reverted. The vector
+midpoint trial emitted92 and was replaced by the81-byte source above. The
+sun pointer-address read reordered more of the function and was reverted.
+The decoder-initialization order made no gain and was reverted.
+
+Material_MatchToken MUST keep its proven unsigned-byte return: changing it to
+C++ bool breaks protected18350/17, which the full gate correctly rejected.
+Kisak bool is a structural reference, not authority over that PC evidence.
+Current bounded follow-up keeps Bool and its original conversion, moves only
+its definition below RuleSetCondition (prototype stays at file top), and parses
+the token before loading/passing rule. This tests early/late inlining without
+extra assembly, exports, roots or gate changes. The state-rule fixture now
+includes the same forward declaration, matching the real TU scope.
+
+Two original-build launches were rejected by automatic approval review because
+its selected model was at capacity. Neither ran. This is service availability,
+not an unsafe-action finding. Current source is pending a fresh original build;
+current physical DLL/bind came from the rejected bool trial, not the fixed source.
+The committed b26ed3b receipt and root verified-source snapshot remain the
+last accepted checkpoint. Do not promote pending drafts or quote stale outputs.
+
+Raw Rich/linker metadata is in proof/nov03_toolchain_header.json. Both images
+report linker7.10 and contain build3077 records. Retail product0x64 count121
+versus current112 is recorded, not treated as proof of nine missing source TUs.
+
+# Shared-blocker trials - 2026-11-03
+
+Three bounded grouped builds after b26ed3b yielded no accepted new C++ bodies.
+Calling the platform-dimension helpers instead of the existing switch changed
+fullscreen accounting149->216. Explicit default and intermediate-index forms
+changed it144/146 and lost two protected160-byte shadow-target initializers.
+Regression rejected both. All image-accounting edits were reverted.
+Aspect-ratio comparison reordering retained a208-byte mismatch and was reverted.
+Surface early return kept206 bytes; direct goto flow became150 because logging
+was no longer inlined. Parser local-bool/arithmetic returns and count snapshots
+also failed. Viewport vector intermediates315->362 were closer but not exact366.
+These rejected changes are preserved in scratch/nov03_rejected_blocker_trials.patch;
+canonical files were restored with the reverse patch, not truncated/overwritten.
+Behavior checks passed, but do not turn them or size proximity into byte credit.
+
+Approval review correctly rejected an earlier scripted edit that could have
+truncated files; it was never executed. Bounded function patches were used.
+
+Next wave pins actual target midpoint operand order, decoder initialization
+order and sun dvar-pointer load timing. Count nothing until the full gate passes.
+
 # Screenshot source wave - 2026-11-03
 
 Recovered actual helper R_ScreenshotFilename10025960/60, full byte/binding pass.

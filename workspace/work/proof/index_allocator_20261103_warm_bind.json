@@ -1,0 +1,8 @@
+{
+  "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z": {
+    "t": "0x10005090",
+    "n": 72,
+    "obj": "r_buffers.obj",
+    "why": []
+  }
+}

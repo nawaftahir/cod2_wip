@@ -171,6 +171,15 @@ required.update(accepted(jpeg_callbacks))
 screenshot_filename = Path(__file__).resolve().parents[1] / 'proof/screenshot_filename_20261103_warm_bind.json'
 assert hashlib.sha256(screenshot_filename.read_bytes()).hexdigest() == '16953b3b6b3f7fb81c1ff35d221c672cb13a3461935e1700821c68146ab1e9dc'
 required.update(accepted(screenshot_filename))
+api_ambiguous = Path(__file__).resolve().parents[1] / 'proof/api_ambiguous_20261103_warm_bind.json'
+assert hashlib.sha256(api_ambiguous.read_bytes()).hexdigest() == '705cb6c46c05ff546c25f6195df82564583d817d584f5c10dffccdee6a129a96'
+required.update(accepted(api_ambiguous))
+index_allocator = Path(__file__).resolve().parents[1] / 'proof/index_allocator_20261103_warm_bind.json'
+assert hashlib.sha256(index_allocator.read_bytes()).hexdigest() == 'e283343e0249a689c0fead8d60a84440ca14a3c433a247e65b2c69611687e7b2'
+required.update(accepted(index_allocator))
+particle_cloud = Path(__file__).resolve().parents[1] / 'proof/particle_cloud_20261103_warm_bind.json'
+assert hashlib.sha256(particle_cloud.read_bytes()).hexdigest() == '54b43fd76076e8df08fe4b211dd1233d1756d6c2a2a43d3585f160d37bd1b971'
+required.update(accepted(particle_cloud))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

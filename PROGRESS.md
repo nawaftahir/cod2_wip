@@ -1,5 +1,29 @@
 # Renderer progress
 
+## Active work toward above50% - 2026-11-03
+
+Last verified C/C++:115418/253580=45.515419197%,699 bodies; +801B since
+b26ed3b. The reconstructed index allocator adds72 fully matched bytes.
+GetRefAPI's paired pointer stores disambiguate EndRegistration79 and
+FinishLoadingModels33. Both referees and all2445 prior extents passed; an
+unchanged old-referee replay accepts exactly the same set. Both retention gates
+now protect2448 extents and reject removing all three new bodies. The112 API
+bytes are newly verified existing source; the allocator is newly recovered code.
+The reconstructed particle builder544 now matches fully and pins its73-byte
+vertex-unlock helper. Both referees and all2450 protected extents pass; removing
+either new extent fails both retention gates. No new assembly. Device-resource
+creation261 stays uncredited: render-target initialization remains unmatched.
+
+Frozen evidence: target/work/proof/nov03_particle_cloud_source_coverage.json,
+nov03_api_old_referee_replay.json and nov03_api_ambiguous_negatives.json.
+The denominator remains provisional. Whole-file SHA and GPU smoke are unfinished.
+
+The particle position-array lifetime and UV-before-index table initialization
+match; volatile UV reads were rejected and reverted. Physical build
+outputs can be unaccepted probes; do not quote them as fresh coverage. The81-byte
+static-model helper's matching bytes remain uncredited because its lighting
+sampler is unmatched. No goal completion or user-requested pause is recorded.
+
 ## Active verified checkpoint - 2026-11-03
 
 C/C++114617/253580=45.199542551%,694 bodies: +121B/+6 bodies

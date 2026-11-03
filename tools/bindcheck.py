@@ -229,7 +229,7 @@ while changed and multi:
             sizes = {int(f['addr'], 16): f['size'] for f in glm}
             for ot, tt in api_pointer_places(code, tcode, va, t, orel, arel).items():
                 m = multi.get(ot)
-                if (m and m['name'] not in cands and m['size'] <= 12
+                if (m and m['name'] not in cands and (m['size'] <= 12 or hex(tt) in m['hits'])
                         and sizes.get(tt) == m['size'] and masked_eq(ot, tt, m['size'])):
                     cands[m['name']] = dict(m, hits=[hex(tt)])
                     changed = True

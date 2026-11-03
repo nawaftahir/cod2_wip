@@ -12,6 +12,9 @@ for address, value in [(0x1019be48,1.0/32767),(0x1019bdc8,.25),(0x1019bdac,.125)
     assert retail.get_data(address-0x10000000,4) == struct.pack('<f',value)
 text = fragment('gfx_d3d/r_dxbuffers.cpp')
 source = text[text.index('struct ParticleCloudVertex'):text.index('// PINNED 10011e60:')]
+buffers = (work / 'src/gfx_d3d/r_buffers.cpp').read_text()
+start = buffers.index('void *R_AllocStaticIndexBuffer(')
+allocator = buffers[start:buffers.index('\n}', start) + 2]
 program = r'''
 #include <cassert>
 #include <cstdio>
@@ -55,7 +58,7 @@ void R_FinishStaticVertexBuffer(void *buffer) {assert(!failure&&phase++==4&&buff
 int randomValue(int call) {return pattern==0?0:pattern==1?32767:(call*97+31)&32767;}
 int FakeRand() {return randomValue(randomCalls++);}
 #define rand FakeRand
-'''+source+r'''
+'''+allocator+'\n'+source+r'''
 void reset() {
     phase=randomCalls=released=0;dx.device=&device;
     dx.particleCloudVertexBuffer=0;dx.particleCloudIndexBuffer=0;

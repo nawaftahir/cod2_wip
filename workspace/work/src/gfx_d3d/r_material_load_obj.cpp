@@ -727,11 +727,6 @@ static const MtlStateMapBitName *Material_ParseStateValue(const char **text,
 }
 
 // Bool conversion is pinned at 100185d4; the helper name is supported by KisakCOD.
-static Bool Material_MatchToken(const char **text, const char *match)
-{
-    return Com_MatchToken(text, match, 1) != 0;
-}
-
 static MtlParseSuccess Material_ParseRuleSetConditionTest(const char **text, const char *token,
     MaterialStateMapRule *rule)
 {
@@ -762,7 +757,10 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
 {
     MtlParseSuccess result;
     if (!strcmp(token, "default"))
-        return Material_MatchToken(text, ":") ? MTL_PARSE_SUCCESS : MTL_PARSE_ERROR;
+    {
+        int matched = Material_MatchToken(text, ":") != 0;
+        return static_cast<MtlParseSuccess>((matched - 1) & MTL_PARSE_ERROR);
+    }
     result = Material_ParseRuleSetConditionTest(text, token, rule);
     if (result == MTL_PARSE_SUCCESS)
     {
@@ -776,13 +774,19 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
                 Com_ScriptWarning("expected ':' or '&&', found '%s'\n", token);
                 return MTL_PARSE_ERROR;
             }
-            result = Material_ParseRuleSetConditionTest(text, Com_Parse(text), rule);
+            token = Com_Parse(text);
+            result = Material_ParseRuleSetConditionTest(text, token, rule);
         } while (result == MTL_PARSE_SUCCESS);
         if (result == MTL_PARSE_NO_MATCH)
             Com_ScriptWarning("failed parsing conditional after '&&'\n");
         return MTL_PARSE_ERROR;
     }
     return result;
+}
+
+static Bool Material_MatchToken(const char **text, const char *match)
+{
+    return Com_MatchToken(text, match, 1) != 0;
 }
 
 static Bool Material_ParseRuleSetValue(const char **text, const char *token,

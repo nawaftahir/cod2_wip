@@ -1,0 +1,14 @@
+{
+  "?R_CreateParticleCloudBuffer@@YAXXZ": {
+    "t": "0x10011bf0",
+    "n": 544,
+    "obj": "r_init.obj",
+    "why": []
+  },
+  "?R_FinishStaticVertexBuffer@@YAXPAX@Z": {
+    "t": "0x10005020",
+    "n": 73,
+    "obj": "r_buffers.obj",
+    "why": []
+  }
+}

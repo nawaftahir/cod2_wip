@@ -33,6 +33,10 @@ docker run --rm --pid=host --network none -v "$target:/w" \
 printf '%s\n' "$config" >"$build/work-config"
 anchor=../../cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll
 python3 ../tools/cmp.py "$build/gfx.dll" "$build/gfx.map" "$anchor" "$build/cmp.json" --pdb "$build/gfx.pdb" >"$build/cmp.log"
+# A failed probe is diagnostic only; every successful probe still runs all gates.
+if [ -n "${GFX_PROBE_SYMBOL-}" ]; then
+  python3 work/tools/probe_match.py "$build/cmp.json" "$GFX_PROBE_SYMBOL"
+fi
 python3 ../tools/bindcheck.py "$build/gfx.dll" "$build/gfx.map" "$anchor" "$build/cmp.json" \
   --json "$build/bind.json" --pdb "$build/gfx.pdb" >"$build/bind.log"
 python3 work/tools/regression.py "$build/bind.json" >work/proof/latest/regression.json

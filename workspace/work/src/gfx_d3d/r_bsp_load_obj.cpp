@@ -1007,13 +1007,11 @@ void R_LoadPortals(GfxBspLoad *load)
         const float *plane = (const float *)ri.CM_GetPlaneNum(in[index].planeIndex);
         GfxPortal *out = &portals[index];
         DpvsPlane *outPlane = &out->plane;
-        outPlane->coeffs[0] = plane[0];
-        outPlane->coeffs[1] = plane[1];
-        outPlane->coeffs[2] = plane[2];
+        memcpy(outPlane->coeffs, plane, 3 * sizeof(float));
         outPlane->coeffs[3] = -plane[3];
         outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
-        outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
-        outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
+        outPlane->side[1] = (*(const int *)&outPlane->coeffs[1] > 0 ? 12 : 0) + 4;
+        outPlane->side[2] = (*(const int *)&outPlane->coeffs[2] > 0 ? 12 : 0) + 8;
         out->cell = &s_world.cells[in[index].cellIndex];
         out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
         out->vertexCount = (byte)in[index].portalVertexCount;
@@ -1121,18 +1119,17 @@ void R_LoadOccluders(GfxBspLoad *load)
         GfxOccluder *out = &occluders[index];
         out->planeCount = in[index].planeCount;
         out->planes = &planes[in[index].firstPlane];
+        const int *occluderPlanes = &planeIndices[in[index].firstPlane];
         for (int planeIndex = 0; planeIndex < out->planeCount; ++planeIndex)
         {
-            const float *plane = (const float *)ri.CM_GetPlaneNum(planeIndices[in[index].firstPlane + planeIndex]);
+            const float *plane = (const float *)ri.CM_GetPlaneNum(occluderPlanes[planeIndex]);
             DpvsPlane *outPlane = &out->planes[planeIndex];
-            outPlane->coeffs[0] = plane[0];
-            outPlane->coeffs[1] = plane[1];
-            outPlane->coeffs[2] = plane[2];
+            memcpy(outPlane->coeffs, plane, 3 * sizeof(float));
             out->planes[planeIndex].coeffs[3] = -plane[3];
             outPlane = &out->planes[planeIndex];
             outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
-            outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
-            outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
+            outPlane->side[1] = (*(const int *)&outPlane->coeffs[1] > 0 ? 12 : 0) + 4;
+            outPlane->side[2] = (*(const int *)&outPlane->coeffs[2] > 0 ? 12 : 0) + 8;
         }
         out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
         out->vertexCount = in[index].portalVertexCount;

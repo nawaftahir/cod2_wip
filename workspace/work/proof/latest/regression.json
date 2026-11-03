@@ -1,8 +1,8 @@
 {
-  "functions": 729,
-  "bytes": 123028,
+  "functions": 734,
+  "bytes": 123829,
   "total": 253580,
-  "percent": 48.51644451455162,
+  "percent": 48.83232116097484,
   "baseline_lost": [],
   "gains": [
     {
@@ -106,6 +106,18 @@
       "bytes": 109,
       "name": "?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10005020",
+      "bytes": 73,
+      "name": "?R_FinishStaticVertexBuffer@@YAXPAX@Z",
+      "object": "r_buffers.obj"
+    },
+    {
+      "target": "0x10005090",
+      "bytes": 72,
+      "name": "?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z",
+      "object": "r_buffers.obj"
     },
     {
       "target": "0x100050e0",
@@ -558,6 +570,12 @@
       "object": "r_init.obj"
     },
     {
+      "target": "0x10011bf0",
+      "bytes": 544,
+      "name": "?R_CreateParticleCloudBuffer@@YAXXZ",
+      "object": "r_init.obj"
+    },
+    {
       "target": "0x10011e60",
       "bytes": 160,
       "name": "?R_ReleaseDynamicBuffers@@YAXXZ",
@@ -597,6 +615,12 @@
       "target": "0x10012b00",
       "bytes": 131,
       "name": "?R_ChooseRefreshRate@@YAHHHH@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x100131b0",
+      "bytes": 79,
+      "name": "?R_EndRegistration@@YAXXZ",
       "object": "r_init.obj"
     },
     {
@@ -891,6 +915,12 @@
       "target": "0x1001d720",
       "bytes": 217,
       "name": "?R_ConvertAnimMatToSkelMat@@YAXPBUDObjAnimMat_s@@PAUDObjSkelMat_s@@@Z",
+      "object": "r_model.obj"
+    },
+    {
+      "target": "0x1001d8c0",
+      "bytes": 33,
+      "name": "?R_FinishLoadingModels@@YAXXZ",
       "object": "r_model.obj"
     },
     {

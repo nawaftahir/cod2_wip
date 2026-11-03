@@ -1,0 +1,12 @@
+[
+  {
+    "gate": "check_checkpoint.py",
+    "removed": "0x10005090/72",
+    "rejected": true
+  },
+  {
+    "gate": "regression.py",
+    "removed": "0x10005090/72",
+    "rejected": true
+  }
+]

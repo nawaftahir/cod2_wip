@@ -1,12 +1,28 @@
 # Active renderer work - 2026-11-03
 
-Current C/C++114617B/694 bodies=45.199542551%,2445 protected extents.
-Receipt: target/work/proof/nov03_jpeg_screenshot_checkpoint.json. Final build
+Current C/C++115418B/699 bodies=45.515419197%,2450 protected extents.
+Receipt: target/work/proof/nov03_particle_cloud_source_coverage.json. Final build
 and all retention/source-freshness gates pass. Read PROGRESS.md for details. The older
 PAUSED/JPEG-placement entries below are historical. JPEG callback placement is
 now implemented, independently replayed against the unchanged old referee,
 and covered by rejection fixtures. Root src/ has8 complete files/49 emitted
 matches, including the complete r_jpeg.cpp. Run tools/check_verified_source.py.
+
+Current work is active toward above50% C/C++; no user pause is recorded. Since
+b26ed3b, +801B: paired API pointer placements112, recovered index allocator72,
+particle builder544 and newly pinned vertex unlock73. No new assembly. The
+particle match needs the real allocator in r_buffers, != loop exits, a local
+three-float position and UV-table initialization before the index table.
+Do not replace these with scalar positions, memcpy UVs, volatile UVs or reversed
+table declarations: those bounded probes failed. Native geometry/RNG/ownership
+and both retail fault cases pass. Device-resource creation261 remains uncredited
+because its render-target initializer is unmatched. BSP plane-copy trials have
+no accepted gain. The source tree still contains explicitly unmatched drafts.
+
+One physical build is reused; latest successful build uses the pinned image,
+both referees and all retention/source-attribution gates. Same-offset raw file
+equality12.883549243%; whole SHA and GPU smoke are unfinished. The owner354
+staged files retain their original staged-diff hash; rb_state.c stays untouched.
 
 Primary continued in r_screenshot.cpp; no Gemini source was changed. The
 filename helper has a full60-byte match. LevelShot uses a256-byte buffer;

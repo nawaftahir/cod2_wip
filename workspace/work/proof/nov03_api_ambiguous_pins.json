@@ -1,0 +1,55 @@
+{
+  "producer": {
+    "t": "0x10013270",
+    "n": 1051,
+    "obj": "r_init.obj",
+    "why": []
+  },
+  "pins": [
+    {
+      "name": "?R_EndRegistration@@YAXXZ",
+      "size": 79,
+      "source": "0x10011f80",
+      "target": "0x100131b0",
+      "raw_hits": [
+        "0x100131b0",
+        "0x100226c0"
+      ],
+      "sites": [
+        {
+          "source_instruction": "0x100129e3",
+          "target_instruction": "0x10013333",
+          "source_field": "0x101ceaa4",
+          "target_field": "0x1076a8c4"
+        }
+      ]
+    },
+    {
+      "name": "?R_FinishLoadingModels@@YAXXZ",
+      "size": 33,
+      "source": "0x1001ca60",
+      "target": "0x1001d8c0",
+      "raw_hits": [
+        "0x1001d8c0",
+        "0x100203a0"
+      ],
+      "sites": [
+        {
+          "source_instruction": "0x100129c5",
+          "target_instruction": "0x10013315",
+          "source_field": "0x101cea84",
+          "target_field": "0x1076a8a4"
+        }
+      ]
+    }
+  ],
+  "hashes": {
+    "target/work/build/gfx.dll": "a3e31d5b12f772c0b6658721b1ec3b2ec77078972339ce65b70d01799f057c4e",
+    "target/work/build/gfx.map": "a9d2511995fbe5c05fe72cbf99573688d746e5380e68712be251dee6b85da7b7",
+    "target/work/build/gfx.pdb": "c614dd517c9a37b4a7c4e8324de6eb28b1935e447bfeb7f5419af9d7681562f3",
+    "target/work/build/cmp.json": "b25f800eace5a447e887e26a1f917fbcb989ff8231fbd9d1456b64ed32a5c318",
+    "target/work/proof/nov03_api_ambiguous_candidates.json": "7519f22bf1cedd394cd7e215b39446a8eb071d8b6c4bf0f8db2add924d51797e",
+    "target/work/proof/nov03_pre_api_ambiguous_referee.txt": "5d16bab3117863d6088643c658a0f701bf96480cda83e070d14553f0e83e8c1a",
+    "tools/bindcheck.py": "f4dca1422ea370999db5fb2eb29446ecfda811165afa57e569ee12f75dc68553"
+  }
+}

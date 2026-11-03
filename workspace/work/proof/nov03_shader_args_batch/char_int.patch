@@ -1,0 +1,11 @@
+--- baseline
++++ char_int
+@@ -1457,7 +1457,7 @@
+ {
+     const D3DXSHADER_CONSTANTINFO *info =
+         (const D3DXSHADER_CONSTANTINFO *)((const byte *)table + table->ConstantInfo);
+-    byte usedConstant[256];
++    char usedConstant[256];
+     int usedCount = 0;
+     ShaderConstantRouting routing;
+     memset(usedConstant, 0, table->Constants);

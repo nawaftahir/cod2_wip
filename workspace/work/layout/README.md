@@ -1112,6 +1112,10 @@ zero. api_callbacks.tsv lists source owner, linked address and separate byte
 acceptance for every slot. Legacy shifted names are no longer used as identity.
 The only export is GetRefAPI. No synthetic retention array or /INCLUDE roots.
 
+r_buffers owns R_AllocStaticIndexBuffer (PINNED10005090/72), alongside the
+vertex allocator. r_init calls it for particle indices; LTCG inlines that call
+and retains the real out-of-line body. Both allocations use the SDK declarations.
+
 r_dpvs owns world/frustum/portal visibility; r_scene owns the outer scene driver
 and real RenderScene callback. r_shadowcookie owns generation and the original
 VC7.1 STL sort instantiation; r_utils owns the shared sphere classifier. The
