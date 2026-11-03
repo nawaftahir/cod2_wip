@@ -368,7 +368,9 @@
 "name": "?R_LoadStep@@YAXPBD@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x10004870"
+]
 },
 {
 "name": "?R_LoadWorldInternal@@YAPAUGfxWorld@@PBD@Z",
@@ -1214,7 +1216,9 @@
 "name": "?R_GetImageList@@YAXPAUImageList@@@Z",
 "obj": "r_image.obj",
 "size": 23,
-"hits": []
+"hits": [
+"0x1000c800"
+]
 },
 {
 "name": "?Image_IsCodeTrack@@YAEH@Z",
@@ -2224,10 +2228,12 @@
 ]
 },
 {
-"name": "?R_CheckTransparencyMsaa@@YA_NI@Z",
+"name": "?R_CheckTransparencyMsaa@@YAEI@Z",
 "obj": "r_init.obj",
-"size": 45,
-"hits": []
+"size": 46,
+"hits": [
+"0x100118d0"
+]
 },
 {
 "name": "?R_StoreDirect3DCaps@@YAXI@Z",
@@ -2689,7 +2695,9 @@
 "name": "?PrintfJpeg@@YAXPAD@Z",
 "obj": "r_jpeg.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x10014650"
+]
 },
 {
 "name": "?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z",
@@ -4261,7 +4269,12 @@
 "name": "?R_ReleaseAllModels@@YAXXZ",
 "obj": "r_model.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x1001d8cc",
+"0x10020310",
+"0x10020350",
+"0x100203ac"
+]
 },
 {
 "name": "?R_GetModelLodDistance@@YAMPBMM@Z",
@@ -4495,7 +4508,9 @@
 "name": "?R_OutdoorTexelToWorld@@YAMHH@Z",
 "obj": "r_outdoor.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x10020890"
+]
 },
 {
 "name": "?R_GenerateOutdoorLookup@@YAXXZ",
@@ -5346,7 +5361,9 @@
 "name": "?R_EndCubemapShot@@YAXH@Z",
 "obj": "r_screenshot.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x10026a70"
+]
 },
 {
 "name": "?R_CubemapShotAlpha@@YAEHHHMM@Z",
@@ -5519,7 +5536,7 @@
 {
 "name": "?R_IsShadowReceiverOutside@@YA_NPBMPBUDpvsPlane@@@Z",
 "obj": "r_shadowcookie.obj",
-"size": 102,
+"size": 69,
 "hits": []
 },
 {
@@ -6114,7 +6131,9 @@
 "name": "?R_InitStaticModelIndexCache@@YAXXZ",
 "obj": "r_staticmodelcache.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x1002bad0"
+]
 },
 {
 "name": "?R_StaticModelCacheStats_f@@YAXXZ",
@@ -6714,7 +6733,9 @@
 "name": "?RB_UpdateColor@@YAXPBM0@Z",
 "obj": "rb_backend.obj",
 "size": 28,
-"hits": []
+"hits": [
+"0x10032540"
+]
 },
 {
 "name": "?RB_SetVertex2D@@YAXHMMMMI@Z",
@@ -12546,7 +12567,9 @@
 "name": "?Com_EndParseSession@@YAXXZ",
 "obj": "q_parse.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x1005f1c0"
+]
 },
 {
 "name": "?Com_ResetParseSessions@@YAXXZ",
@@ -17060,7 +17083,9 @@
 "name": "??0CNodeList@D3DXShader@@QAE@XZ",
 "obj": "d3dx9:cnode.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x1008285c"
+]
 },
 {
 "name": "??0CNodeList@D3DXShader@@QAE@PAVCNode@1@0PBD@Z",
@@ -24241,7 +24266,9 @@
 "name": "__fpmath",
 "obj": "LIBCMT:fpinit.obj",
 "size": 30,
-"hits": []
+"hits": [
+"0x100f7981"
+]
 },
 {
 "name": "__strdup",
@@ -25333,7 +25360,9 @@
 "name": "___crtInitCritSecNoSpinCount@8",
 "obj": "LIBCMT:initcrit.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x10107a56"
+]
 },
 {
 "name": "___crtInitCritSecAndSpinCount",
@@ -25993,19 +26022,25 @@
 "name": "____lc_codepage_func",
 "obj": "LIBCMT:initctyp.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x101002a2"
+]
 },
 {
 "name": "____lc_collate_cp_func",
 "obj": "LIBCMT:initctyp.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x101002bb"
+]
 },
 {
 "name": "____lc_handle_func",
 "obj": "LIBCMT:initctyp.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x101002d4"
+]
 },
 {
 "name": "___init_collate",

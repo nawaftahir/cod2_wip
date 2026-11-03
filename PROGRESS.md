@@ -1,6 +1,39 @@
 # Renderer progress
 
-## Current verified checkpoint - 2026-11-03
+## Current verified checkpoint - 2026-11-03, small helpers
+
+C/C++116526/253580=45.952362174%,721 bodies; +204B/+7 bodies since
+bb21ec4. All2511 source/library extents pass the unchanged binding referee;
+all prior candidates and accepted extents survive.36 assembly-bearing bodies/
+8601 code bytes remain excluded. The denominator is provisional, not whole-file
+completion. Root src/ remains10 complete verified files/61 emitted functions.
+
+The PC transparency probe now returns the existing byte type Bool, reproducing
+retail's AL-only normalization:46 new C++ bytes. A shorter candidate-search
+anchor exposes six already compiled C++ bodies (158B): load-step logging31,
+image-list collection23, outdoor coordinates25, static-model index-cache init20,
+backend color update28 and parse-session end31. Full bytes, operand bindings,
+imports, extents and dependency closure remain mandatory. Six new library
+extents are accounted separately.15 new raw candidates do NOT mean15 matches.
+
+Shadow receiver source now has one direct expression, avoiding extra float
+rounding stores:102->69 bytes. Retail is also69, but pointer centering still
+differs (+8 versus+4); this draft earns ZERO coverage. It remains in work/src/.
+Failed image inline, fallback register, model-name and sphere-cull trials are
+restored and recorded. No new assembly, workers, extra build output or clean-TU claim.
+
+Fixtures:30 actual capability probes,192 model-name boundaries,70 shadow paths,
+361 hardware startup and631 light gather/cull cases pass, as do image lookup/
+shutdown and the10-file clean-source audit. 20 new-extent removal negatives cover
+both game retention gates and the all-extents gate for libraries. One physical
+build output; seven incremental links this wave. Token totals are unavailable.
+
+Receipt: target/work/proof/nov03_small_helpers_checkpoint.json. Raw same-offset
+file equality12.923033048%; C++ growth is not whole-file equality. Whole-DLL SHA
+and GPU smoke remain unfinished. No push; unrelated354 staged files and
+rb_state.c are untouched. Old checkpoints below are historical.
+
+## Earlier verified checkpoint - 2026-11-03
 
 C/C++116322/253580=45.871914189%,714 bodies; +391B/+9 bodies since
 cfe7803. Both referees agree on the complete accepted set. All2498 protected

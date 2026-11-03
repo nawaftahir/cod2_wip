@@ -1,0 +1,102 @@
+[
+  {
+    "target": "0x100118d0",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x100118d0",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "target": "0x10004870",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x10004870",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "target": "0x1000c800",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x1000c800",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "target": "0x10020890",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x10020890",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "target": "0x1002bad0",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x1002bad0",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "target": "0x10032540",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x10032540",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "target": "0x1005f1c0",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x1005f1c0",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "target": "0x100f7981",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x10107a56",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x101002a2",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x101002bb",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x101002d4",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "target": "0x100f7939",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  }
+]

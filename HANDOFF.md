@@ -1,3 +1,29 @@
+# Latest renderer continuation - 2026-11-03
+
+Current verified C++116526B/721 bodies=45.952362174%;2511 protected extents.
+Read PROGRESS.md first. Receipt: target/work/proof/nov03_small_helpers_checkpoint.json.
+Raw same-offset file equality12.923033048%; whole SHA is still unmatched.
+Net +204B/+7 bodies since bb21ec4: transparency helper46 plus six short
+existing source bodies158. Candidate search now permits12 fixed bytes alongside
+a4-byte search run; all strict byte/binding/extent/data/call gates are unchanged.
+New raw candidates and library gains are separately recorded, not game credit.
+Both warm ratchets are pinned in regression.py and check_checkpoint.py.
+
+Current partial shadow helper is69 bytes (was102), matching retail's size but
+NOT its pointer base. Keep the useful direct-expression source; credit ZERO
+until exact bytes/bindings pass. All failed image, fallback, model-name and
+sphere-cull variants are restored. Tests test_shadow_generation.py (70 paths),
+test_model_name.py (192 names) and test_transparency_capability.py (30 probes)
+exercise actual source. Root src/ is still verified-only10 files/61 functions.
+
+Use the sole build via sh target/work/tools/build.sh; do not duplicate it.
+For bounded source trials, prefer the existing GFX_PROBE_SYMBOL early-exit gate
+before repeating full verification of a failed byte probe. Do not rerun the
+recorded spelling/type trials without new evidence. No active goal is created
+by this handoff. Whole SHA/GPU remain open; preserve unrelated354 staged files.
+
+## Prior continuation notes
+
 # Active renderer work - 2026-11-03
 
 Current C/C++116322B/714 bodies=45.871914189%,2498 protected extents.

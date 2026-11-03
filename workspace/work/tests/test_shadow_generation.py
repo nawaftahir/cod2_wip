@@ -55,6 +55,12 @@ int main(){int cases=0;
  for(int empty=0;empty<2;++empty)for(int cast=0;cast<2;++cast){reset();rgp.sortedMaterials[0]=&material;output[0]={(unsigned)(2046<<4),(surfaceType_t*)&triangle};scene.drawSurfCount=frame.drawSurfCount=1;degenerate=empty;values[6].current.integer=cast?24:0;ShadowCookieList list={};unsigned bits=0x7fc01234u;float fade;memcpy(&fade,&bits,4);R_CreateShadowCookie(&view,1,0,fade,&list);if(empty){assert(!list.cookieCount&&!frame.viewParmCount&&poses==1&&!cullins);}else{assert(list.cookieCount==1&&frame.viewParmCount==1&&poses==1&&cullins==cast&&draws==cast);auto &c=list.cookies[0];assert(c.firstCasterDrawSurf==1&&c.firstReceiverDrawSurf==1+cast&&c.firstUnusedDrawSurf==2+cast);assert(scene.drawSurfCount==2+cast&&frame.drawSurfCount==2+cast);assert(!memcmp(&c.fade,&fade,4));assert(!memcmp(c.boxMin,mins,12)&&!memcmp(c.boxMax,maxs,12));}++cases;}
  for(int sign:{-1,0,1}){reset();for(auto &c:candidates)c={-1,100000000};candidates[0]={0,20};values[2].current.integer=sign<0?-2:sign>0?5:0;values[3].current.integer=0;shadowCookieGlob.lastTime=1000;scene.def.time=2000;ShadowCookieList list={};R_BuildShadowCookieList(&view,candidates,&list);assert(!list.cookieCount);assert(shadowCookieGlob.weightCap==(sign<0?8:sign>0?15:10));assert(shadowCookieGlob.lastTime==2000);++cases;}
  reset();vidConfig.width=800;R_DrawShadowCookieOverlay();assert(overlay==1);float ident[4][4];MatrixIdentity44(ident);assert(!memcmp(&overlayMatrix,ident,64));++cases;
+ for(int slot=0;slot<5;++slot)for(int axis=0;axis<3;++axis)for(float distance:{-1.0f,0.0f,1.0f,NAN}) {
+  float bounds[6]={2,3,4,5,6,7};DpvsPlane planes[5]={};
+  for(auto &plane:planes){plane.coeffs[3]=1;plane.side[0]=12;plane.side[1]=16;plane.side[2]=20;}
+  planes[slot].coeffs[axis]=1;planes[slot].coeffs[3]=distance-bounds[axis+3];
+  assert(R_IsShadowReceiverOutside(bounds,planes)==(distance<=0));++cases;
+ }
  printf("PASS: %d actual shadow generation paths, STL order, view/lookup geometry, degenerate/capped casters, receiver counters, fade bits and cap rates\n",cases);
 }
 '''

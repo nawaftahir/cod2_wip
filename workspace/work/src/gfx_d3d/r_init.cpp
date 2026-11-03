@@ -563,7 +563,7 @@ void R_ChooseRenderer(const D3DCAPS9 *caps)
 }
 
 // Name unconfirmed; retail 100118d0 is also inlined in capability storage.
-static bool R_CheckTransparencyMsaa(UINT adapter)
+static Bool R_CheckTransparencyMsaa(UINT adapter)
 {
     if (r_aaSamples->current.integer == 1)
         return false;

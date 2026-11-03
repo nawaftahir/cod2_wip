@@ -233,6 +233,12 @@ window_settings = gfx / 'target/work/proof/window_settings_20261103_warm_bind.js
 assert hashlib.sha256(window_settings.read_bytes()).hexdigest() == 'caebf75db26b6154b0e0d247244c0909b585ee1b4b5a685119098916560517f8'
 required.update({va: row for va, row in accepted(window_settings).items()
                  if va in old or '@std@@' not in row['name']})
+transparency = gfx / 'target/work/proof/transparency_20261103_warm_bind.json'
+assert hashlib.sha256(transparency.read_bytes()).hexdigest() == '555aec80731a65fffe52942151077142a680c641bb8f951f8b95f16435e8ec0a'
+required.update(accepted(transparency))
+short_search = gfx / 'target/work/proof/short_search_20261103_warm_bind.json'
+assert hashlib.sha256(short_search.read_bytes()).hexdigest() == 'b7b0895c2c22dd9202c2c02051fcb60fc039671742a1056a83425b8fb3ae3b12'
+required.update(accepted(short_search))
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

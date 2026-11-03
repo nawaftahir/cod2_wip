@@ -1,0 +1,8 @@
+{
+  "?R_CheckTransparencyMsaa@@YAEI@Z": {
+    "t": "0x100118d0",
+    "n": 46,
+    "obj": "r_init.obj",
+    "why": []
+  }
+}

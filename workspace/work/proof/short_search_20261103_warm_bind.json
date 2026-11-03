@@ -1,0 +1,74 @@
+{
+  "?R_LoadStep@@YAXPBD@Z": {
+    "t": "0x10004870",
+    "n": 31,
+    "obj": "r_bsp_load_obj.obj",
+    "why": []
+  },
+  "?R_GetImageList@@YAXPAUImageList@@@Z": {
+    "t": "0x1000c800",
+    "n": 23,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "?R_OutdoorTexelToWorld@@YAMHH@Z": {
+    "t": "0x10020890",
+    "n": 25,
+    "obj": "r_outdoor.obj",
+    "why": []
+  },
+  "?R_InitStaticModelIndexCache@@YAXXZ": {
+    "t": "0x1002bad0",
+    "n": 20,
+    "obj": "r_staticmodelcache.obj",
+    "why": []
+  },
+  "?RB_UpdateColor@@YAXPBM0@Z": {
+    "t": "0x10032540",
+    "n": 28,
+    "obj": "rb_backend.obj",
+    "why": []
+  },
+  "?Com_EndParseSession@@YAXXZ": {
+    "t": "0x1005f1c0",
+    "n": 31,
+    "obj": "q_parse.obj",
+    "why": []
+  },
+  "__fpmath": {
+    "t": "0x100f7981",
+    "n": 30,
+    "obj": "LIBCMT:fpinit.obj",
+    "why": []
+  },
+  "___crtInitCritSecNoSpinCount@8": {
+    "t": "0x10107a56",
+    "n": 16,
+    "obj": "LIBCMT:initcrit.obj",
+    "why": []
+  },
+  "____lc_codepage_func": {
+    "t": "0x101002a2",
+    "n": 25,
+    "obj": "LIBCMT:initctyp.obj",
+    "why": []
+  },
+  "____lc_collate_cp_func": {
+    "t": "0x101002bb",
+    "n": 25,
+    "obj": "LIBCMT:initctyp.obj",
+    "why": []
+  },
+  "____lc_handle_func": {
+    "t": "0x101002d4",
+    "n": 25,
+    "obj": "LIBCMT:initctyp.obj",
+    "why": []
+  },
+  "__cfltcvt_init": {
+    "t": "0x100f7939",
+    "n": 56,
+    "obj": "LIBCMT:fpinit.obj",
+    "why": []
+  }
+}

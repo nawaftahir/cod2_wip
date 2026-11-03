@@ -1,4 +1,37 @@
+# Small helper source and candidate checkpoint - 2026-11-03
+
+C++116526B/721 bodies=45.952362174%;+204B/+7 sincebb21ec4.2511 protected
+extents retained. Transparency46 is newly matched source; six shorter-search
+candidates add158B from existing C++ source. Six library extents stay separate.
+The sole discovery change permits12 fixed bytes instead of16 alongside a4-byte
+search run; original binding/byte/data/extent/call gates remain unchanged.
+15 newly found candidates yield12 accepted extents. Before/after candidate
+receipts prove all prior extents/hits unchanged. New warm files pin all gains.
+
+The direct shadow-plane comparison removes float assignment stores and matches
+retail's69-byte length, but its pointer is centered at+8 instead of+4. This
+partial source improvement is kept without credit.70 actual shadow cases pass,
+including all five planes, three corner offsets and negative/zero/positive/NaN.
+Failed model Bool/result-flow variants were restored, as were culling product
+spellings. No new assembly. Receipt: nov03_small_helpers_checkpoint.json.
+
 # Verified buffer layout and window settings - 2026-11-03
+
+2026-11-03 helper wave: changing R_CheckTransparencyMsaa's result from bool
+to the existing byte type Bool matches all46 bytes at100118d0, including the
+AL-only result normalization. Both referees/regression pass; +46 pure C++ bytes.
+The actual helper fixture covers30 sample-count/HRESULT pairs, exact COM
+arguments, and strict S_OK (positive HRESULTs are false).
+Caching fallback values and a shared reduction label produced88/91 bytes;
+restored. Culling multiplication spellings/standard dot order produce the
+same71-byte mismatch; no gain. Model-name explicit-return and Bool trials
+produce56/62 bytes and remain unverified. Shadow receiver one-expression
+trial reduces102->88 but still rounds through a float local; no gain yet.
+
+2026-11-03: forcing Image_GetAvailableHashLocation inline lost protected extent
+0x1000cc10. Referees ran, regression rejected it; source and fixtures restored.
+Width-only platform getter inline lost both protected shadow extents and was
+also restored. Neither trial adds coverage.
 
 C/C++116322/253580=45.871914189%,714 bodies; +391B/+9 bodies sincecfe7803.
 The neighboring-region rule only narrows existing engine C++ raw hits, requires

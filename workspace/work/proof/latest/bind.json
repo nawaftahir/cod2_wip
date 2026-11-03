@@ -191,6 +191,12 @@
 "call ?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z"
 ]
 },
+"?R_LoadStep@@YAXPBD@Z": {
+"t": "0x10004870",
+"n": 31,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z": {
 "t": "0x10004f40",
 "n": 222,
@@ -550,6 +556,12 @@
 "?R_AddImageToList@@YAXPAUGfxImage@@PAX@Z": {
 "t": "0x1000c7e0",
 "n": 17,
+"obj": "r_image.obj",
+"why": []
+},
+"?R_GetImageList@@YAXPAUImageList@@@Z": {
+"t": "0x1000c800",
+"n": 23,
 "obj": "r_image.obj",
 "why": []
 },
@@ -1045,6 +1057,12 @@
 "obj": "r_init.obj",
 "why": []
 },
+"?R_CheckTransparencyMsaa@@YAEI@Z": {
+"t": "0x100118d0",
+"n": 46,
+"obj": "r_init.obj",
+"why": []
+},
 "?R_StoreDirect3DCaps@@YAXI@Z": {
 "t": "0x10011900",
 "n": 307,
@@ -1290,6 +1308,12 @@
 "?term_destination@@YAXPAUjpeg_compress_struct@@@Z": {
 "t": "0x100145b0",
 "n": 20,
+"obj": "r_jpeg.obj",
+"why": []
+},
+"?PrintfJpeg@@YAXPAD@Z": {
+"t": "0x10014650",
+"n": 22,
 "obj": "r_jpeg.obj",
 "why": []
 },
@@ -2143,6 +2167,12 @@
 "obj": "r_outdoor.obj",
 "why": []
 },
+"?R_OutdoorTexelToWorld@@YAMHH@Z": {
+"t": "0x10020890",
+"n": 25,
+"obj": "r_outdoor.obj",
+"why": []
+},
 "?R_CreateOutdoorImage@@YAXPAUGfxImage@@@Z": {
 "t": "0x10020a70",
 "n": 136,
@@ -2611,6 +2641,14 @@
 "call ?R_ClearForCubemapShot@@YAXXZ"
 ]
 },
+"?R_EndCubemapShot@@YAXH@Z": {
+"t": "0x10026a70",
+"n": 20,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_CaptureCubemapShot@@YAXH@Z"
+]
+},
 "?R_WriteCubemapShotAlpha@@YAXHMMPAE@Z": {
 "t": "0x10026840",
 "n": 100,
@@ -2973,6 +3011,12 @@
 "obj": "r_staticmodelcache.obj",
 "why": []
 },
+"?R_InitStaticModelIndexCache@@YAXXZ": {
+"t": "0x1002bad0",
+"n": 20,
+"obj": "r_staticmodelcache.obj",
+"why": []
+},
 "?R_StaticModelCacheStats_f@@YAXXZ": {
 "t": "0x1002bb90",
 "n": 84,
@@ -3266,6 +3310,12 @@
 "?RB_UpdateColorInternal@@YAXPBMPAE@Z": {
 "t": "0x10032490",
 "n": 165,
+"obj": "rb_backend.obj",
+"why": []
+},
+"?RB_UpdateColor@@YAXPBM0@Z": {
+"t": "0x10032540",
+"n": 28,
 "obj": "rb_backend.obj",
 "why": []
 },
@@ -6873,6 +6923,12 @@
 "obj": "q_parse.obj",
 "why": []
 },
+"?Com_EndParseSession@@YAXXZ": {
+"t": "0x1005f1c0",
+"n": 31,
+"obj": "q_parse.obj",
+"why": []
+},
 "?Com_GetCurrentParseLine@@YAHXZ": {
 "t": "0x1005f270",
 "n": 18,
@@ -9518,6 +9574,12 @@
 "?Append@CNode@D3DXShader@@SGPAV12@PAV12@0@Z": {
 "t": "0x1008282f",
 "n": 41,
+"obj": "d3dx9:cnode.obj",
+"why": []
+},
+"??0CNodeList@D3DXShader@@QAE@XZ": {
+"t": "0x1008285c",
+"n": 22,
 "obj": "d3dx9:cnode.obj",
 "why": []
 },
@@ -14159,6 +14221,12 @@
 "obj": "LIBCMT:snprintf.obj",
 "why": []
 },
+"__fpmath": {
+"t": "0x100f7981",
+"n": 30,
+"obj": "LIBCMT:fpinit.obj",
+"why": []
+},
 "__strdup": {
 "t": "0x100f799f",
 "n": 43,
@@ -14810,6 +14878,12 @@
 "obj": "LIBCMT:calloc.obj",
 "why": []
 },
+"___crtInitCritSecNoSpinCount@8": {
+"t": "0x10107a56",
+"n": 16,
+"obj": "LIBCMT:initcrit.obj",
+"why": []
+},
 "___crtInitCritSecAndSpinCount": {
 "t": "0x10107a66",
 "n": 139,
@@ -15268,6 +15342,24 @@
 "why": [
 "call _memcpy"
 ]
+},
+"____lc_codepage_func": {
+"t": "0x101002a2",
+"n": 25,
+"obj": "LIBCMT:initctyp.obj",
+"why": []
+},
+"____lc_collate_cp_func": {
+"t": "0x101002bb",
+"n": 25,
+"obj": "LIBCMT:initctyp.obj",
+"why": []
+},
+"____lc_handle_func": {
+"t": "0x101002d4",
+"n": 25,
+"obj": "LIBCMT:initctyp.obj",
+"why": []
 },
 "_strcspn": {
 "t": "0x101002f0",
@@ -16905,12 +16997,6 @@
 "obj": "d3dx9:cbuffer.obj",
 "why": []
 },
-"??0CNodeList@D3DXShader@@QAE@XZ": {
-"t": "0x1008285c",
-"n": 22,
-"obj": "d3dx9:cnode.obj",
-"why": []
-},
 "??0CNodeToken@D3DXShader@@QAE@XZ": {
 "t": "0x10082a69",
 "n": 18,
@@ -17153,6 +17239,12 @@
 "obj": "LIBCMT:crt0dat.obj",
 "why": []
 },
+"__cfltcvt_init": {
+"t": "0x100f7939",
+"n": 56,
+"obj": "LIBCMT:fpinit.obj",
+"why": []
+},
 "_memcpy": {
 "t": "0x100fcdf0",
 "n": 829,
@@ -17242,12 +17334,6 @@
 "?ExitJpeg@@YAXXZ": {
 "t": "0x10014630",
 "n": 17,
-"obj": "r_jpeg.obj",
-"why": []
-},
-"?PrintfJpeg@@YAXPAD@Z": {
-"t": "0x10014650",
-"n": 22,
 "obj": "r_jpeg.obj",
 "why": []
 },

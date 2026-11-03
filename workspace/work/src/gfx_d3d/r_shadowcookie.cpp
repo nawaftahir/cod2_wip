@@ -260,14 +260,13 @@ static void R_SetShadowViewParms(GfxViewParms *view, const float *mins, const fl
 // PINNED 10027540/69: all five planes test the far corner of receiver bounds.
 static bool R_IsShadowReceiverOutside(const float *bounds, const DpvsPlane *planes)
 {
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i != 5; ++i)
     {
         const DpvsPlane *plane = &planes[i];
-        float distance = *(const float *)((const byte *)bounds + plane->side[2]) * plane->coeffs[2];
-        distance += *(const float *)((const byte *)bounds + plane->side[1]) * plane->coeffs[1];
-        distance += *(const float *)((const byte *)bounds + plane->side[0]) * plane->coeffs[0];
-        distance += plane->coeffs[3];
-        if (distance <= 0.0f)
+        if (*(const float *)((const byte *)bounds + plane->side[0]) * plane->coeffs[0]
+            + *(const float *)((const byte *)bounds + plane->side[1]) * plane->coeffs[1]
+            + *(const float *)((const byte *)bounds + plane->side[2]) * plane->coeffs[2]
+            + plane->coeffs[3] <= 0.0f)
             return true;
     }
     return false;

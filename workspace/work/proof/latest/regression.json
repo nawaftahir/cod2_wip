@@ -1,8 +1,8 @@
 {
-  "functions": 750,
-  "bytes": 124923,
+  "functions": 757,
+  "bytes": 125127,
   "total": 253580,
-  "percent": 49.26374319741304,
+  "percent": 49.344191182269896,
   "baseline_lost": [],
   "gains": [
     {
@@ -105,6 +105,12 @@
       "target": "0x10004670",
       "bytes": 109,
       "name": "?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10004870",
+      "bytes": 31,
+      "name": "?R_LoadStep@@YAXPBD@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
@@ -321,6 +327,12 @@
       "target": "0x1000c7e0",
       "bytes": 17,
       "name": "?R_AddImageToList@@YAXPAUGfxImage@@PAX@Z",
+      "object": "r_image.obj"
+    },
+    {
+      "target": "0x1000c800",
+      "bytes": 23,
+      "name": "?R_GetImageList@@YAXPAUImageList@@@Z",
       "object": "r_image.obj"
     },
     {
@@ -561,6 +573,12 @@
       "target": "0x10011760",
       "bytes": 358,
       "name": "?R_ChooseRenderer@@YAXPBU_D3DCAPS9@@@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x100118d0",
+      "bytes": 46,
+      "name": "?R_CheckTransparencyMsaa@@YAEI@Z",
       "object": "r_init.obj"
     },
     {
@@ -1002,6 +1020,12 @@
       "object": "r_outdoor.obj"
     },
     {
+      "target": "0x10020890",
+      "bytes": 25,
+      "name": "?R_OutdoorTexelToWorld@@YAMHH@Z",
+      "object": "r_outdoor.obj"
+    },
+    {
       "target": "0x10021840",
       "bytes": 79,
       "name": "?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z",
@@ -1218,6 +1242,12 @@
       "object": "r_staticmodelcache.obj"
     },
     {
+      "target": "0x1002bad0",
+      "bytes": 20,
+      "name": "?R_InitStaticModelIndexCache@@YAXXZ",
+      "object": "r_staticmodelcache.obj"
+    },
+    {
       "target": "0x1002bb90",
       "bytes": 84,
       "name": "?R_StaticModelCacheStats_f@@YAXXZ",
@@ -1311,6 +1341,12 @@
       "target": "0x100307e0",
       "bytes": 91,
       "name": "?RB_SetGammaRamp@@YAXPBUGfxGammaRamp@@@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x10032540",
+      "bytes": 28,
+      "name": "?RB_UpdateColor@@YAXPBM0@Z",
       "object": "rb_backend.obj"
     },
     {
@@ -1666,6 +1702,12 @@
       "bytes": 169,
       "name": "?FFT_Init@@YAXPAHPAUcomplex_s@@@Z",
       "object": "fft.obj"
+    },
+    {
+      "target": "0x1005f1c0",
+      "bytes": 31,
+      "name": "?Com_EndParseSession@@YAXXZ",
+      "object": "q_parse.obj"
     },
     {
       "target": "0x1005fe80",

@@ -85,7 +85,8 @@ for i, (va, name, obj) in enumerate(syms):
     short_return = bool(decoded and decoded[-1].address + decoded[-1].size == va + len(code)
                         and decoded[-1].mnemonic == 'ret'
                         and not any(flow_groups.intersection(ins.groups) for ins in decoded[:-1]))
-    if len(lit) >= 8 or (len(lit) >= 4 and len(code) - len(mask) >= 16) or short_return:
+    # Relocated leaves may have only12 fixed bytes; bindcheck still proves every operand.
+    if len(lit) >= 8 or (len(lit) >= 4 and len(code) - len(mask) >= 12) or short_return:
         p = cdata.find(lit)
         while p >= 0 and len(hits) < 8:
             st = p - best[0]

@@ -1,0 +1,48 @@
+{
+  "status": "V3 source checkpoint; V4/V5 unfinished",
+  "base_commit": "bb21ec4",
+  "cpp_bytes": 116526,
+  "cpp_percent": 45.952362173673,
+  "cpp_bodies": 721,
+  "denominator": 253580,
+  "denominator_caveat": "Inventory-based and provisional; not whole-file completion",
+  "net_cpp_bytes_since_base": 204,
+  "net_cpp_bodies_since_base": 7,
+  "protected_extents": 2511,
+  "clean_verified_files": 10,
+  "clean_verified_emitted_functions": 61,
+  "shadow_draft": {
+    "size": 69,
+    "target_size": 69,
+    "matched": false,
+    "cpp_credit": 0,
+    "remaining_difference": "Loop pointer base +8 versus retail +4, with corresponding displacements"
+  },
+  "discovery_rule": "12 fixed bytes instead of16 for candidates with a4-byte search run; unchanged full byte/binding/extent/call closure gates",
+  "raw_same_offset_bytes": 239256,
+  "raw_same_offset_percent": 12.923033047566372,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "build_sha256": "f4bfe4edd46267e952bc4772cc02a2302d9a7bd78efb275c3b666b0e3de625f7",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "cost": {
+    "build_outputs": 1,
+    "workers_spawned": 0,
+    "incremental_links_this_wave": 7,
+    "agent_tokens": "Not exposed; no estimate invented"
+  },
+  "hashes": {
+    "target/work/src/gfx_d3d/r_init.cpp": "cec84a8e637e2ba62ac6ab27b7a14612fc574d94931b650da0861d4f7935a92c",
+    "target/work/src/gfx_d3d/r_shadowcookie.cpp": "8a68a0df1ef77b5c62938d21e5350558a8592625fbf1b55697bc6cff0b3b970e",
+    "tools/cmp.py": "5a15946bc46b844aba9fa64de289fe8d7d9a5888e8cd343df42ee0f8c517a9a7",
+    "tools/bindcheck.py": "1fcbb51b64c26c4dcfe2a7b50bd2ad0210a8fbdcdbecefd52010641730dc5cc6",
+    "target/work/tools/regression.py": "5e7fffdef217c1a7406edf312c0aa2503e1e25ee6abc7fbd42eab9d335a5950b",
+    "target/work/tools/check_checkpoint.py": "29c6dec5f286bdce230c93bfdd44b6c034ecbd96c31eaa770ce66e7ce7be83a1",
+    "target/work/tools/source_coverage.py": "da14ea716974df944e2ea25eb187ef918e23a633abb38543750c8ed306af721d",
+    "target/work/proof/source_coverage_current.json": "59fe2cfad5600987e0c4e231e8a0a06ba75f3425b1f1cc19d9ce3ea03171a32c",
+    "target/work/proof/latest/cmp.json": "abcc267fe90003125da376ecc82f8433986d61cb7b798acba9b98d09e844247e",
+    "target/work/proof/latest/bind.json": "4e471f16d175dc745bdbcaf02a7766ff132237f677a19e092f9ba927ac6d1319",
+    "target/work/proof/nov03_small_helpers_negatives.json": "22d4c294f28c036b82b3cf60a8997ab5bab3d2025d63a5717749b0a5dc99f596",
+    "target/work/proof/nov03_short_search_candidate_delta.json": "6017ccb318179d38e060d1fbc8df0dcdaa689a4c205b8b0820aafde984a4d41b"
+  }
+}

@@ -1,0 +1,125 @@
+[
+  {
+    "name": "?R_LoadStep@@YAXPBD@Z",
+    "obj": "r_bsp_load_obj.obj",
+    "size": 31,
+    "hits": [
+      "0x10004870"
+    ]
+  },
+  {
+    "name": "?R_GetImageList@@YAXPAUImageList@@@Z",
+    "obj": "r_image.obj",
+    "size": 23,
+    "hits": [
+      "0x1000c800"
+    ]
+  },
+  {
+    "name": "?PrintfJpeg@@YAXPAD@Z",
+    "obj": "r_jpeg.obj",
+    "size": 22,
+    "hits": [
+      "0x10014650"
+    ]
+  },
+  {
+    "name": "?R_ReleaseAllModels@@YAXXZ",
+    "obj": "r_model.obj",
+    "size": 21,
+    "hits": [
+      "0x1001d8cc",
+      "0x10020310",
+      "0x10020350",
+      "0x100203ac"
+    ]
+  },
+  {
+    "name": "?R_OutdoorTexelToWorld@@YAMHH@Z",
+    "obj": "r_outdoor.obj",
+    "size": 25,
+    "hits": [
+      "0x10020890"
+    ]
+  },
+  {
+    "name": "?R_EndCubemapShot@@YAXH@Z",
+    "obj": "r_screenshot.obj",
+    "size": 20,
+    "hits": [
+      "0x10026a70"
+    ]
+  },
+  {
+    "name": "?R_InitStaticModelIndexCache@@YAXXZ",
+    "obj": "r_staticmodelcache.obj",
+    "size": 20,
+    "hits": [
+      "0x1002bad0"
+    ]
+  },
+  {
+    "name": "?RB_UpdateColor@@YAXPBM0@Z",
+    "obj": "rb_backend.obj",
+    "size": 28,
+    "hits": [
+      "0x10032540"
+    ]
+  },
+  {
+    "name": "?Com_EndParseSession@@YAXXZ",
+    "obj": "q_parse.obj",
+    "size": 31,
+    "hits": [
+      "0x1005f1c0"
+    ]
+  },
+  {
+    "name": "??0CNodeList@D3DXShader@@QAE@XZ",
+    "obj": "d3dx9:cnode.obj",
+    "size": 22,
+    "hits": [
+      "0x1008285c"
+    ]
+  },
+  {
+    "name": "__fpmath",
+    "obj": "LIBCMT:fpinit.obj",
+    "size": 30,
+    "hits": [
+      "0x100f7981"
+    ]
+  },
+  {
+    "name": "___crtInitCritSecNoSpinCount@8",
+    "obj": "LIBCMT:initcrit.obj",
+    "size": 16,
+    "hits": [
+      "0x10107a56"
+    ]
+  },
+  {
+    "name": "____lc_codepage_func",
+    "obj": "LIBCMT:initctyp.obj",
+    "size": 25,
+    "hits": [
+      "0x101002a2"
+    ]
+  },
+  {
+    "name": "____lc_collate_cp_func",
+    "obj": "LIBCMT:initctyp.obj",
+    "size": 25,
+    "hits": [
+      "0x101002bb"
+    ]
+  },
+  {
+    "name": "____lc_handle_func",
+    "obj": "LIBCMT:initctyp.obj",
+    "size": 25,
+    "hits": [
+      "0x101002d4"
+    ]
+  }
+]
