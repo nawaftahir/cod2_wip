@@ -1,8 +1,8 @@
-# Next session (state 2026-11-03). Paste the prompt at the bottom into a FRESH session.
+# Next session (state 2026-11-03 evening). Paste the prompt at the bottom into a FRESH session.
 
 ## State
 - 1.0 client (`~/cod2/test/dev/claude_client`, branch master, HEAD cf58819): release build
-  **1,698,959 / 1,699,840 same-offset section bytes = 99.948%, 881 B left**. Gate green.
+  **1,699,145 / 1,699,840 same-offset section bytes = 99.959%, 695 B left** (11-03: +186, see LESSONS 11-03). Gate green.
   Not pushed: everything since bb47c37 (owner pushes with "push it").
 - Measure: `bash ~/lv.sh` (full release build + shameter ALL line). Land: `lab/w200/shapeb.sh TAG
   "REL:SPEC.py:" -- CALLEES` (patch + full build), then `sh lab/gate_w18.sh /abs/path/TAG.patch`
@@ -12,6 +12,9 @@
 - 1.3 client: worktree `~/cod2/test/dev/claude_client13` (branch client-1.3) is run by the owner's
   opencode agents (brief `AGENTS.md`, ratchet `ratchet13.sh`, notes `NOTES_1.3.md`, baseline 5.16%,
   ~218 KB of 1.3 code missing). Do NOT work there; only review it when the owner asks.
+
+## Next: identify the 6 code-free TUs (Rich 265 vs 271, Mac STABS candidates in LESSONS 10-29), then settle ties once.
+11-03 closed: Crosshair (no source spelling forwards yaw under /Op; MP+SP retail agree), x87 draw trio (IL arg layout), FX residue (width slot).
 
 ## Remaining 1.0 items (pinned causes in LESSONS 10-31c..i, lab/w200/inl_notes.txt)
 | Item | B | Next attack |
