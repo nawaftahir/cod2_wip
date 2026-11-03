@@ -11,7 +11,7 @@
   `nawaftahir/cod2engine` was recreated 11-02 (private, main only); old one is `cod2engine-old`.
 - 1.3 client: worktree `~/cod2/test/dev/claude_client13` (branch client-1.3) is run by the owner's
   opencode agents (brief `AGENTS.md`, ratchet `ratchet13.sh`, notes `NOTES_1.3.md`, baseline 5.16%,
-  ~218 KB of 1.3 code missing). Do NOT work there; only review it when the owner asks.
+  ~218 KB of 1.3 code missing). Merged 1.0 master on 11-04 (148a13b), worklist in WORKLIST_1.3.md.
 
 ## Next: identify the 6 code-free TUs (Rich 265 vs 271, Mac STABS candidates in LESSONS 10-29), then settle ties once.
 11-03 closed: Crosshair (no source spelling forwards yaw under /Op; MP+SP retail agree), x87 draw trio (IL arg layout), FX residue (width slot).
