@@ -2,7 +2,7 @@
 
 ## State
 - 1.0 client (`~/cod2/test/dev/claude_client`, branch master, HEAD cf58819): release build
-  **1,699,145 / 1,699,840 same-offset section bytes = 99.959%, 695 B left** (11-03: +186, see LESSONS 11-03). Gate green.
+  **1,699,161 / 1,699,840 same-offset section bytes = 99.960%, 679 B left** (11-03: +202, see LESSONS 11-03; residue map lab/w200/residue_11-03.txt). Gate green.
   Not pushed: everything since bb47c37 (owner pushes with "push it").
 - Measure: `bash ~/lv.sh` (full release build + shameter ALL line). Land: `lab/w200/shapeb.sh TAG
   "REL:SPEC.py:" -- CALLEES` (patch + full build), then `sh lab/gate_w18.sh /abs/path/TAG.patch`
