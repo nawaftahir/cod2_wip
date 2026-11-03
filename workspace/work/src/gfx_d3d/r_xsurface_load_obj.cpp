@@ -108,8 +108,8 @@ XSurface *XModelReadSurface(XModel *model, int *partBits, const byte **pos, Allo
                 vertPtr += sizeof(XVertexInfo);
                 for (weightIndex = 0; weightIndex < numWeights; weightIndex++)
                 {
+                    XModelReadBlendInfo(pos, (XBlendInfo *)vertPtr, partBits);
                     vertPtr += sizeof(XBlendInfo);
-                    XModelReadBlendInfo(pos, (XBlendInfo *)vertPtr - 1, partBits);
                 }
                 continue;
             }

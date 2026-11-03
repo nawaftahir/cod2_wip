@@ -1,3 +1,14 @@
+## Unverified surface-loader draft
+
+work/src/gfx_d3d/r_xsurface_load_obj.cpp reads the blend record before advancing
+its pointer. Selected trial1503 bytes versus retail1519; first normalized
+fdiff discrepancy is inside unrolled blends.288 actual stream cases pass.
+A current-record temporary1534 and explicit bit assignment1503 both fail;
+restored the selected draft. Proof: target/work/proof/nov03_xsurface_draft.json.
+No new credit; root src/ unchanged. Do not mistake physical diagnostic output
+for a fresh accepted build. Next inspect unrolled helper source/alias context,
+not more pointer or bit-expression spellings.
+
 ## Unverified active draft - occluder loader
 
 work/src/gfx_d3d/r_bsp_load_obj.cpp contains a partial R_LoadOccluders

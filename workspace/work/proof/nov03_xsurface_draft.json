@@ -1,0 +1,22 @@
+{
+  "status": "UNVERIFIED partial C++ source; zero added coverage",
+  "symbol": "XModelReadSurface",
+  "target": "0x1002d4a0",
+  "retail_bytes": 1519,
+  "selected_trial_bytes": 1503,
+  "baseline_bytes": 1548,
+  "rejected_current_record_temporary_bytes": 1534,
+  "tests": "288 packed rigid/skinned streams passed for selected trial; all fields, bone bits, padding and guards",
+  "selected_source_sha256": "edb6b52b705fe5a55292b6b427b6a9186f67ac2a0ba8194103479f8ceac805ee",
+  "selected_trial_log": "latest/nov03_xsurface_blend_traversal.log",
+  "physical_build": "Rejected bone-bit assignment trial; selected compound assignment restored. No new accepted coverage.",
+  "remaining": "Unrolled blend-record code; 243 normalized disassembled instructions precede first difference in selected trial",
+  "credit": 0,
+  "rejected_bone_bit_assignment": {
+    "candidate_bytes": 1503,
+    "helper_byte_candidate": "0x1002d420 /123 bytes retained",
+    "native_cases": 288,
+    "matched": false,
+    "log": "latest/nov03_xsurface_bone_bits.log"
+  }
+}

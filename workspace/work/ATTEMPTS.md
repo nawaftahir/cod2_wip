@@ -1,5 +1,19 @@
 # Small helper source and candidate checkpoint - 2026-11-03
 
+Surface-loader bit-expression probe: explicit reversed-operand assignment
+still emits1503 bytes, no full-function hit. Existing blend helper remains
+a123-byte raw candidate at1002d420;288 stream fixtures pass. Restored the
+clearer compound assignment. This does not prove the selected draft freshly
+matched; no coverage added. Avoid further bit-expression spelling sweeps.
+
+XModelReadSurface traversal: move blend-pointer increment after reading the
+current record,1548->1503 versus retail1519. All288 native packed-stream cases
+pass. First normalized disassembly difference moves to instruction243, inside
+unrolled blend records. Separate current-record temporary instead emits1534
+and changes early register assignment; rejected. Restored selected1503-byte
+trial source. Both probes exit3; ZERO coverage. Physical build is rejected
+second trial, not a fresh proof for restored source. See nov03_xsurface_draft.json.
+
 Occluder count-lifetime wave: separate immutable allocation count and mutable
 loop countdown changes551->567 versus retail568. Native actual-loader tests
 pass. Declaration-only reordering leaves the same567-byte mismatch. Both
