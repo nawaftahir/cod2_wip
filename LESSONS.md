@@ -368,3 +368,4 @@ lay: dropping 'static' from static __forceinline helpers in one .cpp is a no-op 
 - 11-03 DEAD (round 4b): Window_Paint int cycle on o4_wp2 2, fa/fi in case 1 C2360; DSound_UpdateSample return len1+len2 18, {p;len} struct pair 32, dataOffset=len1+len2 74. Untested: extra read of one len.
 - 11-03 DEAD (DSound slots): extra len2 guard (pLock2 && dwLockLen2, nested if) 41, +1 byte; swap still open.
 - 11-03 CLOSED: VC++ Toolkit 2003 1.01 (ftp.zx.net.nz copy, md5 90d8b963) c2.dll 13.10.3077 = md5 8460473c, byte-identical to our VS2003 RTM c2. Toolkit 1.0 c2 3052 gives identical code. No other 3077-era c2 known: compiler version is not the cause of the /Op, scheduler and IV-order residues.
+- 11-03 DEAD (specs lab/w200/o6_*.py): IntersectPlanes pop esi 2 insns late (z double 12, int ok 2, decl order 2, !(fabs>=) 6); Window_Paint fillRect y/w/h reloads after UI_DrawSides ours y,w,h retail w,h,y (border update w,h,y 10, w,h,x,y 24, decl init 2).
