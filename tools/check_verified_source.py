@@ -8,15 +8,16 @@ proof = root / 'proof/verified_source_20261102'
 manifest = json.loads((proof / 'manifest.json').read_text())
 for name, expected in manifest['proof_hashes'].items():
     assert hashlib.sha256((proof / name).read_bytes()).hexdigest() == expected, name
-bindings = json.loads((proof / 'bind.json').read_text())
-compared = json.loads((proof / 'cmp.json').read_text())
-coverage = json.loads((proof / 'source_coverage.json').read_text())
 expected_files = {row['path'] for row in manifest['files']}
 actual_files = {p.relative_to(root).as_posix() for p in (root / 'src').rglob('*')
                 if p.is_file() and p.suffix in ('.c', '.cpp', '.h', '.inc', '.inl')}
 assert actual_files == expected_files, ('unexpected or missing source', actual_files ^ expected_files)
 count = 0
 for row in manifest['files']:
+    files = row.get('proof_files', dict(bind='bind.json', cmp='cmp.json', coverage='source_coverage.json'))
+    bindings = json.loads((proof / files['bind']).read_text())
+    compared = json.loads((proof / files['cmp']).read_text())
+    coverage = json.loads((proof / files['coverage']).read_text())
     path = root / row['path']
     assert hashlib.sha256(path.read_bytes()).hexdigest() == row['sha256'], row['path']
     relative = Path(row['working_source']).relative_to('target/work/src').as_posix()

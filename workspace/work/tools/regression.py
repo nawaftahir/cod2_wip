@@ -221,6 +221,10 @@ particle_cloud = gfx / 'target/work/proof/particle_cloud_20261103_warm_bind.json
 assert hashlib.sha256(particle_cloud.read_bytes()).hexdigest() == '54b43fd76076e8df08fe4b211dd1233d1756d6c2a2a43d3585f160d37bd1b971'
 required.update({va: row for va, row in accepted(particle_cloud).items()
                  if va in old or '@std@@' not in row['name']})
+callee_placement = gfx / 'target/work/proof/callee_placement_20261103_warm_bind.json'
+assert hashlib.sha256(callee_placement.read_bytes()).hexdigest() == 'e3ca7b5a5ec4e8dda6b4006923ad6860ac6f1cac5dcffe415c01c0399d7daf30'
+required.update({va: row for va, row in accepted(callee_placement).items()
+                 if va in old or '@std@@' not in row['name']})
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

@@ -1,0 +1,19 @@
+[
+  {
+    "name": "?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+    "size": 27,
+    "source": "0x10029e30",
+    "target": "0x1002beb0",
+    "raw_hits": [
+      "0x1002bda8",
+      "0x1002beb0"
+    ],
+    "calls": [
+      {
+        "offset": 4,
+        "source_callee": "0x10029d50",
+        "target_callee": "0x1002bdd0"
+      }
+    ]
+  }
+]

@@ -180,6 +180,9 @@ required.update(accepted(index_allocator))
 particle_cloud = Path(__file__).resolve().parents[1] / 'proof/particle_cloud_20261103_warm_bind.json'
 assert hashlib.sha256(particle_cloud.read_bytes()).hexdigest() == '54b43fd76076e8df08fe4b211dd1233d1756d6c2a2a43d3585f160d37bd1b971'
 required.update(accepted(particle_cloud))
+callee_placement = Path(__file__).resolve().parents[1] / 'proof/callee_placement_20261103_warm_bind.json'
+assert hashlib.sha256(callee_placement.read_bytes()).hexdigest() == 'e3ca7b5a5ec4e8dda6b4006923ad6860ac6f1cac5dcffe415c01c0399d7daf30'
+required.update(accepted(callee_placement))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

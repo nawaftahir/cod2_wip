@@ -7,7 +7,7 @@ import capstone
 gfx = Path(__file__).resolve().parents[3]
 tree = ast.parse((gfx / 'tools/bindcheck.py').read_text())
 helpers = [n for n in tree.body if isinstance(n, ast.FunctionDef)
-           and n.name in ('masked_eq', 'api_pointer_places')]
+           and n.name in ('masked_eq', 'api_pointer_places', 'callee_placement')]
 loop = next(n for n in tree.body if isinstance(n, ast.While) and 'jpeg_pointers' in ast.unparse(n))
 source, target, child, destination = 0x10001000, 0x10002000, 0x10003000, 0x10004000
 md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)

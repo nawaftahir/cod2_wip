@@ -16187,16 +16187,472 @@
 "obj": "LIBCMT:log_pentium4.obj",
 "why": []
 },
-"_DXGetErrorDescription9A@4": {
-"t": "0x100efe3c",
-"n": 11497,
-"obj": "DxErr9:dxerr9.obj",
-"why": []
-},
 "??$_Sort@PAPAUGfxImage@@HP6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0HP6AHPAU1@1@Z@Z": {
 "t": "0x1000df90",
 "n": 230,
 "obj": "r_image.obj",
+"why": []
+},
+"??$sort_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z": {
+"t": "0x1000e240",
+"n": 61,
+"obj": "r_image.obj",
+"why": []
+},
+"??$_Make_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@ZPAH0@Z": {
+"t": "0x1000e570",
+"n": 60,
+"obj": "r_image.obj",
+"why": []
+},
+"??$pop_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z": {
+"t": "0x1000e5b0",
+"n": 50,
+"obj": "r_image.obj",
+"why": []
+},
+"??$_Pop_heap_0@PAPAUGfxImage@@PAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z0@Z": {
+"t": "0x1000e6e0",
+"n": 36,
+"obj": "r_image.obj",
+"why": []
+},
+"??$_Pop_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@00PAU1@P6AH11@ZPAH@Z": {
+"t": "0x1000e780",
+"n": 31,
+"obj": "r_image.obj",
+"why": []
+},
+"??$make_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z": {
+"t": "0x10013e30",
+"n": 18,
+"obj": "r_init.obj",
+"why": []
+},
+"??$pop_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z": {
+"t": "0x100140a0",
+"n": 18,
+"obj": "r_init.obj",
+"why": []
+},
+"??$rotate@PAU_D3DDISPLAYMODE@@@std@@YAXPAU_D3DDISPLAYMODE@@00@Z": {
+"t": "0x100140c0",
+"n": 19,
+"obj": "r_init.obj",
+"why": []
+},
+"??$_Sort@PAPAUMaterial@@HP6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0HP6A_NPBU1@1@Z@Z": {
+"t": "0x100179a0",
+"n": 230,
+"obj": "r_material.obj",
+"why": []
+},
+"??$sort_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z": {
+"t": "0x10017c50",
+"n": 61,
+"obj": "r_material.obj",
+"why": []
+},
+"??$_Make_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@ZPAH0@Z": {
+"t": "0x10017f80",
+"n": 60,
+"obj": "r_material.obj",
+"why": []
+},
+"??$pop_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z": {
+"t": "0x10017fc0",
+"n": 50,
+"obj": "r_material.obj",
+"why": []
+},
+"??$_Pop_heap_0@PAPAUMaterial@@PAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z0@Z": {
+"t": "0x100180f0",
+"n": 36,
+"obj": "r_material.obj",
+"why": []
+},
+"??$_Pop_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@00PAU1@P6A_NPBU1@2@ZPAH@Z": {
+"t": "0x10018190",
+"n": 31,
+"obj": "r_material.obj",
+"why": []
+},
+"??$make_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z": {
+"t": "0x1001cf00",
+"n": 33,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$pop_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z": {
+"t": "0x1001d1e0",
+"n": 33,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$rotate@PAUGfxCachedShaderText@@@std@@YAXPAUGfxCachedShaderText@@00@Z": {
+"t": "0x1001d210",
+"n": 19,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"??$rotate@PAUShadowCandidate@@@std@@YAXPAUShadowCandidate@@00@Z": {
+"t": "0x10028700",
+"n": 22,
+"obj": "r_shadowcookie.obj",
+"why": []
+},
+"?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z": {
+"t": "0x1002beb0",
+"n": 27,
+"obj": "r_texturemem.obj",
+"why": []
+},
+"?LinearTrackAngle@@YAMMMMM@Z": {
+"t": "0x10058950",
+"n": 174,
+"obj": "com_math.obj",
+"why": []
+},
+"?DiffTrackAngle@@YAMMMMM@Z": {
+"t": "0x10058a70",
+"n": 174,
+"obj": "com_math.obj",
+"why": []
+},
+"?Com_ParseFloat@@YAMPAPBD@Z": {
+"t": "0x1005fe80",
+"n": 74,
+"obj": "q_parse.obj",
+"why": []
+},
+"??_GCConstantTable@D3DXShader@@QAEPAXI@Z": {
+"t": "0x100636bc",
+"n": 33,
+"obj": "d3dx9:d3dx9shader.obj",
+"why": [
+"call ??1CConstantTable@D3DXShader@@QAE@XZ"
+]
+},
+"??_GCTextureShader@D3DXShader@@QAEPAXI@Z": {
+"t": "0x10063863",
+"n": 33,
+"obj": "d3dx9:d3dx9shader.obj",
+"why": []
+},
+"??_GCPPInclude@D3DXShader@@QAEPAXI@Z": {
+"t": "0x10063b25",
+"n": 33,
+"obj": "d3dx9:cpreprocessor.obj",
+"why": []
+},
+"??_GCPPBlock@D3DXShader@@QAEPAXI@Z": {
+"t": "0x10063dcf",
+"n": 33,
+"obj": "d3dx9:cpreprocessor.obj",
+"why": []
+},
+"??_GCPPPragmaDef@D3DXShader@@QAEPAXI@Z": {
+"t": "0x10063e11",
+"n": 33,
+"obj": "d3dx9:cpreprocessor.obj",
+"why": []
+},
+"??_GCRegisterEntryNode@D3DXShader@@QAEPAXI@Z": {
+"t": "0x1006a6cc",
+"n": 33,
+"obj": "d3dx9:cassembler.obj",
+"why": []
+},
+"??_GCInstruction@D3DXShader@@QAEPAXI@Z": {
+"t": "0x1006c418",
+"n": 32,
+"obj": "d3dx9:ccompiler.obj",
+"why": []
+},
+"??_GCArgument@D3DXShader@@QAEPAXI@Z": {
+"t": "0x1006db35",
+"n": 32,
+"obj": "d3dx9:ccompiler.obj",
+"why": []
+},
+"?SetBool@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDH@Z": {
+"t": "0x100815dd",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetBoolArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBHI@Z": {
+"t": "0x10081629",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetInt@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDH@Z": {
+"t": "0x10081675",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetIntArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBHI@Z": {
+"t": "0x100816c1",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetFloat@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDM@Z": {
+"t": "0x1008170d",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetFloatArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBMI@Z": {
+"t": "0x10081759",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetVector@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXVECTOR4@@@Z": {
+"t": "0x100817a5",
+"n": 75,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetVectorArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXVECTOR4@@I@Z": {
+"t": "0x100817f0",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetMatrix@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@@Z": {
+"t": "0x1008183c",
+"n": 75,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetMatrixArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@I@Z": {
+"t": "0x10081887",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetMatrixPointerArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPAPBUD3DXMATRIX@@I@Z": {
+"t": "0x100818d3",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetMatrixTranspose@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@@Z": {
+"t": "0x1008191f",
+"n": 75,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetMatrixTransposeArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@I@Z": {
+"t": "0x1008196a",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?SetMatrixTransposePointerArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPAPBUD3DXMATRIX@@I@Z": {
+"t": "0x100819b6",
+"n": 76,
+"obj": "d3dx9:cconstanttable.obj",
+"why": [
+"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
+]
+},
+"?StringCchCopyA@@YGJPADIPBD@Z": {
+"t": "0x100f580e",
+"n": 29,
+"obj": "DxErr9:dxerr9.obj",
+"why": []
+},
+"?StringCchCopyW@@YGJPAGIPBG@Z": {
+"t": "0x100f582b",
+"n": 29,
+"obj": "DxErr9:dxerr9.obj",
+"why": []
+},
+"?StringCchPrintfA@@YAJPADIPBDZZ": {
+"t": "0x100f5848",
+"n": 41,
+"obj": "DxErr9:dxerr9.obj",
+"why": []
+},
+"?StringCchPrintfW@@YAJPAGIPBGZZ": {
+"t": "0x100f5871",
+"n": 41,
+"obj": "DxErr9:dxerr9.obj",
+"why": []
+},
+"?StringCchLengthA@@YGJPBDIPAI@Z": {
+"t": "0x100f589a",
+"n": 35,
+"obj": "DxErr9:dxerr9.obj",
+"why": []
+},
+"?StringCchLengthW@@YGJPBGIPAI@Z": {
+"t": "0x100f58bd",
+"n": 35,
+"obj": "DxErr9:dxerr9.obj",
+"why": []
+},
+"_tolower": {
+"t": "0x100f75ab",
+"n": 34,
+"obj": "LIBCMT:tolower.obj",
+"why": []
+},
+"___iscsymf": {
+"t": "0x100f87ed",
+"n": 26,
+"obj": "LIBCMT:_ctype.obj",
+"why": []
+},
+"___iscsym": {
+"t": "0x100f8807",
+"n": 26,
+"obj": "LIBCMT:_ctype.obj",
+"why": []
+},
+"_toupper": {
+"t": "0x100f72fe",
+"n": 34,
+"obj": "LIBCMT:toupper.obj",
+"why": []
+},
+"__CIpow": {
+"t": "0x100f8f20",
+"n": 59,
+"obj": "LIBCMT:pow.obj",
+"why": []
+},
+"__lock_file": {
+"t": "0x100fb4b9",
+"n": 47,
+"obj": "LIBCMT:_file.obj",
+"why": []
+},
+"__lock_file2": {
+"t": "0x100fb4e8",
+"n": 35,
+"obj": "LIBCMT:_file.obj",
+"why": []
+},
+"__unlock_file": {
+"t": "0x100fb50b",
+"n": 47,
+"obj": "LIBCMT:_file.obj",
+"why": []
+},
+"__unlock_file2": {
+"t": "0x100fb53a",
+"n": 35,
+"obj": "LIBCMT:_file.obj",
+"why": []
+},
+"__write": {
+"t": "0x100fbdab",
+"n": 171,
+"obj": "LIBCMT:write.obj",
+"why": []
+},
+"__isctype": {
+"t": "0x100fd57c",
+"n": 39,
+"obj": "LIBCMT:isctype.obj",
+"why": []
+},
+"__adj_fdiv_m16i": {
+"t": "0x10104ab4",
+"n": 52,
+"obj": "LIBCMT:adj_fdiv.obj",
+"why": []
+},
+"__adj_fdiv_m32i": {
+"t": "0x10104ae8",
+"n": 52,
+"obj": "LIBCMT:adj_fdiv.obj",
+"why": []
+},
+"__adj_fdivr_m16i": {
+"t": "0x10104bb4",
+"n": 52,
+"obj": "LIBCMT:adj_fdiv.obj",
+"why": []
+},
+"__adj_fdivr_m32i": {
+"t": "0x10104be8",
+"n": 52,
+"obj": "LIBCMT:adj_fdiv.obj",
+"why": []
+},
+"__lseek": {
+"t": "0x10106a14",
+"n": 171,
+"obj": "LIBCMT:lseek.obj",
+"why": []
+},
+"_wctomb": {
+"t": "0x10106b8d",
+"n": 39,
+"obj": "LIBCMT:wctomb.obj",
+"why": []
+},
+"__read": {
+"t": "0x10108dfc",
+"n": 171,
+"obj": "LIBCMT:read.obj",
+"why": []
+},
+"__chsize": {
+"t": "0x10109458",
+"n": 151,
+"obj": "LIBCMT:chsize.obj",
+"why": []
+},
+"__setmode": {
+"t": "0x10109ee5",
+"n": 151,
+"obj": "LIBCMT:setmode.obj",
+"why": []
+},
+"__CIlog": {
+"t": "0x1010abb0",
+"n": 59,
+"obj": "LIBCMT:log.obj",
+"why": []
+},
+"_DXGetErrorDescription9A@4": {
+"t": "0x100efe3c",
+"n": 11497,
+"obj": "DxErr9:dxerr9.obj",
 "why": []
 },
 "??$_Rotate@PAPAUGfxImage@@HPAU1@@std@@YAXPAPAUGfxImage@@00PAH0@Z": {
@@ -16209,12 +16665,6 @@
 "t": "0x1000f180",
 "n": 285,
 "obj": "r_staticmodelcache.obj",
-"why": []
-},
-"__CIpow": {
-"t": "0x100f8f20",
-"n": 59,
-"obj": "LIBCMT:pow.obj",
 "why": []
 },
 "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z": {
@@ -16309,12 +16759,6 @@
 "obj": "rb_state.obj",
 "why": []
 },
-"??$_Sort@PAPAUMaterial@@HP6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0HP6A_NPBU1@1@Z@Z": {
-"t": "0x100179a0",
-"n": 230,
-"obj": "r_material.obj",
-"why": []
-},
 "??$_Rotate@PAPAUMaterial@@HPAU1@@std@@YAXPAPAUMaterial@@00PAH0@Z": {
 "t": "0x100181b0",
 "n": 150,
@@ -16369,12 +16813,6 @@
 "obj": "LIBCMT:memmove.obj",
 "why": []
 },
-"__CIlog": {
-"t": "0x1010abb0",
-"n": 59,
-"obj": "LIBCMT:log.obj",
-"why": []
-},
 "__CIatan2": {
 "t": "0x1010aaaa",
 "n": 10,
@@ -16382,12 +16820,6 @@
 "why": [
 "call __cintrindisp2"
 ]
-},
-"_tolower": {
-"t": "0x100f75ab",
-"n": 34,
-"obj": "LIBCMT:tolower.obj",
-"why": []
 },
 "@__security_check_cookie@4": {
 "t": "0x10100d4d",
@@ -16413,20 +16845,6 @@
 "obj": "LIBCMT:new.obj",
 "why": []
 },
-"??_GCConstantTable@D3DXShader@@QAEPAXI@Z": {
-"t": "0x100636bc",
-"n": 33,
-"obj": "d3dx9:d3dx9shader.obj",
-"why": [
-"call ??1CConstantTable@D3DXShader@@QAE@XZ"
-]
-},
-"??_GCTextureShader@D3DXShader@@QAEPAXI@Z": {
-"t": "0x10063863",
-"n": 33,
-"obj": "d3dx9:d3dx9shader.obj",
-"why": []
-},
 "??_GCPPConditional@D3DXShader@@QAEPAXI@Z": {
 "t": "0x10063a76",
 "n": 33,
@@ -16445,52 +16863,10 @@
 "obj": "d3dx9:ctokenize.obj",
 "why": []
 },
-"??_GCPPInclude@D3DXShader@@QAEPAXI@Z": {
-"t": "0x10063b25",
-"n": 33,
-"obj": "d3dx9:cpreprocessor.obj",
-"why": []
-},
 "??_GCPPDefine@D3DXShader@@QAEPAXI@Z": {
 "t": "0x10065146",
 "n": 33,
 "obj": "d3dx9:cpreprocessor.obj",
-"why": []
-},
-"??_GCPPPragmaDef@D3DXShader@@QAEPAXI@Z": {
-"t": "0x10063e11",
-"n": 33,
-"obj": "d3dx9:cpreprocessor.obj",
-"why": []
-},
-"??_GCPPBlock@D3DXShader@@QAEPAXI@Z": {
-"t": "0x10063dcf",
-"n": 33,
-"obj": "d3dx9:cpreprocessor.obj",
-"why": []
-},
-"_toupper": {
-"t": "0x100f72fe",
-"n": 34,
-"obj": "LIBCMT:toupper.obj",
-"why": []
-},
-"??_GCRegisterEntryNode@D3DXShader@@QAEPAXI@Z": {
-"t": "0x1006a6cc",
-"n": 33,
-"obj": "d3dx9:cassembler.obj",
-"why": []
-},
-"??_GCArgument@D3DXShader@@QAEPAXI@Z": {
-"t": "0x1006db35",
-"n": 32,
-"obj": "d3dx9:ccompiler.obj",
-"why": []
-},
-"??_GCInstruction@D3DXShader@@QAEPAXI@Z": {
-"t": "0x1006c418",
-"n": 32,
-"obj": "d3dx9:ccompiler.obj",
 "why": []
 },
 "??1CParse@D3DXShader@@QAE@XZ": {
@@ -16747,52 +17123,10 @@
 "obj": "d3dx9:cvsprogram.obj",
 "why": []
 },
-"?StringCchPrintfW@@YAJPAGIPBGZZ": {
-"t": "0x100f5871",
-"n": 41,
-"obj": "DxErr9:dxerr9.obj",
-"why": []
-},
-"?StringCchPrintfA@@YAJPADIPBDZZ": {
-"t": "0x100f5848",
-"n": 41,
-"obj": "DxErr9:dxerr9.obj",
-"why": []
-},
 "___pxcptinfoptrs": {
 "t": "0x100fadb8",
 "n": 9,
 "obj": "LIBCMT:winsig.obj",
-"why": []
-},
-"__lock_file2": {
-"t": "0x100fb4e8",
-"n": 35,
-"obj": "LIBCMT:_file.obj",
-"why": []
-},
-"__unlock_file2": {
-"t": "0x100fb53a",
-"n": 35,
-"obj": "LIBCMT:_file.obj",
-"why": []
-},
-"__write": {
-"t": "0x100fbdab",
-"n": 171,
-"obj": "LIBCMT:write.obj",
-"why": []
-},
-"__lock_file": {
-"t": "0x100fb4b9",
-"n": 47,
-"obj": "LIBCMT:_file.obj",
-"why": []
-},
-"__unlock_file": {
-"t": "0x100fb50b",
-"n": 47,
-"obj": "LIBCMT:_file.obj",
 "why": []
 },
 "__errno": {
@@ -16825,18 +17159,6 @@
 "t": "0x101063c0",
 "n": 22,
 "obj": "intrncvt.obj",
-"why": []
-},
-"__lseek": {
-"t": "0x10106a14",
-"n": 171,
-"obj": "LIBCMT:lseek.obj",
-"why": []
-},
-"_wctomb": {
-"t": "0x10106b8d",
-"n": 39,
-"obj": "LIBCMT:wctomb.obj",
 "why": []
 },
 "___doserrno": {
@@ -16887,12 +17209,6 @@
 "obj": "matherr.obj",
 "why": []
 },
-"__read": {
-"t": "0x10108dfc",
-"n": 171,
-"obj": "LIBCMT:read.obj",
-"why": []
-},
 "_strncnt$private$LIBCMT:a_cmp.obj": {
 "t": "0x10109f7c",
 "n": 28,
@@ -16929,27 +17245,51 @@
 "obj": "r_jpeg.obj",
 "why": []
 },
-"??$_Make_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@ZPAH0@Z": {
-"t": "0x1000e570",
-"n": 60,
+"??$sort@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z": {
+"t": "0x1000df70",
+"n": 20,
 "obj": "r_image.obj",
 "why": []
 },
-"??$sort_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z": {
-"t": "0x1000e240",
-"n": 61,
+"??$make_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z": {
+"t": "0x1000e220",
+"n": 26,
 "obj": "r_image.obj",
 "why": []
 },
-"??$_Make_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@ZPAH0@Z": {
-"t": "0x10017f80",
-"n": 60,
+"??$rotate@PAPAUGfxImage@@@std@@YAXPAPAUGfxImage@@00@Z": {
+"t": "0x1000e5f0",
+"n": 22,
+"obj": "r_image.obj",
+"why": []
+},
+"?Material_FindTechnique@@YAPAUMaterialTechnique@@PBD@Z": {
+"t": "0x10016940",
+"n": 32,
 "obj": "r_material.obj",
 "why": []
 },
-"??$sort_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z": {
-"t": "0x10017c50",
-"n": 61,
+"?Material_FindTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z": {
+"t": "0x10016a40",
+"n": 32,
+"obj": "r_material.obj",
+"why": []
+},
+"??$sort@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z": {
+"t": "0x10017980",
+"n": 20,
+"obj": "r_material.obj",
+"why": []
+},
+"??$make_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z": {
+"t": "0x10017c30",
+"n": 26,
+"obj": "r_material.obj",
+"why": []
+},
+"??$rotate@PAPAUMaterial@@@std@@YAXPAPAUMaterial@@00@Z": {
+"t": "0x10018000",
+"n": 22,
 "obj": "r_material.obj",
 "why": []
 },

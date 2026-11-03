@@ -466,6 +466,69 @@
           "why": []
         }
       ]
+    },
+    {
+      "path": "src/gfx_d3d/r_texturemem.cpp",
+      "working_source": "target/work/src/gfx_d3d/r_texturemem.cpp",
+      "sha256": "01708aec4001af84f5f90ff537d432b1363de0b15744dcd8537142107c64dfa3",
+      "source_definitions": [
+        "R_VideoMemoryForDevice",
+        "R_DDEnumCallback",
+        "R_DrasticVideoMemoryForDevice",
+        "R_DDEnumDrasticCallback",
+        "R_VideoMemory",
+        "R_AvailableTextureMemory"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?R_VideoMemoryForDevice@@YAIPAU_GUID@@@Z",
+          "t": "0x1002bd20",
+          "n": 113,
+          "obj": "r_texturemem.obj",
+          "why": []
+        },
+        {
+          "name": "?R_DDEnumCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+          "t": "0x1002bda0",
+          "n": 35,
+          "obj": "r_texturemem.obj",
+          "why": []
+        },
+        {
+          "name": "?R_DrasticVideoMemoryForDevice@@YAIPAU_GUID@@@Z",
+          "t": "0x1002bdd0",
+          "n": 213,
+          "obj": "r_texturemem.obj",
+          "why": []
+        },
+        {
+          "name": "?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+          "t": "0x1002beb0",
+          "n": 27,
+          "obj": "r_texturemem.obj",
+          "why": []
+        },
+        {
+          "name": "?R_VideoMemory@@YAIXZ",
+          "t": "0x1002bed0",
+          "n": 115,
+          "obj": "r_texturemem.obj",
+          "why": []
+        },
+        {
+          "name": "?R_AvailableTextureMemory@@YAIXZ",
+          "t": "0x1002bf50",
+          "n": 96,
+          "obj": "r_texturemem.obj",
+          "why": []
+        }
+      ],
+      "proof_files": {
+        "bind": "texturemem_bind.json",
+        "cmp": "texturemem_cmp.json",
+        "coverage": "texturemem_source_coverage.json"
+      },
+      "candidate_sha256": "c4df07b5b3004fbe1139b50eb663514ac6a655dde9e5c3b1f866c3166eb546e5"
     }
   ],
   "proof_hashes": {
@@ -475,7 +538,11 @@
     "jpeg_callback_pins.json": "1215d719a23842a92a5989453f5110fd93165f14150b8febc09223c4b644b96c",
     "raw_discovery.json": "de851ddf43f36701e1ab004cdc08817fff5b176f3050c966374bda4ba1484a55",
     "old_referee_replay.json": "aae13c8aa52dbc5e984f44581fa4a8ceef5b216346687f085c11344b9e8393c7",
-    "old_referee.txt": "5138a1e14fc7818fba4901f541907bd2cb4827f36e8664a4ad24cb9f0eb1aa64"
+    "old_referee.txt": "5138a1e14fc7818fba4901f541907bd2cb4827f36e8664a4ad24cb9f0eb1aa64",
+    "texturemem_bind.json": "57350a5bb21446a8fb908deb95c972db841b11b62da087fb4340808c9da01443",
+    "texturemem_cmp.json": "9d8eaa2b7b98bf9a44d27b2c25281f4d7913b940f3ae0a1b034b7ebe390b036c",
+    "texturemem_source_coverage.json": "412738f963bbdca298ffacd7573913a5932aecbf7850fa41ba0c1fa6bf6f3031",
+    "texturemem_callee_pins.json": "24b546c54baf9e7368fde5600fadcdc475e84078a7742ba5441c9fd6bce1ae42"
   },
-  "candidate_derivation": "Five JPEG callback placements derive from paired MOV-immediate HIGHLOW sites in previously verified producers; old unmodified referee replay agrees. Copying snapshots adds no coverage."
+  "candidate_derivation": "Five JPEG callback placements derive from paired MOV-immediate HIGHLOW sites in previously verified producers; old unmodified referee replay agrees. Copying snapshots adds no coverage. Texture-memory callback placement derives from calls to an independently verified device-memory function; unchanged old-referee replay agrees. Its separate proof_files preserve the original eight TU snapshots."
 }

@@ -1,0 +1,62 @@
+[
+  {
+    "removed": "?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?LinearTrackAngle@@YAMMMMM@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?LinearTrackAngle@@YAMMMMM@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?DiffTrackAngle@@YAMMMMM@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?DiffTrackAngle@@YAMMMMM@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Com_ParseFloat@@YAMPAPBD@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Com_ParseFloat@@YAMPAPBD@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Material_FindTechnique@@YAPAUMaterialTechnique@@PBD@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Material_FindTechnique@@YAPAUMaterialTechnique@@PBD@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Material_FindTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Material_FindTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",
+    "gate": "regression.py",
+    "rejected": true
+  }
+]

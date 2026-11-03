@@ -213,9 +213,39 @@ def padded_callback(va, t, size):
                 and all(not i.mnemonic.startswith(('j', 'ret', 'int')) for i in decoded[:-1]))
 
 
+def callee_placement(va, row, callees):
+    """Narrow existing byte hits; final binding and extent gates still decide."""
+    code = read(osecs, va, row['size'])
+    if code is None:
+        return None
+    sites = []
+    for ins in instructions(md, code, va, orelocbytes):
+        if ins.size == 5 and ins.bytes[0] in (0xe8, 0xe9) and not overlaps_reloc(ins.address, 5, orelocbytes):
+            destination = ins.address + 5 + int.from_bytes(ins.bytes[1:], 'little', signed=True)
+            if destination in callees and not va <= destination < va + row['size']:
+                sites.append((ins.address - va, callees[destination]))
+    if not sites:
+        return None
+    hits = []
+    for hit in row['hits']:
+        t = int(hit, 16)
+        other = read(asecs, t, row['size'])
+        if other is not None and masked_eq(va, t, row['size']) and all(t + k + 5 + int.from_bytes(other[k + 1:k + 5], 'little', signed=True) == target
+                                     for k, target in sites):
+            hits.append(hit)
+    return hits[0] if len(hits) == 1 else None
+
+
 changed = True
 while changed and multi:
     changed = False
+    callees = {fnva[n]: int(r['hits'][0], 16) for n, r in cands.items() if n in fnva}
+    for va, row in multi.items():
+        if row['name'] not in cands and len(row['hits']) > 1:
+            hit = callee_placement(va, row, callees)
+            if hit is not None:
+                cands[row['name']] = dict(row, hits=[hit])
+                changed = True
     jpeg_pointers = {}
     for n, r in list(cands.items()):
         va, t = fnva.get(n), int(r['hits'][0], 16)

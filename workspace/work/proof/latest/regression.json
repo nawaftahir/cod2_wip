@@ -1,8 +1,8 @@
 {
-  "functions": 734,
-  "bytes": 123829,
+  "functions": 740,
+  "bytes": 124342,
   "total": 253580,
-  "percent": 48.83232116097484,
+  "percent": 49.0346241817178,
   "baseline_lost": [],
   "gains": [
     {
@@ -732,6 +732,18 @@
       "object": "r_material.obj"
     },
     {
+      "target": "0x10016940",
+      "bytes": 32,
+      "name": "?Material_FindTechnique@@YAPAUMaterialTechnique@@PBD@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10016a40",
+      "bytes": 32,
+      "name": "?Material_FindTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",
+      "object": "r_material.obj"
+    },
+    {
       "target": "0x10016e70",
       "bytes": 87,
       "name": "?Material_Sort@@YAXXZ",
@@ -1206,6 +1218,12 @@
       "object": "r_surfbounds.obj"
     },
     {
+      "target": "0x1002beb0",
+      "bytes": 27,
+      "name": "?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+      "object": "r_texturemem.obj"
+    },
+    {
       "target": "0x1002bfe0",
       "bytes": 37,
       "name": "?R_HashString@@YAHPBD@Z",
@@ -1572,6 +1590,18 @@
       "object": "com_math.obj"
     },
     {
+      "target": "0x10058950",
+      "bytes": 174,
+      "name": "?LinearTrackAngle@@YAMMMMM@Z",
+      "object": "com_math.obj"
+    },
+    {
+      "target": "0x10058a70",
+      "bytes": 174,
+      "name": "?DiffTrackAngle@@YAMMMMM@Z",
+      "object": "com_math.obj"
+    },
+    {
       "target": "0x1005da30",
       "bytes": 567,
       "name": "?BoxOnPlaneSide@@YAHQAM0PAUcplane_s@@@Z",
@@ -1582,6 +1612,12 @@
       "bytes": 169,
       "name": "?FFT_Init@@YAXPAHPAUcomplex_s@@@Z",
       "object": "fft.obj"
+    },
+    {
+      "target": "0x1005fe80",
+      "bytes": 74,
+      "name": "?Com_ParseFloat@@YAMPAPBD@Z",
+      "object": "q_parse.obj"
     },
     {
       "target": "0x1005ff30",
@@ -1609,7 +1645,7 @@
     }
   ],
   "checkpoint_lost": [],
-  "excluded_new_library_functions": 74,
+  "excluded_new_library_functions": 93,
   "dependency_objects": [
     "jcapimin.obj",
     "jcapistd.obj",
@@ -1657,5 +1693,5 @@
     "jutils.obj"
   ],
   "excluded_new_embedded_table_bytes": 482,
-  "excluded_new_library_bytes": 12536
+  "excluded_new_library_bytes": 13068
 }

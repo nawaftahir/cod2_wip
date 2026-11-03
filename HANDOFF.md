@@ -1,12 +1,22 @@
 # Active renderer work - 2026-11-03
 
-Current C/C++115418B/699 bodies=45.515419197%,2450 protected extents.
-Receipt: target/work/proof/nov03_particle_cloud_source_coverage.json. Final build
+Current C/C++115931B/705 bodies=45.717722218%,2488 protected extents.
+Receipt: target/work/proof/nov03_callee_checkpoint.json. Final build
 and all retention/source-freshness gates pass. Read PROGRESS.md for details. The older
 PAUSED/JPEG-placement entries below are historical. JPEG callback placement is
 now implemented, independently replayed against the unchanged old referee,
-and covered by rejection fixtures. Root src/ has8 complete files/49 emitted
-matches, including the complete r_jpeg.cpp. Run tools/check_verified_source.py.
+and covered by rejection fixtures. Root src/ has9 complete files/55 emitted
+matches, including r_jpeg.cpp and r_texturemem.cpp. Run tools/check_verified_source.py.
+
+Direct-callee filtering of existing ambiguous hits adds six C++ bodies/513B:
+LinearTrackAngle174, DiffTrackAngle174, Com_ParseFloat74, the two technique
+lookup wrappers32 each and the DirectDraw drastic callback27. The new helper
+requires full masked equality and known direct callees; no new targets, masks,
+extent rules or call-closure exceptions. Independently derived candidates through
+the unchanged old referee reproduce exactly the same accepted set.38 additional
+source/library extents are protected; twelve C++ removal negatives pass. No
+compiler rebuild was needed. The texture-memory TU passes all six emitted bodies
+and is copied unchanged to root src/ with separate pinned per-file evidence.
 
 Current work is active toward above50% C/C++; no user pause is recorded. Since
 b26ed3b, +801B: paired API pointer placements112, recovered index allocator72,

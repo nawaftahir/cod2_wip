@@ -1,0 +1,50 @@
+[
+  {
+    "name": "?R_VideoMemoryForDevice@@YAIPAU_GUID@@@Z",
+    "obj": "r_texturemem.obj",
+    "size": 113,
+    "hits": [
+      "0x1002bd20"
+    ]
+  },
+  {
+    "name": "?R_DDEnumCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+    "obj": "r_texturemem.obj",
+    "size": 35,
+    "hits": [
+      "0x1002bda0"
+    ]
+  },
+  {
+    "name": "?R_DrasticVideoMemoryForDevice@@YAIPAU_GUID@@@Z",
+    "obj": "r_texturemem.obj",
+    "size": 213,
+    "hits": [
+      "0x1002bdd0"
+    ]
+  },
+  {
+    "name": "?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+    "obj": "r_texturemem.obj",
+    "size": 27,
+    "hits": [
+      "0x1002beb0"
+    ]
+  },
+  {
+    "name": "?R_VideoMemory@@YAIXZ",
+    "obj": "r_texturemem.obj",
+    "size": 115,
+    "hits": [
+      "0x1002bed0"
+    ]
+  },
+  {
+    "name": "?R_AvailableTextureMemory@@YAIXZ",
+    "obj": "r_texturemem.obj",
+    "size": 96,
+    "hits": [
+      "0x1002bf50"
+    ]
+  }
+]

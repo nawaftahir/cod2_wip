@@ -1,0 +1,230 @@
+{
+  "??$pop_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z": {
+    "t": "0x1000e5b0",
+    "n": 50,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "??$_Pop_heap_0@PAPAUGfxImage@@PAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z0@Z": {
+    "t": "0x1000e6e0",
+    "n": 36,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "??$_Pop_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@00PAU1@P6AH11@ZPAH@Z": {
+    "t": "0x1000e780",
+    "n": 31,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "??$make_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z": {
+    "t": "0x10013e30",
+    "n": 18,
+    "obj": "r_init.obj",
+    "why": []
+  },
+  "??$pop_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z": {
+    "t": "0x100140a0",
+    "n": 18,
+    "obj": "r_init.obj",
+    "why": []
+  },
+  "??$rotate@PAU_D3DDISPLAYMODE@@@std@@YAXPAU_D3DDISPLAYMODE@@00@Z": {
+    "t": "0x100140c0",
+    "n": 19,
+    "obj": "r_init.obj",
+    "why": []
+  },
+  "??$pop_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z": {
+    "t": "0x10017fc0",
+    "n": 50,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "??$_Pop_heap_0@PAPAUMaterial@@PAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z0@Z": {
+    "t": "0x100180f0",
+    "n": 36,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "??$_Pop_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@00PAU1@P6A_NPBU1@2@ZPAH@Z": {
+    "t": "0x10018190",
+    "n": 31,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "??$make_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z": {
+    "t": "0x1001cf00",
+    "n": 33,
+    "obj": "r_material_load_obj.obj",
+    "why": []
+  },
+  "??$pop_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z": {
+    "t": "0x1001d1e0",
+    "n": 33,
+    "obj": "r_material_load_obj.obj",
+    "why": []
+  },
+  "??$rotate@PAUGfxCachedShaderText@@@std@@YAXPAUGfxCachedShaderText@@00@Z": {
+    "t": "0x1001d210",
+    "n": 19,
+    "obj": "r_material_load_obj.obj",
+    "why": []
+  },
+  "??$rotate@PAUShadowCandidate@@@std@@YAXPAUShadowCandidate@@00@Z": {
+    "t": "0x10028700",
+    "n": 22,
+    "obj": "r_shadowcookie.obj",
+    "why": []
+  },
+  "?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z": {
+    "t": "0x1002beb0",
+    "n": 27,
+    "obj": "r_texturemem.obj",
+    "why": []
+  },
+  "?LinearTrackAngle@@YAMMMMM@Z": {
+    "t": "0x10058950",
+    "n": 174,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?DiffTrackAngle@@YAMMMMM@Z": {
+    "t": "0x10058a70",
+    "n": 174,
+    "obj": "com_math.obj",
+    "why": []
+  },
+  "?Com_ParseFloat@@YAMPAPBD@Z": {
+    "t": "0x1005fe80",
+    "n": 74,
+    "obj": "q_parse.obj",
+    "why": []
+  },
+  "?StringCchCopyA@@YGJPADIPBD@Z": {
+    "t": "0x100f580e",
+    "n": 29,
+    "obj": "DxErr9:dxerr9.obj",
+    "why": []
+  },
+  "?StringCchCopyW@@YGJPAGIPBG@Z": {
+    "t": "0x100f582b",
+    "n": 29,
+    "obj": "DxErr9:dxerr9.obj",
+    "why": []
+  },
+  "?StringCchLengthA@@YGJPBDIPAI@Z": {
+    "t": "0x100f589a",
+    "n": 35,
+    "obj": "DxErr9:dxerr9.obj",
+    "why": []
+  },
+  "?StringCchLengthW@@YGJPBGIPAI@Z": {
+    "t": "0x100f58bd",
+    "n": 35,
+    "obj": "DxErr9:dxerr9.obj",
+    "why": []
+  },
+  "___iscsymf": {
+    "t": "0x100f87ed",
+    "n": 26,
+    "obj": "LIBCMT:_ctype.obj",
+    "why": []
+  },
+  "___iscsym": {
+    "t": "0x100f8807",
+    "n": 26,
+    "obj": "LIBCMT:_ctype.obj",
+    "why": []
+  },
+  "__isctype": {
+    "t": "0x100fd57c",
+    "n": 39,
+    "obj": "LIBCMT:isctype.obj",
+    "why": []
+  },
+  "__adj_fdiv_m16i": {
+    "t": "0x10104ab4",
+    "n": 52,
+    "obj": "LIBCMT:adj_fdiv.obj",
+    "why": []
+  },
+  "__adj_fdiv_m32i": {
+    "t": "0x10104ae8",
+    "n": 52,
+    "obj": "LIBCMT:adj_fdiv.obj",
+    "why": []
+  },
+  "__adj_fdivr_m16i": {
+    "t": "0x10104bb4",
+    "n": 52,
+    "obj": "LIBCMT:adj_fdiv.obj",
+    "why": []
+  },
+  "__adj_fdivr_m32i": {
+    "t": "0x10104be8",
+    "n": 52,
+    "obj": "LIBCMT:adj_fdiv.obj",
+    "why": []
+  },
+  "__chsize": {
+    "t": "0x10109458",
+    "n": 151,
+    "obj": "LIBCMT:chsize.obj",
+    "why": []
+  },
+  "__setmode": {
+    "t": "0x10109ee5",
+    "n": 151,
+    "obj": "LIBCMT:setmode.obj",
+    "why": []
+  },
+  "??$sort@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z": {
+    "t": "0x1000df70",
+    "n": 20,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "??$make_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z": {
+    "t": "0x1000e220",
+    "n": 26,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "??$rotate@PAPAUGfxImage@@@std@@YAXPAPAUGfxImage@@00@Z": {
+    "t": "0x1000e5f0",
+    "n": 22,
+    "obj": "r_image.obj",
+    "why": []
+  },
+  "?Material_FindTechnique@@YAPAUMaterialTechnique@@PBD@Z": {
+    "t": "0x10016940",
+    "n": 32,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "?Material_FindTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z": {
+    "t": "0x10016a40",
+    "n": 32,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "??$sort@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z": {
+    "t": "0x10017980",
+    "n": 20,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "??$make_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z": {
+    "t": "0x10017c30",
+    "n": 26,
+    "obj": "r_material.obj",
+    "why": []
+  },
+  "??$rotate@PAPAUMaterial@@@std@@YAXPAPAUMaterial@@00@Z": {
+    "t": "0x10018000",
+    "n": 22,
+    "obj": "r_material.obj",
+    "why": []
+  }
+}

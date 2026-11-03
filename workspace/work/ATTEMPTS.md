@@ -1,3 +1,27 @@
+# Accepted direct-callee ambiguity resolution - 2026-11-03
+
+Six existing C++ bodies add513 verified bytes: two angle trackers174 each,
+Com_ParseFloat74, technique lookup wrappers32 each and DD drastic callback27.
+C/C++115931/253580=45.717722218%,705 bodies. Source/library protection now2488
+extents. No new assembly. Library/STL gains are accounted separately.
+
+callee_placement only narrows existing raw hits using direct calls to placed
+functions and rechecks full masked equality. All original byte, relocation,
+binding, data, import, extent and call-closure gates remain. An independent pin
+extractor used ONLY previously accepted callees; unchanged old-referee replay
+accepts exactly the same set.12 C++ deletion negatives and the discovery fixtures
+pass. No compiler rebuild or worker was needed. Whole texture-memory TU passes
+all6 emitted bodies; clean src/ now9 complete files/55 functions.
+
+Post-particle trials remain uncredited: fullscreen width-before-height145 and
+switch-minus-one146 both lose two protected160-byte cookie initializers; rejected
+and reverted. Upload local declaration order keeps282 but misses. BSP cursor
+scope/VectorCopy/cross-product trials remain unmatched. Shader _clearfp intrinsic
+probe emits C4163 (not available); removed. Moving its entry declaration changes
+no bytes. These facts do not prove every C++ matching approach impossible.
+Evidence: nov03_post_particle_trials.patch and nov03_clearfp_intrinsic_probe.txt.
+Receipt: proof/nov03_callee_checkpoint.json. No pause or goal completion.
+
 # Accepted particle source - 2026-11-03
 
 The final source matches10011bf0/544 fully: UV table declared before the index

@@ -1,0 +1,1048 @@
+[
+  {
+    "name": "??$sort@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z",
+    "size": 20,
+    "source": "0x1000d840",
+    "target": "0x1000df70",
+    "raw_hits": [
+      "0x1000df70",
+      "0x10017980"
+    ],
+    "calls": [
+      {
+        "offset": 11,
+        "source_callee": "0x1000d860",
+        "target_callee": "0x1000df90"
+      }
+    ]
+  },
+  {
+    "name": "??$make_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z",
+    "size": 26,
+    "source": "0x1000daf0",
+    "target": "0x1000e220",
+    "raw_hits": [
+      "0x1000e220",
+      "0x10017c30"
+    ],
+    "calls": [
+      {
+        "offset": 16,
+        "source_callee": "0x1000de40",
+        "target_callee": "0x1000e570"
+      }
+    ]
+  },
+  {
+    "name": "??$pop_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z",
+    "size": 50,
+    "source": "0x1000de80",
+    "target": "0x1000e5b0",
+    "raw_hits": [
+      "0x1000e5b0",
+      "0x10017fc0"
+    ],
+    "calls": [
+      {
+        "offset": 39,
+        "source_callee": "0x1000df40",
+        "target_callee": "0x1000e670"
+      }
+    ]
+  },
+  {
+    "name": "??$rotate@PAPAUGfxImage@@@std@@YAXPAPAUGfxImage@@00@Z",
+    "size": 22,
+    "source": "0x1000dec0",
+    "target": "0x1000e5f0",
+    "raw_hits": [
+      "0x1000e5f0",
+      "0x10018000",
+      "0x10028700"
+    ],
+    "calls": [
+      {
+        "offset": 12,
+        "source_callee": "0x1000e070",
+        "target_callee": "0x1000e7a0"
+      }
+    ]
+  },
+  {
+    "name": "??$_Pop_heap_0@PAPAUGfxImage@@PAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z0@Z",
+    "size": 36,
+    "source": "0x1000dfb0",
+    "target": "0x1000e6e0",
+    "raw_hits": [
+      "0x1000e6e0",
+      "0x100180f0"
+    ],
+    "calls": [
+      {
+        "offset": 26,
+        "source_callee": "0x1000df40",
+        "target_callee": "0x1000e670"
+      }
+    ]
+  },
+  {
+    "name": "??$_Pop_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@00PAU1@P6AH11@ZPAH@Z",
+    "size": 31,
+    "source": "0x1000e050",
+    "target": "0x1000e780",
+    "raw_hits": [
+      "0x1000e780",
+      "0x10018190"
+    ],
+    "calls": [
+      {
+        "offset": 22,
+        "source_callee": "0x1000df40",
+        "target_callee": "0x1000e670"
+      }
+    ]
+  },
+  {
+    "name": "??$make_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z",
+    "size": 18,
+    "source": "0x10013270",
+    "target": "0x10013e30",
+    "raw_hits": [
+      "0x10013e30",
+      "0x100140a0"
+    ],
+    "calls": [
+      {
+        "offset": 12,
+        "source_callee": "0x10013480",
+        "target_callee": "0x10014040"
+      }
+    ]
+  },
+  {
+    "name": "??$pop_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z",
+    "size": 18,
+    "source": "0x100134e0",
+    "target": "0x100140a0",
+    "raw_hits": [
+      "0x10013e30",
+      "0x100140a0"
+    ],
+    "calls": [
+      {
+        "offset": 12,
+        "source_callee": "0x10013730",
+        "target_callee": "0x100142f0"
+      }
+    ]
+  },
+  {
+    "name": "??$rotate@PAU_D3DDISPLAYMODE@@@std@@YAXPAU_D3DDISPLAYMODE@@00@Z",
+    "size": 19,
+    "source": "0x10013500",
+    "target": "0x100140c0",
+    "raw_hits": [
+      "0x100140c0",
+      "0x1001d210"
+    ],
+    "calls": [
+      {
+        "offset": 10,
+        "source_callee": "0x100138c0",
+        "target_callee": "0x10014480"
+      }
+    ]
+  },
+  {
+    "name": "?Material_FindTechnique@@YAPAUMaterialTechnique@@PBD@Z",
+    "size": 32,
+    "source": "0x10015ae0",
+    "target": "0x10016940",
+    "raw_hits": [
+      "0x10016940",
+      "0x10016a40"
+    ],
+    "calls": [
+      {
+        "offset": 6,
+        "source_callee": "0x10015a80",
+        "target_callee": "0x100168e0"
+      }
+    ]
+  },
+  {
+    "name": "?Material_FindTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",
+    "size": 32,
+    "source": "0x10015bb0",
+    "target": "0x10016a40",
+    "raw_hits": [
+      "0x10016940",
+      "0x10016a40"
+    ],
+    "calls": [
+      {
+        "offset": 6,
+        "source_callee": "0x10015b50",
+        "target_callee": "0x100169e0"
+      }
+    ]
+  },
+  {
+    "name": "??$sort@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z",
+    "size": 20,
+    "source": "0x100168d0",
+    "target": "0x10017980",
+    "raw_hits": [
+      "0x1000df70",
+      "0x10017980"
+    ],
+    "calls": [
+      {
+        "offset": 11,
+        "source_callee": "0x100168f0",
+        "target_callee": "0x100179a0"
+      }
+    ]
+  },
+  {
+    "name": "??$make_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z",
+    "size": 26,
+    "source": "0x10016b80",
+    "target": "0x10017c30",
+    "raw_hits": [
+      "0x1000e220",
+      "0x10017c30"
+    ],
+    "calls": [
+      {
+        "offset": 16,
+        "source_callee": "0x10016ed0",
+        "target_callee": "0x10017f80"
+      }
+    ]
+  },
+  {
+    "name": "??$pop_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z",
+    "size": 50,
+    "source": "0x10016f10",
+    "target": "0x10017fc0",
+    "raw_hits": [
+      "0x1000e5b0",
+      "0x10017fc0"
+    ],
+    "calls": [
+      {
+        "offset": 39,
+        "source_callee": "0x10016fd0",
+        "target_callee": "0x10018080"
+      }
+    ]
+  },
+  {
+    "name": "??$rotate@PAPAUMaterial@@@std@@YAXPAPAUMaterial@@00@Z",
+    "size": 22,
+    "source": "0x10016f50",
+    "target": "0x10018000",
+    "raw_hits": [
+      "0x1000e5f0",
+      "0x10018000",
+      "0x10028700"
+    ],
+    "calls": [
+      {
+        "offset": 12,
+        "source_callee": "0x10017100",
+        "target_callee": "0x100181b0"
+      }
+    ]
+  },
+  {
+    "name": "??$_Pop_heap_0@PAPAUMaterial@@PAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z0@Z",
+    "size": 36,
+    "source": "0x10017040",
+    "target": "0x100180f0",
+    "raw_hits": [
+      "0x1000e6e0",
+      "0x100180f0"
+    ],
+    "calls": [
+      {
+        "offset": 26,
+        "source_callee": "0x10016fd0",
+        "target_callee": "0x10018080"
+      }
+    ]
+  },
+  {
+    "name": "??$_Pop_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@00PAU1@P6A_NPBU1@2@ZPAH@Z",
+    "size": 31,
+    "source": "0x100170e0",
+    "target": "0x10018190",
+    "raw_hits": [
+      "0x1000e780",
+      "0x10018190"
+    ],
+    "calls": [
+      {
+        "offset": 22,
+        "source_callee": "0x10016fd0",
+        "target_callee": "0x10018080"
+      }
+    ]
+  },
+  {
+    "name": "??$make_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z",
+    "size": 33,
+    "source": "0x1001bb80",
+    "target": "0x1001cf00",
+    "raw_hits": [
+      "0x1001cf00",
+      "0x1001d1e0"
+    ],
+    "calls": [
+      {
+        "offset": 27,
+        "source_callee": "0x1001bdf0",
+        "target_callee": "0x1001d170"
+      }
+    ]
+  },
+  {
+    "name": "??$pop_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z",
+    "size": 33,
+    "source": "0x1001be60",
+    "target": "0x1001d1e0",
+    "raw_hits": [
+      "0x1001cf00",
+      "0x1001d1e0"
+    ],
+    "calls": [
+      {
+        "offset": 27,
+        "source_callee": "0x1001c050",
+        "target_callee": "0x1001d3d0"
+      }
+    ]
+  },
+  {
+    "name": "??$rotate@PAUGfxCachedShaderText@@@std@@YAXPAUGfxCachedShaderText@@00@Z",
+    "size": 19,
+    "source": "0x1001be90",
+    "target": "0x1001d210",
+    "raw_hits": [
+      "0x100140c0",
+      "0x1001d210"
+    ],
+    "calls": [
+      {
+        "offset": 10,
+        "source_callee": "0x1001c1d0",
+        "target_callee": "0x1001d550"
+      }
+    ]
+  },
+  {
+    "name": "??$rotate@PAUShadowCandidate@@@std@@YAXPAUShadowCandidate@@00@Z",
+    "size": 22,
+    "source": "0x10026660",
+    "target": "0x10028700",
+    "raw_hits": [
+      "0x1000e5f0",
+      "0x10018000",
+      "0x10028700"
+    ],
+    "calls": [
+      {
+        "offset": 12,
+        "source_callee": "0x10026890",
+        "target_callee": "0x10028930"
+      }
+    ]
+  },
+  {
+    "name": "?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z",
+    "size": 27,
+    "source": "0x10029e30",
+    "target": "0x1002beb0",
+    "raw_hits": [
+      "0x1002bda8",
+      "0x1002beb0"
+    ],
+    "calls": [
+      {
+        "offset": 4,
+        "source_callee": "0x10029d50",
+        "target_callee": "0x1002bdd0"
+      }
+    ]
+  },
+  {
+    "name": "?LinearTrackAngle@@YAMMMMM@Z",
+    "size": 174,
+    "source": "0x10054eb0",
+    "target": "0x10058950",
+    "raw_hits": [
+      "0x10058950",
+      "0x10058a70"
+    ],
+    "calls": [
+      {
+        "offset": 151,
+        "source_callee": "0x10054e30",
+        "target_callee": "0x100588d0"
+      },
+      {
+        "offset": 165,
+        "source_callee": "0x10058370",
+        "target_callee": "0x1005c020"
+      }
+    ]
+  },
+  {
+    "name": "?DiffTrackAngle@@YAMMMMM@Z",
+    "size": 174,
+    "source": "0x10054fd0",
+    "target": "0x10058a70",
+    "raw_hits": [
+      "0x10058950",
+      "0x10058a70"
+    ],
+    "calls": [
+      {
+        "offset": 151,
+        "source_callee": "0x10054f60",
+        "target_callee": "0x10058a00"
+      },
+      {
+        "offset": 165,
+        "source_callee": "0x10058370",
+        "target_callee": "0x1005c020"
+      }
+    ]
+  },
+  {
+    "name": "?Com_ParseFloat@@YAMPAPBD@Z",
+    "size": 74,
+    "source": "0x1005bd10",
+    "target": "0x1005fe80",
+    "raw_hits": [
+      "0x1005fe80",
+      "0x1005ff30"
+    ],
+    "calls": [
+      {
+        "offset": 59,
+        "source_callee": "0x1005b520",
+        "target_callee": "0x1005f690"
+      },
+      {
+        "offset": 65,
+        "source_callee": "0x100f2166",
+        "target_callee": "0x100f5db2"
+      }
+    ]
+  },
+  {
+    "name": "?SetBool@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDH@Z",
+    "size": 76,
+    "source": "0x1007d98d",
+    "target": "0x100815dd",
+    "raw_hits": [
+      "0x100815dd",
+      "0x10081675",
+      "0x1008170d"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007ace8",
+        "target_callee": "0x1007e938"
+      }
+    ]
+  },
+  {
+    "name": "?SetBoolArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBHI@Z",
+    "size": 76,
+    "source": "0x1007d9d9",
+    "target": "0x10081629",
+    "raw_hits": [
+      "0x10081629",
+      "0x100816c1",
+      "0x10081759",
+      "0x100817f0",
+      "0x10081887",
+      "0x100818d3",
+      "0x1008196a",
+      "0x100819b6"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007ace8",
+        "target_callee": "0x1007e938"
+      }
+    ]
+  },
+  {
+    "name": "?SetInt@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDH@Z",
+    "size": 76,
+    "source": "0x1007da25",
+    "target": "0x10081675",
+    "raw_hits": [
+      "0x100815dd",
+      "0x10081675",
+      "0x1008170d"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007afea",
+        "target_callee": "0x1007ec3a"
+      }
+    ]
+  },
+  {
+    "name": "?SetIntArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBHI@Z",
+    "size": 76,
+    "source": "0x1007da71",
+    "target": "0x100816c1",
+    "raw_hits": [
+      "0x10081629",
+      "0x100816c1",
+      "0x10081759",
+      "0x100817f0",
+      "0x10081887",
+      "0x100818d3",
+      "0x1008196a",
+      "0x100819b6"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007afea",
+        "target_callee": "0x1007ec3a"
+      }
+    ]
+  },
+  {
+    "name": "?SetFloat@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDM@Z",
+    "size": 76,
+    "source": "0x1007dabd",
+    "target": "0x1008170d",
+    "raw_hits": [
+      "0x100815dd",
+      "0x10081675",
+      "0x1008170d"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007b2e0",
+        "target_callee": "0x1007ef30"
+      }
+    ]
+  },
+  {
+    "name": "?SetFloatArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBMI@Z",
+    "size": 76,
+    "source": "0x1007db09",
+    "target": "0x10081759",
+    "raw_hits": [
+      "0x10081629",
+      "0x100816c1",
+      "0x10081759",
+      "0x100817f0",
+      "0x10081887",
+      "0x100818d3",
+      "0x1008196a",
+      "0x100819b6"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007b2e0",
+        "target_callee": "0x1007ef30"
+      }
+    ]
+  },
+  {
+    "name": "?SetVector@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXVECTOR4@@@Z",
+    "size": 75,
+    "source": "0x1007db55",
+    "target": "0x100817a5",
+    "raw_hits": [
+      "0x100817a5",
+      "0x1008183c",
+      "0x1008191f"
+    ],
+    "calls": [
+      {
+        "offset": 57,
+        "source_callee": "0x1007b611",
+        "target_callee": "0x1007f261"
+      }
+    ]
+  },
+  {
+    "name": "?SetVectorArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXVECTOR4@@I@Z",
+    "size": 76,
+    "source": "0x1007dba0",
+    "target": "0x100817f0",
+    "raw_hits": [
+      "0x10081629",
+      "0x100816c1",
+      "0x10081759",
+      "0x100817f0",
+      "0x10081887",
+      "0x100818d3",
+      "0x1008196a",
+      "0x100819b6"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007b611",
+        "target_callee": "0x1007f261"
+      }
+    ]
+  },
+  {
+    "name": "?SetMatrix@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@@Z",
+    "size": 75,
+    "source": "0x1007dbec",
+    "target": "0x1008183c",
+    "raw_hits": [
+      "0x100817a5",
+      "0x1008183c",
+      "0x1008191f"
+    ],
+    "calls": [
+      {
+        "offset": 57,
+        "source_callee": "0x1007b9fe",
+        "target_callee": "0x1007f64e"
+      }
+    ]
+  },
+  {
+    "name": "?SetMatrixArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@I@Z",
+    "size": 76,
+    "source": "0x1007dc37",
+    "target": "0x10081887",
+    "raw_hits": [
+      "0x10081629",
+      "0x100816c1",
+      "0x10081759",
+      "0x100817f0",
+      "0x10081887",
+      "0x100818d3",
+      "0x1008196a",
+      "0x100819b6"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007b9fe",
+        "target_callee": "0x1007f64e"
+      }
+    ]
+  },
+  {
+    "name": "?SetMatrixPointerArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPAPBUD3DXMATRIX@@I@Z",
+    "size": 76,
+    "source": "0x1007dc83",
+    "target": "0x100818d3",
+    "raw_hits": [
+      "0x10081629",
+      "0x100816c1",
+      "0x10081759",
+      "0x100817f0",
+      "0x10081887",
+      "0x100818d3",
+      "0x1008196a",
+      "0x100819b6"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007be93",
+        "target_callee": "0x1007fae3"
+      }
+    ]
+  },
+  {
+    "name": "?SetMatrixTranspose@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@@Z",
+    "size": 75,
+    "source": "0x1007dccf",
+    "target": "0x1008191f",
+    "raw_hits": [
+      "0x100817a5",
+      "0x1008183c",
+      "0x1008191f"
+    ],
+    "calls": [
+      {
+        "offset": 57,
+        "source_callee": "0x1007c2cd",
+        "target_callee": "0x1007ff1d"
+      }
+    ]
+  },
+  {
+    "name": "?SetMatrixTransposeArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@I@Z",
+    "size": 76,
+    "source": "0x1007dd1a",
+    "target": "0x1008196a",
+    "raw_hits": [
+      "0x10081629",
+      "0x100816c1",
+      "0x10081759",
+      "0x100817f0",
+      "0x10081887",
+      "0x100818d3",
+      "0x1008196a",
+      "0x100819b6"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007c2cd",
+        "target_callee": "0x1007ff1d"
+      }
+    ]
+  },
+  {
+    "name": "?SetMatrixTransposePointerArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPAPBUD3DXMATRIX@@I@Z",
+    "size": 76,
+    "source": "0x1007dd66",
+    "target": "0x100819b6",
+    "raw_hits": [
+      "0x10081629",
+      "0x100816c1",
+      "0x10081759",
+      "0x100817f0",
+      "0x10081887",
+      "0x100818d3",
+      "0x1008196a",
+      "0x100819b6"
+    ],
+    "calls": [
+      {
+        "offset": 58,
+        "source_callee": "0x1007c7d5",
+        "target_callee": "0x10080425"
+      }
+    ]
+  },
+  {
+    "name": "?StringCchCopyA@@YGJPADIPBD@Z",
+    "size": 29,
+    "source": "0x100f1bbe",
+    "target": "0x100f580e",
+    "raw_hits": [
+      "0x100f580e",
+      "0x100f582b"
+    ],
+    "calls": [
+      {
+        "offset": 24,
+        "source_callee": "0x100c8a41",
+        "target_callee": "0x100cc691"
+      }
+    ]
+  },
+  {
+    "name": "?StringCchCopyW@@YGJPAGIPBG@Z",
+    "size": 29,
+    "source": "0x100f1bdb",
+    "target": "0x100f582b",
+    "raw_hits": [
+      "0x100f580e",
+      "0x100f582b"
+    ],
+    "calls": [
+      {
+        "offset": 24,
+        "source_callee": "0x100c8a7e",
+        "target_callee": "0x100cc6ce"
+      }
+    ]
+  },
+  {
+    "name": "?StringCchLengthA@@YGJPBDIPAI@Z",
+    "size": 35,
+    "source": "0x100f1c4a",
+    "target": "0x100f589a",
+    "raw_hits": [
+      "0x100f589a",
+      "0x100f58bd"
+    ],
+    "calls": [
+      {
+        "offset": 21,
+        "source_callee": "0x100c8b5b",
+        "target_callee": "0x100cc7ab"
+      }
+    ]
+  },
+  {
+    "name": "?StringCchLengthW@@YGJPBGIPAI@Z",
+    "size": 35,
+    "source": "0x100f1c6d",
+    "target": "0x100f58bd",
+    "raw_hits": [
+      "0x100f589a",
+      "0x100f58bd"
+    ],
+    "calls": [
+      {
+        "offset": 21,
+        "source_callee": "0x100c8b92",
+        "target_callee": "0x100cc7e2"
+      }
+    ]
+  },
+  {
+    "name": "___iscsymf",
+    "size": 26,
+    "source": "0x100f5ead",
+    "target": "0x100f87ed",
+    "raw_hits": [
+      "0x100f87ed",
+      "0x100f8807"
+    ],
+    "calls": [
+      {
+        "offset": 4,
+        "source_callee": "0x100f5c01",
+        "target_callee": "0x100f8541"
+      }
+    ]
+  },
+  {
+    "name": "___iscsym",
+    "size": 26,
+    "source": "0x100f5ec7",
+    "target": "0x100f8807",
+    "raw_hits": [
+      "0x100f87ed",
+      "0x100f8807"
+    ],
+    "calls": [
+      {
+        "offset": 4,
+        "source_callee": "0x100f5da1",
+        "target_callee": "0x100f86e1"
+      }
+    ]
+  },
+  {
+    "name": "__isctype",
+    "size": 39,
+    "source": "0x100fa1e8",
+    "target": "0x100fd57c",
+    "raw_hits": [
+      "0x100fd57c",
+      "0x10106b8d"
+    ],
+    "calls": [
+      {
+        "offset": 0,
+        "source_callee": "0x100f468f",
+        "target_callee": "0x100fb114"
+      },
+      {
+        "offset": 16,
+        "source_callee": "0x100f53e9",
+        "target_callee": "0x100f7cb8"
+      },
+      {
+        "offset": 30,
+        "source_callee": "0x100fa171",
+        "target_callee": "0x100fd505"
+      }
+    ]
+  },
+  {
+    "name": "__adj_fdiv_m16i",
+    "size": 52,
+    "source": "0x10101fd4",
+    "target": "0x10104ab4",
+    "raw_hits": [
+      "0x10104ab4",
+      "0x10104bb4"
+    ],
+    "calls": [
+      {
+        "offset": 14,
+        "source_callee": "0x10101f16",
+        "target_callee": "0x101049f6"
+      },
+      {
+        "offset": 35,
+        "source_callee": "0x10101f16",
+        "target_callee": "0x101049f6"
+      }
+    ]
+  },
+  {
+    "name": "__adj_fdiv_m32i",
+    "size": 52,
+    "source": "0x10102008",
+    "target": "0x10104ae8",
+    "raw_hits": [
+      "0x10104ae8",
+      "0x10104be8"
+    ],
+    "calls": [
+      {
+        "offset": 14,
+        "source_callee": "0x10101f16",
+        "target_callee": "0x101049f6"
+      },
+      {
+        "offset": 35,
+        "source_callee": "0x10101f16",
+        "target_callee": "0x101049f6"
+      }
+    ]
+  },
+  {
+    "name": "__adj_fdivr_m16i",
+    "size": 52,
+    "source": "0x101020d4",
+    "target": "0x10104bb4",
+    "raw_hits": [
+      "0x10104ab4",
+      "0x10104bb4"
+    ],
+    "calls": [
+      {
+        "offset": 14,
+        "source_callee": "0x10101f29",
+        "target_callee": "0x10104a09"
+      },
+      {
+        "offset": 35,
+        "source_callee": "0x10101f29",
+        "target_callee": "0x10104a09"
+      }
+    ]
+  },
+  {
+    "name": "__adj_fdivr_m32i",
+    "size": 52,
+    "source": "0x10102108",
+    "target": "0x10104be8",
+    "raw_hits": [
+      "0x10104ae8",
+      "0x10104be8"
+    ],
+    "calls": [
+      {
+        "offset": 14,
+        "source_callee": "0x10101f29",
+        "target_callee": "0x10104a09"
+      },
+      {
+        "offset": 35,
+        "source_callee": "0x10101f29",
+        "target_callee": "0x10104a09"
+      }
+    ]
+  },
+  {
+    "name": "__chsize",
+    "size": 151,
+    "source": "0x10104f51",
+    "target": "0x10109458",
+    "raw_hits": [
+      "0x10109458",
+      "0x10109ee5"
+    ],
+    "calls": [
+      {
+        "offset": 7,
+        "source_callee": "0x100f4974",
+        "target_callee": "0x100fb610"
+      },
+      {
+        "offset": 56,
+        "source_callee": "0x10103ace",
+        "target_callee": "0x10107751"
+      },
+      {
+        "offset": 79,
+        "source_callee": "0x10104e10",
+        "target_callee": "0x10109317"
+      },
+      {
+        "offset": 91,
+        "source_callee": "0x100f9660",
+        "target_callee": "0x100fc216"
+      },
+      {
+        "offset": 124,
+        "source_callee": "0x10103b6e",
+        "target_callee": "0x101077f1"
+      },
+      {
+        "offset": 131,
+        "source_callee": "0x100f9660",
+        "target_callee": "0x100fc216"
+      },
+      {
+        "offset": 145,
+        "source_callee": "0x100f49af",
+        "target_callee": "0x100fb64b"
+      }
+    ]
+  },
+  {
+    "name": "__setmode",
+    "size": 151,
+    "source": "0x10105758",
+    "target": "0x10109ee5",
+    "raw_hits": [
+      "0x10109458",
+      "0x10109ee5"
+    ],
+    "calls": [
+      {
+        "offset": 7,
+        "source_callee": "0x100f4974",
+        "target_callee": "0x100fb610"
+      },
+      {
+        "offset": 56,
+        "source_callee": "0x10103ace",
+        "target_callee": "0x10107751"
+      },
+      {
+        "offset": 79,
+        "source_callee": "0x101056ec",
+        "target_callee": "0x10109e79"
+      },
+      {
+        "offset": 91,
+        "source_callee": "0x100f9660",
+        "target_callee": "0x100fc216"
+      },
+      {
+        "offset": 124,
+        "source_callee": "0x10103b6e",
+        "target_callee": "0x101077f1"
+      },
+      {
+        "offset": 131,
+        "source_callee": "0x100f9660",
+        "target_callee": "0x100fc216"
+      },
+      {
+        "offset": 145,
+        "source_callee": "0x100f49af",
+        "target_callee": "0x100fb64b"
+      }
+    ]
+  }
+]

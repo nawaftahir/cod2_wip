@@ -2,6 +2,19 @@
 
 ## Active work toward above50% - 2026-11-03
 
+Latest verified C/C++:115931/253580=45.717722218%,705 bodies. +513B/+6
+existing C++ bodies newly verified through direct-callee disambiguation;38 new
+source/library extents separately accounted,2488 protected extents retained.
+Both referees pass; independently derived candidates through the unchanged old
+referee reproduce the exact accepted set.12 C++ deletion negatives pass.
+No compiler rebuild, new assembly or worker was needed for this verification
+gain. Token totals are not exposed; no cost estimate is invented.
+
+Root src/ now contains9 fully verified TUs/55 emitted functions: the entire
+texture-memory unit is included. Copying it adds no coverage. Mixed drafts stay
+in target/work/src/. Receipt: target/work/proof/nov03_callee_checkpoint.json.
+Whole-file SHA and GPU smoke remain unfinished; denominator is provisional.
+
 Last verified C/C++:115418/253580=45.515419197%,699 bodies; +801B since
 b26ed3b. The reconstructed index allocator adds72 fully matched bytes.
 GetRefAPI's paired pointer stores disambiguate EndRegistration79 and

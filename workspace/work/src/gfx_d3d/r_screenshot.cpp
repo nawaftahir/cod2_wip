@@ -386,7 +386,7 @@ static __declspec(noinline) void R_CopyCubemapShot(const byte *source, byte *tar
             int offset = (row * dx.cubemapShotRes + column) * 4;
             targa[offset + 18 + 2] = source[offset + 2];
             targa[offset + 18 + 1] = source[offset + 1];
-            targa[offset + 18] = source[offset];
+            targa[18 + offset] = source[offset];
             targa[offset + 18 + 3] = source[offset + 3];
         }
     }

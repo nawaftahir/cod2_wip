@@ -1,0 +1,1 @@
+Z:\w\scratch\codex_boundsoutside_1016\gfx_d3d\r_material_load_obj.cpp(1540) : warning C4163: '_clearfp' : not available as an intrinsic function
