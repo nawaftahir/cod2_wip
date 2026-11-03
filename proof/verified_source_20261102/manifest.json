@@ -1,7 +1,7 @@
 {
   "scope": "Verified C/C++ translation-unit snapshots; not a standalone build or whole-DLL SHA claim",
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "5dcf29d6e56b68e13a7a9e7775009cf597d173e42cb1a40f2390fd5baad72128",
+  "candidate_sha256": "9d1be71001210e055d2b2a406326950fc48abebfd8acd2555dd1eda886cc9215",
   "build_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
   "compiler": "MSVC13.10.3077 /O2 /GL /MT, link /LTCG; candidate flags, not historical proof",
   "files": [
@@ -377,11 +377,105 @@
           "why": []
         }
       ]
+    },
+    {
+      "path": "src/gfx_d3d/r_jpeg.cpp",
+      "working_source": "target/work/src/gfx_d3d/r_jpeg.cpp",
+      "sha256": "b0499dd2c333e9679960bd7d483349b03232652a98708e30e57b1c3f30f2fcbf",
+      "source_definitions": [
+        "init_destination",
+        "empty_output_buffer",
+        "term_destination",
+        "Z_MallocJpeg",
+        "Z_FreeJpeg",
+        "ExitJpeg",
+        "PrintfJpeg",
+        "jpeg_memory_dest",
+        "R_SaveJpg",
+        "R_LoadJpg"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?init_destination@@YAXPAUjpeg_compress_struct@@@Z",
+          "t": "0x10014580",
+          "n": 19,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z",
+          "t": "0x100145a0",
+          "n": 3,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?term_destination@@YAXPAUjpeg_compress_struct@@@Z",
+          "t": "0x100145b0",
+          "n": 20,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?Z_MallocJpeg@@YAPAXI@Z",
+          "t": "0x10014610",
+          "n": 6,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?Z_FreeJpeg@@YAXPAXI@Z",
+          "t": "0x10014620",
+          "n": 13,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?ExitJpeg@@YAXXZ",
+          "t": "0x10014630",
+          "n": 17,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?PrintfJpeg@@YAXPAD@Z",
+          "t": "0x10014650",
+          "n": 22,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z",
+          "t": "0x100145d0",
+          "n": 62,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?R_SaveJpg@@YAXPBDHHHPAE@Z",
+          "t": "0x10014670",
+          "n": 713,
+          "obj": "r_jpeg.obj",
+          "why": []
+        },
+        {
+          "name": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
+          "t": "0x10014940",
+          "n": 785,
+          "obj": "r_jpeg.obj",
+          "why": []
+        }
+      ]
     }
   ],
   "proof_hashes": {
-    "bind.json": "c037a3baa711ea7b2f3402679a4a4f3fe14cfc4e5b759fb14d458cc67a3bdeab",
-    "cmp.json": "91cacdb8c20c0d4852afad083259cb440f6734354d8d521301784b6e4c585d6f",
-    "source_coverage.json": "b55189f79feee59b14da3793863b255ed8891a4a9866164959e5a433b0d88e60"
-  }
+    "bind.json": "9115fefabad18e2782de57b8c845c5597fd24eafeb03a9d1e47995005fc05cc6",
+    "cmp.json": "c18c825fb45ca86c9b366e87fd5da26bb8f7fded49cff8bd0e0b00e513445098",
+    "source_coverage.json": "f8645d9149aa29d6bc4761f0c5059e503dad4de9f4100db4f1a2b976ddcfa70c",
+    "jpeg_callback_pins.json": "1215d719a23842a92a5989453f5110fd93165f14150b8febc09223c4b644b96c",
+    "raw_discovery.json": "de851ddf43f36701e1ab004cdc08817fff5b176f3050c966374bda4ba1484a55",
+    "old_referee_replay.json": "aae13c8aa52dbc5e984f44581fa4a8ceef5b216346687f085c11344b9e8393c7",
+    "old_referee.txt": "5138a1e14fc7818fba4901f541907bd2cb4827f36e8664a4ad24cb9f0eb1aa64"
+  },
+  "candidate_derivation": "Five JPEG callback placements derive from paired MOV-immediate HIGHLOW sites in previously verified producers; old unmodified referee replay agrees. Copying snapshots adds no coverage."
 }

@@ -8,6 +8,7 @@ work = Path(__file__).resolve().parents[1]
 text = fragment('gfx_d3d/r_screenshot_capture.cpp')
 source = text[text.index('byte *R_TakeResampledScreenshot('):]
 program = r'''
+#define __forceinline inline __attribute__((always_inline))
 #include <cassert>
 #include <cstdio>
 #include <cstring>

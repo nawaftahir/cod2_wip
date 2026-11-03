@@ -1782,7 +1782,7 @@
 {
 "name": "?Image_GenerateCube@@YAXPAUGfxImage@@HPBEHW4_D3DFORMAT@@@Z",
 "obj": "r_image_load_obj.obj",
-"size": 84,
+"size": 86,
 "hits": []
 },
 {
@@ -5253,19 +5253,19 @@
 {
 "name": "?R_DownsamplePixelData@@YAXHHHHPAE0@Z",
 "obj": "r_screenshot.obj",
-"size": 361,
+"size": 369,
 "hits": []
 },
 {
 "name": "?R_UpsamplePixelData@@YAXHHHHPAE0@Z",
 "obj": "r_screenshot.obj",
-"size": 501,
+"size": 497,
 "hits": []
 },
 {
 "name": "?R_ResampleImage@@YAXHHHHHPAE@Z",
 "obj": "r_screenshot.obj",
-"size": 360,
+"size": 364,
 "hits": []
 },
 {
@@ -5388,7 +5388,9 @@
 "name": "?R_LevelShot@@YAXXZ",
 "obj": "r_screenshot.obj",
 "size": 159,
-"hits": []
+"hits": [
+"0x10026290"
+]
 },
 {
 "name": "?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z",
@@ -5407,10 +5409,20 @@
 ]
 },
 {
+"name": "?R_ScreenshotFilename@@YAXHPBDPAD@Z",
+"obj": "r_screenshot.obj",
+"size": 60,
+"hits": [
+"0x10025960"
+]
+},
+{
 "name": "?R_ScreenShotCmd@@YAXH@Z",
 "obj": "r_screenshot.obj",
-"size": 490,
-"hits": []
+"size": 567,
+"hits": [
+"0x100263a0"
+]
 },
 {
 "name": "?R_ScreenShot_f@@YAXXZ",

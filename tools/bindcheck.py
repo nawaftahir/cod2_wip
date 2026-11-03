@@ -187,14 +187,44 @@ def api_pointer_places(code, tcode, va, t, orel, arel):
     return {ov: next(iter(tv)) for ov, tv in proposals.items() if len(tv) == 1}
 
 
+def immediate_pointer_places(code, tcode, va, t, orel, arel):
+    pairs = []
+    for ins in md.disasm(code, va):
+        if ins.mnemonic != 'mov' or not (0xb8 <= ins.bytes[0] <= 0xbf or ins.bytes[0] == 0xc7) or ins.size < 5:
+            continue
+        start = ins.address - va
+        off = start + ins.size - 4
+        if off + 4 > len(tcode) or code[start:off] != tcode[start:off] or va + off not in orel or t + off not in arel:
+            continue
+        ov = int.from_bytes(code[off:off + 4], 'little')
+        tv = int.from_bytes(tcode[off:off + 4], 'little')
+        if secname(osecs, ov) == '.text' and secname(asecs, tv) == '.text':
+            pairs.append((ov, tv))
+    return pairs
+
+
+def padded_callback(va, t, size):
+    if not 0 < size <= 32 or t % 16 or read(asecs, t - 1, 1) != b'\xcc' or read(asecs, t + size, 1) != b'\xcc':
+        return False
+    code = read(osecs, va, size)
+    decoded = list(md.disasm(code, va)) if code else []
+    return bool(decoded and decoded[-1].address + decoded[-1].size == va + size
+                and decoded[-1].mnemonic in ('ret', 'jmp')
+                and all(not i.mnemonic.startswith(('j', 'ret', 'int')) for i in decoded[:-1]))
+
+
 changed = True
 while changed and multi:
     changed = False
+    jpeg_pointers = {}
     for n, r in list(cands.items()):
         va, t = fnva.get(n), int(r['hits'][0], 16)
         if va is None:
             continue
         code, tcode = read(osecs, va, r['size']), read(asecs, t, r['size'])
+        if r['obj'] == 'r_jpeg.obj' and n.startswith(('?R_SaveJpg@@', '?R_LoadJpg@@', '?jpeg_memory_dest@@')):
+            for ot, tt in immediate_pointer_places(code, tcode, va, t, orel, arel):
+                jpeg_pointers.setdefault(ot, set()).add(tt)
         if n == '_GetRefAPI':
             sizes = {int(f['addr'], 16): f['size'] for f in glm}
             for ot, tt in api_pointer_places(code, tcode, va, t, orel, arel).items():
@@ -212,6 +242,15 @@ while changed and multi:
                 if m and m['name'] not in cands and (hex(tt) in m['hits'] or not m['hits'] and masked_eq(ot, tt, m['size'])):
                     cands[m['name']] = dict(m, hits=[hex(tt)])
                     changed = True
+
+    for ot, targets in jpeg_pointers.items():
+        m = multi.get(ot)
+        if len(targets) != 1 or not m or m['obj'] != 'r_jpeg.obj' or m['name'] in cands:
+            continue
+        tt = next(iter(targets))
+        if padded_callback(ot, tt, m['size']) and masked_eq(ot, tt, m['size']):
+            cands[m['name']] = dict(m, hits=[hex(tt)])
+            changed = True
 
 
 def closed_end(code, va, n):

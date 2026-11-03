@@ -1,3 +1,37 @@
+# Screenshot source wave - 2026-11-03
+
+Recovered actual helper R_ScreenshotFilename10025960/60, full byte/binding pass.
+Target has a256-byte level-shot filename buffer: restoring it fixes all159 own
+bytes; resampling dependency still blocks acceptance. Restoring the filename
+helper, counter while loop, JPEG capture inlining and second switch default
+return makes ScreenShotCmd100263a0/567 byte-identical. The default must return,
+not fall through into the print guard; the wrong target made a short branch
+and shrank the body by4B. Binding gate still rejects the unresolved LevelShot
+call chain. No credit for either of these matching-but-blocked own bodies.
+
+Two bounded pixel-filter lifetime/accumulator batches changed code generation
+but matched no new filters. Current downsample369, upsample497 and resample364
+remain drafts. Do not repeat scalar accumulator, early scaledColor0, early
+column initialization or split dst-base forms without new evidence. All1920
+independent area/center cases pass, as do63 command cases. Existing I_fround
+contains assembly; any future containing matches require separate attribution.
+
+Four screenshot build attempts in the same output; one stale-source receipt
+was rejected because source changed during its referee stage. Never compare
+a fresh DLL with the prior cmp/map during an in-flight build. Final serialized
+build passed all2445 protected extents and source-freshness checks. No new ASM,
+exports, roots, link-order changes or compiler-profile switches.
+
+# 2026-11-03 frame pointer ordering regression
+
+Taking a volatile address/view of frontEndDataOut in R_InitFrameBackendData
+changes other code under LTCG. The trial lost accepted extents10023af0 and
+10020dc0, and the unchanged regression gate rejected it. Reverted that read
+immediately; do not reinstate it to force the frame register allocation. The
+frame remains unmatched. JPEG callbacks and the complete verified JPEG snapshot
+were established independently before this trial; no source promotion depends
+on the failed DLL. The fresh recovery build passed all2444 protected extents after the revert.
+
 # JPEG matches and placement follow-up - 2026-11-03
 
 Real source-level wins, separately retained: decoder785/raw image169/raw

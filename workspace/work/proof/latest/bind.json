@@ -2617,6 +2617,14 @@
 "obj": "r_screenshot.obj",
 "why": []
 },
+"?R_LevelShot@@YAXXZ": {
+"t": "0x10026290",
+"n": 159,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
+]
+},
 "?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z": {
 "t": "0x10026240",
 "n": 78,
@@ -2629,6 +2637,20 @@
 "obj": "r_screenshot.obj",
 "why": [
 "call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
+]
+},
+"?R_ScreenshotFilename@@YAXHPBDPAD@Z": {
+"t": "0x10025960",
+"n": 60,
+"obj": "r_screenshot.obj",
+"why": []
+},
+"?R_ScreenShotCmd@@YAXH@Z": {
+"t": "0x100263a0",
+"n": 567,
+"obj": "r_screenshot.obj",
+"why": [
+"call ?R_LevelShot@@YAXXZ"
 ]
 },
 "?VectorLength@@YAMQBM@Z": {
@@ -16837,6 +16859,36 @@
 "t": "0x10109f7c",
 "n": 28,
 "obj": "LIBCMT:a_cmp.obj",
+"why": []
+},
+"?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z": {
+"t": "0x100145a0",
+"n": 3,
+"obj": "r_jpeg.obj",
+"why": []
+},
+"?Z_MallocJpeg@@YAPAXI@Z": {
+"t": "0x10014610",
+"n": 6,
+"obj": "r_jpeg.obj",
+"why": []
+},
+"?Z_FreeJpeg@@YAXPAXI@Z": {
+"t": "0x10014620",
+"n": 13,
+"obj": "r_jpeg.obj",
+"why": []
+},
+"?ExitJpeg@@YAXXZ": {
+"t": "0x10014630",
+"n": 17,
+"obj": "r_jpeg.obj",
+"why": []
+},
+"?PrintfJpeg@@YAXPAD@Z": {
+"t": "0x10014650",
+"n": 22,
+"obj": "r_jpeg.obj",
 "why": []
 },
 "??$_Make_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@ZPAH0@Z": {

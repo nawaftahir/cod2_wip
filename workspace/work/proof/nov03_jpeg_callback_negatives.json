@@ -1,0 +1,52 @@
+[
+  {
+    "removed": "?ExitJpeg@@YAXXZ",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?ExitJpeg@@YAXXZ",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?PrintfJpeg@@YAXPAD@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?PrintfJpeg@@YAXPAD@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Z_FreeJpeg@@YAXPAXI@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Z_FreeJpeg@@YAXPAXI@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Z_MallocJpeg@@YAPAXI@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?Z_MallocJpeg@@YAPAXI@Z",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "removed": "?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z",
+    "gate": "regression.py",
+    "rejected": true
+  }
+]

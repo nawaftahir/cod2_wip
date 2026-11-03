@@ -1,8 +1,8 @@
 {
-  "functions": 723,
-  "bytes": 122907,
+  "functions": 729,
+  "bytes": 123028,
   "total": 253580,
-  "percent": 48.468727817651235,
+  "percent": 48.51644451455162,
   "baseline_lost": [],
   "gains": [
     {
@@ -618,6 +618,12 @@
       "object": "r_jpeg.obj"
     },
     {
+      "target": "0x100145a0",
+      "bytes": 3,
+      "name": "?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z",
+      "object": "r_jpeg.obj"
+    },
+    {
       "target": "0x100145b0",
       "bytes": 20,
       "name": "?term_destination@@YAXPAUjpeg_compress_struct@@@Z",
@@ -627,6 +633,30 @@
       "target": "0x100145d0",
       "bytes": 62,
       "name": "?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z",
+      "object": "r_jpeg.obj"
+    },
+    {
+      "target": "0x10014610",
+      "bytes": 6,
+      "name": "?Z_MallocJpeg@@YAPAXI@Z",
+      "object": "r_jpeg.obj"
+    },
+    {
+      "target": "0x10014620",
+      "bytes": 13,
+      "name": "?Z_FreeJpeg@@YAXPAXI@Z",
+      "object": "r_jpeg.obj"
+    },
+    {
+      "target": "0x10014630",
+      "bytes": 17,
+      "name": "?ExitJpeg@@YAXXZ",
+      "object": "r_jpeg.obj"
+    },
+    {
+      "target": "0x10014650",
+      "bytes": 22,
+      "name": "?PrintfJpeg@@YAXPAD@Z",
       "object": "r_jpeg.obj"
     },
     {
@@ -1054,6 +1084,12 @@
       "bytes": 212,
       "name": "?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z",
       "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10025960",
+      "bytes": 60,
+      "name": "?R_ScreenshotFilename@@YAXHPBDPAD@Z",
+      "object": "r_screenshot.obj"
     },
     {
       "target": "0x10026240",

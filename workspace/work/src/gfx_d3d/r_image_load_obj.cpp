@@ -21,10 +21,12 @@ void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
 {
     Image_Setup(image, resolution, resolution, 1, 7, 0, format);
     const byte *facePixels = pixels;
-    for (int face = 0; face < 6; ++face)
+    for (int face = 0; face < 6; )
     {
         Image_UploadData(image, format, (D3DCUBEMAP_FACES)face, 0, facePixels);
-        facePixels += faceBytes;
+        int stride = faceBytes;
+        ++face;
+        facePixels += stride;
     }
 }
 

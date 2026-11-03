@@ -1,0 +1,12 @@
+[
+  {
+    "removed": "R_ScreenshotFilename",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "removed": "R_ScreenshotFilename",
+    "gate": "regression.py",
+    "rejected": true
+  }
+]

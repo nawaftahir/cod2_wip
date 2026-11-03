@@ -133,8 +133,6 @@ void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPix
     int color0;
     int color1;
     int color2;
-    int sum1;
-    int sum2;
 
     for (column = 0; column < newSize; ++column)
     {
@@ -151,11 +149,12 @@ void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPix
             src += nextSample;
         }
         residual = newSize + residual - oldSize;
-        sum1 = color1 + src[1] * (newSize - residual);
-        sum2 = color2 + src[2] * (newSize - residual);
-        dst[0] = (byte)I_fround(colorScale * (color0 + src[0] * (newSize - residual)));
-        dst[1] = (byte)I_fround(colorScale * sum1);
-        dst[2] = (byte)I_fround(colorScale * sum2);
+        float scaledColor0 = colorScale * (color0 + src[0] * (newSize - residual));
+        color1 += src[1] * (newSize - residual);
+        color2 += src[2] * (newSize - residual);
+        dst[0] = (byte)I_fround(scaledColor0);
+        dst[1] = (byte)I_fround(colorScale * color1);
+        dst[2] = (byte)I_fround(colorScale * color2);
         dst += nextSample;
     }
 }
@@ -164,16 +163,17 @@ void R_UpsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel
 {
     int nextSample = bytesPerPixel * stride;
     byte *currSrc = src + (oldSize - 1) * nextSample;
-    int forwardWeight = newSize - oldSize;
-    int backwardWeight = newSize + oldSize;
     float colorScale = 0.5f / newSize;
     int column;
 
-    dst += (newSize - 1) * nextSample;
+    column = newSize - 1;
     currSrc[nextSample] = currSrc[0];
     currSrc[nextSample + 1] = currSrc[1];
     currSrc[nextSample + 2] = currSrc[2];
-    for (column = newSize - 1; column >= 0; --column)
+    dst += column * nextSample;
+    int forwardWeight = newSize - oldSize;
+    int backwardWeight = newSize + oldSize;
+    for (; column >= 0; --column)
     {
         if (currSrc >= src)
         {
@@ -240,8 +240,9 @@ void R_ResampleImage(int oldWidth, int oldHeight, int newWidth, int newHeight, i
     }
     else if (oldHeight < newHeight)
     {
-        src = data + bytesPerPixel * (newWidth - 1);
-        dst = src;
+        dst = data;
+        dst += bytesPerPixel * (newWidth - 1);
+        src = dst;
         for (col = newWidth - 1; col >= 0; --col)
         {
             R_UpsamplePixelData(oldHeight, newHeight, newWidth, bytesPerPixel, src, dst);
@@ -567,7 +568,7 @@ byte *R_TakeResampledScreenshot(int width, int height, int bytesPerPixel, int he
 // PINNED: retail 0x10026290 reads GfxWorld::baseName at +4.
 void R_LevelShot()
 {
-    char filename[260];
+    char filename[256];
     byte *buffer;
     sprintf(filename, "levelshots/%s.tga", rgp.world->baseName);
     buffer = R_TakeResampledScreenshot(128, 128, 3, 18);
@@ -589,7 +590,7 @@ Bool R_GetFrontBufferData(int x, int y, int width, int height, int bytesPerPixel
 void R_TakeScreenshotTga(int x, int y, int width, int height, const char *filename);
 
 // PINNED 10026240/78: capture failure still frees the pixel allocation.
-void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename)
+__forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename)
 {
     byte *buffer = (byte *)ri.Z_MallocInternal(width * height * 3);
     if (R_GetFrontBufferData(x, y, width, height, 3, buffer))
@@ -608,6 +609,15 @@ void R_SaveGameShot(const char *name)
         R_SaveJpg(filename, 90, 512, 512, buffer);
         ri.Z_FreeInternal(buffer);
     }
+}
+
+// PINNED 10025960: invalid signed numbers use the final screenshot name.
+void R_ScreenshotFilename(int number, const char *extension, char *filename)
+{
+    if (number >= 0 && number <= 9999)
+        Com_sprintf(filename, 256, "screenshots/shot%04i.%s", number, extension);
+    else
+        Com_sprintf(filename, 256, "screenshots/shot9999.%s", extension);
 }
 
 // PINNED 100263a0/567: preserve the original9999 rejection and negative-counter fallback.
@@ -641,21 +651,12 @@ void R_ScreenShotCmd(int type)
         Com_sprintf(filename, sizeof(filename), "screenshots/%s.%s", ri.Cmd_Argv(1), extension);
     else
     {
-        if (lastScreenShotNumber > 9999)
+        while (lastScreenShotNumber <= 9999)
         {
-            ri.Printf(0, "ScreenShot: Couldn't create a file\n");
-            return;
-        }
-        for (;;)
-        {
-            if (lastScreenShotNumber < 0 || lastScreenShotNumber > 9999)
-                Com_sprintf(filename, sizeof(filename), "screenshots/shot9999.%s", extension);
-            else
-                Com_sprintf(filename, sizeof(filename), "screenshots/shot%04i.%s", lastScreenShotNumber, extension);
+            R_ScreenshotFilename(lastScreenShotNumber, extension, filename);
             if (!ri.FS_FileExists(filename))
                 break;
-            if (++lastScreenShotNumber > 9999)
-                break;
+            ++lastScreenShotNumber;
         }
         if (lastScreenShotNumber >= 9999)
         {
@@ -664,10 +665,17 @@ void R_ScreenShotCmd(int type)
         }
         ++lastScreenShotNumber;
     }
-    if (type == 1)
-        R_TakeScreenshotTga(0, 0, vidConfig.width, vidConfig.height, filename);
-    else
+    switch (type)
+    {
+    case 0:
         R_TakeScreenshotJpeg(0, 0, vidConfig.width, vidConfig.height, filename);
+        break;
+    case 1:
+        R_TakeScreenshotTga(0, 0, vidConfig.width, vidConfig.height, filename);
+        break;
+    default:
+        return;
+    }
     if (!silent)
         ri.Printf(0, "Wrote %s\n", filename);
 }

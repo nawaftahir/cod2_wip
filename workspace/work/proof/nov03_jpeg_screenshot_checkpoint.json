@@ -1,0 +1,117 @@
+{
+  "date": "2026-11-03",
+  "status": "verified renderer checkpoint; no goal completion or whole-file claim",
+  "cpp_bytes": 114617,
+  "cpp_percent": 45.199542550674344,
+  "cpp_bodies": 694,
+  "denominator": 253580,
+  "denominator_caveat": "Established inventory denominator; missing callback entries make this provisional, not full binary proof.",
+  "net_cpp_bytes_since_1800136": 121,
+  "newly_accepted": [
+    {
+      "name": "?R_ScreenshotFilename@@YAXHPBDPAD@Z",
+      "t": "0x10025960",
+      "n": 60,
+      "obj": "r_screenshot.obj",
+      "why": []
+    },
+    {
+      "name": "?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z",
+      "t": "0x100145a0",
+      "n": 3,
+      "obj": "r_jpeg.obj",
+      "why": []
+    },
+    {
+      "name": "?Z_MallocJpeg@@YAPAXI@Z",
+      "t": "0x10014610",
+      "n": 6,
+      "obj": "r_jpeg.obj",
+      "why": []
+    },
+    {
+      "name": "?Z_FreeJpeg@@YAXPAXI@Z",
+      "t": "0x10014620",
+      "n": 13,
+      "obj": "r_jpeg.obj",
+      "why": []
+    },
+    {
+      "name": "?ExitJpeg@@YAXXZ",
+      "t": "0x10014630",
+      "n": 17,
+      "obj": "r_jpeg.obj",
+      "why": []
+    },
+    {
+      "name": "?PrintfJpeg@@YAXPAD@Z",
+      "t": "0x10014650",
+      "n": 22,
+      "obj": "r_jpeg.obj",
+      "why": []
+    }
+  ],
+  "protected_extents": 2445,
+  "assembly_excluded_bodies": 35,
+  "assembly_excluded_bytes": 8411,
+  "api": "65/98 accepted",
+  "verified_complete_files": 8,
+  "verified_clean_emitted_functions": 49,
+  "raw_same_offset_percent": 12.903966312914823,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "uncredited_matching_bodies": [
+    {
+      "name": "?R_LevelShot@@YAXXZ",
+      "t": "0x10026290",
+      "n": 159,
+      "obj": "r_screenshot.obj",
+      "why": [
+        "call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
+      ]
+    },
+    {
+      "name": "?R_ScreenShotCmd@@YAXH@Z",
+      "t": "0x100263a0",
+      "n": 567,
+      "obj": "r_screenshot.obj",
+      "why": [
+        "call ?R_LevelShot@@YAXXZ"
+      ]
+    }
+  ],
+  "checks": [
+    "original-compiler build and both byte/binding referees",
+    "2445 protected extents; both gates reject helper removal",
+    "1920 independent area/center sampling cases",
+    "63 screenshot command behavior cases",
+    "6 focused discovery/extent fixtures; 10 JPEG callback removal negatives",
+    "unchanged old-referee replay; identical accepted set for JPEG callbacks",
+    "8 verified complete source files/49 emitted functions"
+  ],
+  "cost": {
+    "screenshot_build_attempts": 4,
+    "invalidated_receipts": 1,
+    "invalidated_receipt_reason": "Source changed during referee stage; freshness gate rejected receipt. Final build is fresh.",
+    "workers_spawned": 0,
+    "build_directories": 1,
+    "token_usage": "not available; no token cost estimate invented"
+  },
+  "hashes": {
+    "target/work/src/gfx_d3d/r_screenshot.cpp": "b0a83af111748f05a1ec779fa247c15d36fda233fff639a9ad68bb214c2aaf0e",
+    "target/work/src/gfx_d3d/r_jpeg.cpp": "b0499dd2c333e9679960bd7d483349b03232652a98708e30e57b1c3f30f2fcbf",
+    "target/work/src/gfx_d3d/r_image_load_obj.cpp": "cc544d58469adad3ab11ec910216ea0677c8aae750a7a6aa4c1dd64e45c41bff",
+    "tools/bindcheck.py": "5d16bab3117863d6088643c658a0f701bf96480cda83e070d14553f0e83e8c1a",
+    "target/work/tools/check_checkpoint.py": "c0aa33d26c18bd98e674ab7744bf035169d2b8871157dd54d49a25e5cff2b9a9",
+    "target/work/tools/regression.py": "6f053f16bacc182e6d46f0b61671b1c520e43bdd2e84a5bd273d43fa50c15e21",
+    "target/work/tools/source_coverage.py": "87e666524a639ae5910683e2021f5e42b1dae729c9d021e296698820ac0008f1",
+    "target/work/tests/test_screenshot_commands.py": "c289b263400002349444c2d50293d0a9548439f3ce04a1a5f2744e1dcd728ce7",
+    "target/work/tests/test_screenshot_resampling.py": "169d4063c4375a54eeb062f26c8e093381b5eb7ccf3e7c92d6c2e442c0514675",
+    "target/work/tests/test_jpeg_pointer_placement.py": "afcd03b85ea15fc3f76ab7cd0486a9340d6cace8bf576a8e699eadfc98bd64af",
+    "target/work/build/cmp.json": "64b1e601e811c293bdda9edafbf971180f3f2c1e9d65bfe462e837ebd69abb6a",
+    "target/work/build/bind.json": "367a3eaa69c064a30396f286347c6cd651777841f1ef06e83ddfcc2ca1d07185",
+    "target/work/build/gfx.dll": "5d4a94b8454ae062ee915d60096a333e5bd1db4fd990f2128385a73b6db52092",
+    "target/work/build/gfx.map": "253b0f50ef70174b77b5a36cfd5dd1684d5f308eb6000cba06d000fa0741fb8b",
+    "proof/verified_source_20261102/manifest.json": "a8af3d5359a847118d6c39c026fb2d017e86718dfdc2c3d31afd0eccda2e0ad4"
+  }
+}

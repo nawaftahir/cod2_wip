@@ -165,6 +165,12 @@ required.update(accepted(jpeg_compress_abi))
 jpeg_save = Path(__file__).resolve().parents[1] / 'proof/jpeg_save_20261103_warm_bind.json'
 assert hashlib.sha256(jpeg_save.read_bytes()).hexdigest() == '9fe76c04ed8c732c218e8ce2b4a83a4e29f2fda6d3aa10447faa81f5e941aad1'
 required.update(accepted(jpeg_save))
+jpeg_callbacks = Path(__file__).resolve().parents[1] / 'proof/jpeg_callbacks_warm_bind.json'
+assert hashlib.sha256(jpeg_callbacks.read_bytes()).hexdigest() == '9115fefabad18e2782de57b8c845c5597fd24eafeb03a9d1e47995005fc05cc6'
+required.update(accepted(jpeg_callbacks))
+screenshot_filename = Path(__file__).resolve().parents[1] / 'proof/screenshot_filename_20261103_warm_bind.json'
+assert hashlib.sha256(screenshot_filename.read_bytes()).hexdigest() == '16953b3b6b3f7fb81c1ff35d221c672cb13a3461935e1700821c68146ab1e9dc'
+required.update(accepted(screenshot_filename))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

@@ -1,3 +1,35 @@
+# Active renderer work - 2026-11-03
+
+Current C/C++114617B/694 bodies=45.199542551%,2445 protected extents.
+Receipt: target/work/proof/nov03_jpeg_screenshot_checkpoint.json. Final build
+and all retention/source-freshness gates pass. Read PROGRESS.md for details. The older
+PAUSED/JPEG-placement entries below are historical. JPEG callback placement is
+now implemented, independently replayed against the unchanged old referee,
+and covered by rejection fixtures. Root src/ has8 complete files/49 emitted
+matches, including the complete r_jpeg.cpp. Run tools/check_verified_source.py.
+
+Primary continued in r_screenshot.cpp; no Gemini source was changed. The
+filename helper has a full60-byte match. LevelShot uses a256-byte buffer;
+its own159 bytes match, but its resampling dependency has not passed. The
+screenshot command needs the actual filename helper, a while loop over the
+counter, an inlined JPEG capture and the second switch's default return.
+Its567-byte candidate matches the byte referee; credit still requires the
+binding/call-closure gate. Never substitute this candidate for an accepted row.
+
+Actual pixel filters are independently checked by test_screenshot_resampling.py
+(area integration and center interpolation,1920 cases). Existing screenshot
+command fixture covers63 routing, numbering, failure and ownership cases.
+Register/local-lifetime trials in pixel filters remain uncredited drafts.
+Do not repeat them without new target evidence. No new assembly was added.
+
+One build output only; full source-attribution freshness checks apply. If a
+source changes while referees run, that receipt is rejected and a fresh build
+is mandatory. Do not quote a mixed DLL/map/cmp observation during a build.
+Keep the owner's354 staged files and rb_state.c untouched; never push unless
+asked to "push it". Gemini ownership remains in WORKERS.md.
+
+Historical handoffs follow.
+
 # PAUSED after JPEG checkpoint - 2026-11-03
 
 Read PROGRESS.md and target/work/proof/nov03_jpeg_checkpoint.json first.

@@ -1,5 +1,57 @@
 # Renderer progress
 
+## Active verified checkpoint - 2026-11-03
+
+C/C++114617/253580=45.199542551%,694 bodies: +121B/+6 bodies
+since1800136.61B are newly verified existing JPEG callbacks;60B is the restored
+R_ScreenshotFilename helper.2445 protected source/library extents, all retained.
+35 authored-assembly-bearing bodies/8411B stay excluded; API65/98 unchanged.
+The denominator is inventory-based/provisional, not proof of whole-file coverage.
+Root src/ now has8 complete verified files/49 emitted matches including JPEG.
+
+Screenshot source corrections:256-byte level-shot filename buffer, recovered
+filename helper, counter while loop, inlined JPEG capture and the second switch's
+default return. LevelShot159 and ScreenShotCmd567 now byte-match, but remain
+UNCREDITED: resampling's unresolved call chain blocks binding acceptance. Do not
+count these726 bytes or promote the incomplete screenshot TU to clean src/.
+
+Native1920 pixel-filter comparisons against independent area/center formulas
+and63 screenshot command cases pass. Existing six verifier fixtures and JPEG
+old-referee replay pass. Both retention gates reject deleting the60-byte helper;
+10 callback removal negatives were also checked. No new authored assembly.
+Pixel-filter local-lifetime and cube-stride changes are tested, unmatched drafts.
+
+One build output, zero new workers. Four screenshot build attempts; one receipt
+was correctly rejected because source changed while its referees ran. Final
+build, both referees, source-freshness and regression pass. Raw same-offset meter
+is12.903966313%; whole-DLL SHA and GPU smoke are unfinished.
+Receipt: target/work/proof/nov03_jpeg_screenshot_checkpoint.json. No push.
+Gemini's scene files/assignment and the owner's354 staged files are preserved.
+
+## Active: complete JPEG TU verified - 2026-11-03
+
+The full r_jpeg.cpp now passes: all10 emitted bodies and their bindings.
+Copied the unchanged verified file to root src/gfx_d3d/r_jpeg.cpp. Clean src/
+now holds8 complete verified files/49 emitted matches. Copying adds no coverage.
+The five existing callbacks add61 newly verified C++ bytes:114557/253580=
+45.175881379%,693 bodies, using the established inventory-based denominator.
+The old inventory omits these callbacks; this meter alone cannot establish100%.
+
+Discovery uses paired MOV-immediate HIGHLOW sites in the already verified JPEG
+producers, exact instruction prefixes, one consistent destination, <=32-byte
+source bodies, aligned/trap-padded target boundaries and existing byte/binding/
+import/extent/call gates. No global RET search, mask change or new assembly.
+An independent source/retail raw-body comparison and unmodified old-referee
+replay accept exactly the same set. No overlap with prior accepted extents.
+Six focused verifier fixtures and10 removal negatives pass; all2444 protected
+extents remain. No compiler build was needed for this verification gain.
+
+Root proof records the original discovery separately from producer-derived
+candidates and pins the old-referee replay. Existing JPEG encoder/decoder/Pillow
+results apply to unchanged source. Whole-DLL SHA/GPU validation is unfinished.
+Gemini's scene worktree remains untouched. Main frame/cube trials continue;
+those candidates are uncredited until the full pipeline accepts them.
+
 ## PAUSED after JPEG checkpoint - 2026-11-03
 
 Verified C++114496/253580=45.151825854%,688 bodies. Since871d13e:
