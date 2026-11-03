@@ -52,7 +52,7 @@ static void CL_Netchan_Encode(byte *data, int size)
 
     string = clc.serverCommands[clc.serverCommandSequence & 0x7f];
     index = 0;
-    key = (byte)clients[0].serverId ^ (byte)clc.challenge ^ (byte)clc.serverMessageSequence;
+    key = (byte)clc.challenge ^ (byte)clients[0].serverId ^ (byte)clc.serverMessageSequence;
 
     for (i = 0; i < size; i++, data++) {
         if (!string[index])
