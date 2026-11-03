@@ -9,8 +9,8 @@
   (run from dev/; absolute patch path), commit only on KEPT.
 - Release checkpoint copy: `cod2engine/archive/mp-1.0` (uncommitted, owner commits). Repo
   `nawaftahir/cod2engine` was recreated 11-02 (private, main only); old one is `cod2engine-old`.
-- 1.3 client: worktree `~/cod2/test/dev/claude_client13` (branch client-1.3) is run by the owner's
-  opencode agents (brief `AGENTS.md`, ratchet `ratchet13.sh`, notes `NOTES_1.3.md`, baseline 5.16%,
+- 1.3 client: worktree `~/cod2/test/dev/claude_client13` (branch client-1.3) was run by the owner.s
+  opencode agents until 11-04, now owned by the main session (brief `AGENTS.md`, ratchet `ratchet13.sh`, notes `NOTES_1.3.md`, baseline 5.16%,
   ~218 KB of 1.3 code missing). Merged 1.0 master on 11-04 (148a13b), worklist in WORKLIST_1.3.md.
 
 ## Next: identify the 6 code-free TUs (Rich 265 vs 271, Mac STABS candidates in LESSONS 10-29), then settle ties once.
