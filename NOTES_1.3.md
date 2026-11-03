@@ -100,5 +100,20 @@
   `terminate_handler`, `HTAlertCallback_progress`, `HTAlertCallback_confirm`, `HTAlertCallback_prompt`,
   `DL_CancelDownload`, `DL_InitDownload`, `DL_Shutdown`, `DL_BeginDownload(local, remote)`,
   `DL_BeginDownload(remote)` for MOTD, `DL_DownloadLoop`, `DL_InProgress`, `DL_DLIsMotd`).
+- PINNED (CL_WWWDownload & MOTD helpers placement in cl_main_pc_mp.cpp):
+  Retail 1.3 binary places three download-related client functions directly after `CL_ClearMutedList` (0x4b50a0):
+  - 0x4b50c0: `char *LAN_GetMotdFilename(void)` (builds OS path to motd.txt into static buffer `motd_buffer[256]` at 0x19a7000).
+  - 0x4b50f0: `void CL_ReadMotd(void)` (reads motd.txt, sets or registers dvar "motd" with DVAR_EXTERNAL).
+  - 0x4b5160: `void CL_WWWDownload(void)` (calls DL_DownloadLoop(), handles MOTD and game downloads).
+  Followed immediately by `LAN_AddServer` at 0x4b52f0 in `cl_ui_pc_mp.cpp`.
+  Moving `CL_WWWDownload` from `cl_parse_mp.cpp` to `cl_main_pc_mp.cpp`, implementing `LAN_GetMotdFilename` and `CL_ReadMotd`,
+  and correcting `legacyHacks->cl_downloadSize = cls.downloadSize;` (debunking OpenCoD2's fake `download_ui_ptr`) gained +1,064 bytes.
+  Ratchet: 137,627 -> 138,691 (commit dcb129d).
+- PINNED (1.3 Data Layout Discoveries):
+  - `clientStatic_t`: `autoupdateServerNames[5][64]` is at 0x2c8d80, `autoupdateServer` is at 0x2c8ec0,
+    followed by `vidConfig`, `debug`, and the 11 download subsystem fields. Total size: exactly 0x2c9580.
+  - `MAX_GAMESTATE_CHARS`: In 1.3, bumped from 0x3e80 (1.0) to 0x20000 (170 references in 1.3 retail binary, 0 for 0x3e80).
+    `sizeof(cgs_t) == 0x2a954`.
+
 
 
