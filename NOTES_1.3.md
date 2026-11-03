@@ -109,11 +109,28 @@
   Moving `CL_WWWDownload` from `cl_parse_mp.cpp` to `cl_main_pc_mp.cpp`, implementing `LAN_GetMotdFilename` and `CL_ReadMotd`,
   and correcting `legacyHacks->cl_downloadSize = cls.downloadSize;` (debunking OpenCoD2's fake `download_ui_ptr`) gained +1,064 bytes.
   Ratchet: 137,627 -> 138,691 (commit dcb129d).
-- PINNED (1.3 Data Layout Discoveries):
-  - `clientStatic_t`: `autoupdateServerNames[5][64]` is at 0x2c8d80, `autoupdateServer` is at 0x2c8ec0,
-    followed by `vidConfig`, `debug`, and the 11 download subsystem fields. Total size: exactly 0x2c9580.
-  - `MAX_GAMESTATE_CHARS`: In 1.3, bumped from 0x3e80 (1.0) to 0x20000 (170 references in 1.3 retail binary, 0 for 0x3e80).
-    `sizeof(cgs_t) == 0x2a954`.
+- PINNED (1.3 PE Section Snapping Threshold - 115 Bytes to 4KB Page Alignment):
+  Shameter reports our .text raw size is 1,642,496 (0x191000) with VirtualSize 1,642,381 (0x190f8d).
+  Retail .text raw size is 1,646,592 (0x192000) with VirtualSize 1,645,581 (0x191c0d).
+  Because 1,642,496 - 1,642,381 = 115 bytes, adding just 116 bytes to .text VirtualSize will push it
+  past 0x191000, aligning .rdata to VA 0x193000 (0x593000) and .data to VA 0x1cb000 (0x5cb000) to
+  match retail section headers identically. This will snap tens of thousands of data pointers across .rdata and .data into place.
+- PINNED (Upstream libwww Revision & Line Number Signatures):
+  Disassembly of retail libwww functions calling `HTMemory_outofmem` (VA 0x550f90) revealed exact pushed line numbers:
+  - `HTReqMan.c`: `HTRequest_new()` line 66, `HTRequest_dup` line 152 & 171.
+  - `HTFTP.c`: `FTPStatus_new` line 369, `segment` line 1178, `HTLoadFTP` line 1361.
+  - `HTAABrow.c`: `HTBasic_new` line 190.
+  - `HTString.c`: `HTSACopy` line 117, `HTSACat` lines 131 & 135, `HTStrCpy` line 159.
+  Our draft libwww files were from 5.3.2 release (Dec 2000), which lacked the 2-line 2002 contributor header
+  comments present in `refrences/libwww-git` (commit `daffd6c3` March 2002). Reconciling the line offsets
+  and upstream bug fixes to match `refrences/libwww-git` enables byte-identical matching across all 3,212 libwww functions.
+- PINNED (Subsystem Link Order Findings):
+  - In retail, `cinematics` runs up to 0x4b2f12, immediately followed by `cl_main_pc_mp` (0x4b2f50 - 0x4b52f0).
+  - PunkBuster (`pbcl`, `pbsv`) lives at 0x4bb000 - 0x4bd513 in retail (after `groupvoice` and before `cg_main_mp`),
+    not before `libwww`.
+  - In retail, `ui_gameinfo_mp.cpp` (ends 0x547f20 with `UI_LoadArenas` `.arena files : %s`) directly connects
+    into `libwww/Library/src/HTReqMan.c` (`HTRequest_new` at 0x547f20).
+
 
 
 
