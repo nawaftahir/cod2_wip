@@ -50,7 +50,6 @@ extern dvar_t *com_sv_running;
 extern dvar_t *cl_paused;
 extern dvar_t *net_lanauthorize;
 extern byte **cl_packetdelay;
-extern byte **download_ui_ptr;
 extern const dvar_t *cl_shownet;
 extern const dvar_t *cl_shownuments;
 
@@ -759,7 +758,7 @@ void CL_ParseWWWDownload(msg_t *msg)
     }
 #    endif
 
-    *(int *)((*download_ui_ptr) + 0x10) = cls.downloadSize;
+    legacyHacks->cl_downloadSize = cls.downloadSize;
 
     if (cls.downloadFlags & 0x2) {
         Sys_OpenURL(cls.downloadName, 1);
@@ -780,7 +779,7 @@ void CL_ParseWWWDownload(msg_t *msg)
     if (cls.downloadTempName[0])
         cls.downloadTempName[strlen(cls.downloadTempName) - 1] = '\0';
 
-    if (DL_BeginDownload(cls.downloadTempName, cls.downloadName, com_developer->current.integer)) {
+    if (DL_BeginDownload(cls.downloadTempName, cls.downloadName)) {
         if (cls.downloadFlags & 0x1) {
             CL_AddReliableCommand("wwwdl bbl8r");
             cls.wwwDlDisconnected = 1;
@@ -795,67 +794,6 @@ void CL_ParseWWWDownload(msg_t *msg)
     if (cls.downloadFlags & 0x1) {
         CL_AddReliableCommand("wwwdl bbl8r");
         cls.wwwDlDisconnected = 1;
-    }
-}
-
-void CL_WWWDownload(void)
-{
-    const char *fs_homepath = Dvar_GetString("fs_homepath");
-    dlStatus_t st;
-
-    DL_DownloadLoop();
-    st = DL_GetStatus();
-
-    if (st == DL_STATUS_IN_PROGRESS || st == DL_STATUS_IDLE)
-        return;
-
-    if (DL_DLIsMotd()) {
-        if (st == DL_STATUS_DONE) {
-            void *buf;
-            if (FS_ReadFile("motd.txt", &buf) >= 0) {
-                Dvar_SetStringByName("motd", (const char *)buf);
-                FS_FreeFile(buf);
-            }
-        }
-        cls.wwwDlInProgress = 0;
-        return;
-    }
-
-    if (st == DL_STATUS_DONE) {
-        char toOSPath[256];
-
-        cls.download = 0;
-        FS_BuildOSPath(fs_homepath, cls.downloadName, "", toOSPath);
-        if (toOSPath[0])
-            toOSPath[strlen(toOSPath) - 1] = '\0';
-
-        if (rename(cls.downloadTempName, toOSPath) != 0) {
-            FS_CopyFile(cls.downloadTempName, toOSPath);
-            remove(cls.downloadTempName);
-        }
-
-        cls.downloadTempName[0] = '\0';
-        cls.downloadName[0] = '\0';
-        *(char *)((*download_ui_ptr) + 0x1c) = 0;
-
-        if (cls.wwwDlDisconnected)
-            Cbuf_ExecuteText(2, "reconnect\n");
-        else
-            CL_AddReliableCommand("wwwdl done");
-
-        cls.wwwDlInProgress = 0;
-        CL_NextDownload();
-    } else {
-        if (cls.wwwDlDisconnected) {
-            char *err = va("Download failure while getting '%s'\n", cls.downloadName);
-            cls.wwwDlDisconnected = 0;
-            CL_ClearStaticDownload();
-            Com_Error(ERR_DROP, "%s", err);
-            return;
-        }
-        Com_Printf("Download failure while getting '%s'\n", cls.downloadName);
-        CL_AddReliableCommand("wwwdl fail");
-        cls.wwwDlInProgress = 0;
     }
 }
 #endif

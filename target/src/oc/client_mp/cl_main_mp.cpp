@@ -348,7 +348,7 @@ static const dvar_t *input_viewSensitivity;
 
 
 // retail globals, names from CoD1 (SUPPORTED)
-static qboolean autoupdateStarted;
+qboolean autoupdateStarted;
 static char autoupdateFilename[64];
 
 
@@ -1205,6 +1205,12 @@ void CL_ForwardCommandToServer(const char *string)
     else
         CL_AddReliableCommand(cmd);
 }
+
+#if COD2_IS_PATCH_13
+int lastUpdateKeyAuthTime;
+static const char cl_getKeyAuthorizeFmt_13[] = "getKeyAuthorize %i %s PB %s";
+static void CL_BuildMd5StrFromCDKey(char *md5Str);
+#endif
 
 void CL_RequestAuthorization(void)
 {
@@ -3293,10 +3299,6 @@ enum XAssetType;
 
 
 #if COD2_IS_PATCH_13
-
-int lastUpdateKeyAuthTime;
-
-static const char cl_getKeyAuthorizeFmt_13[] = "getKeyAuthorize %i %s PB %s";
 
 static void CL_BuildMd5StrFromCDKey(char *md5Str)
 {

@@ -2,7 +2,11 @@
 #include "imports.h"
 #include "headers/PC/cgame_mp/cg_local.h"
 #include <float.h>
+#if COD2_IS_PATCH_13
+COD2_ASSERT_SIZE(cgs_t, 0x2a954);
+#else
 COD2_ASSERT_SIZE(cgs_t, 0xe7d4);
+#endif
 const dvar_t *cg_shock_soundWetLevel;
 
 const dvar_t *cg_tracerLength;

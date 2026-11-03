@@ -18,4 +18,8 @@ int DL_DownloadLoop(void);
 bool DL_InProgress(void);
 bool DL_DLIsMotd(void);
 
+char *LAN_GetMotdFilename(void);
+void CL_ReadMotd(void);
+void CL_WWWDownload(void);
+
 #endif

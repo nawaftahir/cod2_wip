@@ -29,7 +29,6 @@ static int dl_forceRawBytesCount;
 static HTRequest *dl_request;
 static int dl_requestStatus = -1000;
 bool dl_isMotd;
-char motd_buffer[256];
 
 int DL_VPrintf(const char *fmt, char *args)
 {
@@ -263,9 +262,9 @@ int DL_BeginDownload(const char *remoteUrl)
     dl_request = HTRequest_new();
     HTSACopy(&requestUrl, remoteUrl);
 
-    FS_BuildOSPath(fs_homepath->current.string, fs_gameDirVar->current.string, "motd.txt", motd_buffer);
+    char *motd = LAN_GetMotdFilename();
 
-    if (!HTLoadToFile(requestUrl, dl_request, motd_buffer))
+    if (!HTLoadToFile(requestUrl, dl_request, motd))
     {
         Com_DPrintf("HTLoadToFile failed\n");
         HTMemory_free(requestUrl);

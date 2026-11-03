@@ -74,6 +74,22 @@ extern void SCR_UpdateScreen(void);
 extern void Com_Error(errorParm_t level, const char *fmt, ...);
 extern void Com_Memset(void *dest, const int val, int count);
 extern void Dvar_SetString(dvar_t *dvar, const char *value);
+#include "../../qcommon/dl_main.h"
+#include <stdio.h>
+#define DVAR_EXTERNAL (1 << 14)
+extern dvar_t *fs_homepath;
+extern dvar_t *fs_gameDirVar;
+extern int autoupdateStarted;
+extern void FS_BuildOSPath(const char *base, const char *game, const char *qpath, char *ospath);
+extern int FS_ReadFile(const char *qpath, void **buffer);
+extern void FS_FreeFile(void *buffer);
+extern void FS_CopyFile(char *fromOSPath, char *toOSPath);
+extern dvar_t *Dvar_FindVar(const char *dvarName);
+extern dvar_t *Dvar_RegisterString(const char *dvarName, const char *value, unsigned short flags);
+extern void Cbuf_AddText(const char *text);
+extern void CL_AddReliableCommand(const char *cmd);
+extern void CL_NextDownload(void);
+extern int CL_ClearStaticDownload(void);
 
 typedef struct rconGlob_s {
     char password[24];
@@ -1071,5 +1087,88 @@ Bool CL_IsPlayerMuted(int clientIndex)
 void CL_ClearMutedList(void)
 {
     memset(s_playerMute, 0, sizeof(s_playerMute));
+}
+
+char motd_buffer[256];
+
+char *LAN_GetMotdFilename(void)
+{
+    FS_BuildOSPath(fs_homepath->current.string, fs_gameDirVar->current.string, "motd.txt", motd_buffer);
+    return motd_buffer;
+}
+
+void CL_ReadMotd(void)
+{
+    void *buf;
+    dvar_t *dvar;
+
+    if (FS_ReadFile("motd.txt", &buf) >= 0) {
+        dvar = Dvar_FindVar("motd");
+        if (dvar) {
+            Dvar_SetString(dvar, (const char *)buf);
+            FS_FreeFile(buf);
+        } else {
+            Dvar_RegisterString("motd", (const char *)buf, DVAR_EXTERNAL);
+            FS_FreeFile(buf);
+        }
+    }
+}
+
+void CL_WWWDownload(void)
+{
+    char toOSPath[256];
+    int st;
+
+    st = DL_DownloadLoop();
+    if (!st) {
+        return;
+    }
+
+    if (DL_DLIsMotd()) {
+        if (st == 1) {
+            CL_ReadMotd();
+        }
+        cls.wwwDlInProgress = 0;
+        return;
+    }
+
+    if (st == 1) {
+        cls.download = 0;
+        FS_BuildOSPath(fs_homepath->current.string, cls.downloadName, "", toOSPath);
+        if (toOSPath[0]) {
+            toOSPath[strlen(toOSPath) - 1] = '\0';
+        }
+
+        if (rename(cls.downloadTempName, toOSPath) != 0) {
+            FS_CopyFile(cls.downloadTempName, toOSPath);
+            remove(cls.downloadTempName);
+        }
+
+        cls.downloadTempName[0] = '\0';
+        cls.downloadName[0] = '\0';
+        I_strncpyz(legacyHacks->cl_downloadName, "", sizeof(legacyHacks->cl_downloadName));
+
+        if (cls.wwwDlDisconnected) {
+            if (!autoupdateStarted) {
+                Cbuf_AddText("reconnect\n");
+            }
+        } else {
+            CL_AddReliableCommand("wwwdl done");
+        }
+
+        cls.wwwDlInProgress = 0;
+        CL_NextDownload();
+    } else {
+        if (cls.wwwDlDisconnected) {
+            char *err = va("Download failure while getting '%s'\n", cls.downloadName);
+            cls.wwwDlDisconnected = 0;
+            CL_ClearStaticDownload();
+            Com_Error(ERR_DROP, "%s", err);
+            return;
+        }
+        Com_Printf("Download failure while getting '%s'\n", cls.downloadName);
+        CL_AddReliableCommand("wwwdl fail");
+        cls.wwwDlInProgress = 0;
+    }
 }
 
