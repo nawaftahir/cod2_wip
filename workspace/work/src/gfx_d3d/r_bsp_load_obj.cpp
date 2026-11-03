@@ -1106,8 +1106,10 @@ void R_LoadNodesAndLeafs(GfxBspLoad *load)
 // PINNED 10004430: lumps 18-20, planes come from the collision map.
 void R_LoadOccluders(GfxBspLoad *load)
 {
-    int count = R_GetLumpElemCount(load, 18, sizeof(DiskGfxOccluder));
-    const DiskGfxOccluder *in = (const DiskGfxOccluder *)(load->fileBase + load->header->lumps[18].fileofs);
+    const DiskGfxOccluder *in;
+    int remaining;
+    const int count = R_GetLumpElemCount(load, 18, sizeof(DiskGfxOccluder));
+    in = (const DiskGfxOccluder *)(load->fileBase + load->header->lumps[18].fileofs);
     GfxOccluder *occluders = (GfxOccluder *)ri.Hunk_AllocInternal(count * sizeof(GfxOccluder));
     int planeCount = R_GetLumpElemCount(load, 19, 4);
     const int *planeIndices = (const int *)(load->fileBase + load->header->lumps[19].fileofs);
@@ -1116,30 +1118,33 @@ void R_LoadOccluders(GfxBspLoad *load)
     const DiskGfxOccluderEdge *inEdges = (const DiskGfxOccluderEdge *)(load->fileBase + load->header->lumps[20].fileofs);
     GfxOccluderEdge *edges = (GfxOccluderEdge *)ri.Hunk_AllocInternal(edgeCount * sizeof(GfxOccluderEdge));
     rgl.occluders = occluders;
-    for (int index = 0; index < count; ++index)
+    GfxOccluder *out = occluders;
+    remaining = count;
+    if (remaining > 0)
+    do
     {
-        GfxOccluder *out = &occluders[index];
-        out->planeCount = in[index].planeCount;
-        out->planes = &planes[in[index].firstPlane];
+        out->planeCount = in->planeCount;
+        out->planes = &planes[in->firstPlane];
         if (out->planeCount > 0)
         {
-          const int *occluderPlanes = &planeIndices[in[index].firstPlane];
+          const int *occluderPlanes = &planeIndices[in->firstPlane];
           for (int planeIndex = 0; planeIndex < out->planeCount; ++planeIndex, ++occluderPlanes)
           {
             const float *plane = (const float *)ri.CM_GetPlaneNum(*occluderPlanes);
-            DpvsPlane *outPlane = &out->planes[planeIndex];
-            VectorCopy(plane, outPlane->coeffs);
+            out->planes[planeIndex].coeffs[0] = plane[0];
+            out->planes[planeIndex].coeffs[1] = plane[1];
+            out->planes[planeIndex].coeffs[2] = plane[2];
             out->planes[planeIndex].coeffs[3] = -plane[3];
-            outPlane = &out->planes[planeIndex];
+            DpvsPlane *outPlane = &out->planes[planeIndex];
             outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
             outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
             outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
           }
         }
-        out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
-        out->vertexCount = in[index].portalVertexCount;
-        out->edgeCount = in[index].edgeCount;
-        out->edges = &edges[in[index].firstEdge];
+        out->vertices = &rgl.portalVerts[in->firstPortalVertex];
+        out->vertexCount = in->portalVertexCount;
+        out->edgeCount = in->edgeCount;
+        out->edges = &edges[in->firstEdge];
         for (int edgeIndex = 0; edgeIndex < out->edgeCount; ++edgeIndex)
         {
             const DiskGfxOccluderEdge *inEdge = &inEdges[edgeIndex];
@@ -1150,7 +1155,9 @@ void R_LoadOccluders(GfxBspLoad *load)
         }
         out->viewPlaneCount = 0;
         out->viewPlanes = 0;
-    }
+        ++in;
+        ++out;
+    } while (--remaining);
 }
 
 // PINNED 10003d40: bounds come from the surfaces or the child trees.

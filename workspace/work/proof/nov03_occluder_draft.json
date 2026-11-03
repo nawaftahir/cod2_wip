@@ -1,0 +1,13 @@
+{
+  "status": "UNVERIFIED partial source; zero added coverage",
+  "function": "R_LoadOccluders",
+  "target": "0x10004430",
+  "retail_bytes": 568,
+  "candidate_bytes": 567,
+  "previous_candidate_bytes": 587,
+  "source_sha256": "ed1ad1a78dcb82d31903f5319ccefbebd607875ee548b6299cad2392b598b6ec",
+  "log": "latest/nov03_occluder_local_lifetimes.log",
+  "last_verified_checkpoint": "39399f4",
+  "next": "Resolve count EBP versus retail EDI and input-pointer lifetime; declaration-only reordering made no difference",
+  "native_test": "test_occluder_loader.py passes"
+}

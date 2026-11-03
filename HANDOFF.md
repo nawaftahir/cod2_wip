@@ -1,3 +1,14 @@
+## Unverified active draft - occluder loader
+
+work/src/gfx_d3d/r_bsp_load_obj.cpp contains a partial R_LoadOccluders
+reconstruction: pointer/countdown traversal, explicit plane-pointer reloads,
+separate allocation/countdown lifetimes.567 bytes versus retail568, NOT a
+match. Actual-loader fixture passes. No coverage added;39399f4 remains the
+verified checkpoint. The physical build is diagnostic. See
+proof/nov03_occluder_draft.json under target/work/ for source hash and blockers.
+Global parser noinline lost three protected matches and is restored. Avoid
+repeating it or the recorded declaration/pointer spelling trials.
+
 # Latest renderer continuation - 2026-11-03
 
 Current verified C++116526B/721 bodies=45.952362174%;2511 protected extents.

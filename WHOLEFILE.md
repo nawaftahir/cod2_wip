@@ -1,5 +1,42 @@
 # Renderer roadmap: readable source to the exact retail DLL
 
+## Execution policy - 2026-11-03
+
+Current verified status lives in PROGRESS.md:45.952% C/C++, not whole-DLL
+completion. Stop isolated spelling/register sweeps without new target evidence.
+The last two waves of such probes gained nothing.
+
+1. Use the saved verified bind receipt, not the diagnostic build, to rank real
+   retail call groups. Reuse tools/ready.py and layout/file_layout.tsv. The
+   current scan is proof/nov03_ready.tsv under target/work/:160 inventoried
+   bodies/45626 bytes have no unresolved direct game callees. This is a search
+   queue, NOT recoverable-byte promises; indirect calls, bad boundaries and
+   assembly still require review.
+2. Pick a connected source cohort with substantive differences, a fixed owner
+   and actual tests. Inspect retail bodies and all caller/callee interfaces
+   before edits. First cohort: material pass/vertex-declaration parsing in
+   r_material_load_obj.cpp, shared token pushback, allocation and declaration
+   building. The587-byte retail vertex-declaration parser has control-flow and
+   routing-comparison differences, not merely register naming. Confirm full
+   target instructions before changing sorting semantics or shared ABI.
+3. Edit related source as one batch. Reuse original library sources/toolchain.
+   Run native behavior fixtures first, then one original incremental link.
+   Use existing symbol byte probes to reject failures before the expensive
+   binding pass. Inspect every cohort member in that same fresh image; never
+   relink unchanged inputs just to inspect another member. Keep one build.
+4. For promising code, run unchanged byte/binding/data/dependency checks and
+   all protected extents. Count only fresh, attributed C/C++ matches. Promote
+   complete verified TUs to src/; keep partial source in work/src/. Log net
+   bytes, whole-file equality and actual build count; no invented token totals.
+5. In parallel with source batches, maintain existing TU/library/data ownership
+   and order manifests. Once code/contributors close, finish section placement,
+   imports/exports/relocations and PE metadata, reproduce the anchor SHA, then
+   smoke-test. No copied retail bytes or post-link patching.
+
+A bounded failed cohort gets a precise blocker and a different cohort next;
+repeating cosmetic variants is not the default. No new harness or agent fleet
+is required for this policy. Preserve foreign work and unrelated staged files.
+
 Step3 source/API/dispatch closure is COMPLETE (2026-11-02). The owner resumed
 work; old PAUSED sections below are historical. All98 actual API59 callbacks
 have compiled source and the DLL exports ONLY GetRefAPI. The initializer is

@@ -1,5 +1,48 @@
 # Small helper source and candidate checkpoint - 2026-11-03
 
+Occluder count-lifetime wave: separate immutable allocation count and mutable
+loop countdown changes551->567 versus retail568. Native actual-loader tests
+pass. Declaration-only reordering leaves the same567-byte mismatch. Both
+byte probes reject; zero new coverage. Keep this connected partial source;
+next inspect count/input register lifetimes, not more declaration spellings.
+
+Occluder coefficient wave: explicit stores reload out->planes as retail does.
+Candidate542->551/568; byte probe remains unsuccessful. Partial source retained
+with zero credit. Added actual-loader fixture for empty/multiple records,
+nonzero plane/edge/vertex indices, signed-zero plane-side bits, retail edge
+input restart and untouched ignoreStackLevel. No canonical src/ promotion.
+
+Occluder loader cohort: reconstructed retail pointer traversal/countdown.
+Candidate587->542 bytes versus retail568; still unverified (probe exit3).
+Retained as a partial work/src draft, not promoted or credited. Source removes
+outer array indexing, preserving per-occluder input edge restart seen in the
+retail decompile. Remaining: allocation/input pointer lifetime and inner plane/
+edge address generation. Do not repeat the global parser noinline experiment.
+
+Definition-level noinline on Com_ParseOnLine changes the material parser
+599->535 bytes, confirming the caller-only attribute did not propagate through
+LTCG. Full protected regression rejected this global boundary change; restored.
+Target587 also inlines Com_UngetToken where this candidate calls it. Treat the
+two parser boundaries as a coupled problem. No new verified credit. See
+latest/nov03_parser_definition_build.log for exact regression losses.
+
+Material cohort: retail100192d1 calls Com_ParseOnLine out of line; a caller-TU
+noinline declaration does not reproduce that boundary under the pinned LTCG
+build. Parser stays599 versus587 bytes; exact-byte probe failed (exit3).
+All96 actual DX9 parser fixtures pass. Restored declaration; zero new credit.
+Next inspect the definition and caller/callee compiler group, not pointer
+spellings. Sorting differences require a register/value trace before edits.
+
+Bounded probes: cache width/height declaration/publication order and shader
+text pointer addition order both failed exact-byte checks (exit3). Restored
+both sources. Full verification skipped; zero new coverage. Logs are in
+latest/nov03_cache_height_probe.log and nov03_shader_pointer_probe.log.
+Physical build is diagnostic;39399f4 remains the verified checkpoint.
+
+Pointer-iterator shadow trial:70 behavior cases pass; exact-byte probe fails
+(exit3). Restored source. No full binding/regression run and zero added credit.
+The physical build is diagnostic; last verified checkpoint remains39399f4.
+
 C++116526B/721 bodies=45.952362174%;+204B/+7 sincebb21ec4.2511 protected
 extents retained. Transparency46 is newly matched source; six shorter-search
 candidates add158B from existing C++ source. Six library extents stay separate.
