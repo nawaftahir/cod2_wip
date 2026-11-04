@@ -1396,3 +1396,15 @@ not permitted. `MakeFace`, `SetupVertexSelection`, and the remaining selection
 routines therefore stay draft-only until the genuine brush/caller graph is
 reconstructed. Mark `vertsel.cpp` **PARTIAL/BLOCKED: 2 / 8 accepted, 284 B**
 and proceed to `src/radiant/ModelDlg.cpp`.
+
+## Lane 2 — VertEditDlg, 2026-11-04
+
+Branch `radiant/web/2`; only this lane's source and permitted web draft/report paths edited.
+
+- Original assignment: `src/radiant/VertEditDlg.cpp` first, not another TU.
+- Retail file-map pins `GetRuntimeClass` 0x004460e0 / 6 B, constructor 0x004460f0 / 311 B, and the class runtime data/vtable. Inventory maps `GetMessageMap` to 0x00446400 / 6 B and `OnInitDialog` to 0x00446490 / 211 B.
+- Q3 sweep has no VertEditDlg game matches. Retail Ghidra decompilation of 0x00446490 shows eleven child-window subclass hooks using `g_vertEditSubclass`, alpha range 0..255, three 0..240 slider ranges, real-time checkbox check and `UpdateData(FALSE)`. Source candidate in `workspace/research/web/drafts/VertEditDlg.cpp`; unverified, no ledger credit.
+- Canonical trial commit `9268dd3` added only a class message map. CI run 41850548380 compiled all previous 823/823 matches, but emitted a new unverified `GetMessageMap` body (unverified counter 41 -> 42); full gate failed on an independently existing patch-dialog test, not this code.
+- Correction `1dbffd9` restored canonical source and moved the candidate into an allowed draft file. CI run 41851116924 confirmed 823/823, 41 unverified, 26 FILE VERIFIED; full gate still fails on `test_partial.py` unknown callee at 0x4075c0 -> 0x409270.
+- **Blocked exact compare**: the present web-trial CI uses `workspace/research/web/target.tsv` selecting `ModelDlg` and `tu_trial.tsv` contains ModelDlg addresses. Those are outside lane-2's allowed edit list. Owner must authorize a lane-specific trial config or export CI trial evidence for 0x004460e0, 0x00446400 and 0x00446490. No actual trial comparison / first differing byte exists for these candidates yet, so no match row may be recorded.
+- No assembly, retail byte arrays, ABI override, stubs, or source code in other lanes was added. Whole-file metadata/RTTI/vtable proof remains pending.

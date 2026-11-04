@@ -27,6 +27,7 @@ VertEditSubclassControl g_vertEditSubclass[11] =
 
 class CVertEditDlg : public CDialog
 {
+    DECLARE_DYNAMIC(CVertEditDlg)
 public:
     virtual ~CVertEditDlg();
 
@@ -54,6 +55,8 @@ protected:
 
     DECLARE_MESSAGE_MAP()
 };
+
+IMPLEMENT_DYNAMIC(CVertEditDlg, CDialog)
 
 BEGIN_MESSAGE_MAP(CVertEditDlg, CDialog)
     ON_WM_DRAWITEM()
