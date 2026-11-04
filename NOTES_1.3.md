@@ -3,6 +3,8 @@
 ## Areas in progress
 - opencode (linker/layout): libwww TU set + link order work. Started 2026-11-03.
 
+- w7: libwww remainders (HTEvtLst, HTHost, HTAABrow digest, HTTP, HTDir...). Started 2026-11-04, worktree lab13/w7.
+
 ## Findings
 - PINNED (retail 1.3 exe, .rdata): exactly 75 libwww `__FILE__` path strings
   `\builds\pc_1.3_1_1\pc\cod2src\libwww\Library\src\HTxxx.c` span .rdata 0x193544-0x199050,

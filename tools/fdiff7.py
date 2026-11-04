@@ -32,4 +32,4 @@ for x in r:
     if x.startswith('int3'): break
     rr.append(x)
 print(a[1], hex(a[0]), 'ours', len(o), 'retail', len(rr))
-for l in difflib.unified_diff(o, rr, 'ours', 'retail', lineterm='', n=25): print(l)
+for l in difflib.unified_diff(o, rr, 'ours', 'retail', lineterm='', n=6): print(l)
