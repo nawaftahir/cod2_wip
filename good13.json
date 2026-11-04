@@ -8504,8 +8504,10 @@
 {
 "name": "?Com_Error@@YAXW4errorParm_t@@PBDZZ",
 "obj": "common.obj",
-"size": 429,
-"hits": []
+"size": 440,
+"hits": [
+"0x4324c0"
+]
 },
 {
 "name": "?Com_ErrorAbort@@YAXXZ",
@@ -8929,7 +8931,9 @@
 "name": "?Com_Frame@@YAXXZ",
 "obj": "common.obj",
 "size": 132,
-"hits": []
+"hits": [
+"0x435240"
+]
 },
 {
 "name": "?Com_CloseLogfiles@@YAXXZ",
@@ -16838,8 +16842,10 @@
 {
 "name": "?Sys_Error@@YAXPBDZZ",
 "obj": "win_main.obj",
-"size": 295,
-"hits": []
+"size": 311,
+"hits": [
+"0x465750"
+]
 },
 {
 "name": "?Sys_Quit@@YAXXZ",
@@ -30255,13 +30261,18 @@
 "name": "?SEH_IsChineseLeadTrail@@YAHEE@Z",
 "obj": "stringed_hooks.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x4abc80",
+"0x4abca5"
+]
 },
 {
 "name": "?SEH_IsChineseChar@@YAEI@Z",
 "obj": "stringed_hooks.obj",
 "size": 32,
-"hits": []
+"hits": [
+"0x4abca0"
+]
 },
 {
 "name": "?SEH_IsChinesePunctuation@@YA_NI@Z",
@@ -30273,7 +30284,9 @@
 "name": "?SEH_ChineseCharToIndex@@YAII@Z",
 "obj": "stringed_hooks.obj",
 "size": 49,
-"hits": []
+"hits": [
+"0x4abce0"
+]
 },
 {
 "name": "?SEH_ReadCharFromString@@YAIPAPBDPAH@Z",
@@ -30301,7 +30314,9 @@
 "name": "?SEH_PrintStrlen@@YAHPBD@Z",
 "obj": "stringed_hooks.obj",
 "size": 372,
-"hits": []
+"hits": [
+"0x4abeb0"
+]
 },
 {
 "name": "?SEH_GetLanguageName@@YAPBDH@Z",
@@ -34927,7 +34942,9 @@
 "name": "?CG_PriorityCenterPrint@@YAXPBDMH@Z",
 "obj": "cg_draw_mp.obj",
 "size": 816,
-"hits": []
+"hits": [
+"0x4c8020"
+]
 },
 {
 "name": "?CG_CenterPrint@@YAXPBDM@Z",
@@ -73383,7 +73400,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1904,
+"size": 1872,
 "hits": []
 }
 ]

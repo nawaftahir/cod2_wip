@@ -752,6 +752,7 @@ void Com_Error( errorParm_t code, const char *fmt, ... )
 			if ( cls.uiStarted )
 			{
 				com_errorEntered = 0;
+				Sys_LeaveCriticalSection( 2 );
 				return;
 			}
 		}
@@ -2389,15 +2390,15 @@ void Com_Frame( void )
 
 	Sys_EnterCriticalSection( 2 );
 
-	if ( com_errorEntered )
+	if ( !com_errorEntered )
+	{
+		Sys_LeaveCriticalSection( 2 );
+	}
+	else
 	{
 		Com_ErrorCleanup();
 		Sys_LeaveCriticalSection( 2 );
 		Com_StartHunkUsers();
-	}
-	else
-	{
-		Sys_LeaveCriticalSection( 2 );
 	}
 }
 

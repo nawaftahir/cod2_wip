@@ -457,10 +457,11 @@ void Sys_Error( const char *error, ... )
 	char string[4096];
 	MSG msg;
 
+	Sys_EnterCriticalSection( 2 );
 	com_errorEntered = qtrue;
 
 	va_start( argptr, error );
-	vsprintf( string, error, argptr );
+	_vsnprintf( string, sizeof( string ), error, argptr );
 	va_end( argptr );
 
 	Sys_ErrorShutdown();
