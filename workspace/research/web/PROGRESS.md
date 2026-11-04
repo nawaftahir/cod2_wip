@@ -1396,3 +1396,15 @@ not permitted. `MakeFace`, `SetupVertexSelection`, and the remaining selection
 routines therefore stay draft-only until the genuine brush/caller graph is
 reconstructed. Mark `vertsel.cpp` **PARTIAL/BLOCKED: 2 / 8 accepted, 284 B**
 and proceed to `src/radiant/ModelDlg.cpp`.
+
+
+## 2026-11-04 — lane 3 ModelDlg verified partial checkpoint
+
+Restricted to radiant/web/3, no other lane or main changes. Fresh isolated linked-executable referee proofs:
+- 0x00423d20 CModelDlg::FUN_00423d20: 387/387 B MATCH, run https://github.com/nawaftahir/cod2_wip/actions/runs/41850518117
+- 0x00423eb0 CModelDlg::FUN_00423eb0: 16/16 B MATCH, run https://github.com/nawaftahir/cod2_wip/actions/runs/41851067196
+- 0x00422f90 CModelDlg::FUN_00422f90: 231/231 B MATCH, run https://github.com/nawaftahir/cod2_wip/actions/runs/41851599749
+
+All 3 real C++ bodies were promoted and only their 3 CI-proven game rows added. Canonical commit 1e32d5fe778cea6167e15eec687bc1b9502588ea tested at https://github.com/nawaftahir/cod2_wip/actions/runs/41851918522: verify 826/826 game rows, compiler 8/8, 0 ledger mismatches, 88,460/699,591 B (12.64%). Whole gate RED from pre-existing outside-lane patch-dialog diagnostic assertion ('unexpected unknown callee', 0x4075c0 -> 0x409570); do not change owner-owned test or files.
+
+ModelDlg remains PARTIAL (12 of 24 inventory entries ledgered, including 3 additions / 634 B; 5 AUTO entries separate). Remaining provisional authored entries: 0x00423080 / 1128 B and 0x004234f0 / 1128 B model pickers depend on the exact project-entity basepath/transform helpers and CFileDialog context; 0x00423ba0 / 378 B walks retail brushes/entities and asserts brush->owner->def == brush->def->owner at retail line 240, requiring the reviewed shared struct and global bindings. 0x00423ef0 / 78 B, 0x00423f40 / 99 B, 0x00424010 / 10 B, 0x00424020 / 101 B require separate classification of CString/MFC inline/helper ownership. The five AUTO bodies 0x00422f30, 0x00423ec0, 0x00423fb0, 0x00423fd0, 0x00424000 earn no game credit. These seven remaining provisional game entries are UNTESTED, not claimed failures or matches; no first differing byte or trustworthy source trial exists for them yet. Do not invent missing shared layouts, ABI, or data identities to force progress. Original message-map/data/RTTI bindings and absolute image placement remain unaudited; FILE VERIFIED is not claimed. Proceeding to lane 3's next file while those dependencies require owner context.
