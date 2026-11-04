@@ -68,10 +68,13 @@ def anchors():
 
 def branch_meters():
     # remote refs in CI, local ones when previewing without a fetch
-    refs = git("for-each-ref", "--format=%(refname:short)", "refs/remotes/origin/*/main").split() \
-        or git("for-each-ref", "--format=%(refname:short)", "refs/heads/*/main").split()
+    # any depth: radiant/main, client/1.3/main
+    def mains(prefix):
+        refs = git("for-each-ref", "--format=%(refname:short)", prefix).split()
+        return [r for r in refs if r.endswith("/main") and r != "origin/main"]
+    refs = mains("refs/remotes/origin/") or mains("refs/heads/")
     for ref in sorted(refs):
-        target = ref.removeprefix("origin/").split("/")[0]
+        target = ref.removeprefix("origin/").removesuffix("/main")
         files = git("ls-tree", "--name-only", ref, "ledger/meter.json").split() \
             + [f for f in git("ls-tree", "--name-only", ref).split() if f.startswith("meter") and f.endswith(".json")]
         when = git("log", "-1", "--format=%cs %h", ref).strip()
