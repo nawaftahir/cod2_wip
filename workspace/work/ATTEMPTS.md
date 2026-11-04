@@ -1,3 +1,22 @@
+# Recursive constant-source loop trials - 2026-11-04
+
+Inlining only the evidenced first token read emits589/540. Compiler repeats
+the dot-validation failure path on its recursive-tail back edge. Retail
+10019b9d jumps10019a85, reusing the original validator/read block. Explicit
+goto and scoped-for forms both emit731; both are rejected.136 actual test
+paths pass for both. Restored the589-byte recursive draft; it and the358-byte
+caller remain uncredited. Do not repeat equivalent loop spelling trials.
+
+# Constant parser dependency cohort - 2026-11-04
+
+Material_ParseConstantSource first-token inline boundary produces the exact
+358-byte retail body at10019ca0. The full regression retains2512 extents,
+but binding correctly withholds credit: its recursive parser is unmatched.
+No source counter increase. Retail calls10019dca->1005fa50 for the second
+read; the first expands the parser and calls ParseExt1005f690. Next recover
+the recursive parser at10019a80: first token inline, later token public.
+Actual136-path constant-parser fixture passes.
+
 ## Parser emission trials - 2026-11-04
 
 Rejected /OPT:REF: it drops1140 protected extents. Original NOREF/NOICF

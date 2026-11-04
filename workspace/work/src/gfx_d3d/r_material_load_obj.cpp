@@ -1217,7 +1217,7 @@ static __declspec(noinline) Bool Material_ParseCodeConstantSource_r(const char *
 {
     if (!Com_MatchToken(text, ".", 1))
         return 0;
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     int index;
     for (index = 0; sources[index].name; ++index)
         if (!strcmp(token, sources[index].name))
@@ -1282,7 +1282,7 @@ Bool Material_ParseConstantSource(const char **text, const ShaderConstantRouting
     MaterialShaderArgument *argument)
 {
     float literal[4];
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     if (Material_ParseLiteralVector(text, token, literal))
     {
         if (routing->elemCount > 1)

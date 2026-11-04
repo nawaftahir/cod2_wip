@@ -16,6 +16,12 @@ inlining; forced public inlining failed linking. /OPT:REF lost1140 protected
 extents and was rejected. Original flags and the passing recipe are retained.
 
 
+Further constant-parser work passed full regression with2512 retained but
+is uncredited:358-byte caller hit is blocked
+by recursive callee589/540. Both evidenced inline first reads are retained
+as drafts; equivalent goto/scoped loops emit731 and are rejected.136 native
+paths pass. Details: proof/nov04_constant_source_calls.json under target/work/.
+
 Corrected the reconstructed source-token reader to Com_Parse at1005fa50.
 The earlier identification as Com_ParseOnLine at1005faa0 was WRONG; masked
 fdiff output cannot establish a callee's identity. Binding verification caught

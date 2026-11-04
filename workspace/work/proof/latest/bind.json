@@ -1847,6 +1847,14 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
+"?Material_ParseConstantSource@@YAEPAPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z": {
+"t": "0x10019ca0",
+"n": 358,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_ParseCodeConstantSource_r@@YAEPAPBDPBUShaderConstantRouting@@HPBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z"
+]
+},
 "?Material_FindScalarConstantSource@@YAEPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z": {
 "t": "0x10019e10",
 "n": 188,

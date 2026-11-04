@@ -1,3 +1,19 @@
+## Constant-source continuation - 2026-11-04
+
+No coverage added beyond the committed46.183847307% checkpoint865a2a6.
+Material_ParseConstantSource now has an exact358-byte hit at10019ca0, but
+its recursive callee blocks binding. The recursive parser's first read is
+inline and its later read is public: actual calls are pinned in
+target/work/proof/nov04_constant_source_calls.json. Selected recursive draft
+emits589 versus retail540 bytes; first mismatch is duplicated dot-validation
+on tail traversal. Goto and scoped-loop alternatives both emit731 and are
+rejected; the589-byte recursive draft is retained.136 actual fixture paths
+pass. All2512 protected extents pass fresh regression. Receipt:
+target/work/proof/nov04_constant_draft_checkpoint.json. No new ratchet,
+coverage or canonical src/ promotion. Next inspect
+caller/callee specialization and common tail-validation ownership rather
+than more equivalent loop spellings.
+
 # Current verified renderer continuation - 2026-11-04
 
 Read PROGRESS.md first. C++117113B/722 bodies=46.183847307%;2512 protected

@@ -1,0 +1,64 @@
+{
+  "status": "358-byte match; uncredited until recursive parser binding is verified",
+  "target": "0x10019ca0",
+  "bytes": 358,
+  "first_token_read": "inline parser state restore then Com_ParseExt at0x1005f690",
+  "second_token_read": "0x10019dca calls Com_Parse at0x1005fa50",
+  "calls": [
+    {
+      "address": "0x10019ce8",
+      "operand": "0x1005f690"
+    },
+    {
+      "address": "0x10019cfc",
+      "operand": "0x100198c0"
+    },
+    {
+      "address": "0x10019d14",
+      "operand": "0x1005f360"
+    },
+    {
+      "address": "0x10019d30",
+      "operand": "0x10016390"
+    },
+    {
+      "address": "0x10019d6c",
+      "operand": "0x10019a80"
+    },
+    {
+      "address": "0x10019da1",
+      "operand": "0x1005f360"
+    },
+    {
+      "address": "0x10019dbc",
+      "operand": "0x1005faf0"
+    },
+    {
+      "address": "0x10019dca",
+      "operand": "0x1005fa50"
+    },
+    {
+      "address": "0x10019dd5",
+      "operand": "0x10016440"
+    },
+    {
+      "address": "0x10019df4",
+      "operand": "0x1005f360"
+    }
+  ],
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "binding_blocker": "Material_ParseCodeConstantSource_r",
+  "recursive_function": {
+    "target": "0x10019a80",
+    "bytes": 540,
+    "first_token_read": "inline; ParseExt1005f690 at10019add",
+    "second_token_read": "Com_Parse1005fa50 at10019bef",
+    "subtable_back_edge": "10019b9d jmp10019a85; repeats the same dot-validation and token-read block",
+    "inline_only_trial_bytes": 589,
+    "inline_only_trial_status": "not a match; duplicate dot-validation failure path",
+    "current_trial": "retained ordinary recursive form with evidenced inline first token;589/540 bytes, unverified",
+    "goto_loop_trial_bytes": 731,
+    "scoped_loop_trial_bytes": 731,
+    "native_cases": 136
+  }
+}

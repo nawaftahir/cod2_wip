@@ -1,0 +1,39 @@
+{
+  "status": "V3 retained; two partial parser improvements, zero added coverage",
+  "base_commit": "865a2a6",
+  "cpp_bytes": 117113,
+  "cpp_bodies": 722,
+  "cpp_percent": 46.183847306569916,
+  "denominator": 253580,
+  "protected_extents": 2512,
+  "draft_caller": {
+    "t": "0x10019ca0",
+    "n": 358,
+    "obj": "r_material_load_obj.obj",
+    "why": [
+      "call ?Material_ParseCodeConstantSource_r@@YAEPAPBDPBUShaderConstantRouting@@HPBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z"
+    ]
+  },
+  "draft_recursive_bytes": 589,
+  "target_recursive_bytes": 540,
+  "native_cases": 136,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "raw_same_offset_percent": 12.950849955060841,
+  "candidate_sha256": "777b3d0f2fc0cc81770034150793c76b03ef4322ed1b14855235bd30323ee98e",
+  "cost": {
+    "physical_builds": 1,
+    "workers": 0,
+    "cohort_links": 5,
+    "tokens": "Per-action token and monetary telemetry unavailable"
+  },
+  "sha256": {
+    "target/work/src/gfx_d3d/r_material_load_obj.cpp": "ab0b864fc1c1f9d79c6e8db8865fe7c8bb65f21b43c058a96c78cfee0aed0028",
+    "target/work/proof/latest/bind.json": "149c3ff92a4b8807bb2a9fd96c17fdb09f9aeeb0bb5b9700348ad10a7da9255e",
+    "target/work/proof/latest/cmp.json": "af44b43702511ceb54e8796fe2f7197614a0af0b5d1c8596ff9056f40f63f727",
+    "target/work/proof/latest/regression.json": "034d086876f559ba0f5d2166ed820afa9f92847959d9436e1012f10c1e033f70",
+    "target/work/proof/source_coverage_current.json": "a3109f7e2d8358a7a996a5878e4607b11eb9cbb3d1c9ecf7edc879e45af241eb",
+    "target/work/proof/nov04_constant_source_calls.json": "6620cd1eea4101a3aebfbc2e8760fa9763c8a760438a79bc2e05d4674e1d8adc",
+    "target/work/tests/test_code_constant_parser.py": "91980ea1f48adf77aedd5747d6d5e9181b3171f35e89094bb7cd73dc678464cd"
+  }
+}

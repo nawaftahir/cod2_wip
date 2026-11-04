@@ -3786,14 +3786,16 @@
 {
 "name": "?Material_ParseCodeConstantSource_r@@YAEPAPBDPBUShaderConstantRouting@@HPBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 509,
+"size": 589,
 "hits": []
 },
 {
 "name": "?Material_ParseConstantSource@@YAEPAPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 298,
-"hits": []
+"size": 358,
+"hits": [
+"0x10019ca0"
+]
 },
 {
 "name": "?Material_FindScalarConstantSource@@YAEPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z",
