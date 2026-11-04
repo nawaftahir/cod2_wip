@@ -50,13 +50,7 @@ protected:
     CButton m_btnAlpha;
     CButton m_btnColor;
     CButton m_btnRealTime;
-
-    DECLARE_MESSAGE_MAP()
 };
-
-BEGIN_MESSAGE_MAP(CVertEditDlg, CDialog)
-    ON_WM_DRAWITEM()
-END_MESSAGE_MAP()
 
 CVertEditDlg::~CVertEditDlg()
 {
