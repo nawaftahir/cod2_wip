@@ -15778,8 +15778,10 @@
 {
 "name": "?SV_UserinfoChanged@@YAXPAUclient_s@@@Z",
 "obj": "sv_client_mp.obj",
-"size": 426,
-"hits": []
+"size": 442,
+"hits": [
+"0x455a40"
+]
 },
 {
 "name": "?SV_UpdateUserinfo_f@@YAXPAUclient_s@@@Z",
@@ -16610,8 +16612,10 @@
 {
 "name": "?SVC_Info@@YAXUnetadr_t@@@Z",
 "obj": "sv_main_mp.obj",
-"size": 1454,
-"hits": []
+"size": 1453,
+"hits": [
+"0x45ae80"
+]
 },
 {
 "name": "?SV_ConnectionlessPacket@@YAXUnetadr_t@@PAUmsg_t@@@Z",
@@ -77700,7 +77704,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1232,
+"size": 1216,
 "hits": []
 }
 ]
