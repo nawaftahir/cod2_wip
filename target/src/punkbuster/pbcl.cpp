@@ -122,7 +122,11 @@ struct stPbCl
 
 		if ( m_ClInstance )
 			return NULL;
-		UnloadClientDll();
+		m_ProcessPbEvents = 0;
+		m_AddPbEvent = 0;
+		m_ClientConnect = 0;
+		m_TrapPreExecCmd = 0;
+		m_TrapConsole = 0;
 		f = fopen(makefn(fn, "pbclnew.dll"), "rb");
 		if ( f )
 		{
@@ -193,6 +197,17 @@ struct stPbCl
 		memset(this, 0, sizeof(*this));
 		m_clId = 0x264b8baf;
 		strcpy(m_msgPrefix, "PunkBuster Client");
+		m_AgInstance = 0;
+		m_ClInstance = 0;
+		uninitialize();
+		m_Md5 = 0;
+		m_AddPbEvent = 0;
+		m_ProcessPbEvents = 0;
+		m_SendToAddrPort = 0;
+		m_GlQuery = 0;
+		m_ClientConnect = 0;
+		m_TrapPreExecCmd = 0;
+		m_TrapConsole = 0;
 		m_ReloadClient = 1;
 	}
 
