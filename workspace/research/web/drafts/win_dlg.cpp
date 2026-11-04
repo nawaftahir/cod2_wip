@@ -152,7 +152,52 @@ void DoSides(bool bCone, bool bSphere, bool bTorus)
 }
 
 
-void GetSelectionIndex(int *ent, int *brush);
+/* Research-only Q3Radiant brush/entity list prefix. The exact CoD2
+ * instancing layout must be re-derived from retail before promotion.
+ */
+struct entity_s;
+struct brush_s
+{
+    brush_s *prev, *next;
+    brush_s *oprev, *onext;
+    entity_s *owner;
+    float mins[3], maxs[3];
+};
+struct entity_s
+{
+    entity_s *prev, *next;
+    brush_s brushes;
+};
+
+extern brush_s selected_brushes;
+extern entity_s entities;
+extern entity_s *world_entity;
+
+/* Q3 WIN_DLG.CPP GetSelectionIndex reference, not yet retail-verified. */
+void GetSelectionIndex(int *ent, int *brush)
+{
+    brush_s *b, *b2;
+    entity_s *entity;
+
+    *ent = *brush = 0;
+    b = selected_brushes.next;
+    if (b == &selected_brushes)
+        return;
+
+    if (b->owner != world_entity)
+    {
+        (*ent)++;
+        for (entity = entities.next; entity != &entities;
+             entity = entity->next, (*ent)++)
+            ;
+    }
+
+    for (b2 = b->owner->brushes.onext;
+         b2 != b && b2 != &b->owner->brushes;
+         b2 = b2->onext, (*brush)++)
+        ;
+}
+
 void SelectBrush(int entitynum, int brushnum);
 
 /* Q3Radiant's Find brush callback, CoD2 retail IDs 1231 / 1225. */
