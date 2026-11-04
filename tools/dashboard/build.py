@@ -147,8 +147,11 @@ def card(m):
     text = (m.get("matched_bytes"), m.get("text_bytes"))
     whole = (m.get("same_offset_bytes"), m.get("file_bytes"))
     sha = '<span class="pill ok">SHA-256 identical</span>' if m.get("sha_identical") else '<span class="pill no">not identical yet</span>'
-    tiles = "".join([
-        tile(".text matched", *text, "matched code bytes"),
+    source = (m.get("game_cpp_bytes"), m.get("game_cpp_total"))
+    source_tile = tile("C/C++ inventory coverage (provisional)", *source,
+                       "Game code only; assembly excluded. Not whole-binary completion.") if source[0] is not None and source[1] else ""
+    tiles = source_tile + "".join([
+        tile(".text matched, including libraries", *text, "Relocations normalized; not source-completion progress."),
         tile("Whole file, same offset", *whole, "bytes already in place"),
         tile("Functions identical (referee or in place)", *fns(m), "not measured"),
         tile("TUs fully identical", *tus(m), "not measured"),
@@ -186,15 +189,16 @@ def summary(rows, anchor_rows):
     trs = []
     for m in rows:
         t, w = pct(m.get("matched_bytes", 0), m.get("text_bytes", 0)), pct(m.get("same_offset_bytes", 0), m.get("file_bytes", 0))
+        source = frac(m.get("game_cpp_bytes"), m.get("game_cpp_total"))
         fn = '{} / {}'.format(*map(num, fns(m))) if fns(m)[1] else '<span class="mute">n/a</span>'
         tu = '{} / {}'.format(*map(num, tus(m))) if tus(m)[1] else '<span class="mute">n/a</span>'
         ok = '<span class="ok">yes</span>' if m.get("sha_identical") else "no"
         trs.append(f'<tr><td><a href="#{E(m["name"].replace(" ", "-"))}">{E(m["name"])}</a></td>'
-                   f'<td>{bar(t, "s")}<b>{t:.2f}%</b></td><td>{bar(w, "s")}<b>{w:.2f}%</b></td><td>{fn}</td><td>{tu}</td><td>{ok}</td></tr>')
+                   f'<td>{source}</td><td>{bar(t, "s")}<b>{t:.2f}%</b></td><td>{bar(w, "s")}<b>{w:.2f}%</b></td><td>{fn}</td><td>{tu}</td><td>{ok}</td></tr>')
     for a in anchor_rows:
         if a["anchor"] not in by_anchor and not any(a["anchor"].endswith(m.get("binary") or "\0") for m in rows):
-            trs.append(f'<tr class="idle"><td>{E(a["anchor"])}</td><td colspan=4 class="mute">not started</td><td>no</td></tr>')
-    return ("<table class=sum><thead><tr><th>Binary</th><th>.text matched</th><th>Whole file, same offset</th>"
+            trs.append(f'<tr class="idle"><td>{E(a["anchor"])}</td><td colspan=5 class="mute">not started</td><td>no</td></tr>')
+    return ("<table class=sum><thead><tr><th>Binary</th><th>C/C++ inventory (provisional)</th><th>.text matched, incl. libraries</th><th>Whole file, same offset</th>"
             f"<th>Functions identical</th><th>TUs fully identical</th><th>SHA identical</th></tr></thead><tbody>{''.join(trs)}</tbody></table>")
 
 
@@ -205,7 +209,8 @@ def anchor_table(anchor_rows):
 
 
 LEGEND = """<details class="legend"><summary>What the numbers mean</summary><dl>
-<dt>.text matched</dt><dd>Code bytes produced by our source that the referee confirms identical to retail (relocations normalized).</dd>
+<dt>C/C++ inventory coverage (provisional)</dt><dd>Verified game C/C++ bytes divided by the current game-function inventory. Entire assembly-bearing bodies are excluded. The inventory is provisional: this is not whole-binary completion.</dd>
+<dt>.text matched, including libraries</dt><dd>Accepted code extents including third-party libraries and runtime code, with relocations normalized. A high value does not mean the game source is almost reconstructed or the linked file is identical.</dd>
 <dt>Whole file, same offset</dt><dd>Bytes of the rebuilt file that already sit at the same file offset with the same value as retail. 100% here means the files are identical.</dd>
 <dt>Functions identical (referee or in place)</dt><dd>Functions the referee matches, or whose bytes already sit unchanged at the same offset as retail (relocations included).</dd>
 <dt>TUs fully identical</dt><dd>Source files (translation units) whose every function is identical; CRT/library objects are counted separately. Older meters: TUs the referee verified.</dd>
@@ -262,6 +267,17 @@ def selftest():
          "sections": {".data": {"matched": 3, "size": 4}}, "_src": "s", "_when": "", "_sections": [(".text", 2, 2)]}
     page = render([m], [], "abc", "now")
     assert "50.00%" in page and "x&lt;y" in page and "75.00%" in page and "Lib bytes" in page
+    renderer = dict(m, game_cpp_bytes=118475, game_cpp_total=253580,
+                    matched_bytes=771254, text_bytes=1093632)
+    page = render([renderer], [], "abc", "now")
+    assert "46.72%" in page and "70.52%" in page
+    rendered_card = card(renderer)
+    assert rendered_card.index("46.72%") < rendered_card.index("70.52%")
+    assert "C/C++ inventory (provisional)" in page
+    assert "including libraries" in page and "not whole-binary completion" in page
+    missing = card(m)
+    assert "C/C++ inventory coverage (provisional)" not in missing
+    assert "C/C++ inventory coverage (provisional)" not in card(dict(m, game_cpp_total=253580))
     # PE and ELF section parsing against real anchors when present
     for rel, want in (("windows/1.0/CoD2MP_s.exe", ".text"), ("linux/cod2_lnxded_1_0a", ".text")):
         p = os.path.join(BIN, rel)

@@ -51,3 +51,10 @@ One JSON file per binary, written by the target's referee, committed on `<target
 
 Finished or not-yet-imported targets: same format in `status/<name>.json` on main.
 Self-check: `python3 tools/dashboard/build.py --test`.
+
+Renderer presentation: `game_cpp_bytes / game_cpp_total` is shown first as
+provisional C/C++ inventory coverage, excluding assembly-bearing bodies. It is
+not whole-binary completion. `.text` matching includes libraries and normalized
+relocations and remains a separate diagnostic. No percentage is inferred when
+a source-coverage numerator or denominator is absent. CI meters remain the
+only source of numbers; successful target CI automatically rebuilds the page.
