@@ -240,7 +240,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 		iYPos += 10;
 	}
 
-	Com_sprintf(szLine, 1024, "                    | Sent To                | Recieved From          | Total Source Traffic   |");
+	Com_sprintf(szLine, 1024, "                    | Sent To                         | Recieved From          | Total Source Traffic   |");
 
 	if ( bPrintToConsole )
 	{
@@ -252,7 +252,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 		SV_Netchan_DrawProfileLine(szLine, iYPos);
 	}
 
-	Com_sprintf(szLine, 1024, "              Source|   bps|  max|  min|frag%%|   bps|  max|  min|frag%%|   bps|  max|  min|frag%%|");
+	Com_sprintf(szLine, 1024, "              Source|   bps|  max|  min|frag%%|drop%%|ak|   bps|  max|  min|frag%%|   bps|  max|  min|frag%%|");
 
 	if ( bPrintToConsole )
 	{
