@@ -1,6 +1,10 @@
 // CTextureBar reconstruction grounded in CoD2Radiant 1.0 retail layout and DDX IDs.
 // The implemented methods below are hosted-CI byte-identical; remaining handlers stay pending.
 #include "stdafx.h"
+#include <stdlib.h>
+
+// Original Q3Radiant editor callback; implemented by the selection TU.
+extern void Select_RotateTexture(int amount);
 
 class CTextureBar : public CDialogBar
 {
@@ -79,6 +83,22 @@ BEGIN_MESSAGE_MAP(CTextureBar, CDialogBar)
     ON_WM_CREATE()
     ON_BN_CLICKED(3, OnBtnApplytexturestuff)
 END_MESSAGE_MAP()
+
+// Retail 0x0043f3c0 / 87 B: target uses the +0x244 rotate-amount
+// member, the MFC UpdateData(TRUE) call and Select_RotateTexture.
+// This source is copied in substance from the Q3 ancestor; it needs
+// the real select.cpp method and GetSurfaceAttributes before CI acceptance.
+void CTextureBar::OnDeltaposSpinRotate(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    UpdateData(TRUE);
+    if (pNMUpDown->iDelta < 0)
+        Select_RotateTexture(abs(m_nRotateAmt));
+    else
+        Select_RotateTexture(-abs(m_nRotateAmt));
+    GetSurfaceAttributes();
+}
 
 void CTextureBar::OnSelectionPrint()
 {
