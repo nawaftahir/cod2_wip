@@ -239,8 +239,10 @@
 {
 "name": "?CL_SubtitlePrint@@YAXPBDHH@Z",
 "obj": "cl_cgame_mp.obj",
-"size": 226,
-"hits": []
+"size": 217,
+"hits": [
+"0x401ff0"
+]
 },
 {
 "name": "?CL_GetConfigString@@YAPBDH@Z",
@@ -1241,19 +1243,29 @@
 {
 "name": "?CL_ConsolePrint_AddLine@@YAHW4print_msg_type_t@@PBDHHH@Z",
 "obj": "cl_console_mp.obj",
-"size": 526,
+"size": 2132,
 "hits": []
 },
 {
 "name": "?CL_ConsolePrint@@YAXW4print_msg_type_t@@PBDHH@Z",
 "obj": "cl_console_mp.obj",
-"size": 400,
-"hits": []
+"size": 396,
+"hits": [
+"0x404ef0"
+]
+},
+{
+"name": "?PbMsgToScreen@@YAXPAD0@Z",
+"obj": "cl_console_mp.obj",
+"size": 365,
+"hits": [
+"0x405080"
+]
 },
 {
 "name": "?CL_ConsoleFixPosition@@YAXXZ",
 "obj": "cl_console_mp.obj",
-"size": 162,
+"size": 150,
 "hits": []
 },
 {
@@ -12097,7 +12109,9 @@
 "name": "?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z",
 "obj": "l_precomp.obj",
 "size": 2587,
-"hits": []
+"hits": [
+"0x43f720"
+]
 },
 {
 "name": "?PC_Evaluate@@YAHPAUsource_s@@PAJPANH@Z",
@@ -13410,7 +13424,9 @@
 "name": "?Netchan_Process@@YAHPAUnetchan_t@@PAUmsg_t@@@Z",
 "obj": "net_chan_mp.obj",
 "size": 1014,
-"hits": []
+"hits": [
+"0x4481b0"
+]
 },
 {
 "name": "?NET_CompareBaseAdrSigned@@YAHPAUnetadr_t@@0@Z",
@@ -15607,12 +15623,6 @@
 ]
 },
 {
-"name": "?PbMsgToScreen@@YAXPAD0@Z",
-"obj": "sv_ccmds_mp.obj",
-"size": 16,
-"hits": []
-},
-{
 "name": "?SV_AddDedicatedCommands@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 34,
@@ -15728,9 +15738,7 @@
 "name": "?SV_DirectConnect@@YAXUnetadr_t@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 2733,
-"hits": [
-"0x453c20"
-]
+"hits": []
 },
 {
 "name": "?SV_FreeClientScriptPers@@YAXXZ",
@@ -16445,9 +16453,7 @@
 "name": "?SV_SetConfigstring@@YAXHPBD@Z",
 "obj": "sv_init_mp.obj",
 "size": 491,
-"hits": [
-"0x457ce0"
-]
+"hits": []
 },
 {
 "name": "?SV_GetConfigstring@@YAXHPADH@Z",
@@ -33271,7 +33277,7 @@
 ]
 },
 {
-"name": "$L118253",
+"name": "$L118245",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33279,7 +33285,7 @@
 ]
 },
 {
-"name": "$L118255",
+"name": "$L118247",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33312,7 +33318,7 @@
 ]
 },
 {
-"name": "$L132133",
+"name": "$L132125",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33320,7 +33326,7 @@
 ]
 },
 {
-"name": "$L132135",
+"name": "$L132127",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33405,7 +33411,7 @@
 ]
 },
 {
-"name": "$L147495",
+"name": "$L147487",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -36037,8 +36043,11 @@
 {
 "name": "?PbSvGameMsg@@YAPADPADH@Z",
 "obj": "pbsv.obj",
-"size": 76,
-"hits": []
+"size": 67,
+"hits": [
+"0x4bbef0",
+"0x4bdda0"
+]
 },
 {
 "name": "?PbSvSendToClient@@YAPADHPADH@Z",
@@ -36122,14 +36131,18 @@
 {
 "name": "?CG_GameMessage@@YAXPBD@Z",
 "obj": "cg_main_mp.obj",
-"size": 284,
-"hits": []
+"size": 275,
+"hits": [
+"0x4bf650"
+]
 },
 {
 "name": "?CG_BoldGameMessage@@YAXPBD@Z",
 "obj": "cg_main_mp.obj",
-"size": 284,
-"hits": []
+"size": 275,
+"hits": [
+"0x4bf770"
+]
 },
 {
 "name": "?CG_Argv@@YAPBDH@Z",
@@ -36198,7 +36211,7 @@
 {
 "name": "?CG_SubtitlePrint@@YAXHPBUsnd_alias_t@@@Z",
 "obj": "cg_main_mp.obj",
-"size": 122,
+"size": 126,
 "hits": []
 },
 {
@@ -39060,7 +39073,7 @@
 {
 "name": "?CG_BulletHitEvent@@YAXHPAM00HH@Z",
 "obj": "cg_weapons.obj",
-"size": 252,
+"size": 246,
 "hits": []
 },
 {
@@ -46317,8 +46330,10 @@
 {
 "name": "?SP_worldspawn@@YAXXZ",
 "obj": "g_spawn_mp.obj",
-"size": 469,
-"hits": []
+"size": 464,
+"hits": [
+"0x511680"
+]
 },
 {
 "name": "?G_SpawnEntitiesFromString@@YAXXZ",
@@ -51959,9 +51974,7 @@
 "name": "?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z",
 "obj": "ui_shared_mp.obj",
 "size": 1194,
-"hits": [
-"0x53ea00"
-]
+"hits": []
 },
 {
 "name": "?ToWindowCoords@@YAXPAM0PAUWindow@@@Z",
@@ -78102,7 +78115,9 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 2736,
-"hits": []
+"size": 816,
+"hits": [
+"0x592c00"
+]
 }
 ]

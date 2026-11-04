@@ -28,3 +28,5 @@ _yylex
 # (esi/edi load order, 742 B) and PC_EvaluateTokens (edx/ecx load order, 766 B). Same class as the 1.0 ordinal tie pool.
 ?SV_DirectConnect@@YAXUnetadr_t@@@Z
 ?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z
+# SV_SetConfigstring: 1.0 PINNED tie pool (SKILL, 491 B), flips on fn count (s3 merge 11-04)
+?SV_SetConfigstring@@YAXHPBD@Z
