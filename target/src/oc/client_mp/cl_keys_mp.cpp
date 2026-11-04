@@ -778,11 +778,31 @@ static void CompleteDvarArgument(void)
 	ReplaceConsoleInputArgument(strlen(prefix), value);
 }
 
+extern void PbServerCompleteCommand(char *buf, int buflen);
+extern void PbClientCompleteCommand(char *buf, int buflen);
+
 static void CompleteCommand(void)
 {
 	field_t temp;
 	int matchLenAfterCmds;
 	int matchLenAfterDvars;
+	const char *cmdStart;
+	char pbArg[272];
+
+	/* 1.3: pb_ commands are completed by the PunkBuster modules */
+	cmdStart = g_consoleField.buffer + (g_consoleField.buffer[0] == '/' || g_consoleField.buffer[0] == '\\' ? 1 : 0);
+	if ( !_strnicmp(cmdStart, "pb_", 3) )
+	{
+		I_strncpyz(pbArg, cmdStart, 256);
+		if ( !_strnicmp(pbArg, "pb_sv_", 6) )
+			PbServerCompleteCommand(pbArg, 255);
+		else
+			PbClientCompleteCommand(pbArg, 255);
+		Com_sprintf(g_consoleField.buffer, sizeof(g_consoleField.buffer), "\\%s", pbArg);
+		g_consoleField.cursor = strlen(g_consoleField.buffer);
+		Field_AdjustScroll(&g_consoleField);
+		return;
+	}
 
 	completionString = Con_TokenizeInput();
 	shortestMatch[0] = 0;
