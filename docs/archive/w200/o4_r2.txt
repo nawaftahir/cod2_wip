@@ -1,0 +1,20 @@
+o4_fw1 ?CG_FireWeapon retail 156 ours 156 difflines 2
+o4_fw1 TOTAL 0 fns 0
+o4_fw2 ?CG_FireWeapon retail 156 ours 154 difflines 40
+o4_fw2 TOTAL 0 fns 0
+o4_fw3 ?CG_FireWeapon retail 156 ours 159 difflines 61
+o4_fw3 TOTAL 0 fns 0
+o4_swa4 ?StartWeaponAnim retail 61 ours 61 difflines 6
+o4_swa4 TOTAL 0 fns 0
+o4_ip1 ?IntersectPlanes retail 138 ours 138 difflines 2
+o4_ip1 TOTAL 0 fns 0
+o4_ip2 ?IntersectPlanes retail 138 ours 144 difflines 50
+o4_ip2 TOTAL 0 fns 0
+o4_ip3 ?IntersectPlanes retail 138 ours 138 difflines 2
+o4_ip3 TOTAL 0 fns 0
+o4_wp1 ?Window_Paint retail 386 ours 386 difflines 4
+o4_wp1 TOTAL 0 fns 0
+o4_wp2 ?Window_Paint retail 386 ours 386 difflines 2
+o4_wp2 TOTAL 0 fns 0
+o4_wp3 ?Window_Paint retail 386 ours 386 difflines 4
+o4_wp3 TOTAL 0 fns 0

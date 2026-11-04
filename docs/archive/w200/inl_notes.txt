@@ -1,0 +1,1495 @@
+LTCG per-call-site inline decision, c2.dll 7.1 (md5 8460473c...), decoded 10-28
+==============================================================================
+RULE (PINNED: Ghidra decompile + oracle cave_w.s/patch_w.py, logs in fp_t/build/ordq.txt)
+Plain /LTCG runs with 0x108a91ec=1 and 0x108a9208=1. So every site of a callee that has
+call-graph data ([sym+0x99]) goes through the cost model 0x1078d1aa, called from 0x1078cf54
+(hooked at 0x1078d026). The revert check 0x107284d5 (called from 0x1078da87) only runs for
+callees without that data (624 sites in the whole link). It does not run for NET_CompareAdr.
+
+0x1078d1aa, second branch (edge flags [site+0x18] bit 2 clear):
+  cost = size[sym+0x81] - argcost[0] - argcost[1]     (+ a caller-size penalty, only above 9000)
+     argcost comes from 0x1078d03c and is per SITE: [0] = 1, plus 5 per actual arg of kind
+        3/4/7-9 (const/addr/mem), or 2 per arg of any other kind; [1] += 3 if the result
+        is stored to a memory var.
+     kind weights [2..6] are 0 here; caller-count discount is OFF (0x10881d14=1, 0x108819ec=0).
+  if cost < 9+5=14            -> inline (unless the veto 0x1078f15a fires)
+  else frequency path:  c = per-SITE estimated execution count [site+0x10] (64-bit, 1e8 = fn entry)
+        c == 0                -> REFUSE
+        c <= 1e8: r = (cost*1e8/c + 6*cost)/7     else r = (cost*1e8/c + 2*cost)/3
+        r >= 71               -> REFUSE, else inline (subject to the veto 0x1078f15a).
+  Constants read at runtime: 0x108819a8=9, 0x10881954=5, 0x10881958=2, 0x10881934=3,
+  0x108819a4=71, 0x10881994=7, 0x10881998=3.
+Static count estimate: CORRECTED 10-30, see FREQUENCY ESTIMATOR at the end. Short form: entry 1e8,
+equal split per out-edge (if-arm x0.5), loop header sends 10x its entry flow; natural loops give every
+exit an equal share of the entry flow (renormalised), non-natural loops (for(i=0;;i++) layout) do not, so
+only those keep x5 after the loop (5x, 25x...).
+
+So two sites of one callee in one caller differ ONLY by their arg kinds / result use, or by
+their block count. For a callee at exactly cost 14 (NET_CompareAdr: size 19, two by-value
+struct args = 1+2+2 = 5 -> 14), every site takes the frequency path. A site is refused when its
+block is cold (below ~3.4% of entry for cost 14) or its count is 0.
+
+EVIDENCE (W line = argcost[0..6], count lo hi, edge flags; ssv.sh prints the site summary)
+  ours (if / else if / else binary search):
+    site1 cost0=5 count=0x1dcd6500 (5x)   inl=1
+    site2 cost0=5 count=0x9502f900 (25x)  inl=1
+  binary search with 'continue' after high= / low= (retail shape):
+    site1 cost0=5 count=0x1dcd6500        inl=1
+    site2 cost0=5 count=0                 inl=0   <- refused, as in retail
+  if / else if / else without continue: count 0x18727cda0 (hot, inlined). for(;;) form: hot.
+  With 'continue', the estimator loses every path past the while loop (count 0 for all
+  code after it). That zeroes the favoriteServers site.
+
+SOURCE PREDICTION (verified with a full build)
+  In CL_SetServerInfoByAddress, end the compare<0 and compare>0 arms with 'continue'
+  (lab/w200/inl_ssi.patch). Build lv.sh ssiJ: CL_SetServerInfoByAddress 0x4b0000 = 0 diff
+  lines (142 vs 142 insns, was 139 vs 149). ALL 1689289 vs baseline ssi0 1689171 (+118 B).
+  The opencod2 shape (adds an 'if (high > 0)' guard) also refuses site 2, but the guard adds a test.
+
+PREDICTING OTHER CASES (UI_Init FMV site, CL_MapLoading, SCR_UpdateScreenInternal sites)
+  Run the oracle with cave_w.s and read the site's W line. If cost >= 14, the site is decided
+  by its count.
+  - Retail refuses a site that ours inlines: retail had that site in a colder block (deeper
+    if-nesting, after a 'continue' path, unreachable to the estimator) or with
+    cheaper-looking args.
+  - Ours refuses a site that retail inlines: the reverse. Hoist the site out of nested ifs and
+    avoid a 'continue' before it.
+  Their W lines (fp_t/build/ordq.txt, current tree): UI_Init Dvar_FindMalleableVar cost0=6
+  count 1e8; CL_MapLoading sites 0.125x .. 1.875x.
+TOOLS: cave_w.s + patch_w.py (F, I/V, W hooks; W at 0x1078d209), cave_h.s + patch_h.py
+  (Q = revert check 0x107284d5 count/limit, P = d3f9 result), ssv.sh VARIANT.c (fp_t, ~15 s
+  per variant, ssv/*.c), ghx/out/*.c decompiles. Oracle dll: /tmp/orch/vc/c2y.dll (rebuild:
+  as --32, ld -Ttext=0x10865d50, python3 patch_w.py c2.dll cave.elf out.dll).
+
+UI_INIT FMV SITE 1 (10-28, solved)
+WHAT SETS [site+0x4e]: written at 0x1077cb17 when the callee record is built:
+  [rec+0x4e] = 0 if 0x1077cfd6 returns 0, else 1 + m*254/[0x10882b58], where 0x1077cfd6 walks the
+  callee loop list (+0xc) and returns the max count of flagged (+9 bit0) blocks per loop (capped by
+  [0x1088194c]); [0x10882b58] is the current size counter. It is a callee property (FMV = 0x87 now),
+  identical in retail, so it is not the lever. Final cost stays 96 at both sites.
+CAUSE: the lever is the site count. With cost 96, the site inlines only if
+  r = (96*1e8/c + 2*96)/3 < 71, i.e. c > ~4.6e8. Ours site1 sits at fn-entry level (1e8) -> r 96 refuse.
+  One loop before the site gives x5 (5e8) -> r 70 -> inline. Only site1 (+ its nested I_* sites) changes.
+SHAPE: a one-trip loop around the RegisterInt line (the loop is folded away in codegen, but the
+  estimator still counts it):
+    for (netGameTypeIdx = 0; netGameTypeIdx < 1; netGameTypeIdx++)
+        ui_netGameType = Dvar_RegisterInt("ui_netGametype", ...);
+  do{}while(0) is folded before the estimator (no effect). A 1-trip loop around Sys_Milliseconds()
+  works the same. Note: Sys_Milliseconds site shows count 1e9 right after the bias if/else (unexplained).
+VERIFIED (lv.sh uimD lab/w200/inl_uiinit.patch = uim.sh real calls pitch,mouse,gtname,mp + the loop +
+  int mousePitch instead of bool): ALL 1690278 vs base uib0 1689290 (+988). UI_Init size 0x610 =
+  retail (UI_KeyEvent stays 0x5320c0), 89 diff lines (was 530). Strict same-address function match
+  (lab/w200/uiv/fm.py): 7360 -> 7366, 0 lost. With bool mousePitch UI_Init is 16 B short.
+REMAINING UI_Init diff: frame 0x410 vs 0x40c (one extra 4-byte local), mousePitch block
+  (retail mov ebx,1 / test ah,1 / dword store; ours folds part of it).
+
+INLINE-SITE SWEEP (10-28, base0 = main 3b393d8 fresh build; tools callall.py / callall2.py BUILD_DIR)
+callall.py: call-target diff by symbol name over every fn in postlink_ranges.txt plus whole-exe callee totals.
+callall2.py: same fns, counts call insns and out-of-function jmp (tail calls) with objdump, so targets
+that sit at a shifted address in retail are not missed (callall.py misses those).
+RESULT: no function in the ranges list has a different set of inlined vs called sites. All 3 name-diff hits are not inlining:
+  - CG_AddMovingTracer: callall.py showed retail "no CG_DrawTracer call". False hit: retail calls it at 0x4d1480
+    (ours 0x4d1470, layout shift). Oracle: the site is count 1e8, callee size 700 -> cost ~690; even infinite
+    count gives r = 2*cost/3 >= 71, so the model can never inline it. Retail does not inline it either.
+  - ROQ_RunCinematic 0x4aff30 and SCR_RunCinematic 0x4034d0 (and LittleFloat 0x448250): retail = call, ours = tail jmp
+    to ROQ_RunCinematicFromHandle 0x4af430. Retail wrapper is push ecx; mov eax,[CL_handle]; ...; call; pop ecx
+    (ROQ_DrawCinematic has the same entry push ecx / add esp,4 / pop ecx). Not an inline decision: it is the
+    tail-call / ecx-preserve register summary of the wrapper. Tried an unused volatile local in both: dropped, no effect
+    (and it shifted layout by -16 B). No source lever found; left alone.
+No patches delivered (no gain). Note: sizes in the V line of the oracle: field 5 = callee size.
+
+UI_LOADMENUS 2nd I_stricmp (10-28, solved, lab/w200/inl_best.patch = il2.patch)
+Probe: lmv.sh FILE SPEC FN (spec into fp_t, rebuild 1 obj, relink under /tmp/orcy c2y.dll = cave_y.s+patch_y.py,
+  ~17 s) + lmsum.py fp_t/build/ordq.txt FN (one line per site: size, argcost c0/c1, count, 4e, r).
+The decision that flips is the NESTED I_strnicmp site inside the inlined I_stricmp (I_stricmp itself is
+  size 18 - 8 = 10 < 14, always inlined). I_strnicmp: size 83, c0 13 (token 2 + two consts 5+5 + 1), c1 8,
+  4e 214, effective cost 101 (r back-solved; 4e*size/254 would give 131, so the loop term looks capped
+  near 120 - HYPOTHESIS). Nested sites take the outer site's count (floored at 1e8).
+  r = (101e8/c + 202)/3 (integer div) -> inline only if c > 9.18e8.
+Counts (loop header 10x entry, each loop-exit edge takes an equal share of the exit flow):
+  while(1) + if/break + if(Load_Menu) continue; break;  6 exit shares of 1/6:
+    Com_Parse 9.833, site1 9.333 (r 70 inline), site2 9.1667 (r 71 REFUSE)
+  same for 'if (!Load_Menu) break', 'if (stricmp) continue', merged ||/&& ifs, split ifs: all 9.1667.
+  for(token=Com_Parse; ...; token=Com_Parse) form: counts ~1.0, both refused.
+  Kisak do { token = Com_Parse(&p); } while (token && token[0] && token[0] != '}' && I_stricmp(token, })
+    && (I_stricmp(token, loadmenu) || Load_Menu(&p, imageTrack)));  5 exit shares of 1/5:
+    Com_Parse 10.0, site1 9.4 (r 70), site2 9.2 (r 70) -> BOTH INLINE.
+VERIFIED full build (try.sh il2): ALL 1693459 vs main 1693440 (+19), UI_LoadMenus 199 vs 199 insns, 0 diff lines.
+  q_shared_stricmp.inl has no other user after this patch (delete it when applying).
+
+CL_MAPLOADING real UI_CloseAll / Dvar_SetString (10-28, NOT solved, im1.py probe)
+size81 = the callee's compiled byte size (checked: Dvar_SetStringFromSource 87, Dvar_SetString 21,
+  UI_CloseAll 55, I_strnicmp 83, I_stricmp 18 = map sizes; all match retail byte-for-byte).
+  UI_CloseAll site: count 0.375 (else arm of the && localhost test after the cl_running return),
+    cost 55-1+119*55/254 = 79, r 97 REFUSE. Needs c > 1.44e8.
+  Dvar_SetString site: cost 21-8 = 13 -> inline; nested Dvar_SetStringFromSource: c0 13, cost 74,
+    count floored to 1e8 -> r 74 REFUSE. c0 can be at most 16 (3 args) -> cost 71, still >= 71.
+  With c <= 1e8, r >= cost, so no if/else reshaping can inline a cost >= 71 callee: retail either saw these
+  sites behind a loop (count x5) or compiled CL_MapLoading BEFORE UI_CloseAll and Dvar_SetString(FromSource)
+  (uncompiled callee = size 0 = raw-body inline, its callees costed separately). Ours compiles them all
+  before CL_MapLoading (ordq F lines 23419/72903 < 120687). Next attack: the compile-order lever
+  (cut the CL_MapLoading -> UI_CloseAll / Dvar_SetString edges via decl order, dfs.py/cutpath.py).
+Oracle for lmv.sh was deleted after use; rebuild into /tmp/orcy/vc: docker cp c2.dll out of cod2-msvc71-vs2003-ft
+  (/opt/msvc710/Vc7/bin, md5 8460473c), as --32 cave_y.s, ld -m elf_i386 -Ttext=0x10865d50, python3 patch_y.py c2.dll
+  cave.elf c2y.dll, run.sh = lab/s23/tools_oracle/run.sh with the grep set to ^[FXDCETBIVWR] into build/ordq.txt.
+  fp_t/build/obj is kept (full main build of 10-28 20:00), so lmv.sh needs no full rebuild.
+
+CL_MAPLOADING SOLVED (10-28, lab/w200/ml_inl.patch = im3.patch, real Dvar_SetString + UI_CloseAll calls)
+Compile order ruled out: DFS oracle (s23 cave.s, ordd.txt) shows CL_MapLoading has only 11 ancestors
+  (Com_Init/SV_Init/SV_Map_f/SV_MapRestart_f/SV_SpawnServer chain); none is reachable from UI_CloseAll or
+  Dvar_SetStringFromSource (3114 descendants each, reach.py), so those edges can never be cut and the
+  callees are always compiled first (cost 79 / 74, as measured).
+Cause = site count. Fix = the CoD4 (Kisak) local-client loop around Con_Close + the keyCatchers stores:
+  for (localClientNum = 0; localClientNum < 1; localClientNum++) { Con_Close(); clients[localClientNum].keyCatchers = 0; ... }
+  (clients is clientActive_t clients[1]). The 1-trip loop folds away in codegen but makes every later
+  site x5: else arm 0.375 -> 1.875: UI_CloseAll r 66, Menus_CloseAll r 55, Dvar_SetStringFromSource r 62
+  -> inline; Con_Close, I_strnicmp, Dvar_StringToEnum, Dvar_SetVariant, CL_Disconnect stay calls as retail.
+  Plus Kisak order memset(cls.updateInfoString) before clc.state = CA_CONNECTED (keeps 5 live across the
+  rep stos -> ebp, as retail).
+VERIFIED try.sh im3: ALL 1693888 vs main 1693459 (+429), CL_MapLoading 123 vs 123 insns, 0 diff lines.
+  (im2 = loop only: +196, ebp/edi swap left.) ui_closeall.inl has no other user: delete when applying.
+  (10-28 later: fp_t/build/obj and both /tmp oracles deleted again; rebuild fp_t with wsites.sh X 1 first.)
+
+INL STAND-IN SWEEP 2 (10-28, base main a9da155 ALL 1694135; no patch delivered, nothing beat base)
+BG_ParseCommands (server source = the real shape; srvcmp diff is only the 2 stand-ins + 'partIndex <= 0'):
+  real calls refused by ours, inlined by retail (lmv oracle, Com_ParseOnLine cost 72, I_strnicmp nested cost 101):
+    duration-value Com_ParseOnLine  cnt 0.708 r 76 (needs cnt > 1.108)
+    'sound' Q_stricmp -> nested I_strnicmp cnt 6.636 r 72 (needs cnt > 9.18)
+  '<= 0' and while(1) vs for(;;) leave every count unchanged. Full builds: real sound (ia1) 75.49%, real duration (ia2) 75.57%.
+  Both sites need ~1.4-1.6x hotter: the outer while(1) header is only 2.5 (the 'continue' path?). Next lead: whatever lifts
+  the outer loop header count; not a statement reorder (server shape pinned).
+  Side find: the q_shared_strnicmp.inl stand-in has s0/s1 swapped vs retail (retail s0 = token, s1 = sound).
+  Swapping them: fn 79 -> 15 diff lines but ALL 1694081 (-54), so not landed.
+Com_ProcessSoundAliasFileLocalization: real Com_EndParseSession inlines (cnt 0.9375 r 30) once noinline is removed, but
+  without noinline 3 sites retail CALLS start inlining (callee size 31, cost 30, needs cnt <= ~0.095 or 0):
+    Com_LoadVolumeModGroups final site cnt 0.4688, Com_ParseVolumeFalloffCurve loop sites 0.3125 / 0.2344.
+  Full build ia3 (noinline off + this one site): 30.66%. Kisak shape for LoadVolumeModGroups (end-of-list
+  EndParseSession+return in the loop, missing-value error after it) keeps that site at 0.4688. Retail's 7 call sites
+  (LoadVolumeModGroups x3, ParseVolumeFalloffCurve x3, GScr_CloseFile) all look hot enough to inline under our model.
+  [10-30: compile-order guess DISPROVED. It is loop shape: for(i=0;;i++) builds a non-natural loop with no exit
+  shares; see FREQUENCY ESTIMATOR.]
+CG_DrawLagometer: not retried; Codex showed real calls produce the same Lagometer code, so its diff is x87, not the stand-ins.
+
+CG_DRAWLAGOMETER NESTED CalcScreenPlacement (10-29, lgo round, NOT landed, no patch)
+CAUSE of the refused nested inline in x8a/x8b: CalcScreenPlacement is __declspec(noinline) in
+  screen_placement_mp.cpp (stand-in device), so the nested site never reaches the model (no W line at all).
+  Not a count/shape problem.
+ORACLE with noinline removed (lgo_sp.sh off + lgo_run.sh SPEC): nested CalcScreenPlacement inside the inlined
+  CL_DrawStretchPic: size 468, c0 31, c1 435 (constant-align discount, aligns 3,3), cost ~2 -> fast-path inline
+  (no R line), at every count (frame-loop sites floor 1e8, snapshot 3.125 / 1.5625). Loop/exit shape is irrelevant.
+FULL BUILDS (noinline removed): lgo1 = x8b shape (lg1 + both snapshot sites by-value CL_DrawStretchPic):
+  CG_DrawLagometer 246 vs 246 insns, 6 diff lines (was 393 B diff). lgo2 = Kisak shape (all 4 sites
+  CL_DrawStretchPic, lgo_all4.py): 8 diff lines. Both ALL ~1063.5k (62.57%): without noinline 15 other sites with
+  constant aligns inline too (oracle c1 431, cost ~6): CG_DrawAdsOverlay x7, CG_DrawReticleSides x4,
+  CG_DrawReticleCenter, CG_DrawAdsAimIndicator, CG_DrawTurretCrossHair (+ none of the variable-align callers).
+  Retail CALLS 0x449ee0 at all of them with constant aligns (AdsOverlay 0x4c275f: mov ebx,2; mov edi,ebx; call;
+  retail CalcScreenPlacement takes horzAlign in edi, vertAlign in ebx). Same model, same count floor as the
+  Lagometer frame-loop sites, so retail's model inputs at those callers must differ (callee c1/size not
+  available there: compile order or a different callee IL) - HYPOTHESIS, unproven.
+NEXT: find why retail refuses the AdsOverlay/Reticle sites with constant aligns (DFS compile-order oracle
+  ordd.txt: is CalcScreenPlacement compiled after those callers but before CG_DrawLagometer?). Once those 15
+  sites refuse with plain CalcScreenPlacement, lgo1 (x8b + noinline off) is the Lagometer fix.
+Tools: lgo_sp.sh on|off (rebuild fp_t screen_placement obj), lgo_run.sh SPEC... (Lagometer site summary),
+  lgo_try.sh TAG DRAWSPEC [lgo_ni.py] (full build with the two-file patch), lgo_all4.py (Kisak 4-site shape).
+
+RETAIL REFUSALS (10-29, rf round; CalcScreenPlacement + Com_EndParseSession; no patch, nothing landed)
+NEW DECODE: the no-record path of 0x1078cf54 = callee NOT YET COMPILED at the caller's compile.
+  ordq: 1175 sites have I/V but no W line; 1153 of them have a callee whose F line comes later (size81 = 0
+  in V field 5). Those skip the cost model 0x1078d1aa and use a per-caller budget instead:
+    refuse if [0x10882b5c] > 35000, or (p4 < [callee+0x6d] and [callee+0x6d] > 40)
+  p4 = the 4th cf54 arg (V field 4) = the caller's remaining inline budget: 1000 for a fresh caller, minus
+  what earlier inlines in it used (CG_DrawAdsOverlay 120, 52, -35, ...). [+0x6d] = callee IL size (ushort).
+  Example: UI_MouseEvent / Menu_SetNextCursorItem inline Rect_ContainsPoint (compiled later, F 13224) while
+  p4 >= 0xa5 and refuse it once p4 <= 0x17. The budget never applies on the cost-model (W) path; there the
+  only caller-size term is the 9000 penalty (W field 13 = [0x10882b58], 0x95..0x7cd in AdsOverlay: far off).
+  -> correction to section 1.1: an uncompiled callee is not "size 0 = raw inline", it is the budget path.
+(A) CalcScreenPlacement, hypotheses tested (oracle, noinline off, lab/w200/rf_probe.sh + rf_sites.py):
+  1. Compile order: OUT. A leaf callee that is not in a cycle is always compiled before its callers: probe
+     'if (rf_probe_never) SetScreenScalingInt(...)' in CalcScreenPlacement moves its F 10420 -> 49061 and every
+     caller moves after it (all 15 sites still W, cost 6, inline). A vararg call (Com_Error) does not delay it
+     at all (F stays 10420). So callers can only see it uncompiled through a call cycle back to them, and retail
+     CalcScreenPlacement has no calls (0x449ee0..0x44a075, pure leaf). No source path for that.
+  2. Per-caller budget: OUT for these sites (budget only on the uncompiled path, see above).
+  Align VALUE: OUT (c1 431 for 2,2 vs 435 for 1,1 / 3,3; all inline).
+  Retail census (objdump, 48 calls to 0x449ee0): exactly our 33 variable-align call sites + the 15
+  constant-align sites (AdsOverlay 7, ReticleSides 4, ReticleCenter, AdsAimIndicator, TurretCrossHair).
+  Retail inlines it only in CG_DrawLagometer (inside inlined CL_DrawStretchPic), CG_DrawDevString,
+  SCR_DrawDemoRecording, Con_DrawSay (all .inl stand-ins + re.DrawText = an inlined CL_DrawText shape).
+  ReticleSides is also nested (inlined CG_DrawRotatedPic, consts 2,2) and retail calls there, so
+  "nested vs direct" does not split the groups either. Split that fits all 63 sites: inline only where the
+  wrapper is CL_DrawStretchPic / CL_DrawText (client_mp); call everywhere in cgame/ui. Under our model every
+  constant-align site gets the c1 discount (FUN_10797769, needs an arg of kind 7) and inlines, so retail's
+  callee/caller IL at the call group must not give that discount (cost 437 -> refuse). Remaining lever (3):
+  what arg kind retail's aligns had at those sites (kind 7 = folded int constant; a local/param copy would be
+  kind 1-2 and gets no discount). NEXT: decompile 0x10797769 (discount) and log kinds per arg (extend cave_y W)
+  at the 15 sites; then try sources where the align reaches the call as a variable (e.g. the CoD4 cgame shape
+  that passes horzAlign/vertAlign through locals or a ScreenPlacement pointer). Unproven.
+(B) Com_EndParseSession: F 120320 sits in the late (Com_Error SCC) phase, callers right after
+  (Falloff 120655, ModGroups 120687, GScr_CloseFile 122844, LoadSoundAliasFile 126374). Unlike (A) a cycle is
+  real here (EndParseSession -> Com_Error -> ... -> sound alias loading), so a caller can compile before it.
+  But then the site takes the budget path, and ES (31 B) has a small IL: if [+0x6d] <= 40 it would inline
+  unconditionally, which does not give retail's calls either. Not resolved; next: log [callee+0x6d] in cave6
+  (V line) to get ES's IL size, then check which order inside the SCC gives calls at Falloff x2/ModGroups.
+Tools: lab/w200/rf_probe.sh EDIT.py (rebuild fp_t screen_placement obj with a python edit, relink oracle, list all
+  sites), lab/w200/rf_sites.py ordq.txt CALLEE (caller, inl, p4, size, c0, c1, count per site), lab/w200/rf_now.py
+  (no-W site census). fp_t objs restored to main (screen_placement noinline, cg_draw main).
+
+ES/COM_PARSE ROUND 10-30 (oracle rebuilt in ~/orcy/vc, DFS oracle ~/orcy/dfs = tools_oracle cave.s; fp_t objs = main 10-30)
+- es_run.sh (all 24 ES stand-ins real via es_conv2.py, noinline off; CP=1 also turns the 7 sndalias COM_PARSE_INLINE into
+  real Com_Parse): /tmp/es_sites.txt. Retail ES calls (sites.py): ModGroups 3, Falloff 3, GScr_CloseFile 1, none elsewhere.
+  Ours (all real): Falloff 1 call (in-loop counts 0.3125/0.2344 inline, 0.0146 call), ModGroups 2 (0.078/0.059 call,
+  post-loop 0.47 inline), LoadSoundAliasFile 1 call (0.0586) where retail inlines, GScr_CloseFile 1 = retail.
+  With CP=1: Falloff CP sites cnt 1.0 inline, 0.255 call, 0.078 call (retail: 3 Com_ParseExt calls = all 3 CP inlined).
+- DFS (dfs.py on ~/orcy/dfs ord.txt): first root UI_LoadArenas reaches Com_Error, and from it ES via CG_SetupWeaponDef...;
+  only ES->Com_Error is cut. Falloff is first reached from the later UI_Init root (UI_LoadSoundAliases ->
+  Com_LoadSoundAliases -> Com_InitVolumeFalloffCurves -> ...), so Falloff->ES can never be a cut in our graph.
+  Compile (all-real): ES F2433 < Falloff F3172 < Com_Parse F3581 < Com_Error F5722 < ModGroups F5725 < LoadSoundAliasFile F6011.
+- String literal placement (.rdata) is per-object block, identical to retail: no compile-order evidence from strings.
+- [10-30 SOLVED, see FREQUENCY ESTIMATOR] retail's 3 ES calls + 3 CP inlines in Falloff come from a natural loop
+  (exit shares), not from compile order or the budget path.
+
+VM_NOTIFY ROUND 10-30 (vmn1 config: server-form calls, script noinline off; oracle V lines)
+- Per-caller top-level budget starts at 1800 (not 1000) and drops by each inline: VM_Notify 1800 -> ... -> 227 -> -165.
+  Nested sites carry their own small budgets (inst = depth). RemoveVariable is decided as a DEPTH-2 site under the
+  inlined RemoveObjectVariable, with the outer site's count: 3.125 (r 66 inline), 1.5625 (r 75 call), 11.33 (r 59),
+  5.66 (r 62). Retail calls all 4 -> retail outer counts <= ~1.98. Not a budget refusal (RemoveVariable accepted at
+  nested budget 32).
+- DFS: target cuts VM_Notify->{RemoveVariable,GNVII2,Scr_TerminateThread}, VM_Resume->ClearVariableValue reachable only
+  through Com_Error (which DFS enters first from UI_LoadArenas); no single TU-wide first-declaration move hits any
+  (tusearch.py, 19 TUs). Server and client VM_Notify have identical control flow tokens (goto next/error/done,
+  continue, while(1), do-while). Open: what makes retail's VM_Notify loop counts lower at decision time.
+- Retail Falloff layout (PINNED, disasm): pre-loop ES x2 inlined, first Com_Parse inlined, both loop Com_Parse inlined
+  (ungetToken test + Com_ParseExt call), the 3 in-loop error ES are calls in cold blocks at the function end, post-loop ES
+  inlined. Ours (CP=1): loop CP cnt 0.2549/0.0781 (call) BELOW the in-loop error ES cnt 0.3125/0.2344 (inline).
+  [10-30: "counts recomputed after earlier inlines" is WRONG. Counts are computed once per caller before any inline;
+  the low loop-top count is the header block's raw in-flow. See FREQUENCY ESTIMATOR.]
+- ES literal plan blocked: on main, 10 stand-in hosts compile before ES (G_ParseAI.. F3705, Com_LoadDvarsFromBuffer 4845,
+  Com_SetRecommended 5413, subtitle fns 5718-5720, BG_LoadPlayerAnimTypes 5778, CG_RegisterImpactEffectsForDir 5793,
+  AnimTreeCompileError 5846 < ES 5864) so a literal in the .inl lands in their blocks; the all-real config compiles ES
+  first (F2433) but then needs the 3 sound-alias functions to decide like retail.
+- Nested-site count (PINNED, ghx/out/107723e7.c lines 55-66, the inline body copier): a copied site's count
+  [site+0x10] becomes FUN_107473b9(outer, own, 1e8) (= own*outer/1e8) only when the outer count > 1e8 (or its high
+  dword is set, or callee flag sym+0x69 & 0x10, which also halves it when the result grew). Outer <= 1e8: nested
+  counts are NOT scaled down. [10-30: there is no own-site recount after an inline; see FREQUENCY ESTIMATOR.]
+
+FREQUENCY ESTIMATOR (agent 10-30)
+=================================
+Decompiles: lab/w200/ghx/out/{107724b7,10772754,1076f1c4,1075e196,107808e1,1075c671,107807d3,10780c1c,1078095b,
+  10780c6a,107809eb,10780a42,1074f132,10780899,1078a817,107473b9,1075ea4f,1075e1c2}.c
+Oracle: ~/orcy/freq (cave_f.s + patch_f.py -> c2f.dll; hook 0x10781f71 = end of 0x1078095b before the arena reset;
+  prints Z lines for fns whose mangled name starts with a 16-byte pattern in 'pats': ZB block (num, loop,
+  [loop+0x4c], parent loop, header mark, count lo/hi), ZE out-edge (dst, freq lo/hi, exit flag, back-edge loop),
+  ZR/ZX loop-exit records. run.sh greps ^Z into build/ordz.txt; zdec.py ordz.txt NAME decodes it.
+  var.sh EDIT.py = rebuild the fp_t sndalias obj from main + EDIT.py + real ES/CP calls, then run the W oracle
+  (~/orcy/vc -> ordq.txt) and the Z dump.) Kept: ~/orcy/freq/ordz_base.txt (es_run CP=1 state), ordz_while*.txt,
+  ordq_base_cp1.txt, ordq_while2.txt. fp_t/build/obj restored to main afterwards (ordq.txt there = while2 run).
+
+WHERE (PINNED, decompile + call xrefs)
+  0x107724b7 per caller: 107723e7(fn, depth 1, budget, 0, outer count 1e8, 0).
+  0x107723e7 (also re-entered from 1078da56 for every inlined body): if the fn has call-graph data, rebuild the CFG
+    (1076f1c4), number blocks (1075e196, [blk+0xa4]) and edges (107808e1, [edge+0x22]), dominators (1075c671),
+    loops (107807d3(0) -> loop builder 1075ea4f), then 10780c1c -> 1078095b = THE ESTIMATOR.
+    Then the site list 10772754 is built ONCE and walked in IL order; each site is decided/inlined in that order.
+  0x10772754: [site+0x10] = [blk+0xb8] of the block whose label tuple (kind 0x1a) precedes the call (all-ones -> 0).
+    Nothing rewrites the caller's own site counts later. -> (b) THERE IS NO RECOUNT after an inline; decision order
+    does not change counts. Sites of an inlined body: the body copy is estimated on its own (entry 1e8), then
+    107723e7 lines 55-66 scale them by outer/1e8 only when outer > 1e8 (older note).
+  0x1078095b: allocs header marks (0x10881924, per block), back-edge marks (0x10881920, per edge), exit flags
+    (0x1088191c); runs 10780c6a, 107809eb, 10780a42; finally [blk+0xb8] = SUM of in-edge freqs [edge+0x18] (64-bit).
+    Called with eax=0 (0x10780917), so the 10%/90% branch-hint path in 10780a42 is off.
+
+ALGORITHM (PINNED: decompile; every count below reproduced exactly by the Z dump)
+  CFG fields: blk+8 in-edge list (next +4), blk+0xc out-edge list (next +0), blk+0x9c innermost loop, edge+8 src,
+    edge+0xc dst, edge+0x18 freq, edge+0x20 done. loop+8 parent, loop+0x4c flags.
+  1. 10780c6a: an edge entering a loop marks its dst as a loop header (0x10881924). An edge leaving a loop goes to
+     1074f132: if its src still has a successor inside, it is recorded as an exit of each loop from the inner one
+     out to the outermost loop left; only that outermost record gets e2=1 (the others e2=0). If every successor of
+     src already leaves, the exit point moves up to src's in-edges (recursive).
+  2. 107809eb: for a marked header H, in-edges of H (or of blocks laid out just before H in the same loop) coming
+     from a block numbered >= H are back edges (0x10881920[edge] = loop), extended along single-successor chains.
+     No back edge -> H is unmarked.
+  3. 10780a42, up to 3 passes in block layout order. Entry block 1e8. A block is handled once all its in-edges are
+     done (a header ignores its undone back edges). in = sum of its done in-edges.
+       header, loop flag bit0 CLEAR, loop has exit records:
+         share = (in - sum of done e2=0 exits) / (number of undone e2=1 exits) -> preassigned to those exit edges
+         flow = 10*in (+ done e2=0 exits)
+       header, flag bit0 SET (or no records): flow = 10*in, no exit preassignment
+       other block: flow = in
+     Out-edges: flow -= already-done out-edges (the preassigned exits); clamp at 0; the rest is split equally
+     (64-bit integer division) among the undone out-edges. After 3 passes anything still undone = 1e8.
+  4. Block count = sum of in-edges. So a header block's own count is entry + back-edge flow, NOT 10*entry; only its
+     successors carry the 10x.
+  LOOP FLAG: 1075ea4f gives a loop flag 0x01 when a retreating edge (src laid out later) targets a block that does
+     NOT dominate the src. C1 lays out for (i = 0; ; i++) with the increment block BEFORE the body top:
+     init -> body top; latch -> increment block -> body top. The increment block is the back-edge target but the
+     init edge bypasses it, so the loop is flagged and the estimator skips the exit shares.
+     do/while (UI_LoadMenus dump: flag 0, 5 exits x 0.2) and for(;;) with the increment moved to the end of the
+     body (dump: flag 0) are natural.
+     for ( ; cond; incr ) WITH a condition: also flagged (PINNED 10-30 round 2, XModelCalcBasePose dump x_1.z).
+     while (cond) is natural. The flag also propagates to EVERY enclosing loop (end of 1075ea4f), so one inner
+     for(..;..;i++) kills the exit shares of all loops around it.
+
+FALLOFF EXPLAINED (PINNED, ordz_base.txt: loop flag 01, header B9, increment block B8)
+  pre-loop: B1 1.0 (Com_Parse), arms 0.5 (ES) and 0.25 (ES); loop entry 0.25.
+  header B9 (Com_Parse + first test): flow 10*0.25 = 2.5, no exit shares, so every test splits in half:
+    break tests 1.25 / 0.625 out, error ES1 = 2.5/8 = 0.3125, ES2 = 0.3125*0.75 = 0.2344, Com_Parse 2 = 0.0781,
+    ES3 = 0.0781*0.1875 = 0.0146, back edge B28->B8 = 0.0049.
+  B9 count = its in-edges = 0.25 + 0.0049 = 0.2549 (the loop-top Com_Parse), lower than its own successors.
+  post-loop ES = break flow 1.875 + 0.0586 = 1.9336 (no renormalisation).
+NATURAL-LOOP SHAPE (PINNED with the W oracle: var.sh v_while2.py, ~/orcy/freq/var_while2.out):
+    knotIndex = 0;  for ( ;; ) { ...same body...; knotIndex++; }     (no 'continue' in the body: same semantics)
+  9 exit edges share 0.25 -> 0.0278 each. Sites in decision order:
+    CP 1.0 inl, ES 0.5 inl, ES 0.25 inl, CP 2.5 inl (r 49), ES 0.0278 CALL (r 180), ES 0.0556 CALL (r 102),
+    CP 2.3611 inl (r 50), ES 0.0556 CALL (r 102), post-loop ES 0.1111 inl (r 64)
+  = retail's Falloff decisions (3 in-loop ES calls, all 3 Com_Parse inlined, pre/post ES inlined).
+  Same edit on Com_LoadVolumeModGroups (i = 0; for(;;) {...; i++;}): CP 0.625 inl, ES 0.0125 CALL, CP 0.5875 inl,
+    ES 0.025 CALL, post-loop ES 0.025 CALL = retail's 3 ES calls (ours today: post-loop 0.4688 inline).
+  NOT done: a full build / byte diff with this shape (research run only).
+LEADS: other retail-vs-ours inline mismatches inside or after a for(i=..;;i++) loop (VM_Notify loop sites,
+  BG_ParseCommands outer header 2.5, LoadSoundAliasFile ES 0.0586) may be the same flag. Dump the fn with the Z
+  oracle first (add its 16-byte mangled-name prefix to 'pats' in cave_f.s, cave must stay < 688 B, now 610).
+
+SHAPE ROUND (agent 10-30, round 2; W oracle + Z dump on fp_t, all-real base = main 8f98194 + listed specs)
+Tools: ~/orcy/freq/var2.sh REL EDIT... (EDIT = python script on the file, or an fpobj spec with R = [...]) rebuilds
+  one fp_t obj and runs both oracles; run1.sh TAG FNPREFIX REL EDIT... saves TAG.sites (lmsum) + TAG.z (zdec);
+  gen.sh PREFIX... rebuilds c2f.dll with the Z dump for those mangled-name prefixes; census.py TAG.sites = calls
+  per callee, compared with lab/w200/sites.py on the retail exe. Diffs below: ~/orcy/freq/*_shape.diff.
+  fp_t objs and sources restored to main afterwards.
+NEW PINNED FACTS
+  - for ( ; cond; incr ) is a flagged (non-natural) loop too (x_1.z); while (cond) and do/while are natural.
+  - The flag spreads to all enclosing loops (1075ea4f end; lsa_v12.z, VM_Notify base dump).
+  - A dead block with an edge to a loop top (the implicit loop-back after a final 'break;' in a while(1) body)
+    merges that loop into its parent: its top is no longer a header, and the region can end up with count 0
+    (Com_LoadSoundAliasFile column loop: I_stricmp/Com_ParseOnLine cnt 0 in the base dump).
+1. Com_LoadSoundAliasFile (SOLVED in the oracle, lsa_v12): all-real base (e_es/e_cp/e_sk) + lsa_shape.diff:
+     outer 'while ( 1 )' -> 'for ( ;; )';  column loop 'if ( data && *data != '\n' ) { token = Com_ParseOnLine(&data);
+     continue; } break;' -> 'if ( !data || *data == '\n' ) { break; } token = Com_ParseOnLine(&data);'
+   Census = retail exactly: ParseExt 3, I_strnicmp 1, no ES / SkipRestOfLine / ParseOnLine calls, the 9 other
+   callees 1 each. ES counts 8.86 / 0.234 / 2.5, all inlined. The inner for(i = SA_NAME..; i++) MUST stay a for:
+   turning it into while (lsa_v13, lsa_v123) makes the loops natural and gives I_strnicmp inlined + end
+   SkipRestOfLine called (wrong). The dead-break edit alone (lsa_v1) leaves the column Com_ParseOnLine called (0.73).
+2. CG_UpdateKillCam XAnimSetTime: NOT SOLVED. Cost 40 (size 50 = retail size, c0 10) needs cnt > 0.1556. The site is
+   behind 4 halving tests after the loop top (eType, anim, IsLooped, NumChildren; the estimate runs before any
+   inline). Natural top-test loop: 10*0.25 - 0.25 = 2.25 -> 0.1406. Extra exits after the site only shrink the
+   pre-site share; the limit is 2.5/16 = 0.15625 (r 70.9), never reached. Flagged or guarded loops are lower.
+   Passing ci->pXAnimTree (kc_fk1) leaves c0 = 10 (CSE'd to a temp). So no if/loop reshaping can do it under this
+   model; retail must differ in cost (arg kinds / c1) or in a statement we do not have. Open.
+3. VM_Notify (SOLVED in the oracle, vm_B): vmn1_a/vmn1_b + vmn_shape.diff:
+     'while ( 1 ) { next:' -> 'for ( ;; ) { next:'  and  'for ( currentValue = top; size; currentValue-- )' ->
+     'currentValue = top; while ( size ) { ...; currentValue--; }'  (the loop body runs to the 2-tab brace,
+     the error_message check is inside it; no continue)
+   All loops natural. Census = retail exactly: RemoveVariable 4 (cnt 1.0/1.0/1.5/1.0), GNVII2 1, GNVII3 1,
+   Scr_TerminateThread 1 (cnt 0.5), FindVariableIndexInternal 4, AllocVariable 1, MT_AllocIndex 1, MT_FreeIndex 1,
+   MT_GetSize 2, RemoveRefToObject 2, RuntimeError 1, Scr_EvalEquality 1, VM_CancelNotifyInternal 2.
+   v_vm2 alone (vm_A) is hotter (wrong): the for-loop flag must go too.
+4. XModelCalcBasePose (SOLVED in the oracle, x_1): xcb_a + xcb_shape.diff: root-bone loop 'while ( numRootBones )
+   {...; --numRootBones; ++quatTrans;}' -> 'for ( ; numRootBones; --numRootBones, ++quatTrans ) {...}'.
+   The flagged first loop leaves x5 behind it; the natural second loop then sends 10*5 - 5 = 45:
+   QuatMultiply cnt 45 r 70 inline, MatrixTransformVectorQuatTrans and DObjCalcTransWeight inline, nested
+   ConvertQuatToMat r 109 call. Census = retail (ConvertQuatToMat 1, nothing else). Margin is 1 (r 70).
+5. BG_ParseCommands sound Q_stricmp (SOLVED in the oracle, b5_v2): bpc1 + bpc_shape.diff:
+     'do { bCommandFound = qfalse; ... } while ( bCommandFound );' ->
+     'for ( bCommandFound = qfalse; ; bCommandFound = qfalse ) { ...; if ( !bCommandFound ) { break; } }'
+   The flagged do-loop leaves x5 behind it, so the sound loop entry goes 0.737 -> 2.43 and the sound site
+   6.64 -> 21.9 (r 68, inline). Every other site keeps its decision: I_strnicmp calls 4 (retail 4),
+   Com_ParseOnLine calls 2, Com_UngetToken 1, BG_IndexForString 1, BG_AnimationIndexForString 1. Com_ParseExt 6
+   vs retail 5 is unchanged from base (not caused by this shape).
+   Making the conditions loop natural instead (b5_v1) overshoots: I_strnicmp 2 calls, Com_ParseOnLine 0.
+NOT DONE: full builds / byte diffs of these shapes.
+
+KEY_CLEARSTATES REAL CL_KeyEvent (10-30, kcs1..kcs4 oracle fp_t2, NOT solved, stand-in cl_keyevent.inl stays)
+- Site W [13, 1158, 7, 0,0,0, 2, count], cost 97 at every shape (PINNED, ordq): for(i;i<256;i++) count 2.5 r 77;
+  i=0; while(i<256){..;i++;} count 4.5 r 71; do{..}while(++i<256) count 5.0 r 71. All REFUSE (r>=71).
+  Needs count > 5.105e8 at cost 97, or cost <= 96 at count 5 (argcost c0 >= 14).
+- cost = K - c0 with K a callee/compile-time constant (Com_ParseExt K 176 at c0 8 and 11; CL_KeyEvent K 110). c0 13 =
+  1 + i (2) + two consts (5+5). Only a mem/addr-kind first arg would add 3.
+- Dropping the setActiveMenu pointer local in CL_KeyEvent (direct UI_SetActiveMenu calls): size 1456, cost 97 unchanged.
+- Compile order OUT (kcs_dfs.py on fp_t ord.txt): CL_KeyEvent's only callers are Com_EventLoop / Debug_EventLoop; the DFS
+  reaches Key_ClearStates first (UI_LoadArenas -> String_Alloc -> Hunk_AllocAlignInternal -> Com_Error -> UI_SetActiveMenu
+  -> Menus_OpenByName -> ... -> UI_RunMenuScript), so CL_KeyEvent is always compiled before it (no budget path).
+- Open: what gives retail c0 >= 14 or count > 5.1 here.
+
+RA RESIDUE PROBES (10-30 late)
+- lab/w200/fcmp.py OX_DIR NAME [-v]: function code from an oracle link (fp_t2/build/ox.exe) vs retail with addresses masked,
+  ~1 min per variant via lmv2.sh. Validated: FS_GetMapBaseName 0 lines; residue fns show their diffs (CPSAFL 20, Sys_IsLANAddress 17,
+  CG_AddPlayerWeapon 70, CG_DrawTracer 68, CG_InitXAnimTrees 67, CrosshairNames 42, CalcCrosshairPosition 38, G_RegisterWeapon 30).
+- Com_ProcessSoundAliasFileLocalization (PINNED disasm): retail keeps f (FS_FOpenFileWrite result) in esi and pushes the temp.csv
+  literal as an immediate; ours keeps the literal in esi and reloads f from [esp+0x14] in the loop. psl1 (literal at each of the 3
+  uses, opencod2 shape): identical code to main (0 change). Next: loop shapes (for vs while, the frequency estimator) as the RA lever.
+- Script GetVariable stand-ins (CopyArray/CopyEntity, Scr_UsingTreeInternal, ScriptCompile) real calls: code identical to main
+  (only PDB GUID bytes differ), committed fa9b6b6, scr_get_variable_index.inl deleted. Scr_KillThread server body: 47% (layout break).
+- CPSAFL RA (10-30 night, fcmp.py on fp_t2): loop shapes do not move f/tempFile in esi. s, l, sl (subtitle/localize for -> while)
+  identical (20 lines); n (name loop -> while) and nsl change inlining (95/196 lines, size 575/612); flagging the \r skip loop (c),
+  the row loop as for(i=0;;token=...) (w) or both: 345-380 lines. Declaration order tempFile/f first (tf, ft): identical. Parked.
+SMALL CODE DIFFS ROUND (10-30 night; fclass.py BUILD = code vs address-only split, fcmp.py on the fp_t2 oracle link)
+- PAID 1203bb4: node1_ takes int (scr_yacc.c already declared node1_(int)); retail compiles it like node_pos (bare ret,
+  register arg). CL_SetServerInfoByAddress: 'low = 0;' before 'high = cls.numglobalservers;' gives retail lea [esi+edi]
+  (operand swap and declaration order alone: no change).
+- SND_LoadFromSound_4b4890 (unreferenced): void return gives retail 'pop ecx' cleanup (oracle 0 lines).
+- No change: StartWeaponAnim loop over 1..20 or natural while (inc esi / add ebp order); yylex load order of
+  yy_last_accepting_cpos/state: static declaration swap, find_action / case 0 / match-loop statement swaps.
+- FloatSwap union-int forms (fsw6 A unsigned/B signed/C float copy): 24-25 lines, worse (dat2 coalesces into f slot; retail keeps dat2 in its own push-ecx slot and re-reads f 3x).
+- AxisTransformVector: server plain left-to-right form matches the standalone body (oracle 0 lines) but the inlined copy in XModelTraceLine then loses (gate -1080, rows 0-2 or 1-2); the client parens are a stand-in for that copy. Parked.
+- PAID tonight (gate + commit each): FloatFromBits union + FloatIdentity (d601f00; dropping the FloatIdentity call removes
+  its cm_load_obj body and shifts layout), FloatNoSwap 'dat.i = *(int *)&f; return dat.f;' (23e6ff6), SND_SetChannelInfo
+  VectorSubtract + DotProduct(delta, axis[k]) via extern decls (289cdd8), CG_WhizbySound real VectorSubtract/DotProduct/
+  VectorMA/VectorLength incl. VectorMA(projPos, -16, dir, projPos) (fe6f457), VEC3_SUB/COPY macros out (575d2c9).
+  Lesson: oc/ files hand-expand com_math helpers ('not visible in this TU'); extern declarations of the real helpers
+  (as cg_draw_mp does for DotProduct) let LTCG inline the real ones, and they match retail.
+- Not solved: FloatNoSwap via FloatFromBits(FloatAsInt(f)) adds a FloatFromBits body to q_shared (87.7%).
+  CG_CalcViewValues BG_GetSpeed inline: Vec2Length (server) vs explicit sqrt give identical code; ours keeps velocity in
+  x87 regs, retail uses memory operands (context, open). G_GetPlayerViewOrigin = verified server body (push-order tie).
+  FinishSpawningItem real AngleVectors (server form): cnt 0.125, cost 37, r 74 REFUSE (needs cnt > 0.135 or c0 >= 20);
+  function shape already equals the server, ANGLE_VECTORS_INLINE stays.
+- PAID (10-30 night, stand-ins gone, gate OK, release bytes unchanged or better): 3x COM_END_PARSE_SESSION_INLINE (4caf46c),
+  FS_FREE_FILE_INLINE (e5e9bfd), ITEM_CAN_FOCUS_INLINE via real Item_CanFocus_5409b0 + natural while scans (6aebe66; the
+  for-loop form refuses it at r 77), AnimTreeParseInternal real Scr_IsIdentifier/RemoveVariable/GetVariable in the client
+  single-loop shape (49f3818; server nested while(1)+break shape gives cnt 1.0 and refuses), 2 dead macros (4940a65),
+  subtitle-scan ParseOnLine/SkipRestOfLine (54c852a). Tool: fcmpobj.py fp_t2 OBJ.obj (whole-object masked compare).
+- CG_ParseImpactEffects 2nd Com_ParseOnLine real: cnt 0.586 r 75 (needs > 0.764) while the final real SkipRestOfLine must
+  stay <= ~0.91. Natural search loop: 1.92 / 1.75 (both inline, 162 lines); return inside the for: 0.39 (refused); flagged
+  copy loop + natural search: 0.078. Parked; q_parse_online.inl stays there.
+- PAID 1d57ff2: GetBestOffhand real at all 4 sites, macro + noinline gone. The CG_DrawOffHandIcon 2nd site was cnt 0.0938
+  (|| gives the call block 3/4) r 59 inline; 'if (weapon && def->offhandClass != type) weapon = 0; if (!weapon) {call}'
+  gives 0.0625 -> refused like retail, and the whole object compiles identical (jump threading).
+  Lesson: a call block reached through '||' gets 3/4 of the flow; splitting into a reset + single test gives 1/2.
+- Item_ListBox_HandleKey without noinline: Scroll_ListBox_AutoFunc site cnt 0.5, c0 17, cost 58, r 66 inline (retail
+  calls); needs cnt <= 0.389. Function is the Q3 shape (one if). ui_shared_mp object 14 -> 570 lines. noinline stays.
+- Also folded this round: q_shared_strnicmp/dvar_find/q_parse_skipline/scr_get_new_variable_index/scr_remove_variable/
+  scr_new_variable_index2 .inl (b2b0a77, 1b9ce53, 75fcd58, 65ada9d), Scr_KillThread real RemoveVariable (5277556).
+- CG_CalcCrosshairPosition (retail fsincos straight from cg->gunYaw, no gunAng[1] store): assignment orders ypr/pry/rpy/yrp, roll = 0 (38 lines, same), roll unset (50): no gain.
+- 10-30 late: lab/w200/swapscan.py BUILD (symbolic retail-vs-ours diff via the build map; SWAP/OPSWAP/OTHER) and
+  fcmps.py (same for oracle links). PAID: CL_RunOncePerClientFrame 'com_timescaleValue * (1000.0f / avidemo)' (c3945f0);
+  FX_DrawAll reads fx_debug, not fx_profile (be56b17, a real source error found by symbolic compare).
+- Not source-movable (oracle, symbolic): global += global operand order (ConDrawInput y += fontHeight,
+  CG_OffsetFirstPersonView vieworg[2] += viewHeightCurrent): both spellings compile alike; ours and retail differ.
+  HideWindowCallback: retail g_hwndGame at count+8 (an unreferenced 4 B slot or alignment between; no evidence).
+  Com_ErrorCleanup vs Com_GetSubtitleStringEdReference statics (0x400): top-level DFS order (Com_Init vs Com_Frame
+  subtrees); same call sites as retail. fire_grenade (= server body) emits 720.0f before Mantle_CreateAnims' floats
+  (retail after). PM_Weapon 'static const int unused = 40' (server source): MSVC drops it (ours emits nothing), retail
+  has it -> retail referenced it in IL; the 8 tiny OPSWAPs (BG_GetAmmo*ForName, G_FindItem, ParseWeaponDefFiles,
+  G_RunMissile, G_SpawnTurret, PlayerCmd_finishPlayerDamage, fire_grenade) are only this +4 / float-pool shift.
+FRAGILE TIES vs GLOBAL NUMBERING (10-30 night, relink lab ~/rl.sh + ~/rlx.sh, fdelta.py; PINNED)
+- Object path length (rlx_same vs rlx_long, 70+ chars longer): exe identical -> ties are not heap-address noise.
+- k empty objects before everything, k = 0..16: a small fixed set of functions flips per k with no monotone or
+  periodic pattern (hash-like): SV_DirectConnect, SV_ArchiveSnapshot, DSound_UpdateSample, Scr_ParseGameTypeList,
+  SP_worldspawn, CL_SetCGameTime (good at 7..11), yylex, SV_Netchan_PrintProfileStats, Menu_HandleKey, ScriptCompile,
+  PC_EvaluateTokens, Pickup_Weapon, CG_DrawPlayerStance. These are the 2-4 line load/slot swaps; they follow the
+  linker's global numbering (symbol counts of every earlier object), which cannot be reproduced without retail's
+  exact object symbol tables. The big residue (CG_AddPlayerWeapon, CG_ConfigStringModified, CG_CalcCrosshairPosition,
+  G_RegisterWeapon, CG_DrawTracer, ...) never flips for any k: source/IL cause.
+- Dvar_SetFromStringFromSource alignment: call sites of the whole chain (SetFromString 12 callers, StringToValue 3,
+  StringToColor 2) equal retail; retail StringToColor also copies the I_fround bias into a double slot without
+  aligning (bytes equal). Only the pass's placement differs; inputs that differ not found.
+- G_OverrideModel raw-inline theory: SV_GetConfigstringConst equals the server (no error path, no cycle edge).
+
+## CG_AddPlayerWeapon RA (agent 10-30 night)
+- PINNED (oracle link, fp_t3): apwr_final_cg.py (cg_weapons.cpp: model.obj = weapInfo->viewModelDObj) +
+  apwr_final_bg.py (bg_weapons.cpp: BG_GetViewmodelWeaponIndex with one weapIndex local, if / else if / else,
+  single return = apw9) -> CG_AddPlayerWeapon difflines 70 -> 0 (203 = 203 insns). cg_weapons.obj TOTAL 142 -> 72.
+  fcmpobj over all 462 objs: TOTAL 1358 -> 1288, the ONLY changed fn is CG_AddPlayerWeapon (callers of the
+  inlinee in bg_animation_mp, cg_view_mp, cg_newDraw_mp, cg_draw_mp unchanged). Either edit alone: 126 (mo 126, apw9 126).
+- CONFLICT DISPROVED (PINNED 10-30 night, main session): built cod2engine-linux-2005 and rebuilt lnxded-1.0 with
+  the weapIndex form of BG_GetViewmodelWeaponIndex (/tmp/srvtest): `make check` SHA256 IDENTICAL (control /tmp/srvbase
+  identical too; objdump shows the new body compiled: result stored to -4(%ebp) like the direct-return form).
+  So the one-local shape is consistent with both binaries. Landed 2b8137d (gate +783, release +591, 99.816%).
+  Direct-return shapes with mo all stay at 126 (server form apw4, else-if returns apwr_bg_s3.py, the current
+  ternary, plus apw1 heads). mo+apw10 (local only on the frag ternary) = 8. Main session decides; a client-only
+  local in shared bg code needs the owner's call.
+- PINNED mechanism (probe caves apwr_cave4/7.s, picks via rgb c2rd + cpick): base pops parent esi, ps ebp,
+  val=388 (parent->axis CSE temp, n3 42) -> edi, boneIndex, weapInfo (n3 31) -> ebx. Whole weaponNum (the ternary
+  temp kind03 val=80, n3 0 n16 18) has only ebx left (memset excludes edi, PINNED: ps/parent free sets lack edi), so
+  the split into pieces runs right after weapInfo takes ebx (pass-2 accounting starts after that pop). Its piece
+  (n3 16 n16 2) is short, free {eax, edi}, takes eax; bViewModel's piece takes edi. Retail = the reverse.
+  mo: the product weaponNum*0x1b4 is no longer a CSE temp shared with the gun block, weapInfo absorbs it (def
+  region +40 instead of +8) -> weapInfo n3 63 pops 3rd -> split before val=388. The long weaponNum piece then has
+  n16 0 (per ref: 6 x +2, 6 x -2; only the binocular def counts) -> rejected. apw9 adds the _weapIndex node
+  (n3 14 n16 8 -> eax); the _weaponNum piece gets n16 4 -> edi, val=388 sees edi:1000 -> ebp. = retail.
+  Diagnostic (compiler hack, not source): +6 on weapInfo's n3 alone -> 70 (val=388 ebp, cent takes edi); +2 on the
+  long piece's n16 with mo -> 74, weaponNum in edi except the def arms.
+- PINNED n3 build (hooks 0x107828e4 region start eax = k, 0x1078292a / 0x10783a56 add, 0x10783a7d sub): weight 1 in
+  this fn; per region k = referenced candidates; referenced node += units*k, live unreferenced -= k. The A1 hook's
+  ecx low byte is the flag byte (use value deltas, not ecx). n16 per-ref writers: 0x10782692 (+), 0x1078281c (-),
+  0x10784c3e (+2w), 0x1078cb73 (-2w); the 0x10711xxx weight sites never fire here.
+- Dead (measured): 58 head spellings (apwr_scan.py, fp_t3/ra/scan.tsv: bViewModel if/else, != 0, !!, init; weaponNum
+  ternary, if/else, on bViewModel, init, cent->nextState.weapon; both orders) best 70; same set on top of mo best
+  73 (setne forms); gun/brass blocks as static helpers are not inlined (159-187); DObjGetBoneIndex without its
+  local, DObjGetRotTransArray as ternary: 70 unchanged; mo+apw4 126.
+- Tools: apwr_rd.sh (OBJ=, DLL=; now writes exe+map, rd.sh's '\o\$TAG' quoting lost them), apwr_patch.py,
+  apwr_cmp.py (fcmps on any exe+map), apwr_reg.py, apwr_w.py, apwr_wt.py, apwr_pops.py, apwr_go.sh, apwr_go2.sh
+  (multi-file variant + restore). fp_t3 is left built with the final pair.
+- FinishSpawningItem real AngleVectors with the second startsolid test nested in the first (fsi1.py): client OK
+  (AngleVectors cnt 0.1875 r 59 inline, g_items_mp object unchanged otherwise) but the server rebuild is NOT
+  SHA-identical (srvcheck fsi; GCC -O0 drops the second test) -> not the original shape, rejected. lab/w200/srvcheck.sh
+  TAG REL SPEC.py checks any shared-file spelling against the server SHA in ~4 min.
+
+## SoundAlias/LAN RA (agent 10-30 night)
+Workspace fp_t5 (restored to main at the end: both src files and tus.txt identical to main). Baseline (oracle link):
+CPSAFL 20 difflines (594 = 594 insns), com_sndalias_load_obj.obj TOTAL 20 (34 fns, CPSAFL is the only diff);
+Sys_IsLANAddress 17 (retail 61 / ours 56), win_net.obj TOTAL 17 (21 fns, LAN is the only diff). No spec improved either.
+- CPSAFL PINNED (disasm, sal_dump.py): retail also loads the literal into esi as FS_FOpenFileWrite's register arg; the
+  only real difference is f's first piece: retail `mov esi,eax` and keeps f in esi from the call through the loop
+  head to the '\n' FS_Write (`push esi`), with ONE reload `mov esi,[esp+0x14]` at the loop back-edge target (entry
+  jumps past it). Every other f use (7 FS_Write + FCloseFile) is a short eax/ecx/edx reload in both. Ours gives that
+  piece no register, so esi still holds the literal and the warning pushes esi.
+- CPSAFL MEASURED (c2rd + c2w probes, sal_rd.sh / sal_pops.py / apwr_w.py on fp_t5): f's pieces pop as
+  id38 n3 104 n16 0 (rejected), id44 n3 16 n16 0 (rejected), id14 n3 12 n16 2 (accepted, eax = the call->store
+  stub). id38 n16 events: -1, +0(w4), then after pop 45: -3(w2) +4(w2) -4(w2) +4(w2) = 0. Gain must be > 0, so f
+  is one point short in ours.
+- CPSAFL DISPROVED (round-4 hypothesis): the literal's CSE temp is NOT the esi competitor. sal_d1.py (diagnostic,
+  warning without the tempFile arg): f pieces unchanged (n3 104 n16 0 / 16 0 / 12 2), still no esi (22 lines).
+  sal_d2.py (diagnostic, loop-head FS_Write removed): the big piece keeps n16 0 (n3 104 -> 96), so that use is not
+  one of its +4 events; the deficit is not about the '\n' write alone.
+- CPSAFL constraint: the server copy of this function is token-identical to ours and GCC -O0 pins statement order,
+  the `if (*data == '\r') { while ... }` wrapper, decl order and the tempFile local; only -O0-invisible respellings
+  are open (loop keyword, !f vs f == 0, braces/parens), and earlier rounds already covered the ones c2 sees.
+  Open lever (HYPOTHESIS): block weights of the loop-head region (+4(w2) gains vs -3/-4(w2) costs); needs the
+  tuple->block map (cave T walks blocks and tuples in REVERSE; opcodes are the /FA mnemonic ids: 0x0d push,
+  0x0e call, 0x01 mov, 0x2f cmp, 0x0f jcc; 0x26a runs = per-call pseudo tuples, each -2 to a live node).
+- LAN PINNED (raw jumps): retail keeps 3 copies of `jne LOOP; mov eax,1; pop ebx; ret` (169/172/192) and the loop's
+  found path jumps to the 169 copy; the no-ebx `mov eax,1; ret` sits after the 127 test (type tests jump to it).
+  Ours cross-jumps the 172/192 tails into 169's (`cmp; jmp` onto its jne) and moves the no-ebx return block to the
+  end. Retail's missing loop pad is positional: retail never pads more than 7 bytes (sal_pad.py: runs of 1-7 B,
+  one of 14), and its loop head would need 11.
+- LAN MEASURED dead (all built in fp_t5, sal_lan_run.sh): Mac/server shape, one if per test (sal_lan_mac) 17
+  identical; switch on adr.type (sal_lan_sw) 43; IP tests under if (type == NA_IP) (sal_lan_ipblk) 24; byte pointer
+  local (sal_lan_ptr) 17 identical; private ranges in one || (sal_lan_or1) 41; 10/127 + ranges in one || (or2) 26;
+  /Zi on win_net (sal_flag.sh, diagnostic) 17 identical. Win32-only code: not pinned by the server (unix_net differs).
+- LAN merge rule evidence (sal_xjmp.py, sal_dupt.py): `cmp/test; jmp <jcc>` cross-jumps occur 17x in retail and 19x
+  in ours = the same 17 + the two in Sys_IsLANAddress. Matched fns keep identical `jcc X; ...; ret` tails UNMERGED
+  (PS_ReadToken Q3 if/else-if arms with `if (!PS_ReadX()) return 0;`, SV_TracePassed, NET_Compare*Signed,
+  Sys_DirectoryHasContents), so c2 does not merge return tails in general; what enables it for our LAN is unknown.
+  Differences from those: LAN tails return a constant (mov eax,1) after a compare on a byte param; PS_ReadToken
+  returns the tested call result. Next: a c2 hook on the tail-merge site to log why the LAN tails qualify.
+- Tools (lab/w200): sal_fn.py (fn-scoped specs), sal_dump.py (side-by-side listing), sal_rd.sh / sal_go.sh (probe on
+  fp_t5), sal_pops.py (all pops incl. rejected), sal_flag.sh (per-TU flag diagnostic, restores tus.txt),
+  sal_lan_run.sh, sal_xjmp.py, sal_dupt.py, sal_pad.py; logs fp_t5/ra/{base,basew,baset,d1,d2,d2w}.txt, sal/*.diff.
+
+## Tracer/ConfigString (agent 10-30 night)
+- PINNED (oracle link fp_t7, all 462 objs fcmpobj): dct_w0m1.py (cg_weapons.cpp) + dct_csm_icons.py
+  (cg_servercmds_mp.cpp) -> CG_DrawTracer 68 -> 0 and CG_ConfigStringModified 2 -> 0. cg_weapons.obj TOTAL 72 -> 4
+  (StartWeaponAnim 2 + CG_FireWeapon 2 were already in the base), cg_servercmds_mp.obj 2 -> 0, all objs 1288 -> 1218,
+  no other function changed, 0 unresolved externals. ScaleTracer / CG_AddMovingTracer stay 0.
+  fp_t7 is left built with both variants (src restored to main by lmv7).
+- CG_DrawTracer (PINNED): head already matched; all 68 lines were the vertex block. Two causes:
+  (1) x87 roles in VectorMA(finish, finishWidth, right, ..) / VectorMA(start, startWidth, ..): retail
+  'fld right[i]; fmul [width]', ours 'fld [width]; fmul right[i]'. Numbering rule (lower = memory operand, first
+  reference): the widths must be referenced before 'right'. 'float startWidth = 0.0f; float finishWidth = 0.0f;'
+  (dead inits, c2 drops the stores) flips all 6 sites; each init flips only its own vertex (x8 harness ~/x8t7 t4.py).
+  Moving the real width loads to the top (wtop) moves the dvar load above Vec3Normalize: 180 lines. Chained or
+  swapped width assignments: no change.
+  (2) scheduling of vertex 0: with the roles fixed (44 lines) the remaining diff is the constant-store/push
+  interleave; VectorMA before vertex 0's constants (Q3 CG_Tracer order, vertex 0 only; the other three keep
+  constants first) -> 0. Masks over the 4 vertices in the harness: only vertex 0's order matters.
+- CG_ConfigStringModified (PINNED mechanism, tiny LTCG clone ~/x8t7/tiny/cx.py + s2..s4.py, then full build):
+  the add/lea choice is made at lowering, not by a scheduler rewrite. A 2-address 'add eax,data' writes flags, so it
+  stays ahead of 'cmp esi,7'; a 3-address 'lea' has no flags and the scheduler puts the cmp first (retail).
+  Constant-index getter sites (CL_GetConfigString(0): CG_ParseServerinfo, CG_DrawInformation, UI_BuildPlayerList)
+  get lea in both builds; variable-index sites get add (CG_RegisterConfigMaterial, CG_PrecacheScriptMenu). The lea
+  appears for CSM when a later arm repeats CL_GetConfigString(num) instead of using str (the top value becomes a CSE
+  temp): any one of the gameModels / fxs / shellshock / status-icon / head-icon arms flips it in the clone; the
+  atoi(str) and vote arms do not. Full build: head-icon arm alone (dct_csm_icon1.py) = 0, both icon arms
+  (dct_csm_icons.py) = 0. SUPPORTED source evidence: opencod1 (CoD1 binary reconstruction) writes exactly the
+  CS_STATUSICONS / CS_HEADICONS arms as 'CG_ConfigString( num )' while the other arms use str; chosen form = both.
+  Clone forms that do NOT give lea (measured): getter with offset local / unsigned index / cast / base-pointer local /
+  gs pointer / non-static / forceinline, index copy, nested assignment, 'num + 1' / 'num & 0x7ff' / 'num * 2',
+  direct expression either order, getter twice at the top, getter after the first arm. Full builds: Q3
+  CG_ConfigString wrapper (csm_cgcs: CSM unchanged, obj 2 -> 63) and initialised decls (csm_init) no change.
+- Tools: ~/x8t7 (private x8 harness copy, common.py = retail mnemonic-sequence measure for the DrawTracer vertex
+  block), ~/x8t7/tiny/cx.py SPEC (clone of CSM, prints RETAIL/ours per variant in seconds), lab/w200/dct_cfgscan.py
+  pattern (every clients+0x270c load and the following add/lea, retail vs ours).
+
+## Crosshair RA (agent 10-30 night)
+- PINNED (lmv4 oracle link, fp_t4): chx2.py (cg_draw_mp.cpp: the two DotProduct calls move into the divide
+  expressions, horiz/vert locals gone; tan via the C++ float overload tan(fov * 0.0087266462f)) ->
+  CG_CalcCrosshairPosition 38 -> 20 difflines, size 448 = retail. cg_draw_mp.obj TOTAL 96 -> 78; all 462 objs
+  TOTAL 1288 -> 1270, the only changed fn is CG_CalcCrosshairPosition. The whole tail (tan arg stored first,
+  dot kept on the x87 stack across __CItan, fdivp) now equals retail. Mac STABS agree with the shape: locals
+  are only gunAng, gunDir, dot (no horiz/vert); dot is the Mac name of forward. chx1 (dots inline, double
+  tan) = 44 (worse); ch4 was the same idea with the Vec3DotCH macro.
+- Remaining 20 lines = ONE cause (PINNED): retail reads cg->gunYaw straight into the first inlined FastSinCos
+  (fld [cg+0x2c094]), ours copies it to gunAng[1] (mov ecx / mov [esp+28] / fld). The extra local temp also
+  moves the local code generator's scratch rotation by one register, which is every other diff line (the
+  lea pSin/pCos pairs: retail ecx,edx then eax,ecx; ours edx,eax then ecx,edx). Whenever the yaw copy goes
+  away (chx_d1, chx_d4, chx_d9) the leas become retail's with no other change. Not color.c: the probe
+  (chx_rd.sh cc2) colours only x/y (esi/edi) in this fn.
+- PINNED mechanism: /Op (pragma optimize p) is FUNCTION-WIDE after inlining. AngleVectors comes from
+  com_math.cpp, which is under #pragma optimize("p", on); inlining it makes CG_CalcCrosshairPosition /Op
+  (chx9 = main + pragma p on the caller: 38, identical to main). An /Op dot helper alone does the same
+  (chx_d16). Under /Op the global load stored into a user array element is never forwarded: tried the
+  plain stores, VectorSet (real extern helper, chx12, = Mac STABS shape: an inlined scope with params y, z at
+  the call), a TU-local forceinline setter (chx_d12), cgArray[0] instead of cg (chx5, chx13), a plain
+  global float as the source (chx_d10), aggregate init (chx7), decl order (chx8), VectorCopy then overwrite
+  (chx3 26, chx4 28): all 20 or worse. Without /Op the yaw forwards (chx_d4/d5: TU-local non-/Op
+  AngleVectors copy) but then tan becomes inline fptan, the dot uses fst and the operand order breaks (51-66
+  lines). Retail is /Op here: it calls __CItan, and a retail scan (chx_scan.py) shows __CItan only in
+  CG_CalcCrosshairPosition, G_RunMissile_Destabilize and InfinitePerspectiveMatrix while CG_CalcFov,
+  CG_CalcReticleSpread and 4 more tan users have fptan. Removing /Op from AngleVectors in com_math.cpp
+  (chx_cm1) breaks AngleVectors itself (11 lines) and 8 inlining callers (up to 219 lines): dead.
+- What does forward under /Op (PINNED): inline formal substitution. chx_d9 (DIAGNOSTIC, not source: a
+  forceinline helper taking pitch and yaw BY VALUE) gives retail's head instruction for instruction (pitch
+  copied to a slot before the asm, yaw fld straight from cg), only the frame is 0x2c (no gunAng array) instead
+  of 0x30. Copies from params/constants into a user array also forward (retail AddLeanToPosition: vAng[1] =
+  fViewYaw param read directly; CalculateWeaponPosition: constant 0 pitch even across the asm). Copies from
+  globals do not. HYPOTHESIS: retail's PC source passes the gun yaw through a by-value float formal (or some
+  other non-user-variable path) that our tree does not have; no such helper is in our com_math and none is
+  confirmed in the binary, so nothing shipped. Next: find a CoD2 PC helper or call shape whose inlined body
+  reads yaw from a formal (search retail for other /Op fns with a global fld feeding fsincos directly).
+- CG_DrawCrosshairNames 42 lines (unchanged): pure eax/ecx/edx rotation starting at the va argument
+  (lea eax,[eax+name] retail vs lea edx), then every later scratch temp rotated by one. The global picks
+  (chx_rd.sh dcn0: val=307 eax, val=298 ecx, _name edi, val=305 ecx, _color esi) equal retail, so this is the
+  local code generator (REGALLOC.md D-local). HYPOTHESIS: in ours the crosshair-index product (eax) is still
+  busy at the lea, in retail it dies there and is reused. Dead (all 42 or worse): Mac STABS locals (no
+  clientNum local, chx20; plus barFrac, font locals, chx21), target-only clientInfo_t pointer (chx22, 68).
+- Tools: chx_run.sh SPEC... (lmv4 + both fns + obj TOTAL), chx_sbs.py OX FN (full side by side), chx_rd.sh
+  (apwr_rd.sh on fp_t4), chx_mac.py MANGLED (Mac 1.3 STABS locals/scopes + i386 disasm of one fn),
+  chx_scan.py MNEM|SYMBOL (retail fns using fptan / __CItan / ...). fp_t4 is left built with chx2.
+
+## XAnimTrees/RawSamples/FX (agent 10-30 night)
+Slot fp_t8 (lmv8.sh, ~40 s per variant). Base fcmps: CG_InitXAnimTrees 67, SND_RawSamples 10, FX_CalcOriginAndAxis 172;
+fcmpobj cg_main_mp+snd_driver+FxUtil TOTAL 255 (cg_main_mp 67, FxUtil 178). fp_t8 left on base (TOTAL 255 re-measured).
+New tools: sbs8.py (retail | ours side by side, fcmps symbols), slots8.py (push-depth-normalised esp slot table per side),
+slotmask8.py (difflines with every [esp+N] and the frame size masked), hoistscan8.py (spilled hoisted field-address scan),
+rd8.sh (= apwr_rd.sh on fp_t8 objs, RA probe log -> fp_t8/ra/TAG.txt, read with claude_client/tools_oracle/cpick.py).
+- FX_CalcOriginAndAxis PINNED (retail asm): the original sphere code is masked-identical (slotmask8 = 0) and only slots
+  differ, BUT the slots show retail evaluates height*cosPitch FIRST, then ONE radius*sinPitch temp used for dir[1]
+  (x cosYaw) and dir[0] (x sinYaw). Evidence: the FastSinCos asm stores pCos = edx = &F+4 in both builds; retail's first
+  product is [2nd GetVal = mHeight] * F+4 (cosPitch), ours is [1st GetVal = mRadius] * sinPitch. So the statement
+  "radius *= sinPitch;" before VectorSet is not retail's order. Forms with retail order (xrf_fx.py FX=a:
+  VectorSet(dir, radius*sinPitch*sinYaw, radius*sinPitch*cosYaw, height*cosPitch); FX=b: height *= cosPitch;
+  radius *= sinPitch; VectorSet(dir, radius*sinYaw, radius*cosYaw, height); FX=c: dir[2], radius *=, dir[1], dir[0])
+  all give frame 0x4c instead of retail 0x54: fn 416 / 378 / 426 lines (FxUtil TOTAL 380 for b, only this fn
+  changes). Masked they are 0 lines except sub/add esp, so the code is retail's and only the stack packing differs:
+  retail leaves the bottom dword F+0 unused (our original build too) and has 4 scalar slots above the 4 sincos
+  slots; the new forms fill F+0 and use 3 scalar slots (the cylinder width loses its own slot). Retail slot classes:
+  {AxisTransform temp A, radius*sinPitch temp, len in both branches}, {temp B, radius, dir[1]},
+  {temp C, height, dir[2], cylinder height}, {width}. Form b already pairs height/dir[2] and r*sinPitch/len as retail.
+  No frame effect: yaw/pitch expressions passed straight to FastSinCos (FX=an/bn/cn), block-scoped sphere
+  radius/height (as), block-scoped cylinder height/width (ay), both (asy). Not landed (meter worse).
+  Next: find what keeps F+0 occupied in retail (dead param home or one extra web) on top of form b.
+- CG_InitXAnimTrees: retail is the ONLY function in the binary with a hoisted field address spilled and reloaded
+  (hoistscan8 over retail: CG_InitXAnimTrees, plus DObjCalcSkel which is a walked pointer; ours: none).
+  Measured, all 36 (= xt1 shape) unless noted (xrf_xa.py XA=, xrf_xd.py XD=): Kisak for-scoped int i (k),
+  ci = &clientinfo[i] (ci), tree local (tr), pointer loops ci < &arr[N] (pe 39), Kisak one-trip localClientNum loop
+  around both loops (XD=1 36, cgArray[lc]/cgsArray[lc] XD=2 47). Diagnostics (not candidates): XAnimCreateTree body
+  written out in source (xrf_xc.py 36: compiled-vs-raw inline is not the cause), explicit int *pSize = &anims->size
+  before the loops (xrf_xe.py 36: c2 folds it back into [esi+4]), #pragma optimize a/w around the fn (xrf_xb.py 36/35,
+  no codegen change). Best measured: xt3 (per-call anims reads) 35, xt1 36 (cg_main_mp TOTAL 67 -> 35 / 36).
+  RA probe (rd8.sh xt1): 9 nodes, _anims n3 142 -> esi, no node for anims+4 exists in ours; retail's extra temp is
+  spilled (n16 <= 0) and anims then loses esi to the IV. The server twin G_LoadAnimTreeInstances (same loop text,
+  Hunk_AllocLowAlignInternal reg conv) matches without a hoist. Cause not found; left: whatever stops c2 from folding
+  anims+4 back (anims not a register candidate when the address CSE runs).
+- SND_RawSamples: only the imul operand role differs (retail imul eax(writeBuf),edx(bufSize); ours imul edx,eax).
+  RA probe (rd8.sh raw0): writeBuf = kind08 val=43 (pieces id15 eax / id14 ecx), bufSize side = val=41 edx; the product
+  reuses the val=41 register, i.e. c2 orders the commutative operands itself (lower temp number left, HYPOTHESIS).
+  No change (10 lines, xrf_rs.py RS=): copy as ternary (t2) / split ternary (t4), wait loop as if + do/while (w2),
+  outer do/while (do), init-store order in SND_InitRawSamples (xrf_rsd.py diagnostic, breaks Init by 2 lines), plus
+  the earlier r1-r5 / rs1-3 / rr1-3. Worse: Mac decompile if/else bytes = 0 shape (mac 18), for loop (for 13),
+  bytes < copy (iw 14: the cmp follows source order, the imul does not).
+
+## Game/XAnim RA (agent 10-30 night)
+- PINNED (fp_t6 oracle link + srvcheck): G_RegisterWeapon 30 -> 0, G_OverrideModel stays 0, G_UpdateClientInfo stays 0.
+  Specs: gx_G_svinit.py (sv_init_mp.cpp: SV_GetConfigstringConst body = `return sv.configstrings[index] ?
+  sv.configstrings[index] : "";`), gx_G_utils.py (G_OverrideModel calls the real G_ModelName, G_MODEL_NAME_INLINE
+  macro deleted), gx_G_active.py (G_UpdateClientInfo calls the real G_ModelName at both sites, macro deleted).
+  Whole-exe fcmpobj over all 462 objs: TOTAL 1288 -> 1258, the ONLY changed fn is G_RegisterWeapon (30 -> 0).
+  Server: srvcheck gxG with gx_G_svinit.py = SHA256 IDENTICAL (objdump of SV_GetConfigstringConst identical); the
+  client G_OverrideModel, G_ModelName, G_UpdateClientInfo, G_RegisterWeapon are then token-equal to lnxded-1.0, so
+  no server spec is needed for them.
+- PINNED (GCC 3.3.4 -O0): `return a ? a : b;` with a side-effect-free a compiles exactly like
+  `cs = a; if (!a) cs = b; return cs;` (COND_EXPR cheap-arm-first: store arm 1, re-test a in memory, store arm 2).
+  So that server shape does not pin the cs local. MSVC differs: with the cs local c2 CSEs the re-test into cs (RA
+  probe: only _cs, the load lands straight in esi/ebx, LTCG then passes defaultModelName in eax, G_OverrideModel
+  64 -> 48 B); with the ternary the load is a temp used by the test and copied to the result = retail
+  `mov eax,[cs]; test eax,eax; mov esi,eax`. Lead: other server `x = a; if (!a) x = b;` shapes where retail shows a
+  load temp + copy.
+- Measured SV_GetConfigstringConst forms (with the real G_ModelName call), G_OverrideModel/G_RegisterWeapon lines:
+  cs local (server) 6/5, `if (!cs)` 6/33, `cs ? cs : ""` 0/34, `if (!cs) return ""` 4/36, `if (L) return L;
+  return "";` 0/0 (server DIFFERS), `if (!L) return ""; return L;` 4/4, ternary on L 0/0 (server IDENTICAL).
+  No effect: init at decl, == NULL, braces, char *cs, casts, G_ModelName result local, index + CS_MODELS,
+  &modelName[7], split decls, nested ifs in G_RegisterWeapon. The +425 collateral seen with only the real call
+  (BG_Evaluate*, UI_*) is jump-table data shifted by G_OverrideModel's 16 B shrink, not codegen.
+- XAnimGetInfo / XAnimCopyAnimTreeNoNotify (15/15, xanim.obj TOTAL 34): no server-equal form found. MEASURED:
+  gx_r5.py (`if (!g_xAnimInfo->next)` + `newHead = g_xAnimInfo[g_xAnimInfo->next].next;`, store and return keep
+  next) gives 0/0, xanim.obj 34 -> 4 (XAnimCalc residue only), but srvcheck DIFFERS exactly at those two reads
+  (cmpw $0,0xa / movzwl 0xa instead of the server's -0x2(%ebp) local). r3 (index via global only) 7/7: no next*40
+  CSE, still no dx copy; r4 (test via global only) 15/15; assignment in the condition 15/15 and server DIFFERS
+  (test %ax). RA probe (c2rd + cpick): r5 has a load temp T (kind07 val=34) n3 36 that pops before _next n3 26 ->
+  eax, _next -> edx = retail `mov ax,[..]; test ax,ax; mov dx,ax`; CoD2rev form T n3 26 < _next 36 -> T takes edx by
+  affinity; the server form has no T at all and CSEs next*40 before RA. The server reads the local at test and
+  index, MSVC needs the reloaded global there. No effect (15/15): const/init next (c1-c3), same-type/int/unsigned
+  casts (k1-k6, u1-u2), pointer arithmetic (m1-m3), single exit (m4), else block (m6).
+- Tools: /tmp/gx/run3.sh (multi-file fp_t6 variant + whole-exe fcmpobj delta vs base), /tmp/gx/rd6.sh (apwr_rd.sh
+  on fp_t6), /tmp/gx/sfd.sh TAG OBJ FN (server -O0 per-function diff vs /tmp/srvbase). fp_t6 left restored to main
+  (TOTAL 1288).
+
+## Data placement (agent 10-31)
+Workspace fp_t4 / lmv4.sh. Tools: lab/w200/dpl_meas.py EXE MAP (items 1-5 placement in any exe: retail with the
+ref_main map, main, or an oracle ox.exe), dpl_run.sh TAG FILE SPEC [FILE SPEC..] (lmv4 + measure), dpl_sweep.py
+(F index + sweep per fn), dpl_callees.py / dpl_crit.py (callees by compile index, critical path), dpl_pool.py
+BUILD LO HI (first emitter F of each .rdata symbol in a range). Oracle relink is ~22 s.
+1. 0x28 object (PAID in oracle, PINNED): spec lab/w200/dpl_pw.py = '(void)unused;' as the first statement of
+   PM_Weapon (static const int unused = 40 kept). MSVC then emits the 4 B exactly at retail's slot (8 B before
+   '[%s] No offhand class set' = 28 00 00 00; offhand literal moves +4 like retail). srvcheck.sh: SHA256 IDENTICAL
+   (GCC 3.3.4 -O0 emits nothing for it). fcmps PM_Weapon 0, BG_LoadWeaponDef 0; fcmpobj bg_weapons.obj TOTAL 0
+   (135 fns). The remaining fcmps lines in BG_GetAmmoTypeForName/ClipForName, CheckForOffHand etc. are '+4 vs +0'
+   symbol offsets against the ref_main map (which lacks the 4 B): they are the fixed shifts. Main build to confirm.
+   Rule (PINNED): .rdata items of one obj sit in REVERSE DEFINITION order of their functions (bg_weapons strings:
+   lines 5202, 3699, 790, 749, 728, 453), not compile order; a local static goes at its function's slot.
+2. sign / iEdgePairs (probe PINNED, needs a main decision): the two tables sit in their obj blocks in link order
+   (cg_drawtools 171 then g_debug 172), so no compile-order change can swap them. Probe dpl_mg_gd.py + dpl_mg_dt.py
+   (G_Debug* bodies compiled as the tail of cg_drawtools_mp.cpp, g_debug_mp.obj left empty) gives retail's
+   [edges][sign] at retail's offsets; all 24 fns of the merged obj fcmps/fcmpobj TOTAL 0, G_DebugBox 4 -> 0 lines
+   (its two [ebp + iEdgePairs] refs). So retail compiled G_DebugLine/Box/CircleEx/Arc inside the cg_drawtools TU
+   (they also follow CG_UpdateCompPointerOrientation directly in .text). Side effect in the probe: global-numbering
+   ties flip (CG_DrawPlayerStance 0 -> 2, Pickup_Weapon 0 -> 2, Scr_ParseGameTypeList 2 -> 0); they depend on the
+   final object list. Removing g_debug_mp.obj drops Rich id 100 to 270: keep the count at 271 (one more empty TU).
+3. 720.0f (DEFER, no evidence): pool = first-emitter compile order (dpl_pool.py: 800 BG_EvaluateTrajectoryDelta F5784,
+   720 fire_grenade F5904, mantle x4 Mantle_CreateAnims F5910, 160 player_die F6036). Both fns are in the same sweep
+   (fire_grenade waits on G_Spawn s57, Mantle_CreateAnims on MantleXAnimPrecacheAlloc s57, same TU, defined earlier),
+   and g_missile (link 241) is walked before bg_mantle (232). Retail needs Mantle_CreateAnims one sweep earlier
+   (only if its MantleXAnimPrecacheAlloc -> Hunk_AllocAlignInternal edge were a DFS cut, like Hunk_AllocXAnimPrecache
+   F382) or fire_grenade one sweep later (a callee compiled after g_missile's turn in s58). Both bodies = server;
+   tusearch.py finds no single TU edge reorder that cuts the Mantle edge (33 TUs, 0 hits). player_die calls
+   fire_grenade, so a later fire_grenade still lands before 160.0f.
+4. .bss Com_ErrorCleanup statics vs subtitle buffer (DEFER): the end group follows compile sweeps; Subtitle F5723
+   (s56, waits on Com_Error at link 35, walked just before com_sndalias 34), ErrorCleanup F5877 (s57, critical path
+   SEH_UpdateLanguageInfo -> SEH_StringEd_SetLanguageStrings -> Com_Error). ErrorCleanup cannot reach s56. Retail
+   order needs Subtitle one sweep later: a callee compiled in s57 at link rank >= 35 or in s56 at rank < 34.
+   Subtitle's callees in ours, CoD1 (Q_stricmp) and opencod2 show no such callee. No genuine fix found.
+5. Rich (28,9466)/(25,9466) (probe PINNED negative): mss32.lib members are 3 import-descriptor objects (25,9466) and
+   one object holding MSS_auto_cleanup (28,9466; imports AIL_shutdown, atexit). MSS_auto_cleanup is referenced from
+   MSS_Startup (F461, the Miles AIL_startup macro) and SND_InitDriver; snd_driver AIL users compile from F425.
+   Probe dpl_rich_probe.py (dead 'if (0) SND_Save(0);' moves SND_InitDriver F5957 -> F6277, after every AIL user):
+   Rich order unchanged. So neither first nor last mss reference in compile order decides; the 10-30 'LTCG output
+   order' rule is not the compile order. Open.
+fp_t4 objects reset to main (nop.py on bg_weapons, g_debug, cg_drawtools, snd_driver).
+
+## TailMerge/SoundAlias (agent 10-31)
+Slot fp_t6 (lmv6.sh). Both targets MATCHED. Whole exe (fcmpobj over every obj of the oracle link, tmg_all.sh):
+TOTAL 572 -> 535 with tmg_lan.py + tmg_sal.py; the ONLY changed fns are Sys_IsLANAddress 17 -> 0 and
+Com_ProcessSoundAliasFileLocalization 20 -> 0 (win_net.obj TOTAL 17 -> 0, com_sndalias_load_obj.obj 20 -> 0).
+fp_t6 is left built with both specs (src restored to main by lmv6).
+- Sys_IsLANAddress PINNED (oracle link): tmg_lan.py = one if per type test (NA_LOOPBACK, NA_BOT, NA_IPX each its own
+  `if (...) return qtrue;`), 10 and 127 as two ifs, private ranges as Mac `a && b` ifs -> 0 lines, 61 = 61 insns.
+  The cross-jump was never a merge rule: it follows the if structure ABOVE the private ranges. Tiny LTCG clone
+  (fp_t6/tiny/lan.py, 3 s per batch, reproduces our 17-line build exactly): types a||b||c or (a||b)+c with 10||127
+  or 10;127 -> merged tails; types split three ways with 10||127 -> merged; types split three ways AND 10;127 split
+  -> retail (3 separate `jne LOOP; mov eax,1; pop ebx; ret` tails, `mov eax,1; ret` inline after the 127 test) for
+  every private-range form (else-if chain, separate ifs, nested ifs, chain with nested 192). SUPPORTED: Q3 win_net.c
+  tests NA_LOOPBACK and NA_IPX in separate ifs; Mac 1.3 has 10 and 127 separate (no IPX on Mac). Win32-only file.
+- Com_ProcessSoundAliasFileLocalization PINNED (oracle link + server): tmg_sal.py = outer loop
+  `for ( ;; ) { if ( !data ) { break; } ...` instead of `while ( data ) {` -> 0 lines, 594 = 594 insns.
+  srvcheck tmgsal = SHA256 IDENTICAL (GCC 3.3.4 -O0 folds `if (!c) break;` at the top of for(;;) into the while test).
+  RA (c2rd probe): id38 still n3 104 n16 0 rejected, but the split changes: a new f piece id36 n3 13 n16 2 takes esi
+  (= retail mov esi,eax ... push esi, reload at the back edge). Inline counts unchanged (FS_Write 0.3125, Com_Parse 0.625).
+- Measured loop forms (fcmps lines / GCC TU check): while(data) base 20 / -; for(;data;) 20 / SAME;
+  for(;;)+if(!data)break 0 / SAME (shipped); while(1)+if(!data)break 297 (counts halve: FS_Write 0.156) / SAME;
+  do{if(!data)break;...}while(1) 20 / SAME; continue -> goto label at loop end 20 / SAME;
+  if(data) do{...}while(data) 0 / DIFFERS (srvcheck tmgd1 SHA DIFFERS); if(data) while(data) 297 / DIFFERS;
+  do{...}while(data) 42 / DIFFERS; inner while(1) -> for(;;) 20; `f == 0` 20.
+  PINNED: MSVC 7.1 treats while(1) and for(;;) differently (estimator), GCC 3.3.4 -O0 does not.
+- Tools: fp_t6/tiny/lan.py SPEC (tiny /GL+/LTCG DLL clone of Sys_IsLANAddress, diff vs retail with indexed jump
+  targets, seconds per batch; pattern reusable for any leaf fn with no cross-TU inlines), tmg_go.sh TAG SPEC (lmv6 +
+  fcmps + obj TOTAL + loop inline counts + f pops), tmg_rd.sh (c2rd probe on fp_t6; RA_FN must be the FULL mangled
+  name), tmg_gcc.sh SPEC (rebuild only com_sndalias_load_obj.o with GCC 3.3.4 -O0 in /tmp/srv_tmg and diff text +
+  .rodata vs /tmp/srvbase: ~2 s; necessary, confirm with srvcheck), tmg_all.sh OUT (fcmpobj over every obj),
+  tmg_f.py (FORM= loop spellings). fp_t6/tiny/sal.sh (tiny link of the sndalias TU + its inline-source TUs) does NOT
+  reproduce the oracle (frame 0x6d80, f in ebp): cross-TU inline decisions need the full link.
+
+## Alignment pass (agent 10-31)
+- PINNED, decision code located (c2.dll 7.1.3077, oracle dump fp_t3/aln): the and-esp placement is c2 0x1070cd11, run
+  once per link right after the call graph is built (called from 0x1070cccb). It works on the call-graph nodes
+  (sym+0x99 -> node; node+0xc = callee edge list [next, callee node, site list, word flags(1 = recursive arc)],
+  node+0x1c = level, node+0x50 = flags word).
+  1) levels, bottom-up DFS 0x1070ce22 over the node list 0x1087f4c8:
+     level = clamp(sum over call sites of callee level - 1, 0..7), +2 instead of -1 when sym+0x69 & 0x4000
+     (the function itself has an 8-aligned named local, e.g. I_fround's 'const double bias'). Callees whose
+     sym+0x20 has 0x2000 or 0x40 add 0 (SUPPORTED: 0x2000 = address taken, seen on every ri_local / ItemParse_*
+     table entry; 0x40 = varargs, Com_Printf / va). A callee still on the DFS stack (cycle) adds its old value 0,
+     so cycle results depend on visit order.
+  2) placement, top-down from the root list 0x1087f4b4, 0x1070cd82: first visit of a node with level 7 that has
+     its own 0x4000 or >= 2 callee edges of nonzero level, and no sym+0x20 & 0x1100 / sym+0x69 & 0x200 (seen on
+     SEH and C++ EH functions, HYPOTHESIS for the meaning), gets 0x601 = aligns (push ebp; mov ebp,esp;
+     and esp,-8). Its subtree of nonzero-level nodes is then marked 0x800 (entry already aligned, no and-esp) by
+     0x1070cf03; a level-0 node switches back to 0x1070cd82. A node first reached through an aligned caller's
+     0x800 walk never aligns itself.
+  Codegen side (read from the decompiles, SUPPORTED): 0x10775867 (own requirement only without 0x800),
+  0x107806b6 / 0x10747608 / 0x1077532e (frame flag 0x30000000 set or cleared from node 0x200),
+  0x107414e7 (frame padding for 0x400 nodes). Decompiles: fp_t3/aln/dec/.
+- PINNED: fp_t3/aln/sim.py re-runs the pass on the dump and reproduces all 6593 levels and every
+  0x200/0x400/0x800 flag exactly (base, sfn1, sfn2). Every 0x200 node has and-esp in the exe (53/53); the other
+  48 and-esp functions are own-requirement ones.
+- PINNED: a node's callee edge order = order of the callee's FIRST DECLARATION in the caller's TU (UI_RunMenuScript:
+  57 edges, monotone in first-declaration line; moving one prototype moved its edge to the front).
+- Dvar_SetFromStringFromSource (level 7: Dvar_StringToValue 6 + Dvar_SetVariant 3 - 1, two nonzero callees) was
+  reached first through UI_RunMenuScript (aligned) > edge UI_StartServerRefresh (level 0, back to top-down) >
+  Cbuf_ExecuteText > ... > Dvar_SetCommand > Dvar_SetFromStringByNameFromSource > it, so it aligned. When
+  UI_RunMenuScript's edge to Dvar_SetFromStringByNameFromSource comes first, the 0x800 walk covers it first and
+  it does not align (the retail shape). sim: the reorder changes no other 0x200/0x400/0x800 flag.
+- PAID (oracle link fp_t3, ui_main_mp.cpp is client-only, no srvcheck needed):
+  aln_sfn1.py (one prototype: Dvar_SetFromStringByNameFromSource declared with the externs above the ui_main static
+  prototypes) or aln_sfn2.py (the whole engine extern block, the header stand-in, moved ahead of the static
+  prototypes): Dvar_SetFromStringFromSource 9 -> 0 difflines, dvar.obj TOTAL 9 -> 0, ui_main_mp.obj TOTAL 0 -> 0.
+  Exe vs the base oracle link: only the 169 bytes of Dvar_SetFromStringFromSource change (plus 2 PE-header
+  and 2 _buildInfo bytes that differ on every link); aligndiff.py vs retail is left with only the libcmt
+  __except1/__except2 false positives.
+- Lesson: an and-esp flip is a call-graph question, not a codegen one. Dump with fp_t3/aln/vc (c2y + hook at
+  0x1070ccd0, cave_aln.s in the .rdata slack), check with sim.py / forbid.py / reord.py / wrap.py, and look at the
+  declaration order of the TUs on the first-visit path (why.py, cg.py). Prototype order in decompiler-style TUs
+  is a real input to LTCG.
+
+## Forwarding (agent 10-31)
+Slot fp_t5 (lmv5). Base re-measured (oracle link): CG_CalcCrosshairPosition 38, cg_draw_mp.obj TOTAL 96; XAnimGetInfo 15,
+XAnimCopyAnimTreeNoNotify 15, xanim.obj TOTAL 34. chx2 re-measured in fp_t5: crosshair 20 (= agent 10-30). No new spec beats
+chx2 (client) or the current xanim source (server-equal); nothing to land. fp_t5 left on main (both objs reset with nop.py).
+New fast clones (one batch of variants in about 2 minutes, built in parallel), validated against the full build:
+- fp_t5/tiny/gx.py SPEC [-v]: XAnimGetInfo clone; MSVC 7.1 /O2 /GL + /LTCG listing (RETAIL tag = retail head) AND the
+  GCC 3.3.4 -O0 disassembly from image cod2engine-linux-2005 compared with variant 'base' (SRV= / SRV!=). Reproduces
+  ours (base), retail (gx_r5) and the server split (r5 SRV!= at the cmpw/movzwl reads) exactly.
+- fp_t5/tiny/cx.py SPEC [-v|-d]: CG_CalcCrosshairPosition clone, com_math part (FastSinCos asm, AngleVectors, VectorSet,
+  DotProduct) in its own TU under pragma p, LTCG cross-module inlining; tag RETAIL = first FastSinCos angle is
+  fld [cg+2c094]; dl = normalized difflines vs retail (fp_t5/tiny/retail_chx.txt). base = ours instruction for instruction
+  in the head (dl 36 = the 20 real lines + 12 lines of 3 x87 operand-order pairs + 4 immediate-format lines: the clone's DotProduct sites order
+  differently, head unaffected). '//NOP' as mathExtra drops com_math's pragma p (diagnostic).
+- fp_t5/tiny/yfw_scan.py [EXE MAP]: every fmul by the deg->rad float and the source of its fld, retail vs ours per fn.
+
+XAnimGetInfo / XAnimCopyAnimTreeNoNotify (shared, server-pinned):
+- PINNED (gx clone, both compilers): every one of these is SRV= (GCC -O0 identical to the server) and MSVC = ours
+  (load straight into dx, next*40 CSE): pragma optimize a / w / s / t / y on / y off / p on (g off = frame, not retail);
+  comma test 'if (!(next = g_xAnimInfo->next, next))'; g_xAnimInfo[0].next and (*g_xAnimInfo).next loads; 'next == 0';
+  *&next at the test, the index and the return; *&g_xAnimInfo->next; short next + (uint16_t) casts at the indexes.
+  Diagnostics (SRV!=, MSVC still ours): source from a plain global scalar (dg1) or struct global (dg2: 32-bit load),
+  dead newHead init, store/return through newHead, infoArray store dropped, store to g_xAnimInfo[1].
+- PINNED mechanism: retail has a load temp T (eax: test, index, return) and the 16-bit user copy (dx: the infoArray store
+  only); T exists only when the load expression occurs twice in source (gx_r5 / CoD2rev) and CSE makes it a temp.
+  The server reads -0x2(%ebp) at the test, index, store and return (objdump /tmp/srvbase xanim.o), and GCC -O0 never
+  reads a global where the source names the local, so the two binaries need different tokens at the test and index.
+  Pragmas are the only MSVC-only lever GCC ignores and none of the 8 changes this function. HYPOTHESIS: the client 1.0
+  and server 1.0 were built from different revisions of XAnimGetInfo (client = CoD2rev-like re-read, server = local);
+  only the owner can decide a client-only spelling in shared code. Best client spelling stays gx_r5 (0/0, xanim 34 -> 4,
+  server DIFFERS).
+
+CG_CalcCrosshairPosition (yaw forwarding):
+- PINNED (cx clone): under /Op c2 never forwards a float copied from MEMORY into a local, only constants (gunAng[1] =
+  90.0f folds into the angle store and the gunAng[1] store dies). Stored and reloaded (= ours): plain stores, VectorSet
+  from the /Op TU (const or non-const formals, any store order), TU-local inline VectorSet, Q3 comma macro form,
+  aggregate init, const aggregate init, pointer alias to gunAng, temp array + VectorCopy, scalar local yaw, *x through a
+  pointer param, cgArray[0].gunYaw, (float)(double) and *1.0f / -(-y) computations (computed values are
+  stored too), pragma optimize a / w / y in the caller. Without /Op (//NOP) the yaw forwards and the head is retail's
+  but tan becomes fptan for every spelling (float overload, (float)tan((double)), tanf, double constant, pragma
+  function(tan)), so __CItan pins /Op on the function. /Os (pragma s) stops AngleVectors inlining (ebp frame): dead.
+- PINNED (cx clone diagnostic): AngleVectors(&cg->gunPitch, ..) reads yaw AND pitch straight from cg (pitch after the asm,
+  fld [cg+2c090]); retail captures pitch before the asm (mov eax / mov [esp+24] / fld [esp+24]) exactly like our gunAng[0]
+  store. So retail = our gunAng-array code with only the gunAng[1] store/reload gone (same frame 0x30, same slots, 0x14
+  unused in both); chx_d9's by-value helper reproduces the head but packs forward into the angle slot (frame 0x2c, 86
+  lines): the array is real.
+- PINNED (yfw_scan.py, whole retail exe vs main): the only function whose deg->rad multiply reads a non-stack global that
+  ours does not is CG_CalcCrosshairPosition (retail G:cgArray+2c094 stack | ours stack stack). Every other inlined
+  AngleVectors/FastSinCos user already matches (CG_OffsetFirstPersonView reads refdefViewAngles from cg in both: there the
+  array argument IS cg memory).
+- Mac 1.3 STABS (chx_mac.py _Z24CG_CalcCrosshairPositionPfS_): locals gunAng, gunDir, dot; inlined VectorSet (params y, z)
+  then a real call to AngleVectors (0x2d938) with gunAng: the source shape is VectorSet + AngleVectors. No helper taking
+  pitch/yaw by value exists in the Mac symbol list (angle helpers: AngleVectors, AnglesToAxis, YawVectors(float, ..),
+  YawToAxis, AxisToAngles, AnglesSubtract, MakeNormalVectors), so no evidence for a by-value path.
+- Conclusion (measured): with this compiler, /Op on the function (required by __CItan) and the Mac source shape, every
+  spelling tried keeps the yaw store. Retail differs from ours in exactly that one store. Next attack: a c2 hook on the
+  /Op memory-copy forwarding check (which flag on the store or load tuple blocks it) to learn what retail's IL had; the
+  clone cx.py builds a whole batch of probes in about 2 minutes.
+
+## Hoist/Slots (agent 10-31)
+Slot fp_t7 (lmv7.sh). Base re-measured: FX_CalcOriginAndAxis 172, CG_InitXAnimTrees 67, fcmpobj FxUtil+cg_main_mp TOTAL 245.
+fp_t7 left restored to main (nop.py on both files, TOTAL 245). Tools in fp_t7/hss: run.sh (variant + sbs + masked + fcmps +
+fcmpobj), fxb.sh / xab.sh (batches), slotfull.py (full ref-line list per slot class), pk7.sh (cslot/pk packer trace on the
+fp_t7 objs, any RA_FN), sets7.sh (interference-set dump = cslot/pk/sets.sh for fp_t7), pkan.py / pkpred.py (decode trace;
+last-fit replay with what-if weights "name:wt,#idx:wt" and extra clash pairs), wi.sh, macsl.py / macfn.py / macaddr.py /
+mactype.py / maccallers.py (Mac 1.3 STABS: blocks, callees, types, callers), fralign.py.
+- FX_CalcOriginAndAxis, frame mechanism (PINNED for this fn, packer traces base/b/a/as): offsets follow packer entry
+  CREATION order bottom-up (sincos x4, then the scalar entries, then the 4 vec3), not density. base = 4 sincos + 4 scalar
+  + 4 vec3 = 20 dwords and frame 21 with the bottom dword empty; every retail-order form (a,b,c,e,f,as,...) = 3 scalar
+  entries = 19 dwords = frame 19, no empty dword. So the unused bottom dword is padding that appears when the entry total
+  is even (0x54+0x10+4 and 0x4c+0x14+4 are both 8-aligned); it is not a variable, param home or vanished item.
+  fralign.py: retail-wide (frame + pushes + ret) is 8-aligned in only ~half the functions, so the pad rule is
+  SUPPORTED for this fn, not general. Consequence: the ONLY missing thing is a 4th scalar entry (cylinder width alone).
+- FX slot classes vs retail (slotfull.py, retail-ordered sphere code, all masked 0):
+  retail E_A {X temp, yaw, pitch, radius*sinPitch, len} 25 refs; E_B {Y temp, radius, dir1, FastSinCos ptr params} 17;
+  E_C {Z temp, sphere height + dir2, cylinder height, flrand temps, cyl GetVal temp, sqrt temps} 49; E_W {width} 4.
+  form a (xrf_fx FX=a): E_B EXACT; E_A = retail + both heights; E_C = retail - heights + width.
+  form as (a + block-scoped sphere radius/height; = ay, asy, hss_fx3 '' / h / p / r / mr): E_A EXACT, sphere height in E_C
+  (right), cylinder height in E_B (wrong), width in E_C (wrong). These two are the closest shapes; frame still 0x4c.
+- Packer replay (pkpred.py on dumped sets fxa / fxas, 0 mismatches after repair): retail needs (1) both heights placed in
+  E_C before width and (2) width to clash with an E_B member. Weight what-ifs: height wt 4 or cyl-height before width
+  puts both heights in E_C (retail E_C exact) but width then joins E_B (or E_A); width wt 0..8 never gets its own entry.
+  No E_B member (dir1 T5, Y temp, radius, FastSinCos pSin/pCos params) is live in the cylinder in any built form, and
+  width's own set is {pos, point, height, out, prim}. So no tested source makes width clash with E_B. HYPOTHESIS: retail
+  has a cylinder-live value in E_B (or an extra item that creates E_W first and has zero final refs).
+- Mac 1.3 STABS (_Z20FX_CalcOriginAndAxisP15EffectPrimitivePfPKfPA3_f, PINNED from the Mac asm): fn-scope float x, y
+  (line 1299, = yaw, pitch), width (1300), vec3 temp/pt/up/org (= dir/point/up/pos), or_, primTemp; lines 1301-1303 and
+  1306 have no stab. The Mac SPHERE stores mRadius.GetVal() in `width` (ebp-0x54); the cylinder's mRadius goes to an
+  unnamed temp; neither branch has a named height (sphere: mHeight.GetVal()*cos(y) inside VectorSet; cylinder: unnamed
+  spill). Blocks x,y,z / z / scale are inlined VectorSet / VectorScale params (vec_t). PC 1.0 is different here: retail
+  keeps sphere radius (E_B) and cylinder width (E_W) in different slots, and a shared `width` gives ONE slot (hss_fxw
+  w1: frame 0x54, 220 lines, width at the bottom). Mac-naming builds (hss_fx3 mr/mrl: width = sphere radius, cylinder
+  mRadius passed straight to VectorScale) keep 0x4c.
+- FX measured (fn difflines / FxUtil TOTAL; frame): base 172/178 0x54; w1 220/230 0x54; every other form 0x4c:
+  a 416, as/ay/asy 416, b 378/380, e 376/378, f 382/386, bl 384, el 408 (spec clash, unreliable), w2 418, w4 378, w5 388,
+  m1/m2 419 (code changes, masked 202: sphere height must be a statement before the products), aw/asw/ah 416 (dead
+  `= 0.0f` inits change nothing), hss_fx3 l/lh/lhp 420, o/ol/olw 414, r 416, mr 416, mrl 420, asn masked 12 (code).
+  Nothing beats base; no spec to land.
+- CG_InitXAnimTrees: retail G_LoadAnimTreeInstances (matched) keeps anims ebx, IV ebp, size esi (Hunk_AllocLowAlignInternal
+  reg conv), 3 callee-saved + edi for stos, no hoist. CG needs anims, IV, size, size copy (ebp) for rep stos, so the
+  hoisted &anims->size has no register and spills: c2 creates that candidate only in CG. Measured (fn difflines,
+  cg_main_mp TOTAL equal): hss_xa s1 (scr_animtree_t struct copy local, i.e. anims not a scalar at first) 36: the copy is
+  scalarised before the address CSE, so "anims not a register candidate" via an aggregate is DISPROVED; s2 (pointer to
+  generic_human.tree, read per call) 35 = xt3 shape (reload per iteration, no hoist); k4 (KisakCOD CoD4
+  CG_LoadAnimTreeInstances shape: generic_human local, for-scoped i, no Alloc_t cast) 36 = xt1. Mac 1.3 inlines this
+  function into CG_Init (2 XAnimCreateTree calls at 0x146f0f/0x146f3e, i counters, anims in edi): no local names.
+  Mac has XAnimGetAnimTreeSize(const XAnim_s *) (xanim.cpp:3033) but its XAnimCreateTree reads [anims+4] directly.
+  Not tried: an inlined helper whose parameter is &anims->size (no evidence for one in the 1.0 binary or Mac).
+
+## Small math (agent 10-31b)
+Workspace fp_t3 / lmv3.sh. Tools: smm_run.sh FILE SPEC FN.. (lmv3 + fcmps lines), smm_sbs.py OX FN [LO HI] (retail|ours
+side by side), smm_probe/tu.sh SPEC (non-LTCG /FAs compile of xmodel.cpp, ~15 s; prints the XModelTraceLine inline
+AxisTransformVector term order; reproduces the LTCG oracle for that function). fp_t3 left restored (xanim+xmodel+q_shared 64).
+- PAID (spec lab/w200/smm_floatswap.py): FloatSwap = server union plus 'int i;' member, 'dat1.i = *(int *)&f;' then
+  the server byte swaps (dat2.b[0] = dat1.b[3] ..). Oracle 14 -> 0 lines, q_shared.obj TOTAL 14 -> 0, same size.
+  srvcheck SHA256 IDENTICAL (PINNED; GCC 3.3.4 -O0 copies a float mem->mem with movl, so int vs float copy is
+  the same). Separate int union for dat1 (smm_fs.py K) also 0 lines / IDENTICAL; plain server body 19 lines.
+- AxisTransformVector / XModelTraceLine: PINNED mechanism, no server-equal fix.
+  MSVC flattens a left-nested float sum a+b+c and re-sorts the terms (all 6 left orders give the same code);
+  a right-nested x+(y+z) is kept as (z+y)+x (probe smm_tlb.py). The sort key of the in[k] terms comes from the
+  numbering of results->normal[k], set by the in-loop 'VectorCopy(tri->plane, results->normal)': inlined
+  VectorCopy -> order p2,p0,p1 (ours), three plain statements in the same 0,1,2 order (or any order with [1]
+  before [0]) -> p2,p1,p0 (retail). LTCG oracle with the plain server body + scalar copy (smm_tlk.py K5):
+  AxisTransformVector 0, XModelTraceLine 0, xmodel.obj 16 -> 0; but srvcheck DIFFERS (server -O0 calls VectorCopy).
+  No effect on the order (probe, all p2,p0,p1): VectorCopy args &x[0] / (float *) cast (Q1-Q4), (const vec3_t *)axis,
+  vec3_t axis[3], &results->normal[0] into the call, decl swap normal/axis, signature const/float* forms (X1/X2,
+  oracle 0/20). mat-first products (M): 16/20 and server DIFFERS. Plain body alone: 0/20 (xmodel.obj 20).
+  Lead (HYPOTHESIS): retail xmodel.cpp saw VectorCopy as something that numbers like plain statements (a macro
+  in that TU's headers); a client-wide VectorCopy-as-macro test is a main-session gate job.
+- XAnimCalc (4 lines): '16 + boneCount' (B), '(unsigned int)boneCount + 16' (C): no change; server if/else-if
+  block with two XAnimSetModel calls (A): 529 lines. Retail interleaves the stringValue chain first (scheduled);
+  ours evaluates len first like XAnimClearTreeParts (which matches). Parked; may be the linker-numbering class.
+
+## Small UI/draw (agent 10-31b)
+Workspace fp_t5 / lmv5.sh, specs lab/w200/smu_*.py. Fast non-/GL harness copy: fp_t5/x8 (x8h.py, H points there;
+harness x87 roles = full build roles for CursorHint, push/fadd schedule NOT reproduced by the harness).
+Baseline (main src, fcmps difflines): CursorHint 12, AdsOverlay 8, GrenadePointer 8, Menu_SetNextCursorItem 8,
+Item_ListBox_MouseEnter 2, Window_Paint 4, FX_AddFxToScene 4. fcmpobj cg_newDraw_mp.obj TOTAL 14.
+- CG_DrawCursorhint (PINNED, harness + full build): the 'rect->h + scale' roles at both UI_DrawHandlePic sites flip
+  ONLY when the sum is evaluated in double. smu_ch_dimp.py ('rect->h + (double)scale', both sites), smu_ch_dsc.py
+  ('(float)(rect->h + (double)scale)'), smu_ch1.py ('(float)((double)rect->h + scale)') and smu_ch_one.py
+  ('rect->h * 1.0 + scale') all give 12 -> 6; cg_newDraw_mp.obj TOTAL 14 -> 8, no other fn changed (58 fns).
+  Behaviour identical (a float+float sum is exact in double, one rounding). Origin of the double: HYPOTHESIS, no
+  evidence; main session decides whether to land it.
+  Harness: in every float spelling a rect field is the memory operand and the local the fld side (scale, halfscale,
+  widthOfs, textWidth, textHeight, widthScale, fontscale, x all alike), so it is not first-reference numbering.
+  No effect (harness, roles unchanged): dead '= 0.0f' inits on scale/halfscale/both/widthScale/widthOfs/textWidth/
+  textHeight/hintIcon, decl order, y before x, y inlined, scale=halfscale chain/order, 0.5f*scale, scale+rect->h,
+  rect->h referenced early (probes in the first if / before the weapon test), CoD4 heightScale (1.0f, folded away),
+  local h (sum or load), w/h locals in either order, rect pointer local (all or h only), (&rect->x)[3], inline
+  getter RectH / GrowH, (float)(rect->h + scale), fadd chain + 0.0f.
+  Residue 6 lines = schedule in the text block only: retail issues both 'fadd [scale]' later (x sum: after
+  'push ecx'; h sum: after 'push edx; push eax'). (double)scale inside x breaks the text h site again (10 lines);
+  Kisak x order '+ scale + textWidth' unchanged (6).
+- CG_DrawAdsOverlay (8, else-branch inlined CL_DrawStretchPic, retail fp ops one int op later): '/ 2' (10),
+  '0.5f * drawSize[0]' (10), [1] only (8), both (10), '-(half - pos)' (13, +1 B). Not moved; schedule tie.
+- CG_DrawGrenadePointer (8, -yaw slot push before the last verts store in ours): yaw = 0.0f init (8), split last
+  verts chain (8), swap the two y-vert rows (28), pointerPos after verts (80), 'yaw = -yaw' (39, +1 B). Not moved.
+- Menu_SetNextCursorItem (8: eax/ecx/edx rotation for items[cursorItem] before Item_SetFocus): direct expression
+  at the SetFocus site (28), Menu_SetCursorItem(menu, 0) setter in the wrap arm (8, inlined alike). Not moved.
+- Item_ListBox_MouseEnter (2): Window_AddDynamicFlags(&item->window, OverLB) (CoD4 shape, 2), rect pointer local
+  for all reads (2) or the align copies only (2). Not moved.
+- Window_Paint (4): reverse field-wise fillRect copy (174, size 374): worse; lock-step tie as in REGALLOC.md rd 11.
+- FX_AddFxToScene (4, lea temp edx vs eax): model local (121), probe '= 8' (6). Not moved.
+All objects in fp_t5 reset to main (nop.py) at the end.
+
+## Small engine (agent 10-31b)
+Workspace fp_t4 / lmv4.sh, specs lab/w200/sme_*. Base (oracle link, fp_t4 objs = main): fcmps difflines CL_MouseEvent 14,
+CG_CalcViewValues 10, EvalPrimitiveExpression 10, _speex_bits_pack 4, nb_decode 6. Whole-exe masked meter
+sme_allcmp.py (every fn, fcmpobj masking, C/C++ names normalised) TOTAL 1679; ox.exe .text same-offset 1309621 B.
+- SPEEX IS C (PINNED by oracle links + tiny LTCG harness). Our bits.c is the exact upstream speex-1.1.9 text
+  (downloads.xiph.org tarball; retail string "speex-1.1.9"); only the TU language decides _speex_bits_pack's
+  tail-merge direction.
+  * sme_sp1.py (multi-file spec for sme_multi.sh): bits.c without /TP in tus.txt + extern "C" guard in misc.h ->
+    _speex_bits_pack 4 -> 0; TOTAL 1679 -> 1675, the ONLY changed fn; .text same-offset +25 B; .rdata/.data same.
+  * sme_sp2.py (all 27 /TP speex TUs as C, misc.c Z_ decls without extern "C", our text): TOTAL 1688: bits_pack 0,
+    nb_decode 6 -> 14, SP_worldspawn 0 -> 5, Menu_HandleKey 0 -> 2, Pickup_Weapon 2 -> 0.
+  * sme_sp3.py (= sp2 + nb_celp.c replaced by upstream 1.1.9 text): TOTAL 1674: nb_decode 0, bits_pack 0,
+    Pickup_Weapon 0, but SP_worldspawn 5 (scrMemTreePub refcount: retail lea eax,[ecx+esi*8+2] CSE, ours none) and
+    Menu_HandleKey 2 (one mov edi,[esp+0x31c] moved); .text same-offset -23 B. The two non-speex losses come from
+    switching TUs to C (none in sp1); they look like the global-numbering class, not source.
+  * Tiny bisect (sme_tsp.py + sme_ts3.py, all speex C, upstream nb_celp + ONE of our edits): only two edits cost
+    nb_decode under C, each 14 lines: 'lsp_dist += fabs((a - b));' (extra parens) and 'g=(.5+2*(g-.6));' (parens).
+    The (double) casts, void* casts and median3 move are code-neutral in C. Under C++ the current paren stand-ins
+    are the best (6); upstream/(double) spellings give 14-77 (sme_ts5.py). So nb_decode 0 needs C + upstream text.
+  * Retail evidence chain: upstream text + C reproduce both functions exactly; C++ cannot (paren stand-ins = 6).
+    SUPPORTED: the Rich header does not separate C from C++ /GL objects (oracle exe with C speex TUs still lists only
+    prodid 100, count unchanged), so it cannot confirm the split.
+- CL_MouseEvent (14, own RA; c2rd probe sme_rd.sh me0 + cpick): pop order id3/id4 (the two clients->mouseIndex load
+  temps, n3 16 n16 2) -> eax, _dy n3 12 -> edx, _dx n3 12 -> ecx (affinity -1). Retail = dy before the index temps
+  (dy eax, temps edx then ecx). Dead (all 14, identical bytes): Mac branch order sme_me1, const int params me2, early
+  return me3, CoD1 nested-if/empty-arm shape me4, nested if + return me5. Next: raise dy above 16 or lower the temps
+  (region k of the add block); a local index changes the code (retail reloads mouseIndex), so not that.
+- EvalPrimitiveExpression (10): server form (sme_ep1) 34 lines / 149 insns, BUT each unmerged copy already has
+  retail's merged-tail RA and store order (sourcePos ecx, constValue eax, fstp value, type, sourcePos). Retail = the
+  server form + a tail merge (minus path fld; fchs falls into it, plus path fld; jmp) that our c2 does not perform.
+  The goto stand-in merges but gives sourcePos eax / constValue ecx and stores sourcePos first. Dead: break + one
+  return (ep3) 42; shared value local + two calls (ep4) not merged and srvcheck SHA DIFFERS; tiny harness
+  (sme_te1/te2: scr_compiler alone, no push ecx frame so not exact): -(x) parens, (float) casts, const float param
+  all unmerged like the server form. Retail's integer pair (EvalInteger x / -x) is NOT merged either, so it is not
+  a generic cross-jump; trigger unknown (same open question as Sys_IsLANAddress, opposite direction).
+- CG_CalcViewValues (10): ps local Q3-style before the calls (sme_cv1) or at the top (cv2): identical. Retail's own
+  BG_GetSpeed (0x514cd0) has ours' CSE form, so the inline copy differs in IL (see x87_rule.txt); not solved.
+- Tools: sme_tiny.py (tiny /GL+/LTCG DLL of chosen TUs, function located through the DLL map so it keeps its
+  LTCG convention; ~6 s), sme_tsp.py (all speex TUs from a private copy, headers editable, per-variant /TC,
+  parallel, ~35 s; reproduces the full build's nb_decode 6 exactly), sme_multi.sh (multi-file spec incl. headers
+  and tus.txt, rebuilds an obj glob, oracle link, restores sources), sme_allcmp.py (whole-exe masked TOTAL with
+  C/C++ name normalisation; use it, fcmps shows false diffs when a callee changes linkage, e.g. ?speex_warning@@ vs
+  _speex_warning). Upstream source: /tmp/sme_speex_dl/speex-1.1.9 (re-download if /tmp was cleared).
+fp_t4 reset to main at the end (nop on cl_input/scr_compiler/cg_view, sme_nopm.py on speex; TOTAL back to 1679).
+
+## CrosshairNames / RawSamples (agent 10-31 late)
+Slot fp_t6 (lmv6.sh). Runner: rnm_run.sh REL FN OBJ SPEC... (lmv6 + fcmps line + fcmpobj). fp_t6 is left built with
+rnm_e6 (cg_draw_mp.cpp) + rnm_s1 (snd_driver.cpp).
+- PINNED (lmv6 oracle link): rnm_e6.py, CG_DrawCrosshairNames 46 fcmps / 42 fcmpobj lines -> 0 (size 146 = retail).
+  Shape: name = cg->bgs.clientinfo[cg->crosshairClientNum].name; name = (char *)va("%s", name);
+  cg_draw_mp.obj TOTAL 96 -> 54, the only changed fn (CalcCrosshairPosition 38, DrawAdsOverlay 8, DrawGrenadePointer 8
+  unchanged). Whole exe (all ox.map objs, fcmpobj) 1109 with e6 vs 1099 with e6+s1.
+  Mechanism (PINNED by the scratch rotation): the local code generator rotates eax -> ecx -> edx in IL order
+  (ours after the lea: posX eax, posY ecx, [ecx+8] edx, crosshair eax, identify ecx; retail edx, eax, ecx, edx, eax).
+  Retail's lea took no rotation slot: the name address is a user-variable web coalesced with the dying product (eax),
+  so every later temp sits one slot back. A named address (rnm_e2, extra 'src' local, DIAGNOSTIC) gives the same 0;
+  e6 reuses the one name pointer, which matches the Mac 1.3 STABS (single pointer 's', no extra local).
+  No change (46): rnm_e1 '!name || !name[0]' (CoD1 form), rnm_e3 nested team gate, rnm_e4 &...name[0],
+  rnm_e5 crosshair index local (diagnostic).
+- PINNED (tiny cl /O2 harness fp_t6/rnm_tiny, run.sh/gen*.py, reproduces ours imul edx,eax): the integer imul operand
+  roles follow first-reference numbering in the function, like the x87 rule. Any IL reference to raw.bufSize before
+  the wait loop's raw.writeBuf flips it to retail's imul eax,edx / add eax,edx / add eax,ecx / push eax, nothing else
+  changes: d1 (an early bufSize test), g2 (dead 'copy = bufSize;' store), g3 (unused local init from bufSize).
+  An early writeBuf ref (d2), a bufSize ref in another fn of the TU (g1, g4), operand swaps, while!=0, for(;;),
+  if-block compare order: no change. Dead references count (numbering runs before dead-code removal).
+- MEASURED (lmv6 oracle link): rnm_s1.py (int copy = milesGlob.raw.bufSize; dead init) SND_RawSamples 10 -> 0
+  (size 79 = retail), snd_driver.obj TOTAL 10 -> 0. Source spelling is HYPOTHESIS: no reference shows where retail's
+  early bufSize reference sits (Mac 1.3 inlines SND_InitRawSamples, whose 'raw.bufSize = bufSize' store comes before
+  the loop; the PC 1.0 binary calls it). Mac STABS locals are only data/bytes/copy, so the init must stay on an
+  existing local. Main session decides whether a dead init is acceptable source.
+
+## Crosshair /Op forwarding hook (agent 10-31 late)
+Slot fp_t5 (lmv5), tools in fp_t5/c2h. Re-measured (oracle link): main CG_CalcCrosshairPosition 38, cg_draw_mp.obj TOTAL 96;
+chx2.py 20, TOTAL 78 (only that fn changes). No new spec beats chx2; nothing to land. fp_t5 left reset (nop.py).
+- PINNED (probe c2h/cave_f.s, sym/global dumps at fn start and pre-RA): the function /Op state is the c2 global 0x108a9204.
+  Written at fn start from the fn's own flag word ([ebx+0x1c] bit 0x40000; pragma p on the caller sets it, 0x10774e9e) and
+  by the inliner's flag merge (0x1078dbd7: callee [+0x1c] & 0x40000 -> global = 1, 0x107cfe31). So inlining AngleVectors
+  (com_math.cpp, pragma p) makes the whole caller /Op for every later pass (= chx9 / np_cp / p_cp results).
+- PINNED (flip.py: 35 reads of 0x108a9204, each patched to read 0, clone relinked with the patched c2): forcing all reads to 0
+  = the no-/Op output (yaw forwards, fptan). All-but-one: forwarding needs exactly TWO sites cleared, 0x1071083e and
+  0x107f3877; 0x1082a640 alone decides __CItan vs fptan. With only those two cleared (flip set1071083e+107f3877) the yaw
+  forwards and __CItan stays (diagnostic compiler hack, not source).
+  * Gate Y 0x107f3877 (predicate on float copy tuples, opcode 0x263): under /Op it always returns 1 and calls 0x1082b0a2 =
+    the float mem-to-mem copy is lowered to an int copy (mov ecx / mov [slot]). Without /Op a copy whose source operand has
+    kind 2 (global memory: bl == 2) stays a float copy. Our yaw and pitch copies are both bl == 2 (probe cave_x.s, 4 Y calls).
+    Only Y cleared: the yaw is copied fld/fstp to [esp+28] and still reloaded.
+  * Gate X 0x1071083e -> 0x1077f087..f0d9: per IL object, flag = (object type class [obj+0x10] & 0xf000 == 0x4000, float)
+    AND /Op; flagged objects take 0x107ced86, which CLEARS the object's bit in one bit set and skips the GEN in the other
+    (sparse bitsets keyed by [obj+0x34] id) = a float object's def is never made available. Probe: under /Op every float
+    object (gunAng/gunDir elements, sp/cp/sy/cy, compiler temps kind 3) is flagged, int/pointer objects are not; without
+    /Op none. Only X cleared: the int copy from gate Y still blocks it.
+  * Neither gate reads volatile-ness, alias class, address-taken, the base (cg pointer vs global vs param) or the member:
+    only fn /Op + the float type class of the copy. So under /Op every float value loaded from memory and assigned to a
+    float object (array element, scalar local, const local, inline-formal copy into an array) is stored and reloaded.
+- PINNED (probe on cxh_d1 bvp, a real by-value float param, RA_FN=Inner): the param yaw reaches fld [esp+30] because the copy
+  gunAng[1] = param is propagated BEFORE gate Y (only the pitch copy reaches Y; one int gunAng object instead of two).
+  Object-to-object copies from a param are removed early; a load from global memory is not an object source, so it always
+  reaches gate Y. Constants fold earlier still (cst: 90*K stored as an immediate).
+- Measured in the clone (cx.py, all stored = ours): cxh_d1 k02/k0/k2 (pitch and/or roll constant: no intervening store,
+  still stored), cxh_d3 np_cp/p_cp (pragma p only on the caller: same as base, /Op is fn-wide), cxh_d4 cstl (const float
+  local), inl2 (forceinline by-value helper that builds the array and calls AngleVectors). Only bvp (real param) forwards.
+- Conclusion (PINNED for this compiler): with AngleVectors(gunAng, ..) inlined under /Op and gunAng[1] holding cg->gunYaw,
+  no source spelling can drop the store; the two gates depend only on the fn being /Op and the destination being float.
+  Retail's yaw therefore never was a float object def from memory in retail's IL: it reached the fmul either as an
+  inlined by-value formal substituted into the arithmetic (chx_d9 shape) or as a real param. HYPOTHESIS (unconfirmed,
+  not shipped): retail's PC source feeds the yaw through a by-value float path we do not have (no such helper is in the Mac
+  symbol list; chx_d9 itself is 86 lines because of the frame). Dead now: any spelling that keeps gunAng[1] = <load>
+  under /Op (volatile, alias, punning to another float, member/base choices cannot change gates X/Y).
+- Tools: c2h/rd.sh VARIANT [DLL] (relink tiny/cx objs with a probe c2, RA_FN), c2h/cave_x.s + patch_x.py (F arm, X and Y
+  hooks), c2h/cave_f.s (sym + global dumps), c2h/flip.py VARIANT [none|all|buts|ADDR|setA+B|butA] (patch /Op reads, GL=
+  env picks another global), c2h/xref.py ADDR (code reading an absolute), c2h/jref.py ADDR (branches to), c2h/c2dis.py.
+
+## Small RA items (agent 10-31 night)
+Slot fp_t6 (lmv6), specs lab/w200/sm2_*.py, runner rnm_run.sh REL FN OBJ SPEC... Base (fp_t6 = main): fcmps CL_MouseEvent 14,
+CG_DrawCursorhint 12, CG_DrawAdsOverlay 8, CG_CalcViewValues 10, CG_DrawGrenadePointer 8, XAnimCalc 0 (fcmpobj 4),
+EvalPrimitiveExpression 10. fcmpobj TOTAL: cl_input 14, cg_draw_mp 54, cg_newDraw_mp 12, cg_view_mp 8, xanim 4 (fp_t6 xanim.obj
+was stale at 34: reset with nop.py first), scr_compiler 10.
+- PAID (MEASURED, lmv6 oracle link): sm2_me1.py, CL_MouseEvent 14 -> 0 fcmps lines (18 = 18 insns), cl_input.obj TOTAL 14 -> 0,
+  no other fn changed. Shape: 'if (keyCatchers & 8) { if (bypass) { adds } else { UI_MouseEvent } } else { adds }'.
+  Mechanism (n3 arithmetic on the 10-31b cpick dump me0, matches every number): region weights equal; the else block has 4
+  referenced candidates (two mouseIndex load temps, dx, dy) -> temp n3 = 2 refs * 2 * 4 = 16; dy = 1 ref * 2 * 4 (adds) +
+  1 * 2 * 2 (UI call, dx+dy) = 12. A second copy of the adds gives dy and dx a third referenced region (+8 -> 20 > 16),
+  so dy pops first (eax), dx ecx, temps edx/ecx; c2 cross-jumps the two identical add blocks after RA (one copy in the
+  exe, same as the FxHelper::WarpTime duplicated-arm lever). Spelling HYPOTHESIS (CoD1 cl_input_mp nests the bypass test
+  inside the UI catcher test, SUPPORTED); Mac 1.3 STABS: only const int dx/dy params, no locals.
+  Dead (MEASURED): sm2_me2 local clientActive_t *cl = clients (CoD4 LocalClientGlobals) 25; sm2_me3 early returns with
+  the adds in the !catcher and bypass arms 13 (17 insns; it also shifts CG_CalcCubemapViewValues to 12 in cg_view_mp).
+- CG_CalcViewValues (PINNED cause, spelling open): retail's inlined BG_GetSpeed is the non-CSE form because the ps address
+  was a compile-time constant. sm2_cv5.py (DIAGNOSTIC: BG_GetSpeed(&cgArray[0].predictedPlayerState, cg->time)) gives
+  fcmps 10 -> 4, cg_view_mp.obj TOTAL 8 -> 0, size 149 -> 145 insns = retail; the 4 lines are only the term order
+  (ours v1*v1 + v0*v0, retail v0*v0 + v1*v1). Through 'cg_t * const cg' (folded at link time) the formal is a pointer
+  temp when CSE runs, so both squares share one load each (ours fld st0 / fmul st1). sm2_cv6 (BobCycle too via cgArray) 4,
+  cv5 + sqrtf in BG_GetSpeed (sm2_cv11) 4, BG_GetSpeed 0 in both. Dead: sm2_cvd (pragma p around the whole fn,
+  DIAGNOSTIC) 173 lines, so retail CG_CalcViewValues is NOT /Op; sm2_cv2 (server Vec2Length body) 10, and with cv5 it
+  brings the CSE back (10): the extra inline formal v re-creates the pointer temp. Evidence: ties.txt 'su' row (the old
+  BG_GetSpeedInl with direct cg-> fields matched). Mac 1.3 STABS list cg as a G symbol and cgArray as S, so 1.3 used
+  a cg pointer; whether PC 1.0 wrote cgArray/cg. or a macro is unknown (HYPOTHESIS). Next: the term order; the
+  numbering of the two velocity objects under the constant address (first-reference rule) puts v1 first.
+- EvalPrimitiveExpression (PINNED why the server form does not cross-jump): server form (sme_ep1) float copy schedules
+  'mov ecx,[eax+8]' (sourcePos) BEFORE 'fld [eax+4]', the minus copy schedules 'fld; mov ecx; mov eax; fchs', so the
+  two tails are not identical and c2 cannot merge them. Retail: float copy 'fld; (jmp)', minus copy 'fld; fchs; mov ecx;
+  mov eax; fstp ...' = identical tails, merged. So the gap is the x87 schedule inside each inlined EvalFloat, not the
+  tail-merge pass. Mac 1.3 STABS: two separate inlined EvalFloat scopes (lines 2618/2622), no function-level value
+  local (server form SUPPORTED). sm2_ep5 (value local set before each of two EvalFloat calls, no goto) 42 lines and
+  scr_compiler.obj TOTAL 333 (EvalPrimitiveExpression inline sites in 10 callers change): dead.
+- CG_DrawAdsOverlay: double 0.5 constant (Kisak prints 0.5): sm2_ads1 both 20, sm2_ads2 [0] 21, sm2_ads3 [1] 7 but
+  253 insns (fmul qword + fsubp): dead. Residue stays the int/x87 schedule tie (lea/push before fst/fld).
+- CG_DrawGrenadePointer: retail does the last verts store and both pointerPos loads before 'push ecx' (-yaw slot); ours
+  pushes the slot right after fld yaw. Same schedule class as AdsOverlay; no new variant (10-31b list covers the
+  natural ones). CG_DrawCursorhint, XAnimCalc: nothing new tried (10-31b lists cover them).
+fp_t6 left with sm2_me1 built in cl_input.obj; every other touched object reset to main (nop.py).
+
+## Hoist/Slots round 2 (agent 10-31 night)
+Slot fp_t7 (lmv7.sh, tools fp_t7/hss/run.sh). Resynced fp_t7/src with main (rsync -c: bg_weapons, g_debug_mp, cg_draw_mp,
+cg_drawtools_mp, ui_main_mp, snd_driver, speex/misc.h, com_sndalias_load_obj, q_shared, win_net, xanim, xmodel, tus.txt),
+full make + oracle relink. Base re-measured: CG_InitXAnimTrees 67, FX_CalcOriginAndAxis 172; fcmpobj cg_main_mp TOTAL 67,
+FxUtil TOTAL 178. fp_t7 left restored to main (nop.py on both files, TOTALs 67 / 178 re-measured).
+- CG_InitXAnimTrees PINNED (oracle link, lab/w200/hs2_xa.py XA=pd / XA=pn): fcmps 67 -> 0 (62 insns = retail, masked 0),
+  cg_main_mp.obj TOTAL 67 -> 0 (no other fn changes). Mechanism: the hoisted &anims->size is a POINTER OBJECT whose
+  definition is derived from a SECOND read of the global (pn: animsSize = &cg->bgs.generic_human.tree.anims->size;
+  next to anims = cg->bgs.generic_human.tree.anims;). At the copy-forwarding pass its def is load+4, not local+4, so it
+  is not folded into [anims+4]; the two loads are CSEd later (one mov ebx,[G]; lea eax,[ebx+4]), and the pointer has no
+  register left (anims, IV, size, size copy for rep stos) so it spills to [esp+0x10] = retail. The same pointer built
+  from the local (xrf_xe: pSize = &anims->size) IS folded back (36). So the retail IL has an address object that is
+  not a copy of the anims local. pn shape: both loops write XAnimCreateTree out (size = XAnimTreeSize(*animsSize);
+  tree = Hunk_AllocXAnimClient(size); memset; tree->anims = anims; store), needs 'int XAnimTreeSize(int size);'.
+  Source shape is HYPOTHESIS: no reference shows CG writing the body out (Mac 1.3 calls XAnimCreateTree from CG_Init;
+  the 1.0 standalone XAnimCreateTree matches and has no pointer). A call to XAnimCreateTree cannot give this, because its
+  size base is always the substituted formal (= the local). Main session decides whether pn is acceptable source.
+- CG_InitXAnimTrees no change / worse (fn difflines): XA=w while loops 36, XA=dw do/while 36 (loop naturalness does not
+  create the hoist), XA=vp void* local cast at each call (opencod2 spelling) 36, XA=st static anims (DIAGNOSTIC) 38
+  (memory object reloaded every iteration).
+- FX_CalcOriginAndAxis (hs2_fx.py, on the main frame-0x54 sphere): FX=bc cylinder mRadius passed straight to VectorScale
+  (Mac 1.3: unnamed temp, no width) 172, FX=bw plus the sphere radius named width (Mac naming) 172; both byte-identical
+  to base, FxUtil TOTAL 178. The VectorScale formal is the same item as a named width.
+  Base vs retail slot classes (fp_t7/hss/slotfull.py on hs2_fxbase.sbs, MEASURED): ours entry0 (bottom) = {len in both
+  branches, cylinder height (218/233-241), sphere 146/152}; retail E_A holds len, retail E_C holds the cylinder height
+  (with the mHeight GetVal temp), retail E_W (top) = width alone. In ours width shares E_C with the GetVal temp. So on
+  the main sphere the cylinder height and width have swapped roles vs retail.
+  pkpred what-if (fxas, HYPOTHESIS: model needs repair, sets unreliable): with the cylinder height placed before width
+  and width clashing with an E_B member AND len (E_A), width lands in the sinYaw entry, not a new top entry. So one
+  extra clash is not enough in the model; no further FX build was justified. Nothing to land for FX.
+
+## First-ref rule (agent 11-03)
+Slot fp_t6, specs lab/w200/fr11_*.py (fr11_gen.py makes a-e). Base (main with sm2_cv5 already in): CG_CalcViewValues fcmps 4, objs TOTAL 0.
+- CG_CalcViewValues PAID (MEASURED, oracle link): fr11_f.py = in client BG_GetSpeed (bgame/bg_pmove.cpp) write the squares as
+  sqrt(v[1]*v[1] + v[0]*v[0]). fcmps 4 -> 0 (145 insns = retail), bg_pmove.obj and cg_view_mp.obj TOTAL 0 (no rise).
+  Mechanism: with the constant ps address the inlined squares number velocity[0] first and make it the memory operand, so the
+  source order that gives retail v0*v0+v1*v1 is the swapped one (explains why plain order gave ours v1*v1+v0*v0).
+  Client-tree only: server 1.0 BG_GetSpeed uses Vec2Length(ps->velocity) already (different spelling), so no srvcheck needed.
+  Spelling HYPOTHESIS (no reference shows it); depends on the cv5 cgArray stand-in.
+  Dead: fr11_a (vx,vy locals at top) 74; fr11_b (vx=0.0f dead init, assigned after ladder) 4; fr11_c (vx read at top) 7;
+  fr11_d (vx,vy locals after ladder) 8; fr11_e (dead vy=0.0f init) 4; fr11_g (dead velocity[0] read in CG_CalcViewValues) 4.
+- CG_DrawCursorhint / CG_DrawGrenadePointer / XAnimCalc: not rerun. 10-31b already tried dead 0.0f inits (CursorHint harness:
+  roles are not first-reference; GrenadePointer yaw=0.0f 8) and XAnimCalc is 0 fcmps (fcmpobj 4, linker numbering class).
+fp_t6 reset to main (nop.py on bg_pmove and cg_view_mp, CG_CalcViewValues 4 re-measured).
+
+## FX slots (agent 11-03)
+Slot fp_t7, specs lab/w200/fx11_a..f.py (fx11_gen.py makes them), base FX_CalcOriginAndAxis 172, restored with an empty spec (172 re-measured).
+Cylinder branch variants (MEASURED fn fcmps; fcmpobj TOTAL arg was a wrong obj path and printed 0, so FxUtil TOTAL not measured):
+- a width read before height 215 (insn count 401, code changes); f height = GetVal*flrand, width first 215 (same as a).
+- b block-local float h for height 414 (frame 0x4c, as the earlier block-scoped forms); e block-local h and w 414.
+- c height = mHeight.GetVal(); height *= flrand(...) (one GetVal result reused) 206, masked 0, frame 0x54 (worse than base).
+- d block-local w only (height stays fn-scope) 172 = byte-identical to base.
+No variant reaches 0; nothing to land. Reordering/scoping width and height only moves the 0x54 frame to 0x4c or leaves it unchanged.
+
+## Crosshair evidence (agent 11-03)
+Step 1 only, no builds. No reference shows a by-value yaw/angles helper in the CG_CalcCrosshairPosition chain.
+- Mac 1.3 decompile refrences/cod2-mp-macho/PC/cgame_mp/cg_draw_mp.c:1158-1195: gunAng[1] = cg->gunYaw direct, then
+  AngleVectors(gunAng, gunDir, NULL, NULL); locals gunAng, gunDir, forward, horiz, vert. No helper, no formal. (Same
+  decompile of Mac STABS already used in 10-30: only inlined scope is VectorSet y,z, tried as chx12 = dead.)
+- Mac com_math.c: only yaw-by-value fns are YawToAxis(float yaw, axis) :1086 and PitchForYawOnNormal :1063; neither is
+  called from the crosshair path (grep gunYaw: single use, cg_draw_mp.c:1169).
+- KisakCOD (CoD4) src/cgame/cg_draw_reticles.cpp:17-47: gunYaw local = cg->gunYaw; gunAng[1] = gunYaw; AngleVectors;
+  Vec3Dot. Same copy, no by-value helper (its gunYaw/v6 temps are decompiler output).
+- CoD2rev_Server: no CG_ code (server only).
+Result: HYPOTHESIS stays unconfirmed; no speculative builds made.
+
+## Crosshair /Op gate study (agent 11-03)
+No builds; answered from the pinned 10-31 late hook data (fp_t5/c2h). Nothing to land.
+- (a) inline order: dead by construction (SUPPORTED, from PINNED facts). The forwarded load sits inside the INLINED
+  AngleVectors body, so forwarding can only run after the inline; the merge (0x1078dbd7 -> global 0x108a9204 = 1,
+  0x107cfe31) happens at the inline itself, and flip.py showed gates X/Y read the global at run time = 1 already. TU or
+  link order cannot move the merge after the gates; the c1 flag [+0x1c]&0x40000 is in the IL before c2 starts (LTCG).
+- (b) types: dead (PINNED). Gate X keys only on type class 0x4000 (any float object: vec3_t, float[3], member arrays all
+  the same class); gate Y on the float copy tuple 0x263, which any float = float-from-memory produces. Retail fld dword
+  [cg+2c094] pins gunYaw as float, so no int/double type avoids the gates.
+- (c) other AngleVectors COMDAT: dead (SUPPORTED). A copy with 0x40000 sets the global on merge; a copy without it needs
+  the caller /Op for __CItan (0x1082a640 reads the same global), set at fn start. Either way the global is 1 for X/Y.
+- Mechanism: one per-function global feeds gates X, Y and the __CItan choice; no IL condition makes a float load from
+  memory into an array element forward while __CItan is kept. HYPOTHESIS left: yaw reaches the fmul as a formal/param
+  (not a memory load), or a second inline phase after forwarding (unprobed: log write order of 0x108a9204 vs gate-Y calls
+  with c2h/cave_f.s to close it).
+
+## Crosshair /Op phase order (agent 11-03)
+Probe c2h/cave_p.s + patch_p.py (cave_x.s plus hooks A = fn-start write 0x10774e9e, B = merge write 0x107cfe31,
+M = inline flag test 0x1078dbd7; logs the global before each event), c2p.dll, rd.sh base; log c2h/out/ph/base.raw.
+Linked dll vs stock: only the 3 timestamp bytes (x2) differ. No builds of source variants (none justified).
+- PINNED order for CG_CalcCrosshairPosition: A writes 0 (fn start, caller not /Op) -> first M (inline, global 0) -> B
+  writes 1 -> 10 more M/B events, all at 1 -> gate Y x3 (bl 2,2,6) at 1 -> gate X x19 at 1 -> next fn (Draw) A.
+  No second A inside the fn; every gate X/Y call sees 1. The only 0 window is before the first inline, where no gate runs.
+- So "phase before the merge" and "second inline phase after forwarding" are both dead (PINNED). No 0-line variant.
+  Caveat: the cave register prints in A/B/M are clobbered by wstr (first column garbage); the global column is valid.
+- Still open (HYPOTHESIS, unchanged): yaw reaches the fmul as a by-value formal/param, not a float load from memory.
+
+## SP crosshair compare (agent 11-03)
+Read-only, CoD2SP_s.exe 1.0. MP retail CG_CalcCrosshairPosition = 4c2330 (ends ~4c24f0). Features: deg2rad 35fa8e3c, pi/360
+35fa0e3c, -320 / -240 (c3a00000/c3700000), 3x fcomp 0, call __CItan, sub esp,0x30.
+- SP twin = 4bb6c0 (constants 58fd50 d2r, 58fda8 pi/360, 58fe58 -320, 58fe54 -240, __CItan 564b40, ret at 4bb863). SAME shape as MP:
+    4bb6c0 sub esp,0x30 / fld [f76f98] (gunYaw) / mov eax,[f76f94] (gunPitch) / fmul [58fd50]
+    mov [esp+24],eax (pitch stored) / fstp [esp+10] / push eax / push ecx / fld [esp+18] / fsincos   (yaw NOT stored to a slot)
+    second AngleVectors reads fld [esp+24] (pitch slot) -> inline fsincos, frame 0x30, forward/up tail as MP.
+- Not a by-value helper: no angles params. 5 callers (4bbe23, 4bc845, 4bc985, 4bccc7, 4bd228) set edi/esi (out x/y ptrs) and
+  call it; at 4bbe07..4bbe1f they only store 1.0f x3 + a value in [esp+28], nothing yaw-like. AngleVectors fully inlined in SP too.
+- Conclusion: SP = MP (yaw forwarded from cg memory, pitch captured before asm). No out-of-line helper in SP that MP inlined. No new
+  source shape; consistent with the earlier "AngleVectors(&cg->gunPitch..)" pitch/yaw split being retail codegen of the same source.
+
+## FX Mac order (agent 11-03)
+Step 1 (no builds). Mac refrences/cod2-mp-macho/PC/EffectsCore/FxUtil.c:487-598 is a hand-written wrapper (_impl with a stub
+FX_CalcOriginAndAxis, no STABS scopes); order is NOT oracle-grade. Differences vs ours (FxUtil.cpp:1879):
+- cylinder: Mac rndHeight = flrand(-0.5,0.5) as its own temp, then height, then width GetVal; fused pt expression (no
+  VectorScale/VectorMA); angle = flrand(0,360) as its own temp before RotatePointAroundVector.
+- sphere: Mac width/height named (width*sinPhi*sinTheta, no radius*=sinPitch step); org copied to orgOut before the
+  distribution, pos+origin added after (ours adds origin up front); no VectorAdd of origin visible (ecx dropped).
+- Covered by dead list: unnamed radius temp (bc), width naming (bw), width/height order and scoping (fx11_a..f).
+Not covered: separate rnd + angle temps. Tested fx11_g.py (reuse pitch as rnd, yaw as angle; Mac order rnd,height,width,angle)
+in fp_t7: fn fcmps 425 (base 172), frame 0x54 -> 0x4c, FxUtil TOTAL 437 (base 178). DEAD. fp_t7 restored (nop spec).
+
+## x87 RA oracle (agent 11-03)
+Slot fp_t6 (lmv6), specs lab/w200/ra11_*.py. Base re-measured: AdsOverlay 8, GrenadePointer 8, CursorHint 12, cg_draw_mp.obj TOTAL 54.
+- PINNED (diff with context, base): none of the 3 draw residues is an x87 operand-role / first-reference decision. Every
+  fld/fmul/fsubr operand and slot matches retail; only the issue order of x87 vs int ops differs (scheduler):
+  GrenadePointer: retail stores verts[2][1], fchs, loads pointerPos[1]/[0], then push ecx (-yaw slot); ours pushes right
+  after fld yaw. AdsOverlay else-branch: retail issues each fst/fld/fsubr one int op (lea/push/mov) later.
+  So the first-ref / dead-init lever has nothing to flip here; CursorHint keeps the 10-31b double-sum result (6) only.
+- DEAD: ra11_a1 (horzAlign/vertAlign = 2 set inside each arm instead of before the if) 8, TOTAL 54 (no change).
+  ra11_g1 (pointerPos[1] computed before [0]) 20, TOTAL 66.
+- EvalPrimitiveExpression: no build. 10-31 night already pinned the gap as the in-EvalFloat x87 schedule (server form
+  tails differ by mov ecx placement) and sm2_ep5 (value local per arm) 42 lines; no new IL condition found.
+- Next attack (HYPOTHESIS): log the c2 list-scheduler ready-list priorities for these blocks (like the RA_FN hook) to see
+  why the esp-adjust push is ready earlier in ours; source-order levers are spent.
+fp_t6 reset (nop.py on cg_draw_mp.cpp; GrenadePointer 8, AdsOverlay 8, TOTAL 54 re-measured).
+
+## c2 scheduler key (agent 11-03)
+Probe fp_t6/sch11 (cave_r.s + patch_r.py -> c2r.dll, rd.sh = tmg_rd.sh grepping ^[FASB]); log fp_t6/ra/gr2.txt. Armed full
+link with RA_FN=?CG_DrawGrenadePointer@@YAXMMPBM0@Z: all 5 PE sections IDENTICAL to the c2rd link (gp0.exe) of the same objs.
+- PINNED (disasm c2.dll 7.1): the post-RA list scheduler is 0x107b5338 (entry; marks start node +0x3c|=0x10), cycle loop
+  0x107b5479..0x107b54e3 (cycle counter 0x108a8018, per-unit busy table 0x108a7d90 stride 12), per-cycle pick 0x107b4f08
+  (walks the ready list from head 0x108a8044, calls the resource-fit fn [0x108a7d70], picked nodes go to 0x108a802c[]).
+  Successor release 0x107b5399: dec [succ+0x20]; when it equals [succ+0x24], insert 0x107b5309.
+  DAG edge builder 0x107b41a8 (edge {+8 from, +0xc to, +0x10 latency}; inc from+0x22, to+0x20).
+- PINNED ready-list order (insert 0x107b5309 -> 0x107b65b2/0x107b7396): dword node+0x2c DESCENDING (priority, low bit set
+  on x87 stores 0x63), tie: word node+0x36 ASCENDING (node number, sequential in pre-RA IL order; new node goes before an
+  equal-key node only if its +0x36 is smaller). node+0x1c = the pre-RA tuple (same pointers as the T dump).
+- The ready list is rebuilt every cycle (0x107b6610 re-inserts it), so gr2.txt rows = ready set per cycle: "S cycle node
+  prio(+0x2c) nodenum(+0x36) unit(+0x3a) tuple opcode".
+- GrenadePointer divergent cycles (0x4f..0x52): fld 064e0a6c prio 0x9800 n4d, mov 064e0a00 0x9800 n47, mov 0652ce7c
+  0x0c00 n48, push 0642cd10 0x1000 n4f, fchs 0642c9f4 0x1000 n4e, fstp 0642ca44 0x0801 n50, mov 064e0b44 0x8800 n51.
+  HYPOTHESIS: push (n4f) and fchs (n4e) tie on +0x2c (0x1000); the pick is decided by resource fit / issue-slot not by the
+  key, or the push gets its slot first because fchs waits on fld latency. Not resolved in the 50 min cap: the issue
+  order (hook at 0x107b54bd, edx = picked node) and how +0x2c is computed (height/latency) are the next step.
+- No source variant built (no key change identified yet). fp_t6 src untouched (base); probe files only in fp_t6/sch11.
+
+## FX RA oracle (agent 11-03)
+Slot fp_t7, untouched (0 source builds; only oracle relinks into hss/pk/base0). Base re-measured: fn 172, FxUtil TOTAL 178
+(fcmpobj.py fp_t7 FxUtil.obj; the path form EffectsCore/FxUtil.obj or build/obj/... prints TOTAL 0 = wrong arg).
+Frame slots are decided by the c2 stack packer (cslot/pk), not color.c, so the oracle used is sets7.sh base0 + pkpred.py.
+- PINNED (base0 trace + sets, last-fit replay raw mismatches 0, no repair): list order = size asc, wt desc, position.
+  sinPitch/cosPitch/cosYaw/sinYaw wt6 -> e2..e5 (mutual clash); height wt6 -> e6; len wt6 joins e6 (no clash with height);
+  radius wt5 -> e7 (clashes height); T7 wt5 -> e8; T8 wt5 -> e9; then width (idx15, wt4) checks newest first and joins e9
+  {T8,T9,result,result}. width clash set = {height, T37, T40/T41 (pos/point vec3), out, prim} only.
+- PINNED (pkpred what-ifs): width alone needs width to clash with a member of EVERY scalar entry at its turn, including the
+  four sphere-only sincos entries, and every later scalar (T16..T36, yaw, pitch, T25/T26, all sphere temps) to clash with it,
+  else they join its newest entry (what-if: width + 7 clashes -> width shares with T16..T36). Even with all clashes width
+  makes a 5th scalar entry (frame 0x58), while retail has 4 (E_A, E_B, E_C, E_W).
+- Derived condition: retail = 3 non-width scalar entries + width. Ours has 4 forced by {radius, T7, T8} mutual clash plus
+  height-radius and len-T7/T8 clashes; retail splits radius (E_B) from radius*sinPitch (E_A), so its item list differs from
+  ours before width is even placed. HYPOTHESIS: retail width is processed after an item set where it clashes with all
+  entries, which needs a value live in both branches; no cylinder-only spelling can give that (liveness), and width weight
+  alone never does (any wt: width joins a sincos or temp entry).
+- No source change produces that IL change without moving calls/code (sphere radius split and Mac shapes are on the dead
+  list: bc, bw, m1/m2, fx11_a..g). No build run; nothing to land.
+- Round 2 (same agent, probe fp_t6/sch11 cave_k.s + patch_k.py -> c2k.dll, rdk.sh; log fp_t6/ra/gk1.txt, 5 PE sections
+  IDENTICAL to gp0). Q = resource-fit result per ready node (hook 0x107b4f5a: ax >= 0 = issue slot, -1 = no fit),
+  K = picked node (hook 0x107b54bd, edx). PINNED: the machine issues 2 per cycle, one int slot (0) and one x87 slot (2);
+  the pick walks the ready list in key order (+0x2c desc, +0x36 asc) and takes the first node that fits each free slot.
+- PINNED why push n4f beats fchs n4e: no tie decision. Cycle 0x50 ready = fld n4d (0x9800, slot 2, picked), fchs n4e
+  (x87 slot already taken by fld: -1), push n4f (0x1000, int slot 0: picked), mov n48 (0x0c00, no slot left). The push
+  (the -yaw arg slot, sub esp) is ready since cycle 0x4e: it depends only on the earlier pushes. The pointerPos loads
+  (mov 064e0b44 n51, 0x8800) only become ready at 0x51, after the verts[2][1] store, and they read esp after the push.
+- SUPPORTED by the retail order (loads at the unadjusted esp offsets before push
+  ecx): in retail the pointerPos load tuples come BEFORE the -yaw sub esp in the IL, so the push gets an anti-dependence
+  on them and is not ready at 0x50. The difference is pre-RA IL order (linearisation of the call args), not the key.
+- DEAD (fp_t6, fcmps lines of GrenadePointer): gpk_1 (angle = -yaw local before the call) 11; gpk_2 (pointerX/pointerY
+  scalars instead of pointerPos[2]) 72; gpk_3 (pointerPos block after the verts block) 80, cg_draw_mp TOTAL 126.
+- AdsOverlay/Cursorhint: not built (cause is IL arg order, not a scheduler key). Next: the source shape whose call-arg
+  IL loads float args before a computed float arg (the -yaw sub esp).
+(This round 2 belongs to "c2 scheduler key (agent 11-03)" above; another section was appended in between.)
+fp_t6 reset with nop.py: GrenadePointer 8, AdsOverlay 8, cg_draw_mp.obj TOTAL 54, src == main.
+- FX RA oracle round 2 (agent 11-03, MEASURED in fp_t7, restored with nop.py: 172 / TOTAL 178 re-measured). Radius split per retail E_A/E_B:
+  fx11_h.py (fn-scope float scale after width; scale = radius * sinPitch; VectorSet(dir, scale*sinYaw, scale*cosYaw, height*cosPitch))
+  fn 110 (base 172), FxUtil TOTAL 116 (base 178), insn count 402 = retail, frame unchanged. Remaining diff is mostly scalar
+  slots one dword off (+4) plus 2 lea/store swaps: entry creation order. SUPPORTED: retail has a separate radius*sinPitch object.
+  fx11_i.py (reuse len as the product) 412 / 422: DEAD. fx11_j.py was meant to declare scale after radius but the sed
+  did not apply (it duplicates h, 110); the declaration-position test is still open.
+  Next: declaration position of scale (after radius / before len), and pkpred on an h trace to get the entry order.
+- FX RA oracle round 3 (agent 11-03, MEASURED fp_t7, restored nop: 172 / 178). Packer trace of h (fp_t7/hss/pk/h, pkan):
+  4 scalar entries e6 {height, len, 2 T}, e7 {T5, T4, yaw, pitch}, e8 {T5, T4, 2 GetVal results, width, ...},
+  e9 {scale wt3, radius wt2, sphere temps}. width still shares e8 with GetVal temps (not alone as retail E_W);
+  radius drops to wt2 and moves into the scale entry. Variants: fx11_j (scale declared after radius) 110/116,
+  fx11_k (block-scoped scale) 110/116 = h; fx11_l (scale assigned before the mHeight GetVal) 114/120. Best stays fx11_h.
+
+## Data residue (agent 11-03)
+Slot fp_t7 (lmv7.sh), 1 build. Nothing landed; items 3 and 4 stay DEFER.
+- 720.0f (PINNED, oracle fp_t7): fire_grenade F5904 and Mantle_CreateAnims F5910 are both sweep 59 (callees G_Spawn s57 / MantleXAnimPrecacheAlloc s57, both via Com_Error s56); g_missile (link 241) is walked before bg_mantle (232), so 720 gets the hole before the mantle doubles. Retail needs Mantle first, or fire_grenade in sweep 60.
+- Checked on retail (PINNED): fire_grenade calls G_Spawn, SL_RemoveRefToString, 3x __ftol2, vectoangles = same as ours (no vanished callee that could add an s59 edge); Mantle_CreateAnims pushes 0x50b6e0 = its own MantleXAnimPrecacheAlloc (not the xanim Hunk_AllocXAnimPrecache copy, which is F382 sweep 0 only because it sits on a DFS cycle). Server fire_grenade body = ours (CoD2rev), 720 is flrand(-45,45) + 720 with a float literal (a double literal would pool 8 B, wrong).
+- Tried (no effect, 720 still before mantle, F5785/F5910 unchanged): MantleXAnimPrecacheAlloc made static (spec lab/w200/m7a.py).
+- Untried: dead-local intern trick (not real source), item 4 callee search (prior note stands).
+- Follow-up (agent 11-03, no build): link order PINNED equal (bg_mantle 0x50b6e0 < g_missile 0x51bda0 in retail and ours, same addresses). Direct-call sets of EVERY named function, retail vs ours (/tmp/cs.py E8/E9 scan): identical except CRT/speex underscore naming (stricmp, strlwr, speex_*). So the Com_Error/Hunk/G_Spawn/Mantle chains have the same callees as retail; no callee retail inlines or drops. The sweep difference is not source-visible at call level; remaining suspects are the oracle sweep model (tie order) or non-call edges (address-taken fns, data refs).
+
+Residue small fns (agent 11-03)
+- PAID (a11.patch, gate NET ok, whole-file 695 -> 685): CL_Netchan_Encode 14->0 lines with key = challenge ^ serverId ^ seq (PINNED, fcmps). ConDrawInput_DetailedCmdMatch 8->0 with "float cy = y; y = cy + fontHeight" (a11_c2.py; a plain += or fh local stays swapped, PINNED). Both globals are plain loads, so spelling order decides.
+- CL_Netchan_Decode (4 lines: seq/challenge byte loads dl/bl swapped): tried challenge-first assignment, xor operand swap, direct field xor both orders, decl order swap (a11_n1/n2/d3-d6): no change. Open.
+- CL_SetCGameTime serverTime = realtime + serverTimeDelta (a11_e1): still edx/eax swapped; listed as a numbering tie (good at k 7..11 above). TIE.
+- CG_OffsetFirstPersonView vieworg[2] += viewHeightCurrent: local copy of vieworg, local copy of viewHeight, both (a11_o1-o3): fld/fadd operands stay reversed (the c2 trick does not work here). Open.
+- G_GetPlayerViewOrigin (push 20.0f hoisted before fstp in retail): decl order, 16.0f/20.0f spelling, explicit VectorMA, hoisted minZ local (a11_g1,g3,g4): 2 lines unchanged. Scheduler tie.
+- HideWindowCallback: data slot layout (g_hwndGame +8 vs +4), not touched.
+
+## gfx /Op forwarding evidence (agent 11-03)
+Read-only, source-level (gfx/worktrees/gemini/target/verified/src + analysis/retail_functions.tsv); retail dll not disassembled.
+- No inlined AngleVectors in the gfx dll: AngleVectors 0x10059d80 (347 B) and AnglesToAxis 0x1005cab0 (66 B) are real functions; callers (R_CreateStaticModel, sun parse in r_bsp_load_obj) pass the vec3 by pointer. sin/cos is the inline-asm FastSinCos (fsincos), always fed from a scalar local (angle = angles[YAW]*RAD), so no vec3-element forwarding case exists here.
+- /Op CI users, verified: SinSquaredDeg 0x1005b870 (s = sin(angle * 0.017453292519943295) double) and InfinitePerspectiveMatrix 0x1005bbe0 (mtx[0][0] = tan((90.0 - fovX*0.5) * 0.017453292519943295) * k). Both forward a parameter/expression straight into __CIsin/__CItan with no store, but the input is a by-value float param, not an element loaded from a local vec3, so they do not show the CG_CalcCrosshairPosition shape.
+- Takeaway: shape that forwards = expression passed as the CI argument, no named local between. Try in the crosshair: tan/sin of (cg->gunYaw * RAD) written as a direct expression rather than via gunAng[1]. No evidence for forwarding through a stored vec3.
+- Round 2 (11-03): PAID CalcScreenX + CalcScreenPlacement (+DamageDirection site) 2 B each via split sum (a11_s4, a11b.patch, 685 -> 679). Operand swap (s1) no change, parenthesised (s2) and local offset (s3) worse. Item_ListBox_MouseEnter (m1 align swap, m2 OverLB local, m3 align into branch) and Menu_SetNextCursorItem (p1 idx local, p2 decl order, p3 inline arg) unchanged/worse: scheduler/RA ties. CG_FireWeapon, StartWeaponAnim, IntersectPlanes (1 insn moved), DSound (stack slots), Window_Paint not tried: pure insn-order, no source operand involved.
+
+## c2 arg IL order (agent 11-03)
+Slot fp_t6, GrenadePointer base 8, cg_draw_mp.obj TOTAL 54 (re-measured after reset with nop.py, src == main).
+- PINNED (sbs8 retail|ours): CG_DrawRotatedQuadPic is an LTCG custom-conv call (verts in edx via lea, not pushed); pushes
+  are material, color, angle (push ecx + fstp [esp]), y, x. Retail issues the verts[2][1] store and the x/y int loads at
+  unadjusted esp offsets before push ecx; ours pushes first. Everything else in the fn is identical.
+- DEAD (fcmps lines, all 8 = no IL change): gpa_1 inlined helper taking const float *pos (inl 1), gpa_2 x/y locals copied
+  from pointerPos before the call, gpa_3 (-yaw) parens, gpa_4 inlined helper with by-value x, y, yaw and -yaw inside.
+  So call-arg linearisation is insensitive to arg spelling, temps, by-value inline params and parens (SUPPORTED: 4 shapes).
+- Not done: hook of the IL builder that linearises args (no rule found). HYPOTHESIS left: retail difference is outside
+  the call statement (CG_DrawRotatedQuadPic declaration/custom-conv register choice, or TU compile order). Class fns not
+  attempted since no rule exists to apply.
+- Callee side (same agent, no build): CG_DrawRotatedQuadPic retail vs ours 0 lines (same frame, verts in edx, same stack
+  params); its other caller CG_DrawDamageDirectionIndicators 0 lines with identical lea edx/push sequence (PINNED). Oracle
+  ord.txt: callee E (13595) before GrenadePointer T (13604), so the custom convention is already known when the caller is
+  compiled; moving the callee later would drop the edx convention (both retail and ours use it). No param order, use count
+  or compile-order lever exists on the callee side. Remaining gap is inside GrenadePointer IL only (HYPOTHESIS: an
+  upstream statement shape, e.g. the inlined FastSinCos/AngleNormalize360 temps, shifting node numbering).
+- Upstream temps (same agent, fp_t6, 3 builds + reset; base 8 / TOTAL 54 re-measured). Earlier blocks are byte-identical
+  to retail, so the inlined AngleNormalize360/FastSinCos shapes already match. gpa_5 (rad = yaw*k local before FastSinCos)
+  8, TOTAL 54. gpa_6 (Kisak angle = vectoyaw(...) - viewangles[1]; yaw = AngleNormalize360(angle)) 6 lines but 100 vs 98
+  instrs, TOTAL 52. gpa_7 (both) same as gpa_6. Not landable (size differs); gpa_6 is the first shape to move this fn, a
+  lead only (HYPOTHESIS: the angle temp changes node numbering). fp_t6 reset with nop.py, TOTAL 54.
+- gpa_6 follow-up (same agent, 2 builds + reset, TOTAL 54). gpa_6 extra 2 instrs = fstp/fld [esp+0xc] of the angle
+  local after fsub (/Op rounding spill of a named float). Its tail is UNCHANGED (push ecx still before the pointerPos loads,
+  loads at +4 offsets); the lower difflines count came from the diff alignment, not a fix. Dropping the spill = base.
+  gpa_8 (yaw = vectoyaw(..) - ..; yaw = AngleNormalize360(yaw)) 34 lines, TOTAL 80. DEAD: the upstream-temp lead is closed.
+
+Small fns round 3 (agent 11-03)
+- PAID (a113.patch, gate NET ok): CL_Netchan_Decode 4->0: key = (byte)clc.challenge ^ (byte)clc.serverMessageSequence read straight from clc with NO challenge local (specs a113_dec.py; s1_A/B pass, s1_C (xor inside one cast) 4, s1_E/F with a challenge local 4). PINNED fcmps.
+- PAID: CG_OffsetFirstPersonView 4->0: block-scoped pointer local, float *vo = cg->refdef.vieworg; vo[2] += viewHeightCurrent (a113_p4.py). Failed: p1 operand swap 4, p2 vs.ps-> 81, p3 early vh local 4. PINNED.
+- G_GetPlayerViewOrigin 2 lines, 4 variants no change: g5 op= VectorMA (2), g6 yaw/leanf locals (6), g7 leanDist local (2), g8 ps pointer local (2). Open.
+- Item_ListBox_MouseEnter, Menu_SetNextCursorItem, FX cylinder width: not tried (time cap, build slot contention).
+- Round 3b (agent 11-03, MEASURED fp_t7, reset with nop): Item_ListBox_MouseEnter 2 lines unchanged with a pointer local wr = &item->window.rect[0] (a113_m4). Menu_SetNextCursorItem 8: int *cur = menu->cursorItem (a113_s1) 57 worse; second item local dropped (a113_s2) see below. FX width slot not attempted.
+
+== c2 3052 relink (agent 11-03) ==
+PINNED: full LTCG relink of main objects with Toolkit c2.dll 13.10.3052 (3077 link.exe accepts it): .text/.rdata/.data/.rsrc byte-identical to the 3077 link; only 253 header bytes (Rich/comp.id) differ, header 251 bytes worse vs retail. ALL stays 1699171. No fn gains/loses; crosshair/grenade-pointer unchanged. c2 version is not a lever. Details lab/w200/c2_3052_test.txt, tool ~/c2t.sh.
+
+FX + small round 4 (agent 11-03)
+Slot fp_t7, specs lab/w200/g11_*.py fx4_*.py sn4_*.py lb4_*.py; reset with nop.py. Nothing landed (0 gate runs).
+- G_GetPlayerViewOrigin (base 2): server text verbatim (single delta local, xyspeed/fBobCycle/delta decl order, "client->ps.origin[2] + 8.0 > origin[2]") 44; compare flip alone (8.0f) 10; single delta local alone 40. Worse; the 20.0f push stays after the VectorMA fstp (retail before it). DEAD.
+- FX_CalcOriginAndAxis cylinder (base 110, 402 insns): fx4_b no width local (GetVal read straight into VectorScale) 110 = h (copy propagated, same IL); fx4_c width assigned before height 131; fx4_d height split in two statements 150; fx4_p block-scoped primTemp alias pt 110. All no better than fx11_h. PINNED: the width local is not an IL lever (removing it is byte-identical to h).
+- Menu_SetNextCursorItem (base 8; regs cursor/items/item rotated ecx/edx/eax vs eax/ecx/edx at the first items[cursor] load): condition split "cursor>=count && wrapped" 17 (+1 insn), cursor += 1 spelling 8. "return item" variant did not apply (spec assert) - untested.
+- Item_ListBox_MouseEnter (base 2; retail stores dynamicFlags before loading rect align, ours loads first): a = expanded "flags = flags | OverLB" 2, b = int *df pointer 44. DEAD.
+
+Order fns round 4 (agent 11-03)
+Slot fp_t6, fcmps difflines per fn (base: FireWeapon 2, StartWeaponAnim 2, IntersectPlanes 2, DSound 18, Window_Paint 4). Specs o4_*.py. Nothing reached 0, nothing landed.
+- DSound_UpdateSample (18): PINNED the whole diff is one swap, dwLockLen1/dwLockLen2 stack slots (retail len2@0 len1@4 pLock2@8 pLock1@12; ours len1@0 len2@4). Declaration order has no effect (ds1 swap lens, ds2 lens first, ds3 reversed all: 18 each); the c2 packer ignores it.
+- StartWeaponAnim (2, inc esi / add ebp order): rate pointer for-loop 26 (size 59), local anim = i + 1: 2, ++i inside a while: 26 (size 59), const float *rates local: 6. No gain.
+- CG_FireWeapon (2, lea ebp,[ebx+0xf0] before the pushes in retail): init at declaration 2, ent->weapon in the early checks 40 (size 154), assignment moved below the checks 61. No gain.
+- IntersectPlanes (2, pop esi position): 1.0 / det double 2, det reused for each sum 50 (size 144), reversed local decl order 2. No gain.
+- Window_Paint (4 -> 2, PARTIAL LEAD, not landed): copying the Fade args into locals before the call (float fa = fadeAmount, fi = fadeInAmount; Fade(..., fa, fi, dc)) drops the three-load swap to one remaining line (ebx load of [esp+0x48] after UI_DrawSides). fi alone 2, fa alone 4, int cycle 4, fadeClamp local 4, fa+fi+fc 2, fi-first 2, fa/fi declared at function top 2. Next: find what moves the last ebx load.
+- Round 4b (agent 11-03): DSound_UpdateSample return dwLockLen1 + dwLockLen2 18 (no change, lea operand order stays), struct {void *p; DWORD len;} b1, b2 32, dataOffset = len1 + len2 74 (size 184). No gain. Window_Paint wp2 + int cycle local (o4_wp9) 2, unchanged; fa/fi declared inside case 1 does not compile (C2360 jump over init). Both still open.
+
+DSound slots (agent 11-03)
+- Slot fp_t6, 2 builds. DSound_UpdateSample extra read of len2 (specs o5_a, o5_b): "if (pLock2 && dwLockLen2)" 41 difflines (size 181 vs retail 180), nested "if (dwLockLen2)" around memcpy 41. Both add a branch and are worse than base 18; guards PINNED not retail shape. Slot swap still open. Kisak grep timed out, not done.
+
+## Single-swap rule (agent 11-03)
+Slot fp_t7 (src synced to main, rebuilt; base FireWeapon/StartWeaponAnim/IntersectPlanes 2 lines each). Probe c2r.dll via
+fp_t7/sch/rd.sh, logs fp_t7/ra/sw1.txt, ip1.txt; one-edit runner fp_t7/sch/try.sh (build ~1 min).
+- PINNED (sw1.txt, loop-tail block): StartWeaponAnim is NOT a +0x2c/+0x36 tie. Nodes: n3 load [esp+0x10] prio 0xa000, n1 add ebp,4
+  prio 0x2000 (op 2d), n2 inc esi prio 0x1800 (op 21), n4 dec 0x1400, n5 store, n6 jne. n1 is ready at cycle 0, n2 only at
+  cycle 1 (it waits on n1: flags WAW chain add -> inc -> dec, HYPOTHESIS on the edge kind). So the order is fixed by the
+  pre-RA IL order of the two induction-variable updates (loop optimizer), before the scheduler runs. Retail needs inc esi
+  (i+1 IV) to come first in the IL.
+- IntersectPlanes: pop esi is n16, prio 0x800 (lowest), ready from the start of the last xyz block; it fills the first int slot
+  nobody higher wants. Ours lands 1 insn later than retail. Not decoded further in the cap (needs the issue hook 0x107b54bd).
+- DEAD (StartWeaponAnim, 2 lines unless noted): i + 1 == activeAnim 4, ++i 2, weapInfo decl after i 2, weapInfo assigned
+  inside loop 25. Ordinal test (b): 1 or 2 dummy extern fns inserted right before StartWeaponAnim 2/2, before IntersectPlanes 2.
+  Function ordinal shift by 1-2 does not flip either: these two are not ordinal-parity ties (SUPPORTED, 2 fns only).
+- Rule (SUPPORTED): the single-swap residue splits into (1) IL-order swaps fixed before scheduling (IV update order,
+  StartWeaponAnim), and (2) low-priority filler placement (pop/push, IntersectPlanes, GrenadePointer push). Neither is the
+  +0x36 tie key. Next: hook the loop optimizer IV list (where add/inc tuples are appended) to see what orders the IVs.
+- DEAD (coordinator follow-up, CMod_LoadPlanes header lever): explicit rate pointer, anim 1..20, header "i++, rate++" 26 / "rate++, i++" 28;
+  i 0..19 with i+1 args and "i++, rate++" 22. A source pointer variable changes the frame and drops the retail 20-down counter, so retail uses the subscript form.
+- DEAD (round 3): do { } while (++i < 20) 2; float rate local before the if 29 (loses the 20-down counter); (rates + 1)[i] in both calls 2.
+  Spelling of the loop/index does not move the IV update order. Next: hook the c2 strength-reduction pass and log the IV append order (not done).
+- IV hook round (agent 11-03, probe c2s.dll = insert-after 0x1075f093 / insert-before 0x1075f25b hooks, log fp_t7/ra/sws.txt):
+  PINNED: in the pre-RA IL (A walker 0x1077fa92 dumps a block back to front) the loop tail is add ebp,4 (06a4f9d0, op 0x2d),
+  inc esi (06b282cc, 0x21), dec (0x1e), jne. So the ptr update is already first in the IL before RA/scheduling.
+  PINNED: the inc tuple never passes through insert-after/insert-before (made in place); the add tuple is placed by the
+  generic tuple builder ending at 0x1076bdd3 (new tuple esi inserted after cursor [esp+0x14]); the same builder serves many passes.
+  Tuple slots are reused, so pointer identity across log lines is not reliable.
+  HYPOTHESIS: SR inserts each derived IV update next to a fixed cursor, so the final order = the order SR walks its IV list.
+  Not found in the cap: the SR pass itself (caller of the builder; c2 has no frame pointers, needs a return-address log at
+  0x1076bdd3 with [esp+...] walk) and the key of its IV list. No source lever identified, no build spent.
+- SR pass located (agent 11-03, probe fp_t7/sch/c2x.dll = stock c2 + hook X at 0x1076bdd3 logging new tuple, opcode,
+  cursor and the first 6 c2 .text return addresses; log fp_t7/ra/swx.raw):
+  PINNED: per-loop SR driver 0x10766afb calls 0x1076720f, 0x10767308, 0x10767163, 0x10767080. 0x10767163 (ret 0x10766b2c)
+  creates the derived-IV tuples: in StartWeaponAnim exactly two builder calls, both IL op 0x264, from the same site:
+  06b2883c (preheader init, after cursor 06b27b80) and 06a4f9d0 (the add ebp,4 update, after cursor 06b28408, an op 0x63 tuple).
+  PINNED: 0x10767163 walks the loop body tuples in IL order: cursor [esp+0x14] starts at [[blk+0x1c]] and runs to the
+  loop end [esp+0x40]; the new update goes right after the cursor tuple.
+  PINNED: inc esi and dec are not built here (inc = the original i++ rewritten in place; dec = the 20-down counter, made elsewhere).
+  So the order is: the ptr update sits after the 0x63 cursor tuple, and the inc stays where i++ was. Retail order needs
+  the ptr update inserted after the i++ position. HYPOTHESIS: the cursor is the last use of the derived expression
+  (rates[i + 1] address) found in the walk, so the input is the IL position of that use relative to i++.
+  Every spelling tried (11 forms) keeps that position. No build spent this round.
+- Cursor round (agent 11-03): cursor 06b28408 (op 0x63) is in IL block 0x0a, not the tail block 6, so the ptr update is
+  first placed inside the loop body and moved to the latch later (PINNED from swx A rows: block field 0x0a vs 6).
+  DEAD: if (activeAnim != i + 1) with branches swapped 22. Already dead earlier: ++i at the top of a while 26.
+  The call args cannot be reordered (callee signature fixed). Open: which later pass moves the update to the latch.
+- Sink round (agent 11-03): no tuple move exists. c2s.dll insert-after/insert-before log (sws.txt) shows the update tuple
+  06a4f9d0 never relinked after its creation (only the slot-reuse lines before it). PINNED. So the update is not sunk by a
+  tuple pass; its block (0x0a, the else-call block, which falls through into the latch) is merged with the latch, and the
+  update ends up ahead of the latch i++ (inc). SUPPORTED (block numbers from the A walker, merge not hooked).
+  Consequence: the order is set by SR putting the update at the end of the body block that holds the last rates[] use.
+  Any body shape that moves that use into the latch changes the call code too (retail shows the same two-call body,
+  0 other diff lines), so no source lever fits retail. HYPOTHESIS: retail SR had a different cursor (e.g. a c2 build
+  difference, see c2_versions_11-03.txt). No build spent.
+
+IntersectPlanes/Window_Paint (agent 11-03)
+Slot fp_t6, specs o6_*.py, nothing landed (both stay 2 lines).
+- IntersectPlanes (2, pop esi 2 insns late, last xyz block uses no esi; esi last used in xyz[1] block): double z local then xyz[2]=(float)z 12 (size 142), int ok = 1; return ok 2, decl order det/invDet/v 2, if (!(fabs(det) >= 0.001f)) 6. KisakCOD text is a decompile (different shape), no help.
+- Window_Paint (wp2 base 2): the 3 loads after UI_DrawSides are the fillRect y/w/h register-cache reloads from [esp+0x48/4c/50]; retail order w,h,y (edi,esi,ebx), ours y,w,h. wp2 + border updates w,h,y 10; w,h,x,y 24; rectDef_t fillRect = ... at declaration 2. No lever found.

@@ -1,0 +1,49 @@
+LTCG register summary / custom convention, c2.dll 7.1 (md5 8460473c), 10-29 (cv round)
+
+RESULT
+- Every compiled function's record ([ebx] at the F hook 0x107724f6, same record as inl_notes' sym)
+  gets a register summary when it finishes compiling:
+    +0x21 bit 0x08 (dword +0x20 bit 0x800) = summary valid
+    +0xc3 byte = registers the function never touches, bit order = RA try order
+               eax=1 ecx=2 edx=4 esi=8 edi=0x10 ebx=0x20 ebp=0x40
+    (+0x81 = compiled size, as in inl_notes)
+  Examples (full fp_t link): CalcTracerFinalScale 08/7e (only eax used), Vec3Distance 08/7a,
+  G_ModelName 08/7a, SV_GetConfigstringConst 08/7a, ScaleTracer 08/60.
+- A caller compiled later keeps values in eax/ecx/edx across a call when the callee's mask says
+  it leaves them alone. That is the whole ScaleTracer difference: ours keeps tracerScale/range in
+  ecx/edx across CalcTracerFinalScale (mask 7e), so the widths get esi/edi as register params;
+  retail treats the call as clobbering eax/ecx/edx, so tracerScale/range go to esi/edi,
+  startWidth to ebx (register param), finishWidth to ebp (stack param; ebp is never a param reg).
+- Flag rule (PINNED on the tiny harness): the summary is valid only if the function is compiled
+  with global optimisation (/Og) AND every callee in its call list already has a valid summary at
+  that moment. It is cleared by:
+    * #pragma optimize("g", off) on the function (v1: callee 69 -> 86 B, ebp frame)
+    * a call to a not-yet-compiled function (cycle, v7) or to an external/unsummarised one
+    * propagation: v1/v7 also clear ScaleTracer's own flag.
+  It is NOT cleared by: noinline, static/extern, extern "C", dllexport, address taken,
+  separate definition order, a second caller, /Oy-, pragmas a/w/p/s/t on the callee, an inlined
+  helper (static or header inline I_fclamp; those compile first and carry their own summary).
+  Inlined helpers keep the caller's flag when the helper itself is summarised (v14, v16).
+- Compile order checked with the dump: even in the cycle probe the leaf callee compiles first;
+  a leaf can never be uncompiled when its caller compiles. So retail ScaleTracer saw a
+  CalcTracerFinalScale WITHOUT a valid summary although the callee bytes equal ours: retail's
+  callee must have had an unsummarised callee in its IL that left no code (or something not yet
+  identified). No such call is known (Kisak's CoD4 body only has iassert + I_fclamp, which keep the
+  flag and change the code). Do not invent one. Open.
+
+OTHER TARGETS (same dump, current tree)
+- G_OverrideModel, XAnimGetInfo, XAnimCopyAnimTreeNoNotify, CL_MouseEvent: own flag 0 and their
+  callees SV_XModelGet, Hunk_OverrideDataForFile, Com_Error, G_RegisterWeapon carry +0x21 = 0x20,
+  no summary. So their eax/stack param differences are NOT the callee-summary mechanism: they are
+  the function's own register allocation (a param that gets a register at entry is passed in it).
+  Work them with the RA rules (ra_notes.txt), not with callee summaries.
+
+TOOLS
+- lab/w200/cave_cv.s + patch_cv.py: F hook only; logs "F name", then "P prev" + "S" 64 dwords of the
+  previous function's record (now compiled). PREV pointer kept at 0x108b1f00 (.data slack).
+  Build: as --32 cave_cv.s; ld -m elf_i386 -Ttext=0x10865d50; python3 patch_cv.py c2.dll cave.elf c2cv.dll
+  Built copy + full-link runner: /home/nawaf/mlw/ora/cv/orc/{c2cv.dll,run.sh}
+  (docker run -v fp_t:/w -v orc:/vc cod2-msvc71-vs2003-ft sh /vc/run.sh UID -> fp_t/build/ordcv.txt, 16 s).
+- /home/nawaf/mlw/ora/cv: tiny LTCG harness for the tracer (gen.py variants v0-v25, run.sh = stock
+  c2, orun.sh = c2cv dump, s.sh = call-site summary, recs.py = record fields). ~10 s per batch.
+  v0 reproduces ours exactly; v1 (/Og- callee) and v7 (cycle) reproduce retail's convention.

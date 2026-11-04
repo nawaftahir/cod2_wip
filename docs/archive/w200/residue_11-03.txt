@@ -1,0 +1,62 @@
+CoD2MP_s.exe 1.0 residue inventory 11-03 (main build lab/r2w/fxh, same-offset diff vs retail)
+Total 695 B across 38 owners (.text 681, .rdata 14; no .data/.bss/rsrc/header diffs). Script: /tmp/res.py (same-offset runs, merge gap<=3, owner = last map symbol <= RVA).
+
+== By class
+ 392 B  A inline/gate (DEFER)                         LESSONS 10-31g, 11-03 DEFER x3; inl_notes Crosshair sections
+  81 B  H scheduler/RA ties (insn order, reg pick)    mostly "numbering ties" (LESSONS 10-31c); VM_Notify/nb_decode/Pickup_Weapon named in inl_notes; others NOT individually pinned
+  75 B  C x87/int issue order                         LESSONS 11-03 PINNED x87 RA oracle + c2 scheduler key/round 2
+  56 B  B frame slots (RA)                            LESSONS 11-03 FX lines; inl_notes FX RA oracle rounds 1-3
+  29 B  C x87 order inside inlines                    LESSONS 11-03 first-ref rule; 10-31 EvalPrimitive line 334
+  26 B  G global-load order swaps                     CL_SetCGameTime in inl_notes; Encode/Decode/OffsetFPV/ConDraw only generic (LESSONS 10-29 pairs, cdi1 no gain)
+  20 B  D 720.0f/160.0f pool slot                     inl_notes Data placement item 3 (DEFER)
+   7 B  E .bss statics order                          inl_notes Data placement item 4 (DEFER)
+   6 B  F two-float constant operand order (fadd c8/f4) partly: LESSONS CalcScreenPlacement entries (constants not folded); NOT pinned for X/DamageDir
+   2 B  ?                                             ?
+   1 B  I bss/data neighbour address (04 vs 08)       NOT explained
+
+== By owner (bytes differing, section, symbol, object, runs, first VA, class)
+  392 B  .text  ?CG_CalcCrosshairPosition@@YAXPAM0@Z               cg_draw_mp.obj  runs=8 first=004c2333  [A]
+   56 B  .text  ?FX_CalcOriginAndAxis@@YAXPAUEffectPrimitive@@QAMQ FxUtil.obj  runs=54 first=0049dac3  [B]
+   30 B  .text  ?CG_DrawCursorhint@@YAXPBUrectDef_s@@PAUFont_s@@MH cg_newDraw_mp.obj  runs=3 first=004bfb3c  [C]
+   29 B  .text  ?CG_DrawAdsOverlay@@YAXPBUWeaponDef@@HPBM1@Z       cg_draw_mp.obj  runs=2 first=004c2960  [C]
+   16 B  .text  ?G_GetPlayerViewOrigin@@YAXPAUgentity_s@@PAM@Z     g_client_mp.obj  runs=1 first=004f7a41  [H]
+   16 B  .text  ?CG_DrawGrenadePointer@@YAXMMPBM0@Z                cg_draw_mp.obj  runs=1 first=004c3b4e  [C]
+   15 B  .text  ?XAnimCalc@@YAXPBUDObj_s@@IMPAUDObjAnimMat@@_N2PAU xanim.obj  runs=1 first=004889d9  [C]
+   14 B  .text  ?EvalPrimitiveExpression@@YA_NTsval_u@@PAUVariable scr_compiler.obj  runs=1 first=0046c4f8  [C]
+   12 B  .rdata __real@43200000                                    g_combat_mp.obj  runs=1 first=005836d2  [D]
+   11 B  .text  ?Item_ListBox_MouseEnter@@YAXPAUitemDef_s@@MM@Z    ui_shared_mp.obj  runs=1 first=005363aa  [H]
+    9 B  .text  ?DSound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@ play_dsound.obj  runs=9 first=004b6a8a  [H]
+    7 B  .text  ?CG_FireWeapon@@YAXPAUcentity_s@@HH@Z              cg_weapons.obj  runs=1 first=004d0ec1  [H]
+    6 B  .text  ?VM_Notify@@YAXIIPAUVariableValue@@@Z              scr_vm.obj  runs=3 first=0047e6d3  [H]
+    6 B  .text  ?IntersectPlanes@@YAHPAPBMQAM@Z                    com_math.obj  runs=1 first=004291fe  [H]
+    6 B  .text  ?CL_SetCGameTime@@YAXXZ                            cl_cgame_mp.obj  runs=1 first=004030bd  [G]
+    6 B  .text  ?CL_Netchan_Encode@@YAXPAEH@Z                      cl_net_chan_mp.obj  runs=2 first=004114a2  [G]
+    6 B  .text  ?CG_OffsetFirstPersonView@@YAXXZ                   cg_view_mp.obj  runs=2 first=004c8cc9  [G]
+    5 B  .text  ?Menu_SetNextCursorItem@@YAPAUitemDef_s@@PAUdispla ui_shared_mp.obj  runs=4 first=005381b0  [H]
+    5 B  .text  ?Com_ErrorCleanup@@YAXXZ                           common.obj  runs=5 first=00430a37  [E]
+    4 B  .text  ?Window_Paint@@YAXPAUdisplayContextDef_s@@PAY13CA@ ui_shared_mp.obj  runs=2 first=00533ca1  [H]
+    4 B  .text  ?StartWeaponAnim@@YAXHPAUXAnimTree_s@@H@Z          cg_weapons.obj  runs=1 first=004cd508  [H]
+    4 B  .text  ?SV_DirectConnect@@YAXUnetadr_t@@@Z                sv_client_mp.obj  runs=2 first=00451e1a  [H]
+    4 B  .text  ?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z           g_items_mp.obj  runs=1 first=00517ec4  [H]
+    4 B  .text  ?ConDrawInput_DetailedCmdMatch@@YAXPBD@Z           cl_console_mp.obj  runs=4 first=00405a79  [G]
+    4 B  .text  ?CL_Netchan_Decode@@YAXPAEH@Z                      cl_net_chan_mp.obj  runs=2 first=00411517  [G]
+    3 B  .text  ?player_die@@YAXPAUgentity_s@@00HHHPBMHH@Z         g_combat_mp.obj  runs=3 first=0051c6c2  [D]
+    3 B  .text  ?nb_decode@@YAHPAXPAUSpeexBits@@0@Z                nb_celp.obj  runs=3 first=004e34e3  [H]
+    2 B  .text  ?FX_AddFxToScene@@YAXPAVEffect@@H@Z                FxPrimitives.obj  runs=1 first=00491398  [H]
+    2 B  .text  ?Com_GetSubtitleStringEdReference@@YAPBDPBD@Z      com_sndalias_load_obj.obj  runs=2 first=0042f288  [E]
+    2 B  .text  ?CalculateWeaponPosition_Sway@@YAXXZ               cg_weapons.obj  runs=2 first=004cf10c  [?]
+    2 B  .text  ?CalcScreenX@@YAXPAMH@Z                            screen_placement_mp.obj  runs=2 first=00449ddc  [F]
+    2 B  .text  ?CalcScreenPlacement@@YAXPAM000HH@Z                screen_placement_mp.obj  runs=2 first=00449f86  [F]
+    2 B  .text  ?CG_DrawDamageDirectionIndicators@@YAXXZ           cg_draw_mp.obj  runs=2 first=004c3939  [F]
+    2 B  .rdata __real@44340000                                    g_missile_mp.obj  runs=1 first=005836ae  [D]
+    1 B  .text  ?fire_grenade@@YAPAUgentity_s@@PAU1@PAM1HH@Z       g_missile_mp.obj  runs=1 first=0051bfb4  [D]
+    1 B  .text  ?PlayerCmd_finishPlayerDamage@@YAXUscr_entref_t@@@ g_client_script_cmd_mp.obj  runs=1 first=005252da  [D]
+    1 B  .text  ?HideWindowCallback@@YGHPAUHWND__@@J@Z             assertive.obj  runs=1 first=0040106a  [I]
+    1 B  .text  ?G_RunMissile@@YAXPAUgentity_s@@@Z                 g_missile_mp.obj  runs=1 first=0051ba94  [D]
+
+== Class notes
+H: operand/insn order only (e.g. G_GetPlayerViewOrigin: push 20.0f hoisted before fstp; Menu_SetNextCursorItem/Pickup_Weapon/SV_DirectConnect/Window_Paint: register pick or arg load order; DSound: stack temp slot). Same family as 10-31c numbering ties / 10-31f first-ref order.
+G: two global loads swapped (mov ecx,[A]; mov eax,[B]) = scheduling tie, same class as H.
+F: constants 0xb68df4/0xb68dc8 added in opposite order = expression term order (a+b+c association) per fn.
+I: HideWindowCallback differs by one operand byte (table slot 0x59bb04 vs 0x59bb08): neighbouring .data/.bss global order, 4 B apart.
+No obvious single-edit fix found; no gate runs used, nothing committed.

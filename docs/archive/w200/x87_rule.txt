@@ -1,0 +1,48 @@
+x87 commutative operand roles (fmul/fadd: which operand gets fld, which is the memory operand, and
+whether the other value stays on the FPU stack). Round x8, 10-29. Base: main 99.679% (ALL 1694379).
+
+FAST HARNESS (new, use it first)
+  /home/nawaf/x8/x8h.py SPEC.py  -- private copy of target/src in /home/nawaf/x8/src (refresh with
+  cp -r claude_client/target/src when main moves). Compiles N variants of one TU with the real OCFLAGS/CFLAGS
+  minus /GL, plus /FAs, 16 in parallel in cod2-msvc71-vs2003, ~3 s per batch. SPEC: FILE, FN (substring of
+  the PROC name), VARS [(label, [(old,new)])], optional BASE, ALLREP, MEASURE(lines), DUMP=label.
+  Examples: /home/nawaf/x8/lag1.py .. lag5.py (CG_DrawLagometer).
+
+RULE 1 (PINNED in the harness, CG_DrawLagometer): a value computed in the SAME basic block as the
+  multiply is consumed: it is the "fld" side, the other operand becomes the memory operand
+  (retail `fsub [a]; fmul [scale0]`). A value defined in an EARLIER block (a named local assigned before a
+  switch/if/loop boundary) is treated like a variable: the other operand gets fld, the value stays on the
+  stack (`fld [scale0]; fmul st(1) ... fstp st(0)`). One boundary is enough, even a constant
+  `switch (3) { case 3: ... }`: with the screen_placement.inl switch, x (defined before the switch) is
+  always kept; `do { } while (0)` (no real boundary) keeps the consumed form.
+  Evidence (lag2.py): the snapshot site written as straight code `x = ...; x = sp0 * x + max0;` -> fmul [sp0];
+  the same plus `switch (3) {case 3:}` around it -> fld sp0; x's def moved inside the case -> fmul [sp0].
+  Declaration order (24 perms), x spelling (4 forms), color-select position (5), nosplit/x*s forms of the
+  inl case 3: no effect, because none of them moves x's def across the switch boundary.
+RULE 2 (still holds, numbering): when both operands qualify, the role follows c2's per-function
+  numbering (lower = memory operand). Shown here: the same by-value inlined helper at different sites
+  flips per site depending on how many other sites use it (lag5.py: snapshot site A consumed when only it
+  uses the helper, kept when all 4 sites do). So Rule 1 is necessary, not sufficient.
+
+RETAIL SHAPE, CG_DrawLagometer: retail keeps x in the frame loop (fld sp0) and consumes x in the snapshot
+  loop (fmul [sp0]); y is kept in both. Only the CL_DrawStretchPic(x, y, w, h, 3, 3, ...) by-value shape
+  (args evaluated right to left, so x is assigned last, inside the inlined body's first block) gives
+  "x consumed, y kept" at the snapshot site (lag5.py 'helper A', same-TU probe helper, not shippable).
+  Full builds (real CL_DrawStretchPic calls, Kisak shape): x8a (site A) ALL 1103054, x8b (both snapshot sites)
+  1102983: LTCG inlines CL_DrawStretchPic but NOT the nested CalcScreenPlacement (calls 0x449ee0), the fn
+  shrinks 928 -> 903/899 and the layout breaks. Dead as is.
+  NEXT: the nested inline decision for CalcScreenPlacement inside the inlined CL_DrawStretchPic at the
+  snapshot sites (inl_notes.txt mechanics: nested site takes the outer count; CalcScreenPlacement cost vs
+  site count). If retail's snapshot loop is CL_DrawStretchPic, its count must clear that bar: check loop
+  exits / statement shape of the snapshot loop (Kisak: color select, v *= vscale, clamp, one call).
+
+OTHER TARGETS (looked, not fixed)
+- CG_CalcViewValues (9 lines): inlined BG_GetSpeed. Retail inline copy `fld v0; fmul [v0]; fld v1; fmul [v1]`,
+  but retail's own BG_GetSpeed (0x514cd0) has the CSE'd `fld v1; fld v0; fld st0; fmul st1 ...` form that ours
+  emits at the inline site. So the inline copy in retail is not the same IL; cross-TU, not reproducible in the
+  non-/GL harness. Lead: retail CG_CalcViewValues may compute the speed itself or pass a different ps form.
+- CG_CalcCrosshairPosition: retail evaluates tan's argument first (stores fov*k), then the dot, then calls tan
+  (fdivp). That is evaluation order of `horiz / (forward * tan(...))`, not operand roles.
+- CG_DrawGrenadePointer, CG_DrawAdsOverlay, G_GetPlayerViewOrigin: scheduling (push / fchs order), not roles.
+- CG_DrawTracer: fn is misaligned by a prologue push (ebx), the dot roles are a small part of 177 lines.
+- XModelCalcBasePose (/Op add chain): not attempted this round.

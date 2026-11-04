@@ -1,0 +1,288 @@
+Frame / slot layout, w200 10-28 (no verified gain yet; base fbase ALL 99.438%)
+
+Observed (retail vs ours slot tables via lab/w200/slots.py, frame-relative):
+- Block-scope locals get the TOP slots, above function-scope ones and arrays.
+  Retail CG_DrawCompassFriendlies: playerY (inner block) alone at -12 above the vec4 arrays;
+  ours: the second-loop block locals (radius/s, address-taken) sit at -60/-52, retail has them at
+  -136/-132 right after delta = they are function-scope in retail.
+- try_b (second-loop "float yaw,dist,radius,s,c,x,y,w,h" moved to fn scope): frame 0xa4 -> 0xac
+  (retail value), diff lines 350 -> 342, but fn +16 B (2983 vs 2967) and ALL 63-69% (shift). REJECTED,
+  but the direction is right: next try = same move plus keep loop-1 locals/temps count unchanged
+  (the +16 B comes from new spills; check with fdiff which spills appeared).
+- try_a (playerY as vec2_t playerPos): worse (824 diff lines), array scalarised into bottom slots.
+- CG_InitXAnimTrees try_c (indexed cg->bgs.clientinfo[i] loop): gives retail pointer-compare IV
+  (cmp esi,end) instead of our memory down-counter, but anims stays in esi and &anims->size is not
+  hoisted/spilled; size changes -> REJECTED. Retail hoists lea eax,[anims+4] as a separate value:
+  the inlined XAnimCreateTree must read size through a pointer the caller computes; source shape unknown.
+- DSound_UpdateSample: only dwLockLen1/dwLockLen2 slots swapped (retail dwLockLen2 lower).
+  Both have 4 refs (tie); skill rule "ties by earlier last use" predicts what retail does, so an
+  extra ref on dwLockLen1 in ours (dataOffset = dwLockLen1 copy) is the suspect. Not built.
+- CG_DrawCrosshairNames: register residue (cC_notes), not a frame issue. Not attacked.
+Patches tried: frame_try_a/b/c.patch (all rejected, kept for reference).
+
+Round 2 (coordinator follow-up):
+- try_b extra 16 B = disp8 -> disp32: the address-taken loop-2 locals land at [esp+0x84]/[0x88]
+  (>0x7f), plus one alignment lea. Retail keeps them at 0x34/0x38. So the size gap is slot placement,
+  not new spills.
+- try_g (= try_b with the fn-scope line moved before delta): byte-identical to try_b. Decl order is
+  irrelevant, also for scope-moved locals (confirms the skill rule).
+- try_d (both loops float lists at fn scope): 2979 B, 402 diff lines, worse.
+- try_h (only radius,s at fn scope): size == retail, ALL 99.440 (+34 B vs base) but fn diff lines
+  350 -> 380 and frame still 0xa4; not a frame fix, not kept.
+- DSound try_e (return dwLockLen1 + dwLockLen2): -1 B, same 18 diff lines; rejected. The
+  dataOffset=dwLockLen1 ref cannot be removed without changing behaviour (pLock1 NULL case).
+- InitXAnimTrees try_f (+try_c, XAnimTreeSize(anims->size) without animsSize local): no change vs c.
+Open lead: retail ranks the loop-2 address-taken pair with delta (low), ours ranks them after all
+scalars; their weight must come from the first loop (shared vars whose refs there are memory refs).
+
+Round 3 (rab/var/cf*.cpp, rdv.sh, fdiff window 6000; base cf0 = 643 lines, 2967 B, frame 0xa4):
+- Retail uses [esp+0x34]/[0x38] for CompassIconSize(&w,&h) in BOTH loops: w,h look shared across loops.
+- Frame 0xac (retail) whenever loop 2 uses fn-scope locals and loop 1 shares at least w,h with them.
+  cf3 share w,h: 613 lines, 2983 B | cff share radius,w,h: 613, 2983 | cfe share w: 625, 2983
+  cfd share yaw,dist,w,h: 562, 2989 | cfc share x,y,w,h: 588, 2995. More sharing = fewer diff lines
+  but more disp32 (ours puts the shared w,h at 0x84/0x88, i.e. ranks them low).
+- Size-equal variants (2967) all worse: cf4 share s,c,w,h 709 | cf7/cf9 w,h(,radius) fn-scope but
+  both loops keep own decls 672 | cfg share yaw 993 | cf1/cf2/cf8 2983 and 738-751.
+- Oracle: RA_FN must be the full mangled name (?CG_DrawCompassFriendlies@@YAXPAUrectDef_s@@PAUMaterial@@PAM@Z);
+  its pick log is register picks only, it does not log frame slots, so the slot rank of w,h is not visible there.
+Open: why shared w,h rank low in ours (few memory refs after x87 loads?). Next: count w,h memory refs
+in retail vs cf3 with slots.py; try reading w,h directly in the draw calls instead of via x,y.
+No patch kept (no size-equal improvement).
+Round 4: slots.py on fdiff-reconstructed sides (cf3): retail w,h slots have 5 refs each, ours 5/3;
+ours loads w into a GPR once (mov edi,[w]) and pushes it for several draw calls, retail reloads from
+memory per call. So the missing refs are register residue (edi free in ours), not a source shape of w,h.
+(slots.py offsets drift across cdecl call cleanups; per-ref labels are approximate.)
+- cfh vec2_t size shared (both loops keep own other locals): 765 lines, 2967 B, frame 0xa4. Worse.
+- cfi vec2_t size + loop-2 locals fn scope: 777, 2983. cfj share radius,s,c,w,h: 751, 2983.
+Still no 2967 B variant below 643 lines; no patch. rdv.sh now refuses a non-mangled RA_FN.
+Round 5: correction to round 4. With [esp+N] normalised, cf3 vs retail differ in only 23 instruction
+lines (a lea ebx,[ebx] pad, 3 small load reorders, tail alignment). edi use is identical on both
+sides (actor copy / rect->... reloads at the same points); the "w in edi" reading was a mislabel from
+slots.py drift. So cf3 register allocation already matches; the whole remaining gap is frame slot
+assignment (+16 B = disp8->disp32). Next: a drift-free slot map (track esp per basic block, or take
+offsets from the fdiff aligned pairs directly) to list which variables retail places low.
+Round 6: aligned-pair slot deltas (cf3 ours raw offset - retail raw offset over difflib-equal
+normalised instructions): 24 distinct deltas, top +4 x16, +8 x13, -4 x11, +20 x10, +80 x7, +40 x7.
+So cf3 is a broad permutation of most frame slots, not just w,h. No single-local scope/ref tweak
+will fix it; needs a per-variable slot table (source var -> retail slot) first. Not converged.
+Round 7 (anchors from difflib-aligned pairs, /tmp script, not kept):
+- The retail pair at 0x34/0x38 in BOTH loops is the first two-lea address-taken pair (two separate
+  leas, fsub/fadd [reg+8] interleaved) = most likely FastSinCos &s,&c, not w,h. cf4 (share s,c):
+  every loop-2 lea is exactly retail+8 (0x3c vs 0x34, 0x48 vs 0x40), frame 0xa4 vs 0xac, 2967 B, 709 lines.
+  So with s,c shared ours is a uniform 8-byte shift: retail has 8 more bytes of frame (one extra
+  8-byte object or two extra 4-byte locals) that our source lacks.
+- s,c-shared combos, all 2967 B unless noted, none below base 643: k5 (+dist) 676, k3 (+w) 703,
+  k6 (+x,y) 713/2976, k2 (+radius) 722, k1 (+w,h) 738/2983, k4 (+yaw) 986/2951.
+Next: find the extra 8 retail bytes (an unshared copy, e.g. loop-1 w,h or a separate loop-2
+vec2) on top of cf4; it is the frame-size lever with s,c shared.
+Round 8 (lab/w200/cmp_align.py VAR.diff = aligned esp-ref mismatch count + mismatched leas):
+- cf4 + a loop-2-scoped extra (m1 w,h / m2 radius / m3 vec2_t delta / m4 yaw,dist / m5 x,y):
+  all byte-identical to cf4 (709 lines, 0xa4, 161/212 esp refs differ). Loop-2 block locals reuse
+  dead loop-1 slots, so they never grow the frame.
+- Reading: frame 0xac appears only when loop 1 owns its s,c (try_b: nothing shared, 0xac). So retail
+  likely does NOT share s,c; its two s,c pairs both land at 0x34/0x38 because each ranks the same.
+  Back to a ranking problem on try_b: the loop-2 s,c must outrank the other fn-scope locals.
+Round 9 (try_b = rab/var/tb.cpp: 629 lines, 2983 B, frame 0xac, 134/203 esp refs differ):
+- Moving any subset of loop-2 locals back to block scope (r3 x,y / r4 w,h / r5 radius / r6 yaw,dist)
+  is byte-identical to tb. Only "all loop-2 locals block-scoped" (cf0) gives 0xa4. So the slot
+  ranking of loop-2 locals does not respond to their scope at all once one of them is fn-scope.
+- r1 (x,y inlined into the UI_DrawHandlePic call): 2981 B, 655 lines, worse.
+No source shape found that lowers s,c in loop 2; open.
+Round 10 (lab/w200/cmpt: body.h+run.sh+an.py = synthetic two-loop probe; rq.sh+qs.py = real TU
+compiled with plain cl /O2 /FAs, listing gives named slots per local):
+- Real TU non-GL frames: cf0 128, tb 136, cf3 136, cf4 128: the same +8 split as LTCG (0xa4/0xac),
+  so non-GL tracks the frame-size effect. Slot ORDER under non-GL is not validated against LTCG
+  (LTCG has inlined helpers, frame 164/172), so it is a filter only, not proof.
+- Synthetic probe does not track the real fn (try_b analog +24, not +8); dropped.
+- Non-GL tb: loop-2 (fn-scope) s,c at -76/-80, loop-1 s,c at -28/-32: never the same slots.
+- Sweep of 511 loop-1 sharing subsets was set up but cancelled: compiles take ~1 min each under
+  current docker load (other agents running), too slow without a validated proxy.
+Round 11: plain /O2 vs LTCG check FAILS. Plain cf3 takes addresses of delta,radius,c,s,fadedColor,
+actorColor (w,h not address-taken: CompassIconSize inlined in the TU), 8 stack leas in loop 1;
+LTCG cf3 has 15 stack leas with a different pattern. Different inlining = different locals set, so
+the plain listing cannot rank LTCG slots. 511-variant sweep not run (no valid proxy).
+Round 12: LTCG slot logger WORKS (lab/w200/cslot):
+- c2rb.dll = s22/tools_oracle/cave_rb.s patched (patch_ra.py) onto /home/nawaf/rgb/vc/c2.dll.
+  rs.sh v.. builds rab/var/v.cpp under LTCG with it and keeps v.ra2.bin (heap at next fn start).
+- sym.py snap.bin: one-pass scan for local records (+4 name, +0x18 frame off, +0x1c size, +0x20
+  storage, +0x28 id, +0x30 = 0x50001 when final). In ra2 the CG_DrawCompassFriendlies records
+  (scope 0456ef14, f30 50001) hold the FINAL frame offsets; esp offset = 0xac + off for cf3.
+  ra1/ra3 hold pre-assignment offsets (declaration order), not useful.
+- cf3 ours (esp offsets; suffix 1 = loop-1 block local, ids >45450): angle1 8, radius/radius1/pingMat1 12,
+  playerY 16, dist/x1/yaw1 20, delta/bias1 24, compassFadeOutAlpha 36, dist1 40, fadedColor 44,
+  c 60, s 64, y/yaw 68, i 72, x 80, centerX/result1 92, centerY 96, h 100, y1 104, w 108,
+  flash1 112, c1 116, s1 120, actorColor1 152.
+- vote.py (ours slot -> retail slot by voting over aligned differing esp refs with unknown push
+  depth) is ambiguous: the depth sweep makes every shift-by-4 vote too. Retail slots for the
+  mismatched locals are therefore NOT pinned yet; needs per-instruction push depth on the ours side
+  (now possible: ours slots are known, so solve d per instruction from the ours slot table, then
+  read retail slot = r - d).
+Round 13: cslot/rmap.py (depth tracked on our side, re-synced after branches to the nearest known
+slot) on cf3: 74 esp refs still land on no known slot, so depth is still wrong in places; votes are
+thin (1-7). Weak hints only: fadedColor 44->24 (6 votes), dist1 40->40, c 60->60, s1/c1 -> ~40/36,
+x 80->72/80. Not pinned; no source change made. A reliable depth needs the real control-flow
+graph (fdiff lists code in address order; jcc targets carry their own depth), e.g. objdump of
+both exes with a CFG walk instead of the linear diff.
+Round 14: cslot/cfg.py (objdump both fns, esp depth propagated along the real CFG, our slot names
+from cslot/V.slots made by sym.py; retail slot = offset - retail depth). Clean votes now (5-22).
+PINNED retail frame slots (esp at depth 0, frame 0xac):
+  8 angle1 | 12 radius(+radius1) and y1 | 16 playerY | 20 dist1 (+ one of dist/x1/yaw1) | 24 delta |
+  28 temp | 32 compassFadeOutAlpha | 36 c AND c1 | 40 s AND s1 | 44 fadedColor | 64 i | 76 flash1 |
+  84 h | 88 centerY | 96 centerX | 108 w | 112 actorColor1.
+  => retail s,c of BOTH loops sit at 40/36, right above compassFadeOutAlpha.
+cf3 ours: s1/c1 120/116, s/c 64/60, dist1 40, y1 104, h 100, flash1 112, actorColor1 152.
+cf4 ours (s,c shared, frame 0xa4): s 40 / c 44 (retail has c below s), cfoa 36 (retail 32),
+  dist1 48 (retail 20), fadedColor 52 (44), y1 104 (12), h 96/128, actorColor1 144 (112).
+  So on cf4 the remaining errors are: dist1 and y1 do not share low slots (20, 12) with the
+  other loop-1 scalars, c/s order flipped, plus retail has 8 more bytes at the top.
+Shared slots (one slot, several names) still blur per-name votes for x1/yaw1/dist.
+Next: on cf4, make dist1 and y1 interfere less (retail lets dist1 share with x1 or yaw1 and y1
+with radius), e.g. reorder the loop-1 assignments that keep yaw1 live across Vec2Length.
+Round 15: hill-climb over which loop-1 locals share the fn-scope set (loop 2 all fn-scope), scored
+by cslot/cfg.py "slot-equal refs" (depth-0 slot equal to retail, of ~288). Base cf0 153, cf3 161,
+cf4 126 (cf4 was a poor base), cfd 174.
+Best: g3 = loop 1 shares yaw,dist,h,y,s,radius (keeps own c,x,w): 192/287, 497 diff lines, 2973 B
+(+6), frame still 0xa4 (rect 172 vs retail 180). f5 (yaw dist h y s) 190/499/2973, f7 (yaw dist w y s)
+190/498/2973, g8 (g3 minus radius plus x) 191/497/2976.
+g3 named map: retail-equal: angle1 8, y/radius 12, playerY 16, dist 20, delta 24, cfoa 32, s 40,
+fadedColor 44, i 64. Wrong: c 60 (retail 36), c1 108 (36), yaw 36 (60/68), h 80 (84), centerY 84 (88),
+centerX 92 (96), flash1 100 (76), actorColor1 144 (112), x1 68 (80).
+Sharing c as well (h1/h2/f1) changes the instruction stream (736 insns) and drops to ~140: c must
+stay per-loop yet land at 36 in both. Still need the +8 top bytes and c below s.
+No 2967 B variant; no patch.
+Round 16: best i2 = g3 with loop-1 c moved to a separate fn-scope float c1 (loop 1 keeps block x,w):
+473 diff lines, 2976 B (+9), 736 vs 737 insns, slot-equal 199/287, frame 0xa4.
+Now retail-equal also: h 84, centerY 88, centerX 96. Remaining: c 60 / c1 64 (retail 36 both),
+yaw 36 (retail 60/68) -> c and yaw ranks swapped; i 68 (64), x1 76 (80), flash1 104 (76),
+w 112 (104/108), actorColor1 144 (112), +8 top bytes. i1/i5 (also x,w distinct) same as i2;
+i3/i4 = g3. Unsharing yaw (j1 block, j2 distinct yaw1): 524 lines, 186, worse.
+Round 17 (on i2): loop-2 block-local overrides all worse: l1 yaw 524/186, l2 dist 978/20,
+l3 yaw+dist 570/176, l4 c 686/138, l5 s,c 668/143 (lines/slot-equal). i2 (473, 199) stays best.
+Round 18 (on i2): ma actorColor fn-scope 504/189/2973; md angle, me flash, mf pingMat fn-scope =
+identical to i2; mc/mg yaw via temp "a" (both / else branch) 491,486 lines but 2992 B, 740 insns
+(adds code), slot-equal unchanged 199. None closer. i2 remains best (473, 199, 2976).
+Round 19: the one-insn gap on i2 is alignment padding, not code shape: retail enters loop 2 with
+"jmp A; lea esp,[esp]" (pad over to an aligned loop top), ours has a single "lea ebx,[ebx]" pad in
+loop 1. Pads follow code addresses, so they fix themselves once size matches. Other non-offset diffs
+are 4 small schedule swaps (a mov ecx,[global] or fmul moved by one slot near the playerY block and
+the two FastSinCos/x,y blocks), likely slot-dependent too. Loop-2 header shapes: n2 (actor init
+before for) and n3 (pointer-compare loop) identical to i2; n1 (actor=&arr[i] in body) 587 lines, worse.
+Round 20 (automated): cf0 normalised stream is NOT exactly retail: 16 insns differ ([esp+X]
+masked): frame, one align pad (ours lea ebx,[ebx] vs retail jmp before loop 2), and 4 one-slot
+schedule swaps (mov ecx,[global] / fmul / mov edi,esi). These swaps are present in every variant.
+cslot/hc.py = greedy hill-climb over scopes (per loop var: loop-1 block/shared/own-fn-copy, loop-2
+block/shared; angle/flash/pingMat/actorColor block/fn), reject if normalised diff > MAXN, score
+cfg.py slot-equal refs; batches of 8 via rab/rdv.sh; log cslot/hc.log (+ hc_cf0.log).
+- From cf0 (153/287, 643 lines): every single move scores <= 153 (plateau; the good region needs
+  loop 2 fully fn-scope plus several loop-1 shares at once). DONE at cf0.
+- From i2 (199/287, 473 lines, 2976 B): all 31 single moves <= 199. i2 is a local maximum.
+Best reached: 199/287 slot-equal refs, frame 0xa4, 2976 B. No patch.
+Round 21 (packer model, partial):
+- cslot/dump.py SNAP: raw final local records. Fields: +8 scope, +0x18 off, +0x1c size, +0x20 storage
+  (900 scalar / 2900 addr-taken), +0x28 id, +0x30 50001, +0x34 class byte (81 int/ptr-ish, 83 param/
+  pointer, 85 float, 86 array), +0x38 2010/2110/3010/2030. NO use weight in the record (the color
+  node at +0x10 is already freed in ra2), so the sort key is not readable from ra2.
+- Final-code memory refs per depth-0 slot (cfg.py internals), retail: 4:32 8:27 12:24 16:14 20:14
+  24:15 28:10 32:12 36:4 40:4 44:4 48:1 52:1 56:22 60:8 64:6 68:7 ... Not sorted by final ref count
+  (temp at 56 has 22 refs, above 4-ref slots), so the key is an earlier (IL) weight, not final refs.
+- Retail s and c have 4 refs each = both loops on ONE variable (ours i2 c/c1 2 refs each). So retail
+  shares s and c across loops (as cf4 does; cf4 keeps 737 insns). cf4 residual: c 44 (retail 36),
+  cfoa 36 (32), dist1 48 (20: retail lets dist1 share with x1/dist, not yaw1), fadedColor 52 (44).
+- To read the real key: hook the packer where +0x18 of a local record is written in c2 (not found yet;
+  approach = watch writes to record+0x18 between the ra3 and ra2 snapshot points).
+Round 22: stack-slot PACKER FOUND in c2.dll (MSVC 7.1 c2, LTCG), via winedbg watch on a local record +0x18.
+- 0x10790ad6 = packer. Pass 1 (list 0x108a78a4, next = item+0x30): kind 5 items (params) get fixed
+  entries. Pass 2 (0x10790cd6..): every other item in LIST ORDER is first-fit into the slot-entry
+  table (0x108a7890, 0x1c-byte entries, count 0x108a788c; entry +0 member bitset, +8 size, +0xc,
+  +0x10 offset): an entry is taken if size fits and no interference; else 0x10791426 makes a new entry.
+  0x10790e34..0x10790f0d then walks the entries and writes each member record +0x18 = entry offset
+  (store at 0x10790eb5), then 0x107304ac later rebases all negative offsets by a constant (sub edx,edi).
+- Packer item (= color.c node): +0 record ptr, +4 flags (byte 4 kind), +0x1c id, +0x20 size,
+  +0x30 next, +0x34 prev, +0x38 WEIGHT, +0x3c index. The list is sorted by +0x38 descending, ties
+  by creation index (cf4 order: compassFadeOutAlpha 12, dist1 10, s 10, c 10, radius 9 (x2 records),
+  i 7, temp 6, pingMat 5, temp 5, flash 4, y1 4, x1 4, dist 4, yaw1 3, ..., h 3, angle 3,
+  centerX 3, centerY 3, ..., playerY 2, w 2, yaw 2). +0x38 = n3-like use weight (REGALLOC.md).
+- Tools: cslot/c2rbd.dll (cave_rb + int3 at arm), cslot/dbgv.sh V ADDR N (watch, or MODE=b
+  breakpoint dumping 24 dwords at eax), cslot/items.py V (decodes V.dbg with names from V.ra2.bin).
+  Run: MODE=b bash cslot/dbgv.sh V 10790ce0 70; python3 cslot/items.py V  (needs rab/v/V.rsp+obj
+  and V.ra2.bin from rs.sh).
+- Not done: how entry order maps to final offsets (writer starts from the last entry; offsets come
+  from entry +0x10 set in 0x10791426), and solving retail weights backwards.
+Round 23: stack-slot PACKER RULE, complete (c2 0x10790ad6, cslot/pk/*):
+- Item list order = (size asc, weight +0x38 desc, creation index): all 4-byte scalars first, then delta/bias
+  (8 B), then fadedColor/actorColor (16 B). Pass 1 gives params (kind 5) fixed entries (count [0x108a789c] = 2).
+- Pass 2 tries only those, then 0x10791426(item, .., first=[0x108a789c]) does LAST-FIT: scan entries from the
+  NEWEST down to first, join the first with item size <= 2 * entry size (0x10791a6a), item bit not in the
+  entry interference union (+4) and members & A[item] empty (0x1077b3c9). Join: members |= bit, +4 |= A[item]
+  (0x107afac0), +0xc += weight, size = max. No fit: new entry (size, align from +0x2c).
+- Interference A = [0x108a7894][item +0x3c], sparse sets {base,next,bits}; NOT symmetric, the packer tests both
+  directions. Some sets (temps, pingMat) carry a stale tail (freed nodes) at packing; masking base to 32 and
+  stopping at a non-ascending base reproduces c2.
+- Offsets: entries qsorted (K&R qsort 0x107ae0c4, cmp 0x107ae9c2: sum weight*1000/size desc, unstable on
+  ties), then 0x10790e34 walks LAST to first, bump-allocating down (0x1077479d): densest entry = lowest esp
+  offset; an 8-aligned entry (delta) pads when the bytes above it are odd words (cf4 gap at 32).
+- So a low-weight item shares with the most recently created compatible entry, not the heaviest one.
+- Tools: pk/sim.py (w3.cmd trace -> offsets; cf0 cf4 g3 i2 tb all exact, one rebase delta -4);
+  pk/psim.py V TRACE SETS (predictive, from dumped sets: cf4 81/82 entries, layout = trace but one temp);
+  pk/pg.py (sets from page dumps: dbg.sh with w3.cmd + "x /1024x PAGE" at the first hit, A = 0x064b0df0 on
+  cf4); pk/cf4.sets.json; pk/whatif.py (weight perturbations and loop-variable sharing, scored on pins).
+- Retail by slot use in both loops (rg of 0x4d4af0): yaw 60 (loop1 S60 at insn 245/269, loop2 610/653),
+  dist 20 (241..328 and 621..630), radius+y 12 (both loops), x 80 (378, 683), w 108, h 84, s/c 40/36.
+  => retail keeps ONE fn-scope set yaw,dist,radius,s,c,x,y,w,h for both loops (no loop-1 block floats);
+  slot 20 = dist (10+4 refs), slot 12 = radius+y, slot 80 = x. Under cf4 interference the packer alone
+  never puts loop-2 dist with dist1 (whatif: needs dist weight >= 10), so the shared variable is the cause.
+- Built (rdv, same-run control pk0 = cf4: 126 slot-equal, 737 insns, 2967 B): pk1 no loop-1 floats 139
+  (745 insns, 2979 B); pk2 keep w,h 147 (743, 2976); pk3 keep w 142 (743, 2976); pk4 keep yaw,radius,y,h 138
+  (737, 2970). All beat cf4, none beats i2 (199) and none is 2967 B: no full build, no patch.
+- Next: sharing the floats costs 6-8 insns (745 vs 737): find what retail does differently in loop 1 code
+  shape with one variable set (likely the if/else yaw/dist block order); then psim on that variants
+Round 24 (on main 9145430): one fn-scope float set, loop-1 shape search, full builds.
+- Whole-file rule: the fn may grow to 2976 B (16-byte pad) without shifting the file; 2979 B (sh0, all
+  floats shared) shifts everything (ALL 69%). Proxy = same-offset bytes in the 2967-B window
+  (control 1481); it tracks full-build ALL deltas within ~10 B.
+- All floats shared (sh0): normalised stream = retail except pads and the 4 known swaps; size comes only
+  from disp8/disp32 of slots. Best family: fn-scope set + loop-1 block "float x, h;" (r1): 2970 B, proxy
+  1830. Full build cmpk_r1 ALL 1691701 vs same-run control 1691319 (+382), LNK 0 -> cmp_compass.patch.
+  (n3 = block yaw,x,w,h: +365.) Exact 2967 B appears only with block dist,x,w,h (1491) or x,y,h (1594).
+- No effect on the IL (identical bytes): declaration order of fn-scope or block locals, pingMat/angle/
+  flash at fn scope, an explicit const radians temp, loop-2 block subsets (x,h / h / x).
+  actorColor at fn scope moves it below the inlined L slots as retail does, but costs size (2976) here.
+- Mac 1.3 STABS (claude_client/stabs.py, sym 290395): fn-scope num,index,centerX,centerY,dist,yawTo,
+  x,y,w,h,posDelta,baseColorModdedByComapassFadeOut (vec4, = actorColor at fn scope),fadedColor,cent,actor,
+  compassFadeOutAlpha,team,icon,drawMaterial; per-loop block "const float radians". No s,c,radius,angle.
+- Remaining retail diffs (r1): yaw shares pingMat (retail: yaw+angle at 60, pingMat+radians temp at 68),
+  so fadedColor sits 8 high; playerY joins the slot-16 temp entry (retail: own entry at 160, plus 3
+  zero-ref slots 156/164/168 = items whose refs vanish after packing); c above s; flash/h/x/angle
+  disp32 vs retail disp8 (+3 B). psim.py now repairs stale sets from the trace (cf4, sh0, sh4 replay
+  0 mismatches); sets.sh V dumps sets for any rab/v build.
+Round 25 (main 2644c94, Mac STABS local set; proxy = same-offset bytes in the 2967-B window, main 1830):
+- rename yaw->yawTo, delta->posDelta: identical bytes (1830). radius stored in y (CompassDistToRadius(dist,&y),
+  x/y from y): identical bytes. actorColor as fn-scope baseColorModdedByComapassFadeOut: 1829.
+- angle folded into yawTo (no angle local): +6 insns, 2976 B, 1597 -> PC 1.0 keeps a separate angle value.
+- full Mac set (no loop-1 block floats, angle->yawTo, radius->y, actorColor fn-scope): 2979 B, 1557 (shifts file).
+- Nothing beat main; no cmp_compass2.patch. The Mac 1.3 local set does not reproduce the PC 1.0 packing.
+Round 26 (main 532779b, playerPos in): the retail frame is 8 B bigger because playerPos (vec3) has its OWN entry
+at the top (156..167, [1] = 160) instead of sharing actorColor's entry, less our 8-align gap at 32.
+Fix = actorColor at function scope (Mac name baseColorModdedByComapassFadeOut): frame 0xac like retail,
+slots 4..40 and 112..160 now retail-equal; only the yaw+pingMat entry (44, 10 refs) still sits before
+fadedColor (+4 for 44..63). Full build cmpk3_p4 ALL 1691934 vs same-run control 1691923 (+11)
+-> cmp_compass3.patch. playerPos-style copies in the loop-1 else branch or loop 2 keep a live store
+(+1 insn, worse); a lerpOrigin copy in the first loop adds 22 insns.
+Round 27 (main aa5d4d6): angle is not its own local. Writing the loop-1 angle into yaw
+("yaw = AngleNormalize360(refdefViewAngles[1] - fLastYaw)", passed to both CG_DrawRotatedPic calls) gives
+retail's pairing (yaw+angle 60, pingMat+temp 68, fadedColor 44). With the loop-1 "float x, h;" block also
+removed (every float at function scope) the stream equals retail except the 4 known swaps and pads:
+2970 B, proxy 2878 (was 2061), fdiff 12 lines. Full build cmpk4 ALL 1692756 vs same-run control 1691934
+(+822) -> cmp_compass4.patch. Keeping a block x,h or h gives 2954 B; block x gives 2841.
+pingMat initialised at its declaration rewrites the function (worse). Size is still 2970 (+3): next look at
+the remaining slot/pad differences with len-diff (h, inlined L temps, loop-2 pad).
+Round 28 (main 45b281f): retail CG_DrawCompassFriendlies is 2970 B (ret at 0x4d5689), not 2967: the fdiff
+window was 3 B short. Main is already 2970 B, and every [esp+X] and every encoded length equals retail; h
+and the inlined DrawRotatedPic temps are at retail's offsets (the earlier len diffs were from the old
+layout). psim is not needed any more. Left: 3 one-slot schedule swaps (normalised diff = 8 hunks):
+- loop-1 near branch: "mov ecx,[0x136a76c]" is hoisted above the yaw temp store (retail: after
+  "mov eax,[ebx+8]"), and dist's store "mov [esp+0x24],eax" comes before "mov eax,[0x136a700]";
+- after FastSinCos in both loops: "mov ecx,[esp+0x58]" / "mov ecx,[0x139ebb0]" lands before
+  "fmul [10.0]" of the inlined CompassIconSize (retail: after it).
+Tried, no help: dist before yaw (9 hunks), fadedColor before dist (2957 B), fadedColor first, CompassIconSize
+with *h = *w or h = w = ... (rewrites 93 hunks), explicit w/h stores inline (same 8 hunks). No patch.

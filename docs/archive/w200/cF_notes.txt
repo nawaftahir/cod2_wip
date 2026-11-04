@@ -1,0 +1,9 @@
+cF (10-28). Base main 5a1da22 (snapF copy, lvF.sh, fr.sh TAG FN ADDR PATCH builds+fdiffs, pv.py makes patches).
+PAID CG_DrawDevString: dC/cF_DrawDevString.patch = dx = (float)textWidth; ... dx = -dx; (negate after the sx/sy/dy decls). 23 B -> 0 diff, ALL 1,689,156 (99.371%), +23, size == retail, 0 LNK2001/2019.
+Tried, no gain (diff count unchanged or worse):
+ G_GetPlayerViewOrigin (2 lines: retail pushes 20.0 before fstp [esi+8]): locals for yaw/lean, += forms, hand-expanded VectorMA x3 forms, 16.0f literals, ps locals.
+ Item_ListBox_MouseEnter (retail mov edx,[esi+0x14] after or/store): swap horz/vert align order (8 lines), over local (2, -2 B), align copy moved into branches (24).
+ CG_DrawCursorhint (12 lines, fld rect->h before pushes; fadd vs push order): commuted rect->h+scale and rect->y+textHeight*0.5 (canonicalised, identical output), iw/ih locals (identical).
+ CG_DrawGrenadePointer (8 lines: pointerPos loads after fchs): material local (+1 B, same diff), -yaw local (size +5), scalar px/py (72 lines), decl order swaps (same).
+ CG_DrawAdsOverlay (8 lines): drawPos[1] first (worse), fx1/fy1 locals, a+a vs a*2 (identical).
+ Not attacked: remaining top-80 fns (CompassFriendlies, UI_Init, ...) are all in cA/cC/cE notes or LESSONS 10-25 as LTCG decisions.

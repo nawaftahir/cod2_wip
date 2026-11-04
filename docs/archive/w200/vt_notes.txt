@@ -1,0 +1,12 @@
+vt layout agent 10-27 (baseline ALL 1688009 = 99.304%)
+RESULT: no gain. FxPrimitives vtable order (ours Effect Cloud Tail OP Light Emitter Line Particle Cylinder Flash; retail Tail Effect Cylinder Cloud OP Particle Light Emitter Line Flash) did NOT move under any probe. Tools: ~/vt/{perm,blk,mv}.py + run.sh (probe builds, prints vt.sh line).
+Probes (each full lv.sh build, vtable order identical in all):
+- reverse the FX_Add* defs in FxUtil.cpp (also costs .text: 99.02%)
+- move class blocks (ctor/dtor/methods) in FxPrimitives.cpp (Tail after Light) 
+- move FX_Restore in FxUtil.cpp to before FX_UpdateNonBolt
+- move case PRIM_CLOUD first in FxScheduler FX_AddPrimitive switch; move case PRIM_TAIL first in FX_Restore switch
+- rename class Tail -> Tailx everywhere (not name/hash/sort dependent)
+- Cloud::Cloud without RandomizeAxis(); Particle::Particle without VectorClear (ctor readiness not the driver)
+So the order is not def order, call order, class name, nor ctor/dtor body. Class decl order in both TUs is Effect Light Flash Particle Cloud Line OP Tail Cylinder Emitter, which also does not match ours or retail.
+Retail facts: ctors are fully inlined chains (Tail ctor = zero 4 fields, store Tail vptr); FX_Restore has 8 inline new+ctor cases (Particle Line Tail Cylinder Emitter OP Light Flash, Cloud is a call); retail FX_AddTail makes 2 Tail method calls (0x494330, 0x4943c0), ours 1 (InitEndPoint) - a .text lead, unverified.
+Untested next: declaration/member order inside the class bodies (virtual fn decl order, extra inline members) in FxUtil.cpp which is visited first; the vtable may be created when the IL type is first emitted rather than at ctor compile.

@@ -1,0 +1,11 @@
+s22 notes (10-26). Baseline 99.253% (1687146). Diffs via lab/m3_fx.sh at retail addr. Variant patches + scripts in lab/s22/w/.
+SND_RestoreStreamChannel base 219 lines/798B. m1_s3 really = 198 lines/789B, ALL 1687150 (+4); the earlier 97 was a stale read.
+SND v1 (m1 + pAlias1 declared before pAlias0): no change, 198/789.
+SND v2 (Mac order, type checks via int type before blend): 97 lines, 782B -> ALL 38.58% (16B short shifts everything). Remaining: retail keeps pAlias0 in ebx+[esp+14] and pAlias1 in edi+[esp+10]; ours swaps them; ours has an extra duplicate epilogue.
+SND v4 (v2 + SND_RestoreSoundAlias as if(*name) return Get..; return 0): 102 lines/780B, worse.
+SND v6 (v2 + blend check (flags0&0x60)!=(flags1&0x60), as Mac): 241 lines/778B, worse.
+SND v7 (v2 + RestoreSoundAlias with short value + MemFile_ReadData): helper stops inlining, 69 lines but 739B; worse.
+SND mini harness (snd+memfile+com_sndalias+snd_utils) does NOT reproduce full build inlining (MemFile_ReadCString inlined in mini, call in full); use full builds.
+CG_DrawLagometer base 46 lines/928B. l1/l2 (snapshot loop: pick color before scaling v; retail order): 20 lines but 929B (+1 byte) -> ALL 64.71%, so not delivered. Left: in both snapshot-loop placements ours does fld C; fmul st(1) ... fstp st(0) where retail does fmul C (x kept live in ours). Patch kept as lab/w200/s22_lagometer_l1_partial.patch (NOT a gain, needs the 1 byte back).
+CG_DrawLagometer l3/l4 (l1 + x declared first / x,y,w,h order): 32 lines, worse.
+CG_ConfigStringModified (3 lines) and CL_MapLoading (28) not attempted, out of time.

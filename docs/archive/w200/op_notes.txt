@@ -1,0 +1,24 @@
+ROUND 10 operand fixes (base main 1688705 -> op_all.patch 1688809, 99.351%, +104; 0 LNK2001/2019). Tools: ~/calldiff.py RETAIL OURS MAP (call targets that differ, grouped), ~/mkop.sh+op10.py (patch maker), ~/cc.py (callers of an address).
+KEY METHOD: calldiff.py found most of these. Pairs of look-alike functions defined in the wrong ORDER (callers reach the wrong twin). Swap definition positions, not names.
+PAID (op_<item>.patch):
+- pcint +71: ui_shared_obj.cpp, PC_Int_Parse/PC_Int_ParseLine bodies in swapped slots (retail 0x53d1d0 uses PC_ReadLineHandle, 0x53d280 uses PC_ReadTokenHandle; 35 ItemParse_* callers call 0x53d280).
+- dobj +11: dobj_management.cpp, Client free defined before Server free (retail ChangeViewmodelDobj calls 0x433fa0 = client free).
+- dbgfree +8: common.cpp Debug_EventLoop frees SE_CONSOLE/SE_PACKET ptrs with CRT free (retail 0x4315f3/0x43160d call 0x5436ef), not Z_Free.
+- sndrev +6: snd_driver.cpp, reverb updaters order 2D, 3D, Stream (retail 0x4b3ef0 = 2D: AIL_set_sample_reverb_levels 0x559450).
+- fxarch +5: FxArchive.cpp ArchiveMaterial before ArchiveModel (retail 0x48f870 calls ReadMaterial 0x48f180). Effect::Archive keeps Material,Model order (inlined there).
+- scrint_main +2: CL_DownloadsComplete calls SCR_UpdateScreenInternal (retail 0x40d053/0x40d067 -> 0x413580).
+- missile +1: CG_Missile bolt uses scr_const.tag_origin (retail 0x4c6444 reads scr_const+0xa2, we read tag_flash +0x8c).
+- setcg +1: CL_SetCGameTime serverTime = serverTimeDelta + realtime (retail loads delta first); cosmetic, one reg swap remains.
+TRIED, REVERTED:
+- fxswap -38 (effectListBolt/NonBolt declaration order), fxarch Read/Write swap -206, fxarch2 (Archive call lines swap) -39.
+- scrint_wpn (CG_RegisterWeapon/ItemVisuals -> Internal; retail 0x4cdbe7/0x4ceffb call 0x413580): 24% (LTCG inliner changes, CL_SetupForNewServerMap shrinks 16); w1 (weapon only) same. Needs a way to keep SetupForNewServerMap/InitLoad inlining. Not applied.
+- drawactive (angles ka+oa -> oa+ka, retail fld 0x13a5048 fadd 0x13a503c): 0 gain, [0] stays. avidemo (CL_RunOncePerClientFrame 1000/x*ts, retail fdivr const; ours fdivr timescale): no change.
+NOT SOURCE BUGS (checked): FX_AddTail (only vtable address differs; InitEndPoint == UpdateLength+CalcNewEndpoint already), player_die 160.0 vs 30.0 (rdata pool shift), Item_CorrectedTextRect/Com_ErrorCleanup (static placement), CG_CalcCrosshairPosition (inlined AngleVectors regalloc), CG_ScreenFade/CG_PulseLowHealthOverlay (copy order).
+OPEN: Com_ShutdownInternal retail has push ebp/and esp,-8 frame (ours none), Com_Shutdown +0x10 shift (5 SV_Frame callers); SND_Stub at 0x403170 takes arg in AL (LTCG reg) vs ours stack; CL_MapLoading ebp holds const 5 in retail.
+
+ROUND 11 (base = main 1688809): op2_all.patch = op2_ads only, 1688819 (99.352%, +10), 0 LNK errors.
+- op2_ads: CL_SetADS(int) -> CL_SetADS(unsigned char) (cl_cgame_mp.cpp + cl_funcs.h). Retail 0x403170 stores AL; a char-sized param makes LTCG pass it in AL. bool/char give the same bytes. No callers in retail or ours.
+- calldiff.py is now clean except the two known items (Com_Shutdown +10, weapon SCR_UpdateScreenInternal).
+- Weapon SCR_UpdateScreenInternal (op2_scrint_wpn/w1/w2, all 24%): ANY call from cg_weapons.cpp makes the inlined copy in CL_SetupForNewServerMap lose its dummy 4-byte slot (retail has push ecx/pop ecx there, as does standalone Internal at 0x413580), so the function is 2 bytes smaller and -16 after alignment shifts the rest. Cause not found; ruled out: patching only RegisterWeapon (w1) or only ItemVisuals (w2).
+- Com_ShutdownInternal frame: retail Internal has push ebp/and esp,-8 and Com_Shutdown has none; ours is the reverse. Declaring an unused double local (op2_csi1/2/3) changes nothing (compiler drops it). Same as the parked LTCG stack-align propagation (SV_Shutdown in deepseek/LESSONS.md); needs a real double use somewhere in Internal or its callees.
+- CL_MapLoading ebp=5: caching clc.state in a local (op2_maploading1) = 0 change. Retail loads state into eax, then mov ebp,5 before cmp; needs a third use of the constant 5 in the function; not found.

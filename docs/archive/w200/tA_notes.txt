@@ -1,0 +1,21 @@
+tA notes (main 33f5965 = 1,689,156). cls2 lists only 69 fns with real-code mismatch, so ranks 80-160 do not exist; worked ranks ~12-69 (small fns). snapG/lvG.sh/frG.sh/tA_run.sh are the harness.
+GAIN HECmd_SetClock_Internal (g_hudelem_mp.cpp): block-scoped `float seconds` per FAST_CEIL (outer shared local gave wrong stack slots) -> 0 diff, +16 B.
+GAIN AxisTransformVector (xanim/xmodel.cpp): out[1],out[2] without the inner parens (only out[0] keeps them) -> 0 diff, +24 B.
+TRIED, no gain:
+CL_CDKeyValidate: layout (retail ret-1 block before ret-0). `||`/return-1-first and early `if(!checksum) return 1` forms: same or worse (-18).
+FloatSwap: *p>>24 etc via uint* gives 40 B (retail 39), worse. Retail reloads f from [esp+8] 3x.
+speex_bits_pack: inverted owner/tmp ifs (early returns) -80 B total, worse.
+CG_WhizbySound: viewDist*dir[i] and dot(viewDelta,dir): no change (20 diff lines). Class: FP operand order + vec3 stack slot order.
+FX_RandomizeRoll: manual cross product in several factor orders: 16 -> 8 diff lines, bytes unchanged; compiler canonicalises the operand order of the two remaining products (needs a different cause).
+class only (not edited):
+VM_Notify: regalloc (two global loads order ebx/esi) in hash call.
+G_GetPlayerViewOrigin, CG_FireWeapon, Netchan_Process, Item_ListBox_MouseEnter, CL_StartHunkUsers, Menu_SetNextCursorItem, IntersectPlanes, PC_EvaluateTokens, CG_DrawAdsOverlay, CG_DrawCursorhint: pure scheduling/regalloc.
+CL_MouseEvent: caller convention (dy in eax vs edx).
+UI_LoadMenus: regalloc of inlined stricmp loop (retail uses ptr-difference addressing).
+CG_DObjGetWorldBoneBox_4c6f30: FP sum order of inlined MatrixTransformVector43, retail unrolled/different term order.
+DSound_UpdateSample: stack slot offsets of locals (lea edx,[esp+..]); not attacked.
+EvalPrimitiveExpression: large body diff vs same size; not attacked.
+ScaleTracer/CG_DrawTracer/CG_AddMovingTracer, Com_ShutdownInternal/Com_Shutdown/SV_KillServer_f, Sys_IsLANAddress, XAnimGetInfo, XAnimCopyAnimTreeNoNotify, CG_InitXAnimTrees, CL_InitUI/ROQ_*/SCR_RunCinematic, SND_RawSamples: already parked in LESSONS (call convention / LTCG align / lea scaled).
+lvG note: the shared lv cleanup (keep 20 newest in r2w) deletes other agents running dirs; lvG has it removed. Background builds need setsid nohup or they die with the wsl call.
+UPDATE: AxisTransformVector change (out[1],out[2] without parens) matched the standalone fn (+24) but cost 8 bytes in XModelLoadFile, where retail inlines the paren form (fdiff hides it; byte compare shows it). A separate inline helper for the site made the standalone vanish (only called fns are emitted); plain non-inline broke link layout (52%). Dropped. Retail has two different sources for the out-of-line and inlined copies; needs a second real caller of the out-of-line one.
+Byte-compare vs baseline (whz build == main): HECmd_SetClock_Internal patch lost 0, gained 16.

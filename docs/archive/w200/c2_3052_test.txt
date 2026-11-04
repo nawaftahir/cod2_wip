@@ -1,0 +1,9 @@
+c2 3052 relink (agent 11-03)
+Method: ~/c2t.sh TAG [DLL] = copy of main claude_client/target in /dev/shm (objects unchanged), delete release exe, docker image cod2-msvc71-vs2003-ft, cp DLL over /opt/msvc710/Vc7/bin/c2.dll (link.exe stays 3077), make release link (LTCG, same flags, faketime, guidpin). Results: lab/w200/c2t_base, c2t_n3052.
+Control (stock c2 3077 md5 8460473c): ALL 1699171/1699840 = 99.961% (reproduces main).
+Test (c2 13.10.3052 md5 52af3d0f): the 3077 link.exe ACCEPTED it, no error, "Generating code / Finished generating code", same link warnings. ALL 1699171/1699840 = 99.961%.
+Exe vs control: same size 1703936; 253 bytes differ, ALL in the first 0x2b0 bytes (DOS/Rich header + PE header area; header same 3841/4096 vs 4092/4096 = -251 matching bytes there, hence ALL stays 1699171 only because shameter ALL counts sections; header line is separate). .text, .rdata, .data, .rsrc byte-identical to the 3077 link.
+Therefore: CG_CalcCrosshairPosition and CG_DrawGrenadePointer are byte-identical (diff lines unchanged); no function gained or lost vs main (good.json ratchet unchanged: .text is identical). Only the linker/compiler build stamps (Rich header comp.id 3052) differ.
+Conclusion: 3052 c2 generates exactly the same code as 3077 for this program. Not a lever. (retail Rich header carries 3077; the 3052 header is worse by 251 header bytes.)
+
+Check (coordinator, 11-03): 1 KB truncated c2.dll in the same place -> "LINK : fatal error LNK1171: unable to load Z:\opt\msvc710\Vc7\bin\c2.dll", no exe. So the swapped file is really loaded (link.exe loads c2.dll from its own dir /opt/msvc710/Vc7/bin). 3052 vs 3077 c2 differ in 1,513,430 bytes. Two 3077 control relinks (c2t_base, c2t_base2) are byte-identical (deterministic), so the 253 header bytes differ only with 3052.

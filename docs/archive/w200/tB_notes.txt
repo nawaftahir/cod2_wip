@@ -1,0 +1,21 @@
+tB (ranks 160-260, tiny fns), base = main 33f5965 = 1689156. Builds: lvH.sh (snapH), tags tBbase,tBr1..r11.
+Only ~62 fns have real-code mismatch; the list ends at 2 bytes, so ranks 160-260 = the tiny tail. RESULT: no gain, no patch kept (tB_all.patch empty).
+Touched: nothing in claude_client/. Scratch only: lab/w200/{snapH,tBw*,tBp,lvH.sh,tbfd.sh}. tA agent ran the same CL_CDKeyValidate/HECmd_SetClock/FloatSwap ideas (tA_*.patch).
+
+CLASS per fn:
+FloatSwap, FloatNoSwap, FloatFromBits, LittleFloat: LTCG custom convention (float/int arg in EAX, retail does mov/store through param slot); not source. tA_fsw tried.
+speex_bits_pack: block layout (retail: "Do not own" else-block after ret, jumps back into the shared warning tail; ours inlines it and the tail follows the else). Tried !owner-first (jne polarity, worse) and if(!tmp) form (same as base). 29 B open.
+VM_Notify, PC_EvaluateTokens, Pickup_Weapon, Window_Paint, Netchan_Process, CG_FireWeapon, IntersectPlanes, FX_AddFxToScene, CL_StartHunkUsers, DSound_UpdateSample(order part), nb_decode: LTCG tie (stack-arg load order / reg pick). Skip.
+DSound_UpdateSample: dwLockLen1/2 stack slots swapped vs retail; swapping the declarations does nothing (slots not decl-ordered). 8 B open.
+SND_LoadFromSound_4b4890: retail pop ecx vs add esp,4 (LTCG cleanup); 4 B. CL_InitUI/ROQ_*/SCR_RunCinematic/Com_Shutdown/SV_KillServer_f: stack-align frame hoisting (known item a).
+CL_CDKeyValidate: block order (retail returns 1 inline). tried "== NULL || ... return 1": byte-identical to base (compiler normalises); same as tA_cdk.
+CG_WhizbySound: x87 operand order. projPos viewDist*dir swap = no change (canonicalised); dist term order (1,2,0) made viewDist worse (10 -> 40).
+Menu_SetNextCursorItem: reg pick; dropping the item local made it worse (5 -> 15).
+SND_SetChannelInfo: offset[0] third term retail "fld st(3); fmul mem"; axis[0][0] direct indexing = no change.
+EvalPrimitiveExpression: node2 reg (ecx vs eax); removing the goto (two EvalFloat calls) grew the fn by 20 B. Worse.
+FX_RandomizeRoll: inline Vec3Cross operand order; local pointers a0/a1 in either declaration order, commuted products: always 2 mismatching products (7-8 B), never 0.
+AxisTransformVector (standalone, 32 B): FIXED to 0 with out[1],out[2] left-assoc (no parens) and non-inline, but XModelTraceLine then flips 3 products at the AxisTranspose sites (-36 B), net -4 (r9, 1689152). Separate site copy: static inline/__forceinline local copy is still emitted (+0x50 B shift, ALL 52%); hand-expanded site (r5, reversed terms) net -11. Open: need the standalone to exist without changing TraceLine; retail has two different expression shapes (standalone left-assoc, site paren).
+HECmd_SetClock_Internal: stack slot order of seconds/iTime; tA_hsc (decl move) tried by tA.
+CG_CalcViewValues (inlined CG_OffsetThirdPersonView): retail re-reads focusPoint (fld mem; fmul mem), ours keeps dup on fp stack; not attacked.
+XAnimCalc, Item_ListBox_MouseEnter, CG_DrawCursorhint, CG_DrawAdsOverlay, CG_DrawGrenadePointer, G_GetPlayerViewOrigin, CL_MouseEvent, XAnimGetInfo: already in LESSONS as tried.
+Tool: lab/w200/tbfd.sh TAG name-substr [lines] = fdiff of one fn from an lv build (retail addr == ours addr).

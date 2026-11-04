@@ -1,0 +1,1 @@
+- s21 CG_CalcCrosshairPosition: Mac-shape (gunAng 0,1,2; forward=dot(gunDir,axis0); horiz/vert temps; drop halfFov) PAID diff 68->62 lines, whole 99.253->99.254. Precomputing the tan*forward denominator into the temp (retail stores denom first) is worse (72). Yaw int-copy to stack still open.

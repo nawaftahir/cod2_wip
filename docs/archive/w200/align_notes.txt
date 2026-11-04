@@ -1,0 +1,54 @@
+LTCG 8-byte stack-alignment placement (push ebp; mov ebp,esp; and esp,-8), c2.dll 8460473c..., 10-28
+==================================================================================================
+STATUS (10-31): decision code LOCATED, c2 0x1070cd11; model + simulator in inl_notes.txt Alignment pass (agent 10-31).
+
+KEY RESULT (PINNED, oracle relink == normal link)
+  The placement is NOT decided from the callee's own inputs at its compile:
+  - compile order (F lines) of all chain fns is identical between a build where Com_ShutdownInternal
+    hoists (ours) and one where it self-aligns (retail shape);
+  - the callee's sym (first 0x100 bytes, dumped at compile start by cave cv/mid.s) is identical too;
+  - its inline decisions (I/V lines) are identical.
+  So it is a whole-program pre-pass (before codegen), driven by the call graph / call-site counts.
+
+TRIGGER FOUND (PINNED, ox_v*.exe in lab/w200/alw)
+  Com_ShutdownInternal self-aligns (retail) and Com_Shutdown / SV_KillServer_f lose their align
+  (retail) when UI_Init (ui_main_mp.cpp ~3118) drops its hand-inlined copies of:
+    RegisterBool("ui_multiplayer") block  (direct Dvar_Reregister + Dvar_RegisterNew sites)
+    AND one direct Dvar_SetVariant site   (either the SetBoolByName or the SetString block)
+  Bisect (mkv.py mask: 1 GetFloat, 2 SetBoolByName, 4 SetString, 8 RegisterBool):
+    flips: 10 12 11 13 14 15      no flip: 1 2 4 8 3 5 6 9 7
+  Whole-link static site counts ([sym+0x69], V col 7) separate them exactly:
+    flip  <=> Dvar_RegisterNew 2->1 AND Dvar_Reregister 2->1 AND Dvar_SetVariant 18->17.
+  These callees reach Com_Error -> Com_ErrorCleanup -> Com_ShutdownInternal, so the pass looks
+  at site counts / alignment state of callers several levels away, not just direct callers.
+  UI_Init is compiled AFTER Com_ShutdownInternal and has no edge to it, which again rules out
+  any compile-time (bottom-up) decision.
+
+HYPOTHESIS (not proven): a pre-pass marks "entry already 8-aligned" per fn from its callers and
+  hoists `and esp` into callers when that is cheaper by static site count; the Dvar_* site counts
+  change which callers count as aligned on the Com_Error path, which flips the cheaper choice for
+  Com_ShutdownInternal.
+
+SOURCE SHAPE
+  Full uimall.patch (UI_Init with real Dvar_GetFloat/SetBoolByName/SetString/RegisterBool calls)
+  gives retail for Com_ShutdownInternal, Com_Shutdown, SV_KillServer_f (r2w/uimall), but .text
+  vsize 1407963 vs retail 1408683 (-720 B), so not keepable. Minimal flip = mask 10 or 12
+  (RegisterBool + one of SetBoolByName/SetString as real calls); not full-built (size will still
+  drop). Retail UI_Init therefore likely has fewer direct Dvar_SetVariant/Reregister/RegisterNew
+  sites than ours (more real calls), with the bytes recovered elsewhere in UI_Init; whoever owns
+  UI_Init (inline-site work, LESSONS 10:21-10:35) should keep this coupling in mind.
+  No align_all.patch: nothing verified size==retail.
+
+NEXT ATTACK
+  Find the pre-pass: hook writes to the per-fn align flag. Approach: watch (cave) every write that
+  sets a bit in the sym for Com_ShutdownInternal between link start and its F line, base vs mask 10;
+  the differing writer is the pass. The emitted `and esp` uses no immediate -8 in c2 (no push -8 /
+  and r,-8 emitter found), so search by data flow, not by constant.
+
+TOOLS (lab/w200/alw, private copy of fp_t; no shared dirs touched)
+  orun.sh TAG [obj..]  rebuild objs in alw/ft, relink under oracle (VC=dir picks c2y.dll), saves
+                       ord_TAG.txt, ox_TAG.{exe,map}
+  alq.py MAP EXE [names]  fns whose prologue has and esp,-8
+  mkv.py MASK OUT      UI_Init variant from base.cpp
+  cv/ (cave_a.s, patch_a.py) -> vca/c2y.dll : F + S (sym dump) hook; sdiff.py diffs S dumps
+  combos.txt, al_*.txt  results

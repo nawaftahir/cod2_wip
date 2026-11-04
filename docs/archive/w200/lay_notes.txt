@@ -1,0 +1,10 @@
+lay agent 10-26 (baseline ALL 1687147 = 99.253%)
+
+PAID: lay_deadchat.patch  g_main_mp.cpp: int gU144 after g_entities (name probe: 400 globals gU0..gU399, gU144 lands at 165b300, retail's unreferenced 4-byte slot before g_deadChat). ALL 1687147 -> 1687196 (99.256%), 0 LNK errors.
+
+Float pool (pi/8 before 50.0), no fix:
+- The 50.0 slot (42480000) first emitter in ours is bg_mantle's two 'maxs[2] = 50.0' (stored as imm, but they still create the pool entry); with those literals probed away the owner becomes PM_LadderMove (bg_pmove, fSideSpeed = -50), position unchanged: still before pi/8. Drop_Weapon (crandom()*50.0f) is not the first emitter (50.5 probe, pool unchanged).
+- Mantle_CalcEndPos has PM_trace inlined (call [ecx*4+0x599170]) in ours and retail, no direct calls: a sweep-1 leaf, cannot be made later by source depth. G_DebugCircleEx calls Vec3NormalizeTo + PerpendicularVector (com_math, link idx 32) so it is sweep 2. Next: find which retail fn emits 50.0 after Circle (maybe LadderMove deeper), not Mantle.
+.rdata: g_spawn: retail puts 'Tried to set a read only entity field' AFTER the spawns[]/fields[] table strings (0x57b090), ours before them; Scr_ReadOnlyField is defined early (sweep order cannot move it later by reordering); needs to be the deepest fn of the TU. Not fixed.
+.bss: cgDC retail 135ca38 vs ours ca40: ours has cg_shock_volume_auto2d at ca38 (retail has it elsewhere). cg_eachClientActiveLocalEntities +8 and cg_freeLocalEntities -0x100 untouched.
+Tooling warnings: lv.sh needs ABSOLUTE patch paths; other agents' builds delete old lab/r2w dirs (20-newest rule), copy map/exe you need to /tmp at once; cp of claude_client/target/src/core.* fails with Permission denied (root-owned core dumps, harmless).

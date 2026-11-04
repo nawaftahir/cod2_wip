@@ -1,0 +1,26 @@
+OpenCoD2-Plus (dev/refrences/OpenCoD2-Plus) - notes 2026-10-28
+Step 1: Client + dedicated server rebuild of CoD2 MP, targeting 1.3 behaviour (1.0 server too), a fork of
+opencod2. Same lineage as our oc/ tree (Mac-1.3 STABS decompile), then hand-edited for behaviour (dvar_value()
+macros, Linux/Vulkan ports, DBGSPAM traces, imp_/compat bridge). NOT byte-matched to anything. Dirs: src/PC
+(cgame_mp, client_mp, ui_mp, snd.c, xanim, EffectsCore, gfx_d3d, script), src/server, src/game, src/compat, win32.
+Verdict: our oc/ files are already further along (matching-driven); OCP is a behavioural reference, not a shape oracle.
+
+Step 2 table (OCP vs ours)
+UI_Init            OCP: no loop, single ui_netGametype = Dvar_RegisterInt(...); plus UI_LoadIngameMenus() after UI_AddMenuList (1.3). Ours has a for(<1) loop. Nothing new for 1.0.
+CG_DrawCompassFriendlies  OCP is a 1.3 rewrite (CompassDistToRadius helper, goto draw_friendlies, enemy flag pass). Different dvars; not a 1.0 shape.
+CG_DrawTracer/ScaleTracer OCP inlines CG_TracerScaleForDistance (1.3 shape, no ScaleTracer). Ours is the matched form.
+CG_AddPlayerWeapon OCP: AxisCopy(parent->axis, entAxis); and if(weapInfo->viewModelDObj) guard around brass block. Both TRIED, see below.
+SND_RestoreStreamChannel OCP: inline MemFile_ReadCString+GetAliasWithOffset; ours uses SND_RestoreSoundAlias (better).
+CL_MapLoading      OCP uses legacy-hack struct casts (imp_*); no loop/shape insight.
+CG_InitXAnimTrees  OCP: always_inline raw byte offsets (0x4b8 stride); ours is cleaner.
+XAnimGetInfo       only a header decl in OCP.
+XModelTraceLine    OCP hand-expands the quaternion matrix (no AxisTransformVector); ours uses ConvertQuatToMat+AxisTransformVector (closer).
+G_RegisterWeapon   OCP server-side only passes it as callback; no body difference of value.
+Sys_ScanForCD      Plain Q3 win_main.cpp copy (drive scan, CD_BASEDIR/_LINUX, only caller Sys_CheckCD is commented out); not 1.0 client evidence.
+q_parse            Q3 Com_EndParseSession "session underflow" error; no colour handling differences found.
+FxPrimitives       Cylinder/Flash etc. are placeholder structs (int _placeholder); Emitter has partial fields. No class layout data.
+
+Step 3 (builds, base ALL 99.437%)
+ocpA AddPlayerWeapon AxisCopy  : text vsize -64, ALL 67.78% -> rejected (size change/shift)
+ocpB AddPlayerWeapon viewModelDObj guard : text vsize +16, ALL 67.97% -> rejected
+No verified gain. Rejected patches kept in lab/w200/ocp_rejected/.

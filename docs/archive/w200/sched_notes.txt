@@ -1,0 +1,23 @@
+Operand order / instruction selection residues (10-28, sch agent). Builds: lab/w200/sch/lvs.sh
+(private lv.sh; lab/r2w rotation deleted my first 7 builds mid-run when other agents built).
+Baseline b0 ALL 1690278. Patches in lab/w200/sch/*.patch. No verified gain, no sched_<fn>.patch.
+
+SND_RawSamples 0x4b45e0 (retail imul eax,edx; add eax,[buf]; ours imul edx,eax):
+  r1 bufSize*writeBuf, r2 &buf[bufUsed + writeBuf*bufSize], r3 bufUsed + product + buf,
+  r4 byte *dst local statement, r5 buf + (product + bufUsed): all identical (11 lines, ALL 1690278).
+  Product register is not driven by expression shape at this statement.
+CG_WhizbySound 0x4d10e0 (x87 fld/fmul roles in dist dot and projPos = dir*viewDist + vStart):
+  w2 decl order dir,delta,viewDelta: fn unchanged (20 lines), ALL +2 (not traced, not kept).
+  w3 projPos,dir,delta,viewDelta: unchanged. w4 forceinline Vec3Mad helper, w5 forceinline dot
+  helper: size shift (ALL 68%), dead.
+  Retail fact: Vec3NormalizeTo result discarded (fstp st(0)); dist dot is sunk after the viewDist
+  test; projPos uses fld dir[k]; fmul viewDist (viewDist = memory operand = lower number).
+FX_RandomizeRoll 0x496f20 (Vec3Cross inlined; products 1 and 6 swapped):
+  f1 roll = flrand(...) in a local first: flips product 3 too (worse, ALL -3). So statement
+  order before the inlined cross does change c2 operand numbering: the lever is real but the
+  right order is not found. f2 Vec3Cross(&ax[0][0], ...): same roles, ALL unchanged.
+CG_ConfigStringModified, Com_ProcessSoundAliasFileLocalization, XAnimGetInfo: not built this
+  round (prior rounds in SCHED.md R5 / REGALLOC.md / LESSONS 10-28 cover them).
+Rule not decoded: no c2 cave hook was run this round (time went to builds; 7 lost to r2w rotation).
+Next: hook c2 at the x87 operand-role choice (SCHED.md R4 says not in linearisation) and log
+  per-operand numbers for FX_RandomizeRoll b0 vs f1; f1 is the cheapest A/B for that hook.

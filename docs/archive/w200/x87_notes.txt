@@ -1,0 +1,207 @@
+x87 operand-role rule hunt (10-28, x87 agent). Work dir lab/w200/x87: private builds (lvs.sh/run.sh, b/<tag>),
+tiny probes in t/ (ltc.sh, il.sh), private probe c2 at vc/c2rd.dll built from tools_oracle/cave_rd.s.
+Base b0 ALL 1690278.
+RESULT: rule NOT decoded. No verified gain, so no x87_<fn>.patch and no x87_all.patch.
+
+PINNED (new)
+- The fld/fmul operand roles are already fixed when the T walker (0x1077fa92) runs. The IL there holds
+  machine tuples in reverse order (0x60 fld, 0x46 fmul, 0x4d fsubp, 0x63 fstp per cross component).
+  So the choice is made in x87 lowering before colouring. The next hook must sit before 0x1077fa92.
+- Per function and deterministic: adding 1..6 unrelated exported float functions to the TU never changes
+  the FX_RandomizeRoll roles (t/h1..h6). It is not heap-address noise across functions.
+- Tiny clone t/b1.c (Vec3Cross inlined after a non-inlined rotate) gives the EXACT retail roles for all 6
+  products. Only the inlined flrand body changes them:
+    one-liner `((holdrand>>17)*(max-min))/32768.0f + min`                    = retail roles
+    real body `result = (float)(holdrand>>17); result = ((max-min)*result)/32768.0f + min;` (t/c1.c)
+                                                                               = products 1-4 flipped
+  (ours in the real exe flips products 1 and 6). The signedness of holdrand does not matter (d1/d2).
+  Spelling (max-min)*result vs result*(max-min) does not matter (d3). Extra global stores right before
+  the cross do not matter (n1..n5). So the lever is the IL shape of code BEFORE the products (inlined
+  callee bodies), not the product statement itself.
+- Real flrand body variants r1-r4 (one-liner, return expression, implicit int convert): flrand becomes
+  166 B (retail 165), ALL ~957k. Dead: the current flrand body is needed for its own match.
+
+DEAD (real builds; fn unchanged, 0 matched fns lost via fm.py)
+- FX_RandomizeRoll: early return (fA), flrand(0, 360) int args (fB), `!= 0` test (fE), trailing return (fI).
+- CG_CalcCrosshairPosition: gunAng assignment orders 1,0,2 / 2,1,0 / 0,2,1 (c1-c3), 62-64 lines.
+  Its diff is not x87 roles: retail never spills gunAng[1] (fld gunYaw directly); ours copies it
+  through ecx to [esp+0x28] and loads it back.
+- lab/w200/lag1.patch: CG_DrawLagometer 929 B vs retail 928 (46 -> 20 diff lines), but the extra byte
+  shifts layout (ALL 1102017). Dead as is.
+
+STATE at b0
+- XModelTraceLine: already 0 diff lines (the AxisTransformVector sites are fixed in main).
+- G_GetPlayerViewOrigin: 2 lines = one push scheduled above an fstp (scheduling, not x87 roles).
+- CG_WhizbySound 20, XModelCalcBasePose 48, CG_DrawLagometer 46, CG_CalcCrosshairPosition 62 lines.
+
+WARNING: b0 and c1..c3 differ in SND_RestoreStreamChannel (575 B, +157..163 same-offset) with no source
+change there. That fn is not reproducible from build to build, so compare ALL only against a control
+built in the same run.
+
+NEXT: hook the x87 lowering (before 0x1077fa92) on t/b1 vs t/c1 (same fn, 4 roles flipped; il.sh ready,
+RA_FN='*' is safe for tiny TUs) and log both operand objects of each float mul where the load is chosen.
+The input that differs between the two is the IL of the inlined flrand tuples.
+
+ROUND x87b (10-28, short pass): rule NOT decoded, no hook built, no builds, no patch.
+- c2.dll source-file anchors (assert strings): P2\dag.c 0x1087ad0c (refs 0x107c381d, 0x107c384a),
+  P2\hash.c 0x1087af38 (refs 0x107cf42f..487), x86\lower.c 0x1087bb24 (refs 0x107ef4dd, 0x107f0dd4,
+  0x107f0f61, ...), x86\fppeeps.c string present. Hash/DAG canonical operand order is the prime suspect
+  (fits "earlier references flip it" = value-number history), lower.c second.
+- Opcodes are table driven: only 0x107e7b27 pushes 0x46 to the tuple builder 0x1075a6c7, and that site
+  is an fld(0x60)+fmul fusion that compares the two operands
+ reg words [+0xa]; not the role choice.
+- Static scan for in-place operand swaps (load [r+x],[r+y], store crossed) in all of c2: no swap of the
+  +0x28/+0x2c operand pair; the +0x18/+0x1c hits (0x107471c3, 0x1075efa9, 0x10799501, 0x107ccc01,
+  0x1080e41f) are 64-bit constant folds via 0x1075a64d, not swaps. So the roles come from build
+  order (which child is emitted first), not from swapping fields afterwards.
+NEXT: Dec.java on the hash.c/dag.c functions (xrefs above); look for a compare of two child value
+  numbers before the first child is chosen; hook it with F-armed RA_FN on t/b1 vs t/c1.
+
+ROUND x87b part 2 (10-28): tuple-builder trace on t/b1 vs t/c1. Rule still NOT pinned; no patch, no builds.
+Tools (all in lab/w200/x87/vc, private c2 only): cave_b9.s + patch_b2.py -> c2b.dll; runner x87/t/ilb.sh
+(il.sh with c2b.dll, keeps F/B/L lines). Hooks: F 0x107724f6 (RA_FN arm, from cave_rd.s), B0 0x1075a5e9,
+B1 0x1075f004, B2 0x1075a6c7 (tuple builders; stack = op, type, a, b, fn, dst), L 0x107167dd (fld emitter,
+esi = tuple). Arm with the exact mangled name; '*' plus operand derefs crashes (LNK1257).
+PINNED
+- IL float ops: 0x27a = fmul, 0x279 = fsub, 0x278 = add (also int address adds, type 0x3004), 0x280 = div;
+  type 0x4004 = float. Lowered by 0x107a3c1c (x86\lower.c): child0 (+0x28) and child1 (+0x2c) are
+  lowered then rebuilt in that order (Ghidra out: lab/w200/ghx/out2/107a3c1c.c, lines 185-219).
+- fld is emitted by 0x107167dd: it loads the 0x46 tuple's +0x28 operand (call 0x1077845d with ecx=0x60
+  -> 0x10776a96 -> builder 0x1075f004). So "loaded operand" = +0x28 of the fmul tuple at that point.
+- At creation (B2) the 6 cross fmuls have the SAME operand order in b1 and c1 (temp,temp / temp,temp /
+  temp,[p624] / [pX],temp / [pX],temp / temp,[p624]); only the symbol numbering differs: c1's extra
+  `result` local takes the symbol slot the ax pointer param had in b1 (b1 param 0x..6e4, c1 0x..744).
+- At L, b1 keeps creation order for P3 (fld temp) but c1 loads [p624] first; P6 loads [p624] in both.
+  So the roles are changed AFTER lowering and BEFORE 0x107167dd, and the input that differs is symbol
+  numbering (allocation order of locals/params), not tuple order.
+- No in-place swap of +0x28/+0x2c exists anywhere in c2 (scan of every load/crossed-store pair within
+  15 insns, and xchg). The change must go through an operand-replace helper (0x1075ac21 replace,
+  0x1075aa3f link) or a rebuilt tuple.
+NEXT: hook 0x1075ac21 (operand replace) armed for FX_RandomizeRoll and log tuple op 0x27a/0x46 with
+  old/new operand base symbols + return address; the caller that replaces +0x28 on the cross fmuls in c1
+  but not b1 is the decision. Then log the two values it compares.
+- Operand-replace trace (cave_r.s + patch_r.py, hook R at 0x1075ac21 entry, logs fmul 0x27a/0x46/0x60
+  tuples; c2b.dll links b1/c1 fine): 64 replaces in b1, the same 64 in c1 (same callers, same slot, same
+  operand kinds) plus ONE extra in c1: ret 0x107aa6f2, fmul slot +0x28, old operand kind 0x250 (memory
+  symbol) -> new 0x24f (register temp). That is flrand's `result` being promoted from its stack home to a
+  temp. It is the only change in the replace stream, so the 4 flipped roles come from what that extra
+  temp and the extra symbol do later (symbol/temp numbering), not from a different replace on the cross.
+- Caution: the order of the L lines does not have to match the order the tuples were created in. The
+  creation-to-fld mapping above for P3/P6 assumed it does, so it is not proven.
+NEXT (concrete): in the R and L hooks, log the tuple pointer, then match L to B2 creation by that pointer.
+  Then log the base-symbol numbers of the two memory operands (word +0xa of the 0x24f/0x250 objects) at
+  0x107167dd. Test the rule "fld = operand whose base has the lower or higher symbol number" against both
+  b1 and c1.
+
+ROUND x87b part 3 (10-28): fld log matched to tuples by pointer (cave_rl.s + patch_rl.py: R 0x1075ac21 +
+L 0x107167dd, 638 B cave; t/ilb.sh keeps F/R/L). Rule still NOT pinned; no full builds, no patch.
+PINNED
+- The L (fld) lines come in the same order as the tuples were created: each product keeps one tuple
+  pointer from 0x27a creation (B2) through the 0x46 rewrite to fld emission.
+- Per-product replace history is identical in b1 and c1 (same callers, same slots, same kinds):
+  1079fee1 (only P4/P5, the [ptr]-direct operand), 1076be16 s28 0x252->0x24f (load +0x28 into a temp)
+  and s2c, 1076ad14 (temp -> symbol home), 1075fde8 (home -> temp), 10794b8f s2c 0x24f->0x252 (fold the
+  +0x2c load back into fmul memory), 1076af8b s28 0x263->0x252 (+0x28 rematerialised as memory, then
+  fld'd at 0x107167dd). The only extra event in c1 is 107aa6f2 on flrand's own fmul (`result`).
+- So the slot that ends up as fld is always +0x28 and the slot logic is the same. What differs is the
+  ADDRESS REGISTER inside the rematerialised +0x28 memory operand at L (P3: b1 [t 0x..402c] = v0[2] via
+  its address temp, c1 [p 0x..a624] = the v1 pointer register itself). So the flip is an address-CSE /
+  rematerialisation difference (which element's address expression the +0x28 temp is bound to), driven
+  by symbol numbering shifted by the inlined callee's extra local. It is NOT a commutative compare.
+NEXT: hook 0x1076af8b's caller (the rematerialiser) and log which address tuple it picks for the +0x28 temp
+  (tuple +0x34 base and the defining 0x278 add); compare b1/c1 for P3.
+
+ROUND x87b part 4 (10-28): the code at 0x1076af4b, caller of the 0x1076af8b replace. Rule still NOT pinned.
+- 0x1076af4b (esi = load tuple, ebx = user tuple): takes the load's source memory operand (+0x28),
+  clears it, then replaces the loaded temp in the user (fmul) with that memory operand via 0x1075ac21.
+  It is load forwarding; it does not decide the order.
+- P3 full trace (R lines for the P3 tuple, b1 / c1), identical step for step:
+  1076be16 +0x28 mem -> temp, +0x2c [p624] -> temp; 1076ad14 both temps -> homes (0x250);
+  1075fde8 both homes -> new temps; 10794b8f +0x2c temp -> [p624] (fold); 1076af8b +0x28 -> forwarded
+  memory. b1: forwarded [sym 0x..402c +0], which stays 0x..402c at fld. c1: forwarded [sym 0x..bd2c +0],
+  whose base is then renamed to 0x..a624 before fld (copy-propagation of the base register; no
+  0x1075ac21 call). The asm confirms the roles: b1 fld v0[2], c1 fld v1[0].
+- Temp objects are reused between products (e.g. c1 0x..c91c appears in P4 at creation and in P3 later),
+  so identity by object pointer is unreliable past 1075fde8. Matching values needs value numbers, not
+  pointers.
+- Scanned again for in-place swaps of +0x28/+0x2c (40-insn window, any store of both): no swap; the hits
+  are 64-bit add/adc and clears.
+NEXT: log the value number of every load at 1075fde8 (home -> temp) and at 0x1076af4b (forwarded source:
+  base symbol + offset); find where the c1 base 0x..bd2c becomes 0x..a624 (copy-prop on the base symbol).
+
+ROUND x87b part 5 (10-28): hook W at the forwarder 0x1076af4b (cave_rw.s + patch_rw.py, 641 B; replays
+push edi / mov edi,[esi+0x28] / mov [esi+0x28],0 and goes back to 0x1076af56). Logs the user tuple, the load
+tuple and the load's source.
+- P3: the load forwarded into fmul +0x28 is a 0x263 tuple whose source is [sym + 0] with sym kind 0x250:
+  b1 sym 0x..402c, c1 sym 0x..bd2c. So the base is a symbol that holds an address. In b1 it holds v0+8
+  (the load is v0[2]); in c1 it is a copy of the v1 pointer (the load is v1[0]; later copy-prop renames it to
+  the v1 param 0x..a624). So the fmul's +0x28 temp is ALREADY a different value at the forward. The
+  difference is not in the forwarder or the rename; it is in which load the +0x28 temp got bound to
+  in steps 1076ad14 / 1075fde8 (temps -> homes -> temps). v1[0] is used by both P3 and P6, so a
+  homed/CSE'd load shared across products is the prime suspect (load CSE picks one def per value number,
+  and the order those homes were made follows symbol numbering).
+NEXT: at 1076ad14 and 1075fde8 log the value number (hash entry +0x10 from 0x10797597) of each home, for
+  P3 and P6, b1 vs c1.
+
+ROUND x87b part 6 (10-28): the flip is per-TU, not LTCG.
+- Plain `cl /O2 /TP` (no /GL) of t/b1.c and t/c1.c (objs t/ng_*.obj) gives the same roles as the LTCG DLLs:
+  b1 retail, c1 products 1-4 flipped. So probes can use fast non-/GL compiles (no link). Note the F hook
+  does not arm on the non-/GL path (C1.md), so c2 hooks still need il.sh/ilb.sh.
+- In the flipped products the v0/v1 pointer registers are swapped too (b1 fld bases edi,esi,esi,edi;
+  c1 esi,edi,edi,esi). So the flip goes together with which pointer gets which register / address temp.
+- 8 FX_RandomizeRoll body variants on c1 (t/gv.py -> v0..v7: roll local, early return, local declared
+  early, int args, trailing return, != 0, split decl, else-return): all keep c1's flipped roles. Dead.
+
+ROUND x87b part 7 (10-28): flrand-body sweep (t/gf.py -> f0..f31, 16 bodies x 2 holdrand spellings,
+fast non-/GL compile, flrand bytes checked against c1's).
+- flrand bytes are the same for all but f26/f27 (`/32768` before the multiply) and f30/f31 (`(float)(int)`).
+  Only f30/f31 give exactly b1's (retail) roles, and they change flrand. Dead.
+- f16/f17 (`result = (max - min) * result / 32768.0f + min;`, no inner parens) and f28/f29
+  (`result = result * (max - min) / 32768.0f; result += min;`) give b1's roles for products 2-5, and
+  products 1 and 6 still flipped. This is the same pattern the real exe has (ours flips 1 and 6).
+- Full builds vs control x87b0 (ALL 1690518): x87b_fr8.patch (f16 form) 1690444 (-74);
+  x87b_fr14.patch (f28 form) 866465 (layout broken). Both dead; patches kept only as a record
+  (lab/w200/x87b_fr8.patch, x87b_fr14.patch), not gains.
+- The m3_fx.sh call as written (TAG FN) printed "54 vs 0 insns"; it needs the retail address argument.
+
+ROUND x87b part 8 (10-28): Vec3Cross body / call-shape sweep on top of the fr8 flrand (t/gx.py -> x0..x66,
+non-/GL). 64 Vec3Cross operand-order bodies + 3 call shapes. Only x64 (call through a local pointer:
+`{ vec3_t *a = ax; Vec3Cross(a[0], a[1], a[2]); }`) gives b1's (retail) roles in the tiny build, with
+Vec3Cross and flrand bytes unchanged.
+Full builds (same run): control x87c0 1690518; x87b_callA.patch alone 1690518 (no change at all);
+callA + fr8 1690444 (-74, same as fr8 alone). Dead: the tiny lever does not carry over to the real
+LTCG build (the tiny clone is not a faithful model of the real fn there). No gain, no
+x87b_FX_RandomizeRoll.patch.
+
+ROUND x87c (10-28): hooks and sweeps on the REAL link. One verified gain: lab/w200/x87c_FX_RandomizeRoll.patch.
+Tools (lab/w200/x87): rl.sh TAG FN [TU] = real LTCG link of main objs (Makefile CFLAGS/LFLAGS, private src copy
+  rl/src) under a hooked c2 (DLL=..., default vc/c2x.dll); hook lines -> rl/out/TAG.txt. 14 s link-only, ~60 s
+  with one TU. swr.sh FN ADDR TU v.. = 4 variants in parallel + fdiff; roles.py EXE MAP SYM (or `retail ADDR LEN`)
+  = fld*fmul list. Caves: cave_x (F + B2 adds/fmuls + W, 635 B), cave_y (F + W with user slots + L fld
+  0x107167dd, 607 B), cave_z (F + R + L, 641 B); mkx/mky.py, patch_x/y/z.py. Variant generators: sw.py (FX),
+  sww.py / swa.py (CG_WhizbySound).
+PINNED (real link, FX_RandomizeRoll; esi = ax[0] = v0, edi = ax[1] = v1)
+- B2 creation: each cross element address is its own fresh add (v0+4, v1+8, ...; v0[0]/v1[0] are [ptr] direct),
+  no CSE at creation. At fld time each fmul +0x28 is [address temp]: P1/P6 share one temp (v0+4), P2/P3 share
+  v0+8, P4 v1+8, P5 v1+4. The fld pick follows the ADDRESS VALUE, not the product: ours loads v0+4 in both
+  P1 and P6; retail never loads v0+4 (it is always the fmul memory operand).
+- Source operand order is irrelevant on the real link: a hand-written cross in Vec3Cross order (s5) and with all
+  6 products swapped (s8) give identical code. Local declaration order is irrelevant too (CG_WhizbySound, 16
+  orders, all identical).
+- Same-TU copies of flrand / Vec3Cross (u1-u3) change nothing: not an LTCG cross-module effect.
+- The lever is the identity of the base pointer: a named pointer local for ax[0] (c14) gives the exact retail
+  roles. ax[1] as a local (c13), or both (c3/c8/c15/c16), also fix P1/P6 but cost 4-8 lines elsewhere; a float
+  roll local (s4/c1/c12) flips P3 the wrong way.
+RULE (working form): the fld pick is decided per base-pointer symbol. ax[0] used directly in both the rotate
+  call and the inlined Vec3Cross shares the caller's param symbol and takes the fld slot for v0+4; reading it
+  through its own pointer local (as retail's source evidently did) restores retail order. Not decoded down to
+  the c2 compare: the change happens after the forwarder 0x1076af4b (P1 forwards v1+8 there, fld emits v0+4)
+  and without a 0x1075ac21 replace.
+VERIFIED (same run, lv.sh): control x87c0 ALL 1690518; x87c_fr (x87c_FX_RandomizeRoll.patch) 1690527 (+9);
+  FX_RandomizeRoll 8 -> 0 diff lines (m3_fx.sh); fm.py 7371 -> 7372 matched, 0 lost.
+DEAD (real link): CG_WhizbySound 16 declaration orders (20 = 20 lines), inline Dot fn for both dots (a1 24, a3
+  22), VectorMA (a2 20), dir pointer copy (a7 20), second dot only (a5 20). Its operands are stack locals, not
+  pointer bases, so the FX lever has nothing to bind to. XModelCalcBasePose not tried: its diff is the order of
+  sum terms (faddp/fsubp sequence), not fld/fmul roles.
+NEXT: try the pointer-local lever on other fns whose diff is fld/fmul roles over pointer params (scan diffs for
+  swapped fld/fmul pairs with [reg+disp] operands); CG_WhizbySound needs the stack-local version of the rule.

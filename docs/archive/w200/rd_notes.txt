@@ -1,0 +1,19 @@
+rd layout agent 10-28. Base main 1688954 (99.360%). rd_all = rd_eventloop: 1689021 (99.364%), +67, 0 LNK errors.
+PAID: Com_EventLoop/bad-event string order (+67: rdata +64, text +3). Fix: unused local const char* of the "bad event type" literal at the top of Com_EventLoop interns it first, so the pool emits [oversize][bad][PushEvent] like retail. TRICK: a dead local pointer to a literal changes string pool order without changing code; usable for other pool-order rows.
+.rdata diff runs (584 B, 21 runs, before): colours q_shared +4 (~250 B, one pointer object com_endParseSessionUnderflow 4 B in q_parse before colorBlack; retail has no object there), bg_weapons +4 (185 B, retail 28 00 00 00 after default-weapon string; the two are the same 4 B moved), FxPrimitives vtables (~340 B across 6 runs), cg_consolecmds region (130 B: sign[4][2] float table vs iEdgePairs int table swapped: ours [sign][edges], retail [edges][sign]), common.obj EventLoop (67 B, FIXED), floats 720.0f (16 B).
+data-addr top rows: colorWhite/LtGrey/Yellow/Black/Blue +4 (~55 rows, same cause as colours), cg_freeLocalEntities+x delta +100/+118/+18 (~100 rows: cddir 256 B static; retail cddir sits after the CStringEd/vtos statics at +0x20e4, ours at +0x4e4 after Sys_GetCurrentUser), Effect/Particle vtables (~30 rows), Couldnt-find-weapon -4 (6), 43200000 -4.
+TRIED, NO GAIN: (1) sign table moved to g_debug_mp as public const extern: -5% (public const lands elsewhere). (2) sign as non-static local in drawtools + static copy in g_debug: -5% (local copy emitted to rdata). Moving the static out of the function fails to compile (it is used).
+Not reached: cddir (needs the codegen-order model), pointer/"(" pair, vtables, 720.0f. Untested: dead-local intern trick in an earlier function for 720.0f / vtables / the sign-vs-edges order.
+Stray files from probes (rm was blocked): lab/w200/rd_box.patch rd_bx1.patch rd_bx2.patch are failed probes, ignore.
+10-30 (PINNED): retail .text has NO reference to the sign table (0x574428) nor to the 4-byte 0x28 object at
+0x57626c: both are dead data, placed by their emission time only. sgn1 (sign as file-scope static const in
+cg_drawtools): table moves to 0x55de60 (front-end data block), .rdata 58% -> disproved. Remaining idea (needs
+evidence, else fabrication): retail owner compiled after G_DebugBox (ours CG_DrawRotatedPicPhysical F6461,
+G_DebugBox F63161 in fp_t ordq), i.e. a vanished deeper callee. No open-paren literal in server bg_weapons.cpp.
+10-30 night (PINNED, lab/w200/rdiff.py retail vs ref_main m30q): .rdata runs now 5 / 347 B: sign/edges 130 @0x5743c6,
+0x28 object 185 @0x57626c, float pool 720.0f 2+14 @0x5836ae/0x5836d2, PDB GUID 16 @0x5879a4 (random per link).
+0x28: ours does NOT emit it anywhere near (the 4 B are made up by padding after the "Couldn't find ammo type"
+literal): our 'static const int unused = 40;' in PM_Weapon is unreferenced, so the front end drops it. Retail's 4 B
+sit between the literals of BG_LoadWeaponDef (compile idx 4721) and PM_Weapon_CheckForOffHand (3332), consistent
+with descending emission; retail's owner must have referenced it in IL (then optimized out). Owner and reference
+unknown -> no fix without evidence.

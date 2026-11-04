@@ -1,0 +1,5 @@
+== rnm_e1.py ?CG_DrawCrosshairNames retail 146 ours 146 difflines 46 || 38 CG_CalcCrosshairPosition 8 CG_DrawAdsOverlay 42 CG_DrawCrosshairNames 8 CG_DrawGrenadePointer TOTAL 96 fns 78 
+== rnm_e2.py ?CG_DrawCrosshairNames retail 146 ours 146 difflines 0 || 38 CG_CalcCrosshairPosition 8 CG_DrawAdsOverlay 8 CG_DrawGrenadePointer TOTAL 54 fns 78 
+== rnm_e3.py ?CG_DrawCrosshairNames retail 146 ours 146 difflines 46 || 38 CG_CalcCrosshairPosition 8 CG_DrawAdsOverlay 42 CG_DrawCrosshairNames 8 CG_DrawGrenadePointer TOTAL 96 fns 78 
+== rnm_e4.py ?CG_DrawCrosshairNames retail 146 ours 146 difflines 46 || 38 CG_CalcCrosshairPosition 8 CG_DrawAdsOverlay 42 CG_DrawCrosshairNames 8 CG_DrawGrenadePointer TOTAL 96 fns 78 
+== rnm_e5.py ?CG_DrawCrosshairNames retail 146 ours 146 difflines 46 || 38 CG_CalcCrosshairPosition 8 CG_DrawAdsOverlay 42 CG_DrawCrosshairNames 8 CG_DrawGrenadePointer TOTAL 96 fns 78 

@@ -1,0 +1,23 @@
+c2.dll versions, VC 7.1 / 13.10.x (research 2026-11-03; limited web evidence)
+
+LOCAL COPIES (searched sdk/, /mnt/c Program Files*+Downloads depth 6, /mnt/d depth 5; c2.dll only inside tarballs):
+ sdk/vs2003/msvc710_vs2003.tar.gz  msvc710/Vc7/bin/c2.dll  1867776 B  ProductVersion 7.10.3077  sha256 bcd28f39b179...
+ sdk/msvc710_payload.tar.gz        msvc710/Vc7/bin/c2.dll  1867776 B  7.10.3077  sha256 bcd28f39b179... (IDENTICAL to above)
+ sdk/msvc710_payload.tar.gz  win64/c2.dll 2338816 B = 8.00.40310.39 ; win64/x86/AMD64/c2.dll 2043904 B = 8.00.40310.41 (VC8 beta, not 7.1)
+ No other c2.dll found on C: or D:.
+
+KNOWN PACKAGES (web):
+ VS2003 RTM            13.10.3077 / 7.10.3077  local, obtainable (have it)
+ VC++ Toolkit 2003 1.0 13.10.3052 (April 2004); 1.01 (July 2004) = 13.10.3077 per MS page, "matches VS2003 compiler exactly"
+                       archive.org/details/microsoft-visual-c-toolkit-2003 (per virtuallyfun.com/2016/09/17/visual-c-toolkit-2003/)
+                       c2.dll build of 1.01 NOT verified to differ from RTM; no /LTCG-capable link? (toolkit has link.exe, unverified)
+ VS2003 SP1 (Aug 2006) 13.10.6030 -- after Oct 2005, outside window; objects expected to stamp 6030 (not verified) -> ruled out
+ Win2003 SP1 PSDK 3790.1830 / DDK compilers: NOT confirmed by search; unverified
+ Xbox XDK 13.10.x: not found
+ KB hotfixes (QFE) for 13.10.3077 c2.dll: NONE found by web search (only VS2013/2015 optimizer KBs). MS hotfixes of that era
+   were private/on request; no KB numbers could be confirmed. Do not trust any KB number without a source.
+
+SOURCES
+ https://virtuallyfun.com/2016/09/17/visual-c-toolkit-2003/
+ https://devblogs.microsoft.com/cppblog/visual-studio-net-2003-service-pack-1-released/
+BEST CANDIDATES: VC++ Toolkit 2003 1.01 c2.dll (if it exists in the installer; compare hash to bcd28f39). Otherwise none verified.

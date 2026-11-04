@@ -1,0 +1,12 @@
+o4_ds1 ?DSound_UpdateSample retail 180 ours 180 difflines 18
+o4_ds1 TOTAL 0 fns 0
+o4_ds2 ?DSound_UpdateSample retail 180 ours 180 difflines 18
+o4_ds2 TOTAL 0 fns 0
+o4_ds3 ?DSound_UpdateSample retail 180 ours 180 difflines 18
+o4_ds3 TOTAL 0 fns 0
+o4_swa1 ?StartWeaponAnim retail 61 ours 59 difflines 26
+o4_swa1 TOTAL 0 fns 0
+o4_swa2 ?StartWeaponAnim retail 61 ours 61 difflines 2
+o4_swa2 TOTAL 0 fns 0
+o4_swa3 ?StartWeaponAnim retail 61 ours 59 difflines 26
+o4_swa3 TOTAL 0 fns 0

@@ -1,0 +1,54 @@
+Register colouring order, c2.dll 7.1 (10-28, ra round; builds in lab/w200/rab, symlink-free lvp.sh)
+
+RULE (from REGALLOC.md rounds 5-10, re-confirmed on SND_RestoreStreamChannel pick logs)
+- Pop order per class worklist: higher n3 first; equal n3 -> larger n17 first.
+  n3 = sum over regions of (ref units x region weight x referenced-candidate count) minus
+  region weight where the node is live but unreferenced. n17 = IL index of the last bound ref.
+- Pick: cost[r] = neighbour affinity counts (+100*n16 if a neighbour has one free reg left),
+  minus own copy affinity; scan eax,ecx,edx,esi,edi,ebx,ebp; strictly lower cost wins.
+- A value live across a call has no eax/ecx/edx. If its free set is one reg (cost 2801 style)
+  it is NOT a pop tie: an earlier-popped temp took the reg it wanted. Fix that temp, not the var.
+
+SND_RestoreStreamChannel 0x44eb60 (KEPT, ra_SND_RestoreStreamChannel.patch)
+- Retail computes both stream-type values once and CSEs them with the inlined
+  SND_ValidateSoundAliasBlend (flags & 0x60) >> 5 compare. Ours reused one `type` local twice.
+- Fix: two locals type0/type1, both assigned right after the Validate call, then the two checks.
+  Full build rars2 vs fresh base rabase: size equal 798, fdiff 219 -> 181 lines,
+  ALL 99.437% both, LNK2001/2019 0, fm.py 7366 -> 7366, lost [].
+- Residue: pAlias1 has only ebx free (pop 8, n3 38); kind03 temp val=589 (n3 56) pops 3rd and
+  takes edi. Retail gives pAlias1 edi. Next: identify temp 589 (inlined RestoreSoundAlias or
+  Validate value) and lower its weight.
+- Dead: types computed before Validate (size -10), compute-then-check per alias (no gain),
+  else-if / combined || / swapped assignment order (== kept form).
+
+Not attacked this round (time): CG_DrawCompassFriendlies, CG_AddPlayerWeapon, CG_DrawTracer,
+CG_AddMovingTracer, Com_ProcessSoundAliasFileLocalization, CG_ConfigStringModified, SND_RawSamples,
+XAnimGetInfo, XAnimCopyAnimTreeNoNotify, CL_MapLoading, CG_DrawCrosshairNames, Sys_IsLANAddress,
+CG_InitXAnimTrees, DSound_UpdateSample.
+Tooling: lab/w200/rab/rdv.sh = ora/rdv.sh with private dirs and c2rd.dll from
+/home/nawaf/rgb/vc/c2rd.dll. lab/s6/target/build/vc/c2rd.dll is now an empty DIRECTORY, so the
+old driver silently ran stock c2.dll and wrote empty pick logs.
+
+Round 2 (10-28, after ra_all gated)
+SND_RestoreStreamChannel (KEPT, ra2_SND_RestoreStreamChannel.patch): retail does the two
+stream-type checks BEFORE the inlined Validate (retail asm: flags loads + cmp 2/3 right after
+MemFile_ReadData, then cmp pAlias0,pAlias1). Validate is pure with bReport 0, so behaviour is equal.
+Form kept (rt2): type0/type1 both computed, both checks, then Validate.
+Full build rart2 vs rab2: fn 798 -> 794 (= retail size, ret at +0x319), ALL 99.437 -> 99.447%
+(+163 B), LNK 0, fm 7366 -> 7366, lost []. fdiff lines 181 -> 223 (register residue remains).
+rt1 (compute+check per alias before Validate) is the closest shape (169 oracle lines) but 782 B
+and threads the two isLooping tests: ALL 38.6%, rejected.
+The val=589/557 temp (n17 268, n3 56) that takes edi is the tail value live across the Start
+calls; still unresolved.
+CL_MapLoading: retail loads CA_CONNECTED (5) into ebp once and uses it for the compare and the
+store, plus lea ebp,[x+0x22c]. Ours uses immediates and a 0x404 frame. Not attacked.
+
+Round 3 (10-28, short): CL_MapLoading 0x40c020, per-TU oracle only, no gain.
+- rdv.sh RA_FN must be the MANGLED name (?CL_MapLoading@@YAXPBD@Z); a plain name gives empty .pick
+  (all earlier cf*/ml* picks were empty for this reason).
+- Ours: 11 candidates, ebp cost 200, nothing real in ebp. Retail has two extra ebp candidates that
+  ours never creates: constant 5 (cmp eax,ebp / mov [clc.state],ebp) and &dc->menuCount (lea ebp).
+  So the gap is before RA (candidate creation), not pick order.
+- Dead (identical 60-line diff): const local for CA_CONNECTED (enum or int), CA_CONNECTED <= state,
+  state copied to a local, count pointer local, menu temp, while loop. Direct uiInfo->uiDC access
+  (ml4) is worse (+9 B).

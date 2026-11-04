@@ -1,0 +1,85 @@
+LTCG callee summaries: why retail CalcTracerFinalScale / CalcScreenPlacement act unsummarised (10-29, sm round)
+
+RESULT (PINNED on the tiny harness /home/nawaf/mlw/ora/cv, files sm*.c, sm_flags.sh, sm_dis.sh)
+- A callee with EXTERNAL-LINKAGE 'inline' (selectany COMDAT) is treated by its later-compiled callers as
+  clobbering eax/ecx/edx, although its own record still carries a valid summary (+0x21 08, +0xc3 7e,
+  same as plain extern) and its code is byte-identical:
+    smH  '__declspec(noinline) inline float CalcTracerFinalScale' (one TU)  -> callee md5 = v0, ScaleTracer = v1
+         (retail convention: push esi/ecx/edi, tracerScale in esi; only branch targets shifted 0x10)
+    smE  same, defined in two TUs                                            -> same as smH
+    smJ  '__declspec(noinline) static inline'                               -> ours (v0)
+    v2   '__declspec(noinline)' extern non-inline                           -> ours (v0)
+    smI/smK 'inline' / 'static inline' without noinline                     -> inlined at both sites (retail calls)
+  So the caller-side trust of a callee summary depends on the callee being a non-COMDAT definition: c2 cannot
+  rely on a selectany function's register use (the linker may pick another copy). Record dump cannot show it
+  (smH and v2 records are identical: d37 20a5, 08/7e); the gate is on the caller side.
+- Ruled out with identical callee code (sm_flags.sh, TU-wide cl flags): /Zi /Z7 /Zd /EHsc /GX /GS /G5 /G6 /G7 /GR
+  /Gy- /Ox /QIfist /J /vmg /GT keep ours. /Op /Za (implies /Op) /Ob1 /Os /arch:SSE /Gr /Gz change code.
+  /Op keeps the callee summary (08/7e) but turns sqrtf into a call (Vec3Distance/ScaleTracer lose theirs).
+- Dead calls do not clear a summary: 'if (0) Com_Error(...)', 'if (sizeof(float) != 4) Com_Error(...)',
+  'if (0) Com_Leaf()' in the callee all give ours (smB/C/D).
+- c2 internals: the summary flag (+0x20 bit 0x800 of the function record) is set by FUN_1077bdd8
+  (lab/w200/ghx/sm2/1077bdd8.c): walks the function's final IL, every call (op 0x290) must resolve
+  (FUN_10779135) to a record with 0x800, indirect/unknown calls clear it. Called from 0x10750486 and
+  0x10763d0a. Other 0x800 writers (1076ed94, 10790ad6, 107736a6, 10816698, 1083d6d7) work on local/data
+  symbols (+0x30 == 1), not function records (+0x30 == 4). Constant-arg discount entry: cost model chunk
+  0x1078d187 -> 0x1079774d calls FUN_10797769 with list [info+0x44], count word [info+0x48] (info = [esp+0x418]).
+
+CalcScreenPlacement (same mechanism, HYPOTHESIS for the inline census, not built)
+- If retail CSP is an extern 'inline' function (header-defined, one COMDAT copy per using TU), callers would
+  get no trusted summary (no constant-arg discount -> 15 constant-align sites refused) and, per smI, inline
+  it through a different path where they do inline. Matches the census split (client wrappers inline,
+  cgame/ui call) only if the budget path decides; unverified. Next: header 'inline' CSP + oracle (lmv.sh)
+  on all 63 sites; check whether the out-of-line copy lands at 0x449ee0.
+
+FULL-TREE PROBES (CalcTracerFinalScale, cg_weapons.cpp)
+- sm1 '__declspec(noinline) inline float CalcTracerFinalScale' and sm2 'inline float CalcTracerFinalScale'
+  (lab/w200/sm1.py, sm2.py): both build, LNK=0, ScaleTracer fn=0 (FULL MATCH, 240 B at retail 0x4d1390),
+  CalcTracerFinalScale stays out of line at 0x4d1340 in sm2 too (the full tree does not inline it, unlike
+  the harness), CG_DrawTracer now starts at retail 0x4d1480. But ALL 68.367% (-532k): .text vsize +16.
+  Cause: our CG_DrawTracer is 704 B, retail 688 B (0x4d1480..0x4d1730); main hid that by ScaleTracer being
+  17 B short (main DrawTracer at 0x4d1470). Landing needs CG_DrawTracer shrunk by >= 1 B (16 after align).
+  sm2 is the real-source form (no noinline needed): plain 'inline' on CalcTracerFinalScale.
+NEXT: CG_DrawTracer diff vs retail on the sm2 build (lab/r2w was cleaned: rebuild with try.sh sm2 ...);
+  then CalcScreenPlacement as a header 'inline' (oracle first).
+
+CONSTANT-ARG SUMMARY BUILDER (cd round 10-30; c2 = /opt/msvc710/Vc7/bin/c2.dll md5 8460473c, NOT target/vc70/c2.dll)
+- PINNED (disasm + Ghidra lab/w200/ghx/cd1/): the cost model's info = [callee_sym+0x99], a 0x54-byte record
+  allocated by FUN_107091b4 when the front-end flag sym+0x69 bit 0x1000 is read from the .obj (FUN_1076e658:
+  +0x69 is a c1xx flag dword read from the IL stream). Writer of info+0x44 (list) / +0x48 (top count) /
+  +0x4a (total nodes) / +0x1c (walk instr count) / +0x50 bits 8,4 / +0x4e: FUN_1077c9b1 (0x1077cab3..),
+  called once per function from the backend pipeline FUN_10770532 (0x1077056b), before the global optimiser.
+  List built by FUN_1077cdd3 (recursive block walk). Empty/unused list when:
+    a) sym+0x69 lacks 0x40, or 0x2 / has 0x10, or no info, or not LTCG -> FUN_1077c9b1 skips everything.
+    b) walk count > 449 (0x1c1) at the top level -> list 0, count 0, info+0x1c = 9000 (=> 9000-penalty
+       in FUN_1078d1aa: cost += size/2*(caller+9000)/9000).
+    c) no branch (op 0x288) whose compared operand chases (FUN_10781b14 through ops 263/267/268/278-283)
+       to an UNASSIGNED param (param sym+0x34 bit 1 is set by any earlier store to it) vs a constant/param,
+       and no switch (op 0x29b) on a param (or a single-def local chased via FUN_107335eb).
+  Caller side (FUN_1078d03c): discount only if some arg reaches the call as kind 7 (folded constant).
+- PINNED (bench /home/nawaf/mlw/ora/cv cdgen.py/cdrun.sh, cave lab/w200/cave_cd.s dumps info):
+  CSP plain: f69 106a, info il=116 nodes 18, constant sites inline (1 call left of 3).
+  Bit 0x40 = 'auto-inline candidate' from c1xx. Cleared (f69 102a, no list, all 3 sites CALL, CSP code
+  identical md5) by: __declspec(noinline), '#pragma auto_inline(off)' around CSP, or TU /Ob1 with the
+  Get*From* helpers declared 'inline'. noinline and auto_inline(off) give IDENTICAL c2 sym records.
+  No effect (still discounted): local copy of the aligns, align param reassigned, &align taken, static,
+  extern "C", const params, address of CSP taken, switch inside an inlined static helper, /TC, /EHsc, /Op,
+  /Zi, /GX /GR /Gy, inline_depth(0).
+- CONSEQUENCE (SUPPORTED by inl_notes lgo round + the above): any callee-only property that empties the list
+  (noinline / auto_inline(off) / /Ob1 = bit 0x40 clear) also removes the discount at the CG_DrawLagometer
+  nested site (CL_DrawStretchPic aligns 3,3: size 468, c0 31, c1 435 -> cost ~2), which retail INLINES and
+  which needs that discount on the cost path. So a callee-side fix alone cannot give retail's split; our
+  noinline stand-in already IS the 'no list' state. Retail split needs either (i) the 4 client sites decided
+  on the budget path (CSP not yet compiled when they compile; IL size [+0x6d] = 599 vs caller budget) with a
+  no-list CSP for everyone else, or (ii) a caller-side reason at the 15 cgame sites (align arg not kind 7 at
+  decision time). Neither found; (i) needs CSP in a call cycle (retail CSP is a pure leaf).
+TRIED (cd round): bench cd0-cd21 (see cdgen.py); full builds cda (auto_inline(off) in place of noinline),
+  cdb (cda + lg1 + x8b lagometer): results below.
+  cda (lab/w200/cd_ai.py: '#pragma auto_inline(off)' replaces __declspec(noinline) on CSP): ALL 1694928
+    (main 1694929, -1; CSP unchanged fn=1 as main; 48 calls kept). Same c2 sym record as noinline on the
+    bench, so the -1 is elsewhere (not chased). Not a gain; the pragma is a stand-in of the same kind.
+  cdb (cda + lg1 + x8b, lgo_try.sh): ALL 1103018 = 64.890%, Lagometer fn=294: with no list the nested
+    lagometer site is refused too (as predicted above) -> size change.
+NEXT: test hypothesis (i) on the bench with a call cycle (callee uncompiled at the caller -> budget path:
+  does a bit-0x40-clear callee still inline there?), and log arg kinds at the 15 cgame sites (1078d03c
+  local_3fc) in the full oracle for (ii).

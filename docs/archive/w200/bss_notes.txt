@@ -1,0 +1,161 @@
+bss layout agent 10-26 (baseline ALL 1687197 = 99.256%)
+
+PAID
+- bss_cg.patch  (cg_main_mp.cpp + users): 1687197 -> 1687306 (99.263%), 0 LNK errors, .data vsize unchanged.
+  cgDC now at retail 0x135ca38 (cg_shock_volume_auto2d moved after it, retail 0x135ccac); removed unreferenced
+  cg_shock_viewKickFadeTime (Mac leftover, retail has no such slot); 11 dvar pointers renamed so the .bss name
+  order matches retail (cg_paused, cg_drawLagometer, cg_shock_mouse, cg_crosshairDynamic, cg_gun_ofs_r, ...).
+  Renamed ones carry probe-style names (cg_x_NNN); the dvar strings are unchanged.
+- bss_cm.patch  (cm_load_obj.cpp): 1687197 -> 1687230 (+33), 0 LNK errors. cme tail region matches retail exactly:
+  retail order is cmod_base, hole, lumpData, hole, c_active_windings. cm_lumpData renamed cm_lumpData_67,
+  two unreferenced globals cmFill_106 / cmFill_290 supply the holes.
+- bss_all.patch = both (see number in the final reply).
+
+STILL OPEN in cg_main_mp (swap pairs):
+- cg_teamChatsOnly / cg_viewsize (retail 0x14f6ad4 / ad8), cg_crosshairDynamic / cg_hudDamageIconInScope
+  (retail 0x14f6a50 / a54). Names picked in the big probe build landed on the wrong side in the real build.
+
+FINDINGS
+- The .bss name order is NOT a pure function of the names: a probe name that sorts between A and B in a 5000-symbol
+  probe build can land on the other side in the real ~160-symbol build (cg_crosshairDynamic_192, cg_brass_1603,
+  cg_shock_mouse_sensitivityscale_967 all flipped). Probe in a build of realistic size (<= ~1000 extra names),
+  then ALWAYS re-check the real build. Probes taken at N=450/prefix (bpb) held for 8 of 9 names, N=1800 (bpc) did not.
+- Method that worked: /home/nawaf/bsst/{rdv.py (retail dvar addr per CG_RegisterDvars), dcmp.py (retail vs ours by name),
+  lis.py (which vars to move = not in the longest run already in retail order), pick2.py (probe name inside the retail gap),
+  rn.sh (identifier rename across src), pr.sh/pd.sh (probe builds), mkp.sh (patch from tree copy)).
+
+cl_shownet (-4, 24 sites) NOT FIXED:
+- End-group (zero-init) data at 0x182cad0: ours = [ui_gameinfo local static 0xcad0][assertive shouldQuitOnError cad4]
+  [cl_shownet cad8][static int cl_decode_count = 0 (cl_net_chan_mp, UNREFERENCED) cadc][updateScreenCalled cae0].
+  Retail = [cad0 same][hole cad4][quit bool cad8][cl_shownet cadc][updateScreenCalled cae0]. So the unreferenced
+  cl_decode_count slot must come BEFORE the assertive bool in retail (moved TU, not removed).
+  Tried: moving it to the end of ui_gameinfo_mp.cpp as `static int x = 0;` -> the item lands elsewhere in the end group
+  (bcl1: cadc vanishes, everything after shifts -4, ALL 1685811, worse). Next: try the global form in the TUs linked
+  after ui_gameinfo (gfx_dll_v60 / gfx_v60_threads, after_* objs) or inside assertive.cpp before shouldQuitOnError
+  (then the cl_net_chan one must go).
+fsh (-8, 13 sites) NOT DONE: retail has 8 unreferenced bytes between the end of fsh (0xa778e0) and the next com_files /
+  com_memory item (ours 0xa778e0, retail 0xa778e8); needs a filler global in com_files.cpp (after fsh) found by name probe.
+Not reached: cg_freeLocalEntities regions, nextHistoryLine/historyLine/historyEditLines, com_statmon, winInputUnreferenced,
+  g_scr_data, scrVmPub, cg_eachClientActiveLocalEntities, lpds, shortversion, itemParseKeywordHash, cg_freeMarkPolys.
+  cl_showSend/fx_enable/cl_bypassMouseInput (cl_main_mp .data dvars): retail has everything from cl_allowDownload on
+  at +4 (one extra 4-byte item before cl_allowDownload, 0x5c684c area) - same name-order/filler job.
+
+ROUND 2 (base = main 1687335)
+PAID (all 0 LNK errors, region checked against retail with s4x):
+- bss2_cl_shownet.patch +28: cl_decode_count (unreferenced static = 0) moved from cl_net_chan_mp.cpp to the top of assertive.cpp, before shouldQuitOnError (real name kept). 0x182cad0 run now matches.
+- bss2_cl_main.patch +28:  appended to cl_main_mp.cpp (sorts first, 4-byte hole before the Y item); cl_allowDownload..fx_sort run now matches retail (+4).
+- bss2_fsh.patch +17:  in com_files.cpp (8 bytes after fsh).
+- bss2_cgswap.patch +11: swapping the DECLARATION order of cg_crosshairDynamic/cg_hudDamageIconInScope and cg_teamChatsOnly/cg_viewsize fixed both swap pairs. Names that sit in one hash bucket keep source declaration order: try swapping declarations before probing names.
+- bss2_all.patch: 1687414 (99.269%), +79 over main.
+NOT DONE: history lines (cl_keys_mp: retail has holes at 0x5c3280/84/8c and different dvar/historyLine order), common.obj (ui_errorMessage/Title belong at retail 0xafac70 after rd_buffer stuff; hole at 0xafab90; shortversion +4; probe ranks of statics were not reliable), cg_freeLocalEntities regions, com_statmon (already matches on main), g_scr_data, scrVmPub, cg_eachClientActiveLocalEntities, lpds, itemParseKeywordHash, cg_freeMarkPolys, winInputUnreferenced.
+
+ROUND 3 (base = main 1687414)
+FACT: retail 1.0 has NO string 'cg_shock_viewKickFadeTime' (only cg_shock_viewKickRadius at 0x5733c4-ish/.rdata 0x1737c4 and cg_shock_viewKickPeriod 0x1737dc). No Dvar_Register uses it, so deleting the global was correct; do not restore.
+PAID (0 LNK errors; regions checked with s4x):
+- bss3_cl_input.patch +23: three unreferenced int fillers in cl_input.cpp (clInFill_182, _22 between cl_yawspeed and cl_bypassMouseInput = retail 8 bytes; _93 between cl_pitchspeed and cl_anglespeedkey).
+- bss3_cl_keys.patch +25 (on top of cl_input): shortestMatch[1024] is ALIGNED(128) in retail (0x5c3300); history lines now match.
+- bss3_mantle.patch +24: mnFill_211 in bg_mantle.cpp (4 B between s_mantleAnims and the mantle dvars) = g_scr_data+5b08 sites.
+- bss3_xanim.patch +8: xaFill_83 first in xanim.cpp data (4 B hole before the xanim statics) = scrVmPub+834c sites.
+- bss3_win_input.patch +5: winInputUnreferenced[2] split into winInputUnreferenced + wiFill_21 (retail has hole, center_y, hole).
+- bss3_cgpaused.patch +7: declaration swap in cg_main_mp.cpp (cg_paused_244 / cg_viewsize_85 order).
+- bss3_all.patch: 1687506 (99.274%), +92 over main.
+Probe method note: statics are invisible in the map; make them non-static in a probe tree (not shipped) to read their rank among the probe names, then add the filler with a probe name of the right rank. Verify in the real build.
+NOT DONE: common.obj (ui_errorMessage/Title stay at 0xafaae0 whatever the declaration order; need the retail position after rd_buffer 0xafac6c; shortversion/hole 0xafab90 untouched), lpds (voice/dsound group differs around 0x182cb80, several items), cg_freeLocalEntities/cg_eachClientActiveLocalEntities/cg_freeMarkPolys/itemParseKeywordHash (late end-group, not started), remaining win_input-adjacent +4 (Win_InitLocalization run).
+
+ROUND 4 (base = main 1687506)
+PAID (0 LNK errors):
+- bss4_net.patch +12 (= bss4_all.patch): win_net.cpp, declaration order usingSocks, networkingEnabled, winsockInitialized (retail 0x182cb24/28/2c). 1687518 (99.275%).
+TRIED, NO GAIN / WORSE:
+- Win_InitLocalization pair (win_localize.cpp localization/localized_strings declaration swap): 0 change (the wiFill_21+14/18 sites are not this pair).
+- Sys_ScanForCD static cddir[256] (retail 0x182ede8, after the Extract buf and before SV_AllocSkelMemory; ours 0x182d1e8 so all later end-group items sit +0x100): hoisting it to file scope in win_main.cpp (top, or before the function) = 98.29%, -16k, .rdata/.text shift. Needs another route (an end-group TU after SE_*).
+- com_endParseSessionUnderflow (common q_parse.cpp): retail has NO pointer here (colorBlack is at 0x55cd1c, ours +4 -> colorWhite/LtGrey/Yellow/Black ~50 sites). Inlining the literal into q_parse_endsession.inl moves the ??_C string to the first user (0x166a2c vs retail 0x16a708 inside q_parse.obj): 98.37%. The string must stay in q_parse.obj without a pointer slot.
+- common.obj: ours afab90 var / afab94 / afab98 are each one slot earlier than retail (retail hole at afab90, rd_buffer ptr at afac6c, ui_error* pair at afac70); not attempted beyond mapping.
+- Voice group: retail has no ref at 0x182cb80/88; Voice_Init voice_freq refs land at retail cb94 and IncomingVoiceData playing at cb75, so win_voice vars are split around decode/encode in retail. Not attempted.
+- End group after cg_freeLocalEntities: Item_CorrectedTextRect static rect is ~0x29d0 later in retail; Key_KeynumToString/CL_DObj*/PC_SourceError block is -0x100 in retail (follows from the cddir shift).
+PITFALLS (this round)
+- lv.sh with an empty NAME does rm -rf lab/r2w/ : it wiped all scratch builds once (they are disposable). Never call lv.sh without a tag.
+- ln -s into an existing symlinked dir creates the link INSIDE the target: a shared _mk dir made claude_client/target/src/src (removed). Use one temp dir per patch name (b4.sh does).
+- parallel builds: use "cmd & ... wait" inside ONE wsl call; background subshells die when the tool call ends.
+
+ROUND 5 (base = main 1687518)
+PAID (0 LNK errors, ALL up):
+- bss5_common.patch (= bss5_all.patch) +36: 1687554 (99.277%). common.cpp: the var at 0xafaae0 was NOT ui_errorMessage but com_errorType
+  (Cleanup+SetErrorMessage); ui_errorMessage already matched (0xafd51c). Fix: rename com_errorType -> comFill_44 (lands at retail 0xafac70),
+  rd_flush -> comFill_187 (retail 0xafac6c is rd_flush, not rd_buffer), add public unreferenced ints com_errorType (keeps 0xafaae0 hole)
+  and comFill_50 (hole at 0xafab90 before ui_errorTitle) and comFill_198 (after com_unreferencedEv). Names found with a public-int probe
+  build (comFill_0..199, ui_errorTitle made public to read its rank); rank of renamed statics checked by region diff.
+METHOD NOTES
+- A static renamed/made public keeps its slot rank (making ui_errorMessage/Title public changed nothing), so public probe ints in one build
+  give the true rank neighbours of invisible statics. Always use \b regex renames (rd_buffer also hits rd_buffersize).
+- Identify the owner of a slot by renaming candidates: ref sets from s4x name the readers, not the variable; check against the source.
+- Helpers: /home/nawaf/cvar.sh TAG file.py (edit via python on common.cpp copy, build, region diff), runn.sh (batch rename landing test).
+NOT DONE: voice group (task 2). Retail vs ours: 0x182cb80 and cb88 unreferenced in retail (ours Voice_Init / IncomingVoiceData vars sit there);
+  retail cb94 is read by both Voice_Init and Encode_Init (ours cb94 Encode only). Needs the win_voice vars split around decode/encode TUs.
+
+ROUND 6 (base = main 1687554)  all 0 LNK errors
+PAID (bss6_all.patch = voice+wil+bg+marks: 1687705, 99.286%, +151):
+- bss6_voice (+6): win_voice.cpp: playing is a static Bool right after static recording (retail cb74/cb75 bytes); old public playing -> playing_unused (cb88 hole), voice_freq stays as the unreferenced cb80 slot. Voice_Init uses g_current_bandwidth_setting (retail cb94 is ONE var read by Voice_Init+Encode_Init). Retail 4b6750 returns cb94 (bandwidth), 4b67e0 returns g_frame_size and is the one Record_Queue inlines: encode.cpp names swapped (4b6750 = Encode_GetBandwidthSetting, 4b67e0 = Encode_GetFrameSize). Renaming only the body of the old name broke Record_Queue (LTCG inlines by name).
+- bss6_wil (+13): win_localize.cpp localized_strings -> alocalized_strings (retail localization b94 / localized_strings b98).
+- bss6_bg (+127): bg_weapons.cpp public unreferenced int bgFill_22 (no initializer! "= 0" publics go to the end group) after bg_iNumAmmoTypes = 4 B hole at retail 0x15b3788; bg_animation_mp.cpp ScriptFileBuffer -> ScriptFileBuffer_73 (retail order: parseEvent, defineStr, parseMovetype, numDefines, defineBits, ScriptFileBuffer, g_piNumLoadAnims, weaponStrings, defineStringsOffset, defineStrings, g_pLoadAnims). Ranks from a probe build with all statics made public + 100 probe ints.
+- bss6_marks (+6): cg_marks_mp.cpp 40 unreferenced bytes before cg_freeMarkPolys (retail 0x14f96c0..e8), as two public ints cgm26[5], cgm51[5].
+NEW PITFALL: LTCG codegen of GScr_CloseFile (159 B) flips (push esi / regalloc) with the COUNT of public symbols: bg+voice, bg+marks, voice+marks all lost ~160 bytes though each alone gained. Splitting the marks filler into two public symbols (cgm26[5]+cgm51[5], same layout) restored it. If a combined build drops ~160, check GScr_CloseFile at 0x506660 first and add/split a filler symbol.
+Also: a public unreferenced int needs NO initializer to land in the main .bss group.
+itemParseKeywordHash: already matches (no mismatch listed). lpds+4 (-4, Record_Queue sites) and the UI_FeederItemImage 0x18053b8 pair remain.
+NOT DONE: bg_weapons "Couldn t find weapon" -4: retail has a 4-byte item (0x28,0,0,0) in .rdata after the "BG_LoadWeaponDef: Could not find default weapon" string; ours lacks it. Unreferenced static const int is dropped by cl (also at file top); public const lands elsewhere (rdata +0x8 shift, -160k); a volatile "(" local did not move it. Likely a literal "(" string used in dead code or a pooled const; untried: a real string use that the optimizer drops.
+
+ROUND 7 (base = main 1687705)  all 0 LNK errors; tools: /home/nawaf/{b7new.sh,b7diff.sh,pb7.sh,opd.py}
+PAID (bss7_all.patch = all 12 below, built: 1687810, 99.292%, +105; sum of singles 115, .text/.rdata/.data all up):
+- lpds +7: record.cpp declaration swap (enc_buffer_pos before static samples_in_partial_audio_buffer). The "lpds+4" rows were these two vars, not lpds.
+- feeder +1: UI_FeederItemImage loads levelShot from mapList[].imageName (not mapLoadName); code operand, not a layout row.
+- xa +8: xanim.cpp public fillers xaF88 (after g_notifyListSize..., before bool g_anim_developer) and xaF177 (after it, before g_notifyList). Retail: size, hole, dev, hole, list.
+- wfs +6: cl_main_mp.cpp declaration swap g_waitingForServer / cl_avidemo.
+- snd +5: snd.cpp sdF194 filler before snd_errorOnMissing (4 B hole at retail b68e0c); sndUnref3 renamed sdF157 so it ranks after the last static (retail hole is after, not before, the stream var).
+- gn +27: g_no_script_spam renamed gnP1 (3 files) to rank between g_TeamColor_Axis and g_banIPs; gcP46[14] (56 B) filler before the static g_clients (retail g_clients at 0x1722e00). ALIGNED(128) on g_clients does nothing.
+- cgo +5: cg_main_mp.cpp declaration swap cg_gun_ofs_r_182 / cg_shock_soundLoopEndDelay_370.
+- con +38: cl_console_mp.cpp: con_inputDvarInfoColor declared right after InactiveValueColor (before con_unk_55c09c). Fixes the .rdata run and the +18 rows.
+- ww +3: win_wndproc.cpp winWndprocUnreferenced[2] -> int + filler wwP124 (4 B hole before vid_xpos).
+- scf +7: scr_compiler.cpp: ConnectBreakStatements defined before ConnectContinueStatements (retail 0x46d260 reads the ptr our struct calls currentBreak; reordering the struct fields instead is -80). No rename.
+- sdb +4: SND_Save/SND_Restore use g_snd.background[0] (retail operand g_snd+0x258), was [1].
+- dev +4: cg_drawtools_mp.cpp: CG_DrawBig*DevString pair defined before the Small* pair (retail order; registration order in cg_main_mp already matched).
+TRIED, NO GAIN: screen_placement.inl and ConDrawInput_Text/DetailedCmdMatch operand order (fadd of two globals): MSVC canonicalises a+b / b+a, source order does not change it; spGlob +18/+44 and g_cginit_loading+1c/+24 rows are these (retail has the other order; need a different expression shape or struct order). Swapping y/fontHeight in ConDrawInput_Text breaks the other copies.
+NOT DONE: Couldn't-find-weapon rdata -4 item (6 sites), sv+5f430 / level_bgs+44d07 / com_errorEntered / clients/cls/clientConnections rows (large-struct field or aggregate issues), EXE_DISCONNECTED, MENU_ERROR/NOTICE and Com_EventLoop string order (rdata pool order), colorBlue +4 (same cause as colorWhite).
+PITFALL: g_unusedStorage-style public probe of a big static array can jump groups (public char[64] landed at 0x165b450); probe with the real large static (g_clients) instead.
+
+ROUND 8 (base = main 1687810; keep_r8/ holds base exe+map)  0 LNK errors
+PAID (bss8_all.patch = bss8_mn: 1688009, 99.304%, +199):
+- bss8_noticetbl +183: common.cpp: noticeErrors[] table moved to just before Com_IsNoticeError and cl_cdkey/cl_cdkeychecksum
+  defined right after it (keeps the .data order table, cdkey, chk = retail 0x58c35c). Moving the table fixes the pool order of the
+  XBOXLIVE_*/EXE_DISCONNECTED strings vs "logfile opened" (a global initializer emits its strings where it is DEFINED relative
+  to the functions; moving it alone costs -63 .data because cl_cdkey then precedes it).
+- bss8_mn +16 (on top): Com_SetErrorMessage branches inverted (if SERVERDISCONNECT || IsNoticeError {NOTICE} else {ERROR});
+  same behaviour, puts MENU_ERROR before MENU_NOTICE in the pool.
+TRIED, NO GAIN: Debug_EventLoop moved before Com_EventLoop (string order fixed but .text order breaks, -830); "(" item after
+  BG_LoadWeaponDef string: an empty static inline bgNoStr("(") call is dropped without emitting the string (and that build scored
+  74%: do not retry); the "(" is unreferenced in retail text (no pointer to 0x57626c anywhere).
+  sv+5f430 rows (FxUtil static, retail is in the clients region), clientConnections+14..24 (retail reads another object 0x407cc
+  higher), com_errorEntered/objBuf: not reached (object-order / struct questions).
+
+ROUND 9 (base = main 1688009; keep_r9/ holds base exe+map)  0 LNK errors
+PAID (bss9_all.patch = spawn+lpt+timeout+sysinfo+rts+cginit: 1688474, 99.331%, +465):
+- bss9_spawn +439 (.text +63, .rdata +354, .data +22): g_spawn_mp.cpp: the fields table (with its two floats) and spawns[] moved to right after Scr_ReadOnlyField.
+  Strings of an obj sit in reverse source order, so the "Tried to set a read only entity field" string now follows both table runs (retail order); .text unchanged in order.
+- bss9_rts +15: CL_ReadyToSendPacket uses conn->netchan.remoteAddress (loopback test + Sys_IsLANAddress), not serverAddress (retail 0x607040).
+- bss9_timeout +3: CL_CheckTimeout uses clc.lastPacketTime (all 3 uses; changing only the first costs +16 bytes of .text).
+- bss9_lpt +2: connectResponse sets lastPacketTime=realtime first, then lastPacketSentTime=-9999 (fields were swapped, Q3 order).
+- bss9_sysinfo +2: CL_SystemInfoChanged tests com_sv_running (retail 0xafab08), not com_dedicated.
+- bss9_cginit +6: CL_InitCGame calls CG_Init(serverMessageSequence, lastExecutedServerCommand, clientNum) = the prototype order (args were passed reversed; retail pushes clientNum last).
+TOOLS: /home/nawaf/rdorder.py OURS RETAIL MAP [N] [-v] (obj blocks with ??_C string order different from retail; after bss9_spawn only common.obj Com_EventLoop pair remains),
+  /home/nawaf/fdiff.sh MAP EXE SYMBOL [len] [lines] (retail-vs-ours disasm diff of one function), /home/nawaf/mkp9.sh NAME file script.py (patch maker).
+TRIED, NO GAIN: CL_Netchan_Decode key expr order (dl/bl swap: two source shapes give identical code); dobj_management serverObjMap/clientObjMap
+  (retail has them swapped: server map at 0xb30680, client map at 0xafd580): declaration swap = 0 change, renaming either static = -270 (shifts other statics). com_errorEntered/objBufPad rows are this pair.
+  CL_CubemapShot_f re+a8..f8 (-14): refexport_t field order, not touched.
+
+ROUND 10 (layout agent; base = main 1688809 after the call-target commit 85ed83e; keep_r10b/ = bss10_all exe+map)  0 LNK errors
+PAID (bss10_all.patch = fxskel+cubemap+swapbolt+xmodel: 1688830, 99.352%, +21 over 1688809; .text +, .rdata/.data unchanged):
+- bss10_fxskel +~10: FxPrimitives.cpp FxBoltFrame::GetOrientation compared against sv.skelTimeStamp (a fake server_t overlay); retail reads the CLIENT stamp (clients+0x864c, 0x8e4854). Now CL_GetSkelTimeStamp(0). Behaviour change = retail operand (client stamp, not server). Fixes the sv+5f430 rows.
+- bss10_cubemap +4: cl_scrn_mp.cpp CL_CubemapShot_f RE_FUNC offsets were 0x14 too low (Begin/End/Save cubemap + BeginFrame/EndFrame/Lighting): 0xec,a8,ac,f0,f4,f8 -> 0x100,bc,c0,104,108,10c (retail calls). refexport_t itself was right; the hard-coded offsets were wrong.
+- bss10_swapbolt +2: FxUtil.cpp FX_SwapBolt defined before FX_SwapNonBolt (retail first fn uses effectListBolt@59500c). Swapping the two POINTER declarations instead costs -38 (17 other sites match now).
+- bss10_xmodel +1: xmodelPad13 -> xmodelPad1 (filler rank: retail has the pad after xmodel_unk_e23438).
+KEY FINDING: the com_errorEntered/objBufPad "DObj map swap" rows were NOT a layout swap. Retail Com_SafeServerDObjFree/SafeClientDObjFree sit in the opposite order (first fn uses the client map). Defining SafeClient first fixes it (+9). Same pattern: SND_Update2DChannelReverb/3D/Stream order (+4: retail order 2D,3D,Stream). Both were landed independently by the call-target agent in 85ed83e. Lesson: a +/-N data row with two symmetric functions = function-order swap; check the map order of sibling functions first.
+TRIED, NO GAIN: DObj map renames (clientObjMap -> various: either no change or -27k, moves objBuf group by 0x80); assertive.cpp g_hwndGame/g_hiddenCount order and renames of cl_decode_count/shouldQuitOnError (row __fmode+8c stays; its extra 4 B var is elsewhere); fx_profile/fx_debug declaration move (no change, publics are not in declaration order).
+NOT DONE / .text not layout: level_bgs+44d07 rows (XAnimGetInfo/CopyAnimTree: retail uses lea ecx*8 scaled form, a codegen shape), CL_Netchan_Encode/Decode (dl/bl load order), Com_ShutdownInternal (retail adds ebp frame / and esp,-8), clientConnections+14..24 rows follow from those. Couldn t find weapon -4 rdata item: not solved (item is the 4 bytes 28 00 00 00 = "(" string, unreferenced in retail text). fx_profile row (FX_DrawAll, 8dc1d4 vs 8dc1d0): fx_debug/fx_profile slot swap, not solved. cgArray+2be14/2be18 (CG_PulseLowHealthOverlay) and cg late group left.

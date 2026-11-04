@@ -1,0 +1,26 @@
+NON-STATIC INLINE SWEEP (1.4b rule) - 10-29, base main ALL 1694928/1694929 (+-1 = PDB GUID bytes at .rdata 0x1879a4, noise)
+
+RESULT: no gain. Every candidate builds/links (where noted) and leaves every function byte-identical to main.
+
+DETECTOR (lab/w200/ni_live.py BUILD_DIR [fnlist]): for each direct call in a function, which of eax/ecx/edx
+is read after the call before being written (value kept live across the call), retail vs ours, grouped by callee.
+Validated: on the pre-fix build lab/r2w/main7 it flags CalcTracerFinalScale <- ScaleTracer (ours ecx,edx / retail none).
+On current main, over all 107 mismatched functions: ZERO call sites differ (ecx/edx/eax liveness identical,
+call counts identical). So no remaining diff is the callee-distrust pattern; the leftovers are own RA,
+x87 roles, scheduling, loop shape (as sections 1.4 / 1.5 / 4 say).
+
+TRIED (full builds, all ALL unchanged, per-function diff unchanged):
+- niA: WeaponFlash, CG_UpdateHoldBreathSound (cg_weapons.cpp), CG_ScanForCrosshairEntity (cg_draw_mp.cpp),
+  Rect_ContainsPoint (ui_shared_mp.cpp): static -> non-static inline.
+- niB: SND_InitRawSamples (static -> inline), Com_InitBuildSoundAlias, Com_SubtitleReferenceExists,
+  Com_WriteSubtitleToStringEd, DObjGetBoneIndexInternal: -> inline.
+- niE: __declspec(noinline) inline on StartWeaponAnim, GetNewVariableIndexInternal2, Scr_TerminateThread,
+  generateHashValue.
+- niCD: __declspec(noinline) inline G_FindConfigstringIndex; inline CG_WeaponDObjHandle.
+- LINK FAIL (LNK2001, used from other TUs, definition only in its .cpp): G_XModelBad, AxisCopy,
+  AddLeanToPosition, UI_MouseEvent. Not pursued with a header copy: Mac STABS lists G_XModelBad,
+  AddLeanToPosition, UI_MouseEvent as defined in their own .cpp (g_utils_mp, q_shared, ui_main_mp), and
+  AxisCopy matches at its retail address 0x428cb0 between AxisIdentity and AxisTranspose in com_math.obj,
+  where a header (selectany) copy could not land (it goes to the first caller TU). PINNED by layout.
+- Mac evidence scan: callees of mismatched functions that are absent from mac_stabs.json are mostly
+  static helpers GCC inlined on Mac (weak evidence only); list via the cal.py snippet in this session.
