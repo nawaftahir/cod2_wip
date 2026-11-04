@@ -133,7 +133,7 @@ BOOL CALLBACK FindBrushDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lP
         case IDOK:
             GetWindowText(GetDlgItem(hwndDlg, 1231), entstr, 255);
             GetWindowText(GetDlgItem(hwndDlg, 1225), brushstr, 255);
-            SelectBrush(atoi(entstr), atoi(brushstr));
+            SelectBrush(atol(entstr), atol(brushstr));
             EndDialog(hwndDlg, 1);
             return TRUE;
         case IDCANCEL:
@@ -207,5 +207,5 @@ void DoAbout(void)
 /* Additional retail modal launcher; resource identity under investigation. */
 void FUN_00476db0(void)
 {
-    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, FUN_00476d70);
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)225, g_qeglobals.d_hwndMain, FUN_00476d70);
 }

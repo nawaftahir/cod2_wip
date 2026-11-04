@@ -835,3 +835,4 @@ addr	size	source	symbol	name	tag
 0x004760f0	29	src/radiant/win_dlg.cpp	?DoFind@@YAXXZ	DoFind	SUPPORTED
 0x004763c0	32	src/radiant/win_dlg.cpp	?FUN_004763c0@@YAXXZ	FUN_004763c0	UNNAMED
 0x00476ce0	32	src/radiant/win_dlg.cpp	?FUN_00476ce0@@YAXXZ	FUN_00476ce0	UNNAMED
+0x004766d0	312	src/radiant/win_dlg.cpp	?SidesDlgProc@@YGHPAUHWND__@@IIJ@Z	SidesDlgProc	SUPPORTED
