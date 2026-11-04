@@ -61,6 +61,7 @@ qboolean UI_checkKeyExec(int key);
 void UI_LoadSoundAliases(void);
 int LAN_CompareHostname(const char *hostName1, const char *hostName2);
 int LAN_CompareServers(int source, int sortKey, int sortDir, int s1, int s2);
+extern const char *UI_GetMapDisplayName(const char *pszMap);
 
 void GetClientState(uiClientState_t *state)
 {
@@ -326,6 +327,11 @@ int LAN_CompareServers(int source, int sortKey, int sortDir, int s1, int s2)
                 diff = -1;
         }
         goto apply_sortdir;
+    case 9:
+        diff = server1->pb - server2->pb;
+        if (diff)
+            goto apply_sortdir;
+        break;
     case 8:
         diff = server1->mod - server2->mod;
         if (diff)
@@ -347,7 +353,7 @@ int LAN_CompareServers(int source, int sortKey, int sortDir, int s1, int s2)
             goto apply_sortdir;
         break;
     case 3:
-        diff = I_stricmp(server1->mapName, server2->mapName);
+        diff = I_stricmp(UI_GetMapDisplayName(server1->mapName), UI_GetMapDisplayName(server2->mapName));
         if (diff)
             goto apply_sortdir;
         break;
@@ -361,7 +367,7 @@ int LAN_CompareServers(int source, int sortKey, int sortDir, int s1, int s2)
         if (diff)
             goto apply_sortdir;
         break;
-    case 9:
+    case 10:
         goto compare_ping;
     default:
         goto apply_sortdir;

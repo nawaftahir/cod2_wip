@@ -347,3 +347,10 @@
 - Com_Init_Try_Block_Function (retail 0x434460, 1351 B): differs by a new multi-core block: retail fn 0x434420 inlined = GetProcessAffinityMask(GetCurrentProcess(),&proc,&sys);
   (proc & (proc-1)) != 0 (more than one CPU), then a string/Com_Printf-like call with 0x1010 flags (LocalAlloc-like 0x1010 arg) and a following dvar. Stack frame 0x20 vs 0x18.
   Not written (out of time); starting point: tools/rdis7.py 434420 / 4345a0.
+- w8 (11-04 pm, +4953 incl. lucky tie roll): LAN_CompareServers +388 (1.3 adds sort key 9 = serverInfo_t.pb, ping moves to key 10; case order 0,1,9,8,6,7,2,3,4,5;
+  key 3 compares UI_GetMapDisplayName(mapName) of both); CL_RefPrintf +166 (_vsnprintf(msg, 4096, ...)). The 5 cinematic-byte readers already match through the gated
+  SCR_StopCinematic (CL_Disconnect_f 0x40d5b0, CL_StopLogoOrCinematic 0x410740 diff clean).
+- fn_40d310 (retail 0x40d310, the 300 s re-auth): `if (clc.state == CA_ACTIVE && cls.realtime - lastUpdateKeyAuthTime > 300000 && (net_lanauthorize->enabled || !Sys_IsLANAddress(
+  clc.serverAddress))) CL_RequestAuthorization();` PINNED (matches 104 B, and CL_Frame matches +141 when it calls it as its LAST statement), but adding the call flips
+  PC_EvaluateTokens (2587) and GScr_CloseFile (173) in this tie pool, so the call is NOT committed (net would be -1.9K). The function itself is in cl_main_mp.cpp
+  (static, currently unreferenced, so dropped by the compiler). Re-add `fn_40d310();` after CL_SendCmd() in CL_Frame when the pool can be re-rolled by another gain.
