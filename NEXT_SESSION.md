@@ -16,6 +16,21 @@
 ## Next: identify the 6 code-free TUs (Rich 265 vs 271, Mac STABS candidates in LESSONS 10-29), then settle ties once.
 11-03 closed: Crosshair (no source spelling forwards yaw under /Op; MP+SP retail agree), x87 draw trio (IL arg layout), FX residue (width slot).
 
+
+## 1.3 client (main session, state 2026-11-04)
+- Tree claude_client13 (branch client-1.3, HEAD cb58970). Meters: ratchet13.sh (builds, prints same-offset AND
+  matched-fn bytes; decides on matched-fn, no fn lost vs good13.json, ties in ties13.txt), tools/cmp13 alone = referee.
+- Matched-fn bytes 1,441,522 of retail .text 1,645,581 (~88%). Today: 168,890 -> 1,441,522 (referee fixes ~1,000 KB,
+  PunkBuster layer +172 KB, TLS threads +34 KB, libwww __LINE__ +26 KB, serverInfo_t pb byte +7 KB, small fixes).
+- Work list: WORKLIST_1.3.md (tools/classify13.py), LAYOUT_1.3.md (tools/layout13.py), causes tools/why13.py.
+- Agents work in own worktrees lab13/wX (copy dsound.lib + vc70; ratchet13.sh needs a path-adapted copy + ANCHOR=),
+  deliver branches; lead merges + ratchets in claude_client13.
+- Open leads (NOTES_1.3.md): libwww __LINE__ leftovers (HTReqMan HTTP HTTPGen HTTPReq HTIcons HTPEP; extra HT_OUTOFMEM
+  sites in HTParse HTProxy HTWWWStr = likely different libwww version); dl_main belongs at ~0x4b4900 inside
+  cl_main_pc_mp; CG_SubtitlePrint (8 sound fns pass alias in edx); UI_RunMenuScript body; CL_InitOnceForAllClients;
+  Com_Init localized-cfg; re-auth fn 0x40d310 (no Mac name yet, do not invent); ties13 SND getter twins = recheck.
+- Client SVC_Status keeps the 0x4000 cap in 1.3 (server MAX_MSGLEN form loses it).
+
 ## Remaining 1.0 items (pinned causes in LESSONS 10-31c..i, lab/w200/inl_notes.txt)
 | Item | B | Next attack |
 |---|---|---|
