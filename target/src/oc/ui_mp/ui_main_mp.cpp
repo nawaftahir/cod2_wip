@@ -1835,9 +1835,13 @@ void UI_RunMenuScript(const char **args)
         return;
 
     if (I_stricmp(name, "StartServer") == 0) {
-        if (!(ui_dedicated)->current.integer && Dvar_GetBool("sv_punkbuster") && !Dvar_GetBool("cl_punkbuster")) {
-            Menus_OpenByName(&uiInfo->uiDC, "startpb_popmenu");
-            return;
+        if (!(ui_dedicated)->current.integer) {
+            bool svPb = Dvar_GetBool("sv_punkbuster");
+            bool clPb = Dvar_GetBool("cl_punkbuster");
+            if (svPb && !clPb) {
+                Menus_OpenByName(&uiInfo->uiDC, "startpb_popmenu");
+                return;
+            }
         }
 
         Dvar_SetBoolByName("cg_thirdPerson", 0);
@@ -1917,8 +1921,7 @@ void UI_RunMenuScript(const char **args)
         if (ui_currentNetMap->current.integer >= 0 && ui_currentNetMap->current.integer < sharedUiInfo.mapCount)
             Cbuf_ExecuteText(2, va("callvote map %s\n", sharedUiInfo.mapList[ui_currentNetMap->current.integer].mapLoadName));
     } else if (I_stricmp(name, "voteGame") == 0) {
-        const char *gtName = sharedUiInfo.gameTypes[(ui_netGameType)->current.integer].gameType;
-        Cbuf_ExecuteText(2, va("callvote g_gametype %s\n", gtName));
+        Cbuf_ExecuteText(2, va("callvote g_gametype %s\n", sharedUiInfo.gameTypes[(ui_netGameType)->current.integer].gameType));
     } else if (I_stricmp(name, "saveControls") == 0) {
         Controls_SetConfig(1);
     } else if (I_stricmp(name, "loadControls") == 0) {
@@ -1935,7 +1938,7 @@ void UI_RunMenuScript(const char **args)
     } else if (I_stricmp(name, "addPlayerProfiles") == 0) {
         UI_AddPlayerProfiles();
     } else if (I_stricmp(name, "sortPlayerProfiles") == 0) {
-        uiInfo->playerProfileStatus.sortDir = !uiInfo->playerProfileStatus.sortDir;
+        uiInfo->playerProfileStatus.sortDir = uiInfo->playerProfileStatus.sortDir == 0;
         UI_SortPlayerProfiles(0);
     } else if (I_stricmp(name, "selectActivePlayerProfile") == 0) {
         UI_SelectActivePlayerProfile();
@@ -1955,7 +1958,7 @@ void UI_RunMenuScript(const char **args)
                                sharedUiInfo.movieList[sharedUiInfo.movieIndex]));
     } else if (I_stricmp(name, "RunMod") == 0) {
         Dvar_SetStringByName("fs_game",
-                             *(const char **)((byte *)&sharedUiInfo + 25972 + sharedUiInfo.modIndex * 8));
+                             sharedUiInfo.modList[sharedUiInfo.modIndex].modName);
         Cbuf_ExecuteText(2, "vid_restart;");
     } else if (I_stricmp(name, "closeJoin") == 0) {
         if (sharedUiInfo.serverStatus.refreshActive) {
@@ -2032,8 +2035,7 @@ void UI_RunMenuScript(const char **args)
             return;
 
         if (sortColumn == sharedUiInfo.serverStatus.sortKey) {
-            int dir = sharedUiInfo.serverStatus.sortDir;
-            sharedUiInfo.serverStatus.sortDir = !dir;
+            sharedUiInfo.serverStatus.sortDir = !sharedUiInfo.serverStatus.sortDir;
         }
 
         sharedUiInfo.serverStatus.sortKey = sortColumn;

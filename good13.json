@@ -867,6 +867,26 @@
 "scan": 1
 },
 {
+"name": "?CL_PlayCinematic_f@@YAXXZ",
+"obj": "cl_cin_mp.obj",
+"size": 12,
+"hits": [
+"0x403570",
+"0x403580"
+],
+"scan": 1
+},
+{
+"name": "?CL_PlayUnskippableCinematic_f@@YAXXZ",
+"obj": "cl_cin_mp.obj",
+"size": 12,
+"hits": [
+"0x403570",
+"0x403580"
+],
+"scan": 1
+},
+{
 "name": "?SCR_DrawCinematic@@YAXXZ",
 "obj": "cl_cin_mp.obj",
 "size": 26,
@@ -3428,8 +3448,10 @@
 {
 "name": "?CL_InitOnceForAllClients@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 2974,
-"hits": []
+"size": 3124,
+"hits": [
+"0x410a10"
+]
 },
 {
 "name": "?CL_Init@@YAXXZ",
@@ -17761,7 +17783,7 @@
 ]
 },
 {
-"name": "$L96639",
+"name": "$L96642",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -33158,7 +33180,7 @@
 ]
 },
 {
-"name": "$L118243",
+"name": "$L118246",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33166,7 +33188,7 @@
 ]
 },
 {
-"name": "$L118245",
+"name": "$L118248",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33199,7 +33221,7 @@
 ]
 },
 {
-"name": "$L132120",
+"name": "$L132123",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33207,7 +33229,7 @@
 ]
 },
 {
-"name": "$L132122",
+"name": "$L132125",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33276,7 +33298,7 @@
 ]
 },
 {
-"name": "$L104380",
+"name": "$L104383",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33292,7 +33314,7 @@
 ]
 },
 {
-"name": "$L147478",
+"name": "$L147481",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -47230,9 +47252,7 @@
 "name": "?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z",
 "obj": "g_items_mp.obj",
 "size": 1616,
-"hits": [
-"0x51dea0"
-]
+"hits": []
 },
 {
 "name": "?Pickup_Health@@YAHPAUgentity_s@@0@Z",
@@ -50426,7 +50446,7 @@
 {
 "name": "?UI_RunMenuScript@@YAXPAPBD@Z",
 "obj": "ui_main_mp.obj",
-"size": 5035,
+"size": 5027,
 "hits": []
 },
 {
@@ -77862,7 +77882,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1440,
+"size": 1264,
 "hits": []
 }
 ]

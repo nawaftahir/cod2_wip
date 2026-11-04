@@ -46,8 +46,19 @@ void CIN_DrawCinematic(int handle)
     ROQ_DrawCinematicFromHandle(handle);
 }
 
+/* retail 1.3 0x5cdd10: set by the two cinematic commands, read by the skip checks */
+bool cl_cinematicSkippable = true;
+
 void CL_PlayCinematic_f(void)
 {
+    cl_cinematicSkippable = true;
+    ROQ_PlayCinematic_f();
+}
+
+/* name taken from the command string (retail 0x403580) */
+void CL_PlayUnskippableCinematic_f(void)
+{
+    cl_cinematicSkippable = false;
     ROQ_PlayCinematic_f();
 }
 
