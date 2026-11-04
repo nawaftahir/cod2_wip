@@ -7766,7 +7766,7 @@
 {
 "name": "?RB_SetSamplerFromArgument@@YAXPBUMaterialShaderArgument@@H@Z",
 "obj": "rb_shade.obj",
-"size": 74,
+"size": 137,
 "hits": []
 },
 {
@@ -7834,7 +7834,7 @@
 {
 "name": "?RB_SetPixelShaderArguments@@YAXHPBUMaterialShaderArgument@@@Z",
 "obj": "rb_shade.obj",
-"size": 344,
+"size": 400,
 "hits": []
 },
 {
@@ -7864,7 +7864,7 @@
 {
 "name": "?RB_SetupPassDx7@@YAXPBUGfxStateOverride@@PBUMaterialPassDx7@@H@Z",
 "obj": "rb_shade.obj",
-"size": 865,
+"size": 1104,
 "hits": []
 },
 {

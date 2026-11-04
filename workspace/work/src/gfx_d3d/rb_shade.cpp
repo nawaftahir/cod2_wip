@@ -299,6 +299,7 @@ void RB_ApplyMaterialImageOverride(const MaterialTextureDef *texture,
     switch (texture->semantic)
     {
     case 2: RB_ApplyImageOverride(r_colorMap, image, samplerState); break;
+    case 4: RB_ApplyImageOverride(r_specularMap, image, samplerState); break;
     case 3:
         if (r_normalMap->current.integer == 1)
         {
@@ -306,7 +307,6 @@ void RB_ApplyMaterialImageOverride(const MaterialTextureDef *texture,
             *samplerState = 1;
         }
         break;
-    case 4: RB_ApplyImageOverride(r_specularMap, image, samplerState); break;
     case 5:
         RB_UploadWaterTexture(*image, texture->u.water->map);
         *samplerState = 6;
@@ -315,7 +315,7 @@ void RB_ApplyMaterialImageOverride(const MaterialTextureDef *texture,
 }
 
 // PINNED 10038c00: names are interned pointers; a miss leaves outputs unchanged.
-void RB_GetMaterialImage(const char *name, GfxImage **image,
+__forceinline void RB_GetMaterialImage(const char *name, GfxImage **image,
     byte *samplerState)
 {
     int count = tess.material->textureCount;

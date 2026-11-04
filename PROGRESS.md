@@ -1,3 +1,23 @@
+## Material-image boundary work - 2026-11-04
+
+No new verified C++ bytes in this wave; baseline remains118123/253580
+(46.582143702%,728 bodies). RB_SetupPassDx7 retail extent is1127 bytes,
+not the865-byte candidate extent. Expanding the actual material-image lookup
+reduces this structural difference (candidate1104), but does not match it.
+Override helper now has retail color/specular/normal/water block order;
+its116-byte draft still differs in switch range/table structure. Compiler
+optimize("g",off) was rejected (helper172/lookup91/pass942) and restored.
+All trial builds retained2521 protected extents, with no credited gain.
+200 independent material-image routes, pointer-key misses and empty tables
+pass; existing4200 surface-begin cases and7/2240/420 lighting/draw routes pass.
+Source remains partial in target/work/src; no root src promotion. No link
+order, data ownership, compiler profile or assembly-attribution changes.
+Final restored build: target/work/proof/latest/nov04_dx7_restored.log.
+Bounded failures and retail switch evidence: target/work/ATTEMPTS.md.
+Do not repeat these flags or switch-empty-case trials. Remaining pass mismatch
+includes state-array lifetime, sampler-loop indexing and inlining context.
+Whole-file SHA and GPU smoke remain unfinished; the50% goal stays active.
+
 ## Gamma and capture checkpoint - 2026-11-04
 
 C++118123/253580=46.582143702%,728 bodies; +475B/+4 sincecf81838.

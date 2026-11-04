@@ -1,3 +1,30 @@
+# Fixed-function image expansion - 2026-11-04
+
+Full retail pass10039b40 ends10039fa6 (1127 bytes), not the865-byte
+candidate length. Retail expands material-image lookup and BOTH stage-state
+wrappers. Forceinline on GetMaterialImage grows candidate865->1104, retaining
+the standalone90-byte lookup and all2521 protected extents. Pass remains
+unverified. Do not infer boundary from a candidate-length-truncated fdiff.
+Retail override10038920 has six switch slots at10038984: return,return,
+color,normal,specular,water. Source case order color/specular/normal/water
+fixes emitted block ordering; explicit empty0/1 cases still compact to four
+slots and retain the subtract2. Current helper116 remains unmatched; its
+instruction stream otherwise agrees up to the switch range operation.
+Function-local optimize("g",off) changes helper116->172, standalone lookup90->91
+and pass1104->942. This is rejected; restore the original optimization flags.
+Independent native fixture covers200 real lookup/override routes, pointer-key
+misses and empty tables. No credit for tests or partial pass similarity.
+
+# Bounds component/helper structure - 2026-11-04
+
+Component loop using existing int i gives443/441 and passes324 independent
+geometry cases. Existing MatrixTransformVector+AddPointToBounds calls give475,
+also pass324, and are rejected. Shared helper definitions stay untouched.
+Restore the committed443-byte matrix-typed draft and its fixture. No new
+coverage. Do not repeat component unrolling or shared-helper source forms.
+Next investigate another dependency rather than more floating expression
+permutations in this function.
+
 # Gamma ramp publication - 2026-11-04
 
 Moving gamma index increment after the word store changes counter register

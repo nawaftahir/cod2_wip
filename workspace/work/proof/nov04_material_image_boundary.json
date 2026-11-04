@@ -1,0 +1,50 @@
+{
+  "status": "V3 regression preserved; new pass and helper remain unmatched",
+  "cpp_bytes": 118123,
+  "cpp_percent": 46.582143702184716,
+  "cpp_bodies": 728,
+  "net_cpp_bytes": 0,
+  "protected_extents": 2521,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "tests": {
+    "material_image_routes": 200,
+    "surface_begins": 4200,
+    "lighting_entity_routes": 7,
+    "lighting_routes": 2240,
+    "draw_routes": 420
+  },
+  "sha256": {
+    "target/work/src/gfx_d3d/rb_shade.cpp": "19c34f5e1234d89384914eb602a184a3b0ca98a95a120ed3557b7a026ee0fb93",
+    "target/work/tests/test_material_image_override.py": "142d673d1068fa7fc9a5772006de8be6887dcf71efc7d744264ef1d011e0496d",
+    "target/work/proof/latest/bind.json": "528bb7cc6190597bdbd5bbb5be5e3ca38f78e8bfa3a5719a5189d3960f49b7e8",
+    "target/work/proof/latest/cmp.json": "8e1d1bac167603c0b2aaaf194472a8026fa396a1a96470bba6aaba9fa349b8a3",
+    "target/work/proof/source_coverage_current.json": "31a3095ac54f2a6a831b4df0e8dea05cd270942af17bbbb772c6a5f7151d0c24",
+    "target/work/proof/latest/nov04_dx7_restored.log": "49abcc1b78ff9ffc90e3a603bb83002108a23e1c26c0045065474cc349ed21c5",
+    "target/work/proof/latest/nov04_setup_dx7_retail.txt": "66bdccbd125968ef9de96175f64d128cda09b4297ba6ec39589752be7cad2301",
+    "target/work/src/profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020"
+  },
+  "candidate_functions": [
+    {
+      "name": "?RB_ApplyMaterialImageOverride@@YAXPBUMaterialTextureDef@@PAPAUGfxImage@@PAE@Z",
+      "obj": "rb_shade.obj",
+      "size": 116,
+      "hits": []
+    },
+    {
+      "name": "?RB_GetMaterialImage@@YAXPBDPAPAUGfxImage@@PAE@Z",
+      "obj": "rb_shade.obj",
+      "size": 90,
+      "hits": [
+        "0x10038c00"
+      ]
+    },
+    {
+      "name": "?RB_SetupPassDx7@@YAXPBUGfxStateOverride@@PBUMaterialPassDx7@@H@Z",
+      "obj": "rb_shade.obj",
+      "size": 1104,
+      "hits": []
+    }
+  ]
+}
