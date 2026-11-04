@@ -5,6 +5,7 @@
 #include "cod2_feature_config.h"
 #include "pb_public.h"
 #include "www_download.h"
+#include "dl_reset.h"
 const dvar_t *cl_shownet = NULL;
 qboolean autoupdateChecked;
 dvar_t *fx_enable;
@@ -122,18 +123,6 @@ const dvar_t *cl_wwwDownload;
 extern void CL_WWWDownload(void);
 extern struct clientStatic_t cls;
 
-int CL_ClearStaticDownload(void)
-{
-    cls.downloadRestart = 0;
-    cls.downloadTempName[0] = 0;
-    cls.downloadName[0] = 0;
-    cls.originalDownloadName[0] = 0;
-    cls.wwwDlInProgress = 0;
-    cls.wwwDlDisconnected = 0;
-    cls.downloadFlags = 0;
-    DL_CancelDownload();
-    return 0;
-}
 #endif
 
 extern Bool Sys_IsMainThread(void);
@@ -452,16 +441,6 @@ void CL_NextDownload(void);
 void CL_InitDownloads(void);
 static void CL_SendPureChecksums(void);
 extern void DL_CancelDownload(void);
-/* the 1.3 download reset: expanded in CL_Disconnect, CL_DownloadsComplete and CL_InitDownloads, called from CL_KeyEvent */
-static __forceinline void CL_ClearDownloadStateInl(void)
-{
-    cls.downloadRestart = 0;
-    *cls.originalDownloadName = *cls.downloadName = *cls.downloadTempName = 0;
-    cls.wwwDlInProgress = 0;
-    cls.wwwDlDisconnected = 0;
-    cls.downloadFlags = 0;
-    DL_CancelDownload();
-}
 
 extern int Cmd_Argc(void);
 extern const char *Cmd_Argv( int arg );

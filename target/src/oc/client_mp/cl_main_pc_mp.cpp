@@ -1,5 +1,6 @@
 #include "common_types.h"
 #include "imports.h"
+#include "dl_reset.h"
 #define MAX_GLOBALSERVERS 20000
 
 extern "C" __declspec(dllimport) unsigned short __stdcall ntohs(unsigned short netshort);
@@ -89,7 +90,7 @@ extern dvar_t *Dvar_RegisterString(const char *dvarName, const char *value, unsi
 extern void Cbuf_AddText(const char *text);
 extern void CL_AddReliableCommand(const char *cmd);
 extern void CL_NextDownload(void);
-extern int CL_ClearStaticDownload(void);
+extern void DL_CancelDownload(void);
 
 typedef struct rconGlob_s {
     char password[24];
@@ -1164,7 +1165,7 @@ void CL_WWWDownload(void)
         if (cls.wwwDlDisconnected) {
             char *err = va("Download failure while getting '%s'\n", cls.downloadName);
             cls.wwwDlDisconnected = 0;
-            CL_ClearStaticDownload();
+            CL_ClearDownloadStateInl();
             Com_Error(ERR_DROP, "%s", err);
             return;
         }

@@ -223,7 +223,6 @@ void Key_Bindlist_f(void);
 void CL_KeyEvent(int key, const qboolean down, const unsigned int time);
 void Key_ClearStates(void);
 
-int CL_ClearStaticDownload(void);
 void CL_SwitchToLocalClient(int clientNum);
 Bool CL_GetLocalClientActive(int clientNum);
 int CL_GetLocalClientActiveCount(void);

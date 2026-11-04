@@ -18,7 +18,6 @@ extern void FS_CopyFile(char *fromOSPath, char *toOSPath);
 extern void Dvar_SetStringByName(const char *dvarName, const char *value);
 void CL_WWWDownload(void);
 void CL_ParseWWWDownload(msg_t *msg);
-extern int CL_ClearStaticDownload(void);
 #endif
 
 int cl_connectedToPureServer;
