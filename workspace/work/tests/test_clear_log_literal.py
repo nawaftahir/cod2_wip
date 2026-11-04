@@ -3,12 +3,15 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from renderer_paths import retail_anchor
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import re
 import struct
 import pefile
 
 w=Path(__file__).resolve().parents[1]
-pe=pefile.PE(str(w.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+pe=pefile.PE(str(retail_anchor()))
 assert pe.get_data(0x2fefb,5)==b'\x68'+struct.pack('<I',0x10197f40)
 expected=pe.get_string_at_rva(0x197f40).decode('ascii')
 s=(w/'src/gfx_d3d/rb_backend.cpp').read_text()

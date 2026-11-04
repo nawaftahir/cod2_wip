@@ -15,7 +15,7 @@ def declaration(text,name,kind='struct'):
     a = text.index(kind+' '+name+' {')
     return text[a:text.index('};',a)+2]+'\n'
 
-client_path = work.parents[2] / 'cod2engineold/binaries/windows/1.0/CoD2MP_s.exe'
+client_path = retail_anchor().with_name('CoD2MP_s.exe')
 assert hashlib.sha256(client_path.read_bytes()).hexdigest() == '8caf434c9509020b9c94720d0407a31d61411312996dab9964f46865f070900e'
 client = pefile.PE(str(client_path))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)

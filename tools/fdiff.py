@@ -2,7 +2,7 @@ from renderer_paths import retail_anchor
 # fdiff.py <mangled-name-substr> <anchor-va-hex> [build dir]: our function vs retail, addresses masked
 import sys, re, json, pefile, capstone, difflib
 name, ava = sys.argv[1], int(sys.argv[2], 16)
-B = sys.argv[3] if len(sys.argv) > 3 else 'build/closed'
+B = sys.argv[3] if len(sys.argv) > 3 else 'build/codex_boundsoutside_1016_02'
 cmp = json.load(open(B + '/cmp.json'))
 f = [x for x in cmp if name in x['name']][0]
 m = [l.split() for l in open(B + '/gfx.map') if f['name'] in l and len(l.split()) > 2]
