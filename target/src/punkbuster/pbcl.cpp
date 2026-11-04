@@ -309,7 +309,7 @@ extern void MD5Update(MD5_CTX *mdContext, unsigned char *inBuf, unsigned int inL
 extern void MD5Final(MD5_CTX *mdContext);
 
 // retail 0x4bc160, name unknown: digest as 32 hex characters
-void pbMd5ToHex_4bc160(MD5_CTX *ctx, char *out)
+void fn_4bc160(MD5_CTX *ctx, char *out)
 {
 	sprintf(out, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
 		ctx->digest[0], ctx->digest[1], ctx->digest[2], ctx->digest[3],
@@ -319,19 +319,19 @@ void pbMd5ToHex_4bc160(MD5_CTX *ctx, char *out)
 }
 
 // retail 0x4bc1d0, name unknown: two seeded MD5 rounds, result kept in m_guid
-char *pbMakeGuid_4bc1d0(char *data, int len)
+char *fn_4bc1d0(char *data, int len)
 {
 	MD5_CTX ctx;
 
 	MD5Init(&ctx, 0xb684a3);
 	MD5Update(&ctx, (unsigned char *)data, len);
 	MD5Final(&ctx);
-	pbMd5ToHex_4bc160(&ctx, pbcl.m_guid);
+	fn_4bc160(&ctx, pbcl.m_guid);
 
 	MD5Init(&ctx, 0x51a56);
 	MD5Update(&ctx, (unsigned char *)pbcl.m_guid, strlen(pbcl.m_guid));
 	MD5Final(&ctx);
-	pbMd5ToHex_4bc160(&ctx, pbcl.m_guid);
+	fn_4bc160(&ctx, pbcl.m_guid);
 	return pbcl.m_guid;
 }
 

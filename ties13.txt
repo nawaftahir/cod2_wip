@@ -19,3 +19,7 @@ _yylex
 ?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z
 # DSound_UpdateSample: pinned 1.0 tie-set member (SKILL tie set), flipped by w8-pb new pbcl/cl_main fns
 ?DSound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@Z
+# PC_EvaluateTokens: 1.0 PINNED tie pool (SKILL), flips on fn count (w8-pb-font 11-04)
+?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z
+# Netchan_Process: 1.0 PINNED tie pool (SKILL), flips on fn count (w8-pb-font 11-04)
+?Netchan_Process@@YAHPAUnetchan_t@@PAUmsg_t@@@Z
