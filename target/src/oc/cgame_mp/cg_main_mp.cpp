@@ -990,20 +990,19 @@ Bool CG_PlaySoundOnCurrentLocalClient(int entitynum, const vec_t *origin, const 
 static void CG_SubtitlePrint(int msec, const snd_alias_t *pAlias)
 {
     int minMsec;
-    int subtitleWidth;
+    const dvar_t *widthDvar;
 
     if (msec && pAlias->pszSubtitle) {
-        if (cgs->viewAspect > 1.3333334f) {
-            subtitleWidth = cg_subtitleWidthWidescreen->current.integer;
-        } else {
-            subtitleWidth = cg_subtitleWidthStandard->current.integer;
-        }
+        if (cgs->viewAspect > 1.3333334f)
+            widthDvar = cg_subtitleWidthWidescreen;
+        else
+            widthDvar = cg_subtitleWidthStandard;
 
         minMsec = I_fround(cg_tracerScaleDistRange_0->current.value * 1000.0f);
         if (minMsec - msec >= 0)
             msec = minMsec;
 
-        CL_SubtitlePrint(pAlias->pszSubtitle, msec, subtitleWidth);
+        CL_SubtitlePrint(pAlias->pszSubtitle, msec, widthDvar->current.integer);
     }
 }
 
