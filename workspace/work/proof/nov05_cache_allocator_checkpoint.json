@@ -1,0 +1,16 @@
+{
+  "status": "local byte/binding/regression gates; clean CI pending",
+  "cpp_bytes": 118772,
+  "cpp_percent": 46.83807871283224,
+  "cpp_bodies": 731,
+  "new_bodies": {
+    "?SMC_AllocCachedSurface@@YAPAUGfxStaticModelSurfaceCached@@PAUstatic_model_cache_t@@H@Z": {
+      "t": "0x1002acd0",
+      "n": 215,
+      "obj": "r_staticmodelcache.obj",
+      "why": []
+    }
+  },
+  "bind_sha256": "82b6167376be96b90da454047027901fcbd7de2a03501bc9566754c128ee45d2",
+  "net_cpp_bytes_this_turn": 297
+}

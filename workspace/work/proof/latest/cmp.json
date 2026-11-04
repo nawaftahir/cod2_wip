@@ -5811,7 +5811,9 @@
 "name": "?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z",
 "obj": "r_sky.obj",
 "size": 826,
-"hits": []
+"hits": [
+"0x10028cd0"
+]
 },
 {
 "name": "?R_LoadSun_f@@YAXXZ",
@@ -6103,13 +6105,17 @@
 "name": "?SMC_AllocCachedSurface@@YAPAUGfxStaticModelSurfaceCached@@PAUstatic_model_cache_t@@H@Z",
 "obj": "r_staticmodelcache.obj",
 "size": 215,
-"hits": []
+"hits": [
+"0x1002acd0"
+]
 },
 {
 "name": "?R_CopyCachedSurfaceIndices@@YAXPBUGfxStaticModelSurfaceCached@@@Z",
 "obj": "r_staticmodelcache.obj",
 "size": 82,
-"hits": []
+"hits": [
+"0x1002b790"
+]
 },
 {
 "name": "?R_CacheStaticModelSurface@@YAPAUGfxStaticModelSurfaceCached@@PAUGfxStaticSurface@@PBUXSurface_s@@HPBUMaterial@@@Z",

@@ -219,6 +219,9 @@ required.update(accepted(sun_blind_glare))
 cache_indices = Path(__file__).resolve().parents[1] / 'proof/cache_indices_20261105_warm_bind.json'
 assert hashlib.sha256(cache_indices.read_bytes()).hexdigest() == 'feed9bb7eaa7fc77d4e79a072600f9f9e978ccb092f706ce9bbb46ab6a6aeaca'
 required.update(accepted(cache_indices))
+cache_allocator = Path(__file__).resolve().parents[1] / 'proof/cache_allocator_20261105_warm_bind.json'
+assert hashlib.sha256(cache_allocator.read_bytes()).hexdigest() == 'b2e6f98c2c5f3a205eafd199466b8951c4509df6bf9893fd85000c42fb599c82'
+required.update(accepted(cache_allocator))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

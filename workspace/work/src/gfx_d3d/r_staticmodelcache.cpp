@@ -267,10 +267,10 @@ typedef char cachePublicationLayoutCheck[(sizeof(static_model_tree_t) == 392 &&
 static GfxStaticModelSurfaceCached *SMC_AllocCachedSurface(static_model_cache_t *cache, int sizeBits)
 {
     int listIndex = 9 - sizeBits;
-    static_model_node_list_t *head = &cache->freelist[listIndex];
-    if (head->next == (intptr_t)head && !SMC_GetFreeBlockOfSize(cache, listIndex))
+    if (cache->freelist[listIndex].next == (intptr_t)&cache->freelist[listIndex]
+        && !SMC_GetFreeBlockOfSize(cache, listIndex))
         return 0;
-    static_model_node_list_t *block = (static_model_node_list_t *)head->next;
+    static_model_node_list_t *block = (static_model_node_list_t *)cache->freelist[listIndex].next;
     ((static_model_node_list_t *)block->next)->prev = block->prev;
     ((static_model_node_list_t *)block->prev)->next = block->next;
     int treeIndex = ((byte *)block - (byte *)cache) / (int)sizeof(static_model_tree_t);

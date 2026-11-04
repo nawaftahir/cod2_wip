@@ -1,3 +1,10 @@
+PINNED: SMC_AllocCachedSurface1002acd0/215 recomputes the indexed freelist
+address after the split callback instead of retaining a head pointer in ESI.
+Direct cache->freelist[listIndex] accesses reproduce the late ESI save and
+unlink operand order. Both byte/binding referees and local regression pass;
+evidence:workspace/work/proof/cache_allocator_20261105_warm_bind.json and
+nov05_cache_allocator_checkpoint.json. Clean CI is required before landing.
+
 PINNED: copier1002b790/82 reads cached->xsurf/triIndices before baseVertIndex.
 Reordering those initializations reproduces the incoming EAX use and all bytes
 and bindings. Evidence:workspace/work/proof/cache_indices_20261105_warm_bind.json;
