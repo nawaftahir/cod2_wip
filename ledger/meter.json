@@ -5,27 +5,27 @@
   "anchor": "windows/1.0/gfx_d3d_mp_x86_s.dll",
   "sha_identical": false,
   "text_bytes": 1093632,
-  "matched_bytes": 771254,
+  "matched_bytes": 771336,
   "file_bytes": 1851392,
   "same_offset_bytes": 238607,
-  "matched_functions": 2523,
+  "matched_functions": 2524,
   "tus_total": 112,
   "verified_source_files": 10,
   "game_cpp_denominator_status": "provisional inventory; not whole-DLL completion",
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "ef110c36430200cc682b9344ba0a320f40b7805e4c051d6af44323e1e5c52b7b",
+  "candidate_sha256": "a3e3b25410cd3dc7eadc784ac6036b4058c3ff3e19881dbf309278c76e822ee5",
   "unverified_in_src": 0,
-  "game_cpp_bytes": 118475,
+  "game_cpp_bytes": 118557,
   "game_cpp_total": 253580,
-  "game_cpp_percent": 46.72095591134948,
-  "game_cpp_functions": 729,
+  "game_cpp_percent": 46.753292846438995,
+  "game_cpp_functions": 730,
   "assembly_bytes": 10151,
   "assembly_functions": 40,
   "sections": {
     ".text": {
       "size": 1093632,
       "same_offset": 33527,
-      "matched": 771254
+      "matched": 771336
     },
     ".rdata": {
       "size": 598016,
@@ -40,6 +40,10 @@
       "same_offset": 9278
     }
   },
-  "source_commit": "99a547600b5d2dfe9bc998c5420f80023b32f497",
-  "note": "Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not current identical TUs. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line."
+  "source_commit": "d86eddcb1c98015602396e5d00a528bba80e2e03",
+  "note": "Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not current identical TUs. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.",
+  "current_source_tus_total": 112,
+  "current_source_tus_verified": 43,
+  "current_source_tus_without_emitted_bodies": 0,
+  "current_source_tus_ambiguous": 2
 }
