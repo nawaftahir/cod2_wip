@@ -4,3 +4,8 @@ _$E2
 _yylex
 # 1.3 TLS Sys_GetValue: one instruction-order swap (edx/esi load) in SV_ArchiveSnapshot, +33.8 KB elsewhere (wF)
 ?SV_ArchiveSnapshot@@YAXXZ
+# HYPOTHESIS (11-04, recheck): four 15-byte twin sound getters, lost on the wF-core merge (+45 KB net); likely cmp13 unique-hit pairing of identical tiny fns
+?SND_GetStreamChannelPlaybackRate@@YAHH@Z
+?SND_Get3DChannelPlaybackRate@@YAHH@Z
+?SND_Get3DChannelLength@@YAHH@Z
+?SND_Get2DChannelPlaybackRate@@YAHH@Z
