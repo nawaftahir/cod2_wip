@@ -1,0 +1,233 @@
+{
+  "status": "REPLAY-ONLY",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_fvsjzfck",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "inputs": {
+    "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+    "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/wavelet_dxt_loader",
+    "jobs": [
+      {
+        "source": "j_wavelet.c",
+        "source_sha256": "c35c63420fe650b5295eb32d12b40c2ccbda061bf7909e8121608801b0152eb7",
+        "job": "job000",
+        "command": [
+          "cl",
+          "/nologo",
+          "/c",
+          "/W3",
+          "/O2",
+          "/Gy",
+          "Z:\\inputs\\j_wavelet.c",
+          "/FoZ:\\out\\job000.obj"
+        ]
+      }
+    ],
+    "dependencies": {
+      "j_wavelet.c": "c35c63420fe650b5295eb32d12b40c2ccbda061bf7909e8121608801b0152eb7",
+      "common_types.h": "b781d4ce994777835c32df12c586d1c2d47bd5f3762824414b31f0d590589db8"
+    },
+    "discovery_range": [
+      "0x1000e840",
+      "0x10011300"
+    ],
+    "reused_objects_from": null
+  },
+  "object_sha256": "ec0da27da84f9349ca8a9252edd782072ec8105bacdcd75af02ec3617c7ec185",
+  "matches": [
+    {
+      "symbol": "_Image_GetMipMemoryAmount",
+      "address": "0x1000ef40",
+      "bytes": 149,
+      "proof": {
+        "code_bytes": 149,
+        "section_bytes": 219,
+        "sites": [
+          {
+            "offset": 23,
+            "symbol": "$L2135",
+            "target": "0x1000efe8"
+          },
+          {
+            "offset": 30,
+            "symbol": "$L2136",
+            "target": "0x1000efd8"
+          },
+          {
+            "offset": 152,
+            "symbol": "$L1532",
+            "target": "0x1000ef7e"
+          },
+          {
+            "offset": 156,
+            "symbol": "$L1533",
+            "target": "0x1000ef89"
+          },
+          {
+            "offset": 160,
+            "symbol": "$L1534",
+            "target": "0x1000ef62"
+          },
+          {
+            "offset": 164,
+            "symbol": "$L1537",
+            "target": "0x1000efba"
+          }
+        ],
+        "bindings": {
+          "$L2135": 268496872,
+          "$L2136": 268496856,
+          "$L1532": 268496766,
+          "$L1533": 268496777,
+          "$L1534": 268496738,
+          "$L1537": 268496826
+        },
+        "diagnostics": "BOUND +23: $L2135 -> 0x1000efe8\nBOUND +30: $L2136 -> 0x1000efd8\nSHAPE MATCH: FUN_1000ef40, 149 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000ef40 @ 0x1000ef40 size=219  vs  _Image_GetMipMemoryAmount (obj size=219)\nnormalized match: 219/219 bytes (100%)\nMATCH (normalized)\n",
+        "wrong_binding_rejected": true
+      }
+    },
+    {
+      "symbol": "_Image_SourceSliceSize",
+      "address": "0x1000e840",
+      "bytes": 135,
+      "proof": {
+        "code_bytes": 135,
+        "section_bytes": 187,
+        "sites": [
+          {
+            "offset": 18,
+            "symbol": "$L1983",
+            "target": "0x1000e8dc"
+          },
+          {
+            "offset": 25,
+            "symbol": "$L1984",
+            "target": "0x1000e8c8"
+          },
+          {
+            "offset": 136,
+            "symbol": "$L1170",
+            "target": "0x1000e881"
+          },
+          {
+            "offset": 140,
+            "symbol": "$L1171",
+            "target": "0x1000e85d"
+          },
+          {
+            "offset": 144,
+            "symbol": "$L1172",
+            "target": "0x1000e888"
+          },
+          {
+            "offset": 148,
+            "symbol": "$L1173",
+            "target": "0x1000e864"
+          },
+          {
+            "offset": 152,
+            "symbol": "$L1176",
+            "target": "0x1000e8b1"
+          }
+        ],
+        "bindings": {
+          "$L1983": 268495068,
+          "$L1984": 268495048,
+          "$L1170": 268494977,
+          "$L1171": 268494941,
+          "$L1172": 268494984,
+          "$L1173": 268494948,
+          "$L1176": 268495025
+        },
+        "diagnostics": "BOUND +18: $L1983 -> 0x1000e8dc\nBOUND +25: $L1984 -> 0x1000e8c8\nSHAPE MATCH: FUN_1000e840, 135 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000e840 @ 0x1000e840 size=187  vs  _Image_SourceSliceSize (obj size=187)\nnormalized match: 187/187 bytes (100%)\nMATCH (normalized)\n",
+        "wrong_binding_rejected": true
+      }
+    },
+    {
+      "symbol": "_Image_CopyUploadRows",
+      "address": "0x1000e900",
+      "bytes": 226,
+      "proof": {
+        "code_bytes": 226,
+        "section_bytes": 274,
+        "sites": [
+          {
+            "offset": 30,
+            "symbol": "$L1990",
+            "target": "0x1000e9f4"
+          },
+          {
+            "offset": 37,
+            "symbol": "$L1994",
+            "target": "0x1000e9e4"
+          },
+          {
+            "offset": 228,
+            "symbol": "$L1198",
+            "target": "0x1000e929"
+          },
+          {
+            "offset": 232,
+            "symbol": "$L1199",
+            "target": "0x1000e933"
+          },
+          {
+            "offset": 236,
+            "symbol": "$L1200",
+            "target": "0x1000e935"
+          },
+          {
+            "offset": 240,
+            "symbol": "$L1207",
+            "target": "0x1000e9df"
+          }
+        ],
+        "bindings": {
+          "$L1990": 268495348,
+          "$L1994": 268495332,
+          "$L1198": 268495145,
+          "$L1199": 268495155,
+          "$L1200": 268495157,
+          "$L1207": 268495327
+        },
+        "diagnostics": "BOUND +30: $L1990 -> 0x1000e9f4\nBOUND +37: $L1994 -> 0x1000e9e4\nSHAPE MATCH: FUN_1000e900, 226 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000e900 @ 0x1000e900 size=274  vs  _Image_CopyUploadRows (obj size=274)\nnormalized match: 274/274 bytes (100%)\nMATCH (normalized)\n",
+        "wrong_binding_rejected": true
+      }
+    },
+    {
+      "symbol": "_Image_Create2DTexture",
+      "address": "0x1000ce80",
+      "bytes": 113,
+      "diagnostics": "BOUND +53: _renderer_device -> 0x101d1bf8\nBOUND +72: _Renderer_ErrorDescription@4 -> 0x100efe3c\nBOUND +96: ??_C@_0DI@FBIKBNDM@Create2DTexture?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5?$CFi?0@ -> 0x101935d4\nBOUND +103: _Renderer_Error -> 0x100138c0\nSHAPE MATCH: FUN_1000ce80, 113 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000ce80 @ 0x1000ce80 size=113  vs  _Image_Create2DTexture (obj size=113)\nnormalized match: 113/113 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "symbol": "_Image_Create3DTexture",
+      "address": "0x1000cf00",
+      "bytes": 130,
+      "diagnostics": "BOUND +60: _renderer_device -> 0x101d1bf8\nBOUND +79: _Renderer_ErrorDescription@4 -> 0x100efe3c\nBOUND +112: ??_C@_0DM@CHMDJAFG@Create3DTexture?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5?$CFi?0@ -> 0x10193598\nBOUND +119: _Renderer_Error -> 0x100138c0\nSHAPE MATCH: FUN_1000cf00, 130 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000cf00 @ 0x1000cf00 size=130  vs  _Image_Create3DTexture (obj size=130)\nnormalized match: 130/130 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "symbol": "_Image_CreateCubeTexture",
+      "address": "0x1000cf90",
+      "bytes": 119,
+      "diagnostics": "BOUND +25: _can_mip_cubemaps -> 0x101d496b\nBOUND +46: _renderer_device -> 0x101d1bf8\nBOUND +83: _Renderer_ErrorDescription@4 -> 0x100efe3c\nBOUND +101: ??_C@_0DH@BIAJHJAE@CreateCubeTexture?5?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5@ -> 0x10193560\nBOUND +108: _Renderer_Error -> 0x100138c0\nSHAPE MATCH: FUN_1000cf90, 119 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000cf90 @ 0x1000cf90 size=119  vs  _Image_CreateCubeTexture (obj size=119)\nnormalized match: 119/119 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "symbol": "_Image_GetCardMemoryAmount",
+      "address": "0x1000f020",
+      "bytes": 135,
+      "diagnostics": "BOUND +15: _Image_GetMipMemoryAmount -> 0x1000ef40\nBOUND +101: _Image_GetMipMemoryAmount -> 0x1000ef40\nSHAPE MATCH: FUN_1000f020, 135 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f020 @ 0x1000f020 size=135  vs  _Image_GetCardMemoryAmount (obj size=135)\nnormalized match: 135/135 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "symbol": "_Wavelet_ApplyDelta",
+      "address": "0x10010cb0",
+      "bytes": 134,
+      "diagnostics": "BOUND +40: _waveletDecodeAlpha -> 0x1018a988\nBOUND +47: _Wavelet_DecodeValue -> 0x10010c00\nBOUND +88: _waveletDecodeAlpha -> 0x1018a988\nBOUND +95: _Wavelet_DecodeValue -> 0x10010c00\nSHAPE MATCH: FUN_10010cb0, 134 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10010cb0 @ 0x10010cb0 size=134  vs  _Wavelet_ApplyDelta (obj size=134)\nnormalized match: 134/134 bytes (100%)\nMATCH (normalized)\n"
+    }
+  ],
+  "deferred": [],
+  "matched_code_bytes": 1141,
+  "independent_review": false,
+  "dependency_closure": false,
+  "host_fixture_run": false,
+  "whole_file_identity": false
+}

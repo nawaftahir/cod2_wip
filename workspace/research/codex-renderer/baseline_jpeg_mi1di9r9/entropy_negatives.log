@@ -1,0 +1,106 @@
+REJECTED _jpeg_huff_decode _jpeg_fill_bit_buffer wrong binding for _jpeg_fill_bit_buffer: expected=0x1004c8b4, target=0x1004c8b0
+REJECTED _decode_mcu _sequential_huff_restart wrong binding for _sequential_huff_restart: expected=0x1004cab4, target=0x1004cab0
+BOUND +37: _sequential_huff_restart -> 0x1004cab0
+REJECTED _decode_mcu _jpeg_fill_bit_buffer wrong binding for _jpeg_fill_bit_buffer: expected=0x1004c8b4, target=0x1004c8b0
+BOUND +37: _sequential_huff_restart -> 0x1004cab0
+BOUND +204: _jpeg_fill_bit_buffer -> 0x1004c8b0
+REJECTED _decode_mcu _jpeg_huff_decode wrong binding for _jpeg_huff_decode: expected=0x1004c9d4, target=0x1004c9d0
+BOUND +37: _sequential_huff_restart -> 0x1004cab0
+BOUND +204: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +287: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +329: _jpeg_fill_bit_buffer -> 0x1004c8b0
+REJECTED _decode_mcu _extend_test wrong binding for _extend_test: expected=0x10190dec, target=0x10190de8
+BOUND +37: _sequential_huff_restart -> 0x1004cab0
+BOUND +204: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +287: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +329: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +372: _extend_test -> 0x10190de8
+REJECTED _decode_mcu _extend_offset wrong binding for _extend_offset: expected=0x10190e2c, target=0x10190e28
+BOUND +37: _sequential_huff_restart -> 0x1004cab0
+BOUND +204: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +287: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +329: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +372: _extend_test -> 0x10190de8
+BOUND +390: _extend_offset -> 0x10190e28
+BOUND +479: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +562: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +612: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +655: _extend_test -> 0x10190de8
+BOUND +669: _extend_offset -> 0x10190e28
+REJECTED _decode_mcu _jpeg_natural_order wrong binding for _jpeg_natural_order: expected=0x10191204, target=0x10191200
+REJECTED _decode_mcu_DC_first _process_restart wrong binding for _process_restart: expected=0x100508f4, target=0x100508f0
+BOUND +47: _process_restart -> 0x100508f0
+REJECTED _decode_mcu_DC_first _jpeg_fill_bit_buffer wrong binding for _jpeg_fill_bit_buffer: expected=0x1004c8b4, target=0x1004c8b0
+BOUND +47: _process_restart -> 0x100508f0
+BOUND +230: _jpeg_fill_bit_buffer -> 0x1004c8b0
+REJECTED _decode_mcu_DC_first _jpeg_huff_decode wrong binding for _jpeg_huff_decode: expected=0x1004c9d4, target=0x1004c9d0
+BOUND +47: _process_restart -> 0x100508f0
+BOUND +230: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +313: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +355: _jpeg_fill_bit_buffer -> 0x1004c8b0
+REJECTED _decode_mcu_DC_first _progressive_extend_test wrong binding for _progressive_extend_test: expected=0x10190e6c, target=0x10190e68
+BOUND +47: _process_restart -> 0x100508f0
+BOUND +230: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +313: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +355: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +398: _progressive_extend_test -> 0x10190e68
+REJECTED _decode_mcu_DC_first _progressive_extend_offset wrong binding for _progressive_extend_offset: expected=0x10190eac, target=0x10190ea8
+REJECTED _decode_mcu_AC_first _process_restart wrong binding for _process_restart: expected=0x100508f4, target=0x100508f0
+BOUND +60: _process_restart -> 0x100508f0
+REJECTED _decode_mcu_AC_first _jpeg_fill_bit_buffer wrong binding for _jpeg_fill_bit_buffer: expected=0x1004c8b4, target=0x1004c8b0
+BOUND +60: _process_restart -> 0x100508f0
+BOUND +191: _jpeg_fill_bit_buffer -> 0x1004c8b0
+REJECTED _decode_mcu_AC_first _jpeg_huff_decode wrong binding for _jpeg_huff_decode: expected=0x1004c9d4, target=0x1004c9d0
+BOUND +60: _process_restart -> 0x100508f0
+BOUND +191: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +274: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +328: _jpeg_fill_bit_buffer -> 0x1004c8b0
+REJECTED _decode_mcu_AC_first _progressive_extend_test wrong binding for _progressive_extend_test: expected=0x10190e6c, target=0x10190e68
+BOUND +60: _process_restart -> 0x100508f0
+BOUND +191: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +274: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +328: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +367: _progressive_extend_test -> 0x10190e68
+REJECTED _decode_mcu_AC_first _progressive_extend_offset wrong binding for _progressive_extend_offset: expected=0x10190eac, target=0x10190ea8
+BOUND +60: _process_restart -> 0x100508f0
+BOUND +191: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +274: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +328: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +367: _progressive_extend_test -> 0x10190e68
+BOUND +381: _progressive_extend_offset -> 0x10190ea8
+REJECTED _decode_mcu_AC_first _jpeg_natural_order wrong binding for _jpeg_natural_order: expected=0x10191204, target=0x10191200
+REJECTED _decode_mcu_DC_refine _process_restart wrong binding for _process_restart: expected=0x100508f4, target=0x100508f0
+BOUND +50: _process_restart -> 0x100508f0
+REJECTED _decode_mcu_DC_refine _jpeg_fill_bit_buffer wrong binding for _jpeg_fill_bit_buffer: expected=0x1004c8b4, target=0x1004c8b0
+REJECTED _decode_mcu_AC_refine _process_restart wrong binding for _process_restart: expected=0x100508f4, target=0x100508f0
+BOUND +79: _process_restart -> 0x100508f0
+REJECTED _decode_mcu_AC_refine _jpeg_fill_bit_buffer wrong binding for _jpeg_fill_bit_buffer: expected=0x1004c8b4, target=0x1004c8b0
+BOUND +79: _process_restart -> 0x100508f0
+BOUND +239: _jpeg_fill_bit_buffer -> 0x1004c8b0
+REJECTED _decode_mcu_AC_refine _jpeg_huff_decode wrong binding for _jpeg_huff_decode: expected=0x1004c9d4, target=0x1004c9d0
+BOUND +79: _process_restart -> 0x100508f0
+BOUND +239: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +325: _jpeg_huff_decode -> 0x1004c9d0
+BOUND +411: _jpeg_fill_bit_buffer -> 0x1004c8b0
+BOUND +505: _jpeg_fill_bit_buffer -> 0x1004c8b0
+REJECTED _decode_mcu_AC_refine _jpeg_natural_order wrong binding for _jpeg_natural_order: expected=0x10191204, target=0x10191200
+REJECTED _start_pass_huff_decoder _jpeg_make_d_derived_tbl wrong binding for _jpeg_make_d_derived_tbl: expected=0x1004c5e4, target=0x1004c5e0
+REJECTED _start_pass_phuff_decoder _decode_mcu_DC_first wrong binding for _decode_mcu_DC_first: expected=0x10050984, target=0x10050980
+BOUND +426: _decode_mcu_DC_first -> 0x10050980
+REJECTED _start_pass_phuff_decoder _decode_mcu_AC_first wrong binding for _decode_mcu_AC_first: expected=0x10050bd4, target=0x10050bd0
+BOUND +426: _decode_mcu_DC_first -> 0x10050980
+BOUND +435: _decode_mcu_AC_first -> 0x10050bd0
+REJECTED _start_pass_phuff_decoder _decode_mcu_DC_refine wrong binding for _decode_mcu_DC_refine: expected=0x10050e14, target=0x10050e10
+BOUND +426: _decode_mcu_DC_first -> 0x10050980
+BOUND +435: _decode_mcu_AC_first -> 0x10050bd0
+BOUND +448: _decode_mcu_DC_refine -> 0x10050e10
+REJECTED _start_pass_phuff_decoder _decode_mcu_AC_refine wrong binding for _decode_mcu_AC_refine: expected=0x10050f04, target=0x10050f00
+BOUND +426: _decode_mcu_DC_first -> 0x10050980
+BOUND +435: _decode_mcu_AC_first -> 0x10050bd0
+BOUND +448: _decode_mcu_DC_refine -> 0x10050e10
+BOUND +457: _decode_mcu_AC_refine -> 0x10050f00
+REJECTED _start_pass_phuff_decoder _jpeg_make_d_derived_tbl wrong binding for _jpeg_make_d_derived_tbl: expected=0x1004c5e4, target=0x1004c5e0
+REJECTED _jinit_huff_decoder _start_pass_huff_decoder wrong binding for _start_pass_huff_decoder: expected=0x1004c494, target=0x1004c490
+BOUND +23: _start_pass_huff_decoder -> 0x1004c490
+REJECTED _jinit_huff_decoder _decode_mcu wrong binding for _decode_mcu: expected=0x1004cb34, target=0x1004cb30
+REJECTED _jinit_phuff_decoder _start_pass_phuff_decoder wrong binding for _start_pass_phuff_decoder: expected=0x10050684, target=0x10050680

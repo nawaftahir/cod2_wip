@@ -1,0 +1,77 @@
+[
+  {
+    "source": "jmemmgr.c",
+    "source_sha256": "9c2a313c66b5d2a0871b9454aac3213c7f52851feb4dec715925ea1fff58b809",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jmemmgr.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "23e8923ec872754a597a1d06696a93b152d3270ab45dce8ce0ef8cae52d44fb7",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10054d40",
+        "symbol": "_alloc_small",
+        "bytes": 325,
+        "diagnostics": "UNRESOLVED binding +155: target=0x101910dc, COFF=_first_pool_slop addend=0x00000000\nUNRESOLVED binding +164: target=0x101910e4, COFF=_extra_pool_slop addend=0x00000000\nSHAPE MATCH: FUN_10054d40, 325 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "address": "0x10054e90",
+        "symbol": "_alloc_large",
+        "bytes": 185,
+        "diagnostics": "SHAPE MATCH: FUN_10054e90, 185 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "address": "0x10054f50",
+        "symbol": "_alloc_sarray",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +75: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +125: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nSHAPE MATCH: FUN_10054f50, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "address": "0x10055000",
+        "symbol": "_alloc_barray",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +78: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +131: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nSHAPE MATCH: FUN_10055000, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10055000",
+        "symbol": "_alloc_sarray",
+        "reason": "relocation-site/type mismatch: PE={78: 20, 131: 20}, COFF={75: 20, 125: 20}"
+      },
+      {
+        "address": "0x10054f50",
+        "symbol": "_alloc_barray",
+        "reason": "relocation-site/type mismatch: PE={75: 20, 125: 20}, COFF={78: 20, 131: 20}"
+      },
+      {
+        "address": "0x10055300",
+        "symbol": "_do_sarray_io",
+        "reason": "byte mismatch +7: PE=18, COFF=08"
+      },
+      {
+        "address": "0x10056520",
+        "symbol": "_do_sarray_io",
+        "reason": "relocation-site/type mismatch: PE={37: 6, 30: 6, 23: 6, 120: 20, 126: 20, 142: 20}, COFF={}"
+      },
+      {
+        "address": "0x100553a0",
+        "symbol": "_do_barray_io",
+        "reason": "byte mismatch +7: PE=18, COFF=08"
+      },
+      {
+        "address": "0x10055fc0",
+        "symbol": "_jinit_memory_mgr",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={15: 20, 39: 20, 67: 6, 74: 6, 81: 6, 88: 6, 95: 6, 102: 6, 109: 6, 116: 6, 123: 6, 130: 6, 137: 6, 181: 6, 189: 20, 211: 6, 222: 20}"
+      }
+    ]
+  }
+]

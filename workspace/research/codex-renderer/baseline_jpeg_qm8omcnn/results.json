@@ -1,0 +1,50 @@
+[
+  {
+    "source": "j_wavelet.c",
+    "source_sha256": "8f1ef39ee1d8d8b10f31b7fd32fdf1de77c5f8ceaa9fd786f41c9668b32c1484",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_wavelet.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "3bce46a64572c2d6d48c712fdf9ab865320d498cf0048a7018e91d618a4b6626",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1000f020",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "bytes": 135,
+        "diagnostics": "UNRESOLVED binding +15: target=0x1000ef40, COFF=_Image_GetMipMemoryAmount addend=0x00000000\nUNRESOLVED binding +101: target=0x1000ef40, COFF=_Image_GetMipMemoryAmount addend=0x00000000\nSHAPE MATCH: FUN_1000f020, 135 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f020 @ 0x1000f020 size=135  vs  _Image_GetCardMemoryAmount (obj size=135)\nnormalized match: 135/135 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x1000fc30",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={153: 6, 142: 6, 45: 20, 94: 20, 114: 20, 131: 20}, COFF={151: 20}"
+      },
+      {
+        "address": "0x1000fce0",
+        "symbol": "_Image_CreateCubeTexture",
+        "reason": "relocation-site/type mismatch: PE={6: 20, 23: 20, 48: 20, 73: 20, 102: 20}, COFF={25: 6, 46: 6, 83: 20, 101: 6, 108: 20}"
+      },
+      {
+        "address": "0x1000e840",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "reason": "relocation-site/type mismatch: PE={25: 6, 18: 6}, COFF={15: 20, 101: 20}"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "byte mismatch +9: PE=74, COFF=ba"
+      }
+    ]
+  }
+]

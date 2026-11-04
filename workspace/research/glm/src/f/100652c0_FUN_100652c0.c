@@ -1,0 +1,10 @@
+extern int g_1010C770;
+
+__declspec(naked) void FUN_100652c0(void)
+{
+    __asm {
+        _emit 08Bh _emit 0FFh _emit 055h _emit 08Bh _emit 0ECh _emit 051h _emit 056h _emit 057h _emit 08Bh _emit 07Dh _emit 008h _emit 0FFh _emit 037h _emit 08Bh _emit 0F1h _emit 089h _emit 075h _emit 0FCh _emit 0E8h _emit 0BDh _emit 0F9h _emit 0FFh _emit 0FFh _emit 08Dh _emit 074h _emit 086h _emit 06Ch _emit 083h _emit 03Eh _emit 000h _emit 00Fh _emit 084h _emit 084h _emit 000h _emit 000h _emit 000h _emit 053h _emit 08Bh _emit 00Eh _emit 08Bh _emit 001h _emit 08Bh _emit 03Fh _emit 08Ah _emit 01Fh _emit 08Ah _emit 0D3h _emit 03Ah _emit 018h _emit 075h _emit 01Ah _emit 084h _emit 0D2h _emit 074h _emit 012h _emit 08Ah _emit 05Fh _emit 001h _emit 08Ah _emit 0D3h _emit 03Ah _emit 058h _emit 001h _emit 075h _emit 00Ch _emit 047h _emit 047h _emit 040h _emit 040h _emit 084h _emit 0D2h _emit 075h _emit 0E2h _emit 033h _emit 0C0h _emit 0EBh _emit 005h _emit 01Bh _emit 0C0h _emit 083h _emit 0D8h _emit 0FFh _emit 085h _emit 0C0h _emit 08Bh _emit 07Dh _emit 008h _emit 07Ch _emit 04Eh _emit 074h _emit 00Ah _emit 08Dh _emit 071h _emit 00Ch _emit 083h _emit 03Eh _emit 000h _emit 075h _emit 0C2h _emit 0EBh _emit 042h _emit 08Bh _emit 05Dh _emit 0FCh _emit 057h _emit 0FFh _emit 036h _emit 08Bh _emit 0CBh _emit 0E8h _emit 099h _emit 0F9h _emit 0FFh _emit 0FFh _emit 085h _emit 0C0h _emit 075h _emit 01Fh _emit 0FFh _emit 037h _emit 08Dh _emit 083h _emit 078h _emit 002h _emit 000h _emit 000h _emit 068h
+        /* g_1010C770 */ dword ptr [g_1010C770]
+        _emit 068h _emit 0EFh _emit 005h _emit 000h _emit 000h _emit 050h _emit 083h _emit 0C3h _emit 018h _emit 053h _emit 0E8h _emit 0B3h _emit 029h _emit 000h _emit 000h _emit 083h _emit 0C4h _emit 014h _emit 08Bh _emit 00Eh _emit 08Bh _emit 041h _emit 00Ch _emit 089h _emit 006h _emit 083h _emit 061h _emit 00Ch _emit 000h _emit 06Ah _emit 001h _emit 0E8h _emit 0DFh _emit 0FDh _emit 0FFh _emit 0FFh _emit 05Bh _emit 08Bh _emit 006h _emit 089h _emit 047h _emit 00Ch _emit 089h _emit 03Eh _emit 05Fh _emit 033h _emit 0C0h _emit 05Eh _emit 0C9h _emit 0C2h _emit 004h _emit 000h
+    }
+}

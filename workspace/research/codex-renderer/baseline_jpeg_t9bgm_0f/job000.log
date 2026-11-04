@@ -1,0 +1,6 @@
+wine: created the configuration directory '/root/.wine'
+Could not find Wine Gecko. HTML rendering will be disabled.
+wine: configuration in L"/root/.wine" has been updated.
+jmemmgr.c
+z:\inputs\jmemsys.h(139) : error C2011: 'backing_store_struct' : 'struct' type redefinition
+        z:\inputs\jmemsys.h(139) : see declaration of 'backing_store_struct'

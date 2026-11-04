@@ -1,0 +1,158 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_0rckeoeb",
+  "object_sha256": "e46603f52696c9c61ac0aa91d8eedfeefedf5d5e055c10905506f857c4947172",
+  "inputs_sha256": "097dc226467b3b760f7e14706e63da90f8a918553fd778dd0ff631d737fe7dd8",
+  "functions": [
+    {
+      "symbol": "_quantize_ord_dither",
+      "address": "0x10055fc0",
+      "bytes": 287,
+      "bindings": {},
+      "negative_tests": 0,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_quantize_fs_dither",
+      "address": "0x10056200",
+      "bytes": 436,
+      "bindings": {},
+      "negative_tests": 0,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_start_pass_1_quant",
+      "address": "0x10056400",
+      "bytes": 234,
+      "bindings": {
+        "_quantize_fs_dither": 268788224,
+        "_alloc_fs_workspace": 268788672,
+        "_quantize3_ord_dither": 268787936,
+        "_quantize_ord_dither": 268787648,
+        "_create_colorindex": 268786704,
+        "_create_odither_tables": 268787200,
+        "_color_quantize3": 268787456,
+        "_color_quantize": 268787280
+      },
+      "negative_tests": 8,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_jinit_1pass_quantizer",
+      "address": "0x10056520",
+      "bytes": 148,
+      "bindings": {
+        "_start_pass_1_quant": 268788736,
+        "_finish_pass_1_quant": 268788976,
+        "_new_color_map_1_quant": 268788992,
+        "_create_colormap": 268786320,
+        "_create_colorindex": 268786704,
+        "_alloc_fs_workspace": 268788672
+      },
+      "negative_tests": 6,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_start_pass_2_quant",
+      "address": "0x10057710",
+      "bytes": 285,
+      "bindings": {
+        "_prescan_quantize": 268789184,
+        "_finish_pass1": 268793552,
+        "_pass2_fs_dither": 268792656,
+        "_pass2_no_dither": 268792448,
+        "_finish_pass2": 268793600,
+        "_init_error_limit": 268793392
+      },
+      "negative_tests": 6,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_jinit_2pass_quantizer",
+      "address": "0x10057840",
+      "bytes": 296,
+      "bindings": {
+        "_start_pass_2_quant": 268793616,
+        "_new_color_map_2_quant": 268793904,
+        "_init_error_limit": 268793392
+      },
+      "negative_tests": 3,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_finish_pass_1_quant",
+      "address": "0x100564f0",
+      "bytes": 1,
+      "bindings": {},
+      "negative_tests": 0,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_new_color_map_1_quant",
+      "address": "0x10056500",
+      "bytes": 21,
+      "bindings": {},
+      "negative_tests": 0,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_new_color_map_2_quant",
+      "address": "0x10057830",
+      "bytes": 15,
+      "bindings": {},
+      "negative_tests": 0,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_finish_pass2",
+      "address": "0x10057700",
+      "bytes": 1,
+      "bindings": {},
+      "negative_tests": 0,
+      "unresolved": 0
+    }
+  ],
+  "code_bytes": 1724,
+  "dependencies_rechecked": [
+    "_alloc_fs_workspace",
+    "_color_quantize",
+    "_color_quantize3",
+    "_create_colorindex",
+    "_create_colormap",
+    "_create_odither_tables",
+    "_finish_pass1",
+    "_init_error_limit",
+    "_pass2_fs_dither",
+    "_pass2_no_dither",
+    "_prescan_quantize",
+    "_quantize3_ord_dither"
+  ],
+  "base_packet_sha256": "ff61b3a3d5cc444c703c2ec3f1c6bab7f78aa563cd4aa2dbf26009a22cbebfa3",
+  "checker_sha256": "e569c5dc62d4d95ea9f9ceaebb0c4df904c28db62c64fae7e96ee238803dfee6",
+  "fixture_sha256": "9538f03511877389beee06f160d2bdd27195debb8436c8c9d0341699a58b070e",
+  "fixture_command": [
+    "cc",
+    "-m32",
+    "-malign-double",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-Wno-unused-function",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-D__forceinline=__inline__",
+    "-D__declspec(x)=",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_jpeg_quantizers.c",
+    "-Wl,--gc-sections",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_0rckeoeb/quantizer_fixture32"
+  ],
+  "fixture": "real 1/2-pass quantizers; grayscale/color, 3 dithering modes; fixture clamp lookup",
+  "regression_functions": 90,
+  "negatives_log_sha256": "5a4be68c25af054d20b277a17fd6b4f8a951dcfbccf259211088dd37ee416c3d",
+  "regression_log_sha256": "7681438a60b2df639150ca1924ec71f718aaeca866c2ebec381b077f1384edc0",
+  "whole_file_identity": false
+}

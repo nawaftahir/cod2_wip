@@ -1,0 +1,10 @@
+SHAPE MATCH: R_GetMaterialName, 7 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: R_GetMaterialSubimageCount, 16 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +1: _renderer_refraction_dvar -> 0x101ce708
+SHAPE MATCH: R_IsMaterialRefractive, 37 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +1: _renderer_min_spec_image_memory -> 0x101d0a78
+SHAPE MATCH: R_GetMinSpecImageMemory, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +10: _renderer_ignore_precache_errors -> 0x101d4d02
+SHAPE MATCH: R_SetIgnorePrecacheErrors, 15 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +2: _renderer_ignore_precache_errors -> 0x101d4d02
+SHAPE MATCH: R_GetIgnorePrecacheErrors, 14 bytes; NOT V2: source semantics, inventory boundaries and bindings require review

@@ -1,0 +1,1546 @@
+[
+  {
+    "source": "jpeg_complete_group.c",
+    "source_sha256": "5b3cc50bde59b4b200d4e51f0d84ef549738f6315116052683ded7aeae75b731",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jpeg_complete_group.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "b4a40d5ed3cc0bf9ec9efe99a04577cc0474cfc061b588dc37445a025b167170",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10057990",
+        "symbol": "_jcopy_sample_rows",
+        "bytes": 58,
+        "diagnostics": "SHAPE MATCH: FUN_10057990, 58 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057990 @ 0x10057990 size=58  vs  _jcopy_sample_rows (obj size=58)\nnormalized match: 58/58 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 58,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10054d40",
+        "symbol": "_alloc_small",
+        "bytes": 325,
+        "diagnostics": "UNRESOLVED binding +155: target=0x101910dc, COFF=_first_pool_slop addend=0x00000000\nUNRESOLVED binding +164: target=0x101910e4, COFF=_extra_pool_slop addend=0x00000000\nSHAPE MATCH: FUN_10054d40, 325 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10054d40 @ 0x10054d40 size=325  vs  _alloc_small (obj size=325)\nnormalized match: 325/325 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 325,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10054e90",
+        "symbol": "_alloc_large",
+        "bytes": 185,
+        "diagnostics": "SHAPE MATCH: FUN_10054e90, 185 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10054e90 @ 0x10054e90 size=185  vs  _alloc_large (obj size=185)\nnormalized match: 185/185 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 185,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10054f50",
+        "symbol": "_alloc_sarray",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +75: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +125: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nSHAPE MATCH: FUN_10054f50, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10054f50 @ 0x10054f50 size=167  vs  _alloc_sarray (obj size=167)\nnormalized match: 167/167 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 167,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055000",
+        "symbol": "_alloc_barray",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +78: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +131: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nSHAPE MATCH: FUN_10055000, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055000 @ 0x10055000 size=167  vs  _alloc_barray (obj size=167)\nnormalized match: 167/167 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 167,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100550b0",
+        "symbol": "_request_virt_sarray",
+        "bytes": 104,
+        "diagnostics": "UNRESOLVED binding +46: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nSHAPE MATCH: FUN_100550b0, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100550b0 @ 0x100550b0 size=104  vs  _request_virt_sarray (obj size=104)\nnormalized match: 104/104 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 104,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055120",
+        "symbol": "_request_virt_barray",
+        "bytes": 104,
+        "diagnostics": "UNRESOLVED binding +46: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nSHAPE MATCH: FUN_10055120, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055120 @ 0x10055120 size=104  vs  _request_virt_barray (obj size=104)\nnormalized match: 104/104 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 104,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055190",
+        "symbol": "_realize_virt_arrays",
+        "bytes": 360,
+        "diagnostics": "UNRESOLVED binding +202: target=0x10054f50, COFF=_alloc_sarray addend=0x00000000\nUNRESOLVED binding +320: target=0x10055000, COFF=_alloc_barray addend=0x00000000\nSHAPE MATCH: _realize_virt_arrays, 360 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_realize_virt_arrays @ 0x10055190 size=360  vs  _realize_virt_arrays (obj size=360)\nnormalized match: 360/360 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 357,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055300",
+        "symbol": "_do_sarray_io",
+        "bytes": 148,
+        "diagnostics": "SHAPE MATCH: FUN_10055300, 148 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055300 @ 0x10055300 size=148  vs  _do_sarray_io (obj size=148)\nnormalized match: 148/148 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 148,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100553a0",
+        "symbol": "_do_barray_io",
+        "bytes": 151,
+        "diagnostics": "SHAPE MATCH: FUN_100553a0, 151 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100553a0 @ 0x100553a0 size=151  vs  _do_barray_io (obj size=151)\nnormalized match: 151/151 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 151,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055440",
+        "symbol": "_access_virt_sarray",
+        "bytes": 329,
+        "diagnostics": "UNRESOLVED binding +108: target=0x10055300, COFF=_do_sarray_io addend=0x00000000\nUNRESOLVED binding +147: target=0x10055300, COFF=_do_sarray_io addend=0x00000000\nSHAPE MATCH: _access_virt_sarray, 329 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_access_virt_sarray @ 0x10055440 size=329  vs  _access_virt_sarray (obj size=329)\nnormalized match: 329/329 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055590",
+        "symbol": "_access_virt_barray",
+        "bytes": 345,
+        "diagnostics": "UNRESOLVED binding +112: target=0x100553a0, COFF=_do_barray_io addend=0x00000000\nUNRESOLVED binding +151: target=0x100553a0, COFF=_do_barray_io addend=0x00000000\nSHAPE MATCH: _access_virt_barray, 345 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_access_virt_barray @ 0x10055590 size=345  vs  _access_virt_barray (obj size=345)\nnormalized match: 345/345 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100556f0",
+        "symbol": "_free_pool",
+        "bytes": 263,
+        "diagnostics": "SHAPE MATCH: _free_pool, 263 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_free_pool @ 0x100556f0 size=263  vs  _free_pool (obj size=263)\nnormalized match: 263/263 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 260,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055800",
+        "symbol": "_self_destruct",
+        "bytes": 51,
+        "diagnostics": "UNRESOLVED binding +19: target=0x100556f0, COFF=_free_pool addend=0x00000000\nSHAPE MATCH: _self_destruct, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_self_destruct @ 0x10055800 size=51  vs  _self_destruct (obj size=51)\nnormalized match: 51/51 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_jinit_memory_mgr",
+        "bytes": 160,
+        "diagnostics": "UNRESOLVED binding +48: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +55: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nUNRESOLVED binding +62: target=0x10054f50, COFF=_alloc_sarray addend=0x00000000\nUNRESOLVED binding +69: target=0x10055000, COFF=_alloc_barray addend=0x00000000\nUNRESOLVED binding +76: target=0x100550b0, COFF=_request_virt_sarray addend=0x00000000\nUNRESOLVED binding +83: target=0x10055120, COFF=_request_virt_barray addend=0x00000000\nUNRESOLVED binding +90: target=0x10055190, COFF=_realize_virt_arrays addend=0x00000000\nUNRESOLVED binding +97: target=0x10055440, COFF=_access_virt_sarray addend=0x00000000\nUNRESOLVED binding +104: target=0x10055590, COFF=_access_virt_barray addend=0x00000000\nUNRESOLVED binding +111: target=0x100556f0, COFF=_free_pool addend=0x00000000\nUNRESOLVED binding +118: target=0x10055800, COFF=_self_destruct addend=0x00000000\nSHAPE MATCH: FUN_10055840, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055840 @ 0x10055840 size=160  vs  _jinit_memory_mgr (obj size=160)\nnormalized match: 160/160 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 160,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051f90",
+        "symbol": "_error_exit",
+        "bytes": 51,
+        "diagnostics": "SHAPE MATCH: FUN_10051f90, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051f90 @ 0x10051f90 size=51  vs  _error_exit (obj size=51)\nnormalized match: 51/51 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 51,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051fd0",
+        "symbol": "_output_message",
+        "bytes": 49,
+        "diagnostics": "SHAPE MATCH: _output_message, 49 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_output_message @ 0x10051fd0 size=49  vs  _output_message (obj size=49)\nnormalized match: 49/49 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10052010",
+        "symbol": "_emit_message",
+        "bytes": 54,
+        "diagnostics": "SHAPE MATCH: _emit_message, 54 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_emit_message @ 0x10052010 size=54  vs  _emit_message (obj size=54)\nnormalized match: 54/54 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10052050",
+        "symbol": "_format_message",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +131: target=0x100f5f14, COFF=_sprintf addend=0x00000000\nUNRESOLVED binding +157: target=0x100f5f14, COFF=_sprintf addend=0x00000000\nSHAPE MATCH: _format_message, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_format_message @ 0x10052050 size=167  vs  _format_message (obj size=167)\nnormalized match: 167/167 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004cfa0",
+        "symbol": "_initial_setup",
+        "bytes": 516,
+        "diagnostics": "SHAPE MATCH: _initial_setup, 516 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_initial_setup @ 0x1004cfa0 size=516  vs  _initial_setup (obj size=516)\nnormalized match: 516/516 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 510,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d1b0",
+        "symbol": "_per_scan_setup",
+        "bytes": 415,
+        "diagnostics": "SHAPE MATCH: FUN_1004d1b0, 415 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d1b0 @ 0x1004d1b0 size=415  vs  _per_scan_setup (obj size=415)\nnormalized match: 415/415 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 415,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d350",
+        "symbol": "_latch_quant_tables",
+        "bytes": 170,
+        "diagnostics": "SHAPE MATCH: FUN_1004d350, 170 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d350 @ 0x1004d350 size=170  vs  _latch_quant_tables (obj size=170)\nnormalized match: 170/170 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 170,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d400",
+        "symbol": "_inputctl_start_input_pass",
+        "bytes": 59,
+        "diagnostics": "UNRESOLVED binding +7: target=0x1004d1b0, COFF=_per_scan_setup addend=0x00000000\nUNRESOLVED binding +14: target=0x1004d350, COFF=_latch_quant_tables addend=0x00000000\nSHAPE MATCH: FUN_1004d400, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d400 @ 0x1004d400 size=59  vs  _inputctl_start_input_pass (obj size=59)\nnormalized match: 59/59 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 59,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d460",
+        "symbol": "_consume_markers",
+        "bytes": 187,
+        "diagnostics": "UNRESOLVED binding +134: target=0x1004cfa0, COFF=_initial_setup addend=0x00000000\nUNRESOLVED binding +174: target=0x1004d400, COFF=_inputctl_start_input_pass addend=0x00000000\nSHAPE MATCH: FUN_1004d460, 187 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d460 @ 0x1004d460 size=187  vs  _consume_markers (obj size=187)\nnormalized match: 187/187 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 187,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d520",
+        "symbol": "_reset_input_controller",
+        "bytes": 59,
+        "diagnostics": "UNRESOLVED binding +13: target=0x1004d460, COFF=_consume_markers addend=0x00000000\nSHAPE MATCH: FUN_1004d520, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d520 @ 0x1004d520 size=59  vs  _reset_input_controller (obj size=59)\nnormalized match: 59/59 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 59,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004dc50",
+        "symbol": "_get_soi",
+        "bytes": 164,
+        "diagnostics": "SHAPE MATCH: FUN_1004dc50, 164 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004dc50 @ 0x1004dc50 size=164  vs  _get_soi (obj size=164)\nnormalized match: 164/164 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 164,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004dd00",
+        "symbol": "_get_sof",
+        "bytes": 777,
+        "diagnostics": "SHAPE MATCH: FUN_1004dd00, 777 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004dd00 @ 0x1004dd00 size=777  vs  _get_sof (obj size=777)\nnormalized match: 777/777 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 777,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004e010",
+        "symbol": "_get_sos",
+        "bytes": 757,
+        "diagnostics": "SHAPE MATCH: FUN_1004e010, 757 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004e010 @ 0x1004e010 size=757  vs  _get_sos (obj size=757)\nnormalized match: 757/757 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 757,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004e310",
+        "symbol": "_get_dht",
+        "bytes": 795,
+        "diagnostics": "SHAPE MATCH: FUN_1004e310, 795 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004e310 @ 0x1004e310 size=795  vs  _get_dht (obj size=795)\nnormalized match: 795/795 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 795,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004e630",
+        "symbol": "_get_dqt",
+        "bytes": 618,
+        "diagnostics": "UNRESOLVED binding +252: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000\nUNRESOLVED binding +396: target=0x10191300, COFF=_jpeg_natural_order addend=0x00000100\nSHAPE MATCH: FUN_1004e630, 618 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004e630 @ 0x1004e630 size=618  vs  _get_dqt (obj size=618)\nnormalized match: 618/618 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 618,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004e8a0",
+        "symbol": "_get_dri",
+        "bytes": 223,
+        "diagnostics": "SHAPE MATCH: FUN_1004e8a0, 223 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004e8a0 @ 0x1004e8a0 size=223  vs  _get_dri (obj size=223)\nnormalized match: 223/223 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 223,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004e980",
+        "symbol": "_examine_app0",
+        "bytes": 587,
+        "diagnostics": "SHAPE MATCH: FUN_1004e980, 587 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004e980 @ 0x1004e980 size=587  vs  _examine_app0 (obj size=587)\nnormalized match: 587/587 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 587,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004ebd0",
+        "symbol": "_examine_app14",
+        "bytes": 169,
+        "diagnostics": "SHAPE MATCH: FUN_1004ebd0, 169 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004ebd0 @ 0x1004ebd0 size=169  vs  _examine_app14 (obj size=169)\nnormalized match: 169/169 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 169,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004f040",
+        "symbol": "_skip_variable",
+        "bytes": 157,
+        "diagnostics": "SHAPE MATCH: FUN_1004f040, 157 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004f040 @ 0x1004f040 size=157  vs  _skip_variable (obj size=157)\nnormalized match: 157/157 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 157,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004f0e0",
+        "symbol": "_next_marker",
+        "bytes": 256,
+        "diagnostics": "SHAPE MATCH: FUN_1004f0e0, 256 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004f0e0 @ 0x1004f0e0 size=256  vs  _next_marker (obj size=256)\nnormalized match: 256/256 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 256,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004f1e0",
+        "symbol": "_first_marker",
+        "bytes": 153,
+        "diagnostics": "SHAPE MATCH: FUN_1004f1e0, 153 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004f1e0 @ 0x1004f1e0 size=153  vs  _first_marker (obj size=153)\nnormalized match: 153/153 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 153,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004f600",
+        "symbol": "_read_restart_marker",
+        "bytes": 136,
+        "diagnostics": "UNRESOLVED binding +17: target=0x1004f0e0, COFF=_next_marker addend=0x00000000\nSHAPE MATCH: FUN_1004f600, 136 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004f600 @ 0x1004f600 size=136  vs  _read_restart_marker (obj size=136)\nnormalized match: 136/136 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 136,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004f690",
+        "symbol": "_jpeg_resync_to_restart",
+        "bytes": 252,
+        "diagnostics": "UNRESOLVED binding +206: target=0x1004f0e0, COFF=_next_marker addend=0x00000000\nSHAPE MATCH: _jpeg_resync_to_restart, 252 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_jpeg_resync_to_restart @ 0x1004f690 size=252  vs  _jpeg_resync_to_restart (obj size=252)\nnormalized match: 252/252 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004f790",
+        "symbol": "_reset_marker_reader",
+        "bytes": 46,
+        "diagnostics": "SHAPE MATCH: _reset_marker_reader, 46 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_reset_marker_reader @ 0x1004f790 size=46  vs  _reset_marker_reader (obj size=46)\nnormalized match: 46/46 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004f7c0",
+        "symbol": "_jinit_marker_reader",
+        "bytes": 131,
+        "diagnostics": "UNRESOLVED binding +26: target=0x1004f790, COFF=_reset_marker_reader addend=0x00000000\nUNRESOLVED binding +33: target=0x1004f280, COFF=_read_markers addend=0x00000000\nUNRESOLVED binding +40: target=0x1004f600, COFF=_read_restart_marker addend=0x00000000\nUNRESOLVED binding +47: target=0x1004f040, COFF=_skip_variable addend=0x00000000\nUNRESOLVED binding +67: target=0x1004f040, COFF=_skip_variable addend=0x00000000\nUNRESOLVED binding +80: target=0x1004ec80, COFF=_get_interesting_appn addend=0x00000000\nSHAPE MATCH: FUN_1004f7c0, 131 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004f7c0 @ 0x1004f7c0 size=131  vs  _jinit_marker_reader (obj size=131)\nnormalized match: 131/131 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 131,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d5a0",
+        "symbol": "_alloc_funny_pointers",
+        "bytes": 168,
+        "diagnostics": "SHAPE MATCH: FUN_1004d5a0, 168 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d5a0 @ 0x1004d5a0 size=168  vs  _alloc_funny_pointers (obj size=168)\nnormalized match: 168/168 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 168,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d650",
+        "symbol": "_make_funny_pointers",
+        "bytes": 332,
+        "diagnostics": "SHAPE MATCH: FUN_1004d650, 332 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d650 @ 0x1004d650 size=332  vs  _make_funny_pointers (obj size=332)\nnormalized match: 332/332 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 332,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d7a0",
+        "symbol": "_set_wraparound_pointers",
+        "bytes": 210,
+        "diagnostics": "SHAPE MATCH: FUN_1004d7a0, 210 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d7a0 @ 0x1004d7a0 size=210  vs  _set_wraparound_pointers (obj size=210)\nnormalized match: 210/210 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 210,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d880",
+        "symbol": "_set_bottom_pointers",
+        "bytes": 160,
+        "diagnostics": "SHAPE MATCH: _set_bottom_pointers, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_set_bottom_pointers @ 0x1004d880 size=160  vs  _set_bottom_pointers (obj size=160)\nnormalized match: 160/160 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 157,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d9a0",
+        "symbol": "_process_data_simple_main",
+        "bytes": 110,
+        "diagnostics": "SHAPE MATCH: _process_data_simple_main, 110 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_process_data_simple_main @ 0x1004d9a0 size=110  vs  _process_data_simple_main (obj size=110)\nnormalized match: 110/110 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004da10",
+        "symbol": "_process_data_context_main",
+        "bytes": 312,
+        "diagnostics": "UNRESOLVED binding +186: target=0x1004d880, COFF=_set_bottom_pointers addend=0x00000000\nUNRESOLVED binding +264: target=0x1004d7a0, COFF=_set_wraparound_pointers addend=0x00000000\nSHAPE MATCH: _process_data_context_main, 312 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_process_data_context_main @ 0x1004da10 size=312  vs  _process_data_context_main (obj size=312)\nnormalized match: 312/312 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004db50",
+        "symbol": "_process_data_crank_post",
+        "bytes": 39,
+        "diagnostics": "SHAPE MATCH: _process_data_crank_post, 39 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_process_data_crank_post @ 0x1004db50 size=39  vs  _process_data_crank_post (obj size=39)\nnormalized match: 39/39 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004aa30",
+        "symbol": "_start_input_pass",
+        "bytes": 92,
+        "diagnostics": "SHAPE MATCH: _start_input_pass, 92 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_start_input_pass @ 0x1004aa30 size=92  vs  _start_input_pass (obj size=92)\nnormalized match: 92/92 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004aae0",
+        "symbol": "_decompress_onepass",
+        "bytes": 679,
+        "diagnostics": "SHAPE MATCH: _decompress_onepass, 679 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_decompress_onepass @ 0x1004aae0 size=679  vs  _decompress_onepass (obj size=679)\nnormalized match: 679/679 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 667,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004ada0",
+        "symbol": "_consume_data",
+        "bytes": 552,
+        "diagnostics": "SHAPE MATCH: _consume_data, 552 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_consume_data @ 0x1004ada0 size=552  vs  _consume_data (obj size=552)\nnormalized match: 552/552 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 549,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004afd0",
+        "symbol": "_decompress_data",
+        "bytes": 417,
+        "diagnostics": "SHAPE MATCH: _decompress_data, 417 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_decompress_data @ 0x1004afd0 size=417  vs  _decompress_data (obj size=417)\nnormalized match: 417/417 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 409,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004b180",
+        "symbol": "_smoothing_ok",
+        "bytes": 359,
+        "diagnostics": "SHAPE MATCH: FUN_1004b180, 359 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004b180 @ 0x1004b180 size=359  vs  _smoothing_ok (obj size=359)\nnormalized match: 359/359 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 359,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004b2f0",
+        "symbol": "_decompress_smooth_data",
+        "bytes": 1612,
+        "diagnostics": "SHAPE MATCH: _decompress_smooth_data, 1612 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_decompress_smooth_data @ 0x1004b2f0 size=1612  vs  _decompress_smooth_data (obj size=1612)\nnormalized match: 1612/1612 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1606,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004c8b0",
+        "symbol": "_jpeg_fill_bit_buffer",
+        "bytes": 286,
+        "diagnostics": "SHAPE MATCH: FUN_1004c8b0, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004c8b0 @ 0x1004c8b0 size=286  vs  _jpeg_fill_bit_buffer (obj size=286)\nnormalized match: 286/286 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 286,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004c9d0",
+        "symbol": "_jpeg_huff_decode",
+        "bytes": 211,
+        "diagnostics": "UNRESOLVED binding +22: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +94: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nSHAPE MATCH: FUN_1004c9d0, 211 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004c9d0 @ 0x1004c9d0 size=211  vs  _jpeg_huff_decode (obj size=211)\nnormalized match: 211/211 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 211,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004cab0",
+        "symbol": "_sequential_huff_restart",
+        "bytes": 127,
+        "diagnostics": "SHAPE MATCH: FUN_1004cab0, 127 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004cab0 @ 0x1004cab0 size=127  vs  _sequential_huff_restart (obj size=127)\nnormalized match: 127/127 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 127,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004cb30",
+        "symbol": "_decode_mcu",
+        "bytes": 1064,
+        "diagnostics": "UNRESOLVED binding +37: target=0x1004cab0, COFF=_sequential_huff_restart addend=0x00000000\nUNRESOLVED binding +204: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +287: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000\nUNRESOLVED binding +329: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +372: target=0x10190de8, COFF=_extend_test addend=0x00000000\nUNRESOLVED binding +390: target=0x10190e28, COFF=_extend_offset addend=0x00000000\nUNRESOLVED binding +479: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +562: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000\nUNRESOLVED binding +612: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +655: target=0x10190de8, COFF=_extend_test addend=0x00000000\nUNRESOLVED binding +669: target=0x10190e28, COFF=_extend_offset addend=0x00000000\nUNRESOLVED binding +682: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000\nUNRESOLVED binding +751: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +834: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000\nUNRESOLVED binding +884: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nSHAPE MATCH: _decode_mcu, 1064 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_decode_mcu @ 0x1004cb30 size=1064  vs  _decode_mcu (obj size=1064)\nnormalized match: 1064/1064 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100508f0",
+        "symbol": "_process_restart",
+        "bytes": 134,
+        "diagnostics": "SHAPE MATCH: FUN_100508f0, 134 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100508f0 @ 0x100508f0 size=134  vs  _process_restart (obj size=134)\nnormalized match: 134/134 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 134,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10050980",
+        "symbol": "_decode_mcu_DC_first",
+        "bytes": 578,
+        "diagnostics": "UNRESOLVED binding +47: target=0x100508f0, COFF=_process_restart addend=0x00000000\nUNRESOLVED binding +230: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +313: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000\nUNRESOLVED binding +355: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +398: target=0x10190e68, COFF=_progressive_extend_test addend=0x00000000\nUNRESOLVED binding +412: target=0x10190ea8, COFF=_progressive_extend_offset addend=0x00000000\nSHAPE MATCH: FUN_10050980, 578 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10050980 @ 0x10050980 size=578  vs  _decode_mcu_DC_first (obj size=578)\nnormalized match: 578/578 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 578,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10050bd0",
+        "symbol": "_decode_mcu_AC_first",
+        "bytes": 573,
+        "diagnostics": "UNRESOLVED binding +60: target=0x100508f0, COFF=_process_restart addend=0x00000000\nUNRESOLVED binding +191: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +274: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000\nUNRESOLVED binding +328: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +367: target=0x10190e68, COFF=_progressive_extend_test addend=0x00000000\nUNRESOLVED binding +381: target=0x10190ea8, COFF=_progressive_extend_offset addend=0x00000000\nUNRESOLVED binding +408: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000\nUNRESOLVED binding +479: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nSHAPE MATCH: FUN_10050bd0, 573 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10050bd0 @ 0x10050bd0 size=573  vs  _decode_mcu_AC_first (obj size=573)\nnormalized match: 573/573 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 573,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10050e10",
+        "symbol": "_decode_mcu_DC_refine",
+        "bytes": 234,
+        "diagnostics": "UNRESOLVED binding +50: target=0x100508f0, COFF=_process_restart addend=0x00000000\nUNRESOLVED binding +134: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nSHAPE MATCH: _decode_mcu_DC_refine, 234 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_decode_mcu_DC_refine @ 0x10050e10 size=234  vs  _decode_mcu_DC_refine (obj size=234)\nnormalized match: 234/234 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 228,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10050f00",
+        "symbol": "_decode_mcu_AC_refine",
+        "bytes": 1056,
+        "diagnostics": "UNRESOLVED binding +79: target=0x100508f0, COFF=_process_restart addend=0x00000000\nUNRESOLVED binding +239: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +325: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000\nUNRESOLVED binding +411: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +505: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +595: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000\nUNRESOLVED binding +632: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +727: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000\nUNRESOLVED binding +760: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000\nUNRESOLVED binding +869: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000\nSHAPE MATCH: _decode_mcu_AC_refine, 1056 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_decode_mcu_AC_refine @ 0x10050f00 size=1056  vs  _decode_mcu_AC_refine (obj size=1056)\nnormalized match: 1056/1056 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055960",
+        "symbol": "_select_ncolors",
+        "bytes": 234,
+        "diagnostics": "UNRESOLVED binding +157: target=0x101911f0, COFF=?RGB_order@?1??select_ncolors@@9@9 addend=0x00000000\nSHAPE MATCH: _select_ncolors, 234 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_select_ncolors @ 0x10055960 size=234  vs  _select_ncolors (obj size=234)\nnormalized match: 234/234 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 225,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055a90",
+        "symbol": "_create_colormap",
+        "bytes": 369,
+        "diagnostics": "UNRESOLVED binding +27: target=0x10055960, COFF=_select_ncolors addend=0x00000000\nSHAPE MATCH: FUN_10055a90, 369 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055a90 @ 0x10055a90 size=369  vs  _create_colormap (obj size=369)\nnormalized match: 369/369 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 369,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055c10",
+        "symbol": "_create_colorindex",
+        "bytes": 358,
+        "diagnostics": "SHAPE MATCH: _create_colorindex, 358 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_create_colorindex @ 0x10055c10 size=358  vs  _create_colorindex (obj size=358)\nnormalized match: 358/358 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 347,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055d80",
+        "symbol": "_make_odither_array",
+        "bytes": 114,
+        "diagnostics": "UNRESOLVED binding +36: target=0x101910f0, COFF=_base_dither_matrix addend=0x00000000\nUNRESOLVED binding +101: target=0x101911f0, COFF=_base_dither_matrix addend=0x00000100\nSHAPE MATCH: _make_odither_array, 114 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_make_odither_array @ 0x10055d80 size=114  vs  _make_odither_array (obj size=114)\nnormalized match: 114/114 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 102,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055e00",
+        "symbol": "_create_odither_tables",
+        "bytes": 79,
+        "diagnostics": "UNRESOLVED binding +58: target=0x10055d80, COFF=_make_odither_array addend=0x00000000\nSHAPE MATCH: FUN_10055e00, 79 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055e00 @ 0x10055e00 size=79  vs  _create_odither_tables (obj size=79)\nnormalized match: 79/79 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 79,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055e50",
+        "symbol": "_color_quantize",
+        "bytes": 169,
+        "diagnostics": "SHAPE MATCH: _color_quantize, 169 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_color_quantize @ 0x10055e50 size=169  vs  _color_quantize (obj size=169)\nnormalized match: 169/169 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055f00",
+        "symbol": "_color_quantize3",
+        "bytes": 178,
+        "diagnostics": "SHAPE MATCH: FUN_10055f00, 178 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055f00 @ 0x10055f00 size=178  vs  _color_quantize3 (obj size=178)\nnormalized match: 178/178 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 178,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055fc0",
+        "symbol": "_quantize_ord_dither",
+        "bytes": 287,
+        "diagnostics": "SHAPE MATCH: FUN_10055fc0, 287 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055fc0 @ 0x10055fc0 size=287  vs  _quantize_ord_dither (obj size=287)\nnormalized match: 287/287 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 287,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100560e0",
+        "symbol": "_quantize3_ord_dither",
+        "bytes": 286,
+        "diagnostics": "SHAPE MATCH: _quantize3_ord_dither, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_quantize3_ord_dither @ 0x100560e0 size=286  vs  _quantize3_ord_dither (obj size=286)\nnormalized match: 286/286 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056200",
+        "symbol": "_quantize_fs_dither",
+        "bytes": 436,
+        "diagnostics": "SHAPE MATCH: FUN_10056200, 436 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056200 @ 0x10056200 size=436  vs  _quantize_fs_dither (obj size=436)\nnormalized match: 436/436 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 436,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100563c0",
+        "symbol": "_alloc_fs_workspace",
+        "bytes": 62,
+        "diagnostics": "SHAPE MATCH: FUN_100563c0, 62 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100563c0 @ 0x100563c0 size=62  vs  _alloc_fs_workspace (obj size=62)\nnormalized match: 62/62 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 62,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056400",
+        "symbol": "_start_pass_1_quant",
+        "bytes": 234,
+        "diagnostics": "UNRESOLVED binding +71: target=0x10056200, COFF=_quantize_fs_dither addend=0x00000000\nUNRESOLVED binding +86: target=0x100563c0, COFF=_alloc_fs_workspace addend=0x00000000\nUNRESOLVED binding +160: target=0x100560e0, COFF=_quantize3_ord_dither addend=0x00000000\nUNRESOLVED binding +169: target=0x10055fc0, COFF=_quantize_ord_dither addend=0x00000000\nUNRESOLVED binding +183: target=0x10055c10, COFF=_create_colorindex addend=0x00000000\nUNRESOLVED binding +198: target=0x10055e00, COFF=_create_odither_tables addend=0x00000000\nUNRESOLVED binding +215: target=0x10055f00, COFF=_color_quantize3 addend=0x00000000\nUNRESOLVED binding +226: target=0x10055e50, COFF=_color_quantize addend=0x00000000\nSHAPE MATCH: _start_pass_1_quant, 234 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_start_pass_1_quant @ 0x10056400 size=234  vs  _start_pass_1_quant (obj size=234)\nnormalized match: 234/234 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056520",
+        "symbol": "_jinit_1pass_quantizer",
+        "bytes": 148,
+        "diagnostics": "UNRESOLVED binding +23: target=0x10056400, COFF=_start_pass_1_quant addend=0x00000000\nUNRESOLVED binding +30: target=0x100564f0, COFF=_finish_pass_1_quant addend=0x00000000\nUNRESOLVED binding +37: target=0x10056500, COFF=_new_color_map_1_quant addend=0x00000000\nUNRESOLVED binding +120: target=0x10055a90, COFF=_create_colormap addend=0x00000000\nUNRESOLVED binding +126: target=0x10055c10, COFF=_create_colorindex addend=0x00000000\nUNRESOLVED binding +142: target=0x100563c0, COFF=_alloc_fs_workspace addend=0x00000000\nSHAPE MATCH: FUN_10056520, 148 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056520 @ 0x10056520 size=148  vs  _jinit_1pass_quantizer (obj size=148)\nnormalized match: 148/148 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 148,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100565c0",
+        "symbol": "_prescan_quantize",
+        "bytes": 117,
+        "diagnostics": "SHAPE MATCH: _prescan_quantize, 117 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_prescan_quantize @ 0x100565c0 size=117  vs  _prescan_quantize (obj size=117)\nnormalized match: 117/117 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100566a0",
+        "symbol": "_update_box",
+        "bytes": 1003,
+        "diagnostics": "SHAPE MATCH: _update_box, 1003 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_update_box @ 0x100566a0 size=1003  vs  _update_box (obj size=1003)\nnormalized match: 1003/1003 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 991,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056a90",
+        "symbol": "_median_cut",
+        "bytes": 357,
+        "diagnostics": "UNRESOLVED binding +301: target=0x100566a0, COFF=_update_box addend=0x00000000\nUNRESOLVED binding +309: target=0x100566a0, COFF=_update_box addend=0x00000000\nSHAPE MATCH: FUN_10056a90, 357 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056a90 @ 0x10056a90 size=357  vs  _median_cut (obj size=357)\nnormalized match: 357/357 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 357,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056c00",
+        "symbol": "_compute_color",
+        "bytes": 379,
+        "diagnostics": "SHAPE MATCH: FUN_10056c00, 379 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056c00 @ 0x10056c00 size=379  vs  _compute_color (obj size=379)\nnormalized match: 379/379 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 379,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056d80",
+        "symbol": "_select_colors",
+        "bytes": 132,
+        "diagnostics": "UNRESOLVED binding +55: target=0x100566a0, COFF=_update_box addend=0x00000000\nUNRESOLVED binding +65: target=0x10056a90, COFF=_median_cut addend=0x00000000\nUNRESOLVED binding +85: target=0x10056c00, COFF=_compute_color addend=0x00000000\nSHAPE MATCH: FUN_10056d80, 132 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056d80 @ 0x10056d80 size=132  vs  _select_colors (obj size=132)\nnormalized match: 132/132 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 132,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056e10",
+        "symbol": "_find_nearby_colors",
+        "bytes": 452,
+        "diagnostics": "SHAPE MATCH: FUN_10056e10, 452 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056e10 @ 0x10056e10 size=452  vs  _find_nearby_colors (obj size=452)\nnormalized match: 452/452 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 452,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056fe0",
+        "symbol": "_find_best_colors",
+        "bytes": 379,
+        "diagnostics": "SHAPE MATCH: FUN_10056fe0, 379 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056fe0 @ 0x10056fe0 size=379  vs  _find_best_colors (obj size=379)\nnormalized match: 379/379 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 379,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057160",
+        "symbol": "_fill_inverse_cmap",
+        "bytes": 273,
+        "diagnostics": "UNRESOLVED binding +102: target=0x10056e10, COFF=_find_nearby_colors addend=0x00000000\nUNRESOLVED binding +132: target=0x10056fe0, COFF=_find_best_colors addend=0x00000000\nSHAPE MATCH: FUN_10057160, 273 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057160 @ 0x10057160 size=273  vs  _fill_inverse_cmap (obj size=273)\nnormalized match: 273/273 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 273,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057280",
+        "symbol": "_pass2_no_dither",
+        "bytes": 199,
+        "diagnostics": "UNRESOLVED binding +136: target=0x10057160, COFF=_fill_inverse_cmap addend=0x00000000\nSHAPE MATCH: FUN_10057280, 199 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057280 @ 0x10057280 size=199  vs  _pass2_no_dither (obj size=199)\nnormalized match: 199/199 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 199,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057350",
+        "symbol": "_pass2_fs_dither",
+        "bytes": 723,
+        "diagnostics": "UNRESOLVED binding +444: target=0x10057160, COFF=_fill_inverse_cmap addend=0x00000000\nSHAPE MATCH: FUN_10057350, 723 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057350 @ 0x10057350 size=723  vs  _pass2_fs_dither (obj size=723)\nnormalized match: 723/723 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 723,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057630",
+        "symbol": "_init_error_limit",
+        "bytes": 154,
+        "diagnostics": "SHAPE MATCH: FUN_10057630, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057630 @ 0x10057630 size=154  vs  _init_error_limit (obj size=154)\nnormalized match: 154/154 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 154,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100576d0",
+        "symbol": "_finish_pass1",
+        "bytes": 37,
+        "diagnostics": "UNRESOLVED binding +23: target=0x10056d80, COFF=_select_colors addend=0x00000000\nSHAPE MATCH: _finish_pass1, 37 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_finish_pass1 @ 0x100576d0 size=37  vs  _finish_pass1 (obj size=37)\nnormalized match: 37/37 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057710",
+        "symbol": "_start_pass_2_quant",
+        "bytes": 285,
+        "diagnostics": "UNRESOLVED binding +45: target=0x100565c0, COFF=_prescan_quantize addend=0x00000000\nUNRESOLVED binding +52: target=0x100576d0, COFF=_finish_pass1 addend=0x00000000\nUNRESOLVED binding +74: target=0x10057350, COFF=_pass2_fs_dither addend=0x00000000\nUNRESOLVED binding +83: target=0x10057280, COFF=_pass2_no_dither addend=0x00000000\nUNRESOLVED binding +90: target=0x10057700, COFF=_finish_pass2 addend=0x00000000\nUNRESOLVED binding +233: target=0x10057630, COFF=_init_error_limit addend=0x00000000\nSHAPE MATCH: _start_pass_2_quant, 285 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_start_pass_2_quant @ 0x10057710 size=285  vs  _start_pass_2_quant (obj size=285)\nnormalized match: 285/285 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057840",
+        "symbol": "_jinit_2pass_quantizer",
+        "bytes": 296,
+        "diagnostics": "UNRESOLVED binding +21: target=0x10057710, COFF=_start_pass_2_quant addend=0x00000000\nUNRESOLVED binding +28: target=0x10057830, COFF=_new_color_map_2_quant addend=0x00000000\nUNRESOLVED binding +290: target=0x10057630, COFF=_init_error_limit addend=0x00000000\nSHAPE MATCH: FUN_10057840, 296 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057840 @ 0x10057840 size=296  vs  _jinit_2pass_quantizer (obj size=296)\nnormalized match: 296/296 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 296,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10050170",
+        "symbol": "_merged_2v_upsample",
+        "bytes": 199,
+        "diagnostics": "SHAPE MATCH: _merged_2v_upsample, 199 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_merged_2v_upsample @ 0x10050170 size=199  vs  _merged_2v_upsample (obj size=199)\nnormalized match: 199/199 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10050240",
+        "symbol": "_merged_1v_upsample",
+        "bytes": 55,
+        "diagnostics": "SHAPE MATCH: _merged_1v_upsample, 55 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_merged_1v_upsample @ 0x10050240 size=55  vs  _merged_1v_upsample (obj size=55)\nnormalized match: 55/55 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10050280",
+        "symbol": "_h2v1_merged_upsample",
+        "bytes": 327,
+        "diagnostics": "SHAPE MATCH: FUN_10050280, 327 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10050280 @ 0x10050280 size=327  vs  _h2v1_merged_upsample (obj size=327)\nnormalized match: 327/327 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 327,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100503d0",
+        "symbol": "_h2v2_merged_upsample",
+        "bytes": 555,
+        "diagnostics": "SHAPE MATCH: FUN_100503d0, 555 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100503d0 @ 0x100503d0 size=555  vs  _h2v2_merged_upsample (obj size=555)\nnormalized match: 555/555 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 555,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051490",
+        "symbol": "_post_process_1pass",
+        "bytes": 123,
+        "diagnostics": "SHAPE MATCH: _post_process_1pass, 123 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_post_process_1pass @ 0x10051490 size=123  vs  _post_process_1pass (obj size=123)\nnormalized match: 123/123 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051510",
+        "symbol": "_post_process_prepass",
+        "bytes": 160,
+        "diagnostics": "SHAPE MATCH: FUN_10051510, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051510 @ 0x10051510 size=160  vs  _post_process_prepass (obj size=160)\nnormalized match: 160/160 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 160,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100515b0",
+        "symbol": "_post_process_2pass",
+        "bytes": 154,
+        "diagnostics": "SHAPE MATCH: FUN_100515b0, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100515b0 @ 0x100515b0 size=154  vs  _post_process_2pass (obj size=154)\nnormalized match: 154/154 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 154,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004c410",
+        "symbol": "_jinit_inverse_dct",
+        "bytes": 117,
+        "diagnostics": "UNRESOLVED binding +20: target=0x1004c0e0, COFF=_start_pass addend=0x00000000\nSHAPE MATCH: FUN_1004c410, 117 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004c410 @ 0x1004c410 size=117  vs  _jinit_inverse_dct (obj size=117)\nnormalized match: 117/117 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 117,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004bb80",
+        "symbol": "_ycc_rgb_convert",
+        "bytes": 286,
+        "diagnostics": "SHAPE MATCH: FUN_1004bb80, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004bb80 @ 0x1004bb80 size=286  vs  _ycc_rgb_convert (obj size=286)\nnormalized match: 286/286 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 286,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004bca0",
+        "symbol": "_null_convert",
+        "bytes": 120,
+        "diagnostics": "SHAPE MATCH: FUN_1004bca0, 120 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004bca0 @ 0x1004bca0 size=120  vs  _null_convert (obj size=120)\nnormalized match: 120/120 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 120,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004bd20",
+        "symbol": "_grayscale_convert",
+        "bytes": 39,
+        "diagnostics": "UNRESOLVED binding +31: target=0x10057990, COFF=_jcopy_sample_rows addend=0x00000000\nSHAPE MATCH: _grayscale_convert, 39 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_grayscale_convert @ 0x1004bd20 size=39  vs  _grayscale_convert (obj size=39)\nnormalized match: 39/39 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004bd50",
+        "symbol": "_gray_rgb_convert",
+        "bytes": 94,
+        "diagnostics": "SHAPE MATCH: _gray_rgb_convert, 94 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_gray_rgb_convert @ 0x1004bd50 size=94  vs  _gray_rgb_convert (obj size=94)\nnormalized match: 94/94 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004bdb0",
+        "symbol": "_ycck_cmyk_convert",
+        "bytes": 330,
+        "diagnostics": "SHAPE MATCH: FUN_1004bdb0, 330 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004bdb0 @ 0x1004bdb0 size=330  vs  _ycck_cmyk_convert (obj size=330)\nnormalized match: 330/330 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 330,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051700",
+        "symbol": "_sep_upsample",
+        "bytes": 222,
+        "diagnostics": "SHAPE MATCH: FUN_10051700, 222 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051700 @ 0x10051700 size=222  vs  _sep_upsample (obj size=222)\nnormalized match: 222/222 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 222,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051800",
+        "symbol": "_int_upsample",
+        "bytes": 316,
+        "diagnostics": "SHAPE MATCH: FUN_10051800, 316 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051800 @ 0x10051800 size=316  vs  _int_upsample (obj size=316)\nnormalized match: 316/316 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 316,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051940",
+        "symbol": "_h2v1_upsample",
+        "bytes": 92,
+        "diagnostics": "SHAPE MATCH: _h2v1_upsample, 92 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_h2v1_upsample @ 0x10051940 size=92  vs  _h2v1_upsample (obj size=92)\nnormalized match: 92/92 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100519a0",
+        "symbol": "_h2v2_upsample",
+        "bytes": 118,
+        "diagnostics": "SHAPE MATCH: _h2v2_upsample, 118 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_h2v2_upsample @ 0x100519a0 size=118  vs  _h2v2_upsample (obj size=118)\nnormalized match: 118/118 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051a20",
+        "symbol": "_h2v1_fancy_upsample",
+        "bytes": 182,
+        "diagnostics": "SHAPE MATCH: _h2v1_fancy_upsample, 182 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_h2v1_fancy_upsample @ 0x10051a20 size=182  vs  _h2v1_fancy_upsample (obj size=182)\nnormalized match: 182/182 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051ae0",
+        "symbol": "_h2v2_fancy_upsample",
+        "bytes": 296,
+        "diagnostics": "SHAPE MATCH: _h2v2_fancy_upsample, 296 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_h2v2_fancy_upsample @ 0x10051ae0 size=296  vs  _h2v2_fancy_upsample (obj size=296)\nnormalized match: 296/296 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 293,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051c10",
+        "symbol": "_jinit_upsampler",
+        "bytes": 498,
+        "diagnostics": "UNRESOLVED binding +29: target=0x100516e0, COFF=_start_pass_upsample addend=0x00000000\nUNRESOLVED binding +36: target=0x10051700, COFF=_sep_upsample addend=0x00000000\nUNRESOLVED binding +204: target=0x100517f0, COFF=_noop_upsample addend=0x00000000\nUNRESOLVED binding +228: target=0x100517e0, COFF=_fullsize_upsample addend=0x00000000\nUNRESOLVED binding +264: target=0x10051a20, COFF=_h2v1_fancy_upsample addend=0x00000000\nUNRESOLVED binding +276: target=0x10051940, COFF=_h2v1_upsample addend=0x00000000\nUNRESOLVED binding +321: target=0x10051ae0, COFF=_h2v2_fancy_upsample addend=0x00000000\nUNRESOLVED binding +334: target=0x100519a0, COFF=_h2v2_upsample addend=0x00000000\nUNRESOLVED binding +379: target=0x10051800, COFF=_int_upsample addend=0x00000000\nSHAPE MATCH: _jinit_upsampler, 498 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_jinit_upsampler @ 0x10051c10 size=498  vs  _jinit_upsampler (obj size=498)\nnormalized match: 498/498 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 492,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004f960",
+        "symbol": "_use_merged_upsample",
+        "bytes": 128,
+        "diagnostics": "SHAPE MATCH: FUN_1004f960, 128 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004f960 @ 0x1004f960 size=128  vs  _use_merged_upsample (obj size=128)\nnormalized match: 128/128 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 128,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004fc10",
+        "symbol": "_prepare_range_limit_table",
+        "bytes": 119,
+        "diagnostics": "SHAPE MATCH: FUN_1004fc10, 119 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004fc10 @ 0x1004fc10 size=119  vs  _prepare_range_limit_table (obj size=119)\nnormalized match: 119/119 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 119,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004fe50",
+        "symbol": "_prepare_for_output_pass",
+        "bytes": 341,
+        "diagnostics": "SHAPE MATCH: FUN_1004fe50, 341 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004fe50 @ 0x1004fe50 size=341  vs  _prepare_for_output_pass (obj size=341)\nnormalized match: 341/341 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 341,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004ffb0",
+        "symbol": "_finish_output_pass",
+        "bytes": 36,
+        "diagnostics": "SHAPE MATCH: _finish_output_pass, 36 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_finish_output_pass @ 0x1004ffb0 size=36  vs  _finish_output_pass (obj size=36)\nnormalized match: 36/36 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10049fa0",
+        "symbol": "_default_decompress_parms",
+        "bytes": 393,
+        "diagnostics": "UNRESOLVED binding +325: target=0x1019bc88, COFF=__real@3ff0000000000000 addend=0x00000000\nSHAPE MATCH: FUN_10049fa0, 393 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10049fa0 @ 0x10049fa0 size=393  vs  _default_decompress_parms (obj size=393)\nnormalized match: 393/393 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 393,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004a310",
+        "symbol": "_jpeg_finish_decompress",
+        "bytes": 227,
+        "diagnostics": "SHAPE MATCH: FUN_1004a310, 227 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004a310 @ 0x1004a310 size=227  vs  _jpeg_finish_decompress (obj size=227)\nnormalized match: 227/227 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 227,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004a500",
+        "symbol": "_output_pass_setup",
+        "bytes": 204,
+        "diagnostics": "SHAPE MATCH: FUN_1004a500, 204 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004a500 @ 0x1004a500 size=204  vs  _output_pass_setup (obj size=204)\nnormalized match: 204/204 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 204,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004a5d0",
+        "symbol": "_jpeg_read_scanlines",
+        "bytes": 154,
+        "diagnostics": "SHAPE MATCH: FUN_1004a5d0, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004a5d0 @ 0x1004a5d0 size=154  vs  _jpeg_read_scanlines (obj size=154)\nnormalized match: 154/154 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 154,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d920",
+        "symbol": "_start_pass_main",
+        "bytes": 118,
+        "diagnostics": "UNRESOLVED binding +50: target=0x1004db50, COFF=_process_data_crank_post addend=0x00000000\nUNRESOLVED binding +72: target=0x1004da10, COFF=_process_data_context_main addend=0x00000000\nUNRESOLVED binding +77: target=0x1004d650, COFF=_make_funny_pointers addend=0x00000000\nUNRESOLVED binding +111: target=0x1004d9a0, COFF=_process_data_simple_main addend=0x00000000\nSHAPE MATCH: _start_pass_main, 118 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_start_pass_main @ 0x1004d920 size=118  vs  _start_pass_main (obj size=118)\nnormalized match: 118/118 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004db80",
+        "symbol": "_jinit_d_main_controller",
+        "bytes": 205,
+        "diagnostics": "UNRESOLVED binding +34: target=0x1004d920, COFF=_start_pass_main addend=0x00000000\nUNRESOLVED binding +97: target=0x1004d5a0, COFF=_alloc_funny_pointers addend=0x00000000\nSHAPE MATCH: FUN_1004db80, 205 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004db80 @ 0x1004db80 size=205  vs  _jinit_d_main_controller (obj size=205)\nnormalized match: 205/205 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 205,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004aa90",
+        "symbol": "_start_output_pass",
+        "bytes": 75,
+        "diagnostics": "UNRESOLVED binding +27: target=0x1004b180, COFF=_smoothing_ok addend=0x00000000\nUNRESOLVED binding +38: target=0x1004b2f0, COFF=_decompress_smooth_data addend=0x00000000\nUNRESOLVED binding +58: target=0x1004afd0, COFF=_decompress_data addend=0x00000000\nSHAPE MATCH: _start_output_pass, 75 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_start_output_pass @ 0x1004aa90 size=75  vs  _start_output_pass (obj size=75)\nnormalized match: 75/75 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004b940",
+        "symbol": "_jinit_d_coef_controller",
+        "bytes": 364,
+        "diagnostics": "UNRESOLVED binding +40: target=0x1004aa30, COFF=_start_input_pass addend=0x00000000\nUNRESOLVED binding +47: target=0x1004aa90, COFF=_start_output_pass addend=0x00000000\nUNRESOLVED binding +221: target=0x1004ada0, COFF=_consume_data addend=0x00000000\nUNRESOLVED binding +228: target=0x1004afd0, COFF=_decompress_data addend=0x00000000\nUNRESOLVED binding +347: target=0x1004ad90, COFF=_dummy_consume_data addend=0x00000000\nUNRESOLVED binding +354: target=0x1004aae0, COFF=_decompress_onepass addend=0x00000000\nSHAPE MATCH: FUN_1004b940, 364 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004b940 @ 0x1004b940 size=364  vs  _jinit_d_coef_controller (obj size=364)\nnormalized match: 364/364 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 364,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004c490",
+        "symbol": "_start_pass_huff_decoder",
+        "bytes": 331,
+        "diagnostics": "UNRESOLVED binding +128: target=0x1004c5e0, COFF=_jpeg_make_d_derived_tbl addend=0x00000000\nUNRESOLVED binding +142: target=0x1004c5e0, COFF=_jpeg_make_d_derived_tbl addend=0x00000000\nSHAPE MATCH: _start_pass_huff_decoder, 331 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_start_pass_huff_decoder @ 0x1004c490 size=331  vs  _start_pass_huff_decoder (obj size=331)\nnormalized match: 331/331 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004cf60",
+        "symbol": "_jinit_huff_decoder",
+        "bytes": 62,
+        "diagnostics": "UNRESOLVED binding +23: target=0x1004c490, COFF=_start_pass_huff_decoder addend=0x00000000\nUNRESOLVED binding +30: target=0x1004cb30, COFF=_decode_mcu addend=0x00000000\nSHAPE MATCH: FUN_1004cf60, 62 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004cf60 @ 0x1004cf60 size=62  vs  _jinit_huff_decoder (obj size=62)\nnormalized match: 62/62 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 62,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10050680",
+        "symbol": "_start_pass_phuff_decoder",
+        "bytes": 614,
+        "diagnostics": "UNRESOLVED binding +426: target=0x10050980, COFF=_decode_mcu_DC_first addend=0x00000000\nUNRESOLVED binding +435: target=0x10050bd0, COFF=_decode_mcu_AC_first addend=0x00000000\nUNRESOLVED binding +448: target=0x10050e10, COFF=_decode_mcu_DC_refine addend=0x00000000\nUNRESOLVED binding +457: target=0x10050f00, COFF=_decode_mcu_AC_refine addend=0x00000000\nUNRESOLVED binding +514: target=0x1004c5e0, COFF=_jpeg_make_d_derived_tbl addend=0x00000000\nUNRESOLVED binding +533: target=0x1004c5e0, COFF=_jpeg_make_d_derived_tbl addend=0x00000000\nSHAPE MATCH: _start_pass_phuff_decoder, 614 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_start_pass_phuff_decoder @ 0x10050680 size=614  vs  _start_pass_phuff_decoder (obj size=614)\nnormalized match: 614/614 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 611,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051320",
+        "symbol": "_jinit_phuff_decoder",
+        "bytes": 109,
+        "diagnostics": "UNRESOLVED binding +19: target=0x10050680, COFF=_start_pass_phuff_decoder addend=0x00000000\nSHAPE MATCH: _jinit_phuff_decoder, 109 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_jinit_phuff_decoder @ 0x10051320 size=109  vs  _jinit_phuff_decoder (obj size=109)\nnormalized match: 109/109 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 102,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051390",
+        "symbol": "_start_pass_dpost",
+        "bytes": 249,
+        "diagnostics": "UNRESOLVED binding +92: target=0x10051510, COFF=_post_process_prepass addend=0x00000000\nUNRESOLVED binding +139: target=0x100515b0, COFF=_post_process_2pass addend=0x00000000\nUNRESOLVED binding +174: target=0x10051490, COFF=_post_process_1pass addend=0x00000000\nSHAPE MATCH: _start_pass_dpost, 249 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_start_pass_dpost @ 0x10051390 size=249  vs  _start_pass_dpost (obj size=249)\nnormalized match: 249/249 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051650",
+        "symbol": "_jinit_d_post_controller",
+        "bytes": 131,
+        "diagnostics": "UNRESOLVED binding +23: target=0x10051390, COFF=_start_pass_dpost addend=0x00000000\nSHAPE MATCH: FUN_10051650, 131 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051650 @ 0x10051650 size=131  vs  _jinit_d_post_controller (obj size=131)\nnormalized match: 131/131 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 131,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004fc90",
+        "symbol": "_master_selection",
+        "bytes": 442,
+        "diagnostics": "UNRESOLVED binding +13: target=0x1004f9e0, COFF=_jpeg_calc_output_dimensions addend=0x00000000\nUNRESOLVED binding +20: target=0x1004fc10, COFF=_prepare_range_limit_table addend=0x00000000\nUNRESOLVED binding +32: target=0x1004f960, COFF=_use_merged_upsample addend=0x00000000\nUNRESOLVED binding +119: target=0x10056520, COFF=_jinit_1pass_quantizer addend=0x00000000\nUNRESOLVED binding +143: target=0x10057840, COFF=_jinit_2pass_quantizer addend=0x00000000\nUNRESOLVED binding +170: target=0x10050600, COFF=_jinit_merged_upsampler addend=0x00000000\nUNRESOLVED binding +199: target=0x1004bf10, COFF=_jinit_color_deconverter addend=0x00000000\nUNRESOLVED binding +204: target=0x10051c10, COFF=_jinit_upsampler addend=0x00000000\nUNRESOLVED binding +215: target=0x10051650, COFF=_jinit_d_post_controller addend=0x00000000\nUNRESOLVED binding +223: target=0x1004c410, COFF=_jinit_inverse_dct addend=0x00000000\nUNRESOLVED binding +263: target=0x10051320, COFF=_jinit_phuff_decoder addend=0x00000000\nUNRESOLVED binding +270: target=0x1004cf60, COFF=_jinit_huff_decoder addend=0x00000000\nUNRESOLVED binding +307: target=0x1004b940, COFF=_jinit_d_coef_controller addend=0x00000000\nUNRESOLVED binding +326: target=0x1004db80, COFF=_jinit_d_main_controller addend=0x00000000\nSHAPE MATCH: FUN_1004fc90, 442 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004fc90 @ 0x1004fc90 size=442  vs  _master_selection (obj size=442)\nnormalized match: 442/442 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 442,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10049e00",
+        "symbol": "_jpeg_CreateDecompress",
+        "bytes": 310,
+        "diagnostics": "UNRESOLVED binding +147: target=0x10055840, COFF=_jinit_memory_mgr addend=0x00000000\nUNRESOLVED binding +236: target=0x1004f7c0, COFF=_jinit_marker_reader addend=0x00000000\nUNRESOLVED binding +267: target=0x1004d460, COFF=_consume_markers addend=0x00000000\nUNRESOLVED binding +274: target=0x1004d520, COFF=_reset_input_controller addend=0x00000000\nUNRESOLVED binding +281: target=0x1004d400, COFF=_inputctl_start_input_pass addend=0x00000000\nUNRESOLVED binding +288: target=0x1004d440, COFF=_finish_input_pass addend=0x00000000\nSHAPE MATCH: FUN_10049e00, 310 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10049e00 @ 0x10049e00 size=310  vs  _jpeg_CreateDecompress (obj size=310)\nnormalized match: 310/310 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 310,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004a130",
+        "symbol": "_jpeg_read_header",
+        "bytes": 147,
+        "diagnostics": "UNRESOLVED binding +45: target=0x1004a1d0, COFF=_jpeg_consume_input addend=0x00000000\nSHAPE MATCH: FUN_1004a130, 147 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004a130 @ 0x1004a130 size=147  vs  _jpeg_read_header (obj size=147)\nnormalized match: 147/147 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 147,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004a400",
+        "symbol": "_jpeg_start_decompress",
+        "bytes": 241,
+        "diagnostics": "UNRESOLVED binding +30: target=0x1004fe50, COFF=_prepare_for_output_pass addend=0x00000000\nUNRESOLVED binding +37: target=0x1004ffb0, COFF=_finish_output_pass addend=0x00000000\nUNRESOLVED binding +51: target=0x1004fc90, COFF=_master_selection addend=0x00000000\nUNRESOLVED binding +196: target=0x1004a500, COFF=_output_pass_setup addend=0x00000000\nUNRESOLVED binding +235: target=0x1004a500, COFF=_output_pass_setup addend=0x00000000\nSHAPE MATCH: FUN_1004a400, 241 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004a400 @ 0x1004a400 size=241  vs  _jpeg_start_decompress (obj size=241)\nnormalized match: 241/241 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 241,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10045ce0",
+        "symbol": "_jpeg_open_backing_store",
+        "reason": "relocation-site/type mismatch: PE={11: 20}, COFF={}"
+      },
+      {
+        "address": "0x10055000",
+        "symbol": "_alloc_sarray",
+        "reason": "relocation-site/type mismatch: PE={78: 20, 131: 20}, COFF={75: 20, 125: 20}"
+      },
+      {
+        "address": "0x10054f50",
+        "symbol": "_alloc_barray",
+        "reason": "relocation-site/type mismatch: PE={75: 20, 125: 20}, COFF={78: 20, 131: 20}"
+      },
+      {
+        "address": "0x10044e40",
+        "symbol": "_request_virt_sarray",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={46: 20}"
+      },
+      {
+        "address": "0x10055120",
+        "symbol": "_request_virt_sarray",
+        "reason": "byte mismatch +90: PE=48, COFF=44"
+      },
+      {
+        "address": "0x10044e40",
+        "symbol": "_request_virt_barray",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={46: 20}"
+      },
+      {
+        "address": "0x100550b0",
+        "symbol": "_request_virt_barray",
+        "reason": "byte mismatch +90: PE=44, COFF=48"
+      },
+      {
+        "address": "0x10056520",
+        "symbol": "_do_sarray_io",
+        "reason": "relocation-site/type mismatch: PE={37: 6, 30: 6, 23: 6, 120: 20, 126: 20, 142: 20}, COFF={}"
+      },
+      {
+        "address": "0x10046e00",
+        "symbol": "_free_pool",
+        "reason": "relocation-site/type mismatch: PE={89: 6, 66: 6, 80: 20, 99: 20, 109: 20, 259: 20}, COFF={}"
+      },
+      {
+        "address": "0x10047b00",
+        "symbol": "_self_destruct",
+        "reason": "relocation-site/type mismatch: PE={42: 20}, COFF={19: 20}"
+      },
+      {
+        "address": "0x10051f90",
+        "symbol": "_self_destruct",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={19: 20}"
+      },
+      {
+        "address": "0x10048f70",
+        "symbol": "_jinit_memory_mgr",
+        "reason": "relocation-site/type mismatch: PE={45: 20}, COFF={48: 6, 55: 6, 62: 6, 69: 6, 76: 6, 83: 6, 90: 6, 97: 6, 104: 6, 111: 6, 118: 6}"
+      },
+      {
+        "address": "0x1004d880",
+        "symbol": "_jinit_memory_mgr",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={48: 6, 55: 6, 62: 6, 69: 6, 76: 6, 83: 6, 90: 6, 97: 6, 104: 6, 111: 6, 118: 6}"
+      },
+      {
+        "address": "0x10051510",
+        "symbol": "_jinit_memory_mgr",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={48: 6, 55: 6, 62: 6, 69: 6, 76: 6, 83: 6, 90: 6, 97: 6, 104: 6, 111: 6, 118: 6}"
+      },
+      {
+        "address": "0x10047b00",
+        "symbol": "_error_exit",
+        "reason": "relocation-site/type mismatch: PE={42: 20}, COFF={}"
+      },
+      {
+        "address": "0x10054f50",
+        "symbol": "_format_message",
+        "reason": "relocation-site/type mismatch: PE={75: 20, 125: 20}, COFF={131: 20, 157: 20}"
+      },
+      {
+        "address": "0x10055000",
+        "symbol": "_format_message",
+        "reason": "relocation-site/type mismatch: PE={78: 20, 131: 20}, COFF={131: 20, 157: 20}"
+      },
+      {
+        "address": "0x10044b20",
+        "symbol": "_jpeg_std_error",
+        "reason": "relocation-site/type mismatch: PE={20: 6}, COFF={8: 6, 15: 6, 22: 6, 29: 6, 36: 6, 52: 6}"
+      },
+      {
+        "address": "0x10044020",
+        "symbol": "_jpeg_CreateCompress",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={150: 20, 159: 6}"
+      },
+      {
+        "address": "0x10044eb0",
+        "symbol": "_jpeg_suppress_tables",
+        "reason": "byte mismatch +1: PE=46, COFF=44"
+      },
+      {
+        "address": "0x10051320",
+        "symbol": "_jpeg_suppress_tables",
+        "reason": "relocation-site/type mismatch: PE={19: 6}, COFF={}"
+      },
+      {
+        "address": "0x10055d80",
+        "symbol": "_jpeg_suppress_tables",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x100532c0",
+        "symbol": "_initial_setup",
+        "reason": "byte mismatch +0: PE=83, COFF=51"
+      },
+      {
+        "address": "0x1004d520",
+        "symbol": "_inputctl_start_input_pass",
+        "reason": "relocation-site/type mismatch: PE={13: 6}, COFF={7: 20, 14: 20}"
+      },
+      {
+        "address": "0x1004d400",
+        "symbol": "_reset_input_controller",
+        "reason": "relocation-site/type mismatch: PE={7: 20, 14: 20}, COFF={13: 6}"
+      },
+      {
+        "address": "0x100496e0",
+        "symbol": "_examine_app0",
+        "reason": "relocation-site/type mismatch: PE={76: 20, 86: 20}, COFF={}"
+      },
+      {
+        "address": "0x100413c0",
+        "symbol": "_get_interesting_appn",
+        "reason": "relocation-site/type mismatch: PE={261: 6, 10: 6, 145: 6, 273: 6, 25: 6, 282: 6, 287: 6, 37: 6, 48: 6, 178: 6, 56: 6, 67: 6, 207: 6, 83: 6, 215: 6, 223: 6, 98: 6, 110: 6, 243: 6, 255: 6, 32: 20, 61: 20, 104: 20, 119: 20, 172: 20, 235: 20, 293: 20, 307: 20, 315: 20}, COFF={262: 20, 280: 20}"
+      },
+      {
+        "address": "0x1004ec80",
+        "symbol": "_get_interesting_appn",
+        "reason": "original referee differs"
+      },
+      {
+        "address": "0x1004edd0",
+        "symbol": "_save_marker",
+        "reason": "original referee differs"
+      },
+      {
+        "address": "0x1004d880",
+        "symbol": "_skip_variable",
+        "reason": "byte mismatch +0: PE=51, COFF=53"
+      },
+      {
+        "address": "0x100415f0",
+        "symbol": "_first_marker",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 36: 6, 134: 6, 8: 6, 72: 6, 78: 6, 144: 6, 116: 6, 53: 6, 21: 6, 126: 6, 43: 20, 66: 20, 107: 20}, COFF={}"
+      },
+      {
+        "address": "0x10051650",
+        "symbol": "_jinit_marker_reader",
+        "reason": "relocation-site/type mismatch: PE={23: 6}, COFF={26: 6, 33: 6, 40: 6, 47: 6, 67: 6, 80: 6}"
+      },
+      {
+        "address": "0x10055e00",
+        "symbol": "_jpeg_set_marker_processor",
+        "reason": "relocation-site/type mismatch: PE={58: 20}, COFF={}"
+      },
+      {
+        "address": "0x100428d0",
+        "symbol": "_alloc_funny_pointers",
+        "reason": "byte mismatch +2: PE=08, COFF=0c"
+      },
+      {
+        "address": "0x10048c10",
+        "symbol": "_alloc_funny_pointers",
+        "reason": "relocation-site/type mismatch: PE={63: 6, 79: 6, 39: 6, 68: 20}, COFF={}"
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_alloc_funny_pointers",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 69: 6, 104: 6, 76: 6, 111: 6, 48: 6, 83: 6, 118: 6, 55: 6, 90: 6, 62: 6}, COFF={}"
+      },
+      {
+        "address": "0x10048f70",
+        "symbol": "_set_bottom_pointers",
+        "reason": "relocation-site/type mismatch: PE={45: 20}, COFF={}"
+      },
+      {
+        "address": "0x10051510",
+        "symbol": "_set_bottom_pointers",
+        "reason": "byte mismatch +0: PE=53, COFF=51"
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_set_bottom_pointers",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 69: 6, 104: 6, 76: 6, 111: 6, 48: 6, 83: 6, 118: 6, 55: 6, 90: 6, 62: 6}, COFF={}"
+      },
+      {
+        "address": "0x100479a0",
+        "symbol": "_process_data_context_main",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={186: 20, 264: 20}"
+      },
+      {
+        "address": "0x10057840",
+        "symbol": "_process_data_context_main",
+        "reason": "relocation-site/type mismatch: PE={28: 6, 21: 6, 290: 20}, COFF={186: 20, 264: 20}"
+      },
+      {
+        "address": "0x100410b0",
+        "symbol": "_start_input_pass",
+        "reason": "relocation-site/type mismatch: PE={50: 6, 14: 6, 19: 20, 26: 20, 35: 20, 42: 20, 62: 20, 72: 20, 83: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004bb80",
+        "symbol": "_jpeg_fill_bit_buffer",
+        "reason": "byte mismatch +0: PE=83, COFF=53"
+      },
+      {
+        "address": "0x10055960",
+        "symbol": "_decode_mcu_DC_refine",
+        "reason": "relocation-site/type mismatch: PE={157: 6}, COFF={50: 20, 134: 20}"
+      },
+      {
+        "address": "0x10050e10",
+        "symbol": "_select_ncolors",
+        "reason": "relocation-site/type mismatch: PE={50: 20, 134: 20}, COFF={157: 6}"
+      },
+      {
+        "address": "0x10047d40",
+        "symbol": "_create_colormap",
+        "reason": "relocation-site/type mismatch: PE={63: 20, 249: 20, 268: 20}, COFF={27: 20}"
+      },
+      {
+        "address": "0x10041a00",
+        "symbol": "_make_odither_array",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={36: 6, 101: 6}"
+      },
+      {
+        "address": "0x1004ebd0",
+        "symbol": "_color_quantize",
+        "reason": "byte mismatch +1: PE=f9, COFF=ec"
+      },
+      {
+        "address": "0x1004bb80",
+        "symbol": "_quantize3_ord_dither",
+        "reason": "byte mismatch +2: PE=24, COFF=28"
+      },
+      {
+        "address": "0x1004c8b0",
+        "symbol": "_quantize3_ord_dither",
+        "reason": "byte mismatch +0: PE=53, COFF=83"
+      },
+      {
+        "address": "0x1004cf60",
+        "symbol": "_alloc_fs_workspace",
+        "reason": "relocation-site/type mismatch: PE={30: 6, 23: 6}, COFF={}"
+      },
+      {
+        "address": "0x10050e10",
+        "symbol": "_start_pass_1_quant",
+        "reason": "relocation-site/type mismatch: PE={50: 20, 134: 20}, COFF={71: 6, 86: 20, 160: 6, 169: 6, 183: 20, 198: 20, 215: 6, 226: 6}"
+      },
+      {
+        "address": "0x10055960",
+        "symbol": "_start_pass_1_quant",
+        "reason": "relocation-site/type mismatch: PE={157: 6}, COFF={71: 6, 86: 20, 160: 6, 169: 6, 183: 20, 198: 20, 215: 6, 226: 6}"
+      },
+      {
+        "address": "0x10055300",
+        "symbol": "_jinit_1pass_quantizer",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={23: 6, 30: 6, 37: 6, 120: 20, 126: 20, 142: 20}"
+      },
+      {
+        "address": "0x1004c410",
+        "symbol": "_prescan_quantize",
+        "reason": "relocation-site/type mismatch: PE={20: 6}, COFF={}"
+      },
+      {
+        "address": "0x10055190",
+        "symbol": "_median_cut",
+        "reason": "relocation-site/type mismatch: PE={202: 20, 320: 20}, COFF={301: 20, 309: 20}"
+      },
+      {
+        "address": "0x100443a0",
+        "symbol": "_compute_color",
+        "reason": "relocation-site/type mismatch: PE={108: 20, 213: 20}, COFF={}"
+      },
+      {
+        "address": "0x10056fe0",
+        "symbol": "_compute_color",
+        "reason": "byte mismatch +0: PE=81, COFF=83"
+      },
+      {
+        "address": "0x10043bd0",
+        "symbol": "_select_colors",
+        "reason": "relocation-site/type mismatch: PE={69: 6, 101: 6, 76: 6, 85: 6, 22: 6, 94: 6}, COFF={55: 20, 65: 20, 85: 20}"
+      },
+      {
+        "address": "0x100443a0",
+        "symbol": "_find_best_colors",
+        "reason": "relocation-site/type mismatch: PE={108: 20, 213: 20}, COFF={}"
+      },
+      {
+        "address": "0x10056c00",
+        "symbol": "_find_best_colors",
+        "reason": "byte mismatch +0: PE=83, COFF=81"
+      },
+      {
+        "address": "0x1004a5d0",
+        "symbol": "_init_error_limit",
+        "reason": "byte mismatch +0: PE=51, COFF=8b"
+      },
+      {
+        "address": "0x100515b0",
+        "symbol": "_init_error_limit",
+        "reason": "byte mismatch +0: PE=53, COFF=8b"
+      },
+      {
+        "address": "0x10051ae0",
+        "symbol": "_jinit_2pass_quantizer",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={21: 6, 28: 6, 290: 20}"
+      },
+      {
+        "address": "0x10044520",
+        "symbol": "_merged_build_ycc_rgb_table",
+        "reason": "relocation-site/type mismatch: PE={94: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004bab0",
+        "symbol": "_merged_build_ycc_rgb_table",
+        "reason": "byte mismatch +12: PE=ac, COFF=a8"
+      },
+      {
+        "address": "0x10050080",
+        "symbol": "_merged_build_ycc_rgb_table",
+        "reason": "original referee differs"
+      },
+      {
+        "address": "0x10057280",
+        "symbol": "_merged_2v_upsample",
+        "reason": "relocation-site/type mismatch: PE={136: 20}, COFF={}"
+      },
+      {
+        "address": "0x10048ef0",
+        "symbol": "_jinit_merged_upsampler",
+        "reason": "relocation-site/type mismatch: PE={116: 20}, COFF={23: 6, 61: 6, 68: 6, 91: 20, 101: 6, 108: 6, 116: 20}"
+      },
+      {
+        "address": "0x1004bca0",
+        "symbol": "_jinit_merged_upsampler",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={23: 6, 61: 6, 68: 6, 91: 20, 101: 6, 108: 6, 116: 20}"
+      },
+      {
+        "address": "0x10050600",
+        "symbol": "_jinit_merged_upsampler",
+        "reason": "original referee differs"
+      },
+      {
+        "address": "0x10048f70",
+        "symbol": "_post_process_prepass",
+        "reason": "relocation-site/type mismatch: PE={45: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004d880",
+        "symbol": "_post_process_prepass",
+        "reason": "byte mismatch +0: PE=51, COFF=53"
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_post_process_prepass",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 69: 6, 104: 6, 76: 6, 111: 6, 48: 6, 83: 6, 118: 6, 55: 6, 90: 6, 62: 6}, COFF={}"
+      },
+      {
+        "address": "0x1004a5d0",
+        "symbol": "_post_process_2pass",
+        "reason": "byte mismatch +0: PE=51, COFF=53"
+      },
+      {
+        "address": "0x10057630",
+        "symbol": "_post_process_2pass",
+        "reason": "byte mismatch +0: PE=8b, COFF=53"
+      },
+      {
+        "address": "0x10044520",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "relocation-site/type mismatch: PE={94: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004bab0",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "original referee differs"
+      },
+      {
+        "address": "0x10050080",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "byte mismatch +12: PE=a8, COFF=ac"
+      },
+      {
+        "address": "0x1004c8b0",
+        "symbol": "_ycc_rgb_convert",
+        "reason": "byte mismatch +0: PE=53, COFF=83"
+      },
+      {
+        "address": "0x10048ef0",
+        "symbol": "_null_convert",
+        "reason": "relocation-site/type mismatch: PE={116: 20}, COFF={}"
+      },
+      {
+        "address": "0x10050600",
+        "symbol": "_null_convert",
+        "reason": "relocation-site/type mismatch: PE={68: 6, 101: 6, 108: 6, 23: 6, 61: 6, 91: 20, 116: 20}, COFF={}"
+      },
+      {
+        "address": "0x10056e10",
+        "symbol": "_jinit_color_deconverter",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={21: 6, 40: 6, 157: 6, 186: 6, 191: 20, 208: 6, 259: 6, 264: 20, 281: 6, 295: 6, 362: 6, 432: 6, 436: 6, 440: 6, 444: 6, 448: 6}"
+      },
+      {
+        "address": "0x10045b10",
+        "symbol": "_sep_upsample",
+        "reason": "relocation-site/type mismatch: PE={36: 20, 175: 20, 198: 20, 218: 20}, COFF={}"
+      },
+      {
+        "address": "0x100410b0",
+        "symbol": "_h2v1_upsample",
+        "reason": "relocation-site/type mismatch: PE={50: 6, 14: 6, 19: 20, 26: 20, 35: 20, 42: 20, 62: 20, 72: 20, 83: 20}, COFF={}"
+      },
+      {
+        "address": "0x10057840",
+        "symbol": "_h2v2_fancy_upsample",
+        "reason": "relocation-site/type mismatch: PE={28: 6, 21: 6, 290: 20}, COFF={}"
+      },
+      {
+        "address": "0x10047b70",
+        "symbol": "_jpeg_consume_input",
+        "reason": "relocation-site/type mismatch: PE={102: 20, 120: 20, 161: 20}, COFF={22: 6, 29: 6, 80: 20, 152: 6, 156: 6, 160: 6, 164: 6, 168: 6}"
+      },
+      {
+        "address": "0x100445f0",
+        "symbol": "_jpeg_finish_decompress",
+        "reason": "relocation-site/type mismatch: PE={205: 6, 71: 6}, COFF={}"
+      },
+      {
+        "address": "0x100515b0",
+        "symbol": "_jpeg_read_scanlines",
+        "reason": "byte mismatch +0: PE=53, COFF=51"
+      },
+      {
+        "address": "0x10057630",
+        "symbol": "_jpeg_read_scanlines",
+        "reason": "byte mismatch +0: PE=8b, COFF=51"
+      },
+      {
+        "address": "0x10048c10",
+        "symbol": "_jpeg_read_raw_data",
+        "reason": "relocation-site/type mismatch: PE={63: 6, 79: 6, 39: 6, 68: 20}, COFF={}"
+      },
+      {
+        "address": "0x10055300",
+        "symbol": "_jpeg_finish_output",
+        "reason": "byte mismatch +0: PE=51, COFF=56"
+      },
+      {
+        "address": "0x10056520",
+        "symbol": "_jpeg_finish_output",
+        "reason": "relocation-site/type mismatch: PE={37: 6, 30: 6, 23: 6, 120: 20, 126: 20, 142: 20}, COFF={}"
+      },
+      {
+        "address": "0x100563c0",
+        "symbol": "_jinit_huff_decoder",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={23: 6, 30: 6}"
+      },
+      {
+        "address": "0x1004f7c0",
+        "symbol": "_jinit_d_post_controller",
+        "reason": "relocation-site/type mismatch: PE={33: 6, 67: 6, 40: 6, 47: 6, 80: 6, 26: 6}, COFF={23: 6}"
+      }
+    ]
+  }
+]

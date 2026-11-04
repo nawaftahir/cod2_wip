@@ -1,0 +1,12 @@
+{
+  "_renderer_registered": "0x101d4d00",
+  "_renderer_front_end_data": "0x101da9c8",
+  "_renderer_temp_skin_buffer": "0x101d49c0",
+  "_renderer_temp_skin_bytes": "0x101d49c4",
+  "_renderer_update_debug_data": "0x101d4af0",
+  "_renderer_virtual_decommit": "0x101d49f0",
+  "_RB_AdaptiveGpuSyncTarget": "0x10032e20",
+  "_R_UnlockSkinnedCache": "0x1001e540",
+  "_R_TransferDebugGlobals": "0x100058b0",
+  "_Renderer_SubmitFrame": "0x10020d50"
+}

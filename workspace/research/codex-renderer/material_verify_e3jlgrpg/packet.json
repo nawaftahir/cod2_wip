@@ -1,0 +1,46 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\material_queries.c",
+    "Z:\\inputs\\src\\renderer_state.c",
+    "Z:\\inputs\\src\\sun_override.c",
+    "Z:\\inputs\\src\\font_metrics.c",
+    "Z:\\inputs\\src\\visibility_config.c",
+    "Z:\\inputs\\src\\model_bounds.c",
+    "Z:\\inputs\\src\\fog_state.c",
+    "Z:\\inputs\\src\\world_bounds.c",
+    "/FoZ:\\out\\"
+  ],
+  "sources": {
+    "material_queries.c": "567f8741bbdaf6f85e7308262cca8971f70207397ebf4258cf1d5619b003c68f",
+    "renderer_state.c": "a9fcded06c6b638ecf2aaaae878209f20e3319e0d64827a5911759422d7fbf2f",
+    "sun_override.c": "43a4dd492967605cc3c9cbec44cf30b88bf776c15f1fa15f55dfb5a68d09491b",
+    "font_metrics.c": "2930ad7d073a62142871b1c11a37ac8677a04699dda465d1e24af5cfe031d0f4",
+    "visibility_config.c": "17a4c5d1f50222e7e66c9b2840987159a1e1da4aad9735e4ec5e4ba2942c1cc6",
+    "model_bounds.c": "47785e5ba311ca49190ffd028a54b96cbecf54831782476103382dbdaa58a2d6",
+    "fog_state.c": "5eb5241d3cff32d06a7661a07423b017577108ac9e09fdbe5606ab6e9195d4d6",
+    "world_bounds.c": "5550f54ab9e44803bdaa1bf96152f2e60778aaae400e99aa7f4892bed4a6bb25"
+  },
+  "objects": {
+    "material_queries.obj": "ed3034aa808a6db82386c41f173abe2e433c82c78b3788457b9c732b941eb1cb",
+    "renderer_state.obj": "05e2421413a89157d2d35af1058c4451336229eaa9e587ce973d5b38f63d72b7",
+    "sun_override.obj": "6beeeccf6dd254bb2195cbd686f6c8f264d35d27c38e899633f6feca73caf3e6",
+    "font_metrics.obj": "66021f02433dc1c8d5d33bdb16fd7c9cc585a69d1d7d21794c1364b4083797f9",
+    "visibility_config.obj": "b57d6cc7f762a74205c649c8477fc09bfd3a1b2f7975518543343cefa18863fa",
+    "model_bounds.obj": "dd97ddf07b657a19cc56095f2c4885910e2a18a8539ea800e85f66e842ee8be2",
+    "fog_state.obj": "79f7e897496b61f17e6273fb315ee57d07f1504ab5a66ee6ef32b3fab0383b2c",
+    "world_bounds.obj": "9d15f38d28c67c5ddb446081a929871e3405e25b10cb3121a1798fd45a3c2aad"
+  },
+  "status": "REVIEWABLE",
+  "functions": 14,
+  "bytes": 425,
+  "wrong_binding_rejected": true,
+  "host_fixtures_passed": true,
+  "independent_review": false
+}

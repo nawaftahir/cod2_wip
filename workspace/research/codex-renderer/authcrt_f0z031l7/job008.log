@@ -1,0 +1,2 @@
+ Assembling: Z:\inputs\crt71\lldvrm.asm
+Z:\inputs\crt71\lldvrm.asm(16) : fatal error A1000: cannot open file : mm.inc

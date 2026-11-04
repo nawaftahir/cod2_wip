@@ -1,0 +1,152 @@
+[
+  {
+    "source": "seccook.c",
+    "source_sha256": "6eba41fafc7231030645b3896d2caa9a5294f3037119b64324e107a8b834e969",
+    "job": "job000",
+    "object": "job000.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "dee767e5fa10d31f7e1277bf9b87009785aa6bcc3a187c014fc60eb11cecb291"
+  },
+  {
+    "source": "ctype.c",
+    "source_sha256": "272c2fa24b4c75c9800ac594f5ae2980aeb45bc369fbee90af336d3ec9ef56d4",
+    "job": "job001",
+    "object": "job001.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "bdec87a3ef508afa1e04f2c738a4abd03f6f4101c1411606b35642c1378c3828"
+  },
+  {
+    "source": "cmiscdat.c",
+    "source_sha256": "422e7c2eb39c9824ce28a6744865fcd39ccb7ff2ecb87953b17f4802bbc32629",
+    "job": "job002",
+    "object": "job002.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "2e41f34631a1a4ace1622e6961fe5ac086ff67e26fe857b3dfe2693148a28db8"
+  },
+  {
+    "source": "_ctype.c",
+    "source_sha256": "74ef427252287fd9993d24aff4c956b8af8f12947e32975ae31efbac1626b3b2",
+    "job": "job003",
+    "object": "job003.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x100f8541",
+        "symbol": "_isalpha",
+        "reason": "length mismatch: target=63, object=46"
+      },
+      {
+        "address": "0x100f85f4",
+        "symbol": "_isdigit",
+        "reason": "length mismatch: target=58, object=41"
+      },
+      {
+        "address": "0x100f862e",
+        "symbol": "_isxdigit",
+        "reason": "length mismatch: target=63, object=46"
+      },
+      {
+        "address": "0x100f866d",
+        "symbol": "_isspace",
+        "reason": "length mismatch: target=58, object=41"
+      },
+      {
+        "address": "0x100f86e1",
+        "symbol": "_isalnum",
+        "reason": "length mismatch: target=63, object=46"
+      }
+    ],
+    "object_sha256": "34612e15cba05cb3e3527feffef76c97a7120173a1b926c867105ad09dff479e"
+  }
+]

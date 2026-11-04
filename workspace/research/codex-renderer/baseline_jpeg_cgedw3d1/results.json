@@ -1,0 +1,57 @@
+[
+  {
+    "source": "j_wavelet.c",
+    "source_sha256": "534e5734fd93e53e608f83dac305761a19262df6e63adad8666ccd628fa999b8",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_wavelet.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "4399faf7f495c1940a90621c88d9015dad537941e480a84d19870720856e0cc6",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1000ce80",
+        "symbol": "_Image_Create2DTexture",
+        "bytes": 113,
+        "diagnostics": "UNRESOLVED binding +53: target=0x101d1bf8, COFF=_renderer_device addend=0x00000000\nUNRESOLVED binding +72: target=0x100efe3c, COFF=_Renderer_ErrorDescription@4 addend=0x00000000\nUNRESOLVED binding +96: target=0x101935d4, COFF=??_C@_0DI@FBIKBNDM@Create2DTexture?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5?$CFi?0@ addend=0x00000000\nUNRESOLVED binding +103: target=0x100138c0, COFF=_Renderer_Error addend=0x00000000\nSHAPE MATCH: FUN_1000ce80, 113 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000ce80 @ 0x1000ce80 size=113  vs  _Image_Create2DTexture (obj size=113)\nnormalized match: 113/113 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000cf90",
+        "symbol": "_Image_CreateCubeTexture",
+        "bytes": 119,
+        "diagnostics": "UNRESOLVED binding +25: target=0x101d496b, COFF=_can_mip_cubemaps addend=0x00000000\nUNRESOLVED binding +46: target=0x101d1bf8, COFF=_renderer_device addend=0x00000000\nUNRESOLVED binding +83: target=0x100efe3c, COFF=_Renderer_ErrorDescription@4 addend=0x00000000\nUNRESOLVED binding +101: target=0x10193560, COFF=??_C@_0DH@BIAJHJAE@CreateCubeTexture?5?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5@ addend=0x00000000\nUNRESOLVED binding +108: target=0x100138c0, COFF=_Renderer_Error addend=0x00000000\nSHAPE MATCH: FUN_1000cf90, 119 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000cf90 @ 0x1000cf90 size=119  vs  _Image_CreateCubeTexture (obj size=119)\nnormalized match: 119/119 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x1000fc30",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={153: 6, 142: 6, 45: 20, 94: 20, 114: 20, 131: 20}, COFF={151: 20}"
+      },
+      {
+        "address": "0x1000cf00",
+        "symbol": "_Image_Create3DTexture",
+        "reason": "byte mismatch +95: PE=1c, COFF=18"
+      },
+      {
+        "address": "0x1000fce0",
+        "symbol": "_Image_CreateCubeTexture",
+        "reason": "relocation-site/type mismatch: PE={6: 20, 23: 20, 48: 20, 73: 20, 102: 20}, COFF={25: 6, 46: 6, 83: 20, 101: 6, 108: 20}"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "byte mismatch +9: PE=74, COFF=ba"
+      }
+    ]
+  }
+]

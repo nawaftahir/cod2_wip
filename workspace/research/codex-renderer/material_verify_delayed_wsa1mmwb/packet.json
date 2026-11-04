@@ -1,0 +1,36 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\delayed_drawing.c",
+    "/FoZ:\\out\\delayed.obj"
+  ],
+  "source_sha256": "09634e0f0afd4d1f096dcdacc16ff12391e140740e9a1edd7e1242ddb96c1ae2",
+  "object_sha256": "00674a4d336d7d41cbd011f790a5182972a7a11aac572d35a358d73988ed7cb9",
+  "functions": [
+    {
+      "address": "0x10020f10",
+      "symbol": "_R_BeginDelayedDrawing",
+      "status": "SHAPE_ONLY",
+      "diagnostics": "BOUND +2: _renderer_command_list -> 0x1042e778\nSHAPE MATCH: R_RenderScene, 92 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+    },
+    {
+      "address": "0x10020f70",
+      "symbol": "_R_EndDelayedDrawing",
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=97\n"
+    },
+    {
+      "address": "0x10020fe0",
+      "symbol": "_R_IssueDelayedDrawing",
+      "status": "SHAPE_ONLY",
+      "diagnostics": "BOUND +1: _renderer_command_list -> 0x1042e778\nSHAPE MATCH: R_EndDelayedDrawing, 91 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+    }
+  ],
+  "independent_review": false
+}

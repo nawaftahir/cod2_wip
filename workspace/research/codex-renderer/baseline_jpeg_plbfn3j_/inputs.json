@@ -1,0 +1,31 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/deepseek_rounding_3",
+  "jobs": [
+    {
+      "source": "j_wavelet.c",
+      "source_sha256": "9364bf825f5e111039821eee4913fc953c931ef1612fad7852ce0ed97c26a711",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_wavelet.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "test_cubemap_generate.c": "d08a4756729c1f34a7e46f4a554b254f5bff4ef4492d1c080f9263d4023e9fbe",
+    "j_wavelet.c": "9364bf825f5e111039821eee4913fc953c931ef1612fad7852ce0ed97c26a711",
+    "common_types.h": "b781d4ce994777835c32df12c586d1c2d47bd5f3762824414b31f0d590589db8"
+  },
+  "discovery_range": [
+    "0x1000c910",
+    "0x10061ca0"
+  ],
+  "reused_objects_from": null
+}

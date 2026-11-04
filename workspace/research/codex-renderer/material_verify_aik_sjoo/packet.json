@@ -1,0 +1,31 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\material_queries.c",
+    "Z:\\inputs\\src\\renderer_state.c",
+    "Z:\\inputs\\src\\sun_override.c",
+    "/FoZ:\\out\\"
+  ],
+  "sources": {
+    "material_queries.c": "567f8741bbdaf6f85e7308262cca8971f70207397ebf4258cf1d5619b003c68f",
+    "renderer_state.c": "a9fcded06c6b638ecf2aaaae878209f20e3319e0d64827a5911759422d7fbf2f",
+    "sun_override.c": "43a4dd492967605cc3c9cbec44cf30b88bf776c15f1fa15f55dfb5a68d09491b"
+  },
+  "objects": {
+    "material_queries.obj": "8c2e78c7185acb3f424d880c720f62c9733cf9ef3ed76c3acbfb52028916ef33",
+    "renderer_state.obj": "b51dc0d3268b03825be1fde6ac27212268d847900f815af29b206975f6180bf1",
+    "sun_override.obj": "7d87cbaccf19d88a9e382f91516b64e255fb1774533621a4ffeb1dd64f37aa9b"
+  },
+  "status": "REVIEWABLE",
+  "functions": 8,
+  "bytes": 176,
+  "wrong_binding_rejected": true,
+  "host_fixtures_passed": true,
+  "independent_review": false
+}

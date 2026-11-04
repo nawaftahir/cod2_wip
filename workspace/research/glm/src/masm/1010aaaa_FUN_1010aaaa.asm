@@ -1,0 +1,9 @@
+.686
+.MODEL FLAT, C
+EXTRN sub_101041CA:PROC
+.CODE
+FUN_1010aaaa PROC
+    mov edx, 0101AB0D0h
+    jmp sub_101041CA
+FUN_1010aaaa ENDP
+END

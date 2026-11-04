@@ -1,0 +1,229 @@
+.686
+.MODEL FLAT, C
+EXTRN fp_101D49C8:DWORD
+EXTRN g_1076A880:DWORD
+EXTRN g_1076A884:DWORD
+EXTRN g_1076A888:DWORD
+EXTRN g_1076A88C:DWORD
+EXTRN g_1076A890:DWORD
+EXTRN g_1076A894:DWORD
+EXTRN g_1076A898:DWORD
+EXTRN g_1076A89C:DWORD
+EXTRN g_1076A8A0:DWORD
+EXTRN g_1076A8A4:DWORD
+EXTRN g_1076A8A8:DWORD
+EXTRN g_1076A8AC:DWORD
+EXTRN g_1076A8B0:DWORD
+EXTRN g_1076A8B4:DWORD
+EXTRN g_1076A8B8:DWORD
+EXTRN g_1076A8BC:DWORD
+EXTRN g_1076A8C0:DWORD
+EXTRN g_1076A8C4:DWORD
+EXTRN g_1076A8C8:DWORD
+EXTRN g_1076A8CC:DWORD
+EXTRN g_1076A8D0:DWORD
+EXTRN g_1076A8D4:DWORD
+EXTRN g_1076A8D8:DWORD
+EXTRN g_1076A8DC:DWORD
+EXTRN g_1076A8E0:DWORD
+EXTRN g_1076A8E4:DWORD
+EXTRN g_1076A8E8:DWORD
+EXTRN g_1076A8EC:DWORD
+EXTRN g_1076A8F0:DWORD
+EXTRN g_1076A8F4:DWORD
+EXTRN g_1076A8F8:DWORD
+EXTRN g_1076A8FC:DWORD
+EXTRN g_1076A900:DWORD
+EXTRN g_1076A904:DWORD
+EXTRN g_1076A908:DWORD
+EXTRN g_1076A90C:DWORD
+EXTRN g_1076A910:DWORD
+EXTRN g_1076A914:DWORD
+EXTRN g_1076A918:DWORD
+EXTRN g_1076A91C:DWORD
+EXTRN g_1076A920:DWORD
+EXTRN g_1076A924:DWORD
+EXTRN g_1076A928:DWORD
+EXTRN g_1076A92C:DWORD
+EXTRN g_1076A930:DWORD
+EXTRN g_1076A934:DWORD
+EXTRN g_1076A938:DWORD
+EXTRN g_1076A93C:DWORD
+EXTRN g_1076A940:DWORD
+EXTRN g_1076A944:DWORD
+EXTRN g_1076A948:DWORD
+EXTRN g_1076A94C:DWORD
+EXTRN g_1076A950:DWORD
+EXTRN g_1076A954:DWORD
+EXTRN g_1076A958:DWORD
+EXTRN g_1076A95C:DWORD
+EXTRN g_1076A960:DWORD
+EXTRN g_1076A964:DWORD
+EXTRN g_1076A968:DWORD
+EXTRN g_1076A96C:DWORD
+EXTRN g_1076A970:DWORD
+EXTRN g_1076A974:DWORD
+EXTRN g_1076A978:DWORD
+EXTRN g_1076A97C:DWORD
+EXTRN g_1076A980:DWORD
+EXTRN g_1076A984:DWORD
+EXTRN g_1076A988:DWORD
+EXTRN g_1076A98C:DWORD
+EXTRN g_1076A990:DWORD
+EXTRN g_1076A994:DWORD
+EXTRN g_1076A998:DWORD
+EXTRN g_1076A99C:DWORD
+EXTRN g_1076A9A0:DWORD
+EXTRN g_1076A9A4:DWORD
+EXTRN g_1076A9A8:DWORD
+EXTRN g_1076A9AC:DWORD
+EXTRN g_1076A9B0:DWORD
+EXTRN g_1076A9B4:DWORD
+EXTRN g_1076A9B8:DWORD
+EXTRN g_1076A9BC:DWORD
+EXTRN g_1076A9C0:DWORD
+EXTRN g_1076A9C4:DWORD
+EXTRN g_1076A9C8:DWORD
+EXTRN g_1076A9CC:DWORD
+EXTRN g_1076A9D0:DWORD
+EXTRN g_1076A9D4:DWORD
+EXTRN g_1076AA00:DWORD
+EXTRN g_1076AA04:DWORD
+EXTRN g_1076AA08:DWORD
+EXTRN g_1076AA0C:DWORD
+EXTRN g_1076AA10:DWORD
+EXTRN g_1076AA14:DWORD
+EXTRN g_1076AA18:DWORD
+EXTRN g_1076AA1C:DWORD
+EXTRN g_1076AA20:DWORD
+EXTRN g_1076AA24:DWORD
+EXTRN g_1076AA28:DWORD
+EXTRN g_1076AA2C:DWORD
+.CODE
+GetRefAPI PROC
+    push esi
+    mov esi, dword ptr [esp + 12]
+    push edi
+    mov ecx, 0000000A9h
+    mov edi, 0101D49C8h
+    rep movsd dword ptr es:[edi], dword ptr [esi]
+    xor eax, eax
+    mov ecx, 108
+    mov edi, 01076A880h
+    rep stosd dword ptr es:[edi], eax
+    mov eax, dword ptr [esp + 12]
+    cmp eax, 59
+    pop edi
+    pop esi
+    je L0
+    push eax
+    push 59
+    push 010193AA8h
+    push 0
+    call dword ptr [fp_101D49C8]
+    add esp, 16
+    xor eax, eax
+    ret
+L0:
+    mov dword ptr [g_1076A880], 010013080h
+    mov dword ptr [g_1076A884], 010013190h
+    mov dword ptr [g_1076A888], 01001D830h
+    mov dword ptr [g_1076A88C], 01001D8A0h
+    mov dword ptr [g_1076A8B0], 01000C8D0h
+    mov dword ptr [g_1076A890], 010017290h
+    mov dword ptr [g_1076A894], 0100172B0h
+    mov dword ptr [g_1076A898], 010017020h
+    mov dword ptr [g_1076A89C], 010001690h
+    mov dword ptr [g_1076A8A0], 010001230h
+    mov dword ptr [g_1076A8A4], 01001D8C0h
+    mov dword ptr [g_1076A8A8], 01001D8F0h
+    mov dword ptr [g_1076A8AC], 01001D900h
+    mov dword ptr [g_1076A8C4], 0100131B0h
+    mov dword ptr [g_1076A8B4], 010017300h
+    mov dword ptr [g_1076A8B8], 010017310h
+    mov dword ptr [g_1076A8BC], 010017320h
+    mov dword ptr [g_1076A8C0], 01000AA60h
+    mov dword ptr [g_1076A93C], 010021F40h
+    mov dword ptr [g_1076A940], 010021F90h
+    mov dword ptr [g_1076A944], 010021FF0h
+    mov dword ptr [g_1076A948], 010022040h
+    mov dword ptr [g_1076A94C], 010013200h
+    mov dword ptr [g_1076A950], 010013250h
+    mov dword ptr [g_1076A954], 0100222A0h
+    mov dword ptr [g_1076A958], 0100222F0h
+    mov dword ptr [g_1076A95C], 010022220h
+    mov dword ptr [g_1076A960], 010021BF0h
+    mov dword ptr [g_1076A964], 010015BA0h
+    mov dword ptr [g_1076A968], 01001D910h
+    mov dword ptr [g_1076A8C8], 010025510h
+    mov dword ptr [g_1076A8CC], 010020CE0h
+    mov dword ptr [g_1076A8D0], 010023DB0h
+    mov dword ptr [g_1076A8D4], 010020CD0h
+    mov dword ptr [g_1076A8D8], 010020CB0h
+    mov dword ptr [g_1076A8DC], 010020CC0h
+    mov dword ptr [g_1076A8E0], 010023E90h
+    mov dword ptr [g_1076A8E4], 010023ED0h
+    mov dword ptr [g_1076A8E8], 010023FD0h
+    mov dword ptr [g_1076A8EC], 010001390h
+    mov dword ptr [g_1076A8F0], 010001280h
+    mov dword ptr [g_1076A8F4], 01000AAC0h
+    mov dword ptr [g_1076A8F8], 01000BB30h
+    mov dword ptr [g_1076A8FC], 01000BBC0h
+    mov dword ptr [g_1076A900], 01000BC40h
+    mov dword ptr [g_1076A904], 01000BB10h
+    mov dword ptr [g_1076A908], 010001430h
+    mov dword ptr [g_1076A90C], 010001460h
+    mov dword ptr [g_1076A910], 0100257A0h
+    mov dword ptr [g_1076A914], 010020F10h
+    mov dword ptr [g_1076A918], 010020F70h
+    mov dword ptr [g_1076A91C], 010020FE0h
+    mov dword ptr [g_1076A920], 01000BAD0h
+    mov dword ptr [g_1076A928], 010021100h
+    mov dword ptr [g_1076A92C], 0100211A0h
+    mov dword ptr [g_1076A930], 010021270h
+    mov dword ptr [g_1076A934], 0100214E0h
+    mov dword ptr [g_1076A938], 0100215D0h
+    mov dword ptr [g_1076A924], 0100216F0h
+    mov dword ptr [g_1076A974], 01000BCE0h
+    mov dword ptr [g_1076A978], 01000CE60h
+    mov dword ptr [g_1076A97C], 01000CE70h
+    mov dword ptr [g_1076A980], 010026A50h
+    mov dword ptr [g_1076A984], 010026A70h
+    mov dword ptr [g_1076A988], 010026A90h
+    mov dword ptr [g_1076A98C], 0100270E0h
+    mov dword ptr [g_1076A990], 010005980h
+    mov dword ptr [g_1076A994], 0100059E0h
+    mov dword ptr [g_1076A998], 010005A40h
+    mov dword ptr [g_1076A99C], 010005970h
+    mov dword ptr [g_1076A96C], 010013260h
+    mov dword ptr [g_1076A970], 01002C100h
+    mov dword ptr [g_1076A9A0], 010032540h
+    mov dword ptr [g_1076A9A4], 01000BF40h
+    mov dword ptr [g_1076A9A8], 01000BF60h
+    mov dword ptr [g_1076A9AC], 01000C000h
+    mov dword ptr [g_1076A9B0], 01000C010h
+    mov dword ptr [g_1076A9B4], 0100213F0h
+    mov dword ptr [g_1076A9B8], 01000C390h
+    mov dword ptr [g_1076A9BC], 01000C4B0h
+    mov dword ptr [g_1076A9C0], 010021300h
+    mov dword ptr [g_1076A9C4], 0100201B0h
+    mov dword ptr [g_1076A9C8], 010020270h
+    mov dword ptr [g_1076A9CC], 010003430h
+    mov dword ptr [g_1076A9D0], 010016F30h
+    mov dword ptr [g_1076A9D4], 01000BDC0h
+    mov dword ptr [g_1076AA00], 01002D4A0h
+    mov dword ptr [g_1076AA04], 010020400h
+    mov dword ptr [g_1076AA08], 01002CEE0h
+    mov dword ptr [g_1076AA0C], 01002CE40h
+    mov dword ptr [g_1076AA10], 01002CE30h
+    mov dword ptr [g_1076AA14], 01002CE20h
+    mov dword ptr [g_1076AA18], 010020CF0h
+    mov dword ptr [g_1076AA1C], 010020DC0h
+    mov dword ptr [g_1076AA20], 010032F40h
+    mov dword ptr [g_1076AA24], 010032D80h
+    mov dword ptr [g_1076AA28], 010032D70h
+    mov dword ptr [g_1076AA2C], 0100256C0h
+    mov eax, 01076A880h
+    ret
+GetRefAPI ENDP
+END

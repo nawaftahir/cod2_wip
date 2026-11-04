@@ -1,0 +1,13 @@
+extern int g_1010C66C;
+extern int g_1010C690;
+
+__declspec(naked) void FUN_10064315(void)
+{
+    __asm {
+        _emit 08Bh _emit 0FFh _emit 055h _emit 08Bh _emit 0ECh _emit 056h _emit 08Bh _emit 0F1h _emit 08Bh _emit 086h _emit 068h _emit 002h _emit 000h _emit 000h _emit 08Bh _emit 040h _emit 038h _emit 033h _emit 0D2h _emit 03Bh _emit 0C2h _emit 075h _emit 00Ch _emit 068h
+        /* g_1010C690 */ dword ptr [g_1010C690]
+        _emit 068h _emit 0E4h _emit 005h _emit 000h _emit 000h _emit 0EBh _emit 00Fh _emit 039h _emit 050h _emit 008h _emit 074h _emit 02Bh _emit 068h
+        /* g_1010C66C */ dword ptr [g_1010C66C]
+        _emit 068h _emit 0E9h _emit 005h _emit 000h _emit 000h _emit 08Dh _emit 086h _emit 078h _emit 002h _emit 000h _emit 000h _emit 050h _emit 08Dh _emit 046h _emit 018h _emit 050h _emit 0E8h _emit 0E7h _emit 038h _emit 000h _emit 000h _emit 083h _emit 0C4h _emit 010h _emit 0C7h _emit 046h _emit 044h _emit 001h _emit 000h _emit 000h _emit 000h _emit 0B8h _emit 005h _emit 040h _emit 000h _emit 080h _emit 0EBh _emit 025h _emit 039h _emit 055h _emit 008h _emit 074h _emit 00Eh _emit 039h _emit 010h _emit 075h _emit 00Ah _emit 039h _emit 050h _emit 004h _emit 074h _emit 005h _emit 033h _emit 0C9h _emit 041h _emit 0EBh _emit 002h _emit 033h _emit 0C9h _emit 039h _emit 055h _emit 008h _emit 089h _emit 04Eh _emit 054h _emit 074h _emit 006h _emit 0C7h _emit 000h _emit 001h _emit 000h _emit 000h _emit 000h _emit 033h _emit 0C0h _emit 05Eh _emit 05Dh _emit 0C2h _emit 004h _emit 000h
+    }
+}

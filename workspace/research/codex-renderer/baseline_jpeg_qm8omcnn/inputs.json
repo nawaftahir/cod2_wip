@@ -1,0 +1,30 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/wavelet_upload_helpers",
+  "jobs": [
+    {
+      "source": "j_wavelet.c",
+      "source_sha256": "8f1ef39ee1d8d8b10f31b7fd32fdf1de77c5f8ceaa9fd786f41c9668b32c1484",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_wavelet.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "j_wavelet.c": "8f1ef39ee1d8d8b10f31b7fd32fdf1de77c5f8ceaa9fd786f41c9668b32c1484",
+    "common_types.h": "b781d4ce994777835c32df12c586d1c2d47bd5f3762824414b31f0d590589db8"
+  },
+  "discovery_range": [
+    "0x1000e840",
+    "0x10011300"
+  ],
+  "reused_objects_from": null
+}

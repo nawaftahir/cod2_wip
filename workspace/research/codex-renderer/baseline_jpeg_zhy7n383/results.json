@@ -1,0 +1,21 @@
+[
+  {
+    "source": "j_wavelet.c",
+    "source_sha256": "79e9dfe730a7eddbb87f589f293bcd22057bd3e7fc9619dc356ab62ce05a44bc",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_wavelet.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "31ca8043087e59259825bb68abc6cc3db2a389ec0de0eadd5aa190c3747f5ad8",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  }
+]

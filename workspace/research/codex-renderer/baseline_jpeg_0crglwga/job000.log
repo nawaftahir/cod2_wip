@@ -1,0 +1,6 @@
+wine: created the configuration directory '/root/.wine'
+Could not find Wine Gecko. HTML rendering will be disabled.
+wine: configuration in L"/root/.wine" has been updated.
+j_wavelet.c
+Z:\inputs\j_wavelet.c(140) : error C2065: 'index' : undeclared identifier
+Z:\inputs\j_wavelet.c(1189) : error C2065: 'weight' : undeclared identifier

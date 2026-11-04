@@ -1,0 +1,56 @@
+# Anchor registry — gfx track (dev/glm)
+# Evidence standard: dev/codexplan/02_EVIDENCE_STANDARD.md
+
+anchor:
+  name: gfx_d3d_mp_x86_s.dll
+  version: "CoD2 1.0 (retail, multiplayer renderer)"
+  path: ../reverse/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll
+  size_bytes: 1851392
+  sha256: 4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6
+  timestamp: 1128651481  # 2005-10-07 02:18:01 UTC (authentic build time, pre-gold)
+  provenance: local retail install; gitignored (binaries/)
+
+pe:
+  format: PE32 i386 DLL
+  imagebase: 0x10000000
+  entry_rva: 0xF774E
+  section_align: 0x1000
+  file_align: 0x1000          # non-default (0x200); original link used 4K file alignment
+  linker_version: 7.10
+  rich_build: 3077            # VS .NET 2003 RTM toolset — matches local msvc710 toolkit
+  rich_objs: 48               # prodid=15 count — ~48 object files at link
+  sections:
+    .text:  { va: 0x001000, vsize: 0x10A090, raw: 0x001000, rawsize: 0x10B000 }  # code — match denominator 1,091,728 B
+    .rdata: { va: 0x10C000, vsize: 0x914A1,  raw: 0x10C000, rawsize: 0x092000 }
+    .data:  { va: 0x19E000, vsize: 0x5CDDD4, raw: 0x19E000, rawsize: 0x00E000 }  # huge BSS tail (virtual only)
+    .reloc: { va: 0x76C000, vsize: 0x0175D8, raw: 0x1AC000, rawsize: 0x018000 }
+  data_directories:
+    export:    { rva: 0x19D450, size: 0x51 }
+    import:    { rva: 0x19C908, size: 0x8C }
+    basereloc: { rva: 0x76C000, size: 0x135DC }
+    debug:     { rva: 0x10C200, size: 0x1C }
+    loadcfg:   { rva: 0x19C850, size: 0x48 }
+    iat:       { rva: 0x10C000, size: 0x1F8 }
+
+exports:
+  - { name: GetRefAPI, ordinal: 1, rva: 0x13270 }   # sole export — refexport entry point
+
+imports:
+  d3d9.dll:    1     # Direct3DCreate9 only; rest of D3D bound dynamically
+  DDRAW.dll:   2     # DirectDraw* — adapter enumeration
+  KERNEL32.dll: 99
+  USER32.dll:  14
+  GDI32.dll:    1
+  ADVAPI32.dll: 3
+  # NOTE: no MSVCRT import → CRT statically linked (/MT); CRT code is inside .text
+
+toolchain:
+  compiler: MSVC 7.1 (cl 13.10.3077)
+  toolkit_local: ../gemini/msvc710/  # verified cl.exe 13.10.3077
+  flags_candidate: [/O2, /Gy]        # verify in G2 via codegen probes
+  notes: filealign 0x1000 suggests /FILEALIGN:4096 or /ALIGN tuning at link
+
+related_binaries:  # for later binary diffs, NOT this track's anchor
+  - ../reverse/binaries/windows/1.2/gfx_d3d_mp_x86_s.dll
+  - ../reverse/binaries/windows/1.3/gfx_d3d_mp_x86_s.dll
+  - ../reverse/binaries/windows/1.0/gfx_d3d_x86_s.dll   # singleplayer twin — useful cross-check

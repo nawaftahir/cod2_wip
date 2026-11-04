@@ -1,0 +1,38 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "source_path": "/home/nawaf/cod2/test/dev/gfx/target/src/codex/renderer_views.c",
+  "source_sha256": "d928755a73d24be72c42818da5633b652f08bcacc67e62e268dcaa2929d8766f",
+  "object_sha256": "a45d3355eb07d12f3c6e5c92db7482bdf1e7ec56411c4d0abc72e9a51e25bbb9",
+  "inputs_sha256": "056147a96061f60201c8d07e7942843669d27e2579dff1651c7e1aa276cf3b59",
+  "checker_sha256": "d65d153dc922413a5a2f341c744059ae0f80221f918b096d0c20bf2613049995",
+  "fixture_sha256": "d9747eafc4bee508fededa7ba28cf3d81f061979fc59eaaf1347a089168f9977",
+  "functions": [
+    {
+      "address": "0x1000aa60",
+      "bytes": 82,
+      "symbol": "_Image_GetFarPlane",
+      "bindings": {
+        "_far_plane_dvar": 270329372,
+        "_far_plane_zero": 270122116,
+        "_far_plane_override_active": 270361100,
+        "_far_plane_override_enabled": 270361032,
+        "_far_plane_override_mode": 270361004,
+        "_far_plane_override_value": 270361024,
+        "_far_plane_minimum": 270329332
+      },
+      "negative_tests": 7
+    },
+    {
+      "address": "0x10023e90",
+      "bytes": 57,
+      "symbol": "_Image_InitRecords",
+      "bindings": {},
+      "negative_tests": 0
+    }
+  ],
+  "new_code_bytes": 139,
+  "whole_file_identity": false,
+  "total_code_bytes": 76311,
+  "denominator": 1089680
+}

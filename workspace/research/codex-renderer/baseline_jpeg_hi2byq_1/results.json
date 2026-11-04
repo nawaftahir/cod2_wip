@@ -1,0 +1,131 @@
+[
+  {
+    "source": "jmemmgr.c",
+    "source_sha256": "18ee1f2ed95b364e8b04847e38ba1ddc2eca187d9df76768211f599e023fa06a",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jmemmgr.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "02bd867a56653af0a6043cfdd28beab1eaa20c68db560e7842c08146bb6c2038",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10054d40",
+        "symbol": "_alloc_small",
+        "bytes": 325,
+        "diagnostics": "UNRESOLVED binding +155: target=0x101910dc, COFF=_first_pool_slop addend=0x00000000\nUNRESOLVED binding +164: target=0x101910e4, COFF=_extra_pool_slop addend=0x00000000\nSHAPE MATCH: FUN_10054d40, 325 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10054d40 @ 0x10054d40 size=325  vs  _alloc_small (obj size=325)\nnormalized match: 325/325 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 325,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10054e90",
+        "symbol": "_alloc_large",
+        "bytes": 185,
+        "diagnostics": "SHAPE MATCH: FUN_10054e90, 185 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10054e90 @ 0x10054e90 size=185  vs  _alloc_large (obj size=185)\nnormalized match: 185/185 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 185,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10054f50",
+        "symbol": "_alloc_sarray",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +75: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +125: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nSHAPE MATCH: FUN_10054f50, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10054f50 @ 0x10054f50 size=167  vs  _alloc_sarray (obj size=167)\nnormalized match: 167/167 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 167,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055000",
+        "symbol": "_alloc_barray",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +78: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +131: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nSHAPE MATCH: FUN_10055000, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055000 @ 0x10055000 size=167  vs  _alloc_barray (obj size=167)\nnormalized match: 167/167 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 167,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100550b0",
+        "symbol": "_request_virt_sarray",
+        "bytes": 104,
+        "diagnostics": "UNRESOLVED binding +46: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nSHAPE MATCH: FUN_100550b0, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100550b0 @ 0x100550b0 size=104  vs  _request_virt_sarray (obj size=104)\nnormalized match: 104/104 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 104,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055120",
+        "symbol": "_request_virt_barray",
+        "bytes": 104,
+        "diagnostics": "UNRESOLVED binding +46: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nSHAPE MATCH: FUN_10055120, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055120 @ 0x10055120 size=104  vs  _request_virt_barray (obj size=104)\nnormalized match: 104/104 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 104,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055190",
+        "symbol": "_realize_virt_arrays",
+        "bytes": 360,
+        "diagnostics": "UNRESOLVED binding +202: target=0x10054f50, COFF=_alloc_sarray addend=0x00000000\nUNRESOLVED binding +320: target=0x10055000, COFF=_alloc_barray addend=0x00000000\nSHAPE MATCH: _realize_virt_arrays, 360 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_realize_virt_arrays @ 0x10055190 size=360  vs  _realize_virt_arrays (obj size=360)\nnormalized match: 360/360 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 357,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055300",
+        "symbol": "_do_sarray_io",
+        "bytes": 148,
+        "diagnostics": "SHAPE MATCH: FUN_10055300, 148 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055300 @ 0x10055300 size=148  vs  _do_sarray_io (obj size=148)\nnormalized match: 148/148 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 148,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100553a0",
+        "symbol": "_do_barray_io",
+        "bytes": 151,
+        "diagnostics": "SHAPE MATCH: FUN_100553a0, 151 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100553a0 @ 0x100553a0 size=151  vs  _do_barray_io (obj size=151)\nnormalized match: 151/151 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 151,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100556f0",
+        "symbol": "_free_pool",
+        "bytes": 263,
+        "diagnostics": "SHAPE MATCH: _free_pool, 263 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_free_pool @ 0x100556f0 size=263  vs  _free_pool (obj size=263)\nnormalized match: 263/263 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 260,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055800",
+        "symbol": "_self_destruct",
+        "bytes": 51,
+        "diagnostics": "UNRESOLVED binding +19: target=0x100556f0, COFF=_free_pool addend=0x00000000\nSHAPE MATCH: _self_destruct, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n_self_destruct @ 0x10055800 size=51  vs  _self_destruct (obj size=51)\nnormalized match: 51/51 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": null,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10055000",
+        "symbol": "_alloc_sarray",
+        "reason": "relocation-site/type mismatch: PE={78: 20, 131: 20}, COFF={75: 20, 125: 20}"
+      },
+      {
+        "address": "0x10054f50",
+        "symbol": "_alloc_barray",
+        "reason": "relocation-site/type mismatch: PE={75: 20, 125: 20}, COFF={78: 20, 131: 20}"
+      },
+      {
+        "address": "0x10055120",
+        "symbol": "_request_virt_sarray",
+        "reason": "byte mismatch +90: PE=48, COFF=44"
+      },
+      {
+        "address": "0x100550b0",
+        "symbol": "_request_virt_barray",
+        "reason": "byte mismatch +90: PE=44, COFF=48"
+      }
+    ]
+  }
+]

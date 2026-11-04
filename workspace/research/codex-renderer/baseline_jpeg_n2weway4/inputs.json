@@ -1,0 +1,29 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_frame_end",
+  "jobs": [
+    {
+      "source": "j_frame_end.c",
+      "source_sha256": "d98769880e20ccbc8ae859e18307b0c05100a8eeae1ec1369058dcdf1d349511",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_frame_end.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "j_frame_end.c": "d98769880e20ccbc8ae859e18307b0c05100a8eeae1ec1369058dcdf1d349511"
+  },
+  "discovery_range": [
+    "0x10021f90",
+    "0x10021ff0"
+  ],
+  "reused_objects_from": null
+}

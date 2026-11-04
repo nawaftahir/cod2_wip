@@ -1,0 +1,155 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_mi1di9r9",
+  "object_sha256": "738f28e1abe27de2377db430135d27a69f9bdcae18410421e1321f31ea8a59c1",
+  "inputs_sha256": "8293198d7076ed685ef4d0bfcdb04af1a596deb10166ffa87b3c40d4344db4bf",
+  "functions": [
+    {
+      "symbol": "_jpeg_make_d_derived_tbl",
+      "address": "0x1004c5e0",
+      "bytes": 712,
+      "bindings": {},
+      "negative_tests": 0,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_jpeg_huff_decode",
+      "address": "0x1004c9d0",
+      "bytes": 211,
+      "bindings": {
+        "_jpeg_fill_bit_buffer": 268748976
+      },
+      "negative_tests": 1,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_decode_mcu",
+      "address": "0x1004cb30",
+      "bytes": 1064,
+      "bindings": {
+        "_sequential_huff_restart": 268749488,
+        "_jpeg_fill_bit_buffer": 268748976,
+        "_jpeg_huff_decode": 268749264,
+        "_extend_test": 270077416,
+        "_extend_offset": 270077480,
+        "_jpeg_natural_order": 270078464
+      },
+      "negative_tests": 6,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_decode_mcu_DC_first",
+      "address": "0x10050980",
+      "bytes": 578,
+      "bindings": {
+        "_process_restart": 268765424,
+        "_jpeg_fill_bit_buffer": 268748976,
+        "_jpeg_huff_decode": 268749264,
+        "_progressive_extend_test": 270077544,
+        "_progressive_extend_offset": 270077608
+      },
+      "negative_tests": 5,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_decode_mcu_AC_first",
+      "address": "0x10050bd0",
+      "bytes": 573,
+      "bindings": {
+        "_process_restart": 268765424,
+        "_jpeg_fill_bit_buffer": 268748976,
+        "_jpeg_huff_decode": 268749264,
+        "_progressive_extend_test": 270077544,
+        "_progressive_extend_offset": 270077608,
+        "_jpeg_natural_order": 270078464
+      },
+      "negative_tests": 6,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_decode_mcu_DC_refine",
+      "address": "0x10050e10",
+      "bytes": 234,
+      "bindings": {
+        "_process_restart": 268765424,
+        "_jpeg_fill_bit_buffer": 268748976
+      },
+      "negative_tests": 2,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_decode_mcu_AC_refine",
+      "address": "0x10050f00",
+      "bytes": 1056,
+      "bindings": {
+        "_process_restart": 268765424,
+        "_jpeg_fill_bit_buffer": 268748976,
+        "_jpeg_huff_decode": 268749264,
+        "_jpeg_natural_order": 270078464
+      },
+      "negative_tests": 4,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_start_pass_huff_decoder",
+      "address": "0x1004c490",
+      "bytes": 331,
+      "bindings": {
+        "_jpeg_make_d_derived_tbl": 268748256
+      },
+      "negative_tests": 1,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_start_pass_phuff_decoder",
+      "address": "0x10050680",
+      "bytes": 614,
+      "bindings": {
+        "_decode_mcu_DC_first": 268765568,
+        "_decode_mcu_AC_first": 268766160,
+        "_decode_mcu_DC_refine": 268766736,
+        "_decode_mcu_AC_refine": 268766976,
+        "_jpeg_make_d_derived_tbl": 268748256
+      },
+      "negative_tests": 5,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_jinit_huff_decoder",
+      "address": "0x1004cf60",
+      "bytes": 62,
+      "bindings": {
+        "_start_pass_huff_decoder": 268747920,
+        "_decode_mcu": 268749616
+      },
+      "negative_tests": 2,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_jinit_phuff_decoder",
+      "address": "0x10051320",
+      "bytes": 109,
+      "bindings": {
+        "_start_pass_phuff_decoder": 268764800
+      },
+      "negative_tests": 1,
+      "unresolved": 0
+    }
+  ],
+  "code_bytes": 5544,
+  "data_sizes": {
+    "_extend_test": 64,
+    "_extend_offset": 64,
+    "_progressive_extend_test": 64,
+    "_progressive_extend_offset": 64,
+    "_jpeg_natural_order": 320
+  },
+  "base_packet_sha256": "ff61b3a3d5cc444c703c2ec3f1c6bab7f78aa563cd4aa2dbf26009a22cbebfa3",
+  "checker_sha256": "6f896d7081839820db4785f52c9508beb129a5d94abefd67bbae79f8410b08b0",
+  "native_packet_sha256": "819bab80874eef84695d1f1305d6f97f576cbfff76e0382ed12787c35c52caf0",
+  "regression_functions": 122,
+  "negative_log_sha256": "e37765cf5a88df266de1a305e10bf2e99dac37e2a97eb2a7fee2a740d4e03f64",
+  "regression_log_sha256": "09e9a78583092a145bf0220a728297f97d3f77e1dea07bc11dcbb8bdccd0e464",
+  "whole_file_identity": false
+}

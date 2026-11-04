@@ -1,0 +1,31 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/deepseek_image_1",
+  "jobs": [
+    {
+      "source": "j_wavelet.c",
+      "source_sha256": "387da5cad5f978db88a8448852d2e68d6f0831216e84a161885b214663229b3d",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_wavelet.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "test_image_builtin.c": "d983470e3d7d9ac61b73a4d9d9db60148ff80bca30e336cd0a472c8c8e3d418f",
+    "j_wavelet.c": "387da5cad5f978db88a8448852d2e68d6f0831216e84a161885b214663229b3d",
+    "common_types.h": "b781d4ce994777835c32df12c586d1c2d47bd5f3762824414b31f0d590589db8"
+  },
+  "discovery_range": [
+    "0x1000c910",
+    "0x10061ca0"
+  ],
+  "reused_objects_from": null
+}

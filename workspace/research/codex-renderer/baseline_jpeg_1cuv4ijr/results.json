@@ -1,0 +1,40 @@
+[
+  {
+    "source": "j_dxerr_a.c",
+    "source_sha256": "9a3f1534d66e38a210403324fa763942d2dc419c4a282caf34c7bfa124ac64bc",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_dxerr_a.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "315611bdcce86511375f2136c4eeb34c4252813d6160c309ca0179a9680f1814",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "j_dxerr_w.c",
+    "source_sha256": "e7a50e7b75f90670059cdd7f94644c645c520f054f86932b54f01e43c79b3adb",
+    "job": "job001",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_dxerr_w.c",
+      "/FoZ:\\out\\job001.obj"
+    ],
+    "object_sha256": "de1f017b895c46d87e81d742d486c059a9b120b8cff0710c7e52c654caff0c68",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  }
+]

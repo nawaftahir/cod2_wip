@@ -1,0 +1,21 @@
+[
+  {
+    "source": "jpeg_complete_group.c",
+    "source_sha256": "f97a83a14132ac3595a6deb552207d28af92b3f87b3518de9c43cd3508c3e1b8",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jpeg_complete_group.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "bf257332f330f6b7665ef7b2710efabca31a9f20940f98b614893d6a00197a36",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  }
+]

@@ -1,0 +1,224 @@
+_examine_app0 @ 0x1004e980 size=587  vs  _examine_app0 (obj size=587)
+normalized match: 587/587 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _examine_app0, 587 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_examine_app0 @ 0x1004e980 size=587  vs  _examine_app0 (obj size=587)
+normalized match: 587/587 bytes (100%)
+MATCH (normalized)
+_examine_app14 @ 0x1004ebd0 size=169  vs  _examine_app14 (obj size=169)
+normalized match: 169/169 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _examine_app14, 169 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_examine_app14 @ 0x1004ebd0 size=169  vs  _examine_app14 (obj size=169)
+normalized match: 169/169 bytes (100%)
+MATCH (normalized)
+_reset_marker_reader @ 0x1004f790 size=46  vs  _reset_marker_reader (obj size=46)
+normalized match: 46/46 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _reset_marker_reader, 46 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_reset_marker_reader @ 0x1004f790 size=46  vs  _reset_marker_reader (obj size=46)
+normalized match: 46/46 bytes (100%)
+MATCH (normalized)
+_read_restart_marker @ 0x1004f600 size=136  vs  _read_restart_marker (obj size=136)
+normalized match: 136/136 bytes (100%)
+MATCH (normalized)
+BOUND +17: _next_marker -> 0x1004f0e0
+SHAPE MATCH: _read_restart_marker, 136 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_read_restart_marker @ 0x1004f600 size=136  vs  _read_restart_marker (obj size=136)
+normalized match: 136/136 bytes (100%)
+MATCH (normalized)
+_skip_variable @ 0x1004f040 size=157  vs  _skip_variable (obj size=157)
+normalized match: 157/157 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _skip_variable, 157 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_skip_variable @ 0x1004f040 size=157  vs  _skip_variable (obj size=157)
+normalized match: 157/157 bytes (100%)
+MATCH (normalized)
+_jinit_memory_mgr @ 0x10055840 size=160  vs  _jinit_memory_mgr (obj size=160)
+normalized match: 160/160 bytes (100%)
+MATCH (normalized)
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +69: _alloc_barray -> 0x10055000
+BOUND +76: _request_virt_sarray -> 0x100550b0
+BOUND +83: _request_virt_barray -> 0x10055120
+BOUND +90: _realize_virt_arrays -> 0x10055190
+BOUND +97: _access_virt_sarray -> 0x10055440
+BOUND +104: _access_virt_barray -> 0x10055590
+BOUND +111: _free_pool -> 0x100556f0
+BOUND +118: _self_destruct -> 0x10055800
+SHAPE MATCH: _jinit_memory_mgr, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_memory_mgr @ 0x10055840 size=160  vs  _jinit_memory_mgr (obj size=160)
+normalized match: 160/160 bytes (100%)
+MATCH (normalized)
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +69: _alloc_barray -> 0x10055000
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +69: _alloc_barray -> 0x10055000
+BOUND +76: _request_virt_sarray -> 0x100550b0
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +69: _alloc_barray -> 0x10055000
+BOUND +76: _request_virt_sarray -> 0x100550b0
+BOUND +83: _request_virt_barray -> 0x10055120
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +69: _alloc_barray -> 0x10055000
+BOUND +76: _request_virt_sarray -> 0x100550b0
+BOUND +83: _request_virt_barray -> 0x10055120
+BOUND +90: _realize_virt_arrays -> 0x10055190
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +69: _alloc_barray -> 0x10055000
+BOUND +76: _request_virt_sarray -> 0x100550b0
+BOUND +83: _request_virt_barray -> 0x10055120
+BOUND +90: _realize_virt_arrays -> 0x10055190
+BOUND +97: _access_virt_sarray -> 0x10055440
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +69: _alloc_barray -> 0x10055000
+BOUND +76: _request_virt_sarray -> 0x100550b0
+BOUND +83: _request_virt_barray -> 0x10055120
+BOUND +90: _realize_virt_arrays -> 0x10055190
+BOUND +97: _access_virt_sarray -> 0x10055440
+BOUND +104: _access_virt_barray -> 0x10055590
+BOUND +48: _alloc_small -> 0x10054d40
+BOUND +55: _alloc_large -> 0x10054e90
+BOUND +62: _alloc_sarray -> 0x10054f50
+BOUND +69: _alloc_barray -> 0x10055000
+BOUND +76: _request_virt_sarray -> 0x100550b0
+BOUND +83: _request_virt_barray -> 0x10055120
+BOUND +90: _realize_virt_arrays -> 0x10055190
+BOUND +97: _access_virt_sarray -> 0x10055440
+BOUND +104: _access_virt_barray -> 0x10055590
+BOUND +111: _free_pool -> 0x100556f0
+_consume_markers @ 0x1004d460 size=187  vs  _consume_markers (obj size=187)
+normalized match: 187/187 bytes (100%)
+MATCH (normalized)
+BOUND +134: _initial_setup -> 0x1004cfa0
+BOUND +174: _inputctl_start_input_pass -> 0x1004d400
+SHAPE MATCH: _consume_markers, 187 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_consume_markers @ 0x1004d460 size=187  vs  _consume_markers (obj size=187)
+normalized match: 187/187 bytes (100%)
+MATCH (normalized)
+BOUND +134: _initial_setup -> 0x1004cfa0
+_reset_input_controller @ 0x1004d520 size=59  vs  _reset_input_controller (obj size=59)
+normalized match: 59/59 bytes (100%)
+MATCH (normalized)
+BOUND +13: _consume_markers -> 0x1004d460
+SHAPE MATCH: _reset_input_controller, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_reset_input_controller @ 0x1004d520 size=59  vs  _reset_input_controller (obj size=59)
+normalized match: 59/59 bytes (100%)
+MATCH (normalized)
+_inputctl_start_input_pass @ 0x1004d400 size=59  vs  _inputctl_start_input_pass (obj size=59)
+normalized match: 59/59 bytes (100%)
+MATCH (normalized)
+BOUND +7: _per_scan_setup -> 0x1004d1b0
+BOUND +14: _latch_quant_tables -> 0x1004d350
+SHAPE MATCH: _inputctl_start_input_pass, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_inputctl_start_input_pass @ 0x1004d400 size=59  vs  _inputctl_start_input_pass (obj size=59)
+normalized match: 59/59 bytes (100%)
+MATCH (normalized)
+BOUND +7: _per_scan_setup -> 0x1004d1b0
+_read_markers @ 0x1004f280 size=882  vs  _read_markers (obj size=882)
+normalized match: 882/882 bytes (100%)
+MATCH (normalized)
+_finish_input_pass @ 0x1004d440 size=17  vs  _finish_input_pass (obj size=17)
+normalized match: 17/17 bytes (100%)
+MATCH (normalized)
+BOUND +12: _consume_markers -> 0x1004d460
+SHAPE MATCH: _finish_input_pass, 17 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_finish_input_pass @ 0x1004d440 size=17  vs  _finish_input_pass (obj size=17)
+normalized match: 17/17 bytes (100%)
+MATCH (normalized)
+_get_interesting_appn @ 0x1004ec80 size=326  vs  _get_interesting_appn (obj size=326)
+normalized match: 322/326 bytes (98%)
+first diff @ +207: pe=aa obj=e0
+pe : 84 01 00 00 2b f0 81 e9 e0 00 00 00 89 74 24 14 74 36 83 e9
+obj: 84 01 00 00 2b f0 81 e9 e0 00 00 00 89 74 24 14 74 36 83 e9
+BOUND +262: _examine_app14 -> 0x1004ebd0
+BOUND +280: _examine_app0 -> 0x1004e980
+SHAPE MATCH: _get_interesting_appn, 326 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_get_interesting_appn @ 0x1004ec80 size=326  vs  _get_interesting_appn (obj size=326)
+normalized match: 326/326 bytes (100%)
+MATCH (normalized)
+BOUND +262: _examine_app14 -> 0x1004ebd0
+_save_marker @ 0x1004edd0 size=622  vs  _save_marker (obj size=622)
+normalized match: 618/622 bytes (99%)
+first diff @ +511: pe=aa obj=e0
+pe : 8b 8e 84 01 00 00 81 e9 e0 00 00 00 74 3c 83 e9 0e 74 28 8b
+obj: 8b 8e 84 01 00 00 81 e9 e0 00 00 00 74 3c 83 e9 0e 74 28 8b
+BOUND +568: _examine_app14 -> 0x1004ebd0
+BOUND +580: _examine_app0 -> 0x1004e980
+SHAPE MATCH: _save_marker, 622 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_save_marker @ 0x1004edd0 size=622  vs  _save_marker (obj size=622)
+normalized match: 622/622 bytes (100%)
+MATCH (normalized)
+BOUND +568: _examine_app14 -> 0x1004ebd0
+_jinit_marker_reader @ 0x1004f7c0 size=131  vs  _jinit_marker_reader (obj size=131)
+normalized match: 131/131 bytes (100%)
+MATCH (normalized)
+BOUND +26: _reset_marker_reader -> 0x1004f790
+BOUND +33: _read_markers -> 0x1004f280
+BOUND +40: _read_restart_marker -> 0x1004f600
+BOUND +47: _skip_variable -> 0x1004f040
+BOUND +67: _skip_variable -> 0x1004f040
+BOUND +80: _get_interesting_appn -> 0x1004ec80
+SHAPE MATCH: _jinit_marker_reader, 131 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_marker_reader @ 0x1004f7c0 size=131  vs  _jinit_marker_reader (obj size=131)
+normalized match: 131/131 bytes (100%)
+MATCH (normalized)
+BOUND +26: _reset_marker_reader -> 0x1004f790
+BOUND +26: _reset_marker_reader -> 0x1004f790
+BOUND +33: _read_markers -> 0x1004f280
+BOUND +26: _reset_marker_reader -> 0x1004f790
+BOUND +33: _read_markers -> 0x1004f280
+BOUND +40: _read_restart_marker -> 0x1004f600
+BOUND +26: _reset_marker_reader -> 0x1004f790
+BOUND +33: _read_markers -> 0x1004f280
+BOUND +40: _read_restart_marker -> 0x1004f600
+BOUND +47: _skip_variable -> 0x1004f040
+BOUND +67: _skip_variable -> 0x1004f040
+_jpeg_CreateDecompress @ 0x10049e00 size=310  vs  _jpeg_CreateDecompress (obj size=310)
+normalized match: 310/310 bytes (100%)
+MATCH (normalized)
+BOUND +147: _jinit_memory_mgr -> 0x10055840
+BOUND +236: _jinit_marker_reader -> 0x1004f7c0
+BOUND +267: _consume_markers -> 0x1004d460
+BOUND +274: _reset_input_controller -> 0x1004d520
+BOUND +281: _inputctl_start_input_pass -> 0x1004d400
+BOUND +288: _finish_input_pass -> 0x1004d440
+SHAPE MATCH: _jpeg_CreateDecompress, 310 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jpeg_CreateDecompress @ 0x10049e00 size=310  vs  _jpeg_CreateDecompress (obj size=310)
+normalized match: 310/310 bytes (100%)
+MATCH (normalized)
+BOUND +147: _jinit_memory_mgr -> 0x10055840
+BOUND +147: _jinit_memory_mgr -> 0x10055840
+BOUND +236: _jinit_marker_reader -> 0x1004f7c0
+BOUND +147: _jinit_memory_mgr -> 0x10055840
+BOUND +236: _jinit_marker_reader -> 0x1004f7c0
+BOUND +267: _consume_markers -> 0x1004d460
+BOUND +147: _jinit_memory_mgr -> 0x10055840
+BOUND +236: _jinit_marker_reader -> 0x1004f7c0
+BOUND +267: _consume_markers -> 0x1004d460
+BOUND +274: _reset_input_controller -> 0x1004d520
+BOUND +147: _jinit_memory_mgr -> 0x10055840
+BOUND +236: _jinit_marker_reader -> 0x1004f7c0
+BOUND +267: _consume_markers -> 0x1004d460
+BOUND +274: _reset_input_controller -> 0x1004d520
+BOUND +281: _inputctl_start_input_pass -> 0x1004d400

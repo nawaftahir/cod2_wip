@@ -1,0 +1,206 @@
+[
+{
+"name": "R_GetMaterialName",
+"addr": "10017300",
+"size": 7,
+"thunk": false
+},
+{
+"name": "R_TextWidth",
+"addr": "1000c000",
+"size": 8,
+"thunk": false
+},
+{
+"name": "R_ModelBounds",
+"addr": "10013260",
+"size": 10,
+"thunk": false
+},
+{
+"name": "R_GpuWaited",
+"addr": "10032d70",
+"size": 10,
+"thunk": false
+},
+{
+"name": "R_AddLightToScene",
+"addr": "10020cd0",
+"size": 12,
+"thunk": false
+},
+{
+"name": "R_AddPolyToScene",
+"addr": "10020ce0",
+"size": 12,
+"thunk": false
+},
+{
+"name": "R_AddPlume",
+"addr": "10005970",
+"size": 13,
+"thunk": false
+},
+{
+"name": "R_SetIgnorePrecacheErrors",
+"addr": "1001d8f0",
+"size": 15,
+"thunk": false
+},
+{
+"name": "R_GetMaterialSubimageCount",
+"addr": "10017310",
+"size": 16,
+"thunk": false
+},
+{
+"name": "R_UpdateColor",
+"addr": "1000bf40",
+"size": 18,
+"thunk": false
+},
+{
+"name": "R_BeginCubemapShot",
+"addr": "10026a70",
+"size": 20,
+"thunk": false
+},
+{
+"name": "R_ArchiveFogState",
+"addr": "1000bb10",
+"size": 22,
+"thunk": false
+},
+{
+"name": "R_RegisterInlineModel",
+"addr": "1001d8a0",
+"size": 22,
+"thunk": false
+},
+{
+"name": "R_BeginRegistration",
+"addr": "10013190",
+"size": 26,
+"thunk": false
+},
+{
+"name": "R_ShutdownDebug",
+"addr": "10032540",
+"size": 28,
+"thunk": false
+},
+{
+"name": "R_RegisterMaterial",
+"addr": "10017290",
+"size": 29,
+"thunk": false
+},
+{
+"name": "R_RegisterRawImage",
+"addr": "100172b0",
+"size": 30,
+"thunk": false
+},
+{
+"name": "R_EndCubemapShot",
+"addr": "10026a90",
+"size": 30,
+"thunk": false
+},
+{
+"name": "R_FinishLoadingModels",
+"addr": "1001d8c0",
+"size": 33,
+"thunk": false
+},
+{
+"name": "R_SwitchFog",
+"addr": "1000bc40",
+"size": 35,
+"thunk": false
+},
+{
+"name": "R_IsMaterialRefractive",
+"addr": "10017320",
+"size": 37,
+"thunk": false
+},
+{
+"name": "R_ResetSunLightParseParams",
+"addr": "1000aac0",
+"size": 38,
+"thunk": false
+},
+{
+"name": "R_SetSunLightOverride",
+"addr": "10001460",
+"size": 39,
+"thunk": false
+},
+{
+"name": "R_Material_IsDefault",
+"addr": "10017020",
+"size": 39,
+"thunk": false
+},
+{
+"name": "R_ClearFogs",
+"addr": "10001430",
+"size": 42,
+"thunk": false
+},
+{
+"name": "R_noop",
+"addr": "10023e90",
+"size": 57,
+"thunk": false
+},
+{
+"name": "R_AbortRenderCommands",
+"addr": "10032f40",
+"size": 59,
+"thunk": false
+},
+{
+"name": "FUN_100676fc",
+"addr": "100676fc",
+"size": 4,
+"thunk": false
+},
+{
+"name": "FUN_100cb76f",
+"addr": "100cb76f",
+"size": 10,
+"thunk": false
+},
+{
+"name": "FUN_100cb779",
+"addr": "100cb779",
+"size": 10,
+"thunk": false
+},
+{
+"name": "FUN_100cb7a1",
+"addr": "100cb7a1",
+"size": 10,
+"thunk": false
+},
+{
+"name": "FUN_100cb805",
+"addr": "100cb805",
+"size": 10,
+"thunk": false
+},
+{
+"name": "FUN_100cb80f",
+"addr": "100cb80f",
+"size": 10,
+"thunk": false
+},
+{
+"name": "FUN_100cb819",
+"addr": "100cb819",
+"size": 10,
+"thunk": false
+}
+]

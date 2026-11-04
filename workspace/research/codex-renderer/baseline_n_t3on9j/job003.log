@@ -1,0 +1,2 @@
+f380tu.c
+z:\inputs\src\tu\f380tu.c(42) : warning C4700: local variable 'h' used without having been initialized

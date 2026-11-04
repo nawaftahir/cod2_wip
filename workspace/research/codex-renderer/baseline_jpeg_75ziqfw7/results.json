@@ -1,0 +1,336 @@
+[
+  {
+    "source": "jcphuff.c",
+    "source_sha256": "7a428d6d13f786ba53d200ba96ab1fa3ff9f7dad61737ad96f3ce199b748c367",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "/TP",
+      "Z:\\inputs\\jcphuff.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "550dd5c883f5e23ae47fc3ced2edc522631ec62476c8b5ea07c293f5a6bb7013",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100479a0",
+        "symbol": "?emit_bits@@YAXPAUphuff_entropy_encoder@@IH@Z",
+        "bytes": 312,
+        "diagnostics": "SHAPE MATCH: FUN_100479a0, 312 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100479a0 @ 0x100479a0 size=312  vs  ?emit_bits@@YAXPAUphuff_entropy_encoder@@IH@Z (obj size=312)\nnormalized match: 312/312 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10047b00",
+        "symbol": "?emit_symbol@@YAXPAUphuff_entropy_encoder@@HH@Z",
+        "bytes": 51,
+        "diagnostics": "UNRESOLVED binding +42: target=0x100479a0, COFF=?emit_bits@@YAXPAUphuff_entropy_encoder@@IH@Z addend=0x00000000\nSHAPE MATCH: FUN_10047b00, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047b00 @ 0x10047b00 size=51  vs  ?emit_symbol@@YAXPAUphuff_entropy_encoder@@HH@Z (obj size=51)\nnormalized match: 51/51 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10047b40",
+        "symbol": "?emit_buffered_bits@@YAXPAUphuff_entropy_encoder@@PADI@Z",
+        "bytes": 45,
+        "diagnostics": "UNRESOLVED binding +30: target=0x100479a0, COFF=?emit_bits@@YAXPAUphuff_entropy_encoder@@IH@Z addend=0x00000000\nSHAPE MATCH: FUN_10047b40, 45 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047b40 @ 0x10047b40 size=45  vs  ?emit_buffered_bits@@YAXPAUphuff_entropy_encoder@@PADI@Z (obj size=45)\nnormalized match: 45/45 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10047c30",
+        "symbol": "?emit_restart@@YAXPAUphuff_entropy_encoder@@H@Z",
+        "bytes": 259,
+        "diagnostics": "UNRESOLVED binding +10: target=0x10047b70, COFF=?emit_eobrun@@YAXPAUphuff_entropy_encoder@@@Z addend=0x00000000\nUNRESOLVED binding +33: target=0x100479a0, COFF=?emit_bits@@YAXPAUphuff_entropy_encoder@@IH@Z addend=0x00000000\nSHAPE MATCH: FUN_10047c30, 259 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047c30 @ 0x10047c30 size=259  vs  ?emit_restart@@YAXPAUphuff_entropy_encoder@@H@Z (obj size=259)\nnormalized match: 259/259 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10047d40",
+        "symbol": "?encode_mcu_DC_first@@YA_NPAUjpeg_compress_struct@@PAPAY0EA@F@Z",
+        "bytes": 369,
+        "diagnostics": "UNRESOLVED binding +63: target=0x10047c30, COFF=?emit_restart@@YAXPAUphuff_entropy_encoder@@H@Z addend=0x00000000\nUNRESOLVED binding +249: target=0x100479a0, COFF=?emit_bits@@YAXPAUphuff_entropy_encoder@@IH@Z addend=0x00000000\nUNRESOLVED binding +268: target=0x100479a0, COFF=?emit_bits@@YAXPAUphuff_entropy_encoder@@IH@Z addend=0x00000000\nSHAPE MATCH: FUN_10047d40, 369 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047d40 @ 0x10047d40 size=369  vs  ?encode_mcu_DC_first@@YA_NPAUjpeg_compress_struct@@PAPAY0EA@F@Z (obj size=369)\nnormalized match: 369/369 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10051f90",
+        "symbol": "?emit_symbol@@YAXPAUphuff_entropy_encoder@@HH@Z",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={42: 20}"
+      },
+      {
+        "address": "0x10055a90",
+        "symbol": "?encode_mcu_DC_first@@YA_NPAUjpeg_compress_struct@@PAPAY0EA@F@Z",
+        "reason": "relocation-site/type mismatch: PE={27: 20}, COFF={63: 20, 249: 20, 268: 20}"
+      },
+      {
+        "address": "0x10055e00",
+        "symbol": "?finish_pass_phuff@@YAXPAUjpeg_compress_struct@@@Z",
+        "reason": "relocation-site/type mismatch: PE={58: 20}, COFF={32: 20, 44: 20}"
+      },
+      {
+        "address": "0x100477e0",
+        "symbol": "?start_pass_phuff@@YAXPAUjpeg_compress_struct@@_N@Z",
+        "reason": "byte mismatch +294: PE=4c, COFF=54"
+      }
+    ]
+  },
+  {
+    "source": "jdinput.c",
+    "source_sha256": "d59711e93922f0af6181a063e108e3630ae82c5c458d30d413dad72975cb0c5c",
+    "job": "job001",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "/TP",
+      "Z:\\inputs\\jdinput.c",
+      "/FoZ:\\out\\job001.obj"
+    ],
+    "object_sha256": "9b437164dde0ee75eae2f39d6ebf3d39a7c74a3dba62b965bbccc2cb25dfd3a8",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1004d1b0",
+        "symbol": "?per_scan_setup@@YAXPAUjpeg_decompress_struct@@@Z",
+        "bytes": 415,
+        "diagnostics": "SHAPE MATCH: FUN_1004d1b0, 415 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d1b0 @ 0x1004d1b0 size=415  vs  ?per_scan_setup@@YAXPAUjpeg_decompress_struct@@@Z (obj size=415)\nnormalized match: 415/415 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d350",
+        "symbol": "?latch_quant_tables@@YAXPAUjpeg_decompress_struct@@@Z",
+        "bytes": 170,
+        "diagnostics": "SHAPE MATCH: FUN_1004d350, 170 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d350 @ 0x1004d350 size=170  vs  ?latch_quant_tables@@YAXPAUjpeg_decompress_struct@@@Z (obj size=170)\nnormalized match: 170/170 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d400",
+        "symbol": "?start_input_pass@@YAXPAUjpeg_decompress_struct@@@Z",
+        "bytes": 59,
+        "diagnostics": "UNRESOLVED binding +7: target=0x1004d1b0, COFF=?per_scan_setup@@YAXPAUjpeg_decompress_struct@@@Z addend=0x00000000\nUNRESOLVED binding +14: target=0x1004d350, COFF=?latch_quant_tables@@YAXPAUjpeg_decompress_struct@@@Z addend=0x00000000\nSHAPE MATCH: FUN_1004d400, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d400 @ 0x1004d400 size=59  vs  ?start_input_pass@@YAXPAUjpeg_decompress_struct@@@Z (obj size=59)\nnormalized match: 59/59 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d460",
+        "symbol": "?consume_markers@@YAHPAUjpeg_decompress_struct@@@Z",
+        "bytes": 187,
+        "diagnostics": "UNRESOLVED binding +134: target=0x1004cfa0, COFF=?initial_setup@@YAXPAUjpeg_decompress_struct@@@Z addend=0x00000000\nUNRESOLVED binding +174: target=0x1004d400, COFF=?start_input_pass@@YAXPAUjpeg_decompress_struct@@@Z addend=0x00000000\nSHAPE MATCH: FUN_1004d460, 187 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d460 @ 0x1004d460 size=187  vs  ?consume_markers@@YAHPAUjpeg_decompress_struct@@@Z (obj size=187)\nnormalized match: 187/187 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d520",
+        "symbol": "?reset_input_controller@@YAXPAUjpeg_decompress_struct@@@Z",
+        "bytes": 59,
+        "diagnostics": "UNRESOLVED binding +13: target=0x1004d460, COFF=?consume_markers@@YAHPAUjpeg_decompress_struct@@@Z addend=0x00000000\nSHAPE MATCH: FUN_1004d520, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d520 @ 0x1004d520 size=59  vs  ?reset_input_controller@@YAXPAUjpeg_decompress_struct@@@Z (obj size=59)\nnormalized match: 59/59 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x1004d520",
+        "symbol": "?start_input_pass@@YAXPAUjpeg_decompress_struct@@@Z",
+        "reason": "relocation-site/type mismatch: PE={13: 6}, COFF={7: 20, 14: 20}"
+      },
+      {
+        "address": "0x1004d400",
+        "symbol": "?reset_input_controller@@YAXPAUjpeg_decompress_struct@@@Z",
+        "reason": "relocation-site/type mismatch: PE={7: 20, 14: 20}, COFF={13: 6}"
+      }
+    ]
+  },
+  {
+    "source": "jquant1.c",
+    "source_sha256": "556df5715cf5d915e5190066ff4e542a9911b651e45b34d322a6f6c2b0098fbc",
+    "job": "job002",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "/TP",
+      "Z:\\inputs\\jquant1.c",
+      "/FoZ:\\out\\job002.obj"
+    ],
+    "object_sha256": "24cb224851648908b54baabc2b00469ffa2693b5d15aa84d691864cc66b48339",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10055a90",
+        "symbol": "?create_colormap@@YAXPAUjpeg_decompress_struct@@@Z",
+        "bytes": 369,
+        "diagnostics": "UNRESOLVED binding +27: target=0x10055960, COFF=?select_ncolors@@YAHPAUjpeg_decompress_struct@@QAH@Z addend=0x00000000\nSHAPE MATCH: FUN_10055a90, 369 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055a90 @ 0x10055a90 size=369  vs  ?create_colormap@@YAXPAUjpeg_decompress_struct@@@Z (obj size=369)\nnormalized match: 369/369 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055e00",
+        "symbol": "?create_odither_tables@@YAXPAUjpeg_decompress_struct@@@Z",
+        "bytes": 79,
+        "diagnostics": "UNRESOLVED binding +58: target=0x10055d80, COFF=?make_odither_array@@YAPAY0BA@HPAUjpeg_decompress_struct@@H@Z addend=0x00000000\nSHAPE MATCH: FUN_10055e00, 79 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055e00 @ 0x10055e00 size=79  vs  ?create_odither_tables@@YAXPAUjpeg_decompress_struct@@@Z (obj size=79)\nnormalized match: 79/79 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10055f00",
+        "symbol": "?color_quantize3@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z",
+        "bytes": 178,
+        "diagnostics": "SHAPE MATCH: FUN_10055f00, 178 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055f00 @ 0x10055f00 size=178  vs  ?color_quantize3@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z (obj size=178)\nnormalized match: 178/178 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100563c0",
+        "symbol": "?alloc_fs_workspace@@YAXPAUjpeg_decompress_struct@@@Z",
+        "bytes": 62,
+        "diagnostics": "SHAPE MATCH: FUN_100563c0, 62 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100563c0 @ 0x100563c0 size=62  vs  ?alloc_fs_workspace@@YAXPAUjpeg_decompress_struct@@@Z (obj size=62)\nnormalized match: 62/62 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10047d40",
+        "symbol": "?create_colormap@@YAXPAUjpeg_decompress_struct@@@Z",
+        "reason": "relocation-site/type mismatch: PE={63: 20, 249: 20, 268: 20}, COFF={27: 20}"
+      },
+      {
+        "address": "0x1004ebd0",
+        "symbol": "?color_quantize@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z",
+        "reason": "byte mismatch +1: PE=f9, COFF=ec"
+      },
+      {
+        "address": "0x1004bb80",
+        "symbol": "?quantize3_ord_dither@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z",
+        "reason": "byte mismatch +2: PE=24, COFF=28"
+      },
+      {
+        "address": "0x1004c8b0",
+        "symbol": "?quantize3_ord_dither@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z",
+        "reason": "byte mismatch +0: PE=53, COFF=83"
+      },
+      {
+        "address": "0x1004cf60",
+        "symbol": "?alloc_fs_workspace@@YAXPAUjpeg_decompress_struct@@@Z",
+        "reason": "relocation-site/type mismatch: PE={30: 6, 23: 6}, COFF={}"
+      }
+    ]
+  },
+  {
+    "source": "jquant2.c",
+    "source_sha256": "9b6844e18480d7003618e8f473a0900743d15fc8516aee7229a77adce470eb0b",
+    "job": "job003",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "/TP",
+      "Z:\\inputs\\jquant2.c",
+      "/FoZ:\\out\\job003.obj"
+    ],
+    "object_sha256": "ed62262c2a47557a6fb33edb32f848c72745cc1a5496adf0f91ffc9354595d92",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10056a90",
+        "symbol": "?median_cut@@YAHPAUjpeg_decompress_struct@@PAUbox@@HH@Z",
+        "bytes": 357,
+        "diagnostics": "UNRESOLVED binding +301: target=0x100566a0, COFF=?update_box@@YAXPAUjpeg_decompress_struct@@PAUbox@@@Z addend=0x00000000\nUNRESOLVED binding +309: target=0x100566a0, COFF=?update_box@@YAXPAUjpeg_decompress_struct@@PAUbox@@@Z addend=0x00000000\nSHAPE MATCH: FUN_10056a90, 357 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056a90 @ 0x10056a90 size=357  vs  ?median_cut@@YAHPAUjpeg_decompress_struct@@PAUbox@@HH@Z (obj size=357)\nnormalized match: 357/357 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056c00",
+        "symbol": "?compute_color@@YAXPAUjpeg_decompress_struct@@PAUbox@@H@Z",
+        "bytes": 379,
+        "diagnostics": "SHAPE MATCH: FUN_10056c00, 379 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056c00 @ 0x10056c00 size=379  vs  ?compute_color@@YAXPAUjpeg_decompress_struct@@PAUbox@@H@Z (obj size=379)\nnormalized match: 379/379 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056d80",
+        "symbol": "?select_colors@@YAXPAUjpeg_decompress_struct@@H@Z",
+        "bytes": 132,
+        "diagnostics": "UNRESOLVED binding +55: target=0x100566a0, COFF=?update_box@@YAXPAUjpeg_decompress_struct@@PAUbox@@@Z addend=0x00000000\nUNRESOLVED binding +65: target=0x10056a90, COFF=?median_cut@@YAHPAUjpeg_decompress_struct@@PAUbox@@HH@Z addend=0x00000000\nUNRESOLVED binding +85: target=0x10056c00, COFF=?compute_color@@YAXPAUjpeg_decompress_struct@@PAUbox@@H@Z addend=0x00000000\nSHAPE MATCH: FUN_10056d80, 132 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056d80 @ 0x10056d80 size=132  vs  ?select_colors@@YAXPAUjpeg_decompress_struct@@H@Z (obj size=132)\nnormalized match: 132/132 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056e10",
+        "symbol": "?find_nearby_colors@@YAHPAUjpeg_decompress_struct@@HHHQAE@Z",
+        "bytes": 452,
+        "diagnostics": "SHAPE MATCH: FUN_10056e10, 452 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056e10 @ 0x10056e10 size=452  vs  ?find_nearby_colors@@YAHPAUjpeg_decompress_struct@@HHHQAE@Z (obj size=452)\nnormalized match: 452/452 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10056fe0",
+        "symbol": "?find_best_colors@@YAXPAUjpeg_decompress_struct@@HHHHQAE1@Z",
+        "bytes": 379,
+        "diagnostics": "SHAPE MATCH: FUN_10056fe0, 379 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10056fe0 @ 0x10056fe0 size=379  vs  ?find_best_colors@@YAXPAUjpeg_decompress_struct@@HHHHQAE1@Z (obj size=379)\nnormalized match: 379/379 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057160",
+        "symbol": "?fill_inverse_cmap@@YAXPAUjpeg_decompress_struct@@HHH@Z",
+        "bytes": 273,
+        "diagnostics": "UNRESOLVED binding +102: target=0x10056e10, COFF=?find_nearby_colors@@YAHPAUjpeg_decompress_struct@@HHHQAE@Z addend=0x00000000\nUNRESOLVED binding +132: target=0x10056fe0, COFF=?find_best_colors@@YAXPAUjpeg_decompress_struct@@HHHHQAE1@Z addend=0x00000000\nSHAPE MATCH: FUN_10057160, 273 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057160 @ 0x10057160 size=273  vs  ?fill_inverse_cmap@@YAXPAUjpeg_decompress_struct@@HHH@Z (obj size=273)\nnormalized match: 273/273 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057280",
+        "symbol": "?pass2_no_dither@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z",
+        "bytes": 199,
+        "diagnostics": "UNRESOLVED binding +136: target=0x10057160, COFF=?fill_inverse_cmap@@YAXPAUjpeg_decompress_struct@@HHH@Z addend=0x00000000\nSHAPE MATCH: FUN_10057280, 199 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057280 @ 0x10057280 size=199  vs  ?pass2_no_dither@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z (obj size=199)\nnormalized match: 199/199 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057350",
+        "symbol": "?pass2_fs_dither@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z",
+        "bytes": 723,
+        "diagnostics": "UNRESOLVED binding +444: target=0x10057160, COFF=?fill_inverse_cmap@@YAXPAUjpeg_decompress_struct@@HHH@Z addend=0x00000000\nSHAPE MATCH: FUN_10057350, 723 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057350 @ 0x10057350 size=723  vs  ?pass2_fs_dither@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z (obj size=723)\nnormalized match: 723/723 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10057630",
+        "symbol": "?init_error_limit@@YAXPAUjpeg_decompress_struct@@@Z",
+        "bytes": 154,
+        "diagnostics": "SHAPE MATCH: FUN_10057630, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10057630 @ 0x10057630 size=154  vs  ?init_error_limit@@YAXPAUjpeg_decompress_struct@@@Z (obj size=154)\nnormalized match: 154/154 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x1004c410",
+        "symbol": "?prescan_quantize@@YAXPAUjpeg_decompress_struct@@PAPAE1H@Z",
+        "reason": "relocation-site/type mismatch: PE={20: 6}, COFF={}"
+      },
+      {
+        "address": "0x10055190",
+        "symbol": "?median_cut@@YAHPAUjpeg_decompress_struct@@PAUbox@@HH@Z",
+        "reason": "relocation-site/type mismatch: PE={202: 20, 320: 20}, COFF={301: 20, 309: 20}"
+      },
+      {
+        "address": "0x10056fe0",
+        "symbol": "?compute_color@@YAXPAUjpeg_decompress_struct@@PAUbox@@H@Z",
+        "reason": "byte mismatch +0: PE=81, COFF=83"
+      },
+      {
+        "address": "0x10056c00",
+        "symbol": "?find_best_colors@@YAXPAUjpeg_decompress_struct@@HHHHQAE1@Z",
+        "reason": "byte mismatch +0: PE=83, COFF=81"
+      },
+      {
+        "address": "0x1004a5d0",
+        "symbol": "?init_error_limit@@YAXPAUjpeg_decompress_struct@@@Z",
+        "reason": "byte mismatch +0: PE=51, COFF=8b"
+      },
+      {
+        "address": "0x100515b0",
+        "symbol": "?init_error_limit@@YAXPAUjpeg_decompress_struct@@@Z",
+        "reason": "byte mismatch +0: PE=53, COFF=8b"
+      }
+    ]
+  }
+]

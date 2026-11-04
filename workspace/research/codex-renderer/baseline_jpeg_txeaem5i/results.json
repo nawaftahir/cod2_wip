@@ -1,0 +1,21 @@
+[
+  {
+    "source": "j_100efe3c.c",
+    "source_sha256": "d3e8e6970232d7a89c974220f05938c7a71582d77ab828fc61c1923cfb891e27",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_100efe3c.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "05dff83679302d3d55ec56476d3a6926bb4dd9bba0713532526d1259bfad220f",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  }
+]

@@ -1,0 +1,38 @@
+// 10086a37 size=166 FUN_10086a37
+
+void FUN_10086a37(void)
+
+{
+  undefined4 *in_ECX;
+  
+  FUN_10085dc1();
+  in_ECX[0x30] = 0;
+  in_ECX[0x31] = 0;
+  in_ECX[0x32] = 0;
+  in_ECX[0x33] = 0;
+  in_ECX[0x34] = 0;
+  in_ECX[0x38] = 0;
+  in_ECX[0x36] = 0;
+  in_ECX[0x37] = 0;
+  in_ECX[0x1d] = 0xffffffff;
+  in_ECX[0x1e] = 0xffffffff;
+  in_ECX[0x1f] = 0xffffffff;
+  in_ECX[0x20] = 0xffffffff;
+  in_ECX[0x21] = 0xffffffff;
+  in_ECX[0x22] = 0xffffffff;
+  in_ECX[0x23] = 0xffffffff;
+  in_ECX[0x24] = 0xffffffff;
+  in_ECX[0x25] = 0xffffffff;
+  in_ECX[0x26] = 0xffffffff;
+  in_ECX[0x27] = 0xffffffff;
+  in_ECX[0x28] = 0xffffffff;
+  in_ECX[0x2a] = 0xffffffff;
+  in_ECX[0x2b] = 0xffffffff;
+  in_ECX[0x2c] = 0xffffffff;
+  in_ECX[0x2d] = 0xffffffff;
+  in_ECX[0x2e] = 0xffffffff;
+  *in_ECX = &PTR_FUN_10110420;
+  return;
+}
+
+

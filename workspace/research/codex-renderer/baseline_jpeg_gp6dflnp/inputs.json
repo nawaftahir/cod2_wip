@@ -1,0 +1,29 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_debug_frame",
+  "jobs": [
+    {
+      "source": "j_debug_frame.c",
+      "source_sha256": "6bf460c3724b0ab29396b249565bb68c759205f5e90845fd04c16dfbd49c05a9",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_debug_frame.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "j_debug_frame.c": "6bf460c3724b0ab29396b249565bb68c759205f5e90845fd04c16dfbd49c05a9"
+  },
+  "discovery_range": [
+    "0x10020ec0",
+    "0x100220c0"
+  ],
+  "reused_objects_from": null
+}

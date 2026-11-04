@@ -1,0 +1,64 @@
+{
+  "status": "DEFER-NEW-CUBEMAP-SOURCE",
+  "new_unique_code_bytes": 0,
+  "retained_reviewed_code_bytes": 176,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "inputs": {
+    "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+    "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/deepseek_rounding_3",
+    "jobs": [
+      {
+        "source": "j_wavelet.c",
+        "source_sha256": "9364bf825f5e111039821eee4913fc953c931ef1612fad7852ce0ed97c26a711",
+        "job": "job000",
+        "command": [
+          "cl",
+          "/nologo",
+          "/c",
+          "/W3",
+          "/O2",
+          "/Gy",
+          "Z:\\inputs\\j_wavelet.c",
+          "/FoZ:\\out\\job000.obj"
+        ]
+      }
+    ],
+    "dependencies": {
+      "test_cubemap_generate.c": "d08a4756729c1f34a7e46f4a554b254f5bff4ef4492d1c080f9263d4023e9fbe",
+      "j_wavelet.c": "9364bf825f5e111039821eee4913fc953c931ef1612fad7852ce0ed97c26a711",
+      "common_types.h": "b781d4ce994777835c32df12c586d1c2d47bd5f3762824414b31f0d590589db8"
+    },
+    "discovery_range": [
+      "0x1000c910",
+      "0x10061ca0"
+    ],
+    "reused_objects_from": null
+  },
+  "object_sha256": "62c7054e2fbb45f491fb43f055df9e983573ae217310ebd0eb91c2b83f12a927",
+  "diagnostics": "BOUND +23: _image_card_memory -> 0x101d0a74\nBOUND +30: _image_card_memory -> 0x101d0a78\nBOUND +36: _image_card_memory -> 0x101d0a74\nBOUND +46: _image_card_memory -> 0x101d0a78\nSHAPE MATCH: FUN_1000c910, 87 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000c910 @ 0x1000c910 size=87  vs  _Image_Release (obj size=87)\nnormalized match: 87/87 bytes (100%)\nMATCH (normalized)\nBOUND +6: __chkstk -> 0x100f8830\nBOUND +18: _Image_GetLightGridWeightsForVector -> 0x100104a0\nBOUND +32: _Image_GenerateCubemapFunction -> 0x10010160\nSHAPE MATCH: FUN_10010680, 43 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10010680 @ 0x10010680 size=43  vs  _Image_GenerateLightGridWeights (obj size=43)\nnormalized match: 43/43 bytes (100%)\nMATCH (normalized)\nBOUND +8: _ri_hunk_allocate -> 0x101d49d8\nBOUND +13: _Image_GetSunHalfAngleForVector -> 0x100106b0\nBOUND +30: _Image_GenerateCubemapFunction -> 0x10010160\nBOUND +37: _ri_hunk_free -> 0x101d49f8\nSHAPE MATCH: FUN_100107b0, 46 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100107b0 @ 0x100107b0 size=46  vs  _Image_GenerateSunHalfAngle (obj size=46)\nnormalized match: 46/46 bytes (100%)\nMATCH (normalized)\n",
+  "every_bound_symbol_negative_tested": true,
+  "fixture_passed": true,
+  "fixture_command": [
+    "cc",
+    "-m32",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/deepseek_rounding_3/test_cubemap_generate.c",
+    "-lm",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_plbfn3j_/review_fixture32"
+  ],
+  "fixture_sha256": "d08a4756729c1f34a7e46f4a554b254f5bff4ef4492d1c080f9263d4023e9fbe",
+  "worker_fixture_sha256": "d08a4756729c1f34a7e46f4a554b254f5bff4ef4492d1c080f9263d4023e9fbe",
+  "complete_dependency_closure": false,
+  "canonical_acceptance": false,
+  "whole_file_identity": false,
+  "correction": "Image_Alloc complete target code is109, not125.",
+  "caveats": [
+    "Remaining mismatch causes are hypotheses, not proven exclusively TU context.",
+    "Cubemap generator and pixel callbacks are mocked, not reconstructed here."
+  ]
+}

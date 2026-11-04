@@ -1,0 +1,52 @@
+{
+  "status": "NATIVE-TARGET-DIFFERENTIAL-PASS",
+  "command": [
+    "cc",
+    "-m32",
+    "-malign-double",
+    "-std=c99",
+    "-O2",
+    "-ffloat-store",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_jpeg_idct_target.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/jpeg_bgr/jidctint.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/jpeg_bgr/jidctflt.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/jpeg_bgr/jidctred.c",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_api/idct_target32"
+  ],
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "cases": 288,
+  "differing_bytes": 0,
+  "output": "288 actual-target IDCT cases; 0 differing bytes; CW027F explicitly set",
+  "hashes": {
+    "scratch/jpeg_bgr/jidctint.c": "3b7123ba9a66c10eb1f96d7432637b051278f3538d1b06884f9d21a39fd78f9a",
+    "scratch/jpeg_bgr/jidctflt.c": "0988f6ba29f57b691dabdd3f0541839fb651dc74abd36c395130b12a30937155",
+    "scratch/jpeg_bgr/jidctred.c": "df25adc646b0fdd69aed54361928aeb36972a8293c917f8ec1b0d62e8f764252",
+    "test_jpeg_idct_target.c": "369c6104ca3eca94349b657b3e38802835152fcf3a246baaad2a08dab212bcef",
+    "scratch/codex_dxerr_switch/target_oracle.c": "eacda27ec3bd137845ce6af893d63820f384e70e06d7e4451c1e42f62d0ca943",
+    "scratch/jpeg_bgr/cderror.h": "fff8952ba362b0decf1994221dcdce56380540cbc68817fd5cf3e1bfa52c6a7e",
+    "scratch/jpeg_bgr/cdjpeg.h": "51414d6b716c3fd47a77b4988988b2755dd3e32aea4ec7860b62b03dafd19c8a",
+    "scratch/jpeg_bgr/jchuff.h": "0aa206ea4abf0e68df14745c114fbe1db7705ce5c881b0964babf5acfbc38764",
+    "scratch/jpeg_bgr/jconfig.h": "d766dcf5b000084a0ab254a7e462ff48a0af26f47d2cd28db7a69df262623739",
+    "scratch/jpeg_bgr/jdct.h": "4cde9d7c12ffc920e1dd525c6b7f41f88a3ea573af8c66a4b6d0d6ed3d7fd770",
+    "scratch/jpeg_bgr/jdhuff.h": "9474219e38bd98af7fd427e25462857854f3391fe4eaf329a0d0cb5e438e56f3",
+    "scratch/jpeg_bgr/jerror.h": "324f058e0dc17408ea83a8d47d0a7a1f6ba7553d653f709a9be275971f539fec",
+    "scratch/jpeg_bgr/jinclude.h": "a6433e5ea0030f4bffd41bcc2f064008afd79de4270cf28494bd43d2fbc5da06",
+    "scratch/jpeg_bgr/jmemsys.h": "dbe87b534bc93f9ea54492589e69307b492aff8a377fa3c9c8b54a54de488397",
+    "scratch/jpeg_bgr/jmorecfg.h": "0cac110cddb31a60a183710b0daf36e20f28f94e565043263072d17d9af51a45",
+    "scratch/jpeg_bgr/jpegint.h": "c5a1f2379711bb596d7af3b95d4601890d4814a8f54e5fbd7e91480a90f6f00a",
+    "scratch/jpeg_bgr/jpeglib.h": "deda5bd36c2ac75d30788781610b8f4db413fd31442b4e8ca4aa0aa35cd4305f",
+    "scratch/jpeg_bgr/jversion.h": "7a8c12a9d52f62342b46b64a8d91d148ae7b0398e9663ad03da3e0b882cd2f14",
+    "scratch/jpeg_bgr/transupp.h": "ce899a5d2a45663d7f98b2d7cf89db21a7e1aa85bb83106a287fba120c5cdd45"
+  },
+  "source_byte_credit": 0,
+  "whole_file_identity": false,
+  "tested_control_word": "0x027f",
+  "original_runtime_control_word_observed": false,
+  "methods": [
+    "islow8x8",
+    "float8x8",
+    "reduced4x4"
+  ],
+  "exhaustive": false
+}

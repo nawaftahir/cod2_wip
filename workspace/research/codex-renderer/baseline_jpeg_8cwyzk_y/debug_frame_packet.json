@@ -1,0 +1,57 @@
+{
+  "status": "REVIEWABLE",
+  "code_bytes": 185,
+  "functions": 2,
+  "independent_review": false,
+  "whole_file_identity": false,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "inputs": {
+    "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+    "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_debug_frame",
+    "jobs": [
+      {
+        "source": "j_debug_frame.c",
+        "source_sha256": "6bf460c3724b0ab29396b249565bb68c759205f5e90845fd04c16dfbd49c05a9",
+        "job": "job000",
+        "command": [
+          "cl",
+          "/nologo",
+          "/c",
+          "/W3",
+          "/O2",
+          "/Gy",
+          "Z:\\inputs\\j_debug_frame.c",
+          "/FoZ:\\out\\job000.obj"
+        ]
+      }
+    ],
+    "dependencies": {
+      "j_debug_frame.c": "6bf460c3724b0ab29396b249565bb68c759205f5e90845fd04c16dfbd49c05a9",
+      "test_debug_frame.c": "58d9a2c83efea2a9aa8a3010168bbce6ca21c5690174b92d9ef2353c0b0215b2"
+    },
+    "discovery_range": [
+      "0x10020ec0",
+      "0x100220c0"
+    ],
+    "reused_objects_from": null
+  },
+  "object_sha256": "5a45c6e7c682434adc59ee8a0e1398547f3d9d05522c9ec2baddc71eefed636b",
+  "bindings": {
+    "_renderer_registered": "0x101d4d00",
+    "_renderer_front_end_data": "0x101da9c8",
+    "_renderer_command_list": "0x1042e778",
+    "_debug_saved_command_list": "0x101e4a00",
+    "_debug_saved_front_end_data": "0x101e4a04",
+    "_debug_restore_skin_cache": "0x101e4a08",
+    "_R_AddCmdEndOfList": "0x10020ec0",
+    "_RB_ExecuteRenderCommands": "0x10033d20",
+    "_RB_EndFrame": "0x10033b20",
+    "_R_LockSkinnedCache": "0x1001e4b0"
+  },
+  "diagnostics": "BOUND +1: _renderer_command_list -> 0x1042e778\nSHAPE MATCH: FUN_10020ec0, 71 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10020ec0 @ 0x10020ec0 size=71  vs  _R_AddCmdEndOfList (obj size=71)\nnormalized match: 71/71 bytes (100%)\nMATCH (normalized)\nBOUND +1: _renderer_registered -> 0x101d4d00\nBOUND +13: _R_AddCmdEndOfList -> 0x10020ec0\nBOUND +18: _renderer_front_end_data -> 0x101da9c8\nBOUND +42: _RB_ExecuteRenderCommands -> 0x10033d20\nBOUND +50: _RB_EndFrame -> 0x10033b20\nBOUND +55: _debug_saved_command_list -> 0x101e4a00\nBOUND +61: _debug_saved_front_end_data -> 0x101e4a04\nBOUND +66: _renderer_command_list -> 0x1042e778\nBOUND +72: _debug_restore_skin_cache -> 0x101e4a08\nBOUND +78: _renderer_front_end_data -> 0x101da9c8\nBOUND +88: _debug_restore_skin_cache -> 0x101e4a08\nBOUND +93: _R_LockSkinnedCache -> 0x1001e4b0\nBOUND +102: _debug_saved_command_list -> 0x101e4a00\nBOUND +108: _debug_saved_front_end_data -> 0x101e4a04\nSHAPE MATCH: R_BeginDebugFrame, 114 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_BeginDebugFrame @ 0x10022040 size=114  vs  _R_EndDebugFrame (obj size=114)\nnormalized match: 114/114 bytes (100%)\nMATCH (normalized)\n",
+  "wrong_binding_rejected": true,
+  "fixture_command": "cc -m32 -std=c89 -Wall -Wextra -Werror /home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_debug_frame/test_debug_frame.c -o /tmp/codex_debug_frame_test && /tmp/codex_debug_frame_test",
+  "fixture_note": "Run separately; this replay checks bytes, not test execution.",
+  "fixture_sha256": "58d9a2c83efea2a9aa8a3010168bbce6ca21c5690174b92d9ef2353c0b0215b2",
+  "external_dependencies": "External callees have pinned destinations and target-compatible observed calls; their full bodies remain unmatched."
+}

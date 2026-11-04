@@ -1,0 +1,37 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\material_queries.c",
+    "Z:\\inputs\\src\\renderer_state.c",
+    "Z:\\inputs\\src\\sun_override.c",
+    "Z:\\inputs\\src\\font_metrics.c",
+    "Z:\\inputs\\src\\visibility_config.c",
+    "/FoZ:\\out\\"
+  ],
+  "sources": {
+    "material_queries.c": "567f8741bbdaf6f85e7308262cca8971f70207397ebf4258cf1d5619b003c68f",
+    "renderer_state.c": "a9fcded06c6b638ecf2aaaae878209f20e3319e0d64827a5911759422d7fbf2f",
+    "sun_override.c": "43a4dd492967605cc3c9cbec44cf30b88bf776c15f1fa15f55dfb5a68d09491b",
+    "font_metrics.c": "2930ad7d073a62142871b1c11a37ac8677a04699dda465d1e24af5cfe031d0f4",
+    "visibility_config.c": "17a4c5d1f50222e7e66c9b2840987159a1e1da4aad9735e4ec5e4ba2942c1cc6"
+  },
+  "objects": {
+    "material_queries.obj": "5d2f4da78233358185b4bdb5b11fc008f953b39f92783a8ea0ad05bbfdecb536",
+    "renderer_state.obj": "ba8d8085dccbdc582e104dfe410b318da13e6d202a0544719f092ce8a7c06e76",
+    "sun_override.obj": "c7e6a7d9198ae1a3dd852f4c572e8920993ce380d26e4e7fe2914652b1a7f610",
+    "font_metrics.obj": "65b7f49a5ed683a4de23266ec669cda7071a9e6dd300652b7b854cfb5c06e39c",
+    "visibility_config.obj": "c78b79326afb001c785993f6bc2ed660b749c8102f08bda5877ab1e989ca5b61"
+  },
+  "status": "REVIEWABLE",
+  "functions": 10,
+  "bytes": 222,
+  "wrong_binding_rejected": true,
+  "host_fixtures_passed": true,
+  "independent_review": false
+}

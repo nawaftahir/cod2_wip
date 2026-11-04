@@ -1,0 +1,249 @@
+{
+  "status": "MARKER-BLOCK-PASS",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "object_sha256": "bab5039185bf2a7f01bc9b57b20155a07711f41384bffd8b0115b4c93f6e94f1",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_56yqdjvj",
+  "functions": [
+    {
+      "address": "0x1004e310",
+      "symbol": "_get_dht",
+      "code_bytes": 795,
+      "block_bytes": 795,
+      "sites": [],
+      "negative_bindings": 0
+    },
+    {
+      "address": "0x1004e630",
+      "symbol": "_get_dqt",
+      "code_bytes": 618,
+      "block_bytes": 618,
+      "sites": [
+        {
+          "offset": 252,
+          "symbol": "_jpeg_natural_order",
+          "base": "0x10191200",
+          "status": "COMPLETE-SOURCE-DATA"
+        },
+        {
+          "offset": 396,
+          "symbol": "_jpeg_natural_order",
+          "base": "0x10191200",
+          "status": "COMPLETE-SOURCE-DATA"
+        }
+      ],
+      "negative_bindings": 1
+    },
+    {
+      "address": "0x1004f280",
+      "symbol": "_read_markers",
+      "code_bytes": 563,
+      "block_bytes": 882,
+      "sites": [
+        {
+          "offset": 37,
+          "symbol": "_first_marker",
+          "base": "0x1004f1e0",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 44,
+          "symbol": "_next_marker",
+          "base": "0x1004f0e0",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 79,
+          "symbol": "$L5448",
+          "base": "0x1004f4f4",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 86,
+          "symbol": "$L5453",
+          "base": "0x1004f4b4",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 91,
+          "symbol": "_get_soi",
+          "base": "0x1004dc50",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 114,
+          "symbol": "_get_sof",
+          "base": "0x1004dd00",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 135,
+          "symbol": "_get_sof",
+          "base": "0x1004dd00",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 159,
+          "symbol": "_get_sof",
+          "base": "0x1004dd00",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 183,
+          "symbol": "_get_sof",
+          "base": "0x1004dd00",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 243,
+          "symbol": "_get_dht",
+          "base": "0x1004e310",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 272,
+          "symbol": "_get_dqt",
+          "base": "0x1004e630",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 297,
+          "symbol": "_get_dri",
+          "base": "0x1004e8a0",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 435,
+          "symbol": "_skip_variable",
+          "base": "0x1004f040",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 501,
+          "symbol": "_get_sos",
+          "base": "0x1004e010",
+          "status": "SOURCE-CALLEE-BOUND"
+        },
+        {
+          "offset": 564,
+          "symbol": "$L4606",
+          "base": "0x1004f407",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 568,
+          "symbol": "$L4577",
+          "base": "0x1004f2ed",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 572,
+          "symbol": "$L4579",
+          "base": "0x1004f302",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 576,
+          "symbol": "$L4585",
+          "base": "0x1004f34a",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 580,
+          "symbol": "$L4593",
+          "base": "0x1004f371",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 584,
+          "symbol": "$L4581",
+          "base": "0x1004f31a",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 588,
+          "symbol": "$L4583",
+          "base": "0x1004f332",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 592,
+          "symbol": "$L4608",
+          "base": "0x1004f431",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 596,
+          "symbol": "$L4575",
+          "base": "0x1004f2da",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 600,
+          "symbol": "$L4589",
+          "base": "0x1004f490",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 604,
+          "symbol": "$L4587",
+          "base": "0x1004f474",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 608,
+          "symbol": "$L4595",
+          "base": "0x1004f38d",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 612,
+          "symbol": "$L4597",
+          "base": "0x1004f3a7",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 616,
+          "symbol": "$L4599",
+          "base": "0x1004f3c3",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 620,
+          "symbol": "$L4603",
+          "base": "0x1004f3e7",
+          "status": "LOCAL-BOUND"
+        },
+        {
+          "offset": 624,
+          "symbol": "$L4610",
+          "base": "0x1004f44d",
+          "status": "LOCAL-BOUND"
+        }
+      ],
+      "negative_bindings": 27
+    }
+  ],
+  "code_bytes": 1976,
+  "table_alignment_bytes": 319,
+  "whole_file_identity": false,
+  "fixture_command": [
+    "cc",
+    "-m32",
+    "-malign-double",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wno-unused-parameter",
+    "-Wno-unused-function",
+    "-D__declspec(x)=",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_jpeg_markers.c",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_56yqdjvj/marker_fixture32"
+  ],
+  "fixture_passed": true,
+  "fixture_sha256": "b356c2c9ec02c18824b8640bcb6ed50ba26974946b915de5623815d69170e281",
+  "checker_sha256": "c432a743d35925c692deb18bf4633b339d652b52d26751fd08a059ad2288f569",
+  "dependency_packet_sha256": "ff61b3a3d5cc444c703c2ec3f1c6bab7f78aa563cd4aa2dbf26009a22cbebfa3"
+}

@@ -1,0 +1,136 @@
+dxsdk_probe.cpp
+Microsoft (R) Incremental Linker Version 7.10.3077
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+   Creating library Z:\out\probe.lib and object Z:\out\probe.exp
+Microsoft (R) COFF/PE Dumper Version 7.10.3077
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file Z:\out\probe.dll
+
+PE signature found
+
+File Type: DLL
+
+FILE HEADER VALUES
+             14C machine (x86)
+               3 number of sections
+        6AB7A5BE time date stamp Sat Sep 26 11:00:14 2026
+               0 file pointer to symbol table
+               0 number of symbols
+              E0 size of optional header
+            210E characteristics
+                   Executable
+                   Line numbers stripped
+                   Symbols stripped
+                   32 bit word machine
+                   DLL
+
+OPTIONAL HEADER VALUES
+             10B magic # (PE32)
+            7.10 linker version
+            1000 size of code
+            2000 size of initialized data
+               0 size of uninitialized data
+               0 entry point (10000000)
+            1000 base of code
+            2000 base of data
+        10000000 image base (10000000 to 10003FFF)
+            1000 section alignment
+            1000 file alignment
+            4.00 operating system version
+            0.00 image version
+            4.00 subsystem version
+               0 Win32 version
+            4000 size of image
+            1000 size of headers
+               0 checksum
+               2 subsystem (Windows GUI)
+             400 DLL characteristics
+                   No safe exception handler
+          100000 size of stack reserve
+            1000 size of stack commit
+          100000 size of heap reserve
+            1000 size of heap commit
+               0 loader flags
+              10 number of directories
+            2060 [      4B] RVA [size] of Export Directory
+            2008 [      28] RVA [size] of Import Directory
+               0 [       0] RVA [size] of Resource Directory
+               0 [       0] RVA [size] of Exception Directory
+               0 [       0] RVA [size] of Certificates Directory
+            3000 [       C] RVA [size] of Base Relocation Directory
+               0 [       0] RVA [size] of Debug Directory
+               0 [       0] RVA [size] of Architecture Directory
+               0 [       0] RVA [size] of Global Pointer Directory
+               0 [       0] RVA [size] of Thread Storage Directory
+               0 [       0] RVA [size] of Load Configuration Directory
+               0 [       0] RVA [size] of Bound Import Directory
+            2000 [       8] RVA [size] of Import Address Table Directory
+               0 [       0] RVA [size] of Delay Import Directory
+               0 [       0] RVA [size] of COM Descriptor Directory
+               0 [       0] RVA [size] of Reserved Directory
+
+
+SECTION HEADER #1
+   .text name
+       E virtual size
+    1000 virtual address (10001000 to 1000100D)
+    1000 size of raw data
+    1000 file pointer to raw data (00001000 to 00001FFF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+60000020 flags
+         Code
+         Execute Read
+
+SECTION HEADER #2
+  .rdata name
+      AB virtual size
+    2000 virtual address (10002000 to 100020AA)
+    1000 size of raw data
+    2000 file pointer to raw data (00002000 to 00002FFF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+40000040 flags
+         Initialized Data
+         Read Only
+
+  Section contains the following imports:
+
+    d3d9.dll
+              10002000 Import Address Table
+              10002030 Import Name Table
+                     0 time date stamp
+                     0 Index of first forwarder reference
+
+                    9 Direct3DCreate9
+
+SECTION HEADER #3
+  .reloc name
+       C virtual size
+    3000 virtual address (10003000 to 1000300B)
+    1000 size of raw data
+    3000 file pointer to raw data (00003000 to 00003FFF)
+       0 file pointer to relocation table
+       0 file pointer to line numbers
+       0 number of relocations
+       0 number of line numbers
+42000040 flags
+         Initialized Data
+         Discardable
+         Read Only
+
+  Summary
+
+        1000 .rdata
+        1000 .reloc
+        1000 .text
+wine: created the configuration directory '/root/.wine'
+Could not find Wine Gecko. HTML rendering will be disabled.
+wine: configuration in L"/root/.wine" has been updated.

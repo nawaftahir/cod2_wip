@@ -1,0 +1,8 @@
+{
+  "status": "UNVERIFIED-SWITCH-CANDIDATE",
+  "input": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_dxerr_probe/j_100efe3c.c",
+  "input_sha256": "d3e8e6970232d7a89c974220f05938c7a71582d77ab828fc61c1923cfb891e27",
+  "known_case_count": 646,
+  "oracle": "decompile compiled by host, NOT target",
+  "unknowns": "wide mappings and complete target behavior require independent proof"
+}

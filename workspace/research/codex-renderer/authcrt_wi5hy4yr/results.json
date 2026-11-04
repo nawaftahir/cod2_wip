@@ -1,0 +1,350 @@
+[
+  {
+    "source": "lldiv.asm",
+    "source_sha256": "6cbaf4bbafa9066d2e224c1d83d968567a7d5c4ae90870daf3b783cdfd7b87e4",
+    "job": "job000",
+    "object": "lldiv.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "273d7a53d2df0c2df8ce4e5db13a3d131c81e58beaa6783d088d300fe1a1807a"
+  },
+  {
+    "source": "lldvrm.asm",
+    "source_sha256": "8d2ba4ecce1a06520a4e64a6413e66d50611bf67bf1b48837de030c1694cee40",
+    "job": "job001",
+    "object": "lldvrm.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "27dcd97e77337f424d2b72b1deebaa01d4b0c553cb0fd778a0880f4917814e69"
+  },
+  {
+    "source": "llmul.asm",
+    "source_sha256": "9be0f22f7d93844d8cae5074c37138eccf6790f5e96027f33c196a6c92245c8a",
+    "job": "job002",
+    "object": "llmul.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100fd5b0",
+        "symbol": "__allmul",
+        "output": "SHAPE MATCH: __allmul, 52 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "334f5d79d244f92230f0041311993490979d15ef92ee2b8e6e207e9d0e292e96"
+  },
+  {
+    "source": "llrem.asm",
+    "source_sha256": "11440f8dd127b7505934352a72c90c2925ac025a0e5b8b18542fe958c481d53d",
+    "job": "job003",
+    "object": "llrem.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "206df450205cacd4bdb6ab65590c15cdc7ed7eaa25f4e2a680a8ee23ba44f4cd"
+  },
+  {
+    "source": "llshl.asm",
+    "source_sha256": "c8289a8614ebc7c6d3cce8646b79912f613ae2dd6630cacaf668ddb89e5b8008",
+    "job": "job004",
+    "object": "llshl.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "9f29da8b033014ebea77d10ff360adac8fb784841e5a4e2131071ae6d910dd89"
+  },
+  {
+    "source": "llshr.asm",
+    "source_sha256": "60eae19490be6977a1b8c184bda5e486f64de78c680fea296a8864651aa50a8a",
+    "job": "job005",
+    "object": "llshr.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "52363453def892dc32f0b76f40699a4268ddffc56d70081da2d2756bb87c4225"
+  },
+  {
+    "source": "memmove.asm",
+    "source_sha256": "9588c6a35e3679f9e00e18b406d877abdb6915244777542ef721c08c6975f5c2",
+    "job": "job006",
+    "object": "memmove.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x100f67a0",
+        "symbol": "_memmove",
+        "reason": "length mismatch: target=672, object=829"
+      }
+    ],
+    "object_sha256": "c700ac2e0e74f4691edc4ac1686b664195696450e383a33641b26f162916b586"
+  },
+  {
+    "source": "strcspn.asm",
+    "source_sha256": "10275436e1fb07e4eb2a372478a97d29a68905ae7dc8914056f5b763f4c896de",
+    "job": "job007",
+    "object": "strcspn.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x101002f0",
+        "symbol": "_strcspn",
+        "output": "SHAPE MATCH: _strcspn, 70 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "cb2116fe843b8217dcadd2640d2441d1ef388fc0e3a337e461847678d7c427c1"
+  },
+  {
+    "source": "strpbrk.asm",
+    "source_sha256": "77134c6fff94a33ead711dffdd8b43176752ee39930960cd59925113f4d46022",
+    "job": "job008",
+    "object": "strpbrk.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10101020",
+        "symbol": "_strpbrk",
+        "output": "SHAPE MATCH: _strpbrk, 64 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "78f9eca442dfbc04633e28681e0ecc572f5901a7c2a686519f4fed686ab34344"
+  },
+  {
+    "source": "ulldiv.asm",
+    "source_sha256": "fd7c210ae4315fb4c407d1bd42cf1e467cd8aa400043e976779f500b350c646a",
+    "job": "job009",
+    "object": "ulldiv.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100fcc30",
+        "symbol": "__aulldiv",
+        "output": "SHAPE MATCH: __aulldiv, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "f97a0d5be7e56db214705034e82f1fcdcf9aeb23667097bddac3ca6304a5e7c2"
+  },
+  {
+    "source": "ulldvrm.asm",
+    "source_sha256": "250d9e577d3d94df780698a32197db980d6c2cd3b66fa371850649ee0d984fda",
+    "job": "job010",
+    "object": "ulldvrm.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10106bc0",
+        "symbol": "__aulldvrm",
+        "output": "SHAPE MATCH: __aulldvrm, 149 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "599eefd0f57125abf8f3d739b13b1b4008c804a0eebc496b83a22cd1b1df5806"
+  },
+  {
+    "source": "ullrem.asm",
+    "source_sha256": "80c74d4031befbd92364b1df8f25c28a72b0573b2a68e98a333228c00bf83bf2",
+    "job": "job011",
+    "object": "ullrem.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "3da01acbc1c8809cb99e22df45ef4bafc49214e30c90bd66e6cc7ac87b24f2ce"
+  },
+  {
+    "source": "ullshr.asm",
+    "source_sha256": "7a3dc0e52803190a35c94f86061561d050cd1242b7e41b35cab55dc68002e615",
+    "job": "job012",
+    "object": "ullshr.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71",
+      "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "16049a832562f78c217ca74e5f70bc0db8f79510c7582617cd59e36f879854e0"
+  }
+]

@@ -1,0 +1,19 @@
+[
+  {
+    "source": "jmemmgr.c",
+    "source_sha256": "18d5ee115dd75016c248b3864ccd7af279b52bcb01635845cde1a9fefc6026d6",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jmemmgr.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": "wine: created the configuration directory '/root/.wine'\nCould not find Wine Gecko. HTML rendering will be disabled.\nwine: configuration in L\"/root/.wine\" has been updated.\njmemmgr.c\nz:\\inputs\\jmemsys.h(139) : error C2011: 'backing_store_struct' : 'struct' type redefinition\n        z:\\inputs\\jmemsys.h(139) : see declaration of 'backing_store_struct'\n"
+  }
+]

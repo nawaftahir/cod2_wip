@@ -1,0 +1,19 @@
+[
+  {
+    "source": "j_wavelet.c",
+    "source_sha256": "dc81e927148803ce38ba8199cc589d978d8ca424d15cd9769b4e31001494cabb",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_wavelet.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": "wine: created the configuration directory '/root/.wine'\nCould not find Wine Gecko. HTML rendering will be disabled.\nwine: configuration in L\"/root/.wine\" has been updated.\nj_wavelet.c\nZ:\\inputs\\j_wavelet.c(140) : error C2065: 'index' : undeclared identifier\nZ:\\inputs\\j_wavelet.c(1189) : error C2065: 'weight' : undeclared identifier\n"
+  }
+]

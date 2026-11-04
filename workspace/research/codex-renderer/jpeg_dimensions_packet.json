@@ -1,0 +1,47 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_0rckeoeb",
+  "object_sha256": "e46603f52696c9c61ac0aa91d8eedfeefedf5d5e055c10905506f857c4947172",
+  "inputs_sha256": "097dc226467b3b760f7e14706e63da90f8a918553fd778dd0ff631d737fe7dd8",
+  "code_bytes": 527,
+  "noncode_bytes_excluded": 21,
+  "bindings": {
+    "$L10883": 268762096,
+    "_use_merged_upsample": 268761440,
+    "$L8499": 268762013,
+    "$L8500": 268762022,
+    "$L8501": 268762031
+  },
+  "negative_tests": 5,
+  "checker_sha256": "8d77788a10c6b5d557ee57de251c5d41d48b262a398d7a7057f0eb1210fdd787",
+  "fixture_sha256": "dcc5d531c302d9acb1ac6eac637c6e8f5d35f33bcb2b0e5ae57e98d114ca1fba",
+  "base_packet_sha256": "ff61b3a3d5cc444c703c2ec3f1c6bab7f78aa563cd4aa2dbf26009a22cbebfa3",
+  "fixture_cases": 540,
+  "fixture_command": [
+    "cc",
+    "-m32",
+    "-malign-double",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-unused-function",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-D__forceinline=__inline__",
+    "-D__declspec(x)=",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_jpeg_dimensions.c",
+    "-Wl,--gc-sections",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_0rckeoeb/dimensions_fixture32"
+  ],
+  "functions": [
+    {
+      "symbol": "_jpeg_calc_output_dimensions",
+      "address": "0x1004f9e0",
+      "bytes": 527
+    }
+  ],
+  "whole_file_identity": false
+}

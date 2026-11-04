@@ -1,0 +1,1133 @@
+[
+  {
+    "source": "jcapimin.c",
+    "source_sha256": "5d7e394ac763f51bb13d6f049c65888d3b106bf54c01253807647745acdf6eac",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcapimin.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "0002f51d8032ad210d2aa07ff1c4f95133b8e3e54952949118a310b00898c578",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10051320",
+        "symbol": "_jpeg_suppress_tables",
+        "reason": "relocation-site/type mismatch: PE={19: 6}, COFF={}"
+      },
+      {
+        "address": "0x10055d80",
+        "symbol": "_jpeg_suppress_tables",
+        "reason": "incomplete instruction decode"
+      }
+    ]
+  },
+  {
+    "source": "jcapistd.c",
+    "source_sha256": "371517d8285ca47d286be53a6c1bf8f1a0372e12e6e7f7c84b324d7f441b6581",
+    "job": "job001",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcapistd.c",
+      "/FoZ:\\out\\job001.obj"
+    ],
+    "object_sha256": "24cabd3378b211d95d80e4aa92fe4fa49e8523703f21b8ca2d3417225a2b6c31",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jccoefct.c",
+    "source_sha256": "3ae6713a9b2a3fe717703dcdcb37f5dfdf123c19736207b71c132c4e1caa7099",
+    "job": "job002",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jccoefct.c",
+      "/FoZ:\\out\\job002.obj"
+    ],
+    "object_sha256": "235eb205e4c9798ad7f2d1283f048f6ada34d44525445f6cf097e2cfd3310019",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jccolor.c",
+    "source_sha256": "2c2b7417c2da845e5dcd959b4fb6264b8848c0de689d95dcc2a5b407ecaba5b5",
+    "job": "job003",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jccolor.c",
+      "/FoZ:\\out\\job003.obj"
+    ],
+    "object_sha256": "6ed3cb6e35f76109816c88f3d8b525d242dfd8856e128af5e2b0d7a91cf8448a",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jcdctmgr.c",
+    "source_sha256": "58adbdb02c125057964569e56fad59df8dc7d61e751a476006c34e24c030d1dd",
+    "job": "job004",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcdctmgr.c",
+      "/FoZ:\\out\\job004.obj"
+    ],
+    "object_sha256": "ed79c0cb3af253fab28c3b24c8a1a568b23dd87f8e6cc8ac07e52adba4eb0f16",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jchuff.c",
+    "source_sha256": "1255c27a8fae13ad2b53d5fa17697b3b7cdb4983f6bdbf96876326189d2efba0",
+    "job": "job005",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jchuff.c",
+      "/FoZ:\\out\\job005.obj"
+    ],
+    "object_sha256": "cc6fde5fae0f89dbe9ea73aaf154dea0b544774805e3d8647cc1a9c6d417e4a6",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10050080",
+        "symbol": "_finish_pass_huff",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={94: 20}"
+      }
+    ]
+  },
+  {
+    "source": "jcinit.c",
+    "source_sha256": "31aa9f72d8e6250790328512ae9c646b3c2b32887f79fa3df01af7d5345e061c",
+    "job": "job006",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcinit.c",
+      "/FoZ:\\out\\job006.obj"
+    ],
+    "object_sha256": "92cfd35e046b952e209aa26e2bc50009e5ceaf2a6650300d51b29b3c5f8f181a",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jcmainct.c",
+    "source_sha256": "a51f469b02429189ad0c5a52fb2d789d7025c1802b87168a9fe9180fc135c07e",
+    "job": "job007",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcmainct.c",
+      "/FoZ:\\out\\job007.obj"
+    ],
+    "object_sha256": "945ba99e79b66117ccf38b37a2eeebdb9233bd463e82d38cf67eb56b81a7bc17",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x100508f0",
+        "symbol": "_jinit_c_main_controller",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={23: 6}"
+      }
+    ]
+  },
+  {
+    "source": "jcmarker.c",
+    "source_sha256": "c4eadb83aeaa63df9a17364fbddb1df1b96fb1281f2d395dff6ec8371373cfcc",
+    "job": "job008",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcmarker.c",
+      "/FoZ:\\out\\job008.obj"
+    ],
+    "object_sha256": "5d0d68d92f2d58468039ced641fbc7f0f2e42ca0b33994f4b9d656898a12039d",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x100550b0",
+        "symbol": "_emit_marker",
+        "reason": "relocation-site/type mismatch: PE={46: 20}, COFF={}"
+      },
+      {
+        "address": "0x10055120",
+        "symbol": "_emit_marker",
+        "reason": "relocation-site/type mismatch: PE={46: 20}, COFF={}"
+      },
+      {
+        "address": "0x10051320",
+        "symbol": "_emit_2bytes",
+        "reason": "relocation-site/type mismatch: PE={19: 6}, COFF={}"
+      },
+      {
+        "address": "0x10055d80",
+        "symbol": "_emit_2bytes",
+        "reason": "incomplete instruction decode"
+      }
+    ]
+  },
+  {
+    "source": "jcmaster.c",
+    "source_sha256": "44a467046fc8eee886359e1c738fb8289a5bb3533b06de62d332d5b409ddfb2b",
+    "job": "job009",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcmaster.c",
+      "/FoZ:\\out\\job009.obj"
+    ],
+    "object_sha256": "dd66cdc929a0007d569a8771ef901ef90c3ab55576db41365fca5e0f26701814",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jcomapi.c",
+    "source_sha256": "d8a79c2a19310e0bc918324d7174a1e1bc1b9e316f63fd90449abf46c041711d",
+    "job": "job010",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcomapi.c",
+      "/FoZ:\\out\\job010.obj"
+    ],
+    "object_sha256": "e0266e8d9a5b98b77d569d5259efbdc0ef2dd367a2b2d34a13dcf5d923cef5d1",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jcparam.c",
+    "source_sha256": "c24c98d067ba1424a578e91a0ab584533983eafbcc399d681895974225478629",
+    "job": "job011",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcparam.c",
+      "/FoZ:\\out\\job011.obj"
+    ],
+    "object_sha256": "9363837216fab1c2beda02dd351912321d13bd54e0958ca72e1b42145187e29f",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jcphuff.c",
+    "source_sha256": "7a428d6d13f786ba53d200ba96ab1fa3ff9f7dad61737ad96f3ce199b748c367",
+    "job": "job012",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcphuff.c",
+      "/FoZ:\\out\\job012.obj"
+    ],
+    "object_sha256": "024ab8b3ad0f7a3a87c9617ceea3938e2479dabac0afe9146218c67a130e49a7",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10051f90",
+        "symbol": "_emit_symbol",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={42: 20}"
+      },
+      {
+        "address": "0x10057280",
+        "symbol": "_encode_mcu_DC_refine",
+        "reason": "relocation-site/type mismatch: PE={136: 20}, COFF={63: 20, 121: 20}"
+      },
+      {
+        "address": "0x10055e00",
+        "symbol": "_finish_pass_phuff",
+        "reason": "relocation-site/type mismatch: PE={58: 20}, COFF={32: 20, 44: 20}"
+      }
+    ]
+  },
+  {
+    "source": "jcprepct.c",
+    "source_sha256": "4713a51fd7ecb9cc7c7162b30bc26243342361a4e083f43f2afbd10e977a92fc",
+    "job": "job013",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcprepct.c",
+      "/FoZ:\\out\\job013.obj"
+    ],
+    "object_sha256": "b514075ab41e4801076e10c72e41b08904ab30591750c92d1efe66d7d1cc74ae",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10054e90",
+        "symbol": "_jinit_c_prep_controller",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={48: 6, 72: 6, 77: 20, 89: 6}"
+      }
+    ]
+  },
+  {
+    "source": "jcsample.c",
+    "source_sha256": "8e0b73f54bafcd87f7117795de04987eb1a5a3ac74fb8d256833ceb59f8b31d4",
+    "job": "job014",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcsample.c",
+      "/FoZ:\\out\\job014.obj"
+    ],
+    "object_sha256": "ec867f9bc8f582cf06b16c9e2f7319815fe50e5609091fdb80c007b808606ddc",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10051510",
+        "symbol": "_h2v1_downsample",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={45: 20}"
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_h2v1_downsample",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 69: 6, 104: 6, 76: 6, 111: 6, 48: 6, 83: 6, 118: 6, 55: 6, 90: 6, 62: 6}, COFF={45: 20}"
+      }
+    ]
+  },
+  {
+    "source": "jdapimin.c",
+    "source_sha256": "4f6e8865e4ef356b90131327f6fa847fb12e8ef03e823bde946d3e2f9d9356c3",
+    "job": "job015",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdapimin.c",
+      "/FoZ:\\out\\job015.obj"
+    ],
+    "object_sha256": "01d69c6a30c50950e62a9b66d098e05fa6018d8c970274b56671ba395405763e",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jdapistd.c",
+    "source_sha256": "1b062e70e891819f4603f83baf49462ea737255a0c39df3ef941ef543f94fbab",
+    "job": "job016",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdapistd.c",
+      "/FoZ:\\out\\job016.obj"
+    ],
+    "object_sha256": "38ec798aaf408ea30ec76d9d253b41fbb75bba2181ec1178d99b046d1253fc5c",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x100553a0",
+        "symbol": "_jpeg_finish_output",
+        "reason": "byte mismatch +0: PE=51, COFF=56"
+      }
+    ]
+  },
+  {
+    "source": "jdatasrc.c",
+    "source_sha256": "4de71c25304b1c3a2f19f62ba176122db78c4ac7147c2fc3fdf92532dce8f80d",
+    "job": "job017",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdatasrc.c",
+      "/FoZ:\\out\\job017.obj"
+    ],
+    "object_sha256": "c6fdd37c00de42eaef7b61bc9d1e3486c4beef0babe4297e9e210c03aac2dc56",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x100563c0",
+        "symbol": "_skip_input_data",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={30: 20}"
+      }
+    ]
+  },
+  {
+    "source": "jdcoefct.c",
+    "source_sha256": "d84af1a89ea5f91d68607d5620a492f986b7515c141bc3666c5a70dc44df57db",
+    "job": "job018",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdcoefct.c",
+      "/FoZ:\\out\\job018.obj"
+    ],
+    "object_sha256": "61677b7606eb9b67e4be539e33a4073456729b6f5ba5e2189acf6a2098b57fa4",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10054d40",
+        "symbol": "_jinit_d_coef_controller",
+        "reason": "relocation-site/type mismatch: PE={155: 6, 164: 6}, COFF={38: 6, 45: 6, 111: 20, 128: 20, 188: 6, 195: 6, 312: 6, 319: 6}"
+      }
+    ]
+  },
+  {
+    "source": "jdcolor.c",
+    "source_sha256": "de64bfa0416fa45c8a55cec82c7da468b329c3c3fc9cc55eb5f56509a80332cf",
+    "job": "job019",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdcolor.c",
+      "/FoZ:\\out\\job019.obj"
+    ],
+    "object_sha256": "f2ec7b77bb630f66e3ec5a17145401a618118d11bc2a7faabe676fc1e79ab60f",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10050080",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "byte mismatch +12: PE=a8, COFF=c8"
+      },
+      {
+        "address": "0x10050600",
+        "symbol": "_null_convert",
+        "reason": "relocation-site/type mismatch: PE={68: 6, 101: 6, 108: 6, 23: 6, 61: 6, 91: 20, 116: 20}, COFF={}"
+      }
+    ]
+  },
+  {
+    "source": "jddctmgr.c",
+    "source_sha256": "f50d9b1414b44782d4ef46761a53f930b06764468b4cbbf0bf0761ac0751defd",
+    "job": "job020",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jddctmgr.c",
+      "/FoZ:\\out\\job020.obj"
+    ],
+    "object_sha256": "c093b2c1f03972e2a1b4218eb05578108a199f44a8ad3905792b9ba51e7e3d82",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jdhuff.c",
+    "source_sha256": "980d1bdeb8bc631a3528560a4f01bfae28efd8f3ecce4a76d32c97a71e6d1f52",
+    "job": "job021",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdhuff.c",
+      "/FoZ:\\out\\job021.obj"
+    ],
+    "object_sha256": "fafc7516f2de6006ec2f850b7650ca9aa40303dc2bf68fa1be2ca5da09466c2d",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jdinput.c",
+    "source_sha256": "f1f6b042aa907fe622aa7c94b21d71e61f7f306e10988148c42cc7d50f667e76",
+    "job": "job022",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdinput.c",
+      "/FoZ:\\out\\job022.obj"
+    ],
+    "object_sha256": "1bc140f34c638bdb79320d89dd3fc4ecf52040c4678c646ab387a25e023edafb",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jdmainct.c",
+    "source_sha256": "f9a8331d0a58f6ae74bbfc27e9640d66afb067793586358e0bb47bdb7cb754df",
+    "job": "job023",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdmainct.c",
+      "/FoZ:\\out\\job023.obj"
+    ],
+    "object_sha256": "983577715394cb8c6bf1adab540d48eb423db873895fc632ee497be42f43ce3f",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10051510",
+        "symbol": "_set_bottom_pointers",
+        "reason": "byte mismatch +0: PE=53, COFF=51"
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_set_bottom_pointers",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 69: 6, 104: 6, 76: 6, 111: 6, 48: 6, 83: 6, 118: 6, 55: 6, 90: 6, 62: 6}, COFF={}"
+      }
+    ]
+  },
+  {
+    "source": "jdmarker.c",
+    "source_sha256": "1200c42679f318768025f8e45457d02c5ce5dfecbd72b37dc0bd1da9adb4dba0",
+    "job": "job024",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdmarker.c",
+      "/FoZ:\\out\\job024.obj"
+    ],
+    "object_sha256": "8238cd06f0979dfbab10e3ec314a486f17592513a99f8cd0531f80b015193c4d",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10051510",
+        "symbol": "_skip_variable",
+        "reason": "byte mismatch +1: PE=56, COFF=55"
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_skip_variable",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 69: 6, 104: 6, 76: 6, 111: 6, 48: 6, 83: 6, 118: 6, 55: 6, 90: 6, 62: 6}, COFF={}"
+      },
+      {
+        "address": "0x10055e00",
+        "symbol": "_jpeg_set_marker_processor",
+        "reason": "relocation-site/type mismatch: PE={58: 20}, COFF={}"
+      }
+    ]
+  },
+  {
+    "source": "jdmaster.c",
+    "source_sha256": "c9f18a007511047a50db0b14c54e4d88c279571ec36824b70c3c20232ef7a8fe",
+    "job": "job025",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdmaster.c",
+      "/FoZ:\\out\\job025.obj"
+    ],
+    "object_sha256": "00534590c0da971385613d60ecdbd67740497cf75b3949d430de811d1cce2d81",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10051f90",
+        "symbol": "_jinit_master_decompress",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={26: 6, 33: 6, 45: 20}"
+      }
+    ]
+  },
+  {
+    "source": "jdmerge.c",
+    "source_sha256": "a47ca108ebf955104abbe3f9a64383532be2c70c6f956b5844b412f151f50453",
+    "job": "job026",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdmerge.c",
+      "/FoZ:\\out\\job026.obj"
+    ],
+    "object_sha256": "bc7d2bc0c258cfc3a39fd10ab6db5067fd57a5a4a45e294afad4614573abce86",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10050080",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "byte mismatch +12: PE=a8, COFF=c4"
+      },
+      {
+        "address": "0x10050280",
+        "symbol": "_h2v1_merged_upsample",
+        "reason": "byte mismatch +11: PE=a8, COFF=c4"
+      },
+      {
+        "address": "0x100503d0",
+        "symbol": "_h2v2_merged_upsample",
+        "reason": "byte mismatch +11: PE=a8, COFF=c4"
+      }
+    ]
+  },
+  {
+    "source": "jdphuff.c",
+    "source_sha256": "75db83bd4bf1f3f6f6fe7b1d2e195efcf5e3ab65597089807aaeeffbdb013627",
+    "job": "job027",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdphuff.c",
+      "/FoZ:\\out\\job027.obj"
+    ],
+    "object_sha256": "7171785b6d6f48e05005b78b1d9d2fbcbfd6d6949d6301476aad92f3c2caf304",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jdpostct.c",
+    "source_sha256": "f873dd3a08eedee9a32c1e343cfbdc3380d2e245e1eab2c416d4e1a62cc9586e",
+    "job": "job028",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdpostct.c",
+      "/FoZ:\\out\\job028.obj"
+    ],
+    "object_sha256": "ebd5dcb7accc6cda5795f10ea44f73abe2d829831fd6dc63cae65a2be240d2a9",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10051510",
+        "symbol": "_post_process_prepass",
+        "reason": "byte mismatch +9: PE=94, COFF=b0"
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_post_process_prepass",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 69: 6, 104: 6, 76: 6, 111: 6, 48: 6, 83: 6, 118: 6, 55: 6, 90: 6, 62: 6}, COFF={}"
+      },
+      {
+        "address": "0x100515b0",
+        "symbol": "_post_process_2pass",
+        "reason": "byte mismatch +9: PE=94, COFF=b0"
+      },
+      {
+        "address": "0x10057630",
+        "symbol": "_post_process_2pass",
+        "reason": "byte mismatch +0: PE=8b, COFF=53"
+      }
+    ]
+  },
+  {
+    "source": "jdsample.c",
+    "source_sha256": "acca64d28c61b87e77993dd0bd51d089ecd68f8989f93e7d17156314ca58670d",
+    "job": "job029",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdsample.c",
+      "/FoZ:\\out\\job029.obj"
+    ],
+    "object_sha256": "3aa2cbe7c36c521a8ddc0d8f4ee7e2bcb0452a1151b19ea236d204ca45357c55",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10051700",
+        "symbol": "_sep_upsample",
+        "reason": "byte mismatch +10: PE=a8, COFF=c4"
+      },
+      {
+        "address": "0x10057840",
+        "symbol": "_h2v2_fancy_upsample",
+        "reason": "relocation-site/type mismatch: PE={28: 6, 21: 6, 290: 20}, COFF={}"
+      }
+    ]
+  },
+  {
+    "source": "jerror.c",
+    "source_sha256": "f215cc7948e628f4b3bf1f153ce1f460a65b0c4f9b5d4967e9cdc7ad95a3e265",
+    "job": "job030",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jerror.c",
+      "/FoZ:\\out\\job030.obj"
+    ],
+    "object_sha256": "2b3ab4ab308ba02f9f6c29c22081ea4caf249b9485859f725e97d049fbdae9b4",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10054f50",
+        "symbol": "_format_message",
+        "reason": "relocation-site/type mismatch: PE={75: 20, 125: 20}, COFF={131: 20, 157: 20}"
+      },
+      {
+        "address": "0x10055000",
+        "symbol": "_format_message",
+        "reason": "relocation-site/type mismatch: PE={78: 20, 131: 20}, COFF={131: 20, 157: 20}"
+      }
+    ]
+  },
+  {
+    "source": "jfdctflt.c",
+    "source_sha256": "07c7ec15785f5709515424da1b45deacfa822197b761e319f45fbaa45e17caf9",
+    "job": "job031",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jfdctflt.c",
+      "/FoZ:\\out\\job031.obj"
+    ],
+    "object_sha256": "831b55e435a0fcdc89fb7f66087ae01c00fad383338eb1d614f3678820a69c7a",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10052180",
+        "symbol": "_jpeg_fdct_float",
+        "bytes": 4405,
+        "diagnostics": "UNRESOLVED binding +106: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +150: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +158: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +170: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +189: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +345: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +389: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +397: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +409: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +428: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +584: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +628: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +636: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +648: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +667: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +823: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +867: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +875: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +887: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +906: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +1116: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +1166: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +1174: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +1186: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +1205: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +1427: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +1477: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +1485: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +1497: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +1516: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +1738: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +1788: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +1796: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +1808: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +1827: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +2049: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +2099: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +2107: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +2119: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +2138: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +2330: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +2377: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +2385: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +2397: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +2416: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +2605: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +2652: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +2660: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +2672: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +2691: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +2880: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +2927: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +2935: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +2947: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +2966: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +3155: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +3202: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +3210: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +3222: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +3241: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +3430: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +3477: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +3485: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +3497: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +3516: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +3705: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +3752: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +3760: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +3772: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +3791: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +3980: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +4027: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +4035: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +4047: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +4066: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +4255: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nUNRESOLVED binding +4302: target=0x1019bcd4, COFF=__real@3ec3ef15 addend=0x00000000\nUNRESOLVED binding +4310: target=0x1019bcd0, COFF=__real@3f0a8bd4 addend=0x00000000\nUNRESOLVED binding +4322: target=0x1019bccc, COFF=__real@3fa73d75 addend=0x00000000\nUNRESOLVED binding +4341: target=0x1019bcd8, COFF=__real@3f3504f3 addend=0x00000000\nSHAPE MATCH: FUN_10052180, 4405 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "source": "jfdctfst.c",
+    "source_sha256": "1c28ec690d4a69bdc285eac01bef668e31866ad0018fe9b4f68bcdce8a9ec044",
+    "job": "job032",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jfdctfst.c",
+      "/FoZ:\\out\\job032.obj"
+    ],
+    "object_sha256": "d62ce3664d276d8049b610f87122b0f15ff97b45a31f10241dc7b2c04f256fdb",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jfdctint.c",
+    "source_sha256": "807dd95d59692db94d2fa23557d8a16e2a20cb4d851ba5a82f26fa1a674b52c8",
+    "job": "job033",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jfdctint.c",
+      "/FoZ:\\out\\job033.obj"
+    ],
+    "object_sha256": "af6194ddec2188c1b957e1c45000eb5283805857b59014ff6d26227f630f3dd0",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100534d0",
+        "symbol": "_jpeg_fdct_islow",
+        "bytes": 814,
+        "diagnostics": "SHAPE MATCH: FUN_100534d0, 814 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "source": "jidctflt.c",
+    "source_sha256": "0988f6ba29f57b691dabdd3f0541839fb651dc74abd36c395130b12a30937155",
+    "job": "job034",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jidctflt.c",
+      "/FoZ:\\out\\job034.obj"
+    ],
+    "object_sha256": "5615d8f7722bb182b3e2166b24e9687fb87796fc7acad38f2bb49aaf1fd9526e",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jidctfst.c",
+    "source_sha256": "c864b3dcfe494f9c8bda25a6fa5fc0a330e636b32eb4bcb6febe8cb01ed1d433",
+    "job": "job035",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jidctfst.c",
+      "/FoZ:\\out\\job035.obj"
+    ],
+    "object_sha256": "2c03e66fa00478d424952a74eb7b342172a54e656d23404b9051194ea6683d01",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jidctint.c",
+    "source_sha256": "3b7123ba9a66c10eb1f96d7432637b051278f3538d1b06884f9d21a39fd78f9a",
+    "job": "job036",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jidctint.c",
+      "/FoZ:\\out\\job036.obj"
+    ],
+    "object_sha256": "f0eb519af0497a110673700544a13a271f4c5661f6a71d64d344eea2e8d9b916",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jidctred.c",
+    "source_sha256": "df25adc646b0fdd69aed54361928aeb36972a8293c917f8ec1b0d62e8f764252",
+    "job": "job037",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jidctred.c",
+      "/FoZ:\\out\\job037.obj"
+    ],
+    "object_sha256": "068ca0462edfad47a1e7f688bc9684830866e751f969c8af5ddf4ecb831fabea",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10054870",
+        "symbol": "_jpeg_idct_2x2",
+        "reason": "byte mismatch +9: PE=28, COFF=44"
+      }
+    ]
+  },
+  {
+    "source": "jmemmgr.c",
+    "source_sha256": "2b57e48bb6dd369c2d46e5827cd1e2553d50e02b062d94c2c17725ca26b642e3",
+    "job": "job038",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jmemmgr.c",
+      "/FoZ:\\out\\job038.obj"
+    ],
+    "object_sha256": "51cedd26f2ba19088c4b714db676d44abe02a3a168bf039db5ae03b1be3dc792",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10054f50",
+        "symbol": "_alloc_sarray",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +75: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +125: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nSHAPE MATCH: FUN_10054f50, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "address": "0x10055000",
+        "symbol": "_alloc_barray",
+        "bytes": 167,
+        "diagnostics": "UNRESOLVED binding +78: target=0x10054d40, COFF=_alloc_small addend=0x00000000\nUNRESOLVED binding +131: target=0x10054e90, COFF=_alloc_large addend=0x00000000\nSHAPE MATCH: FUN_10055000, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10055000",
+        "symbol": "_alloc_sarray",
+        "reason": "relocation-site/type mismatch: PE={78: 20, 131: 20}, COFF={75: 20, 125: 20}"
+      },
+      {
+        "address": "0x10054f50",
+        "symbol": "_alloc_barray",
+        "reason": "relocation-site/type mismatch: PE={75: 20, 125: 20}, COFF={78: 20, 131: 20}"
+      },
+      {
+        "address": "0x10055300",
+        "symbol": "_do_sarray_io",
+        "reason": "byte mismatch +7: PE=18, COFF=08"
+      },
+      {
+        "address": "0x10056520",
+        "symbol": "_do_sarray_io",
+        "reason": "relocation-site/type mismatch: PE={37: 6, 30: 6, 23: 6, 120: 20, 126: 20, 142: 20}, COFF={}"
+      },
+      {
+        "address": "0x100553a0",
+        "symbol": "_do_barray_io",
+        "reason": "byte mismatch +7: PE=18, COFF=08"
+      }
+    ]
+  },
+  {
+    "source": "jmemnobs.c",
+    "source_sha256": "0605c64556d298071473fc245fa9d83cf10b60022d5c5d2821a846b94aa1a9fb",
+    "job": "job039",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jmemnobs.c",
+      "/FoZ:\\out\\job039.obj"
+    ],
+    "object_sha256": "cd7351fd4d067af82ec6418d76bc3a3de02309c433426b9e2913d5c28cf1e5df",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "jquant1.c",
+    "source_sha256": "556df5715cf5d915e5190066ff4e542a9911b651e45b34d322a6f6c2b0098fbc",
+    "job": "job040",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jquant1.c",
+      "/FoZ:\\out\\job040.obj"
+    ],
+    "object_sha256": "317ebfb88fdc6ee6b133257295d6c9ebe9ff0320eff503c4416e054ef19d4729",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10055a90",
+        "symbol": "_create_colormap",
+        "reason": "byte mismatch +13: PE=b0, COFF=cc"
+      },
+      {
+        "address": "0x10055e00",
+        "symbol": "_create_odither_tables",
+        "reason": "byte mismatch +2: PE=6c, COFF=78"
+      },
+      {
+        "address": "0x10055f00",
+        "symbol": "_color_quantize3",
+        "reason": "byte mismatch +9: PE=b0, COFF=cc"
+      },
+      {
+        "address": "0x100563c0",
+        "symbol": "_alloc_fs_workspace",
+        "reason": "byte mismatch +2: PE=6c, COFF=78"
+      }
+    ]
+  },
+  {
+    "source": "jquant2.c",
+    "source_sha256": "9b6844e18480d7003618e8f473a0900743d15fc8516aee7229a77adce470eb0b",
+    "job": "job041",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jquant2.c",
+      "/FoZ:\\out\\job041.obj"
+    ],
+    "object_sha256": "f1aabd10dfbd66cf9c3f6577ff54302f33189dc56f3a80adfbd15cc252e3bd5d",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10055190",
+        "symbol": "_median_cut",
+        "reason": "relocation-site/type mismatch: PE={202: 20, 320: 20}, COFF={301: 20, 309: 20}"
+      },
+      {
+        "address": "0x10056a90",
+        "symbol": "_median_cut",
+        "reason": "byte mismatch +11: PE=57, COFF=8b"
+      },
+      {
+        "address": "0x10057160",
+        "symbol": "_fill_inverse_cmap",
+        "reason": "byte mismatch +35: PE=b0, COFF=cc"
+      },
+      {
+        "address": "0x10057280",
+        "symbol": "_pass2_no_dither",
+        "reason": "byte mismatch +9: PE=b0, COFF=cc"
+      },
+      {
+        "address": "0x100515b0",
+        "symbol": "_init_error_limit",
+        "reason": "byte mismatch +0: PE=53, COFF=8b"
+      },
+      {
+        "address": "0x10057630",
+        "symbol": "_init_error_limit",
+        "reason": "byte mismatch +6: PE=b0, COFF=cc"
+      },
+      {
+        "address": "0x10051ae0",
+        "symbol": "_start_pass_2_quant",
+        "reason": "incomplete instruction decode"
+      }
+    ]
+  },
+  {
+    "source": "jutils.c",
+    "source_sha256": "75c6cc55bc22796213eb1e52fc8da92d6fd37b5706ea7b10774a04a6407efc62",
+    "job": "job042",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jutils.c",
+      "/FoZ:\\out\\job042.obj"
+    ],
+    "object_sha256": "0df80af5a5eb366a4d95df68c1a31ca4e39b21b7849980e3c6af56cb13e28b6d",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  }
+]

@@ -1,0 +1,84 @@
+{
+  "status": "SOURCE-CLUSTER-LINK-PROBE-PASS",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "wine",
+    "/opt/msvc710/Vc7/bin/link.exe",
+    "/DLL",
+    "/NOENTRY",
+    "/NODEFAULTLIB",
+    "/MACHINE:X86",
+    "/OPT:NOREF",
+    "/OPT:NOICF",
+    "/BASE:0x10000000",
+    "/FILEALIGN:4096",
+    "/EXPORT:Wavelet_DecompressLevel",
+    "/OUT:Z:\\out\\wavelet.dll",
+    "/IMPLIB:Z:\\out\\wavelet.lib",
+    "/MAP:Z:\\out\\wavelet.map",
+    "Z:\\functions\\job000.obj",
+    "Z:\\tables\\tables.obj"
+  ],
+  "functions_object_sha256": "f5c7d31cf8adb8ac74fd8fd8be7987ffdfe08c1da449128830ea8da6b1e47ae1",
+  "table_proof": {
+    "status": "COMPILED-TYPED-INITIALIZERS-MATCH",
+    "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+    "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+    "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_wavelet_data_al1cp9w1",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\out\\tables.c",
+      "/FoZ:\\out\\tables.obj"
+    ],
+    "tables": [
+      {
+        "symbol": "_waveletDecodeBlue",
+        "address": "0x10182988",
+        "bytes": 16384,
+        "object_offset": 0,
+        "sha256": "eb0c8f4bab629e9aa33f153affa7862a151b6c55ce69fd15ed3e7729bda30ad9"
+      },
+      {
+        "symbol": "_waveletDecodeRedGreen",
+        "address": "0x10186988",
+        "bytes": 16384,
+        "object_offset": 16384,
+        "sha256": "b00e631c4d070f71e48ef71ef752b62c3ff46b89a816964bf65c1021da21b297"
+      },
+      {
+        "symbol": "_waveletDecodeAlpha",
+        "address": "0x1018a988",
+        "bytes": 16384,
+        "object_offset": 32768,
+        "sha256": "c2a276ead30ca8c78ea09ac719d6e94c1b7dc84e29eb5ac00fab273acdaee346"
+      }
+    ],
+    "bytes": 49152,
+    "reference": "/home/nawaf/cod2/test/dev/refrences/cod2-mp-macho/rodata.c",
+    "reference_sha256": "9347b70bb8e18d5d5422edead3bc74ab65681729233b52637ee91be5c1fc3530",
+    "header_sha256": "6795423859af285d9f66712a9c286a4bf4d37e7cb9200cb3f4b3818c291076ec",
+    "generated_source_sha256": "13a6ff1b5cd30478693c13fc57aa23169325119943ffa0eb42d5e4efb3740d73",
+    "object_sha256": "e3953f2b06ed734f27ad2f6c3f5c773c66cc0c8b3dc0576b0a0c5b4a272893c6",
+    "redistributable_provenance_reviewed": false,
+    "independent_review": false,
+    "whole_file_identity": false
+  },
+  "symbols": {
+    "_Wavelet_DecompressLevel": "0x10001260",
+    "_waveletDecodeBlue": "0x10002000",
+    "_waveletDecodeRedGreen": "0x10006000",
+    "_waveletDecodeAlpha": "0x1000a000"
+  },
+  "dll_sha256": "f69df6a05bd872eb39b7fd46733b527e58cfde84f3c1b4284c9343893951eb74",
+  "dll": "/home/nawaf/cod2/test/dev/codex/renderer/link_probe_wavelet__wtd6zwl/wavelet.dll",
+  "retail_layout": false,
+  "retail_symbol_ownership": false,
+  "unmatched_decoder_included": true,
+  "whole_file_identity": false,
+  "runtime_smoke": false
+}

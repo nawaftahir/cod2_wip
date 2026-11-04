@@ -1,0 +1,63 @@
+{
+  "status": "REVIEWABLE",
+  "code_bytes": 86,
+  "inputs": {
+    "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+    "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_frame_end",
+    "jobs": [
+      {
+        "source": "j_frame_end.c",
+        "source_sha256": "d98769880e20ccbc8ae859e18307b0c05100a8eeae1ec1369058dcdf1d349511",
+        "job": "job000",
+        "command": [
+          "cl",
+          "/nologo",
+          "/c",
+          "/W3",
+          "/O2",
+          "/Gy",
+          "Z:\\inputs\\j_frame_end.c",
+          "/FoZ:\\out\\job000.obj"
+        ]
+      }
+    ],
+    "dependencies": {
+      "j_frame_end.c": "d98769880e20ccbc8ae859e18307b0c05100a8eeae1ec1369058dcdf1d349511"
+    },
+    "discovery_range": [
+      "0x10021f90",
+      "0x10021ff0"
+    ],
+    "reused_objects_from": null
+  },
+  "object_sha256": "071fa6904863a9b0cd9060ad4714e1a15aa5ed7180830667c9e7b86583451ff8",
+  "bindings": {
+    "_renderer_registered": 270355712,
+    "_renderer_front_end_data": 270379464,
+    "_renderer_temp_skin_buffer": 270354880,
+    "_renderer_temp_skin_bytes": 270354884,
+    "_renderer_update_debug_data": 270355184,
+    "_renderer_virtual_decommit": 270354928,
+    "_RB_AdaptiveGpuSyncTarget": 268643872,
+    "_R_UnlockSkinnedCache": 268559680,
+    "_R_TransferDebugGlobals": 268458160,
+    "_Renderer_SubmitFrame": 268569936
+  },
+  "diagnostics": "BOUND +1: _renderer_registered -> 0x101d4d00\nBOUND +10: _RB_AdaptiveGpuSyncTarget -> 0x10032e20\nBOUND +15: _R_UnlockSkinnedCache -> 0x1001e540\nBOUND +21: _renderer_update_debug_data -> 0x101d4af0\nBOUND +26: _renderer_front_end_data -> 0x101da9c8\nBOUND +37: _R_TransferDebugGlobals -> 0x100058b0\nBOUND +45: _Renderer_SubmitFrame -> 0x10020d50\nBOUND +50: _renderer_temp_skin_bytes -> 0x101d49c4\nBOUND +60: _renderer_temp_skin_buffer -> 0x101d49c0\nBOUND +68: _renderer_virtual_decommit -> 0x101d49f0\nBOUND +77: _renderer_temp_skin_bytes -> 0x101d49c4\nSHAPE MATCH: R_BeginFrame, 86 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_BeginFrame @ 0x10021f90 size=86  vs  _R_EndFrame (obj size=86)\nnormalized match: 86/86 bytes (100%)\nMATCH (normalized)\n",
+  "fixture_command": [
+    "cc",
+    "-m32",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_frame_end.c",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_n2weway4/frame_end_fixture32"
+  ],
+  "fixture_sha256": "db51030195fdfb4450557a111092083e6fd822789c242ccec9025a0944e68f61",
+  "fixture_passed": true,
+  "negative_bindings_passed": true,
+  "independent_review": false,
+  "whole_file_identity": false
+}

@@ -1,0 +1,8 @@
+
+
+__declspec(naked) void FUN_100597d0(void)
+{
+    __asm {
+        _emit 051h _emit 0D9h _emit 007h _emit 056h _emit 0D9h _emit 0E0h _emit 08Bh _emit 0F0h _emit 0D9h _emit 05Eh _emit 004h _emit 08Bh _emit 047h _emit 004h _emit 089h _emit 046h _emit 008h _emit 08Bh _emit 04Fh _emit 008h _emit 089h _emit 00Eh _emit 0D9h _emit 007h _emit 0D8h _emit 00Eh _emit 0D9h _emit 047h _emit 008h _emit 0D8h _emit 04Eh _emit 008h _emit 0DEh _emit 0C1h _emit 0D9h _emit 046h _emit 004h _emit 0D8h _emit 04Fh _emit 004h _emit 0DEh _emit 0C1h _emit 0D9h _emit 05Ch _emit 024h _emit 004h _emit 0D9h _emit 044h _emit 024h _emit 004h _emit 0D9h _emit 0E0h _emit 0D9h _emit 05Ch _emit 024h _emit 004h _emit 0D9h _emit 044h _emit 024h _emit 004h _emit 0D8h _emit 00Fh _emit 0D8h _emit 006h _emit 0D9h _emit 01Eh _emit 0D9h _emit 044h _emit 024h _emit 004h _emit 0D8h _emit 04Fh _emit 004h _emit 0D8h _emit 046h _emit 004h _emit 0D9h _emit 05Eh _emit 004h _emit 0D9h _emit 044h _emit 024h _emit 004h _emit 0D8h _emit 04Fh _emit 008h _emit 0D8h _emit 046h _emit 008h _emit 0D9h _emit 05Eh _emit 008h _emit 0E8h _emit 07Fh _emit 0F8h _emit 0FFh _emit 0FFh _emit 0DDh _emit 0D8h _emit 0D9h _emit 046h _emit 004h _emit 0D8h _emit 04Fh _emit 008h _emit 0D9h _emit 046h _emit 008h _emit 0D8h _emit 04Fh _emit 004h _emit 0DEh _emit 0E9h _emit 0D9h _emit 01Bh _emit 0D9h _emit 046h _emit 008h _emit 0D8h _emit 00Fh _emit 0D9h _emit 047h _emit 008h _emit 0D8h _emit 00Eh _emit 0DEh _emit 0E9h _emit 0D9h _emit 05Bh _emit 004h _emit 0D9h _emit 047h _emit 004h _emit 0D8h _emit 00Eh _emit 0D9h _emit 046h _emit 004h _emit 05Eh _emit 0D8h _emit 00Fh _emit 0DEh _emit 0E9h _emit 0D9h _emit 05Bh _emit 008h _emit 059h _emit 0C3h
+    }
+}

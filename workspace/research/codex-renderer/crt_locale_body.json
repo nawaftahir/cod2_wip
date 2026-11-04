@@ -1,0 +1,40 @@
+{
+  "status": "FULL-BODY-SHAPE-MATCH",
+  "function": "__setlocale_get_all",
+  "start": "0x100f7cf3",
+  "end": "0x100f7db2",
+  "bytes": 191,
+  "old_ranges": [
+    {
+      "start": "0x100f7cf3",
+      "bytes": 35
+    },
+    {
+      "start": "0x100f7d16",
+      "bytes": 156
+    }
+  ],
+  "source": "crt71/setlocal.c",
+  "source_sha256": "fbbd104932ea766be6294f790f9384938e0b2a5673cacee6af966f242d808831",
+  "object_sha256": "ea52ad16e148b07b34d156e9695437d6b6e786cc4935a0a1c149fe992c39638c",
+  "flags": [
+    "/Zelp8",
+    "/GFy",
+    "/DWIN32",
+    "/GB",
+    "/Gi-",
+    "/GS",
+    "/Zc:wchar_t",
+    "/Zc:forScope",
+    "/DWIN32_LEAN_AND_MEAN",
+    "/DNOSERVICE",
+    "/D_MBCS",
+    "/D_MB_MAP_DIRECT",
+    "/D_CRTBLD",
+    "/DWINHEAP",
+    "/O1",
+    "/IZ:\\inputs\\crt71"
+  ],
+  "diagnostics": "UNRESOLVED binding +1: target=0x101a47c4, COFF=___lc_category addend=0x00000004\nUNRESOLVED binding +19: target=0x100fc464, COFF=_malloc addend=0x00000000\nUNRESOLVED binding +27: target=0x101a47c4, COFF=___lc_category addend=0x00000004\nUNRESOLVED binding +43: target=0x101a47d0, COFF=___lc_category addend=0x00000010\nUNRESOLVED binding +48: target=0x1019563c, COFF=??_C@_01NEMOKFLO@?$DN?$AA@ addend=0x00000000\nUNRESOLVED binding +55: target=0x101a47cc, COFF=___lc_category addend=0x0000000c\nUNRESOLVED binding +63: target=0x101a47c4, COFF=___lc_category addend=0x00000004\nUNRESOLVED binding +68: target=0x100f7b6a, COFF=__strcats addend=0x00000000\nUNRESOLVED binding +73: target=0x101a47d0, COFF=___lc_category addend=0x00000010\nUNRESOLVED binding +83: target=0x10195820, COFF=??_C@_01ICJEACDI@?$DL?$AA@ addend=0x00000000\nUNRESOLVED binding +89: target=0x101a47c4, COFF=___lc_category addend=0x00000004\nUNRESOLVED binding +94: target=0x100fe8a0, COFF=_strcat addend=0x00000000\nUNRESOLVED binding +106: target=0x101003a0, COFF=_strcmp addend=0x00000000\nUNRESOLVED binding +131: target=0x101a47c4, COFF=___lc_category addend=0x00000004\nUNRESOLVED binding +136: target=0x100f7b6a, COFF=__strcats addend=0x00000000\nUNRESOLVED binding +145: target=0x101a4800, COFF=___lc_category addend=0x00000040\nUNRESOLVED binding +159: target=0x101a47c4, COFF=___lc_category addend=0x00000004\nUNRESOLVED binding +167: target=0x101a47c4, COFF=___lc_category addend=0x00000004\nUNRESOLVED binding +172: target=0x100f84d0, COFF=_free addend=0x00000000\nUNRESOLVED binding +178: target=0x101a47c4, COFF=___lc_category addend=0x00000004\nUNRESOLVED binding +184: target=0x101a47dc, COFF=___lc_category addend=0x0000001c\nSHAPE MATCH: FUN_100f7cf3, 191 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+  "bindings_reviewed": false
+}

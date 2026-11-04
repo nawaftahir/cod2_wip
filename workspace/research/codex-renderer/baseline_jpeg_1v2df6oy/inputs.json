@@ -1,0 +1,30 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/wavelet_delta_order",
+  "jobs": [
+    {
+      "source": "j_wavelet.c",
+      "source_sha256": "2f66328ff761cc4cf1f745713f0a7d33776b0cd25d0348a8af0a236354ebe8ba",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_wavelet.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "j_wavelet.c": "2f66328ff761cc4cf1f745713f0a7d33776b0cd25d0348a8af0a236354ebe8ba",
+    "common_types.h": "6795423859af285d9f66712a9c286a4bf4d37e7cb9200cb3f4b3818c291076ec"
+  },
+  "discovery_range": [
+    "0x10010ba0",
+    "0x10011300"
+  ],
+  "reused_objects_from": null
+}

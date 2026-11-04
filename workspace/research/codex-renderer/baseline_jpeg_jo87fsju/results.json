@@ -1,0 +1,452 @@
+[
+  {
+    "source": "jcmainct.c",
+    "source_sha256": "bf1d28911fd7fb887af345beb285c5302a1cad4d66775268ff90e7b5edbc9745",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcmainct.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "c4724862ae8dcdb22b3b89c1fde6adbe7c4586d7323bc0b2ba73209449df8ac9",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10045ac0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={}"
+      },
+      {
+        "address": "0x10040d40",
+        "symbol": "_process_data_simple_main",
+        "reason": "relocation-site/type mismatch: PE={105: 6, 21: 6, 60: 6, 5: 6}, COFF={}"
+      },
+      {
+        "address": "0x100508f0",
+        "symbol": "_jinit_c_main_controller",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={23: 6}"
+      }
+    ]
+  },
+  {
+    "source": "jdcoefct.c",
+    "source_sha256": "c3eb9e313cf3a5e1a6e909143ad889a2295d68efab3b19b56f2e8ef6fbf3eb62",
+    "job": "job001",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdcoefct.c",
+      "/FoZ:\\out\\job001.obj"
+    ],
+    "object_sha256": "17da2a1d11c38b1d9af38b46a595b6cfa2239491e4c42b68d93c064c8dc311cd",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1004aae0",
+        "symbol": "_decompress_onepass",
+        "bytes": 679,
+        "diagnostics": "SHAPE MATCH: FUN_1004aae0, 679 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004aae0 @ 0x1004aae0 size=679  vs  _decompress_onepass (obj size=679)\nnormalized match: 679/679 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 667,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004ada0",
+        "symbol": "_consume_data",
+        "bytes": 552,
+        "diagnostics": "SHAPE MATCH: FUN_1004ada0, 552 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004ada0 @ 0x1004ada0 size=552  vs  _consume_data (obj size=552)\nnormalized match: 552/552 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 549,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004afd0",
+        "symbol": "_decompress_data",
+        "bytes": 417,
+        "diagnostics": "SHAPE MATCH: FUN_1004afd0, 417 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004afd0 @ 0x1004afd0 size=417  vs  _decompress_data (obj size=417)\nnormalized match: 417/417 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 409,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004b180",
+        "symbol": "_smoothing_ok",
+        "bytes": 359,
+        "diagnostics": "SHAPE MATCH: FUN_1004b180, 359 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004b180 @ 0x1004b180 size=359  vs  _smoothing_ok (obj size=359)\nnormalized match: 359/359 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 359,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004b2f0",
+        "symbol": "_decompress_smooth_data",
+        "bytes": 1612,
+        "diagnostics": "SHAPE MATCH: FUN_1004b2f0, 1612 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004b2f0 @ 0x1004b2f0 size=1612  vs  _decompress_smooth_data (obj size=1612)\nnormalized match: 1612/1612 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1606,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10045ac0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={}"
+      },
+      {
+        "address": "0x100458d0",
+        "symbol": "_jinit_d_coef_controller",
+        "reason": "relocation-site/type mismatch: PE={11: 20, 24: 20, 269: 20, 276: 20, 281: 20}, COFF={45: 6, 52: 6, 217: 6, 224: 6, 344: 6, 351: 6}"
+      }
+    ]
+  },
+  {
+    "source": "jdcolor.c",
+    "source_sha256": "2d289912d1958003a42e7f1dcfee785c609b265e860ee2639fa3e4f499e3219e",
+    "job": "job002",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdcolor.c",
+      "/FoZ:\\out\\job002.obj"
+    ],
+    "object_sha256": "7b5a29473b6ac9dd66ee452501710d486ac7cac3860e524cfaf302cbaa915b52",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1004bb80",
+        "symbol": "_ycc_rgb_convert",
+        "bytes": 286,
+        "diagnostics": "SHAPE MATCH: FUN_1004bb80, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004bb80 @ 0x1004bb80 size=286  vs  _ycc_rgb_convert (obj size=286)\nnormalized match: 286/286 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 286,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004bca0",
+        "symbol": "_null_convert",
+        "bytes": 120,
+        "diagnostics": "SHAPE MATCH: FUN_1004bca0, 120 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004bca0 @ 0x1004bca0 size=120  vs  _null_convert (obj size=120)\nnormalized match: 120/120 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 120,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004bdb0",
+        "symbol": "_ycck_cmyk_convert",
+        "bytes": 330,
+        "diagnostics": "SHAPE MATCH: FUN_1004bdb0, 330 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004bdb0 @ 0x1004bdb0 size=330  vs  _ycck_cmyk_convert (obj size=330)\nnormalized match: 330/330 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 330,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10045ac0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={}"
+      },
+      {
+        "address": "0x10044520",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "relocation-site/type mismatch: PE={94: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004bab0",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "original referee differs"
+      },
+      {
+        "address": "0x10050080",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "byte mismatch +12: PE=a8, COFF=ac"
+      },
+      {
+        "address": "0x1004c8b0",
+        "symbol": "_ycc_rgb_convert",
+        "reason": "byte mismatch +0: PE=53, COFF=83"
+      },
+      {
+        "address": "0x10048ef0",
+        "symbol": "_null_convert",
+        "reason": "relocation-site/type mismatch: PE={116: 20}, COFF={}"
+      },
+      {
+        "address": "0x10050600",
+        "symbol": "_null_convert",
+        "reason": "relocation-site/type mismatch: PE={68: 6, 101: 6, 108: 6, 23: 6, 61: 6, 91: 20, 116: 20}, COFF={}"
+      },
+      {
+        "address": "0x10045320",
+        "symbol": "_grayscale_convert",
+        "reason": "relocation-site/type mismatch: PE={10: 20, 23: 20, 34: 20}, COFF={33: 20}"
+      },
+      {
+        "address": "0x10056e10",
+        "symbol": "_jinit_color_deconverter",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={26: 6, 45: 6, 162: 6, 191: 6, 196: 20, 213: 6, 264: 6, 269: 20, 286: 6, 300: 6, 367: 6, 432: 6, 436: 6, 440: 6, 444: 6, 448: 6}"
+      }
+    ]
+  },
+  {
+    "source": "jdmaster.c",
+    "source_sha256": "1e88403e0387a9d4293b19e2c571f7b38d2f74550a6541d8b19b3eb4b18063c3",
+    "job": "job003",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdmaster.c",
+      "/FoZ:\\out\\job003.obj"
+    ],
+    "object_sha256": "868966ac20bac032c17d032e472dbf1d90dfdf71f4f860f01dc9cbc15b5fb8da",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1004f960",
+        "symbol": "_use_merged_upsample",
+        "bytes": 128,
+        "diagnostics": "SHAPE MATCH: FUN_1004f960, 128 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004f960 @ 0x1004f960 size=128  vs  _use_merged_upsample (obj size=128)\nnormalized match: 128/128 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 128,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004fc10",
+        "symbol": "_prepare_range_limit_table",
+        "bytes": 119,
+        "diagnostics": "SHAPE MATCH: FUN_1004fc10, 119 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004fc10 @ 0x1004fc10 size=119  vs  _prepare_range_limit_table (obj size=119)\nnormalized match: 119/119 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 119,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004fe50",
+        "symbol": "_prepare_for_output_pass",
+        "bytes": 341,
+        "diagnostics": "SHAPE MATCH: FUN_1004fe50, 341 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004fe50 @ 0x1004fe50 size=341  vs  _prepare_for_output_pass (obj size=341)\nnormalized match: 341/341 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 341,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10045ac0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={}"
+      }
+    ]
+  },
+  {
+    "source": "jdmerge.c",
+    "source_sha256": "28b74d3906fe517cc4bc952d31ad84e7736082b52d0dbfc7681bdb1e74897e2f",
+    "job": "job004",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdmerge.c",
+      "/FoZ:\\out\\job004.obj"
+    ],
+    "object_sha256": "a188f6fbdd8c7b2897d156ace3651a6b3d644a9dd3f3e9944a75a26eba45b9c0",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10050280",
+        "symbol": "_h2v1_merged_upsample",
+        "bytes": 327,
+        "diagnostics": "SHAPE MATCH: FUN_10050280, 327 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10050280 @ 0x10050280 size=327  vs  _h2v1_merged_upsample (obj size=327)\nnormalized match: 327/327 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 327,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100503d0",
+        "symbol": "_h2v2_merged_upsample",
+        "bytes": 555,
+        "diagnostics": "SHAPE MATCH: FUN_100503d0, 555 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100503d0 @ 0x100503d0 size=555  vs  _h2v2_merged_upsample (obj size=555)\nnormalized match: 555/555 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 555,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10045ac0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={}"
+      },
+      {
+        "address": "0x10044520",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "relocation-site/type mismatch: PE={94: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004bab0",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "byte mismatch +12: PE=ac, COFF=a8"
+      },
+      {
+        "address": "0x10050080",
+        "symbol": "_build_ycc_rgb_table",
+        "reason": "original referee differs"
+      },
+      {
+        "address": "0x10057280",
+        "symbol": "_merged_2v_upsample",
+        "reason": "relocation-site/type mismatch: PE={136: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004cab0",
+        "symbol": "_jinit_merged_upsampler",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={28: 6, 66: 6, 73: 6, 97: 20, 110: 6, 117: 6, 123: 20}"
+      }
+    ]
+  },
+  {
+    "source": "jdpostct.c",
+    "source_sha256": "6125d07d750e25cce61eed5d830fa6534f65048b6e1f0289f4515f11ebb40b50",
+    "job": "job005",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdpostct.c",
+      "/FoZ:\\out\\job005.obj"
+    ],
+    "object_sha256": "4a04de2e78e6c310da0ade3f3dfd9ab8ed93ef511ffd895622946eb2d5afae61",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10051510",
+        "symbol": "_post_process_prepass",
+        "bytes": 160,
+        "diagnostics": "SHAPE MATCH: FUN_10051510, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051510 @ 0x10051510 size=160  vs  _post_process_prepass (obj size=160)\nnormalized match: 160/160 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 160,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100515b0",
+        "symbol": "_post_process_2pass",
+        "bytes": 154,
+        "diagnostics": "SHAPE MATCH: FUN_100515b0, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100515b0 @ 0x100515b0 size=154  vs  _post_process_2pass (obj size=154)\nnormalized match: 154/154 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 154,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10045ac0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={}"
+      },
+      {
+        "address": "0x100588d0",
+        "symbol": "_post_process_1pass",
+        "reason": "relocation-site/type mismatch: PE={61: 6, 21: 6}, COFF={}"
+      },
+      {
+        "address": "0x10048f70",
+        "symbol": "_post_process_prepass",
+        "reason": "relocation-site/type mismatch: PE={45: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004d880",
+        "symbol": "_post_process_prepass",
+        "reason": "byte mismatch +0: PE=51, COFF=53"
+      },
+      {
+        "address": "0x10055840",
+        "symbol": "_post_process_prepass",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 69: 6, 104: 6, 76: 6, 111: 6, 48: 6, 83: 6, 118: 6, 55: 6, 90: 6, 62: 6}, COFF={}"
+      },
+      {
+        "address": "0x1004a5d0",
+        "symbol": "_post_process_2pass",
+        "reason": "byte mismatch +0: PE=51, COFF=53"
+      },
+      {
+        "address": "0x10057630",
+        "symbol": "_post_process_2pass",
+        "reason": "byte mismatch +0: PE=8b, COFF=53"
+      }
+    ]
+  },
+  {
+    "source": "jdsample.c",
+    "source_sha256": "6f164f55cf851b8d972008ea05ab35fdf514cdcf8c67adbc43abd3b3f875cbf4",
+    "job": "job006",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdsample.c",
+      "/FoZ:\\out\\job006.obj"
+    ],
+    "object_sha256": "2c28542e230a4fe57737111c0473bfeef1ae7ad4724c720bb340e5fa0cf035cf",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10051700",
+        "symbol": "_sep_upsample",
+        "bytes": 222,
+        "diagnostics": "SHAPE MATCH: FUN_10051700, 222 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051700 @ 0x10051700 size=222  vs  _sep_upsample (obj size=222)\nnormalized match: 222/222 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 222,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051800",
+        "symbol": "_int_upsample",
+        "bytes": 316,
+        "diagnostics": "SHAPE MATCH: FUN_10051800, 316 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051800 @ 0x10051800 size=316  vs  _int_upsample (obj size=316)\nnormalized match: 316/316 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 316,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10051ae0",
+        "symbol": "_h2v2_fancy_upsample",
+        "bytes": 296,
+        "diagnostics": "SHAPE MATCH: FUN_10051ae0, 296 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051ae0 @ 0x10051ae0 size=296  vs  _h2v2_fancy_upsample (obj size=296)\nnormalized match: 296/296 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 293,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10045ac0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={}"
+      },
+      {
+        "address": "0x10045b10",
+        "symbol": "_sep_upsample",
+        "reason": "relocation-site/type mismatch: PE={36: 20, 175: 20, 198: 20, 218: 20}, COFF={}"
+      },
+      {
+        "address": "0x100410b0",
+        "symbol": "_h2v1_upsample",
+        "reason": "relocation-site/type mismatch: PE={50: 6, 14: 6, 19: 20, 26: 20, 35: 20, 42: 20, 62: 20, 72: 20, 83: 20}, COFF={}"
+      },
+      {
+        "address": "0x10057840",
+        "symbol": "_h2v2_fancy_upsample",
+        "reason": "relocation-site/type mismatch: PE={28: 6, 21: 6, 290: 20}, COFF={}"
+      }
+    ]
+  }
+]

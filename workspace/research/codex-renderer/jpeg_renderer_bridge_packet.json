@@ -1,0 +1,45 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_96y3u0mv",
+  "object_sha256": "985ca3fb3ca3963a4427236d75d3a9d2cd2f8cf1ebf0d79413d89d9b120bcba9",
+  "inputs_sha256": "2159032f904cc8c7af45463d745c809b77709c8baf778c47a94f52f11b21d2b9",
+  "checker_sha256": "1179573ea794406ba8f54993d8d0ada51e9374d662302add6c3f1a08efa2bf5b",
+  "fixture_sha256": "ef8c1242c01a44e749b2b736d4f632b5cea0f1251c9175c065aff22b026be0a8",
+  "regression_parent_sha256": "0bb1299cc8729dda3cbdc53dddb8a7fbffb1e96b3f04a404c45e7cd5ccf73717",
+  "regression_functions": 79,
+  "regression_log_sha256": "316ddf15c1bf9f0858655327dc4b397bd3145668013a6e1db36b1bd0c7ee24b3",
+  "functions": [
+    {
+      "symbol": "_error_exit",
+      "address": "0x10051f90",
+      "bytes": 51,
+      "unresolved": 0,
+      "relocation_sites": 0
+    },
+    {
+      "symbol": "_output_message",
+      "address": "0x10051fd0",
+      "bytes": 49,
+      "unresolved": 0,
+      "relocation_sites": 0
+    },
+    {
+      "symbol": "_jpeg_finish_decompress",
+      "address": "0x1004a310",
+      "bytes": 227,
+      "unresolved": 0,
+      "relocation_sites": 0
+    },
+    {
+      "symbol": "_jpeg_read_scanlines",
+      "address": "0x1004a5d0",
+      "bytes": 154,
+      "unresolved": 0,
+      "relocation_sites": 0
+    }
+  ],
+  "closed_code_bytes": 481,
+  "fixture": "32-bit real allocator/constructor/error/scan/finish APIs; mocked downstream callbacks; no game boot",
+  "held": "Constructor310 remains uncredited: marker-reader dependency held."
+}

@@ -1,0 +1,51 @@
+{
+  "status": "NATIVE-SOURCE-INTEGRATION-PASS",
+  "source_reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api",
+  "inputs_sha256": "8293198d7076ed685ef4d0bfcdb04af1a596deb10166ffa87b3c40d4344db4bf",
+  "fixture_sha256": "30a9b080ca6a9eb9472ce5461794110db252374fb2d45b240ab34dcb70dab812",
+  "checker_sha256": "436dcf5bbec094b57941f38e6bce35c95599429ad87522cb0be4026f1632c8ff",
+  "command": [
+    "cc",
+    "-m32",
+    "-malign-double",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-unused-function",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-D__forceinline=__inline__",
+    "-D__declspec(x)=",
+    "-DJPEG_IMAGE_SOURCE_ROOT=scratch/codex_jpeg_entropy_api",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_jpeg_image_loader.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api/jidctint.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api/jidctfst.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api/jidctflt.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api/jidctred.c",
+    "-Wl,--gc-sections",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_mi1di9r9/image_loader_fixture32"
+  ],
+  "native_compiler": "cc",
+  "sources": {
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api/jidctint.c": "3b7123ba9a66c10eb1f96d7432637b051278f3538d1b06884f9d21a39fd78f9a",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api/jidctfst.c": "c864b3dcfe494f9c8bda25a6fa5fc0a330e636b32eb4bcb6febe8cb01ed1d433",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api/jidctflt.c": "0988f6ba29f57b691dabdd3f0541839fb651dc74abd36c395130b12a30937155",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_entropy_api/jidctred.c": "df25adc646b0fdd69aed54361928aeb36972a8293c917f8ec1b0d62e8f764252"
+  },
+  "cases": [
+    "colored3x2 JPEG -> BGRA163/135/100/255",
+    "8-scan progressive JPEG, DC/AC first/refine",
+    "missing file unchanged outputs",
+    "dimension-limit rejection",
+    "grayscale rejection",
+    "encoded-file ownership and balanced decoder allocations"
+  ],
+  "mocked": "filesystem, renderer allocator/error/print services only; actual codec and IDCT source",
+  "build_log_sha256": "b413b62360962f99874dee436e426c293ee46eca57d6e4c9391740d3bfcb6db5",
+  "test_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "byte_match_credit": 0,
+  "original_runtime_equivalence": false,
+  "whole_file_identity": false
+}

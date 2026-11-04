@@ -1,0 +1,409 @@
+UNRESOLVED binding +155: target=0x101910dc, COFF=_first_pool_slop addend=0x00000000
+UNRESOLVED binding +164: target=0x101910e4, COFF=_extra_pool_slop addend=0x00000000
+SHAPE MATCH: _alloc_small, 325 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_alloc_small @ 0x10054d40 size=325  vs  _alloc_small (obj size=325)
+normalized match: 325/325 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _alloc_large, 185 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_alloc_large @ 0x10054e90 size=185  vs  _alloc_large (obj size=185)
+normalized match: 185/185 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +75: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+UNRESOLVED binding +125: target=0x10054e90, COFF=_alloc_large addend=0x00000000
+SHAPE MATCH: _alloc_sarray, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_alloc_sarray @ 0x10054f50 size=167  vs  _alloc_sarray (obj size=167)
+normalized match: 167/167 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +78: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+UNRESOLVED binding +131: target=0x10054e90, COFF=_alloc_large addend=0x00000000
+SHAPE MATCH: _alloc_barray, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_alloc_barray @ 0x10055000 size=167  vs  _alloc_barray (obj size=167)
+normalized match: 167/167 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +46: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+SHAPE MATCH: _request_virt_sarray, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_request_virt_sarray @ 0x100550b0 size=104  vs  _request_virt_sarray (obj size=104)
+normalized match: 104/104 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +46: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+SHAPE MATCH: _request_virt_barray, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_request_virt_barray @ 0x10055120 size=104  vs  _request_virt_barray (obj size=104)
+normalized match: 104/104 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +202: target=0x10054f50, COFF=_alloc_sarray addend=0x00000000
+UNRESOLVED binding +320: target=0x10055000, COFF=_alloc_barray addend=0x00000000
+SHAPE MATCH: _realize_virt_arrays, 360 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_realize_virt_arrays @ 0x10055190 size=360  vs  _realize_virt_arrays (obj size=360)
+normalized match: 360/360 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _do_sarray_io, 148 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_do_sarray_io @ 0x10055300 size=148  vs  _do_sarray_io (obj size=148)
+normalized match: 148/148 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _do_barray_io, 151 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_do_barray_io @ 0x100553a0 size=151  vs  _do_barray_io (obj size=151)
+normalized match: 151/151 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +108: target=0x10055300, COFF=_do_sarray_io addend=0x00000000
+UNRESOLVED binding +147: target=0x10055300, COFF=_do_sarray_io addend=0x00000000
+SHAPE MATCH: _access_virt_sarray, 329 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_access_virt_sarray @ 0x10055440 size=329  vs  _access_virt_sarray (obj size=329)
+normalized match: 329/329 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +112: target=0x100553a0, COFF=_do_barray_io addend=0x00000000
+UNRESOLVED binding +151: target=0x100553a0, COFF=_do_barray_io addend=0x00000000
+SHAPE MATCH: _access_virt_barray, 345 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_access_virt_barray @ 0x10055590 size=345  vs  _access_virt_barray (obj size=345)
+normalized match: 345/345 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _free_pool, 263 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_free_pool @ 0x100556f0 size=263  vs  _free_pool (obj size=263)
+normalized match: 263/263 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +19: target=0x100556f0, COFF=_free_pool addend=0x00000000
+SHAPE MATCH: _self_destruct, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_self_destruct @ 0x10055800 size=51  vs  _self_destruct (obj size=51)
+normalized match: 51/51 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +48: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+UNRESOLVED binding +55: target=0x10054e90, COFF=_alloc_large addend=0x00000000
+UNRESOLVED binding +62: target=0x10054f50, COFF=_alloc_sarray addend=0x00000000
+UNRESOLVED binding +69: target=0x10055000, COFF=_alloc_barray addend=0x00000000
+UNRESOLVED binding +76: target=0x100550b0, COFF=_request_virt_sarray addend=0x00000000
+UNRESOLVED binding +83: target=0x10055120, COFF=_request_virt_barray addend=0x00000000
+UNRESOLVED binding +90: target=0x10055190, COFF=_realize_virt_arrays addend=0x00000000
+UNRESOLVED binding +97: target=0x10055440, COFF=_access_virt_sarray addend=0x00000000
+UNRESOLVED binding +104: target=0x10055590, COFF=_access_virt_barray addend=0x00000000
+UNRESOLVED binding +111: target=0x100556f0, COFF=_free_pool addend=0x00000000
+UNRESOLVED binding +118: target=0x10055800, COFF=_self_destruct addend=0x00000000
+SHAPE MATCH: _jinit_memory_mgr, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_memory_mgr @ 0x10055840 size=160  vs  _jinit_memory_mgr (obj size=160)
+normalized match: 160/160 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _error_exit, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_error_exit @ 0x10051f90 size=51  vs  _error_exit (obj size=51)
+normalized match: 51/51 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _output_message, 49 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_output_message @ 0x10051fd0 size=49  vs  _output_message (obj size=49)
+normalized match: 49/49 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _emit_message, 54 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_emit_message @ 0x10052010 size=54  vs  _emit_message (obj size=54)
+normalized match: 54/54 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +131: target=0x100f5f14, COFF=_sprintf addend=0x00000000
+UNRESOLVED binding +157: target=0x100f5f14, COFF=_sprintf addend=0x00000000
+SHAPE MATCH: _format_message, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_format_message @ 0x10052050 size=167  vs  _format_message (obj size=167)
+normalized match: 167/167 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _initial_setup, 516 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_initial_setup @ 0x1004cfa0 size=516  vs  _initial_setup (obj size=516)
+normalized match: 516/516 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _per_scan_setup, 415 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_per_scan_setup @ 0x1004d1b0 size=415  vs  _per_scan_setup (obj size=415)
+normalized match: 415/415 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _latch_quant_tables, 170 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_latch_quant_tables @ 0x1004d350 size=170  vs  _latch_quant_tables (obj size=170)
+normalized match: 170/170 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +7: target=0x1004d1b0, COFF=_per_scan_setup addend=0x00000000
+UNRESOLVED binding +14: target=0x1004d350, COFF=_latch_quant_tables addend=0x00000000
+SHAPE MATCH: _inputctl_start_input_pass, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_inputctl_start_input_pass @ 0x1004d400 size=59  vs  _inputctl_start_input_pass (obj size=59)
+normalized match: 59/59 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +134: target=0x1004cfa0, COFF=_initial_setup addend=0x00000000
+UNRESOLVED binding +174: target=0x1004d400, COFF=_inputctl_start_input_pass addend=0x00000000
+SHAPE MATCH: _consume_markers, 187 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_consume_markers @ 0x1004d460 size=187  vs  _consume_markers (obj size=187)
+normalized match: 187/187 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +13: target=0x1004d460, COFF=_consume_markers addend=0x00000000
+SHAPE MATCH: _reset_input_controller, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_reset_input_controller @ 0x1004d520 size=59  vs  _reset_input_controller (obj size=59)
+normalized match: 59/59 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _get_soi, 164 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_get_soi @ 0x1004dc50 size=164  vs  _get_soi (obj size=164)
+normalized match: 164/164 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _get_sof, 777 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_get_sof @ 0x1004dd00 size=777  vs  _get_sof (obj size=777)
+normalized match: 777/777 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _get_sos, 757 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_get_sos @ 0x1004e010 size=757  vs  _get_sos (obj size=757)
+normalized match: 757/757 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _get_dht, 795 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_get_dht @ 0x1004e310 size=795  vs  _get_dht (obj size=795)
+normalized match: 795/795 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +252: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000
+UNRESOLVED binding +396: target=0x10191300, COFF=_jpeg_natural_order addend=0x00000100
+SHAPE MATCH: _get_dqt, 618 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_get_dqt @ 0x1004e630 size=618  vs  _get_dqt (obj size=618)
+normalized match: 618/618 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _get_dri, 223 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_get_dri @ 0x1004e8a0 size=223  vs  _get_dri (obj size=223)
+normalized match: 223/223 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _examine_app0, 587 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_examine_app0 @ 0x1004e980 size=587  vs  _examine_app0 (obj size=587)
+normalized match: 587/587 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _examine_app14, 169 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_examine_app14 @ 0x1004ebd0 size=169  vs  _examine_app14 (obj size=169)
+normalized match: 169/169 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _skip_variable, 157 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_skip_variable @ 0x1004f040 size=157  vs  _skip_variable (obj size=157)
+normalized match: 157/157 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _next_marker, 256 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_next_marker @ 0x1004f0e0 size=256  vs  _next_marker (obj size=256)
+normalized match: 256/256 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _first_marker, 153 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_first_marker @ 0x1004f1e0 size=153  vs  _first_marker (obj size=153)
+normalized match: 153/153 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +17: target=0x1004f0e0, COFF=_next_marker addend=0x00000000
+SHAPE MATCH: _read_restart_marker, 136 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_read_restart_marker @ 0x1004f600 size=136  vs  _read_restart_marker (obj size=136)
+normalized match: 136/136 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +206: target=0x1004f0e0, COFF=_next_marker addend=0x00000000
+SHAPE MATCH: _jpeg_resync_to_restart, 252 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jpeg_resync_to_restart @ 0x1004f690 size=252  vs  _jpeg_resync_to_restart (obj size=252)
+normalized match: 252/252 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _reset_marker_reader, 46 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_reset_marker_reader @ 0x1004f790 size=46  vs  _reset_marker_reader (obj size=46)
+normalized match: 46/46 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +26: target=0x1004f790, COFF=_reset_marker_reader addend=0x00000000
+UNRESOLVED binding +33: target=0x1004f280, COFF=_read_markers addend=0x00000000
+UNRESOLVED binding +40: target=0x1004f600, COFF=_read_restart_marker addend=0x00000000
+UNRESOLVED binding +47: target=0x1004f040, COFF=_skip_variable addend=0x00000000
+UNRESOLVED binding +67: target=0x1004f040, COFF=_skip_variable addend=0x00000000
+UNRESOLVED binding +80: target=0x1004ec80, COFF=_get_interesting_appn addend=0x00000000
+SHAPE MATCH: _jinit_marker_reader, 131 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_marker_reader @ 0x1004f7c0 size=131  vs  _jinit_marker_reader (obj size=131)
+normalized match: 131/131 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _alloc_funny_pointers, 168 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_alloc_funny_pointers @ 0x1004d5a0 size=168  vs  _alloc_funny_pointers (obj size=168)
+normalized match: 168/168 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _make_funny_pointers, 332 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_make_funny_pointers @ 0x1004d650 size=332  vs  _make_funny_pointers (obj size=332)
+normalized match: 332/332 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _set_wraparound_pointers, 210 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_set_wraparound_pointers @ 0x1004d7a0 size=210  vs  _set_wraparound_pointers (obj size=210)
+normalized match: 210/210 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _set_bottom_pointers, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_set_bottom_pointers @ 0x1004d880 size=160  vs  _set_bottom_pointers (obj size=160)
+normalized match: 160/160 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _process_data_simple_main, 110 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_process_data_simple_main @ 0x1004d9a0 size=110  vs  _process_data_simple_main (obj size=110)
+normalized match: 110/110 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +186: target=0x1004d880, COFF=_set_bottom_pointers addend=0x00000000
+UNRESOLVED binding +264: target=0x1004d7a0, COFF=_set_wraparound_pointers addend=0x00000000
+SHAPE MATCH: _process_data_context_main, 312 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_process_data_context_main @ 0x1004da10 size=312  vs  _process_data_context_main (obj size=312)
+normalized match: 312/312 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _process_data_crank_post, 39 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_process_data_crank_post @ 0x1004db50 size=39  vs  _process_data_crank_post (obj size=39)
+normalized match: 39/39 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _start_input_pass, 92 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_start_input_pass @ 0x1004aa30 size=92  vs  _start_input_pass (obj size=92)
+normalized match: 92/92 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _decompress_onepass, 679 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_decompress_onepass @ 0x1004aae0 size=679  vs  _decompress_onepass (obj size=679)
+normalized match: 679/679 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _consume_data, 552 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_consume_data @ 0x1004ada0 size=552  vs  _consume_data (obj size=552)
+normalized match: 552/552 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _decompress_data, 417 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_decompress_data @ 0x1004afd0 size=417  vs  _decompress_data (obj size=417)
+normalized match: 417/417 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _smoothing_ok, 359 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_smoothing_ok @ 0x1004b180 size=359  vs  _smoothing_ok (obj size=359)
+normalized match: 359/359 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _decompress_smooth_data, 1612 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_decompress_smooth_data @ 0x1004b2f0 size=1612  vs  _decompress_smooth_data (obj size=1612)
+normalized match: 1612/1612 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _post_process_1pass, 123 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_post_process_1pass @ 0x10051490 size=123  vs  _post_process_1pass (obj size=123)
+normalized match: 123/123 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _post_process_prepass, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_post_process_prepass @ 0x10051510 size=160  vs  _post_process_prepass (obj size=160)
+normalized match: 160/160 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _post_process_2pass, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_post_process_2pass @ 0x100515b0 size=154  vs  _post_process_2pass (obj size=154)
+normalized match: 154/154 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +20: target=0x1004c0e0, COFF=_start_pass addend=0x00000000
+SHAPE MATCH: _jinit_inverse_dct, 117 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_inverse_dct @ 0x1004c410 size=117  vs  _jinit_inverse_dct (obj size=117)
+normalized match: 117/117 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _ycc_rgb_convert, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_ycc_rgb_convert @ 0x1004bb80 size=286  vs  _ycc_rgb_convert (obj size=286)
+normalized match: 286/286 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _null_convert, 120 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_null_convert @ 0x1004bca0 size=120  vs  _null_convert (obj size=120)
+normalized match: 120/120 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _gray_rgb_convert, 94 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_gray_rgb_convert @ 0x1004bd50 size=94  vs  _gray_rgb_convert (obj size=94)
+normalized match: 94/94 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _ycck_cmyk_convert, 330 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_ycck_cmyk_convert @ 0x1004bdb0 size=330  vs  _ycck_cmyk_convert (obj size=330)
+normalized match: 330/330 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _sep_upsample, 222 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_sep_upsample @ 0x10051700 size=222  vs  _sep_upsample (obj size=222)
+normalized match: 222/222 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _int_upsample, 316 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_int_upsample @ 0x10051800 size=316  vs  _int_upsample (obj size=316)
+normalized match: 316/316 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _h2v1_upsample, 92 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_h2v1_upsample @ 0x10051940 size=92  vs  _h2v1_upsample (obj size=92)
+normalized match: 92/92 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _h2v2_upsample, 118 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_h2v2_upsample @ 0x100519a0 size=118  vs  _h2v2_upsample (obj size=118)
+normalized match: 118/118 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _h2v1_fancy_upsample, 182 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_h2v1_fancy_upsample @ 0x10051a20 size=182  vs  _h2v1_fancy_upsample (obj size=182)
+normalized match: 182/182 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _h2v2_fancy_upsample, 296 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_h2v2_fancy_upsample @ 0x10051ae0 size=296  vs  _h2v2_fancy_upsample (obj size=296)
+normalized match: 296/296 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +29: target=0x100516e0, COFF=_start_pass_upsample addend=0x00000000
+UNRESOLVED binding +36: target=0x10051700, COFF=_sep_upsample addend=0x00000000
+UNRESOLVED binding +204: target=0x100517f0, COFF=_noop_upsample addend=0x00000000
+UNRESOLVED binding +228: target=0x100517e0, COFF=_fullsize_upsample addend=0x00000000
+UNRESOLVED binding +264: target=0x10051a20, COFF=_h2v1_fancy_upsample addend=0x00000000
+UNRESOLVED binding +276: target=0x10051940, COFF=_h2v1_upsample addend=0x00000000
+UNRESOLVED binding +321: target=0x10051ae0, COFF=_h2v2_fancy_upsample addend=0x00000000
+UNRESOLVED binding +334: target=0x100519a0, COFF=_h2v2_upsample addend=0x00000000
+UNRESOLVED binding +379: target=0x10051800, COFF=_int_upsample addend=0x00000000
+SHAPE MATCH: _jinit_upsampler, 498 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_upsampler @ 0x10051c10 size=498  vs  _jinit_upsampler (obj size=498)
+normalized match: 498/498 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _use_merged_upsample, 128 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_use_merged_upsample @ 0x1004f960 size=128  vs  _use_merged_upsample (obj size=128)
+normalized match: 128/128 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _prepare_range_limit_table, 119 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_prepare_range_limit_table @ 0x1004fc10 size=119  vs  _prepare_range_limit_table (obj size=119)
+normalized match: 119/119 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _prepare_for_output_pass, 341 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_prepare_for_output_pass @ 0x1004fe50 size=341  vs  _prepare_for_output_pass (obj size=341)
+normalized match: 341/341 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _finish_output_pass, 36 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_finish_output_pass @ 0x1004ffb0 size=36  vs  _finish_output_pass (obj size=36)
+normalized match: 36/36 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +325: target=0x1019bc88, COFF=__real@3ff0000000000000 addend=0x00000000
+SHAPE MATCH: _default_decompress_parms, 393 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_default_decompress_parms @ 0x10049fa0 size=393  vs  _default_decompress_parms (obj size=393)
+normalized match: 393/393 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _jpeg_finish_decompress, 227 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jpeg_finish_decompress @ 0x1004a310 size=227  vs  _jpeg_finish_decompress (obj size=227)
+normalized match: 227/227 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _output_pass_setup, 204 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_output_pass_setup @ 0x1004a500 size=204  vs  _output_pass_setup (obj size=204)
+normalized match: 204/204 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _jpeg_read_scanlines, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jpeg_read_scanlines @ 0x1004a5d0 size=154  vs  _jpeg_read_scanlines (obj size=154)
+normalized match: 154/154 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +50: target=0x1004db50, COFF=_process_data_crank_post addend=0x00000000
+UNRESOLVED binding +72: target=0x1004da10, COFF=_process_data_context_main addend=0x00000000
+UNRESOLVED binding +77: target=0x1004d650, COFF=_make_funny_pointers addend=0x00000000
+UNRESOLVED binding +111: target=0x1004d9a0, COFF=_process_data_simple_main addend=0x00000000
+SHAPE MATCH: _start_pass_main, 118 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_start_pass_main @ 0x1004d920 size=118  vs  _start_pass_main (obj size=118)
+normalized match: 118/118 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +34: target=0x1004d920, COFF=_start_pass_main addend=0x00000000
+UNRESOLVED binding +97: target=0x1004d5a0, COFF=_alloc_funny_pointers addend=0x00000000
+SHAPE MATCH: _jinit_d_main_controller, 205 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_d_main_controller @ 0x1004db80 size=205  vs  _jinit_d_main_controller (obj size=205)
+normalized match: 205/205 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +27: target=0x1004b180, COFF=_smoothing_ok addend=0x00000000
+UNRESOLVED binding +38: target=0x1004b2f0, COFF=_decompress_smooth_data addend=0x00000000
+UNRESOLVED binding +58: target=0x1004afd0, COFF=_decompress_data addend=0x00000000
+SHAPE MATCH: _start_output_pass, 75 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_start_output_pass @ 0x1004aa90 size=75  vs  _start_output_pass (obj size=75)
+normalized match: 75/75 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +40: target=0x1004aa30, COFF=_start_input_pass addend=0x00000000
+UNRESOLVED binding +47: target=0x1004aa90, COFF=_start_output_pass addend=0x00000000
+UNRESOLVED binding +221: target=0x1004ada0, COFF=_consume_data addend=0x00000000
+UNRESOLVED binding +228: target=0x1004afd0, COFF=_decompress_data addend=0x00000000
+UNRESOLVED binding +347: target=0x1004ad90, COFF=_dummy_consume_data addend=0x00000000
+UNRESOLVED binding +354: target=0x1004aae0, COFF=_decompress_onepass addend=0x00000000
+SHAPE MATCH: _jinit_d_coef_controller, 364 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_d_coef_controller @ 0x1004b940 size=364  vs  _jinit_d_coef_controller (obj size=364)
+normalized match: 364/364 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +92: target=0x10051510, COFF=_post_process_prepass addend=0x00000000
+UNRESOLVED binding +139: target=0x100515b0, COFF=_post_process_2pass addend=0x00000000
+UNRESOLVED binding +174: target=0x10051490, COFF=_post_process_1pass addend=0x00000000
+SHAPE MATCH: _start_pass_dpost, 249 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_start_pass_dpost @ 0x10051390 size=249  vs  _start_pass_dpost (obj size=249)
+normalized match: 249/249 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +23: target=0x10051390, COFF=_start_pass_dpost addend=0x00000000
+SHAPE MATCH: _jinit_d_post_controller, 131 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_d_post_controller @ 0x10051650 size=131  vs  _jinit_d_post_controller (obj size=131)
+normalized match: 131/131 bytes (100%)
+MATCH (normalized)
+UNRESOLVED binding +147: target=0x10055840, COFF=_jinit_memory_mgr addend=0x00000000
+UNRESOLVED binding +236: target=0x1004f7c0, COFF=_jinit_marker_reader addend=0x00000000
+UNRESOLVED binding +267: target=0x1004d460, COFF=_consume_markers addend=0x00000000
+UNRESOLVED binding +274: target=0x1004d520, COFF=_reset_input_controller addend=0x00000000
+UNRESOLVED binding +281: target=0x1004d400, COFF=_inputctl_start_input_pass addend=0x00000000
+UNRESOLVED binding +288: target=0x1004d440, COFF=_finish_input_pass addend=0x00000000
+SHAPE MATCH: _jpeg_CreateDecompress, 310 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jpeg_CreateDecompress @ 0x10049e00 size=310  vs  _jpeg_CreateDecompress (obj size=310)
+normalized match: 310/310 bytes (100%)
+MATCH (normalized)

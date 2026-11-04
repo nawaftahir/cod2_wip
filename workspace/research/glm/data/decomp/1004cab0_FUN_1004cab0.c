@@ -1,0 +1,38 @@
+// 1004cab0 size=127 FUN_1004cab0
+
+undefined4 FUN_1004cab0(void)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  int iVar3;
+  undefined4 *puVar4;
+  int unaff_ESI;
+  
+  iVar1 = *(int *)(unaff_ESI + 0x1a0);
+  *(int *)(*(int *)(unaff_ESI + 0x19c) + 0x14) =
+       *(int *)(*(int *)(unaff_ESI + 0x19c) + 0x14) +
+       ((int)(*(int *)(iVar1 + 0x10) + (*(int *)(iVar1 + 0x10) >> 0x1f & 7U)) >> 3);
+  *(undefined4 *)(iVar1 + 0x10) = 0;
+  uVar2 = (**(code **)(*(int *)(unaff_ESI + 0x19c) + 8))();
+  if ((char)uVar2 == '\0') {
+    return uVar2;
+  }
+  iVar3 = 0;
+  if (0 < *(int *)(unaff_ESI + 300)) {
+    puVar4 = (undefined4 *)(iVar1 + 0x14);
+    do {
+      *puVar4 = 0;
+      iVar3 = iVar3 + 1;
+      puVar4 = puVar4 + 1;
+    } while (iVar3 < *(int *)(unaff_ESI + 300));
+  }
+  *(undefined4 *)(iVar1 + 0x24) = *(undefined4 *)(unaff_ESI + 0x104);
+  iVar3 = *(int *)(unaff_ESI + 0x184);
+  if (iVar3 == 0) {
+    *(undefined1 *)(iVar1 + 8) = 0;
+  }
+  return CONCAT31((int3)((uint)iVar3 >> 8),1);
+}
+
+

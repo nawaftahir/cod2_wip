@@ -1,0 +1,322 @@
+UNRESOLVED binding +155: target=0x101910dc, COFF=_first_pool_slop addend=0x00000000
+UNRESOLVED binding +164: target=0x101910e4, COFF=_extra_pool_slop addend=0x00000000
+SHAPE MATCH: _alloc_small, 325 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _alloc_large, 185 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +75: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+UNRESOLVED binding +125: target=0x10054e90, COFF=_alloc_large addend=0x00000000
+SHAPE MATCH: _alloc_sarray, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +78: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+UNRESOLVED binding +131: target=0x10054e90, COFF=_alloc_large addend=0x00000000
+SHAPE MATCH: _alloc_barray, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +46: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+SHAPE MATCH: _request_virt_sarray, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +46: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+SHAPE MATCH: _request_virt_barray, 104 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +202: target=0x10054f50, COFF=_alloc_sarray addend=0x00000000
+UNRESOLVED binding +320: target=0x10055000, COFF=_alloc_barray addend=0x00000000
+SHAPE MATCH: _realize_virt_arrays, 360 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _do_sarray_io, 148 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _do_barray_io, 151 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +108: target=0x10055300, COFF=_do_sarray_io addend=0x00000000
+UNRESOLVED binding +147: target=0x10055300, COFF=_do_sarray_io addend=0x00000000
+SHAPE MATCH: _access_virt_sarray, 329 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +112: target=0x100553a0, COFF=_do_barray_io addend=0x00000000
+UNRESOLVED binding +151: target=0x100553a0, COFF=_do_barray_io addend=0x00000000
+SHAPE MATCH: _access_virt_barray, 345 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _free_pool, 263 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +19: target=0x100556f0, COFF=_free_pool addend=0x00000000
+SHAPE MATCH: _self_destruct, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +48: target=0x10054d40, COFF=_alloc_small addend=0x00000000
+UNRESOLVED binding +55: target=0x10054e90, COFF=_alloc_large addend=0x00000000
+UNRESOLVED binding +62: target=0x10054f50, COFF=_alloc_sarray addend=0x00000000
+UNRESOLVED binding +69: target=0x10055000, COFF=_alloc_barray addend=0x00000000
+UNRESOLVED binding +76: target=0x100550b0, COFF=_request_virt_sarray addend=0x00000000
+UNRESOLVED binding +83: target=0x10055120, COFF=_request_virt_barray addend=0x00000000
+UNRESOLVED binding +90: target=0x10055190, COFF=_realize_virt_arrays addend=0x00000000
+UNRESOLVED binding +97: target=0x10055440, COFF=_access_virt_sarray addend=0x00000000
+UNRESOLVED binding +104: target=0x10055590, COFF=_access_virt_barray addend=0x00000000
+UNRESOLVED binding +111: target=0x100556f0, COFF=_free_pool addend=0x00000000
+UNRESOLVED binding +118: target=0x10055800, COFF=_self_destruct addend=0x00000000
+SHAPE MATCH: _jinit_memory_mgr, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _error_exit, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _output_message, 49 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _emit_message, 54 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +131: target=0x100f5f14, COFF=_sprintf addend=0x00000000
+UNRESOLVED binding +157: target=0x100f5f14, COFF=_sprintf addend=0x00000000
+SHAPE MATCH: _format_message, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _initial_setup, 516 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _per_scan_setup, 415 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _latch_quant_tables, 170 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +7: target=0x1004d1b0, COFF=_per_scan_setup addend=0x00000000
+UNRESOLVED binding +14: target=0x1004d350, COFF=_latch_quant_tables addend=0x00000000
+SHAPE MATCH: _inputctl_start_input_pass, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +134: target=0x1004cfa0, COFF=_initial_setup addend=0x00000000
+UNRESOLVED binding +174: target=0x1004d400, COFF=_inputctl_start_input_pass addend=0x00000000
+SHAPE MATCH: _consume_markers, 187 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +13: target=0x1004d460, COFF=_consume_markers addend=0x00000000
+SHAPE MATCH: _reset_input_controller, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _get_soi, 164 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _get_sof, 777 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _get_sos, 757 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _get_dht, 795 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +252: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000
+UNRESOLVED binding +396: target=0x10191300, COFF=_jpeg_natural_order addend=0x00000100
+SHAPE MATCH: _get_dqt, 618 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _get_dri, 223 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _examine_app0, 587 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _examine_app14, 169 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _skip_variable, 157 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _next_marker, 256 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _first_marker, 153 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +17: target=0x1004f0e0, COFF=_next_marker addend=0x00000000
+SHAPE MATCH: _read_restart_marker, 136 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +206: target=0x1004f0e0, COFF=_next_marker addend=0x00000000
+SHAPE MATCH: _jpeg_resync_to_restart, 252 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _reset_marker_reader, 46 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +26: target=0x1004f790, COFF=_reset_marker_reader addend=0x00000000
+UNRESOLVED binding +33: target=0x1004f280, COFF=_read_markers addend=0x00000000
+UNRESOLVED binding +40: target=0x1004f600, COFF=_read_restart_marker addend=0x00000000
+UNRESOLVED binding +47: target=0x1004f040, COFF=_skip_variable addend=0x00000000
+UNRESOLVED binding +67: target=0x1004f040, COFF=_skip_variable addend=0x00000000
+UNRESOLVED binding +80: target=0x1004ec80, COFF=_get_interesting_appn addend=0x00000000
+SHAPE MATCH: _jinit_marker_reader, 131 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _alloc_funny_pointers, 168 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _make_funny_pointers, 332 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _set_wraparound_pointers, 210 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _set_bottom_pointers, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _process_data_simple_main, 110 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +186: target=0x1004d880, COFF=_set_bottom_pointers addend=0x00000000
+UNRESOLVED binding +264: target=0x1004d7a0, COFF=_set_wraparound_pointers addend=0x00000000
+SHAPE MATCH: _process_data_context_main, 312 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _process_data_crank_post, 39 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _start_input_pass, 92 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _decompress_onepass, 679 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _consume_data, 552 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _decompress_data, 417 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _smoothing_ok, 359 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _decompress_smooth_data, 1612 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _jpeg_fill_bit_buffer, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +22: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +94: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+SHAPE MATCH: _jpeg_huff_decode, 211 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _sequential_huff_restart, 127 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +37: target=0x1004cab0, COFF=_sequential_huff_restart addend=0x00000000
+UNRESOLVED binding +204: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +287: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000
+UNRESOLVED binding +329: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +372: target=0x10190de8, COFF=_extend_test addend=0x00000000
+UNRESOLVED binding +390: target=0x10190e28, COFF=_extend_offset addend=0x00000000
+UNRESOLVED binding +479: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +562: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000
+UNRESOLVED binding +612: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +655: target=0x10190de8, COFF=_extend_test addend=0x00000000
+UNRESOLVED binding +669: target=0x10190e28, COFF=_extend_offset addend=0x00000000
+UNRESOLVED binding +682: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000
+UNRESOLVED binding +751: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +834: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000
+UNRESOLVED binding +884: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+SHAPE MATCH: _decode_mcu, 1064 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _process_restart, 134 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +47: target=0x100508f0, COFF=_process_restart addend=0x00000000
+UNRESOLVED binding +230: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +313: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000
+UNRESOLVED binding +355: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +398: target=0x10190e68, COFF=_progressive_extend_test addend=0x00000000
+UNRESOLVED binding +412: target=0x10190ea8, COFF=_progressive_extend_offset addend=0x00000000
+SHAPE MATCH: _decode_mcu_DC_first, 578 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +60: target=0x100508f0, COFF=_process_restart addend=0x00000000
+UNRESOLVED binding +191: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +274: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000
+UNRESOLVED binding +328: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +367: target=0x10190e68, COFF=_progressive_extend_test addend=0x00000000
+UNRESOLVED binding +381: target=0x10190ea8, COFF=_progressive_extend_offset addend=0x00000000
+UNRESOLVED binding +408: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000
+UNRESOLVED binding +479: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+SHAPE MATCH: _decode_mcu_AC_first, 573 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +50: target=0x100508f0, COFF=_process_restart addend=0x00000000
+UNRESOLVED binding +134: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+SHAPE MATCH: _decode_mcu_DC_refine, 234 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +79: target=0x100508f0, COFF=_process_restart addend=0x00000000
+UNRESOLVED binding +239: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +325: target=0x1004c9d0, COFF=_jpeg_huff_decode addend=0x00000000
+UNRESOLVED binding +411: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +505: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +595: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000
+UNRESOLVED binding +632: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +727: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000
+UNRESOLVED binding +760: target=0x1004c8b0, COFF=_jpeg_fill_bit_buffer addend=0x00000000
+UNRESOLVED binding +869: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000
+SHAPE MATCH: _decode_mcu_AC_refine, 1056 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +157: target=0x101911f0, COFF=?RGB_order@?1??select_ncolors@@9@9 addend=0x00000000
+SHAPE MATCH: _select_ncolors, 234 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +27: target=0x10055960, COFF=_select_ncolors addend=0x00000000
+SHAPE MATCH: _create_colormap, 369 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _create_colorindex, 358 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +36: target=0x101910f0, COFF=_base_dither_matrix addend=0x00000000
+UNRESOLVED binding +101: target=0x101911f0, COFF=_base_dither_matrix addend=0x00000100
+SHAPE MATCH: _make_odither_array, 114 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +58: target=0x10055d80, COFF=_make_odither_array addend=0x00000000
+SHAPE MATCH: _create_odither_tables, 79 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _color_quantize, 169 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _color_quantize3, 178 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _quantize_ord_dither, 287 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _quantize3_ord_dither, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _quantize_fs_dither, 436 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _alloc_fs_workspace, 62 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +71: target=0x10056200, COFF=_quantize_fs_dither addend=0x00000000
+UNRESOLVED binding +86: target=0x100563c0, COFF=_alloc_fs_workspace addend=0x00000000
+UNRESOLVED binding +160: target=0x100560e0, COFF=_quantize3_ord_dither addend=0x00000000
+UNRESOLVED binding +169: target=0x10055fc0, COFF=_quantize_ord_dither addend=0x00000000
+UNRESOLVED binding +183: target=0x10055c10, COFF=_create_colorindex addend=0x00000000
+UNRESOLVED binding +198: target=0x10055e00, COFF=_create_odither_tables addend=0x00000000
+UNRESOLVED binding +215: target=0x10055f00, COFF=_color_quantize3 addend=0x00000000
+UNRESOLVED binding +226: target=0x10055e50, COFF=_color_quantize addend=0x00000000
+SHAPE MATCH: _start_pass_1_quant, 234 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +23: target=0x10056400, COFF=_start_pass_1_quant addend=0x00000000
+UNRESOLVED binding +30: target=0x100564f0, COFF=_finish_pass_1_quant addend=0x00000000
+UNRESOLVED binding +37: target=0x10056500, COFF=_new_color_map_1_quant addend=0x00000000
+UNRESOLVED binding +120: target=0x10055a90, COFF=_create_colormap addend=0x00000000
+UNRESOLVED binding +126: target=0x10055c10, COFF=_create_colorindex addend=0x00000000
+UNRESOLVED binding +142: target=0x100563c0, COFF=_alloc_fs_workspace addend=0x00000000
+SHAPE MATCH: _jinit_1pass_quantizer, 148 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _prescan_quantize, 117 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _update_box, 1003 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +301: target=0x100566a0, COFF=_update_box addend=0x00000000
+UNRESOLVED binding +309: target=0x100566a0, COFF=_update_box addend=0x00000000
+SHAPE MATCH: _median_cut, 357 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _compute_color, 379 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +55: target=0x100566a0, COFF=_update_box addend=0x00000000
+UNRESOLVED binding +65: target=0x10056a90, COFF=_median_cut addend=0x00000000
+UNRESOLVED binding +85: target=0x10056c00, COFF=_compute_color addend=0x00000000
+SHAPE MATCH: _select_colors, 132 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _find_nearby_colors, 452 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _find_best_colors, 379 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +102: target=0x10056e10, COFF=_find_nearby_colors addend=0x00000000
+UNRESOLVED binding +132: target=0x10056fe0, COFF=_find_best_colors addend=0x00000000
+SHAPE MATCH: _fill_inverse_cmap, 273 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +136: target=0x10057160, COFF=_fill_inverse_cmap addend=0x00000000
+SHAPE MATCH: _pass2_no_dither, 199 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +444: target=0x10057160, COFF=_fill_inverse_cmap addend=0x00000000
+SHAPE MATCH: _pass2_fs_dither, 723 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _init_error_limit, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +23: target=0x10056d80, COFF=_select_colors addend=0x00000000
+SHAPE MATCH: _finish_pass1, 37 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +45: target=0x100565c0, COFF=_prescan_quantize addend=0x00000000
+UNRESOLVED binding +52: target=0x100576d0, COFF=_finish_pass1 addend=0x00000000
+UNRESOLVED binding +74: target=0x10057350, COFF=_pass2_fs_dither addend=0x00000000
+UNRESOLVED binding +83: target=0x10057280, COFF=_pass2_no_dither addend=0x00000000
+UNRESOLVED binding +90: target=0x10057700, COFF=_finish_pass2 addend=0x00000000
+UNRESOLVED binding +233: target=0x10057630, COFF=_init_error_limit addend=0x00000000
+SHAPE MATCH: _start_pass_2_quant, 285 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +21: target=0x10057710, COFF=_start_pass_2_quant addend=0x00000000
+UNRESOLVED binding +28: target=0x10057830, COFF=_new_color_map_2_quant addend=0x00000000
+UNRESOLVED binding +290: target=0x10057630, COFF=_init_error_limit addend=0x00000000
+SHAPE MATCH: _jinit_2pass_quantizer, 296 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _merged_2v_upsample, 199 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _merged_1v_upsample, 55 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _h2v1_merged_upsample, 327 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _h2v2_merged_upsample, 555 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _post_process_1pass, 123 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _post_process_prepass, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _post_process_2pass, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +20: target=0x1004c0e0, COFF=_start_pass addend=0x00000000
+SHAPE MATCH: _jinit_inverse_dct, 117 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _ycc_rgb_convert, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _null_convert, 120 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _gray_rgb_convert, 94 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _ycck_cmyk_convert, 330 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _sep_upsample, 222 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _int_upsample, 316 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _h2v1_upsample, 92 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _h2v2_upsample, 118 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _h2v1_fancy_upsample, 182 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _h2v2_fancy_upsample, 296 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +29: target=0x100516e0, COFF=_start_pass_upsample addend=0x00000000
+UNRESOLVED binding +36: target=0x10051700, COFF=_sep_upsample addend=0x00000000
+UNRESOLVED binding +204: target=0x100517f0, COFF=_noop_upsample addend=0x00000000
+UNRESOLVED binding +228: target=0x100517e0, COFF=_fullsize_upsample addend=0x00000000
+UNRESOLVED binding +264: target=0x10051a20, COFF=_h2v1_fancy_upsample addend=0x00000000
+UNRESOLVED binding +276: target=0x10051940, COFF=_h2v1_upsample addend=0x00000000
+UNRESOLVED binding +321: target=0x10051ae0, COFF=_h2v2_fancy_upsample addend=0x00000000
+UNRESOLVED binding +334: target=0x100519a0, COFF=_h2v2_upsample addend=0x00000000
+UNRESOLVED binding +379: target=0x10051800, COFF=_int_upsample addend=0x00000000
+SHAPE MATCH: _jinit_upsampler, 498 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _use_merged_upsample, 128 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _prepare_range_limit_table, 119 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _prepare_for_output_pass, 341 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _finish_output_pass, 36 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +325: target=0x1019bc88, COFF=__real@3ff0000000000000 addend=0x00000000
+SHAPE MATCH: _default_decompress_parms, 393 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _jpeg_finish_decompress, 227 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _output_pass_setup, 204 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: _jpeg_read_scanlines, 154 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +50: target=0x1004db50, COFF=_process_data_crank_post addend=0x00000000
+UNRESOLVED binding +72: target=0x1004da10, COFF=_process_data_context_main addend=0x00000000
+UNRESOLVED binding +77: target=0x1004d650, COFF=_make_funny_pointers addend=0x00000000
+UNRESOLVED binding +111: target=0x1004d9a0, COFF=_process_data_simple_main addend=0x00000000
+SHAPE MATCH: _start_pass_main, 118 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +34: target=0x1004d920, COFF=_start_pass_main addend=0x00000000
+UNRESOLVED binding +97: target=0x1004d5a0, COFF=_alloc_funny_pointers addend=0x00000000
+SHAPE MATCH: _jinit_d_main_controller, 205 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +27: target=0x1004b180, COFF=_smoothing_ok addend=0x00000000
+UNRESOLVED binding +38: target=0x1004b2f0, COFF=_decompress_smooth_data addend=0x00000000
+UNRESOLVED binding +58: target=0x1004afd0, COFF=_decompress_data addend=0x00000000
+SHAPE MATCH: _start_output_pass, 75 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +40: target=0x1004aa30, COFF=_start_input_pass addend=0x00000000
+UNRESOLVED binding +47: target=0x1004aa90, COFF=_start_output_pass addend=0x00000000
+UNRESOLVED binding +221: target=0x1004ada0, COFF=_consume_data addend=0x00000000
+UNRESOLVED binding +228: target=0x1004afd0, COFF=_decompress_data addend=0x00000000
+UNRESOLVED binding +347: target=0x1004ad90, COFF=_dummy_consume_data addend=0x00000000
+UNRESOLVED binding +354: target=0x1004aae0, COFF=_decompress_onepass addend=0x00000000
+SHAPE MATCH: _jinit_d_coef_controller, 364 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +128: target=0x1004c5e0, COFF=_jpeg_make_d_derived_tbl addend=0x00000000
+UNRESOLVED binding +142: target=0x1004c5e0, COFF=_jpeg_make_d_derived_tbl addend=0x00000000
+SHAPE MATCH: _start_pass_huff_decoder, 331 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +23: target=0x1004c490, COFF=_start_pass_huff_decoder addend=0x00000000
+UNRESOLVED binding +30: target=0x1004cb30, COFF=_decode_mcu addend=0x00000000
+SHAPE MATCH: _jinit_huff_decoder, 62 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +426: target=0x10050980, COFF=_decode_mcu_DC_first addend=0x00000000
+UNRESOLVED binding +435: target=0x10050bd0, COFF=_decode_mcu_AC_first addend=0x00000000
+UNRESOLVED binding +448: target=0x10050e10, COFF=_decode_mcu_DC_refine addend=0x00000000
+UNRESOLVED binding +457: target=0x10050f00, COFF=_decode_mcu_AC_refine addend=0x00000000
+UNRESOLVED binding +514: target=0x1004c5e0, COFF=_jpeg_make_d_derived_tbl addend=0x00000000
+UNRESOLVED binding +533: target=0x1004c5e0, COFF=_jpeg_make_d_derived_tbl addend=0x00000000
+SHAPE MATCH: _start_pass_phuff_decoder, 614 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +19: target=0x10050680, COFF=_start_pass_phuff_decoder addend=0x00000000
+SHAPE MATCH: _jinit_phuff_decoder, 109 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +92: target=0x10051510, COFF=_post_process_prepass addend=0x00000000
+UNRESOLVED binding +139: target=0x100515b0, COFF=_post_process_2pass addend=0x00000000
+UNRESOLVED binding +174: target=0x10051490, COFF=_post_process_1pass addend=0x00000000
+SHAPE MATCH: _start_pass_dpost, 249 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +23: target=0x10051390, COFF=_start_pass_dpost addend=0x00000000
+SHAPE MATCH: _jinit_d_post_controller, 131 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +13: target=0x1004f9e0, COFF=_jpeg_calc_output_dimensions addend=0x00000000
+UNRESOLVED binding +20: target=0x1004fc10, COFF=_prepare_range_limit_table addend=0x00000000
+UNRESOLVED binding +32: target=0x1004f960, COFF=_use_merged_upsample addend=0x00000000
+UNRESOLVED binding +119: target=0x10056520, COFF=_jinit_1pass_quantizer addend=0x00000000
+UNRESOLVED binding +143: target=0x10057840, COFF=_jinit_2pass_quantizer addend=0x00000000
+UNRESOLVED binding +170: target=0x10050600, COFF=_jinit_merged_upsampler addend=0x00000000
+UNRESOLVED binding +199: target=0x1004bf10, COFF=_jinit_color_deconverter addend=0x00000000
+UNRESOLVED binding +204: target=0x10051c10, COFF=_jinit_upsampler addend=0x00000000
+UNRESOLVED binding +215: target=0x10051650, COFF=_jinit_d_post_controller addend=0x00000000
+UNRESOLVED binding +223: target=0x1004c410, COFF=_jinit_inverse_dct addend=0x00000000
+UNRESOLVED binding +263: target=0x10051320, COFF=_jinit_phuff_decoder addend=0x00000000
+UNRESOLVED binding +270: target=0x1004cf60, COFF=_jinit_huff_decoder addend=0x00000000
+UNRESOLVED binding +307: target=0x1004b940, COFF=_jinit_d_coef_controller addend=0x00000000
+UNRESOLVED binding +326: target=0x1004db80, COFF=_jinit_d_main_controller addend=0x00000000
+SHAPE MATCH: _master_selection, 442 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +147: target=0x10055840, COFF=_jinit_memory_mgr addend=0x00000000
+UNRESOLVED binding +236: target=0x1004f7c0, COFF=_jinit_marker_reader addend=0x00000000
+UNRESOLVED binding +267: target=0x1004d460, COFF=_consume_markers addend=0x00000000
+UNRESOLVED binding +274: target=0x1004d520, COFF=_reset_input_controller addend=0x00000000
+UNRESOLVED binding +281: target=0x1004d400, COFF=_inputctl_start_input_pass addend=0x00000000
+UNRESOLVED binding +288: target=0x1004d440, COFF=_finish_input_pass addend=0x00000000
+SHAPE MATCH: _jpeg_CreateDecompress, 310 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +45: target=0x1004a1d0, COFF=_jpeg_consume_input addend=0x00000000
+SHAPE MATCH: _jpeg_read_header, 147 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+UNRESOLVED binding +30: target=0x1004fe50, COFF=_prepare_for_output_pass addend=0x00000000
+UNRESOLVED binding +37: target=0x1004ffb0, COFF=_finish_output_pass addend=0x00000000
+UNRESOLVED binding +51: target=0x1004fc90, COFF=_master_selection addend=0x00000000
+UNRESOLVED binding +196: target=0x1004a500, COFF=_output_pass_setup addend=0x00000000
+UNRESOLVED binding +235: target=0x1004a500, COFF=_output_pass_setup addend=0x00000000
+SHAPE MATCH: _jpeg_start_decompress, 241 bytes; NOT V2: source semantics, inventory boundaries and bindings require review

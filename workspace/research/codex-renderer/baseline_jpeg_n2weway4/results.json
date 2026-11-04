@@ -1,0 +1,29 @@
+[
+  {
+    "source": "j_frame_end.c",
+    "source_sha256": "d98769880e20ccbc8ae859e18307b0c05100a8eeae1ec1369058dcdf1d349511",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_frame_end.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "071fa6904863a9b0cd9060ad4714e1a15aa5ed7180830667c9e7b86583451ff8",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10021f90",
+        "symbol": "_R_EndFrame",
+        "bytes": 86,
+        "diagnostics": "UNRESOLVED binding +1: target=0x101d4d00, COFF=_renderer_registered addend=0x00000000\nUNRESOLVED binding +10: target=0x10032e20, COFF=_RB_AdaptiveGpuSyncTarget addend=0x00000000\nUNRESOLVED binding +15: target=0x1001e540, COFF=_R_UnlockSkinnedCache addend=0x00000000\nUNRESOLVED binding +21: target=0x101d4af0, COFF=_renderer_update_debug_data addend=0x00000000\nUNRESOLVED binding +26: target=0x101da9c8, COFF=_renderer_front_end_data addend=0x00000000\nUNRESOLVED binding +37: target=0x100058b0, COFF=_R_TransferDebugGlobals addend=0x00000000\nUNRESOLVED binding +45: target=0x10020d50, COFF=_Renderer_SubmitFrame addend=0x00000000\nUNRESOLVED binding +50: target=0x101d49c4, COFF=_renderer_temp_skin_bytes addend=0x00000000\nUNRESOLVED binding +60: target=0x101d49c0, COFF=_renderer_temp_skin_buffer addend=0x00000000\nUNRESOLVED binding +68: target=0x101d49f0, COFF=_renderer_virtual_decommit addend=0x00000000\nUNRESOLVED binding +77: target=0x101d49c4, COFF=_renderer_temp_skin_bytes addend=0x00000000\nSHAPE MATCH: R_BeginFrame, 86 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_BeginFrame @ 0x10021f90 size=86  vs  _R_EndFrame (obj size=86)\nnormalized match: 86/86 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": []
+  }
+]

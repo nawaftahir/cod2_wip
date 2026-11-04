@@ -1,0 +1,20 @@
+.686
+.MODEL FLAT, C
+EXTRN g_101A4FB0:DWORD
+EXTRN g_101A4FB4:DWORD
+EXTRN g_101A4FB8:DWORD
+EXTRN g_101A4FBC:DWORD
+EXTRN g_101A4FC0:DWORD
+EXTRN g_101A4FC4:DWORD
+.CODE
+FUN_100f7939 PROC
+    mov eax, 0100FE7CCh
+    mov dword ptr [g_101A4FB0], eax
+    mov dword ptr [g_101A4FB4], 0100FE45Ah
+    mov dword ptr [g_101A4FB8], 0100FE4BFh
+    mov dword ptr [g_101A4FBC], 0100FE41Eh
+    mov dword ptr [g_101A4FC0], 0100FE4A5h
+    mov dword ptr [g_101A4FC4], eax
+    ret
+FUN_100f7939 ENDP
+END

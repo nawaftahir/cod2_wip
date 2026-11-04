@@ -1,0 +1,259 @@
+[
+  {
+    "address": 269442836,
+    "name": "_sprintf",
+    "source": "src/tu_crt/sprintf.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "8b90fa8c159b7cade40a811b242adab9c3504da530978a89662215c425519f77",
+    "job": "job000",
+    "object_sha256": "a039b2b6e05a289738191dc56819d6098bb43e4c19dde7154f41905bda86bdce",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_sprintf",
+        "output": "UNRESOLVED binding +43: target=0x100fa4e6, COFF=__output addend=0x00000000\nUNRESOLVED binding +76: target=0x100fa320, COFF=__flsbuf addend=0x00000000\nSHAPE MATCH: _sprintf, 88 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "__scprintf",
+        "reason": "length mismatch: target=88, object=49"
+      }
+    ]
+  },
+  {
+    "address": 269443513,
+    "name": "__vsnprintf",
+    "source": "src/tu_crt/vsnprint.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "eb0a73418df68583b671b56bee93ca50537db1eff4ddf70a2bf7d6c0e183fac8",
+    "job": "job001",
+    "object_sha256": "33159b04074ca9760de006fc6e1beb416dcb2ef0c1d339bea70fb0622246ef18",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__vsnprintf",
+        "output": "UNRESOLVED binding +41: target=0x100fa4e6, COFF=__output addend=0x00000000\nUNRESOLVED binding +74: target=0x100fa320, COFF=__flsbuf addend=0x00000000\nSHAPE MATCH: __vsnprintf, 86 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269447968,
+    "name": "_vsprintf",
+    "source": "src/tu_crt/vsprintf.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "a19696ee6cf78fea515cb34d219c63e7aeafd1ece568fda2c0a0d880faae6f71",
+    "job": "job002",
+    "object_sha256": "cc6fb613f4e06eaa58a5df3045e23aeb3ca7d188885f750bfd11520b11a3d164",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_vsprintf",
+        "output": "UNRESOLVED binding +42: target=0x100fa4e6, COFF=__output addend=0x00000000\nUNRESOLVED binding +75: target=0x100fa320, COFF=__flsbuf addend=0x00000000\nSHAPE MATCH: _vsprintf, 87 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "__vscprintf",
+        "reason": "length mismatch: target=87, object=48"
+      }
+    ]
+  },
+  {
+    "address": 269449336,
+    "name": "__snprintf",
+    "source": "src/tu_crt/snprintf.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "2bf787343b0ec59606068439bbd5262541432042ce303e6909efa0c5e00a9d3b",
+    "job": "job003",
+    "object_sha256": "bfd8a74bb0bec9c6da4d141e3cc0b997699b9ad3341224ea641d15f2de995377",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__snprintf",
+        "output": "UNRESOLVED binding +42: target=0x100fa4e6, COFF=__output addend=0x00000000\nUNRESOLVED binding +75: target=0x100fa320, COFF=__flsbuf addend=0x00000000\nSHAPE MATCH: __snprintf, 87 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269475235,
+    "name": "___crtGetEnvironmentStringsA",
+    "source": "src/tu_crt/a_env.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "fdd5705e91ec9dd227d262d771c2b8a27dc502c2d487a6e44bda232759cabfbd",
+    "job": "job004",
+    "object_sha256": "93cd655ea699e806a31f9d2ccd0d6b58a38db0673b906a5eb3f6cf17eca7ac92",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "___crtGetEnvironmentStringsA",
+        "output": "UNRESOLVED binding +3: target=0x101ae158, COFF=?f_use@?1??__crtGetEnvironmentStringsA@@9@9 addend=0x00000000\nUNRESOLVED binding +13: target=0x1010c170, COFF=__imp__GetEnvironmentStringsW@0 addend=0x00000000\nUNRESOLVED binding +38: target=0x101ae158, COFF=?f_use@?1??__crtGetEnvironmentStringsA@@9@9 addend=0x00000000\nUNRESOLVED binding +50: target=0x1010c054, COFF=__imp__GetLastError@0 addend=0x00000000\nUNRESOLVED binding +62: target=0x101ae158, COFF=?f_use@?1??__crtGetEnvironmentStringsA@@9@9 addend=0x00000000\nUNRESOLVED binding +69: target=0x101ae158, COFF=?f_use@?1??__crtGetEnvironmentStringsA@@9@9 addend=0x00000000\nUNRESOLVED binding +113: target=0x1010c044, COFF=__imp__WideCharToMultiByte@32 addend=0x00000000\nUNRESOLVED binding +144: target=0x100fc464, COFF=_malloc addend=0x00000000\nUNRESOLVED binding +179: target=0x100f84d0, COFF=_free addend=0x00000000\nUNRESOLVED binding +195: target=0x1010c16c, COFF=__imp__FreeEnvironmentStringsW@4 addend=0x00000000\nUNRESOLVED binding +217: target=0x1010c168, COFF=__imp__GetEnvironmentStrings@0 addend=0x00000000\nUNRESOLVED binding +248: target=0x100fc464, COFF=_malloc addend=0x00000000\nUNRESOLVED binding +267: target=0x100fcdf0, COFF=_memcpy addend=0x00000000\nUNRESOLVED binding +277: target=0x1010c164, COFF=__imp__FreeEnvironmentStringsA@4 addend=0x00000000\nSHAPE MATCH: ___crtGetEnvironmentStringsA, 290 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269478280,
+    "name": "__Getdays",
+    "source": "src/tu_crt/strftime.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "8640344025db8770be17f364bb78239af3a1dd9c92fbb88ffc35c0ad84b117ff",
+    "job": "job005",
+    "object_sha256": "49ae209bd9852614fc24dec2d853079164b5f541364163036e76e2f883794e69",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__Getdays",
+        "output": "UNRESOLVED binding +6: target=0x101a4fd0, COFF=___lc_time_curr addend=0x00000000\nUNRESOLVED binding +19: target=0x100fa200, COFF=_strlen addend=0x00000000\nUNRESOLVED binding +29: target=0x100fa200, COFF=_strlen addend=0x00000000\nUNRESOLVED binding +50: target=0x100fc464, COFF=_malloc addend=0x00000000\nUNRESOLVED binding +74: target=0x100fe890, COFF=_strcpy addend=0x00000000\nUNRESOLVED binding +80: target=0x100fa200, COFF=_strlen addend=0x00000000\nUNRESOLVED binding +96: target=0x100fe890, COFF=_strcpy addend=0x00000000\nUNRESOLVED binding +102: target=0x100fa200, COFF=_strlen addend=0x00000000\nSHAPE MATCH: __Getdays, 127 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "__Getmonths",
+        "reason": "length mismatch: target=127, object=149"
+      },
+      {
+        "symbol": "__Gettnames",
+        "reason": "length mismatch: target=127, object=563"
+      },
+      {
+        "symbol": "__store_str",
+        "reason": "length mismatch: target=127, object=32"
+      },
+      {
+        "symbol": "__store_number",
+        "reason": "length mismatch: target=127, object=54"
+      },
+      {
+        "symbol": "__store_num",
+        "reason": "length mismatch: target=127, object=121"
+      },
+      {
+        "symbol": "__expandtime",
+        "reason": "length mismatch: target=127, object=608"
+      },
+      {
+        "symbol": "__store_winword",
+        "reason": "length mismatch: target=127, object=1162"
+      },
+      {
+        "symbol": "__Strftime",
+        "reason": "length mismatch: target=127, object=200"
+      },
+      {
+        "symbol": "_strftime",
+        "reason": "length mismatch: target=127, object=27"
+      }
+    ]
+  }
+]

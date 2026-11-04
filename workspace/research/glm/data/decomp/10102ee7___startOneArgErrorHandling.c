@@ -1,0 +1,17 @@
+// 10102ee7 size=60 __startOneArgErrorHandling
+
+/* Library Function - Single Match
+    __startOneArgErrorHandling
+   
+   Library: Visual Studio 2003 Release */
+
+float10 __startOneArgErrorHandling(void)
+
+{
+  float10 in_ST0;
+  
+  __87except();
+  return (float10)(double)in_ST0;
+}
+
+

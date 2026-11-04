@@ -1,0 +1,86 @@
+[
+  {
+    "source": "jcapimin.c",
+    "source_sha256": "9d6b55577a0fca0fc2a43a638a3bd4e762a12a16b241bf057ecba42c67d2843e",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcapimin.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "352cea58d2b83def87dfbb07e1012a2fbefa07e81a7695feda7a1c31dbe3b6d9",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x10050e10",
+        "symbol": "_jpeg_CreateCompress",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x10044eb0",
+        "symbol": "_jpeg_suppress_tables",
+        "reason": "byte mismatch +1: PE=46, COFF=44"
+      },
+      {
+        "address": "0x10051320",
+        "symbol": "_jpeg_suppress_tables",
+        "reason": "relocation-site/type mismatch: PE={19: 6}, COFF={}"
+      },
+      {
+        "address": "0x10055d80",
+        "symbol": "_jpeg_suppress_tables",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x10044a10",
+        "symbol": "_jpeg_finish_compress",
+        "reason": "relocation-site/type mismatch: PE={138: 20, 210: 20}, COFF={253: 20}"
+      }
+    ]
+  },
+  {
+    "source": "jdapimin.c",
+    "source_sha256": "900f3e42a7625b133575fd706f15df65a135fdcd776fb18352b49dff0c1c9b0c",
+    "job": "job001",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdapimin.c",
+      "/FoZ:\\out\\job001.obj"
+    ],
+    "object_sha256": "f0f2dc372209006ab3b0903d15fc6c3af36bfe1fdf3484b105e8aef7c8d1606d",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10049fa0",
+        "symbol": "_default_decompress_parms",
+        "bytes": 393,
+        "diagnostics": "UNRESOLVED binding +325: target=0x1019bc88, COFF=__real@3ff0000000000000 addend=0x00000000\nSHAPE MATCH: FUN_10049fa0, 393 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10049fa0 @ 0x10049fa0 size=393  vs  _default_decompress_parms (obj size=393)\nnormalized match: 393/393 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 393,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10047b70",
+        "symbol": "_jpeg_consume_input",
+        "reason": "relocation-site/type mismatch: PE={102: 20, 120: 20, 161: 20}, COFF={24: 6, 31: 6, 82: 20, 152: 6, 156: 6, 160: 6, 164: 6, 168: 6}"
+      },
+      {
+        "address": "0x100583d0",
+        "symbol": "_jpeg_finish_decompress",
+        "reason": "relocation-site/type mismatch: PE={65: 6, 34: 6, 136: 6, 73: 6, 107: 6, 26: 6, 4: 20, 43: 20, 122: 20, 152: 20}, COFF={182: 20}"
+      }
+    ]
+  }
+]

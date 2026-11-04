@@ -1,0 +1,2251 @@
+{
+ "_meta": {
+  "refexport_slots": 192,
+  "refimport_slots": 181,
+  "refexport_v59_members": 88,
+  "refimport_v59_members": 136,
+  "note": "refexport = table the retail 1.0 DLL fills in GetRefAPI (768B=192 slots on x86); refimport = table the engine passes in (181 slots). Slot names recovered from opencod2 v60 adapters."
+ },
+ "refexport_v60": [
+  {
+   "slot": 0,
+   "name": "Shutdown",
+   "source": "kReV60: refexport_t[0]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 1,
+   "name": "BeginRegistration",
+   "source": "kReV60: refexport_t[1]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 2,
+   "name": "RegisterModel",
+   "source": "kReV60: refexport_t[2]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 3,
+   "name": "RegisterInlineModel",
+   "source": "kReV60: refexport_t[3]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 4,
+   "name": "RegisterMaterial",
+   "source": "kReV60: refexport_t[4]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 5,
+   "name": "RegisterRawImage",
+   "source": "kReV60: refexport_t[5]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 6,
+   "name": "Material_IsDefault",
+   "source": "kReV60: refexport_t[6]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 7,
+   "name": "LoadWorld",
+   "source": "kReV60: refexport_t[7]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 8,
+   "name": "GetWorldBounds",
+   "source": "kReV60: refexport_t[8]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 9,
+   "name": "FinishLoadingModels",
+   "source": "kReV60: refexport_t[9]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 10,
+   "name": "SetIgnorePrecacheErrors",
+   "source": "kReV60: refexport_t[10]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 11,
+   "name": "GetIgnorePrecacheErrors",
+   "source": "kReV60: refexport_t[11]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 12,
+   "name": "GetMinSpecImageMemory",
+   "source": "kReV60: refexport_t[12]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 13,
+   "name": "GetMaterialName",
+   "source": "kReV60: refexport_t[13]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 14,
+   "name": "GetMaterialSubimageCount",
+   "source": "kReV60: refexport_t[14]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 15,
+   "name": "IsMaterialRefractive",
+   "source": "kReV60: refexport_t[15]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 16,
+   "name": "GetFarPlaneDist",
+   "source": "kReV60: refexport_t[16]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 17,
+   "name": "EndRegistration",
+   "source": "kReV60: refexport_t[17]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 18,
+   "name": "ClearScene",
+   "source": "kReV60: refexport_t[18]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 19,
+   "name": "AddPolyToScene",
+   "source": "kReV60: refexport_t[20]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 20,
+   "name": "R_AddRefEntityToScene",
+   "source": "v60 adapter: dst[20] = R_AddRefEntityToScene",
+   "confidence": "certain"
+  },
+  {
+   "slot": 21,
+   "name": "AddLightToScene",
+   "source": "kReV60: refexport_t[21]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 22,
+   "name": "ri[178] callback",
+   "source": "v60 adapter: dst[22] = rimp[178]",
+   "confidence": "certain"
+  },
+  {
+   "slot": 23,
+   "name": "ri[177] callback",
+   "source": "v60 adapter: dst[23] = rimp[177]",
+   "confidence": "certain"
+  },
+  {
+   "slot": 24,
+   "name": "noop (v60: unused)",
+   "source": "v60 adapter: dst[24] = v60_noop",
+   "confidence": "certain"
+  },
+  {
+   "slot": 25,
+   "name": "DefaultVertexFrames",
+   "source": "kReV60: refexport_t[19]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 26,
+   "name": "AddPolyToScene",
+   "source": "dst[26] = re59[20]",
+   "confidence": "certain"
+  },
+  {
+   "slot": 27,
+   "name": "AddLightToScene",
+   "source": "dst[27] = re59[21]",
+   "confidence": "certain"
+  },
+  {
+   "slot": 28,
+   "name": "InterpretSunLightParseParams",
+   "source": "kReV60: refexport_t[22]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 29,
+   "name": "ResetSunLightParseParams",
+   "source": "kReV60: refexport_t[23]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 30,
+   "name": "SetCullDist",
+   "source": "kReV60: refexport_t[24]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 31,
+   "name": "SetFog",
+   "source": "kReV60: refexport_t[25]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 32,
+   "name": "SwitchFog",
+   "source": "kReV60: refexport_t[26]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 33,
+   "name": "ArchiveFogState",
+   "source": "kReV60: refexport_t[27]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 34,
+   "name": "ClearFogs",
+   "source": "kReV60: refexport_t[28]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 35,
+   "name": "SetSunLightOverride",
+   "source": "kReV60: refexport_t[29]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 36,
+   "name": "ResetSunLightOverride",
+   "source": "kReV60: refexport_t[30]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 37,
+   "name": "RenderScene",
+   "source": "kReV60: refexport_t[31]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 38,
+   "name": "BeginDelayedDrawing",
+   "source": "kReV60: refexport_t[32]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 39,
+   "name": "EndDelayedDrawing",
+   "source": "kReV60: refexport_t[33]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 40,
+   "name": "IssueDelayedDrawing",
+   "source": "kReV60: refexport_t[34]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 41,
+   "name": "ClearFlares",
+   "source": "kReV60: refexport_t[35]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 42,
+   "name": "SetMaterialColor",
+   "source": "kReV60: refexport_t[36]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 43,
+   "name": "DrawStretchPic",
+   "source": "kReV60: refexport_t[37]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 44,
+   "name": "DrawStretchPicRotate",
+   "source": "kReV60: refexport_t[38]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 45,
+   "name": "DrawStretchRaw",
+   "source": "kReV60: refexport_t[39]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 46,
+   "name": "DrawQuadPic",
+   "source": "kReV60: refexport_t[40]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 47,
+   "name": "DrawSprite",
+   "source": "kReV60: refexport_t[41]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 48,
+   "name": "BeginFrame",
+   "source": "kReV60: refexport_t[42]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 49,
+   "name": "EndFrame",
+   "source": "kReV60: refexport_t[43]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 50,
+   "name": "BeginDebugFrame",
+   "source": "kReV60: refexport_t[44]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 51,
+   "name": "EndDebugFrame",
+   "source": "kReV60: refexport_t[45]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 52,
+   "name": "EndView",
+   "source": "kReV60: refexport_t[46]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 53,
+   "name": "DoneRenderingViews",
+   "source": "kReV60: refexport_t[47]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 54,
+   "name": "SaveScreen",
+   "source": "kReV60: refexport_t[48]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 55,
+   "name": "BlendSavedScreen",
+   "source": "kReV60: refexport_t[49]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 56,
+   "name": "ClearScreen",
+   "source": "kReV60: refexport_t[50]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 57,
+   "name": "SetViewport",
+   "source": "kReV60: refexport_t[51]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 58,
+   "name": "MarkFragments",
+   "source": "kReV60: refexport_t[52]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 59,
+   "name": "ModelBounds",
+   "source": "kReV60: refexport_t[53]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 60,
+   "name": "TrackStatistics",
+   "source": "kReV60: refexport_t[54]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 61,
+   "name": "PickMaterial",
+   "source": "kReV60: refexport_t[55]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 62,
+   "name": "RegisterFont",
+   "source": "kReV60: refexport_t[56]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 63,
+   "name": "ResetImageAllocations",
+   "source": "kReV60: refexport_t[57]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 64,
+   "name": "FreeImageAllocations",
+   "source": "kReV60: refexport_t[58]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 65,
+   "name": "BeginCubemapShot",
+   "source": "kReV60: refexport_t[59]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 66,
+   "name": "EndCubemapShot",
+   "source": "kReV60: refexport_t[60]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 67,
+   "name": "SaveCubemapShot",
+   "source": "kReV60: refexport_t[61]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 68,
+   "name": "LightingFromCubemapShots",
+   "source": "kReV60: refexport_t[62]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 69,
+   "name": "LocateDebugStrings",
+   "source": "kReV60: refexport_t[63]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 70,
+   "name": "LocateDebugLines",
+   "source": "kReV60: refexport_t[64]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 71,
+   "name": "AddPlume",
+   "source": "kReV60: refexport_t[65]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 72,
+   "name": "ShutdownDebug",
+   "source": "kReV60: refexport_t[66]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 73,
+   "name": "UpdateColor",
+   "source": "kReV60: refexport_t[67]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 74,
+   "name": "NormalizedTextScale",
+   "source": "kReV60: refexport_t[68]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 75,
+   "name": "TextWidth",
+   "source": "kReV60: refexport_t[69]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 76,
+   "name": "TextHeight",
+   "source": "kReV60: refexport_t[70]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 77,
+   "name": "DrawText",
+   "source": "kReV60: refexport_t[71]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 78,
+   "name": "DrawTextInSpace",
+   "source": "kReV60: refexport_t[72]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 79,
+   "name": "ConsoleTextWidth",
+   "source": "kReV60: refexport_t[73]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 80,
+   "name": "DrawConsoleText",
+   "source": "kReV60: refexport_t[74]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 81,
+   "name": "DrawTextWithCursor",
+   "source": "dst[81] = src[75] (dup)",
+   "confidence": "certain"
+  },
+  {
+   "slot": 82,
+   "name": "DObjGetSurfMaterials",
+   "source": "kReV60: refexport_t[76]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 83,
+   "name": "DObjReplaceMaterial",
+   "source": "kReV60: refexport_t[77]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 84,
+   "name": "ParseSunLight",
+   "source": "kReV60: refexport_t[78]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 85,
+   "name": "Material_Duplicate",
+   "source": "kReV60: refexport_t[79]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 86,
+   "name": "DuplicateFont",
+   "source": "kReV60: refexport_t[80]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 87,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 88,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 89,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 90,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 91,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 92,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 93,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 94,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 95,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 96,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 97,
+   "name": "R_LoadXModelSurfsSurface",
+   "source": "v60 adapter: dst[97]",
+   "confidence": "certain"
+  },
+  {
+   "slot": 98,
+   "name": "R_RegisterXModelSurfs",
+   "source": "v60 adapter: dst[98]",
+   "confidence": "certain"
+  },
+  {
+   "slot": 99,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 100,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 101,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 102,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 103,
+   "name": "SyncRenderThread",
+   "source": "kReV60: refexport_t[82]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 104,
+   "name": "AbortRenderCommands",
+   "source": "kReV60: refexport_t[83]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 105,
+   "name": "IsGpuFenceFinished",
+   "source": "kReV60: refexport_t[84]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 106,
+   "name": "GpuWaited",
+   "source": "kReV60: refexport_t[86]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 107,
+   "name": "SetLodOrigin",
+   "source": "kReV60: refexport_t[87]->v60",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 108,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 109,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 110,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 111,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 112,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 113,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 114,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 115,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 116,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 117,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 118,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 119,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 120,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 121,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 122,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 123,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 124,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 125,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 126,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 127,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 128,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 129,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 130,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 131,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 132,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 133,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 134,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 135,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 136,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 137,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 138,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 139,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 140,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 141,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 142,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 143,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 144,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 145,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 146,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 147,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 148,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 149,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 150,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 151,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 152,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 153,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 154,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 155,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 156,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 157,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 158,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 159,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 160,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 161,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 162,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 163,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 164,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 165,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 166,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 167,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 168,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 169,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 170,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 171,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 172,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 173,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 174,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 175,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 176,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 177,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 178,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 179,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 180,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 181,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 182,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 183,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 184,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 185,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 186,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 187,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 188,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 189,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 190,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  },
+  {
+   "slot": 191,
+   "name": null,
+   "source": null,
+   "confidence": "unknown"
+  }
+ ],
+ "refimport_v60": [
+  {
+   "slot": 0,
+   "name": "Printf",
+   "source": "refimport_t[0]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 1,
+   "name": "Error",
+   "source": "refimport_t[1]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 2,
+   "name": "Milliseconds",
+   "source": "refimport_t[2]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 3,
+   "name": "Hunk_AllocInternal",
+   "source": "refimport_t[3]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 4,
+   "name": "Hunk_AllocateTempMemoryInternal",
+   "source": "refimport_t[4]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 5,
+   "name": "Z_MallocInternal",
+   "source": "refimport_t[5]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 6,
+   "name": "Z_FreeInternal",
+   "source": "refimport_t[6]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 7,
+   "name": "Hunk_AllocAlignInternal",
+   "source": "refimport_t[7]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 8,
+   "name": "Z_VirtualReserveInternal",
+   "source": "refimport_t[8]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 9,
+   "name": "Z_VirtualCommitInternal",
+   "source": "refimport_t[9]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 10,
+   "name": "Z_VirtualDecommitInternal",
+   "source": "refimport_t[10]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 11,
+   "name": "Z_VirtualFreeInternal",
+   "source": "refimport_t[11]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 12,
+   "name": "Hunk_FreeTempMemory",
+   "source": "refimport_t[12]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 13,
+   "name": "Hunk_ClearTempMemory",
+   "source": "refimport_t[13]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 14,
+   "name": "Hunk_HideTempMemory",
+   "source": "refimport_t[14]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 15,
+   "name": "Hunk_ShowTempMemory",
+   "source": "refimport_t[15]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 16,
+   "name": "Hunk_AllocateTempMemoryHighInternal",
+   "source": "refimport_t[16]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 17,
+   "name": "Hunk_ClearTempMemoryHigh",
+   "source": "refimport_t[17]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 18,
+   "name": "HiAlloc",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 19,
+   "name": "HiSetOffset",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 20,
+   "name": "HiOffToPtr",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 21,
+   "name": "Sys_DirectXFatalError",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 22,
+   "name": "ShowWindow",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 23,
+   "name": "HideWindow",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 24,
+   "name": "PumpMessages",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 25,
+   "name": "Dvar_FindVar",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 26,
+   "name": "Dvar_RegisterBool",
+   "source": "refimport_t[22]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 27,
+   "name": "Dvar_RegisterInt",
+   "source": "refimport_t[23]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 28,
+   "name": "Dvar_RegisterFloat",
+   "source": "refimport_t[24]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 29,
+   "name": "Dvar_RegisterString",
+   "source": "refimport_t[25]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 30,
+   "name": "Dvar_RegisterEnum",
+   "source": "refimport_t[26]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 31,
+   "name": "Dvar_RegisterColor",
+   "source": "refimport_t[27]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 32,
+   "name": "Dvar_RegisterVec2",
+   "source": "refimport_t[28]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 33,
+   "name": "Dvar_RegisterVec3",
+   "source": "refimport_t[29]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 34,
+   "name": "Dvar_RegisterVec4",
+   "source": "refimport_t[30]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 35,
+   "name": "Dvar_UnregisterSystem",
+   "source": "refimport_t[31]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 36,
+   "name": "Dvar_ChangeResetValue",
+   "source": "refimport_t[32]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 37,
+   "name": "Dvar_IsAtDefaultValue",
+   "source": "refimport_t[33]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 38,
+   "name": "Dvar_ClearModified",
+   "source": "refimport_t[34]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 39,
+   "name": "Dvar_SetModified",
+   "source": "refimport_t[35]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 40,
+   "name": "Dvar_UpdateEnumDomain",
+   "source": "refimport_t[36]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 41,
+   "name": "Dvar_SetBool",
+   "source": "refimport_t[37]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 42,
+   "name": "Dvar_SetInt",
+   "source": "refimport_t[38]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 43,
+   "name": "Dvar_SetFloat",
+   "source": "refimport_t[39]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 44,
+   "name": "Dvar_SetString",
+   "source": "refimport_t[40]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 45,
+   "name": "Dvar_SetColor",
+   "source": "refimport_t[41]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 46,
+   "name": "Dvar_SetVec2",
+   "source": "refimport_t[42]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 47,
+   "name": "Dvar_SetVec3",
+   "source": "refimport_t[43]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 48,
+   "name": "Dvar_SetVec4",
+   "source": "refimport_t[44]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 49,
+   "name": "Dvar_SetFromString",
+   "source": "refimport_t[45]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 50,
+   "name": "Dvar_SetBoolByName",
+   "source": "refimport_t[46]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 51,
+   "name": "Dvar_SetIntByName",
+   "source": "refimport_t[47]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 52,
+   "name": "Dvar_SetFloatByName",
+   "source": "refimport_t[48]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 53,
+   "name": "Dvar_SetStringByName",
+   "source": "refimport_t[49]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 54,
+   "name": "Dvar_SetColorByName",
+   "source": "refimport_t[50]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 55,
+   "name": "Dvar_SetVec2ByName",
+   "source": "refimport_t[51]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 56,
+   "name": "Dvar_SetVec3ByName",
+   "source": "refimport_t[52]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 57,
+   "name": "Dvar_SetVec4ByName",
+   "source": "refimport_t[53]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 58,
+   "name": "Dvar_SetFromStringByName",
+   "source": "refimport_t[54]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 59,
+   "name": "Dvar_GetBool",
+   "source": "refimport_t[55]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 60,
+   "name": "Dvar_GetInt",
+   "source": "refimport_t[56]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 61,
+   "name": "Dvar_GetFloat",
+   "source": "refimport_t[57]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 62,
+   "name": "Dvar_GetString",
+   "source": "refimport_t[58]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 63,
+   "name": "Dvar_GetVariantString",
+   "source": "refimport_t[59]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 64,
+   "name": "Dvar_EnumToString",
+   "source": "refimport_t[60]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 65,
+   "name": "Dvar_Reset",
+   "source": "refimport_t[61]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 66,
+   "name": "Cmd_AddCommand",
+   "source": "refimport_t[62]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 67,
+   "name": "Cmd_RemoveCommand",
+   "source": "refimport_t[63]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 68,
+   "name": "Cmd_Argc",
+   "source": "refimport_t[64]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 69,
+   "name": "Cmd_Argv",
+   "source": "refimport_t[65]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 70,
+   "name": "Cbuf_ExecuteText",
+   "source": "refimport_t[66]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 71,
+   "name": "Com_SaveDvarsToBuffer",
+   "source": "refimport_t[67]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 72,
+   "name": "Com_LoadDvarsFromBuffer",
+   "source": "refimport_t[68]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 73,
+   "name": "Com_GetBsp",
+   "source": "refimport_t[69]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 74,
+   "name": "SEH_ReadCharFromString",
+   "source": "refimport_t[70]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 75,
+   "name": "CL_UpdateDebugData",
+   "source": "refimport_t[71]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 76,
+   "name": "CL_FlushDebugData",
+   "source": "refimport_t[72]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 77,
+   "name": "StatMon_Warning",
+   "source": "refimport_t[73]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 78,
+   "name": "FS_ReadFile",
+   "source": "refimport_t[74]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 79,
+   "name": "FS_FreeFile",
+   "source": "refimport_t[75]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 80,
+   "name": "FS_FOpenFileRead",
+   "source": "refimport_t[76]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 81,
+   "name": "FS_ListFiles",
+   "source": "refimport_t[77]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 82,
+   "name": "FS_FreeFileList",
+   "source": "refimport_t[78]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 83,
+   "name": "FS_FileExists",
+   "source": "refimport_t[79]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 84,
+   "name": "FS_WriteFile",
+   "source": "refimport_t[80]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 85,
+   "name": "FS_FOpenFileByMode",
+   "source": "refimport_t[81]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 86,
+   "name": "FS_FCloseFile",
+   "source": "refimport_t[82]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 87,
+   "name": "FS_Read",
+   "source": "refimport_t[83]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 88,
+   "name": "FS_Write",
+   "source": "refimport_t[84]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 89,
+   "name": "CM_SaveLump",
+   "source": "refimport_t[85]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 90,
+   "name": "CM_BoxTrace",
+   "source": "refimport_t[86]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 91,
+   "name": "CM_BoxSightTrace",
+   "source": "refimport_t[87]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 92,
+   "name": "CM_RayTriangleIntersect",
+   "source": "refimport_t[88]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 93,
+   "name": "XModelPrecache",
+   "source": "refimport_t[89]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 94,
+   "name": "XModelGetSurfaces",
+   "source": "refimport_t[90]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 95,
+   "name": "XModelBad",
+   "source": "refimport_t[91]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 96,
+   "name": "Hunk_OverrideDataForFile",
+   "source": "refimport_t[92]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 97,
+   "name": "XModelGetNumLods",
+   "source": "refimport_t[93]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 98,
+   "name": "XModelSetTestLods",
+   "source": "refimport_t[94]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 99,
+   "name": "XModelGetLodForDist",
+   "source": "refimport_t[95]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 100,
+   "name": "XModelGetLodOutDist",
+   "source": "refimport_t[96]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 101,
+   "name": "XModelGetSurfaceName",
+   "source": "refimport_t[97]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 102,
+   "name": "XModelGetName",
+   "source": "refimport_t[98]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 103,
+   "name": "XModelGetFlags",
+   "source": "refimport_t[99]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 104,
+   "name": "XModelNumBones",
+   "source": "refimport_t[100]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 105,
+   "name": "XModelGetSkins",
+   "source": "refimport_t[101]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 106,
+   "name": "XModelGetMemUsage",
+   "source": "refimport_t[102]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 107,
+   "name": "XModelGetLodName",
+   "source": "refimport_t[103]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 108,
+   "name": "XModelGetBasePose",
+   "source": "refimport_t[104]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 109,
+   "name": "XModelGetBasePoseBone",
+   "source": "refimport_t[105]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 110,
+   "name": "DObjBad",
+   "source": "refimport_t[106]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 111,
+   "name": "DB_EnumXAssets",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 112,
+   "name": "GetThreadData",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 113,
+   "name": "CurThreadId",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 114,
+   "name": "IsWorker",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 115,
+   "name": "ResumeWorker",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 116,
+   "name": "InitWorker",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 117,
+   "name": "UNK_m114",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 118,
+   "name": "UNK_m115",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 119,
+   "name": "UNK_m116",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 120,
+   "name": "UNK_m117",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 121,
+   "name": "UNK_m118",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 122,
+   "name": "UNK_m119",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 123,
+   "name": "UNK_m120",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 124,
+   "name": "UNK_m121",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 125,
+   "name": "UNK_m122",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 126,
+   "name": "DObjGetBounds",
+   "source": "refimport_t[108]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 127,
+   "name": "DObjGetSurface",
+   "source": "refimport_t[109]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 128,
+   "name": "DObjGetNumModels",
+   "source": "refimport_t[110]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 129,
+   "name": "DObjGetNumSurfaces",
+   "source": "refimport_t[111]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 130,
+   "name": "DObjGetSurfaces",
+   "source": "refimport_t[112]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 131,
+   "name": "DObjGetPartBits",
+   "source": "refimport_t[113]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 132,
+   "name": "DObjGetRotTransArray",
+   "source": "refimport_t[114]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 133,
+   "name": "DObjSkelAreBonesUpToDate",
+   "source": "refimport_t[115]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 134,
+   "name": "DObjGetMatOffset",
+   "source": "refimport_t[116]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 135,
+   "name": "DObjGetModel",
+   "source": "refimport_t[117]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 136,
+   "name": "DObjGetSurfaceName",
+   "source": "refimport_t[118]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 137,
+   "name": "DObjCreate",
+   "source": "refimport_t[119]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 138,
+   "name": "DObjGetAllocSkelSize",
+   "source": "refimport_t[120]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 139,
+   "name": "DObjCreateSkel",
+   "source": "refimport_t[121]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 140,
+   "name": "DObjCalcSkel",
+   "source": "refimport_t[123]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 141,
+   "name": "DObjCalcAnim",
+   "source": "refimport_t[122]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 142,
+   "name": "DObjNumBones",
+   "source": "refimport_t[124]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 143,
+   "name": "DObjGetBoneInfo",
+   "source": "refimport_t[125]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 144,
+   "name": "DObjGetLodForDist",
+   "source": "refimport_t[126]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 145,
+   "name": "DObjGetLodOutDist",
+   "source": "refimport_t[127]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 146,
+   "name": "DObjCompleteHierarchyBits",
+   "source": "refimport_t[128]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 147,
+   "name": "DObjSetModel",
+   "source": "refimport_t[129]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 148,
+   "name": "CIN_RunCinematic",
+   "source": "refimport_t[132]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 149,
+   "name": "UNK_THUNK_149",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 150,
+   "name": "UNK_THUNK_150",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 151,
+   "name": "CG_DObjCalcPose",
+   "source": "refimport_t[133]",
+   "confidence": "mapped"
+  },
+  {
+   "slot": 152,
+   "name": "UNK_THUNK_152",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 153,
+   "name": "UNK_THUNK_153",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 154,
+   "name": "UNK_THUNK_154",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 155,
+   "name": "UNK_THUNK_155",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 156,
+   "name": "UNK_THUNK_156",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 157,
+   "name": "UNK_THUNK_157",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 158,
+   "name": "UNK_THUNK_158",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 159,
+   "name": "CM_GetPlaneNum",
+   "source": "gfx_dll_v60.c override",
+   "confidence": "certain"
+  },
+  {
+   "slot": 160,
+   "name": "UNK_THUNK_160",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 161,
+   "name": "UNK_THUNK_161",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 162,
+   "name": "UNK_THUNK_162",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 163,
+   "name": "UNK_THUNK_163",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 164,
+   "name": "UNK_THUNK_164",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 165,
+   "name": "UNK_THUNK_165",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 166,
+   "name": "UNK_THUNK_166",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 167,
+   "name": "UNK_THUNK_167",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 168,
+   "name": "UNK_THUNK_168",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 169,
+   "name": "UNK_THUNK_169",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 170,
+   "name": "UNK_THUNK_170",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 171,
+   "name": "UNK_THUNK_171",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 172,
+   "name": "UNK_THUNK_172",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 173,
+   "name": "UNK_THUNK_173",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 174,
+   "name": "UNK_THUNK_174",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 175,
+   "name": "UNK_THUNK_175",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 176,
+   "name": "UNK_THUNK_176",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 177,
+   "name": "UNK_THUNK_177",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 178,
+   "name": "UNK_THUNK_178",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 179,
+   "name": "UNK_THUNK_179",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  },
+  {
+   "slot": 180,
+   "name": "UNK_THUNK_180",
+   "source": "gfxV60Thunks",
+   "confidence": "thunk"
+  }
+ ]
+}

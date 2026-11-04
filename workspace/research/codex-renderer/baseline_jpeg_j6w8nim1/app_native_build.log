@@ -1,0 +1,17 @@
+In file included from /home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_source_callbacks/jddctmgr.c:21,
+                 from /home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_source_callbacks/jpeg_complete_group.c:35,
+                 from /home/nawaf/cod2/test/dev/codex/renderer/test_jpeg_app_markers.c:9:
+/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_source_callbacks/jdct.h:139:9: warning: ‘FIX’ redefined
+  139 | #define FIX(x)  ((INT32) ((x) * CONST_SCALE + 0.5))
+      |         ^~~
+In file included from /home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_source_callbacks/jpeg_complete_group.c:30:
+/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_source_callbacks/jdmerge.c:74:9: note: this is the location of the previous definition
+   74 | #define FIX(x)          ((INT32) ((x) * (1L<<SCALEBITS) + 0.5))
+      |         ^~~
+In file included from /home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_source_callbacks/jpeg_complete_group.c:36:
+/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_source_callbacks/jdcolor.c:62:9: warning: ‘FIX’ redefined
+   62 | #define FIX(x)          ((INT32) ((x) * (1L<<SCALEBITS) + 0.5))
+      |         ^~~
+/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_source_callbacks/jdct.h:139:9: note: this is the location of the previous definition
+  139 | #define FIX(x)  ((INT32) ((x) * CONST_SCALE + 0.5))
+      |         ^~~

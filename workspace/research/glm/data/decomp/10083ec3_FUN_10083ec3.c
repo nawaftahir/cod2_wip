@@ -1,0 +1,22 @@
+// 10083ec3 size=95 FUN_10083ec3
+
+undefined4 FUN_10083ec3(LPBYTE param_1,LPCSTR param_2,LPBYTE param_3)
+
+{
+  LSTATUS LVar1;
+  HKEY local_8;
+  
+  local_8 = (HKEY)0x0;
+  LVar1 = RegOpenKeyA((HKEY)0x80000002,"Software\\Microsoft\\Direct3D",&local_8);
+  if (LVar1 == 0) {
+    LVar1 = RegQueryValueExA(local_8,param_2,(LPDWORD)0x0,(LPDWORD)&param_3,param_3,
+                             (LPDWORD)&stack0x00000010);
+    RegCloseKey(local_8);
+    if ((LVar1 == 0) && (param_3 == param_1)) {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+

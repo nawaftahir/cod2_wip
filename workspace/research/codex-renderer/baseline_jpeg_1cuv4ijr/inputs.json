@@ -1,0 +1,46 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_dxerr_switch",
+  "jobs": [
+    {
+      "source": "j_dxerr_a.c",
+      "source_sha256": "9a3f1534d66e38a210403324fa763942d2dc419c4a282caf34c7bfa124ac64bc",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_dxerr_a.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    },
+    {
+      "source": "j_dxerr_w.c",
+      "source_sha256": "e7a50e7b75f90670059cdd7f94644c645c520f054f86932b54f01e43c79b3adb",
+      "job": "job001",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_dxerr_w.c",
+        "/FoZ:\\out\\job001.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "j_dxerr_a.c": "9a3f1534d66e38a210403324fa763942d2dc419c4a282caf34c7bfa124ac64bc",
+    "oracle.c": "1c22b27da6a4c026517630b5939bdd655a6f0a1bea931997d258a5e4733e9bfc",
+    "j_dxerr_w.c": "e7a50e7b75f90670059cdd7f94644c645c520f054f86932b54f01e43c79b3adb"
+  },
+  "discovery_range": [
+    "0x100efe3c",
+    "0x100f50c0"
+  ],
+  "reused_objects_from": null
+}

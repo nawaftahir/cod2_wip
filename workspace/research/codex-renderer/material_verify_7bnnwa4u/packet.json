@@ -1,0 +1,28 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\material_queries.c",
+    "Z:\\inputs\\src\\renderer_state.c",
+    "/FoZ:\\out\\"
+  ],
+  "sources": {
+    "material_queries.c": "11a9e13af0bec3eb04979b73a9b448f4bcd6a982564dd7d23027092f4a66e8ad",
+    "renderer_state.c": "a9fcded06c6b638ecf2aaaae878209f20e3319e0d64827a5911759422d7fbf2f"
+  },
+  "objects": {
+    "material_queries.obj": "5cd7aa244692852b06a4cd6be703470ce43f880bf00a406b415c17404a231094",
+    "renderer_state.obj": "cfd35a98ecf9142d1f817e49102963838ad9c1d8d13134637dbae8daf3089218"
+  },
+  "status": "REVIEWABLE",
+  "functions": 6,
+  "bytes": 95,
+  "wrong_binding_rejected": true,
+  "host_fixtures_passed": true,
+  "independent_review": false
+}

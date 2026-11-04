@@ -1,0 +1,1092 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "getrefapi": "0x10013270",
+  "export_base": "0x1076a880",
+  "export_slots": 108,
+  "api_version": 59,
+  "import_base": "0x101d49c8",
+  "import_slots": 169,
+  "notes": "Destinations pinned from instructions. Only explicitly cross-checked names are SUPPORTED; other GLM adapter names remain unverified. Signatures not certified.",
+  "slots": [
+    {
+      "slot": 0,
+      "table_address": "0x1076a880",
+      "target": "0x10013080",
+      "write_instruction": "0x100132b1",
+      "legacy_name_unverified": "Shutdown",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 1,
+      "table_address": "0x1076a884",
+      "target": "0x10013190",
+      "write_instruction": "0x100132bb",
+      "legacy_name_unverified": "BeginRegistration",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 2,
+      "table_address": "0x1076a888",
+      "target": "0x1001d830",
+      "write_instruction": "0x100132c5",
+      "legacy_name_unverified": "RegisterModel",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 3,
+      "table_address": "0x1076a88c",
+      "target": "0x1001d8a0",
+      "write_instruction": "0x100132cf",
+      "legacy_name_unverified": "RegisterInlineModel",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 4,
+      "table_address": "0x1076a890",
+      "target": "0x10017290",
+      "write_instruction": "0x100132e3",
+      "legacy_name_unverified": "RegisterMaterial",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 5,
+      "table_address": "0x1076a894",
+      "target": "0x100172b0",
+      "write_instruction": "0x100132ed",
+      "legacy_name_unverified": "RegisterRawImage",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 6,
+      "table_address": "0x1076a898",
+      "target": "0x10017020",
+      "write_instruction": "0x100132f7",
+      "legacy_name_unverified": "Material_IsDefault",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 7,
+      "table_address": "0x1076a89c",
+      "target": "0x10001690",
+      "write_instruction": "0x10013301",
+      "legacy_name_unverified": "LoadWorld",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 8,
+      "table_address": "0x1076a8a0",
+      "target": "0x10001230",
+      "write_instruction": "0x1001330b",
+      "legacy_name_unverified": "GetWorldBounds",
+      "name_supported": "R_GetWorldBounds",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 9,
+      "table_address": "0x1076a8a4",
+      "target": "0x1001d8c0",
+      "write_instruction": "0x10013315",
+      "legacy_name_unverified": "FinishLoadingModels",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 10,
+      "table_address": "0x1076a8a8",
+      "target": "0x1001d8f0",
+      "write_instruction": "0x1001331f",
+      "legacy_name_unverified": "SetIgnorePrecacheErrors",
+      "name_supported": "R_SetIgnorePrecacheErrors",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 11,
+      "table_address": "0x1076a8ac",
+      "target": "0x1001d900",
+      "write_instruction": "0x10013329",
+      "legacy_name_unverified": "GetIgnorePrecacheErrors",
+      "name_supported": "R_GetIgnorePrecacheErrors",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 12,
+      "table_address": "0x1076a8b0",
+      "target": "0x1000c8d0",
+      "write_instruction": "0x100132d9",
+      "legacy_name_unverified": "GetMinSpecImageMemory",
+      "name_supported": "R_GetMinSpecImageMemory",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 13,
+      "table_address": "0x1076a8b4",
+      "target": "0x10017300",
+      "write_instruction": "0x1001333d",
+      "legacy_name_unverified": "GetMaterialName",
+      "name_supported": "R_GetMaterialName",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 14,
+      "table_address": "0x1076a8b8",
+      "target": "0x10017310",
+      "write_instruction": "0x10013347",
+      "legacy_name_unverified": "GetMaterialSubimageCount",
+      "name_supported": "R_GetMaterialSubimageCount",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 15,
+      "table_address": "0x1076a8bc",
+      "target": "0x10017320",
+      "write_instruction": "0x10013351",
+      "legacy_name_unverified": "IsMaterialRefractive",
+      "name_supported": "R_IsMaterialRefractive",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 16,
+      "table_address": "0x1076a8c0",
+      "target": "0x1000aa60",
+      "write_instruction": "0x1001335b",
+      "legacy_name_unverified": "GetFarPlaneDist",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 17,
+      "table_address": "0x1076a8c4",
+      "target": "0x100131b0",
+      "write_instruction": "0x10013333",
+      "legacy_name_unverified": "EndRegistration",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 18,
+      "table_address": "0x1076a8c8",
+      "target": "0x10025510",
+      "write_instruction": "0x100133dd",
+      "legacy_name_unverified": "ClearScene",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 19,
+      "table_address": "0x1076a8cc",
+      "target": "0x10020ce0",
+      "write_instruction": "0x100133e7",
+      "legacy_name_unverified": "AddPolyToScene",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 20,
+      "table_address": "0x1076a8d0",
+      "target": "0x10023db0",
+      "write_instruction": "0x100133f1",
+      "legacy_name_unverified": "R_AddRefEntityToScene",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 21,
+      "table_address": "0x1076a8d4",
+      "target": "0x10020cd0",
+      "write_instruction": "0x100133fb",
+      "legacy_name_unverified": "AddLightToScene",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 22,
+      "table_address": "0x1076a8d8",
+      "target": "0x10020cb0",
+      "write_instruction": "0x10013405",
+      "legacy_name_unverified": "ri[178] callback",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 23,
+      "table_address": "0x1076a8dc",
+      "target": "0x10020cc0",
+      "write_instruction": "0x1001340f",
+      "legacy_name_unverified": "ri[177] callback",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 24,
+      "table_address": "0x1076a8e0",
+      "target": "0x10023e90",
+      "write_instruction": "0x10013419",
+      "legacy_name_unverified": "noop (v60: unused)",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 25,
+      "table_address": "0x1076a8e4",
+      "target": "0x10023ed0",
+      "write_instruction": "0x10013423",
+      "legacy_name_unverified": "DefaultVertexFrames",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 26,
+      "table_address": "0x1076a8e8",
+      "target": "0x10023fd0",
+      "write_instruction": "0x1001342d",
+      "legacy_name_unverified": "AddPolyToScene",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 27,
+      "table_address": "0x1076a8ec",
+      "target": "0x10001390",
+      "write_instruction": "0x10013437",
+      "legacy_name_unverified": "AddLightToScene",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 28,
+      "table_address": "0x1076a8f0",
+      "target": "0x10001280",
+      "write_instruction": "0x10013441",
+      "legacy_name_unverified": "InterpretSunLightParseParams",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 29,
+      "table_address": "0x1076a8f4",
+      "target": "0x1000aac0",
+      "write_instruction": "0x1001344b",
+      "legacy_name_unverified": "ResetSunLightParseParams",
+      "name_supported": "R_SetCullDist",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 30,
+      "table_address": "0x1076a8f8",
+      "target": "0x1000bb30",
+      "write_instruction": "0x10013455",
+      "legacy_name_unverified": "SetCullDist",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 31,
+      "table_address": "0x1076a8fc",
+      "target": "0x1000bbc0",
+      "write_instruction": "0x1001345f",
+      "legacy_name_unverified": "SetFog",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 32,
+      "table_address": "0x1076a900",
+      "target": "0x1000bc40",
+      "write_instruction": "0x10013469",
+      "legacy_name_unverified": "SwitchFog",
+      "name_supported": "R_ArchiveFogState",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 33,
+      "table_address": "0x1076a904",
+      "target": "0x1000bb10",
+      "write_instruction": "0x10013473",
+      "legacy_name_unverified": "ArchiveFogState",
+      "name_supported": "R_ClearFogs",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 34,
+      "table_address": "0x1076a908",
+      "target": "0x10001430",
+      "write_instruction": "0x1001347d",
+      "legacy_name_unverified": "ClearFogs",
+      "name_supported": "R_SetSunLightOverride",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 35,
+      "table_address": "0x1076a90c",
+      "target": "0x10001460",
+      "write_instruction": "0x10013487",
+      "legacy_name_unverified": "SetSunLightOverride",
+      "name_supported": "R_ResetSunLightOverride",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 36,
+      "table_address": "0x1076a910",
+      "target": "0x100257a0",
+      "write_instruction": "0x10013491",
+      "legacy_name_unverified": "ResetSunLightOverride",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 37,
+      "table_address": "0x1076a914",
+      "target": "0x10020f10",
+      "write_instruction": "0x1001349b",
+      "legacy_name_unverified": "RenderScene",
+      "name_supported": "R_BeginDelayedDrawing",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 38,
+      "table_address": "0x1076a918",
+      "target": "0x10020f70",
+      "write_instruction": "0x100134a5",
+      "legacy_name_unverified": "BeginDelayedDrawing",
+      "name_supported": "R_EndDelayedDrawing",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 39,
+      "table_address": "0x1076a91c",
+      "target": "0x10020fe0",
+      "write_instruction": "0x100134af",
+      "legacy_name_unverified": "EndDelayedDrawing",
+      "name_supported": "R_IssueDelayedDrawing",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 40,
+      "table_address": "0x1076a920",
+      "target": "0x1000bad0",
+      "write_instruction": "0x100134b9",
+      "legacy_name_unverified": "IssueDelayedDrawing",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 41,
+      "table_address": "0x1076a924",
+      "target": "0x100216f0",
+      "write_instruction": "0x100134f5",
+      "legacy_name_unverified": "ClearFlares",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 42,
+      "table_address": "0x1076a928",
+      "target": "0x10021100",
+      "write_instruction": "0x100134c3",
+      "legacy_name_unverified": "SetMaterialColor",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 43,
+      "table_address": "0x1076a92c",
+      "target": "0x100211a0",
+      "write_instruction": "0x100134cd",
+      "legacy_name_unverified": "DrawStretchPic",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 44,
+      "table_address": "0x1076a930",
+      "target": "0x10021270",
+      "write_instruction": "0x100134d7",
+      "legacy_name_unverified": "DrawStretchPicRotate",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 45,
+      "table_address": "0x1076a934",
+      "target": "0x100214e0",
+      "write_instruction": "0x100134e1",
+      "legacy_name_unverified": "DrawStretchRaw",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 46,
+      "table_address": "0x1076a938",
+      "target": "0x100215d0",
+      "write_instruction": "0x100134eb",
+      "legacy_name_unverified": "DrawQuadPic",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 47,
+      "table_address": "0x1076a93c",
+      "target": "0x10021f40",
+      "write_instruction": "0x10013365",
+      "legacy_name_unverified": "DrawSprite",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 48,
+      "table_address": "0x1076a940",
+      "target": "0x10021f90",
+      "write_instruction": "0x1001336f",
+      "legacy_name_unverified": "BeginFrame",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 49,
+      "table_address": "0x1076a944",
+      "target": "0x10021ff0",
+      "write_instruction": "0x10013379",
+      "legacy_name_unverified": "EndFrame",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 50,
+      "table_address": "0x1076a948",
+      "target": "0x10022040",
+      "write_instruction": "0x10013383",
+      "legacy_name_unverified": "BeginDebugFrame",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 51,
+      "table_address": "0x1076a94c",
+      "target": "0x10013200",
+      "write_instruction": "0x1001338d",
+      "legacy_name_unverified": "EndDebugFrame",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 52,
+      "table_address": "0x1076a950",
+      "target": "0x10013250",
+      "write_instruction": "0x10013397",
+      "legacy_name_unverified": "EndView",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 53,
+      "table_address": "0x1076a954",
+      "target": "0x100222a0",
+      "write_instruction": "0x100133a1",
+      "legacy_name_unverified": "DoneRenderingViews",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 54,
+      "table_address": "0x1076a958",
+      "target": "0x100222f0",
+      "write_instruction": "0x100133ab",
+      "legacy_name_unverified": "SaveScreen",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 55,
+      "table_address": "0x1076a95c",
+      "target": "0x10022220",
+      "write_instruction": "0x100133b5",
+      "legacy_name_unverified": "BlendSavedScreen",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 56,
+      "table_address": "0x1076a960",
+      "target": "0x10021bf0",
+      "write_instruction": "0x100133bf",
+      "legacy_name_unverified": "ClearScreen",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 57,
+      "table_address": "0x1076a964",
+      "target": "0x10015ba0",
+      "write_instruction": "0x100133c9",
+      "legacy_name_unverified": "SetViewport",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 58,
+      "table_address": "0x1076a968",
+      "target": "0x1001d910",
+      "write_instruction": "0x100133d3",
+      "legacy_name_unverified": "MarkFragments",
+      "name_supported": "R_ModelBounds",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 59,
+      "table_address": "0x1076a96c",
+      "target": "0x10013260",
+      "write_instruction": "0x1001356d",
+      "legacy_name_unverified": "ModelBounds",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 60,
+      "table_address": "0x1076a970",
+      "target": "0x1002c100",
+      "write_instruction": "0x10013577",
+      "legacy_name_unverified": "TrackStatistics",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 61,
+      "table_address": "0x1076a974",
+      "target": "0x1000bce0",
+      "write_instruction": "0x100134ff",
+      "legacy_name_unverified": "PickMaterial",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 62,
+      "table_address": "0x1076a978",
+      "target": "0x1000ce60",
+      "write_instruction": "0x10013509",
+      "legacy_name_unverified": "RegisterFont",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 63,
+      "table_address": "0x1076a97c",
+      "target": "0x1000ce70",
+      "write_instruction": "0x10013513",
+      "legacy_name_unverified": "ResetImageAllocations",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 64,
+      "table_address": "0x1076a980",
+      "target": "0x10026a50",
+      "write_instruction": "0x1001351d",
+      "legacy_name_unverified": "FreeImageAllocations",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 65,
+      "table_address": "0x1076a984",
+      "target": "0x10026a70",
+      "write_instruction": "0x10013527",
+      "legacy_name_unverified": "BeginCubemapShot",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 66,
+      "table_address": "0x1076a988",
+      "target": "0x10026a90",
+      "write_instruction": "0x10013531",
+      "legacy_name_unverified": "EndCubemapShot",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 67,
+      "table_address": "0x1076a98c",
+      "target": "0x100270e0",
+      "write_instruction": "0x1001353b",
+      "legacy_name_unverified": "SaveCubemapShot",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 68,
+      "table_address": "0x1076a990",
+      "target": "0x10005980",
+      "write_instruction": "0x10013545",
+      "legacy_name_unverified": "LightingFromCubemapShots",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 69,
+      "table_address": "0x1076a994",
+      "target": "0x100059e0",
+      "write_instruction": "0x1001354f",
+      "legacy_name_unverified": "LocateDebugStrings",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 70,
+      "table_address": "0x1076a998",
+      "target": "0x10005a40",
+      "write_instruction": "0x10013559",
+      "legacy_name_unverified": "LocateDebugLines",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 71,
+      "table_address": "0x1076a99c",
+      "target": "0x10005970",
+      "write_instruction": "0x10013563",
+      "legacy_name_unverified": "AddPlume",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 72,
+      "table_address": "0x1076a9a0",
+      "target": "0x10032540",
+      "write_instruction": "0x10013581",
+      "legacy_name_unverified": "ShutdownDebug",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 73,
+      "table_address": "0x1076a9a4",
+      "target": "0x1000bf40",
+      "write_instruction": "0x1001358b",
+      "legacy_name_unverified": "UpdateColor",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 74,
+      "table_address": "0x1076a9a8",
+      "target": "0x1000bf60",
+      "write_instruction": "0x10013595",
+      "legacy_name_unverified": "NormalizedTextScale",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 75,
+      "table_address": "0x1076a9ac",
+      "target": "0x1000c000",
+      "write_instruction": "0x1001359f",
+      "legacy_name_unverified": "TextWidth",
+      "name_supported": "R_TextHeight",
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 76,
+      "table_address": "0x1076a9b0",
+      "target": "0x1000c010",
+      "write_instruction": "0x100135a9",
+      "legacy_name_unverified": "TextHeight",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 77,
+      "table_address": "0x1076a9b4",
+      "target": "0x100213f0",
+      "write_instruction": "0x100135b3",
+      "legacy_name_unverified": "DrawText",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 78,
+      "table_address": "0x1076a9b8",
+      "target": "0x1000c390",
+      "write_instruction": "0x100135bd",
+      "legacy_name_unverified": "DrawTextInSpace",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 79,
+      "table_address": "0x1076a9bc",
+      "target": "0x1000c4b0",
+      "write_instruction": "0x100135c7",
+      "legacy_name_unverified": "ConsoleTextWidth",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 80,
+      "table_address": "0x1076a9c0",
+      "target": "0x10021300",
+      "write_instruction": "0x100135d1",
+      "legacy_name_unverified": "DrawConsoleText",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 81,
+      "table_address": "0x1076a9c4",
+      "target": "0x100201b0",
+      "write_instruction": "0x100135db",
+      "legacy_name_unverified": "DrawTextWithCursor",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 82,
+      "table_address": "0x1076a9c8",
+      "target": "0x10020270",
+      "write_instruction": "0x100135e5",
+      "legacy_name_unverified": "DObjGetSurfMaterials",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 83,
+      "table_address": "0x1076a9cc",
+      "target": "0x10003430",
+      "write_instruction": "0x100135ef",
+      "legacy_name_unverified": "DObjReplaceMaterial",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 84,
+      "table_address": "0x1076a9d0",
+      "target": "0x10016f30",
+      "write_instruction": "0x100135f9",
+      "legacy_name_unverified": "ParseSunLight",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 85,
+      "table_address": "0x1076a9d4",
+      "target": "0x1000bdc0",
+      "write_instruction": "0x10013603",
+      "legacy_name_unverified": "Material_Duplicate",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 86,
+      "table_address": "0x1076a9d8",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": "DuplicateFont",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 87,
+      "table_address": "0x1076a9dc",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 88,
+      "table_address": "0x1076a9e0",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 89,
+      "table_address": "0x1076a9e4",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 90,
+      "table_address": "0x1076a9e8",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 91,
+      "table_address": "0x1076a9ec",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 92,
+      "table_address": "0x1076a9f0",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 93,
+      "table_address": "0x1076a9f4",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 94,
+      "table_address": "0x1076a9f8",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 95,
+      "table_address": "0x1076a9fc",
+      "target": "0x0",
+      "write_instruction": null,
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 96,
+      "table_address": "0x1076aa00",
+      "target": "0x1002d4a0",
+      "write_instruction": "0x1001360d",
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 97,
+      "table_address": "0x1076aa04",
+      "target": "0x10020400",
+      "write_instruction": "0x10013617",
+      "legacy_name_unverified": "R_LoadXModelSurfsSurface",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 98,
+      "table_address": "0x1076aa08",
+      "target": "0x1002cee0",
+      "write_instruction": "0x10013621",
+      "legacy_name_unverified": "R_RegisterXModelSurfs",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 99,
+      "table_address": "0x1076aa0c",
+      "target": "0x1002ce40",
+      "write_instruction": "0x1001362b",
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 100,
+      "table_address": "0x1076aa10",
+      "target": "0x1002ce30",
+      "write_instruction": "0x10013635",
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 101,
+      "table_address": "0x1076aa14",
+      "target": "0x1002ce20",
+      "write_instruction": "0x1001363f",
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 102,
+      "table_address": "0x1076aa18",
+      "target": "0x10020cf0",
+      "write_instruction": "0x10013649",
+      "legacy_name_unverified": null,
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": false
+    },
+    {
+      "slot": 103,
+      "table_address": "0x1076aa1c",
+      "target": "0x10020dc0",
+      "write_instruction": "0x10013653",
+      "legacy_name_unverified": "SyncRenderThread",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 104,
+      "table_address": "0x1076aa20",
+      "target": "0x10032f40",
+      "write_instruction": "0x1001365d",
+      "legacy_name_unverified": "AbortRenderCommands",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 105,
+      "table_address": "0x1076aa24",
+      "target": "0x10032d80",
+      "write_instruction": "0x10013667",
+      "legacy_name_unverified": "IsGpuFenceFinished",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 106,
+      "table_address": "0x1076aa28",
+      "target": "0x10032d70",
+      "write_instruction": "0x10013671",
+      "legacy_name_unverified": "GpuWaited",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    },
+    {
+      "slot": 107,
+      "table_address": "0x1076aa2c",
+      "target": "0x100256c0",
+      "write_instruction": "0x1001367b",
+      "legacy_name_unverified": "SetLodOrigin",
+      "name_supported": null,
+      "address_confidence": "PINNED",
+      "inventoried_function": true
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\delayed_drawing.c",
+    "/FoZ:\\out\\delayed.obj"
+  ],
+  "source_sha256": "a78ae88db22b4c4a4e56693bcb9baf39059a49d65658d48dd014fc7da00b9035",
+  "object_sha256": "5f0ad6c530804fc3c4b174fe1ab32c274db18b0588b3478d9c1ed6ce91945665",
+  "functions": [
+    {
+      "address": "0x10020f10",
+      "symbol": "_R_BeginDelayedDrawing",
+      "status": "SHAPE_ONLY",
+      "diagnostics": "BOUND +2: _renderer_command_list -> 0x1042e778\nSHAPE MATCH: R_RenderScene, 92 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_RenderScene @ 0x10020f10 size=92  vs  _R_BeginDelayedDrawing (obj size=92)\nnormalized match: 92/92 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x10020f70",
+      "symbol": "_R_EndDelayedDrawing",
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=97\n"
+    },
+    {
+      "address": "0x10020fe0",
+      "symbol": "_R_IssueDelayedDrawing",
+      "status": "SHAPE_ONLY",
+      "diagnostics": "BOUND +1: _renderer_command_list -> 0x1042e778\nSHAPE MATCH: R_EndDelayedDrawing, 91 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_EndDelayedDrawing @ 0x10020fe0 size=91  vs  _R_IssueDelayedDrawing (obj size=91)\nnormalized match: 91/91 bytes (100%)\nMATCH (normalized)\n"
+    }
+  ],
+  "optimization_probes": [
+    {
+      "command": [
+        "cl",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "/c",
+        "Z:\\inputs\\src\\delayed_drawing.c",
+        "/Og-",
+        "/FoZ:\\out\\probe1.obj"
+      ],
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=180\n",
+      "object_sha256": "413dddf9d4685a8a2693995934c3f76718d5508c29c782a31618eb57aca2c902"
+    },
+    {
+      "command": [
+        "cl",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "/c",
+        "Z:\\inputs\\src\\delayed_drawing.c",
+        "/Oy-",
+        "/FoZ:\\out\\probe2.obj"
+      ],
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=100\n",
+      "object_sha256": "4b0cccbf6347694f0a4b78cc501308981b69a1df6dc0524d31affbf3d5b0b503"
+    },
+    {
+      "command": [
+        "cl",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "/c",
+        "Z:\\inputs\\src\\delayed_drawing.c",
+        "/Os",
+        "/FoZ:\\out\\probe3.obj"
+      ],
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=94\n",
+      "object_sha256": "aef3e6bd45065cc2db7144f4afd9c89cf93ca74fd4fea449024caa2fb25accef"
+    },
+    {
+      "command": [
+        "cl",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "/c",
+        "Z:\\inputs\\src\\delayed_drawing.c",
+        "/Ot",
+        "/FoZ:\\out\\probe4.obj"
+      ],
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=97\n",
+      "object_sha256": "8fc1d2095805639924d2d2ecd528e911a3d13f25a1346acd79743b603201da57"
+    },
+    {
+      "command": [
+        "cl",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "/c",
+        "Z:\\inputs\\src\\delayed_drawing.c",
+        "/Ob0",
+        "/FoZ:\\out\\probe5.obj"
+      ],
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=97\n",
+      "object_sha256": "42207f26cb4f29dfc0dfa257d18b70919f4934eefa5ecff9c8918f2d8a03d69a"
+    },
+    {
+      "command": [
+        "cl",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "/c",
+        "Z:\\inputs\\src\\delayed_drawing.c",
+        "/G6",
+        "/FoZ:\\out\\probe6.obj"
+      ],
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=97\n",
+      "object_sha256": "7f037afa8f2f8d52ac997a547790a34c854cb4d8fa5dbf7f5501606b9222345f"
+    },
+    {
+      "command": [
+        "cl",
+        "/nologo",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "/c",
+        "Z:\\inputs\\src\\delayed_drawing.c",
+        "/G7",
+        "/FoZ:\\out\\probe7.obj"
+      ],
+      "status": "DEFER",
+      "diagnostics": "length mismatch: target=107, object=97\n",
+      "object_sha256": "7fadfc54554384bc4f2b6f579d0594aef494061bb989f48627d65e925c5555d7"
+    }
+  ],
+  "independent_review": false,
+  "host_32bit_fixtures_passed": true,
+  "test_sha256": "e93c96a1abf49ebb92d313797de4c6eb7a4d4d069c756c7363c8b04aeaf448d7",
+  "wrong_binding_rejected": true
+}

@@ -1,0 +1,88 @@
+[
+  {
+    "source": "jcmaster.c",
+    "source_sha256": "320f1b4aad50c23618b61001ac7c2adb4daf07095dfc39b0a9386d983b6a3156",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcmaster.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "573a6db09f8e76e842eb95c5596346a4a452bd1350caa0d2446f5a53c73b2b86",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10045e30",
+        "symbol": "_initial_setup",
+        "bytes": 456,
+        "diagnostics": "SHAPE MATCH: FUN_10045e30, 456 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10045e30 @ 0x10045e30 size=456  vs  _initial_setup (obj size=456)\nnormalized match: 456/456 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100463d0",
+        "symbol": "_select_scan_parameters",
+        "bytes": 235,
+        "diagnostics": "SHAPE MATCH: FUN_100463d0, 235 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100463d0 @ 0x100463d0 size=235  vs  _select_scan_parameters (obj size=235)\nnormalized match: 235/235 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100464c0",
+        "symbol": "_per_scan_setup",
+        "bytes": 453,
+        "diagnostics": "SHAPE MATCH: FUN_100464c0, 453 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100464c0 @ 0x100464c0 size=453  vs  _per_scan_setup (obj size=453)\nnormalized match: 453/453 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10046690",
+        "symbol": "_prepare_for_pass",
+        "bytes": 396,
+        "diagnostics": "UNRESOLVED binding +53: target=0x100463d0, COFF=_select_scan_parameters addend=0x00000000\nUNRESOLVED binding +58: target=0x100464c0, COFF=_per_scan_setup addend=0x00000000\nUNRESOLVED binding +117: target=0x100463d0, COFF=_select_scan_parameters addend=0x00000000\nUNRESOLVED binding +122: target=0x100464c0, COFF=_per_scan_setup addend=0x00000000\nUNRESOLVED binding +228: target=0x100463d0, COFF=_select_scan_parameters addend=0x00000000\nUNRESOLVED binding +233: target=0x100464c0, COFF=_per_scan_setup addend=0x00000000\nSHAPE MATCH: FUN_10046690, 396 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10046690 @ 0x10046690 size=396  vs  _prepare_for_pass (obj size=396)\nnormalized match: 396/396 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10046820",
+        "symbol": "_pass_startup",
+        "bytes": 40,
+        "diagnostics": "SHAPE MATCH: FUN_10046820, 40 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10046820 @ 0x10046820 size=40  vs  _pass_startup (obj size=40)\nnormalized match: 40/40 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10045ac0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={}"
+      },
+      {
+        "address": "0x100587d0",
+        "symbol": "_select_scan_parameters",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x10058db0",
+        "symbol": "_select_scan_parameters",
+        "reason": "relocation-site/type mismatch: PE={74: 6, 91: 6, 109: 6}, COFF={}"
+      },
+      {
+        "address": "0x10058ee0",
+        "symbol": "_pass_startup",
+        "reason": "byte mismatch +0: PE=83, COFF=56"
+      },
+      {
+        "address": "0x10060690",
+        "symbol": "_pass_startup",
+        "reason": "byte mismatch +0: PE=51, COFF=56"
+      },
+      {
+        "address": "0x100585a0",
+        "symbol": "_finish_pass_master",
+        "reason": "relocation-site/type mismatch: PE={13: 6, 47: 6, 18: 20}, COFF={}"
+      }
+    ]
+  }
+]

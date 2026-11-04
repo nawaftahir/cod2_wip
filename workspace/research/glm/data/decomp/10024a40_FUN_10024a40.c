@@ -1,0 +1,11 @@
+// 10024a40 size=53 FUN_10024a40
+
+void FUN_10024a40(void)
+
+{
+  R_BlendSavedScreen(6,&DAT_10191488,0x3f800000,0);
+  FUN_10021660(0,0,0x3f800000,0x3f800000,&DAT_10191488,DAT_101d1b4c);
+  return;
+}
+
+

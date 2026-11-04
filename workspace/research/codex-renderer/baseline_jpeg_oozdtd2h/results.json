@@ -1,0 +1,63 @@
+[
+  {
+    "source": "jcphuff.c",
+    "source_sha256": "6425b9bcf07b133578e55dd59377f9bd737ee9606ba4dd9ad7b87375e380dcdb",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jcphuff.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "763d74e29deb36ba2fd0a13ea556ca5bb72616a02c3470ff5d0dec5ab52a3637",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100479a0",
+        "symbol": "_emit_bits",
+        "bytes": 312,
+        "diagnostics": "SHAPE MATCH: FUN_100479a0, 312 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100479a0 @ 0x100479a0 size=312  vs  _emit_bits (obj size=312)\nnormalized match: 312/312 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10047b00",
+        "symbol": "_emit_symbol",
+        "bytes": 51,
+        "diagnostics": "UNRESOLVED binding +42: target=0x100479a0, COFF=_emit_bits addend=0x00000000\nSHAPE MATCH: FUN_10047b00, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047b00 @ 0x10047b00 size=51  vs  _emit_symbol (obj size=51)\nnormalized match: 51/51 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10047b40",
+        "symbol": "_emit_buffered_bits",
+        "bytes": 45,
+        "diagnostics": "UNRESOLVED binding +30: target=0x100479a0, COFF=_emit_bits addend=0x00000000\nSHAPE MATCH: FUN_10047b40, 45 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047b40 @ 0x10047b40 size=45  vs  _emit_buffered_bits (obj size=45)\nnormalized match: 45/45 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10047c30",
+        "symbol": "_emit_restart",
+        "bytes": 259,
+        "diagnostics": "UNRESOLVED binding +10: target=0x10047b70, COFF=_emit_eobrun addend=0x00000000\nUNRESOLVED binding +33: target=0x100479a0, COFF=_emit_bits addend=0x00000000\nSHAPE MATCH: FUN_10047c30, 259 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047c30 @ 0x10047c30 size=259  vs  _emit_restart (obj size=259)\nnormalized match: 259/259 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10047d40",
+        "symbol": "_encode_mcu_DC_first",
+        "bytes": 369,
+        "diagnostics": "UNRESOLVED binding +63: target=0x10047c30, COFF=_emit_restart addend=0x00000000\nUNRESOLVED binding +249: target=0x100479a0, COFF=_emit_bits addend=0x00000000\nUNRESOLVED binding +268: target=0x100479a0, COFF=_emit_bits addend=0x00000000\nSHAPE MATCH: FUN_10047d40, 369 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047d40 @ 0x10047d40 size=369  vs  _encode_mcu_DC_first (obj size=369)\nnormalized match: 369/369 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x100477e0",
+        "symbol": "_start_pass_phuff",
+        "reason": "byte mismatch +294: PE=4c, COFF=54"
+      }
+    ]
+  }
+]

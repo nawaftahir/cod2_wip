@@ -1,0 +1,43 @@
+[
+  {
+    "source": "j_debug_frame.c",
+    "source_sha256": "acfe5a918c419da275f24ce01b6369c36bd2389a794f264ee4bbb9c5a99242d1",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_debug_frame.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "716ef83bc88adccd89c4d64634ae268aa4517c50248841bde4cb663052150c79",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10021ff0",
+        "symbol": "_R_BeginDebugFrame",
+        "bytes": 73,
+        "diagnostics": "UNRESOLVED binding +1: target=0x101d4d00, COFF=_renderer_registered addend=0x00000000\nUNRESOLVED binding +10: target=0x1042e778, COFF=_renderer_command_list addend=0x00000000\nUNRESOLVED binding +16: target=0x101da9c8, COFF=_renderer_front_end_data addend=0x00000000\nUNRESOLVED binding +21: target=0x101e4a00, COFF=_debug_saved_command_list addend=0x00000000\nUNRESOLVED binding +26: target=0x101d49b0, COFF=_renderer_skin_cache_lock addend=0x00000000\nUNRESOLVED binding +34: target=0x101e4a04, COFF=_debug_saved_front_end_data addend=0x00000000\nUNRESOLVED binding +42: target=0x101e4a08, COFF=_debug_restore_skin_cache addend=0x00000000\nUNRESOLVED binding +48: target=0x1001e540, COFF=_R_UnlockSkinnedCache addend=0x00000000\nUNRESOLVED binding +54: target=0x1042e778, COFF=_renderer_command_list addend=0x00000000\nUNRESOLVED binding +58: target=0x103fe718, COFF=_debug_frame_commands addend=0x00000000\nUNRESOLVED binding +64: target=0x101da9c8, COFF=_renderer_front_end_data addend=0x00000000\nUNRESOLVED binding +68: target=0x101e4a0c, COFF=_debug_frame_data addend=0x00000000\nSHAPE MATCH: R_EndFrame, 73 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_EndFrame @ 0x10021ff0 size=73  vs  _R_BeginDebugFrame (obj size=73)\nnormalized match: 73/73 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10020ec0",
+        "symbol": "_R_AddCmdEndOfList",
+        "bytes": 71,
+        "diagnostics": "UNRESOLVED binding +1: target=0x1042e778, COFF=_renderer_command_list addend=0x00000000\nSHAPE MATCH: FUN_10020ec0, 71 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10020ec0 @ 0x10020ec0 size=71  vs  _R_AddCmdEndOfList (obj size=71)\nnormalized match: 71/71 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10022040",
+        "symbol": "_R_EndDebugFrame",
+        "bytes": 114,
+        "diagnostics": "UNRESOLVED binding +1: target=0x101d4d00, COFF=_renderer_registered addend=0x00000000\nUNRESOLVED binding +13: target=0x10020ec0, COFF=_R_AddCmdEndOfList addend=0x00000000\nUNRESOLVED binding +18: target=0x101da9c8, COFF=_renderer_front_end_data addend=0x00000000\nUNRESOLVED binding +42: target=0x10033d20, COFF=_RB_ExecuteRenderCommands addend=0x00000000\nUNRESOLVED binding +50: target=0x10033b20, COFF=_RB_EndFrame addend=0x00000000\nUNRESOLVED binding +55: target=0x101e4a00, COFF=_debug_saved_command_list addend=0x00000000\nUNRESOLVED binding +61: target=0x101e4a04, COFF=_debug_saved_front_end_data addend=0x00000000\nUNRESOLVED binding +66: target=0x1042e778, COFF=_renderer_command_list addend=0x00000000\nUNRESOLVED binding +72: target=0x101e4a08, COFF=_debug_restore_skin_cache addend=0x00000000\nUNRESOLVED binding +78: target=0x101da9c8, COFF=_renderer_front_end_data addend=0x00000000\nUNRESOLVED binding +88: target=0x101e4a08, COFF=_debug_restore_skin_cache addend=0x00000000\nUNRESOLVED binding +93: target=0x1001e4b0, COFF=_R_LockSkinnedCache addend=0x00000000\nUNRESOLVED binding +102: target=0x101e4a00, COFF=_debug_saved_command_list addend=0x00000000\nUNRESOLVED binding +108: target=0x101e4a04, COFF=_debug_saved_front_end_data addend=0x00000000\nSHAPE MATCH: R_BeginDebugFrame, 114 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_BeginDebugFrame @ 0x10022040 size=114  vs  _R_EndDebugFrame (obj size=114)\nnormalized match: 114/114 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": []
+  }
+]

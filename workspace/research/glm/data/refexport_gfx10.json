@@ -1,0 +1,779 @@
+{
+ "_meta": {
+  "refexport_table_va": "0x1076a880",
+  "slots": 108,
+  "zero_slots": [
+   86,
+   87,
+   88,
+   89,
+   90,
+   91,
+   92,
+   93,
+   94,
+   95
+  ],
+  "ref_api_version": "0x3b (59)",
+  "refimport_copied_slots": 169,
+  "source": "decompile of GetRefAPI @ 0x10013270 + opencod2 kReV60 name map"
+ },
+ "slots": [
+  {
+   "slot": 0,
+   "func": "0x10013080",
+   "kind": "LAB",
+   "name": "Shutdown",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 1,
+   "func": "0x10013190",
+   "kind": "LAB",
+   "name": "BeginRegistration",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 2,
+   "func": "0x1001d830",
+   "kind": "FUN",
+   "name": "RegisterModel",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 3,
+   "func": "0x1001d8a0",
+   "kind": "LAB",
+   "name": "RegisterInlineModel",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 4,
+   "func": "0x10017290",
+   "kind": "LAB",
+   "name": "RegisterMaterial",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 5,
+   "func": "0x100172b0",
+   "kind": "LAB",
+   "name": "RegisterRawImage",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 6,
+   "func": "0x10017020",
+   "kind": "LAB",
+   "name": "Material_IsDefault",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 7,
+   "func": "0x10001690",
+   "kind": "FUN",
+   "name": "LoadWorld",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 8,
+   "func": "0x10001230",
+   "kind": "LAB",
+   "name": "GetWorldBounds",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 9,
+   "func": "0x1001d8c0",
+   "kind": "LAB",
+   "name": "FinishLoadingModels",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 10,
+   "func": "0x1001d8f0",
+   "kind": "LAB",
+   "name": "SetIgnorePrecacheErrors",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 11,
+   "func": "0x1001d900",
+   "kind": "LAB",
+   "name": "GetIgnorePrecacheErrors",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 12,
+   "func": "0x1000c8d0",
+   "kind": "LAB",
+   "name": "GetMinSpecImageMemory",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 13,
+   "func": "0x10017300",
+   "kind": "LAB",
+   "name": "GetMaterialName",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 14,
+   "func": "0x10017310",
+   "kind": "LAB",
+   "name": "GetMaterialSubimageCount",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 15,
+   "func": "0x10017320",
+   "kind": "LAB",
+   "name": "IsMaterialRefractive",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 16,
+   "func": "0x1000aa60",
+   "kind": "FUN",
+   "name": "GetFarPlaneDist",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 17,
+   "func": "0x100131b0",
+   "kind": "LAB",
+   "name": "EndRegistration",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 18,
+   "func": "0x10025510",
+   "kind": "LAB",
+   "name": "ClearScene",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 19,
+   "func": "0x10020ce0",
+   "kind": "FUN",
+   "name": "AddPolyToScene",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 20,
+   "func": "0x10023db0",
+   "kind": "FUN",
+   "name": "R_AddRefEntityToScene",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 21,
+   "func": "0x10020cd0",
+   "kind": "FUN",
+   "name": "AddLightToScene",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 22,
+   "func": "0x10020cb0",
+   "kind": "DAT",
+   "name": "ri[178] callback",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 23,
+   "func": "0x10020cc0",
+   "kind": "DAT",
+   "name": "ri[177] callback",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 24,
+   "func": "0x10023e90",
+   "kind": "LAB",
+   "name": "noop (v60: unused)",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 25,
+   "func": "0x10023ed0",
+   "kind": "LAB",
+   "name": "DefaultVertexFrames",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 26,
+   "func": "0x10023fd0",
+   "kind": "LAB",
+   "name": "AddPolyToScene",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 27,
+   "func": "0x10001390",
+   "kind": "LAB",
+   "name": "AddLightToScene",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 28,
+   "func": "0x10001280",
+   "kind": "LAB",
+   "name": "InterpretSunLightParseParams",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 29,
+   "func": "0x1000aac0",
+   "kind": "LAB",
+   "name": "ResetSunLightParseParams",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 30,
+   "func": "0x1000bb30",
+   "kind": "LAB",
+   "name": "SetCullDist",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 31,
+   "func": "0x1000bbc0",
+   "kind": "LAB",
+   "name": "SetFog",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 32,
+   "func": "0x1000bc40",
+   "kind": "FUN",
+   "name": "SwitchFog",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 33,
+   "func": "0x1000bb10",
+   "kind": "LAB",
+   "name": "ArchiveFogState",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 34,
+   "func": "0x10001430",
+   "kind": "LAB",
+   "name": "ClearFogs",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 35,
+   "func": "0x10001460",
+   "kind": "LAB",
+   "name": "SetSunLightOverride",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 36,
+   "func": "0x100257a0",
+   "kind": "LAB",
+   "name": "ResetSunLightOverride",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 37,
+   "func": "0x10020f10",
+   "kind": "FUN",
+   "name": "RenderScene",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 38,
+   "func": "0x10020f70",
+   "kind": "FUN",
+   "name": "BeginDelayedDrawing",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 39,
+   "func": "0x10020fe0",
+   "kind": "LAB",
+   "name": "EndDelayedDrawing",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 40,
+   "func": "0x1000bad0",
+   "kind": "DAT",
+   "name": "IssueDelayedDrawing",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 41,
+   "func": "0x100216f0",
+   "kind": "LAB",
+   "name": "ClearFlares",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 42,
+   "func": "0x10021100",
+   "kind": "FUN",
+   "name": "SetMaterialColor",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 43,
+   "func": "0x100211a0",
+   "kind": "LAB",
+   "name": "DrawStretchPic",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 44,
+   "func": "0x10021270",
+   "kind": "LAB",
+   "name": "DrawStretchPicRotate",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 45,
+   "func": "0x100214e0",
+   "kind": "LAB",
+   "name": "DrawStretchRaw",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 46,
+   "func": "0x100215d0",
+   "kind": "LAB",
+   "name": "DrawQuadPic",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 47,
+   "func": "0x10021f40",
+   "kind": "LAB",
+   "name": "DrawSprite",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 48,
+   "func": "0x10021f90",
+   "kind": "LAB",
+   "name": "BeginFrame",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 49,
+   "func": "0x10021ff0",
+   "kind": "LAB",
+   "name": "EndFrame",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 50,
+   "func": "0x10022040",
+   "kind": "LAB",
+   "name": "BeginDebugFrame",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 51,
+   "func": "0x10013200",
+   "kind": "LAB",
+   "name": "EndDebugFrame",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 52,
+   "func": "0x10013250",
+   "kind": "LAB",
+   "name": "EndView",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 53,
+   "func": "0x100222a0",
+   "kind": "LAB",
+   "name": "DoneRenderingViews",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 54,
+   "func": "0x100222f0",
+   "kind": "FUN",
+   "name": "SaveScreen",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 55,
+   "func": "0x10022220",
+   "kind": "FUN",
+   "name": "BlendSavedScreen",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 56,
+   "func": "0x10021bf0",
+   "kind": "FUN",
+   "name": "ClearScreen",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 57,
+   "func": "0x10015ba0",
+   "kind": "FUN",
+   "name": "SetViewport",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 58,
+   "func": "0x1001d910",
+   "kind": "LAB",
+   "name": "MarkFragments",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 59,
+   "func": "0x10013260",
+   "kind": "LAB",
+   "name": "ModelBounds",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 60,
+   "func": "0x1002c100",
+   "kind": "FUN",
+   "name": "TrackStatistics",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 61,
+   "func": "0x1000bce0",
+   "kind": "FUN",
+   "name": "PickMaterial",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 62,
+   "func": "0x1000ce60",
+   "kind": "DAT",
+   "name": "RegisterFont",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 63,
+   "func": "0x1000ce70",
+   "kind": "DAT",
+   "name": "ResetImageAllocations",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 64,
+   "func": "0x10026a50",
+   "kind": "LAB",
+   "name": "FreeImageAllocations",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 65,
+   "func": "0x10026a70",
+   "kind": "LAB",
+   "name": "BeginCubemapShot",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 66,
+   "func": "0x10026a90",
+   "kind": "LAB",
+   "name": "EndCubemapShot",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 67,
+   "func": "0x100270e0",
+   "kind": "FUN",
+   "name": "SaveCubemapShot",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 68,
+   "func": "0x10005980",
+   "kind": "LAB",
+   "name": "LightingFromCubemapShots",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 69,
+   "func": "0x100059e0",
+   "kind": "LAB",
+   "name": "LocateDebugStrings",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 70,
+   "func": "0x10005a40",
+   "kind": "LAB",
+   "name": "LocateDebugLines",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 71,
+   "func": "0x10005970",
+   "kind": "LAB",
+   "name": "AddPlume",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 72,
+   "func": "0x10032540",
+   "kind": "LAB",
+   "name": "ShutdownDebug",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 73,
+   "func": "0x1000bf40",
+   "kind": "LAB",
+   "name": "UpdateColor",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 74,
+   "func": "0x1000bf60",
+   "kind": "FUN",
+   "name": "NormalizedTextScale",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 75,
+   "func": "0x1000c000",
+   "kind": "LAB",
+   "name": "TextWidth",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 76,
+   "func": "0x1000c010",
+   "kind": "FUN",
+   "name": "TextHeight",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 77,
+   "func": "0x100213f0",
+   "kind": "LAB",
+   "name": "DrawText",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 78,
+   "func": "0x1000c390",
+   "kind": "LAB",
+   "name": "DrawTextInSpace",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 79,
+   "func": "0x1000c4b0",
+   "kind": "LAB",
+   "name": "ConsoleTextWidth",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 80,
+   "func": "0x10021300",
+   "kind": "LAB",
+   "name": "DrawConsoleText",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 81,
+   "func": "0x100201b0",
+   "kind": "LAB",
+   "name": "DrawTextWithCursor",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 82,
+   "func": "0x10020270",
+   "kind": "LAB",
+   "name": "DObjGetSurfMaterials",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 83,
+   "func": "0x10003430",
+   "kind": "FUN",
+   "name": "DObjReplaceMaterial",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 84,
+   "func": "0x10016f30",
+   "kind": "FUN",
+   "name": "ParseSunLight",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 85,
+   "func": "0x1000bdc0",
+   "kind": "LAB",
+   "name": "Material_Duplicate",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 86,
+   "func": null,
+   "kind": "",
+   "name": "DuplicateFont",
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 87,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 88,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 89,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 90,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 91,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 92,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 93,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 94,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 95,
+   "func": null,
+   "kind": "",
+   "name": null,
+   "confidence": "zero-filled (unused)"
+  },
+  {
+   "slot": 96,
+   "func": "0x1002d4a0",
+   "kind": "FUN",
+   "name": null,
+   "confidence": "binary"
+  },
+  {
+   "slot": 97,
+   "func": "0x10020400",
+   "kind": "FUN",
+   "name": "R_LoadXModelSurfsSurface",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 98,
+   "func": "0x1002cee0",
+   "kind": "FUN",
+   "name": "R_RegisterXModelSurfs",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 99,
+   "func": "0x1002ce40",
+   "kind": "FUN",
+   "name": null,
+   "confidence": "binary"
+  },
+  {
+   "slot": 100,
+   "func": "0x1002ce30",
+   "kind": "LAB",
+   "name": null,
+   "confidence": "binary"
+  },
+  {
+   "slot": 101,
+   "func": "0x1002ce20",
+   "kind": "LAB",
+   "name": null,
+   "confidence": "binary"
+  },
+  {
+   "slot": 102,
+   "func": "0x10020cf0",
+   "kind": "DAT",
+   "name": null,
+   "confidence": "binary"
+  },
+  {
+   "slot": 103,
+   "func": "0x10020dc0",
+   "kind": "LAB",
+   "name": "SyncRenderThread",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 104,
+   "func": "0x10032f40",
+   "kind": "LAB",
+   "name": "AbortRenderCommands",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 105,
+   "func": "0x10032d80",
+   "kind": "LAB",
+   "name": "IsGpuFenceFinished",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 106,
+   "func": "0x10032d70",
+   "kind": "LAB",
+   "name": "GpuWaited",
+   "confidence": "binary+map"
+  },
+  {
+   "slot": 107,
+   "func": "0x100256c0",
+   "kind": "LAB",
+   "name": "SetLodOrigin",
+   "confidence": "binary+map"
+  }
+ ]
+}

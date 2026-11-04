@@ -1,0 +1,47 @@
+{
+  "status": "SDK-LINK-PROBE-PASS",
+  "canonical": false,
+  "reconstructed_binary": false,
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "inputs": {
+    "dxsdk_probe.cpp": "7c20f1eb2a997b7750b7077362ccc203a572e78500d0fc11c81120aa9a057679",
+    "Include/d3d9.h": "3dafbbcf1ee58af519306699b57127228ec5667319aff11aa5e9c8436b9b6dca",
+    "Include/d3d9types.h": "e0fdcc538db967cf280bbe1530d103ff9411b4aa8ac2799c4fafaf036d728c6c",
+    "Include/d3d9caps.h": "21c0882217fcbf8a19dc7ff61a2afe1c61488a9b35a8604e3fdef1733a2fc560",
+    "Lib/x86/d3d9.lib": "d56bc70d6e8ae71594262434a3c1dee2c6dfacbfea11bc43568b8ac4e1631fc1"
+  },
+  "commands": [
+    [
+      "cl",
+      "/nologo",
+      "/W3",
+      "/O2",
+      "/c",
+      "Z:\\inputs\\dxsdk_probe.cpp",
+      "/IZ:\\dxsdk\\Include",
+      "/FoZ:\\out\\probe.obj"
+    ],
+    [
+      "wine",
+      "/opt/msvc710/Vc7/bin/link.exe",
+      "/DLL",
+      "/NOENTRY",
+      "/NODEFAULTLIB",
+      "/MACHINE:X86",
+      "/OUT:Z:\\out\\probe.dll",
+      "/IMPLIB:Z:\\out\\probe.lib",
+      "/FILEALIGN:4096",
+      "/BASE:0x10000000",
+      "Z:\\out\\probe.obj",
+      "Z:\\dxsdk\\Lib\\x86\\d3d9.lib"
+    ],
+    [
+      "wine",
+      "/opt/msvc710/Vc7/bin/dumpbin.exe",
+      "/headers",
+      "/imports",
+      "Z:\\out\\probe.dll"
+    ]
+  ],
+  "dll_sha256": "bd2d5fed694339edfd1e80ca1db1a3647a3b18180f381c22f25e49f9b74cbcd3"
+}

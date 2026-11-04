@@ -1,0 +1,43 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\material_queries.c",
+    "Z:\\inputs\\src\\renderer_state.c",
+    "Z:\\inputs\\src\\sun_override.c",
+    "Z:\\inputs\\src\\font_metrics.c",
+    "Z:\\inputs\\src\\visibility_config.c",
+    "Z:\\inputs\\src\\model_bounds.c",
+    "Z:\\inputs\\src\\fog_state.c",
+    "/FoZ:\\out\\"
+  ],
+  "sources": {
+    "material_queries.c": "567f8741bbdaf6f85e7308262cca8971f70207397ebf4258cf1d5619b003c68f",
+    "renderer_state.c": "a9fcded06c6b638ecf2aaaae878209f20e3319e0d64827a5911759422d7fbf2f",
+    "sun_override.c": "43a4dd492967605cc3c9cbec44cf30b88bf776c15f1fa15f55dfb5a68d09491b",
+    "font_metrics.c": "2930ad7d073a62142871b1c11a37ac8677a04699dda465d1e24af5cfe031d0f4",
+    "visibility_config.c": "17a4c5d1f50222e7e66c9b2840987159a1e1da4aad9735e4ec5e4ba2942c1cc6",
+    "model_bounds.c": "47785e5ba311ca49190ffd028a54b96cbecf54831782476103382dbdaa58a2d6",
+    "fog_state.c": "5eb5241d3cff32d06a7661a07423b017577108ac9e09fdbe5606ab6e9195d4d6"
+  },
+  "objects": {
+    "material_queries.obj": "78b5b8453fe896f23a67f53da9bf8e8fe0b23fd2b985c782042beb1ff1da98f9",
+    "renderer_state.obj": "c45e29c62f076eb7196df962e84c42fe95e46a77d58972163843047d6361a46e",
+    "sun_override.obj": "b329a5eb02c42f2a7d0965745576a255a688db360538fb21ee02266c5d76ef70",
+    "font_metrics.obj": "68884484d6eed7fb24c018e38ac445d6e02d24df39bc86dece4845dd88c82546",
+    "visibility_config.obj": "6e4e52dd78997901b5a5194013fa08706748f614b7418514719d45fca71bc05a",
+    "model_bounds.obj": "0b67ec29a895ad3c0091313ba0b38c5f4f9dc670fb9cdac6a556d86aac46d40f",
+    "fog_state.obj": "6229fb35495813de54c6770d6899e8a4544a06b99368d3b4e6cad4af9565490c"
+  },
+  "status": "REVIEWABLE",
+  "functions": 13,
+  "bytes": 356,
+  "wrong_binding_rejected": true,
+  "host_fixtures_passed": true,
+  "independent_review": false
+}

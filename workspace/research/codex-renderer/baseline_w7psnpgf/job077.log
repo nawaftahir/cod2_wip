@@ -1,0 +1,3 @@
+sprintf.c
+Z:\inputs\src\tu_crt\sprintf.c(11) : fatal error C1083: Cannot open include file: 'cruntime.h': No such file or directory
+/usr/local/bin/cl: line 2:   275 Segmentation fault      (core dumped) wine /opt/msvc710/Vc7/bin/cl.exe "$@"

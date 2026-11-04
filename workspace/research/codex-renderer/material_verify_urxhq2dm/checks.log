@@ -1,0 +1,66 @@
+SHAPE MATCH: R_GetMaterialName, 7 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: R_GetMaterialSubimageCount, 16 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +1: _renderer_in_use_dvar -> 0x101ce708
+SHAPE MATCH: R_IsMaterialRefractive, 37 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +1: _renderer_min_spec_image_memory -> 0x101d0a78
+SHAPE MATCH: R_GetMinSpecImageMemory, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +10: _renderer_ignore_precache_errors -> 0x101d4d02
+SHAPE MATCH: R_SetIgnorePrecacheErrors, 15 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +2: _renderer_ignore_precache_errors -> 0x101d4d02
+SHAPE MATCH: R_GetIgnorePrecacheErrors, 14 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +1: _renderer_in_use_dvar -> 0x101ce708
+BOUND +12: _renderer_world -> 0x101d1b9c
+SHAPE MATCH: R_ClearFogs, 42 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +2: _renderer_world -> 0x101d1b9c
+SHAPE MATCH: R_SetSunLightOverride, 39 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: R_TextWidth, 8 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +6: __real@00000000 -> 0x1019bc84
+BOUND +19: _renderer_cull_distance -> 0x101ce5f4
+BOUND +33: _renderer_cull_distance -> 0x101ce5f4
+SHAPE MATCH: R_ResetSunLightParseParams, 38 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+SHAPE MATCH: R_MarkFragments, 77 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +9: _renderer_fog_settings -> 0x101d616c
+BOUND +16: _renderer_fog_index -> 0x101d620c
+SHAPE MATCH: R_ArchiveFogState, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+BOUND +6: _renderer_fog_settings -> 0x101d616c
+BOUND +20: _renderer_fog_index -> 0x101d620c
+SHAPE MATCH: R_SwitchFog, 35 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+R_GetMaterialName @ 0x10017300 size=7  vs  _R_GetMaterialName (obj size=7)
+normalized match: 7/7 bytes (100%)
+MATCH (normalized)
+R_GetMaterialSubimageCount @ 0x10017310 size=16  vs  _R_GetMaterialSubimageCount (obj size=16)
+normalized match: 16/16 bytes (100%)
+MATCH (normalized)
+R_IsMaterialRefractive @ 0x10017320 size=37  vs  _R_IsMaterialRefractive (obj size=37)
+normalized match: 37/37 bytes (100%)
+MATCH (normalized)
+R_GetMinSpecImageMemory @ 0x1000c8d0 size=6  vs  _R_GetMinSpecImageMemory (obj size=6)
+normalized match: 6/6 bytes (100%)
+MATCH (normalized)
+R_SetIgnorePrecacheErrors @ 0x1001d8f0 size=15  vs  _R_SetIgnorePrecacheErrors (obj size=15)
+normalized match: 15/15 bytes (100%)
+MATCH (normalized)
+R_GetIgnorePrecacheErrors @ 0x1001d900 size=14  vs  _R_GetIgnorePrecacheErrors (obj size=14)
+normalized match: 14/14 bytes (100%)
+MATCH (normalized)
+R_ClearFogs @ 0x10001430 size=42  vs  _R_SetSunLightOverride (obj size=42)
+normalized match: 42/42 bytes (100%)
+MATCH (normalized)
+R_SetSunLightOverride @ 0x10001460 size=39  vs  _R_ResetSunLightOverride (obj size=39)
+normalized match: 39/39 bytes (100%)
+MATCH (normalized)
+R_TextWidth @ 0x1000c000 size=8  vs  _R_TextHeight (obj size=8)
+normalized match: 8/8 bytes (100%)
+MATCH (normalized)
+R_ResetSunLightParseParams @ 0x1000aac0 size=38  vs  _R_SetCullDist (obj size=38)
+normalized match: 38/38 bytes (100%)
+MATCH (normalized)
+R_MarkFragments @ 0x1001d910 size=77  vs  _R_ModelBounds (obj size=77)
+normalized match: 77/77 bytes (100%)
+MATCH (normalized)
+R_ArchiveFogState @ 0x1000bb10 size=22  vs  _R_ClearFogs (obj size=22)
+normalized match: 22/22 bytes (100%)
+MATCH (normalized)
+R_SwitchFog @ 0x1000bc40 size=35  vs  _R_ArchiveFogState (obj size=35)
+normalized match: 35/35 bytes (100%)
+MATCH (normalized)

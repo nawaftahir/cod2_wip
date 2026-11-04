@@ -1,0 +1,183 @@
+SHAPE MATCH: _start_pass_dcolor, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_start_pass_dcolor @ 0x1004bf00 size=1  vs  _start_pass_dcolor (obj size=1)
+normalized match: 1/1 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _start_pass_merged_upsample, 21 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_start_pass_merged_upsample @ 0x10050150 size=21  vs  _start_pass_merged_upsample (obj size=21)
+normalized match: 21/21 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _build_ycc_rgb_table, 195 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_build_ycc_rgb_table @ 0x1004bab0 size=195  vs  _build_ycc_rgb_table (obj size=195)
+normalized match: 191/195 bytes (97%)
+first diff @ +158: pe=aa obj=1a
+pe : 81 eb d2 b6 00 00 81 e9 1a 58 00 00 81 c2 e9 66 01 00 81 c7
+obj: 81 eb d2 b6 00 00 81 e9 1a 58 00 00 81 c2 e9 66 01 00 81 c7
+_build_ycc_rgb_table @ 0x1004bab0 size=195  vs  _build_ycc_rgb_table (obj size=195)
+normalized match: 195/195 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _merged_build_ycc_rgb_table, 195 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_merged_build_ycc_rgb_table @ 0x10050080 size=195  vs  _merged_build_ycc_rgb_table (obj size=195)
+normalized match: 191/195 bytes (97%)
+first diff @ +158: pe=aa obj=1a
+pe : 81 eb d2 b6 00 00 81 e9 1a 58 00 00 81 c2 e9 66 01 00 81 c7
+obj: 81 eb d2 b6 00 00 81 e9 1a 58 00 00 81 c2 e9 66 01 00 81 c7
+_merged_build_ycc_rgb_table @ 0x10050080 size=195  vs  _merged_build_ycc_rgb_table (obj size=195)
+normalized match: 195/195 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _null_convert, 120 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_null_convert @ 0x1004bca0 size=120  vs  _null_convert (obj size=120)
+normalized match: 120/120 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _ycck_cmyk_convert, 330 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_ycck_cmyk_convert @ 0x1004bdb0 size=330  vs  _ycck_cmyk_convert (obj size=330)
+normalized match: 330/330 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _ycc_rgb_convert, 286 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_ycc_rgb_convert @ 0x1004bb80 size=286  vs  _ycc_rgb_convert (obj size=286)
+normalized match: 286/286 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _gray_rgb_convert, 94 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_gray_rgb_convert @ 0x1004bd50 size=94  vs  _gray_rgb_convert (obj size=94)
+normalized match: 94/94 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _merged_2v_upsample, 199 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_merged_2v_upsample @ 0x10050170 size=199  vs  _merged_2v_upsample (obj size=199)
+normalized match: 199/199 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _h2v2_merged_upsample, 555 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_h2v2_merged_upsample @ 0x100503d0 size=555  vs  _h2v2_merged_upsample (obj size=555)
+normalized match: 555/555 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _merged_1v_upsample, 55 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_merged_1v_upsample @ 0x10050240 size=55  vs  _merged_1v_upsample (obj size=55)
+normalized match: 55/55 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _h2v1_merged_upsample, 327 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_h2v1_merged_upsample @ 0x10050280 size=327  vs  _h2v1_merged_upsample (obj size=327)
+normalized match: 327/327 bytes (100%)
+MATCH (normalized)
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +186: _ycck_cmyk_convert -> 0x1004bdb0
+BOUND +191: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +208: _null_convert -> 0x1004bca0
+BOUND +259: _ycc_rgb_convert -> 0x1004bb80
+BOUND +264: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +281: _gray_rgb_convert -> 0x1004bd50
+BOUND +295: _null_convert -> 0x1004bca0
+BOUND +362: _grayscale_convert -> 0x1004bd20
+BOUND +432: $L8107 -> 0x1004bf3c
+BOUND +436: $L8110 -> 0x1004bf44
+BOUND +440: $L8110 -> 0x1004bf44
+BOUND +444: $L8113 -> 0x1004bf5a
+BOUND +448: $L8113 -> 0x1004bf5a
+SHAPE MATCH: _jinit_color_deconverter, 452 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_color_deconverter @ 0x1004bf10 size=452  vs  _jinit_color_deconverter (obj size=452)
+normalized match: 452/452 bytes (100%)
+MATCH (normalized)
+_jinit_color_deconverter @ 0x1004bf10 size=452  vs  _jinit_color_deconverter (obj size=452)
+normalized match: 452/452 bytes (100%)
+MATCH (normalized)
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +186: _ycck_cmyk_convert -> 0x1004bdb0
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +186: _ycck_cmyk_convert -> 0x1004bdb0
+BOUND +191: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +208: _null_convert -> 0x1004bca0
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +186: _ycck_cmyk_convert -> 0x1004bdb0
+BOUND +191: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +208: _null_convert -> 0x1004bca0
+BOUND +259: _ycc_rgb_convert -> 0x1004bb80
+BOUND +264: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +186: _ycck_cmyk_convert -> 0x1004bdb0
+BOUND +191: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +208: _null_convert -> 0x1004bca0
+BOUND +259: _ycc_rgb_convert -> 0x1004bb80
+BOUND +264: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +281: _gray_rgb_convert -> 0x1004bd50
+BOUND +295: _null_convert -> 0x1004bca0
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +186: _ycck_cmyk_convert -> 0x1004bdb0
+BOUND +191: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +208: _null_convert -> 0x1004bca0
+BOUND +259: _ycc_rgb_convert -> 0x1004bb80
+BOUND +264: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +281: _gray_rgb_convert -> 0x1004bd50
+BOUND +295: _null_convert -> 0x1004bca0
+BOUND +362: _grayscale_convert -> 0x1004bd20
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +186: _ycck_cmyk_convert -> 0x1004bdb0
+BOUND +191: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +208: _null_convert -> 0x1004bca0
+BOUND +259: _ycc_rgb_convert -> 0x1004bb80
+BOUND +264: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +281: _gray_rgb_convert -> 0x1004bd50
+BOUND +295: _null_convert -> 0x1004bca0
+BOUND +362: _grayscale_convert -> 0x1004bd20
+BOUND +432: $L8107 -> 0x1004bf3c
+BOUND +21: _start_pass_dcolor -> 0x1004bf00
+BOUND +40: $L10800 -> 0x1004c0c0
+BOUND +157: _null_convert -> 0x1004bca0
+BOUND +186: _ycck_cmyk_convert -> 0x1004bdb0
+BOUND +191: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +208: _null_convert -> 0x1004bca0
+BOUND +259: _ycc_rgb_convert -> 0x1004bb80
+BOUND +264: _build_ycc_rgb_table -> 0x1004bab0
+BOUND +281: _gray_rgb_convert -> 0x1004bd50
+BOUND +295: _null_convert -> 0x1004bca0
+BOUND +362: _grayscale_convert -> 0x1004bd20
+BOUND +432: $L8107 -> 0x1004bf3c
+BOUND +436: $L8110 -> 0x1004bf44
+BOUND +440: $L8110 -> 0x1004bf44
+BOUND +23: _start_pass_merged_upsample -> 0x10050150
+BOUND +61: _merged_2v_upsample -> 0x10050170
+BOUND +68: _h2v2_merged_upsample -> 0x100503d0
+BOUND +91: _merged_build_ycc_rgb_table -> 0x10050080
+BOUND +101: _merged_1v_upsample -> 0x10050240
+BOUND +108: _h2v1_merged_upsample -> 0x10050280
+BOUND +116: _merged_build_ycc_rgb_table -> 0x10050080
+SHAPE MATCH: _jinit_merged_upsampler, 120 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_jinit_merged_upsampler @ 0x10050600 size=120  vs  _jinit_merged_upsampler (obj size=120)
+normalized match: 116/120 bytes (96%)
+first diff @ +116: pe=08 obj=aa
+pe : 80 02 05 10 8b c7 5e e9 08 fa ff ff
+obj: 00 00 00 00 8b c7 5e e9 00 00 00 00
+_jinit_merged_upsampler @ 0x10050600 size=120  vs  _jinit_merged_upsampler (obj size=120)
+normalized match: 120/120 bytes (100%)
+MATCH (normalized)
+BOUND +23: _start_pass_merged_upsample -> 0x10050150
+BOUND +23: _start_pass_merged_upsample -> 0x10050150
+BOUND +61: _merged_2v_upsample -> 0x10050170
+BOUND +23: _start_pass_merged_upsample -> 0x10050150
+BOUND +61: _merged_2v_upsample -> 0x10050170
+BOUND +68: _h2v2_merged_upsample -> 0x100503d0
+BOUND +23: _start_pass_merged_upsample -> 0x10050150
+BOUND +61: _merged_2v_upsample -> 0x10050170
+BOUND +68: _h2v2_merged_upsample -> 0x100503d0
+BOUND +91: _merged_build_ycc_rgb_table -> 0x10050080
+BOUND +23: _start_pass_merged_upsample -> 0x10050150
+BOUND +61: _merged_2v_upsample -> 0x10050170
+BOUND +68: _h2v2_merged_upsample -> 0x100503d0
+BOUND +91: _merged_build_ycc_rgb_table -> 0x10050080
+BOUND +101: _merged_1v_upsample -> 0x10050240

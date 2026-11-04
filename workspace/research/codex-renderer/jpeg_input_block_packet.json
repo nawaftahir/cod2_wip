@@ -1,0 +1,44 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "object_sha256": "98772df064d31f1a9407f38a4c1a04ed9857ddf3c1a9f07c09b1f71fb9fead44",
+  "inputs_sha256": "87ba3004f23f3a99e867f0d8421047ef854d63b7ab2993406764710c8bdf3c49",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_6c1izr_2",
+  "functions": [
+    {
+      "symbol": "_jpeg_consume_input",
+      "address": "0x1004a1d0",
+      "code_bytes": 149,
+      "block_bytes": 183,
+      "bindings": {
+        "$L8287": 268739196,
+        "$L8289": 268739176,
+        "_default_decompress_parms": 268738464,
+        "$L6768": 268739057,
+        "$L6769": 268739084,
+        "$L6771": 268739120,
+        "$L6772": 268739128,
+        "$L6773": 268739143
+      },
+      "negative_tests": 8
+    },
+    {
+      "symbol": "_jpeg_read_header",
+      "address": "0x1004a130",
+      "code_bytes": 147,
+      "block_bytes": 147,
+      "bindings": {
+        "_jpeg_consume_input": 268739024
+      },
+      "negative_tests": 1
+    }
+  ],
+  "closed_code_bytes": 296,
+  "noncode_bytes_excluded": 34,
+  "checker_sha256": "19586f889275ececb9f29a15863fee07aec366e913c41ea38c4b8ccb4df0b278",
+  "fixture_sha256": "ef8c1242c01a44e749b2b736d4f632b5cea0f1251c9175c065aff22b026be0a8",
+  "base_packet_sha256": "ff61b3a3d5cc444c703c2ec3f1c6bab7f78aa563cd4aa2dbf26009a22cbebfa3",
+  "regression_functions": 82,
+  "regression_log_sha256": "22a7df46b445a105e7e27d855e846566481b8529ce374b060806f5609670895d",
+  "held": "startup241 source shape only; master_selection dependency not closed"
+}

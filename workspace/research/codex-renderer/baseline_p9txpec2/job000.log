@@ -1,0 +1,4 @@
+wine: created the configuration directory '/root/.wine'
+Could not find Wine Gecko. HTML rendering will be disabled.
+wine: configuration in L"/root/.wine" has been updated.
+sprintf.c

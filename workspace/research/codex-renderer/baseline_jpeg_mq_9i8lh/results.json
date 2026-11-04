@@ -1,0 +1,19 @@
+[
+  {
+    "source": "jpeg_api_group.c",
+    "source_sha256": "e885e1a048200b6bb66bf9e8a0eaa0f248c6fddcef89136bf025f74aeeb1404c",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jpeg_api_group.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": "wine: created the configuration directory '/root/.wine'\nCould not find Wine Gecko. HTML rendering will be disabled.\nwine: configuration in L\"/root/.wine\" has been updated.\njpeg_api_group.c\nz:\\inputs\\jutils.c(39) : error C2374: 'jpeg_natural_order' : redefinition; multiple initialization\n        z:\\inputs\\jpegint.h(380) : see declaration of 'jpeg_natural_order'\nz:\\inputs\\jutils.c(61) : error C2084: function 'long jdiv_round_up(long,long)' already has a body\n        z:\\inputs\\jpegint.h(371) : see previous definition of 'jdiv_round_up'\nz:\\inputs\\jutils.c(70) : error C2084: function 'long jround_up(long,long)' already has a body\n        z:\\inputs\\jpegint.h(372) : see previous definition of 'jround_up'\nz:\\inputs\\jutils.c(105) : error C2084: function 'void jcopy_sample_rows(JSAMPARRAY,int,JSAMPARRAY,int,int,JDIMENSION)' already has a body\n        z:\\inputs\\jpegint.h(373) : see previous definition of 'jcopy_sample_rows'\nz:\\inputs\\jutils.c(134) : error C2084: function 'void jcopy_block_row(JBLOCKROW,JBLOCKROW,JDIMENSION)' already has a body\n        z:\\inputs\\jpegint.h(376) : see previous definition of 'jcopy_block_row'\nz:\\inputs\\jutils.c(154) : error C2084: function 'void jzero_far(void *,size_t)' already has a body\n        z:\\inputs\\jpegint.h(378) : see previous definition of 'jzero_far'\n"
+  }
+]

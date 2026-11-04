@@ -1,0 +1,2 @@
+ Assembling: Z:\inputs\crt71\strcspn.asm
+Z:\inputs\crt71\strcspn.asm(16) : fatal error A1000: cannot open file : Intel\STRSPN.ASM

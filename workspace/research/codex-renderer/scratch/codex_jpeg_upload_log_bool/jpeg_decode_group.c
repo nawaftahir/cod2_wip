@@ -1,0 +1,10 @@
+/* Actual decoder API/master/main-controller context; not historical TU proof. */
+#include "jutils.c"
+#include "jdmainct.c"
+#include "jdcoefct.c"
+#include "jdpostct.c"
+#include "jddctmgr.c"
+#include "jdcolor.c"
+#include "jdsample.c"
+#include "jdmaster.c"
+#include "jdapistd.c"

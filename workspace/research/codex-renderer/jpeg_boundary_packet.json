@@ -1,0 +1,287 @@
+{
+  "status": "REVIEWABLE-FULL-BODY",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_ux9623q1",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "functions": [
+    {
+      "address": "0x10055d80",
+      "old_inventory_size": 102,
+      "bytes": 114,
+      "padding_end": "0x10055e00",
+      "source": "jquant1.c",
+      "symbol": "_make_odither_array",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jquant1.c",
+        "/FoZ:\\out\\job040.obj"
+      ],
+      "object_sha256": "97f6becdcbd7f7830ac858cc60729bf8d8cfa2088048e4ab21e781f17e666ee0",
+      "bindings": {
+        "_base_dither_matrix": 270078192
+      },
+      "diagnostics": "BOUND +36: _base_dither_matrix -> 0x101910f0\nBOUND +101: _base_dither_matrix -> 0x101911f0\nSHAPE MATCH: FUN_10055d80, 114 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055d80 @ 0x10055d80 size=114  vs  _make_odither_array (obj size=114)\nnormalized match: 114/114 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x10055960",
+      "old_inventory_size": 225,
+      "bytes": 234,
+      "padding_end": "0x10055a50",
+      "source": "jquant1.c",
+      "symbol": "_select_ncolors",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jquant1.c",
+        "/FoZ:\\out\\job040.obj"
+      ],
+      "object_sha256": "97f6becdcbd7f7830ac858cc60729bf8d8cfa2088048e4ab21e781f17e666ee0",
+      "bindings": {
+        "?RGB_order@?1??select_ncolors@@9@9": 270078448
+      },
+      "diagnostics": "BOUND +157: ?RGB_order@?1??select_ncolors@@9@9 -> 0x101911f0\nSHAPE MATCH: FUN_10055960, 234 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055960 @ 0x10055960 size=234  vs  _select_ncolors (obj size=234)\nnormalized match: 234/234 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x100566a0",
+      "old_inventory_size": 991,
+      "bytes": 1003,
+      "padding_end": "0x10056a90",
+      "source": "jquant2.c",
+      "symbol": "_update_box",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jquant2.c",
+        "/FoZ:\\out\\job041.obj"
+      ],
+      "object_sha256": "51fffc8da5e87567790d8f13ffc0863c1d58dfaf037c9faf8d8851cde7cfdaad",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_100566a0, 1003 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100566a0 @ 0x100566a0 size=1003  vs  _update_box (obj size=1003)\nnormalized match: 1003/1003 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x1004cfa0",
+      "old_inventory_size": 510,
+      "bytes": 516,
+      "padding_end": "0x1004d1b0",
+      "source": "jdinput.c",
+      "symbol": "_initial_setup",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jdinput.c",
+        "/FoZ:\\out\\job022.obj"
+      ],
+      "object_sha256": "dd5c012d096928f44d650a32f9666c25fc64c97f057d030fa16a727027064ddb",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_1004cfa0, 516 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004cfa0 @ 0x1004cfa0 size=516  vs  _initial_setup (obj size=516)\nnormalized match: 516/516 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x10046000",
+      "old_inventory_size": 961,
+      "bytes": 967,
+      "padding_end": "0x100463d0",
+      "source": "jcmaster.c",
+      "symbol": "_validate_script",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jcmaster.c",
+        "/FoZ:\\out\\job009.obj"
+      ],
+      "object_sha256": "947b59640575325b0231db4285e7e1243ac9f1750adce9527f11189cdf6cb2fc",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_10046000, 967 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10046000 @ 0x10046000 size=967  vs  _validate_script (obj size=967)\nnormalized match: 967/967 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x10047ec0",
+      "old_inventory_size": 495,
+      "bytes": 506,
+      "padding_end": "0x100480c0",
+      "source": "jcphuff.c",
+      "symbol": "_encode_mcu_AC_first",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jcphuff.c",
+        "/FoZ:\\out\\job012.obj"
+      ],
+      "object_sha256": "1c65f1e830c96db1b00890631f3303e48816d5a139d6bac34b6812e2a1569214",
+      "bindings": {},
+      "diagnostics": "UNRESOLVED binding +77: target=0x10047c30, COFF=_emit_restart addend=0x00000000\nUNRESOLVED binding +131: target=0x10191200, COFF=_jpeg_natural_order addend=0x00000000\nUNRESOLVED binding +199: target=0x10047b70, COFF=_emit_eobrun addend=0x00000000\nUNRESOLVED binding +265: target=0x100479a0, COFF=_emit_bits addend=0x00000000\nUNRESOLVED binding +370: target=0x100479a0, COFF=_emit_bits addend=0x00000000\nUNRESOLVED binding +385: target=0x100479a0, COFF=_emit_bits addend=0x00000000\nUNRESOLVED binding +442: target=0x10047b70, COFF=_emit_eobrun addend=0x00000000\nSHAPE MATCH: FUN_10047ec0, 506 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10047ec0 @ 0x10047ec0 size=506  vs  _encode_mcu_AC_first (obj size=506)\nnormalized match: 506/506 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x1004ada0",
+      "old_inventory_size": 549,
+      "bytes": 552,
+      "padding_end": "0x1004afd0",
+      "source": "jdcoefct.c",
+      "symbol": "_consume_data",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jdcoefct.c",
+        "/FoZ:\\out\\job018.obj"
+      ],
+      "object_sha256": "5c4a48cb5f4a213303e494d59ad8e78700dd7d05337d3788063a7fae6b0b5939",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_1004ada0, 552 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004ada0 @ 0x1004ada0 size=552  vs  _consume_data (obj size=552)\nnormalized match: 552/552 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x1004afd0",
+      "old_inventory_size": 409,
+      "bytes": 417,
+      "padding_end": "0x1004b180",
+      "source": "jdcoefct.c",
+      "symbol": "_decompress_data",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jdcoefct.c",
+        "/FoZ:\\out\\job018.obj"
+      ],
+      "object_sha256": "5c4a48cb5f4a213303e494d59ad8e78700dd7d05337d3788063a7fae6b0b5939",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_1004afd0, 417 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004afd0 @ 0x1004afd0 size=417  vs  _decompress_data (obj size=417)\nnormalized match: 417/417 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x1004d880",
+      "old_inventory_size": 157,
+      "bytes": 160,
+      "padding_end": "0x1004d920",
+      "source": "jdmainct.c",
+      "symbol": "_set_bottom_pointers",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jdmainct.c",
+        "/FoZ:\\out\\job023.obj"
+      ],
+      "object_sha256": "b583673de8794a6840d4dc8e5d70cada47b469f4a9a54edc421dfd44fad1288c",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_1004d880, 160 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d880 @ 0x1004d880 size=160  vs  _set_bottom_pointers (obj size=160)\nnormalized match: 160/160 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x10051ae0",
+      "old_inventory_size": 293,
+      "bytes": 296,
+      "padding_end": "0x10051c10",
+      "source": "jdsample.c",
+      "symbol": "_h2v2_fancy_upsample",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jdsample.c",
+        "/FoZ:\\out\\job029.obj"
+      ],
+      "object_sha256": "d66f943e7e88135a6310937b3c96698b08ead7c3f8ac8664bb5828c72b3cc253",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_10051ae0, 296 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10051ae0 @ 0x10051ae0 size=296  vs  _h2v2_fancy_upsample (obj size=296)\nnormalized match: 296/296 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x100532c0",
+      "old_inventory_size": 507,
+      "bytes": 516,
+      "padding_end": "0x100534d0",
+      "source": "jfdctfst.c",
+      "symbol": "_jpeg_fdct_ifast",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jfdctfst.c",
+        "/FoZ:\\out\\job032.obj"
+      ],
+      "object_sha256": "3949a6a5fdbcf2d60a66f0c65e2c483fbd90572814ba8508dae6f765b6e0e312",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_100532c0, 516 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100532c0 @ 0x100532c0 size=516  vs  _jpeg_fdct_ifast (obj size=516)\nnormalized match: 516/516 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x100556f0",
+      "old_inventory_size": 260,
+      "bytes": 263,
+      "padding_end": "0x10055800",
+      "source": "jmemmgr.c",
+      "symbol": "_free_pool",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jmemmgr.c",
+        "/FoZ:\\out\\job038.obj"
+      ],
+      "object_sha256": "75a76a82a03c955e08f97534c2aa1565294fdfd0bc32b18c43c67a89672730af",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_100556f0, 263 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100556f0 @ 0x100556f0 size=263  vs  _free_pool (obj size=263)\nnormalized match: 263/263 bytes (100%)\nMATCH (normalized)\n"
+    },
+    {
+      "address": "0x10055c10",
+      "old_inventory_size": 347,
+      "bytes": 358,
+      "padding_end": "0x10055d80",
+      "source": "jquant1.c",
+      "symbol": "_create_colorindex",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jquant1.c",
+        "/FoZ:\\out\\job040.obj"
+      ],
+      "object_sha256": "97f6becdcbd7f7830ac858cc60729bf8d8cfa2088048e4ab21e781f17e666ee0",
+      "bindings": {},
+      "diagnostics": "SHAPE MATCH: FUN_10055c10, 358 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10055c10 @ 0x10055c10 size=358  vs  _create_colorindex (obj size=358)\nnormalized match: 358/358 bytes (100%)\nMATCH (normalized)\n"
+    }
+  ],
+  "bytes": 5902,
+  "independent_review": false,
+  "whole_file_identity": false
+}

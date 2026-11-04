@@ -1,0 +1,2 @@
+ Assembling: Z:\inputs\crt71\ulldiv.asm
+Z:\inputs\crt71\ulldiv.asm(16) : fatal error A1000: cannot open file : mm.inc

@@ -1,0 +1,44 @@
+[
+  {
+    "source": "j_100efe3c.c",
+    "source_sha256": "d3e8e6970232d7a89c974220f05938c7a71582d77ab828fc61c1923cfb891e27",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O1",
+      "/Gy",
+      "/hotpatch",
+      "/Oy-",
+      "Z:\\inputs\\j_100efe3c.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "3e02db40bc4980d6f524c1e9f57e481c0987b126343fca3c72e8a8bdb32eda3e",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "j_100f2b25.c",
+    "source_sha256": "71f7533e2968026c54c3205b1eaec63630d670bbe58422b22856162cccff7f09",
+    "job": "job001",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O1",
+      "/Gy",
+      "/hotpatch",
+      "/Oy-",
+      "Z:\\inputs\\j_100f2b25.c",
+      "/FoZ:\\out\\job001.obj"
+    ],
+    "object_sha256": "acfacd9a8d9d4ff5169ab9ba59f9a984c21bd57b6ee332e62aafb5829351f0f6",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  }
+]

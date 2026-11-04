@@ -1,0 +1,57 @@
+[
+  {
+    "source": "j_wavelet.c",
+    "source_sha256": "34b7eb8b3492960b6fc1cd07c561cf5946d8b28bb1588199b4ec0fc58b3eb594",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_wavelet.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "b0aeb554eac8ca6396b3ce250497673b6afe0e364df9a68a3684952f3a65e7fd",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1000f020",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "bytes": 135,
+        "diagnostics": "UNRESOLVED binding +15: target=0x1000ef40, COFF=_Image_GetMipMemoryAmount addend=0x00000000\nUNRESOLVED binding +101: target=0x1000ef40, COFF=_Image_GetMipMemoryAmount addend=0x00000000\nSHAPE MATCH: FUN_1000f020, 135 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f020 @ 0x1000f020 size=135  vs  _Image_GetCardMemoryAmount (obj size=135)\nnormalized match: 135/135 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000f2a0",
+        "symbol": "_Image_CheckFileHeader",
+        "bytes": 67,
+        "diagnostics": "UNRESOLVED binding +32: target=0x10193974, COFF=??_C@_0DM@DMJIFFOH@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5version?5?$CF@ addend=0x00000000\nUNRESOLVED binding +37: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nUNRESOLVED binding +52: target=0x101939b0, COFF=??_C@_0CI@MHFFCKAC@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5not?5an?5IW@ addend=0x00000000\nUNRESOLVED binding +57: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nSHAPE MATCH: FUN_1000f2a0, 67 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f2a0 @ 0x1000f2a0 size=67  vs  _Image_CheckFileHeader (obj size=67)\nnormalized match: 67/67 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x1000fc30",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={153: 6, 142: 6, 45: 20, 94: 20, 114: 20, 131: 20}, COFF={151: 20}"
+      },
+      {
+        "address": "0x1000fce0",
+        "symbol": "_Image_CreateCubeTexture",
+        "reason": "relocation-site/type mismatch: PE={6: 20, 23: 20, 48: 20, 73: 20, 102: 20}, COFF={25: 6, 46: 6, 83: 20, 101: 6, 108: 20}"
+      },
+      {
+        "address": "0x1000e840",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "reason": "relocation-site/type mismatch: PE={25: 6, 18: 6}, COFF={15: 20, 101: 20}"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "byte mismatch +9: PE=74, COFF=ba"
+      }
+    ]
+  }
+]

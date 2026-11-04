@@ -1,0 +1,267 @@
+{
+  "status": "REVIEWABLE",
+  "new_code_bytes": 240,
+  "retained": {
+    "status": "REVIEWABLE",
+    "new_code_bytes": 26,
+    "retained_dispatch": {
+      "status": "REVIEWABLE",
+      "new_code_bytes": 328,
+      "dispatcher": {
+        "code_bytes": 261,
+        "section_bytes": 316,
+        "sites": [
+          {
+            "offset": 25,
+            "symbol": "$L2352",
+            "target": "0x1000fa08"
+          },
+          {
+            "offset": 36,
+            "symbol": "_Image_LoadBitmap",
+            "target": "0x1000f5a0"
+          },
+          {
+            "offset": 52,
+            "symbol": "_Image_LoadBitmap",
+            "target": "0x1000f5a0"
+          },
+          {
+            "offset": 68,
+            "symbol": "_Image_LoadBitmap",
+            "target": "0x1000f5a0"
+          },
+          {
+            "offset": 84,
+            "symbol": "_Image_LoadBitmap",
+            "target": "0x1000f5a0"
+          },
+          {
+            "offset": 100,
+            "symbol": "_Image_LoadBitmap",
+            "target": "0x1000f5a0"
+          },
+          {
+            "offset": 119,
+            "symbol": "_Image_LoadWavelet",
+            "target": "0x1000f380"
+          },
+          {
+            "offset": 138,
+            "symbol": "_Image_LoadWavelet",
+            "target": "0x1000f380"
+          },
+          {
+            "offset": 157,
+            "symbol": "_Image_LoadWavelet",
+            "target": "0x1000f380"
+          },
+          {
+            "offset": 176,
+            "symbol": "_Image_LoadWavelet",
+            "target": "0x1000f380"
+          },
+          {
+            "offset": 195,
+            "symbol": "_Image_LoadWavelet",
+            "target": "0x1000f380"
+          },
+          {
+            "offset": 214,
+            "symbol": "_Image_LoadDxtc",
+            "target": "0x1000f7b0"
+          },
+          {
+            "offset": 233,
+            "symbol": "_Image_LoadDxtc",
+            "target": "0x1000f7b0"
+          },
+          {
+            "offset": 252,
+            "symbol": "_Image_LoadDxtc",
+            "target": "0x1000f7b0"
+          },
+          {
+            "offset": 264,
+            "symbol": "$L1968",
+            "target": "0x1000f91d"
+          },
+          {
+            "offset": 268,
+            "symbol": "$L1969",
+            "target": "0x1000f92d"
+          },
+          {
+            "offset": 272,
+            "symbol": "$L1970",
+            "target": "0x1000f93d"
+          },
+          {
+            "offset": 276,
+            "symbol": "$L1971",
+            "target": "0x1000f94d"
+          },
+          {
+            "offset": 280,
+            "symbol": "$L1972",
+            "target": "0x1000f95d"
+          },
+          {
+            "offset": 284,
+            "symbol": "$L1973",
+            "target": "0x1000f96d"
+          },
+          {
+            "offset": 288,
+            "symbol": "$L1974",
+            "target": "0x1000f980"
+          },
+          {
+            "offset": 292,
+            "symbol": "$L1975",
+            "target": "0x1000f993"
+          },
+          {
+            "offset": 296,
+            "symbol": "$L1976",
+            "target": "0x1000f9a6"
+          },
+          {
+            "offset": 300,
+            "symbol": "$L1977",
+            "target": "0x1000f9b9"
+          },
+          {
+            "offset": 304,
+            "symbol": "$L1978",
+            "target": "0x1000f9cc"
+          },
+          {
+            "offset": 308,
+            "symbol": "$L1979",
+            "target": "0x1000f9df"
+          },
+          {
+            "offset": 312,
+            "symbol": "$L1980",
+            "target": "0x1000f9f2"
+          }
+        ],
+        "bindings": {
+          "$L2352": 268499464,
+          "_Image_LoadBitmap": 268498336,
+          "_Image_LoadWavelet": 268497792,
+          "_Image_LoadDxtc": 268498864,
+          "$L1968": 268499229,
+          "$L1969": 268499245,
+          "$L1970": 268499261,
+          "$L1971": 268499277,
+          "$L1972": 268499293,
+          "$L1973": 268499309,
+          "$L1974": 268499328,
+          "$L1975": 268499347,
+          "$L1976": 268499366,
+          "$L1977": 268499385,
+          "$L1978": 268499404,
+          "$L1979": 268499423,
+          "$L1980": 268499442
+        },
+        "diagnostics": "BOUND +25: $L2352 -> 0x1000fa08\nBOUND +36: _Image_LoadBitmap -> 0x1000f5a0\nBOUND +52: _Image_LoadBitmap -> 0x1000f5a0\nBOUND +68: _Image_LoadBitmap -> 0x1000f5a0\nBOUND +84: _Image_LoadBitmap -> 0x1000f5a0\nBOUND +100: _Image_LoadBitmap -> 0x1000f5a0\nBOUND +119: _Image_LoadWavelet -> 0x1000f380\nBOUND +138: _Image_LoadWavelet -> 0x1000f380\nBOUND +157: _Image_LoadWavelet -> 0x1000f380\nBOUND +176: _Image_LoadWavelet -> 0x1000f380\nBOUND +195: _Image_LoadWavelet -> 0x1000f380\nBOUND +214: _Image_LoadDxtc -> 0x1000f7b0\nBOUND +233: _Image_LoadDxtc -> 0x1000f7b0\nBOUND +252: _Image_LoadDxtc -> 0x1000f7b0\nSHAPE MATCH: FUN_1000f900, 261 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f900 @ 0x1000f900 size=316  vs  _Image_LoadFromData (obj size=316)\nnormalized match: 316/316 bytes (100%)\nMATCH (normalized)\n",
+        "wrong_binding_rejected": true
+      },
+      "header_code_bytes": 67,
+      "diagnostics": "BOUND +32: ??_C@_0DM@DMJIFFOH@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5version?5?$CF@ -> 0x10193974\nBOUND +37: _Renderer_Print -> 0x10061c80\nBOUND +52: ??_C@_0CI@MHFFCKAC@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5not?5an?5IW@ -> 0x101939b0\nBOUND +57: _Renderer_Print -> 0x10061c80\nSHAPE MATCH: FUN_1000f2a0, 67 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f2a0 @ 0x1000f2a0 size=67  vs  _Image_CheckFileHeader (obj size=67)\nnormalized match: 67/67 bytes (100%)\nMATCH (normalized)\n",
+      "header_bindings": {
+        "_Renderer_Print": 268835968,
+        "??_C@_0DM@DMJIFFOH@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5version?5?$CF@": 270088564,
+        "??_C@_0CI@MHFFCKAC@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5not?5an?5IW@": 270088624
+      },
+      "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+      "inputs": {
+        "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+        "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/wavelet_file_payload",
+        "jobs": [
+          {
+            "source": "j_wavelet.c",
+            "source_sha256": "d46fa62db97934c98f630838f4b4c2d4acacb78748fa7a040456bdcae48da55f",
+            "job": "job000",
+            "command": [
+              "cl",
+              "/nologo",
+              "/c",
+              "/W3",
+              "/O2",
+              "/Gy",
+              "Z:\\inputs\\j_wavelet.c",
+              "/FoZ:\\out\\job000.obj"
+            ]
+          }
+        ],
+        "dependencies": {
+          "j_wavelet.c": "d46fa62db97934c98f630838f4b4c2d4acacb78748fa7a040456bdcae48da55f",
+          "common_types.h": "b781d4ce994777835c32df12c586d1c2d47bd5f3762824414b31f0d590589db8"
+        },
+        "discovery_range": [
+          "0x1000c910",
+          "0x10061ca0"
+        ],
+        "reused_objects_from": null
+      },
+      "object_sha256": "a92176c5caf5fab52c0871f56a0746b4520eff7f7d2d8808aed1ba125823ce7b",
+      "fixture_command": [
+        "cc",
+        "-m32",
+        "-std=c89",
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-DIMAGE_CREATE_SOURCE=\"/home/nawaf/cod2/test/dev/codex/renderer/scratch/wavelet_file_payload/j_wavelet.c\"",
+        "-Wno-unused-parameter",
+        "/home/nawaf/cod2/test/dev/codex/renderer/test_image_reload.c",
+        "-o",
+        "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_qqtw3j8j/file_fixture32"
+      ],
+      "fixtures": {
+        "test_image_file_loader.c": "d65e1297505926e1999a1e05c36c41f837a2b668f9000ac4332256ec33ff22ce",
+        "test_image_bitmap_loader.c": "8a1445a252014ff57b2ce4d0e2f0380a1f275a1c4b94940380a6faedf3128139",
+        "test_image_all_upload.c": "ab22b1e7cbb1e96ebff86571f3fe57e28681c9b7806cebbf9f922304e7f04cad",
+        "test_image_volume.c": "48514b9f32a3ee3968e30830d1f9c475fe6176c310ff1f7e56f3cbb86c3c95b9",
+        "test_image_memory.c": "8ce52dccc8c6fe86637f14bdf485438883976377db239b9bb2e98ac1c2601be9",
+        "test_image_create.c": "16cdbd2ac78226ef695eb1cab1b25f5af88af99caead8a3b5697fb6e16149260",
+        "test_image_path_formatter.c": "41cc0e9d5c607f9d94e355317d1915e38d100c6f22ba1efe7287c0d698e10c50",
+        "test_image_reload.c": "be6609197f5bdbbd07b00677e9fe32d24fcd7265e7f5a8cd4015a9f2776b4e6b"
+      },
+      "fixture_passed": true,
+      "dependency_closure": false,
+      "independent_review": false,
+      "whole_file_identity": false
+    },
+    "diagnostics": "BOUND +13: __vsnprintf -> 0x100f61b9\nSHAPE MATCH: FUN_10060c10, 26 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10060c10 @ 0x10060c10 size=26  vs  _Renderer_FormatPath (obj size=26)\nnormalized match: 26/26 bytes (100%)\nMATCH (normalized)\n",
+    "bindings": {
+      "__vsnprintf": 269443513
+    },
+    "wrong_binding_rejected": true,
+    "crt_dependency": "PINNED destination; unmatched body; host test uses adapter",
+    "independent_review": false,
+    "whole_file_identity": false
+  },
+  "bindings": {
+    "_Renderer_FormatPath": 268831760,
+    "_Renderer_Print": 268835968,
+    "_ri_image_read_file": 270355196,
+    "_ri_image_free_file": 270355200,
+    "_Image_CheckFileHeader": 268497568,
+    "_Image_LoadFromData": 268499200,
+    "??_C@_04OEIDIPDF@?4iwi?$AA@": 270088556,
+    "??_C@_07BPPBCINE@images?1?$AA@": 270088548,
+    "??_C@_06DIJPEION@?$CFs?$CFs?$CFs?$AA@": 270088540,
+    "??_C@_0CB@LLOKNBHD@?$FO1ERROR?3?5filename?5?8?$CFs?8?5too?5long?6@": 270088504,
+    "??_C@_0CA@BIPEBJFL@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5missing?6?$AA@": 270088472,
+    "??_C@_0CC@HJGHCGCH@?$FO1ERROR?3?5image?5?8?$CFs?8?5has?50?5length@": 270088436
+  },
+  "diagnostics": "BOUND +9: ??_C@_04OEIDIPDF@?4iwi?$AA@ -> 0x1019396c\nBOUND +15: ??_C@_07BPPBCINE@images?1?$AA@ -> 0x10193964\nBOUND +20: ??_C@_06DIJPEION@?$CFs?$CFs?$CFs?$AA@ -> 0x1019395c\nBOUND +34: _Renderer_FormatPath -> 0x10060c10\nBOUND +49: ??_C@_0CB@LLOKNBHD@?$FO1ERROR?3?5filename?5?8?$CFs?8?5too?5long?6@ -> 0x10193938\nBOUND +54: _Renderer_Print -> 0x10061c80\nBOUND +81: _ri_image_read_file -> 0x101d4afc\nBOUND +98: ??_C@_0CA@BIPEBJFL@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5missing?6?$AA@ -> 0x10193918\nBOUND +103: _Renderer_Print -> 0x10061c80\nBOUND +126: ??_C@_0CC@HJGHCGCH@?$FO1ERROR?3?5image?5?8?$CFs?8?5has?50?5length@ -> 0x101938f4\nBOUND +131: _Renderer_Print -> 0x10061c80\nBOUND +142: _ri_image_free_file -> 0x101d4b00\nBOUND +179: _Image_CheckFileHeader -> 0x1000f2a0\nBOUND +194: _ri_image_free_file -> 0x101d4b00\nBOUND +214: _Image_LoadFromData -> 0x1000f900\nBOUND +225: _ri_image_free_file -> 0x101d4b00\nSHAPE MATCH: FUN_1000fa40, 240 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000fa40 @ 0x1000fa40 size=240  vs  _Image_LoadFromFile (obj size=240)\nnormalized match: 240/240 bytes (100%)\nMATCH (normalized)\n",
+  "wrong_binding_rejected": true,
+  "dependency_closure": false,
+  "independent_review": false,
+  "whole_file_identity": false
+}

@@ -1,0 +1,7 @@
+Microsoft (R) Incremental Linker Version 7.10.3077
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+   Creating library Z:\out\wavelet.lib and object Z:\out\wavelet.exp
+wine: created the configuration directory '/root/.wine'
+Could not find Wine Gecko. HTML rendering will be disabled.
+wine: configuration in L"/root/.wine" has been updated.

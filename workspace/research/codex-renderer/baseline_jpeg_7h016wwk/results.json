@@ -1,0 +1,54 @@
+[
+  {
+    "source": "j_checkpoint.c",
+    "source_sha256": "d928755a73d24be72c42818da5633b652f08bcacc67e62e268dcaa2929d8766f",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_checkpoint.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "a45d3355eb07d12f3c6e5c92db7482bdf1e7ec56411c4d0abc72e9a51e25bbb9",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1000aa60",
+        "symbol": "_Image_GetFarPlane",
+        "bytes": 82,
+        "diagnostics": "UNRESOLVED binding +1: target=0x101ce61c, COFF=_far_plane_dvar addend=0x00000000\nUNRESOLVED binding +10: target=0x1019bc84, COFF=_far_plane_zero addend=0x00000000\nUNRESOLVED binding +26: target=0x101d620c, COFF=_far_plane_override_active addend=0x00000000\nUNRESOLVED binding +35: target=0x101d61c8, COFF=_far_plane_override_enabled addend=0x00000000\nUNRESOLVED binding +45: target=0x101d61ac, COFF=_far_plane_override_mode addend=0x00000000\nUNRESOLVED binding +56: target=0x101d61c0, COFF=_far_plane_override_value addend=0x00000000\nUNRESOLVED binding +62: target=0x101ce5f4, COFF=_far_plane_minimum addend=0x00000000\nUNRESOLVED binding +77: target=0x101ce5f4, COFF=_far_plane_minimum addend=0x00000000\nSHAPE MATCH: R_GetFarPlaneDist, 82 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_GetFarPlaneDist @ 0x1000aa60 size=82  vs  _Image_GetFarPlane (obj size=82)\nnormalized match: 82/82 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 82,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10023e90",
+        "symbol": "_Image_InitRecords",
+        "bytes": 57,
+        "diagnostics": "SHAPE MATCH: R_noop, 57 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_noop @ 0x10023e90 size=57  vs  _Image_InitRecords (obj size=57)\nnormalized match: 57/57 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 57,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10014420",
+        "symbol": "_Image_GetFarPlane",
+        "reason": "relocation-site/type mismatch: PE={72: 20}, COFF={1: 6, 10: 6, 26: 6, 35: 6, 45: 6, 56: 6, 62: 6, 77: 6}"
+      },
+      {
+        "address": "0x1001d4f0",
+        "symbol": "_Image_GetFarPlane",
+        "reason": "relocation-site/type mismatch: PE={72: 20}, COFF={1: 6, 10: 6, 26: 6, 35: 6, 45: 6, 56: 6, 62: 6, 77: 6}"
+      },
+      {
+        "address": "0x10020790",
+        "symbol": "_Image_GetFarPlane",
+        "reason": "relocation-site/type mismatch: PE={66: 6, 5: 6, 38: 6, 74: 6, 44: 6, 52: 6, 24: 6, 60: 6, 30: 6}, COFF={1: 6, 10: 6, 26: 6, 35: 6, 45: 6, 56: 6, 62: 6, 77: 6}"
+      }
+    ]
+  }
+]

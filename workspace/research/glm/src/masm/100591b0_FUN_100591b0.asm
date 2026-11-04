@@ -1,0 +1,60 @@
+.686
+.MODEL FLAT, C
+EXTRN sub_1010A96C:PROC
+EXTRN g_1019BC78:DWORD
+EXTRN g_1019BC84:DWORD
+.CODE
+FUN_100591b0 PROC
+    sub esp, 16
+    mov eax, dword ptr [esi + 12]
+    mov edx, dword ptr [esi + 4]
+    mov ecx, dword ptr [esi + 8]
+    mov dword ptr [esp + 12], eax
+    mov eax, dword ptr [esi]
+    mov dword ptr [esp], eax
+    fld dword ptr [esp]
+    mov dword ptr [esp + 4], edx
+    fmul dword ptr [esp]
+    mov dword ptr [esp + 8], ecx
+    fld dword ptr [esp + 4]
+    fmul dword ptr [esp + 4]
+    faddp st(1)
+    fld dword ptr [esp + 8]
+    fmul dword ptr [esp + 8]
+    faddp st(1)
+    fld dword ptr [esp + 12]
+    fmul dword ptr [esp + 12]
+    faddp st(1)
+    fstp dword ptr [esp]
+    fld dword ptr [esp]
+    call sub_1010A96C
+    fstp dword ptr [esp + 12]
+    fld dword ptr [esp + 12]
+    fstp dword ptr [esp]
+    fld dword ptr [esp]
+    fld dword ptr [g_1019BC84]
+    fld st(1)
+    fucompp
+    fnstsw ax
+    test ah, 68
+    jnp L0
+    fld dword ptr [g_1019BC78]
+    fdiv st(1)
+    fstp dword ptr [esp]
+    fld dword ptr [esp]
+    fmul dword ptr [esi]
+    fstp dword ptr [esi]
+    fld dword ptr [esp]
+    fmul dword ptr [esi + 4]
+    fstp dword ptr [esi + 4]
+    fld dword ptr [esp]
+    fmul dword ptr [esi + 8]
+    fstp dword ptr [esi + 8]
+    fld dword ptr [esp]
+    fmul dword ptr [esi + 12]
+    fstp dword ptr [esi + 12]
+L0:
+    add esp, 16
+    ret
+FUN_100591b0 ENDP
+END

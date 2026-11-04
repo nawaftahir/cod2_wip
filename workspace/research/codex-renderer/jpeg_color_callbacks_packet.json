@@ -1,0 +1,56 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_uo3oxv1l",
+  "object_sha256": "b4a40d5ed3cc0bf9ec9efe99a04577cc0474cfc061b588dc37445a025b167170",
+  "inputs_sha256": "87948b35ecf7f9a6e9810b7a5563aaa1da929e3ab05e2efa8a7e26e0e210a2ee",
+  "checker_sha256": "43c67c25d155fc1f7e8f26f172826ceda53d053ff56564552a36ba12a08f647b",
+  "functions": [
+    {
+      "address": "0x10057990",
+      "symbol": "_jcopy_sample_rows",
+      "bytes": 58,
+      "bindings": {}
+    },
+    {
+      "address": "0x1004bd20",
+      "symbol": "_grayscale_convert",
+      "bytes": 39,
+      "bindings": {
+        "_jcopy_sample_rows": 268794256
+      }
+    }
+  ],
+  "code_bytes": 97,
+  "parent_shapes": 129,
+  "parent_results_sha256": "f3ccfc2b9e7a33288fea81738fa3425ad984e8c681d4e4ff2ae51bf3f696fc64",
+  "regression_log_sha256": "bd74f638a3da08c4381730844a9b397dbacdf0f1d21d87934e765936eb0e45f8",
+  "negative_tests": 1,
+  "native_command": [
+    "cc",
+    "-m32",
+    "-malign-double",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-unused-function",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-D__forceinline=__inline__",
+    "-D__declspec(x)=",
+    "-DJPEG_IMAGE_SOURCE_ROOT=scratch/codex_jpeg_color_inline",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_jpeg_image_loader.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_color_inline/jidctint.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_color_inline/jidctfst.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_color_inline/jidctflt.c",
+    "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_color_inline/jidctred.c",
+    "-Wl,--gc-sections",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_uo3oxv1l/color_fixture32"
+  ],
+  "fixture_sha256": "30a9b080ca6a9eb9472ce5461794110db252374fb2d45b240ab34dcb70dab812",
+  "native_build_log_sha256": "a8b043f20e8b8c25ce99039eb6f492f2ec583659874e35b6f55c6e824d99e77c",
+  "native_test_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "whole_file_identity": false
+}

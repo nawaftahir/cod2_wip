@@ -1,0 +1,85 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_uo3oxv1l",
+  "inputs_sha256": "87948b35ecf7f9a6e9810b7a5563aaa1da929e3ab05e2efa8a7e26e0e210a2ee",
+  "object_sha256": "b4a40d5ed3cc0bf9ec9efe99a04577cc0474cfc061b588dc37445a025b167170",
+  "checker_sha256": "e1bb5f7c820d9c82957281bba4d7f3f0afc2a19961afaf416172d7a8a54ff7cf",
+  "probe_sha256": "91ec5d552fb4de9fd9917467c172bb6180a5d2497a4be35ec418fdb883787d6a",
+  "matcher_loader_sha256": "51fade9b6b5740d110503e3796cc4d9da197a2c330b23d34009b51c18da867d6",
+  "callbacks_packet_sha256": "e7a132c14d4d71ac05bc66ab574c5012aafdcbf937db39b62de9ad03534343c8",
+  "base_packet_sha256": "ff61b3a3d5cc444c703c2ec3f1c6bab7f78aa563cd4aa2dbf26009a22cbebfa3",
+  "log_path": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_uo3oxv1l/color_initializers.log",
+  "log_sha256": "297a9b610c18912dbac62e62a3f00e8214bda4bb8510b37d1c60c03cc7753ef7",
+  "functions": [
+    {
+      "symbol": "_jinit_color_deconverter",
+      "address": "0x1004bf10",
+      "code_bytes": 429,
+      "full_block_bytes": 452,
+      "bindings": {
+        "_start_pass_dcolor": 268746496,
+        "$L10743": 268746944,
+        "_null_convert": 268745888,
+        "_ycck_cmyk_convert": 268746160,
+        "_build_ycc_rgb_table": 268745392,
+        "_ycc_rgb_convert": 268745600,
+        "_gray_rgb_convert": 268746064,
+        "_grayscale_convert": 268746016,
+        "$L8107": 268746556,
+        "$L8110": 268746564,
+        "$L8113": 268746586
+      },
+      "legacy_score": 100,
+      "instruction_aware_score": 100,
+      "negative_tests": 11,
+      "coverage_credit": 0
+    },
+    {
+      "symbol": "_jinit_merged_upsampler",
+      "address": "0x10050600",
+      "code_bytes": 120,
+      "full_block_bytes": 120,
+      "bindings": {
+        "_start_pass_merged_upsample": 268763472,
+        "_merged_2v_upsample": 268763504,
+        "_h2v2_merged_upsample": 268764112,
+        "_merged_build_ycc_rgb_table": 268763264,
+        "_merged_1v_upsample": 268763712,
+        "_h2v1_merged_upsample": 268763776
+      },
+      "legacy_score": 96,
+      "instruction_aware_score": 100,
+      "negative_tests": 6,
+      "coverage_credit": 0
+    }
+  ],
+  "code_bytes": 22,
+  "callbacks": {
+    "_start_pass_dcolor": [
+      268746496,
+      1
+    ],
+    "_start_pass_merged_upsample": [
+      268763472,
+      21
+    ]
+  },
+  "prerequisite_hashes": {},
+  "pending_code_bytes": 939,
+  "table_builders": {
+    "_build_ycc_rgb_table": [
+      268745392,
+      195
+    ],
+    "_merged_build_ycc_rgb_table": [
+      268763264,
+      195
+    ]
+  },
+  "referee_mode": "legacy-diagnostic",
+  "legacy_tool_sha256": "f50d5ef311e9573670e50d2eadacc9bd0e14e2c2b3fdccbd254b6d86e1163ca9",
+  "strict_checker_sha256": "80836adade5b653fb989060becd9fba9ea493670a852cd167461e9ef77675406",
+  "status": "BINDINGS-CLOSED; INITIALIZERS/TABLES HELD FOR REFEREE-FIX REVIEW",
+  "whole_file_identity": false
+}

@@ -1,0 +1,68 @@
+[
+  {
+    "source": "jdinput.c",
+    "source_sha256": "d59711e93922f0af6181a063e108e3630ae82c5c458d30d413dad72975cb0c5c",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jdinput.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "4ba1cf0b7084320d984f5eaa74f1e351bf3f987a7f22ead6e3adbff258efe202",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1004d1b0",
+        "symbol": "_per_scan_setup",
+        "bytes": 415,
+        "diagnostics": "SHAPE MATCH: FUN_1004d1b0, 415 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d1b0 @ 0x1004d1b0 size=415  vs  _per_scan_setup (obj size=415)\nnormalized match: 415/415 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d350",
+        "symbol": "_latch_quant_tables",
+        "bytes": 170,
+        "diagnostics": "SHAPE MATCH: FUN_1004d350, 170 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d350 @ 0x1004d350 size=170  vs  _latch_quant_tables (obj size=170)\nnormalized match: 170/170 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d400",
+        "symbol": "_start_input_pass",
+        "bytes": 59,
+        "diagnostics": "UNRESOLVED binding +7: target=0x1004d1b0, COFF=_per_scan_setup addend=0x00000000\nUNRESOLVED binding +14: target=0x1004d350, COFF=_latch_quant_tables addend=0x00000000\nSHAPE MATCH: FUN_1004d400, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d400 @ 0x1004d400 size=59  vs  _start_input_pass (obj size=59)\nnormalized match: 59/59 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d460",
+        "symbol": "_consume_markers",
+        "bytes": 187,
+        "diagnostics": "UNRESOLVED binding +134: target=0x1004cfa0, COFF=_initial_setup addend=0x00000000\nUNRESOLVED binding +174: target=0x1004d400, COFF=_start_input_pass addend=0x00000000\nSHAPE MATCH: FUN_1004d460, 187 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d460 @ 0x1004d460 size=187  vs  _consume_markers (obj size=187)\nnormalized match: 187/187 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1004d520",
+        "symbol": "_reset_input_controller",
+        "bytes": 59,
+        "diagnostics": "UNRESOLVED binding +13: target=0x1004d460, COFF=_consume_markers addend=0x00000000\nSHAPE MATCH: FUN_1004d520, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1004d520 @ 0x1004d520 size=59  vs  _reset_input_controller (obj size=59)\nnormalized match: 59/59 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x1004d520",
+        "symbol": "_start_input_pass",
+        "reason": "relocation-site/type mismatch: PE={13: 6}, COFF={7: 20, 14: 20}"
+      },
+      {
+        "address": "0x1004d400",
+        "symbol": "_reset_input_controller",
+        "reason": "relocation-site/type mismatch: PE={7: 20, 14: 20}, COFF={13: 6}"
+      }
+    ]
+  }
+]

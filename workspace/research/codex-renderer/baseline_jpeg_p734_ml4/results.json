@@ -1,0 +1,671 @@
+[
+  {
+    "source": "j_wavelet.c",
+    "source_sha256": "630a2be570b8cd8c65f3a6bba50df0df3388f730c9aa97b1eca12c2f8599d8e0",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_wavelet.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "ced3c5c8c136f9e623ace83304f3da26b12fd14b69887076a8d47ac1aa18ac7f",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1000ce80",
+        "symbol": "_Image_Create2DTexture",
+        "bytes": 113,
+        "diagnostics": "UNRESOLVED binding +53: target=0x101d1bf8, COFF=_renderer_device addend=0x00000000\nUNRESOLVED binding +72: target=0x100efe3c, COFF=_Renderer_ErrorDescription@4 addend=0x00000000\nUNRESOLVED binding +96: target=0x101935d4, COFF=??_C@_0DI@FBIKBNDM@Create2DTexture?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5?$CFi?0@ addend=0x00000000\nUNRESOLVED binding +103: target=0x100138c0, COFF=_Renderer_Error addend=0x00000000\nSHAPE MATCH: FUN_1000ce80, 113 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000ce80 @ 0x1000ce80 size=113  vs  _Image_Create2DTexture (obj size=113)\nnormalized match: 113/113 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000cf00",
+        "symbol": "_Image_Create3DTexture",
+        "bytes": 130,
+        "diagnostics": "UNRESOLVED binding +60: target=0x101d1bf8, COFF=_renderer_device addend=0x00000000\nUNRESOLVED binding +79: target=0x100efe3c, COFF=_Renderer_ErrorDescription@4 addend=0x00000000\nUNRESOLVED binding +112: target=0x10193598, COFF=??_C@_0DM@CHMDJAFG@Create3DTexture?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5?$CFi?0@ addend=0x00000000\nUNRESOLVED binding +119: target=0x100138c0, COFF=_Renderer_Error addend=0x00000000\nSHAPE MATCH: FUN_1000cf00, 130 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000cf00 @ 0x1000cf00 size=130  vs  _Image_Create3DTexture (obj size=130)\nnormalized match: 130/130 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000cf90",
+        "symbol": "_Image_CreateCubeTexture",
+        "bytes": 119,
+        "diagnostics": "UNRESOLVED binding +25: target=0x101d496b, COFF=_can_mip_cubemaps addend=0x00000000\nUNRESOLVED binding +46: target=0x101d1bf8, COFF=_renderer_device addend=0x00000000\nUNRESOLVED binding +83: target=0x100efe3c, COFF=_Renderer_ErrorDescription@4 addend=0x00000000\nUNRESOLVED binding +101: target=0x10193560, COFF=??_C@_0DH@BIAJHJAE@CreateCubeTexture?5?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5@ addend=0x00000000\nUNRESOLVED binding +108: target=0x100138c0, COFF=_Renderer_Error addend=0x00000000\nSHAPE MATCH: FUN_1000cf90, 119 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000cf90 @ 0x1000cf90 size=119  vs  _Image_CreateCubeTexture (obj size=119)\nnormalized match: 119/119 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000f020",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "bytes": 135,
+        "diagnostics": "UNRESOLVED binding +15: target=0x1000ef40, COFF=_Image_GetMipMemoryAmount addend=0x00000000\nUNRESOLVED binding +101: target=0x1000ef40, COFF=_Image_GetMipMemoryAmount addend=0x00000000\nSHAPE MATCH: FUN_1000f020, 135 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f020 @ 0x1000f020 size=135  vs  _Image_GetCardMemoryAmount (obj size=135)\nnormalized match: 135/135 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10060c10",
+        "symbol": "_Renderer_FormatPath",
+        "bytes": 26,
+        "diagnostics": "UNRESOLVED binding +13: target=0x100f61b9, COFF=__vsnprintf addend=0x00000000\nSHAPE MATCH: FUN_10060c10, 26 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10060c10 @ 0x10060c10 size=26  vs  _Renderer_FormatPath (obj size=26)\nnormalized match: 26/26 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000f2a0",
+        "symbol": "_Image_CheckFileHeader",
+        "bytes": 67,
+        "diagnostics": "UNRESOLVED binding +32: target=0x10193974, COFF=??_C@_0DM@DMJIFFOH@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5version?5?$CF@ addend=0x00000000\nUNRESOLVED binding +37: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nUNRESOLVED binding +52: target=0x101939b0, COFF=??_C@_0CI@MHFFCKAC@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5not?5an?5IW@ addend=0x00000000\nUNRESOLVED binding +57: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nSHAPE MATCH: FUN_1000f2a0, 67 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f2a0 @ 0x1000f2a0 size=67  vs  _Image_CheckFileHeader (obj size=67)\nnormalized match: 67/67 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000fa40",
+        "symbol": "_Image_LoadFromFile",
+        "bytes": 240,
+        "diagnostics": "UNRESOLVED binding +9: target=0x1019396c, COFF=??_C@_04OEIDIPDF@?4iwi?$AA@ addend=0x00000000\nUNRESOLVED binding +15: target=0x10193964, COFF=??_C@_07BPPBCINE@images?1?$AA@ addend=0x00000000\nUNRESOLVED binding +20: target=0x1019395c, COFF=??_C@_06DIJPEION@?$CFs?$CFs?$CFs?$AA@ addend=0x00000000\nUNRESOLVED binding +34: target=0x10060c10, COFF=_Renderer_FormatPath addend=0x00000000\nUNRESOLVED binding +49: target=0x10193938, COFF=??_C@_0CB@LLOKNBHD@?$FO1ERROR?3?5filename?5?8?$CFs?8?5too?5long?6@ addend=0x00000000\nUNRESOLVED binding +54: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nUNRESOLVED binding +81: target=0x101d4afc, COFF=_ri_image_read_file addend=0x00000000\nUNRESOLVED binding +98: target=0x10193918, COFF=??_C@_0CA@BIPEBJFL@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5missing?6?$AA@ addend=0x00000000\nUNRESOLVED binding +103: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nUNRESOLVED binding +126: target=0x101938f4, COFF=??_C@_0CC@HJGHCGCH@?$FO1ERROR?3?5image?5?8?$CFs?8?5has?50?5length@ addend=0x00000000\nUNRESOLVED binding +131: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nUNRESOLVED binding +142: target=0x101d4b00, COFF=_ri_image_free_file addend=0x00000000\nUNRESOLVED binding +179: target=0x1000f2a0, COFF=_Image_CheckFileHeader addend=0x00000000\nUNRESOLVED binding +194: target=0x101d4b00, COFF=_ri_image_free_file addend=0x00000000\nUNRESOLVED binding +214: target=0x1000f900, COFF=_Image_LoadFromData addend=0x00000000\nUNRESOLVED binding +225: target=0x101d4b00, COFF=_ri_image_free_file addend=0x00000000\nSHAPE MATCH: FUN_1000fa40, 240 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000fa40 @ 0x1000fa40 size=240  vs  _Image_LoadFromFile (obj size=240)\nnormalized match: 240/240 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x10010680",
+        "symbol": "_Image_GenerateLightGridWeights",
+        "bytes": 43,
+        "diagnostics": "UNRESOLVED binding +6: target=0x100f8830, COFF=__chkstk addend=0x00000000\nUNRESOLVED binding +18: target=0x100104a0, COFF=_Image_GetLightGridWeightsForVector addend=0x00000000\nUNRESOLVED binding +32: target=0x10010160, COFF=_Image_GenerateCubemapFunction addend=0x00000000\nSHAPE MATCH: FUN_10010680, 43 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10010680 @ 0x10010680 size=43  vs  _Image_GenerateLightGridWeights (obj size=43)\nnormalized match: 43/43 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x100107b0",
+        "symbol": "_Image_GenerateSunHalfAngle",
+        "bytes": 46,
+        "diagnostics": "UNRESOLVED binding +8: target=0x101d49d8, COFF=_ri_hunk_allocate addend=0x00000000\nUNRESOLVED binding +13: target=0x100106b0, COFF=_Image_GetSunHalfAngleForVector addend=0x00000000\nUNRESOLVED binding +30: target=0x10010160, COFF=_Image_GenerateCubemapFunction addend=0x00000000\nUNRESOLVED binding +37: target=0x101d49f8, COFF=_ri_hunk_free addend=0x00000000\nSHAPE MATCH: FUN_100107b0, 46 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_100107b0 @ 0x100107b0 size=46  vs  _Image_GenerateSunHalfAngle (obj size=46)\nnormalized match: 46/46 bytes (100%)\nMATCH (normalized)\n",
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x10014230",
+        "symbol": "_Image_SourceSliceSize",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x1002f330",
+        "symbol": "_Image_SourceSliceSize",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x10035490",
+        "symbol": "_Image_SourceSliceSize",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x1004d460",
+        "symbol": "_Image_SourceSliceSize",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x10018d60",
+        "symbol": "_Image_CopyUploadRows",
+        "reason": "relocation-site/type mismatch: PE={96: 6, 257: 6, 163: 6, 132: 6, 40: 6, 108: 6, 12: 6, 239: 6, 112: 6, 117: 6, 214: 6, 55: 6, 251: 6, 223: 6, 26: 20, 60: 20, 90: 20, 200: 20, 230: 20}, COFF={30: 6, 37: 6, 228: 6, 232: 6, 236: 6, 240: 6}"
+      },
+      {
+        "address": "0x100321f0",
+        "symbol": "_Image_CopyUploadRows",
+        "reason": "relocation-site/type mismatch: PE={133: 6, 8: 6, 142: 6, 151: 6, 25: 6, 160: 6, 169: 6, 42: 6, 175: 6, 53: 6, 186: 6, 61: 6, 196: 6, 70: 6, 203: 6, 78: 6, 208: 6, 86: 6, 216: 6, 97: 6, 226: 6, 106: 6, 236: 6, 115: 6, 124: 6, 34: 20, 243: 20, 248: 20, 253: 20}, COFF={30: 6, 37: 6, 228: 6, 232: 6, 236: 6, 240: 6}"
+      },
+      {
+        "address": "0x10013190",
+        "symbol": "_Wavelet_ReadDword",
+        "reason": "relocation-site/type mismatch: PE={17: 6, 3: 20}, COFF={}"
+      },
+      {
+        "address": "0x10020380",
+        "symbol": "_Wavelet_ReadDword",
+        "reason": "relocation-site/type mismatch: PE={8: 6, 20: 20}, COFF={}"
+      },
+      {
+        "address": "0x10060c10",
+        "symbol": "_Wavelet_ReadDword",
+        "reason": "relocation-site/type mismatch: PE={13: 20}, COFF={}"
+      },
+      {
+        "address": "0x10015570",
+        "symbol": "_Wavelet_AdvanceBits",
+        "reason": "byte mismatch +0: PE=8b, COFF=33"
+      },
+      {
+        "address": "0x1001fda0",
+        "symbol": "_Wavelet_AdvanceBits",
+        "reason": "byte mismatch +0: PE=8b, COFF=33"
+      },
+      {
+        "address": "0x10017190",
+        "symbol": "_Wavelet_ReadBit1",
+        "reason": "relocation-site/type mismatch: PE={4: 6, 69: 6, 74: 6, 15: 6, 82: 6, 20: 6, 61: 6, 9: 20}, COFF={}"
+      },
+      {
+        "address": "0x10018af0",
+        "symbol": "_Wavelet_ReadBit1",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x10048cd0",
+        "symbol": "_Wavelet_ReadBit1",
+        "reason": "byte mismatch +0: PE=8b, COFF=53"
+      },
+      {
+        "address": "0x1001ee00",
+        "symbol": "_Wavelet_ReadBits",
+        "reason": "relocation-site/type mismatch: PE={67: 20}, COFF={}"
+      },
+      {
+        "address": "0x10028890",
+        "symbol": "_Wavelet_ReadBits",
+        "reason": "byte mismatch +0: PE=55, COFF=51"
+      },
+      {
+        "address": "0x1003fae0",
+        "symbol": "_Wavelet_ReadBits",
+        "reason": "relocation-site/type mismatch: PE={11: 6, 45: 20, 96: 20}, COFF={}"
+      },
+      {
+        "address": "0x1004a8a0",
+        "symbol": "_Wavelet_ReadBits",
+        "reason": "relocation-site/type mismatch: PE={34: 20, 67: 20}, COFF={}"
+      },
+      {
+        "address": "0x10058310",
+        "symbol": "_Wavelet_ReadBits",
+        "reason": "relocation-site/type mismatch: PE={9: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000fc30",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={153: 6, 142: 6, 45: 20, 94: 20, 114: 20, 131: 20}, COFF={151: 20}"
+      },
+      {
+        "address": "0x10012f80",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={160: 6, 98: 6, 71: 6, 137: 6, 11: 6, 81: 6, 146: 6, 19: 6, 86: 6, 150: 6, 61: 6, 24: 20, 29: 20, 34: 20, 39: 20, 44: 20, 49: 20, 54: 20, 66: 20, 76: 20, 91: 20, 155: 20}, COFF={151: 20}"
+      },
+      {
+        "address": "0x1001d070",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={74: 20, 95: 20, 117: 20, 133: 20, 158: 20}, COFF={151: 20}"
+      },
+      {
+        "address": "0x1004ebd0",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={151: 20}"
+      },
+      {
+        "address": "0x1005edb0",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={114: 6}, COFF={151: 20}"
+      },
+      {
+        "address": "0x100508f0",
+        "symbol": "_Wavelet_ApplyDelta",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={40: 6, 47: 20, 88: 6, 95: 20}"
+      },
+      {
+        "address": "0x10059870",
+        "symbol": "_Wavelet_ApplyDelta",
+        "reason": "relocation-site/type mismatch: PE={2: 6, 104: 6, 86: 6, 23: 6, 120: 6, 92: 6, 72: 20}, COFF={40: 6, 47: 20, 88: 6, 95: 20}"
+      },
+      {
+        "address": "0x1005a3a0",
+        "symbol": "_Wavelet_ApplyDelta",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={40: 6, 47: 20, 88: 6, 95: 20}"
+      },
+      {
+        "address": "0x100142f0",
+        "symbol": "_Image_Create2DTexture",
+        "reason": "relocation-site/type mismatch: PE={98: 20}, COFF={53: 6, 72: 20, 96: 6, 103: 20}"
+      },
+      {
+        "address": "0x1002bd20",
+        "symbol": "_Image_Create2DTexture",
+        "reason": "relocation-site/type mismatch: PE={6: 6, 17: 20}, COFF={53: 6, 72: 20, 96: 6, 103: 20}"
+      },
+      {
+        "address": "0x100309a0",
+        "symbol": "_Image_Create2DTexture",
+        "reason": "relocation-site/type mismatch: PE={8: 6, 80: 6, 18: 6, 32: 6, 27: 20, 59: 20, 74: 20}, COFF={53: 6, 72: 20, 96: 6, 103: 20}"
+      },
+      {
+        "address": "0x10021660",
+        "symbol": "_Image_Create3DTexture",
+        "reason": "relocation-site/type mismatch: PE={2: 6, 123: 20}, COFF={60: 6, 79: 20, 112: 6, 119: 20}"
+      },
+      {
+        "address": "0x100284e0",
+        "symbol": "_Image_Create3DTexture",
+        "reason": "relocation-site/type mismatch: PE={104: 20}, COFF={60: 6, 79: 20, 112: 6, 119: 20}"
+      },
+      {
+        "address": "0x1003c3a0",
+        "symbol": "_Image_Create3DTexture",
+        "reason": "relocation-site/type mismatch: PE={106: 6, 12: 6, 76: 6, 81: 6, 50: 6, 126: 6, 92: 6, 62: 6, 87: 20, 98: 20}, COFF={60: 6, 79: 20, 112: 6, 119: 20}"
+      },
+      {
+        "address": "0x10058510",
+        "symbol": "_Image_Create3DTexture",
+        "reason": "relocation-site/type mismatch: PE={26: 6, 11: 6, 61: 6, 31: 20}, COFF={60: 6, 79: 20, 112: 6, 119: 20}"
+      },
+      {
+        "address": "0x100590b0",
+        "symbol": "_Image_Create3DTexture",
+        "reason": "relocation-site/type mismatch: PE={75: 6, 92: 6, 55: 20}, COFF={60: 6, 79: 20, 112: 6, 119: 20}"
+      },
+      {
+        "address": "0x1000fce0",
+        "symbol": "_Image_CreateCubeTexture",
+        "reason": "relocation-site/type mismatch: PE={6: 20, 23: 20, 48: 20, 73: 20, 102: 20}, COFF={25: 6, 46: 6, 83: 20, 101: 6, 108: 20}"
+      },
+      {
+        "address": "0x100216f0",
+        "symbol": "_Image_CreateCubeTexture",
+        "reason": "relocation-site/type mismatch: PE={1: 6}, COFF={25: 6, 46: 6, 83: 20, 101: 6, 108: 20}"
+      },
+      {
+        "address": "0x1002d1c0",
+        "symbol": "_Image_CreateCubeTexture",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x1004fc10",
+        "symbol": "_Image_CreateCubeTexture",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={25: 6, 46: 6, 83: 20, 101: 6, 108: 20}"
+      },
+      {
+        "address": "0x1005a430",
+        "symbol": "_Image_GetMipMemoryAmount",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x1000e840",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "reason": "relocation-site/type mismatch: PE={25: 6, 18: 6}, COFF={15: 20, 101: 20}"
+      },
+      {
+        "address": "0x1001f520",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "reason": "relocation-site/type mismatch: PE={23: 20, 87: 20, 104: 20}, COFF={15: 20, 101: 20}"
+      },
+      {
+        "address": "0x1005df00",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "reason": "relocation-site/type mismatch: PE={48: 6, 89: 6, 66: 6}, COFF={15: 20, 101: 20}"
+      },
+      {
+        "address": "0x1003bce0",
+        "symbol": "_Image_TrackTexture",
+        "reason": "relocation-site/type mismatch: PE={2: 6, 61: 6, 145: 20, 168: 20}, COFF={117: 20, 146: 6}"
+      },
+      {
+        "address": "0x10018e80",
+        "symbol": "_Image_PicmipForSemantic",
+        "reason": "relocation-site/type mismatch: PE={26: 6, 74: 6, 8: 20, 37: 20, 60: 20}, COFF={14: 6, 19: 6, 26: 6, 33: 6, 68: 6, 72: 6, 76: 6, 80: 6}"
+      },
+      {
+        "address": "0x1001f5b0",
+        "symbol": "_Image_PicmipForSemantic",
+        "reason": "relocation-site/type mismatch: PE={60: 20}, COFF={14: 6, 19: 6, 26: 6, 33: 6, 68: 6, 72: 6, 76: 6, 80: 6}"
+      },
+      {
+        "address": "0x100308c0",
+        "symbol": "_Image_PicmipForSemantic",
+        "reason": "relocation-site/type mismatch: PE={2: 6, 66: 6, 47: 6, 23: 6, 15: 20, 39: 20, 59: 20, 78: 20}, COFF={14: 6, 19: 6, 26: 6, 33: 6, 68: 6, 72: 6, 76: 6, 80: 6}"
+      },
+      {
+        "address": "0x10046da0",
+        "symbol": "_Image_PicmipForSemantic",
+        "reason": "relocation-site/type mismatch: PE={32: 6, 64: 6, 70: 6, 7: 6, 45: 6, 13: 6, 51: 6, 26: 6, 18: 20, 37: 20, 56: 20, 75: 20}, COFF={14: 6, 19: 6, 26: 6, 33: 6, 68: 6, 72: 6, 76: 6, 80: 6}"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "byte mismatch +9: PE=74, COFF=ba"
+      },
+      {
+        "address": "0x100131b0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "relocation-site/type mismatch: PE={1: 6}, COFF={}"
+      },
+      {
+        "address": "0x10013200",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "relocation-site/type mismatch: PE={37: 6, 7: 6, 73: 6, 48: 6, 54: 6, 26: 6, 18: 20, 43: 20, 64: 20}, COFF={}"
+      },
+      {
+        "address": "0x10021840",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "relocation-site/type mismatch: PE={1: 6}, COFF={}"
+      },
+      {
+        "address": "0x100220c0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "relocation-site/type mismatch: PE={1: 6}, COFF={}"
+      },
+      {
+        "address": "0x100221d0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "relocation-site/type mismatch: PE={1: 6}, COFF={}"
+      },
+      {
+        "address": "0x10022710",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "relocation-site/type mismatch: PE={66: 6, 35: 6, 41: 6, 11: 6, 47: 6, 18: 6, 53: 6, 23: 6, 59: 6, 29: 6, 71: 20}, COFF={}"
+      },
+      {
+        "address": "0x1002a730",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "byte mismatch +0: PE=33, COFF=81"
+      },
+      {
+        "address": "0x10055e00",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "relocation-site/type mismatch: PE={58: 20}, COFF={}"
+      },
+      {
+        "address": "0x100213f0",
+        "symbol": "_Image_Setup",
+        "reason": "relocation-site/type mismatch: PE={25: 6, 192: 20}, COFF={43: 20, 60: 20, 146: 20, 171: 20, 187: 20, 217: 20}"
+      },
+      {
+        "address": "0x1002e550",
+        "symbol": "_Image_Setup",
+        "reason": "relocation-site/type mismatch: PE={128: 6, 5: 6, 141: 6, 147: 6, 153: 6, 159: 6, 33: 6, 167: 6, 43: 6, 49: 6, 177: 6, 187: 6, 61: 6, 193: 6, 67: 6, 199: 6, 73: 6, 205: 6, 211: 6, 85: 6, 217: 6, 95: 6, 223: 6, 101: 6, 112: 6, 122: 6}, COFF={43: 20, 60: 20, 146: 20, 171: 20, 187: 20, 217: 20}"
+      },
+      {
+        "address": "0x100464c0",
+        "symbol": "_Image_Upload2D_CopyData_PC",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={65: 6, 77: 6, 86: 6, 91: 6, 97: 20, 103: 6, 109: 20, 136: 6, 167: 20, 178: 6, 190: 6, 199: 6, 204: 6, 210: 20, 215: 6, 221: 20, 239: 6, 258: 6, 270: 6, 279: 6, 284: 6, 290: 20, 295: 6, 301: 20, 333: 6, 364: 20, 372: 6, 384: 6, 393: 6, 398: 6, 404: 20, 410: 6, 416: 20, 439: 6}"
+      },
+      {
+        "address": "0x10018bf0",
+        "symbol": "_Image_Upload3D_CopyData_PC",
+        "reason": "relocation-site/type mismatch: PE={267: 6, 13: 6, 272: 6, 18: 6, 147: 6, 152: 6, 298: 6, 44: 6, 174: 6, 303: 6, 49: 6, 179: 6, 329: 6, 205: 6, 334: 6, 210: 6, 85: 6, 90: 6, 236: 6, 241: 6, 120: 6, 125: 6, 24: 20, 55: 20, 76: 20, 96: 20, 111: 20, 131: 20, 158: 20, 185: 20, 216: 20, 247: 20, 278: 20, 309: 20, 340: 20}, COFF={102: 20, 114: 6, 126: 6, 135: 6, 140: 6, 146: 20, 152: 6, 158: 20, 185: 6, 228: 20, 274: 6, 286: 6, 295: 6, 300: 6, 306: 20, 312: 6, 318: 20, 340: 6}"
+      },
+      {
+        "address": "0x10028260",
+        "symbol": "_Image_LoadWavelet",
+        "reason": "relocation-site/type mismatch: PE={43: 20}, COFF={49: 20, 227: 6, 364: 20, 403: 20, 422: 6, 438: 20, 503: 6}"
+      },
+      {
+        "address": "0x1001afc0",
+        "symbol": "_Image_LoadFromData",
+        "reason": "relocation-site/type mismatch: PE={1: 6, 226: 6, 163: 6, 12: 6, 236: 6, 271: 6, 179: 6, 84: 6, 243: 6, 152: 6, 185: 6, 250: 6, 283: 6, 72: 20, 157: 20, 168: 20, 190: 20, 255: 20, 299: 20}, COFF={25: 6, 36: 20, 52: 20, 68: 20, 84: 20, 100: 20, 119: 20, 138: 20, 157: 20, 176: 20, 195: 20, 214: 20, 233: 20, 252: 20, 264: 6, 268: 6, 272: 6, 276: 6, 280: 6, 284: 6, 288: 6, 292: 6, 296: 6, 300: 6, 304: 6, 308: 6, 312: 6}"
+      },
+      {
+        "address": "0x10051800",
+        "symbol": "_Image_LoadFromData",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={25: 6, 36: 20, 52: 20, 68: 20, 84: 20, 100: 20, 119: 20, 138: 20, 157: 20, 176: 20, 195: 20, 214: 20, 233: 20, 252: 20, 264: 6, 268: 6, 272: 6, 276: 6, 280: 6, 284: 6, 288: 6, 292: 6, 296: 6, 300: 6, 304: 6, 308: 6, 312: 6}"
+      },
+      {
+        "address": "0x10013190",
+        "symbol": "_Renderer_FormatPath",
+        "reason": "relocation-site/type mismatch: PE={17: 6, 3: 20}, COFF={13: 20}"
+      },
+      {
+        "address": "0x10020380",
+        "symbol": "_Renderer_FormatPath",
+        "reason": "relocation-site/type mismatch: PE={8: 6, 20: 20}, COFF={13: 20}"
+      },
+      {
+        "address": "0x1002a520",
+        "symbol": "_Image_CheckFileHeader",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={32: 6, 37: 20, 52: 6, 57: 20}"
+      },
+      {
+        "address": "0x1005f4d0",
+        "symbol": "_Image_CheckFileHeader",
+        "reason": "relocation-site/type mismatch: PE={17: 6, 2: 6}, COFF={32: 6, 37: 20, 52: 6, 57: 20}"
+      },
+      {
+        "address": "0x1002ca50",
+        "symbol": "_Image_LoadFromFile",
+        "reason": "relocation-site/type mismatch: PE={98: 6, 196: 6, 73: 6, 119: 6, 185: 6, 218: 6}, COFF={9: 6, 15: 6, 20: 6, 34: 20, 49: 6, 54: 20, 81: 6, 98: 6, 103: 20, 126: 6, 131: 20, 142: 6, 179: 20, 194: 6, 214: 20, 225: 6}"
+      },
+      {
+        "address": "0x1005dc70",
+        "symbol": "_Image_LoadFromFile",
+        "reason": "relocation-site/type mismatch: PE={167: 6, 135: 6, 37: 20, 121: 20, 140: 20}, COFF={9: 6, 15: 6, 20: 6, 34: 20, 49: 6, 54: 20, 81: 6, 98: 6, 103: 20, 126: 6, 131: 20, 142: 6, 179: 20, 194: 6, 214: 20, 225: 6}"
+      },
+      {
+        "address": "0x10014420",
+        "symbol": "_Image_FindEmptySlot",
+        "reason": "relocation-site/type mismatch: PE={72: 20}, COFF={46: 6, 73: 6}"
+      },
+      {
+        "address": "0x1001d4f0",
+        "symbol": "_Image_FindEmptySlot",
+        "reason": "relocation-site/type mismatch: PE={72: 20}, COFF={46: 6, 73: 6}"
+      },
+      {
+        "address": "0x10020790",
+        "symbol": "_Image_FindEmptySlot",
+        "reason": "relocation-site/type mismatch: PE={66: 6, 5: 6, 38: 6, 74: 6, 44: 6, 52: 6, 24: 6, 60: 6, 30: 6}, COFF={46: 6, 73: 6}"
+      },
+      {
+        "address": "0x1002b630",
+        "symbol": "_Image_FindEmptySlot",
+        "reason": "relocation-site/type mismatch: PE={13: 6, 45: 20, 70: 20}, COFF={46: 6, 73: 6}"
+      },
+      {
+        "address": "0x1002b790",
+        "symbol": "_Image_FindEmptySlot",
+        "reason": "relocation-site/type mismatch: PE={7: 6}, COFF={46: 6, 73: 6}"
+      },
+      {
+        "address": "0x1002df40",
+        "symbol": "_Image_FindEmptySlot",
+        "reason": "relocation-site/type mismatch: PE={3: 6, 38: 6, 59: 6, 74: 6, 15: 6, 50: 6, 21: 6, 27: 6, 10: 20, 33: 20, 68: 20}, COFF={46: 6, 73: 6}"
+      },
+      {
+        "address": "0x1005ba30",
+        "symbol": "_Image_FindEmptySlot",
+        "reason": "relocation-site/type mismatch: PE={12: 6}, COFF={46: 6, 73: 6}"
+      },
+      {
+        "address": "0x1005f3f0",
+        "symbol": "_Image_FindEmptySlot",
+        "reason": "relocation-site/type mismatch: PE={3: 6, 70: 6, 76: 6, 47: 6, 15: 6, 55: 6, 30: 6, 35: 20}, COFF={46: 6, 73: 6}"
+      },
+      {
+        "address": "0x1000cc10",
+        "symbol": "_Image_Alloc",
+        "reason": "byte mismatch +11: PE=48, COFF=50"
+      },
+      {
+        "address": "0x10012198",
+        "symbol": "_Image_Alloc",
+        "reason": "relocation-site/type mismatch: PE={4: 6, 43: 6, 76: 6, 14: 6, 51: 6, 83: 6, 91: 6, 37: 20, 99: 20}, COFF={34: 6, 91: 20, 100: 6}"
+      },
+      {
+        "address": "0x10012e70",
+        "symbol": "_Image_Alloc",
+        "reason": "relocation-site/type mismatch: PE={97: 6, 2: 6, 67: 6, 39: 6, 103: 6, 73: 6, 47: 6, 15: 6, 79: 6, 88: 6, 57: 6, 27: 6, 62: 6}, COFF={34: 6, 91: 20, 100: 6}"
+      },
+      {
+        "address": "0x10018250",
+        "symbol": "_Image_Alloc",
+        "reason": "relocation-site/type mismatch: PE={73: 6, 10: 6, 21: 6, 39: 20}, COFF={34: 6, 91: 20, 100: 6}"
+      },
+      {
+        "address": "0x1003ecb0",
+        "symbol": "_Image_Alloc",
+        "reason": "relocation-site/type mismatch: PE={1: 6, 100: 6, 6: 6, 75: 6, 12: 6, 44: 6, 49: 6, 18: 6, 90: 6, 61: 6, 30: 6, 55: 20, 67: 20}, COFF={34: 6, 91: 20, 100: 6}"
+      },
+      {
+        "address": "0x10018e80",
+        "symbol": "_Image_Release",
+        "reason": "relocation-site/type mismatch: PE={26: 6, 74: 6, 8: 20, 37: 20, 60: 20}, COFF={16: 6, 23: 6, 29: 6, 39: 6}"
+      },
+      {
+        "address": "0x1001f5b0",
+        "symbol": "_Image_Release",
+        "reason": "relocation-site/type mismatch: PE={60: 20}, COFF={16: 6, 23: 6, 29: 6, 39: 6}"
+      },
+      {
+        "address": "0x100308c0",
+        "symbol": "_Image_Release",
+        "reason": "relocation-site/type mismatch: PE={2: 6, 66: 6, 47: 6, 23: 6, 15: 20, 39: 20, 59: 20, 78: 20}, COFF={16: 6, 23: 6, 29: 6, 39: 6}"
+      },
+      {
+        "address": "0x10046da0",
+        "symbol": "_Image_Release",
+        "reason": "relocation-site/type mismatch: PE={32: 6, 64: 6, 70: 6, 7: 6, 45: 6, 13: 6, 51: 6, 26: 6, 18: 20, 37: 20, 56: 20, 75: 20}, COFF={16: 6, 23: 6, 29: 6, 39: 6}"
+      },
+      {
+        "address": "0x1002ff50",
+        "symbol": "_Image_Reload",
+        "reason": "relocation-site/type mismatch: PE={25: 20}, COFF={7: 20, 14: 20, 27: 6, 34: 20}"
+      },
+      {
+        "address": "0x1005c970",
+        "symbol": "_Image_Reload",
+        "reason": "relocation-site/type mismatch: PE={16: 20, 34: 20}, COFF={7: 20, 14: 20, 27: 6, 34: 20}"
+      },
+      {
+        "address": "0x10011460",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={66: 6, 76: 6, 17: 6, 93: 6, 30: 6}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x1001d170",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={84: 20}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x100228d0",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={24: 6, 17: 6, 2: 6, 81: 6, 65: 20, 88: 20}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x10026840",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={72: 6, 3: 6, 57: 20}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x10028720",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x100366b0",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={48: 6, 2: 6, 68: 6, 89: 20}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x1003d450",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={2: 6, 10: 6, 43: 6, 74: 6, 48: 6, 17: 6, 91: 6, 60: 6, 29: 6, 54: 20, 66: 20}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x10058f40",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x10059ee0",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={13: 6}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x1005b4e0",
+        "symbol": "_Image_SolidColor",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={43: 20, 68: 20, 90: 20}"
+      },
+      {
+        "address": "0x1002bed0",
+        "symbol": "_Image_GenerateSpecularity",
+        "reason": "relocation-site/type mismatch: PE={59: 6, 22: 6, 4: 20, 27: 20, 41: 20, 64: 20}, COFF={6: 20, 21: 20, 46: 20, 71: 20, 99: 20}"
+      },
+      {
+        "address": "0x10032f90",
+        "symbol": "_Image_GenerateSpecularity",
+        "reason": "relocation-site/type mismatch: PE={66: 6, 35: 6, 106: 6, 78: 6, 47: 6, 92: 6, 22: 6, 28: 6, 61: 6, 1: 20, 6: 20, 11: 20, 72: 20, 84: 20}, COFF={6: 20, 21: 20, 46: 20, 71: 20, 99: 20}"
+      },
+      {
+        "address": "0x10038590",
+        "symbol": "_Image_GenerateSpecularity",
+        "reason": "relocation-site/type mismatch: PE={1: 6, 100: 6, 106: 6, 11: 6, 44: 6, 75: 6, 49: 6, 18: 6, 90: 6, 61: 6, 30: 6, 55: 20, 67: 20}, COFF={6: 20, 21: 20, 46: 20, 71: 20, 99: 20}"
+      },
+      {
+        "address": "0x1005c3f0",
+        "symbol": "_Image_GenerateSpecularity",
+        "reason": "relocation-site/type mismatch: PE={41: 6, 86: 6}, COFF={6: 20, 21: 20, 46: 20, 71: 20, 99: 20}"
+      },
+      {
+        "address": "0x10016ab0",
+        "symbol": "_R_GenerateOutdoorImage",
+        "reason": "relocation-site/type mismatch: PE={116: 6, 46: 6}, COFF={10: 6, 15: 6, 20: 20, 48: 20, 63: 6, 74: 20, 80: 6, 90: 6, 101: 6, 114: 20, 120: 6, 131: 6}"
+      },
+      {
+        "address": "0x1001a030",
+        "symbol": "_R_GenerateOutdoorImage",
+        "reason": "relocation-site/type mismatch: PE={42: 6, 85: 6, 78: 6, 122: 6, 19: 20, 49: 20, 94: 20, 109: 20, 127: 20}, COFF={10: 6, 15: 6, 20: 20, 48: 20, 63: 6, 74: 20, 80: 6, 90: 6, 101: 6, 114: 20, 120: 6, 131: 6}"
+      },
+      {
+        "address": "0x1002f2a0",
+        "symbol": "_R_GenerateOutdoorImage",
+        "reason": "relocation-site/type mismatch: PE={132: 6, 44: 6, 111: 6, 19: 6, 54: 6, 121: 6, 127: 6, 14: 20}, COFF={10: 6, 15: 6, 20: 20, 48: 20, 63: 6, 74: 20, 80: 6, 90: 6, 101: 6, 114: 20, 120: 6, 131: 6}"
+      },
+      {
+        "address": "0x1005f360",
+        "symbol": "_R_GenerateOutdoorImage",
+        "reason": "relocation-site/type mismatch: PE={46: 6, 20: 6, 56: 6, 120: 6, 94: 6, 6: 20, 51: 20, 99: 20, 125: 20}, COFF={10: 6, 15: 6, 20: 20, 48: 20, 63: 6, 74: 20, 80: 6, 90: 6, 101: 6, 114: 20, 120: 6, 131: 6}"
+      },
+      {
+        "address": "0x10010ab0",
+        "symbol": "_Image_GenerateLightGridWeights",
+        "reason": "relocation-site/type mismatch: PE={9: 20, 21: 20, 31: 20}, COFF={6: 20, 18: 6, 32: 20}"
+      },
+      {
+        "address": "0x10012ee0",
+        "symbol": "_Image_GenerateLightGridWeights",
+        "reason": "relocation-site/type mismatch: PE={26: 6, 35: 6, 20: 6}, COFF={6: 20, 18: 6, 32: 20}"
+      },
+      {
+        "address": "0x10010850",
+        "symbol": "_Image_GenerateWaterColor",
+        "reason": "relocation-site/type mismatch: PE={32: 6, 6: 20, 59: 20}, COFF={6: 20, 36: 6, 59: 20}"
+      },
+      {
+        "address": "0x10021f40",
+        "symbol": "_Image_GenerateWaterColor",
+        "reason": "relocation-site/type mismatch: PE={1: 6, 10: 6, 42: 6, 47: 6, 20: 6, 29: 20, 34: 20, 64: 20}, COFF={6: 20, 36: 6, 59: 20}"
+      },
+      {
+        "address": "0x10024460",
+        "symbol": "_Image_GenerateWaterColor",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={6: 20, 36: 6, 59: 20}"
+      },
+      {
+        "address": "0x100294e0",
+        "symbol": "_Image_GenerateWaterColor",
+        "reason": "relocation-site/type mismatch: PE={34: 6, 11: 6, 50: 6, 62: 6, 22: 20, 56: 20}, COFF={6: 20, 36: 6, 59: 20}"
+      },
+      {
+        "address": "0x10031420",
+        "symbol": "_Image_GenerateWaterColor",
+        "reason": "relocation-site/type mismatch: PE={9: 6, 25: 20, 48: 20}, COFF={6: 20, 36: 6, 59: 20}"
+      },
+      {
+        "address": "0x10045ac0",
+        "symbol": "_Image_GenerateWaterColor",
+        "reason": "relocation-site/type mismatch: PE={18: 20, 45: 20, 64: 20}, COFF={6: 20, 36: 6, 59: 20}"
+      },
+      {
+        "address": "0x1003d3d0",
+        "symbol": "_Image_Load",
+        "reason": "relocation-site/type mismatch: PE={4: 6, 47: 20}, COFF={14: 20, 33: 20, 43: 20}"
+      },
+      {
+        "address": "0x1003d410",
+        "symbol": "_Image_Load",
+        "reason": "relocation-site/type mismatch: PE={4: 6, 47: 20}, COFF={14: 20, 33: 20, 43: 20}"
+      }
+    ]
+  }
+]

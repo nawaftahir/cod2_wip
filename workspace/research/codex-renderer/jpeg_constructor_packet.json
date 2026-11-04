@@ -1,0 +1,116 @@
+{
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "run": "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_j6w8nim1",
+  "inputs_sha256": "66ab96274597e2df2cc7a00aa6fb05e2e188dda0f6e8ca308e2e1df170014d8e",
+  "object_sha256": "375a9c2141ce98d07429c6da17e06d76f39cfdf87206af8c6d22ae0dd7c192c5",
+  "functions": [
+    {
+      "symbol": "_finish_input_pass",
+      "address": "0x1004d440",
+      "bytes": 17,
+      "full_block_bytes": 17,
+      "bindings": {
+        "_consume_markers": 268751968
+      },
+      "legacy_score": 100,
+      "strict_score": 100,
+      "negative_tests": 1,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_get_interesting_appn",
+      "address": "0x1004ec80",
+      "bytes": 326,
+      "full_block_bytes": 326,
+      "bindings": {
+        "_examine_app14": 268757968,
+        "_examine_app0": 268757376
+      },
+      "legacy_score": 98,
+      "strict_score": 100,
+      "negative_tests": 2,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_save_marker",
+      "address": "0x1004edd0",
+      "bytes": 622,
+      "full_block_bytes": 622,
+      "bindings": {
+        "_examine_app14": 268757968,
+        "_examine_app0": 268757376
+      },
+      "legacy_score": 99,
+      "strict_score": 100,
+      "negative_tests": 2,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_jinit_marker_reader",
+      "address": "0x1004f7c0",
+      "bytes": 131,
+      "full_block_bytes": 131,
+      "bindings": {
+        "_reset_marker_reader": 268760976,
+        "_read_markers": 268759680,
+        "_read_restart_marker": 268760576,
+        "_skip_variable": 268759104,
+        "_get_interesting_appn": 268758144
+      },
+      "legacy_score": 100,
+      "strict_score": 100,
+      "negative_tests": 5,
+      "unresolved": 0
+    },
+    {
+      "symbol": "_jpeg_CreateDecompress",
+      "address": "0x10049e00",
+      "bytes": 310,
+      "full_block_bytes": 310,
+      "bindings": {
+        "_jinit_memory_mgr": 268785728,
+        "_jinit_marker_reader": 268761024,
+        "_consume_markers": 268751968,
+        "_reset_input_controller": 268752160,
+        "_inputctl_start_input_pass": 268751872,
+        "_finish_input_pass": 268751936
+      },
+      "legacy_score": 100,
+      "strict_score": 100,
+      "negative_tests": 6,
+      "unresolved": 0
+    }
+  ],
+  "code_bytes": 1406,
+  "checker_sha256": "7f61c90a133dd562a9ae5853feb07193b83701b1221bab3fd63bc8317e04c15e",
+  "fixture_sha256": "b359eff00339798248c8edfde35af5af7d5f39c82bbf84716c29a432aed12be9",
+  "native_command": [
+    "cc",
+    "-m32",
+    "-malign-double",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Wno-unused-parameter",
+    "-Wno-unused-function",
+    "-ffunction-sections",
+    "-fdata-sections",
+    "-D__forceinline=__inline__",
+    "-D__declspec(x)=",
+    "-DJPEG_MARKER_SOURCE_ROOT=scratch/codex_jpeg_source_callbacks",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_jpeg_app_markers.c",
+    "-Wl,--gc-sections",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_j6w8nim1/app_fixture32"
+  ],
+  "base_packet_sha256": "ff61b3a3d5cc444c703c2ec3f1c6bab7f78aa563cd4aa2dbf26009a22cbebfa3",
+  "marker_packet_sha256": "cdf00be6e2be81e4d72dd2d425798b193dc11b02cb51f9123e94cc21ec0a84e6",
+  "checks_log_sha256": "34eeb3f1bad0ea552c32a23c09306e016a760aa22d87adc3ce6b12edeeb3f8f3",
+  "native_build_log_sha256": "2efbdac96ab30fcd39c1b62c27d19e2f2cde8f4bad49592b41a7d527b9ddf023",
+  "native_test_log_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "referee_mode": "instruction-aware; legacy scores retained",
+  "mask_adapter_sha256": "91ec5d552fb4de9fd9917467c172bb6180a5d2497a4be35ec418fdb883787d6a",
+  "strict_checker_sha256": "80836adade5b653fb989060becd9fba9ea493670a852cd167461e9ef77675406",
+  "whole_file_identity": false
+}

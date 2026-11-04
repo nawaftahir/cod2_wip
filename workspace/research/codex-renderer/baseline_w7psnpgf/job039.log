@@ -1,0 +1,4 @@
+clustb.c
+Z:\inputs\src\tu\clustb.c(86) : warning C4029: declared formal parameter list different from definition
+Z:\inputs\src\tu\clustb.c(148) : warning C4047: 'function' : 'int' differs in levels of indirection from 'char *'
+Z:\inputs\src\tu\clustb.c(148) : warning C4020: 'Sub_1000f900' : too many actual parameters

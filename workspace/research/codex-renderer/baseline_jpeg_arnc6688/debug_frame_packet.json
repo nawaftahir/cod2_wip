@@ -1,0 +1,61 @@
+{
+  "status": "REVIEWABLE",
+  "code_bytes": 258,
+  "functions": 3,
+  "independent_review": false,
+  "whole_file_identity": false,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "inputs": {
+    "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+    "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_debug_pair",
+    "jobs": [
+      {
+        "source": "j_debug_frame.c",
+        "source_sha256": "acfe5a918c419da275f24ce01b6369c36bd2389a794f264ee4bbb9c5a99242d1",
+        "job": "job000",
+        "command": [
+          "cl",
+          "/nologo",
+          "/c",
+          "/W3",
+          "/O2",
+          "/Gy",
+          "Z:\\inputs\\j_debug_frame.c",
+          "/FoZ:\\out\\job000.obj"
+        ]
+      }
+    ],
+    "dependencies": {
+      "j_debug_frame.c": "acfe5a918c419da275f24ce01b6369c36bd2389a794f264ee4bbb9c5a99242d1",
+      "test_debug_frame.c": "58d9a2c83efea2a9aa8a3010168bbce6ca21c5690174b92d9ef2353c0b0215b2"
+    },
+    "discovery_range": [
+      "0x10020ec0",
+      "0x100220c0"
+    ],
+    "reused_objects_from": null
+  },
+  "object_sha256": "716ef83bc88adccd89c4d64634ae268aa4517c50248841bde4cb663052150c79",
+  "bindings": {
+    "_renderer_registered": "0x101d4d00",
+    "_renderer_front_end_data": "0x101da9c8",
+    "_renderer_command_list": "0x1042e778",
+    "_debug_saved_command_list": "0x101e4a00",
+    "_debug_saved_front_end_data": "0x101e4a04",
+    "_debug_restore_skin_cache": "0x101e4a08",
+    "_R_AddCmdEndOfList": "0x10020ec0",
+    "_RB_ExecuteRenderCommands": "0x10033d20",
+    "_RB_EndFrame": "0x10033b20",
+    "_R_LockSkinnedCache": "0x1001e4b0",
+    "_renderer_skin_cache_lock": "0x101d49b0",
+    "_debug_frame_commands": "0x103fe718",
+    "_debug_frame_data": "0x101e4a0c",
+    "_R_UnlockSkinnedCache": "0x1001e540"
+  },
+  "diagnostics": "BOUND +1: _renderer_command_list -> 0x1042e778\nSHAPE MATCH: FUN_10020ec0, 71 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_10020ec0 @ 0x10020ec0 size=71  vs  _R_AddCmdEndOfList (obj size=71)\nnormalized match: 71/71 bytes (100%)\nMATCH (normalized)\nBOUND +1: _renderer_registered -> 0x101d4d00\nBOUND +13: _R_AddCmdEndOfList -> 0x10020ec0\nBOUND +18: _renderer_front_end_data -> 0x101da9c8\nBOUND +42: _RB_ExecuteRenderCommands -> 0x10033d20\nBOUND +50: _RB_EndFrame -> 0x10033b20\nBOUND +55: _debug_saved_command_list -> 0x101e4a00\nBOUND +61: _debug_saved_front_end_data -> 0x101e4a04\nBOUND +66: _renderer_command_list -> 0x1042e778\nBOUND +72: _debug_restore_skin_cache -> 0x101e4a08\nBOUND +78: _renderer_front_end_data -> 0x101da9c8\nBOUND +88: _debug_restore_skin_cache -> 0x101e4a08\nBOUND +93: _R_LockSkinnedCache -> 0x1001e4b0\nBOUND +102: _debug_saved_command_list -> 0x101e4a00\nBOUND +108: _debug_saved_front_end_data -> 0x101e4a04\nSHAPE MATCH: R_BeginDebugFrame, 114 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_BeginDebugFrame @ 0x10022040 size=114  vs  _R_EndDebugFrame (obj size=114)\nnormalized match: 114/114 bytes (100%)\nMATCH (normalized)\nBOUND +1: _renderer_registered -> 0x101d4d00\nBOUND +10: _renderer_command_list -> 0x1042e778\nBOUND +16: _renderer_front_end_data -> 0x101da9c8\nBOUND +21: _debug_saved_command_list -> 0x101e4a00\nBOUND +26: _renderer_skin_cache_lock -> 0x101d49b0\nBOUND +34: _debug_saved_front_end_data -> 0x101e4a04\nBOUND +42: _debug_restore_skin_cache -> 0x101e4a08\nBOUND +48: _R_UnlockSkinnedCache -> 0x1001e540\nBOUND +54: _renderer_command_list -> 0x1042e778\nBOUND +58: _debug_frame_commands -> 0x103fe718\nBOUND +64: _renderer_front_end_data -> 0x101da9c8\nBOUND +68: _debug_frame_data -> 0x101e4a0c\nSHAPE MATCH: R_EndFrame, 73 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_EndFrame @ 0x10021ff0 size=73  vs  _R_BeginDebugFrame (obj size=73)\nnormalized match: 73/73 bytes (100%)\nMATCH (normalized)\n",
+  "wrong_binding_rejected": true,
+  "fixture_command": "cc -m32 -std=c89 -Wall -Wextra -Werror /home/nawaf/cod2/test/dev/codex/renderer/test_debug_pair.c -o /tmp/codex_debug_frame_test && /tmp/codex_debug_frame_test",
+  "fixture_note": "Run separately; this replay checks bytes, not test execution.",
+  "fixture_sha256": "0ac5572b94285f6b136d375c89b39fec094c926ec5c8c486426df696812689d5",
+  "external_dependencies": "External callees have pinned destinations and target-compatible observed calls; their full bodies remain unmatched."
+}

@@ -1,0 +1,5 @@
+missing5.c
+Z:\inputs\src\tu\missing5.c(3) : warning C4163: '__movsd' : not available as an intrinsic function
+Z:\inputs\src\tu\missing5.c(4) : warning C4163: '__movsb' : not available as an intrinsic function
+Z:\inputs\src\tu\missing5.c(30) : warning C4013: '__movsd' undefined; assuming extern returning int
+Z:\inputs\src\tu\missing5.c(33) : warning C4013: '__movsb' undefined; assuming extern returning int

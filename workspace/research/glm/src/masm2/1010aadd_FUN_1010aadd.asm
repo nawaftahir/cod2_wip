@@ -1,0 +1,66 @@
+.686
+.MODEL FLAT, C
+EXTRN sub_10102F76:PROC
+EXTRN sub_10102FB1:PROC
+EXTRN sub_10102FF8:PROC
+EXTRN sub_10103015:PROC
+EXTRN sub_1010304D:PROC
+EXTRN sub_1010AB8B:PROC
+EXTRN sub_1010AB92:PROC
+EXTRN sub_1010ABA6:PROC
+EXTRN EXTRN g_1017E308:DWORD:DWORD
+EXTRN EXTRN g_1017E30A:DWORD:DWORD
+EXTRN EXTRN g_101A5230:DWORD:DWORD
+EXTRN EXTRN g_101AB0A0:DWORD:DWORD
+EXTRN EXTRN g_101ADD90:DWORD:DWORD
+.CODE
+FUN_1010aadd PROC
+    push push edx
+    wait wait
+    fnstcw fnstcw word ptr [esp]
+    je L2
+    cmp cmp word ptr [esp], 027Fh
+    je L0
+    fldcw fldcw word ptr [g_1017E308]
+    fsin fsin
+    wait wait
+    fnstsw fnstsw ax
+    sahf sahf
+    jp L1
+    cmp cmp dword ptr [g_101ADD90], 0
+L0:
+    jne sub_10102FF8
+    mov mov edx, 30
+    lea lea ecx, [g_101AB0A0]
+    jmp sub_10103015
+    fld fld xword ptr [g_1017E30A]
+    fxch fxch st(1)
+    fprem1 fprem1
+    wait wait
+    fnstsw fnstsw ax
+    sahf sahf
+    jp L4
+    fstp fstp st(1)
+    fsin fsin
+    jmp L3
+    call sub_10102FB1
+    jmp sub_1010ABA6
+L1:
+    test test eax, 0FFFFFh
+    jne sub_1010AB8B
+L2:
+    cmp cmp dword ptr [esp + 8], 0
+    jne sub_1010AB92
+    fstp fstp st(0)
+    fld fld xword ptr [g_101A5230]
+L3:
+    mov mov eax, 1
+    cmp cmp dword ptr [g_101ADD90], 0
+    jne sub_1010304D
+    mov mov edx, 30
+    lea lea ecx, [g_101AB0A0]
+    call sub_10102F76
+    pop pop edx
+    ret ret
+FUN_1010aadd ENDP
+END

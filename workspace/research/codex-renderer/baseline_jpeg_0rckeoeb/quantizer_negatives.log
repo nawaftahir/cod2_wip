@@ -1,0 +1,84 @@
+REJECTED _start_pass_1_quant _quantize_fs_dither wrong binding for _quantize_fs_dither: expected=0x10056204, target=0x10056200
+BOUND +71: _quantize_fs_dither -> 0x10056200
+REJECTED _start_pass_1_quant _alloc_fs_workspace wrong binding for _alloc_fs_workspace: expected=0x100563c4, target=0x100563c0
+BOUND +71: _quantize_fs_dither -> 0x10056200
+BOUND +86: _alloc_fs_workspace -> 0x100563c0
+REJECTED _start_pass_1_quant _quantize3_ord_dither wrong binding for _quantize3_ord_dither: expected=0x100560e4, target=0x100560e0
+BOUND +71: _quantize_fs_dither -> 0x10056200
+BOUND +86: _alloc_fs_workspace -> 0x100563c0
+BOUND +160: _quantize3_ord_dither -> 0x100560e0
+REJECTED _start_pass_1_quant _quantize_ord_dither wrong binding for _quantize_ord_dither: expected=0x10055fc4, target=0x10055fc0
+BOUND +71: _quantize_fs_dither -> 0x10056200
+BOUND +86: _alloc_fs_workspace -> 0x100563c0
+BOUND +160: _quantize3_ord_dither -> 0x100560e0
+BOUND +169: _quantize_ord_dither -> 0x10055fc0
+REJECTED _start_pass_1_quant _create_colorindex wrong binding for _create_colorindex: expected=0x10055c14, target=0x10055c10
+BOUND +71: _quantize_fs_dither -> 0x10056200
+BOUND +86: _alloc_fs_workspace -> 0x100563c0
+BOUND +160: _quantize3_ord_dither -> 0x100560e0
+BOUND +169: _quantize_ord_dither -> 0x10055fc0
+BOUND +183: _create_colorindex -> 0x10055c10
+REJECTED _start_pass_1_quant _create_odither_tables wrong binding for _create_odither_tables: expected=0x10055e04, target=0x10055e00
+BOUND +71: _quantize_fs_dither -> 0x10056200
+BOUND +86: _alloc_fs_workspace -> 0x100563c0
+BOUND +160: _quantize3_ord_dither -> 0x100560e0
+BOUND +169: _quantize_ord_dither -> 0x10055fc0
+BOUND +183: _create_colorindex -> 0x10055c10
+BOUND +198: _create_odither_tables -> 0x10055e00
+REJECTED _start_pass_1_quant _color_quantize3 wrong binding for _color_quantize3: expected=0x10055f04, target=0x10055f00
+BOUND +71: _quantize_fs_dither -> 0x10056200
+BOUND +86: _alloc_fs_workspace -> 0x100563c0
+BOUND +160: _quantize3_ord_dither -> 0x100560e0
+BOUND +169: _quantize_ord_dither -> 0x10055fc0
+BOUND +183: _create_colorindex -> 0x10055c10
+BOUND +198: _create_odither_tables -> 0x10055e00
+BOUND +215: _color_quantize3 -> 0x10055f00
+REJECTED _start_pass_1_quant _color_quantize wrong binding for _color_quantize: expected=0x10055e54, target=0x10055e50
+REJECTED _jinit_1pass_quantizer _start_pass_1_quant wrong binding for _start_pass_1_quant: expected=0x10056404, target=0x10056400
+BOUND +23: _start_pass_1_quant -> 0x10056400
+REJECTED _jinit_1pass_quantizer _finish_pass_1_quant wrong binding for _finish_pass_1_quant: expected=0x100564f4, target=0x100564f0
+BOUND +23: _start_pass_1_quant -> 0x10056400
+BOUND +30: _finish_pass_1_quant -> 0x100564f0
+REJECTED _jinit_1pass_quantizer _new_color_map_1_quant wrong binding for _new_color_map_1_quant: expected=0x10056504, target=0x10056500
+BOUND +23: _start_pass_1_quant -> 0x10056400
+BOUND +30: _finish_pass_1_quant -> 0x100564f0
+BOUND +37: _new_color_map_1_quant -> 0x10056500
+REJECTED _jinit_1pass_quantizer _create_colormap wrong binding for _create_colormap: expected=0x10055a94, target=0x10055a90
+BOUND +23: _start_pass_1_quant -> 0x10056400
+BOUND +30: _finish_pass_1_quant -> 0x100564f0
+BOUND +37: _new_color_map_1_quant -> 0x10056500
+BOUND +120: _create_colormap -> 0x10055a90
+REJECTED _jinit_1pass_quantizer _create_colorindex wrong binding for _create_colorindex: expected=0x10055c14, target=0x10055c10
+BOUND +23: _start_pass_1_quant -> 0x10056400
+BOUND +30: _finish_pass_1_quant -> 0x100564f0
+BOUND +37: _new_color_map_1_quant -> 0x10056500
+BOUND +120: _create_colormap -> 0x10055a90
+BOUND +126: _create_colorindex -> 0x10055c10
+REJECTED _jinit_1pass_quantizer _alloc_fs_workspace wrong binding for _alloc_fs_workspace: expected=0x100563c4, target=0x100563c0
+REJECTED _start_pass_2_quant _prescan_quantize wrong binding for _prescan_quantize: expected=0x100565c4, target=0x100565c0
+BOUND +45: _prescan_quantize -> 0x100565c0
+REJECTED _start_pass_2_quant _finish_pass1 wrong binding for _finish_pass1: expected=0x100576d4, target=0x100576d0
+BOUND +45: _prescan_quantize -> 0x100565c0
+BOUND +52: _finish_pass1 -> 0x100576d0
+REJECTED _start_pass_2_quant _pass2_fs_dither wrong binding for _pass2_fs_dither: expected=0x10057354, target=0x10057350
+BOUND +45: _prescan_quantize -> 0x100565c0
+BOUND +52: _finish_pass1 -> 0x100576d0
+BOUND +74: _pass2_fs_dither -> 0x10057350
+REJECTED _start_pass_2_quant _pass2_no_dither wrong binding for _pass2_no_dither: expected=0x10057284, target=0x10057280
+BOUND +45: _prescan_quantize -> 0x100565c0
+BOUND +52: _finish_pass1 -> 0x100576d0
+BOUND +74: _pass2_fs_dither -> 0x10057350
+BOUND +83: _pass2_no_dither -> 0x10057280
+REJECTED _start_pass_2_quant _finish_pass2 wrong binding for _finish_pass2: expected=0x10057704, target=0x10057700
+BOUND +45: _prescan_quantize -> 0x100565c0
+BOUND +52: _finish_pass1 -> 0x100576d0
+BOUND +74: _pass2_fs_dither -> 0x10057350
+BOUND +83: _pass2_no_dither -> 0x10057280
+BOUND +90: _finish_pass2 -> 0x10057700
+REJECTED _start_pass_2_quant _init_error_limit wrong binding for _init_error_limit: expected=0x10057634, target=0x10057630
+REJECTED _jinit_2pass_quantizer _start_pass_2_quant wrong binding for _start_pass_2_quant: expected=0x10057714, target=0x10057710
+BOUND +21: _start_pass_2_quant -> 0x10057710
+REJECTED _jinit_2pass_quantizer _new_color_map_2_quant wrong binding for _new_color_map_2_quant: expected=0x10057834, target=0x10057830
+BOUND +21: _start_pass_2_quant -> 0x10057710
+BOUND +28: _new_color_map_2_quant -> 0x10057830
+REJECTED _jinit_2pass_quantizer _init_error_limit wrong binding for _init_error_limit: expected=0x10057634, target=0x10057630

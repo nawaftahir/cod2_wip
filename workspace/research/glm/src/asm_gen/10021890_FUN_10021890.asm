@@ -1,0 +1,33 @@
+; FUN_10021890 @ 0x10021890 — auto-synthesized
+    EXTRN g_1042e778:DWORD
+.CODE
+FUN_10021890 PROC
+    mov ecx, dword ptr [g_1042e778]
+    mov edx, dword ptr [ecx + 0x30000]
+    push esi
+    mov esi, dword ptr [ecx + 0x30004]
+    mov eax, 0x30000
+    sub eax, edx
+    lea eax, [eax + esi - 0x2000]
+    cmp eax, 0x14
+    pop esi
+    jge L0
+    mov dword ptr [ecx + 0x30008], 0
+    ret
+    lea eax, [edx + ecx]
+    mov dword ptr [ecx + 0x30008], eax
+    add edx, 0x14
+    mov dword ptr [ecx + 0x30000], edx
+    mov ecx, dword ptr [esp + 0x10]
+    mov edx, dword ptr [esp + 4]
+    mov word ptr [eax], 0x17
+    mov word ptr [eax + 2], 0x14
+    mov dword ptr [eax + 4], ecx
+    mov ecx, dword ptr [esp + 8]
+    mov dword ptr [eax + 8], edx
+    mov edx, dword ptr [esp + 0xc]
+    mov dword ptr [eax + 0xc], ecx
+    mov dword ptr [eax + 0x10], edx
+    ret
+FUN_10021890 ENDP
+END

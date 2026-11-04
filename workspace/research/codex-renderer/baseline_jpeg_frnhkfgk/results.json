@@ -1,0 +1,37 @@
+[
+  {
+    "source": "jpeg_complete_group.c",
+    "source_sha256": "f97a83a14132ac3595a6deb552207d28af92b3f87b3518de9c43cd3508c3e1b8",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jpeg_complete_group.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "d846f026f7eb77b4b1067bfd0473b5912637780a41a6b23d1ad0620c60fbd14f",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x1000edc0",
+        "symbol": "_jpeg_set_marker_processor",
+        "reason": "byte mismatch +0: PE=81, COFF=8b"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_create_odither_tables",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={58: 20}"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "byte mismatch +7: PE=8b, COFF=74"
+      }
+    ]
+  }
+]

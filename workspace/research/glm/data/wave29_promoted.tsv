@@ -1,0 +1,10 @@
+1000bf40	R_UpdateColor
+1000c000	R_TextWidth
+1000c8d0	R_GetMinSpecImageMemory
+10017250	FUN_10017250
+10017290	R_RegisterMaterial
+100172b0	R_RegisterRawImage
+10017300	R_GetMaterialName
+1001d8a0	R_RegisterInlineModel
+10023e90	R_noop
+10032d70	R_GpuWaited

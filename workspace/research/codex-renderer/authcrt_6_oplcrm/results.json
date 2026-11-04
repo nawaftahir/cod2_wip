@@ -1,0 +1,39 @@
+[
+  {
+    "source": "vsnprint.c",
+    "source_sha256": "eb0a73418df68583b671b56bee93ca50537db1eff4ddf70a2bf7d6c0e183fac8",
+    "job": "job000",
+    "object": "job000.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100f61b9",
+        "symbol": "__vsnprintf",
+        "output": "UNRESOLVED binding +41: target=0x100fa4e6, COFF=__output addend=0x00000000\nUNRESOLVED binding +74: target=0x100fa320, COFF=__flsbuf addend=0x00000000\nSHAPE MATCH: __vsnprintf, 86 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "79e7f340890e32fdc8f9c35bf389e8cb094b7aebd9c79f585434e41120a08088"
+  }
+]

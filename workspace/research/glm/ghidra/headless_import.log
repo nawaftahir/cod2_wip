@@ -1,0 +1,171 @@
+openjdk version "21.0.11" 2026-04-21
+OpenJDK Runtime Environment (build 21.0.11+10-1-26.04.2-Ubuntu)
+OpenJDK 64-Bit Server VM (build 21.0.11+10-1-26.04.2-Ubuntu, mixed mode)
+INFO  Using log config file: jar:file:/home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml (LoggingInitialization)  
+INFO  Using log file: /home/nawaf/.config/ghidra/ghidra_12.1.3_PUBLIC/application.log (LoggingInitialization)  
+INFO  Loading user preferences: /home/nawaf/.config/ghidra/ghidra_12.1.3_PUBLIC/preferences (Preferences)  
+INFO  Searching for classes... (ClassSearcher)  
+INFO  Class search complete (1987 ms) (ClassSearcher)  
+INFO  Initializing SSL Context (DefaultSSLContextInitializer)  
+INFO  Initializing Random Number Generator... (SecureRandomFactory)  
+INFO  Random Number Generator initialization complete: NativePRNGNonBlocking (SecureRandomFactory)  
+INFO  Trust manager disabled, cacerts have not been set (DefaultTrustManagerFactory)  
+INFO  Headless startup complete (5468 ms) (AnalyzeHeadless)  
+INFO  Class searcher loaded 59 extension points (20 false positives) (ClassSearcher)  
+INFO  HEADLESS Script Paths:
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Processors/DATA/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/DecompilerDependent/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/SystemEmulation/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/VersionTracking/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/Base/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Processors/JVM/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/MicrosoftCodeAnalyzer/ghidra_scripts
+    /home/nawaf/cod2/test/dev/glm/ghidra/scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/GnuDemangler/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Processors/8051/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/BSim/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/PDB/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/PyGhidra/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/BytePatterns/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/FunctionID/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Processors/Atmel/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Debug/Debugger-rmi-trace/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/Decompiler/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/FileFormats/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/SwiftDemangler/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Debug/Debugger/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/WildcardAssembler/ghidra_scripts
+    /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Processors/PIC/ghidra_scripts (HeadlessAnalyzer)  
+INFO  HEADLESS: execution starts (HeadlessAnalyzer)  
+INFO  Creating project: /home/nawaf/cod2/test/dev/glm/ghidra/proj/gfx10 (HeadlessAnalyzer)  
+INFO  Creating project: /home/nawaf/cod2/test/dev/glm/ghidra/proj/gfx10 (DefaultProject)  
+INFO  REPORT: Processing input files:  (HeadlessAnalyzer)  
+INFO       project: /home/nawaf/cod2/test/dev/glm/ghidra/proj/gfx10 (HeadlessAnalyzer)  
+INFO  IMPORTING: file:///home/nawaf/cod2/test/dev/reverse/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll (HeadlessAnalyzer)  
+INFO  Using Loader: Portable Executable (PE) (ProgramLoader)  
+INFO  Using Language/Compiler: x86:LE:32:default:windows (ProgramLoader)  
+INFO  Using Library Search Path: [., /bin, /lib, /lib64, /lib/x86_64-linux-gnu, /lib/aarch64-linux-gnu, /usr/bin, /usr/lib, /usr/X11R6/bin, /usr/X11R6/lib, /usr/java/packages/lib, /usr/lib/x86_64-linux-gnu/jni, /usr/lib/x86_64-linux-gnu, /usr/lib/jni] (ProgramLoader)  
+INFO  Additional info:
+Loading file:///home/nawaf/cod2/test/dev/reverse/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll?MD5=fe1f0f1a62ca0c591805e7e35096fb0b...
+------------------------------------------------
+
+Searching 9 paths for library ADVAPI32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 9 paths for library D3D9.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 9 paths for library DDRAW.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 9 paths for library GDI32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 9 paths for library KERNEL32.DLL...
+Library not found.
+------------------------------------------------
+
+Searching 9 paths for library USER32.DLL...
+Library not found.
+------------------------------------------------
+
+Linking the External Programs of 'gfx_d3d_mp_x86_s.dll' to imported libraries...
+  [D3D9.DLL] -> not found in project
+  [DDRAW.DLL] -> not found in project
+  [KERNEL32.DLL] -> not found in project
+  [USER32.DLL] -> not found in project
+  [GDI32.DLL] -> not found in project
+  [ADVAPI32.DLL] -> not found in project
+------------------------------------------------
+
+ (ProgramLoader)  
+INFO  IMPORTING: Loaded 0 additional files (HeadlessAnalyzer)  
+INFO  ANALYZING all memory and code: file:///home/nawaf/cod2/test/dev/reverse/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll (HeadlessAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___raise_securityfailure' specified in file: /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+WARN  Ignoring leading '_' chars on no-return name '___report_rangecheckfailure' specified in file: /home/nawaf/cod2/test/dev/reverse/ghidra/ghidra_12.1.3_PUBLIC/Ghidra/Features/Base/data/PEFunctionsThatDoNotReturn (NoReturnFunctionAnalyzer)  
+INFO  Skipping PDB processing: failed to locate PDB file in configured locations (PdbUniversalAnalyzer)  
+INFO  Use a script to set the PDB file location. I.e.,
+    PdbAnalyzer.setPdbFileOption(currentProgram, new File("/path/to/pdb/file.pdb")); or
+    PdbUniversalAnalyzer.setPdbFileOption(currentProgram, new File("/path/to/pdb/file.pdb"));
+Or set the symbol server search configuration using:    PdbPlugin.saveSymbolServerServiceConfig(...);
+ This must be done using a pre-script (prior to analysis). (PdbUniversalAnalyzer)  
+WARN  Decompiling 100de367: Unable to read bytes at ram:03020100 (DecompileCallback)  
+WARN  Decompiling 100de367: Unable to read bytes at ram:03020100 (DecompileCallback)  
+WARN  Decompiling 100de367: Unable to read bytes at ram:51515100 (DecompileCallback)  
+WARN  Decompiling 100de367: Unable to read bytes at ram:03020100 (DecompileCallback)  
+WARN  Decompiling 100cc81b: Unable to read bytes at ram:03020100 (DecompileCallback)  
+WARN  Decompiling 100cc81b: Unable to read bytes at ram:03020100 (DecompileCallback)  
+WARN  Decompiling 100cc81b: Unable to read bytes at ram:52520100 (DecompileCallback)  
+WARN  Decompiling 100cc81b: Unable to read bytes at ram:03020100 (DecompileCallback)  
+WARN  Decompiling 100cc81b: Unable to read bytes at ram:03020100 (DecompileCallback)  
+INFO  Packed database cache: /var/tmp/nawaf-ghidra/packed-db-cache (PackedDatabaseCache)  
+INFO  Applied data type archive: windows_vs12_32 (ApplyDataArchiveAnalyzer)  
+INFO  Applied data type archive: windows_vs12_32 (ApplyDataArchiveAnalyzer)  
+INFO  -----------------------------------------------------
+    ASCII Strings                              2.220 secs
+    Apply Data Archives                        4.639 secs
+    Call Convention ID                         1.955 secs
+    Call-Fixup Installer                       0.264 secs
+    Create Address Tables                      1.243 secs
+    Create Address Tables - One Time           2.157 secs
+    Create Function                            3.045 secs
+    Data Reference                             1.704 secs
+    Decompiler Switch Analysis               108.929 secs
+    Demangler Microsoft                        0.053 secs
+    Disassemble                               13.411 secs
+    Disassemble Entry Points                   0.942 secs
+    Embedded Media                             0.059 secs
+    External Entry References                  0.001 secs
+    Function ID                               13.158 secs
+    Function Start Pre Search                  0.098 secs
+    Function Start Search                      0.946 secs
+    Function Start Search After Code           0.526 secs
+    Function Start Search After Data           0.929 secs
+    Function Start Search delayed - One Time   0.034 secs
+    Non-Returning Functions - Discovered       1.289 secs
+    Non-Returning Functions - Known            0.038 secs
+    PDB Universal                              0.069 secs
+    Reference                                  2.448 secs
+    Scalar Operand References                  7.012 secs
+    Shared Return Calls                        1.371 secs
+    Stack                                     44.812 secs
+    Subroutine References                      2.054 secs
+    Subroutine References - One Time           0.010 secs
+    Windows x86 PE Exception Handling          0.051 secs
+    Windows x86 PE RTTI Analyzer               0.946 secs
+    Windows x86 Thread Environment Block (TEB) Analyzer     0.054 secs
+    WindowsResourceReference                   0.832 secs
+    X86 Function Callee Purge                  3.143 secs
+    x86 Constant Reference Analyzer           49.608 secs
+-----------------------------------------------------
+     Total Time   270 secs
+-----------------------------------------------------
+ (AutoAnalysisManager)  
+INFO  REPORT: Analysis succeeded for file: file:///home/nawaf/cod2/test/dev/reverse/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll (HeadlessAnalyzer)  
+INFO  REPORT: Execute script: DumpFunctionsGfx.java  (HeadlessAnalyzer)  
+ERROR REPORT SCRIPT ERROR: DumpFunctionsGfx.java : The class could not be found. It must be the public class of the .java file: Failed to get OSGi bundle containing script: /home/nawaf/cod2/test/dev/glm/ghidra/scripts/DumpFunctionsGfx.java (HeadlessAnalyzer) ghidra.app.script.GhidraScriptLoadException: The class could not be found. It must be the public class of the .java file: Failed to get OSGi bundle containing script: /home/nawaf/cod2/test/dev/glm/ghidra/scripts/DumpFunctionsGfx.java
+	at ghidra.app.script.JavaScriptProvider.getScriptInstance(JavaScriptProvider.java:114)
+	at ghidra.app.util.headless.HeadlessAnalyzer.runScriptsList(HeadlessAnalyzer.java:915)
+	at ghidra.app.util.headless.HeadlessAnalyzer.analyzeProgram(HeadlessAnalyzer.java:1085)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processFileWithImport(HeadlessAnalyzer.java:1583)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithLoader(HeadlessAnalyzer.java:1743)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1684)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processWithImport(HeadlessAnalyzer.java:1768)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:452)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:199)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:81)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+Caused by: java.lang.ClassNotFoundException: Failed to get OSGi bundle containing script: /home/nawaf/cod2/test/dev/glm/ghidra/scripts/DumpFunctionsGfx.java
+	at ghidra.app.script.JavaScriptProvider.loadClass(JavaScriptProvider.java:163)
+	at ghidra.app.script.JavaScriptProvider.getScriptInstance(JavaScriptProvider.java:97)
+	... 10 more
+ 
+INFO  ANALYZING changes made by post scripts: file:///home/nawaf/cod2/test/dev/reverse/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll (HeadlessAnalyzer)  
+INFO  REPORT: Post-analysis succeeded for file: file:///home/nawaf/cod2/test/dev/reverse/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll (HeadlessAnalyzer)  
+INFO  /gfx_d3d_mp_x86_s.dll: file created (nawaf) (LocalFileSystem)  
+INFO  REPORT: Save succeeded for: /gfx_d3d_mp_x86_s.dll (gfx10:/gfx_d3d_mp_x86_s.dll) (HeadlessAnalyzer)  
+INFO  REPORT: Import succeeded (HeadlessAnalyzer)  

@@ -1,0 +1,44 @@
+[
+  {
+    "source": "sprintf.c",
+    "source_sha256": "8b90fa8c159b7cade40a811b242adab9c3504da530978a89662215c425519f77",
+    "job": "job000",
+    "object": "job000.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100f5f14",
+        "symbol": "_sprintf",
+        "output": "UNRESOLVED binding +43: target=0x100fa4e6, COFF=__output addend=0x00000000\nUNRESOLVED binding +76: target=0x100fa320, COFF=__flsbuf addend=0x00000000\nSHAPE MATCH: _sprintf, 88 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "address": "0x100f5f6c",
+        "symbol": "__scprintf",
+        "output": "UNRESOLVED binding +40: target=0x100fa4e6, COFF=__output addend=0x00000000\nSHAPE MATCH: __scprintf, 49 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "ed21aea2ad5b4158ca0d6a50f148085957637b3f99ba9e4db4bbcc1fc9108ef5"
+  }
+]

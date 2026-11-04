@@ -1,0 +1,657 @@
+{
+  "status": "FULL-BLOCK-SHAPE-MATCH",
+  "code_bytes": 2010,
+  "switch_table_bytes": 32,
+  "switch_entries": 8,
+  "source": "crt71/output.c",
+  "source_sha256": "0d9fc461749c2d280a69804c044609073930d5ab9dc2b9db32555c11d6a86362",
+  "object_sha256": "cbd213c7d632bba263c4f30e051707f0a605a944b638ec166b2d6af60f318e1a",
+  "flags": [
+    "/Zelp8",
+    "/GFy",
+    "/DWIN32",
+    "/GB",
+    "/Gi-",
+    "/GS",
+    "/Zc:wchar_t",
+    "/Zc:forScope",
+    "/DWIN32_LEAN_AND_MEAN",
+    "/DNOSERVICE",
+    "/D_MBCS",
+    "/D_MB_MAP_DIRECT",
+    "/D_CRTBLD",
+    "/DWINHEAP",
+    "/O1",
+    "/IZ:\\inputs\\crt71"
+  ],
+  "bindings": [
+    {
+      "offset": 15,
+      "symbol": "___security_cookie",
+      "target": "0x101a50d0",
+      "addend": "0x0",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 97,
+      "symbol": "___lookuptable",
+      "target": "0x1017c6e8",
+      "addend": "0xffffffe0",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 112,
+      "symbol": "___lookuptable",
+      "target": "0x1017c708",
+      "addend": "0x0",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 136,
+      "symbol": "$L2504",
+      "target": "0x100facc0",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    },
+    {
+      "offset": 542,
+      "symbol": "__pctype",
+      "target": "0x101a5090",
+      "addend": "0x0",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 572,
+      "symbol": "_write_char",
+      "target": "0x100fa439",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 597,
+      "symbol": "_write_char",
+      "target": "0x100fa439",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 729,
+      "symbol": "___wnullstring",
+      "target": "0x101a4894",
+      "addend": "0x0",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 836,
+      "symbol": "_wctomb",
+      "target": "0x10106b8d",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1017,
+      "symbol": "___nullstring",
+      "target": "0x101a4890",
+      "addend": "0x0",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 1079,
+      "symbol": "_malloc",
+      "target": "0x100fc464",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1144,
+      "symbol": "__cfltcvt_tab",
+      "target": "0x101a4fb0",
+      "addend": "0x0",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 1171,
+      "symbol": "__cfltcvt_tab",
+      "target": "0x101a4fbc",
+      "addend": "0xc",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 1188,
+      "symbol": "__cfltcvt_tab",
+      "target": "0x101a4fb4",
+      "addend": "0x4",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 1208,
+      "symbol": "_strlen",
+      "target": "0x100fa200",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1309,
+      "symbol": "___nullstring",
+      "target": "0x101a4890",
+      "addend": "0x0",
+      "status": "DATA-BOUND"
+    },
+    {
+      "offset": 1621,
+      "symbol": "__aulldvrm",
+      "target": "0x10106bc0",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1776,
+      "symbol": "_write_multi_char",
+      "target": "0x100fa46c",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1799,
+      "symbol": "_write_string",
+      "target": "0x100fa490",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1822,
+      "symbol": "_write_multi_char",
+      "target": "0x100fa46c",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1867,
+      "symbol": "_wctomb",
+      "target": "0x10106b8d",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1896,
+      "symbol": "_write_string",
+      "target": "0x100fa490",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1919,
+      "symbol": "_write_string",
+      "target": "0x100fa490",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1943,
+      "symbol": "_write_multi_char",
+      "target": "0x100fa46c",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1960,
+      "symbol": "_free",
+      "target": "0x100f84d0",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 1998,
+      "symbol": "@__security_check_cookie@4",
+      "target": "0x10100d4d",
+      "addend": "0x0",
+      "status": "CALLEE-SHAPE-SUPPORTED"
+    },
+    {
+      "offset": 2010,
+      "symbol": "$NORMAL_STATE$2093",
+      "target": "0x100fa702",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    },
+    {
+      "offset": 2014,
+      "symbol": "$L2099",
+      "target": "0x100fa572",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    },
+    {
+      "offset": 2018,
+      "symbol": "$L2100",
+      "target": "0x100fa58f",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    },
+    {
+      "offset": 2022,
+      "symbol": "$L2110",
+      "target": "0x100fa5db",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    },
+    {
+      "offset": 2026,
+      "symbol": "$L2114",
+      "target": "0x100fa61c",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    },
+    {
+      "offset": 2030,
+      "symbol": "$L2115",
+      "target": "0x100fa625",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    },
+    {
+      "offset": 2034,
+      "symbol": "$L2119",
+      "target": "0x100fa663",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    },
+    {
+      "offset": 2038,
+      "symbol": "$L2135",
+      "target": "0x100fa744",
+      "addend": "0x0",
+      "status": "LOCAL-BOUND"
+    }
+  ],
+  "callee_proofs": {
+    "_write_char": {
+      "address": "0x100fa439",
+      "source": "glm/crt71/output.c",
+      "source_sha256": "0d9fc461749c2d280a69804c044609073930d5ab9dc2b9db32555c11d6a86362",
+      "object_sha256": "cbd213c7d632bba263c4f30e051707f0a605a944b638ec166b2d6af60f318e1a",
+      "flags": [
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ],
+      "run": "baseline_p9txpec2",
+      "diagnostics": "UNRESOLVED binding +34: target=0x100fa320, COFF=__flsbuf addend=0x00000000\nSHAPE MATCH: write_char, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    },
+    "_write_multi_char": {
+      "address": "0x100fa46c",
+      "source": "glm/crt71/output.c",
+      "source_sha256": "0d9fc461749c2d280a69804c044609073930d5ab9dc2b9db32555c11d6a86362",
+      "object_sha256": "cbd213c7d632bba263c4f30e051707f0a605a944b638ec166b2d6af60f318e1a",
+      "flags": [
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ],
+      "run": "baseline_p9txpec2",
+      "diagnostics": "UNRESOLVED binding +18: target=0x100fa439, COFF=_write_char addend=0x00000000\nSHAPE MATCH: write_multi_char, 36 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    },
+    "_write_string": {
+      "address": "0x100fa490",
+      "source": "glm/crt71/output.c",
+      "source_sha256": "0d9fc461749c2d280a69804c044609073930d5ab9dc2b9db32555c11d6a86362",
+      "object_sha256": "cbd213c7d632bba263c4f30e051707f0a605a944b638ec166b2d6af60f318e1a",
+      "flags": [
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ],
+      "run": "baseline_p9txpec2",
+      "diagnostics": "UNRESOLVED binding +35: target=0x100fa439, COFF=_write_char addend=0x00000000\nSHAPE MATCH: write_string, 55 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    },
+    "_malloc": {
+      "address": "0x100fc464",
+      "source": "glm/crt71/malloc.c",
+      "source_sha256": "f94c3ea30212413aaebeecdbeb92146735a14d523644d9d3331bb2b3ab5ee7db",
+      "object_sha256": "1a9c652930ec661a9725d686531054e424bf26df2f83081020f29eafb1be8d5b",
+      "flags": [
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ],
+      "run": "baseline_p9txpec2",
+      "diagnostics": "UNRESOLVED binding +2: target=0x101ae238, COFF=__newmode addend=0x00000000\nUNRESOLVED binding +11: target=0x100fc438, COFF=__nh_malloc addend=0x00000000\nSHAPE MATCH: _malloc, 18 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    },
+    "_strlen": {
+      "address": "0x100fa200",
+      "source": "glm/crt71/strlen.asm",
+      "source_sha256": "f0c0985304a36a7aeaf2a98dd88ebf5b905cdc289ae3a9283472f379f0281c5f",
+      "object_sha256": "1be4fd0237c747fea4c8aed4c2e2a88d5146c4ff702e24edd2d95253a531177d",
+      "flags": [
+        "/c",
+        "/coff",
+        "/nologo",
+        "/Cx",
+        "/Zm",
+        "/D?QUIET",
+        "/DQUIET",
+        "/Di386",
+        "/D_WIN32",
+        "/DWIN32",
+        "/IZ:\\inputs\\crt71"
+      ],
+      "run": "authcrt_f0z031l7",
+      "diagnostics": "SHAPE MATCH: _strlen, 139 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    },
+    "@__security_check_cookie@4": {
+      "address": "0x10100d4d",
+      "source": "glm/crt71/secchk.c",
+      "source_sha256": "09ac8e3e7b4d0e021bb1dd92fba316e9a63ace1fe1ffc884bd8f757459f3a78d",
+      "object_sha256": "4f1a89e5d2cb92b6edfb9a399fbbf1b6c2c06d92b9c965c263633e022df36b66",
+      "flags": [
+        "/nologo",
+        "/c",
+        "/W3",
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ],
+      "run": "authcrt_f0z031l7",
+      "diagnostics": "UNRESOLVED binding +2: target=0x101a50d0, COFF=___security_cookie addend=0x00000000\nUNRESOLVED binding +10: target=0x10100d1c, COFF=_report_failure addend=0x00000000\nSHAPE MATCH: __security_check_cookie, 14 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    },
+    "__aulldvrm": {
+      "address": "0x10106bc0",
+      "source": "glm/crt71/ulldvrm.asm",
+      "source_sha256": "250d9e577d3d94df780698a32197db980d6c2cd3b66fa371850649ee0d984fda",
+      "object_sha256": "599eefd0f57125abf8f3d739b13b1b4008c804a0eebc496b83a22cd1b1df5806",
+      "flags": [
+        "/c",
+        "/coff",
+        "/nologo",
+        "/Cx",
+        "/Zm",
+        "/D?QUIET",
+        "/DQUIET",
+        "/Di386",
+        "/D_WIN32",
+        "/DWIN32",
+        "/IZ:\\inputs\\crt71",
+        "/IZ:\\opt\\msvc710\\Vc7\\crt\\src"
+      ],
+      "run": "authcrt_wi5hy4yr",
+      "diagnostics": "SHAPE MATCH: __aulldvrm, 149 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    },
+    "_wctomb": {
+      "address": "0x10106b8d",
+      "source": "glm/crt71/wctomb.c",
+      "source_sha256": "3f0b2a5aacc5467422d6bd9c4e9812e6a1e77ca0d7438519bc200a410c91b3ee",
+      "object_sha256": "b6f7fac70cc8c2ea80f526c3ff2f8b445255557436441d7737079f50bd4b5705",
+      "flags": [
+        "/nologo",
+        "/c",
+        "/W3",
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71",
+        "/D_MT"
+      ],
+      "run": "authcrt_k7o2adah",
+      "diagnostics": "UNRESOLVED binding +1: target=0x100fb114, COFF=__getptd addend=0x00000000\nUNRESOLVED binding +10: target=0x101a4684, COFF=___ptlocinfo addend=0x00000000\nUNRESOLVED binding +17: target=0x100f7cb8, COFF=___updatetlocinfo addend=0x00000000\nUNRESOLVED binding +31: target=0x10106b2d, COFF=___wctomb_mt addend=0x00000000\nSHAPE MATCH: _wctomb, 39 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    },
+    "_free": {
+      "address": "0x100f84d0",
+      "source": "glm/crt71/free.c",
+      "source_sha256": "b8088bb089f5ab06e2cfe7685f7e728fd7d4a42fb19d73093812665e0e1dd30f",
+      "object_sha256": "2fd6553443b046476c0d3041cafd85dd31325e51c3019f9c3c3a9359751d8dbc",
+      "flags": [
+        "/nologo",
+        "/c",
+        "/W3",
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71",
+        "/D_MT"
+      ],
+      "run": "authcrt_k7o2adah",
+      "diagnostics": "UNRESOLVED binding +3: target=0x1017c6a0, COFF=$T19824 addend=0x00000000\nUNRESOLVED binding +8: target=0x100fb610, COFF=__SEH_prolog addend=0x00000000\nUNRESOLVED binding +21: target=0x1076ac98, COFF=___active_heap addend=0x00000000\nUNRESOLVED binding +31: target=0x100fc07d, COFF=__lock addend=0x00000000\nUNRESOLVED binding +42: target=0x101011ab, COFF=___sbh_find_block addend=0x00000000\nUNRESOLVED binding +57: target=0x101011d6, COFF=___sbh_free_block addend=0x00000000\nUNRESOLVED binding +86: target=0x100fbfb0, COFF=__unlock addend=0x00000000\nUNRESOLVED binding +97: target=0x1076ac94, COFF=__crtheap addend=0x00000000\nUNRESOLVED binding +103: target=0x1010c104, COFF=__imp__HeapFree@12 addend=0x00000000\nUNRESOLVED binding +108: target=0x100fb64b, COFF=__SEH_epilog addend=0x00000000\nSHAPE MATCH: _free, 113 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n",
+      "callee_external_bindings_reviewed": false
+    }
+  },
+  "global_proofs": {
+    "___security_cookie": {
+      "source": "seccook.c",
+      "source_sha256": "6eba41fafc7231030645b3896d2caa9a5294f3037119b64324e107a8b834e969",
+      "object_sha256": "dee767e5fa10d31f7e1277bf9b87009785aa6bcc3a187c014fc60eb11cecb291",
+      "flags": [
+        "/nologo",
+        "/c",
+        "/W3",
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ]
+    },
+    "__pctype": {
+      "source": "ctype.c",
+      "source_sha256": "272c2fa24b4c75c9800ac594f5ae2980aeb45bc369fbee90af336d3ec9ef56d4",
+      "object_sha256": "bdec87a3ef508afa1e04f2c738a4abd03f6f4101c1411606b35642c1378c3828",
+      "flags": [
+        "/nologo",
+        "/c",
+        "/W3",
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ]
+    },
+    "___newctype": {
+      "source": "ctype.c",
+      "source_sha256": "272c2fa24b4c75c9800ac594f5ae2980aeb45bc369fbee90af336d3ec9ef56d4",
+      "object_sha256": "bdec87a3ef508afa1e04f2c738a4abd03f6f4101c1411606b35642c1378c3828",
+      "flags": [
+        "/nologo",
+        "/c",
+        "/W3",
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ]
+    },
+    "__cfltcvt_tab": {
+      "source": "cmiscdat.c",
+      "source_sha256": "422e7c2eb39c9824ce28a6744865fcd39ccb7ff2ecb87953b17f4802bbc32629",
+      "object_sha256": "2e41f34631a1a4ace1622e6961fe5ac086ff67e26fe857b3dfe2693148a28db8",
+      "flags": [
+        "/nologo",
+        "/c",
+        "/W3",
+        "/Zelp8",
+        "/GFy",
+        "/DWIN32",
+        "/GB",
+        "/Gi-",
+        "/GS",
+        "/Zc:wchar_t",
+        "/Zc:forScope",
+        "/DWIN32_LEAN_AND_MEAN",
+        "/DNOSERVICE",
+        "/D_MBCS",
+        "/D_MB_MAP_DIRECT",
+        "/D_CRTBLD",
+        "/DWINHEAP",
+        "/O1",
+        "/IZ:\\inputs\\crt71"
+      ],
+      "trap_source_match": {
+        "address": 269518107,
+        "name": "__fptrap",
+        "source": "crt71/crt0fp.c",
+        "flags": [
+          "/Zelp8",
+          "/GFy",
+          "/DWIN32",
+          "/GB",
+          "/Gi-",
+          "/GS",
+          "/Zc:wchar_t",
+          "/Zc:forScope",
+          "/DWIN32_LEAN_AND_MEAN",
+          "/DNOSERVICE",
+          "/D_MBCS",
+          "/D_MB_MAP_DIRECT",
+          "/D_CRTBLD",
+          "/DWINHEAP",
+          "/O1",
+          "/IZ:\\inputs\\crt71"
+        ],
+        "flags_explicit": false,
+        "source_sha256": "3f7f40aab4eb2162ac35415b5c645fa8ef38785b8ea48dd2d7bf884d3a8e420b",
+        "job": "job002",
+        "object_sha256": "4bee172c3a6c35c0ee3952829f891e662c37796119cc8413cd2fc1bf21e63634",
+        "status": "SHAPE_ONLY",
+        "shape_matches": [
+          {
+            "symbol": "__fptrap",
+            "output": "UNRESOLVED binding +3: target=0x100f7832, COFF=__amsg_exit addend=0x00000000\nSHAPE MATCH: __fptrap, 9 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+          }
+        ],
+        "failures": []
+      }
+    }
+  },
+  "normalized_only": true,
+  "independent_review": false
+}

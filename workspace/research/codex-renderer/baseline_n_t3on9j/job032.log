@@ -1,0 +1,2 @@
+tinyK.c
+Z:\inputs\src\tu\tinyK.c(36) : warning C4022: 'function through pointer' : pointer mismatch for actual parameter 1

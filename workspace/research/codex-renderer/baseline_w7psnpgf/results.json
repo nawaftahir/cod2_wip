@@ -1,0 +1,2063 @@
+[
+  {
+    "address": 268440624,
+    "name": "R_ClearFogs",
+    "source": "src/f/10001430_R_ClearFogs.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "3a24a388c5d409fa333b6ef0eb933975c010b858b0aedd3383ad4d82e8f3327b",
+    "job": "job000",
+    "object_sha256": "ba249235acad29acd006f28a9638b4f484f7fd159862ce656d4e1484b42c59e1",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_ClearFogs",
+        "output": "UNRESOLVED binding +1: target=0x101ce708, COFF=_g_dvar_refraction addend=0x00000000\nUNRESOLVED binding +12: target=0x101d1b9c, COFF=_g_world addend=0x00000000\nSHAPE MATCH: R_ClearFogs, 42 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268440672,
+    "name": "R_SetSunLightOverride",
+    "source": "src/f/10001460_R_SetSunLightOverride.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "3900d8803ccf87e13dcbe57767328c2f54ba7a12c64e5de15a33c231479ab42f",
+    "job": "job001",
+    "object_sha256": "45d34c5aeebd1e58f26e27091e843f15c283198b82bf90856cf7d30b6207db03",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_SetSunLightOverride",
+        "output": "UNRESOLVED binding +2: target=0x101d1b9c, COFF=_g_world addend=0x00000000\nSHAPE MATCH: R_SetSunLightOverride, 39 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268453600,
+    "name": "FUN_100046e0",
+    "source": "src/f/100046e0_FUN_100046e0.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "5a6b56b36524fe9ef9cbb837559bbd5a5ba28cde3c5e5689b0b4a2570aa230ca",
+    "job": "job002",
+    "object_sha256": "8e7528ad6fd987429854532dd42629c564e355c44dcd336b16c630bef6e31d96",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "_FUN_100046e0",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={23: 20, 33: 20}"
+      }
+    ]
+  },
+  {
+    "address": 268479072,
+    "name": "R_GetFarPlaneDist",
+    "source": "src/tu/missing7.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "22f039e14d2fbba6b72b4e055f2559f29a7d749832d37e9723daa8b9f330d548",
+    "job": "job003",
+    "object_sha256": "dd00407304a5ea14ff397e4b7dc69b45acce78134558c53147d922cd8cd581f2",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_1000aa60",
+        "output": "UNRESOLVED binding +1: target=0x101ce61c, COFF=_g_101ce61c addend=0x00000000\nUNRESOLVED binding +10: target=0x1019bc84, COFF=_f_1019bc84 addend=0x00000000\nUNRESOLVED binding +26: target=0x101d620c, COFF=_g_101d620c addend=0x00000000\nUNRESOLVED binding +35: target=0x101d61c8, COFF=_g_101d61c8 addend=0x00000000\nUNRESOLVED binding +45: target=0x101d61ac, COFF=_g_101d61ac addend=0x00000000\nUNRESOLVED binding +56: target=0x101d61c0, COFF=_f_101d61c0 addend=0x00000000\nUNRESOLVED binding +62: target=0x101ce5f4, COFF=_f_101ce5f4 addend=0x00000000\nUNRESOLVED binding +77: target=0x101ce5f4, COFF=_f_101ce5f4 addend=0x00000000\nSHAPE MATCH: R_GetFarPlaneDist, 82 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268479168,
+    "name": "R_ResetSunLightParseParams",
+    "source": "src/f/1000aac0_R_ResetSunLightParseParams.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "7832f33ff107ad49a3236408f9d6619a34c90b5db89cd58bf4a470b53b6849b9",
+    "job": "job004",
+    "object_sha256": "e27763f702d3232204114a9ac4c2dbef4706926577534fcbe8df7ae66b4774ed",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_ResetSunLightParseParams",
+        "output": "UNRESOLVED binding +6: target=0x1019bc84, COFF=__real@00000000 addend=0x00000000\nUNRESOLVED binding +19: target=0x101ce5f4, COFF=_g_minSunDist addend=0x00000000\nUNRESOLVED binding +33: target=0x101ce5f4, COFF=_g_minSunDist addend=0x00000000\nSHAPE MATCH: R_ResetSunLightParseParams, 38 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268483280,
+    "name": "R_IssueDelayedDrawing",
+    "source": "src/f/1000bad0_R_IssueDelayedDrawing.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "194ca4206e8984c0f9e918db6eca5d2be0eedb513550073aa6d8a9b7c07c7b1a",
+    "job": "job005",
+    "object_sha256": "bd20d55be3c3f70d5e19124ad14fb9efbd3f1577ce61de8f88a00703f8ba09fa",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_IssueDelayedDrawing",
+        "output": "SHAPE MATCH: R_IssueDelayedDrawing, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268483344,
+    "name": "R_ArchiveFogState",
+    "source": "src/f/1000bb10_R_ArchiveFogState.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "f9ed0b087e51a006b7b15ed9436af8c51871506a92a848ef01bc1c2b5dc8c8d2",
+    "job": "job006",
+    "object_sha256": "eb2fa02d69069af3ae7ec57c2134cb7b52118a906057e44c6d8b0befcecf86ae",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_ArchiveFogState",
+        "output": "UNRESOLVED binding +9: target=0x101d616c, COFF=_g_fogState addend=0x00000000\nUNRESOLVED binding +16: target=0x101d620c, COFF=_g_fogFlag addend=0x00000000\nSHAPE MATCH: R_ArchiveFogState, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268483648,
+    "name": "R_SwitchFog",
+    "source": "src/f/1000bc40_R_SwitchFog.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "8c2a09a1c35a5e0a65f6965a4cbe480249466ff972c1d4015ae969ec4e695990",
+    "job": "job007",
+    "object_sha256": "3c5260fa37e0b1dea14aee03c452551e3b01c841f0e4cbe40ca25bbf7b64b2af",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_SwitchFog",
+        "output": "UNRESOLVED binding +6: target=0x101d616c, COFF=_g_fogState addend=0x00000000\nUNRESOLVED binding +20: target=0x101d620c, COFF=_g_fogFlag addend=0x00000000\nSHAPE MATCH: R_SwitchFog, 35 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268484416,
+    "name": "R_UpdateColor",
+    "source": "src/f/1000bf40_R_UpdateColor.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "ca65d03a10e69f1e0b42bfbccc19935887fb71791c84d2220573a9d9a54ccc46",
+    "job": "job008",
+    "object_sha256": "1717a35128164e3ec823bb6c14b861b4fee5adb802090aff1ee1ce4a533c319c",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_UpdateColor",
+        "output": "UNRESOLVED binding +10: target=0x1019bd74, COFF=__real@42400000 addend=0x00000000\nSHAPE MATCH: R_UpdateColor, 18 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268484608,
+    "name": "R_TextWidth",
+    "source": "src/f/1000c000_R_TextWidth.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "ffdb94c33c065a2132d138a100f695f813c2dbe4a2b6dff38993b2679112a71b",
+    "job": "job009",
+    "object_sha256": "d61cdc0b0939e502b715a215e82375bc3bc1d8b4bbbe99040e434a0a67c15c8b",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_TextWidth",
+        "output": "SHAPE MATCH: R_TextWidth, 8 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268486864,
+    "name": "R_GetMinSpecImageMemory",
+    "source": "src/f/1000c8d0_R_GetMinSpecImageMemory.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "f63678e17e361e4c3b5df428296f8189891d368f428a73465c298c90b03419bc",
+    "job": "job010",
+    "object_sha256": "d67484b18597b814cab45348f9047487e936d3b17a296efc837c57d36d0ec6af",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_GetMinSpecImageMemory",
+        "output": "UNRESOLVED binding +1: target=0x101d0a78, COFF=_DAT_101d0a78 addend=0x00000000\nSHAPE MATCH: R_GetMinSpecImageMemory, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268488288,
+    "name": "R_RegisterFont",
+    "source": "src/f/1000ce60_R_RegisterFont.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "33da247403cd0bd7c46ad1b4fc119b5afeb86408d773e22bceb3c748eff8fe4d",
+    "job": "job011",
+    "object_sha256": "0fd6ad799f9b118fa9d4f618e44d95b6ffd473607a8117c60af9c7d109fcf666",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_RegisterFont",
+        "output": "SHAPE MATCH: R_RegisterFont, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268488304,
+    "name": "R_ResetImageAllocations",
+    "source": "src/f/1000ce70_R_ResetImageAllocations.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "093029a45fc00dae90ca045e0c6ca7008596757f8c362c60273ac7cad699a1a0",
+    "job": "job012",
+    "object_sha256": "d7fc1ba786422e000909eaaa494d1d24b838d2e726c4079d381515a977265919",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_ResetImageAllocations",
+        "output": "SHAPE MATCH: R_ResetImageAllocations, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268502960,
+    "name": "FUN_100107b0",
+    "source": "src/f/100107b0_FUN_100107b0.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "076ca407c63698afa651b10435b595f181f492365d873534e5ab787153368de8",
+    "job": "job013",
+    "object_sha256": "fcb9aef3830cbbc3d0baed89b1bac2685c5db463ea8fb03424e36d102267ac05",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100107b0",
+        "output": "UNRESOLVED binding +8: target=0x101d49d8, COFF=_RI_Hunk_AllocateTempMemoryInternal addend=0x00000000\nUNRESOLVED binding +13: target=0x100106b0, COFF=_FUN_100106b0 addend=0x00000000\nUNRESOLVED binding +30: target=0x10010160, COFF=_FUN_10010160 addend=0x00000000\nUNRESOLVED binding +37: target=0x101d49f8, COFF=_RI_Hunk_FreeTempMemory addend=0x00000000\nSHAPE MATCH: FUN_100107b0, 46 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268513088,
+    "name": "FUN_10012f40",
+    "source": "src/tu/missing6.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "13aed00a65d164900d0c0a321ecaf6388a67c1e01b45e14ee99cd5032c892f31",
+    "job": "job014",
+    "object_sha256": "905be06b4f6ba74acb379024163f2c32e4d4225677c6e58b2101bd17e4afc18f",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_10012f40",
+        "output": "UNRESOLVED binding +7: target=0x101d7e14, COFF=_arr_101d7e14 addend=0x00000000\nUNRESOLVED binding +33: target=0x101d4bbc, COFF=_P_101d4bbc addend=0x00000000\nUNRESOLVED binding +39: target=0x101d7e10, COFF=_g_101d7e10 addend=0x00000000\nUNRESOLVED binding +43: target=0x101d7e14, COFF=_arr_101d7e14 addend=0x00000000\nSHAPE MATCH: FUN_10012f40, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268513680,
+    "name": "R_BeginRegistration",
+    "source": "src/f/10013190_R_BeginRegistration.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "21a54c295ad1d801aa5781b8c899e7760a48a79d1f8a693f9476d7525b4e12e6",
+    "job": "job015",
+    "object_sha256": "72047a00c8a5d831bdb7806e71bdd406a3767e5cb8007dbd7475cc7c278750a9",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_BeginRegistration",
+        "output": "UNRESOLVED binding +3: target=0x10012f80, COFF=_sub_10012f80 addend=0x00000000\nUNRESOLVED binding +17: target=0x101d4c6c, COFF=_g_vidConfig addend=0x00000000\nSHAPE MATCH: R_BeginRegistration, 26 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268513792,
+    "name": "FUN_10013200",
+    "source": "src/tu/missing3.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "0e51faa3bef03798943cdfddd1cacf9af7c6a8c9cd090c2829217037a9a74466",
+    "job": "job016",
+    "object_sha256": "1c794ccf41d2d3d05eb9419b2aba2e629702b701d7d705019e71b3b6c3c890ee",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_10013200",
+        "output": "UNRESOLVED binding +7: target=0x10696cb8, COFF=_tbl_10696cb8 addend=0x00000000\nUNRESOLVED binding +18: target=0x10020f70, COFF=_Sub_10020f70 addend=0x00000000\nUNRESOLVED binding +26: target=0x10696cc8, COFF=_g_10696cc8 addend=0x00000000\nUNRESOLVED binding +37: target=0x10696cb0, COFF=_g_10696cb0 addend=0x00000000\nUNRESOLVED binding +43: target=0x10020f10, COFF=_Sub_10020f10 addend=0x00000000\nUNRESOLVED binding +48: target=0x10696cc8, COFF=_g_10696cc8 addend=0x00000000\nUNRESOLVED binding +54: target=0x10696cb0, COFF=_g_10696cb0 addend=0x00000000\nUNRESOLVED binding +64: target=0x10020f70, COFF=_Sub_10020f70 addend=0x00000000\nUNRESOLVED binding +73: target=0x10696cb0, COFF=_g_10696cb0 addend=0x00000000\nSHAPE MATCH: R_EndDebugFrame, 79 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268513888,
+    "name": "R_ModelBounds",
+    "source": "src/f/10013260_R_ModelBounds.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "668b7d5c071c80d461d14ac356410d5b4205064e20b2764b45e5168264e5f499",
+    "job": "job017",
+    "object_sha256": "53f7703aaae31705dbb743ead56ff6f54f805e409c88a4adf403d94b63a0d3b2",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_ModelBounds",
+        "output": "UNRESOLVED binding +5: target=0x101d7e78, COFF=_g_currentBmodel addend=0x00000000\nSHAPE MATCH: R_ModelBounds, 10 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268523328,
+    "name": "FUN_10015740",
+    "source": "src/f/10015740_FUN_10015740.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "8f153f72f05d3ecdeab8efbc7fcc204254530204b55ff6e9b58e4f7c44d6e2d6",
+    "job": "job018",
+    "object_sha256": "afee8fc9d03a106faf4bfee79921d402d8a27e14124c14be4e9542f418f15ae3",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "_FUN_10015740",
+        "reason": "relocation-site/type mismatch: PE={115: 6, 39: 20, 134: 20}, COFF={39: 20, 79: 20, 115: 6, 134: 20}"
+      }
+    ]
+  },
+  {
+    "address": 268530256,
+    "name": "FUN_10017250",
+    "source": "src/f/10017250_FUN_10017250.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "8568fc44af4a2f86fbd99f1a5c551dc57663fb1cf976bcf50ddeb236130c9dc3",
+    "job": "job019",
+    "object_sha256": "51f0fc6c5cec029b06b59d521f55caa9db77affee74b6c674fbe6d8551d62e90",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_10017250",
+        "output": "UNRESOLVED binding +14: target=0x10017050, COFF=_FUN_10017050 addend=0x00000000\nUNRESOLVED binding +43: target=0x101d4d28, COFF=_DAT_101d4d28 addend=0x00000000\nSHAPE MATCH: FUN_10017250, 51 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268530320,
+    "name": "R_RegisterMaterial",
+    "source": "src/f/10017290_R_RegisterMaterial.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "f574e7b0010add5a1fc27c81276738a2b4441cbe45569e6ebb0ec43d13457959",
+    "job": "job020",
+    "object_sha256": "0d0c1745102a991b3c8e7f7c798898906a619784083e479214246b8ca8c95898",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_RegisterMaterial",
+        "output": "UNRESOLVED binding +10: target=0x101d1b2c, COFF=_DAT_101d1b2c addend=0x00000000\nUNRESOLVED binding +21: target=0x10017100, COFF=_FUN_10017100 addend=0x00000000\nSHAPE MATCH: R_RegisterMaterial, 29 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268530352,
+    "name": "R_RegisterRawImage",
+    "source": "src/f/100172b0_R_RegisterRawImage.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "f9472e159acaad3a8e3c51e62423154eec3c335210428c10299720cd33001202",
+    "job": "job021",
+    "object_sha256": "608d4ea60db8d3555953679bc3879a61f59d98bcc61bf092c24ce0f7e352d70b",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_RegisterRawImage",
+        "output": "UNRESOLVED binding +10: target=0x101d1b2c, COFF=_DAT_101d1b2c addend=0x00000000\nUNRESOLVED binding +22: target=0x100171f0, COFF=_FUN_100171f0 addend=0x00000000\nSHAPE MATCH: R_RegisterRawImage, 30 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268530432,
+    "name": "R_GetMaterialName",
+    "source": "src/f/10017300_R_GetMaterialName.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "b17251bd24ebe38964edc15206b0947f29ed5345ac0bd8af734164e052e210ae",
+    "job": "job022",
+    "object_sha256": "2c4af02710dd30b1ffb5705cbd55fe4b901c0e4a92af28bb26712a6975645cb5",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_GetMaterialName",
+        "output": "SHAPE MATCH: R_GetMaterialName, 7 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268530448,
+    "name": "R_GetMaterialSubimageCount",
+    "source": "src/f/10017310_R_GetMaterialSubimageCount.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "c50d75a61e12cc38041a0e8828742987df3752c8f4ff531d61560b5ad9fd5760",
+    "job": "job023",
+    "object_sha256": "c58c93f859e8d3a0af1b6e93dfc849945881f439e15ce6ae62fcfcbc68cec985",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_GetMaterialSubimageCount",
+        "output": "SHAPE MATCH: R_GetMaterialSubimageCount, 16 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268530464,
+    "name": "R_IsMaterialRefractive",
+    "source": "src/f/10017320_R_IsMaterialRefractive.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "a5213090e486336826a0c3ff88afb738263dfccfdc81c61c60abd0a6403e7b11",
+    "job": "job024",
+    "object_sha256": "570f40fdc021eedab2317101298226041adc6f19633f26b4f1c4c8fe79e9d783",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_IsMaterialRefractive",
+        "output": "UNRESOLVED binding +1: target=0x101ce708, COFF=_g_dvar_refraction addend=0x00000000\nSHAPE MATCH: R_IsMaterialRefractive, 37 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268556448,
+    "name": "R_RegisterInlineModel",
+    "source": "src/f/1001d8a0_R_RegisterInlineModel.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "4ce16fdb0ee70b2ebc235af235ecae92f2b86b81e6aded72b68ee2d2c60d66ab",
+    "job": "job025",
+    "object_sha256": "2fa0b6cf0db6c1051626501c8a61964caccadf14d2407fa83f17270a6956f97f",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_RegisterInlineModel",
+        "output": "UNRESOLVED binding +6: target=0x101d1b9c, COFF=_DAT_101d1b9c addend=0x00000000\nSHAPE MATCH: R_RegisterInlineModel, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268556480,
+    "name": "R_FinishLoadingModels",
+    "source": "src/f/1001d8c0_R_FinishLoadingModels.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "3326cb4644a6ac39384c6ddee9cd2f803d7d0354bf267260b9b98b3bee766961",
+    "job": "job026",
+    "object_sha256": "4619144bb9735ab283701f13c003f11a20f803ef61a850d5bceda80399bfe0f3",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_FinishLoadingModels",
+        "output": "UNRESOLVED binding +1: target=0x101ce648, COFF=_g_pRI addend=0x00000000\nUNRESOLVED binding +17: target=0x10020380, COFF=_FUN_10020380 addend=0x00000000\nUNRESOLVED binding +25: target=0x101d4b80, COFF=_g_riSyncCmd addend=0x00000000\nSHAPE MATCH: R_FinishLoadingModels, 33 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268556528,
+    "name": "R_SetIgnorePrecacheErrors",
+    "source": "src/f/1001d8f0_R_SetIgnorePrecacheErrors.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "8e74bd3888780cadb31538e705ac5631e652f6fdfc2a17f09046bc69aadf165e",
+    "job": "job027",
+    "object_sha256": "78da346e0a652520a0846cae0f25edf2bff53ce6d103cdba5e339ce0d10551ef",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_SetIgnorePrecacheErrors",
+        "output": "UNRESOLVED binding +10: target=0x101d4d02, COFF=_g_ignorePrecacheErrors addend=0x00000000\nSHAPE MATCH: R_SetIgnorePrecacheErrors, 15 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268556544,
+    "name": "FUN_1001d900",
+    "source": "src/tu/missing1.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "b0eab944cb462b3cf863eae8a977e782c18d66416c42d3d4c2de708dd1bfa7a3",
+    "job": "job028",
+    "object_sha256": "bf8743b123f7553e2dcf70195601096c07563aa74fe1986edc15cb568cc38c61",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_1001d900",
+        "output": "UNRESOLVED binding +2: target=0x101d4d02, COFF=_g_101d4d02 addend=0x00000000\nSHAPE MATCH: R_GetIgnorePrecacheErrors, 14 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268556560,
+    "name": "R_MarkFragments",
+    "source": "src/f/1001d910_R_MarkFragments.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "83000bb1999d392e07849fc73d5421bc93a723533bf9d895a1a823107d2618f5",
+    "job": "job029",
+    "object_sha256": "a5d178ea6e642ea208093dbcdfd7cd3c3bb89617a9b0dd9c754d42e7e3ee8b61",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_MarkFragments",
+        "output": "SHAPE MATCH: R_MarkFragments, 77 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268569824,
+    "name": "R_AddPolyToScene",
+    "source": "src/tu/addlight.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "93f2cb1d5a2cdbfed514bcddc587fd8fcf101ebf5c8c763bf6d5ddc1d47685c3",
+    "job": "job030",
+    "object_sha256": "c7c4d274a109abad6cf96e00ef0fc969c1d7f02ca2c2b61bb9d7032f296b2098",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_AddPolyToScene",
+        "output": "UNRESOLVED binding +6: target=0x10023d70, COFF=_Sub_10023d70 addend=0x00000000\nSHAPE MATCH: R_AddPolyToScene, 12 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "_Sub_1001ffc0",
+        "reason": "length mismatch: target=12, object=504"
+      },
+      {
+        "symbol": "_Sub_10023d40",
+        "reason": "length mismatch: target=12, object=34"
+      },
+      {
+        "symbol": "_Sub_10023d70",
+        "reason": "length mismatch: target=12, object=53"
+      },
+      {
+        "symbol": "_R_AddLightToScene",
+        "reason": "length mismatch: target=12, object=9"
+      }
+    ]
+  },
+  {
+    "address": 268570592,
+    "name": "R_EndDelayedDrawing",
+    "source": "src/f/10020fe0_R_EndDelayedDrawing.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "23cb265334ddb3d73c9de046a07e5a6df8d185bff17b937e5974e904c1f6dd46",
+    "job": "job031",
+    "object_sha256": "4175c3b57f63e794c397afe535828aa5456c36c5e01dde63b7d2cf107dfebcba",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_EndDelayedDrawing",
+        "output": "UNRESOLVED binding +1: target=0x1042e778, COFF=_g_cmdBuf addend=0x00000000\nSHAPE MATCH: R_EndDelayedDrawing, 91 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268574784,
+    "name": "R_BeginDebugFrame",
+    "source": "src/f/10022040_R_BeginDebugFrame.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "d1e28168d7afde5a1000f6f3cfb9d4924af8f26558d7a7c5263b07a40b7b1782",
+    "job": "job032",
+    "object_sha256": "8b570106ab174687db45e540a09214a37d7ca5ae68fe956664db44ac1729cdc2",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_BeginDebugFrame",
+        "output": "UNRESOLVED binding +1: target=0x101d4d00, COFF=_DAT_101d4d00 addend=0x00000000\nUNRESOLVED binding +13: target=0x10020ec0, COFF=_FUN_10020ec0 addend=0x00000000\nUNRESOLVED binding +18: target=0x101da9c8, COFF=_DAT_101da9c8 addend=0x00000000\nUNRESOLVED binding +42: target=0x10033d20, COFF=_FUN_10033d20 addend=0x00000000\nUNRESOLVED binding +50: target=0x10033b20, COFF=_FUN_10033b20 addend=0x00000000\nUNRESOLVED binding +55: target=0x101e4a00, COFF=_DAT_101e4a00 addend=0x00000000\nUNRESOLVED binding +61: target=0x101e4a04, COFF=_DAT_101e4a04 addend=0x00000000\nUNRESOLVED binding +66: target=0x1042e778, COFF=_DAT_1042e778 addend=0x00000000\nUNRESOLVED binding +72: target=0x101e4a08, COFF=_DAT_101e4a08 addend=0x00000000\nUNRESOLVED binding +78: target=0x101da9c8, COFF=_DAT_101da9c8 addend=0x00000000\nUNRESOLVED binding +88: target=0x101e4a08, COFF=_DAT_101e4a08 addend=0x00000000\nUNRESOLVED binding +93: target=0x1001e4b0, COFF=_FUN_1001e4b0 addend=0x00000000\nUNRESOLVED binding +102: target=0x101e4a00, COFF=_DAT_101e4a00 addend=0x00000000\nUNRESOLVED binding +108: target=0x101e4a04, COFF=_DAT_101e4a04 addend=0x00000000\nSHAPE MATCH: R_BeginDebugFrame, 114 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268582544,
+    "name": "R_noop",
+    "source": "src/f/10023e90_R_noop.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "44242a8f691560cae7e7967bbb97023367f41202a9ff0df2cf8b35af3e2e2aa6",
+    "job": "job033",
+    "object_sha256": "ad6f4b4333f4fdce4285e1853fe85891fcec206b027e5feaa4a5ec8e2db11699",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_noop",
+        "output": "SHAPE MATCH: R_noop, 57 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268585536,
+    "name": "FUN_10024a40",
+    "source": "src/f/10024a40_FUN_10024a40.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "e486904b54f7eb721ac4ecaf40bcae69d7ae5157e66763f1b9de69db8aea369e",
+    "job": "job034",
+    "object_sha256": "3579ac08ec830cac0b83bebf7b55fb0fde0d34dbea5c299ad5047f71a4b39f33",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_10024a40",
+        "output": "UNRESOLVED binding +8: target=0x10191488, COFF=_g_whiteMat addend=0x00000000\nUNRESOLVED binding +15: target=0x10022220, COFF=_R_BlendSavedScreen addend=0x00000000\nUNRESOLVED binding +20: target=0x101d1b4c, COFF=_g_overmat24a40 addend=0x00000000\nUNRESOLVED binding +26: target=0x10191488, COFF=_g_whiteMat addend=0x00000000\nUNRESOLVED binding +45: target=0x10021660, COFF=_FUN_10021660 addend=0x00000000\nSHAPE MATCH: FUN_10024a40, 53 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268643696,
+    "name": "R_GpuWaited",
+    "source": "src/f/10032d70_R_GpuWaited.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "b2aa76eecd0bff19e7fe94361d81835920cf74d5f22adebaee10a8162dfa4217",
+    "job": "job035",
+    "object_sha256": "d846881644fc2c4382af67f69aa759263f1acdb7c013da9780bb40be50174eec",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_R_GpuWaited",
+        "output": "UNRESOLVED binding +5: target=0x101d4954, COFF=_DAT_101d4954 addend=0x00000000\nSHAPE MATCH: R_GpuWaited, 10 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268690000,
+    "name": "FUN_1003e250",
+    "source": "src/tu/tiny8.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "3c73157f5483d3bab76ccd19069825b86a13ea924d8b8f1037b91be1d20d3639",
+    "job": "job036",
+    "object_sha256": "93e1d96c1c4dab2eac01897a6b1f796debec864fcdeff76672859fd80563c3af",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_1003e250",
+        "output": "UNRESOLVED binding +1: target=0x10730550, COFF=_g_10730550 addend=0x00000000\nUNRESOLVED binding +19: target=0x1072e258, COFF=_tblbase_1072e258 addend=0x00000000\nUNRESOLVED binding +24: target=0x1003e130, COFF=_Next_1003e130 addend=0x00000000\nSHAPE MATCH: FUN_1003e250, 28 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268721376,
+    "name": "FUN_10045ce0",
+    "source": "src/f/10045ce0_FUN_10045ce0.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "0e840207c11e098570704aa3a3c3dd4ccee84cdcd25bfce1e72c08e9354c3c4d",
+    "job": "job037",
+    "object_sha256": "c9d51767cf105bc15996d45f5568c26a8d00435fb62702b933af9df0b6adbda9",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_10045ce0",
+        "output": "UNRESOLVED binding +11: target=0x10044e40, COFF=_R_EmitCmd addend=0x00000000\nSHAPE MATCH: FUN_10045ce0, 20 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "_R_EmitCmd",
+        "reason": "length mismatch: target=20, object=103"
+      },
+      {
+        "symbol": "_R_EmitWord",
+        "reason": "length mismatch: target=20, object=102"
+      },
+      {
+        "symbol": "_FUN_10045320",
+        "reason": "length mismatch: target=20, object=40"
+      }
+    ]
+  },
+  {
+    "address": 268752160,
+    "name": "FUN_1004d520",
+    "source": "src/tu/tinyG.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "8cfea0a3bcc70dc813e1209feb0f96894b58f61f99c51345edfb5628a7e22a2c",
+    "job": "job038",
+    "object_sha256": "b1aa9f55b2f01f198b63b9dea6c7b5a6df459875c3e62b17637545069943a09d",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_1004d520",
+        "output": "UNRESOLVED binding +13: target=0x1004d460, COFF=_code_1004d460 addend=0x00000000\nSHAPE MATCH: FUN_1004d520, 59 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268831760,
+    "name": "FUN_10060c10",
+    "source": "src/tu/clustb.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "6717ef6566297b072c0347516c0e4f21bf4e054043b6d279f6c3c5ca66dd8589",
+    "job": "job039",
+    "object_sha256": "3bc94479535199ab601b5d293560af2fcbf22cd6fa9d8f8e8da3280b97ec3ce7",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_F60c10",
+        "output": "UNRESOLVED binding +13: target=0x100f61b9, COFF=__vsnprintf addend=0x00000000\nSHAPE MATCH: FUN_10060c10, 26 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "_C910",
+        "reason": "length mismatch: target=26, object=104"
+      },
+      {
+        "symbol": "_Sub_1000f2a0",
+        "reason": "length mismatch: target=26, object=67"
+      },
+      {
+        "symbol": "_Sub_1000f900",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L679",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L678",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L677",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L676",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L675",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L674",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L673",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L672",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L671",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L670",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L669",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L668",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L667",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "$L770",
+        "reason": "requires a single-function code section; boundary review needed"
+      },
+      {
+        "symbol": "_FA40",
+        "reason": "length mismatch: target=26, object=245"
+      },
+      {
+        "symbol": "_D450",
+        "reason": "length mismatch: target=26, object=44"
+      },
+      {
+        "symbol": "_F171f0",
+        "reason": "length mismatch: target=26, object=77"
+      }
+    ]
+  },
+  {
+    "address": 268837402,
+    "name": "Direct3DCreate9",
+    "source": "src/tu/thunks.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "53a319d015e105806bb80e3dc805bc963a549adfcd4f1bfd53dd58800e30fdb4",
+    "job": "job040",
+    "object_sha256": "ac80c6d5654a5d9afcbee697a5d5a6b187b546cc1d2bfd3551bb8cd02d4c606e",
+    "status": "DEFER",
+    "shape_matches": [
+      {
+        "symbol": "_RtlUnwind",
+        "output": "UNRESOLVED binding +2: target=0x1010c1f0, COFF=_p_RtlUnwind addend=0x00000000\nSHAPE MATCH: Direct3DCreate9, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_Direct3DCreate9",
+        "output": "UNRESOLVED binding +2: target=0x1010c1f0, COFF=_p_D3D9 addend=0x00000000\nSHAPE MATCH: Direct3DCreate9, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_DirectDrawEnumerateExA",
+        "output": "UNRESOLVED binding +2: target=0x1010c1f0, COFF=_p_DDEnumExA addend=0x00000000\nSHAPE MATCH: Direct3DCreate9, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_DirectDrawCreateEx",
+        "output": "UNRESOLVED binding +2: target=0x1010c1f0, COFF=_p_DDCreateEx addend=0x00000000\nSHAPE MATCH: Direct3DCreate9, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268849550,
+    "name": "FUN_1006518e",
+    "source": "src/tu/tiny9.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "d808ec46c66acad3ab5c79f042c8eb8bb44553afdd7c4988f04c4f832d6ccec4",
+    "job": "job041",
+    "object_sha256": "d35ac81b767d7af1dc1c965b0ccf631cd34ff57ce59730905346f819894e0926",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "@FUN_1006518e@4",
+        "reason": "length mismatch: target=23, object=26"
+      }
+    ]
+  },
+  {
+    "address": 268858432,
+    "name": "FUN_10067440",
+    "source": "src/tu/tinyQ.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "9e1ef2926c1906970db49bd6e368f71d5f5bf2e280abfea14938b12e3578ce10",
+    "job": "job042",
+    "object_sha256": "7d086e06f10067dbdbfd837aafa47508bfaee48e11a5f2a97231431d7a901efa",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor10067440@4",
+        "output": "SHAPE MATCH: FUN_10067440, 32 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268859132,
+    "name": "FUN_100676fc",
+    "source": "src/f/100676fc_FUN_100676fc.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "8cd26c2da477b3f92d02516b11553e7fcecb82234037d6e06e950bae27f3280d",
+    "job": "job043",
+    "object_sha256": "f5ae8e53d3415e7f7d51ce695ea30629104615cd626c5ee386daeb9d13941d29",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@FUN_100676fc@4",
+        "output": "SHAPE MATCH: FUN_100676fc, 4 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268859140,
+    "name": "FUN_10067704",
+    "source": "src/tu/tinyP.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "3f2d7214a3afe9d574a2bdc26374e271543cf065091ca5173078764c815c4599",
+    "job": "job044",
+    "object_sha256": "540cd3164644df968d6159afa97a0bcdf22b159047158eb7ccf0218c58f003a0",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor10067704@4",
+        "output": "SHAPE MATCH: FUN_10067704, 26 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268859166,
+    "name": "FUN_1006771e",
+    "source": "src/f/1006771e_FUN_1006771e.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "39700d90d6bfd5ae632824b7c5243736a4645042a648a1debf690b737f6bb190",
+    "job": "job045",
+    "object_sha256": "c631d1435f91d5875d7193ee80bd3e781829aa0d641b31950479c28fbf7f8974",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_1006771e",
+        "output": "SHAPE MATCH: FUN_1006771e, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268864550,
+    "name": "FUN_10068c26",
+    "source": "src/tu/tinyS.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "bb50c55490bf4733d2e9d99e128031b13c9e6d999f5e4797cf3bbfe9e09b616d",
+    "job": "job046",
+    "object_sha256": "b0dada361f7a6cdd1fd174fbe62b05c497e4dbd19abac67dca3583a22cbfcb97",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor10068c26@4",
+        "output": "SHAPE MATCH: FUN_10068c26, 28 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268963350,
+    "name": "FUN_10080e16",
+    "source": "src/tu/tinyB.c",
+    "flags": [
+      "/O2",
+      "/Gr"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "2ae23531184dfd0616e95ccc9ddf6d99b2904e6ff2ecc3d82988fd54682f1608",
+    "job": "job047",
+    "object_sha256": "39c5f4bd5498433990d6d357cce40f40d61c0d66e1091c9d945db070db85748c",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor10080e16@4",
+        "output": "UNRESOLVED binding +6: target=0x1010fd70, COFF=_vtbl_1010fd70 addend=0x00000000\nSHAPE MATCH: FUN_10080e16, 33 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268966402,
+    "name": "FUN_10081a02",
+    "source": "src/tu/tiny3.c",
+    "flags": [
+      "/O1",
+      "/Gr"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "7fe172bf6d5affbcea2c7fe1efb92db77fe72240463b3065ca37ff88c1c56e91",
+    "job": "job048",
+    "object_sha256": "07adc2d91eecf338c172a6a227fd1c6f25e60ceaa58ac64f9f38c06b23ac68c5",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Dtor10081a02@4",
+        "output": "UNRESOLVED binding +5: target=0x1010fefc, COFF=_vtbl_1010fefc addend=0x00000000\nUNRESOLVED binding +10: target=0x100f7865, COFF=_P_free addend=0x00000000\nSHAPE MATCH: FUN_10081a02, 16 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268967174,
+    "name": "FUN_10081d06",
+    "source": "src/tu/tiny2.c",
+    "flags": [
+      "/O1",
+      "/Gr"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "4a278543a973b680f0a2cdedc98063408912f75db4a2a6432d78dbe3e8e0eacf",
+    "job": "job049",
+    "object_sha256": "86bd4262c9da4787fee57899e05eb291570e2a43a6d9d2f2550c3f607af664f3",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor10081d06@4",
+        "output": "UNRESOLVED binding +12: target=0x1010fefc, COFF=_vtbl_1010fefc addend=0x00000000\nSHAPE MATCH: FUN_10081d06, 24 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "@Ctor10081d8e@4",
+        "reason": "length mismatch: target=24, object=22"
+      }
+    ]
+  },
+  {
+    "address": 268967310,
+    "name": "FUN_10081d8e",
+    "source": "src/tu/tiny2.c",
+    "flags": [
+      "/O1",
+      "/Gr"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "4a278543a973b680f0a2cdedc98063408912f75db4a2a6432d78dbe3e8e0eacf",
+    "job": "job049",
+    "object_sha256": "86bd4262c9da4787fee57899e05eb291570e2a43a6d9d2f2550c3f607af664f3",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor10081d8e@4",
+        "output": "UNRESOLVED binding +1: target=0x10081d06, COFF=@Ctor10081d06@4 addend=0x00000000\nUNRESOLVED binding +15: target=0x1010ff38, COFF=_vtbl_1010ff38 addend=0x00000000\nSHAPE MATCH: FUN_10081d8e, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "@Ctor10081d06@4",
+        "reason": "length mismatch: target=22, object=24"
+      }
+    ]
+  },
+  {
+    "address": 268968654,
+    "name": "FUN_100822ce",
+    "source": "src/tu/tinyA.c",
+    "flags": [
+      "/O2",
+      "/Gr"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "9837960bc9cdb6e49bbcd00792180bb89c9ba523c5ec026edef948fce86a1022",
+    "job": "job050",
+    "object_sha256": "de21d01519633e0ea7980170413acd3005ab64eb31138f489121cc286a45c0ef",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor100822ce@4",
+        "output": "UNRESOLVED binding +6: target=0x1010ff58, COFF=_vtbl_1010ff58 addend=0x00000000\nSHAPE MATCH: FUN_100822ce, 27 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268968681,
+    "name": "FUN_100822e9",
+    "source": "src/tu/tinyL.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "19c6c3fe16e7a2b16e4090d2b0eca93483d596c0392a24777ba3cdef4cb6a96e",
+    "job": "job051",
+    "object_sha256": "d706eb5d9dc3a26e87f5f0a0385e6d9006cd924aba609e15f819fa596e0493c0",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor100822e9@4",
+        "output": "SHAPE MATCH: FUN_100822e9, 13 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268968885,
+    "name": "FUN_100823b5",
+    "source": "src/tu/tinyW.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "7c46b9904298ff5bcdc99842b01be6ba716faf11a3add4cd1886173d4c1b38fb",
+    "job": "job052",
+    "object_sha256": "0dec113e34dcfbd4eb98d4aa7de51df358894715d70a8c194eb421400202f4c5",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ini100823b5@4",
+        "output": "SHAPE MATCH: FUN_100823b5, 18 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268976660,
+    "name": "FUN_10084214",
+    "source": "src/tu/tinyN.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "5dc92ef9899f9b1e860d1a8a52920072ff849fb2581f80d45a98b841273fa79c",
+    "job": "job053",
+    "object_sha256": "33cbe804441e8d9958d27ca5f0ad1efbec4d10d41c6b9db6b4f7c30ff3122330",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Sz10084214@4",
+        "output": "SHAPE MATCH: FUN_10084214, 12 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268981167,
+    "name": "FUN_100853af",
+    "source": "src/f/100853af_FUN_100853af.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "78dce85195eda85356357cba9a8eb5604f55170402af6d5428b2d2bddacdf45c",
+    "job": "job054",
+    "object_sha256": "2a8cfb62b921afc70d597b21d8f4406eaa26e2eb739f6ee65061e1f76c52ec25",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100853af",
+        "output": "SHAPE MATCH: FUN_100853af, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268981260,
+    "name": "FUN_1008540c",
+    "source": "src/tu/tinyZ.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "5e3333cd2c7272fdfd771848167e0f90b249a18c12464c7dfb18bf30e563f6d7",
+    "job": "job055",
+    "object_sha256": "c031f61c1e0449183cf262ec57b0e61999c9facf72386edc59797d309c782ee9",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "@Fmt1008540c@4",
+        "reason": "length mismatch: target=51, object=53"
+      }
+    ]
+  },
+  {
+    "address": 268981311,
+    "name": "FUN_1008543f",
+    "source": "src/tu/tinyX.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "f0f3d8f48e55a02dbdc9efd05c2c7fcdb1f0bb97fef2b490dc96de68d62f6ec2",
+    "job": "job056",
+    "object_sha256": "59cd7d6fb3df6a9b9b3e37bae317d2117fe614ef7d09662d6d0a99febdd685f3",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "@Fmt1008543f@4",
+        "reason": "length mismatch: target=42, object=44"
+      }
+    ]
+  },
+  {
+    "address": 268981353,
+    "name": "FUN_10085469",
+    "source": "src/tu/tinyY.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "4a55e72e0101887f84a81fed06f49a5ecc6afe5b00e04cfbf3d34229d6c24474",
+    "job": "job057",
+    "object_sha256": "b8436b3cc995a39a6945abf78319f1423f82a74782b50deca801f0038e65a97b",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "@Fmt10085469@4",
+        "reason": "length mismatch: target=49, object=51"
+      }
+    ]
+  },
+  {
+    "address": 268981402,
+    "name": "FUN_1008549a",
+    "source": "src/tu/tiny21.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "45eff3247a39b8b092f20f5c3ad487916a42fec9359f94d46fa1585e5616613a",
+    "job": "job058",
+    "object_sha256": "606071a8bfeef3c955e6fa9295d3fa1a623a18c7f033a062eae1caeb75df5c87",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "@Fmt1008549a@4",
+        "reason": "length mismatch: target=56, object=58"
+      }
+    ]
+  },
+  {
+    "address": 268981680,
+    "name": "FUN_100855b0",
+    "source": "src/tu/tiny22.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "f17837bea80f9372fe682993310d4e3736f52db3a57173e2249610a9427b5838",
+    "job": "job059",
+    "object_sha256": "4bd276fce95c12df28f201a6435fcd2b8452eaa44ef34e8963f2adc24c5d989b",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "@Fmt100855b0@4",
+        "reason": "length mismatch: target=56, object=58"
+      }
+    ]
+  },
+  {
+    "address": 268981736,
+    "name": "FUN_100855e8",
+    "source": "src/tu/tinyT.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "b2518eec539cff56b1b856ff1fe59a5408acfe1b9531bd079e764101a502e70c",
+    "job": "job060",
+    "object_sha256": "36f4b844f7f8999039dd4de07761ae119441bc36a46aab63885874878f5391a7",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "@Fmt100855e8@4",
+        "reason": "length mismatch: target=28, object=30"
+      }
+    ]
+  },
+  {
+    "address": 268983281,
+    "name": "FUN_10085bf1",
+    "source": "src/f/10085bf1_FUN_10085bf1.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "ff84759297f115230884017e9dba2e3750d9ce543e66952a2e6d0737541682d4",
+    "job": "job061",
+    "object_sha256": "883ed8f2b018243499b44eb0706c4b0814d6eda6611dbce1a84f08ddc339bdf2",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@FUN_10085bf1@4",
+        "output": "SHAPE MATCH: FUN_10085bf1, 3 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268983284,
+    "name": "FUN_10085bf4",
+    "source": "src/f/10085bf4_FUN_10085bf4.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "c79fb5754fb2534ddf74c1c438151fef93c488aa73bc31aa2964aad3d8dd7401",
+    "job": "job062",
+    "object_sha256": "7d0d075eadd326f4fddd275bb6aba8e7cbdd1462134c80d9ee300ff3b760babf",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_10085bf4",
+        "output": "SHAPE MATCH: FUN_10085bf4, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 268983745,
+    "name": "FUN_10085dc1",
+    "source": "src/tu/tinyE.c",
+    "flags": [
+      "/O2",
+      "/Gr"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "8b861273214a4805670b5e4765addf74b0ad82dd34bbeb15591da73212442fe9",
+    "job": "job063",
+    "object_sha256": "86056703ae14b4527ba577390cf77056d0f9f6fe39450e5fdbd3846781126a4d",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor10085dc1@4",
+        "output": "UNRESOLVED binding +6: target=0x101103f8, COFF=_vtbl_101103f8 addend=0x00000000\nSHAPE MATCH: FUN_10085dc1, 38 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269063065,
+    "name": "FUN_10099399",
+    "source": "src/tu/tinyM.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "e94de2ee89edec984a14fe267df8d8d699373ed25e62df0e0c8760e8897aa7ce",
+    "job": "job064",
+    "object_sha256": "cc5b888a0922e6af1d19ef80bcf0dc395ec96ac6ba5691ea1676c08ffa90c398",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Ctor10099399@4",
+        "output": "SHAPE MATCH: FUN_10099399, 20 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269064467,
+    "name": "FUN_10099913",
+    "source": "src/tu/tinyO.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "f6b9fe303b71ed8e53e6af9168093a19f83e0b933526a3fefa9ef1d8fe1d8680",
+    "job": "job065",
+    "object_sha256": "7a42b5bd5f3e727c4a70424df2eb79c7488a44ee21ae8d69891283094c874548",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@Peek10099913@4",
+        "output": "SHAPE MATCH: FUN_10099913, 12 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269069031,
+    "name": "FUN_1009aae7",
+    "source": "src/f/1009aae7_FUN_1009aae7.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "a94f8b2761106d527dd9fce4a11b40781ddb1544f798fa08918704ebc78e112c",
+    "job": "job066",
+    "object_sha256": "8c707a63eec91e4e31e792e8b107fe1b4e654b9cf108d868fce962ac19446011",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_1009aae7",
+        "output": "SHAPE MATCH: FUN_1009aae7, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269237644,
+    "name": "FUN_100c3d8c",
+    "source": "src/f/100c3d8c_FUN_100c3d8c.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "549da60ec0bc3b307b35fec9290e92b9b84e4c705a957788ab032dea4f59b6a3",
+    "job": "job067",
+    "object_sha256": "5188627de77f60c8d0f28fc82352665cb4eca40aaf6f9a365dd22dead6e911b6",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100c3d8c",
+        "output": "SHAPE MATCH: FUN_100c3d8c, 3 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269268847,
+    "name": "FUN_100cb76f",
+    "source": "src/f/100cb76f_FUN_100cb76f.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "8cd95f232d89bd37fe7312014b3baf94bad5ed1b92699abd0c35d4377e74a3d8",
+    "job": "job068",
+    "object_sha256": "b1ff518b79e3f37083a22cf2c965a6bac18b16f3131e4d2c90991de506a4a87b",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100cb76f",
+        "output": "UNRESOLVED binding +5: target=0x100cb270, COFF=_sub_100cb270@8 addend=0x00000000\nSHAPE MATCH: FUN_100cb76f, 10 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269268857,
+    "name": "FUN_100cb779",
+    "source": "src/f/100cb779_FUN_100cb779.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "b1b9d9842db47c95f68ca8e9632ccf14fba9c26dfe03355eda5aebedb020f721",
+    "job": "job069",
+    "object_sha256": "a84f27dcb7bf100cf53185aa2a067f6350056326f1431f00b1372b010cc7daed",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100cb779",
+        "output": "UNRESOLVED binding +5: target=0x100cb270, COFF=_sub_100cb270@8 addend=0x00000000\nSHAPE MATCH: FUN_100cb779, 10 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269268897,
+    "name": "FUN_100cb7a1",
+    "source": "src/f/100cb7a1_FUN_100cb7a1.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "e0acbd4abea0fc01f06f05623158fd663287883b0f07c1e407b1fe2655c475d9",
+    "job": "job070",
+    "object_sha256": "997e122746ea944a4acad7321b6393131c11b4cf1595f6dcb170412287a758c7",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100cb7a1",
+        "output": "UNRESOLVED binding +5: target=0x100cb270, COFF=_sub_100cb270@8 addend=0x00000000\nSHAPE MATCH: FUN_100cb7a1, 10 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269268997,
+    "name": "FUN_100cb805",
+    "source": "src/f/100cb805_FUN_100cb805.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "1f04204958388439c196273e550d9dfccee3976e31a3567404d447bc3bef0d9d",
+    "job": "job071",
+    "object_sha256": "cc94ea514b55469f6bd20e80f64fa2c4a493a7c689a79ea286ae008924ff3d30",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100cb805",
+        "output": "UNRESOLVED binding +5: target=0x100cb270, COFF=_sub_100cb270@8 addend=0x00000000\nSHAPE MATCH: FUN_100cb805, 10 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269269007,
+    "name": "FUN_100cb80f",
+    "source": "src/f/100cb80f_FUN_100cb80f.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "b166ef8c8a2c43e8bd689f5f9dbcd1bc19a086a4e133d9b3ddfae867e673cb71",
+    "job": "job072",
+    "object_sha256": "2de05a5779b356bf1c2c96d742bcc6add92c27c4ba2f49f7b9ee95b492b8b379",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100cb80f",
+        "output": "UNRESOLVED binding +5: target=0x100cb270, COFF=_sub_100cb270@8 addend=0x00000000\nSHAPE MATCH: FUN_100cb80f, 10 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269269017,
+    "name": "FUN_100cb819",
+    "source": "src/f/100cb819_FUN_100cb819.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "ff00b164ddfb172b1b5879d63eede9957fa36c31ee4dc64790a09bc2903f7bd9",
+    "job": "job073",
+    "object_sha256": "63e2021a5d0b3a775acefec012417ca1f7f9657264423e65bf26fd00876ee743",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100cb819",
+        "output": "UNRESOLVED binding +5: target=0x100cb270, COFF=_sub_100cb270@8 addend=0x00000000\nSHAPE MATCH: FUN_100cb819, 10 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269269286,
+    "name": "FUN_100cb926",
+    "source": "src/f/100cb926_FUN_100cb926.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "44ce8464bb17f72e8bbf7a1553df77dcc555e2ffb8f9dee29a34b55384c4b506",
+    "job": "job074",
+    "object_sha256": "69199c162020f6b09fad55bf96c13e66a10fc47f8c9343056a04e693724966ea",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "@FUN_100cb926@4",
+        "output": "SHAPE MATCH: FUN_100cb926, 3 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269269289,
+    "name": "FUN_100cb929",
+    "source": "src/f/100cb929_FUN_100cb929.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "a9e83ad03dd7aa1a715c76e60b4f8bd76548e3ee3141b641965ecda57ea8d89b",
+    "job": "job075",
+    "object_sha256": "e7db9eaf43fc8e949d55d9d247f00beb379d035950133f86bdad9e2362eaa34e",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100cb929",
+        "output": "SHAPE MATCH: FUN_100cb929, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269442094,
+    "name": "DirectDrawEnumerateExA",
+    "source": "src/tu/thunks.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "53a319d015e105806bb80e3dc805bc963a549adfcd4f1bfd53dd58800e30fdb4",
+    "job": "job040",
+    "object_sha256": "ac80c6d5654a5d9afcbee697a5d5a6b187b546cc1d2bfd3551bb8cd02d4c606e",
+    "status": "DEFER",
+    "shape_matches": [
+      {
+        "symbol": "_RtlUnwind",
+        "output": "UNRESOLVED binding +2: target=0x1010c010, COFF=_p_RtlUnwind addend=0x00000000\nSHAPE MATCH: DirectDrawEnumerateExA, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_Direct3DCreate9",
+        "output": "UNRESOLVED binding +2: target=0x1010c010, COFF=_p_D3D9 addend=0x00000000\nSHAPE MATCH: DirectDrawEnumerateExA, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_DirectDrawEnumerateExA",
+        "output": "UNRESOLVED binding +2: target=0x1010c010, COFF=_p_DDEnumExA addend=0x00000000\nSHAPE MATCH: DirectDrawEnumerateExA, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_DirectDrawCreateEx",
+        "output": "UNRESOLVED binding +2: target=0x1010c010, COFF=_p_DDCreateEx addend=0x00000000\nSHAPE MATCH: DirectDrawEnumerateExA, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269442100,
+    "name": "DirectDrawCreateEx",
+    "source": "src/tu/thunks.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "53a319d015e105806bb80e3dc805bc963a549adfcd4f1bfd53dd58800e30fdb4",
+    "job": "job040",
+    "object_sha256": "ac80c6d5654a5d9afcbee697a5d5a6b187b546cc1d2bfd3551bb8cd02d4c606e",
+    "status": "DEFER",
+    "shape_matches": [
+      {
+        "symbol": "_RtlUnwind",
+        "output": "UNRESOLVED binding +2: target=0x1010c014, COFF=_p_RtlUnwind addend=0x00000000\nSHAPE MATCH: DirectDrawCreateEx, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_Direct3DCreate9",
+        "output": "UNRESOLVED binding +2: target=0x1010c014, COFF=_p_D3D9 addend=0x00000000\nSHAPE MATCH: DirectDrawCreateEx, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_DirectDrawEnumerateExA",
+        "output": "UNRESOLVED binding +2: target=0x1010c014, COFF=_p_DDEnumExA addend=0x00000000\nSHAPE MATCH: DirectDrawCreateEx, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_DirectDrawCreateEx",
+        "output": "UNRESOLVED binding +2: target=0x1010c014, COFF=_p_DDCreateEx addend=0x00000000\nSHAPE MATCH: DirectDrawCreateEx, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269442430,
+    "name": "FUN_100f5d7e",
+    "source": "src/tu/tinyI.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "eaee0102acac567667de931d6def7378183da44a6da07a7393faf74bcc80c560",
+    "job": "job076",
+    "object_sha256": "e6942fecb737d84fdd8da0d10cef60ea691b82ac918d7c50579951cf56bf38c8",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "_FUN_100f5d7e",
+        "reason": "length mismatch: target=52, object=57"
+      }
+    ]
+  },
+  {
+    "address": 269442836,
+    "name": "_sprintf",
+    "source": "src/tu_crt/sprintf.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "8b90fa8c159b7cade40a811b242adab9c3504da530978a89662215c425519f77",
+    "job": "job077",
+    "status": "COMPILE_DEFER",
+    "detail": "sprintf.c\nZ:\\inputs\\src\\tu_crt\\sprintf.c(11) : fatal error C1083: Cannot open include file: 'cruntime.h': No such file or directory\n/usr/local/bin/cl: line 2:   275 Segmentation fault      (core dumped) wine /opt/msvc710/Vc7/bin/cl.exe \"$@\"\n"
+  },
+  {
+    "address": 269443513,
+    "name": "__vsnprintf",
+    "source": "src/tu_crt/vsnprint.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "eb0a73418df68583b671b56bee93ca50537db1eff4ddf70a2bf7d6c0e183fac8",
+    "job": "job078",
+    "status": "COMPILE_DEFER",
+    "detail": "vsnprint.c\nz:\\inputs\\src\\tu_crt\\vsprintf.c(13) : fatal error C1083: Cannot open include file: 'cruntime.h': No such file or directory\n"
+  },
+  {
+    "address": 269447968,
+    "name": "_vsprintf",
+    "source": "src/tu_crt/vsprintf.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "a19696ee6cf78fea515cb34d219c63e7aeafd1ece568fda2c0a0d880faae6f71",
+    "job": "job079",
+    "status": "COMPILE_DEFER",
+    "detail": "vsprintf.c\nZ:\\inputs\\src\\tu_crt\\vsprintf.c(13) : fatal error C1083: Cannot open include file: 'cruntime.h': No such file or directory\n/usr/local/bin/cl: line 2:   281 Segmentation fault      (core dumped) wine /opt/msvc710/Vc7/bin/cl.exe \"$@\"\n"
+  },
+  {
+    "address": 269449336,
+    "name": "__snprintf",
+    "source": "src/tu_crt/snprintf.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "2bf787343b0ec59606068439bbd5262541432042ce303e6909efa0c5e00a9d3b",
+    "job": "job080",
+    "status": "COMPILE_DEFER",
+    "detail": "snprintf.c\nz:\\inputs\\src\\tu_crt\\sprintf.c(11) : fatal error C1083: Cannot open include file: 'cruntime.h': No such file or directory\n/usr/local/bin/cl: line 2:   284 Segmentation fault      (core dumped) wine /opt/msvc710/Vc7/bin/cl.exe \"$@\"\n"
+  },
+  {
+    "address": 269449529,
+    "name": "FUN_100f7939",
+    "source": "src/tu/tinyF.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "6592f8a48674dd169cace93bc25b284228bbef49a9e37060e0c2f1703daaf9ab",
+    "job": "job081",
+    "object_sha256": "1a7d4a7ff7f3388fbab798fa8b67e8c2dcf45c7b7abb05c95efc13b6588f2a57",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100f7939",
+        "output": "UNRESOLVED binding +1: target=0x100fe7cc, COFF=_h_100fe7cc addend=0x00000000\nUNRESOLVED binding +6: target=0x101a4fb0, COFF=_tbl_101a4fb0 addend=0x00000000\nUNRESOLVED binding +12: target=0x101a4fb4, COFF=_tbl_101a4fb0 addend=0x00000004\nUNRESOLVED binding +16: target=0x100fe45a, COFF=_h_100fe45a addend=0x00000000\nUNRESOLVED binding +22: target=0x101a4fb8, COFF=_tbl_101a4fb0 addend=0x00000008\nUNRESOLVED binding +26: target=0x100fe4bf, COFF=_h_100fe4bf addend=0x00000000\nUNRESOLVED binding +32: target=0x101a4fbc, COFF=_tbl_101a4fb0 addend=0x0000000c\nUNRESOLVED binding +36: target=0x100fe41e, COFF=_h_100fe41e addend=0x00000000\nUNRESOLVED binding +42: target=0x101a4fc0, COFF=_tbl_101a4fb0 addend=0x00000010\nUNRESOLVED binding +46: target=0x100fe4a5, COFF=_h_100fe4a5 addend=0x00000000\nUNRESOLVED binding +51: target=0x101a4fc4, COFF=_tbl_101a4fb0 addend=0x00000014\nSHAPE MATCH: FUN_100f7939, 56 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269463771,
+    "name": "FUN_100fb0db",
+    "source": "src/f/100fb0db_FUN_100fb0db.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "70731d22b91052bcfd92dda150de94168ff74236400a49fc8cc00f211400c2ed",
+    "job": "job082",
+    "object_sha256": "2147f7a1917f61375d69c0160c836be8e4c50f2dcea760c784696554fe5bb28c",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100fb0db@4",
+        "output": "UNRESOLVED binding +2: target=0x1010c10c, COFF=__imp__ImpNoArg@0 addend=0x00000000\nSHAPE MATCH: FUN_100fb0db, 9 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269467568,
+    "name": "FUN_100fbfb0",
+    "source": "src/tu/tinyD.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "5d4a36161e36285f66d86233571fa9f9a8eb01975046c28da9074c4795321226",
+    "job": "job083",
+    "object_sha256": "0a295554c1893de923781790ab80c346f79a8d9e7901069c32337a198fff623b",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "_FUN_100fbfb0",
+        "reason": "length mismatch: target=21, object=18"
+      }
+    ]
+  },
+  {
+    "address": 269467773,
+    "name": "FUN_100fc07d",
+    "source": "src/tu/tinyH.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "8ef6239af427cda8bcaf227c1cd004691c7fd5b46dfc20b48d927624a516b4fb",
+    "job": "job084",
+    "object_sha256": "eb5c058229235c5c97f8ca6e41dcdca0416886aa215e2855c88992e5a905de11",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "_FUN_100fc07d",
+        "reason": "length mismatch: target=49, object=46"
+      }
+    ]
+  },
+  {
+    "address": 269475235,
+    "name": "___crtGetEnvironmentStringsA",
+    "source": "src/tu_crt/a_env.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "fdd5705e91ec9dd227d262d771c2b8a27dc502c2d487a6e44bda232759cabfbd",
+    "job": "job085",
+    "status": "COMPILE_DEFER",
+    "detail": "a_env.c\nZ:\\inputs\\src\\tu_crt\\a_env.c(11) : fatal error C1083: Cannot open include file: 'cruntime.h': No such file or directory\n/usr/local/bin/cl: line 2:   299 Segmentation fault      (core dumped) wine /opt/msvc710/Vc7/bin/cl.exe \"$@\"\n"
+  },
+  {
+    "address": 269476328,
+    "name": "FUN_100fe1e8",
+    "source": "src/tu/tiny1.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "d795a196051fe48f6d67d6acfac6aadbae7058413c96f9b888d01bd596e9c9a7",
+    "job": "job086",
+    "object_sha256": "8c5f11f90e96cd23973ea5c54d5e120d98a73eb831c26ad7af159749d3fc6787",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100fe1e8@12",
+        "output": "SHAPE MATCH: FUN_100fe1e8, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269478280,
+    "name": "__Getdays",
+    "source": "src/tu_crt/strftime.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "8640344025db8770be17f364bb78239af3a1dd9c92fbb88ffc35c0ad84b117ff",
+    "job": "job087",
+    "status": "COMPILE_DEFER",
+    "detail": "strftime.c\nZ:\\inputs\\src\\tu_crt\\strftime.c(10) : fatal error C1083: Cannot open include file: 'cruntime.h': No such file or directory\n/usr/local/bin/cl: line 2:   305 Segmentation fault      (core dumped) wine /opt/msvc710/Vc7/bin/cl.exe \"$@\"\n"
+  },
+  {
+    "address": 269509568,
+    "name": "___ld12tod",
+    "source": "src/tu/tiny7.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "3199d6cb63d7648ce45527b5f564181312a2ba5facddbc54689bc33e3f402b08",
+    "job": "job088",
+    "object_sha256": "0692aa6cf16c8ac34c904c0ebcc9ab6f73c0fd2fab467bc053541235cedf2564",
+    "status": "DEFER",
+    "shape_matches": [
+      {
+        "symbol": "_ld12tod",
+        "output": "UNRESOLVED binding +1: target=0x101a5490, COFF=_fmt_101a5490 addend=0x00000000\nUNRESOLVED binding +14: target=0x10106268, COFF=_P_10106268 addend=0x00000000\nSHAPE MATCH: __ld12tod, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_ld12tof",
+        "output": "UNRESOLVED binding +1: target=0x101a5490, COFF=_fmt_101a54a8 addend=0x00000000\nUNRESOLVED binding +14: target=0x10106268, COFF=_P_10106268 addend=0x00000000\nSHAPE MATCH: __ld12tod, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269509590,
+    "name": "___ld12tof",
+    "source": "src/tu/tiny7.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "3199d6cb63d7648ce45527b5f564181312a2ba5facddbc54689bc33e3f402b08",
+    "job": "job088",
+    "object_sha256": "0692aa6cf16c8ac34c904c0ebcc9ab6f73c0fd2fab467bc053541235cedf2564",
+    "status": "DEFER",
+    "shape_matches": [
+      {
+        "symbol": "_ld12tod",
+        "output": "UNRESOLVED binding +1: target=0x101a54a8, COFF=_fmt_101a5490 addend=0x00000000\nUNRESOLVED binding +14: target=0x10106268, COFF=_P_10106268 addend=0x00000000\nSHAPE MATCH: __ld12tof, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_ld12tof",
+        "output": "UNRESOLVED binding +1: target=0x101a54a8, COFF=_fmt_101a54a8 addend=0x00000000\nUNRESOLVED binding +14: target=0x10106268, COFF=_P_10106268 addend=0x00000000\nSHAPE MATCH: __ld12tof, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269511427,
+    "name": "FUN_10106b03",
+    "source": "src/tu/tiny28.c",
+    "flags": [
+      "/O1"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "11af79e74038a4a355855bd3371ae0ab8e4dc1b970254eac6f2636781daf5465",
+    "job": "job089",
+    "object_sha256": "10733029652f877e63170575798baffa3a1804247ff35ce44ddc076f55bb8ce3",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_10106b03",
+        "output": "UNRESOLVED binding +6: target=0x1076ac9c, COFF=_g_1076ac9c addend=0x00000000\nUNRESOLVED binding +26: target=0x1076aca0, COFF=_tbl_1076aca0 addend=0x00000000\nSHAPE MATCH: __isatty, 42 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269514737,
+    "name": "FUN_101077f1",
+    "source": "src/tu/tinyC.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "5f1bb12e81271bda306bd58f763234529e68ca14649b7cb4b8163a137a6db36c",
+    "job": "job090",
+    "object_sha256": "aacbe104a028f6af841ca3b4b334edb773a1828fc512254cf356e48cdbf61ad0",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "_FUN_101077f1",
+        "reason": "relocation-site/type mismatch: PE={29: 6, 15: 6}, COFF={18: 6, 29: 6}"
+      }
+    ]
+  },
+  {
+    "address": 269526818,
+    "name": "RtlUnwind",
+    "source": "src/tu/thunks.c",
+    "flags": [
+      "/O2"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "53a319d015e105806bb80e3dc805bc963a549adfcd4f1bfd53dd58800e30fdb4",
+    "job": "job040",
+    "object_sha256": "ac80c6d5654a5d9afcbee697a5d5a6b187b546cc1d2bfd3551bb8cd02d4c606e",
+    "status": "DEFER",
+    "shape_matches": [
+      {
+        "symbol": "_RtlUnwind",
+        "output": "UNRESOLVED binding +2: target=0x1010c1a8, COFF=_p_RtlUnwind addend=0x00000000\nSHAPE MATCH: RtlUnwind, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_Direct3DCreate9",
+        "output": "UNRESOLVED binding +2: target=0x1010c1a8, COFF=_p_D3D9 addend=0x00000000\nSHAPE MATCH: RtlUnwind, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_DirectDrawEnumerateExA",
+        "output": "UNRESOLVED binding +2: target=0x1010c1a8, COFF=_p_DDEnumExA addend=0x00000000\nSHAPE MATCH: RtlUnwind, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "symbol": "_DirectDrawCreateEx",
+        "output": "UNRESOLVED binding +2: target=0x1010c1a8, COFF=_p_DDCreateEx addend=0x00000000\nSHAPE MATCH: RtlUnwind, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  }
+]

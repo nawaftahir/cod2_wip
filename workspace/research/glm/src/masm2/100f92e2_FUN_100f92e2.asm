@@ -1,0 +1,8 @@
+.686
+.MODEL FLAT, C
+.CODE
+FUN_100f92e2 PROC
+    mov mov edx, 0101A52EAh
+    jmp L0
+FUN_100f92e2 ENDP
+END

@@ -1,0 +1,16 @@
+wine: created the configuration directory '/root/.wine'
+Could not find Wine Gecko. HTML rendering will be disabled.
+wine: configuration in L"/root/.wine" has been updated.
+jpeg_api_group.c
+z:\inputs\jutils.c(39) : error C2374: 'jpeg_natural_order' : redefinition; multiple initialization
+        z:\inputs\jpegint.h(380) : see declaration of 'jpeg_natural_order'
+z:\inputs\jutils.c(61) : error C2084: function 'long jdiv_round_up(long,long)' already has a body
+        z:\inputs\jpegint.h(371) : see previous definition of 'jdiv_round_up'
+z:\inputs\jutils.c(70) : error C2084: function 'long jround_up(long,long)' already has a body
+        z:\inputs\jpegint.h(372) : see previous definition of 'jround_up'
+z:\inputs\jutils.c(105) : error C2084: function 'void jcopy_sample_rows(JSAMPARRAY,int,JSAMPARRAY,int,int,JDIMENSION)' already has a body
+        z:\inputs\jpegint.h(373) : see previous definition of 'jcopy_sample_rows'
+z:\inputs\jutils.c(134) : error C2084: function 'void jcopy_block_row(JBLOCKROW,JBLOCKROW,JDIMENSION)' already has a body
+        z:\inputs\jpegint.h(376) : see previous definition of 'jcopy_block_row'
+z:\inputs\jutils.c(154) : error C2084: function 'void jzero_far(void *,size_t)' already has a body
+        z:\inputs\jpegint.h(378) : see previous definition of 'jzero_far'

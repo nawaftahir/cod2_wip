@@ -1,0 +1,44 @@
+[
+  {
+    "address": 269467568,
+    "name": "FUN_100fbfb0",
+    "source": "src/tu/tinyD.c",
+    "flags": [
+      "/O1",
+      "/Oy-"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "5d4a36161e36285f66d86233571fa9f9a8eb01975046c28da9074c4795321226",
+    "job": "job000",
+    "object_sha256": "80f74d286b0994f29164fdb67eda957bb156ffca47d954a41be7f49cb2ba6002",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100fbfb0",
+        "output": "UNRESOLVED binding +9: target=0x101a4b28, COFF=_tbl_101a4b28 addend=0x00000000\nUNRESOLVED binding +15: target=0x1010c03c, COFF=__imp__P_1010c03c@4 addend=0x00000000\nSHAPE MATCH: FUN_100fbfb0, 21 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  },
+  {
+    "address": 269467773,
+    "name": "FUN_100fc07d",
+    "source": "src/tu/tinyH.c",
+    "flags": [
+      "/O1",
+      "/Oy-"
+    ],
+    "flags_explicit": true,
+    "source_sha256": "8ef6239af427cda8bcaf227c1cd004691c7fd5b46dfc20b48d927624a516b4fb",
+    "job": "job001",
+    "object_sha256": "93cdd4b01385869f814e91322159ff6f93a9b39ef7e261bb8946c43c5875ce92",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "_FUN_100fc07d",
+        "output": "UNRESOLVED binding +10: target=0x101a4b28, COFF=_tbl_101a4b28 addend=0x00000000\nUNRESOLVED binding +21: target=0x100fbfdd, COFF=_Ensure_100fbfdd addend=0x00000000\nUNRESOLVED binding +33: target=0x100f7832, COFF=_Die_100f7832 addend=0x00000000\nUNRESOLVED binding +42: target=0x1010c030, COFF=__imp__P_1010c030@4 addend=0x00000000\nSHAPE MATCH: __lock, 49 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  }
+]

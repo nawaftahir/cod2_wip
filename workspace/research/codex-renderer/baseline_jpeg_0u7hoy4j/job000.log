@@ -1,0 +1,6 @@
+wine: created the configuration directory '/root/.wine'
+Could not find Wine Gecko. HTML rendering will be disabled.
+wine: configuration in L"/root/.wine" has been updated.
+jpeg_complete_group.c
+z:\inputs\jdcolor.c(62) : warning C4005: 'FIX' : macro redefinition
+        z:\inputs\jdct.h(139) : see previous definition of 'FIX'

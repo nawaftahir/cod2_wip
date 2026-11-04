@@ -1,0 +1,71 @@
+{
+  "status": "COMPLETE-REFERENCE-DATA-MATCH",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "source": "/home/nawaf/cod2/test/dev/refrences/cod2-mp-macho/rodata.c",
+  "source_sha256": "9347b70bb8e18d5d5422edead3bc74ab65681729233b52637ee91be5c1fc3530",
+  "tables": [
+    {
+      "name": "waveletDecodeBlue",
+      "address": "0x10182988",
+      "bytes": 16384,
+      "entries": 4096,
+      "sha256": "eb0c8f4bab629e9aa33f153affa7862a151b6c55ce69fd15ed3e7729bda30ad9",
+      "escape_entries": 64,
+      "bit_lengths": [
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "name": "waveletDecodeRedGreen",
+      "address": "0x10186988",
+      "bytes": 16384,
+      "entries": 4096,
+      "sha256": "b00e631c4d070f71e48ef71ef752b62c3ff46b89a816964bf65c1021da21b297",
+      "escape_entries": 32,
+      "bit_lengths": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "name": "waveletDecodeAlpha",
+      "address": "0x1018a988",
+      "bytes": 16384,
+      "entries": 4096,
+      "sha256": "c2a276ead30ca8c78ea09ac719d6e94c1b7dc84e29eb5ac00fab273acdaee346",
+      "escape_entries": 256,
+      "bit_lengths": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    }
+  ],
+  "bytes": 49152,
+  "compiler_initializer_verified": false,
+  "redistributable_provenance_reviewed": false,
+  "whole_file_identity": false
+}

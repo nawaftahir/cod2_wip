@@ -1,0 +1,39 @@
+[
+  {
+    "source": "_flsbuf.c",
+    "source_sha256": "da3fbee78510a08a8cb1e136bb2360f650bb3aca2edbd406e0e2b4b4ee9e7d07",
+    "job": "job000",
+    "object": "job000.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x100fa320",
+        "symbol": "__flsbuf",
+        "reason": "length mismatch: target=281, object=278"
+      }
+    ],
+    "object_sha256": "bf0f6129fbd19d18399fe1b0d8f033c7d3929a56bc6e4a5c02acb76fc7a63e69"
+  }
+]

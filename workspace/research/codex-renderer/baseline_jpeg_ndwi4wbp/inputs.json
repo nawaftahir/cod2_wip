@@ -1,0 +1,29 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_render_submit",
+  "jobs": [
+    {
+      "source": "j_render_submit.c",
+      "source_sha256": "d660e0ddadc4f077b20618c48d7afb4c73bffa13257d3344f2446ed7dd9a758b",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_render_submit.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "j_render_submit.c": "d660e0ddadc4f077b20618c48d7afb4c73bffa13257d3344f2446ed7dd9a758b"
+  },
+  "discovery_range": [
+    "0x10020d50",
+    "0x100220c0"
+  ],
+  "reused_objects_from": null
+}

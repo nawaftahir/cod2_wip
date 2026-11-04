@@ -1,0 +1,12 @@
+{
+  "status": "MAPPING-PASS",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "input_cases": 5252,
+  "source_sha256": "d3e8e6970232d7a89c974220f05938c7a71582d77ab828fc61c1923cfb891e27",
+  "target_runner_sha256": "eacda27ec3bd137845ce6af893d63820f384e70e06d7e4451c1e42f62d0ca943",
+  "mismatches": [],
+  "code_byte_progress": 0,
+  "exhaustive": false,
+  "wide_mapping_verified": false,
+  "source_note": "preserved decompile oracle, not accepted reconstruction"
+}

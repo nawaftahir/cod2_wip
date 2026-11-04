@@ -1,0 +1,102 @@
+[
+{
+"addr": "1008300b",
+"name": "FUN_1008300b",
+"size": 56
+},
+{
+"addr": "1008317c",
+"name": "FUN_1008317c",
+"size": 56
+},
+{
+"addr": "100840a3",
+"name": "FUN_100840a3",
+"size": 56
+},
+{
+"addr": "1008549a",
+"name": "FUN_1008549a",
+"size": 56
+},
+{
+"addr": "100855b0",
+"name": "FUN_100855b0",
+"size": 56
+},
+{
+"addr": "10086899",
+"name": "FUN_10086899",
+"size": 56
+},
+{
+"addr": "100b872e",
+"name": "FUN_100b872e",
+"size": 56
+},
+{
+"addr": "10058ea0",
+"name": "FUN_10058ea0",
+"size": 57
+},
+{
+"addr": "10063f9f",
+"name": "FUN_10063f9f",
+"size": 57
+},
+{
+"addr": "1006c52d",
+"name": "FUN_1006c52d",
+"size": 57
+},
+{
+"addr": "1008321c",
+"name": "FUN_1008321c",
+"size": 57
+},
+{
+"addr": "100a6002",
+"name": "FUN_100a6002",
+"size": 57
+},
+{
+"addr": "100b8143",
+"name": "FUN_100b8143",
+"size": 57
+},
+{
+"addr": "100b9661",
+"name": "FUN_100b9661",
+"size": 57
+},
+{
+"addr": "100cc7e2",
+"name": "FUN_100cc7e2",
+"size": 57
+},
+{
+"addr": "10009700",
+"name": "FUN_10009700",
+"size": 58
+},
+{
+"addr": "1000d2e0",
+"name": "FUN_1000d2e0",
+"size": 58
+},
+{
+"addr": "10057990",
+"name": "FUN_10057990",
+"size": 58
+},
+{
+"addr": "10068d70",
+"name": "FUN_10068d70",
+"size": 58
+},
+{
+"addr": "100b9975",
+"name": "FUN_100b9975",
+"size": 58
+}
+]

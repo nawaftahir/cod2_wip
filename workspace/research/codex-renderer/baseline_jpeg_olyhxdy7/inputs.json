@@ -1,0 +1,30 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/wavelet_memory_clamps",
+  "jobs": [
+    {
+      "source": "j_wavelet.c",
+      "source_sha256": "93d63244978ea553eda1d6611fe5f1e5947f1a256ee7ebce4b020e4e0df1ef3a",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\j_wavelet.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "j_wavelet.c": "93d63244978ea553eda1d6611fe5f1e5947f1a256ee7ebce4b020e4e0df1ef3a",
+    "common_types.h": "b781d4ce994777835c32df12c586d1c2d47bd5f3762824414b31f0d590589db8"
+  },
+  "discovery_range": [
+    "0x1000ca70",
+    "0x10011300"
+  ],
+  "reused_objects_from": null
+}

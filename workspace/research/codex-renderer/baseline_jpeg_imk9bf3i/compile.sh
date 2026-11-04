@@ -1,0 +1,6 @@
+cl /nologo /c /W3 /O2 /Gy 'Z:\inputs\jccoefct.c' '/FoZ:\out\job000.obj' > /out/job000.log 2>&1
+echo $? > /out/job000.status
+cl /nologo /c /W3 /O2 /Gy 'Z:\inputs\jcprepct.c' '/FoZ:\out\job001.obj' > /out/job001.log 2>&1
+echo $? > /out/job001.status
+cl /nologo /c /W3 /O2 /Gy 'Z:\inputs\jcsample.c' '/FoZ:\out\job002.obj' > /out/job002.log 2>&1
+echo $? > /out/job002.status

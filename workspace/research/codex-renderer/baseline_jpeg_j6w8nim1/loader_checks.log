@@ -1,0 +1,445 @@
+_sprintf @ 0x100f5f14 size=88  vs  _sprintf (obj size=88)
+normalized match: 84/88 bytes (95%)
+first diff @ +43: pe=a3 obj=aa
+pe : 00 89 75 e8 89 75 e0 e8 a3 45 00 00 83 c4 0c 85 f6 8b f8 74
+obj: 00 89 75 e8 89 75 e0 e8 00 00 00 00 83 c4 0c 85 f6 8b f8 74
+BOUND +43: __output -> 0x100fa4e6
+BOUND +76: __flsbuf -> 0x100fa320
+SHAPE MATCH: _sprintf, 88 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_sprintf @ 0x100f5f14 size=88  vs  _sprintf (obj size=88)
+normalized match: 88/88 bytes (100%)
+MATCH (normalized)
+BOUND +43: __output -> 0x100fa4e6
+_format_message @ 0x10052050 size=167  vs  _format_message (obj size=167)
+normalized match: 167/167 bytes (100%)
+MATCH (normalized)
+BOUND +131: _sprintf -> 0x100f5f14
+BOUND +157: _sprintf -> 0x100f5f14
+SHAPE MATCH: _format_message, 167 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_format_message @ 0x10052050 size=167  vs  _format_message (obj size=167)
+normalized match: 167/167 bytes (100%)
+MATCH (normalized)
+_reset_error_mgr @ 0x10052100 size=17  vs  _reset_error_mgr (obj size=17)
+normalized match: 17/17 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _reset_error_mgr, 17 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_reset_error_mgr @ 0x10052100 size=17  vs  _reset_error_mgr (obj size=17)
+normalized match: 17/17 bytes (100%)
+MATCH (normalized)
+_image_jpeg_alloc @ 0x10014610 size=6  vs  _image_jpeg_alloc (obj size=6)
+normalized match: 6/6 bytes (100%)
+MATCH (normalized)
+BOUND +2: _jpeg_renderer_alloc -> 0x101d49dc
+SHAPE MATCH: _image_jpeg_alloc, 6 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_image_jpeg_alloc @ 0x10014610 size=6  vs  _image_jpeg_alloc (obj size=6)
+normalized match: 6/6 bytes (100%)
+MATCH (normalized)
+_image_jpeg_free @ 0x10014620 size=13  vs  _image_jpeg_free (obj size=13)
+normalized match: 13/13 bytes (100%)
+MATCH (normalized)
+BOUND +7: _jpeg_renderer_free -> 0x101d49e0
+SHAPE MATCH: _image_jpeg_free, 13 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_image_jpeg_free @ 0x10014620 size=13  vs  _image_jpeg_free (obj size=13)
+normalized match: 13/13 bytes (100%)
+MATCH (normalized)
+_image_jpeg_error @ 0x10014630 size=17  vs  _image_jpeg_error (obj size=17)
+normalized match: 17/17 bytes (100%)
+MATCH (normalized)
+BOUND +1: ??_C@_0BE@CACEPNIB@jpeg?5internal?5error?$AA@ -> 0x10194214
+BOUND +9: _jpeg_renderer_error -> 0x101d49cc
+SHAPE MATCH: _image_jpeg_error, 17 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_image_jpeg_error @ 0x10014630 size=17  vs  _image_jpeg_error (obj size=17)
+normalized match: 17/17 bytes (100%)
+MATCH (normalized)
+BOUND +1: ??_C@_0BE@CACEPNIB@jpeg?5internal?5error?$AA@ -> 0x10194214
+_image_jpeg_print @ 0x10014650 size=22  vs  _image_jpeg_print (obj size=22)
+normalized match: 22/22 bytes (100%)
+MATCH (normalized)
+BOUND +6: ??_C@_03OFAPEBGM@?$CFs?6?$AA@ -> 0x10194210
+BOUND +14: _jpeg_renderer_print -> 0x101d49c8
+SHAPE MATCH: _image_jpeg_print, 22 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_image_jpeg_print @ 0x10014650 size=22  vs  _image_jpeg_print (obj size=22)
+normalized match: 22/22 bytes (100%)
+MATCH (normalized)
+BOUND +6: ??_C@_03OFAPEBGM@?$CFs?6?$AA@ -> 0x10194210
+_image_jpeg_init_source @ 0x1004a950 size=12  vs  _image_jpeg_init_source (obj size=12)
+normalized match: 12/12 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _image_jpeg_init_source, 12 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_image_jpeg_init_source @ 0x1004a950 size=12  vs  _image_jpeg_init_source (obj size=12)
+normalized match: 12/12 bytes (100%)
+MATCH (normalized)
+_image_jpeg_skip_input @ 0x1004a960 size=21  vs  _image_jpeg_skip_input (obj size=21)
+normalized match: 21/21 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _image_jpeg_skip_input, 21 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_image_jpeg_skip_input @ 0x1004a960 size=21  vs  _image_jpeg_skip_input (obj size=21)
+normalized match: 21/21 bytes (100%)
+MATCH (normalized)
+_image_jpeg_term_source @ 0x1004a980 size=1  vs  _image_jpeg_term_source (obj size=1)
+normalized match: 1/1 bytes (100%)
+MATCH (normalized)
+SHAPE MATCH: _image_jpeg_term_source, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_image_jpeg_term_source @ 0x1004a980 size=1  vs  _image_jpeg_term_source (obj size=1)
+normalized match: 1/1 bytes (100%)
+MATCH (normalized)
+_R_LoadJpg @ 0x10014940 size=785  vs  _R_LoadJpg (obj size=785)
+normalized match: 785/785 bytes (100%)
+MATCH (normalized)
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +335: _jpeg_renderer_max_texture_size -> 0x101d4c84
+BOUND +374: ??_C@_0CF@FCHGOGIL@WARNING?3?5jpeg?5image?5?8?$CFs?8?5is?5not?5@ -> 0x101941ac
+BOUND +382: _jpeg_renderer_print -> 0x101d49c8
+BOUND +459: _jpeg_renderer_temp_alloc -> 0x101d49d8
+BOUND +551: _jpeg_read_scanlines -> 0x1004a5d0
+BOUND +668: _jpeg_finish_decompress -> 0x1004a310
+BOUND +706: ??_C@_0DM@EPHDGDCJ@WARNING?3?5image?5?8?$CFs?8?5is?5larger?5th@ -> 0x101941d4
+BOUND +714: _jpeg_renderer_print -> 0x101d49c8
+BOUND +767: _jpeg_renderer_free_file -> 0x101d4b00
+SHAPE MATCH: _R_LoadJpg, 785 bytes; NOT V2: source semantics, inventory boundaries and bindings require review
+_R_LoadJpg @ 0x10014940 size=785  vs  _R_LoadJpg (obj size=785)
+normalized match: 785/785 bytes (100%)
+MATCH (normalized)
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +335: _jpeg_renderer_max_texture_size -> 0x101d4c84
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +335: _jpeg_renderer_max_texture_size -> 0x101d4c84
+BOUND +374: ??_C@_0CF@FCHGOGIL@WARNING?3?5jpeg?5image?5?8?$CFs?8?5is?5not?5@ -> 0x101941ac
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +335: _jpeg_renderer_max_texture_size -> 0x101d4c84
+BOUND +374: ??_C@_0CF@FCHGOGIL@WARNING?3?5jpeg?5image?5?8?$CFs?8?5is?5not?5@ -> 0x101941ac
+BOUND +382: _jpeg_renderer_print -> 0x101d49c8
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +335: _jpeg_renderer_max_texture_size -> 0x101d4c84
+BOUND +374: ??_C@_0CF@FCHGOGIL@WARNING?3?5jpeg?5image?5?8?$CFs?8?5is?5not?5@ -> 0x101941ac
+BOUND +382: _jpeg_renderer_print -> 0x101d49c8
+BOUND +459: _jpeg_renderer_temp_alloc -> 0x101d49d8
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +335: _jpeg_renderer_max_texture_size -> 0x101d4c84
+BOUND +374: ??_C@_0CF@FCHGOGIL@WARNING?3?5jpeg?5image?5?8?$CFs?8?5is?5not?5@ -> 0x101941ac
+BOUND +382: _jpeg_renderer_print -> 0x101d49c8
+BOUND +459: _jpeg_renderer_temp_alloc -> 0x101d49d8
+BOUND +551: _jpeg_read_scanlines -> 0x1004a5d0
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +335: _jpeg_renderer_max_texture_size -> 0x101d4c84
+BOUND +374: ??_C@_0CF@FCHGOGIL@WARNING?3?5jpeg?5image?5?8?$CFs?8?5is?5not?5@ -> 0x101941ac
+BOUND +382: _jpeg_renderer_print -> 0x101d49c8
+BOUND +459: _jpeg_renderer_temp_alloc -> 0x101d49d8
+BOUND +551: _jpeg_read_scanlines -> 0x1004a5d0
+BOUND +668: _jpeg_finish_decompress -> 0x1004a310
+BOUND +19: _jpeg_renderer_read_file -> 0x101d4afc
+BOUND +75: _error_exit -> 0x10051f90
+BOUND +83: _emit_message -> 0x10052010
+BOUND +91: _output_message -> 0x10051fd0
+BOUND +99: _format_message -> 0x10052050
+BOUND +107: _reset_error_mgr -> 0x10052100
+BOUND +136: _jpeg_std_message_table -> 0x10190ee8
+BOUND +179: _image_jpeg_error -> 0x10014630
+BOUND +190: _image_jpeg_print -> 0x10014650
+BOUND +201: _image_jpeg_alloc -> 0x10014610
+BOUND +212: _image_jpeg_free -> 0x10014620
+BOUND +217: _jpeg_CreateDecompress -> 0x10049e00
+BOUND +281: _image_jpeg_init_source -> 0x1004a950
+BOUND +291: _image_jpeg_skip_input -> 0x1004a960
+BOUND +298: _jpeg_resync_to_restart -> 0x1004f690
+BOUND +305: _image_jpeg_term_source -> 0x1004a980
+BOUND +312: _jpeg_read_header -> 0x1004a130
+BOUND +322: _jpeg_start_decompress -> 0x1004a400
+BOUND +335: _jpeg_renderer_max_texture_size -> 0x101d4c84
+BOUND +374: ??_C@_0CF@FCHGOGIL@WARNING?3?5jpeg?5image?5?8?$CFs?8?5is?5not?5@ -> 0x101941ac
+BOUND +382: _jpeg_renderer_print -> 0x101d49c8
+BOUND +459: _jpeg_renderer_temp_alloc -> 0x101d49d8
+BOUND +551: _jpeg_read_scanlines -> 0x1004a5d0
+BOUND +668: _jpeg_finish_decompress -> 0x1004a310
+BOUND +706: ??_C@_0DM@EPHDGDCJ@WARNING?3?5image?5?8?$CFs?8?5is?5larger?5th@ -> 0x101941d4
+BOUND +714: _jpeg_renderer_print -> 0x101d49c8

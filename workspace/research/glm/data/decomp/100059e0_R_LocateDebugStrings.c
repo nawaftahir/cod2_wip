@@ -1,0 +1,36 @@
+// 100059e0 size=93 R_LocateDebugStrings
+
+void R_LocateDebugStrings(undefined4 *param_1,int param_2,int param_3)
+
+{
+  int iVar1;
+  undefined4 uVar2;
+  uint uVar3;
+  int iVar4;
+  undefined4 *puVar5;
+  
+  iVar1 = DAT_101da9c8;
+  if (param_1 != (undefined4 *)0x0) {
+    if (*(int *)(DAT_101da9c8 + 0x249d54) == 0) {
+      uVar2 = (*(code *)RI_Z_MallocInternal)(param_3 * 0x2c);
+      *(undefined4 *)(iVar1 + 0x249d54) = uVar2;
+    }
+    puVar5 = *(undefined4 **)(iVar1 + 0x249d54);
+    for (uVar3 = (uint)(param_2 * 0x2c) >> 2; uVar3 != 0; uVar3 = uVar3 - 1) {
+      *puVar5 = *param_1;
+      param_1 = param_1 + 1;
+      puVar5 = puVar5 + 1;
+    }
+    for (iVar4 = 0; iVar4 != 0; iVar4 = iVar4 + -1) {
+      *(undefined1 *)puVar5 = *(undefined1 *)param_1;
+      param_1 = (undefined4 *)((int)param_1 + 1);
+      puVar5 = (undefined4 *)((int)puVar5 + 1);
+    }
+    *(int *)(iVar1 + 0x249d58) = param_2;
+    return;
+  }
+  *(int *)(DAT_101da9c8 + 0x249d58) = param_2;
+  return;
+}
+
+

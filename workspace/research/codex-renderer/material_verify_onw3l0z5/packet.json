@@ -1,0 +1,46 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "command": [
+    "cl",
+    "/nologo",
+    "/W3",
+    "/O2",
+    "/Gy",
+    "/c",
+    "Z:\\inputs\\src\\material_queries.c",
+    "Z:\\inputs\\src\\renderer_state.c",
+    "Z:\\inputs\\src\\sun_override.c",
+    "Z:\\inputs\\src\\font_metrics.c",
+    "Z:\\inputs\\src\\visibility_config.c",
+    "Z:\\inputs\\src\\model_bounds.c",
+    "Z:\\inputs\\src\\fog_state.c",
+    "Z:\\inputs\\src\\world_bounds.c",
+    "/FoZ:\\out\\"
+  ],
+  "sources": {
+    "material_queries.c": "567f8741bbdaf6f85e7308262cca8971f70207397ebf4258cf1d5619b003c68f",
+    "renderer_state.c": "a9fcded06c6b638ecf2aaaae878209f20e3319e0d64827a5911759422d7fbf2f",
+    "sun_override.c": "43a4dd492967605cc3c9cbec44cf30b88bf776c15f1fa15f55dfb5a68d09491b",
+    "font_metrics.c": "2930ad7d073a62142871b1c11a37ac8677a04699dda465d1e24af5cfe031d0f4",
+    "visibility_config.c": "17a4c5d1f50222e7e66c9b2840987159a1e1da4aad9735e4ec5e4ba2942c1cc6",
+    "model_bounds.c": "47785e5ba311ca49190ffd028a54b96cbecf54831782476103382dbdaa58a2d6",
+    "fog_state.c": "5eb5241d3cff32d06a7661a07423b017577108ac9e09fdbe5606ab6e9195d4d6",
+    "world_bounds.c": "5550f54ab9e44803bdaa1bf96152f2e60778aaae400e99aa7f4892bed4a6bb25"
+  },
+  "objects": {
+    "material_queries.obj": "d14b8d960f646fef96b3cada92ff6f81b2919dead556029e8268c4221f10555b",
+    "renderer_state.obj": "6e818d95129d676acaeb2ed468184056a70a0e8de2a9a93da06037d7fa3c4b84",
+    "sun_override.obj": "c008b878af30a028f5d4b13688197da8ea9a9410312c58dc895e798e758b8fe3",
+    "font_metrics.obj": "087447076b2c75437c0e53db21809f588c0766a65bb6d8e525ecb73619194e0f",
+    "visibility_config.obj": "52e481b46203b1c33c81a84b38b2f6fecd61d14113d724db9c2d9dfe42cf106f",
+    "model_bounds.obj": "c28bf078bdd5c355a41476fa3835bb749365f717737ec8e631f5ae333d384bcf",
+    "fog_state.obj": "701afa5076fb7212306d773d4ffb57b49967361c102e7bedebe7ed870e1e548e",
+    "world_bounds.obj": "60d70971f34e077d769f9d75ce71228428244352cf4d68f9e410cf3e5649188f"
+  },
+  "status": "REVIEWABLE",
+  "functions": 14,
+  "bytes": 425,
+  "wrong_binding_rejected": true,
+  "host_fixtures_passed": true,
+  "independent_review": false
+}

@@ -1,0 +1,396 @@
+[
+  {
+    "address": 269473252,
+    "name": "___crtExitProcess",
+    "source": "crt71/crt0dat.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "944efe61f6494ed5a59c2385812a90b6122e98092e5275a8a8e9e64db922f23b",
+    "job": "job000",
+    "object_sha256": "b406f743432ab6bd108f301a2d775355d31d92e75291b118c038d502fdeb166f",
+    "status": "DEFER",
+    "shape_matches": [],
+    "failures": [
+      {
+        "symbol": "___crtExitProcess",
+        "reason": "length mismatch: target=47, object=48"
+      },
+      {
+        "symbol": "__initterm",
+        "reason": "length mismatch: target=47, object=24"
+      },
+      {
+        "symbol": "__initterm_e",
+        "reason": "length mismatch: target=47, object=30"
+      },
+      {
+        "symbol": "__cinit",
+        "reason": "length mismatch: target=47, object=95"
+      },
+      {
+        "symbol": "_doexit",
+        "reason": "length mismatch: target=47, object=193"
+      },
+      {
+        "symbol": "_exit",
+        "reason": "length mismatch: target=47, object=17"
+      },
+      {
+        "symbol": "__exit",
+        "reason": "length mismatch: target=47, object=17"
+      },
+      {
+        "symbol": "__cexit",
+        "reason": "length mismatch: target=47, object=15"
+      },
+      {
+        "symbol": "__c_exit",
+        "reason": "length mismatch: target=47, object=15"
+      }
+    ]
+  },
+  {
+    "address": 269473318,
+    "name": "initterm",
+    "source": "crt71/crt0dat.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "944efe61f6494ed5a59c2385812a90b6122e98092e5275a8a8e9e64db922f23b",
+    "job": "job000",
+    "object_sha256": "b406f743432ab6bd108f301a2d775355d31d92e75291b118c038d502fdeb166f",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__initterm",
+        "output": "SHAPE MATCH: __initterm, 24 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "___crtExitProcess",
+        "reason": "length mismatch: target=24, object=48"
+      },
+      {
+        "symbol": "__initterm_e",
+        "reason": "length mismatch: target=24, object=30"
+      },
+      {
+        "symbol": "__cinit",
+        "reason": "length mismatch: target=24, object=95"
+      },
+      {
+        "symbol": "_doexit",
+        "reason": "length mismatch: target=24, object=193"
+      },
+      {
+        "symbol": "_exit",
+        "reason": "length mismatch: target=24, object=17"
+      },
+      {
+        "symbol": "__exit",
+        "reason": "length mismatch: target=24, object=17"
+      },
+      {
+        "symbol": "__cexit",
+        "reason": "length mismatch: target=24, object=15"
+      },
+      {
+        "symbol": "__c_exit",
+        "reason": "length mismatch: target=24, object=15"
+      }
+    ]
+  },
+  {
+    "address": 269473690,
+    "name": "exit",
+    "source": "crt71/crt0dat.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "944efe61f6494ed5a59c2385812a90b6122e98092e5275a8a8e9e64db922f23b",
+    "job": "job000",
+    "object_sha256": "b406f743432ab6bd108f301a2d775355d31d92e75291b118c038d502fdeb166f",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__exit",
+        "output": "UNRESOLVED binding +9: target=0x100fd6c6, COFF=_doexit addend=0x00000000\nSHAPE MATCH: __exit, 17 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "___crtExitProcess",
+        "reason": "length mismatch: target=17, object=48"
+      },
+      {
+        "symbol": "__initterm",
+        "reason": "length mismatch: target=17, object=24"
+      },
+      {
+        "symbol": "__initterm_e",
+        "reason": "length mismatch: target=17, object=30"
+      },
+      {
+        "symbol": "__cinit",
+        "reason": "length mismatch: target=17, object=95"
+      },
+      {
+        "symbol": "_doexit",
+        "reason": "length mismatch: target=17, object=193"
+      },
+      {
+        "symbol": "_exit",
+        "reason": "byte mismatch +3: PE=01, COFF=00"
+      },
+      {
+        "symbol": "__cexit",
+        "reason": "length mismatch: target=17, object=15"
+      },
+      {
+        "symbol": "__c_exit",
+        "reason": "length mismatch: target=17, object=15"
+      }
+    ]
+  },
+  {
+    "address": 269473707,
+    "name": "cexit",
+    "source": "crt71/crt0dat.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "944efe61f6494ed5a59c2385812a90b6122e98092e5275a8a8e9e64db922f23b",
+    "job": "job000",
+    "object_sha256": "b406f743432ab6bd108f301a2d775355d31d92e75291b118c038d502fdeb166f",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__cexit",
+        "output": "UNRESOLVED binding +7: target=0x100fd6c6, COFF=_doexit addend=0x00000000\nSHAPE MATCH: __cexit, 15 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "___crtExitProcess",
+        "reason": "length mismatch: target=15, object=48"
+      },
+      {
+        "symbol": "__initterm",
+        "reason": "length mismatch: target=15, object=24"
+      },
+      {
+        "symbol": "__initterm_e",
+        "reason": "length mismatch: target=15, object=30"
+      },
+      {
+        "symbol": "__cinit",
+        "reason": "length mismatch: target=15, object=95"
+      },
+      {
+        "symbol": "_doexit",
+        "reason": "length mismatch: target=15, object=193"
+      },
+      {
+        "symbol": "_exit",
+        "reason": "length mismatch: target=15, object=17"
+      },
+      {
+        "symbol": "__exit",
+        "reason": "length mismatch: target=15, object=17"
+      },
+      {
+        "symbol": "__c_exit",
+        "reason": "byte mismatch +3: PE=00, COFF=01"
+      }
+    ]
+  },
+  {
+    "address": 269476334,
+    "name": "NMSG_WRITE",
+    "source": "crt71/crt0msg.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "67f7467ddb2edf9aaed7e7e02e96188553ab97fda310724ca5d3e5868e880162",
+    "job": "job001",
+    "object_sha256": "db2d6384dbaab8f24f75ed9cb96b8aa086ce52747388d4279137a3c9b2e4b25f",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__NMSG_WRITE",
+        "output": "UNRESOLVED binding +15: target=0x101a50d0, COFF=___security_cookie addend=0x00000000\nUNRESOLVED binding +41: target=0x101a4f10, COFF=_rterrs addend=0x00000000\nUNRESOLVED binding +60: target=0x101a4f10, COFF=_rterrs addend=0x00000000\nUNRESOLVED binding +71: target=0x101add88, COFF=___error_mode addend=0x00000000\nUNRESOLVED binding +90: target=0x101add8c, COFF=___app_type addend=0x00000000\nUNRESOLVED binding +131: target=0x1010c160, COFF=__imp__GetModuleFileNameA@12 addend=0x00000000\nUNRESOLVED binding +143: target=0x1017cddc, COFF=??_C@_0BH@DNAGHKFM@?$DMprogram?5name?5unknown?$DO?$AA@ addend=0x00000000\nUNRESOLVED binding +149: target=0x100fe890, COFF=_strcpy addend=0x00000000\nUNRESOLVED binding +162: target=0x100fa200, COFF=_strlen addend=0x00000000\nUNRESOLVED binding +177: target=0x100fa200, COFF=_strlen addend=0x00000000\nUNRESOLVED binding +194: target=0x1017cdd8, COFF=??_C@_03KHICJKCI@?4?4?4?$AA@ addend=0x00000000\nUNRESOLVED binding +200: target=0x100f5df0, COFF=_strncpy addend=0x00000000\nUNRESOLVED binding +209: target=0x100fa200, COFF=_strlen addend=0x00000000\nUNRESOLVED binding +215: target=0x101a4f14, COFF=_rterrs addend=0x00000004\nUNRESOLVED binding +222: target=0x100fa200, COFF=_strlen addend=0x00000000\nUNRESOLVED binding +239: target=0x100f8830, COFF=__alloca_probe addend=0x00000000\nUNRESOLVED binding +246: target=0x1017cdbc, COFF=??_C@_0BK@OFGJDLJJ@Runtime?5Error?$CB?6?6Program?3?5?$AA@ addend=0x00000000\nUNRESOLVED binding +252: target=0x100fe890, COFF=_strcpy addend=0x00000000\nUNRESOLVED binding +259: target=0x100fe8a0, COFF=_strcat addend=0x00000000\nUNRESOLVED binding +264: target=0x1017cdb8, COFF=??_C@_02PHMGELLB@?6?6?$AA@ addend=0x00000000\nUNRESOLVED binding +270: target=0x100fe8a0, COFF=_strcat addend=0x00000000\nUNRESOLVED binding +276: target=0x101a4f14, COFF=_rterrs addend=0x00000004\nUNRESOLVED binding +282: target=0x100fe8a0, COFF=_strcat addend=0x00000000\nUNRESOLVED binding +292: target=0x1017cd90, COFF=??_C@_0CF@GOGNBNAK@Microsoft?5Visual?5C?$CL?$CL?5Runtime?5Lib@ addend=0x00000000\nUNRESOLVED binding +298: target=0x10108285, COFF=___crtMessageBoxA addend=0x00000000\nUNRESOLVED binding +317: target=0x101a4f14, COFF=_rterrs addend=0x00000004\nUNRESOLVED binding +324: target=0x100fa200, COFF=_strlen addend=0x00000000\nUNRESOLVED binding +336: target=0x1010c154, COFF=__imp__GetStdHandle@4 addend=0x00000000\nUNRESOLVED binding +343: target=0x1010c124, COFF=__imp__WriteFile@20 addend=0x00000000\nUNRESOLVED binding +360: target=0x10100d4d, COFF=@__security_check_cookie@4 addend=0x00000000\nSHAPE MATCH: __NMSG_WRITE, 375 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "__GET_RTERRMSG",
+        "reason": "length mismatch: target=375, object=42"
+      },
+      {
+        "symbol": "__FF_MSGBANNER",
+        "reason": "length mismatch: target=375, object=57"
+      }
+    ]
+  },
+  {
+    "address": 269476751,
+    "name": "FF_MSGBANNER",
+    "source": "crt71/crt0msg.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "67f7467ddb2edf9aaed7e7e02e96188553ab97fda310724ca5d3e5868e880162",
+    "job": "job001",
+    "object_sha256": "db2d6384dbaab8f24f75ed9cb96b8aa086ce52747388d4279137a3c9b2e4b25f",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__FF_MSGBANNER",
+        "output": "UNRESOLVED binding +1: target=0x101add88, COFF=___error_mode addend=0x00000000\nUNRESOLVED binding +16: target=0x101add8c, COFF=___app_type addend=0x00000000\nUNRESOLVED binding +29: target=0x100fe1ee, COFF=__NMSG_WRITE addend=0x00000000\nUNRESOLVED binding +34: target=0x101ae15c, COFF=__adbgmsg addend=0x00000000\nUNRESOLVED binding +51: target=0x100fe1ee, COFF=__NMSG_WRITE addend=0x00000000\nSHAPE MATCH: __FF_MSGBANNER, 57 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": [
+      {
+        "symbol": "__NMSG_WRITE",
+        "reason": "length mismatch: target=57, object=375"
+      },
+      {
+        "symbol": "__GET_RTERRMSG",
+        "reason": "length mismatch: target=57, object=42"
+      }
+    ]
+  },
+  {
+    "address": 269518107,
+    "name": "__fptrap",
+    "source": "crt71/crt0fp.c",
+    "flags": [
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "flags_explicit": false,
+    "source_sha256": "3f7f40aab4eb2162ac35415b5c645fa8ef38785b8ea48dd2d7bf884d3a8e420b",
+    "job": "job002",
+    "object_sha256": "4bee172c3a6c35c0ee3952829f891e662c37796119cc8413cd2fc1bf21e63634",
+    "status": "SHAPE_ONLY",
+    "shape_matches": [
+      {
+        "symbol": "__fptrap",
+        "output": "UNRESOLVED binding +3: target=0x100f7832, COFF=__amsg_exit addend=0x00000000\nSHAPE MATCH: __fptrap, 9 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "failures": []
+  }
+]

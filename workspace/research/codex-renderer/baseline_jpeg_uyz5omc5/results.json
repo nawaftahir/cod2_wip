@@ -1,0 +1,338 @@
+[
+  {
+    "source": "jpeg_complete_group.c",
+    "source_sha256": "f97a83a14132ac3595a6deb552207d28af92b3f87b3518de9c43cd3508c3e1b8",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jpeg_complete_group.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "3331611eae43226064bd41a74c1b74f0275cfe67bc3a40b0a7d399b15f7bba11",
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x1000ce60",
+        "symbol": "_jpeg_mem_term",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_RegisterFont, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_RegisterFont @ 0x1000ce60 size=1  vs  _jpeg_mem_term (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce70",
+        "symbol": "_jpeg_mem_term",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_ResetImageAllocations, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_ResetImageAllocations @ 0x1000ce70 size=1  vs  _jpeg_mem_term (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce60",
+        "symbol": "_finish_pass_1_quant",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_RegisterFont, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_RegisterFont @ 0x1000ce60 size=1  vs  _finish_pass_1_quant (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce70",
+        "symbol": "_finish_pass_1_quant",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_ResetImageAllocations, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_ResetImageAllocations @ 0x1000ce70 size=1  vs  _finish_pass_1_quant (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce60",
+        "symbol": "_finish_pass2",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_RegisterFont, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_RegisterFont @ 0x1000ce60 size=1  vs  _finish_pass2 (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce70",
+        "symbol": "_finish_pass2",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_ResetImageAllocations, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_ResetImageAllocations @ 0x1000ce70 size=1  vs  _finish_pass2 (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce60",
+        "symbol": "_start_pass_dcolor",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_RegisterFont, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_RegisterFont @ 0x1000ce60 size=1  vs  _start_pass_dcolor (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce70",
+        "symbol": "_start_pass_dcolor",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_ResetImageAllocations, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_ResetImageAllocations @ 0x1000ce70 size=1  vs  _start_pass_dcolor (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce60",
+        "symbol": "_image_jpeg_term_source",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_RegisterFont, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_RegisterFont @ 0x1000ce60 size=1  vs  _image_jpeg_term_source (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce70",
+        "symbol": "_image_jpeg_term_source",
+        "bytes": 1,
+        "diagnostics": "SHAPE MATCH: R_ResetImageAllocations, 1 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nR_ResetImageAllocations @ 0x1000ce70 size=1  vs  _image_jpeg_term_source (obj size=1)\nnormalized match: 1/1 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 1,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000ce80",
+        "symbol": "_Image_Create2DTexture",
+        "bytes": 113,
+        "diagnostics": "UNRESOLVED binding +53: target=0x101d1bf8, COFF=_renderer_device addend=0x00000000\nUNRESOLVED binding +72: target=0x100efe3c, COFF=_Renderer_ErrorDescription@4 addend=0x00000000\nUNRESOLVED binding +96: target=0x101935d4, COFF=??_C@_0DI@FBIKBNDM@Create2DTexture?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5?$CFi?0@ addend=0x00000000\nUNRESOLVED binding +103: target=0x100138c0, COFF=_Renderer_Error addend=0x00000000\nSHAPE MATCH: FUN_1000ce80, 113 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000ce80 @ 0x1000ce80 size=113  vs  _Image_Create2DTexture (obj size=113)\nnormalized match: 113/113 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 113,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000cf00",
+        "symbol": "_Image_Create3DTexture",
+        "bytes": 130,
+        "diagnostics": "UNRESOLVED binding +60: target=0x101d1bf8, COFF=_renderer_device addend=0x00000000\nUNRESOLVED binding +79: target=0x100efe3c, COFF=_Renderer_ErrorDescription@4 addend=0x00000000\nUNRESOLVED binding +112: target=0x10193598, COFF=??_C@_0DM@CHMDJAFG@Create3DTexture?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5?$CFi?0@ addend=0x00000000\nUNRESOLVED binding +119: target=0x100138c0, COFF=_Renderer_Error addend=0x00000000\nSHAPE MATCH: FUN_1000cf00, 130 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000cf00 @ 0x1000cf00 size=130  vs  _Image_Create3DTexture (obj size=130)\nnormalized match: 130/130 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 130,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000cf90",
+        "symbol": "_Image_CreateCubeTexture",
+        "bytes": 119,
+        "diagnostics": "UNRESOLVED binding +25: target=0x101d496b, COFF=_can_mip_cubemaps addend=0x00000000\nUNRESOLVED binding +46: target=0x101d1bf8, COFF=_renderer_device addend=0x00000000\nUNRESOLVED binding +83: target=0x100efe3c, COFF=_Renderer_ErrorDescription@4 addend=0x00000000\nUNRESOLVED binding +101: target=0x10193560, COFF=??_C@_0DH@BIAJHJAE@CreateCubeTexture?5?$CI?5?$CFs?0?5?$CFi?0?5?$CFi?0?5@ addend=0x00000000\nUNRESOLVED binding +108: target=0x100138c0, COFF=_Renderer_Error addend=0x00000000\nSHAPE MATCH: FUN_1000cf90, 119 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000cf90 @ 0x1000cf90 size=119  vs  _Image_CreateCubeTexture (obj size=119)\nnormalized match: 119/119 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 119,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000f020",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "bytes": 135,
+        "diagnostics": "UNRESOLVED binding +15: target=0x1000ef40, COFF=_Image_GetMipMemoryAmount addend=0x00000000\nUNRESOLVED binding +101: target=0x1000ef40, COFF=_Image_GetMipMemoryAmount addend=0x00000000\nSHAPE MATCH: FUN_1000f020, 135 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f020 @ 0x1000f020 size=135  vs  _Image_GetCardMemoryAmount (obj size=135)\nnormalized match: 135/135 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 135,
+        "original_referee_passed": true
+      },
+      {
+        "address": "0x1000f2a0",
+        "symbol": "_Image_CheckFileHeader",
+        "bytes": 67,
+        "diagnostics": "UNRESOLVED binding +32: target=0x10193974, COFF=??_C@_0DM@DMJIFFOH@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5version?5?$CF@ addend=0x00000000\nUNRESOLVED binding +37: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nUNRESOLVED binding +52: target=0x101939b0, COFF=??_C@_0CI@MHFFCKAC@?$FO1ERROR?3?5image?5?8?$CFs?8?5is?5not?5an?5IW@ addend=0x00000000\nUNRESOLVED binding +57: target=0x10061c80, COFF=_Renderer_Print addend=0x00000000\nSHAPE MATCH: FUN_1000f2a0, 67 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000f2a0 @ 0x1000f2a0 size=67  vs  _Image_CheckFileHeader (obj size=67)\nnormalized match: 67/67 bytes (100%)\nMATCH (normalized)\n",
+        "old_inventory_size": 67,
+        "original_referee_passed": true
+      }
+    ],
+    "failures": [
+      {
+        "address": "0x1000d2e0",
+        "symbol": "_jcopy_sample_rows",
+        "reason": "relocation-site/type mismatch: PE={34: 6, 27: 6, 5: 6, 41: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000e280",
+        "symbol": "_do_sarray_io",
+        "reason": "relocation-site/type mismatch: PE={122: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000c0f0",
+        "symbol": "_access_virt_barray",
+        "reason": "relocation-site/type mismatch: PE={154: 6, 187: 6, 221: 6}, COFF={112: 20, 151: 20}"
+      },
+      {
+        "address": "0x1000ce60",
+        "symbol": "_reset_error_mgr",
+        "reason": "byte mismatch +0: PE=c3, COFF=8b"
+      },
+      {
+        "address": "0x1000e730",
+        "symbol": "_jpeg_std_error",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={8: 6, 15: 6, 22: 6, 29: 6, 36: 6, 52: 6}"
+      },
+      {
+        "address": "0x1000e900",
+        "symbol": "_jpeg_CreateCompress",
+        "reason": "relocation-site/type mismatch: PE={37: 6, 30: 6}, COFF={150: 20, 159: 6}"
+      },
+      {
+        "address": "0x1000dd70",
+        "symbol": "_jpeg_write_marker",
+        "reason": "relocation-site/type mismatch: PE={102: 6, 9: 6, 76: 6, 111: 6, 50: 6, 20: 6, 91: 6, 27: 20, 55: 20, 97: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000ce60",
+        "symbol": "_jpeg_write_m_byte",
+        "reason": "byte mismatch +0: PE=c3, COFF=8b"
+      },
+      {
+        "address": "0x1000fc30",
+        "symbol": "_examine_app14",
+        "reason": "relocation-site/type mismatch: PE={153: 6, 142: 6, 45: 20, 94: 20, 114: 20, 131: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000e730",
+        "symbol": "_jpeg_set_marker_processor",
+        "reason": "byte mismatch +0: PE=55, COFF=8b"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_jpeg_set_marker_processor",
+        "reason": "byte mismatch +0: PE=81, COFF=8b"
+      },
+      {
+        "address": "0x1000c820",
+        "symbol": "_alloc_funny_pointers",
+        "reason": "relocation-site/type mismatch: PE={28: 6, 151: 6, 6: 20, 37: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000e730",
+        "symbol": "_create_odither_tables",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={58: 20}"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_create_odither_tables",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={58: 20}"
+      },
+      {
+        "address": "0x1000fc30",
+        "symbol": "_color_quantize",
+        "reason": "relocation-site/type mismatch: PE={153: 6, 142: 6, 45: 20, 94: 20, 114: 20, 131: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000e280",
+        "symbol": "_jinit_1pass_quantizer",
+        "reason": "relocation-site/type mismatch: PE={122: 20}, COFF={23: 6, 30: 6, 37: 6, 120: 20, 126: 20, 142: 20}"
+      },
+      {
+        "address": "0x1000f350",
+        "symbol": "_finish_pass1",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={23: 20}"
+      },
+      {
+        "address": "0x1000f180",
+        "symbol": "_start_pass_2_quant",
+        "reason": "relocation-site/type mismatch: PE={226: 6, 7: 6, 77: 6, 16: 6, 147: 6, 87: 6, 216: 6, 157: 6}, COFF={45: 6, 52: 6, 74: 6, 83: 6, 90: 6, 233: 20}"
+      },
+      {
+        "address": "0x1000d260",
+        "symbol": "_jinit_merged_upsampler",
+        "reason": "relocation-site/type mismatch: PE={66: 6, 6: 6, 43: 6, 50: 6, 56: 6}, COFF={23: 6, 61: 6, 68: 6, 91: 20, 101: 6, 108: 6, 116: 20}"
+      },
+      {
+        "address": "0x1000d260",
+        "symbol": "_null_convert",
+        "reason": "relocation-site/type mismatch: PE={66: 6, 6: 6, 43: 6, 50: 6, 56: 6}, COFF={}"
+      },
+      {
+        "address": "0x1000d200",
+        "symbol": "_gray_rgb_convert",
+        "reason": "relocation-site/type mismatch: PE={41: 6, 7: 20, 29: 20, 48: 20, 70: 20, 82: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000c820",
+        "symbol": "_h2v1_fancy_upsample",
+        "reason": "relocation-site/type mismatch: PE={177: 6, 28: 6, 151: 6, 6: 20, 37: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000cf90",
+        "symbol": "_prepare_range_limit_table",
+        "reason": "relocation-site/type mismatch: PE={25: 6, 101: 6, 46: 6, 83: 20, 108: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000fce0",
+        "symbol": "_prepare_range_limit_table",
+        "reason": "relocation-site/type mismatch: PE={6: 20, 23: 20, 48: 20, 73: 20, 102: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000e280",
+        "symbol": "_jpeg_finish_output",
+        "reason": "relocation-site/type mismatch: PE={122: 20}, COFF={}"
+      },
+      {
+        "address": "0x1000c8d0",
+        "symbol": "_image_jpeg_alloc",
+        "reason": "relocation-site/type mismatch: PE={1: 6}, COFF={2: 6}"
+      },
+      {
+        "address": "0x1000ce60",
+        "symbol": "_image_jpeg_error",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={1: 6, 9: 6}"
+      },
+      {
+        "address": "0x1000fc30",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={153: 6, 142: 6, 45: 20, 94: 20, 114: 20, 131: 20}, COFF={151: 20}"
+      },
+      {
+        "address": "0x1000fce0",
+        "symbol": "_Image_CreateCubeTexture",
+        "reason": "relocation-site/type mismatch: PE={6: 20, 23: 20, 48: 20, 73: 20, 102: 20}, COFF={25: 6, 46: 6, 83: 20, 101: 6, 108: 20}"
+      },
+      {
+        "address": "0x1000c010",
+        "symbol": "_Image_GetMipMemoryAmount",
+        "reason": "incomplete instruction decode"
+      },
+      {
+        "address": "0x1000e840",
+        "symbol": "_Image_GetCardMemoryAmount",
+        "reason": "relocation-site/type mismatch: PE={25: 6, 18: 6}, COFF={15: 20, 101: 20}"
+      },
+      {
+        "address": "0x1000e730",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "byte mismatch +0: PE=55, COFF=81"
+      },
+      {
+        "address": "0x1000edc0",
+        "symbol": "_Image_ClampPicmip",
+        "reason": "byte mismatch +9: PE=74, COFF=ba"
+      },
+      {
+        "address": "0x1000ce60",
+        "symbol": "_finish_input_pass",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={12: 6}"
+      },
+      {
+        "address": "0x1000cd10",
+        "symbol": "_start_pass_huff_decoder",
+        "reason": "relocation-site/type mismatch: PE={66: 6, 131: 6, 137: 6, 297: 6, 43: 6, 11: 6, 76: 6, 274: 6, 147: 6, 84: 6, 308: 6, 214: 6, 23: 6, 124: 6, 6: 20, 38: 20}, COFF={128: 20, 142: 20}"
+      },
+      {
+        "address": "0x1000f7b0",
+        "symbol": "_start_pass_huff_decoder",
+        "reason": "relocation-site/type mismatch: PE={253: 6, 41: 20, 234: 20, 272: 20}, COFF={128: 20, 142: 20}"
+      },
+      {
+        "address": "0x1000cc10",
+        "symbol": "_jinit_phuff_decoder",
+        "reason": "relocation-site/type mismatch: PE={34: 6, 100: 6, 91: 20}, COFF={19: 6}"
+      },
+      {
+        "address": "0x1000e7a0",
+        "symbol": "_jpeg_read_header",
+        "reason": "relocation-site/type mismatch: PE={}, COFF={45: 20}"
+      },
+      {
+        "address": "0x1000fc30",
+        "symbol": "_Image_LoadRaw",
+        "reason": "byte mismatch +125: PE=57, COFF=6a"
+      }
+    ]
+  }
+]

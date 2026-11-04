@@ -1,0 +1,19 @@
+[
+  {
+    "source": "jpeg_complete_group.c",
+    "source_sha256": "a7211f76e91b828f690447c28097aa1e61548e5b572c2d31f5590885184774f4",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\jpeg_complete_group.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": "wine: created the configuration directory '/root/.wine'\nCould not find Wine Gecko. HTML rendering will be disabled.\nwine: configuration in L\"/root/.wine\" has been updated.\njpeg_complete_group.c\nz:\\inputs\\jdhuff.h(46) : error C2371: 'd_derived_tbl' : redefinition; different basic types\n        z:\\inputs\\jdhuff.h(46) : see declaration of 'd_derived_tbl'\nz:\\inputs\\jdhuff.h(85) : error C2371: 'bitread_perm_state' : redefinition; different basic types\n        z:\\inputs\\jdhuff.h(85) : see declaration of 'bitread_perm_state'\nz:\\inputs\\jdhuff.h(99) : error C2371: 'bitread_working_state' : redefinition; different basic types\n        z:\\inputs\\jdhuff.h(99) : see declaration of 'bitread_working_state'\nz:\\inputs\\jdphuff.c(209) : error C2370: 'extend_test' : redefinition; different storage class\n        z:\\inputs\\jdhuff.c(449) : see declaration of 'extend_test'\nz:\\inputs\\jdphuff.c(213) : error C2370: 'extend_offset' : redefinition; different storage class\n        z:\\inputs\\jdhuff.c(453) : see declaration of 'extend_offset'\nz:\\inputs\\jdcolor.c(62) : warning C4005: 'FIX' : macro redefinition\n        z:\\inputs\\jdct.h(139) : see previous definition of 'FIX'\n"
+  }
+]

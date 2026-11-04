@@ -1,0 +1,88 @@
+[
+  {
+    "source": "free.c",
+    "source_sha256": "b8088bb089f5ab06e2cfe7685f7e728fd7d4a42fb19d73093812665e0e1dd30f",
+    "job": "job000",
+    "object": "job000.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71",
+      "/D_MT"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x100f7865",
+        "symbol": "_free",
+        "reason": "length mismatch: target=5, object=113"
+      },
+      {
+        "address": "0x100f84d0",
+        "symbol": "_free",
+        "reason": "length mismatch: target=104, object=113"
+      }
+    ],
+    "object_sha256": "2fd6553443b046476c0d3041cafd85dd31325e51c3019f9c3c3a9359751d8dbc"
+  },
+  {
+    "source": "wctomb.c",
+    "source_sha256": "3f0b2a5aacc5467422d6bd9c4e9812e6a1e77ca0d7438519bc200a410c91b3ee",
+    "job": "job001",
+    "object": "job001.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71",
+      "/D_MT"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10106b2d",
+        "symbol": "___wctomb_mt",
+        "output": "UNRESOLVED binding +66: target=0x1010c044, COFF=__imp__WideCharToMultiByte@32 addend=0x00000000\nUNRESOLVED binding +80: target=0x100fc216, COFF=__errno addend=0x00000000\nSHAPE MATCH: ___wctomb_mt, 96 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      },
+      {
+        "address": "0x10106b8d",
+        "symbol": "_wctomb",
+        "output": "UNRESOLVED binding +1: target=0x100fb114, COFF=__getptd addend=0x00000000\nUNRESOLVED binding +10: target=0x101a4684, COFF=___ptlocinfo addend=0x00000000\nUNRESOLVED binding +17: target=0x100f7cb8, COFF=___updatetlocinfo addend=0x00000000\nUNRESOLVED binding +31: target=0x10106b2d, COFF=___wctomb_mt addend=0x00000000\nSHAPE MATCH: _wctomb, 39 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "b6f7fac70cc8c2ea80f526c3ff2f8b445255557436441d7737079f50bd4b5705"
+  }
+]

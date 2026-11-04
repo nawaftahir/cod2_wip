@@ -1,0 +1,77 @@
+{
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/codex_jpeg_encoder_inline",
+  "jobs": [
+    {
+      "source": "jccoefct.c",
+      "source_sha256": "02e31000ca4219ea1f77aef8e873ff5bc84d74473030be878901c5e44851d0ca",
+      "job": "job000",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jccoefct.c",
+        "/FoZ:\\out\\job000.obj"
+      ]
+    },
+    {
+      "source": "jcprepct.c",
+      "source_sha256": "3b31f8d29f4f5f28ad840b80fcb1c3e8e3a9d9d79b02bceec1ff00909214fefe",
+      "job": "job001",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jcprepct.c",
+        "/FoZ:\\out\\job001.obj"
+      ]
+    },
+    {
+      "source": "jcsample.c",
+      "source_sha256": "e663e86b2517ffe21f385b2c933e28f23aef3fd1a8f65fc7a132b56c445376f0",
+      "job": "job002",
+      "command": [
+        "cl",
+        "/nologo",
+        "/c",
+        "/W3",
+        "/O2",
+        "/Gy",
+        "Z:\\inputs\\jcsample.c",
+        "/FoZ:\\out\\job002.obj"
+      ]
+    }
+  ],
+  "dependencies": {
+    "jdct.h": "4cde9d7c12ffc920e1dd525c6b7f41f88a3ea573af8c66a4b6d0d6ed3d7fd770",
+    "cdjpeg.h": "51414d6b716c3fd47a77b4988988b2755dd3e32aea4ec7860b62b03dafd19c8a",
+    "jchuff.h": "0aa206ea4abf0e68df14745c114fbe1db7705ce5c881b0964babf5acfbc38764",
+    "transupp.h": "ce899a5d2a45663d7f98b2d7cf89db21a7e1aa85bb83106a287fba120c5cdd45",
+    "jcsample.c": "e663e86b2517ffe21f385b2c933e28f23aef3fd1a8f65fc7a132b56c445376f0",
+    "jmorecfg.h": "0cac110cddb31a60a183710b0daf36e20f28f94e565043263072d17d9af51a45",
+    "jpegint.h": "c5a1f2379711bb596d7af3b95d4601890d4814a8f54e5fbd7e91480a90f6f00a",
+    "jutils.c": "75c6cc55bc22796213eb1e52fc8da92d6fd37b5706ea7b10774a04a6407efc62",
+    "jconfig.h": "d766dcf5b000084a0ab254a7e462ff48a0af26f47d2cd28db7a69df262623739",
+    "jdhuff.h": "9474219e38bd98af7fd427e25462857854f3391fe4eaf329a0d0cb5e438e56f3",
+    "cderror.h": "fff8952ba362b0decf1994221dcdce56380540cbc68817fd5cf3e1bfa52c6a7e",
+    "jpeglib.h": "deda5bd36c2ac75d30788781610b8f4db413fd31442b4e8ca4aa0aa35cd4305f",
+    "jversion.h": "7a8c12a9d52f62342b46b64a8d91d148ae7b0398e9663ad03da3e0b882cd2f14",
+    "jmemsys.h": "dbe87b534bc93f9ea54492589e69307b492aff8a377fa3c9c8b54a54de488397",
+    "jcprepct.c": "3b31f8d29f4f5f28ad840b80fcb1c3e8e3a9d9d79b02bceec1ff00909214fefe",
+    "jcmaster.c": "320f1b4aad50c23618b61001ac7c2adb4daf07095dfc39b0a9386d983b6a3156",
+    "jinclude.h": "a6433e5ea0030f4bffd41bcc2f064008afd79de4270cf28494bd43d2fbc5da06",
+    "jccoefct.c": "02e31000ca4219ea1f77aef8e873ff5bc84d74473030be878901c5e44851d0ca",
+    "jerror.h": "324f058e0dc17408ea83a8d47d0a7a1f6ba7553d653f709a9be275971f539fec"
+  },
+  "discovery_range": [
+    "0x10042000",
+    "0x10061000"
+  ],
+  "reused_objects_from": null
+}

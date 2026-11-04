@@ -1,0 +1,1061 @@
+[
+  {
+    "source": "_memicmp.asm",
+    "source_sha256": "7a1c08a00e413eefde53dd8dc094fb436364c0acdb4ef14151f70ea63054b440",
+    "job": "job000",
+    "object": "_memicmp.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "6761ccdbcb0df7b45bb50ef644c50964bebd922dc7861d9f8ccb082a92261152"
+  },
+  {
+    "source": "_stricmp.asm",
+    "source_sha256": "e9a432772130681a4bfd7c9af02d945189df01d88387bfe535a3f317d3d56b5a",
+    "job": "job001",
+    "object": "_stricmp.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100fe3d0",
+        "symbol": "___ascii_stricmp",
+        "output": "SHAPE MATCH: ___ascii_stricmp, 78 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "3b6e7a4855ec3d65bb6a5b8eda6e1486a08871b92a2cab0cbb24fcf8b3f8bbd9"
+  },
+  {
+    "source": "_strnicm.asm",
+    "source_sha256": "2b228a33b5bd27ac18713eb77f5a870dc1d388a667ff6962e794e16daeadc878",
+    "job": "job002",
+    "object": "_strnicm.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10109cf0",
+        "symbol": "___ascii_strnicmp",
+        "output": "SHAPE MATCH: ___ascii_strnicmp, 97 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "4af385724dd90b8425d99ad432830552e01e7aef36e9f57e5b3b09e6d3fe8a24"
+  },
+  {
+    "source": "chkstk.asm",
+    "source_sha256": "9ecf73e1fb58b9f6184a09753f881531886e10639bee71fef264979471609ede",
+    "job": "job003",
+    "object": "chkstk.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100f8830",
+        "symbol": "__chkstk",
+        "output": "SHAPE MATCH: __chkstk, 61 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "a54e51621f6ad09e305a9dfbe7f36faebdc46fad233dd4d3c75c8dde368fb527"
+  },
+  {
+    "source": "dllsupp.asm",
+    "source_sha256": "67be453ad736c3183638c5ba3e18b28cbf71309cbbc54568ff67616f800f1577",
+    "job": "job004",
+    "object": "dllsupp.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "913d8462f8eb24d1e7267dcc254f276a26ac3bd95393ff8ad3c9fa04329fc01c"
+  },
+  {
+    "source": "enable.asm",
+    "source_sha256": "f89242a3a72f753dc3553b76d58d2ec2b843628fcec5dfb1a07275a632f5eeb1",
+    "job": "job005",
+    "object": "enable.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "3e18f4fb0bf156f7a23bcb51e5bdabba32e626a16c83e8984589676fc0c20be2"
+  },
+  {
+    "source": "inp.asm",
+    "source_sha256": "835d44238a5841590afbb43bb5726c7ddd098ae1aedec6b52cc3cf65472da09d",
+    "job": "job006",
+    "object": "inp.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "b3042bbcecb2787a569355d241186444c40208a51bc81abe7574665e7820ff0c"
+  },
+  {
+    "source": "lldiv.asm",
+    "source_sha256": "6cbaf4bbafa9066d2e224c1d83d968567a7d5c4ae90870daf3b783cdfd7b87e4",
+    "job": "job007",
+    "object": "lldiv.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\lldiv.asm\nZ:\\inputs\\crt71\\lldiv.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "lldvrm.asm",
+    "source_sha256": "8d2ba4ecce1a06520a4e64a6413e66d50611bf67bf1b48837de030c1694cee40",
+    "job": "job008",
+    "object": "lldvrm.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\lldvrm.asm\nZ:\\inputs\\crt71\\lldvrm.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "llmul.asm",
+    "source_sha256": "9be0f22f7d93844d8cae5074c37138eccf6790f5e96027f33c196a6c92245c8a",
+    "job": "job009",
+    "object": "llmul.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\llmul.asm\nZ:\\inputs\\crt71\\llmul.asm(19) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "llrem.asm",
+    "source_sha256": "11440f8dd127b7505934352a72c90c2925ac025a0e5b8b18542fe958c481d53d",
+    "job": "job010",
+    "object": "llrem.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\llrem.asm\nZ:\\inputs\\crt71\\llrem.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "llshl.asm",
+    "source_sha256": "c8289a8614ebc7c6d3cce8646b79912f613ae2dd6630cacaf668ddb89e5b8008",
+    "job": "job011",
+    "object": "llshl.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\llshl.asm\nZ:\\inputs\\crt71\\llshl.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "llshr.asm",
+    "source_sha256": "60eae19490be6977a1b8c184bda5e486f64de78c680fea296a8864651aa50a8a",
+    "job": "job012",
+    "object": "llshr.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\llshr.asm\nZ:\\inputs\\crt71\\llshr.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "memccpy.asm",
+    "source_sha256": "54aae790eb037e4cf333c65575b130aa64fe04eff08cf3ce70a7792d261fa1ef",
+    "job": "job013",
+    "object": "memccpy.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "357201dabc74e6976b4a7497c3b7e836938cf27fc4e166101141ae51d0681eaa"
+  },
+  {
+    "source": "memchr.asm",
+    "source_sha256": "223102a026632f5e096c063026291a893af94e7babf1446ba6b6d6272d3f1e3e",
+    "job": "job014",
+    "object": "memchr.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "53d80b10c8c0299d3a6a28a27195570a872d06ea8a01fbc753d7c072919cfdcc"
+  },
+  {
+    "source": "memcmp.asm",
+    "source_sha256": "03d659b365158eab2ab44114b37cd4a4b46886416467734aeada9880562f270e",
+    "job": "job015",
+    "object": "memcmp.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10100d60",
+        "symbol": "_memcmp",
+        "output": "SHAPE MATCH: _memcmp, 184 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "99902a0d8a0988ab57fba0102c1e2823a0ec17b0c72694ba1b04eed870de9fdf"
+  },
+  {
+    "source": "memcpy.asm",
+    "source_sha256": "2f4185786e6f00194d7a096dfe0a454ecdba9bafd93b5329be7f171a21e934a4",
+    "job": "job016",
+    "object": "memcpy.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x100fcdf0",
+        "symbol": "_memcpy",
+        "reason": "length mismatch: target=672, object=829"
+      }
+    ],
+    "object_sha256": "1c378c94866cc32935fb3c4d87c35a18bf795b5497099066012318e8cc56a2c2"
+  },
+  {
+    "source": "memmove.asm",
+    "source_sha256": "9588c6a35e3679f9e00e18b406d877abdb6915244777542ef721c08c6975f5c2",
+    "job": "job017",
+    "object": "memmove.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\memmove.asm\nZ:\\inputs\\crt71\\memmove.asm(16) : fatal error A1000: cannot open file : Intel\\MEMCPY.ASM\n"
+  },
+  {
+    "source": "memset.asm",
+    "source_sha256": "cc65489493f4da44d3c3cec35094df563174bb054362fd26c337dacf6eb1252e",
+    "job": "job018",
+    "object": "memset.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10100340",
+        "symbol": "_memset",
+        "output": "SHAPE MATCH: _memset, 96 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "5d85a4770c6f107b008616d757ba1351a578b33bd105a3d50a4ac094607f832c"
+  },
+  {
+    "source": "outp.asm",
+    "source_sha256": "001fe717936fb408b5006e3b67da8baad0bfb7890c7cae2b80485d3613681fec",
+    "job": "job019",
+    "object": "outp.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "095da866c78bb68eed26a489a8ce82f062fb34d0113c262160947a331c606dcb"
+  },
+  {
+    "source": "strcat.asm",
+    "source_sha256": "c1de77b503daa9d206c543211e5462360aa0d9c497d680f08bf335d149375331",
+    "job": "job020",
+    "object": "strcat.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x100fe8a0",
+        "symbol": "_strcat",
+        "reason": "requires a single-function code section; boundary review needed"
+      }
+    ],
+    "object_sha256": "955875d679b88cb802e44ec1f715f722fa64a4a2865d782e561c2941712eecbf"
+  },
+  {
+    "source": "strchr.asm",
+    "source_sha256": "ccd82ee57d53db85272f9eff333cbb8d452808d100bd89842827706f9f1f2435",
+    "job": "job021",
+    "object": "strchr.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x100f65b0",
+        "symbol": "_strchr",
+        "reason": "requires a single-function code section; boundary review needed"
+      }
+    ],
+    "object_sha256": "6d5a4ee3658b642d13290f27e1812889e1dbda517a352dc9d279aaf3d601c36a"
+  },
+  {
+    "source": "strcmp.asm",
+    "source_sha256": "a77c5f884946248a2b11ae98bad73a58d5d5c7dfac590a687760cbbee414ac2c",
+    "job": "job022",
+    "object": "strcmp.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x101003a0",
+        "symbol": "_strcmp",
+        "reason": "length mismatch: target=135, object=136"
+      }
+    ],
+    "object_sha256": "56fdfbdaac608ff1076631fdd7685fdd7c8bafffcdaa8755fda92917865c40d5"
+  },
+  {
+    "source": "strcspn.asm",
+    "source_sha256": "10275436e1fb07e4eb2a372478a97d29a68905ae7dc8914056f5b763f4c896de",
+    "job": "job023",
+    "object": "strcspn.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\strcspn.asm\nZ:\\inputs\\crt71\\strcspn.asm(16) : fatal error A1000: cannot open file : Intel\\STRSPN.ASM\n"
+  },
+  {
+    "source": "strlen.asm",
+    "source_sha256": "f0c0985304a36a7aeaf2a98dd88ebf5b905cdc289ae3a9283472f379f0281c5f",
+    "job": "job024",
+    "object": "strlen.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100fa200",
+        "symbol": "_strlen",
+        "output": "SHAPE MATCH: _strlen, 139 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "1be4fd0237c747fea4c8aed4c2e2a88d5146c4ff702e24edd2d95253a531177d"
+  },
+  {
+    "source": "strncat.asm",
+    "source_sha256": "0a2e44bab42adfe9b5daff3f825d7e4e2392d5eaea08d8556b19c1c8c1814911",
+    "job": "job025",
+    "object": "strncat.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "98b5980222ceeb52ccd79985a5436bfd98438b0f16eaa26795659139a79f5f94"
+  },
+  {
+    "source": "strncmp.asm",
+    "source_sha256": "bae5a368667128d0d9669831bbc944bea47a9222f557115bb0254f8b720c18b0",
+    "job": "job026",
+    "object": "strncmp.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10100fe0",
+        "symbol": "_strncmp",
+        "output": "SHAPE MATCH: _strncmp, 57 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "1796b6ebb957be9640006ffd093262523a26149c4054bb395b6b65b250b818c6"
+  },
+  {
+    "source": "strncpy.asm",
+    "source_sha256": "30a02e42efdd16c3eed75afae153fd7e4a2258e89ad2bf42b42ea4fd15925678",
+    "job": "job027",
+    "object": "strncpy.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x100f5df0",
+        "symbol": "_strncpy",
+        "output": "SHAPE MATCH: _strncpy, 292 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "21e59bd5443f6368dab72e62e671e6dc435c60f48991227172a71965e5eaf5b0"
+  },
+  {
+    "source": "strnset.asm",
+    "source_sha256": "f2a220c3f13d71748a04894fb5d53c9b333acdc42b55a6d00887f97787ca792b",
+    "job": "job028",
+    "object": "strnset.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "763c239d7b92612db56e253b94780a19f0f2acad8258c392bdb057248e36e5f2"
+  },
+  {
+    "source": "strpbrk.asm",
+    "source_sha256": "77134c6fff94a33ead711dffdd8b43176752ee39930960cd59925113f4d46022",
+    "job": "job029",
+    "object": "strpbrk.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\strpbrk.asm\nZ:\\inputs\\crt71\\strpbrk.asm(16) : fatal error A1000: cannot open file : Intel\\STRSPN.ASM\n"
+  },
+  {
+    "source": "strrchr.asm",
+    "source_sha256": "0da098a7de836b0d564a3b0261e4e80adbcd89b3f7468c17814e2c5390e45189",
+    "job": "job030",
+    "object": "strrchr.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "440c5153471abac4d1e6ee3790b47099ed10ea35798d38c1109a305bfb780283"
+  },
+  {
+    "source": "strrev.asm",
+    "source_sha256": "68e213bd4db8664e23ce449ea8d986fd33d9ee7951294c4205c51cb93a130aa9",
+    "job": "job031",
+    "object": "strrev.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "5b0b12bdb2b404935526c9aadf11e031f91b5d8bda31b91acabefa659aa2caa2"
+  },
+  {
+    "source": "strset.asm",
+    "source_sha256": "7910e053442f5d3a14544bc9f6a6f9fb33f28bbbea9785f1ea054b336f01ae36",
+    "job": "job032",
+    "object": "strset.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "9d390aaeccfed8d29fb7103454bb2af59e3a3cc8e2d50eb9e6c719fd3512934f"
+  },
+  {
+    "source": "strspn.asm",
+    "source_sha256": "a11490478b3b33bef9214e7ef2f8ce57e8badd2eadef5da5b3d6a7688c1effe6",
+    "job": "job033",
+    "object": "strspn.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "311d9074430af1a8c69242822ade558ca59b5302408da59783f5290115506c89"
+  },
+  {
+    "source": "strstr.asm",
+    "source_sha256": "9b2c2abe6f56531106d8d0ef43199f654053dcdea9ae6fecd8d72a562e3dc768",
+    "job": "job034",
+    "object": "strstr.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [],
+    "object_sha256": "7df4047698b2d598932df7f95b6ce3add3b39272ca1c27f8d024c6d8e8bac687"
+  },
+  {
+    "source": "ulldiv.asm",
+    "source_sha256": "fd7c210ae4315fb4c407d1bd42cf1e467cd8aa400043e976779f500b350c646a",
+    "job": "job035",
+    "object": "ulldiv.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\ulldiv.asm\nZ:\\inputs\\crt71\\ulldiv.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "ulldvrm.asm",
+    "source_sha256": "250d9e577d3d94df780698a32197db980d6c2cd3b66fa371850649ee0d984fda",
+    "job": "job036",
+    "object": "ulldvrm.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\ulldvrm.asm\nZ:\\inputs\\crt71\\ulldvrm.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "ullrem.asm",
+    "source_sha256": "80c74d4031befbd92364b1df8f25c28a72b0573b2a68e98a333228c00bf83bf2",
+    "job": "job037",
+    "object": "ullrem.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\ullrem.asm\nZ:\\inputs\\crt71\\ullrem.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "ullshr.asm",
+    "source_sha256": "7a3dc0e52803190a35c94f86061561d050cd1242b7e41b35cab55dc68002e615",
+    "job": "job038",
+    "object": "ullshr.obj",
+    "flags": [
+      "/c",
+      "/coff",
+      "/nologo",
+      "/Cx",
+      "/Zm",
+      "/D?QUIET",
+      "/DQUIET",
+      "/Di386",
+      "/D_WIN32",
+      "/DWIN32",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "COMPILE_DEFER",
+    "detail": " Assembling: Z:\\inputs\\crt71\\ullshr.asm\nZ:\\inputs\\crt71\\ullshr.asm(16) : fatal error A1000: cannot open file : mm.inc\n"
+  },
+  {
+    "source": "secchk.c",
+    "source_sha256": "09ac8e3e7b4d0e021bb1dd92fba316e9a63ace1fe1ffc884bd8f757459f3a78d",
+    "job": "job039",
+    "object": "job039.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "SHAPE_ONLY",
+    "matches": [
+      {
+        "address": "0x10100d4d",
+        "symbol": "@__security_check_cookie@4",
+        "output": "UNRESOLVED binding +2: target=0x101a50d0, COFF=___security_cookie addend=0x00000000\nUNRESOLVED binding +10: target=0x10100d1c, COFF=_report_failure addend=0x00000000\nSHAPE MATCH: __security_check_cookie, 14 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\n"
+      }
+    ],
+    "attempts": [],
+    "object_sha256": "4f1a89e5d2cb92b6edfb9a399fbbf1b6c2c06d92b9c965c263633e022df36b66"
+  },
+  {
+    "source": "free.c",
+    "source_sha256": "b8088bb089f5ab06e2cfe7685f7e728fd7d4a42fb19d73093812665e0e1dd30f",
+    "job": "job040",
+    "object": "job040.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x100f7865",
+        "symbol": "_free",
+        "reason": "length mismatch: target=5, object=56"
+      },
+      {
+        "address": "0x100f84d0",
+        "symbol": "_free",
+        "reason": "length mismatch: target=104, object=56"
+      }
+    ],
+    "object_sha256": "2892e79649b11b134b60152b110948f314f1131cca07cb17d93aa5980dc24bda"
+  },
+  {
+    "source": "wctomb.c",
+    "source_sha256": "3f0b2a5aacc5467422d6bd9c4e9812e6a1e77ca0d7438519bc200a410c91b3ee",
+    "job": "job041",
+    "object": "job041.obj",
+    "flags": [
+      "/nologo",
+      "/c",
+      "/W3",
+      "/Zelp8",
+      "/GFy",
+      "/DWIN32",
+      "/GB",
+      "/Gi-",
+      "/GS",
+      "/Zc:wchar_t",
+      "/Zc:forScope",
+      "/DWIN32_LEAN_AND_MEAN",
+      "/DNOSERVICE",
+      "/D_MBCS",
+      "/D_MB_MAP_DIRECT",
+      "/D_CRTBLD",
+      "/DWINHEAP",
+      "/O1",
+      "/IZ:\\inputs\\crt71"
+    ],
+    "status": "DEFER",
+    "matches": [],
+    "attempts": [
+      {
+        "address": "0x10106b8d",
+        "symbol": "_wctomb",
+        "reason": "length mismatch: target=39, object=102"
+      }
+    ],
+    "object_sha256": "30cb76649f5ea9a748987978ec7d17d9eeda96835ce0dca19165c09c5ec5affb"
+  }
+]

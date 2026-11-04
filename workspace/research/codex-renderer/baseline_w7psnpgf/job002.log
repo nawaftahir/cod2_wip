@@ -1,0 +1,5 @@
+100046e0_FUN_100046e0.c
+Z:\inputs\src\f\100046e0_FUN_100046e0.c(9) : warning C4047: 'function' : 'int *' differs in levels of indirection from 'int'
+Z:\inputs\src\f\100046e0_FUN_100046e0.c(9) : warning C4047: 'function' : 'int' differs in levels of indirection from 'int *'
+Z:\inputs\src\f\100046e0_FUN_100046e0.c(10) : warning C4047: 'function' : 'int *' differs in levels of indirection from 'int'
+Z:\inputs\src\f\100046e0_FUN_100046e0.c(10) : warning C4047: 'function' : 'int' differs in levels of indirection from 'int *'

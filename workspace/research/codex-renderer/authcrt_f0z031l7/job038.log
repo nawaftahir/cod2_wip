@@ -1,0 +1,2 @@
+ Assembling: Z:\inputs\crt71\ullshr.asm
+Z:\inputs\crt71\ullshr.asm(16) : fatal error A1000: cannot open file : mm.inc

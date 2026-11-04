@@ -1,0 +1,93 @@
+{
+  "status": "REVIEWABLE",
+  "address": "0x1000ef40",
+  "code_bytes": 149,
+  "jump_table_bytes": 16,
+  "format_table_bytes": 51,
+  "alignment_bytes": 3,
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+  "inputs": {
+    "image": "sha256:9147e3086f65d733e1bb939cfa4aad7882f494cd87183739258b72194661a694",
+    "reference": "/home/nawaf/cod2/test/dev/codex/renderer/scratch/wavelet_memory_clamps",
+    "jobs": [
+      {
+        "source": "j_wavelet.c",
+        "source_sha256": "93d63244978ea553eda1d6611fe5f1e5947f1a256ee7ebce4b020e4e0df1ef3a",
+        "job": "job000",
+        "command": [
+          "cl",
+          "/nologo",
+          "/c",
+          "/W3",
+          "/O2",
+          "/Gy",
+          "Z:\\inputs\\j_wavelet.c",
+          "/FoZ:\\out\\job000.obj"
+        ]
+      }
+    ],
+    "dependencies": {
+      "j_wavelet.c": "93d63244978ea553eda1d6611fe5f1e5947f1a256ee7ebce4b020e4e0df1ef3a",
+      "common_types.h": "b781d4ce994777835c32df12c586d1c2d47bd5f3762824414b31f0d590589db8"
+    },
+    "discovery_range": [
+      "0x1000ca70",
+      "0x10011300"
+    ],
+    "reused_objects_from": null
+  },
+  "object_sha256": "4efc83c49d384d8b89aa9f26f54ff4bd13b8f692e8f57e59d133294a2d8fdf06",
+  "sites": [
+    {
+      "offset": 23,
+      "symbol": "$L1322",
+      "target": "0x1000efe8"
+    },
+    {
+      "offset": 30,
+      "symbol": "$L1323",
+      "target": "0x1000efd8"
+    },
+    {
+      "offset": 152,
+      "symbol": "$L901",
+      "target": "0x1000ef7e"
+    },
+    {
+      "offset": 156,
+      "symbol": "$L902",
+      "target": "0x1000ef89"
+    },
+    {
+      "offset": 160,
+      "symbol": "$L903",
+      "target": "0x1000ef62"
+    },
+    {
+      "offset": 164,
+      "symbol": "$L906",
+      "target": "0x1000efba"
+    }
+  ],
+  "diagnostics": "BOUND +23: $L1322 -> 0x1000efe8\nBOUND +30: $L1323 -> 0x1000efd8\nSHAPE MATCH: FUN_1000ef40, 149 bytes; NOT V2: source semantics, inventory boundaries and bindings require review\nFUN_1000ef40 @ 0x1000ef40 size=219  vs  _Image_GetMipMemoryAmount (obj size=219)\nnormalized match: 219/219 bytes (100%)\nMATCH (normalized)\n",
+  "fixture_command": [
+    "cc",
+    "-m32",
+    "-std=c89",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-DIMAGE_CREATE_SOURCE=\"/home/nawaf/cod2/test/dev/codex/renderer/scratch/wavelet_memory_clamps/j_wavelet.c\"",
+    "-Wno-unused-parameter",
+    "/home/nawaf/cod2/test/dev/codex/renderer/test_image_memory.c",
+    "-o",
+    "/home/nawaf/cod2/test/dev/codex/renderer/baseline_jpeg_olyhxdy7/image_memory_fixture32"
+  ],
+  "fixture_sha256": "8ce52dccc8c6fe86637f14bdf485438883976377db239b9bb2e98ac1c2601be9",
+  "included_fixture_sha256": "16cdbd2ac78226ef695eb1cab1b25f5af88af99caead8a3b5697fb6e16149260",
+  "wrong_binding_rejected": true,
+  "fixture_passed": true,
+  "independent_review": false,
+  "whole_file_identity": false
+}

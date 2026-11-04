@@ -1,0 +1,40 @@
+[
+  {
+    "source": "j_100efe3c.c",
+    "source_sha256": "d3e8e6970232d7a89c974220f05938c7a71582d77ab828fc61c1923cfb891e27",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_100efe3c.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "c147540c02eb63c7fd10c25c060273d10a732242baf91283dc61229296bab4d4",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  },
+  {
+    "source": "j_100f2b25.c",
+    "source_sha256": "71f7533e2968026c54c3205b1eaec63630d670bbe58422b22856162cccff7f09",
+    "job": "job001",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_100f2b25.c",
+      "/FoZ:\\out\\job001.obj"
+    ],
+    "object_sha256": "e9b27a27130b76381deb42caa0b30d6c8077c579368e391a1ce8ba4046ef5de5",
+    "status": "DEFER",
+    "matches": [],
+    "failures": []
+  }
+]

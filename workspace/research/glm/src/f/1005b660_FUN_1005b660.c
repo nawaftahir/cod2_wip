@@ -1,0 +1,103 @@
+extern int g_1019bc78;
+extern int g_1019bcb4;
+
+__declspec(naked) void FUN_1005b660(void)
+{
+    __asm {
+    sub esp, 0x28
+    mov edx, dword ptr [eax]
+    mov dword ptr [esp + 0x10], edx
+    fld dword ptr [esp + 0x10]
+    mov edx, dword ptr [eax + 4]
+    fmul dword ptr [esp + 0x10]
+    mov dword ptr [esp + 0x10], edx
+    mov edx, dword ptr [eax + 8]
+    fstp dword ptr [esp + 0xc]
+    fld dword ptr [esp + 0x10]
+    fmul dword ptr [esp + 0x10]
+    mov dword ptr [esp + 0x10], edx
+    mov edx, dword ptr [eax + 0xc]
+    fstp dword ptr [esp + 8]
+    fld dword ptr [esp + 0x10]
+    fmul dword ptr [esp + 0x10]
+    mov dword ptr [esp + 0x10], edx
+    fstp dword ptr [esp + 4]
+    fld dword ptr [esp + 0x10]
+    fmul dword ptr [esp + 0x10]
+    fstp dword ptr [esp + 0x24]
+    fld dword ptr [esp + 0x24]
+    fadd dword ptr [esp + 4]
+    fadd dword ptr [esp + 8]
+    fadd dword ptr [esp + 0xc]
+    fstp dword ptr [esp + 0x24]
+    fld dword ptr g_1019bcb4
+    fdiv dword ptr [esp + 0x24]
+    fstp dword ptr [esp]
+    fld dword ptr [esp]
+    fmul dword ptr [esp + 0xc]
+    fstp dword ptr [esp + 0xc]
+    fld dword ptr [esp]
+    fmul dword ptr [esp + 8]
+    fstp dword ptr [esp + 8]
+    fld dword ptr [esp]
+    fmul dword ptr [esp + 4]
+    fstp dword ptr [esp + 4]
+    fld dword ptr [esp]
+    fmul dword ptr [eax]
+    fstp dword ptr [esp + 0x10]
+    fld dword ptr [esp + 0x10]
+    fmul dword ptr [eax + 4]
+    fstp dword ptr [esp + 0x14]
+    fld dword ptr [esp + 0x10]
+    fmul dword ptr [eax + 8]
+    fstp dword ptr [esp + 0x1c]
+    fld dword ptr [esp + 0x10]
+    fmul dword ptr [eax + 0xc]
+    fstp dword ptr [esp + 0x24]
+    fld dword ptr [esp]
+    fmul dword ptr [eax + 4]
+    fstp dword ptr [esp + 0x10]
+    fld dword ptr [esp + 0x10]
+    fmul dword ptr [eax + 8]
+    fstp dword ptr [esp + 0x20]
+    fld dword ptr [esp + 0x10]
+    fmul dword ptr [eax + 0xc]
+    fstp dword ptr [esp + 0x18]
+    fld dword ptr [eax + 0xc]
+    fmul dword ptr [eax + 8]
+    fmul dword ptr [esp]
+    fstp dword ptr [esp + 0x10]
+    fld dword ptr [esp + 4]
+    fadd dword ptr [esp + 8]
+    fsubr dword ptr g_1019bc78
+    fstp dword ptr [ecx]
+    fld dword ptr [esp + 0x10]
+    fadd dword ptr [esp + 0x14]
+    fstp dword ptr [ecx + 4]
+    fld dword ptr [esp + 0x1c]
+    fsub dword ptr [esp + 0x18]
+    fstp dword ptr [ecx + 8]
+    fld dword ptr [esp + 0x14]
+    fsub dword ptr [esp + 0x10]
+    fstp dword ptr [ecx + 0xc]
+    fld dword ptr [esp + 4]
+    fadd dword ptr [esp + 0xc]
+    fsubr dword ptr g_1019bc78
+    fstp dword ptr [ecx + 0x10]
+    fld dword ptr [esp + 0x20]
+    fadd dword ptr [esp + 0x24]
+    fstp dword ptr [ecx + 0x14]
+    fld dword ptr [esp + 0x18]
+    fadd dword ptr [esp + 0x1c]
+    fstp dword ptr [ecx + 0x18]
+    fld dword ptr [esp + 0x20]
+    fsub dword ptr [esp + 0x24]
+    fstp dword ptr [ecx + 0x1c]
+    fld dword ptr [esp + 8]
+    fadd dword ptr [esp + 0xc]
+    fsubr dword ptr g_1019bc78
+    fstp dword ptr [ecx + 0x20]
+    add esp, 0x28
+    ret
+    }
+}

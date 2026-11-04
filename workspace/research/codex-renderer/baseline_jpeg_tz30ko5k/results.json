@@ -1,0 +1,27 @@
+[
+  {
+    "source": "j_wavelet.c",
+    "source_sha256": "c004cb4f09776cb1ad49b39e166a59d173568675b967fe7755cdc9529228edf2",
+    "job": "job000",
+    "command": [
+      "cl",
+      "/nologo",
+      "/c",
+      "/W3",
+      "/O2",
+      "/Gy",
+      "Z:\\inputs\\j_wavelet.c",
+      "/FoZ:\\out\\job000.obj"
+    ],
+    "object_sha256": "06dabd81be9b7f4995741c86dd82c5b7dc0ecd613d81a3dccb4a51adccb6ac74",
+    "status": "DEFER",
+    "matches": [],
+    "failures": [
+      {
+        "address": "0x1000fc30",
+        "symbol": "_Wavelet_DecodeValue",
+        "reason": "relocation-site/type mismatch: PE={153: 6, 142: 6, 45: 20, 94: 20, 114: 20, 131: 20}, COFF={151: 20}"
+      }
+    ]
+  }
+]
