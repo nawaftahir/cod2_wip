@@ -92,7 +92,7 @@ deferrals require the recorded evidence. Do not repeat exhausted variants.
 ## Ownership, integration and cost
 
 Local workers use .agents/<name> and agent/<name>, one TU at a time.
-The browser worker uses radiant/web/easy and workspace/TASK_WEB.md; its exclusive file
+The browser worker uses radiant/web/<lane> (see workspace/TASK_WEB.md) and workspace/TASK_WEB.md; its exclusive file
 is FindTextureDlg.cpp. Codex does not edit that file during the reservation. Gemini edits only
 its assigned source, matches/defer rows and report. Shared headers, flags,
 inventory, tools, library identities and link layout require Codex/owner review;
@@ -105,7 +105,7 @@ A dirty worker is preserved; review an isolated committed snapshot instead.
 Never reset, overwrite or claim over unmerged/newer work. Preserve unrelated
 owner files and drafts. Only Codex integrates/pushes main under the owner's
 existing authorization. The browser worker may commit/push only its assigned
-radiant/web/easy branch, following workspace/TASK_WEB.md. Other workers never push. Use the configured Nawaf identity,
+radiant/web/<lane> (see workspace/TASK_WEB.md) branch, following workspace/TASK_WEB.md. Other workers never push. Use the configured Nawaf identity,
 short messages, no Co-Authored-By, and never commit binaries/assets/projects.
 
 Use RADIANT_CI_NO_NOTIFY=1 unless notifications are separately requested.

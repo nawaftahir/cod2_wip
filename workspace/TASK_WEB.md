@@ -1,27 +1,34 @@
-# Browser worker: FindTextureDlg.cpp
+# Browser workers: three parallel lanes
 
-Repository: https://github.com/nawaftahir/cod2radiant
-Branch: `radiant/web/easy`. Base: `main`. Owner/integrator: Codex.
+Repository: https://github.com/nawaftahir/cod2_wip (private). Radiant is on the `radiant/*` branches.
+Base: `radiant/main`. Claude reviews and merges each lane into `radiant/main`.
 
-Read this file, AGENTS.md, RULES.md, and workspace/research/web/README.md first. Your one
-exclusive TU is `src/radiant/FindTextureDlg.cpp`, plus its new matching header.
+Three chats run at once. Each chat takes ONE lane, pushes only to its own branch and only edits
+the files in its lane. Never touch `main`, `radiant/main`, another lane's branch or another file.
 
-## Easy queue (after FindTextureDlg.cpp, in this order; one file at a time)
-Small editor files with few register-argument ties and a named reference. Finish one fully
-(or record its blockers) before taking the next; Claude reviews and merges each to main.
-1. src/radiant/EntityListDlg.cpp  (22 functions, Q3Radiant Win_ent.cpp)
-2. src/radiant/TextureBar.cpp     (15, iw3xo)
-3. src/radiant/VertEditDlg.cpp    (21, from make show)
-4. src/radiant/vertsel.cpp        (8, Q3Radiant VERTSEL.CPP)
-5. src/radiant/ModelDlg.cpp       (24, Q3Radiant WIN_DLG.CPP)
-6. src/radiant/MapInfo.cpp        (30, Q3Radiant WIN_DLG.CPP)
-7. src/radiant/win_dlg.cpp        (19, Q3Radiant WIN_DLG.CPP)
-8. src/radiant/PrefsDlg.cpp       (10, Q3Radiant PrefsDlg.cpp)
-9. src/radiant/eclass.cpp         (25, Q3Radiant ECLASS.CPP)
-Check workspace/research/q3sweep_game.tsv first: listed functions compile byte-identical from Q3Radiant.
-Never use forced noinline (two were removed on merge and their 5 rows deferred).
-Codex owns PatchDialog, Pmesh, win_main and every other source file. Gemini is
-parked. Never merge or push main, overwrite another branch, or pick another TU.
+| Lane | Branch | Files (in this order; finish or record blockers, then the next) |
+|---|---|---|
+| 1 | `radiant/web/1` | EntityListDlg, TextureBar, KeyValueSelectDlg, DialogInfo, TexEdit, CapDialog, DialogThick, DlgEvent, EditWnd, NameDlg, eclass |
+| 2 | `radiant/web/2` | VertEditDlg, vertsel, RotateDlg, PatchDensityDlg, TerrainDensityDlg, LstToolBar, NewProjDlg, RADEditWnd, ScaleDialog |
+| 3 | `radiant/web/3` | ModelDlg, PrefsDlg, CommandsDlg, cameratargetdlg, FindTextureDlg, TextureLayout, points, win_dlg |
+
+All files are `src/radiant/<name>.cpp`. Their remaining functions: `data/tu_map.tsv` rows for that
+file whose address is not in `ledger/matches.tsv`.
+
+## How a lane works
+1. Read this file, AGENTS.md, RULES.md and workspace/research/web/README.md.
+2. Check workspace/research/q3sweep_game.tsv first: those functions compile byte-identical from
+   Q3Radiant (workspace/research/web/references/q3radiant) and only need copying in.
+3. Recipe that matched this week: `#include "stdafx.h"` at the top of an MFC file, a minimal class
+   declaration with only the members the bodies use (from the Q3Radiant header: same base class,
+   same virtual/afx_msg signatures), then the Q3Radiant body as is.
+4. Struct fields and offsets come from Q3Radiant or the retail exe, never invented. Unconfirmed names
+   stay `FUN_<addr>`.
+5. Push to your lane branch. CI is the referee: it builds, verifies every ledger row and posts
+   the numbers. A ledger row goes in only for a function CI reports as MATCH.
+6. Red CI: fix or revert before the next push.
+
+Real C/C++ only: no asm, `_emit`, byte arrays, forced noinline, fake callers or hardcoded addresses.
 
 ## Start with evidence
 
@@ -53,10 +60,10 @@ retail checksum successfully but branch creation returned HTTP 403, "Resource
 not accessible by integration". Do not assume tool names establish permission.
 Official limitation: https://help.openai.com/en/articles/11145903-connecting-github-to-chatgpt
 
-With a separately write-enabled connection, commit only radiant/web/easy.
+With a separately write-enabled connection, commit only radiant/web/<lane> (see workspace/TASK_WEB.md).
 Otherwise use this working manual handoff: produce complete changed text files
 and a unified diff (or downloadable files if the chat supports downloads). The
-owner commits them in GitHub's web editor on radiant/web/easy, then you read
+owner commits them in GitHub's web editor on radiant/web/<lane> (see workspace/TASK_WEB.md), then you read
 the resulting Actions logs and iterate. Start the editor at:
 https://github.com/nawaftahir/cod2radiant/edit/web/easy/research/web/PROGRESS.md
 Use the file tree to add/edit the draft, request and assigned header together.
@@ -126,7 +133,7 @@ Continue this same TU until complete or a documented ownership handoff.
 
 ## Prompt to paste into a new ChatGPT conversation
 
-> Use the GitHub connection for nawaftahir/cod2radiant on radiant/web/easy.
+> Use the GitHub connection for nawaftahir/cod2radiant on radiant/web/<lane> (see workspace/TASK_WEB.md).
 > Read workspace/TASK_WEB.md, AGENTS.md and workspace/research/web/README.md, then reconstruct your
 > exclusive FindTextureDlg.cpp from its retail evidence and bundled references.
 > Produce a real source draft and trial.tsv; commit them if write tools work,

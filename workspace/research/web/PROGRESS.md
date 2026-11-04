@@ -1084,7 +1084,7 @@ Isolated linked MSVC7.1 trial [41717888766](https://github.com/nawaftahir/cod2ra
 
 Pinned MSVC7.1 isolated trial [41719119375](https://github.com/nawaftahir/cod2radiant/actions/runs/41719119375) verified retail `GraphGetValueFromFraction` (0x4832c0/832B) **MATCH**. The authentic original code was reconstructed from the archival source with seven measured retail assertion sites on lines 454,455,456,464,465,466,473. Six formatted diagnostics use the existing source `assertMsg` macro and the real `knotIndex`, fraction, adjustedFrac and result variables. All **785/785** pre-existing game rows and 8/8 compiler rows remained exact. No verifier or linker relaxation; canonical promotion and PARTIAL com_math ledger count updated, final gate required. Whole executable and full TU remain incomplete.
 
-## 2026-11-04 — radiant/web/easy FindTextureDlg blocked on external select dependency
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) FindTextureDlg blocked on external select dependency
 
 Checked branch head `51552033974d3633c04d7816f2dbc3e9605dc481` and hosted run
 https://github.com/nawaftahir/cod2radiant/actions/runs/41780284116 before taking
@@ -1108,7 +1108,7 @@ Per the owner's current easy-queue instruction, move next to
 integration/ownership resolution.
 
 
-## 2026-11-04 — radiant/web/easy EntityListDlg blocked after 3 accepted routines / 167 B
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) EntityListDlg blocked after 3 accepted routines / 167 B
 
 Reviewed the retail TU in address order against the Q3Radiant
 `EntityListDlg.cpp` ancestor, current decompilation and the earlier pinned-MSVC
@@ -1143,7 +1143,7 @@ remaining authored handlers still pending. Per the easy-queue contract, move
 next to `src/radiant/TextureBar.cpp`.
 
 
-## 2026-11-04 — radiant/web/easy TextureBar first cohort: 3 hosted trial MATCH / 461 B
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) TextureBar first cohort: 3 hosted trial MATCH / 461 B
 
 Isolated trial commit `a6b793faf06257442b4443858b1c2c742fd21998`,
 run https://github.com/nawaftahir/cod2radiant/actions/runs/41793101250,
@@ -1162,7 +1162,7 @@ remain dependent on unreconstructed `select.cpp` calls, so no stubs or
 hardcoded retail targets are added.
 
 
-## 2026-11-04 — radiant/web/easy TextureBar canonical gate PASS; file blocked at 4 / 15
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) TextureBar canonical gate PASS; file blocked at 4 / 15
 
 Promotion commit `5027711f2943a2fd63767b9e43f788da083fffaa`
 passed both jobs in
@@ -1191,7 +1191,7 @@ Therefore `src/radiant/TextureBar.cpp` is **BLOCKED/PARTIAL: 4 / 15,
 462 / 1,608 B accepted**. Continue to `src/radiant/VertEditDlg.cpp`.
 
 
-## 2026-11-04 — radiant/web/easy VertEditDlg first promotion: destructor + DDX / 399 B
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) VertEditDlg first promotion: destructor + DDX / 399 B
 
 Corrected-layout trial commit `14182cd6ce4e055232c6f792df1c223d706977e5`
 passed both hosted jobs in
@@ -1214,7 +1214,7 @@ These two bodies are promoted to canonical source and ledger. Fresh canonical
 gate required before counting the promotion as accepted.
 
 
-## 2026-11-04 — radiant/web/easy VertEditDlg OnDrawItem / 84 B hosted MATCH
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) VertEditDlg OnDrawItem / 84 B hosted MATCH
 
 Trial commit `a0e790e8edd769446900693800efd519a8654652` passed both hosted jobs in
 https://github.com/nawaftahir/cod2radiant/actions/runs/41794916559.
@@ -1229,7 +1229,7 @@ gate at **791 / 791 game rows, 0 failures; 8 / 8 compiler rows**. VertEditDlg
 therefore had 399 accepted bytes before this 84-byte promotion.
 
 
-## 2026-11-04 — radiant/web/easy VertEditDlg subclass/OnInit attempt 1
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) VertEditDlg subclass/OnInit attempt 1
 
 Hosted trial run https://github.com/nawaftahir/cod2radiant/actions/runs/41797466489:
 `FUN_00446410` was **68%**, 115/116 B, first meaningful source difference
@@ -1243,7 +1243,7 @@ same parent pointer storage at 0x01233488 and a 12-byte
 resource controls and key/command pair G / 0x81af.
 
 
-## 2026-11-04 — radiant/web/easy VertEditDlg subclass proc exact and green (+116 B)
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) VertEditDlg subclass proc exact and green (+116 B)
 
 Isolated commit `a6018de9eaad9c7155836681d48e96729da1a85b`,
 run https://github.com/nawaftahir/cod2radiant/actions/runs/41798533236,
@@ -1264,7 +1264,7 @@ this function perturbs an unrelated LTCG-protected com_math row; test it again
 after the proc is canonical.
 
 
-## 2026-11-04 — radiant/web/easy VertEditDlg OnInit exact body blocked by cross-TU LTCG
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) VertEditDlg OnInit exact body blocked by cross-TU LTCG
 
 After canonical promotion of `FUN_00446410`, isolated run
 https://github.com/nawaftahir/cod2radiant/actions/runs/41799100159 again reports
@@ -1278,7 +1278,7 @@ VertEdit regression. Record `0x00446490` deferred with exact-body evidence;
 do not promote until a genuine linker/caller context allows a green full trial.
 
 
-## 2026-11-04 — radiant/web/easy VertEditDlg generated GetMessageMap exact but collateral-blocked
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) VertEditDlg generated GetMessageMap exact but collateral-blocked
 
 Run https://github.com/nawaftahir/cod2radiant/actions/runs/41799906476 reports
 the real MFC-generated `CVertEditDlg::GetMessageMap` at `0x00446400`
@@ -1290,7 +1290,7 @@ regression in protected `GraphGetValueFromFraction` (76%, 828/832 B, first
 green.
 
 
-## 2026-11-04 — radiant/web/easy VertEditDlg accepted proc reordered to retail TU position
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) VertEditDlg accepted proc reordered to retail TU position
 
 Isolated run https://github.com/nawaftahir/cod2radiant/actions/runs/41800770976
 moves the already-accepted `FUN_00446410` definition from before the class to
@@ -1300,7 +1300,7 @@ The body remains **MATCH 116/116 B**, all **793/793 existing game rows** and
 Canonicalize this source-only ordering correction; ledger credit is unchanged.
 
 
-## 2026-11-04 — radiant/web/easy VertEditDlg PARTIAL/BLOCKED after 4 accepted / 599 B
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) VertEditDlg PARTIAL/BLOCKED after 4 accepted / 599 B
 
 Canonical commit `86e974bad4d32092fc6df232ba76879ac5e3fde4`
 has the accepted 116-B subclass proc in the correct retail TU order (after
@@ -1323,7 +1323,7 @@ bodies until genuine LTCG/link context changes. Mark this TU **PARTIAL/BLOCKED**
 and proceed to the next easy-queue file, `src/radiant/vertsel.cpp`.
 
 
-## 2026-11-04 — radiant/web/easy vertsel first source trial: FindEdge exact, FindPoint unlinked
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) vertsel first source trial: FindEdge exact, FindPoint unlinked
 
 Commit `8861b6591d272acda5702c46030a09bdf9f7f868`, run
 https://github.com/nawaftahir/cod2radiant/actions/runs/41802188918 kept the
@@ -1339,7 +1339,7 @@ green requested run, then add the genuine `MakeFace` caller rather than any
 keepalive or noinline workaround.
 
 
-## 2026-11-04 — radiant/web/easy vertsel first accepted function (+104 B)
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) vertsel first accepted function (+104 B)
 
 Isolated commit `51078a03a2cf91dce5acab92c337bbae22a6b504`,
 run https://github.com/nawaftahir/cod2radiant/actions/runs/41802530366 passed
@@ -1352,7 +1352,7 @@ Promote it as the first canonical function in the previously absent
 `MakeFace` caller keeps it emitted.
 
 
-## 2026-11-04 — radiant/web/easy vertsel SelectVertexByRay attempt 1 compile-only failure
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) vertsel SelectVertexByRay attempt 1 compile-only failure
 
 Commit `cf20351b351507d52a80b4923f9a332d99b8dc4a` did not reach retail
 comparison: MSVC 7.1 stopped at `vertsel.cpp(81): C3861 'sqrt' identifier not
@@ -1361,7 +1361,7 @@ found`. No source/matching conclusion is taken from the failed build. Attempt
 are unchanged.
 
 
-## 2026-11-04 — radiant/web/easy vertsel SelectVertexByRay caller-context blocker
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) vertsel SelectVertexByRay caller-context blocker
 
 After adding the normal math declaration, run
 https://github.com/nawaftahir/cod2radiant/actions/runs/41804093041 keeps the
@@ -1372,7 +1372,7 @@ Do not add a fake caller or noinline. Continue in retail order by reconstructing
 the real `MakeFace` caller chain so `FindPoint` can be emitted naturally.
 
 
-## 2026-11-04 — radiant/web/easy vertsel FindPoint accepted (+180 B); TU PARTIAL/BLOCKED
+## 2026-11-04 — radiant/web/<lane> (see workspace/TASK_WEB.md) vertsel FindPoint accepted (+180 B); TU PARTIAL/BLOCKED
 
 The evidence-backed destination-pointer correction to `FindPoint` removes the
 three repeated `numpoints` reloads and gives the retail MSVC 7.1 store shape.
