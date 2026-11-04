@@ -15,8 +15,9 @@ protected:
 
 CDialogInfo g_dlgInfo;
 
-class CMainFrame : public CWnd { public: void UpdatePatchToolbarButtons(); };
-CMainFrame *g_pParentWnd; // Trial storage; source identity/layout still unproven.
+// The parent window is owned by the editor frame TU; do not define fake storage here.
+// Exact static pointer type/binding remains a cross-TU prerequisite.
+extern CWnd *g_pParentWnd;
 
 void ShowInfoDialog(const char *pText)
 {

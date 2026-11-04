@@ -1396,3 +1396,16 @@ not permitted. `MakeFace`, `SetupVertexSelection`, and the remaining selection
 routines therefore stay draft-only until the genuine brush/caller graph is
 reconstructed. Mark `vertsel.cpp` **PARTIAL/BLOCKED: 2 / 8 accepted, 284 B**
 and proceed to `src/radiant/ModelDlg.cpp`.
+
+
+## 2026-11-04 — radiant/web/1 scoped source drafts after access restoration
+
+Write permission is verified on `radiant/web/1`. Draft commit `7087a7ccb6fdecd888b2ecaa175220a512ee6a07` adds the real Q3-derived `CEntityListDlg::OnDblclkTreeEntity` candidate (retail 0x0040ccb0 / 21 B), which remains untested individually because the current generic `workspace/research/web/target.tsv` still selects ModelDlg (another lane). The accepted EntityListDlg constructor, DoDataExchange and 1-byte body stay untouched.
+
+CI run https://github.com/nawaftahir/cod2_wip/actions/runs/41850567623 proves 823/823 existing game rows still MATCH, 0 failed ledger rows, 87,826/699,591 game bytes. The overall gate FAIL is inherited from `radiant/main` at the same base commit: out-of-scope `workspace/research/codex_patchdialog/test_partial.py` raises `AssertionError: ('unexpected unknown callee', '0x4075c0', '0x409270')`. This is a CamWnd AUTO vs CommandsDlg callee-binding issue, not a lane-1 change. No verified game credit is claimed for drafts while the gate is red.
+
+This checkpoint prepares additional draft-only source: `TextureBar.cpp` gains the original Q3 `OnBtnApplytexturestuff -> SetSurfaceAttributes` handler, with no fake implementation of the unresolved setter; `DialogInfo.cpp` removes a guessed owning definition of `g_pParentWnd`; `eclass.cpp` contains Q3's real `EClass_InsertSortedList` source with only target-evidenced pointer fields. `TexEdit.cpp` already has a Q3-style `OnChange` draft. None of these bodies is yet credited.
+
+BLOCKERS: EntityListDlg OnSelect needs select.cpp functions at 0x0046fbe0 and 0x0046f0b0; its destructor has a pre-existing alias CALLEE mismatch. TextureBar's spin/get/set routines need select.cpp and reviewed selected-face/qeglobals storage. DialogInfo ShowInfoDialog (0x00409690) requires three real Pmesh callers and ESI argument context. TexEdit OnChange (0x0043ef60) requires authentic CTexWnd::UpdateFilter at 0x00442d60. eclass requires retail class/global ownership and verified remaining 24 entries. Six other lane files are already FILE VERIFIED; do not churn them.
+
+Existing web trial routing is for ModelDlg, not lane 1. The task's allowlist does not include `workspace/research/web/target.tsv` or `workspace/research/web/tu_trial.tsv`, so this worker does not modify either. Exact isolated trials require an owner-approved lane-specific trial selector. Canonical changes and ledger additions wait for actual CI MATCH and green regression.
