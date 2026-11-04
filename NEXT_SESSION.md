@@ -77,3 +77,13 @@ worktrees by area, lead merges and ratchets. Never fabricate; Mac/Kisak are refe
   value: 117 functions / 18,876 B already byte-match but fail binding because a callee is unmatched (e.g.
   R_InitRenderTargets 2102 B waits on Image_TrackFullscreenTexture 0x1000c9d0, 149 B). First renderer wave = match those
   callees (callee-first unlocking). Also 52 multi-hit twins / 1,707 B need a second copy in the right TU (layout).
+
+## 1.3 update (lead, 2026-11-04 evening)
+- claude_client13 HEAD a227e2e: matched-fn 1,494,263 = 90.80% (session start 89.25%). Paid: libwww = upstream git text minus Id line
+  (libwww 99.5% done, ~1 KB left), w8 1.3 cl/ui sweep (protocol 118, pb key, downloads moved clc->cls, LargeLocal 128 KB bufs),
+  SV_DirectConnect + SV_ConnectionlessPacket from lnxded-1.3 text.
+- Builds do NOT block each other (each `make release` is its own docker container); old "serialize builds" rule is wrong.
+- Fresh worktree setup: copy target/build (36 MB), target/dsound.lib, target/vc70, absolute-path tools/cmp13 (lab13/w8), good13/best/fbest.
+- Parked (notes in NOTES_1.3.md): CL_ConsolePrint_AddLine (branch w8-consoleprint-wip2, regalloc + yylex/PC_EvaluateTokens ties),
+  Com_Init_Try_Block_Function (r_smp_backend_allowed block, frame 0x24 vs 0x20), HTCache_isFresh, HTEvtLst static, VM_Notify.
+- LAYOUT_1.3.md "out of order TUs" and record_dsound "NEW 49 fns" are classifier artifacts (stray first fn / PunkBuster region).
