@@ -11,6 +11,8 @@ tables = tables[:tables.index('// PINNED PC 1.0 material state names')]
 types = (Path(__file__).resolve().parents[2] / 'src/opencod2/headers/common_types.h').read_text()
 enum = types[types.index('enum MaterialTextureSource {'):types.index('enum MaterialVertexDeclType {')]
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstring>
 #include <cstdlib>

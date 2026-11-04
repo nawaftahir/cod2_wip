@@ -11,6 +11,7 @@
 #undef CodeSamplerSource
 #undef CodeConstantSource
 #undef ShaderConstantRouting
+#include "universal/parse_inline.h"
 
 // PC code reads serialized SDK records at offsets8 and12, not COM objects.
 struct ShaderConstantRouting
@@ -101,7 +102,7 @@ Bool Material_ParseVector(const char **text, int elemCount, float *vector)
         vector[index] = Com_ParseFloat(text);
         if (++index == elemCount)
             return Com_MatchToken(text, ")", 1) != 0;
-        token = Com_Parse(text);
+        token = Com_ParseInternal(text);
         if (strcmp(token, ","))
         {
             Com_ScriptWarning("MatchToken: %s != %s\n", token, ",");
@@ -143,7 +144,7 @@ void Material_InitPassOptionsDx7(MaterialPassDx7 *pass)
 static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,
     Bool *finished, Bool *error)
 {
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     for (int index = 0; index != 5; ++index)
     {
         if (!strcmp(s_passOptionsDx7[index].name, token))
@@ -203,7 +204,7 @@ Bool Material_ParseTextureArgumentDx7(const char **text, int samplerIndex, int *
     *argument = 0;
     for (;;)
     {
-        const char *token = Com_Parse(text);
+        const char *token = Com_ParseInternal(text);
         if (!strcmp(token, "complement"))
             *argument |= 8;
         else if (!strcmp(token, "alphaReplicate"))
@@ -296,7 +297,7 @@ static const MtlTextureFunctionDx7 s_textureFuncsDx7[] =
 Bool Material_ParseTextureFunctionDx7(const char **text, int samplerIndex,
     int validTest, int *stageBits)
 {
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     unsigned int index;
     for (index = 0; index < 21; ++index)
         if (!strcmp(token, s_textureFuncsDx7[index].name))
@@ -351,7 +352,7 @@ Bool Material_LoadPassSamplerDx7(const char **text, int samplerIndex,
 Bool Material_LoadPassTexCoordDx7(const char **text, int samplerIndex, byte *generator)
 {
     *generator = 0;
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     if (strcmp(token, "texcoord"))
     {
         Com_UngetToken();
@@ -715,7 +716,7 @@ void Material_PreloadShaderText()
 static const MtlStateMapBitName *Material_ParseStateValue(const char **text,
     const MtlStateMapBitName *bitNames)
 {
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     int index;
     for (index = 0; bitNames[index].name; ++index)
     {
@@ -812,7 +813,7 @@ static Bool Material_ParseRuleSetValue(const char **text, const char *token,
             ++groupIndex;
             if (stateSet[groupIndex].name)
             {
-                separator = Com_Parse(text);
+                separator = Com_ParseInternal(text);
                 if (strcmp(separator, ","))
                 {
                     Com_ScriptWarning("MatchToken: %s != %s\n", separator, ",");
@@ -1175,7 +1176,7 @@ static bool Material_ValidateTechnique(const Material *material, const char *tec
 __declspec(noinline) Bool Material_ParseConstantArrayOffset(const char **text, const ShaderConstantRouting *routing,
     const CodeConstantSource *source, int *offset)
 {
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     if (token[0] != '[')
     {
         Com_UngetToken();
@@ -1356,7 +1357,7 @@ Bool Material_FindDefaultConstantSource(const char *name, const ShaderConstantRo
 // PINNED 10019f10: the first index is narrowed before its range test.
 Bool Material_ParseShaderArgumentArray(const char **text, ShaderConstantRouting *routing)
 {
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     if (token[0] != '[')
     {
         Com_UngetToken();
@@ -1735,10 +1736,10 @@ Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass)
     int count = 0;
     for (;;)
     {
-        const char *token = Com_Parse(text);
+        const char *token = Com_ParseInternal(text);
         if (strcmp(token, "vertex"))
         {
-            Com_UngetToken();
+            Com_UngetTokenInternal();
             Bool existing;
             pass->vertexDecl = Material_AllocVertexDecl(routing, count, &existing);
             if (!existing)
@@ -1748,22 +1749,25 @@ Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass)
         byte destination;
         byte source;
         if (!Com_MatchToken(text, ".", 1)
-            || !Material_ParseStreamDestination(text, Com_Parse(text), &destination)
+            || !Material_ParseStreamDestination(text, Com_ParseInternal(text), &destination)
             || !Com_MatchToken(text, "=", 1) || !Com_MatchToken(text, "code", 1)
             || !Com_MatchToken(text, ".", 1)
-            || !Material_ParseStreamSource(text, Com_ParseOnLine(text), &source)
+            || !Material_ParseStreamSource(text, Com_Parse(text), &source)
             || !Com_MatchToken(text, ";", 1))
             return 0;
         int index = count;
-        while (index > 0 && (routing[index - 1].source > source
-                || (routing[index - 1].source == source && routing[index - 1].dest >= destination)))
+        while (index > 0)
         {
+            if (routing[index - 1].source < source)
+                break;
+            if (routing[index - 1].source == source && routing[index - 1].dest < destination)
+                break;
             routing[index] = routing[index - 1];
             --index;
         }
         routing[index].source = source;
         routing[index].dest = destination;
-        if (++count == 16)
+        if (++count >= sizeof(routing) / sizeof(routing[0]))
         {
             Com_ScriptWarning("More than %i vertex mappings\n", count);
             return 0;

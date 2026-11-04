@@ -1,4 +1,5 @@
 #include "../qcommon/qcommon.h"
+#include "parse_inline.h"
 
 // multiple character punctuation tokens
 static const char *punctuation[] =
@@ -200,19 +201,7 @@ the current token instead of advancing the pointer
 */
 void Com_UngetToken()
 {
-	ParseThreadInfo *parse;
-	parseInfo_t *pi;
-
-	parse = Com_GetParseThreadInfo();
-	pi = &parse->parseInfo[parse->parseInfoNum];
-
-	if ( pi->ungetToken )
-	{
-		Com_ScriptErrorDrop( "UngetToken called twice" );
-	}
-
-	pi->ungetToken = true;
-	parse->tokenPos = parse->prevTokenPos;
+    Com_UngetTokenInternal();
 }
 
 void Com_ParseSetMark( const char **text, com_parse_mark_t *mark )
@@ -471,7 +460,7 @@ If "allowLineBreaks" is qtrue then an empty
 string will be returned if the next token is
 a newline.
 */
-static char *Com_ParseExt( const char **data_p, qboolean allowLineBreaks )
+char *Com_ParseExt( const char **data_p, qboolean allowLineBreaks )
 {
 	char c = 0;
 	int len;
@@ -751,22 +740,9 @@ restart:
 	return pi->token;
 }
 
-char *Com_Parse( const char **data_p )
+__declspec(noinline) char *Com_Parse( const char **data_p )
 {
-	ParseThreadInfo *parse;
-	parseInfo_t *pi;
-
-	parse = Com_GetParseThreadInfo();
-	pi = &parse->parseInfo[parse->parseInfoNum];
-
-	if ( pi->ungetToken )
-	{
-		pi->ungetToken = false;
-		*data_p = pi->backup_text;
-		pi->lines = pi->backup_lines;
-	}
-
-	return Com_ParseExt( data_p, qtrue );
+    return Com_ParseInternal( data_p );
 }
 
 char *Com_ParseOnLine( const char **data_p )
@@ -797,7 +773,7 @@ __declspec(noinline) qboolean Com_MatchToken( const char **buf_p, const char *ma
 {
 	const char *token;
 
-	token = Com_Parse( buf_p );
+	token = Com_ParseInternal( buf_p );
 
 	if ( !strcmp( token, match ) )
 	{
@@ -832,7 +808,7 @@ qboolean Com_SkipBracedSection( const char **program, int maxNesting )
 
 	do
 	{
-		token = Com_Parse( program );
+		token = Com_ParseInternal( program );
 
 		if ( token[1] == 0 )
 		{
@@ -944,7 +920,7 @@ float Com_ParseFloat( const char **buf_p )
 {
 	const char *token;
 
-	token = Com_Parse( buf_p );
+	token = Com_ParseInternal( buf_p );
 	return atof( token );
 }
 
@@ -960,7 +936,7 @@ int Com_ParseInt( const char **buf_p )
 {
 	const char *token;
 
-	token = Com_Parse( buf_p );
+	token = Com_ParseInternal( buf_p );
 	return atoi( token );
 }
 
@@ -981,11 +957,11 @@ void Com_Parse1DMatrix( const char **buf_p, int x, float *m )
 
 	for ( i = 0; i < x; i++ )
 	{
-		token = Com_Parse( buf_p );
+		token = Com_ParseInternal( buf_p );
 		m[i] = atof( token );
 	}
 
-	token = Com_Parse( buf_p );
+	token = Com_ParseInternal( buf_p );
 	if (strcmp(token, ")"))
 		Com_ScriptErrorDrop("MatchToken: %s != %s\n", token, ")");
 }
@@ -1002,7 +978,7 @@ void Com_Parse2DMatrix( const char **buf_p, int y, int x, float *m )
 		Com_Parse1DMatrix( buf_p, x, m + i * x );
 	}
 
-	token = Com_Parse( buf_p );
+	token = Com_ParseInternal( buf_p );
 	if (strcmp(token, ")"))
 		Com_ScriptErrorDrop("MatchToken: %s != %s\n", token, ")");
 }
@@ -1019,7 +995,7 @@ void Com_Parse3DMatrix( const char **buf_p, int z, int y, int x, float *m )
 		Com_Parse2DMatrix( buf_p, y, x, m + i * x * y );
 	}
 
-	token = Com_Parse( buf_p );
+	token = Com_ParseInternal( buf_p );
 	if (strcmp(token, ")"))
 		Com_ScriptErrorDrop("MatchToken: %s != %s\n", token, ")");
 }

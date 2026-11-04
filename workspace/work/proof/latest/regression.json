@@ -1,8 +1,8 @@
 {
-  "functions": 757,
-  "bytes": 125127,
+  "functions": 758,
+  "bytes": 125714,
   "total": 253580,
-  "percent": 49.344191182269896,
+  "percent": 49.57567631516681,
   "baseline_lost": [],
   "gains": [
     {
@@ -861,6 +861,12 @@
       "target": "0x100190c0",
       "bytes": 216,
       "name": "?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z",
+      "object": "r_material_load_obj.obj"
+    },
+    {
+      "target": "0x100191a0",
+      "bytes": 587,
+      "name": "?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z",
       "object": "r_material_load_obj.obj"
     },
     {

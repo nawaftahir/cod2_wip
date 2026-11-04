@@ -1,6 +1,47 @@
 # Renderer progress
 
-## Current verified checkpoint - 2026-11-03, small helpers
+## Current verified checkpoint - 2026-11-04, material parser
+
+C/C++117113/253580=46.183847307%,722 bodies; +587B/+1 body since45e1b60.
+Material_LoadPassVertexDecl at100191a0 now passes full byte and binding checks.
+All2511 prior extents survive; protection now2512.36 assembly-bearing bodies/
+8601 code bytes remain excluded. The denominator is provisional, not whole-DLL
+completion. Root src/ remains10 complete verified files/61 emitted functions;
+the material TU is partial and stays in target/work/src/.
+
+The shared-header recipe still emits private parser/pushback helper copies.
+Removing them is unfinished whole-file layout work, with no coverage credit.
+The ordinary-entry/constant-reader alternative missed required pushback
+inlining; forced public inlining failed linking. /OPT:REF lost1140 protected
+extents and was rejected. Original flags and the passing recipe are retained.
+
+
+Corrected the reconstructed source-token reader to Com_Parse at1005fa50.
+The earlier identification as Com_ParseOnLine at1005faa0 was WRONG; masked
+fdiff output cannot establish a callee's identity. Binding verification caught
+it and withheld credit. The source now preserves retail's newline allowance,
+insertion-loop branches and unsigned array-capacity comparison.
+
+The active PC ParseThreadInfo declaration had tokenPos/prevTokenPos reversed.
+Fixed headers/PC/universal/com_types.h; common_types.h's old body is inactive
+and untouched. Both actual type declarations and MSVC guards now pin record
+size45c and offsets45c0/45c4/45c8, plus line/pushback/backup offsets. Native
+fixtures also pin the actual100192d1 call target. One shared parsing body and
+explicitly audited inline/public sites preserve the previous matches; existing
+Com_ParseExt has C++ linkage inside the DLL. The DLL still exports GetRefAPI only.
+
+All affected material/shader/BSP fixtures pass, including97 DX9 parser cases
+and24 actual shared-token/pushback cases. Four retention negatives reject a
+missing new body or unverified callee row. The source and flags use one build
+output and zero workers. This cohort took8 link attempts (7 completed) and2
+compile failures; failed labels/policies are recorded to avoid repeating them.
+
+Receipt: target/work/proof/nov04_vertex_decl_checkpoint.json. Same-offset file
+equality12.903750259%; whole-DLL SHA and GPU smoke remain unfinished. No push.
+Unrelated354 staged files and rb_state.c are preserved. The unverified occluder
+and surface-loader drafts have no new credit.
+
+## Earlier verified checkpoint - 2026-11-03, small helpers
 
 C/C++116526/253580=45.952362174%,721 bodies; +204B/+7 bodies since
 bb21ec4. All2511 source/library extents pass the unchanged binding referee;

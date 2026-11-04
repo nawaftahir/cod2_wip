@@ -13,6 +13,8 @@ source = source.replace('__declspec(noinline) ', '')
 tables = (work / 'src/gfx_d3d/r_material_state_tables.h').read_text()
 tables = tables[tables.index('// PINNED PC 1.0 code-constant'):tables.index('// PINNED 0x1018eda0.')]
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstring>
 #include <cstdlib>

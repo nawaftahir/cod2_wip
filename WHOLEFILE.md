@@ -2,7 +2,11 @@
 
 ## Execution policy - 2026-11-03
 
-Current verified status lives in PROGRESS.md:45.952% C/C++, not whole-DLL
+2026-11-04: the first material cohort now has587 newly verified C++ bytes.
+Shared parser layout and inline/public boundaries are established with the
+previous matches retained. Continue remaining material callers from this proof.
+
+Current verified status lives in PROGRESS.md:46.184% C/C++, not whole-DLL
 completion. Stop isolated spelling/register sweeps without new target evidence.
 The last two waves of such probes gained nothing.
 

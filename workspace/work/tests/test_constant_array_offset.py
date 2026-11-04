@@ -6,6 +6,8 @@ import tempfile
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_material_load_obj.cpp').read_text()
 source = text[text.index('Bool Material_ParseConstantArrayOffset('):text.index('// PINNED 10019a80:')]
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstring>
 #include <cstdlib>

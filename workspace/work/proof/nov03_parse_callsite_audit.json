@@ -1,0 +1,240 @@
+[
+  {
+    "file": "universal/q_parse.cpp",
+    "name": "Com_MatchToken",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "universal/q_parse.cpp",
+    "name": "Com_SkipBracedSection",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "universal/q_parse.cpp",
+    "name": "Com_ParseFloat",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "universal/q_parse.cpp",
+    "name": "Com_ParseInt",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "universal/q_parse.cpp",
+    "name": "Com_Parse1DMatrix",
+    "source_calls": 2,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "universal/q_parse.cpp",
+    "name": "Com_Parse2DMatrix",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "universal/q_parse.cpp",
+    "name": "Com_Parse3DMatrix",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseVector",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParsePassOptionDx7",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseTextureArgumentDx7",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseTextureFunctionDx7",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadPassTexCoordDx7",
+    "source_calls": 2,
+    "verified": true,
+    "retail_public_calls": 1
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadPassSamplersDx7",
+    "source_calls": 4,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadPassStagesDx7",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_CodeSamplerSource_r",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseSamplerSource",
+    "source_calls": 2,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseStateValue",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseRuleSetCondition",
+    "source_calls": 2,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseRuleSetValue",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseRuleSet",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadPassStateMap",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseConstantArrayOffset",
+    "source_calls": 1,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseCodeConstantSource_r",
+    "source_calls": 2,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseConstantSource",
+    "source_calls": 2,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseShaderArgumentArray",
+    "source_calls": 2,
+    "verified": true,
+    "retail_public_calls": 1
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_ParseShaderArguments",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadPassShader",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadPassVertexDecl",
+    "source_calls": 3,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadTechniqueDx9",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadTechniqueDx7",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_material_load_obj.cpp",
+    "name": "Material_LoadTechniqueSet",
+    "source_calls": 1,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_bsp_load_obj.cpp",
+    "name": "R_ParseSunLight",
+    "source_calls": 2,
+    "verified": true,
+    "retail_public_calls": 0
+  },
+  {
+    "file": "gfx_d3d/r_bsp_load_obj.cpp",
+    "name": "R_ParseEntitySpawnVars",
+    "source_calls": 2,
+    "verified": false,
+    "retail_public_calls": null
+  },
+  {
+    "file": "gfx_d3d/r_bsp_load_obj.cpp",
+    "name": "R_LoadEntities",
+    "source_calls": 2,
+    "verified": false,
+    "retail_public_calls": null
+  }
+]

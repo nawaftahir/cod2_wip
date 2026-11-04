@@ -1,3 +1,45 @@
+# Current verified renderer continuation - 2026-11-04
+
+Read PROGRESS.md first. C++117113B/722 bodies=46.183847307%;2512 protected
+extents. Receipt: target/work/proof/nov04_vertex_decl_checkpoint.json.
+Material_LoadPassVertexDecl587 now fully matches bytes AND bindings; no new
+assembly. Root src/ remains10 complete TUs/61 functions. No push.
+
+Important correction:100192d1 calls Com_Parse at1005fa50, NOT Com_ParseOnLine
+at1005faa0. Earlier notes below that label this call OnLine are incorrect.
+Resolve actual callees through the binary and accepted binding map BEFORE
+source/compiler experiments; fdiff masks addresses and can conceal this error.
+
+Active renderer types are reached through common_types.h -> cod2_types.h ->
+cod2_defs.h / PC/universal/com_types.h. The old common_types.h body is inactive.
+PC parser tokenPos belongs at45c4 and prevTokenPos at45c8. Both active type
+families, the production compiler and tests now enforce the retail offsets.
+
+parse_inline.h holds one token/pushback implementation. The public Com_Parse
+entry is out of line; audited expansion sites call Com_ParseInternal.15 verified
+inline-only readers plus the mixed-call sites are in
+proof/nov03_parse_callsite_audit.json under target/work/. Host fixture aliases
+adapt the private name to the same existing mock API; shared implementation
+and layout fixtures test the actual header separately. Com_ParseExt's C++
+linkage is needed by those inline sites; GetRefAPI remains the sole DLL export.
+No inline_depth pragma or global OnLine noinline experiment remains.
+
+The vertex-declaration body is now pinned by both ratchets; removing it or
+making its callee unverified fails. Next inspect the actual blockers of the
+remaining material passes/arguments. Do not repeat the recorded pointer,
+declaration, bit-expression or incorrect OnLine experiments. Occluder567 and
+surface1503 drafts are preserved but unverified. One physical build only;
+preserve unrelated354 staged files and rb_state.c. Goal remains active.
+
+
+The shared-header recipe still emits private parser/pushback helper copies.
+Removing them is unfinished whole-file layout work, with no coverage credit.
+The ordinary-entry/constant-reader alternative missed required pushback
+inlining; forced public inlining failed linking. /OPT:REF lost1140 protected
+extents and was rejected. Original flags and the passing recipe are retained.
+
+## Earlier continuation notes
+
 ## Unverified surface-loader draft
 
 work/src/gfx_d3d/r_xsurface_load_obj.cpp reads the blend record before advancing

@@ -79,6 +79,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?Com_ParseInternal@@YAPADPAPBD@Z$private$r_bsp_load_obj.obj": {
+"t": "0x1005fa50",
+"n": 68,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z": {
 "t": "0x10001940",
 "n": 118,
@@ -1667,6 +1673,18 @@
 "obj": "r_material.obj",
 "why": []
 },
+"?Com_UngetTokenInternal@@YAXXZ$private$r_material_load_obj.obj": {
+"t": "0x1005f3f0",
+"n": 82,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
+"?Com_ParseInternal@@YAPADPAPBD@Z$private$r_material_load_obj.obj": {
+"t": "0x1005fa50",
+"n": 68,
+"obj": "r_material_load_obj.obj",
+"why": []
+},
 "?Material_ParseVector@@YAEPAPBDHPAM@Z": {
 "t": "0x100197a0",
 "n": 281,
@@ -1714,14 +1732,6 @@
 "n": 103,
 "obj": "r_material_load_obj.obj",
 "why": []
-},
-"?Material_ParseSamplerSource@@YAEPAPBDPAUMaterialShaderArgument@@@Z": {
-"t": "0x10019620",
-"n": 211,
-"obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_CodeSamplerSource_r@@YAEPAPBDHPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z"
-]
 },
 "?Material_FindScalarSamplerSource@@YAEPBDPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z": {
 "t": "0x10019700",
@@ -1783,14 +1793,6 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_ParseRuleSet@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAPBUMaterialStateMapRuleSet@@@Z": {
-"t": "0x100188e0",
-"n": 517,
-"obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_ParseRuleSetCondition@@YA?AW4MtlParseSuccess@@PAPBDPBDPAUMaterialStateMapRule@@@Z"
-]
-},
 "?Material_FixupRgbBlend@@YAXPAUMaterialStateMapRuleSet@@@Z": {
 "t": "0x10018af0",
 "n": 96,
@@ -1827,14 +1829,6 @@
 "call ?Material_LoadStateMap@@YAPAUMaterialStateMap@@PBD@Z"
 ]
 },
-"?Material_LoadPassStateMap@@YAEPAPBDPAPAUMaterialStateMap@@@Z": {
-"t": "0x10018ee0",
-"n": 161,
-"obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_LoadCachedStateMap@@YAPAUMaterialStateMap@@PBD@Z"
-]
-},
 "?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z": {
 "t": "0x10018250",
 "n": 109,
@@ -1852,14 +1846,6 @@
 "n": 271,
 "obj": "r_material_load_obj.obj",
 "why": []
-},
-"?Material_ParseConstantSource@@YAEPAPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z": {
-"t": "0x10019ca0",
-"n": 358,
-"obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_ParseCodeConstantSource_r@@YAEPAPBDPBUShaderConstantRouting@@HPBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z"
-]
 },
 "?Material_FindScalarConstantSource@@YAEPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z": {
 "t": "0x10019e10",
@@ -1879,27 +1865,11 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_ParseShaderArgument@@YAEPAPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z": {
-"t": "0x1001a030",
-"n": 164,
-"obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_ParseConstantSource@@YAEPAPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z"
-]
-},
 "?Material_DefaultShaderArgument@@YAEPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z": {
 "t": "0x1001a0e0",
 "n": 128,
 "obj": "r_material_load_obj.obj",
 "why": []
-},
-"?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z": {
-"t": "0x1001a810",
-"n": 266,
-"obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_CreateShader@@YAPAUMaterialShader@@PBDHH@Z"
-]
 },
 "?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z": {
 "t": "0x10018f90",
@@ -1919,21 +1889,11 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
-"?Material_LoadPassVertexShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z": {
-"t": "0x1001aa00",
-"n": 75,
+"?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z": {
+"t": "0x100191a0",
+"n": 587,
 "obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z"
-]
-},
-"?Material_LoadPassPixelShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z": {
-"t": "0x1001aa50",
-"n": 75,
-"obj": "r_material_load_obj.obj",
-"why": [
-"call ?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z"
-]
+"why": []
 },
 "?Material_LoadCachedTechnique@@YAPAUMaterialTechnique@@PBD@Z": {
 "t": "0x1001bde0",
@@ -6909,6 +6869,18 @@
 "t": "0x1005edb0",
 "n": 169,
 "obj": "fft.obj",
+"why": []
+},
+"?Com_UngetTokenInternal@@YAXXZ$private$q_parse.obj": {
+"t": "0x1005f3f0",
+"n": 82,
+"obj": "q_parse.obj",
+"why": []
+},
+"?Com_ParseInternal@@YAPADPAPBD@Z$private$q_parse.obj": {
+"t": "0x1005fa50",
+"n": 68,
+"obj": "q_parse.obj",
 "why": []
 },
 "?Com_InitParseInfo@@YAXPAUparseInfo_t@@@Z": {

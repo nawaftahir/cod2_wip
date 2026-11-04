@@ -1,0 +1,19 @@
+{
+  "status": "Rejected emission experiments; passing source restored",
+  "single_entry_size": 534,
+  "target_size": 587,
+  "forced_unget_result": "LNK2001: public Com_UngetToken unresolved",
+  "ref_lost_extents": 1140,
+  "source_recipe": "shared inline body and public wrapper",
+  "private_emitted_copies": {
+    "Com_ParseInternal": 3,
+    "Com_UngetTokenInternal": 2
+  },
+  "extra_exports_or_roots": false,
+  "sha256": {
+    "proof/latest/nov04_parser_affected_fixtures.log": "0718b1523d7a3fb1d414fc8955711333dcd5aeda89257f1670855e66e54b0771",
+    "proof/latest/nov04_cross_tu_fastcall_probe.log": "57500aa3072e032a5ee98ef859d28621087f532ddd5c00da93a60a6d8a7a41f6",
+    "proof/latest/nov04_parser_single_entry_trial.log": "d2cd2b14bf15b19f242e2bad821c7186a3c5bae6816c7843f5855d877f5bffc4",
+    "proof/latest/nov04_parser_single_entry_inline_unget.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

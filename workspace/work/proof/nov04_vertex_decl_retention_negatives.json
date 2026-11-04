@@ -1,0 +1,22 @@
+[
+  {
+    "mutation": "missing",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "mutation": "missing",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "mutation": "unverified_callee",
+    "gate": "regression.py",
+    "rejected": true
+  },
+  {
+    "mutation": "unverified_callee",
+    "gate": "check_checkpoint.py",
+    "rejected": true
+  }
+]

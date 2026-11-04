@@ -1,0 +1,71 @@
+{
+  "status": "V3 checkpoint; whole-file SHA and GPU smoke unfinished",
+  "base_commit": "45e1b60",
+  "cpp_bytes": 117113,
+  "cpp_percent": 46.183847306569916,
+  "cpp_bodies": 722,
+  "denominator": 253580,
+  "denominator_caveat": "Inventory-based and provisional, not whole-file completion",
+  "net_cpp_bytes": 587,
+  "new_function": {
+    "target": "0x100191a0",
+    "bytes": 587,
+    "name": "Material_LoadPassVertexDecl",
+    "source": "target/work/src/gfx_d3d/r_material_load_obj.cpp",
+    "byte_and_binding_verified": true
+  },
+  "protected_extents": 2512,
+  "verified_src_files": 10,
+  "verified_src_emitted_functions": 61,
+  "exports": [
+    "GetRefAPI"
+  ],
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "build_sha256": "097057f0c507335c1ff5349b08c26c1d0435d9ed2bc1795437c0baa3790507ca",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "raw_same_offset_percent": 12.903750259264381,
+  "cost": {
+    "build_outputs": 1,
+    "workers": 0,
+    "additional_emission_trials": 3,
+    "additional_emission_trial_link_failures": 1,
+    "restoration_builds": 1,
+    "tokens": "Per-action token and monetary telemetry unavailable"
+  },
+  "source_notes": [
+    "Retail source-token call at100192d1 is Com_Parse at1005fa50. Early OnLine identification was wrong.",
+    "Active PC parser declaration had tokenPos/prevTokenPos reversed; common_types.h legacy body is inactive.",
+    "One parser source body serves explicitly audited inline sites and the out-of-line public entry.",
+    "Existing Com_ParseExt now has internal-to-DLL C++ linkage; no new DLL exports.",
+    "Extra private helper copies remain a layout blocker; REF and single-entry alternatives rejected."
+  ],
+  "sha256": {
+    "target/src/opencod2/headers/PC/universal/com_types.h": "3618940b423a70f54e97cbe907f4e23baa5e62aae66f7b14118256de726301e4",
+    "target/work/src/universal/parse_inline.h": "1c4458d489bc3b7d6c74ef8de1a127b24a2ab95c6a9e1399f83820e86d123741",
+    "target/work/src/universal/q_parse.cpp": "0d5013f0970cd0f5696d56c446b38cef66fe598934245e1d35e3312e0b102833",
+    "target/work/src/gfx_d3d/r_material_load_obj.cpp": "b11232e9016948ff253affd8e987377267871c70ba75710a6da81fcff359122b",
+    "target/work/src/gfx_d3d/r_bsp_load_obj.cpp": "2818dade50d86fb394d3dc45eee9a0cb130e7914ba777ea4e92961026e2846f3",
+    "target/work/tools/regression.py": "507f0679285056a106231ac9c368aa0f5ba41979e5648cfbf3d781c3adc5129c",
+    "target/work/tools/check_checkpoint.py": "9e471229e90d296bee6ce3b2104a9f9d002dd58513a7b590c14417442c8392ae",
+    "target/work/proof/source_coverage_current.json": "fa5db879c9bbdf8b781115f00ba45d0e3c020508a142e9ce26c7709468035665",
+    "target/work/proof/latest/bind.json": "8127f732fa535d44bb65a14fbee4ffdddc24b6bfeccbd511ae01ec05c35a977c",
+    "target/work/proof/latest/cmp.json": "5697670150f28b69dddfe7dcbf4a38594c424cee25231db76a65e72c799c6bf3",
+    "target/work/proof/nov03_parse_callsite_audit.json": "d85740642e2f2d2f22db0038e93272f03b0e6a517d1e2ede8b1b1e3d5c16b00e",
+    "target/work/proof/nov03_parser_layout_evidence.json": "affd24c41d86c7c3e297b73cb6f4ac3a3f50ddaa72c57b03c021fa8452ecec9d",
+    "target/work/proof/nov04_vertex_decl_retention_negatives.json": "f534e25f910cdc36d6208e1c1c0c16c2078db9f9d54a43d0cbc55ce824b118a8",
+    "target/work/tests/test_parse_layout.py": "501cd91b039701869fb3ae99fb4efee966b11284bd52f186b9c6215036176936",
+    "target/work/tests/test_parse_pushback.py": "38b561a429e89ad32a3e476022e82305209f03732ef80168a4bc1ed193d45c04",
+    "target/work/tests/test_dx9_pass_loading.py": "27cb3ed162664cf8f699175eff42052336299d21d29f2d855b794dc58879fe11",
+    "target/work/tools/build.sh": "e91c83e951813933ac3348ee3d089d7cd2e467a299a29910e0d606fa5ff8e851",
+    "target/closed.mk": "7164205f6dcecd96dfd0db1e0543b601eab87c89d59b6c112043344c8b71faa8",
+    "target/work/src/profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
+    "target/work/src/tus.txt": "afe48cb6f48463a9740331d0f26251e63cd8cc9348cd47cb89f105a65ffb1c50",
+    "target/work/src/roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
+    "tools/bindcheck.py": "1fcbb51b64c26c4dcfe2a7b50bd2ad0210a8fbdcdbecefd52010641730dc5cc6",
+    "tools/cmp.py": "5a15946bc46b844aba9fa64de289fe8d7d9a5888e8cd343df42ee0f8c517a9a7",
+    "target/work/layout/current.json": "c648fe0e96b39d8e88f5a621b9cf62ace5840ecf4f1b17f096ffcae1e014e445",
+    "target/work/proof/nov04_parser_emission_trials.json": "ba9e56e1deebecaa709c1b08c5b7ec0727837e461761ed7bf01061ebf8e915ff"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d"
+}

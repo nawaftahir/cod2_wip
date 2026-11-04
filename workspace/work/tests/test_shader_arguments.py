@@ -12,6 +12,8 @@ header = header[:header.index('// PINNED PC 1.0 material state names')]
 types = (work.parents[0] / 'src/opencod2/headers/common_types.h').read_text()
 enum = types[types.index('enum MaterialTextureSource {'):types.index('enum MaterialVertexDeclType {')]
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstring>
 #include <cstdlib>

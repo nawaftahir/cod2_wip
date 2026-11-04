@@ -13,6 +13,8 @@ source = material[material.index('extern const byte g_useTechnique'):material.in
 anchor = work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
 mask = pefile.PE(str(anchor)).get_data(0x18eb34, 34)
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstring>
 #include <cstdio>

@@ -1,5 +1,6 @@
 // World (BSP) loading.
 #include "gfx.h"
+#include "universal/parse_inline.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -729,7 +730,7 @@ const char *R_ParseSunLight(SunLightParseParams *params, const char *text)
 
     for (;;)
     {
-        token = Com_Parse(&text);
+        token = Com_ParseInternal(&text);
         if (!token[0] || token[0] == '}')
             break;
         if (token[0] == '{')
@@ -750,7 +751,7 @@ const char *R_ParseSunLight(SunLightParseParams *params, const char *text)
             continue;
         }
         I_strncpyz(key, token, sizeof(key));
-        token = Com_Parse(&text);
+        token = Com_ParseInternal(&text);
         if (!token[0] || token[0] == '}')
             break;
         I_strncpyz(value, token, sizeof(value));

@@ -8,6 +8,8 @@ source = text[text.index('unsigned int Material_FindShaderConstant('):text.index
 source += text[text.index('// PINNED 1001a160:'):text.index('// PINNED 1001a4c0:')]
 source += text[text.index('// PINNED 1001a920:'):text.index('// PINNED 10018f90:')]
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstdint>
 #include <cstddef>

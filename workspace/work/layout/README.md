@@ -1,3 +1,13 @@
+## Parser emission boundary - 2026-11-04
+
+Material_LoadPassVertexDecl587 is byte/binding matched with one shared source
+implementation for inline parser/pushback sites. The candidate still emits
+three private token-reader and two private pushback helpers, in addition to
+public entries. These copies are a remaining whole-file layout blocker.
+NOREF/NOICF and current TU order are retained: REF loses1140 protected extents.
+No extra exports or fabricated retention roots were added. See ATTEMPTS.md
+for the bounded single-entry alternative; do not repeat it.
+
 ## Current worker-ready structure - 2026-11-03
 
 112 candidate TUs remain in src/tus.txt link order. The generated

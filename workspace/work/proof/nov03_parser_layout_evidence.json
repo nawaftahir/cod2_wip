@@ -1,0 +1,38 @@
+{
+  "status": "PINNED layout/callee evidence; complete function passes both referees and V3",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "primary_function": "0x1005f3f0 /82 bytes",
+  "target_previous_token_load": "mov eax, dword ptr [0x101aac78]",
+  "target_current_token_store": "mov dword ptr [0x101aac74], eax",
+  "offsets_32bit": {
+    "parseInfo_t_size": "0x45c",
+    "ParseThreadInfo.parseInfoNum": "0x45c0",
+    "ParseThreadInfo.tokenPos": "0x45c4",
+    "ParseThreadInfo.prevTokenPos": "0x45c8",
+    "parseInfo_t.lines": "0x400",
+    "parseInfo_t.ungetToken": "0x404",
+    "parseInfo_t.backup_lines": "0x414",
+    "parseInfo_t.backup_text": "0x418"
+  },
+  "active_renderer_include_chain": [
+    "common_types.h forwarder",
+    "headers/cod2_types.h",
+    "cod2_defs.h (parseInfo_t)",
+    "PC/universal/com_types.h (ParseThreadInfo)"
+  ],
+  "native_layout_check": "Both actual declarations compile with 32-bit static assertions; full MSVC compilation guards also pass",
+  "scope": "Shared inline bodies are reconstructed source choices, not original lost-file provenance.",
+  "sha256": {
+    "target/src/opencod2/headers/PC/universal/com_types.h": "3618940b423a70f54e97cbe907f4e23baa5e62aae66f7b14118256de726301e4",
+    "target/work/src/universal/q_shared.h": "37e05137f766ebecc64f0021173c25ccf714b20b0bb8b387867cf0987345dbe8",
+    "target/work/src/universal/parse_inline.h": "1c4458d489bc3b7d6c74ef8de1a127b24a2ab95c6a9e1399f83820e86d123741",
+    "target/work/src/universal/q_parse.cpp": "0d5013f0970cd0f5696d56c446b38cef66fe598934245e1d35e3312e0b102833",
+    "target/work/src/gfx_d3d/r_material_load_obj.cpp": "b11232e9016948ff253affd8e987377267871c70ba75710a6da81fcff359122b",
+    "target/work/src/gfx_d3d/r_bsp_load_obj.cpp": "2818dade50d86fb394d3dc45eee9a0cb130e7914ba777ea4e92961026e2846f3",
+    "target/work/tests/test_parse_layout.py": "501cd91b039701869fb3ae99fb4efee966b11284bd52f186b9c6215036176936",
+    "target/work/tests/test_parse_pushback.py": "38b561a429e89ad32a3e476022e82305209f03732ef80168a4bc1ed193d45c04",
+    "target/work/tests/test_dx9_pass_loading.py": "27cb3ed162664cf8f699175eff42052336299d21d29f2d855b794dc58879fe11"
+  },
+  "material_source_token_call": "0x100192d1 calls 0x1005fa50 (reconstructed Com_Parse), not Com_ParseOnLine at0x1005faa0",
+  "correction": "Early callee labels based on masked disassembly were wrong. Use the actual resolved target and accepted binding."
+}

@@ -6,6 +6,8 @@ import tempfile
 text = (Path(__file__).resolve().parents[1] / 'src/gfx_d3d/r_material_load_obj.cpp').read_text()
 source = text[text.index('static const MtlStateMapBitName *Material_ParseStateValue('):text.index('static void Material_FixupRgbBlend(')]
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstring>
 #include <cstdlib>

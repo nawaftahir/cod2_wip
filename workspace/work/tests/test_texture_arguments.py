@@ -8,6 +8,8 @@ source = text[text.index('// PINNED10190250:'):text.index('// PINNED 10019480:')
 start = text.index('static Bool Material_MatchToken(const char **text, const char *match)\n{')
 source = text[start:text.index('\n}', start) + 2] + '\n' + source
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstddef>
 #include <cstdlib>

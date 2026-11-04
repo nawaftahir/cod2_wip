@@ -131,6 +131,14 @@
 ]
 },
 {
+"name": "?Com_ParseInternal@@YAPADPAPBD@Z$private$r_bsp_load_obj.obj",
+"obj": "r_bsp_load_obj.obj",
+"size": 68,
+"hits": [
+"0x1005fa50"
+]
+},
+{
 "name": "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 118,
@@ -285,13 +293,13 @@
 {
 "name": "?R_ParseEntitySpawnVars@@YAHPAPBDPADPAY01PBD@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 436,
+"size": 300,
 "hits": []
 },
 {
 "name": "?R_LoadEntities@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1214,
+"size": 855,
 "hits": []
 },
 {
@@ -347,7 +355,7 @@
 {
 "name": "?R_LoadOccluders@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 587,
+"size": 567,
 "hits": []
 },
 {
@@ -3423,6 +3431,22 @@
 ]
 },
 {
+"name": "?Com_UngetTokenInternal@@YAXXZ$private$r_material_load_obj.obj",
+"obj": "r_material_load_obj.obj",
+"size": 82,
+"hits": [
+"0x1005f3f0"
+]
+},
+{
+"name": "?Com_ParseInternal@@YAPADPAPBD@Z$private$r_material_load_obj.obj",
+"obj": "r_material_load_obj.obj",
+"size": 68,
+"hits": [
+"0x1005fa50"
+]
+},
+{
 "name": "?Material_ParseVector@@YAEPAPBDHPAM@Z",
 "obj": "r_material_load_obj.obj",
 "size": 281,
@@ -3512,7 +3536,7 @@
 {
 "name": "?Material_LoadPassSamplerDx7@@YAEPAPBDHPAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 87,
+"size": 79,
 "hits": []
 },
 {
@@ -3526,19 +3550,19 @@
 {
 "name": "?Material_LoadPassSamplersDx7@@YAEPAPBDPAUMaterialPassDx7@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 801,
+"size": 579,
 "hits": []
 },
 {
 "name": "?Material_LoadPassStagesDx7@@YAEPAPBDPAUMaterialPassDx7@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 345,
+"size": 283,
 "hits": []
 },
 {
 "name": "?Material_LoadPassDx7@@YAEPAPBDPAUMaterialPassDx7@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 70,
+"size": 65,
 "hits": []
 },
 {
@@ -3552,16 +3576,14 @@
 {
 "name": "?Material_CodeSamplerSource_r@@YAEPAPBDHPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 347,
+"size": 267,
 "hits": []
 },
 {
 "name": "?Material_ParseSamplerSource@@YAEPAPBDPAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 211,
-"hits": [
-"0x10019620"
-]
+"size": 149,
+"hits": []
 },
 {
 "name": "?Material_FindScalarSamplerSource@@YAEPBDPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z",
@@ -3634,7 +3656,7 @@
 {
 "name": "?Material_ParseRuleSetCondition@@YA?AW4MtlParseSuccess@@PAPBDPBDPAUMaterialStateMapRule@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 346,
+"size": 192,
 "hits": []
 },
 {
@@ -3664,10 +3686,8 @@
 {
 "name": "?Material_ParseRuleSet@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAPBUMaterialStateMapRuleSet@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 517,
-"hits": [
-"0x100188e0"
-]
+"size": 453,
+"hits": []
 },
 {
 "name": "?Material_FixupRgbBlend@@YAXPAUMaterialStateMapRuleSet@@@Z",
@@ -3712,10 +3732,8 @@
 {
 "name": "?Material_LoadPassStateMap@@YAEPAPBDPAPAUMaterialStateMap@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 161,
-"hits": [
-"0x10018ee0"
-]
+"size": 97,
+"hits": []
 },
 {
 "name": "?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z",
@@ -3768,16 +3786,14 @@
 {
 "name": "?Material_ParseCodeConstantSource_r@@YAEPAPBDPBUShaderConstantRouting@@HPBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 589,
+"size": 509,
 "hits": []
 },
 {
 "name": "?Material_ParseConstantSource@@YAEPAPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 358,
-"hits": [
-"0x10019ca0"
-]
+"size": 298,
+"hits": []
 },
 {
 "name": "?Material_FindScalarConstantSource@@YAEPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z",
@@ -3807,9 +3823,7 @@
 "name": "?Material_ParseShaderArgument@@YAEPAPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
 "size": 164,
-"hits": [
-"0x1001a030"
-]
+"hits": []
 },
 {
 "name": "?Material_DefaultShaderArgument@@YAEPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z",
@@ -3822,7 +3836,7 @@
 {
 "name": "?Material_ParseShaderArguments@@YAEPAPBDPBDPBU_D3DXSHADER_CONSTANTTABLE@@PAEPAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 856,
+"size": 794,
 "hits": []
 },
 {
@@ -3834,15 +3848,13 @@
 {
 "name": "?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z",
 "obj": "r_material_load_obj.obj",
-"size": 266,
-"hits": [
-"0x1001a810"
-]
+"size": 211,
+"hits": []
 },
 {
 "name": "?Material_SetPassShaderArguments@@YAEPAPBDPBUMaterialShader@@PAEPAGPAPAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 217,
+"size": 226,
 "hits": []
 },
 {
@@ -3872,41 +3884,39 @@
 {
 "name": "?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 599,
-"hits": []
+"size": 587,
+"hits": [
+"0x100191a0"
+]
 },
 {
 "name": "?Material_LoadPassVertexShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z",
 "obj": "r_material_load_obj.obj",
-"size": 75,
-"hits": [
-"0x1001aa00"
-]
+"size": 76,
+"hits": []
 },
 {
 "name": "?Material_LoadPassPixelShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z",
 "obj": "r_material_load_obj.obj",
-"size": 75,
-"hits": [
-"0x1001aa50"
-]
+"size": 74,
+"hits": []
 },
 {
 "name": "?Material_LoadPassDx9@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z",
 "obj": "r_material_load_obj.obj",
-"size": 71,
+"size": 78,
 "hits": []
 },
 {
 "name": "?Material_LoadTechniqueDx9@@YAPAUMaterialTechnique@@PBD@Z",
 "obj": "r_material_load_obj.obj",
-"size": 600,
+"size": 646,
 "hits": []
 },
 {
 "name": "?Material_LoadTechniqueDx7@@YAPAUMaterialTechnique@@PBD@Z",
 "obj": "r_material_load_obj.obj",
-"size": 589,
+"size": 610,
 "hits": []
 },
 {
@@ -3920,7 +3930,7 @@
 {
 "name": "?Material_LoadTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",
 "obj": "r_material_load_obj.obj",
-"size": 557,
+"size": 498,
 "hits": []
 },
 {
@@ -6459,7 +6469,7 @@
 {
 "name": "?XModelReadSurface@@YAPAUXSurface_s@@PAUXModel@@PAHPAPBEP6APAXH@Z@Z",
 "obj": "r_xsurface_load_obj.obj",
-"size": 1548,
+"size": 1503,
 "hits": []
 },
 {
@@ -12540,6 +12550,22 @@
 "obj": "fft.obj",
 "size": 556,
 "hits": []
+},
+{
+"name": "?Com_UngetTokenInternal@@YAXXZ$private$q_parse.obj",
+"obj": "q_parse.obj",
+"size": 82,
+"hits": [
+"0x1005f3f0"
+]
+},
+{
+"name": "?Com_ParseInternal@@YAPADPAPBD@Z$private$q_parse.obj",
+"obj": "q_parse.obj",
+"size": 68,
+"hits": [
+"0x1005fa50"
+]
 },
 {
 "name": "?Com_GetParseThreadInfo@@YAPAUParseThreadInfo@@XZ",

@@ -9,6 +9,8 @@ source = text[text.index('// PINNED 10018f90:'):text.index('// PINNED 1001b810..
 material = (work / 'src/gfx_d3d/r_material.cpp').read_text()
 builder = material[material.index('// PINNED 10016740:'):material.index('void Material_ReloadAll()')]
 program = r'''
+#define Com_ParseInternal Com_Parse
+
 #include <cassert>
 #include <cstring>
 #include <cstdlib>
@@ -43,9 +45,9 @@ unsigned cursor;int onLineCalls,allocations,buildCalls,failStage;
 bool reused,replaceDeclaration;
 const char **expectedText;
 MaterialVertexDeclaration **activeDeclaration;
-const char *Com_Parse(const char **text) {assert(text==expectedText);return cursor<tokens.size()?tokens[cursor++].c_str():"";}
+const char *Com_Parse(const char **text) {assert(text==expectedText);while(cursor<tokens.size()&&tokens[cursor]=="\n")++cursor;return cursor<tokens.size()?tokens[cursor++].c_str():"";}
 char *Com_ParseOnLine(const char **text) {++onLineCalls;return (char*)Com_Parse(text);}
-void Com_UngetToken() {assert(cursor);--cursor;}
+void Com_UngetTokenInternal() {assert(cursor);--cursor;}
 int Com_ParseInt(const char **text) {return atoi(Com_Parse(text));}
 void Com_ScriptWarning(const char *format,...) {
     char out[256];va_list args;va_start(args,format);vsnprintf(out,sizeof(out),format,args);va_end(args);warnings.push_back(out);
@@ -111,12 +113,15 @@ int main() {
         if(count==16)assert(!result&&allocations==0&&warnings.size()==1&&cursor==128);
         else {
             assert(result&&pass.vertexDecl==&declaration&&captured.size()==count);
-            assert(cursor==count*8&&allocations==1&&buildCalls==(reuse?0:4)&&onLineCalls==int(count));
+            assert(cursor==count*8&&allocations==1&&buildCalls==(reuse?0:4)&&onLineCalls==0);
             for(unsigned i=1;i<count;++i)assert(captured[i-1].source<captured[i].source||
                 (captured[i-1].source==captured[i].source&&captured[i-1].dest<=captured[i].dest));
         }
         ++cases;
     }
+    setup(&text);route("position","normal");tokens.insert(tokens.begin()+6,"\n");tokens.push_back("vertexShader");
+    {MaterialPassDx9 pass={};activeDeclaration=&pass.vertexDecl;
+     assert(Material_LoadPassVertexDecl(&text,&pass)&&captured.size()==1&&onLineCalls==0&&cursor==9);++cases;}
     for(int bad=0;bad<8;++bad) {
         setup(&text);route("position","normal");tokens[bad]="bad";MaterialPassDx9 pass={};activeDeclaration=&pass.vertexDecl;
         Bool result=Material_LoadPassVertexDecl(&text,&pass);

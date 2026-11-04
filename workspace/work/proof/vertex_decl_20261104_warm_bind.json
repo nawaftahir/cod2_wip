@@ -1,0 +1,8 @@
+{
+  "?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z": {
+    "t": "0x100191a0",
+    "n": 587,
+    "obj": "r_material_load_obj.obj",
+    "why": []
+  }
+}

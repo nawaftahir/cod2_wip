@@ -66,8 +66,8 @@ struct infoParm_t {
 struct ParseThreadInfo {
     parseInfo_t parseInfo[16];
     int parseInfoNum;
-    const char *prevTokenPos;
     const char *tokenPos;
+    const char *prevTokenPos;
     char line[1024];
 };
 

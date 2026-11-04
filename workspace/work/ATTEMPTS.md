@@ -1,3 +1,47 @@
+## Parser emission trials - 2026-11-04
+
+Rejected /OPT:REF: it drops1140 protected extents. Original NOREF/NOICF
+flags restored; no fabricated roots or extra exports. Tiny compiler probes
+show that an ordinary cross-TU reader can inline at direct sites while a
+constant fastcall pointer preserves the cold ECX call. In the real material
+TU this produces534/587 bytes because pushback stays out of line. Forcing
+the public pushback definition inline then fails to emit its required public
+symbol (LNK2001). Neither trial earns credit. Restored the hash-checked
+passing shared-header recipe. No more emission/flag sweeps in this cohort.
+
+The passing recipe emits private helper copies (Com_ParseInternal3,
+Com_UngetTokenInternal2); they remain an explicit whole-file layout blocker.
+One source implementation is shared; this is not a claim of historical TU
+provenance or final DLL structure. Full-body byte/binding gates stay intact.
+
+# Verified material parser and PC parser layout - 2026-11-04
+
+Material_LoadPassVertexDecl587 at100191a0 passes both referees and all prior
+2511 extents. C++117113/253580=46.183847307%,722 bodies; new protection2512.
+No new assembly. Actual source call is Com_Parse1005fa50, not OnLine1005faa0.
+Wrong early callee labels caused unnecessary boundary trials; those labels are
+incorrect. Verify target addresses before inferring names from normalized diff.
+
+The active PC type lives in headers/PC/universal/com_types.h, not the inactive
+body of common_types.h. Its tokenPos and prevTokenPos order was reversed.
+Production offset guards caught the inactive-header mistake; it was reverted.
+Both actual declarations now match the target, including line/backup fields.
+
+Caller-local inline_depth0 suppresses required expansions and is removed.
+Public noinline Com_Parse plus shared forced-inline core reproduces the audited
+mixed sites without duplicating parsing logic. Com_ParseExt must have C++
+linkage across TUs; its former static linkage caused a link failure, corrected
+without extra DLL exports. Header core uses1 for newline allowance, compatible
+with both declaration families; qtrue was unavailable in renderer headers.
+
+The insertion loop uses explicit stop tests and the capacity comparison derives
+from sizeof the routing array, producing retail JB/JAE and register warning
+argument.97 parser cases (including a newline before the source token),24
+actual token/pushback cases, both actual layouts and affected fixture batch
+pass. Four retention negatives pass. Counter/retention gates are unchanged
+apart from adding the immutable new-body ratchet. Receipt:
+nov04_vertex_decl_checkpoint.json. Raw file equality12.903750259%; no V4/V5.
+
 # Small helper source and candidate checkpoint - 2026-11-03
 
 Surface-loader bit-expression probe: explicit reversed-operand assignment
