@@ -172,3 +172,9 @@
 - Ported: SVC_Status length cap 0x4000 -> MAX_MSGLEN - 1 (server 1.3 source; the client had a stale 0x4000).
 - UNCHECKED: g_largeLocalBuf 0x80000 (server 1.3: 0x100000) - no retail evidence for the Windows pool size yet.
 - 11-04 PINNED: client SVC_Status keeps the 0x4000 cap in 1.3 (MAX_MSGLEN version from server 1.3 lost the 975 B match); reverted 11d61e1.
+## cmp13 v2 (wK, 11-04)
+- tools/cmp13.py now (a) rebuilds jump-table spans from `jmp [idx*4+tbl]`, masks the entries and skips them
+  when decoding; (b) short call-dense fns with no name pair get a masked scan of the client, accepted only when
+  aligned candidates == our fns with the same masked body (twins). PINNED on 1.0 (build+anchor): +9 fns/87 B vs
+  cmp.py, all at their own address; forced no-.reloc run loses 13 B (was 124 fns). On 1.3: unique fns 7511 -> 8282,
+  bytes 1,249,217 -> 1,374,609 (cov.py union rules).
