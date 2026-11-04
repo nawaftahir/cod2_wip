@@ -1267,6 +1267,9 @@ void CL_InitKeyCommands(void)
 }
 
 // retail 0x40acf0
+extern bool DL_InProgress(void);
+extern void CL_ClearDownloadState(void);
+
 void CL_KeyEvent(int key, const qboolean down, const unsigned int time)
 {
     qboolean (*setActiveMenu)(int) = UI_SetActiveMenu;  // retail calls it here

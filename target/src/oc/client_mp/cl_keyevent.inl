@@ -95,6 +95,10 @@
             default:
                 if (!cls.uiStarted)
                     KE_RETURN;
+                if (DL_InProgress()) {
+                    cls.wwwDlDisconnected = 0;
+                    CL_ClearDownloadState();
+                }
                 break;
             }
             setActiveMenu(1);

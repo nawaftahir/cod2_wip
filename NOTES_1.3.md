@@ -330,3 +330,9 @@
   __chkstk + 4 KB of frame): +3,200 B. Open: CL_ParseDownload takes msg in esi in retail (ours eax).
 - Tie flips (SV_DirectConnect 2733, CG_DrawPlayerStance 1607: argument-load swap, Com_ShutdownDObj 20) added to ties13.txt; _yylex flips too with other spellings of the
   same change (static forceinline helper instead of the macro).
+- w8 (cont, +4415): CL_KeyEvent +1476 (ESC in the default state: if (DL_InProgress()) { cls.wwwDlDisconnected = 0; CL_ClearDownloadState(); } before UI_SetActiveMenu(1);
+  CL_ClearDownloadState is a real noinline fn at retail 0x40cc70 (between CL_ResetSkeletonCache and CL_ClearState) AND expanded inline in Disconnect/DownloadsComplete/
+  InitDownloads: `static __forceinline ...Inl` + noinline wrapper). CORRECTION: retail 0x4b59c0 is DL_CancelDownload (not DL_Shutdown; DL_Shutdown = 0x4b5ab0 stub),
+  so the reset calls DL_CancelDownload (noinline). CL_GetServerCommand +1089: 'w' (server disconnect) with argc>=3 and Cmd_Argv(2) == "PB" (via _stricmp, CRT call) uses the
+  untranslated Cmd_Argv(1) as the reason and wraps it as va("\x15%s", ...). CL_ConfigstringModified +445: oldGs is a LargeLocal and the limit is MAX_GAMESTATE_CHARS.
+  Tie flips: with this set SV_ArchiveSnapshot(2783)/_$E2(192) lost, SV_DirectConnect/CG_DrawPlayerStance/Com_ShutdownDObj back.

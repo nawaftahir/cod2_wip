@@ -414,7 +414,8 @@ void CL_ConfigstringModified(void)
     const char *old, *s;
     int i, index;
     const char *dup;
-    gameState_t oldGs;
+    LargeLocal oldGs_large_local(sizeof(gameState_t));
+    gameState_t &oldGs = *(gameState_t *)oldGs_large_local.GetBuf();
     int len;
 
     index = atoi(Cmd_Argv(1));
@@ -438,7 +439,7 @@ void CL_ConfigstringModified(void)
         if (!dup[0])
             continue;
         len = strlen(dup);
-        if (len + 1 + clients[0].gameState.dataCount > 16000)
+        if (len + 1 + clients[0].gameState.dataCount > MAX_GAMESTATE_CHARS)
             Com_Error(ERR_DROP, "\x15MAX_GAMESTATE_CHARS exceeded");
         clients[0].gameState.stringOffsets[i] = clients[0].gameState.dataCount;
         memcpy(clients[0].gameState.stringData + clients[0].gameState.dataCount, dup, len + 1);
@@ -491,7 +492,12 @@ restart:
 
     switch (cmd[0]) {
     case 'w':
-        if (argc >= 2) {
+        if (argc >= 3 && !_stricmp(Cmd_Argv(2), "PB")) {
+            /* PunkBuster kick text arrives already translated */
+            const char *pbReason = Cmd_Argv(1);
+            const char *pbBase = SEH_SafeTranslateString("EXE_SERVERDISCONNECTREASON");
+            Com_Error(ERR_SERVERDISCONNECT, va("\x15%s", UI_ReplaceConversionString(pbBase, pbReason)));
+        } else if (argc >= 2) {
             const char *reason = SEH_SafeTranslateString(Cmd_Argv(1));
             const char *base = SEH_SafeTranslateString("EXE_SERVERDISCONNECTREASON");
             const char *msg = UI_ReplaceConversionString(base, reason);

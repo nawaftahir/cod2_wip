@@ -450,17 +450,17 @@ void CL_BeginDownload(const char *localName, const char *remoteName);
 void CL_NextDownload(void);
 void CL_InitDownloads(void);
 static void CL_SendPureChecksums(void);
-extern void DL_Shutdown(void);
-/* the 1.3 download reset, expanded in CL_Disconnect, CL_DownloadsComplete and CL_InitDownloads */
-#define CL_ClearDownloadState() \
-    do { \
-        cls.downloadRestart = 0; \
-        *cls.originalDownloadName = *cls.downloadName = *cls.downloadTempName = 0; \
-        cls.wwwDlInProgress = 0; \
-        cls.wwwDlDisconnected = 0; \
-        cls.downloadFlags = 0; \
-        DL_Shutdown(); \
-    } while (0)
+extern void DL_CancelDownload(void);
+/* the 1.3 download reset: expanded in CL_Disconnect, CL_DownloadsComplete and CL_InitDownloads, called from CL_KeyEvent */
+static __forceinline void CL_ClearDownloadStateInl(void)
+{
+    cls.downloadRestart = 0;
+    *cls.originalDownloadName = *cls.downloadName = *cls.downloadTempName = 0;
+    cls.wwwDlInProgress = 0;
+    cls.wwwDlDisconnected = 0;
+    cls.downloadFlags = 0;
+    DL_CancelDownload();
+}
 
 extern int Cmd_Argc(void);
 extern const char *Cmd_Argv( int arg );
@@ -1120,6 +1120,11 @@ void CL_ResetSkeletonCache(int localClientNum)
     client->skelMemPos = 0;
 }
 
+__declspec(noinline) void CL_ClearDownloadState(void)
+{
+    CL_ClearDownloadStateInl();
+}
+
 void CL_ClearState(void)
 {
     clientActive_t *restorePtr;
@@ -1193,7 +1198,7 @@ void CL_Disconnect(void)
     clc.state = CA_DISCONNECTED;
 
     if (!cls.wwwDlDisconnected)
-        CL_ClearDownloadState();
+        CL_ClearDownloadStateInl();
     SND_DisconnectListener();
 
     if (wasConnected) {
@@ -1549,7 +1554,7 @@ void CL_DownloadsComplete(void)
         // inform the server so we get new gamestate info
         if (!cls.wwwDlDisconnected)
             CL_AddReliableCommand("donedl");
-        CL_ClearDownloadState();
+        CL_ClearDownloadStateInl();
         return;
     }
 
@@ -1639,7 +1644,7 @@ void CL_InitDownloads(void)
     const char *dir;
 
     dir = FS_ShiftStr("ni]Zm^l", 7);
-    CL_ClearDownloadState();
+    CL_ClearDownloadStateInl();
 
     if (autoupdateStarted && NET_CompareAdr(cls.autoupdateServer, clc.serverAddress)) {
         if (strlen(cl_updatefiles->current.string) > 4) {
