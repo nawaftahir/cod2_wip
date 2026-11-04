@@ -1,3 +1,5 @@
+#include <windows.h>
+
 // Retail no-op functions: individual single-byte bodies verified against CoD2Radiant.exe.
 // Original member ownership/signatures remain unproved.
 
@@ -28,3 +30,14 @@ extern "C" void __stdcall FUN_0041eaa0(int a0) {  }
 extern "C" void __stdcall FUN_0041f150(int a0) {  }
 extern "C" float __fastcall FUN_0041f200(const float *value) { return value[24]; }
 extern "C" unsigned char __fastcall FUN_0041f210(const unsigned char *value) { return value[80]; }
+
+bool MouseDown()
+{
+  if (::GetAsyncKeyState(VK_LBUTTON))
+    return true;
+  if (::GetAsyncKeyState(VK_RBUTTON))
+    return true;
+  if (::GetAsyncKeyState(VK_MBUTTON))
+    return true;
+  return false;
+}
