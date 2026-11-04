@@ -498,7 +498,6 @@ static void Com_ShutdownInternal( const char *finalmsg )
 		clc.demorecording = 0;
 	}
 #endif
-	Sys_LeaveCriticalSection( 2 );
 	SV_Shutdown(finalmsg);
 	Com_Restart();
 }
@@ -771,6 +770,7 @@ void Com_Error( errorParm_t code, const char *fmt, ... )
 	}
 
 	comFill_44 = code;
+	Sys_LeaveCriticalSection( 2 );
 	longjmp(*(jmp_buf *)Sys_GetValue(THREAD_VALUE_COM_ERROR), -1);
 }
 
@@ -2387,10 +2387,17 @@ void Com_Frame( void )
 		com_frameNumber++;
 	}
 
+	Sys_EnterCriticalSection( 2 );
+
 	if ( com_errorEntered )
 	{
 		Com_ErrorCleanup();
+		Sys_LeaveCriticalSection( 2 );
 		Com_StartHunkUsers();
+	}
+	else
+	{
+		Sys_LeaveCriticalSection( 2 );
 	}
 }
 
@@ -2529,7 +2536,7 @@ char Com_GetDecimalDelimiter( void )
 	int lang;
 
 	lang = loc_language->current.integer;
-	if ( lang == 1 || lang == 2 || lang == 3 || lang == 4 || lang == 6 || lang == 7 )
+	if ( lang == 1 || lang == 2 || lang == 3 || lang == 4 || lang == 6 || lang == 7 || lang == 14 )
 		return ',';
 	else
 		return '.';

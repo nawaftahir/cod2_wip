@@ -29,11 +29,19 @@ if not relocs:
     rs = set()
     for k, (va, _, _) in enumerate(syms):
         end = syms[k + 1][0] if k + 1 < len(syms) else tva + len(tdata)
+        tabs = []
         for a, n, m, o in md0.disasm_lite(tdata[va - tva:end - tva], va):
             ins = tdata[a - tva:a - tva + n]
             for j in range(n - 4, 0, -1):
                 v = int.from_bytes(ins[j:j + 4], 'little')
                 if lo <= v < hi and not (m in ('call', 'jmp') and ins[0] in (0xe8, 0xe9)): rs.add(a + j)
+            # switch jump table: jmp dword ptr [reg*4+table]
+            if n == 7 and m == 'jmp' and ins[0] == 0xff and ins[1] == 0x24:
+                x = int.from_bytes(ins[3:7], 'little')
+                if va <= x < end: tabs.append(x)
+        # capstone stops inside table data: mask the in-image dwords from the first table on
+        for t in range(min(tabs), end - 3, 4) if tabs else ():
+            if lo <= int.from_bytes(tdata[t - tva:t - tva + 4], 'little') < hi: rs.add(t)
     relocs = sorted(rs)
 
 _pairs = None

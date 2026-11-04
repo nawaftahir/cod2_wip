@@ -214,7 +214,7 @@ void Com_InitHunkMemory( void )
 	s_hunkData = (byte *)VirtualAlloc( NULL, s_hunkTotal, MEM_COMMIT, PAGE_READWRITE );
 
 	if ( !s_hunkData )
-		Sys_OutOfMemErrorInternal( ".\\universal\\com_memory.cpp", 843 );
+		Sys_OutOfMemErrorInternal( ".\\universal\\com_memory.cpp", 847 );
 
 	s_origHunkData = s_hunkData;
 	Hunk_Clear();

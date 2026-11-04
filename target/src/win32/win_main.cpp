@@ -489,6 +489,7 @@ Sys_Quit
 */
 void Sys_Quit( void )
 {
+	Sys_EnterCriticalSection( 2 );
 	timeEndPeriod( 1 );
 	IN_Shutdown();
 	Key_Shutdown();

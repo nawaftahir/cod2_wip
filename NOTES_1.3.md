@@ -171,3 +171,25 @@
   Com_ExecStartupConfigs (retail 1.3 still has literal "exec default_mp.cfg"), const msg tables (client keeps static).
 - Ported: SVC_Status length cap 0x4000 -> MAX_MSGLEN - 1 (server 1.3 source; the client had a stale 0x4000).
 - UNCHECKED: g_largeLocalBuf 0x80000 (server 1.3: 0x100000) - no retail evidence for the Windows pool size yet.
+
+## wF (core: qcommon/script/server/bgame) findings
+- PAID (+33,846 B matched-fn, fcfe6d1): retail 1.3 win_threads is a rewrite. Sys_GetValue/SetValue read a per-thread
+  table through TlsGetValue(tlsIndex) (tls slot allocated in Sys_InitMainThread: TlsAlloc, TlsSetValue(slot, table0);
+  worker thread proc sets table1 and calls Com_InitThreadData(1)). Retail 0x462360-0x462660: 20 small fns (main-thread id,
+  second-thread handle/id, 4 events, an interlocked flag, Suspend/ResumeThread helpers). PINNED by disassembly; original
+  names unknown. TLS inlines into va/CM_*/Com_* at ~29 sites. Tie added: SV_ArchiveSnapshot (one edx/esi load swap).
+- PINNED meter fix (tools/cmp13.py): /FIXED-image reloc rebuild stopped at switch jump tables (capstone halts in table data),
+  so every fn with a jump table was unmatched even when byte-equal (VM_ExecuteInternal 10,764 B is byte-identical to retail
+  0x47d6d0 apart from table addresses). Now masks in-image dwords from the first jmp [reg*4+table]. +115 KB counted.
+- serverInfo_t 1.3: +byte punkbuster after voice (Mac STABS offset 200), size 0x90 -> 0x94, ping at +0x28 (common_types.h).
+  CL_SetServerInfo / CL_InitServerInfo do not set it yet (retail source of the info key not checked).
+- Critical sections (PINNED, base 0xd529b0 stride 0x18, 6 sections; 0x59321c=Leave, 0x593220=Enter): 1.3 adds
+  Com_Frame: Enter(2) after the try block, Leave(2) before/after ErrorCleanup, Com_Error: Leave(2) before longjmp,
+  Sys_Quit: Enter(2) first, StatMon_Warning: Enter(3)/Leave(3) around the update, Com_ShutdownInternal: no Leave(2).
+- Small 1.3 edits found by fdiff: Scr_GetFunction loop bound 144 -> 145 (table has 145, last issplitscreen);
+  Com_InitHunkMemory OutOfMem line 843 -> 847; Com_GetDecimalDelimiter also language 14; SV_Frame tests killMessage[0]
+  (inline char array), not the array address.
+- Not done (evidence only): Com_ExecStartupConfigs 1.3 starts with Cbuf_AddText(va("exec %s\n", g_cfgName)) where g_cfgName
+  (0xb1a5ac) is set at 0x425868/0x4258b5 to "default_localize_mp.cfg" or "default_mp.cfg" depending on a file lookup
+  (0x422700 FS_ReadFile-like) in Com_Init; CM_Trace/CM_ClearWorld/CM_PointContents differ only by TLS-inline register
+  allocation (cmod held in a register); VM_Notify differs by 2 scheduling swaps.
