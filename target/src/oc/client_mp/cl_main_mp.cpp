@@ -2553,6 +2553,20 @@ void CL_OpenScriptMenu_f(void)
     Cbuf_ExecuteText(2, va("cmd mr %i %i %s\n", Dvar_GetInt("sv_serverId"), menuIndex, menuResponse));
 }
 
+extern dvar_t *Dvar_FindVar(const char *dvarName);
+
+// PunkBuster glue: sets cl_punkbuster from a string (retail 1.3 0x410360)
+void set_cl_punkbuster(char *value)
+{
+    bool on = I_stricmp(value, "0") != 0;
+    dvar_t *dvar = Dvar_FindVar("cl_punkbuster");
+
+    if (dvar)
+        Dvar_SetBool(dvar, on);
+    else
+        Dvar_RegisterString("cl_punkbuster", on ? "1" : "0", 0x4000);
+}
+
 void CL_InitOnceForAllClients(void)
 {
     srand(Sys_MillisecondsRaw());
