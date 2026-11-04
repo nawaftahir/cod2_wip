@@ -1,0 +1,27 @@
+{
+  "status": "isolated compiler experiments only; no coverage or production-root evidence",
+  "single_renderer_build": true,
+  "observations": {
+    "baseline": "reproduces the three remaining SIB mismatches",
+    "G5_G6_G7": "same mismatching stores",
+    "C_frontend": "original cached99-byte shape, not target111",
+    "alias_a_w_aw_off": "same original cached shape",
+    "global_optimization_off": "different frame and argument ABI; rejected",
+    "byte_serialization": "six byte stores, not target three word stores",
+    "union_alias": "original cached99-byte shape",
+    "global_volatile": "changes pre-call pointer reads and first instructions; rejected",
+    "word_pointer_local_view": "same three SIB mismatches",
+    "ReadWriteBarrier": "accepted intrinsic; one cached pointer and94-byte body; not target111"
+  },
+  "sha256": {
+    "nov04_grid_cpu_probe.json": "14b2977fbc3c408055e836adad9ec1d3ed7e8b86447b442e5fd6a649dee94620",
+    "nov04_grid_alias_probe.json": "0c0463b1367e30267ace5f423b24c43e73efa770535a86c2a62735f40e5cd509",
+    "nov04_grid_c_language_probe.log": "dd61041834ce171ddbde7fcfae8da62edfdaa59ba61937b3079e4bf1591ea944",
+    "nov04_grid_global_policy_probe.log": "dd61041834ce171ddbde7fcfae8da62edfdaa59ba61937b3079e4bf1591ea944",
+    "nov04_grid_byte_serialization_probe.log": "dd61041834ce171ddbde7fcfae8da62edfdaa59ba61937b3079e4bf1591ea944",
+    "nov04_grid_union_alias_probe.log": "dd61041834ce171ddbde7fcfae8da62edfdaa59ba61937b3079e4bf1591ea944",
+    "nov04_grid_global_qualifier_probe.log": "dd61041834ce171ddbde7fcfae8da62edfdaa59ba61937b3079e4bf1591ea944",
+    "nov04_grid_word_pointer_probe.log": "dd61041834ce171ddbde7fcfae8da62edfdaa59ba61937b3079e4bf1591ea944",
+    "target/work/proof/nov04_grid_barrier_probe.cpp": "61c3b6cb3d56577cd63bc76b6a7d9e43b0d7a8f0e9f10b34241beff22f171deb"
+  }
+}

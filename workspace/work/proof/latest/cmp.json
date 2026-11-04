@@ -7468,7 +7468,7 @@
 {
 "name": "?RB_InsertGridVisLog@@YA_NHGGG@Z",
 "obj": "rb_light.obj",
-"size": 99,
+"size": 111,
 "hits": []
 },
 {
@@ -7594,8 +7594,10 @@
 {
 "name": "?RB_InitLightVisHistory@@YAXPBD@Z",
 "obj": "rb_light.obj",
-"size": 196,
-"hits": []
+"size": 194,
+"hits": [
+"0x100376c0"
+]
 },
 {
 "name": "?RB_SaveLightVisHistory@@YAXXZ",

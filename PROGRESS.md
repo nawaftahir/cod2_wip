@@ -1,3 +1,17 @@
+## Grid-history checkpoint - 2026-11-04
+
+C++117307/253580=46.260351763%,723 bodies; +194B/+1 since5fcfc0e.
+RB_InitLightVisHistory100376c0/194 now passes both referees in the retained
+whole-TU recipe. All2514 protected extents and120 history/filename fixture
+cases pass; four new retention negatives reject removal/unverified binding.
+Existing37 assembly-bearing bodies/9104 bytes stay excluded. Root src/ remains
+10 complete files/61 functions; the lighting TU remains partial in work/src/.
+Receipt: target/work/proof/nov04_grid_history_checkpoint.json. The111-byte
+insertion draft still differs in three SIB encodings and is NOT credited.
+No global compiler flag changes remain. Failed non-/GL, filter lifetime,
+shutdown clear and isolated compiler probes are recorded in ATTEMPTS.md.
+50% requires9483 more pure C++ bytes. Whole SHA/GPU proof remain unfinished.
+
 ## Pixel upsampler checkpoint - 2026-11-04
 
 R_UpsamplePixelData10025b10/503 matches bytes AND bindings after moving

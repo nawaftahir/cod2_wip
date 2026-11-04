@@ -1,3 +1,68 @@
+# Per-TU filtering and shutdown policies - 2026-11-04
+
+Non-/GL rb_imagefilter source emits538, still not the543-byte target, and
+loses21 protected extents (mostly shared rounding instances) across the DLL.
+REJECTED; exact original profile/source restored. No fake roots or gate changes.
+SaveLightVisHistory target10037790/94 is established by matching shutdown
+callsite100130d7. Original100-byte body differs only in two immediate-zero
+stores versus XOR ECX/shared-register stores. Local size policy emits93 with
+wrong frame/call shape; memset and shared pointer-zero casts remain100.
+All source/policy trials restored. Do not repeat these combinations.
+_ReadWriteBarrier is accepted byVC7.1, but in the isolated LTCG cache probe it
+retains a single cached pointer and emits94 bytes, not target111. Do not assume
+an accepted intrinsic establishes the desired memory-order code generation.
+Current grid111-byte draft remains uncredited; full regression now rerunning.
+
+# Filter pass-pointer lifetime - 2026-11-04
+
+GenerateGaussianFilterChain538/543: delayed initial pointer assignment makes
+no difference. Reusing curPass at symmetric2D call changes to514 but causes
+LTCG to pass filterPass inEAX, unlike the target stack argument. Both source
+trials rejected and original restored. The target public-helper ABI motivates
+checking this TU without/GL; no conclusion until all existing gates pass.
+Draft source snapshot: build/tmp/filter_pass_lifetime_trial.cpp.
+
+# Isolated grid compiler probes - 2026-11-04
+
+Two actual cache routines reproduce the three remaining SIB mismatches in a
+small pinned-image LTCG DLL. No renderer relinks or new production roots.
+G5/G6/G7, integer-address view and word-pointer view do not change them.
+Original source compiled asC, union word/byte view, and alias-policy a/w/aw
+all retain the99-byte cached-pointer shape. Disabling global optimization
+changes frame/argument ABI and is rejected. Explicit byte serialization emits
+six byte stores, not three words. Global volatile declarations alter the
+pre-call reads and register assignment and are rejected. No coverage added.
+Receipt: proof/nov04_grid_isolated_compiler_trials.json. Probe files are in
+build/tmp/grid_*; these exports exist only in isolated diagnostic DLLs.
+Stop repeating these policies/source representations. The production111-byte
+draft remains three SIB bytes away; next inspect real TU/caller metadata.
+
+# Light-grid insertion memory order - 2026-11-04
+
+RB_InsertGridVisLog target10035bd0/111 versus original99. Target reloads
+s_vc_log for each ushort write, then reads/increments s_vc_logCount. Fixed
+memcpy stores alone remain99. Function-local volatile pointer reads produce
+111 but count load moves before last store. Local volatile count read/update
+restores all target instruction ordering. Current111-byte draft differs ONLY
+in three SIB encodings: [eax+esi] versus target[esi+eax], likewise EDX/ECX.
+Volatile destination stores and integer-address addition did not fix encoding;
+original ushort indexing also retains the three differences. No credit and no
+referee masking changes. Native135 cache cases,54 boxes and1152 visibility
+routes pass. Do not repeat these address/store spelling trials.
+Raw matched GridVisLogIndex129 and GetValidGridPoint188 remain blocked by
+this leaf. Physical build is diagnostic; last V3 checkpoint is5fcfc0e.
+
+# Viewport vector grouping - 2026-11-04
+
+PINNED matching RB_SetRenderTarget tail jump1003ec0f->1003e690 establishes
+viewport target366 bytes. Vector2Set/Vec2Scale/Vector2Add/VectorMA2 form emits
+354 versus scalar315. Sequential width reciprocal before height conversion
+agrees with target instruction ordering but remains354. Separate origin and
+center arrays do not change it; local precision policy emits422. All rejected;
+original source restored.240 behavior cases pass for the initial vector form.
+Snapshot retained only in build/tmp/viewport_vector_trial.cpp, no coverage.
+Do not repeat these helper/precision combinations.
+
 # Screenshot dependency group - 2026-11-04
 
 R_LevelShot159 and R_TakeResampledScreenshot150 are exact raw hits, blocked

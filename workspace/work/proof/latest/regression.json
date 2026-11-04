@@ -1,8 +1,8 @@
 {
-  "functions": 759,
-  "bytes": 126217,
+  "functions": 760,
+  "bytes": 126411,
   "total": 253580,
-  "percent": 49.77403580724032,
+  "percent": 49.85054026342772,
   "baseline_lost": [],
   "gains": [
     {
@@ -1455,6 +1455,12 @@
       "target": "0x10037670",
       "bytes": 78,
       "name": "?BuildGridFilename@@YAXPBDPAD@Z",
+      "object": "rb_light.obj"
+    },
+    {
+      "target": "0x100376c0",
+      "bytes": 194,
+      "name": "?RB_InitLightVisHistory@@YAXPBD@Z",
       "object": "rb_light.obj"
     },
     {

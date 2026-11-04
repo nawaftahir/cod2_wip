@@ -1,0 +1,15 @@
+{
+  "status": "UNVERIFIED draft; zero coverage added",
+  "target": "0x10035bd0",
+  "target_bytes": 111,
+  "candidate_bytes": 111,
+  "remaining": "three SIB base/index byte encodings only; strict referee rejects",
+  "source": "target/work/src/gfx_d3d/rb_light.cpp",
+  "source_sha256": "efd2c73cc12fe329e68df12e1a73d6e63175360a2d8e429267be99c2d71cc3c1",
+  "native_cases": {
+    "cache": 135,
+    "boxes": 54,
+    "visibility": 1152
+  },
+  "initializer_newly_verified_bytes": 194
+}

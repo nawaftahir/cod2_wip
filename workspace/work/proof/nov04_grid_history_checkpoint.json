@@ -1,0 +1,58 @@
+{
+  "status": "V3 checkpoint;194 additional C++ bytes",
+  "base_commit": "5fcfc0e",
+  "cpp_bytes": 117307,
+  "cpp_bodies": 723,
+  "cpp_percent": 46.26035176275732,
+  "denominator": 253580,
+  "denominator_provisional": true,
+  "new_target": "0x100376c0",
+  "new_bytes": 194,
+  "protected_extents": 2514,
+  "assembly_bodies": 37,
+  "assembly_bytes": 9104,
+  "native_cases": {
+    "history": 60,
+    "filenames": 60,
+    "cache": 135,
+    "boxes": 54,
+    "visibility": 1152
+  },
+  "retention_negatives": [
+    {
+      "kind": "removed",
+      "tool": "regression.py",
+      "rejected": true
+    },
+    {
+      "kind": "removed",
+      "tool": "check_checkpoint.py",
+      "rejected": true
+    },
+    {
+      "kind": "unverified",
+      "tool": "regression.py",
+      "rejected": true
+    },
+    {
+      "kind": "unverified",
+      "tool": "check_checkpoint.py",
+      "rejected": true
+    }
+  ],
+  "raw_same_offset_percent": 12.943990251659292,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "source_note": "Existing initializer body now fully matches under the retained whole-TU recipe; insertion leaf111 remains unverified.",
+  "sha256": {
+    "target/work/src/gfx_d3d/rb_light.cpp": "efd2c73cc12fe329e68df12e1a73d6e63175360a2d8e429267be99c2d71cc3c1",
+    "target/work/src/profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
+    "target/work/proof/latest/bind.json": "d686525c79be5e4c08178b7f56525e6d34cc97185e0232cc81931fa8f209621c",
+    "target/work/proof/latest/cmp.json": "554117cc3dfa6673fb61888178872ab29059a5973944bf8ccf5683b4b530c078",
+    "target/work/proof/source_coverage_current.json": "a7a926be12a1b01230f667b5e780754d5a7abef7eb2b2866edc0973d6d978069",
+    "target/work/proof/grid_history_20261104_warm_bind.json": "45768b370899fa0d846812c284228aaa5bd2f4b99df028eb07bf6fd08db7180f",
+    "target/work/tools/regression.py": "da9879bf95e9cec26ce4460f82b4fe2e7199ecee12639f8d522cc2ba39a08af0",
+    "target/work/tools/check_checkpoint.py": "38ddac1d194b7918149543611b95640ce104d14f7f010f3a0a8833d467593c61",
+    "target/work/tests/test_light_vis_history.py": "db89cc8e8cc93c4193df751cf9715609d77297ebf5598f2c25af72ae3cdc4a27"
+  }
+}

@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "849fb3fabda0036fe534d5552d4aa3925b405b69a2dbb92ebc1f42151d03cf10",
+  "candidate_sha256": "4e76ddaf653afdf0e8ea30602796bbc00dd9aee00be5c45b15517f4b74a80939",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 239773,
+  "same_file_offset_equal_bytes": 239644,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 12.950957981886061,
+  "same_file_offset_percent": 12.943990251659292,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -47,7 +47,7 @@
       "file_offset": "0x1000",
       "raw_bytes": 1073152,
       "virtual_bytes": 1070432,
-      "sha256": "23a5b537077681b269f2952650d687719a3d4bd45c2e23888131065e87c6c32f"
+      "sha256": "07d82c37c1825fb3ea737ee254eb04df39400451c0f1ba0c9f5eab8ee42705f4"
     },
     {
       "name": ".rdata",
@@ -55,7 +55,7 @@
       "file_offset": "0x107000",
       "raw_bytes": 606208,
       "virtual_bytes": 602836,
-      "sha256": "61eecfe7d0e0ec4c9c70ca262c7419f5f305f605d0d3c56dd8bfe685337c3723"
+      "sha256": "845bfa5e276d7f42ae0617c92750a9998ccaf0dbcf2d065f4643222ca8f5497f"
     },
     {
       "name": ".data",
@@ -70,8 +70,8 @@
       "rva": "0x769000",
       "file_offset": "0x1a9000",
       "raw_bytes": 98304,
-      "virtual_bytes": 94546,
-      "sha256": "215597b4802537fdbd416c57a4bd69590b3da5defd520585a9a7c93c53cd6529"
+      "virtual_bytes": 94550,
+      "sha256": "771cb0c7a6793f9ced0118c06ec820d0cf930b6ddba2c601094135c89ffc6864"
     }
   ],
   "retail_image": {
@@ -739,7 +739,7 @@
   "candidate_image": {
     "file_bytes": 1839104,
     "machine": "0x14c",
-    "timestamp": 1793776271,
+    "timestamp": 1793779743,
     "image_base": "0x10000000",
     "entrypoint_rva": "0xf4b68",
     "image_bytes": 7868416,
@@ -1390,11 +1390,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1793776271,
+        "timestamp": 1793779743,
         "bytes": 71,
         "rva": "0x1996e8",
         "file_offset": "0x1996e8",
-        "data_sha256": "30b881824c084d111002cf5620ad224d0112d5b5bc3a8b40f892d34465a87827"
+        "data_sha256": "d6156bdcae61de3c9d9bb4d1faad7a238b4042c3f641b967e79b451e51868a4f"
       }
     ]
   },

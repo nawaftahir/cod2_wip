@@ -201,6 +201,9 @@ required.update(accepted(vertex_decl))
 upsample = Path(__file__).resolve().parents[1] / 'proof/upsample_20261104_warm_bind.json'
 assert hashlib.sha256(upsample.read_bytes()).hexdigest() == 'f784f76cff831bd1485691f85326d0239cfdfdbd2ee66a9230a90938b377b253'
 required.update(accepted(upsample))
+grid_history = Path(__file__).resolve().parents[1] / 'proof/grid_history_20261104_warm_bind.json'
+assert hashlib.sha256(grid_history.read_bytes()).hexdigest() == '45768b370899fa0d846812c284228aaa5bd2f4b99df028eb07bf6fd08db7180f'
+required.update(accepted(grid_history))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

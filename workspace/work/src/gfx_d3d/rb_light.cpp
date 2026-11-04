@@ -113,10 +113,12 @@ bool RB_InsertGridVisLog(int index, unsigned short x, unsigned short y, unsigned
         return false;
     memmove(s_vc_log + (index + 1) * 6, s_vc_log + index * 6,
         (s_vc_logCount - index) * 6);
-    ((unsigned short *)s_vc_log)[index * 3] = x;
-    ((unsigned short *)s_vc_log)[index * 3 + 1] = y;
-    ((unsigned short *)s_vc_log)[index * 3 + 2] = z;
-    ++s_vc_logCount;
+    // PINNED 10035bd0: preserve the three pointer reads and record writes.
+    byte *volatile &log = s_vc_log;
+    ((unsigned short *)log)[index * 3] = x;
+    ((unsigned short *)log)[index * 3 + 1] = y;
+    ((unsigned short *)log)[index * 3 + 2] = z;
+    ++*(volatile int *)&s_vc_logCount;
     return true;
 }
 
