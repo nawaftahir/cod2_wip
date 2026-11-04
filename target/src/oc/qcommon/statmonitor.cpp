@@ -10,6 +10,8 @@ extern const dvar_t *com_statmon;
 extern clientStatic_t cls;
 extern ALIGNED(128) refexport_t re;
 extern int Sys_Milliseconds(void);
+extern void Sys_EnterCriticalSection(int section);
+extern void Sys_LeaveCriticalSection(int section);
 extern void Com_Error(errorParm_t code, const char *fmt, ...);
 
 static statmonitor_t stats[MAX_STATMON_ENTRIES];
@@ -23,6 +25,7 @@ void StatMon_Warning(int type, int duration, const char *materialName)
 	if (type < 0 || type >= sizeof(stats) / sizeof(stats[0]))
 		Com_Error(ERR_DROP, "\x15StatMon_UpdateEntry: invalid entry '%i'\n", type);
 
+	Sys_EnterCriticalSection(3);
 	stats[type].endtime = Sys_Milliseconds() + duration;
 
 	if (!stats[type].material && cls.rendererStarted)
@@ -30,6 +33,8 @@ void StatMon_Warning(int type, int duration, const char *materialName)
 
 	if (type >= statCount)
 		statCount = type + 1;
+
+	Sys_LeaveCriticalSection(3);
 }
 
 void StatMon_Reset(void);

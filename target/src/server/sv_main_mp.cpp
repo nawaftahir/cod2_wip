@@ -1255,7 +1255,7 @@ void SV_Frame( int msec )
 
 	if ( engineState->serverKilled )
 	{
-		if ( engineState->killMessage )
+		if ( engineState->killMessage[0] )
 		{
 			Com_Shutdown( engineState->killMessage );
 		}

@@ -448,7 +448,7 @@ unsigned int SEH_JapaneseCharToIndex( unsigned int c )
 
 int SEH_IsChineseLeadTrail( unsigned char lead, unsigned char trail )
 {
-	if ( lead >= 0xa1 && lead <= 0xf7 && trail > 0xa0 && trail < 0xff )
+	if ( lead >= 0x81 && lead <= 0xfe && trail > 0x40 && trail < 0xff )
 		return 1;
 	return 0;
 }

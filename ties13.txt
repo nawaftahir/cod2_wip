@@ -2,3 +2,5 @@
 _$E2
 # _yylex: flex scanner, symbol-numbering tie (1.0 LESSONS Tie study): flips when fns are added earlier in link order
 _yylex
+# 1.3 TLS Sys_GetValue: one instruction-order swap (edx/esi load) in SV_ArchiveSnapshot, +33.8 KB elsewhere (wF)
+?SV_ArchiveSnapshot@@YAXXZ
