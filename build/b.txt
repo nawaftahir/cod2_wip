@@ -1,3 +1,0 @@
-docker run --rm -v /home/nawaf/cod2/test/dev/cod2_wip/client-1.0:/w -v /home/nawaf/cod2/test/dev/cod2_wip/client-1.0/build/tree:/w/src -w /w cod2-msvc71-vs2003-ft sh -c 'make -j$(nproc) -k IN_IMAGE=1 build/CoD2MP_s.exe; s=$?; chown -R 1000:1000 build; exit $s'
-wine /opt/msvc710/Vc7/bin/link.exe /nologo /LTCG /SAFESEH:NO /FORCE /OPT:NOREF /OPT:NOICF /FIXED:NO /SUBSYSTEM:WINDOWS /STACK:0x10000,0x1000 /MAP:build\\CoD2MP_s.map /OUT:build\\CoD2MP_s.exe @build\\objs.rsp build\\cod2mp.res winmm.lib wsock32.lib build\\lib\\mss32.lib build\\lib\\d3d9.lib build\\lib\\dsound.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib libcmt.lib > build/link.log 2>&1; tail -1 build/link.log
-Finished generating code
