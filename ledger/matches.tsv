@@ -792,3 +792,6 @@ addr	size	source	symbol	name	tag
 0x004b3c80	17	src/zlib/zutil.c	_zError	zError	SUPPORTED
 0x004b3ca0	56	src/zlib/zutil.c	_zcalloc	zcalloc	SUPPORTED
 0x004b3ce0	17	src/zlib/zutil.c	_zcfree	zcfree	PINNED
+0x004a7230	58	src/script/scr_memorytree.cpp	?MT_GetSubTreeSize@@YAHH@Z	MT_GetSubTreeSize	SUPPORTED
+0x004a7560	6	src/script/scr_memorytree.cpp	?Scr_GetStringUsage@@YAHXZ	Scr_GetStringUsage	SUPPORTED
+0x004a7570	102	src/script/scr_memorytree.cpp	?MT_InitBits@@YAXXZ	MT_InitBits	SUPPORTED
