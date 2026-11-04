@@ -4076,8 +4076,10 @@
 {
 "name": "?LAN_GetServerInfo@@YAXHHPADH@Z",
 "obj": "cl_ui_mp.obj",
-"size": 813,
-"hits": []
+"size": 844,
+"hits": [
+"0x414ff0"
+]
 },
 {
 "name": "?LAN_GetServerPing@@YAHHH@Z",
@@ -77951,7 +77953,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 720,
+"size": 688,
 "hits": [
 "0x592c00"
 ]
