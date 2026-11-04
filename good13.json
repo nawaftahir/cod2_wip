@@ -3095,10 +3095,26 @@
 ]
 },
 {
+"name": "?CL_TrimWhitespace_40cf40@@YAPADPAD@Z",
+"obj": "cl_main_mp.obj",
+"size": 115,
+"hits": []
+},
+{
+"name": "?CL_BuildMd5StrFromCDKey@@YAXPAD@Z",
+"obj": "cl_main_mp.obj",
+"size": 367,
+"hits": [
+"0x40cfc0"
+]
+},
+{
 "name": "?CL_RequestAuthorization@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 686,
-"hits": []
+"size": 469,
+"hits": [
+"0x40d130"
+]
 },
 {
 "name": "?CL_ForwardToServer_f@@YAXXZ",
@@ -3236,7 +3252,7 @@
 {
 "name": "?CL_CheckForResend@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 599,
+"size": 621,
 "hits": []
 },
 {
@@ -17827,7 +17843,7 @@
 ]
 },
 {
-"name": "$L96619",
+"name": "$L96623",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -23905,7 +23921,9 @@
 "name": "_yylex",
 "obj": "scr_yacc.obj",
 "size": 4236,
-"hits": []
+"hits": [
+"0x4850e0"
+]
 },
 {
 "name": "_yy_get_next_buffer",
@@ -33222,7 +33240,7 @@
 ]
 },
 {
-"name": "$L118202",
+"name": "$L118214",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33230,7 +33248,7 @@
 ]
 },
 {
-"name": "$L118204",
+"name": "$L118216",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33263,7 +33281,7 @@
 ]
 },
 {
-"name": "$L132064",
+"name": "$L132085",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33271,7 +33289,7 @@
 ]
 },
 {
-"name": "$L132066",
+"name": "$L132087",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33340,7 +33358,7 @@
 ]
 },
 {
-"name": "$L104366",
+"name": "$L104378",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33356,7 +33374,7 @@
 ]
 },
 {
-"name": "$L147424",
+"name": "$L147445",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -45262,9 +45280,7 @@
 "name": "?Scr_ParseGameTypeList@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 572,
-"hits": [
-"0x50d520"
-]
+"hits": []
 },
 {
 "name": "?Scr_GetGameTypeNameForScript@@YAPADPBD@Z",
@@ -46234,8 +46250,10 @@
 {
 "name": "?SP_worldspawn@@YAXXZ",
 "obj": "g_spawn_mp.obj",
-"size": 469,
-"hits": []
+"size": 464,
+"hits": [
+"0x511680"
+]
 },
 {
 "name": "?G_SpawnEntitiesFromString@@YAXXZ",
@@ -51878,9 +51896,7 @@
 "name": "?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z",
 "obj": "ui_shared_mp.obj",
 "size": 1194,
-"hits": [
-"0x53ea00"
-]
+"hits": []
 },
 {
 "name": "?ToWindowCoords@@YAXPAM0PAUWindow@@@Z",
@@ -78021,7 +78037,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 4032,
+"size": 3744,
 "hits": []
 }
 ]
