@@ -39,6 +39,14 @@ if not relocs:
             if n == 7 and m == 'jmp' and ins[0] == 0xff and ins[1] == 0x24:
                 x = int.from_bytes(ins[3:7], 'little')
                 if va <= x < end: tabs.append(x)
+        # jump-table dispatch (ff 24 sib disp32) reached after table data in the middle of the fn: capstone loses sync, scan the raw bytes
+        raw = tdata[va - tva:end - tva]
+        q = raw.find(b'\xff\x24')
+        while q >= 0:
+            if q + 7 <= len(raw) and raw[q + 2] & 0xc7 == 0x85:
+                v = int.from_bytes(raw[q + 3:q + 7], 'little')
+                if lo <= v < hi: rs.add(va + q + 3)
+            q = raw.find(b'\xff\x24', q + 1)
         # capstone stops inside table data: mask the in-image dwords from the first table on
         for t in range(min(tabs), end - 3, 4) if tabs else ():
             if lo <= int.from_bytes(tdata[t - tva:t - tva + 4], 'little') < hi: rs.add(t)
