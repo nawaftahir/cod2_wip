@@ -149,3 +149,15 @@
   same-length opcode diffs 17,111 B; operand-only 7,045 B; tiny short-anchor fns 9,946 B (cmp pairs short
   fns through claude_client/ghidra names_*.tsv, which hold 1.0 addresses: wrong for 1.3); regalloc-only 158 B.
 - Note: ratchet13 accept baseline good13.json must be regenerated with the new cmp13 before the next ratchet.
+## wC (client-only: ui/client/cgame/PunkBuster glue), 2026-11-04
+- PINNED (retail 1.3 bytes + Mac STABS stPbCl): client PB glue `punkbuster/pbcl.cpp` sits at 0x4bb570-0x4bd1b0, directly after
+  record_dsound; pbsv (makefn 336 B at 0x4bd1b0, same sizes as ours) follows, then pbmd5. tus.txt now has pbcl, pbsv, pbmd5 right after record_dsound.
+- stPbCl layout PINNED from Mac STABS (size 424): m_GameCommand 0x178 .. m_SendToServer 0x184, m_AddPbEvent 0x188 (GetProcAddress "cb"),
+  m_ProcessPbEvents 0x18c ("ca"), m_ClientConnect 0x198, m_TrapPreExecCmd 0x19c, m_TrapConsole 0x1a0. Client getHomePath/makefn use "\\" and "pb\\".
+- Written: stPbCl getHomePath/makefn/Unload*/LoadClientDll/AddPbEvent/ProcessPbEvents/ctor, PbClAddEvent (4bbfb0), PbTrapPreExecCmd (4bbfc0),
+  PbClientTrapConsole (4bbfe0), set_cl_punkbuster (cl_main_mp, 0x410360). Sizes close to retail (makefn 96, getHomePath ~158, AddPbEvent 112).
+- NOT written (callee names unconfirmed): PbClGameMsg 4bbef0, PbClSendToServer 4bbf40, PbClSendToAddrPort 4bbf90, initialize 4bb6b0,
+  4bbaa0 (command filter: set_cl_punkbuster / Cvar_Set / Dvar_Set / get_pb_cdkey), 4bbb80 (960 B game command), 4bc3b0 (1660 B), PbClientInitialize etc.
+  Also cl_main_mp PB_ packet handler 0x40e750 (1215 B, CL_PacketEvent branch calling 4bb730/4bd3e0), PBget_cl_cdkey, CL_SendPbPacket,
+  PB_Q_Serverinfo/Serveraddr, LAN_GetServerPunkBuster, CLUI_SetPbClStatus.
+- Same-offset dipped (-500 vs 138692) because code shifted before the rest of the layout is complete; expected until the missing bytes land.

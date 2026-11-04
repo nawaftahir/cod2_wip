@@ -165,6 +165,9 @@ oc/groupvoice/play.cpp
 groupvoice/play_dsound.cpp
 oc/groupvoice/record.cpp
 groupvoice/record_dsound.cpp
+punkbuster/pbcl.cpp
+punkbuster/pbsv.cpp
+punkbuster/pbmd5.cpp
 oc/cgame_mp/cg_rumble_mp.cpp
 oc/cgame_mp/cg_main_mp.cpp
 oc/cgame_mp/cg_devgui.cpp
@@ -267,8 +270,6 @@ oc/ui_mp/ui_gameinfo_mp.cpp
 oc/ui_mp/ui_gamepad_menu.cpp
 oc/win32/gfx_dll_v60.cpp
 oc/win32/gfx_v60_threads.cpp
-punkbuster/pbsv.cpp
-punkbuster/pbmd5.cpp
 libwww/Library/src/HTReqMan.c
 libwww/Library/src/HTFTP.c
 libwww/Library/src/HTAABrow.c
