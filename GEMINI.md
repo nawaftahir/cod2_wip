@@ -18,7 +18,7 @@ still apply. `cod2engine` stays the clean release repo; nothing here goes there 
 ## Layout
 | Path | What |
 |---|---|
-| `targets/<target>/` | one reconstruction target (radiant, client, gfx) |
+| <target>/ | worktree of <target>/main, one reconstruction target (radiant, client, gfx) |
 | `binaries/` | retail anchors, read-only. Never rebuild over them; check with `sha256sum -c SHA256SUMS` |
 | `status/` | hand-kept meters for finished or not-yet-imported targets |
 | `tools/dashboard/` | builds the progress page |
