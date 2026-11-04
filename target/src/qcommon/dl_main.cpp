@@ -21,6 +21,7 @@
 #include "HTEscape.h"
 #include "HTAABrow.h"
 #include "HTFTP.h"
+#include "HTDNS.h"
 #undef ERR_FATAL
 
 static int dl_initialized;
@@ -123,11 +124,19 @@ void DL_InitDownload(void)
     }
 }
 
-void DL_Shutdown(void)
+__declspec(noinline) void DL_Shutdown(void)
 {
     if (dl_initialized)
     {
+        HTEventList_unregisterAll();
+        HTDNS_setTimeout(-1);
         dl_initialized = 0;
+    }
+    if (dl_request)
+    {
+        HTRequest_kill(dl_request);
+        HTRequest_delete(dl_request);
+        dl_request = NULL;
     }
 }
 

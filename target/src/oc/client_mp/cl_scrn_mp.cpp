@@ -215,7 +215,12 @@ void SCR_DrawScreenField(void)
                 if (!CL_AnyLocalClientChallenging())
                     break;
             } else {
-                UI_SetActiveMenu(1);
+                if (cls.wwwDlInProgress) {
+                    UI_Refresh();
+                    UI_DrawConnectScreen();
+                } else {
+                    UI_SetActiveMenu(1);
+                }
                 break;
             }
         case CA_CONNECTING:

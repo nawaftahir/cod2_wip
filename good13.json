@@ -2521,14 +2521,18 @@
 {
 "name": "?CL_WriteVoicePacket@@YAXXZ",
 "obj": "cl_input.obj",
-"size": 366,
-"hits": []
+"size": 390,
+"hits": [
+"0x408cf0"
+]
 },
 {
 "name": "?CL_WritePacket@@YAXXZ",
 "obj": "cl_input.obj",
-"size": 979,
-"hits": []
+"size": 1058,
+"hits": [
+"0x408e80"
+]
 },
 {
 "name": "?CL_SendCmdInternal@@YAXXZ",
@@ -2888,7 +2892,9 @@
 "name": "?CL_AllLocalClientsDisconnected@@YAEXZ",
 "obj": "cl_main_mp.obj",
 "size": 73,
-"hits": []
+"hits": [
+"0x40bec0"
+]
 },
 {
 "name": "?CL_NoLocalClientsActive_40b560@@YAEXZ",
@@ -2902,13 +2908,17 @@
 "name": "?CL_AnyLocalClientsRunning@@YAEXZ",
 "obj": "cl_main_mp.obj",
 "size": 50,
-"hits": []
+"hits": [
+"0x40bf30"
+]
 },
 {
 "name": "?CL_AnyLocalClientChallenging@@YAEXZ",
 "obj": "cl_main_mp.obj",
 "size": 50,
-"hits": []
+"hits": [
+"0x40bf70"
+]
 },
 {
 "name": "?CL_SetConnectionState_40b620@@YAXW4connstate_t@@@Z",
@@ -2960,8 +2970,10 @@
 {
 "name": "?CL_Record_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 896,
-"hits": []
+"size": 953,
+"hits": [
+"0x40c140"
+]
 },
 {
 "name": "?CL_DemoCompleted@@YAXXZ",
@@ -2974,8 +2986,10 @@
 {
 "name": "?CL_ReadDemoMessage@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 313,
-"hits": []
+"size": 343,
+"hits": [
+"0x40c5b0"
+]
 },
 {
 "name": "?CL_PlayDemo_f@@YAXXZ",
@@ -3058,8 +3072,10 @@
 {
 "name": "?CL_Disconnect@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 403,
-"hits": []
+"size": 468,
+"hits": [
+"0x40cd10"
+]
 },
 {
 "name": "?CL_ForwardCommandToServer@@YAXPBD@Z",
@@ -3179,14 +3195,18 @@
 {
 "name": "?CL_DownloadsComplete@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 380,
-"hits": []
+"size": 436,
+"hits": [
+"0x40dc20"
+]
 },
 {
 "name": "?CL_BeginDownload@@YAXPBD0@Z",
 "obj": "cl_main_mp.obj",
-"size": 147,
-"hits": []
+"size": 141,
+"hits": [
+"0x40dde0"
+]
 },
 {
 "name": "?CL_NextDownload@@YAXXZ",
@@ -3199,8 +3219,10 @@
 {
 "name": "?CL_InitDownloads@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 449,
-"hits": []
+"size": 493,
+"hits": [
+"0x40df10"
+]
 },
 {
 "name": "?CL_CheckForResend@@YAXXZ",
@@ -3876,7 +3898,7 @@
 {
 "name": "?CL_ParseDownload@@YAXPAUmsg_t@@@Z",
 "obj": "cl_parse_mp.obj",
-"size": 723,
+"size": 712,
 "hits": []
 },
 {
@@ -3987,8 +4009,10 @@
 {
 "name": "?SCR_DrawScreenField@@YAXXZ",
 "obj": "cl_scrn_mp.obj",
-"size": 437,
-"hits": []
+"size": 465,
+"hits": [
+"0x414900"
+]
 },
 {
 "name": "?CL_GetMenuBlurRadius@@YAMXZ",
@@ -9917,6 +9941,7 @@
 "obj": "dobj_management.obj",
 "size": 28,
 "hits": [
+"0x4356b8",
 "0x4356e0"
 ]
 },
@@ -9982,11 +10007,7 @@
 "name": "?Com_ShutdownDObj@@YAXXZ",
 "obj": "dobj_management.obj",
 "size": 20,
-"hits": [
-"0x435970",
-"0x4b5ab0"
-],
-"scan": 1
+"hits": []
 },
 {
 "name": "?Com_AbortDObj@@YAXXZ",
@@ -15648,9 +15669,7 @@
 "name": "?SV_DirectConnect@@YAXUnetadr_t@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 2733,
-"hits": [
-"0x453c20"
-]
+"hits": []
 },
 {
 "name": "?SV_FreeClientScriptPers@@YAXXZ",
@@ -34327,12 +34346,10 @@
 {
 "name": "?DL_Shutdown@@YAXXZ",
 "obj": "dl_main.obj",
-"size": 20,
+"size": 74,
 "hits": [
-"0x435970",
-"0x4b5ab0"
-],
-"scan": 1
+"0x4b59c0"
+]
 },
 {
 "name": "?DL_BeginDownload@@YAHPADPBD@Z",
@@ -36689,9 +36706,7 @@
 "name": "?CG_DrawPlayerStance@@YAXPBUrectDef_s@@PAMPAUFont_s@@MH@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 1607,
-"hits": [
-"0x4c43b0"
-]
+"hits": []
 },
 {
 "name": "?CG_CalcPlayerHealth@@YAMXZ",
@@ -77957,7 +77972,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 608,
+"size": 192,
 "hits": [
 "0x592c00"
 ]

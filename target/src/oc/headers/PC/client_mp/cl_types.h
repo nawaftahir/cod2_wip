@@ -67,6 +67,7 @@ struct clientConnection_t {
     int serverCommandSequence;
     int lastExecutedServerCommand;
     char serverCommands[128][1024];
+#if !COD2_IS_PATCH_13
     fileHandle_t download;
     char downloadTempName[256];
     char downloadName[256];
@@ -76,6 +77,7 @@ struct clientConnection_t {
     int downloadSize;
     char downloadList[1024];
     qboolean downloadRestart;
+#endif
     char demoName[64];
     qboolean demorecording;
     qboolean demoplaying;
@@ -99,11 +101,13 @@ COD2_ASSERT_FIELD(clientConnection_t, reliableAcknowledge, 0x13c);
 COD2_ASSERT_FIELD(clientConnection_t, reliableCommands, 0x140);
 COD2_ASSERT_FIELD(clientConnection_t, serverMessageSequence, 0x20140);
 COD2_ASSERT_FIELD(clientConnection_t, serverCommands, 0x2014c);
-COD2_ASSERT_FIELD(clientConnection_t, netchan, 0x407d0);
 #if COD2_IS_PATCH_13
-COD2_ASSERT_FIELD(clientConnection_t, pOOBProf, 0x80810);
-COD2_ASSERT_SIZE(clientConnection_t, 0x80814);
+/* 1.3 keeps the download state in cls; size 0x801fc = retail CL_Disconnect memset (0x2007f dwords) */
+COD2_ASSERT_FIELD(clientConnection_t, netchan, 0x401b8);
+COD2_ASSERT_FIELD(clientConnection_t, pOOBProf, 0x801f8);
+COD2_ASSERT_SIZE(clientConnection_t, 0x801fc);
 #else
+COD2_ASSERT_FIELD(clientConnection_t, netchan, 0x407d0);
 COD2_ASSERT_FIELD(clientConnection_t, pOOBProf, 0x48810);
 COD2_ASSERT_SIZE(clientConnection_t, 0x48814);
 #endif

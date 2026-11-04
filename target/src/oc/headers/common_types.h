@@ -12751,6 +12751,7 @@ struct clientConnection_t {
     int serverCommandSequence;
     int lastExecutedServerCommand;
     char serverCommands[128][1024];
+#if !COD2_IS_PATCH_13
     fileHandle_t download;
     char downloadTempName[256];
     char downloadName[256];
@@ -12760,6 +12761,7 @@ struct clientConnection_t {
     int downloadSize;
     char downloadList[1024];
     qboolean downloadRestart;
+#endif
     char demoName[64];
     qboolean demorecording;
     qboolean demoplaying;

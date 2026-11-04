@@ -450,6 +450,17 @@ void CL_BeginDownload(const char *localName, const char *remoteName);
 void CL_NextDownload(void);
 void CL_InitDownloads(void);
 static void CL_SendPureChecksums(void);
+extern void DL_Shutdown(void);
+/* the 1.3 download reset, expanded in CL_Disconnect, CL_DownloadsComplete and CL_InitDownloads */
+#define CL_ClearDownloadState() \
+    do { \
+        cls.downloadRestart = 0; \
+        *cls.originalDownloadName = *cls.downloadName = *cls.downloadTempName = 0; \
+        cls.wwwDlInProgress = 0; \
+        cls.wwwDlDisconnected = 0; \
+        cls.downloadFlags = 0; \
+        DL_Shutdown(); \
+    } while (0)
 
 extern int Cmd_Argc(void);
 extern const char *Cmd_Argv( int arg );
@@ -785,8 +796,10 @@ void CL_Record_f(void)
     char demoName[64];
     char name[256];
     msg_t buf;
-    byte bufData[MAX_MSGLEN];
-    byte compressedBuf[MAX_MSGLEN];
+    LargeLocal bufData_large_local(MAX_MSGLEN);
+    byte *bufData = (byte *)bufData_large_local.GetBuf();
+    LargeLocal compressedBuf_large_local(MAX_MSGLEN);
+    byte *compressedBuf = (byte *)compressedBuf_large_local.GetBuf();
     entityState_t nullstate;
     int number;
     int i;
@@ -832,7 +845,7 @@ void CL_Record_f(void)
     I_strncpyz(conn->demoName, demoName, sizeof(conn->demoName));
     conn->demowaiting = 1;
 
-    MSG_Init(&buf, bufData, sizeof(bufData));
+    MSG_Init(&buf, bufData, MAX_MSGLEN);
     MSG_WriteLong(&buf, conn->reliableSequence);
     MSG_WriteByte(&buf, 1);
     MSG_WriteLong(&buf, conn->serverCommandSequence);
@@ -894,7 +907,8 @@ void CL_ReadDemoMessage(void)
 {
     clientConnection_t *conn;
     msg_t buf;
-    byte bufData[MAX_MSGLEN];
+    LargeLocal bufData_large_local(MAX_MSGLEN);
+    byte *bufData = (byte *)bufData_large_local.GetBuf();
     int serverMessageSequence;
 
     if (!::clc.demofile) {
@@ -910,7 +924,7 @@ void CL_ReadDemoMessage(void)
     conn = &::clc;
     conn->serverMessageSequence = serverMessageSequence;
 
-    MSG_Init(&buf, bufData, sizeof(bufData));
+    MSG_Init(&buf, bufData, MAX_MSGLEN);
     if (FS_Read(&buf.cursize, 4, conn->demofile) != 4) {
         CL_DemoCompleted();
         return;
@@ -1142,12 +1156,14 @@ void CL_Disconnect(void)
         CL_StopRecord_f();
     }
 
-    if (clc.download) {
-        FS_FCloseFile(clc.download);
-        clc.download = 0;
+    if (!cls.wwwDlDisconnected) {
+        if (cls.download) {
+            FS_FCloseFile(cls.download);
+            cls.download = 0;
+        }
+        *cls.downloadTempName = *cls.downloadName = 0;
+        legacyHacks->cl_downloadName[0] = 0;
     }
-    *clc.downloadTempName = *clc.downloadName = 0;
-    legacyHacks->cl_downloadName[0] = 0;
 
     if (clc.demofile) {
         FS_FCloseFile(clc.demofile);
@@ -1174,8 +1190,11 @@ void CL_Disconnect(void)
 
     // wipe the client connection
     memset(&clc, 0, sizeof(clc));
-    SND_DisconnectListener();
     clc.state = CA_DISCONNECTED;
+
+    if (!cls.wwwDlDisconnected)
+        CL_ClearDownloadState();
+    SND_DisconnectListener();
 
     if (wasConnected) {
         clients->keyCatchers &= 1;
@@ -1522,13 +1541,15 @@ void CL_DownloadsComplete(void)
     }
 
     // if we downloaded files we need to restart the file system
-    if (clc.downloadRestart) {
-        clc.downloadRestart = 0;
+    if (cls.downloadRestart) {
+        cls.downloadRestart = 0;
 
         FS_Restart(clc.checksumFeed);
 
         // inform the server so we get new gamestate info
-        CL_AddReliableCommand("donedl");
+        if (!cls.wwwDlDisconnected)
+            CL_AddReliableCommand("donedl");
+        CL_ClearDownloadState();
         return;
     }
 
@@ -1567,16 +1588,15 @@ void CL_DownloadsComplete(void)
 void CL_BeginDownload(const char *localName, const char *remoteName)
 {
     Com_DPrintf("***** CL_BeginDownload *****\nLocalname: %s\nRemotename: %s\n****************************\n", localName, remoteName);
-    I_strncpyz(clc.downloadName, localName, sizeof(clc.downloadName));
-    Com_sprintf(clc.downloadTempName, sizeof(clc.downloadTempName), "%s.tmp", localName);
+    I_strncpyz(cls.downloadName, localName, sizeof(cls.downloadName));
+    Com_sprintf(cls.downloadTempName, sizeof(cls.downloadTempName), "%s.tmp", localName);
 
     I_strncpyz(legacyHacks->cl_downloadName, remoteName, 0x40);
     legacyHacks->cl_downloadSize = 0;
     legacyHacks->cl_downloadCount = 0;
     legacyHacks->cl_downloadTime = cls.realtime;
 
-    clc.downloadBlock = 0;
-    clc.downloadCount = 0;
+    cls.downloadBlock = 0;
 
     CL_AddReliableCommand(va("download %s", remoteName));
 }
@@ -1585,8 +1605,8 @@ void CL_NextDownload(void)
     char *s;
     char *remoteName, *localName;
 
-    if (*clc.downloadList) {
-        s = clc.downloadList;
+    if (*cls.downloadList) {
+        s = cls.downloadList;
         if (*s == '@')
             s++;
         remoteName = s;
@@ -1604,9 +1624,9 @@ void CL_NextDownload(void)
             s = localName + strlen(localName);
 
         CL_BeginDownload(localName, remoteName);
-        clc.downloadRestart = 1;
+        cls.downloadRestart = 1;
 
-        memmove(clc.downloadList, s, strlen(s) + 1);
+        memmove(cls.downloadList, s, strlen(s) + 1);
         return;
     }
 
@@ -1619,11 +1639,12 @@ void CL_InitDownloads(void)
     const char *dir;
 
     dir = FS_ShiftStr("ni]Zm^l", 7);
+    CL_ClearDownloadState();
 
     if (autoupdateStarted && NET_CompareAdr(cls.autoupdateServer, clc.serverAddress)) {
         if (strlen(cl_updatefiles->current.string) > 4) {
             I_strncpyz(autoupdateFilename, cl_updatefiles->current.string, sizeof(autoupdateFilename));
-            I_strncpyz(clc.downloadList, va("@%s/%s@%s/%s", dir, cl_updatefiles->current.string, dir, cl_updatefiles->current.string), sizeof(clc.downloadList));
+            I_strncpyz(cls.downloadList, va("@%s/%s@%s/%s", dir, cl_updatefiles->current.string, dir, cl_updatefiles->current.string), sizeof(cls.downloadList));
             clc.state = CA_CONNECTED;
             CL_NextDownload();
             return;
@@ -1631,9 +1652,9 @@ void CL_InitDownloads(void)
     } else if (com_sv_running->current.enabled || !cl_allowDownload->current.enabled) {
         if (FS_CompareIwds(missingfiles, sizeof(missingfiles), 0))
             Com_Printf("\nWARNING: You are missing some files referenced by the server:\n%sYou might not be able to join the game\nGo to the settings menu to turn on autodownload, or get the file elsewhere\n\n", missingfiles);
-    } else if (FS_CompareIwds(clc.downloadList, sizeof(clc.downloadList), 1)) {
-        Com_Printf("Need iwds: %s\n", clc.downloadList);
-        if (*clc.downloadList) {
+    } else if (FS_CompareIwds(cls.downloadList, sizeof(cls.downloadList), 1)) {
+        Com_Printf("Need iwds: %s\n", cls.downloadList);
+        if (*cls.downloadList) {
             clc.state = CA_CONNECTED;
             CL_NextDownload();
             return;

@@ -319,3 +319,14 @@
   choice, not a header change. CL_WriteVoicePacket/CL_WritePacket/CL_ConfigstringModified/CL_KeyEvent differ mainly by this.
 - SCR_DrawScreenField: 1.3 adds `if (<int at 0x966ff8, clc download field>) { 0x532540(); UI_DrawConnectScreen(); }` in the connecting branch; blocked on the
   1.3 clientConnection_t download layout (same blocker as CL_DownloadsComplete/Disconnect/InitDownloads).
+- w8 download layout (PINNED, retail offsets): 1.3 moved ALL client download state out of clientConnection_t into clientStatic_t (the existing 1.3 cls fields
+  were right: 966dac wwwDlDisconnected, 966db0 downloadName, 966eb0 downloadTempName, 966fb0 originalDownloadName, 966ff0 downloadRestart, 966ff4 downloadFlags,
+  966ff8 wwwDlInProgress, 966ffc download, 967000 downloadBlock, 967004 downloadSize, 967008 downloadList). clc loses download..downloadRestart (1,560 B):
+  sizeof(clc) = 0x801fc = retail CL_Disconnect memset (0x2007f dwords); netchan at 0x401b8. The macro CL_ClearDownloadState (7 stores + DL_Shutdown()) is expanded
+  in CL_Disconnect, CL_DownloadsComplete, CL_InitDownloads; DL_Shutdown must be noinline and is the real shutdown (HTEventList_unregisterAll, HTDNS_setTimeout(-1),
+  HTRequest_kill/delete on dl_request; retail 0x4b59c0). CL_ParseDownload (UDP) uses cls.* and legacyHacks->cl_downloadCount += size.
+  SCR_DrawScreenField main-thread disconnected case: if (cls.wwwDlInProgress) { UI_Refresh(); UI_DrawConnectScreen(); } else UI_SetActiveMenu(1).
+  PINNED: the 128 KB (MAX_MSGLEN) msg buffers in CL_WritePacket, CL_WriteVoicePacket, CL_Record_f, CL_ReadDemoMessage are LargeLocal in retail (stack arrays gave
+  __chkstk + 4 KB of frame): +3,200 B. Open: CL_ParseDownload takes msg in esi in retail (ours eax).
+- Tie flips (SV_DirectConnect 2733, CG_DrawPlayerStance 1607: argument-load swap, Com_ShutdownDObj 20) added to ties13.txt; _yylex flips too with other spellings of the
+  same change (static forceinline helper instead of the macro).

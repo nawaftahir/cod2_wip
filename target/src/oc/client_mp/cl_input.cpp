@@ -1091,11 +1091,11 @@ qboolean CL_ReadyToSendPacket(void)
 
     realtime = cls.realtime;
 
-    if (conn->downloadTempName[0] && realtime - conn->lastPacketSentTime < 50) {
+    if (cls.downloadTempName[0] && realtime - conn->lastPacketSentTime < 50) {
         return 0;
     }
 
-    if (conn->state != CA_ACTIVE && conn->state != CA_PRIMED && !conn->downloadTempName[0]
+    if (conn->state != CA_ACTIVE && conn->state != CA_PRIMED && !cls.downloadTempName[0]
         && realtime - conn->lastPacketSentTime < 1000) {
         return 0;
     }
@@ -1118,7 +1118,8 @@ void CL_WriteVoicePacket(void)
     clientConnection_t *conn;
     clientActive_t *cl;
     msg_t msg;
-    byte data[MAX_MSGLEN];
+    LargeLocal data_large_local(MAX_MSGLEN);
+    byte *data = (byte *)data_large_local.GetBuf();
     int voicePacket;
 
     conn = &::clc;
@@ -1126,7 +1127,7 @@ void CL_WriteVoicePacket(void)
         return;
     }
 
-    MSG_Init(&msg, data, sizeof(data));
+    MSG_Init(&msg, data, MAX_MSGLEN);
     MSG_WriteString(&msg, (const char *)"v");
     MSG_WriteShort(&msg, conn->qport);
 
@@ -1149,8 +1150,10 @@ void CL_WriteVoicePacket(void)
 void CL_WritePacket(void)
 {
     msg_t buf;
-    byte data[MAX_MSGLEN];
-    byte dataCompressed[MAX_MSGLEN];
+    LargeLocal data_large_local(MAX_MSGLEN);
+    byte *data = (byte *)data_large_local.GetBuf();
+    LargeLocal dataCompressed_large_local(MAX_MSGLEN);
+    byte *dataCompressed = (byte *)dataCompressed_large_local.GetBuf();
     int i, j;
     usercmd_t *cmd, *oldcmd;
     usercmd_t nullcmd;
@@ -1165,7 +1168,7 @@ void CL_WritePacket(void)
     MSG_SetDefaultUserCmd(&clients[0].snap.ps, &nullcmd);
     oldcmd = &nullcmd;
 
-    MSG_Init(&buf, data, sizeof(data));
+    MSG_Init(&buf, data, MAX_MSGLEN);
     MSG_WriteByte(&buf, clients[0].serverId);
     MSG_WriteLong(&buf, ::clc.serverMessageSequence);
     MSG_WriteLong(&buf, ::clc.serverCommandSequence);
