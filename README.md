@@ -13,3 +13,5 @@ are excluded. Original local archives remain untouched.
 The old saved JPEG/renderer numbers are historical claims with their original
 scope, not additions to the current C/C++ meter. Re-run the active renderer's
 byte AND binding gates before accepting any recovered function or complete TU.
+
+Historical agent instructions use *.historical.md names and are not active contracts.

@@ -19002,9 +19002,10 @@
       "sha256": "accc869af992c7882aff1115796092f0c36fb5d7bba2675bff2e4efb430aeb5c"
     },
     {
-      "path": "workspace/research/glm/AGENTS.md",
+      "path": "workspace/research/glm/AGENTS.historical.md",
       "bytes": 9060,
-      "sha256": "72b1f114ee0cde081233f1c51a1863dc60dfe58c15a6dba9d1ca111808cf6923"
+      "sha256": "72b1f114ee0cde081233f1c51a1863dc60dfe58c15a6dba9d1ca111808cf6923",
+      "original_path": "workspace/research/glm/AGENTS.md"
     },
     {
       "path": "workspace/research/glm/PROGRESS.md",
