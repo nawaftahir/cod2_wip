@@ -40,10 +40,12 @@ static void *s_eventD;
 void Sys_InitMainThread(void)
 {
     void *proc = 0;
+    void *self;
 
     s_threadId[0] = GetCurrentThreadId();
+    self = GetCurrentThread();
     // retail passes the address of a zeroed local as the target process handle
-    DuplicateHandle(proc, GetCurrentThread(), &proc, &s_threadHandle[0], 0, 0, 0);
+    DuplicateHandle(proc, self, &proc, &s_threadHandle[0], 0, 0, 0);
     s_tlsIndex = TlsAlloc();
     TlsSetValue(s_tlsIndex, s_threadValues0);
     Com_InitThreadData(0);

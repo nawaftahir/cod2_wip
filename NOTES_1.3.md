@@ -193,3 +193,16 @@
   (0xb1a5ac) is set at 0x425868/0x4258b5 to "default_localize_mp.cfg" or "default_mp.cfg" depending on a file lookup
   (0x422700 FS_ReadFile-like) in Com_Init; CM_Trace/CM_ClearWorld/CM_PointContents differ only by TLS-inline register
   allocation (cmod held in a register); VM_Notify differs by 2 scheduling swaps.
+- wF batch 3-4: Sys_InitMainThread (GetCurrentThread result taken before the arg pushes) +84; Com_Frame/Com_Error/Sys_Error
+  matched with critsect 2 (Sys_Error also _vsnprintf(string, 4096, ...)); SEH_IsChineseLeadTrail 1.3 = lead 0x81-0xfe,
+  trail 0x41-0xfe (GBK).
+- TRIED, REJECTED: SV_Map_f 1.3 calls Com_CheckSetRecommended() (retail 0x434dc0, same fn as Com_Frame_Try_Block uses)
+  between Com_HasPlayerProfile and SV_GetMapBaseName. Adding the call flips the ebp/aligned frame from SV_SpawnServer
+  (retail has it) to SV_Map_f: SV_SpawnServer lost -3104 B. Decl moved next to SV_Map_f and __declspec(noinline) on the
+  definition both gave the identical result. Likely an LTCG call-graph order effect (see client-recon c2.dll DFS notes);
+  needs the oracle (tools_oracle) to pick the right edge order. Not committed.
+- TRIED, no gain: EvalPrimitiveExpression float cases split (no goto): retail shares the tail for float but orders the minus
+  case value,type,sourcePos; ours stores sourcePos first. Reverted.
+- Remaining non-UI near-misses: CM_Trace/CM_ClearWorld/CM_PointContents/CM_LinkEntity/CM_BoxSightTrace (TLS-inline register
+  allocation only), VM_Notify (2 scheduling swaps), Com_PrintMessage (LargeLocal ctor arg in eax vs ecx), SV_ArchiveSnapshot (tie),
+  Com_InitPlayerProfiles/Com_ExecStartupConfigs/Com_Init_Try_Block_Function (1.3 localized-cfg selection, see above).

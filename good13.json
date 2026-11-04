@@ -15992,8 +15992,10 @@
 {
 "name": "?Sys_InitMainThread@@YAXXZ",
 "obj": "win_threads.obj",
-"size": 85,
-"hits": []
+"size": 84,
+"hits": [
+"0x462360"
+]
 },
 {
 "name": "?Sys_ThreadMain@@YGKPAX@Z",
