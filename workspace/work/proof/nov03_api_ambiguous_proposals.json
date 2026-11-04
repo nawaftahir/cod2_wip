@@ -1,0 +1,22 @@
+[
+  {
+    "name": "?R_EndRegistration@@YAXXZ",
+    "obj": "r_init.obj",
+    "size": 79,
+    "hits": [
+      "0x100131b0",
+      "0x100226c0"
+    ],
+    "paired_target": "0x100131b0"
+  },
+  {
+    "name": "?R_FinishLoadingModels@@YAXXZ",
+    "obj": "r_model.obj",
+    "size": 33,
+    "hits": [
+      "0x1001d8c0",
+      "0x100203a0"
+    ],
+    "paired_target": "0x1001d8c0"
+  }
+]

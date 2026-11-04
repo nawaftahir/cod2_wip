@@ -1,0 +1,9 @@
+R_SortGfxAabbTree
+R_AddStaticModelToAabbTree_r
+R_CellSurfaces
+R_FlushStaticModelCache
+R_UpdateFrameFog
+R_AddStaticModelToScene
+Material_TechniqueTypeForName
+R_AvailableTextureMemory
+Material_ReloadAll

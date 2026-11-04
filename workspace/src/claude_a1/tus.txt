@@ -1,0 +1,9 @@
+r_init.cpp
+common.cpp
+r_scene.cpp
+r_rendercmds.cpp
+r_bsp.cpp
+r_fog.cpp
+r_debug.cpp
+r_bsp_load_obj.cpp
+r_font

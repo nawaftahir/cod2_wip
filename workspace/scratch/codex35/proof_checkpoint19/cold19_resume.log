@@ -1,0 +1,525 @@
+{
+  "functions": 544,
+  "bytes": 94753,
+  "total": 253580,
+  "percent": 37.366117201672054,
+  "baseline_lost": [],
+  "gains": [
+    {
+      "target": "0x10001000",
+      "bytes": 11,
+      "name": "?Vector2Copy@@YAXQBMQAM@Z",
+      "object": "com_convexhull.obj"
+    },
+    {
+      "target": "0x100018a0",
+      "bytes": 28,
+      "name": "?Vector4Set@@YAXQAMMMMM@Z",
+      "object": "rb_filter_generate.obj"
+    },
+    {
+      "target": "0x10003430",
+      "bytes": 939,
+      "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x100050e0",
+      "bytes": 73,
+      "name": "?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z",
+      "object": "r_dxbuffers.obj"
+    },
+    {
+      "target": "0x10005420",
+      "bytes": 23,
+      "name": "?VectorCopy4@@YAXQBMQAM@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x10005b40",
+      "bytes": 23,
+      "name": "?VectorNegate@@YAXQBMQAM@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10005c10",
+      "bytes": 29,
+      "name": "?DotProduct4@@YAMQBM0@Z",
+      "object": "r_dpvs_occluders.obj"
+    },
+    {
+      "target": "0x100079d0",
+      "bytes": 68,
+      "name": "?R_OccluderBehindPlane@@YA_NPBUGfxOccluder@@PBUDpvsPlane@@@Z",
+      "object": "r_dpvs_occluders.obj"
+    },
+    {
+      "target": "0x10007dc0",
+      "bytes": 66,
+      "name": "?R_PortalBehindPlane@@YA_NPBUGfxPortal@@PBUDpvsPlane@@@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10007e10",
+      "bytes": 98,
+      "name": "?R_PortalBehindAnyPlane@@YA_NPBUGfxPortal@@PBUDpvsPlane@@H@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10007e80",
+      "bytes": 98,
+      "name": "?R_PortalBehindAllPlanes@@YA_NPBUGfxPortal@@PBUDpvsPlane@@H@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10007ef0",
+      "bytes": 468,
+      "name": "?R_ChopPortalWinding@@YAPAY02$$CBMPAY02$$CBMPAHPBUDpvsPlane@@PAY02M@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10008570",
+      "bytes": 139,
+      "name": "?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10009700",
+      "bytes": 58,
+      "name": "?R_IsPortalOccluded@@YA_NPBUGfxPortal@@@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10009910",
+      "bytes": 253,
+      "name": "?R_AddVertToPortalHullPoints@@YAXPAUGfxPortal@@PBM@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10009a70",
+      "bytes": 184,
+      "name": "?R_ChopPortal@@YAHPBUGfxPortal@@PBUDpvsPlane@@1HQAY1IA@2MPAPAY02$$CBM@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10009b30",
+      "bytes": 91,
+      "name": "?R_ChopPortalAndAddHullPoints@@YA_NPAUGfxPortal@@PBUDpvsPlane@@1H@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10009b90",
+      "bytes": 22,
+      "name": "?R_IsCellInList@@YA_NPBUGfxCell@@PAPBU1@H@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10009bc0",
+      "bytes": 301,
+      "name": "?R_GetFurtherCellList_r@@YAHPBUGfxCell@@PBUDpvsPlane@@1HQAY1IA@2MPAPBU1@H@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x1000a550",
+      "bytes": 194,
+      "name": "?R_SetupDpvsForDir@@YAXPBUGfxViewParms@@@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x1000ed60",
+      "bytes": 63,
+      "name": "?Image_UploadData@@YAXPAUGfxImage@@W4_D3DFORMAT@@W4_D3DCUBEMAP_FACES@@IPBE@Z",
+      "object": "r_image_load_common.obj"
+    },
+    {
+      "target": "0x1000f120",
+      "bytes": 20,
+      "name": "?Vec2Multiply@@YAMQBM@Z",
+      "object": "r_water_load_obj.obj"
+    },
+    {
+      "target": "0x1000f2a0",
+      "bytes": 67,
+      "name": "?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x1000f320",
+      "bytes": 47,
+      "name": "?Image_CountMipmapsForFile@@YAIPBUGfxImageFileHeader@@@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x10010ba0",
+      "bytes": 87,
+      "name": "?Wavelet_ConsumeBits@@YAXGPAUWaveletDecode@@@Z",
+      "object": "r_image_wavelet.obj"
+    },
+    {
+      "target": "0x10010c00",
+      "bytes": 168,
+      "name": "?Wavelet_DecodeValue@@YAHPBUWaveletHuffmanDecode@@GHPAUWaveletDecode@@@Z",
+      "object": "r_image_wavelet.obj"
+    },
+    {
+      "target": "0x10010cb0",
+      "bytes": 134,
+      "name": "?Wavelet_AddDeltaToMipmap@@YAXPAEHPAUWaveletDecode@@@Z",
+      "object": "r_image_wavelet.obj"
+    },
+    {
+      "target": "0x10010d40",
+      "bytes": 1471,
+      "name": "?Wavelet_DecompressLevel@@YAXPAE0PAUWaveletDecode@@@Z",
+      "object": "r_image_wavelet.obj"
+    },
+    {
+      "target": "0x100116c0",
+      "bytes": 139,
+      "name": "?R_GetDeviceCaps@@YAXIPAU_D3DCAPS9@@@Z",
+      "object": "r_caps_device.obj"
+    },
+    {
+      "target": "0x10011760",
+      "bytes": 358,
+      "name": "?R_ChooseRenderer@@YAXPBU_D3DCAPS9@@@Z",
+      "object": "r_caps_device.obj"
+    },
+    {
+      "target": "0x10011900",
+      "bytes": 307,
+      "name": "?R_StoreDirect3DCaps@@YAXI@Z",
+      "object": "r_caps_device.obj"
+    },
+    {
+      "target": "0x10012320",
+      "bytes": 51,
+      "name": "?R_DisplayModeLess@@YA_NABU_D3DDISPLAYMODE@@0@Z",
+      "object": "r_display_modes.obj"
+    },
+    {
+      "target": "0x10012360",
+      "bytes": 55,
+      "name": "?R_AddRefreshRate@@YAHHPAHH@Z",
+      "object": "r_display_modes.obj"
+    },
+    {
+      "target": "0x100123a0",
+      "bytes": 41,
+      "name": "?R_AddResolution@@YAHHPAUGfxResolution@@HH@Z",
+      "object": "r_display_modes.obj"
+    },
+    {
+      "target": "0x10015260",
+      "bytes": 386,
+      "name": "?R_ChopPolyBehindPlane@@YAHHPAUClipPoint@@0PBMM@Z",
+      "object": "r_marks.obj"
+    },
+    {
+      "target": "0x10015830",
+      "bytes": 494,
+      "name": "?R_AddMarkFragment@@YAHPAY08UClipPoint@@PAY02$$CBMPBMHPAUGfxWorldVertex@@PAUGfxMarkFragment@@@Z",
+      "object": "r_marks.obj"
+    },
+    {
+      "target": "0x1001d660",
+      "bytes": 181,
+      "name": "?ConvertQuatToMat@@YAXPBUDObjAnimMat@@QAY02M@Z",
+      "object": "xanim_matrix.obj"
+    },
+    {
+      "target": "0x1001d720",
+      "bytes": 217,
+      "name": "?R_ConvertAnimMatToSkelMat@@YAXPBUDObjAnimMat_s@@PAUDObjSkelMat_s@@@Z",
+      "object": "r_model.obj"
+    },
+    {
+      "target": "0x10022710",
+      "bytes": 172,
+      "name": "?R_DescribeFormat@@YAPBDW4_D3DFORMAT@@@Z",
+      "object": "r_rendertarget.obj"
+    },
+    {
+      "target": "0x100227c0",
+      "bytes": 98,
+      "name": "?R_GetFrameBufferExtent@@YAXPAH0@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10022830",
+      "bytes": 145,
+      "name": "?R_GetOrCreateDepthStencil@@YAPAUIDirect3DSurface9@@XZ",
+      "object": "r_rendertarget.obj"
+    },
+    {
+      "target": "0x100228d0",
+      "bytes": 100,
+      "name": "?R_CreateSmallDepthStencil@@YAPAUIDirect3DSurface9@@XZ",
+      "object": "r_rendertarget.obj"
+    },
+    {
+      "target": "0x10022940",
+      "bytes": 261,
+      "name": "?R_InitFrameBuffer@@YAXPAUGfxRenderTarget@@@Z",
+      "object": "r_rendertarget.obj"
+    },
+    {
+      "target": "0x100236c0",
+      "bytes": 77,
+      "name": "?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z",
+      "object": "rb_fog.obj"
+    },
+    {
+      "target": "0x10027d00",
+      "bytes": 573,
+      "name": "?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z",
+      "object": "r_shadowcookie_candidates.obj"
+    },
+    {
+      "target": "0x1002bc60",
+      "bytes": 60,
+      "name": "?R_BoundsForSurf_Triangles@@YAPBMPBUGfxDrawSurf@@H@Z",
+      "object": "r_surfbounds.obj"
+    },
+    {
+      "target": "0x1002bce0",
+      "bytes": 58,
+      "name": "?R_BoundsForDrawSurf@@YAPBMPBUGfxDrawSurf@@@Z",
+      "object": "r_surfbounds.obj"
+    },
+    {
+      "target": "0x1002d240",
+      "bytes": 403,
+      "name": "?XSurfaceTransferDx7@@YAXPBUXVertexBuffer@@PAUGfxVertexDx7@@H@Z",
+      "object": "r_xsurface.obj"
+    },
+    {
+      "target": "0x100348f0",
+      "bytes": 28,
+      "name": "?RB_FogOffset@@YA?AW4GfxFogOffset@@XZ",
+      "object": "rb_fog.obj"
+    },
+    {
+      "target": "0x10034910",
+      "bytes": 657,
+      "name": "?RB_SetIteratorFog@@YAXXZ",
+      "object": "rb_fog.obj"
+    },
+    {
+      "target": "0x10034bb0",
+      "bytes": 172,
+      "name": "?RB_UpdateFogColor@@YAXW4FogColorSrcEnum@@@Z",
+      "object": "rb_fog.obj"
+    },
+    {
+      "target": "0x10034ca0",
+      "bytes": 536,
+      "name": "?RB_GaussianFilterPoints1D@@YAHMHHHPAM0@Z",
+      "object": "rb_filter_generate.obj"
+    },
+    {
+      "target": "0x10034ec0",
+      "bytes": 282,
+      "name": "?RB_GenerateGaussianFilter1D@@YAXMPAHHPAUGfxImageFilterPass@@@Z",
+      "object": "rb_filter_generate.obj"
+    },
+    {
+      "target": "0x100368a0",
+      "bytes": 2834,
+      "name": "?RB_FitDirectionalLight@@YA_NHPAY02MPAU_D3DLIGHT9@@@Z",
+      "object": "rb_light_derive.obj"
+    },
+    {
+      "target": "0x10037420",
+      "bytes": 213,
+      "name": "?RB_DeriveAmbientEntityLights@@YAHPBMMPAU_D3DLIGHT9@@H@Z",
+      "object": "rb_light_derive.obj"
+    },
+    {
+      "target": "0x10037500",
+      "bytes": 294,
+      "name": "?RB_DeriveDirectionalEntityLights@@YAHPBMMPAU_D3DLIGHT9@@H@Z",
+      "object": "rb_light_derive.obj"
+    },
+    {
+      "target": "0x10037630",
+      "bytes": 60,
+      "name": "?RB_DeriveEntityLights@@YAHPAY03MMPBUMaterial@@PAU_D3DLIGHT9@@H@Z",
+      "object": "rb_light_derive.obj"
+    },
+    {
+      "target": "0x10038430",
+      "bytes": 104,
+      "name": "?RB_ChangePixelShader@@YAXPAUIDirect3DPixelShader9@@@Z",
+      "object": "rb_state.obj"
+    },
+    {
+      "target": "0x100384a0",
+      "bytes": 104,
+      "name": "?RB_ChangeVertexShader@@YAXPAUIDirect3DVertexShader9@@@Z",
+      "object": "rb_state.obj"
+    },
+    {
+      "target": "0x10038510",
+      "bytes": 114,
+      "name": "?RB_ChangeVertexDeclaration@@YAXPAUIDirect3DVertexDeclaration9@@@Z",
+      "object": "rb_state.obj"
+    },
+    {
+      "target": "0x10038610",
+      "bytes": 150,
+      "name": "?RB_DrawIndexedPrimitive@@YAXPBUGfxDrawPrimArgs@@@Z",
+      "object": "rb_state.obj"
+    },
+    {
+      "target": "0x100388f0",
+      "bytes": 39,
+      "name": "?RB_ApplyImageOverride@@YAXPBUdvar_s@@PAPAUGfxImage@@PAE@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x10038cf0",
+      "bytes": 733,
+      "name": "?RB_GetCodeMatrix@@YAPBMIHH@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x10038fd0",
+      "bytes": 198,
+      "name": "?RB_DeriveOutdoorLookupMatrix@@YAXQAY03M@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x100390a0",
+      "bytes": 65,
+      "name": "?RB_GetShaderCodeConstant@@YAXPBUMaterialArgumentCodeConst@@PAPBMPAI@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x100390f0",
+      "bytes": 52,
+      "name": "?RB_GetMaterialConstant@@YAXPBDPAPBMPAI@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x10039610",
+      "bytes": 95,
+      "name": "?RB_ApplyStateMapRules@@YAEPBUMaterialStateMapRuleSet@@PBHPAH@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x10039670",
+      "bytes": 91,
+      "name": "?RB_EvaluateStateMap@@YAXPBHPBUMaterialStateMap@@PAH@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x100399d0",
+      "bytes": 358,
+      "name": "?RB_GetObjectiveColorDx7@@YAXPAE@Z",
+      "object": "rb_shader_matrices.obj"
+    },
+    {
+      "target": "0x1003ad40",
+      "bytes": 386,
+      "name": "?RB_SetTessQuad@@YAPAUGfxVertex@@TGfxColor@@@Z",
+      "object": "rb_sky.obj"
+    },
+    {
+      "target": "0x10057a10",
+      "bytes": 37,
+      "name": "?Com_SwapHullPoints@@YAXPAY01MHH@Z",
+      "object": "com_convexhull.obj"
+    },
+    {
+      "target": "0x10057a40",
+      "bytes": 648,
+      "name": "?Com_InitialHull@@YAXPAY01MH0@Z",
+      "object": "com_convexhull.obj"
+    },
+    {
+      "target": "0x10057cd0",
+      "bytes": 40,
+      "name": "?Com_AddPointToHull@@YAHQBMHPAY01MH@Z",
+      "object": "com_convexhull.obj"
+    },
+    {
+      "target": "0x10057d00",
+      "bytes": 518,
+      "name": "?Com_RecursivelyGrowHull@@YAHPAY01MHHH0H@Z",
+      "object": "com_convexhull.obj"
+    },
+    {
+      "target": "0x10057f10",
+      "bytes": 715,
+      "name": "?Com_GrowInitialHull@@YAHPAY01MH0@Z",
+      "object": "com_convexhull.obj"
+    },
+    {
+      "target": "0x100581e0",
+      "bytes": 27,
+      "name": "?Com_ConvexHull@@YAHPAY01MH0@Z",
+      "object": "com_convexhull.obj"
+    },
+    {
+      "target": "0x10058310",
+      "bytes": 105,
+      "name": "?MatrixTransformVectorQuatTrans@@YAXPBMPBUDObjAnimMat@@PAM@Z",
+      "object": "xanim_matrix.obj"
+    }
+  ],
+  "checkpoint_lost": [],
+  "excluded_new_library_functions": 13,
+  "excluded_new_embedded_table_bytes": 403,
+  "excluded_new_library_bytes": 2719
+}
+PASS: independent cold build: 544 bodies / 94,753 code bytes, 403 table/padding excluded; all 513 checkpoint9 extents retained, no overlaps
+PASS: actual buffer bodies, early exits, COM failures, DX7/DX9, index copy/padding
+PASS: actual caps bodies, retries, fatal path, renderer preferences, flags, format check
+PASS: actual cell linking, BSP splits, limit warning and brush draw-key/queue behavior
+PASS: initial hull extrema, tie selection, point preservation and swaps; counts 2..11
+PASS: actual framebuffer/cookie/shared depth bodies, logs/retries, cache/MSAA reuse/AddRef, creation and fatal failures
+PASS: actual cubemap hemisphere integration, gamma/BGRA, empty dimensions and output bounds
+PASS: actual enumeration/init, sorting, duplicates, defaults, failure, 256-mode cap
+PASS: actual shader/declaration caches, null transitions, retries, triangle gates and 2D bypass
+PASS: actual FFT tables and 63 strided, Nyquist-centered transforms against direct sums
+PASS: actual Gaussian kernels vs scalar oracle, 1D/2D layout, downscale, axis selection, NaN and 16-pass bound
+PASS: actual fog guards, BGRA conversion, color overrides, cache/retry/logging, DX7/9, far and NaN
+PASS: actual desktop/fullscreen extents, Win32 query order, zero sizes and aliased outputs
+PASS: actual PC format switch/fullscreen/init bodies, 1152 allocation cases, signed clamps/ushort sizes, z-feather/DX7, depth and call order
+PASS: actual hull growth vs independent oracle; 1,550 finite/duplicate/collinear inputs
+<stdin>:30:9: warning: ‘#pragma once’ in main file [-Wpragma-once-outside-header]
+PASS: actual hardware-light setup, derive arguments, 0..8 lights, disable tail, logging and retry
+PASS: actual file/header validation, all tag/version/flag bytes, path limits and ownership
+PASS: actual bitmap BGR/alpha, DXT block cursors, 13 format routes, mip/face skips and frees
+PASS: all 13 anchor names, actual programmable-image allocator, collision probing and field ownership
+PASS: actual setup, picmip clamp, mip/cube sizes, 256 tracks and fullscreen accumulation
+PASS: actual light transpose/average, zero/uniform fitting, sun lighting and DX7 material dispatch
+PASS: actual mark clipping, interpolation/NaNs/guards, six-plane fragment transfer and capacity rejection
+PASS: actual mark world queries, recursion, capacities, duplicates, visit stamps, material flags and NaNs
+PASS: actual helpers, identity, translation, quarter-turn, zero weight
+PASS: actual matrix conversion and DX7 transfer; zero/negative/unrolled/tail counts
+PASS: actual occluder culling, silhouette planes, NaN, debug allocation and brush/face limits
+PASS: actual picmip selector, all memory thresholds, unsigned extremes, manual settings and dvar writes
+PASS: actual three-plane solver, 200 intersections, parallel/near-parallel and NaN cases
+PASS: actual portal clipping, epsilon boundary, empty/all-front, far-plane buffers and append dispatch
+PASS: actual portal point routine; pool exhaustion, projection, growth dispatch and copy
+PASS: actual projection, small/near/NaN cases, nearest-plane scan, plane copies and debug-line capacity
+PASS: actual portal traversal, cycle suppression, ancestor/view/plane/occluder culling and NaN planes
+PASS: baseline accepted; missing/changed extent, stale output, and library credit rejected
+PASS: actual bounds, 256 corner/scalar cases, signed NaNs/zero, culling dispatch and both packed-key formats
+PASS: sampler caching, defaults, anisotropy, address modes, null/unbind, initialization
+PASS: actual shader matrix cache, constant lookup and state-map rule/error paths
+PASS: actual shadow selection vs top24 oracle, skip flags, hint weighting, ties, bounds, NaN and output guards
+<stdin>:18:9: warning: ‘#pragma once’ in main file [-Wpragma-once-outside-header]
+PASS: actual DX7/DX9 quad indices, normals, packed color, UVs, tangent space and untouched positions
+PASS: actual specularity map vs scalar oracle, clamp extremes, NaN, orientation and guards
+PASS: actual sun parser reset, all keys, legacy ambient warning, partial triples, missing value and truncation
+PASS: actual surface reader, 180 rigid/blended streams, bone-bit boundaries and odd-triangle padding
+PASS: actual rigid/blended skinning, 0..4 weights, optional normals/UVs and output guards
+PASS: actual view/projection copies, cache flags, three stack levels and DX7 routing
+PASS: water sizes, tolerances, direction, zero vector, target NaN distinction
+PASS: actual water phase, FFT dispatch, normal/height pixels, in-place mips and frame gates
+PASS: all 49,152 table bytes, 98,304 lookup/cursor cases, encoded mip blocks, deltas and small dimensions
+PASS: actual wavelet loader mip/face cursors, shared cube-capability gate, upload routing and reverse frees
+Replay artifacts: build/codex35_checkpoint19_61aFiz

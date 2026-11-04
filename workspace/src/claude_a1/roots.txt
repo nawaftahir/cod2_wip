@@ -1,0 +1,13 @@
+R_GetWorldBounds
+R_SetFog
+R_SwitchFog
+R_LocateDebugStrings
+R_LocateDebugLines
+R_AddPlume
+R_TransferDebugGlobals
+R_ShutdownDebug
+R_ParseSunLight
+R_InterpretSunLightParseParams
+R_DuplicateFont
+R_TextWidth
+R_EndRegistration

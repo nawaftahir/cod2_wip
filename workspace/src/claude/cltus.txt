@@ -1,0 +1,4 @@
+universal/com_math.cpp /Op
+universal/com_shared.cpp
+universal/q_parse.cpp
+universal/q_shared.cpp

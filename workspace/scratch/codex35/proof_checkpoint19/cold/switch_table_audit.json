@@ -1,0 +1,55 @@
+{
+  "confirmed_extra_exclusions": 213,
+  "rows": [
+    {
+      "target": "0x1000d090",
+      "full_extent": 92,
+      "executable_bytes": 66,
+      "excluded_bytes": 26,
+      "padding": 2,
+      "table": "0x1000d0d4",
+      "entries": 6,
+      "selectors": 0
+    },
+    {
+      "target": "0x1000e840",
+      "full_extent": 187,
+      "executable_bytes": 135,
+      "excluded_bytes": 52,
+      "padding": 1,
+      "table": "0x1000e8c8",
+      "entries": 5,
+      "selectors": 31
+    },
+    {
+      "target": "0x1000e900",
+      "full_extent": 274,
+      "executable_bytes": 226,
+      "excluded_bytes": 48,
+      "padding": 2,
+      "table": "0x1000e9e4",
+      "entries": 4,
+      "selectors": 30
+    },
+    {
+      "target": "0x1000ef40",
+      "full_extent": 219,
+      "executable_bytes": 149,
+      "excluded_bytes": 70,
+      "padding": 3,
+      "table": "0x1000efd8",
+      "entries": 4,
+      "selectors": 51
+    },
+    {
+      "target": "0x10023800",
+      "full_extent": 200,
+      "executable_bytes": 183,
+      "excluded_bytes": 17,
+      "padding": 1,
+      "table": "0x100238b8",
+      "entries": 4,
+      "selectors": 0
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+r_init.cpp
+r_globals.cpp
+r_staticmodel_load_obj.cpp
+r_marks.cpp
+r_staticmodelcache.cpp
+r_scene.cpp
+r_rendercmds.cpp
+r_dvars.cpp
+r_material_load_obj.cpp
+r_texturemem.cpp
+common.cpp
+rb_logfile.cpp
+r_material.cpp

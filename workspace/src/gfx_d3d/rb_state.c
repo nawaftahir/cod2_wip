@@ -1342,3 +1342,4 @@ void RB_SetWorldMatrixForEntity(const GfxEntity *re)
     MatrixSet44(activeMatrices->world.matrix[0].m, re->origin, (vec3_t (*))re->axis, re->scale);
     RB_FinalizeWorldMatrixChange(activeMatrices, re->scale);
 }
+    

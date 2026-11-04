@@ -1,0 +1,108 @@
+{
+  "candidate_sha256": "9d1be71001210e055d2b2a406326950fc48abebfd8acd2555dd1eda886cc9215",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "old_bind_sha256": "9fe76c04ed8c732c218e8ce2b4a83a4e29f2fda6d3aa10447faa81f5e941aad1",
+  "body_compare": "All callback bytes equal outside identical HIGHLOW sites; no masked relative calls",
+  "pins": [
+    {
+      "producer": "?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z",
+      "source_instruction": "0x10013a69",
+      "retail_instruction": "0x100145f9",
+      "source_reloc": "0x10013a6c",
+      "retail_reloc": "0x100145fc",
+      "callback": "?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z",
+      "source_callback": "0x100139b0",
+      "retail_callback": "0x100145a0"
+    },
+    {
+      "producer": "?R_SaveJpg@@YAXPBDHHHPAE@Z",
+      "source_instruction": "0x10013a8e",
+      "retail_instruction": "0x1001467e",
+      "source_reloc": "0x10013a8f",
+      "retail_reloc": "0x1001467f",
+      "callback": "?Z_MallocJpeg@@YAPAXI@Z",
+      "source_callback": "0x100139e0",
+      "retail_callback": "0x10014610"
+    },
+    {
+      "producer": "?R_SaveJpg@@YAXPBDHHHPAE@Z",
+      "source_instruction": "0x10013a93",
+      "retail_instruction": "0x10014683",
+      "source_reloc": "0x10013a94",
+      "retail_reloc": "0x10014684",
+      "callback": "?Z_FreeJpeg@@YAXPAXI@Z",
+      "source_callback": "0x100139f0",
+      "retail_callback": "0x10014620"
+    },
+    {
+      "producer": "?R_SaveJpg@@YAXPBDHHHPAE@Z",
+      "source_instruction": "0x10013b2d",
+      "retail_instruction": "0x1001471d",
+      "source_reloc": "0x10013b34",
+      "retail_reloc": "0x10014724",
+      "callback": "?ExitJpeg@@YAXXZ",
+      "source_callback": "0x10013a00",
+      "retail_callback": "0x10014630"
+    },
+    {
+      "producer": "?R_SaveJpg@@YAXPBDHHHPAE@Z",
+      "source_instruction": "0x10013b38",
+      "retail_instruction": "0x10014728",
+      "source_reloc": "0x10013b3f",
+      "retail_reloc": "0x1001472f",
+      "callback": "?PrintfJpeg@@YAXPAD@Z",
+      "source_callback": "0x10013a20",
+      "retail_callback": "0x10014650"
+    },
+    {
+      "producer": "?R_SaveJpg@@YAXPBDHHHPAE@Z",
+      "source_instruction": "0x10013bf5",
+      "retail_instruction": "0x100147e5",
+      "source_reloc": "0x10013bf8",
+      "retail_reloc": "0x100147e8",
+      "callback": "?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z",
+      "source_callback": "0x100139b0",
+      "retail_callback": "0x100145a0"
+    },
+    {
+      "producer": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
+      "source_instruction": "0x10013dfc",
+      "retail_instruction": "0x100149ec",
+      "source_reloc": "0x10013e03",
+      "retail_reloc": "0x100149f3",
+      "callback": "?ExitJpeg@@YAXXZ",
+      "source_callback": "0x10013a00",
+      "retail_callback": "0x10014630"
+    },
+    {
+      "producer": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
+      "source_instruction": "0x10013e07",
+      "retail_instruction": "0x100149f7",
+      "source_reloc": "0x10013e0e",
+      "retail_reloc": "0x100149fe",
+      "callback": "?PrintfJpeg@@YAXPAD@Z",
+      "source_callback": "0x10013a20",
+      "retail_callback": "0x10014650"
+    },
+    {
+      "producer": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
+      "source_instruction": "0x10013e12",
+      "retail_instruction": "0x10014a02",
+      "source_reloc": "0x10013e19",
+      "retail_reloc": "0x10014a09",
+      "callback": "?Z_MallocJpeg@@YAPAXI@Z",
+      "source_callback": "0x100139e0",
+      "retail_callback": "0x10014610"
+    },
+    {
+      "producer": "?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z",
+      "source_instruction": "0x10013e1d",
+      "retail_instruction": "0x10014a0d",
+      "source_reloc": "0x10013e24",
+      "retail_reloc": "0x10014a14",
+      "callback": "?Z_FreeJpeg@@YAXPAXI@Z",
+      "source_callback": "0x100139f0",
+      "retail_callback": "0x10014620"
+    }
+  ]
+}
