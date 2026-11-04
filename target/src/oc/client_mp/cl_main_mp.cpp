@@ -443,6 +443,7 @@ void CL_InitDownloads(void);
 static void CL_SendPureChecksums(void);
 extern void DL_CancelDownload(void);
 
+extern dvar_t *loc_language;
 extern int Cmd_Argc(void);
 extern const char *Cmd_Argv( int arg );
 extern void I_strncpyz(char *dest, const char *src, int destsize);
@@ -2277,7 +2278,38 @@ void CL_InitRenderer(void)
 
     cls.whiteMaterial = re.RegisterMaterial("white", 3, 3);
     cls.consoleMaterial = re.RegisterMaterial("console", 3, 3);
+#if COD2_IS_PATCH_13
+    {
+        switch (loc_language->current.integer) {
+        case LANGUAGE_RUSSIAN:
+            cls.consoleFont = re.RegisterFont("fonts/russian/consoleFont", 3);
+            break;
+        case LANGUAGE_POLISH:
+            cls.consoleFont = re.RegisterFont("fonts/polish/consoleFont", 3);
+            break;
+        case LANGUAGE_KOREAN:
+            cls.consoleFont = re.RegisterFont("fonts/korean/consoleFont", 3);
+            break;
+        case LANGUAGE_TAIWANESE:
+            cls.consoleFont = re.RegisterFont("fonts/taiwanese/consoleFont", 3);
+            break;
+        case LANGUAGE_JAPANESE:
+            cls.consoleFont = re.RegisterFont("fonts/japanese/consoleFont", 3);
+            break;
+        case LANGUAGE_CHINESE:
+            cls.consoleFont = re.RegisterFont("fonts/chinese/consoleFont", 3);
+            break;
+        case LANGUAGE_THAI:
+            cls.consoleFont = re.RegisterFont("fonts/thai/consoleFont", 3);
+            break;
+        default:
+            cls.consoleFont = re.RegisterFont("fonts/consoleFont", 3);
+            break;
+        }
+    }
+#else
     cls.consoleFont = re.RegisterFont("fonts/consoleFont", 3);
+#endif
 
     fieldWidth = cls.vidConfig.width - 0x20;
     g_console_field_width = fieldWidth;

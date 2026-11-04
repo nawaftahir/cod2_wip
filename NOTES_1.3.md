@@ -539,3 +539,7 @@ FIXES (branch s1-inventory, worktree lab13/s1; builds are ~1.5 min):
   PbClGameCommand/PbClSendToAddrPort are structurally equal but compile with register params until their address is taken (PbClientInitialize 0x4bc000 stores them in pbcl.m_*):
   PbClientInitialize needs PbClGameQuery (0x4bbb80, 947 B, switch 0x67..0x73) and PbClGameMsg (0x4bbef0; calls PbMsgToScreen = cl_console_mp 0x405080 "%s: %s", Mac name PbMsgToScreen(char*,char*)).
   0x40e750 is the real CL_ConnectionlessPacket (PB_ prefix first: S/2/I server PB packets, else pbcl event), 0x40ec10 the rest; ours is one 2267 B fn: not started.
+- w8-pb: CL_InitRenderer (+324, matched): 1.3 picks the console font by loc_language: RUSSIAN(6) fonts/russian/, POLISH(7) polish, KOREAN(8), TAIWANESE(9), JAPANESE(10), CHINESE(11),
+  THAI(12) "/consoleFont", default fonts/consoleFont; each case calls re.RegisterFont(name, 3) itself (jump table at 0x40fb38). Pool effect: the switch changes the tie pool again
+  (PC_EvaluateTokens 2587 and Netchan_Process 1014 = a pure arg-load swap, lost; Scr_ParseGameTypeList regained): gross real gains of this branch = +900 B (guid 186, hex 99, PBget_cl_cdkey 93,
+  SendToServer 65, CL_SendPbPacket 63, PB_Q_Serveraddr 58, PB_Q_Serverinfo 12, InitRenderer 324), matched-fn 1,501,416 vs main 1,504,931 because of the pool.
