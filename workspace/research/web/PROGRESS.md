@@ -1409,3 +1409,12 @@ This checkpoint prepares additional draft-only source: `TextureBar.cpp` gains th
 BLOCKERS: EntityListDlg OnSelect needs select.cpp functions at 0x0046fbe0 and 0x0046f0b0; its destructor has a pre-existing alias CALLEE mismatch. TextureBar's spin/get/set routines need select.cpp and reviewed selected-face/qeglobals storage. DialogInfo ShowInfoDialog (0x00409690) requires three real Pmesh callers and ESI argument context. TexEdit OnChange (0x0043ef60) requires authentic CTexWnd::UpdateFilter at 0x00442d60. eclass requires retail class/global ownership and verified remaining 24 entries. Six other lane files are already FILE VERIFIED; do not churn them.
 
 Existing web trial routing is for ModelDlg, not lane 1. The task's allowlist does not include `workspace/research/web/target.tsv` or `workspace/research/web/tu_trial.tsv`, so this worker does not modify either. Exact isolated trials require an owner-approved lane-specific trial selector. Canonical changes and ledger additions wait for actual CI MATCH and green regression.
+
+
+### Lane-1 Q3 message-map reconstruction (drafts; no accepted game credit)
+
+EntityListDlg now carries the ancestor's real MFC dispatch for Select / tree selection changed / tree double-click. Retail dialog 129 independently proves control IDs 2 and 1022. The original Q3 empty OnDblclkListInfo body is present in the draft, but canonical `FUN_0040cca0` retains its accepted provisional identity and no row is relabeled. EntityList's `OnSelect` and tree selection-change handler stay deliberately undefined: calling their real `select.cpp` / entity graphs remains blocked. Those undefined members are genuine pending dependencies, not fabricated no-op handlers.
+
+TextureBar now carries the ancestor's spin notifications, window-create and Apply dispatch. Retail dialog 154 and the already accepted DDX prove the five spin IDs; the original Q3 OnSelectionPrint empty body is present only in draft and the canonical unnamed one-byte row remains intact. The nontrivial spin handlers and Get/SetSurfaceAttributes stay undefined until verified `select.cpp`, brush, selected-face, and `g_qeglobals` layout are available. The selection-print command ID is not inferred without evidence.
+
+These drafts are not certified as bit-identical; no current lane-1 isolated CI selector exists under the permitted edit scope. Keep the canonical source and match ledger unchanged until the pinned full-link referee produces a relevant MATCH and full regression passes.

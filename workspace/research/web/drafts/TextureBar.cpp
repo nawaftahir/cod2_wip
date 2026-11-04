@@ -6,6 +6,7 @@ class CTextureBar : public CDialogBar
 {
 public:
     CTextureBar();
+    void GetSurfaceAttributes();
     void SetSurfaceAttributes(); // actual method, body requires original face/texture state
 
     CSpinButtonCtrl m_spinRotate;
@@ -24,6 +25,13 @@ protected:
     virtual void DoDataExchange(CDataExchange *pDX);
     afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
     afx_msg void OnBtnApplytexturestuff();
+    afx_msg void OnSelectionPrint();
+    afx_msg void OnDeltaposSpinHshift(NMHDR *, LRESULT *);
+    afx_msg void OnDeltaposSpinVshift(NMHDR *, LRESULT *);
+    afx_msg void OnDeltaposSpinHScale(NMHDR *, LRESULT *);
+    afx_msg void OnDeltaposSpinVScale(NMHDR *, LRESULT *);
+    afx_msg void OnDeltaposSpinRotate(NMHDR *, LRESULT *);
+    DECLARE_MESSAGE_MAP()
 };
 
 CTextureBar::CTextureBar()
@@ -58,6 +66,22 @@ int CTextureBar::OnCreate(LPCREATESTRUCT lpCreateStruct)
     if (CDialogBar::OnCreate(lpCreateStruct) == -1)
         return -1;
     return 0;
+}
+
+// Dialog 154 and the canonical DDX pin the spin/button IDs;
+// the command ID for selection print still needs retail map evidence.
+BEGIN_MESSAGE_MAP(CTextureBar, CDialogBar)
+    ON_NOTIFY(UDN_DELTAPOS, 0x4e0, OnDeltaposSpinHshift)
+    ON_NOTIFY(UDN_DELTAPOS, 0x4e3, OnDeltaposSpinVshift)
+    ON_NOTIFY(UDN_DELTAPOS, 0x4e9, OnDeltaposSpinHScale)
+    ON_NOTIFY(UDN_DELTAPOS, 0x4e6, OnDeltaposSpinVScale)
+    ON_NOTIFY(UDN_DELTAPOS, 0x4eb, OnDeltaposSpinRotate)
+    ON_WM_CREATE()
+    ON_BN_CLICKED(3, OnBtnApplytexturestuff)
+END_MESSAGE_MAP()
+
+void CTextureBar::OnSelectionPrint()
+{
 }
 
 // Preserve the already accepted one-byte retail body until its class-method
