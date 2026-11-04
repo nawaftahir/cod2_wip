@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """cmp13_sum.py cmp13.json: matched fns / bytes. Unique = one hit (or a 16-aligned one among several, as cov.py)."""
 import json, sys
-r = json.load(open(sys.argv[1]))
+r = [x for x in json.load(open(sys.argv[1])) if not x.get("alias")]  # an alias shares its body's bytes
 for x in r:
     if len(x["hits"]) > 1 and ":" not in x["obj"]:
         a = [h for h in x["hits"] if int(h, 16) % 16 == 0]

@@ -23,6 +23,7 @@ win32/win_splash.cpp
 win32/win_wndproc.cpp
 script/scr_main.cpp
 script/scr_parser.cpp
+stringed/loc_dvars.cpp
 xanim/xanim_load.cpp
 xanim/xmodel_load.cpp
 xanim/xmodel_load_obj.cpp
@@ -31,6 +32,7 @@ EffectsCore/FxArchive.cpp
 EffectsCore/FxChannel.cpp
 EffectsCore/FxCurve.cpp
 EffectsCore/FxMemMgr.cpp
+EffectsCore/FxTemplate.cpp
 zlib/adler32.c
 zlib/compress.c
 zlib/deflate.c
@@ -77,6 +79,7 @@ game/g_active_mp.cpp
 game/g_svcmds_mp.cpp
 game/g_spawn_mp.cpp
 game/scr_const_mp.cpp
+bgame/bg_pmove.cpp
 bgame/bg_weapons_load_obj.cpp
 game/g_team_mp.cpp
 game/g_missile_mp.cpp
@@ -91,6 +94,7 @@ game/g_client_fields_mp.cpp
 bgame/bg_jump.cpp
 bgame/bg_slidemove.cpp
 game/g_weapon_load_obj.cpp
+oc/ui/ui_utils.cpp
 oc/ui_mp/ui_gameinfo_mp.cpp
 libwww/Library/src/HTAABrow.c
 libwww/Library/src/HTAccess.c
@@ -100,6 +104,7 @@ libwww/Library/src/HTEscape.c
 libwww/Library/src/HTAtom.c
 libwww/Library/src/HTResponse.c
 libwww/Library/src/HTList.c
+libwww/Library/src/HTAnchor.c
 libwww/Library/src/HTEvent.c
 libwww/Library/src/HTChannl.c
 libwww/Library/src/HTChunk.c

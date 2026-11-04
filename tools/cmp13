@@ -2,6 +2,6 @@
 # cmp13 [map exe]: masked, address-independent per-fn match of our 1.3 build vs retail 1.3 -> build/cmp13.json
 # Run from anywhere; prints matched fns/bytes (unique hits as cov.py).
 cd "$(dirname "$0")/.." || exit 1
-R=../binaries/windows/1.3/CoD2MP_s.exe
+R=${ANCHOR:-../binaries/windows/1.3/CoD2MP_s.exe}
 python3 tools/cmp13.py build/release/CoD2MP_s.exe build/release/CoD2MP_s.map $R build/cmp13.json >/dev/null || exit 1
 python3 tools/cmp13_sum.py build/cmp13.json
