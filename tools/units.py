@@ -4,7 +4,7 @@
 PINNED 2026-10-21: plain /O2 gives register arguments only to `static` functions, and a static can
 only be called from the same compile unit. Every register-argument call from file A into file B
 therefore puts A and B in one unit (CamWnd.cpp -> XYWnd.cpp 0x44f5d0 reproduced byte-identical this
-way: research/richtest/unity_test.cpp). Union-find over those links, using PINNED callers and callees
+way: workspace/research/richtest/unity_test.cpp). Union-find over those links, using PINNED callers and callees
 only, gives the unit groups. Writes data/units.tsv.
 """
 import bisect

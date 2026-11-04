@@ -2,7 +2,7 @@ name: radiant
 
 on:
   push:
-    branches: [main, 'web/**']
+    branches: ['radiant/**']
   pull_request:
   workflow_dispatch:
 
@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: radiant-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/heads/web/') }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/heads/radiant/web/') }}
 
 env:
   IMAGE: ghcr.io/nawaftahir/cod2-radiant-msvc71@sha256:be71e0d2b7f7e51a873c472e81872d0aa125a4fe5b2a4522bf8abb247b45008f
@@ -56,17 +56,17 @@ jobs:
             -e METER_BASELINE=/w/build/baseline.json -e RADIANT_CI_NO_NOTIFY=1 \
             "$IMAGE" python3 -u tools/ci_gate.py
       - name: Read-only audit of already-emitted unmatched game source
-        if: success() && startsWith(github.ref, 'refs/heads/web/')
+        if: success() && startsWith(github.ref, 'refs/heads/radiant/web/')
         continue-on-error: true
         run: |
           docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" \
-            python3 -u research/web/scan_emitted_matches.py 2>&1 | tee build/web-auto-match.log
+            python3 -u workspace/research/web/scan_emitted_matches.py 2>&1 | tee build/web-auto-match.log
       - name: Read-only object symbol census for unlinked game functions
-        if: success() && startsWith(github.ref, 'refs/heads/web/')
+        if: success() && startsWith(github.ref, 'refs/heads/radiant/web/')
         continue-on-error: true
         run: |
           docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" \
-            python3 -u research/web/inspect_object_symbols.py 2>&1 | tee build/web-object-symbols.log
+            python3 -u workspace/research/web/inspect_object_symbols.py 2>&1 | tee build/web-object-symbols.log
       - name: Job summary
         if: always()
         run: |
@@ -91,7 +91,7 @@ jobs:
             build/web-object-symbols.log
 
   web-trial:
-    if: startsWith(github.ref, 'refs/heads/web/')
+    if: startsWith(github.ref, 'refs/heads/radiant/web/')
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     steps:
@@ -106,7 +106,7 @@ jobs:
         run: |
           mkdir -p build
           set -o pipefail
-          if [ -f research/web/target.tsv ]; then
+          if [ -f workspace/research/web/target.tsv ]; then
             runner=tools/web_tu_trial.py
           else
             runner=tools/web_trial.py
@@ -118,31 +118,31 @@ jobs:
         continue-on-error: true
         run: |
           mkdir -p build
-          if [ -f research/web/inspect_addrs.txt ]; then
+          if [ -f workspace/research/web/inspect_addrs.txt ]; then
             docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" \
               sh -c 'while IFS= read -r addr; do
                 case "$addr" in ""|\#*) continue;; esac
                 echo "========== RETAIL $addr =========="
                 python3 -u tools/show.py "$addr"
-              done < research/web/inspect_addrs.txt' 2>&1 | tee build/web-evidence.log
+              done < workspace/research/web/inspect_addrs.txt' 2>&1 | tee build/web-evidence.log
           fi
       - name: Retail caller census for unfinished TU dependencies
         if: always()
         continue-on-error: true
         run: |
-          if [ -s research/web/inspect_callers.txt ]; then
-            docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" python3 -u research/web/caller_census.py research/web/inspect_callers.txt 2>&1 | tee build/web-callers.log
+          if [ -s workspace/research/web/inspect_callers.txt ]; then
+            docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" python3 -u workspace/research/web/caller_census.py workspace/research/web/inspect_callers.txt 2>&1 | tee build/web-callers.log
           fi
       - name: Diagnostic complete-file metadata audits (no credit)
         if: always()
         continue-on-error: true
         run: |
-          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" sh -c 'python3 -u research/web/test_findtexture_complete.py' 2>&1 | tee build/web-file-diagnostic.log
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" sh -c 'python3 -u workspace/research/web/test_findtexture_complete.py' 2>&1 | tee build/web-file-diagnostic.log
       - name: Diagnostic points.cpp full-TU proof (no credit)
         if: always()
         continue-on-error: true
         run: |
-          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" python3 -u research/web/test_points_complete.py 2>&1 | tee build/web-points-file-diagnostic.log
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" python3 -u workspace/research/web/test_points_complete.py 2>&1 | tee build/web-points-file-diagnostic.log
       - name: Trial summary
         if: always()
         run: |

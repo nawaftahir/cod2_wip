@@ -5,7 +5,7 @@ Evidence: assert calls push the __FILE__ string. Any function that references a
 source-file string is PINNED to that file. Functions between two pinned functions
 of the same file are SUPPORTED (no /GL, so a TU's code stays contiguous).
 Library functions (data/lib_funcs.tsv) are tagged LIB.
-Owner evidence on top (research/filemap/README.md):
+Owner evidence on top (workspace/research/filemap/README.md):
 - data/file_map.tsv: address ranges per file with a tag and written evidence. Inside a range every
   function gets that file; an assert pin for another file inside it is reported, never silently kept.
 - data/auto_funcs.tsv: code the compiler emits by itself inside the unit (MFC/ATL header inlines and

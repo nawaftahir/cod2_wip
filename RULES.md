@@ -28,28 +28,28 @@ Owner-edited only.
   (`src/universal`, `src/xanim`, `src/script`, ...) are the likely `/GL` C set: that range is where the
   "register arguments / no prologue" functions sit (LTCG custom calling conventions). Which files exactly is
   still open.
-- **Correction (PINNED by test, `research/richtest/static.sh`):** plain `/O2` without `/GL` already passes
+- **Correction (PINNED by test, `workspace/research/richtest/static.sh`):** plain `/O2` without `/GL` already passes
   arguments in registers (`_p$ = esi`) to a `static` function called from the same file. Register
   arguments alone don't prove LTCG. They mean "static, with its callers in the same file": write it
   `static` next to its real callers.
 - **Game files are C++ (PINNED):** RTTI type names `.?AVCMainFrame@@`, `.?AVCCamWnd@@`, `.?AVCXYWnd@@`,
   `.?AVCRadiantApp@@`, `.?AVidCameraPosition@@` (splines) are in the exe. `/GL` C++ is always prodid 100
-  whatever the other flags (`research/richtest/flags.sh`), and retail has none. So the C++ game files are
+  whatever the other flags (`workspace/research/richtest/flags.sh`), and retail has none. So the C++ game files are
   plain `/O2`; the 104 `/GL` objects are C files, and which ones is still open. Note: a plain link also
   puts every object before library code, so "game code first, MFC/CRT after" does not prove LTCG.
 - **REFUTED 2026-10-24: one compile unit.** Each game .cpp was its own object. MSVC writes `__FILE__` as cl
   was given the file: `.\X.cpp` for `cl .\X.cpp`, but `<full dir>\X.cpp` for a `.cpp` that is `#include`d
-  (`research/filemap/probe/once/run.sh`). Retail has `.\XYWnd.cpp` for editor files and drive-less
+  (`workspace/research/filemap/probe/once/run.sh`). Retail has `.\XYWnd.cpp` for editor files and drive-less
   `\trees\cod2src\src\universal\com_math.cpp` for engine files, the command-line forms. A `#pragma once`
   header also shows two spellings (`src\universal\../xanim/xanim_public.h` and `src\xanim\xanim_public.h`),
   which one unit cannot produce. The map has 102 game files (89 .cpp + 13 zlib .c) against 104 prodid-99
   objects, and the 96 nafxcw.lib objects nearly fill the 106 prodid-96 slots. So the game files are the
   `/GL` objects and the cross-file register calls below are LTCG. Open: our image stamps `/GL` C++ as 100,
-  not 99 (`research/richtest/flags.sh`; /G6, /G7, /arch:SSE, /GX /GR, /Gm, PCH and a .c built /TP all give
-  100: `research/richtest/gl99.sh`). The paragraph below is kept for its evidence; its unit conclusion
+  not 99 (`workspace/research/richtest/flags.sh`; /G6, /G7, /arch:SSE, /GX /GR, /Gm, PCH and a .c built /TP all give
+  100: `workspace/research/richtest/gl99.sh`). The paragraph below is kept for its evidence; its unit conclusion
   is wrong.
 - **Unity build (was PINNED 2026-10-21, see above).** Plain `/O2` gives register arguments only to `static` functions
-  (`research/richtest/nonstatic.sh`: non-static and `inline` stay on the stack). Retail has 72 register-argument
+  (`workspace/research/richtest/nonstatic.sh`: non-static and `inline` stay on the stack). Retail has 72 register-argument
   calls between *different* pinned files, e.g. CamWnd.cpp 0x4061f0 -> XYWnd.cpp 0x44f5d0 (ESI).
   `scratch/claude/unity_test.cpp` reproduces 0x44f5d0 byte-identical as a `static` function called from another
   class's method in the same compile unit. So the game C++ files were compiled as shared compile units.
@@ -60,7 +60,7 @@ Owner-edited only.
   XYWnd), Q3-core files (brush ... z), src/universal sorted, splines, then xanim/script.
   Consequence: every register-argument function is a `static` in its own file, called from wherever. It
   matches once written `static` inside the unit build.
-- **Mixed-link layout (PINNED, `research/richtest/order.sh`):** with `/LTCG`, all `/GL` code is placed
+- **Mixed-link layout (PINNED, `workspace/research/richtest/order.sh`):** with `/LTCG`, all `/GL` code is placed
   before every plain object, each group in link order.
 - **Open (evidence, not yet resolved):** `tools/ltcg_scan.py` finds 854 register-argument functions, and 142
   of them are called from *other* files with register arguments, which only LTCG can produce. Several sit
@@ -74,7 +74,7 @@ Owner-edited only.
   length, only outside call targets and absolute addresses masked, callees by name). A function with no
   visible caller gets register arguments from LTCG; retail keeps the stack form for any function whose
   address is taken, so link.py passes `/INCLUDE` for ledger functions whose address appears in the retail
-  image until the code taking it is written (`research/filemap/probe/addr/run.sh`, PINNED: 32 rows).
+  image until the code taking it is written (`workspace/research/filemap/probe/addr/run.sh`, PINNED: 32 rows).
   `data/symbols.tsv` gives the address of in-tree functions with no ledger row yet. Under this build the
   old `static`/`noinline`/keepalive-wrapper workarounds were not needed: removed, all 76 rows still match.
 - Link options: retail keeps 238 groups of byte-identical functions at separate addresses, so no `/OPT:ICF`.
@@ -95,11 +95,11 @@ Owner-edited only.
 ## zlib (PINNED 2026-10-21)
 - Strings "inflate 1.1.4", "deflate 1.1.4", "unzip 0.15". The code sits right after xmodel_utils.cpp,
   0x4acfc0-0x4b3cf2, in alphabetical link order: adler32, compress, deflate, infblock, infcodes, inffast,
-  inflate, inftrees, infutil, trees, uncompr, unzip, zutil (research/filemap/proposals/F.md; the 10-21 claim
+  inflate, inftrees, infutil, trees, uncompr, unzip, zutil (workspace/research/filemap/proposals/F.md; the 10-21 claim
   that compress.c and uncompr.c are absent was wrong). No crc32.c: the only crc32 is the P4 API's VC6 copy.
 - Built `/GL`, linked `/LTCG` (SUPPORTED): exported zlib functions take register arguments and deflateInit_
   is inlined into compress2 across files. zcfree's `call free` is Z_FreeInternal inlined by LTCG
-  (research/filemap/probe/ltcg/run.sh reproduces both bodies); verify.py accepts a callee whose retail body is
+  (workspace/research/filemap/probe/ltcg/run.sh reproduces both bodies); verify.py accepts a callee whose retail body is
   a pure `jmp` to the retail target.
 - Retail unzip.c calls fopen/fread/fseek/ftell/fclose directly (no FS_File* wrapper exists in the exe, and
   LTCG with /DEBUG would keep one), so src/zlib/unzip.c uses stdio, unlike the server copy.
@@ -147,7 +147,7 @@ Owner-edited only.
 - Asserts embed `__LINE__`, so source line layout is part of the SHA. Retail keeps asserts on; the forms
   (`assert`, `assertMsg`, `assertFail`) are in `src/universal/assertive.h`. The handler's name is unknown
   (`FUN_0047d980`).
-- Engine files come from the finished server source (`research/libmatch/import.sh`): copy, merge the
+- Engine files come from the finished server source (`workspace/research/libmatch/import.sh`): copy, merge the
   asserted bodies (`merge.py`, before stripping), strip the unmatched functions (`strip.py`), then
   `layout.py` pads blank lines so each assert lands on its retail line. The server files are already in
   retail function order; don't reorder them.
@@ -176,7 +176,7 @@ Owner-edited only.
 ## History
 - 2026-10-20: workspace rebuilt. Old ledger had 39 rows: 1 was MFC library code (`CWnd::GetControlUnknown`,
   now lib), 3 no longer compile to retail (assert lines drifted; in `ledger/defer.tsv`), 35 verified.
-  The old `opencode/modtools/cod2radiant*` work was salvaged into `research/opencode/` and `data/decomp/`.
+  The old `opencode/modtools/cod2radiant*` work was salvaged into `workspace/research/opencode/` and `data/decomp/`.
 - 2026-10-20 evening: fleet paused at 61 verified functions (0.39% of game code). Free DeepSeek did best;
   Copilot (credits out), agy and mimo were dropped. Stalled because the same hard rows were re-claimed
   every batch with nothing landed and no deferral. Before restarting: rotate rows after an empty batch,
@@ -188,7 +188,7 @@ Owner-edited only.
   the tail jump is common CHandleMap::FromHandle at 0x503312.
 - PINNED: 0x516827 / 56 B is winctrl1.obj CComboBox::~CComboBox, not CDialogBar.
   Archive bytes and three callees agree; stored vtable 0x52d204 has CComboBox RTTI.
-  Proof for both: research/gemini_review/test_density_z_bindings.py.
+  Proof for both: workspace/research/gemini_review/test_density_z_bindings.py.
 - The dd98dac source batch is rejected. Empty inline same-name header overloads
   can suppress real unmatched bodies through the referee's header-name exclusion;
   an unchanged unverified count alone does not prove those bodies are reconstructed.
@@ -201,14 +201,14 @@ Owner-edited only.
   control. Pmesh.h preserves all other storage as explicitly undecoded bytes.
 - PINNED: distance helpers 0x426b80 / 139 B and 0x426c10 / 127 B round their
   squared norm to float before the double sqrt call, then round its result.
-  The matching component order is recorded in research/codex_density/README.md.
+  The matching component order is recorded in workspace/research/codex_density/README.md.
 - PINNED: __CIsqrt at 0x4d98c0 and _sqrt at 0x4d98d4 share the original
   sqrt.obj's 186-byte FSQRT section. Inventory spans 20/9/157 B split entries
   and shared tail; comparing a masked prefix alone cannot identify the callee.
-  Proof: research/codex_density/test_patch_distance.py; inventory unchanged.
+  Proof: workspace/research/codex_density/test_patch_distance.py; inventory unchanged.
 
 - PINNED: Patch_CalcBounds 0x426280 / 410 B uses the real ClearBounds and
   AddPointToBounds routines, increments the word at patch +0x382c, and optionally
   expands dimensions below 8 units using midpoint +/-4. Original constants at
   0x556bb4/0x556b30/0x556b6c are 8.0/0.5/4.0 and their linked bindings are checked.
-  Proof: research/codex_density/test_patch_distance.py; no ABI/flag changes.
+  Proof: workspace/research/codex_density/test_patch_distance.py; no ABI/flag changes.

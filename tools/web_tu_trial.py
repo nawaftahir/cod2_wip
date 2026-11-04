@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """Generic isolated TU reconstruction trial for web/reconstruction.
 
-research/web/target.tsv:
+workspace/research/web/target.tsv:
 source\tdraft
 src/zlib/inflate.c\tresearch/web/drafts/inflate.c
 
-research/web/tu_trial.tsv:
+workspace/research/web/tu_trial.tsv:
 addr\tsymbol
 0x004b0140\t_inflateReset
 """
@@ -20,9 +20,9 @@ import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import verify as v
 
-TARGET = 'research/web/target.tsv'
-REQUEST = 'research/web/tu_trial.tsv'
-OBSERVE = 'research/web/tu_observe.tsv'
+TARGET = 'workspace/research/web/target.tsv'
+REQUEST = 'workspace/research/web/tu_trial.tsv'
+OBSERVE = 'workspace/research/web/tu_observe.tsv'
 
 
 def read_rows(path):
@@ -37,7 +37,7 @@ def targets():
     assert len({row['source'] for row in rows}) == len(rows), 'Duplicate target source'
     for row in rows:
         assert row['source'].startswith('src/') and '..' not in row['source'], row
-        assert row['draft'].startswith('research/web/drafts/') and '..' not in row['draft'], row
+        assert row['draft'].startswith('workspace/research/web/drafts/') and '..' not in row['draft'], row
     return rows
 
 
@@ -110,14 +110,14 @@ def main():
         # Optional diagnostics only: enumerate source-emitted, equal-length,
         # unique retail matches from the temporary draft before restoring it.
         # The unchanged canonical gate/verifier remains the sole credit authority.
-        if Path('research/web/draft_scan.flag').is_file():
+        if Path('workspace/research/web/draft_scan.flag').is_file():
             import runpy
             print('DRAFT-SCAN: discovering unledgered source bodies in isolated trial', flush=True)
             # The read-only scanner's __main__ calls sys.exit(main()).
             # Catch only its successful exit so requested function comparisons
             # still run and can never be silently skipped by the diagnostic.
             try:
-                runpy.run_path('research/web/scan_emitted_matches.py', run_name='__main__')
+                runpy.run_path('workspace/research/web/scan_emitted_matches.py', run_name='__main__')
             except SystemExit as exc:
                 if exc.code not in (0, None):
                     raise
@@ -126,7 +126,7 @@ def main():
         md = v.matcher.Cs(v.matcher.CS_ARCH_X86, v.matcher.CS_MODE_32)
         # Independent diagnosis of canonical regressions in an external TU.
         # These reads NEVER grant MATCH credit and do not change the referee.
-        cross = Path('research/web/cross_observe.tsv')
+        cross = Path('workspace/research/web/cross_observe.tsv')
         if cross.is_file():
             for extra in read_rows(str(cross)):
                 address, symbol = extra['addr'], extra['symbol']

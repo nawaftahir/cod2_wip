@@ -7,10 +7,10 @@ original MSVC 7.1 compiler. Whole-executable SHA-256 identity is the goal;
 reconstruction is still in progress.
 
 - Contract: [AGENTS.md](AGENTS.md); evidence: [RULES.md](RULES.md).
-- Browser worker: [TASK_WEB.md](TASK_WEB.md), branch `web/reconstruction`.
+- Browser worker: [workspace/TASK_WEB.md](workspace/TASK_WEB.md), branch `web/reconstruction`.
   The standard ChatGPT GitHub app is read-only; the task includes a manual
   source-file handoff that triggers CI.
-- Bundled references and retail disassembly: [research/web](research/web/README.md).
+- Bundled references and retail disassembly: [workspace/research/web](workspace/research/web/README.md).
 - CI: pushes to main and web/**, plus same-repository pull requests. Full source
   gate, complete-file audits, logs and summaries; isolated draft comparisons on
   web branches. The compiler container stays private. No API AI jobs are used.
@@ -28,7 +28,7 @@ reconstruction is still in progress.
 
 Function matching is relocation-normalized and checks known callees. Exact
 placement, generated code and data require further work. See the latest
-[handoff](CODEX_HANDOFF.md) and [file ledger](ledger/files.tsv).
+[handoff](workspace/CODEX_HANDOFF.md) and [file ledger](ledger/files.tsv).
 
 The rest of the file is `.rdata` 240,948, `.data` 221,184 raw (13.5 MB in memory), `.rsrc` 117,464,
 and 4,096 bytes of headers. All of it must match too.
@@ -62,12 +62,12 @@ structure is fixed.
 | `ledger/matches.tsv` | functions proven byte-identical (rechecked on every push) |
 | `ledger/defer.tsv` | functions given up on, with the reason |
 | `ledger/meter.json` | last accepted numbers; CI fails if a push lowers them |
-| `queue/queue.tsv` | work list, easiest first; `queue/claims/` = who is on what (local only) |
+| `workspace/queue/queue.tsv` | work list, easiest first; `workspace/queue/claims/` = who is on what (local only) |
 | `data/` | function inventory, TU map, library functions, flags, Ghidra decompiles |
 | `link/order.txt` | original source-file link order |
 | `tools/` | referee and generators |
 | `toolchain/` | compiler image recipe |
-| `research/` | salvaged older work; hints, not evidence |
+| `workspace/research/` | salvaged older work; hints, not evidence |
 
 ## Commands
 

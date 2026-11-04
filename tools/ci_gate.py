@@ -11,15 +11,15 @@ import sys
 ROOT = Path(__file__).resolve().parent.parent
 STEPS = [
     ('web-infrastructure', ['tools/test_web_ci.py']),
-    ('game-ledger', ['research/gemini_review/test_game_ledger.py']),
+    ('game-ledger', ['workspace/research/gemini_review/test_game_ledger.py']),
     ('verify', ['tools/verify.py', '--all']),
     ('sections', ['tools/sections.py']),
     ('meter', ['tools/meter.py', '--gate']),
     ('complete-files', ['tools/file_ledger.py']),
-    ('patch-dialog', ['research/codex_patchdialog/test_partial.py']),
-    ('texture-vectors', ['research/codex_texturevecs/test_vectors.py']),
-    ('patch-distance', ['research/codex_density/test_patch_distance.py']),
-    ('density', ['research/gemini_review/test_density_partial.py']),
+    ('patch-dialog', ['workspace/research/codex_patchdialog/test_partial.py']),
+    ('texture-vectors', ['workspace/research/codex_texturevecs/test_vectors.py']),
+    ('patch-distance', ['workspace/research/codex_density/test_patch_distance.py']),
+    ('density', ['workspace/research/gemini_review/test_density_partial.py']),
 ]
 
 def anchor():

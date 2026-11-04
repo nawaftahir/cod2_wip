@@ -21,16 +21,16 @@ CHECKS = (
 # FindTexture remains PARTIAL: its metadata audit currently cannot bind the
 # unreconstructed FindReplaceTextures callee at retail 0x00473940. Keep its
 # separate test diagnostic, but do not mark it FILE VERIFIED until it passes.
-    ('research/web/test_zlib_leaf_complete.py', None, (
+    ('workspace/research/web/test_zlib_leaf_complete.py', None, (
         'src/zlib/adler32.c', 'src/zlib/compress.c', 'src/zlib/inffast.c',
         'src/zlib/infutil.c', 'src/zlib/uncompr.c',
     )),
-    ('research/web/test_zlib_remaining_complete.py', None, (
+    ('workspace/research/web/test_zlib_remaining_complete.py', None, (
         'src/zlib/infblock.c', 'src/zlib/infcodes.c', 'src/zlib/inftrees.c',
         'src/zlib/trees.c', 'src/zlib/unzip.c', 'src/zlib/zutil.c',
     )),
-    ('research/web/test_xmodel_complete.py', None, ('src/xanim/xmodel_utils.cpp',)),
-    ('research/codex_deflate/test_complete.py', None, ('src/zlib/deflate.c',)),
+    ('workspace/research/web/test_xmodel_complete.py', None, ('src/xanim/xmodel_utils.cpp',)),
+    ('workspace/research/codex_deflate/test_complete.py', None, ('src/zlib/deflate.c',)),
 )
 
 def read(path):
@@ -53,7 +53,7 @@ def main():
     proofs = {}
     log = []
     for script, mode, files in CHECKS:
-        command = [sys.executable, script if script.startswith('research/') else 'research/gemini_review/' + script]
+        command = [sys.executable, script if script.startswith('workspace/research/') else 'workspace/research/gemini_review/' + script]
         if mode: command.append(mode)
         run = subprocess.run(command, cwd=ROOT, capture_output=True, text=True)
         log += ['$ ' + ' '.join(command), run.stdout, run.stderr]
@@ -72,7 +72,7 @@ def main():
         if source.startswith('extlib/'): continue
         sources.append(source if source.startswith('src/') else 'src/' + source)
     sources = list(dict.fromkeys(sources + sorted({r['source'] for r in rows})))
-    board = {r['file']: r for r in read('lanes/BOARD.tsv')}
+    board = {r['file']: r for r in read('workspace/lanes/BOARD.tsv')}
     output = io.StringIO()
     writer = csv.writer(output, delimiter='\t', lineterminator='\n')
     writer.writerow(('source', 'status', 'matched_game_functions', 'matched_game_bytes',

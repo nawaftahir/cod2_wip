@@ -148,7 +148,7 @@ def address_taken(addresses):
 
 def ledger_includes():
     # LTCG gives a function with no visible caller register arguments; retail keeps the stack form for any
-    # function referenced from outside the /GL code (research/filemap/probe/addr). Until that code is written
+    # function referenced from outside the /GL code (workspace/research/filemap/probe/addr). Until that code is written
     # or linked, /INCLUDE stands in for the reference. data/symbols.tsv names in-tree functions with no ledger row yet.
     rows = read_tsv("ledger/matches.tsv") + read_tsv("data/symbols.tsv")
     taken = address_taken({int(r["addr"], 16) for r in rows})

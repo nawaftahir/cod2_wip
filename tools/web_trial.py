@@ -12,9 +12,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import verify as v
 
 SOURCE = 'src/radiant/FindTextureDlg.cpp'
-DRAFT = 'research/web/drafts/FindTextureDlg.cpp'
-REQUEST = 'research/web/trial.tsv'
-OBSERVE = 'research/web/observe.tsv'
+DRAFT = 'workspace/research/web/drafts/FindTextureDlg.cpp'
+REQUEST = 'workspace/research/web/trial.tsv'
+OBSERVE = 'workspace/research/web/observe.tsv'
 
 
 def requests(text):
@@ -35,7 +35,7 @@ def main():
     Path('build').mkdir(exist_ok=True)
     summary = Path('build/web-trial.md')
     if not draft.exists() and not request.exists():
-        summary.write_text('# Web trial: no draft requested\n\nNo new function is credited. Read TASK_WEB.md.\n')
+        summary.write_text('# Web trial: no draft requested\n\nNo new function is credited. Read workspace/TASK_WEB.md.\n')
         print(summary.read_text())
         return 0
     assert draft.is_file() and not draft.is_symlink() and request.is_file(), 'Supply both draft and trial.tsv'

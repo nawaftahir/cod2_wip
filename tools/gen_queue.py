@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build queue/queue.tsv: the functions agents may work on, easiest first.
+"""Build workspace/queue/queue.tsv: the functions agents may work on, easiest first.
 
 In the queue: functions whose source file is known (tu_map PINNED/SUPPORTED), not library,
 not matched yet, not deferred. Functions with an unknown file stay out until the TU map

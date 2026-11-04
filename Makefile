@@ -7,7 +7,7 @@
 #   make meter    progress numbers, written to build/summary.md
 #   make gate     verify + meter, fails if anything broke or went down (CI runs this)
 #   make accept   gate, then record the new numbers in ledger/meter.json (commit it)
-#   make queue    regenerate queue/queue.tsv (owner)
+#   make queue    regenerate workspace/queue/queue.tsv (owner)
 #   make map      regenerate data/tu_map.tsv + link/order.txt (owner)
 #   make libs     regenerate data/lib_funcs.tsv (owner, slow)
 IMAGE ?= cod2-radiant-msvc71

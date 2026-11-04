@@ -2,7 +2,7 @@
 """Hand an agent its next batch: claim.py <agent> <level> [--rows N] | claim.py --release <agent>
 
 Claims a whole source file (TU) so two agents never edit the same file. The lock is a
-directory in queue/claims/ (mkdir is atomic), shared by every worktree.
+directory in workspace/queue/claims/ (mkdir is atomic), shared by every worktree.
   cheap: queue rows of tier 1-2 (smallest first)
   mid:   deferred rows (cheap agents gave up) and tier 3
 Prints one 'addr<TAB>source<TAB>note' line per row; prints nothing if there is no work.
@@ -45,7 +45,7 @@ def main():
     deferred = {r["addr"]: r["reason"] for r in tsv("ledger/defer.tsv")}
     # never hand an agent a row it already gave up on
     mine = {r["addr"] for r in tsv("ledger/defer.tsv") if r["agent"] == agent}
-    queue = tsv("queue/queue.tsv")
+    queue = tsv("workspace/queue/queue.tsv")
     if level == "cheap":
         rows = [(r["addr"], r["source"], "") for r in queue
                 if int(r["tier"]) <= 2 and r["addr"] not in done and r["addr"] not in deferred]
