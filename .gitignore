@@ -20,3 +20,4 @@ ghidra/out/
 _CL_*
 core.*
 toolchain/vc70/
+build/
