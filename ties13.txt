@@ -1,0 +1,1 @@
+_$E2 compiler dynamic-initializer label; numbering shifts when a TU with static init (pbcl.cpp) is added
