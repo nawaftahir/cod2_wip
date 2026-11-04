@@ -4057,6 +4057,14 @@
 ]
 },
 {
+"name": "?LAN_GetServerPunkBuster@@YAHHH@Z",
+"obj": "cl_ui_mp.obj",
+"size": 95,
+"hits": [
+"0x4153a0"
+]
+},
+{
 "name": "?LAN_GetServerPtr@@YAPAUserverInfo_t@@HH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 84,
@@ -17564,7 +17572,7 @@
 ]
 },
 {
-"name": "$L96608",
+"name": "$L96614",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -23638,9 +23646,7 @@
 "name": "_yylex",
 "obj": "scr_yacc.obj",
 "size": 4236,
-"hits": [
-"0x4850e0"
-]
+"hits": []
 },
 {
 "name": "_yy_get_next_buffer",
@@ -32944,7 +32950,7 @@
 ]
 },
 {
-"name": "$L118210",
+"name": "$L118218",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -32952,7 +32958,7 @@
 ]
 },
 {
-"name": "$L118212",
+"name": "$L118220",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -32985,7 +32991,7 @@
 ]
 },
 {
-"name": "$L132085",
+"name": "$L132093",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -32993,7 +32999,7 @@
 ]
 },
 {
-"name": "$L132087",
+"name": "$L132095",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33062,7 +33068,7 @@
 ]
 },
 {
-"name": "$L104312",
+"name": "$L104320",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33078,7 +33084,7 @@
 ]
 },
 {
-"name": "$L147417",
+"name": "$L147451",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35421,6 +35427,22 @@
 "0x4bd9b0"
 ],
 "scan": 1
+},
+{
+"name": "?EnablePbCl@@YAXXZ",
+"obj": "pbcl.obj",
+"size": 81,
+"hits": [
+"0x4bc2f0"
+]
+},
+{
+"name": "?DisablePbCl@@YAXXZ",
+"obj": "pbcl.obj",
+"size": 81,
+"hits": [
+"0x4bc350"
+]
 },
 {
 "name": "_itoa",
@@ -50074,7 +50096,7 @@
 {
 "name": "?UI_RunMenuScript@@YAXPAPBD@Z",
 "obj": "ui_main_mp.obj",
-"size": 4899,
+"size": 5035,
 "hits": []
 },
 {
@@ -54598,7 +54620,9 @@
 "name": "_FTPStatus_new",
 "obj": "HTFTP.obj",
 "size": 109,
-"hits": []
+"hits": [
+"0x54a010"
+]
 },
 {
 "name": "_SendCommand",
@@ -54660,7 +54684,9 @@
 "name": "_HTFTPGetData",
 "obj": "HTFTP.obj",
 "size": 1724,
-"hits": []
+"hits": [
+"0x54b070"
+]
 },
 {
 "name": "_FTPEvent",
@@ -54804,7 +54830,9 @@
 "name": "_HTBasic_new",
 "obj": "HTAABrow.obj",
 "size": 53,
-"hits": []
+"hits": [
+"0x54bea0"
+]
 },
 {
 "name": "_HTBasic_delete",
@@ -54818,7 +54846,9 @@
 "name": "_basic_credentials",
 "obj": "HTAABrow.obj",
 "size": 539,
-"hits": []
+"hits": [
+"0x54bf20"
+]
 },
 {
 "name": "_HTBasic_generate",
@@ -54848,7 +54878,9 @@
 "name": "_HTDigest_new",
 "obj": "HTAABrow.obj",
 "size": 60,
-"hits": []
+"hits": [
+"0x54c480"
+]
 },
 {
 "name": "_HTDigest_delete",
@@ -55026,7 +55058,9 @@
 "name": "_HTIconInit",
 "obj": "HTInit.obj",
 "size": 651,
-"hits": []
+"hits": [
+"0x54df60"
+]
 },
 {
 "name": "_HTMIMEInit",
@@ -55670,7 +55704,9 @@
 "name": "_HTPutDocumentAnchor",
 "obj": "HTAccess.obj",
 "size": 249,
-"hits": []
+"hits": [
+"0x5501e0"
+]
 },
 {
 "name": "_HTCopyAnchor",
@@ -56090,7 +56126,9 @@
 "name": "_HTAlertCall_add",
 "obj": "HTAlert.obj",
 "size": 85,
-"hits": []
+"hits": [
+"0x550fe0"
+]
 },
 {
 "name": "_HTAlertCall_delete",
@@ -56217,7 +56255,9 @@
 "name": "_HTAlert_newReply",
 "obj": "HTAlert.obj",
 "size": 46,
-"hits": []
+"hits": [
+"0x551260"
+]
 },
 {
 "name": "_HTAlert_replyMessage",
@@ -56384,7 +56424,9 @@
 "name": "_HTNetCall_addBefore",
 "obj": "HTNet.obj",
 "size": 168,
-"hits": []
+"hits": [
+"0x551fc0"
+]
 },
 {
 "name": "_HTNetCall_deleteBefore",
@@ -56416,7 +56458,9 @@
 "name": "_HTNetCall_addAfter",
 "obj": "HTNet.obj",
 "size": 178,
-"hits": []
+"hits": [
+"0x5521f0"
+]
 },
 {
 "name": "_HTNetCall_deleteAfter",
@@ -56669,13 +56713,17 @@
 "name": "_createAfterFilterEvent",
 "obj": "HTNet.obj",
 "size": 87,
-"hits": []
+"hits": [
+"0x5527d0"
+]
 },
 {
 "name": "_create_object",
 "obj": "HTNet.obj",
 "size": 189,
-"hits": []
+"hits": [
+"0x552830"
+]
 },
 {
 "name": "_HTNet_dup",
@@ -57982,25 +58030,33 @@
 "name": "_HTSACopy",
 "obj": "HTString.obj",
 "size": 112,
-"hits": []
+"hits": [
+"0x5553c0"
+]
 },
 {
 "name": "_HTSACat",
 "obj": "HTString.obj",
 "size": 240,
-"hits": []
+"hits": [
+"0x555430"
+]
 },
 {
 "name": "_StrAllocMCopy",
 "obj": "HTString.obj",
 "size": 191,
-"hits": []
+"hits": [
+"0x555520"
+]
 },
 {
 "name": "_StrAllocMCat",
 "obj": "HTString.obj",
 "size": 258,
-"hits": []
+"hits": [
+"0x5555e0"
+]
 },
 {
 "name": "_HTStrMatch",
@@ -58030,7 +58086,9 @@
 "name": "_HTEscape",
 "obj": "HTEscape.obj",
 "size": 186,
-"hits": []
+"hits": [
+"0x555800"
+]
 },
 {
 "name": "_HTAsciiHexToChar",
@@ -58052,13 +58110,17 @@
 "name": "_HTAtom_for",
 "obj": "HTAtom.obj",
 "size": 304,
-"hits": []
+"hits": [
+"0x5559b0"
+]
 },
 {
 "name": "_HTAtom_caseFor",
 "obj": "HTAtom.obj",
 "size": 259,
-"hits": []
+"hits": [
+"0x555ae0"
+]
 },
 {
 "name": "_HTAtom_deleteAll",
@@ -58240,7 +58302,9 @@
 "name": "_HTResponse_new",
 "obj": "HTResponse.obj",
 "size": 75,
-"hits": []
+"hits": [
+"0x555ff0"
+]
 },
 {
 "name": "_HTResponse_delete",
@@ -58828,7 +58892,9 @@
 "name": "_HTError_add",
 "obj": "HTError.obj",
 "size": 201,
-"hits": []
+"hits": [
+"0x556b30"
+]
 },
 {
 "name": "_HTError_addSystem",
@@ -58964,7 +59030,9 @@
 "name": "_HTList_new",
 "obj": "HTList.obj",
 "size": 56,
-"hits": []
+"hits": [
+"0x556e40"
+]
 },
 {
 "name": "_HTList_delete",
@@ -58978,7 +59046,9 @@
 "name": "_HTList_addObject",
 "obj": "HTList.obj",
 "size": 75,
-"hits": []
+"hits": [
+"0x556eb0"
+]
 },
 {
 "name": "_HTList_appendObject",
@@ -59001,7 +59071,9 @@
 "name": "_HTList_addList",
 "obj": "HTList.obj",
 "size": 72,
-"hits": []
+"hits": [
+"0x556f70"
+]
 },
 {
 "name": "_HTList_appendList",
@@ -59120,7 +59192,9 @@
 "name": "_HTAssocList_addObject",
 "obj": "HTAssoc.obj",
 "size": 107,
-"hits": []
+"hits": [
+"0x557360"
+]
 },
 {
 "name": "_HTAssocList_replaceObject",
@@ -59176,25 +59250,33 @@
 "name": "_HTParentAnchor_new",
 "obj": "HTAnchor.obj",
 "size": 90,
-"hits": []
+"hits": [
+"0x557680"
+]
 },
 {
 "name": "_HTChildAnchor_new",
 "obj": "HTAnchor.obj",
 "size": 43,
-"hits": []
+"hits": [
+"0x5576e0"
+]
 },
 {
 "name": "_HTAnchor_findChild",
 "obj": "HTAnchor.obj",
 "size": 329,
-"hits": []
+"hits": [
+"0x557710"
+]
 },
 {
 "name": "_HTAnchor_findAddress",
 "obj": "HTAnchor.obj",
 "size": 396,
-"hits": []
+"hits": [
+"0x557860"
+]
 },
 {
 "name": "_HTAnchor_setMainLink",
@@ -59297,7 +59379,9 @@
 "name": "_HTAnchor_address",
 "obj": "HTAnchor.obj",
 "size": 178,
-"hits": []
+"hits": [
+"0x557c40"
+]
 },
 {
 "name": "_HTAnchor_physical",
@@ -59914,7 +59998,9 @@
 "name": "_HTAnchor_expandedAddress",
 "obj": "HTAnchor.obj",
 "size": 174,
-"hits": []
+"hits": [
+"0x559060"
+]
 },
 {
 "name": "_HTAnchor_findChildAndLink",
@@ -59968,7 +60054,9 @@
 "name": "_HTNoFreeStream_new",
 "obj": "HTNoFree.obj",
 "size": 68,
-"hits": []
+"hits": [
+"0x5591e0"
+]
 },
 {
 "name": "_HTNoFreeStream_delete",
@@ -60098,7 +60186,9 @@
 "name": "_HTEvent_new",
 "obj": "HTEvent.obj",
 "size": 80,
-"hits": []
+"hits": [
+"0x5592d0"
+]
 },
 {
 "name": "_HTEvent_delete",
@@ -60214,7 +60304,9 @@
 "name": "_HTPresentation_add",
 "obj": "HTFormat.obj",
 "size": 175,
-"hits": []
+"hits": [
+"0x5594a0"
+]
 },
 {
 "name": "_HTPresentation_deleteAll",
@@ -60228,13 +60320,17 @@
 "name": "_HTConversion_add",
 "obj": "HTFormat.obj",
 "size": 125,
-"hits": []
+"hits": [
+"0x5595a0"
+]
 },
 {
 "name": "_HTCoding_add",
 "obj": "HTFormat.obj",
 "size": 123,
-"hits": []
+"hits": [
+"0x559630"
+]
 },
 {
 "name": "_HTCoding_deleteAll",
@@ -60266,7 +60362,9 @@
 "name": "_HTLanguage_add",
 "obj": "HTFormat.obj",
 "size": 94,
-"hits": []
+"hits": [
+"0x559730"
+]
 },
 {
 "name": "_HTLanguage_deleteAll",
@@ -60282,7 +60380,9 @@
 "name": "_HTCharset_add",
 "obj": "HTFormat.obj",
 "size": 94,
-"hits": []
+"hits": [
+"0x5597d0"
+]
 },
 {
 "name": "_HTCharset_deleteAll",
@@ -60973,7 +61073,9 @@
 "name": "_HTChunk_new",
 "obj": "HTChunk.obj",
 "size": 61,
-"hits": []
+"hits": [
+"0x55a9f0"
+]
 },
 {
 "name": "_HTChunk_clear",
@@ -61028,7 +61130,9 @@
 "name": "_HTChunk_fromCString",
 "obj": "HTChunk.obj",
 "size": 83,
-"hits": []
+"hits": [
+"0x55aaf0"
+]
 },
 {
 "name": "_HTChunk_toCString",
@@ -61042,13 +61146,17 @@
 "name": "_HTChunk_putc",
 "obj": "HTChunk.obj",
 "size": 189,
-"hits": []
+"hits": [
+"0x55ab70"
+]
 },
 {
 "name": "_HTChunk_putb",
 "obj": "HTChunk.obj",
 "size": 220,
-"hits": []
+"hits": [
+"0x55ac30"
+]
 },
 {
 "name": "_HTChunk_terminate",
@@ -61064,7 +61172,9 @@
 "name": "_HTChunk_ensure",
 "obj": "HTChunk.obj",
 "size": 176,
-"hits": []
+"hits": [
+"0x55ad20"
+]
 },
 {
 "name": "_HTChunk_setSize",
@@ -61078,7 +61188,9 @@
 "name": "_HTChunk_fromBuffer",
 "obj": "HTChunk.obj",
 "size": 88,
-"hits": []
+"hits": [
+"0x55ae30"
+]
 },
 {
 "name": "_HTChunk_puts",
@@ -61114,7 +61226,9 @@
 "name": "_HTUserProfile_new",
 "obj": "HTUser.obj",
 "size": 72,
-"hits": []
+"hits": [
+"0x55aec0"
+]
 },
 {
 "name": "_HTUserProfile_localize",
@@ -61423,13 +61537,17 @@
 "name": "_HTFTPDir_new",
 "obj": "HTFTPDir.obj",
 "size": 143,
-"hits": []
+"hits": [
+"0x55bf20"
+]
 },
 {
 "name": "_HTBind_init",
 "obj": "HTBind.obj",
 "size": 134,
-"hits": []
+"hits": [
+"0x55bfb0"
+]
 },
 {
 "name": "_HTBind_deleteAll",
@@ -61498,7 +61616,9 @@
 "name": "_HTBind_add",
 "obj": "HTBind.obj",
 "size": 651,
-"hits": []
+"hits": [
+"0x55c120"
+]
 },
 {
 "name": "_HTBind_getSuffix",
@@ -61602,7 +61722,9 @@
 "name": "_HTAA_newModule",
 "obj": "HTAAUtil.obj",
 "size": 119,
-"hits": []
+"hits": [
+"0x55cd20"
+]
 },
 {
 "name": "_HTAA_findModule",
@@ -61633,7 +61755,9 @@
 "name": "_HTAA_newElement",
 "obj": "HTAAUtil.obj",
 "size": 70,
-"hits": []
+"hits": [
+"0x55ce70"
+]
 },
 {
 "name": "_HTAA_updateElement",
@@ -61862,7 +61986,9 @@
 "name": "_HTRule_add",
 "obj": "HTRules.obj",
 "size": 166,
-"hits": []
+"hits": [
+"0x55e650"
+]
 },
 {
 "name": "_HTRule_deleteAll",
@@ -61876,7 +62002,9 @@
 "name": "_HTRule_translate",
 "obj": "HTRules.obj",
 "size": 356,
-"hits": []
+"hits": [
+"0x55e760"
+]
 },
 {
 "name": "_HTRule_parseLine",
@@ -61980,13 +62108,17 @@
 "name": "_HTRules",
 "obj": "HTRules.obj",
 "size": 173,
-"hits": []
+"hits": [
+"0x55ee60"
+]
 },
 {
 "name": "_HTRules_parseAutomatically",
 "obj": "HTRules.obj",
 "size": 138,
-"hits": []
+"hits": [
+"0x55ef10"
+]
 },
 {
 "name": "_HTRule_setGlobal",
@@ -62024,7 +62156,9 @@
 "name": "_cache_index_name",
 "obj": "HTCache.obj",
 "size": 140,
-"hits": []
+"hits": [
+"0x55f060"
+]
 },
 {
 "name": "_HTCacheIndex_delete",
@@ -62046,7 +62180,9 @@
 "name": "_HTCacheIndex_parseLine",
 "obj": "HTCache.obj",
 "size": 447,
-"hits": []
+"hits": [
+"0x55f210"
+]
 },
 {
 "name": "_HTCacheIndex_put_block",
@@ -62142,7 +62278,9 @@
 "name": "_HTCacheIndexReader",
 "obj": "HTCache.obj",
 "size": 82,
-"hits": []
+"hits": [
+"0x55f5d0"
+]
 },
 {
 "name": "_HTCacheIndex_read",
@@ -62181,13 +62319,17 @@
 "name": "_HTCache_getSingleUserLock",
 "obj": "HTCache.obj",
 "size": 277,
-"hits": []
+"hits": [
+"0x55f980"
+]
 },
 {
 "name": "_HTCache_deleteSingleUserLock",
 "obj": "HTCache.obj",
 "size": 177,
-"hits": []
+"hits": [
+"0x55faa0"
+]
 },
 {
 "name": "_HTCacheMode_setEnabled",
@@ -62475,7 +62617,9 @@
 "name": "_HTCache_createLocation",
 "obj": "HTCache.obj",
 "size": 171,
-"hits": []
+"hits": [
+"0x55fcf0"
+]
 },
 {
 "name": "_calculate_time",
@@ -62513,7 +62657,9 @@
 "name": "_HTCache_metaLocation",
 "obj": "HTCache.obj",
 "size": 101,
-"hits": []
+"hits": [
+"0x5600a0"
+]
 },
 {
 "name": "_meta_write",
@@ -62652,7 +62798,9 @@
 "name": "_HTCache_new",
 "obj": "HTCache.obj",
 "size": 487,
-"hits": []
+"hits": [
+"0x560a40"
+]
 },
 {
 "name": "_HTCache_touch",
@@ -62690,7 +62838,9 @@
 "name": "_HTCacheStream",
 "obj": "HTCache.obj",
 "size": 298,
-"hits": []
+"hits": [
+"0x560dd0"
+]
 },
 {
 "name": "_HTCacheWriter",
@@ -62714,13 +62864,17 @@
 "name": "_HTLoadCache",
 "obj": "HTCache.obj",
 "size": 844,
-"hits": []
+"hits": [
+"0x560f40"
+]
 },
 {
 "name": "_HTCacheGarbage",
 "obj": "HTCache.obj",
 "size": 772,
-"hits": []
+"hits": [
+"0x561290"
+]
 },
 {
 "name": "_HTCacheMode_setMaxSize",
@@ -62932,7 +63086,9 @@
 "name": "_HTGuess_new",
 "obj": "HTGuess.obj",
 "size": 94,
-"hits": []
+"hits": [
+"0x562460"
+]
 },
 {
 "name": "_GetNewsGroupTitle",
@@ -62962,7 +63118,9 @@
 "name": "_HTNewsCache_new",
 "obj": "HTNewsLs.obj",
 "size": 70,
-"hits": []
+"hits": [
+"0x5627b0"
+]
 },
 {
 "name": "_HTNewsCache_delete",
@@ -63090,13 +63248,17 @@
 "name": "_HTNewsList",
 "obj": "HTNewsLs.obj",
 "size": 129,
-"hits": []
+"hits": [
+"0x562d50"
+]
 },
 {
 "name": "_HTNewsGroup",
 "obj": "HTNewsLs.obj",
 "size": 136,
-"hits": []
+"hits": [
+"0x562de0"
+]
 },
 {
 "name": "_HTTPCleanup",
@@ -63443,13 +63605,17 @@
 "name": "_HTMLGenerator",
 "obj": "HTMLGen.obj",
 "size": 186,
-"hits": []
+"hits": [
+"0x5652e0"
+]
 },
 {
 "name": "_HTPlainToHTML",
 "obj": "HTMLGen.obj",
 "size": 263,
-"hits": []
+"hits": [
+"0x5653a0"
+]
 },
 {
 "name": "_HTPlainTo7BitHTML",
@@ -63558,7 +63724,9 @@
 "name": "_HTBoundary",
 "obj": "HTBound.obj",
 "size": 177,
-"hits": []
+"hits": [
+"0x5657c0"
+]
 },
 {
 "name": "_pumpData",
@@ -63678,7 +63846,9 @@
 "name": "_HTMIMEConvert",
 "obj": "HTMIME.obj",
 "size": 163,
-"hits": []
+"hits": [
+"0x5662b0"
+]
 },
 {
 "name": "_HTMIMEHeader",
@@ -63860,7 +64030,9 @@
 "name": "_HTFileSave_new",
 "obj": "HTFSave.obj",
 "size": 80,
-"hits": []
+"hits": [
+"0x566720"
+]
 },
 {
 "name": "_get_filename",
@@ -63882,7 +64054,9 @@
 "name": "_HTSaveAndExecute",
 "obj": "HTFSave.obj",
 "size": 352,
-"hits": []
+"hits": [
+"0x5669d0"
+]
 },
 {
 "name": "_HTSaveAndCallback",
@@ -63995,7 +64169,9 @@
 "name": "_HTChunkedDecoder",
 "obj": "HTTChunk.obj",
 "size": 120,
-"hits": []
+"hits": [
+"0x566ec0"
+]
 },
 {
 "name": "_HTChunkEncode_block",
@@ -64092,7 +64268,9 @@
 "name": "_HTChunkedEncoder",
 "obj": "HTTChunk.obj",
 "size": 141,
-"hits": []
+"hits": [
+"0x567110"
+]
 },
 {
 "name": "_HTProxyFilter",
@@ -64569,7 +64747,9 @@
 "name": "_HTANSIReader_new",
 "obj": "HTANSI.obj",
 "size": 101,
-"hits": []
+"hits": [
+"0x568800"
+]
 },
 {
 "name": "_HTANSIWriter_flush",
@@ -64619,7 +64799,9 @@
 "name": "_HTANSIWriter_new",
 "obj": "HTANSI.obj",
 "size": 110,
-"hits": []
+"hits": [
+"0x568970"
+]
 },
 {
 "name": "_HTBufferWriter_flush",
@@ -64647,7 +64829,9 @@
 "name": "_HTBufferWriter_addBuffer",
 "obj": "HTBufWrt.obj",
 "size": 175,
-"hits": []
+"hits": [
+"0x568b50"
+]
 },
 {
 "name": "_HTBufferWriter_abort",
@@ -64735,7 +64919,9 @@
 "name": "_buffer_new",
 "obj": "HTBufWrt.obj",
 "size": 207,
-"hits": []
+"hits": [
+"0x568e00"
+]
 },
 {
 "name": "_HTBufferWriter_new",
@@ -64757,7 +64943,9 @@
 "name": "_HTTransport_add",
 "obj": "HTTrans.obj",
 "size": 174,
-"hits": []
+"hits": [
+"0x568f40"
+]
 },
 {
 "name": "_HTTransport_delete",
@@ -65419,7 +65607,9 @@
 "name": "_HTProtocol_add",
 "obj": "HTProt.obj",
 "size": 242,
-"hits": []
+"hits": [
+"0x56c330"
+]
 },
 {
 "name": "_HTProtocol_delete",
@@ -65550,13 +65740,17 @@
 "name": "_HTHomeAnchor",
 "obj": "HTHome.obj",
 "size": 467,
-"hits": []
+"hits": [
+"0x56c700"
+]
 },
 {
 "name": "_HTTmpAnchor",
 "obj": "HTHome.obj",
 "size": 197,
-"hits": []
+"hits": [
+"0x56c8e0"
+]
 },
 {
 "name": "_HTParseFormInput",
@@ -65586,7 +65780,9 @@
 "name": "_prefixed",
 "obj": "HTIcons.obj",
 "size": 230,
-"hits": []
+"hits": [
+"0x56cb40"
+]
 },
 {
 "name": "_HTIcon_url",
@@ -65607,37 +65803,49 @@
 "name": "_HTIcon_alternative",
 "obj": "HTIcons.obj",
 "size": 206,
-"hits": []
+"hits": [
+"0x56cc40"
+]
 },
 {
 "name": "_HTIcon_add",
 "obj": "HTIcons.obj",
 "size": 197,
-"hits": []
+"hits": [
+"0x56cd10"
+]
 },
 {
 "name": "_HTIcon_addUnknown",
 "obj": "HTIcons.obj",
 "size": 143,
-"hits": []
+"hits": [
+"0x56cde0"
+]
 },
 {
 "name": "_HTIcon_addBlank",
 "obj": "HTIcons.obj",
 "size": 143,
-"hits": []
+"hits": [
+"0x56ce70"
+]
 },
 {
 "name": "_HTIcon_addParent",
 "obj": "HTIcons.obj",
 "size": 143,
-"hits": []
+"hits": [
+"0x56cf00"
+]
 },
 {
 "name": "_HTIcon_addDir",
 "obj": "HTIcons.obj",
 "size": 143,
-"hits": []
+"hits": [
+"0x56cf90"
+]
 },
 {
 "name": "_HTIcon_find",
@@ -66049,7 +66257,9 @@
 "name": "_HTErrnoString",
 "obj": "HTInet.obj",
 "size": 64,
-"hits": []
+"hits": [
+"0x56e520"
+]
 },
 {
 "name": "_HTInetStatus",
@@ -66120,7 +66330,9 @@
 "name": "_HTGetTmpFileName",
 "obj": "HTInet.obj",
 "size": 173,
-"hits": []
+"hits": [
+"0x56e920"
+]
 },
 {
 "name": "_HTGetTimeInMillis",
@@ -66366,7 +66578,9 @@
 "name": "_HTFWriter_new",
 "obj": "HTFWrite.obj",
 "size": 75,
-"hits": []
+"hits": [
+"0x570470"
+]
 },
 {
 "name": "_HTSC_free",
@@ -66458,13 +66672,17 @@
 "name": "_HTStreamToChunk",
 "obj": "HTSChunk.obj",
 "size": 124,
-"hits": []
+"hits": [
+"0x570620"
+]
 },
 {
 "name": "_HTLink_new",
 "obj": "HTLink.obj",
 "size": 43,
-"hits": []
+"hits": [
+"0x5706a0"
+]
 },
 {
 "name": "_HTLink_delete",
@@ -66623,7 +66841,9 @@
 "name": "_HTUTree_newRealm",
 "obj": "HTUTree.obj",
 "size": 84,
-"hits": []
+"hits": [
+"0x570a70"
+]
 },
 {
 "name": "_HTUTree_deleteRealm",
@@ -66645,7 +66865,9 @@
 "name": "_HTUTree_newTemplate",
 "obj": "HTUTree.obj",
 "size": 74,
-"hits": []
+"hits": [
+"0x570b90"
+]
 },
 {
 "name": "_HTUTree_deleteTemplate",
@@ -66707,13 +66929,17 @@
 "name": "_find_tree",
 "obj": "HTUTree.obj",
 "size": 380,
-"hits": []
+"hits": [
+"0x570ec0"
+]
 },
 {
 "name": "_HTUTree_new",
 "obj": "HTUTree.obj",
 "size": 193,
-"hits": []
+"hits": [
+"0x571040"
+]
 },
 {
 "name": "_HTUTree_find",
@@ -66807,7 +67033,9 @@
 "name": "_HTDNS_add",
 "obj": "HTDNS.obj",
 "size": 310,
-"hits": []
+"hits": [
+"0x5712d0"
+]
 },
 {
 "name": "_HTDNS_updateWeigths",
@@ -66837,7 +67065,9 @@
 "name": "_HTGetHostByName",
 "obj": "HTDNS.obj",
 "size": 565,
-"hits": []
+"hits": [
+"0x571620"
+]
 },
 {
 "name": "_HTGetHostBySock",
@@ -66851,7 +67081,9 @@
 "name": "_HTArray_new",
 "obj": "HTArray.obj",
 "size": 61,
-"hits": []
+"hits": [
+"0x5718c0"
+]
 },
 {
 "name": "_HTArray_clear",
@@ -66873,7 +67105,9 @@
 "name": "_HTArray_addObject",
 "obj": "HTArray.obj",
 "size": 193,
-"hits": []
+"hits": [
+"0x571970"
+]
 },
 {
 "name": "_HTArray_sort",
@@ -66903,7 +67137,9 @@
 "name": "_HTDirNode_new",
 "obj": "HTDir.obj",
 "size": 43,
-"hits": []
+"hits": [
+"0x571c00"
+]
 },
 {
 "name": "_HTDirNode_free",
@@ -66947,13 +67183,17 @@
 "name": "_HTDir_new",
 "obj": "HTDir.obj",
 "size": 647,
-"hits": []
+"hits": [
+"0x5724f0"
+]
 },
 {
 "name": "_HTDir_addElement",
 "obj": "HTDir.obj",
 "size": 316,
-"hits": []
+"hits": [
+"0x572780"
+]
 },
 {
 "name": "_DirSort",
@@ -67089,7 +67329,9 @@
 "name": "_HTNewsNode_new",
 "obj": "HTNDir.obj",
 "size": 171,
-"hits": []
+"hits": [
+"0x573700"
+]
 },
 {
 "name": "_HTNewsNode_delete",
@@ -67173,7 +67415,9 @@
 "name": "_HTNewsDir_new",
 "obj": "HTNDir.obj",
 "size": 406,
-"hits": []
+"hits": [
+"0x573a90"
+]
 },
 {
 "name": "_HTNewsDir_belongsToSet",
@@ -67297,7 +67541,9 @@
 "name": "_make_template",
 "obj": "HTNDir.obj",
 "size": 273,
-"hits": []
+"hits": [
+"0x574240"
+]
 },
 {
 "name": "_HTNewsDir_setGroupInfo",
@@ -67417,7 +67663,9 @@
 "name": "_HTMIMERequest_new",
 "obj": "HTMIMERq.obj",
 "size": 80,
-"hits": []
+"hits": [
+"0x575280"
+]
 },
 {
 "name": "_MIMERequest_flush",
@@ -67634,7 +67882,9 @@
 "name": "_HTMerge",
 "obj": "HTMerge.obj",
 "size": 82,
-"hits": []
+"hits": [
+"0x5766f0"
+]
 },
 {
 "name": "_default_resolver",
@@ -67696,13 +67946,17 @@
 "name": "_HTTee",
 "obj": "HTTee.obj",
 "size": 100,
-"hits": []
+"hits": [
+"0x576940"
+]
 },
 {
 "name": "_HTMIMEParseEl_new",
 "obj": "HTMIMPrs.obj",
 "size": 127,
-"hits": []
+"hits": [
+"0x5769b0"
+]
 },
 {
 "name": "_HTMIMEParseEl_delete",
@@ -67724,7 +67978,9 @@
 "name": "_HTMIMEParseSet_new",
 "obj": "HTMIMPrs.obj",
 "size": 59,
-"hits": []
+"hits": [
+"0x576a90"
+]
 },
 {
 "name": "_HTMIMEParseSet_deleteAll",
@@ -67738,7 +67994,9 @@
 "name": "_HTMIMEParseSet_add",
 "obj": "HTMIMPrs.obj",
 "size": 106,
-"hits": []
+"hits": [
+"0x576b50"
+]
 },
 {
 "name": "_HTMIMEParseSet_addRegex",
@@ -67784,13 +68042,17 @@
 "name": "_append_buf",
 "obj": "HTConLen.obj",
 "size": 94,
-"hits": []
+"hits": [
+"0x576ea0"
+]
 },
 {
 "name": "_alloc_new",
 "obj": "HTConLen.obj",
 "size": 67,
-"hits": []
+"hits": [
+"0x576f00"
+]
 },
 {
 "name": "_buf_flush",
@@ -67886,7 +68148,9 @@
 "name": "_HTBuffer_new",
 "obj": "HTConLen.obj",
 "size": 89,
-"hits": []
+"hits": [
+"0x5771c0"
+]
 },
 {
 "name": "_HTDelayBuffer",
@@ -67916,7 +68180,9 @@
 "name": "_HTLog_open",
 "obj": "HTLog.obj",
 "size": 117,
-"hits": []
+"hits": [
+"0x5772b0"
+]
 },
 {
 "name": "_HTLog_close",
@@ -68094,7 +68360,9 @@
 "name": "_HTNewsPost_new",
 "obj": "HTNewsRq.obj",
 "size": 98,
-"hits": []
+"hits": [
+"0x5779a0"
+]
 },
 {
 "name": "_HTTeXGen_flush",
@@ -68206,7 +68474,9 @@
 "name": "_HTMLToTeX",
 "obj": "HTTeXGen.obj",
 "size": 126,
-"hits": []
+"hits": [
+"0x578040"
+]
 },
 {
 "name": "_HTMLUseCharacterSet",
@@ -68344,7 +68614,9 @@
 "name": "_HTML_new",
 "obj": "HTML.obj",
 "size": 144,
-"hits": []
+"hits": [
+"0x578b60"
+]
 },
 {
 "name": "_HTMLToPlain",
@@ -68416,7 +68688,9 @@
 "name": "_HTPlainPresent",
 "obj": "HTPlain.obj",
 "size": 90,
-"hits": []
+"hits": [
+"0x578d90"
+]
 },
 {
 "name": "_HTTPGenMake",
@@ -68630,7 +68904,9 @@
 "name": "_SGML_new",
 "obj": "SGML.obj",
 "size": 291,
-"hits": []
+"hits": [
+"0x57a0f0"
+]
 },
 {
 "name": "_SGML_findTag",
@@ -68731,7 +69007,9 @@
 "name": "_HTextImp_new",
 "obj": "HText.obj",
 "size": 158,
-"hits": []
+"hits": [
+"0x57a350"
+]
 },
 {
 "name": "_HTextImp_delete",
@@ -76984,7 +77262,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 2960,
+"size": 2544,
 "hits": []
 }
 ]

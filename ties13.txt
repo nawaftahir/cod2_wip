@@ -1,2 +1,4 @@
 # _$E2: compiler dynamic-initializer label; numbering shifts when a TU with static init (pbcl.cpp) is added
 _$E2
+# _yylex: flex scanner, symbol-numbering tie (1.0 LESSONS Tie study): flips when fns are added earlier in link order
+_yylex
