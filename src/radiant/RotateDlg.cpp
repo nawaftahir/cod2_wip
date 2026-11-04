@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include <stdlib.h>
+
+// Q3Radiant ancestor; dependent select.cpp routine not yet reconstructed.
+extern void Select_RotateAxis(int axis, float degrees, bool paint = false, bool mouse = false);
+
 
 class CRotateDlg : public CDialog
 {
@@ -55,6 +60,23 @@ void CRotateDlg::OnOK()
 {
 	OnApply();
 	CDialog::OnOK();
+}
+
+// Q3Radiant original: Copyright (C) 1999-2005 Id Software, Inc.
+// License GPL-2.0-or-later. Adapted for the CoD2 target.
+// Retail match not yet established.
+void CRotateDlg::OnApply()
+{
+    UpdateData(TRUE);
+    float f = atof(m_strX);
+    if (f != 0.0)
+        Select_RotateAxis(0, f);
+    f = atof(m_strY);
+    if (f != 0.0)
+        Select_RotateAxis(1, f);
+    f = atof(m_strZ);
+    if (f != 0.0)
+        Select_RotateAxis(2, f);
 }
 
 BOOL CRotateDlg::OnInitDialog()
