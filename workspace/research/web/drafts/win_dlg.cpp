@@ -24,6 +24,47 @@ struct QEGlobals_t
 extern QEGlobals_t g_qeglobals;
 
 
+
+/* Win32 callbacks are defined in the original WIN_DLG.CPP.
+   Their bodies remain unimplemented pending separate retail proofs. */
+BOOL CALLBACK ProjectDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK GammaDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK RotateDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK SidesDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK FindBrushDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+
+bool g_bDoCone = false;
+bool g_bDoSphere = false;
+
+void DoProjectSettings(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, ProjectDlgProc);
+}
+
+void DoGamma(void)
+{
+    if (DialogBox(g_qeglobals.d_hInstance, (LPCSTR)111, g_qeglobals.d_hwndMain, GammaDlgProc))
+    {
+    }
+}
+
+void DoRotate(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)112, g_qeglobals.d_hwndMain, RotateDlgProc);
+}
+
+void DoSides(bool bCone, bool bSphere, bool bTorus)
+{
+    g_bDoCone = bCone;
+    g_bDoSphere = bSphere;
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
+}
+
+void DoFind(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)110, g_qeglobals.d_hwndMain, FindBrushDlgProc);
+}
+
 BOOL CALLBACK AboutDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)

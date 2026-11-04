@@ -1,2 +1,6 @@
 addr	symbol
-0x00476d50	?DoAbout@@YAXXZ
+0x004760f0	?DoProjectSettings@@YAXXZ
+0x004763c0	?DoGamma@@YAXXZ
+0x004766b0	?DoRotate@@YAXXZ
+0x00476810	?DoSides@@YAX_N00@Z
+0x00476ce0	?DoFind@@YAXXZ
