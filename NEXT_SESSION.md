@@ -50,6 +50,9 @@
 - Write every result into LESSONS.md (+ skill when it generalises) right away.
 
 ## Prompt
-Continue the CoD2MP_s.exe 1.0 client to 100% in ~/cod2/test/dev/claude_client. Read
-claude_client/NEXT_SESSION.md (state, remaining items, cost rules) and LESSONS.md entries 10-31c..i
-first. Be cost efficient: at most 2 agents, background builds, no repeats of tried variants.
+Continue the CoD2MP_s.exe 1.3 client in ~/cod2/test/dev/claude_client13 (branch client-1.3). Read
+claude_client/NEXT_SESSION.md (1.3 section: meters, worktree setup, open leads), claude_client13/AGENTS.md and
+NOTES_1.3.md first. Meter = ratchet13.sh (matched-fn bytes, no fn lost; ties in ties13.txt), now 1,468,702 / 1,645,581.
+Run up to 6 agents in parallel, each in its own worktree lab13/wN, one area each; they deliver commits, the lead
+merges and ratchets in claude_client13 (bundle tie losses until net >= 0). Never fabricate names: Mac 1.3 STABS
+or retail evidence only. 1.0 (claude_client, 99.961%) is parked; do not work there unless new evidence appears.
