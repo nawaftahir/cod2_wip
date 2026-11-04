@@ -171,3 +171,11 @@
   Com_ExecStartupConfigs (retail 1.3 still has literal "exec default_mp.cfg"), const msg tables (client keeps static).
 - Ported: SVC_Status length cap 0x4000 -> MAX_MSGLEN - 1 (server 1.3 source; the client had a stale 0x4000).
 - UNCHECKED: g_largeLocalBuf 0x80000 (server 1.3: 0x100000) - no retail evidence for the Windows pool size yet.
+
+## wE (client_mp/ui/cgame unmatched fns), 2026-11-04
+- PINNED (retail 1.3 bytes): serverInfo_t is 0x94: new byte "pb" (Info key "pb", atoi) after voice at 0x21, requestCount moves to 0x22, minPing 0x24, hostName 0x2a, gameType 0x82. Not in the Mac STABS struct. Fixed 20 LAN/server-browser fns (+7143 B matched-fn).
+- PINNED: retail Key_ClearStates (40bd50) calls CL_KeyEvent (40b720) instead of inlining it.
+- PINNED: retail CL_Frame ends with a new fn at 40d310 (name is a guess, CL_UpdateKeyAuth): state==ACTIVE, realtime - lastUpdateKeyAuthTime > 300000, net_lanauthorize or !Sys_IsLANAddress -> CL_RequestAuthorization. Matches 104 B.
+- PINNED: retail CL_Disconnect uses cls.wwwDlDisconnected / cls.download* (RTCW/ET style): download close only if !wwwDlDisconnected, CL_ClearStaticDownload inlined after clc memset. Download code in cl_main_mp/cl_parse_mp moved clc.download* -> cls.* (downloadCount stays in clc, unverified).
+- LTCG chaos: adding CL_UpdateKeyAuth loses GScr_CloseFile (173 B, regalloc/prologue change in a script fn) even though nothing related changed.
+- Not done: ui_main_mp/cg_event/CL_InitOnceForAllClients large 1.3 rewrites (need PB/new feature code with no name evidence).

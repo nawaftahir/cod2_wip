@@ -625,10 +625,10 @@ void CL_ParseDownload(msg_t *msg)
 
     if (!block) {
         // block zero is special, contains file size
-        clc.downloadSize = MSG_ReadLong(msg);
-        legacyHacks->cl_downloadSize = clc.downloadSize;
+        cls.downloadSize = MSG_ReadLong(msg);
+        legacyHacks->cl_downloadSize = cls.downloadSize;
 
-        if (clc.downloadSize < 0) {
+        if (cls.downloadSize < 0) {
             Com_Error(ERR_DROP, va("%s", MSG_ReadCommandString(msg)));
             return;
         }
@@ -639,49 +639,49 @@ void CL_ParseDownload(msg_t *msg)
         MSG_ReadData(msg, data, size);
     }
 
-    if (clc.downloadBlock != block) {
-        Com_DPrintf("CL_ParseDownload: Expected block %d, got %d\n", clc.downloadBlock, block);
-        if (block > clc.downloadBlock) {
+    if (cls.downloadBlock != block) {
+        Com_DPrintf("CL_ParseDownload: Expected block %d, got %d\n", cls.downloadBlock, block);
+        if (block > cls.downloadBlock) {
             Com_DPrintf("CL_ParseDownload: Sending retransmit request to get the missed block\n");
-            CL_AddReliableCommand(va("retransdl %d", clc.downloadBlock));
+            CL_AddReliableCommand(va("retransdl %d", cls.downloadBlock));
         }
         return;
     }
 
 #if COD2_FEATURE_NET_HARDENING
 
-    if (clc.downloadTempName[0] &&
-        !NetHardening_ValidDownloadName(clc.downloadTempName, 0)) {
+    if (cls.downloadTempName[0] &&
+        !NetHardening_ValidDownloadName(cls.downloadTempName, 0)) {
         Com_Printf("WARNING: refusing malicious download temp path '%s'\n",
-                   clc.downloadTempName);
+                   cls.downloadTempName);
         CL_AddReliableCommand("stopdl");
-        clc.downloadName[0] = 0;
-        clc.downloadTempName[0] = 0;
+        cls.downloadName[0] = 0;
+        cls.downloadTempName[0] = 0;
         return;
     }
-    if (clc.downloadName[0] &&
-        !NetHardening_ValidDownloadName(clc.downloadName, 1)) {
+    if (cls.downloadName[0] &&
+        !NetHardening_ValidDownloadName(cls.downloadName, 1)) {
         Com_Printf("WARNING: refusing malicious download name '%s'\n",
-                   clc.downloadName);
+                   cls.downloadName);
         CL_AddReliableCommand("stopdl");
-        clc.downloadName[0] = 0;
-        clc.downloadTempName[0] = 0;
+        cls.downloadName[0] = 0;
+        cls.downloadTempName[0] = 0;
         return;
     }
 #endif
 
     // open the file if not opened yet
-    if (!clc.download) {
-        if (!*clc.downloadTempName) {
+    if (!cls.download) {
+        if (!*cls.downloadTempName) {
             Com_Printf("Server sending download, but no download was requested\n");
             CL_AddReliableCommand("stopdl");
             return;
         }
 
-        clc.download = FS_SV_FOpenFileWrite(clc.downloadTempName);
+        cls.download = FS_SV_FOpenFileWrite(cls.downloadTempName);
 
-        if (!clc.download) {
-            Com_Printf("Could not create %s\n", clc.downloadTempName);
+        if (!cls.download) {
+            Com_Printf("Could not create %s\n", cls.downloadTempName);
             CL_AddReliableCommand("stopdl");
             CL_NextDownload();
             return;
@@ -689,11 +689,11 @@ void CL_ParseDownload(msg_t *msg)
     }
 
     if (size) {
-        FS_Write(data, size, clc.download);
+        FS_Write(data, size, cls.download);
     }
 
-    CL_AddReliableCommand(va("nextdl %d", clc.downloadBlock));
-    clc.downloadBlock++;
+    CL_AddReliableCommand(va("nextdl %d", cls.downloadBlock));
+    cls.downloadBlock++;
 
     clc.downloadCount += size;
 
@@ -702,14 +702,14 @@ void CL_ParseDownload(msg_t *msg)
 
     if (!size) {
         // A zero length block means EOF
-        if (clc.download) {
-            FS_FCloseFile(clc.download);
+        if (cls.download) {
+            FS_FCloseFile(cls.download);
 
-            clc.download = 0;
+            cls.download = 0;
             // rename the file
-            FS_SV_Rename(clc.downloadTempName, clc.downloadName);
+            FS_SV_Rename(cls.downloadTempName, cls.downloadName);
         }
-        *clc.downloadTempName = *clc.downloadName = 0;
+        *cls.downloadTempName = *cls.downloadName = 0;
         legacyHacks->cl_downloadName[0] = 0;
 
         // send intentions now

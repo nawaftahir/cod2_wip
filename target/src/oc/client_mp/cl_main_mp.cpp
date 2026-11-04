@@ -1137,12 +1137,14 @@ void CL_Disconnect(void)
         CL_StopRecord_f();
     }
 
-    if (clc.download) {
-        FS_FCloseFile(clc.download);
-        clc.download = 0;
+    if (!cls.wwwDlDisconnected) {
+        if (cls.download) {
+            FS_FCloseFile(cls.download);
+            cls.download = 0;
+        }
+        *cls.downloadTempName = *cls.downloadName = 0;
+        legacyHacks->cl_downloadName[0] = 0;
     }
-    *clc.downloadTempName = *clc.downloadName = 0;
-    legacyHacks->cl_downloadName[0] = 0;
 
     if (clc.demofile) {
         FS_FCloseFile(clc.demofile);
@@ -1171,6 +1173,9 @@ void CL_Disconnect(void)
     memset(&clc, 0, sizeof(clc));
     SND_DisconnectListener();
     clc.state = CA_DISCONNECTED;
+
+    if (!cls.wwwDlDisconnected)
+        CL_ClearStaticDownload();
 
     if (wasConnected) {
         clients->keyCatchers &= 1;
@@ -1280,6 +1285,14 @@ void CL_RequestAuthorization(void)
     NET_OutOfBandPrint(NS_CLIENT1, cls.authorizeServer,
                        va((const char *)"getKeyAuthorize %i %s", anonymous->current.enabled, nums));
 #endif
+}
+
+/* retail 1.3 re-asks the auth server every 5 minutes while in game (name is a guess) */
+void CL_UpdateKeyAuth(void)
+{
+    if (clc.state == CA_ACTIVE && cls.realtime - lastUpdateKeyAuthTime > 300000
+        && (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress)))
+        CL_RequestAuthorization();
 }
 
 void CL_ForwardToServer_f(void)
@@ -1517,8 +1530,8 @@ void CL_DownloadsComplete(void)
     }
 
     // if we downloaded files we need to restart the file system
-    if (clc.downloadRestart) {
-        clc.downloadRestart = 0;
+    if (cls.downloadRestart) {
+        cls.downloadRestart = 0;
 
         FS_Restart(clc.checksumFeed);
 
@@ -1562,15 +1575,15 @@ void CL_DownloadsComplete(void)
 void CL_BeginDownload(const char *localName, const char *remoteName)
 {
     Com_DPrintf("***** CL_BeginDownload *****\nLocalname: %s\nRemotename: %s\n****************************\n", localName, remoteName);
-    I_strncpyz(clc.downloadName, localName, sizeof(clc.downloadName));
-    Com_sprintf(clc.downloadTempName, sizeof(clc.downloadTempName), "%s.tmp", localName);
+    I_strncpyz(cls.downloadName, localName, sizeof(cls.downloadName));
+    Com_sprintf(cls.downloadTempName, sizeof(cls.downloadTempName), "%s.tmp", localName);
 
     I_strncpyz(legacyHacks->cl_downloadName, remoteName, 0x40);
     legacyHacks->cl_downloadSize = 0;
     legacyHacks->cl_downloadCount = 0;
     legacyHacks->cl_downloadTime = cls.realtime;
 
-    clc.downloadBlock = 0;
+    cls.downloadBlock = 0;
     clc.downloadCount = 0;
 
     CL_AddReliableCommand(va("download %s", remoteName));
@@ -1580,8 +1593,8 @@ void CL_NextDownload(void)
     char *s;
     char *remoteName, *localName;
 
-    if (*clc.downloadList) {
-        s = clc.downloadList;
+    if (*cls.downloadList) {
+        s = cls.downloadList;
         if (*s == '@')
             s++;
         remoteName = s;
@@ -1599,9 +1612,9 @@ void CL_NextDownload(void)
             s = localName + strlen(localName);
 
         CL_BeginDownload(localName, remoteName);
-        clc.downloadRestart = 1;
+        cls.downloadRestart = 1;
 
-        memmove(clc.downloadList, s, strlen(s) + 1);
+        memmove(cls.downloadList, s, strlen(s) + 1);
         return;
     }
 
@@ -1618,7 +1631,7 @@ void CL_InitDownloads(void)
     if (autoupdateStarted && NET_CompareAdr(cls.autoupdateServer, clc.serverAddress)) {
         if (strlen(cl_updatefiles->current.string) > 4) {
             I_strncpyz(autoupdateFilename, cl_updatefiles->current.string, sizeof(autoupdateFilename));
-            I_strncpyz(clc.downloadList, va("@%s/%s@%s/%s", dir, cl_updatefiles->current.string, dir, cl_updatefiles->current.string), sizeof(clc.downloadList));
+            I_strncpyz(cls.downloadList, va("@%s/%s@%s/%s", dir, cl_updatefiles->current.string, dir, cl_updatefiles->current.string), sizeof(cls.downloadList));
             clc.state = CA_CONNECTED;
             CL_NextDownload();
             return;
@@ -1626,9 +1639,9 @@ void CL_InitDownloads(void)
     } else if (com_sv_running->current.enabled || !cl_allowDownload->current.enabled) {
         if (FS_CompareIwds(missingfiles, sizeof(missingfiles), 0))
             Com_Printf("\nWARNING: You are missing some files referenced by the server:\n%sYou might not be able to join the game\nGo to the settings menu to turn on autodownload, or get the file elsewhere\n\n", missingfiles);
-    } else if (FS_CompareIwds(clc.downloadList, sizeof(clc.downloadList), 1)) {
-        Com_Printf("Need iwds: %s\n", clc.downloadList);
-        if (*clc.downloadList) {
+    } else if (FS_CompareIwds(cls.downloadList, sizeof(cls.downloadList), 1)) {
+        Com_Printf("Need iwds: %s\n", cls.downloadList);
+        if (*cls.downloadList) {
             clc.state = CA_CONNECTED;
             CL_NextDownload();
             return;
@@ -2090,6 +2103,7 @@ void CL_Frame(void)
     CL_UpdateInGameState();
     CL_SetCGameTime();
     CL_SendCmd();
+    CL_UpdateKeyAuth();
 }
 bool CL_IsLocalClientInGame(void)
 {
