@@ -165,6 +165,8 @@ void Con_CheckResize(void);
 static void Con_OneTimeInit(void);
 static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int duration, int linewidth, int color);
 void CL_ConsolePrint(print_msg_type_t type, const char *txt, int duration, int linewidth);
+void Sys_EnterCriticalSection(int section);
+void Sys_LeaveCriticalSection(int section);
 void CL_ConsoleFixPosition(void);
 void Con_Close(void);
 static void ConDrawInput_AutoCompleteArg(const char **stringList, int stringCount);
@@ -800,6 +802,7 @@ void CL_ConsolePrint(print_msg_type_t type, const char *txt, int duration, int l
 
 skipClamp:
 
+    Sys_EnterCriticalSection(0);
     color = ColorIndex(0x37);
 
     if (type == PMSG_GAME || type == PMSG_BOLDGAME) {
@@ -820,6 +823,7 @@ skipClamp:
     }
 
     CL_ConsolePrint_AddLine(type, txt, duration, linewidth, color);
+    Sys_LeaveCriticalSection(0);
 }
 
 void CL_ConsoleFixPosition(void)
