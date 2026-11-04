@@ -273,3 +273,12 @@
   sortPlayerProfiles pick edx where we pick eax (or esi vs edx), and a few uiInfo pointer loads in other commands. Build 3 (inline gtName, sortDir == 0) cut it from 10 to 4 hunks.
 - Pickup_Weapon (g_items_mp) is a 1-swap LTCG tie flipped by these edits (Menu_HandleKey flipped in build 1): added to ties13.txt.
 - Com_ExecStartupConfigs / FS_InitFilesystem localized cfg are already in the tree and match structurally (no lead left there).
+
+## w7 libwww status (11-04, after d7857bd)
+- Unmatched libwww fns (tools/lw7.py good13.json): 61 fns, 1016 B of 193,726 B libwww. Real code: HTCache_isFresh 402, HTEvtLst stopLoop/init/pump/loop/newLoop 215,
+  HTProfile_newPreemptiveClient 29, HTBlackHole/HTErrorStream/HTBlackHoleConverter 48, HTNetInit 10, HTHost enable/disable_PendingReqLaunch 22, HTNet_increase*Socket 14.
+  The other ~45 are 6-7 B getters (mov eax,[static]; ret): cmp13 only credits short call-free shapes when retail twin count == ours, so these are measurement
+  artifacts of identical shapes, not source differences (HYPOTHESIS; same bytes as ours, e.g. HTNet_before = a1 <bss> c3).
+- Files where ours differs from git (HTNet, HTAlert, HTInit, HTProt, HTHeader, HTTrans, HTTPReq, HTBound, HTDNS, HTMIME, HTFTP) have no unmatched fns left; nothing to gain.
+- HTEvtLst static at 0x5ddfa8: no name in Mac decompile (no libwww there), libwww-git history, coduomp or KisakCOD. DEFER (no invented names).
+- HTCache_isFresh: permuting max_age/max_stale/min_fresh declaration order has no effect on the object (3 permutations, +0). Slot order is not declaration-driven. PARKED.
