@@ -336,3 +336,8 @@
   so the reset calls DL_CancelDownload (noinline). CL_GetServerCommand +1089: 'w' (server disconnect) with argc>=3 and Cmd_Argv(2) == "PB" (via _stricmp, CRT call) uses the
   untranslated Cmd_Argv(1) as the reason and wraps it as va("\x15%s", ...). CL_ConfigstringModified +445: oldGs is a LargeLocal and the limit is MAX_GAMESTATE_CHARS.
   Tie flips: with this set SV_ArchiveSnapshot(2783)/_$E2(192) lost, SV_DirectConnect/CG_DrawPlayerStance/Com_ShutdownDObj back.
+- w8 AddLine regalloc attempts (11-04, 4 builds on top of the wip commit, still 6 reg hunks): reordered locals (letter, charWidth, curWidth): no change;
+  TextWidth AFTER the char read (V4): puts charWidth in ebp and drops the shared zero register (the retail look) but moves the call and gives 8 hunks;
+  TextWidth first + q copy pointer: 9 hunks. Retail order is TextWidth(p) -> xor edi,edi -> read. Lead: the zero reg (edi) must die at 'mov edi,edx' (line var), i.e.
+  charWidth needs ebp; the allocator spills it when the zero constant is live across the whole loop. Not tried: oracle (tools_oracle/REGALLOC.md), splitting the default
+  case into a __forceinline helper to cap the zero's range. Branch w8-consoleprint-wip (35b57de, rebased copy e8835c1 on w8-client history only locally).
