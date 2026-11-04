@@ -1,3 +1,13 @@
+/*
+ * Q3Radiant ancestor: Copyright (C) 1999-2005 Id Software, Inc.
+ * Licensed under the GNU General Public License version 2 or
+ * (at your option) any later version.
+ * Original: id-Software/Quake-III-Arena, q3radiant/RotateDlg.cpp,
+ * revision dbe4ddb10315479fc00086f08e25d968b4b43c49.
+ * This staged candidate is modified for the CoD2 target and remains
+ * unverified against the retail executable.
+ */
+
 #include "stdafx.h"
 #include <stdlib.h>
 
@@ -82,15 +92,15 @@ void CRotateDlg::OnApply()
 {
     UpdateData(TRUE);
 
-    float f = (float)atof(m_strX);
-    if (f != 0.0f)
+    float f = atof(m_strX);
+    if (f != 0.0)
         Select_RotateAxis(0, f);
 
-    f = (float)atof(m_strY);
-    if (f != 0.0f)
+    f = atof(m_strY);
+    if (f != 0.0)
         Select_RotateAxis(1, f);
 
-    f = (float)atof(m_strZ);
-    if (f != 0.0f)
+    f = atof(m_strZ);
+    if (f != 0.0)
         Select_RotateAxis(2, f);
 }
