@@ -1,13 +1,17 @@
 universal/assertive.cpp
 qcommon/buildnumber.c
+oc/client_mp/cl_cgame_mp.cpp
 oc/client_mp/cl_cin_mp.cpp
 oc/client_mp/cl_console_mp.cpp
+oc/client_mp/cl_input.cpp
 oc/client_mp/cl_keys_mp.cpp
+oc/client_mp/cl_main_mp.cpp
 oc/client_mp/cl_net_chan_mp.cpp
 oc/client_mp/cl_parse_mp.cpp
 oc/client_mp/cl_scrn_mp.cpp
 oc/client_mp/cl_ui_mp.cpp
 qcommon/cm_load.cpp
+qcommon/cm_load_obj.cpp
 qcommon/cm_mesh.cpp
 qcommon/cm_polylib.cpp
 qcommon/cm_staticmodel.cpp
@@ -19,9 +23,11 @@ qcommon/cm_world.cpp
 qcommon/cmd.cpp
 qcommon/com_bsp_load_obj.cpp
 universal/com_file_wrapper.cpp
+qcommon/unused_stubs.cpp
 universal/com_files.cpp
 universal/com_memory.cpp
 universal/com_playerprofile.cpp
+qcommon/com_profilemapload.cpp
 universal/com_shared.cpp
 universal/com_sndalias.cpp
 universal/com_sndalias_load_obj.cpp
@@ -39,6 +45,7 @@ universal/memfile.cpp
 qcommon/msg_mp.cpp
 qcommon/net_chan_mp.cpp
 universal/q_parse.cpp
+universal/q_shared.cpp
 oc/client_mp/screen_placement_mp.cpp
 oc/snd.cpp
 oc/qcommon/statmonitor.cpp
@@ -59,6 +66,7 @@ win32/win_input.cpp
 oc/win32/win_localize.cpp
 win32/win_main.cpp
 win32/win_net.cpp
+win32/win_shared.cpp
 win32/win_splash.cpp
 oc/win32/win_syscon.cpp
 win32/win_wndproc.cpp
@@ -73,6 +81,7 @@ script/scr_variable.cpp
 script/scr_yacc.c
 xanim/dobj.cpp
 xanim/xanim_load.cpp
+xanim/xmodel.cpp
 xanim/xmodel_load.cpp
 xanim/xmodel_load_obj.cpp
 xanim/xmodel_utils.cpp
@@ -80,9 +89,11 @@ EffectsCore/FxArchive.cpp
 EffectsCore/FxChannel.cpp
 EffectsCore/FxCurve.cpp
 EffectsCore/FxCurve_load_obj.cpp
+EffectsCore/Fxexport.cpp
 EffectsCore/FxMemMgr.cpp
 EffectsCore/FxScheduler.cpp
 EffectsCore/FxScheduler_load_obj.cpp
+EffectsCore/FxSystem.cpp
 EffectsCore/FxTemplate.cpp
 EffectsCore/GenericParser2.cpp
 zlib/adler32.c
@@ -99,6 +110,7 @@ zlib/uncompr.c
 zlib/unzip.c
 zlib/zutil.c
 stringed/stringed_hooks.cpp
+stringed/stringed_ingame.cpp
 stringed/stringed_interface.cpp
 oc/win32/cinematics.cpp
 oc/client_mp/cl_main_pc_mp.cpp
@@ -106,7 +118,9 @@ oc/client_mp/cl_ui_pc_mp.cpp
 oc/win32/snd_driver.cpp
 server/sv_main_pc_mp.cpp
 oc/win32/win_voice.cpp
+oc/groupvoice/mixer.cpp
 oc/groupvoice/decode.cpp
+oc/groupvoice/encode.cpp
 oc/groupvoice/play.cpp
 oc/groupvoice/record.cpp
 groupvoice/record_dsound.cpp
@@ -134,6 +148,7 @@ oc/cgame_mp/cg_event_mp.cpp
 speex/speex.c
 speex/bits.c
 speex/modes.c
+speex/misc.c
 speex/quant_lsp.c
 speex/sb_celp.c
 speex/cb_search.c

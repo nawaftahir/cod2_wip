@@ -20,6 +20,7 @@ e=$(python3 tools/cov.py build/exp.json | grep -o 'unique bytes [0-9]*' | grep -
 echo $e > build/cov.last
 make release ANCHOR=$A DXSDK=$S > build/rel.txt 2>&1 || { tail -10 build/rel.txt; echo RELEASE FAILED; exit 1; }
 python3 tools/shameter.py build/release/CoD2MP_s.exe $A > build/sha.txt
+python3 tools/test_inplace.py 1.0 || { echo "INPLACE SELF-CHECK FAILED"; exit 1; }
 tail -6 build/sha.txt
 echo "NET $((e-b)) (matched-fn unique bytes $e, accepted $b)"
 python3 tools/ratchet.py data/good.json build/exp.json data/ties.txt > build/ratchet.out; r=$?
