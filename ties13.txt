@@ -13,7 +13,3 @@ _yylex
 ?Scr_ParseGameTypeList@@YAXXZ
 # Pickup_Weapon: one scheduling swap (mov ebx/edi load order), flipped by an unrelated cl_main_mp/ui_main_mp edit (w8, +1532 net); LTCG tie
 ?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z
-# w8 download-layout change flipped these (argument-load swap / tiny twin pairing), not caused by their source
-?SV_DirectConnect@@YAXUnetadr_t@@@Z
-?CG_DrawPlayerStance@@YAXPBUrectDef_s@@PAMPAUFont_s@@MH@Z
-?Com_ShutdownDObj@@YAXXZ
