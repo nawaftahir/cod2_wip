@@ -178,3 +178,17 @@
   aligned candidates == our fns with the same masked body (twins). PINNED on 1.0 (build+anchor): +9 fns/87 B vs
   cmp.py, all at their own address; forced no-.reloc run loses 13 B (was 124 fns). On 1.3: unique fns 7511 -> 8282,
   bytes 1,249,217 -> 1,374,609 (cov.py union rules).
+
+## wH: UI_RunMenuScript 1.3 (11-04)
+- PINNED (retail 1.3 bytes): UI_RunMenuScript = 0x534d60 (worklist splits it into NEW 534d60/535720). Script command diff vs 1.0
+  (strings in the fn): added sv_punkbuster/cl_punkbuster/startpb_popmenu (StartServer), cl_punkbuster/joinpb_popmenu (JoinServer),
+  new command setPbClStatus (Int_Parse, then 0x4bc2f0 = EnablePbCl / 0x4bc350 = DisablePbCl). Tail after closeMenuOnDvarNot (g_gametype,
+  createserver_maps, mapname, cl_motdString) belongs to the next fns, not this one.
+- StartServer: if (!ui_dedicated->integer && Dvar_GetBool("sv_punkbuster") && !Dvar_GetBool("cl_punkbuster")) open menu startpb_popmenu, return.
+- JoinServer: after the displayServers bounds check, LAN_GetServerPunkBuster(src, idx)==1 && !cl_punkbuster -> menu joinpb_popmenu, return.
+  LAN_GetServerPunkBuster (0x4153a0) = LAN_GetServerPing shape returning serverInfo_t.pb (+0x21), -1 on bad index (Mac STABS name).
+- EnablePbCl/DisablePbCl (Mac STABS names) = pbcl.AddPbEvent(0x75/0x76, 0, 0, 0) (retail pushes 0,0,0,type,&pbcl; same as EnablePbSv but datalen 0).
+- NOT checked: g_gametype is set once in 1.3 StartServer (1.0 twice) - cg_thirdPerson/dedicated/g_gametype body not diffed byte by byte.
+- MEASURED (wH build): matched-fn 1207396 B vs stale best 1200971. Own gains: LAN_GetServerPunkBuster 95, EnablePbCl 81, DisablePbCl 81.
+  UI_RunMenuScript itself is NOT yet matched (rest of the 4.8 KB body not diffed). ratchet_fn flags SVC_Status (975 B) LOST; it is not touched
+  by this change (good13.json predates the SVC_Status MAX_MSGLEN merge / serverInfo_t 0x94 commit), so it is a stale-baseline loss, not wH.

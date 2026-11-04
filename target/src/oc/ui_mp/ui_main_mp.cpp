@@ -122,6 +122,9 @@ extern int LAN_WaitServerResponse(int source);
 extern int LAN_CompareServers(int source, int sortKey, int sortDir, int s1, int s2);
 extern int LAN_ServerIsDirty(int source, int index);
 extern int LAN_GetServerPing(int source, int index);
+extern int LAN_GetServerPunkBuster(int source, int index);
+extern void EnablePbCl(void);
+extern void DisablePbCl(void);
 extern void LAN_MarkServerDirty(int source, int index, int dirty);
 extern int LAN_UpdateDirtyPings(int source);
 extern void LAN_GetServerAddressString(int source, int index, char *addr, int addrSize);
@@ -1832,6 +1835,10 @@ void UI_RunMenuScript(const char **args)
         return;
 
     if (I_stricmp(name, "StartServer") == 0) {
+        if (!(ui_dedicated)->current.integer && Dvar_GetBool("sv_punkbuster") && !Dvar_GetBool("cl_punkbuster")) {
+            Menus_OpenByName(&uiInfo->uiDC, "startpb_popmenu");
+            return;
+        }
 
         Dvar_SetBoolByName("cg_thirdPerson", 0);
         Dvar_SetFromStringByNameFromSource("dedicated",
@@ -1996,6 +2003,13 @@ void UI_RunMenuScript(const char **args)
             if (selectedServer < 0 || selectedServer >= sharedUiInfo.serverStatus.numDisplayServers)
                 return;
 
+            if (LAN_GetServerPunkBuster((ui_netSource)->current.integer,
+                                        sharedUiInfo.serverStatus.displayServers[selectedServer]) == 1
+                && !Dvar_GetBool("cl_punkbuster")) {
+                Menus_OpenByName(&uiInfo->uiDC, "joinpb_popmenu");
+                return;
+            }
+
             LAN_GetServerAddressString((ui_netSource)->current.integer,
                                        sharedUiInfo.serverStatus.displayServers[selectedServer],
                                        buff, 0x400);
@@ -2094,6 +2108,14 @@ void UI_RunMenuScript(const char **args)
     } else if (I_stricmp(name, "update") == 0) {
         if (String_Parse(args, name2, 0x400))
             UI_Update(name2);
+    } else if (I_stricmp(name, "setPbClStatus") == 0) {
+        int status;
+        if (!Int_Parse(args, &status))
+            return;
+        if (status)
+            EnablePbCl();
+        else
+            DisablePbCl();
     } else if (I_stricmp(name, "startSingleplayer") == 0) {
         Cbuf_ExecuteText(2, "startSingleplayer\n");
     } else if (I_stricmp(name, "getLanguage") == 0) {
