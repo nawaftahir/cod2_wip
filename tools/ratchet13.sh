@@ -17,6 +17,7 @@ python3 tools/shameter.py build/release/CoD2MP_s.exe $A > build/sha.txt
 python3 tools/test_inplace.py 1.3 || { echo "INPLACE SELF-CHECK FAILED"; exit 1; }
 n=$(tail -1 build/sha.txt | awk '{print $4}' | cut -d/ -f1)
 tools/cmp13 | tee build/cmp13.sum
+python3 tools/test_cmp.py tools/cmp13.py build/release/CoD2MP_s.exe build/release/CoD2MP_s.map || { echo "REFEREE SELF-CHECK FAILED"; exit 1; }
 f=$(sed -n 's/.*matched-fn bytes \([0-9]*\).*/\1/p' build/cmp13.sum)
 echo $n > $N; echo $f > $FN
 best=$(cat $B 2>/dev/null || echo 0); fbest=$(cat $FB 2>/dev/null || echo 0)
