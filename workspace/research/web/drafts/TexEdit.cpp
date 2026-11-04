@@ -4,10 +4,10 @@
  */
 #include "stdafx.h"
 
-class CTexWnd {
-public:
-    void UpdateFilter(const char *text);
-};
+// The ancestor and the real runtime records agree: CTexWnd derives from
+// CWnd, contains CTexEdit at +0x50, CButton at +0xac and a flag at +0xfc.
+// Definition follows CTexEdit to express real object ownership and size.
+class CTexWnd;
 class CTexEdit : public CEdit {
 public:
     CTexEdit();
@@ -20,6 +20,22 @@ protected:
     afx_msg int OnCreate(LPCREATESTRUCT cs);
     DECLARE_MESSAGE_MAP()
 };
+// This needs to become one reviewed shared TexWnd header, not a separate
+// guessed class view in the owning TexWnd.cpp translation unit.
+class CTexWnd : public CWnd {
+    DECLARE_DYNCREATE(CTexWnd)
+public:
+    CTexWnd();
+    virtual ~CTexWnd();
+    void UpdateFilter(const char *text);
+protected:
+    CTexEdit m_wndFilter;
+    CButton m_wndShaders;
+    bool m_bNeedRange;
+};
+typedef char check_texedit_size[(sizeof(CTexEdit) == 0x5c) ? 1 : -1];
+typedef char check_texwnd_size[(sizeof(CTexWnd) == 0x100) ? 1 : -1];
+
 CTexEdit::CTexEdit() { m_pTexWnd = NULL; }
 CTexEdit::~CTexEdit() { }
 BEGIN_MESSAGE_MAP(CTexEdit, CEdit)
