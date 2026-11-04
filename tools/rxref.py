@@ -2,7 +2,7 @@
 # rxref.py rdata_off...: .text addresses (retail 1.3) that reference .rdata offset (4-byte abs ptr), with nearest matched-fn name from cmp13.json
 import pefile, sys, json, re, bisect
 R = '/home/nawaf/cod2/test/dev/'
-pe = pefile.PE(R + 'cod2engineold/binaries/windows/1.3/CoD2MP_s.exe')
+pe = pefile.PE(R + 'cod2_wip/binaries/windows/1.3/CoD2MP_s.exe')
 sec = {s.Name.rstrip(b'\0'): s for s in pe.sections}
 tx = sec[b'.text']; td = tx.get_data(); tva = tx.VirtualAddress + 0x400000
 rva = sec[b'.rdata'].VirtualAddress + 0x400000

@@ -8,7 +8,7 @@ lo = int(args[0], 16) if args else 0
 hi = int(args[1], 16) if len(args) > 1 else 1 << 30
 ours = args[2] if len(args) > 2 else R + 'claude_client13/lab13/s2/target/build/release/CoD2MP_s.exe'
 g = lambda p: [s for s in p.sections if s.Name.startswith(b'.rdata')][0].get_data()
-y = g(pefile.PE(R + 'cod2engineold/binaries/windows/1.3/CoD2MP_s.exe')); x = g(pefile.PE(ours))
+y = g(pefile.PE(R + 'cod2_wip/binaries/windows/1.3/CoD2MP_s.exe')); x = g(pefile.PE(ours))
 def words(b): return [struct.unpack_from('<I', b, i)[0] for i in range(0, len(b) - 3, 4)]
 def mask(w): return 'P' if 0x400000 <= w < 0x1400000 else w
 wy, wx = words(y), words(x)

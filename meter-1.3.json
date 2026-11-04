@@ -1,0 +1,33 @@
+{
+ "name": "client 1.3",
+ "binary": "CoD2MP_s.exe",
+ "version": "1.3",
+ "anchor": "windows/1.3/CoD2MP_s.exe",
+ "sha_identical": false,
+ "text_bytes": 1645581,
+ "matched_bytes": 1503407,
+ "file_bytes": 1970176,
+ "same_offset_bytes": 205586,
+ "game_functions": 9123,
+ "matched_functions": 8714,
+ "tus_total": 364,
+ "tus_matched": 194,
+ "unverified_in_src": 0,
+ "sections": {
+  ".text": {
+   "matched": 1503407,
+   "same_offset": 50299
+  },
+  ".rdata": {
+   "same_offset": 75725
+  },
+  ".data": {
+   "same_offset": 63192
+  },
+  ".rsrc": {
+   "same_offset": 16370
+  }
+ },
+ "commit": "84046869",
+ "note": "matched_bytes = referee matched-fn bytes; same-offset over all sections (shameter)"
+}

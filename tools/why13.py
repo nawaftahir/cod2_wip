@@ -24,7 +24,7 @@ key = lambda c, a: tuple(norm(c, a, len(c)))
 
 o10, b10 = text('../claude_client/target/build/CoD2MP_s.exe')
 o13, b13 = text('target/build/release/CoD2MP_s.exe')
-r13, rb13 = text('../cod2engineold/binaries/windows/1.3/CoD2MP_s.exe')
+r13, rb13 = text('../cod2_wip/binaries/windows/1.3/CoD2MP_s.exe')
 m10 = mapsyms('../claude_client/target/build/CoD2MP_s.map', o10, b10) if False else mapsyms('../claude_client/target/build/CoD2MP_s.map', b10, o10)
 m13 = mapsyms('target/build/release/CoD2MP_s.map', b13, o13)
 s10, s13 = sorted(m10.values()), sorted(m13.values())

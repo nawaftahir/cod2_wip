@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """fdiff7.py <mangled-substr> <retail-addr-hex>: disasm ours (from map) vs retail, addresses masked. run from lab13/w7/target"""
 import re, sys, struct, pefile, capstone, difflib
-R = '/home/nawaf/cod2/test/dev/cod2engineold/binaries/windows/1.3/CoD2MP_s.exe'
+R = '/home/nawaf/cod2/test/dev/cod2_wip/binaries/windows/1.3/CoD2MP_s.exe'
 def load(p):
     pe = pefile.PE(p); return pe, pe.OPTIONAL_HEADER.ImageBase
 ours, ob = load('build/release/CoD2MP_s.exe'); ret, rb = load(R)

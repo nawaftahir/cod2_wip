@@ -58,7 +58,7 @@ def pairs():
     global _pairs
     if _pairs is None:
         _pairs, drop = {}, set()
-        g = '/home/nawaf/cod2/test/dev/claude_client/ghidra/'
+        g = __file__.rsplit('/', 1)[0] + '/ghidra/'
         for f in ('names_fix.tsv', 'names_k.tsv', 'names_1.0.tsv', 'names_cg.tsv', 'names_loc.tsv'):
             for l in open(g + f):
                 r = l.rstrip('\n').split('\t')

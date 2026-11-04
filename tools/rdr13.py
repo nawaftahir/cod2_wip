@@ -4,7 +4,7 @@
 import pefile, re, sys
 R = '/home/nawaf/cod2/test/dev/'
 ours = sys.argv[1] if len(sys.argv) > 1 else R + 'claude_client13/lab13/s2/target/build/release/CoD2MP_s.exe'
-a = pefile.PE(ours); b = pefile.PE(R + 'cod2engineold/binaries/windows/1.3/CoD2MP_s.exe')
+a = pefile.PE(ours); b = pefile.PE(R + 'cod2_wip/binaries/windows/1.3/CoD2MP_s.exe')
 g = lambda p: [s for s in p.sections if s.Name.startswith(b'.rdata')][0].get_data()
 x, y = g(a), g(b)
 rx = rb'[\x20-\x7e\n\t]{6,}\x00'

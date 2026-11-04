@@ -3,7 +3,7 @@
 import pefile, sys, struct
 R = '/home/nawaf/cod2/test/dev/'
 which, o, n = sys.argv[1], int(sys.argv[2], 16), int(sys.argv[3], 16)
-path = R + 'cod2engineold/binaries/windows/1.3/CoD2MP_s.exe' if which == 'retail' else (sys.argv[4] if len(sys.argv) > 4 else R + 'claude_client13/lab13/s2/target/build/release/CoD2MP_s.exe')
+path = R + 'cod2_wip/binaries/windows/1.3/CoD2MP_s.exe' if which == 'retail' else (sys.argv[4] if len(sys.argv) > 4 else R + 'claude_client13/lab13/s2/target/build/release/CoD2MP_s.exe')
 pe = pefile.PE(path)
 sec = {s.Name.rstrip(b'\0'): s for s in pe.sections}
 rd = sec[b'.rdata']; rb = rd.get_data(); rva0 = rd.VirtualAddress + 0x400000

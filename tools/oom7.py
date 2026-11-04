@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """oom7.py: retail 1.3 HT_OUTOFMEM call sites (call 0x550f90): file, line, name -> compare with our sources"""
 import pefile, struct, re, glob, sys
-R = '/home/nawaf/cod2/test/dev/cod2engineold/binaries/windows/1.3/CoD2MP_s.exe'
+R = '/home/nawaf/cod2/test/dev/cod2_wip/binaries/windows/1.3/CoD2MP_s.exe'
 pe = pefile.PE(R); base = 0x400000
 t = pe.get_data(0x1000, 0x19b000)
 def cstr(va):

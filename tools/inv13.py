@@ -5,7 +5,7 @@ k = our unhit fns, m = retail fn starts nobody hit. k>m: EXTRA candidates, m>k: 
 Retail starts = E8 targets + 16-aligned starts after 0xCC/ret (HYPOTHESIS-level, can split a fn)."""
 import bisect, collections, json, re, struct, sys
 B = sys.argv[1] if len(sys.argv) > 1 else "target/build"
-R13 = "/home/nawaf/cod2/test/dev/cod2engineold/binaries/windows/1.3/CoD2MP_s.exe"
+R13 = "/home/nawaf/cod2/test/dev/cod2_wip/binaries/windows/1.3/CoD2MP_s.exe"
 d = open(R13, "rb").read()
 pe = struct.unpack_from("<I", d, 0x3c)[0]; oh = struct.unpack_from("<H", d, pe + 20)[0]
 for i in range(struct.unpack_from("<H", d, pe + 6)[0]):

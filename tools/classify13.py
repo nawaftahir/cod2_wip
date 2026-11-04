@@ -24,7 +24,7 @@ def funcs(t, b, starts):
     s = sorted(starts); return [(a, t[a - b:e - b].rstrip(b'\xcc')) for a, e in zip(s, s[1:] + [b + len(t)])]
 def key(a, c): return hashlib.md5('\n'.join(norm(c, a, len(c))).encode()).hexdigest() if c else 'empty'
 
-R10, R13 = '../cod2engineold/binaries/windows/1.0/CoD2MP_s.exe', '../cod2engineold/binaries/windows/1.3/CoD2MP_s.exe'
+R10, R13 = '../cod2_wip/binaries/windows/1.0/CoD2MP_s.exe', '../cod2_wip/binaries/windows/1.3/CoD2MP_s.exe'
 _, t10, b10, _ = text(R10)
 f13d, t13, b13, d13 = text(R13)
 s10 = mapsyms('../claude_client/target/build/CoD2MP_s.map', b10, b10 + len(t10))
