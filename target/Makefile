@@ -94,7 +94,7 @@ WCL      := wine cmd /c
 CLDOS    := Z:/opt/msvc710/Vc7/bin/cl.exe
 WFLAGS   := /nologo /c /O2 /MT /DNDEBUG /DWIN32 /D_WINDOWS /I\builds\pc_1.3_1_1\pc\cod2src\libwww\Library\src
 
-build/obj/libwww/%.obj: src/libwww/%.c src/libwww/Library/src/windows/config.h
+build/obj/libwww/%.obj: src/libwww/%.c src/libwww/Library/src/windows/config.h $(wildcard src/libwww/Library/src/*.h)
 	@mkdir -p $(dir $@)
 	@printf '%s\r\n' '@echo off' 'cd \builds\pc_1.3_1_1\pc' \
 		'$(subst /,\,$(CLDOS)) $(WFLAGS) $(call tuflags,libwww/$*.c) /showIncludes /Fo$(subst /,\,Z:/w/$@) \builds\pc_1.3_1_1\pc\cod2src\$(subst /,\,libwww/$*.c)' \

@@ -3,7 +3,7 @@
 ## Areas in progress
 - opencode (linker/layout): libwww TU set + link order work. Started 2026-11-03.
 
-- w7: libwww remainders (HTEvtLst, HTHost, HTAABrow digest, HTTP, HTDir...). Started 2026-11-04, worktree lab13/w7.
+- w7: libwww remainders (HTEvtLst, HTHost, HTAABrow digest, HTTP, HTDir...). Started 2026-11-04, worktree lab13/w7. Done 11-04 (see "w7 libwww" below).
 
 ## Findings
 - PINNED (retail 1.3 exe, .rdata): exactly 75 libwww `__FILE__` path strings
@@ -244,3 +244,19 @@
 - Remaining non-UI near-misses: CM_Trace/CM_ClearWorld/CM_PointContents/CM_LinkEntity/CM_BoxSightTrace (TLS-inline register
   allocation only), VM_Notify (2 scheduling swaps), Com_PrintMessage (LargeLocal ctor arg in eax vs ecx), SV_ArchiveSnapshot (tie),
   Com_InitPlayerProfiles/Com_ExecStartupConfigs/Com_Init_Try_Block_Function (1.3 localized-cfg selection, see above).
+
+## w7 libwww (11-04): retail libwww == libwww-git text minus the Id line (+ IW edits)
+- PINNED (tools/oom7.py = retail HT_OUTOFMEM call-site lines, tools/oomcmp7.py compares with a source dir): for ~65 of 75
+  files the retail __LINE__s equal the refrences/libwww-git file with the "@(#) $" line (line 6) removed. So retail is a
+  libwww-git snapshot AFTER 2001-03 (HTTimer, HTAnchor_delete, HTCache JK moves, HTNet, HTAABrow nonce_is_stale) and 2003-04 (HTHost).
+  Files now taken verbatim from git (Id dropped): HTMethod (hasEntity/setExtensionMethod/deleteExtensionMethod are real fns, no HT_DAV/HT_EXT),
+  HTAABrow (typedef HTBasic removed = lives in .h, + PUBLIC HTBasic_new/basic_credentials), HTTimer, HTCache, HTAnchor, HTDir, HTNDir, HTHost.
+- PINNED: retail does NOT have the later "else X_delete(...) /* Ensure not listed twice */" lines (HTNet, HTAlert, HTInit, HTProt, HTHeader, HTTrans):
+  git minus Id is 1-2 lines too long there. HTTPReq (HTACEfromUTF8 block) and HTBound/HTDNS/HTMIME/HTFTP also differ from git: keep ours.
+- PAID: +4802 (git text) +3553 (stale objs: libwww objs did not depend on libwww headers, so the HTMethod.h change only reached 6 TUs after touch;
+  Makefile now depends on Library/src/*.h).
+- STILL OFF: HTEvtLst pump/init/loop. Retail pump uses GetMessage(&msg,0,0,0) (4 args, not PeekMessage), on exit calls HTTrace(fmt, HTEndLoop)
+  unconditionally (0x54e5f0 is HTTrace itself) and stores HTEndLoop into a 2nd static (0x5ddfa8) that init + two other fns zero and a getter (0x54ec80)
+  returns. The 2nd static has no evidence for a name: DEFER. HTDirNode_print: only the order of the two reg reloads before the shared join
+  differs (ebp=dir then edi=node in retail); source equals git. HTCache_isFresh: init order of max_age/max_stale/min_fresh slots (see tried below).
+- TRIED (no change, +0): HTCache_isFresh declaring min_fresh,max_stale,max_age (reverse order). Slot order differs: retail inits [esp+34],[esp+18],[esp+14] vs ours 14,18,34.
