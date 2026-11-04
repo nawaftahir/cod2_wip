@@ -437,6 +437,7 @@ void CL_Shutdown(void);
 void CL_Disconnect_f(void);
 void CL_MapLoading(const char *mapname);
 void CL_DemoCompleted(void);
+void CL_NextDemo(void);
 void CL_ReadDemoMessage(void);
 void CL_PlayDemo_f(void);
 void CL_ForwardCommandToServer(const char *string);
@@ -882,7 +883,8 @@ void CL_DemoCompleted(void)
         ::clc.timeDemoLog = 0;
     }
 
-    CL_Disconnect_f();
+    CL_Disconnect();
+    CL_NextDemo();
 }
 
 void CL_ReadDemoMessage(void)
@@ -1694,7 +1696,9 @@ static void CL_DisconnectPacket(netadr_t from)
         return;
     if (cls.realtime - clc.lastPacketTime < 3000)
         return;
-    Com_Error(ERR_DROP, "EXE_SERVER_DISCONNECTED");
+    if (!cls.wwwDlDisconnected)
+        Com_Error(ERR_DROP, "EXE_SERVER_DISCONNECTED");
+    CL_Disconnect();
 }
 
 void CL_VoicePacket(msg_t *msg)
