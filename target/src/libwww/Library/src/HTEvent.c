@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1996.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**      @(#) $Id$
 **
 **	The event dispatcher allows applications to register their own event
 **	models. They may register the standard HTEventrg methods from 

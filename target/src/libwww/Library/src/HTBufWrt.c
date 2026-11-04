@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	A buffered output stream. This stream lets you write characters to a
 **	stream without causing a write every time.  The data is first written

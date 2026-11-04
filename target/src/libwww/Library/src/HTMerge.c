@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	The Merge class just is a n entry stream. Easy. The reason for having
 **	this stream is that we must be able to handle free and abort in an

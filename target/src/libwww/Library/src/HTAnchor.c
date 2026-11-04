@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	An anchor represents a region of a hypertext document which is
 **	linked to another anchor in the same or a different document.
@@ -600,6 +599,38 @@ PUBLIC char * HTAnchor_address  (HTAnchor * me)
         else {                  /* it's a named child */
             if ((addr = (char  *) HT_MALLOC(2 + strlen (me->parent->address) + \
 strlen (((HTChildAnchor *) me)->tag))) == NULL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 HT_OUTOFMEM("HTAnchor_address");
             sprintf (addr, "%s#%s", me->parent->address,
                      ((HTChildAnchor *) me)->tag);

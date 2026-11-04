@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This is the implementaion of an error message reporting system that 
 **	reports errors occured either in a stream module (structured streams

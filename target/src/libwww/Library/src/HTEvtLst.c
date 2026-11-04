@@ -264,6 +264,9 @@ PRIVATE SockEvents * SockEvents_get (SOCKET s, SockEvents_action action)
 
     if (action == SockEvents_mayCreate) {
         if ((pres = (SockEvents *) HT_CALLOC(1, sizeof(SockEvents))) == NULL)
+
+
+
 	    HT_OUTOFMEM("HTEventList_register");
 	pres->s = s;
 	HTList_addObject(HashTable[v], (void *)pres);

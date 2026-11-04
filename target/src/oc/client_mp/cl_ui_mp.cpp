@@ -40,6 +40,7 @@ int LAN_GetServerCount(int source);
 qboolean LAN_WaitServerResponse(int source);
 void LAN_GetServerInfo(int source, int n, char *buf, int buflen);
 int LAN_GetServerPing(int source, int n);
+int LAN_GetServerPunkBuster(int source, int n);
 void LAN_MarkServerDirty(int source, int n, qboolean dirty);
 int LAN_ServerIsDirty(int source, int n);
 qboolean LAN_UpdateDirtyPings(int source);
@@ -214,6 +215,35 @@ int LAN_GetServerPing(int source, int n)
     if (!server)
         return -1;
     return server->ping;
+}
+
+int LAN_GetServerPunkBuster(int source, int n)
+{
+    serverInfo_t *server;
+
+    switch (source) {
+    case 0:
+        if (n < 0 || n >= 128)
+            return -1;
+        server = &cls.localServers[n];
+        break;
+    case 1:
+        if (n < 0 || n >= cls.numglobalservers)
+            return -1;
+        server = &cls.globalServers[n];
+        break;
+    case 2:
+        if (n < 0 || n >= 128)
+            return -1;
+        server = &cls.favoriteServers[n];
+        break;
+    default:
+        return -1;
+    }
+
+    if (!server)
+        return -1;
+    return server->pb;
 }
 
 static serverInfo_t *LAN_GetServerPtr(int source, int n)

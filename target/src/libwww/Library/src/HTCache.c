@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This modules manages the cache
 **
@@ -2156,6 +2155,26 @@ PRIVATE HTStream * HTCacheStream (HTRequest * request, BOOL append)
     {
 	HTStream * me = NULL;
 	if ((me = (HTStream *) HT_CALLOC(1, sizeof(HTStream))) == NULL)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	    HT_OUTOFMEM("Cache");
 	me->isa = &HTCacheClass;
 	me->request = request;

@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1996.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **      See HTHshLst.html for a description of HashLists.
 **

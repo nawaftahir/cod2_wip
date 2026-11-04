@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1999.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This generates of a hypertext object and calls the application
 **	via callbacks.

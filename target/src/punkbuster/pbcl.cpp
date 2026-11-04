@@ -221,3 +221,13 @@ void PbClientTrapConsole(char *text, int len)
 	if ( pbcl.m_TrapConsole )
 		pbcl.m_TrapConsole(&pbcl, text, len);
 }
+
+void EnablePbCl()
+{
+	pbcl.AddPbEvent(0x75, 0, 0, 0);
+}
+
+void DisablePbCl()
+{
+	pbcl.AddPbEvent(0x76, 0, 0, 0);
+}

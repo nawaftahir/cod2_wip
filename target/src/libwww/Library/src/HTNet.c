@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This is the implementation of the internal library multithreading
 **	functions. This includes an interrupt handler and a event loop.
