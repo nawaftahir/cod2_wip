@@ -1,5 +1,8 @@
 """Actual DPVS drawing, packed model submission and count-display precedence."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import struct
 import subprocess
 import tempfile
@@ -11,7 +14,7 @@ helper=text[text.index('__declspec(noinline) void R_AddDrawSurf('):text.index('/
 submission=text[text.index('// PINNED PC model surface submission, 10024680/286.'):text.index('// PINNED PC ref-entity submission, 10023db0/209.')]
 text=(work/'src/gfx_d3d/r_dpvs.cpp').read_text()
 draw=text[text.index('// PINNED PC scene model drawing, 10008330/112.'):text.index('// PINNED 10007d60/93:')]
-anchor=pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+anchor=pefile.PE(str(retail_anchor()))
 assert anchor.get_data(0x1a5a30,8)==bytes([0,0,0,16,56,16,0,0])
 assert anchor.get_section_by_rva(0x1a5a30).Name.rstrip(b'\0')==b'.data'
 assert struct.unpack('<4f',anchor.get_data(0x191448,16))==(0,1,1,1)

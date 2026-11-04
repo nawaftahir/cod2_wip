@@ -1,5 +1,8 @@
 """Actual uploads: rollover, lock modes, copy bounds, cache and callback mutation."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 from fragment import fragment
 import subprocess
 import tempfile
@@ -11,7 +14,7 @@ source = fragment('gfx_d3d/rb_buffer_upload.cpp')
 init = (work / 'src/gfx_d3d/r_init.cpp').read_text()
 helper = init[init.index('void R_FatalBufferLockError(HRESULT result)\n'):init.index('// PINNED 10011460/100:')]
 source = helper + source[source.index('void R_FatalBufferLockError(HRESULT result);'):]
-retail = pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 for rva,size in [(0x386b0,282),(0x387d0,282)]:
     ops = [(i.mnemonic,i.op_str) for i in decoder.disasm(retail.get_data(rva,size),0x10000000+rva)]

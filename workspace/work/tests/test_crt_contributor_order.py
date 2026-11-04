@@ -1,5 +1,8 @@
 """Keep the original CRT data contributors and negative month-table bases."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import json
 import sys
 import pefile
@@ -8,9 +11,9 @@ work = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(work.parents[1] / 'tools'))
 import pdbsyms
 
-candidate = work / 'build/gfx.dll'
-pdb = work / 'build/gfx.pdb'
-retail = work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+candidate = work.parent / 'build/codex_boundsoutside_1016_02/gfx.dll'
+pdb = work.parent / 'build/codex_boundsoutside_1016_02/gfx.pdb'
+retail = retail_anchor()
 symbols = [va for va, kind, name, module in pdbsyms.syms(str(candidate), str(pdb))
            if name.split('$', 1)[0] == 'FloatFormat' and module.lower().endswith('intrncvt.obj')]
 assert len(symbols) == 1, symbols
@@ -22,7 +25,7 @@ expected = anchor.get_data(0x1a5490, 404)
 assert len(actual) == 404 and actual == expected
 assert int.from_bytes(actual[296:300], 'little') == 9876
 assert int.from_bytes(actual[300:304], 'little', signed=True) == -1
-bindings = json.loads((work / 'build/bind.json').read_text())
+bindings = json.loads((work.parent / 'build/codex_boundsoutside_1016_02/bind.json').read_text())
 for symbol, target, size in [('_cvtdate', '0x100fc71e', 440),
                              ('__isindst_lk', '0x100fc8d6', 391)]:
     row = bindings[symbol]

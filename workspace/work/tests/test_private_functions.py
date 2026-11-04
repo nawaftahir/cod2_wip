@@ -31,7 +31,7 @@ with tempfile.TemporaryDirectory(prefix='gfx_private_symbols_') as directory:
     except ValueError as error:
         assert 'owning PDB' in str(error)
 
-build=gfx/'target/work/build'
+build=gfx/'workspace/work/build'
 rows=list(map_symbols(build/'gfx.map',str(build/'gfx.dll'),str(build/'gfx.pdb')))
 proc=[r for r in rows if r[1].startswith('_grayscale_convert$private$')]
 assert len(proc)==2 and {r[2] for r in proc}=={'jccolor.obj','jdcolor.obj'},proc

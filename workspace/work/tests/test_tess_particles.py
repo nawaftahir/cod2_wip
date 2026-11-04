@@ -1,5 +1,8 @@
 """Actual particle constants and draw driver, including PC-only behavior."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import struct
@@ -19,7 +22,7 @@ def body(decl):
         depth+=(math[j]=='{')-(math[j]=='}');j+=1
     return math[a:j].replace('__declspec(noinline) ','')
 normalize=body('__declspec(noinline) vec_t Vec3Normalize(').replace('Vec3Normalize','actualNormalize')
-retail=pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail=pefile.PE(str(retail_anchor()))
 assert retail.get_data(0x19bd54,4)==struct.pack('<f',1/255)
 assert retail.get_data(0x19bd50,4)==bytes.fromhex('be378635')
 assert retail.get_data(0x19bde4,4)==struct.pack('<f',.001)

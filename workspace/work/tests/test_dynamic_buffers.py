@@ -1,5 +1,8 @@
 """Actual dynamic buffer constructors and startup pool ownership."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 from fragment import fragment
 import subprocess
 import tempfile
@@ -9,7 +12,7 @@ import pefile
 work = Path(__file__).resolve().parents[1]
 text = fragment('gfx_d3d/r_dxbuffers.cpp')
 source = text[text.index('void R_CreateDynamicVertexBuffer('):text.index('void R_FinishStaticIndexBuffer(')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 ops = [(i.mnemonic,i.op_str) for i in decoder.disasm(retail.get_data(0x11b60,143),0x10011b60)]
 assert ('push','0xa00000') in ops

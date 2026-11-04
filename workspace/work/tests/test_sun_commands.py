@@ -1,5 +1,8 @@
 """Actual sun serialization, loading, command gates and field publication."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import json
 import re
 import struct
@@ -17,7 +20,7 @@ assert len(names) == 21
 common = (work.parent / 'src/opencod2/headers/common_types.h').read_text()
 start = common.index('struct sunflare_t {')
 sun = common[start:common.index('\n};', start)+3]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 expected = [retail.get_string_at_rva(struct.unpack('<I', retail.get_data(0x1a5a38+i*4,4))[0]-0x10000000).decode() for i in range(21)]
 program = r'''
 #include <cassert>

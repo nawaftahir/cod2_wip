@@ -1,5 +1,8 @@
 """Actual logical shutdown order, publication and optional hardware teardown."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import json
 import subprocess
 import tempfile
@@ -13,7 +16,7 @@ source = text[text.index('void R_Shutdown(int destroyWindow)'):]
 commands = fragment('gfx_d3d/r_cmds.cpp')
 unregister = commands[commands.index('// PINNED 10005360:'):]
 material = (work / 'src/gfx_d3d/r_material_globals.h').read_text().replace('#pragma once', '')
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 names = [retail.get_string_at_rva(int(i.op_str,16)-0x10000000).decode() for i in decoder.disasm(retail.get_data(0x5360,114),0x10005360) if i.mnemonic=='push']
 assert len(names)==10 and names[1]=='r_vc_stats'

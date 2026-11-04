@@ -1,5 +1,8 @@
 """Actual shutdown helpers with the shared PC resource records and release order."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import capstone
@@ -16,7 +19,7 @@ targets = (work / 'src/gfx_d3d/r_rendertarget.cpp').read_text()
 targets = targets[targets.index('// PINNED 10023560:'):targets.index('// PINNED 0x10022710:')]
 device = fragment('gfx_d3d/r_device.cpp')
 device = device[device.index('void R_ShutdownRenderTargets();'):device.index('// Role name; PINNED 10013690:')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 ops = [(i.mnemonic, i.op_str) for i in decoder.disasm(retail.get_data(0x12210,269),0x10012210)]
 assert ops[-1] == ('ret', '')

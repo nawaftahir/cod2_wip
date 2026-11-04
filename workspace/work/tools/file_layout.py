@@ -12,7 +12,7 @@ from pathlib import Path
 
 work = Path(__file__).resolve().parents[1]
 dev = work.parents[2]
-build = Path(sys.argv[1]) if len(sys.argv) > 1 else work / 'build'
+build = Path(sys.argv[1]) if len(sys.argv) > 1 else work.parent / 'build/codex_boundsoutside_1016_02'
 mac_root = dev / 'refrences/cod2-mp-macho/PC'
 tus = [l.split()[0] for l in open(work / 'src/tus.txt') if l.strip() and not l.startswith('#')]
 tu_of_obj = collections.defaultdict(list)

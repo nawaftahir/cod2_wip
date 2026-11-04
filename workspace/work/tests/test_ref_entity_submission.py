@@ -1,5 +1,8 @@
 """Actual ref-entity callback, allocator, packed draw key and publication helpers."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import struct
@@ -16,7 +19,7 @@ allocator=text[text.index('static int R_AllocSceneEntity('):text.index('int R_Ad
 draw=text[text.index('__declspec(noinline) void R_AddDrawSurf('):text.index('// PINNED 10023ed0/')]
 token=text[text.index('// PINNED 101a5a2c:'):text.index('// PINNED 101a5a30:')]
 source=text[text.index('extern const dvar_t *com_statmon;'):text.index('// PINNED 10024460/70:')]
-anchor=pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+anchor=pefile.PE(str(retail_anchor()))
 assert anchor.get_data(0x1a5a2c,4)==struct.pack('<I',2)
 assert anchor.get_section_by_rva(0x1a5a2c).Name.rstrip(b'\0')==b'.data'
 linked=pefile.PE(str(work/'build/gfx.dll'))

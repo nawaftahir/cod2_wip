@@ -3,10 +3,13 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
+import sys
 import pefile
 
 gfx = Path(__file__).resolve().parents[3]
-anchor_path = gfx.parent / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+anchor_path = retail_anchor()
 candidate_path = Path(sys.argv[1])
 anchor, candidate = anchor_path.read_bytes(), candidate_path.read_bytes()
 assert hashlib.sha256(anchor).hexdigest() == '4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6'

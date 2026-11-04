@@ -1,12 +1,15 @@
 """Actual 512x512 outdoor trace image and temporary-buffer ownership."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import struct
 import pefile
 
 work = Path(__file__).resolve().parents[1]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 assert struct.unpack('<d',retail.get_data(0x19bd68,8))[0] == .5-1.0/(1<<30)
 text = (work / 'src/gfx_d3d/r_outdoor.cpp').read_text()
 source = text[text.index('void R_GenerateOutdoorLookup('):]

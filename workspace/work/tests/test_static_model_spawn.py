@@ -165,7 +165,7 @@ def validate_bindings(bindings):
         assert int(row['t'], 16) == address and row['n'] == size, (name, row)
         assert not row['why'] and row['obj'] == 'r_bsp_load_obj.obj', (name, row)
 
-bindings = json.loads((work / 'build/bind.json').read_text())
+bindings = json.loads((work.parent / 'build/codex_boundsoutside_1016_02/bind.json').read_text())
 validate_bindings(bindings)
 for name in accepted:
     for damage in ['missing', 'target', 'length', 'binding', 'owner']:

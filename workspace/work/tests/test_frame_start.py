@@ -1,5 +1,8 @@
 """Actual BeginFrame settings/order with live dvar, world and client callback changes."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import json
 import subprocess
 import tempfile
@@ -12,7 +15,7 @@ clears = text[text.index('static bool R_ClearModifiedDvar('):text.index('// PC 1
 source = text[text.index('// Role name; PINNED 10021db0:'):text.index('// PINNED 10021f90:')]
 local = (work / 'src/gfx_d3d/r_local.h').read_text()
 dvars = local[local.index('union DvarValue\n'):local.index('// opencod2 layout; PINNED maxTextureSize')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 warning = retail.get_string_at_rva(0x196a18).decode()
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 lod_ops = [(i.mnemonic,i.op_str) for i in decoder.disasm(retail.get_data(0x21db0,152),0x10021db0)]

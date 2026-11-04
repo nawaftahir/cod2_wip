@@ -1,5 +1,8 @@
 """Actual refresh search and PC startup parameter routing, not code-match proof."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import pefile
@@ -7,7 +10,7 @@ import capstone
 from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 ops = [(i.mnemonic, i.op_str) for i in decoder.disasm(retail.get_data(0x12b90, 133), 0x10012b90)]
 assert ('mov', 'byte ptr [esi + 8], 1') in ops

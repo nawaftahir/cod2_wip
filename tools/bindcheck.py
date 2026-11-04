@@ -109,7 +109,7 @@ def resolve(va):
     return s[1], va - s[0], s[0], size
 
 
-glm = json.load(open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), '../target/work/proof/retail/functions_gfx10.json')))['functions']
+glm = json.load(open(__import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), '../workspace/work/proof/retail/functions_gfx10.json')))['functions']
 astarts = set(int(f['addr'], 16) for f in glm)
 
 

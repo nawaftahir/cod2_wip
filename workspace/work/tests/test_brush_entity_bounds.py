@@ -83,6 +83,6 @@ with tempfile.TemporaryDirectory(prefix='gfx_brush_bounds_') as directory:
                    input=program, text=True, check=True)
     subprocess.run([binary], check=True)
 
-bindings = json.loads((work / 'build/bind.json').read_text())
+bindings = json.loads((work.parent / 'build/codex_boundsoutside_1016_02/bind.json').read_text())
 row = bindings['?R_TransformBoundsCorners@@YAXPBUGfxEntity@@QAM1PAY02$$CBM@Z']
 assert (row['t'], row['n'], row['obj'], row['why']) == ('0x100088c0', 2317, 'r_dpvs.obj', [])

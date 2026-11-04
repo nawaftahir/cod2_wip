@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 work = Path(__file__).resolve().parents[1]
 tool = work / 'tools/source_coverage.py'
-build = (work / 'build').resolve()
+build = (work.parent / 'build/codex_boundsoutside_1016_02').resolve()
 
 
 def run():

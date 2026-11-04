@@ -9,7 +9,7 @@ from unittest.mock import patch
 
 work = Path(__file__).resolve().parents[1]
 tool = work / 'tools/regression.py'
-candidate = (work / 'build/bind.json').resolve()
+candidate = (work.parent / 'build/codex_boundsoutside_1016_02/bind.json').resolve()
 rows = json.loads(candidate.read_text())
 original = Path.read_text
 

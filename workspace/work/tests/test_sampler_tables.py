@@ -1,6 +1,9 @@
 """Compare every actual C sampler-table field with the pinned retail tables."""
 import hashlib
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import struct
 import subprocess
 import tempfile

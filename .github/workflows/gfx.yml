@@ -1,0 +1,91 @@
+name: gfx
+on:
+  push:
+    branches: ['gfx/**']
+  workflow_dispatch:
+permissions:
+  contents: write
+  packages: read
+concurrency:
+  group: gfx-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  gate:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Select confirmed baseline
+        env:
+          BEFORE_SHA: ${{ github.event.before }}
+          BRANCH_NAME: ${{ github.ref_name }}
+        run: |
+          mkdir -p build
+          if [ "$BRANCH_NAME" = gfx/main ] && git cat-file -e "$BEFORE_SHA:ledger/bind.json" 2>/dev/null; then
+            baseline="$BEFORE_SHA"
+          elif git fetch origin gfx/main --depth=1 2>/dev/null; then
+            baseline=FETCH_HEAD
+          else
+            baseline=HEAD
+          fi
+          git show "$baseline:ledger/bind.json" > build/baseline-bind.json
+          git show "$baseline:ledger/meter.json" > build/baseline-meter.json
+      - name: Private compiler and SDK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          image=$(cat toolchain/image.txt)
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$image"
+          mkdir -p .local
+          ci_container=$(docker create "$image")
+          trap 'docker rm "$ci_container" >/dev/null' EXIT
+          docker cp "$ci_container:/opt/gfx-sdk" .local/sdk
+          docker cp "$ci_container:/opt/gfx-anchor/gfx_d3d_mp_x86_s.dll" .local/anchor.dll
+          chmod a-w .local/anchor.dll
+          echo "GFX_IMAGE=$image" >> "$GITHUB_ENV"
+          echo "GFX_ANCHOR=$PWD/.local/anchor.dll" >> "$GITHUB_ENV"
+          echo "DXSDK=$PWD/.local/sdk" >> "$GITHUB_ENV"
+      - name: Host verification dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq g++-multilib ripgrep
+          python3 -m pip install -r requirements.txt
+      - name: Clean build and both referees
+        run: sh tools/gate.sh
+      - name: Behavioral checks
+        run: |
+          python3 workspace/work/tests/test_sun_render.py
+          python3 workspace/work/tests/test_surface_2d.py
+          python3 workspace/work/tests/test_backend_benchmarks.py
+      - name: Publish measured meter on confirmed branch
+        if: github.ref == 'refs/heads/gfx/main'
+        run: |
+          mkdir -p ledger
+          cp build/meter.json ledger/meter.json
+          git config user.name Nawaf
+          git config user.email 143700542+nawaftahir@users.noreply.github.com
+          cp workspace/build/codex_boundsoutside_1016_02/bind.json ledger/bind.json
+          git add ledger/meter.json ledger/bind.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Update renderer meter'
+            git push origin HEAD:gfx/main
+          fi
+      - name: Summary
+        if: always()
+        run: |
+          if [ -f build/summary.md ]; then cat build/summary.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: gfx-proof-${{ github.sha }}
+          retention-days: 7
+          path: |
+            build/meter.json
+            build/summary.md
+            build/gate.log
+            workspace/build/codex_boundsoutside_1016_02/build.log
+            workspace/build/codex_boundsoutside_1016_02/cmp.log
+            workspace/build/codex_boundsoutside_1016_02/bind.log

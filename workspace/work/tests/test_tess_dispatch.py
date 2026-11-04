@@ -1,10 +1,13 @@
 """Keep the complete surface dispatch tied to the retail pointer sequence."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import re
 import struct
 
 work = Path(__file__).resolve().parents[1]
-anchor = work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+anchor = retail_anchor()
 raw = anchor.read_bytes()
 targets = (0x1003ef20, 0x1003ef30, 0x10041130, 0x10041390,
            0x100413c0, 0x10041510, 0x100415f0, 0)
@@ -29,7 +32,7 @@ import sys
 sys.path.insert(0, str(work.parents[1] / 'tools'))
 from pdbsyms import map_symbols
 import pefile
-build = work / 'build'
+build = work.parent / 'build/codex_boundsoutside_1016_02'
 symbols = {name: va for va, name, obj, isfn in map_symbols(
     build / 'gfx.map', str(build / 'gfx.dll'), str(build / 'gfx.pdb'))}
 def linked(name):

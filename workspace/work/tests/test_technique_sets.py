@@ -1,5 +1,8 @@
 """Actual technique-set grouping, renderer selection, cache and error ownership."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import pefile
@@ -10,7 +13,7 @@ source = text[text.index('// PINNED 1001bde0:'):text.index('GfxImage *Image_Regi
 source = text[text.index('int Material_TechniqueTypeForName('):text.index('struct MtlLoadGlob')] + source
 material = (work / 'src/gfx_d3d/r_material.cpp').read_text()
 source = material[material.index('extern const byte g_useTechnique'):material.index('static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl')] + source
-anchor = work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+anchor = retail_anchor()
 mask = pefile.PE(str(anchor)).get_data(0x18eb34, 34)
 program = r'''
 #define Com_ParseInternal Com_Parse

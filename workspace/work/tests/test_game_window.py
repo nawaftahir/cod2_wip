@@ -1,5 +1,8 @@
 """Actual PC window creation and target-pinned platform interface."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import pefile
@@ -7,7 +10,7 @@ import capstone
 from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 imports = {i.address: i.name for dll in retail.DIRECTORY_ENTRY_IMPORT for i in dll.imports}
 assert imports[0x1010c1e4] == b'AdjustWindowRectEx'
 assert imports[0x1010c1d8] == b'CreateWindowExA'

@@ -1,12 +1,15 @@
 """Actual packed watercolor callback and its cubemap constructor."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import pefile
 import struct
 
 work = Path(__file__).resolve().parents[1]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 assert struct.pack('<f',1.333) == struct.pack('<I',0x3faa9fbe)
 text = (work / 'src/gfx_d3d/r_image_load_obj.cpp').read_text()
 source = text[text.index('void Image_WaterColorForDirection('):text.index('void R_CreateOutdoorImage(GfxImage *image);')]

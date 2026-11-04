@@ -1,5 +1,8 @@
 """Actual outdoor bounds, scale, matrix and collision-height source."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import struct
 import subprocess
 import tempfile
@@ -8,7 +11,7 @@ import pefile
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_outdoor.cpp').read_text()
 source = text[text.index('// PINNED 10020590/'):text.index('// PINNED 10020950/')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 assert struct.unpack('<3i', retail.get_data(0x190398, 12)) == (512,512,256)
 program = r'''
 #include <cassert>

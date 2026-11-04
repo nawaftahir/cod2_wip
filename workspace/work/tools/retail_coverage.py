@@ -4,6 +4,9 @@ import hashlib
 import io
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import re
 import runpy
 import sys
@@ -63,7 +66,7 @@ def data_equal(a, b, ova, tva, orel, arel):
 def report(build):
     work = Path(__file__).resolve().parents[1]
     gfx = work.parents[1]
-    anchor = gfx.parent / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+    anchor = retail_anchor()
     digest = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     assert digest(anchor) == '4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6'
     coverage = json.loads((work / 'proof/source_coverage_current.json').read_text())

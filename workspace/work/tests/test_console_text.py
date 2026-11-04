@@ -1,5 +1,8 @@
 """Packed console runs/icons and both real API callbacks, including draw geometry."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import struct
@@ -17,7 +20,7 @@ def declaration(name):
     start = header.index('struct '+name+' {')
     return header[start:header.index('\n};',start)+3]
 
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 assert retail.get_data(0x19bd54,4) == struct.pack('<f',1/255)
 assert retail.get_data(0x19bf18,4) == struct.pack('<f',1/32)
 assert retail.get_data(0x19bf3c,4) == struct.pack('<f',0.8)

@@ -1,5 +1,8 @@
 """Actual PC text kernels: packed colors, cursor routing, world quads and live commands."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import struct
@@ -12,7 +15,7 @@ source=source.replace('#include "r_font.h"','#include "'+str(work/'src/gfx_d3d/r
 vertex=text[text.index('void RB_SetVertex3D('):text.index('// PINNED 1002e640:')]
 font=(work/'src/gfx_d3d/r_font.cpp').read_text()
 lookup=font[font.index('Glyph *R_GetCharacterGlyph('):font.index('float R_NormalizedTextScale(')]
-retail=pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail=pefile.PE(str(retail_anchor()))
 colors=retail.get_data(0x197f1c,32)
 assert colors==bytes.fromhex('000000ffff0000ff00ff00ffffff00ff0000ffff00ffffffff00ffffffffffff')
 program=r'''

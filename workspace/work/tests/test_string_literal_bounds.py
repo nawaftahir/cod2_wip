@@ -24,7 +24,7 @@ for invalid in ('ordinary', '??_C@_2bad', '??_C@_0Q@bad', '??_C@_1B@odd'):
     assert string_size(invalid) is None
 assert string_size('??_C@_04KGLCPMCP@log2?$AA@+8') is None
 
-build = gfx / 'target/work/build'
+build = gfx / 'workspace/work/build'
 pe = pefile.PE(str(build / 'gfx.dll'))
 checked = 0
 for line in (build / 'gfx.map').read_text().splitlines():

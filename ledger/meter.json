@@ -1,0 +1,42 @@
+{
+  "name": "renderer 1.0",
+  "binary": "gfx_d3d_mp_x86_s.dll",
+  "version": "1.0",
+  "anchor": "windows/1.0/gfx_d3d_mp_x86_s.dll",
+  "sha_identical": false,
+  "text_bytes": 1093632,
+  "matched_bytes": 771254,
+  "file_bytes": 1851392,
+  "same_offset_bytes": 238607,
+  "matched_functions": 2523,
+  "tus_total": 112,
+  "tus_matched": 10,
+  "unverified_in_src": 0,
+  "game_cpp_bytes": 118475,
+  "game_cpp_total": 253580,
+  "game_cpp_percent": 46.72095591134948,
+  "game_cpp_functions": 729,
+  "assembly_bytes": 10151,
+  "assembly_functions": 40,
+  "sections": {
+    ".text": {
+      "size": 1093632,
+      "same_offset": 33527,
+      "matched": 771254
+    },
+    ".rdata": {
+      "size": 598016,
+      "same_offset": 169398
+    },
+    ".data": {
+      "size": 57344,
+      "same_offset": 22646
+    },
+    ".reloc": {
+      "size": 98304,
+      "same_offset": 9278
+    }
+  },
+  "source_commit": "a1eabd307b5979205b9a7c8bd01d72898cb8dd9e",
+  "note": "Function bytes include libraries; game_cpp excludes entire assembly-bearing bodies. Whole-file SHA is the finish line."
+}

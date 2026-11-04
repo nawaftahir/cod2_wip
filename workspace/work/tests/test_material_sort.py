@@ -1,5 +1,8 @@
 """Actual material ordering, typed technique-set distance and sorted-index ownership."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import capstone
@@ -13,7 +16,7 @@ def declaration(name):
     return text[start:text.index('\n};',start)+3]
 
 source = text[text.index('typedef char materialSortLayoutCheck'):]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 ops = [(i.mnemonic,i.op_str) for i in decoder.disasm(retail.get_data(0x16890,74),0x10016890)]
 assert ops[-1]==('ret','') and ('mov','eax, 0xea0ea0eb') in ops and ('sar','edx, 7') in ops

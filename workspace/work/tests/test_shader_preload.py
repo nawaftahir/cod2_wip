@@ -1,12 +1,15 @@
 """Actual shader file preload, shared cache ownership and original sort/lookup behavior."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import capstone
 import pefile
 
 work = Path(__file__).resolve().parents[1]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 ops = [(i.mnemonic,i.op_str) for i in decoder.disasm(retail.get_data(0x1c930,288),0x1001c930)]
 assert ops[-1] == ('ret','')

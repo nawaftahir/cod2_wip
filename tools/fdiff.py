@@ -1,3 +1,4 @@
+from renderer_paths import retail_anchor
 # fdiff.py <mangled-name-substr> <anchor-va-hex> [build dir]: our function vs retail, addresses masked
 import sys, re, json, pefile, capstone, difflib
 name, ava = sys.argv[1], int(sys.argv[2], 16)
@@ -12,6 +13,6 @@ def dis(p, va, n):
     d = pe.get_data(va - pe.OPTIONAL_HEADER.ImageBase, n)
     return [re.sub(r'0x10[0-9a-f]{6}', 'A', f'{i.mnemonic} {i.op_str}') for i in md.disasm(d, va)]
 a = dis(B + '/gfx.dll', ova, f['size'])
-b = dis('../../cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll', ava, f['size'] + 64)
+b = dis(str(retail_anchor()), ava, f['size'] + 64)
 print(f['name'], hex(ova), f['size'])
 for l in difflib.unified_diff(a, b[:len(a) + 8], 'ours', 'retail', n=2, lineterm=''): print(l)

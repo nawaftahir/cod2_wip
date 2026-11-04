@@ -1,5 +1,8 @@
 """Actual static-model cache allocation: captured size, live device, retries and logs."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import pefile
@@ -7,7 +10,7 @@ import pefile
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_staticmodelcache.cpp').read_text()
 source = text[text.index('typedef HRESULT (__stdcall *CacheCreateVertexBufferFn)'):text.index('void SMC_ClearCache()')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 log = retail.get_string_at_rva(0x197480).decode()
 program = r'''
 #include <cassert>

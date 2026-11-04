@@ -2,6 +2,9 @@
 import hashlib
 import json
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import capstone
 import pefile
 
@@ -9,7 +12,7 @@ work = Path(__file__).resolve().parents[1]
 oracle = work / 'proof/retail/refapi_pinned.json'
 assert hashlib.sha256(oracle.read_bytes()).hexdigest() == 'f8ba91eda8b82778d5197fb72d80bd3098f162dc1d8af421ee1a67cacac31639'
 pinned = json.loads(oracle.read_text())
-anchor = work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+anchor = retail_anchor()
 assert hashlib.sha256(anchor.read_bytes()).hexdigest() == pinned['anchor_sha256']
 pe = pefile.PE(str(anchor)); base = pe.OPTIONAL_HEADER.ImageBase
 image = pe.get_memory_mapped_image()

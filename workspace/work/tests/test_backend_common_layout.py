@@ -1,5 +1,8 @@
 """Both backend header views must use the retail PC matrix frame stride."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import capstone
@@ -8,7 +11,7 @@ import pefile
 work = Path(__file__).resolve().parents[1]
 common = (work.parent / 'src/opencod2/headers/cod2_defs.h').read_text()
 sdk = (work / 'src/gfx_d3d/rb_backend.h').read_text()
-anchor = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+anchor = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 def instructions(address, size):
     return [(i.mnemonic, i.op_str) for i in decoder.disasm(anchor.get_data(address-anchor.OPTIONAL_HEADER.ImageBase,size),address)]

@@ -1,5 +1,8 @@
 """Inline pointer tables must not misalign later real CRT instructions."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import struct
 import sys
 import capstone
@@ -29,12 +32,12 @@ invalid_relocations = set(range(base+1, base+9))
 assert [i.address-base for i in instructions(cs,invalid_table,base,invalid_relocations)] == [0,9,14]
 assert list(instructions(cs,b'\xff\xff',base,set())) == []
 
-pe=pefile.PE(str(gfx/'target/work/build/gfx.dll'));rel={pe.OPTIONAL_HEADER.ImageBase+e.rva for b in pe.DIRECTORY_ENTRY_BASERELOC for e in b.entries if e.type==3}
+pe=pefile.PE(str(gfx/'workspace/work/build/gfx.dll'));rel={pe.OPTIONAL_HEADER.ImageBase+e.rva for b in pe.DIRECTORY_ENTRY_BASERELOC for e in b.entries if e.type==3}
 relbytes={a+k for a in rel for k in range(4)}
 # Independent target reference, not the candidate's accepted binding result.
-anchor=pefile.PE(str(gfx.parent/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+anchor=pefile.PE(str(retail_anchor()))
 arel={anchor.OPTIONAL_HEADER.ImageBase+e.rva for b in anchor.DIRECTORY_ENTRY_BASERELOC for e in b.entries if e.type==3}
-for image,start in [(pe,next(int(line.split()[2],16) for line in (gfx/'target/work/build/gfx.map').read_text().splitlines() if len(line.split())>3 and line.split()[1]=='_memmove')),(anchor,0x100f67a0)]:
+for image,start in [(pe,next(int(line.split()[2],16) for line in (gfx/'workspace/work/build/gfx.map').read_text().splitlines() if len(line.split())>3 and line.split()[1]=='_memmove')),(anchor,0x100f67a0)]:
     relocbytes=relbytes if image is pe else {a+k for a in arel for k in range(4)}
     decoded=list(instructions(cs,image.get_data(start-image.OPTIONAL_HEADER.ImageBase,829),start,relocbytes))
     transfers=[i for i in decoded if i.mnemonic in ('call','jmp') and i.bytes[0] in (0xe8,0xe9)]

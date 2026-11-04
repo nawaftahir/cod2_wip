@@ -9,11 +9,11 @@ work = Path(__file__).resolve().parents[1]
 gfx = work.parents[1]
 out = work / 'layout'
 inventory_path = work / 'proof/retail/functions_gfx10.json'
-inputs = [inventory_path, work / 'src/tus.txt', work / 'build/bind.json',
+inputs = [inventory_path, work / 'src/tus.txt', work.parent / 'build/codex_boundsoutside_1016_02/bind.json',
           out / 'file_layout.tsv', work / 'proof/source_coverage_current.json',
           out / 'current.json']
 inventory = json.loads(inventory_path.read_text())['functions']
-bindings = json.loads((work / 'build/bind.json').read_text())
+bindings = json.loads((work.parent / 'build/codex_boundsoutside_1016_02/bind.json').read_text())
 coverage = json.loads((work / 'proof/source_coverage_current.json').read_text())
 assert coverage['bind_sha256'] == hashlib.sha256(inputs[2].read_bytes()).hexdigest()
 tus = [line.split()[0] for line in inputs[1].read_text().splitlines()

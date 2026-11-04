@@ -1,5 +1,8 @@
 """Actual AA/presentation/device source with target-pinned retry and format rules."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import pefile
@@ -7,7 +10,7 @@ import capstone
 from fragment import fragment
 
 work = Path(__file__).resolve().parents[1]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 ops = [(i.mnemonic, i.op_str) for i in decoder.disasm(retail.get_data(0x126d0, 113), 0x100126d0)]
 for pair in [('cmp', 'edi, 0x14'), ('push', '0x64'), ('mov', 'dword ptr [0x101d1bfc], 0')]:

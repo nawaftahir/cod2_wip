@@ -1,5 +1,8 @@
 """Actual material startup, retail registration destinations and raw binding ownership."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import json
 import struct
 import subprocess
@@ -19,7 +22,7 @@ types = ''.join(declaration(name) for name in ['MaterialVertexDeclaration', 'Mat
 check = text[text.index('typedef char materialStartupLayoutCheck'):text.index('Material **R_GetMaterialHashTable();')]
 predicate = text[text.index('Bool Material_IsDefault('):text.index('// Name unconfirmed (Mac 1.3 inlines this into Material_ReleaseAll).')]
 source = text[text.index('struct BuiltInMaterialTable'):text.index('void RB_SetFVF(')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 expected = []
 for address, count in [(0x18e988, 28), (0x18ea68, 12)]:
     for index in range(count):

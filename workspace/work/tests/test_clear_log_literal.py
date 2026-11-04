@@ -1,5 +1,8 @@
 """The clear-call expression must stringify to the actual retail log message."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import re
 import struct
 import pefile

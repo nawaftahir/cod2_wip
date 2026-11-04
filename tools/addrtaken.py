@@ -1,7 +1,8 @@
+from renderer_paths import retail_anchor
 # addrtaken.py: retail functions whose address is taken (reloc'd pointer to a function start) -> standard
 # calling convention even under LTCG. Prints unverified ones with size and first string, largest first.
 import json, glob, os, re, struct, pefile
-R = '../../cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+R = str(retail_anchor())
 pe = pefile.PE(R); base = pe.OPTIONAL_HEADER.ImageBase
 fns = {}
 for f in glob.glob('../../glm/data/decomp/*.c'):

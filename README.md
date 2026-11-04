@@ -1,30 +1,23 @@
-# gfx — shared renderer reconstruction
+# Call of Duty 2 renderer reconstruction
 
-Verified C++ file snapshots are in [src/](src/README.md), committed with pinned
-byte/binding evidence. Mixed or unfinished source stays in target/work/src/.
-Start with [the source map](SOURCE.md) and [current progress](PROGRESS.md).
-The renderer is unfinished; source snapshots are not a standalone retail DLL.
+Target: gfx_d3d_mp_x86_s.dll, PC1.0. Read docs/STATUS.md and CLAUDE.md first.
 
-Active work: [target/work](target/work/README.md). Read [rules](RULES.md).
-Current progress and continuation: [PROGRESS.md](PROGRESS.md), the only live status log.
-Execution plan: [whole-file retail reconstruction](WHOLEFILE.md).
-Source, tests, layout tracking and proof are separated there; one build directory
-is reused. Old scratch folders and archived builds are history, not active inputs.
+- src/: complete files with pinned source/function proof.
+- workspace/work/src/: active partial reconstruction.
+- workspace/src/: compatibility and reference inputs.
+- workspace/work/proof/: immutable evidence and current referee outputs.
+- docs/TRIED.md: failed approaches; read before experimenting.
+- ledger/meter.json: generated confirmed meter, published by CI.
 
-Read the actual C/C++ in [target/work/src](target/work/src). Files may still
-contain unmatched drafts; accepted bodies are identified by the binding proof.
-This is also the source being developed for the final retail-identical DLL:
-there is no separate complete "retail source" tree. Whole-file reconstruction
-connects these same functions with their real callers, data and original
-libraries. [src/tus.txt](target/work/src/tus.txt) lists compiled files in candidate
-link order. `target/src/opencod2` is supporting reference/header material, not
-evidence that the entire engine has been reconstructed. Current verified
-counts and limitations are maintained only in PROGRESS.md.
+Create work from gfx/main with git worktree add in cod2_wip/.worktrees/.
+Use make check for the clean acceptance gate. Set DXSDK and GFX_ANCHOR to
+installed local inputs, or unpack them from the PRIVATE CI package. The
+pinned compiler package and recipe are documented in toolchain/.
 
-Old `target/agent_*` folders and compiler debris were moved, not deleted, to
-[archive/target_trials_20261021](archive/target_trials_20261021/README.md).
-Do not run their build scripts. Required historical gate JSONs are now local
-under target/work/proof/history. Shared headers remain under target/src.
+The public repository contains no retail binary, compiler, SDK payload or
+built game artifact. The gfx workflow runs on trusted gfx branches, keeps
+those inputs private, uploads logs/meters only, and updates the progress
+page after a successful gfx/main run. No fork pull-request job gets them.
 
-Build and verify: `sh target/work/tools/build.sh`.
-`make measure` is exploratory discovery, never whole-file identity or source coverage.
+Function matching is intermediate proof. Readable C/C++ and a whole-file
+SHA256-identical rebuild, followed by a smoke test, are the final objective.

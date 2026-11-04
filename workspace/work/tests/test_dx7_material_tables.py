@@ -1,6 +1,9 @@
 """Check every reconstructed DX7 table field against the pinned retail image."""
 import hashlib
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import re
 import struct
 
@@ -8,7 +11,7 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 gfx = work.parents[1]
-anchor = gfx.parent / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+anchor = retail_anchor()
 assert hashlib.sha256(anchor.read_bytes()).hexdigest() == '4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6'
 pe = pefile.PE(str(anchor), fast_load=True)
 source = (work / 'src/gfx_d3d/r_material_load_obj.cpp').read_text()

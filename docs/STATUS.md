@@ -1,3 +1,31 @@
+# Renderer migration checkpoint
+
+The renderer now lives in cod2_wip: gfx/main is the confirmed branch, and
+new work belongs on gfx/<work> in .worktrees/. Read CLAUDE.md before work.
+Local clean migration gate reproduced 118475/253580
+pure C/C++ bytes (46.720956%). No recovery credit was added
+by moving files. The prior 40 assembly-bearing bodies remain excluded.
+All2523 old protected extents and the10 complete verified source files pass.
+
+The public history preserves all168 old master commits and freeze snapshots
+of the main and Gemini worktrees. All builds start fresh; no objects, DLLs,
+SDK/compiler payloads or retail anchors were imported into Git. Archived
+codex/glm/renderer-progress folders and the original gfx checkout were left
+intact as read-only inputs/backups, not current build dependencies.
+
+Private compiler package: toolchain/image.txt. Its compiler binaries have
+the original hashes. The full SDK and retail anchor stay in that package.
+CI checks byte matches, symbol bindings, every retained extent, source-only
+accounting, verified-only src and selected behavioral fixtures. Meter changes
+are generated; never hand-edit ledger/meter.json. CI publishes it on gfx/main
+and the existing progress page follows the successful gfx workflow.
+
+Next reconstruction leads and all rejected probes remain below and in
+docs/TRIED.md. The50% source goal remains paused until the owner resumes it.
+Never count benchmark201/fill918 or sun-loader208 raw hits as accepted; their
+callee dependencies are still open. Set2D uses the correct scene viewport but
+remains unverified. Whole-file SHA is false and GPU smoke has not run.
+
 ## Sun predicate checkpoint - 2026-11-04
 
 Clean build: C++ 118475/253580 = 46.720955911%, 729 bodies; +352 C++ bytes.

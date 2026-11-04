@@ -1,5 +1,8 @@
 """Actual DPVS owner offsets agree with original types and PC instructions."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import hashlib
 import json
 import re
@@ -16,7 +19,7 @@ record=next(r['name'] for r in records['mac']['records'] if r['name'].startswith
 assert '=s108' in record
 fields={name:(int(offset)//8,int(size)//8) for name,offset,size in re.findall(r'([A-Za-z]\w*):[^;]*?,(\d+),(\d+);',record.split('=s108',1)[1])}
 assert len(fields)==15 and (max(a+b for a,b in fields.values())+3)//4*4==108
-anchor=work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+anchor=retail_anchor()
 assert hashlib.sha256(anchor.read_bytes()).hexdigest()==records['pc']['anchor_sha256']
 pe=pefile.PE(str(anchor));cs=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 starts={offset for offset,size in fields.values()}|set(range(100,105))

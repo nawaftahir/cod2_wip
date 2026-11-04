@@ -1,5 +1,8 @@
 """Pin both parser declarations to the PC field offsets used by token pushback."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import hashlib
 import re
 import subprocess
@@ -8,7 +11,7 @@ import pefile
 
 work = Path(__file__).resolve().parents[1]
 gfx = work.parents[1]
-anchor = gfx.parent / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+anchor = retail_anchor()
 assert hashlib.sha256(anchor.read_bytes()).hexdigest() == '4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6'
 image = pefile.PE(str(anchor))
 md = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)

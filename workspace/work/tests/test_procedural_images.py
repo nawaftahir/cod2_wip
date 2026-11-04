@@ -1,5 +1,8 @@
 """Actual procedural image helpers, cube directions and face upload ownership."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import capstone
@@ -9,7 +12,7 @@ work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_image_load_obj.cpp').read_text()
 source = (text[text.index('// PINNED 1000fbd0/'):text.index('void R_LoadJpg(')] +
           text[text.index('// PINNED 1000fce0/'):text.index('static unsigned int Image_CountMipmapsForFile(')])
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 decoder.detail = True
 registers, axes = {}, {}

@@ -20,7 +20,7 @@ assert local_name('source_static', 'ldata', 'source.obj', move) != local_name('s
 assert local_name('unowned', 'ldata', archive, '') == 'unowned'
 assert local_name('', 'ldata', 'source.obj', move) == ''
 
-build = gfx / 'target/work/build'
+build = gfx / 'workspace/work/build'
 labels = [(va, name, obj) for va, kind, name, obj in syms(str(build / 'gfx.dll'), str(build / 'gfx.pdb'))
           if kind == 'ldata' and name.startswith('UnwindUpVec$')]
 assert len(labels) == 2 and len({name for va, name, obj in labels}) == 2, labels
@@ -29,7 +29,7 @@ owners = {'I_strlen': 'gfx_d3d/common.cpp', 'Com_Printf': 'qcommon/common.cpp', 
 procedures = {name: obj.replace('\\', '/').lower()
               for va, kind, name, obj in syms(str(build / 'gfx.dll'), str(build / 'gfx.pdb'))
               if kind in ('lproc', 'gproc') and name in owners}
-with (gfx / 'target/work/layout/file_layout.tsv').open() as stream:
+with (gfx / 'workspace/work/layout/file_layout.tsv').open() as stream:
     layout = list(csv.DictReader(stream, delimiter='\t'))
 for name, owner in owners.items():
     assert procedures[name].endswith('/' + str(Path(owner).with_suffix('.obj'))), (name, procedures)

@@ -1,5 +1,8 @@
 """Actual raw-image API group: default predicates, argument routing and cleanup."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import capstone
@@ -13,7 +16,7 @@ source = material[start:material.index('Bool Image_LoadFromFile(', start)]
 predicate = material[material.index('Bool Material_IsDefault('):material.index('// Name unconfirmed (Mac 1.3 inlines this into Material_ReleaseAll).')]
 start = image.index('// PINNED 1000fc30/169:')
 load = image[start:image.index('// PINNED 1000fce0/119:', start)]
-anchor = work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'
+anchor = retail_anchor()
 pe = pefile.PE(str(anchor))
 cs = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 # The all-equal PC branch returns the raw pointer already in EAX, even if distinct.

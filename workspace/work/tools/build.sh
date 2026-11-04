@@ -9,13 +9,16 @@ target=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
 cd "$target"
 build=build/codex_boundsoutside_1016_02
 logical=scratch/codex_boundsoutside_1016
-image=sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d
+image=${GFX_IMAGE:-sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d}
+sdk=${DXSDK:?Set DXSDK to the Summer 2004 SDK directory}
+sdk=$(cd "$sdk" && pwd)
+anchor=$(python3 ../tools/renderer_anchor.py)
 mkdir -p "$build/tmp" work/proof/latest
 exec 9>"$build/trial.lock"
 flock -n 9 || { echo 'Renderer build already running' >&2; exit 1; }
 # Preserve the established compiler-visible paths, not a second source tree.
 config=$({ printf '%s\n' "$image"; sha256sum closed.mk work/src/profile.mk;
-  rg --files work/src src/shims src/opencod2/headers ../../sdk/sum2004/Include \
+  rg --files work/src src/shims src/opencod2/headers "$sdk/Include" "$sdk/Lib" \
     -g '*.h' -g '*.inc' -g '*.inl' | sort | xargs sha256sum;
 } | sha256sum | cut -d ' ' -f1)
 force=
@@ -25,13 +28,12 @@ if [ "${1-}" = --rebuild ] || [ ! -f "$build/work-config" ] ||
 fi
 docker run --rm --pid=host --network none -v "$target:/w" \
   -v "$target/work/src:/w/$logical" \
-  -v "$(cd ../../sdk/sum2004 && pwd):/dxsdk:ro" -w /w \
+  -v "$sdk:/dxsdk:ro" -w /w \
   -e TMP='Z:\w\build\codex_boundsoutside_1016_02\tmp' \
   -e TEMP='Z:\w\build\codex_boundsoutside_1016_02\tmp' "$image" \
   sh -c "make $force -W $logical/roots.txt -W $logical/tus.txt -j4 -f $logical/profile.mk IN_IMAGE=1 SRCDIR=$logical B=$build DBG=1 $build/gfx.dll; result=\$?; chown -R $(id -u):$(id -g) $build; exit \$result" \
   >"$build/build.log" 2>&1
 printf '%s\n' "$config" >"$build/work-config"
-anchor=../../cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll
 python3 ../tools/cmp.py "$build/gfx.dll" "$build/gfx.map" "$anchor" "$build/cmp.json" --pdb "$build/gfx.pdb" >"$build/cmp.log"
 # A failed probe is diagnostic only; every successful probe still runs all gates.
 if [ -n "${GFX_PROBE_SYMBOL-}" ]; then

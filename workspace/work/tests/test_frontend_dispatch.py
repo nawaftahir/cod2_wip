@@ -1,5 +1,8 @@
 """Actual eight-case frontend dispatcher and scene worker, including call order."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import struct
 import subprocess
 import tempfile
@@ -10,7 +13,7 @@ text=(work/'src/gfx_d3d/r_rendercmds.cpp').read_text()
 source=text[text.index('// PINNED 10020be0/153:'):text.index('// Scene command producers.')]
 text=(work/'src/gfx_d3d/r_scene.cpp').read_text()
 worker=text[text.index('// PINNED 10023d70/61:'):text.index('// PINNED PC model surface submission, 10024680/286.')]
-anchor=pefile.PE(str(work.parents[2]/'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+anchor=pefile.PE(str(retail_anchor()))
 assert struct.unpack('<8I',anchor.get_data(0x20c7c,32))==(0x10020bf8,0x10020c08,0x10020c18,0x10020c6e,0x10020c63,0x10020c40,0x10020c2a,0x10020c2a)
 program=r'''
 #include <cassert>

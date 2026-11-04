@@ -1,5 +1,8 @@
 """Actual nine-command registration order and callback identities."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import json
 import re
 import subprocess
@@ -12,7 +15,7 @@ work = Path(__file__).resolve().parents[1]
 text = fragment('gfx_d3d/r_cmds.cpp')
 source = text[text.index('void R_RegisterCmds()'):]
 source = source[:source.index('// PINNED 10005360:')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 names = []
 for ins in decoder.disasm(retail.get_data(0x52c0,151),0x100052c0):
@@ -45,7 +48,7 @@ for line in (work / 'layout/current.map').read_text().splitlines():
     fields = line.split()
     if len(fields)>=3 and re.fullmatch(r'[0-9a-fA-F]{8}',fields[2]):
         symbols[fields[1]] = int(fields[2],16)
-current = pefile.PE(str(work / 'build/gfx.dll'))
+current = pefile.PE(str(work.parent / 'build/codex_boundsoutside_1016_02/gfx.dll'))
 address = symbols['?R_RegisterCmds@@YAXXZ']
 instructions = list(decoder.disasm(current.get_data(address-current.OPTIONAL_HEADER.ImageBase,151),address))
 pushes = [int(ins.op_str,16) for ins in instructions if ins.mnemonic=='push' and ins.op_str.startswith('0x')]

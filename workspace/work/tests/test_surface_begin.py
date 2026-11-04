@@ -1,5 +1,8 @@
 """Actual surface setup must preserve fields not reset by the retail entry."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import json
 import subprocess
 import tempfile
@@ -12,7 +15,7 @@ source = (source[source.index('// PINNED 10037930'):source.index('// Dynamic ind
     + source[source.index('// PINNED 1003a5f0'):])
 header = (work / 'src/gfx_d3d/rb_tess.h').read_text()
 header = header[header.index('struct Material;'):header.index('#ifdef _MSC_VER')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 decoder.detail = True
 names = []

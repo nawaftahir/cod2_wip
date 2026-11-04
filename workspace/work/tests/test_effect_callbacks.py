@@ -1,5 +1,8 @@
 """Actual API59 effect callbacks forward to the verified client imports."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import capstone
@@ -8,7 +11,7 @@ import pefile
 work = Path(__file__).resolve().parents[1]
 text = (work / 'src/gfx_d3d/r_rendercmds.cpp').read_text()
 source = text[text.index('void R_UpdateEffectsBolt()'):text.index('// PINNED 101e4a00:')]
-pe = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+pe = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
 decoder.detail = True
 for address, slot in ((0x10020cb0, 166), (0x10020cc0, 165)):

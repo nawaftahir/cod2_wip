@@ -1,12 +1,15 @@
 """Actual packed light loading, single registry ownership and default/error paths."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import pefile
 import capstone
 
 work = Path(__file__).resolve().parents[1]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 assert retail.get_string_at_rva(0x1942b4) == b'lights/%s'
 assert retail.get_string_at_rva(0x194250) == b'light_dynamic'
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)

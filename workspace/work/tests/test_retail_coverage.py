@@ -47,7 +47,7 @@ assert not tool.data_equal(b'12', b'12', 0x2000, 0x5000, {0x2000}, {0x5000})
 original_bytes = Path.read_bytes
 for relative, message in [('bind.json', 'Run the full build gates first'),
                           ('gfx.dll', 'DLL changed after the build gates')]:
-    target = (work / 'build' / relative).resolve()
+    target = (work.parent / 'build/codex_boundsoutside_1016_02' / relative).resolve()
 
     def changed(path):
         value = original_bytes(path)
@@ -55,7 +55,7 @@ for relative, message in [('bind.json', 'Run the full build gates first'),
 
     with patch.object(Path, 'read_bytes', changed):
         try:
-            tool.report((work / 'build').resolve())
+            tool.report((work.parent / 'build/codex_boundsoutside_1016_02').resolve())
         except AssertionError as error:
             assert message in str(error), error
         else:

@@ -1,5 +1,8 @@
 """Actual hardware startup retry ladder and existing-device path."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import json
 import subprocess
 import tempfile
@@ -10,7 +13,7 @@ work = Path(__file__).resolve().parents[1]
 text = fragment('gfx_d3d/r_device.cpp')
 source = text[text.index('Bool R_ReduceWindowSettings()'):text.index('void R_ShutdownRenderTargets();')]
 header = (work / 'src/gfx_d3d/r_window.h').read_text().replace('#pragma once', '')
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 messages = [retail.get_string_at_rva(a).decode('ascii') for a in [0x194150,0x1940f0,0x194090]]
 program = r'''
 #include <cassert>

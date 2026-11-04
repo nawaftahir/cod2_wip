@@ -1,3 +1,8 @@
+Read docs/STATUS.md and docs/TRIED.md first.
+Active source is workspace/work/src; complete verified files are in src/.
+Run make check with private inputs, commit on a gfx work branch and let CI judge it.
+Do not use the old gfx checkout or archived workspaces as build inputs.
+
 Current checkpoint: read PROGRESS.md first (Sun predicate checkpoint, 2026-11-04).
 Owner requested a pause for a workspace update; do not start another reconstruction attempt.
 

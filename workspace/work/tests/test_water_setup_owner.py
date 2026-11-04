@@ -1,5 +1,8 @@
 """Actual water setup loader/reset must use the renderer-owned records."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import retail_anchor
 import subprocess
 import tempfile
 import capstone
@@ -12,7 +15,7 @@ assert '\nwater_t sceneWaterMapSetups[16];' not in text
 shutdown = text[text.index('void R_ShutdownLoadWater()'):text.index('void R_PickWaterFrequencies(')]
 image = (work / 'src/gfx_d3d/r_image.cpp').read_text()
 loader = image[image.index('water_t *R_LoadWaterSetup('):image.index('// PINNED 1000d320/202:')]
-retail = pefile.PE(str(work.parents[2] / 'cod2engineold/binaries/windows/1.0/gfx_d3d_mp_x86_s.dll'))
+retail = pefile.PE(str(retail_anchor()))
 decoder = capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
 ops = [(i.mnemonic,i.op_str) for i in decoder.disasm(retail.get_data(0xdd70,122),0x1000dd70)]
 assert any('0x101d5d28' in operands for _,operands in ops)
