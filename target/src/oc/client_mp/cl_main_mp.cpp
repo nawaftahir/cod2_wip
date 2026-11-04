@@ -217,6 +217,7 @@ extern void Com_Memset(void *dest, const int val, int count);
 extern qboolean NET_CompareAdr(netadr_t a, netadr_t b);
 extern int NET_CompareBaseAdr(netadr_t a, netadr_t b);
 extern const char *NET_AdrToString(netadr_t a);
+extern void NET_OutOfBandVoiceData2(netsrc_t sock, netadr_t adr, unsigned char *format, int len);
 extern qboolean NET_StringToAdr(const char *s, netadr_t *a);
 extern unsigned char NET_OutOfBandPrint(netsrc_t sock, netadr_t adr, const char *msg);
 extern unsigned char NET_OutOfBandData(netsrc_t sock, netadr_t adr, unsigned char *data, int len);
@@ -1761,6 +1762,46 @@ void CL_CheckForResend(void)
         Com_Error(ERR_FATAL, "\x15" "CL_CheckForResend: bad clc->state");
     }
 }
+
+#if COD2_IS_PATCH_13
+/* retail 0x40e430 (Mac name): CD key with only letters and digits, at most 32 characters */
+void PBget_cl_cdkey(char *out)
+{
+    int len;
+    int i;
+    int j;
+
+    out[0] = 0;
+    j = 0;
+    len = strlen(cl_cdkey);
+    if (len > 32)
+        len = 32;
+    for (i = 0; i < len; i++) {
+        char ch = cl_cdkey[i];
+        if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+            out[j++] = ch;
+    }
+    out[j] = 0;
+}
+
+/* retail 0x40e490 (Mac name) */
+void CL_SendPbPacket(int len, char *data)
+{
+    NET_OutOfBandVoiceData2(NS_CLIENT1, clc.serverAddress, (unsigned char *)data, len);
+}
+
+/* retail 0x40e4d0 (Mac name) */
+const char *PB_Q_Serverinfo(void)
+{
+    return clients[0].gameState.stringData + clients[0].gameState.stringOffsets[0];
+}
+
+/* retail 0x40e4e0 (Mac name) */
+const char *PB_Q_Serveraddr(void)
+{
+    return NET_AdrToString(clc.serverAddress);
+}
+#endif
 
 // Original name unknown.
 static void CL_DisconnectPacket(netadr_t from)

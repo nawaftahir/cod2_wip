@@ -17,3 +17,5 @@ _yylex
 ?SP_worldspawn@@YAXXZ
 # Menu_HandleKey: 1.0 PINNED ordinal tie (SKILL tie set); one arg-load swap, flips on symbol count (w8-connect 11-04)
 ?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z
+# DSound_UpdateSample: pinned 1.0 tie-set member (SKILL tie set), flipped by w8-pb new pbcl/cl_main fns
+?DSound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@Z

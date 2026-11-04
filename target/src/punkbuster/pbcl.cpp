@@ -220,6 +220,65 @@ struct stPbCl
 
 stPbCl pbcl;
 
+extern "C" int __cdecl _stricmp(const char *, const char *);
+extern void set_cl_punkbuster(char *value);
+extern void PBget_cl_cdkey(char *out);
+extern void CL_SendPbPacket(int len, char *data);
+extern struct dvar_s *Dvar_FindMalleableVar(const char *name);
+extern struct dvar_s *Dvar_RegisterString(const char *name, const char *value, unsigned short flags);
+enum DvarSetSource { DVAR_SOURCE_INTERNAL };
+extern void Dvar_SetFromStringFromSource(struct dvar_s *dvar, const char *value, DvarSetSource source);
+extern void Sys_PBSendUdpPacket(char *addr, unsigned short port, int len, char *data);
+
+// retail 0x4bbaa0
+char *PbClGameCommand(char *Cmd, char *Result)
+{
+	char *value;
+
+	value = Result;
+	while ( *value == ' ' )
+		value++;
+	while ( *value && *value != ' ' )
+		value++;
+	while ( *value == ' ' )
+		value++;
+
+	if ( !_stricmp(Cmd, "set_cl_punkbuster") )
+	{
+		set_cl_punkbuster(Result);
+		return NULL;
+	}
+	if ( _stricmp(Cmd, "Cvar_Set") && _stricmp(Cmd, "Dvar_Set") )
+	{
+		if ( !_stricmp(Cmd, "get_pb_cdkey") )
+			PBget_cl_cdkey(Result);
+		return NULL;
+	}
+	if ( Dvar_FindMalleableVar(Result) )
+	{
+		struct dvar_s *dvar = Dvar_FindMalleableVar(Result);
+		if ( !dvar )
+			Dvar_RegisterString(Result, value, 0x4000);
+		else
+			Dvar_SetFromStringFromSource(dvar, value, DVAR_SOURCE_INTERNAL);
+	}
+	return NULL;
+}
+
+// retail 0x4bbf40
+char *PbClSendToServer(int DataLen, char *Data)
+{
+	CL_SendPbPacket(DataLen, Data);
+	return NULL;
+}
+
+// retail 0x4bbf90
+char *PbClSendToAddrPort(char *addr, unsigned short port, int DataLen, char *Data)
+{
+	Sys_PBSendUdpPacket(addr, port, DataLen, Data);
+	return NULL;
+}
+
 void PbClAddEvent(int type, int datalen, char *data)
 {
 	pbcl.AddPbEvent(type, datalen, data, 0);
@@ -236,6 +295,44 @@ void PbClientTrapConsole(char *text, int len)
 {
 	if ( pbcl.m_TrapConsole )
 		pbcl.m_TrapConsole(&pbcl, text, len);
+}
+
+struct MD5_CTX
+{
+	unsigned long i[2];
+	unsigned long buf[4];
+	unsigned char in[64];
+	unsigned char digest[16];
+};
+extern void MD5Init(MD5_CTX *mdContext, unsigned long pseudoRandomNumber);
+extern void MD5Update(MD5_CTX *mdContext, unsigned char *inBuf, unsigned int inLen);
+extern void MD5Final(MD5_CTX *mdContext);
+
+// retail 0x4bc160, name unknown: digest as 32 hex characters
+void pbMd5ToHex_4bc160(MD5_CTX *ctx, char *out)
+{
+	sprintf(out, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+		ctx->digest[0], ctx->digest[1], ctx->digest[2], ctx->digest[3],
+		ctx->digest[4], ctx->digest[5], ctx->digest[6], ctx->digest[7],
+		ctx->digest[8], ctx->digest[9], ctx->digest[10], ctx->digest[11],
+		ctx->digest[12], ctx->digest[13], ctx->digest[14], ctx->digest[15]);
+}
+
+// retail 0x4bc1d0, name unknown: two seeded MD5 rounds, result kept in m_guid
+char *pbMakeGuid_4bc1d0(char *data, int len)
+{
+	MD5_CTX ctx;
+
+	MD5Init(&ctx, 0xb684a3);
+	MD5Update(&ctx, (unsigned char *)data, len);
+	MD5Final(&ctx);
+	pbMd5ToHex_4bc160(&ctx, pbcl.m_guid);
+
+	MD5Init(&ctx, 0x51a56);
+	MD5Update(&ctx, (unsigned char *)pbcl.m_guid, strlen(pbcl.m_guid));
+	MD5Final(&ctx);
+	pbMd5ToHex_4bc160(&ctx, pbcl.m_guid);
+	return pbcl.m_guid;
 }
 
 void EnablePbCl()

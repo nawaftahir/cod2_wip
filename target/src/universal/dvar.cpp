@@ -1649,7 +1649,7 @@ void Dvar_SetColor(dvar_t *dvar, float r, float g, float b, float a)
 	Dvar_SetColorFromSource(dvar, r, g, b, a, DVAR_SOURCE_INTERNAL);
 }
 
-static void Dvar_SetFromStringFromSource(dvar_t *dvar, const char *string, DvarSetSource source)
+void Dvar_SetFromStringFromSource(dvar_t *dvar, const char *string, DvarSetSource source)
 {
 	DvarValue newValue;
 	char buf[1024];

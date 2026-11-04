@@ -530,3 +530,12 @@ FIXES (branch s1-inventory, worktree lab13/s1; builds are ~1.5 min):
   PbClientConnecting(1, pbBuf, &len), CL_BuildMd5StrFromCDKey(md5Str), NET_OutOfBandPrint(va("getchallenge 0 \"%s\"", md5Str)). Full version is branch w8-connect-hook (7c4c244): 812 B, 231 vs 231 insns,
   only the stack slot order of data/info/pbBuf differs (retail low->high: data, info, pbBuf; ours data, pbBuf, info regardless of declaration order, block scope or size 1020/1024).
   This branch (w8-connect) carries only RequestAuthorization/Build/trim: matched-fn 1,504,931 vs main 1,501,161 (+3,770) but Menu_HandleKey flips (a pure arg-load swap, tie pool; yylex comes back +4236).
+- w8-pb (11-04 pm): pbcl region from retail. Mac names confirmed: PBget_cl_cdkey(char*) 0x40e430 (alnum cdkey, max 32), CL_SendPbPacket(int,char*) 0x40e490
+  (= NET_OutOfBandVoiceData2(NS_CLIENT1, serverAddress, data, len)), PB_Q_Serverinfo 0x40e4d0 (configstring 0), PB_Q_Serveraddr 0x40e4e0 (NET_AdrToString(serverAddress)),
+  PbClSendToServer 0x4bbf40 (= CL_SendPbPacket + return 0), PbClSendToAddrPort 0x4bbf90 (= Sys_PBSendUdpPacket + return 0), PbClGameCommand 0x4bbaa0 ("set_cl_punkbuster" ->
+  set_cl_punkbuster(args); "Cvar_Set"/"Dvar_Set" -> value = 2nd word, Dvar_FindMalleableVar -> Dvar_SetFromStringFromSource(dvar,value,INTERNAL) else Dvar_RegisterString(name,value,0x4000);
+  "get_pb_cdkey" -> PBget_cl_cdkey(args); comparisons are the CRT _stricmp CALL (0x58beed), not an inlined strcmp). 0x4bc160 (hex of digest into 32 chars) and 0x4bc1d0 (m_guid = hex(MD5 seed 0xb684a3 (data,len));
+  m_guid = hex(MD5 seed 0x51a56 (m_guid)); return m_guid) are written and match (186+99 B). Dvar_SetFromStringFromSource made non-static (retail calls it from pbcl).
+  PbClGameCommand/PbClSendToAddrPort are structurally equal but compile with register params until their address is taken (PbClientInitialize 0x4bc000 stores them in pbcl.m_*):
+  PbClientInitialize needs PbClGameQuery (0x4bbb80, 947 B, switch 0x67..0x73) and PbClGameMsg (0x4bbef0; calls PbMsgToScreen = cl_console_mp 0x405080 "%s: %s", Mac name PbMsgToScreen(char*,char*)).
+  0x40e750 is the real CL_ConnectionlessPacket (PB_ prefix first: S/2/I server PB packets, else pbcl event), 0x40ec10 the rest; ours is one 2267 B fn: not started.
