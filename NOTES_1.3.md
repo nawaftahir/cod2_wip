@@ -486,3 +486,39 @@ FIXES (branch s1-inventory, worktree lab13/s1; builds are ~1.5 min):
   * CRT: retail wincrt0 has one extra SEH scopetable entry (16 B at rdata 0x6468) and a longer runtime-error block; not source.
 - Numbers (start -> end): matched-fn 1,505,247 -> 1,505,247 (91.47%, unchanged, 0 lost); same-offset whole 146,831 -> 169,356
   (7.45% -> 8.60%); .rdata same-offset 31,242 (13.62%) -> 53,042 (23.12%).
+
+## s2b: .rdata ownership + .text drift (11-04, branch s2b from eda49af)
+- PINNED .rdata ownership fixes (no new code):
+  * `objectiveFields` (msg_mp.cpp) was non-const; retail has the 72 B table in .rdata (0x9990, origin[0..2], icon, entNum, teamNum).
+    Now `static const`. Commit 8f86115: same-offset 169,076 -> 180,154, matched-fn unchanged (1,505,397), SP_worldspawn tie as before.
+  * `getKeyAuthorize %i %s PB %s` was a `static const char[]` (cl_main_mp.cpp), which put 32 B into the per-obj const block (.rdata 0x8d24)
+    and shifted 0x8d44..0x10c04 by 32. Retail has it as a pooled literal at 0x10c04. Commit ef0b86c uses the literal inline:
+    same-offset 180,154 -> 196,876 (whole 9.99%, .rdata 30.74%, .data 81.12%) BUT flips `_yylex` (4,236 B, in ties13 as tie/label):
+    matched-fn 1,505,397 -> 1,501,161 (91.48% -> 91.22%). Spellings tried: file-scope `static const char *const`
+    (loses SV_DirectConnect 2,733, worse), parenthesised literal (same yylex flip). Coordinator decides: take 8f86115 (ratchet-clean)
+    or ef0b86c (+16.7K bytes whole-file, -4.2K matched via the yylex tie).
+- Not done (need code or pool-order work): pbsv.cpp string order (retail pool: GetProc Failure, sb, sa, pbsvold, pbsvnew, Load Failure,
+  pbag.dll, pbsv.dll; ours puts pbag.dll first: LTCG pool order inside a class-method TU, not a simple reverse of source);
+  `pb_sv_`/`%s: %s`/`cl_punkbuster` first-reference TU differences (retail first ref is cl_keys / cl_console / cl_main fns we lack).
+- .text drift (tools/drift13.py [n] [m]; delta = retail addr - our addr at each uniquely matched fn, 6,899 of 8,955 anchors).
+  Drift is zero at 0x401000 (assertive.obj, 4 fns), then every break is the size difference of the unmatched fns just before it:
+
+| ours addr | TU | step | cause (unmatched fns before the break, ours size) |
+|---|---|---|---|
+| 401d70 | cl_cgame_mp | -64 | FIRST break: CL_SetExpectedHunkUsage 527 B ours, retail 463 B (no hit) |
+| 402120 | cl_cgame_mp | -16 | CL_SubtitlePrint 226 B (pad) |
+| 402370/402380 | cl_cgame_mp | -192/+192 | CL_SaveScreen 6 B (retail has a 192 B different fn here, re-syncs next fn) |
+| 404b20 | cl_console_mp | +1968 | CL_ConsolePrint_AddLine 526, CL_ConsolePrint 400, CL_ConsoleFixPosition 162 vs retail: + a `%s: %s` print fn (0x405090) and other missing fns (layout13: 2,041 B missing) |
+| 40a220 | cl_keys_mp | +176 | CompleteCommand 466 B |
+| 40c9c0..40e4b0 | cl_main_mp | +400,+448,+400 | CL_RequestAuthorization 686, CL_CheckForResend 599, CL_ConnectionlessPacket 2,267 (1.3 connect code, w8) |
+| 40edf0..40f550 | cl_main_mp | +128,+128,+96 | CL_InitRenderer 203 (fonts, see s2 notes), CL_InitRef 1,699 |
+| 4207f0 | cmd | +144 | Cmd_ExecuteString 383 |
+| 433a80 | common | +208 | Com_Init_Try_Block_Function 1,351 |
+| 45c4e0 | sv_snapshot | -64 | SV_Netchan_PrintProfileStats 2,316 (frame/locals vs server source) |
+| 465620/465690 | win_main/win_net | -9088/+9344 | retail orders win_main after win_net's block; our link order differs (TU out of order list in LAYOUT_1.3.md) |
+| 4ba780..4bc310 | pbcl/pbsv/pbmd5 | +1712,+752,+2912,-6784,+3904 | PunkBuster TUs: our pbcl/pbsv are stubs (retail pbcl ~ 0x4bb9b0.., pbsv 0x4bd..); order and size both off |
+| 4d7e70 | cg_scoreboard | +752 | CG_DrawBackdropServerInfo region (742 B missing) |
+| 545d30 | libwww start | +1408 | whole UI tail: ui_shared_obj fns before HTReqMan (~1.4 KB: localized font loader 0x545740 etc.) |
+  Net: retail is +8,688 at libwww start, i.e. ~8.7 KB of retail code ahead of libwww that we do not have in place
+  (cl_console 2.0 K, cl_main connect 1.3 K+, PunkBuster ~4 K, cl_keys/common/cmd ~0.6 K, ui ~1.4 K, cl_cgame -64).
+  The first TU to go out of position is cl_cgame_mp.obj, by 64 B (CL_SetExpectedHunkUsage); everything before it (assertive.obj) is in place.
