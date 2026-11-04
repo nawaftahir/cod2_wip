@@ -671,6 +671,9 @@ void SV_DirectConnect( netadr_t from )
 	char *PBdenied;
 	int ping;
 
+	memset( PBguid, 0, sizeof( PBguid ) );
+	memset( clientPBguid, 0, sizeof( clientPBguid ) );
+
 	Com_DPrintf("SV_DirectConnect()\n");
 	Q_strncpyz( userinfo, SV_Cmd_Argv( 1 ), sizeof( userinfo ) );
 
@@ -692,7 +695,8 @@ void SV_DirectConnect( netadr_t from )
 	for ( i = 0,cl = svs.clients ; i < sv_maxclients->current.integer ; i++,cl++ )
 	{
 		if ( NET_CompareBaseAdr( from, cl->netchan.remoteAddress )
-		     && ( cl->netchan.qport == qport || from.port == cl->netchan.remoteAddress.port ) )
+		        && ( cl->netchan.qport == qport
+		             || from.port == cl->netchan.remoteAddress.port ) )
 		{
 			if ( ( svs.time - cl->lastConnectTime )
 			        < ( sv_reconnectlimit->current.integer * 1000 ) )
@@ -707,16 +711,19 @@ void SV_DirectConnect( netadr_t from )
 	guid = 0;
 
 	// see if the challenge is valid (local clients don't need to challenge)
-	if ( from.type != NA_LOOPBACK && from.type != NA_BOT )
+	if ( !NET_IsLocalAddress( from ) )
 	{
 		for ( i = 0 ; i < MAX_CHALLENGES ; i++ )
 		{
-			if ( NET_CompareAdr( from, svs.challenges[i].adr ) && challenge == svs.challenges[i].challenge )
+			if ( NET_CompareAdr( from, svs.challenges[i].adr ) )
 			{
-				guid = svs.challenges[i].guid;
-				I_strncpyz( PBguid, svs.challenges[i].PBguid, sizeof( PBguid ) );
-				I_strncpyz( clientPBguid, svs.challenges[i].clientPBguid, sizeof( clientPBguid ) );
-				break;
+				if ( challenge == svs.challenges[i].challenge )
+				{
+					guid = svs.challenges[i].guid;
+					I_strncpyz( PBguid, svs.challenges[i].PBguid, sizeof( PBguid ) );
+					I_strncpyz( clientPBguid, svs.challenges[i].clientPBguid, sizeof( clientPBguid ) );
+					break;
+				}
 			}
 		}
 		if ( i == MAX_CHALLENGES )
@@ -725,14 +732,14 @@ void SV_DirectConnect( netadr_t from )
 			return;
 		}
 
-		if ( svs.challenges[i].firstPing )
-		{
-			ping = svs.challenges[i].firstPing;
-		}
-		else
+		if ( svs.challenges[i].firstPing == 0 )
 		{
 			ping = svs.time - svs.challenges[i].pingTime;
 			svs.challenges[i].firstPing = ping;
+		}
+		else
+		{
+			ping = svs.challenges[i].firstPing;
 		}
 
 		Com_Printf( "Client %i connecting with %i challenge ping from %s\n", i, ping, NET_AdrToString(from) );
@@ -772,13 +779,31 @@ void SV_DirectConnect( netadr_t from )
 	// if there is already a slot for this ip, reuse it
 	for ( i = 0,cl = svs.clients ; i < sv_maxclients->current.integer ; i++,cl++ )
 	{
-		if ( cl->state && NET_CompareBaseAdr( from, cl->netchan.remoteAddress )
-		     && ( cl->netchan.qport == qport || from.port == cl->netchan.remoteAddress.port ) )
+		if ( !cl->state )
+		{
+			continue;
+		}
+
+		if ( NET_CompareBaseAdr( from, cl->netchan.remoteAddress )
+		        && ( cl->netchan.qport == qport
+		             || from.port == cl->netchan.remoteAddress.port ) )
 		{
 			Com_Printf( "%s:reconnect\n", NET_AdrToString( from ) );
 
 			if ( cl->state >= CS_CONNECTED )
+			{
+				// HYPOTHESIS form: retail has a dead guid test (cmp; jne next insn). Only a body
+				// that reload deletes keeps it at -O0; the original statement is unknown.
+				register int regA, regB;
+
+				if ( !guid )
+				{
+					regA = regB;
+					regB = regA;
+				}
+
 				SV_FreeClient(cl);
+			}
 
 			newcl = cl;
 
