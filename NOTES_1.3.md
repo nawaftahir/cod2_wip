@@ -282,3 +282,7 @@
 - Files where ours differs from git (HTNet, HTAlert, HTInit, HTProt, HTHeader, HTTrans, HTTPReq, HTBound, HTDNS, HTMIME, HTFTP) have no unmatched fns left; nothing to gain.
 - HTEvtLst static at 0x5ddfa8: no name in Mac decompile (no libwww there), libwww-git history, coduomp or KisakCOD. DEFER (no invented names).
 - HTCache_isFresh: permuting max_age/max_stale/min_fresh declaration order has no effect on the object (3 permutations, +0). Slot order is not declaration-driven. PARKED.
+- w8 11-04 (after merge 613a8a3): CL_ConsolePrint_AddLine retail 0x404690 first look, NOT started. Mac STABS gives only the 1.3 signature
+  (type, duration, linewidth, color; text is NOT a parameter: retail gets it in eax), no body. Retail adds a path for types 1/2/3 gated on a pointer
+  at 0x11972f8 that calls 0x532410 with a float (0x5c3e78 * 0x5c40a4) and a 0/4 flag; linewidth cap 0x4e kept. Needs a full disasm-driven rewrite (~2 KB),
+  not attempted. Next agent: start from `python3 w8dis-style capstone dump 404690..404cd3`; our 1.0-shaped body (cl_console_mp.cpp:684) takes txt as arg 2.
