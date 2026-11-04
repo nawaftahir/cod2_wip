@@ -825,3 +825,4 @@ addr	size	source	symbol	name	tag
 0x00408eb0	31	src/libs/cmdlib/cmdlib.cpp	?I_FloatTime@@YANXZ	I_FloatTime	SUPPORTED
 0x00423d20	387	src/radiant/ModelDlg.cpp	?FUN_00423d20@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423d20	SUPPORTED
 0x00423eb0	16	src/radiant/ModelDlg.cpp	?FUN_00423eb0@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423eb0	SUPPORTED
+0x00422f90	231	src/radiant/ModelDlg.cpp	?FUN_00422f90@CModelDlg@@IAEXHI@Z	CModelDlg::FUN_00422f90	SUPPORTED
