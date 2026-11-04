@@ -1,3 +1,32 @@
+## Sun predicate checkpoint - 2026-11-04
+
+Clean build: C++ 118475/253580 = 46.720955911%, 729 bodies; +352 C++ bytes.
+Both referees accept RB_CalcSunBlindGlare at 0x1003bda0/352.
+All 2523 protected extents survive; all 112 source objects were freshly rebuilt.
+Assembly accounting remains 40 bodies/10151 bytes, excluded in full.
+Whole-file same-offset equality: 12.887978343%; whole-file SHA is false.
+Four retention negatives pass. Existing94 sun-render/144 sun-command,
+28 benchmark and864 matrix/8 overflow/240 quad/109 query cases passed.
+No partial TU was promoted to the root verified src tree.
+Receipt: target/work/proof/nov04_sun_predicate_checkpoint.json.
+
+Unverified retained work: sun loader208 byte-matches but is blocked by
+SetSunFromDvars; benchmark201/fill918 byte-match but remain blocked through
+DrawStretchPic/Set2D. Set2D854 uses the binary-confirmed sceneViewport instead
+of unrelated output dimensions; its native oracle now distinguishes the two.
+Cubemap770 remains unverified. Failed surface, comparator and global inline
+probes were restored. Read ATTEMPTS.md before any further variants.
+
+Workspace cleanup: glm/ moved; bindcheck, gamecov and work_queue now use the
+identical pinned inventory already in gfx. The old and local inventories had
+the same SHA256. gfx has not been migrated; no foreign track was edited.
+No directories deleted, no duplicate renderer build, no push. Original link
+order/data owners stay; original rdtsc implementation is unchanged.
+
+Owner requested pause here. Save/commit this checkpoint, then wait for the
+owner's workspace update before resuming reconstruction. 50% still needs
+8315 pure C++ bytes. Whole-file SHA/GPU smoke remain unfinished.
+
 ## Lightmap weight source checkpoint - 2026-11-04
 
 Image_LoadLightmapWeights1000fe90/605 now passes BOTH referees. The retained

@@ -5849,7 +5849,9 @@
 "name": "?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z",
 "obj": "r_sky_load_obj.obj",
 "size": 208,
-"hits": []
+"hits": [
+"0x10029230"
+]
 },
 {
 "name": "?R_InitDrawGroups@@YAXXZ",
@@ -6561,7 +6563,7 @@
 {
 "name": "?RB_Set2D@@YAXXZ",
 "obj": "rb_backend.obj",
-"size": 869,
+"size": 854,
 "hits": []
 },
 {
@@ -7228,10 +7230,12 @@
 ]
 },
 {
-"name": "?RB_Benchmark2D@@YANPBUMaterial@@MMH@Z",
+"name": "?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z",
 "obj": "rb_backend.obj",
 "size": 201,
-"hits": []
+"hits": [
+"0x100330c0"
+]
 },
 {
 "name": "?RB_Benchmark3D@@YAMPBUMaterial@@H@Z",
@@ -7243,12 +7247,14 @@
 "name": "?RB_TestFill@@YAXXZ",
 "obj": "rb_backend.obj",
 "size": 918,
-"hits": []
+"hits": [
+"0x100335d0"
+]
 },
 {
 "name": "?RB_TestTransform@@YAXXZ",
 "obj": "rb_backend.obj",
-"size": 213,
+"size": 214,
 "hits": []
 },
 {
@@ -7999,7 +8005,9 @@
 "name": "?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z",
 "obj": "rb_sky.obj",
 "size": 352,
-"hits": []
+"hits": [
+"0x1003bda0"
+]
 },
 {
 "name": "?RB_DrawSunSpriteForView@@YAXPAUSunFlareDynamic@@@Z",

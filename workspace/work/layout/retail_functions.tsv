@@ -699,7 +699,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100290f0	-		46	VERIFIED_EXTENT	gfx_d3d/r_sky.cpp	bind	r_sky.obj	?R_SaveSun_f@@YAXXZ
 0x10029120	FUN_10029120	158	158	VERIFIED_EXTENT	gfx_d3d/r_sky.cpp	bind	r_sky.obj	?R_FlushSun@@YAXXZ
 0x100291c0	FUN_100291c0	102		BYTE_HIT_ONLY	gfx_d3d/r_sky_load_obj.cpp	hit		?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z
-0x10029230	FUN_10029230	208		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_sky_load_obj.cpp	pinned		?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z
+0x10029230	FUN_10029230	208		BYTE_HIT_ONLY	gfx_d3d/r_sky_load_obj.cpp	hit		?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z
 0x10029320	FUN_10029320	259	262	VERIFIED_EXTENT	gfx_d3d/r_specularityimage.cpp	bind	r_specularityimage.obj	?Image_BuildSpecularityMap@@YAXMPAE@Z
 0x10029430	FUN_10029430	53	53	VERIFIED_EXTENT	gfx_d3d/r_splitscreen.cpp	bind	r_splitscreen.obj	?R_InitDrawGroups@@YAXXZ
 0x10029470	-		44	VERIFIED_EXTENT	gfx_d3d/r_splitscreen.cpp	bind	r_splitscreen.obj	?R_BeginDrawGroupSection@@YAHH@Z
@@ -857,9 +857,9 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10032f90	FUN_10032f90	115	115	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_BeginBenchmarkGpu@@YAXPAT_LARGE_INTEGER@@@Z
 0x10033010	FUN_10033010	114	114	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_EndBenchmarkGpu@@YAXPAT_LARGE_INTEGER@@@Z
 0x10033090	FUN_10033090	48		NO_SOURCE_OWNER		-		
-0x100330c0	FUN_100330c0	201		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_backend.cpp	pinned		?RB_Benchmark2D@@YANPBUMaterial@@MMH@Z
+0x100330c0	FUN_100330c0	201		BYTE_HIT_ONLY	gfx_d3d/rb_backend.cpp	hit		?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z
 0x100331d0	FUN_100331d0	1009		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_backend.cpp	pinned		?RB_Benchmark3D@@YAMPBUMaterial@@H@Z
-0x100335d0	FUN_100335d0	918		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_backend.cpp	pinned		?RB_TestFill@@YAXXZ
+0x100335d0	FUN_100335d0	918		BYTE_HIT_ONLY	gfx_d3d/rb_backend.cpp	hit		?RB_TestFill@@YAXXZ
 0x100339b0	FUN_100339b0	214		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_backend.cpp	pinned		?RB_TestTransform@@YAXXZ
 0x10033a90	FUN_10033a90	128	135	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_BeginScene@@YAXXZ
 0x10033b20	FUN_10033b20	256	256	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_EndFrame@@YAXXZ
@@ -969,7 +969,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1003b990	FUN_1003b990	582		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_sky.cpp	pinned		?RB_DrawSunSprite@@YAXXZ
 0x1003bbe0	FUN_1003bbe0	244		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_sky.cpp	pinned		?RB_DrawSunFlare@@YAXMM@Z
 0x1003bce0	FUN_1003bce0	179		BYTE_HIT_ONLY	gfx_d3d/rb_sky.cpp	hit		?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z
-0x1003bda0	FUN_1003bda0	352		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_sky.cpp	pinned		?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z
+0x1003bda0	FUN_1003bda0	352	352	VERIFIED_EXTENT	gfx_d3d/rb_sky.cpp	bind	rb_sky.obj	?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z
 0x1003bf00	FUN_1003bf00	87		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_sky.cpp	pinned		?RB_DrawSunSpriteForView@@YAXPAUSunFlareDynamic@@@Z
 0x1003bf60	FUN_1003bf60	132		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_sky.cpp	pinned		?RB_DrawSunBlindGlare@@YAXPAUSunFlareDynamic@@H@Z
 0x1003bff0	FUN_1003bff0	87		BYTE_HIT_ONLY	gfx_d3d/rb_sky.cpp	hit		?RB_DrawSun@@YAXH@Z

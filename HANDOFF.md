@@ -1,3 +1,6 @@
+Current checkpoint: read PROGRESS.md first (Sun predicate checkpoint, 2026-11-04).
+Owner requested a pause for a workspace update; do not start another reconstruction attempt.
+
 ## Gamma and capture checkpoint - 2026-11-04
 
 C++118123/253580=46.582143702%,728 bodies; +475B/+4 sincecf81838.

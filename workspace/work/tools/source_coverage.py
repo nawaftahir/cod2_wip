@@ -23,7 +23,7 @@ allowed = {
     'universal/com_math.h': '3db79f6a1d997c939eec59d402f1435f744fe11caa6c1199d9ec451705524bcc',
     'universal/com_shared.cpp': 'd19acbee13742932acea6b76556326489b6fce44ed742acccfa59072770818a3',
     'universal/box_on_plane_side_x86.inc': '01447f1d547da40d7d228d91157964b259f8ad8180074b6a95f0df332771328d',
-    'gfx_d3d/rb_backend.cpp': 'f7a43a613dfd743a36694e06d0bace8359601b18e728458381400f52944e17d5',
+    'gfx_d3d/rb_backend.cpp': 'f285ed2962ad8dfc2cf9df80bb0af1c2714e73b466f66576315f005af4dd4c2b',
     'compat/msvc71.h': '8b793ebbd41492a4289a9d26c7f39543022351c2e847273bfd68ec96f3598dab',
 }
 sources = {}

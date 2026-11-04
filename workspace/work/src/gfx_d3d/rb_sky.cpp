@@ -480,10 +480,13 @@ static void RB_CalcSunBlindGlare(SunFlareDynamic *flare, int frameTime, float *b
         *blind = 0.0f;
     else
     {
-        float goal = 0.0f;
-        if (!(dot <= sun->blindMinDot))
-            goal = dot >= sun->blindMaxDot ? 1.0f
-                : (dot - sun->blindMinDot) / (sun->blindMaxDot - sun->blindMinDot);
+        float goal;
+        if (dot <= sun->blindMinDot)
+            goal = 0.0f;
+        else if (dot >= sun->blindMaxDot)
+            goal = 1.0f;
+        else
+            goal = (dot - sun->blindMinDot) / (sun->blindMaxDot - sun->blindMinDot);
         flare->currentBlind = RB_FadeToGoal(flare->currentBlind, goal * flare->lastVisibility,
             sun->blindFadeInTime, sun->blindFadeOutTime, frameTime);
         *blind = flare->currentBlind * ((const GfxSunWorldView *)rgp.world)->sun.blindMaxDarken;
@@ -493,10 +496,13 @@ static void RB_CalcSunBlindGlare(SunFlareDynamic *flare, int frameTime, float *b
         *glare = 0.0f;
     else
     {
-        float goal = 0.0f;
-        if (!(dot <= sun->glareMinDot))
-            goal = dot >= sun->glareMaxDot ? 1.0f
-                : (dot - sun->glareMinDot) / (sun->glareMaxDot - sun->glareMinDot);
+        float goal;
+        if (dot <= sun->glareMinDot)
+            goal = 0.0f;
+        else if (dot >= sun->glareMaxDot)
+            goal = 1.0f;
+        else
+            goal = (dot - sun->glareMinDot) / (sun->glareMaxDot - sun->glareMinDot);
         flare->currentGlare = RB_FadeToGoal(flare->currentGlare, goal * flare->lastVisibility,
             sun->glareFadeInTime, sun->glareFadeOutTime, frameTime);
         *glare = flare->currentGlare * ((const GfxSunWorldView *)rgp.world)->sun.glareMaxLighten;

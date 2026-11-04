@@ -8,7 +8,7 @@ from pathlib import Path
 work = Path(__file__).resolve().parents[1]
 gfx = work.parents[1]
 out = work / 'layout'
-inventory_path = gfx.parent / 'glm/data/functions_gfx10.json'
+inventory_path = work / 'proof/retail/functions_gfx10.json'
 inputs = [inventory_path, work / 'src/tus.txt', work / 'build/bind.json',
           out / 'file_layout.tsv', work / 'proof/source_coverage_current.json',
           out / 'current.json']

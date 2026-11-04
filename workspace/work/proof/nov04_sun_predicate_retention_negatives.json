@@ -1,0 +1,25 @@
+{
+  "bind_sha256": "f084d0b85a7d63164c2d2896b41fc4978b5bdaeb86962d4fb6df43a532bb534f",
+  "cases": [
+    {
+      "mode": "missing",
+      "tool": "regression.py",
+      "returncode": 1
+    },
+    {
+      "mode": "missing",
+      "tool": "check_checkpoint.py",
+      "returncode": 1
+    },
+    {
+      "mode": "unverified",
+      "tool": "regression.py",
+      "returncode": 1
+    },
+    {
+      "mode": "unverified",
+      "tool": "check_checkpoint.py",
+      "returncode": 1
+    }
+  ]
+}

@@ -912,7 +912,7 @@ gfx_d3d/r_sky.cpp	?R_SaveSun@@YAXPBD@Z	10029080	bind	-	gfx_d3d/r_sky	interval
 gfx_d3d/r_sky.cpp	?R_SaveSun_f@@YAXXZ	100290f0	bind	-	gfx_d3d/r_sky	interval
 gfx_d3d/r_sky.cpp	?R_FlushSun@@YAXXZ	10029120	bind	gfx_d3d/r_sky	gfx_d3d/r_sky	mac-name
 gfx_d3d/r_sky_load_obj.cpp	?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z	100291c0	hit	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
-gfx_d3d/r_sky_load_obj.cpp	?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z	10029230	pinned	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
+gfx_d3d/r_sky_load_obj.cpp	?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z	10029230	hit	gfx_d3d/r_sky_load_obj	gfx_d3d/r_sky_load_obj	mac-name
 gfx_d3d/r_specularityimage.cpp	?Image_BuildSpecularityMap@@YAXMPAE@Z	10029320	bind	gfx_d3d/r_specularityimage	gfx_d3d/r_specularityimage	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_InitDrawGroups@@YAXXZ	10029430	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
 gfx_d3d/r_splitscreen.cpp	?R_BeginDrawGroupSection@@YAHH@Z	10029470	bind	gfx_d3d/r_splitscreen	gfx_d3d/r_splitscreen	mac-name
@@ -1064,9 +1064,9 @@ gfx_d3d/rb_backend.cpp	?RB_AdaptiveGpuSyncFinal@@YAXXZ	10032e80	bind	-	gfx_d3d/r
 gfx_d3d/rb_backend.cpp	?RB_IsGpuFenceFinished@@YAHXZ	10032f40	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_BeginBenchmarkGpu@@YAXPAT_LARGE_INTEGER@@@Z	10032f90	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
 gfx_d3d/rb_backend.cpp	?RB_EndBenchmarkGpu@@YAXPAT_LARGE_INTEGER@@@Z	10033010	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
-gfx_d3d/rb_backend.cpp	?RB_Benchmark2D@@YANPBUMaterial@@MMH@Z	100330c0	pinned	-	gfx_d3d/rb_backend	interval
+gfx_d3d/rb_backend.cpp	?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z	100330c0	hit	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_Benchmark3D@@YAMPBUMaterial@@H@Z	100331d0	pinned	-	gfx_d3d/rb_backend	interval
-gfx_d3d/rb_backend.cpp	?RB_TestFill@@YAXXZ	100335d0	pinned	-	gfx_d3d/rb_backend	interval
+gfx_d3d/rb_backend.cpp	?RB_TestFill@@YAXXZ	100335d0	hit	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_TestTransform@@YAXXZ	100339b0	pinned	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_BeginScene@@YAXXZ	10033a90	bind	-	gfx_d3d/rb_backend	interval
 gfx_d3d/rb_backend.cpp	?RB_EndFrame@@YAXXZ	10033b20	bind	gfx_d3d/rb_backend	gfx_d3d/rb_backend	mac-name
@@ -1171,7 +1171,7 @@ gfx_d3d/rb_sky.cpp	?RB_DrawSunSpriteDx7@@YAXXZ	1003b750	pinned	-	gfx_d3d/rb_sky	
 gfx_d3d/rb_sky.cpp	?RB_DrawSunSprite@@YAXXZ	1003b990	pinned	-	gfx_d3d/rb_sky	interval
 gfx_d3d/rb_sky.cpp	?RB_DrawSunFlare@@YAXMM@Z	1003bbe0	pinned	-	gfx_d3d/rb_sky	interval
 gfx_d3d/rb_sky.cpp	?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z	1003bce0	hit	-	gfx_d3d/rb_sky	interval
-gfx_d3d/rb_sky.cpp	?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z	1003bda0	pinned	-	gfx_d3d/rb_sky	interval
+gfx_d3d/rb_sky.cpp	?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z	1003bda0	bind	-	gfx_d3d/rb_sky	interval
 gfx_d3d/rb_sky.cpp	?RB_DrawSunSpriteForView@@YAXPAUSunFlareDynamic@@@Z	1003bf00	pinned	-	gfx_d3d/rb_sky	interval
 gfx_d3d/rb_sky.cpp	?RB_DrawSunBlindGlare@@YAXPAUSunFlareDynamic@@H@Z	1003bf60	pinned	-	gfx_d3d/rb_sky	interval
 gfx_d3d/rb_sky.cpp	?RB_DrawSun@@YAXH@Z	1003bff0	hit	gfx_d3d/rb_sky	gfx_d3d/rb_sky	mac-name

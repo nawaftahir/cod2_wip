@@ -117,7 +117,8 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
             for (; row < resolution; ++row)
             {
                 VectorCopy(rowBase, direction);
-                volatile float rowOffset = row + 0.5f;
+                float rowOffset;
+                *(volatile float *)&rowOffset = row + 0.5f;
                 direction[0] += up[0] * rowOffset;
                 direction[1] += up[1] * rowOffset;
                 direction[2] += up[2] * rowOffset;

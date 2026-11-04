@@ -2843,6 +2843,14 @@
 "call ?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z"
 ]
 },
+"?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z": {
+"t": "0x10029230",
+"n": 208,
+"obj": "r_sky_load_obj.obj",
+"why": [
+"call ?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z"
+]
+},
 "?R_InitDrawGroups@@YAXXZ": {
 "t": "0x10029430",
 "n": 53,
@@ -3541,6 +3549,22 @@
 "call ?RB_EndSurface@@YAXXZ"
 ]
 },
+"?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z": {
+"t": "0x100330c0",
+"n": 201,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z"
+]
+},
+"?RB_TestFill@@YAXXZ": {
+"t": "0x100335d0",
+"n": 918,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z"
+]
+},
 "?Vector2Set@@YAXQAMMM@Z": {
 "t": "0x10001840",
 "n": 14,
@@ -3920,6 +3944,12 @@
 "why": [
 "call ?RB_DrawSunFlare@@YAXMM@Z"
 ]
+},
+"?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z": {
+"t": "0x1003bda0",
+"n": 352,
+"obj": "rb_sky.obj",
+"why": []
 },
 "?RB_DrawSun@@YAXH@Z": {
 "t": "0x1003bff0",

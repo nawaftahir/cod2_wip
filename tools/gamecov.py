@@ -11,7 +11,7 @@ GAME = ((0x10001000, 0x10041db0), (0x10057990, 0x10062200))
 def game(a):
     return any(lo <= a < hi for lo, hi in GAME)
 
-funcs = json.load(open(GFX.parent / 'glm/data/functions_gfx10.json'))['functions']
+funcs = json.load(open(GFX / 'target/work/proof/retail/functions_gfx10.json'))['functions']
 total = sum(f['size'] for f in funcs if not f['thunk'] and game(int(f['addr'], 16)))
 bind = json.load(open(sys.argv[1] if len(sys.argv) > 1 else GFX / 'target/build/v/bind.json'))
 ok = {int(x['t'], 16): x['n'] for x in bind.values() if x.get('why') == [] and game(int(x['t'], 16))}

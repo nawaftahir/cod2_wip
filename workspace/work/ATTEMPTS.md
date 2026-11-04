@@ -1,3 +1,49 @@
+# Predicate cohort results - 2026-11-04
+
+Explicit blind/glare zero/one/fraction branches match352 bytes at1003bda0
+AND every binding. Source avoids preloading zero before the min-dot test;
+no flags, ABI, assembly, helper copies or link-order changes for this body.
+The sun-loader base pointer initialized after the clear matches208 bytes at
+10029230 but remains blocked by the unmatched SetSunFromDvars826 dependency.
+Neither its raw match nor the benchmark201/fill918 raw matches earn coverage.
+
+EndSurface local size optimization outlines helpers (93 bytes). Forcing the
+real technique/logging helpers inline under that setting gives173, not202.
+Explicit logging expansion plus goto under original flags gives206 again.
+All are rejected; restore the original surface source and its native fixture.
+Never repeat these branch/size/inline variants without new TU-level evidence.
+Point comparator int return/precision probe emits215; contiguous deltas,
+canonical dot order and reversed equivalent comparison still215. Restore its
+original source. Glow early-return spelling remains212 and is restored too.
+Set2D retains its actual scene-viewport correction and float/store structure;
+854/847 remains unverified. Native864 matrix/8 overflow/240 quad/109 query,
+631 point-light,119 late-post,94 sun-render and144 sun-command cases pass.
+RB_IsLogging global forceinline declaration is removed with the failed surface
+probe; the fresh regression must retain the new352-byte sun body afterward.
+
+# Backend return widths and viewport structure - 2026-11-04
+
+Same-size draft scan found Benchmark2D201 and TestFill918 differed only in
+float/double constant operands. A float Benchmark2D return, with a float-zero
+fallback, reproduces both complete byte bodies. Binding still requires the
+DrawStretchPic393 -> Set2D -> EndSurface chain; raw matches are not credit.
+The single existing RB_Rdtsc assembly definition is byte-for-byte unchanged;
+the backend source fingerprint is re-pinned after reviewing only real C++ edits.
+
+PINNED Set2D1002e020 branch at1002e066 loads1072dde0/dde4/dde8/ddec, i.e.
+backEnd.sceneViewport x/y/width/height at3e0..3ec. The previous draft and its
+native oracle incorrectly used the separate backEnd.width/height fields.
+The fixed fixture seeds scene333x199 and output640x480 to distinguish them.
+Full viewport uses dxState renderTargetWidth/Height at1076671c/720.
+Viewport struct copy plus local precision-on yields the target9c frame and
+its complete float setup sequence. Draft801/847 still differs in zero store
+and cache/loop scheduling. Grouped-zero memset emits rep stosd, but retail
+uses eleven scalar zero stores then five one stores; use that actual order.
+Retail also clears projection flags1/2 with one unaligned16-bit store and
+flag3 with one byte store. This is an observed PC operation, not a new ABI.
+Positive-if/else EndSurface still206/202; restore its original source and
+probe local size optimization once. No other functions receive this setting.
+
 # Shared cubemap generator - 2026-11-04
 
 Target10160/786 is pinned by the genuine43-byte light-grid caller's call at

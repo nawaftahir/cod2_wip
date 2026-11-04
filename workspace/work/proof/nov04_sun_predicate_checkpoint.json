@@ -1,0 +1,51 @@
+{
+  "status": "clean V3 checkpoint; owner requested pause",
+  "base_commit": "287c37405f0c406bad24322c15e66395b31dfbe1",
+  "cpp_bytes": 118475,
+  "cpp_percent": 46.72095591134948,
+  "cpp_bodies": 729,
+  "denominator": 253580,
+  "denominator_provisional": true,
+  "net_cpp_bytes": 352,
+  "new_bodies": {
+    "?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z": {
+      "t": "0x1003bda0",
+      "n": 352,
+      "obj": "rb_sky.obj",
+      "why": []
+    }
+  },
+  "protected_extents": 2523,
+  "assembly_bodies": 40,
+  "assembly_bytes": 10151,
+  "fresh_source_objects": 112,
+  "clean_build_command": "sh target/work/tools/build.sh --rebuild; resume binding/gates after fixing inventory path",
+  "whole_file_identical": false,
+  "raw_same_offset_percent": 12.88797834278208,
+  "gpu_tested": false,
+  "sha256": {
+    "target/work/src/gfx_d3d/rb_sky.cpp": "ace69151cce68b5a14a445bc0632def5e0c2eba25e671382bd00ee75b2b5a575",
+    "target/work/src/gfx_d3d/r_sky_load_obj.cpp": "905dbe5fde4a938a4ece99e80e594c74bf3ff2dac49abe3568076f7a57e1ca03",
+    "target/work/src/gfx_d3d/rb_backend.cpp": "f285ed2962ad8dfc2cf9df80bb0af1c2714e73b466f66576315f005af4dd4c2b",
+    "target/work/src/gfx_d3d/r_image_load_obj.cpp": "04df404ea6aaee23b947bc509b27a9aef1fadb36cb643107e7beca15975c5b77",
+    "target/work/src/profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
+    "target/work/tests/test_surface_2d.py": "7be2bd3dedf46b25be44c79fb1c917111539880a6b88bdaf85ee2b712981820b",
+    "target/work/tools/source_coverage.py": "dfb45c8baeb5eaa2c07b20fbe48d8e8499a8b162d1c514b75ad743f731731dab",
+    "target/work/tools/regression.py": "4dc63ce1f79c048057cc067195fbb8669b4ee1feaa759649f800a95bb65c7545",
+    "target/work/tools/check_checkpoint.py": "24aefea60ad8ab6974912d82fac9301294973c2518c6702a85d050241b88cdf1",
+    "target/work/tools/work_queue.py": "edc5086e16746d3d0096466a923231f71552b4460a92f69234470a77a0557415",
+    "target/work/proof/sun_blind_glare_20261104_warm_bind.json": "bbeaf51a9ad5d35ebbcc1ab87f8755d25ccebf313b06d33766a0258460220481",
+    "target/work/proof/nov04_sun_predicate_retention_negatives.json": "5d00bcd5f20b6872fc2d44612f8dfa97533f807cd268dfe77d1c70b1b30be969",
+    "target/work/proof/nov04_clean_object_freshness.json": "efd0a6fde36c3fff92430b7f60a333b1e0d4a9234943189c31735a1697fdc4d5",
+    "target/work/proof/retail/functions_gfx10.json": "93987c0a615ecf8a4141acfca24946a2c38e5879beac597521796fcf10cdd44d",
+    "target/work/proof/latest/bind.json": "f084d0b85a7d63164c2d2896b41fc4978b5bdaeb86962d4fb6df43a532bb534f",
+    "target/work/proof/latest/cmp.json": "40e5d1227521cd7af9122e7ca12c4b23684bd351adb20ab9a0c1e1a262d98231",
+    "target/work/proof/source_coverage_current.json": "35fedaadfe437fe41f0716109ef2c3c972bef3cbfd704ec561d47edc7f26458a",
+    "target/work/proof/latest/nov04_sun_checkpoint_clean_gates.log": "dde38427fb96bbceb5d3d2cc6951dd1a4ba5770c6ce09d1c6f6bfc450293e4de",
+    "tools/bindcheck.py": "3d05361f47b4ed907f6421068d56d4bfa4a7587ce22a50a86ff2eac5aca180cd",
+    "tools/gamecov.py": "f58d8121f794b5f3a511ba44d2ea6982cc2f44f9c5faf8cad7c8da7c85fe96ea",
+    "target/work/tools/build.sh": "e91c83e951813933ac3348ee3d089d7cd2e467a299a29910e0d606fa5ff8e851"
+  },
+  "toolchain_image": "sha256:093ff3cf41bff5ef6b7ef1dafce5ace185814c694066cdeef2686042d5324c7d",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6"
+}

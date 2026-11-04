@@ -25,10 +25,11 @@ void R_LoadSunThroughDvars(const char *name, sunflare_t *sun)
 void R_LoadSun(const char *name, sunflare_t *sun)
 {
     char sunFile[64];
-    const char *base = name;
+    const char *base;
     const char *p;
     char *dot;
     Com_Memset(sun, 0, sizeof(*sun));
+    base = name;
     for (p = name; *p; p++)
     {
         if (*p == '/' || *p == '\\')

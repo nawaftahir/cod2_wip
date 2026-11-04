@@ -19,39 +19,39 @@ void RB_EndSurface();
 void RB_BeginSurface(const Material *material, int technique, int lightmap);
 void RB_SetVertex2D(int index, float x, float y, float s, float t, unsigned int color);
 
+#pragma optimize("p", on)
 // PINNED 1002e020: preserve unused cache fields and use live state after flush.
 void RB_Set2D()
 {
     if (tess.indexCount || tess.optimizedIndexCount)
         RB_EndSurface();
     backEnd.projection2D = 1;
-    int width, height;
+    GfxViewport viewport;
     if (dxState.viewportBehavior == 1)
     {
-        width = dxState.renderTargetWidth;
-        height = dxState.renderTargetHeight;
+        viewport.width = dxState.renderTargetWidth;
+        viewport.height = dxState.renderTargetHeight;
     }
     else
     {
-        width = backEnd.width;
-        height = backEnd.height;
+        viewport = backEnd.sceneViewport;
     }
     D3DMATRIX transform, identity;
     memset(&transform, 0, sizeof(transform));
     memcpy(&identity, identityMatrix44, sizeof(identity));
-    float inverseWidth = 1.0f / width;
+    float inverseWidth = 1.0f / (float)viewport.width;
+    float inverseHeight = 1.0f / (float)viewport.height;
     transform._11 = inverseWidth + inverseWidth;
-    transform._22 = (1.0f / height) * -2.0f;
+    transform._22 = inverseHeight * -2.0f;
     transform._41 = -1.0f - inverseWidth;
-    transform._42 = 1.0f / height + 1.0f;
+    transform._42 = inverseHeight + 1.0f;
     transform._44 = 1.0f;
     GfxCodeMatrices *matrices = &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
-    matrices->projection.matrix[0] = transform;
     matrices->projection.valid[0] = 1;
-    matrices->projection.valid[1] = 0;
-    matrices->projection.valid[2] = 0;
+    matrices->projection.matrix[0] = transform;
+    *(unsigned short *)&matrices->projection.valid[1] = 0;
     matrices->projection.valid[3] = 0;
-    for (int index = 0; index < 4; ++index)
+    for (int index = 0; index <= 3; ++index)
     {
         matrices->world.matrix[index] = identity;
         matrices->world.valid[index] = 1;
@@ -69,15 +69,24 @@ void RB_Set2D()
         R_DX_CALL(dx.device->SetTransform( D3DTS_VIEW, &identity ));
         R_DX_CALL(dx.device->SetTransform( D3DTS_PROJECTION, &transform ));
     }
-    backEnd.codeConsts[11][0] = 0.0f; backEnd.codeConsts[11][1] = 0.0f;
-    backEnd.codeConsts[11][2] = 1.0f; backEnd.codeConsts[11][3] = 1.0f;
-    backEnd.codeConsts[12][0] = 0.0f; backEnd.codeConsts[12][1] = 0.0f;
-    backEnd.codeConsts[12][2] = 1.0f; backEnd.codeConsts[12][3] = 0.0f;
-    backEnd.codeConsts[13][0] = 1.0f; backEnd.codeConsts[13][1] = 0.0f;
-    backEnd.codeConsts[13][2] = 0.0f; backEnd.codeConsts[13][3] = 0.0f;
-    backEnd.codeConsts[14][0] = 0.0f; backEnd.codeConsts[14][1] = 1.0f;
-    backEnd.codeConsts[14][2] = 0.0f; backEnd.codeConsts[14][3] = 0.0f;
+    backEnd.codeConsts[11][0] = 0.0f;
+    backEnd.codeConsts[11][1] = 0.0f;
+    backEnd.codeConsts[12][0] = 0.0f;
+    backEnd.codeConsts[12][1] = 0.0f;
+    backEnd.codeConsts[12][3] = 0.0f;
+    backEnd.codeConsts[13][1] = 0.0f;
+    backEnd.codeConsts[13][2] = 0.0f;
+    backEnd.codeConsts[13][3] = 0.0f;
+    backEnd.codeConsts[14][0] = 0.0f;
+    backEnd.codeConsts[14][2] = 0.0f;
+    backEnd.codeConsts[14][3] = 0.0f;
+    backEnd.codeConsts[11][2] = 1.0f;
+    backEnd.codeConsts[11][3] = 1.0f;
+    backEnd.codeConsts[12][2] = 1.0f;
+    backEnd.codeConsts[13][0] = 1.0f;
+    backEnd.codeConsts[14][1] = 1.0f;
 }
+#pragma optimize("", on)
 
 // PINNED 1002df40: resume the current material while preserving declaration type.
 void RB_TessOverflow()
@@ -2240,10 +2249,10 @@ void MatrixForViewer(float matrix[4][4], const vec3_t origin, const vec3_t axis[
 void InfinitePerspectiveMatrix(float matrix[4][4], float fovX, float fovY, float nearClip);
 
 // PINNED 100330c0: count is captured before timing; default aliases return zero.
-static double RB_Benchmark2D(const Material *material, float width, float height, int count)
+static float RB_Benchmark2D(const Material *material, float width, float height, int count)
 {
     if (Material_IsDefault(material))
-        return 0.0;
+        return 0.0f;
     LARGE_INTEGER start, end;
     RB_BeginBenchmarkGpu(&start);
     for (int index = 0; index < count; ++index)

@@ -84,7 +84,7 @@ void RB_BeginSurface(const Material *material,int type,int lightmap) {
 void RB_SetVertex2D(int index,float x,float y,float s,float t,unsigned color){vertices.push_back({index,x,y,s,t,color});events.push_back("vertex");}
 void reset() {
     memset(&backEnd,0x5a,sizeof(backEnd));memset(&tess,0,sizeof(tess));memset(&device,0,sizeof(device));memset(&query,0,sizeof(query));memset(&otherQuery,0,sizeof(otherQuery));memset(sunFlareState,0,sizeof(sunFlareState));
-    backEnd.projection2D=1;backEnd.width=640;backEnd.height=480;backEnd.codeMatrixStackLevel=0;
+    backEnd.projection2D=1;backEnd.width=640;backEnd.height=480;backEnd.sceneViewport={17,23,333,199};backEnd.codeMatrixStackLevel=0;
     tess.indices=indexStorage+16;tess.material=&whiteMaterial;tess.techType=3;tess.lmapIndex=31;
     for(int i=0;i<32;++i)indexStorage[i]=0x5a5a;for(int i=0x100000;i<0x100020;++i)indexStorage[i]=0x5a5a;
     dxState={0,320,200};dx.device=&device;renderer.current.integer=1;rgp.whiteMaterial=&whiteMaterial;
@@ -100,8 +100,8 @@ int main() {
         expectedBackend=backEnd;State expectedState=dxState;RB_Set2D();
         if(counts){expectedBackend=flushBackend;expectedState=flushState;}
         expectedBackend.projection2D=1;int active=expectedBackend.codeMatrixStackLevel;
-        int w=expectedState.viewportBehavior==1?expectedState.renderTargetWidth:expectedBackend.width;
-        int h=expectedState.viewportBehavior==1?expectedState.renderTargetHeight:expectedBackend.height;
+        int w=expectedState.viewportBehavior==1?expectedState.renderTargetWidth:expectedBackend.sceneViewport.width;
+        int h=expectedState.viewportBehavior==1?expectedState.renderTargetHeight:expectedBackend.sceneViewport.height;
         D3DMATRIX projection={};float invW=1.0f/w;projection._11=invW+invW;projection._22=-2.0f/h;projection._41=-1.0f-invW;projection._42=1.0f+1.0f/h;projection._44=1;
         auto &m=expectedBackend.codeMatrixStack[active];m.projection.matrix[0]=projection;m.projection.valid[0]=1;for(int i=1;i<4;++i)m.projection.valid[i]=0;
         for(int i=0;i<4;++i){memcpy(&m.world.matrix[i],identityMatrix44,64);m.world.valid[i]=1;}

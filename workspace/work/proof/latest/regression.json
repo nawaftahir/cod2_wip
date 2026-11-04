@@ -1,8 +1,8 @@
 {
-  "functions": 768,
-  "bytes": 128274,
+  "functions": 769,
+  "bytes": 128626,
   "total": 253580,
-  "percent": 50.58521965454689,
+  "percent": 50.72403186371165,
   "baseline_lost": [],
   "gains": [
     {
@@ -1611,6 +1611,12 @@
       "target": "0x1003ad40",
       "bytes": 386,
       "name": "?RB_SetTessQuad@@YAPAUGfxVertex@@TGfxColor@@@Z",
+      "object": "rb_sky.obj"
+    },
+    {
+      "target": "0x1003bda0",
+      "bytes": 352,
+      "name": "?RB_CalcSunBlindGlare@@YAXPAUSunFlareDynamic@@HPAM1@Z",
       "object": "rb_sky.obj"
     },
     {
