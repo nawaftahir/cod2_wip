@@ -27,7 +27,6 @@ VertEditSubclassControl g_vertEditSubclass[11] =
 
 class CVertEditDlg : public CDialog
 {
-    DECLARE_DYNAMIC(CVertEditDlg)
 public:
     virtual ~CVertEditDlg();
 
@@ -52,8 +51,6 @@ protected:
     CButton m_btnColor;
     CButton m_btnRealTime;
 };
-
-IMPLEMENT_DYNAMIC(CVertEditDlg, CDialog)
 
 CVertEditDlg::~CVertEditDlg()
 {
