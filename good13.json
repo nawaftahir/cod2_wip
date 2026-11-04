@@ -242,13 +242,21 @@
 "name": "?CL_GetConfigString@@YAPBDH@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x4020d0"
+],
+"scan": 1
 },
 {
 "name": "?CL_PickSoundAlias@@YAPAUsnd_alias_t@@PBD@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 19,
-"hits": []
+"hits": [
+"0x4020e0",
+"0x42dce0",
+"0x42e7d0"
+],
+"scan": 1
 },
 {
 "name": "?CL_DObjCreate_402040@@YAXPAUDObjModel_s@@GPAUXAnimTree_s@@PAUDObj_s@@@Z",
@@ -262,13 +270,41 @@
 "name": "?CL_RegisterModel@@YAPAUXModel@@PBD@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?CL_RegisterInlineModel@@YAPAUGfxBrushModel@@H@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?CL_FinishLoadingModels@@YAXXZ",
@@ -286,25 +322,46 @@
 "name": "?CL_RegisterMaterial@@YAPAUMaterial@@PBDH@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x402160"
+],
+"scan": 1
 },
 {
 "name": "?CL_RegisterMaterialNoMip@@YAPAUMaterial@@PBDH@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x402170",
+"0x462700"
+],
+"scan": 1
 },
 {
 "name": "?CL_Material_Duplicate@@YAPAUMaterial@@PAU1@PBD@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x402180",
+"0x402190",
+"0x4021e0",
+"0x4023d0",
+"0x4127d0"
+],
+"scan": 1
 },
 {
 "name": "?CL_DuplicateFont@@YAXPAUFont_s@@PBD@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x402180",
+"0x402190",
+"0x4021e0",
+"0x4023d0",
+"0x4127d0"
+],
+"scan": 1
 },
 {
 "name": "?CL_ClearScene@@YAXXZ",
@@ -330,7 +387,14 @@
 "name": "?CL_DefaultVertexFrames@@YAXHPAUGfxWorldVertex@@@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x402180",
+"0x402190",
+"0x4021e0",
+"0x4023d0",
+"0x4127d0"
+],
+"scan": 1
 },
 {
 "name": "?CL_AddPolyToScene@@YAXPAUMaterial@@GGPBUGfxWorldVertex@@@Z",
@@ -360,7 +424,14 @@
 "name": "?CL_SwitchFog@@YAXHHH@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x402250",
+"0x4023e0",
+"0x402420",
+"0x4126d0",
+"0x4127e0"
+],
+"scan": 1
 },
 {
 "name": "?CL_RenderScene@@YAXPBUrefdef_s@@@Z",
@@ -447,13 +518,27 @@
 "name": "?CL_GetWorldBounds_402310@@YAXPAM0@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x402180",
+"0x402190",
+"0x4021e0",
+"0x4023d0",
+"0x4127d0"
+],
+"scan": 1
 },
 {
 "name": "?CL_DrawQuadPic@@YAXPAY01MPBMPAUMaterial@@@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x402250",
+"0x4023e0",
+"0x402420",
+"0x4126d0",
+"0x4127e0"
+],
+"scan": 1
 },
 {
 "name": "?CL_DrawSprite@@YAXPAUMaterial@@PBEPBMMMH@Z",
@@ -467,7 +552,14 @@
 "name": "?CL_ModelBounds@@YAXPAUGfxBrushModel@@PAM1@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x402250",
+"0x4023e0",
+"0x402420",
+"0x4126d0",
+"0x4127e0"
+],
+"scan": 1
 },
 {
 "name": "?CL_MarkFragments@@YAHPAY02$$CBMPBM0MHPAUGfxWorldVertex@@HPAUGfxMarkFragment@@PAUMaterial@@@Z",
@@ -497,7 +589,10 @@
 "name": "?CL_LoadSoundAliases@@YAXPBD@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x402490"
+],
+"scan": 1
 },
 {
 "name": "?CL_Popup@@YAHPBD@Z",
@@ -535,13 +630,19 @@
 "name": "?CL_SetWeaponInfoMemory@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402620"
+],
+"scan": 1
 },
 {
 "name": "?CL_FreeWeaponInfoMemory@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x402630"
+],
+"scan": 1
 },
 {
 "name": "?CL_FX_AdjustCamera@@YAXPAUrefdef_s@@@Z",
@@ -569,7 +670,10 @@
 "name": "?CL_SyncTimes@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4026c0"
+],
+"scan": 1
 },
 {
 "name": "?LoadWorld@@YAXPBD@Z",
@@ -669,7 +773,10 @@
 "name": "?CL_ArchiveClientState@@YAXPAUMemoryFile@@@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4032c0"
+],
+"scan": 1
 },
 {
 "name": "?CL_LookupColor@@YAXEPAM@Z",
@@ -723,7 +830,13 @@
 "name": "?CIN_RunCinematic@@YA?AW4e_status@@H@Z",
 "obj": "cl_cin_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x4034c0",
+"0x403610",
+"0x5252d0",
+"0x5252e0"
+],
+"scan": 1
 },
 {
 "name": "?CIN_SetExtents@@YAXHHHHH@Z",
@@ -747,7 +860,11 @@
 "name": "?CIN_DrawCinematic@@YAXH@Z",
 "obj": "cl_cin_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x403560",
+"0x4216d0"
+],
+"scan": 1
 },
 {
 "name": "?SCR_DrawCinematic@@YAXXZ",
@@ -780,7 +897,13 @@
 "name": "?CIN_UploadCinematic@@YAXH@Z",
 "obj": "cl_cin_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x4034c0",
+"0x403610",
+"0x5252d0",
+"0x5252e0"
+],
+"scan": 1
 },
 {
 "name": "_ceilf",
@@ -933,19 +1056,28 @@
 "name": "?Con_Open_4038a0@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x403990"
+],
+"scan": 1
 },
 {
 "name": "?Con_ShowOutput_4038b0@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x4039a0"
+],
+"scan": 1
 },
 {
 "name": "?Con_Hide_4038d0@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4039c0"
+],
+"scan": 1
 },
 {
 "name": "?Con_ChatModePublic_f@@YAXXZ",
@@ -1055,7 +1187,9 @@
 "name": "?Con_UpdateMessageWindow@@YAXW4print_msg_type_t@@HH@Z",
 "obj": "cl_console_mp.obj",
 "size": 128,
-"hits": []
+"hits": [
+"0x4042c0"
+]
 },
 {
 "name": "?Con_Linefeed@@YAXW4print_msg_type_t@@H@Z",
@@ -1157,13 +1291,30 @@
 "name": "?ConDrawInput_TextHeight_404fc0@@YAHPAUFont_s@@@Z",
 "obj": "cl_console_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?ConDrawInput_TextWidth@@YAHPBD@Z",
 "obj": "cl_console_mp.obj",
 "size": 19,
-"hits": []
+"hits": [
+"0x4058c0"
+],
+"scan": 1
 },
 {
 "name": "?ConDrawInput_Text@@YAXPBDPBM@Z",
@@ -1185,13 +1336,19 @@
 "name": "?ConDrawInput_NextLine@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 29,
-"hits": []
+"hits": [
+"0x405960"
+],
+"scan": 1
 },
 {
 "name": "?ConDrawInput_Over_405090@@YAXH@Z",
 "obj": "cl_console_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x405980"
+],
+"scan": 1
 },
 {
 "name": "?ConDrawInput_TextAndOver@@YAXPBDPBM@Z",
@@ -1221,7 +1378,10 @@
 "name": "?ConDrawInput_IsMatch_4052a0@@YAHPBD@Z",
 "obj": "cl_console_mp.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x405b90"
+],
+"scan": 1
 },
 {
 "name": "?ConDrawInput_IncrMatchCounter@@YAXPBD@Z",
@@ -1315,7 +1475,9 @@
 "name": "?Con_DrawMessageWindow@@YAXPAUMessageWindow@@HHHHHMMW4msgwnd_mode_t@@@Z",
 "obj": "cl_console_mp.obj",
 "size": 724,
-"hits": []
+"hits": [
+"0x406a20"
+]
 },
 {
 "name": "?Con_DrawSay@@YAXH@Z",
@@ -1361,7 +1523,11 @@
 "name": "?Con_ToggleConsoleOutput@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x406f70",
+"0x407fa0"
+],
+"scan": 1
 },
 {
 "name": "?Con_DrawOutputScrollBar@@YAXMMMM@Z",
@@ -1383,7 +1549,10 @@
 "name": "?Con_GetVersionString@@YAPBDXZ",
 "obj": "cl_console_mp.obj",
 "size": 49,
-"hits": []
+"hits": [
+"0x407140"
+],
+"scan": 1
 },
 {
 "name": "?Con_DrawOutputVersion@@YAXMMMM@Z",
@@ -1405,13 +1574,20 @@
 "name": "?Con_DrawSolidConsole@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 40,
-"hits": []
+"hits": [
+"0x4072d0"
+],
+"scan": 1
 },
 {
 "name": "?Con_DrawConsole@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 34,
-"hits": []
+"hits": [
+"0x407300",
+"0x4148d0"
+],
+"scan": 1
 },
 {
 "name": "?Con_PageUp@@YAXXZ",
@@ -1425,19 +1601,34 @@
 "name": "?Con_PageDown@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 30,
-"hits": []
+"hits": [
+"0x407360"
+],
+"scan": 1
 },
 {
 "name": "?Con_Top@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 30,
-"hits": []
+"hits": [
+"0x407380"
+],
+"scan": 1
 },
 {
 "name": "?Con_Bottom@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4073a0",
+"0x415f80",
+"0x42cca0",
+"0x42cd50",
+"0x4578f0",
+"0x474f90",
+"0x592ba0"
+],
+"scan": 1
 },
 {
 "name": "?Con_Close@@YAXXZ",
@@ -1451,25 +1642,43 @@
 "name": "?Con_IsActive@@YAEXZ",
 "obj": "cl_console_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x407470"
+],
+"scan": 1
 },
 {
 "name": "_sqrtf",
 "obj": "cl_input.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x407480",
+"0x407490",
+"0x4074a0"
+],
+"scan": 1
 },
 {
 "name": "?sqrt@@YAMM@Z",
 "obj": "cl_input.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x407480",
+"0x407490",
+"0x4074a0"
+],
+"scan": 1
 },
 {
 "name": "?I_sqrt@@YAMM@Z",
 "obj": "cl_input.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x407480",
+"0x407490",
+"0x4074a0"
+],
+"scan": 1
 },
 {
 "name": "?I_fmax@@YAMMM@Z",
@@ -1491,7 +1700,10 @@
 "name": "?IN_MLookDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x407500"
+],
+"scan": 1
 },
 {
 "name": "?IN_MLookUp@@YAXXZ",
@@ -1572,145 +1784,243 @@
 "name": "?IN_LeftDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x407830",
+"0x407840",
+"0x493390"
+],
+"scan": 1
 },
 {
 "name": "?IN_LeftUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x407830",
+"0x407840",
+"0x493390"
+],
+"scan": 1
 },
 {
 "name": "?IN_RightDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407850",
+"0x407870"
+],
+"scan": 1
 },
 {
 "name": "?IN_RightUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407850",
+"0x407870"
+],
+"scan": 1
 },
 {
 "name": "?IN_ForwardDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407890",
+"0x4078b0"
+],
+"scan": 1
 },
 {
 "name": "?IN_ForwardUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407890",
+"0x4078b0"
+],
+"scan": 1
 },
 {
 "name": "?IN_BackDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x4078d0",
+"0x4078f0"
+],
+"scan": 1
 },
 {
 "name": "?IN_BackUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x4078d0",
+"0x4078f0"
+],
+"scan": 1
 },
 {
 "name": "?IN_LookupDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407910",
+"0x407930"
+],
+"scan": 1
 },
 {
 "name": "?IN_LookupUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407910",
+"0x407930"
+],
+"scan": 1
 },
 {
 "name": "?IN_LookdownDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407950",
+"0x407970"
+],
+"scan": 1
 },
 {
 "name": "?IN_LookdownUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407950",
+"0x407970"
+],
+"scan": 1
 },
 {
 "name": "?IN_MoveleftDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407990",
+"0x4079b0"
+],
+"scan": 1
 },
 {
 "name": "?IN_MoveleftUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x407990",
+"0x4079b0"
+],
+"scan": 1
 },
 {
 "name": "?IN_MoverightDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4079d0",
+"0x4079f0"
+],
+"scan": 1
 },
 {
 "name": "?IN_MoverightUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4079d0",
+"0x4079f0"
+],
+"scan": 1
 },
 {
 "name": "?IN_SpeedDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407a10",
+"0x407a30"
+],
+"scan": 1
 },
 {
 "name": "?IN_SpeedUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407a10",
+"0x407a30"
+],
+"scan": 1
 },
 {
 "name": "?IN_StrafeDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407a50",
+"0x407a70"
+],
+"scan": 1
 },
 {
 "name": "?IN_StrafeUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407a50",
+"0x407a70"
+],
+"scan": 1
 },
 {
 "name": "?IN_Attack_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407a90",
+"0x407ab0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Attack_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407a90",
+"0x407ab0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Breath_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407ad0",
+"0x407af0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Breath_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407ad0",
+"0x407af0"
+],
+"scan": 1
 },
 {
 "name": "?IN_MeleeBreath_Down@@YAXXZ",
@@ -1734,37 +2044,61 @@
 "name": "?IN_Frag_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407b70",
+"0x407b90"
+],
+"scan": 1
 },
 {
 "name": "?IN_Frag_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407b70",
+"0x407b90"
+],
+"scan": 1
 },
 {
 "name": "?IN_Smoke_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407bb0",
+"0x407bd0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Smoke_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407bb0",
+"0x407bd0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Binoculars_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407bf0",
+"0x407c10"
+],
+"scan": 1
 },
 {
 "name": "?IN_Binoculars_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407bf0",
+"0x407c10"
+],
+"scan": 1
 },
 {
 "name": "?IN_BreathBinoculars_Down@@YAXXZ",
@@ -1788,73 +2122,121 @@
 "name": "?IN_Melee_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407c90",
+"0x407cb0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Melee_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407c90",
+"0x407cb0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Activate_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407cd0",
+"0x407cf0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Activate_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407cd0",
+"0x407cf0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Reload_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407d10",
+"0x407d30"
+],
+"scan": 1
 },
 {
 "name": "?IN_Reload_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407d10",
+"0x407d30"
+],
+"scan": 1
 },
 {
 "name": "?IN_UseReload_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407d50",
+"0x407d70"
+],
+"scan": 1
 },
 {
 "name": "?IN_UseReload_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407d50",
+"0x407d70"
+],
+"scan": 1
 },
 {
 "name": "?IN_LeanLeft_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407d90",
+"0x407db0"
+],
+"scan": 1
 },
 {
 "name": "?IN_LeanLeft_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407d90",
+"0x407db0"
+],
+"scan": 1
 },
 {
 "name": "?IN_LeanRight_Down@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407dd0",
+"0x407df0"
+],
+"scan": 1
 },
 {
 "name": "?IN_LeanRight_Up@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407dd0",
+"0x407df0"
+],
+"scan": 1
 },
 {
 "name": "?IN_Prone_Down@@YAXXZ",
@@ -1894,25 +2276,40 @@
 "name": "?IN_Kb26_Down_407630@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407f40",
+"0x407f60"
+],
+"scan": 1
 },
 {
 "name": "?IN_Kb26_Up_407650@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x407f40",
+"0x407f60"
+],
+"scan": 1
 },
 {
 "name": "?IN_CenterView@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x407f80"
+],
+"scan": 1
 },
 {
 "name": "?IN_ToggleADS@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x406f70",
+"0x407fa0"
+],
+"scan": 1
 },
 {
 "name": "?IN_LeaveADS@@YAXXZ",
@@ -1989,19 +2386,30 @@
 "name": "?IN_TalkDown@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4081a0",
+"0x4081c0"
+],
+"scan": 1
 },
 {
 "name": "?IN_TalkUp@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4081a0",
+"0x4081c0"
+],
+"scan": 1
 },
 {
 "name": "?IsTalking@@YAEXZ",
 "obj": "cl_input.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x4081e0"
+],
+"scan": 1
 },
 {
 "name": "?CL_AdjustAngles@@YAXXZ",
@@ -2147,7 +2555,10 @@
 "name": "?IN_ClearFirstKey_409170@@YAXXZ",
 "obj": "cl_input.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x409ae0"
+],
+"scan": 1
 },
 {
 "name": "?Field_Draw@@YAXPAUfield_t@@HHHH@Z",
@@ -2279,13 +2690,19 @@
 "name": "?Key_GetOverstrikeMode@@YAHXZ",
 "obj": "cl_keys_mp.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x40ae90"
+],
+"scan": 1
 },
 {
 "name": "?Key_SetOverstrikeMode@@YAXH@Z",
 "obj": "cl_keys_mp.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x40aea0"
+],
+"scan": 1
 },
 {
 "name": "?Key_IsDown@@YAHH@Z",
@@ -2488,7 +2905,12 @@
 "name": "?CL_GetUsernameForLocalClient@@YAPBDH@Z",
 "obj": "cl_main_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x40bff0",
+"0x45b980",
+"0x4ab100"
+],
+"scan": 1
 },
 {
 "name": "?CL_AddReliableCommand@@YAXPBD@Z",
@@ -2674,7 +3096,10 @@
 "name": "?CL_ResetPureClientAtServer@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x40d760"
+],
+"scan": 1
 },
 {
 "name": "?CL_Vid_Restart_f@@YAXXZ",
@@ -2694,13 +3119,21 @@
 "name": "?CL_OpenedIWDList_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x40db40",
+"0x40db60"
+],
+"scan": 1
 },
 {
 "name": "?CL_ReferencedIWDList_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x40db40",
+"0x40db60"
+],
+"scan": 1
 },
 {
 "name": "?CL_Configstrings_f@@YAXXZ",
@@ -2900,7 +3333,11 @@
 "name": "?CL_ClearRendererAssets_40ea20@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x40fb60",
+"0x47d380"
+],
+"scan": 1
 },
 {
 "name": "?CL_StartHunkUsers@@YAXXZ",
@@ -2926,7 +3363,10 @@
 "name": "?CL_startSingleplayer_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x410340"
+],
+"scan": 1
 },
 {
 "name": "?CL_DrawLogo@@YAXXZ",
@@ -3137,13 +3577,34 @@
 "name": "?CL_TextWidth@@YAHPBDHPAUFont_s@@@Z",
 "obj": "cl_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x402250",
+"0x4023e0",
+"0x402420",
+"0x4126d0",
+"0x4127e0"
+],
+"scan": 1
 },
 {
 "name": "?CL_TextHeight@@YAHPAUFont_s@@@Z",
 "obj": "cl_main_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?CL_NormalizedTextScale@@YAMPAUFont_s@@M@Z",
@@ -3203,13 +3664,27 @@
 "name": "?CL_RegisterFont@@YAPAUFont_s@@PBDH@Z",
 "obj": "cl_main_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x402180",
+"0x402190",
+"0x4021e0",
+"0x4023d0",
+"0x4127d0"
+],
+"scan": 1
 },
 {
 "name": "?CL_RegisterMaterial_411490@@YAPAUMaterial@@PBDHH@Z",
 "obj": "cl_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x402250",
+"0x4023e0",
+"0x402420",
+"0x4126d0",
+"0x4127e0"
+],
+"scan": 1
 },
 {
 "name": "?CL_BuildMd5StrFromCDKey@@YAXPAD@Z",
@@ -3237,7 +3712,24 @@
 "name": "?CL_Netchan_TransmitNextFragment@@YAXPAUnetchan_t@@@Z",
 "obj": "cl_net_chan_mp.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?CL_Netchan_Transmit@@YAXPAUnetchan_t@@PAEH@Z",
@@ -3453,7 +3945,11 @@
 "name": "?SCR_DrawConsole_4132e0@@YAXXZ",
 "obj": "cl_scrn_mp.obj",
 "size": 34,
-"hits": []
+"hits": [
+"0x407300",
+"0x4148d0"
+],
+"scan": 1
 },
 {
 "name": "?SCR_DrawScreenField@@YAXXZ",
@@ -3539,7 +4035,10 @@
 "name": "?LAN_WaitServerResponse@@YAHH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x414fe0"
+],
+"scan": 1
 },
 {
 "name": "?LAN_GetServerInfo@@YAXHHPADH@Z",
@@ -3605,7 +4104,10 @@
 "name": "?LAN_GetServerStatus@@YAHPAD0H@Z",
 "obj": "cl_ui_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4157a0"
+],
+"scan": 1
 },
 {
 "name": "?Key_KeynumToStringBuf@@YAXHPADH@Z",
@@ -3698,19 +4200,28 @@
 "name": "?CL_InitUI@@YAXXZ",
 "obj": "cl_ui_mp.obj",
 "size": 30,
-"hits": []
+"hits": [
+"0x415a80"
+],
+"scan": 1
 },
 {
 "name": "?UI_checkKeyExec@@YAHH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x415aa0"
+],
+"scan": 1
 },
 {
 "name": "?UI_LoadSoundAliases@@YAXXZ",
 "obj": "cl_ui_mp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x415ac0"
+],
+"scan": 1
 },
 {
 "name": "?CM_InitThreadData@@YAXH@Z",
@@ -3724,13 +4235,19 @@
 "name": "?CM_InitAllThreadData@@YAXXZ",
 "obj": "cm_load.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x415b80"
+],
+"scan": 1
 },
 {
 "name": "?CM_LoadMapData@@YAXPBD@Z",
 "obj": "cm_load.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x415ba0"
+],
+"scan": 1
 },
 {
 "name": "?CM_LoadMap@@YAXPBDPAH@Z",
@@ -3794,7 +4311,12 @@
 "name": "?CM_Hunk_Alloc@@YAPAXHPBDH@Z",
 "obj": "cm_load.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x415f20",
+"0x42e870",
+"0x4b5f90"
+],
+"scan": 1
 },
 {
 "name": "?CM_Hunk_AllocateTempMemoryHigh@@YAPAXHPBD@Z",
@@ -3806,31 +4328,62 @@
 "name": "?CM_Hunk_ClearTempMemory@@YAXXZ",
 "obj": "cm_load.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x415f60",
+"0x42cee0"
+],
+"scan": 1
 },
 {
 "name": "?CM_Hunk_ClearTempMemoryHigh@@YAXXZ",
 "obj": "cm_load.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4073a0",
+"0x415f80",
+"0x42cca0",
+"0x42cd50",
+"0x4578f0",
+"0x474f90",
+"0x592ba0"
+],
+"scan": 1
 },
 {
 "name": "_fabsf",
 "obj": "cm_load_obj.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x415f90",
+"0x415fa0",
+"0x415fb0",
+"0x49b5a0"
+],
+"scan": 1
 },
 {
 "name": "?fabs@@YAMM@Z",
 "obj": "cm_load_obj.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x415f90",
+"0x415fa0",
+"0x415fb0",
+"0x49b5a0"
+],
+"scan": 1
 },
 {
 "name": "?I_fabs@@YAMM@Z",
 "obj": "cm_load_obj.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x415f90",
+"0x415fa0",
+"0x415fb0",
+"0x49b5a0"
+],
+"scan": 1
 },
 {
 "name": "?VectorSet@@YAXQAMMMM@Z",
@@ -4082,7 +4635,10 @@
 "name": "?CM_GetPlaneNum@@YAPAUcplane_s@@H@Z",
 "obj": "cm_load_obj.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x418420"
+],
+"scan": 1
 },
 {
 "name": "?CM_LoadLumpFromFile@@YAHHPAPAE@Z",
@@ -4334,7 +4890,13 @@
 "name": "?CM_XModelPrecache@@YAPAUXModel@@PBD@Z",
 "obj": "cm_staticmodel.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x41a7c0",
+"0x4850a0",
+"0x4850c0",
+"0x493f50"
+],
+"scan": 1
 },
 {
 "name": "?CM_TraceStaticModel@@YAXPAUcStaticModel_s@@PAUtrace_t@@PBM2H@Z",
@@ -4388,7 +4950,10 @@
 "name": "?CM_PointLeafnum@@YAHQBM@Z",
 "obj": "cm_test.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x41b2b0"
+],
+"scan": 1
 },
 {
 "name": "?CM_StoreLeafs@@YAXPAUleafList_s@@H@Z",
@@ -5015,7 +5580,11 @@
 "name": "?Cbuf_Execute@@YAXXZ",
 "obj": "cmd.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x420d10",
+"0x483ce0"
+],
+"scan": 1
 },
 {
 "name": "?Cmd_ExecFromDisk@@YA_NPBD@Z",
@@ -5065,13 +5634,19 @@
 "name": "?Cmd_Argv@@YAPBDH@Z",
 "obj": "cmd.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x420f00"
+],
+"scan": 1
 },
 {
 "name": "?SV_Cmd_Argv@@YAPBDH@Z",
 "obj": "cmd.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x420f20"
+],
+"scan": 1
 },
 {
 "name": "?Cmd_ArgvBuffer@@YAXHPADH@Z",
@@ -5119,25 +5694,41 @@
 "name": "?Cmd_TokenizeStringWithLimit@@YAXPBDH@Z",
 "obj": "cmd.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x421210",
+"0x421230"
+],
+"scan": 1
 },
 {
 "name": "?SV_Cmd_TokenizeStringWithLimit@@YAXPBDH@Z",
 "obj": "cmd.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x421210",
+"0x421230"
+],
+"scan": 1
 },
 {
 "name": "?Cmd_TokenizeString@@YAXPBD@Z",
 "obj": "cmd.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x421250",
+"0x421270"
+],
+"scan": 1
 },
 {
 "name": "?SV_Cmd_TokenizeString@@YAXPBD@Z",
 "obj": "cmd.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x421250",
+"0x421270"
+],
+"scan": 1
 },
 {
 "name": "?Cmd_FindCommand@@YAPAUcmd_function_s@@PBD@Z",
@@ -5205,7 +5796,11 @@
 "name": "?SV_Cmd_ExecuteString@@YAXPBD@Z",
 "obj": "cmd.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x403560",
+"0x4216d0"
+],
+"scan": 1
 },
 {
 "name": "?Cmd_List_f@@YAXXZ",
@@ -5257,7 +5852,10 @@
 "name": "?Com_UnloadBsp@@YAXXZ",
 "obj": "com_bsp_load_obj.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x421900"
+],
+"scan": 1
 },
 {
 "name": "?Com_CleanupBsp@@YAXXZ",
@@ -5291,7 +5889,14 @@
 "name": "_FS_FileOpen",
 "obj": "com_file_wrapper.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x421980",
+"0x486810",
+"0x547120",
+"0x54f2f0",
+"0x550720"
+],
+"scan": 1
 },
 {
 "name": "_FS_FileClose",
@@ -5303,7 +5908,12 @@
 "name": "_FS_FileSeek",
 "obj": "com_file_wrapper.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x4219a0",
+"0x4642a0",
+"0x4e25b0"
+],
+"scan": 1
 },
 {
 "name": "?FS_Initialized@@YAHXZ",
@@ -5424,7 +6034,24 @@
 "name": "?FS_Remove@@YAXPBD@Z",
 "obj": "com_files.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?FS_FileExists@@YAHPBD@Z",
@@ -5558,7 +6185,10 @@
 "name": "?FS_FOpenFileReadStream@@YAHPBDPAHH@Z",
 "obj": "com_files.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x422ce0"
+],
+"scan": 1
 },
 {
 "name": "?FS_FOpenFileRead@@YAHPBDPAHH@Z",
@@ -5936,7 +6566,9 @@
 "name": "?FS_FOpenFileByMode@@YAHPBDPAHW4fsMode_t@@@Z",
 "obj": "com_files.obj",
 "size": 208,
-"hits": []
+"hits": [
+"0x425b80"
+]
 },
 {
 "name": "?FS_FTell@@YAHH@Z",
@@ -5966,7 +6598,13 @@
 "name": "_acosf",
 "obj": "com_math.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x425d10",
+"0x425d60",
+"0x503ed0",
+"0x503ee0"
+],
+"scan": 1
 },
 {
 "name": "_atan2f",
@@ -5990,7 +6628,11 @@
 "name": "_sinf",
 "obj": "com_math.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x425d40",
+"0x425db0"
+],
+"scan": 1
 },
 {
 "name": "_tanf",
@@ -6005,7 +6647,13 @@
 "name": "?acos@@YAMM@Z",
 "obj": "com_math.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x425d10",
+"0x425d60",
+"0x503ed0",
+"0x503ee0"
+],
+"scan": 1
 },
 {
 "name": "?atan2@@YAMMM@Z",
@@ -6040,7 +6688,11 @@
 "name": "?sin@@YAMM@Z",
 "obj": "com_math.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x425d40",
+"0x425db0"
+],
+"scan": 1
 },
 {
 "name": "?tan@@YAMM@Z",
@@ -7542,7 +8194,9 @@
 "name": "?Hunk_ClearDataFor@@YAXPAPAUfileData_s@@PAE1@Z",
 "obj": "com_memory.obj",
 "size": 116,
-"hits": []
+"hits": [
+"0x42c980"
+]
 },
 {
 "name": "?Hunk_ClearData@@YAXXZ",
@@ -7578,7 +8232,11 @@
 "name": "?Hunk_ClearHigh@@YAXH@Z",
 "obj": "com_memory.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x42cb00",
+"0x42cb20"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_GetLowPermanent@@YAHXZ",
@@ -7590,19 +8248,29 @@
 "name": "?Hunk_ClearLow@@YAXH@Z",
 "obj": "com_memory.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x42cb00",
+"0x42cb20"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_Clear@@YAXXZ",
 "obj": "com_memory.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x42cb30"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_Used@@YAHXZ",
 "obj": "com_memory.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x42cb50"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_AllocInternal@@YAPAXH@Z",
@@ -7639,13 +8307,25 @@
 "name": "?Hunk_ClearTempMemoryHighInternal@@YAXXZ",
 "obj": "com_memory.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4073a0",
+"0x415f80",
+"0x42cca0",
+"0x42cd50",
+"0x4578f0",
+"0x474f90",
+"0x592ba0"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_AllocLowInternal@@YAPAXH@Z",
 "obj": "com_memory.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42ccb0"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_AllocLowAlignInternal@@YAPAXHH@Z",
@@ -7659,7 +8339,16 @@
 "name": "?Hunk_ConvertTempToPermLowInternal@@YAXXZ",
 "obj": "com_memory.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4073a0",
+"0x415f80",
+"0x42cca0",
+"0x42cd50",
+"0x4578f0",
+"0x474f90",
+"0x592ba0"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_AllocateTempMemoryInternal@@YAPAXH@Z",
@@ -7689,13 +8378,21 @@
 "name": "?Hunk_ClearTempMemoryInternal@@YAXXZ",
 "obj": "com_memory.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x415f60",
+"0x42cee0"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_HideTempMemory@@YAHXZ",
 "obj": "com_memory.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x42cf00",
+"0x42cf30"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_ShowTempMemory@@YAXH@Z",
@@ -7707,7 +8404,11 @@
 "name": "?Hunk_HideTempMemoryHigh@@YAHXZ",
 "obj": "com_memory.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x42cf00",
+"0x42cf30"
+],
+"scan": 1
 },
 {
 "name": "?Hunk_ShowTempMemoryHigh@@YAXH@Z",
@@ -7727,13 +8428,51 @@
 "name": "?LargeLocalEnd@@YAXH@Z",
 "obj": "com_memory.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "?LargeLocalGetBuf@@YAPAXH@Z",
 "obj": "com_memory.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x42cf90"
+],
+"scan": 1
 },
 {
 "name": "??0LargeLocal@@QAE@H@Z",
@@ -7747,13 +8486,19 @@
 "name": "??1LargeLocal@@QAE@XZ",
 "obj": "com_memory.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x42cfd0"
+],
+"scan": 1
 },
 {
 "name": "?GetBuf@LargeLocal@@QAEPAXXZ",
 "obj": "com_memory.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x42cfe0"
+],
+"scan": 1
 },
 {
 "name": "?LargeLocalReset@@YAXXZ",
@@ -7931,7 +8676,12 @@
 "name": "?Com_PickSoundAlias@@YAPAUsnd_alias_t@@PBD@Z",
 "obj": "com_sndalias.obj",
 "size": 19,
-"hits": []
+"hits": [
+"0x4020e0",
+"0x42dce0",
+"0x42e7d0"
+],
+"scan": 1
 },
 {
 "name": "?Com_GetVolumeFalloffCurveValue@@YAMPAUSndCurve@@M@Z",
@@ -8025,13 +8775,19 @@
 "name": "?Com_GetSoundFileName@@YAPBDPBUsnd_alias_t@@@Z",
 "obj": "com_sndalias.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x42e180"
+],
+"scan": 1
 },
 {
 "name": "?Com_GetSoundFileMem@@YAPAXPBUsnd_alias_t@@@Z",
 "obj": "com_sndalias.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x42e190"
+],
+"scan": 1
 },
 {
 "name": "?Com_UnloadSoundAliasSounds@@YAXW4snd_alias_system_t@@@Z",
@@ -8105,7 +8861,12 @@
 "name": "?Com_PickSoundAlias_42ce60@@YAPAUsnd_alias_t@@PBD@Z",
 "obj": "com_sndalias.obj",
 "size": 19,
-"hits": []
+"hits": [
+"0x4020e0",
+"0x42dce0",
+"0x42e7d0"
+],
+"scan": 1
 },
 {
 "name": "?Com_RegisterSoundAliasVolumeFalloffCurve@@YAPAUSndCurve@@PBD0@Z",
@@ -8131,7 +8892,12 @@
 "name": "?Com_AllocSoundMemory@@YAPAXHPBDH@Z",
 "obj": "com_sndalias.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x415f20",
+"0x42e870",
+"0x4b5f90"
+],
+"scan": 1
 },
 {
 "name": "?Com_GetVolumeModValue@@YAMPBD0@Z",
@@ -8209,7 +8975,9 @@
 "name": "?Com_LoadSoundAliasField@@YAXPBD000HPADPAUsnd_alias_build_t@@@Z",
 "obj": "com_sndalias_load_obj.obj",
 "size": 1208,
-"hits": []
+"hits": [
+"0x42ee00"
+]
 },
 {
 "name": "?Com_ValidateSoundAlias@@YA_NPAUsnd_alias_build_t@@@Z",
@@ -8231,7 +8999,12 @@
 "name": "?Com_InitSoundAlias@@YAXXZ",
 "obj": "com_sndalias_load_obj.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x42f4f0",
+"0x464ce0",
+"0x4de0a0"
+],
+"scan": 1
 },
 {
 "name": "?Com_LoadVolumeModGroups@@YAXPAUVolumeModGroup@@@Z",
@@ -8447,7 +9220,10 @@
 "name": "?Com_Shutdown@@YAXPBD@Z",
 "obj": "common.obj",
 "size": 29,
-"hits": []
+"hits": [
+"0x432030"
+],
+"scan": 1
 },
 {
 "name": "?Com_ClearTempMemory@@YAXXZ",
@@ -8461,7 +9237,42 @@
 "name": "?Com_SetTimeScale@@YAXM@Z",
 "obj": "common.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "?Com_IsNoticeError@@YA_NPBD@Z",
@@ -8589,13 +9400,17 @@
 "name": "?Com_EventLoop@@YAHXZ",
 "obj": "common.obj",
 "size": 720,
-"hits": []
+"hits": [
+"0x432cc0"
+]
 },
 {
 "name": "?Debug_EventLoop@@YAHXZ",
 "obj": "common.obj",
 "size": 200,
-"hits": []
+"hits": [
+"0x432f90"
+]
 },
 {
 "name": "?Com_Milliseconds@@YAHXZ",
@@ -8641,7 +9456,10 @@
 "name": "?Com_ClearCDKey@@YAXXZ",
 "obj": "common.obj",
 "size": 57,
-"hits": []
+"hits": [
+"0x4331f0"
+],
+"scan": 1
 },
 {
 "name": "?Com_ReadCDKey@@YAXXZ",
@@ -8887,7 +9705,10 @@
 "name": "?Com_StartHunkUsersNoMap_433800@@YAXXZ",
 "obj": "common.obj",
 "size": 23,
-"hits": []
+"hits": [
+"0x4350d0"
+],
+"scan": 1
 },
 {
 "name": "?Com_StartHunkUsers@@YAXXZ",
@@ -8947,7 +9768,11 @@
 "name": "?MT_AllocAnimTree@@YAPAXH@Z",
 "obj": "common.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4354d0",
+"0x4cdb60"
+],
+"scan": 1
 },
 {
 "name": "?Com_XAnimCreateSmallTree@@YAPAUXAnimTree_s@@PAUXAnim_s@@@Z",
@@ -8975,7 +9800,10 @@
 "name": "?Com_FreeWeaponInfoMemory@@YAXH@Z",
 "obj": "common.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x435570"
+],
+"scan": 1
 },
 {
 "name": "?Com_AddToString@@YAHPBDPADHHH@Z",
@@ -9076,7 +9904,11 @@
 "name": "?Com_ShutdownDObj@@YAXXZ",
 "obj": "dobj_management.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x435970",
+"0x4b5ab0"
+],
+"scan": 1
 },
 {
 "name": "?Com_AbortDObj@@YAXXZ",
@@ -9165,13 +9997,33 @@
 "name": "?Dvar_FreeVectors@@YAXPAUdvar_s@@@Z",
 "obj": "dvar.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x435b70"
+],
+"scan": 1
 },
 {
 "name": "?Dvar_FreeNameString@@YAXPBD@Z",
 "obj": "dvar.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?Dvar_InternString@@YAPBDPBD@Z",
@@ -9257,7 +10109,9 @@
 "name": "?Dvar_ValueToString@@YAPBDPBUdvar_s@@UDvarValue@@@Z",
 "obj": "dvar.obj",
 "size": 424,
-"hits": []
+"hits": [
+"0x435fc0"
+]
 },
 {
 "name": "?Dvar_StringToBool@@YA_NPBD@Z",
@@ -9279,7 +10133,24 @@
 "name": "?Dvar_StringToFloat@@YAMPBD@Z",
 "obj": "dvar.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?Dvar_StringToVec2@@YAPAMPBD@Z",
@@ -9325,7 +10196,9 @@
 "name": "?Dvar_StringToValue@@YA?AUDvarValue@@ETDvarLimits@@PBD@Z",
 "obj": "dvar.obj",
 "size": 200,
-"hits": []
+"hits": [
+"0x436520"
+]
 },
 {
 "name": "?Dvar_DisplayableValue@@YAPBDPBUdvar_s@@@Z",
@@ -9371,13 +10244,17 @@
 "name": "?Dvar_ClampValueToDomain@@YA?AUDvarValue@@EU1@U1@TDvarLimits@@@Z",
 "obj": "dvar.obj",
 "size": 588,
-"hits": []
+"hits": [
+"0x4366f0"
+]
 },
 {
 "name": "?Dvar_ValueInDomain@@YA_NEUDvarValue@@TDvarLimits@@@Z",
 "obj": "dvar.obj",
 "size": 284,
-"hits": []
+"hits": [
+"0x436940"
+]
 },
 {
 "name": "?Dvar_VectorDomainToString@@YAXHTDvarLimits@@PADH@Z",
@@ -9391,7 +10268,9 @@
 "name": "?Dvar_DomainToString_Internal@@YAPBDETDvarLimits@@PADHPAH@Z",
 "obj": "dvar.obj",
 "size": 792,
-"hits": []
+"hits": [
+"0x436b00"
+]
 },
 {
 "name": "?Dvar_DomainToString@@YAPBDETDvarLimits@@PADH@Z",
@@ -9421,13 +10300,17 @@
 "name": "?Dvar_ValuesEqual@@YA_NEUDvarValue@@0@Z",
 "obj": "dvar.obj",
 "size": 252,
-"hits": []
+"hits": [
+"0x436eb0"
+]
 },
 {
 "name": "?Dvar_SetLatchedValue@@YAXPAUdvar_s@@UDvarValue@@@Z",
 "obj": "dvar.obj",
 "size": 156,
-"hits": []
+"hits": [
+"0x436fb0"
+]
 },
 {
 "name": "?Dvar_HasLatchedValue@@YA_NPBUdvar_s@@@Z",
@@ -9449,7 +10332,9 @@
 "name": "?Dvar_SetVariant@@YAXPAUdvar_s@@UDvarValue@@W4DvarSetSource@@@Z",
 "obj": "dvar.obj",
 "size": 784,
-"hits": []
+"hits": [
+"0x437090"
+]
 },
 {
 "name": "?Dvar_FindMalleableVar@@YAPAUdvar_s@@PBD@Z",
@@ -9605,7 +10490,9 @@
 "name": "?Dvar_UpdateResetValue@@YAXPAUdvar_s@@UDvarValue@@@Z",
 "obj": "dvar.obj",
 "size": 156,
-"hits": []
+"hits": [
+"0x437980"
+]
 },
 {
 "name": "?Dvar_ChangeResetValue@@YAXPAUdvar_s@@UDvarValue@@@Z",
@@ -9619,7 +10506,9 @@
 "name": "?Dvar_UpdateValue@@YAXPAUdvar_s@@UDvarValue@@@Z",
 "obj": "dvar.obj",
 "size": 232,
-"hits": []
+"hits": [
+"0x437a30"
+]
 },
 {
 "name": "?Dvar_MakeExplicitType@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z",
@@ -9673,7 +10562,9 @@
 "name": "?Dvar_RegisterNew@@YAPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z",
 "obj": "dvar.obj",
 "size": 532,
-"hits": []
+"hits": [
+"0x437de0"
+]
 },
 {
 "name": "?Dvar_RegisterVariant@@YAPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z",
@@ -10108,7 +10999,9 @@
 "name": "?Dvar_ToggleSimple@@YA_NPAUdvar_s@@@Z",
 "obj": "dvar_cmds.obj",
 "size": 364,
-"hits": []
+"hits": [
+"0x439b20"
+]
 },
 {
 "name": "?Dvar_ToggleInternal@@YA_NXZ",
@@ -10234,7 +11127,12 @@
 "name": "?Dvar_Dump_f@@YAXXZ",
 "obj": "dvar_cmds.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x43a820",
+"0x451f30",
+"0x50cd80"
+],
+"scan": 1
 },
 {
 "name": "?PBdvar_set@@YAXPBD0@Z",
@@ -10424,7 +11322,10 @@
 "name": "?FS_RemoveCommands@@YAXXZ",
 "obj": "com_files_mp.obj",
 "size": 44,
-"hits": []
+"hits": [
+"0x43bd00"
+],
+"scan": 1
 },
 {
 "name": "?FS_AddCommands@@YAXXZ",
@@ -10687,7 +11588,10 @@
 "name": "?abs@@YAJJ@Z",
 "obj": "l_precomp.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x43d680"
+],
+"scan": 1
 },
 {
 "name": "?SourceError@@YAXPAUsource_s@@PADZZ",
@@ -10847,7 +11751,9 @@
 "name": "?PC_ExpandBuiltinDefine@@YAHPAUsource_s@@PAUtoken_s@@PAUdefine_s@@PAPAU2@3@Z",
 "obj": "l_precomp.obj",
 "size": 512,
-"hits": []
+"hits": [
+"0x43e270"
+]
 },
 {
 "name": "?PC_ExpandDefine@@YAHPAUsource_s@@PAUtoken_s@@PAUdefine_s@@PAPAU2@3@Z",
@@ -11021,13 +11927,17 @@
 "name": "?PC_OperatorPriority@@YAHH@Z",
 "obj": "l_precomp.obj",
 "size": 191,
-"hits": []
+"hits": [
+"0x43f660"
+]
 },
 {
 "name": "?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z",
 "obj": "l_precomp.obj",
 "size": 2587,
-"hits": []
+"hits": [
+"0x43f720"
+]
 },
 {
 "name": "?PC_Evaluate@@YAHPAUsource_s@@PAJPANH@Z",
@@ -11065,7 +11975,10 @@
 "name": "?PC_Directive_line@@YAHPAUsource_s@@@Z",
 "obj": "l_precomp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x440660"
+],
+"scan": 1
 },
 {
 "name": "?PC_Directive_error@@YAHPAUsource_s@@@Z",
@@ -11224,7 +12137,10 @@
 "name": "?PC_SetPunctuations@@YAXPAUsource_s@@PAUpunctuation_s@@@Z",
 "obj": "l_precomp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4414b0"
+],
+"scan": 1
 },
 {
 "name": "?LoadSourceFile@@YAPAUsource_s@@PBD@Z",
@@ -11350,7 +12266,9 @@
 "name": "?PS_ReadEscapeCharacter@@YAHPAUscript_s@@PAD@Z",
 "obj": "l_script.obj",
 "size": 619,
-"hits": []
+"hits": [
+"0x441cd0"
+]
 },
 {
 "name": "?PS_ReadString@@YAHPAUscript_s@@PAUtoken_s@@H@Z",
@@ -11540,7 +12458,10 @@
 "name": "?NumLinesCrossed@@YAHPAUscript_s@@@Z",
 "obj": "l_script.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x442fc0"
+],
+"scan": 1
 },
 {
 "name": "?ScriptSkipTo@@YAHPAUscript_s@@PAD@Z",
@@ -11677,19 +12598,34 @@
 "name": "?MemFile_Shutdown@@YAXPAUMemoryFile@@@Z",
 "obj": "memfile.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x443be0",
+"0x492fc0",
+"0x493a60",
+"0x4aec00",
+"0x4af640"
+],
+"scan": 1
 },
 {
 "name": "?MemFile_IsReading@@YA_NPAUMemoryFile@@@Z",
 "obj": "memfile.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x443bf0",
+"0x443c00"
+],
+"scan": 1
 },
 {
 "name": "?MemFile_IsWriting@@YA_NPAUMemoryFile@@@Z",
 "obj": "memfile.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x443bf0",
+"0x443c00"
+],
+"scan": 1
 },
 {
 "name": "?MemFile_WriteData@@YAXPAUMemoryFile@@HPBX@Z",
@@ -11976,7 +12912,10 @@
 "name": "?MSG_WriteKey@@YAXPAUmsg_t@@HHH@Z",
 "obj": "msg_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x444720"
+],
+"scan": 1
 },
 {
 "name": "?MSG_ReadKey@@YAHPAUmsg_t@@HH@Z",
@@ -12206,7 +13145,10 @@
 "name": "?MSG_initHuffman@@YAXXZ",
 "obj": "msg_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4476c0"
+],
+"scan": 1
 },
 {
 "name": "?NET_AdrToString@@YAPBDUnetadr_t@@@Z",
@@ -12458,7 +13400,10 @@
 "name": "?Com_EndParseSession@@YAXXZ",
 "obj": "q_parse.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x448fa0"
+],
+"scan": 1
 },
 {
 "name": "?Com_ResetParseSessions@@YAXXZ",
@@ -12683,7 +13628,10 @@
 "name": "?Com_ParseFloatOnLine@@YAMPAPBD@Z",
 "obj": "q_parse.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x449cd0"
+],
+"scan": 1
 },
 {
 "name": "?Com_ParseInt@@YAHPAPBD@Z",
@@ -12698,7 +13646,10 @@
 "name": "?Com_ParseIntOnLine@@YAHPAPBD@Z",
 "obj": "q_parse.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x449d30"
+],
+"scan": 1
 },
 {
 "name": "?Com_Parse1DMatrix@@YAXPAPBDHPAM@Z",
@@ -12784,13 +13735,41 @@
 "name": "?BigShort@@YAFF@Z",
 "obj": "q_shared.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?BigLong@@YAHH@Z",
 "obj": "q_shared.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?LittleLong64@@YA_J_J@Z",
@@ -12804,13 +13783,41 @@
 "name": "?LittleShortRuntime@@YAFF@Z",
 "obj": "q_shared.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?LittleLongRuntime@@YAHH@Z",
 "obj": "q_shared.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?LittleFloat@@YAMH@Z",
@@ -12836,7 +13843,10 @@
 "name": "?ShortNoSwap@@YAFF@Z",
 "obj": "q_shared.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x44a210"
+],
+"scan": 1
 },
 {
 "name": "?LongSwap@@YAHH@Z",
@@ -12890,13 +13900,21 @@
 "name": "?Swap_InitLittleEndian@@YAXXZ",
 "obj": "q_shared.obj",
 "size": 71,
-"hits": []
+"hits": [
+"0x44a3f0",
+"0x44a440"
+],
+"scan": 1
 },
 {
 "name": "?Swap_InitBigEndian@@YAXXZ",
 "obj": "q_shared.obj",
 "size": 71,
-"hits": []
+"hits": [
+"0x44a3f0",
+"0x44a440"
+],
+"scan": 1
 },
 {
 "name": "?Swap_Init@@YAXXZ",
@@ -12967,7 +13985,10 @@
 "name": "?I_strncpyz@@YAXPADPBDH@Z",
 "obj": "q_shared.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x44a650"
+],
+"scan": 1
 },
 {
 "name": "?I_strnicmp@@YAHPBD0H@Z",
@@ -13053,7 +14074,10 @@
 "name": "?I_CleanChar@@YADD@Z",
 "obj": "q_shared.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x44a920"
+],
+"scan": 1
 },
 {
 "name": "?Com_sprintf@@YAHPADIPBDZZ",
@@ -13149,7 +14173,9 @@
 "name": "?ParseConfigStringToStruct@@YAHPAEPBUcspField_t@@HPBDHP6AH02H@ZP6AX02@Z@Z",
 "obj": "q_shared.obj",
 "size": 384,
-"hits": []
+"hits": [
+"0x44b1c0"
+]
 },
 {
 "name": "?GetLeanFraction@@YAMM@Z",
@@ -13267,25 +14293,49 @@
 "name": "?ScrPlace_ViewableWidth_449a60@@YAMXZ",
 "obj": "screen_placement_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x44ba00",
+"0x44ba10",
+"0x44ba20",
+"0x44ba30"
+],
+"scan": 1
 },
 {
 "name": "?ScrPlace_ViewableHeight_449a70@@YAMXZ",
 "obj": "screen_placement_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x44ba00",
+"0x44ba10",
+"0x44ba20",
+"0x44ba30"
+],
+"scan": 1
 },
 {
 "name": "?ScrPlace_RealViewableWidth_449a80@@YAMXZ",
 "obj": "screen_placement_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x44ba00",
+"0x44ba10",
+"0x44ba20",
+"0x44ba30"
+],
+"scan": 1
 },
 {
 "name": "?ScrPlace_RealViewableHeight_449a90@@YAMXZ",
 "obj": "screen_placement_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x44ba00",
+"0x44ba10",
+"0x44ba20",
+"0x44ba30"
+],
+"scan": 1
 },
 {
 "name": "?ScrPlace_CalcSafeAreaOffsets@@YAXMMMMMMMPAM000@Z",
@@ -13315,43 +14365,73 @@
 "name": "?GetRealWidthFromVirtualWidth@@YAMM@Z",
 "obj": "screen_placement_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x44bcb0",
+"0x44bcc0",
+"0x44bcd0",
+"0x44bce0"
+],
+"scan": 1
 },
 {
 "name": "?GetRealHeightFromVirtualHeight@@YAMM@Z",
 "obj": "screen_placement_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x44bcb0",
+"0x44bcc0",
+"0x44bcd0",
+"0x44bce0"
+],
+"scan": 1
 },
 {
 "name": "?GetVirtualWidthFromRealWidth@@YAMM@Z",
 "obj": "screen_placement_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x44bcb0",
+"0x44bcc0",
+"0x44bcd0",
+"0x44bce0"
+],
+"scan": 1
 },
 {
 "name": "?GetVirtualHeightFromRealHeight@@YAMM@Z",
 "obj": "screen_placement_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x44bcb0",
+"0x44bcc0",
+"0x44bcd0",
+"0x44bce0"
+],
+"scan": 1
 },
 {
 "name": "?CalcScreenX@@YAXPAMH@Z",
 "obj": "screen_placement_mp.obj",
 "size": 188,
-"hits": []
+"hits": [
+"0x44bcf0"
+]
 },
 {
 "name": "?CalcScreenY@@YAXPAMH@Z",
 "obj": "screen_placement_mp.obj",
 "size": 168,
-"hits": []
+"hits": [
+"0x44bdb0"
+]
 },
 {
 "name": "?CalcScreenPlacement@@YAXPAM000HH@Z",
 "obj": "screen_placement_mp.obj",
 "size": 468,
-"hits": []
+"hits": [
+"0x44be80"
+]
 },
 {
 "name": "?MemFile_WriteByte@@YAXPAUMemoryFile@@E@Z",
@@ -13509,7 +14589,10 @@
 "name": "?SND_GetLerpedSlavePercentage@@YAMM@Z",
 "obj": "snd.obj",
 "size": 23,
-"hits": []
+"hits": [
+"0x44c770"
+],
+"scan": 1
 },
 {
 "name": "?SND_Attenuate@@YAMPAUSndCurve@@MMM@Z",
@@ -13531,13 +14614,17 @@
 "name": "?SND_IsAliasChannel3D@@YAEH@Z",
 "obj": "snd.obj",
 "size": 46,
-"hits": []
+"hits": [
+"0x44c8b0"
+]
 },
 {
 "name": "?SND_SetChannelInfo@@YAXHHPBUsnd_alias_t@@0MPBMMMHHHHHEW4snd_alias_system_t@@@Z",
 "obj": "snd.obj",
 "size": 446,
-"hits": []
+"hits": [
+"0x44c8e0"
+]
 },
 {
 "name": "?SND_CompareChannels_44ab00@@YAHHHH@Z",
@@ -13599,13 +14686,17 @@
 "name": "?SND_StartAliasSample@@YAHPBUsnd_alias_t@@0MHPBMMMHEPAHW4snd_alias_system_t@@@Z",
 "obj": "snd.obj",
 "size": 294,
-"hits": []
+"hits": [
+"0x44cee0"
+]
 },
 {
 "name": "?SND_StartAliasStream@@YAHPBUsnd_alias_t@@0MHPBMMMHMEPAHW4snd_alias_system_t@@@Z",
 "obj": "snd.obj",
 "size": 358,
-"hits": []
+"hits": [
+"0x44d010"
+]
 },
 {
 "name": "?SND_ContinueLoopingSound@@YAEPBUsnd_alias_t@@0MHPBMPAH@Z",
@@ -13627,7 +14718,9 @@
 "name": "?SND_PlaySoundAlias_Internal@@YAHPBUsnd_alias_t@@0MHPBMPAHHEW4snd_alias_system_t@@@Z",
 "obj": "snd.obj",
 "size": 546,
-"hits": []
+"hits": [
+"0x44d5d0"
+]
 },
 {
 "name": "?SND_PlaySoundAlias@@YAHPBUsnd_alias_t@@HPBMHW4snd_alias_system_t@@@Z",
@@ -13689,7 +14782,10 @@
 "name": "?SND_ResetPauseSettingsToDefaults@@YAXXZ",
 "obj": "snd.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x44dc20"
+],
+"scan": 1
 },
 {
 "name": "?SND_PauseSounds@@YAXXZ",
@@ -13719,7 +14815,9 @@
 "name": "?SND_StartBackground@@YAXHPBUsnd_alias_t@@HW4snd_alias_system_t@@@Z",
 "obj": "snd.obj",
 "size": 446,
-"hits": []
+"hits": [
+"0x44e000"
+]
 },
 {
 "name": "?SND_StopBackground@@YAXHH@Z",
@@ -13741,7 +14839,10 @@
 "name": "?SND_StopMusic@@YAXH@Z",
 "obj": "snd.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x44e280"
+],
+"scan": 1
 },
 {
 "name": "?SND_PlayAmbientAlias@@YAXPBUsnd_alias_t@@HW4snd_alias_system_t@@@Z",
@@ -14063,7 +15164,9 @@
 "name": "?SND_GetStreamChannelOverlay@@YAHPAUsnd_overlay_info_t@@H@Z",
 "obj": "snd.obj",
 "size": 462,
-"hits": []
+"hits": [
+"0x451610"
+]
 },
 {
 "name": "?SND_GetSoundOverlay@@YAHW4snd_overlay_type_t@@PAUsnd_overlay_info_t@@HPAH@Z",
@@ -14083,7 +15186,10 @@
 "name": "?StatMon_GetStatsArray@@YAXPAPBUstatmonitor_s@@PAH@Z",
 "obj": "statmonitor.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4518f0"
+],
+"scan": 1
 },
 {
 "name": "?StatMon_Reset@@YAXXZ",
@@ -14145,7 +15251,12 @@
 "name": "?SV_MapRestart_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x43a820",
+"0x451f30",
+"0x50cd80"
+],
+"scan": 1
 },
 {
 "name": "?SV_FastRestart_f@@YAXXZ",
@@ -14231,13 +15342,19 @@
 "name": "?SV_Drop_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x4524b0"
+],
+"scan": 1
 },
 {
 "name": "?SV_DropNum_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4524c0"
+],
+"scan": 1
 },
 {
 "name": "?SV_TempBanNum_f@@YAXXZ",
@@ -14275,19 +15392,28 @@
 "name": "?SV_Heartbeat_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4528d0"
+],
+"scan": 1
 },
 {
 "name": "?SV_Serverinfo_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 28,
-"hits": []
+"hits": [
+"0x4528e0"
+],
+"scan": 1
 },
 {
 "name": "?SV_Systeminfo_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x452900"
+],
+"scan": 1
 },
 {
 "name": "?SV_DumpUser_f@@YAXXZ",
@@ -14301,7 +15427,10 @@
 "name": "?SV_KillServer_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 33,
-"hits": []
+"hits": [
+"0x452980"
+],
+"scan": 1
 },
 {
 "name": "?SV_AddOperatorCommands@@YAXXZ",
@@ -14327,7 +15456,10 @@
 "name": "?SV_RemoveDedicatedCommands@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 24,
-"hits": []
+"hits": [
+"0x452bf0"
+],
+"scan": 1
 },
 {
 "name": "?SV_UpdateLastTimeMasterServerCommunicated@@YAXUnetadr_t@@@Z",
@@ -14381,7 +15513,10 @@
 "name": "?SV_BanGuidBriefly@@YAXH@Z",
 "obj": "sv_client_mp.obj",
 "size": 30,
-"hits": []
+"hits": [
+"0x453320"
+],
+"scan": 1
 },
 {
 "name": "?SV_BanClient@@YAXPAUclient_s@@@Z",
@@ -14561,7 +15696,10 @@
 "name": "?SV_Disconnect_f@@YAXPAUclient_s@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x4558e0"
+],
+"scan": 1
 },
 {
 "name": "?SV_VerifyIwds_f@@YAXPAUclient_s@@@Z",
@@ -14678,19 +15816,30 @@
 "name": "?SV_NumForGentity@@YAHPAUgentity_s@@@Z",
 "obj": "sv_game_mp.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x456700"
+],
+"scan": 1
 },
 {
 "name": "?SV_GentityNum@@YAPAUgentity_s@@H@Z",
 "obj": "sv_game_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x456710",
+"0x456730"
+],
+"scan": 1
 },
 {
 "name": "?SV_GameClientNum@@YAPAUplayerState_s@@H@Z",
 "obj": "sv_game_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x456710",
+"0x456730"
+],
+"scan": 1
 },
 {
 "name": "?SV_SvEntityForGentity@@YAPAUsvEntity_s@@PAUgentity_s@@@Z",
@@ -14764,7 +15913,10 @@
 "name": "?SV_Hunk_AllocAlignInternal@@YAPAXHH@Z",
 "obj": "sv_game_mp.obj",
 "size": 29,
-"hits": []
+"hits": [
+"0x456cc0"
+],
+"scan": 1
 },
 {
 "name": "?SV_Hunk_AllocateTempMemoryInternal@@YAPAXH@Z",
@@ -15002,7 +16154,16 @@
 "name": "?SV_ResetEntityParsePoint@@YAXXZ",
 "obj": "sv_game_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4073a0",
+"0x415f80",
+"0x42cca0",
+"0x42cd50",
+"0x4578f0",
+"0x474f90",
+"0x592ba0"
+],
+"scan": 1
 },
 {
 "name": "?SV_DObjExists@@YAHPAUgentity_s@@@Z",
@@ -15092,13 +16253,19 @@
 "name": "?SV_InitGameProgs@@YAXH@Z",
 "obj": "sv_game_mp.obj",
 "size": 24,
-"hits": []
+"hits": [
+"0x457ca0"
+],
+"scan": 1
 },
 {
 "name": "?SV_GameCommand@@YAHXZ",
 "obj": "sv_game_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x457cc0"
+],
+"scan": 1
 },
 {
 "name": "?SV_SetConfigstring@@YAXHPBD@Z",
@@ -15120,7 +16287,11 @@
 "name": "?SV_GetConfigstringConst@@YAPBDH@Z",
 "obj": "sv_init_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x457f30",
+"0x50e410"
+],
+"scan": 1
 },
 {
 "name": "?SV_GetConfigValueForKey@@YAPBDHHPBD@Z",
@@ -15214,7 +16385,10 @@
 "name": "?SV_InitArchivedSnapshot@@YAXXZ",
 "obj": "sv_init_mp.obj",
 "size": 33,
-"hits": []
+"hits": [
+"0x4588d0"
+],
+"scan": 1
 },
 {
 "name": "?SV_FreeArchivedSnapshot@@YAXXZ",
@@ -15319,7 +16493,9 @@
 "name": "?SV_GetReliableSequence@@YAHPAUclient_s@@PBD@Z",
 "obj": "sv_main_mp.obj",
 "size": 292,
-"hits": []
+"hits": [
+"0x45a300"
+]
 },
 {
 "name": "?SV_CopyReliableCommands@@YAXPAUclient_s@@@Z",
@@ -15385,7 +16561,12 @@
 "name": "?Pb_Q_maxclients@@YAHXZ",
 "obj": "sv_main_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x40bff0",
+"0x45b980",
+"0x4ab100"
+],
+"scan": 1
 },
 {
 "name": "?Pb_Q_client@@YAHHPAUPb_Sv_Client_s@@@Z",
@@ -15912,7 +17093,10 @@
 "name": "?UI_Component_InitIfStarted_45f980@@YAXXZ",
 "obj": "ui_component.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x462670"
+],
+"scan": 1
 },
 {
 "name": "?UI_Component_Init@@YAXXZ",
@@ -15926,7 +17110,11 @@
 "name": "?RegisterMaterialNoMip@UI_Component@@SAPAUMaterial@@PBDH@Z",
 "obj": "ui_component.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x402170",
+"0x462700"
+],
+"scan": 1
 },
 {
 "name": "?DrawPic@UI_Component@@SAXMMMMPAMPAUMaterial@@@Z",
@@ -15994,7 +17182,10 @@
 "name": "??1UI_Component@@UAE@XZ",
 "obj": "ui_component.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x462970"
+],
+"scan": 1
 },
 {
 "name": "??_GUI_Component@@UAEPAXI@Z",
@@ -16080,7 +17271,9 @@
 "name": "?KeyEvent@UI_ScrollPane@@UAE_NPAMH@Z",
 "obj": "ui_component.obj",
 "size": 764,
-"hits": []
+"hits": [
+"0x463180"
+]
 },
 {
 "name": "?GetInnerSize@UI_ScrollPane@@QAE_NPAM@Z",
@@ -16150,13 +17343,18 @@
 "name": "?UpdateHeight@UI_LinesComponent@@QAEXXZ",
 "obj": "ui_component.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x463680"
+],
+"scan": 1
 },
 {
 "name": "?KeyEvent@UI_LinesComponent@@UAE_NPAMH@Z",
 "obj": "ui_component.obj",
 "size": 444,
-"hits": []
+"hits": [
+"0x463690"
+]
 },
 {
 "name": "?AddText@UI_LinesComponent@@UAEXPBD@Z",
@@ -16210,7 +17408,24 @@
 "name": "?Sys_Mkdir@@YAXPBD@Z",
 "obj": "win_common.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?Sys_RemoveDirTree@@YAHPBD@Z",
@@ -16224,7 +17439,11 @@
 "name": "?Sys_DefaultInstallPath@@YAPADXZ",
 "obj": "win_common.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x463c30",
+"0x463c70"
+],
+"scan": 1
 },
 {
 "name": "?Sys_DefaultCDPath@@YAPBDXZ",
@@ -16236,7 +17455,11 @@
 "name": "?Sys_Cwd@@YAPADXZ",
 "obj": "win_common.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x463c30",
+"0x463c70"
+],
+"scan": 1
 },
 {
 "name": "?Sys_ListFilteredFiles@@YAXPBD00PAPADPAH@Z",
@@ -16290,7 +17513,12 @@
 "name": "?Sys_StreamSeek@@YAXHHH@Z",
 "obj": "win_common.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x4219a0",
+"0x4642a0",
+"0x4e25b0"
+],
+"scan": 1
 },
 {
 "name": "?Sys_RoundUp@@YAHM@Z",
@@ -16359,7 +17587,10 @@
 "name": "?IN_SetForegroundWindow@@YAXXZ",
 "obj": "win_input.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x4647e0"
+],
+"scan": 1
 },
 {
 "name": "?IN_IsForegroundWindow@@YAHXZ",
@@ -16445,7 +17676,10 @@
 "name": "?IN_Activate@@YAXH@Z",
 "obj": "win_input.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x464b20"
+],
+"scan": 1
 },
 {
 "name": "?IN_Frame@@YAXXZ",
@@ -16473,7 +17707,12 @@
 "name": "?Win_ShutdownLocalization@@YAXXZ",
 "obj": "win_localize.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x42f4f0",
+"0x464ce0",
+"0x4de0a0"
+],
+"scan": 1
 },
 {
 "name": "?Win_CopyString_461f90@@YAPBDPBD@Z",
@@ -16501,7 +17740,10 @@
 "name": "?Sys_UnloadRenderer@@YAXXZ",
 "obj": "win_main.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x464f30"
+],
+"scan": 1
 },
 {
 "name": "?Sys_GetInfo@@YAXPAUSysInfo@@@Z",
@@ -16614,7 +17856,10 @@
 "name": "?Sys_UnableToLoadDllError_4628d0@@YAXXZ",
 "obj": "win_main.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x465600"
+],
+"scan": 1
 },
 {
 "name": "?Sys_StartProcess@@YAXPBDH@Z",
@@ -16801,19 +18046,29 @@
 "name": "?Sys_EnterCriticalSection@@YAXH@Z",
 "obj": "win_main.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x4642e0",
+"0x464300"
+],
+"scan": 1
 },
 {
 "name": "?Sys_LeaveCriticalSection@@YAXH@Z",
 "obj": "win_main.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x4642e0",
+"0x464300"
+],
+"scan": 1
 },
 {
 "name": "?NET_ErrorString@@YAPBDXZ",
 "obj": "win_net.obj",
 "size": 580,
-"hits": []
+"hits": [
+"0x4667a0"
+]
 },
 {
 "name": "?Sys_StringToSockaddr@@YAHPBDPAUsockaddr@@@Z",
@@ -16969,7 +18224,10 @@
 "name": "?NET_Sleep@@YAXH@Z",
 "obj": "win_net.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x467f20"
+],
+"scan": 1
 },
 {
 "name": "?Sys_PBSendUdpPacket@@YAXPADGH0@Z",
@@ -16997,7 +18255,10 @@
 "name": "?fastftol@@YAJM@Z",
 "obj": "win_shared.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x467f70"
+],
+"scan": 1
 },
 {
 "name": "?Sys_SnapVector@@YAXQAM@Z",
@@ -17100,7 +18361,9 @@
 "name": "?ConWndProc@@YGJPAUHWND__@@IIJ@Z",
 "obj": "win_syscon.obj",
 "size": 512,
-"hits": []
+"hits": [
+"0x468430"
+]
 },
 {
 "name": "?InputLineWndProc@@YGJPAUHWND__@@IIJ@Z",
@@ -17176,7 +18439,9 @@
 "name": "?MainWndProc@@YGJPAUHWND__@@IIJ@Z",
 "obj": "win_wndproc.obj",
 "size": 1529,
-"hits": []
+"hits": [
+"0x468db0"
+]
 },
 {
 "name": "?SetAnimCheck@@YAXH@Z",
@@ -17220,7 +18485,9 @@
 "name": "?AnimTreeParseInternal@@YA_NII_N00@Z",
 "obj": "scr_animtree.obj",
 "size": 2048,
-"hits": []
+"hits": [
+"0x4695c0"
+]
 },
 {
 "name": "?Scr_AnimTreeParse@@YAXPBDII@Z",
@@ -17269,7 +18536,16 @@
 "name": "?Scr_GetAnims@@YAPAUXAnim_s@@H@Z",
 "obj": "scr_animtree.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x469fa0",
+"0x4f1ad0",
+"0x50e3f0",
+"0x51b020",
+"0x51b060",
+"0x51fbf0",
+"0x5335e0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_CreateAnimationTree@@YAHIIPAUXAnim_s@@IPBDIIH@Z",
@@ -17347,7 +18623,10 @@
 "name": "?AddRefToValue@@YAXPAUVariableValue@@@Z",
 "obj": "scr_animtree.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x46a9f0"
+],
+"scan": 1
 },
 {
 "name": "?RemoveRefToValue@@YAXPAUVariableValue@@@Z",
@@ -17377,7 +18656,10 @@
 "name": "?EmitCanonicalStringConst@@YAXI@Z",
 "obj": "scr_compiler.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x46aa90"
+],
+"scan": 1
 },
 {
 "name": "?CompileTransferRefToString@@YAXII@Z",
@@ -17391,7 +18673,9 @@
 "name": "?EmitOpcode@@YAXIHH@Z",
 "obj": "scr_compiler.obj",
 "size": 787,
-"hits": []
+"hits": [
+"0x46ab00"
+]
 },
 {
 "name": "?EmitEnd@@YAXXZ",
@@ -17593,7 +18877,10 @@
 "name": "?Scr_CheckLocalVarsCount@@YAXH@Z",
 "obj": "scr_compiler.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x46b850"
+],
+"scan": 1
 },
 {
 "name": "?Scr_RegisterLocalVar@@YAXITsval_u@@PAUscr_block_s@@@Z",
@@ -17712,7 +18999,9 @@
 "name": "?EmitValue@@YAXPAUVariableCompileValue@@@Z",
 "obj": "scr_compiler.obj",
 "size": 152,
-"hits": []
+"hits": [
+"0x46bf30"
+]
 },
 {
 "name": "?Scr_PushValue@@YAXPAUVariableCompileValue@@@Z",
@@ -17726,7 +19015,10 @@
 "name": "?Scr_PopValue@@YAXXZ",
 "obj": "scr_compiler.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x46c010"
+],
+"scan": 1
 },
 {
 "name": "?EmitCastBool@@YAXTsval_u@@@Z",
@@ -17958,7 +19250,10 @@
 "name": "?Scr_CalcLocalVarsArrayVariableRef@@YAXTsval_u@@PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x46d4f0"
+],
+"scan": 1
 },
 {
 "name": "?EmitClearArrayVariable@@YAXTsval_u@@000PAUscr_block_s@@@Z",
@@ -17973,7 +19268,9 @@
 "name": "?EmitVariableExpression@@YAXTsval_u@@PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 264,
-"hits": []
+"hits": [
+"0x46d590"
+]
 },
 {
 "name": "?GetExpressionCount@@YAHTsval_u@@@Z",
@@ -18187,7 +19484,9 @@
 "name": "?LinkFile@@YAXI@Z",
 "obj": "scr_compiler.obj",
 "size": 324,
-"hits": []
+"hits": [
+"0x46ed10"
+]
 },
 {
 "name": "?SpecifyThreadPosition@@YAIIIIH@Z",
@@ -18263,7 +19562,9 @@
 "name": "?EmitOrEvalPrimitiveExpression@@YA_NTsval_u@@PAUVariableCompileValue@@PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 378,
-"hits": []
+"hits": [
+"0x46f590"
+]
 },
 {
 "name": "?EmitPrimitiveExpression@@YAXTsval_u@@PAUscr_block_s@@@Z",
@@ -18335,7 +19636,9 @@
 "name": "?EmitOrEvalExpression@@YA_NTsval_u@@PAUVariableCompileValue@@PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 370,
-"hits": []
+"hits": [
+"0x46fd60"
+]
 },
 {
 "name": "?EmitExpression@@YAXTsval_u@@PAUscr_block_s@@@Z",
@@ -18349,7 +19652,9 @@
 "name": "?EmitVariableExpressionRef@@YAXTsval_u@@PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 240,
-"hits": []
+"hits": [
+"0x46ff10"
+]
 },
 {
 "name": "?Scr_CalcLocalVarsVariableExpressionRef@@YAXTsval_u@@PAUscr_block_s@@@Z",
@@ -18381,7 +19686,9 @@
 "name": "?EmitPrimitiveExpressionFieldObject@@YAXTsval_u@@0PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 234,
-"hits": []
+"hits": [
+"0x4700c0"
+]
 },
 {
 "name": "?EmitExpressionFieldObject@@YAXTsval_u@@0PAUscr_block_s@@@Z",
@@ -18429,7 +19736,9 @@
 "name": "?EmitClearVariableExpression@@YA_NTsval_u@@0PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 224,
-"hits": []
+"hits": [
+"0x470290"
+]
 },
 {
 "name": "?EmitAssignmentStatement@@YAXTsval_u@@000PAUscr_block_s@@@Z",
@@ -18549,7 +19858,9 @@
 "name": "?Scr_CalcLocalVarsWhileStatement@@YAXTsval_u@@0PAUscr_block_s@@PAT1@@Z",
 "obj": "scr_compiler.obj",
 "size": 572,
-"hits": []
+"hits": [
+"0x471260"
+]
 },
 {
 "name": "?EmitForStatement@@YAXTsval_u@@00000PAUscr_block_s@@PAT1@2@Z",
@@ -18563,7 +19874,9 @@
 "name": "?Scr_CalcLocalVarsForStatement@@YAXTsval_u@@000PAUscr_block_s@@PAT1@2@Z",
 "obj": "scr_compiler.obj",
 "size": 688,
-"hits": []
+"hits": [
+"0x471a00"
+]
 },
 {
 "name": "?EmitIncStatement@@YAXTsval_u@@0PAUscr_block_s@@@Z",
@@ -18763,13 +20076,17 @@
 "name": "?EmitStatement@@YAXTsval_u@@_NIPAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 1080,
-"hits": []
+"hits": [
+"0x4733c0"
+]
 },
 {
 "name": "?Scr_CalcLocalVarsStatement@@YAXTsval_u@@PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 527,
-"hits": []
+"hits": [
+"0x473800"
+]
 },
 {
 "name": "?EmitStatementList@@YAXTsval_u@@_NIPAUscr_block_s@@@Z",
@@ -18815,7 +20132,10 @@
 "name": "?Scr_CalcLocalVarsFormalParameterList@@YAXTsval_u@@PAUscr_block_s@@@Z",
 "obj": "scr_compiler.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x473cf0"
+],
+"scan": 1
 },
 {
 "name": "?SpecifyThread@@YAXTsval_u@@@Z",
@@ -18869,7 +20189,9 @@
 "name": "?EmitThread@@YAXTsval_u@@@Z",
 "obj": "scr_compiler.obj",
 "size": 196,
-"hits": []
+"hits": [
+"0x474100"
+]
 },
 {
 "name": "?EmitThreadList@@YAXTsval_u@@@Z",
@@ -18899,7 +20221,9 @@
 "name": "?ScriptCompile@@YAXTsval_u@@II@Z",
 "obj": "scr_compiler.obj",
 "size": 1248,
-"hits": []
+"hits": [
+"0x474310"
+]
 },
 {
 "name": "?Scr_CompileStatement@@YAXTsval_u@@@Z",
@@ -18921,7 +20245,10 @@
 "name": "?Scr_IsInOpcodeMemory@@YAHPBD@Z",
 "obj": "scr_main.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x4748d0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_IsInScriptMemory@@YAHPBD@Z",
@@ -18959,7 +20286,10 @@
 "name": "?Scr_EndLoadEvaluate@@YAXXZ",
 "obj": "scr_main.obj",
 "size": 30,
-"hits": []
+"hits": [
+"0x474a90"
+],
+"scan": 1
 },
 {
 "name": "?SL_TransferToCanonicalString@@YAII@Z",
@@ -19021,7 +20351,16 @@
 "name": "?Scr_PostCompileScripts@@YAXXZ",
 "obj": "scr_main.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4073a0",
+"0x415f80",
+"0x42cca0",
+"0x42cd50",
+"0x4578f0",
+"0x474f90",
+"0x592ba0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_EndLoadScripts@@YAXXZ",
@@ -19169,7 +20508,10 @@
 "name": "?MT_Alloc@@YAPAXHH@Z",
 "obj": "scr_memorytree.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x475b80"
+],
+"scan": 1
 },
 {
 "name": "?MT_Free@@YAXPAXH@Z",
@@ -19319,7 +20661,10 @@
 "name": "?Scr_IsDeveloper@@YAHXZ",
 "obj": "scr_parser.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x476430"
+],
+"scan": 1
 },
 {
 "name": "?Scr_GetNewSourceBuffer@@YAPAUSourceBufferInfo@@XZ",
@@ -19579,7 +20924,10 @@
 "name": "?GetRefString@@YAPAURefString@@I@Z",
 "obj": "scr_stringlist.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x4770e0"
+],
+"scan": 1
 },
 {
 "name": "?SL_ConvertToString@@YAPBDI@Z",
@@ -19645,13 +20993,19 @@
 "name": "?SL_Restart@@YAXXZ",
 "obj": "scr_stringlist.obj",
 "size": 24,
-"hits": []
+"hits": [
+"0x477290"
+],
+"scan": 1
 },
 {
 "name": "?SL_Shutdown@@YAXXZ",
 "obj": "scr_stringlist.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x4772b0"
+],
+"scan": 1
 },
 {
 "name": "?SL_FindStringOfLen@@YAIPBDI@Z",
@@ -19903,19 +21257,34 @@
 "name": "?TempMalloc@@YAPADH@Z",
 "obj": "scr_tempmemory.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x4781e0",
+"0x478200",
+"0x478220"
+],
+"scan": 1
 },
 {
 "name": "?TempMallocAlign@@YAPADH@Z",
 "obj": "scr_tempmemory.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x4781e0",
+"0x478200",
+"0x478220"
+],
+"scan": 1
 },
 {
 "name": "?TempMallocAlignStrict@@YAPADH@Z",
 "obj": "scr_tempmemory.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x4781e0",
+"0x478200",
+"0x478220"
+],
+"scan": 1
 },
 {
 "name": "?TempMemorySetPos@@YAXPAD@Z",
@@ -20126,7 +21495,13 @@
 "name": "?Scr_GetThreadNotifyName@@YAGI@Z",
 "obj": "scr_variable.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x479050",
+"0x4790b0",
+"0x4790c0",
+"0x47a6f0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_SetThreadWaitTime@@YAXII@Z",
@@ -20149,13 +21524,25 @@
 "name": "?Scr_GetThreadWaitTime@@YAII@Z",
 "obj": "scr_variable.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x479050",
+"0x4790b0",
+"0x4790c0",
+"0x47a6f0"
+],
+"scan": 1
 },
 {
 "name": "?GetParentLocalId@@YAII@Z",
 "obj": "scr_variable.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x479050",
+"0x4790b0",
+"0x4790c0",
+"0x47a6f0"
+],
+"scan": 1
 },
 {
 "name": "?GetSafeParentLocalId@@YAII@Z",
@@ -20177,7 +21564,9 @@
 "name": "?Scr_KillThread@@YAXI@Z",
 "obj": "scr_variable.obj",
 "size": 536,
-"hits": []
+"hits": [
+"0x479120"
+]
 },
 {
 "name": "?Scr_KillEndonThread@@YAXI@Z",
@@ -20255,19 +21644,30 @@
 "name": "?Scr_GetSelf@@YAII@Z",
 "obj": "scr_variable.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4795d0",
+"0x479710",
+"0x47a670",
+"0x47aac0"
+],
+"scan": 1
 },
 {
 "name": "?FreeValue@@YAXI@Z",
 "obj": "scr_variable.obj",
 "size": 88,
-"hits": []
+"hits": [
+"0x4795e0"
+]
 },
 {
 "name": "?AddRefToObject@@YAXI@Z",
 "obj": "scr_variable.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x479640"
+],
+"scan": 1
 },
 {
 "name": "?RemoveRefToObject@@YAXI@Z",
@@ -20289,7 +21689,13 @@
 "name": "?Scr_GetRefCountToObject@@YAHI@Z",
 "obj": "scr_variable.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4795d0",
+"0x479710",
+"0x47a670",
+"0x47aac0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_AllocVectorInternal@@YAPAMXZ",
@@ -20328,25 +21734,35 @@
 "name": "?AddRefToValue@@YAXHTVariableUnion@@@Z",
 "obj": "scr_variable.obj",
 "size": 88,
-"hits": []
+"hits": [
+"0x4797b0"
+]
 },
 {
 "name": "?RemoveRefToValue@@YAXHTVariableUnion@@@Z",
 "obj": "scr_variable.obj",
 "size": 64,
-"hits": []
+"hits": [
+"0x479810"
+]
 },
 {
 "name": "?IsValidArrayIndex@@YA_NI@Z",
 "obj": "scr_variable.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x479850"
+],
+"scan": 1
 },
 {
 "name": "?GetInternalVariableIndex@@YAII@Z",
 "obj": "scr_variable.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x479860"
+],
+"scan": 1
 },
 {
 "name": "?FindArrayVariableIndex@@YAIII@Z",
@@ -20419,7 +21835,9 @@
 "name": "?Scr_FindAllVariableField@@YAIIPAI@Z",
 "obj": "scr_variable.obj",
 "size": 424,
-"hits": []
+"hits": [
+"0x479af0"
+]
 },
 {
 "name": "?Scr_GetArrayIndexValue@@YA?AUVariableValue@@I@Z",
@@ -20517,7 +21935,10 @@
 "name": "?RemoveObjectVariable@@YAXII@Z",
 "obj": "scr_variable.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x479fb0"
+],
+"scan": 1
 },
 {
 "name": "?SafeRemoveArrayVariable@@YAXII@Z",
@@ -20547,13 +21968,17 @@
 "name": "?CopyArray@@YAXII@Z",
 "obj": "scr_variable.obj",
 "size": 416,
-"hits": []
+"hits": [
+"0x47a080"
+]
 },
 {
 "name": "?SetVariableValue@@YAXIPAUVariableValue@@@Z",
 "obj": "scr_variable.obj",
 "size": 96,
-"hits": []
+"hits": [
+"0x47a220"
+]
 },
 {
 "name": "?SetNewVariableValue@@YAXIPAUVariableValue@@@Z",
@@ -20567,7 +21992,10 @@
 "name": "?GetVariableValueAddress@@YAPATVariableUnion@@I@Z",
 "obj": "scr_variable.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x47a2a0"
+],
+"scan": 1
 },
 {
 "name": "?SetVariableEntityFieldValue@@YAXIIPAUVariableValue@@@Z",
@@ -20581,7 +22009,9 @@
 "name": "?ClearVariableValue@@YAXI@Z",
 "obj": "scr_variable.obj",
 "size": 84,
-"hits": []
+"hits": [
+"0x47a370"
+]
 },
 {
 "name": "?SetVariableFieldValue@@YAXIPAUVariableValue@@@Z",
@@ -20627,13 +22057,21 @@
 "name": "?Scr_EvalSizeValue@@YAXPAUVariableValue@@@Z",
 "obj": "scr_variable.obj",
 "size": 220,
-"hits": []
+"hits": [
+"0x47a590"
+]
 },
 {
 "name": "?GetArraySize@@YAII@Z",
 "obj": "scr_variable.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4795d0",
+"0x479710",
+"0x47a670",
+"0x47aac0"
+],
+"scan": 1
 },
 {
 "name": "?FindNextSibling@@YAII@Z",
@@ -20655,7 +22093,13 @@
 "name": "?GetVariableName@@YAII@Z",
 "obj": "scr_variable.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x479050",
+"0x4790b0",
+"0x4790c0",
+"0x47a6f0"
+],
+"scan": 1
 },
 {
 "name": "?GetObjectA@@YAII@Z",
@@ -20677,7 +22121,10 @@
 "name": "?FindObject@@YAII@Z",
 "obj": "scr_variable.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x47a790"
+],
+"scan": 1
 },
 {
 "name": "?IsFieldObject@@YA_NI@Z",
@@ -20723,13 +22170,17 @@
 "name": "?Scr_CastString@@YA_NPAUVariableValue@@@Z",
 "obj": "scr_variable.obj",
 "size": 200,
-"hits": []
+"hits": [
+"0x47a8d0"
+]
 },
 {
 "name": "?Scr_CastDebugString@@YAXPAUVariableValue@@@Z",
 "obj": "scr_variable.obj",
 "size": 248,
-"hits": []
+"hits": [
+"0x47a9a0"
+]
 },
 {
 "name": "?Scr_GetEntClassId@@YADI@Z",
@@ -20743,7 +22194,13 @@
 "name": "?Scr_GetEntNum@@YAHI@Z",
 "obj": "scr_variable.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4795d0",
+"0x479710",
+"0x47a670",
+"0x47aac0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_ClearVector@@YAXPAUVariableValue@@@Z",
@@ -20757,19 +22214,25 @@
 "name": "?Scr_CastVector@@YAXPAUVariableValue@@@Z",
 "obj": "scr_variable.obj",
 "size": 284,
-"hits": []
+"hits": [
+"0x47ab00"
+]
 },
 {
 "name": "?Scr_EvalFieldObject@@YAIIPAUVariableValue@@@Z",
 "obj": "scr_variable.obj",
 "size": 168,
-"hits": []
+"hits": [
+"0x47ac20"
+]
 },
 {
 "name": "?Scr_UnmatchingTypesError@@YAXPAUVariableValue@@0@Z",
 "obj": "scr_variable.obj",
 "size": 240,
-"hits": []
+"hits": [
+"0x47acd0"
+]
 },
 {
 "name": "?Scr_CastWeakerPair@@YAXPAUVariableValue@@0@Z",
@@ -20815,7 +22278,9 @@
 "name": "?Scr_EvalEquality@@YAXPAUVariableValue@@0@Z",
 "obj": "scr_variable.obj",
 "size": 424,
-"hits": []
+"hits": [
+"0x47afa0"
+]
 },
 {
 "name": "?Scr_EvalInequality@@YAXPAUVariableValue@@0@Z",
@@ -20883,7 +22348,9 @@
 "name": "?Scr_EvalPlus@@YAXPAUVariableValue@@0@Z",
 "obj": "scr_variable.obj",
 "size": 452,
-"hits": []
+"hits": [
+"0x47b330"
+]
 },
 {
 "name": "?Scr_EvalMinus@@YAXPAUVariableValue@@0@Z",
@@ -20921,7 +22388,9 @@
 "name": "?Scr_EvalBinaryOperator@@YAXHPAUVariableValue@@0@Z",
 "obj": "scr_variable.obj",
 "size": 212,
-"hits": []
+"hits": [
+"0x47b7a0"
+]
 },
 {
 "name": "?IsObjectFree@@YA_NI@Z",
@@ -20935,7 +22404,10 @@
 "name": "?GetObjectType@@YAHI@Z",
 "obj": "scr_variable.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x47b8a0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_FreeEntityNum@@YAXHH@Z",
@@ -21037,13 +22509,17 @@
 "name": "?Scr_EvalArrayRef@@YAII@Z",
 "obj": "scr_variable.obj",
 "size": 716,
-"hits": []
+"hits": [
+"0x47c090"
+]
 },
 {
 "name": "?ClearArray@@YAXIPAUVariableValue@@@Z",
 "obj": "scr_variable.obj",
 "size": 592,
-"hits": []
+"hits": [
+"0x47c360"
+]
 },
 {
 "name": "?SetEmptyArray@@YAXI@Z",
@@ -21065,7 +22541,9 @@
 "name": "?CopyEntity@@YAXII@Z",
 "obj": "scr_variable.obj",
 "size": 364,
-"hits": []
+"hits": [
+"0x47c630"
+]
 },
 {
 "name": "?Scr_CopyEntityNum@@YAXHHH@Z",
@@ -21294,7 +22772,11 @@
 "name": "?Scr_ClearErrorMessage@@YAXXZ",
 "obj": "scr_vm.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x40fb60",
+"0x47d380"
+],
+"scan": 1
 },
 {
 "name": "?Scr_VM_Init@@YAXXZ",
@@ -21341,7 +22823,10 @@
 "name": "?Scr_Abort@@YAXXZ",
 "obj": "scr_vm.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x47d580"
+],
+"scan": 1
 },
 {
 "name": "?Scr_SetLoading@@YAXH@Z",
@@ -21377,13 +22862,18 @@
 "name": "?GetDummyFieldValue@@YAIXZ",
 "obj": "scr_vm.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x47d6c0"
+],
+"scan": 1
 },
 {
 "name": "?VM_ExecuteInternal@@YAIUfunction_stack_t@@@Z",
 "obj": "scr_vm.obj",
 "size": 10764,
-"hits": []
+"hits": [
+"0x47d6d0"
+]
 },
 {
 "name": "?Scr_GetReturnPos@@YAPADPAI@Z",
@@ -21397,7 +22887,9 @@
 "name": "?Scr_GetNextCodepos@@YAPBDPAUVariableValue@@PBDHHPAI@Z",
 "obj": "scr_vm.obj",
 "size": 799,
-"hits": []
+"hits": [
+"0x480110"
+]
 },
 {
 "name": "?VM_CancelNotifyInternal@@YAXIIIII@Z",
@@ -21443,13 +22935,17 @@
 "name": "?VM_TerminateStack@@YAXIIPAUVariableStackBuffer@@@Z",
 "obj": "scr_vm.obj",
 "size": 456,
-"hits": []
+"hits": [
+"0x480870"
+]
 },
 {
 "name": "?VM_TrimStack@@YAXIPAUVariableStackBuffer@@_N@Z",
 "obj": "scr_vm.obj",
 "size": 448,
-"hits": []
+"hits": [
+"0x480a40"
+]
 },
 {
 "name": "?Scr_TerminateRunningThread@@YAXI@Z",
@@ -21517,7 +23013,9 @@
 "name": "?Scr_NotifyNum@@YAXHHII@Z",
 "obj": "scr_vm.obj",
 "size": 236,
-"hits": []
+"hits": [
+"0x4817c0"
+]
 },
 {
 "name": "?Scr_CancelNotifyList@@YAXI@Z",
@@ -21531,13 +23029,17 @@
 "name": "?VM_TerminateTime@@YAXI@Z",
 "obj": "scr_vm.obj",
 "size": 380,
-"hits": []
+"hits": [
+"0x481aa0"
+]
 },
 {
 "name": "?VM_Resume@@YAXI@Z",
 "obj": "scr_vm.obj",
 "size": 596,
-"hits": []
+"hits": [
+"0x481c20"
+]
 },
 {
 "name": "?IncInParam@@YAXXZ",
@@ -21551,19 +23053,25 @@
 "name": "?VM_Execute@@YAIIPBDI@Z",
 "obj": "scr_vm.obj",
 "size": 436,
-"hits": []
+"hits": [
+"0x481ec0"
+]
 },
 {
 "name": "?Scr_ExecThread@@YAGHI@Z",
 "obj": "scr_vm.obj",
 "size": 264,
-"hits": []
+"hits": [
+"0x482080"
+]
 },
 {
 "name": "?Scr_ExecEntThreadNum@@YAGHHHI@Z",
 "obj": "scr_vm.obj",
 "size": 268,
-"hits": []
+"hits": [
+"0x482190"
+]
 },
 {
 "name": "?Scr_AddExecThread@@YAXHI@Z",
@@ -21585,7 +23093,10 @@
 "name": "?Scr_FreeThread@@YAXG@Z",
 "obj": "scr_vm.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x482430"
+],
+"scan": 1
 },
 {
 "name": "?Scr_ExecCode@@YAXPBDI@Z",
@@ -21862,7 +23373,10 @@
 "name": "?Scr_AddEntityNum@@YAXHH@Z",
 "obj": "scr_vm.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x483720"
+],
+"scan": 1
 },
 {
 "name": "?Scr_AddStruct@@YAXXZ",
@@ -21940,19 +23454,28 @@
 "name": "?Scr_ErrorWithDialogMessage@@YAXPBD0@Z",
 "obj": "scr_vm.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x483aa0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_TerminalError@@YAXPBD@Z",
 "obj": "scr_vm.obj",
 "size": 35,
-"hits": []
+"hits": [
+"0x483ab0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_ParamError@@YAXIPBD@Z",
 "obj": "scr_vm.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x483ae0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_ObjectError@@YAXPBD@Z",
@@ -21966,7 +23489,9 @@
 "name": "?SetEntityFieldValue@@YA_NIHHPAUVariableValue@@@Z",
 "obj": "scr_vm.obj",
 "size": 124,
-"hits": []
+"hits": [
+"0x483b30"
+]
 },
 {
 "name": "?GetEntityFieldValue@@YA?AUVariableValue@@IHH@Z",
@@ -21996,19 +23521,29 @@
 "name": "?Scr_IncTime@@YAXXZ",
 "obj": "scr_vm.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x483cb0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_DecTime@@YAXXZ",
 "obj": "scr_vm.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x483cd0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_RunCurrentThreads@@YAXXZ",
 "obj": "scr_vm.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x420d10",
+"0x483ce0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_ResetTimeout@@YAXXZ",
@@ -22028,13 +23563,18 @@
 "name": "?Scr_TraverseScript@@YAXPBD@Z",
 "obj": "scr_vm.obj",
 "size": 251,
-"hits": []
+"hits": [
+"0x483d40"
+]
 },
 {
 "name": "_LowerCase",
 "obj": "scr_yacc.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x483e40"
+],
+"scan": 1
 },
 {
 "name": "___yy_memcpy",
@@ -22048,7 +23588,9 @@
 "name": "_yyparse",
 "obj": "scr_yacc.obj",
 "size": 4412,
-"hits": []
+"hits": [
+"0x483e80"
+]
 },
 {
 "name": "_yysetlength",
@@ -22070,19 +23612,33 @@
 "name": "_yycopyint",
 "obj": "scr_yacc.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x41a7c0",
+"0x4850a0",
+"0x4850c0",
+"0x493f50"
+],
+"scan": 1
 },
 {
 "name": "_yycopyfloat",
 "obj": "scr_yacc.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x41a7c0",
+"0x4850a0",
+"0x4850c0",
+"0x493f50"
+],
+"scan": 1
 },
 {
 "name": "_yylex",
 "obj": "scr_yacc.obj",
 "size": 4236,
-"hits": []
+"hits": [
+"0x4850e0"
+]
 },
 {
 "name": "_yy_get_next_buffer",
@@ -22192,7 +23748,10 @@
 "name": "_yy_fatal_error",
 "obj": "scr_yacc.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x4867e0"
+],
+"scan": 1
 },
 {
 "name": "_yy_flex_alloc",
@@ -22204,13 +23763,37 @@
 "name": "_yy_flex_realloc",
 "obj": "scr_yacc.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x421980",
+"0x486810",
+"0x547120",
+"0x54f2f0",
+"0x550720"
+],
+"scan": 1
 },
 {
 "name": "_yy_flex_free",
 "obj": "scr_yacc.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "_yyerror",
@@ -22556,7 +24139,11 @@
 "name": "?DObjGetBoneIndex@@YAHPBUDObj_s@@I@Z",
 "obj": "dobj.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x488300",
+"0x4ba270"
+],
+"scan": 1
 },
 {
 "name": "?DObjGetBoneName@@YAPBDPBUDObj_s@@H@Z",
@@ -22795,7 +24382,10 @@
 "name": "?XAnimShutdown@@YAXXZ",
 "obj": "xanim.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x489530"
+],
+"scan": 1
 },
 {
 "name": "?XAnimAbort@@YAXXZ",
@@ -23237,7 +24827,10 @@
 "name": "?XAnimGetNumChildren@@YAHPBUXAnim_s@@I@Z",
 "obj": "xanim.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x48c840"
+],
+"scan": 1
 },
 {
 "name": "?XAnimGetChildAt@@YAIPBUXAnim_s@@II@Z",
@@ -23299,7 +24892,10 @@
 "name": "?DObjGetClientNotifyList@@YAHPAPAUXAnimNotify_s@@@Z",
 "obj": "xanim.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x48ca90"
+],
+"scan": 1
 },
 {
 "name": "?DObjCalcAnim@@YAXPBUDObj_s@@PAH@Z",
@@ -23442,7 +25038,10 @@
 "name": "?XAnimClearTree@@YAXPAUXAnimTree_s@@@Z",
 "obj": "xanim.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x48d6e0"
+],
+"scan": 1
 },
 {
 "name": "?XAnimGetDescendantWithGreatestWeight@@YAIPBUXAnimTree_s@@I@Z",
@@ -23500,7 +25099,10 @@
 "name": "?XAnimSetupSyncNodes@@YAXPAUXAnim_s@@@Z",
 "obj": "xanim.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x48db60"
+],
+"scan": 1
 },
 {
 "name": "?XAnimIsLeafOrSync@@YA_NPBUXAnim_s@@I@Z",
@@ -23627,7 +25229,10 @@
 "name": "?XAnimGetInfoByIndex@@YAPAUXAnimInfo@@I@Z",
 "obj": "xanim.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x48e100"
+],
+"scan": 1
 },
 {
 "name": "?XAnim_CalcRotDeltaDuring_unsigned_char_@@YAXPAUXAnimDeltaPart@@MHPAM@Z",
@@ -23874,7 +25479,10 @@
 "name": "?XModelBad@@YAHPAUXModel@@@Z",
 "obj": "xmodel.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x48ff80"
+],
+"scan": 1
 },
 {
 "name": "?XModelSetUnusedValue@@YAXH@Z",
@@ -23940,7 +25548,10 @@
 "name": "?XModelPartsSetData@@YAPBDPBDPAUXModelParts_s@@P6APAXH@Z@Z",
 "obj": "xmodel.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x490220"
+],
+"scan": 1
 },
 {
 "name": "?XModelSurfsFindData@@YAPAUXModelSurfs_s@@PBD@Z",
@@ -23954,7 +25565,10 @@
 "name": "?XModelSurfsSetData@@YAPBDPBDPAUXModelSurfs_s@@P6APAXH@Z@Z",
 "obj": "xmodel.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x490250"
+],
+"scan": 1
 },
 {
 "name": "?XModelFindData@@YAPAUXModel@@PBD@Z",
@@ -24082,7 +25696,10 @@
 "name": "?XModel_RendererSlot87@@YAXPBX@Z",
 "obj": "xmodel.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x490990"
+],
+"scan": 1
 },
 {
 "name": "?Vec3Avg@@YAXQBM0QAM@Z",
@@ -24174,7 +25791,21 @@
 "name": "?XModelLoadXSkins_48ea80@@YAPAUtrXSkin_t@@PAUXModel@@@Z",
 "obj": "xmodel_load.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?XModelSurfsSupported@@YA_NXZ",
@@ -24345,13 +25976,20 @@
 "name": "?WriteByte@FxArchive@@QAEXE@Z",
 "obj": "FxArchive.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x492170"
+],
+"scan": 1
 },
 {
 "name": "?WriteFloat@FxArchive@@QAEXM@Z",
 "obj": "FxArchive.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x492180",
+"0x493c20"
+],
+"scan": 1
 },
 {
 "name": "??0FxArchive@@QAE@XZ",
@@ -24503,13 +26141,21 @@
 "name": "_cosf",
 "obj": "FxChannel.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4929e0",
+"0x4929f0"
+],
+"scan": 1
 },
 {
 "name": "?cos@@YAMM@Z",
 "obj": "FxChannel.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4929e0",
+"0x4929f0"
+],
+"scan": 1
 },
 {
 "name": "?FxChannel_CreateDefault@@YAXPAUFxChannel@@HMM@Z",
@@ -24583,7 +26229,14 @@
 "name": "?FxCurveIterator_Release@@YAXPAUFxCurveIterator@@@Z",
 "obj": "FxCurve.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x443be0",
+"0x492fc0",
+"0x493a60",
+"0x4aec00",
+"0x4af640"
+],
+"scan": 1
 },
 {
 "name": "?FxCurve_IntegrateSegment@@YAMMMMM@Z",
@@ -24630,13 +26283,19 @@
 "name": "?FX_PlaySimpleEffect@@YAXPBUFxEffectDef@@PBM@Z",
 "obj": "Fxexport.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x493200"
+],
+"scan": 1
 },
 {
 "name": "?FX_PlayEffect@@YAXPBUFxEffectDef@@PBM1@Z",
 "obj": "Fxexport.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x493210"
+],
+"scan": 1
 },
 {
 "name": "?FX_PlayOrientedEffect@@YAXPBUFxEffectDef@@PBM11@Z",
@@ -24680,19 +26339,30 @@
 "name": "?FX_AdjustCamera@@YAXPBUrefdef_s@@M@Z",
 "obj": "Fxexport.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x493340"
+],
+"scan": 1
 },
 {
 "name": "?FX_AdjustTime@@YAXH@Z",
 "obj": "Fxexport.obj",
 "size": 43,
-"hits": []
+"hits": [
+"0x493360"
+],
+"scan": 1
 },
 {
 "name": "?FX_WarpTime@@YAXH@Z",
 "obj": "Fxexport.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x407830",
+"0x407840",
+"0x493390"
+],
+"scan": 1
 },
 {
 "name": "?FxMem_Init@@YAXXZ",
@@ -24879,13 +26549,23 @@
 "name": "??0FxBoltFramePtr@@QAE@XZ",
 "obj": "FxPrimitives.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x443be0",
+"0x492fc0",
+"0x493a60",
+"0x4aec00",
+"0x4af640"
+],
+"scan": 1
 },
 {
 "name": "??1FxBoltFramePtr@@QAE@XZ",
 "obj": "FxPrimitives.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x493a80"
+],
+"scan": 1
 },
 {
 "name": "??4FxBoltFramePtr@@QAEXABV0@@Z",
@@ -24915,7 +26595,10 @@
 "name": "?GetVisibility@Effect@@UAEMQBM0M@Z",
 "obj": "FxPrimitives.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x493af0"
+],
+"scan": 1
 },
 {
 "name": "?GetDuration@Effect@@QAEHXZ",
@@ -24999,7 +26682,11 @@
 "name": "?WriteInt@FxArchive@@QAEXH@Z",
 "obj": "FxPrimitives.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x492180",
+"0x493c20"
+],
+"scan": 1
 },
 {
 "name": "?ArchiveByte@FxArchive@@QAEXPAE@Z",
@@ -25102,7 +26789,13 @@
 "name": "?FX_XModelPrecache@@YAPAUXModel@@PBD@Z",
 "obj": "FxPrimitives.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x41a7c0",
+"0x4850a0",
+"0x4850c0",
+"0x493f50"
+],
+"scan": 1
 },
 {
 "name": "??0Effect@@QAE@XZ",
@@ -25585,7 +27278,10 @@
 "name": "?Draw@OrientedParticle@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x496960"
+],
+"scan": 1
 },
 {
 "name": "?Update@OrientedParticle@@UAE_NXZ",
@@ -25666,7 +27362,10 @@
 "name": "?Draw@Cloud@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x496ca0"
+],
+"scan": 1
 },
 {
 "name": "?CreateChannelInstances@Cloud@@UAEXPBUPrimitiveTemplate@@@Z",
@@ -25767,7 +27466,11 @@
 "name": "?Draw@Line@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4970d0",
+"0x497340"
+],
+"scan": 1
 },
 {
 "name": "?Update@Line@@UAE_NXZ",
@@ -25836,7 +27539,10 @@
 "name": "?InitEndPoint@Tail@@QAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x497270"
+],
+"scan": 1
 },
 {
 "name": "?Cull@Tail@@UAE_NXZ",
@@ -25859,7 +27565,11 @@
 "name": "?Draw@Tail@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4970d0",
+"0x497340"
+],
+"scan": 1
 },
 {
 "name": "?Update@Tail@@UAE_NXZ",
@@ -25959,7 +27669,10 @@
 "name": "?Draw@Cylinder@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x497780"
+],
+"scan": 1
 },
 {
 "name": "?Update@Cylinder@@UAE_NXZ",
@@ -26794,7 +28507,9 @@
 "name": "?FX_AddPrimitive@@YAXPAUEffectPrimitive@@QAY02MQBMHH@Z",
 "obj": "FxScheduler.obj",
 "size": 268,
-"hits": []
+"hits": [
+"0x49a0b0"
+]
 },
 {
 "name": "?CreateEffect@FxScheduler@@QAEXPBUFxEffectDef@@PBUPrimitiveTemplate@@PBUFxBoltInfo@@QBMQAY02$$CBMHH@Z",
@@ -26939,7 +28654,10 @@
 "name": "?FX_Alloc@@YAPAXH@Z",
 "obj": "FxScheduler_load_obj.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x49a870"
+],
+"scan": 1
 },
 {
 "name": "?FX_CleanTemplate@@YAXPAUFxEffectDef@@@Z",
@@ -27025,13 +28743,19 @@
 "name": "?AddEffect@MediaHandles@@QAEXPAUFxEffectDef@@@Z",
 "obj": "FxScheduler_load_obj.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49ae60"
+],
+"scan": 1
 },
 {
 "name": "?FX_StripExtensionLower_497d90@@YAXPBDPAD@Z",
 "obj": "FxScheduler_load_obj.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x49ae70"
+],
+"scan": 1
 },
 {
 "name": "?VectorNegate@@YAXQBMQAM@Z",
@@ -27123,19 +28847,39 @@
 "name": "?AddFxToScene@FxHelper@@QAEXPAUGfxEntity@@PAUXModel@@@Z",
 "obj": "FxSystem.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x49b450"
+],
+"scan": 1
 },
 {
 "name": "?SetIgnorePrecacheErrors@FxHelper@@QAEX_N@Z",
 "obj": "FxSystem.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x49b460"
+],
+"scan": 1
 },
 {
 "name": "?GetMaterialName@FxHelper@@QAEPBDPAUMaterial@@@Z",
 "obj": "FxSystem.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?Archive@FxHelper@@QAEXPAVFxArchive@@@Z",
@@ -27149,13 +28893,41 @@
 "name": "?GetMaterialSubimageCount@FxHelper@@QAEHPAUMaterial@@@Z",
 "obj": "FxSystem.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?IsMaterialRefractive@FxHelper@@QAE_NPAUMaterial@@@Z",
 "obj": "FxSystem.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x402120",
+"0x402130",
+"0x4058b0",
+"0x4126e0",
+"0x44a170",
+"0x44a180",
+"0x44a1b0",
+"0x44a1c0",
+"0x491b60",
+"0x49b470",
+"0x49b510",
+"0x49b520"
+],
+"scan": 1
 },
 {
 "name": "?AddLightToScene@FxHelper@@QAEXQBMMMMM@Z",
@@ -27169,7 +28941,10 @@
 "name": "?AddPolyToScene@FxHelper@@QAEXPAUMaterial@@HPBUGfxWorldVertex@@@Z",
 "obj": "FxSystem.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x49b560"
+],
+"scan": 1
 },
 {
 "name": "?GetSeed@FxHelper@@QAEHXZ",
@@ -27183,7 +28958,13 @@
 "name": "?FxHelper_Stub_4984c0@@YAMM@Z",
 "obj": "FxSystem.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x415f90",
+"0x415fa0",
+"0x415fb0",
+"0x49b5a0"
+],
+"scan": 1
 },
 {
 "name": "?Init@PrimitiveTemplate@@QAEXXZ",
@@ -27693,7 +29474,10 @@
 "name": "?FX_RegisterMaterial@@YAPAUMaterial@@PBD@Z",
 "obj": "FxTemplate.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x49e6b0"
+],
+"scan": 1
 },
 {
 "name": "?FX_ModelRegister@@YAPAUXModel@@PBD@Z",
@@ -27707,7 +29491,9 @@
 "name": "?FX_PrimTypeIsEmitter@@YAHW4PrimType@@@Z",
 "obj": "FxTemplate.obj",
 "size": 56,
-"hits": []
+"hits": [
+"0x49e700"
+]
 },
 {
 "name": "?FxRange_Set_49b650@@YGXPAUFxRange@@MM@Z",
@@ -27777,13 +29563,19 @@
 "name": "?SetFlags@Effect@@QAEXH@Z",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49e890"
+],
+"scan": 1
 },
 {
 "name": "?GetTimeStart@Effect@@QAEHXZ",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49e8f0"
+],
+"scan": 1
 },
 {
 "name": "?SetColorBlendFactor@Light@@QAEXM@Z",
@@ -27878,13 +29670,19 @@
 "name": "?SetNonUniformScale@Particle@@QAEX_N@Z",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49ea30"
+],
+"scan": 1
 },
 {
 "name": "?SetStartFrame@Particle@@QAEXH@Z",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49ea40"
+],
+"scan": 1
 },
 {
 "name": "?SetFrameRate@Particle@@QAEXM@Z",
@@ -27898,13 +29696,19 @@
 "name": "?SetLoopMode@Particle@@QAEXH@Z",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49ea60"
+],
+"scan": 1
 },
 {
 "name": "?SetLoopTimes@Particle@@QAEXH@Z",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49ea70"
+],
+"scan": 1
 },
 {
 "name": "?SetColorBlendFactor@Particle@@QAEXM@Z",
@@ -28032,7 +29836,10 @@
 "name": "?SetModel@Emitter@@QAEXPAUXModel@@@Z",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49ebc0"
+],
+"scan": 1
 },
 {
 "name": "?SetAngles@Emitter@@QAEXQBM@Z",
@@ -28054,7 +29861,10 @@
 "name": "?SetEmitFx@Emitter@@QAEXPBUFxEffectDef@@@Z",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49ec50"
+],
+"scan": 1
 },
 {
 "name": "?SetEmitDistBase@Emitter@@QAEXM@Z",
@@ -28076,7 +29886,10 @@
 "name": "?SetEmitTime@Emitter@@QAEXH@Z",
 "obj": "FxUtil.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x49ec80"
+],
+"scan": 1
 },
 {
 "name": "?SetEmitOrigin@Emitter@@QAEXQBM@Z",
@@ -28112,7 +29925,10 @@
 "name": "?GetUsedSize@FxArchive@@QAEHXZ",
 "obj": "FxUtil.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x49ed60"
+],
+"scan": 1
 },
 {
 "name": "??2FxScheduler@@SAPAXI@Z",
@@ -28126,7 +29942,24 @@
 "name": "??3FxScheduler@@SAXPAX@Z",
 "obj": "FxUtil.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "??_H@YGXPAXIHP6EPAX0@Z@Z",
@@ -28344,7 +30177,9 @@
 "name": "?FX_Restore@@YAHPAUMemoryFile@@@Z",
 "obj": "FxUtil.obj",
 "size": 912,
-"hits": []
+"hits": [
+"0x49fef0"
+]
 },
 {
 "name": "?FX_CompareSortedEffects@@YAHPBX0@Z",
@@ -28694,7 +30529,24 @@
 "name": "??3TextPool@@SAXPAX@Z",
 "obj": "GenericParser2.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "??2GPObject@@SAPAXI@Z",
@@ -28710,7 +30562,24 @@
 "name": "??3GPObject@@SAXPAX@Z",
 "obj": "GenericParser2.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?GetToken@@YAPADPAPAD_N1@Z",
@@ -28732,7 +30601,10 @@
 "name": "??1TextPool@@QAE@XZ",
 "obj": "GenericParser2.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x4a3320"
+],
+"scan": 1
 },
 {
 "name": "?AllocText@TextPool@@QAEPADPAD_NPAPAV1@@Z",
@@ -28986,7 +30858,10 @@
 "name": "??1GenericParser2@@QAE@XZ",
 "obj": "GenericParser2.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x4a4240"
+],
+"scan": 1
 },
 {
 "name": "?Parse@GenericParser2@@QAE_NPAPAD_N1@Z",
@@ -29192,7 +31067,9 @@
 "name": "_inflate_blocks",
 "obj": "infblock.obj",
 "size": 2864,
-"hits": []
+"hits": [
+"0x4a5e10"
+]
 },
 {
 "name": "_inflate_blocks_free",
@@ -29230,7 +31107,9 @@
 "name": "_inflate_codes",
 "obj": "infcodes.obj",
 "size": 1788,
-"hits": []
+"hits": [
+"0x4a6a40"
+]
 },
 {
 "name": "_inflate_codes_free",
@@ -29284,7 +31163,9 @@
 "name": "_inflate",
 "obj": "inflate.obj",
 "size": 1008,
-"hits": []
+"hits": [
+"0x4a76a0"
+]
 },
 {
 "name": "_inflateSetDictionary",
@@ -29744,7 +31625,10 @@
 "name": "_zcfree",
 "obj": "zutil.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x4ab0c0"
+],
+"scan": 1
 },
 {
 "name": "?Language_UpdateCurrentAsian@@YAXXZ",
@@ -29758,7 +31642,12 @@
 "name": "?SEH_GetCurrentLanguage@@YAHXZ",
 "obj": "stringed_hooks.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x40bff0",
+"0x45b980",
+"0x4ab100"
+],
+"scan": 1
 },
 {
 "name": "?SEH_InitLanguage@@YAXXZ",
@@ -29952,7 +31841,9 @@
 "name": "?SEH_ReadCharFromString@@YAIPAPBDPAH@Z",
 "obj": "stringed_hooks.obj",
 "size": 352,
-"hits": []
+"hits": [
+"0x4abd20"
+]
 },
 {
 "name": "?Language_IsAsian@@YAHXZ",
@@ -30136,7 +32027,24 @@
 "name": "??3CStringEdPackage@@SAXPAX@Z",
 "obj": "stringed_ingame.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?Clear@CStringEdPackage@@QAEXXZ",
@@ -30294,7 +32202,10 @@
 "name": "?SE_NewLanguage@@YAXXZ",
 "obj": "stringed_ingame.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4ad350"
+],
+"scan": 1
 },
 {
 "name": "?SE_Init@@YAXXZ",
@@ -30419,7 +32330,11 @@
 "name": "??4?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV01@ABV01@@Z",
 "obj": "stringed_ingame.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4ad6d0",
+"0x4adc30"
+],
+"scan": 1
 },
 {
 "name": "??4?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV01@PBD@Z",
@@ -30496,7 +32411,10 @@
 "name": "?end@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AViterator@12@XZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4ad960"
+],
+"scan": 1
 },
 {
 "name": "?clear@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAEXXZ",
@@ -30518,7 +32436,12 @@
 "name": "??Citerator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEPAU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4ada00",
+"0x4ae1d0",
+"0x4aec40"
+],
+"scan": 1
 },
 {
 "name": "??8const_iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBE_NABV012@@Z",
@@ -30582,7 +32505,11 @@
 "name": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV12@ABV12@@Z",
 "obj": "stringed_ingame.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4ad6d0",
+"0x4adc30"
+],
+"scan": 1
 },
 {
 "name": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV12@ABV12@II@Z",
@@ -30668,7 +32595,10 @@
 "name": "?lower_bound@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AViterator@12@ABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@2@@Z",
 "obj": "stringed_ingame.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x4ae090"
+],
+"scan": 1
 },
 {
 "name": "?_Erase@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEXPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
@@ -30682,13 +32612,20 @@
 "name": "?_Rmost@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4ae130"
+],
+"scan": 1
 },
 {
 "name": "?_Root@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4ae140",
+"0x4af480"
+],
+"scan": 1
 },
 {
 "name": "?_Tidy@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEXXZ",
@@ -30713,7 +32650,12 @@
 "name": "??Diterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEAAU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4ada00",
+"0x4ae1d0",
+"0x4aec40"
+],
+"scan": 1
 },
 {
 "name": "??0?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@1@0@Z",
@@ -30768,7 +32710,10 @@
 "name": "?deallocate@?$allocator@D@std@@QAEXPADI@Z",
 "obj": "stringed_ingame.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4ae4a0"
+],
+"scan": 1
 },
 {
 "name": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV12@PBDI@Z",
@@ -30790,7 +32735,24 @@
 "name": "?deallocate@?$se_alloc@D@@QAEXPADI@Z",
 "obj": "stringed_ingame.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?begin@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AViterator@12@XZ",
@@ -30844,7 +32806,24 @@
 "name": "?deallocate@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEXPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@I@Z",
 "obj": "stringed_ingame.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?destroy@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEXPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@Z",
@@ -30859,25 +32838,49 @@
 "name": "??0iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE@XZ",
 "obj": "stringed_ingame.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x443be0",
+"0x492fc0",
+"0x493a60",
+"0x4aec00",
+"0x4af640"
+],
+"scan": 1
 },
 {
 "name": "??Eiterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAEAAV012@XZ",
 "obj": "stringed_ingame.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x4aec10",
+"0x4aec20",
+"0x4af650",
+"0x4af660"
+],
+"scan": 1
 },
 {
 "name": "??Fiterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAEAAV012@XZ",
 "obj": "stringed_ingame.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x4aec10",
+"0x4aec20",
+"0x4af650",
+"0x4af660"
+],
+"scan": 1
 },
 {
 "name": "??Dconst_iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEABU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4ada00",
+"0x4ae1d0",
+"0x4aec40"
+],
+"scan": 1
 },
 {
 "name": "??0length_error@std@@QAE@ABV01@@Z",
@@ -30925,7 +32928,10 @@
 "name": "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4aedc0"
+],
+"scan": 1
 },
 {
 "name": "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z",
@@ -30963,7 +32969,10 @@
 "name": "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4aef60"
+],
+"scan": 1
 },
 {
 "name": "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@IAEXII@Z",
@@ -31001,7 +33010,12 @@
 "name": "?max_size@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4af100",
+"0x4af700",
+"0x4af760"
+],
+"scan": 1
 },
 {
 "name": "?erase@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AViterator@12@V312@@Z",
@@ -31023,7 +33037,11 @@
 "name": "?_Root@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IBEAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4ae140",
+"0x4af480"
+],
+"scan": 1
 },
 {
 "name": "?_Rrotate@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEXPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
@@ -31069,25 +33087,47 @@
 "name": "??Eiterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AV012@H@Z",
 "obj": "stringed_ingame.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4af630"
+],
+"scan": 1
 },
 {
 "name": "??0const_iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE@XZ",
 "obj": "stringed_ingame.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x443be0",
+"0x492fc0",
+"0x493a60",
+"0x4aec00",
+"0x4af640"
+],
+"scan": 1
 },
 {
 "name": "??Econst_iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAEAAV012@XZ",
 "obj": "stringed_ingame.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x4aec10",
+"0x4aec20",
+"0x4af650",
+"0x4af660"
+],
+"scan": 1
 },
 {
 "name": "??Fconst_iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAEAAV012@XZ",
 "obj": "stringed_ingame.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x4aec10",
+"0x4aec20",
+"0x4af650",
+"0x4af660"
+],
+"scan": 1
 },
 {
 "name": "??0?$pair@Viterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@_N@std@@QAE@ABViterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@1@AB_N@Z",
@@ -31110,7 +33150,10 @@
 "name": "?allocate@?$allocator@D@std@@QAEPADI@Z",
 "obj": "stringed_ingame.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x4af6d0"
+],
+"scan": 1
 },
 {
 "name": "?allocate@?$se_alloc@D@@QAEPADI@Z",
@@ -31122,7 +33165,12 @@
 "name": "?max_size@?$se_alloc@D@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4af100",
+"0x4af700",
+"0x4af760"
+],
+"scan": 1
 },
 {
 "name": "?_Max@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@@Z",
@@ -31144,7 +33192,12 @@
 "name": "?max_size@?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4af100",
+"0x4af700",
+"0x4af760"
+],
+"scan": 1
 },
 {
 "name": "?allocate@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@I@Z",
@@ -31215,7 +33268,10 @@
 "name": "??$_Allocate@D@std@@YAPADIPAD@Z",
 "obj": "stringed_ingame.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4af950"
+],
+"scan": 1
 },
 {
 "name": "?compare@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QBEHABV12@@Z",
@@ -31253,7 +33309,24 @@
 "name": "?SE_FreeFileDataAfterLoad@@YAXPAE@Z",
 "obj": "stringed_interface.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?SE_R_ListFiles@@YAXPBD0AAV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@Z",
@@ -31284,7 +33357,10 @@
 "name": "??Y?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV01@D@Z",
 "obj": "stringed_interface.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x4afc40"
+],
+"scan": 1
 },
 {
 "name": "?append@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV12@PBD@Z",
@@ -31515,7 +33591,9 @@
 "name": "?RoQInterrupt@@YAXXZ",
 "obj": "cinematics.obj",
 "size": 1256,
-"hits": []
+"hits": [
+"0x4b1da0"
+]
 },
 {
 "name": "?RoQ_init@@YAXXZ",
@@ -31696,7 +33774,10 @@
 "name": "?CL_SortGlobalServers@@YAXXZ",
 "obj": "cl_main_pc_mp.obj",
 "size": 30,
-"hits": []
+"hits": [
+"0x4b3b90"
+],
+"scan": 1
 },
 {
 "name": "?CL_InitServerInfo@@YAXPAUserverInfo_t@@Unetadr_t@@@Z",
@@ -31734,7 +33815,10 @@
 "name": "?CL_RconInit@@YAXXZ",
 "obj": "cl_main_pc_mp.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x4b40d0"
+],
+"scan": 1
 },
 {
 "name": "?CL_RconLogin@@YAXXZ",
@@ -31748,7 +33832,10 @@
 "name": "?CL_RconLogout@@YAXXZ",
 "obj": "cl_main_pc_mp.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x4b4150"
+],
+"scan": 1
 },
 {
 "name": "?CL_RconHost@@YAXXZ",
@@ -31834,7 +33921,10 @@
 "name": "?CL_ResetPlayerMuting@@YAXH@Z",
 "obj": "cl_main_pc_mp.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4b5040"
+],
+"scan": 1
 },
 {
 "name": "?CL_MutePlayer@@YAXH@Z",
@@ -31848,7 +33938,10 @@
 "name": "?CL_IsPlayerMuted@@YAEH@Z",
 "obj": "cl_main_pc_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b5090"
+],
+"scan": 1
 },
 {
 "name": "?CL_ClearMutedList@@YAXXZ",
@@ -31938,7 +34031,10 @@
 "name": "?terminate_handler@@YAHPAU_HTRequest@@PAU_HTResponse@@PAXH@Z",
 "obj": "dl_main.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x4b58c0"
+],
+"scan": 1
 },
 {
 "name": "?HTAlertCallback_progress@@YAHPAU_HTRequest@@W4_HTAlertOpcode@@HPBDPAXPAU_HTAlertPar@@@Z",
@@ -31958,7 +34054,10 @@
 "name": "?HTAlertCallback_prompt@@YAHPAU_HTRequest@@W4_HTAlertOpcode@@HPBDPAXPAU_HTAlertPar@@@Z",
 "obj": "dl_main.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x4b59a0"
+],
+"scan": 1
 },
 {
 "name": "?DL_CancelDownload@@YAXXZ",
@@ -31980,7 +34079,11 @@
 "name": "?DL_Shutdown@@YAXXZ",
 "obj": "dl_main.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x435970",
+"0x4b5ab0"
+],
+"scan": 1
 },
 {
 "name": "?DL_BeginDownload@@YAHPADPBD@Z",
@@ -32037,7 +34140,12 @@
 "name": "?MSS_HunkAlloc_4b2580@@YAPAXH@Z",
 "obj": "snd_driver.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x415f20",
+"0x42e870",
+"0x4b5f90"
+],
+"scan": 1
 },
 {
 "name": "?MSS_FileOpenCallback@@YGKPBDPAK@Z",
@@ -32051,7 +34159,10 @@
 "name": "?MSS_FileCloseCallback@@YGXK@Z",
 "obj": "snd_driver.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4b5fd0"
+],
+"scan": 1
 },
 {
 "name": "?MSS_FileSeekCallback@@YGJKJK@Z",
@@ -32081,7 +34192,17 @@
 "name": "?MSS_GetDryLevel@@YAMXZ",
 "obj": "snd_driver.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b60b0",
+"0x4d8db0",
+"0x4d8dc0",
+"0x4d8dd0",
+"0x4d8de0",
+"0x4d8df0",
+"0x4d8e00",
+"0x4fc050"
+],
+"scan": 1
 },
 {
 "name": "?MSS_GetWetLevel@@YAMPBUsnd_alias_t@@@Z",
@@ -32357,7 +34478,10 @@
 "name": "?SND_Get3DChannelVolume@@YAMH@Z",
 "obj": "snd_driver.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x4b76a0"
+],
+"scan": 1
 },
 {
 "name": "?SND_Set3DChannelVolume@@YAXHM@Z",
@@ -32371,55 +34495,94 @@
 "name": "?SND_GetStreamChannelVolume@@YAMH@Z",
 "obj": "snd_driver.obj",
 "size": 114,
-"hits": []
+"hits": [
+"0x4b76f0"
+]
 },
 {
 "name": "?SND_SetStreamChannelVolume@@YAXHM@Z",
 "obj": "snd_driver.obj",
 "size": 158,
-"hits": []
+"hits": [
+"0x4b7770"
+]
 },
 {
 "name": "?SND_SetStreamChannelVolumePan@@YAXHMM@Z",
 "obj": "snd_driver.obj",
 "size": 138,
-"hits": []
+"hits": [
+"0x4b7810"
+]
 },
 {
 "name": "?SND_Get2DChannelPlaybackRate@@YAHH@Z",
 "obj": "snd_driver.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4b78a0",
+"0x4b78c0",
+"0x4b78e0",
+"0x4b7a80"
+],
+"scan": 1
 },
 {
 "name": "?SND_Set2DChannelPlaybackRate@@YAXHH@Z",
 "obj": "snd_driver.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x4b78b0",
+"0x4b78d0",
+"0x4b78f0"
+],
+"scan": 1
 },
 {
 "name": "?SND_Get3DChannelPlaybackRate@@YAHH@Z",
 "obj": "snd_driver.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4b78a0",
+"0x4b78c0",
+"0x4b78e0",
+"0x4b7a80"
+],
+"scan": 1
 },
 {
 "name": "?SND_Set3DChannelPlaybackRate@@YAXHH@Z",
 "obj": "snd_driver.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x4b78b0",
+"0x4b78d0",
+"0x4b78f0"
+],
+"scan": 1
 },
 {
 "name": "?SND_GetStreamChannelPlaybackRate@@YAHH@Z",
 "obj": "snd_driver.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4b78a0",
+"0x4b78c0",
+"0x4b78e0",
+"0x4b7a80"
+],
+"scan": 1
 },
 {
 "name": "?SND_SetStreamChannelPlaybackRate@@YAXHH@Z",
 "obj": "snd_driver.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x4b78b0",
+"0x4b78d0",
+"0x4b78f0"
+],
+"scan": 1
 },
 {
 "name": "?SND_Update2DChannelReverb@@YAXH@Z",
@@ -32460,7 +34623,13 @@
 "name": "?SND_Get3DChannelLength@@YAHH@Z",
 "obj": "snd_driver.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4b78a0",
+"0x4b78c0",
+"0x4b78e0",
+"0x4b7a80"
+],
+"scan": 1
 },
 {
 "name": "?SND_GetStreamChannelLength@@YAHH@Z",
@@ -32579,7 +34748,10 @@
 "name": "?SND_GetSoundFileSize@@YAHPBX@Z",
 "obj": "snd_driver.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b8340"
+],
+"scan": 1
 },
 {
 "name": "?SND_Update2DChannel@@YAXHH@Z",
@@ -32601,7 +34773,9 @@
 "name": "?SND_UpdateStreamChannel@@YAXHH@Z",
 "obj": "snd_driver.obj",
 "size": 366,
-"hits": []
+"hits": [
+"0x4b8630"
+]
 },
 {
 "name": "?SV_MasterAddress@@YAPAUnetadr_t@@XZ",
@@ -32631,7 +34805,10 @@
 "name": "?SV_MasterShutdown@@YAXXZ",
 "obj": "sv_main_pc_mp.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x4b8990"
+],
+"scan": 1
 },
 {
 "name": "?SV_FlushRedirect@@YAXPAD@Z",
@@ -32850,13 +35027,21 @@
 "name": "?Encode_SetBandwidth_4b67f0@@YA_NH@Z",
 "obj": "encode.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x4ba250",
+"0x4bae50"
+],
+"scan": 1
 },
 {
 "name": "?Sound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@Z",
 "obj": "play.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x488300",
+"0x4ba270"
+],
+"scan": 1
 },
 {
 "name": "?Sound_DestroySample@@YAHPAUdsound_sample_t@@@Z",
@@ -33059,7 +35244,11 @@
 "name": "?Encode_SetBandwidth_4b73f0@@YA_NH@Z",
 "obj": "record.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x4ba250",
+"0x4bae50"
+],
+"scan": 1
 },
 {
 "name": "?Record_SetFrequency@@YA_NH@Z",
@@ -33207,19 +35396,29 @@
 "name": "?PbClAddEvent@@YAXHHPAD@Z",
 "obj": "pbcl.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4bbfb0"
+],
+"scan": 1
 },
 {
 "name": "?PbTrapPreExecCmd@@YAPADPAD@Z",
 "obj": "pbcl.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x4bbfc0"
+],
+"scan": 1
 },
 {
 "name": "?PbClientTrapConsole@@YAXPADH@Z",
 "obj": "pbcl.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x4bbfe0",
+"0x4bd9b0"
+],
+"scan": 1
 },
 {
 "name": "_itoa",
@@ -33347,7 +35546,10 @@
 "name": "?PbSvAddEvent@@YAXHHHPAD@Z",
 "obj": "pbsv.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x4bd770"
+],
+"scan": 1
 },
 {
 "name": "?PbSvEvent15_813be28@@YAXHPAD0@Z",
@@ -33389,7 +35591,11 @@
 "name": "?PbPassConnectString@@YAXPAD0@Z",
 "obj": "pbsv.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x4bbfe0",
+"0x4bd9b0"
+],
+"scan": 1
 },
 {
 "name": "?PbAuthClient@@YAPADPADH0@Z",
@@ -33646,7 +35852,10 @@
 "name": "?CG_SafeTranslateHudElemString@@YAXHPAD@Z",
 "obj": "cg_main_mp.obj",
 "size": 28,
-"hits": []
+"hits": [
+"0x4c08a0"
+],
+"scan": 1
 },
 {
 "name": "?CG_FindSmokeGrenadeEntityState@@YAPAUentityState_s@@HH@Z",
@@ -33810,7 +36019,10 @@
 "name": "?CG_ScoresUp_f@@YAXXZ",
 "obj": "cg_consolecmds_mp.obj",
 "size": 30,
-"hits": []
+"hits": [
+"0x4c1490"
+],
+"scan": 1
 },
 {
 "name": "?CG_ScoresDown_f@@YAXXZ",
@@ -33854,7 +36066,10 @@
 "name": "?CG_QuickMessage_f@@YAXXZ",
 "obj": "cg_consolecmds_mp.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x4c1680"
+],
+"scan": 1
 },
 {
 "name": "?CG_VoiceChat_f@@YAXXZ",
@@ -34040,7 +36255,10 @@
 "name": "?CG_NorthDirectionChanged@@YAXXZ",
 "obj": "cg_drawtools_mp.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x4c29d0"
+],
+"scan": 1
 },
 {
 "name": "?CG_UpdateCompassOrientation@@YAXXZ",
@@ -34422,7 +36640,10 @@
 "name": "?CG_GetKillerText@@YAPBDXZ",
 "obj": "cg_newDraw_mp.obj",
 "size": 34,
-"hits": []
+"hits": [
+"0x4c6470"
+],
+"scan": 1
 },
 {
 "name": "?CG_DrawKiller@@YAXPBUrectDef_s@@PAUFont_s@@MPAMH@Z",
@@ -34466,7 +36687,9 @@
 "name": "?CG_OwnerDraw@@YAXMMMMHHMMHHHMPAUFont_s@@MPAMPAUMaterial@@H@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 1213,
-"hits": []
+"hits": [
+"0x4c6670"
+]
 },
 {
 "name": "?CG_KeyInterceptEvent@@YAHHH@Z",
@@ -34512,7 +36735,9 @@
 "name": "?CG_DrawFieldWidth@@YAHHHH@Z",
 "obj": "cg_draw_mp.obj",
 "size": 252,
-"hits": []
+"hits": [
+"0x4c6d20"
+]
 },
 {
 "name": "?CG_DrawTeamBackground@@YAXMMMMMH@Z",
@@ -34864,7 +37089,10 @@
 "name": "?CG_CheckPlayerMiscInput@@YAHH@Z",
 "obj": "cg_draw_mp.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4ca3f0"
+],
+"scan": 1
 },
 {
 "name": "?CG_CheckForPlayerInput@@YAXXZ",
@@ -34984,7 +37212,10 @@
 "name": "?CG_DrawSay@@YAXXZ",
 "obj": "cg_draw_mp.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x4caf70"
+],
+"scan": 1
 },
 {
 "name": "?CG_DrawPerformanceWarnings@@YAXXZ",
@@ -35102,7 +37333,10 @@
 "name": "?CG_DrawShellShockBlend_4c5bd0@@YAXXZ",
 "obj": "cg_draw_mp.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x4cbe30"
+],
+"scan": 1
 },
 {
 "name": "?CG_DrawActive@@YAXXZ",
@@ -35228,7 +37462,10 @@
 "name": "?CG_DObjUpdateInfo@@YAXPAUDObj_s@@@Z",
 "obj": "cg_ents_mp.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x4ccce0"
+],
+"scan": 1
 },
 {
 "name": "?CG_DObjGetLocalTagMatrix@@YAPAUDObjAnimMat@@PBUcentity_s@@PAUDObj_s@@I@Z",
@@ -35322,7 +37559,11 @@
 "name": "?CG_AllocAnimTree@@YAPAKH@Z",
 "obj": "cg_ents_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4354d0",
+"0x4cdb60"
+],
+"scan": 1
 },
 {
 "name": "?CG_PreProcess_GetDObj@@YAPAUDObj_s@@HHPAUXModel@@@Z",
@@ -35376,7 +37617,9 @@
 "name": "?CG_ProcessEntity@@YAXPAUcentity_s@@@Z",
 "obj": "cg_ents_mp.obj",
 "size": 164,
-"hits": []
+"hits": [
+"0x4cdf20"
+]
 },
 {
 "name": "?CG_UsedDObjCalcPose@@YAXPBUcentity_s@@@Z",
@@ -35489,7 +37732,10 @@
 "name": "?CG_FxRestart@@YAXXZ",
 "obj": "cg_view_mp.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x4ce6c0"
+],
+"scan": 1
 },
 {
 "name": "?CG_FxTest@@YAXXZ",
@@ -35559,7 +37805,9 @@
 "name": "?CG_CalcCubemapViewValues@@YAXXZ",
 "obj": "cg_view_mp.obj",
 "size": 540,
-"hits": []
+"hits": [
+"0x4cf380"
+]
 },
 {
 "name": "?CG_CalcTurretViewValues@@YAXXZ",
@@ -35573,7 +37821,10 @@
 "name": "?CG_SetViewModelFromRefdef@@YAXXZ",
 "obj": "cg_view_mp.obj",
 "size": 171,
-"hits": []
+"hits": [
+"0x4cf680"
+],
+"scan": 1
 },
 {
 "name": "?CG_ApplyViewAnimation@@YAXXZ",
@@ -35643,7 +37894,10 @@
 "name": "?CGScr_LoadAnimTrees@@YAXXZ",
 "obj": "cg_animtree_mp.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x4d0180"
+],
+"scan": 1
 },
 {
 "name": "?CG_FreeClientDObjInfo@@YAXXZ",
@@ -35657,7 +37911,10 @@
 "name": "?CG_SetDObjInfo@@YAXHHPAUXModel@@@Z",
 "obj": "cg_animtree_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x4d01b0"
+],
+"scan": 1
 },
 {
 "name": "?CG_CheckDObjInfoMatches@@YAHHHPAUXModel@@@Z",
@@ -35799,7 +38056,9 @@
 "name": "?CG_MenuShowNotify@@YAXH@Z",
 "obj": "cg_servercmds_mp.obj",
 "size": 240,
-"hits": []
+"hits": [
+"0x4d1330"
+]
 },
 {
 "name": "?CG_HudMenuShowAllTimed@@YAXXZ",
@@ -35867,7 +38126,10 @@
 "name": "?CG_SetObjectiveText_4cb820@@YAXPBD@Z",
 "obj": "cg_servercmds_mp.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x4d1aa0"
+],
+"scan": 1
 },
 {
 "name": "?CG_SetDrawHud_4cb840@@YAXH@Z",
@@ -35879,7 +38141,10 @@
 "name": "?CG_SetScriptMainMenu_4cb850@@YAXPBD@Z",
 "obj": "cg_servercmds_mp.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x4d1ad0"
+],
+"scan": 1
 },
 {
 "name": "?CG_SetClientDvarFromServer@@YAXPBD0@Z",
@@ -35893,7 +38158,9 @@
 "name": "?CG_ServerCommand@@YAXXZ",
 "obj": "cg_servercmds_mp.obj",
 "size": 1479,
-"hits": []
+"hits": [
+"0x4d1b80"
+]
 },
 {
 "name": "?CG_ExecuteNewServerCommands@@YAXH@Z",
@@ -36033,7 +38300,10 @@
 "name": "?CG_StartShellShock@@YAXPBUshellshock_parms_t@@HH@Z",
 "obj": "cg_shellshock.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x4d32f0"
+],
+"scan": 1
 },
 {
 "name": "?CG_LoadingString@@YAXPBD@Z",
@@ -36075,7 +38345,9 @@
 "name": "?CG_WeaponRunXModelAnims@@YAXPAUplayerState_s@@PAUweaponInfo_s@@@Z",
 "obj": "cg_weapons.obj",
 "size": 764,
-"hits": []
+"hits": [
+"0x4d3950"
+]
 },
 {
 "name": "?CG_ResetViewWeaponAnimTrees@@YAXPAUplayerState_s@@@Z",
@@ -36089,7 +38361,10 @@
 "name": "?CG_WeaponDObjHandle@@YAHH@Z",
 "obj": "cg_weapons.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x4d3cf0"
+],
+"scan": 1
 },
 {
 "name": "?CG_Weapons_SetToDefault@@YAXHPAUDObjModel_s@@@Z",
@@ -36215,7 +38490,10 @@
 "name": "?CG_HoldBreathInit@@YAXXZ",
 "obj": "cg_weapons.obj",
 "size": 28,
-"hits": []
+"hits": [
+"0x4d5cd0"
+],
+"scan": 1
 },
 {
 "name": "?CG_SetHoldBreathChannelVolumes@@YAXM@Z",
@@ -36455,7 +38733,10 @@
 "name": "?IsOffHandDisplayVisible@@YAEXZ",
 "obj": "offhandweapons_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4d7ee0"
+],
+"scan": 1
 },
 {
 "name": "?CG_DrawOffHandIcon@@YAXPAUrectDef_s@@MPAMPAUMaterial@@H@Z",
@@ -36620,37 +38901,97 @@
 "name": "?CG_ScoreboardGetter_4d2bb0@@YAMXZ",
 "obj": "cg_scoreboard_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b60b0",
+"0x4d8db0",
+"0x4d8dc0",
+"0x4d8dd0",
+"0x4d8de0",
+"0x4d8df0",
+"0x4d8e00",
+"0x4fc050"
+],
+"scan": 1
 },
 {
 "name": "?CG_ScoreboardGetter_4d2bc0@@YAMXZ",
 "obj": "cg_scoreboard_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b60b0",
+"0x4d8db0",
+"0x4d8dc0",
+"0x4d8dd0",
+"0x4d8de0",
+"0x4d8df0",
+"0x4d8e00",
+"0x4fc050"
+],
+"scan": 1
 },
 {
 "name": "?CG_ScoreboardGetter_4d2bd0@@YAMXZ",
 "obj": "cg_scoreboard_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b60b0",
+"0x4d8db0",
+"0x4d8dc0",
+"0x4d8dd0",
+"0x4d8de0",
+"0x4d8df0",
+"0x4d8e00",
+"0x4fc050"
+],
+"scan": 1
 },
 {
 "name": "?CG_ScoreboardGetter_4d2be0@@YAMXZ",
 "obj": "cg_scoreboard_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b60b0",
+"0x4d8db0",
+"0x4d8dc0",
+"0x4d8dd0",
+"0x4d8de0",
+"0x4d8df0",
+"0x4d8e00",
+"0x4fc050"
+],
+"scan": 1
 },
 {
 "name": "?CG_ScoreboardGetter_4d2bf0@@YAMXZ",
 "obj": "cg_scoreboard_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b60b0",
+"0x4d8db0",
+"0x4d8dc0",
+"0x4d8dd0",
+"0x4d8de0",
+"0x4d8df0",
+"0x4d8e00",
+"0x4fc050"
+],
+"scan": 1
 },
 {
 "name": "?CG_ScoreboardGetter_4d2c00@@YAMXZ",
 "obj": "cg_scoreboard_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b60b0",
+"0x4d8db0",
+"0x4d8dc0",
+"0x4d8dd0",
+"0x4d8de0",
+"0x4d8df0",
+"0x4d8e00",
+"0x4fc050"
+],
+"scan": 1
 },
 {
 "name": "?CalcBorderLines@@YAHPAUsbpicinfo_t@@@Z",
@@ -36718,7 +39059,10 @@
 "name": "?CG_GetScoreboardInfo@@YAXPAPBUlistColumnInfo_t@@PAH@Z",
 "obj": "cg_scoreboard_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x4d9c00"
+],
+"scan": 1
 },
 {
 "name": "?CG_DrawScoreboard_ListColumnHeaders@@YAMPBMMM@Z",
@@ -36764,7 +39108,9 @@
 "name": "?CG_DrawClientScore@@YAMPBMMPBUscore_t@@MHPAHH@Z",
 "obj": "cg_scoreboard_mp.obj",
 "size": 1216,
-"hits": []
+"hits": [
+"0x4da210"
+]
 },
 {
 "name": "?CG_DrawTeamOfClientScore@@YAMPBMMHMPAH1@Z",
@@ -36840,7 +39186,10 @@
 "name": "?CG_ApplyCompassPointerRadiusScale@@YAXPAM@Z",
 "obj": "cg_compassfriendlies_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4daf50"
+],
+"scan": 1
 },
 {
 "name": "?CompassDistToRadius@@YAXMPAM@Z",
@@ -36951,7 +39300,9 @@
 "name": "?GetHudElemTime@@YAHPBUhudelem_s@@@Z",
 "obj": "cg_hudelem_mp.obj",
 "size": 100,
-"hits": []
+"hits": [
+"0x4dcbb0"
+]
 },
 {
 "name": "?HudElemTimerString@@YAPBDPBUhudelem_s@@@Z",
@@ -36997,13 +39348,17 @@
 "name": "?HudElemWidth@@YAMPBUhudelem_s@@PBUcg_hudelem_t@@@Z",
 "obj": "cg_hudelem_mp.obj",
 "size": 93,
-"hits": []
+"hits": [
+"0x4dceb0"
+]
 },
 {
 "name": "?HudElemHeight@@YAMPBUhudelem_s@@PBUcg_hudelem_t@@@Z",
 "obj": "cg_hudelem_mp.obj",
 "size": 109,
-"hits": []
+"hits": [
+"0x4dcf10"
+]
 },
 {
 "name": "?AlignHudElemX@@YAMHMM@Z",
@@ -37074,7 +39429,9 @@
 "name": "?GetHudElemInfo@@YAXPBUhudelem_s@@PAUcg_hudelem_t@@PAD@Z",
 "obj": "cg_hudelem_mp.obj",
 "size": 1188,
-"hits": []
+"hits": [
+"0x4dd430"
+]
 },
 {
 "name": "?DrawHudElemString@@YAXPBDPBUhudelem_s@@PAUcg_hudelem_t@@@Z",
@@ -37120,7 +39477,9 @@
 "name": "?DrawSingleHudElem2d@@YAXPBUhudelem_s@@@Z",
 "obj": "cg_hudelem_mp.obj",
 "size": 232,
-"hits": []
+"hits": [
+"0x4dddf0"
+]
 },
 {
 "name": "?DrawSingleHudElem3d@@YAXPBUhudelem_s@@@Z",
@@ -37166,7 +39525,12 @@
 "name": "?CG_ClearSolidList@@YAXXZ",
 "obj": "cg_predict_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x42f4f0",
+"0x464ce0",
+"0x4de0a0"
+],
+"scan": 1
 },
 {
 "name": "?CG_BuildSolidList@@YAXXZ",
@@ -37252,7 +39616,9 @@
 "name": "?CG_ResetEntity@@YAXPAD@Z",
 "obj": "cg_snapshot_mp.obj",
 "size": 452,
-"hits": []
+"hits": [
+"0x4df100"
+]
 },
 {
 "name": "?CG_SetInitialSnapshot@@YAXPAUsnapshot_t@@@Z",
@@ -37338,7 +39704,9 @@
 "name": "?CG_Obituary@@YAXPAUentityState_s@@@Z",
 "obj": "cg_event_mp.obj",
 "size": 952,
-"hits": []
+"hits": [
+"0x4e03f0"
+]
 },
 {
 "name": "?CG_ItemPickup@@YAXH@Z",
@@ -37506,7 +39874,9 @@
 "name": "_speex_lib_ctl",
 "obj": "speex.obj",
 "size": 116,
-"hits": []
+"hits": [
+"0x4e1e00"
+]
 },
 {
 "name": "_speex_bits_init",
@@ -37722,31 +40092,62 @@
 "name": "_speex_free",
 "obj": "misc.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "_speex_move",
 "obj": "misc.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x4219a0",
+"0x4642a0",
+"0x4e25b0"
+],
+"scan": 1
 },
 {
 "name": "_speex_error",
 "obj": "misc.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x4e25c0"
+],
+"scan": 1
 },
 {
 "name": "_speex_warning",
 "obj": "misc.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4e25e0"
+],
+"scan": 1
 },
 {
 "name": "_speex_warning_int",
 "obj": "misc.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x4e2600"
+],
+"scan": 1
 },
 {
 "name": "_speex_rand_vec",
@@ -37768,7 +40169,10 @@
 "name": "__speex_putc",
 "obj": "misc.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x4e2690"
+],
+"scan": 1
 },
 {
 "name": "?compute_quant_weights@@YAXPAM0H@Z",
@@ -37910,13 +40314,17 @@
 "name": "?sb_encoder_ctl@@YAHPAXH0@Z",
 "obj": "sb_celp.obj",
 "size": 2016,
-"hits": []
+"hits": [
+"0x4e62a0"
+]
 },
 {
 "name": "?sb_decoder_ctl@@YAHPAXH0@Z",
 "obj": "sb_celp.obj",
 "size": 1036,
-"hits": []
+"hits": [
+"0x4e6a80"
+]
 },
 {
 "name": "?nb_encoder_init@@YAPAXPBUSpeexMode@@@Z",
@@ -37976,13 +40384,17 @@
 "name": "?nb_encoder_ctl@@YAHPAXH0@Z",
 "obj": "nb_celp.obj",
 "size": 1564,
-"hits": []
+"hits": [
+"0x4e9d40"
+]
 },
 {
 "name": "?nb_decoder_ctl@@YAHPAXH0@Z",
 "obj": "nb_celp.obj",
 "size": 824,
-"hits": []
+"hits": [
+"0x4ea360"
+]
 },
 {
 "name": "?compute_weighted_codebook@@YAXPBCPBMPAM22HHPAD@Z",
@@ -38492,7 +40904,10 @@
 "name": "?BG_SetupWeaponIndex@@YAXH@Z",
 "obj": "bg_weapons.obj",
 "size": 28,
-"hits": []
+"hits": [
+"0x4f1980"
+],
+"scan": 1
 },
 {
 "name": "?BG_SetupWeaponDef@@YAHPAUWeaponDef@@P6AHH@Z@Z",
@@ -38530,7 +40945,16 @@
 "name": "?BG_GetWeaponDef@@YAPAUWeaponDef@@H@Z",
 "obj": "bg_weapons.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x469fa0",
+"0x4f1ad0",
+"0x50e3f0",
+"0x51b020",
+"0x51b060",
+"0x51fbf0",
+"0x5335e0"
+],
+"scan": 1
 },
 {
 "name": "?CG_SetWeaponDefToDefaultWeapon@@YAXH@Z",
@@ -38556,7 +40980,10 @@
 "name": "?BG_GetAmmoTypeMax@@YAHH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f1b70"
+],
+"scan": 1
 },
 {
 "name": "?BG_GetNumAmmoClips@@YAHXZ",
@@ -38568,31 +40995,46 @@
 "name": "?BG_GetAmmoClipSize@@YAHH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f1b90"
+],
+"scan": 1
 },
 {
 "name": "?BG_GetSharedAmmoCapSize@@YAHH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f1ba0"
+],
+"scan": 1
 },
 {
 "name": "?BG_GetSharedAmmoCapName@@YAPBDH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f1bb0"
+],
+"scan": 1
 },
 {
 "name": "?BG_GetAmmoTypeName@@YAPBDH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f1bc0"
+],
+"scan": 1
 },
 {
 "name": "?BG_GetAmmoClipName@@YAPBDH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f1bd0"
+],
+"scan": 1
 },
 {
 "name": "?BG_GetAmmoTypeForName@@YAHPBD@Z",
@@ -38630,7 +41072,10 @@
 "name": "?CG_GetWeaponIndexForName@@YAHPBD@Z",
 "obj": "bg_weapons.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x4f1d20"
+],
+"scan": 1
 },
 {
 "name": "?BG_GetBinocularWeaponIndex@@YAHXZ",
@@ -38668,7 +41113,10 @@
 "name": "?BG_IsAimDownSightWeapon@@YAHH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f1e60"
+],
+"scan": 1
 },
 {
 "name": "?BG_ValidateWeaponNumber@@YA_NH@Z",
@@ -38835,7 +41283,10 @@
 "name": "?PM_StartHoldBreath@@YAXPAUplayerState_s@@@Z",
 "obj": "bg_weapons.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4f29e0"
+],
+"scan": 1
 },
 {
 "name": "?PM_EndHoldBreath@@YAXPAUplayerState_s@@@Z",
@@ -38873,19 +41324,28 @@
 "name": "?BG_ClipForWeapon@@YAHH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f2ca0"
+],
+"scan": 1
 },
 {
 "name": "?BG_AmmoForWeapon@@YAHH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f2cb0"
+],
+"scan": 1
 },
 {
 "name": "?BG_WeaponIsClipOnly@@YAHH@Z",
 "obj": "bg_weapons.obj",
 "size": 14,
-"hits": []
+"hits": [
+"0x4f2cc0"
+],
+"scan": 1
 },
 {
 "name": "?BG_WeaponAmmo@@YAHPBUplayerState_s@@H@Z",
@@ -39038,7 +41498,9 @@
 "name": "?PM_Weapon_CheckForReload@@YAXPAUpmove_t@@@Z",
 "obj": "bg_weapons.obj",
 "size": 447,
-"hits": []
+"hits": [
+"0x4f3cb0"
+]
 },
 {
 "name": "?PM_SwitchIfEmpty@@YAXPAUplayerState_s@@@Z",
@@ -39147,7 +41609,9 @@
 "name": "?PM_Weapon_CheckForMelee@@YAXPAUpmove_t@@H@Z",
 "obj": "bg_weapons.obj",
 "size": 411,
-"hits": []
+"hits": [
+"0x4f48e0"
+]
 },
 {
 "name": "?PM_Weapon_Idle@@YAXPAUplayerState_s@@@Z",
@@ -39308,7 +41772,9 @@
 "name": "?PM_Weapon@@YAXPAUpmove_t@@PAUpml_t@@@Z",
 "obj": "bg_weapons.obj",
 "size": 532,
-"hits": []
+"hits": [
+"0x4f55f0"
+]
 },
 {
 "name": "?PM_ResetWeaponState@@YAXPAUplayerState_s@@@Z",
@@ -39523,7 +41989,10 @@
 "name": "?BG_InitWeaponString@@YAXHPBD@Z",
 "obj": "bg_animation_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x4f7420"
+],
+"scan": 1
 },
 {
 "name": "?BG_InitWeaponStrings@@YAXXZ",
@@ -39585,7 +42054,9 @@
 "name": "?BG_AnimParseAnimScript@@YAXPAUanimScriptData_s@@PAUloadAnim_t@@PAH@Z",
 "obj": "bg_animation_mp.obj",
 "size": 2684,
-"hits": []
+"hits": [
+"0x4f83f0"
+]
 },
 {
 "name": "?BG_EvaluateConditions@@YAHPAUclientInfo_s@@PAUanimScriptItem_t@@@Z",
@@ -39875,7 +42346,17 @@
 "name": "?G_GetFogOpaqueDistSqrd@@YAMXZ",
 "obj": "g_main_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x4b60b0",
+"0x4d8db0",
+"0x4d8dc0",
+"0x4d8dd0",
+"0x4d8de0",
+"0x4d8df0",
+"0x4d8e00",
+"0x4fc050"
+],
+"scan": 1
 },
 {
 "name": "?G_GetClientScore@@YAHH@Z",
@@ -39953,7 +42434,9 @@
 "name": "?G_InitGame@@YAXHHHH@Z",
 "obj": "g_main_mp.obj",
 "size": 1380,
-"hits": []
+"hits": [
+"0x4fc290"
+]
 },
 {
 "name": "?G_ShutdownGame@@YAXH@Z",
@@ -40061,7 +42544,9 @@
 "name": "?G_RunFrame@@YAXH@Z",
 "obj": "g_main_mp.obj",
 "size": 1864,
-"hits": []
+"hits": [
+"0x4fd1b0"
+]
 },
 {
 "name": "?G_TraceCapsule@@YAXPAUtrace_t@@PBM111HH@Z",
@@ -40256,7 +42741,9 @@
 "name": "?ClientEvents@@YAXPAUgentity_s@@H@Z",
 "obj": "g_active_mp.obj",
 "size": 568,
-"hits": []
+"hits": [
+"0x4ff590"
+]
 },
 {
 "name": "?G_SetLastServerTime@@YAXHH@Z",
@@ -40392,7 +42879,24 @@
 "name": "?Cmd_Score_f@@YAXPAUgentity_s@@@Z",
 "obj": "g_cmds_mp.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x4128c0",
+"0x421e90",
+"0x435b90",
+"0x436190",
+"0x463ac0",
+"0x486820",
+"0x49edb0",
+"0x4a3080",
+"0x4a3100",
+"0x4ac410",
+"0x4ae670",
+"0x4aeb90",
+"0x4afa60",
+"0x4e25a0",
+"0x501530"
+],
+"scan": 1
 },
 {
 "name": "?CheatsOk@@YAHPAUgentity_s@@@Z",
@@ -40438,7 +42942,10 @@
 "name": "?Cmd_Fog_f@@YAXXZ",
 "obj": "g_cmds_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x501950"
+],
+"scan": 1
 },
 {
 "name": "?Cmd_Give_f@@YAXPAUgentity_s@@@Z",
@@ -40623,13 +43130,25 @@
 "name": "_asinf",
 "obj": "g_scr_main_mp.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x425d10",
+"0x425d60",
+"0x503ed0",
+"0x503ee0"
+],
+"scan": 1
 },
 {
 "name": "?asin@@YAMM@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x425d10",
+"0x425d60",
+"0x503ed0",
+"0x503ee0"
+],
+"scan": 1
 },
 {
 "name": "?GScr_AllocString@@YAIPBD@Z",
@@ -40716,31 +43235,66 @@
 "name": "?ScrCmd_GetClanId@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x504590",
+"0x5045a0",
+"0x5045b0",
+"0x5045c0",
+"0x5045d0"
+],
+"scan": 1
 },
 {
 "name": "?ScrCmd_GetClanName@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x504590",
+"0x5045a0",
+"0x5045b0",
+"0x5045c0",
+"0x5045d0"
+],
+"scan": 1
 },
 {
 "name": "?ScrCmd_GetClanMotto@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x504590",
+"0x5045a0",
+"0x5045b0",
+"0x5045c0",
+"0x5045d0"
+],
+"scan": 1
 },
 {
 "name": "?ScrCmd_GetClanDescription@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x504590",
+"0x5045a0",
+"0x5045b0",
+"0x5045c0",
+"0x5045d0"
+],
+"scan": 1
 },
 {
 "name": "?ScrCmd_GetClanURL@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x504590",
+"0x5045a0",
+"0x5045b0",
+"0x5045c0",
+"0x5045d0"
+],
+"scan": 1
 },
 {
 "name": "?print@@YAXXZ",
@@ -40762,7 +43316,10 @@
 "name": "?Scr_LocalizationError@@YAXHPBD@Z",
 "obj": "g_scr_main_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x504690"
+],
+"scan": 1
 },
 {
 "name": "?Scr_ValidateLocalizedStringRef@@YAXHPBDH@Z",
@@ -40904,7 +43461,11 @@
 "name": "?GScr_GetTime@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x505280",
+"0x5080e0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_GetEntByNum@@YAXXZ",
@@ -41392,7 +43953,10 @@
 "name": "?GScr_WorldEntNumber@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x507dd0"
+],
+"scan": 1
 },
 {
 "name": "?GScr_Obituary@@YAXXZ",
@@ -41414,7 +43978,11 @@
 "name": "?GScr_getStartTime@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x505280",
+"0x5080e0"
+],
+"scan": 1
 },
 {
 "name": "?GScr_PrecacheMenu@@YAXXZ",
@@ -41532,13 +44100,19 @@
 "name": "?GScr_sin@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x508e80"
+],
+"scan": 1
 },
 {
 "name": "?GScr_cos@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x508ea0"
+],
+"scan": 1
 },
 {
 "name": "?GScr_tan@@YAXXZ",
@@ -41802,7 +44376,10 @@
 "name": "?GScr_SetPlayerIgnoreRadiusDamage@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 13,
-"hits": []
+"hits": [
+"0x509f00"
+],
+"scan": 1
 },
 {
 "name": "?GScr_GetMoveDelta@@YAXXZ",
@@ -42248,13 +44825,21 @@
 "name": "?GScr_SetArchive@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x50cd40"
+],
+"scan": 1
 },
 {
 "name": "?Scr_IsSplitscreen@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x43a820",
+"0x451f30",
+"0x50cd80"
+],
+"scan": 1
 },
 {
 "name": "?GScr_SetTeamForTrigger@@YAXUscr_entref_t@@@Z",
@@ -42376,13 +44961,21 @@
 "name": "?Scr_LoadGameType@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x50d7d0",
+"0x50d7f0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_StartupGameType@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 26,
-"hits": []
+"hits": [
+"0x50d7d0",
+"0x50d7f0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_PlayerConnect@@YAXPAUgentity_s@@@Z",
@@ -42488,7 +45081,9 @@
 "name": "?Svcmd_EntityList_f@@YAXXZ",
 "obj": "g_svcmds_mp.obj",
 "size": 292,
-"hits": []
+"hits": [
+"0x50de50"
+]
 },
 {
 "name": "?ClientForString@@YAPAUgclient_s@@PBD@Z",
@@ -42542,19 +45137,35 @@
 "name": "?G_GetModel@@YAPAUXModel@@H@Z",
 "obj": "g_utils_mp.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x469fa0",
+"0x4f1ad0",
+"0x50e3f0",
+"0x51b020",
+"0x51b060",
+"0x51fbf0",
+"0x5335e0"
+],
+"scan": 1
 },
 {
 "name": "?G_XModelBad@@YAHH@Z",
 "obj": "g_utils_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x50e400"
+],
+"scan": 1
 },
 {
 "name": "?G_ModelName@@YAPBDH@Z",
 "obj": "g_utils_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x457f30",
+"0x50e410"
+],
+"scan": 1
 },
 {
 "name": "?G_TagIndex@@YAHPBD@Z",
@@ -42998,7 +45609,10 @@
 "name": "?G_SpawnString@@YAHPBD0PAPBD@Z",
 "obj": "g_spawn_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x510520"
+],
+"scan": 1
 },
 {
 "name": "?G_SpawnFloat@@YAHPBD0PAM@Z",
@@ -43028,13 +45642,18 @@
 "name": "?Scr_ReadOnlyField@@YAXPAUgentity_s@@H@Z",
 "obj": "g_spawn_mp.obj",
 "size": 24,
-"hits": []
+"hits": [
+"0x5105f0"
+],
+"scan": 1
 },
 {
 "name": "?G_SetEntityScriptVariableInternal@@YAIPBD0@Z",
 "obj": "g_spawn_mp.obj",
 "size": 212,
-"hits": []
+"hits": [
+"0x510610"
+]
 },
 {
 "name": "?G_SetEntityScriptVariable@@YAXPBD0PAUgentity_s@@@Z",
@@ -43048,7 +45667,9 @@
 "name": "?G_ParseEntityField@@YAXPBD0PAUgentity_s@@@Z",
 "obj": "g_spawn_mp.obj",
 "size": 492,
-"hits": []
+"hits": [
+"0x510720"
+]
 },
 {
 "name": "?G_ParseEntityFields@@YAXPAUgentity_s@@@Z",
@@ -43070,7 +45691,9 @@
 "name": "?G_DuplicateEntityFields@@YAXPAUgentity_s@@PBU1@@Z",
 "obj": "g_spawn_mp.obj",
 "size": 200,
-"hits": []
+"hits": [
+"0x510aa0"
+]
 },
 {
 "name": "?G_DuplicateScriptFields@@YAXPAUgentity_s@@PBU1@@Z",
@@ -43112,7 +45735,10 @@
 "name": "?GScr_AddFieldsForRadiant@@YAXXZ",
 "obj": "g_spawn_mp.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x510e50"
+],
+"scan": 1
 },
 {
 "name": "?Scr_SetEntityField@@YAHHH@Z",
@@ -43126,7 +45752,9 @@
 "name": "?Scr_SetGenericField@@YAXPAEHH@Z",
 "obj": "g_spawn_mp.obj",
 "size": 188,
-"hits": []
+"hits": [
+"0x510f00"
+]
 },
 {
 "name": "?Scr_SetObjectField@@YAHIHH@Z",
@@ -43148,7 +45776,9 @@
 "name": "?Scr_GetGenericField@@YAXPAEHH@Z",
 "obj": "g_spawn_mp.obj",
 "size": 256,
-"hits": []
+"hits": [
+"0x511080"
+]
 },
 {
 "name": "?Scr_GetObjectField@@YAXIHH@Z",
@@ -43178,7 +45808,10 @@
 "name": "?Scr_AddEntity@@YAXPAUgentity_s@@@Z",
 "obj": "g_spawn_mp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x5112f0"
+],
+"scan": 1
 },
 {
 "name": "?Scr_GetEntity@@YAPAUgentity_s@@I@Z",
@@ -43258,7 +45891,10 @@
 "name": "?GScr_SetDynamicEntityField@@YAXPAUgentity_s@@I@Z",
 "obj": "g_spawn_mp.obj",
 "size": 23,
-"hits": []
+"hits": [
+"0x511660"
+],
+"scan": 1
 },
 {
 "name": "?SP_worldspawn@@YAXXZ",
@@ -43457,7 +46093,10 @@
 "name": "?BG_FindItemForWeapon@@YAPAUgitem_s@@H@Z",
 "obj": "bg_misc.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x513b60"
+],
+"scan": 1
 },
 {
 "name": "?G_FindItem@@YAPAUgitem_s@@PBD@Z",
@@ -43479,19 +46118,25 @@
 "name": "?BG_CanItemBeGrabbed@@YAHPBUentityState_s@@PBUplayerState_s@@H@Z",
 "obj": "bg_misc.obj",
 "size": 300,
-"hits": []
+"hits": [
+"0x513cc0"
+]
 },
 {
 "name": "?BG_EvaluateTrajectory@@YAXPBUtrajectory_t@@HQAM@Z",
 "obj": "bg_misc.obj",
 "size": 648,
-"hits": []
+"hits": [
+"0x513df0"
+]
 },
 {
 "name": "?BG_EvaluateTrajectoryDelta@@YAXPBUtrajectory_t@@HQAM@Z",
 "obj": "bg_misc.obj",
 "size": 296,
-"hits": []
+"hits": [
+"0x514080"
+]
 },
 {
 "name": "?BG_GetMarkDir@@YAXQBM0QAM@Z",
@@ -43954,7 +46599,9 @@
 "name": "?PmoveSingle@@YAXPAUpmove_t@@@Z",
 "obj": "bg_pmove.obj",
 "size": 2000,
-"hits": []
+"hits": [
+"0x51a7a0"
+]
 },
 {
 "name": "?Pmove@@YAXPAUpmove_t@@@Z",
@@ -43976,7 +46623,16 @@
 "name": "?BG_GetWeaponTypeName@@YAPBDH@Z",
 "obj": "bg_weapons_load_obj.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x469fa0",
+"0x4f1ad0",
+"0x50e3f0",
+"0x51b020",
+"0x51b060",
+"0x51fbf0",
+"0x5335e0"
+],
+"scan": 1
 },
 {
 "name": "?BG_GetWeaponSlotForName@@YAHPBD@Z",
@@ -43990,7 +46646,16 @@
 "name": "?BG_GetWeaponSlotNameForIndex@@YAPBDH@Z",
 "obj": "bg_weapons_load_obj.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x469fa0",
+"0x4f1ad0",
+"0x50e3f0",
+"0x51b020",
+"0x51b060",
+"0x51fbf0",
+"0x5335e0"
+],
+"scan": 1
 },
 {
 "name": "?BG_LoadWeaponStrings@@YAXXZ",
@@ -44020,7 +46685,9 @@
 "name": "?BG_ParseWeaponDefSpecificFieldType@@YAHPAEPBDH@Z",
 "obj": "bg_weapons_load_obj.obj",
 "size": 736,
-"hits": []
+"hits": [
+"0x51b2a0"
+]
 },
 {
 "name": "?BG_SetupTransitionTimes@@YAXPAUWeaponDef@@@Z",
@@ -44082,7 +46749,10 @@
 "name": "?BG_LoadDefaultWeaponDef@@YAPAUWeaponDef@@XZ",
 "obj": "bg_weapons_load_obj.obj",
 "size": 50,
-"hits": []
+"hits": [
+"0x51ba30"
+],
+"scan": 1
 },
 {
 "name": "?SP_info_notnull@@YAXPAUgentity_s@@@Z",
@@ -44424,7 +47094,16 @@
 "name": "?IsItemRegistered@@YAHH@Z",
 "obj": "g_items_mp.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x469fa0",
+"0x4f1ad0",
+"0x50e3f0",
+"0x51b020",
+"0x51b060",
+"0x51fbf0",
+"0x5335e0"
+],
+"scan": 1
 },
 {
 "name": "?G_SpawnItem@@YAXPAUgentity_s@@PBUgitem_s@@@Z",
@@ -44554,7 +47233,10 @@
 "name": "?G_RunMissile_GetPerturbation@@YAMM@Z",
 "obj": "g_missile_mp.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5219b0"
+],
+"scan": 1
 },
 {
 "name": "?G_RunMissile_Destabilize@@YAXPAUgentity_s@@@Z",
@@ -44676,7 +47358,10 @@
 "name": "?G_GetHitLocationString@@YAGH@Z",
 "obj": "g_combat_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x523600"
+],
+"scan": 1
 },
 {
 "name": "?G_GetHitLocationIndexFromString@@YAHG@Z",
@@ -44917,13 +47602,25 @@
 "name": "?trigger_use@@YAXPAUgentity_s@@@Z",
 "obj": "g_mover_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x4034c0",
+"0x403610",
+"0x5252d0",
+"0x5252e0"
+],
+"scan": 1
 },
 {
 "name": "?trigger_use_touch@@YAXPAUgentity_s@@@Z",
 "obj": "g_mover_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x4034c0",
+"0x403610",
+"0x5252d0",
+"0x5252e0"
+],
+"scan": 1
 },
 {
 "name": "?HudElem_ClearTypeSettings@@YAXPAUgame_hudelem_s@@@Z",
@@ -45277,37 +47974,55 @@
 "name": "?HECmd_SetTimer@@YAXUscr_entref_t@@@Z",
 "obj": "g_hudelem_mp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x5267b0"
+],
+"scan": 1
 },
 {
 "name": "?HECmd_SetTimerUp@@YAXUscr_entref_t@@@Z",
 "obj": "g_hudelem_mp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x5267d0"
+],
+"scan": 1
 },
 {
 "name": "?HECmd_SetTenthsTimer@@YAXUscr_entref_t@@@Z",
 "obj": "g_hudelem_mp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x5267f0"
+],
+"scan": 1
 },
 {
 "name": "?HECmd_SetTenthsTimerUp@@YAXUscr_entref_t@@@Z",
 "obj": "g_hudelem_mp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x526810"
+],
+"scan": 1
 },
 {
 "name": "?HECmd_SetClock@@YAXUscr_entref_t@@@Z",
 "obj": "g_hudelem_mp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x526830"
+],
+"scan": 1
 },
 {
 "name": "?HECmd_SetClockUp@@YAXUscr_entref_t@@@Z",
 "obj": "g_hudelem_mp.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x526850"
+],
+"scan": 1
 },
 {
 "name": "?HECmd_SetValue@@YAXUscr_entref_t@@@Z",
@@ -45509,7 +48224,10 @@
 "name": "?FireWeaponAntiLag@@YAXPAUgentity_s@@H@Z",
 "obj": "g_weapon_mp.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x527fa0"
+],
+"scan": 1
 },
 {
 "name": "?G_UseOffHand@@YAXPAUgentity_s@@@Z",
@@ -46182,7 +48900,9 @@
 "name": "?PlayerCmd_SetReverb@@YAXUscr_entref_t@@@Z",
 "obj": "g_client_script_cmd_mp.obj",
 "size": 420,
-"hits": []
+"hits": [
+"0x52d4b0"
+]
 },
 {
 "name": "?PlayerCmd_DeactivateReverb@@YAXUscr_entref_t@@@Z",
@@ -46410,7 +49130,9 @@
 "name": "?ClientScr_GetSessionTeam@@YAXPAUgclient_s@@PBUgame_client_field_s@@@Z",
 "obj": "g_client_fields_mp.obj",
 "size": 96,
-"hits": []
+"hits": [
+"0x52f460"
+]
 },
 {
 "name": "?ClientScr_SetSessionState@@YAXPAUgclient_s@@PBUgame_client_field_s@@@Z",
@@ -46424,7 +49146,9 @@
 "name": "?ClientScr_GetSessionState@@YAXPAUgclient_s@@PBUgame_client_field_s@@@Z",
 "obj": "g_client_fields_mp.obj",
 "size": 96,
-"hits": []
+"hits": [
+"0x52f570"
+]
 },
 {
 "name": "?ClientScr_SetMaxHealth@@YAXPAUgclient_s@@PBUgame_client_field_s@@@Z",
@@ -46728,13 +49452,19 @@
 "name": "?Window_Getter_52b230@@YAHPAUWindow@@@Z",
 "obj": "ui_main_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x5315b0"
+],
+"scan": 1
 },
 {
 "name": "?Item_Getter_52b240@@YAHPAUitemDef_s@@@Z",
 "obj": "ui_main_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x5315c0"
+],
+"scan": 1
 },
 {
 "name": "?Window_IsVisible@@YA_NPAUWindow@@@Z",
@@ -46970,7 +49700,9 @@
 "name": "?UI_OwnerDrawWidth@@YAHHPAUFont_s@@M@Z",
 "obj": "ui_main_mp.obj",
 "size": 580,
-"hits": []
+"hits": [
+"0x532dd0"
+]
 },
 {
 "name": "?UI_BuildPlayerList@@YAXXZ",
@@ -47054,7 +49786,16 @@
 "name": "?UI_GetPlayerClientNum_52d200@@YAHH@Z",
 "obj": "ui_main_mp.obj",
 "size": 8,
-"hits": []
+"hits": [
+"0x469fa0",
+"0x4f1ad0",
+"0x50e3f0",
+"0x51b020",
+"0x51b060",
+"0x51fbf0",
+"0x5335e0"
+],
+"scan": 1
 },
 {
 "name": "?UI_DrawTalkerNum@@YAXHPAUrectDef_s@@PAUFont_s@@PAMMH@Z",
@@ -47068,7 +49809,9 @@
 "name": "?UI_OwnerDraw@@YAXMMMMHHMMHHHMPAUFont_s@@MPAMPAUMaterial@@H@Z",
 "obj": "ui_main_mp.obj",
 "size": 910,
-"hits": []
+"hits": [
+"0x533700"
+]
 },
 {
 "name": "?UI_OwnerDrawVisible@@YAHH@Z",
@@ -47122,7 +49865,9 @@
 "name": "?UI_OwnerDrawHandleKey@@YAHHHPAMH@Z",
 "obj": "ui_main_mp.obj",
 "size": 141,
-"hits": []
+"hits": [
+"0x533da0"
+]
 },
 {
 "name": "?UI_ServersQsortCompare@@YAHPBX0@Z",
@@ -47576,7 +50321,10 @@
 "name": "?UI_GetActiveMenu@@YA?AW4uiMenuCommand_t@@XZ",
 "obj": "ui_main_mp.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x538500"
+],
+"scan": 1
 },
 {
 "name": "?UI_GetTopActiveMenuName@@YAPBDXZ",
@@ -47590,13 +50338,19 @@
 "name": "?UI_SetActiveMenu@@YAHH@Z",
 "obj": "ui_main_mp.obj",
 "size": 732,
-"hits": []
+"hits": [
+"0x538540"
+]
 },
 {
 "name": "?UI_IsFullscreen@@YAHXZ",
 "obj": "ui_main_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x538820",
+"0x539870"
+],
+"scan": 1
 },
 {
 "name": "?UI_ReadableSize@@YAXPADHH@Z",
@@ -47640,7 +50394,10 @@
 "name": "?UI_GetBlurRadius@@YAMXZ",
 "obj": "ui_main_mp.obj",
 "size": 9,
-"hits": []
+"hits": [
+"0x539400"
+],
+"scan": 1
 },
 {
 "name": "?UI_StopServerRefresh@@YAXXZ",
@@ -47676,7 +50433,11 @@
 "name": "?UI_AnyFullScreenMenuVisible@@YAHXZ",
 "obj": "ui_main_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x538820",
+"0x539870"
+],
+"scan": 1
 },
 {
 "name": "?UI_ReplaceConversionString@@YAPBDPBD0@Z",
@@ -47722,37 +50483,55 @@
 "name": "?Window_Getter_533860@@YAHPAUWindow@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x539ad0"
+],
+"scan": 1
 },
 {
 "name": "?Window_Getter_533880@@YAPAUrectDef_s@@PAUWindow@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x539af0"
+],
+"scan": 1
 },
 {
 "name": "?Window_Getter_533890@@YAPAUrectDef_s@@PAUWindow@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x539b00"
+],
+"scan": 1
 },
 {
 "name": "?Window_Getter_5338a0@@YAHPAUWindow@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x539b10"
+],
+"scan": 1
 },
 {
 "name": "?Menu_Getter_5338b0@@YAHPAUmenuDef_t@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x539b20"
+],
+"scan": 1
 },
 {
 "name": "?Item_Getter_5338c0@@YAPAUrectDef_s@@PAUitemDef_s@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 6,
-"hits": []
+"hits": [
+"0x539b30"
+],
+"scan": 1
 },
 {
 "name": "?Window_IsHorizontal@@YA_NPAUWindow@@@Z",
@@ -48186,37 +50965,67 @@
 "name": "?Script_ExecOnDvarStringValue@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x53bb10",
+"0x53bb30",
+"0x53bb50"
+],
+"scan": 1
 },
 {
 "name": "?Script_ExecOnDvarIntValue@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x53bb10",
+"0x53bb30",
+"0x53bb50"
+],
+"scan": 1
 },
 {
 "name": "?Script_ExecOnDvarFloatValue@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x53bb10",
+"0x53bb30",
+"0x53bb50"
+],
+"scan": 1
 },
 {
 "name": "?Script_ExecNowOnDvarStringValue@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x53bb70",
+"0x53bb90",
+"0x53bbb0"
+],
+"scan": 1
 },
 {
 "name": "?Script_ExecNowOnDvarIntValue@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x53bb70",
+"0x53bb90",
+"0x53bbb0"
+],
+"scan": 1
 },
 {
 "name": "?Script_ExecNowOnDvarFloatValue@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x53bb70",
+"0x53bb90",
+"0x53bbb0"
+],
+"scan": 1
 },
 {
 "name": "?Script_Play@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
@@ -48450,7 +51259,9 @@
 "name": "?Item_IsTextField@@YA_NPAUitemDef_s@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 59,
-"hits": []
+"hits": [
+"0x53d4d0"
+]
 },
 {
 "name": "?Item_TextField_BeginEdit@@YAXPAUitemDef_s@@@Z",
@@ -48528,7 +51339,9 @@
 "name": "?Item_HandleKey@@YAHPAUdisplayContextDef_s@@PAUitemDef_s@@HH@Z",
 "obj": "ui_shared_mp.obj",
 "size": 304,
-"hits": []
+"hits": [
+"0x53e0b0"
+]
 },
 {
 "name": "?Item_Action@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@@Z",
@@ -48648,7 +51461,9 @@
 "name": "?Item_SetTextExtents@@YAXPAUitemDef_s@@PAH1PBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 735,
-"hits": []
+"hits": [
+"0x53ef00"
+]
 },
 {
 "name": "?Item_TextColor@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAY03M@Z",
@@ -48840,7 +51655,9 @@
 "name": "?Item_Paint@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 1915,
-"hits": []
+"hits": [
+"0x541940"
+]
 },
 {
 "name": "?Menu_GetFocusedItem@@YAPAUitemDef_s@@PAUmenuDef_t@@@Z",
@@ -48902,7 +51719,10 @@
 "name": "?Menu_Count@@YAHPAUdisplayContextDef_s@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x542730"
+],
+"scan": 1
 },
 {
 "name": "?Menu_PaintAll@@YAXPAUdisplayContextDef_s@@@Z",
@@ -50062,7 +52882,10 @@
 "name": "?Window_SetOffsetTime@@YAXPAUWindow@@H@Z",
 "obj": "ui_atoms.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x5468f0"
+],
+"scan": 1
 },
 {
 "name": "?Window_SetRect@@YAXPAUWindow@@PBUrectDef_s@@@Z",
@@ -50100,13 +52923,19 @@
 "name": "?Window_SetDynamicFlags@@YAXPAUWindow@@H@Z",
 "obj": "ui_utils.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x5469c0"
+],
+"scan": 1
 },
 {
 "name": "?Window_AddDynamicFlags@@YAXPAUWindow@@H@Z",
 "obj": "ui_utils.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x5469d0"
+],
+"scan": 1
 },
 {
 "name": "?Window_RemoveDynamicFlags@@YAXPAUWindow@@H@Z",
@@ -50120,13 +52949,19 @@
 "name": "?Window_SetStaticFlags@@YAXPAUWindow@@H@Z",
 "obj": "ui_utils.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x546a00"
+],
+"scan": 1
 },
 {
 "name": "?Menu_SetCursorItem@@YAXPAUmenuDef_t@@H@Z",
 "obj": "ui_utils.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x546a10"
+],
+"scan": 1
 },
 {
 "name": "?Menu_HasItemLeft_5407e0@@YA_NPAUmenuDef_t@@@Z",
@@ -50172,7 +53007,10 @@
 "name": "?Item_SetCursorPos@@YAXPAUitemDef_s@@H@Z",
 "obj": "ui_utils.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x546d90"
+],
+"scan": 1
 },
 {
 "name": "?Item_GetCursorPosOffset@@YAHPBUitemDef_s@@PBDH@Z",
@@ -50210,7 +53048,9 @@
 "name": "?Item_IsEditFieldDef@@YAHPAUitemDef_s@@@Z",
 "obj": "ui_utils.obj",
 "size": 63,
-"hits": []
+"hits": [
+"0x547020"
+]
 },
 {
 "name": "?Item_GetListBoxDef@@YAPAUlistBoxDef_s@@PAUitemDef_s@@@Z",
@@ -50224,13 +53064,18 @@
 "name": "?Item_GetEditFieldDef@@YAPAUeditFieldDef_s@@PAUitemDef_s@@@Z",
 "obj": "ui_utils.obj",
 "size": 75,
-"hits": []
+"hits": [
+"0x547080"
+]
 },
 {
 "name": "?Item_GetMultiDef@@YAPAUmultiDef_s@@PAUitemDef_s@@@Z",
 "obj": "ui_utils.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x5470d0"
+],
+"scan": 1
 },
 {
 "name": "?hashForString@@YAJPBD@Z",
@@ -50244,7 +53089,14 @@
 "name": "?UI_Alloc@@YAPAXHH@Z",
 "obj": "ui_utils.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x421980",
+"0x486810",
+"0x547120",
+"0x54f2f0",
+"0x550720"
+],
+"scan": 1
 },
 {
 "name": "?String_Init@@YAXXZ",
@@ -51766,7 +54618,9 @@
 "name": "_FTPListType",
 "obj": "HTFTP.obj",
 "size": 108,
-"hits": []
+"hits": [
+"0x54a2c0"
+]
 },
 {
 "name": "_AcceptDataSocket",
@@ -51780,19 +54634,25 @@
 "name": "_HTFTPLogin",
 "obj": "HTFTP.obj",
 "size": 1260,
-"hits": []
+"hits": [
+"0x54a420"
+]
 },
 {
 "name": "_HTFTPDataConnection",
 "obj": "HTFTP.obj",
 "size": 888,
-"hits": []
+"hits": [
+"0x54a910"
+]
 },
 {
 "name": "_HTFTPServerInfo",
 "obj": "HTFTP.obj",
 "size": 992,
-"hits": []
+"hits": [
+"0x54ac90"
+]
 },
 {
 "name": "_HTFTPGetData",
@@ -51810,7 +54670,42 @@
 "name": "_HTFTP_setTransferMode",
 "obj": "HTFTP.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTFTP_transferMode",
@@ -51822,7 +54717,42 @@
 "name": "_HTFTP_setControlMode",
 "obj": "HTFTP.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTFTP_controlMode",
@@ -52014,7 +54944,10 @@
 "name": "_HTFormatInit",
 "obj": "HTInit.obj",
 "size": 22,
-"hits": []
+"hits": [
+"0x54da70"
+],
+"scan": 1
 },
 {
 "name": "_HTTransferEncoderInit",
@@ -52044,7 +54977,10 @@
 "name": "_HTAAInit",
 "obj": "HTInit.obj",
 "size": 31,
-"hits": []
+"hits": [
+"0x54dc40"
+],
+"scan": 1
 },
 {
 "name": "_HTNetInit",
@@ -52102,7 +55038,42 @@
 "name": "_HTTrace_setCallback",
 "obj": "HTTrace.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTTrace_getCallback",
@@ -52123,7 +55094,42 @@
 "name": "_HTTraceData_setCallback",
 "obj": "HTTrace.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTTraceData_getCallback",
@@ -52143,7 +55149,42 @@
 "name": "_HTPrint_setCallback",
 "obj": "HTTrace.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTPrint_getCallback",
@@ -52288,7 +55329,10 @@
 "name": "_HTEventTerminate",
 "obj": "HTEvtLst.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x5615e0"
+],
+"scan": 1
 },
 {
 "name": "_HTEventList_newLoop",
@@ -52378,7 +55422,14 @@
 "name": "_launch_request",
 "obj": "HTAccess.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x421980",
+"0x486810",
+"0x547120",
+"0x54f2f0",
+"0x550720"
+],
+"scan": 1
 },
 {
 "name": "_HTLoadAbsolute",
@@ -52569,7 +55620,9 @@
 "name": "_set_preconditions",
 "obj": "HTAccess.obj",
 "size": 128,
-"hits": []
+"hits": [
+"0x54fd50"
+]
 },
 {
 "name": "_setup_anchors",
@@ -52677,7 +55730,14 @@
 "name": "_launch_server",
 "obj": "HTAccess.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x421980",
+"0x486810",
+"0x547120",
+"0x54f2f0",
+"0x550720"
+],
+"scan": 1
 },
 {
 "name": "_HTServeAbsolute",
@@ -52926,7 +55986,42 @@
 "name": "_HTMemory_setExit",
 "obj": "HTMemory.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTMemory_exit",
@@ -52946,7 +56041,42 @@
 "name": "_HTAlert_setInteractive",
 "obj": "HTAlert.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTAlert_interactive",
@@ -52996,7 +56126,42 @@
 "name": "_HTAlert_setGlobal",
 "obj": "HTAlert.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTAlert_global",
@@ -53289,7 +56454,20 @@
 "name": "_HTNet_setBefore",
 "obj": "HTNet.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HTNet_before",
@@ -53309,7 +56487,13 @@
 "name": "_HTNet_deleteBefore",
 "obj": "HTNet.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x552530",
+"0x552600",
+"0x552620",
+"0x56d3b0"
+],
+"scan": 1
 },
 {
 "name": "_HTNet_executeBeforeAll",
@@ -53323,7 +56507,20 @@
 "name": "_HTNet_setAfter",
 "obj": "HTNet.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HTNet_after",
@@ -53343,13 +56540,25 @@
 "name": "_HTNet_deleteAfter",
 "obj": "HTNet.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x552530",
+"0x552600",
+"0x552620",
+"0x56d3b0"
+],
+"scan": 1
 },
 {
 "name": "_HTNet_deleteAfterStatus",
 "obj": "HTNet.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x552530",
+"0x552600",
+"0x552620",
+"0x56d3b0"
+],
+"scan": 1
 },
 {
 "name": "_HTNet_executeAfterAll",
@@ -53385,7 +56594,11 @@
 "name": "_HTNet_decreaseSocket",
 "obj": "HTNet.obj",
 "size": 19,
-"hits": []
+"hits": [
+"0x5526e0",
+"0x552730"
+],
+"scan": 1
 },
 {
 "name": "_HTNet_availableSockets",
@@ -53405,7 +56618,11 @@
 "name": "_HTNet_decreasePersistentSocket",
 "obj": "HTNet.obj",
 "size": 19,
-"hits": []
+"hits": [
+"0x5526e0",
+"0x552730"
+],
+"scan": 1
 },
 {
 "name": "_HTNet_availablePersistentSockets",
@@ -54454,7 +57671,20 @@
 "name": "_HTHost_setDefaultWriteDelay",
 "obj": "HTHost.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HTHost_defaultWriteDelay",
@@ -54492,7 +57722,42 @@
 "name": "_HTHost_setEventTimeout",
 "obj": "HTHost.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTHost_setMaxPipelinedRequests",
@@ -54512,7 +57777,42 @@
 "name": "_HTHost_setActivateRequestCallback",
 "obj": "HTHost.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTHost_ActivateRequest",
@@ -54786,7 +58086,13 @@
 "name": "_HTLib_appName",
 "obj": "HTLib.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x555df0",
+"0x555e50",
+"0x555eb0",
+"0x555ec0"
+],
+"scan": 1
 },
 {
 "name": "_HTLib_setAppName",
@@ -54801,7 +58107,13 @@
 "name": "_HTLib_appVersion",
 "obj": "HTLib.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x555df0",
+"0x555e50",
+"0x555eb0",
+"0x555ec0"
+],
+"scan": 1
 },
 {
 "name": "_HTLib_setAppVersion",
@@ -54816,13 +58128,25 @@
 "name": "_HTLib_name",
 "obj": "HTLib.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x555df0",
+"0x555e50",
+"0x555eb0",
+"0x555ec0"
+],
+"scan": 1
 },
 {
 "name": "_HTLib_version",
 "obj": "HTLib.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x555df0",
+"0x555e50",
+"0x555eb0",
+"0x555ec0"
+],
+"scan": 1
 },
 {
 "name": "_HTLib_userProfile",
@@ -54851,7 +58175,42 @@
 "name": "_HTLib_setSecure",
 "obj": "HTLib.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTLib_isInitialized",
@@ -55519,7 +58878,20 @@
 "name": "_HTError_setShow",
 "obj": "HTError.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HTError_doShow",
@@ -56608,13 +59980,83 @@
 "name": "_HTEvent_setRegisterCallback",
 "obj": "HTEvent.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTEvent_setUnregisterCallback",
 "obj": "HTEvent.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTEvent_isCallbacksRegistered",
@@ -56723,7 +60165,42 @@
 "name": "_HTPresentation_setConverter",
 "obj": "HTFormat.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTPresentation_converter",
@@ -56819,7 +60296,42 @@
 "name": "_HTFormat_setConversion",
 "obj": "HTFormat.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTFormat_conversion",
@@ -56839,7 +60351,42 @@
 "name": "_HTFormat_setContentCoding",
 "obj": "HTFormat.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTFormat_contentCoding",
@@ -56860,7 +60407,42 @@
 "name": "_HTFormat_setTransferCoding",
 "obj": "HTFormat.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTFormat_transferCoding",
@@ -56881,7 +60463,42 @@
 "name": "_HTFormat_setLanguage",
 "obj": "HTFormat.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTFormat_language",
@@ -56893,7 +60510,42 @@
 "name": "_HTFormat_setCharset",
 "obj": "HTFormat.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTFormat_charset",
@@ -57789,7 +61441,42 @@
 "name": "_HTBind_caseSensitive",
 "obj": "HTBind.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTBind_delimiters",
@@ -58164,7 +61851,10 @@
 "name": "_HTRule_global",
 "obj": "HTRules.obj",
 "size": 20,
-"hits": []
+"hits": [
+"0x55e630"
+],
+"scan": 1
 },
 {
 "name": "_HTRule_add",
@@ -58480,7 +62170,10 @@
 "name": "_HTCacheMode_getRoot",
 "obj": "HTCache.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x55f960"
+],
+"scan": 1
 },
 {
 "name": "_HTCache_getSingleUserLock",
@@ -58498,7 +62191,42 @@
 "name": "_HTCacheMode_setEnabled",
 "obj": "HTCache.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTCacheMode_enabled",
@@ -58510,7 +62238,42 @@
 "name": "_HTCacheMode_setProtected",
 "obj": "HTCache.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTCacheMode_protected",
@@ -58522,7 +62285,42 @@
 "name": "_HTCacheMode_setDisconnected",
 "obj": "HTCache.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTCacheMode_disconnected",
@@ -58547,7 +62345,42 @@
 "name": "_HTCacheMode_setExpires",
 "obj": "HTCache.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTCacheMode_expires",
@@ -58577,7 +62410,42 @@
 "name": "_HTCacheMode_setDefaultExpiration",
 "obj": "HTCache.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTCacheMode_DefaultExpiration",
@@ -59248,7 +63116,9 @@
 "name": "_HTTPNextState",
 "obj": "HTTP.obj",
 "size": 2928,
-"hits": []
+"hits": [
+"0x563000"
+]
 },
 {
 "name": "_stream_pipe",
@@ -59380,7 +63250,42 @@
 "name": "_HTTP_setConnectionMode",
 "obj": "HTTP.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTTP_connectionMode",
@@ -59833,7 +63738,42 @@
 "name": "_HTMIME_setSaveStream",
 "obj": "HTMIME.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTMIME_saveStream",
@@ -59853,7 +63793,10 @@
 "name": "_HTCacheCopyHeaders",
 "obj": "HTMIME.obj",
 "size": 12,
-"hits": []
+"hits": [
+"0x566600"
+],
+"scan": 1
 },
 {
 "name": "_HTFileSave_flush",
@@ -60363,7 +64306,42 @@
 "name": "_HTHeader_setMIMEParseSet",
 "obj": "HTHeader.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTHeader_MIMEParseSet",
@@ -60393,13 +64371,54 @@
 "name": "_HTHeader_deleteParser",
 "obj": "HTHeader.obj",
 "size": 21,
-"hits": []
+"hits": [
+"0x552530",
+"0x552600",
+"0x552620",
+"0x56d3b0"
+],
+"scan": 1
 },
 {
 "name": "_HTHeader_setGenerator",
 "obj": "HTHeader.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTHeader_generator",
@@ -60536,7 +64555,13 @@
 "name": "_HTANSIReader_close",
 "obj": "HTANSI.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x5687e0",
+"0x568960",
+"0x5696e0",
+"0x5704d0"
+],
+"scan": 1
 },
 {
 "name": "_HTANSIReader_new",
@@ -60580,7 +64605,13 @@
 "name": "_HTANSIWriter_close",
 "obj": "HTANSI.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x5687e0",
+"0x568960",
+"0x5696e0",
+"0x5704d0"
+],
+"scan": 1
 },
 {
 "name": "_HTANSIWriter_new",
@@ -60905,7 +64936,13 @@
 "name": "_HTWriter_close",
 "obj": "HTWriter.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x5687e0",
+"0x568960",
+"0x5696e0",
+"0x5704d0"
+],
+"scan": 1
 },
 {
 "name": "_HTWriter_new",
@@ -60947,7 +64984,20 @@
 "name": "_HTFile_setDirAccess",
 "obj": "HTFile.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HTFile_dirAccess",
@@ -60959,7 +65009,20 @@
 "name": "_HTFile_setDirReadme",
 "obj": "HTFile.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HTFile_dirReadme",
@@ -60971,7 +65034,20 @@
 "name": "_HTFile_doFileSuffixBinding",
 "obj": "HTFile.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HTFile_fileSuffixBinding",
@@ -61011,7 +65087,9 @@
 "name": "_GopherIcon",
 "obj": "HTGopher.obj",
 "size": 257,
-"hits": []
+"hits": [
+"0x56a210"
+]
 },
 {
 "name": "_GopherTitle",
@@ -61975,7 +66053,10 @@
 "name": "_HTInetStatus",
 "obj": "HTInet.obj",
 "size": 7,
-"hits": []
+"hits": [
+"0x56e560"
+],
+"scan": 1
 },
 {
 "name": "_HTCardinal",
@@ -62169,7 +66250,42 @@
 "name": "_HTProxy_setNoProxyIsOnlyProxy",
 "obj": "HTProxy.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTProxy_find",
@@ -62254,13 +66370,23 @@
 "name": "_HTSC_free",
 "obj": "HTSChunk.obj",
 "size": 16,
-"hits": []
+"hits": [
+"0x5687e0",
+"0x568960",
+"0x5696e0",
+"0x5704d0"
+],
+"scan": 1
 },
 {
 "name": "_HTSC_abort",
 "obj": "HTSChunk.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x5704e0",
+"0x578020"
+],
+"scan": 1
 },
 {
 "name": "_HTSC_putBlock",
@@ -62632,7 +66758,42 @@
 "name": "_HTDNS_setTimeout",
 "obj": "HTDNS.obj",
 "size": 10,
-"hits": []
+"hits": [
+"0x42cf80",
+"0x432080",
+"0x54bbc0",
+"0x54bbe0",
+"0x54e540",
+"0x54e580",
+"0x54e5d0",
+"0x550f70",
+"0x550fc0",
+"0x551160",
+"0x5540a0",
+"0x5540e0",
+"0x555f10",
+"0x559250",
+"0x559260",
+"0x559480",
+"0x559870",
+"0x5598e0",
+"0x559940",
+"0x5599a0",
+"0x5599c0",
+"0x55c0e0",
+"0x55fb60",
+"0x55fb80",
+"0x55fba0",
+"0x55fbd0",
+"0x55fc30",
+"0x564ad0",
+"0x566580",
+"0x56d310",
+"0x56d3d0",
+"0x56fe10",
+"0x5712b0"
+],
+"scan": 1
 },
 {
 "name": "_HTDNS_timeout",
@@ -64033,7 +68194,11 @@
 "name": "_HTTeXGen_abort",
 "obj": "HTTeXGen.obj",
 "size": 17,
-"hits": []
+"hits": [
+"0x5704e0",
+"0x578020"
+],
+"scan": 1
 },
 {
 "name": "_HTMLToTeX",
@@ -64099,7 +68264,9 @@
 "name": "_HTML_start_element",
 "obj": "HTML.obj",
 "size": 1647,
-"hits": []
+"hits": [
+"0x5781d0"
+]
 },
 {
 "name": "_HTML_end_element",
@@ -64395,7 +68562,9 @@
 "name": "_SGML_write",
 "obj": "SGML.obj",
 "size": 2220,
-"hits": []
+"hits": [
+"0x5797f0"
+]
 },
 {
 "name": "_SGML_string",
@@ -64647,19 +68816,49 @@
 "name": "_HText_unregisterCDCallback",
 "obj": "HText.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x57a540",
+"0x57a600"
+],
+"scan": 1
 },
 {
 "name": "_HText_registerBuildCallback",
 "obj": "HText.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HText_registerTextCallback",
 "obj": "HText.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HText_unregisterTextCallback",
@@ -64684,7 +68883,20 @@
 "name": "_HText_registerLinkCallback",
 "obj": "HText.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HText_unregisterLinkCallback",
@@ -64748,13 +68960,30 @@
 "name": "_HText_unregisterUnparsedElementCallback",
 "obj": "HText.obj",
 "size": 18,
-"hits": []
+"hits": [
+"0x57a540",
+"0x57a600"
+],
+"scan": 1
 },
 {
 "name": "_HText_registerUnparsedEntityCallback",
 "obj": "HText.obj",
 "size": 15,
-"hits": []
+"hits": [
+"0x5524d0",
+"0x5525a0",
+"0x553fb0",
+"0x556d70",
+"0x569b30",
+"0x569b50",
+"0x569b70",
+"0x57a560",
+"0x57a570",
+"0x57a590",
+"0x57a620"
+],
+"scan": 1
 },
 {
 "name": "_HText_unregisterUnparsedEntityCallback",
@@ -68033,7 +72262,10 @@
 "name": "_abort",
 "obj": "libcmt:abort.obj",
 "size": 23,
-"hits": []
+"hits": [
+"0x57dd90"
+],
+"scan": 1
 },
 {
 "name": "_init_namebuf",
@@ -68375,7 +72607,9 @@
 "name": "__output",
 "obj": "libcmt:output.obj",
 "size": 2042,
-"hits": []
+"hits": [
+"0x57f5d8"
+]
 },
 {
 "name": "___isctype_mt",
@@ -70362,7 +74596,9 @@
 "name": "___strgtold12",
 "obj": "libcmt:strgtold.obj",
 "size": 1076,
-"hits": []
+"hits": [
+"0x58a409"
+]
 },
 {
 "name": "___STRINGTOLD",
@@ -72706,19 +76942,36 @@
 "name": "_$E1",
 "obj": "cg_localents_mp.obj",
 "size": 70,
-"hits": []
+"hits": [
+"0x592b00",
+"0x592b50"
+],
+"scan": 1
 },
 {
 "name": "_$E1",
 "obj": "cg_localents_mp.obj",
 "size": 70,
-"hits": []
+"hits": [
+"0x592b00",
+"0x592b50"
+],
+"scan": 1
 },
 {
 "name": "_$E1",
 "obj": "cg_localents_mp.obj",
 "size": 11,
-"hits": []
+"hits": [
+"0x4073a0",
+"0x415f80",
+"0x42cca0",
+"0x42cd50",
+"0x4578f0",
+"0x474f90",
+"0x592ba0"
+],
+"scan": 1
 },
 {
 "name": "_$E2",
