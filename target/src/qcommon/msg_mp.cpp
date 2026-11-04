@@ -307,7 +307,7 @@ static const netField_t playerStateFields[] =
 
 #define OBJF( x ) # x, offsetof( objective_t, x )
 
-static netField_t objectiveFields[] =
+static const netField_t objectiveFields[] =
 {
 	{ OBJF( origin[0] ), 0},
 	{ OBJF( origin[1] ), 0},
