@@ -13,6 +13,8 @@ public:
     CTreeCtrl m_treeEntity;
 protected:
     virtual void DoDataExchange(CDataExchange *pDX);
+    afx_msg void OnSelect();
+    afx_msg void OnDblclkTreeEntity(NMHDR *pNMHDR, LRESULT *pResult);
 };
 
 CEntityListDlg::CEntityListDlg(CWnd *pParent)
@@ -25,4 +27,12 @@ void CEntityListDlg::DoDataExchange(CDataExchange *pDX)
     CDialog::DoDataExchange(pDX);
     DDX_Control(pDX, 1025, m_lstEntity);
     DDX_Control(pDX, 1022, m_treeEntity);
+}
+
+// Q3Radiant (GPL-2.0-or-later) source candidate: 0x0040ccb0 / 21 bytes.
+// This depends on the real OnSelect body, not an artificial stub.
+void CEntityListDlg::OnDblclkTreeEntity(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    OnSelect();
+    *pResult = 0;
 }
