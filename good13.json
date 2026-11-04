@@ -9297,7 +9297,9 @@
 "name": "?Com_PrintMessage@@YAXW4print_msg_type_t@@PBD@Z",
 "obj": "common.obj",
 "size": 454,
-"hits": []
+"hits": [
+"0x431d10"
+]
 },
 {
 "name": "?Com_Printf@@YAXPBDZZ",
@@ -17835,7 +17837,7 @@
 ]
 },
 {
-"name": "$L96634",
+"name": "$L96628",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -33232,7 +33234,7 @@
 ]
 },
 {
-"name": "$L118248",
+"name": "$L118253",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33240,7 +33242,7 @@
 ]
 },
 {
-"name": "$L118250",
+"name": "$L118255",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33273,7 +33275,7 @@
 ]
 },
 {
-"name": "$L132127",
+"name": "$L132132",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33281,7 +33283,7 @@
 ]
 },
 {
-"name": "$L132129",
+"name": "$L132134",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33350,7 +33352,7 @@
 ]
 },
 {
-"name": "$L104382",
+"name": "$L104387",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33366,7 +33368,7 @@
 ]
 },
 {
-"name": "$L147485",
+"name": "$L147490",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35940,8 +35942,10 @@
 {
 "name": "?PbCaptureConsoleOutput@@YAXPADH@Z",
 "obj": "pbsv.obj",
-"size": 94,
-"hits": []
+"size": 125,
+"hits": [
+"0x4bdb10"
+]
 },
 {
 "name": "?PbSvGameCommand@@YAPADPAD0@Z",
@@ -78029,7 +78033,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 3888,
+"size": 3856,
 "hits": []
 }
 ]
