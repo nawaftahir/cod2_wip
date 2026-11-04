@@ -192,3 +192,12 @@
 - MEASURED (wH build): matched-fn 1207396 B vs stale best 1200971. Own gains: LAN_GetServerPunkBuster 95, EnablePbCl 81, DisablePbCl 81.
   UI_RunMenuScript itself is NOT yet matched (rest of the 4.8 KB body not diffed). ratchet_fn flags SVC_Status (975 B) LOST; it is not touched
   by this change (good13.json predates the SVC_Status MAX_MSGLEN merge / serverInfo_t 0x94 commit), so it is a stale-baseline loss, not wH.
+
+## wL: libwww __LINE__ audit (11-04)
+- PINNED (retail 1.3 vs our src, via HT_OUTOFMEM call sites: push line/file/name, call 0x550f90): the dominant libwww unmatched cause is
+  __LINE__ immediates, not flags. 51 of 69 TUs were exactly 1 line too long (upstream 5.4 text; retail 1 line shorter). Dropping the "@(#) $Id$" header
+  line in those: matched-fn 1,370,630 -> 1,387,397. Then per-site blank-line padding (HTAABrow +4/+11, HTAnchor, HTCache, HTHost +4, HTInet, HTEvtLst): -> 1,396,320 (+25.7 KB total, no fn lost vs own baseline).
+- STILL OFF (retail line vs ours, real source differences, not padded): HTReqMan 66/152/171 vs 64/134/153, HTTP 984/1027 vs 924/967, HTTPGen 310 vs 256, HTTPReq 628 vs 609,
+  HTIcons 104 vs 106, HTPEP 74/185 vs 75/186 (+extra site), HTParse/HTProxy/HTWWWStr/HTEvtLst: ours has extra OOM sites retail lacks (ifdef-ed out in retail; fix the ifdefs, then pad).
+  Padding with blank lines is a stand-in for the missing upstream lines.
+- NOT done: dl_main placement, Rich-header obj count check.
