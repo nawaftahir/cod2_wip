@@ -1,3 +1,61 @@
+# Screenshot dependency group - 2026-11-04
+
+R_LevelShot159 and R_TakeResampledScreenshot150 are exact raw hits, blocked
+by R_ResampleImage. Resampler target10025d10/360 versus draft364 calls
+Downsample100259a0 with stride on stack; draft passes stride inEDX.
+Downsample target363 versus draft369; blue-first source assignment leaves
+369 and the ABI unchanged. Rejected and restored. Original upsampler497
+versus target503 at10025b10 also differs. Next inspect the sampling helpers'
+argument liveness/arithmetic as a group, not isolated caller formatting.
+Native fixture execution hit sandboxSIGSYS; rerun elevated before claiming
+behavior verification. No coverage added; physical build is diagnostic.
+
+# Fullscreen tracking dependency - 2026-11-04
+
+Image_TrackFullscreenTexture149 at1000c9d0 blocks the2102-byte raw match
+R_InitRenderTargets. Its original draft differs only in the first selector's
+register/load order. Existing dimension helper calls and direct ternaries
+both emit216; two offset switches198; width-only offset switch146;
+width-default branch144. All fail. Restore original149-byte source; no new
+coverage. Existing fullscreen and setup fixtures pass1152 allocation cases,
+three usage paths and48 wrappers for the helper-call version. Do not repeat
+selector-spelling sweeps; investigate original TU/inlining context instead.
+Also failed 11-04: vidConfig width/height hoisted into locals before the
+platform loop; regression lost checkpoints 0x10022b90/0x10022c30. Restored.
+
+# World vertex copy grouping - 2026-11-04
+
+Vector-copy helpers emit446/472, grouped fixed-size memcpy emits188/472,
+and position helper with scalar texture coordinates emits461/472, identical
+to the original indexed form. All are rejected; original source restored.
+72 actual upload cases pass for grouped copies. No source coverage added.
+Do not continue helper/copy spelling sweeps; inspect compiler/TU context.
+Physical build is diagnostic;11fee6d remains last full V3 checkpoint.
+
+# World vertex pointer traversal - 2026-11-04
+
+Explicit source/destination pointer iteration emits462 versus retail472
+bytes (indexed source461). All72 actual world-upload fixtures pass, but
+register assignment and unrolled copy structure differ. Rejected; original
+indexed source restored. No coverage added. Physical build is diagnostic.
+Next inspect the retail unroll remainder/control flow before more traversal
+spellings. Last full passing checkpoint remains11fee6d.
+
+# Recursive parser size-policy probe - 2026-11-04
+
+Function-local optimize("s",on) emits466/540 bytes and changes the frame,
+register allocation and instruction forms throughout. Rejected and removed.
+This does not justify a global flag change. No coverage added. Next select
+another dependency group rather than continuing this compiler-policy sweep.
+Physical output is diagnostic; last full passing checkpoint remains11fee6d.
+
+# Recursive parser linkage probe - 2026-11-04
+
+Removing static from Material_ParseCodeConstantSource_r still emits589/540
+bytes with the same first discrepancy. Probe rejected; original linkage
+restored. No new coverage. Physical build is diagnostic; committed checkpoint
+11fee6d remains the last full regression proof. Do not repeat linkage alone.
+
 # Recursive constant-source loop trials - 2026-11-04
 
 Inlining only the evidenced first token read emits589/540. Compiler repeats

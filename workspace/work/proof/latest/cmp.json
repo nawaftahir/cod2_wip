@@ -5312,8 +5312,10 @@
 {
 "name": "?R_UpsamplePixelData@@YAXHHHHPAE0@Z",
 "obj": "r_screenshot.obj",
-"size": 497,
-"hits": []
+"size": 503,
+"hits": [
+"0x10025b10"
+]
 },
 {
 "name": "?R_ResampleImage@@YAXHHHHHPAE@Z",

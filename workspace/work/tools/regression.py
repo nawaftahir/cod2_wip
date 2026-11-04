@@ -242,6 +242,9 @@ required.update(accepted(short_search))
 vertex_decl = gfx / 'target/work/proof/vertex_decl_20261104_warm_bind.json'
 assert hashlib.sha256(vertex_decl.read_bytes()).hexdigest() == 'a3d92804c7d9039f6f2e51e49790a4c724006cfedfa8eedbd5eaccc1ed0bb023'
 required.update(accepted(vertex_decl))
+upsample = gfx / 'target/work/proof/upsample_20261104_warm_bind.json'
+assert hashlib.sha256(upsample.read_bytes()).hexdigest() == 'f784f76cff831bd1485691f85326d0239cfdfdbd2ee66a9230a90938b377b253'
+required.update(accepted(upsample))
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

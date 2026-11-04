@@ -1,3 +1,15 @@
+## Pixel upsampler checkpoint - 2026-11-04
+
+R_UpsamplePixelData10025b10/503 matches bytes AND bindings after moving
+initial destination-offset computation before the final-pixel copies.
+All2513 protected extents pass;1920 independent sampling cases and four
+retention negatives pass. Existing I_fround assembly is inlined, so the
+whole503-byte containing function is EXCLUDED from C++:37 assembly-bearing
+bodies/9104 bytes; C++ remains117113/253580=46.183847307%,722 bodies.
+Receipt: target/work/proof/nov04_upsample_checkpoint.json. No SHA/GPU claim.
+Next recover Downsample100259a0/363 to resolve the360-byte resampler and
+its existing screenshot caller chain. Source work remains under gfx only.
+
 # Renderer progress
 
 ## Current verified checkpoint - 2026-11-04, material parser

@@ -198,6 +198,9 @@ required.update(accepted(short_search))
 vertex_decl = Path(__file__).resolve().parents[1] / 'proof/vertex_decl_20261104_warm_bind.json'
 assert hashlib.sha256(vertex_decl.read_bytes()).hexdigest() == 'a3d92804c7d9039f6f2e51e49790a4c724006cfedfa8eedbd5eaccc1ed0bb023'
 required.update(accepted(vertex_decl))
+upsample = Path(__file__).resolve().parents[1] / 'proof/upsample_20261104_warm_bind.json'
+assert hashlib.sha256(upsample.read_bytes()).hexdigest() == 'f784f76cff831bd1485691f85326d0239cfdfdbd2ee66a9230a90938b377b253'
+required.update(accepted(upsample))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

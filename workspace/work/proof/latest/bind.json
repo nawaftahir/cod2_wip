@@ -2565,6 +2565,12 @@
 "obj": "r_screenshot.obj",
 "why": []
 },
+"?R_UpsamplePixelData@@YAXHHHHPAE0@Z": {
+"t": "0x10025b10",
+"n": 503,
+"obj": "r_screenshot.obj",
+"why": []
+},
 "?R_TakeResampledScreenshot@@YAPAEHHHH@Z": {
 "t": "0x10026110",
 "n": 150,

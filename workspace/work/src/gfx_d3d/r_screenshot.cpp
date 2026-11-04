@@ -167,10 +167,10 @@ void R_UpsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel
     int column;
 
     column = newSize - 1;
+    dst += column * nextSample;
     currSrc[nextSample] = currSrc[0];
     currSrc[nextSample + 1] = currSrc[1];
     currSrc[nextSample + 2] = currSrc[2];
-    dst += column * nextSample;
     int forwardWeight = newSize - oldSize;
     int backwardWeight = newSize + oldSize;
     for (; column >= 0; --column)

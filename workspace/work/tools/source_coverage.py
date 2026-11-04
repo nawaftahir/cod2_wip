@@ -101,8 +101,10 @@ required['0x1005edb0'] = 169
 required['0x10029320'] = 262
 # Window settings inlines the unchanged rounding helper; its table is not code.
 required['0x100115f0'] = 190
+# Pixel upsampling inlines the unchanged I_fround assembly.
+required['0x10025b10'] = 503
 assert {row['target']: row['bytes'] for row in excluded} == required
-assert len(excluded) == 36 and sum(row['bytes'] for row in excluded) == 8601
+assert len(excluded) == 37 and sum(row['bytes'] for row in excluded) == 9104
 cpp = report['bytes'] - sum(row['bytes'] for row in excluded)
 print(json.dumps(dict(
     status='authored-assembly attribution; not whole-file identity',

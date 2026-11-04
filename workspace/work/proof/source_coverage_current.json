@@ -2,7 +2,7 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 125714,
+  "mixed_executable_bytes": 126217,
   "cpp_executable_bytes": 117113,
   "cpp_percent": 46.183847306569916,
   "cpp_game_bodies": 722,
@@ -48,6 +48,14 @@
         "fistp"
       ],
       "referee_extent": 208
+    },
+    {
+      "target": "0x10025b10",
+      "bytes": 503,
+      "name": "?R_UpsamplePixelData@@YAXHHHHPAE0@Z",
+      "reasons": [
+        "fistp"
+      ]
     },
     {
       "target": "0x10029320",
@@ -301,9 +309,9 @@
   "memory_helpers_cannot_inline": true,
   "naked_box_separate": true,
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
-  "counter_sha256": "da14ea716974df944e2ea25eb187ef918e23a633abb38543750c8ed306af721d",
+  "counter_sha256": "1d1bc0ffe3cbe2661621450448d8a57cdabf02ac2e0aa0f1cb4cbb7c1b63404f",
   "regression_sha256": "507f0679285056a106231ac9c368aa0f5ba41979e5648cfbf3d781c3adc5129c",
-  "bind_sha256": "149c3ff92a4b8807bb2a9fd96c17fdb09f9aeeb0bb5b9700348ad10a7da9255e",
+  "bind_sha256": "04fdee0178827f080c7e503ff9681bcc7da0ce85fe142620ebae758df6f14c32",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -406,7 +414,7 @@
     "gfx_d3d/r_material_globals.h": "c167c5fa166909ae5e0d2753682a816391f8cbbfe6def24fff049368197a2614",
     "gfx_d3d/r_material_shader.h": "31c21ae3e44f4f68e804af13d71f4aea919c797dd078f0cbe0c78e1c66121cf6",
     "gfx_d3d/r_light_load_obj.cpp": "835b9a81e1cc05a11f970a4ccee953511d2c36bff96d204867cbbdfba2f27aa8",
-    "gfx_d3d/r_screenshot.cpp": "1ce37351bd5e0c095fa521a9a81937800bc8dd0a5665bb25f9a12f97a4aaa737",
+    "gfx_d3d/r_screenshot.cpp": "0b740bdd77cea29336a36537ec033e935529e2d0be2c06080ff844d5ab798941",
     "gfx_d3d/r_staticmodelcache.cpp": "5dfb5f69c69f168b66986c26c7ab1e06a1beb9f97043f0b561b83f20b4e8cc83",
     "gfx_d3d/r_sun_state.h": "419ff7fe0c06e590a7014b9ba5a47de61008284d2d759e0bccf9419e090743c5",
     "gfx_d3d/ri.h": "01f47cb20c4d65ac0ea787c4c3ad5a1cae6c16df719a8ee3c9afe7f5fa82a8d1",

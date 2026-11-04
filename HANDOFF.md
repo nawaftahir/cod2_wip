@@ -1,3 +1,25 @@
+## Pixel upsampler checkpoint - 2026-11-04
+
+R_UpsamplePixelData10025b10/503 matches bytes AND bindings after moving
+initial destination-offset computation before the final-pixel copies.
+All2513 protected extents pass;1920 independent sampling cases and four
+retention negatives pass. Existing I_fround assembly is inlined, so the
+whole503-byte containing function is EXCLUDED from C++:37 assembly-bearing
+bodies/9104 bytes; C++ remains117113/253580=46.183847307%,722 bodies.
+Receipt: target/work/proof/nov04_upsample_checkpoint.json. No SHA/GPU claim.
+Next recover Downsample100259a0/363 to resolve the360-byte resampler and
+its existing screenshot caller chain. Source work remains under gfx only.
+
+## Restored regression - 2026-11-04
+
+Fresh full build/referees retain all2512 extents. No new coverage:117113
+C++ bytes/722 bodies,46.183847307% provisional inventory. Source matches
+11fee6d. Additional world-copy and fullscreen-selector attempts are rejected
+and restored; ATTEMPTS.md records sizes and fixtures. Next investigate TU/
+inlining context rather than repeating equivalent source spellings. The
+2102-byte R_InitRenderTargets raw match remains blocked by the149-byte
+Image_TrackFullscreenTexture draft at1000c9d0. No altered gates or new roots.
+
 ## Constant-source continuation - 2026-11-04
 
 No coverage added beyond the committed46.183847307% checkpoint865a2a6.
