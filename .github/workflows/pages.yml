@@ -1,8 +1,13 @@
 name: progress page
 
+# Rebuilds after main changes, or after any target's CI passes on its <target>/main.
 on:
   push:
     branches: [main]
+  workflow_run:
+    workflows: [radiant, client, gfx]
+    types: [completed]
+    branches: ['*/main']
   workflow_dispatch:
 
 permissions:
@@ -16,10 +21,14 @@ concurrency:
 
 jobs:
   build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         with:
+          ref: main
+          fetch-depth: 0
+          filter: blob:none
           lfs: false
       - run: python3 tools/dashboard/build.py --test && python3 tools/dashboard/build.py
       - uses: actions/upload-pages-artifact@v3

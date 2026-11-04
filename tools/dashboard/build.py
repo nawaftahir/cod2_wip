@@ -5,7 +5,8 @@ A meter is JSON with radiant's ledger/meter.json field names. Only these are rea
   text_bytes, matched_bytes, same_offset_bytes, file_bytes,
   matched_functions, game_functions, sha_identical
 plus optional: name, binary, version, note.
-Found at targets/*/ledger/meter.json, targets/*/meter*.json and status/*.json.
+Read from every <target>/main branch (ledger/meter.json or meter*.json at its root),
+then status/*.json on main for finished or not-yet-imported targets.
 """
 import glob, html, json, os, subprocess, sys, datetime
 
@@ -16,15 +17,33 @@ def pct(a, b):
     return 100.0 * a / b if b else 0.0
 
 
+def git(*args):
+    return subprocess.run(["git", "-C", ROOT, *args], capture_output=True, text=True).stdout
+
+
+def branch_meters():
+    # remote refs in CI, local ones when previewing without a fetch
+    refs = git("for-each-ref", "--format=%(refname:short)", "refs/remotes/origin/*/main").split() \
+        or git("for-each-ref", "--format=%(refname:short)", "refs/heads/*/main").split()
+    for ref in sorted(refs):
+        target = ref.removeprefix("origin/").split("/")[0]
+        files = git("ls-tree", "--name-only", ref, "ledger/meter.json").split() \
+            + [f for f in git("ls-tree", "--name-only", ref).split() if f.startswith("meter") and f.endswith(".json")]
+        for f in files:
+            m = json.loads(git("show", f"{ref}:{f}"))
+            stem = os.path.splitext(os.path.basename(f))[0].removeprefix("meter").lstrip("-")
+            m.setdefault("name", f"{target} {stem}".strip())
+            m["_src"] = f"{target}/main:{f}"
+            yield m
+
+
 def load():
-    rows = []
-    pats = ["targets/*/ledger/meter.json", "targets/*/meter*.json", "status/*.json"]
-    for p in sorted({f for pat in pats for f in glob.glob(os.path.join(ROOT, pat))}):
+    rows = list(branch_meters())
+    for p in sorted(glob.glob(os.path.join(ROOT, "status/*.json"))):
         with open(p) as fh:
             m = json.load(fh)
-        rel = os.path.relpath(p, ROOT)
-        m.setdefault("name", rel.split(os.sep)[1] if rel.startswith("targets") else os.path.splitext(os.path.basename(p))[0])
-        m["_src"] = rel.replace(os.sep, "/")
+        m.setdefault("name", os.path.splitext(os.path.basename(p))[0])
+        m["_src"] = "main:status/" + os.path.basename(p)
         rows.append(m)
     return rows
 
