@@ -909,6 +909,12 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
+"?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000fe90",
+"n": 605,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
 "?Image_WaterColorForDirection@@YAXPBMHPAE@Z": {
 "t": "0x100107e0",
 "n": 98,
@@ -922,7 +928,7 @@
 "n": 519,
 "obj": "r_image_load_obj.obj",
 "why": [
-"call ?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z"
+"call ?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z"
 ]
 },
 "?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {

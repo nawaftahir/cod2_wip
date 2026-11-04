@@ -210,6 +210,9 @@ required.update(accepted(static_lighting))
 gamma_capture = Path(__file__).resolve().parents[1] / 'proof/gamma_capture_20261104_warm_bind.json'
 assert hashlib.sha256(gamma_capture.read_bytes()).hexdigest() == 'f06ddf988ea07cb30fd2e6ccc11592e7b722ba32b7ba36fcfde6abb5df408d1a'
 required.update(accepted(gamma_capture))
+lightmap_weights = Path(__file__).resolve().parents[1] / 'proof/lightmap_weights_20261104_warm_bind.json'
+assert hashlib.sha256(lightmap_weights.read_bytes()).hexdigest() == 'd589ce146edca75b1c1ad5b25410c8bb4982a1ca620347d93404bc4182090ba6'
+required.update(accepted(lightmap_weights))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

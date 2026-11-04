@@ -33,6 +33,7 @@ program = r'''
 #include <cstring>
 #include <vector>
 typedef unsigned char byte;
+void VectorCopy(const float *v,float *out) {memcpy(out,v,3*sizeof(float));}
 void VectorScale(const float *v,float s,float *out) {for(int i=0;i<3;++i)out[i]=s*v[i];}
 void VectorMA(const float *v,float s,const float *b,float *out) {for(int i=0;i<3;++i)out[i]=v[i]+s*b[i];}
 enum D3DFORMAT {D3DFMT_A8R8G8B8=21,D3DFMT_L8=50};

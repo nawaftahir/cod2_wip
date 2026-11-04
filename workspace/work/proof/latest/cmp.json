@@ -1846,7 +1846,7 @@
 {
 "name": "?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z",
 "obj": "r_image_load_obj.obj",
-"size": 754,
+"size": 770,
 "hits": []
 },
 {
@@ -1938,8 +1938,10 @@
 {
 "name": "?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z",
 "obj": "r_image_load_obj.obj",
-"size": 589,
-"hits": []
+"size": 605,
+"hits": [
+"0x1000fe90"
+]
 },
 {
 "name": "?Image_WaterColorForDirection@@YAXPBMHPAE@Z",

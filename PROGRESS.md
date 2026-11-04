@@ -1,3 +1,28 @@
+## Lightmap weight source checkpoint - 2026-11-04
+
+Image_LoadLightmapWeights1000fe90/605 now passes BOTH referees. The retained
+source uses the target's sequential pixel cursor and reloads the row counter
+only at the row boundary. No assembly was added; its existing I_fround calls
+expand rounding assembly, so the ENTIRE605-byte body is excluded from C/C++.
+C++ remains118123/253580=46.582143702%,728 bodies: net0 C++ this wave.
+Recovered mixed code increases by605 bytes. Assembly-bearing total40 bodies/
+10151 bytes; all2522 protected source/library extents survive. Four retention
+negatives reject removal/unverification of the new body in both guards.
+Existing1024 direction/4096 packed-byte checks and134 procedural-image routes
+pass. No partial TU promoted to root src;10 complete files/61 functions remain.
+Original compiler profile, link order, data owners and one-build policy stay.
+
+Image_LoadBuiltin519 is still blocked by the shared cubemap generator through
+its light-grid wrapper43, not by the now-matched lightmap builder. Cubemap
+retail10160/786 is confirmed by the genuine caller at1069f. Contiguous3x3
+axis storage and row-offset rounding narrow its draft; it remains unverified.
+Rejected precision and pointer-loop trials are recorded in ATTEMPTS.md. Do
+not repeat them or count the partial generator. Next investigate its x87
+row-base retention/callback context or another dependency with fresh evidence.
+Proof: target/work/proof/nov04_lightmap_checkpoint.json. Final build log:
+target/work/proof/latest/nov04_lightmap_checkpoint.log. Whole-file SHA/GPU
+remain unfinished.50% still needs8667 PURE C++ bytes; goal remains active.
+
 ## Material-image boundary work - 2026-11-04
 
 No new verified C++ bytes in this wave; baseline remains118123/253580

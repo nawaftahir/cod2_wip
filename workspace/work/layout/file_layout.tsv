@@ -67,7 +67,6 @@ gfx_d3d/r_image_load_obj.cpp	?I_sqrt@@YAMM@Z	-	-	-	-	unknown
 universal/q_shared.cpp	?I_strcmp@@YAHPBD0@Z	-	-	universal/q_shared	universal/q_shared	mac-name
 universal/q_shared.cpp	?I_stricmp@@YAHPBD0@Z	-	-	universal/q_shared	universal/q_shared	mac-name
 gfx_d3d/r_image.cpp	?Image_AllocProg@@YAPAUGfxImage@@HH@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
-gfx_d3d/r_image_load_obj.cpp	?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z	-	-	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image.cpp	?Image_TrackFullscreenTexture@@YAXPAUGfxImage@@HW4_D3DFORMAT@@@Z	-	-	gfx_d3d/r_image	gfx_d3d/r_image	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_TransformLightGridVector@@YAXMMMPAM@Z	-	-	-	-	unknown
 universal/com_plane.cpp	?IntersectPlanes@@YAHPAPBMQAM@Z	-	-	-	-	unknown
@@ -500,6 +499,7 @@ gfx_d3d/r_image_load_obj.cpp	?Image_GenerateCube@@YAXPAUGfxImage@@HPBEHW4_D3DFOR
 gfx_d3d/r_image_load_obj.cpp	?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z	1000fc30	bind	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z	1000fce0	bind	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?R_GetLightmapWeightsForDir@@YAXPBMPAM@Z	1000fd70	bind	-	gfx_d3d/r_image_load_obj	interval
+gfx_d3d/r_image_load_obj.cpp	?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z	1000fe90	bind	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z	100100f0	bind	-	gfx_d3d/r_image_load_obj	interval
 gfx_d3d/r_image_load_obj.cpp	?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z	10010160	pinned	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name
 gfx_d3d/r_image_load_obj.cpp	?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z	100104a0	bind	gfx_d3d/r_image_load_obj	gfx_d3d/r_image_load_obj	mac-name

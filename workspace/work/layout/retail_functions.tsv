@@ -240,7 +240,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1000fc30	FUN_1000fc30	169	169	VERIFIED_EXTENT	gfx_d3d/r_image_load_obj.cpp	bind	r_image_load_obj.obj	?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z
 0x1000fce0	FUN_1000fce0	119	119	VERIFIED_EXTENT	gfx_d3d/r_image_load_obj.cpp	bind	r_image_load_obj.obj	?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z
 0x1000fd70	FUN_1000fd70	279	279	VERIFIED_EXTENT	gfx_d3d/r_image_load_obj.cpp	bind	r_image_load_obj.obj	?R_GetLightmapWeightsForDir@@YAXPBMPAM@Z
-0x1000fe90	FUN_1000fe90	605		NO_SOURCE_OWNER		-		
+0x1000fe90	FUN_1000fe90	605	605	VERIFIED_EXTENT	gfx_d3d/r_image_load_obj.cpp	bind	r_image_load_obj.obj	?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z
 0x100100f0	FUN_100100f0	102	102	VERIFIED_EXTENT	gfx_d3d/r_image_load_obj.cpp	bind	r_image_load_obj.obj	?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z
 0x10010160	FUN_10010160	780		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_image_load_obj.cpp	pinned		?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z
 0x100104a0	FUN_100104a0	465	465	VERIFIED_EXTENT	gfx_d3d/r_image_load_obj.cpp	bind	r_image_load_obj.obj	?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z

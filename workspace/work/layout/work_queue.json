@@ -2,16 +2,16 @@
   "scope": "Inventory and candidate TU ownership; not historical boundary or coverage proof",
   "inventory_functions": 2702,
   "additional_verified_starts": 555,
-  "inventory_without_candidate_tu_owner": 1633,
+  "inventory_without_candidate_tu_owner": 1632,
   "candidate_tus": 112,
   "cpp_percent": 46.582143702184716,
   "warning": "Counts include dependencies and aliases. Queue bytes and complexity are diagnostics, not progress.",
   "input_sha256": {
     "/home/nawaf/cod2/test/dev/glm/data/functions_gfx10.json": "93987c0a615ecf8a4141acfca24946a2c38e5879beac597521796fcf10cdd44d",
     "/home/nawaf/cod2/test/dev/gfx/target/work/src/tus.txt": "afe48cb6f48463a9740331d0f26251e63cd8cc9348cd47cb89f105a65ffb1c50",
-    "/home/nawaf/cod2/test/dev/gfx/target/work/build/bind.json": "528bb7cc6190597bdbd5bbb5be5e3ca38f78e8bfa3a5719a5189d3960f49b7e8",
-    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/file_layout.tsv": "c882a6aa398407df8c03b246bd7ffc108ba719aaf5a1f6894b069b36f9171c9f",
-    "/home/nawaf/cod2/test/dev/gfx/target/work/proof/source_coverage_current.json": "5f2364300755f8ff57f78ae0e6daa1ef804ef4be7b481218918c2c365af25f7b",
-    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/current.json": "770723be5ed3e872b6362c3612aa22cbab3abdc2fc4e7ac1704eb1f5ab1920e5"
+    "/home/nawaf/cod2/test/dev/gfx/target/work/build/bind.json": "0e61bb2abff80c4ccf06e47c19e30bce3aa368fe40f3f4c287dc039fd4cfcc8b",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/file_layout.tsv": "ec886306d00c0874870e293f60d6b5b37bf755c22d384b96719480249eea97d8",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/proof/source_coverage_current.json": "b4fbeddb5b0f5d4ba854fb1763d38a40998fbc2448092cf85142d3d1df9533a8",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/current.json": "da1eb07913e8772cfe2f28f4c76781608683aa7422e8e747fa8805824d2ca390"
   }
 }

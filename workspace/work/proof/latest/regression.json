@@ -1,8 +1,8 @@
 {
-  "functions": 767,
-  "bytes": 127669,
+  "functions": 768,
+  "bytes": 128274,
   "total": 253580,
-  "percent": 50.34663617004496,
+  "percent": 50.58521965454689,
   "baseline_lost": [],
   "gains": [
     {
@@ -489,6 +489,12 @@
       "target": "0x1000fce0",
       "bytes": 119,
       "name": "?Image_GenerateSpecularity@@YAXPAUGfxImage@@@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x1000fe90",
+      "bytes": 605,
+      "name": "?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z",
       "object": "r_image_load_obj.obj"
     },
     {

@@ -1,0 +1,8 @@
+{
+  "?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z": {
+    "t": "0x1000fe90",
+    "n": 605,
+    "obj": "r_image_load_obj.obj",
+    "why": []
+  }
+}

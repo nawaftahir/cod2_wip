@@ -107,8 +107,10 @@ required['0x10025b10'] = 503
 required['0x10029780'] = 285
 # Gamma production inlines the unchanged rounding assembly.
 required['0x10011f10'] = 157
+# Lightmap image generation inlines the unchanged rounding assembly.
+required['0x1000fe90'] = 605
 assert {row['target']: row['bytes'] for row in excluded} == required
-assert len(excluded) == 39 and sum(row['bytes'] for row in excluded) == 9546
+assert len(excluded) == 40 and sum(row['bytes'] for row in excluded) == 10151
 cpp = report['bytes'] - sum(row['bytes'] for row in excluded)
 print(json.dumps(dict(
     status='authored-assembly attribution; not whole-file identity',

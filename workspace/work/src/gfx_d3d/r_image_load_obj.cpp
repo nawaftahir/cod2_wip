@@ -83,35 +83,52 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
     };
     float inverseResolution = 1.0f / resolution;
     int pixelIndex = 0;
+    float axes[3][3];
+    float *origin = axes[0], *right = axes[1], *up = axes[2];
+    float rowBase[3], direction[3];
     for (int face = 0; face < 6; ++face)
     {
-        float origin[3] = { 0.0f, 0.0f, 0.0f };
         int axis = faceAxis[face][0];
-        origin[axis >> 1] = axis & 1 ? -1.0f : 1.0f;
-        float right[3] = { 0.0f, 0.0f, 0.0f };
+        int component = axis >> 1;
+        origin[0] = 0.0f;
+        origin[1] = 0.0f;
+        origin[2] = 0.0f;
+        origin[component] = axis & 1 ? -1.0f : 1.0f;
         axis = faceAxis[face][1];
-        origin[axis >> 1] = axis & 1 ? 1.0f : -1.0f;
-        right[axis >> 1] = origin[axis >> 1] * -2.0f;
-        float up[3] = { 0.0f, 0.0f, 0.0f };
+        component = axis >> 1;
+        right[0] = 0.0f;
+        right[1] = 0.0f;
+        right[2] = 0.0f;
+        origin[component] = axis & 1 ? 1.0f : -1.0f;
+        right[component] = origin[component] * -2.0f;
         axis = faceAxis[face][2];
-        origin[axis >> 1] = axis & 1 ? 1.0f : -1.0f;
-        up[axis >> 1] = origin[axis >> 1] * -2.0f;
+        component = axis >> 1;
+        up[0] = 0.0f;
+        up[1] = 0.0f;
+        up[2] = 0.0f;
+        origin[component] = axis & 1 ? 1.0f : -1.0f;
+        up[component] = origin[component] * -2.0f;
+        int row = 0;
         VectorScale(right, inverseResolution, right);
         VectorScale(up, inverseResolution, up);
-        float rowBase[3];
-        VectorMA(origin, 0.5f, right, rowBase);
-        for (int row = 0; row < resolution; ++row)
+        if (resolution > 0)
         {
-            float direction[3];
-            float rowOffset = row + 0.5f;
-            VectorMA(rowBase, rowOffset, up, direction);
-            for (int column = 0; column < resolution; ++column)
+            VectorMA(origin, 0.5f, right, rowBase);
+            for (; row < resolution; ++row)
             {
-                callback(direction, userData, pixels + pixelIndex * 4);
-                ++pixelIndex;
-                direction[0] += right[0];
-                direction[1] += right[1];
-                direction[2] += right[2];
+                VectorCopy(rowBase, direction);
+                volatile float rowOffset = row + 0.5f;
+                direction[0] += up[0] * rowOffset;
+                direction[1] += up[1] * rowOffset;
+                direction[2] += up[2] * rowOffset;
+                for (int column = 0; column < resolution; ++column)
+                {
+                    callback(direction, userData, pixels + pixelIndex * 4);
+                    ++pixelIndex;
+                    direction[0] += right[0];
+                    direction[1] += right[1];
+                    direction[2] += right[2];
+                }
             }
         }
     }
@@ -413,7 +430,9 @@ void Image_LoadLightmapWeights(GfxImage *image)
     int y;
     int x;
 
-    for (y = 0; y < 32; y++)
+    unsigned char *pixel = &pic[0][0][0];
+    y = 0;
+    for (;;)
     {
         dir[1] = ((float)y + 0.5f) / 32.0f * 2.0f - 1.0f;
         for (x = 0; x < 32; x++)
@@ -427,11 +446,18 @@ void Image_LoadLightmapWeights(GfxImage *image)
             }
             dir[2] = I_sqrt(zSq);
             R_GetLightmapWeightsForDir(dir, weights);
-            pic[y][x][0] = (unsigned char)I_fround(weights[0] * 255.0f);
-            pic[y][x][1] = (unsigned char)I_fround(weights[1] * 255.0f);
-            pic[y][x][2] = (unsigned char)I_fround(weights[2] * 255.0f);
-            pic[y][x][3] = (unsigned char)I_fround(weights[3] * 255.0f);
+            pixel[0] = (unsigned char)I_fround(weights[0] * 255.0f);
+            pixel[1] = (unsigned char)I_fround(weights[1] * 255.0f);
+            pixel[2] = (unsigned char)I_fround(weights[2] * 255.0f);
+            pixel[3] = (unsigned char)I_fround(weights[3] * 255.0f);
+            pixel += 4;
         }
+        volatile int *rowCounter = &y;
+        int nextRow = *rowCounter + 1;
+        bool moreRows = nextRow < 32;
+        *rowCounter = nextRow;
+        if (!moreRows)
+            break;
     }
     Image_Setup(image, 32, 32, 1, 3, 0, D3DFMT_A8R8G8B8);
     Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, &pic[0][0][0]);

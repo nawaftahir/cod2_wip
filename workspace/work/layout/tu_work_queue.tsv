@@ -13,7 +13,7 @@ link_slot	tu	assignment	complexity	complexity_reason	emitted_symbols	accepted_sy
 12	gfx_d3d/r_font_load_obj.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	1	0	1	0	1	8afb05946367f422dc2c5935f5d3db2e340daa27a109992e5f45cd41d6370f16
 13	gfx_d3d/r_image.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	63	45	18	1047	11	50f26bd6c2c44b99983a08582df36668b8e7192993bc13cfd4787d973e68ab43
 14	gfx_d3d/r_image_load_common.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	10	10	0	0	0	3812411a1642dc0ab68301194d36f5188d3dc5f3aaa0ad6a6c1cab07f069a543
-15	gfx_d3d/r_image_load_obj.cpp	CODEX_ACTIVE	reserved	current coordinator work	32	12	20	2754	9	018e59f0ae5dab1e5996e8b7f5729f8c158229fbcb3243d3aa47c39ee35e77a2
+15	gfx_d3d/r_image_load_obj.cpp	CODEX_ACTIVE	reserved	current coordinator work	32	13	19	2754	8	324ba9421c8eae7c19ec765f915398d844fc65a7be6607e36f2f417f38cfe6dd
 16	gfx_d3d/r_specularityimage.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	3	1	2	0	2	1212bfdddc0b89573e2cd69d2a9f11ea98d21f0ff95a238fa500a373ce2fb3c0
 17	gfx_d3d/r_image_wavelet.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	4	4	0	0	0	7673699bc0fef2c9d7cca3fcee1852129366da50a5f88c4abf59b638053fb015
 18	gfx_d3d/r_init.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	80	51	29	2585	15	f5730ffb393806bb92c7670112839b68291f3169762197c46f6d5abdceb54c53
@@ -51,7 +51,7 @@ link_slot	tu	assignment	complexity	complexity_reason	emitted_symbols	accepted_sy
 50	gfx_d3d/rb_imagetouch.cpp	UNASSIGNED	small cohort	estimate only; inspect compiler and binding blockers	2	1	1	165	0	14cd781e57a2e4fec1b005ced996f35cd2b7bdfce0075318394d472624f0ee8c
 51	gfx_d3d/rb_light.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	25	13	12	1846	3	efd2c73cc12fe329e68df12e1a73d6e63175360a2d8e429267be99c2d71cc3c1
 52	gfx_d3d/rb_logfile.cpp	NO_PENDING_EMITTED_BODY	-	not proof of a complete historical TU	10	10	0	0	0	8c41ddf9e10c61e97f0a8cc3d1b196e79dfe1da25f5d109166f2456e5d9fb953
-53	gfx_d3d/rb_shade.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	29	15	14	3978	3	3aafb1cfb856509586f77fb1c6a0fe8151d5ca363fab9743208fa1f6fa0f8edc
+53	gfx_d3d/rb_shade.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	29	15	14	3978	3	19c34f5e1234d89384914eb602a184a3b0ca98a95a120ed3557b7a026ee0fb93
 54	gfx_d3d/rb_sky.cpp	UNASSIGNED	hard	numeric kernels or large unresolved cohort	17	3	14	4566	0	9a5fc70cf4b9c813f2fe953664f41e280dc6360f619b17bec998a5b2ca4f196b
 55	gfx_d3d/rb_state.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	45	30	15	760	12	1f41ff67e6743d138115c4a94299061e8d3510e3ce8b161710a3ffd4deb9936d
 56	gfx_d3d/rb_sunsprite.cpp	UNASSIGNED	medium	bounded engine glue; inspect bindings first	1	0	1	0	1	e06f6a10635b5c83a0d7105a39819e15a20b10ce18b21158985fc9cdefb0110a

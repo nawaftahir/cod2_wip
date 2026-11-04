@@ -1,0 +1,51 @@
+{
+  "status": "V3 protected source match; whole-file/GPU unfinished",
+  "cpp_bytes": 118123,
+  "cpp_percent": 46.582143702184716,
+  "cpp_bodies": 728,
+  "net_cpp_bytes": 0,
+  "net_mixed_bytes": 605,
+  "mixed_bytes": 128274,
+  "new_bodies": {
+    "?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z": {
+      "t": "0x1000fe90",
+      "n": 605,
+      "obj": "r_image_load_obj.obj",
+      "why": []
+    }
+  },
+  "assembly_bodies": 40,
+  "assembly_bytes": 10151,
+  "protected_extents": 2522,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "tests": {
+    "lightmap_directions": 1024,
+    "packed_bytes": 4096,
+    "procedural_routes": 134,
+    "retention_negative_cases": 4
+  },
+  "sha256": {
+    "target/work/src/gfx_d3d/r_image_load_obj.cpp": "324ba9421c8eae7c19ec765f915398d844fc65a7be6607e36f2f417f38cfe6dd",
+    "target/work/tests/test_lightmap_weight_image.py": "d80830ea684ab8a996289c44fe34ebd6506126fdee328469e4b9d4e4c85aa2e4",
+    "target/work/tests/test_procedural_images.py": "964bccb963717a3354918ff1724ca599b494ffe2689c61a1cc1928727f7b5036",
+    "target/work/tools/source_coverage.py": "3f5b4341d58b1bcc1e2a3f67332ddd167edaddd26a77e379ddf1692ff3294663",
+    "target/work/tools/regression.py": "55d33c3ddb0f4c11e4c740a6a716c7dcee7753f38032a2fceebd90a055041f60",
+    "target/work/tools/check_checkpoint.py": "1a146aa8ad9ecce70cb6a0405d5be1b70d9c2e69a02c6b31ea7e24a9c30bf913",
+    "target/work/proof/lightmap_weights_20261104_warm_bind.json": "d589ce146edca75b1c1ad5b25410c8bb4982a1ca620347d93404bc4182090ba6",
+    "target/work/proof/nov04_lightmap_retention_negatives.json": "6a3ba8cfd7e0f0c11cb6df836ee67ed44e33f8bd2d7e20c641cc39cd7c495015",
+    "target/work/proof/latest/bind.json": "0e61bb2abff80c4ccf06e47c19e30bce3aa368fe40f3f4c287dc039fd4cfcc8b",
+    "target/work/proof/latest/cmp.json": "7b0da0249625b8275012f6161abecac08f5603202d8904055af33648d1088323",
+    "target/work/proof/source_coverage_current.json": "b4fbeddb5b0f5d4ba854fb1763d38a40998fbc2448092cf85142d3d1df9533a8",
+    "target/work/proof/latest/nov04_lightmap_checkpoint.log": "a31d5a3054bdadc5c3afdd2187cfbe29e36ee5a33a489edf2a70c2ec0faa5919",
+    "target/work/src/profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020"
+  },
+  "unverified_cubemap": [
+    {
+      "name": "?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z",
+      "obj": "r_image_load_obj.obj",
+      "size": 770,
+      "hits": []
+    }
+  ]
+}

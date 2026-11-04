@@ -1,3 +1,44 @@
+# Shared cubemap generator - 2026-11-04
+
+Target10160/786 is pinned by the genuine43-byte light-grid caller's call at
+1069f. Public callback targets104a0/465 and106b0/256 already bind. Do not use
+101e0 (middle of this function) as its start. Original candidate754 has a98
+frame versus target9c and keeps row+0.5 in x87 instead of target float slot.
+Local precision-on emits757 with a4 frame, extra conversion rounding and
+integer bit-pattern stores for conditional float constants; reject it.
+Original flags restored. Next grouped source test makes the three vector
+stores/address calculations explicit and spills only the observed row offset;
+no ABI/flags/assembly/root changes. That grouped version emits761/786; frame9c
+and the prologue register/table initialization now agree, but independent vectors
+occupy different stack slots, chained zero assignments emit reverse stores, and
+VectorMA consumes its volatile scalar argument once. Next test uses a contiguous
+3x3 axis aggregate, ascending zero stores and explicit scalar row expressions,
+with row-base calculation inside the observed positive-resolution branch.
+Contiguous axis storage gives770/786 with the full frame and axis offsets
+correct; remaining differences are row-base x87 retention, two loop-control
+slots, callback argument registers and final cube-call scheduling. Early row
+initialization aligns its store. An explicit face pointer/count loop also770
+but moves the descriptor cursor to its third component; reject that loop and
+restore the simple face-index loop. VectorCopy plus scalar += does not restore
+retail x87 row-base retention under this LTCG context. Do not repeat these
+copy/precision/operand-order forms without new caller or TU evidence.
+Existing134 procedural cases cover six
+axes, sizes0/1/2/3/16/32/64, callback arguments and output guards.
+
+# Lightmap weight row lifetime - 2026-11-04
+
+Retail Image_LoadLightmapWeights1000fe90/605 retains image in EBP, row index
+in memory, pixel cursor in EDI, x in EBX. Original589-byte draft keeps row in
+EBP and loads image only after loops. A volatile row plus load-once tail gives
+644 bytes and the correct1060 frame/image lifetime, but makes all four array
+subscripts reload the volatile row. Native1024 directions/4096 packed bytes
+pass. Next use the target-observed sequential pixel cursor and confine volatile
+row access to the tail, preserving ordinary row reads in the direction formula.
+Scoped volatile tail plus an ordinary row read and explicit sequential pixel
+cursor reproduces all605 bytes; binding/regression still required before credit.
+R_GetLightmapWeightsForDir279 and Vec2Normalize107
+are already independently bound; the builder blocks Image_LoadBuiltin519.
+
 # Fixed-function image expansion - 2026-11-04
 
 Full retail pass10039b40 ends10039fa6 (1127 bytes), not the865-byte
