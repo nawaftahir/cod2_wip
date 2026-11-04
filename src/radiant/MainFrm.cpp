@@ -1,4 +1,4 @@
-#include <windows.h>
+#include "stdafx.h"
 
 // Retail no-op functions: individual single-byte bodies verified against CoD2Radiant.exe.
 // Original member ownership/signatures remain unproved.
@@ -40,4 +40,28 @@ bool MouseDown()
   if (::GetAsyncKeyState(VK_MBUTTON))
     return true;
   return false;
+}
+
+void QE_CountBrushesAndUpdateStatusBar();
+void QE_CheckAutoSave();
+
+class CMainFrame : public CFrameWnd
+{
+public:
+  afx_msg void OnTimer(UINT nIDEvent);
+  afx_msg void OnFileExit();
+};
+
+void CMainFrame::OnTimer(UINT nIDEvent)
+{
+  if (!MouseDown())
+  {
+    QE_CountBrushesAndUpdateStatusBar();
+    QE_CheckAutoSave();
+  }
+}
+
+void CMainFrame::OnFileExit()
+{
+  PostMessage(WM_CLOSE, 0, 0L);
 }

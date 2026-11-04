@@ -820,3 +820,5 @@ addr	size	source	symbol	name	tag
 0x00479760	180	src/radiant/win_main.cpp	?InitCustColors@CMyColorDialog@@KAXXZ	CMyColorDialog::InitCustColors	SUPPORTED
 0x00479820	242	src/radiant/win_main.cpp	?SaveCustColors@CMyColorDialog@@KAXXZ	CMyColorDialog::SaveCustColors	SUPPORTED
 0x004799d0	17	src/radiant/win_main.cpp	?DoModal@CMyColorDialog@@UAEHXZ	CMyColorDialog::DoModal	SUPPORTED
+0x004131a0	48	src/radiant/MainFrm.cpp	?OnTimer@CMainFrame@@QAEXI@Z	CMainFrame::OnTimer	SUPPORTED
+0x00414c80	17	src/radiant/MainFrm.cpp	?OnFileExit@CMainFrame@@QAEXXZ	CMainFrame::OnFileExit	SUPPORTED
