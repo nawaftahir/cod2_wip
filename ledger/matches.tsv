@@ -822,3 +822,4 @@ addr	size	source	symbol	name	tag
 0x004799d0	17	src/radiant/win_main.cpp	?DoModal@CMyColorDialog@@UAEHXZ	CMyColorDialog::DoModal	SUPPORTED
 0x004131a0	48	src/radiant/MainFrm.cpp	?OnTimer@CMainFrame@@QAEXI@Z	CMainFrame::OnTimer	SUPPORTED
 0x00414c80	17	src/radiant/MainFrm.cpp	?OnFileExit@CMainFrame@@QAEXXZ	CMainFrame::OnFileExit	SUPPORTED
+0x00408eb0	31	src/libs/cmdlib/cmdlib.cpp	?I_FloatTime@@YANXZ	I_FloatTime	SUPPORTED
