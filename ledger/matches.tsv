@@ -269,8 +269,8 @@ addr	size	source	symbol	name	tag
 0x00452e20	1	src/radiant/XYWnd.cpp	_FUN_00452e20	FUN_00452e20	UNNAMED
 0x004535f0	1	src/radiant/XYWnd.cpp	_FUN_004535f0	FUN_004535f0	UNNAMED
 0x00453600	1	src/radiant/XYWnd.cpp	_FUN_00453600	FUN_00453600	UNNAMED
-0x00460160	373	src/radiant/csg.cpp	?Brush_GetFaceFlags@@YAXPAUbrush_t@@PAH111@Z	Brush_GetFaceFlags	PINNED
-0x004602e0	225	src/radiant/csg.cpp	?Brush_IsFixedOrPatch@@YA_NPAUbrush_t@@@Z	Brush_IsFixedOrPatch	PINNED
+0x00460160	373	src/radiant/csg.cpp	?Brush_GetFaceFlags@@YAXPAUbrush_t@@PAH111@Z	Brush_GetFaceFlags	SUPPORTED
+0x004602e0	225	src/radiant/csg.cpp	?Brush_IsFixedOrPatch@@YA_NPAUbrush_t@@@Z	Brush_IsFixedOrPatch	SUPPORTED
 0x004603d0	37	src/radiant/csg.cpp	?Brush_FaceFlags_Check80@@YADPAUbrush_t@@@Z	Brush_FaceFlags_Check80	SUPPORTED
 0x00460400	53	src/radiant/csg.cpp	?Brush_IsFiltered@@YA_NPAUbrush_t@@@Z	Brush_IsFiltered	SUPPORTED
 0x0046bcd0	126	src/radiant/mru.cpp	?CreateMruMenu@@YAPAUMRUMENU@@GGGG@Z	CreateMruMenu	SUPPORTED
