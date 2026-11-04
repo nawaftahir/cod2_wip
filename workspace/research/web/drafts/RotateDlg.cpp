@@ -11,6 +11,11 @@
 #include "stdafx.h"
 #include <stdlib.h>
 
+// Original source: id Software Q3Radiant. CoD2 select.cpp is pending.
+extern void Select_RotateAxis(int axis, float degrees,
+                              bool paint = false, bool mouse = false);
+
+
 class CRotateDlg : public CDialog
 {
 public:
@@ -68,26 +73,7 @@ void CRotateDlg::OnOK()
 	CDialog::OnOK();
 }
 
-BOOL CRotateDlg::OnInitDialog()
-{
-	CDialog::OnInitDialog();
-	m_wndSpin1.SetRange(0, 359);
-	m_wndSpin2.SetRange(0, 359);
-	m_wndSpin3.SetRange(0, 359);
-	return TRUE;
-}
-
-void CRotateDlg::ApplyNoPaint()
-{
-}
-
-
-// Q3Radiant RotateDlg.cpp OnApply body, adapted only for the existing
-// target class. Candidate for 0x0043c2b0 / 475 B; NOT byte verified.
-// The real selection helper must be implemented by its owning select.cpp TU.
-extern void Select_RotateAxis(int axis, float degrees,
-                              bool paint = false, bool mouse = false);
-
+// Q3 ancestor (GPL-2.0-or-later), trial only; not accepted in ledger.
 void CRotateDlg::OnApply()
 {
     UpdateData(TRUE);
@@ -104,3 +90,18 @@ void CRotateDlg::OnApply()
     if (f != 0.0)
         Select_RotateAxis(2, f);
 }
+
+BOOL CRotateDlg::OnInitDialog()
+{
+	CDialog::OnInitDialog();
+	m_wndSpin1.SetRange(0, 359);
+	m_wndSpin2.SetRange(0, 359);
+	m_wndSpin3.SetRange(0, 359);
+	return TRUE;
+}
+
+void CRotateDlg::ApplyNoPaint()
+{
+}
+
+
