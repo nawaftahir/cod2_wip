@@ -1621,7 +1621,7 @@ int nb_decode(void *state, SpeexBits *bits, void *vout)
             for (i=0;i<st->subframeSize;i++)
             {
                float exci=exc[i];
-               exc[i]=.8*g*exc[i]*ol_gain/SIG_SCALING + .6*g*st->voc_m1*ol_gain/SIG_SCALING + .5*g*innov[i] - .5*g*st->voc_m2 + (1-g)*innov[i];
+               exc[i]=.6*g*st->voc_m1*ol_gain/SIG_SCALING + .8*g*exc[i]*ol_gain/SIG_SCALING + .5*g*innov[i] - .5*g*st->voc_m2 + (1-g)*innov[i];
                st->voc_m1 = exci;
                st->voc_m2=innov[i];
                st->voc_mean = .95*st->voc_mean + .05*exc[i];
