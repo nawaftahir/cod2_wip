@@ -295,3 +295,8 @@
   build rejection: not the fn itself (still unmatched) but SV_ArchiveSnapshot (2783, tie) + _$E2 (752) flipped; CL_SubtitlePrint +217. 4 builds, switch vs if
   and shared charWidth variable made no difference. Next: vary where the NULL isTrailingPunctuation temp and curWidth=0 live (retail uses literal 0 for the
   default-case linefeeds, register zero for \n and \r).
+- w8 sweep 1 (+4153 matched-fn): UI_RegisterDvars (ui_browserShowPunkBuster registered after ui_browserKillcam), CL_Vid_Restart_f (loc_language max 13 -> 14),
+  UI_StartServerRefresh (protocol 115 -> 118 in "globalservers"; also CL_ServerInfoPacket expectedProt and CL_CheckForResend protocol), CL_PlayLogo_f via
+  SCR_StopCinematic now gated on the skippable flag (retail 0x4035d0). PINNED. Not done: CL_DownloadsComplete / CL_Disconnect / CL_InitDownloads share a new
+  inlined "clear download state + DL_Shutdown (0x4b59c0)" block; needs the 1.3 clientConnection_t download layout (966dac int, 966db0 char[256], 966eb0 char[256],
+  966fb0 char[64]?, 966ff0/966ff4/966ff8 ints), no Mac evidence (Mac has no libwww path).

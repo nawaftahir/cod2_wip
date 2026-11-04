@@ -73,7 +73,7 @@ void SCR_RunCinematic(void)
 
 void SCR_StopCinematic(void)
 {
-    if (CL_handle >= 0 && CL_handle < 16) {
+    if (cl_cinematicSkippable && CL_handle >= 0 && CL_handle < 16) {
         CIN_StopCinematic(CL_handle);
         SND_StopSounds(SND_STOP_ALL);
         CL_handle = -1;

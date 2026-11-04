@@ -246,7 +246,7 @@ void CL_ServerInfoPacket(netadr_t from, msg_t *msg, int time)
     if (*protoStr)
         expectedProt = atoi(protoStr);
     else
-        expectedProt = 115;
+        expectedProt = 118;
     if (prot != expectedProt) {
         Com_DPrintf("Different protocol info packet: %s\n", infoString);
         return;
