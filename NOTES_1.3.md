@@ -178,3 +178,4 @@
   aligned candidates == our fns with the same masked body (twins). PINNED on 1.0 (build+anchor): +9 fns/87 B vs
   cmp.py, all at their own address; forced no-.reloc run loses 13 B (was 124 fns). On 1.3: unique fns 7511 -> 8282,
   bytes 1,249,217 -> 1,374,609 (cov.py union rules).
+- 11-04: wH (438bad7, +257 B PB UI fns) parked: adding 3 fns re-rolls the _yylex tie (-4,236 B). Bundle with later gains until net >= 0 (1.0 rule).
