@@ -14,7 +14,6 @@ void CG_ApplyCompassPointerRadiusScale(float *radiusScale);
 void CG_CompassAddWeaponPingInfo(centity_t *cent, const vec_t *origin, int msec);
 void CG_DrawCompassFriendlies(rectDef_t *rect, MaterialHandle material, vec_t *color);
 
-void CG_TargetCommand_f(void);
 void CG_ScoresUp_f(void);
 void CG_ScoresDown_f(void);
 qboolean CG_IsConsoleCommandName(const char *cmd);

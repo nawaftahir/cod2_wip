@@ -442,3 +442,47 @@ FIXES (branch s1-inventory, worktree lab13/s1; builds are ~1.5 min):
 - a4eb3b5: CL_BuildMd5StrFromCDKey (static, one caller) merged into CL_RequestAuthorization. 9116 -> 9115 fns. matched 1,500,813 -> 1,498,226 (-2587 = PC_EvaluateTokens tie flipped back); same-offset +208. Kept (fn set = retail), lead decides.
 - PINNED: `static __forceinline` / plain `__forceinline` helpers still get a standalone body in the map (flag `i`) because the link uses /OPT:NOREF; only a macro or a hand-merged body removes it.
 - Tie behaviour: every fn-count change re-rolled PC_EvaluateTokens (2587) / GScr_CloseFile (173) / CG_DrawPlayerStance (1607) / SV_DirectConnect (2733) / Pickup_Weapon (1616); each change moves 1-3 of them in or out. Count-before-fn is confirmed as the lever: -2 fns restored PC_EvaluateTokens, -3 fns lost it again.
+## s2 layout agent (11-04, branch s2-layout): helper copies + .rdata order
+- Part A (one copy per shared helper), PINNED by scan of build/release map + src: no duplicated static helper
+  bodies exist in the 1.3 tree. Statics defined in several TUs: none (434 static/inline defs scanned outside libwww/speex/zlib/lib/oc
+  headers). Unused statics (`I_strnicmpInline`) are NOT emitted (absent from the map), `FloatFromBits` (q_shared.h, static inline)
+  has one copy in cm_load_obj with one retail hit. Same name twice in cmp13 only for libwww/CRT file statics (real, retail has them
+  too) and `Hunk_AllocXAnimPrecache` (xanim.cpp static, 16 B twin of the other Hunk_Alloc* wrappers, 4 retail hits).
+  Result: 0 copies removed; nothing to convert.
+- Part B tools (new, in tools/): `rdr13.py` (string-pool alignment ours vs retail, shows each drift break),
+  `rdiff13.py lo hi` (word-level .rdata diff, pointers masked: DEL = retail-only, INS = ours-only), `rview.py`, `rwords.py`,
+  `rxref.py <rdata off>` (which retail fn references a string).
+- PINNED, +22.7 KB .rdata same-offset (a0198f8): libwww `HTStream.c` was placed after HTEvent.c from the BlackHoleConverter
+  fns at 0x5593e0, but those belong to HTFormat.c (BlackHoleConverter vtable lives in our HTFormat.c). Retail's HTStream.c
+  (BlackHole class 0x571a70.., HTBlackHole accessor 0x571ad0, ErrorStream 0x571ae0..) sits between HTArray.c and HTDir.c.
+  tus.txt now has HTStream.c after HTArray.c. HTBlackHole/HTErrorStream still show 0 hits (bodies differ: retail
+  BlackHole put_char/put_string/write/flush/free return 0, abort -1; check HT_OK/HT_ERROR constants there: next lead).
+  Also `HTEventList_pump` calls `HTTrace("Exiting pump loop: %d\n", HTEndLoop)` directly (retail 0x54ece1 -> HTTrace 0x54e5f0,
+  string at .rdata 0x1000 present in retail), not the compiled-out HTTRACE macro.
+- PINNED: retail 1.3 has no `tcmd` / `tell_target` console commands (commandsList at .rdata 0x2aff0 lists 19 entries without them)
+  and none of the strings `GAME_GC_*`, `gc %i %i`, `tell %i "..."`. Removed CG_TargetCommand_f, CG_TellTarget_f and the table
+  entries. SUPPORTED: lnxded-1.3 server source has no Cmd_Tell_f / Cmd_GameCommand_f / GAME_GC (our g_cmds_mp.cpp still has them,
+  dead code, 232 B of ours-only .rdata). Removing them is faithful but flips SP_worldspawn (-464 B, SL_AddRefToString regalloc,
+  LTCG count tie): sweep of the 4 combos {g_cmds removal, cg removal} x {fonts}: SP_worldspawn survives only with cg removed +
+  g_cmds kept. Left g_cmds as is (do this when the function set before g_spawn is complete).
+- PINNED build strings: retail .rdata has `pc_1.3_1_1` (BUILD_NUMBER), `Mon May 01 2006 05:05:43PM` (BUILD_TIME) and a single
+  pooled `May  1 2006` (common.cpp BUILD_DATE equals game's g_main_mp.cpp BUILD_DATE, one literal). Ours had 1.0 values.
+- PINNED sv_net_chan_mp.cpp (copied from lnxded-1.3 source, retail strings agree): header line
+  `| Sent To                         |` (wider) and `frag%%|drop%%|ak|   bps|` in the second header. The server source also has
+  `szClientName[17]` (ours 32) and a different local order; not changed (frame layout unmeasured).
+- Fonts, NOT shipped (tie flip): retail `CL_InitRenderer` (0x40fa10) picks the console font by loc_language: dvar +8 minus 6, cases
+  6..12 = russian polish korean taiwanese japanese chinese thai (`fonts/<lang>/consoleFont`, pushed with `push 3`), default
+  `fonts/consoleFont`; with `extern dvar_t *loc_language; switch (loc_language->current.integer) { case 12: ... }` in oc/client_mp/
+  cl_main_mp.cpp CL_InitRenderer (pool order thai first, written case 12 down to 6 then default) the fn matches
+  (+324 B, strings 0x104b0 aligned) BUT DSound_UpdateSample (500 B) flips (stack slot of two locals, `lea edx,[esp+0xc]` vs
+  `[esp+8]`) in every spelling tried (switch with 7 calls, ascending order, single call through a const char* local). Net
+  -176 B, so reverted. Candidate for the ties list if the owner accepts the swap.
+- Open .rdata leads, all need code (ordered by file position; each is a retail fn that references the string):
+  * ui_shared (retail 0x545740): localized UI font loader `fonts/<lang>/%s` x8 + `normalFont`; ~165 B fn, missing in ours.
+  * CL_CheckForResend `getchallenge 0 "%s"` (retail 0x40e3e1, string from fn 0x40cfc0), ParseGamestate string
+    `bad command byte (GameState may exceed MAX_GAMESTATE_CHARS, or packet m...` (retail 0x11299), `%02x` x16 hex string (CL_ForwardCommandToServer 0x40d119, PbTrapPreExecCmd),
+    `r_smp_backend_allowed` (Com_ExecStartupConfigs 0x434918), `get_pb_cdkey` / `set_cl_punkbuster` (stPbCl ctor), `@MPUI_PUNKBUSTER`.
+  * `%s: %s\n` / `%s: %s` live in retail cl_console (a console print fn after Con_OneTimeInit at 0x405090, missing in ours).
+  * CRT: retail wincrt0 has one extra SEH scopetable entry (16 B at rdata 0x6468) and a longer runtime-error block; not source.
+- Numbers (start -> end): matched-fn 1,505,247 -> 1,505,247 (91.47%, unchanged, 0 lost); same-offset whole 146,831 -> 169,356
+  (7.45% -> 8.60%); .rdata same-offset 31,242 (13.62%) -> 53,042 (23.12%).

@@ -27,7 +27,6 @@ extern void CL_AddCgameCommand(const char *cmdName);
 extern qboolean CL_Popup(const char *menu);
 extern const char *UI_SafeTranslateString(const char *key);
 
-void CG_TargetCommand_f(void);
 static void CG_SizeUp_f(void);
 static void CG_SizeDown_f(void);
 static void CG_Viewpos_f(void);
@@ -42,26 +41,12 @@ void CG_FxRestart(void);
 static void CG_ShellShock_f(void);
 static void CG_ShellShock_Load_f(void);
 static void CG_ShellShock_Save_f(void);
-static void CG_TellTarget_f(void);
 static void CG_QuickMessage_f(void);
 static void CG_VoiceChat_f(void);
 static void CG_TeamVoiceChat_f(void);
 qboolean CG_ConsoleCommand(void);
 qboolean CG_IsConsoleCommandName(const char *cmd);
 void CG_InitConsoleCommands(void);
-
-void CG_TargetCommand_f(void)
-{
-    unsigned int targetNum;
-    char test[4];
-
-    targetNum = CG_CrosshairPlayer();
-    if (targetNum == 0)
-        return;
-
-    Cmd_ArgvBuffer(1, test, 4);
-    Cbuf_AddText(va("gc %i %i", targetNum, atoi(test)));
-}
 
 static void CG_SizeUp_f(void)
 {
@@ -172,21 +157,6 @@ static void CG_ShellShock_Save_f(void)
     CG_SaveShellShockDvars(name);
 }
 
-static void CG_TellTarget_f(void)
-{
-    unsigned int clientNum;
-    char command[128];
-    char message[128];
-
-    clientNum = CG_CrosshairPlayer();
-    if (clientNum == -1)
-        return;
-
-    Cmd_ArgsBuffer(message, 128);
-    Com_sprintf(command, 128, "tell %i \"\025%s\"", clientNum, message);
-    CL_AddReliableCommand(command);
-}
-
 static void CG_QuickMessage_f(void)
 {
     snapshot_t *nextSnap = cg->nextSnap;
@@ -247,14 +217,12 @@ static const consoleCommand_t commandsList[] = {
     { "weapnext", CG_NextWeapon_f },
     { "weapprev", CG_PrevWeapon_f },
     { "weaponslot", CG_WeaponSlot_f },
-    { "tcmd", CG_TargetCommand_f },
     { "fxSetTestPosition", CG_FxSetTestPosition },
     { "fxTest", CG_FxTest },
     { "fxRestart", CG_FxRestart },
     { "cg_shellshock", CG_ShellShock_f },
     { "cg_shellshock_load", CG_ShellShock_Load_f },
     { "cg_shellshock_save", CG_ShellShock_Save_f },
-    { "tell_target", CG_TellTarget_f },
     { "mp_QuickMessage", CG_QuickMessage_f },
     { "VoiceChat", CG_VoiceChat_f },
     { "VoiceTeamChat", CG_TeamVoiceChat_f },

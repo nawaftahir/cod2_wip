@@ -634,7 +634,7 @@ PUBLIC int HTEventList_pump (void)
             return 1;
         }
     }
-    HTTRACE(PROT_TRACE, "Exiting pump loop: %d\n" _ HTEndLoop);
+    HTTrace("Exiting pump loop: %d\n", HTEndLoop);
     HTEndLoop = 0;
     return 0;
 }

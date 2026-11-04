@@ -294,7 +294,6 @@ libwww/Library/src/HTAssoc.c
 libwww/Library/src/HTAnchor.c
 libwww/Library/src/HTNoFree.c
 libwww/Library/src/HTEvent.c
-libwww/Library/src/HTStream.c
 libwww/Library/src/HTFormat.c
 libwww/Library/src/HTChannl.c
 libwww/Library/src/HTChunk.c
@@ -344,6 +343,7 @@ libwww/Library/src/HTLink.c
 libwww/Library/src/HTUTree.c
 libwww/Library/src/HTDNS.c
 libwww/Library/src/HTArray.c
+libwww/Library/src/HTStream.c
 libwww/Library/src/HTDir.c
 libwww/Library/src/HTDigest.c
 libwww/Library/src/md5.c
