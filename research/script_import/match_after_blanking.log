@@ -1,0 +1,64 @@
+MATCH 0x004a7230 ?MT_GetSubTreeSize@@YAHH@Z at 0x00416d30
+MISMATCH 0x004a7270 ?MT_InitBits@@YAXXZ 42%, sizes 102/91, first difference at +0x0
+MISMATCH 0x004a72d0 ?MT_Realloc@@YAHHH@Z 11%, sizes 165/646, first difference at +0x0
+MATCH 0x004a7560 ?Scr_GetStringUsage@@YAHXZ at 0x00416d70
+MATCH 0x004a7570 ?MT_InitBits@@YAXXZ at 0x00416d80
+MISMATCH 0x004a75e0 ?MT_Realloc@@YAHHH@Z 44%, sizes 165/191, first difference at +0x0
+MISMATCH 0x004a76a0 ?MT_Realloc@@YAHHH@Z 11%, sizes 165/736, first difference at +0x0
+MISMATCH 0x004a7980 ?MT_Realloc@@YAHHH@Z 14%, sizes 165/492, first difference at +0x0
+MISMATCH 0x004a7b70 ?MT_Realloc@@YAHHH@Z 17%, sizes 165/424, first difference at +0x0
+MISMATCH 0x004a7d20 ?MT_Realloc@@YAHHH@Z 56%, sizes 165/150, first difference at +0x0
+MISMATCH 0x004a7dc0 ?Scr_GetStringUsage@@YAHXZ 27%, sizes 6/18, first difference at +0x0
+MISMATCH 0x004a7de0 ?MT_Realloc@@YAHHH@Z 38%, sizes 165/139, first difference at +0x0
+MISMATCH 0x004a7e70 ?MT_Realloc@@YAHHH@Z 13%, sizes 165/582, first difference at +0x0
+MISMATCH 0x004a80c0 ?MT_Realloc@@YAHHH@Z 15%, sizes 165/562, first difference at +0x0
+MISMATCH 0x004a8300 ?MT_Realloc@@YAHHH@Z 18%, sizes 165/465, first difference at +0x0
+MISMATCH 0x004a84e0 ?VectorScale@@YAXQBMMQAM@Z 30%, sizes 30/21, first difference at +0x0
+MISMATCH 0x004a8500 ?MT_InitBits@@YAXXZ 43%, sizes 102/125, first difference at +0x0
+MISMATCH 0x004a8580 ?MT_GetSubTreeSize@@YAHH@Z 39%, sizes 58/51, first difference at +0x0
+MISMATCH 0x004a85c0 ?MT_Realloc@@YAHHH@Z 22%, sizes 165/374, first difference at +0x0
+MISMATCH 0x004a8740 ?MT_GetSize@@YAHH@Z 31%, sizes 66/64, first difference at +0x0
+MISMATCH 0x004a8780 ?VectorScale@@YAXQBMMQAM@Z 31%, sizes 30/35, first difference at +0x3
+MISMATCH 0x004a87b0 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 52%, sizes 161/157, first difference at +0x0
+MISMATCH 0x004a8850 ?SL_GetStringForInt@@YAIH@Z 66%, sizes 89/85, first difference at +0x0
+MISMATCH 0x004a88b0 ?SL_Shutdown@@YAXXZ 70%, sizes 17/16, first difference at +0x0
+MISMATCH 0x004a88c0 ?SL_Restart@@YAXXZ 42%, sizes 19/40, first difference at +0x0
+MATCH 0x004a88f0 ?SL_GetRefStringLen@@YAHPAURefString@@@Z at 0x00416ef0
+MISMATCH 0x004a8920 ?SL_GetStringForVector@@YAIPBM@Z 46%, sizes 110/113, first difference at +0x0
+MATCH 0x004a89a0 ?SL_ConvertFromRefString@@YAHPAURefString@@@Z at 0x00416f20
+MISMATCH 0x004a89b0 ?Scr_CreateCanonicalFilename@@YAIPBD@Z 55%, sizes 89/88, first difference at +0x0
+MATCH 0x004a8a10 ?GetHashCode@@YAIPBDI@Z at 0x00416f30
+MISMATCH 0x004a8a50 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 35%, sizes 161/234, first difference at +0x0
+MATCH 0x004a8b40 ?SL_Restart@@YAXXZ at 0x00416f70
+MATCH 0x004a8b60 ?SL_Shutdown@@YAXXZ at 0x00416f90
+MISMATCH 0x004a8b80 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 7%, sizes 161/887, first difference at +0x3
+MISMATCH 0x004a8f00 ?SL_Restart@@YAXXZ 42%, sizes 19/28, first difference at +0x0
+MISMATCH 0x004a8f20 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 38%, sizes 161/157, first difference at +0xd
+MISMATCH 0x004a8fc0 ?SL_GetStringForFloat@@YAIM@Z 42%, sizes 94/123, first difference at +0x0
+MATCH 0x004a9040 ?SL_AddUserInternal@@YAXPAURefString@@I@Z at 0x00417070
+MISMATCH 0x004a9060 ?SL_Restart@@YAXXZ 45%, sizes 19/31, first difference at +0x0
+MISMATCH 0x004a9080 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 3%, sizes 161/2104, first difference at +0x3
+MISMATCH 0x004a98c0 ?I_fround@@YAHM@Z 31%, sizes 38/47, first difference at +0x3
+MISMATCH 0x004a98f0 ?I_fround@@YAHM@Z 37%, sizes 38/45, first difference at +0x3
+MATCH 0x004a9920 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z at 0x004170d0
+MISMATCH 0x004a99d0 ?I_fround@@YAHM@Z 30%, sizes 38/49, first difference at +0x3
+MISMATCH 0x004a9a10 ?I_fround@@YAHM@Z 31%, sizes 38/47, first difference at +0x3
+MISMATCH 0x004a9a40 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 37%, sizes 161/190, first difference at +0xd
+MISMATCH 0x004a9b00 ?SL_FindLowercaseString@@YAIPBD@Z 42%, sizes 154/139, first difference at +0x3
+MISMATCH 0x004a9b90 ?VectorClear@@YAXQAM@Z 36%, sizes 11/10, first difference at +0x0
+MISMATCH 0x004a9ba0 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 10%, sizes 161/815, first difference at +0x3
+MISMATCH 0x004a9ed0 ?SL_GetStringForInt@@YAIH@Z 35%, sizes 89/83, first difference at +0x0
+MISMATCH 0x004a9f30 ?SL_GetStringForFloat@@YAIM@Z 34%, sizes 94/92, first difference at +0x0
+MISMATCH 0x004a9f90 ?I_fround@@YAHM@Z 60%, sizes 38/37, first difference at +0x3
+MISMATCH 0x004a9fc0 ?I_fround@@YAHM@Z 50%, sizes 38/37, first difference at +0x0
+MISMATCH 0x004a9ff0 ?I_fround@@YAHM@Z 29%, sizes 38/51, first difference at +0x0
+MISMATCH 0x004aa030 ?SL_GetStringForFloat@@YAIM@Z 56%, sizes 94/96, first difference at +0x0
+MISMATCH 0x004aa090 ?SL_GetStringForFloat@@YAIM@Z 56%, sizes 94/97, first difference at +0x14
+MISMATCH 0x004aa100 ?SL_GetStringForInt@@YAIH@Z 60%, sizes 89/92, first difference at +0x26
+MISMATCH 0x004aa160 ?SL_GetStringForVector@@YAIPBM@Z 68%, sizes 110/113, first difference at +0x3b
+MISMATCH 0x004aa1e0 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 27%, sizes 161/275, first difference at +0x3
+MISMATCH 0x004aa300 ?SL_Shutdown@@YAXXZ 58%, sizes 17/13, first difference at +0x0
+MISMATCH 0x004aa310 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 44%, sizes 161/201, first difference at +0x3
+MISMATCH 0x004aa3e0 ?SL_GetLowercaseStringOfLen@@YAIPBDIIH@Z 14%, sizes 161/369, first difference at +0x3
+MISMATCH 0x004aa560 ?SL_FindLowercaseString@@YAIPBD@Z 39%, sizes 154/176, first difference at +0x3
+MISMATCH 0x004aa610 ?Scr_CreateCanonicalFilename@@YAIPBD@Z 53%, sizes 89/90, first difference at +0x19
