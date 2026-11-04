@@ -9888,7 +9888,6 @@
 "obj": "dobj_management.obj",
 "size": 28,
 "hits": [
-"0x4356b8",
 "0x4356e0"
 ]
 },
@@ -55031,7 +55030,9 @@
 "name": "_FTPEvent",
 "obj": "HTFTP.obj",
 "size": 1165,
-"hits": []
+"hits": [
+"0x54b730"
+]
 },
 {
 "name": "_HTFTP_setTransferMode",
@@ -55147,7 +55148,9 @@
 "name": "_HTLoadFTP",
 "obj": "HTFTP.obj",
 "size": 222,
-"hits": []
+"hits": [
+"0x54bc60"
+]
 },
 {
 "name": "_make_template",
@@ -55588,19 +55591,17 @@
 "name": "_EventListTimerHandler",
 "obj": "HTEvtLst.obj",
 "size": 108,
-"hits": []
+"hits": [
+"0x54e650"
+]
 },
 {
 "name": "_SockEvents_get",
 "obj": "HTEvtLst.obj",
 "size": 150,
-"hits": []
-},
-{
-"name": "_EventOrder_add",
-"obj": "HTEvtLst.obj",
-"size": 218,
-"hits": []
+"hits": [
+"0x54e6d0"
+]
 },
 {
 "name": "_EventOrder_executeAndDelete",
@@ -55627,40 +55628,44 @@
 ]
 },
 {
-"name": "___ResetMaxSock",
-"obj": "HTEvtLst.obj",
-"size": 87,
-"hits": []
-},
-{
 "name": "_EventList_remaining",
 "obj": "HTEvtLst.obj",
-"size": 35,
-"hits": []
+"size": 65,
+"hits": [
+"0x54e850"
+]
 },
 {
 "name": "_HTEventList_register",
 "obj": "HTEvtLst.obj",
 "size": 138,
-"hits": []
+"hits": [
+"0x54e8a0"
+]
 },
 {
 "name": "_HTEventList_unregister",
 "obj": "HTEvtLst.obj",
-"size": 322,
-"hits": []
+"size": 179,
+"hits": [
+"0x54e930"
+]
 },
 {
 "name": "_HTEventList_unregisterAll",
 "obj": "HTEvtLst.obj",
-"size": 155,
-"hits": []
+"size": 167,
+"hits": [
+"0x54e9f0"
+]
 },
 {
 "name": "_HTEventList_dispatch",
 "obj": "HTEvtLst.obj",
 "size": 91,
-"hits": []
+"hits": [
+"0x54eaa0"
+]
 },
 {
 "name": "_HTEventList_lookup",
@@ -55691,29 +55696,72 @@
 {
 "name": "_HTEventList_loop",
 "obj": "HTEvtLst.obj",
-"size": 494,
+"size": 100,
 "hits": []
 },
 {
-"name": "_HTEventInit",
+"name": "_AsyncWindowProc@16",
 "obj": "HTEvtLst.obj",
-"size": 81,
-"hits": []
+"size": 208,
+"hits": [
+"0x54eb40"
+]
+},
+{
+"name": "_HTEventList_setWinHandle",
+"obj": "HTEvtLst.obj",
+"size": 25,
+"hits": [
+"0x54ec10",
+"0x57a5b0",
+"0x57a5e0"
+]
+},
+{
+"name": "_HTEventList_getWinHandle",
+"obj": "HTEvtLst.obj",
+"size": 22,
+"hits": [
+"0x54ec30"
+]
 },
 {
 "name": "_HTEventTerminate",
 "obj": "HTEvtLst.obj",
-"size": 11,
+"size": 44,
 "hits": [
-"0x5615e0"
-],
-"scan": 1
+"0x54ec50"
+]
+},
+{
+"name": "_Timer_setWindowsTimer",
+"obj": "HTEvtLst.obj",
+"size": 41,
+"hits": [
+"0x54ed20"
+]
+},
+{
+"name": "_Timer_deleteWindowsTimer",
+"obj": "HTEvtLst.obj",
+"size": 25,
+"hits": [
+"0x54ed50"
+]
 },
 {
 "name": "_HTEventList_newLoop",
 "obj": "HTEvtLst.obj",
 "size": 11,
 "hits": []
+},
+{
+"name": "_HTEventInit",
+"obj": "HTEvtLst.obj",
+"size": 291,
+"hits": [
+"0x54ed80"
+]
 },
 {
 "name": "_HTProfile_delete",
@@ -55750,7 +55798,7 @@
 {
 "name": "_HTProfile_newPreemptiveClient",
 "obj": "HTProfil.obj",
-"size": 35,
+"size": 29,
 "hits": []
 },
 {
@@ -57120,7 +57168,9 @@
 "name": "_HTNet_delete",
 "obj": "HTNet.obj",
 "size": 243,
-"hits": []
+"hits": [
+"0x552a10"
+]
 },
 {
 "name": "_HTNet_deleteDup",
@@ -57469,7 +57519,9 @@
 "name": "_HTNet_start",
 "obj": "HTNet.obj",
 "size": 78,
-"hits": []
+"hits": [
+"0x553070"
+]
 },
 {
 "name": "_HTNet_newServer",
@@ -57490,8 +57542,10 @@
 {
 "name": "_HTNet_kill",
 "obj": "HTNet.obj",
-"size": 119,
-"hits": []
+"size": 122,
+"hits": [
+"0x5533b0"
+]
 },
 {
 "name": "_HTNet_killAll",
@@ -57505,7 +57559,9 @@
 "name": "_free_object",
 "obj": "HTHost.obj",
 "size": 176,
-"hits": []
+"hits": [
+"0x553490"
+]
 },
 {
 "name": "_delete_object",
@@ -57824,8 +57880,10 @@
 {
 "name": "_HTHost_killPipe",
 "obj": "HTHost.obj",
-"size": 17,
-"hits": []
+"size": 20,
+"hits": [
+"0x554d10"
+]
 },
 {
 "name": "_HTHost_mode",
@@ -57897,26 +57955,34 @@
 {
 "name": "_HTHost_register",
 "obj": "HTHost.obj",
-"size": 228,
-"hits": []
+"size": 257,
+"hits": [
+"0x553b00"
+]
 },
 {
 "name": "_HTHost_unregister",
 "obj": "HTHost.obj",
 "size": 171,
-"hits": []
+"hits": [
+"0x553c10"
+]
 },
 {
 "name": "_HTHost_setRemainingRead",
 "obj": "HTHost.obj",
 "size": 25,
-"hits": []
+"hits": [
+"0x553cc0"
+]
 },
 {
 "name": "_HTHost_remainingRead",
 "obj": "HTHost.obj",
 "size": 19,
-"hits": []
+"hits": [
+"0x553ce0"
+]
 },
 {
 "name": "_HTHost_getSockAddr",
@@ -58044,21 +58110,26 @@
 "name": "_HTHost_setWriteDelay",
 "obj": "HTHost.obj",
 "size": 27,
-"hits": []
+"hits": [
+"0x553f50"
+]
 },
 {
 "name": "_HTHost_writeDelay",
 "obj": "HTHost.obj",
 "size": 18,
 "hits": [
-"0x5488b0"
+"0x548af0",
+"0x553f70"
 ]
 },
 {
 "name": "_HTHost_findWriteDelay",
 "obj": "HTHost.obj",
 "size": 24,
-"hits": []
+"hits": [
+"0x553f90"
+]
 },
 {
 "name": "_HTHost_setDefaultWriteDelay",
@@ -58089,20 +58160,25 @@
 "name": "_HTHost_forceFlush",
 "obj": "HTHost.obj",
 "size": 115,
-"hits": []
+"hits": [
+"0x553fd0"
+]
 },
 {
 "name": "_HTHost_setContext",
 "obj": "HTHost.obj",
 "size": 19,
-"hits": []
+"hits": [
+"0x554050"
+]
 },
 {
 "name": "_HTHost_context",
 "obj": "HTHost.obj",
 "size": 18,
 "hits": [
-"0x548950"
+"0x548a90",
+"0x554070"
 ]
 },
 {
@@ -58239,7 +58315,9 @@
 "name": "_HTHost_launchPending",
 "obj": "HTHost.obj",
 "size": 243,
-"hits": []
+"hits": [
+"0x554280"
+]
 },
 {
 "name": "_HTHost_accept",
@@ -58253,31 +58331,41 @@
 "name": "_HTHost_clearChannel",
 "obj": "HTHost.obj",
 "size": 190,
-"hits": []
+"hits": [
+"0x554410"
+]
 },
 {
 "name": "_HTHost_recoverPipe",
 "obj": "HTHost.obj",
 "size": 238,
-"hits": []
+"hits": [
+"0x5544d0"
+]
 },
 {
 "name": "_HTHost_setMode",
 "obj": "HTHost.obj",
 "size": 189,
-"hits": []
+"hits": [
+"0x5545c0"
+]
 },
 {
 "name": "_HostEvent",
 "obj": "HTHost.obj",
-"size": 402,
-"hits": []
+"size": 419,
+"hits": [
+"0x554770"
+]
 },
 {
 "name": "_HTHost_new",
 "obj": "HTHost.obj",
 "size": 575,
-"hits": []
+"hits": [
+"0x554920"
+]
 },
 {
 "name": "_HTHost_newWParse",
@@ -58299,19 +58387,25 @@
 "name": "_HTHost_connect",
 "obj": "HTHost.obj",
 "size": 225,
-"hits": []
+"hits": [
+"0x554d30"
+]
 },
 {
 "name": "_HTHost_listen",
 "obj": "HTHost.obj",
 "size": 141,
-"hits": []
+"hits": [
+"0x554e20"
+]
 },
 {
 "name": "_IdleTimeoutEvent",
 "obj": "HTHost.obj",
-"size": 296,
-"hits": []
+"size": 305,
+"hits": [
+"0x554eb0"
+]
 },
 {
 "name": "_HTHost_free",
@@ -61207,7 +61301,9 @@
 "name": "_HTChannel_new",
 "obj": "HTChannl.obj",
 "size": 199,
-"hits": []
+"hits": [
+"0x55a4b0"
+]
 },
 {
 "name": "_HTChannel_find",
@@ -61748,19 +61844,25 @@
 "name": "_HTDoConnect",
 "obj": "HTTCP.obj",
 "size": 1148,
-"hits": []
+"hits": [
+"0x55b220"
+]
 },
 {
 "name": "_HTDoAccept",
 "obj": "HTTCP.obj",
-"size": 210,
-"hits": []
+"size": 213,
+"hits": [
+"0x55b6a0"
+]
 },
 {
 "name": "_HTDoListen",
 "obj": "HTTCP.obj",
 "size": 596,
-"hits": []
+"hits": [
+"0x55b780"
+]
 },
 {
 "name": "_HTDoClose",
@@ -63136,8 +63238,10 @@
 {
 "name": "_CacheEvent",
 "obj": "HTCache.obj",
-"size": 844,
-"hits": []
+"size": 848,
+"hits": [
+"0x5606f0"
+]
 },
 {
 "name": "_HTCache_new",
@@ -63824,7 +63928,9 @@
 "name": "_HTLoadHTTP",
 "obj": "HTTP.obj",
 "size": 116,
-"hits": []
+"hits": [
+"0x564b40"
+]
 },
 {
 "name": "_flush_breaks",
@@ -65176,7 +65282,9 @@
 "name": "_HTBufferWriter_lazyFlush",
 "obj": "HTBufWrt.obj",
 "size": 185,
-"hits": []
+"hits": [
+"0x568a80"
+]
 },
 {
 "name": "_HTBufferWriter_addBuffer",
@@ -65386,8 +65494,10 @@
 {
 "name": "_HTReader_read",
 "obj": "HTReader.obj",
-"size": 480,
-"hits": []
+"size": 483,
+"hits": [
+"0x569260"
+]
 },
 {
 "name": "_HTReader_close",
@@ -65409,13 +65519,17 @@
 "name": "_HTReader_new",
 "obj": "HTReader.obj",
 "size": 101,
-"hits": []
+"hits": [
+"0x5694d0"
+]
 },
 {
 "name": "_HTWriter_write",
 "obj": "HTWriter.obj",
 "size": 283,
-"hits": []
+"hits": [
+"0x569570"
+]
 },
 {
 "name": "_HTWriter_put_character",
@@ -65491,7 +65605,9 @@
 "name": "_HTWriter_new",
 "obj": "HTWriter.obj",
 "size": 98,
-"hits": []
+"hits": [
+"0x5696f0"
+]
 },
 {
 "name": "_make_system_secure",
@@ -65512,8 +65628,10 @@
 {
 "name": "_TelnetEvent",
 "obj": "HTTelnet.obj",
-"size": 46,
-"hits": []
+"size": 49,
+"hits": [
+"0x569aa0"
+]
 },
 {
 "name": "_HTLoadTelnet",
@@ -65618,13 +65736,17 @@
 "name": "_FileEvent",
 "obj": "HTFile.obj",
 "size": 1308,
-"hits": []
+"hits": [
+"0x569c70"
+]
 },
 {
 "name": "_HTLoadFile",
 "obj": "HTFile.obj",
 "size": 117,
-"hits": []
+"hits": [
+"0x56a190"
+]
 },
 {
 "name": "_GopherIcon",
@@ -65797,13 +65919,17 @@
 "name": "_GopherEvent",
 "obj": "HTGopher.obj",
 "size": 1132,
-"hits": []
+"hits": [
+"0x56ae40"
+]
 },
 {
 "name": "_HTLoadGopher",
 "obj": "HTGopher.obj",
 "size": 130,
-"hits": []
+"hits": [
+"0x56b2b0"
+]
 },
 {
 "name": "_ScanResponse",
@@ -65948,13 +66074,17 @@
 "name": "_NewsEvent",
 "obj": "HTNews.obj",
 "size": 2624,
-"hits": []
+"hits": [
+"0x56b860"
+]
 },
 {
 "name": "_HTLoadNews",
 "obj": "HTNews.obj",
 "size": 140,
-"hits": []
+"hits": [
+"0x56c2a0"
+]
 },
 {
 "name": "_HTProtocol_add",
@@ -66583,7 +66713,7 @@
 {
 "name": "_Timer_dispatch",
 "obj": "HTTimer.obj",
-"size": 101,
+"size": 115,
 "hits": []
 },
 {
@@ -66597,14 +66727,18 @@
 {
 "name": "_HTTimer_next",
 "obj": "HTTimer.obj",
-"size": 189,
-"hits": []
+"size": 130,
+"hits": [
+"0x56e410"
+]
 },
 {
 "name": "_HTTimer_expireAll",
 "obj": "HTTimer.obj",
-"size": 195,
-"hits": []
+"size": 128,
+"hits": [
+"0x56e4a0"
+]
 },
 {
 "name": "_HTErrnoString",
@@ -69913,16 +70047,13 @@
 "thunk": 1
 },
 {
-"name": "___WSAFDIsSet@8",
+"name": "_WSAAsyncSelect@16",
 "obj": "wsock32:WSOCK32.dll",
 "size": 6,
-"hits": []
-},
-{
-"name": "_select@20",
-"obj": "wsock32:WSOCK32.dll",
-"size": 6,
-"hits": []
+"hits": [
+"0x58cbb8"
+],
+"thunk": 1
 },
 {
 "name": "_accept@12",
@@ -71651,6 +71782,33 @@
 "size": 6,
 "hits": [
 "0x547eca"
+],
+"thunk": 1
+},
+{
+"name": "_UnregisterClassA@8",
+"obj": "user32:USER32.dll",
+"size": 6,
+"hits": [
+"0x58cd68"
+],
+"thunk": 1
+},
+{
+"name": "_SetTimer@16",
+"obj": "user32:USER32.dll",
+"size": 6,
+"hits": [
+"0x58cd6e"
+],
+"thunk": 1
+},
+{
+"name": "_KillTimer@8",
+"obj": "user32:USER32.dll",
+"size": 6,
+"hits": [
+"0x58cd74"
 ],
 "thunk": 1
 },
@@ -77704,7 +77862,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1216,
+"size": 1440,
 "hits": []
 }
 ]
