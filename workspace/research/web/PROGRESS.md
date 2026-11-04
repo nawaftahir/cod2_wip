@@ -1410,3 +1410,10 @@ Branch `radiant/web/2`; only this lane's source and permitted web draft/report p
 - No assembly, retail byte arrays, ABI override, stubs, or source code in other lanes was added. Whole-file metadata/RTTI/vtable proof remains pending.
 
 - Resource proof: `src/res/CoD2Radiant.rc` dialog `226` is captioned `gVertex Color/Alpha Editing` and contains exactly the 11 child IDs in `g_vertEditSubclass` (1461, 1526, 1527, 1528, 1529, 1530, 1533, 1534, 1535, 1537, 1464). The draft now declares the anchored `IDD = 226`; no constructor behavior is guessed from the resource alone.
+
+## Lane 2 — vertsel candidate after VertEditDlg infrastructure blocker
+
+- `src/radiant/vertsel.cpp` is left canonical with its existing exact `FindPoint` (180 B) and `FindEdge` (104 B).
+- Q3Radiant's `VERTSEL.CPP` provides the control flow for `MakeFace` and `SetupVertexSelection`, but CoD2 Ghidra decompilation shows `MakeFace` at 0x004752c0 calls an unknown one-argument winding helper 0x00455800. `SetupVertexSelection` at 0x00475350 uses a counted face array with pointers at brush+0x14, count at brush+0x18, face-list at definition+0x3c and 0xa8 stride, **not** Q3's linked list.
+- The candidate draft at `workspace/research/web/drafts/vertsel.cpp` preserves both already verified functions and adds only real C++ `MakeFace` and `SetupVertexSelection` methods using these target-backed offsets. Winding point stride is reference-informed, not retail-confirmed; the true external helper signature and linker binding are unresolved.
+- These candidates are **UNTESTED**, not MATCH. No ledger row or canonical change. A lane-aware hosted referee trial and retail disassembly are needed; the existing shared generic trial selector remains assigned to ModelDlg and is outside this lane's authorized edit list.
