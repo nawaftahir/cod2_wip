@@ -2997,7 +2997,9 @@
 "name": "?CL_Shutdown@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 534,
-"hits": []
+"hits": [
+"0x4116d0"
+]
 },
 {
 "name": "?CL_UpdateInfoPacket@@YAXUnetadr_t@@@Z",
@@ -3011,7 +3013,9 @@
 "name": "?CL_LocalServers_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 333,
-"hits": []
+"hits": [
+"0x411a90"
+]
 },
 {
 "name": "?CL_GetPing@@YAXHPADHPAH@Z",
@@ -3057,7 +3061,9 @@
 "name": "?CL_UpdateDirtyPings_f@@YAHH@Z",
 "obj": "cl_main_mp.obj",
 "size": 714,
-"hits": []
+"hits": [
+"0x411e10"
+]
 },
 {
 "name": "?CL_GetServerIPAddress@@YAPBDXZ",
@@ -3517,7 +3523,9 @@
 "name": "?LAN_ResetPings@@YAXH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 62,
-"hits": []
+"hits": [
+"0x414f80"
+]
 },
 {
 "name": "?LAN_GetServerCount@@YAHH@Z",
@@ -3536,20 +3544,24 @@
 {
 "name": "?LAN_GetServerInfo@@YAXHHPADH@Z",
 "obj": "cl_ui_mp.obj",
-"size": 809,
+"size": 813,
 "hits": []
 },
 {
 "name": "?LAN_GetServerPing@@YAHHH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 95,
-"hits": []
+"hits": [
+"0x415340"
+]
 },
 {
 "name": "?LAN_GetServerPtr@@YAPAUserverInfo_t@@HH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 84,
-"hits": []
+"hits": [
+"0x415400"
+]
 },
 {
 "name": "?LAN_CleanHostname@@YAXPBDPAD@Z",
@@ -3576,14 +3588,18 @@
 {
 "name": "?LAN_MarkServerDirty@@YAXHHH@Z",
 "obj": "cl_ui_mp.obj",
-"size": 170,
-"hits": []
+"size": 177,
+"hits": [
+"0x415670"
+]
 },
 {
 "name": "?LAN_ServerIsDirty@@YAHHH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 90,
-"hits": []
+"hits": [
+"0x415730"
+]
 },
 {
 "name": "?LAN_GetServerStatus@@YAHPAD0H@Z",
@@ -8994,6 +9010,7 @@
 "obj": "dobj_management.obj",
 "size": 28,
 "hits": [
+"0x4356b8",
 "0x4356e0"
 ]
 },
@@ -31641,13 +31658,17 @@
 "name": "?CL_SetServerInfoByAddress@@YAXUnetadr_t@@PBDH@Z",
 "obj": "cl_main_pc_mp.obj",
 "size": 453,
-"hits": []
+"hits": [
+"0x4b3130"
+]
 },
 {
 "name": "?CL_SetServerInfo@@YAXPAUserverInfo_t@@PBDH@Z",
 "obj": "cl_main_pc_mp.obj",
-"size": 448,
-"hits": []
+"size": 469,
+"hits": [
+"0x4b3300"
+]
 },
 {
 "name": "?CL_ServerInfoPacket@@YAXUnetadr_t@@PAUmsg_t@@H@Z",
@@ -31681,25 +31702,33 @@
 "name": "?CL_InitServerInfo@@YAXPAUserverInfo_t@@Unetadr_t@@@Z",
 "obj": "cl_main_pc_mp.obj",
 "size": 87,
-"hits": []
+"hits": [
+"0x4b3bb0"
+]
 },
 {
 "name": "?CL_RefreshKnownGlobalServer@@YAHUnetadr_t@@@Z",
 "obj": "cl_main_pc_mp.obj",
 "size": 217,
-"hits": []
+"hits": [
+"0x4b3c10"
+]
 },
 {
 "name": "?CL_ServersResponsePacket@@YAXUnetadr_t@@PAUmsg_t@@@Z",
 "obj": "cl_main_pc_mp.obj",
 "size": 586,
-"hits": []
+"hits": [
+"0x4b3cf0"
+]
 },
 {
 "name": "?CL_GlobalServers_f@@YAXXZ",
 "obj": "cl_main_pc_mp.obj",
 "size": 389,
-"hits": []
+"hits": [
+"0x4b3f40"
+]
 },
 {
 "name": "?CL_RconInit@@YAXXZ",
@@ -31852,38 +31881,50 @@
 {
 "name": "?LAN_AddServer@@YAHHPBD0@Z",
 "obj": "cl_ui_pc_mp.obj",
-"size": 325,
-"hits": []
+"size": 326,
+"hits": [
+"0x4b52f0"
+]
 },
 {
 "name": "?LAN_RemoveServer@@YAXHPBD@Z",
 "obj": "cl_ui_pc_mp.obj",
-"size": 253,
-"hits": []
+"size": 265,
+"hits": [
+"0x4b5440"
+]
 },
 {
 "name": "?LAN_GetServerAddressString@@YAXHHPADH@Z",
 "obj": "cl_ui_pc_mp.obj",
-"size": 191,
-"hits": []
+"size": 189,
+"hits": [
+"0x4b5550"
+]
 },
 {
 "name": "?LAN_ReadServerCache@@YAHH@Z",
 "obj": "cl_ui_pc_mp.obj",
 "size": 196,
-"hits": []
+"hits": [
+"0x4b5610"
+]
 },
 {
 "name": "?LAN_LoadCachedServers@@YAXXZ",
 "obj": "cl_ui_pc_mp.obj",
 "size": 104,
-"hits": []
+"hits": [
+"0x4b56e0"
+]
 },
 {
 "name": "?LAN_SaveServersToCache@@YAXXZ",
 "obj": "cl_ui_pc_mp.obj",
-"size": 281,
-"hits": []
+"size": 284,
+"hits": [
+"0x4b5750"
+]
 },
 {
 "name": "?DL_VPrintf@@YAHPBDPAD@Z",
@@ -47286,7 +47327,7 @@
 {
 "name": "?UI_RunMenuScript@@YAXPAPBD@Z",
 "obj": "ui_main_mp.obj",
-"size": 4901,
+"size": 4899,
 "hits": []
 },
 {
@@ -47372,7 +47413,7 @@
 {
 "name": "?UI_BuildServerDisplayList@@YAXH@Z",
 "obj": "ui_main_mp.obj",
-"size": 1389,
+"size": 1292,
 "hits": []
 },
 {
@@ -47403,7 +47444,9 @@
 "name": "?UI_BuildFindPlayerList@@YAXXZ",
 "obj": "ui_main_mp.obj",
 "size": 1023,
-"hits": []
+"hits": [
+"0x536fa0"
+]
 },
 {
 "name": "?UI_BuildServerStatus@@YAXH@Z",
@@ -47471,7 +47514,9 @@
 "name": "?UI_FeederSelection@@YAXMH@Z",
 "obj": "ui_main_mp.obj",
 "size": 466,
-"hits": []
+"hits": [
+"0x537b00"
+]
 },
 {
 "name": "?UI_GetGameTypesList@@YAXXZ",
@@ -72684,7 +72729,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 2752,
+"size": 2784,
 "hits": []
 }
 ]
