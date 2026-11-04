@@ -1418,3 +1418,69 @@ EntityListDlg now carries the ancestor's real MFC dispatch for Select / tree sel
 TextureBar now carries the ancestor's spin notifications, window-create and Apply dispatch. Retail dialog 154 and the already accepted DDX prove the five spin IDs; the original Q3 OnSelectionPrint empty body is present only in draft and the canonical unnamed one-byte row remains intact. The nontrivial spin handlers and Get/SetSurfaceAttributes stay undefined until verified `select.cpp`, brush, selected-face, and `g_qeglobals` layout are available. The selection-print command ID is not inferred without evidence.
 
 These drafts are not certified as bit-identical; no current lane-1 isolated CI selector exists under the permitted edit scope. Keep the canonical source and match ledger unchanged until the pinned full-link referee produces a relevant MATCH and full regression passes.
+
+
+## 2026-11-04 — radiant/web/1 continuing first-class source reconstruction (draft-only checkpoint)
+
+Committed real source updates only on the allocated lane branch, leaving `main`,
+`radiant/main`, other worker branches, canonical verified implementations,
+`ledger/matches.tsv`, shared headers and all verifier/toolchain files unchanged.
+
+- `EntityListDlg.cpp`: draft contains the retail-informed `OnSelect` selection
+  loop at `0x0040c8f0` (116 B) and Q3-sweep-proven `OnDblclkTreeEntity`
+  at `0x0040ccb0` (21 B), plus target resource ID 129 and MFC message routing.
+  Target entity brush-list offsets +0xc/+0x18 and the linked +0xc brush traversal
+  come from retail `data/decomp/0040c8f0.c`. The real select.cpp callees
+  `0x0046fbe0` and `0x0046f0b0` are absent from canonical source, so
+  these are **NOT CI-MATCHED**; the 89-B destructor also has the previously
+  proven MFC alias CALLEE blocker recorded in `ledger/defer.tsv`.
+- `TextureBar.cpp`: original four shift/scale handlers are now present as
+  authored Q3 C++ candidates for `0x0043f240` (105 B),
+  `0x0043f2b0` (107 B), `0x0043f320` (81 B), and
+  `0x0043f380` (64 B). The rotation handler at `0x0043f3c0`
+  (87 B), Apply callback at `0x0043f450` (10 B) and target MFC dispatch
+  are also in the draft. Pinned target global `0x0112988c` is identified
+  as the texture tweak but its real storage owner is unresolved. The actual
+  `select.cpp` routines at `0x00472860`, `0x00472ff0`, `0x004733f0`,
+  and surface-state/face structures must be recovered before matching.
+- `eclass.cpp`: six draft functions are now grounded in CoD2 target evidence:
+  `FUN_00462ff0` (199 B, model's entity/refcount cleanup with recorded
+  assert messages), `FUN_004630c0` (170 B, eclass/model destructor),
+  `CleanUpEntities` at `0x004631a0` (155 B), `FUN_004634f0`
+  (98 B), `EClass_InsertSortedList` at `0x00463e40` (75 B,
+  Q3+retail agreed) and `Eclass_InsertAlphabetized` at
+  `0x00463e90` (13 B, Q3 wrapper candidate). Target-confirmed
+  fields include eclass next/name/comments/model/modelpath/skinpath at
+  +0/+4/+0x50/+0x154/+0x158/+0x15c, model entities.next at +0xc,
+  entity refCount at +0x78, and brush refCount at +0x1c.
+  The original assert line placement, real entity-free callee at
+  `0x004661f0`, and 19 more eclass routines are unverified.
+- `TexEdit.cpp`: the existing Q3 `OnChange` candidate at
+  `0x0043ef60` (132 B) now uses an evidence-grounded `CTexWnd`
+  derived-from-`CWnd` class with embedded `CTexEdit` and `CButton`.
+  Retail size evidence is `sizeof(CTexEdit)=0x5c`,
+  `sizeof(CTexWnd)=0x100`; owning `TexWnd.cpp::UpdateFilter`
+  `0x00442d60` is still 239/242 B in the prior best trial.
+  The shared class needs reviewed ownership before promotion.
+- `DialogInfo.cpp`: `ShowInfoDialog` `0x00409690` (66 B) remains
+  blocked by the genuine three Pmesh ESI-argument callers at
+  `0x00433ad0`, `0x00433da0` and `0x00434040`.
+  Implicit/generator destructor routines are already separately accounted.
+- `KeyValueSelectDlg`, `CapDialog`, `DialogThick`, `DlgEvent`,
+  `EditWnd` and `NameDlg` retain existing independent FILE VERIFIED
+  proofs; avoid rewriting them.
+
+**No new ledger rows claimed**: the target Q3 sweep is a source candidate
+screen, not a substitute for an isolated pinned-MSVC 7.1 retail comparison.
+
+The last completed lane CI runs through
+https://github.com/nawaftahir/cod2_wip/actions/runs/41858934183 retain
+**823/823 canonical game matches, 87,826/699,591 matched game bytes,
+0 failing ledger rows**, but overall `gate` remains red from inherited
+`codex_patchdialog/test_partial.py` unexpected callee
+`('0x4075c0','0x409270')`. The successful `web-trial` job runs
+`tools/web_tu_trial.py` configured for ModelDlg (lane 3) through
+`target.tsv` and `tu_trial.tsv`; it does NOT test these lane-1 drafts.
+The assigned lane allowlist does not permit changing those two selector files.
+An owner-approved lane-1 trial selector and the out-of-scope baseline gate fix
+are needed before claiming matched code and promoting these functions.

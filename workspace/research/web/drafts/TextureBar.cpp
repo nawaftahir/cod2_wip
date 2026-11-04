@@ -1,3 +1,7 @@
+/* GPL-2.0-or-later. Adapted from id Software's Q3Radiant/TextureBar.cpp
+ * (1999-2005), checked against the CoD2 retail decompilation where noted.
+ * Compilation and linkage of new handlers remain unverified.
+ */
 // CTextureBar reconstruction grounded in CoD2Radiant 1.0 retail layout and DDX IDs.
 // The implemented methods below are hosted-CI byte-identical; remaining handlers stay pending.
 #include "stdafx.h"
