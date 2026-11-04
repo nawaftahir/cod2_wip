@@ -21,6 +21,7 @@ protected:
     afx_msg void FUN_00423a80();
     afx_msg void FUN_00423ae0();
     afx_msg void FUN_00423d20();
+    afx_msg void FUN_00423eb0();
     DECLARE_MESSAGE_MAP()
 };
 
@@ -125,6 +126,12 @@ void CModelDlg::FUN_00423d20()
         selected->GetText(i, item);
         g_ModelSelected.SetAtGrow(g_ModelSelected.GetSize(), item);
     }
+}
+
+void CModelDlg::FUN_00423eb0()
+{
+    FUN_00423d20();
+    Default();
 }
 
 BEGIN_MESSAGE_MAP(CModelDlg, CDialog)
