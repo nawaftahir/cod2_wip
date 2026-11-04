@@ -1217,6 +1217,72 @@ void CL_ForwardCommandToServer(const char *string)
 
 #if COD2_IS_PATCH_13
 int lastUpdateKeyAuthTime;
+
+struct MD5_CTX {
+    unsigned long i[2];
+    unsigned long buf[4];
+    unsigned char in[64];
+    unsigned char digest[16];
+};
+extern void MD5Init(MD5_CTX *mdContext, unsigned long pseudoRandomNumber);
+extern void MD5Update(MD5_CTX *mdContext, unsigned char *inBuf, unsigned int inLen);
+extern void MD5Final(MD5_CTX *mdContext);
+
+/* retail 0x40cf40, unnamed: trims white space from both ends in place */
+static char *fn_40cf40(char *s)
+{
+    char *p = s;
+    char *e = s + strlen(s) - 1;
+
+    while (*p && (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r'))
+        p++;
+    while (e > p && (*e == ' ' || *e == '\t' || *e == '\n' || *e == '\r'))
+        e--;
+    e[1] = 0;
+    {
+        int delta = (int)(s - p);
+        char c;
+
+        do {
+            c = *p;
+            p[delta] = c;
+            p++;
+        } while (c);
+    }
+    return s;
+}
+
+/* retail 0x40cfc0 (Mac name): hex MD5 of the cleaned CD key, PunkBuster seed */
+void CL_BuildMd5StrFromCDKey(char *out)
+{
+    MD5_CTX ctx;
+    char key[64];
+    int len;
+    int i;
+    int j;
+
+    memset(key, 0, sizeof(key));
+    j = 0;
+    len = strlen(cl_cdkey);
+    if (len > 32)
+        len = 32;
+    for (i = 0; i < len; i++) {
+        char ch = cl_cdkey[i];
+        if ((ch >= '0' && ch <= '9') || (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z'))
+            key[j++] = ch;
+    }
+    key[j] = 0;
+    strupr(fn_40cf40(key));
+
+    MD5Init(&ctx, 0xb684a3);
+    MD5Update(&ctx, (unsigned char *)key, strlen(key));
+    MD5Final(&ctx);
+    sprintf(out, "%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
+            ctx.digest[0], ctx.digest[1], ctx.digest[2], ctx.digest[3],
+            ctx.digest[4], ctx.digest[5], ctx.digest[6], ctx.digest[7],
+            ctx.digest[8], ctx.digest[9], ctx.digest[10], ctx.digest[11],
+            ctx.digest[12], ctx.digest[13], ctx.digest[14], ctx.digest[15]);
+}
 #endif
 
 void CL_RequestAuthorization(void)
@@ -1280,46 +1346,7 @@ void CL_RequestAuthorization(void)
 
     anonymous = Dvar_RegisterBool((const char *)"cl_anonymous", 0, 0x101b);
 #if COD2_IS_PATCH_13
-    {
-        char nums[64];
-        const char *key;
-        int len, i, j;
-        char *p, *e;
-
-        md5Str[0] = '\0';
-        memset(nums, 0, sizeof(nums));
-
-        key = cl_cdkey;
-        len = strlen(key);
-        if (len > 0) {
-            j = 0;
-            for (i = 0; i < 32; ++i) {
-                unsigned char ch = (unsigned char)key[i];
-                if ((ch >= '0' && ch <= '9') ||
-                    (ch >= 'a' && ch <= 'z') ||
-                    (ch >= 'A' && ch <= 'Z')) {
-                    nums[j++] = (char)ch;
-                }
-            }
-            nums[j] = '\0';
-        }
-
-        p = nums;
-        while (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r')
-            p++;
-        e = p + strlen(p);
-        while (e > p && (e[-1] == ' ' || e[-1] == '\t' || e[-1] == '\n' || e[-1] == '\r'))
-            e--;
-        *e = '\0';
-        if (p != nums)
-            memmove(nums, p, (size_t)(e - p) + 1);
-        strupr(nums);
-
-    #    if COD2_FEATURE_PUNKBUSTER
-
-        md5Str[0] = '\0';
-    #    endif
-    }
+    CL_BuildMd5StrFromCDKey(md5Str);
     NET_OutOfBandPrint(NS_CLIENT1, cls.authorizeServer,
                        va((const char *)"getKeyAuthorize %i %s PB %s", anonymous->current.enabled, nums, md5Str));
 #else
@@ -1686,9 +1713,14 @@ void CL_InitDownloads(void)
     CL_DownloadsComplete();
 }
 
+extern void PbClientConnecting(int type, char *data, int *len);
+
 void CL_CheckForResend(void)
 {
     int i;
+    int len;
+    char md5Str[33];
+    char pbBuf[1020];
     char info[1024];
     char data[1024];
 
@@ -1698,19 +1730,13 @@ void CL_CheckForResend(void)
     if (clc.state != CA_CONNECTING && clc.state != CA_CHALLENGING)
         return;
 
-    if (cls.realtime - clc.connectTime < 3000)
+    if (cls.realtime - clc.connectTime < 2000)
         return;
 
     clc.connectTime = cls.realtime;
     clc.connectPacketCount++;
 
     switch (clc.state) {
-    case CA_CONNECTING:
-        if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
-            CL_RequestAuthorization();
-        NET_OutOfBandPrint(NS_CLIENT1, clc.serverAddress, "getchallenge");
-        break;
-
     case CA_CHALLENGING:
         I_strncpyz(info, Dvar_InfoString(2), sizeof(info));
         Info_SetValueForKey(info, "protocol", va("%i", 118));
@@ -1724,8 +1750,21 @@ void CL_CheckForResend(void)
         data[9 + i] = '"';
         data[10 + i] = 0;
 
+        len = i + 10;
+        memcpy(pbBuf, data, len);
+        PbClientConnecting(2, pbBuf, &len);
         NET_OutOfBandData(NS_CLIENT1, clc.serverAddress, (unsigned char *)data, i + 10);
         dvar_modifiedFlags &= ~2;
+        break;
+
+    case CA_CONNECTING:
+        if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
+            CL_RequestAuthorization();
+        strcpy(pbBuf, "getchallenge");
+        len = strlen(pbBuf);
+        PbClientConnecting(1, pbBuf, &len);
+        CL_BuildMd5StrFromCDKey(md5Str);
+        NET_OutOfBandPrint(NS_CLIENT1, clc.serverAddress, va("getchallenge 0 \"%s\"", md5Str));
         break;
 
     default:
