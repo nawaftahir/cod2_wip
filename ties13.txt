@@ -23,3 +23,8 @@ _yylex
 ?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z
 # Netchan_Process: 1.0 PINNED tie pool (SKILL), flips on fn count (w8-pb-font 11-04)
 ?Netchan_Process@@YAHPAUnetchan_t@@PAUmsg_t@@@Z
+
+# s3 (11-04): operand/load-order ties flipped by the cl_console_mp changes (PbMsgToScreen moved in, AddLine 1.3 rewrite): SV_DirectConnect
+# (esi/edi load order, 742 B) and PC_EvaluateTokens (edx/ecx load order, 766 B). Same class as the 1.0 ordinal tie pool.
+?SV_DirectConnect@@YAXUnetadr_t@@@Z
+?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z

@@ -2,7 +2,8 @@
 # drift13.py: .text position drift, ours vs retail 1.3. Walks our fns in address order; a fn with a unique retail hit gives
 # delta = retail - ours. Prints each point where delta changes (a size difference sits between the two anchors).
 import json, re, sys
-R = '/home/nawaf/cod2/test/dev/claude_client13/lab13/s2b/target/build/'
+import os
+R = os.path.dirname(os.path.abspath(__file__)) + '/../target/build/'
 cm = json.load(open(R + 'cmp13.json'))
 by = {}
 for x in cm:
