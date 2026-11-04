@@ -1217,7 +1217,6 @@ void CL_ForwardCommandToServer(const char *string)
 
 #if COD2_IS_PATCH_13
 int lastUpdateKeyAuthTime;
-static const char cl_getKeyAuthorizeFmt_13[] = "getKeyAuthorize %i %s PB %s";
 #endif
 
 void CL_RequestAuthorization(void)
@@ -1322,7 +1321,7 @@ void CL_RequestAuthorization(void)
     #    endif
     }
     NET_OutOfBandPrint(NS_CLIENT1, cls.authorizeServer,
-                       va(cl_getKeyAuthorizeFmt_13, anonymous->current.enabled, nums, md5Str));
+                       va((const char *)"getKeyAuthorize %i %s PB %s", anonymous->current.enabled, nums, md5Str));
 #else
     NET_OutOfBandPrint(NS_CLIENT1, cls.authorizeServer,
                        va((const char *)"getKeyAuthorize %i %s", anonymous->current.enabled, nums));
