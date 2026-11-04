@@ -490,3 +490,6 @@
 /* Define this if sys_nerr must be declared (if it exists). */
 /* #undef NEED_SYS_NERR_DECLARED */
 
+
+/* Windows async select (WSAAsyncSelect) event loop */
+#define WWW_WIN_ASYNC 1

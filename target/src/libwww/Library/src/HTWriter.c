@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This is a try with a non-buffered output stream which remembers
 **	state using the write_pointer. As normally we have a big buffer
