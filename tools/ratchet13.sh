@@ -14,6 +14,7 @@ fi
 mkdir -p build
 make release ANCHOR=$A DXSDK=${DXSDK:-../../sdk/sum2004} > build/ratchet13.log 2>&1 || { tail -20 build/ratchet13.log; echo BUILD FAILED; exit 1; }
 python3 tools/shameter.py build/release/CoD2MP_s.exe $A > build/sha.txt
+python3 tools/test_inplace.py 1.3 || { echo "INPLACE SELF-CHECK FAILED"; exit 1; }
 n=$(tail -1 build/sha.txt | awk '{print $4}' | cut -d/ -f1)
 tools/cmp13 | tee build/cmp13.sum
 f=$(sed -n 's/.*matched-fn bytes \([0-9]*\).*/\1/p' build/cmp13.sum)
