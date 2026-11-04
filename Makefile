@@ -4,6 +4,8 @@
 #   make measure    functions matching the original client (needs ../binaries)
 
 IMAGE  := cod2-msvc71-vs2003-ft
+# CI passes --platform linux/386 (wineserver needs it on the runner)
+DOCKER_FLAGS ?=
 OUT    := build/CoD2MP_s.exe
 REL    := build/release/CoD2MP_s.exe
 ANCHOR ?= ../binaries/windows/1.0/CoD2MP_s.exe
@@ -20,7 +22,7 @@ $(OUT) all:
 	@mkdir -p build/lib && cp -p $(DXSDK)/Lib/d3d9.lib build/lib/d3d9.lib
 	@cp -p $(DXSDK)/Lib/dsound.lib build/lib/dsound.lib
 	@gcc -m32 -shared -fPIC -O2 -o build/guidpin.so tools/guidpin.c
-	docker run --rm -v $(CURDIR):/w -v $(CURDIR)/build/tree:/w/src -w /w $(IMAGE) sh -c 'make -j$$(nproc) -k IN_IMAGE=1 $(OUT); s=$$?; chown -R $(shell id -u):$(shell id -g) build; exit $$s'
+	docker run --rm $(DOCKER_FLAGS) -v $(CURDIR):/w -v $(CURDIR)/build/tree:/w/src -w /w $(IMAGE) sh -c 'make -j$$(nproc) -k IN_IMAGE=1 $(OUT); s=$$?; chown -R $(shell id -u):$(shell id -g) build; exit $$s'
 
 measure: all
 	python3 tools/cmp.py $(OUT) build/CoD2MP_s.map $(ANCHOR) build/cmp.json >/dev/null
@@ -35,7 +37,7 @@ release:
 	@mkdir -p build/lib && cp -p $(DXSDK)/Lib/d3d9.lib build/lib/d3d9.lib
 	@cp -p $(DXSDK)/Lib/dsound.lib build/lib/dsound.lib
 	@gcc -m32 -shared -fPIC -O2 -o build/guidpin.so tools/guidpin.c
-	docker run --rm -v $(CURDIR):/w -v $(CURDIR)/build/tree:/w/src -w /w $(IMAGE) sh -c 'make -j$$(nproc) -k IN_IMAGE=1 $(REL); s=$$?; chown -R $(shell id -u):$(shell id -g) build; exit $$s'
+	docker run --rm $(DOCKER_FLAGS) -v $(CURDIR):/w -v $(CURDIR)/build/tree:/w/src -w /w $(IMAGE) sh -c 'make -j$$(nproc) -k IN_IMAGE=1 $(REL); s=$$?; chown -R $(shell id -u):$(shell id -g) build; exit $$s'
 	@sha256sum $(REL) $(ANCHOR)
 
 check: release
