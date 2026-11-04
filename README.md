@@ -9,7 +9,7 @@ Branch `client/1.3/main`, worktree `cod2_wip/client-1.3/`. Anchor: `../binaries/
 | `workspace/` | every other TU, headers, `tus.txt` (link order + per-TU flags) |
 | `tools/` | referee, gate and analysis scripts (`tools/ghidra/` = name tables cmp uses, `tools/oracle/`) |
 | `data/` | referee baselines (`good13.json`, `ties13.txt`, `ratchet13.*`), runs, tables |
-| `docs/` | notes, lessons, worklist, layout, knowledge; `docs/CI_NOTES.md` = what a build needs |
+| `docs/` | `STATUS.md`, `KNOWLEDGE.md`, `TRIED.md`, generated `WORKLIST_1.3.md`/`LAYOUT_1.3.md`, `CI_NOTES.md`; `archive/` = old raw notes |
 | `toolchain/` | image recipe; `toolchain/vc70/` (VS .NET 2002 cl/lib, not in git) |
 | `lab/` | old experiments (spike, rich, ltcglab, scratch) |
 

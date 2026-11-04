@@ -1,0 +1,90 @@
+# CoD2MP_s.exe 1.3: verified knowledge
+
+Facts with evidence only (LAW 12). Same compiler as 1.0: the decoded compiler rules (inline cost model,
+compile sweeps, one body per helper, slot packer, RA, x87, alignment, data layout) are in
+`client-1.0/docs/KNOWLEDGE.md` and hold here. This file holds what is specific to 1.3.
+Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `TRIED.md`.
+
+## 0. Binary and build
+- Retail built 2006-05-02, PDB `c:\builds\pc_1.3_1_1\pc\cod2\pc\CoD2MP_s.pdb`, .text vsize 1,645,581.
+  Build strings: `pc_1.3_1_1`, `Mon May 01 2006 05:05:43PM`, one pooled `May  1 2006`. PINNED.
+- Release link is `/FIXED` (no .reloc): the referee `tools/cmp13` rebuilds the reloc mask from in-image dwords
+  and masks jump tables. Plain `cmp.py` on this exe hid ~860 KB of matching code. PINNED.
+- cmp13 credits short call-free shapes only when the retail twin count equals ours: ~45 6-7 B libwww getters
+  show unmatched for that reason (HYPOTHESIS: measurement artifact, bytes look identical).
+- Each `make release` runs in its own docker container: builds do not block each other (SUPPORTED, used 11-04).
+- The 1.0 `unknown/empty_N.cpp` TUs and the mixerGetRecordLevel post-link patch are NOT used in 1.3.
+
+## 1. libwww (PINNED)
+- Compiled WITHOUT /GL (plain cdecl prologues): +22 KB same-offset when /GL was dropped.
+- Text = libwww-git snapshot (after 2001-03 and 2003-04 commits) with the `@(#) $Id$` header line removed, plus IW
+  edits; retail lacks the later "Ensure not listed twice" lines. HT_OUTOFMEM call sites push `__LINE__`, so line
+  numbers decide matching (tools/oom7.py, oomcmp7.py). Files where ours still differs from git (HTNet, HTAlert,
+  HTInit, HTProt, HTHeader, HTTrans, HTTPReq, HTBound, HTDNS, HTMIME, HTFTP) have no unmatched fns left.
+- `__FILE__` = `\builds\pc_1.3_1_1\pc\cod2src\libwww\Library\src\HTxxx.c` (drive-relative; the Makefile mounts the
+  tree there). 75 path strings sit before the CRT chunk in .rdata, in link order.
+- All 95 libwww TUs placed in retail order (`tus.txt`); HTStream.c belongs after HTArray.c; HTMulti.c (no
+  HAVE_READDIR) after HTLog.c. config.h: no HT_EXPAT, no HT_ZLIB. libwww objs depend on config.h and headers.
+- IW additions: HTFTP_setRawBytesCount / HTFTP_getDNetRawBytesCount, HTEventList_init / HTEventList_pump
+  (GetMessage loop, calls HTTrace directly), PUBLIC HTBasic_new / basic_credentials.
+
+## 2. Client code changes vs 1.0 (PINNED from retail 1.3)
+- Protocol 118 (globalservers, CL_ServerInfoPacket, CL_CheckForResend). loc_language max 14.
+- Download state moved from clc to cls (966dac..967008: wwwDlDisconnected, downloadName, downloadTempName,
+  originalDownloadName, downloadRestart, downloadFlags, wwwDlInProgress, download, downloadBlock, downloadSize,
+  downloadList); sizeof(clc) = 0x801fc. CL_ClearDownloadState: real noinline fn at 0x40cc70 AND expanded
+  inline in CL_Disconnect/DownloadsComplete/InitDownloads; it calls DL_CancelDownload (0x4b59c0).
+- dl_main.cpp: 13 fns (Mac STABS + KisakCOD/coduomp shapes). LAN_GetMotdFilename 0x4b50c0, CL_ReadMotd 0x4b50f0,
+  CL_WWWDownload 0x4b5160 live in cl_main_pc_mp after CL_ClearMutedList.
+- 128 KB MAX_MSGLEN msg buffers are LargeLocal in CL_WritePacket, CL_WriteVoicePacket, CL_Record_f,
+  CL_ReadDemoMessage, CL_ConfigstringModified (oldGs). LargeLocal stays a call elsewhere (per-caller choice).
+- serverInfo_t: +byte `pb` after voice (Mac offset 200), size 0x94, ping +0x28; LAN_GetServerInfo key "pb";
+  LAN_CompareServers sort key 9 = pb, ping key 10.
+- CL_InitOnceForAllClients: cl_maxpackets min 10, cl_profileTextHeight, cl_punkbuster (result not stored),
+  motd dvar, `unskippablecinematic` (flag byte 0x5cdd10; SCR_StopCinematic gated on it).
+- CD-key auth: 0x40cf40 trim, 0x40cfc0 CL_BuildMd5StrFromCDKey (PbMD5 seed 0xb684a3), CL_RequestAuthorization
+  0x40d130 sends `getKeyAuthorize %i %s PB %s`. CL_CheckForResend: 2000 ms, CA_CHALLENGING first,
+  PbClientConnecting calls, `getchallenge 0 "%s"`.
+- fn 0x40d310 = 300 s re-auth (body PINNED, 104 B), called last in CL_Frame; no Mac name.
+- CL_InitRenderer picks the console font by loc_language (cases 6..12, each its own RegisterFont call).
+- CL_ConsolePrint: `color = ColorIndex(0x37)` before Sys_EnterCriticalSection(0). PbMsgToScreen = 0x405080 in
+  cl_console_mp (365 B). CL_ConsolePrint_AddLine 0x404690 (2,132 B) gained an Asian word-wrap path
+  (g_currentAsian 0x11972f8, cg_subtitleCharHeight 0x166bb88).
+- CL_GetServerCommand: 'w' with argc>=3 and Cmd_Argv(2) == "PB" (`_stricmp`) wraps Cmd_Argv(1) as va("\x15%s").
+- No `tcmd`/`tell_target` commands in 1.3 cgame (19-entry commandsList).
+- Client SVC_Status keeps the 0x4000 cap (the server MAX_MSGLEN form loses the match).
+
+## 3. Shared code (qcommon/server/script)
+- The client already carries every lnxded-1.0 -> 1.3 server change (dvar critical sections, PB oob, 32-bit
+  fragments, voice size checks, vsnprintf, language-aware com_files).
+- win_threads rewrite: Sys_GetValue/SetValue through TlsGetValue(tlsIndex); 20 small fns 0x462360-0x462660
+  (names unknown); TLS inlines into ~29 sites.
+- Critical sections base 0xd529b0 stride 0x18: Com_Frame/Com_Error/Sys_Quit/StatMon_Warning use section 2/3.
+- Scr_GetFunction bound 145; Com_InitHunkMemory line 847; SEH_IsChineseLeadTrail = GBK ranges.
+- SV_DirectConnect = lnxded-1.3 text with `cl->state >= CS_CONNECTED` in the reconnect branch.
+- SV_ConnectionlessPacket: after PbSvAddEvent the pb_ block feeds PbClAddEvent(13, ...) when data[7] is not
+  one of S 2 G I Y B L and com_dedicated is 0.
+- Com_ExecStartupConfigs picks default_localize_mp.cfg / default_mp.cfg in Com_Init (g_cfgName 0xb1a5ac).
+
+## 4. PunkBuster glue (PINNED)
+- Link order: pbcl, pbsv, pbmd5 right after record_dsound (0x4bb570..), before cg_main_mp.
+- stPbCl layout from Mac STABS (size 424); getHomePath/makefn use `\\` and `pb\\`. CRT `_chmod(path, 0x180)`
+  and `_itoa` are real calls (compat chmod macro removed).
+- Mac names: PBget_cl_cdkey 0x40e430, CL_SendPbPacket 0x40e490, PB_Q_Serverinfo 0x40e4d0, PB_Q_Serveraddr
+  0x40e4e0, PbClSendToServer 0x4bbf40, PbClSendToAddrPort 0x4bbf90, PbClGameCommand 0x4bbaa0,
+  LAN_GetServerPunkBuster 0x4153a0, EnablePbCl 0x4bc2f0, DisablePbCl 0x4bc350.
+- 0x40e750 is the real CL_ConnectionlessPacket (PB_ prefix first), 0x40ec10 the rest (ours: one fn).
+
+## 5. Layout
+- Our function set is close to retail (inventory: ~40 missing fns / 5.4 KB, 18 extra / 1.2 KB); the big gaps
+  are code we lack, not extras. `.text` drift starts at cl_cgame_mp (CL_SetExpectedHunkUsage +64 B: retail calls
+  Dvar_SetIntFromSource un-inlined for constant 0), then cl_keys (+176, CompleteCommand), cl_main_mp.
+- .rdata ownership: `objectiveFields` is static const; `getKeyAuthorize ...` is a pooled literal, not a
+  static array.
+- Tie pool (re-rolls on any fn add/remove before them): yylex, PC_EvaluateTokens, Pickup_Weapon,
+  SV_ArchiveSnapshot, SV_DirectConnect, SV_SetConfigstring, Menu_HandleKey, Scr_ParseGameTypeList,
+  SP_worldspawn, DSound_UpdateSample, Netchan_Process, GScr_CloseFile, CG_DrawPlayerStance. They settle when the
+  fn set before them is retail's.
+- Tools: `tools/drift13.py`, `layout13.py` (-> `LAYOUT_1.3.md`), `inv13.py`, `classify13.py` (-> `WORKLIST_1.3.md`),
+  `why13.py`, `rdr13.py`, `rdiff13.py`, `rxref.py`. LAYOUT "out of order TUs" and record_dsound "NEW 49 fns" are
+  classifier artifacts.
