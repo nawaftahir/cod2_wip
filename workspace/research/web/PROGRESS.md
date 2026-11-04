@@ -1474,3 +1474,37 @@ transformation matrices. Q3's three one-line `Select_RotateAxis` callbacks
 do not have that code shape. Those four target routines have no matching
 linked owner definitions, so a correct source body cannot be verified
 as a standalone TU without select.cpp and com_math.cpp integration.
+
+## Lane 2 — direct MFC runtime-class experiment and result
+
+Tested the retail-pinned `CVertEditDlg::GetRuntimeClass` entry
+0x004460e0 / 6 B by adding the standard MFC
+`DECLARE_DYNAMIC(CVertEditDlg)` and `IMPLEMENT_DYNAMIC(CVertEditDlg, CDialog)`
+to **the assigned source only** at commit
+`ae0948644bfdb340fd3bc97c55142641d3cb2888`.
+Hosted CI run: https://github.com/nawaftahir/cod2_wip/actions/runs/41859640791.
+
+Results: the exact-same full existing game ledger remained
+**823/823 MATCH, 0 mismatches**, but `GetRuntimeClass` appeared under
+`UNVERIFIED`, increasing the canonical unverified count **41 -> 42**.
+The diagnostic `scan_emitted_matches.py` found 1 unledgered emitted
+VertEdit symbol but 0 length cases; the scanner deliberately skips retail
+entries smaller than 8 bytes, so it **cannot test a 6-byte function**.
+There was NO direct `MATCH` result for 0x004460e0.
+
+Immediately reverted the canonical experiment in commit
+`c07c21253b779f2993070f5e11482fa06079548f`.
+Post-revert CI https://github.com/nawaftahir/cod2_wip/actions/runs/41860227398
+restored **823/823 game rows**, **41 unverified** and
+**26 VERIFIED files**; the unrelated shared `patch-dialog` test
+still fails at 0x004075c0 -> 0x00409270 / 0x00409280 depending on
+linked placement. Do not mistake the scanner's <8-byte exclusion for
+a mismatch or for a MATCH. No game ledger rows were changed.
+
+The owner needs to enable a lane-scoped direct `v.check` trial for
+6-byte MFC members, with the unchanged referee and all existing
+ledger rows intact; the source draft and candidate symbol are in
+`workspace/research/web/drafts/VertEditDlg.cpp` and
+`workspace/research/web/drafts/VertEditDlg.request.tsv`.
+The actual shared `target.tsv` / `tu_trial.tsv` still target
+ModelDlg and are not assigned to lane 2.
