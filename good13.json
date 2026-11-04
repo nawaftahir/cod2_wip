@@ -2861,18 +2861,6 @@
 ]
 },
 {
-"name": "?CL_ClearStaticDownload@@YAHXZ",
-"obj": "cl_main_mp.obj",
-"size": 45,
-"hits": []
-},
-{
-"name": "?CL_ClearDownloadStateInl@@YAXXZ",
-"obj": "cl_main_mp.obj",
-"size": 42,
-"hits": []
-},
-{
 "name": "?CL_SetFPUControl_40b460@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 34,
@@ -3077,7 +3065,10 @@
 "name": "?CL_ClearDownloadState@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 42,
-"hits": []
+"hits": [
+"0x40cc70"
+],
+"scan": 1
 },
 {
 "name": "?CL_ClearState@@YAXXZ",
@@ -3106,7 +3097,7 @@
 {
 "name": "?CL_RequestAuthorization@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 468,
+"size": 686,
 "hits": []
 },
 {
@@ -3760,12 +3751,6 @@
 "0x4127e0"
 ],
 "scan": 1
-},
-{
-"name": "?CL_BuildMd5StrFromCDKey@@YAXPAD@Z",
-"obj": "cl_main_mp.obj",
-"size": 211,
-"hits": []
 },
 {
 "name": "?CL_Netchan_Encode@@YAXPAEH@Z",
@@ -17843,7 +17828,7 @@
 ]
 },
 {
-"name": "$L96628",
+"name": "$L96625",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -33240,7 +33225,7 @@
 ]
 },
 {
-"name": "$L118253",
+"name": "$L118233",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33248,7 +33233,7 @@
 ]
 },
 {
-"name": "$L118255",
+"name": "$L118235",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33281,7 +33266,7 @@
 ]
 },
 {
-"name": "$L132132",
+"name": "$L132112",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33289,7 +33274,7 @@
 ]
 },
 {
-"name": "$L132134",
+"name": "$L132114",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33358,7 +33343,7 @@
 ]
 },
 {
-"name": "$L104387",
+"name": "$L104372",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33374,7 +33359,7 @@
 ]
 },
 {
-"name": "$L147492",
+"name": "$L147472",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -34268,7 +34253,7 @@
 {
 "name": "?CL_WWWDownload@@YAXXZ",
 "obj": "cl_main_pc_mp.obj",
-"size": 404,
+"size": 440,
 "hits": []
 },
 {
@@ -78051,7 +78036,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 3760,
+"size": 3840,
 "hits": []
 }
 ]
