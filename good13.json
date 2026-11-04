@@ -907,10 +907,9 @@
 {
 "name": "?SCR_StopCinematic@@YAXXZ",
 "obj": "cl_cin_mp.obj",
-"size": 41,
+"size": 50,
 "hits": [
-"0x4035d9",
-"0x4b3080"
+"0x4035d0"
 ]
 },
 {
@@ -3059,7 +3058,7 @@
 {
 "name": "?CL_Disconnect@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 395,
+"size": 403,
 "hits": []
 },
 {
@@ -3095,9 +3094,9 @@
 {
 "name": "?CL_Disconnect_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 101,
+"size": 110,
 "hits": [
-"0x40d5b9"
+"0x40d5b0"
 ]
 },
 {
@@ -3129,7 +3128,9 @@
 "name": "?CL_Vid_Restart_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 630,
-"hits": []
+"hits": [
+"0x40d780"
+]
 },
 {
 "name": "?CL_Snd_Restart_f@@YAXXZ",
@@ -3411,14 +3412,18 @@
 {
 "name": "?CL_PlayLogo_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 565,
-"hits": []
+"size": 576,
+"hits": [
+"0x410500"
+]
 },
 {
 "name": "?CL_StopLogoOrCinematic@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 100,
-"hits": []
+"size": 109,
+"hits": [
+"0x410740"
+]
 },
 {
 "name": "?CL_ToggleMenu_f@@YAXXZ",
@@ -4071,8 +4076,10 @@
 {
 "name": "?LAN_GetServerInfo@@YAXHHPADH@Z",
 "obj": "cl_ui_mp.obj",
-"size": 813,
-"hits": []
+"size": 844,
+"hits": [
+"0x414ff0"
+]
 },
 {
 "name": "?LAN_GetServerPing@@YAHHH@Z",
@@ -33992,7 +33999,9 @@
 "name": "?CL_ServerInfoPacket@@YAXUnetadr_t@@PAUmsg_t@@H@Z",
 "obj": "cl_main_pc_mp.obj",
 "size": 1056,
-"hits": []
+"hits": [
+"0x4b34e0"
+]
 },
 {
 "name": "?CL_Connect_f@@YAXXZ",
@@ -49854,7 +49863,9 @@
 "name": "?UI_RegisterDvars@@YAXXZ",
 "obj": "ui_main_mp.obj",
 "size": 2257,
-"hits": []
+"hits": [
+"0x531610"
+]
 },
 {
 "name": "?UI_AssetCache@@YAXXZ",
@@ -50795,7 +50806,9 @@
 "name": "?UI_StartServerRefresh@@YAXH@Z",
 "obj": "ui_main_mp.obj",
 "size": 554,
-"hits": []
+"hits": [
+"0x539540"
+]
 },
 {
 "name": "?UI_SafeTranslateString@@YAPBDPBD@Z",
@@ -77944,7 +77957,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 672,
+"size": 608,
 "hits": [
 "0x592c00"
 ]
