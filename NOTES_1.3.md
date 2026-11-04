@@ -286,3 +286,12 @@
   (type, duration, linewidth, color; text is NOT a parameter: retail gets it in eax), no body. Retail adds a path for types 1/2/3 gated on a pointer
   at 0x11972f8 that calls 0x532410 with a float (0x5c3e78 * 0x5c40a4) and a 0/4 flag; linewidth cap 0x4e kept. Needs a full disasm-driven rewrite (~2 KB),
   not attempted. Next agent: start from `python3 w8dis-style capstone dump 404690..404cd3`; our 1.0-shaped body (cl_console_mp.cpp:684) takes txt as arg 2.
+- w8 11-04 CL_ConsolePrint_AddLine (retail 0x404690, 2132 B): rewritten, WIP on branch w8-consoleprint-wip (not merged). PINNED from retail:
+  0x11972f8 = g_currentAsian (Language_IsAsian), 0x11972ec = loc_language dvar, 0x68a314/0x68a310 = re.TextWidth / re.NormalizedTextScale,
+  0x166bb88 = cg_subtitleCharHeight. New path only when Language_IsAsian() && type in {SUBTITLE, GAME, BOLDGAME}: font = UI_GetFontHandle(type==BOLDGAME?4:0,
+  (type==SUBTITLE ? charHeight : 12.0f) * (1/48)), pixel-width word wrap (limit linewidth*6.5 vs width*normScale), SEH_ReadCharFromString inlined 3x,
+  two-byte chars stored as hi byte then lo byte. Non-Asian path = old 1.0 body, with the targetLineWidth/PrintStrlen block moved INTO the else branch.
+  Result: 6 diff hunks, all register choice (retail keeps charWidth in ebp and a zero in edi; ours spills charWidth and uses ebp as zero). Cause of the
+  build rejection: not the fn itself (still unmatched) but SV_ArchiveSnapshot (2783, tie) + _$E2 (752) flipped; CL_SubtitlePrint +217. 4 builds, switch vs if
+  and shared charWidth variable made no difference. Next: vary where the NULL isTrailingPunctuation temp and curWidth=0 live (retail uses literal 0 for the
+  default-case linefeeds, register zero for \n and \r).
