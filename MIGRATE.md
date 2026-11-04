@@ -42,6 +42,8 @@ Check: `git log --oneline -- targets/$T | wc -l` equals the old commit count.
 - Large generated files to `data/$T/` (LFS patterns in `.gitattributes`).
 
 ## 5. Prove, then cut over
+- The target writes its meter on main (see "Meter contract" in `CLAUDE.md`); radiant already does.
+  Delete any `status/` entry the meter replaces.
 - Target's own gate passes from `targets/$T` (radiant: `tools/ci_gate.py`, meter equals the old one).
 - Push only on "push it". CI green once.
 - Recreate the target's worktrees from `$WIP` (`git worktree add`), fix hard-coded paths.
