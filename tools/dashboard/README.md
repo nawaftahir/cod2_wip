@@ -37,11 +37,17 @@ One JSON file per binary, written by the target's referee, committed on `<target
   ("TUs fully identical": every function identical; CRT/lib objs go in `lib_objs_identical` /
   `lib_objs_total`). Without them the page falls back to the referee's `matched_functions` /
   `game_functions` and `tus_matched`. `text_same_offset_bytes` = `.text` bytes in place.
+  A TU with no code counts when all its data symbols are identical in place (`tus_data_only`,
+  `tus_data_only_identical`); `tus_empty` = TUs with no symbol in the image (never counted identical).
+  `tus_identical_with_data` = TUs whose functions and every data symbol are identical in place.
 - Functions/TUs tiles: `functions_identical` / `functions_total` ("Functions identical (referee or in
   place)": referee match, or same bytes at the same offset as retail) and `tus_identical` / `tus_total`
   ("TUs fully identical": every function identical; CRT/lib objs go in `lib_objs_identical` /
   `lib_objs_total`). Without them the page falls back to the referee's `matched_functions` /
   `game_functions` and `tus_matched`. `text_same_offset_bytes` = `.text` bytes in place.
+  A TU with no code counts when all its data symbols are identical in place (`tus_data_only`,
+  `tus_data_only_identical`); `tus_empty` = TUs with no symbol in the image (never counted identical).
+  `tus_identical_with_data` = TUs whose functions and every data symbol are identical in place.
 
 Finished or not-yet-imported targets: same format in `status/<name>.json` on main.
 Self-check: `python3 tools/dashboard/build.py --test`.
