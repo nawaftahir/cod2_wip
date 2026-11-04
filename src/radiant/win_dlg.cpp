@@ -24,11 +24,29 @@ struct QEGlobals_t
 extern QEGlobals_t g_qeglobals;
 
 
-/* Q3Radiant dialog launchers, independently matched against the retail executable. */
+
+/* Win32 callbacks are defined in the original WIN_DLG.CPP.
+   Their bodies remain unimplemented pending separate retail proofs. */
+BOOL CALLBACK ProjectDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK RotateDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
 BOOL CALLBACK SidesDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK FindBrushDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK FUN_00476110(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK FUN_00476aa0(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+
 bool g_bDoCone = false;
 bool g_bDoSphere = false;
+
+void DoProjectSettings(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, ProjectDlgProc);
+}
+
+/* CoD2-specific Go to position dialog (184), target callback 0x00476110. */
+void FUN_004763c0(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)184, g_qeglobals.d_hwndMain, FUN_00476110);
+}
 
 void DoRotate(void)
 {
@@ -40,6 +58,18 @@ void DoSides(bool bCone, bool bSphere, bool bTorus)
     g_bDoCone = bCone;
     g_bDoSphere = bSphere;
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
+}
+
+void DoFind(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)110, g_qeglobals.d_hwndMain, FindBrushDlgProc);
+}
+
+
+/* CoD2 Maya export dialog (224), target callback 0x00476aa0. */
+void FUN_00476ce0(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)224, g_qeglobals.d_hwndMain, FUN_00476aa0);
 }
 
 BOOL CALLBACK AboutDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -59,11 +89,6 @@ BOOL CALLBACK AboutDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
         return TRUE;
     }
     return FALSE;
-}
-
-void DoAbout(void)
-{
-    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)114, g_qeglobals.d_hwndMain, AboutDlgProc);
 }
 
 // Unnamed dialog callback at retail 0x00476d70; exact ownership pending.
@@ -88,4 +113,9 @@ BOOL CALLBACK FUN_00476d70(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
         break;
     }
     return FALSE;
+}
+
+void DoAbout(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)114, g_qeglobals.d_hwndMain, AboutDlgProc);
 }

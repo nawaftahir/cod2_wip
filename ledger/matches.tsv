@@ -831,3 +831,7 @@ addr	size	source	symbol	name	tag
 0x00476d50	29	src/radiant/win_dlg.cpp	?DoAbout@@YAXXZ	DoAbout	SUPPORTED
 0x004766b0	29	src/radiant/win_dlg.cpp	?DoRotate@@YAXXZ	DoRotate	SUPPORTED
 0x00476810	40	src/radiant/win_dlg.cpp	?DoSides@@YAX_N00@Z	DoSides	SUPPORTED
+0x00475ca0	32	src/radiant/win_dlg.cpp	?DoProjectSettings@@YAXXZ	DoProjectSettings	SUPPORTED
+0x004760f0	29	src/radiant/win_dlg.cpp	?DoFind@@YAXXZ	DoFind	SUPPORTED
+0x004763c0	32	src/radiant/win_dlg.cpp	?FUN_004763c0@@YAXXZ	FUN_004763c0	UNNAMED
+0x00476ce0	32	src/radiant/win_dlg.cpp	?FUN_00476ce0@@YAXXZ	FUN_00476ce0	UNNAMED

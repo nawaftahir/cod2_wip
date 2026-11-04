@@ -4,6 +4,8 @@
  * Research candidate only until the linked executable referee confirms it.
  */
 #include "stdafx.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 /* Original Q3Radiant QEGlobals_t prefix through the dialog-host HWND.
    The full CoD2 layout and storage identity remain under review. */
@@ -53,11 +55,93 @@ void DoRotate(void)
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)112, g_qeglobals.d_hwndMain, RotateDlgProc);
 }
 
+
+void Brush_MakeSidedCone(int sides);
+void Brush_MakeSidedSphere(int sides);
+void Brush_MakeSided(int sides);
+
+/* Q3Radiant side-count callback, CoD2 retail control ID 1233. */
+BOOL CALLBACK SidesDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    char str[256];
+    HWND h;
+
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+        h = GetDlgItem(hwndDlg, 1233);
+        SetFocus(h);
+        return FALSE;
+
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+            GetWindowText(GetDlgItem(hwndDlg, 1233), str, 255);
+            if (g_bDoCone)
+                Brush_MakeSidedCone(atoi(str));
+            else if (g_bDoSphere)
+                Brush_MakeSidedSphere(atoi(str));
+            else
+                Brush_MakeSided(atoi(str));
+            EndDialog(hwndDlg, 1);
+            break;
+
+        case IDCANCEL:
+            EndDialog(hwndDlg, 0);
+            break;
+        }
+    default:
+        return FALSE;
+    }
+}
+
 void DoSides(bool bCone, bool bSphere, bool bTorus)
 {
     g_bDoCone = bCone;
     g_bDoSphere = bSphere;
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
+}
+
+
+void GetSelectionIndex(int *ent, int *brush);
+void SelectBrush(int entitynum, int brushnum);
+
+/* Q3Radiant's Find brush callback, CoD2 retail IDs 1231 / 1225. */
+BOOL CALLBACK FindBrushDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    char entstr[256];
+    char brushstr[256];
+    HWND h;
+    int ent, brush;
+
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+        GetSelectionIndex(&ent, &brush);
+        sprintf(entstr, "%i", ent);
+        sprintf(brushstr, "%i", brush);
+        SetWindowText(GetDlgItem(hwndDlg, 1231), entstr);
+        SetWindowText(GetDlgItem(hwndDlg, 1225), brushstr);
+        h = GetDlgItem(hwndDlg, 1231);
+        SetFocus(h);
+        return FALSE;
+
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+            GetWindowText(GetDlgItem(hwndDlg, 1231), entstr, 255);
+            GetWindowText(GetDlgItem(hwndDlg, 1225), brushstr, 255);
+            SelectBrush(atoi(entstr), atoi(brushstr));
+            EndDialog(hwndDlg, 1);
+            return TRUE;
+        case IDCANCEL:
+            EndDialog(hwndDlg, 0);
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
 
 void DoFind(void)
@@ -118,4 +202,10 @@ BOOL CALLBACK FUN_00476d70(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
 void DoAbout(void)
 {
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)114, g_qeglobals.d_hwndMain, AboutDlgProc);
+}
+
+/* Additional retail modal launcher; resource identity under investigation. */
+void FUN_00476db0(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, FUN_00476d70);
 }
