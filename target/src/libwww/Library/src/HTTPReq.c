@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This module implements the output stream for HTTP used for sending
 **	requests with or without a entity body.
@@ -99,6 +98,26 @@ PRIVATE int HTTPMakeRequest (HTStream * me, HTRequest * request)
     if (me->state == 1) {
 	char * abs_location = NULL;
 	char * addr = HTAnchor_physical(anchor);
+	char * location;
+
+        /* JK: If the application specified a content-location (which is
+           stored in the request in default put-name!), we use it instead
+           of the URL that's being saved to. This is like having a user
+           defined Content-Location */
+        location = HTRequest_defaultPutName (request);
+        if (location)
+	  {
+	    if (HTURL_isAbsolute (location))
+	      {
+		char * relative;
+		relative = HTRelative (location, location);
+		abs_location = HTParse (relative + 2, addr, PARSE_ALL);
+		HT_FREE (relative);
+	      }
+	    else
+	      abs_location = HTParse (location, addr, PARSE_ALL);
+	    addr = abs_location;
+	  }
 
 #if 0
 	/*

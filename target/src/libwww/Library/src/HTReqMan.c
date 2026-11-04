@@ -3,13 +3,14 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 ** Authors
 **	TBL	Tim Berners-Lee timbl@w3.org
 **	JFG	Jean-Francois Groff jfg@dxcern.cern.ch
 **	DD	Denis DeLaRoca (310) 825-4580  <CSP1DWD@mvs.oac.ucla.edu>
 **	HFN	Henrik Frystyk, frystyk@w3.org
+** Contribution
+**      MKP     Manuele Kirsch, Manuele.Kirsch_Pinheiro@inrialpes.fr or manuele@inf.ufrgs.br
 ** History
 **       8 Jun 92 Telnet hopping prohibited as telnet is not secure TBL
 **	26 Jun 92 When over DECnet, suppressed FTP, Gopher and News. JFG
@@ -22,6 +23,7 @@
 **	09 May 94 logfile renamed to HTlogfile to avoid clash with WAIS
 **	 8 Jul 94 Insulate free() from _free structure element.
 **	02 Sep 95 Rewritten and spawned from HTAccess.c, HFN
+**      14 Fev 02 Message body added to HTRequest
 */
 
 #if !defined(HT_DIRECT_WAIS) && !defined(HT_DEFAULT_WAIS_GATEWAY)
@@ -91,6 +93,14 @@ PUBLIC HTRequest * HTRequest_new (void)
     /* Content negotiation */
     me->ContentNegotiation = YES;		       /* Do this by default */
 
+#ifdef HT_EXT
+    /* Message Body */
+    me->messageBody = NULL;             /* MKP: default value is NULL - no message body set */
+    me->messageBodyLength = -1;         /* MKP: default value is -1 */
+    me->messageBodyFormat = NULL;       /* MKP: default value is NULL */
+#endif
+
+    
     HTTRACE(CORE_TRACE, "Request..... Created %p\n" _ me);
 
     return me;
@@ -116,6 +126,14 @@ PUBLIC BOOL HTRequest_clear (HTRequest * me)
 	    HTResponse_delete(me->response);
 	    me->response = NULL;
 	}
+        
+#ifdef HT_EXT
+        if (me->messageBody)                    /* MKP: clear message body */
+            HTRequest_deleteMessageBody(me);    
+        me->messageBodyFormat = NULL;
+        me->messageBodyLength = -1;     
+#endif
+        
 	return YES;
     }
     return NO;
@@ -230,6 +248,12 @@ PUBLIC void HTRequest_delete (HTRequest * me)
 	/* Any response object */
 	if (me->response) HTResponse_delete(me->response);
 
+#ifdef HT_EXT
+        if (me->messageBody) HTRequest_deleteMessageBody(me); /* MKP: clear message body*/      
+        me->messageBodyFormat = NULL;
+        me->messageBodyLength = -1;     
+#endif
+        
 	HT_FREE(me);
     }
 }
@@ -1719,3 +1743,117 @@ PUBLIC BOOL HTServe (HTRequest * me, BOOL recursive)
     /* Now start the Net Manager */
     return HTNet_newServer(me);
 }
+
+
+
+/* --------------------------------------------------------------------------*/
+/*                              Message Body                                 */
+/* --------------------------------------------------------------------------*/
+
+/*
+** This function sets the request's message body
+*/
+PUBLIC BOOL HTRequest_setMessageBody (HTRequest * request, const char * body) {
+#ifdef HT_EXT
+
+    if (request && body && *body){          
+        StrAllocCopy (request->messageBody,body);
+        return YES;
+    }
+#endif /* HT_EXT */    
+    return NO;  
+}
+
+/*
+** This function deletes the message body, freeing the string and
+** setting it to NULL.
+*/
+PUBLIC BOOL HTRequest_deleteMessageBody (HTRequest * request) {
+#ifdef HT_EXT
+    if (request && request->messageBody) {
+        HT_FREE (request->messageBody);
+        request->messageBody = NULL;
+        return YES;
+    }           
+#endif /* HT_EXT */    
+    return NO;
+}
+
+/*
+** This function creates a copy of the message body
+*/
+PUBLIC char * HTRequest_messageBody (HTRequest * request) {
+    char * bodycopy = NULL;     
+
+#ifdef HT_EXT    
+    if (request && request->messageBody && *(request->messageBody)) 
+        StrAllocCopy(bodycopy,request->messageBody);    
+#endif /* HT_EXT */    
+    
+    return bodycopy;
+}
+
+
+/*
+** This function sets the length of the body. This length will be
+** used to set Content-Length header.
+** Note: length should be greater than 0, and the Content-Length
+** header will be created only if there is a message Body.
+*/
+PUBLIC BOOL HTRequest_setMessageBodyLength (HTRequest * request, long int length) {
+#ifdef HT_EXT    
+    if (request && length > 0) {
+        request->messageBodyLength = length;
+        return YES;
+    }
+#endif /* HT_EXT */    
+
+    return NO;
+}
+
+
+/*
+** This function returns the message body length,
+** or -1 if it is not set.
+*/
+PUBLIC long int HTRequest_messageBodyLength (HTRequest * request) {
+#ifdef HT_EXT    
+    return (request && (request->messageBody && request->messageBodyLength))?
+                        request->messageBodyLength:-1;
+#else
+    return -1;
+#endif
+}
+
+
+/*
+** This function sets the format of the message body to be used
+** in the Content-Type header.
+** Note: the Content-Type header will be created only if there is a
+** message body set.
+*/
+PUBLIC BOOL HTRequest_setMessageBodyFormat (HTRequest * request, HTFormat format) {
+        
+#ifdef HT_EXT    
+    if (request && format) {
+        request->messageBodyFormat = format;
+        return YES;
+    }
+#endif /*HT_EXT*/
+    return NO;
+}
+
+
+/*
+** This function returns the format of the message body, or
+** NULL if it is not set.
+*/
+PUBLIC HTFormat HTRequest_messageBodyFormat (HTRequest * request) {
+#ifdef HT_EXT    
+    if (request && request->messageBodyFormat) 
+        return request->messageBodyFormat;
+    else 
+#endif /*HT_EXT*/	    
+	return NULL;
+}
+
