@@ -813,3 +813,4 @@ addr	size	source	symbol	name	tag
 0x00423a80	87	src/radiant/ModelDlg.cpp	?FUN_00423a80@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423a80	SUPPORTED
 0x004239c0	186	src/radiant/ModelDlg.cpp	?FUN_004239c0@CModelDlg@@IAEXXZ	CModelDlg::FUN_004239c0	SUPPORTED
 0x00423ae0	186	src/radiant/ModelDlg.cpp	?FUN_00423ae0@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423ae0	SUPPORTED
+0x0044a2d0	32	src/radiant/XYWnd.cpp	?fDiff@@YAMMM@Z	fDiff	SUPPORTED
