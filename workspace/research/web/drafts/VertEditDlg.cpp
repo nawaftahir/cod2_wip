@@ -29,6 +29,7 @@ class CVertEditDlg : public CDialog
 {
     DECLARE_DYNAMIC(CVertEditDlg)
 public:
+    enum { IDD = 226 }; // original retail dialog resource
     virtual ~CVertEditDlg();
 
 protected:
