@@ -291,6 +291,10 @@ PUBLIC HTHost * HTHost_new (char * host, u_short u_port)
 	if (!HostTable) {
 	    if ((HostTable = (HTList **) HT_CALLOC(HOST_HASH_SIZE,
 						   sizeof(HTList *))) == NULL)
+
+
+
+
 	        HT_OUTOFMEM("HTHost_find");
 	}
 	if (!HostTable[hash]) HostTable[hash] = HTList_new();

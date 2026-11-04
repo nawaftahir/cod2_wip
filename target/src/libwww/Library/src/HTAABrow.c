@@ -183,6 +183,10 @@ PUBLIC HTBasic * HTBasic_new(void)
 {
     HTBasic * me = NULL;
     if ((me = (HTBasic *) HT_CALLOC(1, sizeof(HTBasic))) == NULL)
+
+
+
+
 	HT_OUTOFMEM("HTBasic_new");
     me->retry = YES;			       /* Ask the first time through */
     return me;
@@ -774,6 +778,13 @@ PRIVATE BOOL digest_credentials (HTRequest * request, HTDigest * digest)
 	{
  	    int cr_len = strlen ("Digest") + strlen (cleartext) + 3;
 	    char * cookie = (char *) HT_MALLOC(cr_len+1);
+
+
+
+
+
+
+
 	    if (!cookie) HT_OUTOFMEM("digest_credentials");
 	    strcpy(cookie, "Digest ");
 	    strcat (cookie, cleartext);
