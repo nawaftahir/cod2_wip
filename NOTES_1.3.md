@@ -522,3 +522,21 @@ FIXES (branch s1-inventory, worktree lab13/s1; builds are ~1.5 min):
   Net: retail is +8,688 at libwww start, i.e. ~8.7 KB of retail code ahead of libwww that we do not have in place
   (cl_console 2.0 K, cl_main connect 1.3 K+, PunkBuster ~4 K, cl_keys/common/cmd ~0.6 K, ui ~1.4 K, cl_cgame -64).
   The first TU to go out of position is cl_cgame_mp.obj, by 64 B (CL_SetExpectedHunkUsage); everything before it (assertive.obj) is in place.
+
+## s3: cl_console_mp positions (11-04, from d5d19dc)
+- PINNED: retail 0x405080 (365 B) is `PbMsgToScreen(prefix, msg)`, not a console fn we lacked: callers are stPbCl ctor (0x4bbf11) and
+  PbSvGameQuery (0x4bddc1). Body = `if (com_dedicated && com_dedicated->current.integer) Com_Printf("%s: %s\n", ...)` else
+  `sprintf(LargeLocal(0x10000) buf, "%s: %s", prefix, msg); CL_ConsolePrint(PMSG_GAME, buf, 0, 0)` with CL_ConsolePrint inlined.
+  Moved from sv_ccmds_mp.cpp (server one-liner, no retail copy) into cl_console_mp.cpp after CL_ConsolePrint: matches (365 B).
+- PINNED +residual: `color = ColorIndex(0x37)` must come BEFORE `Sys_EnterCriticalSection(0)` in CL_ConsolePrint (retail `mov ebx,7`
+  sits between `push cs` and `call Enter`). Matches CL_ConsolePrint (396), PbMsgToScreen (365), CG_GameMessage/CG_BoldGameMessage (275 each).
+- w8 wip2 AddLine (1.3 asian path, 2,132 B = retail size exactly) applied from branch w8-consoleprint-wip2: still 6 reg hunks (not matched) but puts
+  the whole cl_console_mp TU in position (step +1,968 -> +16). Costs two ordinal ties (SV_DirectConnect, PC_EvaluateTokens), now in ties13.txt
+  as tie/label (SV_DirectConnect: esi/edi load pair order; PC_EvaluateTokens: edx/ecx load order). Without the AddLine rewrite only SV_DirectConnect flips.
+- NOT shipped: CL_SetExpectedHunkUsage (527 vs retail 463 B, the first drift break). Body matches except the default tail: retail calls
+  Dvar_SetIntFromSource (0x438650, ebx=dvar eax=0 push 0) un-inlined, ours inlines it for the constant 0 (type switch + sprintf inline, +64 B).
+  `Dvar_SetIntFromSource(dvar, 0, DVAR_SOURCE_INTERNAL)` directly is worse (533 B, -3K same-offset). Lead: find what stops the inliner on
+  the const-0 site (callee body/size differs from retail 0x438650?) or a non-constant value routed into the tail.
+- Numbers: same-offset 196,876 -> 201,198 (10.21%); .rdata 31.37%, .data 81.19%, .text 3.02%; matched-fn 1,501,161 -> 1,501,605 (91.25%,
+  start 91.22 at d5d19dc; coordinator baseline had _yylex tie out). Drift now: first break cl_cgame_mp -64 (HunkUsage), cl_console_mp only +16 pad
+  steps (was +1,968), next real steps: cl_keys +176 (CompleteCommand 466 B), cl_main_mp (w8).

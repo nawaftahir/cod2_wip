@@ -983,12 +983,6 @@ void SV_AddOperatorCommands( void )
 	Cmd_AddCommand("stringUsage", SV_StringUsage_f);
 }
 
-// Name and signature from the CoD2 Mac 1.3 symbols; PunkBuster screen-message hook.
-void PbMsgToScreen( char *prefix, char *msg )
-{
-	Com_Printf("%s: %s\n", prefix, msg);
-}
-
 /*
 ==================
 SV_RemoveOperatorCommands

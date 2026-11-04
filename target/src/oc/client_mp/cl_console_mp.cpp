@@ -681,6 +681,10 @@ static void Con_OneTimeInit(void)
     con.initialized = 1;
 }
 
+extern unsigned int SEH_ReadCharFromString(const char **text, int *isTrailingPunctuation);
+extern int Language_IsAsian();
+extern const dvar_t *cg_subtitleCharHeight;
+
 static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int duration, int linewidth, int color)
 {
     int c;
@@ -699,6 +703,104 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
     if (linewidth <= 0 || linewidth > maxLinewidth)
         linewidth = maxLinewidth;
 
+    if (type != con.prevType && con.lineOffset > 0)
+        Con_Linefeed(con.prevType, duration);
+
+    p = txt;
+    lineBroken = 0;
+    if (Language_IsAsian() && (type == PMSG_SUBTITLE || type == PMSG_GAME || type == PMSG_BOLDGAME)) {
+        /* 1.3: pixel-width wrapping for the double-byte languages */
+        float charHeight;
+        float fontScale;
+        float normScale;
+        FontHandle font;
+        int curWidth;
+        int charWidth;
+        unsigned int letter;
+
+        if (type == PMSG_SUBTITLE)
+            charHeight = (float)cg_subtitleCharHeight->current.integer;
+        else
+            charHeight = 12.0f;
+        fontScale = charHeight * (1.0f / 48.0f);
+        font = UI_GetFontHandle(type == PMSG_BOLDGAME ? 4 : 0, fontScale);
+        normScale = re.NormalizedTextScale(font, fontScale);
+        curWidth = 0;
+
+        while (*p) {
+            const char *q = p;
+
+            letter = SEH_ReadCharFromString(&q, NULL);
+            if (letter == '^' && q && *q != '^' && *q >= '0' && *q <= '9') {
+                color = ColorIndex(*q);
+                p = q + 1;
+                continue;
+            }
+
+            {
+                const char *s = p;
+                int w = curWidth;
+                int off = con.lineOffset;
+
+                do {
+                    charWidth = re.TextWidth(s, 1, font);
+
+                    letter = SEH_ReadCharFromString(&s, NULL);
+                    if ((int)letter <= ' ')
+                        break;
+                    w += charWidth;
+                    off++;
+                    if (off > con.linewidth || (float)w * normScale > (float)linewidth * 6.5f) {
+                        Con_Linefeed(type, duration);
+                        lineBroken = 1;
+                        curWidth = 0;
+                        break;
+                    }
+                } while (!Language_IsAsian());
+            }
+
+            charWidth = re.TextWidth(p, 1, font);
+            letter = SEH_ReadCharFromString(&p, NULL);
+
+            switch (letter) {
+            case '\n':
+                Con_Linefeed(type, duration);
+                curWidth = 0;
+                break;
+            case '\r':
+                con.lineOffset = 0;
+                curWidth = 0;
+                break;
+            default: {
+                int line;
+
+                if (!con.lineOffset && letter == ' ' && lineBroken)
+                    break;
+                line = con.currentLine % con.totallines;
+                if (letter > 0xff) {
+                    if (con.lineOffset + 1 >= con.linewidth) {
+                        Con_Linefeed(type, duration);
+                        line = con.currentLine % con.totallines;
+                        lineBroken = 1;
+                        curWidth = 0;
+                    }
+                    con.textBuffer[line * con.linewidth + con.lineOffset] = (short)((color << 8) | (letter >> 8));
+                    con.lineOffset++;
+                    letter &= 0xff;
+                }
+                con.textBuffer[line * con.linewidth + con.lineOffset] = (short)((color << 8) | letter);
+                con.lineOffset++;
+                curWidth += charWidth;
+                if (con.lineOffset >= con.linewidth) {
+                    Con_Linefeed(type, duration);
+                    lineBroken = 1;
+                    curWidth = 0;
+                }
+                break;
+            }
+            }
+        }
+    } else {
     targetLineWidth = linewidth;
     if (type == PMSG_GAME || type == PMSG_BOLDGAME) {
         l = SEH_PrintStrlen(txt);
@@ -707,12 +809,6 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
             targetLineWidth = (int)(printLen / (int)ceil(printLen / (float)linewidth));
         }
     }
-
-    if (type != con.prevType && con.lineOffset > 0)
-        Con_Linefeed(con.prevType, duration);
-
-    p = txt;
-    lineBroken = 0;
     while ((c = *(unsigned char *)p) != 0) {
         if (*p == '^' && p[1] && p[1] != '^' && (unsigned char)p[1] >= '0' && (unsigned char)p[1] <= '9') {
             color = ColorIndex(p[1]);
@@ -750,6 +846,8 @@ static int CL_ConsolePrint_AddLine(print_msg_type_t type, const char *txt, int d
             }
             break;
         }
+    }
+
     }
 
     if (con.lineOffset > 0) {
@@ -802,8 +900,8 @@ void CL_ConsolePrint(print_msg_type_t type, const char *txt, int duration, int l
 
 skipClamp:
 
-    Sys_EnterCriticalSection(0);
     color = ColorIndex(0x37);
+    Sys_EnterCriticalSection(0);
 
     if (type == PMSG_GAME || type == PMSG_BOLDGAME) {
         const char *newline;
@@ -824,6 +922,23 @@ skipClamp:
 
     CL_ConsolePrint_AddLine(type, txt, duration, linewidth, color);
     Sys_LeaveCriticalSection(0);
+}
+
+extern dvar_t *com_dedicated;
+
+/* retail 0x405080: client PunkBuster message hook; the server build uses Com_Printf only */
+void PbMsgToScreen(char *prefix, char *msg)
+{
+    LargeLocal largeLocal(0x10000);
+    char *buf = (char *)largeLocal.GetBuf();
+
+    if (com_dedicated && com_dedicated->current.integer) {
+        Com_Printf("%s: %s\n", prefix, msg);
+        return;
+    }
+
+    sprintf(buf, "%s: %s", prefix, msg);
+    CL_ConsolePrint(PMSG_GAME, buf, 0, 0);
 }
 
 void CL_ConsoleFixPosition(void)
