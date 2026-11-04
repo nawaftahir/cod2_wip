@@ -222,6 +222,7 @@ void CL_SetServerInfo(serverInfo_t *server, const char *info, int ping)
         server->hardware = (byte)atoi(Info_ValueForKey(info, "hw"));
         server->mod = (byte)atoi(Info_ValueForKey(info, "mod"));
         server->voice = (byte)atoi(Info_ValueForKey(info, "voice"));
+        server->pb = (byte)atoi(Info_ValueForKey(info, "pb"));
     }
 
     server->ping = (short)ping;

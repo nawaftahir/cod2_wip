@@ -9380,6 +9380,7 @@ struct serverInfo_t {
     byte hardware;
     byte mod;
     byte voice;
+    byte pb;
     byte requestCount;
     short int minPing;
     short int maxPing;
@@ -9392,11 +9393,11 @@ struct serverInfo_t {
 
 COD2_ASSERT_FIELD(serverInfo_t, adr, 0x0);
 COD2_ASSERT_FIELD(serverInfo_t, netType, 0x14);
-COD2_ASSERT_FIELD(serverInfo_t, requestCount, 0x21);
-COD2_ASSERT_FIELD(serverInfo_t, minPing, 0x22);
-COD2_ASSERT_FIELD(serverInfo_t, hostName, 0x28);
-COD2_ASSERT_FIELD(serverInfo_t, gameType, 0x80);
-COD2_ASSERT_SIZE(serverInfo_t, 0x90);
+COD2_ASSERT_FIELD(serverInfo_t, requestCount, 0x22);
+COD2_ASSERT_FIELD(serverInfo_t, minPing, 0x24);
+COD2_ASSERT_FIELD(serverInfo_t, hostName, 0x2a);
+COD2_ASSERT_FIELD(serverInfo_t, gameType, 0x82);
+COD2_ASSERT_SIZE(serverInfo_t, 0x94);
 
 struct serverStatusInfo_t {
     char address[64];
@@ -10456,11 +10457,11 @@ struct clientStatic_t {
 };
 
 COD2_ASSERT_FIELD(clientStatic_t, localServers, 0x13c);
-COD2_ASSERT_FIELD(clientStatic_t, globalServers, 0x4944);
-COD2_ASSERT_FIELD(clientStatic_t, favoriteServers, 0x2c3b48);
+COD2_ASSERT_FIELD(clientStatic_t, globalServers, 0x4b44);
+COD2_ASSERT_FIELD(clientStatic_t, favoriteServers, 0x2d75c8);
 #if COD2_IS_PATCH_13
-COD2_ASSERT_FIELD(clientStatic_t, autoupdateServer, 0x2c8cc0);
-COD2_ASSERT_SIZE(clientStatic_t, 0x2c9380);
+COD2_ASSERT_FIELD(clientStatic_t, autoupdateServer, 0x2dc940);
+COD2_ASSERT_SIZE(clientStatic_t, 0x2dd000);
 #else
 // PC 1.0: authorizeServer 0x8d7e00 - cls 0x60f2a0 (CL_RequestAuthorization)
 COD2_ASSERT_FIELD(clientStatic_t, authorizeServer, 0x2c8b60);

@@ -14136,6 +14136,7 @@ struct serverInfo_t {
     byte hardware;
     byte mod;
     byte voice;
+    byte pb;
     byte requestCount;
     short int minPing;
     short int maxPing;
