@@ -21,5 +21,7 @@ extern HTMethod HTMethod_enum (const char * name);
 extern const char * HTMethod_name (HTMethod method);
 #define HTMethod_isSafe(me)	((me) & (METHOD_GET|METHOD_HEAD))
 #define HTMethod_addMeta(me)  ((me) & (METHOD_TRACE | METHOD_OPTIONS))
-#define HTMethod_hasEntity(me)	((me) & (METHOD_PUT | METHOD_POST))
+extern BOOL HTMethod_hasEntity(HTMethod me);
+extern BOOL HTMethod_setExtensionMethod (HTMethod method, const char * name, BOOL hasEntity);
+extern BOOL HTMethod_deleteExtensionMethod (HTMethod method);
 #endif /* HTMETHOD_H */

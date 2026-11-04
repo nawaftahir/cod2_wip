@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This object manages the information that we know about a remote host.
 **	This can for example be what type of host it is, and what version
@@ -140,6 +139,11 @@ PRIVATE BOOL killPipeline (HTHost * host, HTEventType type)
 		    (*net->event.cbf)(HTChannel_socket(host->channel), net->event.param, type);
 		}
 	    }
+	    /* Richard Atterer (18/04/03): Close the connection, 
+	     * to prevent the server from sending us the remainder
+	     * of the data for the currently active request. */
+	    HTChannel_setSemaphore(host->channel, 0);
+	    HTHost_clearChannel(host, HT_INTERRUPTED);    
 	}
 	return YES;
     }
@@ -291,10 +295,6 @@ PUBLIC HTHost * HTHost_new (char * host, u_short u_port)
 	if (!HostTable) {
 	    if ((HostTable = (HTList **) HT_CALLOC(HOST_HASH_SIZE,
 						   sizeof(HTList *))) == NULL)
-
-
-
-
 	        HT_OUTOFMEM("HTHost_find");
 	}
 	if (!HostTable[hash]) HostTable[hash] = HTList_new();

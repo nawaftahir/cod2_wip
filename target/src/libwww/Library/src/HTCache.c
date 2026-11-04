@@ -1685,8 +1685,6 @@ PRIVATE BOOL meta_read (FILE * fp, HTRequest * request, HTStream * target)
 	    /* Send the data down the pipe */
 	    status = (*target->isa->put_block)(target, buffer, status);
 
-	    /* Delete the response headers */ 
-	    HTRequest_setResponse(request, NULL);
 	    if (status == HT_LOADED) {
 		(*target->isa->flush)(target);
 		return YES;
@@ -1730,6 +1728,11 @@ PRIVATE BOOL HTCache_readMeta (HTCache * cache, HTRequest * request)
 	    HTResponse_setCachable(HTRequest_response(request), HT_CACHE_ALL);
 	    status = meta_read(fp, request, target);
 	    (*target->isa->_free)(target);
+	    /* JK: Moved the delete outside of meta_read, because it was being
+	       deleted multiple times. 
+	       Delete the response headers. In principle, they are
+	       already available in the anchor */ 
+	    HTRequest_setResponse(request, NULL);
 	    fclose(fp);
 	    HT_FREE(name);
 	    return status;
@@ -1766,6 +1769,23 @@ PUBLIC BOOL HTCache_updateMeta (HTCache * cache, HTRequest * request,
 	return YES;
     }
     return NO;
+}
+
+PUBLIC BOOL HTCache_resetMeta (HTCache * cache, HTRequest * request,
+				HTResponse * response)
+{
+  /* what a problem... we update the cache with the wrong data
+     from the response... after the redirection */
+  HTCache_updateMeta (cache, request, response);
+  cache->size = 0;
+  cache->range = YES;
+  /* @@ JK: update the cache meta data on disk */
+  HTCache_writeMeta (cache, request, response);
+  /* @@ JK: and we remove the file name as it's obsolete 
+     now */
+  REMOVE(cache->cachename);
+
+  return YES;
 }
 
 /*
@@ -2155,26 +2175,6 @@ PRIVATE HTStream * HTCacheStream (HTRequest * request, BOOL append)
     {
 	HTStream * me = NULL;
 	if ((me = (HTStream *) HT_CALLOC(1, sizeof(HTStream))) == NULL)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	    HT_OUTOFMEM("Cache");
 	me->isa = &HTCacheClass;
 	me->request = request;

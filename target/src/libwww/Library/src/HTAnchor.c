@@ -508,6 +508,38 @@ PUBLIC BOOL HTAnchor_delete (HTParentAnchor * me)
 	}
     }
 
+    /* 2001/03/06: Bug fix by Serge Adda <sAdda@infovista.com>
+       HTAnchor_delete wasn't removing the reference to the deleted
+       anchor. This caused a bug whenever requesting another anchor
+       for the same URL.
+    */
+    if (adult_table) {
+      int hash;
+      const char *p;
+      HTList * adults;
+      HTList * grownups;
+      HTList * last;
+      HTParentAnchor * foundAnchor;
+
+      /* Select list from hash table */
+      for(p=me->address, hash=0; *p; p++)
+	hash = (int) ((hash * 3 + (*(unsigned char*)p)) %
+		      PARENT_HASH_SIZE);
+      adults = adult_table[hash];
+
+      /* Search list for anchor */
+      grownups = adults;
+      last = grownups;
+      while ((foundAnchor = (HTParentAnchor *)
+	      HTList_nextObject(grownups))){
+	if (!strcmp(foundAnchor->address, me->address)) {
+	  HTList_quickRemoveElement (grownups, last);
+	  break;
+	}
+	last = grownups;
+      }
+    }
+
     /* Now kill myself */
     delete_parent(me);
     return YES;  /* Parent deleted */
@@ -599,38 +631,6 @@ PUBLIC char * HTAnchor_address  (HTAnchor * me)
         else {                  /* it's a named child */
             if ((addr = (char  *) HT_MALLOC(2 + strlen (me->parent->address) + \
 strlen (((HTChildAnchor *) me)->tag))) == NULL)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 HT_OUTOFMEM("HTAnchor_address");
             sprintf (addr, "%s#%s", me->parent->address,
                      ((HTChildAnchor *) me)->tag);
