@@ -37,10 +37,10 @@ jobs:
           mkdir -p build
           if [ "$EVENT_NAME" = pull_request ]; then
             base="$PR_BASE"
-          elif [ "$BRANCH_NAME" = main ] && git cat-file -e "${BEFORE_SHA}:ledger/meter.json" 2>/dev/null; then
+          elif [ "$BRANCH_NAME" = radiant/main ] && git cat-file -e "${BEFORE_SHA}:ledger/meter.json" 2>/dev/null; then
             base="$BEFORE_SHA"
           else
-            base=$(git merge-base HEAD origin/main)
+            base=$(git merge-base HEAD origin/radiant/main)
           fi
           git show "$base:ledger/meter.json" > build/baseline.json
           echo "Baseline: $base"
