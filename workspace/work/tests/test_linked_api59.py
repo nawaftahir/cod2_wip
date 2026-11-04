@@ -1,10 +1,13 @@
 """The real single export must populate all98 callback addresses in their retail slots."""
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
+from renderer_paths import build_dir
 import json
 import sys
 import capstone
 import pefile
-w=Path(__file__).resolve().parents[1];b=w/'build'
+w=Path(__file__).resolve().parents[1];b=build_dir()
 sys.path.insert(0,str(w.parents[1]/'tools'))
 from pdbsyms import map_symbols
 image=pefile.PE(str(b/'gfx.dll'));base=image.OPTIONAL_HEADER.ImageBase

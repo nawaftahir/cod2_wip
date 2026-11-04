@@ -16,3 +16,6 @@ def retail_anchor():
     if shared.is_file():
         return shared
     raise FileNotFoundError('Set GFX_ANCHOR to the read-only retail renderer DLL')
+
+def build_dir():
+    return ROOT / "workspace/build/codex_boundsoutside_1016_02"

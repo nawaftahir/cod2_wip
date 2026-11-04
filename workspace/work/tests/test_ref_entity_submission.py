@@ -2,7 +2,7 @@
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from renderer_paths import retail_anchor
+from renderer_paths import retail_anchor, build_dir
 import subprocess
 import tempfile
 import struct
@@ -22,8 +22,8 @@ source=text[text.index('extern const dvar_t *com_statmon;'):text.index('// PINNE
 anchor=pefile.PE(str(retail_anchor()))
 assert anchor.get_data(0x1a5a2c,4)==struct.pack('<I',2)
 assert anchor.get_section_by_rva(0x1a5a2c).Name.rstrip(b'\0')==b'.data'
-linked=pefile.PE(str(work/'build/gfx.dll'))
-map_rows=[line.split() for line in (work/'build/gfx.map').read_text().splitlines()]
+linked=pefile.PE(str(build_dir() / 'gfx.dll'))
+map_rows=[line.split() for line in (build_dir() / 'gfx.map').read_text().splitlines()]
 addresses={}
 for name in ['s_entitySurface','s_XModelSurfaceSize']:
     matches=[r for r in map_rows if len(r)>3 and '?'+name+'@@' in r[1]]

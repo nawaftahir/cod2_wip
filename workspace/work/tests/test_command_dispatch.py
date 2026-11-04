@@ -2,7 +2,7 @@
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from renderer_paths import retail_anchor
+from renderer_paths import retail_anchor, build_dir
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
 from renderer_paths import retail_anchor
@@ -22,7 +22,7 @@ print('PASS: all34 source command slots match retail order; only slot0 is null')
 if '--source-only' not in sys.argv:
  sys.path.insert(0,str(w.parents[1]/'tools'))
  from pdbsyms import map_symbols,syms
- b=w/'build';image=pefile.PE(str(b/'gfx.dll'))
+ b=build_dir();image=pefile.PE(str(b/'gfx.dll'))
  symbols={name:va for va,name,obj,isfn in map_symbols(b/'gfx.map',str(b/'gfx.dll'),str(b/'gfx.pdb'))}
  def linked(name):
   hits={va for symbol,va in symbols.items() if symbol.startswith('?'+name+'@@') or symbol==name}

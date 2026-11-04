@@ -2,7 +2,7 @@
 from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "tools"))
-from renderer_paths import retail_anchor
+from renderer_paths import retail_anchor, build_dir
 import struct
 import subprocess
 import tempfile
@@ -18,8 +18,8 @@ anchor=pefile.PE(str(retail_anchor()))
 assert anchor.get_data(0x1a5a30,8)==bytes([0,0,0,16,56,16,0,0])
 assert anchor.get_section_by_rva(0x1a5a30).Name.rstrip(b'\0')==b'.data'
 assert struct.unpack('<4f',anchor.get_data(0x191448,16))==(0,1,1,1)
-linked=pefile.PE(str(work/'build/gfx.dll'))
-rows=[line.split() for line in (work/'build/gfx.map').read_text().splitlines() if 's_XModelSurfaceSize@@' in line]
+linked=pefile.PE(str(build_dir() / 'gfx.dll'))
+rows=[line.split() for line in (build_dir() / 'gfx.map').read_text().splitlines() if 's_XModelSurfaceSize@@' in line]
 assert len(rows)==1 and rows[0][-1].endswith('r_scene.obj')
 table=int(rows[0][2],16)-linked.OPTIONAL_HEADER.ImageBase
 assert linked.get_section_by_rva(table).Name.rstrip(b'\0')==b'.data'
