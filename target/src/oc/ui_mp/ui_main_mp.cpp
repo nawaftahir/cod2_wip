@@ -2824,6 +2824,10 @@ const char *UI_FeederItemText(float feederID, int index, int column, MaterialHan
                 if (atoi(Info_ValueForKey(info, "voice")))
                     return "X";
                 return "";
+            case 9:
+                if (atoi(Info_ValueForKey(info, "pb")))
+                    return "X";
+                return "";
             case 2:
                 if (pingVal <= 0)
                     return Info_ValueForKey(info, "addr");
@@ -2838,7 +2842,7 @@ const char *UI_FeederItemText(float feederID, int index, int column, MaterialHan
                 if (Info_ValueForKey(info, "gametype") && *Info_ValueForKey(info, "gametype"))
                     return Info_ValueForKey(info, "gametype");
                 return "?";
-            case 9:
+            case 10:
                 if (pingVal <= 0)
                     return "...";
                 return Info_ValueForKey(info, "ping");
