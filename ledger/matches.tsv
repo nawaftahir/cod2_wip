@@ -497,13 +497,6 @@ addr	size	source	symbol	name	tag
 0x0048aef0	18	src/universal/com_memory.cpp	?Hunk_ShowTempMemory@@YAXH@Z	Hunk_ShowTempMemory	SUPPORTED
 0x0048af10	18	src/universal/com_memory.cpp	?Hunk_HideTempMemoryHigh@@YAHXZ	Hunk_HideTempMemoryHigh	SUPPORTED
 0x0048af30	18	src/universal/com_memory.cpp	?Hunk_ShowTempMemoryHigh@@YAXH@Z	Hunk_ShowTempMemoryHigh	SUPPORTED
-0x0048af50	88	src/universal/com_shared.cpp	?Com_StringContains@@YAPBDPBD0P6AH00@Z@Z	Com_StringContains	SUPPORTED
-0x0048b2a0	67	src/universal/com_shared.cpp	?Com_HashKey@@YAHPBDH@Z	Com_HashKey	SUPPORTED
-0x0048b2f0	96	src/universal/com_shared.cpp	?Com_RealTime@@YAHPAUqtime_s@@@Z	Com_RealTime	SUPPORTED
-0x0048b650	153	src/universal/com_shared.cpp	?Com_Memcmp@@YAHPBX0I@Z	Com_Memcmp	SUPPORTED
-0x0048b760	37	src/universal/com_shared.cpp	?FUN_0048b760@@YAHPBM0@Z	FUN_0048b760	UNNAMED
-0x0048b790	23	src/universal/com_shared.cpp	?FUN_0048b790@@YAXPBMPAM@Z	FUN_0048b790	UNNAMED
-0x0048b7b0	10	src/universal/com_shared.cpp	?FUN_0048b7b0@@YAHPBH0@Z	FUN_0048b7b0	UNNAMED
 0x0048b7c0	6	src/universal/dvar.cpp	?Dvar_SetInAutoExec@@YAX_N@Z	Dvar_SetInAutoExec	SUPPORTED
 0x0048b7d0	6	src/universal/dvar.cpp	?Dvar_IsSystemActive@@YA_NXZ	Dvar_IsSystemActive	SUPPORTED
 0x0048b830	58	src/universal/dvar.cpp	?Dvar_IsValidName@@YA_NPBD@Z	Dvar_IsValidName	SUPPORTED
@@ -785,3 +778,6 @@ addr	size	source	symbol	name	tag
 0x004b3c80	17	src/zlib/zutil.c	_zError	zError	SUPPORTED
 0x004b3ca0	56	src/zlib/zutil.c	_zcalloc	zcalloc	SUPPORTED
 0x004b3ce0	17	src/zlib/zutil.c	_zcfree	zcfree	PINNED
+0x0048b200	153	src/universal/com_shared.cpp	?Com_FilterPath@@YA_NPBD0H@Z	Com_FilterPath	SUPPORTED
+0x0048b2a0	67	src/universal/com_shared.cpp	?Com_HashKey@@YAHPBDH@Z	Com_HashKey	SUPPORTED
+0x0048b2f0	96	src/universal/com_shared.cpp	?Com_RealTime@@YAHPAUqtime_s@@@Z	Com_RealTime	SUPPORTED

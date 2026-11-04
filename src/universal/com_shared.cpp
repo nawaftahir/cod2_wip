@@ -18,7 +18,7 @@ const char *Com_StringContains( const char *str1, const char *str2, int ( *cmpFu
 {
 	int len, i;
 
-	len = strlen(str1) - strlen(str2);
+	len = I_strlen(str1) - I_strlen(str2);
 	for (i = 0; i <= len; i++, str1++)
 	{
 		if (!cmpFunc(str1, str2))
@@ -27,6 +27,132 @@ const char *Com_StringContains( const char *str1, const char *str2, int ( *cmpFu
 		}
 	}
 	return NULL;
+}
+
+bool Com_Filter( const char *filter, const char *name, int casesensitive)
+{
+	char buf[MAX_TOKEN_CHARS];
+	const char *ptr;
+	int i, found;
+
+	while(*filter)
+	{
+		if (*filter == '*')
+		{
+			filter++;
+			for (i = 0; *filter; i++)
+			{
+				if (*filter == '*' || *filter == '?') break;
+				buf[i] = *filter;
+				filter++;
+			}
+			buf[i] = '\0';
+			if (buf[0])
+			{
+				ptr = Com_StringContains(name, buf, casesensitive ? I_strcmp : I_stricmp);
+				if (!ptr) return qfalse;
+				name = ptr + strlen(buf);
+			}
+		}
+		else if (*filter == '?')
+		{
+			filter++;
+			name++;
+		}
+		else if (*filter == '[' && *(filter+1) == '[')
+		{
+			filter++;
+		}
+		else if (*filter == '[')
+		{
+			filter++;
+			found = qfalse;
+			while(*filter && !found)
+			{
+				if (*filter == ']' && *(filter+1) != ']') break;
+				if (*(filter+1) == '-' && *(filter+2) && (*(filter+2) != ']' || *(filter+3) == ']'))
+				{
+					if (casesensitive)
+					{
+						if (*name >= *filter && *name <= *(filter+2)) found = qtrue;
+					}
+					else
+					{
+						if (toupper(*name) >= toupper(*filter) &&
+						        toupper(*name) <= toupper(*(filter+2))) found = qtrue;
+					}
+					filter += 3;
+				}
+				else
+				{
+					if (casesensitive)
+					{
+						if (*filter == *name) found = qtrue;
+					}
+					else
+					{
+						if (toupper(*filter) == toupper(*name)) found = qtrue;
+					}
+					filter++;
+				}
+			}
+			if (!found) return qfalse;
+			while(*filter)
+			{
+				if (*filter == ']' && *(filter+1) != ']') break;
+				filter++;
+			}
+			filter++;
+			name++;
+		}
+		else
+		{
+			if (casesensitive)
+			{
+				if (*filter != *name) return qfalse;
+			}
+			else
+			{
+				if (toupper(*filter) != toupper(*name)) return qfalse;
+			}
+			filter++;
+			name++;
+		}
+	}
+	return qtrue;
+}
+
+bool Com_FilterPath(const char *filter, const char *name, int casesensitive)
+{
+	int i;
+	char new_filter[MAX_QPATH];
+	char new_name[MAX_QPATH];
+
+	for (i = 0; i < MAX_QPATH-1 && filter[i]; i++)
+	{
+		if ( filter[i] == '\\' || filter[i] == ':' )
+		{
+			new_filter[i] = '/';
+		}
+		else
+		{
+			new_filter[i] = filter[i];
+		}
+	}
+	new_filter[i] = '\0';
+	for (i = 0; i < MAX_QPATH-1 && name[i]; i++)
+	{
+		if ( name[i] == '\\' || name[i] == ':' )
+		{
+			new_name[i] = '/';
+		}
+		else
+		{
+			new_name[i] = name[i];
+		}
+	}
+	new_name[i] = '\0';
+	return Com_Filter(new_filter, new_name, casesensitive);
 }
 
 int Com_HashKey( const char *string, int maxlen )
@@ -68,52 +194,16 @@ int Com_RealTime( qtime_t *qtime )
 	return t;
 }
 
-qboolean Com_Memcmp(const void *src0, const void *src1, const unsigned int count)
+#undef Com_Memcpy
+#undef Com_Memset
+
+void Com_Memcpy( void *dest, const void *src, int count )
 {
-	unsigned int i;
-
-	if (count >= 16)
-	{
-		unsigned int *dw = (unsigned int*)(src0);
-		unsigned int *sw = (unsigned int*)(src1);
-
-		unsigned int nm2 = count/16;
-		for (i = 0; i < nm2; i+=4)
-		{
-			unsigned int tmp = (dw[i+0]-sw[i+0])|(dw[i+1]-sw[i+1])|
-						  (dw[i+2]-sw[i+2])|(dw[i+3]-sw[i+3]);
-			if (tmp)
-				return qfalse;
-		}
-	}
-	if (count & 15)
-	{
-		byte *d = (byte*)src0;
-		byte *s = (byte*)src1;
-		for (i = count & 0xfffffff0; i < count; i++)
-		if (d[i]!=s[i])
-			return qfalse;
-	}
-
-	return qtrue;
+	memcpy(dest, src, count);
 }
 
-int FUN_0048b760(const float *v1, const float *v2)
+void Com_Memset( void *dest, int val, int count )
 {
-	if (v1[0] == v2[0] && v1[1] == v2[1])
-		return 1;
-	return 0;
+	memset(dest, val, count);
 }
 
-void FUN_0048b790(const float *in, float *out)
-{
-	out[0] = in[0];
-	out[1] = in[1];
-	out[2] = in[2];
-	out[3] = in[3];
-}
-
-int FUN_0048b7b0(const int *a, const int *b)
-{
-	return *a == *b;
-}
