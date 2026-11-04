@@ -33997,7 +33997,9 @@
 "name": "?CL_ServerInfoPacket@@YAXUnetadr_t@@PAUmsg_t@@H@Z",
 "obj": "cl_main_pc_mp.obj",
 "size": 1056,
-"hits": []
+"hits": [
+"0x4b34e0"
+]
 },
 {
 "name": "?CL_Connect_f@@YAXXZ",

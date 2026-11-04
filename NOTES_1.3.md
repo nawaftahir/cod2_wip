@@ -300,3 +300,9 @@
   SCR_StopCinematic now gated on the skippable flag (retail 0x4035d0). PINNED. Not done: CL_DownloadsComplete / CL_Disconnect / CL_InitDownloads share a new
   inlined "clear download state + DL_Shutdown (0x4b59c0)" block; needs the 1.3 clientConnection_t download layout (966dac int, 966db0 char[256], 966eb0 char[256],
   966fb0 char[64]?, 966ff0/966ff4/966ff8 ints), no Mac evidence (Mac has no libwww path).
+- w8 sweep 2 (+1868): LAN_GetServerInfo adds Info key "pb" (serverInfo_t.pb), CL_ServerInfoPacket zeroes new localServers[].pb. PINNED.
+- TRIED, REJECTED (w8): making LargeLocal ctor/dtor/GetBuf __forceinline in com_memory.h (retail 1.3 expands them in e.g. CL_WriteVoicePacket,
+  CL_ConfigstringModified, CL_WritePacket). It lost 19 fns / 12.7 KB (server fns and CL_ParseSnapshot etc. keep the call in retail). Per-caller inline
+  choice, not a header change. CL_WriteVoicePacket/CL_WritePacket/CL_ConfigstringModified/CL_KeyEvent differ mainly by this.
+- SCR_DrawScreenField: 1.3 adds `if (<int at 0x966ff8, clc download field>) { 0x532540(); UI_DrawConnectScreen(); }` in the connecting branch; blocked on the
+  1.3 clientConnection_t download layout (same blocker as CL_DownloadsComplete/Disconnect/InitDownloads).

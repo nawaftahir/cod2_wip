@@ -317,6 +317,7 @@ void CL_ServerInfoPacket(netadr_t from, msg_t *msg, int time)
     cls.localServers[i].gameType[0] = '\0';
     cls.localServers[i].netType = from.type;
     cls.localServers[i].allowAnonymous = 0;
+    cls.localServers[i].pb = 0;
 
     I_strncpyz(info, MSG_ReadCommandString(msg), 1024);
     if (strlen(info)) {
