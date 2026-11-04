@@ -1,0 +1,96 @@
+# code the compiler emits by itself inside the unit: MFC/ATL header inlines and templates, scalar deleting
+# destructors. Nobody writes these by hand. From research/filemap/hdrmatch.py (probes in research/filemap/probe/).
+addr	size	symbol
+0x004024d0	13	?EndModalState@CWnd@@UAEXXZ
+0x004024e0	13	?BeginModalState@CWnd@@UAEXXZ
+0x00402550	19	?CreatePopupMenu@CMenu@@QAEHXZ
+0x004025b0	16	AMBIG:??0CGdiObject@@QAE@XZ|??0CMenu@@QAE@XZ
+0x00402750	29	AMBIG:??1?$CSimpleStringT@D$0A@@ATL@@QAE@XZ|??1?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ
+0x00402770	29	AMBIG:??1?$CSimpleStringT@D$0A@@ATL@@QAE@XZ|??1?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ
+0x004027a0	26	?Release@CStringData@ATL@@QAEXXZ
+0x004027c0	24	??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@XZ
+0x004027e0	26	AMBIG:??0?$CSimpleStringT@D$0A@@ATL@@QAE@PAUIAtlStringMgr@1@@Z|??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@PAUIAtlStringMgr@1@@Z
+0x00402800	15	?Attach@?$CSimpleStringT@D$0A@@ATL@@AAEXPAUCStringData@2@@Z
+0x00402810	4	?data@CStringData@ATL@@QAEPAXXZ
+0x004029c0	33	??_G(scalar deleting dtor) class CCameraTargetDlg
+0x00402a70	61	AMBIG:??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@PBD@Z|??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBD@Z|??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBE@Z
+0x00402ab0	61	AMBIG:??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@PBD@Z|??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBD@Z|??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBE@Z
+0x00402af0	54	AMBIG:?Append@?$CSimpleStringT@D$0A@@ATL@@QAEXPBD@Z|?SetString@?$CSimpleStringT@D$0A@@ATL@@QAEXPBD@Z
+0x00402c50	11	?IsLocked@CStringData@ATL@@QBE_NXZ
+0x00402cd0	48	AMBIG:?GetBuffer@?$CSimpleStringT@D$0A@@ATL@@QAEPADH@Z|?PrepareWrite@?$CSimpleStringT@D$0A@@ATL@@AAEPADH@Z
+0x00402d00	48	AMBIG:?GetBuffer@?$CSimpleStringT@D$0A@@ATL@@QAEPADH@Z|?PrepareWrite@?$CSimpleStringT@D$0A@@ATL@@AAEPADH@Z
+0x00402d30	77	?PrepareWrite2@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z
+0x00402d80	12	?IsShared@CStringData@ATL@@QBE_NXZ
+0x00402d90	129	?Fork@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z
+0x00402e30	47	?Reallocate@?$CSimpleStringT@D$0A@@ATL@@AAEXH@Z
+0x00402e70	32	?CopyChars@?$CSimpleStringT@D$0A@@ATL@@SAXPADPBDH@Z
+0x00402ec0	27	?StringLength@?$CSimpleStringT@D$0A@@ATL@@SAHPBD@Z
+0x00402fc0	33	??_G(scalar deleting dtor) class CCamWnd
+0x004075c0	21	AMBIG:?AppendFormat@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAAXPBDZZ|?Format@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAAXPBDZZ
+0x00407910	54	?CheckImplicitLoad@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AAE_NPBX@Z
+0x00407950	41	?LoadStringA@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEHI@Z
+0x00407980	14	?FindStringResourceInstance@?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@SAPAUHINSTANCE__@@I@Z
+0x00407fa0	33	??_G(scalar deleting dtor) class CCapDialog
+0x00409450	61	AMBIG:??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@PBD@Z|??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBD@Z|??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBE@Z
+0x00409490	61	AMBIG:??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@PBD@Z|??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBD@Z|??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@PBE@Z
+0x00409500	54	AMBIG:?Append@?$CSimpleStringT@D$0A@@ATL@@QAEXPBD@Z|?SetString@?$CSimpleStringT@D$0A@@ATL@@QAEXPBD@Z
+0x00409800	33	??_G(scalar deleting dtor) class CDialogThick
+0x0040b4d0	33	??_G(scalar deleting dtor) class idPointListInterface
+0x0040b6e0	33	??_G(scalar deleting dtor) class idCameraPosition
+0x0040b9f0	33	??_G(scalar deleting dtor) class idFixedPosition
+0x0040bd70	33	??_G(scalar deleting dtor) class CDlgEvent
+0x0040c720	33	??_G(scalar deleting dtor) class CEditWnd
+0x0040cea0	33	??_G(scalar deleting dtor) class CFilterSettings
+0x0040fa50	30	AMBIG:??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@ABV01@@Z|??Y?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@ABV?$CSimpleStringT@D$0A@@1@@Z
+0x0040fa70	30	AMBIG:??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@ABV01@@Z|??Y?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@ABV?$CSimpleStringT@D$0A@@1@@Z
+0x0040fa90	22	?Append@?$CSimpleStringT@D$0A@@ATL@@QAEXABV12@@Z
+0x0040fd60	33	??_G(scalar deleting dtor) class CFindTextureDlg
+0x00410f60	33	??_G(scalar deleting dtor) class CKeyValueSelectDlg
+0x00411050	33	??_G(scalar deleting dtor) class CLstToolBar
+0x00411360	33	??_G(scalar deleting dtor) class CMainFrame
+0x0041e390	15	?IsEmpty@?$CSimpleStringT@D$0A@@ATL@@QBE_NXZ
+0x0041eea0	33	??_G(scalar deleting dtor) class idInterpolatedPosition
+0x0041f2b0	22	AMBIG:??4?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAEAAV01@ABV01@@Z|??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@D@Z|??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@E@Z
+0x0041f2d0	111	AMBIG:??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@ABV01@@Z|??4?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@ABV?$CSimpleStringT@D$00@1@@Z
+0x0041f340	98	?CloneData@?$CSimpleStringT@D$0A@@ATL@@CAPAUCStringData@2@PAU32@@Z
+0x0041f3b0	13	?AddRef@CStringData@ATL@@QAEXXZ
+0x0041f410	16	AMBIG:??0CBitmap@@QAE@XZ|??0CBrush@@QAE@XZ|??0CFont@@QAE@XZ
+0x0041f420	16	AMBIG:??0CGdiObject@@QAE@XZ|??0CMenu@@QAE@XZ
+0x0041f560	19	?AfxGetMainWnd@@YGPAVCWnd@@XZ
+0x0041ff30	132	?_AtlVerifyStackAvailable@_ATL_SAFE_ALLOCA_IMPL@ATL@@YA_NK@Z
+0x004205c0	201	?lstrcmpiWFake@ATL@@YGHPBG0@Z
+0x004206e0	192	AMBIG:?CharLowerWFake@ATL@@YGPAGPAG@Z|?CharUpperWFake@ATL@@YGPAGPAG@Z
+0x004207f0	192	AMBIG:?CharLowerWFake@ATL@@YGPAGPAG@Z|?CharUpperWFake@ATL@@YGPAGPAG@Z
+0x00420900	38	??_H@YGXPAXIHP6EPAX0@Z@Z
+0x00420c10	44	?Allocate@?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAEPAXK@Z
+0x00420c40	31	??1?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAE@XZ
+0x00420c70	15	??1?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@QAE@XZ
+0x00420c90	39	AMBIG:?Allocate@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@QAEPADI@Z|?AllocateBytes@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@QAEPADI@Z
+0x00420ce0	17	??1?$CW2AEX@$0IA@@ATL@@QAE@XZ
+0x00420d10	39	AMBIG:?Allocate@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@QAEPADI@Z|?AllocateBytes@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@QAEPADI@Z
+0x00420d40	10	?FreeHeap@?$CTempBuffer@D$0IA@VCCRTAllocator@ATL@@@ATL@@AAEXXZ
+0x00420dc0	4	?GetData@CAtlSafeAllocBufferNode@?$CAtlSafeAllocBufferManager@VCCRTAllocator@ATL@@@_ATL_SAFE_ALLOCA_IMPL@ATL@@QAEPAXXZ
+0x00422f30	33	??_G(scalar deleting dtor) class CModelDlg
+0x00423ec0	35	AMBIG:??0?$CSimpleStringT@D$0A@@ATL@@QAE@ABV01@@Z|??0?$CSimpleStringT@D$0A@@ATL@@QAE@ABV?$CSimpleStringT@D$00@1@@Z|??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@ABV01@@Z
+0x00423fb0	32	??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@PBDHPAUIAtlStringMgr@1@@Z
+0x00423fd0	35	AMBIG:??0?$CSimpleStringT@D$0A@@ATL@@QAE@ABV01@@Z|??0?$CSimpleStringT@D$0A@@ATL@@QAE@ABV?$CSimpleStringT@D$00@1@@Z|??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@ABV01@@Z
+0x00424000	10	?GetManager@?$CSimpleStringT@D$0A@@ATL@@QBEPAUIAtlStringMgr@2@XZ
+0x00424150	33	??_G(scalar deleting dtor) class CNameDlg
+0x00424260	33	??_G(scalar deleting dtor) class CNewProjDlg
+0x0043b560	33	??_G(scalar deleting dtor) class CRADEditWnd
+0x0043b6d0	33	??_G(scalar deleting dtor) class CRadiantApp
+0x0043bfd0	26	AMBIG:??0?$CSimpleStringT@D$0A@@ATL@@QAE@PAUIAtlStringMgr@1@@Z|??0?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QAE@PAUIAtlStringMgr@1@@Z
+0x0043c740	33	??_G(scalar deleting dtor) class CScaleDialog
+0x0043ee90	33	??_G(scalar deleting dtor) class CTexEdit
+0x00442950	33	??_G(scalar deleting dtor) class CTexWnd
+0x00445140	33	??_G(scalar deleting dtor) class CVehicleDlg
+0x00446050	22	AMBIG:?Collate@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QBEHPBD@Z|?CollateNoCase@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QBEHPBD@Z|?Compare@?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@QBEHPBD@Z
+0x00446230	33	??_G(scalar deleting dtor) class CVertEditDlg
+0x00449550	33	??_G(scalar deleting dtor) class CXYWnd
+0x004533a0	13	??1CWaitCursor@@QAE@XZ
+0x004533b0	20	??0CWaitCursor@@QAE@XZ
+0x004536d0	33	??_G(scalar deleting dtor) class CZWnd
+0x00464b10	22	AMBIG:??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@D@Z|??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@E@Z|??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@G@Z
+0x00464b30	22	AMBIG:??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@D@Z|??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@E@Z|??Y?$CSimpleStringT@D$0A@@ATL@@QAEAAV01@G@Z
+0x00475080	9	?IsStoring@CArchive@@QBEHXZ
+0x00479990	33	??_G(scalar deleting dtor) class CMyColorDialog

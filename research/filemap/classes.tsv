@@ -1,0 +1,1361 @@
+addr	class	tu_now
+0x00401310	CAdvCurveEditDlg	
+0x00401450	CAdvCurveEditDlg	
+0x00401550	CAdvCurveEditDlg	
+0x00401580	CAdvCurveEditDlg	
+0x00401770	CAdvCurveEditDlg	
+0x00401780	CAdvCurveEditDlg	
+0x004017d0	CAdvCurveEditDlg	
+0x004018e0	CAdvCurveEditDlg	
+0x00401aa0	CAdvCurveEditDlg	
+0x00401ad0	CAdvCurveEditDlg	
+0x00401f90	CAdvCurveEditDlg	
+0x00402050	CAdvCurveEditDlg	
+0x004020c0	CAdvCurveEditDlg	
+0x00402130	CAdvCurveEditDlg	
+0x00402190	CAdvCurveEditDlg	
+0x004021a0	CAdvCurveEditDlg	
+0x00402240	CAdvCurveEditDlg	
+0x00402420	CAdvCurveEditDlg	
+0x004024b0	CDialog	
+0x004024d0	CWnd	
+0x004024e0	CWnd	
+0x004024f0	CCommandLineInfo	
+0x00402580	CMenu	
+0x00402850	CWnd	
+0x00402880	CSliderCtrl	
+0x004028b0	CEdit	
+0x004028e0	CButton	
+0x004029c0	CCameraTargetDlg	
+0x00402a20	CCameraTargetDlg	
+0x00402a50	CCameraTargetDlg	
+0x00402a60	CCameraTargetDlg	
+0x00402f40	CCamWnd	
+0x00402fc0	CCamWnd	
+0x00403000	CCamWnd	
+0x00403090	CCamWnd	
+0x00403150	CCamWnd	
+0x00403160	CCamWnd	
+0x00403290	CCamWnd	
+0x004032a0	CCamWnd	
+0x004032f0	CCamWnd	
+0x00403350	CCamWnd	
+0x00403390	CCamWnd	
+0x004033e0	CCamWnd	
+0x00403420	CCamWnd	
+0x00403470	CCamWnd	
+0x004034b0	CCamWnd	
+0x004074f0	CCamWnd	
+0x00407560	CCamWnd	
+0x00407580	CCamWnd	
+0x004075b0	CCamWnd	
+0x00407f00	CCamWnd	
+0x00407f10	CCamWnd	
+0x00407fa0	CCapDialog	
+0x00407fe0	CCapDialog	
+0x00408000	CCapDialog	
+0x00409040	CCommandsDlg	
+0x004090c0	CCommandsDlg	
+0x004090e0	CCommandsDlg	
+0x004090f0	CCommandsDlg	
+0x00409620	CListBox	
+0x00409760	CDialogInfo	
+0x00409790	CDialogInfo	
+0x004097b0	CDialogInfo	
+0x004097c0	CDialogInfo	
+0x00409800	CDialogThick	
+0x00409840	CDialogThick	
+0x00409870	CDialogThick	
+0x00409ad0	CDlgCamera	
+0x00409b00	CDlgCamera	
+0x00409bd0	CDlgCamera	
+0x00409be0	CDlgCamera	
+0x00409ce0	CDlgCamera	
+0x00409de0	CDlgCamera	
+0x00409e00	CDlgCamera	
+0x00409e10	CDlgCamera	
+0x00409f70	CDlgCamera	
+0x00409f80	CDlgCamera	
+0x0040a3b0	CDlgCamera	
+0x0040a3d0	CDlgCamera	
+0x0040a470	CDlgCamera	
+0x0040a4c0	CDlgCamera	
+0x0040a530	CDlgCamera	
+0x0040a790	CDlgCamera	
+0x0040a8e0	CDlgCamera	
+0x0040a9b0	CDlgCamera	
+0x0040a9c0	CDlgCamera	
+0x0040a9d0	CDlgCamera	
+0x0040a9e0	CDlgCamera	
+0x0040aa10	CDlgCamera	
+0x0040b4d0	idPointListInterface	
+0x0040b500	idPointListInterface	
+0x0040b510	idPointListInterface	
+0x0040b520	idPointListInterface	
+0x0040b530	idPointListInterface	
+0x0040b540	idPointListInterface	
+0x0040b550	idPointListInterface	
+0x0040b5d0	idPointListInterface	
+0x0040b6e0	idCameraPosition	
+0x0040b710	idCameraPosition	
+0x0040b810	idCameraPosition	
+0x0040b820	idCameraPosition	
+0x0040b830	idCameraPosition	
+0x0040b840	idCameraPosition	
+0x0040b850	idCameraPosition	
+0x0040b860	idCameraPosition	
+0x0040b870	idCameraPosition	
+0x0040b880	idCameraPosition	
+0x0040b890	idCameraPosition	
+0x0040b9f0	idFixedPosition	
+0x0040ba30	idFixedPosition	
+0x0040ba40	idFixedPosition	
+0x0040ba80	idFixedPosition	
+0x0040bac0	idFixedPosition	
+0x0040bad0	idFixedPosition	
+0x0040bae0	idFixedPosition	
+0x0040bca0	CComboBox	
+0x0040bcd0	CScrollBar	
+0x0040bd70	CDlgEvent	
+0x0040bda0	CDlgEvent	
+0x0040bdd0	CDlgEvent	
+0x0040c700	CEditWnd	
+0x0040c720	CEditWnd	
+0x0040c760	CEditWnd	
+0x0040c770	CEditWnd	
+0x0040c810	CEntityListDlg	
+0x0040c8a0	CEntityListDlg	
+0x0040c8e0	CEntityListDlg	
+0x0040c8f0	CEntityListDlg	
+0x0040c970	CEntityListDlg	
+0x0040cb10	CEntityListDlg	
+0x0040ccb0	CEntityListDlg	
+0x0040cdd0	CTreeCtrl	
+0x0040ce00	CListCtrl	
+0x0040cea0	CFilterSettings	
+0x0040cf00	CFilterSettings	
+0x0040cf20	CFilterSettings	
+0x0040d620	CFilterSettings	
+0x0040d720	CFilterSettings	
+0x0040db40	CFilterSettings	
+0x0040e4e0	CFilterSettings	
+0x0040e4f0	CFilterSettings	
+0x0040e660	CFilterSettings	
+0x0040e680	CFilterSettings	
+0x0040e780	CFilterSettings	radiant/filtersettings.cpp
+0x0040e7f0	CFilterSettings	radiant/filtersettings.cpp
+0x0040e860	CFilterSettings	radiant/filtersettings.cpp
+0x0040e8d0	CFilterSettings	radiant/filtersettings.cpp
+0x0040e940	CFilterSettings	radiant/filtersettings.cpp
+0x0040e9b0	CFilterSettings	radiant/filtersettings.cpp
+0x0040ea20	CFilterSettings	radiant/filtersettings.cpp
+0x0040ea90	CFilterSettings	radiant/filtersettings.cpp
+0x0040eb00	CFilterSettings	radiant/filtersettings.cpp
+0x0040eb70	CFilterSettings	radiant/filtersettings.cpp
+0x0040ebe0	CFilterSettings	radiant/filtersettings.cpp
+0x0040ec50	CFilterSettings	radiant/filtersettings.cpp
+0x0040ecc0	CFilterSettings	radiant/filtersettings.cpp
+0x0040ed30	CFilterSettings	radiant/filtersettings.cpp
+0x0040eda0	CFilterSettings	radiant/filtersettings.cpp
+0x0040ee10	CFilterSettings	radiant/filtersettings.cpp
+0x0040ee80	CFilterSettings	radiant/filtersettings.cpp
+0x0040eef0	CFilterSettings	radiant/filtersettings.cpp
+0x0040ef60	CFilterSettings	radiant/filtersettings.cpp
+0x0040efd0	CFilterSettings	radiant/filtersettings.cpp
+0x0040f040	CFilterSettings	radiant/filtersettings.cpp
+0x0040f0b0	CFilterSettings	radiant/filtersettings.cpp
+0x0040f120	CFilterSettings	radiant/filtersettings.cpp
+0x0040f190	CFilterSettings	radiant/filtersettings.cpp
+0x0040f200	CFilterSettings	radiant/filtersettings.cpp
+0x0040f270	CFilterSettings	radiant/filtersettings.cpp
+0x0040f2e0	CFilterSettings	radiant/filtersettings.cpp
+0x0040f350	CFilterSettings	radiant/filtersettings.cpp
+0x0040f3c0	CFilterSettings	radiant/filtersettings.cpp
+0x0040f430	CFilterSettings	radiant/filtersettings.cpp
+0x0040f4a0	CFilterSettings	radiant/filtersettings.cpp
+0x0040f510	CFilterSettings	radiant/filtersettings.cpp
+0x0040f580	CFilterSettings	radiant/filtersettings.cpp
+0x0040f5f0	CFilterSettings	radiant/filtersettings.cpp
+0x0040f660	CFilterSettings	radiant/filtersettings.cpp
+0x0040f6d0	CFilterSettings	radiant/filtersettings.cpp
+0x0040f740	CFilterSettings	radiant/filtersettings.cpp
+0x0040f7b0	CFilterSettings	radiant/filtersettings.cpp
+0x0040f820	CFilterSettings	radiant/filtersettings.cpp
+0x0040f890	CFilterSettings	radiant/filtersettings.cpp
+0x0040f900	CFilterSettings	radiant/filtersettings.cpp
+0x0040f970	CFilterSettings	radiant/filtersettings.cpp
+0x0040f9e0	CFilterSettings	radiant/filtersettings.cpp
+0x0040fbf0	CFilterSettings	
+0x0040fc00	CFilterSettings	
+0x0040fd60	CFindTextureDlg	
+0x0040fd90	CFindTextureDlg	
+0x0040fe00	CFindTextureDlg	
+0x0040fe10	CFindTextureDlg	
+0x0040fe80	CFindTextureDlg	
+0x00410050	CFindTextureDlg	
+0x00410090	CFindTextureDlg	
+0x004100a0	CFindTextureDlg	
+0x004100b0	CFindTextureDlg	
+0x00410f60	CKeyValueSelectDlg	
+0x00410fe0	CKeyValueSelectDlg	
+0x00411030	CKeyValueSelectDlg	
+0x00411050	CLstToolBar	
+0x00411090	CLstToolBar	
+0x004110a0	CLstToolBar	nafxcw.lib
+0x00411210	CMainFrame	
+0x00411220	CMainFrame	
+0x00411230	CMainFrame	
+0x00411360	CMainFrame	
+0x004115a0	CMainFrame	
+0x004121e0	CMainFrame	radiant/MainFrm.cpp
+0x00412df0	CMainFrame	nafxcw.lib
+0x00413020	CMainFrame	nafxcw.lib
+0x00413030	CMainFrame	radiant/MainFrm.cpp
+0x00413160	CMainFrame	nafxcw.lib
+0x004131a0	CMainFrame	radiant/MainFrm.cpp
+0x00413250	CMainFrame	radiant/MainFrm.cpp
+0x00413790	CMainFrame	radiant/MainFrm.cpp
+0x004138f0	CMainFrame	nafxcw.lib
+0x00413900	CMainFrame	radiant/MainFrm.cpp
+0x004139e0	CMainFrame	radiant/MainFrm.cpp
+0x00414730	CMainFrame	radiant/MainFrm.cpp
+0x00414c50	CMainFrame	radiant/MainFrm.cpp
+0x00414c70	CMainFrame	radiant/MainFrm.cpp
+0x00414c80	CMainFrame	radiant/MainFrm.cpp
+0x00414ca0	CMainFrame	radiant/MainFrm.cpp
+0x00414ce0	CMainFrame	radiant/MainFrm.cpp
+0x00414d20	CMainFrame	radiant/MainFrm.cpp
+0x00414d60	CMainFrame	radiant/MainFrm.cpp
+0x00414d80	CMainFrame	radiant/MainFrm.cpp
+0x00414d90	CMainFrame	radiant/MainFrm.cpp
+0x00414da0	CMainFrame	radiant/MainFrm.cpp
+0x00414de0	CMainFrame	radiant/MainFrm.cpp
+0x00414df0	CMainFrame	radiant/MainFrm.cpp
+0x00414e00	CMainFrame	radiant/MainFrm.cpp
+0x00414e10	CMainFrame	radiant/MainFrm.cpp
+0x00414e20	CMainFrame	radiant/MainFrm.cpp
+0x00414e30	CMainFrame	radiant/MainFrm.cpp
+0x00414e50	CMainFrame	radiant/MainFrm.cpp
+0x00414ea0	CMainFrame	radiant/MainFrm.cpp
+0x00414eb0	CMainFrame	radiant/MainFrm.cpp
+0x00414ec0	CMainFrame	radiant/MainFrm.cpp
+0x00415100	CMainFrame	radiant/MainFrm.cpp
+0x00415110	CMainFrame	radiant/MainFrm.cpp
+0x00415140	CMainFrame	radiant/MainFrm.cpp
+0x004151e0	CMainFrame	radiant/MainFrm.cpp
+0x00415210	CMainFrame	radiant/MainFrm.cpp
+0x00415240	CMainFrame	radiant/MainFrm.cpp
+0x00415260	CMainFrame	radiant/MainFrm.cpp
+0x00415270	CMainFrame	radiant/MainFrm.cpp
+0x00415280	CMainFrame	radiant/MainFrm.cpp
+0x004152a0	CMainFrame	radiant/MainFrm.cpp
+0x004152c0	CMainFrame	radiant/MainFrm.cpp
+0x004152e0	CMainFrame	radiant/MainFrm.cpp
+0x00415300	CMainFrame	radiant/MainFrm.cpp
+0x00415320	CMainFrame	radiant/MainFrm.cpp
+0x00415330	CMainFrame	radiant/MainFrm.cpp
+0x00415350	CMainFrame	radiant/MainFrm.cpp
+0x00415370	CMainFrame	radiant/MainFrm.cpp
+0x00415390	CMainFrame	radiant/MainFrm.cpp
+0x00415650	CMainFrame	radiant/MainFrm.cpp
+0x00415660	CMainFrame	radiant/MainFrm.cpp
+0x00415690	CMainFrame	radiant/MainFrm.cpp
+0x004156a0	CMainFrame	radiant/MainFrm.cpp
+0x00415750	CMainFrame	radiant/MainFrm.cpp
+0x00415960	CMainFrame	radiant/MainFrm.cpp
+0x004159a0	CMainFrame	radiant/MainFrm.cpp
+0x004159e0	CMainFrame	radiant/MainFrm.cpp
+0x00415a10	CMainFrame	radiant/MainFrm.cpp
+0x00415b90	CMainFrame	radiant/MainFrm.cpp
+0x00415ba0	CMainFrame	radiant/MainFrm.cpp
+0x00415bb0	CMainFrame	radiant/MainFrm.cpp
+0x00415bd0	CMainFrame	radiant/MainFrm.cpp
+0x00415bf0	CMainFrame	radiant/MainFrm.cpp
+0x00415c00	CMainFrame	radiant/MainFrm.cpp
+0x00415c10	CMainFrame	radiant/MainFrm.cpp
+0x00415c20	CMainFrame	radiant/MainFrm.cpp
+0x00415dd0	CMainFrame	radiant/MainFrm.cpp
+0x00415df0	CMainFrame	radiant/MainFrm.cpp
+0x00415e00	CMainFrame	radiant/MainFrm.cpp
+0x00415e20	CMainFrame	radiant/MainFrm.cpp
+0x00415e40	CMainFrame	radiant/MainFrm.cpp
+0x00415e60	CMainFrame	radiant/MainFrm.cpp
+0x00415e80	CMainFrame	radiant/MainFrm.cpp
+0x00415ea0	CMainFrame	radiant/MainFrm.cpp
+0x00416030	CMainFrame	radiant/MainFrm.cpp
+0x00416050	CMainFrame	radiant/MainFrm.cpp
+0x00416070	CMainFrame	radiant/MainFrm.cpp
+0x00416090	CMainFrame	radiant/MainFrm.cpp
+0x00416130	CMainFrame	radiant/MainFrm.cpp
+0x004161d0	CMainFrame	radiant/MainFrm.cpp
+0x00416270	CMainFrame	radiant/MainFrm.cpp
+0x00416280	CMainFrame	radiant/MainFrm.cpp
+0x00416290	CMainFrame	radiant/MainFrm.cpp
+0x004162a0	CMainFrame	radiant/MainFrm.cpp
+0x004162b0	CMainFrame	radiant/MainFrm.cpp
+0x004162c0	CMainFrame	radiant/MainFrm.cpp
+0x00416420	CMainFrame	radiant/MainFrm.cpp
+0x00416480	CMainFrame	radiant/MainFrm.cpp
+0x00416490	CMainFrame	radiant/MainFrm.cpp
+0x004164a0	CMainFrame	radiant/MainFrm.cpp
+0x004164c0	CMainFrame	radiant/MainFrm.cpp
+0x004164d0	CMainFrame	radiant/MainFrm.cpp
+0x004164e0	CMainFrame	radiant/MainFrm.cpp
+0x00416540	CMainFrame	radiant/MainFrm.cpp
+0x00416570	CMainFrame	radiant/MainFrm.cpp
+0x004165a0	CMainFrame	radiant/MainFrm.cpp
+0x004165c0	CMainFrame	radiant/MainFrm.cpp
+0x004165e0	CMainFrame	radiant/MainFrm.cpp
+0x00416680	CMainFrame	radiant/MainFrm.cpp
+0x00416720	CMainFrame	radiant/MainFrm.cpp
+0x00416790	CMainFrame	radiant/MainFrm.cpp
+0x00416870	CMainFrame	radiant/MainFrm.cpp
+0x004168c0	CMainFrame	radiant/MainFrm.cpp
+0x00416e90	CMainFrame	radiant/MainFrm.cpp
+0x00416ed0	CMainFrame	radiant/MainFrm.cpp
+0x00416f10	CMainFrame	radiant/MainFrm.cpp
+0x00416f50	CMainFrame	radiant/MainFrm.cpp
+0x00416f90	CMainFrame	radiant/MainFrm.cpp
+0x00416fd0	CMainFrame	radiant/MainFrm.cpp
+0x00417010	CMainFrame	radiant/MainFrm.cpp
+0x00417020	CMainFrame	radiant/MainFrm.cpp
+0x00417030	CMainFrame	radiant/MainFrm.cpp
+0x00417040	CMainFrame	radiant/MainFrm.cpp
+0x00417050	CMainFrame	radiant/MainFrm.cpp
+0x00417060	CMainFrame	radiant/MainFrm.cpp
+0x00417070	CMainFrame	radiant/MainFrm.cpp
+0x00417080	CMainFrame	radiant/MainFrm.cpp
+0x00417090	CMainFrame	radiant/MainFrm.cpp
+0x004170b0	CMainFrame	radiant/MainFrm.cpp
+0x004170c0	CMainFrame	radiant/MainFrm.cpp
+0x004170e0	CMainFrame	radiant/MainFrm.cpp
+0x004170f0	CMainFrame	radiant/MainFrm.cpp
+0x00417140	CMainFrame	radiant/MainFrm.cpp
+0x00417150	CMainFrame	radiant/MainFrm.cpp
+0x00417170	CMainFrame	radiant/MainFrm.cpp
+0x00417190	CMainFrame	radiant/MainFrm.cpp
+0x004171b0	CMainFrame	radiant/MainFrm.cpp
+0x00417220	CMainFrame	radiant/MainFrm.cpp
+0x00417270	CMainFrame	radiant/MainFrm.cpp
+0x004172c0	CMainFrame	radiant/MainFrm.cpp
+0x00417340	CMainFrame	radiant/MainFrm.cpp
+0x00417380	CMainFrame	radiant/MainFrm.cpp
+0x00417400	CMainFrame	radiant/MainFrm.cpp
+0x00417450	CMainFrame	radiant/MainFrm.cpp
+0x004174a0	CMainFrame	radiant/MainFrm.cpp
+0x00417510	CMainFrame	radiant/MainFrm.cpp
+0x00417580	CMainFrame	radiant/MainFrm.cpp
+0x004175a0	CMainFrame	radiant/MainFrm.cpp
+0x004175c0	CMainFrame	radiant/MainFrm.cpp
+0x004175e0	CMainFrame	radiant/MainFrm.cpp
+0x00417600	CMainFrame	radiant/MainFrm.cpp
+0x00417640	CMainFrame	radiant/MainFrm.cpp
+0x00417660	CMainFrame	radiant/MainFrm.cpp
+0x00417750	CMainFrame	radiant/MainFrm.cpp
+0x004177a0	CMainFrame	radiant/MainFrm.cpp
+0x004177f0	CMainFrame	radiant/MainFrm.cpp
+0x00417840	CMainFrame	radiant/MainFrm.cpp
+0x00417890	CMainFrame	radiant/MainFrm.cpp
+0x00417900	CMainFrame	radiant/MainFrm.cpp
+0x00417970	CMainFrame	radiant/MainFrm.cpp
+0x00417a30	CMainFrame	radiant/MainFrm.cpp
+0x00417a90	CMainFrame	radiant/MainFrm.cpp
+0x00417ae0	CMainFrame	radiant/MainFrm.cpp
+0x00417b50	CMainFrame	radiant/MainFrm.cpp
+0x00417e10	CMainFrame	radiant/MainFrm.cpp
+0x00417e40	CMainFrame	radiant/MainFrm.cpp
+0x00417ea0	CMainFrame	radiant/MainFrm.cpp
+0x00417f00	CMainFrame	radiant/MainFrm.cpp
+0x00417f10	CMainFrame	radiant/MainFrm.cpp
+0x00417f20	CMainFrame	radiant/MainFrm.cpp
+0x00417f40	CMainFrame	radiant/MainFrm.cpp
+0x00417f60	CMainFrame	radiant/MainFrm.cpp
+0x00417f80	CMainFrame	radiant/MainFrm.cpp
+0x00417fa0	CMainFrame	radiant/MainFrm.cpp
+0x00417fc0	CMainFrame	radiant/MainFrm.cpp
+0x00417fe0	CMainFrame	radiant/MainFrm.cpp
+0x00418000	CMainFrame	radiant/MainFrm.cpp
+0x00418020	CMainFrame	radiant/MainFrm.cpp
+0x00418040	CMainFrame	radiant/MainFrm.cpp
+0x00418060	CMainFrame	radiant/MainFrm.cpp
+0x00418080	CMainFrame	radiant/MainFrm.cpp
+0x004180a0	CMainFrame	radiant/MainFrm.cpp
+0x004180c0	CMainFrame	radiant/MainFrm.cpp
+0x004180e0	CMainFrame	radiant/MainFrm.cpp
+0x00418100	CMainFrame	radiant/MainFrm.cpp
+0x00418120	CMainFrame	radiant/MainFrm.cpp
+0x00418140	CMainFrame	radiant/MainFrm.cpp
+0x00418390	CMainFrame	radiant/MainFrm.cpp
+0x004185d0	CMainFrame	radiant/MainFrm.cpp
+0x00418820	CMainFrame	radiant/MainFrm.cpp
+0x00418a70	CMainFrame	radiant/MainFrm.cpp
+0x00418cf0	CMainFrame	radiant/MainFrm.cpp
+0x00418d40	CMainFrame	radiant/MainFrm.cpp
+0x00418ec0	CMainFrame	radiant/MainFrm.cpp
+0x00419000	CMainFrame	radiant/MainFrm.cpp
+0x00419020	CMainFrame	radiant/MainFrm.cpp
+0x00419080	CMainFrame	radiant/MainFrm.cpp
+0x00419090	CMainFrame	radiant/MainFrm.cpp
+0x004190a0	CMainFrame	radiant/MainFrm.cpp
+0x004190e0	CMainFrame	radiant/MainFrm.cpp
+0x00419100	CMainFrame	radiant/MainFrm.cpp
+0x00419120	CMainFrame	radiant/MainFrm.cpp
+0x00419140	CMainFrame	radiant/MainFrm.cpp
+0x00419160	CMainFrame	radiant/MainFrm.cpp
+0x00419180	CMainFrame	radiant/MainFrm.cpp
+0x00419190	CMainFrame	radiant/MainFrm.cpp
+0x004191a0	CMainFrame	radiant/MainFrm.cpp
+0x004191d0	CMainFrame	radiant/MainFrm.cpp
+0x00419200	CMainFrame	radiant/MainFrm.cpp
+0x00419230	CMainFrame	radiant/MainFrm.cpp
+0x00419260	CMainFrame	radiant/MainFrm.cpp
+0x00419670	CMainFrame	radiant/MainFrm.cpp
+0x00419680	CMainFrame	radiant/MainFrm.cpp
+0x004196a0	CMainFrame	radiant/MainFrm.cpp
+0x00419720	CMainFrame	radiant/MainFrm.cpp
+0x004197b0	CMainFrame	radiant/MainFrm.cpp
+0x00419860	CMainFrame	radiant/MainFrm.cpp
+0x00419930	CMainFrame	radiant/MainFrm.cpp
+0x00419950	CMainFrame	radiant/MainFrm.cpp
+0x00419970	CMainFrame	radiant/MainFrm.cpp
+0x00419980	CMainFrame	radiant/MainFrm.cpp
+0x00419990	CMainFrame	radiant/MainFrm.cpp
+0x004199b0	CMainFrame	radiant/MainFrm.cpp
+0x004199d0	CMainFrame	radiant/MainFrm.cpp
+0x004199f0	CMainFrame	radiant/MainFrm.cpp
+0x00419a10	CMainFrame	radiant/MainFrm.cpp
+0x00419a30	CMainFrame	radiant/MainFrm.cpp
+0x00419a60	CMainFrame	radiant/MainFrm.cpp
+0x00419ab0	CMainFrame	radiant/MainFrm.cpp
+0x00419b00	CMainFrame	radiant/MainFrm.cpp
+0x00419b90	CMainFrame	radiant/MainFrm.cpp
+0x00419ba0	CMainFrame	radiant/MainFrm.cpp
+0x00419bc0	CMainFrame	radiant/MainFrm.cpp
+0x00419c30	CMainFrame	radiant/MainFrm.cpp
+0x00419c70	CMainFrame	radiant/MainFrm.cpp
+0x00419c80	CMainFrame	radiant/MainFrm.cpp
+0x00419c90	CMainFrame	radiant/MainFrm.cpp
+0x00419ce0	CMainFrame	radiant/MainFrm.cpp
+0x00419d40	CMainFrame	radiant/MainFrm.cpp
+0x00419da0	CMainFrame	radiant/MainFrm.cpp
+0x00419e90	CMainFrame	radiant/MainFrm.cpp
+0x00419f80	CMainFrame	radiant/MainFrm.cpp
+0x00419f90	CMainFrame	radiant/MainFrm.cpp
+0x00419fa0	CMainFrame	radiant/MainFrm.cpp
+0x00419fc0	CMainFrame	radiant/MainFrm.cpp
+0x00419fd0	CMainFrame	radiant/MainFrm.cpp
+0x00419ff0	CMainFrame	radiant/MainFrm.cpp
+0x0041a2a0	CMainFrame	nafxcw.lib
+0x0041a2f0	CMainFrame	radiant/MainFrm.cpp
+0x0041a330	CMainFrame	radiant/MainFrm.cpp
+0x0041a3e0	CMainFrame	radiant/MainFrm.cpp
+0x0041a4d0	CMainFrame	radiant/MainFrm.cpp
+0x0041a5c0	CMainFrame	radiant/MainFrm.cpp
+0x0041a620	CMainFrame	radiant/MainFrm.cpp
+0x0041a670	CMainFrame	radiant/MainFrm.cpp
+0x0041a6c0	CMainFrame	radiant/MainFrm.cpp
+0x0041a710	CMainFrame	radiant/MainFrm.cpp
+0x0041a750	CMainFrame	radiant/MainFrm.cpp
+0x0041a7f0	CMainFrame	radiant/MainFrm.cpp
+0x0041a840	CMainFrame	radiant/MainFrm.cpp
+0x0041a890	CMainFrame	radiant/MainFrm.cpp
+0x0041a8e0	CMainFrame	radiant/MainFrm.cpp
+0x0041a930	CMainFrame	radiant/MainFrm.cpp
+0x0041a980	CMainFrame	radiant/MainFrm.cpp
+0x0041a990	CMainFrame	radiant/MainFrm.cpp
+0x0041a9e0	CMainFrame	radiant/MainFrm.cpp
+0x0041aa10	CMainFrame	radiant/MainFrm.cpp
+0x0041aa80	CMainFrame	radiant/MainFrm.cpp
+0x0041aad0	CMainFrame	radiant/MainFrm.cpp
+0x0041ab20	CMainFrame	radiant/MainFrm.cpp
+0x0041ab70	CMainFrame	radiant/MainFrm.cpp
+0x0041abc0	CMainFrame	radiant/MainFrm.cpp
+0x0041ac10	CMainFrame	radiant/MainFrm.cpp
+0x0041ac20	CMainFrame	radiant/MainFrm.cpp
+0x0041ac30	CMainFrame	radiant/MainFrm.cpp
+0x0041ac80	CMainFrame	radiant/MainFrm.cpp
+0x0041acd0	CMainFrame	radiant/MainFrm.cpp
+0x0041ad20	CMainFrame	radiant/MainFrm.cpp
+0x0041ad70	CMainFrame	radiant/MainFrm.cpp
+0x0041adc0	CMainFrame	radiant/MainFrm.cpp
+0x0041ae10	CMainFrame	radiant/MainFrm.cpp
+0x0041ae60	CMainFrame	radiant/MainFrm.cpp
+0x0041aeb0	CMainFrame	radiant/MainFrm.cpp
+0x0041af00	CMainFrame	radiant/MainFrm.cpp
+0x0041af10	CMainFrame	radiant/MainFrm.cpp
+0x0041af20	CMainFrame	radiant/MainFrm.cpp
+0x0041af30	CMainFrame	radiant/MainFrm.cpp
+0x0041af80	CMainFrame	radiant/MainFrm.cpp
+0x0041afd0	CMainFrame	radiant/MainFrm.cpp
+0x0041b020	CMainFrame	radiant/MainFrm.cpp
+0x0041b070	CMainFrame	radiant/MainFrm.cpp
+0x0041b0b0	CMainFrame	radiant/MainFrm.cpp
+0x0041b0f0	CMainFrame	radiant/MainFrm.cpp
+0x0041b100	CMainFrame	radiant/MainFrm.cpp
+0x0041b2c0	CMainFrame	radiant/MainFrm.cpp
+0x0041b370	CMainFrame	radiant/MainFrm.cpp
+0x0041b470	CMainFrame	radiant/MainFrm.cpp
+0x0041b4b0	CMainFrame	radiant/MainFrm.cpp
+0x0041b4c0	CMainFrame	radiant/MainFrm.cpp
+0x0041b4d0	CMainFrame	radiant/MainFrm.cpp
+0x0041b4e0	CMainFrame	radiant/MainFrm.cpp
+0x0041b500	CMainFrame	radiant/MainFrm.cpp
+0x0041b540	CMainFrame	radiant/MainFrm.cpp
+0x0041b640	CMainFrame	radiant/MainFrm.cpp
+0x0041b660	CMainFrame	radiant/MainFrm.cpp
+0x0041b680	CMainFrame	radiant/MainFrm.cpp
+0x0041b6a0	CMainFrame	radiant/MainFrm.cpp
+0x0041b6c0	CMainFrame	radiant/MainFrm.cpp
+0x0041b6e0	CMainFrame	radiant/MainFrm.cpp
+0x0041b6f0	CMainFrame	radiant/MainFrm.cpp
+0x0041b700	CMainFrame	radiant/MainFrm.cpp
+0x0041b710	CMainFrame	radiant/MainFrm.cpp
+0x0041b720	CMainFrame	radiant/MainFrm.cpp
+0x0041b7f0	CMainFrame	radiant/MainFrm.cpp
+0x0041b810	CMainFrame	radiant/MainFrm.cpp
+0x0041b930	CMainFrame	radiant/MainFrm.cpp
+0x0041b950	CMainFrame	radiant/MainFrm.cpp
+0x0041b980	CMainFrame	radiant/MainFrm.cpp
+0x0041b9b0	CMainFrame	radiant/MainFrm.cpp
+0x0041b9e0	CMainFrame	radiant/MainFrm.cpp
+0x0041ba10	CMainFrame	radiant/MainFrm.cpp
+0x0041ba40	CMainFrame	radiant/MainFrm.cpp
+0x0041ba70	CMainFrame	radiant/MainFrm.cpp
+0x0041ba80	CMainFrame	radiant/MainFrm.cpp
+0x0041ba90	CMainFrame	radiant/MainFrm.cpp
+0x0041bad0	CMainFrame	radiant/MainFrm.cpp
+0x0041bb10	CMainFrame	radiant/MainFrm.cpp
+0x0041bb30	CMainFrame	radiant/MainFrm.cpp
+0x0041bb50	CMainFrame	radiant/MainFrm.cpp
+0x0041bbb0	CMainFrame	radiant/MainFrm.cpp
+0x0041bc00	CMainFrame	radiant/MainFrm.cpp
+0x0041bc50	CMainFrame	radiant/MainFrm.cpp
+0x0041bcb0	CMainFrame	radiant/MainFrm.cpp
+0x0041bcc0	CMainFrame	radiant/MainFrm.cpp
+0x0041bcf0	CMainFrame	radiant/MainFrm.cpp
+0x0041bd20	CMainFrame	radiant/MainFrm.cpp
+0x0041bd30	CMainFrame	radiant/MainFrm.cpp
+0x0041bde0	CMainFrame	radiant/MainFrm.cpp
+0x0041be80	CMainFrame	radiant/MainFrm.cpp
+0x0041bea0	CMainFrame	radiant/MainFrm.cpp
+0x0041bec0	CMainFrame	radiant/MainFrm.cpp
+0x0041bed0	CMainFrame	radiant/MainFrm.cpp
+0x0041c0e0	CMainFrame	radiant/MainFrm.cpp
+0x0041c130	CMainFrame	radiant/MainFrm.cpp
+0x0041c180	CMainFrame	radiant/MainFrm.cpp
+0x0041c1d0	CMainFrame	radiant/MainFrm.cpp
+0x0041c270	CMainFrame	radiant/MainFrm.cpp
+0x0041c440	CMainFrame	radiant/MainFrm.cpp
+0x0041c4a0	CMainFrame	radiant/MainFrm.cpp
+0x0041c500	CMainFrame	radiant/MainFrm.cpp
+0x0041c560	CMainFrame	radiant/MainFrm.cpp
+0x0041c5c0	CMainFrame	radiant/MainFrm.cpp
+0x0041c620	CMainFrame	radiant/MainFrm.cpp
+0x0041c680	CMainFrame	radiant/MainFrm.cpp
+0x0041c6e0	CMainFrame	radiant/MainFrm.cpp
+0x0041c740	CMainFrame	radiant/MainFrm.cpp
+0x0041c7a0	CMainFrame	radiant/MainFrm.cpp
+0x0041c800	CMainFrame	radiant/MainFrm.cpp
+0x0041c860	CMainFrame	radiant/MainFrm.cpp
+0x0041c8c0	CMainFrame	radiant/MainFrm.cpp
+0x0041c920	CMainFrame	radiant/MainFrm.cpp
+0x0041c980	CMainFrame	radiant/MainFrm.cpp
+0x0041c9e0	CMainFrame	radiant/MainFrm.cpp
+0x0041ca40	CMainFrame	radiant/MainFrm.cpp
+0x0041caa0	CMainFrame	radiant/MainFrm.cpp
+0x0041cb00	CMainFrame	radiant/MainFrm.cpp
+0x0041cb60	CMainFrame	radiant/MainFrm.cpp
+0x0041cbc0	CMainFrame	radiant/MainFrm.cpp
+0x0041cc20	CMainFrame	radiant/MainFrm.cpp
+0x0041cc80	CMainFrame	radiant/MainFrm.cpp
+0x0041cce0	CMainFrame	radiant/MainFrm.cpp
+0x0041cd40	CMainFrame	radiant/MainFrm.cpp
+0x0041cda0	CMainFrame	radiant/MainFrm.cpp
+0x0041ce00	CMainFrame	radiant/MainFrm.cpp
+0x0041ce60	CMainFrame	radiant/MainFrm.cpp
+0x0041cec0	CMainFrame	radiant/MainFrm.cpp
+0x0041cf20	CMainFrame	radiant/MainFrm.cpp
+0x0041cf80	CMainFrame	radiant/MainFrm.cpp
+0x0041cfe0	CMainFrame	radiant/MainFrm.cpp
+0x0041d040	CMainFrame	radiant/MainFrm.cpp
+0x0041d0a0	CMainFrame	radiant/MainFrm.cpp
+0x0041d100	CMainFrame	radiant/MainFrm.cpp
+0x0041d160	CMainFrame	radiant/MainFrm.cpp
+0x0041d1c0	CMainFrame	radiant/MainFrm.cpp
+0x0041d220	CMainFrame	radiant/MainFrm.cpp
+0x0041d280	CMainFrame	radiant/MainFrm.cpp
+0x0041d2e0	CMainFrame	radiant/MainFrm.cpp
+0x0041d340	CMainFrame	radiant/MainFrm.cpp
+0x0041d3a0	CMainFrame	radiant/MainFrm.cpp
+0x0041d400	CMainFrame	radiant/MainFrm.cpp
+0x0041d460	CMainFrame	radiant/MainFrm.cpp
+0x0041d4a0	CMainFrame	radiant/MainFrm.cpp
+0x0041d4e0	CMainFrame	radiant/MainFrm.cpp
+0x0041d520	CMainFrame	radiant/MainFrm.cpp
+0x0041d560	CMainFrame	radiant/MainFrm.cpp
+0x0041d570	CMainFrame	radiant/MainFrm.cpp
+0x0041d580	CMainFrame	radiant/MainFrm.cpp
+0x0041d590	CMainFrame	radiant/MainFrm.cpp
+0x0041d5a0	CMainFrame	radiant/MainFrm.cpp
+0x0041e6a0	idSplinePosition	
+0x0041e730	idSplinePosition	
+0x0041e760	idSplinePosition	
+0x0041e830	idSplinePosition	
+0x0041e8c0	idSplinePosition	
+0x0041e9e0	idSplinePosition	
+0x0041ea00	idSplinePosition	
+0x0041eaa0	idSplinePosition	
+0x0041eea0	idInterpolatedPosition	
+0x0041eee0	idInterpolatedPosition	
+0x0041eef0	idInterpolatedPosition	
+0x0041ef30	idInterpolatedPosition	
+0x0041ef70	idInterpolatedPosition	
+0x0041efd0	idInterpolatedPosition	
+0x0041f150	idInterpolatedPosition	
+0x0041f430	CGdiObject	
+0x0041f460	CFont	
+0x0041fa30	CMapInfo	radiant/MapInfo.cpp
+0x0041fa60	CMapInfo	radiant/MapInfo.cpp
+0x0041fa80	CMapInfo	radiant/MapInfo.cpp
+0x0041fb20	CMapInfo	
+0x00422f00	CModelDlg	
+0x00422f30	CModelDlg	
+0x00422f70	CModelDlg	
+0x00422f80	CModelDlg	
+0x00422f90	CModelDlg	
+0x00423080	CModelDlg	
+0x004234f0	CModelDlg	
+0x00423960	CModelDlg	
+0x004239c0	CModelDlg	
+0x00423a80	CModelDlg	
+0x00423ae0	CModelDlg	
+0x00423ba0	CModelDlg	radiant/ModelDlg.cpp
+0x00423eb0	CModelDlg	nafxcw.lib
+0x00424150	CNameDlg	
+0x00424180	CNameDlg	
+0x004241a0	CNameDlg	
+0x004241b0	CNameDlg	
+0x004241c0	CNameDlg	
+0x00424260	CNewProjDlg	
+0x00424290	CNewProjDlg	
+0x004242b0	CNewProjDlg	
+0x00424340	CPatchDensityDlg	
+0x00424370	CPatchDensityDlg	
+0x004243b0	CPatchDensityDlg	
+0x004243c0	CPatchDensityDlg	
+0x00424460	CPatchDensityDlg	
+0x00424710	CPatchDialog	
+0x00424740	CPatchDialog	
+0x004248b0	CPatchDialog	
+0x004248c0	CPatchDialog	
+0x004248e0	CPatchDialog	
+0x00424900	CPatchDialog	
+0x00424920	CPatchDialog	
+0x00424a10	CPatchDialog	
+0x00424a20	CPatchDialog	
+0x00424a30	CPatchDialog	
+0x00424a40	CPatchDialog	
+0x00424a50	CPatchDialog	
+0x00424a80	CPatchDialog	
+0x00424d10	CPatchDialog	
+0x00424e30	CPatchDialog	
+0x00425060	CSpinButtonCtrl	
+0x00425120	ClientUser	
+0x00425130	ClientUser	
+0x00425150	StdClientUser	
+0x00425180	StdClientUser	
+0x004251a0	StdClientUser	
+0x004253b0	StdClientUser	
+0x00439a40	CPrefsDlg	
+0x00439a70	CPrefsDlg	
+0x00439da0	CPrefsDlg	
+0x00439db0	CPrefsDlg	
+0x00439e50	CPrefsDlg	
+0x0043b410	CPrefsDlg	
+0x0043b560	CRADEditWnd	
+0x0043b5f0	CRADEditWnd	
+0x0043b600	CRADEditWnd	
+0x0043b650	CRADEditWnd	
+0x0043b6a0	CRadiantApp	
+0x0043b6d0	CRadiantApp	
+0x0043b710	CRadiantApp	
+0x0043bda0	CRadiantApp	
+0x0043bdf0	CRadiantApp	
+0x0043be20	CRadiantApp	
+0x0043c1e0	CRotateDlg	
+0x0043c210	CRotateDlg	
+0x0043c290	CRotateDlg	
+0x0043c2a0	CRotateDlg	nafxcw.lib
+0x0043c2b0	CRotateDlg	
+0x0043c490	CRotateDlg	
+0x0043c4f0	CRotateDlg	
+0x0043c5a0	CRotateDlg	
+0x0043c650	CRotateDlg	
+0x0043c740	CScaleDialog	
+0x0043c770	CScaleDialog	
+0x0043c7b0	CScaleDialog	
+0x0043c9a0	CSurfaceDlg	
+0x0043c9d0	CSurfaceDlg	
+0x0043caf0	CSurfaceDlg	
+0x0043e560	CSurfaceDlg	
+0x0043e740	CSurfaceDlg	
+0x0043e780	CSurfaceDlg	
+0x0043e790	CSurfaceDlg	
+0x0043e7d0	CSurfaceDlg	
+0x0043e840	CSurfaceDlg	
+0x0043e860	CSurfaceDlg	
+0x0043e870	CSurfaceDlg	
+0x0043e890	CSurfaceDlg	
+0x0043e8f0	CSurfaceDlg	
+0x0043e910	CSurfaceDlg	
+0x0043e920	CSurfaceDlg	nafxcw.lib
+0x0043e930	CSurfaceDlg	
+0x0043e950	CSurfaceDlg	
+0x0043e980	CSurfaceDlg	
+0x0043ea90	CSurfaceDlg	
+0x0043eab0	CSurfaceDlg	
+0x0043eac0	CSurfaceDlg	
+0x0043ec10	CSurfaceDlg	
+0x0043ec30	CSurfaceDlg	
+0x0043ec40	CSurfaceDlg	
+0x0043ed00	CTerrainDensityDlg	
+0x0043ed30	CTerrainDensityDlg	
+0x0043ed70	CTerrainDensityDlg	
+0x0043ed80	CTerrainDensityDlg	
+0x0043edd0	CTerrainDensityDlg	
+0x0043ee90	CTexEdit	
+0x0043ef20	CTexEdit	
+0x0043ef30	CTexEdit	
+0x0043ef60	CTexEdit	
+0x0043eff0	CTexEdit	
+0x0043f120	CTextureBar	
+0x0043f150	CTextureBar	
+0x0043f230	CTextureBar	
+0x0043f240	CTextureBar	
+0x0043f2b0	CTextureBar	
+0x0043f320	CTextureBar	
+0x0043f380	CTextureBar	
+0x0043f3c0	CTextureBar	
+0x0043f420	CTextureBar	
+0x0043f430	CTextureBar	
+0x0043f450	CTextureBar	
+0x0043f6f0	CDialogBar	
+0x0043f7a0	CTextureLayout	
+0x0043f7d0	CTextureLayout	
+0x0043f830	CTextureLayout	
+0x0043f840	CTextureLayout	
+0x0043f850	CTextureLayout	
+0x004428c0	CTexWnd	
+0x00442950	CTexWnd	
+0x004429e0	CTexWnd	
+0x00442b20	CTexWnd	
+0x00442be0	CTexWnd	
+0x00442cc0	CTexWnd	
+0x00442d50	CTexWnd	nafxcw.lib
+0x00442ef0	CTexWnd	
+0x00442f40	CTexWnd	
+0x00442f50	CTexWnd	
+0x00442f70	CTexWnd	
+0x00443050	CTexWnd	
+0x00443140	CTexWnd	
+0x00445050	CVehicleDlg	
+0x00445140	CVehicleDlg	
+0x00445210	CVehicleDlg	
+0x00445290	CVehicleDlg	
+0x004452a0	CVehicleDlg	
+0x00445510	CVehicleDlg	
+0x00445520	CVehicleDlg	
+0x00445530	CVehicleDlg	
+0x00445540	CVehicleDlg	
+0x00445550	CVehicleDlg	
+0x00445560	CVehicleDlg	
+0x00445570	CVehicleDlg	
+0x00445580	CVehicleDlg	
+0x00445590	CVehicleDlg	
+0x004455a0	CVehicleDlg	
+0x004455c0	CVehicleDlg	
+0x004455e0	CVehicleDlg	
+0x00445600	CVehicleDlg	
+0x00445620	CVehicleDlg	
+0x00445640	CVehicleDlg	
+0x00445660	CVehicleDlg	
+0x00445680	CVehicleDlg	
+0x004456a0	CVehicleDlg	
+0x004456c0	CVehicleDlg	
+0x004456e0	CVehicleDlg	
+0x00445700	CVehicleDlg	
+0x00445720	CVehicleDlg	
+0x00445740	CVehicleDlg	
+0x00445760	CVehicleDlg	
+0x00445780	CVehicleDlg	
+0x004457a0	CVehicleDlg	
+0x004457c0	CVehicleDlg	
+0x004457e0	CVehicleDlg	
+0x00445800	CVehicleDlg	
+0x00445820	CVehicleDlg	
+0x00445840	CVehicleDlg	
+0x00445860	CVehicleDlg	
+0x00445880	CVehicleDlg	
+0x004458a0	CVehicleDlg	
+0x004458c0	CVehicleDlg	
+0x004458e0	CVehicleDlg	
+0x00445900	CVehicleDlg	
+0x004459b0	CVehicleDlg	
+0x004459d0	CVehicleDlg	
+0x004459f0	CVehicleDlg	
+0x00445ac0	CVehicleDlg	
+0x00445bc0	CVehicleDlg	
+0x00445c60	CVehicleDlg	
+0x00445d10	CVehicleDlg	
+0x00445d30	CVehicleDlg	
+0x00445d40	CVehicleDlg	
+0x00445d60	CVehicleDlg	
+0x00445d80	CVehicleDlg	
+0x00445da0	CVehicleDlg	
+0x00445dc0	CVehicleDlg	
+0x00445e20	CVehicleDlg	
+0x00445e30	CVehicleDlg	
+0x00445e50	CVehicleDlg	
+0x00445f00	CVehicleDlg	
+0x00445f20	CVehicleDlg	
+0x00445f40	CVehicleDlg	
+0x00445ff0	CVehicleDlg	
+0x00446010	CVehicleDlg	
+0x004460e0	CVertEditDlg	
+0x00446230	CVertEditDlg	
+0x00446310	CVertEditDlg	
+0x00446400	CVertEditDlg	
+0x00446490	CVertEditDlg	
+0x00446570	CVertEditDlg	
+0x00446aa0	CVertEditDlg	radiant/VertEditDlg.cpp
+0x00446ab0	CVertEditDlg	radiant/VertEditDlg.cpp
+0x00446bc0	CVertEditDlg	radiant/VertEditDlg.cpp
+0x00446c20	CVertEditDlg	radiant/VertEditDlg.cpp
+0x00446e00	CVertEditDlg	radiant/VertEditDlg.cpp
+0x00446f50	CVertEditDlg	radiant/VertEditDlg.cpp
+0x00447690	CVertEditDlg	radiant/VertEditDlg.cpp
+0x00449450	CXYWnd	
+0x00449550	CXYWnd	
+0x004496a0	CXYWnd	
+0x004496b0	CXYWnd	
+0x004499e0	CXYWnd	
+0x00449bd0	CXYWnd	
+0x00449c40	CXYWnd	
+0x0044a030	CXYWnd	
+0x0044a0d0	CXYWnd	
+0x0044a130	CXYWnd	
+0x0044a170	CXYWnd	
+0x0044a2f0	CXYWnd	
+0x0044b2a0	CXYWnd	radiant/XYWnd.cpp
+0x0044b370	CXYWnd	radiant/XYWnd.cpp
+0x0044bd30	CXYWnd	radiant/XYWnd.cpp
+0x00452930	CXYWnd	
+0x00452e20	CXYWnd	
+0x00453100	CXYWnd	
+0x00453210	CXYWnd	
+0x00453230	CXYWnd	
+0x00453240	CXYWnd	
+0x00453260	CXYWnd	
+0x00453290	CXYWnd	
+0x004532c0	CXYWnd	
+0x004532f0	CXYWnd	
+0x004536b0	CZWnd	
+0x004536d0	CZWnd	
+0x00453710	CZWnd	
+0x00453720	CZWnd	
+0x00453760	CZWnd	
+0x00453770	CZWnd	
+0x004537d0	CZWnd	
+0x00453830	CZWnd	
+0x00453890	CZWnd	
+0x00453940	CZWnd	
+0x00453960	CZWnd	
+0x00453aa0	CZWnd	
+0x00453b20	CZWnd	
+0x00453b30	CZWnd	
+0x00453b50	CZWnd	
+0x00453b80	CZWnd	
+0x00453b90	CZWnd	
+0x00453bd0	CZWnd	
+0x00453c10	CZWnd	
+0x00453c50	CZWnd	
+0x00453d10	CZWnd	
+0x00453d30	CZWnd	
+0x00453d60	CZWnd	
+0x00467df0	NormalFileWrapper	
+0x0046bbf0	MemoryFileWrapper	
+0x00475090	?$CArray@USelFace@@ABU1@	
+0x004750c0	?$CArray@USelFace@@ABU1@	
+0x00479540	CTabCtrl	
+0x00479750	CMyColorDialog	
+0x00479990	CMyColorDialog	
+0x004799d0	CMyColorDialog	
+0x004799f0	CMyColorDialog	
+0x00479a00	CMyColorDialog	
+0x0049cca0	idInterpolatedPosition	
+0x0049d260	idCameraPosition	
+0x0049d3e0	idFixedPosition	
+0x0049d770	idInterpolatedPosition	
+0x0049dbc0	idSplinePosition	
+0x0049e230	idCameraPosition	
+0x0049e530	idFixedPosition	
+0x0049e710	idInterpolatedPosition	
+0x0049e970	idSplinePosition	
+0x0049eb60	idSplinePosition	
+0x004b3f20	ClientUser	
+0x004b42e0	ClientUser	
+0x004b4360	ClientUser	
+0x004d0c8c	CStatic	nafxcw.lib
+0x004d0e34	CDragListBox	nafxcw.lib
+0x004d0e68	CToolBarCtrl	nafxcw.lib
+0x004d0e9b	CStatusBarCtrl	nafxcw.lib
+0x004d0ee7	CHotKeyCtrl	nafxcw.lib
+0x004d0f48	CProgressCtrl	nafxcw.lib
+0x004d0f64	CHeaderCtrl	nafxcw.lib
+0x004d0f80	CAnimateCtrl	nafxcw.lib
+0x004d0f9c	CRichEditCtrl	nafxcw.lib
+0x004d0ff8	CRgn	nafxcw.lib
+0x004d20ec	CBitmap	nafxcw.lib
+0x004d2300	COleException	nafxcw.lib
+0x004d2351	CMemoryException	nafxcw.lib
+0x004d238f	CNotSupportedException	nafxcw.lib
+0x004d23cd	CInvalidArgException	nafxcw.lib
+0x004d2577	CDC	nafxcw.lib
+0x004d259c	CDC	nafxcw.lib
+0x004d25f0	CDC	nafxcw.lib
+0x004d260f	CDC	nafxcw.lib
+0x004d265b	CResourceException	nafxcw.lib
+0x004d2677	CUserException	nafxcw.lib
+0x004d26f4	CPen	nafxcw.lib
+0x004d271b	CBrush	nafxcw.lib
+0x004d2758	CFileException	nafxcw.lib
+0x004d30ab	CFileFind	nafxcw.lib
+0x004d3231	CFileFind	nafxcw.lib
+0x004d3263	CFileFind	nafxcw.lib
+0x004d3295	CFileFind	nafxcw.lib
+0x004d32c7	CFileFind	nafxcw.lib
+0x004d335c	CFileFind	nafxcw.lib
+0x004d3377	CFileFind	nafxcw.lib
+0x004d3393	CFileFind	nafxcw.lib
+0x004d348b	CFileFind	nafxcw.lib
+0x004d351c	CFileFind	nafxcw.lib
+0x004d35bb	CFileFind	nafxcw.lib
+0x004d361f	CFileFind	nafxcw.lib
+0x004d4057	CHandleMap	nafxcw.lib
+0x004d6bbc	CArchiveException	nafxcw.lib
+0x004d7bb6	type_info	nafxcw.lib
+0x004e6f0d	exception	nafxcw.lib
+0x004e6f48	bad_cast	nafxcw.lib
+0x004e6f64	bad_typeid	nafxcw.lib
+0x004e6f80	__non_rtti_object	nafxcw.lib
+0x004f39f1	CColorDialog	nafxcw.lib
+0x004f3a53	_AFX_COLOR_STATE	nafxcw.lib
+0x004f3b09	CColorDialog	nafxcw.lib
+0x004f3b4e	CInvalidArgException	nafxcw.lib
+0x004f3bf4	CFileDialog	nafxcw.lib
+0x004f3d97	CFileDialog	nafxcw.lib
+0x004f3e9a	CFileDialog	nafxcw.lib
+0x004f47f6	CPageSetupDialog	nafxcw.lib
+0x004f4903	CPrintDialog	nafxcw.lib
+0x004f4933	CPrintDialog	nafxcw.lib
+0x004f4b44	CPrintDialog	nafxcw.lib
+0x004f4bcb	CPageSetupDialog	nafxcw.lib
+0x004f4bec	CPrintDialog	nafxcw.lib
+0x004f4d93	CFindReplaceDialog	nafxcw.lib
+0x004f4e52	CFindReplaceDialog	nafxcw.lib
+0x004f4ef9	CToolBarCtrl	nafxcw.lib
+0x004f5013	CStatusBarCtrl	nafxcw.lib
+0x004f5113	CStatusBarCtrl	nafxcw.lib
+0x004f516b	CListCtrl	nafxcw.lib
+0x004f537d	CListCtrl	nafxcw.lib
+0x004f53d5	CTreeCtrl	nafxcw.lib
+0x004f56b7	CSpinButtonCtrl	nafxcw.lib
+0x004f5783	CSliderCtrl	nafxcw.lib
+0x004f5889	CProgressCtrl	nafxcw.lib
+0x004f5929	CHeaderCtrl	nafxcw.lib
+0x004f599b	CHeaderCtrl	nafxcw.lib
+0x004f59ed	CHotKeyCtrl	nafxcw.lib
+0x004f5abe	CTabCtrl	nafxcw.lib
+0x004f5b30	CTabCtrl	nafxcw.lib
+0x004f5c5d	CAnimateCtrl	nafxcw.lib
+0x004f5d83	CDragListBox	nafxcw.lib
+0x004f5ebf	CDragListBox	nafxcw.lib
+0x004f6004	CToolBarCtrl	nafxcw.lib
+0x004f61f1	CDragListBox	nafxcw.lib
+0x004f6327	CDragListBox	nafxcw.lib
+0x004f6900	CImageList	nafxcw.lib
+0x004f6af5	_AFX_RICHEDIT_STATE	nafxcw.lib
+0x004f6b10	CRichEditCtrl	nafxcw.lib
+0x004f6f56	CRichEditCtrl	nafxcw.lib
+0x004f7058	CArchiveStream	
+0x004f70b0	CArchiveStream	
+0x004f7192	CArchiveStream	
+0x004f72d1	CToolTipCtrl	nafxcw.lib
+0x004f72e7	CToolTipCtrl	nafxcw.lib
+0x004f7359	CToolTipCtrl	nafxcw.lib
+0x004f73fb	CToolTipCtrl	nafxcw.lib
+0x004f7f70	CStringArray	nafxcw.lib
+0x004f8452	CStringList	nafxcw.lib
+0x004f86eb	CStringList	nafxcw.lib
+0x004f8ae3	CPtrArray	nafxcw.lib
+0x004f8dcf	CPtrList	nafxcw.lib
+0x004f91d6	CByteArray	nafxcw.lib
+0x004f9559	CUIntArray	nafxcw.lib
+0x004f9819	CMapStringToPtr	nafxcw.lib
+0x004f9cdb	CMapStringToString	nafxcw.lib
+0x004f9dcc	CMapStringToString	nafxcw.lib
+0x004fa183	CMapPtrToPtr	nafxcw.lib
+0x004fa23f	CDialog	nafxcw.lib
+0x004fa386	CDialog	nafxcw.lib
+0x004fa39f	CDialog	nafxcw.lib
+0x004fa453	CDialog	nafxcw.lib
+0x004fa4d7	CDialog	nafxcw.lib
+0x004fa593	CDialog	nafxcw.lib
+0x004fa670	CDialog	nafxcw.lib
+0x004fa6d1	CDialog	nafxcw.lib
+0x004fa768	CDialog	nafxcw.lib
+0x004fa9b3	CDialog	
+0x004fabea	CDialog	nafxcw.lib
+0x004fad4a	CWnd	nafxcw.lib
+0x004fad95	CWnd	nafxcw.lib
+0x004fadb4	CWnd	nafxcw.lib
+0x004faf6a	_AFX_HTMLHELP_STATE	nafxcw.lib
+0x004fafe0	CWnd	nafxcw.lib
+0x004fb162	CWnd	nafxcw.lib
+0x004fb1ca	XAccessible@CWnd	nafxcw.lib
+0x004fb1d3	XAccessible@CWnd	nafxcw.lib
+0x004fb419	XAccessible@CWnd	nafxcw.lib
+0x004fb5e6	CWnd	nafxcw.lib
+0x004fb754	CWnd	nafxcw.lib
+0x004fb7a5	CWnd	nafxcw.lib
+0x004fba15	CWnd	nafxcw.lib
+0x004fba5e	CWnd	nafxcw.lib
+0x004fbcb0	CWnd	nafxcw.lib
+0x004fc902	CWnd	nafxcw.lib
+0x004fc922	CStatic	nafxcw.lib
+0x004fc95d	CStatic	nafxcw.lib
+0x004fca6e	CWnd	nafxcw.lib
+0x004fcac2	CStatic	nafxcw.lib
+0x004fcdc8	CStatic	nafxcw.lib
+0x004fcdeb	CStatic	nafxcw.lib
+0x004fce55	CStatic	nafxcw.lib
+0x004fce8f	CStatic	nafxcw.lib
+0x004fceb0	CStatic	nafxcw.lib
+0x004fcf33	CStatic	nafxcw.lib
+0x004fcf73	CStatic	nafxcw.lib
+0x004fd1f4	CStatic	nafxcw.lib
+0x004fd21f	CStatic	nafxcw.lib
+0x004fd24a	CStatic	nafxcw.lib
+0x004fd46e	CStatic	nafxcw.lib
+0x004fd49b	CStatic	nafxcw.lib
+0x004fd7dd	CWnd	nafxcw.lib
+0x004fd83e	CStatic	nafxcw.lib
+0x004fd87b	CStatic	nafxcw.lib
+0x004fd938	CWnd	nafxcw.lib
+0x004fd9c4	CWnd	nafxcw.lib
+0x004fdbd6	CStatic	nafxcw.lib
+0x004fdc1c	CStatic	nafxcw.lib
+0x004fdc67	CStatic	nafxcw.lib
+0x004fe326	CWnd	nafxcw.lib
+0x004fe45f	CWnd	
+0x004feb7e	CWnd	nafxcw.lib
+0x004fecab	CWnd	nafxcw.lib
+0x004fed25	CWnd	nafxcw.lib
+0x004fed9e	CWnd	nafxcw.lib
+0x004ff04b	CWinThread	nafxcw.lib
+0x004ff2a5	CCmdUI	nafxcw.lib
+0x004ff324	CCmdUI	nafxcw.lib
+0x004ff389	CCmdUI	nafxcw.lib
+0x004ff3df	CCmdUI	nafxcw.lib
+0x004ff4c9	CAfxStringMgr	nafxcw.lib
+0x004ff511	CAfxStringMgr	nafxcw.lib
+0x00500888	CChevronOwnerDrawMenu	nafxcw.lib
+0x005008e5	CChevronOwnerDrawMenu	nafxcw.lib
+0x00500d2b	CChevronOwnerDrawMenu	nafxcw.lib
+0x00500e92	CArchiveException	nafxcw.lib
+0x005011ec	CFile	nafxcw.lib
+0x0050122c	CFile	nafxcw.lib
+0x00501277	CFile	nafxcw.lib
+0x005012c8	CFile	nafxcw.lib
+0x00501312	CFile	nafxcw.lib
+0x005013d1	CFile	nafxcw.lib
+0x00501477	CFile	nafxcw.lib
+0x005014ba	CFile	nafxcw.lib
+0x0050155c	CFile	nafxcw.lib
+0x005015d2	CFile	nafxcw.lib
+0x00501821	CFile	nafxcw.lib
+0x00501e99	CWinThread	nafxcw.lib
+0x00501fa5	CWinThread	
+0x0050225b	CWinThread	nafxcw.lib
+0x005023ae	CWinThread	nafxcw.lib
+0x00502825	CWinApp	nafxcw.lib
+0x00502929	CWinApp	nafxcw.lib
+0x0050297e	CWinApp	nafxcw.lib
+0x005029b2	CWinApp	nafxcw.lib
+0x00503dcb	CFile	nafxcw.lib
+0x00503e97	CFile	nafxcw.lib
+0x00504119	CRecentFileList	nafxcw.lib
+0x00504197	CRecentFileList	nafxcw.lib
+0x005041b3	CRecentFileList	nafxcw.lib
+0x005042ec	CRecentFileList	nafxcw.lib
+0x00504323	CRecentFileList	nafxcw.lib
+0x00504470	CRecentFileList	
+0x0050451b	CRecentFileList	nafxcw.lib
+0x0050485b	CDC	nafxcw.lib
+0x0050488c	CDC	nafxcw.lib
+0x005048ca	CDC	nafxcw.lib
+0x005049b1	CDC	nafxcw.lib
+0x005049e0	CDC	nafxcw.lib
+0x00504e8d	CDC	nafxcw.lib
+0x00504ed9	CDC	nafxcw.lib
+0x00504f25	CDC	nafxcw.lib
+0x00504f71	CDC	nafxcw.lib
+0x00505061	CDC	nafxcw.lib
+0x005050ad	CDC	nafxcw.lib
+0x00505876	CDC	nafxcw.lib
+0x005058a9	CDC	nafxcw.lib
+0x00505971	CDC	nafxcw.lib
+0x00505c52	CClientDC	nafxcw.lib
+0x00505c6e	CWindowDC	nafxcw.lib
+0x00505c8a	CPaintDC	nafxcw.lib
+0x00507526	CArchiveException	
+0x00507b4d	CScrollView	nafxcw.lib
+0x00507db1	CScrollView	nafxcw.lib
+0x00507efb	CScrollView	nafxcw.lib
+0x00508045	CScrollView	nafxcw.lib
+0x005083a6	CScrollView	nafxcw.lib
+0x005083ed	CScrollView	nafxcw.lib
+0x005084a2	CScrollView	nafxcw.lib
+0x005085c5	_AFX_MOUSEANCHORWND	nafxcw.lib
+0x005085e1	_AFX_MOUSEANCHORWND	nafxcw.lib
+0x005087c1	_AFX_MOUSEANCHORWND	nafxcw.lib
+0x0050884e	CScrollView	nafxcw.lib
+0x00508931	CScrollView	nafxcw.lib
+0x00508aed	CScrollView	nafxcw.lib
+0x00508f66	CScrollView	nafxcw.lib
+0x005090a9	CScrollView	nafxcw.lib
+0x0050917b	_AFX_MOUSEANCHORWND	nafxcw.lib
+0x00509373	CScrollView	nafxcw.lib
+0x005096e2	CScrollView	nafxcw.lib
+0x00509708	CScrollView	nafxcw.lib
+0x005098cf	CDocManager	nafxcw.lib
+0x00509d8a	CMirrorFile	nafxcw.lib
+0x00509ea0	CMirrorFile	nafxcw.lib
+0x0050a210	CMirrorFile	nafxcw.lib
+0x0050bc2f	CToolBar	nafxcw.lib
+0x0050bc67	CToolBar	nafxcw.lib
+0x0050bccf	CToolBar	nafxcw.lib
+0x0050be59	CToolBar	nafxcw.lib
+0x0050c220	CToolBar	nafxcw.lib
+0x0050c2ff	CToolBar	nafxcw.lib
+0x0050c360	CToolBar	nafxcw.lib
+0x0050c409	CToolCmdUI	nafxcw.lib
+0x0050c447	CToolCmdUI	nafxcw.lib
+0x0050c48a	CToolBar	nafxcw.lib
+0x0050c8a9	CToolBar	nafxcw.lib
+0x0050ca1f	CToolBar	nafxcw.lib
+0x0050cccf	CDialogBar	nafxcw.lib
+0x0050cd5a	CDialogBar	nafxcw.lib
+0x0050cdcc	CDialogBar	nafxcw.lib
+0x0050ce19	CDialogBar	nafxcw.lib
+0x0050d5b8	CDialogBar	nafxcw.lib
+0x0050d5f5	CDialogBar	nafxcw.lib
+0x0050d834	CDialogBar	nafxcw.lib
+0x0050d8c2	CDialogBar	nafxcw.lib
+0x0050dabf	CDialogBar	nafxcw.lib
+0x0050dd59	CStatusBar	nafxcw.lib
+0x0050dd7a	CStatusBar	nafxcw.lib
+0x0050dd9c	CStatusBar	nafxcw.lib
+0x0050ddc4	CStatusBar	nafxcw.lib
+0x0050de88	CStatusBar	nafxcw.lib
+0x0050deca	CStatusBar	nafxcw.lib
+0x0050df3e	CStatusBar	nafxcw.lib
+0x0050e1d1	CStatusBar	nafxcw.lib
+0x0050e2a5	CDialogBar	nafxcw.lib
+0x0050e300	CDialogBar	nafxcw.lib
+0x0050e346	CDialogBar	nafxcw.lib
+0x0050e362	CDialogBar	nafxcw.lib
+0x0050e752	CSplitterWnd	nafxcw.lib
+0x0050e873	CSplitterWnd	nafxcw.lib
+0x0050ea7f	CSplitterWnd	nafxcw.lib
+0x0050eaa8	CSplitterWnd	nafxcw.lib
+0x0050eb1f	CSplitterWnd	nafxcw.lib
+0x0050ebae	CSplitterWnd	nafxcw.lib
+0x0050ecda	CSplitterWnd	nafxcw.lib
+0x0050ed0c	CSplitterWnd	
+0x0050ee2e	CSplitterWnd	nafxcw.lib
+0x0050eede	CSplitterWnd	nafxcw.lib
+0x0050efba	CSplitterWnd	nafxcw.lib
+0x0050f0d1	CSplitterWnd	nafxcw.lib
+0x0050f23f	CSplitterWnd	nafxcw.lib
+0x0050f3fd	CSplitterWnd	nafxcw.lib
+0x0050f4a0	CSplitterWnd	nafxcw.lib
+0x0050f6d4	CSplitterWnd	nafxcw.lib
+0x0050f888	CSplitterWnd	nafxcw.lib
+0x0050fa4a	CSplitterWnd	nafxcw.lib
+0x0050fac0	CSplitterWnd	nafxcw.lib
+0x0050fbb9	CSplitterWnd	nafxcw.lib
+0x0050fd7c	CSplitterWnd	nafxcw.lib
+0x00510048	CSplitterWnd	nafxcw.lib
+0x0051025d	CSplitterWnd	nafxcw.lib
+0x00510483	CSplitterWnd	nafxcw.lib
+0x00510603	CSplitterWnd	nafxcw.lib
+0x00510745	CSplitterWnd	nafxcw.lib
+0x005108de	CSplitterWnd	nafxcw.lib
+0x0051091b	CSplitterWnd	nafxcw.lib
+0x00510a5e	CSplitterWnd	nafxcw.lib
+0x00510af4	CSplitterWnd	nafxcw.lib
+0x00510b93	CSplitterWnd	nafxcw.lib
+0x00510cf7	CSplitterWnd	nafxcw.lib
+0x00510e4b	CSplitterWnd	nafxcw.lib
+0x00510e90	CSplitterWnd	nafxcw.lib
+0x00510f0f	CSplitterWnd	nafxcw.lib
+0x00510f57	CDockBar	nafxcw.lib
+0x00510fc7	CDockBar	nafxcw.lib
+0x0051105a	CMiniDockFrameWnd	nafxcw.lib
+0x00511133	CDockBar	nafxcw.lib
+0x0051117a	CDockBar	nafxcw.lib
+0x005111e0	CDockBar	nafxcw.lib
+0x005113da	CMiniDockFrameWnd	nafxcw.lib
+0x0051156c	CDockBar	nafxcw.lib
+0x00511732	CDockBar	nafxcw.lib
+0x00511c61	CDockBar	nafxcw.lib
+0x0051210a	CMiniDockFrameWnd	nafxcw.lib
+0x0051215e	CMiniDockFrameWnd	nafxcw.lib
+0x00512ed9	CDockState	nafxcw.lib
+0x005132c3	CDockState	nafxcw.lib
+0x00513ca2	CWinApp	nafxcw.lib
+0x00513f8f	CMemFile	nafxcw.lib
+0x00513fd8	CMemFile	nafxcw.lib
+0x00513fde	CMemFile	nafxcw.lib
+0x0051402c	CMemFile	nafxcw.lib
+0x00514079	CMemFile	nafxcw.lib
+0x005140c9	CMemFile	nafxcw.lib
+0x00514147	CMemFile	nafxcw.lib
+0x00514187	CMemFile	nafxcw.lib
+0x00514292	CMemFile	nafxcw.lib
+0x0051467d	CDockContext	nafxcw.lib
+0x00514e25	CDockContext	nafxcw.lib
+0x0051515c	CDockContext	nafxcw.lib
+0x005152ee	CReBar	nafxcw.lib
+0x005153bf	CReBar	nafxcw.lib
+0x005153fb	CReBar	nafxcw.lib
+0x0051541c	CReBar	nafxcw.lib
+0x005155cf	CReBar	nafxcw.lib
+0x00515743	CReBar	nafxcw.lib
+0x005157b8	CReBar	nafxcw.lib
+0x005157e4	CReBar	nafxcw.lib
+0x00515830	CReBar	nafxcw.lib
+0x0051589a	CNewTypeDlg	nafxcw.lib
+0x005158e9	CDocManager	nafxcw.lib
+0x00515970	CDocManager	nafxcw.lib
+0x005159a8	CDocManager	nafxcw.lib
+0x00515a2b	CDocManager	nafxcw.lib
+0x00515bc2	CDocManager	nafxcw.lib
+0x00515dad	CDocManager	nafxcw.lib
+0x00515fd0	CDocManager	nafxcw.lib
+0x005165a7	CStatic	nafxcw.lib
+0x00516604	CStatic	nafxcw.lib
+0x00516625	CButton	nafxcw.lib
+0x005166aa	CButton	nafxcw.lib
+0x00516742	CListBox	nafxcw.lib
+0x0051686d	CComboBox	nafxcw.lib
+0x00516a05	CFrameWnd	nafxcw.lib
+0x00516bce	CFrameWnd	nafxcw.lib
+0x00516ce6	CFrameWnd	nafxcw.lib
+0x00516d73	CFrameWnd	nafxcw.lib
+0x00516e3f	CFrameWnd	nafxcw.lib
+0x00516f18	CFrameWnd	nafxcw.lib
+0x00516f33	CFrameWnd	nafxcw.lib
+0x00516fc0	CFrameWnd	nafxcw.lib
+0x00516fea	CFrameWnd	nafxcw.lib
+0x00517042	CFrameWnd	nafxcw.lib
+0x0051738f	CFrameWnd	nafxcw.lib
+0x0051747e	CFrameWnd	nafxcw.lib
+0x005175f0	CFrameWnd	nafxcw.lib
+0x005176c3	CFrameWnd	nafxcw.lib
+0x00517758	CFrameWnd	nafxcw.lib
+0x005177e6	CFrameWnd	nafxcw.lib
+0x00517842	CFrameWnd	nafxcw.lib
+0x0051791d	CFrameWnd	nafxcw.lib
+0x00517adf	CFrameWnd	nafxcw.lib
+0x00517c59	CFrameWnd	nafxcw.lib
+0x00517f03	CFrameWnd	nafxcw.lib
+0x00517fc0	CFrameWnd	nafxcw.lib
+0x00517fef	CFrameWnd	nafxcw.lib
+0x00518217	CFrameWnd	nafxcw.lib
+0x00518290	CFrameWnd	nafxcw.lib
+0x00518375	CFrameWnd	nafxcw.lib
+0x005183e2	CFrameWnd	nafxcw.lib
+0x00518417	CFrameWnd	nafxcw.lib
+0x005184ba	CFrameWnd	nafxcw.lib
+0x0051850b	CFrameWnd	nafxcw.lib
+0x005185c4	CFrameWnd	nafxcw.lib
+0x005185d3	CFrameWnd	nafxcw.lib
+0x005186a4	CFrameWnd	nafxcw.lib
+0x00518773	CFrameWnd	nafxcw.lib
+0x00518a38	CFrameWnd	nafxcw.lib
+0x00518a54	CFrameWnd	nafxcw.lib
+0x00518b4b	CFrameWnd	nafxcw.lib
+0x0051904f	CFrameWnd	nafxcw.lib
+0x00519207	CFrameWnd	nafxcw.lib
+0x00519d71	CMiniFrameWnd	nafxcw.lib
+0x00519da1	CMiniFrameWnd	nafxcw.lib
+0x00519dcc	CMiniFrameWnd	nafxcw.lib
+0x00519efb	CMiniFrameWnd	nafxcw.lib
+0x00519f43	CMiniFrameWnd	nafxcw.lib
+0x0051a14e	CMiniFrameWnd	nafxcw.lib
+0x0051a16a	CMiniFrameWnd	nafxcw.lib
+0x0051a1dd	CMiniFrameWnd	nafxcw.lib
+0x0051a3ab	CEditView	nafxcw.lib
+0x0051a5f2	CEditView	nafxcw.lib
+0x0051a7be	CEditView	nafxcw.lib
+0x0051a7e0	CEditView	nafxcw.lib
+0x0051a80e	CEditView	nafxcw.lib
+0x0051a88b	CEditView	nafxcw.lib
+0x0051ad34	CEditView	nafxcw.lib
+0x0051ae18	CEditView	nafxcw.lib
+0x0051ae73	_AFX_EDIT_STATE	nafxcw.lib
+0x0051b1ee	CEditView	nafxcw.lib
+0x0051b24a	CEditView	nafxcw.lib
+0x0051b455	CEditView	nafxcw.lib
+0x0051b4a9	CEditView	nafxcw.lib
+0x0051b520	CEditView	nafxcw.lib
+0x0051b5aa	CEditView	nafxcw.lib
+0x0051bb6c	?$IAccessibleProxyImpl@VCAccessibleProxy@ATL@@@ATL	nafxcw.lib
+0x0051bcc4	?$IAccessibleProxyImpl@VCAccessibleProxy@ATL@@@ATL	nafxcw.lib
+0x0051bd1c	?$IAccessibleProxyImpl@VCAccessibleProxy@ATL@@@ATL	nafxcw.lib
+0x0051bd5f	?$IAccessibleProxyImpl@VCAccessibleProxy@ATL@@@ATL	nafxcw.lib
+0x0051be0a	?$IAccessibleProxyImpl@VCAccessibleProxy@ATL@@@ATL	nafxcw.lib
+0x0051be42	?$IAccessibleProxyImpl@VCAccessibleProxy@ATL@@@ATL	nafxcw.lib
+0x0051bf08	?$CMFCComObject@VCAccessibleProxy@ATL@@	nafxcw.lib
+0x0051c480	_AFX_THREAD_STATE	nafxcw.lib
+0x0051c4fb	AFX_MODULE_STATE	nafxcw.lib
+0x0051c53d	AFX_MODULE_THREAD_STATE	nafxcw.lib
+0x0051c56c	_AFX_BASE_MODULE_STATE	nafxcw.lib
+0x0051cb2a	CToolBar	nafxcw.lib
+0x0051cb46	CToolBar	nafxcw.lib
+0x0051cb8b	CToolBar	nafxcw.lib
+0x0051cd4d	CToolBar	nafxcw.lib
+0x0051cf3c	CDialogBar	nafxcw.lib
+0x0051d116	CStatusBar	nafxcw.lib
+0x0051d18c	CStatusBar	nafxcw.lib
+0x0051d297	CStatusBar	nafxcw.lib
+0x0051d59e	CWinThread	nafxcw.lib
+0x0051de1e	CWinApp	nafxcw.lib
+0x0051df48	CWinApp	nafxcw.lib
+0x0051e2f1	CWinApp	nafxcw.lib
+0x0051e350	CWinApp	nafxcw.lib
+0x0051e36c	CWinApp	nafxcw.lib
+0x0051e520	CCommandLineInfo	nafxcw.lib
+0x0051e931	CWinApp	nafxcw.lib
+0x0051fa82	CDocManager	nafxcw.lib
+0x0051ff0a	CDocManager	nafxcw.lib
+0x00520568	COleException	nafxcw.lib
+0x0052197e	CInnerUnknown	nafxcw.lib
+0x00521cfc	CRadiantApp	nafxcw.lib
+0x00521da0	CPrintingDialog	nafxcw.lib
+0x00521dbc	CPrintingDialog	nafxcw.lib
+0x00521dfd	_AFX_WIN_STATE	nafxcw.lib
+0x00521fc3	CPrintingDialog	nafxcw.lib
+0x005220d6	CEditView	nafxcw.lib

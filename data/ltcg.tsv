@@ -1,0 +1,855 @@
+addr	regs	tu	caller_tus	cross_file
+0x00401d30	esi	?	radiant/CamWnd.cpp;radiant/Pmesh.cpp;radiant/drag.cpp	
+0x00401f70	eax	?	radiant/drag.cpp	
+0x00402750	edx	?	?;nafxcw.lib;radiant/CamWnd.cpp;radiant/XYWnd.cpp;radiant/drag.cpp;radiant/map.cpp;radiant/qe3.cpp	
+0x00402770	edx	?		
+0x004027a0	edx	nafxcw.lib	?;nafxcw.lib	
+0x004029f0	edx,esi	?	?	
+0x00402f50	esi	?	?;radiant/MainFrm.cpp	
+0x004034f0	esi	?		
+0x00403520	esi	?		
+0x00403610	edi	?	radiant/MainFrm.cpp	
+0x00403840	eax	?	radiant/CamWnd.cpp	
+0x00403920	eax	?	radiant/CamWnd.cpp	
+0x00403ce0	eax,edx	?	?;radiant/CamWnd.cpp	
+0x00404dc0	eax,edx	radiant/CamWnd.cpp	?	
+0x004063b0	eax	radiant/CamWnd.cpp	?	
+0x004064f0	eax	radiant/CamWnd.cpp	?	
+0x004076e0	ebx	?		
+0x00407730	esi	?	?	
+0x004077d0	eax	?		
+0x00407c60	eax,edx	?	radiant/Pmesh.cpp;radiant/brush.cpp	
+0x00407c90	eax,edx	?		
+0x00407cb0	eax	?		
+0x00407cd0	eax	?		
+0x00407dd0	eax,edx	?		
+0x00407ec0	edx	?		
+0x00407f60	eax	?		
+0x004080e0	eax	?	libs/cmdlib/cmdlib.cpp	
+0x00408210	esi	libs/cmdlib/cmdlib.cpp	libs/cmdlib/cmdlib.cpp	
+0x00408290	esi	libs/cmdlib/cmdlib.cpp	libs/cmdlib/cmdlib.cpp	
+0x00408310	edx	libs/cmdlib/cmdlib.cpp	radiant/TexWnd.cpp;radiant/eclass.cpp;radiant/map.cpp	CROSS
+0x00408440	eax	libs/cmdlib/cmdlib.cpp		
+0x004084a0	eax	libs/cmdlib/cmdlib.cpp	?	
+0x004088d0	eax,edi	libs/cmdlib/cmdlib.cpp	?	
+0x00409880	edx	?	?	
+0x00409cb0	edx,esi	?	?	
+0x0040a890	edx,esi	?	?	
+0x0040aaa0	ebx	?	?;radiant/MainFrm.cpp;src/universal/splines/splines.cpp	
+0x0040abc0	esi	?	?;radiant/MainFrm.cpp;src/universal/splines/splines.cpp	
+0x0040ac60	esi	?	?;src/universal/splines/splines.cpp	
+0x0040acf0	eax	?		
+0x0040ad20	edi	?	?	
+0x0040adf0	edi,esi	?	?	
+0x0040af30	esi	?	?;src/universal/splines/splines.cpp	
+0x0040b010	eax	?	?;src/universal/splines/splines.cpp	
+0x0040b260	edi	?		
+0x0040b2c0	esi	?		
+0x0040b350	ebx	?	?;radiant/MainFrm.cpp	
+0x0040b600	eax	?		
+0x0040b680	esi	?		
+0x0040b780	esi	?	?	
+0x0040b900	esi	?		
+0x0040baa0	eax	?		
+0x0040bbe0	esi	?	?	
+0x0040be50	eax	radiant/draw.cpp	?;radiant/CamWnd.cpp;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/z.cpp;src/universal/g_vehicle_path.cpp	CROSS
+0x0040c600	eax	?		
+0x0040ced0	edx,esi	?	?	
+0x0040cf30	esi	?	?;radiant/MainFrm.cpp	
+0x0040fc10	edx,esi	?	?	
+0x00410f90	edx,esi	?	?;radiant/select.cpp	
+0x004110b0	edx	?	?	
+0x004115b0	eax	?	radiant/MainFrm.cpp	
+0x00412060	eax	?	radiant/MainFrm.cpp	
+0x00413060	eax	radiant/MainFrm.cpp	?;radiant/MainFrm.cpp	
+0x00416350	edx	radiant/MainFrm.cpp	?;radiant/MainFrm.cpp	
+0x00417cc0	edx,esi	radiant/MainFrm.cpp	?	
+0x00417cf0	ebx	radiant/MainFrm.cpp	?;radiant/MainFrm.cpp;radiant/TexWnd.cpp;radiant/XYWnd.cpp;radiant/drag.cpp;radiant/select.cpp	CROSS
+0x00419cc0	eax	radiant/MainFrm.cpp		
+0x0041b190	eax	radiant/MainFrm.cpp	?;radiant/MainFrm.cpp;radiant/Pmesh.cpp;radiant/brush.cpp;radiant/drag.cpp;radiant/select.cpp	CROSS
+0x0041b590	eax	radiant/MainFrm.cpp	?;radiant/MainFrm.cpp	
+0x0041b820	eax	radiant/MainFrm.cpp	radiant/MainFrm.cpp	
+0x0041e250	ebx	?	radiant/MainFrm.cpp	
+0x0041e2e0	edi	?	radiant/MainFrm.cpp	
+0x0041e440	eax	?	?;src/universal/splines/splines.cpp	
+0x0041e540	edx	?	radiant/MainFrm.cpp	
+0x0041e780	eax	?	?	
+0x0041e7e0	eax	?		
+0x0041e8e0	eax	?	?	
+0x0041e950	esi	?	?;src/universal/splines/splines.cpp	
+0x0041eb90	esi	?		
+0x0041ec50	esi	?		
+0x0041ec80	esi	?	?	
+0x0041ecf0	eax	?	?	
+0x0041ed40	eax	?	?	
+0x0041f0a0	eax	?	?	
+0x0041f3c0	edx	?	radiant/MainFrm.cpp	
+0x0041f3e0	eax	?	radiant/MainFrm.cpp	
+0x0041f5b0	edx	?	radiant/MainFrm.cpp	
+0x0041f670	esi	radiant/MapInfo.cpp	radiant/MapInfo.cpp	
+0x00420930	eax	?	?;radiant/Pmesh.cpp;radiant/brush.cpp	
+0x00420d50	ebx	?	?	
+0x00420e90	eax	?		
+0x00420ee0	eax,esi	?	?	
+0x00421070	ebx	?		
+0x00421150	ebx	?	?	
+0x00421500	edi	?	?	
+0x00422370	eax	?	?	
+0x004227a0	eax,ebx,edi	?	?	
+0x00422f10	esi	?	?	
+0x00423ef0	edi	?	?;radiant/TexWnd.cpp	
+0x004244b0	edx	?	?	
+0x00424d50	esi	?	?	
+0x00424f10	eax	?	?	
+0x004251c0	edi	?	?	
+0x00425820	edx	?		
+0x00425840	ebx	?	radiant/Pmesh.cpp	
+0x00425d10	edi,esi	?	radiant/Pmesh.cpp	
+0x00426280	edi,edx,esi	?	?;radiant/Pmesh.cpp	
+0x00426420	eax,ebx,edx	?		
+0x004267d0	eax	?	?;radiant/Pmesh.cpp	
+0x004269d0	eax	?	?;radiant/Pmesh.cpp;radiant/VertEditDlg.cpp	
+0x00426a80	eax	?	radiant/Pmesh.cpp	
+0x00426b80	eax	?	?	
+0x00426c10	eax	?	?	
+0x00426c90	eax	?	?;radiant/Pmesh.cpp	
+0x00426e20	edx	?	?	
+0x00426e80	eax	?	?;radiant/Pmesh.cpp	
+0x004270a0	esi	?		
+0x00427160	esi	?	?;radiant/Pmesh.cpp	
+0x00427240	eax	?	radiant/Pmesh.cpp	
+0x00427290	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00427410	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00427540	edi	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00428e70	eax	radiant/Pmesh.cpp		
+0x00429a00	ebx	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042a3a0	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042a3f0	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042a440	eax	radiant/Pmesh.cpp		
+0x0042ad80	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042b0f0	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042b640	ebx	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042b870	eax	radiant/Pmesh.cpp	?	
+0x0042bf50	ebx,edi,esi	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042c3f0	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042ca80	esi	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042cc50	esi	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x0042d560	esi	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042d5d0	eax,esi	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042e550	eax	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x0042e6c0	eax	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x0042ea50	esi	radiant/Pmesh.cpp	radiant/Pmesh.cpp;radiant/brush.cpp	CROSS
+0x0042f1b0	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x0042f660	esi	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x0042f790	eax	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x0042f970	eax	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x0042fad0	esi	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x004309e0	ebx	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00430a60	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00430b10	ebx	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00430b90	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00430c40	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00430e20	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x004321c0	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x004322e0	eax,edi	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x00432430	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp;radiant/select.cpp	CROSS
+0x004325d0	esi	radiant/Pmesh.cpp	radiant/select.cpp	CROSS
+0x00432950	ebx	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00432a60	ebx	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00432b70	eax	radiant/Pmesh.cpp		
+0x00433830	esi	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x00434630	eax	radiant/Pmesh.cpp	?	
+0x00434810	eax	radiant/Pmesh.cpp	?	
+0x00435760	eax	radiant/Pmesh.cpp	radiant/select.cpp	CROSS
+0x00435900	edi	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x00436bc0	edi	radiant/Pmesh.cpp	radiant/Pmesh.cpp;radiant/select.cpp	CROSS
+0x004384c0	eax,esi	radiant/Pmesh.cpp		
+0x00438510	eax	radiant/Pmesh.cpp	radiant/Pmesh.cpp	
+0x004392a0	esi	radiant/Pmesh.cpp	radiant/brush.cpp	CROSS
+0x004393c0	edx	?	radiant/brush.cpp	
+0x004395a0	eax,edx	?		
+0x00439620	eax	?	radiant/Pmesh.cpp;radiant/brush.cpp	
+0x00439690	eax	?		
+0x004396d0	eax	?	?	
+0x00439720	eax,edx	?		
+0x0043aa70	esi	?	?;radiant/MainFrm.cpp	
+0x0043b6b0	esi	?	?	
+0x0043bf10	edx	?	?	
+0x0043cb80	esi	radiant/SurfaceDlg.cpp	radiant/SurfaceDlg.cpp	
+0x0043cc70	edi	radiant/SurfaceDlg.cpp	radiant/SurfaceDlg.cpp	
+0x0043da00	eax	?	?	
+0x0043f9f0	eax,ebx	common/texturevecs.cpp	common/texturevecs.cpp	
+0x004401d0	eax	common/texturevecs.cpp	?;radiant/brush.cpp	CROSS
+0x004405b0	esi	?	?	
+0x004406c0	edi	radiant/TexWnd.cpp	radiant/TexWnd.cpp	
+0x00440980	eax	radiant/TexWnd.cpp		
+0x00440c10	eax	radiant/TexWnd.cpp	radiant/Pmesh.cpp;radiant/brush.cpp	CROSS
+0x00441750	esi	radiant/TexWnd.cpp	radiant/TexWnd.cpp	
+0x004417f0	esi	radiant/TexWnd.cpp	radiant/TexWnd.cpp	
+0x00441a40	eax	radiant/TexWnd.cpp	radiant/TexWnd.cpp;radiant/drag.cpp	CROSS
+0x00441f80	edx	radiant/TexWnd.cpp	radiant/MainFrm.cpp;radiant/TexWnd.cpp	CROSS
+0x00442140	eax	radiant/TexWnd.cpp	?;radiant/MainFrm.cpp;radiant/TexWnd.cpp	CROSS
+0x00442e60	esi	?	radiant/MainFrm.cpp	
+0x004431f0	esi	radiant/Undo.cpp	?;radiant/Undo.cpp	
+0x004432a0	esi	radiant/Undo.cpp	?;radiant/Undo.cpp	
+0x00443a90	eax	radiant/Undo.cpp	?;radiant/CamWnd.cpp;radiant/MainFrm.cpp;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/drag.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x00443c30	eax	radiant/Undo.cpp	radiant/Undo.cpp	
+0x00443cd0	esi	radiant/Undo.cpp	radiant/Undo.cpp	
+0x00443d90	ebx	radiant/Undo.cpp	?;radiant/MainFrm.cpp;radiant/Pmesh.cpp;radiant/Undo.cpp;radiant/VertEditDlg.cpp;radiant/select.cpp	CROSS
+0x00443e70	eax	radiant/Undo.cpp	radiant/Pmesh.cpp	CROSS
+0x00443fd0	eax	radiant/Undo.cpp	?;radiant/MainFrm.cpp;radiant/Pmesh.cpp;radiant/Undo.cpp;radiant/VertEditDlg.cpp;radiant/select.cpp	CROSS
+0x004440c0	eax	?	?;radiant/XYWnd.cpp	
+0x00445420	eax	radiant/VehicleDlg.cpp	?	
+0x00447b50	eax,edi,edx	?	radiant/brush.cpp	
+0x00447c00	eax	?	?;radiant/brush.cpp	
+0x00447c60	eax	radiant/Winding.cpp	radiant/brush.cpp	CROSS
+0x00447f20	esi	?	?	
+0x00447f60	eax	?	radiant/brush.cpp;radiant/csg.cpp	
+0x00447fb0	edi	?	radiant/brush.cpp	
+0x00448060	edi	?		
+0x00448100	esi	?		
+0x004481e0	eax	?	radiant/brush.cpp;radiant/csg.cpp	
+0x00448a10	eax	?	radiant/brush.cpp	
+0x00448d00	ebx	?		
+0x004490a0	esi	?		
+0x00449180	eax,edx	?		
+0x004492b0	eax,ebx	?		
+0x00449680	esi	?		
+0x00449a30	edi	?	?	
+0x00449c60	edi	?	?	
+0x00449ff0	eax	?	?	
+0x0044a210	esi	?	?	
+0x0044a2a0	esi	?		
+0x0044abc0	ebx	?		
+0x0044abf0	eax	?	?;radiant/MainFrm.cpp	
+0x0044b9b0	eax	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x0044bb80	eax	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x0044bc50	edx	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x0044c280	eax	radiant/XYWnd.cpp	?	
+0x0044c330	eax	radiant/XYWnd.cpp	?;radiant/XYWnd.cpp	
+0x0044c3c0	eax,edx	radiant/XYWnd.cpp	?;radiant/XYWnd.cpp	
+0x0044c8a0	eax	radiant/XYWnd.cpp	?;radiant/XYWnd.cpp	
+0x0044cf70	ebx,edi	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x0044d0c0	eax	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x0044d320	eax	radiant/XYWnd.cpp	?	
+0x0044f5d0	esi	radiant/XYWnd.cpp	?;radiant/CamWnd.cpp;radiant/ModelDlg.cpp;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/select.cpp;src/universal/g_vehicle_path.cpp	CROSS
+0x00450d90	edi	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x00451470	eax	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x00451550	edi	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x004516e0	edx	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x00451920	esi	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x00451a40	eax	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x00451c00	eax	radiant/XYWnd.cpp	radiant/CamWnd.cpp;radiant/XYWnd.cpp;radiant/brush.cpp	CROSS
+0x00451e00	eax	radiant/XYWnd.cpp	radiant/XYWnd.cpp	
+0x00452b00	eax	?	?;radiant/MainFrm.cpp;radiant/map.cpp;radiant/select.cpp	
+0x00452c60	edx	?	radiant/XYWnd.cpp	
+0x00452ca0	esi	?	radiant/MainFrm.cpp;radiant/map.cpp	
+0x00452d90	eax	?	radiant/MainFrm.cpp	
+0x00453410	edx	?	radiant/XYWnd.cpp	
+0x00453dc0	esi	radiant/brush.cpp	radiant/brush.cpp	
+0x00453e30	esi	radiant/brush.cpp	radiant/brush.cpp	
+0x00454630	eax	radiant/brush.cpp	radiant/brush.cpp	
+0x004546a0	eax,ebx	radiant/brush.cpp	?;radiant/brush.cpp	
+0x004547a0	eax	radiant/brush.cpp	radiant/brush.cpp	
+0x00454810	eax	radiant/brush.cpp	radiant/brush.cpp	
+0x004549b0	eax,ebx	radiant/brush.cpp	radiant/brush.cpp	
+0x00454a30	eax	radiant/brush.cpp	radiant/brush.cpp	
+0x00454ab0	edi	radiant/brush.cpp	radiant/brush.cpp	
+0x00454b70	eax,edi	radiant/brush.cpp	radiant/brush.cpp	
+0x00454d90	esi	radiant/brush.cpp	radiant/brush.cpp	
+0x00454f30	ebx	radiant/brush.cpp		
+0x00455060	edi	radiant/brush.cpp	radiant/brush.cpp	
+0x00455110	eax,edx,esi	radiant/brush.cpp		
+0x00455140	eax	radiant/brush.cpp	radiant/brush.cpp	
+0x00455360	esi	radiant/brush.cpp	radiant/brush.cpp	
+0x00455660	eax	radiant/brush.cpp	radiant/brush.cpp	
+0x004559f0	esi	radiant/brush.cpp		
+0x00455bd0	ebx	radiant/brush.cpp	radiant/brush.cpp	
+0x00455cb0	eax	radiant/brush.cpp	radiant/brush.cpp	
+0x00455e20	eax	radiant/brush.cpp	radiant/brush.cpp	
+0x00455ee0	eax	radiant/brush.cpp	radiant/drag.cpp	CROSS
+0x00456ed0	eax	radiant/brush.cpp		
+0x00456fb0	edi	radiant/brush.cpp		
+0x00456ff0	eax,esi	radiant/brush.cpp	radiant/brush.cpp	
+0x00457bd0	esi	radiant/brush.cpp	radiant/entity.cpp	CROSS
+0x00457ce0	eax	radiant/brush.cpp	?;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/entity.cpp;radiant/map.cpp	CROSS
+0x00457dd0	eax	radiant/brush.cpp	?;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/entity.cpp;radiant/map.cpp	CROSS
+0x004581e0	esi	radiant/brush.cpp	radiant/brush.cpp;radiant/entity.cpp;radiant/select.cpp	CROSS
+0x00458440	eax	radiant/brush.cpp	?;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/csg.cpp;radiant/entity.cpp;radiant/map.cpp	CROSS
+0x00458640	edi	radiant/brush.cpp	radiant/XYWnd.cpp;radiant/entity.cpp	CROSS
+0x00458af0	edi	radiant/brush.cpp	radiant/Undo.cpp;radiant/brush.cpp;radiant/csg.cpp;radiant/entity.cpp	CROSS
+0x00458c00	ebx	radiant/brush.cpp	?;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/csg.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x00458d40	esi	radiant/brush.cpp	?;radiant/Undo.cpp	CROSS
+0x00458fa0	eax,ebx	radiant/brush.cpp	?;radiant/select.cpp;radiant/z.cpp	CROSS
+0x00459210	eax	radiant/brush.cpp	?;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/csg.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x004592f0	eax	radiant/brush.cpp	?;radiant/brush.cpp;radiant/csg.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x004593c0	eax	radiant/brush.cpp	radiant/brush.cpp;radiant/drag.cpp;radiant/select.cpp	CROSS
+0x00459430	edi	radiant/brush.cpp	radiant/csg.cpp;radiant/drag.cpp;radiant/select.cpp	CROSS
+0x00459530	ebx	radiant/brush.cpp	radiant/brush.cpp;radiant/select.cpp	CROSS
+0x004596a0	ebx	radiant/brush.cpp	radiant/select.cpp	CROSS
+0x004597f0	esi	radiant/brush.cpp	radiant/drag.cpp;radiant/select.cpp	CROSS
+0x004598b0	eax	radiant/brush.cpp	radiant/select.cpp	CROSS
+0x00459920	eax	radiant/brush.cpp	radiant/brush.cpp;radiant/select.cpp	CROSS
+0x004599b0	eax,edx	radiant/brush.cpp	radiant/brush.cpp	
+0x0045a030	ebx	radiant/brush.cpp	radiant/drag.cpp	CROSS
+0x0045a830	esi	radiant/brush.cpp	?;radiant/brush.cpp;radiant/select.cpp	CROSS
+0x0045af00	edi	radiant/brush.cpp	?;radiant/GfxWrapper.cpp;radiant/entity.cpp	CROSS
+0x0045afc0	eax	radiant/brush.cpp	radiant/Pmesh.cpp	CROSS
+0x0045b260	eax	radiant/brush.cpp	radiant/entity.cpp	CROSS
+0x0045b310	esi	radiant/brush.cpp	radiant/XYWnd.cpp;radiant/entity.cpp	CROSS
+0x0045d090	eax	radiant/brush.cpp	radiant/XYWnd.cpp;radiant/brush.cpp;radiant/z.cpp	CROSS
+0x0045ef60	edi	radiant/brush.cpp	radiant/select.cpp	CROSS
+0x0045f070	ebx	radiant/brush.cpp	?	
+0x0045f150	eax	radiant/brush.cpp	?	
+0x0045f240	eax	radiant/brush.cpp		
+0x0045f340	eax	radiant/brush.cpp	radiant/MainFrm.cpp;radiant/brush.cpp;radiant/select.cpp	CROSS
+0x0045f6a0	ebx	?	radiant/MainFrm.cpp;radiant/brush.cpp	
+0x0045f830	eax,edx	?		
+0x0045f860	eax	?	radiant/brush.cpp	
+0x00460160	esi	radiant/csg.cpp	radiant/csg.cpp	
+0x004602e0	esi	radiant/csg.cpp	radiant/csg.cpp	
+0x00460440	eax	radiant/csg.cpp		
+0x00460650	eax	radiant/csg.cpp		
+0x00460690	eax	radiant/csg.cpp	radiant/csg.cpp	
+0x004608a0	edi	?	radiant/drag.cpp	
+0x004609e0	eax,edx	radiant/drag.cpp	radiant/drag.cpp	
+0x00460fe0	eax,edx	radiant/drag.cpp	?;radiant/CamWnd.cpp;radiant/XYWnd.cpp	CROSS
+0x004623e0	eax	?	?;radiant/CamWnd.cpp;radiant/XYWnd.cpp	
+0x00462b10	eax	?	?	
+0x00462bf0	esi	?	?	
+0x00462d10	eax	?	?	
+0x00462f20	eax	?	?	
+0x00462fa0	eax	?	?	
+0x00462ff0	edi	radiant/eclass.cpp	radiant/eclass.cpp	
+0x00463240	eax	radiant/eclass.cpp	radiant/eclass.cpp	
+0x00463710	edx	radiant/eclass.cpp	radiant/eclass.cpp	
+0x00463e40	ebx	radiant/eclass.cpp	radiant/eclass.cpp;radiant/qe3.cpp	CROSS
+0x00464930	eax	radiant/eclass.cpp	radiant/brush.cpp;radiant/entity.cpp	CROSS
+0x00464bb0	eax	?	?;radiant/CamWnd.cpp;radiant/MainFrm.cpp;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/eclass.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/qe3.cpp;radiant/select.cpp;src/universal/g_vehicle_path.cpp	
+0x00464c60	esi	?	radiant/entity.cpp	
+0x004651e0	ebx	radiant/entity.cpp	radiant/entity.cpp	
+0x004655f0	esi	radiant/entity.cpp	?;radiant/Pmesh.cpp;radiant/VehicleDlg.cpp;radiant/brush.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/qe3.cpp	CROSS
+0x004657a0	eax	radiant/entity.cpp	?;radiant/Pmesh.cpp;radiant/VehicleDlg.cpp;radiant/brush.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/qe3.cpp	CROSS
+0x00465920	eax	radiant/entity.cpp	radiant/entity.cpp;radiant/map.cpp	CROSS
+0x00465c60	eax	radiant/entity.cpp	?;radiant/Pmesh.cpp;radiant/VehicleDlg.cpp;radiant/brush.cpp;radiant/entity.cpp;radiant/map.cpp	CROSS
+0x00465d10	eax	radiant/entity.cpp		
+0x00465d50	eax	radiant/entity.cpp	radiant/brush.cpp;radiant/entity.cpp;src/universal/g_vehicle_path.cpp	CROSS
+0x00465d80	eax	radiant/entity.cpp	?;radiant/MainFrm.cpp;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/entity.cpp;radiant/select.cpp;src/universal/g_vehicle_path.cpp	CROSS
+0x00465de0	eax	radiant/entity.cpp	radiant/select.cpp	CROSS
+0x00465e10	eax	radiant/entity.cpp	?;radiant/ModelDlg.cpp;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x00465eb0	eax	radiant/entity.cpp	radiant/select.cpp	CROSS
+0x00465f20	eax	radiant/entity.cpp	radiant/select.cpp	CROSS
+0x00465f90	eax	radiant/entity.cpp	radiant/select.cpp	CROSS
+0x00465fd0	eax	radiant/entity.cpp	radiant/select.cpp	CROSS
+0x00466030	eax	radiant/entity.cpp	radiant/select.cpp	CROSS
+0x00466060	edx	radiant/entity.cpp	radiant/Pmesh.cpp	CROSS
+0x004660d0	ebx	radiant/entity.cpp	radiant/entity.cpp	
+0x00466110	esi	radiant/entity.cpp	radiant/Undo.cpp;radiant/entity.cpp;radiant/map.cpp	CROSS
+0x00466180	esi	radiant/entity.cpp	?;radiant/entity.cpp	
+0x004661f0	eax	radiant/entity.cpp	?;radiant/MainFrm.cpp;radiant/Undo.cpp;radiant/eclass.cpp;radiant/entity.cpp;radiant/map.cpp	CROSS
+0x004663b0	eax	radiant/entity.cpp	?;radiant/Undo.cpp	CROSS
+0x004668f0	eax	radiant/entity.cpp	radiant/entity.cpp;radiant/qe3.cpp	CROSS
+0x00466970	ebx	radiant/entity.cpp	radiant/map.cpp	CROSS
+0x004671b0	eax	radiant/entity.cpp	?;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/csg.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x00467240	esi	radiant/entity.cpp	?;radiant/brush.cpp;radiant/csg.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x004672e0	eax	radiant/entity.cpp	radiant/Undo.cpp	CROSS
+0x00467470	eax	radiant/entity.cpp	radiant/brush.cpp;radiant/entity.cpp	CROSS
+0x004675e0	esi	radiant/entity.cpp	radiant/XYWnd.cpp	CROSS
+0x00467640	edi	radiant/entity.cpp	?;radiant/brush.cpp;radiant/entity.cpp	CROSS
+0x004678c0	eax	radiant/entity.cpp	?;radiant/MainFrm.cpp;radiant/Pmesh.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x00467a70	eax	radiant/entity.cpp	radiant/brush.cpp	CROSS
+0x00467be0	ebx,edi	radiant/entity.cpp	radiant/entity.cpp	
+0x00467d00	esi	radiant/entity.cpp	radiant/CamWnd.cpp;radiant/MainFrm.cpp	CROSS
+0x00467ec0	edx	?	?	
+0x00468260	eax	radiant/map.cpp	radiant/eclass.cpp;radiant/map.cpp	CROSS
+0x00469100	edx	radiant/map.cpp	radiant/entity.cpp	CROSS
+0x00469740	esi	radiant/map.cpp	radiant/XYWnd.cpp;radiant/map.cpp	CROSS
+0x0046adf0	eax	radiant/map.cpp		
+0x0046bcd0	eax	?	?	
+0x0046be60	esi	?	?	
+0x0046bf20	eax	?	?	
+0x0046c090	edi	?		
+0x0046c2c0	edi	?	radiant/MainFrm.cpp	
+0x0046c3e0	ebx	?	?	
+0x0046cb10	eax	radiant/qe3.cpp	?;radiant/TexWnd.cpp;radiant/eclass.cpp;radiant/entity.cpp	CROSS
+0x0046d0b0	eax	radiant/qe3.cpp		
+0x0046d0f0	edi	radiant/qe3.cpp	radiant/qe3.cpp	
+0x0046d710	ebx	radiant/qe3.cpp	?;radiant/XYWnd.cpp;radiant/map.cpp;radiant/qe3.cpp;radiant/select.cpp	CROSS
+0x0046e280	eax	?	radiant/eclass.cpp	
+0x0046e370	esi	?	radiant/MainFrm.cpp	
+0x0046e930	eax	radiant/select.cpp	?;radiant/select.cpp	
+0x0046f430	ebx	radiant/select.cpp	radiant/select.cpp	
+0x0046f6b0	edx	radiant/select.cpp	?;radiant/drag.cpp	CROSS
+0x00470a50	eax	radiant/select.cpp	radiant/CamWnd.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x00470c50	eax	radiant/select.cpp	?;radiant/CamWnd.cpp;radiant/MainFrm.cpp;radiant/XYWnd.cpp;radiant/select.cpp	CROSS
+0x00470d30	eax	radiant/select.cpp	radiant/MainFrm.cpp	CROSS
+0x00470ef0	eax	radiant/select.cpp	radiant/MainFrm.cpp	CROSS
+0x00473810	eax	radiant/select.cpp	radiant/select.cpp	
+0x00474d40	eax	?	?	
+0x00474f10	eax	?	radiant/select.cpp	
+0x00474fa0	eax	?	?	
+0x00475170	eax	?	?	
+0x004753b0	eax	?	?	
+0x004755b0	eax	?	radiant/drag.cpp	
+0x00475cc0	eax	radiant/win_dlg.cpp	?	
+0x00475e50	edi	radiant/win_dlg.cpp	?	
+0x004772c0	esi	?	?	
+0x00477390	eax	?	radiant/MainFrm.cpp	
+0x00477580	eax	?	?;radiant/XYWnd.cpp	
+0x00477ba0	eax	radiant/win_ent.cpp	?;radiant/brush.cpp;radiant/select.cpp	CROSS
+0x00479530	esi	?	?	
+0x00479a10	ebx,edi	?		
+0x0047a1d0	eax	?	?;radiant/MainFrm.cpp	
+0x0047a4f0	esi	radiant/win_qe3.cpp	?;radiant/win_ent.cpp	CROSS
+0x0047aed0	eax	?	?	
+0x0047b040	eax	?	?	
+0x0047c650	eax,edi,esi	src/universal/assertive.cpp	src/universal/assertive.cpp	
+0x0047c820	esi	src/universal/assertive.cpp		
+0x0047c9f0	edi	src/universal/assertive.cpp		
+0x0047d1b0	ebx	src/universal/assertive.cpp	src/universal/assertive.cpp	
+0x0047d8b0	edx	?	?	
+0x0047db10	eax	?	src/universal/com_files.cpp;src/universal/com_memory.cpp;src/xanim/xmodel.cpp;src/xanim/xmodel_load_obj.cpp	
+0x0047db70	eax	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x0047dc40	eax	src/universal/com_files.cpp	?;src/universal/com_files.cpp	
+0x0047dd40	eax	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x0047ddf0	eax	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x0047e700	eax,edx	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x0047e760	eax	src/universal/com_files.cpp		
+0x0047e9e0	edi	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x0047f770	eax	src/universal/com_files.cpp	?	
+0x004803e0	eax,edi	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x00480e50	eax,edx	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x00480f60	eax	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x00481040	ebx	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x004818f0	esi	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x00481910	eax	src/universal/com_files.cpp	src/universal/com_files.cpp	
+0x004825a0	eax	?		
+0x00482600	eax	?	src/universal/com_math.cpp	
+0x00482670	eax	?		
+0x004826a0	eax	?		
+0x004826e0	eax,esi	?	?;src/xanim/dobj.cpp;src/xanim/xmodel_load_obj.cpp	
+0x00482910	ebx	?	src/universal/com_math.cpp;src/xanim/dobj.cpp	
+0x004829d0	esi	src/universal/com_math.cpp		
+0x00482c60	eax	src/universal/com_math.cpp		
+0x00482da0	eax	src/universal/com_math.cpp		
+0x00482ef0	eax	src/universal/com_math.cpp		
+0x004832c0	edi	src/universal/com_math.cpp		
+0x00483690	esi	src/universal/com_math.cpp		
+0x00483730	esi	src/universal/com_math.cpp		
+0x00483790	eax	src/universal/com_math.cpp		
+0x004837f0	eax	src/universal/com_math.cpp		
+0x00483830	edx,esi	src/universal/com_math.cpp		
+0x00483900	eax	src/universal/com_math.cpp		
+0x00483950	eax	src/universal/com_math.cpp		
+0x004839b0	esi	src/universal/com_math.cpp	src/universal/linearmapping.cpp	CROSS
+0x00483b50	esi	src/universal/com_math.cpp	?;radiant/Winding.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/entity.cpp;src/universal/com_math.cpp;src/universal/g_vehicle_path.cpp	CROSS
+0x00483be0	esi	src/universal/com_math.cpp	radiant/Pmesh.cpp;src/universal/com_math.cpp;src/xanim/dobj.cpp	CROSS
+0x00483c50	esi	src/universal/com_math.cpp		
+0x00483cf0	edi	src/universal/com_math.cpp	?	
+0x00483d90	edi	src/universal/com_math.cpp		
+0x00483e10	eax	src/universal/com_math.cpp		
+0x00483ea0	eax	src/universal/com_math.cpp		
+0x00483f40	ebx,esi	src/universal/com_math.cpp	radiant/brush.cpp	CROSS
+0x00483fd0	ebx,esi	src/universal/com_math.cpp	radiant/Pmesh.cpp;radiant/brush.cpp	CROSS
+0x00484060	eax	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00484360	eax	src/universal/com_math.cpp		
+0x004843e0	eax,edi	src/universal/com_math.cpp		
+0x00484640	esi	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00484720	esi	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x004847f0	esi	src/universal/com_math.cpp	?;src/universal/com_math.cpp;src/universal/g_vehicle_path.cpp	CROSS
+0x00484950	esi	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00484a70	edx,esi	src/universal/com_math.cpp	?;radiant/Pmesh.cpp;radiant/brush.cpp;radiant/entity.cpp;radiant/select.cpp;src/universal/com_math.cpp;src/universal/g_vehicle_path.cpp	CROSS
+0x00484ba0	edx	src/universal/com_math.cpp	?;src/universal/com_math.cpp	
+0x00484c00	eax,edi	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00484d10	eax,edi	src/universal/com_math.cpp		
+0x00484da0	eax,esi	src/universal/com_math.cpp	?	
+0x00484e60	eax,edx	src/universal/com_math.cpp		
+0x00484f70	edx	src/universal/com_math.cpp	radiant/Pmesh.cpp	CROSS
+0x00485040	esi	src/universal/com_math.cpp	?;radiant/CamWnd.cpp;radiant/MainFrm.cpp;radiant/brush.cpp;radiant/drag.cpp;radiant/select.cpp	CROSS
+0x00485110	eax,edx	src/universal/com_math.cpp		
+0x004851a0	eax,edx	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00485280	eax	src/universal/com_math.cpp		
+0x00485980	edi,esi	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00485aa0	edi,esi	src/universal/com_math.cpp		
+0x00485c40	eax	src/universal/com_math.cpp		
+0x00485c90	eax,esi	src/universal/com_math.cpp		
+0x00486200	ebx,esi	src/universal/com_math.cpp	src/universal/com_math.cpp;src/xanim/xmodel_load_obj.cpp	CROSS
+0x004863e0	ebx,edi	src/universal/com_math.cpp	src/universal/g_vehicle_path.cpp	CROSS
+0x00486480	ebx,edi	src/universal/com_math.cpp		
+0x00486530	eax	src/universal/com_math.cpp		
+0x004865a0	edx	src/universal/com_math.cpp		
+0x00486600	eax,edx	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x004866a0	esi	src/universal/com_math.cpp		
+0x00486820	eax	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00486900	eax	src/universal/com_math.cpp		
+0x00486940	esi	src/universal/com_math.cpp		
+0x00486a00	eax	src/universal/com_math.cpp		
+0x00486a50	eax	src/universal/com_math.cpp		
+0x00486ae0	edx,esi	src/universal/com_math.cpp		
+0x00486b30	edx	src/universal/com_math.cpp		
+0x00486b90	edx	src/universal/com_math.cpp		
+0x00486c00	edx	src/universal/com_math.cpp		
+0x00486c70	esi	src/universal/com_math.cpp		
+0x00486d90	esi	src/universal/com_math.cpp		
+0x00486f00	eax,esi	src/universal/com_math.cpp		
+0x00487450	eax	src/universal/com_math.cpp		
+0x00487500	eax	src/universal/com_math.cpp		
+0x00487620	edi,esi	src/universal/com_math.cpp		
+0x00487770	edi,esi	src/universal/com_math.cpp		
+0x00487910	edx	src/universal/com_math.cpp	?;radiant/Pmesh.cpp;radiant/brush.cpp;radiant/entity.cpp	CROSS
+0x00487ae0	esi	src/universal/com_math.cpp		
+0x00487c90	edx	src/universal/com_math.cpp		
+0x00487d00	edx	src/universal/com_math.cpp		
+0x00487d50	edx	src/universal/com_math.cpp	radiant/XYWnd.cpp;radiant/select.cpp;src/universal/com_math.cpp	CROSS
+0x00487e10	eax,edx,esi	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00487ed0	eax	src/universal/com_math.cpp		
+0x00487ff0	eax	src/universal/com_math.cpp		
+0x00488040	eax	src/universal/com_math.cpp	radiant/brush.cpp;radiant/map.cpp	CROSS
+0x004880e0	eax	src/universal/com_math.cpp	radiant/brush.cpp;radiant/entity.cpp;radiant/map.cpp	CROSS
+0x00488200	eax	src/universal/com_math.cpp		
+0x00488320	eax	src/universal/com_math.cpp	radiant/brush.cpp	CROSS
+0x00488ac0	eax,edi,edx	src/universal/com_math.cpp	radiant/Pmesh.cpp;radiant/brush.cpp;radiant/select.cpp	CROSS
+0x00488b70	esi	src/universal/com_math.cpp	src/universal/com_math.cpp	
+0x00488f00	edi	src/universal/com_math.cpp		
+0x00489060	eax,edx	src/universal/com_math.cpp		
+0x00489260	eax,ebx	src/universal/com_math.cpp	radiant/brush.cpp;src/universal/com_math.cpp	CROSS
+0x00489350	eax,esi	src/universal/com_math.cpp		
+0x004893a0	edx	src/universal/com_math.cpp		
+0x00489410	eax	src/universal/com_math.cpp		
+0x00489590	eax	src/universal/com_math.cpp		
+0x00489900	esi	src/universal/com_math.cpp		
+0x00489dd0	ebx	src/universal/com_memory.cpp	?;src/universal/com_files.cpp;src/universal/dvar.cpp	CROSS
+0x0048a0a0	eax	src/universal/com_memory.cpp	src/universal/com_memory.cpp;src/xanim/xmodel.cpp;src/xanim/xmodel_load_obj.cpp	CROSS
+0x0048a170	eax,esi	src/universal/com_memory.cpp	src/xanim/xmodel.cpp;src/xanim/xmodel_load_obj.cpp	CROSS
+0x0048a440	eax	src/universal/com_memory.cpp		
+0x0048a740	eax	src/universal/com_memory.cpp		
+0x0048a870	eax	src/universal/com_memory.cpp	src/universal/com_memory.cpp	
+0x0048af50	eax	?	?	
+0x0048b200	edx	?	?;src/universal/com_files.cpp	
+0x0048b6f0	eax	?		
+0x0048b7e0	eax	?	src/universal/dvar.cpp	
+0x0048b930	ebx	?	src/universal/dvar.cpp	
+0x0048b9b0	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048bab0	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048bb00	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048bb50	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048bce0	ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048bf60	ebx	src/universal/dvar.cpp		
+0x0048c1a0	edi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048c470	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048c4d0	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048c530	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048c5a0	edi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048c630	edi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048c6c0	edi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048c760	ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048ca50	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048cc10	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048cc70	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048ccd0	ebx	src/universal/dvar.cpp		
+0x0048cd10	esi	src/universal/dvar.cpp		
+0x0048cd50	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048d0a0	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048d350	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048d720	esi	src/universal/dvar.cpp		
+0x0048d7d0	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048d9b0	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048da90	eax,ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048e770	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048ea40	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048eaf0	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048ecf0	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048eed0	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048efc0	edi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048f150	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048f2b0	eax	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048f7c0	eax	src/universal/dvar.cpp	?;src/universal/com_files.cpp;src/universal/com_memory.cpp;src/universal/dvar.cpp	CROSS
+0x0048fe70	esi	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x0048ffa0	ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x004900e0	ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x00490220	ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x00490370	ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x004904d0	ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x00490830	ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x00491210	eax,ebx	src/universal/dvar.cpp	src/universal/dvar.cpp	
+0x00491c80	ebx,edi	?	src/universal/g_vehicle_path.cpp	
+0x004920d0	eax,edx	src/universal/g_vehicle_path.cpp	src/universal/g_vehicle_path.cpp	
+0x00492130	eax	src/universal/g_vehicle_path.cpp	?	
+0x00492270	esi	src/universal/g_vehicle_path.cpp	src/universal/g_vehicle_path.cpp	
+0x004929b0	edx	src/universal/g_vehicle_path.cpp		
+0x00492a00	edx	src/universal/g_vehicle_path.cpp		
+0x00492a50	edx	src/universal/g_vehicle_path.cpp	src/universal/g_vehicle_path.cpp	
+0x00492af0	ebx	src/universal/g_vehicle_path.cpp	?	
+0x00492c50	eax	src/universal/g_vehicle_path.cpp	?	
+0x00492d00	edx	src/universal/g_vehicle_path.cpp	?	
+0x00493850	eax,edx	?	src/universal/g_vehicle_path.cpp	
+0x00493af0	ebx,edx	?		
+0x00494000	eax	?	?;src/universal/linearmapping.cpp	
+0x004941f0	edx,esi	?	src/universal/linearmapping.cpp	
+0x00494260	eax	src/universal/linearmapping.cpp	src/universal/linearmapping.cpp	
+0x00494360	eax,edx	src/universal/linearmapping.cpp	radiant/brush.cpp	CROSS
+0x00494400	esi	src/universal/linearmapping.cpp	radiant/brush.cpp	CROSS
+0x00494480	eax,edx	?		
+0x00494d20	ebx	src/universal/q_parse.cpp	?	
+0x00494de0	ebx	src/universal/q_parse.cpp	?	
+0x00494ea0	eax	src/universal/q_parse.cpp	src/universal/q_parse.cpp	
+0x00494f90	edi,edx	src/universal/q_parse.cpp	src/universal/q_parse.cpp	
+0x00495660	eax	?		
+0x004958e0	eax	?	?;src/universal/splines/splines.cpp	
+0x004959d0	eax	?	?	
+0x00495a80	eax	?		
+0x00495d90	eax	src/universal/q_shared.cpp	radiant/MainFrm.cpp;src/universal/q_shared.cpp	CROSS
+0x00495e10	eax	src/universal/q_shared.cpp		
+0x00496430	edi	src/universal/q_shared.cpp	?;radiant/XYWnd.cpp;src/universal/com_files.cpp;src/universal/dvar.cpp;src/universal/q_shared.cpp	CROSS
+0x00496530	eax,edx	src/universal/q_shared.cpp	?;src/universal/com_files.cpp	CROSS
+0x00496590	eax,edx	src/universal/q_shared.cpp		
+0x004968b0	eax	src/universal/q_shared.cpp		
+0x004969a0	eax	src/universal/q_shared.cpp		
+0x00497700	ebx,edi	src/universal/q_shared.cpp	?;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/draw.cpp;src/universal/q_shared.cpp	CROSS
+0x004977a0	ebx,esi	src/universal/q_shared.cpp	radiant/brush.cpp;radiant/select.cpp;src/universal/q_shared.cpp	CROSS
+0x00497830	eax,edx	src/universal/q_shared.cpp		
+0x004978a0	ebx,edi	src/universal/q_shared.cpp	radiant/CamWnd.cpp;radiant/entity.cpp;radiant/map.cpp;radiant/select.cpp	CROSS
+0x00497950	ebx,esi	src/universal/q_shared.cpp	?;radiant/CamWnd.cpp;radiant/map.cpp;radiant/select.cpp;src/universal/q_shared.cpp	CROSS
+0x00497ac0	eax,edx	src/universal/q_shared.cpp		
+0x00497b30	ebx,edi	src/universal/q_shared.cpp		
+0x00497bd0	eax,edx	src/universal/q_shared.cpp		
+0x00497c50	ebx,edi	src/universal/q_shared.cpp		
+0x00497d70	eax,edx	src/universal/q_shared.cpp		
+0x00498610	eax	?		
+0x004986c0	eax	?		
+0x004986f0	esi	?	?	
+0x00498750	esi	?	?	
+0x004988d0	edx,esi	?		
+0x00498a40	edx,esi	?		
+0x00498ad0	esi	?	?	
+0x00498bd0	eax	?		
+0x00498c10	eax,edx	?		
+0x00498c60	eax,edx	?		
+0x00498ca0	eax	?	?	
+0x00498d80	edx,esi	?	?	
+0x00498ef0	eax	?		
+0x00498f70	eax,edx	?		
+0x00499020	eax	?		
+0x004991a0	eax	?		
+0x00499210	esi	?	?	
+0x004992b0	eax	?	?	
+0x00499550	esi	?		
+0x00499630	edi,esi	?		
+0x004997b0	ebx,esi	?	?;src/universal/splines/splines.cpp	
+0x00499870	eax	?		
+0x00499890	edi,esi	?	src/universal/splines/splines.cpp	
+0x00499930	esi	?		
+0x00499980	esi	?		
+0x004999c0	eax	?	?	
+0x00499a40	eax,edx	?		
+0x00499a70	eax	?	?	
+0x00499c30	eax	?		
+0x0049a0b0	eax	?	src/universal/splines/splines.cpp	
+0x0049a0e0	eax	?		
+0x0049a210	eax	?		
+0x0049a420	eax	?	?;src/universal/splines/splines.cpp	
+0x0049a6f0	eax	src/universal/splines/splines.cpp	?	
+0x0049a8c0	eax	src/universal/splines/splines.cpp		
+0x0049a910	ebx	src/universal/splines/splines.cpp		
+0x0049be90	esi	?	?;src/universal/splines/splines.cpp	
+0x0049c2b0	eax	?	?;radiant/MainFrm.cpp;src/universal/splines/splines.cpp	
+0x0049c580	eax	?	?	
+0x0049ef00	esi	?	src/universal/splines/splines.cpp	
+0x0049ef90	eax	?		
+0x0049efe0	eax	?		
+0x0049f090	esi	?		
+0x0049f0c0	eax	?	?	
+0x0049f170	esi	?		
+0x0049f1a0	eax	?		
+0x0049f250	esi	?		
+0x0049f290	esi	?	?	
+0x0049f320	eax	?		
+0x0049f370	eax	?	?;src/universal/splines/splines.cpp	
+0x0049f420	eax	?	?	
+0x0049f4d0	eax	?	?	
+0x0049f580	eax	?	?	
+0x0049f660	eax	?	?	
+0x0049f740	eax	?	?	
+0x0049f800	eax,ebx	?	?	
+0x0049f870	eax	?	?	
+0x0049fb60	eax	?	?	
+0x0049fbc0	eax	?	?	
+0x0049fc60	edi	?	?	
+0x0049fda0	eax,edx	?		
+0x0049fe50	eax,edx	?		
+0x0049fec0	eax	?		
+0x004a02b0	edi	src/universal/splines/util_str.cpp	?;src/universal/splines/util_str.cpp	
+0x004a10f0	edi	?		
+0x004a1170	edi	?	src/xanim/dobj.cpp	
+0x004a1550	edi	?	src/xanim/dobj.cpp	
+0x004a16d0	ebx	?	src/xanim/dobj.cpp	
+0x004a1750	eax	?	src/xanim/dobj.cpp	
+0x004a17f0	eax	?	src/xanim/dobj.cpp	
+0x004a1890	eax	src/xanim/dobj.cpp	src/xanim/dobj.cpp	
+0x004a2590	eax	src/xanim/dobj.cpp		
+0x004a4130	eax	src/xanim/dobj.cpp	src/xanim/dobj.cpp	
+0x004a41d0	esi	src/xanim/dobj.cpp	src/xanim/dobj.cpp	
+0x004a48e0	ebx	src/xanim/dobj.cpp		
+0x004a4af0	eax,esi	src/xanim/dobj.cpp		
+0x004a5140	eax,edi	src/xanim/dobj.cpp	?	
+0x004a5280	eax	src/xanim/dobj.cpp	?	
+0x004a57e0	esi	src/xanim/dobj.cpp	?	
+0x004a58c0	eax	src/xanim/dobj.cpp	?	
+0x004a5af0	eax	src/xanim/dobj.cpp	src/xanim/dobj.cpp	
+0x004a6a40	esi	src/xanim/dobj.cpp		
+0x004a7130	eax	?		
+0x004a7180	eax	?		
+0x004a71d0	esi	?		
+0x004a7270	esi	?	src/script/scr_memorytree.cpp	
+0x004a75e0	esi	src/script/scr_memorytree.cpp	src/script/scr_memorytree.cpp	
+0x004a76a0	eax	src/script/scr_memorytree.cpp	src/script/scr_memorytree.cpp	
+0x004a7980	eax	src/script/scr_memorytree.cpp	src/script/scr_memorytree.cpp	
+0x004a7b70	eax	src/script/scr_memorytree.cpp	src/script/scr_memorytree.cpp	
+0x004a7de0	esi	src/script/scr_memorytree.cpp	?;src/script/scr_memorytree.cpp	
+0x004a80c0	eax	src/script/scr_memorytree.cpp	src/script/scr_stringlist.cpp	CROSS
+0x004a8500	eax	src/script/scr_memorytree.cpp		
+0x004a85c0	eax	src/script/scr_memorytree.cpp	src/script/scr_stringlist.cpp	CROSS
+0x004a8740	edi	?	src/script/scr_stringlist.cpp	
+0x004a8780	eax	?		
+0x004a87b0	eax	src/script/scr_stringlist.cpp	?;src/script/scr_memorytree.cpp;src/script/scr_stringlist.cpp;src/xanim/dobj.cpp;src/xanim/xmodel.cpp;src/xanim/xmodel_utils.cpp	CROSS
+0x004a88c0	eax	src/script/scr_stringlist.cpp	src/script/scr_stringlist.cpp	
+0x004a8920	esi	src/script/scr_stringlist.cpp	src/script/scr_stringlist.cpp	
+0x004a8a10	edx	src/script/scr_stringlist.cpp	src/script/scr_stringlist.cpp	
+0x004a8fc0	eax	src/script/scr_stringlist.cpp	src/xanim/dobj.cpp	CROSS
+0x004a98c0	edx	src/script/scr_stringlist.cpp		
+0x004a98f0	edx	src/script/scr_stringlist.cpp		
+0x004a99d0	edx	src/script/scr_stringlist.cpp		
+0x004a9a10	edx	src/script/scr_stringlist.cpp		
+0x004a9b00	edi	src/script/scr_stringlist.cpp		
+0x004a9ba0	eax	src/script/scr_stringlist.cpp	?;src/script/scr_stringlist.cpp;src/xanim/dobj.cpp;src/xanim/xmodel.cpp	CROSS
+0x004a9ed0	edi	src/script/scr_stringlist.cpp	src/script/scr_stringlist.cpp	
+0x004a9f90	esi	src/script/scr_stringlist.cpp		
+0x004aa1e0	ebx	src/script/scr_stringlist.cpp	src/script/scr_stringlist.cpp	
+0x004aa310	ebx	src/script/scr_stringlist.cpp		
+0x004aa560	eax	src/script/scr_stringlist.cpp	?	
+0x004aa6e0	eax	src/xanim/xmodel.cpp		
+0x004aa7a0	eax	src/xanim/xmodel.cpp	src/xanim/xmodel.cpp;src/xanim/xmodel_load_obj.cpp	CROSS
+0x004aa8c0	edx	src/xanim/xmodel.cpp	src/xanim/xmodel.cpp	
+0x004aaa40	eax	src/xanim/xmodel.cpp		
+0x004aaa70	eax	src/xanim/xmodel.cpp		
+0x004aaba0	eax	src/xanim/xmodel.cpp	src/xanim/dobj.cpp	CROSS
+0x004aae50	eax,esi	src/xanim/xmodel_load_obj.cpp	src/xanim/xmodel_load_obj.cpp	
+0x004ab610	eax	src/xanim/xmodel_load_obj.cpp	src/xanim/xmodel_load_obj.cpp	
+0x004abb00	eax	src/xanim/xmodel_load_obj.cpp	src/xanim/xmodel_load_obj.cpp	
+0x004ac490	edi	src/xanim/xmodel_load_obj.cpp	src/xanim/xmodel_load_obj.cpp	
+0x004ac860	eax	src/xanim/xmodel_load_obj.cpp	src/xanim/xmodel_load_obj.cpp	
+0x004ac8d0	edi	src/xanim/xmodel_load_obj.cpp	src/xanim/xmodel_load_obj.cpp	
+0x004ac9f0	eax	src/xanim/xmodel_load_obj.cpp		
+0x004ad0f0	eax,edi,edx	?	?	
+0x004ad3b0	eax	?		
+0x004ad4a0	eax	?		
+0x004ad790	eax	?	?	
+0x004ad7c0	eax	?	?	
+0x004adda0	edx	?	?	
+0x004ade30	esi	?	?	
+0x004adfa0	ebx	?	?	
+0x004ae960	eax	?	?	
+0x004ae9d0	eax	?	?	
+0x004af590	esi	?	?	
+0x004af650	eax	?	?	
+0x004af690	eax,esi	?	?	
+0x004b0140	eax	?	?	
+0x004b0850	eax	?	?	
+0x004b0d40	ebx	?	?	
+0x004b0de0	ebx	?	?	
+0x004b0f90	ebx	?	?	
+0x004b10e0	edx	?	?	
+0x004b1140	edi,edx	?	?	
+0x004b11b0	eax	?	?	
+0x004b1280	eax	?	?	
+0x004b14c0	ebx,edx	?	?	
+0x004b1550	esi	?	?	
+0x004b1750	eax	?	?	
+0x004b1d40	eax	?	?	
+0x004b1db0	eax	?	?	
+0x004b2020	eax	?	?	
+0x004b20c0	eax	?	?	
+0x004b22b0	eax	?	?	
+0x004b2530	eax	?	?	
+0x004b2a00	eax	?	?	
+0x004b2a80	eax	?	?	
+0x004b2af0	edx	?	?	
+0x004b2b80	eax,edx,esi	?		
+0x004b2c70	eax,edx	?	?	
+0x004b30a0	eax	?	?;src/universal/com_files.cpp	
+0x004b3430	esi	?	?	
+0x004b3470	esi	?	?;src/universal/com_files.cpp	
+0x004b3500	esi	?	src/universal/com_files.cpp	
+0x004b3670	esi	?	?	
+0x004b3810	eax	?	src/universal/com_files.cpp	
+0x004b3920	eax	?	src/universal/com_files.cpp	
+0x004b3b10	eax	?		
+0x004b3ba0	edi	?	?;src/universal/com_files.cpp	
+0x004b3c00	eax	?		
+0x004b6ba0	eax	?	?	
+0x004bcf80	eax	?	?	
+0x004c3490	eax	?	?	
+0x004c6b10	eax,edx	?	?	
+0x004cd7d0	edi	?	?	
+0x004ce620	eax,ebx	?	?	
+0x004d94e0	ebx	libcmt.lib	?	
+0x004d9535	eax	libcmt.lib	?;libcmt.lib	
+0x004d95b1	ebx	libcmt.lib	?	
+0x004da2f0	eax	?	libcmt.lib	
+0x004db328	eax	libcmt.lib	?	
+0x004db477	edi	?	?	
+0x004db796	esi	?	?	
+0x004dc1d6	edx,esi	libcmt.lib	?	
+0x004dcafc	esi	?	?	
+0x004dcb70	eax	libcmt.lib	?;libcmt.lib;libs/cmdlib/cmdlib.cpp;nafxcw.lib;radiant/CamWnd.cpp;radiant/MainFrm.cpp;radiant/Pmesh.cpp;radiant/XYWnd.cpp;radiant/brush.cpp;radiant/eclass.cpp;radiant/map.cpp;radiant/qe3.cpp;radiant/select.cpp;radiant/z.cpp;src/script/scr_stringlist.cpp;src/universal/assertive.cpp;src/universal/com_files.cpp;src/universal/dvar.cpp;src/universal/q_shared.cpp;src/universal/splines/util_str.cpp;src/xanim/xmodel_load_obj.cpp	CROSS
+0x004dd9d7	eax	libcmt.lib	libcmt.lib	
+0x004dddf7	eax	libcmt.lib		
+0x004de23a	eax	?	?;libcmt.lib	
+0x004deb5b	eax	libcmt.lib	libcmt.lib	
+0x004df1fd	eax	libcmt.lib	libcmt.lib	
+0x004dfe03	eax	libcmt.lib	?	
+0x004dfe27	eax,edi	libcmt.lib	?	
+0x004e18f0	edx	libcmt.lib	libcmt.lib	
+0x004e1957	edx	libcmt.lib	?;libcmt.lib	
+0x004e1ac0	eax	libcmt.lib	?;libcmt.lib	
+0x004e1ad7	eax	libcmt.lib	?;libcmt.lib	
+0x004e1b4c	eax	libcmt.lib	?	
+0x004e1b65	edx	libcmt.lib	?	
+0x004e2d75	edx	libcmt.lib	?;libcmt.lib	
+0x004e65e5	eax	?		
+0x004e7de1	eax	libcmt.lib	libcmt.lib	
+0x004e8688	esi	libcmt.lib	libcmt.lib	
+0x004e9662	esi	libcmt.lib	libcmt.lib	
+0x004e9812	eax	libcmt.lib	?	
+0x004e9b7b	edi	?	?	
+0x004ea31a	eax	libcmt.lib	?;libcmt.lib	
+0x004ea33f	eax	libcmt.lib	?	
+0x004ea364	eax,edi	libcmt.lib	?	
+0x004eacc5	eax,edi	libcmt.lib	libcmt.lib	
+0x004eace2	eax	libcmt.lib	libcmt.lib	
+0x004eadfc	eax	libcmt.lib	libcmt.lib	
+0x004edaf1	eax,edx	libcmt.lib	libcmt.lib	
+0x004edb47	edx	libcmt.lib	libcmt.lib	
+0x004edbc0	eax	libcmt.lib	?;libcmt.lib	
+0x004ee3c8	esi	libcmt.lib	libcmt.lib	
+0x004ef32c	edx	libcmt.lib	libcmt.lib	
+0x004f0254	edi	libcmt.lib	libcmt.lib	
+0x004f0d75	ebx	libcmt.lib	libcmt.lib	
+0x004f0e07	ebx	libcmt.lib	libcmt.lib	
+0x004f17e1	eax	libcmt.lib	libcmt.lib	
+0x004f7d06	eax	nafxcw.lib	?;nafxcw.lib	
+0x004f7d2c	eax	nafxcw.lib	?;nafxcw.lib	
+0x004fa93b	edi	?		
+0x004faad5	ebx	?		
+0x004fc0ea	edi	?		
+0x004fd108	ebx	?		
+0x0050256e	edi	?		
+0x005048ca	eax	nafxcw.lib	nafxcw.lib	
+0x005049b1	eax	nafxcw.lib	nafxcw.lib	
+0x00504c63	eax	nafxcw.lib		
+0x00504e48	eax	nafxcw.lib		
+0x00506f7f	edi,esi	?		
+0x0050a5dd	ebx	?		
+0x0050a777	ebx	?		
+0x0050a8d5	ebx	?		
+0x0051c032	eax,edi	?		

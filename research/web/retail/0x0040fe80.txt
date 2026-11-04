@@ -1,0 +1,63 @@
+function 0x0040fe80  size 104  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  0040fe80  55                       push   ebp
+  0040fe81  8bec                     mov    ebp, esp
+  0040fe83  83ec10                   sub    esp, 0x10
+  0040fe86  56                       push   esi
+  0040fe87  6a01                     push   1
+  0040fe89  8bf1                     mov    esi, ecx
+  0040fe8b  e8d9c10e00               call   0x4fc069                       ; ?UpdateData@CWnd@@QAEHH@Z [lib]
+  0040fe90  8b4e1c                   mov    ecx, dword ptr [esi + 0x1c]
+  0040fe93  8d45f0                   lea    eax, [ebp - 0x10]
+  0040fe96  50                       push   eax
+  0040fe97  51                       push   ecx
+  0040fe98  ff15a8885200             call   dword ptr [0x5288a8]           ; imported function (pointer at 0x005288a8)
+  0040fe9e  6a10                     push   0x10                           ; 16 (an assert line number if next to a file string)
+  0040fea0  8d55f0                   lea    edx, [ebp - 0x10]
+  0040fea3  52                       push   edx
+  0040fea4  68d40d5400               push   0x540dd4                       ; 'Radiant::TextureFindWindow'
+  0040fea9  e892a20600               call   0x47a140                       ; SaveRegistryInfo
+  0040feae  8b9680000000             mov    edx, dword ptr [esi + 0x80]
+  0040feb4  85d2                     test   edx, edx
+  0040feb6  0f95c0                   setne  al
+  0040feb9  50                       push   eax
+  0040feba  8b467c                   mov    eax, dword ptr [esi + 0x7c]
+  0040febd  85c0                     test   eax, eax
+  0040febf  8b4678                   mov    eax, dword ptr [esi + 0x78]
+  0040fec2  0f95c1                   setne  cl
+  0040fec5  51                       push   ecx
+  0040fec6  8b4e70                   mov    ecx, dword ptr [esi + 0x70]
+  0040fec9  85c9                     test   ecx, ecx
+  0040fecb  8b4e74                   mov    ecx, dword ptr [esi + 0x74]
+  0040fece  0f95c2                   setne  dl
+  0040fed1  52                       push   edx
+  0040fed2  50                       push   eax
+  0040fed3  51                       push   ecx
+  0040fed4  e8673a0600               call   0x473940                       ; FUN_00473940
+  0040fed9  83c420                   add    esp, 0x20
+  0040fedc  8bce                     mov    ecx, esi
+  0040fede  e8a3a40e00               call   0x4fa386                       ; ?OnOK@CDialog@@MAEXXZ [lib]
+  0040fee3  5e                       pop    esi
+  0040fee4  8be5                     mov    esp, ebp
+  0040fee6  5d                       pop    ebp
+  0040fee7  c3                       ret
+
+--- Ghidra decompile (a hint only: names and types are guesses) ---
+
+void __fastcall FUN_0040fe80(CDialog *param_1)
+
+{
+  tagRECT local_14;
+
+  FUN_004fc069(1);
+  GetWindowRect(*(HWND *)(param_1 + 0x1c),&local_14);
+  FUN_0047a140("Radiant::TextureFindWindow",&local_14,0x10);
+  FUN_00473940(*(undefined4 *)(param_1 + 0x74),*(undefined4 *)(param_1 + 0x78),
+               CONCAT31((int3)((uint)*(int *)(param_1 + 0x80) >> 8),*(int *)(param_1 + 0x70) != 0),
+               *(int *)(param_1 + 0x7c) != 0,*(int *)(param_1 + 0x80) != 0);
+  CDialog::OnOK(param_1);
+  return;
+}

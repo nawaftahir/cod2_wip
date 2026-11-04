@@ -1,0 +1,143 @@
+[
+  {
+    "function": "0x00401310",
+    "call": "0x401317",
+    "destination": "0x401340",
+    "instructions": [
+      {
+        "address": "0x401310",
+        "op": "push",
+        "args": "ebp"
+      },
+      {
+        "address": "0x401311",
+        "op": "mov",
+        "args": "ebp, esp"
+      },
+      {
+        "address": "0x401313",
+        "op": "push",
+        "args": "esi"
+      },
+      {
+        "address": "0x401314",
+        "op": "mov",
+        "args": "esi, ecx"
+      },
+      {
+        "address": "0x401316",
+        "op": "push",
+        "args": "esi"
+      },
+      {
+        "address": "0x401317",
+        "op": "call",
+        "args": "0x401340"
+      },
+      {
+        "address": "0x40131c",
+        "op": "test",
+        "args": "byte ptr [ebp + 8], 1"
+      },
+      {
+        "address": "0x401320",
+        "op": "je",
+        "args": "0x40132b"
+      },
+      {
+        "address": "0x401322",
+        "op": "push",
+        "args": "esi"
+      },
+      {
+        "address": "0x401323",
+        "op": "call",
+        "args": "0x4ff47b"
+      },
+      {
+        "address": "0x401328",
+        "op": "add",
+        "args": "esp, 4"
+      },
+      {
+        "address": "0x40132b",
+        "op": "mov",
+        "args": "eax, esi"
+      },
+      {
+        "address": "0x40132d",
+        "op": "pop",
+        "args": "esi"
+      },
+      {
+        "address": "0x40132e",
+        "op": "pop",
+        "args": "ebp"
+      }
+    ]
+  },
+  {
+    "function": "0x00526a10",
+    "call": "0x526a17",
+    "destination": "0x401180",
+    "instructions": [
+      {
+        "address": "0x526a10",
+        "op": "push",
+        "args": "0"
+      },
+      {
+        "address": "0x526a12",
+        "op": "push",
+        "args": "0x1233b68"
+      },
+      {
+        "address": "0x526a17",
+        "op": "call",
+        "args": "0x401180"
+      },
+      {
+        "address": "0x526a1c",
+        "op": "push",
+        "args": "0x526f50"
+      },
+      {
+        "address": "0x526a21",
+        "op": "call",
+        "args": "0x4d81a9"
+      },
+      {
+        "address": "0x526a26",
+        "op": "pop",
+        "args": "ecx"
+      },
+      {
+        "address": "0x526a27",
+        "op": "ret",
+        "args": ""
+      }
+    ]
+  },
+  {
+    "function": "0x00526f50",
+    "call": "0x526f55",
+    "destination": "0x401340",
+    "instructions": [
+      {
+        "address": "0x526f50",
+        "op": "push",
+        "args": "0x1233b68"
+      },
+      {
+        "address": "0x526f55",
+        "op": "call",
+        "args": "0x401340"
+      },
+      {
+        "address": "0x526f5a",
+        "op": "ret",
+        "args": ""
+      }
+    ]
+  }
+]

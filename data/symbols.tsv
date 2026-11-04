@@ -1,0 +1,14 @@
+# Retail address of functions in src/ that have no ledger row yet (not matched). Owner-edited; each needs evidence.
+# link.py uses it to keep address-taken functions on the stack convention (RULES.md).
+addr	symbol	evidence
+0x0048a580	_Hunk_AllocAlignInternal	Hunk_AllocInternal 0x48a560 calls it with (size, 32); asserts 1367..1403 in com_memory.cpp
+0x004adfa0	_fill_window	position 14 of 17 in src/zlib/deflate.c, same count as retail
+0x004ae0c0	_deflate_stored	position 15 of 17 in src/zlib/deflate.c, same count as retail
+0x004ae280	_deflate_fast	position 16 of 17 in src/zlib/deflate.c, same count as retail
+0x004ae580	_deflate_slow	position 17 of 17 in src/zlib/deflate.c, same count as retail
+0x004b0140	_inflateReset	position 1 of 8 in src/zlib/inflate.c, same count as retail
+0x004b01d0	_inflateInit2_	position 3 of 8 in src/zlib/inflate.c, same count as retail
+0x004b06d0	_inflateSetDictionary	position 6 of 8 in src/zlib/inflate.c, same count as retail
+0x004b0760	_inflateSync	position 7 of 8 in src/zlib/inflate.c, same count as retail
+0x004b14c0	_gen_codes	position 6 of 21 in src/zlib/trees.c, same count as retail
+0x004b3540	_unzLocateFile	position 17 of 25 in src/zlib/unzip.c, same count as retail

@@ -1,0 +1,91 @@
+file	funcs	bytes	with_strings	q3_funcs	iw3xo_funcs	either_bytes	top_q3_files
+radiant/XYWnd.cpp	136	40524	26	22	12	21996	XYWnd.cpp:19,EPAIRS.H:14
+radiant/MainFrm.cpp	545	54369	94	78	26	21895	MainFrm.cpp:85,QE3.H:9
+radiant/brush.cpp	121	47013	64	28	21	21259	Brush.cpp:12,DRAG.CPP:7
+radiant/Pmesh.cpp	215	80201	89	24	10	19706	PMESH.CPP:18,QE3.CPP:15
+radiant/select.cpp	83	27211	39	22	24	18479	DRAG.CPP:13,QE3.CPP:12
+src/universal/splines/splines.cpp	85	22997	33	32	3	17231	splines.cpp:32,util_str.h:16
+radiant/map.cpp	53	15674	29	22	12	12118	MAP.CPP:20,EPAIRS.H:10
+src/universal/dvar.cpp	121	24678	60	12	27	10323	QE3.CPP:11,q_parse.cpp:1
+radiant/CamWnd.cpp	111	19709	9	7	5	8705	DRAG.CPP:3,EPAIRS.H:3
+radiant/entity.cpp	64	12409	28	23	20	8021	DRAG.CPP:12,ENTITY.CPP:12
+radiant/drag.cpp	17	9922	6	6	2	7950	DRAG.CPP:22,QE3.CPP:2
+src/xanim/dobj.cpp	56	23494	20	3	5	7709	WIN_Z.CPP:1,WIN_DLG.CPP:1
+src/universal/com_files.cpp	97	19485	43	8	14	7355	PluginEntities.cpp:4,DRAG.CPP:3
+radiant/win_ent.cpp	23	9585	12	10	11	6445	Win_ent.cpp:14,EPAIRS.H:3
+radiant/Undo.cpp	30	7580	14	11	5	6283	Undo.cpp:11,DRAG.CPP:4
+radiant/PrefsDlg.cpp	10	7543	3	3	2	5633	PrefsDlg.cpp:34,PrefsDlg.h:32
+radiant/eclass.cpp	25	6910	13	7	4	4044	ECLASS.CPP:14,WIN_DLG.CPP:1
+src/universal/splines/util_str.cpp	23	5842	6	5	2	3674	util_str.h:3,DRAG.CPP:1
+radiant/SurfaceDlg.cpp	45	9048	8	3	4	3466	QE3.CPP:2,SurfaceDlg.cpp:2
+src/xanim/xmodel_load_obj.cpp	16	7366	13	1	1	3305	WIN_DLG.CPP:1
+radiant/qe3.cpp	25	6362	18	10	6	3295	QE3.CPP:22,DRAG.CPP:4
+radiant/dlgcamera.cpp	126	8125	17	16	1	3013	util_list.h:6,dlgcamera.cpp:4
+radiant/ModelDlg.cpp	24	4295	3	3	3	2634	WIN_DLG.CPP:2,PMESH.CPP:1
+radiant/TexWnd.cpp	69	10857	23	7	3	2633	TexWnd.cpp:11,q_parse.cpp:1
+radiant/z.cpp	8	5635	2	1	1	2626	DRAG.CPP:1
+src/universal/q_shared.cpp	71	8299	22	6	2	2593	q_shared.cpp:6,GLINGR.H:1
+src/universal/com_memory.cpp	49	4768	18	0	10	2384	
+src/universal/com_math.cpp	155	27968	35	4	7	2163	DRAG.CPP:4
+radiant/Winding.cpp	24	6379	7	7	0	2151	Winding.cpp:10
+radiant/win_main.cpp	21	3498	7	5	2	1852	Win_main.cpp:3,QE3.H:2
+radiant/Radiant.cpp	15	2465	1	1	0	1676	Radiant.cpp:4
+radiant/win_dlg.cpp	19	4848	6	3	3	1590	WIN_DLG.CPP:6,XYWnd.cpp:2
+src/universal/q_parse.cpp	37	4698	13	3	3	1467	q_parse.cpp:3
+radiant/win_qe3.cpp	23	2628	10	8	7	1420	WIN_QE3.CPP:9,WIN_DLG.CPP:5
+radiant/vertsel.cpp	8	2272	3	3	0	1318	VERTSEL.CPP:5
+radiant/mru.cpp	16	2055	5	5	0	1255	MRU.CPP:5
+radiant/points.cpp	7	1433	3	3	0	1071	POINTS.CPP:3,Brush.cpp:1
+radiant/GfxWrapper.cpp	31	3126	11	1	8	1052	Win_main.cpp:1,WIN_XY.CPP:1
+radiant/filtersettings.cpp	74	11209	44	1	1	1047	MainFrm.cpp:2,PMESH.CPP:1
+src/universal/g_vehicle_path.cpp	27	7880	3	1	1	901	DRAG.CPP:3,IEpairs.h:1
+src/script/scr_stringlist.cpp	43	7557	15	2	0	855	q_shared.cpp:2
+radiant/csg.cpp	12	3984	7	1	1	785	CSG.CPP:7,IShaders.cpp:1
+src/script/scr_memorytree.cpp	21	5332	12	2	0	737	q_shared.cpp:2
+radiant/CommandsDlg.cpp	16	1515	1	1	1	685	CommandsDlg.cpp:6
+radiant/TextureBar.cpp	15	1608	2	0	2	635	
+radiant/MapInfo.cpp	30	4585	2	1	1	509	WIN_DLG.CPP:1
+src/xanim/xmodel_utils.cpp	11	1090	4	2	2	489	WIN_Z.CPP:1,QFILES.H:1
+radiant/ZWnd.cpp	26	1552	2	2	0	485	ZWnd.cpp:2
+common/texturevecs.cpp	4	3319	3	1	1	459	QE3.H:1
+src/universal/splines/math_vector.cpp	33	2742	3	3	1	408	splines.h:2,math_vector.cpp:1
+radiant/EntityListDlg.cpp	22	1480	1	1	0	387	Win_ent.cpp:1
+radiant/FindTextureDlg.cpp	16	1046	4	4	0	385	FindTextureDlg.cpp:4
+radiant/UNKNOWN_00425080.cpp	22	1655	5	1	1	303	Win_main.cpp:1
+src/xanim/xmodel.cpp	31	1850	8	1	2	255	WIN_Z.CPP:1
+radiant/PatchDialog.cpp	28	2793	2	2	0	183	PatchDialog.cpp:2
+libs/cmdlib/cmdlib.cpp	40	3505	8	1	0	123	splines.cpp:1
+radiant/UNKNOWN_00408f20.cpp	4	153	1	0	1	121	
+radiant/UNKNOWN_00420930.cpp	29	1202	6	3	4	107	PatchDialog.cpp:2,q_parse.cpp:1
+radiant/VehicleDlg.cpp	77	3696	52	1	1	92	DRAG.CPP:1
+radiant/AdvCurveDlg.cpp	96	5658	2	0	0	0	
+radiant/cameratargetdlg.cpp	27	1243	0	0	0	0	
+radiant/CapDialog.cpp	6	111	0	0	0	0	
+radiant/DialogInfo.cpp	8	332	0	0	0	0	
+radiant/DialogThick.cpp	5	126	0	0	0	0	
+radiant/DlgEvent.cpp	4	208	0	0	0	0	
+radiant/draw.cpp	12	2150	1	0	0	0	
+radiant/EditWnd.cpp	7	182	0	0	0	0	
+radiant/KeyValueSelectDlg.cpp	5	458	0	0	0	0	
+radiant/LstToolBar.cpp	5	75	0	0	0	0	
+radiant/mesh.cpp	16	8113	1	0	0	0	
+radiant/NameDlg.cpp	6	278	0	0	0	0	
+radiant/NewProjDlg.cpp	4	180	0	0	0	0	
+radiant/PatchDensityDlg.cpp	6	422	0	0	0	0	
+radiant/RADEditWnd.cpp	6	353	0	0	0	0	
+radiant/RotateDlg.cpp	11	1502	0	0	0	0	
+radiant/ScaleDialog.cpp	4	136	0	0	0	0	
+radiant/TerrainDensityDlg.cpp	6	422	0	0	0	0	
+radiant/TexEdit.cpp	7	397	0	0	0	0	
+radiant/TextureLayout.cpp	6	339	0	0	0	0	
+radiant/VertEditDlg.cpp	21	6334	2	0	0	0	
+src/universal/assertive.cpp	35	5253	12	0	0	0	
+src/universal/com_shared.cpp	14	2064	1	0	0	0	
+src/universal/linearmapping.cpp	6	2119	2	0	0	0	
+src/universal/UNKNOWN_00494480.cpp	3	816	0	0	0	0	
+src/universal/win_common.cpp	11	1951	2	0	0	0	
+src/universal/UNKNOWN_004985d0.cpp	16	196	1	0	0	0	
+src/universal/splines/math_angles.cpp	12	1269	0	0	0	0	
+src/universal/splines/math_matrix.cpp	10	1405	2	0	0	0	
+src/universal/splines/math_quaternion.cpp	4	539	0	0	0	0	
+TOTAL funcs 3564 bytes 675655 | with strings 1024 | q3radiant hit 444 funcs 227671 B | iw3xo hit 286 funcs 159317 B | either 525 funcs 261741 B

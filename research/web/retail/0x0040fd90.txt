@@ -1,0 +1,59 @@
+function 0x0040fd90  size 109  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  0040fd90  55                       push   ebp
+  0040fd91  8bec                     mov    ebp, esp
+  0040fd93  56                       push   esi
+  0040fd94  57                       push   edi
+  0040fd95  8b7d08                   mov    edi, dword ptr [ebp + 8]
+  0040fd98  8bf1                     mov    esi, ecx
+  0040fd9a  8d4670                   lea    eax, [esi + 0x70]
+  0040fd9d  50                       push   eax
+  0040fd9e  6851040000               push   0x451                          ; 1105 (an assert line number if next to a file string)
+  0040fda3  57                       push   edi
+  0040fda4  e8eaab0f00               call   0x50a993                       ; ?DDX_Check@@YGXPAVCDataExchange@@HAAH@Z [lib]
+  0040fda9  8d4e74                   lea    ecx, [esi + 0x74]
+  0040fdac  51                       push   ecx
+  0040fdad  6849040000               push   0x449                          ; 1097 (an assert line number if next to a file string)
+  0040fdb2  57                       push   edi
+  0040fdb3  e85db60f00               call   0x50b415                       ; ?DDX_Text@@YGXPAVCDataExchange@@HAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z [lib]
+  0040fdb8  8d5678                   lea    edx, [esi + 0x78]
+  0040fdbb  52                       push   edx
+  0040fdbc  684d040000               push   0x44d                          ; 1101 (an assert line number if next to a file string)
+  0040fdc1  57                       push   edi
+  0040fdc2  e84eb60f00               call   0x50b415                       ; ?DDX_Text@@YGXPAVCDataExchange@@HAAV?$CStringT@DV?$StrTraitMFC@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z [lib]
+  0040fdc7  8d467c                   lea    eax, [esi + 0x7c]
+  0040fdca  50                       push   eax
+  0040fdcb  6855040000               push   0x455                          ; 1109 (an assert line number if next to a file string)
+  0040fdd0  57                       push   edi
+  0040fdd1  e8bdab0f00               call   0x50a993                       ; ?DDX_Check@@YGXPAVCDataExchange@@HAAH@Z [lib]
+  0040fdd6  8d8e80000000             lea    ecx, [esi + 0x80]
+  0040fddc  51                       push   ecx
+  0040fddd  68f5050000               push   0x5f5                          ; 1525 (an assert line number if next to a file string)
+  0040fde2  57                       push   edi
+  0040fde3  e8abab0f00               call   0x50a993                       ; ?DDX_Check@@YGXPAVCDataExchange@@HAAH@Z [lib]
+  0040fde8  81c684000000             add    esi, 0x84
+  0040fdee  56                       push   esi
+  0040fdef  6a7b                     push   0x7b                           ; 123 (an assert line number if next to a file string)
+  0040fdf1  57                       push   edi
+  0040fdf2  e89cab0f00               call   0x50a993                       ; ?DDX_Check@@YGXPAVCDataExchange@@HAAH@Z [lib]
+  0040fdf7  5f                       pop    edi
+  0040fdf8  5e                       pop    esi
+  0040fdf9  5d                       pop    ebp
+  0040fdfa  c20400                   ret    4
+
+--- Ghidra decompile (a hint only: names and types are guesses) ---
+
+void __thiscall FUN_0040fd90(int param_1,CDataExchange *param_2)
+
+{
+  DDX_Check(param_2,0x451,(int *)(param_1 + 0x70));
+  DDX_Text(param_2,0x449,param_1 + 0x74);
+  DDX_Text(param_2,0x44d,param_1 + 0x78);
+  DDX_Check(param_2,0x455,(int *)(param_1 + 0x7c));
+  DDX_Check(param_2,0x5f5,(int *)(param_1 + 0x80));
+  DDX_Check(param_2,0x7b,(int *)(param_1 + 0x84));
+  return;
+}

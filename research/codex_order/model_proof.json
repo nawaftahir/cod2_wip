@@ -1,0 +1,72 @@
+{
+  "matches": 357,
+  "new_bytes": 1589,
+  "same_offset_bytes": 25428,
+  "exe_sha256": "111cbdab4d9d8bd09bce81d84dcead082530bc6809544e100d78fba1c095a6b1",
+  "source_sha256": "fe4f98fe46e855ae011eb4a88ed066f19bc0d2b5a6a30d52c7daa54547563729",
+  "patch_sha256": "792f9b688f26f2499f4faa5b8499939b99d0450c00f85a875682357663f49ac5",
+  "new_functions": 13,
+  "baseline_matches": 344,
+  "baseline_same_offset_bytes": 21888,
+  "matched_bytes": 46987,
+  "unverified_in_src": 50,
+  "order_warnings": 1,
+  "prefix": [
+    {
+      "addr": "0x00401000",
+      "symbol": "?FUN_00401000@@YAXH@Z",
+      "va": "0x401000",
+      "size": "142",
+      "status": "MATCH"
+    },
+    {
+      "addr": "0x00401090",
+      "symbol": "?FUN_00401090@@YAMH@Z",
+      "va": "0x401090",
+      "size": "37",
+      "status": "MATCH"
+    },
+    {
+      "addr": "0x004010c0",
+      "symbol": "?FUN_004010c0@@YAXHM@Z",
+      "va": "0x4010c0",
+      "size": "184",
+      "status": "MATCH"
+    },
+    {
+      "addr": "0x00401180",
+      "symbol": "??0CAdvCurveEditDlg@@QAE@PAVCWnd@@@Z",
+      "va": "0x401180",
+      "size": "393",
+      "status": "MATCH"
+    },
+    {
+      "addr": "0x00401310",
+      "symbol": "??_GCAdvCurveEditDlg@@UAEPAXI@Z",
+      "va": "0x401310",
+      "size": "34",
+      "status": "MATCH"
+    },
+    {
+      "addr": "0x00401340",
+      "symbol": "??1CAdvCurveEditDlg@@UAE@XZ",
+      "va": "0x401340",
+      "size": "269",
+      "status": "MATCH"
+    },
+    {
+      "addr": "0x00401450",
+      "symbol": "?DoDataExchange@CAdvCurveEditDlg@@UAEXPAVCDataExchange@@@Z",
+      "va": "0x401450",
+      "size": "247",
+      "status": "MATCH"
+    },
+    {
+      "addr": "0x00401550",
+      "symbol": "?GetMessageMap@CAdvCurveEditDlg@@MBEPBUAFX_MSGMAP@@XZ",
+      "va": "0x401550",
+      "size": "6",
+      "status": "MATCH"
+    }
+  ]
+}

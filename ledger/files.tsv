@@ -1,0 +1,103 @@
+source	status	matched_game_functions	matched_game_bytes	metadata	image_placement	proof	remaining
+src/radiant/AdvCurveDlg.cpp	PARTIAL	45	4219	PENDING	PENDING		none: from make show
+src/radiant/cameratargetdlg.cpp	VERIFIED	5	212	PASS	PENDING	research/gemini_review/test_camera_complete.py	
+src/radiant/CamWnd.cpp	PARTIAL	15	958	PENDING	PENDING		Q3Radiant DRAG.CPP (7/9 string funcs); iw3xo (5/9)
+src/radiant/CapDialog.cpp	VERIFIED	5	78	PASS	PENDING	research/gemini_review/test_finished_small.py	
+src/libs/cmdlib/cmdlib.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant splines.cpp (1/8 string funcs)
+src/radiant/UNKNOWN_00408f20.cpp	PARTIAL	3	32	PENDING	PENDING		retail 0x00408f50 / 121 B missing (ESI/EDI calling context); FS_Shutdown external implementation unresolved
+src/radiant/CommandsDlg.cpp	PARTIAL	3	125	PENDING	PENDING		OnInitDialog 0x004090f0 / 685 B remains caller/LTCG dependent; implicit destructor and scalar helper are compiler-accounted; CString/CListBox header helpers audited separately
+src/radiant/DialogInfo.cpp	PARTIAL	5	158	PENDING	PENDING		ShowInfoDialog 0x00409690 / 66 B awaits real Pmesh caller context (retail passes pText in ESI)
+src/radiant/DialogThick.cpp	VERIFIED	4	93	PASS	PENDING	research/gemini_review/test_finished_small.py	
+src/radiant/dlgcamera.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant util_list.h (16/17 string funcs); iw3xo (1/17)
+src/radiant/DlgEvent.cpp	VERIFIED	3	175	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
+src/radiant/draw.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/radiant/EditWnd.cpp	VERIFIED	6	149	PASS	PENDING	research/gemini_review/test_editor_completion.py	
+src/radiant/EntityListDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_ent.cpp (1/1 string funcs)
+src/radiant/filtersettings.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MainFrm.cpp (1/44 string funcs); iw3xo (1/44)
+src/radiant/FindTextureDlg.cpp	PARTIAL	15	1013	PENDING	PENDING		15 game rows pass; external FindReplaceTextures 0x00473940 blocks complete-file proof
+src/radiant/GfxWrapper.cpp	PARTIAL	12	16	PENDING	PENDING		19 retail entries plus callback identity and metadata unresolved; exact tiny callbacks only
+src/radiant/KeyValueSelectDlg.cpp	VERIFIED	3	360	PASS	PENDING	research/gemini_review/test_keyvalue_complete.py	
+src/radiant/LstToolBar.cpp	VERIFIED	4	42	PASS	PENDING	research/gemini_review/test_finished_small.py	
+src/radiant/MainFrm.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
+src/radiant/MapInfo.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (1/2 string funcs); iw3xo (1/2)
+src/radiant/UNKNOWN_00420930.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PatchDialog.cpp (3/6 string funcs); iw3xo (4/6)
+src/radiant/mesh.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/radiant/ModelDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (3/3 string funcs); iw3xo (3/3)
+src/radiant/NameDlg.cpp	VERIFIED	5	245	PASS	PENDING	research/gemini_review/test_dialog_completion.py all	
+src/radiant/NewProjDlg.cpp	VERIFIED	3	147	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
+src/radiant/PatchDensityDlg.cpp	PARTIAL	4	240	PENDING	PENDING		4 game / 240 B verified without stubs; scalar/shared destructor/EH/metadata checked; OnOK unresolved pending real Pmesh; PARTIAL
+src/radiant/PatchDialog.cpp	PARTIAL	15	1391	PENDING	PENDING		15 game / 1391 B; class, scalar/lifetime, RTTI, message map audit; eight authored entries / 1203 B and globals/callees pending; research/codex_patchdialog
+src/radiant/UNKNOWN_00425080.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (1/5 string funcs); iw3xo (1/5)
+src/radiant/Pmesh.cpp	PARTIAL	3	676	PENDING	PENDING		3 game / 676 B verified: real bounds and distance helpers; version/layout/sqrt/FP bindings pinned; generators pending
+src/radiant/PrefsDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant PrefsDlg.cpp (3/3 string funcs); iw3xo (2/3)
+src/radiant/RADEditWnd.cpp	VERIFIED	5	320	PASS	PENDING	research/gemini_review/test_editor_completion.py	
+src/radiant/Radiant.cpp	PARTIAL	3	57	PENDING	PENDING		Three exact MFC routines; InitInstance, OnIdle, ExitInstance and generated metadata pending
+src/radiant/RotateDlg.cpp	PARTIAL	6	498	PENDING	PENDING		6 game / 498 B; scalar 34 B and shared dtor 200 B verified; four rotation bodies and member-header context pending
+src/radiant/ScaleDialog.cpp	VERIFIED	3	103	PASS	PENDING	research/gemini_review/test_dialog_completion.py all	
+src/radiant/SurfaceDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.CPP (3/8 string funcs); iw3xo (4/8)
+src/radiant/TerrainDensityDlg.cpp	PARTIAL	4	240	PENDING	PENDING		4 game / 240 B verified without stubs; scalar/shared destructor/EH/metadata checked; OnOK unresolved pending real Pmesh; PARTIAL
+src/radiant/TexEdit.cpp	PARTIAL	5	232	PENDING	PENDING		Five exact authored bodies; OnChange remains mismatched; generated scalar/dynamic metadata and CTexWnd::UpdateFilter binding not complete
+src/radiant/TextureBar.cpp	UNSTARTED	0	0	PENDING	PENDING		iw3xo (2/2)
+src/radiant/TextureLayout.cpp	VERIFIED	5	305	PASS	PENDING	research/gemini_review/test_dialog_batch.py	
+src/common/texturevecs.cpp	PARTIAL	3	1779	PENDING	PENDING		3 / 1779 B matched; 216-byte basis and assertion bindings audited; inverse and external math definitions pending; PARTIAL
+src/radiant/TexWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant TexWnd.cpp (7/23 string funcs); iw3xo (3/23)
+src/radiant/Undo.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Undo.cpp (11/14 string funcs); iw3xo (5/14)
+src/radiant/VehicleDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/52 string funcs); iw3xo (1/52)
+src/radiant/VertEditDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/radiant/Winding.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Winding.cpp (7/7 string funcs)
+src/radiant/XYWnd.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant XYWnd.cpp (22/26 string funcs); iw3xo (12/26)
+src/radiant/ZWnd.cpp	PARTIAL	0	0	PENDING	PENDING		Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
+src/radiant/brush.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Brush.cpp (28/64 string funcs); iw3xo (21/64)
+src/radiant/csg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant CSG.CPP (1/7 string funcs); iw3xo (1/7)
+src/radiant/drag.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (6/6 string funcs); iw3xo (2/6)
+src/radiant/eclass.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant ECLASS.CPP (7/13 string funcs); iw3xo (4/13)
+src/radiant/entity.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (23/28 string funcs); iw3xo (20/28)
+src/radiant/map.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MAP.CPP (22/29 string funcs); iw3xo (12/29)
+src/radiant/mru.cpp	VERIFIED	15	2055	PASS	PENDING	research/gemini_review/test_mru_complete.py	
+src/radiant/points.cpp	PARTIAL	4	656	PENDING	PENDING		4 matched; camera layouts and renderer caller group pending
+src/radiant/qe3.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant QE3.CPP (10/18 string funcs); iw3xo (6/18)
+src/radiant/select.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (22/39 string funcs); iw3xo (24/39)
+src/radiant/vertsel.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant VERTSEL.CPP (3/3 string funcs)
+src/radiant/win_dlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (3/6 string funcs); iw3xo (3/6)
+src/radiant/win_ent.cpp	PARTIAL	0	0	PENDING	PENDING		Codex seeded proven hwndEnt[33] in original owner; preserve definition; remaining methods belong to Gemini
+src/radiant/win_main.cpp	PARTIAL	2	260	PENDING	PENDING		2 game / 260 B: real Save/LoadRegistryInfo; CoD2 key and return flow pinned; 19 original entries remain; research/codex_patchdialog
+src/radiant/win_qe3.cpp	PARTIAL	4	119	PENDING	PENDING		Q3Radiant WIN_QE3.CPP (8/10 string funcs); iw3xo (7/10)
+src/radiant/z.cpp	PARTIAL	0	0	PENDING	PENDING		Owner takeover: Codex repairs reviewed ZWnd dependencies; all original Gemini candidates preserved; no accepted source
+src/universal/assertive.cpp	PARTIAL	8	386	PENDING	PENDING		server source (copy-ready)
+src/universal/com_files.cpp	PARTIAL	45	5340	PENDING	PENDING		server source (copy-ready); + FS_IsBackupSubStr/FS_IsPathSepChar/FS_FilesAreLoadedGlobally exact; FS_Shutdown held for caller/LTCG context
+src/universal/com_math.cpp	PARTIAL	107	15467	PENDING	PENDING		server source (copy-ready)
+src/universal/com_memory.cpp	PARTIAL	46	4167	PENDING	PENDING		46 matched; three routines left; allocator source uses verified global update flow
+src/universal/com_shared.cpp	PARTIAL	7	474	PENDING	PENDING		server source (copy-ready)
+src/universal/dvar.cpp	PARTIAL	23	1723	PENDING	PENDING		21 earlier exact plus two 159-byte retail-matched string setters; remaining 98 retail entries unproved
+src/universal/g_vehicle_path.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant DRAG.CPP (1/3 string funcs); iw3xo (1/3)
+src/universal/linearmapping.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+src/universal/UNKNOWN_00494480.cpp	PARTIAL	1	89	PENDING	PENDING		R_NoiseInit 89 B exact; 70 B lookup and 657 B four-dimensional noise unresolved; owner TU provisional
+src/universal/q_parse.cpp	PARTIAL	28	2347	PENDING	PENDING		Two OnLine numeric wrappers (43 B) newly exact, remaining parser functions/metadata unresolved
+src/universal/q_shared.cpp	PARTIAL	42	2547	PENDING	PENDING		server source (copy-ready)
+src/universal/win_common.cpp	PARTIAL	8	481	PENDING	PENDING		Eight retail-matched routines / 481 B; Sys_ListFiles, Sys_ListFilteredFiles, Sys_RemoveDirTree remain unmatched
+src/universal/UNKNOWN_004985d0.cpp	PARTIAL	12	60	PENDING	PENDING		12 exact routines; FS_Seek wrapper and generated/header entries unresolved; ownership/data binding pending
+src/universal/splines/math_angles.cpp	PARTIAL	5	571	PENDING	PENDING		Normalize360 precision corrected; toVectors/toForward and remaining helpers unverified
+src/universal/splines/math_matrix.cpp	PARTIAL	6	771	PENDING	PENDING		none: from make show
+src/universal/splines/math_quaternion.cpp	PARTIAL	1	24	PENDING	PENDING		none: from make show
+src/universal/splines/math_vector.cpp	PARTIAL	4	479	PENDING	PENDING		LerpVector exact after float 1.0f correction; toPitch and remaining vector/header routines unverified
+src/universal/splines/splines.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant splines.cpp (32/33 string funcs); iw3xo (3/33)
+src/universal/splines/util_str.cpp	PARTIAL	12	734	PENDING	PENDING		Q3Radiant util_str.h (5/6 string funcs); iw3xo (2/6)
+src/xanim/dobj.cpp	PARTIAL	5	149	PENDING	PENDING		server source (copy-ready)
+src/script/scr_memorytree.cpp	UNSTARTED	0	0	PENDING	PENDING		server source (copy-ready)
+src/script/scr_stringlist.cpp	UNSTARTED	0	0	PENDING	PENDING		server source (copy-ready)
+src/xanim/xmodel.cpp	UNSTARTED	0	0	PENDING	PENDING		server source (copy-ready)
+src/xanim/xmodel_load_obj.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant WIN_DLG.CPP (1/13 string funcs); iw3xo (1/13)
+src/xanim/xmodel_utils.cpp	VERIFIED	11	1090	PASS	PENDING	research/web/test_xmodel_complete.py	
+src/zlib/adler32.c	VERIFIED	1	297	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
+src/zlib/compress.c	VERIFIED	2	169	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
+src/zlib/deflate.c	VERIFIED	17	5938	PASS	PENDING	research/codex_deflate/test_complete.py	
+src/zlib/infblock.c	VERIFIED	6	3286	PASS	PENDING	research/web/test_zlib_remaining_complete.py	
+src/zlib/infcodes.c	VERIFIED	3	1853	PASS	PENDING	research/web/test_zlib_remaining_complete.py	
+src/zlib/inffast.c	VERIFIED	1	917	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
+src/zlib/inflate.c	PARTIAL	7	1621	PENDING	PENDING		only inflateSetDictionary (0x004b06d0 / 129 B) still unmatched; metadata/placement pending
+src/zlib/inftrees.c	VERIFIED	4	1830	PASS	PENDING	research/web/test_zlib_remaining_complete.py	
+src/zlib/infutil.c	VERIFIED	1	310	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
+src/zlib/trees.c	VERIFIED	21	6664	PASS	PENDING	research/web/test_zlib_remaining_complete.py	
+src/zlib/uncompr.c	VERIFIED	1	139	PASS	PENDING	research/web/test_zlib_leaf_complete.py	
+src/zlib/unzip.c	VERIFIED	25	4015	PASS	PENDING	research/web/test_zlib_remaining_complete.py	
+src/zlib/zutil.c	VERIFIED	4	96	PASS	PENDING	research/web/test_zlib_remaining_complete.py

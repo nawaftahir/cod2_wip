@@ -1,0 +1,4 @@
+addr	symbol
+0x00488b70	?ProjectPointOnPlane@@YAXQBM0QAM@Z
+0x00488f00	?PointInCylinderArc@@YAHQBMM0MMMM@Z
+0x00489060	?BoxDistSqrdExceeds@@YAHQBM00M@Z

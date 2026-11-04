@@ -1,0 +1,21 @@
+// Probe: every MFC inline function out of line, compiled with the game flags (same trick as MFC's afxinl*.cpp).
+#define _AFX_DISABLE_INLINES
+#include <afxwin.h>
+#include <afxext.h>
+#include <afxcmn.h>
+#include <afxdlgs.h>
+#include <afxtempl.h>
+#define _AFX_INLINE
+#define _AFXWIN_INLINE
+#define _AFXCMN_INLINE
+#define _AFXDLGS_INLINE
+#define _AFXEXT_INLINE
+#define _AFXCOLL_INLINE
+#include <afx.inl>
+#include <afxwin1.inl>
+#include <afxwin2.inl>
+#include <afxcmn.inl>
+#include <afxcmn2.inl>
+#include <afxdlgs.inl>
+#include <afxext.inl>
+#include <afxcoll.inl>

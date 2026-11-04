@@ -1,0 +1,1167 @@
+tier	size	addr	source	decomp
+1	5	0x00418eb0	src/radiant/MainFrm.cpp	
+1	10	0x00495f70	src/universal/q_shared.cpp	data/decomp/00495f70.c
+1	10	0x00495fb0	src/universal/q_shared.cpp	data/decomp/00495fb0.c
+1	12	0x004a4e90	src/xanim/dobj.cpp	data/decomp/004a4e90.c
+1	12	0x004a5ae0	src/xanim/dobj.cpp	data/decomp/004a5ae0.c
+1	14	0x0042b6d0	src/radiant/Pmesh.cpp	data/decomp/0042b6d0.c
+1	14	0x004aad00	src/xanim/xmodel.cpp	data/decomp/004aad00.c
+1	14	0x004aad10	src/xanim/xmodel.cpp	data/decomp/004aad10.c
+1	15	0x0044b370	src/radiant/XYWnd.cpp	data/decomp/0044b370.c
+1	15	0x004a4ea0	src/xanim/dobj.cpp	data/decomp/004a4ea0.c
+1	18	0x004a4da0	src/xanim/dobj.cpp	data/decomp/004a4da0.c
+1	19	0x0045fb40	src/radiant/csg.cpp	data/decomp/0045fb40.c
+1	19	0x004a8b40	src/script/scr_stringlist.cpp	data/decomp/004a8b40.c
+1	24	0x004a9040	src/script/scr_stringlist.cpp	data/decomp/004a9040.c
+1	34	0x00429df0	src/radiant/Pmesh.cpp	data/decomp/00429df0.c
+1	36	0x0045b630	src/radiant/brush.cpp	data/decomp/0045b630.c
+1	38	0x00496150	src/universal/q_shared.cpp	data/decomp/00496150.c
+1	39	0x00496190	src/universal/q_shared.cpp	data/decomp/00496190.c
+1	40	0x00483950	src/universal/com_math.cpp	data/decomp/00483950.c
+1	41	0x00455110	src/radiant/brush.cpp	data/decomp/00455110.c
+1	42	0x0044f560	src/radiant/XYWnd.cpp	data/decomp/0044f560.c
+1	44	0x00433a20	src/radiant/Pmesh.cpp	data/decomp/00433a20.c
+1	44	0x0048f240	src/universal/dvar.cpp	data/decomp/0048f240.c
+1	45	0x0042b760	src/radiant/Pmesh.cpp	data/decomp/0042b760.c
+1	50	0x004969a0	src/universal/q_shared.cpp	data/decomp/004969a0.c
+1	53	0x0044f590	src/radiant/XYWnd.cpp	data/decomp/0044f590.c
+1	53	0x00469100	src/radiant/map.cpp	data/decomp/00469100.c
+1	53	0x00496590	src/universal/q_shared.cpp	data/decomp/00496590.c
+1	54	0x0047ddf0	src/universal/com_files.cpp	data/decomp/0047ddf0.c
+1	55	0x0048cd10	src/universal/dvar.cpp	data/decomp/0048cd10.c
+1	56	0x00486aa0	src/universal/com_math.cpp	data/decomp/00486aa0.c
+1	57	0x004837f0	src/universal/com_math.cpp	data/decomp/004837f0.c
+1	57	0x00489900	src/universal/com_math.cpp	data/decomp/00489900.c
+1	60	0x0048ccd0	src/universal/dvar.cpp	data/decomp/0048ccd0.c
+1	60	0x004a8a10	src/script/scr_stringlist.cpp	data/decomp/004a8a10.c
+1	62	0x00483f00	src/universal/com_math.cpp	data/decomp/00483f00.c
+1	66	0x00486a00	src/universal/com_math.cpp	data/decomp/00486a00.c
+1	66	0x00486a50	src/universal/com_math.cpp	data/decomp/00486a50.c
+1	67	0x00494ea0	src/universal/q_parse.cpp	data/decomp/00494ea0.c
+1	69	0x0049a8c0	src/universal/splines/splines.cpp	data/decomp/0049a8c0.c
+1	74	0x00443f80	src/radiant/Undo.cpp	data/decomp/00443f80.c
+1	74	0x00487d00	src/universal/com_math.cpp	data/decomp/00487d00.c
+1	75	0x00489500	src/universal/com_math.cpp	data/decomp/00489500.c
+1	75	0x004929b0	src/universal/g_vehicle_path.cpp	data/decomp/004929b0.c
+1	75	0x00492a00	src/universal/g_vehicle_path.cpp	data/decomp/00492a00.c
+1	78	0x00486ae0	src/universal/com_math.cpp	data/decomp/00486ae0.c
+1	78	0x00487ff0	src/universal/com_math.cpp	data/decomp/00487ff0.c
+1	79	0x00433e80	src/radiant/Pmesh.cpp	data/decomp/00433e80.c
+1	81	0x00483730	src/universal/com_math.cpp	data/decomp/00483730.c
+1	82	0x00429fe0	src/radiant/Pmesh.cpp	data/decomp/00429fe0.c
+1	82	0x0047e700	src/universal/com_files.cpp	data/decomp/0047e700.c
+1	83	0x00427540	src/radiant/Pmesh.cpp	data/decomp/00427540.c
+1	84	0x00465d80	src/radiant/entity.cpp	data/decomp/00465d80.c
+1	84	0x00465fd0	src/radiant/entity.cpp	data/decomp/00465fd0.c
+1	84	0x00492270	src/universal/g_vehicle_path.cpp	data/decomp/00492270.c
+1	88	0x004920d0	src/universal/g_vehicle_path.cpp	data/decomp/004920d0.c
+1	90	0x004865a0	src/universal/com_math.cpp	data/decomp/004865a0.c
+1	91	0x00480e50	src/universal/com_files.cpp	data/decomp/00480e50.c
+1	92	0x00480380	src/universal/com_files.cpp	data/decomp/00480380.c
+1	92	0x00483ea0	src/universal/com_math.cpp	data/decomp/00483ea0.c
+1	92	0x00484ba0	src/universal/com_math.cpp	data/decomp/00484ba0.c
+1	92	0x004a50e0	src/xanim/dobj.cpp	data/decomp/004a50e0.c
+1	93	0x00483690	src/universal/com_math.cpp	data/decomp/00483690.c
+1	94	0x004871b0	src/universal/com_math.cpp	data/decomp/004871b0.c
+1	96	0x00486b30	src/universal/com_math.cpp	data/decomp/00486b30.c
+1	96	0x004a7570	src/script/scr_memorytree.cpp	data/decomp/004a7570.c
+1	98	0x00486b90	src/universal/com_math.cpp	data/decomp/00486b90.c
+1	98	0x00486c00	src/universal/com_math.cpp	data/decomp/00486c00.c
+1	101	0x00486530	src/universal/com_math.cpp	data/decomp/00486530.c
+1	101	0x00487350	src/universal/com_math.cpp	data/decomp/00487350.c
+1	101	0x004873c0	src/universal/com_math.cpp	data/decomp/004873c0.c
+1	104	0x004893a0	src/universal/com_math.cpp	data/decomp/004893a0.c
+1	106	0x00487c90	src/universal/com_math.cpp	data/decomp/00487c90.c
+1	107	0x00429e20	src/radiant/Pmesh.cpp	data/decomp/00429e20.c
+1	107	0x00429e90	src/radiant/Pmesh.cpp	data/decomp/00429e90.c
+1	107	0x004593c0	src/radiant/brush.cpp	data/decomp/004593c0.c
+1	107	0x00466060	src/radiant/entity.cpp	data/decomp/00466060.c
+1	107	0x00487910	src/universal/com_math.cpp	data/decomp/00487910.c
+1	107	0x00487d50	src/universal/com_math.cpp	data/decomp/00487d50.c
+1	109	0x004084a0	src/libs/cmdlib/cmdlib.cpp	data/decomp/004084a0.c
+1	111	0x00430b10	src/radiant/Pmesh.cpp	data/decomp/00430b10.c
+1	113	0x00487210	src/universal/com_math.cpp	data/decomp/00487210.c
+1	114	0x0042b6e0	src/radiant/Pmesh.cpp	data/decomp/0042b6e0.c
+1	114	0x0042b790	src/radiant/Pmesh.cpp	data/decomp/0042b790.c
+1	114	0x00487100	src/universal/com_math.cpp	data/decomp/00487100.c
+1	118	0x004309e0	src/radiant/Pmesh.cpp	data/decomp/004309e0.c
+1	119	0x00492130	src/universal/g_vehicle_path.cpp	data/decomp/00492130.c
+1	124	0x00486600	src/universal/com_math.cpp	data/decomp/00486600.c
+1	129	0x00485110	src/universal/com_math.cpp	data/decomp/00485110.c
+1	129	0x0048a3b0	src/universal/com_memory.cpp	data/decomp/0048a3b0.c
+1	132	0x0044c330	src/radiant/XYWnd.cpp	data/decomp/0044c330.c
+1	133	0x00438430	src/radiant/Pmesh.cpp	data/decomp/00438430.c
+1	134	0x004891d0	src/universal/com_math.cpp	data/decomp/004891d0.c
+1	135	0x00483e10	src/universal/com_math.cpp	data/decomp/00483e10.c
+1	138	0x00429f40	src/radiant/Pmesh.cpp	data/decomp/00429f40.c
+1	152	0x00492a50	src/universal/g_vehicle_path.cpp	data/decomp/00492a50.c
+1	154	0x00486820	src/universal/com_math.cpp	data/decomp/00486820.c
+1	156	0x00465e10	src/radiant/entity.cpp	data/decomp/00465e10.c
+1	157	0x00415750	src/radiant/MainFrm.cpp	data/decomp/00415750.c
+1	166	0x004156a0	src/radiant/MainFrm.cpp	data/decomp/004156a0.c
+1	170	0x00496270	src/universal/q_shared.cpp	data/decomp/00496270.c
+1	172	0x00492c50	src/universal/g_vehicle_path.cpp	data/decomp/00492c50.c
+1	179	0x00487e10	src/universal/com_math.cpp	data/decomp/00487e10.c
+1	191	0x00484da0	src/universal/com_math.cpp	data/decomp/00484da0.c
+1	191	0x004921b0	src/universal/g_vehicle_path.cpp	data/decomp/004921b0.c
+1	197	0x00494f90	src/universal/q_parse.cpp	data/decomp/00494f90.c
+1	205	0x00484f70	src/universal/com_math.cpp	data/decomp/00484f70.c
+1	206	0x00483830	src/universal/com_math.cpp	data/decomp/00483830.c
+1	215	0x004aa8c0	src/xanim/xmodel.cpp	data/decomp/004aa8c0.c
+1	219	0x004851a0	src/universal/com_math.cpp	data/decomp/004851a0.c
+1	233	0x004599b0	src/radiant/brush.cpp	data/decomp/004599b0.c
+1	236	0x00489260	src/universal/com_math.cpp	data/decomp/00489260.c
+1	240	0x00451fe0	src/radiant/XYWnd.cpp	data/decomp/00451fe0.c
+1	245	0x00483a50	src/universal/com_math.cpp	data/decomp/00483a50.c
+1	264	0x00485280	src/universal/com_math.cpp	
+1	301	0x00484a70	src/universal/com_math.cpp	
+1	313	0x00489060	src/universal/com_math.cpp	
+1	326	0x00430610	src/radiant/Pmesh.cpp	
+1	336	0x00430220	src/radiant/Pmesh.cpp	
+1	342	0x00437890	src/radiant/Pmesh.cpp	
+1	353	0x004a6b90	src/xanim/dobj.cpp	
+1	373	0x00435900	src/radiant/Pmesh.cpp	
+1	377	0x004922d0	src/universal/g_vehicle_path.cpp	
+1	377	0x00492450	src/universal/g_vehicle_path.cpp	
+1	379	0x00435a80	src/radiant/Pmesh.cpp	
+1	439	0x0049a6f0	src/universal/splines/splines.cpp	
+1	483	0x00405450	src/radiant/CamWnd.cpp	
+1	497	0x00480990	src/universal/com_files.cpp	
+1	499	0x00436bc0	src/radiant/Pmesh.cpp	
+1	526	0x00430010	src/radiant/Pmesh.cpp	
+1	599	0x0042fda0	src/radiant/Pmesh.cpp	
+1	983	0x004925d0	src/universal/g_vehicle_path.cpp	
+2	25	0x0041fa60	src/radiant/MapInfo.cpp	data/decomp/0041fa60.c
+2	28	0x00496980	src/universal/q_shared.cpp	data/decomp/00496980.c
+2	28	0x004a6b70	src/xanim/dobj.cpp	data/decomp/004a6b70.c
+2	29	0x00465780	src/radiant/entity.cpp	data/decomp/00465780.c
+2	39	0x00465de0	src/radiant/entity.cpp	data/decomp/00465de0.c
+2	39	0x00466030	src/radiant/entity.cpp	data/decomp/00466030.c
+2	42	0x00487180	src/universal/com_math.cpp	data/decomp/00487180.c
+2	42	0x004872d0	src/universal/com_math.cpp	data/decomp/004872d0.c
+2	45	0x00440c70	src/radiant/TexWnd.cpp	data/decomp/00440c70.c
+2	56	0x00465f90	src/radiant/entity.cpp	data/decomp/00465f90.c
+2	56	0x0048a0a0	src/universal/com_memory.cpp	data/decomp/0048a0a0.c
+2	63	0x00487070	src/universal/com_math.cpp	data/decomp/00487070.c
+2	74	0x004179e0	src/radiant/MainFrm.cpp	data/decomp/004179e0.c
+2	75	0x00463e40	src/radiant/eclass.cpp	data/decomp/00463e40.c
+2	76	0x004870b0	src/universal/com_math.cpp	data/decomp/004870b0.c
+2	76	0x00487300	src/universal/com_math.cpp	data/decomp/00487300.c
+2	89	0x0041a470	src/radiant/MainFrm.cpp	data/decomp/0041a470.c
+2	89	0x0041a560	src/radiant/MainFrm.cpp	data/decomp/0041a560.c
+2	89	0x0043cf20	src/radiant/SurfaceDlg.cpp	data/decomp/0043cf20.c
+2	92	0x00440c10	src/radiant/TexWnd.cpp	data/decomp/00440c10.c
+2	94	0x0041f9d0	src/radiant/MapInfo.cpp	data/decomp/0041f9d0.c
+2	103	0x0047e930	src/universal/com_files.cpp	data/decomp/0047e930.c
+2	104	0x00465f20	src/radiant/entity.cpp	data/decomp/00465f20.c
+2	111	0x00465eb0	src/radiant/entity.cpp	data/decomp/00465eb0.c
+2	119	0x00408510	src/libs/cmdlib/cmdlib.cpp	data/decomp/00408510.c
+2	133	0x00483190	src/universal/com_math.cpp	data/decomp/00483190.c
+2	139	0x0046cbd0	src/radiant/qe3.cpp	data/decomp/0046cbd0.c
+2	142	0x0048d2c0	src/universal/dvar.cpp	data/decomp/0048d2c0.c
+2	146	0x00484480	src/universal/com_math.cpp	data/decomp/00484480.c
+2	147	0x00481040	src/universal/com_files.cpp	data/decomp/00481040.c
+2	148	0x00483050	src/universal/com_math.cpp	data/decomp/00483050.c
+2	175	0x00455060	src/radiant/brush.cpp	data/decomp/00455060.c
+2	257	0x00432a60	src/radiant/Pmesh.cpp	
+2	257	0x00496030	src/universal/q_shared.cpp	
+2	259	0x00432950	src/radiant/Pmesh.cpp	
+2	371	0x004554e0	src/radiant/brush.cpp	
+2	381	0x00488320	src/universal/com_math.cpp	
+2	392	0x004884a0	src/universal/com_math.cpp	
+2	406	0x00435230	src/radiant/Pmesh.cpp	
+2	446	0x0048c890	src/universal/dvar.cpp	
+2	468	0x00447230	src/radiant/VertEditDlg.cpp	
+2	635	0x00447410	src/radiant/VertEditDlg.cpp	
+2	958	0x00488630	src/universal/com_math.cpp	
+3	15	0x00415320	src/radiant/MainFrm.cpp	data/decomp/00415320.c
+3	17	0x00443d70	src/radiant/Undo.cpp	data/decomp/00443d70.c
+3	21	0x00419ba0	src/radiant/MainFrm.cpp	data/decomp/00419ba0.c
+3	22	0x0047dfe0	src/universal/com_files.cpp	data/decomp/0047dfe0.c
+3	22	0x00490c70	src/universal/dvar.cpp	data/decomp/00490c70.c
+3	22	0x00495f20	src/universal/q_shared.cpp	data/decomp/00495f20.c
+3	23	0x00415330	src/radiant/MainFrm.cpp	data/decomp/00415330.c
+3	23	0x00415350	src/radiant/MainFrm.cpp	data/decomp/00415350.c
+3	23	0x00415370	src/radiant/MainFrm.cpp	data/decomp/00415370.c
+3	23	0x00487430	src/universal/com_math.cpp	data/decomp/00487430.c
+3	23	0x00490bc0	src/universal/dvar.cpp	data/decomp/00490bc0.c
+3	23	0x00491280	src/universal/dvar.cpp	data/decomp/00491280.c
+3	24	0x00490ba0	src/universal/dvar.cpp	data/decomp/00490ba0.c
+3	24	0x00490be0	src/universal/dvar.cpp	data/decomp/00490be0.c
+3	24	0x00490d50	src/universal/dvar.cpp	data/decomp/00490d50.c
+3	25	0x00419cc0	src/radiant/MainFrm.cpp	data/decomp/00419cc0.c
+3	25	0x004aa9a0	src/xanim/xmodel.cpp	data/decomp/004aa9a0.c
+3	27	0x00417170	src/radiant/MainFrm.cpp	data/decomp/00417170.c
+3	27	0x0048da70	src/universal/dvar.cpp	data/decomp/0048da70.c
+3	28	0x004818f0	src/universal/com_files.cpp	data/decomp/004818f0.c
+3	28	0x00490c00	src/universal/dvar.cpp	data/decomp/00490c00.c
+3	29	0x004190e0	src/radiant/MainFrm.cpp	data/decomp/004190e0.c
+3	30	0x00408800	src/libs/cmdlib/cmdlib.cpp	data/decomp/00408800.c
+3	30	0x00417150	src/radiant/MainFrm.cpp	data/decomp/00417150.c
+3	30	0x0046adf0	src/radiant/map.cpp	data/decomp/0046adf0.c
+3	30	0x00480970	src/universal/com_files.cpp	data/decomp/00480970.c
+3	30	0x0048d700	src/universal/dvar.cpp	data/decomp/0048d700.c
+3	31	0x00440980	src/radiant/TexWnd.cpp	data/decomp/00440980.c
+3	31	0x00465d10	src/radiant/entity.cpp	data/decomp/00465d10.c
+3	31	0x0047c820	src/universal/assertive.cpp	data/decomp/0047c820.c
+3	31	0x004a9060	src/script/scr_stringlist.cpp	data/decomp/004a9060.c
+3	32	0x00490c20	src/universal/dvar.cpp	data/decomp/00490c20.c
+3	33	0x00460440	src/radiant/csg.cpp	data/decomp/00460440.c
+3	33	0x00495e10	src/universal/q_shared.cpp	data/decomp/00495e10.c
+3	34	0x0041fa30	src/radiant/MapInfo.cpp	data/decomp/0041fa30.c
+3	34	0x004891a0	src/universal/com_math.cpp	data/decomp/004891a0.c
+3	35	0x00458640	src/radiant/brush.cpp	data/decomp/00458640.c
+3	35	0x0048f930	src/universal/dvar.cpp	data/decomp/0048f930.c
+3	35	0x0048f960	src/universal/dvar.cpp	data/decomp/0048f960.c
+3	36	0x00417cc0	src/radiant/MainFrm.cpp	data/decomp/00417cc0.c
+3	36	0x00480940	src/universal/com_files.cpp	data/decomp/00480940.c
+3	36	0x0048f900	src/universal/dvar.cpp	data/decomp/0048f900.c
+3	36	0x00490c40	src/universal/dvar.cpp	data/decomp/00490c40.c
+3	36	0x00490c90	src/universal/dvar.cpp	data/decomp/00490c90.c
+3	37	0x00413030	src/radiant/MainFrm.cpp	data/decomp/00413030.c
+3	37	0x004603d0	src/radiant/csg.cpp	data/decomp/004603d0.c
+3	37	0x0047f2b0	src/universal/com_files.cpp	data/decomp/0047f2b0.c
+3	37	0x004a9f90	src/script/scr_stringlist.cpp	data/decomp/004a9f90.c
+3	39	0x004191a0	src/radiant/MainFrm.cpp	data/decomp/004191a0.c
+3	39	0x00419200	src/radiant/MainFrm.cpp	data/decomp/00419200.c
+3	39	0x0047f660	src/universal/com_files.cpp	data/decomp/0047f660.c
+3	40	0x004191d0	src/radiant/MainFrm.cpp	data/decomp/004191d0.c
+3	40	0x00419230	src/radiant/MainFrm.cpp	data/decomp/00419230.c
+3	40	0x0045ebc0	src/radiant/brush.cpp	data/decomp/0045ebc0.c
+3	40	0x004a88c0	src/script/scr_stringlist.cpp	data/decomp/004a88c0.c
+3	41	0x00466940	src/radiant/entity.cpp	data/decomp/00466940.c
+3	41	0x0047c6c0	src/universal/assertive.cpp	data/decomp/0047c6c0.c
+3	42	0x00415210	src/radiant/MainFrm.cpp	data/decomp/00415210.c
+3	42	0x0044c300	src/radiant/XYWnd.cpp	data/decomp/0044c300.c
+3	42	0x00465d50	src/radiant/entity.cpp	data/decomp/00465d50.c
+3	43	0x00487ed0	src/universal/com_math.cpp	data/decomp/00487ed0.c
+3	45	0x004a98f0	src/script/scr_stringlist.cpp	data/decomp/004a98f0.c
+3	47	0x004a98c0	src/script/scr_stringlist.cpp	data/decomp/004a98c0.c
+3	47	0x004a9a10	src/script/scr_stringlist.cpp	data/decomp/004a9a10.c
+3	47	0x004aaa40	src/xanim/xmodel.cpp	data/decomp/004aaa40.c
+3	49	0x004a99d0	src/script/scr_stringlist.cpp	data/decomp/004a99d0.c
+3	50	0x00413210	src/radiant/MainFrm.cpp	data/decomp/00413210.c
+3	50	0x00441460	src/radiant/TexWnd.cpp	data/decomp/00441460.c
+3	50	0x0048f110	src/universal/dvar.cpp	data/decomp/0048f110.c
+3	51	0x0042bf10	src/radiant/Pmesh.cpp	data/decomp/0042bf10.c
+3	52	0x004559f0	src/radiant/brush.cpp	data/decomp/004559f0.c
+3	52	0x00489c10	src/universal/com_memory.cpp	data/decomp/00489c10.c
+3	52	0x0048a440	src/universal/com_memory.cpp	data/decomp/0048a440.c
+3	52	0x0048f990	src/universal/dvar.cpp	data/decomp/0048f990.c
+3	53	0x00419c30	src/radiant/MainFrm.cpp	data/decomp/00419c30.c
+3	53	0x0041a2b0	src/radiant/MainFrm.cpp	data/decomp/0041a2b0.c
+3	53	0x00460400	src/radiant/csg.cpp	data/decomp/00460400.c
+3	53	0x0047c9b0	src/universal/assertive.cpp	data/decomp/0047c9b0.c
+3	54	0x00466400	src/radiant/entity.cpp	data/decomp/00466400.c
+3	54	0x0047c6f0	src/universal/assertive.cpp	data/decomp/0047c6f0.c
+3	54	0x004868c0	src/universal/com_math.cpp	data/decomp/004868c0.c
+3	54	0x00491410	src/universal/dvar.cpp	data/decomp/00491410.c
+3	55	0x00454ef0	src/radiant/brush.cpp	data/decomp/00454ef0.c
+3	56	0x00413790	src/radiant/MainFrm.cpp	data/decomp/00413790.c
+3	56	0x004190a0	src/radiant/MainFrm.cpp	data/decomp/004190a0.c
+3	56	0x00456fb0	src/radiant/brush.cpp	data/decomp/00456fb0.c
+3	57	0x0042b640	src/radiant/Pmesh.cpp	data/decomp/0042b640.c
+3	57	0x00455cb0	src/radiant/brush.cpp	data/decomp/00455cb0.c
+3	57	0x00486900	src/universal/com_math.cpp	data/decomp/00486900.c
+3	58	0x00416ed0	src/radiant/MainFrm.cpp	data/decomp/00416ed0.c
+3	58	0x00416f10	src/radiant/MainFrm.cpp	data/decomp/00416f10.c
+3	58	0x00416f50	src/radiant/MainFrm.cpp	data/decomp/00416f50.c
+3	58	0x00416f90	src/radiant/MainFrm.cpp	data/decomp/00416f90.c
+3	58	0x00416fd0	src/radiant/MainFrm.cpp	data/decomp/00416fd0.c
+3	58	0x0044cf30	src/radiant/XYWnd.cpp	data/decomp/0044cf30.c
+3	58	0x0048f9d0	src/universal/dvar.cpp	data/decomp/0048f9d0.c
+3	59	0x00467640	src/radiant/entity.cpp	data/decomp/00467640.c
+3	60	0x0041b070	src/radiant/MainFrm.cpp	data/decomp/0041b070.c
+3	60	0x0041b0b0	src/radiant/MainFrm.cpp	data/decomp/0041b0b0.c
+3	60	0x0047f2e0	src/universal/com_files.cpp	data/decomp/0047f2e0.c
+3	61	0x00416e90	src/radiant/MainFrm.cpp	data/decomp/00416e90.c
+3	61	0x00454f30	src/radiant/brush.cpp	data/decomp/00454f30.c
+3	61	0x004660d0	src/radiant/entity.cpp	data/decomp/004660d0.c
+3	62	0x00432b70	src/radiant/Pmesh.cpp	data/decomp/00432b70.c
+3	63	0x004131d0	src/radiant/MainFrm.cpp	data/decomp/004131d0.c
+3	63	0x00417cf0	src/radiant/MainFrm.cpp	data/decomp/00417cf0.c
+3	63	0x0042af50	src/radiant/Pmesh.cpp	data/decomp/0042af50.c
+3	63	0x0045e070	src/radiant/brush.cpp	data/decomp/0045e070.c
+3	63	0x00460650	src/radiant/csg.cpp	data/decomp/00460650.c
+3	63	0x0046d0b0	src/radiant/qe3.cpp	data/decomp/0046d0b0.c
+3	64	0x00434810	src/radiant/Pmesh.cpp	data/decomp/00434810.c
+3	64	0x0048fa10	src/universal/dvar.cpp	data/decomp/0048fa10.c
+3	65	0x00404d70	src/radiant/CamWnd.cpp	data/decomp/00404d70.c
+3	65	0x00470ce0	src/radiant/select.cpp	data/decomp/00470ce0.c
+3	65	0x004741e0	src/radiant/select.cpp	data/decomp/004741e0.c
+3	65	0x00488040	src/universal/com_math.cpp	data/decomp/00488040.c
+3	66	0x004177f0	src/radiant/MainFrm.cpp	data/decomp/004177f0.c
+3	66	0x00441c50	src/radiant/TexWnd.cpp	data/decomp/00441c50.c
+3	66	0x004663b0	src/radiant/entity.cpp	data/decomp/004663b0.c
+3	66	0x00483900	src/universal/com_math.cpp	data/decomp/00483900.c
+3	67	0x00417ea0	src/radiant/MainFrm.cpp	data/decomp/00417ea0.c
+3	67	0x0042a3a0	src/radiant/Pmesh.cpp	data/decomp/0042a3a0.c
+3	68	0x00481990	src/universal/com_files.cpp	data/decomp/00481990.c
+3	69	0x0042a3f0	src/radiant/Pmesh.cpp	data/decomp/0042a3f0.c
+3	69	0x0042bd90	src/radiant/Pmesh.cpp	data/decomp/0042bd90.c
+3	69	0x00470c00	src/radiant/select.cpp	data/decomp/00470c00.c
+3	69	0x0048a480	src/universal/com_memory.cpp	data/decomp/0048a480.c
+3	70	0x0048d780	src/universal/dvar.cpp	data/decomp/0048d780.c
+3	70	0x004ac9a0	src/xanim/xmodel_load_obj.cpp	data/decomp/004ac9a0.c
+3	72	0x00417750	src/radiant/MainFrm.cpp	data/decomp/00417750.c
+3	72	0x004177a0	src/radiant/MainFrm.cpp	data/decomp/004177a0.c
+3	72	0x0047c9f0	src/universal/assertive.cpp	data/decomp/0047c9f0.c
+3	73	0x004668f0	src/radiant/entity.cpp	data/decomp/004668f0.c
+3	74	0x0045ef60	src/radiant/brush.cpp	data/decomp/0045ef60.c
+3	74	0x00483610	src/universal/com_math.cpp	data/decomp/00483610.c
+3	74	0x00485c40	src/universal/com_math.cpp	data/decomp/00485c40.c
+3	75	0x004384c0	src/radiant/Pmesh.cpp	data/decomp/004384c0.c
+3	75	0x00443e70	src/radiant/Undo.cpp	data/decomp/00443e70.c
+3	75	0x00489350	src/universal/com_math.cpp	data/decomp/00489350.c
+3	75	0x0048bab0	src/universal/dvar.cpp	data/decomp/0048bab0.c
+3	75	0x0048bb00	src/universal/dvar.cpp	data/decomp/0048bb00.c
+3	75	0x0048bb50	src/universal/dvar.cpp	data/decomp/0048bb50.c
+3	76	0x00489dd0	src/universal/com_memory.cpp	data/decomp/00489dd0.c
+3	78	0x00470d30	src/radiant/select.cpp	data/decomp/00470d30.c
+3	78	0x00488090	src/universal/com_math.cpp	data/decomp/00488090.c
+3	79	0x00417840	src/radiant/MainFrm.cpp	data/decomp/00417840.c
+3	79	0x00433a80	src/radiant/Pmesh.cpp	data/decomp/00433a80.c
+3	80	0x00428e20	src/radiant/Pmesh.cpp	data/decomp/00428e20.c
+3	80	0x0042b680	src/radiant/Pmesh.cpp	data/decomp/0042b680.c
+3	80	0x00480d00	src/universal/com_files.cpp	data/decomp/00480d00.c
+3	80	0x004ac3e0	src/xanim/xmodel_load_obj.cpp	data/decomp/004ac3e0.c
+3	80	0x004ac430	src/xanim/xmodel_load_obj.cpp	data/decomp/004ac430.c
+3	81	0x00408440	src/libs/cmdlib/cmdlib.cpp	data/decomp/00408440.c
+3	81	0x004803e0	src/universal/com_files.cpp	data/decomp/004803e0.c
+3	82	0x00434630	src/radiant/Pmesh.cpp	data/decomp/00434630.c
+3	83	0x0044c280	src/radiant/XYWnd.cpp	data/decomp/0044c280.c
+3	83	0x00483790	src/universal/com_math.cpp	data/decomp/00483790.c
+3	83	0x004a9ed0	src/script/scr_stringlist.cpp	data/decomp/004a9ed0.c
+3	84	0x00446bc0	src/radiant/VertEditDlg.cpp	data/decomp/00446bc0.c
+3	84	0x0048dee0	src/universal/dvar.cpp	data/decomp/0048dee0.c
+3	85	0x004aa670	src/xanim/xmodel.cpp	data/decomp/004aa670.c
+3	86	0x0044f5d0	src/radiant/XYWnd.cpp	data/decomp/0044f5d0.c
+3	86	0x0047f570	src/universal/com_files.cpp	data/decomp/0047f570.c
+3	87	0x004a4f30	src/xanim/dobj.cpp	data/decomp/004a4f30.c
+3	88	0x0042a040	src/radiant/Pmesh.cpp	data/decomp/0042a040.c
+3	88	0x0042beb0	src/radiant/Pmesh.cpp	data/decomp/0042beb0.c
+3	88	0x00434880	src/radiant/Pmesh.cpp	data/decomp/00434880.c
+3	88	0x00456ed0	src/radiant/brush.cpp	data/decomp/00456ed0.c
+3	88	0x004675e0	src/radiant/entity.cpp	data/decomp/004675e0.c
+3	88	0x00470a50	src/radiant/select.cpp	data/decomp/00470a50.c
+3	89	0x00417e40	src/radiant/MainFrm.cpp	data/decomp/00417e40.c
+3	89	0x0046ae10	src/radiant/map.cpp	data/decomp/0046ae10.c
+3	90	0x00440d90	src/radiant/TexWnd.cpp	data/decomp/00440d90.c
+3	90	0x0044c5c0	src/radiant/XYWnd.cpp	data/decomp/0044c5c0.c
+3	90	0x00453e30	src/radiant/brush.cpp	data/decomp/00453e30.c
+3	90	0x004a5080	src/xanim/dobj.cpp	data/decomp/004a5080.c
+3	91	0x0046b9b0	src/radiant/map.cpp	data/decomp/0046b9b0.c
+3	91	0x00491380	src/universal/dvar.cpp	data/decomp/00491380.c
+3	92	0x004422a0	src/radiant/TexWnd.cpp	data/decomp/004422a0.c
+3	92	0x00443ec0	src/radiant/Undo.cpp	data/decomp/00443ec0.c
+3	92	0x004820a0	src/universal/com_files.cpp	data/decomp/004820a0.c
+3	92	0x0048cc10	src/universal/dvar.cpp	data/decomp/0048cc10.c
+3	92	0x0048cc70	src/universal/dvar.cpp	data/decomp/0048cc70.c
+3	92	0x004aa100	src/script/scr_stringlist.cpp	data/decomp/004aa100.c
+3	93	0x0046ad90	src/radiant/map.cpp	data/decomp/0046ad90.c
+3	93	0x0048df40	src/universal/dvar.cpp	data/decomp/0048df40.c
+3	94	0x00442140	src/radiant/TexWnd.cpp	data/decomp/00442140.c
+3	94	0x004421a0	src/radiant/TexWnd.cpp	data/decomp/004421a0.c
+3	94	0x004aadb0	src/xanim/xmodel.cpp	data/decomp/004aadb0.c
+3	95	0x00417a30	src/radiant/MainFrm.cpp	data/decomp/00417a30.c
+3	95	0x0048d720	src/universal/dvar.cpp	data/decomp/0048d720.c
+3	96	0x0042b810	src/radiant/Pmesh.cpp	data/decomp/0042b810.c
+3	96	0x0046b550	src/radiant/map.cpp	data/decomp/0046b550.c
+3	96	0x0047c650	src/universal/assertive.cpp	data/decomp/0047c650.c
+3	96	0x00482b10	src/universal/com_math.cpp	data/decomp/00482b10.c
+3	96	0x004aac40	src/xanim/xmodel.cpp	data/decomp/004aac40.c
+3	97	0x004598b0	src/radiant/brush.cpp	data/decomp/004598b0.c
+3	97	0x00460690	src/radiant/csg.cpp	data/decomp/00460690.c
+3	97	0x004aa090	src/script/scr_stringlist.cpp	data/decomp/004aa090.c
+3	98	0x004634f0	src/radiant/eclass.cpp	data/decomp/004634f0.c
+3	98	0x0046ae70	src/radiant/map.cpp	data/decomp/0046ae70.c
+3	99	0x00437390	src/radiant/Pmesh.cpp	data/decomp/00437390.c
+3	99	0x004910d0	src/universal/dvar.cpp	data/decomp/004910d0.c
+3	99	0x00491210	src/universal/dvar.cpp	data/decomp/00491210.c
+3	100	0x0047e000	src/universal/com_files.cpp	data/decomp/0047e000.c
+3	100	0x004a5460	src/xanim/dobj.cpp	data/decomp/004a5460.c
+3	101	0x00419bc0	src/radiant/MainFrm.cpp	data/decomp/00419bc0.c
+3	101	0x00466110	src/radiant/entity.cpp	data/decomp/00466110.c
+3	102	0x00465580	src/radiant/entity.cpp	data/decomp/00465580.c
+3	102	0x00466180	src/radiant/entity.cpp	data/decomp/00466180.c
+3	102	0x004aaba0	src/xanim/xmodel.cpp	data/decomp/004aaba0.c
+3	103	0x0042a440	src/radiant/Pmesh.cpp	data/decomp/0042a440.c
+3	103	0x0047e3c0	src/universal/com_files.cpp	data/decomp/0047e3c0.c
+3	103	0x004abb00	src/xanim/xmodel_load_obj.cpp	data/decomp/004abb00.c
+3	104	0x00410330	src/radiant/GfxWrapper.cpp	data/decomp/00410330.c
+3	105	0x0047f700	src/universal/com_files.cpp	data/decomp/0047f700.c
+3	106	0x004171b0	src/radiant/MainFrm.cpp	data/decomp/004171b0.c
+3	106	0x0042d560	src/radiant/Pmesh.cpp	data/decomp/0042d560.c
+3	107	0x00485040	src/universal/com_math.cpp	data/decomp/00485040.c
+3	107	0x00489b70	src/universal/com_memory.cpp	data/decomp/00489b70.c
+3	107	0x004a8920	src/script/scr_stringlist.cpp	data/decomp/004a8920.c
+3	109	0x00417970	src/radiant/MainFrm.cpp	data/decomp/00417970.c
+3	109	0x00417ae0	src/radiant/MainFrm.cpp	data/decomp/00417ae0.c
+3	109	0x0042f5d0	src/radiant/Pmesh.cpp	data/decomp/0042f5d0.c
+3	109	0x00454630	src/radiant/brush.cpp	data/decomp/00454630.c
+3	109	0x004547a0	src/radiant/brush.cpp	data/decomp/004547a0.c
+3	109	0x00497830	src/universal/q_shared.cpp	data/decomp/00497830.c
+3	109	0x00497ac0	src/universal/q_shared.cpp	data/decomp/00497ac0.c
+3	111	0x00453dc0	src/radiant/brush.cpp	data/decomp/00453dc0.c
+3	111	0x00465a70	src/radiant/entity.cpp	data/decomp/00465a70.c
+3	111	0x00465ae0	src/radiant/entity.cpp	data/decomp/00465ae0.c
+3	111	0x00465bf0	src/radiant/entity.cpp	data/decomp/00465bf0.c
+3	111	0x0046cb10	src/radiant/qe3.cpp	data/decomp/0046cb10.c
+3	111	0x00482bf0	src/universal/com_math.cpp	data/decomp/00482bf0.c
+3	111	0x00483be0	src/universal/com_math.cpp	data/decomp/00483be0.c
+3	111	0x004ac860	src/xanim/xmodel_load_obj.cpp	data/decomp/004ac860.c
+3	113	0x00458d40	src/radiant/brush.cpp	data/decomp/00458d40.c
+3	113	0x00490d70	src/universal/dvar.cpp	data/decomp/00490d70.c
+3	113	0x004a4eb0	src/xanim/dobj.cpp	data/decomp/004a4eb0.c
+3	113	0x004aa160	src/script/scr_stringlist.cpp	data/decomp/004aa160.c
+3	114	0x00467370	src/radiant/entity.cpp	data/decomp/00467370.c
+3	114	0x0047e170	src/universal/com_files.cpp	data/decomp/0047e170.c
+3	115	0x0048ec70	src/universal/dvar.cpp	data/decomp/0048ec70.c
+3	116	0x00497d70	src/universal/q_shared.cpp	data/decomp/00497d70.c
+3	117	0x004549b0	src/radiant/brush.cpp	data/decomp/004549b0.c
+3	117	0x00465c60	src/radiant/entity.cpp	data/decomp/00465c60.c
+3	117	0x00495d90	src/universal/q_shared.cpp	data/decomp/00495d90.c
+3	118	0x00441ce0	src/radiant/TexWnd.cpp	data/decomp/00441ce0.c
+3	118	0x00485980	src/universal/com_math.cpp	data/decomp/00485980.c
+3	118	0x00490e90	src/universal/dvar.cpp	data/decomp/00490e90.c
+3	118	0x00497bd0	src/universal/q_shared.cpp	data/decomp/00497bd0.c
+3	119	0x0047fb10	src/universal/com_files.cpp	data/decomp/0047fb10.c
+3	119	0x00495e80	src/universal/q_shared.cpp	data/decomp/00495e80.c
+3	120	0x0047f687	src/universal/com_files.cpp	data/decomp/0047f687.c
+3	120	0x004a5af0	src/xanim/dobj.cpp	data/decomp/004a5af0.c
+3	121	0x0042bd10	src/radiant/Pmesh.cpp	data/decomp/0042bd10.c
+3	121	0x00494400	src/universal/linearmapping.cpp	data/decomp/00494400.c
+3	122	0x00454a30	src/radiant/brush.cpp	data/decomp/00454a30.c
+3	122	0x00456f30	src/radiant/brush.cpp	data/decomp/00456f30.c
+3	123	0x00408210	src/libs/cmdlib/cmdlib.cpp	data/decomp/00408210.c
+3	123	0x00408290	src/libs/cmdlib/cmdlib.cpp	data/decomp/00408290.c
+3	123	0x004a4e10	src/xanim/dobj.cpp	data/decomp/004a4e10.c
+3	123	0x004a8fc0	src/script/scr_stringlist.cpp	data/decomp/004a8fc0.c
+3	124	0x0042fad0	src/radiant/Pmesh.cpp	data/decomp/0042fad0.c
+3	124	0x00489e20	src/universal/com_memory.cpp	data/decomp/00489e20.c
+3	124	0x0048a270	src/universal/com_memory.cpp	data/decomp/0048a270.c
+3	125	0x0042aed0	src/radiant/Pmesh.cpp	data/decomp/0042aed0.c
+3	125	0x00482b70	src/universal/com_math.cpp	data/decomp/00482b70.c
+3	125	0x004a8500	src/script/scr_memorytree.cpp	data/decomp/004a8500.c
+3	126	0x00481910	src/universal/com_files.cpp	data/decomp/00481910.c
+3	126	0x004a6f70	src/xanim/xmodel.cpp	data/decomp/004a6f70.c
+3	127	0x00484360	src/universal/com_math.cpp	data/decomp/00484360.c
+3	128	0x00483d90	src/universal/com_math.cpp	data/decomp/00483d90.c
+3	129	0x00408310	src/libs/cmdlib/cmdlib.cpp	data/decomp/00408310.c
+3	129	0x00469210	src/radiant/map.cpp	data/decomp/00469210.c
+3	129	0x0048c5a0	src/universal/dvar.cpp	data/decomp/0048c5a0.c
+3	129	0x0048d9b0	src/universal/dvar.cpp	data/decomp/0048d9b0.c
+3	129	0x00490f10	src/universal/dvar.cpp	data/decomp/00490f10.c
+3	131	0x004274b0	src/radiant/Pmesh.cpp	data/decomp/004274b0.c
+3	131	0x00489c90	src/universal/com_memory.cpp	data/decomp/00489c90.c
+3	131	0x004a48e0	src/xanim/dobj.cpp	data/decomp/004a48e0.c
+3	133	0x0041fa90	src/radiant/MapInfo.cpp	data/decomp/0041fa90.c
+3	133	0x004a53d0	src/xanim/dobj.cpp	data/decomp/004a53d0.c
+3	133	0x004aaa70	src/xanim/xmodel.cpp	data/decomp/004aaa70.c
+3	134	0x00433da0	src/radiant/Pmesh.cpp	data/decomp/00433da0.c
+3	134	0x004681d0	src/radiant/map.cpp	data/decomp/004681d0.c
+3	134	0x00483b50	src/universal/com_math.cpp	data/decomp/00483b50.c
+3	135	0x00442200	src/radiant/TexWnd.cpp	data/decomp/00442200.c
+3	135	0x004672e0	src/radiant/entity.cpp	data/decomp/004672e0.c
+3	136	0x004162c0	src/radiant/MainFrm.cpp	data/decomp/004162c0.c
+3	136	0x0041a3e0	src/radiant/MainFrm.cpp	data/decomp/0041a3e0.c
+3	136	0x0041a4d0	src/radiant/MainFrm.cpp	data/decomp/0041a4d0.c
+3	136	0x0043cd60	src/radiant/SurfaceDlg.cpp	data/decomp/0043cd60.c
+3	136	0x0046d680	src/radiant/qe3.cpp	data/decomp/0046d680.c
+3	136	0x00473940	src/radiant/select.cpp	data/decomp/00473940.c
+3	136	0x00483f40	src/universal/com_math.cpp	data/decomp/00483f40.c
+3	136	0x00483fd0	src/universal/com_math.cpp	data/decomp/00483fd0.c
+3	136	0x00486200	src/universal/com_math.cpp	data/decomp/00486200.c
+3	137	0x004977a0	src/universal/q_shared.cpp	data/decomp/004977a0.c
+3	137	0x00497950	src/universal/q_shared.cpp	data/decomp/00497950.c
+3	138	0x00489d40	src/universal/com_memory.cpp	data/decomp/00489d40.c
+3	138	0x004aab00	src/xanim/xmodel.cpp	data/decomp/004aab00.c
+3	139	0x0048c630	src/universal/dvar.cpp	data/decomp/0048c630.c
+3	139	0x004a7de0	src/script/scr_memorytree.cpp	data/decomp/004a7de0.c
+3	139	0x004a9b00	src/script/scr_stringlist.cpp	data/decomp/004a9b00.c
+3	140	0x00470c50	src/radiant/select.cpp	data/decomp/00470c50.c
+3	140	0x00490fa0	src/universal/dvar.cpp	data/decomp/00490fa0.c
+3	142	0x004671b0	src/radiant/entity.cpp	data/decomp/004671b0.c
+3	142	0x004969e0	src/universal/q_shared.cpp	data/decomp/004969e0.c
+3	143	0x0047f5c6	src/universal/com_files.cpp	data/decomp/0047f5c6.c
+3	144	0x00440620	src/radiant/TexWnd.cpp	data/decomp/00440620.c
+3	144	0x00459920	src/radiant/brush.cpp	data/decomp/00459920.c
+3	144	0x0047a4f0	src/radiant/win_qe3.cpp	data/decomp/0047a4f0.c
+3	144	0x00484d10	src/universal/com_math.cpp	data/decomp/00484d10.c
+3	144	0x00490cc0	src/universal/dvar.cpp	data/decomp/00490cc0.c
+3	145	0x00441750	src/radiant/TexWnd.cpp	data/decomp/00441750.c
+3	145	0x00465b50	src/radiant/entity.cpp	data/decomp/00465b50.c
+3	145	0x004863e0	src/universal/com_math.cpp	data/decomp/004863e0.c
+3	145	0x00497700	src/universal/q_shared.cpp	data/decomp/00497700.c
+3	146	0x00416090	src/radiant/MainFrm.cpp	data/decomp/00416090.c
+3	146	0x00416130	src/radiant/MainFrm.cpp	data/decomp/00416130.c
+3	146	0x004161d0	src/radiant/MainFrm.cpp	data/decomp/004161d0.c
+3	146	0x0041f670	src/radiant/MapInfo.cpp	data/decomp/0041f670.c
+3	146	0x004a04b0	src/universal/splines/util_str.cpp	data/decomp/004a04b0.c
+3	147	0x004083a0	src/libs/cmdlib/cmdlib.cpp	data/decomp/004083a0.c
+3	147	0x00410120	src/radiant/GfxWrapper.cpp	data/decomp/00410120.c
+3	147	0x004843e0	src/universal/com_math.cpp	data/decomp/004843e0.c
+3	147	0x004968b0	src/universal/q_shared.cpp	data/decomp/004968b0.c
+3	148	0x00483cf0	src/universal/com_math.cpp	data/decomp/00483cf0.c
+3	148	0x00490df0	src/universal/dvar.cpp	data/decomp/00490df0.c
+3	149	0x0042ae30	src/radiant/Pmesh.cpp	data/decomp/0042ae30.c
+3	149	0x0048c6c0	src/universal/dvar.cpp	data/decomp/0048c6c0.c
+3	150	0x00443cd0	src/radiant/Undo.cpp	data/decomp/00443cd0.c
+3	150	0x004a7d20	src/script/scr_memorytree.cpp	data/decomp/004a7d20.c
+3	151	0x0042ea50	src/radiant/Pmesh.cpp	data/decomp/0042ea50.c
+3	151	0x00455950	src/radiant/brush.cpp	data/decomp/00455950.c
+3	151	0x004830f0	src/universal/com_math.cpp	data/decomp/004830f0.c
+3	151	0x00483220	src/universal/com_math.cpp	data/decomp/00483220.c
+3	151	0x00491030	src/universal/dvar.cpp	data/decomp/00491030.c
+3	151	0x004a4130	src/xanim/dobj.cpp	data/decomp/004a4130.c
+3	152	0x00427410	src/radiant/Pmesh.cpp	data/decomp/00427410.c
+3	152	0x00467240	src/radiant/entity.cpp	data/decomp/00467240.c
+3	153	0x00467470	src/radiant/entity.cpp	data/decomp/00467470.c
+3	155	0x004631a0	src/radiant/eclass.cpp	data/decomp/004631a0.c
+3	157	0x00417d60	src/radiant/MainFrm.cpp	data/decomp/00417d60.c
+3	157	0x0042a7f0	src/radiant/Pmesh.cpp	data/decomp/0042a7f0.c
+3	157	0x00469690	src/radiant/map.cpp	data/decomp/00469690.c
+3	157	0x00483c50	src/universal/com_math.cpp	data/decomp/00483c50.c
+3	157	0x0048a2f0	src/universal/com_memory.cpp	data/decomp/0048a2f0.c
+3	157	0x00494360	src/universal/linearmapping.cpp	data/decomp/00494360.c
+3	157	0x004a87b0	src/script/scr_stringlist.cpp	data/decomp/004a87b0.c
+3	157	0x004a8f20	src/script/scr_stringlist.cpp	data/decomp/004a8f20.c
+3	158	0x00497b30	src/universal/q_shared.cpp	data/decomp/00497b30.c
+3	159	0x00434040	src/radiant/Pmesh.cpp	data/decomp/00434040.c
+3	159	0x00443c30	src/radiant/Undo.cpp	data/decomp/00443c30.c
+3	159	0x0046d0f0	src/radiant/qe3.cpp	data/decomp/0046d0f0.c
+3	159	0x0048bba0	src/universal/dvar.cpp	data/decomp/0048bba0.c
+3	159	0x0048bc40	src/universal/dvar.cpp	data/decomp/0048bc40.c
+3	160	0x004839b0	src/universal/com_math.cpp	data/decomp/004839b0.c
+3	161	0x0042ad80	src/radiant/Pmesh.cpp	data/decomp/0042ad80.c
+3	161	0x00451e00	src/radiant/XYWnd.cpp	data/decomp/00451e00.c
+3	161	0x0047ec70	src/universal/com_files.cpp	data/decomp/0047ec70.c
+3	161	0x004a9920	src/script/scr_stringlist.cpp	data/decomp/004a9920.c
+3	162	0x0041b590	src/radiant/MainFrm.cpp	data/decomp/0041b590.c
+3	163	0x00441600	src/radiant/TexWnd.cpp	data/decomp/00441600.c
+3	164	0x0045b260	src/radiant/brush.cpp	data/decomp/0045b260.c
+3	164	0x00487500	src/universal/com_math.cpp	data/decomp/00487500.c
+3	165	0x004a2590	src/xanim/dobj.cpp	data/decomp/004a2590.c
+3	166	0x004431f0	src/radiant/Undo.cpp	data/decomp/004431f0.c
+3	168	0x0047f320	src/universal/com_files.cpp	data/decomp/0047f320.c
+3	169	0x0041a330	src/radiant/MainFrm.cpp	data/decomp/0041a330.c
+3	169	0x0042f790	src/radiant/Pmesh.cpp	data/decomp/0042f790.c
+3	169	0x00430b90	src/radiant/Pmesh.cpp	data/decomp/00430b90.c
+3	169	0x00488ac0	src/universal/com_math.cpp	data/decomp/00488ac0.c
+3	169	0x004965d0	src/universal/q_shared.cpp	data/decomp/004965d0.c
+3	170	0x00430a60	src/radiant/Pmesh.cpp	data/decomp/00430a60.c
+3	170	0x004630c0	src/radiant/eclass.cpp	data/decomp/004630c0.c
+3	170	0x0049a910	src/universal/splines/splines.cpp	data/decomp/0049a910.c
+3	171	0x00445370	src/radiant/VehicleDlg.cpp	data/decomp/00445370.c
+3	171	0x00459210	src/radiant/brush.cpp	data/decomp/00459210.c
+3	171	0x0045e2c0	src/radiant/brush.cpp	data/decomp/0045e2c0.c
+3	171	0x00480eb0	src/universal/com_files.cpp	data/decomp/00480eb0.c
+3	172	0x00408820	src/libs/cmdlib/cmdlib.cpp	data/decomp/00408820.c
+3	172	0x0044bb80	src/radiant/XYWnd.cpp	data/decomp/0044bb80.c
+3	172	0x0046afc0	src/radiant/map.cpp	data/decomp/0046afc0.c
+3	172	0x0046fb30	src/radiant/select.cpp	data/decomp/0046fb30.c
+3	172	0x00487450	src/universal/com_math.cpp	data/decomp/00487450.c
+3	173	0x0047e430	src/universal/com_files.cpp	data/decomp/0047e430.c
+3	174	0x0047dd40	src/universal/com_files.cpp	data/decomp/0047dd40.c
+3	174	0x00486480	src/universal/com_math.cpp	data/decomp/00486480.c
+3	174	0x0048acc0	src/universal/com_memory.cpp	data/decomp/0048acc0.c
+3	174	0x004978a0	src/universal/q_shared.cpp	data/decomp/004978a0.c
+3	175	0x004655f0	src/radiant/entity.cpp	data/decomp/004655f0.c
+3	175	0x00468100	src/radiant/map.cpp	data/decomp/00468100.c
+3	176	0x0048ea40	src/universal/dvar.cpp	data/decomp/0048ea40.c
+3	176	0x004aa560	src/script/scr_stringlist.cpp	data/decomp/004aa560.c
+3	177	0x00433ad0	src/radiant/Pmesh.cpp	data/decomp/00433ad0.c
+3	177	0x0047e300	src/universal/com_files.cpp	data/decomp/0047e300.c
+3	179	0x00463310	src/radiant/eclass.cpp	data/decomp/00463310.c
+3	180	0x0045c950	src/radiant/brush.cpp	data/decomp/0045c950.c
+3	181	0x0047fa40	src/universal/com_files.cpp	data/decomp/0047fa40.c
+3	182	0x00435840	src/radiant/Pmesh.cpp	data/decomp/00435840.c
+3	182	0x0047c760	src/universal/assertive.cpp	data/decomp/0047c760.c
+3	183	0x0041f910	src/radiant/MapInfo.cpp	data/decomp/0041f910.c
+3	183	0x0046fe50	src/radiant/select.cpp	data/decomp/0046fe50.c
+3	184	0x00454ab0	src/radiant/brush.cpp	data/decomp/00454ab0.c
+3	185	0x00488b70	src/universal/com_math.cpp	data/decomp/00488b70.c
+3	186	0x00481fd0	src/universal/com_files.cpp	data/decomp/00481fd0.c
+3	188	0x00464770	src/radiant/eclass.cpp	data/decomp/00464770.c
+3	188	0x0046f430	src/radiant/select.cpp	data/decomp/0046f430.c
+3	188	0x00494d20	src/universal/q_parse.cpp	data/decomp/00494d20.c
+3	189	0x00486940	src/universal/com_math.cpp	data/decomp/00486940.c
+3	189	0x004aa6e0	src/xanim/xmodel.cpp	data/decomp/004aa6e0.c
+3	190	0x0047d1b0	src/universal/assertive.cpp	data/decomp/0047d1b0.c
+3	190	0x0047f3d0	src/universal/com_files.cpp	data/decomp/0047f3d0.c
+3	190	0x004a9a40	src/script/scr_stringlist.cpp	data/decomp/004a9a40.c
+3	190	0x004aa7a0	src/xanim/xmodel.cpp	data/decomp/004aa7a0.c
+3	191	0x00455e20	src/radiant/brush.cpp	data/decomp/00455e20.c
+3	191	0x004597f0	src/radiant/brush.cpp	data/decomp/004597f0.c
+3	191	0x00480f60	src/universal/com_files.cpp	data/decomp/00480f60.c
+3	191	0x004a75e0	src/script/scr_memorytree.cpp	data/decomp/004a75e0.c
+3	191	0x004acb70	src/xanim/xmodel_utils.cpp	data/decomp/004acb70.c
+3	192	0x0045af00	src/radiant/brush.cpp	data/decomp/0045af00.c
+3	192	0x00494de0	src/universal/q_parse.cpp	data/decomp/00494de0.c
+3	194	0x0041b720	src/radiant/MainFrm.cpp	data/decomp/0041b720.c
+3	194	0x004592f0	src/radiant/brush.cpp	data/decomp/004592f0.c
+3	194	0x00484720	src/universal/com_math.cpp	data/decomp/00484720.c
+3	194	0x0048b9b0	src/universal/dvar.cpp	data/decomp/0048b9b0.c
+3	194	0x0048ecf0	src/universal/dvar.cpp	data/decomp/0048ecf0.c
+3	194	0x00491140	src/universal/dvar.cpp	data/decomp/00491140.c
+3	194	0x00496680	src/universal/q_shared.cpp	data/decomp/00496680.c
+3	196	0x0047db70	src/universal/com_files.cpp	data/decomp/0047db70.c
+3	198	0x00445420	src/radiant/VehicleDlg.cpp	data/decomp/00445420.c
+3	198	0x0045a150	src/radiant/brush.cpp	data/decomp/0045a150.c
+3	199	0x00405380	src/radiant/CamWnd.cpp	data/decomp/00405380.c
+3	199	0x00462ff0	src/radiant/eclass.cpp	data/decomp/00462ff0.c
+3	200	0x00416350	src/radiant/MainFrm.cpp	data/decomp/00416350.c
+3	200	0x00467510	src/radiant/entity.cpp	data/decomp/00467510.c
+3	200	0x00469140	src/radiant/map.cpp	data/decomp/00469140.c
+3	200	0x00469350	src/radiant/map.cpp	data/decomp/00469350.c
+3	201	0x004aa310	src/script/scr_stringlist.cpp	data/decomp/004aa310.c
+3	202	0x004656b0	src/radiant/entity.cpp	data/decomp/004656b0.c
+3	203	0x00418ec0	src/radiant/MainFrm.cpp	data/decomp/00418ec0.c
+3	203	0x00419860	src/radiant/MainFrm.cpp	data/decomp/00419860.c
+3	203	0x00463240	src/radiant/eclass.cpp	data/decomp/00463240.c
+3	203	0x00468030	src/radiant/map.cpp	data/decomp/00468030.c
+3	204	0x00467d00	src/radiant/entity.cpp	data/decomp/00467d00.c
+3	204	0x004889f0	src/universal/com_math.cpp	data/decomp/004889f0.c
+3	205	0x0044b2a0	src/radiant/XYWnd.cpp	data/decomp/0044b2a0.c
+3	205	0x004a02b0	src/universal/splines/util_str.cpp	data/decomp/004a02b0.c
+3	205	0x004ac8d0	src/xanim/xmodel_load_obj.cpp	data/decomp/004ac8d0.c
+3	206	0x0042bde0	src/radiant/Pmesh.cpp	data/decomp/0042bde0.c
+3	207	0x0048eed0	src/universal/dvar.cpp	data/decomp/0048eed0.c
+3	211	0x00480d50	src/universal/com_files.cpp	data/decomp/00480d50.c
+3	211	0x004a57e0	src/xanim/dobj.cpp	data/decomp/004a57e0.c
+3	212	0x0046aee0	src/radiant/map.cpp	data/decomp/0046aee0.c
+3	212	0x00489410	src/universal/com_math.cpp	data/decomp/00489410.c
+3	212	0x004a54d0	src/xanim/dobj.cpp	data/decomp/004a54d0.c
+3	213	0x00431490	src/radiant/Pmesh.cpp	data/decomp/00431490.c
+3	214	0x0042f4f0	src/radiant/Pmesh.cpp	data/decomp/0042f4f0.c
+3	214	0x00433830	src/radiant/Pmesh.cpp	data/decomp/00433830.c
+3	214	0x0048d851	src/universal/dvar.cpp	data/decomp/0048d851.c
+3	216	0x0044bc50	src/radiant/XYWnd.cpp	data/decomp/0044bc50.c
+3	216	0x0046acb0	src/radiant/map.cpp	data/decomp/0046acb0.c
+3	216	0x004979e0	src/universal/q_shared.cpp	data/decomp/004979e0.c
+3	217	0x004325d0	src/radiant/Pmesh.cpp	data/decomp/004325d0.c
+3	218	0x00413900	src/radiant/MainFrm.cpp	data/decomp/00413900.c
+3	218	0x00455bd0	src/radiant/brush.cpp	data/decomp/00455bd0.c
+3	218	0x00489fc0	src/universal/com_memory.cpp	data/decomp/00489fc0.c
+3	219	0x00451470	src/radiant/XYWnd.cpp	data/decomp/00451470.c
+3	219	0x0045f070	src/radiant/brush.cpp	data/decomp/0045f070.c
+3	220	0x00435760	src/radiant/Pmesh.cpp	data/decomp/00435760.c
+3	220	0x0043cc70	src/radiant/SurfaceDlg.cpp	data/decomp/0043cc70.c
+3	221	0x00463d60	src/radiant/eclass.cpp	data/decomp/00463d60.c
+3	222	0x00484640	src/universal/com_math.cpp	data/decomp/00484640.c
+3	222	0x0048bce0	src/universal/dvar.cpp	data/decomp/0048bce0.c
+3	223	0x00443d90	src/radiant/Undo.cpp	data/decomp/00443d90.c
+3	223	0x0047f490	src/universal/com_files.cpp	data/decomp/0047f490.c
+3	224	0x004721a0	src/radiant/select.cpp	data/decomp/004721a0.c
+3	224	0x00472280	src/radiant/select.cpp	data/decomp/00472280.c
+3	225	0x0043cb80	src/radiant/SurfaceDlg.cpp	data/decomp/0043cb80.c
+3	225	0x0044bd30	src/radiant/XYWnd.cpp	data/decomp/0044bd30.c
+3	225	0x00454f70	src/radiant/brush.cpp	data/decomp/00454f70.c
+3	225	0x00458dc0	src/radiant/brush.cpp	data/decomp/00458dc0.c
+3	225	0x004602e0	src/radiant/csg.cpp	data/decomp/004602e0.c
+3	226	0x0042e6c0	src/radiant/Pmesh.cpp	data/decomp/0042e6c0.c
+3	226	0x00454c80	src/radiant/brush.cpp	data/decomp/00454c80.c
+3	226	0x0045a830	src/radiant/brush.cpp	data/decomp/0045a830.c
+3	228	0x004137d0	src/radiant/MainFrm.cpp	data/decomp/004137d0.c
+3	228	0x00419da0	src/radiant/MainFrm.cpp	data/decomp/00419da0.c
+3	228	0x0045e0b0	src/radiant/brush.cpp	data/decomp/0045e0b0.c
+3	229	0x00443fd0	src/radiant/Undo.cpp	data/decomp/00443fd0.c
+3	229	0x0045f150	src/radiant/brush.cpp	data/decomp/0045f150.c
+3	230	0x00440ca0	src/radiant/TexWnd.cpp	data/decomp/00440ca0.c
+3	233	0x00419e90	src/radiant/MainFrm.cpp	data/decomp/00419e90.c
+3	233	0x00457ce0	src/radiant/brush.cpp	data/decomp/00457ce0.c
+3	234	0x004a8a50	src/script/scr_stringlist.cpp	data/decomp/004a8a50.c
+3	235	0x0047e070	src/universal/com_files.cpp	data/decomp/0047e070.c
+3	236	0x004a4f90	src/xanim/dobj.cpp	data/decomp/004a4f90.c
+3	236	0x004aae50	src/xanim/xmodel_load_obj.cpp	data/decomp/004aae50.c
+3	237	0x0048f150	src/universal/dvar.cpp	data/decomp/0048f150.c
+3	238	0x004088d0	src/libs/cmdlib/cmdlib.cpp	data/decomp/004088d0.c
+3	238	0x00417660	src/radiant/MainFrm.cpp	data/decomp/00417660.c
+3	238	0x00468d10	src/radiant/map.cpp	data/decomp/00468d10.c
+3	239	0x00458eb0	src/radiant/brush.cpp	data/decomp/00458eb0.c
+3	241	0x00438020	src/radiant/Pmesh.cpp	data/decomp/00438020.c
+3	242	0x004432a0	src/radiant/Undo.cpp	data/decomp/004432a0.c
+3	244	0x00419560	src/radiant/MainFrm.cpp	data/decomp/00419560.c
+3	244	0x004810e0	src/universal/com_files.cpp	data/decomp/004810e0.c
+3	244	0x00494260	src/universal/linearmapping.cpp	data/decomp/00494260.c
+3	245	0x004120e0	src/radiant/MainFrm.cpp	data/decomp/004120e0.c
+3	245	0x0047fb90	src/universal/com_files.cpp	data/decomp/0047fb90.c
+3	245	0x0048a170	src/universal/com_memory.cpp	data/decomp/0048a170.c
+3	245	0x00496430	src/universal/q_shared.cpp	data/decomp/00496430.c
+3	247	0x0047dc40	src/universal/com_files.cpp	data/decomp/0047dc40.c
+3	248	0x00470ef0	src/radiant/select.cpp	data/decomp/00470ef0.c
+3	249	0x00434190	src/radiant/Pmesh.cpp	data/decomp/00434190.c
+3	249	0x00441300	src/radiant/TexWnd.cpp	data/decomp/00441300.c
+3	250	0x00457bd0	src/radiant/brush.cpp	data/decomp/00457bd0.c
+3	250	0x004a0380	src/universal/splines/util_str.cpp	data/decomp/004a0380.c
+3	251	0x0045f240	src/radiant/brush.cpp	data/decomp/0045f240.c
+3	251	0x0048edd0	src/universal/dvar.cpp	data/decomp/0048edd0.c
+3	251	0x004ab610	src/xanim/xmodel_load_obj.cpp	data/decomp/004ab610.c
+3	252	0x00441100	src/radiant/TexWnd.cpp	data/decomp/00441100.c
+3	252	0x00441200	src/radiant/TexWnd.cpp	data/decomp/00441200.c
+3	252	0x0046fd50	src/radiant/select.cpp	data/decomp/0046fd50.c
+3	253	0x0042f1b0	src/radiant/Pmesh.cpp	data/decomp/0042f1b0.c
+3	253	0x00496750	src/universal/q_shared.cpp	data/decomp/00496750.c
+3	254	0x0043ce20	src/radiant/SurfaceDlg.cpp	data/decomp/0043ce20.c
+3	254	0x004546a0	src/radiant/brush.cpp	data/decomp/004546a0.c
+3	256	0x00413060	src/radiant/MainFrm.cpp	data/decomp/00413060.c
+3	256	0x0041b370	src/radiant/MainFrm.cpp	data/decomp/0041b370.c
+3	256	0x00459430	src/radiant/brush.cpp	data/decomp/00459430.c
+3	256	0x00496aa0	src/universal/q_shared.cpp	data/decomp/00496aa0.c
+3	257	0x0046d710	src/radiant/qe3.cpp	
+3	257	0x0047e1f0	src/universal/com_files.cpp	
+3	257	0x00487ae0	src/universal/com_math.cpp	
+3	258	0x0047e5f0	src/universal/com_files.cpp	
+3	258	0x00484e60	src/universal/com_math.cpp	
+3	259	0x0047fdc0	src/universal/com_files.cpp	
+3	260	0x00458af0	src/radiant/brush.cpp	
+3	260	0x0045b310	src/radiant/brush.cpp	
+3	261	0x00433910	src/radiant/Pmesh.cpp	
+3	261	0x00454b70	src/radiant/brush.cpp	
+3	263	0x00471160	src/radiant/select.cpp	
+3	264	0x00446ab0	src/radiant/VertEditDlg.cpp	
+3	265	0x0041b820	src/radiant/MainFrm.cpp	
+3	265	0x004a1890	src/xanim/dobj.cpp	
+3	266	0x0042f840	src/radiant/Pmesh.cpp	
+3	266	0x0048a740	src/universal/com_memory.cpp	
+3	267	0x004aa1e0	src/script/scr_stringlist.cpp	
+3	269	0x0047e4e0	src/universal/com_files.cpp	
+3	270	0x00484c00	src/universal/com_math.cpp	
+3	272	0x0045e1a0	src/radiant/brush.cpp	
+3	273	0x0047c870	src/universal/assertive.cpp	
+3	273	0x004819e0	src/universal/com_files.cpp	
+3	274	0x00484950	src/universal/com_math.cpp	
+3	274	0x00497c50	src/universal/q_shared.cpp	
+3	275	0x004392a0	src/radiant/Pmesh.cpp	
+3	275	0x00451920	src/radiant/XYWnd.cpp	
+3	275	0x004880e0	src/universal/com_math.cpp	
+3	275	0x00488200	src/universal/com_math.cpp	
+3	275	0x0048fb70	src/universal/dvar.cpp	
+3	276	0x0042ac60	src/radiant/Pmesh.cpp	
+3	276	0x00433f20	src/radiant/Pmesh.cpp	
+3	276	0x00458c00	src/radiant/brush.cpp	
+3	277	0x00435c00	src/radiant/Pmesh.cpp	
+3	277	0x00486c70	src/universal/com_math.cpp	
+3	277	0x0048fa50	src/universal/dvar.cpp	
+3	278	0x00435d20	src/radiant/Pmesh.cpp	
+3	278	0x0045a030	src/radiant/brush.cpp	
+3	278	0x00484520	src/universal/com_math.cpp	
+3	278	0x00496bf0	src/universal/q_shared.cpp	
+3	278	0x00496d10	src/universal/q_shared.cpp	
+3	279	0x004321c0	src/radiant/Pmesh.cpp	
+3	279	0x0048aae0	src/universal/com_memory.cpp	
+3	281	0x004633d0	src/radiant/eclass.cpp	
+3	282	0x00415a10	src/radiant/MainFrm.cpp	
+3	283	0x004064f0	src/radiant/CamWnd.cpp	
+3	284	0x00469570	src/radiant/map.cpp	
+3	284	0x00489ea0	src/universal/com_memory.cpp	
+3	286	0x00467be0	src/radiant/entity.cpp	
+3	286	0x00474880	src/radiant/select.cpp	
+3	289	0x0048c760	src/universal/dvar.cpp	
+3	290	0x0042f660	src/radiant/Pmesh.cpp	
+3	290	0x0045cf60	src/radiant/brush.cpp	
+3	290	0x004650b0	src/radiant/entity.cpp	
+3	292	0x00492f80	src/universal/g_vehicle_path.cpp	
+3	293	0x00431360	src/radiant/Pmesh.cpp	
+3	295	0x0040be50	src/radiant/draw.cpp	
+3	297	0x004406c0	src/radiant/TexWnd.cpp	
+3	297	0x0048fe70	src/universal/dvar.cpp	
+3	298	0x00455cf0	src/radiant/brush.cpp	
+3	299	0x004a6a40	src/xanim/dobj.cpp	
+3	300	0x0047fc90	src/universal/com_files.cpp	
+3	301	0x0041b190	src/radiant/MainFrm.cpp	
+3	301	0x00473810	src/radiant/select.cpp	
+3	302	0x0045cc90	src/radiant/brush.cpp	
+3	302	0x00475e50	src/radiant/win_dlg.cpp	
+3	302	0x00491760	src/universal/dvar.cpp	
+3	304	0x00438ca0	src/radiant/Pmesh.cpp	
+3	304	0x0048e770	src/universal/dvar.cpp	
+3	306	0x004897c0	src/universal/com_math.cpp	
+3	306	0x0048d7d0	src/universal/dvar.cpp	
+3	307	0x0048ca50	src/universal/dvar.cpp	
+3	308	0x004829d0	src/universal/com_math.cpp	
+3	308	0x004900e0	src/universal/dvar.cpp	
+3	309	0x004915f0	src/universal/dvar.cpp	
+3	310	0x00482c60	src/universal/com_math.cpp	
+3	310	0x0048ffa0	src/universal/dvar.cpp	
+3	311	0x0048f7c0	src/universal/dvar.cpp	
+3	312	0x0042ab20	src/radiant/Pmesh.cpp	
+3	312	0x00471530	src/radiant/select.cpp	
+3	314	0x00439160	src/radiant/Pmesh.cpp	
+3	315	0x004a5140	src/xanim/dobj.cpp	
+3	316	0x004063b0	src/radiant/CamWnd.cpp	
+3	319	0x00415ef0	src/radiant/MainFrm.cpp	
+3	320	0x00440840	src/radiant/TexWnd.cpp	
+3	322	0x004596a0	src/radiant/brush.cpp	
+3	323	0x0048e8f0	src/universal/dvar.cpp	
+3	324	0x004322e0	src/radiant/Pmesh.cpp	
+3	324	0x004713e0	src/radiant/select.cpp	
+3	325	0x00455800	src/radiant/brush.cpp	
+3	325	0x00470ab0	src/radiant/select.cpp	
+3	326	0x00463710	src/radiant/eclass.cpp	
+3	327	0x00490220	src/universal/dvar.cpp	
+3	328	0x0042ec60	src/radiant/Pmesh.cpp	
+3	328	0x00432800	src/radiant/Pmesh.cpp	
+3	328	0x00465920	src/radiant/entity.cpp	
+3	328	0x00482da0	src/universal/com_math.cpp	
+3	330	0x0044cf70	src/radiant/XYWnd.cpp	
+3	330	0x00454810	src/radiant/brush.cpp	
+3	330	0x00467770	src/radiant/entity.cpp	
+3	333	0x004326b0	src/radiant/Pmesh.cpp	
+3	334	0x00487620	src/universal/com_math.cpp	
+3	335	0x00446e00	src/radiant/VertEditDlg.cpp	
+3	335	0x00477ba0	src/radiant/win_ent.cpp	
+3	335	0x0048efc0	src/universal/dvar.cpp	
+3	335	0x004a5280	src/xanim/dobj.cpp	
+3	335	0x004a58c0	src/xanim/dobj.cpp	
+3	336	0x0042d5d0	src/radiant/Pmesh.cpp	
+3	337	0x0042f970	src/radiant/Pmesh.cpp	
+3	339	0x00454d90	src/radiant/brush.cpp	
+3	340	0x00490370	src/universal/dvar.cpp	
+3	341	0x004470b0	src/radiant/VertEditDlg.cpp	
+3	342	0x00488f00	src/universal/com_math.cpp	
+3	342	0x00492af0	src/universal/g_vehicle_path.cpp	
+3	343	0x00487770	src/universal/com_math.cpp	
+3	345	0x00437730	src/radiant/Pmesh.cpp	
+3	345	0x00491490	src/universal/dvar.cpp	
+3	346	0x0042af90	src/radiant/Pmesh.cpp	
+3	346	0x00446f50	src/radiant/VertEditDlg.cpp	
+3	346	0x0046e930	src/radiant/select.cpp	
+3	346	0x00482ef0	src/universal/com_math.cpp	
+3	347	0x00440fa0	src/radiant/TexWnd.cpp	
+3	348	0x00405220	src/radiant/CamWnd.cpp	
+3	348	0x004414a0	src/radiant/TexWnd.cpp	
+3	348	0x00463bf0	src/radiant/eclass.cpp	
+3	348	0x004847f0	src/universal/com_math.cpp	
+3	349	0x00438ff0	src/radiant/Pmesh.cpp	
+3	352	0x004ac9f0	src/xanim/xmodel_load_obj.cpp	
+3	353	0x0043f460	src/radiant/TextureBar.cpp	
+3	354	0x00459530	src/radiant/brush.cpp	
+3	355	0x0046fbe0	src/radiant/select.cpp	
+3	356	0x00470d80	src/radiant/select.cpp	
+3	358	0x00470ff0	src/radiant/select.cpp	
+3	358	0x00471270	src/radiant/select.cpp	
+3	358	0x00486d90	src/universal/com_math.cpp	
+3	360	0x0042e550	src/radiant/Pmesh.cpp	
+3	361	0x00467a70	src/radiant/entity.cpp	
+3	362	0x004157f0	src/radiant/MainFrm.cpp	
+3	363	0x0042eaf0	src/radiant/Pmesh.cpp	
+3	363	0x00436000	src/radiant/Pmesh.cpp	
+3	363	0x00480b90	src/universal/com_files.cpp	
+3	364	0x00418d40	src/radiant/MainFrm.cpp	
+3	366	0x00417b50	src/radiant/MainFrm.cpp	
+3	366	0x00486f00	src/universal/com_math.cpp	
+3	366	0x004aa3e0	src/script/scr_stringlist.cpp	
+3	367	0x0046f2c0	src/radiant/select.cpp	
+3	367	0x00474710	src/radiant/select.cpp	
+3	368	0x00482100	src/universal/com_files.cpp	
+3	370	0x00455360	src/radiant/brush.cpp	
+3	370	0x00472360	src/radiant/select.cpp	
+3	372	0x004426e0	src/radiant/TexWnd.cpp	
+3	372	0x0045def0	src/radiant/brush.cpp	
+3	372	0x004866a0	src/universal/com_math.cpp	
+3	373	0x00427290	src/radiant/Pmesh.cpp	
+3	373	0x00460160	src/radiant/csg.cpp	
+3	373	0x004657a0	src/radiant/entity.cpp	
+3	373	0x00468260	src/radiant/map.cpp	
+3	374	0x0048eaf0	src/universal/dvar.cpp	
+3	374	0x004904d0	src/universal/dvar.cpp	
+3	374	0x004a85c0	src/script/scr_memorytree.cpp	
+3	378	0x00423ba0	src/radiant/ModelDlg.cpp	
+3	381	0x00434690	src/radiant/Pmesh.cpp	
+3	383	0x00466c00	src/radiant/entity.cpp	
+3	385	0x0046ab20	src/radiant/map.cpp	
+3	391	0x00451550	src/radiant/XYWnd.cpp	
+3	395	0x00475cc0	src/radiant/win_dlg.cpp	
+3	396	0x0046cf20	src/radiant/qe3.cpp	
+3	404	0x00485aa0	src/universal/com_math.cpp	
+3	406	0x0045cdc0	src/radiant/brush.cpp	
+3	409	0x00406050	src/radiant/CamWnd.cpp	
+3	409	0x00455660	src/radiant/brush.cpp	
+3	411	0x00443a90	src/radiant/Undo.cpp	
+3	411	0x00460700	src/radiant/csg.cpp	
+3	413	0x00455a30	src/radiant/brush.cpp	
+3	414	0x0046ef10	src/radiant/select.cpp	
+3	414	0x0048bdc0	src/universal/dvar.cpp	
+3	416	0x00432430	src/radiant/Pmesh.cpp	
+3	418	0x0047de30	src/universal/com_files.cpp	
+3	420	0x00440df0	src/radiant/TexWnd.cpp	
+3	423	0x00415c20	src/radiant/MainFrm.cpp	
+3	424	0x004a7b70	src/script/scr_memorytree.cpp	
+3	425	0x00430ff0	src/radiant/Pmesh.cpp	
+3	427	0x0045d7f0	src/radiant/brush.cpp	
+3	427	0x0046c880	src/radiant/points.cpp	
+3	428	0x0048b3e0	src/universal/com_shared.cpp	
+3	429	0x00463560	src/radiant/eclass.cpp	
+3	429	0x004678c0	src/radiant/entity.cpp	
+3	430	0x0048a870	src/universal/com_memory.cpp	
+3	431	0x0045d090	src/radiant/brush.cpp	
+3	431	0x004718b0	src/radiant/select.cpp	
+3	435	0x0048a580	src/universal/com_memory.cpp	
+3	436	0x00464930	src/radiant/eclass.cpp	
+3	438	0x0042cc50	src/radiant/Pmesh.cpp	
+3	438	0x00441f80	src/radiant/TexWnd.cpp	
+3	438	0x0046f4f0	src/radiant/select.cpp	
+3	440	0x00451a40	src/radiant/XYWnd.cpp	
+3	442	0x00435e40	src/radiant/Pmesh.cpp	
+3	443	0x004ac490	src/xanim/xmodel_load_obj.cpp	
+3	445	0x00410c40	src/radiant/GfxWrapper.cpp	
+3	446	0x00429a00	src/radiant/Pmesh.cpp	
+3	446	0x004661f0	src/radiant/entity.cpp	
+3	448	0x004061f0	src/radiant/CamWnd.cpp	
+3	448	0x004311a0	src/radiant/Pmesh.cpp	
+3	450	0x0044b9b0	src/radiant/XYWnd.cpp	
+3	451	0x0041c270	src/radiant/MainFrm.cpp	
+3	451	0x00437e50	src/radiant/Pmesh.cpp	
+3	451	0x0048f5e0	src/universal/dvar.cpp	
+3	452	0x0042ca80	src/radiant/Pmesh.cpp	
+3	452	0x0049a9c0	src/universal/splines/splines.cpp	
+3	454	0x00430e20	src/radiant/Pmesh.cpp	
+3	457	0x0047e760	src/universal/com_files.cpp	
+3	458	0x0045c6b0	src/radiant/brush.cpp	
+3	459	0x0043f9f0	src/common/texturevecs.cpp	
+3	465	0x004a8300	src/script/scr_memorytree.cpp	
+3	466	0x0041bed0	src/radiant/MainFrm.cpp	
+3	467	0x00430c40	src/radiant/Pmesh.cpp	
+3	467	0x0045b660	src/radiant/brush.cpp	
+3	471	0x00489940	src/universal/com_math.cpp	
+3	475	0x004364b0	src/radiant/Pmesh.cpp	
+3	476	0x004433b0	src/radiant/Undo.cpp	
+3	477	0x00460470	src/radiant/csg.cpp	
+3	478	0x0048fc90	src/universal/dvar.cpp	
+3	479	0x00490650	src/universal/dvar.cpp	
+3	480	0x00446c20	src/radiant/VertEditDlg.cpp	
+3	486	0x0042edc0	src/radiant/Pmesh.cpp	
+3	488	0x004579e0	src/radiant/brush.cpp	
+3	492	0x004a7980	src/script/scr_memorytree.cpp	
+3	494	0x0042efb0	src/radiant/Pmesh.cpp	
+3	494	0x0048d0a0	src/universal/dvar.cpp	
+3	494	0x0048dfa0	src/universal/dvar.cpp	
+3	503	0x0041f710	src/radiant/MapInfo.cpp	
+3	503	0x0046d190	src/radiant/qe3.cpp	
+3	509	0x00441a40	src/radiant/TexWnd.cpp	
+3	509	0x00451c00	src/radiant/XYWnd.cpp	
+3	509	0x0049a4f0	src/universal/splines/splines.cpp	
+3	511	0x0044c3c0	src/radiant/XYWnd.cpp	
+3	511	0x00458440	src/radiant/brush.cpp	
+3	513	0x004369b0	src/radiant/Pmesh.cpp	
+3	513	0x0046ea90	src/radiant/select.cpp	
+3	515	0x00433b90	src/radiant/Pmesh.cpp	
+3	517	0x0045b420	src/radiant/brush.cpp	
+3	517	0x0045d240	src/radiant/brush.cpp	
+3	517	0x00495b80	src/universal/q_shared.cpp	
+3	519	0x00469740	src/radiant/map.cpp	
+3	522	0x0046f0b0	src/radiant/select.cpp	
+3	526	0x00438de0	src/radiant/Pmesh.cpp	
+3	526	0x004ac650	src/xanim/xmodel_load_obj.cpp	
+3	534	0x00492d00	src/universal/g_vehicle_path.cpp	
+3	540	0x0042f2c0	src/radiant/Pmesh.cpp	
+3	540	0x00441d60	src/radiant/TexWnd.cpp	
+3	541	0x00455140	src/radiant/brush.cpp	
+3	542	0x0045a600	src/radiant/brush.cpp	
+3	544	0x00412e00	src/radiant/MainFrm.cpp	
+3	544	0x004a55b0	src/xanim/dobj.cpp	
+3	546	0x00429bc0	src/radiant/Pmesh.cpp	
+3	553	0x00443860	src/radiant/Undo.cpp	
+3	554	0x00489590	src/universal/com_math.cpp	
+3	557	0x0043d400	src/radiant/SurfaceDlg.cpp	
+3	560	0x0045ff30	src/radiant/csg.cpp	
+3	561	0x004516e0	src/radiant/XYWnd.cpp	
+3	562	0x0047d270	src/universal/assertive.cpp	
+3	562	0x004a80c0	src/script/scr_memorytree.cpp	
+3	563	0x004409a0	src/radiant/TexWnd.cpp	
+3	563	0x00451230	src/radiant/XYWnd.cpp	
+3	568	0x0048bf60	src/universal/dvar.cpp	
+3	574	0x00471670	src/radiant/select.cpp	
+3	576	0x00414ec0	src/radiant/MainFrm.cpp	
+3	582	0x004a7e70	src/script/scr_memorytree.cpp	
+3	585	0x004aaf40	src/xanim/xmodel_load_obj.cpp	
+3	590	0x004417f0	src/radiant/TexWnd.cpp	
+3	592	0x0042fb50	src/radiant/Pmesh.cpp	
+3	600	0x00432ca0	src/radiant/Pmesh.cpp	
+3	602	0x004581e0	src/radiant/brush.cpp	
+3	606	0x00443590	src/radiant/Undo.cpp	
+3	606	0x00446830	src/radiant/VertEditDlg.cpp	
+3	606	0x004a6d00	src/xanim/dobj.cpp	
+3	607	0x0044d0c0	src/radiant/XYWnd.cpp	
+3	609	0x0042a890	src/radiant/Pmesh.cpp	
+3	610	0x00458fa0	src/radiant/brush.cpp	
+3	620	0x0045ca10	src/radiant/brush.cpp	
+3	625	0x0045dc70	src/radiant/brush.cpp	
+3	629	0x00456ff0	src/radiant/brush.cpp	
+3	631	0x00430760	src/radiant/Pmesh.cpp	
+3	633	0x0044c620	src/radiant/XYWnd.cpp	
+3	643	0x0047e9e0	src/universal/com_files.cpp	
+3	643	0x004a72d0	src/script/scr_memorytree.cpp	
+3	645	0x0049af80	src/universal/splines/splines.cpp	
+3	647	0x0045c420	src/radiant/brush.cpp	
+3	648	0x0046d820	src/radiant/qe3.cpp	
+3	649	0x00466970	src/radiant/entity.cpp	
+3	649	0x00473f50	src/radiant/select.cpp	
+3	651	0x0042e7b0	src/radiant/Pmesh.cpp	
+3	652	0x0041a010	src/radiant/MainFrm.cpp	
+3	653	0x0045f8b0	src/radiant/csg.cpp	
+3	658	0x00428b80	src/radiant/Pmesh.cpp	
+3	658	0x004739d0	src/radiant/select.cpp	
+3	663	0x00430370	src/radiant/Pmesh.cpp	
+3	664	0x0045afc0	src/radiant/brush.cpp	
+3	671	0x0046d3d0	src/radiant/qe3.cpp	
+3	676	0x004a4af0	src/xanim/dobj.cpp	
+3	679	0x0048c1a0	src/universal/dvar.cpp	
+3	680	0x004354b0	src/radiant/Pmesh.cpp	
+3	688	0x004a41d0	src/xanim/dobj.cpp	
+3	689	0x0042e290	src/radiant/Pmesh.cpp	
+3	691	0x00447c60	src/radiant/Winding.cpp	
+3	694	0x0046cc60	src/radiant/qe3.cpp	
+3	695	0x00415390	src/radiant/MainFrm.cpp	
+3	695	0x004930d0	src/universal/g_vehicle_path.cpp	
+3	698	0x004724e0	src/radiant/select.cpp	
+3	703	0x00463ea0	src/radiant/eclass.cpp	
+3	705	0x00468e00	src/radiant/map.cpp	
+3	705	0x00496e60	src/universal/q_shared.cpp	
+3	708	0x00497130	src/universal/q_shared.cpp	
+3	709	0x0045d9a0	src/radiant/brush.cpp	
+3	719	0x00434360	src/radiant/Pmesh.cpp	
+3	719	0x0047f770	src/universal/com_files.cpp	
+3	725	0x00473c70	src/radiant/select.cpp	
+3	726	0x00497400	src/universal/q_shared.cpp	
+3	735	0x0042c790	src/radiant/Pmesh.cpp	
+3	735	0x004a76a0	src/script/scr_memorytree.cpp	
+3	740	0x00491de0	src/universal/g_vehicle_path.cpp	
+3	744	0x0042d270	src/radiant/Pmesh.cpp	
+3	748	0x0042a0a0	src/radiant/Pmesh.cpp	
+3	750	0x004293f0	src/radiant/Pmesh.cpp	
+3	756	0x0044eea0	src/radiant/XYWnd.cpp	
+3	757	0x0045e370	src/radiant/brush.cpp	
+3	757	0x00484060	src/universal/com_math.cpp	
+3	768	0x00436690	src/radiant/Pmesh.cpp	
+3	770	0x00438120	src/radiant/Pmesh.cpp	
+3	771	0x004296f0	src/radiant/Pmesh.cpp	
+3	773	0x004815e0	src/universal/com_files.cpp	
+3	779	0x00431570	src/radiant/Pmesh.cpp	
+3	782	0x00474230	src/radiant/select.cpp	
+3	802	0x0048cd50	src/universal/dvar.cpp	
+3	805	0x0048f2b0	src/universal/dvar.cpp	
+3	806	0x00437400	src/radiant/Pmesh.cpp	
+3	812	0x00436170	src/radiant/Pmesh.cpp	
+3	812	0x004a9ba0	src/script/scr_stringlist.cpp	
+3	815	0x004a2250	src/xanim/dobj.cpp	
+3	818	0x00471a90	src/radiant/select.cpp	
+3	819	0x0042a4b0	src/radiant/Pmesh.cpp	
+3	832	0x004832c0	src/universal/com_math.cpp	
+3	837	0x004a1f00	src/xanim/dobj.cpp	
+3	843	0x0041d5e0	src/radiant/MainFrm.cpp	
+3	849	0x0045f340	src/radiant/brush.cpp	
+3	858	0x00412a90	src/radiant/MainFrm.cpp	
+3	869	0x00490830	src/universal/dvar.cpp	
+3	870	0x00472860	src/radiant/select.cpp	
+3	876	0x004651e0	src/radiant/entity.cpp	
+3	877	0x0045ebf0	src/radiant/brush.cpp	
+3	887	0x004a8b80	src/script/scr_stringlist.cpp	
+3	901	0x00493390	src/universal/g_vehicle_path.cpp	
+3	903	0x0044eb10	src/radiant/XYWnd.cpp	
+3	903	0x0048d350	src/universal/dvar.cpp	
+3	904	0x00463860	src/radiant/eclass.cpp	
+3	906	0x0044f1a0	src/radiant/XYWnd.cpp	
+3	915	0x00438510	src/radiant/Pmesh.cpp	
+3	917	0x0042c3f0	src/radiant/Pmesh.cpp	
+3	928	0x0045d450	src/radiant/brush.cpp	
+3	939	0x00442300	src/radiant/TexWnd.cpp	
+3	939	0x00453e90	src/radiant/brush.cpp	
+3	941	0x0048da90	src/universal/dvar.cpp	
+3	953	0x0046ff10	src/radiant/select.cpp	
+3	954	0x00447690	src/radiant/VertEditDlg.cpp	
+3	955	0x00454250	src/radiant/brush.cpp	
+3	957	0x004702d0	src/radiant/select.cpp	
+3	960	0x00470690	src/radiant/select.cpp	
+3	963	0x00481210	src/universal/com_files.cpp	
+3	964	0x0047b6c0	src/radiant/z.cpp	
+3	965	0x00471dd0	src/radiant/select.cpp	
+3	974	0x0043d630	src/radiant/SurfaceDlg.cpp	
+3	983	0x0045fb53	src/radiant/csg.cpp	
+3	984	0x00495060	src/universal/q_parse.cpp	
+3	985	0x004401d0	src/common/texturevecs.cpp	
+3	990	0x00491890	src/universal/dvar.cpp	
+3	991	0x004509a0	src/radiant/XYWnd.cpp	
+3	991	0x0045a220	src/radiant/brush.cpp	
+3	994	0x004388b0	src/radiant/Pmesh.cpp	
+3	998	0x004ab710	src/xanim/xmodel_load_obj.cpp	
+3	1001	0x0049ab90	src/universal/splines/splines.cpp	
+3	1012	0x00472ff0	src/radiant/select.cpp	
+3	1017	0x0046b5b0	src/radiant/map.cpp	
+3	1019	0x00468910	src/radiant/map.cpp	
+3	1032	0x0046e520	src/radiant/select.cpp	
+3	1040	0x00457dd0	src/radiant/brush.cpp	
+3	1050	0x00466d80	src/radiant/entity.cpp	
+3	1051	0x004733f0	src/radiant/select.cpp	
+3	1055	0x00472bd0	src/radiant/select.cpp	
+3	1067	0x00464c80	src/radiant/entity.cpp	
+3	1083	0x0044ae60	src/radiant/XYWnd.cpp	
+3	1107	0x00404dc0	src/radiant/CamWnd.cpp	
+3	1107	0x0044be20	src/radiant/XYWnd.cpp	
+3	1109	0x0045bfc0	src/radiant/brush.cpp	
+3	1109	0x004a4480	src/xanim/dobj.cpp	
+3	1110	0x004379f0	src/radiant/Pmesh.cpp	
+3	1120	0x0042ce10	src/radiant/Pmesh.cpp	
+3	1135	0x00466440	src/radiant/entity.cpp	
+3	1140	0x0043cf80	src/radiant/SurfaceDlg.cpp	
+3	1140	0x0046f6b0	src/radiant/select.cpp	
+3	1149	0x00458670	src/radiant/brush.cpp	
+3	1149	0x004ab190	src/xanim/xmodel_load_obj.cpp	
+3	1159	0x0042b870	src/radiant/Pmesh.cpp	
+3	1166	0x00405bb0	src/radiant/CamWnd.cpp	
+3	1169	0x0042bf50	src/radiant/Pmesh.cpp	
+3	1176	0x00450d90	src/radiant/XYWnd.cpp	
+3	1181	0x0047fed0	src/universal/com_files.cpp	
+3	1184	0x00481b00	src/universal/com_files.cpp	
+3	1210	0x0044d320	src/radiant/XYWnd.cpp	
+3	1242	0x0046b070	src/radiant/map.cpp	
+3	1249	0x00480440	src/universal/com_files.cpp	
+3	1303	0x00414730	src/radiant/MainFrm.cpp	
+3	1311	0x004683e0	src/radiant/map.cpp	
+3	1335	0x00459ae0	src/radiant/brush.cpp	
+3	1336	0x00413250	src/radiant/MainFrm.cpp	
+3	1350	0x0042b0f0	src/radiant/Pmesh.cpp	
+3	1351	0x0045e670	src/radiant/brush.cpp	
+3	1374	0x00405640	src/radiant/CamWnd.cpp	
+3	1376	0x004a19a0	src/xanim/dobj.cpp	
+3	1382	0x00485c90	src/universal/com_math.cpp	
+3	1382	0x0049b220	src/universal/splines/splines.cpp	
+3	1386	0x0047ed20	src/universal/com_files.cpp	
+3	1390	0x00428e70	src/radiant/Pmesh.cpp	
+3	1475	0x004168c0	src/radiant/MainFrm.cpp	
+3	1477	0x00436dc0	src/radiant/Pmesh.cpp	
+3	1483	0x00464170	src/radiant/eclass.cpp	
+3	1502	0x0045a920	src/radiant/brush.cpp	
+3	1523	0x004609e0	src/radiant/drag.cpp	
+3	1540	0x0043fbc0	src/common/texturevecs.cpp	
+3	1581	0x0044b380	src/radiant/XYWnd.cpp	
+3	1607	0x004105f0	src/radiant/GfxWrapper.cpp	
+3	1617	0x0044e4b0	src/radiant/XYWnd.cpp	
+3	1668	0x0044c8a0	src/radiant/XYWnd.cpp	
+3	1879	0x00457270	src/radiant/brush.cpp	
+3	1883	0x0047ca40	src/universal/assertive.cpp	
+3	1909	0x0045b840	src/radiant/brush.cpp	
+3	1958	0x004501f0	src/radiant/XYWnd.cpp	
+3	2079	0x004520d0	src/radiant/XYWnd.cpp	
+3	2083	0x0041d930	src/radiant/MainFrm.cpp	
+3	2101	0x004a9080	src/script/scr_stringlist.cpp	
+3	2156	0x004abb70	src/xanim/xmodel_load_obj.cpp	
+3	2215	0x004121e0	src/radiant/MainFrm.cpp	
+3	2220	0x00432f60	src/radiant/Pmesh.cpp	
+3	2333	0x00431890	src/radiant/Pmesh.cpp	
+3	2365	0x004348e0	src/radiant/Pmesh.cpp	
+3	2366	0x004275a0	src/radiant/Pmesh.cpp	
+3	2516	0x00460fe0	src/radiant/drag.cpp	
+3	2582	0x004619c0	src/radiant/drag.cpp	
+3	2610	0x0047ba90	src/radiant/z.cpp	
+3	2894	0x0042d720	src/radiant/Pmesh.cpp	
+3	2966	0x0044f630	src/radiant/XYWnd.cpp	
+3	3216	0x00427ef0	src/radiant/Pmesh.cpp	
+3	3259	0x0044d7e0	src/radiant/XYWnd.cpp	
+3	3395	0x004139e0	src/radiant/MainFrm.cpp	
+3	3526	0x00403fa0	src/radiant/CamWnd.cpp	
+3	3778	0x004a5b70	src/xanim/dobj.cpp	
+3	4041	0x00455ee0	src/radiant/brush.cpp	
+3	4433	0x004699b0	src/radiant/map.cpp	
+3	6700	0x004a2700	src/xanim/dobj.cpp	

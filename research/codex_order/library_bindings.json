@@ -1,0 +1,52 @@
+{
+  "0x00516647": {
+    "symbol": "??1CButton@@UAE@XZ",
+    "member": "INTEL\\$NW\\winctrl1.obj",
+    "evidence": "PINNED: writes vtable 0x52cf5c; RTTI type .?AVCButton@@"
+  },
+  "0x005168e8": {
+    "symbol": "??1CEdit@@UAE@XZ",
+    "member": "INTEL\\$NW\\winctrl1.obj",
+    "evidence": "PINNED: writes vtable 0x52d34c; RTTI type .?AVCEdit@@"
+  },
+  "0x004f57ba": {
+    "symbol": "??1CSliderCtrl@@UAE@XZ",
+    "member": "INTEL\\$NW\\winctrl2.obj",
+    "evidence": "PINNED: writes vtable 0x52e12c; RTTI type .?AVCSliderCtrl@@"
+  },
+  "0x004d7790": {
+    "symbol": "_pow",
+    "member": "..\\build\\intel\\mt_obj\\pow.obj",
+    "evidence": "PINNED: original fixed image returns pow for five two-double inputs; bare harness skips the retail entry point"
+  },
+  "0x004f39f1": {
+    "symbol": "?DoModal@CColorDialog@@UAEHXZ",
+    "member": "INTEL\\$NW\\dlgclr.obj",
+    "evidence": "PINNED: retail calls ChooseColorA at IAT 0x52896c; matching dlgclr.obj export"
+  },
+  "0x00500740": {
+    "symbol": "?Attach@CMenu@@QAEHPAUHMENU__@@@Z",
+    "member": "INTEL\\$NW\\winmenu.obj",
+    "evidence": "PINNED: retail calls afxMapHMENU at 0x50069c; matching winmenu.obj export"
+  },
+  "0x0050076d": {
+    "symbol": "?Detach@CMenu@@QAEPAUHMENU__@@XZ",
+    "member": "INTEL\\$NW\\winmenu.obj",
+    "evidence": "PINNED: matching winmenu.obj export called by CMenu::DestroyMenu at 0x500797"
+  },
+  "0x00500797": {
+    "symbol": "?DestroyMenu@CMenu@@QAEHXZ",
+    "member": "INTEL\\$NW\\winmenu.obj",
+    "evidence": "PINNED: retail calls DestroyMenu at IAT 0x528624 and CMenu::Detach at 0x50076d"
+  },
+  "0x004dad56": {
+    "symbol": "_remove",
+    "member": "build\\intel\\mt_obj\\unlink.obj",
+    "evidence": "PINNED: retail calls DeleteFileA at IAT 0x5283ac; unlink.obj defines _remove; __unlink jumps to _remove; rmdir.obj calls RemoveDirectoryA"
+  },
+  "0x004ff4c3": {
+    "member": "INTEL\\$NW\\strcore.obj",
+    "symbol": "?AfxGetStringManager@@YGPAUIAtlStringMgr@ATL@@XZ",
+    "evidence": "PINNED: CString construction at 0x40297d calls this getter, then IAtlStringMgr slot 3 and adds sizeof(CStringData)=16; matching strcore.obj export; returned runtime-class metadata has no such vtable"
+  }
+}

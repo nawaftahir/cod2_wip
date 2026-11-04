@@ -1,0 +1,9 @@
+addr	size	source	symbol	name	tag
+0x00526a10	24	src/radiant/AdvCurveDlg.cpp	_$E1	global dialog initialization	AUTO
+0x00526f50	11	src/radiant/AdvCurveDlg.cpp	_$E2	global dialog destruction	AUTO
+0x00424710	34	src/radiant/PatchDialog.cpp	??_GCPatchDialog@@UAEPAXI@Z	CPatchDialog::scalar deleting destructor	AUTO
+0x005269b0	11	src/radiant/FindTextureDlg.cpp	_$E4	global FindTexture dialog reference initialization	AUTO
+0x00409640	74	src/radiant/DialogInfo.cpp	??1CDialogInfo@@UAE@XZ	CDialogInfo::implicit destructor	AUTO
+0x00409760	34	src/radiant/DialogInfo.cpp	??_GCDialogInfo@@UAEPAXI@Z	CDialogInfo::scalar deleting destructor	AUTO
+0x00409040	34	src/radiant/CommandsDlg.cpp	??_GCCommandsDlg@@UAEPAXI@Z	CCommandsDlg::scalar deleting destructor	AUTO
+0x00409070	74	src/radiant/CommandsDlg.cpp	??1CCommandsDlg@@UAE@XZ	CCommandsDlg::implicit destructor	AUTO

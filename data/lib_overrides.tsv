@@ -1,0 +1,21 @@
+# lib_sweep picks the first lib function with equal masked bytes; these addresses tie and were picked wrong
+addr	member	symbol	evidence
+0x004da73a	build\intel\mt_obj\toupper.obj	_toupper	internal call e818ffffff is _toupper's; _tolower has e819ffffff
+0x004d8070	build\intel\mt_obj\87ctriga.obj	_atan2	mov edx,0x58ee90 names "atan2" in the 87c stub table
+0x004d7790	..\build\intel\mt_obj\pow.obj	_pow	PINNED: original fixed image returns pow for five two-double inputs; bare harness skips the retail entry point
+0x004f57ba	INTEL\$NW\winctrl2.obj	??1CSliderCtrl@@UAE@XZ	PINNED: writes vtable 0x52e12c; RTTI type .?AVCSliderCtrl@@
+0x00516647	INTEL\$NW\winctrl1.obj	??1CButton@@UAE@XZ	PINNED: writes vtable 0x52cf5c; RTTI type .?AVCButton@@
+0x005168e8	INTEL\$NW\winctrl1.obj	??1CEdit@@UAE@XZ	PINNED: writes vtable 0x52d34c; RTTI type .?AVCEdit@@
+0x004f39f1	INTEL\$NW\dlgclr.obj	?DoModal@CColorDialog@@UAEHXZ	PINNED: retail calls ChooseColorA at IAT 0x52896c; matching dlgclr.obj export
+0x00500740	INTEL\$NW\winmenu.obj	?Attach@CMenu@@QAEHPAUHMENU__@@@Z	PINNED: retail calls afxMapHMENU at 0x50069c; matching winmenu.obj export
+0x0050076d	INTEL\$NW\winmenu.obj	?Detach@CMenu@@QAEPAUHMENU__@@XZ	PINNED: matching winmenu.obj export called by CMenu::DestroyMenu at 0x500797
+0x00500797	INTEL\$NW\winmenu.obj	?DestroyMenu@CMenu@@QAEHXZ	PINNED: retail calls DestroyMenu at IAT 0x528624 and CMenu::Detach at 0x50076d
+0x004dad56	build\intel\mt_obj\unlink.obj	_remove	PINNED: retail calls DeleteFileA at IAT 0x5283ac; unlink.obj defines _remove; __unlink jumps to _remove; rmdir.obj calls RemoveDirectoryA
+0x004ff4c3	INTEL\$NW\strcore.obj	?AfxGetStringManager@@YGPAUIAtlStringMgr@ATL@@XZ	PINNED: CString construction at 0x40297d calls this getter, then IAtlStringMgr slot 3 and adds sizeof(CStringData)=16; matching strcore.obj export; returned runtime-class metadata has no such vtable
+0x00505804	INTEL\$NW\wingdi.obj	?Detach@CGdiObject@@QAEPAXXZ	PINNED: matching wingdi.obj export called by CGdiObject::DeleteObject at 0x50582e; its archive calls afxMapHGDIOBJ
+0x0050582e	INTEL\$NW\wingdi.obj	?DeleteObject@CGdiObject@@QAEHXZ	PINNED: retail calls GDI32 DeleteObject at IAT 0x528198; matching wingdi.obj export
+0x004f56ee	INTEL\$NW\winctrl2.obj	??1CSpinButtonCtrl@@UAE@XZ	PINNED: destructor writes vtable 0x52dfdc with CSpinButtonCtrl RTTI; all 56 archive bytes agree outside relocations
+0x004f56b7	INTEL\$NW\winctrl2.obj	?CreateEx@CSpinButtonCtrl@@UAEHKKABUtagRECT@@PAVCWnd@@I@Z	PINNED: CSpinButtonCtrl vtable 0x52dfdc slot 77 calls this 55-byte wrapper; matching SDK export and library object
+0x00516827	INTEL\$NW\winctrl1.obj	??1CComboBox@@UAE@XZ	PINNED: writes vtable 0x52d204; RTTI type .?AVCComboBox@@
+0x005054cc	INTEL\$NW\wingdi.obj	?FromHandle@CDC@@SGPAV1@PAUHDC__@@@Z	PINNED: sits between afxMapHDC and CDC::Attach in wingdi.obj; called by CZWnd::OnPaint; lib_sweep previously tied with CImageList::FromHandle
+0x005166ec	INTEL\$NW\winctrl1.obj	??1CListBox@@UAE@XZ	PINNED: writes vtable 0x52d0a4 with CListBox RTTI .?AVCListBox@@; CommandsDlg member at this+0x70 destroys through this entry

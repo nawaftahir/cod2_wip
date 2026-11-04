@@ -1,0 +1,63 @@
+function 0x0040ffb0  size 79  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  0040ffb0  8b0d68382301             mov    ecx, dword ptr [0x1233868]
+  0040ffb6  6a01                     push   1
+  0040ffb8  e8acc00e00               call   0x4fc069                       ; ?UpdateData@CWnd@@QAEHH@Z [lib]
+  0040ffbd  a168382301               mov    eax, dword ptr [0x1233868]
+  0040ffc2  8b8884000000             mov    ecx, dword ptr [eax + 0x84]
+  0040ffc8  85c9                     test   ecx, ecx
+  0040ffca  7432                     je     0x40fffe
+  0040ffcc  85f6                     test   esi, esi
+  0040ffce  8d4874                   lea    ecx, [eax + 0x74]
+  0040ffd1  7504                     jne    0x40ffd7
+  0040ffd3  33c0                     xor    eax, eax
+  0040ffd5  eb13                     jmp    0x40ffea
+  0040ffd7  8bc6                     mov    eax, esi
+  0040ffd9  57                       push   edi
+  0040ffda  8d7801                   lea    edi, [eax + 1]
+  0040ffdd  8d4900                   lea    ecx, [ecx]
+  0040ffe0  8a10                     mov    dl, byte ptr [eax]
+  0040ffe2  40                       inc    eax
+  0040ffe3  84d2                     test   dl, dl
+  0040ffe5  75f9                     jne    0x40ffe0
+  0040ffe7  2bc7                     sub    eax, edi
+  0040ffe9  5f                       pop    edi
+  0040ffea  50                       push   eax
+  0040ffeb  56                       push   esi
+  0040ffec  e83f2bffff               call   0x402b30                       ; FUN_00402b30
+  0040fff1  8b0d68382301             mov    ecx, dword ptr [0x1233868]
+  0040fff7  6a00                     push   0
+  0040fff9  e86bc00e00               call   0x4fc069                       ; ?UpdateData@CWnd@@QAEHH@Z [lib]
+  0040fffe  c3                       ret
+
+--- Ghidra decompile (a hint only: names and types are guesses) ---
+
+void FUN_0040ffb0(void)
+
+{
+  char cVar1;
+  int iVar2;
+  char *pcVar3;
+  char *unaff_ESI;
+
+  FUN_004fc069(1);
+  if (*(int *)(DAT_01233868 + 0x84) != 0) {
+    if (unaff_ESI == (char *)0x0) {
+      iVar2 = 0;
+    }
+    else {
+      pcVar3 = unaff_ESI;
+      do {
+        cVar1 = *pcVar3;
+        pcVar3 = pcVar3 + 1;
+      } while (cVar1 != '\0');
+      iVar2 = (int)pcVar3 - (int)(unaff_ESI + 1);
+    }
+    FUN_00402b30(unaff_ESI,iVar2);
+    FUN_004fc069(0);
+  }
+  return;
+}

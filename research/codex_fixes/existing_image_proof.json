@@ -1,0 +1,19 @@
+{
+  "exe_sha256": "db68dd96f0be05b057a9abe9b3e66a342c42704e5ebc4835c8407e416f256bf2",
+  "old_hits": 340,
+  "new_hits": 341,
+  "changes": [
+    {
+      "addr": "0x0048af30",
+      "name": "Hunk_ShowTempMemoryHigh",
+      "before": [
+        "MISMATCH",
+        "14%, sizes 124/18, first difference at +0x12"
+      ],
+      "after": [
+        "MATCH",
+        "at 0x00408bf0"
+      ]
+    }
+  ]
+}

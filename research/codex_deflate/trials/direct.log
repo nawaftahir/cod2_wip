@@ -1,0 +1,22 @@
+EXPERIMENT src/zlib/deflate.c ['/O2', '/GS', '/GL', '/Ob1']
+CL SHA256 2ecf86a3edfd3deae498e08298e210e984537ce9e11759930561e43f40bd2515
+SOURCE TRIAL: normal public inline hints and direct pending copy at stored first flush
+0x004ad1a0 _deflateInit_ MATCH at 0x004121b0
+0x004ad1c0 _deflateInit2_ MATCH at 0x004121d0
+0x004ad3b0 _deflateSetDictionary MATCH at 0x004123c0
+0x004ad4a0 _deflateReset MATCH at 0x004124b0
+0x004ad510 _deflateParams MATCH at 0x00412520
+0x004ad790 _putShortMSB MATCH at 0x004127a0
+0x004ad7c0 _flush_pending MATCH at 0x004127d0
+0x004ad830 _deflate MATCH at 0x00412840
+0x004adac0 _deflateEnd MATCH at 0x00412ad0
+0x004adb80 _deflateCopy MATCH at 0x00412b90
+0x004add30 _read_buf MATCH at 0x00412d40
+0x004adda0 _lm_init MATCH at 0x00412db0
+0x004ade30 _longest_match MATCH at 0x00412e40
+0x004adfa0 _fill_window MATCH at 0x00412fb0
+0x004ae0c0 _deflate_stored MATCH at 0x004130d0
+0x004ae280 _deflate_fast MATCH at 0x00413290
+0x004ae580 _deflate_slow MATCH at 0x00413590
+OLD ROW REGRESSIONS 0 []
+RESTORED canonical object and flags

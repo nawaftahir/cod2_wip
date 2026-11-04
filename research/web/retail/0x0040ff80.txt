@@ -1,0 +1,19 @@
+function 0x0040ff80  size 36  file radiant/FindTextureDlg.cpp (SUPPORTED)
+source   src/radiant/FindTextureDlg.cpp
+place it after  (start of file)
+place it before (end of file)
+
+  0040ff80  a168382301               mov    eax, dword ptr [0x1233868]
+  0040ff85  85c0                     test   eax, eax
+  0040ff87  7418                     je     0x40ffa1
+  0040ff89  8b401c                   mov    eax, dword ptr [eax + 0x1c]
+  0040ff8c  85c0                     test   eax, eax
+  0040ff8e  7411                     je     0x40ffa1
+  0040ff90  50                       push   eax
+  0040ff91  ff15b8885200             call   dword ptr [0x5288b8]           ; imported function (pointer at 0x005288b8)
+  0040ff97  85c0                     test   eax, eax
+  0040ff99  7406                     je     0x40ffa1
+  0040ff9b  b801000000               mov    eax, 1
+  0040ffa0  c3                       ret
+  0040ffa1  33c0                     xor    eax, eax
+  0040ffa3  c3                       ret

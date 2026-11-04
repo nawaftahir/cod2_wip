@@ -1,0 +1,23 @@
+[
+  {
+    "address": "0x004faf8b",
+    "name": "AfxFindMessageEntry",
+    "size": 64,
+    "object_symbol": "?AfxFindMessageEntry@@YGPBUAFX_MSGMAP_ENTRY@@PBU1@III@Z",
+    "object": "nafxcw.lib@3126644"
+  },
+  {
+    "address": "0x004f2fd5",
+    "name": "operator[]",
+    "size": 39,
+    "object_symbol": "??A?$CSimpleArray@PAVCDHtmlControlSink@@V?$CSimpleArrayEqualHelper@PAVCDHtmlControlSink@@@ATL@@@ATL@@QAEAAPAVCDHtmlControlSink@@H@Z",
+    "object": "nafxcw.lib@6319914"
+  },
+  {
+    "address": "0x004d3b11",
+    "name": "operator[]",
+    "size": 39,
+    "object_symbol": "??A?$CSimpleArray@GV?$CSimpleArrayEqualHelper@G@ATL@@@ATL@@QAEAAGH@Z",
+    "object": "eafxis.lib@29368"
+  }
+]

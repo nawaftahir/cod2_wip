@@ -1,0 +1,32 @@
+[
+  {
+    "source": "Quake-III-Arena/q3radiant/FindTextureDlg.cpp",
+    "copy": "research/web/references/q3radiant/FindTextureDlg.cpp",
+    "sha256": "9a9c49d561700615ee2378d67494a478edcec054175877c4476c123d2e33cb1e",
+    "reference_commit": "dbe4ddb10315479fc00086f08e25d968b4b43c49"
+  },
+  {
+    "source": "Quake-III-Arena/q3radiant/FindTextureDlg.h",
+    "copy": "research/web/references/q3radiant/FindTextureDlg.h",
+    "sha256": "63d7123aa77f31e926be881624b0f62fca3dddcbb31b3a987096c2c0f8be4b51",
+    "reference_commit": "dbe4ddb10315479fc00086f08e25d968b4b43c49"
+  },
+  {
+    "source": "Quake-III-Arena/COPYING.txt",
+    "copy": "research/web/references/q3radiant/COPYING.txt",
+    "sha256": "fac9da110d1433f4df0cb9f5dda9449e9aff6ee236ed240fa29e3e92926c363a",
+    "reference_commit": "dbe4ddb10315479fc00086f08e25d968b4b43c49"
+  },
+  {
+    "source": "KisakCOD/src/radiant/findtexture.cpp",
+    "copy": "research/web/references/kisak/findtexture.cpp",
+    "sha256": "60336d6f3346f578d6e4543a89ce9f366b43ff93f026147e0090481a7106f888",
+    "reference_commit": "1c03702cbe176e9274e486d295edcd035b3c2b5f"
+  },
+  {
+    "source": "KisakCOD/LICENSE",
+    "copy": "research/web/references/kisak/LICENSE",
+    "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+    "reference_commit": "1c03702cbe176e9274e486d295edcd035b3c2b5f"
+  }
+]

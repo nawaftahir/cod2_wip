@@ -1,0 +1,23 @@
+{
+  "anchor_sha256": "b6fc8cff6bbfa06b262e6e499022748517646a0aa3f7b2344ba96c9b59616bb8",
+  "command": "python3 research/web/export_retail.py",
+  "files": {
+    "research/web/retail/0x0040fc10.txt": "7c253e1b186457296e3390eea3c8c7dee9568c789bb9cc425672784b189c6df7",
+    "research/web/retail/0x0040fc60.txt": "571560d698d4a906fd2fef1a4802ddc297940c6b532b1ada4c15931ee4ae022e",
+    "research/web/retail/0x0040fca0.txt": "e31b1f3e8c77952f9ce91570438a059601dc71488206a77bfe8dfca0f5b1ec8f",
+    "research/web/retail/0x0040fd60.txt": "1ed9b5dd644c8066761543e4b3c74bf9d597880b21b9ce34c1210c97028af2a5",
+    "research/web/retail/0x0040fd90.txt": "bb4d8f61796bae4eb470807af3e00b1d436112dba9953c60043c08a729fba511",
+    "research/web/retail/0x0040fe00.txt": "f02c32fe374eeb67fe5b3374546d7c377d724e018d53b8fd349813c66fa1f574",
+    "research/web/retail/0x0040fe10.txt": "fa5d1709843316ea067a5e4bb07a362fad20c26e9ef80519318a28a223db7c71",
+    "research/web/retail/0x0040fe80.txt": "2442f9b56c4db73cc7bc71cb678b623732f9e1367b6786185e9d29041b707383",
+    "research/web/retail/0x0040fef0.txt": "53119b77e11ca25ebfd4ec016f207bfbdcd019c00c6eb791b48a0a78081a2d3b",
+    "research/web/retail/0x0040ff80.txt": "5525b775eff83c6d14822bb4bf6310efc46aeb0c357ff12e972e99658d6b048e",
+    "research/web/retail/0x0040ffb0.txt": "e11348061e7bc436a5ceb5794d81d2169dfc4e5130faa6c573f0cc9cb9bbeb08",
+    "research/web/retail/0x00410000.txt": "84e7adf850c4882672321507076a53d602050a8cb10e71bbd54c9d0d5d0fb043",
+    "research/web/retail/0x00410050.txt": "141164544466baf9f5a6048a2c0310c6d946cf2a266ad40308064a693e81b96d",
+    "research/web/retail/0x00410090.txt": "2a43098b13a7188f09177df2f96ca96b063d84e7718a3c4ce7e673977763317d",
+    "research/web/retail/0x004100a0.txt": "e283c942f9c6f7fe66a5d62fd0ecb3473b52efb51abd29a8f6825bcd39100f0c",
+    "research/web/retail/0x004100b0.txt": "2e753a5b56d75e7f0be402e93685a0ab10e1371a070e72c147bd2f54cdcc2d5f",
+    "research/web/retail/inventory.tsv": "6cd092c6a78949f783ff1876474195414be97ba22c4bdfc19e6dbba409b99d8b"
+  }
+}

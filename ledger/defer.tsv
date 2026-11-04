@@ -1,0 +1,50 @@
+addr	agent	date	reason
+0x004acc30	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
+0x004acd90	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
+0x004acf40	claude	2026-10-20	was in the old ledger; fails on recompile: assert __LINE__ drifted after an edit, code must move back to the retail line
+0x004969a0	claude	2026-10-20	body matches as static (src/universal/q_shared.cpp) but a static is only emitted when called; verify again once its real caller in q_shared.cpp is written. Do not add a fake caller.
+0x00480940	copilot	2026-10-20	Best 63%; first difference at +0xa (retail loads global before call setup) after 8 tries.
+0x004818f0	copilot	2026-10-20	Best 39%; first difference at +0x0 (retail register-preserving call sequence unavailable from C draft) after 8 tries.
+0x00490c70	copilot	2026-10-20	best 99%; first differing offset +0x16, immediately after the 22-byte function
+0x00490bc0	copilot	2026-10-20	best 99%; first differing offset +0x17, immediately after the 23-byte function
+0x00491280	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x17 (callee relocation).
+0x00490ba0	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x18 (callee relocation).
+0x00490be0	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x18 (callee relocation).
+0x00490d50	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x18 (callee relocation).
+0x00490c00	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x1c (callee relocation).
+0x0048d700	copilot	2026-10-20	Best 99%; wrapper bytes differ at +0x1e (callee relocation).
+0x0047c820	copilot	2026-10-20	Best 54%; compiler emits a normal this adjustment, but retail uses ESI at +0x3.
+0x0047c9b0	copilot	2026-10-20	Best 49%; standard calling convention differs from retail register arguments at +0x3.
+0x0047c9f0	copilot	2026-10-20	Best 0%; candidate emits only a return stub, differing from retail at +0x0.
+0x0047c650	copilot	2026-10-20	Best 27%; existing cleanup method has a different prologue and size, first differing at +0x3.
+0x0047c760	copilot	2026-10-20	Best 10%; existing source emits the unrelated cleanup function, differing from retail at +0x1.
+0x0048b7e0	claude	2026-10-24	generateHashValue: static, matches but only emitted once its callers are written; server body in build/dvar.cpp.full (Dvar_FindMalleableVar, Dvar_RegisterNew)
+0x0048b930	claude	2026-10-24	Dvar_AllocVectors: static, matches but only emitted once its callers are written; server body in build/dvar.cpp.full (Dvar_RegisterNew, Dvar_MakeExplicitType)
+0x0048ccd0	claude	2026-10-24	Dvar_ClampVectorToDomain: static, matches but only emitted once its callers are written; server body in build/dvar.cpp.full (Dvar_ClampValueToDomain)
+0x0048f240	claude	2026-10-24	Dvar_UpdateRegistration: static, matches but only emitted once its callers are written; server body in build/dvar.cpp.full (Dvar_Reregister)
+0x0048e190	claude	2026-10-24	Dvar_Get*: ~45%, retail inlines Dvar_FindVar two levels deep with the stack form; ours calls it out of line with no callers in the tree yet; asserted body in scratch/claude/dvar_get_deferred.cpp
+0x0048e260	claude	2026-10-24	Dvar_Get*: ~45%, retail inlines Dvar_FindVar two levels deep with the stack form; ours calls it out of line with no callers in the tree yet; asserted body in scratch/claude/dvar_get_deferred.cpp
+0x0048e330	claude	2026-10-24	Dvar_Get*: ~45%, retail inlines Dvar_FindVar two levels deep with the stack form; ours calls it out of line with no callers in the tree yet; asserted body in scratch/claude/dvar_get_deferred.cpp
+0x0048e640	claude	2026-10-24	Dvar_Get*: ~45%, retail inlines Dvar_FindVar two levels deep with the stack form; ours calls it out of line with no callers in the tree yet; asserted body in scratch/claude/dvar_get_deferred.cpp
+0x0048e710	claude	2026-10-24	Dvar_Get*: ~45%, retail inlines Dvar_FindVar two levels deep with the stack form; ours calls it out of line with no callers in the tree yet; asserted body in scratch/claude/dvar_get_deferred.cpp
+0x00495060	claude	2026-10-24	Com_ParseExt 990 B (inventory split at 0x495250 merged), best 25%: assert(data_p) line 636 and two SkipWhitespace calls (before the comment loop + at its end) give the retail frame, len slot and first call; LTCG still inlines the 2nd SkipWhitespace call (retail calls both, 0x49510e/0x495153). goto, while/continue, per-branch calls and decl order tried
+0x0047e9a0	codex	2026-10-27	FS_IsBackupSubStr: 100% in the full source trial; not emitted after unmatched FS_SanitizeFilename is removed. Restore its genuine caller; full source in scratch/codex_1027_com_files/adjusted_full.cpp.
+0x0047ec70	codex	2026-10-27	FS_FilesAreLoadedGlobally: 100% in the full source trial; not emitted without FS_FOpenFileRead_Internal. No fake callers or linkage changes.
+0x0047fa40	codex	2026-10-27	FS_ReadFile: 100% in the full source trial, 56% (199/181 B, first +0x3) after pruning; LTCG stops reusing the qpath slot for the handle when FS_FOpenFileRead_Internal is only declared. Full source retained in scratch.
+0x00480380	codex	2026-10-27	FS_ReturnPath: 100% in the full source trial; not emitted without FS_ListFilteredFiles. Restore genuine caller before claiming.
+0x00481040	codex	2026-10-27	IwdFileLanguage: 100% in the full source trial; not emitted without iwdsort and the directory-loading graph.
+0x004810e0	codex	2026-10-27	iwdsort: 100% in the full source trial; not emitted without FS_AddIwdFilesForGameDirectory taking its address.
+0x004811e0	codex	2026-10-27	FS_AddSearchPath: 100% in the full source trial; not emitted without the directory-loading functions. Source stays in scratch until callers match.
+0x0047e160	codex	2026-10-27	FS_Remove: blocked by owner-only library mapping; retail 0x4dad56 calls KERNEL32!DeleteFileA via IAT 0x5283ac but data/lib_funcs.tsv names it __rmdir. Do not change source semantics to satisfy the incorrect name; see research/codex_notes.md.
+0x0047f3d0	codex	2026-10-27	FS_Delete: same incorrect __rmdir library mapping as 0x47e160; retail call at 0x47f470 reaches DeleteFileA. File finish deferred pending owner correction.
+0x0047e9e0	codex	2026-10-28	FS_SanitizeFilename: 100% (643 B) with all five retail assert lines and handler type 1 for the last check. Its real read caller remains unmatched and breaks two protected wrappers; body stays in scratch/codex_1028_read_graph/attempt.cpp.
+0x0047ed20	codex	2026-10-28	FS_FOpenFileRead_Internal: 39% (1343/1396 B, first +0x10) after restoring genuine FS_ReadFile and FS_TouchFile callers. Candidate receives file in ECX; retail uses the stack. Trial breaks protected 0x47f2a0 and 0x47f2b0, so the graph is restored to scratch without ABI tricks. See scratch/codex_1028_read_graph/check.json.
+0x0047d830	codex	2026-10-28	AssertNotify: best 95% (121/121 B, first +0x6b). API calls, captions, Shift handling and result values agree; the occurrence==1 branch shares its return block differently around ExitProcess. Four bounded source forms; unmatched body is retained only in scratch/codex_1028_assertive/.
+0x0047d1b0	codex	2026-10-28	GetModuleBase: 100% (190 B), but same-offset regression in the four-helper batch; not credited. See scratch/codex_1028_assertive_helpers/gate.log.
+0x0046c510	claude	2026-10-28	GetWin32Kind: Q3Radiant MRU.CPP body is byte-identical compiled alone, 44%% (37/43 B) inside the LTCG link while its caller is unwritten; body in research/q3sweep (MRU.obj)
+0x004acb70	gemini	2026-10-28	best 93%; sizes 193/191 (+0xa2); SL_GetString (0x4a87b0 in scr_stringlist.cpp) takes stringValue in EAX, but defaults to __cdecl push until scr_stringlist.cpp is compiled with /GL.
+0x004830f0	claude	2026-11-04	matched only with a forced __declspec(noinline) on its helper (AngleNormalize180 / Com_ParseOnLine), banned by CLAUDE.md; without it LTCG inlines the helper. Needs the helper's real callers, not noinline.
+0x00483220	claude	2026-11-04	matched only with a forced __declspec(noinline) on its helper (AngleNormalize180 / Com_ParseOnLine), banned by CLAUDE.md; without it LTCG inlines the helper. Needs the helper's real callers, not noinline.
+0x00487430	claude	2026-11-04	matched only with a forced __declspec(noinline) on its helper (AngleNormalize180 / Com_ParseOnLine), banned by CLAUDE.md; without it LTCG inlines the helper. Needs the helper's real callers, not noinline.
+0x00495860	claude	2026-11-04	matched only with a forced __declspec(noinline) on its helper (AngleNormalize180 / Com_ParseOnLine), banned by CLAUDE.md; without it LTCG inlines the helper. Needs the helper's real callers, not noinline.
+0x004958d0	claude	2026-11-04	matched only with a forced __declspec(noinline) on its helper (AngleNormalize180 / Com_ParseOnLine), banned by CLAUDE.md; without it LTCG inlines the helper. Needs the helper's real callers, not noinline.

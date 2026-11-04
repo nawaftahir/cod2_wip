@@ -1,0 +1,77 @@
+{
+  "worker_commit": "754c3284f8c10ed55786eb5d408b45983ceca890",
+  "scope": "Research snapshots only; no new accepted game rows.",
+  "files": [
+    {
+      "source": "scratch/test_cluster.py",
+      "sha256": "96a33db516e1e265f4a807cd7182ca5aec9b98a4be07ce59148dfa730d5f61d8"
+    },
+    {
+      "source": "scratch/insert_4.py",
+      "sha256": "8e3668a220b8e1b6ef7e62d5c5084c196ebe5563ffc1e0016fa0fe229d10ae59"
+    },
+    {
+      "source": "scratch/fix_switch.py",
+      "sha256": "c8f5124bf522558454e74edc98e0d84e083dda244260f32f07228bab2b5fbe7b"
+    },
+    {
+      "source": "scratch/align_clean.py",
+      "sha256": "0822b786239814277c25c0fb905473de3f159aed828dba68100bdbc180e69c6d"
+    },
+    {
+      "source": "scratch/insert_readfile.py",
+      "sha256": "95cc5f6f991f7c08e9b514f3a6afca5f357e2383ef6f9e2270a458b13086a9dd"
+    },
+    {
+      "source": "scratch/test_readfile.cpp",
+      "sha256": "a41b990fdebbc90b4b902f70fdbcfd16c81798d99213fa47abc6aad0bb8952c7"
+    },
+    {
+      "source": "scratch/test_cluster/test.py",
+      "sha256": "0a374e4bc59fa05acaa5690be9121a88ea3b62ef5fb19b18384f1aaf02546f23"
+    },
+    {
+      "source": "scratch/test_cluster/attempt.cpp",
+      "sha256": "7863f040187d70277496343fa6d7cb060ed0c6dcc05049296ec4bb4ad6f77117"
+    },
+    {
+      "source": "PROGRESS.md",
+      "sha256": "27926fe2a3b49ca4616707a70e681192f2d572dc2e5ccebd30b2e3ca8b11968c"
+    },
+    {
+      "source": "REPORT_GEMINI.md",
+      "sha256": "ef053a1bc730272dfe63e0b1c2e5ac72bce2550782bdee6b39b9f51285db02d2"
+    },
+    {
+      "source": "scratch/test_cluster/com_files.cpp.bak",
+      "sha256": "fc09628374c8a65c047832e8a3c0d17ebcf49b1e99ccf591e7ebd399bcca92e4"
+    }
+  ],
+  "review_baseline": "5c8e60d",
+  "review_artifacts": [
+    {
+      "path": "shutdown_observed.cpp",
+      "sha256": "858065e76bc6df6186a11908aa803c91f07b46c21fdfff5fa9000549ad7caf94"
+    },
+    {
+      "path": "review_saved_candidate.json",
+      "sha256": "d9076d86a9a5713bc332475fe1124c2c1c55b19e68519d5c14fd2fa6a6b3289d"
+    },
+    {
+      "path": "review_rebased_compile.log",
+      "sha256": "e55d192b09713ddfe075c30587c8edf96b4dba24d377ae9d24fd34faff63c076"
+    },
+    {
+      "path": "review_rebased_candidate.json",
+      "sha256": "f64c2c348b8fb13c0d25883e6b09bae2dcbd7c46dc283e26e46dd5696eb5d987"
+    },
+    {
+      "path": "rebased_candidate.cpp",
+      "sha256": "95f8332d152069e15639f8f89a7cb3a6d5834deb1ba586babb236a9f76613995"
+    },
+    {
+      "path": "review_gemini.py",
+      "sha256": "e2a6fbe8482e0930e9ab53a94f406cafabbc10c087d86a5a62b230f4ced329ac"
+    }
+  ]
+}

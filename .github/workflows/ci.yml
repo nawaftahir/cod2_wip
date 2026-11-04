@@ -1,0 +1,164 @@
+name: radiant
+
+on:
+  push:
+    branches: [main, 'web/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: radiant-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ !startsWith(github.ref, 'refs/heads/web/') }}
+
+env:
+  IMAGE: ghcr.io/nawaftahir/cod2-radiant-msvc71@sha256:be71e0d2b7f7e51a873c472e81872d0aa125a4fe5b2a4522bf8abb247b45008f
+
+jobs:
+  gate:
+    # Private compiler access is limited to branches in this repository.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Select immutable regression baseline
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          BRANCH_NAME: ${{ github.ref_name }}
+          BEFORE_SHA: ${{ github.event.before }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          mkdir -p build
+          if [ "$EVENT_NAME" = pull_request ]; then
+            base="$PR_BASE"
+          elif [ "$BRANCH_NAME" = main ] && git cat-file -e "${BEFORE_SHA}:ledger/meter.json" 2>/dev/null; then
+            base="$BEFORE_SHA"
+          else
+            base=$(git merge-base HEAD origin/main)
+          fi
+          git show "$base:ledger/meter.json" > build/baseline.json
+          echo "Baseline: $base"
+      - name: Pull pinned private compiler
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$IMAGE"
+      - name: Full retail source gate
+        run: |
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w \
+            -e METER_BASELINE=/w/build/baseline.json -e RADIANT_CI_NO_NOTIFY=1 \
+            "$IMAGE" python3 -u tools/ci_gate.py
+      - name: Read-only audit of already-emitted unmatched game source
+        if: success() && startsWith(github.ref, 'refs/heads/web/')
+        continue-on-error: true
+        run: |
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" \
+            python3 -u research/web/scan_emitted_matches.py 2>&1 | tee build/web-auto-match.log
+      - name: Read-only object symbol census for unlinked game functions
+        if: success() && startsWith(github.ref, 'refs/heads/web/')
+        continue-on-error: true
+        run: |
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" \
+            python3 -u research/web/inspect_object_symbols.py 2>&1 | tee build/web-object-symbols.log
+      - name: Job summary
+        if: always()
+        run: |
+          if [ -f build/ci-summary.md ]; then cat build/ci-summary.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: radiant-gate-${{ github.sha }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            build/ci-*.log
+            build/ci-summary.md
+            build/ci-results.json
+            build/summary.md
+            build/meter.json
+            build/verify.json
+            build/file-ledger-audit.log
+            build/file-ledger-proof.json
+            build/web-auto-match.json
+            build/web-auto-match.log
+            build/web-object-symbols.log
+
+  web-trial:
+    if: startsWith(github.ref, 'refs/heads/web/')
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Pull pinned private compiler
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$IMAGE"
+      - name: Isolated draft comparison
+        run: |
+          mkdir -p build
+          set -o pipefail
+          if [ -f research/web/target.tsv ]; then
+            runner=tools/web_tu_trial.py
+          else
+            runner=tools/web_trial.py
+          fi
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" \
+            python3 -u "$runner" 2>&1 | tee build/web-trial.log
+      - name: Batch retail disassembly for web reconstruction
+        if: always()
+        continue-on-error: true
+        run: |
+          mkdir -p build
+          if [ -f research/web/inspect_addrs.txt ]; then
+            docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" \
+              sh -c 'while IFS= read -r addr; do
+                case "$addr" in ""|\#*) continue;; esac
+                echo "========== RETAIL $addr =========="
+                python3 -u tools/show.py "$addr"
+              done < research/web/inspect_addrs.txt' 2>&1 | tee build/web-evidence.log
+          fi
+      - name: Retail caller census for unfinished TU dependencies
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ -s research/web/inspect_callers.txt ]; then
+            docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" python3 -u research/web/caller_census.py research/web/inspect_callers.txt 2>&1 | tee build/web-callers.log
+          fi
+      - name: Diagnostic complete-file metadata audits (no credit)
+        if: always()
+        continue-on-error: true
+        run: |
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" sh -c 'python3 -u research/web/test_findtexture_complete.py' 2>&1 | tee build/web-file-diagnostic.log
+      - name: Diagnostic points.cpp full-TU proof (no credit)
+        if: always()
+        continue-on-error: true
+        run: |
+          docker run --rm --platform linux/386 -v "$PWD:/w" -w /w "$IMAGE" python3 -u research/web/test_points_complete.py 2>&1 | tee build/web-points-file-diagnostic.log
+      - name: Trial summary
+        if: always()
+        run: |
+          if [ -f build/web-trial.md ]; then cat build/web-trial.md >> "$GITHUB_STEP_SUMMARY"; fi
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: radiant-web-trial-${{ github.sha }}
+          retention-days: 7
+          if-no-files-found: warn
+          path: |
+            build/web-trial.*
+            build/web-trial-assembly.txt
+            build/web-tu-trial.*
+            build/web-tu-trial-assembly.txt
+            build/web-evidence.log
+            build/web-callers.log
+            build/web-file-diagnostic.log
+            build/web-points-file-diagnostic.log

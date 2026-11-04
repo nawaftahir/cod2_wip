@@ -1,0 +1,1668 @@
+[
+  {
+    "target": "0047e300",
+    "candidates": [
+      {
+        "score": 46,
+        "name": "LoadBMP",
+        "file": "Bmp.cpp",
+        "line": 129,
+        "token_overlap": [
+          "FILE",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "fclose",
+          "free"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "004083a0",
+    "candidates": [
+      {
+        "score": 50,
+        "name": "LoadBMP",
+        "file": "Bmp.cpp",
+        "line": 129,
+        "token_overlap": [
+          "FILE",
+          "for",
+          "if",
+          "int"
+        ],
+        "api_overlap": [
+          "fclose",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "3"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "0047e070",
+    "candidates": [
+      {
+        "score": 70,
+        "name": "LoadBMP",
+        "file": "Bmp.cpp",
+        "line": 129,
+        "token_overlap": [
+          "FILE",
+          "if",
+          "in",
+          "int",
+          "read",
+          "void"
+        ],
+        "api_overlap": [
+          "fclose",
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 24,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 52,
+        "name": "LoadBMP",
+        "file": "LBMLIB.CPP",
+        "line": 723,
+        "token_overlap": [
+          "if",
+          "in",
+          "int",
+          "n",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "2"
+        ]
+      },
+      {
+        "score": 52,
+        "name": "LoadTGA",
+        "file": "LBMLIB.CPP",
+        "line": 1032,
+        "token_overlap": [
+          "if",
+          "in",
+          "int",
+          "n",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "2"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadLBM",
+        "file": "LBMLIB.CPP",
+        "line": 148,
+        "token_overlap": [
+          "if",
+          "int",
+          "n",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "2"
+        ]
+      },
+      {
+        "score": 50,
+        "name": "WritePCXfile",
+        "file": "LBMLIB.CPP",
+        "line": 517,
+        "token_overlap": [
+          "if",
+          "int",
+          "void",
+          "write"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "2"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00489e20",
+    "candidates": [
+      {
+        "score": 51,
+        "name": "LoadLBM",
+        "file": "LBMLIB.CPP",
+        "line": 148,
+        "token_overlap": [
+          "char",
+          "else",
+          "if",
+          "int",
+          "return",
+          "void",
+          "while"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadPCX",
+        "file": "LBMLIB.CPP",
+        "line": 414,
+        "token_overlap": [
+          "char",
+          "else",
+          "if",
+          "int",
+          "return",
+          "void",
+          "while"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadPCX",
+        "file": "LBMLIB.CPP",
+        "line": 892,
+        "token_overlap": [
+          "char",
+          "else",
+          "if",
+          "int",
+          "return",
+          "void",
+          "while"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadTGA",
+        "file": "LBMLIB.CPP",
+        "line": 1032,
+        "token_overlap": [
+          "char",
+          "else",
+          "goto",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "LoadBMP",
+        "file": "Bmp.cpp",
+        "line": 129,
+        "token_overlap": [
+          "char",
+          "else",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00422f90",
+    "candidates": [
+      {
+        "score": 50,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 50,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "CWnd",
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "if",
+          "int",
+          "not",
+          "void"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00420fe0",
+    "candidates": [
+      {
+        "score": 52,
+        "name": "LoadLBM",
+        "file": "LBMLIB.CPP",
+        "line": 148,
+        "token_overlap": [
+          "for",
+          "if",
+          "int",
+          "return",
+          "void",
+          "while"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "3"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadBMP",
+        "file": "LBMLIB.CPP",
+        "line": 723,
+        "token_overlap": [
+          "for",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "3"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadPCX32",
+        "file": "LBMLIB.CPP",
+        "line": 992,
+        "token_overlap": [
+          "for",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "3"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadTGA",
+        "file": "LBMLIB.CPP",
+        "line": 1032,
+        "token_overlap": [
+          "for",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "3"
+        ]
+      },
+      {
+        "score": 50,
+        "name": "LoadBMP",
+        "file": "Bmp.cpp",
+        "line": 129,
+        "token_overlap": [
+          "for",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "3"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "0047a760",
+    "candidates": [
+      {
+        "score": 47,
+        "name": "Error",
+        "file": "WIN_QE3.CPP",
+        "line": 273,
+        "token_overlap": [
+          "Error",
+          "GetLastError",
+          "Preferences",
+          "Q3Radiant",
+          "Would",
+          "before",
+          "char",
+          "edit",
+          "error",
+          "exiting",
+          "has",
+          "i",
+          "if",
+          "int",
+          "like",
+          "nAn",
+          "nGetLastError",
+          "occured",
+          "s",
+          "to",
+          "unrecoverable",
+          "void",
+          "you"
+        ],
+        "api_overlap": [
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 8,
+        "constant_overlap": [
+          "1",
+          "1024"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00401d90",
+    "candidates": [
+      {
+        "score": 49,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "CWnd",
+          "GetDlgItem",
+          "HWND",
+          "if",
+          "int"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "3"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00423ae0",
+    "candidates": [
+      {
+        "score": 51,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "WPARAM",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 50,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "CWnd",
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "WPARAM",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "0040d620",
+    "candidates": [
+      {
+        "score": 53,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "char",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "1024"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "CWnd",
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00481910",
+    "candidates": [
+      {
+        "score": 47,
+        "name": "LoadBMP",
+        "file": "Bmp.cpp",
+        "line": 129,
+        "token_overlap": [
+          "FILE",
+          "if",
+          "void"
+        ],
+        "api_overlap": [
+          "fclose",
+          "free"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "004a00b0",
+    "candidates": [
+      {
+        "score": 49,
+        "name": "LoadModel",
+        "file": "ECLASS.CPP",
+        "line": 132,
+        "token_overlap": [
+          "char",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "CheckBspProcess",
+        "file": "WIN_QE3.CPP",
+        "line": 593,
+        "token_overlap": [
+          "char",
+          "if",
+          "return",
+          "void",
+          "with"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 48,
+        "name": "QERApp_TryTextureForName",
+        "file": "IShaders.cpp",
+        "line": 46,
+        "token_overlap": [
+          "char",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 48,
+        "name": "LoadShaders",
+        "file": "TexWnd.cpp",
+        "line": 3028,
+        "token_overlap": [
+          "char",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 45,
+        "name": "Texture_Init",
+        "file": "TexWnd.cpp",
+        "line": 2497,
+        "token_overlap": [
+          "char",
+          "if",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00401df0",
+    "candidates": [
+      {
+        "score": 48,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "CWnd",
+          "GetDlgItem",
+          "HWND",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      },
+      {
+        "score": 47,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "0047a5b0",
+    "candidates": [
+      {
+        "score": 49,
+        "name": "SetKeyValuePairs",
+        "file": "Win_ent.cpp",
+        "line": 506,
+        "token_overlap": [
+          "LPARAM",
+          "char",
+          "if",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "sendmessage",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "8"
+        ]
+      },
+      {
+        "score": 45,
+        "name": "GetSpawnFlags",
+        "file": "Win_ent.cpp",
+        "line": 578,
+        "token_overlap": [
+          "char",
+          "if",
+          "void"
+        ],
+        "api_overlap": [
+          "sendmessage",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "0049ff30",
+    "candidates": [
+      {
+        "score": 50,
+        "name": "LoadModel",
+        "file": "ECLASS.CPP",
+        "line": 132,
+        "token_overlap": [
+          "char",
+          "f",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "CheckBspProcess",
+        "file": "WIN_QE3.CPP",
+        "line": 593,
+        "token_overlap": [
+          "char",
+          "if",
+          "return",
+          "void",
+          "with"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 48,
+        "name": "QERApp_TryTextureForName",
+        "file": "IShaders.cpp",
+        "line": 46,
+        "token_overlap": [
+          "char",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 48,
+        "name": "LoadShaders",
+        "file": "TexWnd.cpp",
+        "line": 3028,
+        "token_overlap": [
+          "char",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 45,
+        "name": "Texture_Init",
+        "file": "TexWnd.cpp",
+        "line": 2497,
+        "token_overlap": [
+          "char",
+          "if",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "0046c090",
+    "candidates": [
+      {
+        "score": 55,
+        "name": "LoadModel",
+        "file": "ECLASS.CPP",
+        "line": 132,
+        "token_overlap": [
+          "char",
+          "else",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "10",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "score": 52,
+        "name": "QERApp_TryTextureForName",
+        "file": "IShaders.cpp",
+        "line": 46,
+        "token_overlap": [
+          "char",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "score": 50,
+        "name": "LoadShaders",
+        "file": "TexWnd.cpp",
+        "line": 3028,
+        "token_overlap": [
+          "char",
+          "do",
+          "else",
+          "if",
+          "int",
+          "while"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "CheckBspProcess",
+        "file": "WIN_QE3.CPP",
+        "line": 593,
+        "token_overlap": [
+          "char",
+          "else",
+          "if",
+          "return",
+          "with"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 45,
+        "name": "Texture_Init",
+        "file": "TexWnd.cpp",
+        "line": 2497,
+        "token_overlap": [
+          "char",
+          "else",
+          "if"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00446490",
+    "candidates": [
+      {
+        "score": 50,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "else",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 46,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "if",
+          "int"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00428e20",
+    "candidates": [
+      {
+        "score": 46,
+        "name": "LoadBMP",
+        "file": "LBMLIB.CPP",
+        "line": 723,
+        "token_overlap": [
+          "byte",
+          "char",
+          "if",
+          "int",
+          "n",
+          "return",
+          "short",
+          "size",
+          "the",
+          "void"
+        ],
+        "api_overlap": [
+          "free"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 8,
+        "constant_overlap": [
+          "0",
+          "1",
+          "10",
+          "2",
+          "3",
+          "4",
+          "5",
+          "8"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00439db0",
+    "candidates": [
+      {
+        "score": 49,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 47,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "CWnd",
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "int"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "0040e680",
+    "candidates": [
+      {
+        "score": 51,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "WPARAM",
+          "if",
+          "return",
+          "wParam"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "CWnd",
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "WPARAM",
+          "if",
+          "void"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "00480eb0",
+    "candidates": [
+      {
+        "score": 54,
+        "name": "LoadLBM",
+        "file": "LBMLIB.CPP",
+        "line": 148,
+        "token_overlap": [
+          "break",
+          "else",
+          "for",
+          "if",
+          "int",
+          "return",
+          "void",
+          "while"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "4"
+        ]
+      },
+      {
+        "score": 53,
+        "name": "LoadTGA",
+        "file": "LBMLIB.CPP",
+        "line": 1032,
+        "token_overlap": [
+          "break",
+          "else",
+          "for",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "4"
+        ]
+      },
+      {
+        "score": 52,
+        "name": "LoadBMP",
+        "file": "LBMLIB.CPP",
+        "line": 723,
+        "token_overlap": [
+          "break",
+          "for",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "4"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadBMP",
+        "file": "Bmp.cpp",
+        "line": 129,
+        "token_overlap": [
+          "else",
+          "for",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1",
+          "4"
+        ]
+      },
+      {
+        "score": 51,
+        "name": "LoadPCX",
+        "file": "LBMLIB.CPP",
+        "line": 414,
+        "token_overlap": [
+          "else",
+          "for",
+          "if",
+          "int",
+          "return",
+          "void",
+          "while"
+        ],
+        "api_overlap": [
+          "free",
+          "malloc"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "0049fff0",
+    "candidates": [
+      {
+        "score": 49,
+        "name": "LoadModel",
+        "file": "ECLASS.CPP",
+        "line": 132,
+        "token_overlap": [
+          "char",
+          "if",
+          "int",
+          "return",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "QERApp_TryTextureForName",
+        "file": "IShaders.cpp",
+        "line": 46,
+        "token_overlap": [
+          "char",
+          "d",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 49,
+        "name": "CheckBspProcess",
+        "file": "WIN_QE3.CPP",
+        "line": 593,
+        "token_overlap": [
+          "char",
+          "if",
+          "return",
+          "void",
+          "with"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 48,
+        "name": "LoadShaders",
+        "file": "TexWnd.cpp",
+        "line": 3028,
+        "token_overlap": [
+          "char",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 45,
+        "name": "Texture_Init",
+        "file": "TexWnd.cpp",
+        "line": 2497,
+        "token_overlap": [
+          "char",
+          "if",
+          "void"
+        ],
+        "api_overlap": [
+          "free",
+          "sprintf"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  },
+  {
+    "target": "004239c0",
+    "candidates": [
+      {
+        "score": 51,
+        "name": "ProjectDlgProc",
+        "file": "WIN_DLG.CPP",
+        "line": 158,
+        "token_overlap": [
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "WPARAM",
+          "if",
+          "int",
+          "return"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "score": 50,
+        "name": "GetEntityControls",
+        "file": "Win_ent.cpp",
+        "line": 191,
+        "token_overlap": [
+          "CWnd",
+          "GetDlgItem",
+          "HWND",
+          "LPARAM",
+          "WPARAM",
+          "if",
+          "int",
+          "void"
+        ],
+        "api_overlap": [
+          "getdlgitem",
+          "sendmessage"
+        ],
+        "semantic_overlap": [],
+        "sequence_bonus": 16,
+        "constant_overlap": [
+          "0"
+        ]
+      }
+    ]
+  }
+]
