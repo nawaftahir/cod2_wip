@@ -63410,7 +63410,7 @@
 {
 "name": "_HTCache_isFresh",
 "obj": "HTCache.obj",
-"size": 402,
+"size": 397,
 "hits": []
 },
 {
@@ -67698,7 +67698,9 @@
 "name": "_HTDirNode_print",
 "obj": "HTDir.obj",
 "size": 1291,
-"hits": []
+"hits": [
+"0x571ce0"
+]
 },
 {
 "name": "_HTDir_headLine",
@@ -77920,7 +77922,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 928,
+"size": 944,
 "hits": [
 "0x592c00"
 ]

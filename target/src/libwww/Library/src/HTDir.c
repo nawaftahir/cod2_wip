@@ -153,8 +153,8 @@ PRIVATE char * expand_name (char * name, HTFileMode mode)
 */
 PRIVATE BOOL HTDirNode_print (HTDir *dir, HTDirNode *node)
 {
-    char *tp = NULL;
     HTStructured *target = dir->target;
+    char *tp = NULL;
     if (dir->show & HT_DS_ICON) {
 	HTFormat format = NULL;
 	HTEncoding encoding = NULL;

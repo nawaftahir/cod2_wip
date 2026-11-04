@@ -1846,8 +1846,8 @@ PUBLIC BOOL HTCache_flushAll (void)
 */
 PUBLIC HTReload HTCache_isFresh (HTCache * cache, HTRequest * request)
 {
-    HTAssocList * cc = HTRequest_cacheControl(request);
     if (cache) {
+	HTAssocList * cc = HTRequest_cacheControl(request);
 	time_t max_age = -1;
 	time_t max_stale = -1;
 	time_t min_fresh = -1;
