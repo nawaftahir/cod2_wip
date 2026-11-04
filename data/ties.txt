@@ -1,0 +1,120 @@
+# fns that flip on unrelated edits (LTCG ties); losing one does not reject a build
+# seen 10-10 flipping on dvar/UI_Init experiments with no own-source change
+?SV_ArchiveSnapshot@@YAXXZ
+?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z
+?SV_Netchan_PrintProfileStats@@YAXH@Z
+# 10-10 re-roll when cg_main globals moved out of globals.cpp (data layout fix); stack-slot/register ties
+?DSound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@Z
+?SP_worldspawn@@YAXXZ
+# 10-10 re-roll on 3rd globals move (cinematics/win_voice/ui_main dvars); 1-insn scheduling tie
+?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z
+?Scr_ParseGameTypeList@@YAXXZ
+# 10-10: 1-insn mov swap after ui_shared str_ arrays -> literals (retail-pinned rdata fix)
+?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z
+UI_SetActiveMenu 0x532280: already matched; fdiff lines are jump-table words only (w17 s3)
+CG_FireWeapon 0x4d0eb0: 2 lines = lea ebp,[ebx+0xf0] one push early (prologue scheduling); structure matches since w17
+# 10-21 symbol-count tie (LESSONS 10-09 "GScr_CloseFile new tie-set member"; flips with fn counts, w78CC)
+?GScr_CloseFile@@YAXXZ
+# count ties (10-21): flip with the non-static fn count before them; lab/w4/cnt_sweep.tsv, sdc_period.tsv; return when the fn set matches retail
+?SV_DirectConnect@@YAXUnetadr_t@@@Z
+?SV_SetConfigstring@@YAXHPBD@Z
+_yylex
+?Netchan_Process@@YAHPAUnetchan_t@@PAUmsg_t@@@Z
+?Com_Meminfo_f@@YAXXZ
+# 10-22 count-parity tie group (flips with the non-static fn count, seen when adding retail-evidenced stubs in cl_keys/cl_main; returns when the fn set matches retail)
+?CG_RegisterWeapon@@YAXH@Z
+?G_PlayerTurretPositionAndBlend@@YAXPAUgentity_s@@0@Z
+?XAnimSetGoalWeightInternal@@YAHPAUXAnimTree_s@@IMMM_NII@Z
+?CG_PlayADSAnim@@YAXHPAUXAnimTree_s@@@Z
+?XAnimCloneAnimTreeOldState@@YAXPBUXAnimTree_s@@PAU1@@Z
+?XAnimCloneAnimTree@@YAXPBUXAnimTree_s@@PAU1@@Z
+?XAnimSetCompleteGoalWeightKnobAll@@YAHPAUXAnimTree_s@@IIMMMIH@Z
+?XAnimSetCompleteGoalWeight@@YAXPAUXAnimTree_s@@IMMMIIH@Z
+?CG_ResetViewWeaponAnimTrees@@YAXPAUplayerState_s@@@Z
+?XAnimSetGoalWeight@@YAHPAUXAnimTree_s@@IMMMIIH@Z
+?XAnimGetInfo@@YAPAUXAnimInfo@@PAUXAnimTree_s@@I@Z
+?XAnimClearParentGoalWeights@@YAXPAUXAnimTree_s@@IM@Z
+# 10-22 count tie: lost at k=16,17 in both cnt_sweep series with no own-code change (lab/w4/cnt_sweep.tsv)
+?CG_DrawPlayerStance@@YAXPBUrectDef_s@@PAMPAUFont_s@@MH@Z
+# 10-22 owner-approved trade: CL_MapLoading unmatched until LTCG inlines Dvar_SetString there like retail (WHOLEFILE.md top blocker)
+?CL_MapLoading@@YAXPBD@Z
+# 10-22 owner-approved trade (same class as CL_MapLoading): CL_KeyEvent single body; LTCG now inlines it into these until its inlining matches retail
+?Com_EventLoop@@YAHXZ
+?Debug_EventLoop@@YAHXZ
+# trade 10-22: plain FS_FreeFile (one body, retail slot 0x421a10, +0.26% whole); our linker inlines it here, retail calls
+?Com_SubtitleReferenceExists@@YAHPBD@Z
+?Com_SetRecommended@@YAXH@Z
+?Com_HasConfigureChecksumChanged@@YA_NXZ
+# trade 10-23: CL_KeyEvent calls UI_SetActiveMenu through a pointer (Com_EventLoop +720 matched, .text aligned past 0x431590); CL_PlayLogo_f inlining of UI_SetActiveMenu changed
+?CL_PlayLogo_f@@YAXXZ
+# trade 10-23: one I_strlwr body shared with its inlined sites (+0.87% whole); G_ShaderIndex site expansion differs
+?G_ShaderIndex@@YAHPBD@Z
+# trade 10-23: snd vector helpers expanded in place + retail return-0 stubs around SND_AnyActiveListeners (+5.9% whole); host code shape differs
+?SND_SetChannelInfo@@YAXHHPBUsnd_alias_t@@0MPBMMMHHHHHEW4snd_alias_system_t@@@Z
+# trade 10-23: RemoveVariable called (noinline) as retail at 23 sites, inlined in Scr_KillThread (+1.6% whole); these two now differ
+?G_RunFrame@@YAXH@Z
+?Scr_ShutdownSystem@@YAXEH@Z
+# trade 10-23: RemoveVariable one body, called as retail; inlined at Scr_KillThread/VM_Resume/VM_TerminateTime (+0.8% whole); LTCG inlines RemoveRefToValue here, retail calls
+?Scr_MakeValuePrimitive@@YAHI@Z
+# c2_2 one XAnimSetTime body: +0.85% whole, this fn shifts
+?XAnimCopyAnimTreeNoNotify@@YAXPBUXAnimTree_s@@PAU1@@Z
+# c2_4 twin deleted, same body is XModelGetLodName
+?XModelGetLodFilename@@YAPBDPBUXModel@@H@Z
+# c2_24 TextPool next field direct: +0.17% whole, this fn shifts
+?AllocText@TextPool@@QAEPADPAD_NPAPAV1@@Z
+# vc68 real QuatMultiply inlined, no stray body: +0.76% whole, this fn regalloc shifts
+?XModelCalcBasePose@@YAXPAUXModelParts_s@@@Z
+# compiler-numbered static init thunk, label shifts with TU edits
+_$E1
+# ra7 FxRange_SetRange removed (no retail body): ~+2% whole, these lost the inlined helper shape; win back
+?ParsePrimitiveInternal@PrimitiveTemplate@@QAE_NPAUBackCompatibleParam
+?Init@PrimitiveTemplate@@QAEXXZ
+?ParseAcceleration@PrimitiveTemplate@@QAE_NPBD@Z
+?ParseVelocity@PrimitiveTemplate@@QAE_NPBD@Z
+?ParsePrimitiveInternal@PrimitiveTemplate@@QAE_NPAUBackCompatibleParameters@@PAUGPGroup@@@Z
+?ParsePrimitiveInternal@PrimitiveTemplate@@QAE_NPAUBackCompatibleParameters@@PAVGPGroup@@@Z
+# ra7 FxRange_SetRange removed (no retail body): +1.3% whole; PrimitiveTemplate fns lost the inlined helper shape, win back
+?ParseChannel@PrimitiveTemplate@@QAE_NPAUBackCompatibleParameters@@PAUGPGroup@@W4FxChannelId@@@Z
+?CreateBackCompatibleRotationDeltaCurve@PrimitiveTemplate@@QAEXMMMHM@Z
+?ParseRotationDelta@PrimitiveTemplate@@QAE_NPBD@Z
+?ParseElasticity@PrimitiveTemplate@@QAE_NPBD@Z
+?CreateBackCompatibleAccelerationCurve@PrimitiveTemplate@@QAEXMMMHM@Z
+?CreateBackCompatibleVelocityCurve@PrimitiveTemplate@@QAEXMMHM@Z
+?ParseBackCompatibleStart3@PrimitiveTemplate@@QAE_NPAUBackCompatibleParameters@@PBDW4FxChannelId@@@Z
+?ParseBackCompatibleEnd3@PrimitiveTemplate@@QAE_NPAUBackCompatibleParameters@@PBDW4FxChannelId@@@Z
+?ParseOrigin2@PrimitiveTemplate@@QAE_NPBD@Z
+?ParseOrigin1@PrimitiveTemplate@@QAE_NPBD@Z
+?ParseAngleDelta@PrimitiveTemplate@@QAE_NPBD@Z
+?ParseAngle@PrimitiveTemplate@@QAE_NPBD@Z
+?InitBackCompatibleParameters@PrimitiveTemplate@@QAEXPAUBackCompatibleParameters@@@Z
+?ParseChannelScale@PrimitiveTemplate@@QAEXPBDW4FxChannelId@@@Z
+# rb9 stub reverted (whole -0.44%), revisit with the 0x4c00f0 region
+?CG_Stub_4c0160@@YAHXZ
+# rb13 stray BG_StricmpSoundInl body removed: +0.69% whole; win back
+?BG_ParseCommands@@YAXPAPBDPAUanimScriptItem_t@@PAUanimScriptData_s@@@Z
+# rb15 one CL_InitServerInfo body: +2.48% whole; win back
+?CL_RefreshKnownGlobalServer@@YAHUnetadr_t@@@Z
+# ss CG_RoundFPS macro, no stray body: NET +92673 B; frame 8 B short, win back
+?CG_DrawFPS@@YAMM@Z
+# st Vec3MadInl macro, no stray body: whole 60.003->60.166%, drift +48 gone; one fld/fmul pair in VectorMA site
+?CG_OffsetThirdPersonView@@YAXXZ
+# su BG_GetSpeedInl -> real BG_GetSpeed, no stray body: whole 60.166->60.696%; x87 CSE of velocity loads at the inlined site
+?CG_CalcViewValues@@YAXXZ
+# su FAST_CEIL macro in g_hudelem, no FastCeil body: whole 62.378->76.322%; SetClock address-free insns identical to retail
+?HECmd_SetClock_Internal@@YAXUscr_entref_t@@HPBD@Z
+# sw UI_Init expands retail's inlined dvar lookups (dvar_find.inl): whole 76.446->76.766%; callers lose tail-call/align until the 0x414->0x40c frame is fixed
+?Com_ShutdownInternal@@YAXPBD@Z
+?CL_StartHunkUsers@@YAXXZ
+?SV_KillServer_f@@YAXXZ
+?CL_InitUI@@YAXXZ
+?Com_Shutdown@@YAXPBD@Z
+# sz4 stricmp .inl at UI_LoadMenus: right size, +0.1% whole; regs differ (retail [esi+ebp], n in edi), win back
+?UI_LoadMenus@@YAPAUMenuList@@PBDH@Z
+# pc pair C: real NET_CompareAdr at favorites (no local NI copy) gets inlined by LTCG, retail calls 0x4468b0; size right, +1.8% whole, win back
+?CL_SetServerInfoByAddress@@YAXUnetadr_t@@PBDH@Z
+# tr4b ScaleTracer viewOrg param (Kisak) + CG_AddPlayerWeapon size: +0.27% whole, this caller shifts; win back
+?CG_AddMovingTracer@@YAXPAUlocalEntity_s@@@Z
+# 10-27 renamed to Encode_GetFrameSize (6-byte twin getters, hits[0] picks the twin address; verified 0 diff at 0x4b67e0)
+?Encode_GetFrameSize_4b67e0@@YAHXZ
+# 10-31 bits.c compiled as C: speex_putc now has C linkage (__speex_putc); verified 0 diff at 0x4dc150 in the release link
+?_speex_putc@@YAXHPAX@Z

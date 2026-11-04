@@ -1,0 +1,7 @@
+file   ours   1703936  retail   1703936  sha differs
+header                              same 4092/4096
+.text  raw  1409024/ 1409024  vsize  1408683/ 1408683  va 00001000/00001000  same  1408369 (99.95%)
+.rdata raw   200704/  200704  vsize   199444/  199444  va 00159000/00159000  same   200690 (99.99%)
+.data  raw    73728/   73728  vsize 19575808/19575808  va 0018a000/0018a000  same    73728 (100.00%)
+.rsrc  raw    16384/   16384  vsize    14848/   14848  va 01436000/01436000  same    16384 (100.00%)
+ALL sections same-offset 1699171/1699840 = 99.961%

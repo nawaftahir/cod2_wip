@@ -19,3 +19,4 @@ vendor/*.tar.gz
 ghidra/out/
 _CL_*
 core.*
+toolchain/vc70/
