@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <math.h>
+#include <stdlib.h>
 
 typedef float vec3_t[3];
 
