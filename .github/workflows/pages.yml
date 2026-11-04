@@ -5,7 +5,7 @@ on:
   push:
     branches: [main]
   workflow_run:
-    workflows: [radiant, client, gfx]
+    workflows: [radiant, client, gfx, servers]
     types: [completed]
     branches: ['**/main']
   workflow_dispatch:

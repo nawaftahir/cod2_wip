@@ -1,3 +1,1 @@
-{"name": "lnxded-1.2c", "binary": "cod2_lnxded_1_2c", "version": "1.2c", "anchor": "linux/cod2_lnxded_1_2c",
- "text_bytes": 998112, "matched_bytes": 998112, "file_bytes": 1318172, "same_offset_bytes": 1318172,
- "sha_identical": true, "note": "Done. Released in cod2engine/archive/lnxded-1.2c."}
+{"name": "lnxded-1.2c", "binary": "cod2_lnxded_1_2c", "version": "1.2c", "anchor": "linux/cod2_lnxded_1_2c", "sha_identical": true, "note": "Done. SHA-256 identical per `make check` in cod2engine/archive/lnxded-1.2c (run outside this CI; byte counts not measured here)."}
