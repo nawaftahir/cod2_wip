@@ -1,0 +1,33 @@
+diff --git a/ledger/files.tsv b/ledger/files.tsv
+index 48263f3..c1260f1 100644
+--- a/ledger/files.tsv
++++ b/ledger/files.tsv
+@@ -4,7 +4,7 @@ src/radiant/cameratargetdlg.cpp	VERIFIED	5	212	PASS	PENDING	research/gemini_revi
+ src/radiant/CamWnd.cpp	PARTIAL	15	958	PENDING	PENDING		Q3Radiant DRAG.CPP (7/9 string funcs); iw3xo (5/9)
+ src/radiant/CapDialog.cpp	VERIFIED	5	78	PASS	PENDING	research/gemini_review/test_finished_small.py	
+ src/libs/cmdlib/cmdlib.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant splines.cpp (1/8 string funcs)
+-src/radiant/UNKNOWN_00408f20.cpp	UNSTARTED	0	0	PENDING	PENDING		iw3xo (1/1)
++src/radiant/UNKNOWN_00408f20.cpp	PARTIAL	3	32	PENDING	PENDING		iw3xo (1/1)
+ src/radiant/CommandsDlg.cpp	PARTIAL	0	0	PENDING	PENDING		Reviewed report only: OnInitDialog 1079/685 B; five omitted helpers unchecked; zero accepted source; draft preserved
+ src/radiant/DialogInfo.cpp	PARTIAL	0	0	PENDING	PENDING		scratch preserved; reported ShowInfoDialog 73/66 B requires Pmesh caller review; no accepted source
+ src/radiant/DialogThick.cpp	VERIFIED	4	93	PASS	PENDING	research/gemini_review/test_finished_small.py	
+@@ -14,8 +14,8 @@ src/radiant/draw.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
+ src/radiant/EditWnd.cpp	VERIFIED	6	149	PASS	PENDING	research/gemini_review/test_editor_completion.py	
+ src/radiant/EntityListDlg.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_ent.cpp (1/1 string funcs)
+ src/radiant/filtersettings.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MainFrm.cpp (1/44 string funcs); iw3xo (1/44)
+-src/radiant/FindTextureDlg.cpp	PARTIAL	15	1013	PENDING	PENDING		15 game rows pass; external FindReplaceTextures 0x00473940 blocks complete-file proof
+-src/radiant/GfxWrapper.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
++src/radiant/FindTextureDlg.cpp	PARTIAL	15	1013	PENDING	PENDING		Q3Radiant FindTextureDlg.cpp (4/4 string funcs)
++src/radiant/GfxWrapper.cpp	PARTIAL	12	16	PENDING	PENDING		Q3Radiant Win_main.cpp (1/11 string funcs); iw3xo (8/11)
+ src/radiant/KeyValueSelectDlg.cpp	VERIFIED	3	360	PASS	PENDING	research/gemini_review/test_keyvalue_complete.py	
+ src/radiant/LstToolBar.cpp	VERIFIED	4	42	PASS	PENDING	research/gemini_review/test_finished_small.py	
+ src/radiant/MainFrm.cpp	UNSTARTED	0	0	PENDING	PENDING		Q3Radiant MainFrm.cpp (78/94 string funcs); iw3xo (26/94)
+@@ -75,7 +75,7 @@ src/universal/UNKNOWN_00494480.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from mak
+ src/universal/q_parse.cpp	PARTIAL	26	2304	PENDING	PENDING		server source (copy-ready)
+ src/universal/q_shared.cpp	PARTIAL	42	2547	PENDING	PENDING		server source (copy-ready)
+ src/universal/win_common.cpp	PARTIAL	6	181	PENDING	PENDING		6 matched; five enumeration/path dependency drafts held
+-src/universal/UNKNOWN_004985d0.cpp	UNSTARTED	0	0	PENDING	PENDING		none: from make show
++src/universal/UNKNOWN_004985d0.cpp	PARTIAL	11	40	PENDING	PENDING		none: from make show
+ src/universal/splines/math_angles.cpp	PARTIAL	4	443	PENDING	PENDING		none: from make show
+ src/universal/splines/math_matrix.cpp	PARTIAL	6	771	PENDING	PENDING		none: from make show
+ src/universal/splines/math_quaternion.cpp	PARTIAL	1	24	PENDING	PENDING		none: from make show

@@ -1,0 +1,230 @@
+diff --git a/ledger/matches.tsv b/ledger/matches.tsv
+index a9074cc..579aafc 100644
+--- a/ledger/matches.tsv
++++ b/ledger/matches.tsv
+@@ -497,13 +497,6 @@ addr	size	source	symbol	name	tag
+ 0x0048aef0	18	src/universal/com_memory.cpp	?Hunk_ShowTempMemory@@YAXH@Z	Hunk_ShowTempMemory	SUPPORTED
+ 0x0048af10	18	src/universal/com_memory.cpp	?Hunk_HideTempMemoryHigh@@YAHXZ	Hunk_HideTempMemoryHigh	SUPPORTED
+ 0x0048af30	18	src/universal/com_memory.cpp	?Hunk_ShowTempMemoryHigh@@YAXH@Z	Hunk_ShowTempMemoryHigh	SUPPORTED
+-0x0048af50	88	src/universal/com_shared.cpp	?Com_StringContains@@YAPBDPBD0P6AH00@Z@Z	Com_StringContains	SUPPORTED
+-0x0048b2a0	67	src/universal/com_shared.cpp	?Com_HashKey@@YAHPBDH@Z	Com_HashKey	SUPPORTED
+-0x0048b2f0	96	src/universal/com_shared.cpp	?Com_RealTime@@YAHPAUqtime_s@@@Z	Com_RealTime	SUPPORTED
+-0x0048b650	153	src/universal/com_shared.cpp	?Com_Memcmp@@YAHPBX0I@Z	Com_Memcmp	SUPPORTED
+-0x0048b760	37	src/universal/com_shared.cpp	?FUN_0048b760@@YAHPBM0@Z	FUN_0048b760	UNNAMED
+-0x0048b790	23	src/universal/com_shared.cpp	?FUN_0048b790@@YAXPBMPAM@Z	FUN_0048b790	UNNAMED
+-0x0048b7b0	10	src/universal/com_shared.cpp	?FUN_0048b7b0@@YAHPBH0@Z	FUN_0048b7b0	UNNAMED
+ 0x0048b7c0	6	src/universal/dvar.cpp	?Dvar_SetInAutoExec@@YAX_N@Z	Dvar_SetInAutoExec	SUPPORTED
+ 0x0048b7d0	6	src/universal/dvar.cpp	?Dvar_IsSystemActive@@YA_NXZ	Dvar_IsSystemActive	SUPPORTED
+ 0x0048b830	58	src/universal/dvar.cpp	?Dvar_IsValidName@@YA_NPBD@Z	Dvar_IsValidName	SUPPORTED
+@@ -785,3 +778,6 @@ addr	size	source	symbol	name	tag
+ 0x004b3c80	17	src/zlib/zutil.c	_zError	zError	SUPPORTED
+ 0x004b3ca0	56	src/zlib/zutil.c	_zcalloc	zcalloc	SUPPORTED
+ 0x004b3ce0	17	src/zlib/zutil.c	_zcfree	zcfree	PINNED
++0x0048b200	153	src/universal/com_shared.cpp	?Com_FilterPath@@YA_NPBD0H@Z	Com_FilterPath	SUPPORTED
++0x0048b2a0	67	src/universal/com_shared.cpp	?Com_HashKey@@YAHPBDH@Z	Com_HashKey	SUPPORTED
++0x0048b2f0	96	src/universal/com_shared.cpp	?Com_RealTime@@YAHPAUqtime_s@@@Z	Com_RealTime	SUPPORTED
+diff --git a/src/universal/com_shared.cpp b/src/universal/com_shared.cpp
+index 3376198..6ca0941 100644
+--- a/src/universal/com_shared.cpp
++++ b/src/universal/com_shared.cpp
+@@ -18,7 +18,7 @@ const char *Com_StringContains( const char *str1, const char *str2, int ( *cmpFu
+ {
+ 	int len, i;
+ 
+-	len = strlen(str1) - strlen(str2);
++	len = I_strlen(str1) - I_strlen(str2);
+ 	for (i = 0; i <= len; i++, str1++)
+ 	{
+ 		if (!cmpFunc(str1, str2))
+@@ -29,6 +29,132 @@ const char *Com_StringContains( const char *str1, const char *str2, int ( *cmpFu
+ 	return NULL;
+ }
+ 
++bool Com_Filter( const char *filter, const char *name, int casesensitive)
++{
++	char buf[MAX_TOKEN_CHARS];
++	const char *ptr;
++	int i, found;
++
++	while(*filter)
++	{
++		if (*filter == '*')
++		{
++			filter++;
++			for (i = 0; *filter; i++)
++			{
++				if (*filter == '*' || *filter == '?') break;
++				buf[i] = *filter;
++				filter++;
++			}
++			buf[i] = '\0';
++			if (buf[0])
++			{
++				ptr = Com_StringContains(name, buf, casesensitive ? I_strcmp : I_stricmp);
++				if (!ptr) return qfalse;
++				name = ptr + strlen(buf);
++			}
++		}
++		else if (*filter == '?')
++		{
++			filter++;
++			name++;
++		}
++		else if (*filter == '[' && *(filter+1) == '[')
++		{
++			filter++;
++		}
++		else if (*filter == '[')
++		{
++			filter++;
++			found = qfalse;
++			while(*filter && !found)
++			{
++				if (*filter == ']' && *(filter+1) != ']') break;
++				if (*(filter+1) == '-' && *(filter+2) && (*(filter+2) != ']' || *(filter+3) == ']'))
++				{
++					if (casesensitive)
++					{
++						if (*name >= *filter && *name <= *(filter+2)) found = qtrue;
++					}
++					else
++					{
++						if (toupper(*name) >= toupper(*filter) &&
++						        toupper(*name) <= toupper(*(filter+2))) found = qtrue;
++					}
++					filter += 3;
++				}
++				else
++				{
++					if (casesensitive)
++					{
++						if (*filter == *name) found = qtrue;
++					}
++					else
++					{
++						if (toupper(*filter) == toupper(*name)) found = qtrue;
++					}
++					filter++;
++				}
++			}
++			if (!found) return qfalse;
++			while(*filter)
++			{
++				if (*filter == ']' && *(filter+1) != ']') break;
++				filter++;
++			}
++			filter++;
++			name++;
++		}
++		else
++		{
++			if (casesensitive)
++			{
++				if (*filter != *name) return qfalse;
++			}
++			else
++			{
++				if (toupper(*filter) != toupper(*name)) return qfalse;
++			}
++			filter++;
++			name++;
++		}
++	}
++	return qtrue;
++}
++
++bool Com_FilterPath(const char *filter, const char *name, int casesensitive)
++{
++	int i;
++	char new_filter[MAX_QPATH];
++	char new_name[MAX_QPATH];
++
++	for (i = 0; i < MAX_QPATH-1 && filter[i]; i++)
++	{
++		if ( filter[i] == '\\' || filter[i] == ':' )
++		{
++			new_filter[i] = '/';
++		}
++		else
++		{
++			new_filter[i] = filter[i];
++		}
++	}
++	new_filter[i] = '\0';
++	for (i = 0; i < MAX_QPATH-1 && name[i]; i++)
++	{
++		if ( name[i] == '\\' || name[i] == ':' )
++		{
++			new_name[i] = '/';
++		}
++		else
++		{
++			new_name[i] = name[i];
++		}
++	}
++	new_name[i] = '\0';
++	return Com_Filter(new_filter, new_name, casesensitive);
++}
++
+ int Com_HashKey( const char *string, int maxlen )
+ {
+ 	register int hash, i;
+@@ -68,52 +194,16 @@ int Com_RealTime( qtime_t *qtime )
+ 	return t;
+ }
+ 
+-qboolean Com_Memcmp(const void *src0, const void *src1, const unsigned int count)
+-{
+-	unsigned int i;
+-
+-	if (count >= 16)
+-	{
+-		unsigned int *dw = (unsigned int*)(src0);
+-		unsigned int *sw = (unsigned int*)(src1);
++#undef Com_Memcpy
++#undef Com_Memset
+ 
+-		unsigned int nm2 = count/16;
+-		for (i = 0; i < nm2; i+=4)
+-		{
+-			unsigned int tmp = (dw[i+0]-sw[i+0])|(dw[i+1]-sw[i+1])|
+-						  (dw[i+2]-sw[i+2])|(dw[i+3]-sw[i+3]);
+-			if (tmp)
+-				return qfalse;
+-		}
+-	}
+-	if (count & 15)
+-	{
+-		byte *d = (byte*)src0;
+-		byte *s = (byte*)src1;
+-		for (i = count & 0xfffffff0; i < count; i++)
+-		if (d[i]!=s[i])
+-			return qfalse;
+-	}
+-
+-	return qtrue;
+-}
+-
+-int FUN_0048b760(const float *v1, const float *v2)
++void Com_Memcpy( void *dest, const void *src, int count )
+ {
+-	if (v1[0] == v2[0] && v1[1] == v2[1])
+-		return 1;
+-	return 0;
++	memcpy(dest, src, count);
+ }
+ 
+-void FUN_0048b790(const float *in, float *out)
++void Com_Memset( void *dest, int val, int count )
+ {
+-	out[0] = in[0];
+-	out[1] = in[1];
+-	out[2] = in[2];
+-	out[3] = in[3];
++	memset(dest, val, count);
+ }
+ 
+-int FUN_0048b7b0(const int *a, const int *b)
+-{
+-	return *a == *b;
+-}
