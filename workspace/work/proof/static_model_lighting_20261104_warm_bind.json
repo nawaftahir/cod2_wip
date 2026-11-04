@@ -1,0 +1,14 @@
+{
+  "?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z": {
+    "t": "0x1002a570",
+    "n": 341,
+    "obj": "r_staticmodel_load_obj.obj",
+    "why": []
+  },
+  "?R_QuantizeStaticModelColor@@YAXPAEPBM@Z": {
+    "t": "0x10029780",
+    "n": 285,
+    "obj": "r_staticmodel_load_obj.obj",
+    "why": []
+  }
+}

@@ -204,6 +204,9 @@ required.update(accepted(upsample))
 grid_history = Path(__file__).resolve().parents[1] / 'proof/grid_history_20261104_warm_bind.json'
 assert hashlib.sha256(grid_history.read_bytes()).hexdigest() == '45768b370899fa0d846812c284228aaa5bd2f4b99df028eb07bf6fd08db7180f'
 required.update(accepted(grid_history))
+static_lighting = Path(__file__).resolve().parents[1] / 'proof/static_model_lighting_20261104_warm_bind.json'
+assert hashlib.sha256(static_lighting.read_bytes()).hexdigest() == '5f7991cad87a91874587c0ef64189a8ae17203af0d7f1192a93cdf2d9e8c8527'
+required.update(accepted(static_lighting))
 current = accepted(Path(sys.argv[1]))
 lost = {va: size for va, size in required.items() if current.get(va) != size}
 assert not lost, ('checkpoint regression', lost)

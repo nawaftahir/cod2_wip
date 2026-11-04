@@ -5981,8 +5981,10 @@
 {
 "name": "?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z",
 "obj": "r_staticmodel_load_obj.obj",
-"size": 356,
-"hits": []
+"size": 341,
+"hits": [
+"0x1002a570"
+]
 },
 {
 "name": "?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z",

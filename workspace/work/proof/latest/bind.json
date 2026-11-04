@@ -138,7 +138,7 @@
 "n": 626,
 "obj": "r_bsp_load_obj.obj",
 "why": [
-"call ?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z"
+"call ?R_CreateStaticModel@@YAXPAUGfxWorld@@PAUXModel@@PBM2MPAUGfxStaticModelInstance@@@Z"
 ]
 },
 "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z": {
@@ -2912,6 +2912,12 @@
 "?R_ScaleStaticModelLighting@@YAXMMPAMPAY03M@Z": {
 "t": "0x1002a520",
 "n": 67,
+"obj": "r_staticmodel_load_obj.obj",
+"why": []
+},
+"?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z": {
+"t": "0x1002a570",
+"n": 341,
 "obj": "r_staticmodel_load_obj.obj",
 "why": []
 },
@@ -16877,6 +16883,12 @@
 "t": "0x10022c30",
 "n": 160,
 "obj": "r_rendertarget.obj",
+"why": []
+},
+"?R_QuantizeStaticModelColor@@YAXPAEPBM@Z": {
+"t": "0x10029780",
+"n": 285,
+"obj": "r_staticmodel_load_obj.obj",
 "why": []
 },
 "_DirectDrawCreateEx@16": {

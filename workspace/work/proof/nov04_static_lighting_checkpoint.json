@@ -1,0 +1,32 @@
+{
+  "status": "V3 matched; whole-file identity unfinished",
+  "base_commit": "e83a4dc",
+  "cpp_bytes": 117648,
+  "cpp_bodies": 724,
+  "cpp_percent": 46.39482609038568,
+  "denominator": 253580,
+  "denominator_provisional": true,
+  "net_cpp_bytes": 341,
+  "new_cpp_target": "0x1002a570",
+  "new_assembly_target": "0x10029780",
+  "new_assembly_bytes": 285,
+  "protected_extents": 2516,
+  "excluded_assembly_bodies": 38,
+  "excluded_assembly_bytes": 9389,
+  "raw_same_offset_percent": 12.964569361863939,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "native_fixture": "static-model lighting: DX7/DX9 allocation;14 capacities;8 texels/model; face/channel order; coordinates; midpoint; uploads; clearing",
+  "sha256": {
+    "target/work/src/gfx_d3d/r_staticmodel_load_obj.cpp": "8b77a1ac447991ecccf13c233d2a7cc4e11fdf848ae6bdc2605d83944d552866",
+    "target/work/tools/source_coverage.py": "8237e323c3b34bcbfe407eef05fe2ecc010a083e1c5ce6f4ec9c2d7d93023844",
+    "target/work/tools/regression.py": "fb9b0f517f8c021571c36b1c6a3540dac92a06a799a2ad37a3a56238a702aaec",
+    "target/work/tools/check_checkpoint.py": "3f9980dcf958d470d4eb2c8847195b2fc99afda78c2730ebfc1ba2d9414967f1",
+    "target/work/proof/static_model_lighting_20261104_warm_bind.json": "5f7991cad87a91874587c0ef64189a8ae17203af0d7f1192a93cdf2d9e8c8527",
+    "target/work/proof/latest/bind.json": "1618c7713dd94bff3905d4a8a6bdf978907e427c4a0a5a2edb9cee78ad44fbc4",
+    "target/work/proof/latest/cmp.json": "676d46be16c1ed52d26d06edcc562afdfa1ccde40712b6964bef8bc9236321c9",
+    "target/work/proof/source_coverage_current.json": "9d84698cfb7dbed388b0998c3393d97a6ef20703d272c5efed26a804eb9ca857",
+    "target/work/proof/nov04_static_lighting_negatives.json": "bd9a21fc98b75424e6f17b5d7825b4ea5e2f3b7bd6e3d52c149cb0dda4926243",
+    "target/work/tests/test_static_model_lighting.py": "ed0cd581d31245a3adb199ab726433eff97337a489a64f9c6d521075e5586cca"
+  }
+}

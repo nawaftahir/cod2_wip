@@ -474,7 +474,7 @@ void R_CacheStaticModelLighting(const GfxWorld *world, GfxStaticModelInstance *i
     int component = 0;
     for (int layer = 0; layer < 2; ++layer)
         for (int row = y; row < y + 2; ++row)
-            for (int column = x; column < x + 2; ++column, ++component)
+            for (int column = x; column < x + 2; ++component, ++column)
             {
                 vec4_t color;
                 color[0] = ((float *)colorForDir)[component];
@@ -482,7 +482,7 @@ void R_CacheStaticModelLighting(const GfxWorld *world, GfxStaticModelInstance *i
                 color[2] = ((float *)colorForDir)[component + 16];
                 color[3] = sunVisibility;
                 R_QuantizeStaticModelColor(&smodelLoadGlob.pixels[
-                    ((row + smodelLoadGlob.height * 2 * layer) * smodelLoadGlob.width * 2 + column) * 4], color);
+                    ((row + *(const volatile int *)&smodelLoadGlob.height * 2 * layer) * smodelLoadGlob.width * 2 + column) * 4], color);
             }
     instance->baseLightingCoords[0] = (x + 1.0f) * smodelLoadGlob.texelScaleX;
     instance->baseLightingCoords[1] = (y + 1.0f) * smodelLoadGlob.texelScaleY;

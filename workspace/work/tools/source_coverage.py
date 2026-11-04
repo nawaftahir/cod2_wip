@@ -103,8 +103,10 @@ required['0x10029320'] = 262
 required['0x100115f0'] = 190
 # Pixel upsampling inlines the unchanged I_fround assembly.
 required['0x10025b10'] = 503
+# Static model quantization inlines the unchanged rounding assembly.
+required['0x10029780'] = 285
 assert {row['target']: row['bytes'] for row in excluded} == required
-assert len(excluded) == 37 and sum(row['bytes'] for row in excluded) == 9104
+assert len(excluded) == 38 and sum(row['bytes'] for row in excluded) == 9389
 cpp = report['bytes'] - sum(row['bytes'] for row in excluded)
 print(json.dumps(dict(
     status='authored-assembly attribution; not whole-file identity',

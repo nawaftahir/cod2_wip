@@ -1,8 +1,8 @@
 {
-  "functions": 760,
-  "bytes": 126411,
+  "functions": 762,
+  "bytes": 127037,
   "total": 253580,
-  "percent": 49.85054026342772,
+  "percent": 50.0974051581355,
   "baseline_lost": [],
   "gains": [
     {
@@ -1239,6 +1239,18 @@
       "target": "0x100296a0",
       "bytes": 73,
       "name": "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z",
+      "object": "r_staticmodel_load_obj.obj"
+    },
+    {
+      "target": "0x10029780",
+      "bytes": 285,
+      "name": "?R_QuantizeStaticModelColor@@YAXPAEPBM@Z",
+      "object": "r_staticmodel_load_obj.obj"
+    },
+    {
+      "target": "0x1002a570",
+      "bytes": 341,
+      "name": "?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z",
       "object": "r_staticmodel_load_obj.obj"
     },
     {

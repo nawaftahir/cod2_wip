@@ -1,3 +1,14 @@
+# Static-model texel cache - 2026-11-04
+
+Renderer-load reordering leaves356/341 unchanged and is removed. Per-texel
+height read stops cached-stride induction and yields341 bytes, differing only
+in increment order. Advancing component before column matches341 completely.
+Both byte and binding referees accept it; all prior2514 extents survive.
+The285-byte quantizer also resolves but contains unchanged I_fround assembly,
+so only341 bytes enter C++ accounting. Protected extents now2516. Native
+lighting fixture passes; eight retention negatives reject regression. No
+compiler flags or assembly source changed. Receipt:nov04_static_lighting_checkpoint.json.
+
 # Per-TU filtering and shutdown policies - 2026-11-04
 
 Non-/GL rb_imagefilter source emits538, still not the543-byte target, and

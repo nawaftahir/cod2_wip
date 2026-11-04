@@ -1,3 +1,21 @@
+## Static-model lighting checkpoint - 2026-11-04
+
+C++117648/253580=46.394826090%,724 bodies; +341B/+1 sincee83a4dc.
+R_CacheStaticModelLighting1002a570/341 passes bytes AND bindings. Target
+reloads smodelLoadGlob.height for every texel; the draft incorrectly cached
+it as a layer stride. A local volatile read preserves the observed accesses.
+The color stream advances before the column counter, matching retail order.
+QuantizeStaticModelColor10029780/285 also resolves; its unchanged inlined
+rounding assembly is excluded.38 assembly-bearing bodies/9389 bytes total.
+All2516 protected extents survive; eight new retention negatives reject
+removal/unverified binding. Existing static-model lighting fixture passes
+DX7/DX9 paths,14 capacities,8 texels/model, upload/clear and coordinate cases.
+Root src/ remains10 complete verified files/61 functions; this TU is partial.
+Receipt: target/work/proof/nov04_static_lighting_checkpoint.json.
+50% requires9142 more pure C++ bytes. Whole-file SHA/GPU remain unfinished.
+R_LoadMiscModel626 still waits on R_CreateStaticModel -> R_StaticModelBounds;
+do not count this caller as a gain. Grid insertion111 remains unverified.
+
 ## Grid-history checkpoint - 2026-11-04
 
 C++117307/253580=46.260351763%,723 bodies; +194B/+1 since5fcfc0e.

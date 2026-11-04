@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 126411,
-  "cpp_executable_bytes": 117307,
-  "cpp_percent": 46.26035176275732,
-  "cpp_game_bodies": 723,
+  "mixed_executable_bytes": 127037,
+  "cpp_executable_bytes": 117648,
+  "cpp_percent": 46.39482609038568,
+  "cpp_game_bodies": 724,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -61,6 +61,14 @@
       "target": "0x10029320",
       "bytes": 262,
       "name": "?Image_BuildSpecularityMap@@YAXMPAE@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x10029780",
+      "bytes": 285,
+      "name": "?R_QuantizeStaticModelColor@@YAXPAEPBM@Z",
       "reasons": [
         "fistp"
       ]
@@ -309,9 +317,9 @@
   "memory_helpers_cannot_inline": true,
   "naked_box_separate": true,
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
-  "counter_sha256": "1d1bc0ffe3cbe2661621450448d8a57cdabf02ac2e0aa0f1cb4cbb7c1b63404f",
-  "regression_sha256": "f53293bb9a8160c893d2751bade64020ef7fe460b16946c6b5755c85d1c9e3ca",
-  "bind_sha256": "d686525c79be5e4c08178b7f56525e6d34cc97185e0232cc81931fa8f209621c",
+  "counter_sha256": "8237e323c3b34bcbfe407eef05fe2ecc010a083e1c5ce6f4ec9c2d7d93023844",
+  "regression_sha256": "da9879bf95e9cec26ce4460f82b4fe2e7199ecee12639f8d522cc2ba39a08af0",
+  "bind_sha256": "1618c7713dd94bff3905d4a8a6bdf978907e427c4a0a5a2edb9cee78ad44fbc4",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -356,7 +364,7 @@
     "gfx_d3d/r_texturemem.cpp": "01708aec4001af84f5f90ff537d432b1363de0b15744dcd8537142107c64dfa3",
     "gfx_d3d/rb_backend.h": "938c3856fd60d7843906bbcebb91c8684784d2b2ab3ac2e3d7975c212ec0a94f",
     "gfx_d3d/r_sky_load_obj.cpp": "412fe32c549caefe32849d1c751a5ed10c1f931db2b04b1d66b3a6955dfba179",
-    "gfx_d3d/r_staticmodel_load_obj.cpp": "0d98f9300091143df5f65f5cd8938a899cc85a4fe6c06dd3d96c4ed37dccd418",
+    "gfx_d3d/r_staticmodel_load_obj.cpp": "8b77a1ac447991ecccf13c233d2a7cc4e11fdf848ae6bdc2605d83944d552866",
     "gfx_d3d/r_dpvs_state.h": "fc4a51ce8a8eeb03bdf8879f7544eea579654f6d3ea401fa893df4310c0689ec",
     "gfx_d3d/r_bsp.cpp": "38d9c02c902b52cbf96f6245d24f0ec203ec73f2f5a09960a5bb89d429cf5e7d",
     "gfx_d3d/r_material.cpp": "1978980a45da901d9e32a2cc4c7a2d18ca8b0908881f9207eb517c944752e666",
