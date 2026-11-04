@@ -1,0 +1,78 @@
+name: client
+
+on:
+  push:
+    branches: ['client/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: read
+
+concurrency:
+  group: client-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE: ghcr.io/nawaftahir/cod2-client@sha256:3f75bedb96942f296a00d2aca43dc8727f4600d41e92d08e85cb682cd1c42b67
+
+jobs:
+  gate:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - name: Version from branch
+        run: |
+          case "$GITHUB_REF_NAME" in
+            client/1.0/*) v=1.0 ;;
+            client/1.3/*) v=1.3 ;;
+            *) echo "unknown client branch"; exit 1 ;;
+          esac
+          printf 'VER=%s\nGATE=tools/ratchet%s.sh\n' $v ${v/./} >> "$GITHUB_ENV"
+      - name: Anchors from main (gates default to ../binaries)
+        run: |
+          git fetch --depth=1 origin main
+          git archive origin/main binaries | tar -x -C ..
+          cd ../binaries && sha256sum -c SHA256SUMS --ignore-missing
+      - name: Pull private toolchain
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io -u "$GITHUB_ACTOR" --password-stdin
+          docker pull "$IMAGE"
+      - name: Host deps and SDK
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq gcc-multilib >/dev/null
+          pip install -q pefile capstone
+          c=$(docker create "$IMAGE"); docker cp "$c:/opt/client-sdk" ../sdk; docker rm "$c"
+          cp -r ../sdk/vc70 toolchain/vc70
+      - name: Clean build + referee
+        run: |
+          MAKEFLAGS="IMAGE=$IMAGE" DOCKER_FLAGS='--platform linux/386' DXSDK=$PWD/../sdk \
+            $GATE "ci $GITHUB_SHA" 2>&1 | tee build-gate.log
+          test "${PIPESTATUS[0]}" = 0
+      - name: Meter matches the referee (main only)
+        if: endsWith(github.ref_name, '/main')
+        run: |
+          cp meter-$VER.json /tmp/committed.json
+          $GATE accept
+          python3 - "$VER" <<'P'
+          import json, sys
+          v = sys.argv[1]
+          a, b = json.load(open('/tmp/committed.json')), json.load(open('meter-%s.json' % v))
+          keys = [k for k in b if isinstance(b[k], (int, float, bool))]
+          bad = [k for k in keys if a.get(k) != b[k]]
+          print('meter fields checked:', len(keys))
+          sys.exit('committed meter differs from CI: %s' % bad if bad else 0)
+          P
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: client-gate-${{ github.sha }}
+          retention-days: 7
+          path: |
+            build-gate.log
+            build/sha.txt
+            build/cmp13.sum
+            meter-*.json
