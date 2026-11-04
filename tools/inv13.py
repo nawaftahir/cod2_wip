@@ -5,7 +5,7 @@ k = our unhit fns, m = retail fn starts nobody hit. k>m: EXTRA candidates, m>k: 
 Retail starts = E8 targets + 16-aligned starts after 0xCC/ret (HYPOTHESIS-level, can split a fn)."""
 import bisect, collections, json, re, struct, sys
 B = sys.argv[1] if len(sys.argv) > 1 else "target/build"
-R13 = "../cod2engineold/binaries/windows/1.3/CoD2MP_s.exe"
+R13 = "/home/nawaf/cod2/test/dev/cod2engineold/binaries/windows/1.3/CoD2MP_s.exe"
 d = open(R13, "rb").read()
 pe = struct.unpack_from("<I", d, 0x3c)[0]; oh = struct.unpack_from("<H", d, pe + 20)[0]
 for i in range(struct.unpack_from("<H", d, pe + 6)[0]):
@@ -24,6 +24,9 @@ for l in open(B + "/release/CoD2MP_s.map", errors="replace"):
     if m: mp.setdefault(m.group(1), int(m.group(2), 16))
 O = sorted(((mp[x["name"]], x) for x in cm if x["name"] in mp), key=lambda p: p[0])
 claimed = {int(h, 16) for _, x in O for h in x["hits"]}
+for _, x in O:  # false starts inside a matched fn's body are not fns
+    for h in x["hits"]:
+        h = int(h, 16); claimed.update(a for a in RS[bisect.bisect_right(RS, h):bisect.bisect_left(RS, h + x["size"])])
 anc = [i for i, (_, x) in enumerate(O) if len(x["hits"]) == 1]
 keys = [int(O[i][1]["hits"][0], 16) for i in anc]
 idx, prev = [], [-1] * len(keys)  # LIS
@@ -43,8 +46,8 @@ for (i0, a0), (i1, a1) in zip(bounds, bounds[1:]):
     lo = bisect.bisect_right(RS, a0) if i0 >= 0 else 0
     R = [a for a in RS[lo:bisect.bisect_left(RS, a1)] if a not in claimed and rsz[a] >= 16]
     k, m = len(U), len(R)
-    if k == m: continue
     ub, rb = sum(x["size"] for x in U), sum(rsz[a] for a in R)
+    if k == m or abs(ub - rb) <= max(24, max(ub, rb) // 33): continue  # same bytes = retail starts split inside one of our fns
     tot["extra_fns" if k > m else "missing_fns"] += abs(k - m)
     out.append((O[i0 + 1][0] if i0 + 1 < len(O) else 0, a0, a1, U, R, ub, rb, A))
 print("# INVENTORY: segments between anchored fns where our unhit count != retail unhit count\n")

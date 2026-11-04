@@ -381,3 +381,64 @@ cl_console CL_DeathMessagePrint 527 / CL_ConsolePrint_AddLine 526 | cl_parse CL_
   sprintf "\\%s" into the console field, cursor=strlen, Field_AdjustScroll; return }. It re-rolls the tie pool (Pickup_Weapon, SP_worldspawn, GScr_CloseFile lost, net -1.5K):
   merge when another +1.5K is bundled. Also open: CL_Netchan_PrintProfileStats (retail helper 0x4129f0 takes (n, &pos) and add esp 8), UI_DrawConnectScreen (+17 insns),
   CL_ParseDownload msg-in-esi (param copy conflicts with the LargeLocal eax load at entry; no lever found).
+
+## INVENTORY 11-04 (s1-inventory; tools/inv13.py, run from claude_client13: `python3 tools/inv13.py target/build`)
+Method: anchors = our fns with exactly one retail hit (cmp13.json), longest increasing run in link order. Between two anchors:
+k = our unhit fns >= 16 B, m = retail fn starts >= 16 B nobody hit (starts = E8 targets + 16-aligned starts after cc/ret; starts that fall
+inside a matched fn's body are dropped, they are false splits). Rows below only where k != m AND |bytes differ| > max(24, 3%).
+A row is a CANDIDATE, not proof: a retail start can still be a false split inside an unmatched fn, and tie/mismatch fns cancel (k = m).
+PINNED: the raw version (no false-split filter) listed 626 missing fns / 157 KB, almost all false splits inside matched fns (CL_KeyEvent
+split at 40b8c0 etc.); with the filter: 40 missing fns / ~5.4 KB net (12 of the rows are libwww/CRT), 18 extra fns / ~1.2 KB net.
+So our function SET is already close to retail; the large LAYOUT_1.3 gaps (record_dsound, libwww, CRT objs) are whole missing TUs, not extras.
+Order: TUs/fns out of retail order are in LAYOUT_1.3.md (tools/layout13.py): only 1 fn moved inside a TU (scr_compiler EmitExpression), so no per-fn order work found.
+
+| our addr | obj | retail range | ours k/B | retail m/B | verdict | ours fns | retail fns (addr:size) |
+|---|---|---|---|---|---|---|---|
+| 4046c0| cl_console_mp.obj| 4044a0-405290| 3/2678| 4/3043| MISSING 1| CL_ConsolePrint_AddLine CL_ConsolePrint CL_ConsoleFixPosition| 404690:2132 404ef0:396 405080:365 4051f0:150|
+| 40cdf0| cl_main_mp.obj| 40cef0-40d380| 1/686| 5/1057| MISSING 4| CL_RequestAuthorization| 40cf40:117 40cfc0:367 40d130:128 40d1b0:341 40d310:104|
+| 40de20| cl_main_mp.obj| 40df10-40e520| 1/599| 5/1026| MISSING 4| CL_CheckForResend| 40e100:128 40e180:684 40e430:93 40e490:63 40e4e0:58|
+| 40e260| cl_main_mp.obj| 40e5d0-40f1c0| 1/2267| 2/2657| MISSING 1| CL_ConnectionlessPacket| 40e750:1215 40ec10:1442|
+| 411f30| cl_main_mp.obj| 4125a0-4126f0| 0/0| 1/73| MISSING 1|| 412670:73|
+| 433ca0| common.obj| 4343a0-434a40| 1/1351| 4/1543| MISSING 3| Com_Init_Try_Block_Function| 434420:54 434460:528 434670:111 4346e0:850|
+| 49e9b0| FxUtil.obj| 49f340-49f40c| 0/0| 1/33| MISSING 1|| 49f400:33|
+| 4b1990| cinematics.obj| 4b2290-4b2490| 1/283| 3/309| MISSING 2| RoQShutdown| 4b2350:55 4b2390:95 4b23f0:159|
+| 4b46c0| cl_main_pc_mp.obj| 4b50c0-4b52f0| 2/538| 3/490| MISSING 1| CL_ReadMotd CL_WWWDownload| 4b50f0:104 4b5160:224 4b5240:162|
+| 4baa00| record_dsound.obj| 4bb3c0-4bb560| 0/0| 1/263| MISSING 1|| 4bb450:263|
+| 4babb0| pbcl.obj| 4bb690-4bb730| 1/52| 2/113| MISSING 1| UnloadClientDll@stPbCl| 4bb6b0:61 4bb6f0:52|
+| 4bae00|| 4bb8d0-4bb9b0| 0/0| 1/97| MISSING 1|| 4bb940:97|
+| 4baea0| pbcl.obj| 4bb9b0-4bbfb0| 1/69| 4/1308| MISSING 3| ?1stPbCl| 4bba50:69 4bbaa0:223 4bbb80:947 4bbf40:69|
+| 4baf20| pbcl.obj| 4bbfc0-4bc100| 0/0| 2/206| MISSING 2|| 4bc000:179 4bc0e0:27|
+| 4bafa0|| 4bc100-4bc2f0| 0/0| 3/371| MISSING 3|| 4bc160:99 4bc1d0:186 4bc290:86|
+| 4be2e0| cg_main_mp.obj| 4bf5e0-4bf890| 3/580| 2/550| EXTRA 1| CG_CrosshairPlayer CG_GameMessage CG_BoldGameMessage| 4bf650:275 4bf770:275|
+| 4c00a0| cg_main_mp.obj,cg_consolecmds_mp.obj| 4c1340-4c1410| 1/108| 0/0| EXTRA 1| CG_TargetCommand_f||
+| 4c03a0| cg_consolecmds_mp.obj| 4c1630-4c1680| 1/119| 0/0| EXTRA 1| CG_TellTarget_f||
+| 501660| g_cmds_mp.obj| 502b10-502b50| 2/525| 0/0| EXTRA 2| Cmd_Tell_f Cmd_GameCommand_f||
+| 544410| ui_shared_obj.obj| 545680-545e80| 1/1626| 3/1844| MISSING 2| UI_ParseAssetGlobalDef| 545740:204 545810:1281 545d16:359|
+| 54d1f0| HTEvtLst.obj| 54eb00-54eb40| 2/180| 0/0| EXTRA 2| _HTEventList_pump _HTEventList_loop||
+| 54d410|| 54ec50-54ed20| 0/0| 1/99| MISSING 1|| 54eca0:99|
+| 557b20| HTStream.obj,HTFormat.obj| 5593a0-5594a0| 3/48| 1/16| EXTRA 2| _HTBlackHole _HTErrorStream _HTBlackHoleConverter| 559440:16|
+| 5701a0|| 571a40-571b50| 0/0| 2/32| MISSING 2|| 571ad0:16 571b40:16|
+| 579459|| 57a6c9-57a756| 0/0| 1/172| MISSING 1|| 57a751:172|
+| 57bf5d| libcmt:_file.obj| 57d18f-57d1f3| 0/0| 1/192| MISSING 1|| 57d1f0:192|
+| 57c3e8| libcmt:stdexcpt.obj| 57d66b-57d747| 0/0| 2/213| MISSING 2|| 57d6e5:59 57d720:154|
+| 57c825| libcmt:xtoa.obj,libcmt:vsprintf.obj,libcmt:fpinit.obj| 57daa3-57dd90| 5/237| 1/102| EXTRA 4| _vsprintf __vscprintf __cfltcvt_init ___setfflag __fpmath| 57dd2a:102|
+| 57ced0| libcmt:mktime.obj| 57e02b-57e205| 0/0| 1/26| MISSING 1|| 57e1eb:26|
+| 5806c8| libcmt:winsig.obj| 581698-5816d8| 0/0| 1/417| MISSING 1|| 5816cf:417|
+| 586d71| libcmt:initctyp.obj| 587ee5-588130| 3/75| 0/0| EXTRA 3| ____lc_codepage_func ____lc_collate_cp_func ____lc_handle_func||
+| 58a673| libcmt:secfail.obj,libcmt:_fptostr.obj,libcmt:cfout.obj,libc| 58b6cb-58b83f| 2/32| 0/0| EXTRA 2| __set_security_error_handler ___set_buffer_overrun_handler||
+
+Reading the early rows (game code, link order):
+- cl_console_mp 4046c0: retail has 4 fns / 3043 B, ours 3 / 2678 B: 365 B (405080:365) missing, not yet identified.
+- cl_main_mp 40cdf0 CL_RequestAuthorization: ours 468 (+211 merged helper) vs retail 5 fns / 1057 B; CL_CheckForResend ours 599 vs retail 1026; CL_ConnectionlessPacket 2267 vs 2657: 1.3 PB/auth code missing (code work, not set work).
+- cl_main_mp 411e60: retail 412670 (73 B) is an rdtsc spin-wait (calls two fn pointers at 0x68a38c/0x68a390, Sleep(1) loop) called from 40f782 (CL_Frame region) and 409329. No ours counterpart. DEFERRED: the pointers' names are not known (not in refexport_t at 0x689280; Mac RB_AdaptiveGpuSyncWait is the renderer-side relative, not this fn).
+- sv_ccmds 452370: ours PbMsgToScreen (16 B, Mac 1.3 name) + SV_AddDedicatedCommands (34 B, unhit); retail has only the 34 B one at 452bc0. PbMsgToScreen has no retail fn >= 16 B in the gap: likely inlined/absent in retail (DEFER, no evidence either way).
+- cg_main/cg_consolecmds/g_cmds EXTRA rows (CG_TargetCommand_f, CG_TellTarget_f, Cmd_Tell_f, Cmd_GameCommand_f, CG_*Message): these fns are command-table targets so they exist in retail; the retail copies sit in a different gap = TU-internal order difference (they are outside the anchor LIS). Needs fnorder.py per TU, not removal.
+- pbcl 4bab80..4bafb0: 8 retail fns / ~2.2 KB with no ours (PB client stubs: UnloadClientDll@stPbCl, ~stPbCl ...), plus record_dsound 4bb450 (263 B).
+- libwww/CRT rows: HTEventList_pump/_loop (2 extra, 180 B), HTBlackHole/HTErrorStream (extra 2), CRT 16-24 B helpers (__set_purecall_handler, ___endstdio, __getmbcp, ...): retail has no separate fn >= 16 B (probably folded into neighbouring CRT members by the retail lib version); not touched.
+
+FIXES (branch s1-inventory, worktree lab13/s1; builds are ~1.5 min):
+- Baseline of this worktree (718b8e9) measured 1,499,618 matched-fn B (the 1,505,247 in ratchet13.best came from a lucky tie roll not reproduced by a clean build).
+- c0ea8bd: CL_ClearStaticDownload (standalone 48 B body, no retail fn) and the static __forceinline CL_ClearDownloadStateInl (also emitted standalone) -> one macro (headers/dl_reset.h) used in cl_main_mp.cpp and cl_main_pc_mp.cpp. Fn count 9118 -> 9116. matched 1,499,618 -> 1,500,813 (+1195). Tie roll: LOST CG_DrawPlayerStance 1607; RESTORED PC_EvaluateTokens 2587 + GScr_CloseFile 173; GAIN CL_ClearDownloadState +42. SV_DirectConnect, Pickup_Weapon lost both before and after.
+- a4eb3b5: CL_BuildMd5StrFromCDKey (static, one caller) merged into CL_RequestAuthorization. 9116 -> 9115 fns. matched 1,500,813 -> 1,498,226 (-2587 = PC_EvaluateTokens tie flipped back); same-offset +208. Kept (fn set = retail), lead decides.
+- PINNED: `static __forceinline` / plain `__forceinline` helpers still get a standalone body in the map (flag `i`) because the link uses /OPT:NOREF; only a macro or a hand-merged body removes it.
+- Tie behaviour: every fn-count change re-rolled PC_EvaluateTokens (2587) / GScr_CloseFile (173) / CG_DrawPlayerStance (1607) / SV_DirectConnect (2733) / Pickup_Weapon (1616); each change moves 1-3 of them in or out. Count-before-fn is confirmed as the lever: -2 fns restored PC_EvaluateTokens, -3 fns lost it again.
