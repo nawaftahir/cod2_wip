@@ -51,7 +51,7 @@ Check: `git log --oneline -- targets/$T | wc -l` equals the old commit count.
 - Tick the target below.
 
 ## Status
-- [ ] radiant
+- [x] radiant (2026-11-04: branch radiant/main, worktree radiant/, gate 813/813)
 - [ ] client
 - [ ] gfx
 - [ ] research (glm, modtools, codex)
