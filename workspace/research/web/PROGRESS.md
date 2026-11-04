@@ -1425,3 +1425,32 @@ Branch `radiant/web/2`; only this lane's source and permitted web draft/report p
 - Still pending: VertEditDlg (4 game rows / 599 B, 16 game remaining / 5,702 B), vertsel (2 / 284 B, 6 remaining / 1,988 B), RotateDlg (6 / 498 B, 4 remaining / 970 B), PatchDensityDlg (4 / 240 B, OnOK 148 B remaining), TerrainDensityDlg (4 / 240 B, OnOK 148 B remaining). The file ledger's UNSTARTED labels for VertEditDlg/vertsel are stale relative to canonical game rows; only the owner may regenerate `ledger/files.tsv`.
 - Cross-owner blockers: vertsel MakeFace calls 0x00455800 / 325 B (brush.cpp); RotateDlg spin paths at 0x0043c4f0, 0x0043c5a0, 0x0043c650 depend on 0x00470c50 / 140 B and 0x00470ce0 / 65 B (select.cpp), as well as 0x004897c0 / 306 B and 0x00485040 / 107 B (com_math.cpp); PatchDensityDlg OnOK calls 0x004293f0 / 756 B and TerrainDensityDlg OnOK calls 0x004296f0 / 771 B (Pmesh.cpp). The retail decompilation confirms these call sites, but the linked implementations and binding proofs are outside lane 2. Source and target names remain provisional where unproven.
 - Keep all unmatched source only under permitted drafts until the owner permits a branch-aware CI trial input and provides original disassembly. No lane-2 game credit claimed for this checkpoint.
+
+## Lane 2 — reference and trial-evidence reconciliation
+
+Rechecked original id Software Quake III Arena source at commit `dbe4ddb10315479fc00086f08e25d968b4b43c49`:
+`q3radiant/VERTSEL.CPP`, `RotateDlg.cpp/.h`, `PatchDensityDlg.cpp`,
+`NewProjDlg.cpp`, `ScaleDialog.cpp`, `LstToolBar.cpp` and `RADEditWnd.cpp`.
+The four lane-2 candidates in `workspace/research/q3sweep_game.tsv` are
+ALREADY ledgered at 0x0043c2a0, 0x0043c490, 0x0043b600 and 0x0043b650;
+the sweep's 0x00423eb0 is inventoried in ModelDlg and outside this lane.
+VertEditDlg has no Q3 sweep candidate.
+
+IMPORTANT: Prior `workspace/research/web/PROGRESS.md` entries record historic
+*isolated* exact matches for CVertEditDlg::GetMessageMap 0x00446400 (6/6)
+and OnInitDialog 0x00446490 (211/211), in runs 41799906476 and
+41799100159 respectively. The isolated request also caused linked
+`GraphGetValueFromFraction` 0x004832c0 (com_math.cpp) to change from
+832 B to 828 B, 76%, first difference +0x5, so the complete verifier
+REJECTED those trials. Neither is safe to ledger/promote in canonical.
+The new draft is a source-based hypothesis reconstructed from the target
+decompiler (unsigned byte-offset control-table iteration); it has NOT been
+run through a lane-2 isolated CI trial on this branch.
+
+Proposed request file, **not CI-active**:
+`workspace/research/web/drafts/VertEditDlg.request.tsv`.
+It has exact decorated symbols for retail GetRuntimeClass, GetMessageMap
+and OnInitDialog. The shared `workspace/research/web/target.tsv` is
+currently assigned to ModelDlg, and lane 2 is not authorized to change
+it or `tu_trial.tsv`. Owner must supply a lane-aware trial route; never
+treat a passing ModelDlg web-trial as evidence for this TU.

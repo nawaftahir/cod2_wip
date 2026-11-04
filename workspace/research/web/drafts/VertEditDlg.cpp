@@ -103,13 +103,17 @@ BOOL CVertEditDlg::OnInitDialog()
 {
     CDialog::OnInitDialog();
 
-    for (int i = 0; i < 11; ++i)
+    // Retail's 0x84-byte control table is indexed in 12-byte steps.
+    for (unsigned int offset = 0; offset < sizeof(g_vertEditSubclass);
+         offset += sizeof(VertEditSubclassControl))
     {
-        VertEditSubclassControl &control = g_vertEditSubclass[i];
-        HWND window = ::GetDlgItem(GetSafeHwnd(), control.controlId);
-        control.window = window;
-        control.previous = (WNDPROC)::GetWindowLongA(window, GWL_WNDPROC);
-        ::SetWindowLongA(window, GWL_WNDPROC, (LONG)FUN_00446410);
+        VertEditSubclassControl *control =
+            (VertEditSubclassControl *)((char *)g_vertEditSubclass + offset);
+        HWND window = ::GetDlgItem(GetSafeHwnd(), control->controlId);
+        control->window = window;
+        control->previous = (WNDPROC)::GetWindowLongA(window, GWL_WNDPROC);
+        ::SetWindowLongA(control->window, GWL_WNDPROC,
+                         (LONG)FUN_00446410);
     }
 
     m_wndAlpha.SetRange(0, 255, FALSE);
