@@ -53,6 +53,17 @@ Check: `git log --oneline -- targets/$T | wc -l` equals the old commit count.
 ## Status
 - [x] radiant (2026-11-04: branch radiant/main, worktree radiant/, gate 813/813)
 - [x] client (2026-11-04: client/1.0/main + client/1.3/main, worktrees client-1.0/ client-1.3/, gates 1,336,591 + 1,503,407)
-- [ ] gfx
+- [x] gfx (2026-11-04: source-only history, gfx/main + gfx worktrees, private cod2-gfx-ci package, clean byte/binding gate)
 - [ ] research (glm, modtools, codex)
 - [ ] docs (RECON_PLAYBOOK, WHOLEFILE, track AGENTS.md path updates)
+
+## Renderer cutover
+
+The renderer uses a target-root branch rather than placing source on shared
+main. Its old master history and main/Gemini freeze snapshots are preserved
+under gfx/imported/*. The active branch is gfx/main with a separate gfx work
+branch. Public import strips binaries/build outputs; local backups remain.
+The nested workspace/work/src path preserves the tested compiler-visible TU
+paths while src/ stays verified-only. Archived scratch is documentation and
+is not counted as reconstructed source. CI publishes measured meters only
+after both referees, the retention ratchet and source gates pass.

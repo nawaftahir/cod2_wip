@@ -1,8 +1,8 @@
 # cod2_wip
 
-Private work monorepo for every CoD2 reconstruction target (github.com/nawaftahir/cod2_wip).
+Public source work monorepo for every CoD2 reconstruction target (github.com/nawaftahir/cod2_wip).
 The universal laws in `dev/CLAUDE.md` still apply. `cod2engine` stays the clean release repo;
-nothing here goes there automatically.
+nothing here goes there automatically. Compiler/SDK payloads for the renderer stay in its private CI package.
 
 ## Branches and worktrees
 | Branch | Checked out at | Holds |
@@ -28,6 +28,16 @@ nothing here goes there automatically.
   tie list, one `# reason` line above each entry (evidence: which unrelated change flipped it). Losing a
   listed tie does not reject a build; losing any other matched function does. Never count a tie flip
   as progress.
+
+## Renderer target
+
+`gfx/main` is checked out at `gfx/`; renderer work uses `gfx/<work>` in
+`.worktrees/`. Read that target's `CLAUDE.md` and `docs/STATUS.md`.
+`make check` runs its clean source/byte/binding gate. CI workflow `gfx` writes
+`ledger/meter.json`, retains every accepted extent and checks that `src/`
+contains verified files only. The SDK/compiler/anchor live in the PRIVATE
+`ghcr.io/nawaftahir/cod2-gfx-ci` package; no payloads enter public Git.
+The old `dev/gfx` and archived research are backups, not build dependencies.
 
 ## Client targets (`client-1.0`, `client-1.3`)
 | Worktree / branch | Binary | Gate | Ties | Meter |
