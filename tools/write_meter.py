@@ -6,6 +6,7 @@ import subprocess
 import sys
 import pefile
 from renderer_paths import ROOT, retail_anchor
+from tu_metrics import measure, selftest
 
 
 def covered(spans):
@@ -18,6 +19,7 @@ def covered(spans):
 
 
 assert covered([(1, 4), (3, 6), (1, 2)]) == 5
+selftest()
 subprocess.run([sys.executable, str(ROOT / 'tools/check_verified_source.py')], check=True)
 work = ROOT / 'workspace/work'
 build = ROOT / 'workspace/build/codex_boundsoutside_1016_02'
@@ -84,6 +86,7 @@ meter = dict(name='renderer 1.0', binary='gfx_d3d_mp_x86_s.dll', version='1.0',
              sections=sections, source_commit=subprocess.check_output(
                  ['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip(),
              note='Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not current identical TUs. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.')
+meter.update(measure(tus, json.loads((build / 'cmp.json').read_text()), bind))
 (ROOT / 'build').mkdir(exist_ok=True)
 (ROOT / 'build/meter.json').write_text(json.dumps(meter, indent=2) + '\n')
 (ROOT / 'build/summary.md').write_text(

@@ -1,0 +1,43 @@
+{
+  "status": "local byte/binding/regression checks; clean CI required before landing",
+  "base_commit": "99a547600b5d2dfe9bc998c5420f80023b32f497",
+  "cpp_bytes": 118557,
+  "cpp_percent": 46.753292846438995,
+  "net_cpp_bytes": 82,
+  "cpp_bodies": 730,
+  "protected_extents": 2524,
+  "tu_metrics": {
+    "current_source_tus_total": 112,
+    "current_source_tus_verified": 43,
+    "current_source_tus_without_emitted_bodies": 0,
+    "current_source_tus_ambiguous": 2
+  },
+  "new_bodies": {
+    "?R_CopyCachedSurfaceIndices@@YAXPBUGfxStaticModelSurfaceCached@@@Z": {
+      "t": "0x1002b790",
+      "n": 82,
+      "obj": "r_staticmodelcache.obj",
+      "why": []
+    }
+  },
+  "unaccepted_sun": {
+    "compare": {
+      "name": "?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z",
+      "obj": "r_sky.obj",
+      "size": 826,
+      "hits": [
+        "0x10028cd0"
+      ]
+    },
+    "binding": {
+      "t": "0x10028cd0",
+      "n": 826,
+      "obj": "r_sky.obj",
+      "why": [
+        "call ?Material_Register@@YAPAUMaterial@@PBDH@Z"
+      ]
+    }
+  },
+  "bind_sha256": "faa693b4482169db8353103efa5dee0da95369aca138651aee8433e6cadf4ab4",
+  "sha_identical": false
+}

@@ -109,7 +109,8 @@ void R_SetSunFromDvars(sunflare_t *sun)
     sun->blindMinDot = (float)cos(r_sunblind_min_angle->current.value * 0.017453292f);
     sun->blindMaxDot = (float)cos(r_sunblind_max_angle->current.value * 0.017453292f);
     sun->blindMaxDarken = r_sunblind_max_darken->current.value;
-    sun->blindFadeInTime = I_fround(r_sunblind_fadein->current.value * 1000.0f);
+    const dvar_t *volatile &blindFadeIn = r_sunblind_fadein;
+    sun->blindFadeInTime = I_fround(blindFadeIn->current.value * 1000.0f);
     sun->blindFadeOutTime = I_fround(r_sunblind_fadeout->current.value * 1000.0f);
     sun->glareMinDot = (float)cos(r_sunglare_min_angle->current.value * 0.017453292f);
     sun->glareMaxDot = (float)cos(r_sunglare_max_angle->current.value * 0.017453292f);

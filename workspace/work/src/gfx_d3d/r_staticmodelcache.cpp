@@ -296,9 +296,9 @@ static GfxStaticModelSurfaceCached *SMC_AllocCachedSurface(static_model_cache_t 
 // PINNED 1002b790/82: each iteration copies two packed triangles.
 static void R_CopyCachedSurfaceIndices(const GfxStaticModelSurfaceCached *cached)
 {
+    const unsigned int *src = (const unsigned int *)cached->xsurf->triIndices;
     unsigned int base = cached->baseVertIndex;
     unsigned int add = (base << 16) | base;
-    const unsigned int *src = (const unsigned int *)cached->xsurf->triIndices;
     unsigned int *dst = (unsigned int *)((byte *)dx.smodelCacheIndices + base * 12);
     int pairs = cached->xsurf->triCount / 2;
     do

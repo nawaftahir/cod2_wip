@@ -260,6 +260,9 @@ required.update(accepted(lightmap_weights))
 sun_blind_glare = gfx / 'workspace/work' / 'proof/sun_blind_glare_20261104_warm_bind.json'
 assert hashlib.sha256(sun_blind_glare.read_bytes()).hexdigest() == 'bbeaf51a9ad5d35ebbcc1ab87f8755d25ccebf313b06d33766a0258460220481'
 required.update(accepted(sun_blind_glare))
+cache_indices = gfx / 'workspace/work' / 'proof/cache_indices_20261105_warm_bind.json'
+assert hashlib.sha256(cache_indices.read_bytes()).hexdigest() == 'feed9bb7eaa7fc77d4e79a072600f9f9e978ccb092f706ce9bbb46ab6a6aeaca'
+required.update(accepted(cache_indices))
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

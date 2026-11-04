@@ -1,3 +1,19 @@
+## Reconstruction resumed - 2026-11-05
+
+Local gates:118557/253580 C/C++ bytes (46.753293%),730 bodies: +82 bytes.
+R_CopyCachedSurfaceIndices1002b790/82 passes byte and binding referees after
+reading xsurf/indices before baseVertIndex. All2524 protected extents survive.
+Both retention tools reject missing/unverified new rows;29 cache routes pass.
+Receipt:workspace/work/proof/nov05_cache_indices_checkpoint.json. Clean CI
+must pass before this candidate lands; ledger/meter.json is the authority.
+
+New CI metrics report current source TUs with all emitted bodies verified,
+including library TUs; duplicate common.obj basenames stay explicitly ambiguous.
+These are not complete historical TUs. Root src still holds10 verified snapshots.
+Sun settings826 now byte-matches but is blocked by Material_Register; ZERO credit.
+50% remains active and needs8233 additional verified pure C/C++ bytes.
+Whole-file SHA/GPU smoke remain unfinished. No old workspace was deleted.
+
 ## Meter audit - 2026-11-05
 
 Independent direct byte recount reproduces238607 same-offset file bytes and

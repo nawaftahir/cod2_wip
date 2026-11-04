@@ -1,3 +1,27 @@
+# Material and near-match probes - 2026-11-05
+
+Material_Register explicit else scope remains145 versus target144; rejected.
+Function-local optimize("s",on) produces124 with a different frame; rejected.
+Both restored. Material_CacheShaderText commuted pointer-add operands remains
+173 with the wrong SIB operand order. Swapping width/height declarations in
+R_PrepareStaticModelLightingCache remains222 with the wrong store register.
+Both restored. Logs:nov05_material_scope/size and nov05_nearby_operands under
+workspace/work/proof/latest. No bytes accepted from these probes.
+
+Sun settings826: a volatile reference to the existing blind-fadein dvar pointer
+keeps its load after the preceding sun stores, matching all bytes.144 native
+sun routes pass. Binding remains blocked by Material_Register145/144, then
+Material_LoadBinary183/171 and material fixup dependencies. Zero coverage credit.
+Do not repeat register selector syntax sweeps; the cache index load-order fix
+is independently accepted and retained by both guards.
+
+# Fullscreen default selector replay - 2026-11-05
+
+Explicit default switch emits144 rather than149 bytes and again loses the
+protected10022b90/10022c30 bodies. Restored. This duplicates the recorded
+November3 selector failure; do not retry it. No source coverage gained.
+Log: workspace/work/proof/latest/nov05_tracking_default.log.
+
 # Predicate cohort results - 2026-11-04
 
 Explicit blind/glare zero/one/fraction branches match352 bytes at1003bda0

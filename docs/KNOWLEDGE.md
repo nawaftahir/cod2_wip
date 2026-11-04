@@ -1,3 +1,9 @@
+PINNED: copier1002b790/82 reads cached->xsurf/triIndices before baseVertIndex.
+Reordering those initializations reproduces the incoming EAX use and all bytes
+and bindings. Evidence:workspace/work/proof/cache_indices_20261105_warm_bind.json;
+negative guards and local regression are in nov05_cache_indices_checkpoint.json.
+Historical TU completeness is not inferred from current emitted-body matching.
+
 # Verified renderer knowledge
 
 PINNED: retail renderer SHA256 is
