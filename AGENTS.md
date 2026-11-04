@@ -32,7 +32,7 @@ Same toolchain as 1.0 (MSVC 7.1 /O2 /GL, link /LTCG, Wine in docker image `cod2-
 
 ## Baseline (2026-11-03, commit 42513f0)
 Whole file same-offset 101,687 / 1,970,176 = 5.16% (`ratchet13.best`). Ours .text vsize 1,427,773 vs
-retail 1,645,581: about 218 KB of 1.3 code is still MISSING, so everything after the first gap is
+retail 1,645,581: (baseline then; 11-04 build is 1,642,381, only ~3 KB short: the gap is now matching, not missing code), so everything after the first gap is
 shifted and the % stays low until the missing code is in. Early on, judge progress by .text size
 closing on retail plus the ratchet number.
 
