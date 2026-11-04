@@ -39,6 +39,54 @@ BOOL CALLBACK FUN_00476aa0(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam)
 bool g_bDoCone = false;
 bool g_bDoSphere = false;
 
+/* Research source from the Q3Radiant project-settings event flow.
+ * CoD2's retail dialog 153 contains basepath, mapspath, entitypath,
+ * fs_game, fs_basegame controls. Globals/callee identities need CI proof.
+ */
+extern char *ValueForKey(void *entity, const char *key);
+extern void SetKeyValue(void *entity, const char *key, const char *value);
+extern void QE_SaveProject(const char *name);
+extern char g_strProject[];
+
+BOOL CALLBACK ProjectDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    char value[1024];
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+        SetDlgItemText(hwndDlg, 1265, ValueForKey(g_qeglobals.d_project_entity, "basepath"));
+        SetDlgItemText(hwndDlg, 1274, ValueForKey(g_qeglobals.d_project_entity, "mapspath"));
+        SetDlgItemText(hwndDlg, 1253, ValueForKey(g_qeglobals.d_project_entity, "entitypath"));
+        SetDlgItemText(hwndDlg, 1260, ValueForKey(g_qeglobals.d_project_entity, "fs_game"));
+        SetDlgItemText(hwndDlg, 1273, ValueForKey(g_qeglobals.d_project_entity, "fs_basegame"));
+        return TRUE;
+
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+            GetDlgItemText(hwndDlg, 1265, value, 1024);
+            SetKeyValue(g_qeglobals.d_project_entity, "basepath", value);
+            GetDlgItemText(hwndDlg, 1274, value, 1024);
+            SetKeyValue(g_qeglobals.d_project_entity, "mapspath", value);
+            GetDlgItemText(hwndDlg, 1253, value, 1024);
+            SetKeyValue(g_qeglobals.d_project_entity, "entitypath", value);
+            GetDlgItemText(hwndDlg, 1260, value, 1024);
+            SetKeyValue(g_qeglobals.d_project_entity, "fs_game", value);
+            GetDlgItemText(hwndDlg, 1273, value, 1024);
+            SetKeyValue(g_qeglobals.d_project_entity, "fs_basegame", value);
+            EndDialog(hwndDlg, 1);
+            QE_SaveProject(g_strProject);
+            return TRUE;
+
+        case IDCANCEL:
+            EndDialog(hwndDlg, 0);
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+
 void DoProjectSettings(void)
 {
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)153, g_qeglobals.d_hwndMain, ProjectDlgProc);
