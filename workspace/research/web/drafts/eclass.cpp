@@ -11,15 +11,31 @@
  * Draft only: no compiler comparison or game-ledger credit yet.
  */
 #include "stdafx.h"
+#include "../universal/assertive.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
 
+struct eclassBrushRef
+{
+    eclassBrushRef *prev;
+    eclassBrushRef *next;
+    unsigned char undecoded_08[0x1c - 8];
+    int refCount;
+};
+struct eclassEntityRef
+{
+    eclassEntityRef *prev;
+    eclassEntityRef *next;
+    eclassBrushRef brushes;
+    unsigned char undecoded_28[0x78 - 0x28];
+    int refCount;
+};
 struct entitymodel_s
 {
     entitymodel_s *pNext;
     unsigned char undecoded_04[8];
-    void *entities_next;
+    eclassEntityRef *entities_next;
 };
 struct eclass_s
 {
@@ -37,14 +53,43 @@ typedef char check_eclass_model[(offsetof(eclass_t, model) == 0x154) ? 1 : -1];
 typedef char check_eclass_name[(offsetof(eclass_t, name) == 4) ? 1 : -1];
 typedef char check_eclass_comments[(offsetof(eclass_t, comments) == 0x50) ? 1 : -1];
 typedef char check_model_entities[(offsetof(entitymodel_s, entities_next) == 0x0c) ? 1 : -1];
+typedef char check_entity_refcount[(offsetof(eclassEntityRef, refCount) == 0x78) ? 1 : -1];
+typedef char check_brush_refcount[(offsetof(eclassBrushRef, refCount) == 0x1c) ? 1 : -1];
 
 extern eclass_t *eclass;
 extern eclass_t *g_md3Cache;
 extern eclass_t *eclass_bad;
 
-// Real entity/model lifetime cleanup at retail 0x00462ff0, not yet compiled
-// or linked as a native function in the current select/entity source graph.
-extern void FUN_00462ff0(entitymodel_s *model);
+// This real entity-free callee belongs to the separate entity source TU;
+// no dummy body and no absolute executable addresses are substituted here.
+extern void FUN_004661f0(eclassEntityRef *item);
+
+// Retail 0x00462ff0 / 199 B: release a model's embedded entity list.
+// The two runtime assertion messages, +0x78 entity reference count, +0x1c
+// brush reference count, list sentinel offsets and loop order are measured
+// from the target. Original assert line placement and external callee bindings
+// remain pending full-toolchain verification.
+void FUN_00462ff0(entitymodel_s *model)
+{
+    assert(model->entities_next);
+    eclassEntityRef *head =
+        reinterpret_cast<eclassEntityRef *>(reinterpret_cast<char *>(model) + 8);
+    while (model->entities_next != head)
+    {
+        eclassEntityRef *e = model->entities_next;
+        if (e->refCount != 1)
+            assertFailMsg(1, "e->refCount == 1");
+        eclassBrushRef *brushHead = &e->brushes;
+        for (eclassBrushRef *brush = brushHead->next;
+             brush != brushHead; brush = brush->next)
+        {
+            --brush->refCount;
+        }
+        --e->refCount;
+        FUN_004661f0(e);
+    }
+    model->entities_next = NULL;
+}
 
 // Candidate for retail 0x004630c0 / 170 B: free one eclass's entitymodels,
 // names and documentation, then the eclass object. References and target
@@ -58,8 +103,8 @@ void FUN_004630c0(eclass_t *item)
         if (model->entities_next)
         {
             FUN_00462ff0(model);
-            // Retail verifies that the entity list is now empty. This
-            // assertion needs the original assert handler and line identity.
+            if (model->entities_next != NULL)
+                assertFailMsg(1, "model->entities.next == NULL");
         }
         free(model);
         model = next;
