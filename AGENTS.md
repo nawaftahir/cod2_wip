@@ -1,3 +1,5 @@
+<!-- Generated from CLAUDE.md by sync-agents.sh. Edit CLAUDE.md, not this file. -->
+
 # cod2_wip
 
 Public source work monorepo for every CoD2 reconstruction target (github.com/nawaftahir/cod2_wip).
@@ -68,7 +70,7 @@ Builds run in their own docker container, so parallel worktrees do not block eac
 Untracked inputs a build needs (vc70, dsound.lib, SDK path): `docs/CI_NOTES.md`.
 
 ## Automation (the page updates itself; never hand-edit numbers)
-- Each target has one CI workflow named after it (`radiant`, `client`, `gfx`) that runs on push to
+- Each target has one CI workflow named after it (`radiant`, `client`, `gfx`, `servers`) that runs on push to
   `<target>/**`: build, referee, write the meter, fail if the meter drops.
 - The meter lives on `<target>/main`: `ledger/meter.json` or `meter*.json` at its root (one per
   binary, e.g. `meter-1.0.json`, `meter-1.3.json`). Only the referee writes it.
@@ -103,7 +105,7 @@ Every number on the page must be exact, reproducible, and mean what its label sa
 | Path | What |
 |---|---|
 | `binaries/` | retail anchors, read-only. `sha256sum -c SHA256SUMS`. Never rebuild over them |
-| `status/` | meters for finished or not-yet-imported targets (servers) |
+| `status/` | meters for not-yet-imported targets (servers: CI meters on `servers/main`) |
 | `tools/dashboard/` | builds the progress page; meter format in its README |
 | `MIGRATE.md` | importing a target from its old repo |
 | `docs/RECON_PLAYBOOK.md` | how to start a new target (structure first, gates, meters) |

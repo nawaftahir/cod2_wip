@@ -161,7 +161,7 @@ def card(m):
         s = secs.get(name, {})
         matched = s.get("matched", text[0] if name == ".text" and text[0] is not None and not secs else None)
         size = raw or vsize
-        if m.get("sha_identical"):
+        if m.get("sha_identical") and not s:  # measured section values win
             matched, same = size, size
         else:
             same = s.get("same_offset")

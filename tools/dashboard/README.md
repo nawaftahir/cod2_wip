@@ -49,7 +49,7 @@ One JSON file per binary, written by the target's referee, committed on `<target
   `tus_data_only_identical`); `tus_empty` = TUs with no symbol in the image (never counted identical).
   `tus_identical_with_data` = TUs whose functions and every data symbol are identical in place.
 
-Finished or not-yet-imported targets: same format in `status/<name>.json` on main.
+Not-yet-imported targets: same format in `status/<name>.json` on main. Linux servers: `meter-lnxded-*.json` on `servers/main`, written by the `servers` workflow (clean cod2engine build vs anchor).
 Self-check: `python3 tools/dashboard/build.py --test`.
 
 Renderer presentation: `game_cpp_bytes / game_cpp_total` is shown first as
