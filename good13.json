@@ -53511,13 +53511,17 @@
 "name": "_HTRequest_new",
 "obj": "HTReqMan.obj",
 "size": 153,
-"hits": []
+"hits": [
+"0x547f20"
+]
 },
 {
 "name": "_HTRequest_dup",
 "obj": "HTReqMan.obj",
 "size": 72,
-"hits": []
+"hits": [
+"0x547fc0"
+]
 },
 {
 "name": "_HTRequest_kill",
@@ -54792,7 +54796,9 @@
 "name": "_HTRequest_dupInternal",
 "obj": "HTReqMan.obj",
 "size": 81,
-"hits": []
+"hits": [
+"0x549840"
+]
 },
 {
 "name": "_HTRequest_delete",
@@ -56675,7 +56681,9 @@
 "name": "_HTParse",
 "obj": "HTParse.obj",
 "size": 1222,
-"hits": []
+"hits": [
+"0x551450"
+]
 },
 {
 "name": "_HTCanon",
@@ -56705,7 +56713,9 @@
 "name": "_HTRelative",
 "obj": "HTParse.obj",
 "size": 405,
-"hits": []
+"hits": [
+"0x551d90"
+]
 },
 {
 "name": "_HTCleanTelnetString",
@@ -62276,7 +62286,9 @@
 "name": "_HTLocalToWWW",
 "obj": "HTWWWStr.obj",
 "size": 243,
-"hits": []
+"hits": [
+"0x55e2c0"
+]
 },
 {
 "name": "_HTMethod_enum",
@@ -63715,7 +63727,9 @@
 "name": "_HTTPStatus_new",
 "obj": "HTTP.obj",
 "size": 107,
-"hits": []
+"hits": [
+"0x5642a0"
+]
 },
 {
 "name": "_FlushPutEvent",
@@ -64697,13 +64711,17 @@
 "name": "_find_module",
 "obj": "HTPEP.obj",
 "size": 231,
-"hits": []
+"hits": [
+"0x5676b0"
+]
 },
 {
 "name": "_HTPEP_newModule",
 "obj": "HTPEP.obj",
 "size": 126,
-"hits": []
+"hits": [
+"0x5677a0"
+]
 },
 {
 "name": "_HTPEP_findModule",
@@ -64733,7 +64751,9 @@
 "name": "_HTPEP_newElement",
 "obj": "HTPEP.obj",
 "size": 70,
-"hits": []
+"hits": [
+"0x567940"
+]
 },
 {
 "name": "_HTPEP_deleteElement",
@@ -66681,7 +66701,9 @@
 "name": "_add_object",
 "obj": "HTProxy.obj",
 "size": 355,
-"hits": []
+"hits": [
+"0x56f8f0"
+]
 },
 {
 "name": "_remove_allObjects",
@@ -66696,7 +66718,9 @@
 "name": "_add_hostname",
 "obj": "HTProxy.obj",
 "size": 213,
-"hits": []
+"hits": [
+"0x56fab0"
+]
 },
 {
 "name": "_remove_AllHostnames",
@@ -68011,8 +68035,10 @@
 {
 "name": "_HTTPMakeRequest",
 "obj": "HTTPReq.obj",
-"size": 3434,
-"hits": []
+"size": 3562,
+"hits": [
+"0x5753f0"
+]
 },
 {
 "name": "_HTTPRequest_put_block",
@@ -69073,7 +69099,9 @@
 "name": "_HTTPGen_new",
 "obj": "HTTPGen.obj",
 "size": 198,
-"hits": []
+"hits": [
+"0x579410"
+]
 },
 {
 "name": "_SGMLFindAttribute",
@@ -77664,7 +77692,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1664,
+"size": 1424,
 "hits": []
 }
 ]
