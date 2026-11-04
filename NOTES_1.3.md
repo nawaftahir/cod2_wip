@@ -134,3 +134,11 @@
 
 
 
+
+- wA (libwww/dl_main audit, 11-04): no source change needed. All 95 libwww TUs + dl_main (13 fns) are present,
+  75 __FILE__ strings render as retail (drive-relative cl arg + /builds mount in Makefile), 0 unresolved externals,
+  clean wA build = 138692 same-offset (matches best). PINNED retail dl_main sits at ~0x4b4900-0x4b50a0 (string refs:
+  "Force raw byte count" 0x4b4925, "Client download subsystem initialized" 0x4b4a91, "HTTP Basic Auth" 0x4b4c59),
+  i.e. BEFORE CL_ClearMutedList (0x4b50a0), inside the cl_main_pc_mp range, not after cl_ui_pc_mp as in tus.txt
+  (ours 0x4b4cb0). Mirrors LTCG function placement; needs a cl_main_pc_mp split or order experiment (untried).
+  ratchet13.sh hardcodes the main target path; a worktree needs a path-adapted copy plus ANCHOR= override.
