@@ -129,6 +129,12 @@ def tile(label, a, b, hint):
     return f'<div class="tile"><span>{label}</span><strong>{v:.2f}%</strong>{bar(v)}<small>{num(a)} / {num(b)}</small></div>'
 
 
+
+def count_tile(label, value, hint):
+    return (f'<div class="tile"><span>{E(label)}</span><strong>{E(str(value))}</strong>'
+            f'<small>{E(hint)}</small></div>')
+
+
 def humanize(k):
     return k.replace("_", " ").capitalize()
 
@@ -153,8 +159,13 @@ def card(m):
     tiles = source_tile + "".join([
         tile(".text matched, including libraries", *text, "Relocations normalized; not source-completion progress."),
         tile("Whole file, same offset", *whole, "bytes already in place"),
-        tile("Functions identical (referee or in place)", *fns(m), "not measured"),
-        tile("TUs fully identical", *tus(m), "not measured"),
+        (count_tile("Verified game C/C++ bodies", num(m["game_cpp_functions"]),
+                    "Assembly-bearing bodies excluded; not a total-function percentage.")
+         if "game_cpp_functions" in m else tile("Functions identical (referee or in place)", *fns(m), "not measured")),
+        (count_tile("Current source TUs: emitted bodies verified",
+                    f'{num(m["current_source_tus_verified"])} / {num(m["current_source_tus_total"])}',
+                    "Includes library TUs. Every emitted body passes both referees; historical TU completeness is unknown.")
+         if "current_source_tus_verified" in m else tile("TUs fully identical", *tus(m), "not measured")),
     ])
     srows = []
     for name, raw, vsize in m["_sections"]:
@@ -275,6 +286,11 @@ def selftest():
     assert rendered_card.index("46.72%") < rendered_card.index("70.52%")
     assert "C/C++ inventory (provisional)" in page
     assert "including libraries" in page and "not whole-binary completion" in page
+    counted = card(dict(renderer, game_cpp_functions=729,
+                        current_source_tus_verified=43, current_source_tus_total=112))
+    assert "729" in counted and "43 / 112" in counted
+    assert "historical TU completeness is unknown" in counted
+    assert "TUs fully identical" not in counted
     missing = card(m)
     assert "C/C++ inventory coverage (provisional)" not in missing
     assert "C/C++ inventory coverage (provisional)" not in card(dict(m, game_cpp_total=253580))

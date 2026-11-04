@@ -58,3 +58,9 @@ not whole-binary completion. `.text` matching includes libraries and normalized
 relocations and remains a separate diagnostic. No percentage is inferred when
 a source-coverage numerator or denominator is absent. CI meters remain the
 only source of numbers; successful target CI automatically rebuilds the page.
+
+`current_source_tus_verified / current_source_tus_total` counts current source
+objects whose every emitted body passes byte and binding checks, including
+library TUs. Ambiguous object basenames are excluded from the verified count
+and reported separately. This does not prove complete historical file recovery.
+`game_cpp_functions` is a verified body count, not a completion percentage.
