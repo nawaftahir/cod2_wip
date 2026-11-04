@@ -522,3 +522,11 @@ FIXES (branch s1-inventory, worktree lab13/s1; builds are ~1.5 min):
   Net: retail is +8,688 at libwww start, i.e. ~8.7 KB of retail code ahead of libwww that we do not have in place
   (cl_console 2.0 K, cl_main connect 1.3 K+, PunkBuster ~4 K, cl_keys/common/cmd ~0.6 K, ui ~1.4 K, cl_cgame -64).
   The first TU to go out of position is cl_cgame_mp.obj, by 64 B (CL_SetExpectedHunkUsage); everything before it (assertive.obj) is in place.
+- w8-connect (11-04 pm): RETAIL 1.3 CD-key auth PINNED. 0x40cf40 (unnamed): char *trim(char *s) strips ' ' \t \n \r both ends in place, returns s. 0x40cfc0 = Mac CL_BuildMd5StrFromCDKey(char *out):
+  cleaned cl_cdkey (alnum, max 32) -> trim -> _strupr -> PbMD5 (MD5Init(&ctx, 0xb684a3), MD5Update, MD5Final; seed pseudoRandomNumber 11961507) -> sprintf "%02x"*16. CL_RequestAuthorization
+  (0x40d130) ends with CL_BuildMd5StrFromCDKey(md5Str) and va("getKeyAuthorize %i %s PB %s", cl_anonymous, nums, md5Str) (matches 469 B + Build 367 B on this branch).
+  CL_CheckForResend retail 0x40e100: 2000 ms resend (not 3000); CA_CHALLENGING case is laid out FIRST: userinfo + protocol 118 + challenge + qport, "connect \"...\"" built in data[1024],
+  copied to a 1020 B pbBuf and passed to PbClientConnecting(2, pbBuf, &len) (result ignored), NET_OutOfBandData(data, i+10); CA_CONNECTING: RequestAuthorization if needed, strcpy(pbBuf,"getchallenge"),
+  PbClientConnecting(1, pbBuf, &len), CL_BuildMd5StrFromCDKey(md5Str), NET_OutOfBandPrint(va("getchallenge 0 \"%s\"", md5Str)). Full version is branch w8-connect-hook (7c4c244): 812 B, 231 vs 231 insns,
+  only the stack slot order of data/info/pbBuf differs (retail low->high: data, info, pbBuf; ours data, pbBuf, info regardless of declaration order, block scope or size 1020/1024).
+  This branch (w8-connect) carries only RequestAuthorization/Build/trim: matched-fn 1,504,931 vs main 1,501,161 (+3,770) but Menu_HandleKey flips (a pure arg-load swap, tie pool; yylex comes back +4236).

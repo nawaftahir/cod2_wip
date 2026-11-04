@@ -1229,7 +1229,7 @@ extern void MD5Update(MD5_CTX *mdContext, unsigned char *inBuf, unsigned int inL
 extern void MD5Final(MD5_CTX *mdContext);
 
 /* retail 0x40cf40, unnamed: trims white space from both ends in place */
-static char *fn_40cf40(char *s)
+static char *CL_TrimWhitespace_40cf40(char *s)
 {
     char *p = s;
     char *e = s + strlen(s) - 1;
@@ -1272,7 +1272,7 @@ void CL_BuildMd5StrFromCDKey(char *out)
             key[j++] = ch;
     }
     key[j] = 0;
-    strupr(fn_40cf40(key));
+    strupr(CL_TrimWhitespace_40cf40(key));
 
     MD5Init(&ctx, 0xb684a3);
     MD5Update(&ctx, (unsigned char *)key, strlen(key));
@@ -1713,14 +1713,10 @@ void CL_InitDownloads(void)
     CL_DownloadsComplete();
 }
 
-extern void PbClientConnecting(int type, char *data, int *len);
-
 void CL_CheckForResend(void)
 {
     int i;
-    int len;
     char md5Str[33];
-    char pbBuf[1020];
     char info[1024];
     char data[1024];
 
@@ -1750,9 +1746,6 @@ void CL_CheckForResend(void)
         data[9 + i] = '"';
         data[10 + i] = 0;
 
-        len = i + 10;
-        memcpy(pbBuf, data, len);
-        PbClientConnecting(2, pbBuf, &len);
         NET_OutOfBandData(NS_CLIENT1, clc.serverAddress, (unsigned char *)data, i + 10);
         dvar_modifiedFlags &= ~2;
         break;
@@ -1760,9 +1753,6 @@ void CL_CheckForResend(void)
     case CA_CONNECTING:
         if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
             CL_RequestAuthorization();
-        strcpy(pbBuf, "getchallenge");
-        len = strlen(pbBuf);
-        PbClientConnecting(1, pbBuf, &len);
         CL_BuildMd5StrFromCDKey(md5Str);
         NET_OutOfBandPrint(NS_CLIENT1, clc.serverAddress, va("getchallenge 0 \"%s\"", md5Str));
         break;

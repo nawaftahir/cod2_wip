@@ -238,12 +238,6 @@ void PbClientTrapConsole(char *text, int len)
 		pbcl.m_TrapConsole(&pbcl, text, len);
 }
 
-void PbClientConnecting(int type, char *data, int *len)
-{
-	if ( pbcl.m_ClientConnect )
-		pbcl.m_ClientConnect(&pbcl, type, data, len);
-}
-
 void EnablePbCl()
 {
 	pbcl.AddPbEvent(0x75, 0, 0, 0);
