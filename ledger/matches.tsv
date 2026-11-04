@@ -816,3 +816,4 @@ addr	size	source	symbol	name	tag
 0x00413170	41	src/radiant/MainFrm.cpp	?MouseDown@@YA_NXZ	MouseDown	SUPPORTED
 0x0044a2d0	32	src/radiant/XYWnd.cpp	?fDiff@@YAMMM@Z	fDiff	SUPPORTED
 0x0043e930	19	src/radiant/SurfaceDlg.cpp	?OnCreate@CSurfaceDlg@@IAEHPAUtagCREATESTRUCTA@@@Z	CSurfaceDlg::OnCreate	SUPPORTED
+0x00408eb0	31	src/libs/cmdlib/cmdlib.cpp	?I_FloatTime@@YANXZ	I_FloatTime	SUPPORTED
