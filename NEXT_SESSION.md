@@ -87,3 +87,20 @@ worktrees by area, lead merges and ratchets. Never fabricate; Mac/Kisak are refe
 - Parked (notes in NOTES_1.3.md): CL_ConsolePrint_AddLine (branch w8-consoleprint-wip2, regalloc + yylex/PC_EvaluateTokens ties),
   Com_Init_Try_Block_Function (r_smp_backend_allowed block, frame 0x24 vs 0x20), HTCache_isFresh, HTEvtLst static, VM_Notify.
 - LAYOUT_1.3.md "out of order TUs" and record_dsound "NEW 49 fns" are classifier artifacts (stray first fn / PunkBuster region).
+
+## 1.3 checkpoint (lead, 2026-11-04 night)
+- claude_client13 after s3 merge: matched-fn 1,503,407 = 91.36% (clean build), whole-file same-offset 205,586 = 10.4%
+  (.rdata ~31%, .data ~81%). Day: 89.25% -> 91.4%, same-offset 7.4% -> 10.4%.
+- POLICY (owner, 11-04): structure first. A change that makes the fn set / data / positions retail-equal is accepted
+  when only 1.0-PINNED ties flip (ties13.txt, each with reason). Accept ONLY clean builds (mv target/build/obj aside);
+  never leave the main tree on an experiment branch (worktrees copy build/ from it: s1 got a fake baseline).
+- Tie pool (count-of-fns-before driven, re-rolls on any fn add/remove): yylex, PC_EvaluateTokens, Pickup_Weapon,
+  SV_ArchiveSnapshot, SV_DirectConnect, SV_SetConfigstring, Menu_HandleKey, Scr_ParseGameTypeList, SP_worldspawn,
+  DSound_UpdateSample, Netchan_Process, GScr_CloseFile, CG_DrawPlayerStance. They settle when the fn set before them is retail's.
+- Drift (tools/drift13.py, NOTES "s3"): first break CL_SetExpectedHunkUsage +64 B (retail calls Dvar_SetIntFromSource
+  un-inlined for constant 0); cl_console_mp now in position; next cl_keys +176 (CompleteCommand), then cl_main_mp.
+- Open code (NOTES): PbClGameQuery 0x4bbb80 (947 B, 13-case switch, decoded) -> PbClientInitialize 0x4bc000 unlocks
+  PbClGameCommand/PbClSendToAddrPort; CL_ConnectionlessPacket split (retail 0x40e750 + 0x40ec10); CL_CheckForResend
+  full 1.3 (branch w8-connect-hook, one stack-slot order left); CL_ConsolePrint_AddLine 6 reg hunks (in tree, unmatched).
+- Builds never block each other (own docker container). Worktree setup: copy target/build from a CLEAN known commit and
+  touch changed sources; path-adapted ratchet13.sh + absolute tools/cmp13 (lab13/w8).
