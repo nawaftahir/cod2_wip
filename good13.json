@@ -3256,6 +3256,39 @@
 "hits": []
 },
 {
+"name": "?PBget_cl_cdkey@@YAXPAD@Z",
+"obj": "cl_main_mp.obj",
+"size": 93,
+"hits": [
+"0x40e430"
+]
+},
+{
+"name": "?CL_SendPbPacket@@YAXHPAD@Z",
+"obj": "cl_main_mp.obj",
+"size": 63,
+"hits": [
+"0x40e490"
+]
+},
+{
+"name": "?PB_Q_Serverinfo@@YAPBDXZ",
+"obj": "cl_main_mp.obj",
+"size": 12,
+"hits": [
+"0x40e4d0"
+],
+"scan": 1
+},
+{
+"name": "?PB_Q_Serveraddr@@YAPBDXZ",
+"obj": "cl_main_mp.obj",
+"size": 58,
+"hits": [
+"0x40e4e0"
+]
+},
+{
 "name": "?CL_DisconnectPacket@@YAXUnetadr_t@@@Z",
 "obj": "cl_main_mp.obj",
 "size": 172,
@@ -3402,8 +3435,10 @@
 {
 "name": "?CL_InitRenderer@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 203,
-"hits": []
+"size": 324,
+"hits": [
+"0x40fa10"
+]
 },
 {
 "name": "?CL_ClearRendererAssets_40ea20@@YAXXZ",
@@ -12062,9 +12097,7 @@
 "name": "?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z",
 "obj": "l_precomp.obj",
 "size": 2587,
-"hits": [
-"0x43f720"
-]
+"hits": []
 },
 {
 "name": "?PC_Evaluate@@YAHPAUsource_s@@PAJPANH@Z",
@@ -13377,9 +13410,7 @@
 "name": "?Netchan_Process@@YAHPAUnetchan_t@@PAUmsg_t@@@Z",
 "obj": "net_chan_mp.obj",
 "size": 1014,
-"hits": [
-"0x4481b0"
-]
+"hits": []
 },
 {
 "name": "?NET_CompareBaseAdrSigned@@YAHPAUnetadr_t@@0@Z",
@@ -17843,7 +17874,7 @@
 ]
 },
 {
-"name": "$L96623",
+"name": "$L96643",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -33240,7 +33271,7 @@
 ]
 },
 {
-"name": "$L118214",
+"name": "$L118253",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33248,7 +33279,7 @@
 ]
 },
 {
-"name": "$L118216",
+"name": "$L118255",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33281,7 +33312,7 @@
 ]
 },
 {
-"name": "$L132085",
+"name": "$L132133",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33289,7 +33320,7 @@
 ]
 },
 {
-"name": "$L132087",
+"name": "$L132135",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33358,7 +33389,7 @@
 ]
 },
 {
-"name": "$L104378",
+"name": "$L104408",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33374,7 +33405,7 @@
 ]
 },
 {
-"name": "$L147445",
+"name": "$L147495",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35379,9 +35410,7 @@
 "name": "?DSound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@Z",
 "obj": "play_dsound.obj",
 "size": 500,
-"hits": [
-"0x4ba470"
-]
+"hits": []
 },
 {
 "name": "?DSound_AdjustSamplePlayback@@YAXPAUdsound_sample_t@@H@Z",
@@ -35697,6 +35726,26 @@
 "hits": []
 },
 {
+"name": "?PbClGameCommand@@YAPADPAD0@Z",
+"obj": "pbcl.obj",
+"size": 219,
+"hits": []
+},
+{
+"name": "?PbClSendToServer@@YAPADHPAD@Z",
+"obj": "pbcl.obj",
+"size": 65,
+"hits": [
+"0x4bbf44"
+]
+},
+{
+"name": "?PbClSendToAddrPort@@YAPADPADGH0@Z",
+"obj": "pbcl.obj",
+"size": 14,
+"hits": []
+},
+{
 "name": "?PbClAddEvent@@YAXHHPAD@Z",
 "obj": "pbcl.obj",
 "size": 15,
@@ -35723,6 +35772,22 @@
 "0x4bd9b0"
 ],
 "scan": 1
+},
+{
+"name": "?fn_4bc160@@YAXPAUMD5_CTX@@PAD@Z",
+"obj": "pbcl.obj",
+"size": 99,
+"hits": [
+"0x4bc160"
+]
+},
+{
+"name": "?fn_4bc1d0@@YAPADPADH@Z",
+"obj": "pbcl.obj",
+"size": 186,
+"hits": [
+"0x4bc1d0"
+]
 },
 {
 "name": "?EnablePbCl@@YAXXZ",
@@ -45280,7 +45345,9 @@
 "name": "?Scr_ParseGameTypeList@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 572,
-"hits": []
+"hits": [
+"0x50d520"
+]
 },
 {
 "name": "?Scr_GetGameTypeNameForScript@@YAPADPBD@Z",
@@ -46250,10 +46317,8 @@
 {
 "name": "?SP_worldspawn@@YAXXZ",
 "obj": "g_spawn_mp.obj",
-"size": 464,
-"hits": [
-"0x511680"
-]
+"size": 469,
+"hits": []
 },
 {
 "name": "?G_SpawnEntitiesFromString@@YAXXZ",
@@ -47325,9 +47390,7 @@
 "name": "?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z",
 "obj": "g_items_mp.obj",
 "size": 1616,
-"hits": [
-"0x51dea0"
-]
+"hits": []
 },
 {
 "name": "?Pickup_Health@@YAHPAUgentity_s@@0@Z",
@@ -51896,7 +51959,9 @@
 "name": "?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z",
 "obj": "ui_shared_mp.obj",
 "size": 1194,
-"hits": []
+"hits": [
+"0x53ea00"
+]
 },
 {
 "name": "?ToWindowCoords@@YAXPAM0PAUWindow@@@Z",
@@ -78037,7 +78102,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 3744,
+"size": 2736,
 "hits": []
 }
 ]
