@@ -56,3 +56,20 @@ NOTES_1.3.md first. Meter = ratchet13.sh (matched-fn bytes, no fn lost; ties in 
 Run up to 6 agents in parallel, each in its own worktree lab13/wN, one area each; they deliver commits, the lead
 merges and ratchets in claude_client13 (bundle tie losses until net >= 0). Never fabricate names: Mac 1.3 STABS
 or retail evidence only. 1.0 (claude_client, 99.961%) is parked; do not work there unless new evidence appears.
+
+## Renderer gfx_d3d_mp_x86_s.dll 1.0 (research 11-04, gfx/FASTPATH_11-04.md)
+- State: 117,113 / 253,580 C++ bytes verified (46.2%), ~1 body per 6-10 builds: one agent, every probe = locked full
+  DLL build + byte + binding + 2512-extent regression, plus per-body fixtures/receipts. tus.txt order is a guess.
+- References: Mac 1.3 client links the renderer (61 named r_*/rb_* files, ~1.3 MB decompile) + KisakCOD (CoD4, 100
+  renderer .cpp) = named reference for nearly all of it. CoD2rev has none. SP 1.0 renderer ~82% similar (free 2nd
+  target later); 1.3 renderer ~3% (useless).
+- Fast plan: (1) TU set + link order from the Mac file list; (2) reuse claude_client13 tools (cmp13, ratchet_fn,
+  why13, layout13) with bindcheck kept in the ratchet; (3) 6 agents in own worktrees, easiest bodies first;
+  (4) per-body fixtures/receipts optional except for shared header/struct changes. OWNER DECISION needed for (4):
+  it relaxes gfx/RULES.md. Estimate (unmeasured) 100-250 agent-hours + 20-40 lead hours.
+
+## Prompt (renderer)
+Continue the renderer gfx_d3d_mp_x86_s.dll 1.0 in ~/cod2/test/dev/gfx. Read gfx/RULES.md, PROGRESS.md and
+gfx/FASTPATH_11-04.md first. Step 1: TU set + link order from the Mac 1.3 renderer file list; step 2: port the
+claude_client13 referee/ratchet/layout tools (keep the gfx byte + binding referees); then run up to 6 agents in own
+worktrees by area, lead merges and ratchets. Never fabricate; Mac/Kisak are references, retail bytes decide.
