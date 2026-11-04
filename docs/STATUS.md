@@ -1,3 +1,16 @@
+## Meter audit - 2026-11-05
+
+Independent direct byte recount reproduces238607 same-offset file bytes and
+771254 normalized accepted text bytes. Accepted entry addresses2523 are unique;
+2528 accepted symbols include aliases and are not2528 distinct functions.
+The game inventory denominator253580 is provisional, not whole-DLL completion.
+Removed tus_matched: ten preserved verified source snapshots do not establish
+current identical compiled TUs. They are now labelled verified_source_files.
+Meter independently recounts whole-file equality and records both file hashes.
+CI must rerun after this correction before its published meter is updated.
+Old gfx staged diff remains unchanged. Do not delete old trees yet: archival
+preservation is source/evidence only, excluding toolchains, binaries and DBs.
+
 # Renderer migration checkpoint
 
 The renderer now lives in cod2_wip: gfx/main is the confirmed branch, and

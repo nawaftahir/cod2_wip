@@ -62,12 +62,20 @@ for section in pe.sections:
         anchor[offset:offset + size], candidate[offset:offset + size])))
     if name == '.text':
         sections[name]['matched'] = covered(spans)
+same_offset = sum(a == b for a, b in zip(anchor, candidate))
+assert same_offset == layout['same_file_offset_equal_bytes'], 'layout counter disagrees'
+assert len({va for va, n in accepted}) == len(accepted), 'conflicting function extents'
+assert coverage['cpp_percent'] == 100 * coverage['cpp_executable_bytes'] / coverage['game_denominator']
 manifest = json.loads((ROOT / 'proof/verified_source_20261102/manifest.json').read_text())
 meter = dict(name='renderer 1.0', binary='gfx_d3d_mp_x86_s.dll', version='1.0',
              anchor='windows/1.0/gfx_d3d_mp_x86_s.dll', sha_identical=candidate == anchor,
              text_bytes=sections['.text']['size'], matched_bytes=sections['.text']['matched'],
-             file_bytes=len(anchor), same_offset_bytes=layout['same_file_offset_equal_bytes'],
-             matched_functions=len(accepted), tus_total=len(tus), tus_matched=len(manifest['files']),
+             file_bytes=len(anchor), same_offset_bytes=same_offset,
+             matched_functions=len(accepted), tus_total=len(tus),
+             verified_source_files=len(manifest['files']),
+             game_cpp_denominator_status='provisional inventory; not whole-DLL completion',
+             anchor_sha256=hashlib.sha256(anchor).hexdigest(),
+             candidate_sha256=hashlib.sha256(candidate).hexdigest(),
              unverified_in_src=0, game_cpp_bytes=coverage['cpp_executable_bytes'],
              game_cpp_total=coverage['game_denominator'], game_cpp_percent=coverage['cpp_percent'],
              game_cpp_functions=coverage['cpp_game_bodies'],
@@ -75,7 +83,7 @@ meter = dict(name='renderer 1.0', binary='gfx_d3d_mp_x86_s.dll', version='1.0',
              assembly_functions=len(coverage['excluded_assembly_bodies']),
              sections=sections, source_commit=subprocess.check_output(
                  ['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip(),
-             note='Function bytes include libraries; game_cpp excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.')
+             note='Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not current identical TUs. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.')
 (ROOT / 'build').mkdir(exist_ok=True)
 (ROOT / 'build/meter.json').write_text(json.dumps(meter, indent=2) + '\n')
 (ROOT / 'build/summary.md').write_text(
