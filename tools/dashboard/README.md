@@ -32,6 +32,16 @@ One JSON file per binary, written by the target's referee, committed on `<target
 - Any other number or true/false field (e.g. radiant's `lib_bytes`, `failed_rows`) is listed
   under "All referee numbers".
 - `sha_identical: true` marks every section as done.
+- Functions/TUs tiles: `functions_identical` / `functions_total` ("Functions identical (referee or in
+  place)": referee match, or same bytes at the same offset as retail) and `tus_identical` / `tus_total`
+  ("TUs fully identical": every function identical; CRT/lib objs go in `lib_objs_identical` /
+  `lib_objs_total`). Without them the page falls back to the referee's `matched_functions` /
+  `game_functions` and `tus_matched`. `text_same_offset_bytes` = `.text` bytes in place.
+- Functions/TUs tiles: `functions_identical` / `functions_total` ("Functions identical (referee or in
+  place)": referee match, or same bytes at the same offset as retail) and `tus_identical` / `tus_total`
+  ("TUs fully identical": every function identical; CRT/lib objs go in `lib_objs_identical` /
+  `lib_objs_total`). Without them the page falls back to the referee's `matched_functions` /
+  `game_functions` and `tus_matched`. `text_same_offset_bytes` = `.text` bytes in place.
 
 Finished or not-yet-imported targets: same format in `status/<name>.json` on main.
 Self-check: `python3 tools/dashboard/build.py --test`.

@@ -14,7 +14,8 @@ BIN = os.path.join(ROOT, "binaries")
 DEFAULT_ANCHOR = {"radiant": "radiant/1.0/CoD2Radiant.exe"}
 CORE = {"name", "binary", "version", "anchor", "note", "sha_identical", "sections",
         "text_bytes", "matched_bytes", "same_offset_bytes", "file_bytes",
-        "matched_functions", "game_functions", "tus_matched", "tus_total"}
+        "matched_functions", "game_functions", "tus_matched", "tus_total",
+        "functions_identical", "functions_total", "tus_identical"}
 
 
 def pct(a, b):
@@ -132,6 +133,15 @@ def humanize(k):
     return k.replace("_", " ").capitalize()
 
 
+def fns(m):  # newer meters: referee match or same bytes in place; older ones: referee only
+    if "functions_total" in m: return m["functions_identical"], m["functions_total"]
+    return m.get("matched_functions"), m.get("game_functions")
+
+
+def tus(m):
+    return m.get("tus_identical", m.get("tus_matched")), m.get("tus_total")
+
+
 def card(m):
     secs = m.get("sections") or {}
     text = (m.get("matched_bytes"), m.get("text_bytes"))
@@ -140,8 +150,8 @@ def card(m):
     tiles = "".join([
         tile(".text matched", *text, "matched code bytes"),
         tile("Whole file, same offset", *whole, "bytes already in place"),
-        tile("Functions", m.get("matched_functions"), m.get("game_functions"), "not measured"),
-        tile("TUs (source files)", m.get("tus_matched"), m.get("tus_total"), "not measured"),
+        tile("Functions identical (referee or in place)", *fns(m), "not measured"),
+        tile("TUs fully identical", *tus(m), "not measured"),
     ])
     srows = []
     for name, raw, vsize in m["_sections"]:
@@ -176,8 +186,8 @@ def summary(rows, anchor_rows):
     trs = []
     for m in rows:
         t, w = pct(m.get("matched_bytes", 0), m.get("text_bytes", 0)), pct(m.get("same_offset_bytes", 0), m.get("file_bytes", 0))
-        fn = f'{num(m["matched_functions"])} / {num(m["game_functions"])}' if "game_functions" in m else '<span class="mute">n/a</span>'
-        tu = f'{num(m["tus_matched"])} / {num(m["tus_total"])}' if "tus_total" in m else '<span class="mute">n/a</span>'
+        fn = '{} / {}'.format(*map(num, fns(m))) if fns(m)[1] else '<span class="mute">n/a</span>'
+        tu = '{} / {}'.format(*map(num, tus(m))) if tus(m)[1] else '<span class="mute">n/a</span>'
         ok = '<span class="ok">yes</span>' if m.get("sha_identical") else "no"
         trs.append(f'<tr><td><a href="#{E(m["name"].replace(" ", "-"))}">{E(m["name"])}</a></td>'
                    f'<td>{bar(t, "s")}<b>{t:.2f}%</b></td><td>{bar(w, "s")}<b>{w:.2f}%</b></td><td>{fn}</td><td>{tu}</td><td>{ok}</td></tr>')
@@ -185,7 +195,7 @@ def summary(rows, anchor_rows):
         if a["anchor"] not in by_anchor and not any(a["anchor"].endswith(m.get("binary") or "\0") for m in rows):
             trs.append(f'<tr class="idle"><td>{E(a["anchor"])}</td><td colspan=4 class="mute">not started</td><td>no</td></tr>')
     return ("<table class=sum><thead><tr><th>Binary</th><th>.text matched</th><th>Whole file, same offset</th>"
-            f"<th>Functions</th><th>TUs</th><th>SHA identical</th></tr></thead><tbody>{''.join(trs)}</tbody></table>")
+            f"<th>Functions identical</th><th>TUs fully identical</th><th>SHA identical</th></tr></thead><tbody>{''.join(trs)}</tbody></table>")
 
 
 def anchor_table(anchor_rows):
@@ -197,7 +207,8 @@ def anchor_table(anchor_rows):
 LEGEND = """<details class="legend"><summary>What the numbers mean</summary><dl>
 <dt>.text matched</dt><dd>Code bytes produced by our source that the referee confirms identical to retail (relocations normalized).</dd>
 <dt>Whole file, same offset</dt><dd>Bytes of the rebuilt file that already sit at the same file offset with the same value as retail. 100% here means the files are identical.</dd>
-<dt>Functions / TUs</dt><dd>Functions and source files (translation units) the referee has matched, out of the total in the binary.</dd>
+<dt>Functions identical (referee or in place)</dt><dd>Functions the referee matches, or whose bytes already sit unchanged at the same offset as retail (relocations included).</dd>
+<dt>TUs fully identical</dt><dd>Source files (translation units) whose every function is identical; CRT/library objects are counted separately. Older meters: TUs the referee verified.</dd>
 <dt>Sections</dt><dd>Sizes come straight from the retail anchor's header. Matched and same-offset columns come from the target's referee; "not measured" means its meter doesn't report that section yet.</dd>
 <dt>SHA-256 identical</dt><dd>The rebuilt binary hashes the same as retail: the finish line.</dd></dl></details>"""
 
