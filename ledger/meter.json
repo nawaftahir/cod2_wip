@@ -37,6 +37,6 @@
       "same_offset": 9278
     }
   },
-  "source_commit": "a1eabd307b5979205b9a7c8bd01d72898cb8dd9e",
+  "source_commit": "498723f72c74b6b34864379267f448ef4b6885a4",
   "note": "Function bytes include libraries; game_cpp excludes entire assembly-bearing bodies. Whole-file SHA is the finish line."
 }
