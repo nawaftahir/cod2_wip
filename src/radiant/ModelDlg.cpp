@@ -1,6 +1,9 @@
 /* CModelDlg retail reconstruction. */
 #include "stdafx.h"
 
+static CStringArray g_ModelOptions;
+static CStringArray g_ModelSelected;
+
 class CModelDlg : public CDialog
 {
     DECLARE_DYNAMIC(CModelDlg)
@@ -17,6 +20,7 @@ protected:
     afx_msg void FUN_004239c0();
     afx_msg void FUN_00423a80();
     afx_msg void FUN_00423ae0();
+    afx_msg void FUN_00423d20();
     DECLARE_MESSAGE_MAP()
 };
 
@@ -98,6 +102,28 @@ void CModelDlg::FUN_00423ae0()
             if (index >= 0)
                 ::SendMessageA(to->m_hWnd, LB_SETCURSEL, (WPARAM)index, 0);
         }
+    }
+}
+
+void CModelDlg::FUN_00423d20()
+{
+    CListBox *options = (CListBox *)GetDlgItem(1566);
+    CListBox *selected = (CListBox *)GetDlgItem(1564);
+
+    g_ModelOptions.SetSize(0);
+    for (int i = 0; i < options->GetCount(); ++i)
+    {
+        CString item;
+        options->GetText(i, item);
+        g_ModelOptions.SetAtGrow(g_ModelOptions.GetSize(), item);
+    }
+
+    g_ModelSelected.SetSize(0);
+    for (int i = 0; i < selected->GetCount(); ++i)
+    {
+        CString item;
+        selected->GetText(i, item);
+        g_ModelSelected.SetAtGrow(g_ModelSelected.GetSize(), item);
     }
 }
 
