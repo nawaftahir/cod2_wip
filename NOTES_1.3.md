@@ -347,3 +347,7 @@
 - Com_Init_Try_Block_Function (retail 0x434460, 1351 B): differs by a new multi-core block: retail fn 0x434420 inlined = GetProcessAffinityMask(GetCurrentProcess(),&proc,&sys);
   (proc & (proc-1)) != 0 (more than one CPU), then a string/Com_Printf-like call with 0x1010 flags (LocalAlloc-like 0x1010 arg) and a following dvar. Stack frame 0x20 vs 0x18.
   Not written (out of time); starting point: tools/rdis7.py 434420 / 4345a0.
+- w10 (scr/xanim): unmatched scr/xanim/g_scr fns >=100 B at a227e2e: XAnimCalc 1715, VM_Notify 1584, Scr_ParseGameTypeList 572, EvalPrimitiveExpression 387. Tried (PINNED, 1 build each, all +0 matched, reverted):
+  VM_Notify stack-copy loop as {cv--; newSize++} while (cv->type != PRECODEPOS); XAnimCalc = full server text (grew 1715 -> 1818, worse);
+  EvalPrimitiveExpression server form (separate EvalFloat calls: both float paths inline, 407 B vs retail 387) and label-at-float+goto from minus_float (387 B, but tail store order still [ecx+8],fstp,type vs retail fstp,type,[+8] with ecx=sourcePos/eax=constValue);
+  Scr_ParseGameTypeList n++ after FS_FCloseFile (worse: frame/regs shift). Remaining Scr_ParseGameTypeList delta in the original: epilogue loads ebx(c) before ebp(n), 1 swap.
