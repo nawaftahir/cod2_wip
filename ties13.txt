@@ -1,2 +1,4 @@
 # _$E2: compiler dynamic-initializer label; numbering shifts when a TU with static init (pbcl.cpp) is added
 _$E2
+# 1.3 TLS Sys_GetValue: one instruction-order swap (edx/esi load) in SV_ArchiveSnapshot, +33.8 KB elsewhere (wF)
+?SV_ArchiveSnapshot@@YAXXZ

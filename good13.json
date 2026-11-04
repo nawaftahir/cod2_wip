@@ -3771,8 +3771,10 @@
 {
 "name": "?CM_ModelBounds@@YAXHQAM0@Z",
 "obj": "cm_load.obj",
-"size": 66,
-"hits": []
+"size": 75,
+"hits": [
+"0x415ed0"
+]
 },
 {
 "name": "?CM_Hunk_Alloc@@YAPAXHPBDH@Z",
@@ -4409,7 +4411,7 @@
 {
 "name": "?CM_PointContents@@YAHQBMH@Z",
 "obj": "cm_test.obj",
-"size": 144,
+"size": 149,
 "hits": []
 },
 {
@@ -4455,38 +4457,48 @@
 {
 "name": "?CM_GetTrackThreadInfo@@YAXPAUTraceThreadInfo@@@Z",
 "obj": "cm_trace.obj",
-"size": 42,
-"hits": []
+"size": 53,
+"hits": [
+"0x41b770"
+]
 },
 {
 "name": "?CM_GetBox@@YAXPAPAUcbrush_s@@PAPAUcmodel_s@@@Z",
 "obj": "cm_trace.obj",
-"size": 20,
-"hits": []
+"size": 34,
+"hits": [
+"0x41b7b0"
+]
 },
 {
 "name": "?CM_TempBoxModel@@YAHQBM0H@Z",
 "obj": "cm_trace.obj",
-"size": 93,
+"size": 100,
 "hits": []
 },
 {
 "name": "?CM_ClipHandleToModel@@YAPAUcmodel_s@@H@Z",
 "obj": "cm_trace.obj",
-"size": 31,
-"hits": []
+"size": 41,
+"hits": [
+"0x41b850"
+]
 },
 {
 "name": "?CM_ContentsOfModel@@YAHH@Z",
 "obj": "cm_trace.obj",
-"size": 46,
-"hits": []
+"size": 56,
+"hits": [
+"0x41b880"
+]
 },
 {
 "name": "?CM_RadiusOfModel@@YAMH@Z",
 "obj": "cm_trace.obj",
-"size": 38,
-"hits": []
+"size": 48,
+"hits": [
+"0x41b8c0"
+]
 },
 {
 "name": "?RotatePoint@@YAXQAMQAY02$$CBM@Z",
@@ -4638,20 +4650,24 @@
 {
 "name": "?CM_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cm_trace.obj",
-"size": 1392,
+"size": 1427,
 "hits": []
 },
 {
 "name": "?CM_BoxTrace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cm_trace.obj",
 "size": 77,
-"hits": []
+"hits": [
+"0x41d6b0"
+]
 },
 {
 "name": "?CM_TransformedBoxTrace@@YAXPAUtrace_t@@PBM111HH11@Z",
 "obj": "cm_trace.obj",
 "size": 735,
-"hits": []
+"hits": [
+"0x41d700"
+]
 },
 {
 "name": "?CM_TransformedBoxTraceExternal@@YAXPAUtrace_t@@PBM111HH11@Z",
@@ -4728,7 +4744,7 @@
 {
 "name": "?CM_BoxSightTrace@@YAHHQBM000HH@Z",
 "obj": "cm_trace.obj",
-"size": 1142,
+"size": 1162,
 "hits": []
 },
 {
@@ -4774,7 +4790,7 @@
 {
 "name": "?CM_ClearWorld@@YAXXZ",
 "obj": "cm_world.obj",
-"size": 225,
+"size": 241,
 "hits": []
 },
 {
@@ -4818,7 +4834,7 @@
 {
 "name": "?CM_LinkEntity@@YAXPAUsvEntity_s@@PAM1H@Z",
 "obj": "cm_world.obj",
-"size": 395,
+"size": 411,
 "hits": []
 },
 {
@@ -8480,7 +8496,7 @@
 {
 "name": "?Com_ErrorAbort@@YAXXZ",
 "obj": "common.obj",
-"size": 48,
+"size": 58,
 "hits": []
 },
 {
@@ -8776,8 +8792,10 @@
 {
 "name": "?Com_Init@@YAXPAD@Z",
 "obj": "common.obj",
-"size": 66,
-"hits": []
+"size": 76,
+"hits": [
+"0x434a40"
+]
 },
 {
 "name": "?Com_WriteConfigToFile@@YAXPBD@Z",
@@ -8876,8 +8894,10 @@
 {
 "name": "?Com_StartHunkUsers@@YAXXZ",
 "obj": "common.obj",
-"size": 266,
-"hits": []
+"size": 270,
+"hits": [
+"0x4350f0"
+]
 },
 {
 "name": "?Com_ResetFrametime@@YAXXZ",
@@ -8890,7 +8910,7 @@
 {
 "name": "?Com_Frame@@YAXXZ",
 "obj": "common.obj",
-"size": 86,
+"size": 99,
 "hits": []
 },
 {
@@ -13049,20 +13069,26 @@
 {
 "name": "?CanKeepStringPointer@@YAHPBD@Z",
 "obj": "q_shared.obj",
-"size": 50,
-"hits": []
+"size": 59,
+"hits": [
+"0x44a950"
+]
 },
 {
 "name": "?va@@YAPADPBDZZ",
 "obj": "q_shared.obj",
-"size": 100,
-"hits": []
+"size": 110,
+"hits": [
+"0x44a990"
+]
 },
 {
 "name": "?Com_InitThreadData@@YAXH@Z",
 "obj": "q_shared.obj",
-"size": 54,
-"hits": []
+"size": 84,
+"hits": [
+"0x44aa00"
+]
 },
 {
 "name": "?Com_WideToNarrow@@YAXPBDPADH@Z",
@@ -14710,8 +14736,10 @@
 {
 "name": "?SV_SetBrushModel@@YAXPAUgentity_s@@@Z",
 "obj": "sv_game_mp.obj",
-"size": 159,
-"hits": []
+"size": 164,
+"hits": [
+"0x456830"
+]
 },
 {
 "name": "?SV_inSnapshot@@YAHPBMH@Z",
@@ -14724,8 +14752,10 @@
 {
 "name": "?SV_EntityContact@@YAHQBM0PBUgentity_s@@@Z",
 "obj": "sv_game_mp.obj",
-"size": 517,
-"hits": []
+"size": 533,
+"hits": [
+"0x456a30"
+]
 },
 {
 "name": "?SV_GetServerinfo@@YAXPADH@Z",
@@ -15340,9 +15370,7 @@
 "name": "?SVC_Status@@YAXUnetadr_t@@@Z",
 "obj": "sv_main_mp.obj",
 "size": 975,
-"hits": [
-"0x45a880"
-]
+"hits": []
 },
 {
 "name": "?SVC_GameCompleteStatus@@YAXUnetadr_t@@@Z",
@@ -15697,9 +15725,7 @@
 "name": "?SV_ArchiveSnapshot@@YAXXZ",
 "obj": "sv_snapshot_mp.obj",
 "size": 2783,
-"hits": [
-"0x45f740"
-]
+"hits": []
 },
 {
 "name": "?SV_SendClientMessages@@YAXXZ",
@@ -15768,8 +15794,10 @@
 {
 "name": "?SV_ClipHandleForEntity@@YAHPBUgentity_s@@@Z",
 "obj": "sv_world_mp.obj",
-"size": 47,
-"hits": []
+"size": 49,
+"hits": [
+"0x460b10"
+]
 },
 {
 "name": "?SV_UnlinkEntity@@YAXPAUgentity_s@@@Z",
@@ -15790,8 +15818,10 @@
 {
 "name": "?SV_LinkEntity@@YAXPAUgentity_s@@@Z",
 "obj": "sv_world_mp.obj",
-"size": 1401,
-"hits": []
+"size": 1332,
+"hits": [
+"0x460be0"
+]
 },
 {
 "name": "?SV_ClipMoveToEntity@@YAXPAUmoveclip_t@@PAUsvEntity_s@@PAUtrace_t@@@Z",
@@ -15812,8 +15842,10 @@
 {
 "name": "?SV_ClipSightToEntity@@YAHPAUsightclip_t@@PAUsvEntity_s@@@Z",
 "obj": "sv_world_mp.obj",
-"size": 219,
-"hits": []
+"size": 179,
+"hits": [
+"0x4615d0"
+]
 },
 {
 "name": "?SV_PointSightTraceToEntity@@YAHPAUsightpointtrace_t@@PAUsvEntity_s@@@Z",
@@ -15827,7 +15859,9 @@
 "name": "?SV_Trace@@YAXPAUtrace_t@@PBM111HHHPAEH@Z",
 "obj": "sv_world_mp.obj",
 "size": 678,
-"hits": []
+"hits": [
+"0x461910"
+]
 },
 {
 "name": "?SV_TracePassed@@YAHPBM000HHHHH@Z",
@@ -15864,31 +15898,131 @@
 {
 "name": "?SV_PointContents@@YAHQBMHH@Z",
 "obj": "sv_world_mp.obj",
-"size": 367,
-"hits": []
+"size": 262,
+"hits": [
+"0x462250"
+]
 },
 {
 "name": "?Sys_InitMainThread@@YAXXZ",
 "obj": "win_threads.obj",
-"size": 42,
+"size": 85,
+"hits": []
+},
+{
+"name": "?Sys_ThreadMain@@YGKPAX@Z",
+"obj": "win_threads.obj",
+"size": 36,
+"hits": [
+"0x4623c0"
+]
+},
+{
+"name": "?Sys_CreateThread_4623f0@@YAEP6AXXZ@Z",
+"obj": "win_threads.obj",
+"size": 106,
+"hits": [
+"0x4623f0"
+]
+},
+{
+"name": "?Sys_ResumeThread_462460@@YAXH@Z",
+"obj": "win_threads.obj",
+"size": 15,
+"hits": []
+},
+{
+"name": "?Sys_ClearFlag_462480@@YAJXZ",
+"obj": "win_threads.obj",
+"size": 14,
+"hits": []
+},
+{
+"name": "?Sys_SetEventD_462490@@YAXXZ",
+"obj": "win_threads.obj",
+"size": 13,
+"hits": []
+},
+{
+"name": "?Sys_Handshake_4624a0@@YAXXZ",
+"obj": "win_threads.obj",
+"size": 62,
+"hits": [
+"0x4624a0"
+]
+},
+{
+"name": "?Sys_WaitEventD_4624e0@@YAXXZ",
+"obj": "win_threads.obj",
+"size": 15,
+"hits": []
+},
+{
+"name": "?Sys_SignalB_4624f0@@YAXH@Z",
+"obj": "win_threads.obj",
+"size": 36,
+"hits": [
+"0x4624f0"
+]
+},
+{
+"name": "?Sys_EventAPending_462520@@YAEXZ",
+"obj": "win_threads.obj",
+"size": 23,
+"hits": []
+},
+{
+"name": "?Sys_SignalCWaitA_462540@@YAXXZ",
+"obj": "win_threads.obj",
+"size": 28,
+"hits": []
+},
+{
+"name": "?Sys_IsSecondThread_462560@@YAEXZ",
+"obj": "win_threads.obj",
+"size": 16,
 "hits": []
 },
 {
 "name": "?Sys_IsMainThread@@YAEXZ",
 "obj": "win_threads.obj",
-"size": 18,
+"size": 16,
 "hits": []
 },
 {
 "name": "?Sys_SetValue@@YAXHPAX@Z",
 "obj": "win_threads.obj",
-"size": 8,
-"hits": []
+"size": 24,
+"hits": [
+"0x4625a0"
+]
 },
 {
 "name": "?Sys_GetValue@@YAPAXH@Z",
 "obj": "win_threads.obj",
-"size": 12,
+"size": 20,
+"hits": [
+"0x4625c0"
+]
+},
+{
+"name": "?Sys_WaitEventB_4625e0@@YAXXZ",
+"obj": "win_threads.obj",
+"size": 18,
+"hits": []
+},
+{
+"name": "?Sys_SuspendOtherThreads_462600@@YAXXZ",
+"obj": "win_threads.obj",
+"size": 58,
+"hits": [
+"0x462600"
+]
+},
+{
+"name": "?Sys_SetEventA_462640@@YAXXZ",
+"obj": "win_threads.obj",
+"size": 13,
 "hits": []
 },
 {
@@ -16317,7 +16451,7 @@
 ]
 },
 {
-"name": "$L96608",
+"name": "$L96633",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -16769,7 +16903,7 @@
 {
 "name": "_WinMain@16",
 "obj": "win_main.obj",
-"size": 486,
+"size": 449,
 "hits": []
 },
 {
@@ -27100,7 +27234,9 @@
 "name": "?Trace@FxHelper@@QAEXPAUtrace_t@@QBM111HH@Z",
 "obj": "FxSystem.obj",
 "size": 98,
-"hits": []
+"hits": [
+"0x49b3e0"
+]
 },
 {
 "name": "?AddFxToScene@FxHelper@@QAEXPAUGfxEntity@@PAUXModel@@@Z",
@@ -30919,7 +31055,7 @@
 ]
 },
 {
-"name": "$L118210",
+"name": "$L118243",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -30927,7 +31063,7 @@
 ]
 },
 {
-"name": "$L118212",
+"name": "$L118245",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -30957,7 +31093,7 @@
 ]
 },
 {
-"name": "$L132085",
+"name": "$L132120",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -30965,7 +31101,7 @@
 ]
 },
 {
-"name": "$L132087",
+"name": "$L132122",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -31025,7 +31161,7 @@
 ]
 },
 {
-"name": "$L104312",
+"name": "$L104361",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -31041,7 +31177,7 @@
 ]
 },
 {
-"name": "$L147417",
+"name": "$L147452",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -32872,7 +33008,9 @@
 "name": "?DSound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@Z",
 "obj": "play_dsound.obj",
 "size": 500,
-"hits": []
+"hits": [
+"0x4ba470"
+]
 },
 {
 "name": "?DSound_AdjustSamplePlayback@@YAXPAUdsound_sample_t@@H@Z",
@@ -37130,7 +37268,7 @@
 {
 "name": "?CG_BuildSolidList@@YAXXZ",
 "obj": "cg_predict_mp.obj",
-"size": 210,
+"size": 237,
 "hits": []
 },
 {
@@ -37144,20 +37282,24 @@
 {
 "name": "?CG_ClipMoveToEntities@@YAXPBM000HHHPAUtrace_t@@@Z",
 "obj": "cg_predict_mp.obj",
-"size": 964,
+"size": 1003,
 "hits": []
 },
 {
 "name": "?CG_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cg_predict_mp.obj",
-"size": 149,
-"hits": []
+"size": 150,
+"hits": [
+"0x4de690"
+]
 },
 {
 "name": "?CG_PointContents@@YAHPBMHH@Z",
 "obj": "cg_predict_mp.obj",
-"size": 115,
-"hits": []
+"size": 132,
+"hits": [
+"0x4de730"
+]
 },
 {
 "name": "?CG_InterpolatePlayerState@@YAXH@Z",
@@ -40013,8 +40155,10 @@
 {
 "name": "?G_RunFrameForEntity@@YAXPAUgentity_s@@@Z",
 "obj": "g_main_mp.obj",
-"size": 275,
-"hits": []
+"size": 273,
+"hits": [
+"0x4fd090"
+]
 },
 {
 "name": "?G_RunFrame@@YAXH@Z",
@@ -40184,8 +40328,10 @@
 {
 "name": "?G_TouchTriggers@@YAXPAUgentity_s@@@Z",
 "obj": "g_active_mp.obj",
-"size": 576,
-"hits": []
+"size": 558,
+"hits": [
+"0x4ff0a0"
+]
 },
 {
 "name": "?SpectatorThink@@YAXPAUgentity_s@@PAUusercmd_s@@@Z",
@@ -40244,14 +40390,18 @@
 {
 "name": "?G_AddPlayerMantleBlockage@@YAXPAMHPAUpmove_t@@@Z",
 "obj": "g_active_mp.obj",
-"size": 266,
-"hits": []
+"size": 270,
+"hits": [
+"0x4ffcd0"
+]
 },
 {
 "name": "?ClientThink_real@@YAXPAUgentity_s@@PAUusercmd_s@@@Z",
 "obj": "g_active_mp.obj",
-"size": 1641,
-"hits": []
+"size": 1643,
+"hits": [
+"0x4ffde0"
+]
 },
 {
 "name": "?ClientThink@@YAXH@Z",
@@ -40264,8 +40414,10 @@
 {
 "name": "?G_RunClient@@YAXPAUgentity_s@@@Z",
 "obj": "g_active_mp.obj",
-"size": 411,
-"hits": []
+"size": 410,
+"hits": [
+"0x5004f0"
+]
 },
 {
 "name": "?ClientIntermission@@YAXPAUgentity_s@@@Z",
@@ -40402,8 +40554,10 @@
 {
 "name": "?Cmd_Give_f@@YAXPAUgentity_s@@@Z",
 "obj": "g_cmds_mp.obj",
-"size": 819,
-"hits": []
+"size": 813,
+"hits": [
+"0x501970"
+]
 },
 {
 "name": "?Cmd_Take_f@@YAXPAUgentity_s@@@Z",
@@ -41044,8 +41198,10 @@
 {
 "name": "?ScrCmd_IsTouching@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
-"size": 292,
-"hits": []
+"size": 295,
+"hits": [
+"0x506360"
+]
 },
 {
 "name": "?ScrCmd_SoundExists@@YAXXZ",
@@ -41098,8 +41254,10 @@
 {
 "name": "?ScrCmd_SetModel@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
-"size": 147,
-"hits": []
+"size": 155,
+"hits": [
+"0x5067f0"
+]
 },
 {
 "name": "?ScrCmd_GetNormalHealth@@YAXUscr_entref_t@@@Z",
@@ -41144,8 +41302,10 @@
 {
 "name": "?ScrCmd_SetContents@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_main_mp.obj",
-"size": 107,
-"hits": []
+"size": 108,
+"hits": [
+"0x506c40"
+]
 },
 {
 "name": "?Scr_SetStableMissile@@YAXUscr_entref_t@@@Z",
@@ -41822,8 +41982,10 @@
 {
 "name": "?Scr_PlayLoopedFX@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
-"size": 891,
-"hits": []
+"size": 890,
+"hits": [
+"0x50a770"
+]
 },
 {
 "name": "?Scr_SetFog@@YAXPBDMMMMMMM@Z",
@@ -42272,8 +42434,10 @@
 {
 "name": "?Scr_SetOrigin@@YAXPAUgentity_s@@H@Z",
 "obj": "g_scr_main_mp.obj",
-"size": 108,
-"hits": []
+"size": 107,
+"hits": [
+"0x50d3e0"
+]
 },
 {
 "name": "?Scr_SetAngles@@YAXPAUgentity_s@@H@Z",
@@ -42311,7 +42475,9 @@
 "name": "?Scr_ParseGameTypeList@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 572,
-"hits": []
+"hits": [
+"0x50d520"
+]
 },
 {
 "name": "?Scr_GetGameTypeNameForScript@@YAPADPBD@Z",
@@ -42686,8 +42852,10 @@
 {
 "name": "?G_GeneralLink@@YAXPAUgentity_s@@@Z",
 "obj": "g_utils_mp.obj",
-"size": 247,
-"hits": []
+"size": 244,
+"hits": [
+"0x50f140"
+]
 },
 {
 "name": "?G_SafeDObjFree@@YAXPAUgentity_s@@@Z",
@@ -42862,8 +43030,10 @@
 {
 "name": "?G_TempEntity@@YAPAUgentity_s@@QBMH@Z",
 "obj": "g_utils_mp.obj",
-"size": 254,
-"hits": []
+"size": 258,
+"hits": [
+"0x50ff70"
+]
 },
 {
 "name": "?G_KillBox@@YAXPAUgentity_s@@@Z",
@@ -43050,14 +43220,18 @@
 {
 "name": "?G_CallSpawn@@YAXXZ",
 "obj": "g_spawn_mp.obj",
-"size": 231,
-"hits": []
+"size": 229,
+"hits": [
+"0x510c30"
+]
 },
 {
 "name": "?G_CallSpawnEntity@@YAHPAUgentity_s@@@Z",
 "obj": "g_spawn_mp.obj",
 "size": 233,
-"hits": []
+"hits": [
+"0x510d20"
+]
 },
 {
 "name": "?GScr_AddFieldsForEntity@@YAXXZ",
@@ -44054,14 +44228,18 @@
 {
 "name": "?TeleportPlayer@@YAXPAUgentity_s@@PAM1@Z",
 "obj": "g_misc_mp.obj",
-"size": 206,
-"hits": []
+"size": 210,
+"hits": [
+"0x51baf0"
+]
 },
 {
 "name": "?use_corona@@YAXPAUgentity_s@@00@Z",
 "obj": "g_misc_mp.obj",
-"size": 82,
-"hits": []
+"size": 79,
+"hits": [
+"0x51bbe0"
+]
 },
 {
 "name": "?G_InitTurrets@@YAXXZ",
@@ -44090,8 +44268,10 @@
 {
 "name": "?G_PlayerTurretPositionAndBlend@@YAXPAUgentity_s@@0@Z",
 "obj": "g_misc_mp.obj",
-"size": 2315,
-"hits": []
+"size": 2319,
+"hits": [
+"0x51bdf0"
+]
 },
 {
 "name": "?turret_clientaim@@YAXPAUgentity_s@@0@Z",
@@ -44160,8 +44340,10 @@
 {
 "name": "?turret_think@@YAXPAUgentity_s@@@Z",
 "obj": "g_misc_mp.obj",
-"size": 118,
-"hits": []
+"size": 120,
+"hits": [
+"0x51cc40"
+]
 },
 {
 "name": "?turret_think_init@@YAXPAUgentity_s@@@Z",
@@ -44214,8 +44396,10 @@
 {
 "name": "?G_SpawnTurret@@YAXPAUgentity_s@@PBD@Z",
 "obj": "g_misc_mp.obj",
-"size": 1581,
-"hits": []
+"size": 1591,
+"hits": [
+"0x51d4b0"
+]
 },
 {
 "name": "?SP_turret@@YAXPAUgentity_s@@@Z",
@@ -44252,8 +44436,10 @@
 {
 "name": "?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z",
 "obj": "g_items_mp.obj",
-"size": 1631,
-"hits": []
+"size": 1616,
+"hits": [
+"0x51dea0"
+]
 },
 {
 "name": "?Pickup_Health@@YAHPAUgentity_s@@0@Z",
@@ -44314,8 +44500,10 @@
 {
 "name": "?LaunchItem@@YAPAUgentity_s@@PBUgitem_s@@PAM1H@Z",
 "obj": "g_items_mp.obj",
-"size": 400,
-"hits": []
+"size": 404,
+"hits": [
+"0x51ebc0"
+]
 },
 {
 "name": "?Drop_Item@@YAPAUgentity_s@@PAU1@PBUgitem_s@@MH@Z",
@@ -44336,8 +44524,10 @@
 {
 "name": "?FinishSpawningItem@@YAXPAUgentity_s@@@Z",
 "obj": "g_items_mp.obj",
-"size": 1132,
-"hits": []
+"size": 1136,
+"hits": [
+"0x51f3f0"
+]
 },
 {
 "name": "?ClearRegisteredItems@@YAXXZ",
@@ -44388,14 +44578,18 @@
 {
 "name": "?G_SpawnItem@@YAXPAUgentity_s@@PBUgitem_s@@@Z",
 "obj": "g_items_mp.obj",
-"size": 583,
-"hits": []
+"size": 581,
+"hits": [
+"0x51fc00"
+]
 },
 {
 "name": "?G_BounceCorpse@@YAXPAUgentity_s@@PAUcorpseInfo_t@@PAUtrace_t@@PAM@Z",
 "obj": "g_items_mp.obj",
-"size": 658,
-"hits": []
+"size": 660,
+"hits": [
+"0x51fe50"
+]
 },
 {
 "name": "?G_OrientItemToGround@@YAXPAUgentity_s@@PAUtrace_t@@@Z",
@@ -44416,8 +44610,10 @@
 {
 "name": "?G_RunCorpseMove@@YAXPAUgentity_s@@@Z",
 "obj": "g_items_mp.obj",
-"size": 1022,
-"hits": []
+"size": 1026,
+"hits": [
+"0x5202b0"
+]
 },
 {
 "name": "?G_RunCorpseAnimate@@YAXPAUgentity_s@@@Z",
@@ -44438,8 +44634,10 @@
 {
 "name": "?G_RunItem@@YAXPAUgentity_s@@@Z",
 "obj": "g_items_mp.obj",
-"size": 848,
-"hits": []
+"size": 856,
+"hits": [
+"0x5207b0"
+]
 },
 {
 "name": "?OnSameTeam@@YAHPAUgentity_s@@0@Z",
@@ -44484,14 +44682,18 @@
 {
 "name": "?G_MissileImpact@@YAXPAUgentity_s@@PAUtrace_t@@PAM2@Z",
 "obj": "g_missile_mp.obj",
-"size": 770,
-"hits": []
+"size": 772,
+"hits": [
+"0x521370"
+]
 },
 {
 "name": "?G_ExplodeMissile@@YAXPAUgentity_s@@@Z",
 "obj": "g_missile_mp.obj",
-"size": 612,
-"hits": []
+"size": 614,
+"hits": [
+"0x521680"
+]
 },
 {
 "name": "?G_MissileTrace@@YAXPAUtrace_t@@PBM1HH@Z",
@@ -44534,8 +44736,10 @@
 {
 "name": "?G_RunMissile@@YAXPAUgentity_s@@@Z",
 "obj": "g_missile_mp.obj",
-"size": 1058,
-"hits": []
+"size": 1060,
+"hits": [
+"0x521cb0"
+]
 },
 {
 "name": "?fire_grenade@@YAPAUgentity_s@@PAU1@PAM1HH@Z",
@@ -44588,8 +44792,10 @@
 {
 "name": "?player_die@@YAXPAUgentity_s@@00HHHPBMHH@Z",
 "obj": "g_combat_mp.obj",
-"size": 802,
-"hits": []
+"size": 806,
+"hits": [
+"0x522890"
+]
 },
 {
 "name": "?G_GetWeaponHitLocationMultiplier@@YAMHH@Z",
@@ -44656,8 +44862,10 @@
 {
 "name": "?InitTrigger@@YAXPAUgentity_s@@@Z",
 "obj": "g_trigger_mp.obj",
-"size": 37,
-"hits": []
+"size": 39,
+"hits": [
+"0x5236b0"
+]
 },
 {
 "name": "?InitTriggerWait@@YAXPAUgentity_s@@H@Z",
@@ -44694,20 +44902,26 @@
 {
 "name": "?SP_trigger_multiple@@YAXPAUgentity_s@@@Z",
 "obj": "g_trigger_mp.obj",
-"size": 68,
-"hits": []
+"size": 72,
+"hits": [
+"0x523800"
+]
 },
 {
 "name": "?SP_trigger_radius@@YAXPAUgentity_s@@@Z",
 "obj": "g_trigger_mp.obj",
-"size": 390,
-"hits": []
+"size": 389,
+"hits": [
+"0x523850"
+]
 },
 {
 "name": "?SP_trigger_disk@@YAXPAUgentity_s@@@Z",
 "obj": "g_trigger_mp.obj",
-"size": 208,
-"hits": []
+"size": 207,
+"hits": [
+"0x5239e0"
+]
 },
 {
 "name": "?hurt_touch@@YAXPAUgentity_s@@0H@Z",
@@ -44728,14 +44942,18 @@
 {
 "name": "?SP_trigger_hurt@@YAXPAUgentity_s@@@Z",
 "obj": "g_trigger_mp.obj",
-"size": 113,
-"hits": []
+"size": 111,
+"hits": [
+"0x523b70"
+]
 },
 {
 "name": "?SP_trigger_once@@YAXPAUgentity_s@@@Z",
 "obj": "g_trigger_mp.obj",
-"size": 69,
-"hits": []
+"size": 76,
+"hits": [
+"0x523be0"
+]
 },
 {
 "name": "?Respond_trigger_damage@@YAHPAUgentity_s@@H@Z",
@@ -44780,8 +44998,10 @@
 {
 "name": "?SP_trigger_damage@@YAXPAUgentity_s@@@Z",
 "obj": "g_trigger_mp.obj",
-"size": 170,
-"hits": []
+"size": 169,
+"hits": [
+"0x523e20"
+]
 },
 {
 "name": "?G_CheckHitTriggerDamage@@YAXPAUgentity_s@@QBM1HH@Z",
@@ -44802,8 +45022,10 @@
 {
 "name": "?SP_trigger_lookat@@YAXPAUgentity_s@@@Z",
 "obj": "g_trigger_mp.obj",
-"size": 48,
-"hits": []
+"size": 50,
+"hits": [
+"0x524200"
+]
 },
 {
 "name": "?G_TestEntityPosition@@YAPAUgentity_s@@PAU1@PAM@Z",
@@ -44851,26 +45073,34 @@
 {
 "name": "?G_MoverPush@@YA_NPAUgentity_s@@QAM1PAPAU1@@Z",
 "obj": "g_mover_mp.obj",
-"size": 1437,
-"hits": []
+"size": 1441,
+"hits": [
+"0x524840"
+]
 },
 {
 "name": "?G_MoverTeam@@YAXPAUgentity_s@@@Z",
 "obj": "g_mover_mp.obj",
-"size": 583,
-"hits": []
+"size": 591,
+"hits": [
+"0x524df0"
+]
 },
 {
 "name": "?G_RunMover@@YAXPAUgentity_s@@@Z",
 "obj": "g_mover_mp.obj",
-"size": 115,
-"hits": []
+"size": 119,
+"hits": [
+"0x525040"
+]
 },
 {
 "name": "?trigger_use_shared@@YAXPAUgentity_s@@@Z",
 "obj": "g_mover_mp.obj",
 "size": 501,
-"hits": []
+"hits": [
+"0x5250d0"
+]
 },
 {
 "name": "?trigger_use@@YAXPAUgentity_s@@@Z",
@@ -45391,14 +45621,18 @@
 {
 "name": "?G_AntiLagRewindClientPos@@YAXHPAUAntilagClientStore@@@Z",
 "obj": "g_weapon_mp.obj",
-"size": 259,
-"hits": []
+"size": 263,
+"hits": [
+"0x527520"
+]
 },
 {
 "name": "?G_AntiLag_RestoreClientPos@@YAXPAUAntilagClientStore@@@Z",
 "obj": "g_weapon_mp.obj",
-"size": 177,
-"hits": []
+"size": 185,
+"hits": [
+"0x527630"
+]
 },
 {
 "name": "?Bullet_Fire_Extended@@YAXPBUgentity_s@@PAU1@QAM2MHPBUweaponParms@@0H@Z",
@@ -45537,8 +45771,10 @@
 {
 "name": "?Reached_ScriptMover@@YAXPAUgentity_s@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 360,
-"hits": []
+"size": 362,
+"hits": [
+"0x528530"
+]
 },
 {
 "name": "?ScriptMover_SetupMove@@YAXPAUtrajectory_t@@QBMMMMQAMPAM33222@Z",
@@ -45559,26 +45795,34 @@
 {
 "name": "?ScriptMover_Move@@YAXPAUgentity_s@@QBMMMM@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 90,
-"hits": []
+"size": 87,
+"hits": [
+"0x528cf0"
+]
 },
 {
 "name": "?ScriptMover_GravityMove@@YAXPAUgentity_s@@QBMM@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 104,
-"hits": []
+"size": 103,
+"hits": [
+"0x528d50"
+]
 },
 {
 "name": "?ScriptMover_Rotate@@YAXPAUgentity_s@@QBMMMM@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 90,
-"hits": []
+"size": 87,
+"hits": [
+"0x528dc0"
+]
 },
 {
 "name": "?ScriptMover_RotateSpeed@@YAXPAUgentity_s@@PBMMMM@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 85,
-"hits": []
+"size": 84,
+"hits": [
+"0x528e20"
+]
 },
 {
 "name": "?InitScriptMover@@YAXPAUgentity_s@@@Z",
@@ -45591,20 +45835,26 @@
 {
 "name": "?SP_script_brushmodel@@YAXPAUgentity_s@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 34,
-"hits": []
+"size": 36,
+"hits": [
+"0x529010"
+]
 },
 {
 "name": "?SP_script_model@@YAXPAUgentity_s@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 41,
-"hits": []
+"size": 53,
+"hits": [
+"0x529040"
+]
 },
 {
 "name": "?SP_script_origin@@YAXPAUgentity_s@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 50,
-"hits": []
+"size": 54,
+"hits": [
+"0x529080"
+]
 },
 {
 "name": "?ScriptEntCmdGetCommandTimes@@YAXPAM00@Z",
@@ -45618,19 +45868,25 @@
 "name": "?ScriptEntCmd_MoveTo@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_mover_mp.obj",
 "size": 195,
-"hits": []
+"hits": [
+"0x5291c0"
+]
 },
 {
 "name": "?ScriptEntCmd_GravityMove@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 178,
-"hits": []
+"size": 176,
+"hits": [
+"0x529290"
+]
 },
 {
 "name": "?ScriptEnt_MoveAxis@@YAXUscr_entref_t@@H@Z",
 "obj": "g_scr_mover_mp.obj",
 "size": 241,
-"hits": []
+"hits": [
+"0x529340"
+]
 },
 {
 "name": "?ScriptEntCmd_MoveX@@YAXUscr_entref_t@@@Z",
@@ -45664,14 +45920,18 @@
 {
 "name": "?ScriptEntCmd_RotateTo@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 297,
-"hits": []
+"size": 296,
+"hits": [
+"0x529470"
+]
 },
 {
 "name": "?ScriptEnt_RotateAxis@@YAXUscr_entref_t@@H@Z",
 "obj": "g_scr_mover_mp.obj",
 "size": 241,
-"hits": []
+"hits": [
+"0x5295a0"
+]
 },
 {
 "name": "?ScriptEntCmd_RotatePitch@@YAXUscr_entref_t@@@Z",
@@ -45705,20 +45965,26 @@
 {
 "name": "?ScriptEntCmd_RotateVelocity@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 196,
-"hits": []
+"size": 252,
+"hits": [
+"0x5296d0"
+]
 },
 {
 "name": "?ScriptEntCmd_Solid@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 210,
-"hits": []
+"size": 218,
+"hits": [
+"0x5297d0"
+]
 },
 {
 "name": "?ScriptEntCmd_NotSolid@@YAXUscr_entref_t@@@Z",
 "obj": "g_scr_mover_mp.obj",
-"size": 188,
-"hits": []
+"size": 192,
+"hits": [
+"0x5298b0"
+]
 },
 {
 "name": "?ScriptEnt_GetMethod@@YAP6AXUscr_entref_t@@@ZPAPBD@Z",
@@ -45838,8 +46104,10 @@
 {
 "name": "?PlayerCmd_setOrigin@@YAXUscr_entref_t@@@Z",
 "obj": "g_client_script_cmd_mp.obj",
-"size": 326,
-"hits": []
+"size": 327,
+"hits": [
+"0x52a7e0"
+]
 },
 {
 "name": "?PlayerCmd_setAngles@@YAXUscr_entref_t@@@Z",
@@ -46094,8 +46362,10 @@
 {
 "name": "?PlayerCmd_ClonePlayer@@YAXUscr_entref_t@@@Z",
 "obj": "g_client_script_cmd_mp.obj",
-"size": 824,
-"hits": []
+"size": 823,
+"hits": [
+"0x52cd00"
+]
 },
 {
 "name": "?PlayerCmd_SetClientDvar@@YAXUscr_entref_t@@@Z",
@@ -46267,7 +46537,9 @@
 "name": "?Player_GetUseList@@YAHPAUgentity_s@@PAUuseList_t@@@Z",
 "obj": "player_use_mp.obj",
 "size": 1490,
-"hits": []
+"hits": [
+"0x52e350"
+]
 },
 {
 "name": "?Player_GetItemCursorHint@@YAHPAUgclient_s@@PAUgentity_s@@@Z",
@@ -65819,6 +66091,129 @@
 "thunk": 1
 },
 {
+"name": "_TlsGetValue@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c78"
+],
+"thunk": 1
+},
+{
+"name": "_WaitForSingleObject@8",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c7e"
+],
+"thunk": 1
+},
+{
+"name": "_SetEvent@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c84"
+],
+"thunk": 1
+},
+{
+"name": "_GetCurrentThread@0",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": []
+},
+{
+"name": "_TlsSetValue@8",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c90"
+],
+"thunk": 1
+},
+{
+"name": "_CreateEventA@16",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c96"
+],
+"thunk": 1
+},
+{
+"name": "_InterlockedExchange@8",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c9c"
+],
+"thunk": 1
+},
+{
+"name": "_ResetEvent@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547ca2"
+],
+"thunk": 1
+},
+{
+"name": "_WaitForMultipleObjects@16",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547ca8"
+],
+"thunk": 1
+},
+{
+"name": "_DuplicateHandle@28",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547cae"
+],
+"thunk": 1
+},
+{
+"name": "_TlsAlloc@0",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547cb4"
+],
+"thunk": 1
+},
+{
+"name": "_SuspendThread@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547cba"
+],
+"thunk": 1
+},
+{
+"name": "_ResumeThread@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547cc0"
+],
+"thunk": 1
+},
+{
+"name": "_CreateThread@24",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547cc6"
+],
+"thunk": 1
+},
+{
 "name": "_GlobalMemoryStatus@4",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
@@ -70975,15 +71370,6 @@
 "thunk": 1
 },
 {
-"name": "_TlsAlloc@0",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547cb4"
-],
-"thunk": 1
-},
-{
 "name": "_SetLastError@4",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
@@ -70993,35 +71379,11 @@
 "thunk": 1
 },
 {
-"name": "_GetCurrentThread@0",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": []
-},
-{
 "name": "_TlsFree@4",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
 "hits": [
 "0x58cc60"
-],
-"thunk": 1
-},
-{
-"name": "_TlsSetValue@8",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547c90"
-],
-"thunk": 1
-},
-{
-"name": "_TlsGetValue@4",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547c78"
 ],
 "thunk": 1
 },
@@ -71349,15 +71711,6 @@
 "size": 6,
 "hits": [
 "0x58cd3e"
-],
-"thunk": 1
-},
-{
-"name": "_InterlockedExchange@8",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547c9c"
 ],
 "thunk": 1
 },
@@ -72684,7 +73037,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 2752,
+"size": 1888,
 "hits": []
 }
 ]
