@@ -25,6 +25,7 @@ void FFT_Init(int *fftBitswap, complex_s *fftTrigTable)
 	}
 }
 
+#pragma optimize("y", off)
 void FFT(complex_s *data, unsigned long log2_count, unsigned long stride, int *bitSwap, complex_s *trigTable)
 {
 	int count;
@@ -126,3 +127,4 @@ void FFT(complex_s *data, unsigned long log2_count, unsigned long stride, int *b
 		bitshave--;
 	}
 }
+#pragma optimize("", on)

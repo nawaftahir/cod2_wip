@@ -4,7 +4,7 @@ import subprocess
 import tempfile
 
 text = (Path(__file__).resolve().parents[1] / 'src/universal/fft.cpp').read_text()
-source = text[text.index('void FFT(complex_s *data,'):]
+source = text[text.index('void FFT('):]
 program = r'''
 #include <cassert>
 #include <cmath>

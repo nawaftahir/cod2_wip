@@ -1,3 +1,13 @@
+## Gamma/capture and compiler-policy update - 2026-11-04
+
+No TU link slot, data owner or shared-helper definition moved. Gamma/capture
+adds475 pure C++ bytes plus157 separately excluded rounding bytes. Ownership
+and assignment queues are refreshed from the current PDB/map/referees. FFT
+has a function-local frame-pointer recipe matching the observed prologue;
+529/532 is unverified and does not establish historical flags. The matrix-
+typed bounds draft443/441 is also unverified; its matching lighting helper
+stays in r_staticmodel_load_obj.cpp. No private helper copies or roots added.
+
 ## Parser emission boundary - 2026-11-04
 
 Material_LoadPassVertexDecl587 is byte/binding matched with one shared source

@@ -1,0 +1,26 @@
+{
+  "status": "UNVERIFIED drafts; zero additional coverage",
+  "bounds": {
+    "target": "0x1002a360",
+    "target_bytes": 441,
+    "candidate_bytes": 443,
+    "interface": "model, const vec3_t axis[3], mins, maxs",
+    "remaining": "matrix increment and surface-entry registers, x87 product/compare ordering, final free register",
+    "native_cases": 324,
+    "next": "Test the original-style component loop using existing int i rather than more hand-unrolled term permutations."
+  },
+  "FFT": {
+    "target": "0x1005ee60",
+    "target_bytes": 532,
+    "candidate_bytes": 529,
+    "remaining": "data Stack vs ESI promotion and coupled water-wrapper calling/register shape",
+    "native_cases": 168,
+    "rejected": "parameter cursor, counter timing, volatile parameter capture; all interface changes restored"
+  },
+  "sha256": {
+    "src/gfx_d3d/r_staticmodel_load_obj.cpp": "e8269bb397e867c021fdebaa4d3475f7bf4fe462ba5e4604fb1604a600ec4990",
+    "src/universal/fft.cpp": "0508c51a7e19884b230147426c2497afe0c6c7ea75ea801f5c02be9058270823",
+    "tests/test_static_model_bounds.py": "b2492b8697f3923a83fda75b6ce9d95ca5e791f9578c42ec21559d8a2c1232ea",
+    "tests/test_fft.py": "5ec71df078bdd53b82afbc0246a302385f7df91146760931c4dd7cbd53953d31"
+  }
+}

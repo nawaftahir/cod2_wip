@@ -2370,7 +2370,9 @@
 "name": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
 "obj": "r_init.obj",
 "size": 157,
-"hits": []
+"hits": [
+"0x10011f10"
+]
 },
 {
 "name": "?R_SetColorMappings@@YAXXZ",
@@ -5965,9 +5967,9 @@
 "hits": []
 },
 {
-"name": "?R_StaticModelBounds@@YAXPAUXModel@@PBMPAM2@Z",
+"name": "?R_StaticModelBounds@@YAXPAUXModel@@PAY02$$CBMPAM2@Z",
 "obj": "r_staticmodel_load_obj.obj",
-"size": 406,
+"size": 443,
 "hits": []
 },
 {
@@ -6305,7 +6307,7 @@
 {
 "name": "?R_WaterFFT@@YAXPAUwater_t@@PAUcomplex_s@@@Z",
 "obj": "r_water.obj",
-"size": 181,
+"size": 179,
 "hits": []
 },
 {
@@ -12556,7 +12558,7 @@
 {
 "name": "?FFT@@YAXPAUcomplex_s@@KKPAH0@Z",
 "obj": "fft.obj",
-"size": 556,
+"size": 529,
 "hits": []
 },
 {

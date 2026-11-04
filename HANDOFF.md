@@ -1,3 +1,19 @@
+## Gamma and capture checkpoint - 2026-11-04
+
+C++118123/253580=46.582143702%,728 bodies; +475B/+4 sincecf81838.
+New verified C++: mappings10011fb0/38, software gamma10011fe0/82,
+cubemap capture100268b0/99, EndFrame10033b20/256. Gamma builder
+10011f10/157 also matches, but contains unchanged rounding assembly and is
+excluded.39 assembly-bearing bodies/9546 bytes total. All2521 protected
+extents survive;20 new retention negatives reject missing/unverified rows.
+Existing576 capture paths/35 gamma buffers and144 sun routes pass. Root src/
+remains10 complete files/61 functions; no partial TU promoted. Receipt:
+target/work/proof/nov04_gamma_capture_checkpoint.json.50% needs8667 more
+pure C++ bytes. Whole-file SHA/GPU remain unfinished. Sun experiments are
+restored. Bounds443/441 and frame-pointer FFT529/532 remain unverified;
+324 independent bounds cases and168 FFT cases pass without byte-match credit.
+TU link order/data owners unchanged; refreshed ownership/assignment queues.
+
 ## Static-model lighting checkpoint - 2026-11-04
 
 C++117648/253580=46.394826090%,724 bodies; +341B/+1 sincee83a4dc.

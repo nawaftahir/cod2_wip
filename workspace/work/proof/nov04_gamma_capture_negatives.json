@@ -1,0 +1,122 @@
+[
+  {
+    "key": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
+    "kind": "removed",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
+    "kind": "removed",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
+    "kind": "unverified",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
+    "kind": "unverified",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_SetColorMappings@@YAXXZ",
+    "kind": "removed",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_SetColorMappings@@YAXXZ",
+    "kind": "removed",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_SetColorMappings@@YAXXZ",
+    "kind": "unverified",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_SetColorMappings@@YAXXZ",
+    "kind": "unverified",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_GammaCorrect@@YAXHPAE@Z",
+    "kind": "removed",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_GammaCorrect@@YAXHPAE@Z",
+    "kind": "removed",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_GammaCorrect@@YAXHPAE@Z",
+    "kind": "unverified",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_GammaCorrect@@YAXHPAE@Z",
+    "kind": "unverified",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_CaptureCubemapShot@@YAXH@Z",
+    "kind": "removed",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_CaptureCubemapShot@@YAXH@Z",
+    "kind": "removed",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_CaptureCubemapShot@@YAXH@Z",
+    "kind": "unverified",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?R_CaptureCubemapShot@@YAXH@Z",
+    "kind": "unverified",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?RB_EndFrame@@YAXXZ",
+    "kind": "removed",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?RB_EndFrame@@YAXXZ",
+    "kind": "removed",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  },
+  {
+    "key": "?RB_EndFrame@@YAXXZ",
+    "kind": "unverified",
+    "tool": "regression.py",
+    "rejected": true
+  },
+  {
+    "key": "?RB_EndFrame@@YAXXZ",
+    "kind": "unverified",
+    "tool": "check_checkpoint.py",
+    "rejected": true
+  }
+]

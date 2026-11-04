@@ -1,3 +1,41 @@
+# Gamma ramp publication - 2026-11-04
+
+Moving gamma index increment after the word store changes counter register
+to targetEDX but leaves induction updates late. An explicit linearValue ramp
+(+257 before store), then index and entry increments, produces exact157-byte
+body10011f10. Existing I_fround assembly remains excluded. Its four callers
+add475 pure C++ bytes. All2521 extents pass;20 retention negatives and576
+capture/35 gamma cases pass. Sun pointer/field volatile views and alpha word
+memcpy do not fix pointer scheduling; all sun edits are restored. Water
+parameter cursor and delayed log2M initialization fail to resolve FFT data
+promotion. Top-level volatile FFT input changes VC7.1 decoration (PAU toRAU),
+needs matching declarations, but still emits529; both declarations restored.
+Do not repeat these interface/source variants. FFT keeps only its observed
+frame-pointer policy. Receipt:nov04_gamma_capture_checkpoint.json.
+
+# Bounds and FFT structural probes - 2026-11-04
+
+Static bounds1002a360/441: local volatile matrix pointer gives433 versus
+original406 and matches stack frame size. Scoped matrix/index memory lifetimes
+and one surface lookup per iteration give443 with the target stack slots and
+retained vertex-buffer base. Matrix-typed axis replaces the flattened pointer
+at both declarations and its actual instance-axis caller; code stays443.
+Target-order scalar accumulation, including explicit two-step sums, does not
+resolve the optimizer's product reassociation. Remaining: matrix increment
+register, surface-entry scheduling, x87 product/compare choices, final-free
+register.324 independent bounds cases pass (empty/multiple meshes, bones,
+NaN/infinite ordered extrema, allocation/free order, guards). No byte credit.
+
+FFT target1005ee60 endsRET1005f073:532 bytes. Frame-pointer-only pragma gives
+529 versus original556; this isolated requirement was not covered by the
+older aggregate-save plus/Oy-562 trial. Explicit bit-reversal scan pointer
+gives545 and is rejected; original scalar source plus frame-pointer policy
+retained.168 independent transform/stride cases pass. Caller1002c570/165
+passes data on stack and log2 inEDX; current recipe promotes data inESI,
+forcing a different water-wrapper register layout. No ABI/signature change is
+justified by this alone. Next inspect caller/callee metadata; do not repeat
+scan-pointer or scalar-product spelling sweeps. Whole-file/C++ goal unchanged.
+
 # Static-model texel cache - 2026-11-04
 
 Renderer-load reordering leaves356/341 unchanged and is removed. Per-texel

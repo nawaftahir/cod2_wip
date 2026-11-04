@@ -885,17 +885,20 @@ static __declspec(noinline) void R_BuildGammaTable(GfxGammaRamp *gammaTable)
 {
     float inverseGamma = 1.0f / r_gamma->current.value;
     int index = 0;
+    int linearValue = 0;
     int remaining = 256;
     unsigned short *entry = gammaTable->entries;
     do
     {
         int value;
         if (inverseGamma == 1.0f)
-            value = index + (index << 8);
+            value = linearValue;
         else
             value = I_fround((float)(pow(index * (1.0f / 255.0f), inverseGamma) * 65535.0f));
+        linearValue += 257;
+        *entry = (unsigned short)value;
         ++index;
-        *entry++ = (unsigned short)value;
+        ++entry;
     } while (--remaining);
 }
 #pragma function(pow)

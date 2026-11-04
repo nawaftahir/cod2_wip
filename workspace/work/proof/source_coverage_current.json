@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 127037,
-  "cpp_executable_bytes": 117648,
-  "cpp_percent": 46.39482609038568,
-  "cpp_game_bodies": 724,
+  "mixed_executable_bytes": 127669,
+  "cpp_executable_bytes": 118123,
+  "cpp_percent": 46.582143702184716,
+  "cpp_game_bodies": 728,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -48,6 +48,14 @@
         "fistp"
       ],
       "referee_extent": 208
+    },
+    {
+      "target": "0x10011f10",
+      "bytes": 157,
+      "name": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
+      "reasons": [
+        "fistp"
+      ]
     },
     {
       "target": "0x10025b10",
@@ -317,9 +325,9 @@
   "memory_helpers_cannot_inline": true,
   "naked_box_separate": true,
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
-  "counter_sha256": "8237e323c3b34bcbfe407eef05fe2ecc010a083e1c5ce6f4ec9c2d7d93023844",
-  "regression_sha256": "da9879bf95e9cec26ce4460f82b4fe2e7199ecee12639f8d522cc2ba39a08af0",
-  "bind_sha256": "1618c7713dd94bff3905d4a8a6bdf978907e427c4a0a5a2edb9cee78ad44fbc4",
+  "counter_sha256": "3d84968fc65c29193b30b341af3b5ff7d5ca7988b1b99ff85199a9df2ccb4468",
+  "regression_sha256": "6d32cfd93f9c78857d58ad38d273aae505ebbe90963145acd2f618ce160d43ed",
+  "bind_sha256": "528bb7cc6190597bdbd5bbb5be5e3ca38f78e8bfa3a5719a5189d3960f49b7e8",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -327,7 +335,7 @@
     "script/script_public.h": "f9de6fc1bfb7f5bfbe34c671db3f800afd9366a820e3d987b32569920f035029",
     "server/server.h": "811bbc2f26a2aed0b542fc70ab2ce13e5891326036b74decda39e34eb85d8e4b",
     "universal/com_math.h": "3db79f6a1d997c939eec59d402f1435f744fe11caa6c1199d9ec451705524bcc",
-    "universal/fft.cpp": "d5d07561bd34baafbb20d32e6597aae5ca12f974cf50beab6325f20ab70bf1bc",
+    "universal/fft.cpp": "0508c51a7e19884b230147426c2497afe0c6c7ea75ea801f5c02be9058270823",
     "universal/com_convexhull.cpp": "16a83964cd61cf311d94b72d8f356f77d7f5776918da0c2a6f360670d56989cf",
     "universal/surfaceflags.h": "965aae3c5a05c0e7b963cd91b57ff5fc0fc5beaa5446f993f9e40d319466f95f",
     "universal/com_memory.h": "39e31ff4c9e7335f33b3ae7734590c8ef0da067049b6a6f39ccab671f2e553ee",
@@ -364,7 +372,7 @@
     "gfx_d3d/r_texturemem.cpp": "01708aec4001af84f5f90ff537d432b1363de0b15744dcd8537142107c64dfa3",
     "gfx_d3d/rb_backend.h": "938c3856fd60d7843906bbcebb91c8684784d2b2ab3ac2e3d7975c212ec0a94f",
     "gfx_d3d/r_sky_load_obj.cpp": "412fe32c549caefe32849d1c751a5ed10c1f931db2b04b1d66b3a6955dfba179",
-    "gfx_d3d/r_staticmodel_load_obj.cpp": "8b77a1ac447991ecccf13c233d2a7cc4e11fdf848ae6bdc2605d83944d552866",
+    "gfx_d3d/r_staticmodel_load_obj.cpp": "e8269bb397e867c021fdebaa4d3475f7bf4fe462ba5e4604fb1604a600ec4990",
     "gfx_d3d/r_dpvs_state.h": "fc4a51ce8a8eeb03bdf8879f7544eea579654f6d3ea401fa893df4310c0689ec",
     "gfx_d3d/r_bsp.cpp": "38d9c02c902b52cbf96f6245d24f0ec203ec73f2f5a09960a5bb89d429cf5e7d",
     "gfx_d3d/r_material.cpp": "1978980a45da901d9e32a2cc4c7a2d18ca8b0908881f9207eb517c944752e666",
@@ -427,7 +435,7 @@
     "gfx_d3d/r_sun_state.h": "419ff7fe0c06e590a7014b9ba5a47de61008284d2d759e0bccf9419e090743c5",
     "gfx_d3d/ri.h": "01f47cb20c4d65ac0ea787c4c3ad5a1cae6c16df719a8ee3c9afe7f5fa82a8d1",
     "gfx_d3d/r_font.cpp": "0d317ca87413fcdef66bc94998d2de71f7de2e47fc32a78db021aac99692db10",
-    "gfx_d3d/r_init.cpp": "cec84a8e637e2ba62ac6ab27b7a14612fc574d94931b650da0861d4f7935a92c",
+    "gfx_d3d/r_init.cpp": "f5730ffb393806bb92c7670112839b68291f3169762197c46f6d5abdceb54c53",
     "gfx_d3d/r_surfbounds.cpp": "13a0df881215bdcacc88c5e722f29d28d8dcd67f17c9266b47e5cc43ded05d2c",
     "gfx_d3d/r_sky.cpp": "1eb0845fa04334cc352000608b4bc99c7d3e9c052d841f5cee67448c1905c94c",
     "gfx_d3d/rb_backend.cpp": "f7a43a613dfd743a36694e06d0bace8359601b18e728458381400f52944e17d5",

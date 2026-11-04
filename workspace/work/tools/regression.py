@@ -251,6 +251,9 @@ required.update(accepted(grid_history))
 static_lighting = gfx / 'target/work/proof/static_model_lighting_20261104_warm_bind.json'
 assert hashlib.sha256(static_lighting.read_bytes()).hexdigest() == '5f7991cad87a91874587c0ef64189a8ae17203af0d7f1192a93cdf2d9e8c8527'
 required.update(accepted(static_lighting))
+gamma_capture = gfx / 'target/work/proof/gamma_capture_20261104_warm_bind.json'
+assert hashlib.sha256(gamma_capture.read_bytes()).hexdigest() == 'f06ddf988ea07cb30fd2e6ccc11592e7b722ba32b7ba36fcfde6abb5df408d1a'
+required.update(accepted(gamma_capture))
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

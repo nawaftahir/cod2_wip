@@ -1,0 +1,83 @@
+{
+  "status": "V3 checkpoint; whole-file/GPU unfinished",
+  "base_commit": "cf81838",
+  "cpp_bytes": 118123,
+  "cpp_bodies": 728,
+  "cpp_percent": 46.582143702184716,
+  "denominator": 253580,
+  "denominator_provisional": true,
+  "net_cpp_bytes": 475,
+  "protected_extents": 2521,
+  "assembly_bodies": 39,
+  "assembly_bytes": 9546,
+  "new_assembly_bytes": 157,
+  "new_bodies": {
+    "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z": {
+      "t": "0x10011f10",
+      "n": 157,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "?R_SetColorMappings@@YAXXZ": {
+      "t": "0x10011fb0",
+      "n": 38,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "?R_GammaCorrect@@YAXHPAE@Z": {
+      "t": "0x10011fe0",
+      "n": 82,
+      "obj": "r_init.obj",
+      "why": []
+    },
+    "?R_CaptureCubemapShot@@YAXH@Z": {
+      "t": "0x100268b0",
+      "n": 99,
+      "obj": "r_screenshot.obj",
+      "why": []
+    },
+    "?RB_EndFrame@@YAXXZ": {
+      "t": "0x10033b20",
+      "n": 256,
+      "obj": "rb_backend.obj",
+      "why": []
+    }
+  },
+  "retention_negative_cases": 20,
+  "raw_same_offset_percent": 12.938372856747788,
+  "whole_file_identical": false,
+  "gpu_tested": false,
+  "source_note": "Explicit linear ramp update precedes store; index and entry advance in retail order. Unmatched bounds443 and FFT529 drafts remain excluded.",
+  "sha256": {
+    "target/work/src/gfx_d3d/r_init.cpp": "f5730ffb393806bb92c7670112839b68291f3169762197c46f6d5abdceb54c53",
+    "target/work/src/gfx_d3d/r_staticmodel_load_obj.cpp": "e8269bb397e867c021fdebaa4d3475f7bf4fe462ba5e4604fb1604a600ec4990",
+    "target/work/src/universal/fft.cpp": "0508c51a7e19884b230147426c2497afe0c6c7ea75ea801f5c02be9058270823",
+    "target/work/src/profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
+    "target/work/tools/source_coverage.py": "3d84968fc65c29193b30b341af3b5ff7d5ca7988b1b99ff85199a9df2ccb4468",
+    "target/work/tools/regression.py": "6d32cfd93f9c78857d58ad38d273aae505ebbe90963145acd2f618ce160d43ed",
+    "target/work/tools/check_checkpoint.py": "5be70e47745010f67ae5cd8d66dca79823dc3cc0c5596a0a533ab2035f8d590b",
+    "target/work/proof/gamma_capture_20261104_warm_bind.json": "f06ddf988ea07cb30fd2e6ccc11592e7b722ba32b7ba36fcfde6abb5df408d1a",
+    "target/work/proof/latest/bind.json": "528bb7cc6190597bdbd5bbb5be5e3ca38f78e8bfa3a5719a5189d3960f49b7e8",
+    "target/work/proof/latest/cmp.json": "3b14630da224ec395a3458f32540bd65da85f51287092bba55fe6c8b23536ff5",
+    "target/work/proof/source_coverage_current.json": "5f2364300755f8ff57f78ae0e6daa1ef804ef4be7b481218918c2c365af25f7b",
+    "target/work/proof/nov04_gamma_capture_negatives.json": "7abeac8c02d10b58441837d2a6033c17f400ccd6dd6974c7502a7c96fb0a67e7",
+    "target/work/tests/test_cubemap_capture.py": "59dda964a702a1690764c0f7fbcce2d8f70f1b3c677c7417a78881dfd69d9008",
+    "target/work/tests/test_sun_commands.py": "7ee7b8999227e1cca890f19ad491a91ea59f4016bc41a6afd6af6e3c6710c53a",
+    "target/work/tests/test_static_model_bounds.py": "b2492b8697f3923a83fda75b6ce9d95ca5e791f9578c42ec21559d8a2c1232ea"
+  },
+  "candidate_sha256": "26c77eff8ed2c45ae0abcab13127906b3d159247379c18e790cabcd3814c77d9",
+  "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
+  "native_verification": {
+    "capture_routes": 576,
+    "gamma_buffers": 35,
+    "sun_routes": 144,
+    "backend_frame_routes": 260,
+    "bounds_cases": 324,
+    "FFT_cases": 168
+  },
+  "cost": {
+    "workers": 0,
+    "renderer_output_trees": 1,
+    "token_or_money_estimate": "No per-action telemetry available"
+  }
+}

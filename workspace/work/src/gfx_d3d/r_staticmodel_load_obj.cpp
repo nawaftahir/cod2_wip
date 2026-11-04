@@ -361,22 +361,20 @@ static void R_FilterStaticModelIntoCells_r(GfxWorld *world, mnode_t *node, GfxSt
 }
 
 // Name unconfirmed: bounds of the model's lod 0 surfaces under the instance axis.
-void R_StaticModelBounds(XModel *model, const float *axis, float *mins, float *maxs);
+void R_StaticModelBounds(XModel *model, const vec3_t *axis, float *mins, float *maxs);
 
 // PINNED 1002a360/441; descriptive name for the static-model bounds helper.
-void R_StaticModelBounds(XModel *model, const float *axis, float *mins, float *maxs)
+void R_StaticModelBounds(XModel *model, const vec3_t *axis, float *mins, float *maxs)
 {
     XSurface **surfaces;
     int *partBits;
     DObjSkelMat *matArray;
     float *verts;
-    DObjSkelMat *mat;
     const DObjAnimMat *basePose;
     const float *vert;
     float dot;
     int surfaceCount;
     int numBones;
-    int surfIndex;
     int vertCount;
     int i;
 
@@ -393,7 +391,7 @@ void R_StaticModelBounds(XModel *model, const float *axis, float *mins, float *m
     basePose = (const DObjAnimMat *)ri.XModelGetBasePose(model);
     if (numBones > 0)
     {
-        mat = matArray;
+        DObjSkelMat *volatile mat = matArray;
         do
         {
             R_ConvertAnimMatToSkelMat(basePose, mat);
@@ -402,28 +400,29 @@ void R_StaticModelBounds(XModel *model, const float *axis, float *mins, float *m
             --numBones;
         } while (numBones);
     }
-    surfIndex = 0;
+    volatile int surfIndex = 0;
     if (surfaceCount > 0)
     do
     {
-        vertCount = surfaces[surfIndex]->vertCount;
-        XSurfaceGetVerts(surfaces[surfIndex], matArray, verts, 0, 0);
+        XSurface *surface = surfaces[surfIndex];
+        vertCount = surface->vertCount;
+        XSurfaceGetVerts(surface, matArray, verts, 0, 0);
         if (vertCount > 0)
         {
             vert = verts;
             do
             {
-                dot = vert[2] * axis[6] + vert[0] * axis[0] + axis[3] * vert[1];
+                dot = axis[1][0] * vert[1] + vert[0] * axis[0][0] + vert[2] * axis[2][0];
                 if (dot < mins[0])
                     mins[0] = dot;
                 if (dot > maxs[0])
                     maxs[0] = dot;
-                dot = vert[0] * axis[1] + axis[7] * vert[2] + vert[1] * axis[4];
+                dot = vert[1] * axis[1][1] + axis[2][1] * vert[2] + vert[0] * axis[0][1];
                 if (dot < mins[1])
                     mins[1] = dot;
                 if (dot > maxs[1])
                     maxs[1] = dot;
-                dot = vert[0] * axis[2] + vert[2] * axis[8] + axis[5] * vert[1];
+                dot = axis[1][2] * vert[1] + vert[2] * axis[2][2] + vert[0] * axis[0][2];
                 if (dot < mins[2])
                     mins[2] = dot;
                 if (dot > maxs[2])
@@ -432,8 +431,12 @@ void R_StaticModelBounds(XModel *model, const float *axis, float *mins, float *m
                 --vertCount;
             } while (vertCount);
         }
-        ++surfIndex;
-    } while (surfIndex < surfaceCount);
+        int next = surfIndex + 1;
+        bool more = next < surfaceCount;
+        surfIndex = next;
+        if (!more)
+            break;
+    } while (true);
     ri.Hunk_FreeTempMemory(verts);
     ri.Hunk_FreeTempMemory(matArray);
 }
@@ -612,7 +615,7 @@ void R_CreateStaticModel(GfxWorld *world, XModel *model, const vec_t *origin, co
     mins = smodelInst->mins;
     maxs = smodelInst->maxs;
     smodelInst->scale = scale;
-    R_StaticModelBounds(model, &smodelInst->axis[0][0], mins, maxs);
+    R_StaticModelBounds(model, smodelInst->axis, mins, maxs);
     mins[0] = scale * mins[0] + origin[0];
     mins[1] = scale * mins[1] + origin[1];
     mins[2] = scale * mins[2] + origin[2];

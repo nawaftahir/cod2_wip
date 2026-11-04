@@ -1,17 +1,17 @@
 {
   "scope": "Inventory and candidate TU ownership; not historical boundary or coverage proof",
   "inventory_functions": 2702,
-  "additional_verified_starts": 494,
-  "inventory_without_candidate_tu_owner": 1638,
+  "additional_verified_starts": 555,
+  "inventory_without_candidate_tu_owner": 1633,
   "candidate_tus": 112,
-  "cpp_percent": 45.15182585377396,
+  "cpp_percent": 46.582143702184716,
   "warning": "Counts include dependencies and aliases. Queue bytes and complexity are diagnostics, not progress.",
   "input_sha256": {
     "/home/nawaf/cod2/test/dev/glm/data/functions_gfx10.json": "93987c0a615ecf8a4141acfca24946a2c38e5879beac597521796fcf10cdd44d",
     "/home/nawaf/cod2/test/dev/gfx/target/work/src/tus.txt": "afe48cb6f48463a9740331d0f26251e63cd8cc9348cd47cb89f105a65ffb1c50",
-    "/home/nawaf/cod2/test/dev/gfx/target/work/build/bind.json": "9fe76c04ed8c732c218e8ce2b4a83a4e29f2fda6d3aa10447faa81f5e941aad1",
-    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/file_layout.tsv": "c77cc844a0314772d877e13104e1e4f85ac80956c2f53eab9c4b9cadfe61c562",
-    "/home/nawaf/cod2/test/dev/gfx/target/work/proof/source_coverage_current.json": "3d4a8a88a3c6b5993203398515601c72eedd57df251b64e0112025098b8ed6ba",
-    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/current.json": "20e3ef3293b79f7f8ea7913527a4d991ae0d286df7274c681e9263b6728ce3c4"
+    "/home/nawaf/cod2/test/dev/gfx/target/work/build/bind.json": "528bb7cc6190597bdbd5bbb5be5e3ca38f78e8bfa3a5719a5189d3960f49b7e8",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/file_layout.tsv": "c882a6aa398407df8c03b246bd7ffc108ba719aaf5a1f6894b069b36f9171c9f",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/proof/source_coverage_current.json": "5f2364300755f8ff57f78ae0e6daa1ef804ef4be7b481218918c2c365af25f7b",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/current.json": "770723be5ed3e872b6362c3612aa22cbab3abdc2fc4e7ac1704eb1f5ab1920e5"
   }
 }

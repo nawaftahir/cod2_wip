@@ -52,11 +52,15 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10004670	FUN_10004670	100	109	VERIFIED_EXTENT	gfx_d3d/r_bsp_load_obj.cpp	bind	r_bsp_load_obj.obj	?R_LoadOccluderIndices@@YAXPAUGfxBspLoad@@@Z
 0x100046e0	FUN_100046e0	68	68	VERIFIED_EXTENT	gfx_d3d/r_bsp_load_obj.cpp	bind	r_bsp_load_obj.obj	?R_SetParentAndCell_r@@YAXPAUBspNodeA@@0@Z
 0x10004730	FUN_10004730	315		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_bsp_load_obj.cpp	pinned		?R_LoadNodesAndLeafs@@YAXPAUGfxBspLoad@@@Z
+0x10004870	-		31	VERIFIED_EXTENT	gfx_d3d/r_bsp_load_obj.cpp	bind	r_bsp_load_obj.obj	?R_LoadStep@@YAXPBD@Z
 0x10004890	FUN_10004890	1261		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_bsp_load_obj.cpp	pinned		?R_LoadWorldInternal@@YAPAUGfxWorld@@PBD@Z
 0x10004dc0	FUN_10004dc0	371	371	VERIFIED_EXTENT	gfx_d3d/r_bsp_load_obj.cpp	bind	r_bsp_load_obj.obj	?R_InterpretSunLightParseParamsIntoLights@@YAXPAUSunLightParseParams@@PAUGfxLight@@@Z
 0x10004f40	FUN_10004f40	222	222	VERIFIED_EXTENT	gfx_d3d/r_buffers.cpp	bind	r_buffers.obj	?R_AllocStaticVertexBuffer@@YAPAXPAPAXH@Z
-0x10005020	FUN_10005020	73		NO_SOURCE_OWNER		-		
+0x10005020	FUN_10005020	73	73	VERIFIED_EXTENT	gfx_d3d/r_buffers.cpp	bind	r_buffers.obj	?R_FinishStaticVertexBuffer@@YAXPAX@Z
+0x10005070	-		19	VERIFIED_EXTENT	gfx_d3d/r_buffers.cpp	bind	r_buffers.obj	?R_FreeStaticVertexBuffer@@YAXPAUIDirect3DVertexBuffer9@@@Z
+0x10005090	-		72	VERIFIED_EXTENT	gfx_d3d/r_buffers.cpp	bind	r_buffers.obj	?R_AllocStaticIndexBuffer@@YAPAXPAPAUIDirect3DIndexBuffer9@@H@Z
 0x100050e0	FUN_100050e0	73	73	VERIFIED_EXTENT	gfx_d3d/r_buffers.cpp	bind	r_buffers.obj	?R_FinishStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z
+0x10005130	-		19	VERIFIED_EXTENT	gfx_d3d/r_buffers.cpp	bind	r_buffers.obj	?R_FreeStaticIndexBuffer@@YAXPAUIDirect3DIndexBuffer9@@@Z
 0x10005150	FUN_10005150	135	135	VERIFIED_EXTENT	gfx_d3d/r_caps.cpp	bind	r_caps.obj	?R_RespondToMissingCaps@@YAXW4DxCapsResponse@@PBDPAH@Z
 0x100051e0	FUN_100051e0	165	165	VERIFIED_EXTENT	gfx_d3d/r_caps.cpp	bind	r_caps.obj	?R_CheckDxCaps@@YAHPBU_D3DCAPS9@@@Z
 0x100052c0	FUN_100052c0	151	151	VERIFIED_EXTENT	gfx_d3d/r_cmds.cpp	bind	r_cmds.obj	?R_RegisterCmds@@YAXXZ
@@ -159,6 +163,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1000c790	-		9	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	?I_max@@YAHHH@Z
 0x1000c7c0	-		20	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	?Image_IsCodeTrack@@YAEH@Z
 0x1000c7e0	-		17	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	?R_AddImageToList@@YAXPAUGfxImage@@PAX@Z
+0x1000c800	-		23	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	?R_GetImageList@@YAXPAUImageList@@@Z
 0x1000c820	FUN_1000c820	168	168	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	?R_GetImageMemory@@YAXPAUImage_MemUsage@@@Z
 0x1000c8d0	R_GetMinSpecImageMemory	6	6	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	?R_GetMinSpecImageMemory@@YAHXZ
 0x1000c910	FUN_1000c910	87	87	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	?Image_Release@@YAXPAUGfxImage@@@Z
@@ -194,15 +199,21 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1000d940	FUN_1000d940	998	1070	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	?R_ImageList_f@@YAXXZ
 0x1000dd70	FUN_1000dd70	122		BYTE_HIT_ONLY	gfx_d3d/r_image.cpp	hit		?R_LoadWaterSetup@@YAPAUwater_t@@PBU1@@Z
 0x1000de10	FUN_1000de10	340		NO_SOURCE_OWNER		-		
+0x1000df70	-		20	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$sort@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z
 0x1000df90	FUN_1000df90	230	230	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Sort@PAPAUGfxImage@@HP6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0HP6AHPAU1@1@Z@Z
 0x1000e080	FUN_1000e080	408	408	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Unguarded_partition@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YA?AU?$pair@PAPAUGfxImage@@PAPAU1@@0@PAPAUGfxImage@@0P6AHPAU2@1@Z@Z
+0x1000e220	-		26	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$make_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z
 0x1000e240	FUN_1000e240	61	61	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$sort_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z
 0x1000e280	FUN_1000e280	148	148	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Insertion_sort@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z
 0x1000e330	FUN_1000e330	515	515	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Median@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@00P6AHPAU1@1@Z@Z
 0x1000e570	FUN_1000e570	60	60	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Make_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@ZPAH0@Z
+0x1000e5b0	-		50	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$pop_heap@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z@Z
+0x1000e5f0	-		22	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$rotate@PAPAUGfxImage@@@std@@YAXPAPAUGfxImage@@00@Z
 0x1000e610	-		76	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Med3@PAPAUGfxImage@@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@00P6AHPAU1@1@Z@Z
 0x1000e670	FUN_1000e670	103	103	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Adjust_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@HHPAU1@P6AH11@Z@Z
+0x1000e6e0	-		36	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Pop_heap_0@PAPAUGfxImage@@PAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@0P6AHPAU1@1@Z0@Z
 0x1000e730	FUN_1000e730	76	79	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Push_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@HHPAU1@P6AH11@Z@Z
+0x1000e780	-		31	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Pop_heap@PAPAUGfxImage@@HPAU1@P6AHPAU1@0@Z@std@@YAXPAPAUGfxImage@@00PAU1@P6AH11@ZPAH@Z
 0x1000e7a0	FUN_1000e7a0	147	150	VERIFIED_EXTENT	gfx_d3d/r_image.cpp	bind	r_image.obj	??$_Rotate@PAPAUGfxImage@@HPAU1@@std@@YAXPAPAUGfxImage@@00PAH0@Z
 0x1000e840	FUN_1000e840	135	187	VERIFIED_EXTENT	gfx_d3d/r_image_load_common.cpp	bind	r_image_load_common.obj	?Image_SourceBytesPerSlice@@YAHW4_D3DFORMAT@@HH@Z
 0x1000e900	FUN_1000e900	226	274	VERIFIED_EXTENT	gfx_d3d/r_image_load_common.cpp	bind	r_image_load_common.obj	?Image_Upload2D_CopyDataBlock@@YAXHHPBEW4_D3DFORMAT@@HPAE@Z
@@ -213,7 +224,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1000ee30	FUN_1000ee30	246	246	VERIFIED_EXTENT	gfx_d3d/r_image_load_common.cpp	bind	r_image_load_common.obj	?Image_Setup@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@@Z
 0x1000ef40	FUN_1000ef40	149	219	VERIFIED_EXTENT	gfx_d3d/r_image_load_common.cpp	bind	r_image_load_common.obj	?Image_GetCardMemoryAmountForMipLevel@@YAHW4_D3DFORMAT@@HHH@Z
 0x1000f020	FUN_1000f020	135	135	VERIFIED_EXTENT	gfx_d3d/r_image_load_common.cpp	bind	r_image_load_common.obj	?Image_GetCardMemoryAmount@@YAHHW4_D3DFORMAT@@HHH@Z
-0x1000f120	-		20	VERIFIED_EXTENT	gfx_d3d/r_water_load_obj.cpp	bind	r_water_load_obj.obj	?Vec2Multiply@@YAMQBM@Z
+0x1000f120	-		20	VERIFIED_EXTENT	gfx_d3d/r_image_load_obj.cpp	bind	r_image_load_obj.obj	?Vec2Multiply@@YAMQBM@Z
 0x1000f140	-		25	VERIFIED_EXTENT	gfx_d3d/r_marks.cpp	bind	r_marks.obj	?VectorAdd@@YAXQBM0QAM@Z
 0x1000f180	FUN_1000f180	285	285	VERIFIED_EXTENT	gfx_d3d/r_staticmodelcache.cpp	bind	r_staticmodelcache.obj	?R_QuantizeCachedColor@@YAXPBMPAE@Z
 0x1000f2a0	FUN_1000f2a0	67	67	VERIFIED_EXTENT	gfx_d3d/r_image_load_obj.cpp	bind	r_image_load_obj.obj	?Image_ValidateHeader@@YAEPBUGfxImageFileHeader@@PBD@Z
@@ -251,17 +262,19 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10011460	FUN_10011460	100	100	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z
 0x100114d0	FUN_100114d0	137	137	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_SetD3DPresentParameters@@YAXPAU_D3DPRESENT_PARAMETERS_@@PBUGfxWindowParms@@@Z
 0x10011560	FUN_10011560	132	132	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_GetMonitorDimensions@@YAXPAH0@Z
-0x100115f0	FUN_100115f0	190		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_init.cpp	pinned		?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z
+0x100115f0	FUN_100115f0	190	208	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z
 0x100116c0	FUN_100116c0	139	139	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_GetDeviceCaps@@YAXIPAU_D3DCAPS9@@@Z
 0x10011760	FUN_10011760	358	358	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_ChooseRenderer@@YAXPBU_D3DCAPS9@@@Z
+0x100118d0	-		46	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_CheckTransparencyMsaa@@YAEI@Z
 0x10011900	FUN_10011900	307	307	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_StoreDirect3DCaps@@YAXI@Z
 0x10011a40	FUN_10011a40	129	129	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z
 0x10011ad0	FUN_10011ad0	129	129	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z
 0x10011b60	FUN_10011b60	143	143	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_CreateDynamicBuffers@@YAXXZ
-0x10011bf0	FUN_10011bf0	544		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_init.cpp	pinned		?R_CreateParticleCloudBuffer@@YAXXZ
+0x10011bf0	FUN_10011bf0	544	544	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_CreateParticleCloudBuffer@@YAXXZ
 0x10011e60	FUN_10011e60	160	160	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_ReleaseDynamicBuffers@@YAXXZ
-0x10011f10	FUN_10011f10	148		NO_SOURCE_OWNER		-		
-0x10011fe0	FUN_10011fe0	74		BYTE_HIT_ONLY	gfx_d3d/r_init.cpp	hit		?R_GammaCorrect@@YAXHPAE@Z
+0x10011f10	FUN_10011f10	148	157	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z
+0x10011fb0	-		38	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_SetColorMappings@@YAXXZ
+0x10011fe0	FUN_10011fe0	74	82	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_GammaCorrect@@YAXHPAE@Z
 0x10012040	FUN_10012040	116		BYTE_HIT_ONLY	gfx_d3d/r_init.cpp	hit		?R_InitSystems@@YAXXZ
 0x10012100	FUN_10012100	152		BYTE_HIT_ONLY	gfx_d3d/r_init.cpp	hit		?R_CreateDeviceResources@@YAEXZ
 0x10012198	FUN_10012198	109		NO_SOURCE_OWNER		-		
@@ -287,7 +300,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10012f80	FUN_10012f80	169		BYTE_HIT_ONLY	gfx_d3d/r_init.cpp	hit		?R_Init@@YAXXZ
 0x10013080	R_Shutdown	379		BYTE_HIT_ONLY	gfx_d3d/r_init.cpp	hit		?R_Shutdown@@YAXH@Z
 0x10013190	R_BeginRegistration	26		BYTE_HIT_ONLY	gfx_d3d/r_init.cpp	hit		?R_BeginRegistration@@YAXPAUvidConfig_t@@@Z
-0x100131b0	R_EndRegistration	79		NO_SOURCE_OWNER		-		
+0x100131b0	R_EndRegistration	79	79	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_EndRegistration@@YAXXZ
 0x10013200	R_EndDebugFrame	79	79	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_EndView@@YAXH@Z
 0x10013250	thunk_FUN_10029560	5		NO_SOURCE_OWNER		-		
 0x10013260	R_ModelBounds	10	10	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	?R_TrackStatistics@@YAXPAUtrStatistics_t@@@Z
@@ -298,11 +311,14 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10013930	-		20	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$sort@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z
 0x10013950	FUN_10013950	236	236	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Sort@PAU_D3DDISPLAYMODE@@HP6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0HP6A_NABU1@1@Z@Z
 0x10013a40	FUN_10013a40	1003	1003	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Unguarded_partition@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YA?AU?$pair@PAU_D3DDISPLAYMODE@@PAU1@@0@PAU_D3DDISPLAYMODE@@0P6A_NABU2@1@Z@Z
+0x10013e30	-		18	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$make_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z
 0x10013e50	FUN_10013e50	56	56	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$sort_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z
 0x10013e90	FUN_10013e90	144	144	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Insertion_sort@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z
 0x10013f30	FUN_10013f30	154	154	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Median@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@00P6A_NABU1@1@Z@Z
 0x10013fd0	FUN_10013fd0	71		NO_SOURCE_OWNER		-		
 0x10014040	FUN_10014040	90	90	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Make_heap@PAU_D3DDISPLAYMODE@@HU1@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@ZPAH0@Z
+0x100140a0	-		18	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$pop_heap@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@0P6A_NABU1@1@Z@Z
+0x100140c0	-		19	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$rotate@PAU_D3DDISPLAYMODE@@@std@@YAXPAU_D3DDISPLAYMODE@@00@Z
 0x100140e0	FUN_100140e0	250	250	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Med3@PAU_D3DDISPLAYMODE@@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@00P6A_NABU1@1@Z@Z
 0x100141e0	FUN_100141e0	71		NO_SOURCE_OWNER		-		
 0x10014230	FUN_10014230	187	187	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Adjust_heap@PAU_D3DDISPLAYMODE@@HU1@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@HHU1@P6A_NABU1@2@Z@Z
@@ -311,8 +327,13 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10014420	FUN_10014420	82	82	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Pop_heap@PAU_D3DDISPLAYMODE@@HU1@P6A_NABU1@0@Z@std@@YAXPAU_D3DDISPLAYMODE@@00U1@P6A_NABU1@2@ZPAH@Z
 0x10014480	FUN_10014480	245	245	VERIFIED_EXTENT	gfx_d3d/r_init.cpp	bind	r_init.obj	??$_Rotate@PAU_D3DDISPLAYMODE@@HU1@@std@@YAXPAU_D3DDISPLAYMODE@@00PAH0@Z
 0x10014580	-		19	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?init_destination@@YAXPAUjpeg_compress_struct@@@Z
+0x100145a0	-		3	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?empty_output_buffer@@YAEPAUjpeg_compress_struct@@@Z
 0x100145b0	-		20	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?term_destination@@YAXPAUjpeg_compress_struct@@@Z
 0x100145d0	-		62	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?jpeg_memory_dest@@YAXPAUjpeg_compress_struct@@PAEI@Z
+0x10014610	-		6	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?Z_MallocJpeg@@YAPAXI@Z
+0x10014620	-		13	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?Z_FreeJpeg@@YAXPAXI@Z
+0x10014630	-		17	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?ExitJpeg@@YAXXZ
+0x10014650	-		22	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?PrintfJpeg@@YAXPAD@Z
 0x10014670	FUN_10014670	713	713	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?R_SaveJpg@@YAXPBDHHHPAE@Z
 0x10014940	FUN_10014940	785	785	VERIFIED_EXTENT	gfx_d3d/r_jpeg.cpp	bind	r_jpeg.obj	?R_LoadJpg@@YAXPBDPAPAE1PAH2PAW4_D3DFORMAT@@@Z
 0x10014c60	FUN_10014c60	235		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_light.cpp	pinned		?R_RegisterLightDef@@YAPAUGfxLightDef@@PBD@Z
@@ -339,8 +360,10 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10016780	FUN_10016780	254	261	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_AllocVertexDecl@@YAPAUMaterialVertexDeclaration@@PAUMaterialStreamRouting@@HPAE@Z
 0x10016890	-		74	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_Compare@@YA_NPBUMaterial@@0@Z
 0x100168e0	FUN_100168e0	96	96	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_FindTechniqueSlot@@YA_NPBDPAH@Z
+0x10016940	-		32	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_FindTechnique@@YAPAUMaterialTechnique@@PBD@Z
 0x10016960	FUN_10016960	72	72	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_SetTechnique@@YAXPBDPAUMaterialTechnique@@@Z
 0x100169e0	FUN_100169e0	96	96	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_FindTechniqueSetSlot@@YA_NPBDPAH@Z
+0x10016a40	-		32	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_FindTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z
 0x10016a60	-		29	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_SetTechniqueSet@@YAXPBDPAUMaterialTechniqueSet@@@Z
 0x10016ab0	FUN_10016ab0	140	140	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_FindStateMapSlot@@YA_NPBDPAH@Z
 0x10016b40	-		36	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	?Material_FindStateMap@@YAPAUMaterialStateMap@@PBD@Z
@@ -374,15 +397,21 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10017640	FUN_10017640	195		BYTE_HIT_ONLY	gfx_d3d/r_material.cpp	hit		?Material_ReloadTextures@@YAXPAUMaterial@@@Z
 0x10017730	FUN_10017730	347		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_material.cpp	pinned		?R_ApplyPicmip@@YAXXZ
 0x10017940	FUN_10017940	50		NO_SOURCE_OWNER		-		
+0x10017980	-		20	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$sort@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z
 0x100179a0	FUN_100179a0	230	230	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Sort@PAPAUMaterial@@HP6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0HP6A_NPBU1@1@Z@Z
 0x10017a90	FUN_10017a90	408	408	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Unguarded_partition@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YA?AU?$pair@PAPAUMaterial@@PAPAU1@@0@PAPAUMaterial@@0P6A_NPBU2@1@Z@Z
+0x10017c30	-		26	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$make_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z
 0x10017c50	FUN_10017c50	61	61	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$sort_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z
 0x10017c90	FUN_10017c90	148	148	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Insertion_sort@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z
 0x10017d40	FUN_10017d40	515	515	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Median@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@00P6A_NPBU1@1@Z@Z
 0x10017f80	FUN_10017f80	60	60	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Make_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@ZPAH0@Z
+0x10017fc0	-		50	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$pop_heap@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z
+0x10018000	-		22	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$rotate@PAPAUMaterial@@@std@@YAXPAPAUMaterial@@00@Z
 0x10018020	-		76	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Med3@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@00P6A_NPBU1@1@Z@Z
 0x10018080	FUN_10018080	103	103	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Adjust_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@HHPAU1@P6A_NPBU1@2@Z@Z
+0x100180f0	-		36	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Pop_heap_0@PAPAUMaterial@@PAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z0@Z
 0x10018140	FUN_10018140	76	79	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Push_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@HHPAU1@P6A_NPBU1@2@Z@Z
+0x10018190	-		31	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Pop_heap@PAPAUMaterial@@HPAU1@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@00PAU1@P6A_NPBU1@2@ZPAH@Z
 0x100181b0	FUN_100181b0	147	150	VERIFIED_EXTENT	gfx_d3d/r_material.cpp	bind	r_material.obj	??$_Rotate@PAPAUMaterial@@HPAU1@@std@@YAXPAPAUMaterial@@00PAH0@Z
 0x10018250	FUN_10018250	109	109	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z
 0x100182c0	FUN_100182c0	74	74	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	_IncludeClass_Open@24
@@ -394,21 +423,21 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100185b0	FUN_100185b0	346		NO_SOURCE_OWNER		-		
 0x10018710	FUN_10018710	375	375	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseRuleSetValue@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAUMaterialStateMapRule@@@Z
 0x10018890	FUN_10018890	75	75	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_AllocRuleSet@@YAPAUMaterialStateMapRuleSet@@HPBUMaterialStateMapRule@@@Z
-0x100188e0	FUN_100188e0	505		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_ParseRuleSet@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAPBUMaterialStateMapRuleSet@@@Z
+0x100188e0	FUN_100188e0	505		NO_SOURCE_OWNER		-		
 0x10018af0	FUN_10018af0	88	96	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_FixupRgbBlend@@YAXPAUMaterialStateMapRuleSet@@@Z
 0x10018b50	FUN_10018b50	147	147	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_FixupAlphaBlend@@YAXPAUMaterialStateMapRuleSet@@@Z
 0x10018bf0	FUN_10018bf0	356		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_ParseStateMap@@YAEPAPBDPAUMaterialStateMap@@@Z
 0x10018d60	FUN_10018d60	274		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_LoadStateMap@@YAPAUMaterialStateMap@@PBD@Z
 0x10018e80	FUN_10018e80	84		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_LoadCachedStateMap@@YAPAUMaterialStateMap@@PBD@Z
-0x10018ee0	FUN_10018ee0	161		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_LoadPassStateMap@@YAEPAPBDPAPAUMaterialStateMap@@@Z
+0x10018ee0	FUN_10018ee0	161		NO_SOURCE_OWNER		-		
 0x10018f90	FUN_10018f90	89	89	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseStreamIndex@@YAEPAPBDHPAH@Z
 0x10018ff0	FUN_10018ff0	197	197	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseStreamDestination@@YAEPAPBDPBDPAE@Z
 0x100190c0	FUN_100190c0	216	216	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseStreamSource@@YAEPAPBDPBDPAE@Z
-0x100191a0	FUN_100191a0	587		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_material_load_obj.cpp	pinned		?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z
+0x100191a0	FUN_100191a0	587	587	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_LoadPassVertexDecl@@YAEPAPBDPAUMaterialPassDx9@@@Z
 0x10019400	FUN_10019400	123	123	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_FindShaderConstant@@YAIPBDPBU_D3DXSHADER_CONSTANTTABLE@@PBU_D3DXSHADER_CONSTANTINFO@@0@Z
 0x10019480	FUN_10019480	103	103	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseArrayOffset@@YAEPAPBDHHPAH@Z
 0x100194f0	FUN_100194f0	303		NO_SOURCE_OWNER		-		
-0x10019620	FUN_10019620	211		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_ParseSamplerSource@@YAEPAPBDPAUMaterialShaderArgument@@@Z
+0x10019620	FUN_10019620	211		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_material_load_obj.cpp	pinned		?Material_ParseSamplerSource@@YAEPAPBDPAUMaterialShaderArgument@@@Z
 0x10019700	FUN_10019700	123	123	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_FindScalarSamplerSource@@YAEPBDPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z
 0x100197a0	FUN_100197a0	270	281	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseVector@@YAEPAPBDHPAM@Z
 0x100198c0	FUN_100198c0	170	170	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseLiteralVector@@YAEPAPBDPBDPAM@Z
@@ -418,14 +447,14 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10019e10	FUN_10019e10	188	188	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_FindScalarConstantSource@@YAEPBDPBUShaderConstantRouting@@PBUCodeConstantSource@@PAUMaterialShaderArgument@@@Z
 0x10019ed0	FUN_10019ed0	50	50	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_FindDefaultConstantSource@@YAEPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z
 0x10019f10	FUN_10019f10	285	285	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseShaderArgumentArray@@YAEPAPBDPAUShaderConstantRouting@@@Z
-0x1001a030	FUN_1001a030	140		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_ParseShaderArgument@@YAEPAPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z
+0x1001a030	FUN_1001a030	140		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_material_load_obj.cpp	pinned		?Material_ParseShaderArgument@@YAEPAPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z
 0x1001a0e0	FUN_1001a0e0	104	128	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_DefaultShaderArgument@@YAEPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z
 0x1001a160	FUN_1001a160	856		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_material_load_obj.cpp	pinned		?Material_ParseShaderArguments@@YAEPAPBDPBDPBU_D3DXSHADER_CONSTANTTABLE@@PAEPAUMaterialShaderArgument@@@Z
 0x1001a4c0	FUN_1001a4c0	705		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_material_load_obj.cpp	pinned		?Material_CreateShader@@YAPAUMaterialShader@@PBDHH@Z
-0x1001a810	FUN_1001a810	266		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z
+0x1001a810	FUN_1001a810	266		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_material_load_obj.cpp	pinned		?Material_LoadPassShader@@YAPAUMaterialShader@@PAPBDH@Z
 0x1001a920	FUN_1001a920	217		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_material_load_obj.cpp	pinned		?Material_SetPassShaderArguments@@YAEPAPBDPBUMaterialShader@@PAEPAGPAPAUMaterialShaderArgument@@@Z
-0x1001aa00	FUN_1001aa00	75		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_LoadPassVertexShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z
-0x1001aa50	FUN_1001aa50	75		BYTE_HIT_ONLY	gfx_d3d/r_material_load_obj.cpp	hit		?Material_LoadPassPixelShader@@YAEPAPBDPAUMaterialPassDx9@@PAE@Z
+0x1001aa00	FUN_1001aa00	75		NO_SOURCE_OWNER		-		
+0x1001aa50	FUN_1001aa50	75		NO_SOURCE_OWNER		-		
 0x1001ab70	FUN_1001ab70	311	311	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParsePassOptionDx7@@YAXPAPBDPAUMaterialPassDx7@@PAE2@Z
 0x1001acb0	FUN_1001acb0	91		NO_SOURCE_OWNER		-		
 0x1001ad80	FUN_1001ad80	393	393	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	?Material_ParseTextureArgumentDx7@@YAEPAPBDHPAH@Z
@@ -452,11 +481,14 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1001ca50	-		33	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z
 0x1001ca80	FUN_1001ca80	320	320	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$_Sort@PAUGfxCachedShaderText@@HP6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0HP6A_NABU1@1@Z@Z
 0x1001cbc0	FUN_1001cbc0	831	831	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$_Unguarded_partition@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YA?AU?$pair@PAUGfxCachedShaderText@@PAU1@@0@PAUGfxCachedShaderText@@0P6A_NABU2@1@Z@Z
+0x1001cf00	-		33	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$make_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z
 0x1001cf30	FUN_1001cf30	154	154	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$sort_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z
 0x1001cfd0	FUN_1001cfd0	144	144	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$_Insertion_sort@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z
 0x1001d070	FUN_1001d070	169	169	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$_Median@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00P6A_NABU1@1@Z@Z
 0x1001d120	FUN_1001d120	45		NO_SOURCE_OWNER		-		
 0x1001d170	FUN_1001d170	100	100	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$_Make_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@ZPAH0@Z
+0x1001d1e0	-		33	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$pop_heap@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@0P6A_NABU1@1@Z@Z
+0x1001d210	-		19	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$rotate@PAUGfxCachedShaderText@@@std@@YAXPAUGfxCachedShaderText@@00@Z
 0x1001d230	FUN_1001d230	190	190	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$_Med3@PAUGfxCachedShaderText@@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@00P6A_NABU1@1@Z@Z
 0x1001d2f0	FUN_1001d2f0	45		NO_SOURCE_OWNER		-		
 0x1001d320	FUN_1001d320	167	167	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp	bind	r_material_load_obj.obj	??$_Adjust_heap@PAUGfxCachedShaderText@@HU1@P6A_NABU1@0@Z@std@@YAXPAUGfxCachedShaderText@@HHU1@P6A_NABU1@2@Z@Z
@@ -468,7 +500,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1001d720	FUN_1001d720	217	217	VERIFIED_EXTENT	gfx_d3d/r_model.cpp	bind	r_model.obj	?R_ConvertAnimMatToSkelMat@@YAXPBUDObjAnimMat_s@@PAUDObjSkelMat_s@@@Z
 0x1001d830	R_RegisterModel	107	107	VERIFIED_EXTENT	gfx_d3d/r_model.cpp	bind	r_model.obj	?R_RegisterModel@@YAPAUXModel@@PBD@Z
 0x1001d8a0	R_RegisterInlineModel	22	22	VERIFIED_EXTENT	gfx_d3d/r_model.cpp	bind	r_model.obj	?R_RegisterInlineModel@@YAPAUGfxBrushModel@@H@Z
-0x1001d8c0	R_FinishLoadingModels	33		NO_SOURCE_OWNER		-		
+0x1001d8c0	R_FinishLoadingModels	33	33	VERIFIED_EXTENT	gfx_d3d/r_model.cpp	bind	r_model.obj	?R_FinishLoadingModels@@YAXXZ
 0x1001d8f0	R_SetIgnorePrecacheErrors	15	15	VERIFIED_EXTENT	gfx_d3d/r_model.cpp	bind	r_model.obj	?R_SetIgnorePrecacheErrors@@YAXH@Z
 0x1001d900	R_GetIgnorePrecacheErrors	14	14	VERIFIED_EXTENT	gfx_d3d/r_model.cpp	bind	r_model.obj	?R_GetIgnorePrecacheErrors@@YA_NXZ
 0x1001d910	R_MarkFragments	77	77	VERIFIED_EXTENT	gfx_d3d/r_model.cpp	bind	r_model.obj	?R_ModelBounds@@YAXPBMPAM1@Z
@@ -514,6 +546,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10020640	FUN_10020640	329		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_outdoor.cpp	pinned		?R_ComputeOutdoorBounds@@YAXPBUGfxWorld@@@Z
 0x10020790	FUN_10020790	82		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_outdoor.cpp	pinned		?R_ComputeOutdoorScale@@YAXXZ
 0x100207f0	FUN_100207f0	141		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_outdoor.cpp	pinned		?R_ComputeOutdoorLookupMatrix@@YAXPAUGfxWorld@@@Z
+0x10020890	-		25	VERIFIED_EXTENT	gfx_d3d/r_outdoor.cpp	bind	r_outdoor.obj	?R_OutdoorTexelToWorld@@YAMHH@Z
 0x100208b0	FUN_100208b0	77		NO_SOURCE_OWNER		-		
 0x10020900	FUN_10020900	78		NO_SOURCE_OWNER		-		
 0x10020950	FUN_10020950	201		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_outdoor.cpp	pinned		?R_GenerateOutdoorLookup@@YAXXZ
@@ -610,24 +643,25 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100257a0	R_ResetSunLightOverride	371		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_scene.cpp	pinned		?R_RenderScene@@YAXPBUrefdef_s@@@Z
 0x10025920	-		31	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?I_fmin@@YAMMM@Z
 0x10025940	-		25	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?Vec3Mul@@YAXQBM0QAM@Z
+0x10025960	-		60	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?R_ScreenshotFilename@@YAXHPBDPAD@Z
 0x100259a0	FUN_100259a0	363		NO_SOURCE_OWNER		-		
-0x10025b10	FUN_10025b10	503		NO_SOURCE_OWNER		-		
+0x10025b10	FUN_10025b10	503	503	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?R_UpsamplePixelData@@YAXHHHHPAE0@Z
 0x10025d10	FUN_10025d10	360		NO_SOURCE_OWNER		-		
 0x10025e80	FUN_10025e80	656	656	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?R_GetFrontBufferData@@YAEHHHHHPAE@Z
 0x10026110	FUN_10026110	150		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_TakeResampledScreenshot@@YAPAEHHHH@Z
 0x100261b0	FUN_100261b0	138	138	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?R_TakeScreenshotTga@@YAXHHHHPBD@Z
 0x10026240	-		78	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z
-0x10026290	FUN_10026290	159		NO_SOURCE_OWNER		-		
+0x10026290	FUN_10026290	159		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_LevelShot@@YAXXZ
 0x10026330	FUN_10026330	101		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_SaveGameShot@@YAXPBD@Z
-0x100263a0	FUN_100263a0	567		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_screenshot.cpp	pinned		?R_ScreenShotCmd@@YAXH@Z
+0x100263a0	FUN_100263a0	567		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_ScreenShotCmd@@YAXH@Z
 0x100265e0	FUN_100265e0	266		NO_SOURCE_OWNER		-		
 0x100266f0	FUN_100266f0	97	97	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?R_FlipCubemapShot@@YAXPAE@Z
 0x100267e0	FUN_100267e0	89		NO_SOURCE_OWNER		-		
 0x10026840	FUN_10026840	100		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_WriteCubemapShotAlpha@@YAXHMMPAE@Z
-0x100268b0	FUN_100268b0	99		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_CaptureCubemapShot@@YAXH@Z
+0x100268b0	FUN_100268b0	99	99	VERIFIED_EXTENT	gfx_d3d/r_screenshot.cpp	bind	r_screenshot.obj	?R_CaptureCubemapShot@@YAXH@Z
 0x10026920	FUN_10026920	154		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_WriteCubemapShot@@YAXHPBDMM@Z
 0x10026a50	R_FreeImageAllocations	136		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_BeginCubemapShot@@YAXHH@Z
-0x10026a70	R_BeginCubemapShot	20		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_screenshot.cpp	pinned		?R_EndCubemapShot@@YAXH@Z
+0x10026a70	R_BeginCubemapShot	20		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_EndCubemapShot@@YAXH@Z
 0x10026a90	R_EndCubemapShot	30		BYTE_HIT_ONLY	gfx_d3d/r_screenshot.cpp	hit		?R_SaveCubemapShot@@YAXPBDHMM@Z
 0x10026b30	FUN_10026b30	805		NO_SOURCE_OWNER		-		
 0x10026e60	FUN_10026e60	369		NO_SOURCE_OWNER		-		
@@ -652,6 +686,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10028580	FUN_10028580	173	173	VERIFIED_EXTENT	gfx_d3d/r_shadowcookie.cpp	bind	r_shadowcookie.obj	??$_Median@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@00P6A_NABU1@1@Z@Z
 0x10028670	FUN_10028670	66	69	VERIFIED_EXTENT	gfx_d3d/r_shadowcookie.cpp	bind	r_shadowcookie.obj	??$_Make_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@ZPAH0@Z
 0x100286c0	-		64	VERIFIED_EXTENT	gfx_d3d/r_shadowcookie.cpp	bind	r_shadowcookie.obj	??$pop_heap@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z
+0x10028700	-		22	VERIFIED_EXTENT	gfx_d3d/r_shadowcookie.cpp	bind	r_shadowcookie.obj	??$rotate@PAUShadowCandidate@@@std@@YAXPAUShadowCandidate@@00@Z
 0x10028720	FUN_10028720	100	100	VERIFIED_EXTENT	gfx_d3d/r_shadowcookie.cpp	bind	r_shadowcookie.obj	??$_Med3@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@00P6A_NABU1@1@Z@Z
 0x100287b0	FUN_100287b0	120	120	VERIFIED_EXTENT	gfx_d3d/r_shadowcookie.cpp	bind	r_shadowcookie.obj	??$_Adjust_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@HHU1@P6A_NABU1@2@Z@Z
 0x10028830	-		50	VERIFIED_EXTENT	gfx_d3d/r_shadowcookie.cpp	bind	r_shadowcookie.obj	??$_Pop_heap_0@PAUShadowCandidate@@U1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z0@Z
@@ -673,7 +708,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10029530	-		40	VERIFIED_EXTENT	gfx_d3d/r_splitscreen.cpp	bind	r_splitscreen.obj	?R_EndDrawGroupSection@@YAXH@Z
 0x10029560	FUN_10029560	317	317	VERIFIED_EXTENT	gfx_d3d/r_splitscreen.cpp	bind	r_splitscreen.obj	?R_IssueDrawGroups@@YAXXZ
 0x100296a0	FUN_100296a0	73	73	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z
-0x10029780	FUN_10029780	285		NO_SOURCE_OWNER		-		
+0x10029780	FUN_10029780	285	285	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_QuantizeStaticModelColor@@YAXPAEPBM@Z
 0x100298a0	FUN_100298a0	97	97	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z
 0x10029910	FUN_10029910	699	705	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_SortGfxAabbTreeChildren@@YAHPAUGfxWorld@@PBM1PAHH@Z
 0x10029be0	-		13	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_CompareStaticModelIndex@@YAHPBX0@Z
@@ -681,10 +716,10 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1002a010	FUN_1002a010	486	489	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_AddStaticModelToAabbTree_r@@YAXPAUGfxWorld@@PAUGfxAabbTree@@H@Z
 0x1002a200	FUN_1002a200	69		NO_SOURCE_OWNER		-		
 0x1002a250	FUN_1002a250	271		NO_SOURCE_OWNER		-		
-0x1002a360	FUN_1002a360	438		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_staticmodel_load_obj.cpp	pinned		?R_StaticModelBounds@@YAXPAUXModel@@PBMPAM2@Z
+0x1002a360	FUN_1002a360	438		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_staticmodel_load_obj.cpp	pinned		?R_StaticModelBounds@@YAXPAUXModel@@PAY02$$CBMPAM2@Z
 0x1002a520	FUN_1002a520	67	67	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_ScaleStaticModelLighting@@YAXMMPAMPAY03M@Z
-0x1002a570	FUN_1002a570	335		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_staticmodel_load_obj.cpp	pinned		?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z
-0x1002a6d0	FUN_1002a6d0	81		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_staticmodel_load_obj.cpp	pinned		?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z
+0x1002a570	FUN_1002a570	335	341	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z
+0x1002a6d0	FUN_1002a6d0	81		BYTE_HIT_ONLY	gfx_d3d/r_staticmodel_load_obj.cpp	hit		?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z
 0x1002a730	FUN_1002a730	79	79	VERIFIED_EXTENT	gfx_d3d/r_staticmodel_load_obj.cpp	bind	r_staticmodel_load_obj.obj	?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z
 0x1002a780	FUN_1002a780	223		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_staticmodel_load_obj.cpp	pinned		?R_PrepareStaticModelLightingCache@@YAXPAUGfxWorld@@H@Z
 0x1002a860	FUN_1002a860	214		PINNED_SOURCE_CANDIDATE	gfx_d3d/r_staticmodel_load_obj.cpp	pinned		?R_FinishStaticModelLightingCache@@YAXPAUGfxWorld@@@Z
@@ -704,6 +739,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1002b8c0	FUN_1002b8c0	87	87	VERIFIED_EXTENT	gfx_d3d/r_staticmodelcache.cpp	bind	r_staticmodelcache.obj	?R_UsedCachedStaticModelSurface@@YAXPAUGfxStaticModelSurfaceCached@@@Z
 0x1002b920	FUN_1002b920	128	128	VERIFIED_EXTENT	gfx_d3d/r_staticmodelcache.cpp	bind	r_staticmodelcache.obj	?R_CreateSmodelCacheVertexBuffer@@YAXXZ
 0x1002b9a0	FUN_1002b9a0	282	288	VERIFIED_EXTENT	gfx_d3d/r_staticmodelcache.cpp	bind	r_staticmodelcache.obj	?SMC_ClearCache@@YAXXZ
+0x1002bad0	-		20	VERIFIED_EXTENT	gfx_d3d/r_staticmodelcache.cpp	bind	r_staticmodelcache.obj	?R_InitStaticModelIndexCache@@YAXXZ
 0x1002baf0	FUN_1002baf0	111	111	VERIFIED_EXTENT	gfx_d3d/r_staticmodelcache.cpp	bind	r_staticmodelcache.obj	?R_FlushStaticModelCache@@YAXXZ
 0x1002bb90	-		84	VERIFIED_EXTENT	gfx_d3d/r_staticmodelcache.cpp	bind	r_staticmodelcache.obj	?R_StaticModelCacheStats_f@@YAXXZ
 0x1002bc60	-		60	VERIFIED_EXTENT	gfx_d3d/r_surfbounds.cpp	bind	r_surfbounds.obj	?R_BoundsForSurf_Triangles@@YAPBMPBUGfxDrawSurf@@H@Z
@@ -713,6 +749,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1002bd20	FUN_1002bd20	113	113	VERIFIED_EXTENT	gfx_d3d/r_texturemem.cpp	bind	r_texturemem.obj	?R_VideoMemoryForDevice@@YAIPAU_GUID@@@Z
 0x1002bda0	-		35	VERIFIED_EXTENT	gfx_d3d/r_texturemem.cpp	bind	r_texturemem.obj	?R_DDEnumCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z
 0x1002bdd0	FUN_1002bdd0	213	213	VERIFIED_EXTENT	gfx_d3d/r_texturemem.cpp	bind	r_texturemem.obj	?R_DrasticVideoMemoryForDevice@@YAIPAU_GUID@@@Z
+0x1002beb0	-		27	VERIFIED_EXTENT	gfx_d3d/r_texturemem.cpp	bind	r_texturemem.obj	?R_DDEnumDrasticCallback@@YGHPAU_GUID@@PAD1PAXPAUHMONITOR__@@@Z
 0x1002bed0	FUN_1002bed0	115	115	VERIFIED_EXTENT	gfx_d3d/r_texturemem.cpp	bind	r_texturemem.obj	?R_VideoMemory@@YAIXZ
 0x1002bf50	FUN_1002bf50	96	96	VERIFIED_EXTENT	gfx_d3d/r_texturemem.cpp	bind	r_texturemem.obj	?R_AvailableTextureMemory@@YAIXZ
 0x1002bfb0	-		34	VERIFIED_EXTENT	gfx_d3d/r_utils.cpp	bind	r_utils.obj	?R_HashAssetName@@YAHPBD@Z
@@ -804,7 +841,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10032370	FUN_10032370	76		NO_SOURCE_OWNER		-		
 0x10032400	FUN_10032400	144		BYTE_HIT_ONLY	gfx_d3d/rb_backend.cpp	hit		?RB_DrawTextCursor@@YAXPBUMaterial@@DMMPAUFont_s@@MMI@Z
 0x10032490	FUN_10032490	165	165	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_UpdateColorInternal@@YAXPBMPAE@Z
-0x10032540	R_ShutdownDebug	28		NO_SOURCE_OWNER		-		
+0x10032540	R_ShutdownDebug	28	28	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_UpdateColor@@YAXPBM0@Z
 0x10032560	FUN_10032560	740		NO_SOURCE_OWNER		-		
 0x10032890	FUN_10032890	440		NO_SOURCE_OWNER		-		
 0x10032a50	FUN_10032a50	442		NO_SOURCE_OWNER		-		
@@ -825,7 +862,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100335d0	FUN_100335d0	918		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_backend.cpp	pinned		?RB_TestFill@@YAXXZ
 0x100339b0	FUN_100339b0	214		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_backend.cpp	pinned		?RB_TestTransform@@YAXXZ
 0x10033a90	FUN_10033a90	128	135	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_BeginScene@@YAXXZ
-0x10033b20	FUN_10033b20	256		BYTE_HIT_ONLY	gfx_d3d/rb_backend.cpp	hit		?RB_EndFrame@@YAXXZ
+0x10033b20	FUN_10033b20	256	256	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_EndFrame@@YAXXZ
 0x10033c50	FUN_10033c50	207	207	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_UpdateBackendDvars@@YAXXZ
 0x10033d20	FUN_10033d20	608		PINNED_SOURCE_CANDIDATE	gfx_d3d/rb_backend.cpp	pinned		?RB_ExecuteRenderCommands@@YAXPBX@Z
 0x10033f80	-		64	VERIFIED_EXTENT	gfx_d3d/rb_backend.cpp	bind	rb_backend.obj	?RB_InitBackendGlobalStructs@@YAXXZ
@@ -872,7 +909,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10037500	FUN_10037500	294	294	VERIFIED_EXTENT	gfx_d3d/rb_light.cpp	bind	rb_light.obj	?RB_DeriveDirectionalEntityLights@@YAHPBMMPAU_D3DLIGHT9@@H@Z
 0x10037630	-		60	VERIFIED_EXTENT	gfx_d3d/rb_light.cpp	bind	rb_light.obj	?RB_DeriveEntityLights@@YAHPAY03MMPBUMaterial@@PAU_D3DLIGHT9@@H@Z
 0x10037670	FUN_10037670	78	78	VERIFIED_EXTENT	gfx_d3d/rb_light.cpp	bind	rb_light.obj	?BuildGridFilename@@YAXPBDPAD@Z
-0x100376c0	FUN_100376c0	194		NO_SOURCE_OWNER		-		
+0x100376c0	FUN_100376c0	194	194	VERIFIED_EXTENT	gfx_d3d/rb_light.cpp	bind	rb_light.obj	?RB_InitLightVisHistory@@YAXPBD@Z
 0x10037790	FUN_10037790	94		NO_SOURCE_OWNER		-		
 0x10037810	FUN_10037810	96	96	VERIFIED_EXTENT	gfx_d3d/rb_logfile.cpp	bind	rb_logfile.obj	?RB_OpenLogFile@@YAXXZ
 0x10037870	-		29	VERIFIED_EXTENT	gfx_d3d/rb_logfile.cpp	bind	rb_logfile.obj	?RB_IsLogging@@YA_NXZ
@@ -1323,7 +1360,9 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100586e0	-		226	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?SpiralPointsOnHemisphere@@YAXHPAMH@Z
 0x100587d0	FUN_100587d0	235	242	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?SpiralPointsOnSphere@@YAXHPAMH@Z
 0x100588d0	FUN_100588d0	123	123	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?LinearTrack@@YAMMMMM@Z
+0x10058950	-		174	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?LinearTrackAngle@@YAMMMMM@Z
 0x10058a00	-		98	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?DiffTrack@@YAMMMMM@Z
+0x10058a70	-		174	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?DiffTrackAngle@@YAMMMMM@Z
 0x10058b20	-		84	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?GraphGetValueFromFraction@@YAMHPAY01$$CBMM@Z
 0x10058b80	-		16	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?Q_log2@@YAHH@Z
 0x10058b90	-		67	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?Q_acos@@YAMM@Z
@@ -1371,11 +1410,14 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1005a510	FUN_1005a510	271	271	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixMultiplyInPlace@@YAXQAY02$$CBMQAY02M@Z
 0x1005a620	-		302	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixMultiply34@@YAXQAY03$$CBM0QAY03M@Z
 0x1005a880	FUN_1005a880	520	520	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixMultiply44@@YAXQAY03$$CBM0QAY03M@Z
+0x1005aa90	-		53	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixTranspose@@YAXQAY02$$CBMQAY02M@Z
 0x1005aad0	FUN_1005aad0	95	95	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixTranspose44@@YAXQAY03$$CBMQAY03M@Z
 0x1005ab30	-		257	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixInverse@@YAXQAY02$$CBMQAY02M@Z
 0x1005ac40	FUN_1005ac40	177	177	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixInverseOrthogonal43@@YAXQAY02$$CBMQAY02M@Z
 0x1005ad00	FUN_1005ad00	1513	1513	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixInverse44@@YAXPBMPAM@Z
+0x1005b2f0	-		71	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixTransformVector@@YAXQBMQAY02$$CBMQAM@Z
 0x1005b340	FUN_1005b340	127	127	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixTransformVector44@@YAXQBMQAY03$$CBMQAM@Z
+0x1005b3c0	-		71	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixTransposeTransformVector@@YAXQBMQAY02$$CBMQAM@Z
 0x1005b410	-		80	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixTransformVector43@@YAXQBMQAY02$$CBMQAM@Z
 0x1005b460	-		114	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixTransposeTransformVector43@@YAXQBMQAY02$$CBMQAM@Z
 0x1005b4e0	FUN_1005b4e0	100	100	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?MatrixTransformVector43Equals@@YAXQAMQAY02$$CBM@Z
@@ -1400,9 +1442,11 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1005bd70	-		67	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?ColorBytesFromRGB@@YAIMMM@Z
 0x1005bdc0	-		81	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?ColorBytesFromRGBA@@YAIMMMM@Z
 0x1005be20	-		107	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?Vec3NormalizeByMax@@YAMQBMQAM@Z
+0x1005be90	-		43	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AngleMod@@YAMM@Z
 0x1005bec0	-		99	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?LerpAngle@@YAMMMM@Z
 0x1005bf30	-		116	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AngleSubtract@@YAMMM@Z
 0x1005bfb0	-		49	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AnglesSubtract@@YAXQBM0QAM@Z
+0x1005bff0	-		43	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AngleNormalize360@@YAMM@Z
 0x1005c020	-		82	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AngleNormalize180@@YAMM@Z
 0x1005c080	-		116	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AngleNormalize360Accurate@@YAMM@Z
 0x1005c100	-		116	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AngleNormalize180Accurate@@YAMM@Z
@@ -1428,6 +1472,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1005c970	FUN_1005c970	44	44	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?TransformBoundsExpand@@YAXQAY02$$CBMQBM0QAY02M@Z
 0x1005c9a0	-		34	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AxisIdentity@@YAXQAY02M@Z
 0x1005c9d0	-		53	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AxisCopy@@YAXQAY02$$CBMQAY02M@Z
+0x1005ca10	-		53	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AxisTranspose@@YAXQAY02$$CBMQAY02M@Z
 0x1005ca50	-		83	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AxisTransformVector@@YAXPAY02$$CBMMMMPAM@Z
 0x1005cab0	FUN_1005cab0	66	66	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?AnglesToAxis@@YAXQBMQAY02M@Z
 0x1005cb00	-		80	VERIFIED_EXTENT	universal/com_math.cpp	bind	com_math.obj	?YawToAxis@@YAXMQAY02M@Z
@@ -1462,23 +1507,25 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1005ee60	FUN_1005ee60	529		NO_SOURCE_OWNER		-		
 0x1005f090	-		73	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_InitParseInfo@@YAXPAUparseInfo_t@@@Z
 0x1005f0e0	FUN_1005f0e0	213	213	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_BeginParseSession@@YAXPBD@Z
+0x1005f1c0	-		31	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_EndParseSession@@YAXXZ
 0x1005f270	-		18	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_GetCurrentParseLine@@YAHXZ
 0x1005f2d0	FUN_1005f2d0	144	144	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ScriptErrorDrop@@YAXPBDZZ
 0x1005f360	FUN_1005f360	140	140	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ScriptWarning@@YAXPBDZZ
-0x1005f3f0	FUN_1005f3f0	82	82	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_UngetToken@@YAXXZ
+0x1005f3f0	FUN_1005f3f0	82	82	VERIFIED_EXTENT	gfx_d3d/r_material_load_obj.cpp;universal/q_parse.cpp	bind	q_parse.obj;r_material_load_obj.obj	?Com_UngetToken@@YAXXZ;?Com_UngetTokenInternal@@YAXXZ$private$q_parse.obj;?Com_UngetTokenInternal@@YAXXZ$private$r_material_load_obj.obj
 0x1005f450	-		62	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseSetMark@@YAXPAPBDPAUcom_parse_mark_t@@@Z
 0x1005f490	-		62	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseReturnToMark@@YAXPAPBDPAUcom_parse_mark_t@@@Z
 0x1005f4d0	FUN_1005f4d0	67	67	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?SkipWhitespace@@YAPBDPBDPAH@Z
 0x1005f520	-		139	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_Compress@@YAHPAD@Z
 0x1005f5c0	FUN_1005f5c0	197	197	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseCSV@@YAPADPAPBDH@Z
 0x1005f690	FUN_1005f690	940	945	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseExt@@YAPADPAPBDH@Z
-0x1005fa50	FUN_1005fa50	68	68	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_Parse@@YAPADPAPBD@Z
+0x1005fa50	FUN_1005fa50	68	68	VERIFIED_EXTENT	gfx_d3d/r_bsp_load_obj.cpp;gfx_d3d/r_material_load_obj.cpp;universal/q_parse.cpp	bind	q_parse.obj;r_bsp_load_obj.obj;r_material_load_obj.obj	?Com_Parse@@YAPADPAPBD@Z;?Com_ParseInternal@@YAPADPAPBD@Z$private$q_parse.obj;?Com_ParseInternal@@YAPADPAPBD@Z$private$r_bsp_load_obj.obj;?Com_ParseInternal@@YAPADPAPBD@Z$private$r_material_load_obj.obj
 0x1005faa0	-		75	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseOnLine@@YAPADPAPBD@Z
 0x1005faf0	FUN_1005faf0	181	181	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_MatchToken@@YAHPAPBDPBDH@Z
 0x1005fbb0	-		131	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_SkipBracedSection@@YAHPAPBDH@Z
 0x1005fc40	-		57	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_SkipRestOfLine@@YAXPAPBD@Z
 0x1005fc80	FUN_1005fc80	222	222	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_GetArgCountOnLine@@YAHPAPBD@Z
 0x1005fd60	FUN_1005fd60	275	275	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseRestOfLine@@YAPBDPAPBD@Z
+0x1005fe80	-		74	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseFloat@@YAMPAPBD@Z
 0x1005fed0	-		82	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseFloatOnLine@@YAMPAPBD@Z
 0x1005ff30	FUN_1005ff30	74	74	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseInt@@YAHPAPBD@Z
 0x1005ff80	-		84	VERIFIED_EXTENT	universal/q_parse.cpp	bind	q_parse.obj	?Com_ParseIntOnLine@@YAHPAPBD@Z
@@ -1503,6 +1550,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10060770	FUN_10060770	164	164	VERIFIED_EXTENT	universal/q_shared.cpp	bind	q_shared.obj	?Swap_Init@@YAXXZ
 0x10060820	-		19	VERIFIED_EXTENT	universal/q_shared.cpp	bind	q_shared.obj	?I_isprint@@YA_NH@Z
 0x10060840	-		19	VERIFIED_EXTENT	universal/q_shared.cpp	bind	q_shared.obj	?I_islower@@YA_NH@Z
+0x10060860	-		19	VERIFIED_EXTENT	universal/q_shared.cpp	bind	q_shared.obj	?I_isupper@@YA_NH@Z
 0x10060880	-		29	VERIFIED_EXTENT	universal/q_shared.cpp	bind	q_shared.obj	?I_isalpha@@YA_NH@Z
 0x100608a0	-		19	VERIFIED_EXTENT	universal/q_shared.cpp	bind	q_shared.obj	?I_isdigit@@YA_NH@Z
 0x100608c0	-		39	VERIFIED_EXTENT	universal/q_shared.cpp	bind	q_shared.obj	?I_isalnum@@YA_NH@Z
@@ -2668,11 +2716,12 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100de367	FUN_100de367	20392	72405	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	_DXGetErrorString9W@4
 0x100efe3c	FUN_100efe3c	9617	11497	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	_DXGetErrorDescription9A@4
 0x100f2b25	FUN_100f2b25	9617		NO_SOURCE_OWNER		-		
-0x100f582b	_StringCchCopyW@12	29		NO_SOURCE_OWNER		-		
+0x100f580e	-		29	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	?StringCchCopyA@@YGJPADIPBD@Z
+0x100f582b	_StringCchCopyW@12	29	29	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	?StringCchCopyW@@YGJPAGIPBG@Z
 0x100f5848	FID_conflict:_StringCbPrintfA	41	41	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	?StringCchPrintfA@@YAJPADIPBDZZ
 0x100f5871	_StringCchPrintfW	41	41	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	?StringCchPrintfW@@YAJPAGIPBGZZ
-0x100f589a	FUN_100f589a	35		NO_SOURCE_OWNER		-		
-0x100f58bd	FUN_100f58bd	35		NO_SOURCE_OWNER		-		
+0x100f589a	FUN_100f589a	35	35	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	?StringCchLengthA@@YGJPBDIPAI@Z
+0x100f58bd	FUN_100f58bd	35	35	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	?StringCchLengthW@@YGJPBGIPAI@Z
 0x100f58e0	FUN_100f58e0	427	427	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	_DXTraceW@20
 0x100f5a8b	FUN_100f5a8b	419	419	VERIFIED_EXTENT		-	DxErr9:dxerr9.obj	_DXTraceA@20
 0x100f5c2e	DirectDrawEnumerateExA	6	6	VERIFIED_EXTENT		-	ddraw:DDRAW.dll	_DirectDrawEnumerateExA@12
@@ -2743,8 +2792,8 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100f786a	operator_new	14	14	VERIFIED_EXTENT		-	LIBCMT:new.obj	??2@YAPAXI@Z
 0x100f7878	__snprintf	87	87	VERIFIED_EXTENT		-	LIBCMT:snprintf.obj	__snprintf
 0x100f78cf	__stricmp	105	105	VERIFIED_EXTENT		-	LIBCMT:stricmp.obj	__stricmp
-0x100f7939	FUN_100f7939	56		NO_SOURCE_OWNER		-		
-0x100f7981	__fpmath	30		NO_SOURCE_OWNER		-		
+0x100f7939	FUN_100f7939	56	56	VERIFIED_EXTENT		-	LIBCMT:fpinit.obj	__cfltcvt_init
+0x100f7981	__fpmath	30	30	VERIFIED_EXTENT		-	LIBCMT:fpinit.obj	__fpmath
 0x100f799f	__strdup	43	43	VERIFIED_EXTENT		-	LIBCMT:strdup.obj	__strdup
 0x100f79d6	___freetlocinfo	208	208	VERIFIED_EXTENT		-	LIBCMT:setlocal.obj	___freetlocinfo
 0x100f7aa6	___updatetlocinfo_lk	193	193	VERIFIED_EXTENT		-	LIBCMT:setlocal.obj	___updatetlocinfo_lk
@@ -2775,6 +2824,8 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100f879e	-		58	VERIFIED_EXTENT		-	LIBCMT:_ctype.obj	_iscntrl
 0x100f87d8	-		13	VERIFIED_EXTENT		-	LIBCMT:_ctype.obj	___isascii
 0x100f87e5	-		8	VERIFIED_EXTENT		-	LIBCMT:_ctype.obj	___toascii
+0x100f87ed	-		26	VERIFIED_EXTENT		-	LIBCMT:_ctype.obj	___iscsymf
+0x100f8807	-		26	VERIFIED_EXTENT		-	LIBCMT:_ctype.obj	___iscsym
 0x100f8830	__chkstk	61	61	VERIFIED_EXTENT		-	LIBCMT:chkstk.obj	__chkstk
 0x100f886d	__copysign	33	33	VERIFIED_EXTENT		-	LIBCMT:ieeemisc.obj	__copysign
 0x100f888e	__chgsign	38	38	VERIFIED_EXTENT		-	LIBCMT:ieeemisc.obj	__chgsign
@@ -2884,6 +2935,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100fcdf0	_memcpy	672		NO_SOURCE_OWNER		-		
 0x100fd149	___crtLCMapStringA	886	956	VERIFIED_EXTENT		-	LIBCMT:a_map.obj	___crtLCMapStringA
 0x100fd505	___isctype_mt	119	119	VERIFIED_EXTENT		-	LIBCMT:isctype.obj	___isctype_mt
+0x100fd57c	-		39	VERIFIED_EXTENT		-	LIBCMT:isctype.obj	__isctype
 0x100fd5b0	__allmul	52	52	VERIFIED_EXTENT		-	LIBCMT:llmul.obj	__allmul
 0x100fd5e4	___crtExitProcess	47	47	VERIFIED_EXTENT		-	LIBCMT:crt0dat.obj	___crtExitProcess
 0x100fd614	FUN_100fd614	9	9	VERIFIED_EXTENT		-	LIBCMT:crt0dat.obj	__lockexit
@@ -2949,6 +3001,9 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x100ffd9a	___free_lconv_mon	217	217	VERIFIED_EXTENT		-	LIBCMT:initmon.obj	___free_lconv_mon
 0x100ffe73	___init_monetary	575	575	VERIFIED_EXTENT		-	LIBCMT:initmon.obj	___init_monetary
 0x101000b2	___init_ctype	490		NO_SOURCE_OWNER		-		
+0x101002a2	-		25	VERIFIED_EXTENT		-	LIBCMT:initctyp.obj	____lc_codepage_func
+0x101002bb	-		25	VERIFIED_EXTENT		-	LIBCMT:initctyp.obj	____lc_collate_cp_func
+0x101002d4	-		25	VERIFIED_EXTENT		-	LIBCMT:initctyp.obj	____lc_handle_func
 0x101002f0	_strcspn	70	70	VERIFIED_EXTENT		-	LIBCMT:strcspn.obj	_strcspn
 0x10100340	_memset	96	96	VERIFIED_EXTENT		-	LIBCMT:memset.obj	_memset
 0x101003a0	_strcmp	135	136	VERIFIED_EXTENT		-	LIBCMT:strcmp.obj	_strcmp
@@ -3043,8 +3098,12 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10104a09	-		19	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__fdivrp_sti_st
 0x10104a1c	-		76	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__adj_fdiv_m32
 0x10104a68	-		76	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__adj_fdiv_m64
+0x10104ab4	-		52	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__adj_fdiv_m16i
+0x10104ae8	-		52	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__adj_fdiv_m32i
 0x10104b1c	-		76	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__adj_fdivr_m32
 0x10104b68	-		76	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__adj_fdivr_m64
+0x10104bb4	-		52	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__adj_fdivr_m16i
+0x10104be8	-		52	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__adj_fdivr_m32i
 0x10104c1c	-		21	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__safe_fdiv
 0x10104c31	-		21	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__safe_fdivr
 0x10104c46	FUN_10104c46	518	518	VERIFIED_EXTENT		-	LIBCMT:adj_fdiv.obj	__fprem_common
@@ -3113,7 +3172,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x101078ec	FUN_101078ec	9		NO_SOURCE_OWNER		-		
 0x10107986	FUN_10107986	9		NO_SOURCE_OWNER		-		
 0x1010798f	-		199	VERIFIED_EXTENT		-	LIBCMT:osfinfo.obj	__open_osfhandle
-0x10107a56	___crtInitCritSecNoSpinCount@8	16		NO_SOURCE_OWNER		-		
+0x10107a56	___crtInitCritSecNoSpinCount@8	16	16	VERIFIED_EXTENT		-	LIBCMT:initcrit.obj	___crtInitCritSecNoSpinCount@8
 0x10107a66	___crtInitCritSecAndSpinCount	103	139	VERIFIED_EXTENT		-	LIBCMT:initcrit.obj	___crtInitCritSecAndSpinCount
 0x10107af1	__tsopen_lk	743	743	VERIFIED_EXTENT		-	LIBCMT:open.obj	__tsopen_lk
 0x10107dd8	-		85	VERIFIED_EXTENT		-	LIBCMT:open.obj	__open
@@ -3159,6 +3218,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x1010905f	___ld12mul	562	562	VERIFIED_EXTENT		-	LIBCMT:tenpow.obj	___ld12mul
 0x10109291	___multtenpow12	134	134	VERIFIED_EXTENT		-	LIBCMT:tenpow.obj	___multtenpow12
 0x10109317	__chsize_lk	321	321	VERIFIED_EXTENT		-	LIBCMT:chsize.obj	__chsize_lk
+0x10109458	-		151	VERIFIED_EXTENT		-	LIBCMT:chsize.obj	__chsize
 0x101094ef	__mbsnbicoll	78	78	VERIFIED_EXTENT		-	LIBCMT:mbsnbico.obj	__mbsnbicoll
 0x1010953d	___wtomb_environ	144		NO_SOURCE_OWNER		-		
 0x101095cd	_realloc	412		NO_SOURCE_OWNER		-		
@@ -3171,6 +3231,7 @@ target	inventory_name	inventory_bytes	verified_extent_bytes	status	candidate_tus
 0x10109cf0	___ascii_strnicmp	97	97	VERIFIED_EXTENT		-	LIBCMT:_strnicm.obj	___ascii_strnicmp
 0x10109d51	__flswbuf	296	296	VERIFIED_EXTENT		-	LIBCMT:_flswbuf.obj	__flswbuf
 0x10109e79	__setmode_lk	108	108	VERIFIED_EXTENT		-	LIBCMT:setmode.obj	__setmode_lk
+0x10109ee5	-		151	VERIFIED_EXTENT		-	LIBCMT:setmode.obj	__setmode
 0x10109f7c	_strncnt	28	28	VERIFIED_EXTENT		-	LIBCMT:a_cmp.obj	_strncnt$private$LIBCMT:a_cmp.obj
 0x10109f98	___crtCompareStringA	848	900	VERIFIED_EXTENT		-	LIBCMT:a_cmp.obj	___crtCompareStringA
 0x1010a31c	findenv	77	77	VERIFIED_EXTENT		-	LIBCMT:setenv.obj	_findenv

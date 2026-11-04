@@ -1,8 +1,8 @@
 {
-  "functions": 762,
-  "bytes": 127037,
+  "functions": 767,
+  "bytes": 127669,
   "total": 253580,
-  "percent": 50.0974051581355,
+  "percent": 50.34663617004496,
   "baseline_lost": [],
   "gains": [
     {
@@ -618,6 +618,24 @@
       "object": "r_init.obj"
     },
     {
+      "target": "0x10011f10",
+      "bytes": 157,
+      "name": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10011fb0",
+      "bytes": 38,
+      "name": "?R_SetColorMappings@@YAXXZ",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10011fe0",
+      "bytes": 82,
+      "name": "?R_GammaCorrect@@YAXHPAE@Z",
+      "object": "r_init.obj"
+    },
+    {
       "target": "0x10012320",
       "bytes": 51,
       "name": "?R_DisplayModeLess@@YA_NABU_D3DDISPLAYMODE@@0@Z",
@@ -1200,6 +1218,12 @@
       "object": "r_screenshot.obj"
     },
     {
+      "target": "0x100268b0",
+      "bytes": 99,
+      "name": "?R_CaptureCubemapShot@@YAXH@Z",
+      "object": "r_screenshot.obj"
+    },
+    {
       "target": "0x10027170",
       "bytes": 30,
       "name": "?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z",
@@ -1377,6 +1401,12 @@
       "target": "0x10032d70",
       "bytes": 10,
       "name": "?RB_GpuWaited@@YAXH@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x10033b20",
+      "bytes": 256,
+      "name": "?RB_EndFrame@@YAXXZ",
       "object": "rb_backend.obj"
     },
     {

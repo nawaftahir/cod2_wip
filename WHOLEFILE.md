@@ -1,3 +1,6 @@
+Current coverage is maintained in PROGRESS.md and the fresh referee reports.
+Dated figures below are historical snapshots, not the current percentage.
+
 # Renderer roadmap: readable source to the exact retail DLL
 
 ## Execution policy - 2026-11-03
