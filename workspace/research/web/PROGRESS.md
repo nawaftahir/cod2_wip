@@ -1454,3 +1454,23 @@ and OnInitDialog. The shared `workspace/research/web/target.tsv` is
 currently assigned to ModelDlg, and lane 2 is not authorized to change
 it or `tu_trial.tsv`. Owner must supply a lane-aware trial route; never
 treat a passing ModelDlg web-trial as evidence for this TU.
+
+## Lane 2 — RotateDlg Q3 ancestor source candidate
+
+Read id Software's original `q3radiant/RotateDlg.cpp` and `RotateDlg.h`
+at revision `dbe4ddb10315479fc00086f08e25d968b4b43c49`.
+Source for `OnApply` rotates X, Y, Z axes after `UpdateData(TRUE)`,
+using `atof(CString)` and `Select_RotateAxis(axis, deg)`.
+Staged a normal C++ adaptation preserving the existing **six verified** target
+functions in `workspace/research/web/drafts/RotateDlg.cpp`, plus
+`workspace/research/web/drafts/RotateDlg.request.tsv` for retail
+0x0043c2b0 / 475 B. The reference float constants and selection API
+are ancestral hypotheses, NOT retail-confirmed; no code/ledger promotion.
+
+The target spin callbacks 0x0043c4f0, 0x0043c5a0 and 0x0043c650
+**cannot be copied blindly**: retail decompilation shows they
+invoke 0x00470c50, 0x004897c0, 0x00485040 and 0x00470ce0 and construct
+transformation matrices. Q3's three one-line `Select_RotateAxis` callbacks
+do not have that code shape. Those four target routines have no matching
+linked owner definitions, so a correct source body cannot be verified
+as a standalone TU without select.cpp and com_math.cpp integration.

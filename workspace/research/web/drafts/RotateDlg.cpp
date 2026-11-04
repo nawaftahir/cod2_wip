@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <stdlib.h>
 
 class CRotateDlg : public CDialog
 {
@@ -68,4 +69,28 @@ BOOL CRotateDlg::OnInitDialog()
 
 void CRotateDlg::ApplyNoPaint()
 {
+}
+
+
+// Q3Radiant RotateDlg.cpp OnApply body, adapted only for the existing
+// target class. Candidate for 0x0043c2b0 / 475 B; NOT byte verified.
+// The real selection helper must be implemented by its owning select.cpp TU.
+extern void Select_RotateAxis(int axis, float degrees,
+                              bool paint = false, bool mouse = false);
+
+void CRotateDlg::OnApply()
+{
+    UpdateData(TRUE);
+
+    float f = (float)atof(m_strX);
+    if (f != 0.0f)
+        Select_RotateAxis(0, f);
+
+    f = (float)atof(m_strY);
+    if (f != 0.0f)
+        Select_RotateAxis(1, f);
+
+    f = (float)atof(m_strZ);
+    if (f != 0.0f)
+        Select_RotateAxis(2, f);
 }
