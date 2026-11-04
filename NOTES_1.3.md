@@ -282,3 +282,12 @@
 - Files where ours differs from git (HTNet, HTAlert, HTInit, HTProt, HTHeader, HTTrans, HTTPReq, HTBound, HTDNS, HTMIME, HTFTP) have no unmatched fns left; nothing to gain.
 - HTEvtLst static at 0x5ddfa8: no name in Mac decompile (no libwww there), libwww-git history, coduomp or KisakCOD. DEFER (no invented names).
 - HTCache_isFresh: permuting max_age/max_stale/min_fresh declaration order has no effect on the object (3 permutations, +0). Slot order is not declaration-driven. PARKED.
+
+## w7-core (11-04)
+- PAID +2653 (6ce3885): SV_DirectConnect = lnxded-1.3 server text (memset of PBguid/clientPBguid, challenge/ping blocks, guid test) with ONE client-side change:
+  "cl->state >= CS_CONNECTED" in the reconnect branch (server text has "> CS_ZOMBIE"; retail cmp eax,2/jl). tools/swapfn7.py + sw7.sh copy a fn from the server source.
+- SV_ConnectionlessPacket (1179 B): our text equals the server text, but retail has an extra tail for "pb_" packets: when msg->data[7] is not one of S 2 G I Y B L (and a pbsv
+  pointer test) it calls a 5-arg pointer (pbsv, 13, len-4, data+4, 0) = an AddPbEvent variant without clientIndex. Unknown fn/semantics: needs PB reversal, PARKED.
+- VM_Notify with server text: no gain (still different; 1 build) and the build lost the 752 B tie, REJECT; our 1.0-tuned spelling kept.
+- Com_PrintMessage (454): only diff is the usercall register of PbCaptureConsoleOutput msglen (retail eax, ours ecx) = LTCG callee choice. CG_FireWeapon: lea ebp,[ebx+0xf0] scheduled before push esi/edi.
+- CG_EntityEvent (4328 B): regalloc/spill differences throughout (cl vs al for the bool at [esp+0x13], etc.), not attempted.
