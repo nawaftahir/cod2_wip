@@ -9,6 +9,7 @@
 #include <string.h>
 #include <windows.h>
 #include <direct.h>
+#include <ctype.h>
 extern "C" int __cdecl _chmod(const char *path, int mode);
 
 struct stPbCl;
@@ -29,6 +30,49 @@ typedef char *(*tdPbSendToAddrPort)(char *, unsigned short, int, char *);
 typedef char *(*tdPbClientConnect)(stPbCl *, int, char *, int *);
 typedef char *(*tdPbTrapPreExecCmd)(stPbCl *, char *);
 typedef void (*tdPbTrapConsole)(stPbCl *, char *, int);
+
+// retail 0x4bb450, name unknown: case-insensitive strstr (first hit in either case of the first letter)
+char *fn_4bb450(char *hay, char *needle)
+{
+	char *first = 0;
+	char lo[2] = "x";
+	char up[2] = "X";
+	char *p;
+	int len;
+
+	if ( !hay || !needle || !*needle )
+		return hay;
+	len = strlen(needle);
+	lo[0] = tolower(*needle);
+	p = hay;
+	do
+	{
+		p = strstr(p, lo);
+		if ( !p )
+			break;
+		if ( !_strnicmp(p, needle, len) )
+			first = p;
+		p++;
+	} while ( !first );
+	up[0] = toupper(*needle);
+	if ( lo[0] != up[0] )
+	{
+		p = hay;
+		while ( (p = strstr(p, up)) != 0 )
+		{
+			if ( !_strnicmp(p, needle, len) )
+			{
+				if ( !first )
+					return p;
+				if ( p < first )
+					return p;
+				return first;
+			}
+			p++;
+		}
+	}
+	return first;
+}
 
 // name unknown (no Mac symbol)
 inline void pbChmod_813cbd4(char *path)
@@ -100,7 +144,15 @@ struct stPbCl
 		m_SendToServer = 0;
 	}
 
-	/* initialize() (4bb6b0) needs the PbCl* callbacks, not written yet */
+	void initialize()
+	{
+		m_GameCommand = PbClGameCommand;
+		m_GameQuery = PbClGameQuery;
+		m_GameMsg = PbClGameMsg;
+		m_SendToServer = PbClSendToServer;
+		m_SendToAddrPort = PbClSendToAddrPort;
+		m_GlQuery = 0;
+	}
 
 	void UnloadClientDll()
 	{
@@ -219,6 +271,7 @@ struct stPbCl
 };
 
 stPbCl pbcl;
+char *pbInitParam;
 
 extern "C" int __cdecl _stricmp(const char *, const char *);
 extern void set_cl_punkbuster(char *value);
@@ -229,6 +282,17 @@ extern struct dvar_s *Dvar_RegisterString(const char *name, const char *value, u
 enum DvarSetSource { DVAR_SOURCE_INTERNAL };
 extern void Dvar_SetFromStringFromSource(struct dvar_s *dvar, const char *value, DvarSetSource source);
 extern void Sys_PBSendUdpPacket(char *addr, unsigned short port, int len, char *data);
+extern const char *Dvar_GetVariantString(const char *dvarName);
+extern const char *Info_ValueForKey(const char *s, const char *key);
+extern const char *PB_Q_Serverinfo(void);
+extern const char *PB_Q_Serveraddr(void);
+extern char *Key_GetBinding(int keynum);
+extern char *Key_KeynumToString(int keynum, int translate);
+extern int PbDvarWalk(char **name, char **string, int *flags, char **resetString);
+extern char *PbDvarValidate(char *buf);
+extern void PbMsgToScreen(char *prefix, char *msg);
+extern void Com_Printf(const char *fmt, ...);
+extern void set_cl_punkbuster(char *value);
 
 // retail 0x4bbaa0
 char *PbClGameCommand(char *Cmd, char *Result)
@@ -262,6 +326,107 @@ char *PbClGameCommand(char *Cmd, char *Result)
 		else
 			Dvar_SetFromStringFromSource(dvar, value, DVAR_SOURCE_INTERNAL);
 	}
+	return NULL;
+}
+
+// retail 0x4bbb80, name from the Mac STABS; cases follow retail's jump table
+char *PbClGameQuery(int Qtype, char *Data)
+{
+	char *name;
+	char *string;
+	int flags;
+	char *reset;
+	char *match;
+	int i;
+
+	if ( !Data )
+		return NULL;
+	Data[255] = 0;
+	match = Data;
+	while ( *match && *match != ' ' )
+		match++;
+	while ( *match == ' ' )
+		match++;
+
+	switch ( Qtype )
+	{
+	case 103:
+		strncpy(Data, Dvar_GetVariantString(Data), 255);
+		return NULL;
+	case 104:
+		strncpy(Data, Info_ValueForKey(PB_Q_Serverinfo(), Data), 255);
+		return NULL;
+	case 105:
+		strncpy(Data, PB_Q_Serveraddr(), 255);
+		return NULL;
+	case 106:
+		for ( i = atoi(Data); i < 256; i++ )
+		{
+			if ( fn_4bb450(Key_GetBinding(i), match) )
+			{
+				_itoa(i, Data, 10);
+				return NULL;
+			}
+		}
+		_itoa(-1, Data, 10);
+		return NULL;
+	case 107:
+		strncpy(Data, Key_GetBinding(atoi(Data)), 255);
+		return NULL;
+	case 108:
+		strncpy(Data, Key_KeynumToString(atoi(Data), 1), 255);
+		return NULL;
+	case 109:
+		if ( *Data )
+		{
+			while ( PbDvarWalk(&name, &string, &flags, &reset) )
+			{
+				if ( name && string && *name && *string && fn_4bb450(string, Data) )
+				{
+					strncpy(Data, name, 255);
+					return NULL;
+				}
+			}
+			*Data = 0;
+		}
+		return NULL;
+	case 115:
+		return PbDvarValidate(Data);
+	case 110:
+		if ( !PbDvarWalk(&name, &string, &flags, &reset) )
+			return NULL;
+		if ( !name )
+			name = "";
+		_itoa(flags, Data, 10);
+		return name;
+	case 111:
+		if ( !PbDvarWalk(&name, &string, &flags, &reset) )
+			return NULL;
+		if ( !name || !string || !reset )
+			name = string = reset = "";
+		if ( !strcmp(string, reset) )
+		{
+			*Data = 0;
+			return name;
+		}
+		strncpy(Data + 1, reset, 253);
+		*Data = '"';
+		strcat(Data, "\"");
+		return name;
+	case 112:
+		return pbInitParam;
+	}
+	*Data = 0;
+	return NULL;
+}
+
+// retail 0x4bbef0
+char *PbClGameMsg(char *Msg, int Type)
+{
+	if ( _strnicmp(pbcl.m_msgPrefix, "[skipnotify]", 12) )
+		PbMsgToScreen(pbcl.m_msgPrefix, Msg);
+	else
+		Com_Printf("%s: %s\n", pbcl.m_msgPrefix + 12, Msg);
 	return NULL;
 }
 
@@ -333,6 +498,20 @@ char *fn_4bc1d0(char *data, int len)
 	MD5Final(&ctx);
 	fn_4bc160(&ctx, pbcl.m_guid);
 	return pbcl.m_guid;
+}
+
+struct stPbSv;
+extern stPbSv pbsv;
+
+// retail 0x4bc000, param name unknown
+void PbClientInitialize(void *param)
+{
+	pbInitParam = (char *)param;
+	pbcl.pbsvptr = &pbsv;
+	pbcl.initialize();
+	pbcl.AddPbEvent(16, 0, "", 0);
+	if ( !pbcl.m_ClInstance )
+		set_cl_punkbuster("0");
 }
 
 void EnablePbCl()

@@ -14,9 +14,10 @@
 1. Drift: first break CL_SetExpectedHunkUsage +64 B (retail calls Dvar_SetIntFromSource un-inlined for
    constant 0; find what stops the inliner there). Then cl_keys +176 (CompleteCommand), then cl_main_mp
    connect code.
-2. PunkBuster client: PbClGameQuery 0x4bbb80 (947 B, 13-case switch, decoded) -> PbClientInitialize 0x4bc000
-   unlocks PbClGameCommand / PbClSendToAddrPort (register params until address taken), PbClGameMsg.
-3. CL_ConnectionlessPacket split: retail 0x40e750 (PB_ packets) + 0x40ec10 (rest).
+2. PunkBuster client: PbClGameQuery, PbClGameMsg, PbClientInitialize, stPbCl::initialize, fn_4bb450 and
+   CL_ConnectionlessPacket (one fn, 2,658 B) are matched (11-05). Left in pbcl: UnloadClientDll, ~stPbCl
+   (retail passes `this` in esi/ecx per caller), PbClientProcessEvents/CompleteCommand/Connecting.
+3. (done, see 2)
 4. CL_CheckForResend full 1.3 (812 B, one stack-slot order left: data/info/pbBuf).
 5. CL_ConsolePrint_AddLine: in tree, 6 register hunks.
 6. Com_Init_Try_Block_Function: multi-core block (GetProcessAffinityMask, r_smp_backend_allowed), frame 0x24 vs 0x20.

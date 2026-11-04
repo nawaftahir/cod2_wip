@@ -1856,6 +1856,12 @@ Bool CL_IsPlayerTalking(int clientIndex)
     return Voice_IsClientTalking(clientIndex);
 }
 
+#if COD2_IS_PATCH_13
+extern "C" int __cdecl _strnicmp(const char *, const char *, size_t);
+void PbSvAddEvent(int event, int clientIndex, int dataLen, char *data);
+void PbClAddEvent(int type, int datalen, char *data);
+#endif
+
 Bool CL_ConnectionlessPacket(netadr_t from, msg_t *msg, int time)
 {
     char *printBuf;
@@ -1868,16 +1874,21 @@ Bool CL_ConnectionlessPacket(netadr_t from, msg_t *msg, int time)
     MSG_ReadLong(msg);
     CL_Netchan_AddOOBProfilePacket(msg->cursize);
 
-    Cmd_TokenizeString(MSG_ReadStringLine(msg));
-    cmd = Cmd_Argv(0);
-
 #if COD2_IS_PATCH_13
+    /* retail checks the raw packet for PB_ before tokenizing */
+    if (_strnicmp((const char *)msg->data + 4, "PB_", 3) == 0) {
+        char c = msg->data[7];
 
-    if (I_strnicmp(cmd, "PB_", 3) == 0) {
-        PB_HandleClientOobPacket(&from, msg);
+        if (c == 'S' || c == '2' || c == 'I')
+            PbSvAddEvent(13, -1, msg->cursize - 4, (char *)msg->data + 4);
+        else
+            PbClAddEvent(13, msg->cursize - 4, (char *)msg->data + 4);
         return 1;
     }
 #endif
+
+    Cmd_TokenizeString(MSG_ReadStringLine(msg));
+    cmd = Cmd_Argv(0);
 
     if (I_stricmp(cmd, (const char *)"v") == 0) {
         CL_VoicePacket(msg);
@@ -1959,7 +1970,7 @@ Bool CL_ConnectionlessPacket(netadr_t from, msg_t *msg, int time)
         const char *text = MSG_ReadBigString(msg);
 
         I_strncpyz(clc.serverMessage, text, sizeof(clc.serverMessage));
-        Com_sprintf(printBuf, 0x4000, (const char *)"%s", text);
+        Com_sprintf(printBuf, MAX_MSGLEN, (const char *)"%s", text);
         Com_PrintMessage((print_msg_type_t)0, printBuf);
         return 1;
     }

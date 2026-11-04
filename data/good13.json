@@ -2960,13 +2960,6 @@
 "reason": "short body, no name pair or unique twin"
 },
 {
-"name": "?PB_HandleClientOobPacket@@YAHPBXPAX@Z",
-"obj": "cl_main_mp.obj",
-"size": 3,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
-},
-{
 "name": "?CL_SetFPUControl_40b460@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 34,
@@ -3483,9 +3476,10 @@
 {
 "name": "?CL_ConnectionlessPacket@@YAEUnetadr_t@@PAUmsg_t@@H@Z",
 "obj": "cl_main_mp.obj",
-"size": 2267,
-"hits": [],
-"reason": "no masked match"
+"size": 2658,
+"hits": [
+"0x40e750"
+]
 },
 {
 "name": "?CL_InitLoad@@YAXPBD0@Z",
@@ -18530,7 +18524,7 @@
 ]
 },
 {
-"name": "$L96643",
+"name": "$L96658",
 "obj": "module",
 "size": 6,
 "hits": [],
@@ -35146,7 +35140,7 @@
 ]
 },
 {
-"name": "$L118245",
+"name": "$L118258",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35154,7 +35148,7 @@
 ]
 },
 {
-"name": "$L118247",
+"name": "$L118260",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35187,7 +35181,7 @@
 ]
 },
 {
-"name": "$L132125",
+"name": "$L132138",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35195,7 +35189,7 @@
 ]
 },
 {
-"name": "$L132127",
+"name": "$L132140",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35273,7 +35267,7 @@
 ]
 },
 {
-"name": "$L104408",
+"name": "$L104421",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35289,7 +35283,7 @@
 ]
 },
 {
-"name": "$L147487",
+"name": "$L147500",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -37794,6 +37788,14 @@
 "reason": "short body, no name pair or unique twin"
 },
 {
+"name": "?fn_4bb450@@YAPADPAD0@Z",
+"obj": "pbcl.obj",
+"size": 263,
+"hits": [
+"0x4bb450"
+]
+},
+{
 "name": "?pbChmod_813cbd4@@YAXPAD@Z",
 "obj": "pbcl.obj",
 "size": 15,
@@ -37832,6 +37834,14 @@
 "size": 27,
 "hits": [
 "0x4bb690"
+]
+},
+{
+"name": "?initialize@stPbCl@@QAEXXZ",
+"obj": "pbcl.obj",
+"size": 61,
+"hits": [
+"0x4bb6b0"
 ]
 },
 {
@@ -37875,24 +37885,44 @@
 {
 "name": "?PbClGameCommand@@YAPADPAD0@Z",
 "obj": "pbcl.obj",
-"size": 219,
-"hits": [],
-"reason": "no masked match"
+"size": 223,
+"hits": [
+"0x4bbaa0"
+]
+},
+{
+"name": "?PbClGameQuery@@YAPADHPAD@Z",
+"obj": "pbcl.obj",
+"size": 880,
+"hits": [
+"0x4bbb80"
+]
+},
+{
+"name": "?PbClGameMsg@@YAPADPADH@Z",
+"obj": "pbcl.obj",
+"size": 67,
+"hits": [
+"0x4bbef0",
+"0x4bdda0"
+]
 },
 {
 "name": "?PbClSendToServer@@YAPADHPAD@Z",
 "obj": "pbcl.obj",
-"size": 65,
+"size": 69,
 "hits": [
-"0x4bbf44"
+"0x4bbf40"
 ]
 },
 {
 "name": "?PbClSendToAddrPort@@YAPADPADGH0@Z",
 "obj": "pbcl.obj",
-"size": 14,
-"hits": [],
-"reason": "no masked match"
+"size": 32,
+"hits": [
+"0x4bbf90",
+"0x4bde10"
+]
 },
 {
 "name": "?PbClAddEvent@@YAXHHPAD@Z",
@@ -37936,6 +37966,14 @@
 "size": 186,
 "hits": [
 "0x4bc1d0"
+]
+},
+{
+"name": "?PbClientInitialize@@YAXPAX@Z",
+"obj": "pbcl.obj",
+"size": 179,
+"hits": [
+"0x4bc000"
 ]
 },
 {
@@ -48706,10 +48744,9 @@
 {
 "name": "?SP_worldspawn@@YAXXZ",
 "obj": "g_spawn_mp.obj",
-"size": 464,
-"hits": [
-"0x511680"
-]
+"size": 469,
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?G_SpawnEntitiesFromString@@YAXXZ",
@@ -49826,8 +49863,9 @@
 "name": "?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z",
 "obj": "g_items_mp.obj",
 "size": 1616,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x51dea0"
+]
 },
 {
 "name": "?Pickup_Health@@YAHPAUgentity_s@@0@Z",
@@ -75788,6 +75826,23 @@
 ]
 },
 {
+"name": "__strnicmp",
+"obj": "libcmt:strnicmp.obj",
+"size": 0,
+"hits": [
+"0x58bf56"
+],
+"alias": 1
+},
+{
+"name": "_strnicmp",
+"obj": "libcmt:strnicmp.obj",
+"size": 127,
+"hits": [
+"0x58bf56"
+]
+},
+{
 "name": "__fpreset",
 "obj": "libcmt:ieee87.obj",
 "size": 43,
@@ -76831,63 +76886,6 @@
 ]
 },
 {
-"name": "__chmod",
-"obj": "libcmt:chmod.obj",
-"size": 65,
-"hits": [
-"0x57d982"
-]
-},
-{
-"name": "__onexit_lk",
-"obj": "libcmt:onexit.obj",
-"size": 128,
-"hits": [
-"0x57d9c3"
-]
-},
-{
-"name": "___onexitinit",
-"obj": "libcmt:onexit.obj",
-"size": 40,
-"hits": [
-"0x57da43"
-]
-},
-{
-"name": "__onexit",
-"obj": "libcmt:onexit.obj",
-"size": 56,
-"hits": [
-"0x57da6b"
-]
-},
-{
-"name": "_atexit",
-"obj": "libcmt:onexit.obj",
-"size": 18,
-"hits": [
-"0x57daa3"
-]
-},
-{
-"name": "__strnicmp",
-"obj": "libcmt:strnicmp.obj",
-"size": 0,
-"hits": [
-"0x58bf56"
-],
-"alias": 1
-},
-{
-"name": "_strnicmp",
-"obj": "libcmt:strnicmp.obj",
-"size": 127,
-"hits": [
-"0x58bf56"
-]
-},
-{
 "name": "_xtoa",
 "obj": "libcmt:xtoa.obj",
 "size": 62,
@@ -76941,6 +76939,46 @@
 "size": 27,
 "hits": [
 "0x586a1c"
+]
+},
+{
+"name": "__chmod",
+"obj": "libcmt:chmod.obj",
+"size": 65,
+"hits": [
+"0x57d982"
+]
+},
+{
+"name": "__onexit_lk",
+"obj": "libcmt:onexit.obj",
+"size": 128,
+"hits": [
+"0x57d9c3"
+]
+},
+{
+"name": "___onexitinit",
+"obj": "libcmt:onexit.obj",
+"size": 40,
+"hits": [
+"0x57da43"
+]
+},
+{
+"name": "__onexit",
+"obj": "libcmt:onexit.obj",
+"size": 56,
+"hits": [
+"0x57da6b"
+]
+},
+{
+"name": "_atexit",
+"obj": "libcmt:onexit.obj",
+"size": 18,
+"hits": [
+"0x57daa3"
 ]
 },
 {
@@ -77617,6 +77655,14 @@
 "size": 956,
 "hits": [
 "0x58123b"
+]
+},
+{
+"name": "___ascii_strnicmp",
+"obj": "libcmt:_strnicm.obj",
+"size": 97,
+"hits": [
+"0x58cad0"
 ]
 },
 {
@@ -78365,27 +78411,19 @@
 ]
 },
 {
-"name": "__msize",
-"obj": "libcmt:msize.obj",
-"size": 118,
-"hits": [
-"0x585be0"
-]
-},
-{
-"name": "___ascii_strnicmp",
-"obj": "libcmt:_strnicm.obj",
-"size": 97,
-"hits": [
-"0x58cad0"
-]
-},
-{
 "name": "__aulldvrm",
 "obj": "libcmt:ulldvrm.obj",
 "size": 149,
 "hits": [
 "0x587190"
+]
+},
+{
+"name": "__msize",
+"obj": "libcmt:msize.obj",
+"size": 118,
+"hits": [
+"0x585be0"
 ]
 },
 {
@@ -81848,10 +81886,9 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 816,
-"hits": [
-"0x592c00"
-]
+"size": 3008,
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___from_strstr_to_strchr",

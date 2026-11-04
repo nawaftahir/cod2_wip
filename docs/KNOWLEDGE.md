@@ -73,7 +73,23 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Mac names: PBget_cl_cdkey 0x40e430, CL_SendPbPacket 0x40e490, PB_Q_Serverinfo 0x40e4d0, PB_Q_Serveraddr
   0x40e4e0, PbClSendToServer 0x4bbf40, PbClSendToAddrPort 0x4bbf90, PbClGameCommand 0x4bbaa0,
   LAN_GetServerPunkBuster 0x4153a0, EnablePbCl 0x4bc2f0, DisablePbCl 0x4bc350.
-- 0x40e750 is the real CL_ConnectionlessPacket (PB_ prefix first), 0x40ec10 the rest (ours: one fn).
+- CL_ConnectionlessPacket is ONE fn at 0x40e750 (2,658 B; 0x40ec10 is only an inner label). PINNED (matched 11-05): the PB_ check
+  is `_strnicmp(msg->data + 4, "PB_", 3)` (CRT call) on the raw packet BEFORE Cmd_TokenizeString; data[7] in S/2/I ->
+  PbSvAddEvent(13, -1, cursize-4, data+4) else PbClAddEvent(13, cursize-4, data+4) (both inline). The `print` branch uses
+  Com_sprintf(printBuf, MAX_MSGLEN, "%s", text), not 0x4000.
+- PbClGameQuery 0x4bbb80 (PINNED, matched): Data[255]=0; match = word after the first space; switch 103..115: 103 Dvar_GetVariantString,
+  104 Info_ValueForKey(PB_Q_Serverinfo(), Data), 105 PB_Q_Serveraddr, 106 key search by binding (Key_GetBinding + fn_4bb450 on match),
+  107 Key_GetBinding(atoi), 108 Key_KeynumToString(atoi, 1), 109 dvar search (PbDvarWalk loop, needle = whole Data),
+  115 PbDvarValidate(Data), 110 next dvar name + flags in Data, 111 name + quoted reset value if changed, 112 returns the
+  PbClientInitialize param (global 0x19a1c5c), default clears Data. Source order of cases must be 109,115,110,111,112 (block
+  layout follows it). The failing PbDvarWalk in 110/111 returns without clearing Data. PbDvarWalk's out `name` lands in the
+  param slot of Data (frame stays 0xc) with a plain `char *name` local.
+- fn_4bb450 (0x4bb450, 263 B, no Mac name): case-insensitive strstr; `if (!hay || !needle || !*needle) return hay;` then
+  strstr for tolower(first char), then toupper(first char) (locals lo="x", up="X"), earliest hit wins. Loop must be
+  do { strstr; break if null; strnicmp -> first; p++ } while (!first); match tail written as `if (!first) return p; if (p < first) return p; return first;`.
+- PbClientInitialize 0x4bc000: pbInitParam (0x19a1c5c) = param; pbcl.pbsvptr = &pbsv; pbcl.initialize() (fills the 5 callbacks, m_GlQuery = 0);
+  pbcl.AddPbEvent(16, 0, "", 0); if (!pbcl.m_ClInstance) set_cl_punkbuster("0"). PbClGameCommand/PbClSendToAddrPort/GameMsg
+  match once their address is taken by initialize().
 
 ## 5. Layout
 - Our function set is close to retail (inventory: ~40 missing fns / 5.4 KB, 18 extra / 1.2 KB); the big gaps
