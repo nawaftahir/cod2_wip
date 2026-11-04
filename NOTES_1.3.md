@@ -171,3 +171,4 @@
   Com_ExecStartupConfigs (retail 1.3 still has literal "exec default_mp.cfg"), const msg tables (client keeps static).
 - Ported: SVC_Status length cap 0x4000 -> MAX_MSGLEN - 1 (server 1.3 source; the client had a stale 0x4000).
 - UNCHECKED: g_largeLocalBuf 0x80000 (server 1.3: 0x100000) - no retail evidence for the Windows pool size yet.
+- 11-04 PINNED: client SVC_Status keeps the 0x4000 cap in 1.3 (MAX_MSGLEN version from server 1.3 lost the 975 B match); reverted 11d61e1.
