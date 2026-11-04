@@ -1083,3 +1083,316 @@ Isolated linked MSVC7.1 trial [41717888766](https://github.com/nawaftahir/cod2ra
 ## 2026-11-04 — exact graph interpolation with seven assert sites (+832 B)
 
 Pinned MSVC7.1 isolated trial [41719119375](https://github.com/nawaftahir/cod2radiant/actions/runs/41719119375) verified retail `GraphGetValueFromFraction` (0x4832c0/832B) **MATCH**. The authentic original code was reconstructed from the archival source with seven measured retail assertion sites on lines 454,455,456,464,465,466,473. Six formatted diagnostics use the existing source `assertMsg` macro and the real `knotIndex`, fraction, adjustedFrac and result variables. All **785/785** pre-existing game rows and 8/8 compiler rows remained exact. No verifier or linker relaxation; canonical promotion and PARTIAL com_math ledger count updated, final gate required. Whole executable and full TU remain incomplete.
+
+## 2026-11-04 — web/easy FindTextureDlg blocked on external select dependency
+
+Checked branch head `51552033974d3633c04d7816f2dbc3e9605dc481` and hosted run
+https://github.com/nawaftahir/cod2radiant/actions/runs/41780284116 before taking
+the easy queue. The canonical `gate` job is green: **786/786 accepted game
+rows** and **8/8 compiler/AUTO rows** match. `FindTextureDlg.cpp` itself
+remains at **15/15 authored game routines / 1,013 B exact**, plus the separate
+33 B AUTO scalar/lifetime accounting already present in the file proof.
+
+The complete-file diagnostic is still blocked outside this TU. Its metadata and
+dialog checks begin PASS, then fail specifically at retail
+`0x00473940 FindReplaceTextures` because the linked candidate `$L185484`
+does not match. Retail caller census confirms the two exact dialog callers at
+`0x0040fe10` and `0x0040fe80` both call `0x00473940`; the third caller is
+in `src/radiant/select.cpp` at `0x00473810`. That dependency is not editable
+while FindTextureDlg is the active file. No FindTexture source or ledger row is
+changed, no match is self-promoted, and the file is recorded **BLOCKED/PARTIAL**
+rather than FILE VERIFIED.
+
+Per the owner's current easy-queue instruction, move next to
+`src/radiant/EntityListDlg.cpp` while preserving this exact blocker for later
+integration/ownership resolution.
+
+
+## 2026-11-04 — web/easy EntityListDlg blocked after 3 accepted routines / 167 B
+
+Reviewed the retail TU in address order against the Q3Radiant
+`EntityListDlg.cpp` ancestor, current decompilation and the earlier pinned-MSVC
+trial https://github.com/nawaftahir/cod2radiant/actions/runs/41317374051.
+Canonical source already has three accepted rows: constructor
+`0x0040c790` / 117 B, `DoDataExchange` `0x0040c8a0` / 49 B, and the
+one-byte empty `0x0040cca0` body. No accepted source is changed here.
+
+The next natural destructor at `0x0040c840` emits the correct 89-byte
+instruction structure and the proven member offsets (tree at +0xc0, list at
++0x70), but the unchanged referee returns **CALLEE** at +0x29: candidate
+`CTreeCtrl::~CTreeCtrl` while retail resolves the MFC-library alias at
+`0x004f540c` as `CDialogBar::~CDialogBar`. This is recorded in
+`ledger/defer.tsv`; fixing it by casts, address calls or fake members would
+violate the reconstruction rules.
+
+The authored handler dependency is also external to this active TU. Retail
+`OnSelect` at `0x0040c8f0` gets the selected tree item, reads its entity
+pointer, then calls selection routines at `0x0046fbe0` and `0x0046f0b0`
+before setting the global update mask. `src/radiant/select.cpp` is still a
+placeholder and contains neither implementation. The Q3-sweep-proven
+`OnDblclkTreeEntity` at `0x0040ccb0` is only 21 B and source-equivalent to
+`OnSelect(); *pResult = 0;`, but cannot be linked honestly until the real
+`OnSelect`/selection graph exists. No stub, fake caller, hardcoded address or
+invented target struct is introduced. `OnInitDialog` / tree-change handling
+also require the target entity/eclass/epair layout and globals that are not
+defined in the current source graph.
+
+Therefore `src/radiant/EntityListDlg.cpp` is **BLOCKED/PARTIAL** at
+**3 accepted routines / 167 B**, with the generated/message-map/header tail and
+remaining authored handlers still pending. Per the easy-queue contract, move
+next to `src/radiant/TextureBar.cpp`.
+
+
+## 2026-11-04 — web/easy TextureBar first cohort: 3 hosted trial MATCH / 461 B
+
+Isolated trial commit `a6b793faf06257442b4443858b1c2c742fd21998`,
+run https://github.com/nawaftahir/cod2radiant/actions/runs/41793101250,
+compiled the natural Q3/retail class layout with the target DDX control IDs.
+The unchanged linked-exe referee reported:
+
+- `0x0043f040` `CTextureBar::CTextureBar` — **MATCH**, 220 B.
+- `0x0043f150` `CTextureBar::DoDataExchange` — **MATCH**, 214 B.
+- `0x0043f430` `CTextureBar::OnCreate` — **MATCH**, 27 B.
+
+The existing one-byte `0x0043f420` row is preserved unchanged. These three
+matched bodies are promoted to canonical `src/radiant/TextureBar.cpp` and
+added to `ledger/matches.tsv`; final accepted credit still depends on the
+fresh canonical gate for this promotion commit. The next authored spin handlers
+remain dependent on unreconstructed `select.cpp` calls, so no stubs or
+hardcoded retail targets are added.
+
+
+## 2026-11-04 — web/easy TextureBar canonical gate PASS; file blocked at 4 / 15
+
+Promotion commit `5027711f2943a2fd63767b9e43f788da083fffaa`
+passed both jobs in
+https://github.com/nawaftahir/cod2radiant/actions/runs/41793341397.
+The canonical gate reports **789 / 789 game rows MATCH, 0 failures** and
+**8 / 8 compiler rows MATCH**. Accepted TextureBar source is now:
+
+- `0x0043f040` constructor — 220 B.
+- `0x0043f150` `DoDataExchange` — 214 B.
+- `0x0043f420` existing one-byte retail body — 1 B.
+- `0x0043f430` `OnCreate` — 27 B.
+
+That is **4 accepted routines / 462 B**. The linker emits `OnCreate` before
+the pre-existing unnamed one-byte body and the gate reports a WARN-ORD only;
+all accepted rows still match.
+
+The next authored spin handlers at `0x0043f240..0x0043f3c0` call retail
+selection routines `0x00472860`, `0x00472ff0` and `0x004733f0`.
+`src/radiant/select.cpp` is still a placeholder, so those callees are not
+available as authentic source dependencies. The large `GetSurfaceAttributes`
+/ `SetSurfaceAttributes` bodies also require selected-face and qeglobals
+storage that is not exported under stable source symbols in the current tree.
+No fake stubs, guessed struct fields or retail-address calls are introduced.
+
+Therefore `src/radiant/TextureBar.cpp` is **BLOCKED/PARTIAL: 4 / 15,
+462 / 1,608 B accepted**. Continue to `src/radiant/VertEditDlg.cpp`.
+
+
+## 2026-11-04 — web/easy VertEditDlg first promotion: destructor + DDX / 399 B
+
+Corrected-layout trial commit `14182cd6ce4e055232c6f792df1c223d706977e5`
+passed both hosted jobs in
+https://github.com/nawaftahir/cod2radiant/actions/runs/41794545039.
+The unchanged referee reports:
+
+- `0x00446260` `CVertEditDlg::~CVertEditDlg` — **MATCH**, 174 B.
+- `0x00446310` `CVertEditDlg::DoDataExchange` — **MATCH**, 225 B.
+
+The prior 95/96% trial proved all seven MFC controls were four bytes too early.
+Adding one evidence-backed 4-byte member at retail offset `+0x8c` makes both
+methods exact. No code in the 21-function retail TU reads that member, so its
+semantic name is deliberately left neutral as `field_8c` rather than guessed.
+
+The retail global initializer at `0x00526a30` also confirms a single global
+`CVertEditDlg` object at `0x01234040`, constructed by `0x004460f0` with
+a null parent and registered for destruction with `atexit`.
+
+These two bodies are promoted to canonical source and ledger. Fresh canonical
+gate required before counting the promotion as accepted.
+
+
+## 2026-11-04 — web/easy VertEditDlg OnDrawItem / 84 B hosted MATCH
+
+Trial commit `a0e790e8edd769446900693800efd519a8654652` passed both hosted jobs in
+https://github.com/nawaftahir/cod2radiant/actions/runs/41794916559.
+The unchanged referee reports `0x00446bc0`
+`CVertEditDlg::OnDrawItem(int, DRAWITEMSTRUCT*)` **MATCH**, 84 B.
+The body is the natural MFC owner-draw swatch path: for control 1463 it creates
+an RGB brush from the dialog's retail-proven red/green/blue fields, fills the
+draw-item rectangle, deletes the brush, and otherwise delegates to the base.
+
+Promotion `bcadc942f52154632cbfb632bde3aa0886cee9ad` also passed its canonical
+gate at **791 / 791 game rows, 0 failures; 8 / 8 compiler rows**. VertEditDlg
+therefore had 399 accepted bytes before this 84-byte promotion.
+
+
+## 2026-11-04 — web/easy VertEditDlg subclass/OnInit attempt 1
+
+Hosted trial run https://github.com/nawaftahir/cod2radiant/actions/runs/41797466489:
+`FUN_00446410` was **68%**, 115/116 B, first meaningful source difference
+at the parent/global load; `OnInitDialog` was **58%**, 200/211 B, with its
+loop scheduled as a pointer walk rather than retail's unsigned byte-offset
+index. The three accepted VertEdit routines remained MATCH. Retail evidence
+matches the already-verified `AdvCurveDlg.cpp` subclass pattern: both use the
+same parent pointer storage at 0x01233488 and a 12-byte
+`{controlId, HWND, WNDPROC}` table. Attempt 2 reuses that proven C++ idiom
+(`g_curveParent->m_hWnd`, global table, unsigned index) with VertEdit's 11
+resource controls and key/command pair G / 0x81af.
+
+
+## 2026-11-04 — web/easy VertEditDlg subclass proc exact and green (+116 B)
+
+Isolated commit `a6018de9eaad9c7155836681d48e96729da1a85b`,
+run https://github.com/nawaftahir/cod2radiant/actions/runs/41798533236,
+passed **both jobs**. The unchanged referee reports **792/792 existing game
+rows, 0 failures; 8/8 compiler rows**, then
+`0x00446410 FUN_00446410` **MATCH 116/116 B**. The implementation uses the
+same source-level subclass table idiom already verified in
+`AdvCurveDlg.cpp`: a 12-byte `{controlId, HWND, WNDPROC}` table, the shared
+`g_curveParent` parent pointer, G-key command 0x81af, and an unsigned indexed
+dispatch loop. No address cast, fake caller, inline asm or forced noinline.
+
+Promote this ordinary C++ body and its unique ledger row. VertEditDlg rises
+from **3 / 21 authored/inventoried accepted routines, 483 B** to
+**4 accepted game routines / 599 B** (the separate 33-B AUTO scalar remains
+compiler-generated accounting). `OnInitDialog` 0x00446490 has separately
+shown an exact 211-B candidate but is not yet credited because pairing it with
+this function perturbs an unrelated LTCG-protected com_math row; test it again
+after the proc is canonical.
+
+
+## 2026-11-04 — web/easy VertEditDlg OnInit exact body blocked by cross-TU LTCG
+
+After canonical promotion of `FUN_00446410`, isolated run
+https://github.com/nawaftahir/cod2radiant/actions/runs/41799100159 again reports
+`CVertEditDlg::OnInitDialog` `0x00446490` **MATCH 211/211 B** and all four
+accepted VertEdit bodies MATCH. The unchanged existing-ledger pass becomes
+**792/793** only because protected `GraphGetValueFromFraction`
+`0x004832c0` changes to **76%, 828/832 B, first difference +0x5** when this
+extra body participates in /GL. The canonical gate on the same commit remains
+green, so this is isolated draft LTCG coupling rather than a canonical
+VertEdit regression. Record `0x00446490` deferred with exact-body evidence;
+do not promote until a genuine linker/caller context allows a green full trial.
+
+
+## 2026-11-04 — web/easy VertEditDlg generated GetMessageMap exact but collateral-blocked
+
+Run https://github.com/nawaftahir/cod2radiant/actions/runs/41799906476 reports
+the real MFC-generated `CVertEditDlg::GetMessageMap` at `0x00446400`
+**MATCH 6/6 B**. It was produced with `DECLARE_MESSAGE_MAP` and
+`BEGIN_MESSAGE_MAP(CVertEditDlg, CDialog)`, not a hand-written return stub.
+However, the extra MFC metadata causes the same isolated /GL collateral
+regression in protected `GraphGetValueFromFraction` (76%, 828/832 B, first
++0x5), so it is deferred rather than credited. The canonical gate remains
+green.
+
+
+## 2026-11-04 — web/easy VertEditDlg accepted proc reordered to retail TU position
+
+Isolated run https://github.com/nawaftahir/cod2radiant/actions/runs/41800770976
+moves the already-accepted `FUN_00446410` definition from before the class to
+immediately after `CVertEditDlg::DoDataExchange`, matching retail order.
+The body remains **MATCH 116/116 B**, all **793/793 existing game rows** and
+**8/8 compiler rows** pass, and the previous `WARN-ORD 0x00446410` is gone.
+Canonicalize this source-only ordering correction; ledger credit is unchanged.
+
+
+## 2026-11-04 — web/easy VertEditDlg PARTIAL/BLOCKED after 4 accepted / 599 B
+
+Canonical commit `86e974bad4d32092fc6df232ba76879ac5e3fde4`
+has the accepted 116-B subclass proc in the correct retail TU order (after
+`DoDataExchange`); canonical gate
+https://github.com/nawaftahir/cod2radiant/actions/runs/41801131737 is green.
+VertEditDlg currently has **4 accepted game routines / 599 B**:
+destructor 174 B, DoDataExchange 225 B, subclass proc 116 B, OnDrawItem 84 B.
+The 33-B scalar deleting destructor remains generated/AUTO accounting.
+
+Three further independently source-exact additions are blocked by the same
+cross-TU /GL effect:
+- `0x00446400 GetMessageMap` 6/6 B MATCH from real MFC message-map macros;
+- `0x00446490 OnInitDialog` 211/211 B MATCH;
+- `0x00447210 FUN_00447210` 28/28 B MATCH from one normal PostMessageA call.
+Each causes protected `GraphGetValueFromFraction` `0x004832c0` to become
+76%, 828/832 B, first difference +0x5, while the VertEdit body itself matches.
+Constructor/RGB helper remain non-exact (best constructor 74%, 309/311 B;
+RGB helper 30%, 423/468 B). Do not spend further syntax attempts on the exact
+bodies until genuine LTCG/link context changes. Mark this TU **PARTIAL/BLOCKED**
+and proceed to the next easy-queue file, `src/radiant/vertsel.cpp`.
+
+
+## 2026-11-04 — web/easy vertsel first source trial: FindEdge exact, FindPoint unlinked
+
+Commit `8861b6591d272acda5702c46030a09bdf9f7f868`, run
+https://github.com/nawaftahir/cod2radiant/actions/runs/41802188918 kept the
+canonical gate green at **793/793 game / 8/8 compiler**. The first source trial
+for the previously absent `vertsel.cpp` reports `FindEdge`
+`0x00475250` **MATCH 104/104 B** immediately. `FindPoint` at
+`0x00475190` is **NOT-LINKED**, not a mismatch: with no reconstructed
+`MakeFace` caller yet, LTCG discards/inlines the otherwise source-equivalent
+body. The narrow point/edge storage view is grounded by the contiguous retail
+layout (2048 vec3 points, count, 512 16-byte edges, count) and remains an
+external binding pending shared-owner integration. Next isolate FindEdge for a
+green requested run, then add the genuine `MakeFace` caller rather than any
+keepalive or noinline workaround.
+
+
+## 2026-11-04 — web/easy vertsel first accepted function (+104 B)
+
+Isolated commit `51078a03a2cf91dce5acab92c337bbae22a6b504`,
+run https://github.com/nawaftahir/cod2radiant/actions/runs/41802530366 passed
+**both jobs**. The unchanged referee reports **793/793 existing game rows** and
+**8/8 compiler rows**, then retail `0x00475250 FindEdge` **MATCH 104/104 B**.
+This is ordinary Q3-correlated C++ with the retail-proven point/edge storage
+slice and no ABI annotation, address cast, fake caller, inline asm or noinline.
+Promote it as the first canonical function in the previously absent
+`src/radiant/vertsel.cpp`. `FindPoint` remains draft-only until its genuine
+`MakeFace` caller keeps it emitted.
+
+
+## 2026-11-04 — web/easy vertsel SelectVertexByRay attempt 1 compile-only failure
+
+Commit `cf20351b351507d52a80b4923f9a332d99b8dc4a` did not reach retail
+comparison: MSVC 7.1 stopped at `vertsel.cpp(81): C3861 'sqrt' identifier not
+found`. No source/matching conclusion is taken from the failed build. Attempt
+2 adds the normal C math declaration only; the candidate logic and data layout
+are unchanged.
+
+
+## 2026-11-04 — web/easy vertsel SelectVertexByRay caller-context blocker
+
+After adding the normal math declaration, run
+https://github.com/nawaftahir/cod2radiant/actions/runs/41804093041 keeps the
+canonical gate green at **794/794 game / 8/8 compiler**, but
+`SelectVertexByRay` is **NOT-LINKED**. Its source is discarded because the
+genuine `drag.cpp` caller is not reconstructed; this is not a byte mismatch.
+Do not add a fake caller or noinline. Continue in retail order by reconstructing
+the real `MakeFace` caller chain so `FindPoint` can be emitted naturally.
+
+
+## 2026-11-04 — web/easy vertsel FindPoint accepted (+180 B); TU PARTIAL/BLOCKED
+
+The evidence-backed destination-pointer correction to `FindPoint` removes the
+three repeated `numpoints` reloads and gives the retail MSVC 7.1 store shape.
+Isolated proof run https://github.com/nawaftahir/cod2radiant/actions/runs/41807789291
+passed both jobs with `0x00475190 FindPoint` **MATCH 180/180 B** and
+`0x00475250 FindEdge` still MATCH. After promotion, run
+https://github.com/nawaftahir/cod2radiant/actions/runs/41808445996 is fully
+green at **795/795 game / 8/8 compiler** and repeats the exact FindPoint and
+FindEdge results. Canonical game coverage is now **85,628 / 699,591 B
+(12.24%)**.
+
+`MakeFace` `0x004752c0` has the correct 141-B total size but is best **77%**,
+first difference **+0xc**, in run 41807483219. Its loop/body shape agrees with
+the Q3 source; the difference begins at the call to retail
+`Brush_MakeFaceWinding` `0x00455800` in `radiant/brush.cpp`. Retail /GL keeps
+the brush in register context, while the currently unresolved external call
+uses ordinary cdecl stack passing. The real CoD2 brush/face storage also differs
+from stock Q3: retail `SetupVertexSelection` walks contiguous **0xa8-byte face
+records**, so inventing the Q3 linked-list layout or forcing an ABI annotation is
+not permitted. `MakeFace`, `SetupVertexSelection`, and the remaining selection
+routines therefore stay draft-only until the genuine brush/caller graph is
+reconstructed. Mark `vertsel.cpp` **PARTIAL/BLOCKED: 2 / 8 accepted, 284 B**
+and proceed to `src/radiant/ModelDlg.cpp`.

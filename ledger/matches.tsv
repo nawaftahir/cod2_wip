@@ -254,7 +254,10 @@ addr	size	source	symbol	name	tag
 0x0043ef20	6	src/radiant/TexEdit.cpp	?GetMessageMap@CTexEdit@@MBEPBUAFX_MSGMAP@@XZ	CTexEdit::GetMessageMap	SUPPORTED
 0x0043ef30	40	src/radiant/TexEdit.cpp	?CtlColor@CTexEdit@@IAEPAUHBRUSH__@@PAVCDC@@I@Z	CTexEdit::CtlColor	SUPPORTED
 0x0043eff0	68	src/radiant/TexEdit.cpp	?OnCreate@CTexEdit@@IAEHPAUtagCREATESTRUCTA@@@Z	CTexEdit::OnCreate	SUPPORTED
+0x0043f040	220	src/radiant/TextureBar.cpp	??0CTextureBar@@QAE@XZ	CTextureBar::CTextureBar	SUPPORTED
+0x0043f150	214	src/radiant/TextureBar.cpp	?DoDataExchange@CTextureBar@@MAEXPAVCDataExchange@@@Z	CTextureBar::DoDataExchange	SUPPORTED
 0x0043f420	1	src/radiant/TextureBar.cpp	_FUN_0043f420	FUN_0043f420	UNNAMED
+0x0043f430	27	src/radiant/TextureBar.cpp	?OnCreate@CTextureBar@@IAEHPAUtagCREATESTRUCTA@@@Z	CTextureBar::OnCreate	SUPPORTED
 0x0043f710	135	src/radiant/TextureLayout.cpp	??0CTextureLayout@@QAE@PAVCWnd@@@Z	CTextureLayout::CTextureLayout	SUPPORTED
 0x0043f7d0	94	src/radiant/TextureLayout.cpp	?DoDataExchange@CTextureLayout@@MAEXPAVCDataExchange@@@Z	CTextureLayout::DoDataExchange	SUPPORTED
 0x0043f830	6	src/radiant/TextureLayout.cpp	?GetMessageMap@CTextureLayout@@MBEPBUAFX_MSGMAP@@XZ	CTextureLayout::GetMessageMap	SUPPORTED
@@ -795,3 +798,18 @@ addr	size	source	symbol	name	tag
 0x004a7230	58	src/script/scr_memorytree.cpp	?MT_GetSubTreeSize@@YAHH@Z	MT_GetSubTreeSize	SUPPORTED
 0x004a7560	6	src/script/scr_memorytree.cpp	?Scr_GetStringUsage@@YAHXZ	Scr_GetStringUsage	SUPPORTED
 0x004a7570	102	src/script/scr_memorytree.cpp	?MT_InitBits@@YAXXZ	MT_InitBits	SUPPORTED
+
+0x00446260	174	src/radiant/VertEditDlg.cpp	??1CVertEditDlg@@UAE@XZ	CVertEditDlg::~CVertEditDlg	SUPPORTED
+0x00446310	225	src/radiant/VertEditDlg.cpp	?DoDataExchange@CVertEditDlg@@MAEXPAVCDataExchange@@@Z	CVertEditDlg::DoDataExchange	SUPPORTED
+0x00446410	116	src/radiant/VertEditDlg.cpp	?FUN_00446410@@YGJPAUHWND__@@IIJ@Z	FUN_00446410	UNNAMED
+0x00475250	104	src/radiant/vertsel.cpp	?FindEdge@@YAHHHPAUface_t@@@Z	FindEdge	SUPPORTED
+0x00446bc0	84	src/radiant/VertEditDlg.cpp	?OnDrawItem@CVertEditDlg@@IAEXHPAUtagDRAWITEMSTRUCT@@@Z	CVertEditDlg::OnDrawItem	SUPPORTED
+0x00475190	180	src/radiant/vertsel.cpp	?FindPoint@@YAHQAM@Z	FindPoint	SUPPORTED
+0x00422f60	11	src/radiant/ModelDlg.cpp	??1CModelDlg@@UAE@XZ	CModelDlg::~CModelDlg	SUPPORTED
+0x00422f00	6	src/radiant/ModelDlg.cpp	?GetRuntimeClass@CModelDlg@@UBEPAUCRuntimeClass@@XZ	CModelDlg::GetRuntimeClass	SUPPORTED
+0x00422f80	6	src/radiant/ModelDlg.cpp	?GetMessageMap@CModelDlg@@MBEPBUAFX_MSGMAP@@XZ	CModelDlg::GetMessageMap	SUPPORTED
+0x00422f70	3	src/radiant/ModelDlg.cpp	?DoDataExchange@CModelDlg@@MAEXPAVCDataExchange@@@Z	CModelDlg::DoDataExchange	SUPPORTED
+0x00423960	87	src/radiant/ModelDlg.cpp	?FUN_00423960@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423960	SUPPORTED
+0x00423a80	87	src/radiant/ModelDlg.cpp	?FUN_00423a80@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423a80	SUPPORTED
+0x004239c0	186	src/radiant/ModelDlg.cpp	?FUN_004239c0@CModelDlg@@IAEXXZ	CModelDlg::FUN_004239c0	SUPPORTED
+0x00423ae0	186	src/radiant/ModelDlg.cpp	?FUN_00423ae0@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423ae0	SUPPORTED

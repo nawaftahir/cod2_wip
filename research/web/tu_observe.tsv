@@ -1,5 +1,6 @@
 addr	symbol
-0x00482980	?randomf@@YAMXZ
-0x004829a0	?crandom@@YAMXZ
-0x00483050	?LinearTrack@@YAMMMMM@Z
-0x00484950	?vectoanglessigned@@YAXQBMQAM@Z
+0x00422f00	?GetRuntimeClass@CModelDlg@@UBEPAUCRuntimeClass@@XZ
+0x00422f10	??0CModelDlg@@QAE@PAVCWnd@@@Z
+0x00422f60	??1CModelDlg@@UAE@XZ
+0x00422f70	?DoDataExchange@CModelDlg@@MAEXPAVCDataExchange@@@Z
+0x00422f80	?GetMessageMap@CModelDlg@@MBEPBUAFX_MSGMAP@@XZ
