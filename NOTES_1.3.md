@@ -179,3 +179,8 @@
   cmp.py, all at their own address; forced no-.reloc run loses 13 B (was 124 fns). On 1.3: unique fns 7511 -> 8282,
   bytes 1,249,217 -> 1,374,609 (cov.py union rules).
 - 11-04: wH (438bad7, +257 B PB UI fns) parked: adding 3 fns re-rolls the _yylex tie (-4,236 B). Bundle with later gains until net >= 0 (1.0 rule).
+
+## wJ (11-04)
+- PINNED (measured): Key_ClearStates calling CL_KeyEvent: matched-fn 1207139 -> 1207215 (+76), no fn lost vs same-HEAD baseline. SVC_Status (975 B) is lost in the baseline too (good13.json at 5b98de6 is stale), unrelated.
+- Re-auth fn (retail 40d310): no match in Mac 1.3 decompile (no lastUpdateKeyAuth/300000/Auth in cl_main_mp.c CL_Frame). Name unconfirmed, not added.
+- CL_InitOnceForAllClients and other CHANGED fns: not reached in the time cap.
