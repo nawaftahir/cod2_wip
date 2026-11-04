@@ -9,6 +9,7 @@
 #include <string.h>
 #include <windows.h>
 #include <direct.h>
+extern "C" int __cdecl _chmod(const char *path, int mode);
 
 struct stPbCl;
 
@@ -32,7 +33,7 @@ typedef void (*tdPbTrapConsole)(stPbCl *, char *, int);
 // name unknown (no Mac symbol)
 inline void pbChmod_813cbd4(char *path)
 {
-	chmod(path, 0777);
+	_chmod(path, 0x180);
 }
 
 struct stPbCl

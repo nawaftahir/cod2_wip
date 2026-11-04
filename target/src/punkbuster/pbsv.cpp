@@ -6,6 +6,7 @@
 #include <string.h>
 #include <windows.h>
 #include <direct.h>
+extern "C" int __cdecl _chmod(const char *path, int mode);
 
 struct Pb_Sv_Client_s;
 
@@ -42,40 +43,10 @@ typedef char *(*tdPbPassConnectString)(stPbSv *, char *, char *);
 typedef char *(*tdPbAuthClient)(stPbSv *, char *, int, char *);
 typedef void (*tdPbTrapConsole)(stPbSv *, char *, int);
 
-inline char *itoa(int val, char *str, int radix)
-{
-	char buf[35];
-	unsigned long u;
-	unsigned long p;
-	unsigned int d;
-
-	if ( !str )
-		return 0;
-	strcpy(str, "0");
-	if ( val && radix > 1 && radix <= 36 )
-	{
-		u = val;
-		p = 34;
-		buf[p] = 0;
-		if ( val < 0 && radix == 10 )
-			u = -val;
-		while ( u )
-		{
-			d = u % radix;
-			buf[--p] = d < 10 ? d + '0' : d + 'a' - 10;
-			u /= radix;
-		}
-		if ( val < 0 && radix == 10 )
-			buf[--p] = '-';
-		strcpy(str, &buf[p]);
-	}
-	return str;
-}
-
 // name unknown (no Mac symbol)
 inline void pbChmod_813cbd4(char *path)
 {
-	chmod(path, 0777);
+	_chmod(path, 0x180);
 }
 
 // name unknown (no Mac symbol)
@@ -175,10 +146,9 @@ struct stPbSv
 		m_GameQuery(103, strcpy(m_cwd, "fs_homepath"));
 		if ( !*m_cwd )
 			_getcwd(m_cwd, 251);
-		// *"/" (not '/'): retail compares the promoted int
-		if ( *m_cwd && m_cwd[strlen(m_cwd) - 1] != *"/" )
-			strcat(m_cwd, "/");
-		strcat(m_cwd, "pb/");
+		if ( *m_cwd && m_cwd[strlen(m_cwd) - 1] != *"\\" )
+			strcat(m_cwd, "\\");
+		strcat(m_cwd, "pb\\");
 	}
 
 	char *makefn(char *buf, char *fn)
@@ -495,7 +465,7 @@ char *PbSvGameQuery(int Qtype, char *Data)
 	switch ( Qtype )
 	{
 	case 101:
-		itoa(Pb_Q_maxclients(), Data, 10);
+		_itoa(Pb_Q_maxclients(), Data, 10);
 		break;
 	case 102:
 		clientIndex = atoi(Data);
