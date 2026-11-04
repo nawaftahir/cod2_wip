@@ -78,6 +78,19 @@ Untracked inputs a build needs (vc70, dsound.lib, SDK path): `docs/CI_NOTES.md`.
 - Meter fields: `tools/dashboard/README.md`. Emit every field your referee can measure (sections,
   TUs, functions); the page shows what it gets and marks the rest "not measured".
 
+## Metrics must be exactly right
+Every number on the page must be exact, reproducible, and mean what its label says.
+- Produced only by CI from a clean build of the commit it names. Never hand-written, estimated,
+  rounded up, copied from an incremental or stale build, or carried over from another branch.
+- Each number is computed one way and labelled with that way. If two methods disagree (e.g. referee
+  credit vs bytes identical in place), the meter reports both, and finding out why is a task.
+- Never undercount or overcount: a function or TU counts as verified only when its bytes are proven
+  identical (referee match or byte-identical at the same offset); a known blind spot of a tool
+  (twin caps, unpaired names, padding) is fixed in the tool, not left as a silent gap.
+- Every metric tool has a self-test (a known-good case and a deliberately broken one) that runs in CI.
+- If a number looks wrong, stop and verify it against the binaries before reporting or building on it.
+- A change to how a number is computed is announced in the commit and the page, never silent.
+
 ## Cost
 - Let CI do repeated checks (full gate, regression, meter) instead of agents rerunning them by hand.
   Locally, rebuild only the TU you changed and let CI do the full gate on push.
