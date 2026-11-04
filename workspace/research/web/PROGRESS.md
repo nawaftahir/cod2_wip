@@ -1423,3 +1423,10 @@ FindTextureDlg: already 15/15 authored entries matched; scalar 0x0040fd60 is AUT
 TextureLayout: 5 authored game rows matched; remaining 0x0043f7a0 / 34 B is shared MFC/header helper. The existing gate proof reports TextureLayout FILE VERIFIED with member helper and metadata bindings. No duplicate game row.
 
 Next owned file in task order: points.cpp. Retail inventory has 7 original authored routines, 5 already exact; only Pointfile_Next 0x0046c600 / 315 B and Pointfile_Prev 0x0046c740 / 306 B remain. Testing the saved research draft without canonical promotion, pending real layout and compiler review; it includes layout hypotheses that must not be treated as verified fields. The Q3 original describes camera and XY origin moves, status messages, normalized aim, and redraw.
+
+
+## 2026-11-04 — lane 3 points.cpp deferred, win_dlg.cpp trial
+
+points.cpp read-only isolated trial at https://github.com/nawaftahir/cod2_wip/actions/runs/41853384328 preserves 826/826 canonical game rows and 8/8 compiler rows. Saved research draft Pointfile_Next (0x0046c600) remains 315/315 B but only 98% normalized, first difference +0x11d; the read-only candidate scanner also reports Pointfile_Prev (0x0046c740) 306/306 B, 98%, first difference +0x114. These are the same best bounded results previously recorded in run 41647607150 and 41648066896: source-order scheduling of g_nUpdateBits=-1 versus fmul. No new ledger rows; do not repeat the exhausted variants or promote the draft's layout hypotheses/forced inlining without a genuine source/caller proof. points.cpp PARTIAL 5/7 authored source routines exact. Moving to the next lane 3 source, win_dlg.cpp.
+
+The Q3Radiant WIN_DLG.CPP AboutDlgProc ancestor handles WM_INITDIALOG, WM_CLOSE, WM_COMMAND and IDOK, matching the retail 0x00476d00 control flow. An ordinary Win32 callback is under isolated trial. No body is added to canonical source until the unchanged referee reports MATCH and all previous rows pass.
