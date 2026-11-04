@@ -22,13 +22,14 @@ DIFFER_364f672b = set('''?HideWindowCallback@@YGHPAUHWND__@@J@Z ?CL_SetCGameTime
 ?Item_ListBox_MouseEnter@@YAXPAUitemDef_s@@MM@Z ?Menu_SetNextCursorItem@@YAPAUitemDef_s@@PAUdisplayContextDef_s@@PAUmenuDef_t@@@Z'''.split())
 
 def differ(exe, anchor=A):
-    return {names[0] for _, _, names, _, same in functions(exe, MAP, anchor) if not same}
+    return {(rva, names[0]) for rva, _, names, _, same in functions(exe, MAP, anchor) if not same}  # by address: static names repeat
 
 fs = functions(EXE, MAP, A)
-got = {n[0] for _, _, n, _, same in fs if not same}
+got = {(r, n[0]) for r, _, n, _, same in fs if not same}
 assert not differ(A, A), 'anchor vs itself must be identical'
 if '--pinned' in sys.argv:
-    assert got == DIFFER_364f672b, ('extra', got - DIFFER_364f672b, 'missing', DIFFER_364f672b - got)
+    names = {n for _, n in got}
+    assert len(got) == 29 and names == DIFFER_364f672b, ('extra', names - DIFFER_364f672b, 'missing', DIFFER_364f672b - names)
 
 # flip one byte inside an identical function: exactly that one must turn unverified
 rva, names = next((r, n) for r, s, n, _, same in fs if same and s > 4)
@@ -37,5 +38,18 @@ tmp = os.path.join(tempfile.mkdtemp(), 'flip.exe')
 shutil.copy(EXE, tmp)
 with open(tmp, 'r+b') as f:
     f.seek(off); b = f.read(1); f.seek(off); f.write(bytes([b[0] ^ 0xff]))
-assert differ(tmp) == got | {names[0]}, 'flipped byte not caught'
+assert differ(tmp) == got | {(rva, names[0])}, 'flipped byte not caught'
 print('inplace self-check OK: %d differ, flip in %s caught' % (len(got), names[0]))
+
+# data symbols (.rdata), on the anchor against itself so it works before layout is placed:
+# one flipped byte must turn exactly that symbol non-identical
+from inplace import symbols
+ds = symbols(A, MAP, A, (2,))
+assert all(x[5] for x in ds), 'anchor data vs itself must be identical'
+_, rva, _, names, _, _ = next(x for x in ds if x[2] > 4)
+off = pefile.PE(A, fast_load=True).get_offset_from_rva(rva + 1)
+shutil.copyfile(A, tmp)  # anchors are read-only; take bytes, not mode
+with open(tmp, 'r+b') as f:
+    f.seek(off); b = f.read(1); f.seek(off); f.write(bytes([b[0] ^ 0xff]))
+assert {(x[1], x[3][0]) for x in symbols(tmp, MAP, A, (2,)) if not x[5]} == {(rva, names[0])}, 'flipped data byte not caught'
+print('data flip in %s caught' % names[0])

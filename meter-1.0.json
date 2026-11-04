@@ -11,11 +11,15 @@
  "game_functions": 7269,
  "matched_functions": 7154,
  "tus_total": 271,
- "tus_matched": 196,
+ "tus_matched": 211,
  "unverified_in_src": 0,
  "functions_identical": 7548,
  "functions_total": 7568,
- "tus_identical": 196,
+ "tus_identical": 211,
+ "tus_data_only": 15,
+ "tus_data_only_identical": 15,
+ "tus_identical_with_data": 207,
+ "tus_empty": 45,
  "lib_objs_identical": 235,
  "lib_objs_total": 235,
  "text_same_offset_bytes": 1408369,
@@ -34,6 +38,6 @@
    "same_offset": 16384
   }
  },
- "commit": "57cdde85",
- "note": "matched_bytes/matched_functions = referee; functions_identical = referee match or same bytes at the same offset (every .text map symbol); tus_identical = source TUs whose functions are all identical (CRT/lib objs separate); tus_matched = TUs in src/; same-offset over all sections (shameter)"
+ "commit": "1dab4a58",
+ "note": "matched_bytes/matched_functions = referee; functions_identical = referee match or same bytes at the same offset (every .text map symbol); tus_identical = source TUs whose functions are all identical (data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (never identical); tus_matched = TUs in src/; same-offset over all sections (shameter)"
 }
