@@ -17828,7 +17828,7 @@
 ]
 },
 {
-"name": "$L96625",
+"name": "$L96618",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -33225,7 +33225,7 @@
 ]
 },
 {
-"name": "$L118233",
+"name": "$L118201",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33233,7 +33233,7 @@
 ]
 },
 {
-"name": "$L118235",
+"name": "$L118203",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33266,7 +33266,7 @@
 ]
 },
 {
-"name": "$L132112",
+"name": "$L132063",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33274,7 +33274,7 @@
 ]
 },
 {
-"name": "$L132114",
+"name": "$L132065",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33343,7 +33343,7 @@
 ]
 },
 {
-"name": "$L104372",
+"name": "$L104365",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33359,7 +33359,7 @@
 ]
 },
 {
-"name": "$L147472",
+"name": "$L147423",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -36293,12 +36293,6 @@
 ]
 },
 {
-"name": "?CG_TargetCommand_f@@YAXXZ",
-"obj": "cg_consolecmds_mp.obj",
-"size": 108,
-"hits": []
-},
-{
 "name": "?CG_SizeUp_f@@YAXXZ",
 "obj": "cg_consolecmds_mp.obj",
 "size": 25,
@@ -36362,12 +36356,6 @@
 "hits": [
 "0x4c1630"
 ]
-},
-{
-"name": "?CG_TellTarget_f@@YAXXZ",
-"obj": "cg_consolecmds_mp.obj",
-"size": 119,
-"hits": []
 },
 {
 "name": "?CG_QuickMessage_f@@YAXXZ",
@@ -45277,7 +45265,9 @@
 "name": "?Scr_ParseGameTypeList@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 572,
-"hits": []
+"hits": [
+"0x50d520"
+]
 },
 {
 "name": "?Scr_GetGameTypeNameForScript@@YAPADPBD@Z",
@@ -46247,10 +46237,8 @@
 {
 "name": "?SP_worldspawn@@YAXXZ",
 "obj": "g_spawn_mp.obj",
-"size": 464,
-"hits": [
-"0x511680"
-]
+"size": 469,
+"hits": []
 },
 {
 "name": "?G_SpawnEntitiesFromString@@YAXXZ",
@@ -55802,7 +55790,7 @@
 {
 "name": "_HTEventList_pump",
 "obj": "HTEvtLst.obj",
-"size": 80,
+"size": 99,
 "hits": []
 },
 {
@@ -60787,18 +60775,6 @@
 "hits": [
 "0x5593a0"
 ]
-},
-{
-"name": "_HTBlackHole",
-"obj": "HTStream.obj",
-"size": 16,
-"hits": []
-},
-{
-"name": "_HTErrorStream",
-"obj": "HTStream.obj",
-"size": 16,
-"hits": []
 },
 {
 "name": "_HTBlackHoleConverter",
@@ -67753,6 +67729,18 @@
 "hits": [
 "0x571a40"
 ]
+},
+{
+"name": "_HTBlackHole",
+"obj": "HTStream.obj",
+"size": 16,
+"hits": []
+},
+{
+"name": "_HTErrorStream",
+"obj": "HTStream.obj",
+"size": 16,
+"hits": []
 },
 {
 "name": "_LeftStr",
@@ -78036,7 +78024,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 3840,
+"size": 4032,
 "hits": []
 }
 ]
