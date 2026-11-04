@@ -245,7 +245,6 @@
   allocation only), VM_Notify (2 scheduling swaps), Com_PrintMessage (LargeLocal ctor arg in eax vs ecx), SV_ArchiveSnapshot (tie),
   Com_InitPlayerProfiles/Com_ExecStartupConfigs/Com_Init_Try_Block_Function (1.3 localized-cfg selection, see above).
 
-<<<<<<< HEAD
 ## w7 libwww (11-04): retail libwww == libwww-git text minus the Id line (+ IW edits)
 - PINNED (tools/oom7.py = retail HT_OUTOFMEM call-site lines, tools/oomcmp7.py compares with a source dir): for ~65 of 75
   files the retail __LINE__s equal the refrences/libwww-git file with the "@(#) $" line (line 6) removed. So retail is a
@@ -263,7 +262,6 @@
 - TRIED (no change, +0): HTCache_isFresh declaring min_fresh,max_stale,max_age (reverse order). Slot order differs: retail inits [esp+34],[esp+18],[esp+14] vs ours 14,18,34.
 - w7 follow-up 11-04: HTDirNode_print MATCHED by declaring HTStructured *target before char *tp (+1291). HTCache_isFresh: moving cc decl into if(cache) gave +16 (other fn) but not isFresh;
   chained/one-line init of max_age/max_stale/min_fresh = REJECT -16. isFresh parked (2 builds used). HTEvtLst: no name for the 0x5ddfa8 static in libwww-git history, coduomp or KisakCOD (only the prototypes): DEFER. HTProfile/HTBlackHole* not attempted.
-=======
 ## w8: client/ui 1.3 (11-04)
 - PAID (+1532 matched-fn, CL_InitOnceForAllClients 3124 B now matched): 1.3 changes PINNED on retail 0x410a10: cl_maxpackets min 15 -> 10;
   new int dvar cl_profileTextHeight (16, 1, 100, 0x1000) after cl_maxPing; cl_punkbuster registered after "snaps" with result NOT stored;
@@ -275,4 +273,3 @@
   sortPlayerProfiles pick edx where we pick eax (or esi vs edx), and a few uiInfo pointer loads in other commands. Build 3 (inline gtName, sortDir == 0) cut it from 10 to 4 hunks.
 - Pickup_Weapon (g_items_mp) is a 1-swap LTCG tie flipped by these edits (Menu_HandleKey flipped in build 1): added to ties13.txt.
 - Com_ExecStartupConfigs / FS_InitFilesystem localized cfg are already in the tree and match structurally (no lead left there).
->>>>>>> w8-client

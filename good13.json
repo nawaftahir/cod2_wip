@@ -867,26 +867,6 @@
 "scan": 1
 },
 {
-"name": "?CL_PlayCinematic_f@@YAXXZ",
-"obj": "cl_cin_mp.obj",
-"size": 12,
-"hits": [
-"0x403570",
-"0x403580"
-],
-"scan": 1
-},
-{
-"name": "?CL_PlayUnskippableCinematic_f@@YAXXZ",
-"obj": "cl_cin_mp.obj",
-"size": 12,
-"hits": [
-"0x403570",
-"0x403580"
-],
-"scan": 1
-},
-{
 "name": "?SCR_DrawCinematic@@YAXXZ",
 "obj": "cl_cin_mp.obj",
 "size": 26,
@@ -3448,10 +3428,8 @@
 {
 "name": "?CL_InitOnceForAllClients@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 3124,
-"hits": [
-"0x410a10"
-]
+"size": 2974,
+"hits": []
 },
 {
 "name": "?CL_Init@@YAXXZ",
@@ -17783,7 +17761,7 @@
 ]
 },
 {
-"name": "$L96642",
+"name": "$L96639",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -33180,7 +33158,7 @@
 ]
 },
 {
-"name": "$L118246",
+"name": "$L118243",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33188,7 +33166,7 @@
 ]
 },
 {
-"name": "$L118248",
+"name": "$L118245",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33221,7 +33199,7 @@
 ]
 },
 {
-"name": "$L132123",
+"name": "$L132120",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33229,7 +33207,7 @@
 ]
 },
 {
-"name": "$L132125",
+"name": "$L132122",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33298,7 +33276,7 @@
 ]
 },
 {
-"name": "$L104383",
+"name": "$L104380",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33314,7 +33292,7 @@
 ]
 },
 {
-"name": "$L147481",
+"name": "$L147478",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -47252,7 +47230,9 @@
 "name": "?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z",
 "obj": "g_items_mp.obj",
 "size": 1616,
-"hits": []
+"hits": [
+"0x51dea0"
+]
 },
 {
 "name": "?Pickup_Health@@YAHPAUgentity_s@@0@Z",
@@ -50446,7 +50426,7 @@
 {
 "name": "?UI_RunMenuScript@@YAXPAPBD@Z",
 "obj": "ui_main_mp.obj",
-"size": 5027,
+"size": 5035,
 "hits": []
 },
 {
@@ -55303,10 +55283,8 @@
 {
 "name": "_digest_credentials",
 "obj": "HTAABrow.obj",
-"size": 696,
-"hits": [
-"0x54cc10"
-]
+"size": 646,
+"hits": []
 },
 {
 "name": "_HTDigest_generate",
@@ -55317,20 +55295,10 @@
 ]
 },
 {
-"name": "_nonce_is_stale",
-"obj": "HTAABrow.obj",
-"size": 120,
-"hits": [
-"0x54d000"
-]
-},
-{
 "name": "_HTDigest_parse",
 "obj": "HTAABrow.obj",
-"size": 1257,
-"hits": [
-"0x54d080"
-]
+"size": 1162,
+"hits": []
 },
 {
 "name": "_HTConverterInit",
@@ -57613,6 +57581,12 @@
 ]
 },
 {
+"name": "_killPipeline",
+"obj": "HTHost.obj",
+"size": 204,
+"hits": []
+},
+{
 "name": "_HTHost_find",
 "obj": "HTHost.obj",
 "size": 205,
@@ -57901,6 +57875,14 @@
 "0x5539a0",
 "0x556a40",
 "0x558120"
+]
+},
+{
+"name": "_HTHost_killPipe",
+"obj": "HTHost.obj",
+"size": 20,
+"hits": [
+"0x554d10"
 ]
 },
 {
@@ -58370,14 +58352,6 @@
 ]
 },
 {
-"name": "_killPipeline",
-"obj": "HTHost.obj",
-"size": 228,
-"hits": [
-"0x554680"
-]
-},
-{
 "name": "_HostEvent",
 "obj": "HTHost.obj",
 "size": 419,
@@ -58407,14 +58381,6 @@
 "size": 145,
 "hits": [
 "0x554c70"
-]
-},
-{
-"name": "_HTHost_killPipe",
-"obj": "HTHost.obj",
-"size": 20,
-"hits": [
-"0x554d10"
 ]
 },
 {
@@ -60438,10 +60404,8 @@
 {
 "name": "_HTAnchor_delete",
 "obj": "HTAnchor.obj",
-"size": 401,
-"hits": [
-"0x558d00"
-]
+"size": 229,
+"hits": []
 },
 {
 "name": "_HTAnchor_update",
@@ -62457,14 +62421,6 @@
 ]
 },
 {
-"name": "_HTMethod_hasEntity",
-"obj": "HTMethod.obj",
-"size": 21,
-"hits": [
-"0x55e5f0"
-]
-},
-{
 "name": "_HTRule_global",
 "obj": "HTRules.obj",
 "size": 20,
@@ -63163,10 +63119,8 @@
 {
 "name": "_meta_read",
 "obj": "HTCache.obj",
-"size": 141,
-"hits": [
-"0x5602e0"
-]
+"size": 174,
+"hits": []
 },
 {
 "name": "_HTCache_updateMeta",
@@ -63414,23 +63368,13 @@
 {
 "name": "_HTCache_readMeta",
 "obj": "HTCache.obj",
-"size": 211,
-"hits": [
-"0x5617d0"
-]
-},
-{
-"name": "_HTCache_resetMeta",
-"obj": "HTCache.obj",
-"size": 66,
-"hits": [
-"0x5618b0"
-]
+"size": 198,
+"hits": []
 },
 {
 "name": "_HTCache_isFresh",
 "obj": "HTCache.obj",
-"size": 397,
+"size": 404,
 "hits": []
 },
 {
@@ -63914,10 +63858,8 @@
 {
 "name": "_HTTPEvent",
 "obj": "HTTP.obj",
-"size": 1832,
-"hits": [
-"0x5643a0"
-]
+"size": 1828,
+"hits": []
 },
 {
 "name": "_HTTP_setConnectionMode",
@@ -65152,10 +65094,8 @@
 {
 "name": "_HTDialog_progressMessage",
 "obj": "HTDialog.obj",
-"size": 944,
-"hits": [
-"0x567ca0"
-]
+"size": 936,
+"hits": []
 },
 {
 "name": "_HTDialog_errorMessage",
@@ -66743,10 +66683,8 @@
 {
 "name": "_HTTimer_new",
 "obj": "HTTimer.obj",
-"size": 282,
-"hits": [
-"0x56e180"
-]
+"size": 283,
+"hits": []
 },
 {
 "name": "_HTTimer_refresh",
@@ -66775,10 +66713,8 @@
 {
 "name": "_Timer_dispatch",
 "obj": "HTTimer.obj",
-"size": 120,
-"hits": [
-"0x56e360"
-]
+"size": 115,
+"hits": []
 },
 {
 "name": "_HTTimer_dispatch",
@@ -67162,10 +67098,8 @@
 {
 "name": "_HTSC_putBlock",
 "obj": "HTSChunk.obj",
-"size": 204,
-"hits": [
-"0x570500"
-]
+"size": 198,
+"hits": []
 },
 {
 "name": "_HTSC_putCharacter",
@@ -67718,9 +67652,7 @@
 "name": "_HTDirNode_print",
 "obj": "HTDir.obj",
 "size": 1291,
-"hits": [
-"0x571ce0"
-]
+"hits": []
 },
 {
 "name": "_HTDir_headLine",
@@ -67959,10 +67891,8 @@
 {
 "name": "_HTNewsNode_compareRefThread",
 "obj": "HTNDir.obj",
-"size": 152,
-"hits": [
-"0x5739d0"
-]
+"size": 162,
+"hits": []
 },
 {
 "name": "_HTNewsDir_setWidth",
@@ -68071,10 +68001,8 @@
 {
 "name": "_HTNewsNode_print",
 "obj": "HTNDir.obj",
-"size": 259,
-"hits": [
-"0x573ff0"
-]
+"size": 263,
+"hits": []
 },
 {
 "name": "_HTNewsDir_addElement",
@@ -68151,10 +68079,8 @@
 {
 "name": "_MIMERequest_put_block",
 "obj": "HTMIMERq.obj",
-"size": 236,
-"hits": [
-"0x575110"
-]
+"size": 230,
+"hits": []
 },
 {
 "name": "_MIMERequest_put_character",
@@ -68235,18 +68161,14 @@
 {
 "name": "_MIMERequest_flush",
 "obj": "HTMIMERq.obj",
-"size": 37,
-"hits": [
-"0x5752d0"
-]
+"size": 145,
+"hits": []
 },
 {
 "name": "_MIMERequest_free",
 "obj": "HTMIMERq.obj",
-"size": 84,
-"hits": [
-"0x575300"
-]
+"size": 64,
+"hits": []
 },
 {
 "name": "_HTTP09Request",
@@ -68357,10 +68279,8 @@
 {
 "name": "_HTTPRequest_new",
 "obj": "HTTPReq.obj",
-"size": 136,
-"hits": [
-"0x5763b0"
-]
+"size": 130,
+"hits": []
 },
 {
 "name": "_HTML_dtd",
@@ -77942,14 +77862,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-<<<<<<< HEAD
-"size": 944,
-"hits": [
-"0x592c00"
-]
-=======
-"size": 1264,
+"size": 1440,
 "hits": []
->>>>>>> w8-client
 }
 ]
