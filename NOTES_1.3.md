@@ -356,3 +356,16 @@
 - Still unmatched in pb (4367 B incl. _ labels 3967): stPbCl::~stPbCl 69 (retail stores m_ClInstance=0 right after FreeLibrary, ours schedules it later), PbSvEvent71 83 (branch layout of inlined AddPbEvent with constant 0x71),
   PbCaptureConsoleOutput 94 (usercall eax vs ecx), PbSvGameMsg 76: retail calls the CLIENT PbMsgToScreen at 0x405080 (usercall edx=prefix, ecx=msg; real fn with 0x100c-byte frame, writes a console buffer at 0x19a1b78) - ours inlines the server Com_Printf stub;
   needs the 1.3 console rewrite (w8). PbServerProcessEvents/ForceProcess 13 B each = twin shapes.
+
+## TOP40 11-04 (unmatched fns by bytes, main 071fc0d 90.89%; ties13 and _ excluded; 118 fns / 68,937 B >= 40 B; tools/top7.py, tools/class7.py; class = automatic guess, retail addr from the previous matched neighbour)
+ui_main UI_RunMenuScript 5027 regalloc | cg_event CG_EntityEvent 4328 regalloc/sched | nb_celp nb_decode 3239 operand order only ([eax+ecx-4] vs [ecx+eax-4], 3 sites, comb_filter new_exc/exc ptr diff) |
+sv_net_chan SV_Netchan_PrintProfileStats 2316 structural (server vs client draw version) | cl_main CL_ConnectionlessPacket 2267 structural | ui_shared Item_ListBox_Paint 2081 regalloc |
+cg_consolecmds CG_InitConsoleCommands 2005 missing-call (100 vs 96 calls) | xanim XAnimCalc 1715 sched (586 B, 5 insn off) | cl_main CL_InitRef 1699 structural | ui_shared_obj UI_ParseAssetGlobalDef 1626 structural |
+scr_vm VM_Notify 1584 structural | FxUtil FX_CalcOriginAndAxis 1463 regalloc (348/402 exact) | cm_trace CM_Trace 1427 regalloc | common Com_Init_Try_Block_Function 1351 regalloc (ebp=1 hoist, smp block written, see w7-hard) |
+ui_main UI_BuildServerDisplayList 1292 missing-call | ui_shared Window_Paint 1268 regalloc | cm_trace CM_BoxSightTrace 1162 regalloc | cl_net_chan CL_Netchan_PrintProfileStats 1089 structural |
+cg_predict CG_ClipMoveToEntities 1003 regalloc | ui_main UI_FeederItemText 996 missing-call | ui_main UI_Init 976 structural | cinematics ROQ_PlayCinematic 890 missing-call (16 vs 20) |
+ui_main UI_DrawConnectScreen 879 | libcmt memmove/memcpy 829 each (CRT version differs: 1.3 links a different libcmt build) | cg_draw CG_DrawAdsOverlay 825 | ui_shared Item_Text_AutoWrapped_Paint 797 |
+cg_scoreboard CG_DrawScoreboard_Objective 790 structural | dl_main DL_BeginDownload 769 structural | cg_newDraw CG_DrawCursorhint 749 | cl_parse CL_ParseDownload 712 structural |
+g_client G_GetPlayerViewOrigin 700 sched (one push moved) | cl_main CL_CheckForResend 599 | cl_parse CL_ParseWWWDownload 568 | cg_weapons CG_FireWeapon 550 sched | cl_cgame CL_SetExpectedHunkUsage 527 missing-call |
+cl_console CL_DeathMessagePrint 527 / CL_ConsolePrint_AddLine 526 | cl_parse CL_ParseServerMessage 496 | FxUtil FX_AddPrimitive 485 | cl_main CL_RequestAuthorization 468 | cl_keys CompleteCommand 466 | common Com_PrintMessage 454 (PbCaptureConsoleOutput eax/ecx) | win_main WinMain 449 structural.
+- w7-top tried: Cmd_ExecuteString needs PbTrapPreExecCmd(text) first (retail inlines pbcl.m_TrapPreExecCmd call before Cmd_TokenizeString; written, builds, but the PB tail also differs: retail inlines PbSvAddEvent(14,-1,len+1,text) with a second strlen copy) -> not matched, reverted (and the ratchet showed the _yylex/SV_ArchiveSnapshot tie flip again).
