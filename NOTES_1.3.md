@@ -260,3 +260,5 @@
   returns. The 2nd static has no evidence for a name: DEFER. HTDirNode_print: only the order of the two reg reloads before the shared join
   differs (ebp=dir then edi=node in retail); source equals git. HTCache_isFresh: init order of max_age/max_stale/min_fresh slots (see tried below).
 - TRIED (no change, +0): HTCache_isFresh declaring min_fresh,max_stale,max_age (reverse order). Slot order differs: retail inits [esp+34],[esp+18],[esp+14] vs ours 14,18,34.
+- w7 follow-up 11-04: HTDirNode_print MATCHED by declaring HTStructured *target before char *tp (+1291). HTCache_isFresh: moving cc decl into if(cache) gave +16 (other fn) but not isFresh;
+  chained/one-line init of max_age/max_stale/min_fresh = REJECT -16. isFresh parked (2 builds used). HTEvtLst: no name for the 0x5ddfa8 static in libwww-git history, coduomp or KisakCOD (only the prototypes): DEFER. HTProfile/HTBlackHole* not attempted.
