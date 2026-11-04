@@ -3379,8 +3379,10 @@
 {
 "name": "?CL_RefPrintf@@YAXHPBDZZ",
 "obj": "cl_main_mp.obj",
-"size": 161,
-"hits": []
+"size": 166,
+"hits": [
+"0x40f900"
+]
 },
 {
 "name": "?CL_ShutdownRef@@YAXXZ",
@@ -4166,8 +4168,10 @@
 {
 "name": "?LAN_CompareServers@@YAHHHHHH@Z",
 "obj": "cl_ui_mp.obj",
-"size": 348,
-"hits": []
+"size": 388,
+"hits": [
+"0x4154e0"
+]
 },
 {
 "name": "?LAN_MarkServerDirty@@YAXHHH@Z",
@@ -17040,7 +17044,9 @@
 "name": "?SV_ArchiveSnapshot@@YAXXZ",
 "obj": "sv_snapshot_mp.obj",
 "size": 2783,
-"hits": []
+"hits": [
+"0x45f740"
+]
 },
 {
 "name": "?SV_SendClientMessages@@YAXXZ",
@@ -33368,7 +33374,7 @@
 ]
 },
 {
-"name": "$L147490",
+"name": "$L147492",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -47331,7 +47337,9 @@
 "name": "?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z",
 "obj": "g_items_mp.obj",
 "size": 1616,
-"hits": []
+"hits": [
+"0x51dea0"
+]
 },
 {
 "name": "?Pickup_Health@@YAHPAUgentity_s@@0@Z",
@@ -50613,8 +50621,10 @@
 {
 "name": "?UI_BuildServerDisplayList@@YAXH@Z",
 "obj": "ui_main_mp.obj",
-"size": 1292,
-"hits": []
+"size": 1337,
+"hits": [
+"0x5365c0"
+]
 },
 {
 "name": "?UI_AddServerStatusDvarRows@@YAXPAUserverStatusInfo_t@@@Z",
@@ -50691,8 +50701,10 @@
 {
 "name": "?UI_FeederItemText@@YAPBDMHHPAPAUMaterial@@@Z",
 "obj": "ui_main_mp.obj",
-"size": 996,
-"hits": []
+"size": 1008,
+"hits": [
+"0x537600"
+]
 },
 {
 "name": "?UI_FeederItemImage@@YAPAUMaterial@@MH@Z",
@@ -72376,18 +72388,6 @@
 ]
 },
 {
-"name": "_vsprintf",
-"obj": "libcmt:vsprintf.obj",
-"size": 87,
-"hits": []
-},
-{
-"name": "__vscprintf",
-"obj": "libcmt:vsprintf.obj",
-"size": 48,
-"hits": []
-},
-{
 "name": "__fpreset",
 "obj": "libcmt:ieee87.obj",
 "size": 43,
@@ -72465,6 +72465,14 @@
 "size": 102,
 "hits": [
 "0x57b9e4"
+]
+},
+{
+"name": "__vsnprintf",
+"obj": "libcmt:vsnprint.obj",
+"size": 86,
+"hits": [
+"0x57ba4a"
 ]
 },
 {
@@ -72681,14 +72689,6 @@
 "hits": [
 "0x57c378",
 "0x57cd1c"
-]
-},
-{
-"name": "__vsnprintf",
-"obj": "libcmt:vsnprint.obj",
-"size": 86,
-"hits": [
-"0x57ba4a"
 ]
 },
 {
@@ -73391,6 +73391,18 @@
 "hits": [
 "0x586a1c"
 ]
+},
+{
+"name": "_vsprintf",
+"obj": "libcmt:vsprintf.obj",
+"size": 87,
+"hits": []
+},
+{
+"name": "__vscprintf",
+"obj": "libcmt:vsprintf.obj",
+"size": 48,
+"hits": []
 },
 {
 "name": "__cfltcvt_init",
@@ -78039,7 +78051,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 3856,
+"size": 3760,
 "hits": []
 }
 ]
