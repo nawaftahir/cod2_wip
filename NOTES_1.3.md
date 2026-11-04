@@ -291,3 +291,7 @@
 - VM_Notify with server text: no gain (still different; 1 build) and the build lost the 752 B tie, REJECT; our 1.0-tuned spelling kept.
 - Com_PrintMessage (454): only diff is the usercall register of PbCaptureConsoleOutput msglen (retail eax, ours ecx) = LTCG callee choice. CG_FireWeapon: lea ebp,[ebx+0xf0] scheduled before push esi/edi.
 - CG_EntityEvent (4328 B): regalloc/spill differences throughout (cl vs al for the bool at [esp+0x13], etc.), not attempted.
+- w7-core sweep (tools/sweep7.py lists unmatched fns whose text differs from lnxded-1.3/src): batch of 5 server-text edits in one build (CM_BoxSightTrace 0.0, IntersectPlanes 1.0,
+  CM_ClearWorld <= AREA_NODES-2, G_GetPlayerViewOrigin parens, Scr_ParseGameTypeList memset(buffer)) = no gain, -16 (REJECT, reverted). Other DIFFs are client/server variants
+  (DEDICATED ifdefs, CL_* calls, FxRange_GetVal) or 1.0-tuned spellings; not copied. cg_main_mp sound/message fns and CG_PlayViewWeaponNotetrackSounds are blocked by the
+  1.3 CL_ConsolePrint_AddLine/subtitle rewrite (retail adds a subtitle call after the sound call), no Mac names available.
