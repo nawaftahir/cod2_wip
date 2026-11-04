@@ -2403,6 +2403,10 @@ static void __attribute_regparm__(0) UI_BuildServerDisplayList(qboolean force)
                 LAN_MarkServerDirty((ui_netSource)->current.integer, i, 0);
                 continue;
             }
+            if ((ui_browserShowPunkBuster)->current.integer >= 0 && atoi(Info_ValueForKey(info_buf, "pb")) != (ui_browserShowPunkBuster)->current.integer) {
+                LAN_MarkServerDirty((ui_netSource)->current.integer, i, 0);
+                continue;
+            }
             if (sharedUiInfo.joinGameTypes[(ui_joinGameType)->current.integer].gameTypeName[0]
                 && I_stricmp(Info_ValueForKey(info_buf, "gametype"), sharedUiInfo.joinGameTypes[(ui_joinGameType)->current.integer].gameType)) {
                 LAN_MarkServerDirty((ui_netSource)->current.integer, i, 0);
@@ -2824,6 +2828,10 @@ const char *UI_FeederItemText(float feederID, int index, int column, MaterialHan
                 if (atoi(Info_ValueForKey(info, "voice")))
                     return "X";
                 return "";
+            case 9:
+                if (atoi(Info_ValueForKey(info, "pb")))
+                    return "X";
+                return "";
             case 2:
                 if (pingVal <= 0)
                     return Info_ValueForKey(info, "addr");
@@ -2838,7 +2846,7 @@ const char *UI_FeederItemText(float feederID, int index, int column, MaterialHan
                 if (Info_ValueForKey(info, "gametype") && *Info_ValueForKey(info, "gametype"))
                     return Info_ValueForKey(info, "gametype");
                 return "?";
-            case 9:
+            case 10:
                 if (pingVal <= 0)
                     return "...";
                 return Info_ValueForKey(info, "ping");

@@ -417,6 +417,7 @@ void CL_StopLogoOrCinematic(void);
 void CL_AddDebugLine(const vec_t *start, const vec_t *end, const vec_t *color, qboolean depthTest, int duration, qboolean fromServer);
 void CL_AddDebugString(const vec_t *xyz, const vec_t *color, float scale, const char *text, qboolean fromServer);
 void CL_RequestAuthorization(void);
+static void fn_40d310(void);
 void CL_CheckForResend(void);
 void CL_LocalServers_f(void);
 void CL_PlayLogo_f(void);
@@ -2124,6 +2125,15 @@ void CL_Frame(void)
     CL_SetCGameTime();
     CL_SendCmd();
 }
+/* retail 0x40d310, unnamed: re-authorize an active client every 300 s; called at the end of CL_Frame */
+static __declspec(noinline) void fn_40d310(void)
+{
+    if (clc.state == CA_ACTIVE && cls.realtime - lastUpdateKeyAuthTime > 300000) {
+        if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
+            CL_RequestAuthorization();
+    }
+}
+
 bool CL_IsLocalClientInGame(void)
 {
     return clc.state == CA_ACTIVE;
@@ -2140,7 +2150,7 @@ void CL_RefPrintf(int print_level, const char *fmt, ...)
     __builtin_va_list argptr;
 
     __builtin_va_start(argptr, fmt);
-    vsprintf(msg, fmt, argptr);
+    _vsnprintf(msg, 4096, fmt, argptr);
     __builtin_va_end(argptr);
 
     if (print_level == 0) {

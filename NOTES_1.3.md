@@ -369,3 +369,15 @@ cg_scoreboard CG_DrawScoreboard_Objective 790 structural | dl_main DL_BeginDownl
 g_client G_GetPlayerViewOrigin 700 sched (one push moved) | cl_main CL_CheckForResend 599 | cl_parse CL_ParseWWWDownload 568 | cg_weapons CG_FireWeapon 550 sched | cl_cgame CL_SetExpectedHunkUsage 527 missing-call |
 cl_console CL_DeathMessagePrint 527 / CL_ConsolePrint_AddLine 526 | cl_parse CL_ParseServerMessage 496 | FxUtil FX_AddPrimitive 485 | cl_main CL_RequestAuthorization 468 | cl_keys CompleteCommand 466 | common Com_PrintMessage 454 (PbCaptureConsoleOutput eax/ecx) | win_main WinMain 449 structural.
 - w7-top tried: Cmd_ExecuteString needs PbTrapPreExecCmd(text) first (retail inlines pbcl.m_TrapPreExecCmd call before Cmd_TokenizeString; written, builds, but the PB tail also differs: retail inlines PbSvAddEvent(14,-1,len+1,text) with a second strlen copy) -> not matched, reverted (and the ratchet showed the _yylex/SV_ArchiveSnapshot tie flip again).
+- w8 (11-04 pm, +4953 incl. lucky tie roll): LAN_CompareServers +388 (1.3 adds sort key 9 = serverInfo_t.pb, ping moves to key 10; case order 0,1,9,8,6,7,2,3,4,5;
+  key 3 compares UI_GetMapDisplayName(mapName) of both); CL_RefPrintf +166 (_vsnprintf(msg, 4096, ...)). The 5 cinematic-byte readers already match through the gated
+  SCR_StopCinematic (CL_Disconnect_f 0x40d5b0, CL_StopLogoOrCinematic 0x410740 diff clean).
+- fn_40d310 (retail 0x40d310, the 300 s re-auth): `if (clc.state == CA_ACTIVE && cls.realtime - lastUpdateKeyAuthTime > 300000 && (net_lanauthorize->enabled || !Sys_IsLANAddress(
+  clc.serverAddress))) CL_RequestAuthorization();` PINNED (matches 104 B, and CL_Frame matches +141 when it calls it as its LAST statement), but adding the call flips
+  PC_EvaluateTokens (2587) and GScr_CloseFile (173) in this tie pool, so the call is NOT committed (net would be -1.9K). The function itself is in cl_main_mp.cpp
+  (static, currently unreferenced, so dropped by the compiler). Re-add `fn_40d310();` after CL_SendCmd() in CL_Frame when the pool can be re-rolled by another gain.
+- w8: CompleteCommand 1.3 (+656, PbClientCompleteCommand 0x4bc100 +87) is on branch w8-complete-wip (not merged): if (cmd after optional '/' or '\\' starts with "pb_") { copy to a
+  272-byte local (retail frame 0x228: 16 extra bytes), "pb_sv_" -> PbServerCompleteCommand(arg,255) else PbClientCompleteCommand(arg,255) = pbcl.AddPbEvent(0x33,len,buf,0);
+  sprintf "\\%s" into the console field, cursor=strlen, Field_AdjustScroll; return }. It re-rolls the tie pool (Pickup_Weapon, SP_worldspawn, GScr_CloseFile lost, net -1.5K):
+  merge when another +1.5K is bundled. Also open: CL_Netchan_PrintProfileStats (retail helper 0x4129f0 takes (n, &pos) and add esp 8), UI_DrawConnectScreen (+17 insns),
+  CL_ParseDownload msg-in-esi (param copy conflicts with the LargeLocal eax load at entry; no lever found).
