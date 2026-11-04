@@ -336,3 +336,11 @@
   so the reset calls DL_CancelDownload (noinline). CL_GetServerCommand +1089: 'w' (server disconnect) with argc>=3 and Cmd_Argv(2) == "PB" (via _stricmp, CRT call) uses the
   untranslated Cmd_Argv(1) as the reason and wraps it as va("\x15%s", ...). CL_ConfigstringModified +445: oldGs is a LargeLocal and the limit is MAX_GAMESTATE_CHARS.
   Tie flips: with this set SV_ArchiveSnapshot(2783)/_$E2(192) lost, SV_DirectConnect/CG_DrawPlayerStance/Com_ShutdownDObj back.
+
+## w7-hard (11-04)
+- PAID +1346 (8699482): SV_ConnectionlessPacket. The pb_ block does not return after PbSvAddEvent: retail then runs the client PunkBuster feed
+  PbClAddEvent(13, cursize-4, data+4) when data[7] is not one of S 2 G I Y B L and com_dedicated is null/0 (pbcl struct 0x5dd6c8, AddPbEvent inlined: enable flag 0x5dd840).
+  Kept the file line count unchanged (asserts later in sv_main_mp.cpp carry __LINE__).
+- Com_Init_Try_Block_Function (retail 0x434460, 1351 B): differs by a new multi-core block: retail fn 0x434420 inlined = GetProcessAffinityMask(GetCurrentProcess(),&proc,&sys);
+  (proc & (proc-1)) != 0 (more than one CPU), then a string/Com_Printf-like call with 0x1010 flags (LocalAlloc-like 0x1010 arg) and a following dvar. Stack frame 0x20 vs 0x18.
+  Not written (out of time); starting point: tools/rdis7.py 434420 / 4345a0.
