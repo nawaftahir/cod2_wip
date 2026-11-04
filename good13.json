@@ -17835,7 +17835,7 @@
 ]
 },
 {
-"name": "$L96645",
+"name": "$L96634",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -33232,7 +33232,7 @@
 ]
 },
 {
-"name": "$L118256",
+"name": "$L118248",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33240,7 +33240,7 @@
 ]
 },
 {
-"name": "$L118258",
+"name": "$L118250",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33273,7 +33273,7 @@
 ]
 },
 {
-"name": "$L132133",
+"name": "$L132127",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33281,7 +33281,7 @@
 ]
 },
 {
-"name": "$L132135",
+"name": "$L132129",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33350,7 +33350,7 @@
 ]
 },
 {
-"name": "$L104388",
+"name": "$L104382",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33366,7 +33366,7 @@
 ]
 },
 {
-"name": "$L147491",
+"name": "$L147485",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35612,6 +35612,15 @@
 ]
 },
 {
+"name": "?pbChmod_813cbd4@@YAXPAD@Z",
+"obj": "pbcl.obj",
+"size": 15,
+"hits": [
+"0x4bb560"
+],
+"scan": 1
+},
+{
 "name": "?getHomePath@stPbCl@@QAEXXZ",
 "obj": "pbcl.obj",
 "size": 154,
@@ -35636,6 +35645,14 @@
 ]
 },
 {
+"name": "?uninitialize@stPbCl@@QAEXXZ",
+"obj": "pbcl.obj",
+"size": 27,
+"hits": [
+"0x4bb690"
+]
+},
+{
 "name": "?UnloadClientDll@stPbCl@@QAEXXZ",
 "obj": "pbcl.obj",
 "size": 52,
@@ -35644,8 +35661,10 @@
 {
 "name": "?LoadClientDll@stPbCl@@QAEPADXZ",
 "obj": "pbcl.obj",
-"size": 396,
-"hits": []
+"size": 414,
+"hits": [
+"0x4bb730"
+]
 },
 {
 "name": "?AddPbEvent@stPbCl@@QAEPADHHPADH@Z",
@@ -35658,8 +35677,10 @@
 {
 "name": "??0stPbCl@@QAE@XZ",
 "obj": "pbcl.obj",
-"size": 78,
-"hits": []
+"size": 155,
+"hits": [
+"0x4bb9b0"
+]
 },
 {
 "name": "??1stPbCl@@QAE@XZ",
@@ -35712,12 +35733,6 @@
 ]
 },
 {
-"name": "_itoa",
-"obj": "pbsv.obj",
-"size": 132,
-"hits": []
-},
-{
 "name": "?pbCopyFile_813cf52@@YAHPAD0H@Z",
 "obj": "pbsv.obj",
 "size": 203,
@@ -35745,7 +35760,9 @@
 "name": "?getHomePath@stPbSv@@QAEXXZ",
 "obj": "pbsv.obj",
 "size": 154,
-"hits": []
+"hits": [
+"0x4bd110"
+]
 },
 {
 "name": "?makefn@stPbSv@@QAEPADPAD0@Z",
@@ -35798,8 +35815,10 @@
 {
 "name": "?LoadServerDll@stPbSv@@QAEPADXZ",
 "obj": "pbsv.obj",
-"size": 409,
-"hits": []
+"size": 437,
+"hits": [
+"0x4bd3e0"
+]
 },
 {
 "name": "?AddPbEvent@stPbSv@@QAEPADHHHPADH@Z",
@@ -35935,8 +35954,10 @@
 {
 "name": "?PbSvGameQuery@@YAPADHPAD@Z",
 "obj": "pbsv.obj",
-"size": 278,
-"hits": []
+"size": 182,
+"hits": [
+"0x4bdce0"
+]
 },
 {
 "name": "?PbSvGameMsg@@YAPADPADH@Z",
@@ -73261,6 +73282,14 @@
 ]
 },
 {
+"name": "__chmod",
+"obj": "libcmt:chmod.obj",
+"size": 65,
+"hits": [
+"0x57d982"
+]
+},
+{
 "name": "__onexit_lk",
 "obj": "libcmt:onexit.obj",
 "size": 128,
@@ -73298,6 +73327,62 @@
 "size": 127,
 "hits": [
 "0x58bf56"
+]
+},
+{
+"name": "_xtoa",
+"obj": "libcmt:xtoa.obj",
+"size": 62,
+"hits": [
+"0x5868d5"
+]
+},
+{
+"name": "__itoa",
+"obj": "libcmt:xtoa.obj",
+"size": 42,
+"hits": [
+"0x586913"
+]
+},
+{
+"name": "__ltoa",
+"obj": "libcmt:xtoa.obj",
+"size": 39,
+"hits": [
+"0x58693d"
+]
+},
+{
+"name": "__ultoa",
+"obj": "libcmt:xtoa.obj",
+"size": 26,
+"hits": [
+"0x586964"
+]
+},
+{
+"name": "_x64toa@20",
+"obj": "libcmt:xtoa.obj",
+"size": 109,
+"hits": [
+"0x58697e"
+]
+},
+{
+"name": "__i64toa",
+"obj": "libcmt:xtoa.obj",
+"size": 49,
+"hits": [
+"0x5869eb"
+]
+},
+{
+"name": "__ui64toa",
+"obj": "libcmt:xtoa.obj",
+"size": 27,
+"hits": [
+"0x586a1c"
 ]
 },
 {
@@ -74634,6 +74719,14 @@
 ]
 },
 {
+"name": "__aulldvrm",
+"obj": "libcmt:ulldvrm.obj",
+"size": 149,
+"hits": [
+"0x587190"
+]
+},
+{
 "name": "__forcdecpt",
 "obj": "libcmt:cvt.obj",
 "size": 60,
@@ -74759,62 +74852,6 @@
 "size": 57,
 "hits": [
 "0x585df7"
-]
-},
-{
-"name": "_xtoa",
-"obj": "libcmt:xtoa.obj",
-"size": 62,
-"hits": [
-"0x5868d5"
-]
-},
-{
-"name": "__itoa",
-"obj": "libcmt:xtoa.obj",
-"size": 42,
-"hits": [
-"0x586913"
-]
-},
-{
-"name": "__ltoa",
-"obj": "libcmt:xtoa.obj",
-"size": 39,
-"hits": [
-"0x58693d"
-]
-},
-{
-"name": "__ultoa",
-"obj": "libcmt:xtoa.obj",
-"size": 26,
-"hits": [
-"0x586964"
-]
-},
-{
-"name": "_x64toa@20",
-"obj": "libcmt:xtoa.obj",
-"size": 109,
-"hits": [
-"0x58697e"
-]
-},
-{
-"name": "__i64toa",
-"obj": "libcmt:xtoa.obj",
-"size": 49,
-"hits": [
-"0x5869eb"
-]
-},
-{
-"name": "__ui64toa",
-"obj": "libcmt:xtoa.obj",
-"size": 27,
-"hits": [
-"0x586a1c"
 ]
 },
 {
@@ -75002,14 +75039,6 @@
 "hits": [
 "0x57fe49",
 "0x58715f"
-]
-},
-{
-"name": "__aulldvrm",
-"obj": "libcmt:ulldvrm.obj",
-"size": 149,
-"hits": [
-"0x587190"
 ]
 },
 {

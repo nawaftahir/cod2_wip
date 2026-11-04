@@ -347,3 +347,12 @@
 - Com_Init_Try_Block_Function (retail 0x434460, 1351 B): differs by a new multi-core block: retail fn 0x434420 inlined = GetProcessAffinityMask(GetCurrentProcess(),&proc,&sys);
   (proc & (proc-1)) != 0 (more than one CPU), then a string/Com_Printf-like call with 0x1010 flags (LocalAlloc-like 0x1010 arg) and a following dvar. Stack frame 0x20 vs 0x18.
   Not written (out of time); starting point: tools/rdis7.py 434420 / 4345a0.
+
+## w7-pb (11-04)
+- PAID +3 commits (45bace4 +3645 incl. a tie flip, 41f5068 +1449): (1) compat/msvc71.h defines chmod(p,m) as 0, so every pb chmod was compiled out; retail calls CRT _chmod(path, 0x180) (declared extern "C" in pbsv/pbcl, io.h clashes with compat).
+  (2) pbsv.cpp had a private itoa; retail calls CRT _itoa(val, buf, 10) (PbSvGameQuery 182 B, own itoa 132 B gone). (3) stPbSv::getHomePath uses backslashes in 1.3 (cmp 0x5c, "\\", "pb\\").
+  (4) stPbCl::LoadClientDll: no UnloadClientDll() call, the five fn-pointer zeroes inline and no m_ClInstance=0 (-> ebp as zero); stPbCl ctor: explicit stores after memset (AgInstance, ClInstance, uninitialize(), Md5, 7 fn pointers, reload=1).
+- Tie flip seen: CG_DrawPlayerStance (reload order of ebp/esi) <-> Pickup_Weapon flips with unrelated edits (global ordering effect); first pb run showed it, the final one did not.
+- Still unmatched in pb (4367 B incl. _ labels 3967): stPbCl::~stPbCl 69 (retail stores m_ClInstance=0 right after FreeLibrary, ours schedules it later), PbSvEvent71 83 (branch layout of inlined AddPbEvent with constant 0x71),
+  PbCaptureConsoleOutput 94 (usercall eax vs ecx), PbSvGameMsg 76: retail calls the CLIENT PbMsgToScreen at 0x405080 (usercall edx=prefix, ecx=msg; real fn with 0x100c-byte frame, writes a console buffer at 0x19a1b78) - ours inlines the server Com_Printf stub;
+  needs the 1.3 console rewrite (w8). PbServerProcessEvents/ForceProcess 13 B each = twin shapes.
