@@ -4,7 +4,6 @@
  * Research candidate only until the linked executable referee confirms it.
  */
 #include "stdafx.h"
-#include <stdlib.h>
 
 /* Original Q3Radiant QEGlobals_t prefix through the dialog-host HWND.
    The full CoD2 layout and storage identity remain under review. */
@@ -52,46 +51,6 @@ void FUN_004763c0(void)
 void DoRotate(void)
 {
     DialogBox(g_qeglobals.d_hInstance, (LPCSTR)112, g_qeglobals.d_hwndMain, RotateDlgProc);
-}
-
-void Brush_MakeSidedCone(int sides);
-void Brush_MakeSidedSphere(int sides);
-void Brush_MakeSided(int sides);
-
-/* Q3Radiant side-count callback, CoD2 retail control ID 1233. */
-BOOL CALLBACK SidesDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-    char str[256];
-    HWND h;
-
-    switch (uMsg)
-    {
-    case WM_INITDIALOG:
-        h = GetDlgItem(hwndDlg, 1233);
-        SetFocus(h);
-        return FALSE;
-
-    case WM_COMMAND:
-        switch (LOWORD(wParam))
-        {
-        case IDOK:
-            GetWindowText(GetDlgItem(hwndDlg, 1233), str, 255);
-            if (g_bDoCone)
-                Brush_MakeSidedCone(atoi(str));
-            else if (g_bDoSphere)
-                Brush_MakeSidedSphere(atoi(str));
-            else
-                Brush_MakeSided(atoi(str));
-            EndDialog(hwndDlg, 1);
-            break;
-
-        case IDCANCEL:
-            EndDialog(hwndDlg, 0);
-            break;
-        }
-    default:
-        return FALSE;
-    }
 }
 
 void DoSides(bool bCone, bool bSphere, bool bTorus)
