@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include <math.h>
 #include <stdlib.h>
+#include <stddef.h>
 
 typedef float vec3_t[3];
 
@@ -92,11 +93,17 @@ struct brush_t
     int numFaces;
 };
 
+// Q3Radiant Winding_Alloc uses offsetof(winding_t, points[points]) to
+// allocate the variable-size point storage. Both header words precede
+// the five-float points; this ancestor layout is NOT yet retail-proved.
 struct winding_t
 {
     int numpoints;
-    float points[128][5]; // Q3Radiant winding layout; retail stride still needs checking
+    int maxpoints;
+    float points[8][5]; // runtime allocator extends the trailing array
 };
+
+typedef char WindingPointsOffset[(offsetof(winding_t, points) == 8) ? 1 : -1];
 
 extern brush_t selected_brushes;
 extern winding_t *FUN_00455800(face_t *face);
