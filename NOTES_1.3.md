@@ -354,3 +354,8 @@
   clc.serverAddress))) CL_RequestAuthorization();` PINNED (matches 104 B, and CL_Frame matches +141 when it calls it as its LAST statement), but adding the call flips
   PC_EvaluateTokens (2587) and GScr_CloseFile (173) in this tie pool, so the call is NOT committed (net would be -1.9K). The function itself is in cl_main_mp.cpp
   (static, currently unreferenced, so dropped by the compiler). Re-add `fn_40d310();` after CL_SendCmd() in CL_Frame when the pool can be re-rolled by another gain.
+- w8: CompleteCommand 1.3 (+656, PbClientCompleteCommand 0x4bc100 +87) is on branch w8-complete-wip (not merged): if (cmd after optional '/' or '\\' starts with "pb_") { copy to a
+  272-byte local (retail frame 0x228: 16 extra bytes), "pb_sv_" -> PbServerCompleteCommand(arg,255) else PbClientCompleteCommand(arg,255) = pbcl.AddPbEvent(0x33,len,buf,0);
+  sprintf "\\%s" into the console field, cursor=strlen, Field_AdjustScroll; return }. It re-rolls the tie pool (Pickup_Weapon, SP_worldspawn, GScr_CloseFile lost, net -1.5K):
+  merge when another +1.5K is bundled. Also open: CL_Netchan_PrintProfileStats (retail helper 0x4129f0 takes (n, &pos) and add esp 8), UI_DrawConnectScreen (+17 insns),
+  CL_ParseDownload msg-in-esi (param copy conflicts with the LargeLocal eax load at entry; no lever found).
