@@ -784,7 +784,10 @@ void Com_ErrorAbort( void )
 	Sys_LeaveCriticalSection( 2 );
 
 	if ( errorEntered )
-		longjmp(*(jmp_buf *)Sys_GetValue(THREAD_VALUE_COM_ERROR), -1);
+	{
+		jmp_buf *jb = (jmp_buf *)Sys_GetValue(THREAD_VALUE_COM_ERROR);
+		longjmp(*jb, -1);
+	}
 }
 
 /*
