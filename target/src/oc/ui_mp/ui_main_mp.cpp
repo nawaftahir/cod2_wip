@@ -485,12 +485,12 @@ void UI_RegisterDvars(void)
     ui_browserShowNoPassword = (const dvar_t *)(Dvar_RegisterBool("ui_browserShowNoPassword", 1, 0x1001));
     ui_browserShowPure = (const dvar_t *)(Dvar_RegisterBool("ui_browserShowPure", 1, 0x1001));
     ui_browserShowDedicated = (const dvar_t *)(Dvar_RegisterBool("ui_browserShowDedicated", 0, 0x1001));
-#    if COD2_IS_PATCH_13
-    ui_browserShowPunkBuster = (const dvar_t *)(Dvar_RegisterInt("ui_browserShowPunkBuster", -1, (int)0x80000000, 0x7fffffff, 0x1001));
-#    endif
     ui_browserMod = (const dvar_t *)(Dvar_RegisterInt("ui_browserMod", -1, -1, 0x7fffffff, 0x1001));
     ui_browserFriendlyfire = (const dvar_t *)(Dvar_RegisterInt("ui_browserFriendlyfire", -1, (int)0x80000000, 0x7fffffff, 0x1001));
     ui_browserKillcam = (const dvar_t *)(Dvar_RegisterInt("ui_browserKillcam", -1, (int)0x80000000, 0x7fffffff, 0x1001));
+#    if COD2_IS_PATCH_13
+    ui_browserShowPunkBuster = (const dvar_t *)(Dvar_RegisterInt("ui_browserShowPunkBuster", -1, (int)0x80000000, 0x7fffffff, 0x1001));
+#    endif
     ui_serverStatusTimeOut = (const dvar_t *)(Dvar_RegisterInt("ui_serverStatusTimeOut", 7000, 0, 0x7fffffff, 0x1001));
     ui_playerProfileCount = (const dvar_t *)(Dvar_RegisterInt("ui_playerProfileCount", 0, (int)0x80000000, 0x7fffffff, 0x1040));
     ui_playerProfileSelected = (const dvar_t *)(Dvar_RegisterString("ui_playerProfileSelected", "", 0x1040));
@@ -3655,7 +3655,7 @@ static void UI_StartServerRefresh(qboolean full)
         if (strlen(ptr))
             Cbuf_ExecuteText(0, va("globalservers %d %s full empty\n", 0, ptr));
         else
-            Cbuf_ExecuteText(0, va("globalservers %d %d full empty\n", 0, 0x73));
+            Cbuf_ExecuteText(0, va("globalservers %d %d full empty\n", 0, 0x76));
     }
 }
 

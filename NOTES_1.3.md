@@ -295,3 +295,27 @@
   CM_ClearWorld <= AREA_NODES-2, G_GetPlayerViewOrigin parens, Scr_ParseGameTypeList memset(buffer)) = no gain, -16 (REJECT, reverted). Other DIFFs are client/server variants
   (DEDICATED ifdefs, CL_* calls, FxRange_GetVal) or 1.0-tuned spellings; not copied. cg_main_mp sound/message fns and CG_PlayViewWeaponNotetrackSounds are blocked by the
   1.3 CL_ConsolePrint_AddLine/subtitle rewrite (retail adds a subtitle call after the sound call), no Mac names available.
+- w8 11-04 (after merge 613a8a3): CL_ConsolePrint_AddLine retail 0x404690 first look, NOT started. Mac STABS gives only the 1.3 signature
+  (type, duration, linewidth, color; text is NOT a parameter: retail gets it in eax), no body. Retail adds a path for types 1/2/3 gated on a pointer
+  at 0x11972f8 that calls 0x532410 with a float (0x5c3e78 * 0x5c40a4) and a 0/4 flag; linewidth cap 0x4e kept. Needs a full disasm-driven rewrite (~2 KB),
+  not attempted. Next agent: start from `python3 w8dis-style capstone dump 404690..404cd3`; our 1.0-shaped body (cl_console_mp.cpp:684) takes txt as arg 2.
+- w8 11-04 CL_ConsolePrint_AddLine (retail 0x404690, 2132 B): rewritten, WIP on branch w8-consoleprint-wip (not merged). PINNED from retail:
+  0x11972f8 = g_currentAsian (Language_IsAsian), 0x11972ec = loc_language dvar, 0x68a314/0x68a310 = re.TextWidth / re.NormalizedTextScale,
+  0x166bb88 = cg_subtitleCharHeight. New path only when Language_IsAsian() && type in {SUBTITLE, GAME, BOLDGAME}: font = UI_GetFontHandle(type==BOLDGAME?4:0,
+  (type==SUBTITLE ? charHeight : 12.0f) * (1/48)), pixel-width word wrap (limit linewidth*6.5 vs width*normScale), SEH_ReadCharFromString inlined 3x,
+  two-byte chars stored as hi byte then lo byte. Non-Asian path = old 1.0 body, with the targetLineWidth/PrintStrlen block moved INTO the else branch.
+  Result: 6 diff hunks, all register choice (retail keeps charWidth in ebp and a zero in edi; ours spills charWidth and uses ebp as zero). Cause of the
+  build rejection: not the fn itself (still unmatched) but SV_ArchiveSnapshot (2783, tie) + _$E2 (752) flipped; CL_SubtitlePrint +217. 4 builds, switch vs if
+  and shared charWidth variable made no difference. Next: vary where the NULL isTrailingPunctuation temp and curWidth=0 live (retail uses literal 0 for the
+  default-case linefeeds, register zero for \n and \r).
+- w8 sweep 1 (+4153 matched-fn): UI_RegisterDvars (ui_browserShowPunkBuster registered after ui_browserKillcam), CL_Vid_Restart_f (loc_language max 13 -> 14),
+  UI_StartServerRefresh (protocol 115 -> 118 in "globalservers"; also CL_ServerInfoPacket expectedProt and CL_CheckForResend protocol), CL_PlayLogo_f via
+  SCR_StopCinematic now gated on the skippable flag (retail 0x4035d0). PINNED. Not done: CL_DownloadsComplete / CL_Disconnect / CL_InitDownloads share a new
+  inlined "clear download state + DL_Shutdown (0x4b59c0)" block; needs the 1.3 clientConnection_t download layout (966dac int, 966db0 char[256], 966eb0 char[256],
+  966fb0 char[64]?, 966ff0/966ff4/966ff8 ints), no Mac evidence (Mac has no libwww path).
+- w8 sweep 2 (+1868): LAN_GetServerInfo adds Info key "pb" (serverInfo_t.pb), CL_ServerInfoPacket zeroes new localServers[].pb. PINNED.
+- TRIED, REJECTED (w8): making LargeLocal ctor/dtor/GetBuf __forceinline in com_memory.h (retail 1.3 expands them in e.g. CL_WriteVoicePacket,
+  CL_ConfigstringModified, CL_WritePacket). It lost 19 fns / 12.7 KB (server fns and CL_ParseSnapshot etc. keep the call in retail). Per-caller inline
+  choice, not a header change. CL_WriteVoicePacket/CL_WritePacket/CL_ConfigstringModified/CL_KeyEvent differ mainly by this.
+- SCR_DrawScreenField: 1.3 adds `if (<int at 0x966ff8, clc download field>) { 0x532540(); UI_DrawConnectScreen(); }` in the connecting branch; blocked on the
+  1.3 clientConnection_t download layout (same blocker as CL_DownloadsComplete/Disconnect/InitDownloads).

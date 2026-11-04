@@ -1412,7 +1412,7 @@ void CL_Vid_Restart_f(void)
     CL_AddReliableCommand(va((const char *)"vdr"));
     Com_Restart();
 
-    Dvar_RegisterInt((const char *)"loc_language", 0, 0, 13, 0x1021);
+    Dvar_RegisterInt((const char *)"loc_language", 0, 0, 14, 0x1021);
     Dvar_RegisterBool((const char *)"loc_translate", 1, 0x1020);
     Dvar_RegisterBool((const char *)"fs_ignoreLocalized", 0, 0x10a0);
 
@@ -1670,7 +1670,7 @@ void CL_CheckForResend(void)
 
     case CA_CHALLENGING:
         I_strncpyz(info, Dvar_InfoString(2), sizeof(info));
-        Info_SetValueForKey(info, "protocol", va("%i", 115));
+        Info_SetValueForKey(info, "protocol", va("%i", 118));
         Info_SetValueForKey(info, "challenge", va("%i", clc.challenge));
         Info_SetValueForKey(info, "qport", va("%i", clc.qport));
 
