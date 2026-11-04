@@ -1876,9 +1876,10 @@ void Com_RunAutoExec()
 Com_ExecStartupConfigs
 ===================
 */
+extern const char *fs_defaultConfigName;
 void Com_ExecStartupConfigs( const char *configFile )
 {
-	Cbuf_AddText("exec default_mp.cfg\n");
+	Cbuf_AddText(va("exec %s\n", fs_defaultConfigName));
 	Cbuf_AddText("exec language.cfg\n");
 
 	if ( configFile )
