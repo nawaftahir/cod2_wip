@@ -347,3 +347,7 @@
 - Com_Init_Try_Block_Function (retail 0x434460, 1351 B): differs by a new multi-core block: retail fn 0x434420 inlined = GetProcessAffinityMask(GetCurrentProcess(),&proc,&sys);
   (proc & (proc-1)) != 0 (more than one CPU), then a string/Com_Printf-like call with 0x1010 flags (LocalAlloc-like 0x1010 arg) and a following dvar. Stack frame 0x20 vs 0x18.
   Not written (out of time); starting point: tools/rdis7.py 434420 / 4345a0.
+- w7-hard Com_Init_Try_Block_Function (3 builds, PARKED): retail block (inside if(!com_dedicated), before cls.rendererStarted=1) = inlined 0x434420 (GetProcessAffinityMask(GetCurrentProcess(),&p,&s) && (p&(p-1))!=0)
+  -> Dvar_RegisterBool("r_smp_backend_allowed", multi, 0x1010 = DVAR_INIT|DVAR_CHANGEABLE_RESET) -> if (->boolean) call void(*)() at bss 0x68a248 (no name: fn_ptr_68a248).
+  Written as such the && branch order matches, but regalloc differs: retail hoists ebp=1 (qtrue) for the whole fn and has frame 0x20 (ours 0x24; ours loses the ebp hoist once the block exists). Tried: if/else (branch order wrong), && with local bool,
+  && inlined into the Dvar_RegisterBool arg, DWORDs at fn scope: all same bytes. Side effect each time: tie swap PC_EvaluateTokens lost / SV_ArchiveSnapshot (tie/label) gained = needs ties13.txt entry if this lands.

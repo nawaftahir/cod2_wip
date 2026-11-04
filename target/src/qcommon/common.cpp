@@ -1908,10 +1908,14 @@ void Com_StartupConfigs( void )
 	Com_InitPlayerProfiles();
 }
 
+/* retail 0x68a248: function pointer called when r_smp_backend_allowed is set; target and name unknown */
+void (*fn_ptr_68a248)( void );
+
 static void Com_Init_Try_Block_Function( char *commandLine )
 {
 	char *src;
 	int i;
+	DWORD procAffinity, sysAffinity;
 
 	Com_Printf("%s %s build %s %s\n", GAME_STRING,PRODUCT_VERSION,CPUSTRING, BUILD_DATE);
 	Com_InitPushEvent();
@@ -1986,6 +1990,14 @@ static void Com_Init_Try_Block_Function( char *commandLine )
 
 	if ( !com_dedicated->current.integer )
 	{
+		{
+			dvar_t *smpAllowed;
+
+			smpAllowed = Dvar_RegisterBool("r_smp_backend_allowed", GetProcessAffinityMask(GetCurrentProcess(), &procAffinity, &sysAffinity) && (procAffinity & (procAffinity - 1)) != 0, DVAR_INIT | DVAR_CHANGEABLE_RESET);
+			if ( smpAllowed->current.boolean )
+				fn_ptr_68a248();
+		}
+
 		cls.rendererStarted = qtrue;
 		CL_InitRenderer();
 		cls.soundStarted = qtrue;
