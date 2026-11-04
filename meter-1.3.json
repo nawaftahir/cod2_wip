@@ -11,8 +11,14 @@
  "game_functions": 9123,
  "matched_functions": 8714,
  "tus_total": 364,
- "tus_matched": 194,
+ "tus_matched": 149,
  "unverified_in_src": 0,
+ "functions_identical": 8716,
+ "functions_total": 9489,
+ "tus_identical": 149,
+ "lib_objs_identical": 188,
+ "lib_objs_total": 253,
+ "text_same_offset_bytes": 50299,
  "sections": {
   ".text": {
    "matched": 1503407,
@@ -28,6 +34,6 @@
    "same_offset": 16370
   }
  },
- "commit": "84046869",
- "note": "matched_bytes = referee matched-fn bytes; same-offset over all sections (shameter)"
+ "commit": "3ce955ba",
+ "note": "matched_bytes/matched_functions = referee; functions_identical = referee match or same bytes at the same offset (every .text map symbol); tus_identical = source TUs whose functions are all identical (CRT/lib objs separate); tus_matched = TUs in src/; same-offset over all sections (shameter)"
 }
