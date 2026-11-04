@@ -9,7 +9,7 @@ Branch `client/1.0/main`, worktree `cod2_wip/client-1.0/`. Anchor: `../binaries/
 | `workspace/` | every other TU, headers, `tus.txt` (link order + per-TU flags) |
 | `tools/` | referee, gate and analysis scripts (`tools/ghidra/` = name tables cmp uses, `tools/oracle/`) |
 | `data/` | referee baselines (`good.json`, `ties.txt`), runs, tables |
-| `docs/` | knowledge, lessons, handoffs; `docs/CI_NOTES.md` = what a build needs |
+| `docs/` | `STATUS.md`, `KNOWLEDGE.md`, `TRIED.md`, `WHOLEFILE.md`, `CI_NOTES.md`; `archive/` = old raw notes |
 | `toolchain/` | image recipe; `toolchain/vc70/` (VS .NET 2002 cl/lib, not in git) |
 | `lab/` | old experiments (spike, rich, ltcglab, scratch, ci batch patches) |
 
