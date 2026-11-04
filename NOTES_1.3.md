@@ -336,3 +336,6 @@
   so the reset calls DL_CancelDownload (noinline). CL_GetServerCommand +1089: 'w' (server disconnect) with argc>=3 and Cmd_Argv(2) == "PB" (via _stricmp, CRT call) uses the
   untranslated Cmd_Argv(1) as the reason and wraps it as va("\x15%s", ...). CL_ConfigstringModified +445: oldGs is a LargeLocal and the limit is MAX_GAMESTATE_CHARS.
   Tie flips: with this set SV_ArchiveSnapshot(2783)/_$E2(192) lost, SV_DirectConnect/CG_DrawPlayerStance/Com_ShutdownDObj back.
+- SUPPORTED (lead, 11-04): `make release` runs each build in its own `docker run --rm` container (target/Makefile:33),
+  so `wineserver -k` (Makefile:132) only kills that container's wineserver. Agents do NOT need to serialize builds;
+  the limit is CPU (each build is make -j$(nproc)). Not yet confirmed by two concurrent builds.
