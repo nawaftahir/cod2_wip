@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Union of client .text bytes covered by uniquely-placed matches in a cmp.py result, split by origin."""
 import collections, json, sys
-r = json.load(open(sys.argv[1]))
+r = [x for x in json.load(open(sys.argv[1])) if not x.get('alias')]  # an alias shares its body's bytes
 # an unaligned extra hit is the same body inlined inside a bigger fn, not a placement
 for x in r:
     if len(x['hits']) > 1 and ':' not in x['obj']:

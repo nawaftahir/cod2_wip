@@ -15,6 +15,7 @@ make ANCHOR=$A DXSDK=$S > build/b.txt 2>&1 || { grep -m5 error build/b.txt; echo
 # /FORCE hides unresolved symbols as call 0x400000: never trust such a build
 if grep -q "LNK2001\|LNK2019" build/link.log; then grep -m5 "LNK2001\|LNK2019" build/link.log; echo "BROKEN LINK (unresolved externals)"; exit 1; fi
 python3 tools/cmp.py build/CoD2MP_s.exe build/CoD2MP_s.map $A build/exp.json >/dev/null || exit 1
+python3 tools/test_cmp.py tools/cmp.py build/CoD2MP_s.exe build/CoD2MP_s.map || { echo "REFEREE SELF-CHECK FAILED"; exit 1; }
 b=$(python3 tools/cov.py data/good.json | grep -o 'unique bytes [0-9]*' | grep -o '[0-9]*')
 e=$(python3 tools/cov.py build/exp.json | grep -o 'unique bytes [0-9]*' | grep -o '[0-9]*')
 echo $e > build/cov.last

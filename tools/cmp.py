@@ -14,13 +14,13 @@ cpe = pefile.PE(target)
 ctext = next(s for s in cpe.sections if s.Name.startswith(b'.text'))
 cdata, cva = ctext.get_data(), cpe.OPTIONAL_HEADER.ImageBase + ctext.VirtualAddress
 
-syms = []
+syms, labels = [], []
 for line in open(mapf, errors='replace'):
-    m = re.match(r'\s*0001:[0-9a-f]+\s+(\S+)\s+([0-9a-f]{8}) f', line)
+    m = re.match(r'\s*0001:[0-9a-f]+\s+(\S+)\s+([0-9a-f]{8}) (f?)', line)
     if m:
         address = int(m.group(2), 16)
         if tva <= address < tva + len(tdata):
-            syms.append((address, m.group(1), line.split()[-1]))
+            (syms if m.group(3) else labels).append((address, m.group(1), line.split()[-1]))
 syms.sort()
 
 _pairs = None
@@ -52,7 +52,8 @@ res, stats = [], {'fns': 0, 'bytes': 0, 'match_fns': 0, 'match_bytes': 0}
 for i, (va, name, obj) in enumerate(syms):
     end = syms[i + 1][0] if i + 1 < len(syms) else tva + len(tdata)
     code = tdata[va - tva:end - tva].rstrip(b'\xcc')
-    if len(code) < 6:
+    if end == va or not code:  # alias of the next name, or only 0xCC padding: no body of its own
+        res.append({'name': name, 'obj': obj, 'size': 0, 'hits': [], 'reason': 'alias' if end == va else 'padding only', 'va': va})
         continue
     mask = set()
     for r in relocs[bisect.bisect_left(relocs, va):bisect.bisect_left(relocs, va + len(code))]:
@@ -96,7 +97,7 @@ for i, (va, name, obj) in enumerate(syms):
     if hits:
         stats['match_fns'] += 1
         stats['match_bytes'] += len(code)
-    res.append({'name': name, 'obj': obj, 'size': len(code), 'hits': hits, **({'paired': 1} if paired else {})})
+    res.append({'name': name, 'obj': obj, 'size': len(code), 'hits': hits, 'va': va, **({'paired': 1} if paired else {})})
 
 # import thunks (jmp [IAT], 4 of 6 bytes relocated): pair by imported name
 def iat(p):
@@ -119,5 +120,15 @@ for r in res:
         r['hits'], r['thunk'] = [hex(cth[n][0])], 1
         stats['match_fns'] += 1; stats['match_bytes'] += 6
 
+# every row is scored or says why not; an alias takes the result of the body at its address
+body = {r['va']: r for r in res if 'va' in r and r.get('reason') != 'alias'}
+for r in res:
+    va = r.pop('va', None)
+    if r.get('reason') == 'alias' and body.get(va, {}).get('hits'):
+        r['hits'], r['alias'] = body[va]['hits'], 1; del r['reason']
+    elif not r['hits'] and 'reason' not in r:
+        r['reason'] = 'short body, no name pair' if r['size'] < 8 else 'no masked match'
+for va, name, obj in labels:
+    res.append({'name': name, 'obj': obj, 'size': 0, 'hits': [], 'reason': 'label, not a function symbol in the map'})
 json.dump(res, open(sys.argv[4] if len(sys.argv) > 4 else 'cmp.json', 'w'), indent=0)
 print(stats, 'client .text', len(cdata))

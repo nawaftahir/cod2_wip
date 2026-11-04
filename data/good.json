@@ -473,7 +473,8 @@
 "name": "?CL_SaveScreen@@YAXXZ",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CL_BlendSavedScreen@@YAXH@Z",
@@ -747,7 +748,8 @@
 "name": "?CL_SetADS@@YAXE@Z",
 "obj": "cl_cgame_mp.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CL_DrawString@@YAXHHPBDHH@Z",
@@ -827,6 +829,13 @@
 "paired": 1
 },
 {
+"name": "?CIN_StopCinematic@@YA?AW4e_status@@H@Z",
+"obj": "cl_cin_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CIN_RunCinematic@@YA?AW4e_status@@H@Z",
 "obj": "cl_cin_mp.obj",
 "size": 9,
@@ -834,6 +843,13 @@
 "0x4033f0"
 ],
 "paired": 1
+},
+{
+"name": "?CIN_PlayCinematic@@YAHPBDHHHHH@Z",
+"obj": "cl_cin_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CIN_SetExtents@@YAXHHHHH@Z",
@@ -861,6 +877,13 @@
 "0x403490"
 ],
 "paired": 1
+},
+{
+"name": "?CL_PlayCinematic_f@@YAXXZ",
+"obj": "cl_cin_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?SCR_DrawCinematic@@YAXXZ",
@@ -897,6 +920,13 @@
 "0x403520"
 ],
 "paired": 1
+},
+{
+"name": "?CIN_CloseAllVideos@@YAXXZ",
+"obj": "cl_cin_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_ceilf",
@@ -1038,6 +1068,13 @@
 ]
 },
 {
+"name": "?Con_Stub_403810@@YAXXZ",
+"obj": "cl_console_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Con_ToggleConsole_f@@YAXXZ",
 "obj": "cl_console_mp.obj",
 "size": 127,
@@ -1159,6 +1196,13 @@
 "hits": [
 "0x403f60"
 ]
+},
+{
+"name": "?Con_Shutdown_4040a0@@YAXXZ",
+"obj": "cl_console_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Con_CopyCurrentConsoleLineText@@YAXPAF@Z",
@@ -1632,7 +1676,8 @@
 "name": "_sqrtf",
 "obj": "cl_input.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?sqrt@@YAMM@Z",
@@ -1667,6 +1712,13 @@
 "hits": [
 "0x406bc0"
 ]
+},
+{
+"name": "?Con_Stub_406be0@@YAXXZ",
+"obj": "cl_input.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?IN_MLookDown@@YAXXZ",
@@ -2492,6 +2544,13 @@
 "paired": 1
 },
 {
+"name": "?IN_Stub_409180@@YAXXZ",
+"obj": "cl_input.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Field_Draw@@YAXPAUfield_t@@HHHH@Z",
 "obj": "cl_keys_mp.obj",
 "size": 556,
@@ -2767,12 +2826,47 @@
 ]
 },
 {
+"name": "?Key_Stub_40b440@@YAXXZ",
+"obj": "cl_keys_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Key_Zero_40b450@@YAHXZ",
+"obj": "cl_keys_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CL_SetFPUControl_40b460@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 34,
 "hits": [
 "0x40b460"
 ]
+},
+{
+"name": "?CL_SwitchToLocalClient@@YAXH@Z",
+"obj": "cl_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?CL_Stub_40b4a0@@YAXXZ",
+"obj": "cl_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?CL_GetLocalClientActive@@YAEH@Z",
+"obj": "cl_main_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CL_GetLocalClientActiveCount@@YAHXZ",
@@ -2782,6 +2876,13 @@
 "0x40b4c0"
 ],
 "paired": 1
+},
+{
+"name": "?CL_Zero_40b4d0@@YAHXZ",
+"obj": "cl_main_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CL_GetFrameActiveClientCount_40b4e0@@YAHXZ",
@@ -2831,6 +2932,20 @@
 "hits": [
 "0x40b5c0"
 ]
+},
+{
+"name": "?CL_IsRenderingSplitScreen@@YAEXZ",
+"obj": "cl_main_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?CL_True_40b610@@YAEXZ",
+"obj": "cl_main_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CL_SetConnectionState_40b620@@YAXW4connstate_t@@@Z",
@@ -3495,6 +3610,13 @@
 ]
 },
 {
+"name": "?CL_ShowIP_f@@YAXXZ",
+"obj": "cl_main_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CL_GetServerIPAddress@@YAPBDXZ",
 "obj": "cl_main_mp.obj",
 "size": 111,
@@ -3554,7 +3676,8 @@
 "name": "?CL_AbortRenderCommands_411360@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CL_SyncGpu@@YAXXZ",
@@ -3926,6 +4049,13 @@
 ]
 },
 {
+"name": "?SCR_Stub_413500@@YAXXZ",
+"obj": "cl_scrn_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?SCR_UpdateFrame@@YAXXZ",
 "obj": "cl_scrn_mp.obj",
 "size": 110,
@@ -4065,6 +4195,13 @@
 ]
 },
 {
+"name": "?LAN_UpdateDirtyPings@@YAHH@Z",
+"obj": "cl_ui_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?LAN_GetServerStatus@@YAHPAD0H@Z",
 "obj": "cl_ui_mp.obj",
 "size": 15,
@@ -4191,6 +4328,13 @@
 "paired": 1
 },
 {
+"name": "?UI_Stub_414400@@YAXXZ",
+"obj": "cl_ui_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CM_InitThreadData@@YAXH@Z",
 "obj": "cm_load.obj",
 "size": 135,
@@ -4292,6 +4436,20 @@
 "paired": 1
 },
 {
+"name": "?CM_Hunk_CheckTempMemoryClear@@YAXXZ",
+"obj": "cm_load.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?CM_Hunk_CheckTempMemoryHighClear@@YAXXZ",
+"obj": "cm_load.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CM_Hunk_AllocateTempMemoryHigh@@YAPAXHPBD@Z",
 "obj": "cm_load.obj",
 "size": 10,
@@ -4322,7 +4480,8 @@
 "name": "_fabsf",
 "obj": "cm_load_obj.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?fabs@@YAMM@Z",
@@ -4341,6 +4500,20 @@
 "0x4148b0"
 ],
 "paired": 1
+},
+{
+"name": "?FloatAsInt@@YAHABM@Z",
+"obj": "cm_load_obj.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?FloatIdentity@@YAMM@Z",
+"obj": "cm_load_obj.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?VectorSet@@YAXQAMMMM@Z",
@@ -4365,6 +4538,20 @@
 "hits": [
 "0x414920"
 ]
+},
+{
+"name": "?LittleShort@@YAFF@Z",
+"obj": "cm_load_obj.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?LittleLong@@YAHH@Z",
+"obj": "cm_load_obj.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?FloatFromBits@@YAMH@Z",
@@ -5517,6 +5704,13 @@
 ]
 },
 {
+"name": "?CM_Stub_41f2c0@@YAXXZ",
+"obj": "cm_world.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Cmd_Wait_f@@YAXXZ",
 "obj": "cmd.obj",
 "size": 40,
@@ -5811,6 +6005,13 @@
 ]
 },
 {
+"name": "?Cmd_Stub_41fec0@@YAXXZ",
+"obj": "cmd.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Com_IsBspLoaded@@YA_NXZ",
 "obj": "com_bsp_load_obj.obj",
 "size": 14,
@@ -5903,6 +6104,13 @@
 "paired": 1
 },
 {
+"name": "?UnusedStubA@@YAXXZ",
+"obj": "unused_stubs.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?FS_Initialized@@YAHXZ",
 "obj": "com_files.obj",
 "size": 14,
@@ -5913,6 +6121,13 @@
 "0x47fac0",
 "0x48ea90"
 ]
+},
+{
+"name": "?FS_CheckFileSystemStarted@@YAXXZ",
+"obj": "com_files.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?FS_IwdIsPure@@YAHPBUiwd_t@@@Z",
@@ -6582,7 +6797,8 @@
 "name": "_acosf",
 "obj": "com_math.obj",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_atan2f",
@@ -6606,7 +6822,8 @@
 "name": "_sinf",
 "obj": "com_math.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_tanf",
@@ -7806,7 +8023,8 @@
 "name": "?IntersectPlanes@@YAHPAPBMQAM@Z",
 "obj": "com_math.obj",
 "size": 399,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?SnapPointToIntersectingPlanes@@YAXPAPBMQAMMM@Z",
@@ -7954,6 +8172,13 @@
 ]
 },
 {
+"name": "?TransformVectorByAnimMat@@YAXPBMPBUDObjAnimMat@@PAM@Z",
+"obj": "com_math.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?AxisToQuat@@YAXQAY02$$CBMQAM@Z",
 "obj": "com_math.obj",
 "size": 551,
@@ -7984,6 +8209,13 @@
 "hits": [
 "0x42a8c0"
 ]
+},
+{
+"name": "_Z_FreeInternal",
+"obj": "com_memory.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Z_VirtualFreeInternal@@YAXPAX@Z",
@@ -8540,6 +8772,13 @@
 "hits": [
 "0x42bbe0"
 ]
+},
+{
+"name": "?Com_IsMapProfilerActive@@YA_NXZ",
+"obj": "com_profilemapload.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Com_StringContains@@YAPBDPBD0P6AH00@Z@Z",
@@ -9543,6 +9782,13 @@
 ]
 },
 {
+"name": "?Com_StartupConfigs@@YAXXZ",
+"obj": "common.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Com_Init_Try_Block_Function@@YAXPAD@Z",
 "obj": "common.obj",
 "size": 1945,
@@ -9670,6 +9916,13 @@
 "hits": [
 "0x433930"
 ]
+},
+{
+"name": "?Com_CheckSyncFrame@@YAXXZ",
+"obj": "common.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Com_Frame@@YAXXZ",
@@ -9897,6 +10150,13 @@
 ]
 },
 {
+"name": "?Byte4Copy@@YAXPBEPAE@Z",
+"obj": "dvar.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Byte4Compare@@YA_NPBE0@Z",
 "obj": "dvar.obj",
 "size": 10,
@@ -9963,6 +10223,13 @@
 "0x434270"
 ],
 "paired": 1
+},
+{
+"name": "?Dvar_AllocNameString@@YAPBDPBD@Z",
+"obj": "dvar.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Dvar_FreeNameString@@YAXPBD@Z",
@@ -10462,6 +10729,13 @@
 ]
 },
 {
+"name": "?Dvar_GetReinterpretedResetValue@@YA?AUDvarValue@@PAUdvar_s@@U1@EGTDvarLimits@@@Z",
+"obj": "dvar.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Dvar_ReinterpretDvar@@YAXPAUdvar_s@@PBDEGUDvarValue@@TDvarLimits@@@Z",
 "obj": "dvar.obj",
 "size": 77,
@@ -10953,6 +11227,13 @@
 "hits": [
 "0x4381b0"
 ]
+},
+{
+"name": "?Dvar_Toggle_f@@YAXXZ",
+"obj": "dvar_cmds.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Dvar_TogglePrint_f@@YAXXZ",
@@ -12348,6 +12629,20 @@
 ]
 },
 {
+"name": "?SetScriptFlags@@YAXPAUscript_s@@H@Z",
+"obj": "l_script.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetScriptFlags@@YAHPAUscript_s@@@Z",
+"obj": "l_script.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?ResetScript@@YAXPAUscript_s@@@Z",
 "obj": "l_script.obj",
 "size": 46,
@@ -12403,6 +12698,20 @@
 "hits": [
 "0x441360"
 ]
+},
+{
+"name": "?Script_Stub_4413a0@@YAXXZ",
+"obj": "l_script.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Script_Stub_4413b0@@YAXXZ",
+"obj": "l_script.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?MD4Init@@YAXPAUMD4_CTX@@@Z",
@@ -12566,6 +12875,20 @@
 "hits": [
 "0x441f10"
 ]
+},
+{
+"name": "?MemFile_Stub_441f80@@YAXXZ",
+"obj": "memfile.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?MemFile_Stub_441f90@@YAXXZ",
+"obj": "memfile.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?MSG_Init@@YAXPAUmsg_t@@PAEH@Z",
@@ -13049,6 +13372,13 @@
 "0x445880"
 ],
 "paired": 1
+},
+{
+"name": "?MSG_Stub_445890@@YAXXZ",
+"obj": "msg_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?NET_AdrToString@@YAPBDUnetadr_t@@@Z",
@@ -13684,7 +14014,8 @@
 "name": "?LittleFloat@@YAMH@Z",
 "obj": "q_shared.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?LittleFloatAsInt@@YAHM@Z",
@@ -13719,6 +14050,13 @@
 "hits": [
 "0x4482a0"
 ]
+},
+{
+"name": "?LongNoSwap@@YAHH@Z",
+"obj": "q_shared.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Long64Swap@@YA_J_J@Z",
@@ -13759,6 +14097,13 @@
 "hits": [
 "0x448430"
 ]
+},
+{
+"name": "?FloatNoSwapAsInt@@YAHM@Z",
+"obj": "q_shared.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Swap_InitLittleEndian@@YAXXZ",
@@ -14269,6 +14614,20 @@
 ]
 },
 {
+"name": "?CalcSplitScreenTextOffset@@YAXPAUFont_s@@PAM@Z",
+"obj": "screen_placement_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?ScrPlace_Stub_449ed0@@YAXXZ",
+"obj": "screen_placement_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CalcScreenPlacement@@YAXPAM000HH@Z",
 "obj": "screen_placement_mp.obj",
 "size": 468,
@@ -14389,12 +14748,26 @@
 ]
 },
 {
+"name": "?SND_Stub_44a6a0@@YAHXZ",
+"obj": "snd.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?SND_AnyActiveListeners@@YAEXZ",
 "obj": "snd.obj",
 "size": 26,
 "hits": [
 "0x44a6b0"
 ]
+},
+{
+"name": "?SND_GetListenerIndexNearestToOrigin@@YAHPBM@Z",
+"obj": "snd.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?SND_DisconnectListener@@YAXXZ",
@@ -15079,6 +15452,13 @@
 ]
 },
 {
+"name": "?SV_GetMapBaseName@@YAPBDPBD@Z",
+"obj": "sv_ccmds_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?SV_Map_f@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 310,
@@ -15279,12 +15659,40 @@
 "paired": 1
 },
 {
+"name": "?SV_GameCompleteStatus_f@@YAXXZ",
+"obj": "sv_ccmds_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SV_ScriptUsage_f@@YAXXZ",
+"obj": "sv_ccmds_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SV_StringUsage_f@@YAXXZ",
+"obj": "sv_ccmds_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?SV_AddOperatorCommands@@YAXXZ",
 "obj": "sv_ccmds_mp.obj",
 "size": 459,
 "hits": [
 "0x450aa0"
 ]
+},
+{
+"name": "?SV_RemoveOperatorCommands@@YAXXZ",
+"obj": "sv_ccmds_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?SV_AddDedicatedCommands@@YAXXZ",
@@ -15397,7 +15805,8 @@
 "name": "?SV_DirectConnect@@YAXUnetadr_t@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 2322,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?SV_FreeClientScriptPers@@YAXXZ",
@@ -15551,6 +15960,13 @@
 "hits": [
 "0x453620"
 ]
+},
+{
+"name": "?SV_FX_GetVisibility@@YAMQBM0@Z",
+"obj": "sv_client_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?SV_ExecuteClientCommand@@YAXPAUclient_s@@PBDH@Z",
@@ -16860,6 +17276,13 @@
 "paired": 1
 },
 {
+"name": "?Sys_ReturnFalse@@YAEXZ",
+"obj": "win_threads.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Sys_IsMainThread@@YAEXZ",
 "obj": "win_threads.obj",
 "size": 18,
@@ -16885,6 +17308,20 @@
 "0x45f950"
 ],
 "paired": 1
+},
+{
+"name": "?Sys_ReturnFalse_45f960@@YAEXZ",
+"obj": "win_threads.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sys_ReturnFalse_45f970@@YAEXZ",
+"obj": "win_threads.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?UI_Component_InitIfStarted_45f980@@YAXXZ",
@@ -16978,6 +17415,13 @@
 ]
 },
 {
+"name": "?Shutdown@UI_Component@@UAEXXZ",
+"obj": "ui_component.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??1UI_Component@@UAE@XZ",
 "obj": "ui_component.obj",
 "size": 7,
@@ -16985,6 +17429,15 @@
 "0x45fc80"
 ],
 "paired": 1
+},
+{
+"name": "??_EUI_Component@@UAEPAXI@Z",
+"obj": "ui_component.obj",
+"size": 0,
+"hits": [
+"0x45fc90"
+],
+"alias": 1
 },
 {
 "name": "??_GUI_Component@@UAEPAXI@Z",
@@ -17001,6 +17454,13 @@
 "hits": [
 "0x45fcb0"
 ]
+},
+{
+"name": "?AddText@UI_Component@@UAEXPBD@Z",
+"obj": "ui_component.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Init@UI_ScrollPane@@UAEXXZ",
@@ -17164,6 +17624,13 @@
 ]
 },
 {
+"name": "?ClearFocus@UI_LinesComponent@@QAEXXZ",
+"obj": "ui_component.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Init@UI_VerticalDivider@@UAEXXZ",
 "obj": "ui_component.obj",
 "size": 18,
@@ -17239,6 +17706,13 @@
 "paired": 1
 },
 {
+"name": "?Sys_DefaultHomePath@@YAPBDXZ",
+"obj": "win_common.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Sys_Cwd@@YAPADXZ",
 "obj": "win_common.obj",
 "size": 31,
@@ -17286,6 +17760,34 @@
 "hits": [
 "0x461490"
 ]
+},
+{
+"name": "?Sys_InitStreamThread@@YAXXZ",
+"obj": "win_common.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sys_ShutdownStreamThread@@YAXXZ",
+"obj": "win_common.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sys_BeginStreamedFile@@YAXHH@Z",
+"obj": "win_common.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sys_EndStreamedFile@@YAXH@Z",
+"obj": "win_common.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Sys_StreamedRead@@YAHPAXHHH@Z",
@@ -17349,7 +17851,22 @@
 "name": "$L96252",
 "obj": "module",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sys_Stub_4619d0@@YAXXZ",
+"obj": "win_configure.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sys_Stub_4619e0@@YAXXZ",
+"obj": "win_configure.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?IN_ActivateWin32Mouse@@YAXXZ",
@@ -17683,6 +18200,13 @@
 "hits": [
 "0x462b50"
 ]
+},
+{
+"name": "?Sys_Print@@YAXPBD@Z",
+"obj": "win_main.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Sys_ScanForCD@@YAHXZ",
@@ -18031,7 +18555,8 @@
 "name": "?fastftol@@YAJM@Z",
 "obj": "win_shared.obj",
 "size": 16,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?Sys_SnapVector@@YAXQAM@Z",
@@ -19327,7 +19852,8 @@
 "name": "?EvalPrimitiveExpression@@YA_NTsval_u@@PAUVariableCompileValue@@@Z",
 "obj": "scr_compiler.obj",
 "size": 387,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?EmitOrEvalPrimitiveExpression@@YA_NTsval_u@@PAUVariableCompileValue@@PAUscr_block_s@@@Z",
@@ -19818,6 +20344,13 @@
 "hits": [
 "0x470240"
 ]
+},
+{
+"name": "?EmitBreakpointStatement@@YAXTsval_u@@@Z",
+"obj": "scr_compiler.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?EmitProfStatement@@YAXTsval_u@@0E@Z",
@@ -20555,6 +21088,20 @@
 ]
 },
 {
+"name": "_node1_",
+"obj": "scr_parsetree.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "_node_pos",
+"obj": "scr_parsetree.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "_node0",
 "obj": "scr_parsetree.obj",
 "size": 17,
@@ -20696,6 +21243,13 @@
 "0x474140"
 ],
 "paired": 1
+},
+{
+"name": "?GetRefString@@YAPAURefString@@PBD@Z",
+"obj": "scr_stringlist.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?SL_ConvertToString@@YAPBDI@Z",
@@ -21095,6 +21649,13 @@
 ]
 },
 {
+"name": "?Scr_DumpScriptVariablesDefault@@YAXXZ",
+"obj": "scr_variable.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?InitVariables@@YAXXZ",
 "obj": "scr_variable.obj",
 "size": 99,
@@ -21118,6 +21679,13 @@
 "0x475750",
 "0x47a4d0"
 ]
+},
+{
+"name": "?Scr_GetNumScriptVars@@YAIXZ",
+"obj": "scr_variable.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?GetVariableKeyObject@@YAII@Z",
@@ -22357,6 +22925,13 @@
 ]
 },
 {
+"name": "?Scr_FreeValue@@YAXI@Z",
+"obj": "scr_variable.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Scr_MakeValuePrimitive@@YAHI@Z",
 "obj": "scr_variable.obj",
 "size": 267,
@@ -22411,6 +22986,20 @@
 "hits": [
 "0x47a250"
 ]
+},
+{
+"name": "?Scr_ShutdownStringSet@@YAXI@Z",
+"obj": "scr_variable.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sys_Rdtsc@@YA_KXZ",
+"obj": "scr_vm.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Scr_GetLocalVarAtIndex@@YAIH@Z",
@@ -22584,6 +23173,13 @@
 ]
 },
 {
+"name": "?Scr_GetNumScriptThreads@@YAIXZ",
+"obj": "scr_vm.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Scr_ClearOutParams@@YAXXZ",
 "obj": "scr_vm.obj",
 "size": 60,
@@ -22748,7 +23344,8 @@
 "name": "?VM_Notify@@YAXIIPAUVariableValue@@@Z",
 "obj": "scr_vm.obj",
 "size": 1584,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?Scr_NotifyNum@@YAXHHII@Z",
@@ -23809,6 +24406,15 @@
 ]
 },
 {
+"name": "?DObjGetBoneInfo@@YAXPBUDObj_s@@PAPAUXBoneInfo@@@Z",
+"obj": "dobj.obj",
+"size": 0,
+"hits": [
+"0x484eb0"
+],
+"alias": 1
+},
+{
 "name": "?DObjGetBoneInfo@@YAXPBUDObj_s@@PAPAUXBoneInfo_s@@@Z",
 "obj": "cg_ents_mp.obj",
 "size": 74,
@@ -23880,6 +24486,13 @@
 "hits": [
 "0x485230"
 ]
+},
+{
+"name": "?DObjGetTree@@YAPAUXAnimTree_s@@PBUDObj_s@@@Z",
+"obj": "dobj.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?DObjBad@@YAHPBUDObj_s@@@Z",
@@ -24206,6 +24819,13 @@
 "paired": 1
 },
 {
+"name": "?XAnimTreeSize@@YAHH@Z",
+"obj": "xanim.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?XAnimCreateTree@@YAPAUXAnimTree_s@@PAUXAnim_s@@P6APAXH@Z@Z",
 "obj": "xanim.obj",
 "size": 44,
@@ -24220,6 +24840,13 @@
 "hits": [
 "0x4869c0"
 ]
+},
+{
+"name": "?XAnimGetAnims@@YAPAUXAnim_s@@PBUXAnimTree_s@@@Z",
+"obj": "xanim.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?XAnimSetModel@@YAIPBUXAnimEntry@@PBQAUXModel@@H@Z",
@@ -24497,7 +25124,8 @@
 "name": "?XAnimCalc@@YAXPBUDObj_s@@IMPAUDObjAnimMat@@_N2PAUXAnimCalcAnimInfo@@H@Z",
 "obj": "xanim.obj",
 "size": 1715,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?XAnimDisplay@@YAXPBUXAnimTree_s@@IH@Z",
@@ -24583,12 +25211,33 @@
 ]
 },
 {
+"name": "?XanimIsDefaultPart@@YA_NPAUXAnimParts_s@@@Z",
+"obj": "xanim.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?XAnimGetAnimDebugName@@YAPBDPBUXAnim_s@@I@Z",
 "obj": "xanim.obj",
 "size": 77,
 "hits": [
 "0x4897b0"
 ]
+},
+{
+"name": "?XAnimGetAnimTreeDebugName@@YAPBDPBUXAnim_s@@@Z",
+"obj": "xanim.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?XAnimGetAnimTreeSize@@YAIPBUXAnim_s@@@Z",
+"obj": "xanim.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?DObjUpdateServerOldTime@@YAXPAUDObj_s@@0M@Z",
@@ -25374,6 +26023,13 @@
 ]
 },
 {
+"name": "?XModelGetContents@@YAHPBUXModel@@@Z",
+"obj": "xmodel.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?AxisTransformVector@@YAXQBMQAY02$$CBMQAM@Z",
 "obj": "xmodel.obj",
 "size": 71,
@@ -25392,6 +26048,13 @@
 "0x4276a0",
 "0x48d3b0"
 ]
+},
+{
+"name": "?XModelGetCollLod@@YAHPBUXModel@@@Z",
+"obj": "xmodel.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?XModelGetSkins@@YAPBUtrXSkin_t@@PBUXModel@@@Z",
@@ -25429,13 +26092,15 @@
 "name": "?XModel_RendererSlot86@@YAXXZ",
 "obj": "xmodel.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?XModel_RendererSlot87@@YAXPBX@Z",
 "obj": "xmodel.obj",
 "size": 17,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?Vec3Avg@@YAXQBM0QAM@Z",
@@ -25980,6 +26645,20 @@
 ]
 },
 {
+"name": "?FxCurve_Reference@@YAPBUFxCurve@@PBU1@@Z",
+"obj": "FxCurve_load_obj.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?FX_SwitchToScheduler@@YAXH@Z",
+"obj": "Fxexport.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Server_SwitchToValidFxScheduler@@YAXXZ",
 "obj": "Fxexport.obj",
 "size": 21,
@@ -26077,7 +26756,15 @@
 "name": "?FX_WarpTime@@YAXH@Z",
 "obj": "Fxexport.obj",
 "size": 14,
-"hits": []
+"hits": [],
+"reason": "no masked match"
+},
+{
+"name": "?FX_GetEffectLength@@YAMPBUFxEffectDef@@@Z",
+"obj": "Fxexport.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?FxMem_Init@@YAXXZ",
@@ -26249,6 +26936,13 @@
 ]
 },
 {
+"name": "?AddRef@FxBoltFrame@@QAEPAV1@XZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??2FxBoltFrame@@SAPAXI@Z",
 "obj": "FxPrimitives.obj",
 "size": 12,
@@ -26276,6 +26970,13 @@
 "paired": 1
 },
 {
+"name": "??0FxBoltFramePtr@@QAE@PAVFxBoltFrame@@@Z",
+"obj": "FxPrimitives.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??1FxBoltFramePtr@@QAE@XZ",
 "obj": "FxPrimitives.obj",
 "size": 12,
@@ -26301,6 +27002,13 @@
 ]
 },
 {
+"name": "?Get@FxBoltFramePtr@@QBEPAVFxBoltFrame@@XZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?IsValid@FxBoltFramePtr@@QBE_NXZ",
 "obj": "FxPrimitives.obj",
 "size": 10,
@@ -26316,6 +27024,13 @@
 "0x490a10"
 ],
 "paired": 1
+},
+{
+"name": "?AddVisibility@Effect@@UAEXXZ",
+"obj": "FxPrimitives.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?GetDuration@Effect@@QAEHXZ",
@@ -26413,6 +27128,13 @@
 "0x490b00"
 ],
 "paired": 1
+},
+{
+"name": "?IsReading@FxArchive@@QAE_NXZ",
+"obj": "FxPrimitives.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?ReadInt@FxArchive@@QAEHXZ",
@@ -26546,6 +27268,24 @@
 ]
 },
 {
+"name": "??_EEffect@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
+},
+{
 "name": "??_GEffect@@UAEPAXI@Z",
 "obj": "FxPrimitives.obj",
 "size": 49,
@@ -26578,6 +27318,27 @@
 "0x495310",
 "0x49b880"
 ]
+},
+{
+"name": "?Die@Effect@@UAEXXZ",
+"obj": "FxPrimitives.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Cull@Effect@@UAE_NXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Draw@Effect@@UAEXXZ",
+"obj": "FxPrimitives.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?GetBoltOrientation@Effect@@QAE_NPAPBUorientation_t@@@Z",
@@ -26628,6 +27389,13 @@
 ]
 },
 {
+"name": "?TypeID@Effect@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Archive@Effect@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 447,
@@ -26636,10 +27404,18 @@
 ]
 },
 {
+"name": "?FixupArchiveLoad@Effect@@UAEXPBUPrimitiveTemplate@@@Z",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?FX_AddFxToScene@@YAXPAVEffect@@H@Z",
 "obj": "FxPrimitives.obj",
 "size": 297,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "??0Particle@@QAE@XZ",
@@ -26648,6 +27424,24 @@
 "hits": [
 "0x4913b0"
 ]
+},
+{
+"name": "??_EParticle@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
 },
 {
 "name": "??_GParticle@@UAEPAXI@Z",
@@ -26942,6 +27736,13 @@
 ]
 },
 {
+"name": "?TypeID@Particle@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Archive@Particle@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 1867,
@@ -26968,6 +27769,24 @@
 "0x4945c0",
 "0x4947c0"
 ]
+},
+{
+"name": "??_EOrientedParticle@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
 },
 {
 "name": "??_GOrientedParticle@@UAEPAXI@Z",
@@ -27031,6 +27850,13 @@
 ]
 },
 {
+"name": "?TypeID@OrientedParticle@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Archive@OrientedParticle@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 53,
@@ -27046,6 +27872,24 @@
 "hits": [
 "0x4939a0"
 ]
+},
+{
+"name": "??_ECloud@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
 },
 {
 "name": "??_GCloud@@UAEPAXI@Z",
@@ -27080,6 +27924,13 @@
 "0x495310",
 "0x49b880"
 ]
+},
+{
+"name": "?Die@Cloud@@UAEXXZ",
+"obj": "FxPrimitives.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Cull@Cloud@@UAE_NXZ",
@@ -27131,6 +27982,13 @@
 ]
 },
 {
+"name": "?TypeID@Cloud@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Archive@Cloud@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 241,
@@ -27157,6 +28015,24 @@
 "0x4945c0",
 "0x4947c0"
 ]
+},
+{
+"name": "??_ELine@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
 },
 {
 "name": "??_GLine@@UAEPAXI@Z",
@@ -27193,6 +28069,13 @@
 ]
 },
 {
+"name": "?Die@Line@@UAEXXZ",
+"obj": "FxPrimitives.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Cull@Line@@UAE_NXZ",
 "obj": "FxPrimitives.obj",
 "size": 67,
@@ -27219,6 +28102,13 @@
 ]
 },
 {
+"name": "?TypeID@Line@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Archive@Line@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 53,
@@ -27238,6 +28128,24 @@
 "0x4945c0",
 "0x4947c0"
 ]
+},
+{
+"name": "??_ETail@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
 },
 {
 "name": "??_GTail@@UAEPAXI@Z",
@@ -27333,6 +28241,13 @@
 ]
 },
 {
+"name": "?TypeID@Tail@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Archive@Tail@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 212,
@@ -27359,6 +28274,24 @@
 "0x4945c0",
 "0x4947c0"
 ]
+},
+{
+"name": "??_ECylinder@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
 },
 {
 "name": "??_GCylinder@@UAEPAXI@Z",
@@ -27420,6 +28353,20 @@
 ]
 },
 {
+"name": "?TypeID@Cylinder@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Archive@Cylinder@@UAEXPAVFxArchive@@@Z",
+"obj": "FxPrimitives.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??0Emitter@@QAE@XZ",
 "obj": "FxPrimitives.obj",
 "size": 33,
@@ -27430,6 +28377,24 @@
 "0x4945c0",
 "0x4947c0"
 ]
+},
+{
+"name": "??_EEmitter@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
 },
 {
 "name": "??_GEmitter@@UAEPAXI@Z",
@@ -27466,6 +28431,13 @@
 ]
 },
 {
+"name": "?Cull@Emitter@@UAE_NXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Draw@Emitter@@UAEXXZ",
 "obj": "FxPrimitives.obj",
 "size": 41,
@@ -27498,6 +28470,13 @@
 ]
 },
 {
+"name": "?TypeID@Emitter@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Archive@Emitter@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 330,
@@ -27513,6 +28492,24 @@
 "0x4952b0",
 "0x49b860"
 ]
+},
+{
+"name": "??_ELight@@UAEPAXI@Z",
+"obj": "FxPrimitives.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
 },
 {
 "name": "??_GLight@@UAEPAXI@Z",
@@ -27599,6 +28596,13 @@
 ]
 },
 {
+"name": "?TypeID@Light@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Archive@Light@@UAEXPAVFxArchive@@@Z",
 "obj": "FxPrimitives.obj",
 "size": 334,
@@ -27637,6 +28641,20 @@
 "hits": [
 "0x495820"
 ]
+},
+{
+"name": "?TypeID@Flash@@UAEEXZ",
+"obj": "FxPrimitives.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Archive@Flash@@UAEXPAVFxArchive@@@Z",
+"obj": "FxPrimitives.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "??0?$FxMemMgr@VFxBoltFrame@@@@QAE@XZ",
@@ -28113,6 +29131,13 @@
 "paired": 1
 },
 {
+"name": "?FX_SchedulerUnused@@YAXXZ",
+"obj": "FxScheduler.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?GetEffect@MediaHandles@@QBEPAUFxEffectDef@@XZ",
 "obj": "FxScheduler.obj",
 "size": 51,
@@ -28400,6 +29425,34 @@
 ]
 },
 {
+"name": "?GetName@GPObject@@QAEPBDXZ",
+"obj": "FxScheduler_load_obj.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetNext@GPGroup@@QAEPAU1@XZ",
+"obj": "FxScheduler_load_obj.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetSubGroups@GPGroup@@QAEPAU1@XZ",
+"obj": "FxScheduler_load_obj.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetBaseParseGroup@GenericParser2@@QAEPAUGPGroup@@XZ",
+"obj": "FxScheduler_load_obj.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?FX_Alloc@@YAPAXH@Z",
 "obj": "FxScheduler_load_obj.obj",
 "size": 12,
@@ -28665,6 +29718,13 @@
 "paired": 1
 },
 {
+"name": "?CameraShake@FxHelper@@QAEXQBMMHH@Z",
+"obj": "FxSystem.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?GetSeed@FxHelper@@QAEHXZ",
 "obj": "FxSystem.obj",
 "size": 21,
@@ -28676,7 +29736,36 @@
 "name": "?FxHelper_Stub_4984c0@@YAMM@Z",
 "obj": "FxSystem.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetNext@GPObject@@QAEPAU1@XZ",
+"obj": "FxTemplate.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetNext@GPValue@@QAEPAU1@XZ",
+"obj": "FxTemplate.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetList@GPValue@@QAEPAUGPObject@@XZ",
+"obj": "FxTemplate.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetPairs@GPGroup@@QAEPAUGPValue@@XZ",
+"obj": "FxTemplate.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Init@PrimitiveTemplate@@QAEXXZ",
@@ -29281,6 +30370,41 @@
 "paired": 1
 },
 {
+"name": "?SetGroupFlags@Effect@@QAEXH@Z",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetImpactFx@Effect@@QAEXPBUFxEffectDef@@@Z",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetDeathFx@Effect@@QAEXPBUFxEffectDef@@@Z",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetFx@Effect@@QAEXPBUFxEffectDef@@@Z",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetPrimIndex@Effect@@QAEXH@Z",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?GetTimeStart@Effect@@QAEHXZ",
 "obj": "FxUtil.obj",
 "size": 7,
@@ -29288,6 +30412,20 @@
 "0x49b800"
 ],
 "paired": 1
+},
+{
+"name": "?GetFx@Effect@@QAEPBUFxEffectDef@@XZ",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetPrimIndex@Effect@@QAEHXZ",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?SetColorBlendFactor@Light@@QAEXM@Z",
@@ -29341,6 +30479,38 @@
 ]
 },
 {
+"name": "?Cull@Flash@@UAE_NXZ",
+"obj": "FxUtil.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetMaterial@Flash@@QAEXPAUMaterial@@@Z",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "??_EFlash@@UAEPAXI@Z",
+"obj": "FxUtil.obj",
+"size": 0,
+"hits": [
+"0x490eb0",
+"0x4913e0",
+"0x4937e0",
+"0x4939d0",
+"0x493f30",
+"0x494130",
+"0x4945f0",
+"0x4947f0",
+"0x4952d0",
+"0x49b8c0"
+],
+"alias": 1
+},
+{
 "name": "??_GFlash@@UAEPAXI@Z",
 "obj": "FxUtil.obj",
 "size": 49,
@@ -29356,6 +30526,15 @@
 "0x4952d0",
 "0x49b8c0"
 ]
+},
+{
+"name": "?SetMaterial@Particle@@QAEXPAUMaterial@@@Z",
+"obj": "FxUtil.obj",
+"size": 4,
+"hits": [
+"0x49b900"
+],
+"paired": 1
 },
 {
 "name": "?SetGravity@Particle@@QAEXM@Z",
@@ -29708,6 +30887,13 @@
 ]
 },
 {
+"name": "?FX_UtilUnused@@YAXXZ",
+"obj": "FxUtil.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?FX_KillAllEffects@@YAXXZ",
 "obj": "FxUtil.obj",
 "size": 125,
@@ -29996,7 +31182,8 @@
 "name": "?FX_CalcOriginAndAxis@@YAXPAUEffectPrimitive@@QAMQBMQAY02M@Z",
 "obj": "FxUtil.obj",
 "size": 1463,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?FX_CalcImpactOrigin@@YAXPBUPrimitiveTemplate@@QBMQAM1PAY02$$CBM@Z",
@@ -30245,6 +31432,20 @@
 ]
 },
 {
+"name": "?GetNext@TextPool@@QAEPAV1@XZ",
+"obj": "GenericParser2.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetNext@TextPool@@QAEXPAV1@@Z",
+"obj": "GenericParser2.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??2TextPool@@SAPAXI@Z",
 "obj": "GenericParser2.obj",
 "size": 47,
@@ -30264,6 +31465,34 @@
 "paired": 1
 },
 {
+"name": "?SetNext@GPObject@@QAEXPAU1@@Z",
+"obj": "GenericParser2.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GetInOrderNext@GPObject@@QAEPAU1@XZ",
+"obj": "GenericParser2.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetInOrderNext@GPObject@@QAEXPAU1@@Z",
+"obj": "GenericParser2.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetInOrderPrevious@GPObject@@QAEXPAU1@@Z",
+"obj": "GenericParser2.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??2GPObject@@SAPAXI@Z",
 "obj": "GenericParser2.obj",
 "size": 47,
@@ -30281,6 +31510,20 @@
 "0x49ffe0"
 ],
 "paired": 1
+},
+{
+"name": "?SetWriteable@GPGroup@@QAEX_N@Z",
+"obj": "GenericParser2.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SetWriteable@GenericParser2@@QAEX_N@Z",
+"obj": "GenericParser2.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?GetToken@@YAPADPAPAD_N1@Z",
@@ -30418,6 +31661,13 @@
 "hits": [
 "0x4a09c0"
 ]
+},
+{
+"name": "??1GPGroup@@QAE@XZ",
+"obj": "GenericParser2.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?GetNumSubGroups@GPGroup@@QAEHXZ",
@@ -30931,6 +32181,13 @@
 "hits": [
 "0x4a52b0"
 ]
+},
+{
+"name": "_tr_static_init",
+"obj": "trees.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__tr_init",
@@ -31598,6 +32855,13 @@
 ]
 },
 {
+"name": "??2@YAPAXIPAX@Z",
+"obj": "stringed_ingame.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?assign@?$char_traits@D@std@@SAXAADABD@Z",
 "obj": "stringed_ingame.obj",
 "size": 13,
@@ -31638,6 +32902,13 @@
 ]
 },
 {
+"name": "?move@?$char_traits@D@std@@SAPADPADPBDI@Z",
+"obj": "stringed_ingame.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??0logic_error@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@1@@Z",
 "obj": "stringed_ingame.obj",
 "size": 51,
@@ -31662,6 +32933,17 @@
 "hits": [
 "0x4a9100"
 ]
+},
+{
+"name": "??_Elogic_error@std@@UAEPAXI@Z",
+"obj": "stringed_ingame.obj",
+"size": 0,
+"hits": [
+"0x4a9110",
+"0x4a91e0",
+"0x4a92b0"
+],
+"alias": 1
 },
 {
 "name": "??_Glogic_error@std@@UAEPAXI@Z",
@@ -31693,6 +32975,17 @@
 ]
 },
 {
+"name": "??_Elength_error@std@@UAEPAXI@Z",
+"obj": "stringed_ingame.obj",
+"size": 0,
+"hits": [
+"0x4a9110",
+"0x4a91e0",
+"0x4a92b0"
+],
+"alias": 1
+},
+{
 "name": "??_Glength_error@std@@UAEPAXI@Z",
 "obj": "stringed_ingame.obj",
 "size": 71,
@@ -31722,6 +33015,17 @@
 ]
 },
 {
+"name": "??_Eout_of_range@std@@UAEPAXI@Z",
+"obj": "stringed_ingame.obj",
+"size": 0,
+"hits": [
+"0x4a9110",
+"0x4a91e0",
+"0x4a92b0"
+],
+"alias": 1
+},
+{
 "name": "??_Gout_of_range@std@@UAEPAXI@Z",
 "obj": "stringed_ingame.obj",
 "size": 71,
@@ -31747,6 +33051,13 @@
 "0x4a9340"
 ],
 "paired": 1
+},
+{
+"name": "?EndMarkerFoundDuringParse@CStringEdPackage@@QAEHXZ",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Clear@CStringEdPackage@@QAEXXZ",
@@ -31997,6 +33308,13 @@
 ]
 },
 {
+"name": "?size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??0?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAE@XZ",
 "obj": "stringed_ingame.obj",
 "size": 16,
@@ -32201,6 +33519,20 @@
 ]
 },
 {
+"name": "??0?$_String_val@DV?$allocator@D@std@@@std@@IAE@V?$allocator@D@1@@Z",
+"obj": "stringed_ingame.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "??0?$allocator@D@std@@QAE@ABV01@@Z",
+"obj": "stringed_ingame.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?assign@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QAEAAV12@ABV12@@Z",
 "obj": "stringed_ingame.obj",
 "size": 11,
@@ -32273,6 +33605,27 @@
 ]
 },
 {
+"name": "??0?$_String_val@DV?$se_alloc@D@@@std@@IAE@V?$se_alloc@D@@@Z",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "??0?$se_alloc@D@@QAE@XZ",
+"obj": "stringed_ingame.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?_Key@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@2@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??0?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE@ABU?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@ABV?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
 "obj": "stringed_ingame.obj",
 "size": 39,
@@ -32307,6 +33660,13 @@
 ]
 },
 {
+"name": "?_Lmost@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?_Rmost@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 7,
@@ -32319,7 +33679,8 @@
 "name": "?_Root@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?_Tidy@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEXXZ",
@@ -32332,6 +33693,13 @@
 ]
 },
 {
+"name": "??0?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@QAE@XZ",
+"obj": "stringed_ingame.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??R?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@std@@QBE_NABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@1@0@Z",
 "obj": "stringed_ingame.obj",
 "size": 39,
@@ -32341,6 +33709,13 @@
 ]
 },
 {
+"name": "??0iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??Diterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEAAU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
@@ -32348,6 +33723,13 @@
 "0x4aa930"
 ],
 "paired": 1
+},
+{
+"name": "?_Mynode@const_iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@3@XZ",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "??0?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@1@0@Z",
@@ -32416,6 +33798,13 @@
 ]
 },
 {
+"name": "?size@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QBEIXZ",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?_Grow@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@IAE_NI_N@Z",
 "obj": "stringed_ingame.obj",
 "size": 208,
@@ -32427,7 +33816,43 @@
 "name": "?deallocate@?$se_alloc@D@@QAEXPADI@Z",
 "obj": "stringed_ingame.obj",
 "size": 8,
-"hits": []
+"hits": [],
+"reason": "no masked match"
+},
+{
+"name": "?_Isnil@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAAADPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?_Left@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@@Z",
+"obj": "stringed_ingame.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?_Parent@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@@Z",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?_Right@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@@Z",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?_Myval@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAAAU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?begin@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AViterator@12@XZ",
@@ -32436,6 +33861,13 @@
 "hits": [
 "0x4ab600"
 ]
+},
+{
+"name": "?size@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEIXZ",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?insert@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AU?$pair@Viterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@_N@2@ABU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@@Z",
@@ -32478,10 +33910,25 @@
 ]
 },
 {
+"name": "??0?$_Tree_val@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAE@ABU?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?_Kfn@?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@SAABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@2@ABU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@@Z",
+"obj": "stringed_ingame.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?deallocate@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEXPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@I@Z",
 "obj": "stringed_ingame.obj",
 "size": 8,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?destroy@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEXPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@Z",
@@ -32491,6 +33938,13 @@
 "0x4abad0",
 "0x4abc60"
 ]
+},
+{
+"name": "?destroy@?$se_alloc@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEXPAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@Z",
+"obj": "stringed_ingame.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "??0iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE@XZ",
@@ -32505,7 +33959,8 @@
 "name": "??Eiterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAEAAV012@XZ",
 "obj": "stringed_ingame.obj",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "??Fiterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAEAAV012@XZ",
@@ -32515,6 +33970,13 @@
 "0x4abb40"
 ],
 "paired": 1
+},
+{
+"name": "??0const_iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "??Dconst_iterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEABU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@XZ",
@@ -32571,7 +34033,8 @@
 "name": "?max_size@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z",
@@ -32647,10 +34110,18 @@
 ]
 },
 {
+"name": "?_Color@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAAADPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?max_size@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?erase@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AViterator@12@V312@@Z",
@@ -32672,7 +34143,8 @@
 "name": "?_Root@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IBEAAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
 "obj": "stringed_ingame.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?_Rrotate@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEXPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@@Z",
@@ -32713,6 +34185,13 @@
 "hits": [
 "0x4ac530"
 ]
+},
+{
+"name": "??0?$_Tree_ptr@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAE@ABU?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "??Eiterator@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@QAE?AV012@H@Z",
@@ -32768,6 +34247,13 @@
 ]
 },
 {
+"name": "??0?$allocator@D@std@@QAE@XZ",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?allocate@?$allocator@D@std@@QAEPADI@Z",
 "obj": "stringed_ingame.obj",
 "size": 16,
@@ -32777,16 +34263,25 @@
 "paired": 1
 },
 {
+"name": "?max_size@?$allocator@D@std@@QBEIXZ",
+"obj": "stringed_ingame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?allocate@?$se_alloc@D@@QAEPADI@Z",
 "obj": "stringed_ingame.obj",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?max_size@?$se_alloc@D@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?_Max@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@KAPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@@Z",
@@ -32805,10 +34300,18 @@
 ]
 },
 {
+"name": "??0?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAE@ABU?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?max_size@?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@QBEIXZ",
 "obj": "stringed_ingame.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?allocate@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAEPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@I@Z",
@@ -32859,6 +34362,13 @@
 ]
 },
 {
+"name": "??0?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@QAE@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@1@@Z",
+"obj": "stringed_ingame.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??$?MDU?$char_traits@D@std@@V?$se_alloc@D@@@std@@YA_NABV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@0@0@Z",
 "obj": "stringed_ingame.obj",
 "size": 39,
@@ -32876,6 +34386,13 @@
 ]
 },
 {
+"name": "??$?0U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@?$se_alloc@PAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAE@ABV?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
+"obj": "stringed_ingame.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??$_Allocate@D@std@@YAPADIPAD@Z",
 "obj": "stringed_ingame.obj",
 "size": 14,
@@ -32883,6 +34400,13 @@
 "0x4ac880"
 ],
 "paired": 1
+},
+{
+"name": "??$?0U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@?$se_alloc@U_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@@@QAE@ABV?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@@Z",
+"obj": "stringed_ingame.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?compare@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@QBEHABV12@@Z",
@@ -32999,6 +34523,13 @@
 "hits": [
 "0x4ace60"
 ]
+},
+{
+"name": "?ROQ_Stub_4ace90@@YAXXZ",
+"obj": "cinematics.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?ROQ_CloseAllVideos@@YAXXZ",
@@ -34214,6 +35745,20 @@
 "paired": 1
 },
 {
+"name": "?SND_DriverPreUpdate@@YAXH@Z",
+"obj": "snd_driver.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?SND_DriverPostUpdate_4b4950@@YAXXZ",
+"obj": "snd_driver.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?SND_Update2DChannel@@YAXHH@Z",
 "obj": "snd_driver.obj",
 "size": 194,
@@ -34287,6 +35832,13 @@
 ]
 },
 {
+"name": "?SV_MatchEnd@@YAXXZ",
+"obj": "sv_main_pc_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Voice_Init@@YAEXZ",
 "obj": "win_voice.obj",
 "size": 534,
@@ -34327,6 +35879,13 @@
 ]
 },
 {
+"name": "?Voice_Stub_4b58a0@@YAXXZ",
+"obj": "win_voice.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Voice_IncomingVoiceData@@YAXEPAEH@Z",
 "obj": "win_voice.obj",
 "size": 310,
@@ -34363,7 +35922,8 @@
 "name": "?mixerGetRecordLevel@@YAHPBD@Z",
 "obj": "mixer.obj",
 "size": 354,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?mixerSetRecordLevel@@YAHPBDG@Z",
@@ -34465,7 +36025,8 @@
 "name": "?Encode_GetBandwidthSetting@@YAHXZ",
 "obj": "encode.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Encode_Sample@@YAHPAFPADH@Z",
@@ -34503,6 +36064,13 @@
 "paired": 1
 },
 {
+"name": "?Sound_NewSample@@YAPAUdsound_sample_t@@XZ",
+"obj": "play.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Sound_DestroySample@@YAHPAUdsound_sample_t@@@Z",
 "obj": "play.obj",
 "size": 38,
@@ -34511,6 +36079,20 @@
 "0x4b7300",
 "0x4b76d0"
 ]
+},
+{
+"name": "?Sound_PlaySample@@YAHPAUdsound_sample_t@@@Z",
+"obj": "play.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sound_StopSample@@YA_NPAUdsound_sample_t@@@Z",
+"obj": "play.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Sound_FinishSample@@YA_NPAUdsound_sample_t@@@Z",
@@ -34522,6 +36104,20 @@
 ]
 },
 {
+"name": "?Sound_Stub_4b68c0@@YAHXZ",
+"obj": "play.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Sound_Frame@@YAXXZ",
+"obj": "play.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Sound_SetSampleFrequency@@YA_NPAUdsound_sample_t@@H@Z",
 "obj": "play.obj",
 "size": 16,
@@ -34529,6 +36125,13 @@
 "0x4b68e0",
 "0x4b7010"
 ]
+},
+{
+"name": "?Sound_SampleFrame@@YAXPAUdsound_sample_t@@@Z",
+"obj": "play.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Sound_Init@@YAHPBX@Z",
@@ -34557,10 +36160,18 @@
 ]
 },
 {
+"name": "?DSound_GetBytesLeft@@YAHPAUdsound_sample_t@@@Z",
+"obj": "play_dsound.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?DSound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@Z",
 "obj": "play_dsound.obj",
 "size": 500,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?DSound_AdjustSamplePlayback@@YAXPAUdsound_sample_t@@H@Z",
@@ -34628,6 +36239,13 @@
 ]
 },
 {
+"name": "?DSound_Stub_4b6f60@@YAHXZ",
+"obj": "play_dsound.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?DSound_Init@@YAH_NPAUHWND__@@@Z",
 "obj": "play_dsound.obj",
 "size": 98,
@@ -34643,6 +36261,13 @@
 "0x4b6910",
 "0x4b6fe0"
 ]
+},
+{
+"name": "?DSound_Frame@@YAXXZ",
+"obj": "play_dsound.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?DSound_SetSampleFrequency@@YA_NPAUdsound_sample_t@@H@Z",
@@ -34669,6 +36294,34 @@
 "hits": [
 "0x4b7030"
 ]
+},
+{
+"name": "?Record_AudioCallback@@YAHPAUaudioSample_t@@@Z",
+"obj": "record.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Record_Start@@YAHPAUdsound_sample_t@@@Z",
+"obj": "record.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Record_Stop@@YAHPAUdsound_sample_t@@@Z",
+"obj": "record.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Record_NewSample@@YAPAUdsound_sample_t@@XZ",
+"obj": "record.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?Record_DestroySample@@YAHPAUdsound_sample_t@@@Z",
@@ -34801,6 +36454,20 @@
 ]
 },
 {
+"name": "?DSOUNDRecord_Stub_4b79f0@@YAXXZ",
+"obj": "record_dsound.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?DSOUNDRecord_Stub_4b7a00@@YAXXZ",
+"obj": "record_dsound.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CG_RegisterDvars@@YAXXZ",
 "obj": "cg_main_mp.obj",
 "size": 5835,
@@ -34919,6 +36586,20 @@
 "hits": [
 "0x4ba080"
 ]
+},
+{
+"name": "?CG_PlaySoundOnFirstClient@@YAEXZ",
+"obj": "cg_main_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?CG_PlaySoundOnCurrentLocalClient@@YAEHPBMPBD@Z",
+"obj": "cg_main_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CG_SubtitlePrint@@YAXHPBUsnd_alias_t@@@Z",
@@ -35558,6 +37239,20 @@
 ]
 },
 {
+"name": "?CG_Stub_4bdfa0@@YAXXZ",
+"obj": "cg_newDraw_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?CG_Stub_4bdfb0@@YAXXZ",
+"obj": "cg_newDraw_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CG_DrawStanceIcon@@YAXPBUrectDef_s@@PAMMMM@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 233,
@@ -35646,6 +37341,13 @@
 ]
 },
 {
+"name": "?CG_ApplySplitScreenCompassScale@@YAXPAM000@Z",
+"obj": "cg_newDraw_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?CG_CompassCalcDimensions_4bf0c0@@YAXPBUrectDef_s@@PAM111@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 56,
@@ -35714,7 +37416,8 @@
 "name": "?CG_DrawCursorhint@@YAXPBUrectDef_s@@PAUFont_s@@MH@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 749,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_DrawHoldBreathHint@@YAXPBUrectDef_s@@PAUFont_s@@MH@Z",
@@ -35763,6 +37466,27 @@
 "hits": [
 "0x4c00f0"
 ]
+},
+{
+"name": "?CG_Stub_4c0140@@YAXXZ",
+"obj": "cg_newDraw_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?CG_Stub_4c0150@@YAXXZ",
+"obj": "cg_newDraw_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?CG_Stub_4c0160@@YAHXZ",
+"obj": "cg_newDraw_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?CG_GetKillerText@@YAPBDXZ",
@@ -35987,7 +37711,8 @@
 "name": "?CG_CalcCrosshairPosition@@YAXPAM0@Z",
 "obj": "cg_draw_mp.obj",
 "size": 440,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_GetWeapReticleZoom@@YA_NPAM@Z",
@@ -36009,7 +37734,8 @@
 "name": "?CG_DrawAdsOverlay@@YAXPBUWeaponDef@@HPBM1@Z",
 "obj": "cg_draw_mp.obj",
 "size": 825,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_DrawWeapReticle@@YAMXZ",
@@ -36151,7 +37877,8 @@
 "name": "?CG_DrawGrenadePointer@@YAXMMPBM0@Z",
 "obj": "cg_draw_mp.obj",
 "size": 367,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_DrawGrenadeIcon@@YAXMMPBM0@Z",
@@ -37473,7 +39200,8 @@
 "name": "?StartWeaponAnim@@YAXHPAUXAnimTree_s@@H@Z",
 "obj": "cg_weapons.obj",
 "size": 155,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_PlayADSAnim@@YAXHPAUXAnimTree_s@@@Z",
@@ -37769,7 +39497,8 @@
 "name": "?CG_FireWeapon@@YAXPAUcentity_s@@HH@Z",
 "obj": "cg_weapons.obj",
 "size": 550,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_WhizbySound@@YAXPAM0@Z",
@@ -39190,6 +40919,13 @@
 ]
 },
 {
+"name": "_le_int",
+"obj": "misc.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "_speex_memcpy_bytes",
 "obj": "misc.obj",
 "size": 23,
@@ -39214,6 +40950,13 @@
 "0x4a0030",
 "0x4dc020"
 ]
+},
+{
+"name": "_speex_realloc",
+"obj": "misc.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_speex_free",
@@ -39280,7 +41023,8 @@
 "name": "__speex_putc",
 "obj": "misc.obj",
 "size": 16,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?compute_quant_weights@@YAXPAM0H@Z",
@@ -39486,7 +41230,8 @@
 "name": "?nb_decode@@YAHPAXPAUSpeexBits@@0@Z",
 "obj": "nb_celp.obj",
 "size": 3239,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?nb_encoder_ctl@@YAHPAXH0@Z",
@@ -39567,6 +41312,13 @@
 "hits": [
 "0x4e5df0"
 ]
+},
+{
+"name": "_vbr_destroy",
+"obj": "vbr.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?inner_prod@@YAMPBM0H@Z",
@@ -41723,7 +43475,8 @@
 "name": "?G_GetPlayerViewOrigin@@YAXPAUgentity_s@@PAM@Z",
 "obj": "g_client_mp.obj",
 "size": 700,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?G_GetPlayerViewDirection@@YAXPBUgentity_s@@PAM11@Z",
@@ -42232,6 +43985,13 @@
 "hits": [
 "0x4fd5f0"
 ]
+},
+{
+"name": "?Cmd_PrintEntities_f@@YAXXZ",
+"obj": "g_cmds_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?ClientCommand@@YAXH@Z",
@@ -42778,6 +44538,27 @@
 "hits": [
 "0x500370"
 ]
+},
+{
+"name": "?ScrCmd_PlayRumble@@YAXUscr_entref_t@@@Z",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?ScrCmd_PlayLoopRumble@@YAXUscr_entref_t@@@Z",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?ScrCmd_StopRumble@@YAXUscr_entref_t@@@Z",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?ScrCmd_Delete@@YAXUscr_entref_t@@@Z",
@@ -43434,6 +45215,13 @@
 ]
 },
 {
+"name": "?Scr_PrecacheRumble@@YAXXZ",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Scr_AmbientPlay@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 238,
@@ -43926,6 +45714,27 @@
 "paired": 1
 },
 {
+"name": "?Scr_PlayRumbleOnPos@@YAXXZ",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Scr_PlayLoopRumbleOnPos@@YAXXZ",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?Scr_StopAllRumbles@@YAXXZ",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Scr_IsSplitscreen@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 9,
@@ -43933,6 +45742,27 @@
 "0x506a40"
 ],
 "paired": 1
+},
+{
+"name": "?GScr_MatchEnd@@YAXXZ",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GScr_SetPlayerTeamRank@@YAXXZ",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?GScr_SendXboxLiveRanks@@YAXXZ",
+"obj": "g_scr_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?GScr_SetTeamForTrigger@@YAXUscr_entref_t@@@Z",
@@ -44125,6 +45955,13 @@
 "hits": [
 "0x507720"
 ]
+},
+{
+"name": "?GScr_Stub@@YAHXZ",
+"obj": "g_scr_main_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?StringToFilter@@YAHPBDPAUipFilter_s@@@Z",
@@ -44689,6 +46526,13 @@
 "hits": [
 "0x50a090"
 ]
+},
+{
+"name": "?G_Unused@@YAHXZ",
+"obj": "g_utils_mp.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?G_SetConstString@@YAXPAGPBD@Z",
@@ -45272,6 +47116,13 @@
 ]
 },
 {
+"name": "?BG_CheckProne@@YAHHQBMMMMPAM11HH0EHM@Z",
+"obj": "bg_misc.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?BG_LerpHudColors@@YAXPBUhudelem_s@@HPAThudelem_color_t@@@Z",
 "obj": "bg_misc.obj",
 "size": 200,
@@ -45672,6 +47523,13 @@
 ]
 },
 {
+"name": "?PM_SetLadderFlag@@YAXPAUplayerState_s@@@Z",
+"obj": "bg_pmove.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?PM_ClearLadderFlag@@YAXPAUplayerState_s@@@Z",
 "obj": "bg_pmove.obj",
 "size": 22,
@@ -45843,12 +47701,28 @@
 "paired": 1
 },
 {
+"name": "?SP_info_null@@YAXPAUgentity_s@@@Z",
+"obj": "g_misc_mp.obj",
+"size": 5,
+"hits": [
+"0x515760"
+],
+"paired": 1
+},
+{
 "name": "?SP_info_notnull@@YAXPAUgentity_s@@@Z",
 "obj": "g_misc_mp.obj",
 "size": 88,
 "hits": [
 "0x515770"
 ]
+},
+{
+"name": "?SP_light@@YAXPAUgentity_s@@@Z",
+"obj": "g_misc_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?TeleportPlayer@@YAXPAUgentity_s@@PAM1@Z",
@@ -45859,12 +47733,26 @@
 ]
 },
 {
+"name": "?SP_misc_model@@YAXPAUgentity_s@@@Z",
+"obj": "g_misc_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?use_corona@@YAXPAUgentity_s@@00@Z",
 "obj": "g_misc_mp.obj",
 "size": 82,
 "hits": [
 "0x5158c0"
 ]
+},
+{
+"name": "?SP_corona@@YAXPAUgentity_s@@@Z",
+"obj": "g_misc_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?G_InitTurrets@@YAXXZ",
@@ -46062,7 +47950,8 @@
 "name": "?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z",
 "obj": "g_items_mp.obj",
 "size": 1631,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?Pickup_Health@@YAHPAUgentity_s@@0@Z",
@@ -46403,6 +48292,13 @@
 ]
 },
 {
+"name": "?G_NullStub@@YAXXZ",
+"obj": "g_combat_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?LookAtKiller@@YAXPAUgentity_s@@00@Z",
 "obj": "g_combat_mp.obj",
 "size": 161,
@@ -46725,6 +48621,13 @@
 "hits": [
 "0x51ecf0"
 ]
+},
+{
+"name": "?use_trigger_use@@YAXPAUgentity_s@@00@Z",
+"obj": "g_mover_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?trigger_use_shared@@YAXPAUgentity_s@@@Z",
@@ -48637,6 +50540,33 @@
 "paired": 1
 },
 {
+"name": "?ListBox_Getter_52b250@@YAHPAUlistBoxDef_s@@@Z",
+"obj": "ui_main_mp.obj",
+"size": 4,
+"hits": [
+"0x52b250"
+],
+"paired": 1
+},
+{
+"name": "?ListBox_Getter_52b260@@YAHPAUlistBoxDef_s@@@Z",
+"obj": "ui_main_mp.obj",
+"size": 3,
+"hits": [
+"0x52b260"
+],
+"paired": 1
+},
+{
+"name": "?ListBox_Getter_52b270@@YAHPAUlistBoxDef_s@@@Z",
+"obj": "ui_main_mp.obj",
+"size": 4,
+"hits": [
+"0x52b270"
+],
+"paired": 1
+},
+{
 "name": "?Window_IsVisible@@YA_NPAUWindow@@@Z",
 "obj": "ui_main_mp.obj",
 "size": 13,
@@ -48811,6 +50741,15 @@
 "hits": [
 "0x52c630"
 ]
+},
+{
+"name": "?UI_DrawMapCinematic@@YAXPBUrectDef_s@@PBMH@Z",
+"obj": "ui_main_mp.obj",
+"size": 5,
+"hits": [
+"0x52c6d0"
+],
+"paired": 1
 },
 {
 "name": "?UI_DrawNetMapPreview@@YAXPAUrectDef_s@@MPAM@Z",
@@ -49140,6 +51079,13 @@
 "hits": [
 "0x52e030"
 ]
+},
+{
+"name": "?diag_drawtext@@YAXPBDPAXMMM@Z",
+"obj": "ui_main_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?UI_SetItemBackground_52e120@@YAXPBD0@Z",
@@ -49667,6 +51613,15 @@
 "paired": 1
 },
 {
+"name": "?Window_Getter_533870@@YAPAUrectDef_s@@PAUWindow@@@Z",
+"obj": "ui_shared_mp.obj",
+"size": 4,
+"hits": [
+"0x533870"
+],
+"paired": 1
+},
+{
 "name": "?Window_Getter_533880@@YAPAUrectDef_s@@PAUWindow@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 6,
@@ -49760,6 +51715,13 @@
 ]
 },
 {
+"name": "?UI_Stub_533b50@@YAXXZ",
+"obj": "ui_shared_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Fade@@YAXPAHPAMM0HHMMPAUdisplayContextDef_s@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 98,
@@ -49771,7 +51733,8 @@
 "name": "?Window_Paint@@YAXPAUdisplayContextDef_s@@PAY13CA@MMMMM@Z",
 "obj": "ui_shared_mp.obj",
 "size": 1268,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?Item_UpdatePosition@@YAXPAUitemDef_s@@@Z",
@@ -50202,6 +52165,13 @@
 ]
 },
 {
+"name": "?Script_GetAutoUpdate@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
+"obj": "ui_shared_mp.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Script_ScriptMenuResponse@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@PAPBD@Z",
 "obj": "ui_shared_mp.obj",
 "size": 220,
@@ -50277,7 +52247,8 @@
 "name": "?Item_ListBox_MouseEnter@@YAXPAUitemDef_s@@MM@Z",
 "obj": "ui_shared_mp.obj",
 "size": 361,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?Item_MouseEnter@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@MM@Z",
@@ -50496,6 +52467,13 @@
 ]
 },
 {
+"name": "?UI_Stub_537de0@@YAXXZ",
+"obj": "ui_shared_mp.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?Item_Slider_HandleKey@@YAHPAUdisplayContextDef_s@@PAUitemDef_s@@HH@Z",
 "obj": "ui_shared_mp.obj",
 "size": 294,
@@ -50531,7 +52509,8 @@
 "name": "?Menu_SetNextCursorItem@@YAPAUitemDef_s@@PAUdisplayContextDef_s@@PAUmenuDef_t@@@Z",
 "obj": "ui_shared_mp.obj",
 "size": 244,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?Window_CloseCinematic@@YAXPAUWindow@@@Z",
@@ -52190,6 +54169,27 @@
 ]
 },
 {
+"name": "?ListBox_SetCursorPos@@YAXPAUlistBoxDef_s@@H@Z",
+"obj": "ui_utils.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?ListBox_SetStartPos@@YAXPAUlistBoxDef_s@@H@Z",
+"obj": "ui_utils.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "?ListBox_SetEndPos@@YAXPAUlistBoxDef_s@@H@Z",
+"obj": "ui_utils.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "?ListBox_HasValidCursorPos@@YAEPBUlistBoxDef_s@@@Z",
 "obj": "ui_utils.obj",
 "size": 17,
@@ -52349,7 +54349,8 @@
 "name": "_timeGetTime@0",
 "obj": "winmm:WINMM.dll",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_mixerOpen@20",
@@ -53146,7 +55147,8 @@
 "name": "_AIL_shutdown@0",
 "obj": "mss32:mss32.dll",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_AIL_close_stream@4",
@@ -53314,7 +55316,8 @@
 "name": "_GetCurrentThreadId@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_GetFileAttributesA@4",
@@ -54241,6 +56244,13 @@
 ]
 },
 {
+"name": "_atoi",
+"obj": "libcmt:atox.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "__atoi64",
 "obj": "libcmt:atox.obj",
 "size": 167,
@@ -54772,7 +56782,8 @@
 "name": "_malloc",
 "obj": "libcmt:malloc.obj",
 "size": 18,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__flush",
@@ -54810,7 +56821,8 @@
 "name": "__flushall",
 "obj": "libcmt:fflush.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_remove",
@@ -54820,6 +56832,13 @@
 "0x5439d2",
 "0x5443cc"
 ]
+},
+{
+"name": "__unlink",
+"obj": "libcmt:unlink.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__ftell_lk",
@@ -54894,12 +56913,28 @@
 ]
 },
 {
+"name": "$$$00001",
+"obj": "libcmt:longjmp.obj",
+"size": 0,
+"hits": [
+"0x543f74"
+],
+"alias": 1
+},
+{
 "name": "_longjmp",
 "obj": "libcmt:longjmp.obj",
 "size": 121,
 "hits": [
 "0x543f74"
 ]
+},
+{
+"name": "$$$00003",
+"obj": "libcmt:longjmp.obj",
+"size": 0,
+"hits": [],
+"reason": "padding only"
 },
 {
 "name": "_strncat",
@@ -54929,7 +56964,15 @@
 "name": "__set_purecall_handler",
 "obj": "libcmt:purevirt.obj",
 "size": 16,
-"hits": []
+"hits": [],
+"reason": "no masked match"
+},
+{
+"name": "??3@YAXPAX@Z",
+"obj": "libcmt:delete.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__findclose",
@@ -55024,13 +57067,15 @@
 "name": "__lockexit",
 "obj": "libcmt:crt0dat.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__unlockexit",
 "obj": "libcmt:crt0dat.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__initterm",
@@ -55084,13 +57129,15 @@
 "name": "__cexit",
 "obj": "libcmt:crt0dat.obj",
 "size": 15,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__c_exit",
 "obj": "libcmt:crt0dat.obj",
 "size": 15,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_strtok",
@@ -55112,7 +57159,8 @@
 "name": "___iob_func",
 "obj": "libcmt:_file.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "___initstdio",
@@ -55126,7 +57174,8 @@
 "name": "___endstdio",
 "obj": "libcmt:_file.obj",
 "size": 20,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__lock_file",
@@ -55208,7 +57257,8 @@
 "name": "??1exception@@UAE@XZ",
 "obj": "libcmt:stdexcpt.obj",
 "size": 22,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?what@exception@@UBEPBDXZ",
@@ -55242,7 +57292,8 @@
 "name": "??1bad_cast@@UAE@XZ",
 "obj": "libcmt:stdexcpt.obj",
 "size": 11,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "??0bad_typeid@@QAE@PBD@Z",
@@ -55268,7 +57319,8 @@
 "name": "??1bad_typeid@@UAE@XZ",
 "obj": "libcmt:stdexcpt.obj",
 "size": 11,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "??0__non_rtti_object@@QAE@PBD@Z",
@@ -55296,7 +57348,21 @@
 "name": "??1__non_rtti_object@@UAE@XZ",
 "obj": "libcmt:stdexcpt.obj",
 "size": 11,
-"hits": []
+"hits": [],
+"reason": "no masked match"
+},
+{
+"name": "??_Eexception@@UAEPAXI@Z",
+"obj": "libcmt:stdexcpt.obj",
+"size": 0,
+"hits": [
+"0x544ddb",
+"0x544e16",
+"0x544e32",
+"0x544e4e",
+"0x544ee3"
+],
+"alias": 1
 },
 {
 "name": "??_Gexception@@UAEPAXI@Z",
@@ -55319,6 +57385,19 @@
 ]
 },
 {
+"name": "??_Ebad_cast@@UAEPAXI@Z",
+"obj": "libcmt:stdexcpt.obj",
+"size": 0,
+"hits": [
+"0x544ddb",
+"0x544e16",
+"0x544e32",
+"0x544e4e",
+"0x544ee3"
+],
+"alias": 1
+},
+{
 "name": "??_Gbad_cast@@UAEPAXI@Z",
 "obj": "libcmt:stdexcpt.obj",
 "size": 28,
@@ -55331,6 +57410,19 @@
 ]
 },
 {
+"name": "??_Ebad_typeid@@UAEPAXI@Z",
+"obj": "libcmt:stdexcpt.obj",
+"size": 0,
+"hits": [
+"0x544ddb",
+"0x544e16",
+"0x544e32",
+"0x544e4e",
+"0x544ee3"
+],
+"alias": 1
+},
+{
 "name": "??_Gbad_typeid@@UAEPAXI@Z",
 "obj": "libcmt:stdexcpt.obj",
 "size": 28,
@@ -55341,6 +57433,19 @@
 "0x544e4e",
 "0x544ee3"
 ]
+},
+{
+"name": "??_E__non_rtti_object@@UAEPAXI@Z",
+"obj": "libcmt:stdexcpt.obj",
+"size": 0,
+"hits": [
+"0x544ddb",
+"0x544e16",
+"0x544e32",
+"0x544e4e",
+"0x544ee3"
+],
+"alias": 1
 },
 {
 "name": "??_G__non_rtti_object@@UAEPAXI@Z",
@@ -55369,6 +57474,19 @@
 "hits": [
 "0x544e9d"
 ]
+},
+{
+"name": "??_Etype_info@@UAEPAXI@Z",
+"obj": "libcmt:typinfo.obj",
+"size": 0,
+"hits": [
+"0x544ddb",
+"0x544e16",
+"0x544e32",
+"0x544e4e",
+"0x544ee3"
+],
+"alias": 1
 },
 {
 "name": "??_Gtype_info@@UAEPAXI@Z",
@@ -55407,16 +57525,32 @@
 ]
 },
 {
+"name": "?raw_name@type_info@@QBEPBDXZ",
+"obj": "libcmt:typinfo.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "??0type_info@@AAE@ABV0@@Z",
 "obj": "libcmt:typinfo.obj",
 "size": 11,
-"hits": []
+"hits": [],
+"reason": "no masked match"
+},
+{
+"name": "??4type_info@@AAEAAV0@ABV0@@Z",
+"obj": "libcmt:typinfo.obj",
+"size": 5,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "??2@YAPAXI@Z",
 "obj": "libcmt:new.obj",
 "size": 14,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_calloc",
@@ -55575,13 +57709,15 @@
 "name": "____setlc_active_func",
 "obj": "libcmt:setlocal.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "____unguarded_readlc_active_add_func",
 "obj": "libcmt:setlocal.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "___freetlocinfo",
@@ -55598,6 +57734,13 @@
 "hits": [
 "0x545ed2"
 ]
+},
+{
+"name": "___init_dummy",
+"obj": "libcmt:setlocal.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__strcats",
@@ -55675,7 +57818,8 @@
 "name": "___crtTlsAlloc@4",
 "obj": "libcmt:tidtable.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__mtterm",
@@ -55721,13 +57865,15 @@
 "name": "___threadid",
 "obj": "libcmt:tidtable.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "___threadhandle",
 "obj": "libcmt:tidtable.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__mtinit",
@@ -55838,13 +57984,15 @@
 "name": "___fpecode",
 "obj": "libcmt:winsig.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___pxcptinfoptrs",
 "obj": "libcmt:winsig.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_signal",
@@ -55911,6 +58059,15 @@
 ]
 },
 {
+"name": "$$$00003",
+"obj": "libcmt:exsup3.obj",
+"size": 0,
+"hits": [
+"0x547b79"
+],
+"alias": 1
+},
+{
 "name": "__fltin2",
 "obj": "libcmt:cfin.obj",
 "size": 149,
@@ -55927,22 +58084,32 @@
 ]
 },
 {
+"name": "__fpclear",
+"obj": "libcmt:fpinit.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "__cfltcvt_init",
 "obj": "libcmt:fpinit.obj",
 "size": 56,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___setfflag",
 "obj": "libcmt:fpinit.obj",
 "size": 16,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__fpmath",
 "obj": "libcmt:fpinit.obj",
 "size": 30,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__mbsnbicoll",
@@ -56060,13 +58227,15 @@
 "name": "__errno",
 "obj": "libcmt:dosmap.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___doserrno",
 "obj": "libcmt:dosmap.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__dosmaperr",
@@ -56207,7 +58376,8 @@
 "name": "__get_heap_handle",
 "obj": "libcmt:heapinit.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__get_sbh_threshold",
@@ -56309,7 +58479,8 @@
 "name": "?_query_new_handler@@YAP6AHI@ZXZ",
 "obj": "libcmt:handler.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__callnewh",
@@ -56408,12 +58579,30 @@
 ]
 },
 {
+"name": "$$$00001",
+"obj": "libcmt:exsup.obj",
+"size": 0,
+"hits": [
+"0x54b7c8"
+],
+"alias": 1
+},
+{
 "name": "__global_unwind2",
 "obj": "libcmt:exsup.obj",
 "size": 32,
 "hits": [
 "0x54b7c8"
 ]
+},
+{
+"name": "$$$00003",
+"obj": "libcmt:exsup.obj",
+"size": 0,
+"hits": [
+"0x54b7e8"
+],
+"alias": 1
 },
 {
 "name": "__unwind_handler",
@@ -56424,12 +58613,30 @@
 ]
 },
 {
+"name": "$$$00005",
+"obj": "libcmt:exsup.obj",
+"size": 0,
+"hits": [
+"0x54b80a"
+],
+"alias": 1
+},
+{
 "name": "__local_unwind2",
 "obj": "libcmt:exsup.obj",
 "size": 104,
 "hits": [
 "0x54b80a"
 ]
+},
+{
+"name": "$$$00007",
+"obj": "libcmt:exsup.obj",
+"size": 0,
+"hits": [
+"0x54b872"
+],
+"alias": 1
 },
 {
 "name": "__abnormal_termination",
@@ -56443,7 +58650,8 @@
 "name": "__NLG_Notify1",
 "obj": "libcmt:exsup.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__NLG_Notify",
@@ -56452,6 +58660,15 @@
 "hits": [
 "0x54b89e"
 ]
+},
+{
+"name": "$$$00011",
+"obj": "libcmt:exsup.obj",
+"size": 0,
+"hits": [
+"0x54b8b6"
+],
+"alias": 1
 },
 {
 "name": "__rt_probe_read4@4",
@@ -56497,7 +58714,8 @@
 "name": "@__security_check_cookie@4",
 "obj": "libcmt:secchk.obj",
 "size": 14,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__RTC_Initialize",
@@ -56654,6 +58872,15 @@
 ]
 },
 {
+"name": "__isatty",
+"obj": "libcmt:isatty.obj",
+"size": 0,
+"hits": [
+"0x54c637"
+],
+"alias": 1
+},
+{
 "name": "_isatty",
 "obj": "libcmt:isatty.obj",
 "size": 42,
@@ -56682,13 +58909,15 @@
 "name": "___pwctype_func",
 "obj": "libcmt:ctype.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "___pctype_func",
 "obj": "libcmt:ctype.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__aulldvrm",
@@ -56798,7 +59027,8 @@
 "name": "_localeconv",
 "obj": "libcmt:lconv.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__get_lc_time",
@@ -56886,25 +59116,36 @@
 "name": "____mb_cur_max_func",
 "obj": "libcmt:initctyp.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "____lc_codepage_func",
 "obj": "libcmt:initctyp.obj",
 "size": 25,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "____lc_collate_cp_func",
 "obj": "libcmt:initctyp.obj",
 "size": 25,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "____lc_handle_func",
 "obj": "libcmt:initctyp.obj",
 "size": 25,
-"hits": []
+"hits": [],
+"reason": "no masked match"
+},
+{
+"name": "___init_collate",
+"obj": "libcmt:initcoll.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_strcspn",
@@ -57103,7 +59344,8 @@
 "name": "__getmbcp",
 "obj": "libcmt:mbctype.obj",
 "size": 16,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__setmbcp",
@@ -57120,6 +59362,13 @@
 "hits": [
 "0x54f279"
 ]
+},
+{
+"name": "__matherr",
+"obj": "libcmt:matherr.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__raise_exc",
@@ -57603,7 +59852,8 @@
 "name": "___crtInitCritSecNoSpinCount@8",
 "obj": "libcmt:initcrit.obj",
 "size": 16,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___crtInitCritSecAndSpinCount",
@@ -57761,19 +60011,22 @@
 "name": "__set_security_error_handler",
 "obj": "libcmt:secfail.obj",
 "size": 16,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___buffer_overrun",
 "obj": "libcmt:secfail.obj",
 "size": 12,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___set_buffer_overrun_handler",
 "obj": "libcmt:secfail.obj",
 "size": 16,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___crtMessageBoxA",
@@ -57883,7 +60136,8 @@
 "name": "__fptrap",
 "obj": "libcmt:crt0fp.obj",
 "size": 9,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___ascii_stricmp",
@@ -57902,12 +60156,48 @@
 ]
 },
 {
+"name": "__strcmpi",
+"obj": "libcmt:stricmp.obj",
+"size": 0,
+"hits": [
+"0x552625"
+],
+"alias": 1
+},
+{
+"name": "__stricmp",
+"obj": "libcmt:stricmp.obj",
+"size": 0,
+"hits": [
+"0x552625"
+],
+"alias": 1
+},
+{
+"name": "_strcmpi",
+"obj": "libcmt:stricmp.obj",
+"size": 0,
+"hits": [
+"0x552625"
+],
+"alias": 1
+},
+{
 "name": "_stricmp",
 "obj": "libcmt:stricmp.obj",
 "size": 105,
 "hits": [
 "0x552625"
 ]
+},
+{
+"name": "__strnicmp",
+"obj": "libcmt:strnicmp.obj",
+"size": 0,
+"hits": [
+"0x55268e"
+],
+"alias": 1
 },
 {
 "name": "_strnicmp",
@@ -58346,7 +60636,8 @@
 "name": "_GetCurrentThread@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_TlsFree@4",
@@ -58676,13 +60967,15 @@
 "name": "_GetACP@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_GetOEMCP@0",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "_RaiseException@16",
@@ -58810,6 +61103,16 @@
 ]
 },
 {
+"name": "__putenv",
+"obj": "libcmt:putenv.obj",
+"size": 0,
+"hits": [
+"0x5431e2",
+"0x553a5f"
+],
+"alias": 1
+},
+{
 "name": "_putenv",
 "obj": "libcmt:putenv.obj",
 "size": 63,
@@ -58817,6 +61120,15 @@
 "0x5431e2",
 "0x553a5f"
 ]
+},
+{
+"name": "__strlwr",
+"obj": "libcmt:strlwr.obj",
+"size": 0,
+"hits": [
+"0x553a9e"
+],
+"alias": 1
 },
 {
 "name": "_strlwr",
@@ -58827,12 +61139,30 @@
 ]
 },
 {
+"name": "__fileno",
+"obj": "libcmt:fileno.obj",
+"size": 0,
+"hits": [
+"0x553bb2"
+],
+"alias": 1
+},
+{
 "name": "_fileno",
 "obj": "libcmt:fileno.obj",
 "size": 8,
 "hits": [
 "0x553bb2"
 ]
+},
+{
+"name": "__strupr",
+"obj": "libcmt:strupr.obj",
+"size": 0,
+"hits": [
+"0x553bba"
+],
+"alias": 1
 },
 {
 "name": "_strupr",
@@ -58854,19 +61184,22 @@
 "name": "?_CallMemberFunction0@@YGXPAX0@Z",
 "obj": "libcmt:trnsctrl.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?_CallMemberFunction1@@YGXPAX00@Z",
 "obj": "libcmt:trnsctrl.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?_CallMemberFunction2@@YGXPAX00H@Z",
 "obj": "libcmt:trnsctrl.obj",
 "size": 7,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "?_UnwindNestedFrames@@YGXPAUEHRegistrationNode@@PAUEHExceptionRecord@@@Z",
@@ -59079,6 +61412,13 @@
 ]
 },
 {
+"name": "___CxxQueryExceptionSize",
+"obj": "libcmt:frame.obj",
+"size": 4,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "___CxxCallUnwindDtor",
 "obj": "libcmt:frame.obj",
 "size": 46,
@@ -59162,7 +61502,8 @@
 "name": "?unexpected@@YAXXZ",
 "obj": "libcmt:hooks.obj",
 "size": 24,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?_inconsistency@@YAXXZ",
@@ -59192,13 +61533,15 @@
 "name": "?__CxxSetUnhandledExceptionFilter@@YAHXZ",
 "obj": "libcmt:unhandld.obj",
 "size": 19,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?__CxxRestoreUnhandledExceptionFilter@@YAXXZ",
 "obj": "libcmt:unhandld.obj",
 "size": 13,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__wcsnicoll",
@@ -59368,6 +61711,13 @@
 ]
 },
 {
+"name": "_$$$00002",
+"obj": "libcmt:pow.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "__CIpow",
 "obj": "libcmt:pow.obj",
 "size": 59,
@@ -59420,7 +61770,8 @@
 "name": "_atan2",
 "obj": "libcmt:87ctriga.obj",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__CIatan2",
@@ -59448,6 +61799,13 @@
 ]
 },
 {
+"name": "_$$$00002",
+"obj": "libcmt:log.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
 "name": "__CIlog",
 "obj": "libcmt:log.obj",
 "size": 59,
@@ -59471,6 +61829,13 @@
 "hits": [
 "0x555fb0"
 ]
+},
+{
+"name": "$$$00002",
+"obj": "libcmt:setjmp3.obj",
+"size": 0,
+"hits": [],
+"reason": "padding only"
 },
 {
 "name": "__allshl",
@@ -59840,13 +62205,29 @@
 "name": "__safe_fprem",
 "obj": "libcmt:adj_fdiv.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__safe_fprem1",
 "obj": "libcmt:adj_fdiv.obj",
 "size": 6,
-"hits": []
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "__adj_fpatan",
+"obj": "libcmt:adj_fdiv.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
+},
+{
+"name": "__adj_fptan",
+"obj": "libcmt:adj_fdiv.obj",
+"size": 3,
+"hits": [],
+"reason": "short body, no name pair"
 },
 {
 "name": "__copysign",
@@ -59924,55 +62305,64 @@
 "name": "$L11664",
 "obj": "libcpmt:string.obj",
 "size": 8,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__ehhandler$?_Xran@_String_base@std@@QBEXXZ",
 "obj": "libcpmt:string.obj",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "$L11871",
 "obj": "libcpmt:string.obj",
 "size": 8,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__ehhandler$?_Xlen@_String_base@std@@QBEXXZ",
 "obj": "libcpmt:string.obj",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__ehhandler$?Sys_SupportsSSE@@YA_NXZ",
 "obj": "module",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__ehhandler$?_Buynode@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@XZ",
 "obj": "module",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@IAEXII@Z",
 "obj": "module",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__ehhandler$?_Copy@?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@IAEXII@Z",
 "obj": "module",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "__ehhandler$?_Buynode@?$_Tree@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@std@@IAEPAU_Node@?$_Tree_nod@V?$_Tmap_traits@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@U?$less@V?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@@2@V?$se_alloc@U?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@std@@@@$0A@@std@@@2@PAU342@00ABU?$pair@$$CBV?$basic_string@DU?$char_traits@D@std@@V?$se_alloc@D@@@std@@V12@@2@D@Z",
 "obj": "module",
 "size": 10,
-"hits": []
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_$E1",
@@ -59981,5 +62371,292 @@
 "hits": [
 "0x558ea0"
 ]
+},
+{
+"name": "___from_strstr_to_strchr",
+"obj": "libcmt:strchr.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__NLG_Return2",
+"obj": "libcmt:exsup.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__NLG_Dispatch",
+"obj": "libcmt:exsup.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__alloca_probe",
+"obj": "libcmt:chkstk.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__NLG_Return",
+"obj": "libcmt:lowhelpr.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "_asin",
+"obj": "libcmt:asin.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__pow_default",
+"obj": "libcmt:pow.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "_acos",
+"obj": "libcmt:acos.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "_sqrt",
+"obj": "libcmt:sqrt.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "_tan",
+"obj": "libcmt:tan.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "_cos",
+"obj": "libcmt:cos.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "_sin",
+"obj": "libcmt:sin.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__log_default",
+"obj": "libcmt:log.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rttospopde",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rttospop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtnospop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rttosnpop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtnospopde",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtzeropop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtzeronpop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtonepop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtonenpop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__tosnan1",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__nosnan2",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__tosnan2",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__nan2",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtindfpop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtindfnpop",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rttosnpopde",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtchsifneg",
+"obj": "libcmt:87disp.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__pow_pentium4",
+"obj": "libcmt:pow_pentium4.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__fFEXP",
+"obj": "libcmt:87tran.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtinfpopse",
+"obj": "libcmt:87tran.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtinfnpopse",
+"obj": "libcmt:87tran.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__fFLN",
+"obj": "libcmt:87tran.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtinfpop",
+"obj": "libcmt:87tran.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtinfnpop",
+"obj": "libcmt:87tran.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__ffexpm1",
+"obj": "libcmt:87tran.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__fFATN2",
+"obj": "libcmt:87triga.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__rtpiby2",
+"obj": "libcmt:87triga.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
+},
+{
+"name": "__log_pentium4",
+"obj": "libcmt:log_pentium4.obj",
+"size": 0,
+"hits": [],
+"reason": "label, not a function symbol in the map"
 }
 ]
