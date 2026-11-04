@@ -828,3 +828,4 @@ addr	size	source	symbol	name	tag
 0x00422f90	231	src/radiant/ModelDlg.cpp	?FUN_00422f90@CModelDlg@@IAEXHI@Z	CModelDlg::FUN_00422f90	SUPPORTED
 0x00476d00	76	src/radiant/win_dlg.cpp	?AboutDlgProc@@YGHPAUHWND__@@IIJ@Z	AboutDlgProc	SUPPORTED
 0x00476d70	62	src/radiant/win_dlg.cpp	?FUN_00476d70@@YGHPAUHWND__@@IIJ@Z	FUN_00476d70	UNNAMED
+0x00476d50	29	src/radiant/win_dlg.cpp	?DoAbout@@YAXXZ	DoAbout	SUPPORTED

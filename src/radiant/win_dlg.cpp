@@ -5,6 +5,25 @@
  */
 #include "stdafx.h"
 
+/* Original Q3Radiant QEGlobals_t prefix through the dialog-host HWND.
+   The full CoD2 layout and storage identity remain under review. */
+struct QEGlobals_t
+{
+    int d_showgrid;
+    int d_gridsize;
+    int d_num_entities;
+    void *d_project_entity;
+    float d_new_brush_bottom_z;
+    float d_new_brush_top_z;
+    HINSTANCE d_hInstance;
+    HGLRC d_hglrcBase;
+    HDC d_hdcBase;
+    HWND d_hwndMain;
+};
+
+extern QEGlobals_t g_qeglobals;
+
+
 BOOL CALLBACK AboutDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
@@ -22,6 +41,11 @@ BOOL CALLBACK AboutDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
         return TRUE;
     }
     return FALSE;
+}
+
+void DoAbout(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)114, g_qeglobals.d_hwndMain, AboutDlgProc);
 }
 
 // Unnamed dialog callback at retail 0x00476d70; exact ownership pending.
