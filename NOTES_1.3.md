@@ -171,3 +171,8 @@
   Com_ExecStartupConfigs (retail 1.3 still has literal "exec default_mp.cfg"), const msg tables (client keeps static).
 - Ported: SVC_Status length cap 0x4000 -> MAX_MSGLEN - 1 (server 1.3 source; the client had a stale 0x4000).
 - UNCHECKED: g_largeLocalBuf 0x80000 (server 1.3: 0x100000) - no retail evidence for the Windows pool size yet.
+
+## wJ (11-04)
+- PINNED (measured): Key_ClearStates calling CL_KeyEvent: matched-fn 1207139 -> 1207215 (+76), no fn lost vs same-HEAD baseline. SVC_Status (975 B) is lost in the baseline too (good13.json at 5b98de6 is stale), unrelated.
+- Re-auth fn (retail 40d310): no match in Mac 1.3 decompile (no lastUpdateKeyAuth/300000/Auth in cl_main_mp.c CL_Frame). Name unconfirmed, not added.
+- CL_InitOnceForAllClients and other CHANGED fns: not reached in the time cap.

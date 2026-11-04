@@ -1310,17 +1310,8 @@ void Key_ClearStates(void)
     *anykeydown = 0;
 
     for (i = 0; i < 256; i++) {
-        if (keys[i].down) {
-            // retail inlines CL_KeyEvent(i, 0, 0) here
-            int key = i;
-            const qboolean down = 0;
-            const unsigned int time = 0;
-            qboolean (*setActiveMenu)(int) = UI_SetActiveMenu;
-#define KE_RETURN goto ke_done
-#include "cl_keyevent.inl"
-#undef KE_RETURN
-        }
-ke_done:
+        if (keys[i].down)
+            CL_KeyEvent(i, 0, 0);
         keys[i].down = 0;
         keys[i].repeats = 0;
     }
