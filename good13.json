@@ -867,6 +867,26 @@
 "scan": 1
 },
 {
+"name": "?CL_PlayCinematic_f@@YAXXZ",
+"obj": "cl_cin_mp.obj",
+"size": 12,
+"hits": [
+"0x403570",
+"0x403580"
+],
+"scan": 1
+},
+{
+"name": "?fn_403580@@YAXXZ",
+"obj": "cl_cin_mp.obj",
+"size": 12,
+"hits": [
+"0x403570",
+"0x403580"
+],
+"scan": 1
+},
+{
 "name": "?SCR_DrawCinematic@@YAXXZ",
 "obj": "cl_cin_mp.obj",
 "size": 26,
@@ -3428,8 +3448,10 @@
 {
 "name": "?CL_InitOnceForAllClients@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 2974,
-"hits": []
+"size": 3124,
+"hits": [
+"0x410a10"
+]
 },
 {
 "name": "?CL_Init@@YAXXZ",
@@ -17761,7 +17783,7 @@
 ]
 },
 {
-"name": "$L96639",
+"name": "$L96642",
 "obj": "module",
 "size": 6,
 "hits": []
@@ -33158,7 +33180,7 @@
 ]
 },
 {
-"name": "$L118243",
+"name": "$L118246",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33166,7 +33188,7 @@
 ]
 },
 {
-"name": "$L118245",
+"name": "$L118248",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33199,7 +33221,7 @@
 ]
 },
 {
-"name": "$L132120",
+"name": "$L132123",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33207,7 +33229,7 @@
 ]
 },
 {
-"name": "$L132122",
+"name": "$L132125",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33276,7 +33298,7 @@
 ]
 },
 {
-"name": "$L104380",
+"name": "$L104383",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33292,7 +33314,7 @@
 ]
 },
 {
-"name": "$L147478",
+"name": "$L147481",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -47230,9 +47252,7 @@
 "name": "?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z",
 "obj": "g_items_mp.obj",
 "size": 1616,
-"hits": [
-"0x51dea0"
-]
+"hits": []
 },
 {
 "name": "?Pickup_Health@@YAHPAUgentity_s@@0@Z",
@@ -50426,7 +50446,7 @@
 {
 "name": "?UI_RunMenuScript@@YAXPAPBD@Z",
 "obj": "ui_main_mp.obj",
-"size": 5035,
+"size": 5027,
 "hits": []
 },
 {
@@ -55283,8 +55303,10 @@
 {
 "name": "_digest_credentials",
 "obj": "HTAABrow.obj",
-"size": 646,
-"hits": []
+"size": 696,
+"hits": [
+"0x54cc10"
+]
 },
 {
 "name": "_HTDigest_generate",
@@ -55295,10 +55317,20 @@
 ]
 },
 {
+"name": "_nonce_is_stale",
+"obj": "HTAABrow.obj",
+"size": 120,
+"hits": [
+"0x54d000"
+]
+},
+{
 "name": "_HTDigest_parse",
 "obj": "HTAABrow.obj",
-"size": 1162,
-"hits": []
+"size": 1257,
+"hits": [
+"0x54d080"
+]
 },
 {
 "name": "_HTConverterInit",
@@ -57581,12 +57613,6 @@
 ]
 },
 {
-"name": "_killPipeline",
-"obj": "HTHost.obj",
-"size": 204,
-"hits": []
-},
-{
 "name": "_HTHost_find",
 "obj": "HTHost.obj",
 "size": 205,
@@ -57875,14 +57901,6 @@
 "0x5539a0",
 "0x556a40",
 "0x558120"
-]
-},
-{
-"name": "_HTHost_killPipe",
-"obj": "HTHost.obj",
-"size": 20,
-"hits": [
-"0x554d10"
 ]
 },
 {
@@ -58352,6 +58370,14 @@
 ]
 },
 {
+"name": "_killPipeline",
+"obj": "HTHost.obj",
+"size": 228,
+"hits": [
+"0x554680"
+]
+},
+{
 "name": "_HostEvent",
 "obj": "HTHost.obj",
 "size": 419,
@@ -58381,6 +58407,14 @@
 "size": 145,
 "hits": [
 "0x554c70"
+]
+},
+{
+"name": "_HTHost_killPipe",
+"obj": "HTHost.obj",
+"size": 20,
+"hits": [
+"0x554d10"
 ]
 },
 {
@@ -60404,8 +60438,10 @@
 {
 "name": "_HTAnchor_delete",
 "obj": "HTAnchor.obj",
-"size": 229,
-"hits": []
+"size": 401,
+"hits": [
+"0x558d00"
+]
 },
 {
 "name": "_HTAnchor_update",
@@ -62421,6 +62457,14 @@
 ]
 },
 {
+"name": "_HTMethod_hasEntity",
+"obj": "HTMethod.obj",
+"size": 21,
+"hits": [
+"0x55e5f0"
+]
+},
+{
 "name": "_HTRule_global",
 "obj": "HTRules.obj",
 "size": 20,
@@ -63119,8 +63163,10 @@
 {
 "name": "_meta_read",
 "obj": "HTCache.obj",
-"size": 174,
-"hits": []
+"size": 141,
+"hits": [
+"0x5602e0"
+]
 },
 {
 "name": "_HTCache_updateMeta",
@@ -63368,13 +63414,23 @@
 {
 "name": "_HTCache_readMeta",
 "obj": "HTCache.obj",
-"size": 198,
-"hits": []
+"size": 211,
+"hits": [
+"0x5617d0"
+]
+},
+{
+"name": "_HTCache_resetMeta",
+"obj": "HTCache.obj",
+"size": 66,
+"hits": [
+"0x5618b0"
+]
 },
 {
 "name": "_HTCache_isFresh",
 "obj": "HTCache.obj",
-"size": 404,
+"size": 402,
 "hits": []
 },
 {
@@ -63858,8 +63914,10 @@
 {
 "name": "_HTTPEvent",
 "obj": "HTTP.obj",
-"size": 1828,
-"hits": []
+"size": 1832,
+"hits": [
+"0x5643a0"
+]
 },
 {
 "name": "_HTTP_setConnectionMode",
@@ -65094,8 +65152,10 @@
 {
 "name": "_HTDialog_progressMessage",
 "obj": "HTDialog.obj",
-"size": 936,
-"hits": []
+"size": 944,
+"hits": [
+"0x567ca0"
+]
 },
 {
 "name": "_HTDialog_errorMessage",
@@ -66683,8 +66743,10 @@
 {
 "name": "_HTTimer_new",
 "obj": "HTTimer.obj",
-"size": 283,
-"hits": []
+"size": 282,
+"hits": [
+"0x56e180"
+]
 },
 {
 "name": "_HTTimer_refresh",
@@ -66713,8 +66775,10 @@
 {
 "name": "_Timer_dispatch",
 "obj": "HTTimer.obj",
-"size": 115,
-"hits": []
+"size": 120,
+"hits": [
+"0x56e360"
+]
 },
 {
 "name": "_HTTimer_dispatch",
@@ -67098,8 +67162,10 @@
 {
 "name": "_HTSC_putBlock",
 "obj": "HTSChunk.obj",
-"size": 198,
-"hits": []
+"size": 204,
+"hits": [
+"0x570500"
+]
 },
 {
 "name": "_HTSC_putCharacter",
@@ -67652,7 +67718,9 @@
 "name": "_HTDirNode_print",
 "obj": "HTDir.obj",
 "size": 1291,
-"hits": []
+"hits": [
+"0x571ce0"
+]
 },
 {
 "name": "_HTDir_headLine",
@@ -67891,8 +67959,10 @@
 {
 "name": "_HTNewsNode_compareRefThread",
 "obj": "HTNDir.obj",
-"size": 162,
-"hits": []
+"size": 152,
+"hits": [
+"0x5739d0"
+]
 },
 {
 "name": "_HTNewsDir_setWidth",
@@ -68001,8 +68071,10 @@
 {
 "name": "_HTNewsNode_print",
 "obj": "HTNDir.obj",
-"size": 263,
-"hits": []
+"size": 259,
+"hits": [
+"0x573ff0"
+]
 },
 {
 "name": "_HTNewsDir_addElement",
@@ -68079,8 +68151,10 @@
 {
 "name": "_MIMERequest_put_block",
 "obj": "HTMIMERq.obj",
-"size": 230,
-"hits": []
+"size": 236,
+"hits": [
+"0x575110"
+]
 },
 {
 "name": "_MIMERequest_put_character",
@@ -68161,14 +68235,18 @@
 {
 "name": "_MIMERequest_flush",
 "obj": "HTMIMERq.obj",
-"size": 145,
-"hits": []
+"size": 37,
+"hits": [
+"0x5752d0"
+]
 },
 {
 "name": "_MIMERequest_free",
 "obj": "HTMIMERq.obj",
-"size": 64,
-"hits": []
+"size": 84,
+"hits": [
+"0x575300"
+]
 },
 {
 "name": "_HTTP09Request",
@@ -68279,8 +68357,10 @@
 {
 "name": "_HTTPRequest_new",
 "obj": "HTTPReq.obj",
-"size": 130,
-"hits": []
+"size": 136,
+"hits": [
+"0x5763b0"
+]
 },
 {
 "name": "_HTML_dtd",
@@ -77862,7 +77942,9 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1440,
-"hits": []
+"size": 752,
+"hits": [
+"0x592c00"
+]
 }
 ]
