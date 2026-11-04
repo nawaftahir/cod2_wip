@@ -32,7 +32,7 @@ struct Pb_Sv_Client_s
 };
 
 void PbSvAddEvent( int event, int clientIndex, int dataLen, char *data );
-void PbPassConnectString( char *fromAddr, char *connectString );
+void PbPassConnectString( char *fromAddr, char *connectString ); void PbClAddEvent( int type, int datalen, char *data );
 void SV_UpdateLastTimeMasterServerCommunicated( netadr_t from );
 
 /*
@@ -742,7 +742,7 @@ void SV_ConnectionlessPacket( netadr_t from, msg_t *msg )
 		{
 			PbSvAddEvent( 13, clientNum, msg->cursize - 4, (char *)msg->data + 4 );
 		}
-
+		if ( msg->data[7] != 'S' && msg->data[7] != '2' && msg->data[7] != 'G' && msg->data[7] != 'I' && msg->data[7] != 'Y' && msg->data[7] != 'B' && msg->data[7] != 'L' ) { if ( !com_dedicated || !com_dedicated->current.integer ) PbClAddEvent( 13, msg->cursize - 4, (char *)msg->data + 4 ); }
 		return;
 	}
 
