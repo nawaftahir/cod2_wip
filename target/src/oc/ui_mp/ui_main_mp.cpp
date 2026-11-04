@@ -2403,6 +2403,10 @@ static void __attribute_regparm__(0) UI_BuildServerDisplayList(qboolean force)
                 LAN_MarkServerDirty((ui_netSource)->current.integer, i, 0);
                 continue;
             }
+            if ((ui_browserShowPunkBuster)->current.integer >= 0 && atoi(Info_ValueForKey(info_buf, "pb")) != (ui_browserShowPunkBuster)->current.integer) {
+                LAN_MarkServerDirty((ui_netSource)->current.integer, i, 0);
+                continue;
+            }
             if (sharedUiInfo.joinGameTypes[(ui_joinGameType)->current.integer].gameTypeName[0]
                 && I_stricmp(Info_ValueForKey(info_buf, "gametype"), sharedUiInfo.joinGameTypes[(ui_joinGameType)->current.integer].gameType)) {
                 LAN_MarkServerDirty((ui_netSource)->current.integer, i, 0);

@@ -50596,8 +50596,10 @@
 {
 "name": "?UI_BuildServerDisplayList@@YAXH@Z",
 "obj": "ui_main_mp.obj",
-"size": 1292,
-"hits": []
+"size": 1337,
+"hits": [
+"0x5365c0"
+]
 },
 {
 "name": "?UI_AddServerStatusDvarRows@@YAXPAUserverStatusInfo_t@@@Z",
@@ -78010,7 +78012,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 3824,
+"size": 3776,
 "hits": []
 }
 ]
