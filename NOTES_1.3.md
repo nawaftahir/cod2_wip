@@ -381,3 +381,8 @@ cl_console CL_DeathMessagePrint 527 / CL_ConsolePrint_AddLine 526 | cl_parse CL_
   sprintf "\\%s" into the console field, cursor=strlen, Field_AdjustScroll; return }. It re-rolls the tie pool (Pickup_Weapon, SP_worldspawn, GScr_CloseFile lost, net -1.5K):
   merge when another +1.5K is bundled. Also open: CL_Netchan_PrintProfileStats (retail helper 0x4129f0 takes (n, &pos) and add esp 8), UI_DrawConnectScreen (+17 insns),
   CL_ParseDownload msg-in-esi (param copy conflicts with the LargeLocal eax load at entry; no lever found).
+- w8 AddLine regalloc attempts (11-04, 4 builds on top of the wip commit, still 6 reg hunks): reordered locals (letter, charWidth, curWidth): no change;
+  TextWidth AFTER the char read (V4): puts charWidth in ebp and drops the shared zero register (the retail look) but moves the call and gives 8 hunks;
+  TextWidth first + q copy pointer: 9 hunks. Retail order is TextWidth(p) -> xor edi,edi -> read. Lead: the zero reg (edi) must die at 'mov edi,edx' (line var), i.e.
+  charWidth needs ebp; the allocator spills it when the zero constant is live across the whole loop. Not tried: oracle (tools_oracle/REGALLOC.md), splitting the default
+  case into a __forceinline helper to cap the zero's range. Branch w8-consoleprint-wip (35b57de, rebased copy e8835c1 on w8-client history only locally).
