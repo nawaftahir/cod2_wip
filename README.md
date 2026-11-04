@@ -10,7 +10,7 @@ binaries). Never make this repo public.
 | `targets/client/` | CoD2MP_s.exe 1.0 + 1.3 (was `claude_client.git`) |
 | `targets/gfx/` | gfx_d3d_mp_x86_s.dll 1.0 (was `gfx.git`) |
 | `research/` | glm, modtools, codex research |
-| `binaries/<target>/<version>/` | retail anchors, read-only, listed in `SHA256SUMS` |
+| `binaries/` | retail anchors, read-only: `windows/<ver>/`, `linux/`, `radiant/1.0/`, `modtools/1.0/`. Check with `sha256sum -c SHA256SUMS` |
 | `data/` | big generated files (stabs, DBs, exports), Git LFS |
 | `docs/` | workspace docs (playbook, whole-file checklist) |
 

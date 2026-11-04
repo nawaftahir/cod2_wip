@@ -37,7 +37,8 @@ Check: `git log --oneline -- targets/$T | wc -l` equals the old commit count.
 - `.github/workflows/*` from `targets/$T/` to root `.github/workflows/$T.yml`; add
   `paths: [targets/$T/**, binaries/$T/**]` and `defaults.run.working-directory: targets/$T`
   (docker `-v` mounts become `$PWD/targets/$T`). Branch filters get the `$T/` prefix.
-- Retail anchors to `binaries/$T/<version>/`, add their sha256 to `binaries/SHA256SUMS`.
+- Retail anchors are already in `binaries/`. Point the target's tools there instead of its own copy
+  (radiant: `binaries/CoD2Radiant.exe` -> `../../binaries/radiant/1.0/CoD2Radiant.exe`), then drop the copy.
 - Large generated files to `data/$T/` (LFS patterns in `.gitattributes`).
 
 ## 5. Prove, then cut over
