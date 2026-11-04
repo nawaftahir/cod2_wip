@@ -73,3 +73,7 @@ Continue the renderer gfx_d3d_mp_x86_s.dll 1.0 in ~/cod2/test/dev/gfx. Read gfx/
 gfx/FASTPATH_11-04.md first. Step 1: TU set + link order from the Mac 1.3 renderer file list; step 2: port the
 claude_client13 referee/ratchet/layout tools (keep the gfx byte + binding referees); then run up to 6 agents in own
 worktrees by area, lead merges and ratchets. Never fabricate; Mac/Kisak are references, retail bytes decide.
+- Renderer quick-win scan (11-04): credit is already automatic (build.sh credits every bindcheck-bound hit). Locked
+  value: 117 functions / 18,876 B already byte-match but fail binding because a callee is unmatched (e.g.
+  R_InitRenderTargets 2102 B waits on Image_TrackFullscreenTexture 0x1000c9d0, 149 B). First renderer wave = match those
+  callees (callee-first unlocking). Also 52 multi-hit twins / 1,707 B need a second copy in the right TU (layout).
