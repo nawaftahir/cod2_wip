@@ -684,7 +684,7 @@ void SVC_Info( netadr_t from )
 
 	Info_SetValueForKey(infostring, "mod", va("%i", serverModded));
 	Info_SetValueForKey(infostring, "voice", va("%i", sv_voice->current.boolean));
-	Info_SetValueForKey(infostring, "pb", va("%i", sv_punkbuster->current.boolean));
+	Info_SetValueForKey(infostring, "pb", va("%i", sv_punkbuster->current.integer));
 
 	I_strncpyz(infosend, "infoResponse\n", MAX_INFO_STRING);
 	I_strncat(infosend, MAX_INFO_STRING, infostring);

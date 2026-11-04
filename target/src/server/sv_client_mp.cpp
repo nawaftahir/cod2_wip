@@ -1857,7 +1857,7 @@ void SV_UserinfoChanged( client_t *cl )
 	// www download redirect
 	val = Info_ValueForKey (cl->userinfo, "cl_wwwDownload");
 	cl->wwwOk = qfalse;
-	if (*val)
+	if (strlen(val) != 0)
 	{
 		i = atoi(val);
 		if (i)
