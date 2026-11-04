@@ -5,6 +5,11 @@
 
 // Original Q3Radiant editor callback; implemented by the selection TU.
 extern void Select_RotateTexture(int amount);
+extern void Select_ShiftTexture(int horizontal, int vertical);
+extern void Select_ScaleTexture(int horizontal, int vertical);
+// Target retail global @ 0x0112988c, Q3's d_savedinfo.m_nTextureTweak.
+// Storage is not reconstructed; the source binding remains provisional.
+extern int g_TextureTweak;
 
 class CTextureBar : public CDialogBar
 {
@@ -83,6 +88,57 @@ BEGIN_MESSAGE_MAP(CTextureBar, CDialogBar)
     ON_WM_CREATE()
     ON_BN_CLICKED(3, OnBtnApplytexturestuff)
 END_MESSAGE_MAP()
+
+
+/* Four Q3 handlers, compared to retail 0x0043f240 (105 B), 0x0043f2b0
+ * (107 B), 0x0043f320 (81 B), and 0x0043f380 (64 B). Retail confirms
+ * direction test NM_UPDOWN::iDelta at +0x10, zero result, magnitude of the
+ * 0x0112988c texture tweak, the selection calls and subsequent refresh.
+ * These are source candidates, not a declaration of exact compiled bytes.
+ */
+void CTextureBar::OnDeltaposSpinHshift(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    if (pNMUpDown->iDelta < 0)
+        Select_ShiftTexture(abs(g_TextureTweak), 0);
+    else
+        Select_ShiftTexture(-abs(g_TextureTweak), 0);
+    GetSurfaceAttributes();
+}
+
+void CTextureBar::OnDeltaposSpinVshift(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    if (pNMUpDown->iDelta < 0)
+        Select_ShiftTexture(0, abs(g_TextureTweak));
+    else
+        Select_ShiftTexture(0, -abs(g_TextureTweak));
+    GetSurfaceAttributes();
+}
+
+void CTextureBar::OnDeltaposSpinHScale(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    if (pNMUpDown->iDelta < 0)
+        Select_ScaleTexture(abs(g_TextureTweak), 0);
+    else
+        Select_ScaleTexture(-abs(g_TextureTweak), 0);
+    GetSurfaceAttributes();
+}
+
+void CTextureBar::OnDeltaposSpinVScale(NMHDR *pNMHDR, LRESULT *pResult)
+{
+    NM_UPDOWN *pNMUpDown = (NM_UPDOWN *)pNMHDR;
+    *pResult = 0;
+    if (pNMUpDown->iDelta < 0)
+        Select_ScaleTexture(0, abs(g_TextureTweak));
+    else
+        Select_ScaleTexture(0, -abs(g_TextureTweak));
+    GetSurfaceAttributes();
+}
 
 // Retail 0x0043f3c0 / 87 B: target uses the +0x244 rotate-amount
 // member, the MFC UpdateData(TRUE) call and Select_RotateTexture.
