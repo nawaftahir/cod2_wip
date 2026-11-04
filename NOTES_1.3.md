@@ -171,3 +171,11 @@
   Com_ExecStartupConfigs (retail 1.3 still has literal "exec default_mp.cfg"), const msg tables (client keeps static).
 - Ported: SVC_Status length cap 0x4000 -> MAX_MSGLEN - 1 (server 1.3 source; the client had a stale 0x4000).
 - UNCHECKED: g_largeLocalBuf 0x80000 (server 1.3: 0x100000) - no retail evidence for the Windows pool size yet.
+## Length/convention drift class (wG, 11-04)
+- PINNED (tools/why13.py on claude_client13 build 06:29, HEAD e1c5106): the "ours13 len differs (inline/codegen)"
+  bucket is now 3 fns / 346 B (was 82,803 B in the wD note). No shared DFS/convention cause left to fix.
+  CM_InitAllThreadData (17 B) has a 1.00 fuzzy twin at retail 0x415b80: a cmp13 mask/pairing miss, not codegen.
+  Com_ShutdownInternal: retail 1.3 (0x431f90) lacks one `push A; call [A]` (real 1.3 source change). _$E1: static init.
+- PINNED (fuzzy diff vs retail 1.3): the 68,651 B bucket "ours13==ours10, retail13 differs" is real 1.3 source work,
+  not LTCG: va/CM_ClipHandleToModel read thread data via TlsGetValue (call [A] + [eax+4]/[eax+0xc]), serverInfo_t
+  grew 0x90 -> 0x94 (LAN_* imul 0x94, ping at +0x28), Key_ClearStates rewritten. Belongs to the body-editing agents.
