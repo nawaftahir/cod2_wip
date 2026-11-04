@@ -424,10 +424,12 @@ void DisablePbSv()
 	pbsv.AddPbEvent(0x76, -1, 0, 0, 0);
 }
 
+void PbClientTrapConsole(char *text, int len);
 void PbCaptureConsoleOutput(char *msg, int msglen)
 {
 	int len;
 
+	PbClientTrapConsole(msg, msglen);
 	if ( pbsv.m_TrapConsole )
 		pbsv.m_TrapConsole(&pbsv, msg, msglen);
 	if ( !g_ConsoleCaptureBuf )
