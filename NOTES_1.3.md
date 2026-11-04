@@ -134,3 +134,18 @@
 
 
 
+
+## Why 1.0-matched code failed cmp13 (wD, 11-04)
+- PINNED: cmp13 ran ../claude_client/cmp.py on build/release/CoD2MP_s.exe, which is linked /FIXED and
+  has NO .reloc. cmp.py masks data addresses only via .reloc, so every global/string/IAT operand counted
+  as a mismatch. That alone hid ~860 KB of matching code: S (matched in our 1.0, unmatched in 1.3) was
+  1,217,553 B; 616,968 B of it was norm-identical to retail 1.3 already.
+- Fix: tools/cmp13.py = cmp.py plus a fallback that rebuilds the reloc mask from 4-byte operands pointing
+  inside the image (no build needed). Same release exe: 168,890 -> 1,028,985 matched-fn B (6136 unique fns).
+  Calibrated on the old /FIXED:NO build (real .reloc): synthetic mask matches 2 fns real relocs do not and
+  misses 124 (jump tables in .text), i.e. slightly conservative.
+- Remaining S after the fix (tools/why13.py): retail 1.3 really changed 293,829 B (CHANGED fns, real 1.3
+  source work); our 1.3 length differs from our 1.0 (inline/codegen drift in the 1.3 tree) 82,803 B;
+  same-length opcode diffs 17,111 B; operand-only 7,045 B; tiny short-anchor fns 9,946 B (cmp pairs short
+  fns through claude_client/ghidra names_*.tsv, which hold 1.0 addresses: wrong for 1.3); regalloc-only 158 B.
+- Note: ratchet13 accept baseline good13.json must be regenerated with the new cmp13 before the next ratchet.
