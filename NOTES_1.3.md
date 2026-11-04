@@ -134,3 +134,14 @@
 
 
 
+
+## Shared-code port audit (wB, branch shared13, 2026-11-04)
+- PINNED (script ~/miss.py: every line added in lnxded-1.0 -> 1.3 server source, looked up in the client tree):
+  the client already carries the 1.3 changes of bgame/, qcommon/, script/, universal/, game/, server/
+  (dvar critical sections 23/23, PB oob in sv_main/cmd, 32-bit fragment start, voice size checks,
+  vsnprintf, language-aware com_files, default_localize cfg). Baseline same-offset 138,692 / 1,970,176 = 7.040%.
+- Left over, deliberately not ported: Linux-only storage/pad globals, setjmp/rdtsc inline asm, calloc in
+  com_memory (client uses VirtualAlloc, already zeroed), yacc skeleton (scr_yacc.c is a different generator),
+  Com_ExecStartupConfigs (retail 1.3 still has literal "exec default_mp.cfg"), const msg tables (client keeps static).
+- Ported: SVC_Status length cap 0x4000 -> MAX_MSGLEN - 1 (server 1.3 source; the client had a stale 0x4000).
+- UNCHECKED: g_largeLocalBuf 0x80000 (server 1.3: 0x100000) - no retail evidence for the Windows pool size yet.
