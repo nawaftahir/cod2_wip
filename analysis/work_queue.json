@@ -1,0 +1,17 @@
+{
+  "scope": "Inventory and candidate TU ownership; not historical boundary or coverage proof",
+  "inventory_functions": 2702,
+  "additional_verified_starts": 493,
+  "inventory_without_candidate_tu_owner": 1639,
+  "candidate_tus": 112,
+  "cpp_percent": 44.83989273602019,
+  "warning": "Counts include dependencies and aliases. Queue bytes and complexity are diagnostics, not progress.",
+  "input_sha256": {
+    "/home/nawaf/cod2/test/dev/glm/data/functions_gfx10.json": "93987c0a615ecf8a4141acfca24946a2c38e5879beac597521796fcf10cdd44d",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/src/tus.txt": "afe48cb6f48463a9740331d0f26251e63cd8cc9348cd47cb89f105a65ffb1c50",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/build/bind.json": "1f42a8cfc114e5b571392f021670f670ca4a3828a64977a3f840e47e3c893ef1",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/file_layout.tsv": "b4dc9b75e832efe49e2964766b2f6e2753290fc8c26b32d2416e82fb3cb406e9",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/proof/source_coverage_current.json": "dcaea7de9de661ac0ab29fb249580990e3886260a585a1c1cb1b415fc317a7a1",
+    "/home/nawaf/cod2/test/dev/gfx/target/work/layout/current.json": "6af7a58d4b56f89ec15831c1e1f4fa08c395e9b13500cf8c0f964781ad20e23a"
+  }
+}
