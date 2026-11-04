@@ -235,7 +235,7 @@
 {
 "name": "?CL_SubtitlePrint@@YAXPBDHH@Z",
 "obj": "cl_cgame_mp.obj",
-"size": 204,
+"size": 226,
 "hits": []
 },
 {
@@ -1224,13 +1224,13 @@
 {
 "name": "?CL_ConsolePrint@@YAXW4print_msg_type_t@@PBDHH@Z",
 "obj": "cl_console_mp.obj",
-"size": 376,
+"size": 400,
 "hits": []
 },
 {
 "name": "?CL_ConsoleFixPosition@@YAXXZ",
 "obj": "cl_console_mp.obj",
-"size": 126,
+"size": 162,
 "hits": []
 },
 {
@@ -2947,8 +2947,10 @@
 {
 "name": "?CL_DemoCompleted@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 158,
-"hits": []
+"size": 163,
+"hits": [
+"0x40c500"
+]
 },
 {
 "name": "?CL_ReadDemoMessage@@YAXXZ",
@@ -3188,8 +3190,10 @@
 {
 "name": "?CL_DisconnectPacket@@YAXUnetadr_t@@@Z",
 "obj": "cl_main_mp.obj",
-"size": 158,
-"hits": []
+"size": 172,
+"hits": [
+"0x40e520"
+]
 },
 {
 "name": "?CL_VoicePacket@@YAXPAUmsg_t@@@Z",
@@ -8569,8 +8573,10 @@
 {
 "name": "?Com_InitPlayerProfiles@@YAXXZ",
 "obj": "com_playerprofile.obj",
-"size": 235,
-"hits": []
+"size": 249,
+"hits": [
+"0x42d260"
+]
 },
 {
 "name": "?Com_HasPlayerProfile@@YAHXZ",
@@ -9630,8 +9636,10 @@
 {
 "name": "?Com_ExecStartupConfigs@@YAXPBD@Z",
 "obj": "common.obj",
-"size": 91,
-"hits": []
+"size": 105,
+"hits": [
+"0x4343a0"
+]
 },
 {
 "name": "?Com_Init_Try_Block_Function@@YAXPAD@Z",
@@ -33147,7 +33155,7 @@
 ]
 },
 {
-"name": "$L118237",
+"name": "$L118243",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33155,7 +33163,7 @@
 ]
 },
 {
-"name": "$L118239",
+"name": "$L118245",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33188,7 +33196,7 @@
 ]
 },
 {
-"name": "$L132114",
+"name": "$L132120",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -33196,7 +33204,7 @@
 ]
 },
 {
-"name": "$L132116",
+"name": "$L132122",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -33265,7 +33273,7 @@
 ]
 },
 {
-"name": "$L104374",
+"name": "$L104380",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -33281,7 +33289,7 @@
 ]
 },
 {
-"name": "$L147472",
+"name": "$L147478",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35939,13 +35947,13 @@
 {
 "name": "?CG_GameMessage@@YAXPBD@Z",
 "obj": "cg_main_mp.obj",
-"size": 260,
+"size": 284,
 "hits": []
 },
 {
 "name": "?CG_BoldGameMessage@@YAXPBD@Z",
 "obj": "cg_main_mp.obj",
-"size": 260,
+"size": 284,
 "hits": []
 },
 {
@@ -45174,9 +45182,7 @@
 "name": "?Scr_ParseGameTypeList@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 572,
-"hits": [
-"0x50d520"
-]
+"hits": []
 },
 {
 "name": "?Scr_GetGameTypeNameForScript@@YAPADPBD@Z",
@@ -51784,7 +51790,9 @@
 "name": "?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z",
 "obj": "ui_shared_mp.obj",
 "size": 1194,
-"hits": []
+"hits": [
+"0x53ea00"
+]
 },
 {
 "name": "?ToWindowCoords@@YAXPAM0PAUWindow@@@Z",
@@ -77692,7 +77700,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1424,
+"size": 1232,
 "hits": []
 }
 ]

@@ -9,3 +9,5 @@ _yylex
 ?SND_Get3DChannelPlaybackRate@@YAHH@Z
 ?SND_Get3DChannelLength@@YAHH@Z
 ?SND_Get2DChannelPlaybackRate@@YAHH@Z
+# Scr_ParseGameTypeList: 1.0 tie pool (LESSONS Tie study); flipped by Com_ExecStartupConfigs 1.3 change (+354 own)
+?Scr_ParseGameTypeList@@YAXXZ
