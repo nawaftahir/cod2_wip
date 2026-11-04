@@ -93,8 +93,18 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 
 ## 5. Layout
 - Our function set is close to retail (inventory: ~40 missing fns / 5.4 KB, 18 extra / 1.2 KB); the big gaps
-  are code we lack, not extras. `.text` drift starts at cl_cgame_mp (CL_SetExpectedHunkUsage +64 B: retail calls
-  Dvar_SetIntFromSource un-inlined for constant 0), then cl_keys (+176, CompleteCommand), cl_main_mp.
+  are code we lack, not extras. `.text` drift now starts at CL_BlendSavedScreen
+  (-192 B, ours is 9 B and hits retail 0x402260; the real fn sits there), then cl_cin/console 16 B steps, cl_keys
+  (+176), cl_main_mp (see `tools/drift13.py`).
+- CL_SetExpectedHunkUsage (PINNED, retail 0x401b60 = 464 B, ours matches): the constant-0 default call after the
+  loop is a real call to Dvar_SetIntFromSource in retail. Ours inlined it because the loop-exit `break` leaves the
+  default site at entry count. Spelling the loop with a nested `if (stricmp == 0) { token = Com_Parse; if (token &&
+  *token) {... return;} }` and no `continue` makes the post-loop site cold (cost-model site count, SKILL 1.1)
+  -> call, +161 B same-offset by itself, +4.7 KB with the drift behind it. Locals for the 0 (`int zero = 0`,
+  `hunk = atoi(); ... hunk`) did NOT help. Retail 0x458580 is the server twin (no default set), which a no-default CL
+  version also matches: check which of the two you are diffing.
+- CompleteCommand 1.3 (pb_ branch + PbClientCompleteCommand = AddPbEvent(0x33)) matches and only flips listed ties
+  (SP_worldspawn lost, SV_SetConfigstring gained) once the hunk fix is in.
 - .rdata ownership: `objectiveFields` is static const; `getKeyAuthorize ...` is a pooled literal, not a
   static array.
 - Tie pool (re-rolls on any fn add/remove before them): yylex, PC_EvaluateTokens, Pickup_Weapon,

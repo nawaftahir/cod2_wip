@@ -462,6 +462,12 @@ void PbClientTrapConsole(char *text, int len)
 		pbcl.m_TrapConsole(&pbcl, text, len);
 }
 
+/* mirrors PbServerCompleteCommand (retail 0x4bc100) */
+void PbClientCompleteCommand(char *buf, int buflen)
+{
+	pbcl.AddPbEvent(0x33, buflen, buf, 0);
+}
+
 struct MD5_CTX
 {
 	unsigned long i[2];

@@ -183,9 +183,10 @@
 {
 "name": "?CL_SetExpectedHunkUsage@@YAXPBD@Z",
 "obj": "cl_cgame_mp.obj",
-"size": 527,
-"hits": [],
-"reason": "no masked match"
+"size": 458,
+"hits": [
+"0x401b60"
+]
 },
 {
 "name": "?CL_CM_LoadMap@@YAXPBD@Z",
@@ -2770,9 +2771,10 @@
 {
 "name": "?CompleteCommand@@YAXXZ",
 "obj": "cl_keys_mp.obj",
-"size": 466,
-"hits": [],
-"reason": "no masked match"
+"size": 656,
+"hits": [
+"0x40a7b0"
+]
 },
 {
 "name": "?Console_IsRconCmd@@YA_NPBD@Z",
@@ -17006,8 +17008,9 @@
 "name": "?SV_SetConfigstring@@YAXHPBD@Z",
 "obj": "sv_init_mp.obj",
 "size": 491,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x457ce0"
+]
 },
 {
 "name": "?SV_GetConfigstring@@YAXHPADH@Z",
@@ -18524,7 +18527,7 @@
 ]
 },
 {
-"name": "$L96658",
+"name": "$L96659",
 "obj": "module",
 "size": 6,
 "hits": [],
@@ -24717,9 +24720,8 @@
 "name": "_yylex",
 "obj": "scr_yacc.obj",
 "size": 4236,
-"hits": [
-"0x4850e0"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_yy_get_next_buffer",
@@ -35140,7 +35142,7 @@
 ]
 },
 {
-"name": "$L118258",
+"name": "$L118259",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35148,7 +35150,7 @@
 ]
 },
 {
-"name": "$L118260",
+"name": "$L118261",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35181,7 +35183,7 @@
 ]
 },
 {
-"name": "$L132138",
+"name": "$L132139",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35189,7 +35191,7 @@
 ]
 },
 {
-"name": "$L132140",
+"name": "$L132141",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35267,7 +35269,7 @@
 ]
 },
 {
-"name": "$L104421",
+"name": "$L104422",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35283,7 +35285,7 @@
 ]
 },
 {
-"name": "$L147500",
+"name": "$L147514",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -37951,6 +37953,14 @@
 "0x4bd9b0"
 ],
 "scan": 1
+},
+{
+"name": "?PbClientCompleteCommand@@YAXPADH@Z",
+"obj": "pbcl.obj",
+"size": 87,
+"hits": [
+"0x4bc100"
+]
 },
 {
 "name": "?fn_4bc160@@YAXPAUMD5_CTX@@PAD@Z",
@@ -75759,6 +75769,23 @@
 ]
 },
 {
+"name": "__strnicmp",
+"obj": "libcmt:strnicmp.obj",
+"size": 0,
+"hits": [
+"0x58bf56"
+],
+"alias": 1
+},
+{
+"name": "_strnicmp",
+"obj": "libcmt:strnicmp.obj",
+"size": 127,
+"hits": [
+"0x58bf56"
+]
+},
+{
 "name": "_memmove",
 "obj": "libcmt:memmove.obj",
 "size": 829,
@@ -75823,23 +75850,6 @@
 "hits": [
 "0x57b5b6",
 "0x57b7d5"
-]
-},
-{
-"name": "__strnicmp",
-"obj": "libcmt:strnicmp.obj",
-"size": 0,
-"hits": [
-"0x58bf56"
-],
-"alias": 1
-},
-{
-"name": "_strnicmp",
-"obj": "libcmt:strnicmp.obj",
-"size": 127,
-"hits": [
-"0x58bf56"
 ]
 },
 {
@@ -77641,6 +77651,14 @@
 ]
 },
 {
+"name": "___ascii_strnicmp",
+"obj": "libcmt:_strnicm.obj",
+"size": 97,
+"hits": [
+"0x58cad0"
+]
+},
+{
 "name": "_strncnt",
 "obj": "libcmt:a_map.obj",
 "size": 28,
@@ -77655,14 +77673,6 @@
 "size": 956,
 "hits": [
 "0x58123b"
-]
-},
-{
-"name": "___ascii_strnicmp",
-"obj": "libcmt:_strnicm.obj",
-"size": 97,
-"hits": [
-"0x58cad0"
 ]
 },
 {
@@ -81886,7 +81896,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 3008,
+"size": 2816,
 "hits": [],
 "reason": "no masked match"
 },

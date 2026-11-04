@@ -11,9 +11,9 @@
 - Accept only clean builds. Never leave a tree on an experiment branch others copy from.
 
 ## Open leads (best first)
-1. Drift: first break CL_SetExpectedHunkUsage +64 B (retail calls Dvar_SetIntFromSource un-inlined for
-   constant 0; find what stops the inliner there). Then cl_keys +176 (CompleteCommand), then cl_main_mp
-   connect code.
+1. Drift: first break now CL_BlendSavedScreen (-192 B: ours 9 B, retail has a full fn at 0x402260), then
+   16 B steps in cl_cin/console/input, cl_keys +176, cl_main_mp connect code. CL_SetExpectedHunkUsage and
+   CompleteCommand 1.3 are in.
 2. PunkBuster client: PbClGameQuery, PbClGameMsg, PbClientInitialize, stPbCl::initialize, fn_4bb450 and
    CL_ConnectionlessPacket (one fn, 2,658 B) are matched (11-05). Left in pbcl: UnloadClientDll, ~stPbCl
    (retail passes `this` in esi/ecx per caller), PbClientProcessEvents/CompleteCommand/Connecting.
@@ -22,7 +22,7 @@
 5. CL_ConsolePrint_AddLine: in tree, 6 register hunks.
 6. Com_Init_Try_Block_Function: multi-core block (GetProcessAffinityMask, r_smp_backend_allowed), frame 0x24 vs 0x20.
 7. libwww leftovers (~1 KB): HTCache_isFresh, HTEvtLst stopLoop/init/pump/loop, HTBlackHole/HTErrorStream constants.
-8. Bundle-pending gains held back by tie re-rolls: fn 0x40d310 call in CL_Frame, CompleteCommand 1.3, UI PB fns.
+8. Bundle-pending gains held back by tie re-rolls: fn 0x40d310 call in CL_Frame, UI PB fns.
 9. Top unmatched by size: `archive/NOTES_1.3.md` "TOP40" (UI_RunMenuScript, CG_EntityEvent, nb_decode, ...).
 
 ## Next session

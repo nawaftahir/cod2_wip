@@ -13,7 +13,7 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | HTCache_isFresh | decl order permutations (3), chained init, cc decl in if | slot order not declaration-driven; parked |
 | HTEvtLst 2nd static 0x5ddfa8 | name search: libwww-git, coduomp, KisakCOD | no name: DEFER |
 | CL_ConsolePrint_AddLine 1.3 body | switch vs if, shared charWidth (4 builds) | 6 reg hunks left; branch `w8-consoleprint-wip2` |
-| CL_SetExpectedHunkUsage | direct Dvar_SetIntFromSource(dvar, 0, INTERNAL) | 533 B, -3 K same-offset |
+| CL_SetExpectedHunkUsage | direct Dvar_SetIntFromSource(dvar, 0, INTERNAL); local `int zero = 0` / `len = 0` / `hunk` shared with atoi path | still inlined or 533 B; SOLVED by nested-if loop without `continue` (KNOWLEDGE 5) |
 | CL_CheckForResend 1.3 | decl order, block scope, buffer size 1020/1024 | slot order data/pbBuf/info unchanged |
 | CL_ParseDownload msg in esi | param copy forms | conflicts with LargeLocal load; no lever |
 | CL_InitRenderer fonts switch | 7 calls / ascending / one call via local | fn matches but flips DSound_UpdateSample; landed later with tie pool |
@@ -21,7 +21,6 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | Cmd_Tell_f / Cmd_GameCommand_f removal | 4 combos | flips SP_worldspawn; keep until the fn set before g_spawn is complete |
 | CL_BuildMd5StrFromCDKey merged into caller | one fn fewer | PC_EvaluateTokens tie flipped back |
 | fn 0x40d310 call in CL_Frame | matches, but flips PC_EvaluateTokens + GScr_CloseFile | not committed; re-add with a bigger gain |
-| CompleteCommand 1.3 (branch `w8-complete-wip`) | +656 | re-rolls tie pool, net -1.5 K; bundle |
 | UI PB fns wH (+257) | 3 fns added | re-rolled yylex (-4,236); bundle |
 | fn_4bb450 | `if (hay && needle && *needle) {..}` wrapper; while-with-break loop; `first && p >= first` tail | 268 B, esi/edi pushed at entry, first spilled; fixed by early `return hay` + do/while + two-if tail |
 | PbClGameQuery case 109-111 | separate `key` copy of Data used everywhere | extra frame slot (0x10), Data spilled; plain `char *name` local is right |

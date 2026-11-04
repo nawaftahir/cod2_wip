@@ -576,16 +576,14 @@ void CL_SetExpectedHunkUsage(const char *mapname)
         if (!token || *token == '\0')
             break;
 
-        if (I_stricmp(token, mapname) != 0)
-            continue;
-
-        token = Com_Parse(&buftrav);
-        if (!token || *token == '\0')
-            continue;
-
-        Dvar_SetInt( (dvar_t *)com_expectedHunkUsage, atoi(token));
-        Z_FreeInternal(buf);
-        return;
+        if (I_stricmp(token, mapname) == 0) {
+            token = Com_Parse(&buftrav);
+            if (token && *token != '\0') {
+                Dvar_SetInt( (dvar_t *)com_expectedHunkUsage, atoi(token));
+                Z_FreeInternal(buf);
+                return;
+            }
+        }
     }
 
     Z_FreeInternal(buf);
