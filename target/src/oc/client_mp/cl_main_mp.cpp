@@ -1218,7 +1218,6 @@ void CL_ForwardCommandToServer(const char *string)
 #if COD2_IS_PATCH_13
 int lastUpdateKeyAuthTime;
 static const char cl_getKeyAuthorizeFmt_13[] = "getKeyAuthorize %i %s PB %s";
-static void CL_BuildMd5StrFromCDKey(char *md5Str);
 #endif
 
 void CL_RequestAuthorization(void)
@@ -1282,7 +1281,46 @@ void CL_RequestAuthorization(void)
 
     anonymous = Dvar_RegisterBool((const char *)"cl_anonymous", 0, 0x101b);
 #if COD2_IS_PATCH_13
-    CL_BuildMd5StrFromCDKey(md5Str);
+    {
+        char nums[64];
+        const char *key;
+        int len, i, j;
+        char *p, *e;
+
+        md5Str[0] = '\0';
+        memset(nums, 0, sizeof(nums));
+
+        key = cl_cdkey;
+        len = strlen(key);
+        if (len > 0) {
+            j = 0;
+            for (i = 0; i < 32; ++i) {
+                unsigned char ch = (unsigned char)key[i];
+                if ((ch >= '0' && ch <= '9') ||
+                    (ch >= 'a' && ch <= 'z') ||
+                    (ch >= 'A' && ch <= 'Z')) {
+                    nums[j++] = (char)ch;
+                }
+            }
+            nums[j] = '\0';
+        }
+
+        p = nums;
+        while (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r')
+            p++;
+        e = p + strlen(p);
+        while (e > p && (e[-1] == ' ' || e[-1] == '\t' || e[-1] == '\n' || e[-1] == '\r'))
+            e--;
+        *e = '\0';
+        if (p != nums)
+            memmove(nums, p, (size_t)(e - p) + 1);
+        strupr(nums);
+
+    #    if COD2_FEATURE_PUNKBUSTER
+
+        md5Str[0] = '\0';
+    #    endif
+    }
     NET_OutOfBandPrint(NS_CLIENT1, cls.authorizeServer,
                        va(cl_getKeyAuthorizeFmt_13, anonymous->current.enabled, nums, md5Str));
 #else
@@ -3340,47 +3378,6 @@ enum XAssetType;
 
 #if COD2_IS_PATCH_13
 
-static void CL_BuildMd5StrFromCDKey(char *md5Str)
-{
-    char nums[64];
-    const char *key;
-    int len, i, j;
-    char *p, *e;
-
-    md5Str[0] = '\0';
-    memset(nums, 0, sizeof(nums));
-
-    key = cl_cdkey;
-    len = strlen(key);
-    if (len > 0) {
-        j = 0;
-        for (i = 0; i < 32; ++i) {
-            unsigned char ch = (unsigned char)key[i];
-            if ((ch >= '0' && ch <= '9') ||
-                (ch >= 'a' && ch <= 'z') ||
-                (ch >= 'A' && ch <= 'Z')) {
-                nums[j++] = (char)ch;
-            }
-        }
-        nums[j] = '\0';
-    }
-
-    p = nums;
-    while (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r')
-        p++;
-    e = p + strlen(p);
-    while (e > p && (e[-1] == ' ' || e[-1] == '\t' || e[-1] == '\n' || e[-1] == '\r'))
-        e--;
-    *e = '\0';
-    if (p != nums)
-        memmove(nums, p, (size_t)(e - p) + 1);
-    strupr(nums);
-
-#    if COD2_FEATURE_PUNKBUSTER
-
-    md5Str[0] = '\0';
-#    endif
-}
 #endif
 
 
