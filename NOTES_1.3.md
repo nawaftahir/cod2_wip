@@ -356,3 +356,8 @@
 - Still unmatched in pb (4367 B incl. _ labels 3967): stPbCl::~stPbCl 69 (retail stores m_ClInstance=0 right after FreeLibrary, ours schedules it later), PbSvEvent71 83 (branch layout of inlined AddPbEvent with constant 0x71),
   PbCaptureConsoleOutput 94 (usercall eax vs ecx), PbSvGameMsg 76: retail calls the CLIENT PbMsgToScreen at 0x405080 (usercall edx=prefix, ecx=msg; real fn with 0x100c-byte frame, writes a console buffer at 0x19a1b78) - ours inlines the server Com_Printf stub;
   needs the 1.3 console rewrite (w8). PbServerProcessEvents/ForceProcess 13 B each = twin shapes.
+- w8 AddLine regalloc attempts (11-04, 4 builds on top of the wip commit, still 6 reg hunks): reordered locals (letter, charWidth, curWidth): no change;
+  TextWidth AFTER the char read (V4): puts charWidth in ebp and drops the shared zero register (the retail look) but moves the call and gives 8 hunks;
+  TextWidth first + q copy pointer: 9 hunks. Retail order is TextWidth(p) -> xor edi,edi -> read. Lead: the zero reg (edi) must die at 'mov edi,edx' (line var), i.e.
+  charWidth needs ebp; the allocator spills it when the zero constant is live across the whole loop. Not tried: oracle (tools_oracle/REGALLOC.md), splitting the default
+  case into a __forceinline helper to cap the zero's range. Branch w8-consoleprint-wip (35b57de, rebased copy e8835c1 on w8-client history only locally).
