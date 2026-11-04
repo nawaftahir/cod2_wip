@@ -1,0 +1,12 @@
+*.obj
+*.o
+*.pyc
+__pycache__/
+core.*
+_CL_*
+*.gpr
+*.rep/
+build/
+scratch/
+# game assets stay local
+*.iwd
