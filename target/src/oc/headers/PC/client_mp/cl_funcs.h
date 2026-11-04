@@ -80,6 +80,7 @@ int CIN_PlayCinematic(const char *arg, int x, int y, int w, int h, int systemBit
 void CIN_SetExtents(int handle, int x, int y, int w, int h);
 void CIN_DrawCinematic(int handle);
 void CL_PlayCinematic_f(void);
+void CL_PlayUnskippableCinematic_f(void);
 void SCR_DrawCinematic(void);
 void SCR_RunCinematic(void);
 void SCR_StopCinematic(void);

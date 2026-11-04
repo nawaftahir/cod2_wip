@@ -11,3 +11,5 @@ _yylex
 ?SND_Get2DChannelPlaybackRate@@YAHH@Z
 # Scr_ParseGameTypeList: 1.0 tie pool (LESSONS Tie study); flipped by Com_ExecStartupConfigs 1.3 change (+354 own)
 ?Scr_ParseGameTypeList@@YAXXZ
+# Pickup_Weapon: one scheduling swap (mov ebx/edi load order), flipped by an unrelated cl_main_mp/ui_main_mp edit (w8, +1532 net); LTCG tie
+?Pickup_Weapon@@YAHPAUgentity_s@@0PAHH@Z

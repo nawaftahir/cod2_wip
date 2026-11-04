@@ -115,6 +115,8 @@ COD2_ASSERT_FIELD(clientActive_t, timeoutcount, 0x14);
 #if COD2_IS_PATCH_13
 
 const dvar_t *cl_punkbuster;
+const dvar_t *cl_profileTextHeight;
+const dvar_t *dvar_68a3a0;
 const dvar_t *cl_wwwDownload;
 
 extern void CL_WWWDownload(void);
@@ -175,6 +177,7 @@ extern void SCR_StopCinematic(void);
 extern void Con_Init(void);
 extern void Con_Close(void);
 extern void CL_PlayCinematic_f(void);
+extern void fn_403580(void);
 extern void CL_Connect_f(void);
 extern void CL_GlobalServers_f(void);
 extern void CL_Rcon_f(void);
@@ -2595,7 +2598,7 @@ void CL_InitOnceForAllClients(void)
     cl_pitchspeed = Dvar_RegisterFloat("cl_pitchspeed", 140.0f, -FLT_MAX, FLT_MAX, 0x1001);
     cl_anglespeedkey = Dvar_RegisterFloat("cl_anglespeedkey", 1.5f, 0.0f, FLT_MAX, 0x1000);
 
-    cl_maxpackets = Dvar_RegisterInt("cl_maxpackets", 30, 15, 100, 0x1001);
+    cl_maxpackets = Dvar_RegisterInt("cl_maxpackets", 30, 10, 100, 0x1001);
     cl_packetdup = Dvar_RegisterInt("cl_packetdup", 1, 0, 5, 0x1001);
     cl_sensitivity = Dvar_RegisterFloat("sensitivity", 5.0f, 0.01f, 100.0f, 0x1001);
     cl_mouseAccel = Dvar_RegisterFloat("cl_mouseAccel", 0.0f, 0.0f, 100.0f, 0x1001);
@@ -2604,7 +2607,6 @@ void CL_InitOnceForAllClients(void)
     cl_allowDownload = Dvar_RegisterBool("cl_allowDownload", 1, 0x1001);
 #if COD2_IS_PATCH_13
     cl_wwwDownload = Dvar_RegisterBool("cl_wwwDownload", 1, 0x1003);
-    cl_punkbuster = Dvar_RegisterBool("cl_punkbuster", 0, 0x1013);
 #endif
     cl_talking = Dvar_RegisterBool("cl_talking", 0, 0x1000);
     cl_inGameVideo = Dvar_RegisterBool("r_inGameVideo", 1, 0x1001);
@@ -2621,9 +2623,11 @@ void CL_InitOnceForAllClients(void)
     cl_motdString = Dvar_RegisterString("cl_motdString", "", 0x1040);
     cl_ingame = Dvar_RegisterBool("cl_ingame", 0, 0x1040);
     Dvar_RegisterInt("cl_maxPing", 800, 20, 2000, 0x1001);
+    cl_profileTextHeight = Dvar_RegisterInt("cl_profileTextHeight", 16, 1, 100, 0x1000);
     name = Dvar_RegisterString("name", "Unknown Soldier", 0x1003);
     Dvar_RegisterInt("rate", 5000, 1000, 25000, 0x1003);
     Dvar_RegisterInt("snaps", 20, 1, 30, 0x1003);
+    Dvar_RegisterBool("cl_punkbuster", 0, 0x1013);
     Dvar_RegisterString("password", "", 0x1002);
 
     fx_enable = Dvar_RegisterBool("fx_enable", 1, 0x1080);
@@ -2649,6 +2653,8 @@ void CL_InitOnceForAllClients(void)
     I_strncpyz(cls.autoupdateServerNames[3], "cod2update4.activision.com", 64);
     I_strncpyz(cls.autoupdateServerNames[4], "cod2update5.activision.com", 64);
 
+    dvar_68a3a0 = Dvar_RegisterString("motd", "", 0x1000);
+
     Cmd_AddCommand("cmd", CL_ForwardToServer_f);
     Cmd_AddCommand("configstrings", CL_Configstrings_f);
     Cmd_AddCommand("clientinfo", CL_Clientinfo_f);
@@ -2662,6 +2668,7 @@ void CL_InitOnceForAllClients(void)
     Cmd_SetAutoComplete("demo", "demos", "dm_1");
     Cmd_SetAutoComplete("timedemo", "demos", "dm_1");
     Cmd_AddCommand("cinematic", CL_PlayCinematic_f);
+    Cmd_AddCommand("unskippablecinematic", fn_403580);
     Cmd_SetAutoComplete("cinematic", "video", "roq");
     Cmd_AddCommand("logo", CL_PlayLogo_f);
     Cmd_AddCommand("connect", CL_Connect_f);
