@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	The Tee class just writes to two streams.  Easy.
 **	See also the Black Hole stream which is even easier.

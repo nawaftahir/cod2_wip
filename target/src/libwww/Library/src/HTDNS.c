@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This object manages a cache of hosts we have looked up vis DNS.
 **	The object contains the necessary parts from hostent. For Internet host

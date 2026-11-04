@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	This module sets up the binding between a file Bind and a media
 **	type, language, encoding etc. In a client application the Binds

@@ -3,7 +3,6 @@
 **
 **	(c) COPYRIGHT MIT 1995.
 **	Please first read the full copyright statement in the file COPYRIGH.
-**	@(#) $Id$
 **
 **	An anchor represents a region of a hypertext document which is
 **	linked to another anchor in the same or a different document.
