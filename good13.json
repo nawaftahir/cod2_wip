@@ -72312,7 +72312,10 @@
 "name": "_memmove",
 "obj": "libcmt:memmove.obj",
 "size": 829,
-"hits": []
+"hits": [
+"0x57b120",
+"0x583360"
+]
 },
 {
 "name": "_strstr",
@@ -74290,7 +74293,10 @@
 "name": "_memcpy",
 "obj": "libcmt:memcpy.obj",
 "size": 829,
-"hits": []
+"hits": [
+"0x57b120",
+"0x583360"
+]
 },
 {
 "name": "__write_lk",
