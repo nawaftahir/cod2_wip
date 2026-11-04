@@ -24,6 +24,24 @@ struct QEGlobals_t
 extern QEGlobals_t g_qeglobals;
 
 
+/* Q3Radiant dialog launchers, independently matched against the retail executable. */
+BOOL CALLBACK RotateDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+BOOL CALLBACK SidesDlgProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lParam);
+bool g_bDoCone = false;
+bool g_bDoSphere = false;
+
+void DoRotate(void)
+{
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)112, g_qeglobals.d_hwndMain, RotateDlgProc);
+}
+
+void DoSides(bool bCone, bool bSphere, bool bTorus)
+{
+    g_bDoCone = bCone;
+    g_bDoSphere = bSphere;
+    DialogBox(g_qeglobals.d_hInstance, (LPCSTR)113, g_qeglobals.d_hwndMain, SidesDlgProc);
+}
+
 BOOL CALLBACK AboutDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
     switch (uMsg)
