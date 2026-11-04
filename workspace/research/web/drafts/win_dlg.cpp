@@ -23,3 +23,27 @@ BOOL CALLBACK AboutDlgProc(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam
     }
     return FALSE;
 }
+
+// Unnamed dialog callback at retail 0x00476d70; exact ownership pending.
+BOOL CALLBACK FUN_00476d70(HWND hwndDlg, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+    switch (uMsg)
+    {
+    case WM_INITDIALOG:
+        return FALSE;
+
+    case WM_COMMAND:
+        switch (LOWORD(wParam))
+        {
+        case IDOK:
+            EndDialog(hwndDlg, 1);
+            break;
+
+        case IDCANCEL:
+            EndDialog(hwndDlg, 0);
+            return FALSE;
+        }
+        break;
+    }
+    return FALSE;
+}
