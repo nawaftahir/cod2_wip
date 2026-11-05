@@ -304,6 +304,7 @@ libwww/Library/src/HTBind.c
 libwww/Library/src/HTUU.c
 libwww/Library/src/HTAAUtil.c
 libwww/Library/src/HTWWWStr.c
+libwww/Library/src/HTDigest.c
 libwww/Library/src/HTMethod.c
 libwww/Library/src/HTRules.c
 libwww/Library/src/HTCache.c
@@ -345,7 +346,6 @@ libwww/Library/src/HTDNS.c
 libwww/Library/src/HTArray.c
 libwww/Library/src/HTStream.c
 libwww/Library/src/HTDir.c
-libwww/Library/src/HTDigest.c
 libwww/Library/src/md5.c
 libwww/Library/src/HTLocal.c
 libwww/Library/src/HTNDir.c

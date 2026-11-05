@@ -114,3 +114,26 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Tools: `tools/drift13.py`, `layout13.py` (-> `LAYOUT_1.3.md`), `inv13.py`, `classify13.py` (-> `WORKLIST_1.3.md`),
   `why13.py`, `rdr13.py`, `rdiff13.py`, `rxref.py`. LAYOUT "out of order TUs" and record_dsound "NEW 49 fns" are
   classifier artifacts.
+
+## 6. Region cg_* .. libwww size work (sz3, 11-05; all PINNED on retail bytes)
+- libwww is linked as an ARCHIVE after the import libs: retail has the import thunks (winmm..shell32, 0x547996-0x547f12) BEFORE
+  HTReqMan (0x547f20), ours had them after libwww. The Makefile now builds `build/lib/libwww.lib` from the libwww objs in tus
+  order and links it between shell32.lib and libcmt.lib (EXEOBJS = objs without libwww). Removes a 1.4 KB step and its mirror.
+- Retail 1.3 has no `tell` cgame command (23 CL_AddCgameCommand literals after the table loop) and no "enemy crosshair colour"
+  branch in CG_CalcCrosshairColor (friendly green / white only). CG_CrosshairPlayer, DSOUNDRecord_Stub_* do not exist in 1.3.
+- UI_DrawRecordLevel: `fillW = voiceLevel * w - 4; if (fillW > 0) UI_FillRect(...)`. Menu_CheckOnKey: items need
+  `Window_HasFocus || staticFlags & 0x100000` after Window_IsVisible. Item_Text_AutoWrapped_Paint: line step is
+  `height < 16 ? height + 1 : height + 4`.
+- Retail 0x545740 (204 B, static, ecx = key name): `switch (loc_language)` 6 russian, 7 polish, 8 korean, 9 taiwanese, 10 japanese,
+  11 chinese, 12 thai, 14 czech -> Com_sprintf(buf, 256, "fonts/<lang>/%s", key); default Com_sprintf(buf, 256, fontName);
+  then RegisterFont(buf, imageTrack). UI_ParseAssetGlobalDef calls it 6x (key = "normalFont" for `font`, else token.string).
+- libwww HTEvtLst: retail order is lookup, stopLoop, ..., Terminate, init, pump, loop, Timer_*. init and loop are both
+  `static2 = 0; return 0` (static2 = 0x5ddfa8, pump stores HTEndLoop in it before the trace); newLoop does not exist.
+  HTProfile_newPreemptiveClient calls HTEventInit() AND sets preemptive = YES. HTDigest.c sits after HTWWWStr.c
+  (retail 0x55e3c0), not after HTDir.c. HT_OUTOFMEM sites push __LINE__: adding a line above SockEvents_get loses it (0x10e vs 0x10f).
+- pbcl: retail has out-of-line ProcessPbEvents (0x4bb940, 97 B), ProcessPbEvents(0) 0x4bc0c0, (-1) 0x4bc0d0,
+  m_ClientConnect forwarder 0x4bc0e0 (this, a, edx b, ecx c), event 0x71 wrapper 0x4bc290. Initialize sits right after TrapConsole.
+- Tool: `tools/sizereg13.py [build_dir] [from_hex]` lists every gap between anchored fns whose retail span differs from ours (step),
+  with our unmatched fns and retail starts inside, plus region drift start/end. Read the build/ of the tree you are in
+  (a different tree's build/ can be stale: it sent me to wrong addresses once).
+- Link-only/incremental builds carry stale objs when a source mtime is older than the obj: use a clean build before reading sizes.

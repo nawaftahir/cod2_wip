@@ -57,6 +57,8 @@ else
 
 TUS    := $(shell sed -e 's/\#.*//' src/tus.txt | awk 'NF{print $$1}')
 OBJS   := $(patsubst %,build/obj/%.obj,$(basename $(TUS)))
+LWOBJS := $(filter build/obj/libwww/%,$(OBJS))
+EXEOBJS := $(filter-out build/obj/libwww/%,$(OBJS))
 tuflags = $(shell awk '$$1=="$(1)"{$$1="";print}' src/tus.txt)
 
 CL     := wine /opt/msvc710/Vc7/bin/cl.exe
@@ -107,7 +109,13 @@ build/obj/libwww/%.obj: src/libwww/%.c src/libwww/Library/src/windows/config.h $
 		'$(subst /,\,$(CLDOS)) $(WFLAGS) $(call tuflags,libwww/$*.c) /showIncludes /Fo$(subst /,\,Z:/w/$@) \builds\pc_1.3_1_1\pc\cod2src\$(subst /,\,libwww/$*.c)' \
 		> $@.bat
 	@$(WCL) '$(subst /,\,Z:/w/$@.bat)' > $@.log 2>&1 || (grep -v including $@.log; rm -f $@; false)
-LIBS   := winmm.lib wsock32.lib $(call win,$(IMPLIBS)) $(call win,build/lib/dsound.lib) kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib libcmt.lib
+LIBS   := winmm.lib wsock32.lib $(call win,$(IMPLIBS)) $(call win,build/lib/dsound.lib) kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib $(call win,build/lib/libwww.lib) libcmt.lib
+
+# retail links libwww as an archive after the import libs: its members land after the import thunks, before libcmt
+build/lib/libwww.lib: $(LWOBJS) src/tus.txt
+	@mkdir -p $(dir $@)
+	@printf '%s\n' $(call win,$(LWOBJS)) > build/lw.rsp
+	@wine /opt/msvc710/Vc7/bin/lib.exe /nologo /out:$(call win,$@) @build\\lw.rsp > $@.log 2>&1 || (cat $@.log; false)
 
 build/lib/%.lib: src/lib/%.def src/lib/impname.pl
 	@mkdir -p $(dir $@)
@@ -128,14 +136,14 @@ build/lib/mss32.lib: src/lib/mss32.def build/lib/mss_auto.obj src/lib/impname.pl
 build/cod2mp.res: src/cod2mp.rc build/cod2mp.ico
 	@cd src && $(RC) /l 0x409 /fo..\\build\\cod2mp.res cod2mp.rc > ../$@.log 2>&1 || (cat ../$@.log; false)
 
-$(OUT): $(OBJS) $(IMPLIBS) build/cod2mp.res src/tus.txt
-	@printf '%s\n' $(call win,$(OBJS)) > build/objs.rsp
+$(OUT): $(EXEOBJS) build/lib/libwww.lib $(IMPLIBS) build/cod2mp.res src/tus.txt
+	@printf '%s\n' $(call win,$(EXEOBJS)) > build/objs.rsp
 	$(LINK) $(LFLAGS) /OUT:$(call win,$@) @build\\objs.rsp build\\cod2mp.res $(LIBS) > build/link.log 2>&1; tail -1 build/link.log
 
-$(REL): $(OBJS) $(IMPLIBS) build/cod2mp.res src/tus.txt Makefile
+$(REL): $(EXEOBJS) build/lib/libwww.lib $(IMPLIBS) build/cod2mp.res src/tus.txt Makefile
 	@mkdir -p $(dir $@)
 	@mkdir -p "$$(winepath -u 'c:\builds\pc_1.3_1_1\pc\cod2\pc')"
-	@printf '%s\n' $(call win,$(OBJS)) > build/objs.rsp
+	@printf '%s\n' $(call win,$(EXEOBJS)) > build/objs.rsp
 	wineserver -k 2>/dev/null; export FAKETIME='2006-05-02 00:09:51' GUIDPIN=$(PDB_GUID) LD_PRELOAD="$(wildcard /usr/lib/*/faketime/libfaketime.so.1) $(CURDIR)/build/guidpin.so"; $(LINK) $(subst /FIXED:NO,/FIXED,$(subst build\\CoD2MP_s.map,build\\release\\CoD2MP_s.map,$(LFLAGS))) /DEBUG '/PDB:c:\builds\pc_1.3_1_1\pc\cod2\pc\CoD2MP_s.pdb' /OUT:$(call win,$@) @build\\objs.rsp build\\cod2mp.res $(LIBS) > build/release/link.log 2>&1 || { tail -10 build/release/link.log; exit 1; }
 	@! grep -E 'LNK2001|LNK2019|fatal error' build/release/link.log
 	@true # 1.0-only mixerGetRecordLevel postlink is disabled for 1.3

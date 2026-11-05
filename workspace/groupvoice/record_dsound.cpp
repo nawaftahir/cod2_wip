@@ -267,11 +267,3 @@ bool DSOUNDRecord_SetFrequency( int frequency )
 	return true;
 }
 
-// retail 0x4b79f0 and 0x4b7a00, empty and unreferenced; names unknown
-void DSOUNDRecord_Stub_4b79f0( void )
-{
-}
-
-void DSOUNDRecord_Stub_4b7a00( void )
-{
-}

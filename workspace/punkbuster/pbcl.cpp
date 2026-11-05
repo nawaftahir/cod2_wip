@@ -462,6 +462,37 @@ void PbClientTrapConsole(char *text, int len)
 		pbcl.m_TrapConsole(&pbcl, text, len);
 }
 
+struct stPbSv;
+extern stPbSv pbsv;
+
+// retail 0x4bc000, param name unknown
+void PbClientInitialize(void *param)
+{
+	pbInitParam = (char *)param;
+	pbcl.pbsvptr = &pbsv;
+	pbcl.initialize();
+	pbcl.AddPbEvent(16, 0, "", 0);
+	if ( !pbcl.m_ClInstance )
+		set_cl_punkbuster("0");
+}
+
+void PbClientProcessEvents()
+{
+	pbcl.ProcessPbEvents(0);
+}
+
+void PbClientForceProcess()
+{
+	pbcl.ProcessPbEvents(-1);
+}
+
+// name unknown: forwards to the client DLL connect hook
+void PbClientConnect(int a, char *b, int *c)
+{
+	if ( pbcl.m_ClientConnect )
+		pbcl.m_ClientConnect(&pbcl, a, b, c);
+}
+
 /* mirrors PbServerCompleteCommand (retail 0x4bc100) */
 void PbClientCompleteCommand(char *buf, int buflen)
 {
@@ -506,18 +537,10 @@ char *fn_4bc1d0(char *data, int len)
 	return pbcl.m_guid;
 }
 
-struct stPbSv;
-extern stPbSv pbsv;
-
-// retail 0x4bc000, param name unknown
-void PbClientInitialize(void *param)
+// name unknown: PB event 0x71
+char *PbClEvent71()
 {
-	pbInitParam = (char *)param;
-	pbcl.pbsvptr = &pbsv;
-	pbcl.initialize();
-	pbcl.AddPbEvent(16, 0, "", 0);
-	if ( !pbcl.m_ClInstance )
-		set_cl_punkbuster("0");
+	return pbcl.AddPbEvent(0x71, 0, 0, 0);
 }
 
 void EnablePbCl()

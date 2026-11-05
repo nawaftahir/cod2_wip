@@ -271,7 +271,6 @@ void CG_InitConsoleCommands(void)
     CL_AddCgameCommand("stats");
     CL_AddCgameCommand("say");
     CL_AddCgameCommand("say_team");
-    CL_AddCgameCommand("tell");
     CL_AddCgameCommand("team");
     CL_AddCgameCommand("follow");
     CL_AddCgameCommand("callvote");

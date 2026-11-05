@@ -24,6 +24,8 @@ anchor_file = os.environ.get('ANCHOR', '../binaries/' + anchor)
 # a function is identical if the referee matches it or its bytes sit unchanged at the anchor's offset
 hit = {x['name'] for x in rows if x['hits']}
 syms = symbols('build/release/CoD2MP_s.exe', 'build/release/CoD2MP_s.map', anchor_file, (1, 2, 3))
+# libwww is linked as an archive: the map names its objs 'libwww:HTxxx.obj'
+syms = [(s, a, b, n, o.replace('libwww:', ''), sm) for s, a, b, n, o, sm in syms]
 fns = [(obj, same or any(n in hit for n in names)) for s, _, _, names, obj, same in syms if s == 1]
 objs, dobjs = {}, {}
 for obj, ok in fns: objs.setdefault(obj, []).append(ok)

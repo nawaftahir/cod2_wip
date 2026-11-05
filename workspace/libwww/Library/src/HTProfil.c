@@ -146,13 +146,9 @@ PUBLIC void HTProfile_newPreemptiveClient (const char * AppName,
     client_profile(AppName, AppVersion, YES, NO, NO);
 
     /* On windows we need the initialization anyway */
-#ifdef WWW_WIN_ASYNC
     HTEventInit();
-#else
     /* Remember that we are loading preemptively */
     preemptive = YES;
-#endif
-
 }
 
 PUBLIC void HTProfile_newNoCacheClient (const char * AppName,
