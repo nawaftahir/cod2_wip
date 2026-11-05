@@ -1,5 +1,33 @@
 # Gemini2 Lane Report
 
+## 2026-11-06 radiant/TexWnd.cpp
+before: 69 fns, 4 matched, 65 missing   after: 69 fns, 7 matched, 62 missing
+matched: 0x00440be0 48 RemapMaterialName SUPPORTED KisakCOD texwnd.cpp, reads texWndGlobals.materialNameRemap
+matched: 0x00440c70 48 Editor_DoesMaterialExist SUPPORTED KisakCOD texwnd.cpp, walks texWndGlobals.qtextures
+matched: 0x00441440 27 Texture_ShowAll SUPPORTED Q3Radiant TexWnd.cpp:1885, marks qtextures inuse = 1
+size-fixed (no match yet): none
+drafts (blocked): 0x00441460 53/53 regresses GraphGetValueFromFraction (0x004832c0) to 79% (830/832 B, first diff +0x5) under /GL due to uncalled Sys_Printf and g_nUpdateBits write
+regressions seen: GraphGetValueFromFraction (0x004832c0) flipped to 79% when adding 0x00441460
+gate: verify 854/854, functions 23.87%, bytes 12.84%, same-offset 1.516%
+
+## 2026-11-06 radiant/Undo.cpp
+before: 30 fns, 5 matched, 25 missing   after: 30 fns, 7 matched, 23 missing
+matched: 0x004431f0 166 FUN_004431f0 PINNED assertMsg lines 85, 86
+matched: 0x004432a0 242 FUN_004432a0 PINNED assertMsg lines 98, 101, 102
+size-fixed (no match yet): none
+drafts (blocked): 0x004433b0 480/476 regresses GraphGetValueFromFraction (0x004832c0) to 76% (828/832 B, first diff +0x5) under /GL due to uncalled function LTCG coupling
+drafts (blocked): 0x00443590 615/615 uncalled caller of drafted 0x004433b0 and unwritten Brush_Free_R / Entity_Free_R
+regressions seen: GraphGetValueFromFraction (0x004832c0) flipped to 76% (828/832 B, first diff +0x5) when adding 0x004433b0
+gate: verify 854/854, functions 23.87%, bytes 12.84%, same-offset 1.516%
+
+## 2026-11-06 common/texturevecs.cpp
+before: 4 fns, 3 matched, 0 missing   after: 4 fns, 3 matched, 0 missing
+matched: none
+size-fixed (no match yet): 0x0043fbc0 1540/1536 first-diff +0xc (fixed texMat[1] indexing typo; caller 0x454d37 in unwritten brush.cpp, MSVC LTCG assigns __usercall edi/esi only when whole call chain compiled)
+drafts (blocked): none
+regressions seen: none
+gate: verify 854/854, functions 23.87%, bytes 12.84%, same-offset 1.516%
+
 ## csg.cpp Reconstruction (commit 3, 2026-11-04)
 Target file: `src/radiant/csg.cpp` (12 functions total in `data/tu_map.tsv`).
 
