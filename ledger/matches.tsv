@@ -823,3 +823,15 @@ addr	size	source	symbol	name	tag
 0x004131a0	48	src/radiant/MainFrm.cpp	?OnTimer@CMainFrame@@QAEXI@Z	CMainFrame::OnTimer	SUPPORTED
 0x00414c80	17	src/radiant/MainFrm.cpp	?OnFileExit@CMainFrame@@QAEXXZ	CMainFrame::OnFileExit	SUPPORTED
 0x00408eb0	31	src/libs/cmdlib/cmdlib.cpp	?I_FloatTime@@YANXZ	I_FloatTime	SUPPORTED
+0x00423d20	387	src/radiant/ModelDlg.cpp	?FUN_00423d20@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423d20	SUPPORTED
+0x00423eb0	16	src/radiant/ModelDlg.cpp	?FUN_00423eb0@CModelDlg@@IAEXXZ	CModelDlg::FUN_00423eb0	SUPPORTED
+0x00422f90	231	src/radiant/ModelDlg.cpp	?FUN_00422f90@CModelDlg@@IAEXHI@Z	CModelDlg::FUN_00422f90	SUPPORTED
+0x00476d00	76	src/radiant/win_dlg.cpp	?AboutDlgProc@@YGHPAUHWND__@@IIJ@Z	AboutDlgProc	SUPPORTED
+0x00476d70	62	src/radiant/win_dlg.cpp	?FUN_00476d70@@YGHPAUHWND__@@IIJ@Z	FUN_00476d70	UNNAMED
+0x00476d50	29	src/radiant/win_dlg.cpp	?DoAbout@@YAXXZ	DoAbout	SUPPORTED
+0x004766b0	29	src/radiant/win_dlg.cpp	?DoRotate@@YAXXZ	DoRotate	SUPPORTED
+0x00476810	40	src/radiant/win_dlg.cpp	?DoSides@@YAX_N00@Z	DoSides	SUPPORTED
+0x00475ca0	32	src/radiant/win_dlg.cpp	?DoProjectSettings@@YAXXZ	DoProjectSettings	SUPPORTED
+0x004760f0	29	src/radiant/win_dlg.cpp	?DoFind@@YAXXZ	DoFind	SUPPORTED
+0x004763c0	32	src/radiant/win_dlg.cpp	?FUN_004763c0@@YAXXZ	FUN_004763c0	UNNAMED
+0x00476ce0	32	src/radiant/win_dlg.cpp	?FUN_00476ce0@@YAXXZ	FUN_00476ce0	UNNAMED

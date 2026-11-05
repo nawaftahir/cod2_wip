@@ -1595,3 +1595,62 @@ ledger rows intact; the source draft and candidate symbol are in
 `workspace/research/web/drafts/VertEditDlg.request.tsv`.
 The actual shared `target.tsv` / `tu_trial.tsv` still target
 ModelDlg and are not assigned to lane 2.
+## 2026-11-04 — lane 3 ModelDlg verified partial checkpoint
+
+Restricted to radiant/web/3, no other lane or main changes. Fresh isolated linked-executable referee proofs:
+- 0x00423d20 CModelDlg::FUN_00423d20: 387/387 B MATCH, run https://github.com/nawaftahir/cod2_wip/actions/runs/41850518117
+- 0x00423eb0 CModelDlg::FUN_00423eb0: 16/16 B MATCH, run https://github.com/nawaftahir/cod2_wip/actions/runs/41851067196
+- 0x00422f90 CModelDlg::FUN_00422f90: 231/231 B MATCH, run https://github.com/nawaftahir/cod2_wip/actions/runs/41851599749
+
+All 3 real C++ bodies were promoted and only their 3 CI-proven game rows added. Canonical commit 1e32d5fe778cea6167e15eec687bc1b9502588ea tested at https://github.com/nawaftahir/cod2_wip/actions/runs/41851918522: verify 826/826 game rows, compiler 8/8, 0 ledger mismatches, 88,460/699,591 B (12.64%). Whole gate RED from pre-existing outside-lane patch-dialog diagnostic assertion ('unexpected unknown callee', 0x4075c0 -> 0x409570); do not change owner-owned test or files.
+
+ModelDlg remains PARTIAL (12 of 24 inventory entries ledgered, including 3 additions / 634 B; 5 AUTO entries separate). Remaining provisional authored entries: 0x00423080 / 1128 B and 0x004234f0 / 1128 B model pickers depend on the exact project-entity basepath/transform helpers and CFileDialog context; 0x00423ba0 / 378 B walks retail brushes/entities and asserts brush->owner->def == brush->def->owner at retail line 240, requiring the reviewed shared struct and global bindings. 0x00423ef0 / 78 B, 0x00423f40 / 99 B, 0x00424010 / 10 B, 0x00424020 / 101 B require separate classification of CString/MFC inline/helper ownership. The five AUTO bodies 0x00422f30, 0x00423ec0, 0x00423fb0, 0x00423fd0, 0x00424000 earn no game credit. These seven remaining provisional game entries are UNTESTED, not claimed failures or matches; no first differing byte or trustworthy source trial exists for them yet. Do not invent missing shared layouts, ABI, or data identities to force progress. Original message-map/data/RTTI bindings and absolute image placement remain unaudited; FILE VERIFIED is not claimed. Proceeding to lane 3's next file while those dependencies require owner context.
+
+
+## 2026-11-04 — lane 3 inventory and ownership handoff to points.cpp
+
+PrefsDlg: isolated source from Q3 MFC class generated CPrefsDlg::GetMessageMap at 0x00439da0 EXACT MATCH 6/6 B; run https://github.com/nawaftahir/cod2_wip/actions/runs/41852526842. This is DEFERRED, not game credit: adding its source causes unrelated GraphGetValueFromFraction 0x004832c0 to regress 828/832 B (76%, first difference +0x5) in /GL. Source retained in workspace/research/web/drafts/PrefsDlg.cpp. The other 9 provisional entries need their true CoD2 class layout, preferences, MFC controls, and data binding; no match claimed, and this TU is PARTIAL/BLOCKED.
+
+CommandsDlg: current 3 authored canonical rows (constructor, DDX, GetMessageMap) remain credited; original Q3 implicit CListBox/CDialog destructor 0x00409070 74 B and scalar 0x00409040 34 B are generated compiler bodies, not new game credit. Earlier isolated run 41397630098 matched destructor, while the authored OnInitDialog needs real CString::Append / global command/key table context. PARTIAL; no new trial or ledger credit in this checkpoint.
+
+cameratargetdlg: all 5 authored dialog routines / 212 B are already matched at 0x00402940, 0x004029f0, 0x00402a20, 0x00402a50 and 0x00402a60. workspace/research/codex_cameratarget/README.md and test_dialog.py document their message map, RTTI, string-manager and data-binding proof. Other entries are generated MFC/compiler helpers, contributor placement still pending; no duplicate game credit.
+
+FindTextureDlg: already 15/15 authored entries matched; scalar 0x0040fd60 is AUTO. Complete-file diagnostic at run 41851918522 still fails on inline/body binding 0x00473940 from outside this lane (select.cpp); code MATCH is not a whole-file verification or permission to change select.cpp. No additional game row.
+
+TextureLayout: 5 authored game rows matched; remaining 0x0043f7a0 / 34 B is shared MFC/header helper. The existing gate proof reports TextureLayout FILE VERIFIED with member helper and metadata bindings. No duplicate game row.
+
+Next owned file in task order: points.cpp. Retail inventory has 7 original authored routines, 5 already exact; only Pointfile_Next 0x0046c600 / 315 B and Pointfile_Prev 0x0046c740 / 306 B remain. Testing the saved research draft without canonical promotion, pending real layout and compiler review; it includes layout hypotheses that must not be treated as verified fields. The Q3 original describes camera and XY origin moves, status messages, normalized aim, and redraw.
+
+
+## 2026-11-04 — lane 3 points.cpp deferred, win_dlg.cpp trial
+
+points.cpp read-only isolated trial at https://github.com/nawaftahir/cod2_wip/actions/runs/41853384328 preserves 826/826 canonical game rows and 8/8 compiler rows. Saved research draft Pointfile_Next (0x0046c600) remains 315/315 B but only 98% normalized, first difference +0x11d; the read-only candidate scanner also reports Pointfile_Prev (0x0046c740) 306/306 B, 98%, first difference +0x114. These are the same best bounded results previously recorded in run 41647607150 and 41648066896: source-order scheduling of g_nUpdateBits=-1 versus fmul. No new ledger rows; do not repeat the exhausted variants or promote the draft's layout hypotheses/forced inlining without a genuine source/caller proof. points.cpp PARTIAL 5/7 authored source routines exact. Moving to the next lane 3 source, win_dlg.cpp.
+
+The Q3Radiant WIN_DLG.CPP AboutDlgProc ancestor handles WM_INITDIALOG, WM_CLOSE, WM_COMMAND and IDOK, matching the retail 0x00476d00 control flow. An ordinary Win32 callback is under isolated trial. No body is added to canonical source until the unchanged referee reports MATCH and all previous rows pass.
+
+
+## 2026-11-04 — lane 3 win_dlg two exact authored dialog callbacks
+
+- The Q3/retail-correlated AboutDlgProc at 0x00476d00 is MATCH 76/76 B in https://github.com/nawaftahir/cod2_wip/actions/runs/41853983272; all 826 preceding game rows and 8 compiler rows preserved. Real Win32 CALLBACK source promoted at commit 30f439ebc13fbbefc4878c9981f1a54d100d6db2.
+- The still-unnamed dialog callback at 0x00476d70 is MATCH 62/62 B in https://github.com/nawaftahir/cod2_wip/actions/runs/41854381116; 826 pre-existing rows preserved in that isolated source snapshot. Source promoted only after this MATCH, at commit 32ec212f68fd3e2f931c7870ed76919de3d6e614.
+- win_dlg.cpp remains PARTIAL (2 of 19 provisional game routines, 138 B exact). Its other 17 routines are UNTESTED in this lane and need precise dialogue resources, project/state globals, entity/brush layouts and caller/data bindings. No invented storage, absolute executable addresses, fabricated helpers or new metadata claims. The current draft retains only these two trial bodies; canonical source has exactly the same two proven bodies.
+- Net lane 3 session game credit: five distinct CI-reported MATCH routines / 772 retail bytes (ModelDlg 3 / 634 B; win_dlg 2 / 138 B). Starting canonical baseline 823 / 87,826 B, expected new total 828 / 88,598 B pending fresh final canonical CI. Whole-file SHA, exact image placement and full-TU completion remain unclaimed. The full workflow's separate patch-dialog audit has been failing on an external, branch-inherited unknown callee mismatch despite zero main ledger mismatches; owner remediation is required outside lane 3.
+
+
+## 2026-11-04 — lane 3 win_dlg: exact Sides callback and FindBrush dependency
+
+Verified at https://github.com/nawaftahir/cod2_wip/actions/runs/41861292114: canonical ledger 835/835, compiler 8/8, 0 failures; game bytes 88,821/699,591 (12.70%). The Q3-ancestry SidesDlgProc at retail 0x004766d0 is 312/312 B MATCH; added one unique row and its real C++ body to canonical src/radiant/win_dlg.cpp. That callback's g_bDoCone/g_bDoSphere storage originated in the same TU and now has a concrete source definition; absolute BSS binding/RTTI and whole-TU status remain unaudited.
+
+The Q3-shaped FindBrushDlgProc at 0x00475f80 compiled to 364 B versus retail 361 B, only 68% instruction-normalized, first difference +0x1e. Retail uses cdecl atol two times and an intra-TU register-argument call to SelectBrush at 0x00475cc0, plus internal GetSelectionIndex at 0x00475e50; neither actual caller/callee is reconstructed yet. A bounded correction switches Q3 atoi -> target-observed atol in draft, but no ledger claim until all dependencies match; the callback remains isolated.
+
+The 0x00476db0 / 32 B resource-wrapped callback was 96% near-match with the wrong provisional resource 153; the actual retail instruction pushes 0xe1 (225), which matches the retail 'Layers' dialog, with the already verified FUN_00476d70 target callback. Next trial changes only that grounded resource ID. The separate full gate remains red on outside-lane patch-dialog despite all owned game rows matching; do not mutate its checks or another lane.
+
+
+### Correction to lane-3 SidesDlgProc promotion — whole-linked regression
+
+Canonical promotion commit b7fda6505761e975a9b7c900ca3ba464474e6519 proved this candidate 312/312 B EXACT in the preceding isolated run 41861292114, but its new canonical source caused an unrelated accepted function to fail in run https://github.com/nawaftahir/cod2_wip/actions/runs/41861753944: GraphGetValueFromFraction at retail 0x004832c0 emitted 828/832 B (76%, first diff +0x5), gate verify 835/836. The 312-B callback **must not be counted as integrated** until the unchanged full match regression passes. Reverted only the new SidesDlgProc canonical body and its unique ledger row, restored the last passing 835 game rows, retained the exact candidate in workspace/research/web/drafts/win_dlg.cpp, and retained the original CI proof. No outside-lane com_math or verifier files altered. The earlier +312 B projection was provisional and superseded; actual credited total after rollback is 835 / 88,821 B pending fresh gate.
+
+
+## 2026-11-04 — isolate Layers from Sides cross-TU regression
+
+Run https://github.com/nawaftahir/cod2_wip/actions/runs/41861753944 reported the retail 0x00476db0 / 32-B Layers launcher MATCH with resource 225, but its isolated draft still included exact SidesDlgProc and caused unrelated GraphGetValueFromFraction to regress 830/832 bytes (79%); 835/836 existing rows held. Run 41862260546 with Sides reverted from canonical still showed that same draft-only regression (834/835), demonstrating that the rejected Sides draft must not be co-linked when trialing another TU function. Preserved the full exploratory draft as workspace/research/web/drafts/win_dlg_research_full.cpp. Reset the active trial draft to last canonical source plus the single real Layers launcher and requested only 0x00476db0. No ledger addition until this isolated trial reports MATCH with zero existing regression. This is a source-cohort isolation, not a verifier/mask or other-TU edit.
