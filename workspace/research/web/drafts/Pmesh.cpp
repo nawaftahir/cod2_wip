@@ -26,9 +26,9 @@ patchMesh_t *MakeNewPatch()
     {
         for (int h = 0; h < 16; ++h)
         {
-            patch->ctrl[w][h].color_28[0] = 255;
-            patch->ctrl[w][h].color_28[1] = 255;
             patch->ctrl[w][h].color_28[2] = 255;
+            patch->ctrl[w][h].color_28[1] = 255;
+            patch->ctrl[w][h].color_28[0] = 255;
             patch->ctrl[w][h].color_28[3] = 255;
         }
     }
