@@ -15,11 +15,20 @@ struct UNKNOWN_00425080
     int length;
     int capacity;
     char *FUN_00425080();
+    UNKNOWN_00425080();
 };
 
 char *UNKNOWN_00425080::FUN_00425080()
 {
     return data;
+}
+
+// Retail 0x00425090 / 17 B: initializes three storage fields.
+UNKNOWN_00425080::UNKNOWN_00425080()
+{
+    capacity = 0;
+    length = 0;
+    data = &DAT_00598c80;
 }
 
 
