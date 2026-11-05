@@ -125,7 +125,7 @@ extern struct clientStatic_t cls;
 
 #endif
 
-extern Bool Sys_IsMainThread(void);
+extern int Sys_IsMainThread(void);
 extern int UI_IsFullscreen(void);
 extern void IN_Frame(void);
 extern void Com_Printf(const char *fmt, ...);

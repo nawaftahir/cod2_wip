@@ -114,7 +114,7 @@ void Sys_SignalB_4624f0(int value)
 }
 
 // retail 0x462520, name unknown
-Bool Sys_EventAPending_462520(void)
+int Sys_EventAPending_462520(void)
 {
     return WaitForSingleObject(s_eventA, 0) == 0x102;
 }
@@ -127,12 +127,12 @@ void Sys_SignalCWaitA_462540(void)
 }
 
 // retail 0x462560, name unknown
-Bool Sys_IsSecondThread_462560(void)
+int Sys_IsSecondThread_462560(void)
 {
     return GetCurrentThreadId() == s_threadId[1];
 }
 
-Bool Sys_IsMainThread(void)
+int Sys_IsMainThread(void)
 {
     return GetCurrentThreadId() == s_threadId[0];
 }

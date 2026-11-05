@@ -39,6 +39,8 @@ const char *Cmd_Argv( int arg );
 void Cmd_TokenizeString( const char *text_in );
 void Cmd_ExecuteString( const char *text );
 void PbSvAddEvent( int event, int clientIndex, int dataLen, char *data );
+void PbClAddEvent( int type, int datalen, char *data );
+char *PbTrapPreExecCmd( char *cmd );
 
 void Cmd_Wait_f( void );
 void Cbuf_Init( void );
@@ -768,6 +770,11 @@ void Cmd_ExecuteString( const char *text )
 {
 	cmd_function_t  *cmd, **prev;
 
+	if ( PbTrapPreExecCmd( (char *)text ) )
+	{
+		return;
+	}
+
 	// execute the command line
 	Cmd_TokenizeString( text );
 
@@ -809,6 +816,10 @@ void Cmd_ExecuteString( const char *text )
 		if ( !I_strnicmp( text + 3, "sv_", 3 ) )
 		{
 			PbSvAddEvent( 14, -1, strlen( text ) + 1, (char *)text );
+		}
+		else
+		{
+			PbClAddEvent( 14, strlen( text ) + 1, (char *)text );
 		}
 		return;
 	}

@@ -56,6 +56,7 @@ void Sys_DestroyConsole(void);
 void Sys_ShowConsole(int visLevel, qboolean quitOnClose);
 char *Sys_ConsoleInput(void);
 void Conbuf_AppendText(const char *pMsg);
+extern int Sys_IsMainThread(void);
 void Sys_SetErrorText(const char *buf);
 const char *Win_LocalizeRef(const char *ref);
 
@@ -316,6 +317,9 @@ void Conbuf_AppendText(const char *pMsg)
     int bufLen;
     int i = 0;
     static unsigned long s_totalChars;
+
+    if (!Sys_IsMainThread())
+        return;
 
     if (strlen(pMsg) > CONSOLE_BUFFER_SIZE - 1)
         msg = pMsg + strlen(pMsg) - CONSOLE_BUFFER_SIZE + 1;

@@ -2,6 +2,7 @@
 #include "../qcommon/netchan.h"
 
 void CL_DrawString( int x, int y, const char *pszString, int bShadow, int iCharHeight );
+extern const dvar_t *cl_profileTextHeight;
 
 void SV_Netchan_Encode( client_t *client, byte *data, int cursize );
 void SV_Netchan_Decode( client_t *client, byte *data, int remaining );
@@ -168,7 +169,7 @@ void SV_Netchan_UpdateProfileStats()
 // Original name unknown.
 static void SV_Netchan_DrawProfileLine( const char *line, int y )
 {
-	CL_DrawString(32, y, line, 0, 8);
+	CL_DrawString(32, y, line, 0, cl_profileTextHeight->current.integer);
 }
 
 /*

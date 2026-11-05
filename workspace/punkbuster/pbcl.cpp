@@ -543,6 +543,11 @@ char *PbClEvent71()
 	return pbcl.AddPbEvent(0x71, 0, 0, 0);
 }
 
+void PbClientProcessEvents()
+{
+	pbcl.ProcessPbEvents(0);
+}
+
 void EnablePbCl()
 {
 	pbcl.AddPbEvent(0x75, 0, 0, 0);
