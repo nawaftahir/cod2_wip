@@ -12,3 +12,4 @@ addr	symbol
 0x00424a50	?OnDeltaposSpin@CPatchDialog@@IAEXPAUtagNMHDR@@PAJ@Z
 0x00424b10	?GetPatchInfo@CPatchDialog@@QAEXXZ
 0x00424d50	?UpdateRowColInfo@CPatchDialog@@IAEXXZ
+0x004250c0	?FUN_004250c0@@YIXPAPAD@Z
