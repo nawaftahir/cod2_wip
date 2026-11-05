@@ -44,6 +44,7 @@ extern const vec4_t colorYellow;
 extern clientActive_t clients[1];
 extern ALIGNED(128) cg_t cgArray[1];
 extern cg_t * const cg;
+extern clientStatic_t cls;
 #ifndef legacyHacks
 extern struct engineState_t *engineState;
 #define legacyHacks ((LegacyHacks *)engineState)
@@ -3510,6 +3511,11 @@ void UI_DrawConnectScreen(void)
     font = UI_GetFontHandle(0, 0.5f);
 
     GetClientState(&cstate);
+
+    if (cls.wwwDlInProgress && legacyHacks->cl_downloadName[0]) {
+        UI_DisplayDownloadInfo(legacyHacks->cl_downloadName, 320.0f, 89.0f, font, 0.5f);
+        return;
+    }
 
     if (!I_stricmp(cstate.servername, "Auto-Updater")) {
         if (legacyHacks->cl_downloadName[0])

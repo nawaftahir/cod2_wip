@@ -53743,9 +53743,10 @@
 {
 "name": "?UI_DrawConnectScreen@@YAXXZ",
 "obj": "ui_main_mp.obj",
-"size": 879,
-"hits": [],
-"reason": "no masked match"
+"size": 818,
+"hits": [
+"0x5390c0"
+]
 },
 {
 "name": "?UI_GetBlurRadius@@YAMXZ",
@@ -55039,7 +55040,7 @@
 {
 "name": "?Item_ListBox_Paint@@YAXPAUdisplayContextDef_s@@PAUitemDef_s@@@Z",
 "obj": "ui_shared_mp.obj",
-"size": 2081,
+"size": 2096,
 "hits": [],
 "reason": "no masked match"
 },
@@ -82185,7 +82186,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1968,
+"size": 2016,
 "hits": [],
 "reason": "no masked match"
 },

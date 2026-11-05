@@ -160,4 +160,10 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   (m_ClientConnect hook, standalone fn at 0x4bc0e0) before sending `data`; CONNECTING builds "getchallenge" in pbBuf and
   calls PbClientConnecting(1, ...) before the md5 getchallenge.
 - CL_DeathMessagePrint: `int linewidth = con.linewidth;` is read at function entry (ebp), duration spills.
+- UI_DrawConnectScreen 1.3 (PINNED, matched): after GetClientState, `if (cls.wwwDlInProgress && cl_downloadName[0])
+  { UI_DisplayDownloadInfo(name, 320, 89, font, 0.5); return; }` comes first. Item_ListBox_Paint: the selected-row FillRect
+  width is `w - 4` with noScrollBars, else `w - 16 - 4` (size 2096 vs retail 2104, still 8 B short, bytes not matched).
+- CG_DrawScoreboard_Objective 1.3 (retail 0x4d95f0, 1540 B) = `if (g_currentAsian [0x11972f8])` branch that walks the text with
+  SEH_ReadCharFromString (0x4abd20, (&p, 0)) plus an inline per-language lead-byte decoder (loc_language 8..11 jump table), else
+  the plain byte loop we already have (790 B). The Asian branch is the missing ~750 B. Not written yet.
 
