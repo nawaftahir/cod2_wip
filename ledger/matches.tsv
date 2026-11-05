@@ -274,6 +274,9 @@ addr	size	source	symbol	name	tag
 0x004405d0	31	src/radiant/TexWnd.cpp	_FUN_004405d0	FUN_004405d0	SUPPORTED
 0x004405f0	27	src/radiant/TexWnd.cpp	?SortTextures@@YAXXZ	SortTextures	SUPPORTED
 0x00440610	6	src/radiant/TexWnd.cpp	?TexWnd_GetDecalLocaleBit@@YAHXZ	TexWnd_GetDecalLocaleBit	SUPPORTED
+0x00440be0	48	src/radiant/TexWnd.cpp	?RemapMaterialName@@YAPBDPBD@Z	RemapMaterialName	SUPPORTED
+0x00440c70	48	src/radiant/TexWnd.cpp	?Editor_DoesMaterialExist@@YAPAUqtexture_s@@PBD@Z	Editor_DoesMaterialExist	SUPPORTED
+0x00441400	27	src/radiant/TexWnd.cpp	?Texture_ClearInUse@@YAXXZ	Texture_ClearInUse	SUPPORTED
 0x00442290	1	src/radiant/TexWnd.cpp	_FUN_00442290	FUN_00442290	UNNAMED
 0x004431f0	166	src/radiant/Undo.cpp	?FUN_004431f0@@YAXPAUbrush_t@@0@Z	FUN_004431f0	PINNED
 0x004432a0	242	src/radiant/Undo.cpp	?FUN_004432a0@@YAXPAUbrush_t@@@Z	FUN_004432a0	PINNED
