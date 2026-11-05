@@ -7,7 +7,6 @@
 #include "../universal/assertive.h"
 #include <stdarg.h>
 #include <stdio.h>
-#include <mmsystem.h>
 
 extern void Sys_Printf(const char *fmt, ...);
 extern void Com_Error(int code, const char *fmt, ...);
@@ -29,8 +28,9 @@ extern "C" void FUN_004100c0(int, const char *fmt, ...)
 
 
 
-// Retail 0x410110: six-byte import tail jump. WinMM identity is provisional.
-extern "C" DWORD WINAPI FUN_00410110(void) { return timeGetTime(); }
+
+
+
 
 extern "C" void FUN_00410120(char **text)
 {
