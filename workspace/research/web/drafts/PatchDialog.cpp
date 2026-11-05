@@ -146,16 +146,11 @@ void CPatchDialog::UpdateRowColInfo()
         if (r >= 0 && r < m_Patch->height &&
             c >= 0 && c < m_Patch->width)
         {
-            const PatchControl& point = m_Patch->ctrl[c][r];
-            m_fX = point.xyz[0];
-            m_fY = point.xyz[1];
-            m_fZ = point.xyz[2];
-            // Retail 0x424d50 computes control index once, then uses
-            // the active texture coordinate channel independently for S/T.
-            const int controlIndex = c * 16 + r;
-            const float* values = (const float*)m_Patch;
-            m_fS = values[(DAT_01128d94 + controlIndex * 7) * 2 + 12];
-            m_fT = values[(controlIndex * 7 + DAT_01128d94) * 2 + 13];
+            m_fX = m_Patch->ctrl[c][r].xyz[0];
+            m_fY = m_Patch->ctrl[c][r].xyz[1];
+            m_fZ = m_Patch->ctrl[c][r].xyz[2];
+            m_fS = m_Patch->ctrl[c][r].st[DAT_01128d94][0];
+            m_fT = m_Patch->ctrl[c][r].st[DAT_01128d94][1];
         }
     }
     UpdateData(FALSE);

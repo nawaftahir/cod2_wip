@@ -4,7 +4,8 @@
 struct PatchControl
 {
     float xyz[3];
-    unsigned char field_0c[0x28-12];
+    float st[2][2]; // Retail active texture coordinate sets at +0x0c, +0x14
+    unsigned char field_1c[0x28-0x1c];
     unsigned char color_28[4];
     unsigned char field_2c[0x34-0x2c];
     unsigned int flags_34; // Retail 0x425840 tests bit 1 at control +0x34
@@ -32,6 +33,7 @@ struct patchMesh_t
 };
 
 // Allocation, control stride and positions are pinned; other storage is undecoded.
+typedef char PatchControlStOffset[(offsetof(PatchControl,st)==0x0c)?1:-1];
 typedef char PatchControlColorOffset[(offsetof(PatchControl,color_28)==0x28)?1:-1];
 typedef char PatchTypeOffset[(offsetof(patchMesh_t,type_10)==0x10)?1:-1];
 typedef char PatchMaterialOffset[(offsetof(patchMesh_t,image_18)==0x18)?1:-1];

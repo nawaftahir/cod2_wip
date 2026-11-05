@@ -11,3 +11,7 @@ void __fastcall FUN_004250c0(char **storage)
     if (*storage != &DAT_00598c80)
         free(*storage);
 }
+
+
+// Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
+extern "C" void FUN_00425120() {}
