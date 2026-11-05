@@ -4,14 +4,13 @@
 #include <string.h>
 #include "../universal/com_math.h"
 
-// Offset-first phase: this factory emitted 152/152 retail bytes in
-// isolated trial 42067497838. Byte match pending (84%); material resolver
-// symbol is a cross-TU dependency not yet reconstructed.
-// Do not add to ledger until exact byte and callee identity are confirmed.
+// Retail 0x00425770, 152 bytes; exact relocation-normalized MATCH
+// in the isolated MSVC 7.1 trial 42070900634. Material lookup uses ECX
+// argument, as established by retail disassembly.
 // Retail 0x00425770 / 152 B -- unverified real initialization candidate.
 // Class storage and string values come from retail disassembly. Material
 // resolver 0x00440840 is a cross-lane dependency: the symbol name is provisional.
-extern void *FUN_00440840(const char *name);
+extern void * __fastcall FUN_00440840(const char *name);
 
 patchMesh_t *MakeNewPatch()
 {
