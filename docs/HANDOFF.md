@@ -37,14 +37,14 @@ accounting. No acceptance predicate or coverage counter was relaxed. Existing
 short/ambiguous/relocated/control-flow fixtures plus exact/missing/plain-name
 filter tests pass. A real selected-function row equals the full scan exactly
 (1 scanned body instead of3629). A new full clean build of this tool-only change
-has not run; it is a local checkpoint, not a replacement canonical CI receipt.
+has not run; it is a work-branch checkpoint, not a replacement canonical CI receipt.
 
 ## Resume
 
 Use cod2_wip/.worktrees/gfx-recon, branch gfx/recon. Confirm git status and read
 STATUS, KNOWLEDGE and TRIED. The source399 batch is already accepted/published;
-do not merge or count it again. Local tool/receipt/docs commits need review and
-normal clean CI before landing. Do not repeat the24 rejected formal orders or
+do not merge or count it again. Tool/receipt/docs commits are pushed to origin/gfx/recon at owner request.
+They need review and normal clean CI before landing on gfx/main. Do not repeat the24 rejected formal orders or
 three DX7 FP variants. Next source lead remains a primary-backed ABI/evaluation
 context for rigid skinning or an independent unresolved leaf; do not sweep
 speculative flags. Keep one output dir and never delete through links.
@@ -52,3 +52,36 @@ Inputs:DXSDK=/home/nawaf/cod2/test/dev/sdk/sum2004,
 GFX_IMAGE=cod2-gfx-ci-local:20261104. make check is a full fresh gate.
 Old dev/gfx stays local; only old GitHub gfx may be retired by the owner.
 Keep cod2_wip and its PRIVATE cod2-gfx-ci package.
+
+## Recovery details
+
+Verified complete files are in root src; partial production source is in
+workspace/work/src. Do not move files or change compiler-visible paths while
+matching: /w/scratch/codex_boundsoutside_1016 is intentional. The only physical
+output directory is workspace/build/codex_boundsoutside_1016_02. Do not copy
+build directories between worktrees. Generated failed-probe diagnostics were
+preserved locally in build/checkpoint-20261105-diagnostics; tracked latest proof
+and layout were restored to the accepted source checkpoint before committing.
+The actual local DLL still needs rebuilding from restored source before use.
+
+Selected probe example (from this worktree):
+DXSDK=/home/nawaf/cod2/test/dev/sdk/sum2004 GFX_IMAGE=cod2-gfx-ci-local:20261104
+GFX_PROBE_SYMBOL=R_TransformRigidVertexDx7 sh workspace/work/tools/build.sh
+Set the variables on one shell command; this wraps for readability only.
+No GFX_PROBE_SYMBOL for a normal full gate. A negative probe exits3 and never
+updates checkpoint/coverage. Success must pass every full gate; clean CI is
+still mandatory for accepting/publishing progress. Do not invoke write_meter.py
+on a stale build as evidence. CI on gfx/main alone updates the public page.
+
+Important tests:workspace/work/tests/test_skinning.py (32-bit, may need sandbox
+execution permission), test_short_candidates.py, test_probe_match.py, and
+workspace/work/tools/search_vertex_order.py --test. The last script's completed
+22-row journal is local; its immutable committed receipt preserves the results.
+Never rerun the signature batch: the tool does not skip journaled trials on a
+second invocation. STOP file ends after the current trial and restores source;
+normal completion restores rejected source, but abrupt process termination may
+require a manual diff against HEAD. Never restore unrecognized external edits.
+
+No new source gain was claimed for the tooling, file promotions, TU recount or
+failed probes. The399-byte transform is already in gfx/main. Use the clean-CI
+ledger and read its source_commit field before reporting a percentage.

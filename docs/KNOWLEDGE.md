@@ -43,3 +43,37 @@ code. A masked byte match does not prove a call or global binding.
 Migration preserves all168 commits on the old master line, adds separate
 freeze snapshots for the main/Gemini dirty work, and leaves the old repos
 and archived research untouched. No build artifacts are imported.
+
+## Transform and diagnostic findings - 2026-11-05
+
+PINNED: R_GetRigidTransform1001ee70/399 passes both byte and binding referees
+with definition-level __declspec(noinline), preserving its original arithmetic.
+Retail stacks output/scale and uses ECX/ESI/EDX inputs. Evidence:
+workspace/work/proof/rigid_transform_20261105_warm_bind.json,
+rigid_transform_20261105_negatives.json; clean work CI42036887579 and canonical
+CI42038128889. Both retention tools reject removal/unverification of the body.
+This is not evidence to add noinline elsewhere; the other boundary probes fail.
+
+PINNED: canonical meter bd80a2ea names source commit db75b7d2. The meter's
+119171/253580 C/C++ bytes excludes all40 assembly-bearing bodies in full.
+Root source snapshots and current emitted-body-certified TUs are separate
+measurements. Two common.obj owners remain ambiguous. Historical TU boundaries
+and full-DLL source completion are not established by these counts.
+
+PINNED: the24 tested private vertex signatures all fail. They permute the four
+float-vector inputs with bone/output last; they do not cover all720 possible
+six-argument signatures. Receipt:proof/vertex_order_20261105.json. No candidate
+or coverage was accepted. All three explicit DX7 expression variants also fail;
+see TRIED. Do not repeat these batches without new primary evidence.
+
+PINNED: filtering cmp bodies after building the complete sorted symbol table
+preserves the next-symbol extent. Filtering that table first would change sizes.
+Evidence:tests/test_short_candidates.py exact/missing/plain-name cases and the
+real filtered/full row equality recorded in vertex_order_20261105.json.
+The --symbol mode is diagnostic only. A passing probe still runs full cmp,
+bindcheck, regression and source accounting. It does not certify bindings.
+
+PINNED: the32-bit native fixture can fail with SIGSYS under sandbox seccomp;
+the same existing fixture passes outside that restriction. This is not a source
+regression. Log:proof/latest/nov05_dx7_explicit_native.log (local diagnostic).
+Native tests grant behavioral evidence, not original-compiler byte identity.
