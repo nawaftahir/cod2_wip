@@ -2,6 +2,11 @@
 #include <stddef.h>
 #include <string.h>
 
+// Temporary drift census: retail-address names for unledgered camera handlers.
+#define OnMouseMove FUN_004032a0
+#define OnLButtonUp FUN_00403350
+#define OriginalMouseUp FUN_004034f0
+
 struct CameraState
 {
     int width;
