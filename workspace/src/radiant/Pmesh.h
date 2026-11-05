@@ -4,7 +4,8 @@
 struct PatchControl
 {
     float xyz[3];
-    unsigned char field_0c[0x38-12];
+    unsigned char field_0c[0x34-12];
+    unsigned int flags_34; // Retail 0x425840 tests bit 1 at control +0x34
 };
 
 struct patchMesh_t
@@ -19,6 +20,7 @@ struct patchMesh_t
 };
 
 // Allocation, control stride and positions are pinned; other storage is undecoded.
+typedef char PatchControlFlagsOffset[(offsetof(PatchControl,flags_34)==0x34)?1:-1];
 typedef char PatchControlSize[(sizeof(PatchControl)==0x38)?1:-1];
 typedef char PatchControlOffset[(offsetof(patchMesh_t,ctrl)==0x24)?1:-1];
 typedef char PatchVersionOffset[(offsetof(patchMesh_t,version)==0x382c)?1:-1];
