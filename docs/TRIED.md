@@ -1,3 +1,37 @@
+Additional rounding probe2026-11-05: original VC7.1 /O2 /QIfist emits
+FISTP QWORD for biased int, long, unsigned, short, local-int, volatile-int
+and output-pointer conversions. Target I_fround uses FISTP DWORD. No source,
+flag or assembly-accounting change retained. Listing:build/tmp/round_probe.asm.
+Do not repeat these seven scalar/storage variants.
+
+# Rigid/model boundaries and compiler FP probe - 2026-11-05
+
+GetRigidTransform's arithmetic was correct; definition-level noinline reproduces
+retail's stacked output pointer and scale while keeping the real ECX/ESI/EDX
+inputs.399 bytes pass both local referees and all retained extents; clean CI
+is required before reporting new progress. Frozen row:rigid_transform_20261105_warm_bind.json.
+Cached model skinning's16-byte aligned bone plus shared input captures reproduce
+the254-byte extent/prologue, but register allocation and child kernels differ.
+No credit for that draft. Native skinning and model draw fixtures pass.
+
+Cache caller comparison/positive-block form stays195/193. Skin helper noinline
+batch fails; it outlines the135-byte command into59 bytes. Vertex helper
+noinline tests fail; noinline removal and early capture in the skinned dispatcher
+also fail. Restored all of those probes. Bare noinline on original fullscreen,
+cube, shader text and lighting-cache helpers retains every match but adds none;
+all four attributes restored. Never repeat this batch as new work.
+
+Original VC7.1 rejects _clearfp as an intrinsic (C4163); a valid standalone
+probe tail-jumps to __clearfp. Material_CreateShader needs target FNClEX and
+other stack layout work. No assembly added and no compiler-impossibility claim.
+Compiler listing/log:build/tmp/clear_probe.asm and proof/latest/nov05_clear_intrinsic_probe.log.
+
+Two complete source snapshots are added from successful byte/binding evidence:
+r_dvars and r_splitscreen. R_ClearFlares is not promoted under the snapshot's
+unique-raw-hit gate: its empty body is independently binding-certified instead.
+TU accounting now retains that existing short-body certificate rather than
+silently discarding it. This counting correction is not new code recovery.
+
 # Material and near-match probes - 2026-11-05
 
 Material_Register explicit else scope remains145 versus target144; rejected.

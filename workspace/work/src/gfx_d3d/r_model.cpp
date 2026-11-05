@@ -51,7 +51,7 @@ void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out)
 }
 
 // PINNED 1001ee70: four transformed rows; only translation adds origin.
-void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin,
+__declspec(noinline) void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin,
     const vec3_t *axis, float scale, vec3_t *boneAxis)
 {
     vec3_t scaledAxis[3];

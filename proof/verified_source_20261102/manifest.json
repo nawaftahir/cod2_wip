@@ -592,6 +592,90 @@
         "cmp": "buffers_cmp.json",
         "coverage": "buffers_source_coverage.json"
       }
+    },
+    {
+      "path": "src/gfx_d3d/r_dvars.cpp",
+      "working_source": "workspace/work/src/gfx_d3d/r_dvars.cpp",
+      "sha256": "25f30828efb9a8c60414a8ab712c94ace2b7bb4f7dc8704768b82f8c2f8ae8a6",
+      "source_definitions": [
+        "R_RegisterDvars"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?R_RegisterDvars@@YAXXZ",
+          "t": "0x1000aaf0",
+          "n": 4046,
+          "obj": "r_dvars.obj",
+          "why": []
+        }
+      ],
+      "proof_files": {
+        "bind": "nov05_complete_bind.json",
+        "cmp": "nov05_complete_cmp.json",
+        "coverage": "nov05_complete_source_coverage.json"
+      }
+    },
+    {
+      "path": "src/gfx_d3d/r_splitscreen.cpp",
+      "working_source": "workspace/work/src/gfx_d3d/r_splitscreen.cpp",
+      "sha256": "96e3a9df5ac985ef1f0ff6f9c97b5d58ae526917885708722d444b8efefecf02",
+      "source_definitions": [
+        "R_InitDrawGroups",
+        "R_BeginDrawGroupSection",
+        "R_BeginDrawGroupLoop",
+        "R_EndDrawGroupLoop",
+        "R_EndDrawGroupSection",
+        "R_IssueDrawGroups"
+      ],
+      "emitted_functions": [
+        {
+          "name": "?R_InitDrawGroups@@YAXXZ",
+          "t": "0x10029430",
+          "n": 53,
+          "obj": "r_splitscreen.obj",
+          "why": []
+        },
+        {
+          "name": "?R_BeginDrawGroupSection@@YAHH@Z",
+          "t": "0x10029470",
+          "n": 44,
+          "obj": "r_splitscreen.obj",
+          "why": []
+        },
+        {
+          "name": "?R_BeginDrawGroupLoop@@YAXHH@Z",
+          "t": "0x100294a0",
+          "n": 63,
+          "obj": "r_splitscreen.obj",
+          "why": []
+        },
+        {
+          "name": "?R_EndDrawGroupLoop@@YAHHH@Z",
+          "t": "0x100294e0",
+          "n": 70,
+          "obj": "r_splitscreen.obj",
+          "why": []
+        },
+        {
+          "name": "?R_EndDrawGroupSection@@YAXH@Z",
+          "t": "0x10029530",
+          "n": 40,
+          "obj": "r_splitscreen.obj",
+          "why": []
+        },
+        {
+          "name": "?R_IssueDrawGroups@@YAXXZ",
+          "t": "0x10029560",
+          "n": 317,
+          "obj": "r_splitscreen.obj",
+          "why": []
+        }
+      ],
+      "proof_files": {
+        "bind": "nov05_complete_bind.json",
+        "cmp": "nov05_complete_cmp.json",
+        "coverage": "nov05_complete_source_coverage.json"
+      }
     }
   ],
   "proof_hashes": {
@@ -611,7 +695,10 @@
     "buffers_source_coverage.json": "6017a93f10015b1703a6ef94eceb66d821839cac846ad27424c2cff1ff9f4750",
     "buffers_review.json": "86d196b2d6e64f8349553067b58f3f9a4864c08b77fd289b085255c5394e0fad",
     "buffers_old_referee_replay.json": "15990e4b87fd91e7b15e70f13a0999b78be199a13cd146523d4dcbe8077eb874",
-    "buffers_old_referee.txt": "103be9413ee71391c4bcc05ed7d31aaa071010451813c81594fc3fd171576e5c"
+    "buffers_old_referee.txt": "103be9413ee71391c4bcc05ed7d31aaa071010451813c81594fc3fd171576e5c",
+    "nov05_complete_bind.json": "4e9424ad7b0525bb449dceb49410c3c347588954b695b72d41d9a8694a1882f4",
+    "nov05_complete_cmp.json": "f8cca04dda0698d49608cb63748d693ee9f45c0f7704271e9a3c0ccf60a6e6b8",
+    "nov05_complete_source_coverage.json": "aad163fde6262846bf10140aa785516537b7d22d0ca109aa323569a90f34bc2e"
   },
   "candidate_derivation": "Five JPEG callback placements derive from paired MOV-immediate HIGHLOW sites in previously verified producers; old unmodified referee replay agrees. Copying snapshots adds no coverage. Texture-memory callback placement derives from calls to an independently verified device-memory function; unchanged old-referee replay agrees. Its separate proof_files preserve the original eight TU snapshots."
 }

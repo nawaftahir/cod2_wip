@@ -1,6 +1,33 @@
-# Renderer pause checkpoint - 2026-11-05
+## Latest batch
 
-Owner requested pause after this checkpoint. Do not resume reconstruction until asked.
+Allocator clean CI41900093450 passed and the source was merged into gfx/main.
+R_GetRigidTransform1001ee70/399 now passes both local referees and retention:
+definition-level noinline reproduces the real outlined ABI. Its arithmetic is
+unchanged. Rigid/model/skinning native fixtures pass; missing/unverified body
+negatives reject in both guards. New coverage must come from clean CI.
+
+Root src now includes two additional complete snapshots:r_dvars and r_splitscreen.
+Frozen evidence and source hashes are in proof/verified_source_20261102/manifest.json.
+No additional code bytes are credited for copying already verified files.
+The empty flare TU is not promoted under the snapshot's unique-raw-hit rule.
+Current-TU accounting now includes independently binding-certified short bodies;
+that is an announced counting correction, not reconstruction progress.
+
+Cached-skin command retains16-byte bone alignment and common input captures;
+its254-byte draft still differs in register allocation, so ZERO credit.
+All other caller/noinline/ownership/leaf probes were restored; see TRIED.md.
+The shader needs FNClEX and stack-layout work. Original compiler rejects
+_clearfp as an intrinsic. Seven /QIfist conversion/storage probes all emit
+QWORD rather than the target DWORD. No new assembly or conversion flags retained.
+
+Next: inspect the fresh gfx/recon clean CI head; land only if green. Merge in
+any generated gfx/main meter before starting the next source cohort. Do not
+repeat failed attributes, selector spellings or the recorded rounding probes.
+
+# Renderer active checkpoint - 2026-11-05
+
+Owner resumed reconstruction. Continue toward50% pure C/C++ inventory coverage,
+then whole-file identity. The new transform batch awaits clean CI before landing.
 All work belongs in cod2_wip; old dev/gfx is not a build dependency.
 
 ## Locations and authority
