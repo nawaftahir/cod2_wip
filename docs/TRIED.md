@@ -34,5 +34,5 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CM_Trace (+16 B in cm_trace) | diff only | retail spills cmod once, ours twice (RA); not tried further |
 | CM_Trace (retail 1424 B, ours 1427: the -16 break at CM_BoxTrace) | `tw.contents = brushmask` before `cmod = CM_ClipHandleToModel(model)` | size aligns (+88 KB drift behind it) but cmod/brushmask regs change and CM_BoxTrace, CM_TransformedBoxTrace, SV_Trace, CG_Trace, FxHelper::Trace, UpdateOrigin, FX_CalcImpactOrigin, CG_TouchTriggerPrediction (3.2 KB) lose their match; reverted. Retail merges both cmod branches into one edx and spills once at +0x55; ours spills per branch |
 | CG_EntityEvent 1.3 (4328 vs 4360) | read only (instruction diff) | retail footstep cases keep a bool in [esp+0x1b] and test it after the call (2 extra add esp,8 / test pairs near 0x4e0a90); our end has an extra fild/fchs/fstp epilogue; cause not found, DEFER |
-| CG_DrawScoreboard_Objective plain loop | shared nextLine tail via goto (retail shares y += lh) | 1608 -> 1580 B (retail 1540), rest is register/layout |
+| CG_DrawScoreboard_Objective plain loop | shared nextLine tail via goto (retail shares y += lh) | 1608 -> 1580 B (retail 1540) but clean same-offset 330,557 -> 329,491 (-1,066): REVERTED, not merged |
 
