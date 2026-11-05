@@ -37,13 +37,34 @@ Status: 4 / 4 functions present in retail address order; size hole closed.
    - Recovered downstream drift in `texturevecs.cpp` from -230976 to -229440.
 4. `0x004401d0` (985 B): `BuildTextureVecs` — MATCH (992 B, in ledger)
 
+## TexWnd.cpp Reconstruction (2026-11-05)
+Target file: `src/radiant/TexWnd.cpp` (49 functions total in `data/tu_map.tsv`).
+Status: Functions front-to-back reconstruction in progress; `0x00440610` matched 100%.
+
+### Matched Functions
+1. `0x004405d0` (31 B): `FUN_004405d0` — MATCH (in ledger)
+2. `0x004405f0` (27 B): `SortTextures` — MATCH (in ledger)
+3. `0x00440610` (6 B): `?TexWnd_GetDecalLocaleBit@@YAHXZ` — `TexWnd_GetDecalLocaleBit` (SUPPORTED) — MATCH 100%
+   - Evidence: Reads `texWndGlobals.decalLocaleBit` at `0x1244d74`.
+4. `0x00442290` (1 B): `FUN_00442290` — MATCH (in ledger)
+
+### Reconstructed / Deferred Functions (Drafts in scratch/gemini2/TexWnd_reconstructed.cpp)
+1. `0x004405b0` (11 B): `TexWndGlobals::TexWndGlobals` constructor (ATL CString init).
+2. `0x004405c0` (8 B): `TexWndGlobals::~TexWndGlobals` destructor.
+3. `0x00440620` (159 B): `Texture_SetMode(int iTexMenu)` — 160 B (exact match with 4-entry switch jump table), assert line 134.
+4. `0x004406c0` (297 B): `Editor_AddRadiantMaterial` — 320 B, assert lines 151 & 154.
+5. `0x004407f0` (77 B): `Editor_FreeRadiantMaterial` — MATCH 100% in isolated check (assert line 179). Deferred from canonical gate because defining an uncalled non-leaf function consumes a register slot in LTCG's uncalled function pool, causing collateral register shift in uncalled `GraphGetValueFromFraction` (0x004832c0) from `edi` to `ebx` (identical to VertEditDlg/PrefsDlg documented phenomenon).
+6. `0x00440840` (320 B): `Texture_GetHandle` — 288 B, assert line 195.
+7. `0x00440980` (31 B): `Material_ConvertToEditorMaterial` — 32 B.
+8. `0x004409a0` (563 B): `Get_MaterialNames` — 496 B, assert line 235.
+
 ## Gate Meter
 | meter | value |
 |---|---|
-| **SHA goal: rebuilt exe bytes in place** | 1.523% (+754) |
-| game functions matched from source | 838 / 3578 (23.42%) (+269) |
-| ...of those, proven inside the linked exe | 838 |
-| game code bytes matched | 12.72% (88969 / 699591 bytes) |
+| **SHA goal: rebuilt exe bytes in place** | 1.520% (+700) |
+| game functions matched from source | 839 / 3578 (23.45%) (+270) |
+| ...of those, proven inside the linked exe | 839 |
+| game code bytes matched | 12.72% (88975 / 699591 bytes) |
 | game functions with a known source file | 3508 / 3578 |
 | MFC/CRT library functions identified (linked, not written; not counted as done) | 3940 |
 | compiler-emitted header code (AUTO) / external lib code (EXTLIB), not counted as game | 637 / 1779 |
@@ -52,5 +73,5 @@ Status: 4 / 4 functions present in retail address order; size hole closed.
 | emit-order warnings | 14 |
 | unverified functions in src/ (must not grow) | 42 |
 
-`verify: 838/838 rows match, 0 failures`
+`verify: 839/839 rows match, 0 failures`
 `compiler: 8/8 rows match (excluded from game coverage)`
