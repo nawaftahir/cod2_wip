@@ -34,3 +34,12 @@ Primary meter: whole-file same-offset (`tools/sections.py`). Drift per function:
   labels there are ambiguous. Open.
 - 0x004024b0..0x00402940: compiler-emitted MFC/ATL header inlines (CString, CMenu, modal state) that
   retail keeps inside this file; ours are emitted after it. Placement work (order), not source.
+- PINNED (retail tu_map + auto_funcs): the ATL CString Win9x helpers (`*WThunk` 71 B + `*WFake`,
+  `AtlA2WHelper`, `_AtlGetConversionACP`, CTempBuffer/CW2AEX) sit in MapInfo.cpp at 0x420420..0x420dd0.
+  No earlier retail file has them. Ours emits ~2.8 KB of them inside AdvCurveDlg.obj (0x4022d0..0x402e00),
+  because every file that includes cstringt.h defines the selectany `ATL::_strthunks` table holding their
+  addresses, and AdvCurveDlg.obj is first in link order. This is the main offset break inside file 1.
+- Tried: `/Zc:wchar_t` on every editor .cpp (our helpers mangle wchar_t as `G`, nafxcw as `_W`):
+  838/838 still match, but AdvCurveDlg.obj still emits 7 `*Fake` helpers, file-1 drift unchanged,
+  whole-file same-offset 1.549% -> 1.514%. Reverted. Next: find what makes retail's first files not own
+  `_strthunks` (header frame / defines in retail's stdafx, or MapInfo.obj contributing it first).
