@@ -157,3 +157,16 @@ float FUN_00439600(float value)
 {
     return (float)fabs((double)value);
 }
+
+extern int DAT_010c4d84;
+extern int DAT_010c4d88[];
+// Target 0x00429df0: search the retail contiguous index table.
+int __fastcall FUN_00429df0(void *, int value)
+{
+    for (int i = 0; i < DAT_010c4d84; ++i)
+    {
+        if (DAT_010c4d88[i] == value)
+            return i;
+    }
+    return -1;
+}
