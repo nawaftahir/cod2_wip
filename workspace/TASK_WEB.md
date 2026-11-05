@@ -15,11 +15,13 @@ Your job, in order:
 ## Lanes (whole files, in retail address order; work front to back)
 | Lane | Branch | Region | Files |
 |---|---|---|---|
-| Claude | `radiant/claude` | 0x401000 | AdvCurveDlg |
-| 1 | `radiant/web/1` | 0x402940..0x40fc10 | cameratargetdlg, CamWnd, CapDialog, libs/cmdlib/cmdlib, UNKNOWN_00408f20, CommandsDlg, DialogInfo, DialogThick, dlgcamera, DlgEvent, draw, EditWnd, EntityListDlg, filtersettings |
-| 2 | `radiant/web/2` | 0x40fc10..0x4242c0 | FindTextureDlg, GfxWrapper, KeyValueSelectDlg, LstToolBar, MainFrm, MapInfo, UNKNOWN_00420930, mesh, ModelDlg, NameDlg, NewProjDlg |
-| 3 | `radiant/web/3` | 0x4242c0..0x43f8a0 | PatchDensityDlg, PatchDialog, UNKNOWN_00425080, Pmesh, PrefsDlg, RADEditWnd, Radiant, RotateDlg, ScaleDialog, SurfaceDlg, TerrainDensityDlg, TexEdit, TextureBar, TextureLayout |
+| Claude | `radiant/claude` | 0x401000..0x4242c0 | AdvCurveDlg, then cameratargetdlg .. NewProjDlg (the old lane 1 and 2 files) |
+| Web (one chat) | `radiant/web/3` | 0x4242c0..0x43f8a0 | PatchDensityDlg, PatchDialog, UNKNOWN_00425080, Pmesh, PrefsDlg, RADEditWnd, Radiant, RotateDlg, ScaleDialog, SurfaceDlg, TerrainDensityDlg, TexEdit, TextureBar, TextureLayout |
 | Gemini | `radiant/gemini2` | 0x43f8a0..0x453660 | common/texturevecs, TexWnd, Undo, VehicleDlg, VertEditDlg, Winding, XYWnd, ZWnd |
+
+Web lanes 1 and 2 are closed (2026-11-05); their merged work is on `radiant/main`.
+What paid in the web lane: small, finished matches (PatchDialog: 3 methods promoted in one commit).
+What did not: long chains of trial/revert commits with no match. Finish one function, then push.
 
 Files are `workspace/src/radiant/<name>.cpp` unless a path is given. Only touch your own files.
 

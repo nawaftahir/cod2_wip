@@ -4,6 +4,7 @@
  * class metadata and callback identities have not been reconstructed.
  */
 #include "stdafx.h"
+#include "../universal/assertive.h"
 #include <stdarg.h>
 #include <stdio.h>
 
@@ -20,6 +21,24 @@ extern "C" void FUN_004100c0(int, const char *fmt, ...)
     Sys_Printf("%s", text);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+extern "C" void FUN_00410120(char **text)
+{
+    assert(text);
+    assert(*text);
+    if (**text)
+        ++*text;
+}
 
 extern "C" void FUN_004101c0() {}
 extern "C" void FUN_004101d0() {}

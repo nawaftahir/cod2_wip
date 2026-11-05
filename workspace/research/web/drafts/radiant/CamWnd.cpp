@@ -1,3 +1,8 @@
+// WORK-IN-PROGRESS TRIAL (NOT ACCEPTED BYTE MATCHES).
+// Trial e75fe5fd compiled all mouse-up candidates but exceeded the gate's unverified-body baseline;
+// diagnostic fa5844fa showed aligned slots 80/64/48 for 0x4032a0/0x403350/0x4034f0.
+// Keep this complete source candidate in scratch; see canonical CamWnd.cpp for accepted subset.
+
 #include "stdafx.h"
 #include <stddef.h>
 #include <string.h>
@@ -165,6 +170,15 @@ void CCamWnd::OnClose()
     Default();
 }
 
+// Evidence-backed mouse-move candidate: retail 0x004032a0 (69 B).
+void CCamWnd::OnMouseMove(UINT flags, CPoint point)
+{
+    CRect rect;
+    GetClientRect(rect);
+    Cam_MouseMoved(point.x, rect.bottom - 1 - point.y, flags);
+    m_ptLastCursor = point;
+}
+
 
 
 void CCamWnd::OnLButtonDown(UINT flags, CPoint point)
@@ -175,9 +189,20 @@ void CCamWnd::OnLButtonDown(UINT flags, CPoint point)
 
 
 
+// Mouse-up candidates: retail 0x00403350 and 0x004033e0 (55 B each).
+void CCamWnd::OnLButtonUp(UINT flags, CPoint point)
+{
+    OriginalMouseUp(flags, point);
+}
+
 void CCamWnd::OnMButtonDown(UINT flags, CPoint point)
 {
     OriginalMouseDown(flags, point);
+}
+
+void CCamWnd::OnMButtonUp(UINT flags, CPoint point)
+{
+    OriginalMouseUp(flags, point);
 }
 
 
@@ -190,6 +215,22 @@ void CCamWnd::OnRButtonDown(UINT flags, CPoint point)
 
 
 
+
+// Retail 0x00403470: right-button release (55 B), not accepted yet.
+void CCamWnd::OnRButtonUp(UINT flags, CPoint point)
+{
+    OriginalMouseUp(flags, point);
+}
+
+// Retail 0x004034f0: common release helper (46 B), not byte-verified.
+void CCamWnd::OriginalMouseUp(UINT flags, CPoint point)
+{
+    CRect rect;
+    GetClientRect(rect);
+    Cam_MouseUp(point.x, rect.bottom - 1 - point.y, flags);
+    if (!(flags & (MK_LBUTTON | MK_RBUTTON | MK_MBUTTON)))
+        ReleaseCapture();
+}
 
 void CCamWnd::OriginalMouseDown(UINT flags, CPoint point)
 {
