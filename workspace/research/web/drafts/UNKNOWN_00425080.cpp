@@ -6,6 +6,14 @@
 // are recoverable from the retail decompilation, unlike the owner type.
 extern char DAT_00598c80;
 
+// Retail 0x00425080 / 3 B: load the first 32-bit value from an ECX pointer.
+// Candidate source; accept only after the pinned CI referee reports MATCH.
+int __fastcall FUN_00425080(int *value)
+{
+    return *value;
+}
+
+
 void __fastcall FUN_004250c0(char **storage)
 {
     if (*storage != &DAT_00598c80)
