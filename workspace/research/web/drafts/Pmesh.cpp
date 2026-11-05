@@ -145,6 +145,14 @@ extern "C" void FUN_00434100() {}
 // fabs of a float promoted to double and rounded back to float.
 // Source hypothesis: normal scalar floating-point absolute value.
 // This function is called from the Patch_GenericMesh family.
+// Retail 0x0042b6d0 / 14 bytes: real scalar multiply-add helper.
+// The first two unknown parameters appear on the stack but are unused.
+float FUN_0042b6d0(int unused1, int unused2,
+                    float offset, float factor, float scale)
+{
+    return factor * scale + offset;
+}
+
 float FUN_00439600(float value)
 {
     return (float)fabs((double)value);

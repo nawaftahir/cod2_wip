@@ -4,3 +4,4 @@ addr	symbol
 0x00425820	?FUN_00425820@@YAXPAUpatchMesh_t@@H_NM@Z
 0x00425840	?InterpolateInteriorPoints@@YAXPAUpatchMesh_t@@@Z
 0x00439600	?FUN_00439600@@YAMM@Z
+0x0042b6d0	?FUN_0042b6d0@@YAMHHMMM@Z
