@@ -36,9 +36,8 @@ extern "C" void FUN_00410120(char **text)
 {
     assert(text);
     assert(*text);
-    if (!**text)
-        return;
-    ++*text;
+    if (**text)
+        ++*text;
 }
 
 extern "C" void FUN_004101c0() {}
