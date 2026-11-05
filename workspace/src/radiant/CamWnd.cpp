@@ -2,10 +2,6 @@
 #include <stddef.h>
 #include <string.h>
 
-// Diagnostic-only provisional symbol for retail 0x004032a0.
-// Keep the same MFC callback/body so CI can measure it without a ledger claim.
-#define OnMouseMove FUN_004032a0
-
 struct CameraState
 {
     int width;
