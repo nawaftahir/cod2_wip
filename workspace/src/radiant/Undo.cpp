@@ -30,6 +30,12 @@ int Undo_GetMaxMemorySize(void)
 	return g_undoMaxMemorySize;
 }
 
+// 0x00445020 (14 B)
+bool FUN_00445020(void)
+{
+	return g_lastredo != NULL;
+}
+
 // 0x00445030 (25 B)
 int Undo_UndoAvailable(void)
 {

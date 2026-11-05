@@ -63,25 +63,27 @@ Status: Functions front-to-back reconstruction in progress; `0x00440610` matched
 
 ## Undo.cpp Reconstruction (2026-11-05)
 Target file: `src/radiant/Undo.cpp` (30 functions total in `data/tu_map.tsv`).
-Status: 4 / 30 functions matched 100% in retail address order.
+Status: 5 / 30 functions matched 100% in retail address order.
 
-### Matched Functions (4 / 30, 43 bytes)
+### Matched Functions (5 / 30, 57 bytes)
 1. `0x004433a0` (6 B): `?Undo_RedoAvailable@@YAPAUundo_s@@XZ` — `Undo_RedoAvailable` (SUPPORTED) — MATCH 100%
    - Evidence: KisakCOD `src/radiant/undo.cpp:89`, reads `g_lastredo` (0x12334d4).
 2. `0x00443820` (6 B): `?Undo_GetMaxSize@@YAHXZ` — `Undo_GetMaxSize` (SUPPORTED) — MATCH 100%
    - Evidence: KisakCOD `src/radiant/undo.cpp:270`, reads `g_undoMaxSize` (0x591b24).
 3. `0x00443850` (6 B): `?Undo_GetMaxMemorySize@@YAHXZ` — `Undo_GetMaxMemorySize` (SUPPORTED) — MATCH 100%
    - Evidence: KisakCOD `src/radiant/undo.cpp:280`, reads `g_undoMaxMemorySize` (0x591b28).
-4. `0x00445030` (25 B): `?Undo_UndoAvailable@@YAHXZ` — `Undo_UndoAvailable` (SUPPORTED) — MATCH 100%
+4. `0x00445020` (14 B): `?FUN_00445020@@YA_NXZ` — `FUN_00445020` (SUPPORTED) — MATCH 100%
+   - Evidence: Checks if `g_lastredo != NULL` (0x109fdc4).
+5. `0x00445030` (25 B): `?Undo_UndoAvailable@@YAHXZ` — `Undo_UndoAvailable` (SUPPORTED) — MATCH 100%
    - Evidence: Reads `g_lastundo->done`.
 
 ## Gate Meter
 | meter | value |
 |---|---|
-| **SHA goal: rebuilt exe bytes in place** | 1.533% (+921) |
-| game functions matched from source | 842 / 3578 (23.53%) (+273) |
-| ...of those, proven inside the linked exe | 842 |
-| game code bytes matched | 12.72% (88993 / 699591 bytes) |
+| **SHA goal: rebuilt exe bytes in place** | 1.527% (+829) |
+| game functions matched from source | 843 / 3578 (23.56%) (+274) |
+| ...of those, proven inside the linked exe | 843 |
+| game code bytes matched | 12.72% (89007 / 699591 bytes) |
 | game functions with a known source file | 3508 / 3578 |
 | MFC/CRT library functions identified (linked, not written; not counted as done) | 3940 |
 | compiler-emitted header code (AUTO) / external lib code (EXTLIB), not counted as game | 637 / 1779 |
@@ -90,5 +92,5 @@ Status: 4 / 30 functions matched 100% in retail address order.
 | emit-order warnings | 14 |
 | unverified functions in src/ (must not grow) | 42 |
 
-`verify: 842/842 rows match, 0 failures`
+`verify: 843/843 rows match, 0 failures`
 `compiler: 8/8 rows match (excluded from game coverage)`

@@ -273,6 +273,7 @@ addr	size	source	symbol	name	tag
 0x004433a0	6	src/radiant/Undo.cpp	?Undo_RedoAvailable@@YAPAUundo_s@@XZ	Undo_RedoAvailable	SUPPORTED
 0x00443820	6	src/radiant/Undo.cpp	?Undo_GetMaxSize@@YAHXZ	Undo_GetMaxSize	SUPPORTED
 0x00443850	6	src/radiant/Undo.cpp	?Undo_GetMaxMemorySize@@YAHXZ	Undo_GetMaxMemorySize	SUPPORTED
+0x00445020	14	src/radiant/Undo.cpp	?FUN_00445020@@YA_NXZ	FUN_00445020	SUPPORTED
 0x00452e20	1	src/radiant/XYWnd.cpp	_FUN_00452e20	FUN_00452e20	UNNAMED
 0x004535f0	1	src/radiant/XYWnd.cpp	_FUN_004535f0	FUN_004535f0	UNNAMED
 0x00453600	1	src/radiant/XYWnd.cpp	_FUN_00453600	FUN_00453600	UNNAMED
