@@ -19,6 +19,11 @@ nothing here goes there automatically. Compiler/SDK payloads for the renderer st
 - Stay inside your target's tree. Change `main` (anchors, dashboard, status) only when asked.
 - Push on "push it". Pushing a work branch runs CI; it never changes the page.
 
+## Pushing (owner, 2026-11-05)
+Standing "push it" for this repo: agents push their `<target>/<work>` branches and merge into
+`<target>/main` once the gate and CI are green. `cod2engine` is the owner's alone: never push,
+commit or open PRs there.
+
 ## Offset first (every target, from day one)
 Order of work for any binary, especially under /GL + /LTCG:
 1. **Structure:** function set per TU, link order, function order, data ownership equal retail
