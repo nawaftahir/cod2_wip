@@ -23,3 +23,14 @@ Primary meter: whole-file same-offset (`tools/sections.py`). Drift per function:
 3. When a region is complete, retail `/ORDER` for it, then library placement, then `.rdata`/`.data`.
 4. Bytes last: register/scheduling residues once offsets hold.
 5. `src/` keeps verified files only; unfinished bodies move to `workspace/` (41 today).
+
+## AdvCurveDlg.cpp (first file, 0x401000)
+- In place and right-sized from 0x401000 to 0x402240 except one body: drift there is a constant -464 =
+  0x004015a0 (453 B apply, called by OnOK 0x401770 and the kill-focus handler 0x401f90; draft in
+  workspace/drafts, best 511/453, only diff: FUN_00401cd0 inlined into it, retail calls it).
+- Tried for 0x004015a0: float locals for the atof results (fixed the arg passing); FUN_00401cd0 as a
+  plain function (breaks 0x401cd0: 79/81, it is a member, thiscall). Next: caller context.
+- 0x00402230 (5 B jmp into a dialog destructor), called from library EH code at 0x4f3b0c; the library
+  labels there are ambiguous. Open.
+- 0x004024b0..0x00402940: compiler-emitted MFC/ATL header inlines (CString, CMenu, modal state) that
+  retail keeps inside this file; ours are emitted after it. Placement work (order), not source.
