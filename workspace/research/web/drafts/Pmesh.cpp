@@ -173,5 +173,5 @@ int __fastcall FUN_00429df0(void *, int value)
 
 int FUN_004395e0(float value)
 {
-    return (int)(value + 0.5f);
+    return (int)(value + 0.5);
 }
