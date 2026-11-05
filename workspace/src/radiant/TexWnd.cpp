@@ -79,5 +79,16 @@ void Texture_ClearInUse(void)
     }
 }
 
+// 0x00441440 (27 B)
+void Texture_ShowAll(void)
+{
+    for (qtexture_s *q = texWndGlobals.qtextures; q; q = q->next)
+    {
+        q->inuse = 1;
+    }
+}
+
+
+
 // Retail one-byte RET, existing accepted source.
 extern "C" void FUN_00442290() {}
