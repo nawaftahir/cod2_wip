@@ -23,20 +23,34 @@ Target file: `src/radiant/csg.cpp` (12 functions total in `data/tu_map.tsv`).
 7. `0x00460690` (97 B, `Brush_AutoCaulkFace`): Best 0%. Blocked on cross-TU LTCG callees in `brush.cpp` (`0x00459430`) and `TexWnd.cpp` (`0x00440840`). Draft in `scratch/gemini2/csg_00460690.cpp`.
 8. `0x00460700` (411 B, `Brush_AutoCaulk`): Best 0%. Blocked on callee `0x00460690` and cross-TU dependencies. Draft in `scratch/gemini2/csg_00460700.cpp`.
 
+## texturevecs.cpp Reconstruction (2026-11-05)
+Target file: `src/common/texturevecs.cpp` (4 functions total in `data/tu_map.tsv`).
+Status: 4 / 4 functions present in retail address order; size hole closed.
+
+### Functions Status
+1. `0x0043f8a0` (335 B): `TextureAxisFromPlane` — MATCH (336 B, in ledger)
+2. `0x0043f9f0` (459 B): `TextureVecsForNormal` — MATCH (464 B, in ledger)
+3. `0x0043fbc0` (1540 B): `FUN_0043fbc0` — RECONSTRUCTED (1536 B vs 1540 B retail; 73% referee match, first diff +0xc)
+   - Function computes inverse texture matrix / decomposes into size, shift, rotate, crossterm.
+   - Restored level-1 assertions on exact retail line numbers (85, 88, 89, 90, 92, 93, 94, 97).
+   - Preserved retail orientation condition (`texMat[1][t] * texMat[0][s] * pvecs[0][s] * pvecs[1][t] < 0.0f`) and index copy-paste behavior.
+   - Recovered downstream drift in `texturevecs.cpp` from -230976 to -229440.
+4. `0x004401d0` (985 B): `BuildTextureVecs` — MATCH (992 B, in ledger)
+
 ## Gate Meter
 | meter | value |
 |---|---|
-| **SHA goal: rebuilt exe bytes in place** | 1.528% (+838) |
-| game functions matched from source | 793 / 3578 (22.16%) (+224) |
-| ...of those, proven inside the linked exe | 793 |
-| game code bytes matched | 12.16% (85092 / 699591 bytes) |
+| **SHA goal: rebuilt exe bytes in place** | 1.523% (+754) |
+| game functions matched from source | 838 / 3578 (23.42%) (+269) |
+| ...of those, proven inside the linked exe | 838 |
+| game code bytes matched | 12.72% (88969 / 699591 bytes) |
 | game functions with a known source file | 3508 / 3578 |
 | MFC/CRT library functions identified (linked, not written; not counted as done) | 3940 |
 | compiler-emitted header code (AUTO) / external lib code (EXTLIB), not counted as game | 637 / 1779 |
 | SHA-256 identical | no |
 | failing ledger rows | 0 |
-| emit-order warnings | 7 |
-| unverified functions in src/ (must not grow) | 41 |
+| emit-order warnings | 14 |
+| unverified functions in src/ (must not grow) | 42 |
 
-`verify: 793/793 rows match, 0 failures`
+`verify: 838/838 rows match, 0 failures`
 `compiler: 8/8 rows match (excluded from game coverage)`
