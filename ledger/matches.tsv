@@ -214,9 +214,12 @@ addr	size	source	symbol	name	tag
 0x004248c0	30	src/radiant/PatchDialog.cpp	?OnBtnPatchdetails@CPatchDialog@@IAEXXZ	CPatchDialog::OnBtnPatchdetails	SUPPORTED
 0x004248e0	31	src/radiant/PatchDialog.cpp	?OnBtnPatchfit@CPatchDialog@@IAEXXZ	CPatchDialog::OnBtnPatchfit	SUPPORTED
 0x00424900	30	src/radiant/PatchDialog.cpp	?OnBtnPatchnatural@CPatchDialog@@IAEXXZ	CPatchDialog::OnBtnPatchnatural	SUPPORTED
+0x00424a10	10	src/radiant/PatchDialog.cpp	?OnSelchangeComboCol@CPatchDialog@@IAEXXZ	CPatchDialog::OnSelchangeComboCol	SUPPORTED
+0x00424a20	10	src/radiant/PatchDialog.cpp	?OnSelchangeComboRow@CPatchDialog@@IAEXXZ	CPatchDialog::OnSelchangeComboRow	SUPPORTED
 0x00424a30	1	src/radiant/PatchDialog.cpp	?OnSelchangeComboType@CPatchDialog@@IAEXXZ	CPatchDialog::OnSelchangeComboType	SUPPORTED
 0x00424a40	12	src/radiant/PatchDialog.cpp	?OnOK@CPatchDialog@@MAEXXZ	CPatchDialog::OnOK	SUPPORTED
 0x00424a80	135	src/radiant/PatchDialog.cpp	?OnInitDialog@CPatchDialog@@MAEHXZ	CPatchDialog::OnInitDialog	SUPPORTED
+0x00424b10	321	src/radiant/PatchDialog.cpp	?GetPatchInfo@CPatchDialog@@QAEXXZ	CPatchDialog::GetPatchInfo	SUPPORTED
 0x00424c60	1	src/radiant/PatchDialog.cpp	?SetPatchInfo@CPatchDialog@@QAEXXZ	CPatchDialog::SetPatchInfo	SUPPORTED
 0x00424c70	121	src/radiant/PatchDialog.cpp	?DoPatchInspector@@YAXXZ	DoPatchInspector	SUPPORTED
 0x00424cf0	20	src/radiant/PatchDialog.cpp	?UpdatePatchInspector@@YAXXZ	UpdatePatchInspector	SUPPORTED
