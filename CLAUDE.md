@@ -19,6 +19,19 @@ nothing here goes there automatically. Compiler/SDK payloads for the renderer st
 - Stay inside your target's tree. Change `main` (anchors, dashboard, status) only when asked.
 - Push on "push it". Pushing a work branch runs CI; it never changes the page.
 
+## Offset first (every target, from day one)
+Order of work for any binary, especially under /GL + /LTCG:
+1. **Structure:** function set per TU, link order, function order, data ownership equal retail
+   (`docs/RECON_PLAYBOOK.md`).
+2. **Sizes, front to back:** make every function the same SIZE as retail, starting at the first point
+   where our offsets drift (`tools/drift*.py`). Offsets depend on sizes and order, not exact bytes, so
+   a same-size function with a register diff blocks nothing after it; fix missing code, stubs and
+   wrong inlining first. Regions can be worked in parallel (each owns its internal drift).
+3. **Bytes last:** register/scheduling residues are matched once offsets are stable, where ties have
+   settled and every match is permanent.
+Primary meter: whole-file same-offset. Matched-fn counts at any address are secondary: code-first
+matching away from retail offsets re-rolls LTCG ties and has to be redone (client 1.3, 11-04).
+
 ## Accepting work (every target)
 - **Clean builds only.** Before an accept, move the object dir aside and rebuild (client:
   `mv build/obj build/obj.old`). Incremental and copied `build/` dirs have given fake numbers.
