@@ -186,3 +186,12 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Retail 0x4b2350 = small helper "run nextmap": Cbuf_AddText(va("%s\n", nextmap)); Dvar_SetString(nextmap, ""); UI_SetActiveMenu(1); used by
   RoQShutdown and by the ROQSize<=0 branch of ROQ_PlayCinematic (state == 0 && nextmap[0]).
 - CG_DrawScoreboard_Objective: Asian branch added (Language_IsAsian -> SEH_ReadCharFromString loop, len counter in chars); 1608 B vs retail 1540, bytes not matched (68 B over, 2 builds used). CG_EntityEvent still +32 short.
+  RoQShutdown and by the ROQSize<=0 branch of ROQ_PlayCinematic (state == 0 && nextmap[0]).
+- CG_DrawScoreboard_Objective: Asian branch added (Language_IsAsian -> SEH_ReadCharFromString loop, len counter in chars); 1608 B vs retail 1540, bytes not matched (68 B over, 2 builds used). CG_EntityEvent still +32 short.
+
+## 7. Region scr_/bg_/g_/xanim sizes (sz4, 11-05)
+- Cmd_Tell_f and Cmd_GameCommand_f do not exist in retail 1.3 (g_cmds_mp 11104 B = retail once removed; nothing referenced them).
+  Removing them: same-offset 330,557 -> 518,413, matched-fn +2,310 B; only tie-pool fns flipped (Menu_HandleKey, Scr_ParseGameTypeList gained).
+  The earlier TRIED row (SP_worldspawn flip) was an acceptable tie flip under the offset-first policy.
+- scr_*, bg_*, g_* (except g_spawn) have no per-obj size step left. Last one: g_spawn SP_worldspawn is 5 B over (retail 464): the
+  inlined Scr_SetString leaves a dead `lea` (see TRIED).
