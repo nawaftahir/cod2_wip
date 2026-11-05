@@ -993,6 +993,7 @@ static void CL_AddDeathMessageText(const char *txt, int color)
 void CL_DeathMessagePrint(const char *attackerName, const vec_t *attackerColor, const char *victimName, const vec_t *victimColor, const char *iconShader, float iconWidth, float iconHeight, const vec_t *iconColor, bool horzFlipIcon)
 {
     int duration;
+    int linewidth = con.linewidth;
 
     if (cl_noprint && cl_noprint->current.enabled)
         return;
@@ -1023,7 +1024,7 @@ void CL_DeathMessagePrint(const char *attackerName, const vec_t *attackerColor, 
     CL_AddDeathMessageText(" ", 7);
 
     CL_AddConsoleInfoColor(10, victimColor);
-    if ((int)strlen(victimName) + con.lineOffset + 3 >= con.linewidth) {
+    if ((int)strlen(victimName) + con.lineOffset + 3 >= linewidth) {
         Con_Linefeed(PMSG_GAME, duration);
         CL_AddConsoleInfoColor(10, victimColor);
     }

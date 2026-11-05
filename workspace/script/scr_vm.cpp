@@ -237,10 +237,7 @@ Scr_AddInt
 */
 
 
-static __forceinline unsigned __int64 Sys_Rdtsc()
-{
-	__asm rdtsc
-}
+extern unsigned __int64 Sys_Rdtsc(void);  /* one shared copy, cl_keys_mp.cpp */
 /*
 ==============
 Scr_GetLocalVarAtIndex

@@ -3,7 +3,7 @@
 # delta = retail - ours. Prints each point where delta changes (a size difference sits between the two anchors).
 import json, re, sys
 import os
-R = os.path.dirname(os.path.abspath(__file__)) + '/../target/build/'
+R = os.path.dirname(os.path.abspath(__file__)) + '/../build/'
 cm = json.load(open(R + 'cmp13.json'))
 by = {}
 for x in cm:
@@ -16,7 +16,7 @@ syms.sort()
 rows = []
 for a, n, o in syms:
     xs = by.get((n, o), [])
-    if len(xs) == 1 and len(xs[0]['hits']) == 1 and not xs[0].get('thunk'):
+    if len(xs) == 1 and len(xs[0]['hits']) == 1 and not xs[0].get('thunk') and xs[0]['size'] >= 16:  # short stubs hit by accident
         rows.append((a, int(xs[0]['hits'][0], 16), n, o, xs[0]['size']))
 print('anchors', len(rows), 'of', len(syms), 'fns')
 prev = None; lines = []

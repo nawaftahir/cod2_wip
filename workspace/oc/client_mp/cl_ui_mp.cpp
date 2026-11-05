@@ -465,6 +465,18 @@ int LAN_GetServerStatus(char *serverAddress, char *serverStatus, int maxLen)
     return CL_ServerStatus(serverAddress, serverStatus, maxLen);
 }
 
+extern void EnablePbCl(void);
+extern void DisablePbCl(void);
+
+// retail 0x4157b0, unreferenced; name unknown
+void fn_4157b0(int enable)
+{
+    if (enable)
+        EnablePbCl();
+    else
+        DisablePbCl();
+}
+
 void Key_KeynumToStringBuf(int keynum, char *buf, int buflen)
 {
     I_strncpyz(buf, Key_KeynumToString(keynum, 1), buflen);

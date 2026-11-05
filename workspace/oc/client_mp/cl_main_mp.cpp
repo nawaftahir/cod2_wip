@@ -472,6 +472,7 @@ extern void CG_DObjCalcPose(const centity_s *cent, const DObj_s *obj, int *partB
 extern const char *CL_GetHudMsgIconMaterialName(int iconIndex);
 extern ALIGNED(128) refexport_t re;
 extern void *__stdcall LoadLibraryA(const char *name);
+extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
 extern void *__stdcall GetProcAddress(void *mod, const char *proc);
 extern unsigned long __stdcall GetLastError(void);
 extern "C" void Z_FreeInternal(void *ptr);
@@ -485,7 +486,19 @@ float GetVirtualHeightFromRealHeight(float height);
 cplane_t *CM_GetPlaneNum(int planeNum);
 void DB_EnumXAssets(enum XAssetType type, void (*func)(union XAssetHeader, void *), void *inData, bool includeOverride);
 void *Sys_GetValue(int valueIndex);
-Bool Sys_ReturnFalse(void);
+extern dvar_t *Dvar_FindVar(const char *dvarName);
+Bool Sys_IsSecondThread_462560(void);
+void Sys_ResumeThread_462460(int index);
+Bool Sys_CreateThread_4623f0(void (*threadMain)(void));
+void Sys_Handshake_4624a0(void);
+void Sys_SetEventA_462640(void);
+void Sys_SignalB_4624f0(int value);
+void Sys_WaitEventD_4624e0(void);
+void Sys_SignalCWaitA_462540(void);
+long Sys_ClearFlag_462480(void);
+Bool Sys_EventAPending_462520(void);
+void Sys_WaitEventB_4625e0(void);
+void Sys_SetEventD_462490(void);
 void Dvar_ChangeResetValue(struct dvar_s *dvar, struct DvarValue value);
 bool Dvar_IsAtDefaultValue(struct dvar_s const *);
 char * XModelGetBasePoseOffset(struct XModel const *,unsigned int);
@@ -1357,6 +1370,15 @@ void CL_RequestAuthorization(void)
 #endif
 }
 
+/* retail 0x40d310, unnamed: re-authorize an active client every 300 s; called at the end of CL_Frame */
+static __declspec(noinline) void fn_40d310(void)
+{
+    if (clc.state == CA_ACTIVE && cls.realtime - lastUpdateKeyAuthTime > 300000) {
+        if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
+            CL_RequestAuthorization();
+    }
+}
+
 void CL_ForwardToServer_f(void)
 {
     if (clc.state != CA_ACTIVE || clc.demoplaying) {
@@ -1715,10 +1737,14 @@ void CL_InitDownloads(void)
     CL_DownloadsComplete();
 }
 
+extern void PbClientConnect(int type, char *data, int *len);
+
 void CL_CheckForResend(void)
 {
     int i;
+    int len;
     char md5Str[33];
+    char pbBuf[1020];
     char info[1024];
     char data[1024];
 
@@ -1748,6 +1774,9 @@ void CL_CheckForResend(void)
         data[9 + i] = '"';
         data[10 + i] = 0;
 
+        len = i + 10;
+        memcpy(pbBuf, data, len);
+        PbClientConnect(2, pbBuf, &len);
         NET_OutOfBandData(NS_CLIENT1, clc.serverAddress, (unsigned char *)data, i + 10);
         dvar_modifiedFlags &= ~2;
         break;
@@ -1755,6 +1784,9 @@ void CL_CheckForResend(void)
     case CA_CONNECTING:
         if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
             CL_RequestAuthorization();
+        strcpy(pbBuf, "getchallenge");
+        len = strlen(pbBuf);
+        PbClientConnect(1, pbBuf, &len);
         CL_BuildMd5StrFromCDKey(md5Str);
         NET_OutOfBandPrint(NS_CLIENT1, clc.serverAddress, va("getchallenge 0 \"%s\"", md5Str));
         break;
@@ -2172,7 +2204,7 @@ void CL_RunOncePerClientFrame(int msec)
 {
 
     if (UI_IsFullscreen()) {
-        re.SyncGpu();
+        CL_SyncGpu();
     }
 
     IN_Frame();
@@ -2222,16 +2254,10 @@ void CL_Frame(void)
     CL_UpdateInGameState();
     CL_SetCGameTime();
     CL_SendCmd();
+#if COD2_IS_PATCH_13
+    fn_40d310();
+#endif
 }
-/* retail 0x40d310, unnamed: re-authorize an active client every 300 s; called at the end of CL_Frame */
-static __declspec(noinline) void fn_40d310(void)
-{
-    if (clc.state == CA_ACTIVE && cls.realtime - lastUpdateKeyAuthTime > 300000) {
-        if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
-            CL_RequestAuthorization();
-    }
-}
-
 bool CL_IsLocalClientInGame(void)
 {
     return clc.state == CA_ACTIVE;
@@ -2423,6 +2449,7 @@ void CL_InitRef(void)
     *(void **)&ri_local.CM_SaveLump = (void *)CM_SaveLump;
     *(void **)&ri_local.CM_BoxTrace = (void *)CM_BoxTrace;
     *(void **)&ri_local.CM_BoxSightTrace = (void *)CM_BoxSightTrace;
+    *(void **)&ri_local.Dvar_FindVar = (void *)Dvar_FindVar;
     *(void **)&ri_local.Dvar_RegisterBool = (void *)Dvar_RegisterBool;
     *(void **)&ri_local.Dvar_RegisterInt = (void *)Dvar_RegisterInt;
     *(void **)&ri_local.Dvar_RegisterFloat = (void *)Dvar_RegisterFloat;
@@ -2527,7 +2554,18 @@ void CL_InitRef(void)
     *(void **)&ri_local.DB_EnumXAssets = (void *)DB_EnumXAssets;
     *(void **)&ri_local.Sys_GetValue = (void *)Sys_GetValue;
     *(void **)&ri_local.Sys_IsMainThread = (void *)Sys_IsMainThread;
-    *(void **)&ri_local.Sys_ReturnFalse = (void *)Sys_ReturnFalse;
+    *(void **)&ri_local.Sys_IsSecondThread = (void *)Sys_IsSecondThread_462560;
+    *(void **)&ri_local.Sys_ResumeThread = (void *)Sys_ResumeThread_462460;
+    *(void **)&ri_local.Sys_CreateThread = (void *)Sys_CreateThread_4623f0;
+    *(void **)&ri_local.Sys_Handshake = (void *)Sys_Handshake_4624a0;
+    *(void **)&ri_local.Sys_SetEventA = (void *)Sys_SetEventA_462640;
+    *(void **)&ri_local.Sys_SignalB = (void *)Sys_SignalB_4624f0;
+    *(void **)&ri_local.Sys_WaitEventD = (void *)Sys_WaitEventD_4624e0;
+    *(void **)&ri_local.Sys_SignalCWaitA = (void *)Sys_SignalCWaitA_462540;
+    *(void **)&ri_local.Sys_ClearFlag = (void *)Sys_ClearFlag_462480;
+    *(void **)&ri_local.Sys_EventAPending = (void *)Sys_EventAPending_462520;
+    *(void **)&ri_local.Sys_WaitEventB = (void *)Sys_WaitEventB_4625e0;
+    *(void **)&ri_local.Sys_SetEventD = (void *)Sys_SetEventD_462490;
     *(void **)&ri_local.CL_GetHudMsgIconMaterialName = (void *)CL_GetHudMsgIconMaterialName;
 
 #if defined(COD2_GFX_DLL) && defined(COD2_GFX_DLL_RETAIL_V60)
@@ -2570,6 +2608,18 @@ void CL_InitRef(void)
 void CL_startSingleplayer_f(void)
 {
     Sys_StartProcess("cod2sp_s.exe", 1);
+}
+
+// PunkBuster glue: sets cl_punkbuster from a string (retail 1.3 0x410360)
+void set_cl_punkbuster(char *value)
+{
+    bool on = I_stricmp(value, "0") != 0;
+    dvar_t *dvar = Dvar_FindVar("cl_punkbuster");
+
+    if (dvar)
+        Dvar_SetBool(dvar, on);
+    else
+        Dvar_RegisterString("cl_punkbuster", on ? "1" : "0", 0x4000);
 }
 
 void CL_DrawLogo(void)
@@ -2723,20 +2773,6 @@ void CL_OpenScriptMenu_f(void)
         menuIndex = -1;
 
     Cbuf_ExecuteText(2, va("cmd mr %i %i %s\n", Dvar_GetInt("sv_serverId"), menuIndex, menuResponse));
-}
-
-extern dvar_t *Dvar_FindVar(const char *dvarName);
-
-// PunkBuster glue: sets cl_punkbuster from a string (retail 1.3 0x410360)
-void set_cl_punkbuster(char *value)
-{
-    bool on = I_stricmp(value, "0") != 0;
-    dvar_t *dvar = Dvar_FindVar("cl_punkbuster");
-
-    if (dvar)
-        Dvar_SetBool(dvar, on);
-    else
-        Dvar_RegisterString("cl_punkbuster", on ? "1" : "0", 0x4000);
 }
 
 void CL_InitOnceForAllClients(void)
@@ -3380,15 +3416,40 @@ void CL_ShutdownDebugData(void)
         shutdownDebug();
 }
 
-// retail 0x411360, unreferenced
-void CL_AbortRenderCommands_411360(void)
+// retail 0x412660, unreferenced
+int fn_412660(void)
 {
-    re.AbortRenderCommands();
+    return re.SyncGpu();
 }
 
+/* retail 0x412670: wait (Sleep 1) until the renderer reports done or the cycle limit passes */
 void CL_SyncGpu(void)
 {
-    re.SyncGpu();
+    int startLo, nowLo, limit, elapsed;
+
+    __asm {
+        rdtsc
+        mov startLo, eax
+    }
+    limit = re.unknown106();
+    if (re.SyncGpu())
+        return;
+    do {
+        __asm {
+            rdtsc
+            mov nowLo, eax
+        }
+        elapsed = nowLo - startLo;
+        if (elapsed < 0 || elapsed >= limit)
+            break;
+        Sleep(1);
+    } while (!re.SyncGpu());
+}
+
+// retail 0x4126c0, unreferenced
+int fn_4126c0(void)
+{
+    return re.unknown106();
 }
 
 int CL_TextWidth(const char *text, int maxChars, FontHandle font)

@@ -1493,4 +1493,10 @@ void R_UpdateEffectsNonBolt(void)
     RE->UpdateEffectsNonBolt();
 }
 
+// retail 0x4034a0, name unknown
+void fn_4034a0(void)
+{
+    RE->unknown_after_NonBolt();
+}
+
 // retail 0x4032c0; name unknown

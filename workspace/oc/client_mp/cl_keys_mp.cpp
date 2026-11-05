@@ -1143,6 +1143,12 @@ char *Key_GetBinding(int keynum)
     return keys[keynum].binding;
 }
 
+// retail 0x40b100, unreferenced, name unknown
+int fn_40b100(void)
+{
+    return 256;
+}
+
 // retail 0x40a6e0, unreferenced; Q3 Key_GetKey (SUPPORTED)
 int Key_GetKey(const char *binding)
 {
@@ -1358,6 +1364,12 @@ void Key_Shutdown(void)
 // retail 0x40b440, empty and unreferenced; name unknown
 void Key_Stub_40b440(void)
 {
+}
+
+// retail 0x40bdf0: the one shared copy of Sys_Rdtsc (also called by scr_vm); raw cycle counter in edx:eax
+unsigned __int64 Sys_Rdtsc(void)
+{
+    __asm rdtsc
 }
 
 // retail 0x40b450, unreferenced; name unknown

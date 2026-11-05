@@ -113,6 +113,7 @@ struct refexport_t {
     void (*UpdateXModelBoundsDelayed)(struct GfxEntity *ent);
     void (*UpdateEffectsBolt)(void);
     void (*UpdateEffectsNonBolt)(void);
+    void (*unknown_after_NonBolt)(void);  // retail 1.3 slot, wrapper at 0x4034a0, name unknown
     void (*DefaultVertexFrames)(int vertCount, GfxWorldVertex *verts);
     void (*AddPolyToScene)(MaterialHandle materialHandle, unsigned short lmapIndex, unsigned short vertCount, const GfxWorldVertex *verts);
     void (*AddLightToScene)(const vec_t *org, float radius, float r, float g, float b);
@@ -175,15 +176,14 @@ struct refexport_t {
     const char * (*ParseSunLight)(void *params, const char *text);
     MaterialHandle (*Material_Duplicate)(MaterialHandle mtlCopy, const char *name);
     void (*DuplicateFont)(FontHandle fontCopy, const char *name);
-    void *unknown86_95[10];
+    void *unknown86_95[11];
     struct XSurface_s * (*XModelReadSurface)(struct XModel *model, int *partBits, const unsigned char **pos, void *(*Alloc)(int));
     struct trXSkin_t * (*LoadXSkins)(struct XModel *model);
-    void *unknown98_101[4];
+    void *unknown98_101[3];
     void (*SyncRenderThread)(void);
-    void *unknown103;
     void (*AbortRenderCommands)(void);
-    void (*SyncGpu)(void);
-    void *unknown106;
+    int (*SyncGpu)(void);  // retail 1.3: returns a flag, used by the CL_SyncGpu wait loop
+    int (*unknown106)(void);  // retail 1.3: returns the wait limit (cycles)
     void (*SetLodOrigin)(const refdef_t *refdef);
 };
 
@@ -214,6 +214,7 @@ struct refimport_t {
     void (*Sys_ShowSplashWindow)();
     void (*Sys_HideSplashWindow)();
     void (*Sys_LoadingKeepAlive)();
+    const dvar_t * (*Dvar_FindVar)(const char *dvarName);  // retail 1.3 slot 25 (wrapper 0x437400)
     const dvar_t * (*Dvar_RegisterBool)(const char *dvarName, int value, int flags);
     const dvar_t * (*Dvar_RegisterInt)(const char *dvarName, int value, int min, int max, int flags);
     const dvar_t * (*Dvar_RegisterFloat)(const char *dvarName, float value, float min, float max, int flags);
@@ -302,7 +303,18 @@ struct refimport_t {
     void (*DB_EnumXAssets)(int type, void (*func)(union XAssetHeader, void *), void *data, int overrides);
     void *(*Sys_GetValue)(int valueIndex);
     int (*Sys_IsMainThread)();
-    void (*Sys_ReturnFalse)();
+    int (*Sys_IsSecondThread)();
+    void (*Sys_ResumeThread)(int index);
+    int (*Sys_CreateThread)(void (*threadMain)(void));
+    void (*Sys_Handshake)(void);
+    void (*Sys_SetEventA)(void);
+    void (*Sys_SignalB)(int value);
+    void (*Sys_WaitEventD)(void);
+    void (*Sys_SignalCWaitA)(void);
+    long (*Sys_ClearFlag)(void);
+    int (*Sys_EventAPending)(void);
+    void (*Sys_WaitEventB)(void);
+    void (*Sys_SetEventD)(void);
     void (*DObjGetBounds)(const DObj *obj, vec_t *mins, vec_t *maxs);
     void * (*DObjGetSurface)(const DObj *obj, int modelIndex, int subMatIndex, int lod);
     int (*DObjGetNumModels)(const DObj *obj);

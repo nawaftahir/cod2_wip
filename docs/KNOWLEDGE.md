@@ -137,3 +137,27 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   with our unmatched fns and retail starts inside, plus region drift start/end. Read the build/ of the tree you are in
   (a different tree's build/ can be stale: it sent me to wrong addresses once).
 - Link-only/incremental builds carry stale objs when a source mtime is older than the obj: use a clean build before reading sizes.
+## 6. Offset-first front (sz1, 11-05)
+- `tools/sizediff13.py` (per-fn and per-obj size diff vs retail) and `tools/drift13.py` (now reads `build/`; anchors
+  only fns >= 16 B). The old "first break CL_BlendSavedScreen" was a false anchor: 9 B `push eax; call [slot]`
+  stubs match many retail stubs. PINNED: before this work the first real break was cl_cin 0x4035c0 (+16).
+- refexport_t (retail 1.3, 108 slots, base 0x68a1e8; CL_ShutdownRef clears 0x6c dwords): one extra slot after
+  UpdateEffectsNonBolt (wrapper 0x4034a0, `jmp [slot]`, name unknown); `unknown86_95` is 11 slots, `unknown98_101` is 3,
+  no `unknown103`; `SyncGpu` and `unknown106` return int. Retail wrappers 0x412660 / 0x4126c0 (`jmp [SyncGpu slot]`,
+  `jmp [unknown106 slot]`) are unreferenced; the real CL_SyncGpu (0x412670, 73 B) is a Sleep(1) loop on those two
+  slots with an inline rdtsc time limit, called from CL_Input and CL_RunOncePerClientFrame. No AbortRenderCommands stub.
+- refimport_t (1.3): `Dvar_FindVar` at slot 25 (wrapper 0x437400), and the Sys thread block is 13 slots
+  (IsMainThread, IsSecondThread, ResumeThread, CreateThread, Handshake, SetEventA, SignalB, WaitEventD, SignalCWaitA,
+  ClearFlag, EventAPending, WaitEventB, SetEventD) instead of IsMainThread + ReturnFalse. 12 more stores in CL_InitRef.
+- Sys_Rdtsc is ONE shared copy at 0x40bdf0 (between Key_Stub and Key_Zero, in cl_keys_mp), called by scr_vm.
+  A second `rdtsc; ret` copy loses the referee's twin-count credit.
+- cl_keys_mp: fn 0x40b100 `return 256` (unreferenced) sits between Key_GetBinding and Key_GetKey.
+- cl_ui_mp: fn 0x4157b0 `if (x) EnablePbCl(); else DisablePbCl();` (unreferenced) between LAN_GetServerStatus and
+  Key_KeynumToStringBuf.
+- cl_main_mp order: fn_40d310 sits right after CL_RequestAuthorization (and CL_Frame calls it last);
+  set_cl_punkbuster (96 B) sits between CL_startSingleplayer_f and CL_DrawLogo.
+- CL_CheckForResend 1.3 (812 B): CHALLENGING copies `data` into `pbBuf[1020]` and calls PbClientConnecting(2, pbBuf, &len)
+  (m_ClientConnect hook, standalone fn at 0x4bc0e0) before sending `data`; CONNECTING builds "getchallenge" in pbBuf and
+  calls PbClientConnecting(1, ...) before the md5 getchallenge.
+- CL_DeathMessagePrint: `int linewidth = con.linewidth;` is read at function entry (ebp), duration spills.
+

@@ -852,6 +852,13 @@
 "reason": "short body, no name pair or unique twin"
 },
 {
+"name": "?fn_4034a0@@YAXXZ",
+"obj": "cl_cgame_mp.obj",
+"size": 6,
+"hits": [],
+"reason": "short body, no name pair or unique twin"
+},
+{
 "name": "?CIN_StopCinematic@@YA?AW4e_status@@H@Z",
 "obj": "cl_cin_mp.obj",
 "size": 5,
@@ -1351,9 +1358,10 @@
 {
 "name": "?CL_DeathMessagePrint@@YAXPBDPBM010MM1_N@Z",
 "obj": "cl_console_mp.obj",
-"size": 527,
-"hits": [],
-"reason": "no masked match"
+"size": 541,
+"hits": [
+"0x405530"
+]
 },
 {
 "name": "?Con_AutoCompleteFromList@@YAXPAPBDHPBDPADH@Z",
@@ -2636,9 +2644,10 @@
 {
 "name": "?CL_Input@@YAXXZ",
 "obj": "cl_input.obj",
-"size": 65,
-"hits": [],
-"reason": "no masked match"
+"size": 64,
+"hits": [
+"0x409320"
+]
 },
 {
 "name": "?CL_InitInput@@YAXXZ",
@@ -2859,6 +2868,15 @@
 ]
 },
 {
+"name": "?fn_40b100@@YAHXZ",
+"obj": "cl_keys_mp.obj",
+"size": 6,
+"hits": [
+"0x40b100"
+],
+"scan": 1
+},
+{
 "name": "?Key_GetKey@@YAHPBD@Z",
 "obj": "cl_keys_mp.obj",
 "size": 62,
@@ -2953,6 +2971,15 @@
 "size": 1,
 "hits": [],
 "reason": "short body, no name pair or unique twin"
+},
+{
+"name": "?Sys_Rdtsc@@YA_KXZ",
+"obj": "cl_keys_mp.obj",
+"size": 3,
+"hits": [
+"0x40bdf0"
+],
+"scan": 1
 },
 {
 "name": "?Key_Zero_40b450@@YAHXZ",
@@ -3278,6 +3305,14 @@
 ]
 },
 {
+"name": "?fn_40d310@@YAXXZ",
+"obj": "cl_main_mp.obj",
+"size": 104,
+"hits": [
+"0x40d310"
+]
+},
+{
 "name": "?CL_ForwardToServer_f@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 60,
@@ -3413,7 +3448,7 @@
 {
 "name": "?CL_CheckForResend@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 621,
+"size": 812,
 "hits": [],
 "reason": "no masked match"
 },
@@ -3557,16 +3592,18 @@
 {
 "name": "?CL_RunOncePerClientFrame@@YAXH@Z",
 "obj": "cl_main_mp.obj",
-"size": 220,
-"hits": [],
-"reason": "no masked match"
+"size": 219,
+"hits": [
+"0x40f770"
+]
 },
 {
 "name": "?CL_Frame@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 131,
-"hits": [],
-"reason": "no masked match"
+"size": 141,
+"hits": [
+"0x40f850"
+]
 },
 {
 "name": "?CL_IsLocalClientInGame@@YA_NXZ",
@@ -3636,7 +3673,7 @@
 {
 "name": "?CL_InitRef@@YAXXZ",
 "obj": "cl_main_mp.obj",
-"size": 1699,
+"size": 1831,
 "hits": [],
 "reason": "no masked match"
 },
@@ -3648,6 +3685,15 @@
 "0x410340"
 ],
 "scan": 1
+},
+{
+"name": "?set_cl_punkbuster@@YAXPAD@Z",
+"obj": "cl_main_mp.obj",
+"size": 96,
+"hits": [
+"0x410360",
+"0x459670"
+]
 },
 {
 "name": "?CL_DrawLogo@@YAXXZ",
@@ -3694,15 +3740,6 @@
 "size": 234,
 "hits": [
 "0x410920"
-]
-},
-{
-"name": "?set_cl_punkbuster@@YAXPAD@Z",
-"obj": "cl_main_mp.obj",
-"size": 96,
-"hits": [
-"0x410360",
-"0x459670"
 ]
 },
 {
@@ -3857,7 +3894,7 @@
 ]
 },
 {
-"name": "?CL_AbortRenderCommands_411360@@YAXXZ",
+"name": "?fn_412660@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
 "hits": [],
@@ -3865,6 +3902,13 @@
 },
 {
 "name": "?CL_SyncGpu@@YAXXZ",
+"obj": "cl_main_mp.obj",
+"size": 75,
+"hits": [],
+"reason": "no masked match"
+},
+{
+"name": "?fn_4126c0@@YAHXZ",
 "obj": "cl_main_mp.obj",
 "size": 6,
 "hits": [],
@@ -4437,6 +4481,15 @@
 "scan": 1
 },
 {
+"name": "?fn_4157b0@@YAXH@Z",
+"obj": "cl_ui_mp.obj",
+"size": 14,
+"hits": [
+"0x4157b0"
+],
+"scan": 1
+},
+{
 "name": "?Key_KeynumToStringBuf@@YAXHPADH@Z",
 "obj": "cl_ui_mp.obj",
 "size": 32,
@@ -4675,8 +4728,22 @@
 "name": "?CM_Hunk_AllocateTempMemoryHigh@@YAPAXHPBD@Z",
 "obj": "cm_load.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?CM_Hunk_ClearTempMemory@@YAXXZ",
@@ -6336,8 +6403,22 @@
 "name": "_FS_FileClose",
 "obj": "com_file_wrapper.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "_FS_FileSeek",
@@ -8508,8 +8589,22 @@
 "name": "?Z_MallocRaw@@YAPAXH@Z",
 "obj": "com_memory.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?Z_TryMallocInternal@@YAPAXH@Z",
@@ -9376,8 +9471,22 @@
 "name": "?Com_AllocateTempSoundMemory@@YAPAXHPBD@Z",
 "obj": "com_sndalias.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?Com_AllocSoundMemory@@YAPAXHPBDH@Z",
@@ -10674,8 +10783,22 @@
 "name": "?Dvar_StringToInt@@YAHPBD@Z",
 "obj": "dvar.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?Dvar_StringToFloat@@YAMPBD@Z",
@@ -10895,9 +11018,9 @@
 {
 "name": "?Dvar_FindVar@@YAPAUdvar_s@@PBD@Z",
 "obj": "dvar.obj",
-"size": 10,
+"size": 5,
 "hits": [],
-"reason": "no masked match"
+"reason": "short body, no name pair or unique twin"
 },
 {
 "name": "?Dvar_ClearModified@@YAXPAUdvar_s@@@Z",
@@ -13921,8 +14044,22 @@
 "name": "?NET_GetPacket@@YAHPAUnetadr_t@@PAUmsg_t@@@Z",
 "obj": "net_chan_mp.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?NET_GetLoopPacket_Real@@YAHHPAUnetadr_t@@PAUmsg_t@@@Z",
@@ -13936,8 +14073,22 @@
 "name": "?NET_GetLoopPacket@@YAHHPAUnetadr_t@@PAUmsg_t@@@Z",
 "obj": "net_chan_mp.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?NET_SendLoopPacket@@YAXHHPBXUnetadr_t@@@Z",
@@ -16282,8 +16433,9 @@
 "name": "?SV_DirectConnect@@YAXUnetadr_t@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 2733,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x453c20"
+]
 },
 {
 "name": "?SV_FreeClientScriptPers@@YAXXZ",
@@ -16656,8 +16808,22 @@
 "name": "?SV_Hunk_AllocateTempMemoryInternal@@YAPAXH@Z",
 "obj": "sv_game_mp.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?SV_Hunk_FreeTempMemoryInternal@@YAXPAX@Z",
@@ -17425,8 +17591,22 @@
 "name": "?SV_Netchan_TransmitNextFragment@@YA_NPAUnetchan_t@@@Z",
 "obj": "sv_net_chan_mp.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?SV_Netchan_Transmit@@YA_NPAUclient_s@@PAEH@Z",
@@ -17848,9 +18028,11 @@
 {
 "name": "?Sys_ResumeThread_462460@@YAXH@Z",
 "obj": "win_threads.obj",
-"size": 15,
-"hits": [],
-"reason": "no masked match"
+"size": 19,
+"hits": [
+"0x462460"
+],
+"scan": 1
 },
 {
 "name": "?Sys_ClearFlag_462480@@YAJXZ",
@@ -18527,7 +18709,7 @@
 ]
 },
 {
-"name": "$L96665",
+"name": "$L96669",
 "obj": "module",
 "size": 6,
 "hits": [],
@@ -23738,15 +23920,6 @@
 "reason": "short body, no name pair or unique twin"
 },
 {
-"name": "?Sys_Rdtsc@@YA_KXZ",
-"obj": "scr_vm.obj",
-"size": 3,
-"hits": [
-"0x40bdf0"
-],
-"scan": 1
-},
-{
 "name": "?Scr_GetLocalVarAtIndex@@YAIH@Z",
 "obj": "scr_vm.obj",
 "size": 18,
@@ -24720,8 +24893,9 @@
 "name": "_yylex",
 "obj": "scr_yacc.obj",
 "size": 4236,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4850e0"
+]
 },
 {
 "name": "_yy_get_next_buffer",
@@ -24840,8 +25014,22 @@
 "name": "_yy_flex_alloc",
 "obj": "scr_yacc.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "_yy_flex_realloc",
@@ -27533,8 +27721,22 @@
 "name": "?FX_InitSystem@@YAH_N@Z",
 "obj": "Fxexport.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?FX_FreeSystem@@YAXXZ",
@@ -35142,7 +35344,7 @@
 ]
 },
 {
-"name": "$L118271",
+"name": "$L118290",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35150,7 +35352,7 @@
 ]
 },
 {
-"name": "$L118273",
+"name": "$L118292",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35183,7 +35385,7 @@
 ]
 },
 {
-"name": "$L132154",
+"name": "$L132173",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35191,7 +35393,7 @@
 ]
 },
 {
-"name": "$L132156",
+"name": "$L132175",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35269,7 +35471,7 @@
 ]
 },
 {
-"name": "$L104435",
+"name": "$L104454",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35285,7 +35487,7 @@
 ]
 },
 {
-"name": "$L147558",
+"name": "$L147578",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35405,8 +35607,22 @@
 "name": "?allocate@?$se_alloc@D@@QAEPADI@Z",
 "obj": "stringed_ingame.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?max_size@?$se_alloc@D@@QBEIXZ",
@@ -36817,8 +37033,13 @@
 "name": "?SND_Get2DChannelPlaybackRate@@YAHH@Z",
 "obj": "snd_driver.obj",
 "size": 15,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4b78a0",
+"0x4b78c0",
+"0x4b78e0",
+"0x4b7a80"
+],
+"scan": 1
 },
 {
 "name": "?SND_Set2DChannelPlaybackRate@@YAXHH@Z",
@@ -36835,8 +37056,13 @@
 "name": "?SND_Get3DChannelPlaybackRate@@YAHH@Z",
 "obj": "snd_driver.obj",
 "size": 15,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4b78a0",
+"0x4b78c0",
+"0x4b78e0",
+"0x4b7a80"
+],
+"scan": 1
 },
 {
 "name": "?SND_Set3DChannelPlaybackRate@@YAXHH@Z",
@@ -36853,8 +37079,13 @@
 "name": "?SND_GetStreamChannelPlaybackRate@@YAHH@Z",
 "obj": "snd_driver.obj",
 "size": 15,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4b78a0",
+"0x4b78c0",
+"0x4b78e0",
+"0x4b7a80"
+],
+"scan": 1
 },
 {
 "name": "?SND_SetStreamChannelPlaybackRate@@YAXHH@Z",
@@ -36906,8 +37137,13 @@
 "name": "?SND_Get3DChannelLength@@YAHH@Z",
 "obj": "snd_driver.obj",
 "size": 15,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4b78a0",
+"0x4b78c0",
+"0x4b78e0",
+"0x4b7a80"
+],
+"scan": 1
 },
 {
 "name": "?SND_GetStreamChannelLength@@YAHH@Z",
@@ -37443,8 +37679,22 @@
 "name": "?Sound_Init@@YAHPBX@Z",
 "obj": "play.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x415f50",
+"0x421990",
+"0x42c320",
+"0x42e860",
+"0x436180",
+"0x448730",
+"0x4487f0",
+"0x456ce0",
+"0x45c990",
+"0x486800",
+"0x493270",
+"0x4af6f0",
+"0x4ba360"
+],
+"scan": 1
 },
 {
 "name": "?Sound_Shutdown@@YAXXZ",
@@ -37477,8 +37727,9 @@
 "name": "?DSound_UpdateSample@@YAHPAUdsound_sample_t@@PADI@Z",
 "obj": "play_dsound.obj",
 "size": 500,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4ba470"
+]
 },
 {
 "name": "?DSound_AdjustSamplePlayback@@YAXPAUdsound_sample_t@@H@Z",
@@ -54583,8 +54834,9 @@
 "name": "?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z",
 "obj": "ui_shared_mp.obj",
 "size": 1194,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x53ea00"
+]
 },
 {
 "name": "?ToWindowCoords@@YAXPAM0PAUWindow@@@Z",
@@ -57340,6 +57592,15 @@
 "reason": "short body, no name pair or unique twin"
 },
 {
+"name": "_Sleep@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c4e"
+],
+"thunk": 1
+},
+{
 "name": "_GetFileAttributesA@4",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
@@ -57514,15 +57775,6 @@
 "size": 6,
 "hits": [
 "0x547ce4"
-],
-"thunk": 1
-},
-{
-"name": "_Sleep@4",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547c4e"
 ],
 "thunk": 1
 },
@@ -81933,7 +82185,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 2544,
+"size": 1968,
 "hits": [],
 "reason": "no masked match"
 },

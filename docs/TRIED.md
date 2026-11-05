@@ -29,3 +29,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CG_DrawScoreboard_Objective (790 vs 1540), CG_EntityEvent (4328 vs 4360) | read only | retail bodies differ structurally (20 calls vs 9); not attempted |
 | DL_BeginDownload (769 vs 781) | read only | retail keeps 0 in esi (xor esi,esi) for ~6 uses; ours pushes imm 0 (zero-in-register pattern) |
 
+| CL_SyncGpu body (sz1) | rdtsc in-body asm with 64-bit locals; `static __forceinline` rdtsc helper | 91 B / helper emitted as a 3 B fn (asm fns do not inline); low-dword-only locals fit the 80 B bucket, bytes not yet exact |

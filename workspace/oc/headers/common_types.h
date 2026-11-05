@@ -13490,6 +13490,7 @@ struct refexport_t {
     void (*UpdateXModelBoundsDelayed)(GfxEntity *ent);
     void (*UpdateEffectsBolt)(void);
     void (*UpdateEffectsNonBolt)(void);
+    void (*unknown_after_NonBolt)(void);  // retail 1.3 slot, wrapper at 0x4034a0, name unknown
     void (*DefaultVertexFrames)(int vertCount, GfxWorldVertex *verts);
     void (*AddPolyToScene)(MaterialHandle materialHandle, unsigned short lmapIndex, unsigned short vertCount, const GfxWorldVertex *verts);
     void (*AddLightToScene)(const vec_t *org, float radius, float r, float g, float b);
@@ -13552,15 +13553,14 @@ struct refexport_t {
     const char * (*ParseSunLight)(void *params, const char *text);
     MaterialHandle (*Material_Duplicate)(MaterialHandle mtlCopy, const char *name);
     void (*DuplicateFont)(FontHandle fontCopy, const char *name);
-    void *unknown86_95[10];
+    void *unknown86_95[11];
     struct XSurface_s * (*XModelReadSurface)(struct XModel *model, int *partBits, const unsigned char **pos, void *(*Alloc)(int));
     struct trXSkin_t * (*LoadXSkins)(struct XModel *model);
-    void *unknown98_101[4];
+    void *unknown98_101[3];
     void (*SyncRenderThread)(void);
-    void *unknown103;
     void (*AbortRenderCommands)(void);
-    void (*SyncGpu)(void);
-    void *unknown106;
+    int (*SyncGpu)(void);  // retail 1.3: returns a flag, used by the CL_SyncGpu wait loop
+    int (*unknown106)(void);  // retail 1.3: returns the wait limit (cycles)
     void (*SetLodOrigin)(const refdef_t *refdef);
 };
 
