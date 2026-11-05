@@ -1,6 +1,5 @@
-// Undo.cpp: placeholder, no function reconstructed yet. Code goes here in retail order.
+#include "stdafx.h"
 
-// Q3Radiant undo.cpp; only the leading fields are used here
 typedef struct undo_s
 {
 	double time;
@@ -8,8 +7,36 @@ typedef struct undo_s
 	int done;
 } undo_t;
 
-undo_t *g_lastundo;
+extern undo_t *g_lastredo;
+extern undo_t *g_lastundo;
+extern int g_undoMaxSize;
+extern int g_undoMaxMemorySize;
 
+// 0x004433a0 (6 B)
+undo_t *Undo_RedoAvailable(void)
+{
+	return g_lastredo;
+}
+
+// 0x00443820 (6 B)
+int Undo_GetMaxSize(void)
+{
+	return g_undoMaxSize;
+}
+
+// 0x00443850 (6 B)
+int Undo_GetMaxMemorySize(void)
+{
+	return g_undoMaxMemorySize;
+}
+
+// 0x00445020 (14 B)
+bool FUN_00445020(void)
+{
+	return g_lastredo != NULL;
+}
+
+// 0x00445030 (25 B)
 int Undo_UndoAvailable(void)
 {
 	if (g_lastundo)
