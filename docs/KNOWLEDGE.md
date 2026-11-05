@@ -161,3 +161,27 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   calls PbClientConnecting(1, ...) before the md5 getchallenge.
 - CL_DeathMessagePrint: `int linewidth = con.linewidth;` is read at function entry (ebp), duration spills.
 
+## 6. Region sz2 (qcommon/server/win_*): sizes found 11-05 (PINNED = matched or byte-checked on retail)
+- Cmd_ExecuteString 1.3 (retail 0x4214c0, 520 B, matched): first `PbTrapPreExecCmd(text)` (pbcl m_TrapPreExecCmd, non-null = done),
+  then tokenize; a `pb_` command that is not `pb_sv_` goes to PbClAddEvent(14, strlen+1, text) (inline), `pb_sv_` to PbSvAddEvent(14,-1,..).
+- Com_Init_Try_Block_Function (matched, 1490 B): after Com_AddStartupCommands, `if (!com_dedicated)`: r_smp_backend_allowed =
+  Dvar_RegisterBool(name, Com_HasMultipleCores(), DVAR_INIT|CHANGEABLE_RESET); if true call re slot 0x48 (index 18, name unknown) BEFORE
+  cls.rendererStarted/CL_InitRenderer. Com_HasMultipleCores = retail 0x434420 (54 B, no callers, kept as a static body):
+  GetProcessAffinityMask, `(m & (m-1)) != 0`.
+- win_threads: IsSecondThread/IsMainThread/EventAPending return `int` (sub/neg/sbb/inc form); a Bool return gives cmp/sete. Inline users
+  (Con_DrawInput, CL_AllLocalClientsDisconnected) need the plain `==` int form; SCR_DrawScreenField tests `al`, so it casts
+  `(unsigned char)Sys_IsMainThread()`.
+- Sys_ResumeThread_462460 (retail 19 B, stack arg) stays 15 B in ours: retail references it, IsSecondThread, CreateThread, Handshake and
+  SetEventA only through the refimport table built in CL_InitRenderer (0x410210..0x410252: GetValue, IsMainThread, IsSecondThread,
+  ResumeThread, CreateThread, Handshake, SetEventA). Ours lacks those entries, so LTCG gives the fns a register convention. Owner: cl_main_mp.
+- Critical section fns (InitializeCriticalSections 0x4642b0, Enter 0x4642e0, Leave 0x464300) live in win_common right after
+  Sys_StreamSeek, before Sys_RoundUp; WinMain runs the init (inlined loop) right after the two _controlfp calls, before Sys_InitMainThread.
+- Sys_PBSendUdpPacket = retail 0x467090, right after Sys_SendPacket in win_net.
+- SV/CL_Netchan_DrawProfileLine = CL_DrawString(32, y, line, 0, cl_profileTextHeight->current.integer) (dvar at 0x96b63c), 111 B.
+- Conbuf_AppendText starts with `if (!Sys_IsMainThread()) return;` (frame 0x8004).
+- WinMain: startup calls PbClientInitialize(hInstance) (not dedicated) and PbServerInitialize() before SetFocus; loop is Sleep check,
+  Com_Frame, `if (!com_dedicated || !integer) PbClientProcessEvents()`, PbServerProcessEvents(). Retail inlines the ProcessPbEvents bodies
+  there (+112 B vs ours, open: ours calls the out-of-line copy).
+- FX_EffectLimitReached (retail 0x49f400, 33 B) checks `com_statmon->current.boolean` first.
+- Retail 0x4b2350 = small helper "run nextmap": Cbuf_AddText(va("%s\n", nextmap)); Dvar_SetString(nextmap, ""); UI_SetActiveMenu(1); used by
+  RoQShutdown and by the ROQSize<=0 branch of ROQ_PlayCinematic (state == 0 && nextmap[0]).

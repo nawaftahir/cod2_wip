@@ -1098,6 +1098,7 @@ void AxisCopy( const float in[3][3], float out[3][3] );
 void CL_AddDebugLine( const float *start, const float *end, const float *color, int depthTest, int duration, int fromServer );
 
 extern void StatMon_Warning( int type, int duration, const char *materialName );
+extern const dvar_t *com_statmon;
 
 // Original name unknown.
 static inline void FX_SwapBolt( int i, int j );
@@ -1307,7 +1308,8 @@ static void FX_RemoveNonBolt( int index, bool bDie )
 // Original name unknown.
 static void FX_EffectLimitReached()
 {
-	StatMon_Warning(3, 3000, "gfx/2d/warning@maxeffects.jpg");
+	if ( com_statmon->current.boolean )
+		StatMon_Warning(3, 3000, "gfx/2d/warning@maxeffects.jpg");
 }
 
 // Original name unknown.

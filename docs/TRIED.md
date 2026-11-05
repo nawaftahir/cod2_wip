@@ -30,3 +30,5 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | DL_BeginDownload (769 vs 781) | read only | retail keeps 0 in esi (xor esi,esi) for ~6 uses; ours pushes imm 0 (zero-in-register pattern) |
 
 | CL_SyncGpu body (sz1) | rdtsc in-body asm with 64-bit locals; `static __forceinline` rdtsc helper | 91 B / helper emitted as a 3 B fn (asm fns do not inline); low-dword-only locals fit the 80 B bucket, bytes not yet exact |
+| Sys_IsMainThread body `!(GetCurrentThreadId() - id)` with a Bool decl | to get sub/neg/sbb/inc | callee 19 B (retail 18); inline users get `sub` instead of `cmp`: lost Con_DrawInput + CL_AllLocalClientsDisconnected. Use int `==` |
+| CM_Trace (+16 B in cm_trace) | diff only | retail spills cmod once, ours twice (RA); not tried further |
