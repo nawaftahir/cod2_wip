@@ -9,6 +9,18 @@ int Patch_MemorySize(patchMesh_t *patch)
     return _msize(patch);
 }
 
+// Retail 0x00425820 (29 bytes); relocation-normalized MATCH in CI 42067258788.
+// Original symbol name is unknown. No ABI annotations or artificial callers.
+void FUN_00425820(patchMesh_t *patch, int mode, bool enabled, float value)
+{
+    if (mode == 1)
+    {
+        patch->flag_382f = enabled;
+        if (enabled)
+            patch->value_3834 = value;
+    }
+}
+
 void Patch_CalcBounds(patchMesh_t *patch, vec3_t &mins, vec3_t &maxs, bool enlarge)
 {
     ClearBounds(mins, maxs);

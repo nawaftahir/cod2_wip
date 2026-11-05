@@ -224,6 +224,7 @@ addr	size	source	symbol	name	tag
 0x00424e20	5	src/radiant/PatchDialog.cpp	?UpdateInfo@CPatchDialog@@QAEXXZ	CPatchDialog::UpdateInfo	SUPPORTED
 0x00425120	1	src/radiant/UNKNOWN_00425080.cpp	_FUN_00425120	FUN_00425120	UNNAMED
 0x00425810	10	src/radiant/Pmesh.cpp	?Patch_MemorySize@@YAHPAUpatchMesh_t@@@Z	Patch_MemorySize	SUPPORTED
+0x00425820	29	src/radiant/Pmesh.cpp	?FUN_00425820@@YAXPAUpatchMesh_t@@H_NM@Z	FUN_00425820	UNNAMED
 0x00426280	410	src/radiant/Pmesh.cpp	?Patch_CalcBounds@@YAXPAUpatchMesh_t@@AAY02M1_N@Z	Patch_CalcBounds	SUPPORTED
 0x00426b80	139	src/radiant/Pmesh.cpp	?Patch_WidthDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_WidthDistanceTo	SUPPORTED
 0x00426c10	127	src/radiant/Pmesh.cpp	?Patch_HeightDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_HeightDistanceTo	SUPPORTED
