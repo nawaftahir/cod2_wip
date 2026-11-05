@@ -83,3 +83,10 @@ in 24 bytes only: PE timestamp 0x130, 0x10c204 and two .rdata spans near 0x19c92
 and 0x19d4e4. Both have .text 0x10a570 (1.0: 0x10a090). FASTPATH_11-04 "1.3 = 2.9%,
 different build" is wrong; that row measured another binary. Order: finish 1.0,
 port to 1.2, then 1.3 is a near-trivial patch. Evidence: cmp -l, objdump -h.
+
+PINNED: tools/cmp.py capped raw byte hits at 8. Common SDK bodies (e.g. 33-byte
+scalar deleting destructors ??_GCPool/_GCConstant/_GCFragmentInfo) have more
+retail copies, so the caller-placed address (AddPool calls 0x100cb926) was absent
+and the binder could never place them; 80 KB of chains hung on that. Cap 64:
++96 bound functions/+86990 library bytes, zero previously bound bodies lost
+(same DLL, referees rerun). Binder acceptance predicates unchanged.

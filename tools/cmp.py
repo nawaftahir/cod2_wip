@@ -94,7 +94,7 @@ for i, (va, name, obj) in enumerate(syms):
     # Relocated leaves may have only12 fixed bytes; bindcheck still proves every operand.
     if len(lit) >= 8 or (len(lit) >= 4 and len(code) - len(mask) >= 12) or short_return:
         p = cdata.find(lit)
-        while p >= 0 and len(hits) < 8:
+        while p >= 0 and len(hits) < 64:
             st = p - best[0]
             w = cdata[st:st + len(code)]
             if st >= 0 and len(w) == len(code) and all(w[k] == code[k] for k in range(len(code)) if k not in mask):
