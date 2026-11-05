@@ -88,6 +88,7 @@ void CPatchDialog::OnBtnPatchnatural()
 	g_nUpdateBits = -1;
 }
 
+
 void CPatchDialog::OnSelchangeComboType()
 {
 }

@@ -88,6 +88,76 @@ void CPatchDialog::OnBtnPatchnatural()
 	g_nUpdateBits = -1;
 }
 
+
+void CPatchDialog::OnSelchangeComboCol()
+{
+    UpdateRowColInfo();
+}
+
+void CPatchDialog::OnSelchangeComboRow()
+{
+    UpdateRowColInfo();
+}
+
+void CPatchDialog::OnDeltaposSpin(NMHDR* pNMHDR, LRESULT* pResult)
+{
+    NM_UPDOWN* pNMUpDown = (NM_UPDOWN*)pNMHDR;
+    UpdateSpinners((pNMUpDown->iDelta > 0), pNMUpDown->hdr.idFrom);
+    *pResult = 0;
+}
+
+void CPatchDialog::GetPatchInfo()
+{
+    m_Patch = SinglePatchSelected();
+    if (m_Patch != NULL)
+    {
+        CString str;
+        int i;
+        m_wndRows.ResetContent();
+        for (i = 0; i < m_Patch->height; i++)
+        {
+            str.Format("%i", i);
+            m_wndRows.AddString(str);
+        }
+        m_wndRows.SetCurSel(0);
+        m_wndCols.ResetContent();
+        for (i = 0; i < m_Patch->width; i++)
+        {
+            str.Format("%i", i);
+            m_wndCols.AddString(str);
+        }
+        m_wndCols.SetCurSel(0);
+    }
+    UpdateRowColInfo();
+}
+
+// Texture coordinates have two retail channels. Target 0x00424d50
+// reads the selected channel from control offsets +0xc and +0x10,
+// with an eight-byte stride selected by DAT_01128d94.
+// Target code at 0x424de6 and 0x424df8 independently reloads the
+// active texture channel, even across the intervening member write.
+extern volatile int DAT_01128d94;
+void CPatchDialog::UpdateRowColInfo()
+{
+    m_fX = m_fY = m_fZ = m_fS = m_fT = 0.0f;
+
+    if (m_Patch != NULL)
+    {
+        int r = m_wndRows.GetCurSel();
+        int c = m_wndCols.GetCurSel();
+        if (r >= 0 && r < m_Patch->height &&
+            c >= 0 && c < m_Patch->width)
+        {
+            m_fX = m_Patch->ctrl[c][r].xyz[0];
+            m_fY = m_Patch->ctrl[c][r].xyz[1];
+            m_fZ = m_Patch->ctrl[c][r].xyz[2];
+            m_fS = m_Patch->ctrl[c][r].st[DAT_01128d94][0];
+            m_fT = m_Patch->ctrl[c][r].st[DAT_01128d94][1];
+        }
+    }
+    UpdateData(FALSE);
+}
+
 void CPatchDialog::OnSelchangeComboType()
 {
 }

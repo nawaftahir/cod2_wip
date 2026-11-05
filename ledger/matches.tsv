@@ -223,9 +223,14 @@ addr	size	source	symbol	name	tag
 0x00424d10	62	src/radiant/PatchDialog.cpp	?OnDestroy@CPatchDialog@@IAEXXZ	CPatchDialog::OnDestroy	SUPPORTED
 0x00424e20	5	src/radiant/PatchDialog.cpp	?UpdateInfo@CPatchDialog@@QAEXXZ	CPatchDialog::UpdateInfo	SUPPORTED
 0x00425120	1	src/radiant/UNKNOWN_00425080.cpp	_FUN_00425120	FUN_00425120	UNNAMED
+0x00425770	152	src/radiant/Pmesh.cpp	?MakeNewPatch@@YAPAUpatchMesh_t@@XZ	MakeNewPatch	SUPPORTED
+0x00425810	10	src/radiant/Pmesh.cpp	?Patch_MemorySize@@YAHPAUpatchMesh_t@@@Z	Patch_MemorySize	SUPPORTED
+0x00425820	29	src/radiant/Pmesh.cpp	?FUN_00425820@@YAXPAUpatchMesh_t@@H_NM@Z	FUN_00425820	UNNAMED
 0x00426280	410	src/radiant/Pmesh.cpp	?Patch_CalcBounds@@YAXPAUpatchMesh_t@@AAY02M1_N@Z	Patch_CalcBounds	SUPPORTED
 0x00426b80	139	src/radiant/Pmesh.cpp	?Patch_WidthDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_WidthDistanceTo	SUPPORTED
 0x00426c10	127	src/radiant/Pmesh.cpp	?Patch_HeightDistanceTo@@YAMPAUpatchMesh_t@@H@Z	Patch_HeightDistanceTo	SUPPORTED
+0x00429df0	34	src/radiant/Pmesh.cpp	?FUN_00429df0@@YIHPAXH@Z	FUN_00429df0	UNNAMED
+0x0042b6d0	14	src/radiant/Pmesh.cpp	?FUN_0042b6d0@@YAMHHMMM@Z	FUN_0042b6d0	UNNAMED
 0x00434100	1	src/radiant/Pmesh.cpp	_FUN_00434100	FUN_00434100	UNNAMED
 0x0043b500	85	src/radiant/RADEditWnd.cpp	??0CRADEditWnd@@QAE@XZ	CRADEditWnd::CRADEditWnd	SUPPORTED
 0x0043b590	87	src/radiant/RADEditWnd.cpp	??1CRADEditWnd@@UAE@XZ	CRADEditWnd::~CRADEditWnd	SUPPORTED
