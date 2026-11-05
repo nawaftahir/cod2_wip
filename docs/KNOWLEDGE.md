@@ -185,3 +185,4 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - FX_EffectLimitReached (retail 0x49f400, 33 B) checks `com_statmon->current.boolean` first.
 - Retail 0x4b2350 = small helper "run nextmap": Cbuf_AddText(va("%s\n", nextmap)); Dvar_SetString(nextmap, ""); UI_SetActiveMenu(1); used by
   RoQShutdown and by the ROQSize<=0 branch of ROQ_PlayCinematic (state == 0 && nextmap[0]).
+- CG_DrawScoreboard_Objective: Asian branch added (Language_IsAsian -> SEH_ReadCharFromString loop, len counter in chars); 1608 B vs retail 1540, bytes not matched (68 B over, 2 builds used). CG_EntityEvent still +32 short.
