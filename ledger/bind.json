@@ -2011,6 +2011,12 @@
 "obj": "r_model.obj",
 "why": []
 },
+"?R_GetRigidTransform@@YAXPBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z": {
+"t": "0x1001ee70",
+"n": 399,
+"obj": "r_model.obj",
+"why": []
+},
 "?R_RegisterModel@@YAPAUXModel@@PBD@Z": {
 "t": "0x1001d830",
 "n": 107,
