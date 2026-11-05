@@ -160,7 +160,8 @@ def verify_all():
     extras = []
     if ok:
         ledger_syms = {r["symbol"] for r in rows + compiler}
-        ours = {link.obj_path(s).name.lower() for s in link.sources()}
+        # only finished files (real src/) must be fully verified; workspace/src holds work in progress
+        ours = {link.obj_path(s).name.lower() for s in link.sources() if (BASE / s).exists()}
         # "i" in the map = an inline header function, emitted in whichever file first uses it; not src code
         # header "static inline" helpers come out as local copies without the flag; also header code
         in_header = set()
