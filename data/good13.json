@@ -38241,6 +38241,16 @@
 ]
 },
 {
+"name": "?PbClientProcessEvents@@YAXXZ",
+"obj": "pbcl.obj",
+"size": 13,
+"hits": [
+"0x4bc0c0",
+"0x4bd930"
+],
+"scan": 1
+},
+{
 "name": "?PbClientForceProcess@@YAXXZ",
 "obj": "pbcl.obj",
 "size": 13,
@@ -38289,16 +38299,6 @@
 "hits": [
 "0x4bc290"
 ]
-},
-{
-"name": "?PbClientProcessEvents@@YAXXZ",
-"obj": "pbcl.obj",
-"size": 13,
-"hits": [
-"0x4bc0c0",
-"0x4bd930"
-],
-"scan": 1
 },
 {
 "name": "?EnablePbCl@@YAXXZ",
