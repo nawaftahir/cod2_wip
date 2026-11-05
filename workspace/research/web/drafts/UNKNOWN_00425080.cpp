@@ -6,11 +6,20 @@
 // are recoverable from the retail decompilation, unlike the owner type.
 extern char DAT_00598c80;
 
-// Retail 0x00425080 / 3 B: load the first 32-bit value from an ECX pointer.
-// Candidate source; accept only after the pinned CI referee reports MATCH.
-int __fastcall FUN_00425080(int *value)
+// Retail 0x00425080 / 3 B: member accessor of the text storage object.
+// Backing data at +0, length at +4, capacity at +8 are supported by
+// the constructor/destructor spans at 0x00425090..0x004250c0.
+struct UNKNOWN_00425080
 {
-    return *value;
+    char *data;
+    int length;
+    int capacity;
+    char *FUN_00425080();
+};
+
+char *UNKNOWN_00425080::FUN_00425080()
+{
+    return data;
 }
 
 
