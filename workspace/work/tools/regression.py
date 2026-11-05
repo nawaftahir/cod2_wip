@@ -266,6 +266,9 @@ required.update(accepted(cache_indices))
 cache_allocator = gfx / 'workspace/work' / 'proof/cache_allocator_20261105_warm_bind.json'
 assert hashlib.sha256(cache_allocator.read_bytes()).hexdigest() == 'b2e6f98c2c5f3a205eafd199466b8951c4509df6bf9893fd85000c42fb599c82'
 required.update(accepted(cache_allocator))
+rigid_transform = gfx / 'workspace/work' / 'proof/rigid_transform_20261105_warm_bind.json'
+assert hashlib.sha256(rigid_transform.read_bytes()).hexdigest() == '29bcdd03011b7dae9739c22d22357df583cc7c9121bb09ab79854f921c6cc3d0'
+required.update(accepted(rigid_transform))
 lost = [hex(va) for va, row in old.items() if va not in new or new[va]['n'] != row['n']]
 checkpoint_lost = [hex(va) for va, row in required.items()
                    if va not in new or new[va]['n'] != row['n']]

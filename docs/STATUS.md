@@ -1,3 +1,16 @@
+## Active reconstruction - 2026-11-05
+
+Owner resumed work. Allocator clean CI41900093450 passed; canonical publication
+is following gfx/main. New candidate: R_GetRigidTransform at1001ee70 passes
+both local referees and retention checks; it needs clean CI before new coverage
+is reported. No assembly added. Other rejected probes are restored and recorded.
+Two additional complete source snapshots are in root src, with frozen proof.
+The source guard supports current workspace provenance alongside legacy paths.
+TU accounting now includes independently binding-certified short bodies; this
+corrects an undercount, not reconstruction progress. Duplicate object names
+remain ambiguous. Refer to CI-generated ledger/meter.json for confirmed values.
+Goal remains50% verified pure C/C++ inventory coverage, then whole-file identity.
+
 ## Pause checkpoint - 2026-11-05
 
 Owner requested pause after saving this checkpoint. Read docs/HANDOFF.md.

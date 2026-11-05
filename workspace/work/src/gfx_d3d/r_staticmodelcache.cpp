@@ -140,7 +140,7 @@ void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *
     GfxStaticModelSurfaceCached *cached = skinCmd->cached;
     const XSurface *surface = cached->xsurf;
     const GfxStaticModelInstance *model = &rgp.world->smodelInsts[skinCmd->smodelIndex];
-    DObjSkelMat bone;
+    __declspec(align(16)) DObjSkelMat bone;
     vec3_t axis[4];
     vec3_t normalAxis[3];
     const DObjAnimMat *pose = ri.XModelGetBasePoseBone(model->model, surface->boneOffset);
@@ -149,14 +149,16 @@ void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *skinCmd, SkinBuffers *
     Vec3NormalizeTo(axis[0], normalAxis[0]);
     Vec3NormalizeTo(axis[1], normalAxis[1]);
     Vec3NormalizeTo(axis[2], normalAxis[2]);
+    const XVertexInfo *vertices = (const XVertexInfo *)surface->verts;
+    int vertexCount = surface->vertCount;
+    int baseVertex = cached->baseVertIndex;
+    int modelIndex = skinCmd->smodelIndex;
     if (r_rendererInUse->current.integer == 2)
-        R_SkinCachedVerticesDx7(axis, normalAxis, skinCmd->smodelIndex,
-            cached->baseVertIndex, surface->vertCount, (const XVertexInfo *)surface->verts,
-            skinCmd->material, skinBuffers->verts.dx7);
+        R_SkinCachedVerticesDx7(axis, normalAxis, modelIndex,
+            baseVertex, vertexCount, vertices, skinCmd->material, skinBuffers->verts.dx7);
     else
-        R_SkinCachedVertices(axis, normalAxis, skinCmd->smodelIndex,
-            cached->baseVertIndex, surface->vertCount, (const XVertexInfo *)surface->verts,
-            skinBuffers->verts.dx9);
+        R_SkinCachedVertices(axis, normalAxis, modelIndex,
+            baseVertex, vertexCount, vertices, skinBuffers->verts.dx9);
 }
 
 static void SMC_FreeCachedSurface_r(static_model_cache_t *cache, static_model_tree_t *tree, int nodeIndex, int levelsToLeaf)

@@ -20,7 +20,10 @@ for row in manifest['files']:
     coverage = json.loads((proof / files['coverage']).read_text())
     path = root / row['path']
     assert hashlib.sha256(path.read_bytes()).hexdigest() == row['sha256'], row['path']
-    relative = Path(row['working_source']).relative_to('target/work/src').as_posix()
+    working = Path(row['working_source'])
+    relative = (working.relative_to('workspace/work/src')
+                if working.is_relative_to('workspace/work/src')
+                else working.relative_to('target/work/src')).as_posix()
     assert coverage['source_sha256'][relative] == row['sha256'], relative
     emitted = {r['name']: r for r in compared if r['obj'] == path.stem + '.obj'}
     accepted = {r['name']: r for r in row['emitted_functions']}

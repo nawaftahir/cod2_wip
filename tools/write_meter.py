@@ -85,7 +85,7 @@ meter = dict(name='renderer 1.0', binary='gfx_d3d_mp_x86_s.dll', version='1.0',
              assembly_functions=len(coverage['excluded_assembly_bodies']),
              sections=sections, source_commit=subprocess.check_output(
                  ['git', '-C', str(ROOT), 'rev-parse', 'HEAD'], text=True).strip(),
-             note='Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not current identical TUs. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.')
+             note='Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not complete historical TUs. Current emitted-body TU counts include short bodies certified by the binding referee. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.')
 meter.update(measure(tus, json.loads((build / 'cmp.json').read_text()), bind))
 (ROOT / 'build').mkdir(exist_ok=True)
 (ROOT / 'build/meter.json').write_text(json.dumps(meter, indent=2) + '\n')

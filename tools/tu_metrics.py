@@ -20,7 +20,8 @@ def measure(tus, compared, bindings):
             continue
         if all((binding := bindings.get(row['name'])) is not None
                and not binding['why'] and binding['obj'] == obj
-               and binding['t'] in row['hits'] and binding['n'] == row['size']
+               and (not row['hits'] or binding['t'] in row['hits'])
+               and binding['n'] == row['size']
                for row in rows):
             verified.append(obj)
     return dict(current_source_tus_total=len(objects),
@@ -37,6 +38,7 @@ def selftest():
         current_source_tus_without_emitted_bodies=1, current_source_tus_ambiguous=0)
     assert measure(['one/a.cpp', 'two/a.cpp'], compared, bindings)['current_source_tus_verified'] == 0
     assert measure(['one/a.cpp', 'two/a.cpp'], compared, bindings)['current_source_tus_ambiguous'] == 2
+    assert measure(['a.cpp'], [dict(compared[0], hits=[])], bindings)['current_source_tus_verified'] == 1
     for change in (dict(why=['unverified callee']), dict(obj='other.obj'),
                    dict(n=11), dict(t='0x2000')):
         assert measure(['a.cpp'], compared, {'a': dict(bindings['a'], **change)})['current_source_tus_verified'] == 0
