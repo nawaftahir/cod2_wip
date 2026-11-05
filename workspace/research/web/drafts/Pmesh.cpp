@@ -2,6 +2,7 @@
 #include "Pmesh.h"
 #include <malloc.h>
 #include <string.h>
+#include <math.h>
 #include "../universal/com_math.h"
 
 // Retail 0x00425770 / 152 B -- unverified real initialization candidate.
@@ -139,3 +140,12 @@ float Patch_HeightDistanceTo(patchMesh_t *patch, int count)
 
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_00434100() {}
+
+// Retail 0x00439600 / 27 B; disassembly/decompiler indicate
+// fabs of a float promoted to double and rounded back to float.
+// Source hypothesis: normal scalar floating-point absolute value.
+// This function is called from the Patch_GenericMesh family.
+float FUN_00439600(float value)
+{
+    return (float)fabs((double)value);
+}
