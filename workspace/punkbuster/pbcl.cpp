@@ -476,11 +476,6 @@ void PbClientInitialize(void *param)
 		set_cl_punkbuster("0");
 }
 
-void PbClientProcessEvents()
-{
-	pbcl.ProcessPbEvents(0);
-}
-
 void PbClientForceProcess()
 {
 	pbcl.ProcessPbEvents(-1);
