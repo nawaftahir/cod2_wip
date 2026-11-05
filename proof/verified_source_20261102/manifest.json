@@ -608,12 +608,7 @@
           "obj": "r_dvars.obj",
           "why": []
         }
-      ],
-      "proof_files": {
-        "bind": "nov05_complete_bind.json",
-        "cmp": "nov05_complete_cmp.json",
-        "coverage": "nov05_complete_source_coverage.json"
-      }
+      ]
     },
     {
       "path": "src/gfx_d3d/r_splitscreen.cpp",
@@ -670,12 +665,7 @@
           "obj": "r_splitscreen.obj",
           "why": []
         }
-      ],
-      "proof_files": {
-        "bind": "nov05_complete_bind.json",
-        "cmp": "nov05_complete_cmp.json",
-        "coverage": "nov05_complete_source_coverage.json"
-      }
+      ]
     }
   ],
   "proof_hashes": {
@@ -695,10 +685,7 @@
     "buffers_source_coverage.json": "6017a93f10015b1703a6ef94eceb66d821839cac846ad27424c2cff1ff9f4750",
     "buffers_review.json": "86d196b2d6e64f8349553067b58f3f9a4864c08b77fd289b085255c5394e0fad",
     "buffers_old_referee_replay.json": "15990e4b87fd91e7b15e70f13a0999b78be199a13cd146523d4dcbe8077eb874",
-    "buffers_old_referee.txt": "103be9413ee71391c4bcc05ed7d31aaa071010451813c81594fc3fd171576e5c",
-    "nov05_complete_bind.json": "4e9424ad7b0525bb449dceb49410c3c347588954b695b72d41d9a8694a1882f4",
-    "nov05_complete_cmp.json": "f8cca04dda0698d49608cb63748d693ee9f45c0f7704271e9a3c0ccf60a6e6b8",
-    "nov05_complete_source_coverage.json": "aad163fde6262846bf10140aa785516537b7d22d0ca109aa323569a90f34bc2e"
+    "buffers_old_referee.txt": "103be9413ee71391c4bcc05ed7d31aaa071010451813c81594fc3fd171576e5c"
   },
   "candidate_derivation": "Five JPEG callback placements derive from paired MOV-immediate HIGHLOW sites in previously verified producers; old unmodified referee replay agrees. Copying snapshots adds no coverage. Texture-memory callback placement derives from calls to an independently verified device-memory function; unchanged old-referee replay agrees. Its separate proof_files preserve the original eight TU snapshots."
 }
