@@ -1738,3 +1738,66 @@ owner/type before authoring it. PatchDensityDlg::OnOK at 0x4243c0 is
 blocked by the missing actual Pmesh generator at 0x4293f0 and
 owner-reviewed CMainFrame/CXYWnd layouts. The 0x424340 deleting destructor
 is compiler generated and must not be hand-coded.
+
+## 2026-11-05 — PatchDensityDlg six-entry size/match check after main merge
+
+Merged `radiant/main` (`fe7c15a2`) into this lane without conflicts at
+`3268711d`; the merge commit has both true parents. Work on
+`UNKNOWN_00425080.cpp` is paused per owner instruction.
+`workspace/research/web/inspect_addrs.txt` now contains exactly:
+`0x00424340`, `0x004243c0`; the `Batch retail disassembly` step
+proves both retail code spans.
+
+**Source state (not file-verified): 4 existing MATCH / 6 retail functions.**
+Retail 0x004242c0 (117 B), 0x00424370 (49 B), 0x004243b0 (6 B),
+0x00424460 (68 B) remain exact accepted source ledger matches.
+The regression referee after promoting source continued at **848/848
+accepted game functions, zero failures** (run
+https://github.com/nawaftahir/cod2_wip/actions/runs/42084220870).
+No new ledger row was added.
+
+- **0x004243c0 — `CPatchDensityDlg::OnOK` / 148 B:** a real C++ method
+  now exists in `workspace/src/radiant/PatchDensityDlg.cpp` in retail
+  function order (source commit `4c3c27b7`). Isolated comparison
+  https://github.com/nawaftahir/cod2_wip/actions/runs/42083824382
+  reports **148/148 bytes, MISMATCH 89%, first difference +0xe**.
+  The source reads both combo selections, validates indices 0..6,
+  uses the retail/Q3-derived active view and odd-dimension table,
+  persists both indices, and invokes the base dialog OnOK.
+  Its unresolved `Patch_GenericMesh` (retail `0x004293f0`, 756 B,
+  `Pmesh.cpp`) is crucial: retail passes four stack arguments and
+  the final bool through AL; the current compiler cannot infer the
+  retail LTCG ABI without the actual callee body, and emits five pushes
+  instead. Register assignment of ESI/EDI also differs.
+  **Size-correct does not mean MATCH**. No credit was claimed.
+- **0x00424340 — compiler-generated deleting destructor / 34 B:**
+  MSVC creates the proper `??_GCPatchDensityDlg@@UAEPAXI@Z` from a
+  valid virtual destructor definition in the isolated draft, but
+  https://github.com/nawaftahir/cod2_wip/actions/runs/42084326902
+  yields **33/34 B, MISMATCH 47%**: retail has an extra `push esi`
+  before calling the 89-byte cleanup function at `0x0041a470`,
+  owned by `MainFrm.cpp` outside this lane's immediate file.
+  `data/decomp/0041a470.c` confirms cleanup of two controls and
+  CDialog. The existing incomplete MainFrm source does not provide
+  this helper. An evidence-based cdecl declaration trial
+  (run 42084950608) and an inline destructor trial
+  (run 42085747587) both stayed **33/34 B**. A non-/GL
+  isolated trial (run 42085414312) also stayed 33/34 and
+  **regressed two accepted functions**; its nonstandard flags
+  were removed. No compiler wrapper was hand-coded, no 34-byte
+  padding/fake caller was introduced, and no ledger row was added.
+  Unmatched generated destructor remains in the research draft only.
+
+Last verification https://github.com/nawaftahir/cod2_wip/actions/runs/42085747587:
+**848/848 canonical rows pass, 0 regressions; 89,246/699,591
+game bytes matched overall (12.76%)**. The workflow's full gate
+is still red on the branch-inherited
+`test_editor_completion.py` audit (unrelated to this file).
+
+**Outstanding for whole-file MATCH:** recover the real
+`Patch_GenericMesh` implementation at 0x4293f0 in the same lane,
+and the reusable cleanup/true call ABI from the earlier
+`MainFrm.cpp` 0x41a470 implementation owned outside this lane.
+Only after those dependencies are linked can the two unresolved
+bodies be iterated to MATCH, then retail-offset proof can be run.
+No claim of a complete or bit-identical file is warranted.
