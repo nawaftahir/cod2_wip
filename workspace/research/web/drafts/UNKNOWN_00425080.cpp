@@ -16,6 +16,7 @@ struct UNKNOWN_00425080
     int capacity;
     char *FUN_00425080();
     UNKNOWN_00425080();
+    void FUN_004250b0();
 };
 
 char *UNKNOWN_00425080::FUN_00425080()
@@ -25,6 +26,14 @@ char *UNKNOWN_00425080::FUN_00425080()
 
 // Retail 0x00425090 / 17 B: initializes three storage fields.
 UNKNOWN_00425080::UNKNOWN_00425080()
+{
+    capacity = 0;
+    length = 0;
+    data = &DAT_00598c80;
+}
+
+// Retail 0x004250b0 / 15 B: resets the same storage fields.
+void UNKNOWN_00425080::FUN_004250b0()
 {
     capacity = 0;
     length = 0;
