@@ -100,3 +100,12 @@ one bound owner holds the label on an instruction boundary at the same retail
 offset (data refs already used interior_code). Same DLL: +40 fns/+29304 library
 bytes, zero lost. memcpy stays blocked by link order (retail: memcpy.obj then a
 private _strncnt from a_map/a_cmp; ours: getqloc.obj).
+
+PINNED: __setlocale_lk (4.6 KB chain) fails on ___lc_category (retail 0x101a47c0).
+Its 6x12-byte entries hold: name string (binds), locale pointer to an unnamed
+setlocal.obj "C" static right after fpinit.obj __FPmtterm (bytes equal, but it
+resolves to __FPmtterm+8, another object, so nested_data rejects it), and init
+function pointers. ___init_dummy (setlocal) and ___init_collate (initcoll) are
+3-byte bodies with no hits and no calls; only this table can place them. Also
+fpinit.obj data differs: retail __FPmtinit/__FPmtterm both 0x100f7938, ours
+__FPmtterm 0x100f4e49 and FPmtinit 0 (different CRT fp objects linked; HYPOTHESIS).
