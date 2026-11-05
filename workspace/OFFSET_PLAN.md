@@ -43,3 +43,11 @@ Primary meter: whole-file same-offset (`tools/sections.py`). Drift per function:
   838/838 still match, but AdvCurveDlg.obj still emits 7 `*Fake` helpers, file-1 drift unchanged,
   whole-file same-offset 1.549% -> 1.514%. Reverted. Next: find what makes retail's first files not own
   `_strthunks` (header frame / defines in retail's stdafx, or MapInfo.obj contributing it first).
+- `_strthunks` is `__declspec(selectany)` with an initializer in cstringt.h:298, so every CString file
+  defines it. PINNED on our build: the copy (and the helpers) follow whichever object is first on the
+  link line (CamWnd first -> helpers in CamWnd.obj), and .text order follows the link line too, so
+  retail cannot have had MapInfo first.
+- Tried `/OPT:REF /OPT:NOICF` (retail keeps identical functions apart, so NOICF; REF unproven): the
+  helpers leave AdvCurveDlg (consistent with retail), but 517/838 rows drop because callers are still
+  missing and REF discards uncalled functions. Reverted. HYPOTHESIS: retail linked with /OPT:REF.
+  Re-test when a region's callers exist; until then file 1's tail placement stays open.
