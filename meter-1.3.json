@@ -12,16 +12,16 @@
  "matched_functions": 8878,
  "tus_total": 364,
  "tus_matched": 153,
- "unverified_in_src": 56,
+ "unverified_in_src": 0,
  "functions_identical": 8841,
  "functions_total": 9496,
- "tus_identical": 113,
+ "tus_identical": 170,
  "tus_data_only": 15,
  "tus_data_only_identical": 13,
- "tus_identical_with_data": 35,
- "tus_empty": 134,
- "lib_objs_identical": 246,
- "lib_objs_total": 348,
+ "tus_identical_with_data": 70,
+ "tus_empty": 39,
+ "lib_objs_identical": 189,
+ "lib_objs_total": 253,
  "text_same_offset_bytes": 59717,
  "sections": {
   ".text": {
@@ -38,6 +38,6 @@
    "same_offset": 16377
   }
  },
- "commit": "f5de83a1",
+ "commit": "38bf1c7f",
  "note": "matched_bytes/matched_functions = referee; functions_identical = referee match or same bytes at the same offset (every .text map symbol); tus_identical = source TUs whose functions are all identical (data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (never identical); tus_matched = TUs in src/; same-offset over all sections (shameter)"
 }
