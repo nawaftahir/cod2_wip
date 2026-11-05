@@ -299,3 +299,25 @@ void Sys_StreamSeek( fileHandle_t f, int offset, int origin )
 	FS_SeekInternal( f, offset, origin );
 }
 
+/* 1.3 locks (dvar, console log, Com_Error); retail inlines EnterCriticalSection on an array.
+ * TODO: the 1.3 init call site and the array size are not located yet. */
+static CRITICAL_SECTION s_criticalSections[6];	// callers use sections 0..5; retail count unknown
+
+void Sys_InitializeCriticalSections()
+{
+	int i;
+
+	for ( i = 0; i < 6; i++ )
+		InitializeCriticalSection( &s_criticalSections[i] );
+}
+
+void Sys_EnterCriticalSection( int section )
+{
+	EnterCriticalSection( &s_criticalSections[section] );
+}
+
+void Sys_LeaveCriticalSection( int section )
+{
+	LeaveCriticalSection( &s_criticalSections[section] );
+}
+

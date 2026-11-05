@@ -34,6 +34,7 @@ extern void NetProf_UpdateStatistics(netProfileStream_t *stream);
 extern int Com_sprintf(char *dest, size_t size, const char *format, ...);
 extern void Com_Printf(const char *fmt, ...);
 extern void CL_DrawString(int x, int y, const char *str, int color, int size);
+extern const dvar_t *cl_profileTextHeight;
 extern bool NET_SendPacket( netsrc_t sock, int length, const void *data, netadr_t to );
 
 void CL_Netchan_Decode(byte *data, int size);
@@ -192,7 +193,7 @@ void CL_Netchan_UpdateProfileStats(void)
 
 static void CL_Netchan_DrawProfileLine(const char *line, int y)
 {
-    CL_DrawString(0x20, y, line, 0, 0xa);
+    CL_DrawString(32, y, line, 0, cl_profileTextHeight->current.integer);
 }
 
 void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)

@@ -75,7 +75,7 @@ extern void Con_CheckResize(void);
 extern void Con_DrawSolidConsole(void);
 extern void SND_StopSounds(snd_stopsounds_arg_t flags);
 extern void SCR_DrawCinematic(void);
-extern Bool Sys_IsMainThread(void);
+extern int Sys_IsMainThread(void);
 extern void Sys_LoadingKeepAlive(void);
 extern void Net_DisplayProfile(void);
 extern int FS_FTell(int fh);
@@ -211,7 +211,7 @@ void SCR_DrawScreenField(void)
             break;
         case CA_DISCONNECTED:
             SND_StopSounds((snd_stopsounds_arg_t)0);
-            if (!Sys_IsMainThread()) {
+            if (!(unsigned char)Sys_IsMainThread()) {
                 if (!CL_AnyLocalClientChallenging())
                     break;
             } else {

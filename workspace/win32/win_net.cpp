@@ -379,6 +379,22 @@ bool Sys_SendPacket( int length, const void *data, netadr_t to )
 	return true;
 }
 
+// Name and signature from the CoD2 Mac 1.3 symbols; port is host order. Retail 0x467090, right after Sys_SendPacket.
+void Sys_PBSendUdpPacket( char *addr, unsigned short port, int length, char *data )
+{
+	netadr_t to;
+
+	to.type = NA_IP;
+
+	if ( !Sys_StringToAdr( addr, &to ) )
+	{
+		return;
+	}
+
+	to.port = htons( port );
+	Sys_SendPacket( length, data, to );
+}
+
 //=============================================================================
 
 /*
@@ -1028,21 +1044,4 @@ void NET_Init( void )
 void NET_Sleep( int msec )
 {
 	Sleep( msec );
-}
-
-
-// Name and signature from the CoD2 Mac 1.3 symbols; port is host order. Position in the TU not yet known.
-void Sys_PBSendUdpPacket( char *addr, unsigned short port, int length, char *data )
-{
-	netadr_t to;
-
-	to.type = NA_IP;
-
-	if ( !Sys_StringToAdr( addr, &to ) )
-	{
-		return;
-	}
-
-	to.port = htons( port );
-	Sys_SendPacket( length, data, to );
 }

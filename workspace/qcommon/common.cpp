@@ -132,7 +132,9 @@ void Com_Restart();
 struct refexport_t
 {
 	void (*Shutdown)( int );
-	void *unused0[61];
+	void *unused0a[17];
+	void (*smpSlot18)( void );	// name unknown; retail 0x68a248
+	void *unused0b[43];
 	void (*ResetImageAllocations)( void );
 	void *unused1[39];
 	void (*SyncRenderThread)( void );
@@ -1911,6 +1913,21 @@ void Com_StartupConfigs( void )
 	Com_InitPlayerProfiles();
 }
 
+extern "C" {
+__declspec(dllimport) void *__stdcall GetCurrentProcess( void );
+__declspec(dllimport) int __stdcall GetProcessAffinityMask( void *, unsigned long *, unsigned long * );
+}
+
+// retail 0x434420, no callers (inlined once in Com_Init_Try_Block_Function)
+static bool Com_HasMultipleCores( void )
+{
+	unsigned long procMask, sysMask;
+
+	if ( !GetProcessAffinityMask( GetCurrentProcess(), &procMask, &sysMask ) )
+		return false;
+	return ( procMask & ( procMask - 1 ) ) != 0;
+}
+
 static void Com_Init_Try_Block_Function( char *commandLine )
 {
 	char *src;
@@ -1989,6 +2006,9 @@ static void Com_Init_Try_Block_Function( char *commandLine )
 
 	if ( !com_dedicated->current.integer )
 	{
+		const dvar_t *smpAllowed = Dvar_RegisterBool( "r_smp_backend_allowed", Com_HasMultipleCores(), DVAR_INIT | DVAR_CHANGEABLE_RESET );
+		if ( smpAllowed->current.boolean )
+			re.smpSlot18();
 		cls.rendererStarted = qtrue;
 		CL_InitRenderer();
 		cls.soundStarted = qtrue;
