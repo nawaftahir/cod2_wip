@@ -3890,3 +3890,13 @@ Backend source hash re-reviewed for this function-only delta; existing asm
 unchanged. An early attribution run correctly rejected pending build timestamps;
 only the post-build passing attribution is checkpoint evidence. One build, no
 full-suite repeat, no GPU/whole-SHA claim. Total C++112083B/44.200252386%.
+
+# Unlocker probes - 2026-11-05 (session 2)
+
+Material_Register145/144: the residue is shrink-wrap. Retail pushes esi only
+after the found early return; ours pushes it at entry. A static helper for the
+load path (name, imageTrack, hashIndex) is not inlined: 73 bytes; rejected.
+RB_EndSurface206/202 (unblocks 11 bodies/1441 B): same instructions, the clear
+block is placed last (long je) instead of after the drawable checks. Positive
+if/else, early-return form and a single return expression for the flags&2 test
+all stay 206; rejected and restored.
