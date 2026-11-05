@@ -58,35 +58,31 @@ void FUN_00425820(patchMesh_t *patch, int mode, bool enabled, float value)
     }
 }
 
-// Candidate at retail 0x00425840 / 197 bytes (NOT VERIFIED).
-// Q3Radiant's indexed InterpolateInteriorPoints is the ancestor.
-// CoD2 additionally tests bit 1 of the control word at +0x34.
-// Trial 934dea58: reference-local 193/197 B, 43%, first diff +0x7.
-// Trial d9cd3f9c: indexed-loop 203/197 B, 28%, first diff +0x5.
-// The sole retail caller is Patch_BrushToMesh at 0x428e70 (call 0x4290fe),
-// which supplies the patch pointer in EBX. Reconstruct the real caller,
-// rather than forcing a register ABI here.
+// Trial 3, 0x00425840 / 197 B, unverified.
+// Preserve the target's three explicit component stores and the 0x38
+// stride naturally through the typed control array; no register tricks.
+// Previous variants: 193/197 (43%) and 203/197 (28%).
+// Only retail caller: 0x428e70 Patch_BrushToMesh at 0x4290fe.
 void InterpolateInteriorPoints(patchMesh_t *p)
 {
-    int i, j, k;
-    int next, prev;
-
-    for (i = 0; i < p->width; i += 2)
+    for (int i = 0; i < p->width; i += 2)
     {
-        next = (i == p->width - 1) ? 1 : (i + 1) % p->width;
-        prev = (i == 0) ? p->width - 2 : i - 1;
+        const int next = (i == p->width - 1) ? 1 : (i + 1) % p->width;
+        const int prev = (i == 0) ? p->width - 2 : i - 1;
+        float *pointZ = &p->ctrl[i][0].xyz[2];
 
-        for (j = 0; j < p->height; j++)
+        for (int j = 0; j < p->height; ++j)
         {
             if ((p->ctrl[i][j].flags_34 & 2) == 0)
             {
-                for (k = 0; k < 3; k++)
-                {
-                    p->ctrl[i][j].xyz[k] =
-                        (p->ctrl[next][j].xyz[k] +
-                         p->ctrl[prev][j].xyz[k]) * 0.5f;
-                }
+                pointZ[-2] = (p->ctrl[next][j].xyz[0] +
+                              p->ctrl[prev][j].xyz[0]) * 0.5f;
+                pointZ[-1] = (p->ctrl[prev][j].xyz[1] +
+                              p->ctrl[next][j].xyz[1]) * 0.5f;
+                pointZ[0] = (p->ctrl[prev][j].xyz[2] +
+                              p->ctrl[next][j].xyz[2]) * 0.5f;
             }
+            pointZ += sizeof(PatchControl) / sizeof(float);
         }
     }
 }
