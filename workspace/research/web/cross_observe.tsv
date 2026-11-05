@@ -1,6 +1,2 @@
 addr	symbol
 0x00490ba0	?Dvar_SetFromString@@YAXPAUdvar_s@@PBD@Z
-0x00424a10	?OnSelchangeComboCol@CPatchDialog@@IAEXXZ
-0x00424a20	?OnSelchangeComboRow@CPatchDialog@@IAEXXZ
-0x00424b10	?GetPatchInfo@CPatchDialog@@QAEXXZ
-0x00424d50	?UpdateRowColInfo@CPatchDialog@@IAEXXZ

@@ -7,3 +7,8 @@ addr	symbol
 0x0042b6d0	?FUN_0042b6d0@@YAMHHMMM@Z
 0x00429df0	?FUN_00429df0@@YIHPAXH@Z
 0x004395e0	?FUN_004395e0@@YAHM@Z
+0x00424a10	?OnSelchangeComboCol@CPatchDialog@@IAEXXZ
+0x00424a20	?OnSelchangeComboRow@CPatchDialog@@IAEXXZ
+0x00424a50	?OnDeltaposSpin@CPatchDialog@@IAEXPAUtagNMHDR@@PAJ@Z
+0x00424b10	?GetPatchInfo@CPatchDialog@@QAEXXZ
+0x00424d50	?UpdateRowColInfo@CPatchDialog@@IAEXXZ
