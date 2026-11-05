@@ -23,7 +23,6 @@ qboolean G_IsPlaying( gentity_t *ent );
 static void G_SayTo( gentity_t *ent, gentity_t *other, int mode, int color, const char *name, const char *message );
 void G_Say( gentity_t *ent, gentity_t *target, int mode, const char *chatText );
 static void Cmd_Say_f( gentity_t *ent, int mode, qboolean arg0 );
-void Cmd_GameCommand_f( gentity_t *ent );
 void Cmd_Where_f( gentity_t *ent );
 void Cmd_CallVote_f( gentity_t *ent );
 void Cmd_Vote_f( gentity_t *ent );
@@ -1032,87 +1031,6 @@ static void Cmd_Say_f( gentity_t *ent, int mode, qboolean arg0 )
 	}
 
 	G_Say( ent, NULL, mode, p );
-}
-
-void Cmd_Tell_f( gentity_s *ent )
-{
-	int targetNum;
-	gentity_t *target;
-	char *p;
-	char arg[MAX_TOKEN_CHARS];
-	char cleanname[64];
-	char target_cleanname[64];
-
-	if ( SV_Cmd_Argc() < 2 )
-	{
-		return;
-	}
-
-	SV_Cmd_ArgvBuffer(1, arg, sizeof(arg));
-
-	targetNum = atoi( arg );
-	if ( targetNum < 0 || targetNum >= level.maxclients )
-	{
-		return;
-	}
-
-	target = &g_entities[targetNum];
-	if ( !target || !target->r.inuse || !target->client )
-	{
-		return;
-	}
-
-	p = ConcatArgs(2);
-
-	I_strncpyz(cleanname, ent->client->sess.cs.name, sizeof(cleanname));
-	I_CleanStr(cleanname);
-
-	I_strncpyz(target_cleanname, target->client->sess.cs.name, sizeof(target_cleanname));
-	I_CleanStr(target_cleanname);
-
-	G_LogPrintf("tell;%d;%d;%s;%d;%d;%s;%s\n", SV_GetGuid(ent->s.number), ent->s.number, cleanname, SV_GetGuid(target->s.number), target->s.number, target_cleanname, p);
-
-	G_Say(ent, target, SAY_TELL, p);
-	G_Say(ent, ent, SAY_TELL, p);
-}
-
-/*
-==================
-Cmd_GameCommand_f
-==================
-*/
-static const char *gc_orders[] =
-{
-	"GAME_GC_HOLDYOURPOSITION",
-	"GAME_GC_HOLDTHISPOSITION",
-	"GAME_GC_COMEHERE",
-	"GAME_GC_COVERME",
-	"GAME_GC_GUARDLOCATION",
-	"GAME_GC_SEARCHDESTROY",
-	"GAME_GC_REPORT"
-};
-
-void Cmd_GameCommand_f( gentity_t *ent )
-{
-	int		player;
-	int		order;
-	char	str[MAX_TOKEN_CHARS];
-
-	SV_Cmd_ArgvBuffer( 1, str, sizeof( str ) );
-	player = atoi( str );
-	SV_Cmd_ArgvBuffer( 2, str, sizeof( str ) );
-	order = atoi( str );
-
-	if ( player < 0 || player >= MAX_CLIENTS )
-	{
-		return;
-	}
-	if ( order < 0 || order >= sizeof(gc_orders)/sizeof(char *) )
-	{
-		return;
-	}
-	G_Say( ent, &g_entities[player], SAY_TELL, gc_orders[order] );
-	G_Say( ent, ent, SAY_TELL, gc_orders[order] );
 }
 
 /*
