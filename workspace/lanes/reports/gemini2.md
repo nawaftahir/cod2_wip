@@ -53,18 +53,35 @@ Status: Functions front-to-back reconstruction in progress; `0x00440610` matched
 2. `0x004405c0` (8 B): `TexWndGlobals::~TexWndGlobals` destructor.
 3. `0x00440620` (159 B): `Texture_SetMode(int iTexMenu)` — 160 B (exact match with 4-entry switch jump table), assert line 134.
 4. `0x004406c0` (297 B): `Editor_AddRadiantMaterial` — 320 B, assert lines 151 & 154.
-5. `0x004407f0` (77 B): `Editor_FreeRadiantMaterial` — MATCH 100% in isolated check (assert line 179). Deferred from canonical gate because defining an uncalled non-leaf function consumes a register slot in LTCG's uncalled function pool, causing collateral register shift in uncalled `GraphGetValueFromFraction` (0x004832c0) from `edi` to `ebx` (identical to VertEditDlg/PrefsDlg documented phenomenon).
+5. `0x004407f0` (77 B): `Editor_FreeRadiantMaterial` — MATCH 100% in isolated check (assert line 179). Deferred from canonical gate due to uncalled-function LTCG coupling on `GraphGetValueFromFraction` (0x004832c0).
 6. `0x00440840` (320 B): `Texture_GetHandle` — 288 B, assert line 195.
 7. `0x00440980` (31 B): `Material_ConvertToEditorMaterial` — 32 B.
 8. `0x004409a0` (563 B): `Get_MaterialNames` — 496 B, assert line 235.
+9. `0x00440be0` (48 B): `RemapMaterialName` — MATCH 100% in isolated check (`?RemapMaterialName@@YAPBDPBD@Z`). Deferred from canonical gate due to uncalled-function LTCG coupling.
+10. `0x00440c70` (48 B): `Editor_DoesMaterialExist` — MATCH 100% in isolated check (`?Editor_DoesMaterialExist@@YAPAUqtexture_s@@PBD@Z`). Deferred from canonical gate due to uncalled-function LTCG coupling.
+11. `0x00441400` (27 B): `Texture_ClearInUse` — MATCH 100% in isolated check (`?Texture_ClearInUse@@YAXXZ`). Deferred from canonical gate due to uncalled-function LTCG coupling.
+
+## Undo.cpp Reconstruction (2026-11-05)
+Target file: `src/radiant/Undo.cpp` (30 functions total in `data/tu_map.tsv`).
+Status: 4 / 30 functions matched 100% in retail address order.
+
+### Matched Functions (4 / 30, 43 bytes)
+1. `0x004433a0` (6 B): `?Undo_RedoAvailable@@YAPAUundo_s@@XZ` — `Undo_RedoAvailable` (SUPPORTED) — MATCH 100%
+   - Evidence: KisakCOD `src/radiant/undo.cpp:89`, reads `g_lastredo` (0x12334d4).
+2. `0x00443820` (6 B): `?Undo_GetMaxSize@@YAHXZ` — `Undo_GetMaxSize` (SUPPORTED) — MATCH 100%
+   - Evidence: KisakCOD `src/radiant/undo.cpp:270`, reads `g_undoMaxSize` (0x591b24).
+3. `0x00443850` (6 B): `?Undo_GetMaxMemorySize@@YAHXZ` — `Undo_GetMaxMemorySize` (SUPPORTED) — MATCH 100%
+   - Evidence: KisakCOD `src/radiant/undo.cpp:280`, reads `g_undoMaxMemorySize` (0x591b28).
+4. `0x00445030` (25 B): `?Undo_UndoAvailable@@YAHXZ` — `Undo_UndoAvailable` (SUPPORTED) — MATCH 100%
+   - Evidence: Reads `g_lastundo->done`.
 
 ## Gate Meter
 | meter | value |
 |---|---|
-| **SHA goal: rebuilt exe bytes in place** | 1.520% (+700) |
-| game functions matched from source | 839 / 3578 (23.45%) (+270) |
-| ...of those, proven inside the linked exe | 839 |
-| game code bytes matched | 12.72% (88975 / 699591 bytes) |
+| **SHA goal: rebuilt exe bytes in place** | 1.533% (+921) |
+| game functions matched from source | 842 / 3578 (23.53%) (+273) |
+| ...of those, proven inside the linked exe | 842 |
+| game code bytes matched | 12.72% (88993 / 699591 bytes) |
 | game functions with a known source file | 3508 / 3578 |
 | MFC/CRT library functions identified (linked, not written; not counted as done) | 3940 |
 | compiler-emitted header code (AUTO) / external lib code (EXTLIB), not counted as game | 637 / 1779 |
@@ -73,5 +90,5 @@ Status: Functions front-to-back reconstruction in progress; `0x00440610` matched
 | emit-order warnings | 14 |
 | unverified functions in src/ (must not grow) | 42 |
 
-`verify: 839/839 rows match, 0 failures`
+`verify: 842/842 rows match, 0 failures`
 `compiler: 8/8 rows match (excluded from game coverage)`

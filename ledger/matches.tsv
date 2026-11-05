@@ -270,6 +270,9 @@ addr	size	source	symbol	name	tag
 0x004405f0	27	src/radiant/TexWnd.cpp	?SortTextures@@YAXXZ	SortTextures	SUPPORTED
 0x00440610	6	src/radiant/TexWnd.cpp	?TexWnd_GetDecalLocaleBit@@YAHXZ	TexWnd_GetDecalLocaleBit	SUPPORTED
 0x00442290	1	src/radiant/TexWnd.cpp	_FUN_00442290	FUN_00442290	UNNAMED
+0x004433a0	6	src/radiant/Undo.cpp	?Undo_RedoAvailable@@YAPAUundo_s@@XZ	Undo_RedoAvailable	SUPPORTED
+0x00443820	6	src/radiant/Undo.cpp	?Undo_GetMaxSize@@YAHXZ	Undo_GetMaxSize	SUPPORTED
+0x00443850	6	src/radiant/Undo.cpp	?Undo_GetMaxMemorySize@@YAHXZ	Undo_GetMaxMemorySize	SUPPORTED
 0x00452e20	1	src/radiant/XYWnd.cpp	_FUN_00452e20	FUN_00452e20	UNNAMED
 0x004535f0	1	src/radiant/XYWnd.cpp	_FUN_004535f0	FUN_004535f0	UNNAMED
 0x00453600	1	src/radiant/XYWnd.cpp	_FUN_00453600	FUN_00453600	UNNAMED
