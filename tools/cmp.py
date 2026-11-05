@@ -17,6 +17,8 @@ cpe = pefile.PE(target)
 ctext = next(s for s in cpe.sections if s.Name.startswith(b'.text'))
 cdata, cva = ctext.get_data(), cpe.OPTIONAL_HEADER.ImageBase + ctext.VirtualAddress
 
+probe_symbol = sys.argv[sys.argv.index('--symbol') + 1] if '--symbol' in sys.argv else None
+
 symbols_pdb = sys.argv[sys.argv.index('--pdb') + 1] if '--pdb' in sys.argv else None
 syms = [(va, name, obj) for va, name, obj, isfn in map_symbols(mapf, img, symbols_pdb)
         if isfn and tva <= va < tva + text.Misc_VirtualSize]
@@ -54,6 +56,10 @@ def trim_padding(raw, va):
 
 res, stats = [], {'fns': 0, 'bytes': 0, 'match_fns': 0, 'match_bytes': 0}
 for i, (va, name, obj) in enumerate(syms):
+    # Filter bodies, not symbols: the next symbol still defines the full extent.
+    if probe_symbol and name != probe_symbol and not (
+            '@' not in probe_symbol and name.startswith('?' + probe_symbol + '@@')):
+        continue
     end = syms[i + 1][0] if i + 1 < len(syms) else tva + min(len(tdata), text.Misc_VirtualSize)
     code = trim_padding(tdata[va - tva:end - tva], va)
     # Five-byte jump thunks retain bindcheck's separate destination proof.

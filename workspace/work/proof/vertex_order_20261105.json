@@ -1,0 +1,266 @@
+{
+  "status": "all rejected; no coverage credit",
+  "source_commit": "c33b4576",
+  "confirmed_meter_commit": "bd80a2ea",
+  "signature_subset": "four vector pointers permuted, followed by bone and output",
+  "earlier_manual_orders": [
+    [
+      "position",
+      "tangent",
+      "normal",
+      "binormal"
+    ],
+    [
+      "position",
+      "tangent",
+      "binormal",
+      "normal"
+    ]
+  ],
+  "trials": [
+    {
+      "order": [
+        "position",
+        "normal",
+        "tangent",
+        "binormal"
+      ],
+      "returncode": 3,
+      "seconds": 32.43,
+      "kept": false
+    },
+    {
+      "order": [
+        "position",
+        "normal",
+        "binormal",
+        "tangent"
+      ],
+      "returncode": 3,
+      "seconds": 38.39,
+      "kept": false
+    },
+    {
+      "order": [
+        "position",
+        "binormal",
+        "tangent",
+        "normal"
+      ],
+      "returncode": 3,
+      "seconds": 35.05,
+      "kept": false
+    },
+    {
+      "order": [
+        "position",
+        "binormal",
+        "normal",
+        "tangent"
+      ],
+      "returncode": 3,
+      "seconds": 41.58,
+      "kept": false
+    },
+    {
+      "order": [
+        "tangent",
+        "position",
+        "normal",
+        "binormal"
+      ],
+      "returncode": 3,
+      "seconds": 33.11,
+      "kept": false
+    },
+    {
+      "order": [
+        "tangent",
+        "position",
+        "binormal",
+        "normal"
+      ],
+      "returncode": 3,
+      "seconds": 38.38,
+      "kept": false
+    },
+    {
+      "order": [
+        "tangent",
+        "normal",
+        "position",
+        "binormal"
+      ],
+      "returncode": 3,
+      "seconds": 46.92,
+      "kept": false
+    },
+    {
+      "order": [
+        "tangent",
+        "normal",
+        "binormal",
+        "position"
+      ],
+      "returncode": 3,
+      "seconds": 79.05,
+      "kept": false
+    },
+    {
+      "order": [
+        "tangent",
+        "binormal",
+        "position",
+        "normal"
+      ],
+      "returncode": 3,
+      "seconds": 71.91,
+      "kept": false
+    },
+    {
+      "order": [
+        "tangent",
+        "binormal",
+        "normal",
+        "position"
+      ],
+      "returncode": 3,
+      "seconds": 70.11,
+      "kept": false
+    },
+    {
+      "order": [
+        "normal",
+        "position",
+        "tangent",
+        "binormal"
+      ],
+      "returncode": 3,
+      "seconds": 71.14,
+      "kept": false
+    },
+    {
+      "order": [
+        "normal",
+        "position",
+        "binormal",
+        "tangent"
+      ],
+      "returncode": 3,
+      "seconds": 42.19,
+      "kept": false
+    },
+    {
+      "order": [
+        "normal",
+        "tangent",
+        "position",
+        "binormal"
+      ],
+      "returncode": 3,
+      "seconds": 43.77,
+      "kept": false
+    },
+    {
+      "order": [
+        "normal",
+        "tangent",
+        "binormal",
+        "position"
+      ],
+      "returncode": 3,
+      "seconds": 36.93,
+      "kept": false
+    },
+    {
+      "order": [
+        "normal",
+        "binormal",
+        "position",
+        "tangent"
+      ],
+      "returncode": 3,
+      "seconds": 38.88,
+      "kept": false
+    },
+    {
+      "order": [
+        "normal",
+        "binormal",
+        "tangent",
+        "position"
+      ],
+      "returncode": 3,
+      "seconds": 34.51,
+      "kept": false
+    },
+    {
+      "order": [
+        "binormal",
+        "position",
+        "tangent",
+        "normal"
+      ],
+      "returncode": 3,
+      "seconds": 49.12,
+      "kept": false
+    },
+    {
+      "order": [
+        "binormal",
+        "position",
+        "normal",
+        "tangent"
+      ],
+      "returncode": 3,
+      "seconds": 46.41,
+      "kept": false
+    },
+    {
+      "order": [
+        "binormal",
+        "tangent",
+        "position",
+        "normal"
+      ],
+      "returncode": 3,
+      "seconds": 64.84,
+      "kept": false
+    },
+    {
+      "order": [
+        "binormal",
+        "tangent",
+        "normal",
+        "position"
+      ],
+      "returncode": 3,
+      "seconds": 65.25,
+      "kept": false
+    },
+    {
+      "order": [
+        "binormal",
+        "normal",
+        "position",
+        "tangent"
+      ],
+      "returncode": 3,
+      "seconds": 101.87,
+      "kept": false
+    },
+    {
+      "order": [
+        "binormal",
+        "normal",
+        "tangent",
+        "position"
+      ],
+      "returncode": 3,
+      "seconds": 114.71,
+      "kept": false
+    }
+  ],
+  "source_restored": true,
+  "filtered_probe_agrees_with_full_scan": true
+}

@@ -1,15 +1,26 @@
+## Saved checkpoint - 2026-11-05
+
+Owner requested stopping at a saved checkpoint. Read docs/HANDOFF.md first.
+Confirmed result is unchanged from clean canonical CI42038128889; no credit for
+rejected vertex/FP probes. Their source is restored. Tool-only filter improvement,
+trial receipt and handoff are local commits pending normal clean CI acceptance.
+No build is running; no old workspace was deleted. Resume only on owner request.
+
 ## Active reconstruction - 2026-11-05
 
-Owner resumed work. Allocator clean CI41900093450 passed; canonical publication
-is following gfx/main. New candidate: R_GetRigidTransform at1001ee70 passes
-both local referees and retention checks; it needs clean CI before new coverage
-is reported. No assembly added. Other rejected probes are restored and recorded.
-Two additional complete source snapshots are in root src, with frozen proof.
-The source guard supports current workspace provenance alongside legacy paths.
-TU accounting now includes independently binding-certified short bodies; this
-corrects an undercount, not reconstruction progress. Duplicate object names
-remain ambiguous. Refer to CI-generated ledger/meter.json for confirmed values.
-Goal remains50% verified pure C/C++ inventory coverage, then whole-file identity.
+Clean work CI42036887579 and canonical CI42038128889 accepted
+R_GetRigidTransform1001ee70/399. Published ledger/meter.json is the authority:
+119171/253580 pure C/C++ bytes,732 bodies. The denominator is a provisional
+game inventory, not the whole DLL. No new assembly;40 bodies/10151 bytes excluded.
+All2526 protected extents survive. Whole-file SHA and GPU smoke are unfinished.
+Root src holds12 verified snapshots/68 functions. Current emitted-body-certified
+TUs45/112 include libraries and existing assembly; two common.obj owners remain
+ambiguous. This accounting correction is not additional reconstructed code.
+
+The bounded private vertex signature search is diagnostic only. No trial earns
+credit without both referees, retention and clean CI. Next attack: primary-pinned
+DX7 vertex FP evaluation order; read TRIED before testing. One physical build.
+Owner resumed work; do not follow historical pause instructions below.
 
 ## Pause checkpoint - 2026-11-05
 

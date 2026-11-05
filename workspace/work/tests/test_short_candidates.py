@@ -44,6 +44,19 @@ with tempfile.TemporaryDirectory(prefix='gfx_short_candidates_') as directory:
     assert [rows[name]['size'] for name in rows] == [1, 3, 5]
     assert all(not row['hits'] for row in rows.values())
 
+    for symbol, expected in [('constructor', [rows['constructor']]), ('missing', [])]:
+        with patch('pefile.PE', side_effect=image), patch.object(sys, 'argv', argv + ['--symbol', symbol]), \
+                contextlib.redirect_stdout(io.StringIO()):
+            runpy.run_path(str(gfx / 'tools/cmp.py'), run_name='__main__')
+        assert json.loads(output.read_text()) == expected
+
+    symbols.write_text(symbols.read_text().replace(' constructor ', ' ?constructor@@YAXXZ '))
+    for symbol, expected in [('constructor', ['?constructor@@YAXXZ']), ('construct', [])]:
+        with patch('pefile.PE', side_effect=image), patch.object(sys, 'argv', argv + ['--symbol', symbol]), \
+                contextlib.redirect_stdout(io.StringIO()):
+            runpy.run_path(str(gfx / 'tools/cmp.py'), run_name='__main__')
+        assert [row['name'] for row in json.loads(output.read_text())] == expected
+
 # Only unique, unrelocated six/seven-byte straight-line returns get global discovery.
 parts = [('constant', bytes.fromhex('b878563412c3')),
          ('accessor', bytes.fromhex('8b4424048b00c3')),

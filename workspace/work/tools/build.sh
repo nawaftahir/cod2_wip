@@ -34,11 +34,12 @@ docker run --rm --pid=host --network none -v "$target:/w" \
   sh -c "make $force -W $logical/roots.txt -W $logical/tus.txt -j4 -f $logical/profile.mk IN_IMAGE=1 SRCDIR=$logical B=$build DBG=1 $build/gfx.dll; result=\$?; chown -R $(id -u):$(id -g) $build; exit \$result" \
   >"$build/build.log" 2>&1
 printf '%s\n' "$config" >"$build/work-config"
-python3 ../tools/cmp.py "$build/gfx.dll" "$build/gfx.map" "$anchor" "$build/cmp.json" --pdb "$build/gfx.pdb" >"$build/cmp.log"
-# A failed probe is diagnostic only; every successful probe still runs all gates.
+# A failed diagnostic probe avoids the full scan; a success still runs every gate.
 if [ -n "${GFX_PROBE_SYMBOL-}" ]; then
-  python3 work/tools/probe_match.py "$build/cmp.json" "$GFX_PROBE_SYMBOL"
+  python3 ../tools/cmp.py "$build/gfx.dll" "$build/gfx.map" "$anchor" "$build/probe.json" --pdb "$build/gfx.pdb" --symbol "$GFX_PROBE_SYMBOL" >"$build/probe.log"
+  python3 work/tools/probe_match.py "$build/probe.json" "$GFX_PROBE_SYMBOL"
 fi
+python3 ../tools/cmp.py "$build/gfx.dll" "$build/gfx.map" "$anchor" "$build/cmp.json" --pdb "$build/gfx.pdb" >"$build/cmp.log"
 python3 ../tools/bindcheck.py "$build/gfx.dll" "$build/gfx.map" "$anchor" "$build/cmp.json" \
   --json "$build/bind.json" --pdb "$build/gfx.pdb" >"$build/bind.log"
 python3 work/tools/regression.py "$build/bind.json" >work/proof/latest/regression.json

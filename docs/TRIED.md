@@ -1,3 +1,34 @@
+# DX7 direct-expression follow-up - 2026-11-05
+
+R_TransformRigidVertexDx7 explicit six primary-derived expressions under local
+optimize("p",on) stays151 but changes operation scheduling without matching.
+Adding local optimize("g",off) destroys the register ABI/frame and fails.
+The same explicit expressions under the original fast-FP profile also fail.
+All three source variants restored exactly; no coverage credit. Native32-bit
+skinning fixture passes the explicit-expression variant (512 scalar/SSE/cache
+cases plus XSurface routes). Logs:proof/latest/nov05_dx7_explicit_{precise,
+no_global,fast,native}.log. The final local DLL belongs to a rejected probe;
+use the canonical clean-CI meter, not that diagnostic build.
+
+# Additional bounded source probes - 2026-11-05
+
+Screenshot downsampler100259a0/363: noinline stays369; three-element accumulator
+with blue-first assignments stays369; channel accumulation/quantization loops294.
+All fail byte matching and are restored. Resampling native fixture passes.
+Moving vector helpers into r_model as forceinline with noinline wrappers leaves
+310/151/124/101-byte helpers unmatched; TU list, fixture and layout restored.
+Local optimize("a",on) on rigid vertex wrappers fails and is restored.
+The two manually tested float-pointer orders (position,tangent,normal,binormal)
+and (position,tangent,binormal,normal), followed by bone/output, fail. A finite
+search covers the remaining22 orders in that same subset. Read its results at
+build/vertex-order/results.jsonl; do not repeat it. This is not all720 possible
+six-parameter signatures. Source is restored automatically when none passes.
+
+Standalone VC7.1 optimize("p",on) preserves parenthesized sum grouping without
+intermediate stores, but still reverses multiplication evaluation. Listing:
+workspace/build/codex_boundsoutside_1016_02/tmp/precision_probe.asm. This is
+compiler evidence only, not a renderer match or a production flag change.
+
 Additional rounding probe2026-11-05: original VC7.1 /O2 /QIfist emits
 FISTP QWORD for biased int, long, unsigned, short, local-int, volatile-int
 and output-pointer conversions. Target I_fround uses FISTP DWORD. No source,
