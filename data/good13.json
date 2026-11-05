@@ -4104,14 +4104,14 @@
 {
 "name": "?CL_Netchan_DrawProfileLine@@YAXPBDH@Z",
 "obj": "cl_net_chan_mp.obj",
-"size": 81,
+"size": 111,
 "hits": [],
 "reason": "no masked match"
 },
 {
 "name": "?CL_Netchan_PrintProfileStats@@YAXH@Z",
 "obj": "cl_net_chan_mp.obj",
-"size": 1089,
+"size": 1087,
 "hits": [],
 "reason": "no masked match"
 },
@@ -6282,9 +6282,10 @@
 {
 "name": "?Cmd_ExecuteString@@YAXPBD@Z",
 "obj": "cmd.obj",
-"size": 383,
-"hits": [],
-"reason": "no masked match"
+"size": 520,
+"hits": [
+"0x4214c0"
+]
 },
 {
 "name": "?SV_Cmd_ExecuteString@@YAXPBD@Z",
@@ -10221,11 +10222,20 @@
 "reason": "short body, no name pair or unique twin"
 },
 {
+"name": "?Com_HasMultipleCores@@YA_NXZ",
+"obj": "common.obj",
+"size": 54,
+"hits": [
+"0x434420"
+]
+},
+{
 "name": "?Com_Init_Try_Block_Function@@YAXPAD@Z",
 "obj": "common.obj",
-"size": 1351,
-"hits": [],
-"reason": "no masked match"
+"size": 1490,
+"hits": [
+"0x434460"
+]
 },
 {
 "name": "?Com_Init@@YAXPAD@Z",
@@ -16433,9 +16443,8 @@
 "name": "?SV_DirectConnect@@YAXUnetadr_t@@@Z",
 "obj": "sv_client_mp.obj",
 "size": 2733,
-"hits": [
-"0x453c20"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?SV_FreeClientScriptPers@@YAXXZ",
@@ -17644,14 +17653,14 @@
 {
 "name": "?SV_Netchan_DrawProfileLine@@YAXPBDH@Z",
 "obj": "sv_net_chan_mp.obj",
-"size": 81,
+"size": 111,
 "hits": [],
 "reason": "no masked match"
 },
 {
 "name": "?SV_Netchan_PrintProfileStats@@YAXH@Z",
 "obj": "sv_net_chan_mp.obj",
-"size": 2316,
+"size": 2253,
 "hits": [],
 "reason": "no masked match"
 },
@@ -18080,11 +18089,12 @@
 ]
 },
 {
-"name": "?Sys_EventAPending_462520@@YAEXZ",
+"name": "?Sys_EventAPending_462520@@YAHXZ",
 "obj": "win_threads.obj",
-"size": 23,
-"hits": [],
-"reason": "no masked match"
+"size": 25,
+"hits": [
+"0x462520"
+]
 },
 {
 "name": "?Sys_SignalCWaitA_462540@@YAXXZ",
@@ -18096,18 +18106,26 @@
 "scan": 1
 },
 {
-"name": "?Sys_IsSecondThread_462560@@YAEXZ",
+"name": "?Sys_IsSecondThread_462560@@YAHXZ",
 "obj": "win_threads.obj",
-"size": 16,
-"hits": [],
-"reason": "no masked match"
+"size": 18,
+"hits": [
+"0x462560",
+"0x462580",
+"0x464800"
+],
+"scan": 1
 },
 {
-"name": "?Sys_IsMainThread@@YAEXZ",
+"name": "?Sys_IsMainThread@@YAHXZ",
 "obj": "win_threads.obj",
-"size": 16,
-"hits": [],
-"reason": "no masked match"
+"size": 18,
+"hits": [
+"0x462560",
+"0x462580",
+"0x464800"
+],
+"scan": 1
 },
 {
 "name": "?Sys_SetValue@@YAXHPAX@Z",
@@ -18668,6 +18686,34 @@
 "scan": 1
 },
 {
+"name": "?Sys_InitializeCriticalSections@@YAXXZ",
+"obj": "win_common.obj",
+"size": 33,
+"hits": [
+"0x4642b0"
+]
+},
+{
+"name": "?Sys_EnterCriticalSection@@YAXH@Z",
+"obj": "win_common.obj",
+"size": 18,
+"hits": [
+"0x4642e0",
+"0x464300"
+],
+"scan": 1
+},
+{
+"name": "?Sys_LeaveCriticalSection@@YAXH@Z",
+"obj": "win_common.obj",
+"size": 18,
+"hits": [
+"0x4642e0",
+"0x464300"
+],
+"scan": 1
+},
+{
 "name": "?Sys_RoundUp@@YAHM@Z",
 "obj": "win_configure.obj",
 "size": 33,
@@ -18709,7 +18755,7 @@
 ]
 },
 {
-"name": "$L96669",
+"name": "$L96656",
 "obj": "module",
 "size": 6,
 "hits": [],
@@ -18758,8 +18804,12 @@
 "name": "?IN_IsForegroundWindow@@YAHXZ",
 "obj": "win_input.obj",
 "size": 18,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x462560",
+"0x462580",
+"0x464800"
+],
+"scan": 1
 },
 {
 "name": "?IN_Win32Mouse@@YAXPAH0@Z",
@@ -19210,37 +19260,9 @@
 {
 "name": "_WinMain@16",
 "obj": "win_main.obj",
-"size": 449,
+"size": 713,
 "hits": [],
 "reason": "no masked match"
-},
-{
-"name": "?Sys_InitializeCriticalSections@@YAXXZ",
-"obj": "win_main.obj",
-"size": 33,
-"hits": [
-"0x4642b0"
-]
-},
-{
-"name": "?Sys_EnterCriticalSection@@YAXH@Z",
-"obj": "win_main.obj",
-"size": 18,
-"hits": [
-"0x4642e0",
-"0x464300"
-],
-"scan": 1
-},
-{
-"name": "?Sys_LeaveCriticalSection@@YAXH@Z",
-"obj": "win_main.obj",
-"size": 18,
-"hits": [
-"0x4642e0",
-"0x464300"
-],
-"scan": 1
 },
 {
 "name": "?NET_ErrorString@@YAPBDXZ",
@@ -19296,6 +19318,14 @@
 "size": 309,
 "hits": [
 "0x466f50"
+]
+},
+{
+"name": "?Sys_PBSendUdpPacket@@YAXPADGH0@Z",
+"obj": "win_net.obj",
+"size": 111,
+"hits": [
+"0x467090"
 ]
 },
 {
@@ -19409,14 +19439,6 @@
 "0x467f20"
 ],
 "scan": 1
-},
-{
-"name": "?Sys_PBSendUdpPacket@@YAXPADGH0@Z",
-"obj": "win_net.obj",
-"size": 111,
-"hits": [
-"0x467090"
-]
 },
 {
 "name": "?Sys_Milliseconds@@YAHXZ",
@@ -19590,9 +19612,10 @@
 {
 "name": "?Conbuf_AppendText@@YAXPBD@Z",
 "obj": "win_syscon.obj",
-"size": 360,
-"hits": [],
-"reason": "no masked match"
+"size": 393,
+"hits": [
+"0x468b10"
+]
 },
 {
 "name": "?Sys_SetErrorText@@YAXPBD@Z",
@@ -32125,9 +32148,9 @@
 {
 "name": "?FX_EffectLimitReached@@YAXXZ",
 "obj": "FxUtil.obj",
-"size": 21,
+"size": 33,
 "hits": [
-"0x49f40c"
+"0x49f400"
 ]
 },
 {
@@ -32340,9 +32363,10 @@
 {
 "name": "?FX_AddPrimitive@@YA_NPAUEffectPrimitive@@PAVEffect@@QBM@Z",
 "obj": "FxUtil.obj",
-"size": 485,
-"hits": [],
-"reason": "no masked match"
+"size": 495,
+"hits": [
+"0x4a1380"
+]
 },
 {
 "name": "?FX_SetSortGroup@@YAXPAVEffect@@@Z",
@@ -35344,7 +35368,7 @@
 ]
 },
 {
-"name": "$L118290",
+"name": "$L118301",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35352,7 +35376,7 @@
 ]
 },
 {
-"name": "$L118292",
+"name": "$L118303",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35385,7 +35409,7 @@
 ]
 },
 {
-"name": "$L132173",
+"name": "$L132184",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35393,7 +35417,7 @@
 ]
 },
 {
-"name": "$L132175",
+"name": "$L132186",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35471,7 +35495,7 @@
 ]
 },
 {
-"name": "$L104454",
+"name": "$L104451",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35487,7 +35511,7 @@
 ]
 },
 {
-"name": "$L147578",
+"name": "$L147589",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -36102,6 +36126,14 @@
 ]
 },
 {
+"name": "?CIN_RunNextmap@@YAXXZ",
+"obj": "cinematics.obj",
+"size": 55,
+"hits": [
+"0x4b2350"
+]
+},
+{
 "name": "?RoQShutdown@@YAXXZ",
 "obj": "cinematics.obj",
 "size": 283,
@@ -36127,9 +36159,10 @@
 {
 "name": "?ROQ_PlayCinematic@@YAHPBDHHHHH@Z",
 "obj": "cinematics.obj",
-"size": 890,
-"hits": [],
-"reason": "no masked match"
+"size": 967,
+"hits": [
+"0x4b2760"
+]
 },
 {
 "name": "?ROQ_SetExtentsFromHandle@@YAXHHHHH@Z",
@@ -38208,16 +38241,6 @@
 ]
 },
 {
-"name": "?PbClientProcessEvents@@YAXXZ",
-"obj": "pbcl.obj",
-"size": 13,
-"hits": [
-"0x4bc0c0",
-"0x4bd930"
-],
-"scan": 1
-},
-{
 "name": "?PbClientForceProcess@@YAXXZ",
 "obj": "pbcl.obj",
 "size": 13,
@@ -38266,6 +38289,16 @@
 "hits": [
 "0x4bc290"
 ]
+},
+{
+"name": "?PbClientProcessEvents@@YAXXZ",
+"obj": "pbcl.obj",
+"size": 13,
+"hits": [
+"0x4bc0c0",
+"0x4bd930"
+],
+"scan": 1
 },
 {
 "name": "?EnablePbCl@@YAXXZ",
@@ -48051,9 +48084,8 @@
 "name": "?Scr_ParseGameTypeList@@YAXXZ",
 "obj": "g_scr_main_mp.obj",
 "size": 572,
-"hits": [
-"0x50d520"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?Scr_GetGameTypeNameForScript@@YAPADPBD@Z",
@@ -54834,9 +54866,8 @@
 "name": "?Menu_HandleKey@@YAXPAUdisplayContextDef_s@@PAUmenuDef_t@@HH@Z",
 "obj": "ui_shared_mp.obj",
 "size": 1194,
-"hits": [
-"0x53ea00"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?ToWindowCoords@@YAXPAM0PAUWindow@@@Z",
@@ -57637,6 +57668,24 @@
 "thunk": 1
 },
 {
+"name": "_GetCurrentProcess@0",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c6c"
+],
+"thunk": 1
+},
+{
+"name": "_GetProcessAffinityMask@12",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547c72"
+],
+"thunk": 1
+},
+{
 "name": "_TlsGetValue@4",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
@@ -57757,6 +57806,33 @@
 "size": 6,
 "hits": [
 "0x547cc6"
+],
+"thunk": 1
+},
+{
+"name": "_InitializeCriticalSection@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547ccc"
+],
+"thunk": 1
+},
+{
+"name": "_LeaveCriticalSection@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547cd2"
+],
+"thunk": 1
+},
+{
+"name": "_EnterCriticalSection@4",
+"obj": "kernel32:KERNEL32.dll",
+"size": 6,
+"hits": [
+"0x547cd8"
 ],
 "thunk": 1
 },
@@ -57887,15 +57963,6 @@
 "thunk": 1
 },
 {
-"name": "_InitializeCriticalSection@4",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547ccc"
-],
-"thunk": 1
-},
-{
 "name": "_OpenProcess@12",
 "obj": "kernel32:KERNEL32.dll",
 "size": 6,
@@ -57910,15 +57977,6 @@
 "size": 6,
 "hits": [
 "0x547d38"
-],
-"thunk": 1
-},
-{
-"name": "_LeaveCriticalSection@4",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547cd2"
 ],
 "thunk": 1
 },
@@ -57964,15 +58022,6 @@
 "size": 6,
 "hits": [
 "0x547d56"
-],
-"thunk": 1
-},
-{
-"name": "_EnterCriticalSection@4",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547cd8"
 ],
 "thunk": 1
 },
@@ -58070,15 +58119,6 @@
 "size": 6,
 "hits": [
 "0x547d98"
-],
-"thunk": 1
-},
-{
-"name": "_GetCurrentProcess@0",
-"obj": "kernel32:KERNEL32.dll",
-"size": 6,
-"hits": [
-"0x547c6c"
 ],
 "thunk": 1
 },
@@ -82185,7 +82225,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1968,
+"size": 1168,
 "hits": [],
 "reason": "no masked match"
 },
