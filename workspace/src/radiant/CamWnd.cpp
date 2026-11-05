@@ -194,11 +194,6 @@ void CCamWnd::OnMButtonDown(UINT flags, CPoint point)
     OriginalMouseDown(flags, point);
 }
 
-void CCamWnd::OnMButtonUp(UINT flags, CPoint point)
-{
-    OriginalMouseUp(flags, point);
-}
-
 
 
 void CCamWnd::OnRButtonDown(UINT flags, CPoint point)
@@ -209,11 +204,6 @@ void CCamWnd::OnRButtonDown(UINT flags, CPoint point)
 
 
 
-
-void CCamWnd::OnRButtonUp(UINT flags, CPoint point)
-{
-    OriginalMouseUp(flags, point);
-}
 
 // Retail 0x004034f0: shared release behavior behind three mouse-up handlers.
 void CCamWnd::OriginalMouseUp(UINT flags, CPoint point)
