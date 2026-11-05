@@ -729,13 +729,6 @@ void CG_GetEntityOrientation(int entnum, vec_t *origin_out, vec3_t *axis_out)
     AnglesToAxis(cg_entities[entnum].lerpAngles, axis_out);
 }
 
-int CG_CrosshairPlayer(void)
-{
-    if (cgArray[0].time > cgArray[0].crosshairClientTime + 0x3e8)
-        return -1;
-    return cgArray[0].crosshairClientNum;
-}
-
 void CG_GameMessage(const char *msg)
 {
     CL_ConsolePrint((print_msg_type_t)1, msg, 0, cg_gameMessageWidth->current.integer);

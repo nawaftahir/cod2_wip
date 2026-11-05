@@ -52,6 +52,7 @@ extern int FS_ReadFile(const char *filename, void **buffer);
 extern void FS_FreeFile(void *buffer);
 extern void Com_SetCSV(int csv);
 extern char *Com_ParseOnLine( const char *( *data_p ) );
+extern dvar_t *loc_language;
 extern int Com_sprintf(char *dest, size_t size, const char *format, ...);
 extern MaterialHandle CL_Material_Duplicate(MaterialHandle mtlCopy, const char *name);
 void Window_SetRect(Window *w, const UiRectangle *rect);
@@ -1791,6 +1792,25 @@ void Item_SetupKeywordHash(void)
         KeywordHash_Add(itemParseKeywordHash, &itemParseKeywords[i]);
 }
 
+// 1.3: font assets resolve to fonts/<language>/<name> for the localized languages (retail 0x545740)
+static FontHandle UI_RegisterAssetFont(const char *name, const char *fontName, int imageTrack)
+{
+    char path[256];
+
+    switch (loc_language->current.integer) {
+    case LANGUAGE_RUSSIAN: Com_sprintf(path, sizeof(path), "fonts/russian/%s", name); break;
+    case 7: Com_sprintf(path, sizeof(path), "fonts/polish/%s", name); break;
+    case 8: Com_sprintf(path, sizeof(path), "fonts/korean/%s", name); break;
+    case 9: Com_sprintf(path, sizeof(path), "fonts/taiwanese/%s", name); break;
+    case 10: Com_sprintf(path, sizeof(path), "fonts/japanese/%s", name); break;
+    case 11: Com_sprintf(path, sizeof(path), "fonts/chinese/%s", name); break;
+    case 12: Com_sprintf(path, sizeof(path), "fonts/thai/%s", name); break;
+    case 14: Com_sprintf(path, sizeof(path), "fonts/czech/%s", name); break;
+    default: Com_sprintf(path, sizeof(path), fontName); break;
+    }
+    return CL_RegisterFont(path, imageTrack);
+}
+
 static qboolean UI_ParseAssetGlobalDef(int handle, int imageTrack)
 {
     loadAssets_t *load = &g_load.loadAssets;
@@ -1813,7 +1833,7 @@ static qboolean UI_ParseAssetGlobalDef(int handle, int imageTrack)
             int pointSize;
             if (!PC_String_Parse(handle, &tempStr) || !PC_Int_Parse(handle, &pointSize))
                 return 0;
-            CL_DuplicateFont(CL_RegisterFont(tempStr, imageTrack), "$font");
+            CL_DuplicateFont(UI_RegisterAssetFont("normalFont", tempStr, imageTrack), "$font");
             continue;
         }
 
@@ -1821,7 +1841,7 @@ static qboolean UI_ParseAssetGlobalDef(int handle, int imageTrack)
             int pointSize;
             if (!PC_String_Parse(handle, &tempStr) || !PC_Int_Parse(handle, &pointSize))
                 return 0;
-            CL_DuplicateFont(CL_RegisterFont(tempStr, imageTrack), "$smallfont");
+            CL_DuplicateFont(UI_RegisterAssetFont(token.string, tempStr, imageTrack), "$smallfont");
             continue;
         }
 
@@ -1829,7 +1849,7 @@ static qboolean UI_ParseAssetGlobalDef(int handle, int imageTrack)
             int pointSize;
             if (!PC_String_Parse(handle, &tempStr) || !PC_Int_Parse(handle, &pointSize))
                 return 0;
-            CL_DuplicateFont(CL_RegisterFont(tempStr, imageTrack), "$bigfont");
+            CL_DuplicateFont(UI_RegisterAssetFont(token.string, tempStr, imageTrack), "$bigfont");
             continue;
         }
 
@@ -1837,7 +1857,7 @@ static qboolean UI_ParseAssetGlobalDef(int handle, int imageTrack)
             int pointSize;
             if (!PC_String_Parse(handle, &tempStr) || !PC_Int_Parse(handle, &pointSize))
                 return 0;
-            CL_DuplicateFont(CL_RegisterFont(tempStr, imageTrack), "$extrabigfont");
+            CL_DuplicateFont(UI_RegisterAssetFont(token.string, tempStr, imageTrack), "$extrabigfont");
             continue;
         }
 
@@ -1845,7 +1865,7 @@ static qboolean UI_ParseAssetGlobalDef(int handle, int imageTrack)
             int pointSize;
             if (!PC_String_Parse(handle, &tempStr) || !PC_Int_Parse(handle, &pointSize))
                 return 0;
-            CL_DuplicateFont(CL_RegisterFont(tempStr, imageTrack), "$boldfont");
+            CL_DuplicateFont(UI_RegisterAssetFont(token.string, tempStr, imageTrack), "$boldfont");
             continue;
         }
 
@@ -1853,7 +1873,7 @@ static qboolean UI_ParseAssetGlobalDef(int handle, int imageTrack)
             int pointSize;
             if (!PC_String_Parse(handle, &tempStr) || !PC_Int_Parse(handle, &pointSize))
                 return 0;
-            CL_DuplicateFont(CL_RegisterFont(tempStr, imageTrack), "$consolefont");
+            CL_DuplicateFont(UI_RegisterAssetFont(token.string, tempStr, imageTrack), "$consolefont");
             continue;
         }
 

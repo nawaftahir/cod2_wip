@@ -24,3 +24,8 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | UI PB fns wH (+257) | 3 fns added | re-rolled yylex (-4,236); bundle |
 | fn_4bb450 | `if (hay && needle && *needle) {..}` wrapper; while-with-break loop; `first && p >= first` tail | 268 B, esi/edi pushed at entry, first spilled; fixed by early `return hay` + do/while + two-if tail |
 | PbClGameQuery case 109-111 | separate `key` copy of Data used everywhere | extra frame slot (0x10), Data spilled; plain `char *name` local is right |
+| UI_DrawConnectScreen 1.3 (879 B vs 818) | read only | same calls; retail inlines a dvar-string check (cmp [966ff8]; mov cl,[dvar+0x1c]) ours expands as a type switch: not attempted |
+| Item_ListBox_Paint (2081 vs 2104) | read only | retail tests listBoxDef+0x10c (a field we lack, after noScrollBars) in the selected-row draw; struct field unknown, DEFER |
+| CG_DrawScoreboard_Objective (790 vs 1540), CG_EntityEvent (4328 vs 4360) | read only | retail bodies differ structurally (20 calls vs 9); not attempted |
+| DL_BeginDownload (769 vs 781) | read only | retail keeps 0 in esi (xor esi,esi) for ~6 uses; ours pushes imm 0 (zero-in-register pattern) |
+

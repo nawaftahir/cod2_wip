@@ -63,7 +63,7 @@ typedef enum {
 
 PRIVATE HTList * HashTable [HT_M_HASH_SIZE]; 
 PRIVATE HTList * EventOrderList = NULL;
-PRIVATE int HTEndLoop = 0;		       /* If !0 then exit event loop */
+PRIVATE int HTPumpState = 0; PRIVATE int HTEndLoop = 0;		       /* If !0 then exit event loop */
 PRIVATE BOOL HTInLoop = NO;
 
 #ifdef WWW_WIN_ASYNC
@@ -601,226 +601,9 @@ PUBLIC HTEvent * HTEventList_lookup (SOCKET s, HTEventType type)
 /*		     		THE EVENT LOOP 		 		     */
 /* ------------------------------------------------------------------------- */
 
-/*
-**  Start eventloop
-*/
-PUBLIC int HTEventList_newLoop (void)
-{
-    return HTEventList_loop (NULL);
-}
-
-/*
-**  Stops the event loop. The function does not guarantee
-**  that all requests have terminated. This is for the app to do
-*/
 PUBLIC void HTEventList_stopLoop (void)
 {
     HTEndLoop = 1;
-}
-
-PUBLIC int HTEventList_init (HTRequest * theRequest)
-{
-    HTEndLoop = 0;
-    return 0;
-}
-
-PUBLIC int HTEventList_pump (void)
-{
-    MSG msg;
-    if (!HTEndLoop) {
-        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-            return 1;
-        }
-    }
-    HTTrace("Exiting pump loop: %d\n", HTEndLoop);
-    HTEndLoop = 0;
-    return 0;
-}
-
-/*
-**  There are now two versions of the event loop. The first is if you want
-**  to use async I/O on windows, and the other is if you want to use normal
-**  Unix setup with sockets
-*/
-PUBLIC int HTEventList_loop (HTRequest * theRequest)
-{
-#ifdef WWW_WIN_ASYNC
-
-    MSG msg;
-    int status;
-    while (!HTEndLoop && GetMessage(&msg,0,0,0)) {
-	    TranslateMessage(&msg);
-	    DispatchMessage(&msg);
-    }
-
-    status = HTEndLoop;
-    
-    /* Reset HTEndLoop in case we want to start again */
-    HTEndLoop = 0;
-    
-    return (status == 1 ? HT_OK : HT_ERROR);
-
-#else /* WWW_WIN_ASYNC */
-
-    fd_set treadset, twriteset, texceptset;
-    struct timeval waittime, * wt;
-    int active_sockets;
-    int maxfds;
-    ms_t timeout;
-    ms_t now;
-    SOCKET s;
-    int status = HT_OK;
-
-    /* Check that we don't have multiple loops started at once */
-    if (HTInLoop) {
-	HTTRACE(THD_TRACE, "Event Loop.. Already one loop running - exiting\n");
-	return HT_ERROR;
-    }
-    HTInLoop = YES;
-
-    /* Set up list of events - is kept around until EventOrder_deleteAll */
-    if (!EventOrderList)
-	EventOrderList = HTList_new();
-    else
-	EventOrder_clearAll();
-
-    /* Don't leave this loop until we leave the application */
-    while (!HTEndLoop) {
-
-        /*
-	**  Timeval struct copy needed for linux, as it set the value to the
-	**  remaining timeout while exiting the select. (and perhaps for
-	**  other OS). Code borrowed from X server.
-	*/
-	wt = NULL;
-	if ((status = HTTimer_next(&timeout)))
-	    break;
-	if (timeout != 0) {
-	    waittime.tv_sec = timeout / MILLI_PER_SECOND;
-	    waittime.tv_usec = (timeout % MILLI_PER_SECOND) *
-		(1000000 / MILLI_PER_SECOND);
-	    wt = &waittime;
-	}
-
-	/*
-	** Check whether we still have to continue the event loop. It could
-	** be that one of the timer handlers ended the loop.
-	*/
-	if (HTEndLoop) break;
-
-	/*
-	**  Now we copy the current active file descriptors to pass them to select.
-	*/
-        treadset = FdArray[HTEvent_INDEX(HTEvent_READ)];
-        twriteset = FdArray[HTEvent_INDEX(HTEvent_WRITE)];
-        texceptset = FdArray[HTEvent_INDEX(HTEvent_OOB)];
-
-	/* And also get the max socket value */
-        maxfds = MaxSock; 
-
-	HTTRACE(THD_TRACE, "Event Loop.. calling select: maxfds is %d\n" _ maxfds);
-#ifdef HTDEBUG
-	fd_dump(maxfds, &treadset, &twriteset, &texceptset, wt);
-#endif
-
-#ifdef __hpux 
-        active_sockets = select(maxfds+1, (int *)&treadset, (int *)&twriteset,
-				(int *)&texceptset, wt);
-#elif defined(_WINSOCKAPI_)
-	/*
-	 * yovavm@contact.com
-	 *
-	 * On some WINSOCK versions select() with 3 empty sets and NULL timeout
-	 * returns 0 and in some it returns -1.
-	 * If 0 is returned in such situation, we will go into an infinite loop
-	 * (cause the sets will stay empty forever ...),
-	 * so make sure to set the active_sockets = -1 which will take us out 
-	 * of the loop.
-	 */
-	if ((treadset.fd_count || twriteset.fd_count || texceptset.fd_count) 
-	    && wt)
-	     active_sockets = select(maxfds+1, &treadset, &twriteset,
-				     &texceptset, wt);
-	else
-	     active_sockets = -1;	
-#else
-        active_sockets = select(maxfds+1, &treadset, &twriteset, &texceptset, wt);
-#endif
-
-	now = HTGetTimeInMillis();
-
-	HTTRACE(THD_TRACE, "Event Loop.. select returns %d\n" _ active_sockets);
-#ifdef HTDEBUG
-	fd_dump(maxfds, &treadset, &twriteset, &texceptset, wt);
-#endif
-
-        if (active_sockets == -1) {
-#ifdef EINTR
-	    if (socerrno == EINTR) {
-		/*
-		** EINTR     The select() function was interrupted  before  any
-		**           of  the  selected  events  occurred and before the
-		**           timeout interval expired.
-		**
-		**           If SA_RESTART has been set  for  the  interrupting
-		**           signal,  it  is  implementation-dependent  whether
-		**	     select() restarts or returns with EINTR.
-		*/
-		HTTRACE(THD_TRACE, "Event Loop.. select was interruted - try again\n");
-		continue;
-	    }
-#endif /* EINTR */
-#ifdef EBADF
-	    if (socerrno == EBADF) {
-	        /*
-		** EBADF     One or more of the file descriptor sets  specified
-		**           a  file  descriptor  that is not a valid open file
-		**           descriptor.
-		*/
-		HTTRACE(THD_TRACE, "Event Loop.. One or more sockets were not through their connect phase - try again\n");
-		continue;
-	    }
-#endif
-	    HTTRACE(THD_TRACE, "Event Loop.. select returned error %d\n" _ socerrno);
-
-#ifdef HTDEBUG
-	    EventList_dump();
-#endif /* HTDEBUG */
-
-	    status = HT_ERROR;
-	    break;
-        }
-
-	/*
-	**  We had a timeout so now we check and see if we have a timeout
-	**  handler to call. Let HTTimer_next get it.
-	*/ 
-	if (active_sockets == 0)
-	    continue;
-
-	/* There were active sockets. Determine which fd sets they were in */
-	for (s = 0 ; s <= maxfds ; s++) { 
-	    if (FD_ISSET(s, &texceptset))
-		if ((status = EventOrder_add(s, HTEvent_OOB, now)) != HT_OK)
-		    goto stop_loop;
-	    if (FD_ISSET(s, &twriteset))
-		if ((status = EventOrder_add(s, HTEvent_WRITE, now)) != HT_OK)
-		    goto stop_loop;
-	    if (FD_ISSET(s, &treadset))
-		if ((status = EventOrder_add(s, HTEvent_READ, now)) != HT_OK)
-		    goto stop_loop;
-	}
-	if ((status = EventOrder_executeAndDelete()) != HT_OK) break;
-    };
-
-    /* Reset HTEndLoop in case we want to start again */
- stop_loop:
-    HTEndLoop = 0;
-    HTInLoop = NO;
-    return status;
-#endif /* !WWW_WIN_ASYNC */
 }
 
 /* ------------------------------------------------------------------------- */
@@ -981,3 +764,32 @@ PUBLIC BOOL HTEventTerminate (void)
 
     return YES;
 }
+
+PUBLIC int HTEventList_init (HTRequest * theRequest)
+{
+    HTPumpState = 0;
+    return 0;
+}
+
+PUBLIC int HTEventList_pump (void)
+{
+    MSG msg;
+    if (!HTEndLoop) {
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+            return 1;
+        }
+    }
+    HTPumpState = HTEndLoop;
+    HTTrace("Exiting pump loop: %d\n", HTEndLoop);
+    HTEndLoop = 0;
+    return 0;
+}
+
+PUBLIC int HTEventList_loop (HTRequest * theRequest)
+{
+    HTPumpState = 0;
+    return 0;
+}
+

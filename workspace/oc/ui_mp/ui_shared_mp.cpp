@@ -2691,6 +2691,8 @@ qboolean Menu_CheckOnKey(displayContextDef_t *dc, menuDef_t *menu, int key)
         item = menu->items[i];
         if (!Window_IsVisible(&item->window))
             continue;
+        if (!Window_HasFocus(&item->window) && !(item->window.staticFlags & 0x100000))
+            continue;
         if ((item->dvarFlags & 0xc) && !Item_EnableShowViaDvar(item, 4))
             continue;
         for (handler = item->onKey; handler; handler = (ItemKeyHandler *)handler->next) {
@@ -2995,7 +2997,7 @@ void Item_Text_AutoWrapped_Paint(itemDef_t *item, const char *textPtr, vec_t *co
             }
             if (*p == '\0')
                 break;
-            y += height + 5;
+            y += (height < 16) ? height + 1 : height + 4;
             p = newLinePtr;
             len = 0;
             newLine = 0;

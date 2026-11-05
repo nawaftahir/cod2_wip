@@ -948,10 +948,6 @@ static void CG_CalcCrosshairColor(float alpha, float *color)
         color[0] = 0.25f;
         color[1] = 1.0f;
         color[2] = 0.25f;
-    } else if ((cg->predictedPlayerState.pm_flags & 0x200000) && cg_crosshairEnemyColor->current.enabled) {
-        color[0] = 1.0f;
-        color[1] = 0.25f;
-        color[2] = 0.25f;
     } else {
         color[0] = 1.0f;
         color[1] = 1.0f;
