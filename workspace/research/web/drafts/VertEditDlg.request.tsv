@@ -1,0 +1,4 @@
+addr	symbol
+0x004460e0	?GetRuntimeClass@CVertEditDlg@@UBEPAUCRuntimeClass@@XZ
+0x00446400	?GetMessageMap@CVertEditDlg@@MBEPBUAFX_MSGMAP@@XZ
+0x00446490	?OnInitDialog@CVertEditDlg@@MAEHXZ

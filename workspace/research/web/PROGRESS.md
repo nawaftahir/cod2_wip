@@ -1484,3 +1484,114 @@ https://github.com/nawaftahir/cod2_wip/actions/runs/41858934183 retain
 The assigned lane allowlist does not permit changing those two selector files.
 An owner-approved lane-1 trial selector and the out-of-scope baseline gate fix
 are needed before claiming matched code and promoting these functions.
+## Lane 2 — VertEditDlg, 2026-11-04
+
+Branch `radiant/web/2`; only this lane's source and permitted web draft/report paths edited.
+
+- Original assignment: `src/radiant/VertEditDlg.cpp` first, not another TU.
+- Retail file-map pins `GetRuntimeClass` 0x004460e0 / 6 B, constructor 0x004460f0 / 311 B, and the class runtime data/vtable. Inventory maps `GetMessageMap` to 0x00446400 / 6 B and `OnInitDialog` to 0x00446490 / 211 B.
+- Q3 sweep has no VertEditDlg game matches. Retail Ghidra decompilation of 0x00446490 shows eleven child-window subclass hooks using `g_vertEditSubclass`, alpha range 0..255, three 0..240 slider ranges, real-time checkbox check and `UpdateData(FALSE)`. Source candidate in `workspace/research/web/drafts/VertEditDlg.cpp`; unverified, no ledger credit.
+- Canonical trial commit `9268dd3` added only a class message map. CI run 41850548380 compiled all previous 823/823 matches, but emitted a new unverified `GetMessageMap` body (unverified counter 41 -> 42); full gate failed on an independently existing patch-dialog test, not this code.
+- Correction `1dbffd9` restored canonical source and moved the candidate into an allowed draft file. CI run 41851116924 confirmed 823/823, 41 unverified, 26 FILE VERIFIED; full gate still fails on `test_partial.py` unknown callee at 0x4075c0 -> 0x409270.
+- **Blocked exact compare**: the present web-trial CI uses `workspace/research/web/target.tsv` selecting `ModelDlg` and `tu_trial.tsv` contains ModelDlg addresses. Those are outside lane-2's allowed edit list. Owner must authorize a lane-specific trial config or export CI trial evidence for 0x004460e0, 0x00446400 and 0x00446490. No actual trial comparison / first differing byte exists for these candidates yet, so no match row may be recorded.
+- No assembly, retail byte arrays, ABI override, stubs, or source code in other lanes was added. Whole-file metadata/RTTI/vtable proof remains pending.
+
+- Resource proof: `src/res/CoD2Radiant.rc` dialog `226` is captioned `gVertex Color/Alpha Editing` and contains exactly the 11 child IDs in `g_vertEditSubclass` (1461, 1526, 1527, 1528, 1529, 1530, 1533, 1534, 1535, 1537, 1464). The draft now declares the anchored `IDD = 226`; no constructor behavior is guessed from the resource alone.
+
+## Lane 2 — vertsel candidate after VertEditDlg infrastructure blocker
+
+- `src/radiant/vertsel.cpp` is left canonical with its existing exact `FindPoint` (180 B) and `FindEdge` (104 B).
+- Q3Radiant's `VERTSEL.CPP` provides the control flow for `MakeFace` and `SetupVertexSelection`, but CoD2 Ghidra decompilation shows `MakeFace` at 0x004752c0 calls an unknown one-argument winding helper 0x00455800. `SetupVertexSelection` at 0x00475350 uses a counted face array with pointers at brush+0x14, count at brush+0x18, face-list at definition+0x3c and 0xa8 stride, **not** Q3's linked list.
+- The candidate draft at `workspace/research/web/drafts/vertsel.cpp` preserves both already verified functions and adds only real C++ `MakeFace` and `SetupVertexSelection` methods using these target-backed offsets. Winding point stride is reference-informed, not retail-confirmed; the true external helper signature and linker binding are unresolved.
+- These candidates are **UNTESTED**, not MATCH. No ledger row or canonical change. A lane-aware hosted referee trial and retail disassembly are needed; the existing shared generic trial selector remains assigned to ModelDlg and is outside this lane's authorized edit list.
+
+## Lane 2 — file/owner triage summary (2026-11-04)
+
+- Across nine assigned TUs, inventory has 71 routines / 11,696 B: **35 existing confirmed game rows / 2,473 B**, **28 remaining authored game routines / 8,956 B**, and **8 scalar-deleting destructor helpers / 267 B** classified separately from game code. The three 34 B scalar helpers at 0x0043c1e0 (RotateDlg), 0x00424340 (PatchDensityDlg) and 0x0043ed00 (TerrainDensityDlg) are proven in the retail decompilation but not labeled AUTO in `data/auto_funcs.tsv`; owner review needed, not ledger game credit.
+- Already FILE VERIFIED by existing audited `ledger/files.tsv`: LstToolBar (4 game / 42 B), NewProjDlg (3 / 147 B), RADEditWnd (5 / 320 B), ScaleDialog (3 / 103 B). No source edits needed here.
+- Still pending: VertEditDlg (4 game rows / 599 B, 16 game remaining / 5,702 B), vertsel (2 / 284 B, 6 remaining / 1,988 B), RotateDlg (6 / 498 B, 4 remaining / 970 B), PatchDensityDlg (4 / 240 B, OnOK 148 B remaining), TerrainDensityDlg (4 / 240 B, OnOK 148 B remaining). The file ledger's UNSTARTED labels for VertEditDlg/vertsel are stale relative to canonical game rows; only the owner may regenerate `ledger/files.tsv`.
+- Cross-owner blockers: vertsel MakeFace calls 0x00455800 / 325 B (brush.cpp); RotateDlg spin paths at 0x0043c4f0, 0x0043c5a0, 0x0043c650 depend on 0x00470c50 / 140 B and 0x00470ce0 / 65 B (select.cpp), as well as 0x004897c0 / 306 B and 0x00485040 / 107 B (com_math.cpp); PatchDensityDlg OnOK calls 0x004293f0 / 756 B and TerrainDensityDlg OnOK calls 0x004296f0 / 771 B (Pmesh.cpp). The retail decompilation confirms these call sites, but the linked implementations and binding proofs are outside lane 2. Source and target names remain provisional where unproven.
+- Keep all unmatched source only under permitted drafts until the owner permits a branch-aware CI trial input and provides original disassembly. No lane-2 game credit claimed for this checkpoint.
+
+## Lane 2 — reference and trial-evidence reconciliation
+
+Rechecked original id Software Quake III Arena source at commit `dbe4ddb10315479fc00086f08e25d968b4b43c49`:
+`q3radiant/VERTSEL.CPP`, `RotateDlg.cpp/.h`, `PatchDensityDlg.cpp`,
+`NewProjDlg.cpp`, `ScaleDialog.cpp`, `LstToolBar.cpp` and `RADEditWnd.cpp`.
+The four lane-2 candidates in `workspace/research/q3sweep_game.tsv` are
+ALREADY ledgered at 0x0043c2a0, 0x0043c490, 0x0043b600 and 0x0043b650;
+the sweep's 0x00423eb0 is inventoried in ModelDlg and outside this lane.
+VertEditDlg has no Q3 sweep candidate.
+
+IMPORTANT: Prior `workspace/research/web/PROGRESS.md` entries record historic
+*isolated* exact matches for CVertEditDlg::GetMessageMap 0x00446400 (6/6)
+and OnInitDialog 0x00446490 (211/211), in runs 41799906476 and
+41799100159 respectively. The isolated request also caused linked
+`GraphGetValueFromFraction` 0x004832c0 (com_math.cpp) to change from
+832 B to 828 B, 76%, first difference +0x5, so the complete verifier
+REJECTED those trials. Neither is safe to ledger/promote in canonical.
+The new draft is a source-based hypothesis reconstructed from the target
+decompiler (unsigned byte-offset control-table iteration); it has NOT been
+run through a lane-2 isolated CI trial on this branch.
+
+Proposed request file, **not CI-active**:
+`workspace/research/web/drafts/VertEditDlg.request.tsv`.
+It has exact decorated symbols for retail GetRuntimeClass, GetMessageMap
+and OnInitDialog. The shared `workspace/research/web/target.tsv` is
+currently assigned to ModelDlg, and lane 2 is not authorized to change
+it or `tu_trial.tsv`. Owner must supply a lane-aware trial route; never
+treat a passing ModelDlg web-trial as evidence for this TU.
+
+## Lane 2 — RotateDlg Q3 ancestor source candidate
+
+Read id Software's original `q3radiant/RotateDlg.cpp` and `RotateDlg.h`
+at revision `dbe4ddb10315479fc00086f08e25d968b4b43c49`.
+Source for `OnApply` rotates X, Y, Z axes after `UpdateData(TRUE)`,
+using `atof(CString)` and `Select_RotateAxis(axis, deg)`.
+Staged a normal C++ adaptation preserving the existing **six verified** target
+functions in `workspace/research/web/drafts/RotateDlg.cpp`, plus
+`workspace/research/web/drafts/RotateDlg.request.tsv` for retail
+0x0043c2b0 / 475 B. The reference float constants and selection API
+are ancestral hypotheses, NOT retail-confirmed; no code/ledger promotion.
+
+The target spin callbacks 0x0043c4f0, 0x0043c5a0 and 0x0043c650
+**cannot be copied blindly**: retail decompilation shows they
+invoke 0x00470c50, 0x004897c0, 0x00485040 and 0x00470ce0 and construct
+transformation matrices. Q3's three one-line `Select_RotateAxis` callbacks
+do not have that code shape. Those four target routines have no matching
+linked owner definitions, so a correct source body cannot be verified
+as a standalone TU without select.cpp and com_math.cpp integration.
+
+## Lane 2 — direct MFC runtime-class experiment and result
+
+Tested the retail-pinned `CVertEditDlg::GetRuntimeClass` entry
+0x004460e0 / 6 B by adding the standard MFC
+`DECLARE_DYNAMIC(CVertEditDlg)` and `IMPLEMENT_DYNAMIC(CVertEditDlg, CDialog)`
+to **the assigned source only** at commit
+`ae0948644bfdb340fd3bc97c55142641d3cb2888`.
+Hosted CI run: https://github.com/nawaftahir/cod2_wip/actions/runs/41859640791.
+
+Results: the exact-same full existing game ledger remained
+**823/823 MATCH, 0 mismatches**, but `GetRuntimeClass` appeared under
+`UNVERIFIED`, increasing the canonical unverified count **41 -> 42**.
+The diagnostic `scan_emitted_matches.py` found 1 unledgered emitted
+VertEdit symbol but 0 length cases; the scanner deliberately skips retail
+entries smaller than 8 bytes, so it **cannot test a 6-byte function**.
+There was NO direct `MATCH` result for 0x004460e0.
+
+Immediately reverted the canonical experiment in commit
+`c07c21253b779f2993070f5e11482fa06079548f`.
+Post-revert CI https://github.com/nawaftahir/cod2_wip/actions/runs/41860227398
+restored **823/823 game rows**, **41 unverified** and
+**26 VERIFIED files**; the unrelated shared `patch-dialog` test
+still fails at 0x004075c0 -> 0x00409270 / 0x00409280 depending on
+linked placement. Do not mistake the scanner's <8-byte exclusion for
+a mismatch or for a MATCH. No game ledger rows were changed.
+
+The owner needs to enable a lane-scoped direct `v.check` trial for
+6-byte MFC members, with the unchanged referee and all existing
+ledger rows intact; the source draft and candidate symbol are in
+`workspace/research/web/drafts/VertEditDlg.cpp` and
+`workspace/research/web/drafts/VertEditDlg.request.tsv`.
+The actual shared `target.tsv` / `tu_trial.tsv` still target
+ModelDlg and are not assigned to lane 2.

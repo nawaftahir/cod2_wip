@@ -1,4 +1,20 @@
+/*
+ * Q3Radiant ancestor: Copyright (C) 1999-2005 Id Software, Inc.
+ * Licensed under the GNU General Public License version 2 or
+ * (at your option) any later version.
+ * Original: id-Software/Quake-III-Arena, q3radiant/RotateDlg.cpp,
+ * revision dbe4ddb10315479fc00086f08e25d968b4b43c49.
+ * This staged candidate is modified for the CoD2 target and remains
+ * unverified against the retail executable.
+ */
+
 #include "stdafx.h"
+#include <stdlib.h>
+
+// Original source: id Software Q3Radiant. CoD2 select.cpp is pending.
+extern void Select_RotateAxis(int axis, float degrees,
+                              bool paint = false, bool mouse = false);
+
 
 class CRotateDlg : public CDialog
 {
@@ -57,6 +73,24 @@ void CRotateDlg::OnOK()
 	CDialog::OnOK();
 }
 
+// Q3 ancestor (GPL-2.0-or-later), trial only; not accepted in ledger.
+void CRotateDlg::OnApply()
+{
+    UpdateData(TRUE);
+
+    float f = atof(m_strX);
+    if (f != 0.0)
+        Select_RotateAxis(0, f);
+
+    f = atof(m_strY);
+    if (f != 0.0)
+        Select_RotateAxis(1, f);
+
+    f = atof(m_strZ);
+    if (f != 0.0)
+        Select_RotateAxis(2, f);
+}
+
 BOOL CRotateDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
@@ -69,3 +103,5 @@ BOOL CRotateDlg::OnInitDialog()
 void CRotateDlg::ApplyNoPaint()
 {
 }
+
+
