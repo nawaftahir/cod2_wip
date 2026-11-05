@@ -165,6 +165,15 @@ void CCamWnd::OnClose()
     Default();
 }
 
+// Retail 0x004032a0: camera mouse movement and last-cursor tracking.
+void CCamWnd::OnMouseMove(UINT flags, CPoint point)
+{
+    CRect rect;
+    GetClientRect(rect);
+    Cam_MouseMoved(point.x, rect.bottom - 1 - point.y, flags);
+    m_ptLastCursor = point;
+}
+
 
 
 void CCamWnd::OnLButtonDown(UINT flags, CPoint point)
