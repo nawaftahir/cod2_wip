@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "Pmesh.h"
+#include <malloc.h>
 #include "../universal/com_math.h"
+
+// Retail 0x00425810 / 10 B, Q3Radiant source counterpart.
+int Patch_MemorySize(patchMesh_t *patch)
+{
+    return _msize(patch);
+}
 
 // Candidate at retail 0x00425840 / 197 bytes (NOT VERIFIED).
 // Q3Radiant's indexed InterpolateInteriorPoints is the ancestor.
