@@ -89,41 +89,6 @@ void CPatchDialog::OnBtnPatchnatural()
 }
 
 
-void CPatchDialog::OnSelchangeComboCol()
-{
-    UpdateRowColInfo();
-}
-
-void CPatchDialog::OnSelchangeComboRow()
-{
-    UpdateRowColInfo();
-}
-
-void CPatchDialog::GetPatchInfo()
-{
-    m_Patch = SinglePatchSelected();
-    if (m_Patch != NULL)
-    {
-        CString str;
-        int i;
-        m_wndRows.ResetContent();
-        for (i = 0; i < m_Patch->height; i++)
-        {
-            str.Format("%i", i);
-            m_wndRows.AddString(str);
-        }
-        m_wndRows.SetCurSel(0);
-        m_wndCols.ResetContent();
-        for (i = 0; i < m_Patch->width; i++)
-        {
-            str.Format("%i", i);
-            m_wndCols.AddString(str);
-        }
-        m_wndCols.SetCurSel(0);
-    }
-    UpdateRowColInfo();
-}
-
 void CPatchDialog::OnSelchangeComboType()
 {
 }
