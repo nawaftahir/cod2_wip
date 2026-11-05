@@ -110,6 +110,22 @@ float Patch_HeightDistanceTo(patchMesh_t *patch, int count)
     return length;
 }
 
+// Retail 0x00429df0 / 34 B; MSVC 7.1 isolated referee MATCH
+// in run 42071492272. The decompiler names identify two existing
+// global objects: an index count and a contiguous 32-bit table.
+extern int DAT_010c4d84;
+extern int DAT_010c4d88[];
+
+int __fastcall FUN_00429df0(void *, int value)
+{
+    for (int i = 0; i < DAT_010c4d84; ++i)
+    {
+        if (value == DAT_010c4d88[i])
+            return i;
+    }
+    return -1;
+}
+
 // Retail 0x0042b6d0, 14 B. Isolated exact MATCH in run 42070669799.
 float FUN_0042b6d0(int unused1, int unused2,
                     float offset, float factor, float scale)
