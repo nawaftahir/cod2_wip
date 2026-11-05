@@ -70,6 +70,31 @@ qtexture_s *Editor_DoesMaterialExist(const char *name)
     return NULL;
 }
 
+struct RadiantFilterEntry {
+    const char *name;
+    int pad;
+};
+
+// 0x00440d90 (90 B)
+BOOL AppendTextureFilterMenu(HMENU hMenu, LPCSTR lpNewItem,
+                            const RadiantFilterEntry *array, int count, int idBase)
+{
+    HMENU sub = CreateMenu();
+    for (int v5 = 0; v5 < count; ++v5)
+    {
+        const char *name = array[v5].name;
+        if (!name)
+        {
+            AppendMenuA(sub, MF_SEPARATOR, (UINT_PTR)name, name);
+        }
+        else
+        {
+            AppendMenuA(sub, MF_STRING, v5 + idBase, name);
+        }
+    }
+    return AppendMenuA(hMenu, MF_POPUP, (UINT_PTR)sub, lpNewItem);
+}
+
 // 0x00441400 (27 B)
 void Texture_ClearInUse(void)
 {
