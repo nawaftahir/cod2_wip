@@ -1654,3 +1654,41 @@ Canonical promotion commit b7fda6505761e975a9b7c900ca3ba464474e6519 proved this 
 ## 2026-11-04 — isolate Layers from Sides cross-TU regression
 
 Run https://github.com/nawaftahir/cod2_wip/actions/runs/41861753944 reported the retail 0x00476db0 / 32-B Layers launcher MATCH with resource 225, but its isolated draft still included exact SidesDlgProc and caused unrelated GraphGetValueFromFraction to regress 830/832 bytes (79%); 835/836 existing rows held. Run 41862260546 with Sides reverted from canonical still showed that same draft-only regression (834/835), demonstrating that the rejected Sides draft must not be co-linked when trialing another TU function. Preserved the full exploratory draft as workspace/research/web/drafts/win_dlg_research_full.cpp. Reset the active trial draft to last canonical source plus the single real Layers launcher and requested only 0x00476db0. No ledger addition until this isolated trial reports MATCH with zero existing regression. This is a source-cohort isolation, not a verifier/mask or other-TU edit.
+
+## 2026-11-05 — Lane 2 GfxWrapper source-size trials and blocker
+
+Scope: only radiant/web/2 GfxWrapper source and web research drafts. No change to the
+shared referee, masks, metadata, build flags, headers, other lanes, or game ledger.
+
+- Retail 0x00410110 / 6 B: retail file-map evidence shows a six-byte import-table
+  tail jump via 0x005288e0, passed by pointer from the renderer loader. A
+  CoD2 1.0 client refimport_t reference provides a Milliseconds callback; a
+  WINMM timeGetTime forwarding candidate was tried at the correct address order.
+  Run 42068698078 emitted a 16 B *aligned symbol slot*, but the actual
+  six-byte import identity is UNPROVEN. Worse, full referee regressed
+  GraphGetValueFromFraction 0x004832c0: 830/832 B, 79%, first diff +0x5;
+  837/838 ledger rows. Rejected and restored; exact candidate preserved as
+  workspace/research/web/drafts/GfxWrapper_import.cpp.
+- Retail 0x00410120 / 147 B: source decomp shows assert(text) at source line
+  37, assert(*text) at line 38, and advancing the pointer only for a nonzero
+  character. The existing positive-condition version emits a 144 B aligned
+  symbol span (0x00410120 drift -45520) and remains UNVERIFIED. Trial
+  82d0b177 (run 42069376693) used a functionally identical early return:
+  still 144/147 B by offset drift. Full referee preserved 838/838 rows.
+  Rejected for no size improvement and original source restored in 748ae623.
+- Retail 0x00410330 / 104 B: generated assertion and 1.0f out-param
+  candidate (including the integer-bitwise-store spelling) emitted 96 B,
+  regressed the same pre-existing math ledger body, and was rejected.
+  Source evidence retained under workspace/research/web/drafts/GfxWrapper.cpp.
+- Complete-file gate remains RED on pre-existing test_editor_completion.py:
+  FileNotFoundError for src/radiant/EditWnd.cpp. This is a Lane 1/shared-audit
+  ownership issue, not permission to change that file or test from Lane 2.
+  Exact game ledger otherwise passes 838/838 on the restored source.
+
+Next required evidence for this TU is retail disassembly and call contexts of
+0x00410110, 0x00410120 and 0x00410330 (plus the 0x004105f0 loader), and an
+owner-approved isolated GfxWrapper comparison request. Do not interpret the
+offset-drift size (next symbol minus current, INCLUDING padding) as actual
+instruction byte identity. Neither retail-size match nor accepted new game
+credit was established in this batch. Do not promote either rejected trial
+or invent an imported callee name from IAT location alone.
