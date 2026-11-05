@@ -1,4 +1,2 @@
-source	draft
-src/radiant/Pmesh.cpp	workspace/research/web/drafts/Pmesh.cpp
-src/radiant/PatchDialog.cpp	workspace/research/web/drafts/PatchDialog.cpp
-src/radiant/UNKNOWN_00425080.cpp	workspace/research/web/drafts/UNKNOWN_00425080.cpp
+source	draft	flags
+src/radiant/UNKNOWN_00425080.cpp	workspace/research/web/drafts/UNKNOWN_00425080.cpp	/O2 /Oy- /Op /GS /GX /GR

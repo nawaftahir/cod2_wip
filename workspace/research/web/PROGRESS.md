@@ -1692,3 +1692,49 @@ offset-drift size (next symbol minus current, INCLUDING padding) as actual
 instruction byte identity. Neither retail-size match nor accepted new game
 credit was established in this batch. Do not promote either rejected trial
 or invent an imported callee name from IAT location alone.
+
+## 2026-11-05 — Web lane 3, storage helpers 0x425080..0x4250d0: four isolated matches, compiler-mode handoff
+
+Scope: radiant/web/3 only; the next address after PatchDensityDlg / PatchDialog's
+unresolved bodies is the UNKNOWN_00425080.cpp storage-helper cohort. Source stays
+in workspace/research/web/drafts/UNKNOWN_00425080.cpp, **not** accepted source.
+
+- 0x00425080 (3 B), `UNKNOWN_00425080::FUN_00425080` (member getter):
+  standard /GL trial 42077793606 emitted 3/3 B, but EAX instead of retail ECX
+  (66%, first diff +1). The isolated plain C++ compile in run
+  https://github.com/nawaftahir/cod2_wip/actions/runs/42078496396
+  reported relocation-normalized **MATCH / 3 B**. Retail caller census found
+  zero *direct* callers; no claim that indirect/address-taken uses are absent.
+- 0x00425090 (17 B), default storage constructor: /GL trial
+  https://github.com/nawaftahir/cod2_wip/actions/runs/42079030819
+  emitted 15/17 B, lacking `mov eax,ecx` at entry (29%). Plain C++ run
+  https://github.com/nawaftahir/cod2_wip/actions/runs/42079429838
+  reported **MATCH / 17 B**.
+- 0x004250b0 (15 B), field-reset member: plain C++ run
+  https://github.com/nawaftahir/cod2_wip/actions/runs/42079716668
+  reported **MATCH / 15 B**.
+- 0x004250c0 (17 B), backing-storage release member: the standalone
+  free() hypothesis previously emitted 17/17 B but wrong argument register
+  (94%); a C++ member using the proven +0 storage pointer, tested in run
+  https://github.com/nawaftahir/cod2_wip/actions/runs/42080136639,
+  reported **MATCH / 17 B** with plain MSVC.
+
+The four isolated results are **4/4, 52 bytes of trial evidence only**.
+All used the temporary target.tsv TU flags `/O2 /Oy- /Op /GS /GX /GR`,
+without /GL. The normal repo configuration in data/flags.tsv retains
+`/O2 /Oy- /Op /GS /GL /GX /GR`. A per-TU compiler-mode correction is
+an **owner decision**: do not modify tools/, data/, global flags, masks or
+the linker in this lane. The target's unresolved `DAT_00598c80` pointer
+has a normalized relocation in the isolated comparison; absolute storage
+binding/whole-file metadata remain unproved.
+
+Canonical source and ledger were untouched: the full source verifier
+reported 843/843 rows matched and 0 failures in run 42080136639;
+overall gate remains RED on the pre-existing complete-file audit
+`test_editor_completion.py`. No MATCH credit has been promoted, and
+neither whole-file verification nor retail offset identity is claimed.
+The next retail code in this TU is 0x004250e0 (16 B); recover its genuine
+owner/type before authoring it. PatchDensityDlg::OnOK at 0x4243c0 is
+blocked by the missing actual Pmesh generator at 0x4293f0 and
+owner-reviewed CMainFrame/CXYWnd layouts. The 0x424340 deleting destructor
+is compiler generated and must not be hand-coded.
