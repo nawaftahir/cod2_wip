@@ -1,7 +1,43 @@
 #include "stdafx.h"
 #include "Pmesh.h"
 #include <malloc.h>
+#include <string.h>
 #include "../universal/com_math.h"
+
+// Retail 0x00425770 / 152 B -- unverified real initialization candidate.
+// Class storage and string values come from retail disassembly. Material
+// resolver 0x00440840 is a cross-lane dependency: the symbol name is provisional.
+extern void *FUN_00440840(const char *name);
+
+patchMesh_t *MakeNewPatch()
+{
+    patchMesh_t *patch = new patchMesh_t;
+    patch->width = 0;
+    patch->height = 0;
+    patch->field_08 = 0;
+    patch->type_10 = 0;
+    patch->value_3834 = 0.0f;
+    patch->style_14 = 8;
+    patch->image_18 = FUN_00440840("case");
+    patch->lightmap_1c = FUN_00440840("lightmap_gray");
+
+    memset(patch->ctrl, 0, sizeof(patch->ctrl));
+    for (int w = 0; w < 16; ++w)
+    {
+        for (int h = 0; h < 16; ++h)
+        {
+            patch->ctrl[w][h].color_28[0] = 255;
+            patch->ctrl[w][h].color_28[1] = 255;
+            patch->ctrl[w][h].color_28[2] = 255;
+            patch->ctrl[w][h].color_28[3] = 255;
+        }
+    }
+    patch->cache_3824 = NULL;
+    patch->cache_3828 = NULL;
+    patch->version = 0;
+    patch->field_382e = 0;
+    return patch;
+}
 
 // Retail 0x00425810 / 10 B, Q3Radiant source counterpart.
 int Patch_MemorySize(patchMesh_t *patch)

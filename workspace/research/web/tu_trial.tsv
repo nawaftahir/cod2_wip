@@ -1,4 +1,5 @@
 addr	symbol
+0x00425770	?MakeNewPatch@@YAPAUpatchMesh_t@@XZ
 0x00425810	?Patch_MemorySize@@YAHPAUpatchMesh_t@@@Z
 0x00425820	?FUN_00425820@@YAXPAUpatchMesh_t@@H_NM@Z
 0x00425840	?InterpolateInteriorPoints@@YAXPAUpatchMesh_t@@@Z

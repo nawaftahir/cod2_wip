@@ -4,7 +4,9 @@
 struct PatchControl
 {
     float xyz[3];
-    unsigned char field_0c[0x34-12];
+    unsigned char field_0c[0x28-12];
+    unsigned char color_28[4];
+    unsigned char field_2c[0x34-0x2c];
     unsigned int flags_34; // Retail 0x425840 tests bit 1 at control +0x34
 };
 
@@ -12,9 +14,16 @@ struct patchMesh_t
 {
     int width;
     int height;
-    unsigned char field_08[0x24-8];
+    int field_08;
+    int field_0c;
+    int type_10;
+    int style_14;
+    void *image_18;
+    void *lightmap_1c;
+    int field_20;
     PatchControl ctrl[16][16];
-    unsigned char field_3824[8];
+    void *cache_3824;
+    void *cache_3828;
     short version;
     unsigned char field_382e;
     unsigned char flag_382f; // CoD2 0x425820 writes the byte on mode 1
@@ -23,6 +32,9 @@ struct patchMesh_t
 };
 
 // Allocation, control stride and positions are pinned; other storage is undecoded.
+typedef char PatchControlColorOffset[(offsetof(PatchControl,color_28)==0x28)?1:-1];
+typedef char PatchTypeOffset[(offsetof(patchMesh_t,type_10)==0x10)?1:-1];
+typedef char PatchMaterialOffset[(offsetof(patchMesh_t,image_18)==0x18)?1:-1];
 typedef char PatchControlFlagsOffset[(offsetof(PatchControl,flags_34)==0x34)?1:-1];
 typedef char PatchControlSize[(sizeof(PatchControl)==0x38)?1:-1];
 typedef char PatchControlOffset[(offsetof(patchMesh_t,ctrl)==0x24)?1:-1];
