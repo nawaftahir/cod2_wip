@@ -65,13 +65,36 @@ def run(cmd):
 
 
 TREE = BASE / "build" / "edrive" / "trees" / "cod2src"
+# src/ holds only fully verified files, workspace/src/ the rest; the build compiles both from one copy
+SRC = BASE / "build" / "src"
+
+
+def sync_sources():
+    """Copy workspace/src then src (verified wins) into build/src, keeping mtimes; drop files gone from both."""
+    import shutil
+    want = {}
+    for root in (BASE / "workspace" / "src", BASE / "src"):
+        if root.is_dir():
+            for p in root.rglob("*"):
+                if p.is_file():
+                    want[p.relative_to(root)] = p
+    for rel, p in want.items():
+        out = SRC / rel
+        if not out.exists() or out.stat().st_mtime != p.stat().st_mtime or out.stat().st_size != p.stat().st_size:
+            out.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(p, out)
+    if SRC.is_dir():
+        for p in SRC.rglob("*"):
+            if p.is_file() and p.relative_to(SRC) not in want:
+                p.unlink()
 
 
 def edrive():
-    """Wine's E: is build/edrive, holding retail's tree e:\\trees\\cod2src (links into src/)."""
+    """Wine's E: is build/edrive, holding retail's tree e:\\trees\\cod2src (links into build/src)."""
+    sync_sources()
     for name, target in (("radiant", "radiant"), ("common", "common"), ("libs", "libs")):
-        link_to(TREE / name, BASE / "src" / target)
-    for d in (BASE / "src").iterdir():
+        link_to(TREE / name, SRC / target)
+    for d in SRC.iterdir():
         if d.is_dir() and d.name not in ("radiant", "common", "libs", "res"):
             link_to(TREE / "src" / d.name, d)
     dos = pathlib.Path(os.environ.get("WINEPREFIX", os.path.expanduser("~/.wine"))) / "dosdevices" / "e:"
@@ -110,15 +133,16 @@ def sources():
         if line and not line.startswith("#"):
             tu = line.split("\t")[0]
             listed.append(tu if tu.startswith("src/") else "src/" + tu)
-    present = [s for s in listed if (BASE / s).exists()]
-    extra = sorted(str(p.relative_to(BASE)) for p in (BASE / "src").rglob("*.c*")
-                   if str(p.relative_to(BASE)) not in listed and p.suffix in (".c", ".cpp"))
+    sync_sources()
+    present = [s for s in listed if (SRC.parent / s).exists()]
+    extra = sorted(str(p.relative_to(SRC.parent)) for p in SRC.rglob("*.c*")
+                   if str(p.relative_to(SRC.parent)) not in listed and p.suffix in (".c", ".cpp"))
     return present + extra
 
 
 def stale(source, obj, headers):
     obj = BASE / obj
-    return not obj.exists() or obj.stat().st_mtime < max((BASE / source).stat().st_mtime, headers)
+    return not obj.exists() or obj.stat().st_mtime < max((SRC.parent / source).stat().st_mtime, headers)
 
 
 def extlib_calls():
@@ -157,7 +181,7 @@ def ledger_includes():
 
 def resources():
     # src/res/CoD2Radiant.rc + image assets taken from retail into build/res (never committed)
-    rc = BASE / "src" / "res" / "CoD2Radiant.rc"
+    rc = SRC / "res" / "CoD2Radiant.rc"
     if not rc.exists():
         return []
     out = BASE / "build" / "res"
@@ -185,7 +209,8 @@ def function_order():
 def build(includes=(), quiet=False):
     """Compile stale sources and link. Returns True when an exe was produced."""
     # a header or flag change rebuilds everything
-    headers = max([p.stat().st_mtime for p in (BASE / "src").rglob("*.h")] + [(BASE / "data" / "flags.tsv").stat().st_mtime])
+    sync_sources()
+    headers = max([p.stat().st_mtime for p in SRC.rglob("*.h")] +[(BASE / "data" / "flags.tsv").stat().st_mtime])
     edrive()
     objs = []
     for src in sources():

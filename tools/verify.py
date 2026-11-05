@@ -134,9 +134,10 @@ def check(linked, address, symbol, names):
 
 def banned_sources():
     bad = []
-    for path in sorted((BASE / "src").rglob("*")):
-        if path.suffix.lower() in (".c", ".cpp", ".h", ".inl") and BANNED.search(path.read_text(errors="replace")):
-            bad.append(str(path.relative_to(BASE)))
+    for root in (BASE / "src", BASE / "workspace" / "src"):
+        for path in sorted(root.rglob("*")):
+            if path.suffix.lower() in (".c", ".cpp", ".h", ".inl") and BANNED.search(path.read_text(errors="replace")):
+                bad.append(str(path.relative_to(BASE)))
     return bad
 
 
@@ -163,7 +164,7 @@ def verify_all():
         # "i" in the map = an inline header function, emitted in whichever file first uses it; not src code
         # header "static inline" helpers come out as local copies without the flag; also header code
         in_header = set()
-        for h in (BASE / "src").rglob("*.h"):
+        for h in link.SRC.rglob("*.h"):
             in_header.update(re.findall(r"\b([A-Za-z_]\w*)\s*\([^;{]*\)\s*\{", h.read_text(errors="replace")))
         extras = sorted(s for s, o in linked.obj.items() if o.lower() in ours and s not in ledger_syms
                         and s not in linked.inline and re.sub(r"^[?_]+", "", s).split("@")[0] not in in_header)

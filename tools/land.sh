@@ -28,7 +28,7 @@ NEW=$(git rev-list --count main.."$BR")
 DELIVERY=$(git rev-parse "$BR")
 WT=.agents/$AGENT
 [ ! -d "$WT" ] || [ -z "$(git -C "$WT" status --porcelain)" ] || { echo "$AGENT: unsaved work, not landing"; exit 1; }
-BAD=$(git diff --name-only main..."$BR" | grep -v -E '^(src/|ledger/(matches|defer)\.tsv$|workspace/lanes/reports/)' || true)
+BAD=$(git diff --name-only main..."$BR" | grep -v -E '^(src/|workspace/src/|ledger/(matches|defer)\.tsv$|workspace/lanes/reports/)' || true)
 if [ -n "$BAD" ]; then
   echo "$AGENT: REJECTED, touches files outside src/ and ledger/:"; echo "$BAD"
   exit 1

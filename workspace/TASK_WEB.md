@@ -12,7 +12,7 @@ the files in its lane. Never touch `main`, `radiant/main`, another lane's branch
 | 2 | `radiant/web/2` | VertEditDlg, vertsel, RotateDlg, PatchDensityDlg, TerrainDensityDlg, LstToolBar, NewProjDlg, RADEditWnd, ScaleDialog |
 | 3 | `radiant/web/3` | ModelDlg, PrefsDlg, CommandsDlg, cameratargetdlg, FindTextureDlg, TextureLayout, points, win_dlg |
 
-All files are `src/radiant/<name>.cpp`. Their remaining functions: `data/tu_map.tsv` rows for that
+All files are `workspace/src/radiant/<name>.cpp`. Their remaining functions: `data/tu_map.tsv` rows for that
 file whose address is not in `ledger/matches.tsv`.
 
 ## How a lane works
@@ -75,7 +75,7 @@ compiler is required. Custom MCP write support depends on account/workspace
 permissions; it is not a switch that makes the standard GitHub app writable.
 
 Unmatched source goes in `workspace/research/web/drafts/FindTextureDlg.cpp`; a necessary
-new class header may go in `src/radiant/FindTextureDlg.h`. To request a trial,
+new class header may go in `workspace/src/radiant/FindTextureDlg.h`. To request a trial,
 commit `workspace/research/web/trial.tsv` with exactly these two tab-separated columns:
 
 ```

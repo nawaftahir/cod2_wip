@@ -23,7 +23,7 @@ Then work inside `.agents/<your-name>/`.
 `workspace/research/q3sweep_game.tsv` lists retail functions whose Q3Radiant source compiles **byte-identical** as is
 (address, size, Q3 object, symbol). If your file has any, copy that function from the named Q3Radiant file
 (`../../refrences/Quake-III-Arena/q3radiant/`) first, with the struct/class declarations it needs, and
-`make try`. Example: `src/radiant/win_qe3.cpp` (4 functions landed that way).
+`make try`. Example: `workspace/src/radiant/win_qe3.cpp` (4 functions landed that way).
 
 ## For each function, top to bottom in the order listed
 1. `make show A=<addr>`: the retail code, strings, assert line numbers, and where it goes in the file.

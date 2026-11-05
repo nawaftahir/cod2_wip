@@ -59,6 +59,13 @@ rebuilt whole-executable SHA-256 equal to the anchor establishes whole-file
 identity; report GUI boot/smoke separately. Never describe a green submitted
 ledger as a 100% whole-TU or whole-executable match.
 
+## Where source lives
+
+`src/` holds only files that are finished: every function in the file matches the referee at 100% AND
+sits at its retail offset in the linked exe. Everything else, including partly matched files, lives in
+`workspace/src/` with the same layout. The build compiles both (`src/` wins). No empty or placeholder
+files anywhere: a file exists once it has real code. A file moves to `src/` only with that proof.
+
 ## Source and evidence
 
 The retail binary is authoritative, followed by the track analysis DB and
