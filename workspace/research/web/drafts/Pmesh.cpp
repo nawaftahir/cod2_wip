@@ -8,7 +8,7 @@
 // Retail 0x00425770 / 152 B -- unverified real initialization candidate.
 // Class storage and string values come from retail disassembly. Material
 // resolver 0x00440840 is a cross-lane dependency: the symbol name is provisional.
-extern void *FUN_00440840(const char *name);
+extern void * __fastcall FUN_00440840(const char *name);
 
 patchMesh_t *MakeNewPatch()
 {
