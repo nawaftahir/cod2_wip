@@ -53,4 +53,86 @@ extern "C" void FUN_00410250() { Com_Error(0, "DirectX error during startup"); }
 extern "C" void FUN_00410260() {}
 extern "C" void FUN_00410270() {}
 extern "C" void FUN_00410280() {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern "C" void FUN_00410330(float *value)
+{
+    assertFailMsg(0, "not handled");
+    *value = 1.0f;
+}
+
 extern "C" int FUN_004103f0() { return 0; }
