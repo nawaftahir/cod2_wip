@@ -9,11 +9,27 @@ int Patch_MemorySize(patchMesh_t *patch)
     return _msize(patch);
 }
 
+// Unverified 0x00425820 / 29 B. Actual retail behavior derives from
+// the direct store to patch+0x382f, and conditional dword store to +0x3834.
+// Caller/actual argument convention and original name are still unknown.
+void FUN_00425820(patchMesh_t *patch, int mode, bool enabled, float value)
+{
+    if (mode == 1)
+    {
+        patch->flag_382f = enabled;
+        if (enabled)
+            patch->value_3834 = value;
+    }
+}
+
 // Candidate at retail 0x00425840 / 197 bytes (NOT VERIFIED).
 // Q3Radiant's indexed InterpolateInteriorPoints is the ancestor.
 // CoD2 additionally tests bit 1 of the control word at +0x34.
-// Trial 934dea58: prior reference-local form emitted 193/197 bytes,
-// 43% normalized match, first differing byte +0x7.
+// Trial 934dea58: reference-local 193/197 B, 43%, first diff +0x7.
+// Trial d9cd3f9c: indexed-loop 203/197 B, 28%, first diff +0x5.
+// The sole retail caller is Patch_BrushToMesh at 0x428e70 (call 0x4290fe),
+// which supplies the patch pointer in EBX. Reconstruct the real caller,
+// rather than forcing a register ABI here.
 void InterpolateInteriorPoints(patchMesh_t *p)
 {
     int i, j, k;
