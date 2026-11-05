@@ -165,7 +165,7 @@ int __fastcall FUN_00429df0(void *, int value)
 {
     for (int i = 0; i < DAT_010c4d84; ++i)
     {
-        if (DAT_010c4d88[i] == value)
+        if (value == DAT_010c4d88[i])
             return i;
     }
     return -1;
