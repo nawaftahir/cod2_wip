@@ -17,6 +17,7 @@ struct UNKNOWN_00425080
     char *FUN_00425080();
     UNKNOWN_00425080();
     void FUN_004250b0();
+    void FUN_004250c0();
 };
 
 char *UNKNOWN_00425080::FUN_00425080()
@@ -41,10 +42,11 @@ void UNKNOWN_00425080::FUN_004250b0()
 }
 
 
-void __fastcall FUN_004250c0(char **storage)
+// Retail 0x004250c0 / 17 B: release non-static storage on this object.
+void UNKNOWN_00425080::FUN_004250c0()
 {
-    if (*storage != &DAT_00598c80)
-        free(*storage);
+    if (data != &DAT_00598c80)
+        free(data);
 }
 
 
