@@ -134,7 +134,9 @@ void CPatchDialog::GetPatchInfo()
 // Texture coordinates have two retail channels. Target 0x00424d50
 // reads the selected channel from control offsets +0xc and +0x10,
 // with an eight-byte stride selected by DAT_01128d94.
-extern int DAT_01128d94;
+// Target code at 0x424de6 and 0x424df8 independently reloads the
+// active texture channel, even across the intervening member write.
+extern volatile int DAT_01128d94;
 void CPatchDialog::UpdateRowColInfo()
 {
     m_fX = m_fY = m_fZ = m_fS = m_fT = 0.0f;
