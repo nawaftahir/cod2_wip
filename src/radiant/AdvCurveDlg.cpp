@@ -165,6 +165,7 @@ public:
     void FUN_00401c90(float value);
     void FUN_00401cb0(float value);
     void FUN_00401cd0(float value);
+    void FUN_004015a0();
     int FUN_00401fa0(const char *const *items, int count, int x, int y);
     int FUN_00401d90();
     void FUN_00401df0(int selected);
@@ -264,6 +265,11 @@ void CAdvCurveEditDlg::OnCancel()
     ::PostMessageA(g_curveParent->m_hWnd, WM_COMMAND, 0x816a, 0);
 }
 
+void CAdvCurveEditDlg::OnOK()
+{
+    FUN_004015a0();
+}
+
 
 void CAdvCurveEditDlg::OnDestroy()
 {
@@ -273,6 +279,23 @@ void CAdvCurveEditDlg::OnDestroy()
     placement.length = sizeof(placement);
     if (::GetWindowPlacement(window, &placement))
         SaveRegistryInfo("Radiant::AdvCurveDlgPlace", &placement, sizeof(placement));
+}
+
+int CAdvCurveEditDlg::OnCreate(LPCREATESTRUCT create)
+{
+    if (CDialog::OnCreate(create) == -1)
+        return -1;
+    WINDOWPLACEMENT current;
+    GetWindowPlacement(&current);
+    HWND window = GetSafeHwnd();
+    WINDOWPLACEMENT saved;
+    long size = saved.length = sizeof(saved);
+    if (LoadRegistryInfo("Radiant::AdvCurveDlgPlace", &saved, &size))
+        ::SetWindowPlacement(window, &saved);
+    // keep the saved position, but the dialog's own size
+    SetWindowPos(NULL, 0, 0, current.rcNormalPosition.right - current.rcNormalPosition.left,
+                 current.rcNormalPosition.bottom - current.rcNormalPosition.top, SWP_NOMOVE | SWP_NOZORDER);
+    return 0;
 }
 
 LRESULT CALLBACK FUN_00401860(HWND window, UINT message, WPARAM wparam, LPARAM lparam)
@@ -464,6 +487,11 @@ bool CAdvCurveEditDlg::FUN_00401f70()
     if (!control_0598.GetCheck())
         return false;
     return true;
+}
+
+void CAdvCurveEditDlg::FUN_00401f90()
+{
+    FUN_004015a0();
 }
 
 int CAdvCurveEditDlg::FUN_00401fa0(const char *const *items, int count, int x, int y)

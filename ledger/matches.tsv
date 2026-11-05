@@ -835,3 +835,6 @@ addr	size	source	symbol	name	tag
 0x004760f0	29	src/radiant/win_dlg.cpp	?DoFind@@YAXXZ	DoFind	SUPPORTED
 0x004763c0	32	src/radiant/win_dlg.cpp	?FUN_004763c0@@YAXXZ	FUN_004763c0	UNNAMED
 0x00476ce0	32	src/radiant/win_dlg.cpp	?FUN_00476ce0@@YAXXZ	FUN_00476ce0	UNNAMED
+0x004017d0	138	src/radiant/AdvCurveDlg.cpp	?OnCreate@CAdvCurveEditDlg@@QAEHPAUtagCREATESTRUCTA@@@Z	CAdvCurveEditDlg::OnCreate	SUPPORTED
+0x00401770	5	src/radiant/AdvCurveDlg.cpp	?OnOK@CAdvCurveEditDlg@@MAEXXZ	CAdvCurveEditDlg::OnOK	SUPPORTED
+0x00401f90	5	src/radiant/AdvCurveDlg.cpp	?FUN_00401f90@CAdvCurveEditDlg@@QAEXXZ	CAdvCurveEditDlg::FUN_00401f90	UNNAMED
