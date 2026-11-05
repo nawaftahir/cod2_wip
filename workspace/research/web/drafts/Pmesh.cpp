@@ -3,22 +3,30 @@
 #include "../universal/com_math.h"
 
 // Candidate at retail 0x00425840 / 197 bytes (NOT VERIFIED).
-// Q3Radiant's InterpolateInteriorPoints is the structural ancestor.
-// CoD2 retail adds the bit-1 test on the control word at +0x34.
+// Q3Radiant's indexed InterpolateInteriorPoints is the ancestor.
+// CoD2 additionally tests bit 1 of the control word at +0x34.
+// Trial 934dea58: prior reference-local form emitted 193/197 bytes,
+// 43% normalized match, first differing byte +0x7.
 void InterpolateInteriorPoints(patchMesh_t *p)
 {
-    for (int i = 0; i < p->width; i += 2)
+    int i, j, k;
+    int next, prev;
+
+    for (i = 0; i < p->width; i += 2)
     {
-        const int next = (i == p->width - 1) ? 1 : (i + 1) % p->width;
-        const int prev = (i == 0) ? p->width - 2 : i - 1;
-        for (int j = 0; j < p->height; ++j)
+        next = (i == p->width - 1) ? 1 : (i + 1) % p->width;
+        prev = (i == 0) ? p->width - 2 : i - 1;
+
+        for (j = 0; j < p->height; j++)
         {
-            PatchControl &current = p->ctrl[i][j];
-            if (!(current.flags_34 & 2))
+            if ((p->ctrl[i][j].flags_34 & 2) == 0)
             {
-                for (int k = 0; k < 3; ++k)
-                    current.xyz[k] = (p->ctrl[next][j].xyz[k] +
-                                      p->ctrl[prev][j].xyz[k]) * 0.5f;
+                for (k = 0; k < 3; k++)
+                {
+                    p->ctrl[i][j].xyz[k] =
+                        (p->ctrl[next][j].xyz[k] +
+                         p->ctrl[prev][j].xyz[k]) * 0.5f;
+                }
             }
         }
     }
