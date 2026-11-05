@@ -28,6 +28,7 @@ class CPatchDensityDlg : public CDialog
 public:
 	enum { IDD = 157 };
 	CPatchDensityDlg(CWnd* pParent = NULL);
+    virtual ~CPatchDensityDlg();
 
 	CComboBox m_wndWidth;
 	CComboBox m_wndHeight;
@@ -46,6 +47,11 @@ int s_patchLastHeightSelection;
 
 CPatchDensityDlg::CPatchDensityDlg(CWnd* pParent)
 	: CDialog(CPatchDensityDlg::IDD, pParent)
+{
+}
+
+// Keep destruction in C++; the MSVC compiler emits the deleting-destructor wrapper.
+CPatchDensityDlg::~CPatchDensityDlg()
 {
 }
 
