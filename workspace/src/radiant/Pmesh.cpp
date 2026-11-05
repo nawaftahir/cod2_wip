@@ -1,6 +1,13 @@
 #include "stdafx.h"
 #include "Pmesh.h"
+#include <malloc.h>
 #include "../universal/com_math.h"
+
+// Retail 0x00425810 (10 bytes); relocation-normalized MATCH in CI trial 42066152684.
+int Patch_MemorySize(patchMesh_t *patch)
+{
+    return _msize(patch);
+}
 
 void Patch_CalcBounds(patchMesh_t *patch, vec3_t &mins, vec3_t &maxs, bool enlarge)
 {
