@@ -1106,6 +1106,14 @@ static void RoQ_init(void)
 
 void ROQ_SetLoopingFromHandle(int handle, qboolean loop);
 
+// retail 0x4b2350, name unknown: runs the pending nextmap command
+inline void CIN_RunNextmap(void)
+{
+    Cbuf_AddText(va("%s\n", nextmap->current.string));
+    Dvar_SetString(nextmap, "");
+    UI_SetActiveMenu(1);
+}
+
 static void RoQShutdown(void)
 {
     if (!cinTable[currentHandle].buf) {
@@ -1276,6 +1284,9 @@ int ROQ_PlayCinematic(const char *arg, int x, int y, int w, int h, int systemBit
     if (cinTable[currentHandle].ROQSize <= 0) {
         Com_DPrintf("play(%s), ROQSize<=0\n", arg);
         cinTable[currentHandle].fileName[0] = 0;
+        if (CLC_CONN->state == 0 && nextmap->current.string[0]) {
+            CIN_RunNextmap();
+        }
         return -1;
     }
 

@@ -18575,7 +18575,7 @@
 ]
 },
 {
-"name": "$L96647",
+"name": "$L96648",
 "obj": "module",
 "size": 6,
 "hits": [],
@@ -31949,9 +31949,9 @@
 {
 "name": "?FX_EffectLimitReached@@YAXXZ",
 "obj": "FxUtil.obj",
-"size": 21,
+"size": 33,
 "hits": [
-"0x49f40c"
+"0x49f400"
 ]
 },
 {
@@ -32164,9 +32164,10 @@
 {
 "name": "?FX_AddPrimitive@@YA_NPAUEffectPrimitive@@PAVEffect@@QBM@Z",
 "obj": "FxUtil.obj",
-"size": 485,
-"hits": [],
-"reason": "no masked match"
+"size": 495,
+"hits": [
+"0x4a1380"
+]
 },
 {
 "name": "?FX_SetSortGroup@@YAXPAVEffect@@@Z",
@@ -35168,7 +35169,7 @@
 ]
 },
 {
-"name": "$L118271",
+"name": "$L118272",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35176,7 +35177,7 @@
 ]
 },
 {
-"name": "$L118273",
+"name": "$L118274",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35209,7 +35210,7 @@
 ]
 },
 {
-"name": "$L132151",
+"name": "$L132152",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35217,7 +35218,7 @@
 ]
 },
 {
-"name": "$L132153",
+"name": "$L132154",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35295,7 +35296,7 @@
 ]
 },
 {
-"name": "$L104420",
+"name": "$L104421",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35311,7 +35312,7 @@
 ]
 },
 {
-"name": "$L147540",
+"name": "$L147541",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35912,6 +35913,14 @@
 ]
 },
 {
+"name": "?CIN_RunNextmap@@YAXXZ",
+"obj": "cinematics.obj",
+"size": 55,
+"hits": [
+"0x4b2350"
+]
+},
+{
 "name": "?RoQShutdown@@YAXXZ",
 "obj": "cinematics.obj",
 "size": 283,
@@ -35937,9 +35946,10 @@
 {
 "name": "?ROQ_PlayCinematic@@YAHPBDHHHHH@Z",
 "obj": "cinematics.obj",
-"size": 890,
-"hits": [],
-"reason": "no masked match"
+"size": 967,
+"hits": [
+"0x4b2760"
+]
 },
 {
 "name": "?ROQ_SetExtentsFromHandle@@YAXHHHHH@Z",
@@ -81952,7 +81962,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 2048,
+"size": 1888,
 "hits": [],
 "reason": "no masked match"
 },

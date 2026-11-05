@@ -24,3 +24,5 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | UI PB fns wH (+257) | 3 fns added | re-rolled yylex (-4,236); bundle |
 | fn_4bb450 | `if (hay && needle && *needle) {..}` wrapper; while-with-break loop; `first && p >= first` tail | 268 B, esi/edi pushed at entry, first spilled; fixed by early `return hay` + do/while + two-if tail |
 | PbClGameQuery case 109-111 | separate `key` copy of Data used everywhere | extra frame slot (0x10), Data spilled; plain `char *name` local is right |
+| Sys_IsMainThread body `!(GetCurrentThreadId() - id)` with a Bool decl | to get sub/neg/sbb/inc | callee 19 B (retail 18); inline users get `sub` instead of `cmp`: lost Con_DrawInput + CL_AllLocalClientsDisconnected. Use int `==` |
+| CM_Trace (+16 B in cm_trace) | diff only | retail spills cmod once, ours twice (RA); not tried further |
