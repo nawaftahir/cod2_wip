@@ -28,7 +28,7 @@ class CPatchDensityDlg : public CDialog
 public:
 	enum { IDD = 157 };
 	CPatchDensityDlg(CWnd* pParent = NULL);
-    virtual __cdecl ~CPatchDensityDlg();
+    virtual ~CPatchDensityDlg();
 
 	CComboBox m_wndWidth;
 	CComboBox m_wndHeight;
