@@ -150,10 +150,12 @@ void CPatchDialog::UpdateRowColInfo()
             m_fX = point.xyz[0];
             m_fY = point.xyz[1];
             m_fZ = point.xyz[2];
-            const float* st = (const float*)
-                ((const unsigned char*)&point + 0x0c + 8 * DAT_01128d94);
-            m_fS = st[0];
-            m_fT = st[1];
+            // Retail 0x424d50 computes control index once, then uses
+            // the active texture coordinate channel independently for S/T.
+            const int controlIndex = c * 16 + r;
+            const float* values = (const float*)m_Patch;
+            m_fS = values[(DAT_01128d94 + controlIndex * 7) * 2 + 12];
+            m_fT = values[(controlIndex * 7 + DAT_01128d94) * 2 + 13];
         }
     }
     UpdateData(FALSE);
