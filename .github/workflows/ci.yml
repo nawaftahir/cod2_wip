@@ -55,6 +55,16 @@ jobs:
           docker run --rm --platform linux/386 -v "$PWD:/w" -w /w \
             -e METER_BASELINE=/w/build/baseline.json -e RADIANT_CI_NO_NOTIFY=1 \
             "$IMAGE" python3 -u tools/ci_gate.py
+      - name: Offset drift for the files this push touched
+        if: always()
+        continue-on-error: true
+        run: |
+          python3 tools/drift.py | tee build/drift.log
+          base=$(git merge-base HEAD origin/radiant/main 2>/dev/null || echo HEAD~1)
+          for f in $(git diff --name-only "$base" HEAD -- 'workspace/src/*.c' 'workspace/src/*.cpp' 'src/*.c' 'src/*.cpp' | sed -E 's#^(workspace/)?src/##'); do
+            python3 tools/drift.py --tu "$f" | tee -a build/drift.log
+          done
+          { echo '### Offset drift'; echo '```'; cat build/drift.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - name: Read-only audit of already-emitted unmatched game source
         if: success() && startsWith(github.ref, 'refs/heads/radiant/web/')
         continue-on-error: true

@@ -1,34 +1,53 @@
-# Browser workers: three parallel lanes
+# Workers: offset first, one address region per lane
 
-Repository: https://github.com/nawaftahir/cod2_wip (private). Radiant is on the `radiant/*` branches.
-Base: `radiant/main`. Claude reviews and merges each lane into `radiant/main`.
+Repository: https://github.com/nawaftahir/cod2_wip (private). Radiant lives on the `radiant/*` branches;
+base `radiant/main`. Claude reviews and merges each lane. Read `workspace/OFFSET_PLAN.md` first.
 
-Three chats run at once. Each chat takes ONE lane, pushes only to its own branch and only edits
-the files in its lane. Never touch `main`, `radiant/main`, another lane's branch or another file.
+## The goal changed: right SIZE at the right PLACE, then bytes
+The exe is only identical when every function sits at its retail address. Today 2,740 of 3,578 game
+functions do not exist in our build at all, so everything after the first gap is out of place.
+Your job, in order:
+1. Every retail function in your files exists, in retail address order inside the file.
+2. Each one compiles to its retail SIZE. Same size with different registers is fine for now: it
+   keeps everything after it in place.
+3. Then exact bytes.
 
-| Lane | Branch | Files (in this order; finish or record blockers, then the next) |
-|---|---|---|
-| 1 | `radiant/web/1` | EntityListDlg, TextureBar, KeyValueSelectDlg, DialogInfo, TexEdit, CapDialog, DialogThick, DlgEvent, EditWnd, NameDlg, eclass |
-| 2 | `radiant/web/2` | VertEditDlg, vertsel, RotateDlg, PatchDensityDlg, TerrainDensityDlg, LstToolBar, NewProjDlg, RADEditWnd, ScaleDialog |
-| 3 | `radiant/web/3` | ModelDlg, PrefsDlg, CommandsDlg, cameratargetdlg, FindTextureDlg, TextureLayout, points, win_dlg |
+## Lanes (whole files, in retail address order; work front to back)
+| Lane | Branch | Region | Files |
+|---|---|---|---|
+| Claude | `radiant/claude` | 0x401000 | AdvCurveDlg |
+| 1 | `radiant/web/1` | 0x402940..0x40fc10 | cameratargetdlg, CamWnd, CapDialog, libs/cmdlib/cmdlib, UNKNOWN_00408f20, CommandsDlg, DialogInfo, DialogThick, dlgcamera, DlgEvent, draw, EditWnd, EntityListDlg, filtersettings |
+| 2 | `radiant/web/2` | 0x40fc10..0x4242c0 | FindTextureDlg, GfxWrapper, KeyValueSelectDlg, LstToolBar, MainFrm, MapInfo, UNKNOWN_00420930, mesh, ModelDlg, NameDlg, NewProjDlg |
+| 3 | `radiant/web/3` | 0x4242c0..0x43f8a0 | PatchDensityDlg, PatchDialog, UNKNOWN_00425080, Pmesh, PrefsDlg, RADEditWnd, Radiant, RotateDlg, ScaleDialog, SurfaceDlg, TerrainDensityDlg, TexEdit, TextureBar, TextureLayout |
+| Gemini | `radiant/gemini2` | 0x43f8a0..0x453660 | common/texturevecs, TexWnd, Undo, VehicleDlg, VertEditDlg, Winding, XYWnd, ZWnd |
 
-All files are `workspace/src/radiant/<name>.cpp`. Their remaining functions: `data/tu_map.tsv` rows for that
-file whose address is not in `ledger/matches.tsv`.
+Files are `workspace/src/radiant/<name>.cpp` unless a path is given. Only touch your own files.
 
-## How a lane works
-1. Read this file, AGENTS.md, RULES.md and workspace/research/web/README.md.
-2. Check workspace/research/q3sweep_game.tsv first: those functions compile byte-identical from
-   Q3Radiant (workspace/research/web/references/q3radiant) and only need copying in.
-3. Recipe that matched this week: `#include "stdafx.h"` at the top of an MFC file, a minimal class
-   declaration with only the members the bodies use (from the Q3Radiant header: same base class,
-   same virtual/afx_msg signatures), then the Q3Radiant body as is.
-4. Struct fields and offsets come from Q3Radiant or the retail exe, never invented. Unconfirmed names
-   stay `FUN_<addr>`.
-5. Push to your lane branch. CI is the referee: it builds, verifies every ledger row and posts
-   the numbers. A ledger row goes in only for a function CI reports as MATCH.
-6. Red CI: fix or revert before the next push.
+## The loop
+1. Pick the first file in your list that is not finished. Its retail functions are the
+   `data/tu_map.tsv` rows for that file (address, size). Retail code for one function:
+   `python3 tools/show.py <addr>` (Gemini runs it; web lanes read the CI "Batch retail disassembly" step).
+2. Find the first function that is missing or the wrong size. Write it in real C/C++, at its place
+   in the file (source order = address order). Sources: Q3Radiant
+   (`workspace/research/web/references/q3radiant`, check `workspace/research/q3sweep_game.tsv`), the
+   CoD2 server source for engine files, and the retail code. Name it only with evidence, otherwise
+   `FUN_<addr>`.
+3. Push (web) or run `make try S=... A=...` + `python3 tools/drift.py --tu radiant/<file>.cpp` (Gemini).
+   CI prints the same table in the job summary ("Offset drift"): retail size, our size, and the
+   offset for every function in each file you touched. Fix the first row whose size differs.
+4. A function that the referee reports as MATCH gets a `ledger/matches.tsv` row. Size-correct but not
+   matched: leave it in the file, note it in your lane report, and move on.
+5. When every function in the file matches AND sits at its retail offset, tell Claude: the file moves
+   to `src/`.
 
-Real C/C++ only: no asm, `_emit`, byte arrays, forced noinline, fake callers or hardcoded addresses.
+## Rules
+- Real C/C++ only: no asm, `_emit`, byte arrays, forced noinline, fake callers, hardcoded addresses,
+  invented struct fields. Struct layouts come from Q3Radiant or the retail code.
+- Never add an empty or placeholder file. A file exists once it has real code.
+- Compiler-made code (MFC/CString header inlines, `??_G` deleting destructors, `AUTO` rows) is not
+  written by hand; list it in your report if it is misplaced.
+- Red CI: fix or revert before the next push. One commit per meaningful step; push in batches.
+- Never touch `main`, `radiant/main`, another lane's branch or files, `tools/`, `data/` or `link/`.
 
 ## Start with evidence
 

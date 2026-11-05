@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Offset drift: where each retail game function lands in our linked exe.
-drift.py [map] (default build/CoD2Radiant.map). Reads data/tu_map.tsv (retail address, size, TU)
+drift.py [map] (default build/CoD2Radiant.map); drift.py --tu radiant/X.cpp lists one file's functions
+(retail size vs ours, offset). Reads data/tu_map.tsv (retail address, size, TU)
 and ledger/matches.tsv (retail address -> symbol); FUN_<addr> names carry their retail address.
 Prints functions at the retail offset, missing ones, and the first drift points in retail order."""
 import csv, pathlib, re, sys
 
 BASE = pathlib.Path(__file__).resolve().parent.parent
-MAP = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else BASE / "build" / "CoD2Radiant.map"
+TU = sys.argv[sys.argv.index("--tu") + 1] if "--tu" in sys.argv else None
+args = [a for a in sys.argv[1:] if a != "--tu" and a != TU]
+MAP = pathlib.Path(args[0]) if args else BASE / "build" / "CoD2Radiant.map"
 
 
 def tsv(name):
@@ -29,6 +32,19 @@ for row in tsv("ledger/matches.tsv"):
         by_retail[int(row["addr"], 16)] = ours[row["symbol"]]
 
 rows = tsv("data/tu_map.tsv")
+if TU:
+    starts = sorted(set(ours.values()))
+    nxt = {a: b for a, b in zip(starts, starts[1:])}
+    print(f"{TU}: retail addr, retail size, our size, offset (ours - retail), kind")
+    for r in sorted((r for r in rows if r["tu"] == TU), key=lambda r: int(r["addr"], 16)):
+        a, size = int(r["addr"], 16), int(r["size"])
+        va = by_retail.get(a)
+        if va is None:
+            print(f"  0x{a:08x} {size:6d}  missing          {r['evidence']}")
+        else:
+            # our size runs to the next symbol, so it includes alignment padding
+            print(f"  0x{a:08x} {size:6d} {nxt.get(va, va) - va:6d}  {va - a:+8d}  {r['evidence']}")
+    sys.exit(0)
 kinds = {}
 for r in rows:
     k = r["evidence"] if r["evidence"] in ("LIB", "EXTLIB", "AUTO") else "GAME"
