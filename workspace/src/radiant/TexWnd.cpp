@@ -21,5 +21,16 @@ void SortTextures()
           sizeof(g_sortedTextureEntries[0]), FUN_004405d0);
 }
 
+struct TexWndGlobals_stub {
+    char pad[0x1001c];
+    int decalLocaleBit;
+};
+extern TexWndGlobals_stub texWndGlobals;
+
+int TexWnd_GetDecalLocaleBit()
+{
+    return texWndGlobals.decalLocaleBit;
+}
+
 // Retail one-byte RET, existing accepted source.
 extern "C" void FUN_00442290() {}
