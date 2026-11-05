@@ -1,0 +1,8 @@
+{
+  "?SMC_AllocCachedSurface@@YAPAUGfxStaticModelSurfaceCached@@PAUstatic_model_cache_t@@H@Z": {
+    "t": "0x1002acd0",
+    "n": 215,
+    "obj": "r_staticmodelcache.obj",
+    "why": []
+  }
+}

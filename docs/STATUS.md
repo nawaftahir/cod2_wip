@@ -1,3 +1,15 @@
+## Pause checkpoint - 2026-11-05
+
+Owner requested pause after saving this checkpoint. Read docs/HANDOFF.md.
+Local byte/binding/regression gates:118772/253580 C/C++ bytes (46.838079%),
+731 bodies, +297 bytes this turn. The first82 bytes passed clean CI41898613267;
+the additional215-byte allocator must pass clean CI before landing. The
+published ledger/meter.json remains the only confirmed numeric authority.
+All2525 protected extents pass; both new bodies have deletion/unverification
+negative tests in both retention tools. Existing40 assembly-bearing bodies
+(10151 bytes) remain excluded. Root src snapshots remain10 files/61 functions.
+50% needs8018 more pure C/C++ bytes; it has NOT been reached. SHA/GPU unfinished.
+
 ## Reconstruction resumed - 2026-11-05
 
 Local gates:118557/253580 C/C++ bytes (46.753293%),730 bodies: +82 bytes.
