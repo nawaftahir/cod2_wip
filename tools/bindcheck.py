@@ -336,6 +336,27 @@ def closed_end(code, va, n):
 
 
 acalls = call_targets(anchor, atext[0], atext[1])
+atva = {va: name for name, va in fnva.items()}
+atend = {va + allc[name]['size']: name for name, va in fnva.items() if name in allc}
+
+
+def closed_run(name, va, t, n):
+    # library body jumping within its object: the whole contiguous object block must match, relocate alike and close
+    obj, start, end = allc[name]['obj'], va, va + n
+    if ':' not in obj:
+        return False
+    while start in atend and allc[atend[start]]['obj'] == obj:
+        start = fnva[atend[start]]
+    while end in atva and allc.get(atva[end], {}).get('obj') == obj:
+        end += allc[atva[end]]['size']
+    m, ts = end - start, t - (va - start)
+    if m == n or not masked_eq(start, ts, m):
+        return False
+    if {a - start for a in orel if start <= a < end} != {a - ts for a in arel if ts <= a < ts + m}:
+        return False
+    return closed_end(read(osecs, start, m), start, m)
+
+
 # our next function placed right after this one also bounds its extent
 placed = {int(r['hits'][0], 16) for r in cands.values()}
 placedat = {fnva[n]: int(r['hits'][0], 16) for n, r in cands.items() if n in fnva}
@@ -351,7 +372,7 @@ for name, r in cands.items():
     why = []
     # extent: target continues with padding or a known function start
     nb = read(asecs, t + n, 1)
-    if not (t + n in astarts or t + n in acalls or t + n in placed or closed_end(code, va, n) or nb in (b'\xcc', b'\x90') or t + n >= atext[0] + atext[1]):
+    if not (t + n in astarts or t + n in acalls or t + n in placed or closed_end(code, va, n) or closed_run(name, va, t, n) or nb in (b'\xcc', b'\x90') or t + n >= atext[0] + atext[1]):
         why.append('extent')
     binds, calls = [], []
     for k in range(n):
@@ -614,6 +635,16 @@ def thunkbound(ova, tva):
     return bool(placed and placed[1]['t'] == tdest and (not placed[1]['why'] or libbound(placed[1])))
 
 
+def interior_call(op, tp):
+    """An asm entry label (e.g. _rttospop) is bound by its one bound owner at the same offset."""
+    owners = [row for row in results.values()
+              if row['va'] < op < row['va'] + row['n'] and row['t'] + op - row['va'] == tp]
+    if len(owners) != 1 or owners[0]['why'] and not libbound(owners[0]):
+        return False
+    owner = owners[0]
+    return any(ins.address == op for ins in md.disasm(read(osecs, owner['va'], owner['n']), owner['va']))
+
+
 changed = True
 while changed:
     changed = False
@@ -623,6 +654,8 @@ while changed:
         for ot, tt in r['calls']:
             callee = byva.get(ot)
             if not callee and thunkbound(ot, tt):
+                continue
+            if not callee and interior_call(ot, tt):
                 continue
             if not callee or callee[1]['t'] != tt or callee[1]['why'] and (':' in r['obj'] or not libbound(callee[1])):
                 r['why'].append(f'call {starts.get(ot, ("?",))[0]}')

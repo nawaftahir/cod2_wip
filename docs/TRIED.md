@@ -3900,3 +3900,8 @@ RB_EndSurface206/202 (unblocks 11 bodies/1441 B): same instructions, the clear
 block is placed last (long je) instead of after the drawable checks. Positive
 if/else, early-return form and a single return expression for the flags&2 test
 all stay 206; rejected and restored.
+Image_TrackFullscreenTexture149/149 (worker w1, gfx/w1 ac04d6d8): retail tests
+platform into eax before loading vidConfig.width; ours loads first. Ternary and
+switch(platform-1) lose push edi; height-first order gets closest (load still
+precedes dec, eax/edx swapped). Next idea: width read after the test via an
+inlined helper.

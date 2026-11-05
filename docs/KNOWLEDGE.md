@@ -90,3 +90,13 @@ retail copies, so the caller-placed address (AddPool calls 0x100cb926) was absen
 and the binder could never place them; 80 KB of chains hung on that. Cap 64:
 +96 bound functions/+86990 library bytes, zero previously bound bodies lost
 (same DLL, referees rerun). Binder acceptance predicates unchanged.
+
+PINNED: two binder blind spots in LIBCMT x87 code. (1) closed_run: tiny entry
+stubs (87ctrigh/87ctran _CItanh, _CIexp) short-jump into neighbours of the same
+object, so the 1-byte extent probe fails; the whole contiguous object block is
+now compared (masked bytes, identical reloc offsets, closed end). (2)
+interior_call: calls to asm entry labels (87disp _rttospop) bind when exactly
+one bound owner holds the label on an instruction boundary at the same retail
+offset (data refs already used interior_code). Same DLL: +40 fns/+29304 library
+bytes, zero lost. memcpy stays blocked by link order (retail: memcpy.obj then a
+private _strncnt from a_map/a_cmp; ours: getqloc.obj).
