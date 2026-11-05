@@ -42050,7 +42050,7 @@
 {
 "name": "?CG_DrawScoreboard_Objective@@YAMPBMM@Z",
 "obj": "cg_scoreboard_mp.obj",
-"size": 790,
+"size": 1608,
 "hits": [],
 "reason": "no masked match"
 },
@@ -82226,9 +82226,10 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1216,
-"hits": [],
-"reason": "no masked match"
+"size": 400,
+"hits": [
+"0x592c00"
+]
 },
 {
 "name": "___from_strstr_to_strchr",
