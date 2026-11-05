@@ -111,5 +111,12 @@ float Patch_HeightDistanceTo(patchMesh_t *patch, int count)
     return length;
 }
 
+// Retail 0x0042b6d0, 14 B. Isolated exact MATCH in run 42070669799.
+float FUN_0042b6d0(int unused1, int unused2,
+                    float offset, float factor, float scale)
+{
+    return factor * scale + offset;
+}
+
 // Retail one-byte RET bodies verified with MSVC 7.1. Original entry-point ownership/signatures remain provisional.
 extern "C" void FUN_00434100() {}
