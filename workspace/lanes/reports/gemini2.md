@@ -1,6 +1,15 @@
 # Gemini2 Lane Report
 
 ## 2026-11-06 radiant/TexWnd.cpp
+before: 69 fns, 7 matched, 62 missing   after: 69 fns, 8 matched, 61 missing
+matched: 0x00440d90 90 AppendTextureFilterMenu SUPPORTED KisakCOD texwnd.cpp:1434, builds Win32 filter popup submenu
+size-fixed (no match yet): none
+drafts (blocked): 0x00440620 160/159 Texture_SetMode matched 99% (all 159 retail bytes matched, 16-byte jump table at +0x90 makes size 160 vs inventory 159; flips GraphGetValueFromFraction 0x004832c0 to 76%, 828/832 B, first diff +0x5 under /GL)
+drafts (blocked): 0x00441460 53/53 regresses GraphGetValueFromFraction (0x004832c0) to 79% (830/832 B, first diff +0x5) under /GL due to uncalled Sys_Printf and g_nUpdateBits write
+regressions seen: GraphGetValueFromFraction (0x004832c0) flipped to 76% when adding 0x00440620
+gate: verify 855/855, functions 23.90%, bytes 12.85%, same-offset 1.529%
+
+## 2026-11-06 radiant/TexWnd.cpp
 before: 69 fns, 4 matched, 65 missing   after: 69 fns, 7 matched, 62 missing
 matched: 0x00440be0 48 RemapMaterialName SUPPORTED KisakCOD texwnd.cpp, reads texWndGlobals.materialNameRemap
 matched: 0x00440c70 48 Editor_DoesMaterialExist SUPPORTED KisakCOD texwnd.cpp, walks texWndGlobals.qtextures
