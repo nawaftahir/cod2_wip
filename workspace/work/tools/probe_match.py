@@ -5,6 +5,8 @@ import sys
 
 def unique_match(rows, symbol):
     found = [row for row in rows if row['name'] == symbol]
+    if not found and '@' not in symbol:
+        found = [row for row in rows if row['name'].startswith('?' + symbol + '@@')]
     return len(found) == 1 and len(found[0]['hits']) == 1
 
 
