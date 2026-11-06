@@ -3905,3 +3905,17 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+# R_CellSurfaces matching probes - 2026-11-06 (worker g3)
+
+R_CellSurfaces (retail 0x100155a0, 412 bytes, unblocks 146 bytes): retail allocates
+cell to edi across the whole function and pushes edi at entry before early return,
+holding rgp.world in edx across cull group bounds checks to load world->surfaces
+directly into edx at +0b7. Ours placed cell in edx and hoisted rgp.world into edi.
+1. Removing surfNodes and using direct pointer traversal (`surf = &rgp.world->surfaces[...]`,
+   `++surf`): stays 412 bytes, same 46 differing instructions (edx/edi swapped).
+2. Explicit markCount caching (`markCount = rg.markCount`) and reversed bounds test
+   (`surfListSize <= *surfCount`): stays 412 bytes, 47 differing instructions (inverted jle).
+3. Local `world = rgp.world` and `tree = cell->aabbTree` at function scope: emits 412 bytes
+   but changes stack layout and outer loop preamble (127 differing instructions).
+All probes restored to original clean source.
