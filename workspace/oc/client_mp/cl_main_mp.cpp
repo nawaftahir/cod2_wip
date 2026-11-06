@@ -1255,14 +1255,10 @@ static char *CL_TrimWhitespace_40cf40(char *s)
         e--;
     e[1] = 0;
     {
-        int delta = (int)(s - p);
-        char c;
+        char *d = s;
 
-        do {
-            c = *p;
-            p[delta] = c;
-            p++;
-        } while (c);
+        while ((*d++ = *p++) != 0)
+            ;
     }
     return s;
 }
