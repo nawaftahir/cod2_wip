@@ -3905,3 +3905,19 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+# RB_SunSpriteScreenFraction probe attempts - 2026-11-06
+
+Target RB_SunSpriteScreenFraction (1003b310, 407 B). Retail uses `sub esp, 0x2c`,
+evaluates clipX first (st(0)), clipY second (stores to [esp+0x2c]), then computes
+1.0f/clipW and multiplies with clipX on x87 stack before evaluating left and top.
+- Probe 1 (407 B): Reordered clipW (_24+_34+_14), clipX, clipY and inverted bounds
+  check `if (right <= left || bottom <= top) return 0.0f`. Bounds check and tail
+  fidivl matched retail, but prologue stayed `sub esp, 0x24` and compiler evaluated
+  clipY before clipX, spilling clipY to [esp+0x20].
+- Probe 2 (407 B): Reordered to _1k+_2k+_3k terms for clipW/X/Y. Still produced
+  `sub esp, 0x24` with clipY evaluated before clipX and clipW evaluated across
+  prologue as _24 then _34.
+- Probe 3 (407 B): Replaced explicit invW with `clipX / clipW` and `clipY / clipW`
+  (matching KisakCOD). Produced identical 407 B assembly with `sub esp, 0x24`.
+All 3 probes failed byte matching and were restored.
