@@ -3975,3 +3975,18 @@ Difference was instruction scheduling between +0ce and +14b: retail schedules fs
 - Probe 1: Direct assignment of im from vr, vup, vf (KisakCOD/cod2map). Stays 525 B; fstp remains at +0ce. Exit code 3.
 - Probe 2: Separate zrot[2][2] = 1.0f; zrot[1][1] = 1.0f; zrot[0][0] = 1.0f;. Stays 525 B; fstp remains at +0ce. Exit code 3.
 - Probe 3: Adopted client-1.0 structure (float rad; declared at top, rad = (degrees * 0.017453292519943295f); FastSinCos(rad, ...); with im from m). This eliminated the +0ce..+14b scheduling diff completely! Stays 525 B. Residual diff at +1b2..+202: DotProduct inlined function evaluates terms in reverse order vs expanded rot[i][0] * point[0] + rot[i][1] * point[1] + rot[i][2] * point[2]. Max 3 probes reached; com_math.cpp restored.
+# R_FilterEntityIntoCells_r bounded probes - 2026-11-06 (worker g5)
+
+R_FilterEntityIntoCells_r (10008600, target 335 bytes) bounded probes on gfx/g5:
+- Probe 1: Replacing VectorCopy with intrinsic memcpy(localMins, mins, sizeof(localMins))
+  and memcpy(localMaxs, maxs, sizeof(localMaxs)) emits extra pointer staging moves
+  (mov edx, ebx and mov eax, edi), producing 339 bytes (rejected).
+- Probe 2: Introducing cplane_t *plane = node->u.node.plane local variable inside while
+  causes MSVC LTCG to cache plane across loop iterations in callee-saved ebx,
+  collapsing the body to 329 bytes and scrambling all register assignments (rejected).
+  Declaring plane inside if (side == 3) similarly allocates callee-saved ebp.
+- Probe 3: Baseline VectorCopy with direct member accesses gives exactly 335 bytes and
+  matches retail 1-to-1 in instruction count (129 insns) and control flow, differing only
+  in register choice between ecx and edx for plane at +0x6e and rgp at +0x43. Swapping
+  declaration order of local variables (localMaxs/localMins, back/front) and tail-recursive
+  vs while forms do not change the register allocation. Source restored to clean baseline.
