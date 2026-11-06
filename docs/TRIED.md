@@ -1,3 +1,7 @@
+# RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
+
+RB_SetupPassDx7 (10039b40, retail 1124, ours 1104): probed semantic switch 0/1 cases in inlined RB_ApplyMaterialImageOverride (stays 1104, compiler optimizes out empty cases matching default), early return from case 0/1 (collapses pass loop into 937 bytes by dropping trailing sampler/texcoord setup), and pointer-incremented sampler iterator (stays 1104, strength-reduction arithmetic still generates 4-entry jump table and different loop frame). Restored.
+
 # RB_UpdateViewportConstants deferral - 2026-11-06
 
 RB_UpdateViewportConstants (retail 1003e690, 366 bytes; our size 315 bytes at rb_state.cpp:975): unbound in referee because 1003e690 is cataloged as FUN_1003e690 with NO_SOURCE_OWNER in retail_functions.tsv, leaving the symbol unbound in BLOCKERS.md. Called from RB_BeginViewCmd (100321f0) and RB_SetRenderTarget (1003ea30 in our source, though retail 1003ea30 does not call it). DEFER per instructions until ownership/layout binding is established.
