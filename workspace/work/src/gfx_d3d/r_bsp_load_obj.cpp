@@ -77,6 +77,19 @@ struct DiskBrushModel
     int unused[4];
 };
 
+// SUPPORTED name/signature: KisakCOD r_bsp_load_obj.cpp; PINNED 100019c0.
+static void R_CopyLightmap(const byte *srcImage, int srcWidth, int srcHeight, int bytesPerPixel,
+    byte *dstImage, int tileX, int tileY, int tilesWide)
+{
+    byte *dst = &dstImage[bytesPerPixel * (srcWidth * tilesWide * srcHeight * tileY + srcWidth * tileX)];
+    for (int y = 0; y < srcHeight; ++y)
+    {
+        Com_Memcpy(dst, srcImage, bytesPerPixel * srcWidth);
+        srcImage += bytesPerPixel * srcWidth;
+        dst += bytesPerPixel * srcWidth * tilesWide;
+    }
+}
+
 // PINNED 10001a20: vertex weight shared by each lightmap pair, per material.
 static int R_BuildLightmapCoupling(const GfxBspLoad *load, int (*coupling)[31])
 {
@@ -286,14 +299,8 @@ void R_LoadLightmaps(GfxBspLoad *load)
                 const byte *src = lmapData + oldIndex * 0x400000;
                 for (int k = 0; k < 4; ++k)
                 {
-                    int rowBytes = widths[k] * bytesPerPixel[k];
-                    byte *dst = images[k] + (heights[k] * wide * row + col) * rowBytes;
-                    for (int y = 0; y < heights[k]; ++y)
-                    {
-                        Com_Memcpy(dst, src, rowBytes);
-                        src += rowBytes;
-                        dst += wide * rowBytes;
-                    }
+                    R_CopyLightmap(src, widths[k], heights[k], bytesPerPixel[k], images[k], col, row, wide);
+                    src += widths[k] * heights[k] * bytesPerPixel[k];
                 }
             }
             r_lightmapMerge_t *merge = &load->lmapMergeInfo[oldIndex];

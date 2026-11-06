@@ -229,6 +229,12 @@
 ]
 },
 {
+"name": "?R_CopyLightmap@@YAXPBEHHHPAEHHH@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 85,
+"hits": []
+},
+{
 "name": "?R_BuildLightmapCoupling@@YAHPBUGfxBspLoad@@PAY0BP@H@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 410,
@@ -251,7 +257,7 @@
 {
 "name": "?R_LoadLightmaps@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 1453,
+"size": 1517,
 "hits": []
 },
 {
