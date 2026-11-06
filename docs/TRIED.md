@@ -3905,3 +3905,10 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+### RB_DrawRawSurface channel swizzle (w8, 1002f110) - 2026-11-06
+Retail: loads [1],[3],[2] (spill [1]), then [0] at store; stores out2,out1,out0,out3. Same size 331 in every probe.
+1. g,a,b temps, out[2]=data[0] direct: loads 2,1,3, stores 1,2,0,3. No match.
+2. r,g,b,a temps in order, stores 2,1,0,3: loads 3,1,2, stores 1,2,0,3. No match.
+3. g,a,b,r temps, stores 1,2,0,3: loads 0,3,2 then [1] late, stores 1,2,0,3. No match.
+Next idea: not decl/store order; try pointer-offset or struct/uint32 channel form.
