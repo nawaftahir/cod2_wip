@@ -4183,7 +4183,7 @@
 {
 "name": "?CL_ParseWWWDownload@@YAXPAUmsg_t@@@Z",
 "obj": "cl_parse_mp.obj",
-"size": 568,
+"size": 565,
 "hits": [],
 "reason": "no masked match"
 },
@@ -34001,8 +34001,9 @@
 "name": "?SEH_IsChinesePunctuation@@YA_NI@Z",
 "obj": "stringed_hooks.obj",
 "size": 20,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4abcc0"
+]
 },
 {
 "name": "?SEH_ChineseCharToIndex@@YAII@Z",
@@ -35516,7 +35517,7 @@
 ]
 },
 {
-"name": "$L147586",
+"name": "$L147585",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -36634,7 +36635,7 @@
 {
 "name": "?DL_BeginDownload@@YAHPADPBD@Z",
 "obj": "dl_main.obj",
-"size": 770,
+"size": 783,
 "hits": [],
 "reason": "no masked match"
 },
@@ -38772,7 +38773,7 @@
 {
 "name": "?CG_SubtitlePrint@@YAXHPBUsnd_alias_t@@@Z",
 "obj": "cg_main_mp.obj",
-"size": 126,
+"size": 121,
 "hits": [],
 "reason": "no masked match"
 },

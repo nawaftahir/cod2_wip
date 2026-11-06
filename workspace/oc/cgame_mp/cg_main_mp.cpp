@@ -986,11 +986,8 @@ static void CG_SubtitlePrint(int msec, const snd_alias_t *pAlias)
     int subtitleWidth;
 
     if (msec && pAlias->pszSubtitle) {
-        if (cgs->viewAspect > 1.3333334f) {
-            subtitleWidth = cg_subtitleWidthWidescreen->current.integer;
-        } else {
-            subtitleWidth = cg_subtitleWidthStandard->current.integer;
-        }
+        const dvar_t *widthDvar = cgs->viewAspect > 1.3333334f ? cg_subtitleWidthWidescreen : cg_subtitleWidthStandard;
+        subtitleWidth = widthDvar->current.integer;
 
         minMsec = I_fround(cg_tracerScaleDistRange_0->current.value * 1000.0f);
         if (minMsec - msec >= 0)

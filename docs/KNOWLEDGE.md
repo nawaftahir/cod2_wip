@@ -52,7 +52,7 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   (g_currentAsian 0x11972f8, cg_subtitleCharHeight 0x166bb88).
 - CL_GetServerCommand: 'w' with argc>=3 and Cmd_Argv(2) == "PB" (`_stricmp`) wraps Cmd_Argv(1) as va("\x15%s").
 - No `tcmd`/`tell_target` commands in 1.3 cgame (19-entry commandsList).
-- Client SVC_Status keeps the 0x4000 cap (the server MAX_MSGLEN form loses the match).
+- Client SVC_Status: retail caps the player list at MAX_MSGLEN (`cmp esi, 0x20000`), PINNED w1 11-07 (the old 0x4000 note was wrong; fn matches now).
 
 ## 3. Shared code (qcommon/server/script)
 - The client already carries every lnxded-1.0 -> 1.3 server change (dvar critical sections, PB oob, 32-bit
@@ -241,3 +241,10 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Method: lab copies of the function as `template <int V>` with different spellings of the one suspicious statement; lab sizes track the real function when the callee has no register-convention change.
 - Line endings: the repo blobs of pbsv.cpp / cg_scoreboard_mp.cpp are LF; nothing to restore (the earlier whole-file diffs were working-tree CRLF vs LF blobs).
 - same-offset 1,912,606 -> 1,914,090 (97.15%), matched-fn 1,535,777 -> 1,538,998 B.
+
+## 15. Wave 1 tail (w1, 11-07, PINNED on retail bytes)
+- SEH_IsChinesePunctuation range is 0x8140 < c < 0x814e (GBK punctuation row), matched.
+- DL_BeginDownload(local, url): `HTLoadToFile(..) != 1` (retail `cmp eax,1`), and `requestUrl = NULL` after the success-path HTMemory_free. Left: scheme/hostSeparator swap edi<->ebx and a `mov ecx,edi; push ecx` copy of localName for HTLoadToFile.
+- CL_ParseWWWDownload: retail stores `legacyHacks->cl_downloadSize` after the `downloadFlags & 2` branch (not before it); retail also drops the `downloadTempName[0]` guard before `[strlen-1] = 0`, but dropping it alone makes the fn 554 B (slot 576 -> -16 drift, same-offset 468K): needs the esi (msg + constant 1) regalloc too.
+- CL_CheckForResend retail frame 0xc34: low to high len@0x10, md5Str@0x14, data@0x38, info@0x438, pbBuf@0x838 (ours: data, pbBuf, info, 8 B smaller).
+- CG_SubtitlePrint: pointer ternary `d = wide ? A : B; subtitleWidth = d->current.integer` gives retail's select-then-deref shape (121 B vs 119); retail takes `msec` in ecx, ours eax.

@@ -459,7 +459,7 @@ unsigned char SEH_IsChineseChar( unsigned int c ) throw()
 
 bool SEH_IsChinesePunctuation( unsigned int c )
 {
-	if ( c > 0xa1a0 && c < 0xa1ae )
+	if ( c > 0x8140 && c < 0x814e )
 		return 1;
 	return 0;
 }

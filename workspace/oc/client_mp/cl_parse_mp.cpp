@@ -628,8 +628,6 @@ void CL_ParseWWWDownload(msg_t *msg)
     }
 #    endif
 
-    legacyHacks->cl_downloadSize = cls.downloadSize;
-
     if (cls.downloadFlags & 0x2) {
         Sys_OpenURL(cls.downloadName, 1);
         Cbuf_ExecuteText(2, "quit\n");
@@ -638,6 +636,8 @@ void CL_ParseWWWDownload(msg_t *msg)
         cls.wwwDlInProgress = 0;
         return;
     }
+
+    legacyHacks->cl_downloadSize = cls.downloadSize;
 
     Com_DPrintf("Server redirected download: %s\n", cls.downloadName);
     cls.wwwDlInProgress = 1;

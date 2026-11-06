@@ -204,7 +204,7 @@ int DL_BeginDownload(char *localName, const char *remoteUrl)
 
     HTMemory_free(scheme);
     FS_CreatePath(localName);
-    if (!HTLoadToFile(requestUrl, dl_request, localName))
+    if (HTLoadToFile(requestUrl, dl_request, localName) != 1)
     {
         Com_DPrintf("HTLoadToFile failed\n");
         HTMemory_free(requestUrl);
@@ -214,6 +214,7 @@ int DL_BeginDownload(char *localName, const char *remoteUrl)
     }
 
     HTMemory_free(requestUrl);
+    requestUrl = NULL;
     scheme = HTParse(remoteUrl, "", 16);
     char *host = HTParse(remoteUrl, "", 8);
     char *path = HTParse(remoteUrl, "", 5);
