@@ -4002,3 +4002,12 @@ TU move (2026-11-06): rb_surface.cpp body appended to rb_shade.cpp right after
 RB_BeginSurface (retail order Begin, DrawOptimizedTess, DrawTess, End; Mac has no
 rb_surface.c) and rb_surface removed from tus.txt: RB_EndSurface stays 206/202.
 TU membership alone does not fix the block-layout class; restored.
+
+# R_FinishLoadingAabbTrees_r probe trials - 2026-11-06 (worker s4)
+
+Target `R_FinishLoadingAabbTrees_r` (retail `0x10003d40`, 403 bytes + padding to 410; ours baseline 400 bytes, unblocks 164 bytes).
+Diff: retail updates `totalTreesUsed += tree->childCount` in-place and directly loads `[esi + 0x2c]` (`tree->children`) into `eax` after recursion, using `fcomp [edi + eax]` and `lea ecx, [edi + eax]`.
+- Probe 1: Replaced `int nextTree` with in-place `totalTreesUsed += tree->childCount` and reuse of `totalTreesUsed`. Preamble matched retail perfectly, eliminating alignment nop and reducing size to 402 bytes (1 byte shy of retail 403 due to `add ecx, edi` vs `lea ecx, [edi + eax]`). Exit code 3.
+- Probe 2: Replaced `child` local variable with `tree->children[childIndex]` in bounds expansion loops. Grew to 450 bytes due to repeated index evaluations. Exit code 3.
+- Probe 3: Declared `GfxAabbTree *child = &tree->children[childIndex]` before the recursive call and passed `child`. Emitted 405 bytes. Exit code 3.
+All 3 probes failed byte verification. `r_bsp_load_obj.cpp` restored to clean baseline.
