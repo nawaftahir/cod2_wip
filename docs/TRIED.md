@@ -3916,3 +3916,5 @@ Height block already matches in shape. Probes (all fail, source restored):
 2) height switch emitted before width switch: first selector becomes load edx; mov eax,esi;
    dec eax (flag temp now matches, load still precedes dec); no match, closest shape.
 3) "switch (platform - 1) case 0" on width: same lea/test form as probe 1; no match.
+## R_CopyCubemapShot 100267e0 (w3)
+Only diff: 3rd store is [eax+ecx+0x12] in retail, ours [ecx+eax+0x12] (operand order; everything else identical, 89/89). Tried, all still ecx+eax: (targa+18)[offset]; (offset+targa)[18]; *(targa+18+offset)=*(source+offset). MSVC canonicalizes these; try other structure (pointer/stride form) next.
