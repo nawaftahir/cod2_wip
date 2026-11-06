@@ -57,10 +57,9 @@ static int HTAlertCallback_progress(HTRequest *request, HTAlertOpcode opcode, in
         return 1;
     }
 
-    HTNet *net = HTRequest_net(request);
-    if (!HTNet_rawBytesCount(net))
+    if (!HTNet_rawBytesCount(request->net))
     {
-        Com_DPrintf("Force raw byte count on request->net %p\n", net);
+        Com_DPrintf("Force raw byte count on request->net %p\n", request->net);
         HTFTP_setRawBytesCount(request);
     }
 
@@ -133,7 +132,7 @@ void DL_Shutdown(void)
 
 int DL_BeginDownload(char *localName, const char *remoteUrl)
 {
-    char *requestUrl;
+    char *requestUrl = NULL;
     char *scheme;
 
     if (dl_running)

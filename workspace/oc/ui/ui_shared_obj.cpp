@@ -281,7 +281,7 @@ void PC_SourceError(int handle, char *format, ...)
     static char string[4096];
 
     va_start(argptr, format);
-    vsprintf(string, format, argptr);
+    _vsnprintf(string, sizeof(string), format, argptr);
     va_end(argptr);
 
     filename[0] = '\0';

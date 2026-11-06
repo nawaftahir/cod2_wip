@@ -2018,7 +2018,7 @@ void UI_RunMenuScript(const char **args)
             }
 
             LAN_GetServerAddressString((ui_netSource)->current.integer,
-                                       sharedUiInfo.serverStatus.displayServers[selectedServer],
+                                       sharedUiInfo.serverStatus.displayServers[sharedUiInfo.serverStatus.currentServer],
                                        buff, 0x400);
             Cbuf_ExecuteText(2, va("connect %s\n", buff));
         }

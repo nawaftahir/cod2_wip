@@ -203,3 +203,6 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   inside a balanced stretch (RoQShutdown -32) costs the whole tail (-175 KB). Fix a stretch whole or fix the last step before a zero region.
 - HTEvtLst has two unreferenced fns: 0x54ec80 returns HTPumpState, 0x54ed70 sets HTPumpState=0 and returns 0 (names unknown, `fn_XXXXXX`).
   Emission order: PUBLIC unreferenced fns follow source order; Timer_* and HTEventInit come last (PINNED on our map).
+- Where drift is 0 (401000-41d6c0, 4b52f0-4b5f90, 511850-57a640) a function whose size stays inside its 16 B slot can be fixed with no side effect:
+  UI_RunMenuScript (JoinServer re-reads `sharedUiInfo.serverStatus.currentServer`, no cached local, 5035 B), PC_SourceError (`_vsnprintf(string, 4096, ..)`),
+  HTAlertCallback_progress (`request->net` read twice, no HTRequest_net call). Find them with the unmatched-fn scan: same address, same slot, bytes differ.

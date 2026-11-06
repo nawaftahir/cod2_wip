@@ -35368,7 +35368,7 @@
 ]
 },
 {
-"name": "$L118291",
+"name": "$L118292",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35376,7 +35376,7 @@
 ]
 },
 {
-"name": "$L118293",
+"name": "$L118294",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35409,7 +35409,7 @@
 ]
 },
 {
-"name": "$L132174",
+"name": "$L132175",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35417,7 +35417,7 @@
 ]
 },
 {
-"name": "$L132176",
+"name": "$L132177",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -36576,9 +36576,10 @@
 {
 "name": "?HTAlertCallback_progress@@YAHPAU_HTRequest@@W4_HTAlertOpcode@@HPBDPAXPAU_HTAlertPar@@@Z",
 "obj": "dl_main.obj",
-"size": 117,
-"hits": [],
-"reason": "no masked match"
+"size": 113,
+"hits": [
+"0x4b58e0"
+]
 },
 {
 "name": "?HTAlertCallback_confirm@@YAHPAU_HTRequest@@W4_HTAlertOpcode@@HPBDPAXPAU_HTAlertPar@@@Z",
@@ -36626,7 +36627,7 @@
 {
 "name": "?DL_BeginDownload@@YAHPADPBD@Z",
 "obj": "dl_main.obj",
-"size": 769,
+"size": 770,
 "hits": [],
 "reason": "no masked match"
 },
@@ -53441,9 +53442,10 @@
 {
 "name": "?UI_RunMenuScript@@YAXPAPBD@Z",
 "obj": "ui_main_mp.obj",
-"size": 5027,
-"hits": [],
-"reason": "no masked match"
+"size": 5035,
+"hits": [
+"0x534d60"
+]
 },
 {
 "name": "?UI_SelectCurrentGameType@@YAXXZ",
@@ -55204,9 +55206,10 @@
 {
 "name": "?PC_SourceError@@YAXHPADZZ",
 "obj": "ui_shared_obj.obj",
-"size": 99,
-"hits": [],
-"reason": "no masked match"
+"size": 104,
+"hits": [
+"0x543230"
+]
 },
 {
 "name": "?PC_Float_Parse@@YAHHPAM@Z",
@@ -77233,20 +77236,6 @@
 ]
 },
 {
-"name": "_vsprintf",
-"obj": "libcmt:vsprintf.obj",
-"size": 87,
-"hits": [],
-"reason": "no masked match"
-},
-{
-"name": "__vscprintf",
-"obj": "libcmt:vsprintf.obj",
-"size": 48,
-"hits": [],
-"reason": "no masked match"
-},
-{
 "name": "__amsg_exit",
 "obj": "libcmt:wincrt0.obj",
 "size": 37,
@@ -82241,7 +82230,7 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 896,
+"size": 1024,
 "hits": [
 "0x592c00"
 ]
