@@ -1139,9 +1139,7 @@ static void RoQShutdown(void)
         CLC_CONN->state = cinTable[currentHandle].previousGameState;
         CL_handle = -1;
         if (CLC_CONN->state == 0 && nextmap->current.string[0]) {
-            Cbuf_AddText(va("%s\n", nextmap->current.string));
-            Dvar_SetString(nextmap, "");
-            UI_SetActiveMenu(1);
+            CIN_RunNextmap();
         } else {
             UI_SetActiveMenu(0);
         }

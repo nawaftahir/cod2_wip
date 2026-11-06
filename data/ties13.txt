@@ -30,3 +30,19 @@ _yylex
 ?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z
 # SV_SetConfigstring: 1.0 PINNED tie pool (SKILL, 491 B), flips on fn count (s3 merge 11-04)
 ?SV_SetConfigstring@@YAXHPBD@Z
+# NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
+?CM_BoxTrace@@YAXPAUtrace_t@@PBM111HH@Z
+# NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
+?CG_Trace@@YAXPAUtrace_t@@PBM111HH@Z
+# NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
+?Trace@FxHelper@@QAEXPAUtrace_t@@QBM111HH@Z
+# NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
+?CG_TouchTriggerPrediction@@YAXXZ
+# NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
+?FX_CalcImpactOrigin@@YAXPBUPrimitiveTemplate@@QBMQAM1PAY02$$CBM@Z
+# NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
+?CM_TransformedBoxTrace@@YAXPAUtrace_t@@PBM111HH11@Z
+# NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
+?UpdateOrigin@Particle@@QAE_NPBUorientation_t@@@Z
+# NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
+?SV_Trace@@YAXPAUtrace_t@@PBM111HHHPAEH@Z

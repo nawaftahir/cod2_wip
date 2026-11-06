@@ -77,6 +77,7 @@ extern void Com_Memset(void *dest, const int val, int count);
 extern void Dvar_SetString(dvar_t *dvar, const char *value);
 #include "../../qcommon/dl_main.h"
 #include <stdio.h>
+extern void CL_ClearDownloadState(void);
 #define DVAR_EXTERNAL (1 << 14)
 extern dvar_t *fs_homepath;
 extern dvar_t *fs_gameDirVar;
@@ -1138,9 +1139,7 @@ void CL_WWWDownload(void)
     if (st == 1) {
         cls.download = 0;
         FS_BuildOSPath(fs_homepath->current.string, cls.downloadName, "", toOSPath);
-        if (toOSPath[0]) {
-            toOSPath[strlen(toOSPath) - 1] = '\0';
-        }
+        toOSPath[strlen(toOSPath) - 1] = '\0';
 
         if (rename(cls.downloadTempName, toOSPath) != 0) {
             FS_CopyFile(cls.downloadTempName, toOSPath);
@@ -1165,8 +1164,8 @@ void CL_WWWDownload(void)
         if (cls.wwwDlDisconnected) {
             char *err = va("Download failure while getting '%s'\n", cls.downloadName);
             cls.wwwDlDisconnected = 0;
-            CL_ClearDownloadStateInl();
-            Com_Error(ERR_DROP, "%s", err);
+            CL_ClearDownloadState();
+            Com_Error(ERR_DROP, err);
             return;
         }
         Com_Printf("Download failure while getting '%s'\n", cls.downloadName);

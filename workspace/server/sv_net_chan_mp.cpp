@@ -167,7 +167,7 @@ void SV_Netchan_UpdateProfileStats()
 }
 
 // Original name unknown.
-static void SV_Netchan_DrawProfileLine( const char *line, int y )
+static void SV_Netchan_DrawProfileLine( int y, const char *line )
 {
 	CL_DrawString(32, y, line, 0, cl_profileTextHeight->current.integer);
 }
@@ -225,7 +225,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 	else
 	{
 		iYPos = 90;
-		SV_Netchan_DrawProfileLine(szLine, iYPos);
+		SV_Netchan_DrawProfileLine(iYPos, szLine);
 	}
 
 	Com_sprintf(szLine, 1024, "Server Network Profile:");
@@ -237,7 +237,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 	else
 	{
 		iYPos += 10;
-		SV_Netchan_DrawProfileLine(szLine, iYPos);
+		SV_Netchan_DrawProfileLine(iYPos, szLine);
 		iYPos += 10;
 	}
 
@@ -250,7 +250,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 	else
 	{
 		iYPos += 10;
-		SV_Netchan_DrawProfileLine(szLine, iYPos);
+		SV_Netchan_DrawProfileLine(iYPos, szLine);
 	}
 
 	Com_sprintf(szLine, 1024, "              Source|   bps|  max|  min|frag%%|drop%%|ak|   bps|  max|  min|frag%%|   bps|  max|  min|frag%%|");
@@ -262,7 +262,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 	else
 	{
 		iYPos += 10;
-		SV_Netchan_DrawProfileLine(szLine, iYPos);
+		SV_Netchan_DrawProfileLine(iYPos, szLine);
 	}
 
 	if ( svs.pOOBProf )
@@ -349,7 +349,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 	else
 	{
 		iYPos += 10;
-		SV_Netchan_DrawProfileLine(szLine, iYPos);
+		SV_Netchan_DrawProfileLine(iYPos, szLine);
 	}
 
 	if ( svs.pOOBProf )
@@ -392,7 +392,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 		else
 		{
 			iYPos += 10;
-			SV_Netchan_DrawProfileLine(szLine, iYPos);
+			SV_Netchan_DrawProfileLine(iYPos, szLine);
 		}
 	}
 	else
@@ -406,7 +406,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 		else
 		{
 			iYPos += 10;
-			SV_Netchan_DrawProfileLine(szLine, iYPos);
+			SV_Netchan_DrawProfileLine(iYPos, szLine);
 		}
 	}
 
@@ -492,7 +492,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 			else
 			{
 				iYPos += 10;
-				SV_Netchan_DrawProfileLine(szLine, iYPos);
+				SV_Netchan_DrawProfileLine(iYPos, szLine);
 			}
 		}
 		else
@@ -508,7 +508,7 @@ void SV_Netchan_PrintProfileStats( int bPrintToConsole )
 			else
 			{
 				iYPos += 10;
-				SV_Netchan_DrawProfileLine(szLine, iYPos);
+				SV_Netchan_DrawProfileLine(iYPos, szLine);
 			}
 		}
 	}

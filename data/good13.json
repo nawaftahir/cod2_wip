@@ -5694,7 +5694,7 @@
 {
 "name": "?CM_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cm_trace.obj",
-"size": 1427,
+"size": 1418,
 "hits": [],
 "reason": "no masked match"
 },
@@ -5702,17 +5702,15 @@
 "name": "?CM_BoxTrace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cm_trace.obj",
 "size": 77,
-"hits": [
-"0x41d6b0"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CM_TransformedBoxTrace@@YAXPAUtrace_t@@PBM111HH11@Z",
 "obj": "cm_trace.obj",
 "size": 735,
-"hits": [
-"0x41d700"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CM_TransformedBoxTraceExternal@@YAXPAUtrace_t@@PBM111HH11@Z",
@@ -17652,18 +17650,21 @@
 ]
 },
 {
-"name": "?SV_Netchan_DrawProfileLine@@YAXPBDH@Z",
+"name": "?SV_Netchan_DrawProfileLine@@YAXHPBD@Z",
 "obj": "sv_net_chan_mp.obj",
 "size": 111,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4129f0",
+"0x45cb00"
+]
 },
 {
 "name": "?SV_Netchan_PrintProfileStats@@YAXH@Z",
 "obj": "sv_net_chan_mp.obj",
-"size": 2253,
-"hits": [],
-"reason": "no masked match"
+"size": 2238,
+"hits": [
+"0x45cb70"
+]
 },
 {
 "name": "?lerp@@YAMMMM@Z",
@@ -17967,9 +17968,8 @@
 "name": "?SV_Trace@@YAXPAUtrace_t@@PBM111HHHPAEH@Z",
 "obj": "sv_world_mp.obj",
 "size": 678,
-"hits": [
-"0x461910"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?SV_TracePassed@@YAHPBM000HHHHH@Z",
@@ -19261,9 +19261,10 @@
 {
 "name": "_WinMain@16",
 "obj": "win_main.obj",
-"size": 713,
-"hits": [],
-"reason": "no masked match"
+"size": 820,
+"hits": [
+"0x466460"
+]
 },
 {
 "name": "?NET_ErrorString@@YAPBDXZ",
@@ -28661,10 +28662,9 @@
 {
 "name": "?UpdateOrigin@Particle@@QAE_NPBUorientation_t@@@Z",
 "obj": "FxPrimitives.obj",
-"size": 679,
-"hits": [
-"0x494f20"
-]
+"size": 675,
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CalcVelocityValue@Particle@@QAEXMQAMPBUorientation_t@@@Z",
@@ -30728,10 +30728,9 @@
 {
 "name": "?Trace@FxHelper@@QAEXPAUtrace_t@@QBM111HH@Z",
 "obj": "FxSystem.obj",
-"size": 98,
-"hits": [
-"0x49b3e0"
-]
+"size": 100,
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?AddFxToScene@FxHelper@@QAEXPAUGfxEntity@@PAUXModel@@@Z",
@@ -32348,10 +32347,9 @@
 {
 "name": "?FX_CalcImpactOrigin@@YAXPBUPrimitiveTemplate@@QBMQAM1PAY02$$CBM@Z",
 "obj": "FxUtil.obj",
-"size": 588,
-"hits": [
-"0x4a10d0"
-]
+"size": 585,
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?FX_ApplyLateStart@@YAXPBUPrimitiveTemplate@@PAVParticle@@QAMH@Z",
@@ -36137,9 +36135,10 @@
 {
 "name": "?RoQShutdown@@YAXXZ",
 "obj": "cinematics.obj",
-"size": 283,
-"hits": [],
-"reason": "no masked match"
+"size": 255,
+"hits": [
+"0x4b2390"
+]
 },
 {
 "name": "?ROQ_StopCinematicFromHandle@@YA?AW4e_status@@H@Z",
@@ -36505,9 +36504,10 @@
 {
 "name": "?CL_WWWDownload@@YAXXZ",
 "obj": "cl_main_pc_mp.obj",
-"size": 440,
-"hits": [],
-"reason": "no masked match"
+"size": 386,
+"hits": [
+"0x4b5160"
+]
 },
 {
 "name": "?LAN_AddServer@@YAHHPBD0@Z",
@@ -42560,9 +42560,8 @@
 "name": "?CG_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cg_predict_mp.obj",
 "size": 150,
-"hits": [
-"0x4de690"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_PointContents@@YAHPBMHH@Z",
@@ -42592,9 +42591,8 @@
 "name": "?CG_TouchTriggerPrediction@@YAXXZ",
 "obj": "cg_predict_mp.obj",
 "size": 216,
-"hits": [
-"0x4dea00"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_PredictPlayerState_Internal@@YAXXZ",

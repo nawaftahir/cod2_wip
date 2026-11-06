@@ -1063,7 +1063,7 @@ void Sys_InitializeCriticalSections( void );
 void PbClientInitialize( void *param );
 void PbClientProcessEvents( void );
 void PbServerInitialize( void );
-void PbServerProcessEvents( void );
+#include "../punkbuster/pbsv.h"
 
 int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow )
 {
@@ -1139,7 +1139,19 @@ int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		if ( !com_dedicated || !com_dedicated->current.integer )
 			PbClientProcessEvents();
 
-		PbServerProcessEvents();
+		/* retail inlines stPbSv::ProcessPbEvents here */
+		if ( pbsv.m_GameCommand )
+		{
+			if ( !pbsv.m_SvInstance )
+			{
+				if ( pbsv.m_ReloadServer )
+					pbsv.AddPbEvent(16, -1, 0, "", 0);
+			}
+			else if ( pbsv.m_ReloadServer )
+				pbsv.UnloadServerDll();
+			else
+				pbsv.m_ProcessPbEvents(&pbsv, 0);
+		}
 	}
 
 	// never gets here

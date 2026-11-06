@@ -1,13 +1,5 @@
-// PunkBuster server glue (1.2c). Source file and type names from the Mac 1.3 STABS
-// (PC/punkbuster/pbsv.cpp, pbsv.h, pbcommon.h).
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <windows.h>
-#include <direct.h>
+#include "pbsv.h"
 extern "C" int __cdecl _chmod(const char *path, int mode);
-
 struct Pb_Sv_Client_s;
 
 // engine side
@@ -30,18 +22,6 @@ char *PbSvGameMsg(char *Msg, int Type);
 char *PbSvSendToClient(int DataLen, char *Data, int clientIndex);
 char *PbSvSendToAddrPort(char *addr, unsigned short port, int DataLen, char *Data);
 
-struct stPbSv;
-
-typedef char *(*tdPbGameCommand)(char *, char *);
-typedef char *(*tdPbGameQuery)(int, char *);
-typedef char *(*tdPbGameMsg)(char *, int);
-typedef char *(*tdPbSendToClient)(int, char *, int);
-typedef char *(*tdPbAddSvEvent)(stPbSv *, int, int, int, char *, int);
-typedef char *(*tdPbProcessPbEvents)(stPbSv *, int);
-typedef char *(*tdPbSendToAddrPort)(char *, unsigned short, int, char *);
-typedef char *(*tdPbPassConnectString)(stPbSv *, char *, char *);
-typedef char *(*tdPbAuthClient)(stPbSv *, char *, int, char *);
-typedef void (*tdPbTrapConsole)(stPbSv *, char *, int);
 
 // name unknown (no Mac symbol)
 inline void pbChmod_813cbd4(char *path)
@@ -89,237 +69,217 @@ inline int pbCopyFile_813cf52(char *fromFn, char *toFn, int maxSize)
 	return res;
 }
 
-struct stPbSv
+
+inline void stPbSv::getBasePath(char *path)
 {
-	unsigned long m_svId;
-	void *m_Md5;
-	HMODULE m_SvInstance;
-	HMODULE m_ClInstance;
-	HMODULE m_AgInstance;
-	char m_msgPrefix[32];
-	char m_cwd[257];
-	int m_ReloadServer;
-	tdPbGameCommand m_GameCommand;
-	tdPbGameQuery m_GameQuery;
-	tdPbGameMsg m_GameMsg;
-	tdPbSendToClient m_SendToClient;
-	tdPbAddSvEvent m_AddPbEvent;
-	tdPbProcessPbEvents m_ProcessPbEvents;
-	tdPbSendToAddrPort m_SendToAddrPort;
-	tdPbPassConnectString m_PassConnectString;
-	tdPbAuthClient m_AuthClient;
-	tdPbTrapConsole m_TrapConsole;
-	void *m_Agent;
+	if ( !m_GameQuery )
+		return;
+	m_GameQuery(103, strcpy(path, "fs_basepath"));
+}
 
-	void getBasePath(char *path)
+inline void stPbSv::copyIfNotExists(char *fn, char *basepath)
+{
+	char fromFn[511];
+	char toFn[511];
+	FILE *f;
+
+	strcpy(toFn, m_cwd);
+	strcat(toFn, fn);
+	f = fopen(toFn, "rb");
+	if ( f )
 	{
-		if ( !m_GameQuery )
-			return;
-		m_GameQuery(103, strcpy(path, "fs_basepath"));
+		fclose(f);
 	}
-
-	void copyIfNotExists(char *fn, char *basepath)
+	else
 	{
-		char fromFn[511];
-		char toFn[511];
-		FILE *f;
+		strcpy(fromFn, basepath);
+		strcat(fromFn, fn);
+		pbCopyFile_813cf52(fromFn, toFn, 0);
+	}
+}
 
-		strcpy(toFn, m_cwd);
-		strcat(toFn, fn);
-		f = fopen(toFn, "rb");
-		if ( f )
+inline void stPbSv::getHomePath()
+{
+	if ( !m_GameQuery )
+		return;
+	m_GameQuery(103, strcpy(m_cwd, "fs_homepath"));
+	if ( !*m_cwd )
+		_getcwd(m_cwd, 251);
+	if ( *m_cwd && m_cwd[strlen(m_cwd) - 1] != *"\\" )
+		strcat(m_cwd, "\\");
+	strcat(m_cwd, "pb\\");
+}
+
+inline char *stPbSv::makefn(char *buf, char *fn)
+{
+	char basepath[260];
+
+	if ( !*m_cwd )
+	{
+		getHomePath();
+		getBasePath(basepath);
+		if ( basepath[strlen(basepath) - 1] != *"\\" )
+			strcat(basepath, "\\");
+		strcat(basepath, "pb\\");
+		if ( _stricmp(basepath, m_cwd) && *basepath && *m_cwd )
 		{
-			fclose(f);
-		}
-		else
-		{
-			strcpy(fromFn, basepath);
-			strcat(fromFn, fn);
-			pbCopyFile_813cf52(fromFn, toFn, 0);
+			_mkdir(m_cwd);
+			copyIfNotExists("pbsv.dll", basepath);
+			copyIfNotExists("pbcl.dll", basepath);
+			copyIfNotExists("pbag.dll", basepath);
 		}
 	}
+	strcpy(buf, m_cwd);
+	strcat(buf, fn);
+	return buf;
+}
 
-	void getHomePath()
+inline void stPbSv::UnloadClientDll()
+{
+	if ( m_ClInstance )
+		FreeLibrary(m_ClInstance);
+	m_ClInstance = 0;
+}
+
+inline void stPbSv::UnloadAgentDll()
+{
+	m_Agent = 0;
+	if ( m_AgInstance )
+		FreeLibrary(m_AgInstance);
+	m_AgInstance = 0;
+}
+
+inline void stPbSv::uninitialize()
+{
+	m_GameCommand = 0;
+	m_GameQuery = 0;
+	m_GameMsg = 0;
+	m_SendToClient = 0;
+}
+
+inline void stPbSv::initialize()
+{
+	uninitialize();
+	m_GameCommand = PbSvGameCommand;
+	m_GameQuery = PbSvGameQuery;
+	m_GameMsg = PbSvGameMsg;
+	m_SendToClient = PbSvSendToClient;
+	m_SendToAddrPort = PbSvSendToAddrPort;
+}
+
+inline void stPbSv::UnloadServerDll()
+{
+	m_Md5 = 0;
+	m_ProcessPbEvents = 0;
+	m_AddPbEvent = 0;
+	m_PassConnectString = 0;
+	m_AuthClient = 0;
+	m_TrapConsole = 0;
+	if ( m_SvInstance )
+		FreeLibrary(m_SvInstance);
+	m_SvInstance = 0;
+}
+
+inline char *stPbSv::LoadServerDll()
+{
+	char fn[512];
+	char extrafn[512];
+	FILE *f;
+
+	if ( m_SvInstance )
+		return NULL;
+	UnloadServerDll();
+	f = fopen(makefn(fn, "pbsvnew.dll"), "rb");
+	if ( f )
 	{
-		if ( !m_GameQuery )
-			return;
-		m_GameQuery(103, strcpy(m_cwd, "fs_homepath"));
-		if ( !*m_cwd )
-			_getcwd(m_cwd, 251);
-		if ( *m_cwd && m_cwd[strlen(m_cwd) - 1] != *"\\" )
-			strcat(m_cwd, "\\");
-		strcat(m_cwd, "pb\\");
+		fclose(f);
+		pbChmod_813cbd4(makefn(fn, "pbsvold.dll"));
+		remove(makefn(fn, "pbsvold.dll"));
+		rename(makefn(fn, "pbsv.dll"), makefn(extrafn, "pbsvold.dll"));
+		pbChmod_813cbd4(makefn(fn, "pbsv.dll"));
+		remove(makefn(fn, "pbsv.dll"));
+		rename(makefn(fn, "pbsvnew.dll"), makefn(extrafn, "pbsv.dll"));
 	}
-
-	char *makefn(char *buf, char *fn)
+	m_SvInstance = LoadLibraryA(makefn(fn, "pbsv.dll"));
+	if ( !m_SvInstance )
+		return "PB Error: Server DLL Load Failure";
+	m_ProcessPbEvents = (tdPbProcessPbEvents)GetProcAddress(m_SvInstance, "sa");
+	m_AddPbEvent = (tdPbAddSvEvent)GetProcAddress(m_SvInstance, "sb");
+	if ( !m_ProcessPbEvents || !m_AddPbEvent )
 	{
-		char basepath[260];
-
-		if ( !*m_cwd )
-		{
-			getHomePath();
-			getBasePath(basepath);
-			if ( basepath[strlen(basepath) - 1] != *"\\" )
-				strcat(basepath, "\\");
-			strcat(basepath, "pb\\");
-			if ( _stricmp(basepath, m_cwd) && *basepath && *m_cwd )
-			{
-				_mkdir(m_cwd);
-				copyIfNotExists("pbsv.dll", basepath);
-				copyIfNotExists("pbcl.dll", basepath);
-				copyIfNotExists("pbag.dll", basepath);
-			}
-		}
-		strcpy(buf, m_cwd);
-		strcat(buf, fn);
-		return buf;
-	}
-
-	void UnloadClientDll()
-	{
-		if ( m_ClInstance )
-			FreeLibrary(m_ClInstance);
-		m_ClInstance = 0;
-	}
-
-	void UnloadAgentDll()
-	{
-		m_Agent = 0;
-		if ( m_AgInstance )
-			FreeLibrary(m_AgInstance);
-		m_AgInstance = 0;
-	}
-
-	void uninitialize()
-	{
-		m_GameCommand = 0;
-		m_GameQuery = 0;
-		m_GameMsg = 0;
-		m_SendToClient = 0;
-	}
-
-	void initialize()
-	{
-		uninitialize();
-		m_GameCommand = PbSvGameCommand;
-		m_GameQuery = PbSvGameQuery;
-		m_GameMsg = PbSvGameMsg;
-		m_SendToClient = PbSvSendToClient;
-		m_SendToAddrPort = PbSvSendToAddrPort;
-	}
-
-	void UnloadServerDll()
-	{
-		m_Md5 = 0;
-		m_ProcessPbEvents = 0;
-		m_AddPbEvent = 0;
-		m_PassConnectString = 0;
-		m_AuthClient = 0;
-		m_TrapConsole = 0;
-		if ( m_SvInstance )
-			FreeLibrary(m_SvInstance);
-		m_SvInstance = 0;
-	}
-
-	char *LoadServerDll()
-	{
-		char fn[512];
-		char extrafn[512];
-		FILE *f;
-
-		if ( m_SvInstance )
-			return NULL;
 		UnloadServerDll();
-		f = fopen(makefn(fn, "pbsvnew.dll"), "rb");
-		if ( f )
-		{
-			fclose(f);
-			pbChmod_813cbd4(makefn(fn, "pbsvold.dll"));
-			remove(makefn(fn, "pbsvold.dll"));
-			rename(makefn(fn, "pbsv.dll"), makefn(extrafn, "pbsvold.dll"));
-			pbChmod_813cbd4(makefn(fn, "pbsv.dll"));
-			remove(makefn(fn, "pbsv.dll"));
-			rename(makefn(fn, "pbsvnew.dll"), makefn(extrafn, "pbsv.dll"));
-		}
-		m_SvInstance = LoadLibraryA(makefn(fn, "pbsv.dll"));
-		if ( !m_SvInstance )
-			return "PB Error: Server DLL Load Failure";
-		m_ProcessPbEvents = (tdPbProcessPbEvents)GetProcAddress(m_SvInstance, "sa");
-		m_AddPbEvent = (tdPbAddSvEvent)GetProcAddress(m_SvInstance, "sb");
-		if ( !m_ProcessPbEvents || !m_AddPbEvent )
+		return "PB Error: Server DLL Get Procedure Failure";
+	}
+	m_ReloadServer = 0;
+	return NULL;
+}
+
+inline char *stPbSv::AddPbEvent(int type, int clientIndex, int datalen, char *data, int retry)
+{
+	if ( !m_GameCommand )
+		return NULL;
+	if ( m_ReloadServer || !m_SvInstance )
+	{
+		if ( m_SvInstance )
 		{
 			UnloadServerDll();
-			return "PB Error: Server DLL Get Procedure Failure";
+			return NULL;
 		}
-		m_ReloadServer = 0;
+		char *res = LoadServerDll();
+		if ( res )
+		{
+			if ( type == 0x71 || type == 0x72 )
+				return NULL;
+			return res;
+		}
+	}
+	return m_AddPbEvent(this, type, clientIndex, datalen, data, retry);
+}
+
+inline char *stPbSv::ProcessPbEvents(int n)
+{
+	if ( !m_GameCommand )
+		return NULL;
+	if ( !m_SvInstance )
+	{
+		if ( m_ReloadServer )
+			AddPbEvent(16, -1, 0, "", 0);
 		return NULL;
 	}
-
-	char *AddPbEvent(int type, int clientIndex, int datalen, char *data, int retry)
-	{
-		if ( !m_GameCommand )
-			return NULL;
-		if ( m_ReloadServer || !m_SvInstance )
-		{
-			if ( m_SvInstance )
-			{
-				UnloadServerDll();
-				return NULL;
-			}
-			char *res = LoadServerDll();
-			if ( res )
-			{
-				if ( type == 0x71 || type == 0x72 )
-					return NULL;
-				return res;
-			}
-		}
-		return m_AddPbEvent(this, type, clientIndex, datalen, data, retry);
-	}
-
-	char *ProcessPbEvents(int n)
-	{
-		if ( !m_GameCommand )
-			return NULL;
-		if ( !m_SvInstance )
-		{
-			if ( m_ReloadServer )
-				AddPbEvent(16, -1, 0, "", 0);
-			return NULL;
-		}
-		if ( m_ReloadServer )
-		{
-			UnloadServerDll();
-			return NULL;
-		}
-		return m_ProcessPbEvents(this, n);
-	}
-
-	stPbSv()
-	{
-		m_svId = 0x357afe24;
-		strcpy(m_msgPrefix, "PunkBuster Server");
-		m_SvInstance = 0;
-		m_ReloadServer = 1;
-		uninitialize();
-		m_Md5 = 0;
-		m_AddPbEvent = 0;
-		m_ProcessPbEvents = 0;
-		m_SendToAddrPort = 0;
-		m_PassConnectString = 0;
-		m_AuthClient = 0;
-		m_TrapConsole = 0;
-	}
-
-	~stPbSv()
+	if ( m_ReloadServer )
 	{
 		UnloadServerDll();
-		UnloadClientDll();
-		UnloadAgentDll();
+		return NULL;
 	}
-};
+	return m_ProcessPbEvents(this, n);
+}
+
+inline stPbSv::stPbSv()
+{
+	m_svId = 0x357afe24;
+	strcpy(m_msgPrefix, "PunkBuster Server");
+	m_SvInstance = 0;
+	m_ReloadServer = 1;
+	uninitialize();
+	m_Md5 = 0;
+	m_AddPbEvent = 0;
+	m_ProcessPbEvents = 0;
+	m_SendToAddrPort = 0;
+	m_PassConnectString = 0;
+	m_AuthClient = 0;
+	m_TrapConsole = 0;
+}
+
+inline stPbSv::~stPbSv()
+{
+	UnloadServerDll();
+	UnloadClientDll();
+	UnloadAgentDll();
+}
+
 
 stPbSv pbsv;
+
 char *g_ConsoleCaptureBuf;
 long g_ConsoleCaptureBufLen;
 

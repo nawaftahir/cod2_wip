@@ -1356,9 +1356,9 @@ void CM_Trace( trace_t *results, const vec3_t start, const vec3_t end,
 	assert(mins);
 	assert(maxs);
 	assert(!IS_NAN((end)[0]) && !IS_NAN((end)[1]) && !IS_NAN((end)[2]));
-	cmod = CM_ClipHandleToModel( model );
 	// set basic parms
 	tw.contents = brushmask;
+	cmod = CM_ClipHandleToModel( model );
 	// adjust so that mins and maxs are always symetric, which
 	// avoids some complications with plane expanding of rotated
 	// bmodels
