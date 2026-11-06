@@ -975,9 +975,13 @@ void RB_SetupLighting()
             RB_SetupEntityLighting(backEnd.currentEntity, lighting);
             lighting = backEnd.currentEntityLighting;
         }
-        VectorCopy(backEnd.light[0].color, backEnd.codeConsts[5]);
-        backEnd.codeConsts[5][3] = lighting->sunVisibility;
-        memcpy(backEnd.codeConsts[18], lighting->colorForDir, 96);
+        RB_SetCodeConstant(5, backEnd.light[0].color[0], backEnd.light[0].color[1], backEnd.light[0].color[2], lighting->sunVisibility);
+        VectorCopy4(lighting->colorForDir[0], backEnd.codeConsts[18]);
+        VectorCopy4(lighting->colorForDir[1], backEnd.codeConsts[19]);
+        VectorCopy4(lighting->colorForDir[2], backEnd.codeConsts[20]);
+        VectorCopy4(lighting->colorForDir[3], backEnd.codeConsts[21]);
+        VectorCopy4(lighting->colorForDir[4], backEnd.codeConsts[22]);
+        VectorCopy4(lighting->colorForDir[5], backEnd.codeConsts[23]);
     }
     else
     {

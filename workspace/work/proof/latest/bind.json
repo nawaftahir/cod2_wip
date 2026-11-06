@@ -3927,6 +3927,14 @@
 "obj": "rb_shade.obj",
 "why": []
 },
+"?RB_SetupLighting@@YAXXZ": {
+"t": "0x1003a340",
+"n": 566,
+"obj": "rb_shade.obj",
+"why": [
+"call ?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z"
+]
+},
 "?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z": {
 "t": "0x1003a580",
 "n": 112,
@@ -8249,7 +8257,9 @@
 "t": "0x10068aca",
 "n": 184,
 "obj": "d3dx9:cassembler.obj",
-"why": []
+"why": [
+"extent"
+]
 },
 "?RegisterHash@D3DXShader@@YGIPBD@Z": {
 "t": "0x10068b85",

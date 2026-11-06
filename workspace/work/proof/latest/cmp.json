@@ -7910,8 +7910,10 @@
 {
 "name": "?RB_SetupLighting@@YAXXZ",
 "obj": "rb_shade.obj",
-"size": 372,
-"hits": []
+"size": 566,
+"hits": [
+"0x1003a340"
+]
 },
 {
 "name": "?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z",
