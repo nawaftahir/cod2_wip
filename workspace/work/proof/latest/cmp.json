@@ -1888,6 +1888,14 @@
 ]
 },
 {
+"name": "?Image_ExpandBgr@@YAXPBEIPAE@Z",
+"obj": "r_image_load_obj.obj",
+"size": 37,
+"hits": [
+"0x1000f350"
+]
+},
+{
 "name": "?Image_LoadBitmap@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z",
 "obj": "r_image_load_obj.obj",
 "size": 527,

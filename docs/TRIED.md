@@ -4158,3 +4158,4 @@ residual: retail keeps endpos/origin pointers in ebx/esi; VectorSubtract form is
 RB_BlendSavedScreenCmd MATCHED (lead): alpha is float (float)pow(...); R_CullSceneEntities uses type <= 1 (callee convention residual).
 RB_Set2D 864/847: memset(&valid[1],0,3) adds a lea pointer temp (864); chained valid[1]=valid[2]=valid[3]=0 gives 880. Both rejected; zero-register class stays open.
 R_SkinGfxEntityCmd 10020ce0/12: ours inlines R_SkinGfxEntity (80 B) cross-TU; moving the wrapper to r_scene and __declspec(noinline) on the callee both keep 80 B. Retail calls it with the entity in edi. Inlining-decision class; restored.
+Image_ExpandBgr 1000f350/37 MATCHED (new source): retail keeps the BGR->BGRA loop as its own helper (KisakCOD name); Image_LoadBitmap calls it.

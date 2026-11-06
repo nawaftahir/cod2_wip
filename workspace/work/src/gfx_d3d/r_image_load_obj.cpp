@@ -232,6 +232,21 @@ GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight)
 }
 
 // PINNED 1000f5a0/527: expand BGR in-place channel order, never reverse it.
+// SUPPORTED name/shape: KisakCOD r_image_load_obj.cpp; PINNED 1000f350/37.
+static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst)
+{
+    do
+    {
+        dst[0] = src[0];
+        dst[1] = src[1];
+        dst[2] = src[2];
+        dst[3] = 0xff;
+        dst += 4;
+        src += 3;
+        --count;
+    } while (count);
+}
+
 void Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader,
     const byte *data, D3DFORMAT format, int bytesPerPixel)
 {
@@ -255,18 +270,7 @@ void Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader,
         {
             if (format == D3DFMT_X8R8G8B8)
             {
-                int count = width * height;
-                byte *dst = expandedData;
-                const byte *src = data;
-                do
-                {
-                    dst[0] = src[0];
-                    dst[1] = src[1];
-                    dst[2] = src[2];
-                    dst[3] = 255;
-                    dst += 4;
-                    src += 3;
-                } while (--count);
+                Image_ExpandBgr(data, width * height, expandedData);
                 Image_UploadData(image, D3DFMT_X8R8G8B8, (D3DCUBEMAP_FACES)face,
                     mipLevel - image->picmip.platform[0], expandedData);
             }

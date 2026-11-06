@@ -867,6 +867,12 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
+"?Image_ExpandBgr@@YAXPBEIPAE@Z": {
+"t": "0x1000f350",
+"n": 37,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
 "?Image_LoadBitmap@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z": {
 "t": "0x1000f5a0",
 "n": 527,

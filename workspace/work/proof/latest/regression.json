@@ -1,8 +1,8 @@
 {
-  "functions": 775,
-  "bytes": 129487,
+  "functions": 776,
+  "bytes": 129524,
   "total": 253580,
-  "percent": 51.06356968215159,
+  "percent": 51.07816073822857,
   "baseline_lost": [],
   "gains": [
     {
@@ -477,6 +477,12 @@
       "target": "0x1000f320",
       "bytes": 47,
       "name": "?Image_CountMipmapsForFile@@YAIPBUGfxImageFileHeader@@@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
+      "target": "0x1000f350",
+      "bytes": 37,
+      "name": "?Image_ExpandBgr@@YAXPBEIPAE@Z",
       "object": "r_image_load_obj.obj"
     },
     {
