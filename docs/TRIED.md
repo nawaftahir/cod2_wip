@@ -4142,3 +4142,6 @@ inlined asm floor helper (fld x; fsub (0.5-2^-30); fistp), origin - (-131072.0f)
 scalar cellX/Y/Z (frame 0x40 now matches). Kept in workspace src as closer source.
 Residual: retail keeps sampleOrigin in ebp and loads r_showLightGrid enabled into bl;
 ours uses ebx and cmp mem. Non-const bias and a local bool for the dvar: no change.
+RB_TessSunBillboard 544/544 (lead): retail frame 0x64 vs ours 0x50, retail saves only
+esi/edi and spills offsets; sum term order is canonicalized by the compiler (swapping
+the first two source terms emits the same code). Restored.
