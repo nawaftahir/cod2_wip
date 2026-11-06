@@ -166,8 +166,8 @@ groupvoice/play_dsound.cpp
 oc/groupvoice/record.cpp
 groupvoice/record_dsound.cpp
 punkbuster/pbcl.cpp
-punkbuster/pbsv.cpp
 punkbuster/pbmd5.cpp
+punkbuster/pbsv.cpp
 oc/cgame_mp/cg_rumble_mp.cpp
 oc/cgame_mp/cg_main_mp.cpp
 oc/cgame_mp/cg_devgui.cpp
