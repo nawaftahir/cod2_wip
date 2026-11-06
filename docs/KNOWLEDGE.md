@@ -141,3 +141,7 @@ mov [s_vc_logCount],ecx; RB_Set2D valid[1..3] via cx/cl); ours emits immediate
 stores with the same source order. Same compiler build, so a per-TU/per-function
 codegen context difference (size-favoring or TU context), not statement order.
 Do not spend worker probes on this class; test once TU set reaches Rich (100,3077)=121.
+SUPPORTED (s4 R_DownsamplePixelData + lead 2026-11-06): LTCG picks register vs stack
+argument passing from the CALLEE body. Callers whose only diff is arg in eax/edx vs
+pushed (R_AddRefEntityToScene -> R_CopyRefEntityToScene, R_CullSceneEntities ->
+R_CullModelEntity, R_ResampleImage) are fixed by matching the callee first.

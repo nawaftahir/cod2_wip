@@ -1,24 +1,24 @@
  gfx
 
- Timestamp is 6aedd65d (Fri Nov 06 13:30:05 2026)
+ Timestamp is 6aedd826 (Fri Nov 06 13:37:42 2026)
 
  Preferred load address is 10000000
 
  Start         Length     Name                   Class
  0001:00000000 00106270H .text                   CODE
  0002:00000000 000001f8H .idata$5                DATA
- 0002:00000200 00092508H .rdata                  DATA
- 0002:00092708 00000047H .rdata$debug            DATA
- 0002:00092750 00000008H .rdata$sxdata           DATA
- 0002:00092758 00000004H .rtc$IAA                DATA
- 0002:0009275c 00000004H .rtc$IZZ                DATA
- 0002:00092760 00000004H .rtc$TAA                DATA
- 0002:00092764 00000004H .rtc$TZZ                DATA
- 0002:00092768 00000078H .idata$2                DATA
- 0002:000927e0 00000014H .idata$3                DATA
- 0002:000927f4 000001f8H .idata$4                DATA
- 0002:000929ec 000008c4H .idata$6                DATA
- 0002:000932b0 00000044H .edata                  DATA
+ 0002:00000200 000924f8H .rdata                  DATA
+ 0002:000926f8 00000047H .rdata$debug            DATA
+ 0002:00092740 00000008H .rdata$sxdata           DATA
+ 0002:00092748 00000004H .rtc$IAA                DATA
+ 0002:0009274c 00000004H .rtc$IZZ                DATA
+ 0002:00092750 00000004H .rtc$TAA                DATA
+ 0002:00092754 00000004H .rtc$TZZ                DATA
+ 0002:00092758 00000078H .idata$2                DATA
+ 0002:000927d0 00000014H .idata$3                DATA
+ 0002:000927e4 000001f8H .idata$4                DATA
+ 0002:000929dc 000008c4H .idata$6                DATA
+ 0002:000932a0 00000044H .edata                  DATA
  0003:00000000 00000004H .CRT$XCA                DATA
  0003:00000004 00000004H .CRT$XCAA               DATA
  0003:00000008 00000004H .CRT$XCZ                DATA
@@ -1626,16 +1626,16 @@
  0001:0007d71b       ?Init@CBufferA16@D3DXCore@@UAEJK@Z 1007e71b f   d3dx9:cbuffer.obj
  0001:0007d751       ?Init@CStringBuffer@D3DXCore@@UAEJK@Z 1007e751 f   d3dx9:cbuffer.obj
  0001:0007d77a       ?AddString@CStringBuffer@D3DXCore@@UAEJPAD@Z 1007e77a f   d3dx9:cbuffer.obj
- 0001:0007d889       ??_GCBuffer@D3DXCore@@UAEPAXI@Z 1007e889 f i d3dx9:cbuffer.obj
  0001:0007d889       ??_ECBuffer@D3DXCore@@UAEPAXI@Z 1007e889 f i d3dx9:cbuffer.obj
+ 0001:0007d889       ??_GCBuffer@D3DXCore@@UAEPAXI@Z 1007e889 f i d3dx9:cbuffer.obj
  0001:0007d8aa       ??0ID3DXBuffer@@QAE@XZ     1007e8aa f i d3dx9:cbuffer.obj
  0001:0007d8ad       ?QueryInterface@CBuffer@D3DXCore@@UAGJABU_GUID@@PAPAX@Z 1007e8ad f   d3dx9:cbuffer.obj
  0001:0007d8f6       ??0CBuffer@D3DXCore@@QAE@XZ 1007e8f6 f   d3dx9:cbuffer.obj
  0001:0007d90e       ?Create@CBuffer@D3DXCore@@SGJKPAPAV12@@Z 1007e90e f   d3dx9:cbuffer.obj
  0001:0007d970       ??0CBufferA16@D3DXCore@@QAE@XZ 1007e970 f i d3dx9:cbuffer.obj
  0001:0007d97e       ??0CStringBuffer@D3DXCore@@QAE@XZ 1007e97e f   d3dx9:cbuffer.obj
- 0001:0007d994       ??_GCStringBuffer@D3DXCore@@UAEPAXI@Z 1007e994 f i d3dx9:cbuffer.obj
  0001:0007d994       ??_ECStringBuffer@D3DXCore@@UAEPAXI@Z 1007e994 f i d3dx9:cbuffer.obj
+ 0001:0007d994       ??_GCStringBuffer@D3DXCore@@UAEPAXI@Z 1007e994 f i d3dx9:cbuffer.obj
  0001:0007d9b5       ?Create@CStringBuffer@D3DXCore@@SGJKPAPAV12@@Z 1007e9b5 f   d3dx9:cbuffer.obj
  0001:0007da17       _D3DXCreateBuffer@8        1007ea17 f   d3dx9:cbuffer.obj
  0001:0007da22       ?Create@CBufferA16@D3DXCore@@SGJKPAPAV12@@Z 1007ea22 f   d3dx9:cbuffer.obj
@@ -1853,8 +1853,8 @@
  0001:00081ef9       ??1CBaseProgram@D3DXShader@@UAE@XZ 10082ef9 f   d3dx9:cbaseprogram.obj
  0001:00081f90       ?Initialize@CBaseProgram@D3DXShader@@QAEJPAV12@@Z 10082f90 f   d3dx9:cbaseprogram.obj
  0001:00082062       ?CreateArgumentErrorString@CBaseProgram@D3DXShader@@IAEJPAVCArgument@2@PADH@Z 10083062 f   d3dx9:cbaseprogram.obj
- 0001:000820b8       ??_GCBaseProgram@D3DXShader@@UAEPAXI@Z 100830b8 f i d3dx9:cbaseprogram.obj
  0001:000820b8       ??_ECBaseProgram@D3DXShader@@UAEPAXI@Z 100830b8 f i d3dx9:cbaseprogram.obj
+ 0001:000820b8       ??_GCBaseProgram@D3DXShader@@UAEPAXI@Z 100830b8 f i d3dx9:cbaseprogram.obj
  0001:00082510       ?HeapSort@D3DXShader@@YGXP6GHIIPBX@ZPAII0@Z 10083510 f   d3dx9:cprogram.obj
  0001:00082627       ??0CProgram@D3DXShader@@QAE@XZ 10083627 f   d3dx9:cprogram.obj
  0001:000826cd       ??1CProgram@D3DXShader@@UAE@XZ 100836cd f   d3dx9:cprogram.obj
@@ -1880,8 +1880,8 @@
  0001:000828f8       ??0CTransform@D3DXShader@@QAE@PAVCProgram@1@@Z 100838f8 f i d3dx9:cprogram.obj
  0001:0008290f       ??1CTransform@D3DXShader@@UAE@XZ 1008390f f i d3dx9:cprogram.obj
  0001:00082916       ?Apply@CTransform@D3DXShader@@UAEJXZ 10083916 f i d3dx9:cprogram.obj
- 0001:0008291c       ??_ECTransform@D3DXShader@@UAEPAXI@Z 1008391c f i d3dx9:cprogram.obj
  0001:0008291c       ??_GCTransform@D3DXShader@@UAEPAXI@Z 1008391c f i d3dx9:cprogram.obj
+ 0001:0008291c       ??_ECTransform@D3DXShader@@UAEPAXI@Z 1008391c f i d3dx9:cprogram.obj
  0001:0008293e       ??0CTReorderInstructions@D3DXShader@@QAE@PAVCProgram@1@@Z 1008393e f i d3dx9:cprogram.obj
  0001:00082955       ??1CTReorderInstructions@D3DXShader@@UAE@XZ 10083955 f i d3dx9:cprogram.obj
  0001:0008295c       ?SimplifyPredicates_IsEqual@CProgram@D3DXShader@@AAEHII@Z 1008395c f   d3dx9:cprogram.obj
@@ -1938,8 +1938,8 @@
  0001:00086c13       ?GetArgumentName@CProgram@D3DXShader@@MAEXPAVCArgument@2@PADI@Z 10087c13 f   d3dx9:cprogram.obj
  0001:00086ca5       ?Error@CProgram@D3DXShader@@IAAJPAVCNode@2@IPBDZZ 10087ca5 f   d3dx9:cprogram.obj
  0001:00086d2a       ?Warning@CProgram@D3DXShader@@IAAJPAVCNode@2@IPBDZZ 10087d2a f   d3dx9:cprogram.obj
- 0001:00086f6e       ??_GCProgram@D3DXShader@@UAEPAXI@Z 10087f6e f i d3dx9:cprogram.obj
  0001:00086f6e       ??_ECProgram@D3DXShader@@UAEPAXI@Z 10087f6e f i d3dx9:cprogram.obj
+ 0001:00086f6e       ??_GCProgram@D3DXShader@@UAEPAXI@Z 10087f6e f i d3dx9:cprogram.obj
  0001:00086f8f       ?Initialize@CProgram@D3DXShader@@QAEJPAVCNode@2@PAVCTErrors@2@KK@Z 10087f8f f   d3dx9:cprogram.obj
  0001:000871c4       ?Initialize@CProgram@D3DXShader@@QAEJPAV12@KK@Z 100881c4 f   d3dx9:cprogram.obj
  0001:0008730d       ?Validate@CProgram@D3DXShader@@IAEJXZ 1008830d f   d3dx9:cprogram.obj
@@ -2190,8 +2190,8 @@
  0001:000ad71e       ?MatchPhase1@CPSLegacyProgram@D3DXShader@@IAEJXZ 100ae71e f   d3dx9:cpslegacyprogram.obj
  0001:000ad968       ?EmitPhase@CPSLegacyProgram@D3DXShader@@IAEJPAPAVCInstruction@2@I@Z 100ae968 f   d3dx9:cpslegacyprogram.obj
  0001:000adccb       ?EmitInstructions@CPSLegacyProgram@D3DXShader@@MAEJXZ 100aeccb f   d3dx9:cpslegacyprogram.obj
- 0001:000add38       ??_GCPSLegacyProgram@D3DXShader@@UAEPAXI@Z 100aed38 f i d3dx9:cpslegacyprogram.obj
  0001:000add38       ??_ECPSLegacyProgram@D3DXShader@@UAEPAXI@Z 100aed38 f i d3dx9:cpslegacyprogram.obj
+ 0001:000add38       ??_GCPSLegacyProgram@D3DXShader@@UAEPAXI@Z 100aed38 f i d3dx9:cpslegacyprogram.obj
  0001:000add59       ?PatternMatch@CPSLegacyProgram@D3DXShader@@MAEJXZ 100aed59 f   d3dx9:cpslegacyprogram.obj
  0001:000ae7fc       ??0CPSProgram@D3DXShader@@QAE@H@Z 100af7fc f   d3dx9:cpsprogram.obj
  0001:000ae83a       ??1CPSProgram@D3DXShader@@UAE@XZ 100af83a f   d3dx9:cpsprogram.obj
@@ -2242,8 +2242,8 @@
  0001:000b2dfb       ?VSEmitLOG@CVSProgram@D3DXShader@@IAEJXZ 100b3dfb f   d3dx9:cvsprogram.obj
  0001:000b3005       ?EmitAddress@CVSProgram@D3DXShader@@IAEJI@Z 100b4005 f   d3dx9:cvsprogram.obj
  0001:000b3108       ?EmitSrc@CVSProgram@D3DXShader@@MAEJKKK@Z 100b4108 f   d3dx9:cvsprogram.obj
- 0001:000b31a4       ??_ECVSProgram@D3DXShader@@UAEPAXI@Z 100b41a4 f i d3dx9:cvsprogram.obj
  0001:000b31a4       ??_GCVSProgram@D3DXShader@@UAEPAXI@Z 100b41a4 f i d3dx9:cvsprogram.obj
+ 0001:000b31a4       ??_ECVSProgram@D3DXShader@@UAEPAXI@Z 100b41a4 f i d3dx9:cvsprogram.obj
  0001:000b31cb       ?VSMatchDST@CVSProgram@D3DXShader@@IAEJXZ 100b41cb f   d3dx9:cvsprogram.obj
  0001:000b384d       ?PatternMatch@CVSProgram@D3DXShader@@MAEJXZ 100b484d f   d3dx9:cvsprogram.obj
  0001:000b3ac8       ?ViolatesPortConstraints@CVSProgram@D3DXShader@@MAEHPAVCInstruction@2@PAI@Z 100b4ac8 f   d3dx9:cvsprogram.obj
@@ -2257,8 +2257,8 @@
  0001:000b425d       ?EmitPool@CFXLProgram@D3DXShader@@QAEJPAVCArgument@2@@Z 100b525d f   d3dx9:cfxlprogram.obj
  0001:000b431e       ?EmitDouble@CFXLProgram@D3DXShader@@QAEJN@Z 100b531e f   d3dx9:cfxlprogram.obj
  0001:000b4356       ?IndexSemantic@CFXLProgram@D3DXShader@@UAEJPAVCArgument@2@H@Z 100b5356 f   d3dx9:cfxlprogram.obj
- 0001:000b4527       ??_GCFXLProgram@D3DXShader@@UAEPAXI@Z 100b5527 f i d3dx9:cfxlprogram.obj
  0001:000b4527       ??_ECFXLProgram@D3DXShader@@UAEPAXI@Z 100b5527 f i d3dx9:cfxlprogram.obj
+ 0001:000b4527       ??_GCFXLProgram@D3DXShader@@UAEPAXI@Z 100b5527 f i d3dx9:cfxlprogram.obj
  0001:000b454e       ?EmitAddress@CFXLProgram@D3DXShader@@QAEJIK@Z 100b554e f   d3dx9:cfxlprogram.obj
  0001:000b45b5       ?GenerateCode@CFXLProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z 100b55b5 f   d3dx9:cfxlprogram.obj
  0001:000b5367       ?MakeSemantic@CShaderProgram@D3DXShader@@MAEKKK@Z 100b6367 f   d3dx9:cshaderprogram.obj
@@ -2382,8 +2382,8 @@
  0001:000c3882       ?EmitSymbolTable@CShaderProgram@D3DXShader@@IAEJXZ 100c4882 f   d3dx9:cshaderprogram.obj
  0001:000c41ec       ?EmitDebugInfo@CShaderProgram@D3DXShader@@IAEJXZ 100c51ec f   d3dx9:cshaderprogram.obj
  0001:000c4870       ?FindSemantic@CShaderProgram@D3DXShader@@IAEPAUD3DX_SEMANTIC@2@K@Z 100c5870 f   d3dx9:cshaderprogram.obj
- 0001:000c48bf       ??_GCShaderProgram@D3DXShader@@UAEPAXI@Z 100c58bf f i d3dx9:cshaderprogram.obj
  0001:000c48bf       ??_ECShaderProgram@D3DXShader@@UAEPAXI@Z 100c58bf f i d3dx9:cshaderprogram.obj
+ 0001:000c48bf       ??_GCShaderProgram@D3DXShader@@UAEPAXI@Z 100c58bf f i d3dx9:cshaderprogram.obj
  0001:000c48e0       ?GenerateCode@CShaderProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z 100c58e0 f   d3dx9:cshaderprogram.obj
  0001:000c54a1       ?EmitInst@CShaderProgram@D3DXShader@@IAEJK@Z 100c64a1 f   d3dx9:cshaderprogram.obj
  0001:000c55a7       ?EmitReg@CShaderProgram@D3DXShader@@IAEJK@Z 100c65a7 f   d3dx9:cshaderprogram.obj
@@ -15233,24 +15233,23 @@
  0002:00091d84       __real@3f7d70a4            10199d84     rb_sky.obj
  0002:00091d88       __real@3aabd8fb            10199d88     rb_sky.obj
  0002:00091d90       __real@3f91111111111111    10199d90     rb_backend.obj
- 0002:00091d98       __real@3fefae1480000000    10199d98     rb_backend.obj
- 0002:00091da0       __real@3f847ae140000000    10199da0     rb_backend.obj
- 0002:00091da8       __real@be000000            10199da8     r_dpvs.obj
- 0002:00091dac       __real@3c888889            10199dac     rb_backend.obj
- 0002:00091db0       __real@3f4ccccd            10199db0     r_font.obj
- 0002:000926c0       __load_config_used         1019a6c0     LIBCMT:loadcfg.obj
- 0002:00092750       ___safe_se_handler_table   1019a750     <linker-defined>
- 0002:00092758       ___rtc_iaa                 1019a758     LIBCMT:initsect.obj
- 0002:0009275c       ___rtc_izz                 1019a75c     LIBCMT:initsect.obj
- 0002:00092760       ___rtc_taa                 1019a760     LIBCMT:initsect.obj
- 0002:00092764       ___rtc_tzz                 1019a764     LIBCMT:initsect.obj
- 0002:00092768       __IMPORT_DESCRIPTOR_d3d9   1019a768     d3d9:d3d9.dll
- 0002:0009277c       __IMPORT_DESCRIPTOR_USER32 1019a77c     user32:USER32.dll
- 0002:00092790       __IMPORT_DESCRIPTOR_GDI32  1019a790     gdi32:GDI32.dll
- 0002:000927a4       __IMPORT_DESCRIPTOR_ADVAPI32 1019a7a4     advapi32:ADVAPI32.dll
- 0002:000927b8       __IMPORT_DESCRIPTOR_DDRAW  1019a7b8     ddraw:DDRAW.dll
- 0002:000927cc       __IMPORT_DESCRIPTOR_KERNEL32 1019a7cc     kernel32:KERNEL32.dll
- 0002:000927e0       __NULL_IMPORT_DESCRIPTOR   1019a7e0     d3d9:d3d9.dll
+ 0002:00091d98       __real@3f847ae140000000    10199d98     rb_backend.obj
+ 0002:00091da0       __real@be000000            10199da0     r_dpvs.obj
+ 0002:00091da4       __real@3c888889            10199da4     rb_backend.obj
+ 0002:00091da8       __real@3f4ccccd            10199da8     r_font.obj
+ 0002:000926b0       __load_config_used         1019a6b0     LIBCMT:loadcfg.obj
+ 0002:00092740       ___safe_se_handler_table   1019a740     <linker-defined>
+ 0002:00092748       ___rtc_iaa                 1019a748     LIBCMT:initsect.obj
+ 0002:0009274c       ___rtc_izz                 1019a74c     LIBCMT:initsect.obj
+ 0002:00092750       ___rtc_taa                 1019a750     LIBCMT:initsect.obj
+ 0002:00092754       ___rtc_tzz                 1019a754     LIBCMT:initsect.obj
+ 0002:00092758       __IMPORT_DESCRIPTOR_d3d9   1019a758     d3d9:d3d9.dll
+ 0002:0009276c       __IMPORT_DESCRIPTOR_USER32 1019a76c     user32:USER32.dll
+ 0002:00092780       __IMPORT_DESCRIPTOR_GDI32  1019a780     gdi32:GDI32.dll
+ 0002:00092794       __IMPORT_DESCRIPTOR_ADVAPI32 1019a794     advapi32:ADVAPI32.dll
+ 0002:000927a8       __IMPORT_DESCRIPTOR_DDRAW  1019a7a8     ddraw:DDRAW.dll
+ 0002:000927bc       __IMPORT_DESCRIPTOR_KERNEL32 1019a7bc     kernel32:KERNEL32.dll
+ 0002:000927d0       __NULL_IMPORT_DESCRIPTOR   1019a7d0     d3d9:d3d9.dll
  0003:00000000       ___xc_a                    1019c000     LIBCMT:crt0init.obj
  0003:00000008       ___xc_z                    1019c008     LIBCMT:crt0init.obj
  0003:0000000c       ___xi_a                    1019c00c     LIBCMT:crt0init.obj

@@ -4155,3 +4155,4 @@ add esp/fmul scheduling swap remains. Kept closer source.
 rb_tess entity color (6 fns): retail builds GfxColor bytes [2]=RGBA0,[1]=RGBA1,[0]=RGBA2,
 [3]=RGBA3 on the stack; applied to all six (RB_TessRailCore 59 -> 42 diffs). RailCore
 residual: retail keeps endpos/origin pointers in ebx/esi; VectorSubtract form is worse (176 B).
+RB_BlendSavedScreenCmd MATCHED (lead): alpha is float (float)pow(...); R_CullSceneEntities uses type <= 1 (callee convention residual).

@@ -1054,7 +1054,7 @@ static void RB_BlendSavedScreenCmd(GfxRenderCommandExecState *state)
     int elapsed = (int)((unsigned int)backEnd.sceneDef.time - (unsigned int)rgp.savedScreenTime);
     if (elapsed >= 0 && elapsed < cmd->fadeMsec)
     {
-        double alpha = pow((double)0.01f, (double)elapsed / cmd->fadeMsec);
+        float alpha = (float)pow((double)0.01f, (double)elapsed / cmd->fadeMsec);
         if (alpha > 0.99f)
             alpha = 0.99f;
         float scaled = (float)(alpha * 255.0f);

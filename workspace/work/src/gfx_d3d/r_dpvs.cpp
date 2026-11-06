@@ -1304,7 +1304,7 @@ static void R_CullSceneEntities(DpvsPlane *planes, int planeCount)
     for (int i = 0; i < count; ++i)
     {
         refEntityType_t type = scene.def.entities[i].reType;
-        if (type < 2)
+        if (type <= 1)
             R_CullModelEntity(i, planes, planeCount);
         else if (type == 3)
             R_CullBrushEntity(i, planes, planeCount);

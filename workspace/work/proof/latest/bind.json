@@ -3471,6 +3471,14 @@
 "call ?RB_BlurShadowCookiePass@@YAXMM@Z"
 ]
 },
+"?RB_BlendSavedScreenCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
+"t": "0x10030cd0",
+"n": 257,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_Set2D@@YAXXZ"
+]
+},
 "?RB_DrawTriangles@@YAXPBUMaterial@@HFPBGFPAY03$$CBMPAY02$$CBMPBIPAY01$$CBM@Z": {
 "t": "0x10031d20",
 "n": 361,

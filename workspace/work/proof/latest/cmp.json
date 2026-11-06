@@ -6987,7 +6987,9 @@
 "name": "?RB_BlendSavedScreenCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
 "obj": "rb_backend.obj",
 "size": 257,
-"hits": []
+"hits": [
+"0x10030cd0"
+]
 },
 {
 "name": "?RB_StencilPlanesCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
