@@ -4160,3 +4160,4 @@ RB_Set2D 864/847: memset(&valid[1],0,3) adds a lea pointer temp (864); chained v
 R_SkinGfxEntityCmd 10020ce0/12: ours inlines R_SkinGfxEntity (80 B) cross-TU; moving the wrapper to r_scene and __declspec(noinline) on the callee both keep 80 B. Retail calls it with the entity in edi. Inlining-decision class; restored.
 Image_ExpandBgr 1000f350/37 MATCHED (new source): retail keeps the BGR->BGRA loop as its own helper (KisakCOD name); Image_LoadBitmap calls it.
 RB_BenchmarkSeconds 10033090/48 MATCHED: parameter order is (start, end).
+Image_Load 10010ab0/43 MATCHED (new source, Mac name): $-builtin or alloc+load-from-file; Image_Register inlines the same logic in retail too.

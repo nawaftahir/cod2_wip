@@ -1974,6 +1974,14 @@
 ]
 },
 {
+"name": "?Image_Load@@YAPAUGfxImage@@PBDHH@Z",
+"obj": "r_image_load_obj.obj",
+"size": 43,
+"hits": [
+"0x10010ab0"
+]
+},
+{
 "name": "?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z",
 "obj": "r_image_load_obj.obj",
 "size": 74,

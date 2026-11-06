@@ -935,6 +935,14 @@
 "call ?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z"
 ]
 },
+"?Image_Load@@YAPAUGfxImage@@PBDHH@Z": {
+"t": "0x10010ab0",
+"n": 43,
+"obj": "r_image_load_obj.obj",
+"why": [
+"call ?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHH@Z"
+]
+},
 "?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
 "t": "0x1000d0f0",
 "n": 74,

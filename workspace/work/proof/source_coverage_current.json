@@ -343,7 +343,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "dc5c04d0e77493bd10c1dfade165bfc39ba9fae6d01fc73ded3d17d17cd17f77",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "c9ff1af81a765583cb8dde5a0f325fcc99e38bdbe1867ac59649179681a40902",
+  "bind_sha256": "07e4ec536cfda6ecce8a9ba0d50496af30753971ff5c2de4afedd151943fb6e0",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -422,7 +422,7 @@
     "gfx_d3d/r_font.h": "8ecc1feaed3ffbfe659fdedce70ebbc50d405917cb550e00ace1344f5cb49e19",
     "gfx_d3d/r_refapi.h": "c4785fadac5897e34089812c0fda3b4ddfd0966c65a428c42628f25e2fd2c8d8",
     "gfx_d3d/r_water.cpp": "a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b",
-    "gfx_d3d/r_image_load_obj.cpp": "c2b4d57d5bc0c83d4e032ade63d6b243692fc1a3872448e052badfda78b5bc7e",
+    "gfx_d3d/r_image_load_obj.cpp": "ee4412ff7722527f023904ae80ea66d7dad1eaca6df7b83e0dcdaa6f6879c115",
     "gfx_d3d/r_shadowcookie.cpp": "8a68a0df1ef77b5c62938d21e5350558a8592625fbf1b55697bc6cff0b3b970e",
     "gfx_d3d/r_bsp_load_obj.cpp": "2818dade50d86fb394d3dc45eee9a0cb130e7914ba777ea4e92961026e2846f3",
     "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",

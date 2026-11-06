@@ -565,6 +565,16 @@ GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack)
     return 0;
 }
 
+
+// SUPPORTED name: Mac r_image_load_obj.c; PINNED 10010ab0/43.
+GfxImage *Image_Load(const char *name, int semantic, int imageTrack)
+{
+    if (name[0] == '$')
+        return Image_LoadBuiltin(name, semantic, imageTrack);
+    GfxImage *image = Image_Alloc(name, 3, semantic, imageTrack);
+    return Image_LoadFromFile(image) ? image : 0;
+}
+
 // PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
 void Image_BuildWaterMap(GfxImage *image)
 {
