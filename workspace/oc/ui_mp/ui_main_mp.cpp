@@ -56,7 +56,7 @@ extern const dvar_t *cl_voice;
 extern const dvar_t *com_playerProfile;
 extern dvar_t *sv_voice;
 
-extern serverStatusDvar_t serverStatusDvars[23];
+extern serverStatusDvar_t serverStatusDvars[24];
 extern qboolean Menus_OpenByName(displayContextDef_t *dc, const char *name);
 extern void Menus_CloseAll(displayContextDef_t *dc);
 extern qboolean Menus_AnyFullScreenVisible(displayContextDef_t *dc);
@@ -2434,7 +2434,7 @@ static void __attribute_regparm__(0) UI_BuildServerDisplayList(qboolean force)
     sharedUiInfo.serverStatus.refreshtime = uiInfo->uiDC.realTime;
 }
 
-static serverStatusDvar_t serverStatusDvars[23] = {
+static serverStatusDvar_t serverStatusDvars[24] = {
     { "sv_hostname", "@EXE_SV_INFO_SERVERNAME", (sscType_t)0x0 },
     { "address", "@EXE_SV_INFO_ADDRESS", (sscType_t)0x0 },
     { "pswrd", "@EXE_SV_INFO_PASSWORD", (sscType_t)0x1 },
@@ -2457,6 +2457,7 @@ static serverStatusDvar_t serverStatusDvars[23] = {
     { "scr_killcam", "@EXE_SV_INFO_KILLCAM", (sscType_t)0x1 },
     { "g_antilag", "@EXE_SV_INFO_ANTILAG", (sscType_t)0x1 },
     { "sv_voice", "@EXE_SV_INFO_VOICE", (sscType_t)0x1 },
+    { "sv_punkbuster", "@MPUI_PUNKBUSTER", (sscType_t)0x1 },
     { 0, 0, (sscType_t)0x0 }
 };
 

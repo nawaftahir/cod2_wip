@@ -218,3 +218,8 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 ## 10. libcmt member order (lc, PINNED 11-06)
 - CRT calls must be spelled as retail's callers do: `stricmp` / `strnicmp` / `itoa` (OLDNAMES aliases, resolved after libcmt is scanned) pull stricmp.obj, strnicmp.obj, _stricmp.obj, _strnicm.obj, xtoa.obj and ulldvrm.obj late, where retail has them. The underscore spellings (`_stricmp`, `_strnicmp`, `_itoa`) pull them first. Changed in pbsv, pbcl, cl_cgame_mp, cl_main_mp, cl_keys_mp: same-offset 1,604,300 -> 1,692,882 (.text 88.6%).
 - Left: tolower/toupper/ieee87/strncpy order (retail strncpy before toupper, ieee87 after; ~1.6 KB).
+
+## 11. rdata/data completion (rd, PINNED 11-06)
+- getUpdateInfo2 sends version "1.3" (0x5a1d44), not "1.0": the stray "1.0" took the pooled slot that belongs to dl_main's HTProfile_newNoCacheClient string and shifted 99 KB of .rdata.
+- serverStatusDvars has 24 rows: `{ "sv_punkbuster", "@MPUI_PUNKBUSTER", 1 }` follows sv_voice (retail table at 0x5dcc58).
+- Result: .rdata 99.86%, .data 99.92% same-offset; same-offset 1,692,882 -> 1,790,588. .text (89.1%) is what is left: the PbSv stubs / CG_DrawScoreboard_Objective / CG_EntityEvent trio (146 KB) and the tolower/toupper/strncpy/ieee87 member order (1.6 KB).

@@ -1051,7 +1051,7 @@ void CL_CheckAutoUpdate(void)
                     BigShort(cls.autoupdateServer.port));
 
         NET_OutOfBandPrint(NS_CLIENT1, cls.autoupdateServer,
-                           va("getUpdateInfo2 \"%s\" \"%s\" \"%s\"\n", "CoD2 MP", "1.0", "win-x86"));
+                           va("getUpdateInfo2 \"%s\" \"%s\" \"%s\"\n", "CoD2 MP", "1.3", "win-x86"));
     }
 
     autoupdateChecked = 1;
