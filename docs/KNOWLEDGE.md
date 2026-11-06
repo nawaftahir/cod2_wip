@@ -229,3 +229,4 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - CG_DrawScoreboard_Objective (1552 B, slot fits): Asian loop `while (textEnd && textStart && *textStart)`, one `next` var reused for the peek read, shared `resetLen` label, wrap tails written out at their two sites.
 - CG_EntityEvent (4364 B, slot fits): `goto setLandChange` from the 93..115 block into the 116..138 block, and `break` (inside `do if (..) {..} while (0);`) at the end of every if-block 1..23, 24..46, 47..69, 70..92, 116..138; this keeps MSVC from cross-jumping the per-branch isFirstPerson re-tests.
 - Result: same-offset 1,790,588 -> 1,911,541 (97.0%).
+- CAVEAT for section 12: the CG_EntityEvent `break` blocks are a size shim (fall through to the switch default). With the correct else-if chain the function is 4284 B and CheckEvents/CheckPlayerstateEvents stay matched. Do not copy the shim pattern to other functions.

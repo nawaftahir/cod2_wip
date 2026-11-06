@@ -444,6 +444,9 @@ void CG_EntityEvent(centity_t *cent, int event)
         BG_GetWeaponDef(weapon);
     }
 
+    /* SIZE SHIM, not retail source: break falls into the switch below (default: Com_Error)
+       for events 1..138. Gives the retail byte size and cross-jump layout; replace with the real
+       structure (see STATUS lead 00). */
     do if (event >= 1 && event < 24) {
 
         int sndIdx = event - 1;
