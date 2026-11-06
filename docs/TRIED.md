@@ -3932,3 +3932,9 @@ Diff: retail +0x292 start-transform sums p0*m0 + p2*m2 + p1*m1. Probes: (1) stat
 R_WatersEquivalent240B (w6): retail squares mag0 (ecx pair) before mag1 (edx pair) and keeps dot on the FP stack; ours squares mag1 first. 3 probes, all 240B same bytes as before: (1) mag0/mag1 computed before dot, (2) I_sqrt(mag1Sq*mag0Sq), (3) inline Vec2Multiply(w0)*Vec2Multiply(w1), locals removed. Compiler picks the order regardless of source order.
 ## RB_GetGlowRadii (100305d0), w7
 Tail differs: retail je X; return 0; X: swap; return 1. Ours jne X; swap; return 1; X: return 0 (size 212 both). Tried, codegen unchanged each time (return-0 stays last): (1) if(!(cond)) return 0; swap; return 1; (2) if(r1==0 || (r0!=0 && r0<=r1)) return 0; swap; return 1; (3) two early-return ifs. Untried: int result var, ternary.
+### RB_DrawRawSurface channel swizzle (w8, 1002f110) - 2026-11-06
+Retail: loads [1],[3],[2] (spill [1]), then [0] at store; stores out2,out1,out0,out3. Same size 331 in every probe.
+1. g,a,b temps, out[2]=data[0] direct: loads 2,1,3, stores 1,2,0,3. No match.
+2. r,g,b,a temps in order, stores 2,1,0,3: loads 3,1,2, stores 1,2,0,3. No match.
+3. g,a,b,r temps, stores 1,2,0,3: loads 0,3,2 then [1] late, stores 1,2,0,3. No match.
+Next idea: not decl/store order; try pointer-offset or struct/uint32 channel form.
