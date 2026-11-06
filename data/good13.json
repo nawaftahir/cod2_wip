@@ -3674,8 +3674,9 @@
 "name": "?CL_InitRef@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 1831,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x40fc10"
+]
 },
 {
 "name": "?CL_startSingleplayer_f@@YAXXZ",
@@ -53675,8 +53676,9 @@
 "name": "?UI_Init@@YAXXZ",
 "obj": "ui_main_mp.obj",
 "size": 976,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x537fb0"
+]
 },
 {
 "name": "?UI_KeyEvent@@YAXHH@Z",
@@ -54586,9 +54588,10 @@
 {
 "name": "?Item_YesNo_HandleKey@@YAHPAUdisplayContextDef_s@@PAUitemDef_s@@H@Z",
 "obj": "ui_shared_mp.obj",
-"size": 184,
-"hits": [],
-"reason": "no masked match"
+"size": 181,
+"hits": [
+"0x53cfd0"
+]
 },
 {
 "name": "?Item_Multi_CountSettings@@YAHPAUitemDef_s@@@Z",

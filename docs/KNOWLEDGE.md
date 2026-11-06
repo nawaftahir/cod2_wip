@@ -206,3 +206,5 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Where drift is 0 (401000-41d6c0, 4b52f0-4b5f90, 511850-57a640) a function whose size stays inside its 16 B slot can be fixed with no side effect:
   UI_RunMenuScript (JoinServer re-reads `sharedUiInfo.serverStatus.currentServer`, no cached local, 5035 B), PC_SourceError (`_vsnprintf(string, 4096, ..)`),
   HTAlertCallback_progress (`request->net` read twice, no HTRequest_net call). Find them with the unmatched-fn scan: same address, same slot, bytes differ.
+- 1.3 vs 1.0 constants found by byte diff in zero-drift fns: `GetRefAPI(0x3c)` (renderer API 60; 1.0 passes 0x3b), server-list default sort key 10 (not 9).
+  `strncpy(buf, f(x), N-1); buf[N-1] = 0` written as `I_strncpyz(buf, f(x), N)` matches when retail pushes the nested call before the length (args evaluated into the inlined body).

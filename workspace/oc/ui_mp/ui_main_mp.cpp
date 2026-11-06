@@ -3144,8 +3144,8 @@ void UI_Init(void)
 
     LAN_LoadCachedServers();
 
-    if (sharedUiInfo.serverStatus.sortKey != 9) {
-        sharedUiInfo.serverStatus.sortKey = 9;
+    if (sharedUiInfo.serverStatus.sortKey != 10) {
+        sharedUiInfo.serverStatus.sortKey = 10;
         qsort(sharedUiInfo.serverStatus.displayServers, sharedUiInfo.serverStatus.numDisplayServers, 4, UI_ServersQsortCompare);
     }
 

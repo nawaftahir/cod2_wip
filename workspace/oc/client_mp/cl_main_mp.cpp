@@ -2592,7 +2592,7 @@ void CL_InitRef(void)
         getRefAPI = Sys_LoadRenderer();
         if (!getRefAPI)
             Com_Error(ERR_FATAL, "Failed to load renderer.");
-        ret = getRefAPI(0x3b, &ri_local);
+        ret = getRefAPI(0x3c, &ri_local);
         Com_Printf("-------------------------------\n");
         if (!ret) {
             Sys_UnloadRenderer();
