@@ -4137,3 +4137,8 @@ RB_EndSurface MATCHED (2026-11-06): the technique null test lives inside the inl
 drawable helper, so every false exit merges and the clear block falls through.
 RB_DrawOptimizedTessSurface MATCHED: stream set and RB_DrawTechnique(1|3) are written
 per branch, stride computed before buffer. Both still wait on RB_DrawTechnique binding.
+RB_GetLightingAtPoint 784/784 (2026-11-06, lead): retail = 3 unrolled axes using an
+inlined asm floor helper (fld x; fsub (0.5-2^-30); fistp), origin - (-131072.0f), and
+scalar cellX/Y/Z (frame 0x40 now matches). Kept in workspace src as closer source.
+Residual: retail keeps sampleOrigin in ebp and loads r_showLightGrid enabled into bl;
+ours uses ebx and cmp mem. Non-const bias and a local bool for the dvar: no change.
