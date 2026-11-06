@@ -4133,3 +4133,7 @@ Target `VectorRotate` (retail `0x1005df90`, 273 bytes):
 - Probe 1: Baseline verified; calls CRT `sin`/`cos` via `com_math.h` `SinCos(double, double*, double*)`. Result: 255 bytes.
 - Probe 2: Attempted float arguments with `FastSinCos`; rejected by signature.
 Matching retail requires double inline assembly `__asm { fsincos }` in `SinCos`, which is forbidden by repository rules ("no inline asm/_emit/byte arrays/pragma hacks" and C/C++ game coverage excludes assembly-bearing functions). Source restored to clean baseline.
+RB_EndSurface MATCHED (2026-11-06): the technique null test lives inside the inlined
+drawable helper, so every false exit merges and the clear block falls through.
+RB_DrawOptimizedTessSurface MATCHED: stream set and RB_DrawTechnique(1|3) are written
+per branch, stride computed before buffer. Both still wait on RB_DrawTechnique binding.

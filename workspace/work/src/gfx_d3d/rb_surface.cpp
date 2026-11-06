@@ -53,25 +53,24 @@ void RB_DrawOptimizedTessSurface()
     args.primCount = tess.optimizedIndexCount / 3;
     args.firstVertexFromBase = 0;
     args.u.buf.baseIndex = RB_SetIndexData(tess.secondaryIndices, tess.optimizedIndexCount);
-    int declaration;
-    IDirect3DVertexBuffer9 *buffer;
-    int stride;
     if (tess.optimizedVertexSource == 1)
     {
-        buffer = ((const SurfacePermanentView *)&rgp)->world->vertexBuffer;
-        stride = r_rendererInUse->current.integer == 2 ? 32 : 68;
-        declaration = 1;
+        int stride = r_rendererInUse->current.integer == 2 ? 32 : 68;
+        IDirect3DVertexBuffer9 *buffer = ((const SurfacePermanentView *)&rgp)->world->vertexBuffer;
+        if (dxState.streams[0].vb != buffer || dxState.streams[0].offset != 0
+            || dxState.streams[0].stride != stride)
+            RB_ChangeStreamSource(0, buffer, 0, stride);
+        RB_DrawTechnique(1, &args);
     }
     else
     {
-        buffer = dx.smodelCacheVb;
-        stride = r_rendererInUse->current.integer == 2 ? 24 : 64;
-        declaration = 3;
+        int stride = r_rendererInUse->current.integer == 2 ? 24 : 64;
+        IDirect3DVertexBuffer9 *buffer = dx.smodelCacheVb;
+        if (dxState.streams[0].vb != buffer || dxState.streams[0].offset != 0
+            || dxState.streams[0].stride != stride)
+            RB_ChangeStreamSource(0, buffer, 0, stride);
+        RB_DrawTechnique(3, &args);
     }
-    if (dxState.streams[0].vb != buffer || dxState.streams[0].offset != 0
-        || dxState.streams[0].stride != stride)
-        RB_ChangeStreamSource(0, buffer, 0, stride);
-    RB_DrawTechnique(declaration, &args);
     tess.optimizedIndexCount = 0;
     tess.optimizedVertexSource = 0;
 }
@@ -101,6 +100,8 @@ void RB_DrawTessSurface()
 // Descriptive name; inlined into RB_EndSurface, no PC symbol.
 static bool RB_IsTechniqueDrawable(const SurfaceTechniqueView *technique)
 {
+    if (!technique)
+        return false;
     if (backEnd.viewportIsDirty)
         RB_UpdateViewport();
     if (dxState.viewportIsNull)
@@ -117,7 +118,7 @@ void RB_EndSurface()
 {
     const SurfaceTechniqueView *technique = ((const SurfaceMaterialView *)tess.material)
         ->techniqueSet->techniques[tess.techType];
-    if (!technique || !RB_IsTechniqueDrawable(technique))
+    if (!RB_IsTechniqueDrawable(technique))
     {
         tess.optimizedIndexCount = 0;
         tess.indexCount = 0;

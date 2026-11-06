@@ -6916,8 +6916,10 @@
 {
 "name": "?RB_BeginViewCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
 "obj": "rb_backend.obj",
-"size": 265,
-"hits": []
+"size": 274,
+"hits": [
+"0x100321f0"
+]
 },
 {
 "name": "?RB_TouchAllImagesCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
@@ -8398,8 +8400,10 @@
 {
 "name": "?RB_DrawOptimizedTessSurface@@YAXXZ",
 "obj": "rb_surface.obj",
-"size": 224,
-"hits": []
+"size": 273,
+"hits": [
+"0x1003a690"
+]
 },
 {
 "name": "?RB_DrawTessSurface@@YAXXZ",
@@ -8418,8 +8422,10 @@
 {
 "name": "?RB_EndSurface@@YAXXZ",
 "obj": "rb_surface.obj",
-"size": 206,
-"hits": []
+"size": 202,
+"hits": [
+"0x1003a8d0"
+]
 },
 {
 "name": "?RB_TessPoly@@YAXPBW4surfaceType_t@@@Z",
@@ -8444,7 +8450,7 @@
 {
 "name": "?RB_TessXModelRigid@@YAXPBW4surfaceType_t@@@Z",
 "obj": "rb_tess.obj",
-"size": 417,
+"size": 435,
 "hits": []
 },
 {

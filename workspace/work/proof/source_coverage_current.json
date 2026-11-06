@@ -335,7 +335,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "6a189c301024ad0f18a1885943217604af1b9419a78ef7143286e4315f763f9f",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "2b43fcf21e9dd3daaa7f3855f03abad762bd1b79f81520d030c5f1c8d4a6ea31",
+  "bind_sha256": "3b29dded60eebf3148d091ef7c795f607a7737bf813fe55f86b85031ffb5ca79",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -404,7 +404,7 @@
     "gfx_d3d/r_cmds.cpp": "c0500e921edb7ea725208b0f3b63cad7598a6845056c86e0a6ad306dd6b36e1f",
     "gfx_d3d/r_splitscreen.cpp": "96e3a9df5ac985ef1f0ff6f9c97b5d58ae526917885708722d444b8efefecf02",
     "gfx_d3d/r_rendertarget.cpp": "1fd39c9f42cb21f7d82c706ca5564d8f02acd52a47e5864d0158e3d2cbf2c2bb",
-    "gfx_d3d/rb_surface.cpp": "0861a1b6a50097ca0a747b3ff696ccad59aff6e48aca0ea78b5eddbd706b004d",
+    "gfx_d3d/rb_surface.cpp": "64c224b74c2c7dada76c913bc2e230fb70ee8d60f5cf6c6152e80760e8adc9e6",
     "gfx_d3d/rb_tess.cpp": "a49434087dd3a08ce5d84acd8ec35c47d04013a7b0469f61d024573bcd54852a",
     "gfx_d3d/rb_commands.h": "bdc35e0196f2b5c06ab147f3e94946689c3db407af08e1c36d0eeae559271e41",
     "gfx_d3d/r_local.h": "a0fed723210a12c8274e7708ab84d3807b51e5a35f88b62fe412926f0954fa03",

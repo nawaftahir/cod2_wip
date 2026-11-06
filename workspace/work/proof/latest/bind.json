@@ -3374,7 +3374,7 @@
 "n": 92,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_UpdateViewportConstants@@YAXXZ"
 ]
 },
 "?RB_StretchPicCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3406,7 +3406,15 @@
 "n": 230,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_ChangedWorldMatrix@@YAXM@Z"
+]
+},
+"?RB_BeginViewCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
+"t": "0x100321f0",
+"n": 274,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_UpdateViewportConstants@@YAXXZ"
 ]
 },
 "?RB_TouchAllImagesCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3460,7 +3468,7 @@
 "n": 113,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_BlurShadowCookiePass@@YAXMM@Z"
 ]
 },
 "?RB_DrawTriangles@@YAXPBUMaterial@@HFPBGFPAY03$$CBMPAY02$$CBMPBIPAY01$$CBM@Z": {
@@ -3468,7 +3476,7 @@
 "n": 361,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_Set3D@@YAXXZ"
 ]
 },
 "?RB_DrawPointsCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3576,7 +3584,7 @@
 "n": 111,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_ApplyLatePostEffects@@YAXM@Z"
 ]
 },
 "?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z": {
@@ -3972,7 +3980,7 @@
 "n": 244,
 "obj": "rb_sky.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_TessSunBillboard@@YAXMMTGfxColor@@@Z"
 ]
 },
 "?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z": {
@@ -4203,12 +4211,28 @@
 "call ?RB_SetRenderTarget@@YAXW4GfxRenderTargetId@@@Z"
 ]
 },
+"?RB_DrawOptimizedTessSurface@@YAXXZ": {
+"t": "0x1003a690",
+"n": 273,
+"obj": "rb_surface.obj",
+"why": [
+"call ?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z"
+]
+},
 "?RB_DrawTessSurface@@YAXXZ": {
 "t": "0x1003a7b0",
 "n": 199,
 "obj": "rb_surface.obj",
 "why": [
 "call ?RB_SetVertexData@@YAXIPBXHH@Z"
+]
+},
+"?RB_EndSurface@@YAXXZ": {
+"t": "0x1003a8d0",
+"n": 202,
+"obj": "rb_surface.obj",
+"why": [
+"call ?RB_DrawOptimizedTessSurface@@YAXXZ"
 ]
 },
 "?RB_TessStaticModelCached@@YAXPBW4surfaceType_t@@@Z": {
