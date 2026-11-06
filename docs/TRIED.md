@@ -3905,3 +3905,19 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+# R_FilterEntityIntoCells_r bounded probes - 2026-11-06 (worker g5)
+
+R_FilterEntityIntoCells_r (10008600, target 335 bytes) bounded probes on gfx/g5:
+- Probe 1: Replacing VectorCopy with intrinsic memcpy(localMins, mins, sizeof(localMins))
+  and memcpy(localMaxs, maxs, sizeof(localMaxs)) emits extra pointer staging moves
+  (mov edx, ebx and mov eax, edi), producing 339 bytes (rejected).
+- Probe 2: Introducing cplane_t *plane = node->u.node.plane local variable inside while
+  causes MSVC LTCG to cache plane across loop iterations in callee-saved ebx,
+  collapsing the body to 329 bytes and scrambling all register assignments (rejected).
+  Declaring plane inside if (side == 3) similarly allocates callee-saved ebp.
+- Probe 3: Baseline VectorCopy with direct member accesses gives exactly 335 bytes and
+  matches retail 1-to-1 in instruction count (129 insns) and control flow, differing only
+  in register choice between ecx and edx for plane at +0x6e and rgp at +0x43. Swapping
+  declaration order of local variables (localMaxs/localMins, back/front) and tail-recursive
+  vs while forms do not change the register allocation. Source restored to clean baseline.
