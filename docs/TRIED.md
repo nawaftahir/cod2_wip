@@ -3905,3 +3905,5 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+R_WatersEquivalent240B (w6): retail squares mag0 (ecx pair) before mag1 (edx pair) and keeps dot on the FP stack; ours squares mag1 first. 3 probes, all 240B same bytes as before: (1) mag0/mag1 computed before dot, (2) I_sqrt(mag1Sq*mag0Sq), (3) inline Vec2Multiply(w0)*Vec2Multiply(w1), locals removed. Compiler picks the order regardless of source order.
