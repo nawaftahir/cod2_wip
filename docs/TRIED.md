@@ -3905,3 +3905,12 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+
+# RotatePointAroundVector probe trials - 2026-11-06 (worker g4)
+
+RotatePointAroundVector (retail 0x10059530, 525 B; ours 525 B).
+Difference was instruction scheduling between +0ce and +14b: retail schedules fstp [esp+0x7c] at +13b (between zrot[2][2] and zrot[1][1]) and lea edx, [esp+0x34] at +14b, whereas our build spilled ST(0) at +0ce right after rep movsd.
+- Probe 1: Direct assignment of im from vr, vup, vf (KisakCOD/cod2map). Stays 525 B; fstp remains at +0ce. Exit code 3.
+- Probe 2: Separate zrot[2][2] = 1.0f; zrot[1][1] = 1.0f; zrot[0][0] = 1.0f;. Stays 525 B; fstp remains at +0ce. Exit code 3.
+- Probe 3: Adopted client-1.0 structure (float rad; declared at top, rad = (degrees * 0.017453292519943295f); FastSinCos(rad, ...); with im from m). This eliminated the +0ce..+14b scheduling diff completely! Stays 525 B. Residual diff at +1b2..+202: DotProduct inlined function evaluates terms in reverse order vs expanded rot[i][0] * point[0] + rot[i][1] * point[1] + rot[i][2] * point[2]. Max 3 probes reached; com_math.cpp restored.
