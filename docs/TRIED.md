@@ -3905,3 +3905,12 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+# RB_DrawTextWithCursor probe - 2026-11-06 (worker g6)
+
+Target `RB_DrawTextWithCursor` (retail `0x10032560`, 740 bytes):
+- Baseline ours: 740 bytes (matches size, but differs in prologue scheduling, color packing, and register allocation).
+- Probe 1: Applied `black = (color >> 24) << 24`, inline `ColorIndex` helper, direct byte stores into `newColor`, `(float)((style != 3) + 1)` int cast, and `x += glyph->dx * xScale` before char counters. Size: 742 bytes. `ColorIndex` returning `int` emitted 3-byte `cmp eax, 7` instead of 2-byte `cmp al, 7`. `color` remained pinned in `esi` while retail held `material` in `esi`.
+- Probe 2: Changed `ColorIndex` return type to `byte` (matched `cmp al, 7`) and attempted `black = ((color >> 24) & 0xff) << 24`. Size: 741 bytes. MSVC still folded `black` shift into `and ebx, 0xff000000` because `color` is `unsigned int`.
+- Probe 3: Split `black = color >> 24; ... black <<= 24;` around `newColor = color;` to disrupt shift-fold pattern. Size: 741 bytes. MSVC scheduled prologue differently, keeping `color` in `esi` across the loop rather than dedicating `esi` to `material`.
+All 3 probes failed byte verification. `rb_backend.cpp` restored to baseline.
