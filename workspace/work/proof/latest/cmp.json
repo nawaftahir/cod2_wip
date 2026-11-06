@@ -261,11 +261,27 @@
 "hits": []
 },
 {
+"name": "?R_LoadLightGridColors@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 67,
+"hits": [
+"0x100025d0"
+]
+},
+{
 "name": "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 108,
 "hits": [
 "0x10002620"
+]
+},
+{
+"name": "?R_LoadMaterials@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 38,
+"hits": [
+"0x10002690"
 ]
 },
 {

@@ -1,8 +1,8 @@
 {
-  "functions": 780,
-  "bytes": 129686,
+  "functions": 782,
+  "bytes": 129791,
   "total": 253580,
-  "percent": 51.142045902673715,
+  "percent": 51.183452953702975,
   "baseline_lost": [],
   "gains": [
     {
@@ -54,9 +54,21 @@
       "object": "r_bsp_load_obj.obj"
     },
     {
+      "target": "0x100025d0",
+      "bytes": 67,
+      "name": "?R_LoadLightGridColors@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
       "target": "0x10002620",
       "bytes": 108,
       "name": "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10002690",
+      "bytes": 38,
+      "name": "?R_LoadMaterials@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {

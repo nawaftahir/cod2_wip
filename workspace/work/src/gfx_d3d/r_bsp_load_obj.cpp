@@ -336,6 +336,15 @@ void R_LoadLightmaps(GfxBspLoad *load)
     ri.Hunk_FreeTempMemory(images[0]);
 }
 
+// SUPPORTED name: KisakCOD r_bsp_load_obj.cpp; PINNED out-of-line copy 100025d0.
+void R_LoadLightGridColors(GfxBspLoad *load)
+{
+    const lump_t *lump = &load->header->lumps[3];
+    s_world.lightGrid.colorCount = R_GetLumpElemCount(load, 3, sizeof(GfxLightGridColors));
+    s_world.lightGrid.colors = (GfxLightGridColors *)ri.Hunk_AllocInternal(lump->filelen);
+    Com_Memcpy(s_world.lightGrid.colors, load->fileBase + lump->fileofs, lump->filelen);
+}
+
 // PINNED 10002620: lump 2, 8-byte points copied field by field.
 void R_LoadLightGridPoints(GfxBspLoad *load)
 {
@@ -351,6 +360,14 @@ void R_LoadLightGridPoints(GfxBspLoad *load)
         out->needsTrace = in->needsTrace;
         out->colorsIndex = in->colorsIndex;
     }
+}
+
+// SUPPORTED name: KisakCOD r_bsp_load_obj.cpp; PINNED out-of-line copy 10002690.
+void R_LoadMaterials(GfxBspLoad *load)
+{
+    const lump_t *lump = &load->header->lumps[0];
+    load->materialCount = R_GetLumpElemCount(load, 0, sizeof(dmaterial_t));
+    load->materials = (const dmaterial_t *)(load->fileBase + lump->fileofs);
 }
 
 // PINNED 100026c0: triangle bounds and merged lightmap coords per index.
@@ -1262,17 +1279,14 @@ GfxWorld *R_LoadWorldInternal(const char *name)
     strcpy((char *)s_world.baseName, baseName);
 
     R_LoadStep("materials");
-    load.materialCount = R_GetLumpElemCount(&load, 0, sizeof(dmaterial_t));
-    load.materials = (const dmaterial_t *)(load.fileBase + load.header->lumps[0].fileofs);
+    R_LoadMaterials(&load);
     R_LoadStep("sun settings");
     R_ParseSunLight(&s_world.sunParse, (const char *)(load.fileBase + load.header->lumps[37].fileofs));
     R_InterpretSunLightParseParamsIntoLights(&s_world.sunParse, &s_world.sunLight);
     R_LoadStep("lightmaps");
     R_LoadLightmaps(&load);
     R_LoadStep("lightgrid coefficients");
-    s_world.lightGrid.colorCount = R_GetLumpElemCount(&load, 3, sizeof(GfxLightGridColors));
-    s_world.lightGrid.colors = (GfxLightGridColors *)ri.Hunk_AllocInternal(load.header->lumps[3].filelen);
-    Com_Memcpy(s_world.lightGrid.colors, load.fileBase + load.header->lumps[3].fileofs, load.header->lumps[3].filelen);
+    R_LoadLightGridColors(&load);
     R_LoadStep("lightgrid hash");
     R_LoadLightGridPoints(&load);
     R_LoadStep("surfaces");

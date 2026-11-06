@@ -145,9 +145,21 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_LoadLightGridColors@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x100025d0",
+"n": 67,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10002620",
 "n": 108,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_LoadMaterials@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10002690",
+"n": 38,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
