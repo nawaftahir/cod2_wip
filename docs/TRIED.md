@@ -4029,3 +4029,9 @@ Diff: retail sets up double bias 0.4999999990686774 in prologue, then performs i
 - Probe 2: Used `(int)encoded`. Emitted 186 bytes; called runtime helper `_ftol2`. Exit code 3.
 - Probe 3: Used `I_clamp(I_fround(encoded), 0, 255)`. Emitted 215 bytes with inline-asm scheduling differences. Exit code 3.
 All 3 probes reached; `r_outdoor.cpp` restored to clean baseline.
+
+# R_InitFrameBackendData deferral - 2026-11-06 (worker s4)
+
+Target `R_InitFrameBackendData` (candidate `0x10021040`, 143 bytes; ours baseline 147 bytes, unbound `?` in BLOCKERS.md):
+DEFERRED per worker brief instructions.
+Reason: Function is unbound (zero byte hits across retail text). The candidate extent at `0x10021040` is 143 bytes vs our 147 bytes. Preamble/double-buffer scheduling differs by 4 bytes (`lea ecx, [eax+1]` vs `inc eax` and register scheduling of `s_cmdList = &data->commands`). Previous attempts to alter register allocation via volatile references caused regressions in accepted extents `10023af0` and `10020dc0` under LTCG. Not easy to bind safely without deeper whole-TU register allocation analysis across `r_rendercmds.cpp`.
