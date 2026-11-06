@@ -3905,3 +3905,6 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+## RB_GetGlowRadii (100305d0), w7
+Tail differs: retail je X; return 0; X: swap; return 1. Ours jne X; swap; return 1; X: return 0 (size 212 both). Tried, codegen unchanged each time (return-0 stays last): (1) if(!(cond)) return 0; swap; return 1; (2) if(r1==0 || (r0!=0 && r0<=r1)) return 0; swap; return 1; (3) two early-return ifs. Untried: int result var, ternary.
