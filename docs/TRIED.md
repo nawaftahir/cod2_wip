@@ -4010,3 +4010,12 @@ Target `Material_LoadTechniqueDx7` (retail `0x1001ba70`, target 580 B vs draft 6
 - Probe 2: `while (count < 4)` with `Com_ParseInternal(&text)`; changes prologue frame to 0x1bc with ebp hoist; emits 589 B. Exit code 3.
 - Probe 3: `do ... while (count < 4)` with `Com_ParseInternal(&text)`; preserves 0x1b8 frame; emits 589 B vs target 580 B due to pass-loop register scheduling. Exit code 3.
 Source restored to baseline.
+
+# R_CubemapShotAlpha probe - 2026-11-06 (worker s5)
+
+Target `R_CubemapShotAlpha` (retail `0x100265e0`, target 266 B vs draft 262 B):
+- Baseline ours: 262 B (differs in x87 register scheduling for direction[0] accumulator across u/v blocks).
+- Probe 1: Component accumulation with scoped `u` and `v` blocks (`direction[0] += axis[1][0]*u`); size: 262 B. Spills direction[0] to stack early. Exit code 3.
+- Probe 2: Three single-expression formulas with `u` and `v` declared ahead of direction; size: 222 B. Exit code 3.
+- Probe 3: Separate `dir0` scalar accumulator kept in ST(0) across `u` and `v` blocks; size: 242 B. Exit code 3.
+Source restored to baseline.
