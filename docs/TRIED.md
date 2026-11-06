@@ -4011,3 +4011,11 @@ Target `RB_DrawFrameColorDebug` (retail `0x10030190`, 286 bytes):
 - Probe 2: Reordered byte stores to write 255 values first (color[2]/color[1]/color[0] then color[3] then zeros). Size: 286 bytes. Kept eax/ecx inversion across initial float setup.
 - Probe 3: Deferred quarterWidth/quarterHeight calculation to after initial color setup to match retail FPU stack schedule. Size: 286 bytes. Register allocation unchanged.
 All 3 probes failed byte verification. `rb_backend.cpp` restored to baseline.
+
+# VectorRotate probe - 2026-11-06 (worker s6)
+
+Target `VectorRotate` (retail `0x1005df90`, 273 bytes):
+- Baseline ours: 255 bytes. Retail inlines an x87 double `fsincos` sequence (`push eax; push ecx; fld ...; fsincos; ...; fstp qword ptr [ecx]; fstp qword ptr [eax]; pop ecx; pop eax;`) in `SinCos(dAngle, &s, &c)`, whereas our pure C baseline calls CRT `sin`/`cos`, resulting in 255 bytes (missing 18 bytes).
+- Probe 1: Baseline verified; calls CRT `sin`/`cos` via `com_math.h` `SinCos(double, double*, double*)`. Result: 255 bytes.
+- Probe 2: Attempted float arguments with `FastSinCos`; rejected by signature.
+Matching retail requires double inline assembly `__asm { fsincos }` in `SinCos`, which is forbidden by repository rules ("no inline asm/_emit/byte arrays/pragma hacks" and C/C++ game coverage excludes assembly-bearing functions). Source restored to clean baseline.
