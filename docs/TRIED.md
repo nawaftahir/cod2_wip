@@ -4002,3 +4002,11 @@ TU move (2026-11-06): rb_surface.cpp body appended to rb_shade.cpp right after
 RB_BeginSurface (retail order Begin, DrawOptimizedTess, DrawTess, End; Mac has no
 rb_surface.c) and rb_surface removed from tus.txt: RB_EndSurface stays 206/202.
 TU membership alone does not fix the block-layout class; restored.
+
+# Material_LoadTechniqueDx7 probe - 2026-11-06 (worker s5)
+
+Target `Material_LoadTechniqueDx7` (retail `0x1001ba70`, target 580 B vs draft 610 B):
+- Probe 1: Added `__declspec(noinline)` to `Material_LoadPassStateMap` to prevent inlining into technique loader; emits 510 B with `call Com_Parse` out of line. Exit code 3.
+- Probe 2: `while (count < 4)` with `Com_ParseInternal(&text)`; changes prologue frame to 0x1bc with ebp hoist; emits 589 B. Exit code 3.
+- Probe 3: `do ... while (count < 4)` with `Com_ParseInternal(&text)`; preserves 0x1b8 frame; emits 589 B vs target 580 B due to pass-loop register scheduling. Exit code 3.
+Source restored to baseline.
