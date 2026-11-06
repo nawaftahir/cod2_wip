@@ -4011,3 +4011,12 @@ Diff showed retail unrolls 3 coordinate axes (X, Y, Z) instead of looping over a
 - Probe 2: Marked RB_GetNearestGridColors static to test internal calling convention propagation. Size stayed 792 bytes; separate fsub 0.5f before I_fround vs retail fsub [0.4999999990686774] prevented byte identity.
 - Probe 3: Tested (int)floor(f) for axes calculation. Emitted CRT floor calls, resulting in 740 bytes.
 All 3 probes failed byte verification. rb_light.cpp restored to baseline.
+
+# XSurfaceOptimizeRigid probe - 2026-11-06 (worker s3)
+
+Target `XSurfaceOptimizeRigid` (retail `0x1002da90`, 186 bytes, ours baseline 182 bytes):
+Diff showed retail receives 2 parameters (surface, surfVerts) without model, preserving surfVerts in ebp across COM calls.
+- Probe 1: Removed unused XModel *model parameter from declaration, definition and call site. Size: 182 bytes; ebp was still reused as scratch during CreateVertexBuffer.
+- Probe 2: Added register keyword to surfVerts. Size: 182 bytes.
+- Probe 3: Extracted vertexStride computation prior to CreateVertexBuffer call to free up scratch registers before loading dx.device. Size reached 185 bytes (1 byte off retail 186).
+All 3 probes failed byte verification. r_xsurface_optimize.cpp restored to baseline.
