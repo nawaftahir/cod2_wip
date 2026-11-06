@@ -631,7 +631,7 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z": {
+"?Image_Create2DTexture@@YAXPAUGfxImage@@GGHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z": {
 "t": "0x1000ce80",
 "n": 113,
 "obj": "r_image.obj",
@@ -689,9 +689,7 @@
 "t": "0x1000d2e0",
 "n": 58,
 "obj": "r_image.obj",
-"why": [
-"call ?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z"
-]
+"why": []
 },
 "?Image_Reload@@YAXPAUGfxImage@@@Z": {
 "t": "0x1000d450",
@@ -930,6 +928,12 @@
 "why": [
 "call ?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z"
 ]
+},
+"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000d0f0",
+"n": 74,
+"obj": "r_image_load_obj.obj",
+"why": []
 },
 "?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {
 "t": "0x100104a0",
@@ -3370,7 +3374,7 @@
 "n": 92,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_UpdateViewportConstants@@YAXXZ"
 ]
 },
 "?RB_StretchPicCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3402,7 +3406,15 @@
 "n": 230,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_ChangedWorldMatrix@@YAXM@Z"
+]
+},
+"?RB_BeginViewCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
+"t": "0x100321f0",
+"n": 274,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_UpdateViewportConstants@@YAXXZ"
 ]
 },
 "?RB_TouchAllImagesCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3456,7 +3468,7 @@
 "n": 113,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_BlurShadowCookiePass@@YAXMM@Z"
 ]
 },
 "?RB_DrawTriangles@@YAXPBUMaterial@@HFPBGFPAY03$$CBMPAY02$$CBMPBIPAY01$$CBM@Z": {
@@ -3464,7 +3476,7 @@
 "n": 361,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_Set3D@@YAXXZ"
 ]
 },
 "?RB_DrawPointsCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3572,7 +3584,7 @@
 "n": 111,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_ApplyLatePostEffects@@YAXM@Z"
 ]
 },
 "?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z": {
@@ -3706,6 +3718,12 @@
 "why": [
 "call ?RB_GridVisLogIndex@@YAHHHHH@Z"
 ]
+},
+"?I_ffloor@@YAHM@Z": {
+"t": "0x10020530",
+"n": 33,
+"obj": "rb_light.obj",
+"why": []
 },
 "?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
 "t": "0x100366b0",
@@ -3923,6 +3941,14 @@
 "obj": "rb_shade.obj",
 "why": []
 },
+"?RB_SetupLighting@@YAXXZ": {
+"t": "0x1003a340",
+"n": 566,
+"obj": "rb_shade.obj",
+"why": [
+"call ?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z"
+]
+},
 "?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z": {
 "t": "0x1003a580",
 "n": 112,
@@ -3961,6 +3987,14 @@
 "obj": "rb_sky.obj",
 "why": [
 "call ?RB_SunSpriteScreenFraction@@YAMHH@Z"
+]
+},
+"?RB_DrawSunFlare@@YAXMM@Z": {
+"t": "0x1003bbe0",
+"n": 244,
+"obj": "rb_sky.obj",
+"why": [
+"call ?RB_TessSunBillboard@@YAXMMTGfxColor@@@Z"
 ]
 },
 "?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z": {
@@ -4191,12 +4225,28 @@
 "call ?RB_SetRenderTarget@@YAXW4GfxRenderTargetId@@@Z"
 ]
 },
+"?RB_DrawOptimizedTessSurface@@YAXXZ": {
+"t": "0x1003a690",
+"n": 273,
+"obj": "rb_surface.obj",
+"why": [
+"call ?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z"
+]
+},
 "?RB_DrawTessSurface@@YAXXZ": {
 "t": "0x1003a7b0",
 "n": 199,
 "obj": "rb_surface.obj",
 "why": [
 "call ?RB_SetVertexData@@YAXIPBXHH@Z"
+]
+},
+"?RB_EndSurface@@YAXXZ": {
+"t": "0x1003a8d0",
+"n": 202,
+"obj": "rb_surface.obj",
+"why": [
+"call ?RB_DrawOptimizedTessSurface@@YAXXZ"
 ]
 },
 "?RB_TessStaticModelCached@@YAXPBW4surfaceType_t@@@Z": {
@@ -4283,7 +4333,7 @@
 "obj": "jcapistd.obj",
 "why": []
 },
-"_start_pass_coef": {
+"_start_pass_coef$private$jccoefct.obj": {
 "t": "0x10041db0",
 "n": 224,
 "obj": "jccoefct.obj",
@@ -4301,7 +4351,7 @@
 "obj": "jccoefct.obj",
 "why": []
 },
-"_compress_output": {
+"_compress_output$private$jccoefct.obj": {
 "t": "0x100423a0",
 "n": 521,
 "obj": "jccoefct.obj",
@@ -4907,6 +4957,42 @@
 "obj": "jcsample.obj",
 "why": []
 },
+"_jpeg_write_coefficients": {
+"t": "0x10049680",
+"n": 86,
+"obj": "jctrans.obj",
+"why": []
+},
+"_jpeg_copy_critical_parameters": {
+"t": "0x100496e0",
+"n": 587,
+"obj": "jctrans.obj",
+"why": []
+},
+"_transencode_master_selection": {
+"t": "0x10049930",
+"n": 220,
+"obj": "jctrans.obj",
+"why": []
+},
+"_start_pass_coef$private$jctrans.obj": {
+"t": "0x10049a60",
+"n": 112,
+"obj": "jctrans.obj",
+"why": []
+},
+"_compress_output$private$jctrans.obj": {
+"t": "0x10049ad0",
+"n": 655,
+"obj": "jctrans.obj",
+"why": []
+},
+"_transencode_coef_controller": {
+"t": "0x10049d60",
+"n": 159,
+"obj": "jctrans.obj",
+"why": []
+},
 "_jpeg_CreateDecompress": {
 "t": "0x10049e00",
 "n": 310,
@@ -4983,6 +5069,30 @@
 "t": "0x1004a780",
 "n": 146,
 "obj": "jdapistd.obj",
+"why": []
+},
+"_init_destination": {
+"t": "0x1004a820",
+"n": 38,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_empty_output_buffer": {
+"t": "0x1004a850",
+"n": 73,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_term_destination": {
+"t": "0x1004a8a0",
+"n": 105,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_jpeg_stdio_dest": {
+"t": "0x1004a910",
+"n": 55,
+"obj": "jdatadst.obj",
 "why": []
 },
 "_init_source": {
@@ -13803,6 +13913,22 @@
 "obj": "LIBCMT:fclose.obj",
 "why": []
 },
+"__fwrite_lk": {
+"t": "0x100f70da",
+"n": 263,
+"obj": "LIBCMT:fwrite.obj",
+"why": [
+"call _memcpy"
+]
+},
+"_fwrite": {
+"t": "0x100f71e1",
+"n": 76,
+"obj": "LIBCMT:fwrite.obj",
+"why": [
+"call __fwrite_lk"
+]
+},
 "_vsprintf": {
 "t": "0x100f7320",
 "n": 87,
@@ -17085,6 +17211,14 @@
 "obj": "LIBCMT:dosmap.obj",
 "why": []
 },
+"_memcpy": {
+"t": "0x100fcdf0",
+"n": 829,
+"obj": "LIBCMT:memcpy.obj",
+"why": [
+"extent"
+]
+},
 "__RTC_Initialize": {
 "t": "0x100fdec5",
 "n": 68,
@@ -17102,14 +17236,6 @@
 "n": 56,
 "obj": "LIBCMT:fpinit.obj",
 "why": []
-},
-"_memcpy": {
-"t": "0x100fcdf0",
-"n": 829,
-"obj": "LIBCMT:memcpy.obj",
-"why": [
-"extent"
-]
 },
 "__ld12tod": {
 "t": "0x101063c0",
