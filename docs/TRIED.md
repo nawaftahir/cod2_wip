@@ -3905,3 +3905,6 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+## R_CopyCubemapShot 100267e0 (w3)
+Only diff: 3rd store is [eax+ecx+0x12] in retail, ours [ecx+eax+0x12] (operand order; everything else identical, 89/89). Tried, all still ecx+eax: (targa+18)[offset]; (offset+targa)[18]; *(targa+18+offset)=*(source+offset). MSVC canonicalizes these; try other structure (pointer/stride form) next.
