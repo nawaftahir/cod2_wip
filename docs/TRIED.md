@@ -1,3 +1,7 @@
+# Material_Register shrink-wrap probe - 2026-11-06
+
+Material_Register (10017100, retail 144): probed if (!found) block structure, __forceinline helper for load path, and forward goto load (all emit 144 bytes by placing found-return at function exit, but push esi remains in prologue at entry rather than deferred/shrink-wrapped into the load block as in retail; byte referee rejected). Restored.
+
 # RB_EndSurface structure probe - 2026-11-06
 
 RB_EndSurface (1003a8d0, retail 202): probed early return with !RB_IsTechniqueDrawable (stays 206, clear block placed after draw requiring 6-byte near jump), forward gotos with clear before draw (emits 150 bytes, tail-calls un-inlined RB_LogPrint instead of inlining), and inverted RB_IsTechniqueBlocked predicate (stays 206, compiler reorders clear block after draw causing 6-byte near jump 0f 84 instead of 2-byte short jump 74). Restored.
