@@ -109,3 +109,29 @@ function pointers. ___init_dummy (setlocal) and ___init_collate (initcoll) are
 3-byte bodies with no hits and no calls; only this table can place them. Also
 fpinit.obj data differs: retail __FPmtinit/__FPmtterm both 0x100f7938, ours
 __FPmtterm 0x100f4e49 and FPmtinit 0 (different CRT fp objects linked; HYPOTHESIS).
+
+SUPPORTED (8 worker batches, 2026-11-06): same-size misses fall in three classes
+that no C spelling changed in 3 probes each: (a) SIB base/index order
+(R_CopyCubemapShot, RB_InsertGridVisLog, Material_CacheShaderText); (b) block
+layout of the return/clear paths (RB_GetGlowRadii, RB_EndSurface); (c) store or
+x87 operand scheduling (RB_DrawRawSurface, R_WatersEquivalent, R_XModelDebugBoxes).
+HYPOTHESIS: a compiler/flag/TU-context difference, not source. Do not hand these
+classes to workers; investigate once as a lead task. Type/ABI diffs (16-bit load
+vs movzx, Image_BuildWaterMap) DO respond to source and suit workers.
+
+PINNED (Rich header, pefile, 2026-11-06): retail vs ours (prodid,build,count).
+(100,3077): retail 121, ours 112 -> retail compiled 9 more LTCG C++ objects with
+the same compiler build; our TU set is short by 9 (tus_total 112). (95,3077) 149/148.
+Retail also links 12 objects from older tool builds absent in ours: (93,2067)x2,
+(93,2179)x6, (95,2179)x1, (105,2067)x3; ours has (93,4035)x11 vs retail x3.
+Implication (HYPOTHESIS): merged TUs give wrong /GL context for the register,
+scheduling and block-layout miss classes; some SDK/CRT objects come from a different
+library version than Summer 2004. Next: split TUs per Mac file list + TU_AUDIT islands
+until (100,3077) reaches 121; identify the 2067/2179 objects by their library.
+PINNED: retail links libjpeg jctrans.c and jdatadst.c (unmodified IJG 6b): their
+bodies sit between jcsample/jdapimin and jdapistd/jdatasrc. Adding both: +11 verified
+functions, Rich (100,3077) 112 -> 114 of 121, (95,3077) 148 -> 149 = retail.
+PINNED: infoParms lives in its own TU universal/surfaceflags.cpp (Mac STABS path;
+retail .rdata has the bark/brick/carpet names). Split from r_utils: Rich (100,3077)
+114 -> 115 of 121; whole-file same-offset 249758 -> 249700 (data moved, expected
+until data order is fixed). 6 LTCG TUs remain unidentified.

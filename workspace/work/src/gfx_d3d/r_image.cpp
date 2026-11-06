@@ -398,7 +398,7 @@ GfxImage *Image_AllocProg(int imageProgType, int category)
     return image;
 }
 
-void Image_Create2DTexture(GfxImage *image, int width, int height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool)
+void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool)
 {
     HRESULT hr;
 

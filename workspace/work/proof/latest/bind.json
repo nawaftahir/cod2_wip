@@ -631,7 +631,7 @@
 "obj": "r_image.obj",
 "why": []
 },
-"?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z": {
+"?Image_Create2DTexture@@YAXPAUGfxImage@@GGHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z": {
 "t": "0x1000ce80",
 "n": 113,
 "obj": "r_image.obj",
@@ -689,9 +689,7 @@
 "t": "0x1000d2e0",
 "n": 58,
 "obj": "r_image.obj",
-"why": [
-"call ?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z"
-]
+"why": []
 },
 "?Image_Reload@@YAXPAUGfxImage@@@Z": {
 "t": "0x1000d450",
@@ -930,6 +928,12 @@
 "why": [
 "call ?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z"
 ]
+},
+"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000d0f0",
+"n": 74,
+"obj": "r_image_load_obj.obj",
+"why": []
 },
 "?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {
 "t": "0x100104a0",
@@ -2008,6 +2012,12 @@
 "?R_ConvertAnimMatToSkelMat@@YAXPBUDObjAnimMat_s@@PAUDObjSkelMat_s@@@Z": {
 "t": "0x1001d720",
 "n": 217,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_GetRigidTransform@@YAXPBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z": {
+"t": "0x1001ee70",
+"n": 399,
 "obj": "r_model.obj",
 "why": []
 },
@@ -3364,7 +3374,7 @@
 "n": 92,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_UpdateViewportConstants@@YAXXZ"
 ]
 },
 "?RB_StretchPicCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3396,7 +3406,15 @@
 "n": 230,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_ChangedWorldMatrix@@YAXM@Z"
+]
+},
+"?RB_BeginViewCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
+"t": "0x100321f0",
+"n": 274,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_UpdateViewportConstants@@YAXXZ"
 ]
 },
 "?RB_TouchAllImagesCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3450,7 +3468,7 @@
 "n": 113,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_BlurShadowCookiePass@@YAXMM@Z"
 ]
 },
 "?RB_DrawTriangles@@YAXPBUMaterial@@HFPBGFPAY03$$CBMPAY02$$CBMPBIPAY01$$CBM@Z": {
@@ -3458,7 +3476,7 @@
 "n": 361,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_Set3D@@YAXXZ"
 ]
 },
 "?RB_DrawPointsCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
@@ -3566,7 +3584,7 @@
 "n": 111,
 "obj": "rb_backend.obj",
 "why": [
-"call ?RB_EndSurface@@YAXXZ"
+"call ?RB_ApplyLatePostEffects@@YAXM@Z"
 ]
 },
 "?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z": {
@@ -3700,6 +3718,12 @@
 "why": [
 "call ?RB_GridVisLogIndex@@YAHHHHH@Z"
 ]
+},
+"?I_ffloor@@YAHM@Z": {
+"t": "0x10020530",
+"n": 33,
+"obj": "rb_light.obj",
+"why": []
 },
 "?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
 "t": "0x100366b0",
@@ -3917,6 +3941,14 @@
 "obj": "rb_shade.obj",
 "why": []
 },
+"?RB_SetupLighting@@YAXXZ": {
+"t": "0x1003a340",
+"n": 566,
+"obj": "rb_shade.obj",
+"why": [
+"call ?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z"
+]
+},
 "?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z": {
 "t": "0x1003a580",
 "n": 112,
@@ -3955,6 +3987,14 @@
 "obj": "rb_sky.obj",
 "why": [
 "call ?RB_SunSpriteScreenFraction@@YAMHH@Z"
+]
+},
+"?RB_DrawSunFlare@@YAXMM@Z": {
+"t": "0x1003bbe0",
+"n": 244,
+"obj": "rb_sky.obj",
+"why": [
+"call ?RB_TessSunBillboard@@YAXMMTGfxColor@@@Z"
 ]
 },
 "?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z": {
@@ -4185,12 +4225,28 @@
 "call ?RB_SetRenderTarget@@YAXW4GfxRenderTargetId@@@Z"
 ]
 },
+"?RB_DrawOptimizedTessSurface@@YAXXZ": {
+"t": "0x1003a690",
+"n": 273,
+"obj": "rb_surface.obj",
+"why": [
+"call ?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z"
+]
+},
 "?RB_DrawTessSurface@@YAXXZ": {
 "t": "0x1003a7b0",
 "n": 199,
 "obj": "rb_surface.obj",
 "why": [
 "call ?RB_SetVertexData@@YAXIPBXHH@Z"
+]
+},
+"?RB_EndSurface@@YAXXZ": {
+"t": "0x1003a8d0",
+"n": 202,
+"obj": "rb_surface.obj",
+"why": [
+"call ?RB_DrawOptimizedTessSurface@@YAXXZ"
 ]
 },
 "?RB_TessStaticModelCached@@YAXPBW4surfaceType_t@@@Z": {
@@ -4277,7 +4333,7 @@
 "obj": "jcapistd.obj",
 "why": []
 },
-"_start_pass_coef": {
+"_start_pass_coef$private$jccoefct.obj": {
 "t": "0x10041db0",
 "n": 224,
 "obj": "jccoefct.obj",
@@ -4295,7 +4351,7 @@
 "obj": "jccoefct.obj",
 "why": []
 },
-"_compress_output": {
+"_compress_output$private$jccoefct.obj": {
 "t": "0x100423a0",
 "n": 521,
 "obj": "jccoefct.obj",
@@ -4901,6 +4957,42 @@
 "obj": "jcsample.obj",
 "why": []
 },
+"_jpeg_write_coefficients": {
+"t": "0x10049680",
+"n": 86,
+"obj": "jctrans.obj",
+"why": []
+},
+"_jpeg_copy_critical_parameters": {
+"t": "0x100496e0",
+"n": 587,
+"obj": "jctrans.obj",
+"why": []
+},
+"_transencode_master_selection": {
+"t": "0x10049930",
+"n": 220,
+"obj": "jctrans.obj",
+"why": []
+},
+"_start_pass_coef$private$jctrans.obj": {
+"t": "0x10049a60",
+"n": 112,
+"obj": "jctrans.obj",
+"why": []
+},
+"_compress_output$private$jctrans.obj": {
+"t": "0x10049ad0",
+"n": 655,
+"obj": "jctrans.obj",
+"why": []
+},
+"_transencode_coef_controller": {
+"t": "0x10049d60",
+"n": 159,
+"obj": "jctrans.obj",
+"why": []
+},
 "_jpeg_CreateDecompress": {
 "t": "0x10049e00",
 "n": 310,
@@ -4977,6 +5069,30 @@
 "t": "0x1004a780",
 "n": 146,
 "obj": "jdapistd.obj",
+"why": []
+},
+"_init_destination": {
+"t": "0x1004a820",
+"n": 38,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_empty_output_buffer": {
+"t": "0x1004a850",
+"n": 73,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_term_destination": {
+"t": "0x1004a8a0",
+"n": 105,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_jpeg_stdio_dest": {
+"t": "0x1004a910",
+"n": 55,
+"obj": "jdatadst.obj",
 "why": []
 },
 "_init_source": {
@@ -7580,7 +7696,7 @@
 "n": 225,
 "obj": "d3dx9:d3dx9shader.obj",
 "why": [
-"call ?Assemble@CAssembler@D3DXShader@@QAEJPAVCPreProcessor@2@KPAVCFragmentConstants@2@PAPAUID3DXBuffer@@@Z"
+"call ??0CPreProcessor@D3DXShader@@QAE@XZ"
 ]
 },
 "_D3DXAssembleShaderFromFileW@24": {
@@ -7588,7 +7704,7 @@
 "n": 226,
 "obj": "d3dx9:d3dx9shader.obj",
 "why": [
-"call ?Assemble@CAssembler@D3DXShader@@QAEJPAVCPreProcessor@2@KPAVCFragmentConstants@2@PAPAUID3DXBuffer@@@Z"
+"call ??0CPreProcessor@D3DXShader@@QAE@XZ"
 ]
 },
 "_D3DXAssembleShaderFromResourceA@28": {
@@ -7596,7 +7712,7 @@
 "n": 228,
 "obj": "d3dx9:d3dx9shader.obj",
 "why": [
-"call ?Assemble@CAssembler@D3DXShader@@QAEJPAVCPreProcessor@2@KPAVCFragmentConstants@2@PAPAUID3DXBuffer@@@Z"
+"call ??0CPreProcessor@D3DXShader@@QAE@XZ"
 ]
 },
 "_D3DXAssembleShaderFromResourceW@28": {
@@ -7604,7 +7720,7 @@
 "n": 229,
 "obj": "d3dx9:d3dx9shader.obj",
 "why": [
-"call ?Assemble@CAssembler@D3DXShader@@QAEJPAVCPreProcessor@2@KPAVCFragmentConstants@2@PAPAUID3DXBuffer@@@Z"
+"call ??0CPreProcessor@D3DXShader@@QAE@XZ"
 ]
 },
 "_D3DXAssembleShader@28": {
@@ -7612,7 +7728,7 @@
 "n": 227,
 "obj": "d3dx9:d3dx9shader.obj",
 "why": [
-"call ?Assemble@CAssembler@D3DXShader@@QAEJPAVCPreProcessor@2@KPAVCFragmentConstants@2@PAPAUID3DXBuffer@@@Z"
+"call ??0CPreProcessor@D3DXShader@@QAE@XZ"
 ]
 },
 "_D3DXCompileShaderFromFileA@36": {
@@ -7725,17 +7841,13 @@
 "t": "0x10063884",
 "n": 129,
 "obj": "d3dx9:d3dx9shader.obj",
-"why": [
-"call ?Initialize@CConstantTable@D3DXShader@@QAEJPBKPAPAUID3DXBuffer@@@Z"
-]
+"why": []
 },
 "_D3DXCreateTextureShader@8": {
 "t": "0x10063905",
 "n": 111,
 "obj": "d3dx9:d3dx9shader.obj",
-"why": [
-"call ?Initialize@CTextureShader@D3DXShader@@QAEJPBK@Z"
-]
+"why": []
 },
 "?Enter@D3DXShader@@YGXXZ": {
 "t": "0x10063974",
@@ -8243,9 +8355,7 @@
 "t": "0x10068aca",
 "n": 184,
 "obj": "d3dx9:cassembler.obj",
-"why": [
-"extent"
-]
+"why": []
 },
 "?RegisterHash@D3DXShader@@YGIPBD@Z": {
 "t": "0x10068b85",
@@ -8419,9 +8529,7 @@
 "t": "0x1006b285",
 "n": 47,
 "obj": "d3dx9:cassembler.obj",
-"why": [
-"call ??_GCFragmentInfo@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?Production@CAssembler@D3DXShader@@IAEXII@Z": {
 "t": "0x1006b2b4",
@@ -8439,9 +8547,7 @@
 "t": "0x1006be48",
 "n": 1208,
 "obj": "d3dx9:cassembler.obj",
-"why": [
-"call ??_GCFragmentInfo@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?IsCLIP@CInstruction@D3DXShader@@QAEHXZ": {
 "t": "0x1006c300",
@@ -8573,9 +8679,7 @@
 "t": "0x1006db55",
 "n": 218,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?GetToken@CCompiler@D3DXShader@@IAEPAUD3DXTOKEN@2@PAVCNode@2@@Z": {
 "t": "0x1006dc2f",
@@ -8617,9 +8721,7 @@
 "t": "0x1006df60",
 "n": 524,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?EvalValue@CCompiler@D3DXShader@@IAEJIPAN@Z": {
 "t": "0x1006e16c",
@@ -8655,9 +8757,7 @@
 "t": "0x1006eb85",
 "n": 591,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?VectorizeType@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAIIHH011@Z"
-]
+"why": []
 },
 "?EmitSinCos@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI11I@Z": {
 "t": "0x1006edd4",
@@ -8705,153 +8805,115 @@
 "t": "0x10070fa6",
 "n": 212,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?CopyPool@CBaseProgram@D3DXShader@@QAEIPAVCPool@2@@Z"
-]
+"why": []
 },
 "?Unalias@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z": {
 "t": "0x1007107a",
 "n": 270,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Vectorize@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAIIHH00@Z"
-]
+"why": []
 },
 "?IsLimited@CCompiler@D3DXShader@@IAEHIIPAI0@Z": {
 "t": "0x10071188",
 "n": 949,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Unalias@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z"
-]
+"why": []
 },
 "?EmitIf@CCompiler@D3DXShader@@IAEJPAVCNode@2@I00@Z": {
 "t": "0x1007153d",
 "n": 3391,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Unalias@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z"
-]
+"why": []
 },
 "?EmitForLoop@CCompiler@D3DXShader@@IAEJPAVCNode@2@000PAI@Z": {
 "t": "0x1007227c",
 "n": 3646,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?IsLimited@CCompiler@D3DXShader@@IAEHIIPAI0@Z"
-]
+"why": []
 },
 "?EmitForUnrolled@CCompiler@D3DXShader@@IAEJPAVCNode@2@000PAI@Z": {
 "t": "0x100730ba",
 "n": 1688,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?IsLimited@CCompiler@D3DXShader@@IAEHIIPAI0@Z"
-]
+"why": []
 },
 "?EmitIntrinsic@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI@Z": {
 "t": "0x10073752",
 "n": 23940,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Unalias@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z"
-]
+"why": []
 },
 "?EmitArray@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII1I01H@Z": {
 "t": "0x100794d6",
 "n": 4142,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Unalias@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z"
-]
+"why": []
 },
 "?EmitFor@CCompiler@D3DXShader@@IAEJPAVCNode@2@000@Z": {
 "t": "0x1007a504",
 "n": 302,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?EmitForLoop@CCompiler@D3DXShader@@IAEJPAVCNode@2@000PAI@Z"
-]
+"why": []
 },
 "?EmitStatement@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAI@Z": {
 "t": "0x1007a632",
 "n": 1022,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Vectorize@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAIIHH00@Z"
-]
+"why": []
 },
 "?EmitFunction@CCompiler@D3DXShader@@IAEJPBDPAVCNode@2@1PAIHH@Z": {
 "t": "0x1007aa30",
 "n": 2741,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Vectorize@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAIIHH00@Z"
-]
+"why": []
 },
 "?EmitProgram@CCompiler@D3DXShader@@IAEJXZ": {
 "t": "0x1007b4e5",
 "n": 262,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Initialize@CProgram@D3DXShader@@QAEJPAVCNode@2@PAVCTErrors@2@KK@Z"
-]
+"why": []
 },
 "?EmitExpression@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAIH@Z": {
 "t": "0x1007b5eb",
 "n": 5809,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?EmitArray@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII1I01H@Z"
-]
+"why": []
 },
 "?EmitArgs@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAII@Z": {
 "t": "0x1007cc9c",
 "n": 513,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?EmitExpression@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAIH@Z"
-]
+"why": []
 },
 "?EmitEval@CCompiler@D3DXShader@@IAEJPAVCNode@2@@Z": {
 "t": "0x1007ce9d",
 "n": 257,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?EmitExpression@CCompiler@D3DXShader@@IAEJPAVCNode@2@PAIH@Z"
-]
+"why": []
 },
 "?CompileInternal@CCompiler@D3DXShader@@IAEJPAVCPreProcessor@2@PAVCNode@2@PBD111H2KPAPAUID3DXBuffer@@PAPAUID3DXConstantTable@@@Z": {
 "t": "0x1007cf9e",
 "n": 1263,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?Parse@CParse@D3DXShader@@QAEJPAVCPreProcessor@2@KPAPAVCNode@2@@Z"
-]
+"why": []
 },
 "?Compile@CCompiler@D3DXShader@@QAEJPAVCPreProcessor@2@PAVCNode@2@PBDH2KPAPAUID3DXBuffer@@PAPAUID3DXConstantTable@@@Z": {
 "t": "0x1007d48d",
 "n": 71,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?CompileInternal@CCompiler@D3DXShader@@IAEJPAVCPreProcessor@2@PAVCNode@2@PBD111H2KPAPAUID3DXBuffer@@PAPAUID3DXConstantTable@@@Z"
-]
+"why": []
 },
 "?CompileFunction@CCompiler@D3DXShader@@QAEJPAVCPreProcessor@2@PAVCNode@2@11HPBDKPAPAUID3DXBuffer@@PAPAUID3DXConstantTable@@@Z": {
 "t": "0x1007d4d4",
 "n": 65,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?CompileInternal@CCompiler@D3DXShader@@IAEJPAVCPreProcessor@2@PAVCNode@2@PBD111H2KPAPAUID3DXBuffer@@PAPAUID3DXConstantTable@@@Z"
-]
+"why": []
 },
 "?CompileExpression@CCompiler@D3DXShader@@QAEJPAVCPreProcessor@2@PAVCNode@2@1PBDKPAPAUID3DXBuffer@@PAPAUID3DXConstantTable@@@Z": {
 "t": "0x1007d515",
 "n": 542,
 "obj": "d3dx9:ccompiler.obj",
-"why": [
-"call ?CompileInternal@CCompiler@D3DXShader@@IAEJPAVCPreProcessor@2@PAVCNode@2@PBD111H2KPAPAUID3DXBuffer@@PAPAUID3DXConstantTable@@@Z"
-]
+"why": []
 },
 "?TypeSize@D3DXShader@@YGXPAVCConstantTable@1@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@IPAI3@Z": {
 "t": "0x1007d733",
@@ -9061,9 +9123,7 @@
 "t": "0x1007e306",
 "n": 78,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ??_GCConstant@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?Set@?$SetShaderConstant@$0A@$0A@$01@D3DXShader@@SGJPBXI0PAKI@Z": {
 "t": "0x1007e390",
@@ -9171,25 +9231,19 @@
 "t": "0x1008085f",
 "n": 664,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ??_GCConstant@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?Initialize@CConstant@D3DXShader@@QAEJXZ": {
 "t": "0x10080af7",
 "n": 388,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?Create@CConstant@D3DXShader@@SGPAV12@PAVCConstantTable@2@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@PAK@Z"
-]
+"why": []
 },
 "?GetConstantElement@CConstant@D3DXShader@@QAEPAV12@I@Z": {
 "t": "0x10080c7b",
 "n": 411,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?Initialize@CConstant@D3DXShader@@QAEJXZ"
-]
+"why": []
 },
 "??0CConstantTable@D3DXShader@@QAE@XZ": {
 "t": "0x10080e16",
@@ -9201,89 +9255,67 @@
 "t": "0x10080e37",
 "n": 519,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?Create@CConstant@D3DXShader@@SGPAV12@PAVCConstantTable@2@PAU_D3DXSHADER_CONSTANTINFO@@PAU_D3DXSHADER_TYPEINFO@@PAK@Z"
-]
+"why": []
 },
 "?Release@CConstantTable@D3DXShader@@UAGKXZ": {
 "t": "0x1008103e",
 "n": 36,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ??_GCConstantTable@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?GetConstantByName@CConstant@D3DXShader@@QAEPAV12@PBDH@Z": {
 "t": "0x10081062",
 "n": 334,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?GetConstantElement@CConstant@D3DXShader@@QAEPAV12@I@Z"
-]
+"why": []
 },
 "?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z": {
 "t": "0x100811b0",
 "n": 519,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?GetConstantByName@CConstant@D3DXShader@@QAEPAV12@PBDH@Z"
-]
+"why": []
 },
 "?FindConstant@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z": {
 "t": "0x100813b7",
 "n": 36,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?GetConstantDesc@CConstantTable@D3DXShader@@UAGJPBDPAU_D3DXCONSTANT_DESC@@PAI@Z": {
 "t": "0x100813db",
 "n": 139,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?GetSamplerIndex@CConstantTable@D3DXShader@@UAGIPBD@Z": {
 "t": "0x10081466",
 "n": 56,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?GetConstant@CConstantTable@D3DXShader@@UAGPBDPBDI@Z": {
 "t": "0x1008149e",
 "n": 80,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?GetConstantByName@CConstantTable@D3DXShader@@UAGPBDPBD0@Z": {
 "t": "0x100814ee",
 "n": 96,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?GetConstantElement@CConstantTable@D3DXShader@@UAGPBDPBDI@Z": {
 "t": "0x1008154e",
 "n": 61,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetValue@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBXI@Z": {
 "t": "0x1008158b",
 "n": 82,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?Init@CBuffer@D3DXCore@@UAEJK@Z": {
 "t": "0x10081a12",
@@ -9505,9 +9537,7 @@
 "t": "0x100821c3",
 "n": 168,
 "obj": "d3dx9:ctextureshader.obj",
-"why": [
-"call ?Initialize@CConstantTable@D3DXShader@@QAEJPBKPAPAUID3DXBuffer@@@Z"
-]
+"why": []
 },
 "?QueryInterface@CTextureShader@D3DXShader@@UAGJABU_GUID@@PAPAX@Z": {
 "t": "0x1008226b",
@@ -10137,9 +10167,7 @@
 "t": "0x10084946",
 "n": 1307,
 "obj": "d3dx9:d3dx9fragment.obj",
-"why": [
-"call ?Parse@CParse@D3DXShader@@QAEJPAVCPreProcessor@2@KPAPAVCNode@2@@Z"
-]
+"why": []
 },
 "_D3DXGatherFragmentsFromFileA@24": {
 "t": "0x10084e61",
@@ -10371,9 +10399,7 @@
 "t": "0x10085e08",
 "n": 186,
 "obj": "d3dx9:cbaseprogram.obj",
-"why": [
-"call ??_GCPool@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?AddArgument@CBaseProgram@D3DXShader@@QAEIPAVCArgument@2@@Z": {
 "t": "0x10085ec2",
@@ -10391,9 +10417,7 @@
 "t": "0x100860e0",
 "n": 89,
 "obj": "d3dx9:cbaseprogram.obj",
-"why": [
-"call ??_GCPool@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?AddArgument@CBaseProgram@D3DXShader@@QAEIIIIN@Z": {
 "t": "0x10086139",
@@ -10411,9 +10435,7 @@
 "t": "0x100861f0",
 "n": 80,
 "obj": "d3dx9:cbaseprogram.obj",
-"why": [
-"call ??_GCPool@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?CopyArgument@CBaseProgram@D3DXShader@@QAEIPAVCArgument@2@@Z": {
 "t": "0x10086240",
@@ -10437,17 +10459,13 @@
 "t": "0x10086309",
 "n": 151,
 "obj": "d3dx9:cbaseprogram.obj",
-"why": [
-"call ??_GCPool@D3DXShader@@QAEPAXI@Z"
-]
+"why": []
 },
 "?Initialize@CBaseProgram@D3DXShader@@QAEJPAV12@@Z": {
 "t": "0x100863a0",
 "n": 210,
 "obj": "d3dx9:cbaseprogram.obj",
-"why": [
-"call ?CopyPool@CBaseProgram@D3DXShader@@QAEIPAVCPool@2@@Z"
-]
+"why": []
 },
 "?CreateArgumentErrorString@CBaseProgram@D3DXShader@@IAEJPAVCArgument@2@PADH@Z": {
 "t": "0x10086472",
@@ -10519,9 +10537,7 @@
 "t": "0x10086add",
 "n": 47,
 "obj": "d3dx9:cprogram.obj",
-"why": [
-"call ??1CBaseProgram@D3DXShader@@UAE@XZ"
-]
+"why": []
 },
 "?IndexSemantic@CProgram@D3DXShader@@UAEJPAVCArgument@2@H@Z": {
 "t": "0x10086b0c",
@@ -10959,17 +10975,13 @@
 "t": "0x1008b39f",
 "n": 565,
 "obj": "d3dx9:cprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?Initialize@CProgram@D3DXShader@@QAEJPAV12@KK@Z": {
 "t": "0x1008b5d4",
 "n": 329,
 "obj": "d3dx9:cprogram.obj",
-"why": [
-"call ?Initialize@CBaseProgram@D3DXShader@@QAEJPAV12@@Z"
-]
+"why": []
 },
 "?Validate@CProgram@D3DXShader@@IAEJXZ": {
 "t": "0x1008b71d",
@@ -11131,9 +11143,7 @@
 "t": "0x1009370b",
 "n": 1281,
 "obj": "d3dx9:cprogram.obj",
-"why": [
-"call ?Initialize@CProgram@D3DXShader@@QAEJPAV12@KK@Z"
-]
+"why": []
 },
 "?Link@CProgram@D3DXShader@@IAEJXZ": {
 "t": "0x10093c0c",
@@ -11211,9 +11221,7 @@
 "t": "0x10098fd3",
 "n": 638,
 "obj": "d3dx9:cprogram.obj",
-"why": [
-"call ?Split@CProgram@D3DXShader@@IAEJXZ"
-]
+"why": []
 },
 "?Vectorize@CProgram@D3DXShader@@IAEJXZ": {
 "t": "0x10099251",
@@ -11225,9 +11233,7 @@
 "t": "0x1009935c",
 "n": 61,
 "obj": "d3dx9:cprogram.obj",
-"why": [
-"call ?Optimize@CProgram@D3DXShader@@IAEJXZ"
-]
+"why": []
 },
 "??0CParse@D3DXShader@@QAE@XZ": {
 "t": "0x10099399",
@@ -11437,9 +11443,7 @@
 "t": "0x1009a7cb",
 "n": 313,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?Assemble@CAssembler@D3DXShader@@QAEJPAVCPreProcessor@2@KPAVCFragmentConstants@2@PAPAUID3DXBuffer@@@Z"
-]
+"why": []
 },
 "?CombineUintId@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0@Z": {
 "t": "0x1009a904",
@@ -11595,9 +11599,7 @@
 "t": "0x1009cd0b",
 "n": 5104,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call __CIexp"
-]
+"why": []
 },
 "?FindDecl@CParse@D3DXShader@@IAEJW4_D3DXDECL_TYPE@2@PAUD3DXTOKEN@2@PAVCNode@2@2PAVCNodeScope@2@KPAPAV52@4@Z": {
 "t": "0x1009e0fb",
@@ -11627,17 +11629,13 @@
 "t": "0x1009ee58",
 "n": 2141,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?EvalIntrinsic@CParse@D3DXShader@@IAEJPAVCNode@2@PAU_D3DXVALUE@2@@Z"
-]
+"why": []
 },
 "?IfStmt@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@00@Z": {
 "t": "0x1009f6b5",
 "n": 295,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?Eval@CParse@D3DXShader@@IAEJPAVCNode@2@PAU_D3DXVALUE@2@@Z"
-]
+"why": []
 },
 "?Token@CParse@D3DXShader@@IAEHXZ": {
 "t": "0x1009f7dc",
@@ -11655,129 +11653,97 @@
 "t": "0x100a06b8",
 "n": 299,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?Eval@CParse@D3DXShader@@IAEJPAVCNode@2@PAU_D3DXVALUE@2@@Z"
-]
+"why": []
 },
 "?EvalUint@CParse@D3DXShader@@IAEJPAVCNode@2@PAI@Z": {
 "t": "0x100a07e3",
 "n": 89,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?Eval@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@@Z"
-]
+"why": []
 },
 "?TypeDecl@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0@Z": {
 "t": "0x100a083c",
 "n": 432,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?EvalUint@CParse@D3DXShader@@IAEJPAVCNode@2@PAI@Z"
-]
+"why": []
 },
 "?StructDecl@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0@Z": {
 "t": "0x100a09ec",
 "n": 72,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?TypeDecl@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0@Z"
-]
+"why": []
 },
 "?VectorType@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0@Z": {
 "t": "0x100a0a34",
 "n": 134,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?EvalUint@CParse@D3DXShader@@IAEJPAVCNode@2@PAI@Z"
-]
+"why": []
 },
 "?MatrixType@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@00@Z": {
 "t": "0x100a0aba",
 "n": 169,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?EvalUint@CParse@D3DXShader@@IAEJPAVCNode@2@PAI@Z"
-]
+"why": []
 },
 "?TypeDim@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0@Z": {
 "t": "0x100a0b63",
 "n": 121,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?EvalUint@CParse@D3DXShader@@IAEJPAVCNode@2@PAI@Z"
-]
+"why": []
 },
 "?ArrayExpr@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0@Z": {
 "t": "0x100a0bdc",
 "n": 554,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?EvalUint@CParse@D3DXShader@@IAEJPAVCNode@2@PAI@Z"
-]
+"why": []
 },
 "?Expr@CParse@D3DXShader@@IAEPAVCNode@2@W4_D3DXEXPR_OP@2@PAV32@1H@Z": {
 "t": "0x100a0e06",
 "n": 1049,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?Eval@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@@Z"
-]
+"why": []
 },
 "?ReturnStmt@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@@Z": {
 "t": "0x100a121f",
 "n": 180,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?Expr@CParse@D3DXShader@@IAEPAVCNode@2@W4_D3DXEXPR_OP@2@PAV32@1H@Z"
-]
+"why": []
 },
 "?VariableDecl@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@000@Z": {
 "t": "0x100a12d3",
 "n": 2341,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?EvalUint@CParse@D3DXShader@@IAEJPAVCNode@2@PAI@Z"
-]
+"why": []
 },
 "?FunctionExpr@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0H@Z": {
 "t": "0x100a1bf8",
 "n": 1048,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?Expr@CParse@D3DXShader@@IAEPAVCNode@2@W4_D3DXEXPR_OP@2@PAV32@1H@Z"
-]
+"why": []
 },
 "?CompileExpr@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@00H@Z": {
 "t": "0x100a2010",
 "n": 456,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?FunctionExpr@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0H@Z"
-]
+"why": []
 },
 "?Production@CParse@D3DXShader@@IAEXII@Z": {
 "t": "0x100a21d8",
 "n": 4950,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?TypeDecl@CParse@D3DXShader@@IAEPAVCNode@2@PAV32@0@Z"
-]
+"why": []
 },
 "?d3dxshader_parse@D3DXShader@@YGHXZ": {
 "t": "0x100a352e",
 "n": 4863,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?Production@CParse@D3DXShader@@IAEXII@Z"
-]
+"why": []
 },
 "?Parse@CParse@D3DXShader@@QAEJPAVCPreProcessor@2@KPAPAVCNode@2@@Z": {
 "t": "0x100a482d",
 "n": 174,
 "obj": "d3dx9:cparse.obj",
-"why": [
-"call ?d3dxshader_parse@D3DXShader@@YGHXZ"
-]
+"why": []
 },
 "??0C30Program@D3DXShader@@QAE@H@Z": {
 "t": "0x100a48db",
@@ -11819,9 +11785,7 @@
 "t": "0x100a4f03",
 "n": 458,
 "obj": "d3dx9:c30program.obj",
-"why": [
-"call ?ResolveFlowControl@CShaderProgram@D3DXShader@@IAEJXZ"
-]
+"why": []
 },
 "?EmitDCL@C30Program@D3DXShader@@MAEJPAVCArgument@2@PAK@Z": {
 "t": "0x100a5218",
@@ -11881,9 +11845,7 @@
 "t": "0x100a603b",
 "n": 1932,
 "obj": "d3dx9:c30program.obj",
-"why": [
-"call ?MatchComplexMad@CShaderProgram@D3DXShader@@IAEJH@Z"
-]
+"why": []
 },
 "?EmitInstructions@C30Program@D3DXShader@@MAEJXZ": {
 "t": "0x100a67c7",
@@ -11907,9 +11869,7 @@
 "t": "0x100a6eb2",
 "n": 96,
 "obj": "d3dx9:cpslegacyprogram.obj",
-"why": [
-"call ?GenerateCode@CShaderProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z"
-]
+"why": []
 },
 "?InitCaps@CPSLegacyProgram@D3DXShader@@MAEJXZ": {
 "t": "0x100a6f12",
@@ -11951,9 +11911,7 @@
 "t": "0x100a7635",
 "n": 506,
 "obj": "d3dx9:cpslegacyprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?PackOutput@CPSLegacyProgram@D3DXShader@@IAEJXZ": {
 "t": "0x100a782f",
@@ -12187,9 +12145,7 @@
 "t": "0x100accd2",
 "n": 1264,
 "obj": "d3dx9:cpslegacyprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?NoTexClobber@CPSLegacyProgram@D3DXShader@@IAEJIPAPAVCInstruction@2@IPAII@Z": {
 "t": "0x100ad1c2",
@@ -12315,9 +12271,7 @@
 "t": "0x100aff11",
 "n": 1139,
 "obj": "d3dx9:cpslegacyprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?FindOutput@CPSLegacyProgram@D3DXShader@@MAEJPAVCArgument@2@AAK1PAH@Z": {
 "t": "0x100b0384",
@@ -12353,9 +12307,7 @@
 "t": "0x100b0cbc",
 "n": 196,
 "obj": "d3dx9:cpslegacyprogram.obj",
-"why": [
-"call ??1CShaderProgram@D3DXShader@@UAE@XZ"
-]
+"why": []
 },
 "?Translate@CPSLegacyProgram@D3DXShader@@MAEJXZ": {
 "t": "0x100b0d80",
@@ -12397,9 +12349,7 @@
 "t": "0x100b2169",
 "n": 2723,
 "obj": "d3dx9:cpslegacyprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "??0CPSProgram@D3DXShader@@QAE@H@Z": {
 "t": "0x100b2c0c",
@@ -12411,9 +12361,7 @@
 "t": "0x100b2c55",
 "n": 38,
 "obj": "d3dx9:cpsprogram.obj",
-"why": [
-"call ?GenerateCode@CShaderProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z"
-]
+"why": []
 },
 "?InitCaps@CPSProgram@D3DXShader@@MAEJXZ": {
 "t": "0x100b2c7b",
@@ -12425,17 +12373,13 @@
 "t": "0x100b2d68",
 "n": 990,
 "obj": "d3dx9:cpsprogram.obj",
-"why": [
-"call ?MatchComplexMad@CShaderProgram@D3DXShader@@IAEJH@Z"
-]
+"why": []
 },
 "?PatternMatch@CPSProgram@D3DXShader@@MAEJXZ": {
 "t": "0x100b3146",
 "n": 401,
 "obj": "d3dx9:cpsprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?DestMask@CPSProgram@D3DXShader@@MAEJPAIIPAKH@Z": {
 "t": "0x100b32d7",
@@ -12579,17 +12523,13 @@
 "t": "0x100b6002",
 "n": 39,
 "obj": "d3dx9:cvsprogram.obj",
-"why": [
-"call ?GenerateCode@CShaderProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z"
-]
+"why": []
 },
 "?Translate@CVSProgram@D3DXShader@@MAEJXZ": {
 "t": "0x100b6029",
 "n": 1298,
 "obj": "d3dx9:cvsprogram.obj",
-"why": [
-"call ?MatchComplexMad@CShaderProgram@D3DXShader@@IAEJH@Z"
-]
+"why": []
 },
 "?EmitSize@CVSProgram@D3DXShader@@MAEJXZ": {
 "t": "0x100b6575",
@@ -12637,9 +12577,7 @@
 "t": "0x100b7c5d",
 "n": 635,
 "obj": "d3dx9:cvsprogram.obj",
-"why": [
-"call ?ResolveFlowControl@CShaderProgram@D3DXShader@@IAEJXZ"
-]
+"why": []
 },
 "?ViolatesPortConstraints@CVSProgram@D3DXShader@@MAEHPAVCInstruction@2@PAI@Z": {
 "t": "0x100b7ed8",
@@ -12693,9 +12631,7 @@
 "t": "0x100b89c5",
 "n": 3228,
 "obj": "d3dx9:cfxlprogram.obj",
-"why": [
-"call ?GenerateCode@CProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z"
-]
+"why": []
 },
 "?ComparePool@D3DXShader@@YGHIIPBX@Z": {
 "t": "0x100b9661",
@@ -12935,17 +12871,13 @@
 "t": "0x100bf52c",
 "n": 1242,
 "obj": "d3dx9:cshaderprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?FoldBreak@CShaderProgram@D3DXShader@@IAEJXZ": {
 "t": "0x100bfa06",
 "n": 2078,
 "obj": "d3dx9:cshaderprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?MatchBREAK_NEEQ@CShaderProgram@D3DXShader@@IAEJXZ": {
 "t": "0x100c0224",
@@ -13041,9 +12973,7 @@
 "t": "0x100c2000",
 "n": 666,
 "obj": "d3dx9:cshaderprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?Reschedule_Exchange@CShaderProgram@D3DXShader@@AAEJII@Z": {
 "t": "0x100c229a",
@@ -13247,9 +13177,7 @@
 "t": "0x100c520c",
 "n": 88,
 "obj": "d3dx9:cshaderprogram.obj",
-"why": [
-"call ??1CProgram@D3DXShader@@UAE@XZ"
-]
+"why": []
 },
 "?IndexSemantic@CShaderProgram@D3DXShader@@UAEJPAVCArgument@2@H@Z": {
 "t": "0x100c5264",
@@ -13291,9 +13219,7 @@
 "t": "0x100c61dd",
 "n": 3212,
 "obj": "d3dx9:cshaderprogram.obj",
-"why": [
-"call ?AddPool@CBaseProgram@D3DXShader@@QAEIPBDKII@Z"
-]
+"why": []
 },
 "?MatchBiasModifier@CShaderProgram@D3DXShader@@IAEJXZ": {
 "t": "0x100c6e69",
@@ -13335,9 +13261,7 @@
 "t": "0x100c7816",
 "n": 804,
 "obj": "d3dx9:cshaderprogram.obj",
-"why": [
-"call ?RFC_Convert@CShaderProgram@D3DXShader@@AAEJPBDKPAVCArgument@2@PAI@Z"
-]
+"why": []
 },
 "?Emit@CShaderProgram@D3DXShader@@IAEJK@Z": {
 "t": "0x100c7b3a",
@@ -13373,9 +13297,7 @@
 "t": "0x100c8cf0",
 "n": 3009,
 "obj": "d3dx9:cshaderprogram.obj",
-"why": [
-"call ?GenerateCode@CProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z"
-]
+"why": []
 },
 "?EmitInst@CShaderProgram@D3DXShader@@IAEJK@Z": {
 "t": "0x100c98b1",
@@ -13991,6 +13913,22 @@
 "obj": "LIBCMT:fclose.obj",
 "why": []
 },
+"__fwrite_lk": {
+"t": "0x100f70da",
+"n": 263,
+"obj": "LIBCMT:fwrite.obj",
+"why": [
+"call _memcpy"
+]
+},
+"_fwrite": {
+"t": "0x100f71e1",
+"n": 76,
+"obj": "LIBCMT:fwrite.obj",
+"why": [
+"call __fwrite_lk"
+]
+},
 "_vsprintf": {
 "t": "0x100f7320",
 "n": 87,
@@ -14530,9 +14468,7 @@
 "t": "0x100f8ee0",
 "n": 63,
 "obj": "LIBCMT:pow.obj",
-"why": [
-"call __pow_default"
-]
+"why": []
 },
 "__CIpow_default": {
 "t": "0x100f8f5b",
@@ -14562,17 +14498,13 @@
 "t": "0x100f9330",
 "n": 59,
 "obj": "LIBCMT:87ctran.obj",
-"why": [
-"call __exp_pentium4"
-]
+"why": []
 },
 "__CIexp": {
 "t": "0x100f936c",
 "n": 59,
 "obj": "LIBCMT:87ctran.obj",
-"why": [
-"extent"
-]
+"why": []
 },
 "__vsnwprintf": {
 "t": "0x100f93bb",
@@ -15747,9 +15679,7 @@
 "t": "0x10103c10",
 "n": 519,
 "obj": "LIBCMT:87tran.obj",
-"why": [
-"call __rttospop"
-]
+"why": []
 },
 "__d_inttype": {
 "t": "0x10103e17",
@@ -15773,25 +15703,19 @@
 "t": "0x101040c0",
 "n": 252,
 "obj": "LIBCMT:87trigh.obj",
-"why": [
-"call __rttospop"
-]
+"why": []
 },
 "__cintrindisp2": {
 "t": "0x101041c0",
 "n": 62,
 "obj": "LIBCMT:87cdisp.obj",
-"why": [
-"call ?"
-]
+"why": []
 },
 "__cintrindisp1": {
 "t": "0x101041fe",
 "n": 61,
 "obj": "LIBCMT:87cdisp.obj",
-"why": [
-"call ?"
-]
+"why": []
 },
 "__ctrandisp2": {
 "t": "0x1010423b",
@@ -15803,9 +15727,7 @@
 "t": "0x101043d1",
 "n": 51,
 "obj": "LIBCMT:87cdisp.obj",
-"why": [
-"call ?"
-]
+"why": []
 },
 "__fload": {
 "t": "0x10104404",
@@ -16313,9 +16235,7 @@
 "t": "0x1010ab70",
 "n": 63,
 "obj": "LIBCMT:log.obj",
-"why": [
-"call __log_default"
-]
+"why": []
 },
 "__CIlog_default": {
 "t": "0x1010abeb",
@@ -16327,9 +16247,7 @@
 "t": "0x1010ad70",
 "n": 168,
 "obj": "LIBCMT:87triga.obj",
-"why": [
-"call __rtindfpop"
-]
+"why": []
 },
 "__CIlog_pentium4": {
 "t": "0x1010ae20",
@@ -16479,9 +16397,7 @@
 "t": "0x100636bc",
 "n": 33,
 "obj": "d3dx9:d3dx9shader.obj",
-"why": [
-"call ??1CConstantTable@D3DXShader@@QAE@XZ"
-]
+"why": []
 },
 "??_GCTextureShader@D3DXShader@@QAEPAXI@Z": {
 "t": "0x10063863",
@@ -16513,6 +16429,12 @@
 "obj": "d3dx9:cassembler.obj",
 "why": []
 },
+"??_GCFragmentInfo@D3DXShader@@QAEPAXI@Z": {
+"t": "0x1006ac35",
+"n": 33,
+"obj": "d3dx9:cassembler.obj",
+"why": []
+},
 "??_GCInstruction@D3DXShader@@QAEPAXI@Z": {
 "t": "0x1006c418",
 "n": 32,
@@ -16525,117 +16447,125 @@
 "obj": "d3dx9:ccompiler.obj",
 "why": []
 },
+"??_GCConstant@D3DXShader@@QAEPAXI@Z": {
+"t": "0x1007e2e2",
+"n": 33,
+"obj": "d3dx9:cconstanttable.obj",
+"why": []
+},
 "?SetBool@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDH@Z": {
 "t": "0x100815dd",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetBoolArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBHI@Z": {
 "t": "0x10081629",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetInt@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDH@Z": {
 "t": "0x10081675",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetIntArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBHI@Z": {
 "t": "0x100816c1",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetFloat@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDM@Z": {
 "t": "0x1008170d",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetFloatArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBMI@Z": {
 "t": "0x10081759",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetVector@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXVECTOR4@@@Z": {
 "t": "0x100817a5",
 "n": 75,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetVectorArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXVECTOR4@@I@Z": {
 "t": "0x100817f0",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetMatrix@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@@Z": {
 "t": "0x1008183c",
 "n": 75,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetMatrixArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@I@Z": {
 "t": "0x10081887",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetMatrixPointerArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPAPBUD3DXMATRIX@@I@Z": {
 "t": "0x100818d3",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetMatrixTranspose@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@@Z": {
 "t": "0x1008191f",
 "n": 75,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetMatrixTransposeArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPBUD3DXMATRIX@@I@Z": {
 "t": "0x1008196a",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
 },
 "?SetMatrixTransposePointerArray@CConstantTable@D3DXShader@@UAGJPAUIDirect3DDevice9@@PBDPAPBUD3DXMATRIX@@I@Z": {
 "t": "0x100819b6",
 "n": 76,
 "obj": "d3dx9:cconstanttable.obj",
-"why": [
-"call ?FindConstantByName@CConstantTable@D3DXShader@@QAEJPBDPAPAVCConstant@2@@Z"
-]
+"why": []
+},
+"??_GCBufferA16@D3DXCore@@UAEPAXI@Z": {
+"t": "0x10081b0a",
+"n": 33,
+"obj": "d3dx9:cbuffer.obj",
+"why": []
+},
+"??_GCBaseProgram@D3DXShader@@UAEPAXI@Z": {
+"t": "0x100864c8",
+"n": 33,
+"obj": "d3dx9:cbaseprogram.obj",
+"why": []
+},
+"??_GCProgram@D3DXShader@@UAEPAXI@Z": {
+"t": "0x1008b37e",
+"n": 33,
+"obj": "d3dx9:cprogram.obj",
+"why": []
+},
+"??_GCPSLegacyProgram@D3DXShader@@UAEPAXI@Z": {
+"t": "0x100b2148",
+"n": 33,
+"obj": "d3dx9:cpslegacyprogram.obj",
+"why": []
+},
+"??_GCShaderProgram@D3DXShader@@UAEPAXI@Z": {
+"t": "0x100c8ccf",
+"n": 33,
+"obj": "d3dx9:cshaderprogram.obj",
+"why": []
 },
 "?StringCchCopyA@@YGJPADIPBD@Z": {
 "t": "0x100f580e",
@@ -16973,9 +16903,7 @@
 "t": "0x1010aaaa",
 "n": 10,
 "obj": "LIBCMT:87ctriga.obj",
-"why": [
-"call __cintrindisp2"
-]
+"why": []
 },
 "@__security_check_cookie@4": {
 "t": "0x10100d4d",
@@ -17061,6 +16989,12 @@
 "obj": "d3dx9:cnode.obj",
 "why": []
 },
+"??_GCPool@D3DXShader@@QAEPAXI@Z": {
+"t": "0x10085de7",
+"n": 33,
+"obj": "d3dx9:cbaseprogram.obj",
+"why": []
+},
 "??0CPool@D3DXShader@@QAE@XZ": {
 "t": "0x100cb926",
 "n": 3,
@@ -17113,33 +17047,25 @@
 "t": "0x100f92e2",
 "n": 7,
 "obj": "LIBCMT:87ctrigh.obj",
-"why": [
-"call _$$$00001$private$LIBCMT:87trigh.obj"
-]
+"why": []
 },
 "__CIfmod": {
 "t": "0x100f92fa",
 "n": 10,
 "obj": "LIBCMT:87fmod.obj",
-"why": [
-"call __cintrindisp2"
-]
+"why": []
 },
 "__CIsinh": {
 "t": "0x100f92d8",
 "n": 10,
 "obj": "LIBCMT:87ctrigh.obj",
-"why": [
-"call __cintrindisp1"
-]
+"why": []
 },
 "__CItanh": {
 "t": "0x100f92e9",
 "n": 7,
 "obj": "LIBCMT:87ctrigh.obj",
-"why": [
-"extent"
-]
+"why": []
 },
 "??0CNodeValue@D3DXShader@@QAE@W4_D3DXVALUE_TYPE@1@IIPBUD3DXTOKEN@1@@Z": {
 "t": "0x1008347d",
@@ -17285,6 +17211,14 @@
 "obj": "LIBCMT:dosmap.obj",
 "why": []
 },
+"_memcpy": {
+"t": "0x100fcdf0",
+"n": 829,
+"obj": "LIBCMT:memcpy.obj",
+"why": [
+"extent"
+]
+},
 "__RTC_Initialize": {
 "t": "0x100fdec5",
 "n": 68,
@@ -17302,14 +17236,6 @@
 "n": 56,
 "obj": "LIBCMT:fpinit.obj",
 "why": []
-},
-"_memcpy": {
-"t": "0x100fcdf0",
-"n": 829,
-"obj": "LIBCMT:memcpy.obj",
-"why": [
-"extent"
-]
 },
 "__ld12tod": {
 "t": "0x101063c0",
@@ -17453,6 +17379,12 @@
 "t": "0x1006512c",
 "n": 26,
 "obj": "d3dx9:cpreprocessor.obj",
+"why": []
+},
+"??1CPool@D3DXShader@@QAE@XZ": {
+"t": "0x100cb929",
+"n": 1,
+"obj": "d3dx9:cpool.obj",
 "why": []
 },
 "?EmitAddress@C30Program@D3DXShader@@IAEJI@Z": {

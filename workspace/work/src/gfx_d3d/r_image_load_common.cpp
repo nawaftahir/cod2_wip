@@ -3,7 +3,7 @@
 #include <string.h>
 #include "universal/com_math.h"
 
-void Image_Create2DTexture(GfxImage *image, int width, int height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
 void Image_Create3DTexture(GfxImage *image, int width, int height, int depth, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
 void Image_CreateCubeTexture(GfxImage *image, int edgeLen, int mipmapCount, D3DFORMAT imageFormat, D3DPOOL memPool);
 void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int width, int height, int depth);

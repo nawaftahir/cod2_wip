@@ -1339,7 +1339,7 @@
 "hits": []
 },
 {
-"name": "?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z",
+"name": "?Image_Create2DTexture@@YAXPAUGfxImage@@GGHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z",
 "obj": "r_image.obj",
 "size": 113,
 "hits": [
@@ -1969,7 +1969,9 @@
 "name": "?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z",
 "obj": "r_image_load_obj.obj",
 "size": 74,
-"hits": []
+"hits": [
+"0x1000d0f0"
+]
 },
 {
 "name": "?Image_TransformLightGridVector@@YAXMMMPAM@Z",
@@ -4155,8 +4157,10 @@
 {
 "name": "?R_GetRigidTransform@@YAXPBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z",
 "obj": "r_model.obj",
-"size": 395,
-"hits": []
+"size": 399,
+"hits": [
+"0x1001ee70"
+]
 },
 {
 "name": "?Hunk_AllocXModelPrecache@@YAPAXH@Z",
@@ -4431,13 +4435,13 @@
 {
 "name": "?R_SkinXModelSurface@@YAPAEPBUDObjSkelMat_s@@PBUGfxEntity@@PAE@Z",
 "obj": "r_model.obj",
-"size": 64,
+"size": 65,
 "hits": []
 },
 {
 "name": "?R_SkinRigidXModelCmd@@YAXPAUSkinRigidXModelCmd@@@Z",
 "obj": "r_model.obj",
-"size": 134,
+"size": 135,
 "hits": []
 },
 {
@@ -4449,7 +4453,7 @@
 {
 "name": "?R_SkinXModelCmd@@YAXPAUSkinXModelCmd@@H@Z",
 "obj": "r_model.obj",
-"size": 158,
+"size": 155,
 "hits": []
 },
 {
@@ -4874,7 +4878,7 @@
 {
 "name": "?R_ProcessFrontendCmdInternal@@YAXHPAXH@Z",
 "obj": "r_rendercmds.obj",
-"size": 132,
+"size": 140,
 "hits": []
 },
 {
@@ -6062,7 +6066,7 @@
 {
 "name": "?R_SkinCachedVertices@@YAXPAY02$$CBM0HHHPBUXVertexInfo_s@@PAUGfxSModelCachedVertex@@@Z",
 "obj": "r_staticmodelcache.obj",
-"size": 825,
+"size": 830,
 "hits": []
 },
 {
@@ -6074,7 +6078,7 @@
 {
 "name": "?R_SkinStaticModelCachedCmd@@YAXPAUSkinStaticModelCachedCmd@@PAUSkinBuffers@@@Z",
 "obj": "r_staticmodelcache.obj",
-"size": 268,
+"size": 254,
 "hits": []
 },
 {
@@ -6912,8 +6916,10 @@
 {
 "name": "?RB_BeginViewCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
 "obj": "rb_backend.obj",
-"size": 265,
-"hits": []
+"size": 274,
+"hits": [
+"0x100321f0"
+]
 },
 {
 "name": "?RB_TouchAllImagesCmd@@YAXPAUGfxRenderCommandExecState@@@Z",
@@ -7534,9 +7540,17 @@
 ]
 },
 {
+"name": "?I_ffloor@@YAHM@Z",
+"obj": "rb_light.obj",
+"size": 33,
+"hits": [
+"0x10020530"
+]
+},
+{
 "name": "?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z",
 "obj": "rb_light.obj",
-"size": 674,
+"size": 776,
 "hits": []
 },
 {
@@ -7906,8 +7920,10 @@
 {
 "name": "?RB_SetupLighting@@YAXXZ",
 "obj": "rb_shade.obj",
-"size": 372,
-"hits": []
+"size": 566,
+"hits": [
+"0x1003a340"
+]
 },
 {
 "name": "?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z",
@@ -7996,8 +8012,10 @@
 {
 "name": "?RB_DrawSunFlare@@YAXMM@Z",
 "obj": "rb_sky.obj",
-"size": 235,
-"hits": []
+"size": 244,
+"hits": [
+"0x1003bbe0"
+]
 },
 {
 "name": "?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z",
@@ -8392,8 +8410,10 @@
 {
 "name": "?RB_DrawOptimizedTessSurface@@YAXXZ",
 "obj": "rb_surface.obj",
-"size": 224,
-"hits": []
+"size": 273,
+"hits": [
+"0x1003a690"
+]
 },
 {
 "name": "?RB_DrawTessSurface@@YAXXZ",
@@ -8412,8 +8432,10 @@
 {
 "name": "?RB_EndSurface@@YAXXZ",
 "obj": "rb_surface.obj",
-"size": 206,
-"hits": []
+"size": 202,
+"hits": [
+"0x1003a8d0"
+]
 },
 {
 "name": "?RB_TessPoly@@YAXPBW4surfaceType_t@@@Z",
@@ -8438,7 +8460,7 @@
 {
 "name": "?RB_TessXModelRigid@@YAXPBW4surfaceType_t@@@Z",
 "obj": "rb_tess.obj",
-"size": 417,
+"size": 435,
 "hits": []
 },
 {
@@ -8711,7 +8733,7 @@
 ]
 },
 {
-"name": "_start_pass_coef",
+"name": "_start_pass_coef$private$jccoefct.obj",
 "obj": "jccoefct.obj",
 "size": 224,
 "hits": [
@@ -8735,7 +8757,7 @@
 ]
 },
 {
-"name": "_compress_output",
+"name": "_compress_output$private$jccoefct.obj",
 "obj": "jccoefct.obj",
 "size": 521,
 "hits": [
@@ -9590,6 +9612,63 @@
 ]
 },
 {
+"name": "_jpeg_write_coefficients",
+"obj": "jctrans.obj",
+"size": 86,
+"hits": [
+"0x10049680"
+]
+},
+{
+"name": "_jpeg_copy_critical_parameters",
+"obj": "jctrans.obj",
+"size": 587,
+"hits": [
+"0x100496e0"
+]
+},
+{
+"name": "_transencode_master_selection",
+"obj": "jctrans.obj",
+"size": 220,
+"hits": [
+"0x10049930"
+]
+},
+{
+"name": "_start_iMCU_row$private$jctrans.obj",
+"obj": "jctrans.obj",
+"size": 74,
+"hits": [
+"0x10041d60",
+"0x10049a10"
+]
+},
+{
+"name": "_start_pass_coef$private$jctrans.obj",
+"obj": "jctrans.obj",
+"size": 112,
+"hits": [
+"0x10049a60"
+]
+},
+{
+"name": "_compress_output$private$jctrans.obj",
+"obj": "jctrans.obj",
+"size": 655,
+"hits": [
+"0x10049ad0"
+]
+},
+{
+"name": "_transencode_coef_controller",
+"obj": "jctrans.obj",
+"size": 159,
+"hits": [
+"0x10049d60"
+]
+},
+{
 "name": "_jpeg_CreateDecompress",
 "obj": "jdapimin.obj",
 "size": 310,
@@ -9711,6 +9790,38 @@
 "size": 146,
 "hits": [
 "0x1004a780"
+]
+},
+{
+"name": "_init_destination",
+"obj": "jdatadst.obj",
+"size": 38,
+"hits": [
+"0x1004a820"
+]
+},
+{
+"name": "_empty_output_buffer",
+"obj": "jdatadst.obj",
+"size": 73,
+"hits": [
+"0x1004a850"
+]
+},
+{
+"name": "_term_destination",
+"obj": "jdatadst.obj",
+"size": 105,
+"hits": [
+"0x1004a8a0"
+]
+},
+{
+"name": "_jpeg_stdio_dest",
+"obj": "jdatadst.obj",
+"size": 55,
+"hits": [
+"0x1004a910"
 ]
 },
 {
@@ -13822,7 +13933,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -13861,7 +13982,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -13933,7 +14064,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -13964,7 +14105,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -14019,7 +14170,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -14050,7 +14211,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -14256,7 +14427,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -14831,7 +15012,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -14902,7 +15093,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -16010,7 +16211,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -16613,7 +16824,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -16652,7 +16873,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -16712,7 +16943,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -18309,7 +18550,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -18434,7 +18685,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -19179,7 +19440,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -21184,7 +21455,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -22714,7 +22995,17 @@
 "0x10063dcf",
 "0x10063e11",
 "0x10065146",
-"0x1006a6cc"
+"0x1006a6cc",
+"0x1006ac35",
+"0x1007e2e2",
+"0x10081b0a",
+"0x10081c99",
+"0x10081da4",
+"0x10085de7",
+"0x100864c8",
+"0x1008b37e",
+"0x100b2148",
+"0x100c8ccf"
 ]
 },
 {
@@ -23848,6 +24139,22 @@
 "size": 81,
 "hits": [
 "0x100f7089"
+]
+},
+{
+"name": "__fwrite_lk",
+"obj": "LIBCMT:fwrite.obj",
+"size": 263,
+"hits": [
+"0x100f70da"
+]
+},
+{
+"name": "_fwrite",
+"obj": "LIBCMT:fwrite.obj",
+"size": 76,
+"hits": [
+"0x100f71e1"
 ]
 },
 {
@@ -25302,6 +25609,15 @@
 ]
 },
 {
+"name": "_memcpy",
+"obj": "LIBCMT:memcpy.obj",
+"size": 829,
+"hits": [
+"0x100f67a0",
+"0x100fcdf0"
+]
+},
+{
 "name": "___isctype_mt",
 "obj": "LIBCMT:isctype.obj",
 "size": 119,
@@ -26114,15 +26430,6 @@
 "size": 136,
 "hits": [
 "0x101003a0"
-]
-},
-{
-"name": "_memcpy",
-"obj": "LIBCMT:memcpy.obj",
-"size": 829,
-"hits": [
-"0x100f67a0",
-"0x100fcdf0"
 ]
 },
 {
