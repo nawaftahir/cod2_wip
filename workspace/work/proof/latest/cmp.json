@@ -7098,8 +7098,10 @@
 {
 "name": "?RB_DrawTextInSpace@@YAXPBDPAUFont_s@@PBM22I@Z",
 "obj": "rb_backend.obj",
-"size": 429,
-"hits": []
+"size": 442,
+"hits": [
+"0x10032a50"
+]
 },
 {
 "name": "?RB_DrawTextInSpaceCmd@@YAXPAUGfxRenderCommandExecState@@@Z",

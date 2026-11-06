@@ -3507,6 +3507,14 @@
 "call ?RB_DrawTextWithCursor@@YAXPBDHPAUFont_s@@MMMMIHHD@Z"
 ]
 },
+"?RB_DrawTextInSpace@@YAXPBDPAUFont_s@@PBM22I@Z": {
+"t": "0x10032a50",
+"n": 442,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_SetMatricesForView@@YAXPBUGfxViewParms@@@Z"
+]
+},
 "?RB_DrawTextInSpaceCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
 "t": "0x10032c60",
 "n": 51,

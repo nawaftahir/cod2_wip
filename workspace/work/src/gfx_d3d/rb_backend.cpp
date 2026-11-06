@@ -1672,23 +1672,37 @@ void RB_DrawTextInSpace(const char *text, Font_s *font, const float *org,
     const Material *material = font->material;
     RB_SetMatricesForView(backEnd.viewParms);
     float start[3];
-    start[0] = org[0] - xPixelStep[0] * 0.5f - yPixelStep[0] * 0.5f;
-    start[1] = org[1] - xPixelStep[1] * 0.5f - yPixelStep[1] * 0.5f;
-    start[2] = org[2] - xPixelStep[2] * 0.5f - yPixelStep[2] * 0.5f;
+    start[0] = org[0] - xPixelStep[0] * 0.5f;
+    start[1] = org[1] - xPixelStep[1] * 0.5f;
+    start[2] = org[2] - xPixelStep[2] * 0.5f;
+    start[0] -= yPixelStep[0] * 0.5f;
+    start[1] -= yPixelStep[1] * 0.5f;
+    start[2] -= yPixelStep[2] * 0.5f;
     while (*text)
     {
         unsigned int letter = ri.SEH_ReadCharFromString(&text, 0);
         Glyph *glyph = R_GetCharacterGlyph(font, letter);
         float pos[3], width[3], height[3];
-        for (int axis = 0; axis < 3; ++axis)
-        {
-            pos[axis] = glyph->x0 * xPixelStep[axis] + start[axis] + glyph->y0 * yPixelStep[axis];
-            width[axis] = glyph->pixelWidth * xPixelStep[axis];
-            height[axis] = glyph->pixelHeight * yPixelStep[axis];
-        }
+        pos[0] = start[0] + glyph->x0 * xPixelStep[0];
+        pos[1] = start[1] + glyph->x0 * xPixelStep[1];
+        pos[2] = start[2] + glyph->x0 * xPixelStep[2];
+        pos[0] += glyph->y0 * yPixelStep[0];
+        pos[1] += glyph->y0 * yPixelStep[1];
+        pos[2] += glyph->y0 * yPixelStep[2];
+
+        width[0] = glyph->pixelWidth * xPixelStep[0];
+        width[1] = glyph->pixelWidth * xPixelStep[1];
+        width[2] = glyph->pixelWidth * xPixelStep[2];
+
+        height[0] = glyph->pixelHeight * yPixelStep[0];
+        height[1] = glyph->pixelHeight * yPixelStep[1];
+        height[2] = glyph->pixelHeight * yPixelStep[2];
+
         RB_DrawTextQuad(material, pos, width, height, glyph, color);
-        for (int axis = 0; axis < 3; ++axis)
-            start[axis] += glyph->dx * xPixelStep[axis];
+
+        start[0] += glyph->dx * xPixelStep[0];
+        start[1] += glyph->dx * xPixelStep[1];
+        start[2] += glyph->dx * xPixelStep[2];
     }
 }
 
