@@ -48,6 +48,24 @@ structural change. The server reconstruction hit the same wall.
 - **Data ownership**: each table/constant lives in the file retail puts it in; string-pool order follows
   file order.
 
+## Offset-first sprint (client 1.3, 11-05..06: same-offset 11% -> 86% in ~2 days, cheapest run so far)
+What made it fast and cheap (1.0 took weeks for less):
+- Meter = whole-file same-offset; tools `drift*.py` (first break + per-step deltas, anchors only on fns >= 16 B)
+  and `sizereg*.py` / `sizediff*.py` (per-gap: our unmatched fns vs retail starts). Read the step, fix its cause.
+- Fix sizes and order, not bytes. A same-size fn with a register diff blocks nothing; leave it.
+- One agent, resumed (SendMessage) with a 3-line brief per round instead of fresh agents: keeps context, no
+  re-reading. Caps: 2 builds per step, 2-4 fixes per clean gate, stop on 4 merges or 3 h. 3-line reports.
+- Steps that cancel each other (sum to zero) must land in one batch; alone each one loses the tail.
+- A real fn loss is acceptable only as a labelled "NOT a tie: known loss from <fix>" when the same-offset
+  gain is >= 10x the bytes lost; the cause becomes lead #0 in STATUS.
+- Levers that paid most (bytes per build):
+  - remove fns/commands retail lacks (g_cmds_mp: +188 KB); add missing ones from retail;
+  - link order: libraries after import libs (libwww), obj order inside a lib group (pbcl, pbmd5, pbsv);
+  - CRT call spelling decides libcmt member order: retail uses OLDNAMES aliases (stricmp, itoa), not _stricmp;
+  - .rdata string pool: per TU in reverse source order, so fn definition order and literal text matter;
+  - branch shape that changes size (two calls in if/else instead of a merged call: Item_ListBox_Paint +219 KB);
+  - an inlined member that leaves a COMDAT copy: write the body at the inline site instead.
+
 ## Matching: what paid vs what wasted usage
 
 Paid (most bytes per token): **find one shared cause, then fix every function that shows it.**
