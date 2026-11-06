@@ -4002,3 +4002,12 @@ TU move (2026-11-06): rb_surface.cpp body appended to rb_shade.cpp right after
 RB_BeginSurface (retail order Begin, DrawOptimizedTess, DrawTess, End; Mac has no
 rb_surface.c) and rb_surface removed from tus.txt: RB_EndSurface stays 206/202.
 TU membership alone does not fix the block-layout class; restored.
+
+# RB_DrawFrameColorDebug probe - 2026-11-06 (worker s6)
+
+Target `RB_DrawFrameColorDebug` (retail `0x10030190`, 286 bytes):
+- Baseline ours: 235 bytes (used literal dword hex colors 0xffff0000, 0xff00ff00, etc., while retail constructs colors via byte array stores).
+- Probe 1: Applied byte color[4] array with color[0..3] byte assignments. Size: 286 bytes (exact match). Instruction count 92 vs 92. Differed only in register allocation (ours used eax for 0 and cl for 0xff; retail used ecx for 0 and al for 0xff).
+- Probe 2: Reordered byte stores to write 255 values first (color[2]/color[1]/color[0] then color[3] then zeros). Size: 286 bytes. Kept eax/ecx inversion across initial float setup.
+- Probe 3: Deferred quarterWidth/quarterHeight calculation to after initial color setup to match retail FPU stack schedule. Size: 286 bytes. Register allocation unchanged.
+All 3 probes failed byte verification. `rb_backend.cpp` restored to baseline.
