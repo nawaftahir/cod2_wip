@@ -3905,3 +3905,6 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+## R_XModelDebugBoxes (w5)
+Diff: retail +0x292 start-transform sums p0*m0 + p2*m2 + p1*m1. Probes: (1) static inline helper for both transforms: 894 bytes; (2) __forceinline helper: 894; (3) helper for start only, original MatrixTransformVector for end: 985 bytes, bytes still differ (remaining diff not inspected). Reverted.
