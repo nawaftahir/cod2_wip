@@ -4002,3 +4002,12 @@ TU move (2026-11-06): rb_surface.cpp body appended to rb_shade.cpp right after
 RB_BeginSurface (retail order Begin, DrawOptimizedTess, DrawTess, End; Mac has no
 rb_surface.c) and rb_surface removed from tus.txt: RB_EndSurface stays 206/202.
 TU membership alone does not fix the block-layout class; restored.
+
+# RB_GetLightingAtPoint probe - 2026-11-06 (worker s3)
+
+Target `RB_GetLightingAtPoint` (retail `0x100363a0`, 784 bytes, ours baseline 674 bytes):
+Diff showed retail unrolls 3 coordinate axes (X, Y, Z) instead of looping over axes, and inlines default colors.
+- Probe 1: Unrolled 3 axes with I_fround(f - 0.5f) and updated RB_DefaultGridColors to float array layout. Size grew from 674 to 792 bytes.
+- Probe 2: Marked RB_GetNearestGridColors static to test internal calling convention propagation. Size stayed 792 bytes; separate fsub 0.5f before I_fround vs retail fsub [0.4999999990686774] prevented byte identity.
+- Probe 3: Tested (int)floor(f) for axes calculation. Emitted CRT floor calls, resulting in 740 bytes.
+All 3 probes failed byte verification. rb_light.cpp restored to baseline.
