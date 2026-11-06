@@ -1,3 +1,7 @@
+# RB_UpdateViewportConstants deferral - 2026-11-06
+
+RB_UpdateViewportConstants (retail 1003e690, 366 bytes; our size 315 bytes at rb_state.cpp:975): unbound in referee because 1003e690 is cataloged as FUN_1003e690 with NO_SOURCE_OWNER in retail_functions.tsv, leaving the symbol unbound in BLOCKERS.md. Called from RB_BeginViewCmd (100321f0) and RB_SetRenderTarget (1003ea30 in our source, though retail 1003ea30 does not call it). DEFER per instructions until ownership/layout binding is established.
+
 # Material_Register shrink-wrap probe - 2026-11-06
 
 Material_Register (10017100, retail 144): probed if (!found) block structure, __forceinline helper for load path, and forward goto load (all emit 144 bytes by placing found-return at function exit, but push esi remains in prologue at entry rather than deferred/shrink-wrapped into the load block as in retail; byte referee rejected). Restored.
