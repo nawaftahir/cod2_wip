@@ -145,3 +145,4 @@ SUPPORTED (s4 R_DownsamplePixelData + lead 2026-11-06): LTCG picks register vs s
 argument passing from the CALLEE body. Callers whose only diff is arg in eax/edx vs
 pushed (R_AddRefEntityToScene -> R_CopyRefEntityToScene, R_CullSceneEntities ->
 R_CullModelEntity, R_ResampleImage) are fixed by matching the callee first.
+PINNED drift (2026-11-06): retail .text starts with r_bsp out-of-line inline copies Vector2Copy 10001000, VectorCopy 10001010, R_WorldVertexSize 10001030, emitted because R_CreateWorldVertexBuffer uses them inline. Using them (DX7 copy: VectorCopy xyz, Vector2Copy lmapCoord, stride helper) puts the first 5 functions at retail offsets; CreateWorldVB slot 0x1e0 = retail (bytes differ in loop pointer bias).

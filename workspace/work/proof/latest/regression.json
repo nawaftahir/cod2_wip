@@ -1,15 +1,21 @@
 {
-  "functions": 777,
-  "bytes": 129572,
+  "functions": 778,
+  "bytes": 129597,
   "total": 253580,
-  "percent": 51.09708967584194,
+  "percent": 51.106948497515575,
   "baseline_lost": [],
   "gains": [
     {
       "target": "0x10001000",
       "bytes": 11,
       "name": "?Vector2Copy@@YAXQBMQAM@Z",
-      "object": "r_dpvs.obj"
+      "object": "r_bsp.obj"
+    },
+    {
+      "target": "0x10001030",
+      "bytes": 25,
+      "name": "?R_WorldVertexSize@@YAHXZ",
+      "object": "r_bsp.obj"
     },
     {
       "target": "0x10001490",

@@ -14,6 +14,12 @@ void R_FinishStaticVertexBuffer(void *vb);
 void R_FreeStaticVertexBuffer(IDirect3DVertexBuffer9 *vb);
 extern "C" void Com_Memcpy(void *dest, const void *src, int count);
 
+// Name unconfirmed; PINNED out-of-line copy at 10001030 (DX7 32 B, DX9 68 B vertices).
+inline int R_WorldVertexSize()
+{
+    return r_rendererInUse->current.integer == 2 ? 0x20 : 0x44;
+}
+
 IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int vertexCount)
 {
     IDirect3DVertexBuffer9 *worldVb;
@@ -21,7 +27,7 @@ IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int 
     int sizeVerts;
     int vertIndex;
 
-    sizeVerts = (r_rendererInUse->current.integer == 2 ? 0x20 : 0x44) * vertexCount;
+    sizeVerts = R_WorldVertexSize() * vertexCount;
     dataPtr = (byte *)R_AllocStaticVertexBuffer((void **)&worldVb, sizeVerts);
     if (r_rendererInUse->current.integer == 2)
     {
@@ -31,14 +37,11 @@ IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int 
             GfxWorldVertexDx7 *dst = (GfxWorldVertexDx7 *)(dataPtr + vertIndex * sizeof(GfxWorldVertexDx7));
             const GfxWorldVertex *src = &vertices[vertIndex];
 
-            dst->xyz[0] = src->xyz[0];
-            dst->xyz[1] = src->xyz[1];
-            dst->xyz[2] = src->xyz[2];
+            VectorCopy(src->xyz, dst->xyz);
             dst->color = src->color;
             dst->texCoord[0] = src->texCoord[0];
             dst->texCoord[1] = src->texCoord[1];
-            dst->lmapCoord[0] = src->lmapCoord[0];
-            dst->lmapCoord[1] = src->lmapCoord[1];
+            Vector2Copy(src->lmapCoord, dst->lmapCoord);
         }
     }
     else

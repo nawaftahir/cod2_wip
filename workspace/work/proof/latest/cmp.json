@@ -1,5 +1,13 @@
 [
 {
+"name": "?Vector2Copy@@YAXQBMQAM@Z",
+"obj": "r_bsp.obj",
+"size": 11,
+"hits": [
+"0x10001000"
+]
+},
+{
 "name": "?VectorCopy@@YAXQBMQAM@Z",
 "obj": "r_bsp.obj",
 "size": 17,
@@ -8,9 +16,17 @@
 ]
 },
 {
+"name": "?R_WorldVertexSize@@YAHXZ",
+"obj": "r_bsp.obj",
+"size": 25,
+"hits": [
+"0x10001030"
+]
+},
+{
 "name": "?R_CreateWorldVertexBuffer@@YAPAUIDirect3DVertexBuffer9@@PAUGfxWorldVertex@@H@Z",
 "obj": "r_bsp.obj",
-"size": 461,
+"size": 477,
 "hits": []
 },
 {
@@ -591,14 +607,6 @@
 "obj": "r_dpvs.obj",
 "size": 3,
 "hits": []
-},
-{
-"name": "?Vector2Copy@@YAXQBMQAM@Z",
-"obj": "r_dpvs.obj",
-"size": 11,
-"hits": [
-"0x10001000"
-]
 },
 {
 "name": "?VectorNegate@@YAXQBMQAM@Z",

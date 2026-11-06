@@ -1,7 +1,19 @@
 {
+"?Vector2Copy@@YAXQBMQAM@Z": {
+"t": "0x10001000",
+"n": 11,
+"obj": "r_bsp.obj",
+"why": []
+},
 "?VectorCopy@@YAXQBMQAM@Z": {
 "t": "0x10001010",
 "n": 17,
+"obj": "r_bsp.obj",
+"why": []
+},
+"?R_WorldVertexSize@@YAHXZ": {
+"t": "0x10001030",
+"n": 25,
 "obj": "r_bsp.obj",
 "why": []
 },
@@ -315,12 +327,6 @@
 "t": "0x100058b0",
 "n": 184,
 "obj": "r_debug.obj",
-"why": []
-},
-"?Vector2Copy@@YAXQBMQAM@Z": {
-"t": "0x10001000",
-"n": 11,
-"obj": "r_dpvs.obj",
 "why": []
 },
 "?VectorNegate@@YAXQBMQAM@Z": {
