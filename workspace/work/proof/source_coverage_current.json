@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 129791,
-  "cpp_executable_bytes": 119607,
-  "cpp_percent": 47.167363356731606,
-  "cpp_game_bodies": 741,
+  "mixed_executable_bytes": 129815,
+  "cpp_executable_bytes": 119631,
+  "cpp_percent": 47.17682782553829,
+  "cpp_game_bodies": 742,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -343,7 +343,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "dc5c04d0e77493bd10c1dfade165bfc39ba9fae6d01fc73ded3d17d17cd17f77",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "93626df775a3a419be3d40811299ec0a70a19b1d108e177d821bd02008c2bf53",
+  "bind_sha256": "924af1ba50f2a8e57bba67d84bfae293d340aa20607602f34fbaa7bf6344b651",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -442,7 +442,7 @@
     "gfx_d3d/rb_imagefilter.cpp": "b4915594e81cc8dc172004ad46c0e77513f4ca0162c35d042335ecf020c5f5cf",
     "gfx_d3d/rb_imagetouch.cpp": "14cd781e57a2e4fec1b005ced996f35cd2b7bdfce0075318394d472624f0ee8c",
     "gfx_d3d/r_image_registry.h": "2a8e2a52d01467b040d822a60e728642c0d2f0a81ce9213eaa65bd615986357d",
-    "gfx_d3d/r_dpvs.cpp": "ee67f36c4b59f94a65721a951628ac8928e7b3bd94d930d0ad0c2d4fe45c6cd5",
+    "gfx_d3d/r_dpvs.cpp": "e26d5c01fee9e251b758fe76e71c6ef4f9f382c79190b8089f0501910b44194c",
     "gfx_d3d/rb_debug.cpp": "15d9d42177ea218b9954ba1bbb74345234fdbb36c7485ef112ee873644110c45",
     "gfx_d3d/r_material_globals.h": "c167c5fa166909ae5e0d2753682a816391f8cbbfe6def24fff049368197a2614",
     "gfx_d3d/r_material_shader.h": "31c21ae3e44f4f68e804af13d71f4aea919c797dd078f0cbe0c78e1c66121cf6",

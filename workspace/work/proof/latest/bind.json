@@ -393,6 +393,12 @@
 "obj": "r_dpvs.obj",
 "why": []
 },
+"?R_DpvsPlaneDistToPoint@@YAMPBUDpvsPlane@@PBM@Z": {
+"t": "0x10005cb0",
+"n": 24,
+"obj": "r_dpvs.obj",
+"why": []
+},
 "?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z": {
 "t": "0x10008570",
 "n": 139,

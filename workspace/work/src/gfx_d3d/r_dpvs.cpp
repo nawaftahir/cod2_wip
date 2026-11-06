@@ -25,6 +25,20 @@ DpvsScene dpvsScene;
 void ExpandBounds(const vec3_t mins, const vec3_t maxs, vec3_t outMins, vec3_t outMaxs);
 
 // PINNED 10008570/139; the limit test is equality, not >=.
+
+// Name unconfirmed; PINNED out-of-line copy 10005c30.
+inline void R_DpvsPlaneSetDist(DpvsPlane *plane, const float *point, float dist)
+{
+    plane->coeffs[3] = dist - DotProduct(plane->coeffs, point);
+}
+
+// Name unconfirmed; PINNED out-of-line copy 10005cb0.
+inline float R_DpvsPlaneDistToPoint(const DpvsPlane *plane, const float *point)
+{
+    return DotProduct(plane->coeffs, point) + plane->coeffs[3];
+}
+
+
 static void R_LinkEntityToCell(GfxCell *cell, int entIndex, const vec_t *mins, const vec_t *maxs)
 {
     if (dpvsScene.modelRefCount == 4096)
@@ -294,7 +308,7 @@ void R_SetupDpvsForPoint(const GfxViewParms *viewParms)
     VectorCopy(viewParms->origin, dpvsViewOrg);
     dpvsViewOrg[3] = 1.0f;
     VectorCopy(viewParms->axis[0], portalViewPlane.coeffs);
-    portalViewPlane.coeffs[3] = 0.1f - DotProduct(portalViewPlane.coeffs, dpvsViewOrg);
+    R_DpvsPlaneSetDist(&portalViewPlane, dpvsViewOrg, 0.1f);
     portalViewPlane.side[0] = FloatAsInt(portalViewPlane.coeffs[0]) > 0 ? 12 : 0;
     portalViewPlane.side[1] = FloatAsInt(portalViewPlane.coeffs[1]) > 0 ? 16 : 4;
     portalViewPlane.side[2] = FloatAsInt(portalViewPlane.coeffs[2]) > 0 ? 20 : 8;
@@ -379,7 +393,7 @@ static bool R_PortalBehindPlane(const GfxPortal *portal, const DpvsPlane *plane)
     int count = portal->vertexCount;
     while (count)
     {
-        if (DotProduct(plane->coeffs, v) + plane->coeffs[3] > 0.0f)
+        if (R_DpvsPlaneDistToPoint(plane, v) > 0.0f)
             return false;
         --count;
         v += 3;

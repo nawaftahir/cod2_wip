@@ -721,6 +721,20 @@
 ]
 },
 {
+"name": "?R_DpvsPlaneSetDist@@YAXPAUDpvsPlane@@PBMM@Z",
+"obj": "r_dpvs.obj",
+"size": 28,
+"hits": []
+},
+{
+"name": "?R_DpvsPlaneDistToPoint@@YAMPBUDpvsPlane@@PBM@Z",
+"obj": "r_dpvs.obj",
+"size": 24,
+"hits": [
+"0x10005cb0"
+]
+},
+{
 "name": "?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z",
 "obj": "r_dpvs.obj",
 "size": 139,

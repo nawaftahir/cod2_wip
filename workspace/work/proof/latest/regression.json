@@ -1,8 +1,8 @@
 {
-  "functions": 782,
-  "bytes": 129791,
+  "functions": 783,
+  "bytes": 129815,
   "total": 253580,
-  "percent": 51.183452953702975,
+  "percent": 51.19291742250966,
   "baseline_lost": [],
   "gains": [
     {
@@ -243,6 +243,12 @@
       "target": "0x10005c10",
       "bytes": 29,
       "name": "?DotProduct4@@YAMQBM0@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10005cb0",
+      "bytes": 24,
+      "name": "?R_DpvsPlaneDistToPoint@@YAMPBUDpvsPlane@@PBM@Z",
       "object": "r_dpvs.obj"
     },
     {
