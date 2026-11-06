@@ -1356,9 +1356,19 @@ void CM_Trace( trace_t *results, const vec3_t start, const vec3_t end,
 	assert(mins);
 	assert(maxs);
 	assert(!IS_NAN((end)[0]) && !IS_NAN((end)[1]) && !IS_NAN((end)[2]));
+	// CM_ClipHandleToModel written out with the box branch first (retail spills cmod once)
+	if ( model >= cm.numSubModels )
+	{
+		cbrush_t *box_brush;
+		cmodel_t *box_model;
+
+		CM_GetBox(&box_brush, &box_model);
+		cmod = box_model;
+	}
+	else
+		cmod = &cm.cmodels[model];
 	// set basic parms
 	tw.contents = brushmask;
-	cmod = CM_ClipHandleToModel( model );
 	// adjust so that mins and maxs are always symetric, which
 	// avoids some complications with plane expanding of rotated
 	// bmodels

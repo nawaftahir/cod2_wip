@@ -5694,7 +5694,7 @@
 {
 "name": "?CM_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cm_trace.obj",
-"size": 1418,
+"size": 1422,
 "hits": [],
 "reason": "no masked match"
 },
@@ -5702,15 +5702,17 @@
 "name": "?CM_BoxTrace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cm_trace.obj",
 "size": 77,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41d6b0"
+]
 },
 {
 "name": "?CM_TransformedBoxTrace@@YAXPAUtrace_t@@PBM111HH11@Z",
 "obj": "cm_trace.obj",
 "size": 735,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41d700"
+]
 },
 {
 "name": "?CM_TransformedBoxTraceExternal@@YAXPAUtrace_t@@PBM111HH11@Z",
@@ -17968,8 +17970,9 @@
 "name": "?SV_Trace@@YAXPAUtrace_t@@PBM111HHHPAEH@Z",
 "obj": "sv_world_mp.obj",
 "size": 678,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x461910"
+]
 },
 {
 "name": "?SV_TracePassed@@YAHPBM000HHHHH@Z",
@@ -28662,9 +28665,10 @@
 {
 "name": "?UpdateOrigin@Particle@@QAE_NPBUorientation_t@@@Z",
 "obj": "FxPrimitives.obj",
-"size": 675,
-"hits": [],
-"reason": "no masked match"
+"size": 679,
+"hits": [
+"0x494f20"
+]
 },
 {
 "name": "?CalcVelocityValue@Particle@@QAEXMQAMPBUorientation_t@@@Z",
@@ -30728,9 +30732,10 @@
 {
 "name": "?Trace@FxHelper@@QAEXPAUtrace_t@@QBM111HH@Z",
 "obj": "FxSystem.obj",
-"size": 100,
-"hits": [],
-"reason": "no masked match"
+"size": 98,
+"hits": [
+"0x49b3e0"
+]
 },
 {
 "name": "?AddFxToScene@FxHelper@@QAEXPAUGfxEntity@@PAUXModel@@@Z",
@@ -32347,9 +32352,10 @@
 {
 "name": "?FX_CalcImpactOrigin@@YAXPBUPrimitiveTemplate@@QBMQAM1PAY02$$CBM@Z",
 "obj": "FxUtil.obj",
-"size": 585,
-"hits": [],
-"reason": "no masked match"
+"size": 588,
+"hits": [
+"0x4a10d0"
+]
 },
 {
 "name": "?FX_ApplyLateStart@@YAXPBUPrimitiveTemplate@@PAVParticle@@QAMH@Z",
@@ -42575,8 +42581,9 @@
 "name": "?CG_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cg_predict_mp.obj",
 "size": 150,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4de690"
+]
 },
 {
 "name": "?CG_PointContents@@YAHPBMHH@Z",
@@ -42606,8 +42613,9 @@
 "name": "?CG_TouchTriggerPrediction@@YAXXZ",
 "obj": "cg_predict_mp.obj",
 "size": 216,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4dea00"
+]
 },
 {
 "name": "?CG_PredictPlayerState_Internal@@YAXXZ",

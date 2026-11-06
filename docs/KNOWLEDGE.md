@@ -235,3 +235,9 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Retail 4360 B reached with the plain else-if chain over the six event ranges: `goto setLandChange` from the 93..115 arm into the 116..138 arm, `if (CG_IsLocalEntity(es))` guards in cases 0xa5 (CG_PrepOffHand) and 0xa6 (CG_UseOffHand) (retail recomputes the check inline, 21 B each), and an explicit `return;` at the end of the 70..92 arm (cross-jump survivor: keeps that arm's own epilogue, +8 B). The switch part is then byte-count identical (3625 B of case bodies).
 - Method: jump-table entry sizes (`jmp [reg*4+table]`) retail vs ours, per case, finds which case bodies differ in size.
 - same-offset 1,225,854 -> 1,912,606 (97.08%), CG_CheckEvents / CG_CheckPlayerstateEvents matched again.
+
+## 14. CM_Trace exact size and convention (cr, PINNED 11-06)
+- Keep the original order (cmod first, tw.contents second) and write CM_ClipHandleToModel out with the BOX branch first: `if (model >= cm.numSubModels) { CM_GetBox(&bb, &bm); cmod = bm; } else cmod = &cm.cmodels[model];`. MSVC then spills cmod once after the join (retail shape): 1424 B slot, callers keep their match (the 8 labelled losses are back). The reorder (tw.contents first) is no longer needed.
+- Method: lab copies of the function as `template <int V>` with different spellings of the one suspicious statement; lab sizes track the real function when the callee has no register-convention change.
+- Line endings: the repo blobs of pbsv.cpp / cg_scoreboard_mp.cpp are LF; nothing to restore (the earlier whole-file diffs were working-tree CRLF vs LF blobs).
+- same-offset 1,912,606 -> 1,914,090 (97.15%), matched-fn 1,535,777 -> 1,538,998 B.

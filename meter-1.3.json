@@ -5,28 +5,28 @@
  "anchor": "windows/1.3/CoD2MP_s.exe",
  "sha_identical": false,
  "text_bytes": 1645581,
- "matched_bytes": 1535777,
+ "matched_bytes": 1538998,
  "file_bytes": 1970176,
- "same_offset_bytes": 1912606,
+ "same_offset_bytes": 1914090,
  "game_functions": 9547,
- "matched_functions": 8930,
+ "matched_functions": 8938,
  "tus_total": 364,
  "tus_matched": 150,
  "unverified_in_src": 0,
- "functions_identical": 9328,
+ "functions_identical": 9336,
  "functions_total": 9504,
- "tus_identical": 255,
+ "tus_identical": 257,
  "tus_data_only": 15,
  "tus_data_only_identical": 15,
- "tus_identical_with_data": 239,
+ "tus_identical_with_data": 241,
  "tus_empty": 39,
  "lib_objs_identical": 249,
  "lib_objs_total": 252,
- "text_same_offset_bytes": 1589388,
+ "text_same_offset_bytes": 1590872,
  "sections": {
   ".text": {
-   "matched": 1535777,
-   "same_offset": 1589388
+   "matched": 1538998,
+   "same_offset": 1590872
   },
   ".rdata": {
    "same_offset": 229075
@@ -38,6 +38,6 @@
    "same_offset": 16377
   }
  },
- "commit": "3ee0b86b",
+ "commit": "3838370c",
  "note": "matched_bytes/matched_functions = referee; functions_identical = referee match or same bytes at the same offset (every .text map symbol); tus_identical = source TUs whose functions are all identical (data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (never identical); tus_matched = TUs in src/; same-offset over all sections (shameter)"
 }
