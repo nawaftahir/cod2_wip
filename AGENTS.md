@@ -34,6 +34,8 @@ Order of work for any binary, especially under /GL + /LTCG:
    wrong inlining first. Regions can be worked in parallel (each owns its internal drift).
 3. **Bytes last:** register/scheduling residues are matched once offsets are stable, where ties have
    settled and every match is permanent.
+Never trade behaviour for size: a source change that fits a slot but changes what the code does
+(fall-through, dropped branch, wrong error path) is not a fix, even if the meter rises.
 Primary meter: whole-file same-offset. Matched-fn counts at any address are secondary: code-first
 matching away from retail offsets re-rolls LTCG ties and has to be redone (client 1.3, 11-04).
 
