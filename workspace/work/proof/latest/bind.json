@@ -85,15 +85,45 @@
 "call ?R_CreateWorldVertexBuffer@@YAPAUIDirect3DVertexBuffer9@@PAUGfxWorldVertex@@H@Z"
 ]
 },
+"?I_sel@@YAHHHH@Z": {
+"t": "0x100017d0",
+"n": 13,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?I_min@@YAHHH@Z": {
+"t": "0x100017e0",
+"n": 9,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?I_fround@@YAHM@Z": {
 "t": "0x10001810",
 "n": 33,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?Vector2Set@@YAXQAMMM@Z": {
+"t": "0x10001840",
+"n": 14,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?VectorSet@@YAXQAMMMM@Z": {
+"t": "0x10001860",
+"n": 21,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?VectorScale@@YAXQBMMQAM@Z": {
 "t": "0x10001880",
 "n": 29,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?Vector4Set@@YAXQAMMMMM@Z": {
+"t": "0x100018a0",
+"n": 28,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
@@ -150,14 +180,6 @@
 "n": 328,
 "obj": "r_bsp_load_obj.obj",
 "why": []
-},
-"?R_LoadMiscModel@@YAXPAY01PBDH@Z": {
-"t": "0x100031b0",
-"n": 626,
-"obj": "r_bsp_load_obj.obj",
-"why": [
-"call ?R_CreateStaticModel@@YAXPAUGfxWorld@@PAUXModel@@PBM2MPAUGfxStaticModelInstance@@@Z"
-]
 },
 "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z": {
 "t": "0x10003430",
@@ -344,12 +366,6 @@
 "?VectorMA@@YAXQBMM0QAM@Z": {
 "t": "0x10005b60",
 "n": 37,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?Vector4Set@@YAXQAMMMMM@Z": {
-"t": "0x100018a0",
-"n": 28,
 "obj": "r_dpvs.obj",
 "why": []
 },
@@ -551,12 +567,6 @@
 "t": "0x1000c010",
 "n": 219,
 "obj": "r_font.obj",
-"why": []
-},
-"?I_sel@@YAHHHH@Z": {
-"t": "0x100017d0",
-"n": 13,
-"obj": "r_image.obj",
 "why": []
 },
 "?I_max@@YAHHH@Z": {
@@ -765,12 +775,6 @@
 "t": "0x1000e730",
 "n": 79,
 "obj": "r_image.obj",
-"why": []
-},
-"?I_min@@YAHHH@Z": {
-"t": "0x100017e0",
-"n": 9,
-"obj": "r_image_load_common.obj",
 "why": []
 },
 "?Image_SourceBytesPerSlice@@YAHW4_D3DFORMAT@@HH@Z": {
@@ -3642,18 +3646,6 @@
 "why": [
 "call ?RB_Benchmark2D@@YAMPBUMaterial@@MMH@Z"
 ]
-},
-"?Vector2Set@@YAXQAMMM@Z": {
-"t": "0x10001840",
-"n": 14,
-"obj": "rb_debug.obj",
-"why": []
-},
-"?VectorSet@@YAXQAMMMM@Z": {
-"t": "0x10001860",
-"n": 21,
-"obj": "rb_debug.obj",
-"why": []
 },
 "?RB_DrawDebug@@YAXPBUGfxViewParms@@@Z": {
 "t": "0x10034840",
@@ -8403,9 +8395,7 @@
 "t": "0x10068aca",
 "n": 184,
 "obj": "d3dx9:cassembler.obj",
-"why": [
-"extent"
-]
+"why": []
 },
 "?RegisterHash@D3DXShader@@YGIPBD@Z": {
 "t": "0x10068b85",

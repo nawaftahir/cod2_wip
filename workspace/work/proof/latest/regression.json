@@ -39,7 +39,7 @@
       "target": "0x100018a0",
       "bytes": 28,
       "name": "?Vector4Set@@YAXQAMMMMM@Z",
-      "object": "r_dpvs.obj"
+      "object": "r_bsp_load_obj.obj"
     },
     {
       "target": "0x10001940",

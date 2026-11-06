@@ -343,7 +343,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "dc5c04d0e77493bd10c1dfade165bfc39ba9fae6d01fc73ded3d17d17cd17f77",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "1a322185d7f3479ab9479a8a1d32770ec4e3122db01407ffd6c3de1a4deb4544",
+  "bind_sha256": "c21350d1ae712590490b6971f7e16dd60ddd4354e7c50cef5d9e431a18aa6b47",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -424,7 +424,7 @@
     "gfx_d3d/r_water.cpp": "a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b",
     "gfx_d3d/r_image_load_obj.cpp": "ee4412ff7722527f023904ae80ea66d7dad1eaca6df7b83e0dcdaa6f6879c115",
     "gfx_d3d/r_shadowcookie.cpp": "8a68a0df1ef77b5c62938d21e5350558a8592625fbf1b55697bc6cff0b3b970e",
-    "gfx_d3d/r_bsp_load_obj.cpp": "2818dade50d86fb394d3dc45eee9a0cb130e7914ba777ea4e92961026e2846f3",
+    "gfx_d3d/r_bsp_load_obj.cpp": "ddd58c3cd9d5acf3f86463cb6ff0c5632fd6543227446bfee8f0314e1f7c49c9",
     "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",
     "gfx_d3d/r_buffers.cpp": "09a0c0eb10c18b87f88b00dd8cd0fad8be482b4a33bdcf6baf47c93d0ab26d3c",
     "gfx_d3d/rb_sky.cpp": "66602762c9f2c6fe24a6e5e12fdc454d4725bbd95a5183bbca74961b994280e7",

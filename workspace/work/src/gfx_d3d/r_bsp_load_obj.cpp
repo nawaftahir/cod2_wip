@@ -45,6 +45,15 @@ r_globals_load_t rgl;
 typedef char occluderSizeCheck[sizeof(GfxOccluder) == 0x24 ? 1 : -1];
 
 // PINNED 10001940: lump element count, never inlined in retail (22 calls).
+
+// Name unconfirmed; PINNED out-of-line copy at 10001900: frustum side offsets from the coefficient signs.
+inline void R_SetDpvsPlaneSides(DpvsPlane *plane)
+{
+    plane->side[0] = FloatAsInt(plane->coeffs[0]) <= 0 ? 0 : 12;
+    plane->side[1] = FloatAsInt(plane->coeffs[1]) <= 0 ? 4 : 16;
+    plane->side[2] = FloatAsInt(plane->coeffs[2]) <= 0 ? 8 : 20;
+}
+
 static __declspec(noinline) int R_GetLumpElemCount(const GfxBspLoad *load, int lumpIndex, int elemSize)
 {
     const lump_t *lump = &load->header->lumps[lumpIndex];
@@ -212,15 +221,9 @@ static void R_CombineLightmapsForDx7(byte **images, int height, int width, const
             int r = I_fround((images[0][pixel] + sunVis * sunColor[0]) * 0.5f);
             int g = I_fround((images[1][pixel] + sunVis * sunColor[1]) * 0.5f);
             int b = I_fround((images[2][pixel] + sunVis * sunColor[2]) * 0.5f);
-            if (r > 255)
-                r = 255;
-            images[0][pixel + 2] = (byte)r;
-            if (g > 255)
-                g = 255;
-            images[0][pixel + 1] = (byte)g;
-            if (b > 255)
-                b = 255;
-            images[0][pixel] = (byte)b;
+            images[0][pixel + 2] = (byte)I_min(r, 255);
+            images[0][pixel + 1] = (byte)I_min(g, 255);
+            images[0][pixel] = (byte)I_min(b, 255);
             images[0][pixel + 3] = 255;
             pixel += 4;
             sunPixel += 2;
@@ -235,10 +238,8 @@ void R_LoadLightmaps(GfxBspLoad *load)
     vec3_t sunColor;
     VectorCopy(s_world.sunLight.color, sunColor);
     load->lmapMergeInfo[31].index = 31;
-    load->lmapMergeInfo[31].shift[0] = 0.0f;
-    load->lmapMergeInfo[31].shift[1] = 0.0f;
-    load->lmapMergeInfo[31].scale[0] = 1.0f;
-    load->lmapMergeInfo[31].scale[1] = 1.0f;
+    Vector2Set(load->lmapMergeInfo[31].shift, 0.0f, 0.0f);
+    Vector2Set(load->lmapMergeInfo[31].scale, 1.0f, 1.0f);
     r_lightmapGroup_t groupInfo[31];
     int reorder[31];
     int lmapCount = R_BuildLightmapMergability(load, groupInfo, reorder);
@@ -463,7 +464,7 @@ void R_LoadSurfaces(GfxBspLoad *load)
         verts[index].xyz[0] = diskVerts[index].xyz[0];
         verts[index].xyz[1] = diskVerts[index].xyz[1];
         verts[index].xyz[2] = diskVerts[index].xyz[2];
-        verts[index].color.packed = *(const unsigned int *)diskVerts[index].color;
+        Byte4Copy(diskVerts[index].color, verts[index].color.array);
         verts[index].texCoord[0] = diskVerts[index].texCoord[0];
         verts[index].texCoord[1] = diskVerts[index].texCoord[1];
         verts[index].lmapCoord[0] = diskVerts[index].lmapCoord[0];
@@ -674,9 +675,7 @@ void R_LoadMiscModel(const char *(*vars)[2], int count)
     float yaw = (float)R_FloatForKey("angle", 0.0f, vars, count);
     if (yaw != 0.0f)
     {
-        angles[0] = 0.0f;
-        angles[1] = yaw;
-        angles[2] = 0.0f;
+        VectorSet(angles, 0.0f, yaw, 0.0f);
     }
     else
         R_Vec3ForKey("angles", "0 0 0", vars, count, angles);
@@ -691,18 +690,10 @@ void R_LoadMiscModel(const char *(*vars)[2], int count)
     vec4_t colors[6];
     if (r_showGroundLit->current.enabled)
     {
-        ground[2] = 0.0f;
-        ground[3] = 0.0f;
         if (hasGroundLight)
-        {
-            ground[1] = 1.0f;
-            ground[0] = foundGround ? 0.0f : 1.0f;
-        }
+            Vector4Set(ground, foundGround ? 0.0f : 1.0f, 1.0f, 0.0f, 0.0f);
         else
-        {
-            ground[1] = 0.0f;
-            ground[0] = 1.0f;
-        }
+            Vector4Set(ground, 1.0f, 0.0f, 0.0f, 0.0f);
         R_GetStaticModelLightingFromGround(ground, &sunVisibility, colors);
     }
     else
@@ -1010,9 +1001,7 @@ void R_LoadPortals(GfxBspLoad *load)
         DpvsPlane *outPlane = &out->plane;
         VectorCopy(plane, outPlane->coeffs);
         outPlane->coeffs[3] = -plane[3];
-        outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
-        outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
-        outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
+        R_SetDpvsPlaneSides(outPlane);
         out->cell = &s_world.cells[in[index].cellIndex];
         out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
         out->vertexCount = (byte)in[index].portalVertexCount;
@@ -1088,9 +1077,9 @@ void R_LoadNodesAndLeafs(GfxBspLoad *load)
         out->plane = ri.CM_GetPlaneNum(inNode[0]);
         out->childCount = -1;
         int child = inNode[1];
-        out->front = &((BspNodeA *)s_world.nodes)[child >= 0 ? child : nodeCount - 1 - child];
+        out->front = &((BspNodeA *)s_world.nodes)[I_sel(child, child, nodeCount - 1 - child)];
         child = inNode[2];
-        out->back = &((BspNodeA *)s_world.nodes)[child >= 0 ? child : nodeCount - 1 - child];
+        out->back = &((BspNodeA *)s_world.nodes)[I_sel(child, child, nodeCount - 1 - child)];
         inNode += 9;
         ++out;
     }
@@ -1137,9 +1126,7 @@ void R_LoadOccluders(GfxBspLoad *load)
             out->planes[planeIndex].coeffs[2] = plane[2];
             out->planes[planeIndex].coeffs[3] = -plane[3];
             DpvsPlane *outPlane = &out->planes[planeIndex];
-            outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
-            outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
-            outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
+            R_SetDpvsPlaneSides(outPlane);
           }
         }
         out->vertices = &rgl.portalVerts[in->firstPortalVertex];
