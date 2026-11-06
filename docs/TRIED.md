@@ -4019,3 +4019,12 @@ Target `R_CubemapShotAlpha` (retail `0x100265e0`, target 266 B vs draft 262 B):
 - Probe 2: Three single-expression formulas with `u` and `v` declared ahead of direction; size: 222 B. Exit code 3.
 - Probe 3: Separate `dir0` scalar accumulator kept in ST(0) across `u` and `v` blocks; size: 242 B. Exit code 3.
 Source restored to baseline.
+
+# FresnelTerm probe - 2026-11-06 (worker s5)
+
+Target `FresnelTerm` (retail `0x1002c370`, target 201 B vs draft 203 B):
+- Differs in one x87 cleanup instruction after `(rp*rp + rs*rs)*0.5`: candidate emits `FXCH ST(2); FXCH ST(1); FSTP ST(0); FSTP ST(0)` (8 B) vs target `FXCH ST(2); FSTP ST(1); FSTP ST(0)` (6 B).
+- Probe 1: Direct `result = (float)((rs * rs + rp * rp) * 0.5)` without reflectance intermediate variable; stays 203 B. Exit code 3.
+- Probe 2: `result = (float)((rp * rp + rs * rs) * 0.5)` term ordering; stays 203 B. Exit code 3.
+- Probe 3: Explicit early returns on clamp (`return 0.0f; return 1.0f;`); stays 203 B. Exit code 3.
+Source restored to baseline.
