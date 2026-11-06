@@ -230,3 +230,8 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - CG_EntityEvent (4364 B, slot fits): `goto setLandChange` from the 93..115 block into the 116..138 block, and `break` (inside `do if (..) {..} while (0);`) at the end of every if-block 1..23, 24..46, 47..69, 70..92, 116..138; this keeps MSVC from cross-jumping the per-branch isFirstPerson re-tests.
 - Result: same-offset 1,790,588 -> 1,911,541 (97.0%).
 - CAVEAT for section 12: the CG_EntityEvent `break` blocks are a size shim (fall through to the switch default). With the correct else-if chain the function is 4284 B and CheckEvents/CheckPlayerstateEvents stay matched. Do not copy the shim pattern to other functions.
+
+## 13. CG_EntityEvent exact size, correct control flow (fx, PINNED 11-06)
+- Retail 4360 B reached with the plain else-if chain over the six event ranges: `goto setLandChange` from the 93..115 arm into the 116..138 arm, `if (CG_IsLocalEntity(es))` guards in cases 0xa5 (CG_PrepOffHand) and 0xa6 (CG_UseOffHand) (retail recomputes the check inline, 21 B each), and an explicit `return;` at the end of the 70..92 arm (cross-jump survivor: keeps that arm's own epilogue, +8 B). The switch part is then byte-count identical (3625 B of case bodies).
+- Method: jump-table entry sizes (`jmp [reg*4+table]`) retail vs ours, per case, finds which case bodies differ in size.
+- same-offset 1,225,854 -> 1,912,606 (97.08%), CG_CheckEvents / CG_CheckPlayerstateEvents matched again.

@@ -519,6 +519,7 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, true);
+        return;
     } else if (event >= 93 && event < 116) {
 
         int sndIdx = event - 93;
@@ -857,14 +858,16 @@ setLandChange:
         case 0xa5:
         {
 
-            CG_PrepOffHand(es, event, es->eventParm);
+            if (CG_IsLocalEntity(es))
+                CG_PrepOffHand(es, event, es->eventParm);
             break;
         }
 
         case 0xa6:
         {
 
-            CG_UseOffHand(cent, event, es->eventParm);
+            if (CG_IsLocalEntity(es))
+                CG_UseOffHand(cent, event, es->eventParm);
             break;
         }
 

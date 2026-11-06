@@ -42764,7 +42764,7 @@
 {
 "name": "?CG_EntityEvent@@YAXPAUcentity_s@@H@Z",
 "obj": "cg_event_mp.obj",
-"size": 4284,
+"size": 4360,
 "hits": [],
 "reason": "no masked match"
 },
@@ -82256,9 +82256,10 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1104,
-"hits": [],
-"reason": "no masked match"
+"size": 1024,
+"hits": [
+"0x592c00"
+]
 },
 {
 "name": "___from_strstr_to_strchr",
