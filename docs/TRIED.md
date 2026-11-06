@@ -4002,3 +4002,11 @@ TU move (2026-11-06): rb_surface.cpp body appended to rb_shade.cpp right after
 RB_BeginSurface (retail order Begin, DrawOptimizedTess, DrawTess, End; Mac has no
 rb_surface.c) and rb_surface removed from tus.txt: RB_EndSurface stays 206/202.
 TU membership alone does not fix the block-layout class; restored.
+
+# Image_LoadWavelet probe - 2026-11-06 (worker s2)
+
+Target `Image_LoadWavelet` (retail `0x1000f380`, 537 bytes, ours 539 bytes):
+- Probe 1: Replaced open-coded mip calculation loop with `Image_CountMipmapsForFile(fileHeader) - 1`. Size increased to 553 bytes due to extra `lea ecx, [eax - 1]` and compiler splitting branch epilogue rather than sharing `--levels` / `dec edi`.
+- Probe 2: Restructured mip counting loop with `while (dimension < decode.width || ...)` and `--levels`. Size: 539 bytes. Instruction sequence matches retail closely but emits a 2-byte loop alignment NOP (`mov edi, edi`) before final hunk deallocation loop.
+- Probe 3: Changed outer mip loop from `for` to `while (decode.mipLevel >= ...)` with `--decode.mipLevel` at loop bottom. Size: 539 bytes; alignment NOP persisted.
+Failed byte verification (539 vs 537 bytes); source restored to baseline.
