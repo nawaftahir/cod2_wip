@@ -3905,3 +3905,14 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+# Image_TrackFullscreenTexture, w1 - 2026-11-05
+
+First diff: retail loads vid width AFTER "mov eax,esi; dec eax" (flags temp in eax,
+then eax overwritten by the load); ours loads width first (mov eax,[w]; mov ecx,esi; dec ecx).
+Height block already matches in shape. Probes (all fail, source restored):
+1) width as ternary "platform - 1 ? width : 640" (height switch kept): lea eax,[esi-1]/test
+   form, loses edi push; no match.
+2) height switch emitted before width switch: first selector becomes load edx; mov eax,esi;
+   dec eax (flag temp now matches, load still precedes dec); no match, closest shape.
+3) "switch (platform - 1) case 0" on width: same lea/test form as probe 1; no match.
