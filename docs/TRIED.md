@@ -3905,3 +3905,4 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+RB_SetVertexData282/282 (worker g1, unblocks 199 B): retail loads offset into ecx (dxVb->lpVtbl into edx), computes flags in eax, and uses ecx/edx for Com_Memcpy; ours loads offset into eax (vtable into ecx), computes flags in edx, and uses eax/ecx for Com_Memcpy. Probe 1 (inline flags ternary directly into Lock call) stayed 282 bytes with identical register choice. Probe 2 (load offset before dxVb) stayed 282 bytes but reordered dynamicVertexBuffer load before imul and kept eax. Probe 3 (r_vb_state_t *vb local pointer) grew to 296 bytes due to extra register preservation. Baseline 282 B restored.
