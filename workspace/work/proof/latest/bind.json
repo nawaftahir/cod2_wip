@@ -23,6 +23,12 @@
 "obj": "r_bsp.obj",
 "why": []
 },
+"?R_GetNormalizedColorFromDvar@@YAXPBUdvar_s@@PAM@Z": {
+"t": "0x10001290",
+"n": 39,
+"obj": "r_bsp.obj",
+"why": []
+},
 "?R_GetSunLightParseParamsFromDvars@@YAXPAUSunLightParseParams@@@Z": {
 "t": "0x100012c0",
 "n": 208,
@@ -53,6 +59,12 @@
 "obj": "r_bsp.obj",
 "why": []
 },
+"?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z": {
+"t": "0x10001490",
+"n": 285,
+"obj": "r_bsp.obj",
+"why": []
+},
 "?R_ShutdownWorld@@YAXXZ": {
 "t": "0x10001740",
 "n": 54,
@@ -72,12 +84,6 @@
 "why": [
 "call ?R_CreateWorldVertexBuffer@@YAPAUIDirect3DVertexBuffer9@@PAUGfxWorldVertex@@H@Z"
 ]
-},
-"?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z": {
-"t": "0x10001490",
-"n": 285,
-"obj": "r_bsp.obj",
-"why": []
 },
 "?I_fround@@YAHM@Z": {
 "t": "0x10001810",
@@ -8397,7 +8403,9 @@
 "t": "0x10068aca",
 "n": 184,
 "obj": "d3dx9:cassembler.obj",
-"why": []
+"why": [
+"extent"
+]
 },
 "?RegisterHash@D3DXShader@@YGIPBD@Z": {
 "t": "0x10068b85",

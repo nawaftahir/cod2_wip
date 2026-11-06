@@ -38,6 +38,14 @@
 ]
 },
 {
+"name": "?R_GetNormalizedColorFromDvar@@YAXPBUdvar_s@@PAM@Z",
+"obj": "r_bsp.obj",
+"size": 39,
+"hits": [
+"0x10001290"
+]
+},
+{
 "name": "?R_GetSunLightParseParamsFromDvars@@YAXPAUSunLightParseParams@@@Z",
 "obj": "r_bsp.obj",
 "size": 208,
@@ -78,6 +86,26 @@
 ]
 },
 {
+"name": "?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z",
+"obj": "r_bsp.obj",
+"size": 285,
+"hits": [
+"0x10001490"
+]
+},
+{
+"name": "?R_InitWorldDynamicData@@YAXXZ",
+"obj": "r_bsp.obj",
+"size": 217,
+"hits": []
+},
+{
+"name": "?R_LoadWorld@@YAXPBDPAH@Z",
+"obj": "r_bsp.obj",
+"size": 156,
+"hits": []
+},
+{
 "name": "?R_ShutdownWorld@@YAXXZ",
 "obj": "r_bsp.obj",
 "size": 54,
@@ -100,26 +128,6 @@
 "hits": [
 "0x100017b0"
 ]
-},
-{
-"name": "?R_CopyParseParamsToDvars@@YAXPBUSunLightParseParams@@@Z",
-"obj": "r_bsp.obj",
-"size": 285,
-"hits": [
-"0x10001490"
-]
-},
-{
-"name": "?R_InitWorldDynamicData@@YAXXZ",
-"obj": "r_bsp.obj",
-"size": 217,
-"hits": []
-},
-{
-"name": "?R_LoadWorld@@YAXPBDPAH@Z",
-"obj": "r_bsp.obj",
-"size": 156,
-"hits": []
 },
 {
 "name": "?I_fround@@YAHM@Z",

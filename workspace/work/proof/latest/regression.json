@@ -1,8 +1,8 @@
 {
-  "functions": 778,
-  "bytes": 129597,
+  "functions": 779,
+  "bytes": 129636,
   "total": 253580,
-  "percent": 51.106948497515575,
+  "percent": 51.122328259326444,
   "baseline_lost": [],
   "gains": [
     {
@@ -15,6 +15,12 @@
       "target": "0x10001030",
       "bytes": 25,
       "name": "?R_WorldVertexSize@@YAHXZ",
+      "object": "r_bsp.obj"
+    },
+    {
+      "target": "0x10001290",
+      "bytes": 39,
+      "name": "?R_GetNormalizedColorFromDvar@@YAXPBUdvar_s@@PAM@Z",
       "object": "r_bsp.obj"
     },
     {
