@@ -7626,8 +7626,10 @@
 {
 "name": "?RB_SaveLightVisHistory@@YAXXZ",
 "obj": "rb_light.obj",
-"size": 100,
-"hits": []
+"size": 94,
+"hits": [
+"0x10037790"
+]
 },
 {
 "name": "?RB_ShowLightVisCachePoints@@YAXPBUGfxViewParms@@PBUDpvsPlane@@H@Z",

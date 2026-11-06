@@ -1,8 +1,8 @@
 {
-  "functions": 774,
-  "bytes": 129454,
+  "functions": 775,
+  "bytes": 129548,
   "total": 253580,
-  "percent": 51.05055603754239,
+  "percent": 51.08762520703525,
   "baseline_lost": [],
   "gains": [
     {
@@ -1539,6 +1539,12 @@
       "target": "0x100376c0",
       "bytes": 194,
       "name": "?RB_InitLightVisHistory@@YAXPBD@Z",
+      "object": "rb_light.obj"
+    },
+    {
+      "target": "0x10037790",
+      "bytes": 94,
+      "name": "?RB_SaveLightVisHistory@@YAXXZ",
       "object": "rb_light.obj"
     },
     {

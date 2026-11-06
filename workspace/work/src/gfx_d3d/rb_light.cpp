@@ -552,8 +552,7 @@ void RB_SaveLightVisHistory()
     BuildGridFilename(rgp.world->name, filename);
     ri.FS_WriteFile(filename, s_vc_log, s_vc_logCount * 6);
     ri.Z_FreeInternal(s_vc_log);
-    s_vc_log = NULL;
-    s_vc_logCount = 0;
+    memset(&s_vc_log, 0, sizeof(s_vc_log) + sizeof(s_vc_logCount));
 }
 
 // PINNED 10035cd0/670: display unlogged grid points in the backend debug frame.

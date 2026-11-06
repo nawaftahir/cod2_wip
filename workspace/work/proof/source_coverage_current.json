@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 129454,
-  "cpp_executable_bytes": 119303,
-  "cpp_percent": 47.04748008518022,
-  "cpp_game_bodies": 734,
+  "mixed_executable_bytes": 129548,
+  "cpp_executable_bytes": 119397,
+  "cpp_percent": 47.08454925467308,
+  "cpp_game_bodies": 735,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -335,7 +335,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "6a189c301024ad0f18a1885943217604af1b9419a78ef7143286e4315f763f9f",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "c7a86b82d266568c66381cfc8a8917a4e3f12616ac0e53b93df3e680c03c37c7",
+  "bind_sha256": "4a4c12232f20daf152db8366eb3eca368f8402553b8816185d1762da8d1b4fea",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -392,7 +392,7 @@
     "gfx_d3d/r_scene_records.h": "f62a90ca397a03c57c8e4090163b84f59706ad6192263014533e89b57b4904a5",
     "gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",
     "gfx_d3d/r_rendercmds.cpp": "da18179b0d7c199cef73e6e97278b4912eb3d783f571b6373257ec9117f70ec1",
-    "gfx_d3d/rb_light.cpp": "efd2c73cc12fe329e68df12e1a73d6e63175360a2d8e429267be99c2d71cc3c1",
+    "gfx_d3d/rb_light.cpp": "ef27cbcf587f27c1b71afd1b7d5a66d3c1407af1f9f034c4b5be63b90b0bdc40",
     "gfx_d3d/r_specularityimage.cpp": "1212bfdddc0b89573e2cd69d2a9f11ea98d21f0ff95a238fa500a373ce2fb3c0",
     "gfx_d3d/r_font_load_obj.cpp": "8afb05946367f422dc2c5935f5d3db2e340daa27a109992e5f45cd41d6370f16",
     "gfx_d3d/r_marks.cpp": "04a4a0a8b6fdfd38bc468ae5f1abd420fa466aa5490093ffbf6565d1f55b0c07",

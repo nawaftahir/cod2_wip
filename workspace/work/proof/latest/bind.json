@@ -1198,7 +1198,7 @@
 "n": 265,
 "obj": "r_init.obj",
 "why": [
-"call ?RB_SaveLightVisHistory@@YAXXZ"
+"call ?R_ShutdownImages@@YAXXZ"
 ]
 },
 "?R_DisplayModeLess@@YA_NABU_D3DDISPLAYMODE@@0@Z": {
@@ -3772,6 +3772,12 @@
 "?RB_InitLightVisHistory@@YAXPBD@Z": {
 "t": "0x100376c0",
 "n": 194,
+"obj": "rb_light.obj",
+"why": []
+},
+"?RB_SaveLightVisHistory@@YAXXZ": {
+"t": "0x10037790",
+"n": 94,
 "obj": "rb_light.obj",
 "why": []
 },
@@ -8257,7 +8263,9 @@
 "t": "0x10068aca",
 "n": 184,
 "obj": "d3dx9:cassembler.obj",
-"why": []
+"why": [
+"extent"
+]
 },
 "?RegisterHash@D3DXShader@@YGIPBD@Z": {
 "t": "0x10068b85",
