@@ -3998,3 +3998,7 @@ Target `RB_DrawTextWithCursor` (retail `0x10032560`, 740 bytes):
 - Probe 2: Changed `ColorIndex` return type to `byte` (matched `cmp al, 7`) and attempted `black = ((color >> 24) & 0xff) << 24`. Size: 741 bytes. MSVC still folded `black` shift into `and ebx, 0xff000000` because `color` is `unsigned int`.
 - Probe 3: Split `black = color >> 24; ... black <<= 24;` around `newColor = color;` to disrupt shift-fold pattern. Size: 741 bytes. MSVC scheduled prologue differently, keeping `color` in `esi` across the loop rather than dedicating `esi` to `material`.
 All 3 probes failed byte verification. `rb_backend.cpp` restored to baseline.
+TU move (2026-11-06): rb_surface.cpp body appended to rb_shade.cpp right after
+RB_BeginSurface (retail order Begin, DrawOptimizedTess, DrawTess, End; Mac has no
+rb_surface.c) and rb_surface removed from tus.txt: RB_EndSurface stays 206/202.
+TU membership alone does not fix the block-layout class; restored.
