@@ -77,6 +77,7 @@ typedef void (*CubemapPixelCallback)(const float *direction, int userData, byte 
 void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
     int userData, CubemapPixelCallback callback)
 {
+    CubemapPixelCallback cb = callback;
     int faceAxis[6][3] = {
         { 0, 5, 3 }, { 1, 4, 3 }, { 2, 0, 4 },
         { 3, 0, 5 }, { 4, 0, 3 }, { 5, 1, 3 }
@@ -85,15 +86,20 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
     int pixelIndex = 0;
     float axes[3][3];
     float *origin = axes[0], *right = axes[1], *up = axes[2];
-    float rowBase[3], direction[3];
-    for (int face = 0; face < 6; ++face)
+    float direction[3];
+    int face;
+
+    for (face = 0; face < 6; ++face)
     {
+        int t, s;
+
         int axis = faceAxis[face][0];
         int component = axis >> 1;
         origin[0] = 0.0f;
         origin[1] = 0.0f;
         origin[2] = 0.0f;
         origin[component] = axis & 1 ? -1.0f : 1.0f;
+
         axis = faceAxis[face][1];
         component = axis >> 1;
         right[0] = 0.0f;
@@ -101,6 +107,7 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
         right[2] = 0.0f;
         origin[component] = axis & 1 ? 1.0f : -1.0f;
         right[component] = origin[component] * -2.0f;
+
         axis = faceAxis[face][2];
         component = axis >> 1;
         up[0] = 0.0f;
@@ -108,28 +115,33 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
         up[2] = 0.0f;
         origin[component] = axis & 1 ? 1.0f : -1.0f;
         up[component] = origin[component] * -2.0f;
-        int row = 0;
-        VectorScale(right, inverseResolution, right);
-        VectorScale(up, inverseResolution, up);
-        if (resolution > 0)
+
+        right[0] *= inverseResolution;
+        right[1] *= inverseResolution;
+        right[2] *= inverseResolution;
+
+        up[0] *= inverseResolution;
+        up[1] *= inverseResolution;
+        up[2] *= inverseResolution;
+
+        for (t = 0; t < resolution; ++t)
         {
-            VectorMA(origin, 0.5f, right, rowBase);
-            for (; row < resolution; ++row)
+            direction[0] = origin[0] + 0.5f * right[0];
+            direction[1] = origin[1] + 0.5f * right[1];
+            direction[2] = origin[2] + 0.5f * right[2];
+
+            float tScale = (float)t + 0.5f;
+            direction[0] += up[0] * tScale;
+            direction[1] += up[1] * tScale;
+            direction[2] += up[2] * tScale;
+
+            for (s = 0; s < resolution; ++s)
             {
-                VectorCopy(rowBase, direction);
-                float rowOffset;
-                *(volatile float *)&rowOffset = row + 0.5f;
-                direction[0] += up[0] * rowOffset;
-                direction[1] += up[1] * rowOffset;
-                direction[2] += up[2] * rowOffset;
-                for (int column = 0; column < resolution; ++column)
-                {
-                    callback(direction, userData, pixels + pixelIndex * 4);
-                    ++pixelIndex;
-                    direction[0] += right[0];
-                    direction[1] += right[1];
-                    direction[2] += right[2];
-                }
+                cb(direction, userData, pixels + pixelIndex * 4);
+                ++pixelIndex;
+                direction[0] += right[0];
+                direction[1] += right[1];
+                direction[2] += right[2];
             }
         }
     }

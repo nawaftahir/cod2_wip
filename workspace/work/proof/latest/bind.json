@@ -839,6 +839,14 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
+"?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z": {
+"t": "0x10010160",
+"n": 786,
+"obj": "r_image_load_obj.obj",
+"why": [
+"call ?Image_GenerateCube@@YAXPAUGfxImage@@HPBEHW4_D3DFORMAT@@@Z"
+]
+},
 "?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z": {
 "t": "0x10010680",
 "n": 43,

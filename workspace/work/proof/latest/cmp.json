@@ -1846,8 +1846,10 @@
 {
 "name": "?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z",
 "obj": "r_image_load_obj.obj",
-"size": 770,
-"hits": []
+"size": 786,
+"hits": [
+"0x10010160"
+]
 },
 {
 "name": "?Image_GenerateLightGridWeights@@YAXPAUGfxImage@@H@Z",
