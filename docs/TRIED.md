@@ -3938,3 +3938,4 @@ Retail: loads [1],[3],[2] (spill [1]), then [0] at store; stores out2,out1,out0,
 2. r,g,b,a temps in order, stores 2,1,0,3: loads 3,1,2, stores 1,2,0,3. No match.
 3. g,a,b,r temps, stores 1,2,0,3: loads 0,3,2 then [1] late, stores 1,2,0,3. No match.
 Next idea: not decl/store order; try pointer-offset or struct/uint32 channel form.
+RB_SetVertexData282/282 (worker g1, unblocks 199 B): retail loads offset into ecx (dxVb->lpVtbl into edx), computes flags in eax, and uses ecx/edx for Com_Memcpy; ours loads offset into eax (vtable into ecx), computes flags in edx, and uses eax/ecx for Com_Memcpy. Probe 1 (inline flags ternary directly into Lock call) stayed 282 bytes with identical register choice. Probe 2 (load offset before dxVb) stayed 282 bytes but reordered dynamicVertexBuffer load before imul and kept eax. Probe 3 (r_vb_state_t *vb local pointer) grew to 296 bytes due to extra register preservation. Baseline 282 B restored.
