@@ -118,3 +118,13 @@ x87 operand scheduling (RB_DrawRawSurface, R_WatersEquivalent, R_XModelDebugBoxe
 HYPOTHESIS: a compiler/flag/TU-context difference, not source. Do not hand these
 classes to workers; investigate once as a lead task. Type/ABI diffs (16-bit load
 vs movzx, Image_BuildWaterMap) DO respond to source and suit workers.
+
+PINNED (Rich header, pefile, 2026-11-06): retail vs ours (prodid,build,count).
+(100,3077): retail 121, ours 112 -> retail compiled 9 more LTCG C++ objects with
+the same compiler build; our TU set is short by 9 (tus_total 112). (95,3077) 149/148.
+Retail also links 12 objects from older tool builds absent in ours: (93,2067)x2,
+(93,2179)x6, (95,2179)x1, (105,2067)x3; ours has (93,4035)x11 vs retail x3.
+Implication (HYPOTHESIS): merged TUs give wrong /GL context for the register,
+scheduling and block-layout miss classes; some SDK/CRT objects come from a different
+library version than Summer 2004. Next: split TUs per Mac file list + TU_AUDIT islands
+until (100,3077) reaches 121; identify the 2067/2179 objects by their library.
