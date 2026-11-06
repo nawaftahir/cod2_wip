@@ -4011,3 +4011,12 @@ Diff: retail updates `totalTreesUsed += tree->childCount` in-place and directly 
 - Probe 2: Replaced `child` local variable with `tree->children[childIndex]` in bounds expansion loops. Grew to 450 bytes due to repeated index evaluations. Exit code 3.
 - Probe 3: Declared `GfxAabbTree *child = &tree->children[childIndex]` before the recursive call and passed `child`. Emitted 405 bytes. Exit code 3.
 All 3 probes failed byte verification. `r_bsp_load_obj.cpp` restored to clean baseline.
+
+# R_ResampleImage probe trials - 2026-11-06 (worker s4)
+
+Target `R_ResampleImage` (retail `0x10025d10`, 360 bytes; ours baseline 364 bytes, unblocks 150 bytes).
+Root cause of 364 vs 360 size diff was `R_DownsamplePixelData` calling convention: retail LTCG passed `stride` on stack (`push 1` / `push edi`), whereas ours passed `stride` in `edx` (`mov edx, 1` / `mov edx, edi`).
+- Probe 1: Re-structured `R_DownsamplePixelData` to align with Mac 1.3 / retail x86 register pressure (`accB/accR/accG` initial assignments, `residual += newSize - oldSize; while (residual <= 0)`). This matched the retail stack ABI for `R_DownsamplePixelData` completely, reducing `R_ResampleImage` from 364 to 360 bytes (exact size match!). Diff was narrowed to only the 4th branch (`oldHeight < newHeight`) register choice (`ebp` vs `ebx` for `data`). Exit code 3.
+- Probe 2: Reordered `dst` arithmetic to `data + bytesPerPixel * (newWidth - 1)` and loop decrements to `dst -= bytesPerPixel; src -= bytesPerPixel;`. Size stayed 360 bytes. Exit code 3.
+- Probe 3: Computed `src = data + bytesPerPixel * (newWidth - 1); dst = src;` and loop decrements `src -= bytesPerPixel; dst -= bytesPerPixel;`. Size stayed 360 bytes; only 5 instructions in the 4th branch prologue differed in `ebx` vs `ebp` staging. Exit code 3.
+All 3 probes reached; `r_screenshot.cpp` restored to clean baseline.
