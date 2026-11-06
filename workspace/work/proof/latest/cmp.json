@@ -7540,9 +7540,17 @@
 ]
 },
 {
+"name": "?I_ffloor@@YAHM@Z",
+"obj": "rb_light.obj",
+"size": 33,
+"hits": [
+"0x10020530"
+]
+},
+{
 "name": "?RB_GetLightingAtPoint@@YAMPBUGfxLightGrid@@PBMPAY03M@Z",
 "obj": "rb_light.obj",
-"size": 674,
+"size": 776,
 "hits": []
 },
 {

@@ -2,7 +2,7 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 129454,
+  "mixed_executable_bytes": 129487,
   "cpp_executable_bytes": 119303,
   "cpp_percent": 47.04748008518022,
   "cpp_game_bodies": 734,
@@ -61,6 +61,14 @@
       "target": "0x10011f10",
       "bytes": 157,
       "name": "?R_BuildGammaTable@@YAXPAUGfxGammaRamp@@@Z",
+      "reasons": [
+        "fistp"
+      ]
+    },
+    {
+      "target": "0x10020530",
+      "bytes": 33,
+      "name": "?I_ffloor@@YAHM@Z",
       "reasons": [
         "fistp"
       ]
@@ -333,9 +341,9 @@
   "memory_helpers_cannot_inline": true,
   "naked_box_separate": true,
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
-  "counter_sha256": "6a189c301024ad0f18a1885943217604af1b9419a78ef7143286e4315f763f9f",
+  "counter_sha256": "59824ddb4ef17090a0e7f06060724a94dce86ec7b2e8ebb5631f9f8489a4ca1f",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "a803ba21b0b3518371a139fa00f3e38966cc58b1dcf8e2c68cf750bf44db12a6",
+  "bind_sha256": "6ba361deaa6536665262b2ce54213c3028f1126448efab2109d3662792c4a0d0",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -392,7 +400,7 @@
     "gfx_d3d/r_scene_records.h": "f62a90ca397a03c57c8e4090163b84f59706ad6192263014533e89b57b4904a5",
     "gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",
     "gfx_d3d/r_rendercmds.cpp": "da18179b0d7c199cef73e6e97278b4912eb3d783f571b6373257ec9117f70ec1",
-    "gfx_d3d/rb_light.cpp": "efd2c73cc12fe329e68df12e1a73d6e63175360a2d8e429267be99c2d71cc3c1",
+    "gfx_d3d/rb_light.cpp": "319bffd27cee67ed3c195a915dd6c01b584bf192f740ec896826317ff554f990",
     "gfx_d3d/r_specularityimage.cpp": "1212bfdddc0b89573e2cd69d2a9f11ea98d21f0ff95a238fa500a373ce2fb3c0",
     "gfx_d3d/r_font_load_obj.cpp": "8afb05946367f422dc2c5935f5d3db2e340daa27a109992e5f45cd41d6370f16",
     "gfx_d3d/r_marks.cpp": "04a4a0a8b6fdfd38bc468ae5f1abd420fa466aa5490093ffbf6565d1f55b0c07",

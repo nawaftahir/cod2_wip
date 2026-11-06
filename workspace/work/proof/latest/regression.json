@@ -1,8 +1,8 @@
 {
-  "functions": 774,
-  "bytes": 129454,
+  "functions": 775,
+  "bytes": 129487,
   "total": 253580,
-  "percent": 51.05055603754239,
+  "percent": 51.06356968215159,
   "baseline_lost": [],
   "gains": [
     {
@@ -1060,6 +1060,12 @@
       "bytes": 470,
       "name": "?R_ExpandBoneBounds@@YAXPAY02$$CBMPBM0PAY02M@Z",
       "object": "r_model.obj"
+    },
+    {
+      "target": "0x10020530",
+      "bytes": 33,
+      "name": "?I_ffloor@@YAHM@Z",
+      "object": "rb_light.obj"
     },
     {
       "target": "0x10020590",

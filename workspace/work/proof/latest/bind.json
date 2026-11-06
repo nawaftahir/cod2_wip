@@ -3719,6 +3719,12 @@
 "call ?RB_GridVisLogIndex@@YAHHHHH@Z"
 ]
 },
+"?I_ffloor@@YAHM@Z": {
+"t": "0x10020530",
+"n": 33,
+"obj": "rb_light.obj",
+"why": []
+},
 "?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z": {
 "t": "0x100366b0",
 "n": 100,
