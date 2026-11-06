@@ -135,3 +135,9 @@ PINNED: infoParms lives in its own TU universal/surfaceflags.cpp (Mac STABS path
 retail .rdata has the bark/brick/carpet names). Split from r_utils: Rich (100,3077)
 114 -> 115 of 121; whole-file same-offset 249758 -> 249700 (data moved, expected
 until data order is fixed). 6 LTCG TUs remain unidentified.
+SUPPORTED pattern (2026-11-06): retail stores constant zero to 2-3 globals through one
+xor-zeroed register (RB_SaveLightVisHistory 94 B: xor ecx; mov [s_vc_log],ecx;
+mov [s_vc_logCount],ecx; RB_Set2D valid[1..3] via cx/cl); ours emits immediate
+stores with the same source order. Same compiler build, so a per-TU/per-function
+codegen context difference (size-favoring or TU context), not statement order.
+Do not spend worker probes on this class; test once TU set reaches Rich (100,3077)=121.
