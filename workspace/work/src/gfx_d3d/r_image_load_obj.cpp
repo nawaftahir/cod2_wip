@@ -8,7 +8,7 @@
 GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
 void Image_Setup(GfxImage *image, int width, int height, int depth, int imageFlags, DWORD usage, D3DFORMAT imageFormat);
 void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubemapFace, unsigned int mipLevel, const unsigned char *src);
-void Image_Create2DTexture(GfxImage *image, int width, int height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
 void Image_BuildSpecularityMap(float shift, unsigned char *pic);
 void Image_GetLightGridWeightsForVector(const float *direction, int subMap, unsigned char *pixel);
 void Image_GetSunHalfAngleForVector(const float *direction, int unused, unsigned char *pixel);

@@ -1,6 +1,6 @@
  gfx
 
- Timestamp is 6aeb89ec (Wed Nov 04 19:39:24 2026)
+ Timestamp is 6aed9386 (Fri Nov 06 08:44:54 2026)
 
  Preferred load address is 10000000
 
@@ -163,7 +163,7 @@
  0001:0000b990       ?Image_IsCodeImage@@YA_NPBUGfxImage@@@Z 1000c990 f i r_image.obj
  0001:0000b9b0       ?Image_FindExisting@@YAPAUGfxImage@@PBD@Z 1000c9b0 f   r_image.obj
  0001:0000bad0       ?Image_AllocProg@@YAPAUGfxImage@@HH@Z 1000cad0 f   r_image.obj
- 0001:0000bb10       ?Image_Create2DTexture@@YAXPAUGfxImage@@HHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z 1000cb10 f   r_image.obj
+ 0001:0000bb10       ?Image_Create2DTexture@@YAXPAUGfxImage@@GGHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z 1000cb10 f   r_image.obj
  0001:0000bb90       ?Image_Create3DTexture@@YAXPAUGfxImage@@HHHHKW4_D3DFORMAT@@W4_D3DPOOL@@@Z 1000cb90 f   r_image.obj
  0001:0000bc20       ?Image_CreateCubeTexture@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@W4_D3DPOOL@@@Z 1000cc20 f   r_image.obj
  0001:0000bca0       ?Image_SetupRenderTarget@@YAXPAUGfxImage@@HHW4_D3DFORMAT@@@Z 1000cca0 f   r_image.obj
@@ -489,184 +489,184 @@
  0001:0001c610       ?R_SkinXSurfaceRigid@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@HPAUGfxVertex@@@Z 1001d610 f   r_model.obj
  0001:0001c690       ?R_SkinXSurfaceRigidDx7@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@HPAUGfxVertexDx7@@@Z 1001d690 f   r_model.obj
  0001:0001cf20       ?R_SkinXModelSurface@@YAPAEPBUDObjSkelMat_s@@PBUGfxEntity@@PAE@Z 1001df20 f   r_model.obj
- 0001:0001cf60       ?R_SkinRigidXModelCmd@@YAXPAUSkinRigidXModelCmd@@@Z 1001df60 f   r_model.obj
- 0001:0001d040       ?R_SkinXModelCmd@@YAXPAUSkinXModelCmd@@H@Z 1001e040 f   r_model.obj
- 0001:0001d450       ?R_SkinSceneDObj@@YAXPAUGfxSceneEntity@@PAUGfxEntity@@@Z 1001e450 f   r_model.obj
- 0001:0001db30       ?R_SkinStaticModel@@YAXPAUGfxSceneEntity@@PAUGfxEntity@@H@Z 1001eb30 f   r_model.obj
- 0001:0001db40       ?R_SkinSceneEnt@@YAXPAUGfxSceneEntity@@PAUGfxEntity@@@Z 1001eb40 f   r_model.obj
- 0001:0001db70       ?R_OutdoorTraceHeight@@YAMMM@Z 1001eb70 f   r_outdoor.obj
- 0001:0001dc20       ?R_ComputeOutdoorBounds@@YAXPBUGfxWorld@@@Z 1001ec20 f   r_outdoor.obj
- 0001:0001de20       ?R_ComputeOutdoorScale@@YAXXZ 1001ee20 f   r_outdoor.obj
- 0001:0001dee0       ?R_ComputeOutdoorLookupMatrix@@YAXPAUGfxWorld@@@Z 1001eee0 f   r_outdoor.obj
- 0001:0001dfb0       ?R_OutdoorTexelToWorld@@YAMHH@Z 1001efb0 f   r_outdoor.obj
- 0001:0001dfd0       ?R_GenerateOutdoorLookup@@YAXXZ 1001efd0 f   r_outdoor.obj
- 0001:0001e0b0       ?R_RegisterOutdoorImage@@YAXPAUGfxWorld@@@Z 1001f0b0 f   r_outdoor.obj
- 0001:0001e100       ?R_CreateOutdoorImage@@YAXPAUGfxImage@@@Z 1001f100 f   r_outdoor.obj
- 0001:0001e190       ?R_UpdateEffectsBolt@@YAXXZ 1001f190 f   r_rendercmds.obj
- 0001:0001e1a0       ?R_UpdateEffectsNonBolt@@YAXXZ 1001f1a0 f   r_rendercmds.obj
- 0001:0001e1b0       ?R_InitFrameBackendData@@YAXXZ 1001f1b0 f   r_rendercmds.obj
- 0001:0001e250       ?R_InitRenderCmds@@YAXXZ   1001f250 f   r_rendercmds.obj
- 0001:0001e2d0       ?R_ShutdownBackendData@@YAXXZ 1001f2d0 f   r_rendercmds.obj
- 0001:0001e2e0       ?R_BeginDebugFrame@@YAXXZ  1001f2e0 f   r_rendercmds.obj
- 0001:0001e390       ?R_AddCmdTouchAllImages@@YAXXZ 1001f390 f   r_rendercmds.obj
- 0001:0001e400       ?R_ClearModifiedLightDvars@@YA_NXZ 1001f400 f   r_rendercmds.obj
- 0001:0001e4f0       ?R_AddCmdSetViewport@@YAXHHHH@Z 1001f4f0 f   r_rendercmds.obj
- 0001:0001e560       ?R_AddCmdBlendSavedScreen@@YAXH@Z 1001f560 f   r_rendercmds.obj
- 0001:0001e5c0       ?R_BeginDelayedDrawing@@YAHXZ 1001f5c0 f   r_rendercmds.obj
- 0001:0001e620       ?R_EndDelayedDrawing@@YAXH@Z 1001f620 f   r_rendercmds.obj
- 0001:0001e690       ?R_IssueDelayedDrawing@@YAXH@Z 1001f690 f   r_rendercmds.obj
- 0001:0001e6f0       ?R_AddCmdDrawSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@W4GfxDrawSurfOrder@@@Z 1001f6f0 f   r_rendercmds.obj
- 0001:0001e760       ?R_AddCmdId9@@YAXPBURcWords16@@H@Z 1001f760 f   r_rendercmds.obj
- 0001:0001e7d0       ?R_AddCmdClearScreen@@YAXHPBMMH@Z 1001f7d0 f   r_rendercmds.obj
- 0001:0001e850       ?R_AddCmdSetMaterialColor@@YAXPBM@Z 1001f850 f   r_rendercmds.obj
- 0001:0001e8d0       ?R_AddCmdDrawStretchPic@@YAXMMMMMMMMPBMPAUMaterial@@@Z 1001f8d0 f   r_rendercmds.obj
- 0001:0001e970       ?R_AddCmdDrawStretchPicRotate@@YAXMMMMMMMMMPBMPAUMaterial@@@Z 1001f970 f   r_rendercmds.obj
- 0001:0001ea40       ?R_AddCmdDrawStretchRaw@@YAXHHHHHHPBEHH@Z 1001fa40 f   r_rendercmds.obj
- 0001:0001ead0       ?R_AddCmdDrawTextWithCursor@@YAXPBDHPAUFont_s@@MMMMPBMHHD@Z 1001fad0 f   r_rendercmds.obj
- 0001:0001ebc0       ?R_AddCmdDrawTextInSpace@@YAXPBDPAUFont_s@@PBM222@Z 1001fbc0 f   r_rendercmds.obj
- 0001:0001ecb0       ?R_AddCmdDrawQuadPic@@YAXPAY01MPBMPAUMaterial@@@Z 1001fcb0 f   r_rendercmds.obj
- 0001:0001eda0       ?R_AddCmdDrawSprite@@YAXPAUMaterial@@PBEPBMMMH@Z 1001fda0 f   r_rendercmds.obj
- 0001:0001ee30       ?R_AddCmdDrawFullScreenColoredQuad@@YAXMMMMPBMPAUMaterial@@@Z 1001fe30 f   r_rendercmds.obj
- 0001:0001eec0       ?R_AddCmdApplyEarlyPostEffects@@YAXXZ 1001fec0 f   r_rendercmds.obj
- 0001:0001ef10       ?R_AddCmdHeaderOnly1C@@YAXXZ 1001ff10 f   r_rendercmds.obj
- 0001:0001ef60       ?R_AddCmdEndOfList@@YAXXZ  1001ff60 f   r_rendercmds.obj
- 0001:0001efb0       ?R_IssueRenderCommands@@YAXXZ 1001ffb0 f   r_rendercmds.obj
- 0001:0001f020       ?R_EndDebugFrame@@YAXXZ    10020020 f   r_rendercmds.obj
- 0001:0001f0a0       ?R_AddCmdSaveScreen@@YAXXZ 100200a0 f   r_rendercmds.obj
- 0001:0001f0f0       ?R_AddCmdApplyLatePostEffects@@YAXM@Z 100200f0 f   r_rendercmds.obj
- 0001:0001f150       ?R_AddCmdDrawSunPostEffects@@YAXH@Z 10020150 f   r_rendercmds.obj
- 0001:0001f340       ?R_BeginFrame@@YAXXZ       10020340 f   r_rendercmds.obj
- 0001:0001f390       ?R_EndFrame@@YAXXZ         10020390 f   r_rendercmds.obj
- 0001:0001f3f0       ?R_AbortRenderCommands@@YAXXZ 100203f0 f   r_rendercmds.obj
- 0001:0001f440       ?R_SyncRenderThread@@YAXXZ 10020440 f   r_rendercmds.obj
- 0001:0001f450       ?R_SkinGfxEntityCmd@@YAXPAUGfxEntity@@@Z 10020450 f   r_rendercmds.obj
- 0001:0001f530       ?R_AddFrontendCmd@@YAXHPAX@Z 10020530 f   r_rendercmds.obj
- 0001:0001f540       ?R_AddCmdLightProperties@@YAXHPBUGfxLight@@@Z 10020540 f   r_rendercmds.obj
- 0001:0001f600       ?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z 10020600 f   r_rendercmds.obj
- 0001:0001f650       ?R_AddCmdDrawSun@@YAXH@Z   10020650 f   r_rendercmds.obj
- 0001:0001f6b0       ?R_AddCmdBeginView@@YAXHPBUGfxSceneDef@@PBUGfxViewParms@@PBUGfxLodParms@@@Z 100206b0 f   r_rendercmds.obj
- 0001:0001f750       ?R_ShutdownRenderTargets@@YAXXZ 10020750 f   r_rendertarget.obj
- 0001:0001f8b0       ?R_InitFrameBuffer@@YAXPAUGfxRenderTarget@@@Z 100208b0 f   r_rendertarget.obj
- 0001:0001f9c0       ?R_GetOrCreateDepthStencil@@YAPAUIDirect3DSurface9@@XZ 100209c0 f   r_rendertarget.obj
- 0001:0001fc10       ?R_InitShadowCookieRenderTarget@@YAXPAUGfxRenderTarget@@@Z 10020c10 f   r_rendertarget.obj
- 0001:0001fcb0       ?R_InitShadowCookieBlurRenderTarget@@YAXPAUGfxRenderTarget@@@Z 10020cb0 f   r_rendertarget.obj
- 0001:0001fe40       ?R_InitRenderTargets@@YAXXZ 10020e40 f   r_rendertarget.obj
- 0001:000206d0       ?R_GetFrameBufferExtent@@YAXPAH0@Z 100216d0 f   r_rendertarget.obj
- 0001:00020740       _tanf                      10021740 f i r_scene.obj
- 0001:00020750       ?tan@@YAMM@Z               10021750 f i r_scene.obj
- 0001:00020760       ?I_fsel@@YAMMMM@Z          10021760 f i r_scene.obj
- 0001:00020780       ?I_fmax@@YAMMM@Z           10021780 f i r_scene.obj
- 0001:000207a0       ?R_UpdateGfxEntityBounds@@YAXPAUGfxEntity@@@Z 100217a0 f   r_scene.obj
- 0001:000207d0       ?R_UpdateGfxEntityBoundsCmd@@YAXPAUGfxEntity@@@Z 100217d0 f   r_scene.obj
- 0001:00020900       ?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z 10021900 f   r_scene.obj
- 0001:000209e0       ?R_AddDrawSurf@@YAXPBUMaterial@@HHPBW4surfaceType_t@@@Z 100219e0 f   r_scene.obj
- 0001:00020a50       ?R_AddPolyToScene@@YAXPAUMaterial@@HGPBUGfxWorldVertex@@@Z 10021a50 f   r_scene.obj
- 0001:00020b50       ?R_AddBModelSurfaces@@YAXPAUGfxSceneEntity@@H@Z 10021b50 f   r_scene.obj
- 0001:00020bc0       ?R_ClearScene@@YAXXZ       10021bc0 f   r_scene.obj
- 0001:00020cf0       ?R_DumpSceneEntities@@YAXXZ 10021cf0 f   r_scene.obj
- 0001:00020ec0       ?R_UpdateFrameFog@@YAXXZ   10021ec0 f   r_scene.obj
- 0001:00021160       ?R_AddStaticModelToScene@@YAHH@Z 10022160 f   r_scene.obj
- 0001:00021290       ?R_ResetEntries@@YAXHPAY0BB@M@Z 10022290 f   r_scene.obj
- 0001:000212d0       ?R_AddLightToScene@@YAXPBMMMMM@Z 100222d0 f   r_scene.obj
- 0001:00021350       ?R_SkinGfxEntity@@YAXPAUGfxEntity@@@Z 10022350 f   r_scene.obj
- 0001:00021390       ?R_AddXModelSurfaces@@YAXH@Z 10022390 f   r_scene.obj
- 0001:000215c0       ?R_AddRefEntityToScene@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z 100225c0 f   r_scene.obj
- 0001:000216f0       ?qsortDrawSurfs@@YAXPAUGfxDrawSurf@@H@Z 100226f0 f   r_scene.obj
- 0001:00021820       ?R_GetClearColor@@YAPAMPAM@Z 10022820 f   r_scene.obj
- 0001:000218c0       ?R_AddClearCommandsForFrameBuffer@@YAXH@Z 100228c0 f   r_scene.obj
- 0001:00021920       ?R_RenderSceneDx7@@YAXHPBUGfxViewParms@@PAUGfxDrawSurf@@H@Z 10022920 f   r_scene.obj
- 0001:00021a30       ?R_RenderSceneFullbright@@YAXHPBUGfxViewParms@@PAUGfxDrawSurf@@H@Z 10022a30 f   r_scene.obj
- 0001:00021bf0       ?R_RenderSceneDebugShader@@YAXPBUGfxViewParms@@PAUGfxDrawSurf@@H@Z 10022bf0 f   r_scene.obj
- 0001:00021cd0       ?R_DrawPointLightSurfs@@YAXHPBUPointLightPartition@@@Z 10022cd0 f   r_scene.obj
- 0001:00021e00       ?R_ClearFloatZ@@YAXXZ      10022e00 f   r_scene.obj
- 0001:00021e40       ?R_RenderSceneDepth@@YAXHPBUGfxViewParms@@PAUGfxDrawSurf@@HH@Z 10022e40 f   r_scene.obj
- 0001:00021ff0       ?R_RenderSceneNormal@@YAXHPBUGfxViewParms@@PBUGfxSceneRenderOptions@@PAUGfxDrawSurf@@HHPBUShadowCookieList@@PBUPointLightPartition@@H@Z 10022ff0 f   r_scene.obj
- 0001:000222b0       ?R_RenderSceneMode@@YAXHPBUGfxViewParms@@PBUGfxSceneRenderOptions@@PAUGfxDrawSurf@@HHPBUShadowCookieList@@PBUPointLightPartition@@H@Z 100232b0 f   r_scene.obj
- 0001:000224b0       ?R_RenderScene@@YAXPBUrefdef_s@@@Z 100234b0 f   r_scene.obj
- 0001:00022620       ?I_fmin@@YAMMM@Z           10023620 f i r_screenshot.obj
- 0001:00022640       ?Vec3Mul@@YAXQBM0QAM@Z     10023640 f i r_screenshot.obj
- 0001:00022660       ?R_GetFrontBufferData@@YAEHHHHHPAE@Z 10023660 f   r_screenshot.obj
- 0001:000228f0       ?R_DownsamplePixelData@@YAXHHHHPAE0@Z 100238f0 f   r_screenshot.obj
- 0001:00022a70       ?R_UpsamplePixelData@@YAXHHHHPAE0@Z 10023a70 f   r_screenshot.obj
- 0001:00022c70       ?R_ResampleImage@@YAXHHHHHPAE@Z 10023c70 f   r_screenshot.obj
- 0001:00022de0       ?R_TakeResampledScreenshot@@YAPAEHHHH@Z 10023de0 f   r_screenshot.obj
- 0001:00022e80       ?R_TakeScreenshotTga@@YAXHHHHPBD@Z 10023e80 f   r_screenshot.obj
- 0001:00023070       ?R_BeginCubemapShot@@YAXHH@Z 10024070 f   r_screenshot.obj
- 0001:00023090       ?R_EndCubemapShot@@YAXH@Z  10024090 f   r_screenshot.obj
- 0001:00023330       ?R_SaveCubemapShot@@YAXPBDHMM@Z 10024330 f   r_screenshot.obj
- 0001:00023350       ?R_CubemapLightingForDir@@YAXPAPAY02MHHPBM1PAE@Z 10024350 f   r_screenshot.obj
- 0001:00023660       ?R_CubemapLighting@@YAXPAPAY02MHHPBMPAPAE@Z 10024660 f   r_screenshot.obj
- 0001:000238b0       ?R_LightingFromCubemapShots@@YAXPBM@Z 100248b0 f   r_screenshot.obj
- 0001:00023940       ?R_LevelShot@@YAXXZ        10024940 f   r_screenshot.obj
- 0001:000239e0       ?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z 100249e0 f i r_screenshot.obj
- 0001:00023a30       ?R_SaveGameShot@@YAXPBD@Z  10024a30 f   r_screenshot.obj
- 0001:00023aa0       ?R_ScreenshotFilename@@YAXHPBDPAD@Z 10024aa0 f   r_screenshot.obj
- 0001:00023ae0       ?R_ScreenShotCmd@@YAXH@Z   10024ae0 f   r_screenshot.obj
- 0001:00023d20       ?R_ScreenShot_f@@YAXXZ     10024d20 f   r_screenshot.obj
- 0001:00023d30       ?R_ScreenShotJpeg_f@@YAXXZ 10024d30 f   r_screenshot.obj
- 0001:00023d40       ?VectorLength@@YAMQBM@Z    10024d40 f i r_shadowcookie.obj
- 0001:00023d70       ?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z 10024d70 f   r_shadowcookie.obj
- 0001:00023fb0       ?R_ResetShadowCookies@@YAXXZ 10024fb0 f   r_shadowcookie.obj
- 0001:00023fd0       ?R_DrawShadowCookies@@YAXHPBUGfxViewParms@@PBUShadowCookieList@@@Z 10024fd0 f   r_shadowcookie.obj
- 0001:000242c0       ?R_SortShadowCandidates@@YAXPAUShadowCandidate@@@Z 100252c0 f   r_shadowcookie.obj
- 0001:00024ab0       ?R_BuildShadowCookieList@@YAXPBUGfxViewParms@@PBUShadowCandidate@@PAUShadowCookieList@@@Z 10025ab0 f   r_shadowcookie.obj
- 0001:00024c70       ?R_DrawShadowCookieOverlay@@YAXXZ 10025c70 f   r_shadowcookie.obj
- 0001:00024cf0       ??$sort@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10025cf0 f i r_shadowcookie.obj
- 0001:00024d10       ??$_Sort@PAUShadowCandidate@@HP6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0HP6A_NABU1@1@Z@Z 10025d10 f i r_shadowcookie.obj
- 0001:00024e00       ??$_Unguarded_partition@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YA?AU?$pair@PAUShadowCandidate@@PAU1@@0@PAUShadowCandidate@@0P6A_NABU2@1@Z@Z 10025e00 f i r_shadowcookie.obj
- 0001:00025010       ??$make_heap@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10026010 f i r_shadowcookie.obj
- 0001:00025030       ??$sort_heap@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10026030 f i r_shadowcookie.obj
- 0001:00025080       ??$_Insertion_sort@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10026080 f i r_shadowcookie.obj
- 0001:00025110       ??0?$pair@PAUShadowCandidate@@PAU1@@std@@QAE@ABQAUShadowCandidate@@0@Z 10026110 f i r_shadowcookie.obj
- 0001:00025120       ??$_Median@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@00P6A_NABU1@1@Z@Z 10026120 f i r_shadowcookie.obj
- 0001:000251d0       ??$iter_swap@PAUShadowCandidate@@PAU1@@std@@YAXPAUShadowCandidate@@0@Z 100261d0 f i r_shadowcookie.obj
- 0001:000251f0       ??$_Dist_type@PAUShadowCandidate@@@std@@YAPAHPAUShadowCandidate@@@Z 100261f0 f i r_shadowcookie.obj
- 0001:00025200       ??$_Val_type@PAUShadowCandidate@@@std@@YAPAUShadowCandidate@@PAU1@@Z 10026200 f i r_shadowcookie.obj
- 0001:00025210       ??$_Make_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@ZPAH0@Z 10026210 f i r_shadowcookie.obj
- 0001:00025260       ??$pop_heap@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10026260 f i r_shadowcookie.obj
- 0001:000252a0       ??$rotate@PAUShadowCandidate@@@std@@YAXPAUShadowCandidate@@00@Z 100262a0 f i r_shadowcookie.obj
- 0001:000252c0       ??$_Med3@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@00P6A_NABU1@1@Z@Z 100262c0 f i r_shadowcookie.obj
- 0001:00025330       ??$swap@UShadowCandidate@@@std@@YAXAAUShadowCandidate@@0@Z 10026330 f i r_shadowcookie.obj
- 0001:00025350       ??$_Adjust_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@HHU1@P6A_NABU1@2@Z@Z 10026350 f i r_shadowcookie.obj
- 0001:000253d0       ??$_Pop_heap_0@PAUShadowCandidate@@U1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z0@Z 100263d0 f i r_shadowcookie.obj
- 0001:00025410       ??$_Iter_cat@PAUShadowCandidate@@@std@@YA?AUrandom_access_iterator_tag@0@ABQAUShadowCandidate@@@Z 10026410 f i r_shadowcookie.obj
- 0001:00025420       ??$_Rotate@PAUShadowCandidate@@@std@@YAXPAUShadowCandidate@@00Urandom_access_iterator_tag@0@@Z 10026420 f i r_shadowcookie.obj
- 0001:00025430       ??$_Push_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@HHU1@P6A_NABU1@2@Z@Z 10026430 f i r_shadowcookie.obj
- 0001:000254a0       ??$_Pop_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@00U1@P6A_NABU1@2@ZPAH@Z 100264a0 f i r_shadowcookie.obj
- 0001:000254d0       ??$_Rotate@PAUShadowCandidate@@HU1@@std@@YAXPAUShadowCandidate@@00PAH0@Z 100264d0 f i r_shadowcookie.obj
- 0001:00025580       ?R_TransformSkelVector@@YAXPBUDObjSkelMat_s@@PBMPAM@Z 10026580 f   r_skin_transform.obj
- 0001:000255d0       ?R_TransformSkelPosition@@YAXPBUDObjSkelMat_s@@PBMPAM@Z 100265d0 f   r_skin_transform.obj
- 0001:00025620       _cosf                      10026620 f i r_sky.obj
- 0001:00025630       ?cos@@YAMM@Z               10026630 f i r_sky.obj
- 0001:00025640       ?R_FlushSun@@YAXXZ         10026640 f   r_sky.obj
- 0001:000256e0       ?R_RegisterSunDvars@@YAXXZ 100266e0 f   r_sky.obj
- 0001:000259a0       ?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z 100269a0 f   r_sky.obj
- 0001:00025ce0       ?R_LoadSun_f@@YAXXZ        10026ce0 f   r_sky.obj
- 0001:00025d50       ?R_SaveSun@@YAXPBD@Z       10026d50 f   r_sky.obj
- 0001:00025dc0       ?R_SaveSun_f@@YAXXZ        10026dc0 f   r_sky.obj
- 0001:00025df0       ?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z 10026df0 f   r_sky_load_obj.obj
- 0001:00025e60       ?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z 10026e60 f   r_sky_load_obj.obj
- 0001:00025f30       ?R_InitDrawGroups@@YAXXZ   10026f30 f   r_splitscreen.obj
- 0001:00025f70       ?R_BeginDrawGroupSection@@YAHH@Z 10026f70 f   r_splitscreen.obj
- 0001:00025fa0       ?R_BeginDrawGroupLoop@@YAXHH@Z 10026fa0 f   r_splitscreen.obj
- 0001:00025fe0       ?R_EndDrawGroupLoop@@YAHHH@Z 10026fe0 f   r_splitscreen.obj
- 0001:00026030       ?R_EndDrawGroupSection@@YAXH@Z 10027030 f   r_splitscreen.obj
- 0001:00026060       ?R_IssueDrawGroups@@YAXXZ  10027060 f   r_splitscreen.obj
- 0001:000261a0       ?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z 100271a0 f   r_staticmodel_load_obj.obj
- 0001:00026310       ?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z 10027310 f   r_staticmodel_load_obj.obj
- 0001:00026660       ?R_SortGfxAabbTree@@YAXPAUGfxWorld@@PAUGfxAabbTree@@@Z 10027660 f   r_staticmodel_load_obj.obj
- 0001:00026a80       ?R_AddStaticModelToAabbTree_r@@YAXPAUGfxWorld@@PAUGfxAabbTree@@H@Z 10027a80 f   r_staticmodel_load_obj.obj
- 0001:00026de0       ?R_StaticModelBounds@@YAXPAUXModel@@PAY02$$CBMPAM2@Z 10027de0 f   r_staticmodel_load_obj.obj
- 0001:00026fa0       ?R_ScaleStaticModelLighting@@YAXMMPAMPAY03M@Z 10027fa0 f   r_staticmodel_load_obj.obj
- 0001:00026ff0       ?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z 10027ff0 f   r_staticmodel_load_obj.obj
- 0001:00027150       ?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z 10028150 f   r_staticmodel_load_obj.obj
- 0001:000271b0       ?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z 100281b0 f   r_staticmodel_load_obj.obj
- 0001:00027200       ?R_PrepareStaticModelLightingCache@@YAXPAUGfxWorld@@H@Z 10028200 f   r_staticmodel_load_obj.obj
- 0001:000272e0       ?R_FinishStaticModelLightingCache@@YAXPAUGfxWorld@@@Z 100282e0 f   r_staticmodel_load_obj.obj
- 0001:000273d0       ?R_ValidateStaticModel@@YA_NPAUXModel@@@Z 100283d0 f   r_staticmodel_load_obj.obj
- 0001:00027450       ?R_CreateStaticModel@@YAXPAUGfxWorld@@PAUXModel@@PBM2MPAUGfxStaticModelInstance@@@Z 10028450 f   r_staticmodel_load_obj.obj
- 0001:00027550       ?R_QuantizeCachedColor@@YAXPBMPAE@Z 10028550 f   r_staticmodelcache.obj
- 0001:00028000       ?R_SkinStaticModelCachedCmd@@YAXPAUSkinStaticModelCachedCmd@@PAUSkinBuffers@@@Z 10029000 f   r_staticmodelcache.obj
+ 0001:0001cf70       ?R_SkinRigidXModelCmd@@YAXPAUSkinRigidXModelCmd@@@Z 1001df70 f   r_model.obj
+ 0001:0001d050       ?R_SkinXModelCmd@@YAXPAUSkinXModelCmd@@H@Z 1001e050 f   r_model.obj
+ 0001:0001d460       ?R_SkinSceneDObj@@YAXPAUGfxSceneEntity@@PAUGfxEntity@@@Z 1001e460 f   r_model.obj
+ 0001:0001db40       ?R_SkinStaticModel@@YAXPAUGfxSceneEntity@@PAUGfxEntity@@H@Z 1001eb40 f   r_model.obj
+ 0001:0001db50       ?R_SkinSceneEnt@@YAXPAUGfxSceneEntity@@PAUGfxEntity@@@Z 1001eb50 f   r_model.obj
+ 0001:0001db80       ?R_OutdoorTraceHeight@@YAMMM@Z 1001eb80 f   r_outdoor.obj
+ 0001:0001dc30       ?R_ComputeOutdoorBounds@@YAXPBUGfxWorld@@@Z 1001ec30 f   r_outdoor.obj
+ 0001:0001de30       ?R_ComputeOutdoorScale@@YAXXZ 1001ee30 f   r_outdoor.obj
+ 0001:0001def0       ?R_ComputeOutdoorLookupMatrix@@YAXPAUGfxWorld@@@Z 1001eef0 f   r_outdoor.obj
+ 0001:0001dfc0       ?R_OutdoorTexelToWorld@@YAMHH@Z 1001efc0 f   r_outdoor.obj
+ 0001:0001dfe0       ?R_GenerateOutdoorLookup@@YAXXZ 1001efe0 f   r_outdoor.obj
+ 0001:0001e0c0       ?R_RegisterOutdoorImage@@YAXPAUGfxWorld@@@Z 1001f0c0 f   r_outdoor.obj
+ 0001:0001e110       ?R_CreateOutdoorImage@@YAXPAUGfxImage@@@Z 1001f110 f   r_outdoor.obj
+ 0001:0001e1a0       ?R_UpdateEffectsBolt@@YAXXZ 1001f1a0 f   r_rendercmds.obj
+ 0001:0001e1b0       ?R_UpdateEffectsNonBolt@@YAXXZ 1001f1b0 f   r_rendercmds.obj
+ 0001:0001e1c0       ?R_InitFrameBackendData@@YAXXZ 1001f1c0 f   r_rendercmds.obj
+ 0001:0001e260       ?R_InitRenderCmds@@YAXXZ   1001f260 f   r_rendercmds.obj
+ 0001:0001e2e0       ?R_ShutdownBackendData@@YAXXZ 1001f2e0 f   r_rendercmds.obj
+ 0001:0001e2f0       ?R_BeginDebugFrame@@YAXXZ  1001f2f0 f   r_rendercmds.obj
+ 0001:0001e3a0       ?R_AddCmdTouchAllImages@@YAXXZ 1001f3a0 f   r_rendercmds.obj
+ 0001:0001e410       ?R_ClearModifiedLightDvars@@YA_NXZ 1001f410 f   r_rendercmds.obj
+ 0001:0001e500       ?R_AddCmdSetViewport@@YAXHHHH@Z 1001f500 f   r_rendercmds.obj
+ 0001:0001e570       ?R_AddCmdBlendSavedScreen@@YAXH@Z 1001f570 f   r_rendercmds.obj
+ 0001:0001e5d0       ?R_BeginDelayedDrawing@@YAHXZ 1001f5d0 f   r_rendercmds.obj
+ 0001:0001e630       ?R_EndDelayedDrawing@@YAXH@Z 1001f630 f   r_rendercmds.obj
+ 0001:0001e6a0       ?R_IssueDelayedDrawing@@YAXH@Z 1001f6a0 f   r_rendercmds.obj
+ 0001:0001e700       ?R_AddCmdDrawSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@W4GfxDrawSurfOrder@@@Z 1001f700 f   r_rendercmds.obj
+ 0001:0001e770       ?R_AddCmdId9@@YAXPBURcWords16@@H@Z 1001f770 f   r_rendercmds.obj
+ 0001:0001e7e0       ?R_AddCmdClearScreen@@YAXHPBMMH@Z 1001f7e0 f   r_rendercmds.obj
+ 0001:0001e860       ?R_AddCmdSetMaterialColor@@YAXPBM@Z 1001f860 f   r_rendercmds.obj
+ 0001:0001e8e0       ?R_AddCmdDrawStretchPic@@YAXMMMMMMMMPBMPAUMaterial@@@Z 1001f8e0 f   r_rendercmds.obj
+ 0001:0001e980       ?R_AddCmdDrawStretchPicRotate@@YAXMMMMMMMMMPBMPAUMaterial@@@Z 1001f980 f   r_rendercmds.obj
+ 0001:0001ea50       ?R_AddCmdDrawStretchRaw@@YAXHHHHHHPBEHH@Z 1001fa50 f   r_rendercmds.obj
+ 0001:0001eae0       ?R_AddCmdDrawTextWithCursor@@YAXPBDHPAUFont_s@@MMMMPBMHHD@Z 1001fae0 f   r_rendercmds.obj
+ 0001:0001ebd0       ?R_AddCmdDrawTextInSpace@@YAXPBDPAUFont_s@@PBM222@Z 1001fbd0 f   r_rendercmds.obj
+ 0001:0001ecc0       ?R_AddCmdDrawQuadPic@@YAXPAY01MPBMPAUMaterial@@@Z 1001fcc0 f   r_rendercmds.obj
+ 0001:0001edb0       ?R_AddCmdDrawSprite@@YAXPAUMaterial@@PBEPBMMMH@Z 1001fdb0 f   r_rendercmds.obj
+ 0001:0001ee40       ?R_AddCmdDrawFullScreenColoredQuad@@YAXMMMMPBMPAUMaterial@@@Z 1001fe40 f   r_rendercmds.obj
+ 0001:0001eed0       ?R_AddCmdApplyEarlyPostEffects@@YAXXZ 1001fed0 f   r_rendercmds.obj
+ 0001:0001ef20       ?R_AddCmdHeaderOnly1C@@YAXXZ 1001ff20 f   r_rendercmds.obj
+ 0001:0001ef70       ?R_AddCmdEndOfList@@YAXXZ  1001ff70 f   r_rendercmds.obj
+ 0001:0001efc0       ?R_IssueRenderCommands@@YAXXZ 1001ffc0 f   r_rendercmds.obj
+ 0001:0001f030       ?R_EndDebugFrame@@YAXXZ    10020030 f   r_rendercmds.obj
+ 0001:0001f0b0       ?R_AddCmdSaveScreen@@YAXXZ 100200b0 f   r_rendercmds.obj
+ 0001:0001f100       ?R_AddCmdApplyLatePostEffects@@YAXM@Z 10020100 f   r_rendercmds.obj
+ 0001:0001f160       ?R_AddCmdDrawSunPostEffects@@YAXH@Z 10020160 f   r_rendercmds.obj
+ 0001:0001f350       ?R_BeginFrame@@YAXXZ       10020350 f   r_rendercmds.obj
+ 0001:0001f3a0       ?R_EndFrame@@YAXXZ         100203a0 f   r_rendercmds.obj
+ 0001:0001f400       ?R_AbortRenderCommands@@YAXXZ 10020400 f   r_rendercmds.obj
+ 0001:0001f450       ?R_SyncRenderThread@@YAXXZ 10020450 f   r_rendercmds.obj
+ 0001:0001f460       ?R_SkinGfxEntityCmd@@YAXPAUGfxEntity@@@Z 10020460 f   r_rendercmds.obj
+ 0001:0001f540       ?R_AddFrontendCmd@@YAXHPAX@Z 10020540 f   r_rendercmds.obj
+ 0001:0001f550       ?R_AddCmdLightProperties@@YAXHPBUGfxLight@@@Z 10020550 f   r_rendercmds.obj
+ 0001:0001f610       ?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z 10020610 f   r_rendercmds.obj
+ 0001:0001f660       ?R_AddCmdDrawSun@@YAXH@Z   10020660 f   r_rendercmds.obj
+ 0001:0001f6c0       ?R_AddCmdBeginView@@YAXHPBUGfxSceneDef@@PBUGfxViewParms@@PBUGfxLodParms@@@Z 100206c0 f   r_rendercmds.obj
+ 0001:0001f760       ?R_ShutdownRenderTargets@@YAXXZ 10020760 f   r_rendertarget.obj
+ 0001:0001f8c0       ?R_InitFrameBuffer@@YAXPAUGfxRenderTarget@@@Z 100208c0 f   r_rendertarget.obj
+ 0001:0001f9d0       ?R_GetOrCreateDepthStencil@@YAPAUIDirect3DSurface9@@XZ 100209d0 f   r_rendertarget.obj
+ 0001:0001fc20       ?R_InitShadowCookieRenderTarget@@YAXPAUGfxRenderTarget@@@Z 10020c20 f   r_rendertarget.obj
+ 0001:0001fcc0       ?R_InitShadowCookieBlurRenderTarget@@YAXPAUGfxRenderTarget@@@Z 10020cc0 f   r_rendertarget.obj
+ 0001:0001fe50       ?R_InitRenderTargets@@YAXXZ 10020e50 f   r_rendertarget.obj
+ 0001:000206e0       ?R_GetFrameBufferExtent@@YAXPAH0@Z 100216e0 f   r_rendertarget.obj
+ 0001:00020750       _tanf                      10021750 f i r_scene.obj
+ 0001:00020760       ?tan@@YAMM@Z               10021760 f i r_scene.obj
+ 0001:00020770       ?I_fsel@@YAMMMM@Z          10021770 f i r_scene.obj
+ 0001:00020790       ?I_fmax@@YAMMM@Z           10021790 f i r_scene.obj
+ 0001:000207b0       ?R_UpdateGfxEntityBounds@@YAXPAUGfxEntity@@@Z 100217b0 f   r_scene.obj
+ 0001:000207e0       ?R_UpdateGfxEntityBoundsCmd@@YAXPAUGfxEntity@@@Z 100217e0 f   r_scene.obj
+ 0001:00020910       ?R_SetLodOrigin@@YAXPBUrefdef_s@@@Z 10021910 f   r_scene.obj
+ 0001:000209f0       ?R_AddDrawSurf@@YAXPBUMaterial@@HHPBW4surfaceType_t@@@Z 100219f0 f   r_scene.obj
+ 0001:00020a60       ?R_AddPolyToScene@@YAXPAUMaterial@@HGPBUGfxWorldVertex@@@Z 10021a60 f   r_scene.obj
+ 0001:00020b60       ?R_AddBModelSurfaces@@YAXPAUGfxSceneEntity@@H@Z 10021b60 f   r_scene.obj
+ 0001:00020bd0       ?R_ClearScene@@YAXXZ       10021bd0 f   r_scene.obj
+ 0001:00020d00       ?R_DumpSceneEntities@@YAXXZ 10021d00 f   r_scene.obj
+ 0001:00020ed0       ?R_UpdateFrameFog@@YAXXZ   10021ed0 f   r_scene.obj
+ 0001:00021170       ?R_AddStaticModelToScene@@YAHH@Z 10022170 f   r_scene.obj
+ 0001:000212a0       ?R_ResetEntries@@YAXHPAY0BB@M@Z 100222a0 f   r_scene.obj
+ 0001:000212e0       ?R_AddLightToScene@@YAXPBMMMMM@Z 100222e0 f   r_scene.obj
+ 0001:00021360       ?R_SkinGfxEntity@@YAXPAUGfxEntity@@@Z 10022360 f   r_scene.obj
+ 0001:000213a0       ?R_AddXModelSurfaces@@YAXH@Z 100223a0 f   r_scene.obj
+ 0001:000215d0       ?R_AddRefEntityToScene@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z 100225d0 f   r_scene.obj
+ 0001:00021700       ?qsortDrawSurfs@@YAXPAUGfxDrawSurf@@H@Z 10022700 f   r_scene.obj
+ 0001:00021830       ?R_GetClearColor@@YAPAMPAM@Z 10022830 f   r_scene.obj
+ 0001:000218d0       ?R_AddClearCommandsForFrameBuffer@@YAXH@Z 100228d0 f   r_scene.obj
+ 0001:00021930       ?R_RenderSceneDx7@@YAXHPBUGfxViewParms@@PAUGfxDrawSurf@@H@Z 10022930 f   r_scene.obj
+ 0001:00021a40       ?R_RenderSceneFullbright@@YAXHPBUGfxViewParms@@PAUGfxDrawSurf@@H@Z 10022a40 f   r_scene.obj
+ 0001:00021c00       ?R_RenderSceneDebugShader@@YAXPBUGfxViewParms@@PAUGfxDrawSurf@@H@Z 10022c00 f   r_scene.obj
+ 0001:00021ce0       ?R_DrawPointLightSurfs@@YAXHPBUPointLightPartition@@@Z 10022ce0 f   r_scene.obj
+ 0001:00021e10       ?R_ClearFloatZ@@YAXXZ      10022e10 f   r_scene.obj
+ 0001:00021e50       ?R_RenderSceneDepth@@YAXHPBUGfxViewParms@@PAUGfxDrawSurf@@HH@Z 10022e50 f   r_scene.obj
+ 0001:00022000       ?R_RenderSceneNormal@@YAXHPBUGfxViewParms@@PBUGfxSceneRenderOptions@@PAUGfxDrawSurf@@HHPBUShadowCookieList@@PBUPointLightPartition@@H@Z 10023000 f   r_scene.obj
+ 0001:000222c0       ?R_RenderSceneMode@@YAXHPBUGfxViewParms@@PBUGfxSceneRenderOptions@@PAUGfxDrawSurf@@HHPBUShadowCookieList@@PBUPointLightPartition@@H@Z 100232c0 f   r_scene.obj
+ 0001:000224c0       ?R_RenderScene@@YAXPBUrefdef_s@@@Z 100234c0 f   r_scene.obj
+ 0001:00022630       ?I_fmin@@YAMMM@Z           10023630 f i r_screenshot.obj
+ 0001:00022650       ?Vec3Mul@@YAXQBM0QAM@Z     10023650 f i r_screenshot.obj
+ 0001:00022670       ?R_GetFrontBufferData@@YAEHHHHHPAE@Z 10023670 f   r_screenshot.obj
+ 0001:00022900       ?R_DownsamplePixelData@@YAXHHHHPAE0@Z 10023900 f   r_screenshot.obj
+ 0001:00022a80       ?R_UpsamplePixelData@@YAXHHHHPAE0@Z 10023a80 f   r_screenshot.obj
+ 0001:00022c80       ?R_ResampleImage@@YAXHHHHHPAE@Z 10023c80 f   r_screenshot.obj
+ 0001:00022df0       ?R_TakeResampledScreenshot@@YAPAEHHHH@Z 10023df0 f   r_screenshot.obj
+ 0001:00022e90       ?R_TakeScreenshotTga@@YAXHHHHPBD@Z 10023e90 f   r_screenshot.obj
+ 0001:00023080       ?R_BeginCubemapShot@@YAXHH@Z 10024080 f   r_screenshot.obj
+ 0001:000230a0       ?R_EndCubemapShot@@YAXH@Z  100240a0 f   r_screenshot.obj
+ 0001:00023340       ?R_SaveCubemapShot@@YAXPBDHMM@Z 10024340 f   r_screenshot.obj
+ 0001:00023360       ?R_CubemapLightingForDir@@YAXPAPAY02MHHPBM1PAE@Z 10024360 f   r_screenshot.obj
+ 0001:00023670       ?R_CubemapLighting@@YAXPAPAY02MHHPBMPAPAE@Z 10024670 f   r_screenshot.obj
+ 0001:000238c0       ?R_LightingFromCubemapShots@@YAXPBM@Z 100248c0 f   r_screenshot.obj
+ 0001:00023950       ?R_LevelShot@@YAXXZ        10024950 f   r_screenshot.obj
+ 0001:000239f0       ?R_TakeScreenshotJpeg@@YAXHHHHPBD@Z 100249f0 f i r_screenshot.obj
+ 0001:00023a40       ?R_SaveGameShot@@YAXPBD@Z  10024a40 f   r_screenshot.obj
+ 0001:00023ab0       ?R_ScreenshotFilename@@YAXHPBDPAD@Z 10024ab0 f   r_screenshot.obj
+ 0001:00023af0       ?R_ScreenShotCmd@@YAXH@Z   10024af0 f   r_screenshot.obj
+ 0001:00023d30       ?R_ScreenShot_f@@YAXXZ     10024d30 f   r_screenshot.obj
+ 0001:00023d40       ?R_ScreenShotJpeg_f@@YAXXZ 10024d40 f   r_screenshot.obj
+ 0001:00023d50       ?VectorLength@@YAMQBM@Z    10024d50 f i r_shadowcookie.obj
+ 0001:00023d80       ?R_PopulateCandidates@@YAXPBMPAUShadowCandidate@@@Z 10024d80 f   r_shadowcookie.obj
+ 0001:00023fc0       ?R_ResetShadowCookies@@YAXXZ 10024fc0 f   r_shadowcookie.obj
+ 0001:00023fe0       ?R_DrawShadowCookies@@YAXHPBUGfxViewParms@@PBUShadowCookieList@@@Z 10024fe0 f   r_shadowcookie.obj
+ 0001:000242d0       ?R_SortShadowCandidates@@YAXPAUShadowCandidate@@@Z 100252d0 f   r_shadowcookie.obj
+ 0001:00024ac0       ?R_BuildShadowCookieList@@YAXPBUGfxViewParms@@PBUShadowCandidate@@PAUShadowCookieList@@@Z 10025ac0 f   r_shadowcookie.obj
+ 0001:00024c80       ?R_DrawShadowCookieOverlay@@YAXXZ 10025c80 f   r_shadowcookie.obj
+ 0001:00024d00       ??$sort@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10025d00 f i r_shadowcookie.obj
+ 0001:00024d20       ??$_Sort@PAUShadowCandidate@@HP6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0HP6A_NABU1@1@Z@Z 10025d20 f i r_shadowcookie.obj
+ 0001:00024e10       ??$_Unguarded_partition@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YA?AU?$pair@PAUShadowCandidate@@PAU1@@0@PAUShadowCandidate@@0P6A_NABU2@1@Z@Z 10025e10 f i r_shadowcookie.obj
+ 0001:00025020       ??$make_heap@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10026020 f i r_shadowcookie.obj
+ 0001:00025040       ??$sort_heap@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10026040 f i r_shadowcookie.obj
+ 0001:00025090       ??$_Insertion_sort@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10026090 f i r_shadowcookie.obj
+ 0001:00025120       ??0?$pair@PAUShadowCandidate@@PAU1@@std@@QAE@ABQAUShadowCandidate@@0@Z 10026120 f i r_shadowcookie.obj
+ 0001:00025130       ??$_Median@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@00P6A_NABU1@1@Z@Z 10026130 f i r_shadowcookie.obj
+ 0001:000251e0       ??$iter_swap@PAUShadowCandidate@@PAU1@@std@@YAXPAUShadowCandidate@@0@Z 100261e0 f i r_shadowcookie.obj
+ 0001:00025200       ??$_Dist_type@PAUShadowCandidate@@@std@@YAPAHPAUShadowCandidate@@@Z 10026200 f i r_shadowcookie.obj
+ 0001:00025210       ??$_Val_type@PAUShadowCandidate@@@std@@YAPAUShadowCandidate@@PAU1@@Z 10026210 f i r_shadowcookie.obj
+ 0001:00025220       ??$_Make_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@ZPAH0@Z 10026220 f i r_shadowcookie.obj
+ 0001:00025270       ??$pop_heap@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z 10026270 f i r_shadowcookie.obj
+ 0001:000252b0       ??$rotate@PAUShadowCandidate@@@std@@YAXPAUShadowCandidate@@00@Z 100262b0 f i r_shadowcookie.obj
+ 0001:000252d0       ??$_Med3@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@00P6A_NABU1@1@Z@Z 100262d0 f i r_shadowcookie.obj
+ 0001:00025340       ??$swap@UShadowCandidate@@@std@@YAXAAUShadowCandidate@@0@Z 10026340 f i r_shadowcookie.obj
+ 0001:00025360       ??$_Adjust_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@HHU1@P6A_NABU1@2@Z@Z 10026360 f i r_shadowcookie.obj
+ 0001:000253e0       ??$_Pop_heap_0@PAUShadowCandidate@@U1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z0@Z 100263e0 f i r_shadowcookie.obj
+ 0001:00025420       ??$_Iter_cat@PAUShadowCandidate@@@std@@YA?AUrandom_access_iterator_tag@0@ABQAUShadowCandidate@@@Z 10026420 f i r_shadowcookie.obj
+ 0001:00025430       ??$_Rotate@PAUShadowCandidate@@@std@@YAXPAUShadowCandidate@@00Urandom_access_iterator_tag@0@@Z 10026430 f i r_shadowcookie.obj
+ 0001:00025440       ??$_Push_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@HHU1@P6A_NABU1@2@Z@Z 10026440 f i r_shadowcookie.obj
+ 0001:000254b0       ??$_Pop_heap@PAUShadowCandidate@@HU1@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@00U1@P6A_NABU1@2@ZPAH@Z 100264b0 f i r_shadowcookie.obj
+ 0001:000254e0       ??$_Rotate@PAUShadowCandidate@@HU1@@std@@YAXPAUShadowCandidate@@00PAH0@Z 100264e0 f i r_shadowcookie.obj
+ 0001:00025590       ?R_TransformSkelVector@@YAXPBUDObjSkelMat_s@@PBMPAM@Z 10026590 f   r_skin_transform.obj
+ 0001:000255e0       ?R_TransformSkelPosition@@YAXPBUDObjSkelMat_s@@PBMPAM@Z 100265e0 f   r_skin_transform.obj
+ 0001:00025630       _cosf                      10026630 f i r_sky.obj
+ 0001:00025640       ?cos@@YAMM@Z               10026640 f i r_sky.obj
+ 0001:00025650       ?R_FlushSun@@YAXXZ         10026650 f   r_sky.obj
+ 0001:000256f0       ?R_RegisterSunDvars@@YAXXZ 100266f0 f   r_sky.obj
+ 0001:000259b0       ?R_SetSunFromDvars@@YAXPAUsunflare_t@@@Z 100269b0 f   r_sky.obj
+ 0001:00025cf0       ?R_LoadSun_f@@YAXXZ        10026cf0 f   r_sky.obj
+ 0001:00025d60       ?R_SaveSun@@YAXPBD@Z       10026d60 f   r_sky.obj
+ 0001:00025dd0       ?R_SaveSun_f@@YAXXZ        10026dd0 f   r_sky.obj
+ 0001:00025e00       ?R_LoadSunThroughDvars@@YAXPBDPAUsunflare_t@@@Z 10026e00 f   r_sky_load_obj.obj
+ 0001:00025e70       ?R_LoadSun@@YAXPBDPAUsunflare_t@@@Z 10026e70 f   r_sky_load_obj.obj
+ 0001:00025f40       ?R_InitDrawGroups@@YAXXZ   10026f40 f   r_splitscreen.obj
+ 0001:00025f80       ?R_BeginDrawGroupSection@@YAHH@Z 10026f80 f   r_splitscreen.obj
+ 0001:00025fb0       ?R_BeginDrawGroupLoop@@YAXHH@Z 10026fb0 f   r_splitscreen.obj
+ 0001:00025ff0       ?R_EndDrawGroupLoop@@YAHHH@Z 10026ff0 f   r_splitscreen.obj
+ 0001:00026040       ?R_EndDrawGroupSection@@YAXH@Z 10027040 f   r_splitscreen.obj
+ 0001:00026070       ?R_IssueDrawGroups@@YAXXZ  10027070 f   r_splitscreen.obj
+ 0001:000261b0       ?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z 100271b0 f   r_staticmodel_load_obj.obj
+ 0001:00026320       ?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z 10027320 f   r_staticmodel_load_obj.obj
+ 0001:00026670       ?R_SortGfxAabbTree@@YAXPAUGfxWorld@@PAUGfxAabbTree@@@Z 10027670 f   r_staticmodel_load_obj.obj
+ 0001:00026a90       ?R_AddStaticModelToAabbTree_r@@YAXPAUGfxWorld@@PAUGfxAabbTree@@H@Z 10027a90 f   r_staticmodel_load_obj.obj
+ 0001:00026df0       ?R_StaticModelBounds@@YAXPAUXModel@@PAY02$$CBMPAM2@Z 10027df0 f   r_staticmodel_load_obj.obj
+ 0001:00026fb0       ?R_ScaleStaticModelLighting@@YAXMMPAMPAY03M@Z 10027fb0 f   r_staticmodel_load_obj.obj
+ 0001:00027000       ?R_CacheStaticModelLighting@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@MPAY03M@Z 10028000 f   r_staticmodel_load_obj.obj
+ 0001:00027160       ?R_GetStaticModelLightingFromGrid@@YAXPBUGfxWorld@@PAUGfxStaticModelInstance@@PAMPAY03M@Z 10028160 f   r_staticmodel_load_obj.obj
+ 0001:000271c0       ?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z 100281c0 f   r_staticmodel_load_obj.obj
+ 0001:00027210       ?R_PrepareStaticModelLightingCache@@YAXPAUGfxWorld@@H@Z 10028210 f   r_staticmodel_load_obj.obj
+ 0001:000272f0       ?R_FinishStaticModelLightingCache@@YAXPAUGfxWorld@@@Z 100282f0 f   r_staticmodel_load_obj.obj
+ 0001:000273e0       ?R_ValidateStaticModel@@YA_NPAUXModel@@@Z 100283e0 f   r_staticmodel_load_obj.obj
+ 0001:00027460       ?R_CreateStaticModel@@YAXPAUGfxWorld@@PAUXModel@@PBM2MPAUGfxStaticModelInstance@@@Z 10028460 f   r_staticmodel_load_obj.obj
+ 0001:00027560       ?R_QuantizeCachedColor@@YAXPBMPAE@Z 10028560 f   r_staticmodelcache.obj
+ 0001:00028010       ?R_SkinStaticModelCachedCmd@@YAXPAUSkinStaticModelCachedCmd@@PAUSkinBuffers@@@Z 10029010 f   r_staticmodelcache.obj
  0001:00028240       ?SMC_GetFreeBlockOfSize@@YAEPAUstatic_model_cache_t@@H@Z 10029240 f   r_staticmodelcache.obj
  0001:00028460       ?R_CacheStaticModelSurface@@YAPAUGfxStaticModelSurfaceCached@@PAUGfxStaticSurface@@PBUXSurface_s@@HPBUMaterial@@@Z 10029460 f   r_staticmodelcache.obj
  0001:00028530       ?R_UsedCachedStaticModelSurface@@YAXPAUGfxStaticModelSurfaceCached@@@Z 10029530 f   r_staticmodelcache.obj
@@ -1618,8 +1618,8 @@
  0001:0007cc14       ?GetBufferSize@CBuffer@D3DXCore@@UAGKXZ 1007dc14 f   d3dx9:cbuffer.obj
  0001:0007cc23       ?Grow@CBuffer@D3DXCore@@QAEJK@Z 1007dc23 f   d3dx9:cbuffer.obj
  0001:0007cc7f       ??1CBufferA16@D3DXCore@@UAE@XZ 1007dc7f f   d3dx9:cbuffer.obj
- 0001:0007cc9a       ??_ECBufferA16@D3DXCore@@UAEPAXI@Z 1007dc9a f i d3dx9:cbuffer.obj
  0001:0007cc9a       ??_GCBufferA16@D3DXCore@@UAEPAXI@Z 1007dc9a f i d3dx9:cbuffer.obj
+ 0001:0007cc9a       ??_ECBufferA16@D3DXCore@@UAEPAXI@Z 1007dc9a f i d3dx9:cbuffer.obj
  0001:0007ccbb       ?Init@CBufferA16@D3DXCore@@UAEJK@Z 1007dcbb f   d3dx9:cbuffer.obj
  0001:0007ccf1       ?Init@CStringBuffer@D3DXCore@@UAEJK@Z 1007dcf1 f   d3dx9:cbuffer.obj
  0001:0007cd1a       ?AddString@CStringBuffer@D3DXCore@@UAEJPAD@Z 1007dd1a f   d3dx9:cbuffer.obj
@@ -1631,8 +1631,8 @@
  0001:0007ceae       ?Create@CBuffer@D3DXCore@@SGJKPAPAV12@@Z 1007deae f   d3dx9:cbuffer.obj
  0001:0007cf10       ??0CBufferA16@D3DXCore@@QAE@XZ 1007df10 f i d3dx9:cbuffer.obj
  0001:0007cf1e       ??0CStringBuffer@D3DXCore@@QAE@XZ 1007df1e f   d3dx9:cbuffer.obj
- 0001:0007cf34       ??_GCStringBuffer@D3DXCore@@UAEPAXI@Z 1007df34 f i d3dx9:cbuffer.obj
  0001:0007cf34       ??_ECStringBuffer@D3DXCore@@UAEPAXI@Z 1007df34 f i d3dx9:cbuffer.obj
+ 0001:0007cf34       ??_GCStringBuffer@D3DXCore@@UAEPAXI@Z 1007df34 f i d3dx9:cbuffer.obj
  0001:0007cf55       ?Create@CStringBuffer@D3DXCore@@SGJKPAPAV12@@Z 1007df55 f   d3dx9:cbuffer.obj
  0001:0007cfb7       _D3DXCreateBuffer@8        1007dfb7 f   d3dx9:cbuffer.obj
  0001:0007cfc2       ?Create@CBufferA16@D3DXCore@@SGJKPAPAV12@@Z 1007dfc2 f   d3dx9:cbuffer.obj
@@ -1877,8 +1877,8 @@
  0001:00081e98       ??0CTransform@D3DXShader@@QAE@PAVCProgram@1@@Z 10082e98 f i d3dx9:cprogram.obj
  0001:00081eaf       ??1CTransform@D3DXShader@@UAE@XZ 10082eaf f i d3dx9:cprogram.obj
  0001:00081eb6       ?Apply@CTransform@D3DXShader@@UAEJXZ 10082eb6 f i d3dx9:cprogram.obj
- 0001:00081ebc       ??_ECTransform@D3DXShader@@UAEPAXI@Z 10082ebc f i d3dx9:cprogram.obj
  0001:00081ebc       ??_GCTransform@D3DXShader@@UAEPAXI@Z 10082ebc f i d3dx9:cprogram.obj
+ 0001:00081ebc       ??_ECTransform@D3DXShader@@UAEPAXI@Z 10082ebc f i d3dx9:cprogram.obj
  0001:00081ede       ??0CTReorderInstructions@D3DXShader@@QAE@PAVCProgram@1@@Z 10082ede f i d3dx9:cprogram.obj
  0001:00081ef5       ??1CTReorderInstructions@D3DXShader@@UAE@XZ 10082ef5 f i d3dx9:cprogram.obj
  0001:00081efc       ?SimplifyPredicates_IsEqual@CProgram@D3DXShader@@AAEHII@Z 10082efc f   d3dx9:cprogram.obj
@@ -1935,8 +1935,8 @@
  0001:000861b3       ?GetArgumentName@CProgram@D3DXShader@@MAEXPAVCArgument@2@PADI@Z 100871b3 f   d3dx9:cprogram.obj
  0001:00086245       ?Error@CProgram@D3DXShader@@IAAJPAVCNode@2@IPBDZZ 10087245 f   d3dx9:cprogram.obj
  0001:000862ca       ?Warning@CProgram@D3DXShader@@IAAJPAVCNode@2@IPBDZZ 100872ca f   d3dx9:cprogram.obj
- 0001:0008650e       ??_ECProgram@D3DXShader@@UAEPAXI@Z 1008750e f i d3dx9:cprogram.obj
  0001:0008650e       ??_GCProgram@D3DXShader@@UAEPAXI@Z 1008750e f i d3dx9:cprogram.obj
+ 0001:0008650e       ??_ECProgram@D3DXShader@@UAEPAXI@Z 1008750e f i d3dx9:cprogram.obj
  0001:0008652f       ?Initialize@CProgram@D3DXShader@@QAEJPAVCNode@2@PAVCTErrors@2@KK@Z 1008752f f   d3dx9:cprogram.obj
  0001:00086764       ?Initialize@CProgram@D3DXShader@@QAEJPAV12@KK@Z 10087764 f   d3dx9:cprogram.obj
  0001:000868ad       ?Validate@CProgram@D3DXShader@@IAEJXZ 100878ad f   d3dx9:cprogram.obj
@@ -2214,8 +2214,8 @@
  0001:000af2d7       ?RemapOutputMov@CPSProgram@D3DXShader@@IAEJAAPAVCInstruction@2@I@Z 100b02d7 f   d3dx9:cpsprogram.obj
  0001:000af3f6       ?Unswizzle@CPSProgram@D3DXShader@@IAEJXZ 100b03f6 f   d3dx9:cpsprogram.obj
  0001:000b001f       ?SrcSwizzle@CPSProgram@D3DXShader@@MAEJPAIIKPAK@Z 100b101f f   d3dx9:cpsprogram.obj
- 0001:000b01a7       ??_ECPSProgram@D3DXShader@@UAEPAXI@Z 100b11a7 f i d3dx9:cpsprogram.obj
  0001:000b01a7       ??_GCPSProgram@D3DXShader@@UAEPAXI@Z 100b11a7 f i d3dx9:cpsprogram.obj
+ 0001:000b01a7       ??_ECPSProgram@D3DXShader@@UAEPAXI@Z 100b11a7 f i d3dx9:cpsprogram.obj
  0001:000b01ce       ?Constrain@CPSProgram@D3DXShader@@MAEJXZ 100b11ce f   d3dx9:cpsprogram.obj
  0001:000b0246       ?IsDPNoSwizzle@CPSProgram@D3DXShader@@MAEHPAVCInstruction@2@@Z 100b1246 f   d3dx9:cpsprogram.obj
  0001:000b030f       ?EmitInstructions@CPSProgram@D3DXShader@@MAEJXZ 100b130f f   d3dx9:cpsprogram.obj
@@ -2254,8 +2254,8 @@
  0001:000b37fd       ?EmitPool@CFXLProgram@D3DXShader@@QAEJPAVCArgument@2@@Z 100b47fd f   d3dx9:cfxlprogram.obj
  0001:000b38be       ?EmitDouble@CFXLProgram@D3DXShader@@QAEJN@Z 100b48be f   d3dx9:cfxlprogram.obj
  0001:000b38f6       ?IndexSemantic@CFXLProgram@D3DXShader@@UAEJPAVCArgument@2@H@Z 100b48f6 f   d3dx9:cfxlprogram.obj
- 0001:000b3ac7       ??_ECFXLProgram@D3DXShader@@UAEPAXI@Z 100b4ac7 f i d3dx9:cfxlprogram.obj
  0001:000b3ac7       ??_GCFXLProgram@D3DXShader@@UAEPAXI@Z 100b4ac7 f i d3dx9:cfxlprogram.obj
+ 0001:000b3ac7       ??_ECFXLProgram@D3DXShader@@UAEPAXI@Z 100b4ac7 f i d3dx9:cfxlprogram.obj
  0001:000b3aee       ?EmitAddress@CFXLProgram@D3DXShader@@QAEJIK@Z 100b4aee f   d3dx9:cfxlprogram.obj
  0001:000b3b55       ?GenerateCode@CFXLProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z 100b4b55 f   d3dx9:cfxlprogram.obj
  0001:000b4907       ?MakeSemantic@CShaderProgram@D3DXShader@@MAEKKK@Z 100b5907 f   d3dx9:cshaderprogram.obj
@@ -2379,8 +2379,8 @@
  0001:000c2e22       ?EmitSymbolTable@CShaderProgram@D3DXShader@@IAEJXZ 100c3e22 f   d3dx9:cshaderprogram.obj
  0001:000c378c       ?EmitDebugInfo@CShaderProgram@D3DXShader@@IAEJXZ 100c478c f   d3dx9:cshaderprogram.obj
  0001:000c3e10       ?FindSemantic@CShaderProgram@D3DXShader@@IAEPAUD3DX_SEMANTIC@2@K@Z 100c4e10 f   d3dx9:cshaderprogram.obj
- 0001:000c3e5f       ??_ECShaderProgram@D3DXShader@@UAEPAXI@Z 100c4e5f f i d3dx9:cshaderprogram.obj
  0001:000c3e5f       ??_GCShaderProgram@D3DXShader@@UAEPAXI@Z 100c4e5f f i d3dx9:cshaderprogram.obj
+ 0001:000c3e5f       ??_ECShaderProgram@D3DXShader@@UAEPAXI@Z 100c4e5f f i d3dx9:cshaderprogram.obj
  0001:000c3e80       ?GenerateCode@CShaderProgram@D3DXShader@@UAEJPAPAUID3DXBuffer@@@Z 100c4e80 f   d3dx9:cshaderprogram.obj
  0001:000c4a41       ?EmitInst@CShaderProgram@D3DXShader@@IAEJK@Z 100c5a41 f   d3dx9:cshaderprogram.obj
  0001:000c4b47       ?EmitReg@CShaderProgram@D3DXShader@@IAEJK@Z 100c5b47 f   d3dx9:cshaderprogram.obj
@@ -15826,52 +15826,52 @@
  0001:0001ca80       ?R_SkinXSurfaceBlendedSse@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@PAUGfxVertex@@@Z 1001da80 f   r_model.obj
  0001:0001ccc0       ?R_SkinXSurfaceBlendedDx7Sse@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@PAUGfxVertexDx7@@@Z 1001dcc0 f   r_model.obj
  0001:0001ce50       ?R_SkinXSurfaceSkinned@@YAXPAUGfxModelSkinnedSurface@@PBUDObjSkelMat_s@@@Z 1001de50 f   r_model.obj
- 0001:0001cff0       ?R_ConvertSurfaceBones@@YAXPBUSkinXModelCmd@@PAUDObjSkelMat_s@@@Z 1001dff0 f   r_model.obj
- 0001:0001d0e0       ?R_PreSkinXSurface@@YAHPAUGfxSceneEntity@@PBUDObj_s@@PBUDSurface_s@@HPBDPAE@Z 1001e0e0 f   r_model.obj
- 0001:0001d230       ?R_PreSkinStaticSurface@@YAHPAUGfxSceneEntity@@PAUGfxEntity@@HPBUXModel@@PAUXSurface_s@@HHPAHPAE@Z 1001e230 f   r_model.obj
- 0001:0001d410       ?R_DebugModelSurfaces@@YAXPBUDObj_s@@PBUGfxEntity@@PBUGfxSceneEntity@@@Z 1001e410 f   r_model.obj
- 0001:0001d7a0       ?R_SkinXModel@@YAXPAUGfxSceneEntity@@PAUGfxEntity@@H@Z 1001e7a0 f   r_model.obj
- 0001:0001e330       ?R_GetCommandBuffer@@YAPAUGfxCmdHeader@@HH@Z 1001f330 f   r_rendercmds.obj
- 0001:0001e3e0       ?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z 1001f3e0 f   r_rendercmds.obj
- 0001:0001f1b0       ?R_UpdateLodDistances@@YAXXZ 100201b0 f   r_rendercmds.obj
- 0001:0001f250       ?R_UpdateFrameDvars@@YAXXZ 10020250 f   r_rendercmds.obj
- 0001:0001f4a0       ?R_ProcessFrontendCmdInternal@@YAXHPAXH@Z 100204a0 f   r_rendercmds.obj
- 0001:0001f800       ?R_DescribeFormat@@YAPBDW4_D3DFORMAT@@@Z 10020800 f   r_rendertarget.obj
- 0001:0001fa60       ?R_CreateSmallDepthStencil@@YAPAUIDirect3DSurface9@@XZ 10020a60 f   r_rendertarget.obj
- 0001:0001fad0       ?R_InitRenderTargetImage@@YAXHHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z 10020ad0 f   r_rendertarget.obj
- 0001:0001fb70       ?R_InitCookieRenderTarget@@YAXHPAUGfxRenderTarget@@@Z 10020b70 f   r_rendertarget.obj
- 0001:0001fd50       ?R_InitFullscreenRenderTargetImage@@YAXHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z 10020d50 f   r_rendertarget.obj
- 0001:00020680       ?R_GetDesktopExtent@@YAXPAH0@Z 10021680 f   r_rendertarget.obj
- 0001:000207e0       ?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z 100217e0 f   r_scene.obj
- 0001:00020c20       ?R_CompareDumpSceneEntities@@YAHPBX0@Z 10021c20 f   r_scene.obj
- 0001:000210c0       ?R_AllocSceneEntity@@YAHXZ 100220c0 f   r_scene.obj
- 0001:000214c0       ?R_CopyRefEntityToScene@@YAXHPBUGfxEntity@@TGfxModel@@@Z 100224c0 f   r_scene.obj
- 0001:00021540       ?R_AddModelRefEntity@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z 10022540 f   r_scene.obj
- 0001:000216a0       ?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z 100226a0 f   r_scene.obj
- 0001:00022330       ?R_GenerateSceneCommands@@YAXPBUGfxViewParms@@H0PBUGfxSceneRenderOptions@@@Z 10023330 f   r_scene.obj
- 0001:00022f10       ?R_FlipCubemapShot@@YAXPAE@Z 10023f10 f   r_screenshot.obj
- 0001:00022f80       ?R_CaptureCubemapShot@@YAXH@Z 10023f80 f   r_screenshot.obj
- 0001:00022ff0       ?R_ClearForCubemapShot@@YAXXZ 10023ff0 f   r_screenshot.obj
- 0001:000230b0       ?R_CubemapShotAlpha@@YAEHHHMM@Z 100240b0 f   r_screenshot.obj
- 0001:000231c0       ?R_CopyCubemapShot@@YAXPBEPAE@Z 100241c0 f   r_screenshot.obj
- 0001:00023220       ?R_WriteCubemapShotAlpha@@YAXHMMPAE@Z 10024220 f   r_screenshot.obj
- 0001:00023290       ?R_WriteCubemapShot@@YAXHPBDMM@Z 10024290 f   r_screenshot.obj
- 0001:000237b0       ?R_CubemapShotExtractLinearLight@@YAXPAPAEHHPAPAY02M@Z 100247b0 f   r_screenshot.obj
- 0001:000242a0       ?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z 100252a0 f   r_shadowcookie.obj
- 0001:000242e0       ?R_GetShadowLightAxis@@YAXPAY02M@Z 100252e0 f   r_shadowcookie.obj
- 0001:000243c0       ?R_SetShadowViewParms@@YAXPAUGfxViewParms@@PBM1@Z 100253c0 f   r_shadowcookie.obj
- 0001:00024680       ?R_IsShadowReceiverOutside@@YA_NPBMPBUDpvsPlane@@@Z 10025680 f   r_shadowcookie.obj
- 0001:000246d0       ?R_AddShadowReceivers@@YAXPAUShadowCookie@@HH@Z 100256d0 f   r_shadowcookie.obj
- 0001:00024880       ?R_CreateShadowCookie@@YAXPBUGfxViewParms@@HHMPAUShadowCookieList@@@Z 10025880 f   r_shadowcookie.obj
- 0001:000261f0       ?R_QuantizeStaticModelColor@@YAXPAEPBM@Z 100271f0 f   r_staticmodel_load_obj.obj
- 0001:00026380       ?R_CompareStaticModelIndex@@YAHPBX0@Z 10027380 f   r_staticmodel_load_obj.obj
- 0001:00026390       ?R_SortGfxAabbTreeChildren@@YAHPAUGfxWorld@@PBM1PAHH@Z 10027390 f   r_staticmodel_load_obj.obj
- 0001:00026c70       ?R_AddStaticModelToCell@@YAXHPAUGfxStaticModelInstance@@PAUGfxWorld@@@Z 10027c70 f   r_staticmodel_load_obj.obj
- 0001:00026cc0       ?R_FilterStaticModelIntoCells_r@@YAXPAUGfxWorld@@PAUmnode_t@@PAUGfxStaticModelInstance@@PBM3@Z 10027cc0 f   r_staticmodel_load_obj.obj
- 0001:00027670       ?R_LightCachedVertex@@YAXPBMPBEPBU_D3DLIGHT9@@HPAE@Z 10028670 f   r_staticmodelcache.obj
- 0001:00027960       ?R_UploadCachedVertices@@YAXHHPBXH@Z 10028960 f   r_staticmodelcache.obj
- 0001:00027a20       ?R_SkinCachedVertices@@YAXPAY02$$CBM0HHHPBUXVertexInfo_s@@PAUGfxSModelCachedVertex@@@Z 10028a20 f   r_staticmodelcache.obj
- 0001:00027d60       ?R_SkinCachedVerticesDx7@@YAXPAY02$$CBM0HHHPBUXVertexInfo_s@@PBUMaterial@@PAUGfxSModelCachedVertexDx7@@@Z 10028d60 f   r_staticmodelcache.obj
+ 0001:0001d000       ?R_ConvertSurfaceBones@@YAXPBUSkinXModelCmd@@PAUDObjSkelMat_s@@@Z 1001e000 f   r_model.obj
+ 0001:0001d0f0       ?R_PreSkinXSurface@@YAHPAUGfxSceneEntity@@PBUDObj_s@@PBUDSurface_s@@HPBDPAE@Z 1001e0f0 f   r_model.obj
+ 0001:0001d240       ?R_PreSkinStaticSurface@@YAHPAUGfxSceneEntity@@PAUGfxEntity@@HPBUXModel@@PAUXSurface_s@@HHPAHPAE@Z 1001e240 f   r_model.obj
+ 0001:0001d420       ?R_DebugModelSurfaces@@YAXPBUDObj_s@@PBUGfxEntity@@PBUGfxSceneEntity@@@Z 1001e420 f   r_model.obj
+ 0001:0001d7b0       ?R_SkinXModel@@YAXPAUGfxSceneEntity@@PAUGfxEntity@@H@Z 1001e7b0 f   r_model.obj
+ 0001:0001e340       ?R_GetCommandBuffer@@YAPAUGfxCmdHeader@@HH@Z 1001f340 f   r_rendercmds.obj
+ 0001:0001e3f0       ?R_ClearModifiedDvar@@YA_NPBUdvar_s@@@Z 1001f3f0 f   r_rendercmds.obj
+ 0001:0001f1c0       ?R_UpdateLodDistances@@YAXXZ 100201c0 f   r_rendercmds.obj
+ 0001:0001f260       ?R_UpdateFrameDvars@@YAXXZ 10020260 f   r_rendercmds.obj
+ 0001:0001f4b0       ?R_ProcessFrontendCmdInternal@@YAXHPAXH@Z 100204b0 f   r_rendercmds.obj
+ 0001:0001f810       ?R_DescribeFormat@@YAPBDW4_D3DFORMAT@@@Z 10020810 f   r_rendertarget.obj
+ 0001:0001fa70       ?R_CreateSmallDepthStencil@@YAPAUIDirect3DSurface9@@XZ 10020a70 f   r_rendertarget.obj
+ 0001:0001fae0       ?R_InitRenderTargetImage@@YAXHHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z 10020ae0 f   r_rendertarget.obj
+ 0001:0001fb80       ?R_InitCookieRenderTarget@@YAXHPAUGfxRenderTarget@@@Z 10020b80 f   r_rendertarget.obj
+ 0001:0001fd60       ?R_InitFullscreenRenderTargetImage@@YAXHHW4_D3DFORMAT@@W4RenderTargetUsage@@PAUGfxRenderTarget@@@Z 10020d60 f   r_rendertarget.obj
+ 0001:00020690       ?R_GetDesktopExtent@@YAXPAH0@Z 10021690 f   r_rendertarget.obj
+ 0001:000207f0       ?R_SetViewParmsForScene@@YAXPAUGfxViewParms@@PBUrefdef_s@@@Z 100217f0 f   r_scene.obj
+ 0001:00020c30       ?R_CompareDumpSceneEntities@@YAHPBX0@Z 10021c30 f   r_scene.obj
+ 0001:000210d0       ?R_AllocSceneEntity@@YAHXZ 100220d0 f   r_scene.obj
+ 0001:000214d0       ?R_CopyRefEntityToScene@@YAXHPBUGfxEntity@@TGfxModel@@@Z 100224d0 f   r_scene.obj
+ 0001:00021550       ?R_AddModelRefEntity@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z 10022550 f   r_scene.obj
+ 0001:000216b0       ?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z 100226b0 f   r_scene.obj
+ 0001:00022340       ?R_GenerateSceneCommands@@YAXPBUGfxViewParms@@H0PBUGfxSceneRenderOptions@@@Z 10023340 f   r_scene.obj
+ 0001:00022f20       ?R_FlipCubemapShot@@YAXPAE@Z 10023f20 f   r_screenshot.obj
+ 0001:00022f90       ?R_CaptureCubemapShot@@YAXH@Z 10023f90 f   r_screenshot.obj
+ 0001:00023000       ?R_ClearForCubemapShot@@YAXXZ 10024000 f   r_screenshot.obj
+ 0001:000230c0       ?R_CubemapShotAlpha@@YAEHHHMM@Z 100240c0 f   r_screenshot.obj
+ 0001:000231d0       ?R_CopyCubemapShot@@YAXPBEPAE@Z 100241d0 f   r_screenshot.obj
+ 0001:00023230       ?R_WriteCubemapShotAlpha@@YAXHMMPAE@Z 10024230 f   r_screenshot.obj
+ 0001:000232a0       ?R_WriteCubemapShot@@YAXHPBDMM@Z 100242a0 f   r_screenshot.obj
+ 0001:000237c0       ?R_CubemapShotExtractLinearLight@@YAXPAPAEHHPAPAY02M@Z 100247c0 f   r_screenshot.obj
+ 0001:000242b0       ?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z 100252b0 f   r_shadowcookie.obj
+ 0001:000242f0       ?R_GetShadowLightAxis@@YAXPAY02M@Z 100252f0 f   r_shadowcookie.obj
+ 0001:000243d0       ?R_SetShadowViewParms@@YAXPAUGfxViewParms@@PBM1@Z 100253d0 f   r_shadowcookie.obj
+ 0001:00024690       ?R_IsShadowReceiverOutside@@YA_NPBMPBUDpvsPlane@@@Z 10025690 f   r_shadowcookie.obj
+ 0001:000246e0       ?R_AddShadowReceivers@@YAXPAUShadowCookie@@HH@Z 100256e0 f   r_shadowcookie.obj
+ 0001:00024890       ?R_CreateShadowCookie@@YAXPBUGfxViewParms@@HHMPAUShadowCookieList@@@Z 10025890 f   r_shadowcookie.obj
+ 0001:00026200       ?R_QuantizeStaticModelColor@@YAXPAEPBM@Z 10027200 f   r_staticmodel_load_obj.obj
+ 0001:00026390       ?R_CompareStaticModelIndex@@YAHPBX0@Z 10027390 f   r_staticmodel_load_obj.obj
+ 0001:000263a0       ?R_SortGfxAabbTreeChildren@@YAHPAUGfxWorld@@PBM1PAHH@Z 100273a0 f   r_staticmodel_load_obj.obj
+ 0001:00026c80       ?R_AddStaticModelToCell@@YAXHPAUGfxStaticModelInstance@@PAUGfxWorld@@@Z 10027c80 f   r_staticmodel_load_obj.obj
+ 0001:00026cd0       ?R_FilterStaticModelIntoCells_r@@YAXPAUGfxWorld@@PAUmnode_t@@PAUGfxStaticModelInstance@@PBM3@Z 10027cd0 f   r_staticmodel_load_obj.obj
+ 0001:00027680       ?R_LightCachedVertex@@YAXPBMPBEPBU_D3DLIGHT9@@HPAE@Z 10028680 f   r_staticmodelcache.obj
+ 0001:00027970       ?R_UploadCachedVertices@@YAXHHPBXH@Z 10028970 f   r_staticmodelcache.obj
+ 0001:00027a30       ?R_SkinCachedVertices@@YAXPAY02$$CBM0HHHPBUXVertexInfo_s@@PAUGfxSModelCachedVertex@@@Z 10028a30 f   r_staticmodelcache.obj
+ 0001:00027d70       ?R_SkinCachedVerticesDx7@@YAXPAY02$$CBM0HHHPBUXVertexInfo_s@@PBUMaterial@@PAUGfxSModelCachedVertexDx7@@@Z 10028d70 f   r_staticmodelcache.obj
  0001:00028110       ?SMC_FreeCachedSurface_r@@YAXPAUstatic_model_cache_t@@PAUstatic_model_tree_t@@HH@Z 10029110 f   r_staticmodelcache.obj
  0001:000281e0       ?SMC_ForceFreeBlock@@YAEPAUstatic_model_cache_t@@@Z 100291e0 f   r_staticmodelcache.obj
  0001:00028320       ?SMC_AllocCachedSurface@@YAPAUGfxStaticModelSurfaceCached@@PAUstatic_model_cache_t@@H@Z 10029320 f   r_staticmodelcache.obj

@@ -1,8 +1,8 @@
 {
-  "functions": 769,
-  "bytes": 128626,
+  "functions": 774,
+  "bytes": 129454,
   "total": 253580,
-  "percent": 50.72403186371165,
+  "percent": 51.05055603754239,
   "baseline_lost": [],
   "gains": [
     {
@@ -396,9 +396,21 @@
       "object": "r_image.obj"
     },
     {
+      "target": "0x1000d0f0",
+      "bytes": 74,
+      "name": "?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
       "target": "0x1000d140",
       "bytes": 181,
       "name": "?Image_FindExisting@@YAPAUGfxImage@@PBD@Z",
+      "object": "r_image.obj"
+    },
+    {
+      "target": "0x1000d2e0",
+      "bytes": 58,
+      "name": "?R_ReloadLostImages@@YAXXZ",
       "object": "r_image.obj"
     },
     {
@@ -1032,6 +1044,12 @@
       "object": "r_model.obj"
     },
     {
+      "target": "0x1001ee70",
+      "bytes": 399,
+      "name": "?R_GetRigidTransform@@YAXPBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z",
+      "object": "r_model.obj"
+    },
+    {
       "target": "0x1001fda0",
       "bytes": 35,
       "name": "?R_SetEntityOriginBounds@@YAXPAUGfxSceneEntity@@PBM@Z",
@@ -1288,6 +1306,18 @@
       "bytes": 79,
       "name": "?R_GetStaticModelLightingFromGround@@YAXPBMPAMPAY03M@Z",
       "object": "r_staticmodel_load_obj.obj"
+    },
+    {
+      "target": "0x1002acd0",
+      "bytes": 215,
+      "name": "?SMC_AllocCachedSurface@@YAPAUGfxStaticModelSurfaceCached@@PAUstatic_model_cache_t@@H@Z",
+      "object": "r_staticmodelcache.obj"
+    },
+    {
+      "target": "0x1002b790",
+      "bytes": 82,
+      "name": "?R_CopyCachedSurfaceIndices@@YAXPBUGfxStaticModelSurfaceCached@@@Z",
+      "object": "r_staticmodelcache.obj"
     },
     {
       "target": "0x1002b8c0",
