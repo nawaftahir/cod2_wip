@@ -3935,6 +3935,14 @@
 "obj": "rb_shade.obj",
 "why": []
 },
+"?RB_SetupLighting@@YAXXZ": {
+"t": "0x1003a340",
+"n": 566,
+"obj": "rb_shade.obj",
+"why": [
+"call ?RB_SetupEntityLighting@@YAXPBUGfxEntity@@PAUGfxEntityLighting@@@Z"
+]
+},
 "?RB_DrawTechnique@@YAXHPBUGfxDrawPrimArgs@@@Z": {
 "t": "0x1003a580",
 "n": 112,

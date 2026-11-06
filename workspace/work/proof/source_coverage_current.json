@@ -335,7 +335,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "6a189c301024ad0f18a1885943217604af1b9419a78ef7143286e4315f763f9f",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "3b29dded60eebf3148d091ef7c795f607a7737bf813fe55f86b85031ffb5ca79",
+  "bind_sha256": "01311a10eb5b94acfcf2bef99c5a83f978ce25b964a6f5275e55d31327a1abb6",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -388,7 +388,7 @@
     "gfx_d3d/r_material_load_obj.cpp": "ab0b864fc1c1f9d79c6e8db8865fe7c8bb65f21b43c058a96c78cfee0aed0028",
     "gfx_d3d/r_xsurface_optimize.cpp": "1838dd7aa1196a01f2d4373b8abb3a5646c5a5eae62323f1512b54f7738f05d3",
     "gfx_d3d/r_flares.cpp": "55f7a278e82e5f4a540f797c82b7d03a89ab66521c63b22bbcf2eaf66bfe99b7",
-    "gfx_d3d/rb_shade.cpp": "19c34f5e1234d89384914eb602a184a3b0ca98a95a120ed3557b7a026ee0fb93",
+    "gfx_d3d/rb_shade.cpp": "1a2dd98e2627919cabb88bf11101892c7f388da0b6a05fd9b05fa49182819280",
     "gfx_d3d/r_scene_records.h": "f62a90ca397a03c57c8e4090163b84f59706ad6192263014533e89b57b4904a5",
     "gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",
     "gfx_d3d/r_rendercmds.cpp": "da18179b0d7c199cef73e6e97278b4912eb3d783f571b6373257ec9117f70ec1",
