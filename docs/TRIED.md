@@ -4148,3 +4148,7 @@ the first two source terms emits the same code). Restored.
 RB_GetLightingAtPoint closer source (I_ffloor asm helper, unrolled axes, scalar cells)
 was reverted: the gate only accepts __asm in hash-reviewed files. Re-apply it with an
 owner-reviewed allow-list entry once the register residual is solved.
+RB_DrawSunBlindGlare MATCHED bytes (lead, 2026-11-06): color built as GfxColor byte
+array (3x light, dark), same fix as RB_DrawSunFlare; waits on RB_DrawStretchPic/RB_Set2D.
+RB_TestTransform 214/214: x4 printf multiply is float (fmul dword), /60.0f; only an
+add esp/fmul scheduling swap remains. Kept closer source.

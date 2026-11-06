@@ -8042,8 +8042,10 @@
 {
 "name": "?RB_DrawSunBlindGlare@@YAXPAUSunFlareDynamic@@H@Z",
 "obj": "rb_sky.obj",
-"size": 129,
-"hits": []
+"size": 132,
+"hits": [
+"0x1003bf60"
+]
 },
 {
 "name": "?RB_DrawSun@@YAXH@Z",

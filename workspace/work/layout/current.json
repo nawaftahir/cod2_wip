@@ -1,10 +1,10 @@
 {
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "e3e6e5f2699f452c49e5193e3c955f5849f593be578b6eb0689a5316923657e3",
+  "candidate_sha256": "14c3a1f3207bc43ee5eeac7f915bb5cc555c798cc955d53bf4399813e70ff68d",
   "whole_file_identical": false,
-  "same_file_offset_equal_bytes": 249700,
+  "same_file_offset_equal_bytes": 249699,
   "compared_bytes": 1851392,
-  "same_file_offset_percent": 13.487149128871682,
+  "same_file_offset_percent": 13.48709511545907,
   "caveat": "Raw file offsets, including headers/data/debug; NOT reconstructed-source coverage.",
   "retail_sections": [
     {
@@ -47,7 +47,7 @@
       "file_offset": "0x1000",
       "raw_bytes": 1077248,
       "virtual_bytes": 1073792,
-      "sha256": "962ec054b5b6e47ecaaa6e241e6a786e121a500fb88e6546d0b8b68dad308e1f"
+      "sha256": "892369c07915c1dad5422f8aa63dbddf563e023f1639f412900ade9cb61c815c"
     },
     {
       "name": ".rdata",
@@ -55,7 +55,7 @@
       "file_offset": "0x108000",
       "raw_bytes": 606208,
       "virtual_bytes": 602868,
-      "sha256": "5850c027194a84e5e7d119926c7ec17de3a87bc57b2ce3eb33d47dcb528b2263"
+      "sha256": "3c24e715594143ff877f3371af7150d3590baf930b17908624567d6d2c7a98d2"
     },
     {
       "name": ".data",
@@ -71,7 +71,7 @@
       "file_offset": "0x1aa000",
       "raw_bytes": 98304,
       "virtual_bytes": 94696,
-      "sha256": "af63827b73f7c7ca3040d7f6abe9e8c88a4d74413f57b682d149ca0cd6f29dc4"
+      "sha256": "a3441d3e2e80e1417aa65c5bd11934fb86986dee5340dfda61e6f2b3eafc683b"
     }
   ],
   "retail_image": {
@@ -739,7 +739,7 @@
   "candidate_image": {
     "file_bytes": 1843200,
     "machine": "0x14c",
-    "timestamp": 1793968767,
+    "timestamp": 1793971477,
     "image_base": "0x10000000",
     "entrypoint_rva": "0xf5888",
     "image_bytes": 7872512,
@@ -1390,11 +1390,11 @@
     "debug": [
       {
         "type": 2,
-        "timestamp": 1793968767,
+        "timestamp": 1793971477,
         "bytes": 71,
         "rva": "0x19a708",
         "file_offset": "0x19a708",
-        "data_sha256": "f528dd80a02b366f8db0bfd063ea749e0965d8b45cfa6aa28c6c1816da7fcffb"
+        "data_sha256": "09d4adcb11411dd1ea17309bdfa3287bd1d0c8c12ec3f977c6fd4dab3aa446b1"
       }
     ]
   },

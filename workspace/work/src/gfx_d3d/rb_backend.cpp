@@ -2358,14 +2358,14 @@ static void RB_TestFill()
 // PINNED 100339b0: four static/skinned report values are genuinely zero.
 static void RB_TestTransform()
 {
-    float result = (float)(RB_Benchmark2D(rgp.whiteMaterial, 0.0f, 0.0f, 1362) * 0.016666668f);
+    float result = RB_Benchmark2D(rgp.whiteMaterial, 0.0f, 0.0f, 1362) / 60.0f;
     ri.Printf(0, "-----------------------------------------------\n");
     ri.Printf(0, "static vertex data    %8.0f verts/sec @ 60Hz\n", 0.0);
     ri.Printf(0, "static vertex data    %8.0f tris/sec @ 60Hz\n", 0.0);
     ri.Printf(0, "skinned vertex data   %8.0f verts/sec @ 60Hz\n", 0.0);
     ri.Printf(0, "skinned vertex data   %8.0f tris/sec @ 60Hz\n", 0.0);
-    ri.Printf(0, "dynamic vertex data   %8.0f verts/sec @ 60Hz\n", (double)result * 4.0);
-    ri.Printf(0, "dynamic vertex data   %8.0f tris/sec @ 60Hz\n", (double)result * 2.0);
+    ri.Printf(0, "dynamic vertex data   %8.0f verts/sec @ 60Hz\n", result * 4.0f);
+    ri.Printf(0, "dynamic vertex data   %8.0f tris/sec @ 60Hz\n", result * 2.0f);
     ri.Printf(0, "-----------------------------------------------\n");
 }
 

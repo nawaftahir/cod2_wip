@@ -4011,6 +4011,14 @@
 "obj": "rb_sky.obj",
 "why": []
 },
+"?RB_DrawSunBlindGlare@@YAXPAUSunFlareDynamic@@H@Z": {
+"t": "0x1003bf60",
+"n": 132,
+"obj": "rb_sky.obj",
+"why": [
+"call ?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z"
+]
+},
 "?RB_DrawSun@@YAXH@Z": {
 "t": "0x1003bff0",
 "n": 87,
