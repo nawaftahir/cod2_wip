@@ -11,6 +11,7 @@
 - Accept only clean builds. Never leave a tree on an experiment branch others copy from.
 
 ## Open leads (best first)
+00. CG_EntityEvent calling convention: the size-fitting body (goto into one landChange tail, `do if (..) {..break;} while (0);` for event blocks 1..23, 24..46, 47..69, 70..92, 116..138) makes CG_EntityEvent take `cent` on the stack (`mov ebp,[esp+0x5c]`, frame 0x50) where retail takes it in ecx (`mov ebx,ecx`, frame 0x4c). Lost, listed in data/ties13.txt as 'NOT a tie': CG_CheckEvents (232 B) and CG_CheckPlayerstateEvents (101 B). Restore them by getting `cent` back into a callee-saved register param (use count / local copy of a cent field).
 0. CM_Trace exact body (retail 0x41d120, 1424 B, ours reordered: tw.contents before cmod, size ok). The reorder changes the callee register allocation and loses 8 fns, listed in data/ties13.txt as 'NOT a tie': CM_BoxTrace, CG_Trace, FxHelper::Trace, CG_TouchTriggerPrediction, FX_CalcImpactOrigin, CM_TransformedBoxTrace, UpdateOrigin@Particle, SV_Trace (3,3xx B). Retail spills cmod once after the join; ours spills per branch. Restore them and remove from ties13 when exact. Landed with it (cw): WinMain inlines the pbsv ProcessPbEvents body, SV_Netchan/WWWDownload/RoQShutdown fixes (see TRIED).
 1. Drift: first break now CL_BlendSavedScreen (-192 B: ours 9 B, retail has a full fn at 0x402260), then
    16 B steps in cl_cin/console/input, cl_keys +176, cl_main_mp connect code. CL_SetExpectedHunkUsage and

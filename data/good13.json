@@ -18756,7 +18756,7 @@
 ]
 },
 {
-"name": "$L96647",
+"name": "$L96653",
 "obj": "module",
 "size": 6,
 "hits": [],
@@ -35367,7 +35367,7 @@
 ]
 },
 {
-"name": "$L118293",
+"name": "$L118299",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35375,7 +35375,7 @@
 ]
 },
 {
-"name": "$L118295",
+"name": "$L118301",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35408,7 +35408,7 @@
 ]
 },
 {
-"name": "$L132176",
+"name": "$L132182",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35416,7 +35416,7 @@
 ]
 },
 {
-"name": "$L132178",
+"name": "$L132184",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35494,7 +35494,7 @@
 ]
 },
 {
-"name": "$L104442",
+"name": "$L104448",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35510,7 +35510,7 @@
 ]
 },
 {
-"name": "$L147580",
+"name": "$L147586",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -38614,6 +38614,20 @@
 "0x4bbf90",
 "0x4bde10"
 ]
+},
+{
+"name": "?fn_4bde30@@YAXXZ",
+"obj": "pbsv.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair or unique twin"
+},
+{
+"name": "?fn_4bde40@@YAXXZ",
+"obj": "pbsv.obj",
+"size": 1,
+"hits": [],
+"reason": "short body, no name pair or unique twin"
 },
 {
 "name": "?CG_RegisterDvars@@YAXXZ",
@@ -42053,7 +42067,7 @@
 {
 "name": "?CG_DrawScoreboard_Objective@@YAMPBMM@Z",
 "obj": "cg_scoreboard_mp.obj",
-"size": 1608,
+"size": 1552,
 "hits": [],
 "reason": "no masked match"
 },
@@ -42694,10 +42708,9 @@
 {
 "name": "?CG_CheckPlayerstateEvents@@YAXPAUplayerState_s@@0@Z",
 "obj": "cg_playerstate_mp.obj",
-"size": 101,
-"hits": [
-"0x4e0340"
-]
+"size": 104,
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_TransitionPlayerState@@YAXPAUplayerState_s@@0@Z",
@@ -42750,17 +42763,16 @@
 {
 "name": "?CG_EntityEvent@@YAXPAUcentity_s@@H@Z",
 "obj": "cg_event_mp.obj",
-"size": 4328,
+"size": 4340,
 "hits": [],
 "reason": "no masked match"
 },
 {
 "name": "?CG_CheckEvents@@YAXPAUcentity_s@@@Z",
 "obj": "cg_event_mp.obj",
-"size": 232,
-"hits": [
-"0x4e1a90"
-]
+"size": 246,
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_speex_encoder_init",

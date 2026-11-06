@@ -223,3 +223,9 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - getUpdateInfo2 sends version "1.3" (0x5a1d44), not "1.0": the stray "1.0" took the pooled slot that belongs to dl_main's HTProfile_newNoCacheClient string and shifted 99 KB of .rdata.
 - serverStatusDvars has 24 rows: `{ "sv_punkbuster", "@MPUI_PUNKBUSTER", 1 }` follows sv_voice (retail table at 0x5dcc58).
 - Result: .rdata 99.86%, .data 99.92% same-offset; same-offset 1,692,882 -> 1,790,588. .text (89.1%) is what is left: the PbSv stubs / CG_DrawScoreboard_Objective / CG_EntityEvent trio (146 KB) and the tolower/toupper/strncpy/ieee87 member order (1.6 KB).
+
+## 12. Trio landed (to, PINNED 11-06)
+- pbsv: two empty functions after PbSvSendToAddrPort (retail 0x4bde30/0x4bde40 are a lone `ret`).
+- CG_DrawScoreboard_Objective (1552 B, slot fits): Asian loop `while (textEnd && textStart && *textStart)`, one `next` var reused for the peek read, shared `resetLen` label, wrap tails written out at their two sites.
+- CG_EntityEvent (4364 B, slot fits): `goto setLandChange` from the 93..115 block into the 116..138 block, and `break` (inside `do if (..) {..} while (0);`) at the end of every if-block 1..23, 24..46, 47..69, 70..92, 116..138; this keeps MSVC from cross-jumping the per-branch isFirstPerson re-tests.
+- Result: same-offset 1,790,588 -> 1,911,541 (97.0%).

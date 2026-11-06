@@ -466,3 +466,12 @@ char *PbSvSendToAddrPort(char *addr, unsigned short port, int DataLen, char *Dat
 	Sys_PBSendUdpPacket(addr, port, DataLen, Data);
 	return 0;
 }
+
+// retail 0x4bde30 / 0x4bde40: two empty functions after PbSvSendToAddrPort, names unknown
+void fn_4bde30(void)
+{
+}
+
+void fn_4bde40(void)
+{
+}

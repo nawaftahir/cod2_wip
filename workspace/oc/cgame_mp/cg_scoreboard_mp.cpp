@@ -251,11 +251,12 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
             /* 1.3: same wrap, characters read through SEH_ReadCharFromString (retail 0x4d95f0) */
             int len = 0;
             const char *next;
-            const char *peek;
             unsigned int c;
             unsigned int c2;
 
-            while (*textStart && textEnd)
+            int width;
+
+            while (textEnd && textStart && *textStart)
             {
                 next = textStart;
                 c = SEH_ReadCharFromString(&next, 0);
@@ -263,11 +264,9 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
                 {
                     textStart = next;
                     textEnd = next;
-                    len = 0;
-                    continue;
+                    goto resetLen;
                 }
-                peek = next;
-                c2 = *next ? SEH_ReadCharFromString(&peek, 0) : 0;
+                c2 = *next ? SEH_ReadCharFromString(&next, 0) : 0;
                 if (c == '\n' || (c == '\\' && c2 == 'n'))
                 {
                     SEH_ReadCharFromString(&textStart, 0);
@@ -275,8 +274,7 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
                         SEH_ReadCharFromString(&textStart, 0);
                     y += CG_ScoreboardGetter_4d2bc0();
                     textEnd = textStart;
-                    len = 0;
-                    continue;
+                    goto resetLen;
                 }
                 if (!*textEnd)
                 {
@@ -286,8 +284,7 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
                 }
                 next = textEnd;
                 c = SEH_ReadCharFromString(&next, 0);
-                peek = next;
-                c2 = *next ? SEH_ReadCharFromString(&peek, 0) : 0;
+                c2 = *next ? SEH_ReadCharFromString(&next, 0) : 0;
                 if (c == '\n' || (c == '\\' && c2 == 'n'))
                 {
                     UI_DrawText(textStart, len, font, 129.0f, y + 10.08f, 0, 0, CG_ScoreboardGetter_4d2bb0(), color, 3);
@@ -296,18 +293,21 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
                         SEH_ReadCharFromString(&textEnd, 0);
                     y += CG_ScoreboardGetter_4d2bc0();
                     textStart = textEnd;
-                    continue;
+                    goto resetLen;
                 }
-                int width = UI_TextWidth(textStart, len + 1, font, CG_ScoreboardGetter_4d2bb0());
+                width = UI_TextWidth(textStart, len + 1, font, CG_ScoreboardGetter_4d2bb0());
                 if ((float)width > 374.0f)
                 {
                     UI_DrawText(textStart, width, font, 129.0f, y + 10.08f, 0, 0, CG_ScoreboardGetter_4d2bb0(), color, 3);
                     y += CG_ScoreboardGetter_4d2bc0();
                     textStart = textEnd;
-                    continue;
+                    goto resetLen;
                 }
                 SEH_ReadCharFromString(&textEnd, 0);
                 len = len + 1;
+                continue;
+resetLen:
+                len = 0;
             }
         }
         else

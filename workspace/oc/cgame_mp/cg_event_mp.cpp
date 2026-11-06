@@ -444,7 +444,7 @@ void CG_EntityEvent(centity_t *cent, int event)
         BG_GetWeaponDef(weapon);
     }
 
-    if (event >= 1 && event < 24) {
+    do if (event >= 1 && event < 24) {
 
         int sndIdx = event - 1;
 
@@ -464,10 +464,10 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, true);
-        return;
-    }
+        break;
+    } while (0);
 
-    if (event >= 24 && event < 47) {
+    do if (event >= 24 && event < 47) {
 
         int sndIdx = event - 24;
 
@@ -486,10 +486,10 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, false);
-        return;
-    }
+        break;
+    } while (0);
 
-    if (event >= 47 && event < 70) {
+    do if (event >= 47 && event < 70) {
 
         int sndIdx = event - 47;
 
@@ -508,10 +508,10 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, false);
-        return;
-    }
+        break;
+    } while (0);
 
-    if (event >= 70 && event < 93) {
+    do if (event >= 70 && event < 93) {
 
         int sndIdx = event - 70;
 
@@ -528,8 +528,8 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, true);
-        return;
-    }
+        break;
+    } while (0);
 
     if (event >= 93 && event < 116) {
 
@@ -547,15 +547,12 @@ void CG_EntityEvent(centity_t *cent, int event)
 
         if (clientNum == cg->predictedPlayerState.clientNum) {
 
-            float neg = -(float)eventParm;
-            cg->landChange = neg;
-
-            cg->landTime = cg->time;
+            goto setLandChange;
         }
         return;
     }
 
-    if (event >= 116 && event < 139) {
+    do if (event >= 116 && event < 139) {
 
         int sndIdx = event - 116;
 
@@ -582,12 +579,13 @@ void CG_EntityEvent(centity_t *cent, int event)
                     eventParm = 24;
                 else if (eventParm <= 0)
                     return;
+setLandChange:
                 cg->landChange = -(float)eventParm;
                 cg->landTime = cg->time;
             }
         }
-        return;
-    }
+        break;
+    } while (0);
 
     {
         switch (event) {
