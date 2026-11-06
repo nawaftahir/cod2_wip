@@ -3905,3 +3905,13 @@ platform into eax before loading vidConfig.width; ours loads first. Ternary and
 switch(platform-1) lose push edi; height-first order gets closest (load still
 precedes dec, eax/edx swapped). Next idea: width read after the test via an
 inlined helper.
+
+# RB_InsertGridVisLog SIB order (w4) - 2026-11-06
+
+Still 111 bytes, only the three 16-bit stores differ. Retail esi = index*6
+(byte offset, kept across the call) and eax/edx/ecx = reloaded log pointer, so
+retail is [offset+ptr]; ours is [ptr+offset]. Three more spellings, all
+unchanged (still [ptr+esi]): (1) struct {ushort x,y,z} through a volatile
+pointer, log[index].x; (2) byte* rec = (byte*)(index*6), then
+*(ushort*)(rec + (int)log [+2/+4]); (3) unsigned off = (unsigned)index*6 with
+*(ushort*)(log + off [+2/+4]). Not repeated: other address spellings.
