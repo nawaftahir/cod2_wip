@@ -157,6 +157,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_FindSpawnVar@@YAPBDPBDPAY01PBDH@Z": {
+"t": "0x10002e40",
+"n": 50,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_FloatForKey@@YANPBDMPAY01PBDH@Z": {
 "t": "0x10002e80",
 "n": 72,

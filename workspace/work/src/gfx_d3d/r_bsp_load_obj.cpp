@@ -565,17 +565,20 @@ void R_LoadSubmodels(GfxBspLoad *load)
     }
 }
 
+// SUPPORTED name: Mac r_bsp_load_obj.c; PINNED out-of-line copy 10002e40 (inlined at every call).
+const char *R_FindSpawnVar(const char *key, const char *(*vars)[2], int count)
+{
+    for (int index = 1; index < count; ++index)
+        if (!_stricmp(vars[index][0], key))
+            return vars[index][1];
+    return 0;
+}
+
 // PINNED 10002e80; descriptive name.
 double R_FloatForKey(const char *key, float defaultValue,
     const char *(*vars)[2], int count)
 {
-    const char *value = 0;
-    for (int index = 1; index < count; ++index)
-        if (!_stricmp(vars[index][0], key))
-        {
-            value = vars[index][1];
-            break;
-        }
+    const char *value = R_FindSpawnVar(key, vars, count);
     if (!value)
         return defaultValue;
     return atof(value);

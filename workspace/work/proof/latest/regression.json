@@ -1,8 +1,8 @@
 {
-  "functions": 779,
-  "bytes": 129636,
+  "functions": 780,
+  "bytes": 129686,
   "total": 253580,
-  "percent": 51.122328259326444,
+  "percent": 51.142045902673715,
   "baseline_lost": [],
   "gains": [
     {
@@ -63,6 +63,12 @@
       "target": "0x10002db0",
       "bytes": 140,
       "name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10002e40",
+      "bytes": 50,
+      "name": "?R_FindSpawnVar@@YAPBDPBDPAY01PBDH@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {

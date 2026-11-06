@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 129636,
-  "cpp_executable_bytes": 119452,
-  "cpp_percent": 47.106238662355075,
-  "cpp_game_bodies": 738,
+  "mixed_executable_bytes": 129686,
+  "cpp_executable_bytes": 119502,
+  "cpp_percent": 47.125956305702346,
+  "cpp_game_bodies": 739,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -343,7 +343,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "dc5c04d0e77493bd10c1dfade165bfc39ba9fae6d01fc73ded3d17d17cd17f77",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "c21350d1ae712590490b6971f7e16dd60ddd4354e7c50cef5d9e431a18aa6b47",
+  "bind_sha256": "bd2b0cf09131020c147ae8f5e28ec81f864f97eaaec819d30b609a4643fed52d",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -424,7 +424,7 @@
     "gfx_d3d/r_water.cpp": "a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b",
     "gfx_d3d/r_image_load_obj.cpp": "ee4412ff7722527f023904ae80ea66d7dad1eaca6df7b83e0dcdaa6f6879c115",
     "gfx_d3d/r_shadowcookie.cpp": "8a68a0df1ef77b5c62938d21e5350558a8592625fbf1b55697bc6cff0b3b970e",
-    "gfx_d3d/r_bsp_load_obj.cpp": "1e394647cbc921f24bdde880250b8d97fd2ea51b720cdb7ea30db238974cafb9",
+    "gfx_d3d/r_bsp_load_obj.cpp": "7273cc6d1987e77418c4321fbf7aad5034fb9bf4cd799af6f60d653c4c9f4b93",
     "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",
     "gfx_d3d/r_buffers.cpp": "09a0c0eb10c18b87f88b00dd8cd0fad8be482b4a33bdcf6baf47c93d0ab26d3c",
     "gfx_d3d/rb_sky.cpp": "66602762c9f2c6fe24a6e5e12fdc454d4725bbd95a5183bbca74961b994280e7",

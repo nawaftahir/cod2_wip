@@ -307,6 +307,14 @@
 ]
 },
 {
+"name": "?R_FindSpawnVar@@YAPBDPBDPAY01PBDH@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 50,
+"hits": [
+"0x10002e40"
+]
+},
+{
 "name": "?R_FloatForKey@@YANPBDMPAY01PBDH@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 72,
