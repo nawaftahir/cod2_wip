@@ -1885,7 +1885,7 @@ Bool CL_IsPlayerTalking(int clientIndex)
 }
 
 #if COD2_IS_PATCH_13
-extern "C" int __cdecl _strnicmp(const char *, const char *, size_t);
+extern "C" int __cdecl strnicmp(const char *, const char *, size_t);
 void PbSvAddEvent(int event, int clientIndex, int dataLen, char *data);
 void PbClAddEvent(int type, int datalen, char *data);
 #endif
@@ -1904,7 +1904,7 @@ Bool CL_ConnectionlessPacket(netadr_t from, msg_t *msg, int time)
 
 #if COD2_IS_PATCH_13
     /* retail checks the raw packet for PB_ before tokenizing */
-    if (_strnicmp((const char *)msg->data + 4, "PB_", 3) == 0) {
+    if (strnicmp((const char *)msg->data + 4, "PB_", 3) == 0) {
         char c = msg->data[7];
 
         if (c == 'S' || c == '2' || c == 'I')

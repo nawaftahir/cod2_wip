@@ -214,3 +214,7 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Single-char strings: the first compiled user owns the pooled copy. Retail set_cl_punkbuster is `Dvar_SetBoolByName("cl_punkbuster", I_stricmp(value, "0") != 0)` (dvar.cpp inlines the FindVar/SetBool/RegisterString body), so "1" is owned by dvar.cpp (0x5a85f8), not by cl_main_mp.
 - Result: same-offset 1,326,964 -> 1,393,657 (+66,693), no function lost.
 - SP_worldspawn (464 B, PINNED): write Scr_SetString out at the site (`if (from) GetRefString(from)->refCount++; if (*to) SL_RemoveRefToString(*to); *to = from;`); the global Scr_SetString/SL_AddRefToString keep the refStr-local shape. DL_BeginDownload(const char*) (242 B, PINNED): `char *requestUrl = NULL` and `requestUrl = NULL` after the success-path HTMemory_free. Both land the DL#2 +16 / SP -16 steps: same-offset 1,393,657 -> 1,604,300.
+
+## 10. libcmt member order (lc, PINNED 11-06)
+- CRT calls must be spelled as retail's callers do: `stricmp` / `strnicmp` / `itoa` (OLDNAMES aliases, resolved after libcmt is scanned) pull stricmp.obj, strnicmp.obj, _stricmp.obj, _strnicm.obj, xtoa.obj and ulldvrm.obj late, where retail has them. The underscore spellings (`_stricmp`, `_strnicmp`, `_itoa`) pull them first. Changed in pbsv, pbcl, cl_cgame_mp, cl_main_mp, cl_keys_mp: same-offset 1,604,300 -> 1,692,882 (.text 88.6%).
+- Left: tolower/toupper/ieee87/strncpy order (retail strncpy before toupper, ieee87 after; ~1.6 KB).

@@ -121,7 +121,7 @@ inline char *stPbSv::makefn(char *buf, char *fn)
 		if ( basepath[strlen(basepath) - 1] != *"\\" )
 			strcat(basepath, "\\");
 		strcat(basepath, "pb\\");
-		if ( _stricmp(basepath, m_cwd) && *basepath && *m_cwd )
+		if ( stricmp(basepath, m_cwd) && *basepath && *m_cwd )
 		{
 			_mkdir(m_cwd);
 			copyIfNotExists("pbsv.dll", basepath);
@@ -372,21 +372,21 @@ void PbCaptureConsoleOutput(char *msg, int msglen)
 
 char *PbSvGameCommand(char *Cmd, char *Result)
 {
-	if ( !_stricmp(Cmd, "set_sv_punkbuster") )
+	if ( !stricmp(Cmd, "set_sv_punkbuster") )
 	{
 		set_sv_punkbuster(Result);
 	}
-	else if ( !_stricmp(Cmd, "ConCapBufLen") )
+	else if ( !stricmp(Cmd, "ConCapBufLen") )
 	{
 		g_ConsoleCaptureBufLen = (long)Result;
 	}
-	else if ( !_stricmp(Cmd, "ConCapBuf") )
+	else if ( !stricmp(Cmd, "ConCapBuf") )
 	{
 		g_ConsoleCaptureBuf = Result;
 	}
-	else if ( !_stricmp(Cmd, "Cmd_Exec") )
+	else if ( !stricmp(Cmd, "Cmd_Exec") )
 	{
-		int pbCmd = !_strnicmp(Result, "pb_", 3);
+		int pbCmd = !strnicmp(Result, "pb_", 3);
 		Cmd_ExecuteString(Result);
 		if ( pbCmd )
 			PbServerForceProcess();
@@ -404,11 +404,11 @@ char *PbSvGameCommand(char *Cmd, char *Result)
 		end = arg1;
 		while ( *arg1 == ' ' )
 			arg1++;
-		if ( !_stricmp(Cmd, "DropClient") )
+		if ( !stricmp(Cmd, "DropClient") )
 		{
 			PB_DropClient(atoi(Result), arg1);
 		}
-		else if ( !_stricmp(Cmd, "Cvar_Set") || !_stricmp(Cmd, "Dvar_Set") )
+		else if ( !stricmp(Cmd, "Cvar_Set") || !stricmp(Cmd, "Dvar_Set") )
 		{
 			hold = *end;
 			*end = 0;
@@ -427,7 +427,7 @@ char *PbSvGameQuery(int Qtype, char *Data)
 	switch ( Qtype )
 	{
 	case 101:
-		_itoa(Pb_Q_maxclients(), Data, 10);
+		itoa(Pb_Q_maxclients(), Data, 10);
 		break;
 	case 102:
 		clientIndex = atoi(Data);
@@ -448,7 +448,7 @@ char *PbSvGameQuery(int Qtype, char *Data)
 
 char *PbSvGameMsg(char *Msg, int Type)
 {
-	if ( _strnicmp(pbsv.m_msgPrefix, "[skipnotify]", 12) )
+	if ( strnicmp(pbsv.m_msgPrefix, "[skipnotify]", 12) )
 		PbMsgToScreen(pbsv.m_msgPrefix, Msg);
 	else
 		Com_Printf("%s: %s\n", pbsv.m_msgPrefix + 12, Msg);

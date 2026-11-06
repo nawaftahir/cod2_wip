@@ -50,7 +50,7 @@ char *fn_4bb450(char *hay, char *needle)
 		p = strstr(p, lo);
 		if ( !p )
 			break;
-		if ( !_strnicmp(p, needle, len) )
+		if ( !strnicmp(p, needle, len) )
 			first = p;
 		p++;
 	} while ( !first );
@@ -60,7 +60,7 @@ char *fn_4bb450(char *hay, char *needle)
 		p = hay;
 		while ( (p = strstr(p, up)) != 0 )
 		{
-			if ( !_strnicmp(p, needle, len) )
+			if ( !strnicmp(p, needle, len) )
 			{
 				if ( !first )
 					return p;
@@ -273,7 +273,7 @@ struct stPbCl
 stPbCl pbcl;
 char *pbInitParam;
 
-extern "C" int __cdecl _stricmp(const char *, const char *);
+extern "C" int __cdecl stricmp(const char *, const char *);
 extern void set_cl_punkbuster(char *value);
 extern void PBget_cl_cdkey(char *out);
 extern void CL_SendPbPacket(int len, char *data);
@@ -307,14 +307,14 @@ char *PbClGameCommand(char *Cmd, char *Result)
 	while ( *value == ' ' )
 		value++;
 
-	if ( !_stricmp(Cmd, "set_cl_punkbuster") )
+	if ( !stricmp(Cmd, "set_cl_punkbuster") )
 	{
 		set_cl_punkbuster(Result);
 		return NULL;
 	}
-	if ( _stricmp(Cmd, "Cvar_Set") && _stricmp(Cmd, "Dvar_Set") )
+	if ( stricmp(Cmd, "Cvar_Set") && stricmp(Cmd, "Dvar_Set") )
 	{
-		if ( !_stricmp(Cmd, "get_pb_cdkey") )
+		if ( !stricmp(Cmd, "get_pb_cdkey") )
 			PBget_cl_cdkey(Result);
 		return NULL;
 	}
@@ -364,11 +364,11 @@ char *PbClGameQuery(int Qtype, char *Data)
 		{
 			if ( fn_4bb450(Key_GetBinding(i), match) )
 			{
-				_itoa(i, Data, 10);
+				itoa(i, Data, 10);
 				return NULL;
 			}
 		}
-		_itoa(-1, Data, 10);
+		itoa(-1, Data, 10);
 		return NULL;
 	case 107:
 		strncpy(Data, Key_GetBinding(atoi(Data)), 255);
@@ -397,7 +397,7 @@ char *PbClGameQuery(int Qtype, char *Data)
 			return NULL;
 		if ( !name )
 			name = "";
-		_itoa(flags, Data, 10);
+		itoa(flags, Data, 10);
 		return name;
 	case 111:
 		if ( !PbDvarWalk(&name, &string, &flags, &reset) )
@@ -423,7 +423,7 @@ char *PbClGameQuery(int Qtype, char *Data)
 // retail 0x4bbef0
 char *PbClGameMsg(char *Msg, int Type)
 {
-	if ( _strnicmp(pbcl.m_msgPrefix, "[skipnotify]", 12) )
+	if ( strnicmp(pbcl.m_msgPrefix, "[skipnotify]", 12) )
 		PbMsgToScreen(pbcl.m_msgPrefix, Msg);
 	else
 		Com_Printf("%s: %s\n", pbcl.m_msgPrefix + 12, Msg);

@@ -791,10 +791,10 @@ static void CompleteCommand(void)
 
 	/* 1.3: pb_ commands are completed by the PunkBuster modules */
 	cmdStart = g_consoleField.buffer + (g_consoleField.buffer[0] == '/' || g_consoleField.buffer[0] == '\\' ? 1 : 0);
-	if ( !_strnicmp(cmdStart, "pb_", 3) )
+	if ( !strnicmp(cmdStart, "pb_", 3) )
 	{
 		I_strncpyz(pbArg, cmdStart, 256);
-		if ( !_strnicmp(pbArg, "pb_sv_", 6) )
+		if ( !strnicmp(pbArg, "pb_sv_", 6) )
 			PbServerCompleteCommand(pbArg, 255);
 		else
 			PbClientCompleteCommand(pbArg, 255);

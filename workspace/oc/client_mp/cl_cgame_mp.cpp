@@ -492,7 +492,7 @@ restart:
 
     switch (cmd[0]) {
     case 'w':
-        if (argc >= 3 && !_stricmp(Cmd_Argv(2), "PB")) {
+        if (argc >= 3 && !stricmp(Cmd_Argv(2), "PB")) {
             /* PunkBuster kick text arrives already translated */
             const char *pbReason = Cmd_Argv(1);
             const char *pbBase = SEH_SafeTranslateString("EXE_SERVERDISCONNECTREASON");
