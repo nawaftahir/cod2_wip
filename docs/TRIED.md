@@ -4162,3 +4162,4 @@ Image_ExpandBgr 1000f350/37 MATCHED (new source): retail keeps the BGR->BGRA loo
 RB_BenchmarkSeconds 10033090/48 MATCHED: parameter order is (start, end).
 Image_Load 10010ab0/43 MATCHED (new source, Mac name): $-builtin or alloc+load-from-file; Image_Register inlines the same logic in retail too.
 Material_ValidatePassArguments 1001c2f0 (208/196) + Material_ValidateTechniqueDx7 1001c3c0 (64/63): retail passes material in edi, ours ebx (callee register context).
+OLDNAMES spelling (stricmp/strnicmp/strlwr for the underscore forms, 22 sites): same-offset 248932 -> 248968 (+36), library binding unchanged; renderer CRT order is not driven by these. Reverted.
