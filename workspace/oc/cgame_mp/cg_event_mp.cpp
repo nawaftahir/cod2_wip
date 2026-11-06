@@ -444,10 +444,7 @@ void CG_EntityEvent(centity_t *cent, int event)
         BG_GetWeaponDef(weapon);
     }
 
-    /* SIZE SHIM, not retail source: break falls into the switch below (default: Com_Error)
-       for events 1..138. Gives the retail byte size and cross-jump layout; replace with the real
-       structure (see STATUS lead 00). */
-    do if (event >= 1 && event < 24) {
+    if (event >= 1 && event < 24) {
 
         int sndIdx = event - 1;
 
@@ -467,10 +464,7 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, true);
-        break;
-    } while (0);
-
-    do if (event >= 24 && event < 47) {
+    } else if (event >= 24 && event < 47) {
 
         int sndIdx = event - 24;
 
@@ -489,10 +483,7 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, false);
-        break;
-    } while (0);
-
-    do if (event >= 47 && event < 70) {
+    } else if (event >= 47 && event < 70) {
 
         int sndIdx = event - 47;
 
@@ -511,10 +502,7 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, false);
-        break;
-    } while (0);
-
-    do if (event >= 70 && event < 93) {
+    } else if (event >= 70 && event < 93) {
 
         int sndIdx = event - 70;
 
@@ -531,10 +519,7 @@ void CG_EntityEvent(centity_t *cent, int event)
         entNum = es->number;
 
         CG_PlayEquipmentSound_4da2e0(entNum, isFirstPerson, true);
-        break;
-    } while (0);
-
-    if (event >= 93 && event < 116) {
+    } else if (event >= 93 && event < 116) {
 
         int sndIdx = event - 93;
 
@@ -552,10 +537,7 @@ void CG_EntityEvent(centity_t *cent, int event)
 
             goto setLandChange;
         }
-        return;
-    }
-
-    do if (event >= 116 && event < 139) {
+    } else if (event >= 116 && event < 139) {
 
         int sndIdx = event - 116;
 
@@ -587,9 +569,9 @@ setLandChange:
                 cg->landTime = cg->time;
             }
         }
-        break;
-    } while (0);
+    }
 
+    else
     {
         switch (event) {
 

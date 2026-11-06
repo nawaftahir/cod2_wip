@@ -42708,9 +42708,10 @@
 {
 "name": "?CG_CheckPlayerstateEvents@@YAXPAUplayerState_s@@0@Z",
 "obj": "cg_playerstate_mp.obj",
-"size": 104,
-"hits": [],
-"reason": "no masked match"
+"size": 101,
+"hits": [
+"0x4e0340"
+]
 },
 {
 "name": "?CG_TransitionPlayerState@@YAXPAUplayerState_s@@0@Z",
@@ -42763,16 +42764,17 @@
 {
 "name": "?CG_EntityEvent@@YAXPAUcentity_s@@H@Z",
 "obj": "cg_event_mp.obj",
-"size": 4340,
+"size": 4284,
 "hits": [],
 "reason": "no masked match"
 },
 {
 "name": "?CG_CheckEvents@@YAXPAUcentity_s@@@Z",
 "obj": "cg_event_mp.obj",
-"size": 246,
-"hits": [],
-"reason": "no masked match"
+"size": 232,
+"hits": [
+"0x4e1a90"
+]
 },
 {
 "name": "_speex_encoder_init",
@@ -82254,10 +82256,9 @@
 {
 "name": "_$E2",
 "obj": "pbsv.obj",
-"size": 1024,
-"hits": [
-"0x592c00"
-]
+"size": 1104,
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "___from_strstr_to_strchr",

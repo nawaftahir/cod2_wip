@@ -46,7 +46,3 @@ _yylex
 ?UpdateOrigin@Particle@@QAE_NPBUorientation_t@@@Z
 # NOT a tie: known loss from the CM_Trace reorder (offset-first trade: same-offset 754,818 -> 1,326,964); restore when CM_Trace is exact
 ?SV_Trace@@YAXPAUtrace_t@@PBM111HHHPAEH@Z
-# NOT a tie: known loss from the CG_EntityEvent break/goto size fix (same-offset 1,790,588 -> 1,911,541); restore when CG_EntityEvent takes cent in ecx again
-?CG_CheckEvents@@YAXPAUcentity_s@@@Z
-# NOT a tie: known loss from the CG_EntityEvent break/goto size fix (same-offset 1,790,588 -> 1,911,541); restore when CG_EntityEvent takes cent in ecx again
-?CG_CheckPlayerstateEvents@@YAXPAUplayerState_s@@0@Z
