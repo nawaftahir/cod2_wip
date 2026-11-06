@@ -4020,3 +4020,12 @@ Root cause of 364 vs 360 size diff was `R_DownsamplePixelData` calling conventio
 - Probe 2: Reordered `dst` arithmetic to `data + bytesPerPixel * (newWidth - 1)` and loop decrements to `dst -= bytesPerPixel; src -= bytesPerPixel;`. Size stayed 360 bytes. Exit code 3.
 - Probe 3: Computed `src = data + bytesPerPixel * (newWidth - 1); dst = src;` and loop decrements `src -= bytesPerPixel; dst -= bytesPerPixel;`. Size stayed 360 bytes; only 5 instructions in the 4th branch prologue differed in `ebx` vs `ebp` staging. Exit code 3.
 All 3 probes reached; `r_screenshot.cpp` restored to clean baseline.
+
+# R_GenerateOutdoorLookup probe trials - 2026-11-06 (worker s4)
+
+Target `R_GenerateOutdoorLookup` (retail `0x10020950`, 201 bytes; ours baseline 211 bytes, unblocks 136 bytes).
+Diff: retail sets up double bias 0.4999999990686774 in prologue, then performs inlined truncation via `fsub qword ptr [esp+0x1c]; fistp dword ptr [esp+0x18]`, whereas our build without /QIfist emits either helper calls or inline asm `I_fround`.
+- Probe 1: Used `(int)floor(encoded)`. Emitted 194 bytes; MSVC generated stack alignment prologue (`and esp, -8`) and called CRT `floor`. Exit code 3.
+- Probe 2: Used `(int)encoded`. Emitted 186 bytes; called runtime helper `_ftol2`. Exit code 3.
+- Probe 3: Used `I_clamp(I_fround(encoded), 0, 255)`. Emitted 215 bytes with inline-asm scheduling differences. Exit code 3.
+All 3 probes reached; `r_outdoor.cpp` restored to clean baseline.
