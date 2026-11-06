@@ -4161,3 +4161,4 @@ R_SkinGfxEntityCmd 10020ce0/12: ours inlines R_SkinGfxEntity (80 B) cross-TU; mo
 Image_ExpandBgr 1000f350/37 MATCHED (new source): retail keeps the BGR->BGRA loop as its own helper (KisakCOD name); Image_LoadBitmap calls it.
 RB_BenchmarkSeconds 10033090/48 MATCHED: parameter order is (start, end).
 Image_Load 10010ab0/43 MATCHED (new source, Mac name): $-builtin or alloc+load-from-file; Image_Register inlines the same logic in retail too.
+Material_ValidatePassArguments 1001c2f0 (208/196) + Material_ValidateTechniqueDx7 1001c3c0 (64/63): retail passes material in edi, ours ebx (callee register context).
