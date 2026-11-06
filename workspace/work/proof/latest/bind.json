@@ -3349,6 +3349,12 @@
 "obj": "rb_backend.obj",
 "why": []
 },
+"?RB_BenchmarkSeconds@@YANPBT_LARGE_INTEGER@@0@Z": {
+"t": "0x10033090",
+"n": 48,
+"obj": "rb_backend.obj",
+"why": []
+},
 "?RB_GotoCmd@@YAXPAUGfxRenderCommandExecState@@@Z": {
 "t": "0x1002eb60",
 "n": 12,

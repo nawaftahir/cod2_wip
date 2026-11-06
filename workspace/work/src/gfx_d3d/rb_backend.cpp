@@ -616,7 +616,7 @@ void RB_WritePointVertex(int vertIndex, const float *xyz, GfxColor color)
 }
 
 // name unconfirmed: seconds between two QueryPerformanceCounter samples.
-double RB_BenchmarkSeconds(const LARGE_INTEGER *end, const LARGE_INTEGER *start)
+double RB_BenchmarkSeconds(const LARGE_INTEGER *start, const LARGE_INTEGER *end)
 {
 	LARGE_INTEGER frequency;
 
@@ -2259,7 +2259,7 @@ static float RB_Benchmark2D(const Material *material, float width, float height,
         RB_DrawStretchPic(material, 0.0f, 0.0f, width, height, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
     RB_EndSurface();
     RB_EndBenchmarkGpu(&end);
-    return count / RB_BenchmarkSeconds(&end, &start);
+    return count / RB_BenchmarkSeconds(&start, &end);
 }
 
 // PINNED 100331d0: retail writes all four setup corners to vertex ZERO.
@@ -2312,7 +2312,7 @@ static float RB_Benchmark3D(const Material *material, int technique)
     RB_EndSurface();
     RB_EndBenchmarkGpu(&end);
     RB_PopMatrixStack();
-    return (float)(count / RB_BenchmarkSeconds(&end, &start) / 60.0);
+    return (float)(count / RB_BenchmarkSeconds(&start, &end) / 60.0);
 }
 
 // PINNED 100335d0: preserve the live iteration count and original report order.

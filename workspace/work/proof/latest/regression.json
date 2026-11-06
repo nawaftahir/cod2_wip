@@ -1,8 +1,8 @@
 {
-  "functions": 776,
-  "bytes": 129524,
+  "functions": 777,
+  "bytes": 129572,
   "total": 253580,
-  "percent": 51.07816073822857,
+  "percent": 51.09708967584194,
   "baseline_lost": [],
   "gains": [
     {
@@ -1449,6 +1449,12 @@
       "target": "0x10032d70",
       "bytes": 10,
       "name": "?RB_GpuWaited@@YAXH@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x10033090",
+      "bytes": 48,
+      "name": "?RB_BenchmarkSeconds@@YANPBT_LARGE_INTEGER@@0@Z",
       "object": "rb_backend.obj"
     },
     {

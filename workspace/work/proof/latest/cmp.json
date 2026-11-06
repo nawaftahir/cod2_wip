@@ -6811,7 +6811,9 @@
 "name": "?RB_BenchmarkSeconds@@YANPBT_LARGE_INTEGER@@0@Z",
 "obj": "rb_backend.obj",
 "size": 48,
-"hits": []
+"hits": [
+"0x10033090"
+]
 },
 {
 "name": "?RB_GotoCmd@@YAXPAUGfxRenderCommandExecState@@@Z",

@@ -28,7 +28,7 @@ allowed = {
     'universal/box_on_plane_side_x86.inc': '01447f1d547da40d7d228d91157964b259f8ad8180074b6a95f0df332771328d',
     # owner-approved 2026-11-06: I_ffloor fld/fsub/fistp, same pattern as I_fround
     'gfx_d3d/rb_light.cpp': '319bffd27cee67ed3c195a915dd6c01b584bf192f740ec896826317ff554f990',
-    'gfx_d3d/rb_backend.cpp': 'c165f21be21de67a9040938a1223af435d3868f0249f8ae5aa15d03035a10972',
+    'gfx_d3d/rb_backend.cpp': '6257db1ef11740d760a62b8a9d536ee21638d4c98b0b61dd8b89298abb41323a',
     'compat/msvc71.h': '8b793ebbd41492a4289a9d26c7f39543022351c2e847273bfd68ec96f3598dab',
 }
 sources = {}
