@@ -4152,3 +4152,6 @@ RB_DrawSunBlindGlare MATCHED bytes (lead, 2026-11-06): color built as GfxColor b
 array (3x light, dark), same fix as RB_DrawSunFlare; waits on RB_DrawStretchPic/RB_Set2D.
 RB_TestTransform 214/214: x4 printf multiply is float (fmul dword), /60.0f; only an
 add esp/fmul scheduling swap remains. Kept closer source.
+rb_tess entity color (6 fns): retail builds GfxColor bytes [2]=RGBA0,[1]=RGBA1,[0]=RGBA2,
+[3]=RGBA3 on the stack; applied to all six (RB_TessRailCore 59 -> 42 diffs). RailCore
+residual: retail keeps endpos/origin pointers in ebx/esi; VectorSubtract form is worse (176 B).

@@ -8542,7 +8542,7 @@
 {
 "name": "?RB_BuildSprite@@YAXPBUGfxEntity@@PBM@Z",
 "obj": "rb_tess.obj",
-"size": 415,
+"size": 439,
 "hits": []
 },
 {
@@ -8574,7 +8574,7 @@
 {
 "name": "?RB_TessOrientedQuad@@YAXPBUGfxEntity@@@Z",
 "obj": "rb_tess.obj",
-"size": 437,
+"size": 422,
 "hits": []
 },
 {
@@ -8592,13 +8592,13 @@
 {
 "name": "?RB_TessRailCore@@YAXPBUGfxEntity@@@Z",
 "obj": "rb_tess.obj",
-"size": 149,
+"size": 160,
 "hits": []
 },
 {
 "name": "?RB_TessLine@@YAXPBUGfxEntity@@@Z",
 "obj": "rb_tess.obj",
-"size": 147,
+"size": 123,
 "hits": []
 },
 {
