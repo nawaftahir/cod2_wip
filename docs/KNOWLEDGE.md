@@ -195,3 +195,11 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   The earlier TRIED row (SP_worldspawn flip) was an acceptable tie flip under the offset-first policy.
 - scr_*, bg_*, g_* (except g_spawn) have no per-obj size step left. Last one: g_spawn SP_worldspawn is 5 B over (retail 464): the
   inlined Scr_SetString leaves a dead `lea` (see TRIED).
+
+## 8. st session (11-06)
+- Item_ListBox_Paint selected-row fill is two `UI_FillRect` calls in `if (noScrollBars) .. else ..` (w-4 / w-16-4); MSVC tail-merges them
+  into the shared `fsub 4.0` tail. A ternary or a local `rectW` gives 2091 B. Matches at 2104 B (PINNED, referee).
+- Drift is cumulative: a size fix only raises same-offset when the sum of fixed steps before a region reaches 0 for it. Fixing one step
+  inside a balanced stretch (RoQShutdown -32) costs the whole tail (-175 KB). Fix a stretch whole or fix the last step before a zero region.
+- HTEvtLst has two unreferenced fns: 0x54ec80 returns HTPumpState, 0x54ed70 sets HTPumpState=0 and returns 0 (names unknown, `fn_XXXXXX`).
+  Emission order: PUBLIC unreferenced fns follow source order; Timer_* and HTEventInit come last (PINNED on our map).

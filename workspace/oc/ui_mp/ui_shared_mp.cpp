@@ -3912,11 +3912,19 @@ void Item_ListBox_Paint(displayContextDef_t *dc, itemDef_t *item)
         }
 
         if (i == ((itemDef_t *)it)->cursorPos[0]) {
-            UI_FillRect(x + 2.0f, y + 2.0f,
-                        ((listBoxDef_t *)listPtr)->noScrollBars ? (((rectDef_t*)(it))->w) - 4.0f : (((rectDef_t*)(it))->w) - 16.0f - 4.0f,
-                        (((listBoxDef_s*)(listPtr))->elementHeight),
-                        ((rectDef_t *)it)->horzAlign, ((rectDef_t *)it)->vertAlign,
-                        (float *)(((char *)it + offsetof(itemDef_t, window.outlineColor[0]))));
+            if (((listBoxDef_t *)listPtr)->noScrollBars) {
+                UI_FillRect(x + 2.0f, y + 2.0f,
+                            (((rectDef_t*)(it))->w) - 4.0f,
+                            (((listBoxDef_s*)(listPtr))->elementHeight),
+                            ((rectDef_t *)it)->horzAlign, ((rectDef_t *)it)->vertAlign,
+                            (float *)(((char *)it + offsetof(itemDef_t, window.outlineColor[0]))));
+            } else {
+                UI_FillRect(x + 2.0f, y + 2.0f,
+                            (((rectDef_t*)(it))->w) - 16.0f - 4.0f,
+                            (((listBoxDef_s*)(listPtr))->elementHeight),
+                            ((rectDef_t *)it)->horzAlign, ((rectDef_t *)it)->vertAlign,
+                            (float *)(((char *)it + offsetof(itemDef_t, window.outlineColor[0]))));
+            }
         }
 
         size -= (((listBoxDef_s*)(listPtr))->elementHeight);

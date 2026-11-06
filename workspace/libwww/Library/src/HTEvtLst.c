@@ -765,6 +765,12 @@ PUBLIC BOOL HTEventTerminate (void)
     return YES;
 }
 
+/* retail 0x54ec80, name unknown, no callers */
+PUBLIC int fn_54ec80 (void)
+{
+    return HTPumpState;
+}
+
 PUBLIC int HTEventList_init (HTRequest * theRequest)
 {
     HTPumpState = 0;
@@ -793,3 +799,10 @@ PUBLIC int HTEventList_loop (HTRequest * theRequest)
     return 0;
 }
 
+
+/* retail 0x54ed70, name unknown, no callers */
+PUBLIC int fn_54ed70 (HTRequest * theRequest)
+{
+    HTPumpState = 0;
+    return 0;
+}
