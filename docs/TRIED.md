@@ -4010,3 +4010,11 @@ Target `Image_LoadWavelet` (retail `0x1000f380`, 537 bytes, ours 539 bytes):
 - Probe 2: Restructured mip counting loop with `while (dimension < decode.width || ...)` and `--levels`. Size: 539 bytes. Instruction sequence matches retail closely but emits a 2-byte loop alignment NOP (`mov edi, edi`) before final hunk deallocation loop.
 - Probe 3: Changed outer mip loop from `for` to `while (decode.mipLevel >= ...)` with `--decode.mipLevel` at loop bottom. Size: 539 bytes; alignment NOP persisted.
 Failed byte verification (539 vs 537 bytes); source restored to baseline.
+
+# R_StaticModelBounds probe - 2026-11-06 (worker s2)
+
+Target `R_StaticModelBounds` (retail `0x1002a360`, 438 bytes, baseline ours 443 bytes):
+- Probe 1: Replaced volatile variables and manual break loop with natural `for (int surfIndex = 0; surfIndex < surfaceCount; ++surfIndex)` and non-volatile `mat`. Size dropped to 406 bytes; MSVC allocated 0x14 stack frame instead of retail's 0x18 and pinned `surfIndex` in callee-saved `ebp` instead of stack slot `[esp + 8]`.
+- Probe 2: Retained `volatile int surfIndex` in standard for loop header. Size was 447 bytes due to duplicated reload and test on `surfIndex`.
+- Probe 3: Pinned `verts` via `const float * const v = verts;` to encourage MSVC to dedicate `ebp` to `verts`. Size: 433 bytes; stack layout still differed from retail's 0x18 frame.
+Failed byte verification (retail 438 bytes); source restored to baseline.
