@@ -4327,7 +4327,7 @@
 "obj": "jcapistd.obj",
 "why": []
 },
-"_start_pass_coef": {
+"_start_pass_coef$private$jccoefct.obj": {
 "t": "0x10041db0",
 "n": 224,
 "obj": "jccoefct.obj",
@@ -4345,7 +4345,7 @@
 "obj": "jccoefct.obj",
 "why": []
 },
-"_compress_output": {
+"_compress_output$private$jccoefct.obj": {
 "t": "0x100423a0",
 "n": 521,
 "obj": "jccoefct.obj",
@@ -4951,6 +4951,42 @@
 "obj": "jcsample.obj",
 "why": []
 },
+"_jpeg_write_coefficients": {
+"t": "0x10049680",
+"n": 86,
+"obj": "jctrans.obj",
+"why": []
+},
+"_jpeg_copy_critical_parameters": {
+"t": "0x100496e0",
+"n": 587,
+"obj": "jctrans.obj",
+"why": []
+},
+"_transencode_master_selection": {
+"t": "0x10049930",
+"n": 220,
+"obj": "jctrans.obj",
+"why": []
+},
+"_start_pass_coef$private$jctrans.obj": {
+"t": "0x10049a60",
+"n": 112,
+"obj": "jctrans.obj",
+"why": []
+},
+"_compress_output$private$jctrans.obj": {
+"t": "0x10049ad0",
+"n": 655,
+"obj": "jctrans.obj",
+"why": []
+},
+"_transencode_coef_controller": {
+"t": "0x10049d60",
+"n": 159,
+"obj": "jctrans.obj",
+"why": []
+},
 "_jpeg_CreateDecompress": {
 "t": "0x10049e00",
 "n": 310,
@@ -5027,6 +5063,30 @@
 "t": "0x1004a780",
 "n": 146,
 "obj": "jdapistd.obj",
+"why": []
+},
+"_init_destination": {
+"t": "0x1004a820",
+"n": 38,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_empty_output_buffer": {
+"t": "0x1004a850",
+"n": 73,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_term_destination": {
+"t": "0x1004a8a0",
+"n": 105,
+"obj": "jdatadst.obj",
+"why": []
+},
+"_jpeg_stdio_dest": {
+"t": "0x1004a910",
+"n": 55,
+"obj": "jdatadst.obj",
 "why": []
 },
 "_init_source": {
@@ -13847,6 +13907,22 @@
 "obj": "LIBCMT:fclose.obj",
 "why": []
 },
+"__fwrite_lk": {
+"t": "0x100f70da",
+"n": 263,
+"obj": "LIBCMT:fwrite.obj",
+"why": [
+"call _memcpy"
+]
+},
+"_fwrite": {
+"t": "0x100f71e1",
+"n": 76,
+"obj": "LIBCMT:fwrite.obj",
+"why": [
+"call __fwrite_lk"
+]
+},
 "_vsprintf": {
 "t": "0x100f7320",
 "n": 87,
@@ -17129,6 +17205,14 @@
 "obj": "LIBCMT:dosmap.obj",
 "why": []
 },
+"_memcpy": {
+"t": "0x100fcdf0",
+"n": 829,
+"obj": "LIBCMT:memcpy.obj",
+"why": [
+"extent"
+]
+},
 "__RTC_Initialize": {
 "t": "0x100fdec5",
 "n": 68,
@@ -17146,14 +17230,6 @@
 "n": 56,
 "obj": "LIBCMT:fpinit.obj",
 "why": []
-},
-"_memcpy": {
-"t": "0x100fcdf0",
-"n": 829,
-"obj": "LIBCMT:memcpy.obj",
-"why": [
-"extent"
-]
 },
 "__ld12tod": {
 "t": "0x101063c0",

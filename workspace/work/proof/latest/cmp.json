@@ -8725,7 +8725,7 @@
 ]
 },
 {
-"name": "_start_pass_coef",
+"name": "_start_pass_coef$private$jccoefct.obj",
 "obj": "jccoefct.obj",
 "size": 224,
 "hits": [
@@ -8749,7 +8749,7 @@
 ]
 },
 {
-"name": "_compress_output",
+"name": "_compress_output$private$jccoefct.obj",
 "obj": "jccoefct.obj",
 "size": 521,
 "hits": [
@@ -9604,6 +9604,63 @@
 ]
 },
 {
+"name": "_jpeg_write_coefficients",
+"obj": "jctrans.obj",
+"size": 86,
+"hits": [
+"0x10049680"
+]
+},
+{
+"name": "_jpeg_copy_critical_parameters",
+"obj": "jctrans.obj",
+"size": 587,
+"hits": [
+"0x100496e0"
+]
+},
+{
+"name": "_transencode_master_selection",
+"obj": "jctrans.obj",
+"size": 220,
+"hits": [
+"0x10049930"
+]
+},
+{
+"name": "_start_iMCU_row$private$jctrans.obj",
+"obj": "jctrans.obj",
+"size": 74,
+"hits": [
+"0x10041d60",
+"0x10049a10"
+]
+},
+{
+"name": "_start_pass_coef$private$jctrans.obj",
+"obj": "jctrans.obj",
+"size": 112,
+"hits": [
+"0x10049a60"
+]
+},
+{
+"name": "_compress_output$private$jctrans.obj",
+"obj": "jctrans.obj",
+"size": 655,
+"hits": [
+"0x10049ad0"
+]
+},
+{
+"name": "_transencode_coef_controller",
+"obj": "jctrans.obj",
+"size": 159,
+"hits": [
+"0x10049d60"
+]
+},
+{
 "name": "_jpeg_CreateDecompress",
 "obj": "jdapimin.obj",
 "size": 310,
@@ -9725,6 +9782,38 @@
 "size": 146,
 "hits": [
 "0x1004a780"
+]
+},
+{
+"name": "_init_destination",
+"obj": "jdatadst.obj",
+"size": 38,
+"hits": [
+"0x1004a820"
+]
+},
+{
+"name": "_empty_output_buffer",
+"obj": "jdatadst.obj",
+"size": 73,
+"hits": [
+"0x1004a850"
+]
+},
+{
+"name": "_term_destination",
+"obj": "jdatadst.obj",
+"size": 105,
+"hits": [
+"0x1004a8a0"
+]
+},
+{
+"name": "_jpeg_stdio_dest",
+"obj": "jdatadst.obj",
+"size": 55,
+"hits": [
+"0x1004a910"
 ]
 },
 {
@@ -24045,6 +24134,22 @@
 ]
 },
 {
+"name": "__fwrite_lk",
+"obj": "LIBCMT:fwrite.obj",
+"size": 263,
+"hits": [
+"0x100f70da"
+]
+},
+{
+"name": "_fwrite",
+"obj": "LIBCMT:fwrite.obj",
+"size": 76,
+"hits": [
+"0x100f71e1"
+]
+},
+{
 "name": "_vsprintf",
 "obj": "LIBCMT:vsprintf.obj",
 "size": 87,
@@ -25496,6 +25601,15 @@
 ]
 },
 {
+"name": "_memcpy",
+"obj": "LIBCMT:memcpy.obj",
+"size": 829,
+"hits": [
+"0x100f67a0",
+"0x100fcdf0"
+]
+},
+{
 "name": "___isctype_mt",
 "obj": "LIBCMT:isctype.obj",
 "size": 119,
@@ -26308,15 +26422,6 @@
 "size": 136,
 "hits": [
 "0x101003a0"
-]
-},
-{
-"name": "_memcpy",
-"obj": "LIBCMT:memcpy.obj",
-"size": 829,
-"hits": [
-"0x100f67a0",
-"0x100fcdf0"
 ]
 },
 {

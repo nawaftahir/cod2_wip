@@ -128,3 +128,6 @@ Implication (HYPOTHESIS): merged TUs give wrong /GL context for the register,
 scheduling and block-layout miss classes; some SDK/CRT objects come from a different
 library version than Summer 2004. Next: split TUs per Mac file list + TU_AUDIT islands
 until (100,3077) reaches 121; identify the 2067/2179 objects by their library.
+PINNED: retail links libjpeg jctrans.c and jdatadst.c (unmodified IJG 6b): their
+bodies sit between jcsample/jdapimin and jdapistd/jdatasrc. Adding both: +11 verified
+functions, Rich (100,3077) 112 -> 114 of 121, (95,3077) 148 -> 149 = retail.

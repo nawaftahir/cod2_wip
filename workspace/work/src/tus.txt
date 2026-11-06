@@ -74,8 +74,10 @@ jpeg-6b/jcparam.c
 jpeg-6b/jcphuff.c
 jpeg-6b/jcprepct.c
 jpeg-6b/jcsample.c
+jpeg-6b/jctrans.c
 jpeg-6b/jdapimin.c
 jpeg-6b/jdapistd.c
+jpeg-6b/jdatadst.c
 jpeg-6b/jdatasrc.c
 jpeg-6b/jdcoefct.c
 jpeg-6b/jdcolor.c

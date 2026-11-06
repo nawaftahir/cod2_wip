@@ -4145,3 +4145,6 @@ ours uses ebx and cmp mem. Non-const bias and a local bool for the dvar: no chan
 RB_TessSunBillboard 544/544 (lead): retail frame 0x64 vs ours 0x50, retail saves only
 esi/edi and spills offsets; sum term order is canonicalized by the compiler (swapping
 the first two source terms emits the same code). Restored.
+RB_GetLightingAtPoint closer source (I_ffloor asm helper, unrolled axes, scalar cells)
+was reverted: the gate only accepts __asm in hash-reviewed files. Re-apply it with an
+owner-reviewed allow-list entry once the register residual is solved.

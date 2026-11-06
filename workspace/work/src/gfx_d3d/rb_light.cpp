@@ -233,35 +233,20 @@ const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
 
 /* PINNED 100363a0. Reuse the existing biased rounding helper; exact FP
    instruction spelling remains unaccepted and its assembly is not C++ credit. */
-// Name unconfirmed; retail inlines fsub (0.5 - 2^-30) then fistp, like I_fround.
-static int I_ffloor(const float x)
-{
-    double bias = 0.5 - 1.0 / (1 << 30);
-    int result;
-
-    __asm fld x
-    __asm fsub bias
-    __asm fistp result
-
-    return result;
-}
-
 float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out)
 {
-    int cellX, cellY, cellZ;
+    int cell[3];
     float weights[3][2];
-    cellX = I_ffloor(sampleOrigin[0] - -131072.0f) >> 5;
-    weights[0][1] = (sampleOrigin[0] - -131072.0f) * 0.03125f - cellX;
-    weights[0][0] = 1.0f - weights[0][1];
-    cellY = I_ffloor(sampleOrigin[1] - -131072.0f) >> 5;
-    weights[1][1] = (sampleOrigin[1] - -131072.0f) * 0.03125f - cellY;
-    weights[1][0] = 1.0f - weights[1][1];
-    cellZ = I_ffloor(sampleOrigin[2] - -131072.0f) >> 6;
-    weights[2][1] = (sampleOrigin[2] - -131072.0f) * 0.015625f - cellZ;
-    weights[2][0] = 1.0f - weights[2][1];
+    for (int axis = 0; axis < 3; ++axis)
+    {
+        float shifted = sampleOrigin[axis] + 131072.0f;
+        cell[axis] = I_fround(shifted - 0.5f) >> (axis == 2 ? 6 : 5);
+        weights[axis][1] = shifted * (axis == 2 ? 0.015625f : 0.03125f) - cell[axis];
+        weights[axis][0] = 1.0f - weights[axis][1];
+    }
     if (r_showLightGrid->current.enabled)
     {
-        RB_DrawGridCellBox(cellX, cellY, cellZ);
+        RB_DrawGridCellBox(cell[0], cell[1], cell[2]);
         RB_DrawGridSampleBox(sampleOrigin);
     }
     memset(out, 0, 6 * sizeof(vec4_t));
@@ -270,8 +255,8 @@ float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin,
     for (unsigned int corner = 0; corner < 8; ++corner)
     {
         const GfxLightGridPoint *point = RB_GetValidGridPoint(grid,
-            cellX + (corner & 1), cellY + ((corner >> 1) & 1),
-            cellZ + ((corner >> 2) & 1), corner, sampleOrigin);
+            cell[0] + (corner & 1), cell[1] + ((corner >> 1) & 1),
+            cell[2] + ((corner >> 2) & 1), corner, sampleOrigin);
         if (!point)
             continue;
         float weight = weights[1][(corner >> 1) & 1] * weights[2][(corner >> 2) & 1]
@@ -286,8 +271,8 @@ float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin,
         if (totalWeight == 0.0f)
         {
             if (!RB_GetNearestGridColors(grid,
-                cellX + (weights[0][1] > 0.5f), cellY + (weights[1][1] > 0.5f),
-                cellZ + (weights[2][1] > 0.5f), out, &sunWeight))
+                cell[0] + (weights[0][1] > 0.5f), cell[1] + (weights[1][1] > 0.5f),
+                cell[2] + (weights[2][1] > 0.5f), out, &sunWeight))
                 RB_DefaultGridColors(out);
         }
         else
