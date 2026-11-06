@@ -1931,6 +1931,14 @@
 "call ?Material_LoadTechniqueDx7@@YAPAUMaterialTechnique@@PBD@Z"
 ]
 },
+"?Material_LoadTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z": {
+"t": "0x1001c010",
+"n": 556,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_LoadCachedTechnique@@YAPAUMaterialTechnique@@PBD@Z"
+]
+},
 "?Material_LoadCachedTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z": {
 "t": "0x1001c240",
 "n": 79,

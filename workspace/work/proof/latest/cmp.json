@@ -3940,8 +3940,10 @@
 {
 "name": "?Material_LoadTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",
 "obj": "r_material_load_obj.obj",
-"size": 498,
-"hits": []
+"size": 556,
+"hits": [
+"0x1001c010"
+]
 },
 {
 "name": "?Material_LoadCachedTechniqueSet@@YAPAUMaterialTechniqueSet@@PBD@Z",

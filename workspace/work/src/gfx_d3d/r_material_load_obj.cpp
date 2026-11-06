@@ -1970,7 +1970,7 @@ MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
     Bool used = 0;
     for (;;)
     {
-        const char *token = Com_Parse(&text);
+        const char *token = Com_ParseInternal(&text);
         if (!token[0])
             break;
         if (token[0] == '"')
@@ -1984,34 +1984,45 @@ MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
             unsigned int type = Material_TechniqueTypeForName(token);
             labels[labelCount] = type;
             if (type == 34)
-                goto unknown_type;
+            {
+                Com_ScriptWarning("Unknown technique type '%s'\n", token);
+                set = 0;
+                break;
+            }
             if (g_useTechnique[type])
                 used = 1;
             ++labelCount;
             if (!Com_MatchToken(&text, ":", 1))
-                goto parse_error;
+            {
+                set = 0;
+                break;
+            }
             continue;
         }
         if (!labelCount)
-            goto unknown_type;
+        {
+            Com_ScriptWarning("Unknown technique type '%s'\n", token);
+            set = 0;
+            break;
+        }
         if (used)
         {
             MaterialTechnique *technique = Material_LoadCachedTechnique(token);
             if (!technique)
-                goto parse_error;
+            {
+                set = 0;
+                break;
+            }
             for (int index = 0; index < labelCount; ++index)
                 set->techniques[labels[index]] = technique;
         }
         labelCount = 0;
         used = 0;
         if (!Com_MatchToken(&text, ";", 1))
-            goto parse_error;
-        continue;
-unknown_type:
-        Com_ScriptWarning("Unknown technique type '%s'\n", token);
-parse_error:
-        set = 0;
-        break;
+        {
+            set = 0;
+            break;
+        }
     }
     Com_EndParseSession();
     ri.FS_FreeFile(fileData);
