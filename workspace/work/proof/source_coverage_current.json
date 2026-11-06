@@ -335,7 +335,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "6a189c301024ad0f18a1885943217604af1b9419a78ef7143286e4315f763f9f",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "38dfc6492b3535c101b931c0931f7ac38771618fee725fcf986ffab2aba3695c",
+  "bind_sha256": "2b43fcf21e9dd3daaa7f3855f03abad762bd1b79f81520d030c5f1c8d4a6ea31",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -418,7 +418,7 @@
     "gfx_d3d/r_bsp_load_obj.cpp": "2818dade50d86fb394d3dc45eee9a0cb130e7914ba777ea4e92961026e2846f3",
     "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",
     "gfx_d3d/r_buffers.cpp": "09a0c0eb10c18b87f88b00dd8cd0fad8be482b4a33bdcf6baf47c93d0ab26d3c",
-    "gfx_d3d/rb_sky.cpp": "ace69151cce68b5a14a445bc0632def5e0c2eba25e671382bd00ee75b2b5a575",
+    "gfx_d3d/rb_sky.cpp": "633ad957076f68c4b3e8db16d7475193458bf6dd779d6ce28e46de250132e2b5",
     "gfx_d3d/rb_tess.h": "3a8b6d3bf2209d6f25bb5efb8594fea8c1845afef306a6bae18394af8f2343d0",
     "gfx_d3d/r_caps.cpp": "5d85bff3833adb73471710b729cc25fe3b3c9becc3ea78ec917d65d27d77036d",
     "gfx_d3d/rb_state.cpp": "1f41ff67e6743d138115c4a94299061e8d3510e3ce8b161710a3ffd4deb9936d",

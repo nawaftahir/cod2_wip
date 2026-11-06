@@ -1,3 +1,28 @@
+# RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
+
+RB_SetupPassDx7 (10039b40, retail 1124, ours 1104): probed semantic switch 0/1 cases in inlined RB_ApplyMaterialImageOverride (stays 1104, compiler optimizes out empty cases matching default), early return from case 0/1 (collapses pass loop into 937 bytes by dropping trailing sampler/texcoord setup), and pointer-incremented sampler iterator (stays 1104, strength-reduction arithmetic still generates 4-entry jump table and different loop frame). Restored.
+
+# RB_UpdateViewportConstants deferral - 2026-11-06
+
+RB_UpdateViewportConstants (retail 1003e690, 366 bytes; our size 315 bytes at rb_state.cpp:975): unbound in referee because 1003e690 is cataloged as FUN_1003e690 with NO_SOURCE_OWNER in retail_functions.tsv, leaving the symbol unbound in BLOCKERS.md. Called from RB_BeginViewCmd (100321f0) and RB_SetRenderTarget (1003ea30 in our source, though retail 1003ea30 does not call it). DEFER per instructions until ownership/layout binding is established.
+
+# Material_Register shrink-wrap probe - 2026-11-06
+
+Material_Register (10017100, retail 144): probed if (!found) block structure, __forceinline helper for load path, and forward goto load (all emit 144 bytes by placing found-return at function exit, but push esi remains in prologue at entry rather than deferred/shrink-wrapped into the load block as in retail; byte referee rejected). Restored.
+
+# RB_EndSurface structure probe - 2026-11-06
+
+RB_EndSurface (1003a8d0, retail 202): probed early return with !RB_IsTechniqueDrawable (stays 206, clear block placed after draw requiring 6-byte near jump), forward gotos with clear before draw (emits 150 bytes, tail-calls un-inlined RB_LogPrint instead of inlining), and inverted RB_IsTechniqueBlocked predicate (stays 206, compiler reorders clear block after draw causing 6-byte near jump 0f 84 instead of 2-byte short jump 74). Restored.
+# RB_TessXModelSkinnedCached size probe - 2026-11-06
+
+RB_TessXModelSkinnedCached 10041140/276: ours emits 277 bytes vs retail 276.
+The single byte difference is instruction 64: retail emits 5-byte A1 opcode
+mov eax, [backEndData] while ours emits 6-byte 8B 0D mov ecx, [backEndData].
+Probe 1: separate renderer local variable. Emits 277.
+Probe 2: explicit intermediate skinnedCacheVb pointer variable. Emits 277.
+Probe 3: hoisted buffer declaration at function scope. Emits 277.
+All three probes fail byte matching and are restored. Max 3 probes reached.
+
 # DX7 direct-expression follow-up - 2026-11-05
 
 R_TransformRigidVertexDx7 explicit six primary-derived expressions under local
@@ -4002,3 +4027,109 @@ TU move (2026-11-06): rb_surface.cpp body appended to rb_shade.cpp right after
 RB_BeginSurface (retail order Begin, DrawOptimizedTess, DrawTess, End; Mac has no
 rb_surface.c) and rb_surface removed from tus.txt: RB_EndSurface stays 206/202.
 TU membership alone does not fix the block-layout class; restored.
+
+# Image_LoadWavelet probe - 2026-11-06 (worker s2)
+
+Target `Image_LoadWavelet` (retail `0x1000f380`, 537 bytes, ours 539 bytes):
+- Probe 1: Replaced open-coded mip calculation loop with `Image_CountMipmapsForFile(fileHeader) - 1`. Size increased to 553 bytes due to extra `lea ecx, [eax - 1]` and compiler splitting branch epilogue rather than sharing `--levels` / `dec edi`.
+- Probe 2: Restructured mip counting loop with `while (dimension < decode.width || ...)` and `--levels`. Size: 539 bytes. Instruction sequence matches retail closely but emits a 2-byte loop alignment NOP (`mov edi, edi`) before final hunk deallocation loop.
+- Probe 3: Changed outer mip loop from `for` to `while (decode.mipLevel >= ...)` with `--decode.mipLevel` at loop bottom. Size: 539 bytes; alignment NOP persisted.
+Failed byte verification (539 vs 537 bytes); source restored to baseline.
+
+# R_StaticModelBounds probe - 2026-11-06 (worker s2)
+
+Target `R_StaticModelBounds` (retail `0x1002a360`, 438 bytes, baseline ours 443 bytes):
+- Probe 1: Replaced volatile variables and manual break loop with natural `for (int surfIndex = 0; surfIndex < surfaceCount; ++surfIndex)` and non-volatile `mat`. Size dropped to 406 bytes; MSVC allocated 0x14 stack frame instead of retail's 0x18 and pinned `surfIndex` in callee-saved `ebp` instead of stack slot `[esp + 8]`.
+- Probe 2: Retained `volatile int surfIndex` in standard for loop header. Size was 447 bytes due to duplicated reload and test on `surfIndex`.
+- Probe 3: Pinned `verts` via `const float * const v = verts;` to encourage MSVC to dedicate `ebp` to `verts`. Size: 433 bytes; stack layout still differed from retail's 0x18 frame.
+Failed byte verification (retail 438 bytes); source restored to baseline.
+# RB_GetLightingAtPoint probe - 2026-11-06 (worker s3)
+
+Target `RB_GetLightingAtPoint` (retail `0x100363a0`, 784 bytes, ours baseline 674 bytes):
+Diff showed retail unrolls 3 coordinate axes (X, Y, Z) instead of looping over axes, and inlines default colors.
+- Probe 1: Unrolled 3 axes with I_fround(f - 0.5f) and updated RB_DefaultGridColors to float array layout. Size grew from 674 to 792 bytes.
+- Probe 2: Marked RB_GetNearestGridColors static to test internal calling convention propagation. Size stayed 792 bytes; separate fsub 0.5f before I_fround vs retail fsub [0.4999999990686774] prevented byte identity.
+- Probe 3: Tested (int)floor(f) for axes calculation. Emitted CRT floor calls, resulting in 740 bytes.
+All 3 probes failed byte verification. rb_light.cpp restored to baseline.
+
+# XSurfaceOptimizeRigid probe - 2026-11-06 (worker s3)
+
+Target `XSurfaceOptimizeRigid` (retail `0x1002da90`, 186 bytes, ours baseline 182 bytes):
+Diff showed retail receives 2 parameters (surface, surfVerts) without model, preserving surfVerts in ebp across COM calls.
+- Probe 1: Removed unused XModel *model parameter from declaration, definition and call site. Size: 182 bytes; ebp was still reused as scratch during CreateVertexBuffer.
+- Probe 2: Added register keyword to surfVerts. Size: 182 bytes.
+- Probe 3: Extracted vertexStride computation prior to CreateVertexBuffer call to free up scratch registers before loading dx.device. Size reached 185 bytes (1 byte off retail 186).
+All 3 probes failed byte verification. r_xsurface_optimize.cpp restored to baseline.
+# R_FinishLoadingAabbTrees_r probe trials - 2026-11-06 (worker s4)
+
+Target `R_FinishLoadingAabbTrees_r` (retail `0x10003d40`, 403 bytes + padding to 410; ours baseline 400 bytes, unblocks 164 bytes).
+Diff: retail updates `totalTreesUsed += tree->childCount` in-place and directly loads `[esi + 0x2c]` (`tree->children`) into `eax` after recursion, using `fcomp [edi + eax]` and `lea ecx, [edi + eax]`.
+- Probe 1: Replaced `int nextTree` with in-place `totalTreesUsed += tree->childCount` and reuse of `totalTreesUsed`. Preamble matched retail perfectly, eliminating alignment nop and reducing size to 402 bytes (1 byte shy of retail 403 due to `add ecx, edi` vs `lea ecx, [edi + eax]`). Exit code 3.
+- Probe 2: Replaced `child` local variable with `tree->children[childIndex]` in bounds expansion loops. Grew to 450 bytes due to repeated index evaluations. Exit code 3.
+- Probe 3: Declared `GfxAabbTree *child = &tree->children[childIndex]` before the recursive call and passed `child`. Emitted 405 bytes. Exit code 3.
+All 3 probes failed byte verification. `r_bsp_load_obj.cpp` restored to clean baseline.
+
+# R_ResampleImage probe trials - 2026-11-06 (worker s4)
+
+Target `R_ResampleImage` (retail `0x10025d10`, 360 bytes; ours baseline 364 bytes, unblocks 150 bytes).
+Root cause of 364 vs 360 size diff was `R_DownsamplePixelData` calling convention: retail LTCG passed `stride` on stack (`push 1` / `push edi`), whereas ours passed `stride` in `edx` (`mov edx, 1` / `mov edx, edi`).
+- Probe 1: Re-structured `R_DownsamplePixelData` to align with Mac 1.3 / retail x86 register pressure (`accB/accR/accG` initial assignments, `residual += newSize - oldSize; while (residual <= 0)`). This matched the retail stack ABI for `R_DownsamplePixelData` completely, reducing `R_ResampleImage` from 364 to 360 bytes (exact size match!). Diff was narrowed to only the 4th branch (`oldHeight < newHeight`) register choice (`ebp` vs `ebx` for `data`). Exit code 3.
+- Probe 2: Reordered `dst` arithmetic to `data + bytesPerPixel * (newWidth - 1)` and loop decrements to `dst -= bytesPerPixel; src -= bytesPerPixel;`. Size stayed 360 bytes. Exit code 3.
+- Probe 3: Computed `src = data + bytesPerPixel * (newWidth - 1); dst = src;` and loop decrements `src -= bytesPerPixel; dst -= bytesPerPixel;`. Size stayed 360 bytes; only 5 instructions in the 4th branch prologue differed in `ebx` vs `ebp` staging. Exit code 3.
+All 3 probes reached; `r_screenshot.cpp` restored to clean baseline.
+
+# R_GenerateOutdoorLookup probe trials - 2026-11-06 (worker s4)
+
+Target `R_GenerateOutdoorLookup` (retail `0x10020950`, 201 bytes; ours baseline 211 bytes, unblocks 136 bytes).
+Diff: retail sets up double bias 0.4999999990686774 in prologue, then performs inlined truncation via `fsub qword ptr [esp+0x1c]; fistp dword ptr [esp+0x18]`, whereas our build without /QIfist emits either helper calls or inline asm `I_fround`.
+- Probe 1: Used `(int)floor(encoded)`. Emitted 194 bytes; MSVC generated stack alignment prologue (`and esp, -8`) and called CRT `floor`. Exit code 3.
+- Probe 2: Used `(int)encoded`. Emitted 186 bytes; called runtime helper `_ftol2`. Exit code 3.
+- Probe 3: Used `I_clamp(I_fround(encoded), 0, 255)`. Emitted 215 bytes with inline-asm scheduling differences. Exit code 3.
+All 3 probes reached; `r_outdoor.cpp` restored to clean baseline.
+
+# R_InitFrameBackendData deferral - 2026-11-06 (worker s4)
+
+Target `R_InitFrameBackendData` (candidate `0x10021040`, 143 bytes; ours baseline 147 bytes, unbound `?` in BLOCKERS.md):
+DEFERRED per worker brief instructions.
+Reason: Function is unbound (zero byte hits across retail text). The candidate extent at `0x10021040` is 143 bytes vs our 147 bytes. Preamble/double-buffer scheduling differs by 4 bytes (`lea ecx, [eax+1]` vs `inc eax` and register scheduling of `s_cmdList = &data->commands`). Previous attempts to alter register allocation via volatile references caused regressions in accepted extents `10023af0` and `10020dc0` under LTCG. Not easy to bind safely without deeper whole-TU register allocation analysis across `r_rendercmds.cpp`.
+# Material_LoadTechniqueDx7 probe - 2026-11-06 (worker s5)
+
+Target `Material_LoadTechniqueDx7` (retail `0x1001ba70`, target 580 B vs draft 610 B):
+- Probe 1: Added `__declspec(noinline)` to `Material_LoadPassStateMap` to prevent inlining into technique loader; emits 510 B with `call Com_Parse` out of line. Exit code 3.
+- Probe 2: `while (count < 4)` with `Com_ParseInternal(&text)`; changes prologue frame to 0x1bc with ebp hoist; emits 589 B. Exit code 3.
+- Probe 3: `do ... while (count < 4)` with `Com_ParseInternal(&text)`; preserves 0x1b8 frame; emits 589 B vs target 580 B due to pass-loop register scheduling. Exit code 3.
+Source restored to baseline.
+
+# R_CubemapShotAlpha probe - 2026-11-06 (worker s5)
+
+Target `R_CubemapShotAlpha` (retail `0x100265e0`, target 266 B vs draft 262 B):
+- Baseline ours: 262 B (differs in x87 register scheduling for direction[0] accumulator across u/v blocks).
+- Probe 1: Component accumulation with scoped `u` and `v` blocks (`direction[0] += axis[1][0]*u`); size: 262 B. Spills direction[0] to stack early. Exit code 3.
+- Probe 2: Three single-expression formulas with `u` and `v` declared ahead of direction; size: 222 B. Exit code 3.
+- Probe 3: Separate `dir0` scalar accumulator kept in ST(0) across `u` and `v` blocks; size: 242 B. Exit code 3.
+Source restored to baseline.
+
+# FresnelTerm probe - 2026-11-06 (worker s5)
+
+Target `FresnelTerm` (retail `0x1002c370`, target 201 B vs draft 203 B):
+- Differs in one x87 cleanup instruction after `(rp*rp + rs*rs)*0.5`: candidate emits `FXCH ST(2); FXCH ST(1); FSTP ST(0); FSTP ST(0)` (8 B) vs target `FXCH ST(2); FSTP ST(1); FSTP ST(0)` (6 B).
+- Probe 1: Direct `result = (float)((rs * rs + rp * rp) * 0.5)` without reflectance intermediate variable; stays 203 B. Exit code 3.
+- Probe 2: `result = (float)((rp * rp + rs * rs) * 0.5)` term ordering; stays 203 B. Exit code 3.
+- Probe 3: Explicit early returns on clamp (`return 0.0f; return 1.0f;`); stays 203 B. Exit code 3.
+Source restored to baseline.
+# RB_DrawFrameColorDebug probe - 2026-11-06 (worker s6)
+
+Target `RB_DrawFrameColorDebug` (retail `0x10030190`, 286 bytes):
+- Baseline ours: 235 bytes (used literal dword hex colors 0xffff0000, 0xff00ff00, etc., while retail constructs colors via byte array stores).
+- Probe 1: Applied byte color[4] array with color[0..3] byte assignments. Size: 286 bytes (exact match). Instruction count 92 vs 92. Differed only in register allocation (ours used eax for 0 and cl for 0xff; retail used ecx for 0 and al for 0xff).
+- Probe 2: Reordered byte stores to write 255 values first (color[2]/color[1]/color[0] then color[3] then zeros). Size: 286 bytes. Kept eax/ecx inversion across initial float setup.
+- Probe 3: Deferred quarterWidth/quarterHeight calculation to after initial color setup to match retail FPU stack schedule. Size: 286 bytes. Register allocation unchanged.
+All 3 probes failed byte verification. `rb_backend.cpp` restored to baseline.
+
+# VectorRotate probe - 2026-11-06 (worker s6)
+
+Target `VectorRotate` (retail `0x1005df90`, 273 bytes):
+- Baseline ours: 255 bytes. Retail inlines an x87 double `fsincos` sequence (`push eax; push ecx; fld ...; fsincos; ...; fstp qword ptr [ecx]; fstp qword ptr [eax]; pop ecx; pop eax;`) in `SinCos(dAngle, &s, &c)`, whereas our pure C baseline calls CRT `sin`/`cos`, resulting in 255 bytes (missing 18 bytes).
+- Probe 1: Baseline verified; calls CRT `sin`/`cos` via `com_math.h` `SinCos(double, double*, double*)`. Result: 255 bytes.
+- Probe 2: Attempted float arguments with `FastSinCos`; rejected by signature.
+Matching retail requires double inline assembly `__asm { fsincos }` in `SinCos`, which is forbidden by repository rules ("no inline asm/_emit/byte arrays/pragma hacks" and C/C++ game coverage excludes assembly-bearing functions). Source restored to clean baseline.

@@ -8000,8 +8000,10 @@
 {
 "name": "?RB_DrawSunFlare@@YAXMM@Z",
 "obj": "rb_sky.obj",
-"size": 235,
-"hits": []
+"size": 244,
+"hits": [
+"0x1003bbe0"
+]
 },
 {
 "name": "?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z",
