@@ -131,3 +131,7 @@ until (100,3077) reaches 121; identify the 2067/2179 objects by their library.
 PINNED: retail links libjpeg jctrans.c and jdatadst.c (unmodified IJG 6b): their
 bodies sit between jcsample/jdapimin and jdapistd/jdatasrc. Adding both: +11 verified
 functions, Rich (100,3077) 112 -> 114 of 121, (95,3077) 148 -> 149 = retail.
+PINNED: infoParms lives in its own TU universal/surfaceflags.cpp (Mac STABS path;
+retail .rdata has the bark/brick/carpet names). Split from r_utils: Rich (100,3077)
+114 -> 115 of 121; whole-file same-offset 249758 -> 249700 (data moved, expected
+until data order is fixed). 6 LTCG TUs remain unidentified.

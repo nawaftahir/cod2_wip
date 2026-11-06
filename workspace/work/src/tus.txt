@@ -112,6 +112,7 @@ universal/com_shared.cpp
 universal/fft.cpp
 universal/q_parse.cpp
 universal/q_shared.cpp
+universal/surfaceflags.cpp
 gfx_d3d/common.cpp
 qcommon/common.cpp
 win32/win_threads.cpp
