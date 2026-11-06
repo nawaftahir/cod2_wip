@@ -447,7 +447,11 @@ static void RB_DrawSunFlare(float alpha, float size)
     alpha *= 255.0f;
     RB_PushMatrixStack();
     byte channel = (byte)I_fround(alpha);
-    GfxColor color; color.packed = 0xff000000 | (channel * 0x010101);
+    GfxColor color;
+    color.array[2] = channel;
+    color.array[1] = channel;
+    color.array[0] = channel;
+    color.array[3] = 0xff;
     RB_TessSunBillboard(size * 0.0015625f, size * 0.0020833334f, color);
     RB_EndSurface();
     RB_PopMatrixStack();

@@ -3967,6 +3967,14 @@
 "call ?RB_SunSpriteScreenFraction@@YAMHH@Z"
 ]
 },
+"?RB_DrawSunFlare@@YAXMM@Z": {
+"t": "0x1003bbe0",
+"n": 244,
+"obj": "rb_sky.obj",
+"why": [
+"call ?RB_EndSurface@@YAXXZ"
+]
+},
 "?RB_UpdateSunFlare@@YAXPAUSunFlareDynamic@@H@Z": {
 "t": "0x1003bce0",
 "n": 179,
