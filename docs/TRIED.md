@@ -3918,3 +3918,12 @@ Height block already matches in shape. Probes (all fail, source restored):
 3) "switch (platform - 1) case 0" on width: same lea/test form as probe 1; no match.
 ## R_CopyCubemapShot 100267e0 (w3)
 Only diff: 3rd store is [eax+ecx+0x12] in retail, ours [ecx+eax+0x12] (operand order; everything else identical, 89/89). Tried, all still ecx+eax: (targa+18)[offset]; (offset+targa)[18]; *(targa+18+offset)=*(source+offset). MSVC canonicalizes these; try other structure (pointer/stride form) next.
+# RB_InsertGridVisLog SIB order (w4) - 2026-11-06
+
+Still 111 bytes, only the three 16-bit stores differ. Retail esi = index*6
+(byte offset, kept across the call) and eax/edx/ecx = reloaded log pointer, so
+retail is [offset+ptr]; ours is [ptr+offset]. Three more spellings, all
+unchanged (still [ptr+esi]): (1) struct {ushort x,y,z} through a volatile
+pointer, log[index].x; (2) byte* rec = (byte*)(index*6), then
+*(ushort*)(rec + (int)log [+2/+4]); (3) unsigned off = (unsigned)index*6 with
+*(ushort*)(log + off [+2/+4]). Not repeated: other address spellings.
