@@ -29,7 +29,7 @@ void ExpandBounds(const vec3_t mins, const vec3_t maxs, vec3_t outMins, vec3_t o
 // Name unconfirmed; PINNED out-of-line copy 10005c30.
 inline void R_DpvsPlaneSetDist(DpvsPlane *plane, const float *point, float dist)
 {
-    plane->coeffs[3] = dist - DotProduct(plane->coeffs, point);
+    plane->coeffs[3] = dist - DotProduct(point, plane->coeffs);
 }
 
 // Name unconfirmed; PINNED out-of-line copy 10005cb0.
