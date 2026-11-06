@@ -1,3 +1,13 @@
+# RB_TessXModelSkinnedCached size probe - 2026-11-06
+
+RB_TessXModelSkinnedCached 10041140/276: ours emits 277 bytes vs retail 276.
+The single byte difference is instruction 64: retail emits 5-byte A1 opcode
+mov eax, [backEndData] while ours emits 6-byte 8B 0D mov ecx, [backEndData].
+Probe 1: separate renderer local variable. Emits 277.
+Probe 2: explicit intermediate skinnedCacheVb pointer variable. Emits 277.
+Probe 3: hoisted buffer declaration at function scope. Emits 277.
+All three probes fail byte matching and are restored. Max 3 probes reached.
+
 # DX7 direct-expression follow-up - 2026-11-05
 
 R_TransformRigidVertexDx7 explicit six primary-derived expressions under local
