@@ -1805,6 +1805,14 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
+"?Material_ParseRuleSet@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAPBUMaterialStateMapRuleSet@@@Z": {
+"t": "0x100188e0",
+"n": 517,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_ParseRuleSetCondition@@YA?AW4MtlParseSuccess@@PAPBDPBDPAUMaterialStateMapRule@@@Z"
+]
+},
 "?Material_FixupRgbBlend@@YAXPAUMaterialStateMapRuleSet@@@Z": {
 "t": "0x10018af0",
 "n": 96,

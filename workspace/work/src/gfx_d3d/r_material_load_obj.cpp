@@ -767,7 +767,7 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
     {
         do
         {
-            token = Com_Parse(text);
+            token = Com_ParseInternal(text);
             if (!strcmp(token, ":"))
                 return MTL_PARSE_SUCCESS;
             if (strcmp(token, "&&"))
@@ -775,7 +775,7 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
                 Com_ScriptWarning("expected ':' or '&&', found '%s'\n", token);
                 return MTL_PARSE_ERROR;
             }
-            token = Com_Parse(text);
+            token = Com_ParseInternal(text);
             result = Material_ParseRuleSetConditionTest(text, token, rule);
         } while (result == MTL_PARSE_SUCCESS);
         if (result == MTL_PARSE_NO_MATCH)
@@ -860,7 +860,7 @@ static Bool Material_ParseRuleSet(const char **text, const char *name,
     ruleCount = 0;
     do
     {
-        token = Com_Parse(text);
+        token = Com_ParseInternal(text);
         if (*token == '}')
         {
             if (!ruleCount)

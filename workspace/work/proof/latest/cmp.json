@@ -3662,7 +3662,7 @@
 {
 "name": "?Material_ParseRuleSetCondition@@YA?AW4MtlParseSuccess@@PAPBDPBDPAUMaterialStateMapRule@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 192,
+"size": 346,
 "hits": []
 },
 {
@@ -3692,8 +3692,10 @@
 {
 "name": "?Material_ParseRuleSet@@YAEPAPBDPBDPBUMtlStateMapBitGroup@@PAPBUMaterialStateMapRuleSet@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 453,
-"hits": []
+"size": 517,
+"hits": [
+"0x100188e0"
+]
 },
 {
 "name": "?Material_FixupRgbBlend@@YAXPAUMaterialStateMapRuleSet@@@Z",
