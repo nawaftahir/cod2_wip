@@ -3939,3 +3939,18 @@ Retail: loads [1],[3],[2] (spill [1]), then [0] at store; stores out2,out1,out0,
 3. g,a,b,r temps, stores 1,2,0,3: loads 0,3,2 then [1] late, stores 1,2,0,3. No match.
 Next idea: not decl/store order; try pointer-offset or struct/uint32 channel form.
 RB_SetVertexData282/282 (worker g1, unblocks 199 B): retail loads offset into ecx (dxVb->lpVtbl into edx), computes flags in eax, and uses ecx/edx for Com_Memcpy; ours loads offset into eax (vtable into ecx), computes flags in edx, and uses eax/ecx for Com_Memcpy. Probe 1 (inline flags ternary directly into Lock call) stayed 282 bytes with identical register choice. Probe 2 (load offset before dxVb) stayed 282 bytes but reordered dynamicVertexBuffer load before imul and kept eax. Probe 3 (r_vb_state_t *vb local pointer) grew to 296 bytes due to extra register preservation. Baseline 282 B restored.
+# RB_SunSpriteScreenFraction probe attempts - 2026-11-06
+
+Target RB_SunSpriteScreenFraction (1003b310, 407 B). Retail uses `sub esp, 0x2c`,
+evaluates clipX first (st(0)), clipY second (stores to [esp+0x2c]), then computes
+1.0f/clipW and multiplies with clipX on x87 stack before evaluating left and top.
+- Probe 1 (407 B): Reordered clipW (_24+_34+_14), clipX, clipY and inverted bounds
+  check `if (right <= left || bottom <= top) return 0.0f`. Bounds check and tail
+  fidivl matched retail, but prologue stayed `sub esp, 0x24` and compiler evaluated
+  clipY before clipX, spilling clipY to [esp+0x20].
+- Probe 2 (407 B): Reordered to _1k+_2k+_3k terms for clipW/X/Y. Still produced
+  `sub esp, 0x24` with clipY evaluated before clipX and clipW evaluated across
+  prologue as _24 then _34.
+- Probe 3 (407 B): Replaced explicit invW with `clipX / clipW` and `clipY / clipW`
+  (matching KisakCOD). Produced identical 407 B assembly with `sub esp, 0x24`.
+All 3 probes failed byte matching and were restored.
