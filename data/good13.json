@@ -4181,16 +4181,16 @@
 ]
 },
 {
-"name": "?CL_ParseDownload@@YAXPAUmsg_t@@@Z",
+"name": "?CL_ParseWWWDownload@@YAXPAUmsg_t@@@Z",
 "obj": "cl_parse_mp.obj",
-"size": 712,
+"size": 568,
 "hits": [],
 "reason": "no masked match"
 },
 {
-"name": "?CL_ParseWWWDownload@@YAXPAUmsg_t@@@Z",
+"name": "?CL_ParseDownload@@YAXPAUmsg_t@@@Z",
 "obj": "cl_parse_mp.obj",
-"size": 568,
+"size": 712,
 "hits": [],
 "reason": "no masked match"
 },

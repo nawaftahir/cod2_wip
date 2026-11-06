@@ -208,3 +208,8 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   HTAlertCallback_progress (`request->net` read twice, no HTRequest_net call). Find them with the unmatched-fn scan: same address, same slot, bytes differ.
 - 1.3 vs 1.0 constants found by byte diff in zero-drift fns: `GetRefAPI(0x3c)` (renderer API 60; 1.0 passes 0x3b), server-list default sort key 10 (not 9).
   `strncpy(buf, f(x), N-1); buf[N-1] = 0` written as `I_strncpyz(buf, f(x), N)` matches when retail pushes the nested call before the length (args evaluated into the inlined body).
+
+## 9. .rdata string pool (nd, PINNED 11-06)
+- Literal pool order in .rdata = REVERSE source order (last function of a TU first, last literal of a function first), so a function-order or case-order swap in source shows up as a pool shift. Find it with a rdata resync scan (first diff vs retail, then shift): `Dvar_SetString(cl_updateoldversion, "1.3")` (was "1.0"), CL_CheckForResend case CA_CONNECTING before CA_CHALLENGING in source, CL_ParseWWWDownload defined before CL_ParseDownload, the long "bad command byte (GameState may exceed ...)" text.
+- Single-char strings: the first compiled user owns the pooled copy. Retail set_cl_punkbuster is `Dvar_SetBoolByName("cl_punkbuster", I_stricmp(value, "0") != 0)` (dvar.cpp inlines the FindVar/SetBool/RegisterString body), so "1" is owned by dvar.cpp (0x5a85f8), not by cl_main_mp.
+- Result: same-offset 1,326,964 -> 1,393,657 (+66,693), no function lost.

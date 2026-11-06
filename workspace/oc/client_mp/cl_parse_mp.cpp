@@ -573,7 +573,7 @@ void CL_ParseGamestate(msg_t *msg)
         } else {
 
             Com_Error(ERR_DROP, "\x15"
-                         "CL_ParseGamestate: bad command byte");
+                         "CL_ParseGamestate: bad command byte (GameState may exceed MAX_GAMESTATE_CHARS, or packet may exceed MAX_MSGLEN)");
         }
     }
 
@@ -594,6 +594,79 @@ void CL_ParseGamestate(msg_t *msg)
 
     Dvar_SetInt((dvar_t *)cl_paused, 0);
 }
+
+#if COD2_IS_PATCH_13
+
+void CL_ParseWWWDownload(msg_t *msg)
+{
+    char toOSPath[256];
+    const char *fs_homepath = Dvar_GetString("fs_homepath");
+
+    I_strncpyz(cls.originalDownloadName, cls.downloadName, sizeof(cls.originalDownloadName));
+    I_strncpyz(cls.downloadName, MSG_ReadCommandString(msg), sizeof(cls.downloadName));
+    cls.downloadSize = MSG_ReadLong(msg);
+    cls.downloadFlags = MSG_ReadLong(msg);
+
+#    if COD2_FEATURE_NET_HARDENING && COD2_FEATURE_WWW_DOWNLOAD
+
+    if (!(cls.downloadFlags & 0x2) && !NetHardening_ValidUrl(cls.downloadName)) {
+        Com_Printf("WARNING: refusing wwwdl redirect to non-http(s) URL '%s'\n",
+                   cls.downloadName);
+        CL_AddReliableCommand("wwwdl fail");
+        DL_CancelDownload();
+        cls.wwwDlInProgress = 0;
+        return;
+    }
+    if (cls.originalDownloadName[0] &&
+        !NetHardening_ValidDownloadName(cls.originalDownloadName, 1)) {
+        Com_Printf("WARNING: refusing malicious wwwdl local name '%s'\n",
+                   cls.originalDownloadName);
+        CL_AddReliableCommand("wwwdl fail");
+        DL_CancelDownload();
+        cls.wwwDlInProgress = 0;
+        return;
+    }
+#    endif
+
+    legacyHacks->cl_downloadSize = cls.downloadSize;
+
+    if (cls.downloadFlags & 0x2) {
+        Sys_OpenURL(cls.downloadName, 1);
+        Cbuf_ExecuteText(2, "quit\n");
+        CL_AddReliableCommand("wwwdl bbl8r");
+        DL_CancelDownload();
+        cls.wwwDlInProgress = 0;
+        return;
+    }
+
+    Com_DPrintf("Server redirected download: %s\n", cls.downloadName);
+    cls.wwwDlInProgress = 1;
+    CL_AddReliableCommand("wwwdl ack");
+
+    FS_BuildOSPath(fs_homepath, cls.downloadTempName, "", toOSPath);
+    I_strncpyz(cls.downloadTempName, toOSPath, sizeof(cls.downloadTempName));
+
+    if (cls.downloadTempName[0])
+        cls.downloadTempName[strlen(cls.downloadTempName) - 1] = '\0';
+
+    if (DL_BeginDownload(cls.downloadTempName, cls.downloadName)) {
+        if (cls.downloadFlags & 0x1) {
+            CL_AddReliableCommand("wwwdl bbl8r");
+            cls.wwwDlDisconnected = 1;
+        }
+        return;
+    }
+
+    CL_AddReliableCommand("wwwdl fail");
+    DL_CancelDownload();
+    cls.wwwDlInProgress = 0;
+    Com_Printf("Failed to initialize download for '%s'\n", cls.downloadName);
+    if (cls.downloadFlags & 0x1) {
+        CL_AddReliableCommand("wwwdl bbl8r");
+        cls.wwwDlDisconnected = 1;
+    }
+}
+#endif
 
 void CL_ParseDownload(msg_t *msg)
 {
@@ -720,79 +793,6 @@ void CL_ParseDownload(msg_t *msg)
         CL_NextDownload();
     }
 }
-
-#if COD2_IS_PATCH_13
-
-void CL_ParseWWWDownload(msg_t *msg)
-{
-    char toOSPath[256];
-    const char *fs_homepath = Dvar_GetString("fs_homepath");
-
-    I_strncpyz(cls.originalDownloadName, cls.downloadName, sizeof(cls.originalDownloadName));
-    I_strncpyz(cls.downloadName, MSG_ReadCommandString(msg), sizeof(cls.downloadName));
-    cls.downloadSize = MSG_ReadLong(msg);
-    cls.downloadFlags = MSG_ReadLong(msg);
-
-#    if COD2_FEATURE_NET_HARDENING && COD2_FEATURE_WWW_DOWNLOAD
-
-    if (!(cls.downloadFlags & 0x2) && !NetHardening_ValidUrl(cls.downloadName)) {
-        Com_Printf("WARNING: refusing wwwdl redirect to non-http(s) URL '%s'\n",
-                   cls.downloadName);
-        CL_AddReliableCommand("wwwdl fail");
-        DL_CancelDownload();
-        cls.wwwDlInProgress = 0;
-        return;
-    }
-    if (cls.originalDownloadName[0] &&
-        !NetHardening_ValidDownloadName(cls.originalDownloadName, 1)) {
-        Com_Printf("WARNING: refusing malicious wwwdl local name '%s'\n",
-                   cls.originalDownloadName);
-        CL_AddReliableCommand("wwwdl fail");
-        DL_CancelDownload();
-        cls.wwwDlInProgress = 0;
-        return;
-    }
-#    endif
-
-    legacyHacks->cl_downloadSize = cls.downloadSize;
-
-    if (cls.downloadFlags & 0x2) {
-        Sys_OpenURL(cls.downloadName, 1);
-        Cbuf_ExecuteText(2, "quit\n");
-        CL_AddReliableCommand("wwwdl bbl8r");
-        DL_CancelDownload();
-        cls.wwwDlInProgress = 0;
-        return;
-    }
-
-    Com_DPrintf("Server redirected download: %s\n", cls.downloadName);
-    cls.wwwDlInProgress = 1;
-    CL_AddReliableCommand("wwwdl ack");
-
-    FS_BuildOSPath(fs_homepath, cls.downloadTempName, "", toOSPath);
-    I_strncpyz(cls.downloadTempName, toOSPath, sizeof(cls.downloadTempName));
-
-    if (cls.downloadTempName[0])
-        cls.downloadTempName[strlen(cls.downloadTempName) - 1] = '\0';
-
-    if (DL_BeginDownload(cls.downloadTempName, cls.downloadName)) {
-        if (cls.downloadFlags & 0x1) {
-            CL_AddReliableCommand("wwwdl bbl8r");
-            cls.wwwDlDisconnected = 1;
-        }
-        return;
-    }
-
-    CL_AddReliableCommand("wwwdl fail");
-    DL_CancelDownload();
-    cls.wwwDlInProgress = 0;
-    Com_Printf("Failed to initialize download for '%s'\n", cls.downloadName);
-    if (cls.downloadFlags & 0x1) {
-        CL_AddReliableCommand("wwwdl bbl8r");
-        cls.wwwDlDisconnected = 1;
-    }
-}
-#endif
 
 void CL_ParseCommandString(msg_t *msg)
 {

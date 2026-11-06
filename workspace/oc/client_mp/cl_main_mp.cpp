@@ -1757,6 +1757,16 @@ void CL_CheckForResend(void)
     clc.connectPacketCount++;
 
     switch (clc.state) {
+    case CA_CONNECTING:
+        if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
+            CL_RequestAuthorization();
+        strcpy(pbBuf, "getchallenge");
+        len = strlen(pbBuf);
+        PbClientConnect(1, pbBuf, &len);
+        CL_BuildMd5StrFromCDKey(md5Str);
+        NET_OutOfBandPrint(NS_CLIENT1, clc.serverAddress, va("getchallenge 0 \"%s\"", md5Str));
+        break;
+
     case CA_CHALLENGING:
         I_strncpyz(info, Dvar_InfoString(2), sizeof(info));
         Info_SetValueForKey(info, "protocol", va("%i", 118));
@@ -1775,16 +1785,6 @@ void CL_CheckForResend(void)
         PbClientConnect(2, pbBuf, &len);
         NET_OutOfBandData(NS_CLIENT1, clc.serverAddress, (unsigned char *)data, i + 10);
         dvar_modifiedFlags &= ~2;
-        break;
-
-    case CA_CONNECTING:
-        if (net_lanauthorize->current.enabled || !Sys_IsLANAddress(clc.serverAddress))
-            CL_RequestAuthorization();
-        strcpy(pbBuf, "getchallenge");
-        len = strlen(pbBuf);
-        PbClientConnect(1, pbBuf, &len);
-        CL_BuildMd5StrFromCDKey(md5Str);
-        NET_OutOfBandPrint(NS_CLIENT1, clc.serverAddress, va("getchallenge 0 \"%s\"", md5Str));
         break;
 
     default:
@@ -2609,13 +2609,7 @@ void CL_startSingleplayer_f(void)
 // PunkBuster glue: sets cl_punkbuster from a string (retail 1.3 0x410360)
 void set_cl_punkbuster(char *value)
 {
-    bool on = I_stricmp(value, "0") != 0;
-    dvar_t *dvar = Dvar_FindVar("cl_punkbuster");
-
-    if (dvar)
-        Dvar_SetBool(dvar, on);
-    else
-        Dvar_RegisterString("cl_punkbuster", on ? "1" : "0", 0x4000);
+    Dvar_SetBoolByName("cl_punkbuster", I_stricmp(value, "0") != 0);
 }
 
 void CL_DrawLogo(void)
@@ -3024,7 +3018,7 @@ void CL_UpdateInfoPacket(netadr_t from)
     if (cl_updateavailable->current.enabled) {
         Dvar_SetString(cl_updatefiles, Cmd_Argv(2));
         Dvar_SetString(cl_updateversion, Cmd_Argv(3));
-        Dvar_SetString(cl_updateoldversion, "1.0");
+        Dvar_SetString(cl_updateoldversion, "1.3");
     }
 }
 
