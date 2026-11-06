@@ -3930,3 +3930,5 @@ pointer, log[index].x; (2) byte* rec = (byte*)(index*6), then
 ## R_XModelDebugBoxes (w5)
 Diff: retail +0x292 start-transform sums p0*m0 + p2*m2 + p1*m1. Probes: (1) static inline helper for both transforms: 894 bytes; (2) __forceinline helper: 894; (3) helper for start only, original MatrixTransformVector for end: 985 bytes, bytes still differ (remaining diff not inspected). Reverted.
 R_WatersEquivalent240B (w6): retail squares mag0 (ecx pair) before mag1 (edx pair) and keeps dot on the FP stack; ours squares mag1 first. 3 probes, all 240B same bytes as before: (1) mag0/mag1 computed before dot, (2) I_sqrt(mag1Sq*mag0Sq), (3) inline Vec2Multiply(w0)*Vec2Multiply(w1), locals removed. Compiler picks the order regardless of source order.
+## RB_GetGlowRadii (100305d0), w7
+Tail differs: retail je X; return 0; X: swap; return 1. Ours jne X; swap; return 1; X: return 0 (size 212 both). Tried, codegen unchanged each time (return-0 stays last): (1) if(!(cond)) return 0; swap; return 1; (2) if(r1==0 || (r0!=0 && r0<=r1)) return 0; swap; return 1; (3) two early-return ifs. Untried: int result var, ternary.
