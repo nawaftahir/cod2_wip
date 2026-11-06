@@ -1129,7 +1129,17 @@ void SP_worldspawn( void )
 	g_entities[ENTITYNUM_WORLD].spawnflags = atoi( s );
 
 	g_entities[ENTITYNUM_WORLD].s.number = ENTITYNUM_WORLD;
-	Scr_SetString(&g_entities[ENTITYNUM_WORLD].classname, scr_const.worldspawn);
+	/* Scr_SetString written out: this site matches retail only with the refCount++ spelled directly */
+	{
+		unsigned short *to = &g_entities[ENTITYNUM_WORLD].classname;
+		unsigned int from = scr_const.worldspawn;
+
+		if ( from )
+			GetRefString(from)->refCount++;
+		if ( *to )
+			SL_RemoveRefToString(*to);
+		*to = from;
+	}
 
 	g_entities[ENTITYNUM_WORLD].r.inuse = qtrue;
 }

@@ -36635,9 +36635,10 @@
 {
 "name": "?DL_BeginDownload@@YAHPBD@Z",
 "obj": "dl_main.obj",
-"size": 235,
-"hits": [],
-"reason": "no masked match"
+"size": 242,
+"hits": [
+"0x4b5de0"
+]
 },
 {
 "name": "?DL_DownloadLoop@@YAHXZ",
@@ -49056,9 +49057,10 @@
 {
 "name": "?SP_worldspawn@@YAXXZ",
 "obj": "g_spawn_mp.obj",
-"size": 469,
-"hits": [],
-"reason": "no masked match"
+"size": 464,
+"hits": [
+"0x511680"
+]
 },
 {
 "name": "?G_SpawnEntitiesFromString@@YAXXZ",

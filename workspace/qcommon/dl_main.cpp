@@ -243,7 +243,7 @@ int DL_BeginDownload(char *localName, const char *remoteUrl)
 
 int DL_BeginDownload(const char *remoteUrl)
 {
-    char *requestUrl;
+    char *requestUrl = NULL;
 
     if (dl_running)
         return 0;
@@ -273,6 +273,7 @@ int DL_BeginDownload(const char *remoteUrl)
     }
 
     HTMemory_free(requestUrl);
+    requestUrl = NULL;
     HTEventList_init(dl_request);
     dl_running = 1;
     dl_isMotd = 1;
