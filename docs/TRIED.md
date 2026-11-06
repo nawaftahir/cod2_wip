@@ -3927,3 +3927,5 @@ unchanged (still [ptr+esi]): (1) struct {ushort x,y,z} through a volatile
 pointer, log[index].x; (2) byte* rec = (byte*)(index*6), then
 *(ushort*)(rec + (int)log [+2/+4]); (3) unsigned off = (unsigned)index*6 with
 *(ushort*)(log + off [+2/+4]). Not repeated: other address spellings.
+## R_XModelDebugBoxes (w5)
+Diff: retail +0x292 start-transform sums p0*m0 + p2*m2 + p1*m1. Probes: (1) static inline helper for both transforms: 894 bytes; (2) __forceinline helper: 894; (3) helper for start only, original MatrixTransformVector for end: 985 bytes, bytes still differ (remaining diff not inspected). Reverted.
