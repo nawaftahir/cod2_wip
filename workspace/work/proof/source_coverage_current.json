@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 129883,
-  "cpp_executable_bytes": 119699,
-  "cpp_percent": 47.203643820490576,
-  "cpp_game_bodies": 743,
+  "mixed_executable_bytes": 129920,
+  "cpp_executable_bytes": 119736,
+  "cpp_percent": 47.21823487656755,
+  "cpp_game_bodies": 744,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -343,7 +343,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "dc5c04d0e77493bd10c1dfade165bfc39ba9fae6d01fc73ded3d17d17cd17f77",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "120eca4f9966be6d09de2dc95d1d647356421b5576cdccd236a627a5c1b3eb38",
+  "bind_sha256": "a991a28cf0e5b5e23901cdf86871e63bdfb2cb6035133718b59ea2ff704c0fee",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -379,7 +379,7 @@
     "gfx_d3d/r_scene_commands.h": "4f143727299d7d0a2e1981dda29ece4d36ac239c57277946b60b9d62b2f68835",
     "gfx_d3d/r_entity.h": "da093e9a2ed91cd8f0951c87e6f968daa0df1f808dbda0fb19eadf90edec725e",
     "gfx_d3d/r_permanent.h": "3a5a46e2728d308a5a75a40d0f61f5172c85b283aa7bade98e56d4a2615b2983",
-    "gfx_d3d/r_scene.cpp": "ada22957fac6cd36e5d398401a1bc3c523767fd51e58bfe60ffc83de19580cbc",
+    "gfx_d3d/r_scene.cpp": "a3f5ab83ff2fae44a6b6753305a0bde057c8e278bdf55d294d5606b29421c793",
     "gfx_d3d/rb_fog.cpp": "f18e127c1a7f5e087dc04ab7517b1b80dde7e9b6a76f3a750fce0b398b24b0e3",
     "gfx_d3d/r_model.cpp": "6e6001f73ecadfde3722dbeb2aea9b4d5a7022311cdbc2516605683818e420b5",
     "gfx_d3d/r_light.cpp": "e5f88d04e173e8c5b5ce67e82b125eae86b2892a801db31d67e6a57b292a3a4c",

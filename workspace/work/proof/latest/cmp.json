@@ -5232,6 +5232,14 @@
 "hits": []
 },
 {
+"name": "?LerpByte@@YAEEEM@Z",
+"obj": "r_scene.obj",
+"size": 37,
+"hits": [
+"0x10024050"
+]
+},
+{
 "name": "?R_UpdateFrameFog@@YAXXZ",
 "obj": "r_scene.obj",
 "size": 508,

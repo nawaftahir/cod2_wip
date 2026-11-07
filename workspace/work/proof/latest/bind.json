@@ -2555,6 +2555,12 @@
 "obj": "r_scene.obj",
 "why": []
 },
+"?LerpByte@@YAEEEM@Z": {
+"t": "0x10024050",
+"n": 37,
+"obj": "r_scene.obj",
+"why": []
+},
 "?R_UpdateFrameFog@@YAXXZ": {
 "t": "0x10024080",
 "n": 508,

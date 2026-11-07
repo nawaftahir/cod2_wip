@@ -1,8 +1,8 @@
 {
-  "functions": 784,
-  "bytes": 129883,
+  "functions": 785,
+  "bytes": 129920,
   "total": 253580,
-  "percent": 51.219733417461946,
+  "percent": 51.23432447353892,
   "baseline_lost": [],
   "gains": [
     {
@@ -1233,6 +1233,12 @@
       "target": "0x10023b90",
       "bytes": 299,
       "name": "?R_AddStaticModelToScene@@YAHH@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10024050",
+      "bytes": 37,
+      "name": "?LerpByte@@YAEEEM@Z",
       "object": "r_scene.obj"
     },
     {

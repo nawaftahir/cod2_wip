@@ -279,6 +279,12 @@ void R_DumpSceneEntities()
     }
 }
 
+// PINNED 10024050/37; KisakCOD name.
+byte LerpByte(byte from, byte to, float frac)
+{
+    return (byte)(from + (to - from) * frac);
+}
+
 void R_UpdateFrameFog()
 {
     int fadeTime;
@@ -304,10 +310,10 @@ void R_UpdateFrameFog()
         rg.fogSettings[2].fogStart = (rg.fogSettings[4].fogStart - rg.fogSettings[3].fogStart) * lerpPos + rg.fogSettings[3].fogStart;
         rg.fogSettings[2].fogEnd = (rg.fogSettings[4].fogEnd - rg.fogSettings[3].fogEnd) * lerpPos + rg.fogSettings[3].fogEnd;
         rg.fogSettings[2].density = (rg.fogSettings[4].density - rg.fogSettings[3].density) * lerpPos + rg.fogSettings[3].density;
-        rg.fogSettings[2].color.array[0] = (byte)((rg.fogSettings[4].color.array[0] - rg.fogSettings[3].color.array[0]) * lerpPos + rg.fogSettings[3].color.array[0]);
-        rg.fogSettings[2].color.array[1] = (byte)((rg.fogSettings[4].color.array[1] - rg.fogSettings[3].color.array[1]) * lerpPos + rg.fogSettings[3].color.array[1]);
-        rg.fogSettings[2].color.array[2] = (byte)((rg.fogSettings[4].color.array[2] - rg.fogSettings[3].color.array[2]) * lerpPos + rg.fogSettings[3].color.array[2]);
-        rg.fogSettings[2].color.array[3] = (byte)((rg.fogSettings[4].color.array[3] - rg.fogSettings[3].color.array[3]) * lerpPos + rg.fogSettings[3].color.array[3]);
+        rg.fogSettings[2].color.array[0] = LerpByte(rg.fogSettings[3].color.array[0], rg.fogSettings[4].color.array[0], lerpPos);
+        rg.fogSettings[2].color.array[1] = LerpByte(rg.fogSettings[3].color.array[1], rg.fogSettings[4].color.array[1], lerpPos);
+        rg.fogSettings[2].color.array[2] = LerpByte(rg.fogSettings[3].color.array[2], rg.fogSettings[4].color.array[2], lerpPos);
+        rg.fogSettings[2].color.array[3] = LerpByte(rg.fogSettings[3].color.array[3], rg.fogSettings[4].color.array[3], lerpPos);
         rg.fogSettings[2].techniqueOffset = rg.fogSettings[4].techniqueOffset;
         rg.fogSettings[2].registered = 1;
         rg.fogSettings[2].clearScreen = rg.fogSettings[4].clearScreen || rg.fogSettings[3].clearScreen;

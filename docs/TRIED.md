@@ -1,3 +1,13 @@
+# r_scene.obj chunk sweep and LerpByte match - 2026-11-07
+
+LerpByte (retail 10024050, 37 bytes): extracted non-static helper `byte LerpByte(byte from, byte to, float frac)` using `I_fround` and inlined into `R_GetVisLightsMask` / `R_LerpEntityData` in `r_scene.cpp`. Matches retail 0x10024050 byte-for-byte (37 bytes, why == [], net +2 bound functions on gfx/g4 alongside R_CountMatchingSceneEntities).
+
+Remaining r_scene.obj chunks in docs/CHUNKS.md:
+- 0x100219c0..0x10021fd0 (`R_UncullAllSceneEntities` .. `R_LinkBModelEntity`): already emitted in `r_dpvs.cpp` / `r_scene.cpp`; chunks in CHUNKS.md are either <20B helpers (`0x10021c10`, `0x10021e30`, `0x10022d20`, `0x100243d0`) below `cmp.py` indexing threshold or cross-TU boundary functions (`r_dpvs.obj` / `r_scene.obj`) where register allocation / inlining differs.
+- 0x10022a60 (`R_AddBModelSurfacesCamera`, 528 B) and 0x10022c70 (`R_AddBModelSurfaces`, 176 B): register allocation / loop induction variable differences (esi/edi/ebx) in surface bounds / technique checks; non-source-fixable.
+- 0x10022d30..0x100238a0 (`R_UpdateSceneEntBounds`, `R_SkinSceneEntities`, `R_ClearScene`, `R_GetDefaultNearClip`): register allocation / x87 stack scheduling differences or blocked on external callees (`R_UpdateXModelBounds`, `R_SkinGfxEntity`).
+- 0x10024080 (`R_UpdateEntityLighting`, 944 B) and 0x100244b0 (`R_RenderScene`, 1968 B): large multi-loop functions with register allocation and frame layout differences (`RB_GetLightingAtPoint` / `R_SetupViewProjection` inlining context); non-source-fixable.
+
 # R_AddRefEntityToScene and R_ShortSortDrawSurfs linkage / ABI matches - 2026-11-07
 
 R_AddRefEntityToScene (retail 10023db0, 209 bytes) and R_ShortSortDrawSurfs (retail 10024460, 70 bytes): removing static from R_CopyRefEntityToScene restored standard 3-stack-argument ABI in caller R_AddRefEntityToScene, achieving 100% byte match (209 bytes at 0x10023db0). Removing static from R_ShortSortDrawSurfs gave it a distinct symbol in the map and verified extent at 0x10024460 (70 bytes, 100% byte-identical, why == []). Passes full gate and checkpoint regression.
