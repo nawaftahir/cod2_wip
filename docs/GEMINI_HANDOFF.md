@@ -72,16 +72,17 @@ Register choice, scheduling, block layout, SIB base/index order, zero-via-regist
 
 ## Your assignment
 Work only in the TU your lead gave you (one TU per worker), front to back by retail address,
-using  (regenerated after batch 1). Round 2 split:
-- g7:  (most chunks; front helpers partly done)   - g8: 
-- g9:         - g10:         - g11:         - g12: 
-Branch from the current  (batch 1 is merged): .
+using `docs/CHUNKS.md` (regenerated after batch 1). Round 2 split:
+- g7: `r_dpvs` (55 chunks; front plane helpers partly done)   - g8: `r_bsp_load_obj` (27)
+- g9: `r_image` (26)   - g10: `r_shadowcookie`   - g11: `r_rendercmds`   - g12: `rb_tess`
+Branch from the current `gfx/recon` (batch 1 is merged):
+`git worktree add .worktrees/gfx-gN -b gfx/gN gfx/recon` (or `git reset --hard gfx/recon` on a reused one).
 
 Lessons from round 1 (do not repeat):
-- Do not edit  or any hash/allow-list, even to refresh a hash.
+- Do not edit `work/tools/source_coverage.py` or any hash/allow-list, even to refresh a hash.
   If the gate stops on a reviewed-file hash, stop and report; the lead refreshes it.
-- Do not move global data definitions between files (e.g. , , , ). It shifts
-   and cost 970 same-offset bytes in round 1.
+- Do not move global data definitions between files (e.g. `ri`, `rg`, `rgp`, `dx`). It shifts
+  `.data` and cost 970 same-offset bytes in round 1.
 - Keep commits per function or small group, each gate-green.
 
 Report when done: commits, functions gained (names), same-offset before/after, and the list of
