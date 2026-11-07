@@ -1,8 +1,8 @@
 {
-  "functions": 801,
-  "bytes": 131143,
+  "functions": 811,
+  "bytes": 132446,
   "total": 253580,
-  "percent": 51.71661802981308,
+  "percent": 52.230459815442856,
   "baseline_lost": [],
   "gains": [
     {
@@ -1218,6 +1218,24 @@
       "object": "r_outdoor.obj"
     },
     {
+      "target": "0x10020e10",
+      "bytes": 107,
+      "name": "?R_GetCommandBuffer@@YAPAUGfxCmdHeader@@HH@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10020e80",
+      "bytes": 58,
+      "name": "?R_GrowCommandBuffer@@YAPAXH@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x100210d0",
+      "bytes": 35,
+      "name": "?R_AllocViewParms@@YAPAUGfxViewParms@@XZ",
+      "object": "r_rendercmds.obj"
+    },
+    {
       "target": "0x10021840",
       "bytes": 79,
       "name": "?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z",
@@ -1236,6 +1254,12 @@
       "object": "r_rendercmds.obj"
     },
     {
+      "target": "0x10021d70",
+      "bytes": 63,
+      "name": "?R_ClearModifiedGpuSyncDvars@@YA_NXZ",
+      "object": "r_rendercmds.obj"
+    },
+    {
       "target": "0x10021db0",
       "bytes": 152,
       "name": "?R_UpdateLodDistances@@YAXXZ",
@@ -1245,6 +1269,24 @@
       "target": "0x10021ff0",
       "bytes": 73,
       "name": "?R_BeginDebugFrame@@YAXXZ",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10022350",
+      "bytes": 245,
+      "name": "?R_AddCmdDrawPoints@@YAXFFPBUGfxPointVertex@@@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10022450",
+      "bytes": 245,
+      "name": "?R_AddCmdDrawLines@@YAXFFPBUGfxPointVertex@@@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10022550",
+      "bytes": 354,
+      "name": "?R_AddCmdDrawTriangles@@YAXPAUMaterial@@W4MaterialTechniqueType@@FPBGFPAY03$$CBMPAY02$$CBMPAY03$$CBEPAY01$$CBM@Z",
       "object": "r_rendercmds.obj"
     },
     {
@@ -1407,6 +1449,24 @@
       "target": "0x10027170",
       "bytes": 30,
       "name": "?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x10027190",
+      "bytes": 27,
+      "name": "?R_EmitShadowCookieSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@@Z",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x100278f0",
+      "bytes": 53,
+      "name": "?R_ClearShadowReceiverTarget@@YAXXZ",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x10027c80",
+      "bytes": 116,
+      "name": "?R_DrawShadowCookieOverlay@@YAXXZ",
       "object": "r_shadowcookie.obj"
     },
     {
