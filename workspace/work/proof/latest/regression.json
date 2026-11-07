@@ -1,8 +1,8 @@
 {
-  "functions": 783,
-  "bytes": 129815,
+  "functions": 784,
+  "bytes": 129865,
   "total": 253580,
-  "percent": 51.19291742250966,
+  "percent": 51.21263506585693,
   "baseline_lost": [],
   "gains": [
     {
@@ -879,6 +879,12 @@
       "target": "0x10017300",
       "bytes": 7,
       "name": "?R_GetMaterialName@@YAPBDPBUMaterialInfoView@@@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10017940",
+      "bytes": 50,
+      "name": "?Material_LoadFile@@YAHPBDPAH@Z",
       "object": "r_material.obj"
     },
     {

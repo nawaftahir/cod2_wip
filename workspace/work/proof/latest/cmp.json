@@ -3342,6 +3342,14 @@
 ]
 },
 {
+"name": "?Material_LoadFile@@YAHPBDPAH@Z",
+"obj": "r_material.obj",
+"size": 50,
+"hits": [
+"0x10017940"
+]
+},
+{
 "name": "??$sort@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YAXPAPAUMaterial@@0P6A_NPBU1@1@Z@Z",
 "obj": "r_material.obj",
 "size": 20,
