@@ -4261,3 +4261,11 @@ Material_Register (chunk 0x10017100, 240 B): confirmed push esi shrink-wrapping 
 Material_ReloadTextures 10017640 (195 B) & Material_ReloadTextures_f 100178b0 (144 B): 100% byte matches; unbound solely because callee Image_LoadFromFile in r_image_load_obj.cpp is unbound.
 R_ApplyPicmip (chunk 0x10017730, 347 B): inlines cross-TU Image_UpdatePicmip from r_image.cpp; codegen depends on cross-TU /GL context.
 Remaining r_material chunks in CHUNKS.md (0x10016560, 0x10016590, 0x100169b0, 0x100169c0, 0x10016a80, 0x10016a90, 0x10016ba0, 0x10016bd0, 0x10016d40, 0x10016d60, 0x10016fe0, 0x100172d0, 0x100173a0, 0x10017460, 0x10017550, 0x100175f0, 0x10017620, 0x10017630, 0x10017d30, 0x10017f50, 0x10017f60, 0x10017f70, 0x10018070, 0x10018120, 0x10018130): either alignment padding, inlined helpers whose callers are already 100% matched/bound, or std::sort templates already bound.
+
+# r_rendercmds front-to-back pass - 2026-11-07 (worker g11)
+R_AllocViewParms 100210d0/35, R_GetCommandBuffer 10020e10/107, R_GrowCommandBuffer 10020e80/58, R_ClearModifiedGpuSyncDvars 10021d70/63, R_AddCmdDrawPoints 10022350/245, R_AddCmdDrawLines 10022450/245, R_AddCmdDrawTriangles 10022550/354 MATCHED (+7 newly bound functions, 2703 -> 2710).
+R_InitFrameBackendData 10021040/143: removing volatile from dx.dynamicBufferFrame matches size (143 B) and preamble, but hoists lea edx, [eax+219d0c] (s_cmdList = &frontEndDataOut->commands) before drawSurfCount..viewParmCount zero stores; restored.
+R_ProcessFrontendCmdInternal 10020be0/144 & R_AddFrontendCmd 10020ca0/16: making R_ProcessFrontendCmdInternal non-static emits custom LTCG register args (ecx, edx, eax) instead of retail stack args + 4-byte push ecx frame; restored.
+R_ShutdownBackendData 10020bd0/13, R_UpdateEffectsBolt 10020cb0/6, R_UpdateEffectsNonBolt 10020cc0/6, R_AddCmdTouchAllImages 100226c0/79: already 100% byte-matched to retail; unbound only due to leaf binder threshold / duplicate body at 100131b0.
+0x10021900 (16 B), 0x10021910 (16 B), 0x10021980 (80 B), 0x100219d0 (144 B), 0x10021a60 (128 B): unreferenced command helpers with custom LTCG register conventions (edx/ecx/eax, esi, ecx, ebx) that cannot be produced for uncalled C++ functions under /GL.
+R_AddCmdLightProperties 10021770/192: x87 float copy and specular alpha multiply scheduling residual (previously logged).

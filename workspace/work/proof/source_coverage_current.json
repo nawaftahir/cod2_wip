@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 131006,
-  "cpp_executable_bytes": 120822,
-  "cpp_percent": 47.64650209007019,
-  "cpp_game_bodies": 757,
+  "mixed_executable_bytes": 132113,
+  "cpp_executable_bytes": 121929,
+  "cpp_percent": 48.08305071377869,
+  "cpp_game_bodies": 764,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -343,7 +343,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "1ad882c3d3a1df5869f4ffe44448f21c077a82443287452543712858fe069b61",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "662f45bb6b46052c5f19cbefa8046951fdc84a1d424ef68a1dc7b895fb7f713c",
+  "bind_sha256": "806e83b8a7862c2bd1872b37954312e495ab4f70218c0dfe4faec365bcfc15be",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -400,7 +400,7 @@
     "gfx_d3d/rb_shade.cpp": "1a2dd98e2627919cabb88bf11101892c7f388da0b6a05fd9b05fa49182819280",
     "gfx_d3d/r_scene_records.h": "f62a90ca397a03c57c8e4090163b84f59706ad6192263014533e89b57b4904a5",
     "gfx_d3d/r_window.h": "afb82a5becc8c958ffb9428b6dd7f0bbabd5f3fa9035d3f78556fc9f2ce3dd0f",
-    "gfx_d3d/r_rendercmds.cpp": "da18179b0d7c199cef73e6e97278b4912eb3d783f571b6373257ec9117f70ec1",
+    "gfx_d3d/r_rendercmds.cpp": "b0f2109738962e110b1716eb473b6abfbd761068414751a26a75cb03e9c933e0",
     "gfx_d3d/rb_light.cpp": "319bffd27cee67ed3c195a915dd6c01b584bf192f740ec896826317ff554f990",
     "gfx_d3d/r_specularityimage.cpp": "1212bfdddc0b89573e2cd69d2a9f11ea98d21f0ff95a238fa500a373ce2fb3c0",
     "gfx_d3d/r_font_load_obj.cpp": "8afb05946367f422dc2c5935f5d3db2e340daa27a109992e5f45cd41d6370f16",

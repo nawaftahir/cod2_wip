@@ -52,15 +52,13 @@ typedef char normalFrameLayoutCheck[
 // PINNED 10021040/143: selecting a normal frame does not reset command counters.
 void R_InitFrameBackendData()
 {
-    frontEndDataOut = &s_backEndData;
-    frontEndDataOut->frameCount = ++rg.frameCountInternal;
+    GfxBackEndData *data = &s_backEndData;
+    frontEndDataOut = data;
+    data->frameCount = ++rg.frameCountInternal;
     R_UnlockSkinnedCache();
     int bufferFrame = (dx.dynamicBufferFrame + 1) % 2;
-    // Publish buffer selection before reading the active frame.
     *(volatile int *)&dx.dynamicBufferFrame = bufferFrame;
-    r_vb_state_t *skinnedCacheVb = &dx.skinnedCacheVbPool[bufferFrame];
-    GfxBackEndData *data = frontEndDataOut;
-    data->skinnedCacheVb = skinnedCacheVb;
+    data->skinnedCacheVb = &dx.skinnedCacheVbPool[bufferFrame];
     data->skinnedCacheVb->used = 0;
     data->drawSurfCount = 0;
     data->surfPos = 0;
@@ -103,6 +101,12 @@ void R_ShutdownBackendData()
     R_ShutdownDebugEntry(&s_backEndData.debugGlobals);
 }
 
+// SUPPORTED KisakCOD name; PINNED 100210d0/35.
+GfxViewParms *R_AllocViewParms()
+{
+    return &frontEndDataOut->viewParms[frontEndDataOut->viewParmCount++];
+}
+
 // PINNED 10021ff0: API59 slot49; save before unlocking the original cache.
 void R_BeginDebugFrame()
 {
@@ -138,12 +142,20 @@ static GfxCmdHeader *R_GetCommandBuffer(int renderCmd, int bytes)
     }
     header = (GfxCmdHeader *)&s_cmdList->cmds[s_cmdList->usedTotal];
     s_cmdList->usedTotal += bytes;
-    if (renderCmd < RC_FIRST_NONCRITICAL)
-        s_cmdList->usedCritical += bytes;
+    s_cmdList->usedCritical += renderCmd < RC_FIRST_NONCRITICAL ? bytes : 0;
     s_cmdList->lastCmd = header;
     header->id = (unsigned short)renderCmd;
     header->byteCount = (unsigned short)bytes;
     return header;
+}
+
+// SUPPORTED KisakCOD name; PINNED 10020e80/58.
+static void *R_GrowCommandBuffer(int bytes)
+{
+    GfxCmdHeader *lastCmd = s_cmdList->lastCmd;
+    void *result = &s_cmdList->cmds[s_cmdList->usedTotal];
+    s_cmdList->usedTotal = (unsigned char *)lastCmd - s_cmdList->cmds;
+    return R_GetCommandBuffer(lastCmd->id, lastCmd->byteCount + bytes) ? result : 0;
 }
 
 void R_AddCmdTouchAllImages()
@@ -574,7 +586,16 @@ typedef char frameDvarLayoutCheck[(offsetof(dvar_t, reset) == 0x10
     && offsetof(refimport_t, CL_FlushDebugData) == 0x12c
     && offsetof(refimport_t, XModelSetTestLods) == 0x184) ? 1 : -1];
 
-// Role name; PINNED 10021db0: the selected forced LOD gets zero distance.
+// Name unconfirmed; PINNED out-of-line copy 10021d70/63.
+bool R_ClearModifiedGpuSyncDvars()
+{
+    bool changed;
+
+    changed = R_ClearModifiedDvar(r_gpuSync);
+    changed |= R_ClearModifiedDvar(r_multiGpu);
+    return changed;
+}
+
 static void R_UpdateLodDistances()
 {
     if (r_forceLod->current.integer != r_forceLod->reset.integer)
@@ -605,9 +626,7 @@ static void R_UpdateFrameDvars()
     }
     if (r_sun_from_dvars->current.enabled && rgp.world)
         R_SetSunFromDvars(&rgp.world->sun);
-    bool gpuChanged = R_ClearModifiedDvar(r_gpuSync);
-    bool multiChanged = R_ClearModifiedDvar(r_multiGpu);
-    if (gpuChanged | multiChanged)
+    if (R_ClearModifiedGpuSyncDvars())
         dx.gpuSync = r_multiGpu->current.enabled ? 0 : r_gpuSync->current.integer;
     R_UpdateLodDistances();
 }
@@ -679,6 +698,89 @@ void R_SkinRigidXModelCmd(SkinRigidXModelCmd *cmd);
 void R_SkinXModelCmd(SkinXModelCmd *cmd, int context);
 void R_SkinStaticModelCachedCmd(SkinStaticModelCachedCmd *cmd, SkinBuffers *buffers);
 extern SkinBuffers g_skinBuffers[1];
+
+// SUPPORTED KisakCOD name; PINNED 10022350/245.
+void R_AddCmdDrawPoints(short pointCount, short size, const GfxPointVertex *verts)
+{
+    GfxCmdDrawPoints *cmd = (GfxCmdDrawPoints *)s_cmdList->lastCmd;
+    if (cmd && cmd->header.id == 0x1e
+        && cmd->header.byteCount + 16 * pointCount <= 0xffffu
+        && cmd->size == size
+        && cmd->pointCount + pointCount <= 0x7fff)
+    {
+        void *dest = R_GrowCommandBuffer(16 * pointCount);
+        if (dest)
+        {
+            memcpy(dest, verts, 16 * pointCount);
+            cmd->pointCount += pointCount;
+        }
+        return;
+    }
+    int vertBytes = 16 * pointCount;
+    cmd = (GfxCmdDrawPoints *)R_GetCommandBuffer(0x1e, vertBytes + 8);
+    if (cmd)
+    {
+        cmd->pointCount = pointCount;
+        cmd->size = size;
+        memcpy(cmd->verts, verts, vertBytes);
+    }
+}
+
+// SUPPORTED KisakCOD name; PINNED 10022450/245.
+void R_AddCmdDrawLines(short lineCount, short width, const GfxPointVertex *verts)
+{
+    GfxCmdDrawLines *cmd = (GfxCmdDrawLines *)s_cmdList->lastCmd;
+    if (cmd && cmd->header.id == 0x1f
+        && cmd->header.byteCount + 32 * lineCount <= 0xffffu
+        && cmd->width == width
+        && cmd->lineCount + lineCount <= 0x7fff)
+    {
+        void *dest = R_GrowCommandBuffer(32 * lineCount);
+        if (dest)
+        {
+            memcpy(dest, verts, 32 * lineCount);
+            cmd->lineCount += lineCount;
+        }
+        return;
+    }
+    int vertBytes = 32 * lineCount;
+    cmd = (GfxCmdDrawLines *)R_GetCommandBuffer(0x1f, vertBytes + 8);
+    if (cmd)
+    {
+        cmd->lineCount = lineCount;
+        cmd->width = width;
+        memcpy(cmd->verts, verts, vertBytes);
+    }
+}
+
+// SUPPORTED KisakCOD name; PINNED 10022550/354.
+void R_AddCmdDrawTriangles(Material *material, MaterialTechniqueType techType,
+    short indexCount, const unsigned short *indices, short vertexCount,
+    const float (*xyzw)[4], const float (*normal)[3], const byte (*color)[4], const float (*st)[2])
+{
+    if (!material->techniqueSet->techniques[techType])
+        return;
+    int xyzwBytes = 16 * vertexCount;
+    int normalBytes = 12 * vertexCount;
+    int colorBytes = 4 * vertexCount;
+    int colorOffset = 16 + normalBytes + xyzwBytes;
+    int stBytes = 8 * vertexCount;
+    int stOffset = colorOffset + colorBytes;
+    int indexOffset = stOffset + stBytes;
+    int indexBytes = 2 * ((indexCount + 1) & ~1);
+    GfxCmdDrawTriangles *cmd = (GfxCmdDrawTriangles *)R_GetCommandBuffer(0x20, indexOffset + indexBytes);
+    if (!cmd)
+        return;
+    cmd->material = material;
+    cmd->techType = techType;
+    cmd->indexCount = indexCount;
+    cmd->vertexCount = vertexCount;
+    memcpy((byte *)cmd + 16, xyzw, xyzwBytes);
+    memcpy((byte *)cmd + 16 + xyzwBytes, normal, normalBytes);
+    memcpy((byte *)cmd + colorOffset, color, colorBytes);
+    memcpy((byte *)cmd + stOffset, st, stBytes);
+    memcpy((byte *)cmd + indexOffset, indices, indexBytes);
+}
 
 // PINNED 10020be0/153: the PC renderer executes all eight frontend cases inline.
 static void R_ProcessFrontendCmdInternal(int type, void *data, int context)

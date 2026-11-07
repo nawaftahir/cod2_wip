@@ -4801,7 +4801,7 @@
 {
 "name": "?R_InitFrameBackendData@@YAXXZ",
 "obj": "r_rendercmds.obj",
-"size": 147,
+"size": 130,
 "hits": []
 },
 {
@@ -4819,6 +4819,14 @@
 "hits": []
 },
 {
+"name": "?R_AllocViewParms@@YAPAUGfxViewParms@@XZ",
+"obj": "r_rendercmds.obj",
+"size": 35,
+"hits": [
+"0x100210d0"
+]
+},
+{
 "name": "?R_BeginDebugFrame@@YAXXZ",
 "obj": "r_rendercmds.obj",
 "size": 73,
@@ -4829,8 +4837,18 @@
 {
 "name": "?R_GetCommandBuffer@@YAPAUGfxCmdHeader@@HH@Z",
 "obj": "r_rendercmds.obj",
-"size": 92,
-"hits": []
+"size": 107,
+"hits": [
+"0x10020e10"
+]
+},
+{
+"name": "?R_GrowCommandBuffer@@YAPAXH@Z",
+"obj": "r_rendercmds.obj",
+"size": 58,
+"hits": [
+"0x10020e80"
+]
 },
 {
 "name": "?R_AddCmdTouchAllImages@@YAXXZ",
@@ -5058,6 +5076,14 @@
 ]
 },
 {
+"name": "?R_ClearModifiedGpuSyncDvars@@YA_NXZ",
+"obj": "r_rendercmds.obj",
+"size": 63,
+"hits": [
+"0x10021d70"
+]
+},
+{
 "name": "?R_UpdateLodDistances@@YAXXZ",
 "obj": "r_rendercmds.obj",
 "size": 152,
@@ -5108,6 +5134,30 @@
 "obj": "r_rendercmds.obj",
 "size": 67,
 "hits": []
+},
+{
+"name": "?R_AddCmdDrawPoints@@YAXFFPBUGfxPointVertex@@@Z",
+"obj": "r_rendercmds.obj",
+"size": 245,
+"hits": [
+"0x10022350"
+]
+},
+{
+"name": "?R_AddCmdDrawLines@@YAXFFPBUGfxPointVertex@@@Z",
+"obj": "r_rendercmds.obj",
+"size": 245,
+"hits": [
+"0x10022450"
+]
+},
+{
+"name": "?R_AddCmdDrawTriangles@@YAXPAUMaterial@@W4MaterialTechniqueType@@FPBGFPAY03$$CBMPAY02$$CBMPAY03$$CBEPAY01$$CBM@Z",
+"obj": "r_rendercmds.obj",
+"size": 354,
+"hits": [
+"0x10022550"
+]
 },
 {
 "name": "?R_ProcessFrontendCmdInternal@@YAXHPAXH@Z",
