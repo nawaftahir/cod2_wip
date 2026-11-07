@@ -1703,6 +1703,12 @@
 "obj": "r_material.obj",
 "why": []
 },
+"?Material_LoadFile@@YAHPBDPAH@Z": {
+"t": "0x10017940",
+"n": 50,
+"obj": "r_material.obj",
+"why": []
+},
 "??$_Unguarded_partition@PAPAUMaterial@@P6A_NPBU1@0@Z@std@@YA?AU?$pair@PAPAUMaterial@@PAPAU1@@0@PAPAUMaterial@@0P6A_NPBU2@1@Z@Z": {
 "t": "0x10017a90",
 "n": 408,
@@ -8489,7 +8495,9 @@
 "t": "0x10068aca",
 "n": 184,
 "obj": "d3dx9:cassembler.obj",
-"why": []
+"why": [
+"extent"
+]
 },
 "?RegisterHash@D3DXShader@@YGIPBD@Z": {
 "t": "0x10068b85",
