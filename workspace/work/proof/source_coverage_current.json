@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 129815,
-  "cpp_executable_bytes": 119631,
-  "cpp_percent": 47.17682782553829,
-  "cpp_game_bodies": 742,
+  "mixed_executable_bytes": 130756,
+  "cpp_executable_bytes": 120572,
+  "cpp_percent": 47.54791387333386,
+  "cpp_game_bodies": 751,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -343,7 +343,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "dc5c04d0e77493bd10c1dfade165bfc39ba9fae6d01fc73ded3d17d17cd17f77",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "924af1ba50f2a8e57bba67d84bfae293d340aa20607602f34fbaa7bf6344b651",
+  "bind_sha256": "bf7619d0a75a14030a26460ec91098816c1463efd5401f7f2170d4ae70429972",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -452,7 +452,7 @@
     "gfx_d3d/r_sun_state.h": "419ff7fe0c06e590a7014b9ba5a47de61008284d2d759e0bccf9419e090743c5",
     "gfx_d3d/ri.h": "01f47cb20c4d65ac0ea787c4c3ad5a1cae6c16df719a8ee3c9afe7f5fa82a8d1",
     "gfx_d3d/r_font.cpp": "0d317ca87413fcdef66bc94998d2de71f7de2e47fc32a78db021aac99692db10",
-    "gfx_d3d/r_init.cpp": "f5730ffb393806bb92c7670112839b68291f3169762197c46f6d5abdceb54c53",
+    "gfx_d3d/r_init.cpp": "30ed036eba3e5ef4a9d617091605c1ceb9af573594cc607135d4dc34630ed0f4",
     "gfx_d3d/r_surfbounds.cpp": "13a0df881215bdcacc88c5e722f29d28d8dcd67f17c9266b47e5cc43ded05d2c",
     "gfx_d3d/r_sky.cpp": "222bf34d8fc324792a81c32a1458830fdb2622c466779e4c1995b4cb183c1013",
     "gfx_d3d/rb_backend.cpp": "6257db1ef11740d760a62b8a9d536ee21638d4c98b0b61dd8b89298abb41323a",

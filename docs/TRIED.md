@@ -1,3 +1,27 @@
+# r_init.obj chunk sweep and 9 newly bound functions - 2026-11-07 (worker g6)
+
+Matched and bound 9 additional functions in `r_init.cpp` (`why == []` in `bind.json`, net +9 bound functions: 2688 -> 2697):
+- `R_ReleaseAndSetNULL` (`0x10011420`, 41 B): removed `static` and implemented non-null `alwaysfails` Release loop + `ri.Printf(0, "%s (%s) released\\n", ...)` when `r_logFile->current.integer`.
+- `R_DestroyParticleCloudBuffer` (`0x10011e10`, 72 B): matched via `R_ReleaseAndSetNULL`.
+- `R_FinishAttachingToWindow` (`0x100120c0`, 60 B): bound once `R_CreateDevice` (`0x100128b0`) called it.
+- `R_ReleaseForShutdownOrReset` (`0x10012210`, 269 B): bound once `R_ShutdownHardware` (`0x10012db0`) and `R_ResetDevice` (`0x10013690`) matched.
+- `R_UpdateGpuSyncType` (`0x10012880`, 39 B): removed `static` and called from `R_CreateDevice` / `R_UpdateFrontEndDvarOptions`.
+- `R_SetupWindowParms` (`0x10012b90`, 133 B): extracted non-static `void R_SetupWindowParms(GfxWindowParms *wndParms)` at `0x10012b90`.
+- `R_ReduceWindowSettings` (`0x10012c20`, 91 B): extracted non-static `bool R_ReduceWindowSettings()` at `0x10012c20`.
+- `R_ShutdownHardware` (`0x10012db0`, 168 B): extracted `R_DestroyGameWindows` (`0x10012a90`), matched `R_ShutdownHardware` 100% and bound.
+- `R_ShutdownStreams` (`0x10013030`, 68 B): removed `static` from `R_ShutdownStreams` (68 B, `why == []`).
+Also achieved 100% byte matches (`hits` in `cmp.json`) on `R_SetUpWindow` (`0x10012ac0`, 64 B), `R_InitHardware` (`0x10012c80`, 289 B), and `R_ResetDevice` (`0x10013690`, 319 B).
+
+Remaining `r_init.obj` chunks in `docs/CHUNKS.md` logged as not source-fixable:
+- `0x10011640` (`R_StoreDirect3DCaps`, 960 B): 100% byte-matched (`hits: ['0x10011640']`), blocked only on external callee `R_CheckDxCaps` (`0x100114f0`).
+- `0x10011f00` (`R_ResetGamma`, 16 B): below `cmp.py` 20-byte indexing threshold; emitting out-of-line shifts downstream `.text` by 16B and unbinds `d3dx9:cassembler.obj` (`GetSemanticName`) extent.
+- `0x100123d0` (`R_EnumerateDisplayModes`, 741 B vs retail 738 B): 3-byte register allocation difference (`ebx` vs `edi` induction variable for `resolutions` array after `std::sort`).
+- `0x100128b0` (`R_CreateDevice`, 272 B): 100% byte-matched (`hits: ['0x100128b0']`), blocked only on `R_EnumerateDisplayModes` in caller `R_CreateDirect3D`.
+- `0x10012a90` (`R_DestroyGameWindows`, 48 B): <20B body (`19 B` before padding), below `cmp.py` 20-byte indexing threshold.
+- `0x100137d0` (`R_CanRecoverLostDevice`, 24 B vs retail 20 B): MSVC 7.1 emits `xor edx, edx; cmp eax, 0x88760868; setne dl; mov al, dl; ret` (24 B) instead of `cmp eax, 0x88760868; setne al; ret` (20 B) for both `static bool` and non-static `bool`.
+- `0x100137f0` (`R_RecoverLostDevice`, 201 B vs retail 203 B): 2-byte difference at `+0x0ab` where retail has `jmp +3; lea ecx, [ecx]` inside the inlined `R_FinishLoadingModels` tail.
+- `0x10013fd0`, `0x10014020`, `0x10014030`, `0x100141e0`, `0x10014370` (`std::sort` template helpers): already emitted at exact sizes (`iter_swap`, `swap`, `_Dist_type`, `_Val_type`, `_Iter_cat`, `_Rotate`); `iter_swap`/`swap` have duplicate COMDAT hits (`0x10013fd0`/`0x100141e0`) and `<20B` helpers are below `cmp.py` threshold.
+
 # RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
 
 RB_SetupPassDx7 (10039b40, retail 1124, ours 1104): probed semantic switch 0/1 cases in inlined RB_ApplyMaterialImageOverride (stays 1104, compiler optimizes out empty cases matching default), early return from case 0/1 (collapses pass loop into 937 bytes by dropping trailing sampler/texcoord setup), and pointer-incremented sampler iterator (stays 1104, strength-reduction arithmetic still generates 4-entry jump table and different loop frame). Restored.

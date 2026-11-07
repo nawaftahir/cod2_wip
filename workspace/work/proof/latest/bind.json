@@ -1037,47 +1037,15 @@
 "obj": "r_init.obj",
 "why": []
 },
-"?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z": {
-"t": "0x10011a40",
-"n": 129,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z": {
-"t": "0x10011ad0",
-"n": 129,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_CreateDynamicBuffers@@YAXXZ": {
-"t": "0x10011b60",
-"n": 143,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_CreateParticleCloudBuffer@@YAXXZ": {
-"t": "0x10011bf0",
-"n": 544,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_ReleaseDynamicBuffers@@YAXXZ": {
-"t": "0x10011e60",
-"n": 160,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_CreateDeviceResources@@YAEXZ": {
-"t": "0x10012100",
-"n": 261,
-"obj": "r_init.obj",
-"why": [
-"call ?R_InitRenderTargets@@YAXXZ"
-]
-},
 "?R_FatalBufferLockError@@YAXJ@Z": {
 "t": "0x100113e0",
 "n": 49,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_ReleaseAndSetNULL@@YAXPAUIUnknown@@PBD1H@Z": {
+"t": "0x10011420",
+"n": 41,
 "obj": "r_init.obj",
 "why": []
 },
@@ -1093,27 +1061,17 @@
 "obj": "r_init.obj",
 "why": []
 },
-"?R_CreateDeviceInternal@@YAJPAUHWND__@@KPAU_D3DPRESENT_PARAMETERS_@@@Z": {
-"t": "0x100126d0",
-"n": 113,
+"?R_GetMonitorDimensions@@YAXPAH0@Z": {
+"t": "0x10011560",
+"n": 132,
 "obj": "r_init.obj",
 "why": []
 },
-"?R_CreateDevice@@YAEPBUGfxWindowParms@@@Z": {
-"t": "0x100128b0",
-"n": 271,
+"?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z": {
+"t": "0x100115f0",
+"n": 208,
 "obj": "r_init.obj",
-"why": [
-"call ?R_CreateDeviceResources@@YAEXZ"
-]
-},
-"?R_ShutdownHardware@@YAXXZ": {
-"t": "0x10012db0",
-"n": 168,
-"obj": "r_init.obj",
-"why": [
-"call ?R_ReleaseForShutdownOrReset@@YAXXZ"
-]
+"why": []
 },
 "?R_GetDeviceCaps@@YAXIPAU_D3DCAPS9@@@Z": {
 "t": "0x100116c0",
@@ -1139,69 +1097,39 @@
 "obj": "r_init.obj",
 "why": []
 },
-"?R_MonitorEnumCallback@@YGHPAUHMONITOR__@@PAUHDC__@@PAUtagRECT@@J@Z": {
-"t": "0x10012750",
-"n": 28,
+"?R_CreateDynamicVertexBuffer@@YAXPAUr_vb_state_t@@H@Z": {
+"t": "0x10011a40",
+"n": 129,
 "obj": "r_init.obj",
 "why": []
 },
-"?R_ChooseMonitor@@YAPAUHMONITOR__@@XZ": {
-"t": "0x10012770",
-"n": 95,
+"?R_CreateDynamicIndexBuffer@@YAXPAUr_ib_state_t@@H@Z": {
+"t": "0x10011ad0",
+"n": 129,
 "obj": "r_init.obj",
 "why": []
 },
-"?R_ChooseAdapter@@YAIXZ": {
-"t": "0x100127d0",
-"n": 66,
+"?R_CreateDynamicBuffers@@YAXXZ": {
+"t": "0x10011b60",
+"n": 143,
 "obj": "r_init.obj",
 "why": []
 },
-"?R_GetMonitorDimensions@@YAXPAH0@Z": {
-"t": "0x10011560",
-"n": 132,
+"?R_CreateParticleCloudBuffer@@YAXXZ": {
+"t": "0x10011bf0",
+"n": 544,
 "obj": "r_init.obj",
 "why": []
 },
-"?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z": {
-"t": "0x100129c0",
-"n": 248,
+"?R_DestroyParticleCloudBuffer@@YAXXZ": {
+"t": "0x10011e10",
+"n": 72,
 "obj": "r_init.obj",
 "why": []
 },
-"?R_ChooseRefreshRate@@YAHHHH@Z": {
-"t": "0x10012b00",
-"n": 131,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_StoreWindowSettings@@YAXPBUGfxWindowParms@@@Z": {
-"t": "0x100115f0",
-"n": 208,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_EndView@@YAXH@Z": {
-"t": "0x10013200",
-"n": 79,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_InitGlobalStructs@@YAXXZ": {
-"t": "0x10012e70",
-"n": 109,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_InitSinTable@@YAXXZ": {
-"t": "0x10012ee0",
-"n": 43,
-"obj": "r_init.obj",
-"why": []
-},
-"?R_InitModelDObj@@YAXXZ": {
-"t": "0x10012f40",
-"n": 51,
+"?R_ReleaseDynamicBuffers@@YAXXZ": {
+"t": "0x10011e60",
+"n": 160,
 "obj": "r_init.obj",
 "why": []
 },
@@ -1231,29 +1159,25 @@
 "call ?R_InitImages@@YAXXZ"
 ]
 },
-"?R_Init@@YAXXZ": {
-"t": "0x10012f80",
-"n": 169,
+"?R_FinishAttachingToWindow@@YAXPBUGfxWindowParms@@@Z": {
+"t": "0x100120c0",
+"n": 60,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_CreateDeviceResources@@YAEXZ": {
+"t": "0x10012100",
+"n": 261,
 "obj": "r_init.obj",
 "why": [
-"call ?R_InitHardware@@YAXXZ"
+"call ?R_InitRenderTargets@@YAXXZ"
 ]
 },
-"?R_BeginRegistration@@YAXPAUvidConfig_t@@@Z": {
-"t": "0x10013190",
-"n": 26,
+"?R_ReleaseForShutdownOrReset@@YAXXZ": {
+"t": "0x10012210",
+"n": 269,
 "obj": "r_init.obj",
-"why": [
-"call ?R_Init@@YAXXZ"
-]
-},
-"?R_Shutdown@@YAXH@Z": {
-"t": "0x10013080",
-"n": 265,
-"obj": "r_init.obj",
-"why": [
-"call ?RB_SaveLightVisHistory@@YAXXZ"
-]
+"why": []
 },
 "?R_DisplayModeLess@@YA_NABU_D3DDISPLAYMODE@@0@Z": {
 "t": "0x10012320",
@@ -1273,6 +1197,30 @@
 "obj": "r_init.obj",
 "why": []
 },
+"?R_CreateDeviceInternal@@YAJPAUHWND__@@KPAU_D3DPRESENT_PARAMETERS_@@@Z": {
+"t": "0x100126d0",
+"n": 113,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_MonitorEnumCallback@@YGHPAUHMONITOR__@@PAUHDC__@@PAUtagRECT@@J@Z": {
+"t": "0x10012750",
+"n": 28,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_ChooseMonitor@@YAPAUHMONITOR__@@XZ": {
+"t": "0x10012770",
+"n": 95,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_ChooseAdapter@@YAIXZ": {
+"t": "0x100127d0",
+"n": 66,
+"obj": "r_init.obj",
+"why": []
+},
 "?R_CreateDirect3D@@YA_NXZ": {
 "t": "0x10012820",
 "n": 91,
@@ -1281,15 +1229,137 @@
 "call ?R_EnumerateDisplayModes@@YAXI@Z"
 ]
 },
-"?R_Error@@YAXW4errorParm_t@@PBDZZ": {
-"t": "0x100138c0",
-"n": 112,
+"?R_UpdateGpuSyncType@@YAXXZ": {
+"t": "0x10012880",
+"n": 39,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_CreateDevice@@YAEPBUGfxWindowParms@@@Z": {
+"t": "0x100128b0",
+"n": 271,
+"obj": "r_init.obj",
+"why": [
+"call ?R_InitSystems@@YAXXZ"
+]
+},
+"?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z": {
+"t": "0x100129c0",
+"n": 248,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_SetUpWindow@@YAEPAUGfxWindowParms@@@Z": {
+"t": "0x10012ac0",
+"n": 64,
+"obj": "r_init.obj",
+"why": [
+"call ?R_CreateDevice@@YAEPBUGfxWindowParms@@@Z"
+]
+},
+"?R_ChooseRefreshRate@@YAHHHH@Z": {
+"t": "0x10012b00",
+"n": 131,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_SetupWindowParms@@YAXPAUGfxWindowParms@@@Z": {
+"t": "0x10012b90",
+"n": 133,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_ReduceWindowSettings@@YAEXZ": {
+"t": "0x10012c20",
+"n": 91,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_InitHardware@@YAXXZ": {
+"t": "0x10012c80",
+"n": 289,
+"obj": "r_init.obj",
+"why": [
+"call ?R_InitSystems@@YAXXZ"
+]
+},
+"?R_ShutdownHardware@@YAXXZ": {
+"t": "0x10012db0",
+"n": 168,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_InitGlobalStructs@@YAXXZ": {
+"t": "0x10012e70",
+"n": 109,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_InitSinTable@@YAXXZ": {
+"t": "0x10012ee0",
+"n": 43,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_InitModelDObj@@YAXXZ": {
+"t": "0x10012f40",
+"n": 51,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_Init@@YAXXZ": {
+"t": "0x10012f80",
+"n": 169,
+"obj": "r_init.obj",
+"why": [
+"call ?R_InitHardware@@YAXXZ"
+]
+},
+"?R_ShutdownStreams@@YAXXZ": {
+"t": "0x10013030",
+"n": 68,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_Shutdown@@YAXH@Z": {
+"t": "0x10013080",
+"n": 265,
+"obj": "r_init.obj",
+"why": [
+"call ?RB_SaveLightVisHistory@@YAXXZ"
+]
+},
+"?R_BeginRegistration@@YAXPAUvidConfig_t@@@Z": {
+"t": "0x10013190",
+"n": 26,
+"obj": "r_init.obj",
+"why": [
+"call ?R_Init@@YAXXZ"
+]
+},
+"?R_EndView@@YAXH@Z": {
+"t": "0x10013200",
+"n": 79,
 "obj": "r_init.obj",
 "why": []
 },
 "_GetRefAPI": {
 "t": "0x10013270",
 "n": 1051,
+"obj": "r_init.obj",
+"why": []
+},
+"?R_ResetDevice@@YAXXZ": {
+"t": "0x10013690",
+"n": 319,
+"obj": "r_init.obj",
+"why": [
+"call ?R_CreateDeviceResources@@YAEXZ"
+]
+},
+"?R_Error@@YAXW4errorParm_t@@PBDZZ": {
+"t": "0x100138c0",
+"n": 112,
 "obj": "r_init.obj",
 "why": []
 },
