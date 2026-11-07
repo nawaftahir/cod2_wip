@@ -4457,6 +4457,14 @@
 ]
 },
 {
+"name": "?R_GetSceneEntDObj@@YAPBUDObj_s@@PBUGfxSceneEntity@@PBUGfxEntity@@@Z",
+"obj": "r_model.obj",
+"size": 34,
+"hits": [
+"0x1001f6b0"
+]
+},
+{
 "name": "?R_UpdateXModelBounds@@YAXPAUGfxSceneEntity@@PBUGfxEntity@@@Z",
 "obj": "r_model.obj",
 "size": 484,
@@ -4535,6 +4543,14 @@
 "hits": []
 },
 {
+"name": "?R_SkinRigidSurface@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z",
+"obj": "r_model.obj",
+"size": 37,
+"hits": [
+"0x1001f000"
+]
+},
+{
 "name": "?R_SkinXSurfaceSkinned@@YAXPAUGfxModelSkinnedSurface@@PBUDObjSkelMat_s@@@Z",
 "obj": "r_model.obj",
 "size": 198,
@@ -4571,9 +4587,17 @@
 "hits": []
 },
 {
+"name": "?Material_UsesDx7GridLighting@@YAEPBUMaterial@@@Z",
+"obj": "r_model.obj",
+"size": 24,
+"hits": [
+"0x1001f280"
+]
+},
+{
 "name": "?R_PreSkinStaticSurface@@YAHPAUGfxSceneEntity@@PAUGfxEntity@@HPBUXModel@@PAUXSurface_s@@HHPAHPAE@Z",
 "obj": "r_model.obj",
-"size": 470,
+"size": 451,
 "hits": []
 },
 {

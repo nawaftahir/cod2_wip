@@ -2205,6 +2205,12 @@
 "obj": "r_model.obj",
 "why": []
 },
+"?R_GetSceneEntDObj@@YAPBUDObj_s@@PBUGfxSceneEntity@@PBUGfxEntity@@@Z": {
+"t": "0x1001f6b0",
+"n": 34,
+"obj": "r_model.obj",
+"why": []
+},
 "?R_UpdateXModelBounds@@YAXPAUGfxSceneEntity@@PBUGfxEntity@@@Z": {
 "t": "0x1001ffc0",
 "n": 484,
@@ -2222,6 +2228,18 @@
 "?R_SkinPositionSse@@YA?AU__m128@@ABU1@PBUDObjSkelMat_s@@@Z": {
 "t": "0x1001e660",
 "n": 58,
+"obj": "r_model.obj",
+"why": []
+},
+"?R_SkinRigidSurface@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z": {
+"t": "0x1001f000",
+"n": 37,
+"obj": "r_model.obj",
+"why": []
+},
+"?Material_UsesDx7GridLighting@@YAEPBUMaterial@@@Z": {
+"t": "0x1001f280",
+"n": 24,
 "obj": "r_model.obj",
 "why": []
 },
