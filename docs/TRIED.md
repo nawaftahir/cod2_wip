@@ -1,3 +1,9 @@
+# R_AddModelRefEntity / R_DumpSceneEntities register allocation probes - 2026-11-07
+
+R_DumpSceneEntities (retail 10023920, 464 bytes): exactly 464 bytes in both ours and retail. Differs only in prologue register shrink-wrapping across qsort (push ebp before qsort vs after) and register choice (ebx/edi for ent/sceneEnt). Non-source-fixable register allocation class.
+
+R_AddModelRefEntity (retail 10023cc0, 128 bytes): emits 129 bytes (padded to 144) vs retail 128 bytes. The single 1-byte difference is opcode 0x10: retail emits 5-byte A1 mov eax, [scene.def.entities] while ours emits 6-byte 8B 0D mov ecx, [scene.def.entities]. All other instructions through ret match identically. Probed sceneEnt declaration ordering and pointer arithmetic. Restored. Non-source-fixable register allocation class.
+
 # R_CountMatchingSceneEntities out-of-line helper match - 2026-11-07
 
 R_CountMatchingSceneEntities (retail 100238d0, 80 bytes): restored out-of-line helper in r_scene.cpp matching retail 100238d0 exactly (80 bytes, 100% byte-identical, why == []). Passes byte referee, binding referee and checkpoint regression. Net +1 bound function, same_file_offset_equal_bytes 251990 -> 252264 (+274 bytes).
