@@ -4291,3 +4291,14 @@ Material_Register (chunk 0x10017100, 240 B): confirmed push esi shrink-wrapping 
 Material_ReloadTextures 10017640 (195 B) & Material_ReloadTextures_f 100178b0 (144 B): 100% byte matches; unbound solely because callee Image_LoadFromFile in r_image_load_obj.cpp is unbound.
 R_ApplyPicmip (chunk 0x10017730, 347 B): inlines cross-TU Image_UpdatePicmip from r_image.cpp; codegen depends on cross-TU /GL context.
 Remaining r_material chunks in CHUNKS.md (0x10016560, 0x10016590, 0x100169b0, 0x100169c0, 0x10016a80, 0x10016a90, 0x10016ba0, 0x10016bd0, 0x10016d40, 0x10016d60, 0x10016fe0, 0x100172d0, 0x100173a0, 0x10017460, 0x10017550, 0x100175f0, 0x10017620, 0x10017630, 0x10017d30, 0x10017f50, 0x10017f60, 0x10017f70, 0x10018070, 0x10018120, 0x10018130): either alignment padding, inlined helpers whose callers are already 100% matched/bound, or std::sort templates already bound.
+
+# r_shadowcookie front-to-back pass - 2026-11-07 (worker g10)
+R_EmitShadowCookieSurfs 10027190/27, R_ClearShadowReceiverTarget 100278f0/53, R_DrawShadowCookieOverlay 10027c80/116 MATCHED (+3 bound, 2703 -> 2706; same-offset 251020 -> 251652): restored out-of-line helpers R_EmitShadowCookieSurfs and R_ClearShadowReceiverTarget called by R_DrawShadowCookies, and hoisted size computation before MatrixIdentity44/R_AddCmdId9 in R_DrawShadowCookieOverlay.
+Remaining r_shadowcookie chunks in CHUNKS.md:
+- 0x100271b0 (R_SetShadowViewParms), 0x10027590 (R_AddShadowReceivers), 0x100276d0 (R_CreateShadowCookie), 0x10027930 (R_DrawShadowCookies), 0x10027f40 (R_BuildShadowCookieList): depend on shared GfxViewParms matrix field order in rb_backend.h / cross-TU R_GenerateShadowCookies caller in r_scene.cpp / register allocation.
+- 0x10027540 (R_IsShadowReceiverOutside, 69 B): base-pointer offset scheduling (`add ecx, 8` vs `add ecx, 4`).
+- 0x100278d0 (19 B): <20 B clear-screen helper below referee 20 B minimum.
+- 0x100280e0 (59 B, R_GenerateShadowCookies): calls R_BuildShadowCookieList with static register convention (`shadows` in `edi`), requiring cross-TU caller update in r_scene.cpp.
+- 0x10028120 (R_ResetShadowCookies, 35 B): dead array-init register setup (`mov edi, 0x10696bd0; xor ecx, ecx; mov eax, 8`) before constant stores.
+- 0x10028460, 0x10028480, 0x10028560, 0x10028650, 0x10028710, 0x10028780, 0x10028860, 0x10028920, 0x100289e0: <20 B std::sort iterator/pair/tag helpers or alignment tails.
+

@@ -2927,9 +2927,27 @@
 "obj": "r_shadowcookie.obj",
 "why": []
 },
+"?R_EmitShadowCookieSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@@Z": {
+"t": "0x10027190",
+"n": 27,
+"obj": "r_shadowcookie.obj",
+"why": []
+},
+"?R_ClearShadowReceiverTarget@@YAXXZ": {
+"t": "0x100278f0",
+"n": 53,
+"obj": "r_shadowcookie.obj",
+"why": []
+},
 "?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z": {
 "t": "0x10027170",
 "n": 30,
+"obj": "r_shadowcookie.obj",
+"why": []
+},
+"?R_DrawShadowCookieOverlay@@YAXXZ": {
+"t": "0x10027c80",
+"n": 116,
 "obj": "r_shadowcookie.obj",
 "why": []
 },
