@@ -8565,9 +8565,7 @@
 "t": "0x10068aca",
 "n": 184,
 "obj": "d3dx9:cassembler.obj",
-"why": [
-"extent"
-]
+"why": []
 },
 "?RegisterHash@D3DXShader@@YGIPBD@Z": {
 "t": "0x10068b85",
