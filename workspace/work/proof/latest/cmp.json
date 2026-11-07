@@ -218,7 +218,9 @@
 "name": "?R_SetDpvsPlaneSides@@YAXPAUDpvsPlane@@@Z",
 "obj": "r_bsp_load_obj.obj",
 "size": 54,
-"hits": []
+"hits": [
+"0x10001900"
+]
 },
 {
 "name": "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z",
@@ -363,9 +365,17 @@
 ]
 },
 {
+"name": "?R_GetDebugGroundLightColor@@YAXPAM_NE@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 38,
+"hits": [
+"0x10003180"
+]
+},
+{
 "name": "?R_LoadMiscModel@@YAXPAY01PBDH@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 648,
+"size": 626,
 "hits": []
 },
 {
@@ -374,6 +384,14 @@
 "size": 939,
 "hits": [
 "0x10003430"
+]
+},
+{
+"name": "?R_LoadSunSettings@@YAXPAUGfxBspLoad@@@Z",
+"obj": "r_bsp_load_obj.obj",
+"size": 45,
+"hits": [
+"0x100037e0"
 ]
 },
 {
@@ -471,7 +489,7 @@
 {
 "name": "?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z",
 "obj": "r_bsp_load_obj.obj",
-"size": 410,
+"size": 402,
 "hits": []
 },
 {

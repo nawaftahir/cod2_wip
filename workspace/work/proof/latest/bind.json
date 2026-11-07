@@ -133,6 +133,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_SetDpvsPlaneSides@@YAXPAUDpvsPlane@@@Z": {
+"t": "0x10001900",
+"n": 54,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_GetLumpElemCount@@YAHPBUGfxBspLoad@@HH@Z": {
 "t": "0x10001940",
 "n": 118,
@@ -199,9 +205,21 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_GetDebugGroundLightColor@@YAXPAM_NE@Z": {
+"t": "0x10003180",
+"n": 38,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z": {
 "t": "0x10003430",
 "n": 939,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_LoadSunSettings@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x100037e0",
+"n": 45,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },

@@ -47,11 +47,11 @@ typedef char occluderSizeCheck[sizeof(GfxOccluder) == 0x24 ? 1 : -1];
 // PINNED 10001940: lump element count, never inlined in retail (22 calls).
 
 // Name unconfirmed; PINNED out-of-line copy at 10001900: frustum side offsets from the coefficient signs.
-inline void R_SetDpvsPlaneSides(DpvsPlane *plane)
+void R_SetDpvsPlaneSides(DpvsPlane *plane)
 {
-    plane->side[0] = FloatAsInt(plane->coeffs[0]) <= 0 ? 0 : 12;
-    plane->side[1] = FloatAsInt(plane->coeffs[1]) <= 0 ? 4 : 16;
-    plane->side[2] = FloatAsInt(plane->coeffs[2]) <= 0 ? 8 : 20;
+    plane->side[0] = FloatAsInt(plane->coeffs[0]) > 0 ? 12 : 0;
+    plane->side[1] = FloatAsInt(plane->coeffs[1]) > 0 ? 16 : 4;
+    plane->side[2] = FloatAsInt(plane->coeffs[2]) > 0 ? 20 : 8;
 }
 
 static __declspec(noinline) int R_GetLumpElemCount(const GfxBspLoad *load, int lumpIndex, int elemSize)
@@ -690,6 +690,22 @@ foundModel:
     return 1;
 }
 
+// Name unconfirmed; PINNED out-of-line copy 10003180/38.
+void R_GetDebugGroundLightColor(float *ground, bool hasGroundLight, Bool foundGround)
+{
+    if (hasGroundLight)
+    {
+        if (foundGround)
+            Vector4Set(ground, 0.0f, 1.0f, 0.0f, 0.0f);
+        else
+            Vector4Set(ground, 1.0f, 1.0f, 0.0f, 0.0f);
+    }
+    else
+    {
+        Vector4Set(ground, 1.0f, 0.0f, 0.0f, 0.0f);
+    }
+}
+
 // PINNED 100031b0: use the Z component of modelscale_vec, as in the PC caller.
 void R_LoadMiscModel(const char *(*vars)[2], int count)
 {
@@ -717,10 +733,7 @@ void R_LoadMiscModel(const char *(*vars)[2], int count)
     vec4_t colors[6];
     if (r_showGroundLit->current.enabled)
     {
-        if (hasGroundLight)
-            Vector4Set(ground, foundGround ? 0.0f : 1.0f, 1.0f, 0.0f, 0.0f);
-        else
-            Vector4Set(ground, 1.0f, 0.0f, 0.0f, 0.0f);
+        R_GetDebugGroundLightColor(ground, hasGroundLight, foundGround);
         R_GetStaticModelLightingFromGround(ground, &sunVisibility, colors);
     }
     else
@@ -821,6 +834,15 @@ const char *R_ParseSunLight(SunLightParseParams *params, const char *text)
         }
     }
     return text;
+}
+
+void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight);
+
+// SUPPORTED KisakCOD name; PINNED out-of-line copy 100037e0/45.
+void R_LoadSunSettings(GfxBspLoad *load)
+{
+    R_ParseSunLight(&s_world.sunParse, (const char *)(load->fileBase + load->header->lumps[37].fileofs));
+    R_InterpretSunLightParseParamsIntoLights(&s_world.sunParse, &s_world.sunLight);
 }
 
 void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight)
@@ -1200,11 +1222,11 @@ static int R_FinishLoadingAabbTrees_r(GfxAabbTree *tree, int totalTreesUsed)
         }
         return totalTreesUsed;
     }
-    int nextTree = totalTreesUsed + tree->childCount;
     tree->children = &rgl.aabbTrees[totalTreesUsed];
+    totalTreesUsed += tree->childCount;
     for (int childIndex = 0; childIndex < tree->childCount; ++childIndex)
     {
-        nextTree = R_FinishLoadingAabbTrees_r(&tree->children[childIndex], nextTree);
+        totalTreesUsed = R_FinishLoadingAabbTrees_r(&tree->children[childIndex], totalTreesUsed);
         const GfxAabbTree *child = &tree->children[childIndex];
         for (int axis = 0; axis < 3; ++axis)
         {
@@ -1214,7 +1236,7 @@ static int R_FinishLoadingAabbTrees_r(GfxAabbTree *tree, int totalTreesUsed)
                 tree->maxs[axis] = child->maxs[axis];
         }
     }
-    return nextTree;
+    return totalTreesUsed;
 }
 
 // PINNED 10003ee0: lump 22, then each root tree claims its children.
@@ -1281,8 +1303,7 @@ GfxWorld *R_LoadWorldInternal(const char *name)
     R_LoadStep("materials");
     R_LoadMaterials(&load);
     R_LoadStep("sun settings");
-    R_ParseSunLight(&s_world.sunParse, (const char *)(load.fileBase + load.header->lumps[37].fileofs));
-    R_InterpretSunLightParseParamsIntoLights(&s_world.sunParse, &s_world.sunLight);
+    R_LoadSunSettings(&load);
     R_LoadStep("lightmaps");
     R_LoadLightmaps(&load);
     R_LoadStep("lightgrid coefficients");

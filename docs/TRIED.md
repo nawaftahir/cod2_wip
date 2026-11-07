@@ -1,3 +1,20 @@
+# r_bsp_load_obj.obj chunk sweep and 3 newly bound functions - 2026-11-07 (worker g8)
+
+Matched and bound 3 additional functions in `r_bsp_load_obj.cpp` (`why == []` in `bind.json`, net +3 bound functions: 2703 -> 2706, `same_file_offset_equal_bytes`: 251020 -> 251207, +187 B):
+- `R_SetDpvsPlaneSides` (`0x10001900`, 54 B): removed `inline` and matched positive-sign ternary formulation (`FloatAsInt(plane->coeffs[i]) > 0 ? (12 + i * 4) : (i * 4)`), matching all 54 bytes (`why == []`).
+- `R_GetDebugGroundLightColor` (`0x10003180`, 38 B): removed `static` and called from `R_LoadMiscModel` while preserving `Vector4Set` (`0x100018a0`) emission, matching all 38 bytes (`why == []`).
+- `R_LoadSunSettings` (`0x100037e0`, 45 B): removed `static` and removed `__declspec(noinline)` from `R_ParseSunLight`, matching all 45 bytes (`why == []`).
+Also achieved 100% byte match on `R_LoadMiscModel` (`0x100031b0`, 626 B, `hits: ['0x100031b0']`, blocked only on cross-TU `R_CreateStaticModel`).
+
+Remaining `r_bsp_load_obj.obj` chunks in `docs/CHUNKS.md` logged as not source-fixable:
+- `0x10001810` (`FloatAsInt`, 16 B) and `0x10001820` (`ByteToDir`, 48 B): `FloatAsInt` is <20B (`cmp.py` threshold); `ByteToDir` differs in `com_math.h` register allocation.
+- `0x10001b10` (`R_LoadLayeredMaterials`, 640 B), `0x100022a0` (`R_CopyLightmap`, 240 B), `0x10002390` (`R_BuildLightmapMergability`, 480 B), `0x10002570` (`R_LoadLightmaps`, 784 B): register allocation / instruction scheduling differences.
+- `0x10002880`, `0x10002900`, `0x10002960` (`R_ParseEntities`, 2112 B): LTCG custom register convention and loop register allocation differences.
+- `0x10003430` (`R_ParseParams`, 496 B), `0x10003990` (`R_LoadPrimaryLights`, 336 B), `0x10003ae0` (`R_LoadLightRegions`, 288 B): register allocation / stack frame layout differences.
+- `0x10003c00`, `0x10003c40`, `0x10003cc0`, `0x10003d20`: LTCG custom calling convention (`eax`/`ecx`) on static light helpers.
+- `0x10003d40` (`R_FinishLoadingAabbTrees_r`, 403 B) and `0x10003ee0` (`R_LoadAabbTrees`, 164 B): `R_LoadAabbTrees` is 100% byte-matched (`hits: ['0x10003ee0']`), blocked only on `R_FinishLoadingAabbTrees_r` which has a 1-byte register/SIB difference at `+0x106` (`mov ecx, [esi+0x2c]; add ecx, edi` vs `mov eax, [esi+0x2c]; lea ecx, [edi+eax]`).
+- `0x10003f90` (`R_LoadBsp`, 240 B), `0x10004170` (`R_LoadPortals`, 400 B), `0x10004300` (`R_LoadCullGroups`, 224 B), `0x10004430` (`R_LoadOccluders`, 480 B), `0x10004610` (`R_LoadWorld`, 144 B), `0x100046a0` (`R_LoadWorldInternal`, 2288 B): register allocation / frame layout differences or blocked on callees.
+
 # Material_ParseSamplerSource match - 2026-11-07
 
 Material_ParseSamplerSource (retail 10019620, 211 B; chunk 10): Com_ParseInternal reproduces inlined first token parsing while preserving out-of-line Com_Parse on material name path. 211 bytes match 100% at retail 10019620. Referees and all 2526 checkpoints passed.
