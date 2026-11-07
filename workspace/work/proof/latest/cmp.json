@@ -5776,6 +5776,22 @@
 "hits": []
 },
 {
+"name": "?R_EmitShadowCookieSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@@Z",
+"obj": "r_shadowcookie.obj",
+"size": 27,
+"hits": [
+"0x10027190"
+]
+},
+{
+"name": "?R_ClearShadowReceiverTarget@@YAXXZ",
+"obj": "r_shadowcookie.obj",
+"size": 53,
+"hits": [
+"0x100278f0"
+]
+},
+{
 "name": "?R_DrawShadowCookies@@YAXHPBUGfxViewParms@@PBUShadowCookieList@@@Z",
 "obj": "r_shadowcookie.obj",
 "size": 706,
@@ -5835,7 +5851,9 @@
 "name": "?R_DrawShadowCookieOverlay@@YAXXZ",
 "obj": "r_shadowcookie.obj",
 "size": 116,
-"hits": []
+"hits": [
+"0x10027c80"
+]
 },
 {
 "name": "??$sort@PAUShadowCandidate@@P6A_NABU1@0@Z@std@@YAXPAUShadowCandidate@@0P6A_NABU1@1@Z@Z",

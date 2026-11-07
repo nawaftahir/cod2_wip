@@ -2,10 +2,10 @@
   "status": "authored-assembly attribution; not whole-file identity",
   "policy": "Entire containing bodies excluded; C/C++ intrinsics and calls to out-of-line helpers remain C/C++.",
   "game_denominator": 253580,
-  "mixed_executable_bytes": 131006,
-  "cpp_executable_bytes": 120822,
-  "cpp_percent": 47.64650209007019,
-  "cpp_game_bodies": 757,
+  "mixed_executable_bytes": 131202,
+  "cpp_executable_bytes": 121018,
+  "cpp_percent": 47.72379525199148,
+  "cpp_game_bodies": 760,
   "bytes_needed_for_40_percent": 0,
   "excluded_assembly_bodies": [
     {
@@ -343,7 +343,7 @@
   "scope": "current authored source tree; original compiler/SDK/library internals are dependencies",
   "counter_sha256": "1ad882c3d3a1df5869f4ffe44448f21c077a82443287452543712858fe069b61",
   "regression_sha256": "32da10a32ed82034fa426b13ec6a2450de3797f8f01079d8169a57efbde348b9",
-  "bind_sha256": "662f45bb6b46052c5f19cbefa8046951fdc84a1d424ef68a1dc7b895fb7f713c",
+  "bind_sha256": "4f5b06eebcf37c064edbb315065657abace477cc654f5bfb44392008e19ca76b",
   "source_sha256": {
     "profile.mk": "23af1334a5ad2c820d28ede8a3007c989cfc4a100d26ad2a2641fa5444d23020",
     "roots.txt": "8153ca31ad8fab1b079a93d17f61a7689479539fb37b6f612bc99879a42da7ad",
@@ -423,7 +423,7 @@
     "gfx_d3d/r_refapi.h": "c4785fadac5897e34089812c0fda3b4ddfd0966c65a428c42628f25e2fd2c8d8",
     "gfx_d3d/r_water.cpp": "a618db046338ae91e1d2d3a4b0f45ca9e6ab8985e4ee4d4d411b0ed833a31e8b",
     "gfx_d3d/r_image_load_obj.cpp": "ee4412ff7722527f023904ae80ea66d7dad1eaca6df7b83e0dcdaa6f6879c115",
-    "gfx_d3d/r_shadowcookie.cpp": "8a68a0df1ef77b5c62938d21e5350558a8592625fbf1b55697bc6cff0b3b970e",
+    "gfx_d3d/r_shadowcookie.cpp": "cffd0b06e5b3fd87d5e4c5fa62401b7f9085fab6c377032ecf8022adce1358ad",
     "gfx_d3d/r_bsp_load_obj.cpp": "3ec5be9ea95b6b0ee55a772b55ecdd5496e8eb11d99d6178793d10908dd85cda",
     "gfx_d3d/r_fog.cpp": "cf471d4f034392b8e3980bc97b28ea6139ee89da39c24bf179176316e7963017",
     "gfx_d3d/r_buffers.cpp": "09a0c0eb10c18b87f88b00dd8cd0fad8be482b4a33bdcf6baf47c93d0ab26d3c",

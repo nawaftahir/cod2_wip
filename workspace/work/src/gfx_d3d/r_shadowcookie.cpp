@@ -99,6 +99,21 @@ typedef char shadowDrawLayoutCheck[
     sizeof(RcWords16) == 64 ? 1 : -1];
 
 // PINNED 10027930/839: a new empty group still selects/clears its receiver target.
+// Name unconfirmed; PINNED out-of-line copy 10027190/27.
+void R_EmitShadowCookieSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount, MaterialTechniqueType technique)
+{
+    qsortDrawSurfs(drawSurfs, drawSurfCount);
+    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, technique, (GfxDrawSurfOrder)0);
+}
+
+// Name unconfirmed; PINNED out-of-line copy 100278f0/53.
+void R_ClearShadowReceiverTarget()
+{
+    if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled
+        && dx.renderTargets[6].colorSurface)
+        R_AddCmdClearScreen(1, colorWhite, 0.0f, 0);
+}
+
 void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms,
     const ShadowCookieList *shadows)
 {
@@ -125,8 +140,7 @@ void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms,
                 R_AddCmdBeginView(scene.viewCount, &scene.def, cookie->shadowViewParms, &rg.lodParms);
                 R_AddCmdSetViewport(1, 1, 126, 126);
                 GfxDrawSurf *drawSurfs = scene.drawSurfs + cookie->firstCasterDrawSurf;
-                qsortDrawSurfs(drawSurfs, casterCount);
-                R_AddCmdDrawSurfs(drawSurfs, casterCount, (MaterialTechniqueType)0x1f, (GfxDrawSurfOrder)0);
+                R_EmitShadowCookieSurfs(drawSurfs, casterCount, (MaterialTechniqueType)0x1f);
                 R_AddCmdSetViewport(0, 0, 128, 128);
                 if (sc_blur->current.integer)
                     R_AddCmdHeaderOnly1C();
@@ -134,16 +148,13 @@ void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms,
                 if (first)
                 {
                     first = false;
-                    if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled
-                        && dx.renderTargets[6].colorSurface)
-                        R_AddCmdClearScreen(1, colorWhite, 0.0f, 0);
+                    R_ClearShadowReceiverTarget();
                 }
                 R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, &rg.lodParms);
                 if (i < sc_debugReceiverCount->current.integer)
                 {
                     drawSurfs = scene.drawSurfs + cookie->firstReceiverDrawSurf;
-                    qsortDrawSurfs(drawSurfs, receiverCount);
-                    R_AddCmdDrawSurfs(drawSurfs, receiverCount, (MaterialTechniqueType)0x20, (GfxDrawSurfOrder)0);
+                    R_EmitShadowCookieSurfs(drawSurfs, receiverCount, (MaterialTechniqueType)0x20);
                 }
             }
         } while (++i != shadows->cookieCount);
@@ -151,9 +162,7 @@ void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms,
     if (first)
     {
         R_AddCmdSetRenderTarget((GfxRenderTargetId)3);
-        if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled
-            && dx.renderTargets[6].colorSurface)
-            R_AddCmdClearScreen(1, colorWhite, 0.0f, 0);
+        R_ClearShadowReceiverTarget();
     }
     R_EndDrawGroupLoop(1, viewIndex);
     R_EndDrawGroupSection(1);
@@ -401,10 +410,10 @@ void R_AddCmdDrawStretchPic(float x, float y, float width, float height,
 
 void R_DrawShadowCookieOverlay()
 {
+    float size = (float)vidConfig.width * 0.25f;
     RcWords16 identity;
     MatrixIdentity44((float (*)[4])&identity);
     R_AddCmdId9(&identity, 0x3f800000);
-    float size = (float)vidConfig.width * 0.25f;
     R_AddCmdDrawStretchPic(4.0f, 4.0f, size, size,
         0.0f, 0.0f, 1.0f, 1.0f, colorWhite, rgp.shadowCookieOverlayMaterial);
 }

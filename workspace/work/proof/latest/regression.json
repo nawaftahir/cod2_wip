@@ -1,8 +1,8 @@
 {
-  "functions": 798,
-  "bytes": 131006,
+  "functions": 801,
+  "bytes": 131202,
   "total": 253580,
-  "percent": 51.66259168704156,
+  "percent": 51.73988484896285,
   "baseline_lost": [],
   "gains": [
     {
@@ -1389,6 +1389,24 @@
       "target": "0x10027170",
       "bytes": 30,
       "name": "?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x10027190",
+      "bytes": 27,
+      "name": "?R_EmitShadowCookieSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@@Z",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x100278f0",
+      "bytes": 53,
+      "name": "?R_ClearShadowReceiverTarget@@YAXXZ",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x10027c80",
+      "bytes": 116,
+      "name": "?R_DrawShadowCookieOverlay@@YAXXZ",
       "object": "r_shadowcookie.obj"
     },
     {
