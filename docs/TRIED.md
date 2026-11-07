@@ -1,3 +1,7 @@
+# Material_ParseRuleSetCondition probe - 2026-11-07
+
+Material_ParseRuleSetCondition 100185b0/346 (chunk 5): Com_ParseInternal inlines token parsing and brings candidate from 192 B to 336 B vs retail 346 B. Remaining differences belong to non-source-fixable classes: retail aligns the do-while loop to 16-byte boundary with 7-byte lea esp,[esp] NOP padding, uses edx/ecx register allocation swap in token unget restoration, and differs in return block layout. Restored.
+
 # RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
 
 RB_SetupPassDx7 (10039b40, retail 1124, ours 1104): probed semantic switch 0/1 cases in inlined RB_ApplyMaterialImageOverride (stays 1104, compiler optimizes out empty cases matching default), early return from case 0/1 (collapses pass loop into 937 bytes by dropping trailing sampler/texcoord setup), and pointer-incremented sampler iterator (stays 1104, strength-reduction arithmetic still generates 4-entry jump table and different loop frame). Restored.
