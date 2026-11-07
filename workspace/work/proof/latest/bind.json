@@ -2593,6 +2593,14 @@
 "call ?R_UpdateXModelBounds@@YAXPAUGfxSceneEntity@@PBUGfxEntity@@@Z"
 ]
 },
+"?R_AddRefEntityToScene@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z": {
+"t": "0x10023db0",
+"n": 209,
+"obj": "r_scene.obj",
+"why": [
+"call ?R_AddModelRefEntity@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z"
+]
+},
 "?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z": {
 "t": "0x10024460",
 "n": 70,

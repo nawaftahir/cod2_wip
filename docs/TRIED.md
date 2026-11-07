@@ -1,3 +1,7 @@
+# R_AddRefEntityToScene and R_ShortSortDrawSurfs linkage / ABI matches - 2026-11-07
+
+R_AddRefEntityToScene (retail 10023db0, 209 bytes) and R_ShortSortDrawSurfs (retail 10024460, 70 bytes): removing static from R_CopyRefEntityToScene restored standard 3-stack-argument ABI in caller R_AddRefEntityToScene, achieving 100% byte match (209 bytes at 0x10023db0). Removing static from R_ShortSortDrawSurfs gave it a distinct symbol in the map and verified extent at 0x10024460 (70 bytes, 100% byte-identical, why == []). Passes full gate and checkpoint regression.
+
 # R_AddModelRefEntity / R_DumpSceneEntities register allocation probes - 2026-11-07
 
 R_DumpSceneEntities (retail 10023920, 464 bytes): exactly 464 bytes in both ours and retail. Differs only in prologue register shrink-wrapping across qsort (push ebp before qsort vs after) and register choice (ebx/edi for ent/sceneEnt). Non-source-fixable register allocation class.

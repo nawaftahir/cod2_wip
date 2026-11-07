@@ -505,13 +505,13 @@ extern const dvar_t *com_statmon;
 void R_DrawModel(int entIndex);
 
 // PINNED 10023780/128; private helper name unconfirmed.
-static void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
+void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
 {
     GfxEntity *ent = &scene.def.entities[entIndex];
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
     *ent = *refEnt;
     if (refEnt->scale == 0.0f)
         ent->scale = 1.0f;
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
     memset(sceneEnt, 0, sizeof(*sceneEnt));
     if (refEnt->reType >= 4)
         R_AddDrawSurf(refEnt->customMaterial, entIndex, 31, &s_entitySurface);
@@ -567,7 +567,7 @@ GfxEntity *R_AddRefEntityToScene(const GfxEntity *refEnt, GfxModel sceneModel,
 }
 
 // PINNED 10024460/70: selection sort swaps the entire surface record.
-static void R_ShortSortDrawSurfs(GfxDrawSurf *lo, GfxDrawSurf *hi)
+void R_ShortSortDrawSurfs(GfxDrawSurf *lo, GfxDrawSurf *hi)
 {
     while (hi > lo)
     {

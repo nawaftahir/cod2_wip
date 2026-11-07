@@ -5288,7 +5288,7 @@
 {
 "name": "?R_CopyRefEntityToScene@@YAXHPBUGfxEntity@@TGfxModel@@@Z",
 "obj": "r_scene.obj",
-"size": 125,
+"size": 129,
 "hits": []
 },
 {
@@ -5300,8 +5300,10 @@
 {
 "name": "?R_AddRefEntityToScene@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z",
 "obj": "r_scene.obj",
-"size": 210,
-"hits": []
+"size": 209,
+"hits": [
+"0x10023db0"
+]
 },
 {
 "name": "?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z",
