@@ -6673,18 +6673,26 @@
 "hits": []
 },
 {
-"name": "?RB_Set2D@@YAXXZ",
-"obj": "rb_backend.obj",
-"size": 854,
-"hits": []
-},
-{
 "name": "?RB_TessOverflow@@YAXXZ",
 "obj": "rb_backend.obj",
 "size": 82,
 "hits": [
 "0x1002df40"
 ]
+},
+{
+"name": "?RB_CheckOverflow@@YAXHH@Z",
+"obj": "rb_backend.obj",
+"size": 38,
+"hits": [
+"0x1002dfa0"
+]
+},
+{
+"name": "?RB_Set2D@@YAXXZ",
+"obj": "rb_backend.obj",
+"size": 854,
+"hits": []
 },
 {
 "name": "?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z",

@@ -4168,3 +4168,4 @@ R_FindSpawnVar 10002e40 MATCHED (Mac name): non-static, inlined into R_FloatForK
 R_LoadLightGridColors 100025d0 + R_LoadMaterials 10002690 MATCHED (KisakCOD names): restored from R_LoadWorldInternal inline code as non-static functions at their source positions, reading through a lump_t pointer.
 R_LoadLightmaps 1520/1568 (retail frame 0x218 vs 0x210, 418 diffs): retail calls Com_Memcpy directly (R_CopyLightmap inlined there); making R_CopyLightmap non-static does not get it inlined. Needs a dedicated pass.
 r_dpvs head helpers: R_DpvsPlaneDistToPoint (10005cb0) MATCHED, used at the portal vertex test. R_DpvsPlaneBoundsTest (10005cd0, Mac name; retail order b[s1]c1+b[s0]c0+b[s2]c2+c3) loses R_IsBoundsOutsideViewNoStack wherever it is used there; dropped for now.
+RB_CheckOverflow 1002dfa0/38 MATCHED (Chunk 01, Quake III/coduomp name): non-static helper emitted after RB_TessOverflow; RB_DrawStretchPic calls it inline; same-offset 251990 -> 252150 (+160 B).

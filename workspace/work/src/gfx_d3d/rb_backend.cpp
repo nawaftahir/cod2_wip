@@ -19,6 +19,27 @@ void RB_EndSurface();
 void RB_BeginSurface(const Material *material, int technique, int lightmap);
 void RB_SetVertex2D(int index, float x, float y, float s, float t, unsigned int color);
 
+// PINNED 1002df40: resume the current material while preserving declaration type.
+void RB_TessOverflow()
+{
+    int declaration = tess.declType;
+    RB_EndSurface();
+    RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
+    if (tess.declType != declaration)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        tess.declType = declaration;
+    }
+}
+
+// Name SUPPORTED (Quake III / coduomp); PINNED out-of-line copy 1002dfa0.
+void RB_CheckOverflow(int vertexCount, int indexCount)
+{
+    if (tess.vertexCount + vertexCount > 5450 || tess.indexCount + indexCount > 0x100000)
+        RB_TessOverflow();
+}
+
 #pragma optimize("p", on)
 // PINNED 1002e020: preserve unused cache fields and use live state after flush.
 void RB_Set2D()
@@ -88,20 +109,6 @@ void RB_Set2D()
 }
 #pragma optimize("", on)
 
-// PINNED 1002df40: resume the current material while preserving declaration type.
-void RB_TessOverflow()
-{
-    int declaration = tess.declType;
-    RB_EndSurface();
-    RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
-    if (tess.declType != declaration)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        tess.declType = declaration;
-    }
-}
-
 // PINNED 1002e850: PC has eight float arguments and a packed color, no stats arg.
 void RB_DrawStretchPic(const Material *material, float x, float y, float width, float height,
     float s0, float t0, float s1, float t1, unsigned int color)
@@ -114,8 +121,7 @@ void RB_DrawStretchPic(const Material *material, float x, float y, float width, 
             RB_EndSurface();
         RB_BeginSurface(material, 3, 31);
     }
-    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
-        RB_TessOverflow();
+    RB_CheckOverflow(4, 6);
     int vertex = tess.vertexCount;
     tess.indices[tess.indexCount] = (unsigned short)(vertex + 3);
     tess.indices[tess.indexCount + 1] = (unsigned short)vertex;

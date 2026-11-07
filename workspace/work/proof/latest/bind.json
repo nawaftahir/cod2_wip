@@ -3281,6 +3281,14 @@
 "call ?RB_EndSurface@@YAXXZ"
 ]
 },
+"?RB_CheckOverflow@@YAXHH@Z": {
+"t": "0x1002dfa0",
+"n": 38,
+"obj": "rb_backend.obj",
+"why": [
+"call ?RB_TessOverflow@@YAXXZ"
+]
+},
 "?RB_DrawStretchPic@@YAXPBUMaterial@@MMMMMMMMI@Z": {
 "t": "0x1002e850",
 "n": 393,
