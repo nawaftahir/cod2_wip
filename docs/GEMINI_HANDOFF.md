@@ -71,9 +71,18 @@ Register choice, scheduling, block layout, SIB base/index order, zero-via-regist
 - A change that fits the slot but changes behaviour is not a fix.
 
 ## Your assignment
-Work only in the TUs your lead gave you (one TU per worker), front to back by retail address,
-using `docs/CHUNKS.md`. Default split if none was given:
-- g1: `rb_backend` (71 chunks)  - g2: `r_material_load_obj` (56)  - g3: `r_model` (42)
-- g4: `r_scene` (37)            - g5: `r_material` (31)           - g6: `r_init` (27)
+Work only in the TU your lead gave you (one TU per worker), front to back by retail address,
+using  (regenerated after batch 1). Round 2 split:
+- g7:  (most chunks; front helpers partly done)   - g8: 
+- g9:         - g10:         - g11:         - g12: 
+Branch from the current  (batch 1 is merged): .
+
+Lessons from round 1 (do not repeat):
+- Do not edit  or any hash/allow-list, even to refresh a hash.
+  If the gate stops on a reviewed-file hash, stop and report; the lead refreshes it.
+- Do not move global data definitions between files (e.g. , , , ). It shifts
+   and cost 970 same-offset bytes in round 1.
+- Keep commits per function or small group, each gate-green.
+
 Report when done: commits, functions gained (names), same-offset before/after, and the list of
 chunks you logged as not source-fixable.

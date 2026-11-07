@@ -162,27 +162,17 @@
 | r_image_wavelet.obj | 0x10011330 | 16 | Wavelet_DecompressLevel | `fld dword ptr [esp + 4]; fsin ; ret ` |
 | r_image_wavelet.obj | 0x10011340 | 32 | Wavelet_DecompressLevel | `mov ecx, dword ptr [0x101ce708]; mov edx, dword ptr [ecx + 8]; xor eax, eax; cmp edx, 2; s` |
 | r_image_wavelet.obj | 0x10011360 | 48 | Wavelet_DecompressLevel | `push 0x30000; push 0x20000; call 0x100f6174; push 0x8001f; push 0x8001f; call 0x100f6174; ` |
-| r_init.obj | 0x10011420 | 48 | R_FatalBufferLockError | `mov ecx, dword ptr [eax]; push eax; call dword ptr [ecx + 8]; test eax, eax; je 0x10011448` |
-| r_init.obj | 0x10011450 | 16 | R_FatalBufferLockError | `push eax; call 0x100efe3c; ret ` |
+| r_init.obj | 0x10011450 | 16 | R_ReleaseAndSetNULL | `push eax; call 0x100efe3c; ret ` |
 | r_init.obj | 0x10011750 | 384 | R_GetDeviceCaps | `cmp eax, 1; mov eax, 0x10193fb8; je 0x1001175f; mov eax, 0x10193fac; ret ; push ebx; push ` |
 | r_init.obj | 0x10012090 | 48 | R_InitSystems | `in al, 0x1a; adc byte ptr [eax], al; add al, byte ptr [eax]; add byte ptr [ebx + 0x101ae4d` |
-| r_init.obj | 0x100120c0 | 64 | R_InitSystems | `mov ecx, dword ptr [0x101d4938]; mov edx, dword ptr [eax]; shl ecx, 4; mov dword ptr [ecx ` |
-| r_init.obj | 0x10012210 | 272 | R_CreateDeviceResources | `mov eax, dword ptr [0x101d4938]; push ebx; push ebp; push esi; push edi; xor ebx, ebx; xor` |
 | r_init.obj | 0x100123d0 | 752 | R_AddResolution | `sub esp, 0xc0c; push ebx; push ebp; push esi; push edi; mov edi, eax; mov eax, dword ptr [` |
 | r_init.obj | 0x100126c0 | 16 | R_AddResolution | `mov eax, 1; ret ` |
-| r_init.obj | 0x10012880 | 48 | R_CreateDirect3D | `mov eax, dword ptr [0x101ce6b0]; mov cl, byte ptr [eax + 8]; test cl, cl; je 0x10012897; m` |
-| r_init.obj | 0x10012ac0 | 208 | R_CreateGameWindow | `push ecx; push esi; push edi; mov esi, eax; call 0x100129c0; test al, al; je 0x10012ad9; m` |
-| r_init.obj | 0x10012b90 | 144 | R_ChooseRefreshRate | `push ecx; mov eax, dword ptr [0x101ce688]; push ebx; push edi; push eax; call dword ptr [0` |
-| r_init.obj | 0x10012c20 | 96 | R_ChooseRefreshRate | `mov ecx, dword ptr [0x101ce6dc]; mov eax, dword ptr [ecx + 8]; cmp eax, 1; jg 0x10012c69; ` |
-| r_init.obj | 0x10012c80 | 304 | R_ChooseRefreshRate | `mov eax, dword ptr [0x101d1bf8]; sub esp, 0x24; test eax, eax; push esi; push edi; je 0x10` |
 | r_init.obj | 0x10012e60 | 16 | R_ShutdownHardware | `call 0x1000aaf0; jmp 0x100052c0` |
 | r_init.obj | 0x10012f10 | 32 | R_InitSinTable | `push esi; mov eax, 0x101d7210; mov esi, 0x101d7a10; call 0x1005edb0; pop esi; ret ` |
 | r_init.obj | 0x10012f30 | 16 | R_InitSinTable | `mov dword ptr [0x101d5d28], 0; ret ` |
-| r_init.obj | 0x10013030 | 80 | R_Init | `mov eax, dword ptr [0x101d1bf8]; test eax, eax; je 0x10013073; mov al, byte ptr [0x101d492` |
 | r_init.obj | 0x10013250 | 16 | R_EndView | `jmp 0x10029560` |
-| r_init.obj | 0x10013690 | 320 | _GetRefAPI | `sub esp, 0x5c; mov ecx, dword ptr [0x101d4944]; mov eax, dword ptr [0x101d493c]; mov edx, ` |
-| r_init.obj | 0x100137d0 | 32 | _GetRefAPI | `mov eax, dword ptr [0x101d1bf8]; mov ecx, dword ptr [eax]; push eax; call dword ptr [ecx +` |
-| r_init.obj | 0x100137f0 | 208 | _GetRefAPI | `push ecx; mov eax, dword ptr [0x101d1bf8]; mov ecx, dword ptr [eax]; push eax; call dword ` |
+| r_init.obj | 0x100137d0 | 32 | R_ResetDevice | `mov eax, dword ptr [0x101d1bf8]; mov ecx, dword ptr [eax]; push eax; call dword ptr [ecx +` |
+| r_init.obj | 0x100137f0 | 208 | R_ResetDevice | `push ecx; mov eax, dword ptr [0x101d1bf8]; mov ecx, dword ptr [eax]; push eax; call dword ` |
 | r_init.obj | 0x10013fd0 | 80 | $_Median | `sub esp, 0x10; push ebx; push ebp; push esi; mov ebx, ecx; mov edx, dword ptr [ebx]; mov e` |
 | r_init.obj | 0x10014020 | 16 | $_Median | `xor eax, eax; ret ` |
 | r_init.obj | 0x10014030 | 16 | $_Median | `xor eax, eax; ret ` |
@@ -230,7 +220,6 @@
 | r_material.obj | 0x10017630 | 16 | Material_Shutdown | `call 0x100174c0; jmp 0x10016df0` |
 | r_material.obj | 0x10017710 | 32 | Material_ReloadTextures | `cmp byte ptr [eax + 5], 5; je 0x10017722; mov eax, dword ptr [eax + 8]; test eax, eax; je ` |
 | r_material.obj | 0x10017730 | 528 | Material_ReloadTextures | `sub esp, 8; push ebx; push ebp; push esi; push edi; call 0x1000d680; xor ecx, ecx; xor eax` |
-| r_material.obj | 0x10017940 | 64 | Material_ReloadTextures_f | `sub esp, 0x40; push esi; push edi; push eax; push 0x101942c0; mov esi, 0x40; lea edi, [esp` |
 | r_material.obj | 0x10017d30 | 544 | $_Insertion_sort | `mov edx, dword ptr [ecx]; mov ecx, dword ptr [esp + 4]; mov dword ptr [eax], edx; mov edx,` |
 | r_material.obj | 0x10017f50 | 16 | $_Median | `mov edx, dword ptr [ecx]; push esi; mov esi, dword ptr [eax]; mov dword ptr [ecx], esi; mo` |
 | r_material.obj | 0x10017f60 | 16 | $_Median | `xor eax, eax; ret ` |
@@ -244,13 +233,10 @@
 | r_material_load_obj.obj | 0x10018340 | 16 | _IncludeClass_Open | `mov al, byte ptr [eax + 0x1018eb34]; ret ` |
 | r_material_load_obj.obj | 0x100185b0 | 352 | Material_ParseRuleSetConditionTest | `push ebp; mov ebp, dword ptr [esp + 8]; push esi; push edi; mov edi, 0x10192f58; mov esi, ` |
 | r_material_load_obj.obj | 0x100188e0 | 528 | Material_AllocRuleSet | `push ebp; mov ebp, esp; and esp, 0xfffffff8; mov eax, 0x202c; call 0x100f8830; mov eax, dw` |
-| r_material_load_obj.obj | 0x10018ee0 | 176 | Material_LoadCachedStateMap | `push 1; push 0x101956f0; mov ecx, esi; call 0x1005faf0; add esp, 8; test eax, eax; je 0x10` |
 | r_material_load_obj.obj | 0x100193f0 | 16 | Material_LoadPassVertexDecl | `add eax, ecx; ret ` |
 | r_material_load_obj.obj | 0x100194f0 | 304 | Material_ParseArrayOffset | `push ecx; push ebx; push ebp; push esi; mov esi, dword ptr [esp + 0x1c]; push edi; mov edi` |
-| r_material_load_obj.obj | 0x10019620 | 224 | Material_ParseArrayOffset | `mov eax, dword ptr [0x101aac70]; imul eax, eax, 0x45c; push ebp; mov ebp, dword ptr [esp +` |
 | r_material_load_obj.obj | 0x10019780 | 32 | Material_FindScalarSamplerSource | `push eax; mov word ptr [eax], 3; mov eax, dword ptr [esp + 8]; push eax; mov edx, 0x1018ed` |
 | r_material_load_obj.obj | 0x10019a80 | 544 | Material_ParseConstantArrayOffset | `push ecx; push ebx; push ebp; push esi; push edi; mov esi, dword ptr [esp + 0x18]; push 1;` |
-| r_material_load_obj.obj | 0x1001a030 | 176 | Material_ParseShaderArgumentArray | `push ebx; push esi; mov esi, ecx; mov ebx, eax; mov eax, dword ptr [esi + 0xc]; cmp word p` |
 | r_material_load_obj.obj | 0x1001a4c0 | 720 | Material_DefaultShaderArgument | `sub esp, 0x7c; mov eax, dword ptr [esp + 0x84]; push ebx; xor ebx, ebx; push ebp; push esi` |
 | r_material_load_obj.obj | 0x1001a790 | 16 | Material_DefaultShaderArgument | `mov dword ptr [eax], 0x101948ec; ret ` |
 | r_material_load_obj.obj | 0x1001a7a0 | 16 | Material_DefaultShaderArgument | `ret ` |
@@ -310,23 +296,20 @@
 | r_model.obj | 0x1001ec20 | 336 | R_SkinVectorSse | `sub esp, 0x30; push ebx; mov ebx, dword ptr [eax + 0xc]; movsx eax, word ptr [eax + 2]; te` |
 | r_model.obj | 0x1001ed70 | 144 | R_SkinVectorSse | `push ebp; mov ebp, esp; and esp, 0xfffffff0; sub esp, 0x54; push ebx; mov ebx, dword ptr [` |
 | r_model.obj | 0x1001ee00 | 112 | R_SkinVectorSse | `sub esp, 0x28; push ebx; mov ebx, dword ptr [eax + 0xc]; movsx eax, word ptr [eax + 2]; ad` |
-| r_model.obj | 0x1001f000 | 48 | R_GetRigidTransform | `movsx edx, word ptr [ecx + 6]; mov eax, dword ptr [esp + 0x10]; mov ecx, dword ptr [esp + ` |
-| r_model.obj | 0x1001f030 | 208 | R_GetRigidTransform | `mov ecx, dword ptr [edx + 8]; test ecx, ecx; push ebx; push esi; mov esi, eax; mov eax, dw` |
-| r_model.obj | 0x1001f100 | 32 | R_GetRigidTransform | `push eax; push ecx; call dword ptr [0x101d4bb4]; push eax; call dword ptr [0x101d4b68]; ad` |
-| r_model.obj | 0x1001f120 | 352 | R_GetRigidTransform | `push ecx; push ebp; mov ebp, dword ptr [esp + 0x10]; push esi; push edi; mov edi, eax; mov` |
-| r_model.obj | 0x1001f280 | 32 | R_GetRigidTransform | `mov ecx, dword ptr [eax + 0x38]; mov eax, dword ptr [ecx + 0x34]; test eax, eax; je 0x1001` |
-| r_model.obj | 0x1001f2a0 | 480 | R_GetRigidTransform | `push ecx; push ebx; push ebp; mov ebp, dword ptr [esp + 0x1c]; push edi; push eax; mov edi` |
-| r_model.obj | 0x1001f480 | 80 | R_GetRigidTransform | `push esi; mov esi, ecx; mov ecx, dword ptr [edi]; cmp ecx, 5; je 0x1001f4bc; cmp ecx, 4; j` |
-| r_model.obj | 0x1001f4d0 | 80 | R_GetRigidTransform | `push ebx; push esi; shl eax, 6; mov esi, ecx; mov ecx, dword ptr [edi]; add eax, edx; cmp ` |
-| r_model.obj | 0x1001f520 | 144 | R_GetRigidTransform | `sub esp, 0x50; push ebx; push ebp; mov ebp, dword ptr [esp + 0x5c]; lea ebx, [esp + 0x17];` |
-| r_model.obj | 0x1001f5b0 | 96 | R_GetRigidTransform | `mov eax, dword ptr [esp + 4]; push ebx; movzx ebx, byte ptr [eax + 0x1d]; push esi; xor es` |
-| r_model.obj | 0x1001f610 | 160 | R_GetRigidTransform | `push ecx; push ebp; mov ebp, dword ptr [esp + 0xc]; lea ebp, [ebp + ebp*4]; shl ebp, 0xd; ` |
-| r_model.obj | 0x1001f6b0 | 48 | R_GetRigidTransform | `cmp dword ptr [ecx], 0; jne 0x1001f6b9; mov eax, dword ptr [eax + 4]; ret ; mov edx, dword` |
-| r_model.obj | 0x1001f6e0 | 16 | R_GetRigidTransform | `mov dword ptr [eax + 0xc], 4; ret ` |
-| r_model.obj | 0x1001f6f0 | 896 | R_GetRigidTransform | `push ebp; mov ebp, esp; and esp, 0xfffffff8; sub esp, 0xeb4; push ebx; mov ebx, dword ptr ` |
-| r_model.obj | 0x1001fa70 | 768 | R_GetRigidTransform | `sub esp, 0xfac; push ebp; mov ebp, dword ptr [esp + 0xfb4]; mov eax, dword ptr [ebp + 0xc]` |
-| r_model.obj | 0x1001fd70 | 32 | R_GetRigidTransform | `cmp dword ptr [eax], 1; jne 0x1001fd82; push -1; push eax; push ecx; call 0x1001f6f0; add ` |
-| r_model.obj | 0x1001fd90 | 16 | R_GetRigidTransform | `push eax; push ecx; push edx; call 0x1001f6f0; add esp, 0xc; ret ` |
+| r_model.obj | 0x1001f030 | 208 | R_SkinRigidSurface | `mov ecx, dword ptr [edx + 8]; test ecx, ecx; push ebx; push esi; mov esi, eax; mov eax, dw` |
+| r_model.obj | 0x1001f100 | 32 | R_SkinRigidSurface | `push eax; push ecx; call dword ptr [0x101d4bb4]; push eax; call dword ptr [0x101d4b68]; ad` |
+| r_model.obj | 0x1001f120 | 352 | R_SkinRigidSurface | `push ecx; push ebp; mov ebp, dword ptr [esp + 0x10]; push esi; push edi; mov edi, eax; mov` |
+| r_model.obj | 0x1001f2a0 | 480 | Material_UsesDx7GridLighting | `push ecx; push ebx; push ebp; mov ebp, dword ptr [esp + 0x1c]; push edi; push eax; mov edi` |
+| r_model.obj | 0x1001f480 | 80 | Material_UsesDx7GridLighting | `push esi; mov esi, ecx; mov ecx, dword ptr [edi]; cmp ecx, 5; je 0x1001f4bc; cmp ecx, 4; j` |
+| r_model.obj | 0x1001f4d0 | 80 | Material_UsesDx7GridLighting | `push ebx; push esi; shl eax, 6; mov esi, ecx; mov ecx, dword ptr [edi]; add eax, edx; cmp ` |
+| r_model.obj | 0x1001f520 | 144 | Material_UsesDx7GridLighting | `sub esp, 0x50; push ebx; push ebp; mov ebp, dword ptr [esp + 0x5c]; lea ebx, [esp + 0x17];` |
+| r_model.obj | 0x1001f5b0 | 96 | Material_UsesDx7GridLighting | `mov eax, dword ptr [esp + 4]; push ebx; movzx ebx, byte ptr [eax + 0x1d]; push esi; xor es` |
+| r_model.obj | 0x1001f610 | 160 | Material_UsesDx7GridLighting | `push ecx; push ebp; mov ebp, dword ptr [esp + 0xc]; lea ebp, [ebp + ebp*4]; shl ebp, 0xd; ` |
+| r_model.obj | 0x1001f6e0 | 16 | R_GetSceneEntDObj | `mov dword ptr [eax + 0xc], 4; ret ` |
+| r_model.obj | 0x1001f6f0 | 896 | R_GetSceneEntDObj | `push ebp; mov ebp, esp; and esp, 0xfffffff8; sub esp, 0xeb4; push ebx; mov ebx, dword ptr ` |
+| r_model.obj | 0x1001fa70 | 768 | R_GetSceneEntDObj | `sub esp, 0xfac; push ebp; mov ebp, dword ptr [esp + 0xfb4]; mov eax, dword ptr [ebp + 0xc]` |
+| r_model.obj | 0x1001fd70 | 32 | R_GetSceneEntDObj | `cmp dword ptr [eax], 1; jne 0x1001fd82; push -1; push eax; push ecx; call 0x1001f6f0; add ` |
+| r_model.obj | 0x1001fd90 | 16 | R_GetSceneEntDObj | `push eax; push ecx; push edx; call 0x1001f6f0; add esp, 0xc; ret ` |
 | r_model.obj | 0x1001ffb0 | 16 | R_ExpandBoneBounds | `mov dword ptr [eax + 0xc], 2; ret ` |
 | r_model.obj | 0x10020350 | 32 | R_ReleaseModel | `push 1; push 0; push 0x10020330; push 1; call dword ptr [0x101d4b80]; add esp, 0x10; ret ` |
 | r_model.obj | 0x10020370 | 16 | R_ReleaseModel | `push eax; call dword ptr [0x101d49d4]; add esp, 4; ret ` |
@@ -384,12 +367,9 @@
 | rb_fog.obj | 0x10023760 | 16 | R_ConvertPackedColorToFloat | `push edi; mov ecx, 0xd; xor eax, eax; mov edi, edx; rep stosd dword ptr es:[edi], eax; pop` |
 | rb_fog.obj | 0x10023770 | 16 | R_ConvertPackedColorToFloat | `push edi; mov ecx, 0x1d; xor eax, eax; mov edi, edx; rep stosd dword ptr es:[edi], eax; po` |
 | rb_fog.obj | 0x10023780 | 336 | R_ConvertPackedColorToFloat | `mov edx, dword ptr [esp + 4]; fld dword ptr [0x1019bc84]; mov eax, dword ptr [0x10678510];` |
-| r_scene.obj | 0x100238d0 | 80 | R_CompareDumpSceneEntities | `mov ecx, dword ptr [0x1067850c]; push ebp; mov ebp, dword ptr [esp + 8]; push esi; lea esi` |
-| r_scene.obj | 0x10023920 | 464 | R_CompareDumpSceneEntities | `mov eax, 0x2028; call 0x100f8830; mov ecx, dword ptr [0x1067850c]; xor eax, eax; test ecx,` |
+| r_scene.obj | 0x10023920 | 464 | R_CountMatchingSceneEntities | `mov eax, 0x2028; call 0x100f8830; mov ecx, dword ptr [0x1067850c]; xor eax, eax; test ecx,` |
 | r_scene.obj | 0x10023cc0 | 176 | R_AddStaticModelToScene | `push ebx; call 0x10023af0; mov ebx, eax; test ebx, ebx; jge 0x10023cd0; xor eax, eax; pop ` |
-| r_scene.obj | 0x10023db0 | 224 | R_SkinGfxEntity | `push edi; mov edi, dword ptr [esp + 8]; cmp dword ptr [edi], 1; jg 0x10023dcf; mov eax, dw` |
 | r_scene.obj | 0x10023ed0 | 256 | R_ResetEntries | `mov al, byte ptr [0x101d4d00]; test al, al; je 0x10023fc4; push esi; mov esi, dword ptr [e` |
-| r_scene.obj | 0x10024050 | 48 | R_AddLightToScene | `sub esp, 8; movzx eax, al; movzx ecx, cl; sub ecx, eax; mov dword ptr [esp], ecx; mov dwor` |
 | r_scene.obj | 0x10024280 | 48 | R_UpdateFrameFog | `mov eax, dword ptr [0x101ce814]; fld dword ptr [eax + 8]; fld dword ptr [0x1019bde8]; fsub` |
 | r_scene.obj | 0x100242b0 | 48 | R_UpdateFrameFog | `mov eax, dword ptr [esp + 0xc]; mov ecx, dword ptr [esp + 8]; mov edx, dword ptr [esp + 4]` |
 | r_scene.obj | 0x100242e0 | 48 | R_UpdateFrameFog | `lea edx, [esi + 0xc8]; lea eax, [esi + 0x88]; lea ecx, [esi + 0x48]; call 0x1005a880; lea ` |
@@ -502,12 +482,11 @@
 | r_xsurface_optimize.obj | 0x1002dec0 | 16 | XModelOptimize | `add eax, -0x80; shl eax, 4; add eax, 0x1072da00; ret ` |
 | r_xsurface_optimize.obj | 0x1002ded0 | 64 | XModelOptimize | `push esi; push edi; mov esi, eax; mov eax, dword ptr [0x1072d9bc]; mov edi, ecx; cmp eax, ` |
 | r_xsurface_optimize.obj | 0x1002df10 | 48 | XModelOptimize | `push ecx; cmp dword ptr [0x1072d9cc], esi; je 0x1002df36; mov eax, dword ptr [0x1072d9d0];` |
-| rb_backend.obj | 0x1002dfa0 | 48 | RB_TessOverflow | `push ecx; mov ecx, dword ptr [0x1072d9d4]; add ecx, eax; cmp ecx, 0x154a; jg 0x1002dfbf; m` |
-| rb_backend.obj | 0x1002dfd0 | 16 | RB_TessOverflow | `mov dword ptr [0x1073055c], eax; ret ` |
-| rb_backend.obj | 0x1002dfe0 | 32 | RB_TessOverflow | `push esi; mov esi, eax; cmp dword ptr [0x1076674c], esi; je 0x1002dff0; call 0x1003ecb0; p` |
-| rb_backend.obj | 0x1002e000 | 16 | RB_TessOverflow | `movzx eax, word ptr [ecx + 2]; add eax, ecx; ret ` |
-| rb_backend.obj | 0x1002e010 | 16 | RB_TessOverflow | `mov eax, dword ptr [ecx]; movzx edx, word ptr [eax + 2]; add edx, eax; mov dword ptr [ecx]` |
-| rb_backend.obj | 0x1002e020 | 864 | RB_TessOverflow | `mov eax, dword ptr [0x1072d9d0]; sub esp, 0x9c; test eax, eax; push ebx; push ebp; push es` |
+| rb_backend.obj | 0x1002dfd0 | 16 | RB_CheckOverflow | `mov dword ptr [0x1073055c], eax; ret ` |
+| rb_backend.obj | 0x1002dfe0 | 32 | RB_CheckOverflow | `push esi; mov esi, eax; cmp dword ptr [0x1076674c], esi; je 0x1002dff0; call 0x1003ecb0; p` |
+| rb_backend.obj | 0x1002e000 | 16 | RB_CheckOverflow | `movzx eax, word ptr [ecx + 2]; add eax, ecx; ret ` |
+| rb_backend.obj | 0x1002e010 | 16 | RB_CheckOverflow | `mov eax, dword ptr [ecx]; movzx edx, word ptr [eax + 2]; add edx, eax; mov dword ptr [ecx]` |
+| rb_backend.obj | 0x1002e020 | 864 | RB_CheckOverflow | `mov eax, dword ptr [0x1072d9d0]; sub esp, 0x9c; test eax, eax; push ebx; push ebp; push es` |
 | rb_backend.obj | 0x1002e470 | 224 | RB_Set3D | `push esi; mov esi, ecx; mov ecx, dword ptr [0x101ce708]; mov edx, dword ptr [ecx + 8]; mov` |
 | rb_backend.obj | 0x1002e550 | 240 | RB_Set3D | `push esi; mov esi, ecx; mov ecx, dword ptr [0x101ce708]; mov edx, dword ptr [ecx + 8]; mov` |
 | rb_backend.obj | 0x1002e640 | 256 | RB_Set3D | `mov ecx, dword ptr [0x101ce708]; cmp dword ptr [ecx + 8], 2; jne 0x1002e6b3; fld dword ptr` |
