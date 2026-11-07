@@ -219,6 +219,18 @@ static int R_CompareDumpSceneEntities(const void *e0, const void *e1)
     }
 }
 
+// Name unconfirmed; PINNED out-of-line copy 100238d0.
+int R_CountMatchingSceneEntities(const int *sortedIndices, int entIndex)
+{
+    int nextIndex;
+    for (nextIndex = entIndex + 1; nextIndex != scene.def.entityCount; ++nextIndex)
+    {
+        if (R_CompareDumpSceneEntities(&sortedIndices[entIndex], &sortedIndices[nextIndex]))
+            break;
+    }
+    return nextIndex - entIndex;
+}
+
 // Name HYPOTHESIS (inlined into R_RenderScene on Mac; comparator name is from Mac STABS).
 void R_DumpSceneEntities()
 {
@@ -227,7 +239,6 @@ void R_DumpSceneEntities()
     GfxEntity *ent;
     GfxSceneEntity *sceneEnt;
     int entIndex;
-    int nextIndex;
     int count;
 
     typeNames[0] = "dobj";
@@ -247,12 +258,7 @@ void R_DumpSceneEntities()
     {
         ent = &frontEndDataOut->entities[sortedIndices[entIndex]];
         sceneEnt = &scene.sceneEnts[sortedIndices[entIndex]];
-        for (nextIndex = entIndex + 1; nextIndex != scene.def.entityCount; ++nextIndex)
-        {
-            if (R_CompareDumpSceneEntities(&sortedIndices[entIndex], &sortedIndices[nextIndex]))
-                break;
-        }
-        count = nextIndex - entIndex;
+        count = R_CountMatchingSceneEntities(sortedIndices, entIndex);
         Com_Printf("%3i: %-8s: ", count, typeNames[ent->reType]);
         switch (ent->reType)
         {

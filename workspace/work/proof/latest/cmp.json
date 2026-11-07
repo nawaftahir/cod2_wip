@@ -5218,6 +5218,14 @@
 ]
 },
 {
+"name": "?R_CountMatchingSceneEntities@@YAHPBHH@Z",
+"obj": "r_scene.obj",
+"size": 68,
+"hits": [
+"0x100238d0"
+]
+},
+{
 "name": "?R_DumpSceneEntities@@YAXXZ",
 "obj": "r_scene.obj",
 "size": 464,

@@ -1,3 +1,7 @@
+# R_CountMatchingSceneEntities out-of-line helper match - 2026-11-07
+
+R_CountMatchingSceneEntities (retail 100238d0, 80 bytes): restored out-of-line helper in r_scene.cpp matching retail 100238d0 exactly (80 bytes, 100% byte-identical, why == []). Passes byte referee, binding referee and checkpoint regression. Net +1 bound function, same_file_offset_equal_bytes 251990 -> 252264 (+274 bytes).
+
 # RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
 
 RB_SetupPassDx7 (10039b40, retail 1124, ours 1104): probed semantic switch 0/1 cases in inlined RB_ApplyMaterialImageOverride (stays 1104, compiler optimizes out empty cases matching default), early return from case 0/1 (collapses pass loop into 937 bytes by dropping trailing sampler/texcoord setup), and pointer-incremented sampler iterator (stays 1104, strength-reduction arithmetic still generates 4-entry jump table and different loop frame). Restored.

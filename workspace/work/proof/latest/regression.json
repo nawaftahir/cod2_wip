@@ -1,8 +1,8 @@
 {
-  "functions": 783,
-  "bytes": 129815,
+  "functions": 784,
+  "bytes": 129883,
   "total": 253580,
-  "percent": 51.19291742250966,
+  "percent": 51.219733417461946,
   "baseline_lost": [],
   "gains": [
     {
@@ -1222,6 +1222,12 @@
       "bytes": 77,
       "name": "?R_ConvertPackedColorToFloat@@YAXPBEPAM@Z",
       "object": "rb_fog.obj"
+    },
+    {
+      "target": "0x100238d0",
+      "bytes": 68,
+      "name": "?R_CountMatchingSceneEntities@@YAHPBHH@Z",
+      "object": "r_scene.obj"
     },
     {
       "target": "0x10023b90",

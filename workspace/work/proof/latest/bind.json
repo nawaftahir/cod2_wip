@@ -2549,6 +2549,12 @@
 "obj": "r_scene.obj",
 "why": []
 },
+"?R_CountMatchingSceneEntities@@YAHPBHH@Z": {
+"t": "0x100238d0",
+"n": 68,
+"obj": "r_scene.obj",
+"why": []
+},
 "?R_UpdateFrameFog@@YAXXZ": {
 "t": "0x10024080",
 "n": 508,
