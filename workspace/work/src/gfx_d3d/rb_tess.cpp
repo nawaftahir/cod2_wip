@@ -489,8 +489,12 @@ static void RB_BuildSprite(const GfxEntity *ent, const float *radius)
             up[component] = upSin * view->axis[1][component] + upCos * view->axis[2][component];
         }
     }
-    unsigned int color = ent->materialRGBA[2] | (ent->materialRGBA[1] << 8)
-        | (ent->materialRGBA[0] << 16) | ((unsigned int)ent->materialRGBA[3] << 24);
+    GfxColor rgba;
+    rgba.array[2] = ent->materialRGBA[0];
+    rgba.array[1] = ent->materialRGBA[1];
+    rgba.array[0] = ent->materialRGBA[2];
+    rgba.array[3] = ent->materialRGBA[3];
+    unsigned int color = rgba.packed;
     float uv[4];
     RB_GetEntityAtlasCoords(ent, uv);
     if (r_rendererInUse->current.integer == 2)
@@ -600,8 +604,12 @@ void RB_TessOrientedQuad(const GfxEntity *ent)
             up[component] = upSin * right[component] + vertical[component] * upCos;
         }
     }
-    unsigned int color = ent->materialRGBA[2] | (ent->materialRGBA[1] << 8)
-        | (ent->materialRGBA[0] << 16) | ((unsigned int)ent->materialRGBA[3] << 24);
+    GfxColor rgba;
+    rgba.array[2] = ent->materialRGBA[0];
+    rgba.array[1] = ent->materialRGBA[1];
+    rgba.array[0] = ent->materialRGBA[2];
+    rgba.array[3] = ent->materialRGBA[3];
+    unsigned int color = rgba.packed;
     float uv[4];
     RB_GetEntityAtlasCoords(ent, uv);
     if (r_rendererInUse->current.integer == 2)
@@ -726,8 +734,12 @@ void RB_TessRailCore(const GfxEntity *ent)
     float z = ent->endpos[2] - ent->origin[2];
     float lengthSquared = z * z + y * y + x * x;
     float longitudinal = (float)(sqrt(lengthSquared) * 0.00390625f);
-    unsigned int color = ent->materialRGBA[2] | (ent->materialRGBA[1] << 8)
-        | (ent->materialRGBA[0] << 16) | ((unsigned int)ent->materialRGBA[3] << 24);
+    GfxColor rgba;
+    rgba.array[2] = ent->materialRGBA[0];
+    rgba.array[1] = ent->materialRGBA[1];
+    rgba.array[0] = ent->materialRGBA[2];
+    rgba.array[3] = ent->materialRGBA[3];
+    unsigned int color = rgba.packed;
     if (r_rendererInUse->current.integer == 2)
         RB_AddLineDx7(ent->origin, ent->endpos, r_railCoreWidth->current.value,
             color, 0.0f, 0.0f, 1.0f, longitudinal);
@@ -739,8 +751,12 @@ void RB_TessRailCore(const GfxEntity *ent)
 // PINNED 10041030: entity radius0 and the same signed frame atlas as sprites.
 void RB_TessLine(const GfxEntity *ent)
 {
-    unsigned int color = ent->materialRGBA[2] | (ent->materialRGBA[1] << 8)
-        | (ent->materialRGBA[0] << 16) | ((unsigned int)ent->materialRGBA[3] << 24);
+    GfxColor rgba;
+    rgba.array[2] = ent->materialRGBA[0];
+    rgba.array[1] = ent->materialRGBA[1];
+    rgba.array[0] = ent->materialRGBA[2];
+    rgba.array[3] = ent->materialRGBA[3];
+    unsigned int color = rgba.packed;
     float uv[4];
     RB_GetEntityAtlasCoords(ent, uv);
     if (r_rendererInUse->current.integer == 2)
@@ -775,8 +791,12 @@ static void RB_TessCylinder(const GfxEntity *ent)
     MakeNormalVectors(direction, right, up);
     int base = tess.vertexCount;
     GfxVertex *vertices = (GfxVertex *)tess.vertexData + base;
-    unsigned int color = ent->materialRGBA[2] | (ent->materialRGBA[1] << 8)
-        | (ent->materialRGBA[0] << 16) | ((unsigned int)ent->materialRGBA[3] << 24);
+    GfxColor rgba;
+    rgba.array[2] = ent->materialRGBA[0];
+    rgba.array[1] = ent->materialRGBA[1];
+    rgba.array[0] = ent->materialRGBA[2];
+    rgba.array[3] = ent->materialRGBA[3];
+    unsigned int color = rgba.packed;
     float inverseSegments = 1.0f / segments, coordinate = 0.0f;
     float sine, cosine;
     FastSinCos(inverseSegments * 6.2831855f, &sine, &cosine);
@@ -851,8 +871,12 @@ static void RB_TessCylinderDx7(const GfxEntity *ent)
     MakeNormalVectors(direction, right, up);
     int base = tess.vertexCount;
     GfxVertexDx7 *vertices = (GfxVertexDx7 *)tess.vertexData + base;
-    unsigned int color = ent->materialRGBA[2] | (ent->materialRGBA[1] << 8)
-        | (ent->materialRGBA[0] << 16) | ((unsigned int)ent->materialRGBA[3] << 24);
+    GfxColor rgba;
+    rgba.array[2] = ent->materialRGBA[0];
+    rgba.array[1] = ent->materialRGBA[1];
+    rgba.array[0] = ent->materialRGBA[2];
+    rgba.array[3] = ent->materialRGBA[3];
+    unsigned int color = rgba.packed;
     float inverseSegments = 1.0f / segments, coordinate = 0.0f;
     float sine, cosine;
     FastSinCos(inverseSegments * 6.2831855f, &sine, &cosine);

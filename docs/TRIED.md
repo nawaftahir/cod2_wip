@@ -1,3 +1,113 @@
+# r_bsp_load_obj.obj chunk sweep and 3 newly bound functions - 2026-11-07 (worker g8)
+
+Matched and bound 3 additional functions in `r_bsp_load_obj.cpp` (`why == []` in `bind.json`, net +3 bound functions: 2703 -> 2706, `same_file_offset_equal_bytes`: 251020 -> 251207, +187 B):
+- `R_SetDpvsPlaneSides` (`0x10001900`, 54 B): removed `inline` and matched positive-sign ternary formulation (`FloatAsInt(plane->coeffs[i]) > 0 ? (12 + i * 4) : (i * 4)`), matching all 54 bytes (`why == []`).
+- `R_GetDebugGroundLightColor` (`0x10003180`, 38 B): removed `static` and called from `R_LoadMiscModel` while preserving `Vector4Set` (`0x100018a0`) emission, matching all 38 bytes (`why == []`).
+- `R_LoadSunSettings` (`0x100037e0`, 45 B): removed `static` and removed `__declspec(noinline)` from `R_ParseSunLight`, matching all 45 bytes (`why == []`).
+Also achieved 100% byte match on `R_LoadMiscModel` (`0x100031b0`, 626 B, `hits: ['0x100031b0']`, blocked only on cross-TU `R_CreateStaticModel`).
+
+Remaining `r_bsp_load_obj.obj` chunks in `docs/CHUNKS.md` logged as not source-fixable:
+- `0x10001810` (`FloatAsInt`, 16 B) and `0x10001820` (`ByteToDir`, 48 B): `FloatAsInt` is <20B (`cmp.py` threshold); `ByteToDir` differs in `com_math.h` register allocation.
+- `0x10001b10` (`R_LoadLayeredMaterials`, 640 B), `0x100022a0` (`R_CopyLightmap`, 240 B), `0x10002390` (`R_BuildLightmapMergability`, 480 B), `0x10002570` (`R_LoadLightmaps`, 784 B): register allocation / instruction scheduling differences.
+- `0x10002880`, `0x10002900`, `0x10002960` (`R_ParseEntities`, 2112 B): LTCG custom register convention and loop register allocation differences.
+- `0x10003430` (`R_ParseParams`, 496 B), `0x10003990` (`R_LoadPrimaryLights`, 336 B), `0x10003ae0` (`R_LoadLightRegions`, 288 B): register allocation / stack frame layout differences.
+- `0x10003c00`, `0x10003c40`, `0x10003cc0`, `0x10003d20`: LTCG custom calling convention (`eax`/`ecx`) on static light helpers.
+- `0x10003d40` (`R_FinishLoadingAabbTrees_r`, 403 B) and `0x10003ee0` (`R_LoadAabbTrees`, 164 B): `R_LoadAabbTrees` is 100% byte-matched (`hits: ['0x10003ee0']`), blocked only on `R_FinishLoadingAabbTrees_r` which has a 1-byte register/SIB difference at `+0x106` (`mov ecx, [esi+0x2c]; add ecx, edi` vs `mov eax, [esi+0x2c]; lea ecx, [edi+eax]`).
+- `0x10003f90` (`R_LoadBsp`, 240 B), `0x10004170` (`R_LoadPortals`, 400 B), `0x10004300` (`R_LoadCullGroups`, 224 B), `0x10004430` (`R_LoadOccluders`, 480 B), `0x10004610` (`R_LoadWorld`, 144 B), `0x100046a0` (`R_LoadWorldInternal`, 2288 B): register allocation / frame layout differences or blocked on callees.
+# r_image.obj chunk sweep - 2026-11-07 (worker g9)
+
+Swept all 26 `r_image.obj` chunks in `docs/CHUNKS.md` (lines 113–138). All remaining chunks in `r_image.cpp` belong to non-source-fixable classes or are blocked by cross-TU callees / slice-based unit tests:
+- `0x1000c7b0` (`Vector2Copy`, 16 B), `0x1000ddf0` (`Image_AllocTempMemory`, 16 B), `0x1000de00` (`Image_FreeTempMemory`, 16 B): <20B helpers below `cmp.py` 20-byte indexing threshold (with LTCG `eax` register convention on the temp memory wrappers).
+- `0x1000c8e0` (`R_HashAssetName`, 48 B) and `0x1000c970` (`Image_GetMipmapResolution`, 64 B): cross-TU helpers owned by `r_utils.obj` / `r_image_load_obj.obj` placed near `r_image.obj` in retail LTCG layout.
+- `0x1000c9d0` (`Image_TrackFullscreenTexture`, 149 B): 160 B slot matches except 3 instructions at `+0x10` (`mov eax, [vidConfig.width]; mov ecx, esi; dec ecx` vs retail `mov eax, esi; dec eax; mov eax, [vidConfig.width]`); calling `Image_GetPlatformScreenWidth`/`Height` causes loop strength reduction (`or ecx, -1`) expanding the function to 224 B. Restored.
+- `0x1000cba0` (`Image_SetupFromFile`, 48 B), `0x1000ccb0` (`Image_AllocProg`, 89 B), `0x1000d3f0` (`Image_UpdatePicmip`, 82 B): LTCG custom register calling conventions (`eax`/`edx`/`ecx`) and out-of-line calls to `Image_GetAvailableHashLocation` (`0x1000cb40`), which must remain `static` in `r_image.cpp` per `work/tests/test_image_shutdown.py`.
+- `0x1000cd10` (`R_ShutdownImages`, 336 B) and `0x1000d200` (`Image_Register`, 94 B): exact size matches differing only in register allocation (`al` vs `cl` in inlined `R_HashAssetName`; `ebx` vs `edi` in `Image_Register`).
+- `0x1000d450` (`Image_Reload`, 42 B) and `0x1000dd70` (`R_LoadWaterSetup`, 122 B): 100% byte-matched (`hits` in `cmp.json`), blocked only on cross-TU callees `Image_LoadFromFile` (`r_image_load_obj.obj`) and `R_WatersEquivalent` (`r_utils.obj`).
+- `0x1000d510` (`R_InitRawImage`, 80 B), `0x1000d560` (`R_RegisterBuiltinImages`, 276 B), `0x1000d880` (`R_InitImages`, 124 B): `R_InitRawImage` and `R_InitImages` inline `static int Image_GetAvailableHashLocation` instead of calling it out-of-line (`test_image_shutdown.py` slices `static int Image_GetAvailableHashLocation`); `R_RegisterBuiltinImages` differs only in `mov ebx, 1; push ebx` vs `mov bl, 1; push 1` from LTCG `bl` parameter convention on `Image_Register`.
+- `0x1000d680` (`R_SetPicmip`, 510 B): 510 B matches across all branches except 1 instruction at `+0x169` (`mov [imageGlobals.picmip], edi` vs 5-byte `mov [imageGlobals.picmip], eax`); probed chained assignment `imageGlobals.picmip = picmip = minPicmip` and direct `imageGlobals.picmip` use (flips `eax`/`ecx` allocation). Restored.
+- `0x1000de10` (`R_DownsampleMipMapBilinear`, 352 B): LTCG custom register convention (`eax`=`dst`, `edx`=`srcWidth`, `ecx`=`texelPitch`).
+- `0x1000e140`..`0x1000e550` (`std::sort` template helpers, 8 chunks): <20B template helpers (`_Dist_type`, `_Val_type`, `_Iter_cat`, `_Rotate`) below `cmp.py` indexing threshold or duplicate COMDAT hits (`pair`, `iter_swap`, `swap`).
+
+# Material_ParseSamplerSource match - 2026-11-07
+
+Material_ParseSamplerSource (retail 10019620, 211 B; chunk 10): Com_ParseInternal reproduces inlined first token parsing while preserving out-of-line Com_Parse on material name path. 211 bytes match 100% at retail 10019620. Referees and all 2526 checkpoints passed.
+
+# Material_CodeSamplerSource_r probe - 2026-11-07
+
+Material_CodeSamplerSource_r 100194f0/303 (chunk 9): probed Com_ParseInternal and while(1) loop structures. Compiler duplicates the loop condition and clones exit paths via jump threading, emitting 352 B vs retail 303 B. Non-source-fixable block layout class. Restored.
+
+# Material_LoadPassStateMap match - 2026-11-07
+
+Material_LoadPassStateMap (retail 10018ee0, 161 B; chunk 7): Com_ParseInternal reproduces inlined parse token unget check and call to Com_ParseExt. All 161 bytes match 100% at retail 10018ee0. Referees and all 2526 checkpoints passed. same_file_offset_equal_bytes increased from 251990 to 253184 (+1194 B).
+
+# Material_ParseRuleSet probe - 2026-11-07
+
+Material_ParseRuleSet 100188e0/505 (chunk 6): Com_ParseInternal brings inner parsing loop into byte-level alignment up to call site. Caller argument passing to Material_ParseRuleSetCondition requires pushed 'text' arg decided by unverified callee convention (LTCG callee ABI), and return path block layout differs. Restored per non-source-fixable callee ABI rule.
+
+# Material_ParseRuleSetCondition probe - 2026-11-07
+
+Material_ParseRuleSetCondition 100185b0/346 (chunk 5): Com_ParseInternal inlines token parsing and brings candidate from 192 B to 336 B vs retail 346 B. Remaining differences belong to non-source-fixable classes: retail aligns the do-while loop to 16-byte boundary with 7-byte lea esp,[esp] NOP padding, uses edx/ecx register allocation swap in token unget restoration, and differs in return block layout. Restored.
+# r_model.obj chunk sweep and 3 newly bound functions - 2026-11-07 (worker g3)
+
+Matched and bound 3 additional functions in `r_model.cpp` (`why == []` in `bind.json`, net +3 bound functions: 2688 -> 2691):
+- `R_SkinRigidSurface` (`0x1001f000`, 37 B): extracted non-static wrapper calling `R_GetRigidTransform((const DObjSkelMat *)((const byte *)bone + xsurf->boneOffset), origin, axis, scale, boneAxis)`.
+- `Material_UsesDx7GridLighting` (`0x1001f280`, 24 B): extracted non-static helper returning `byte` (`technique->passArray.dx7[0].gridLighting`) and inlined into `R_PreSkinStaticSurface`.
+- `R_GetSceneEntDObj` (`0x1001f6b0`, 34 B): extracted non-static helper selecting `sceneEnt->u.obj` (`reType == 0`) or binding `sceneEnt->u.model` to `rg.modelDObj`, inlined into `R_UpdateXModelBounds`.
+
+Remaining `r_model.obj` chunks in `docs/CHUNKS.md` logged as not source-fixable:
+- `0x1001d800`..`0x1001d820`, `0x1001f100`, `0x1001f6e0`, `0x1001fd90`, `0x1001ffb0`, `0x10020370`, `0x100203d0`..`0x100203f0`, `0x10020520`: <20B helpers below `cmp.py` 20-byte indexing threshold.
+- `0x1001da80` (`R_XModelDebugBoxes`), `0x1001de60` (`R_XModelDebugAxes`), `0x1001e220` (`R_DebugModelSurfaces`): register allocation differences (ebx vs edi for ent/sceneEnt).
+- `0x1001e260`..`0x1001ee00` (`R_TransformRigidVertex*`, `R_BlendSkinPosition`, `R_SkinXSurface*`): previously logged x87 / SSE register scheduling and frame differences.
+- `0x1001f030` (`R_SkinXSurfaceSkinned`), `0x1001f480` (`R_SkinXModelSurface`), `0x1001f4d0` (`R_SkinXModelCompoundSurface`), `0x1001f520` (`R_SkinRigidXModelCmd`), `0x1001f5b0` (`R_ConvertSurfaceBones`), `0x1001f610` (`R_SkinXModelCmd`): LTCG custom register convention difference on `R_SkinXSurfaceSkinned` (`ecx, edx` vs retail `eax, edx`) and `R_ConvertSurfaceBones`.
+- `0x1001f120` (`R_PreSkinXSurface`), `0x1001f2a0` (`R_PreSkinStaticSurface`), `0x1001f6f0` (`R_SkinXModel`), `0x1001fa70` (`R_SkinSceneDObj`), `0x1001fd70` (`R_SkinSceneEnt`), `0x10020400` (`R_LoadXModelSkins`): register allocation / stack frame layout differences and cross-TU `R_ProcessFrontendCmdInternal` (`r_rendercmds.cpp`) calling convention.
+- `0x10020350` (`R_ReleaseAllModels`), `0x100203a0` (`R_FinishLoadingModels`): already 100% byte-matched (`hits` include `0x10020350` and `0x100203a0`), duplicate COMDAT/small-body hits with `r_init.obj`.
+# r_scene.obj chunk sweep and LerpByte match - 2026-11-07
+
+LerpByte (retail 10024050, 37 bytes): extracted non-static helper `byte LerpByte(byte from, byte to, float frac)` using `I_fround` and inlined into `R_GetVisLightsMask` / `R_LerpEntityData` in `r_scene.cpp`. Matches retail 0x10024050 byte-for-byte (37 bytes, why == [], net +2 bound functions on gfx/g4 alongside R_CountMatchingSceneEntities).
+
+Remaining r_scene.obj chunks in docs/CHUNKS.md:
+- 0x100219c0..0x10021fd0 (`R_UncullAllSceneEntities` .. `R_LinkBModelEntity`): already emitted in `r_dpvs.cpp` / `r_scene.cpp`; chunks in CHUNKS.md are either <20B helpers (`0x10021c10`, `0x10021e30`, `0x10022d20`, `0x100243d0`) below `cmp.py` indexing threshold or cross-TU boundary functions (`r_dpvs.obj` / `r_scene.obj`) where register allocation / inlining differs.
+- 0x10022a60 (`R_AddBModelSurfacesCamera`, 528 B) and 0x10022c70 (`R_AddBModelSurfaces`, 176 B): register allocation / loop induction variable differences (esi/edi/ebx) in surface bounds / technique checks; non-source-fixable.
+- 0x10022d30..0x100238a0 (`R_UpdateSceneEntBounds`, `R_SkinSceneEntities`, `R_ClearScene`, `R_GetDefaultNearClip`): register allocation / x87 stack scheduling differences or blocked on external callees (`R_UpdateXModelBounds`, `R_SkinGfxEntity`).
+- 0x10024080 (`R_UpdateEntityLighting`, 944 B) and 0x100244b0 (`R_RenderScene`, 1968 B): large multi-loop functions with register allocation and frame layout differences (`RB_GetLightingAtPoint` / `R_SetupViewProjection` inlining context); non-source-fixable.
+
+# R_AddRefEntityToScene and R_ShortSortDrawSurfs linkage / ABI matches - 2026-11-07
+
+R_AddRefEntityToScene (retail 10023db0, 209 bytes) and R_ShortSortDrawSurfs (retail 10024460, 70 bytes): removing static from R_CopyRefEntityToScene restored standard 3-stack-argument ABI in caller R_AddRefEntityToScene, achieving 100% byte match (209 bytes at 0x10023db0). Removing static from R_ShortSortDrawSurfs gave it a distinct symbol in the map and verified extent at 0x10024460 (70 bytes, 100% byte-identical, why == []). Passes full gate and checkpoint regression.
+
+# R_AddModelRefEntity / R_DumpSceneEntities register allocation probes - 2026-11-07
+
+R_DumpSceneEntities (retail 10023920, 464 bytes): exactly 464 bytes in both ours and retail. Differs only in prologue register shrink-wrapping across qsort (push ebp before qsort vs after) and register choice (ebx/edi for ent/sceneEnt). Non-source-fixable register allocation class.
+
+R_AddModelRefEntity (retail 10023cc0, 128 bytes): emits 129 bytes (padded to 144) vs retail 128 bytes. The single 1-byte difference is opcode 0x10: retail emits 5-byte A1 mov eax, [scene.def.entities] while ours emits 6-byte 8B 0D mov ecx, [scene.def.entities]. All other instructions through ret match identically. Probed sceneEnt declaration ordering and pointer arithmetic. Restored. Non-source-fixable register allocation class.
+
+# R_CountMatchingSceneEntities out-of-line helper match - 2026-11-07
+
+R_CountMatchingSceneEntities (retail 100238d0, 80 bytes): restored out-of-line helper in r_scene.cpp matching retail 100238d0 exactly (80 bytes, 100% byte-identical, why == []). Passes byte referee, binding referee and checkpoint regression. Net +1 bound function, same_file_offset_equal_bytes 251990 -> 252264 (+274 bytes).
+# r_init.obj chunk sweep and 9 newly bound functions - 2026-11-07 (worker g6)
+
+Matched and bound 9 additional functions in `r_init.cpp` (`why == []` in `bind.json`, net +9 bound functions: 2688 -> 2697):
+- `R_ReleaseAndSetNULL` (`0x10011420`, 41 B): removed `static` and implemented non-null `alwaysfails` Release loop + `ri.Printf(0, "%s (%s) released\\n", ...)` when `r_logFile->current.integer`.
+- `R_DestroyParticleCloudBuffer` (`0x10011e10`, 72 B): matched via `R_ReleaseAndSetNULL`.
+- `R_FinishAttachingToWindow` (`0x100120c0`, 60 B): bound once `R_CreateDevice` (`0x100128b0`) called it.
+- `R_ReleaseForShutdownOrReset` (`0x10012210`, 269 B): bound once `R_ShutdownHardware` (`0x10012db0`) and `R_ResetDevice` (`0x10013690`) matched.
+- `R_UpdateGpuSyncType` (`0x10012880`, 39 B): removed `static` and called from `R_CreateDevice` / `R_UpdateFrontEndDvarOptions`.
+- `R_SetupWindowParms` (`0x10012b90`, 133 B): extracted non-static `void R_SetupWindowParms(GfxWindowParms *wndParms)` at `0x10012b90`.
+- `R_ReduceWindowSettings` (`0x10012c20`, 91 B): extracted non-static `bool R_ReduceWindowSettings()` at `0x10012c20`.
+- `R_ShutdownHardware` (`0x10012db0`, 168 B): extracted `R_DestroyGameWindows` (`0x10012a90`), matched `R_ShutdownHardware` 100% and bound.
+- `R_ShutdownStreams` (`0x10013030`, 68 B): removed `static` from `R_ShutdownStreams` (68 B, `why == []`).
+Also achieved 100% byte matches (`hits` in `cmp.json`) on `R_SetUpWindow` (`0x10012ac0`, 64 B), `R_InitHardware` (`0x10012c80`, 289 B), and `R_ResetDevice` (`0x10013690`, 319 B).
+
+Remaining `r_init.obj` chunks in `docs/CHUNKS.md` logged as not source-fixable:
+- `0x10011640` (`R_StoreDirect3DCaps`, 960 B): 100% byte-matched (`hits: ['0x10011640']`), blocked only on external callee `R_CheckDxCaps` (`0x100114f0`).
+- `0x10011f00` (`R_ResetGamma`, 16 B): below `cmp.py` 20-byte indexing threshold; emitting out-of-line shifts downstream `.text` by 16B and unbinds `d3dx9:cassembler.obj` (`GetSemanticName`) extent.
+- `0x100123d0` (`R_EnumerateDisplayModes`, 741 B vs retail 738 B): 3-byte register allocation difference (`ebx` vs `edi` induction variable for `resolutions` array after `std::sort`).
+- `0x100128b0` (`R_CreateDevice`, 272 B): 100% byte-matched (`hits: ['0x100128b0']`), blocked only on `R_EnumerateDisplayModes` in caller `R_CreateDirect3D`.
+- `0x10012a90` (`R_DestroyGameWindows`, 48 B): <20B body (`19 B` before padding), below `cmp.py` 20-byte indexing threshold.
+- `0x100137d0` (`R_CanRecoverLostDevice`, 24 B vs retail 20 B): MSVC 7.1 emits `xor edx, edx; cmp eax, 0x88760868; setne dl; mov al, dl; ret` (24 B) instead of `cmp eax, 0x88760868; setne al; ret` (20 B) for both `static bool` and non-static `bool`.
+- `0x100137f0` (`R_RecoverLostDevice`, 201 B vs retail 203 B): 2-byte difference at `+0x0ab` where retail has `jmp +3; lea ecx, [ecx]` inside the inlined `R_FinishLoadingModels` tail.
+- `0x10013fd0`, `0x10014020`, `0x10014030`, `0x100141e0`, `0x10014370` (`std::sort` template helpers): already emitted at exact sizes (`iter_swap`, `swap`, `_Dist_type`, `_Val_type`, `_Iter_cat`, `_Rotate`); `iter_swap`/`swap` have duplicate COMDAT hits (`0x10013fd0`/`0x100141e0`) and `<20B` helpers are below `cmp.py` threshold.
+
 # RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
 
 RB_SetupPassDx7 (10039b40, retail 1124, ours 1104): probed semantic switch 0/1 cases in inlined RB_ApplyMaterialImageOverride (stays 1104, compiler optimizes out empty cases matching default), early return from case 0/1 (collapses pass loop into 937 bytes by dropping trailing sampler/texcoord setup), and pointer-incremented sampler iterator (stays 1104, strength-reduction arithmetic still generates 4-entry jump table and different loop frame). Restored.
@@ -4148,3 +4258,54 @@ the first two source terms emits the same code). Restored.
 RB_GetLightingAtPoint closer source (I_ffloor asm helper, unrolled axes, scalar cells)
 was reverted: the gate only accepts __asm in hash-reviewed files. Re-apply it with an
 owner-reviewed allow-list entry once the register residual is solved.
+RB_DrawSunBlindGlare MATCHED bytes (lead, 2026-11-06): color built as GfxColor byte
+array (3x light, dark), same fix as RB_DrawSunFlare; waits on RB_DrawStretchPic/RB_Set2D.
+RB_TestTransform 214/214: x4 printf multiply is float (fmul dword), /60.0f; only an
+add esp/fmul scheduling swap remains. Kept closer source.
+rb_tess entity color (6 fns): retail builds GfxColor bytes [2]=RGBA0,[1]=RGBA1,[0]=RGBA2,
+[3]=RGBA3 on the stack; applied to all six (RB_TessRailCore 59 -> 42 diffs). RailCore
+residual: retail keeps endpos/origin pointers in ebx/esi; VectorSubtract form is worse (176 B).
+RB_BlendSavedScreenCmd MATCHED (lead): alpha is float (float)pow(...); R_CullSceneEntities uses type <= 1 (callee convention residual).
+RB_Set2D 864/847: memset(&valid[1],0,3) adds a lea pointer temp (864); chained valid[1]=valid[2]=valid[3]=0 gives 880. Both rejected; zero-register class stays open.
+R_SkinGfxEntityCmd 10020ce0/12: ours inlines R_SkinGfxEntity (80 B) cross-TU; moving the wrapper to r_scene and __declspec(noinline) on the callee both keep 80 B. Retail calls it with the entity in edi. Inlining-decision class; restored.
+Image_ExpandBgr 1000f350/37 MATCHED (new source): retail keeps the BGR->BGRA loop as its own helper (KisakCOD name); Image_LoadBitmap calls it.
+RB_BenchmarkSeconds 10033090/48 MATCHED: parameter order is (start, end).
+Image_Load 10010ab0/43 MATCHED (new source, Mac name): $-builtin or alloc+load-from-file; Image_Register inlines the same logic in retail too.
+Material_ValidatePassArguments 1001c2f0 (208/196) + Material_ValidateTechniqueDx7 1001c3c0 (64/63): retail passes material in edi, ours ebx (callee register context).
+OLDNAMES spelling (stricmp/strnicmp/strlwr for the underscore forms, 22 sites): same-offset 248932 -> 248968 (+36), library binding unchanged; renderer CRT order is not driven by these. Reverted.
+RB_UpdateViewportConstants (retail 1003e690, 320 B; blocks RB_SetRenderTarget chain 1.3 KB): float pairs are arrays in memory (renderTargetSize/invRenderTargetSize/halfViewportSize/viewportCenter): 62 -> 41 diffs, same size. Residual: retail frame 0x34 (viewport at +0x24, height float at +8) vs ours 0x28, and the center/half arithmetic order at the end. /Op on rb_state is worse (82). Declaration order of viewport has no effect.
+R_FindSpawnVar 10002e40 MATCHED (Mac name): non-static, inlined into R_FloatForKey; Vec3ForKey/Vec4ForKeyHex keep their own inline loop (using the helper there loses them). Its out-of-line copy is emitted at its source position.
+R_LoadLightGridColors 100025d0 + R_LoadMaterials 10002690 MATCHED (KisakCOD names): restored from R_LoadWorldInternal inline code as non-static functions at their source positions, reading through a lump_t pointer.
+R_LoadLightmaps 1520/1568 (retail frame 0x218 vs 0x210, 418 diffs): retail calls Com_Memcpy directly (R_CopyLightmap inlined there); making R_CopyLightmap non-static does not get it inlined. Needs a dedicated pass.
+r_dpvs head helpers: R_DpvsPlaneDistToPoint (10005cb0) MATCHED, used at the portal vertex test. R_DpvsPlaneBoundsTest (10005cd0, Mac name; retail order b[s1]c1+b[s0]c0+b[s2]c2+c3) loses R_IsBoundsOutsideViewNoStack wherever it is used there; dropped for now.
+RB_CheckOverflow 1002dfa0/38 MATCHED (Chunk 01, Quake III/coduomp name): non-static helper emitted after RB_TessOverflow; RB_DrawStretchPic calls it inline; same-offset 251990 -> 252150 (+160 B).
+RB_SetCurrentFeedbackImage 1002dfd0/6 (Chunk 02): 6-byte body (mov [backEnd.currentFeedbackImage], eax; ret) has only 2 unmasked bytes (a3 ... c3); cmp.py requires >= 4 unmasked bytes for non-return functions to avoid false hits. Non-source-fixable binder threshold.
+RB_SetIndices 1002dfe0/18 (Chunk 03): 18-byte body (push esi; mov esi, eax; cmp [dxState.indexBuffer], esi; je; call RB_ChangeIndices; pop esi; ret) has 8 masked bytes (4 data reloc + 4 call disp), leaving 10 unmasked bytes (longest run 5 B); below cmp.py search threshold (len(lit) >= 8 or unmasked >= 12). Non-source-fixable binder threshold.
+GfxCmdHeader::Next 1002e000 / GfxRenderCommandExecState::Advance 1002e010 (Chunks 04, 05): 7-byte and 11-byte __thiscall member helpers in ecx (movzx eax, [ecx+2]; add eax, ecx; ret and mov eax, [ecx]; movzx edx, [eax+2]; add edx, eax; mov [ecx], edx; ret); inlined into callers across backend. Shared header methods; cross-TU risk. Logged.
+
+# r_material front-to-back pass - 2026-11-07 (worker g5)
+Material_LoadFile 10017940/50 MATCHED: unreferenced out-of-line helper (Mac 1.3 decompile name) to load material via FS_FOpenFileRead. Restored before std::sort templates in r_material.cpp; byte referee and regression pass, bound at 10017940 (why: []).
+Material_ClearLiterals (chunk 0x10016430, 16 B slot, 11 B code): probed out-of-line helper; compiler emits 11 bytes with relocation, which has only 7 unmasked bytes; fails cmp.py minimum leaf search threshold (>=8 unmasked bytes or >=12 unmasked for relocated leaves), so referee rejects. Restored.
+Material_Init (chunk 0x100173e0, 124 B): probed 3 variants (direct texture/constant/techniqueSet comparisons, non-static builtins). All 124 bytes of logic, constants, rep stosd, and calls match 100%; diff is compiler-generated push ecx / pop ecx 4-byte frame allocation. Non-source-fixable callee frame allocation. Restored.
+Material_Register (chunk 0x10017100, 240 B): confirmed push esi shrink-wrapping into if (!found) path is an LTCG non-source-fixable register/block scheduling residual.
+Material_ReloadTextures 10017640 (195 B) & Material_ReloadTextures_f 100178b0 (144 B): 100% byte matches; unbound solely because callee Image_LoadFromFile in r_image_load_obj.cpp is unbound.
+R_ApplyPicmip (chunk 0x10017730, 347 B): inlines cross-TU Image_UpdatePicmip from r_image.cpp; codegen depends on cross-TU /GL context.
+Remaining r_material chunks in CHUNKS.md (0x10016560, 0x10016590, 0x100169b0, 0x100169c0, 0x10016a80, 0x10016a90, 0x10016ba0, 0x10016bd0, 0x10016d40, 0x10016d60, 0x10016fe0, 0x100172d0, 0x100173a0, 0x10017460, 0x10017550, 0x100175f0, 0x10017620, 0x10017630, 0x10017d30, 0x10017f50, 0x10017f60, 0x10017f70, 0x10018070, 0x10018120, 0x10018130): either alignment padding, inlined helpers whose callers are already 100% matched/bound, or std::sort templates already bound.
+
+# r_shadowcookie front-to-back pass - 2026-11-07 (worker g10)
+R_EmitShadowCookieSurfs 10027190/27, R_ClearShadowReceiverTarget 100278f0/53, R_DrawShadowCookieOverlay 10027c80/116 MATCHED (+3 bound, 2703 -> 2706; same-offset 251020 -> 251652): restored out-of-line helpers R_EmitShadowCookieSurfs and R_ClearShadowReceiverTarget called by R_DrawShadowCookies, and hoisted size computation before MatrixIdentity44/R_AddCmdId9 in R_DrawShadowCookieOverlay.
+Remaining r_shadowcookie chunks in CHUNKS.md:
+- 0x100271b0 (R_SetShadowViewParms), 0x10027590 (R_AddShadowReceivers), 0x100276d0 (R_CreateShadowCookie), 0x10027930 (R_DrawShadowCookies), 0x10027f40 (R_BuildShadowCookieList): depend on shared GfxViewParms matrix field order in rb_backend.h / cross-TU R_GenerateShadowCookies caller in r_scene.cpp / register allocation.
+- 0x10027540 (R_IsShadowReceiverOutside, 69 B): base-pointer offset scheduling (`add ecx, 8` vs `add ecx, 4`).
+- 0x100278d0 (19 B): <20 B clear-screen helper below referee 20 B minimum.
+- 0x100280e0 (59 B, R_GenerateShadowCookies): calls R_BuildShadowCookieList with static register convention (`shadows` in `edi`), requiring cross-TU caller update in r_scene.cpp.
+- 0x10028120 (R_ResetShadowCookies, 35 B): dead array-init register setup (`mov edi, 0x10696bd0; xor ecx, ecx; mov eax, 8`) before constant stores.
+- 0x10028460, 0x10028480, 0x10028560, 0x10028650, 0x10028710, 0x10028780, 0x10028860, 0x10028920, 0x100289e0: <20 B std::sort iterator/pair/tag helpers or alignment tails.
+
+# r_rendercmds front-to-back pass - 2026-11-07 (worker g11)
+R_AllocViewParms 100210d0/35, R_GetCommandBuffer 10020e10/107, R_GrowCommandBuffer 10020e80/58, R_ClearModifiedGpuSyncDvars 10021d70/63, R_AddCmdDrawPoints 10022350/245, R_AddCmdDrawLines 10022450/245, R_AddCmdDrawTriangles 10022550/354 MATCHED (+7 newly bound functions, 2703 -> 2710).
+R_InitFrameBackendData 10021040/143: removing volatile from dx.dynamicBufferFrame matches size (143 B) and preamble, but hoists lea edx, [eax+219d0c] (s_cmdList = &frontEndDataOut->commands) before drawSurfCount..viewParmCount zero stores; restored.
+R_ProcessFrontendCmdInternal 10020be0/144 & R_AddFrontendCmd 10020ca0/16: making R_ProcessFrontendCmdInternal non-static emits custom LTCG register args (ecx, edx, eax) instead of retail stack args + 4-byte push ecx frame; restored.
+R_ShutdownBackendData 10020bd0/13, R_UpdateEffectsBolt 10020cb0/6, R_UpdateEffectsNonBolt 10020cc0/6, R_AddCmdTouchAllImages 100226c0/79: already 100% byte-matched to retail; unbound only due to leaf binder threshold / duplicate body at 100131b0.
+0x10021900 (16 B), 0x10021910 (16 B), 0x10021980 (80 B), 0x100219d0 (144 B), 0x10021a60 (128 B): unreferenced command helpers with custom LTCG register conventions (edx/ecx/eax, esi, ecx, ebx) that cannot be produced for uncalled C++ functions under /GL.
+R_AddCmdLightProperties 10021770/192: x87 float copy and specular alpha multiply scheduling residual (previously logged).

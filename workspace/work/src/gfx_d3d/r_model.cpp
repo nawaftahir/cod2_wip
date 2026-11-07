@@ -469,6 +469,16 @@ static void R_ExpandBoneBounds(const vec3_t *bounds, const float *origin,
     }
 }
 
+// PINNED 1001f6b0/34: select DObj or bind model to rg.modelDObj.
+const DObj *R_GetSceneEntDObj(const GfxSceneEntity *sceneEnt, const GfxEntity *ent)
+{
+    if (ent->reType == 0)
+        return sceneEnt->u.obj;
+    DObj *obj = rg.modelDObj;
+    ri.DObjSetModel(obj, sceneEnt->u.model);
+    return obj;
+}
+
 void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent)
 {
     DSurface_s surfaces[64];
@@ -483,14 +493,7 @@ void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent)
         while (sceneEnt->cullState < 2) {}
         return;
     }
-    const DObj *obj;
-    if (ent->reType == 0)
-        obj = sceneEnt->u.obj;
-    else
-    {
-        obj = rg.modelDObj;
-        ri.DObjSetModel((DObj *)obj, sceneEnt->u.model);
-    }
+    const DObj *obj = R_GetSceneEntDObj(sceneEnt, ent);
     if (ri.DObjBad(obj))
     {
         if (developer->current.integer)
@@ -792,6 +795,17 @@ extern const dvar_t *sys_SSE;
 extern const dvar_t *r_sse_skinning;
 extern DxGlobals dx;
 
+void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out);
+void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin, const vec3_t *axis, float scale, vec3_t *out);
+
+// PINNED 1001f000/37: rigid surface transform wrapper.
+void R_SkinRigidSurface(const XSurface *xsurf, const DObjSkelMat *bone, const float *origin,
+    const vec3_t *axis, float scale, vec3_t *boneAxis)
+{
+    R_GetRigidTransform((const DObjSkelMat *)((const byte *)bone + xsurf->boneOffset),
+        origin, axis, scale, boneAxis);
+}
+
 // PINNED 1001f030/195: cached byte offsets and per-surface rigid/blended routing.
 static __declspec(noinline) void R_SkinXSurfaceSkinned(GfxModelSkinnedSurface *modelSurface, const DObjSkelMat *bones)
 {
@@ -828,9 +842,6 @@ static __declspec(noinline) void R_SkinXSurfaceSkinned(GfxModelSkinnedSurface *m
     }
 }
 
-void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out);
-void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin, const vec3_t *axis, float scale, vec3_t *out);
-
 // PINNED 1001f480/65; the helper name is descriptive.
 byte *R_SkinXModelSurface(const DObjSkelMat *bone, const GfxEntity *entity, byte *cursor)
 {
@@ -840,8 +851,7 @@ byte *R_SkinXModelSurface(const DObjSkelMat *bone, const GfxEntity *entity, byte
         if (surface->surfType == 4)
         {
             GfxModelRigidSurface *rigid = (GfxModelRigidSurface *)cursor;
-            R_GetRigidTransform((const DObjSkelMat *)((const byte *)bone + surface->xsurf->boneOffset),
-                entity->origin, entity->axis, entity->scale, rigid->boneAxis);
+            R_SkinRigidSurface(surface->xsurf, bone, entity->origin, entity->axis, entity->scale, rigid->boneAxis);
             return cursor + 56;
         }
         R_SkinXSurfaceSkinned((GfxModelSkinnedSurface *)cursor, bone);
@@ -901,8 +911,7 @@ void R_SkinXModelCmd(SkinXModelCmd *cmd, int context)
         else
         {
             GfxModelRigidSurface *rigid = (GfxModelRigidSurface *)cursor;
-            R_GetRigidTransform((const DObjSkelMat *)((const byte *)bone + surface->xsurf->boneOffset),
-                entity->origin, entity->axis, entity->scale, rigid->boneAxis);
+            R_SkinRigidSurface(surface->xsurf, bone, entity->origin, entity->axis, entity->scale, rigid->boneAxis);
             cursor += 56;
         }
     }
@@ -978,6 +987,15 @@ done:
     return sizeof(GfxModelSkinnedSurface);
 }
 
+// PINNED 1001f280/24: check if DX7 technique has gridLighting on pass 0.
+byte Material_UsesDx7GridLighting(const Material *material)
+{
+    const MaterialTechnique *technique = material->techniqueSet->techniques[12];
+    if (!technique || !technique->passCount)
+        return 0;
+    return technique->passArray.dx7[0].gridLighting;
+}
+
 // PINNED 1001f2a0/479: DX7 cache publication requires a grid-lighting pass.
 static int R_PreSkinStaticSurface(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex,
     const XModel *model, XSurface *xsurf, int surfaceIndex, int lod,
@@ -993,8 +1011,7 @@ static int R_PreSkinStaticSurface(GfxSceneEntity *sceneEnt, GfxEntity *ent, int 
     {
         if (r_rendererInUse->current.integer == 2)
         {
-            const MaterialTechnique *technique = material->techniqueSet->techniques[12];
-            if (!technique || !technique->passCount || !technique->passArray.dx7[0].gridLighting)
+            if (!Material_UsesDx7GridLighting(material))
                 goto uncached;
         }
         GfxStaticSurface *surface = &rg.smodelDyncs[smodelIndex].staticSurfs[surfaceIndex];

@@ -19,6 +19,27 @@ void RB_EndSurface();
 void RB_BeginSurface(const Material *material, int technique, int lightmap);
 void RB_SetVertex2D(int index, float x, float y, float s, float t, unsigned int color);
 
+// PINNED 1002df40: resume the current material while preserving declaration type.
+void RB_TessOverflow()
+{
+    int declaration = tess.declType;
+    RB_EndSurface();
+    RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
+    if (tess.declType != declaration)
+    {
+        if (tess.indexCount || tess.optimizedIndexCount)
+            RB_EndSurface();
+        tess.declType = declaration;
+    }
+}
+
+// Name SUPPORTED (Quake III / coduomp); PINNED out-of-line copy 1002dfa0.
+void RB_CheckOverflow(int vertexCount, int indexCount)
+{
+    if (tess.vertexCount + vertexCount > 5450 || tess.indexCount + indexCount > 0x100000)
+        RB_TessOverflow();
+}
+
 #pragma optimize("p", on)
 // PINNED 1002e020: preserve unused cache fields and use live state after flush.
 void RB_Set2D()
@@ -88,20 +109,6 @@ void RB_Set2D()
 }
 #pragma optimize("", on)
 
-// PINNED 1002df40: resume the current material while preserving declaration type.
-void RB_TessOverflow()
-{
-    int declaration = tess.declType;
-    RB_EndSurface();
-    RB_BeginSurface(tess.material, tess.techType, tess.lmapIndex);
-    if (tess.declType != declaration)
-    {
-        if (tess.indexCount || tess.optimizedIndexCount)
-            RB_EndSurface();
-        tess.declType = declaration;
-    }
-}
-
 // PINNED 1002e850: PC has eight float arguments and a packed color, no stats arg.
 void RB_DrawStretchPic(const Material *material, float x, float y, float width, float height,
     float s0, float t0, float s1, float t1, unsigned int color)
@@ -114,8 +121,7 @@ void RB_DrawStretchPic(const Material *material, float x, float y, float width, 
             RB_EndSurface();
         RB_BeginSurface(material, 3, 31);
     }
-    if (tess.vertexCount + 4 > 5450 || tess.indexCount + 6 > 0x100000)
-        RB_TessOverflow();
+    RB_CheckOverflow(4, 6);
     int vertex = tess.vertexCount;
     tess.indices[tess.indexCount] = (unsigned short)(vertex + 3);
     tess.indices[tess.indexCount + 1] = (unsigned short)vertex;
@@ -616,7 +622,7 @@ void RB_WritePointVertex(int vertIndex, const float *xyz, GfxColor color)
 }
 
 // name unconfirmed: seconds between two QueryPerformanceCounter samples.
-double RB_BenchmarkSeconds(const LARGE_INTEGER *end, const LARGE_INTEGER *start)
+double RB_BenchmarkSeconds(const LARGE_INTEGER *start, const LARGE_INTEGER *end)
 {
 	LARGE_INTEGER frequency;
 
@@ -1054,7 +1060,7 @@ static void RB_BlendSavedScreenCmd(GfxRenderCommandExecState *state)
     int elapsed = (int)((unsigned int)backEnd.sceneDef.time - (unsigned int)rgp.savedScreenTime);
     if (elapsed >= 0 && elapsed < cmd->fadeMsec)
     {
-        double alpha = pow((double)0.01f, (double)elapsed / cmd->fadeMsec);
+        float alpha = (float)pow((double)0.01f, (double)elapsed / cmd->fadeMsec);
         if (alpha > 0.99f)
             alpha = 0.99f;
         float scaled = (float)(alpha * 255.0f);
@@ -2259,7 +2265,7 @@ static float RB_Benchmark2D(const Material *material, float width, float height,
         RB_DrawStretchPic(material, 0.0f, 0.0f, width, height, 0.0f, 0.0f, 1.0f, 1.0f, 0xffffffff);
     RB_EndSurface();
     RB_EndBenchmarkGpu(&end);
-    return count / RB_BenchmarkSeconds(&end, &start);
+    return count / RB_BenchmarkSeconds(&start, &end);
 }
 
 // PINNED 100331d0: retail writes all four setup corners to vertex ZERO.
@@ -2312,7 +2318,7 @@ static float RB_Benchmark3D(const Material *material, int technique)
     RB_EndSurface();
     RB_EndBenchmarkGpu(&end);
     RB_PopMatrixStack();
-    return (float)(count / RB_BenchmarkSeconds(&end, &start) / 60.0);
+    return (float)(count / RB_BenchmarkSeconds(&start, &end) / 60.0);
 }
 
 // PINNED 100335d0: preserve the live iteration count and original report order.
@@ -2358,14 +2364,14 @@ static void RB_TestFill()
 // PINNED 100339b0: four static/skinned report values are genuinely zero.
 static void RB_TestTransform()
 {
-    float result = (float)(RB_Benchmark2D(rgp.whiteMaterial, 0.0f, 0.0f, 1362) * 0.016666668f);
+    float result = RB_Benchmark2D(rgp.whiteMaterial, 0.0f, 0.0f, 1362) / 60.0f;
     ri.Printf(0, "-----------------------------------------------\n");
     ri.Printf(0, "static vertex data    %8.0f verts/sec @ 60Hz\n", 0.0);
     ri.Printf(0, "static vertex data    %8.0f tris/sec @ 60Hz\n", 0.0);
     ri.Printf(0, "skinned vertex data   %8.0f verts/sec @ 60Hz\n", 0.0);
     ri.Printf(0, "skinned vertex data   %8.0f tris/sec @ 60Hz\n", 0.0);
-    ri.Printf(0, "dynamic vertex data   %8.0f verts/sec @ 60Hz\n", (double)result * 4.0);
-    ri.Printf(0, "dynamic vertex data   %8.0f tris/sec @ 60Hz\n", (double)result * 2.0);
+    ri.Printf(0, "dynamic vertex data   %8.0f verts/sec @ 60Hz\n", result * 4.0f);
+    ri.Printf(0, "dynamic vertex data   %8.0f tris/sec @ 60Hz\n", result * 2.0f);
     ri.Printf(0, "-----------------------------------------------\n");
 }
 

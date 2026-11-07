@@ -135,3 +135,19 @@ PINNED: infoParms lives in its own TU universal/surfaceflags.cpp (Mac STABS path
 retail .rdata has the bark/brick/carpet names). Split from r_utils: Rich (100,3077)
 114 -> 115 of 121; whole-file same-offset 249758 -> 249700 (data moved, expected
 until data order is fixed). 6 LTCG TUs remain unidentified.
+SUPPORTED pattern (2026-11-06): retail stores constant zero to 2-3 globals through one
+xor-zeroed register (RB_SaveLightVisHistory 94 B: xor ecx; mov [s_vc_log],ecx;
+mov [s_vc_logCount],ecx; RB_Set2D valid[1..3] via cx/cl); ours emits immediate
+stores with the same source order. Same compiler build, so a per-TU/per-function
+codegen context difference (size-favoring or TU context), not statement order.
+Do not spend worker probes on this class; test once TU set reaches Rich (100,3077)=121.
+SUPPORTED (s4 R_DownsamplePixelData + lead 2026-11-06): LTCG picks register vs stack
+argument passing from the CALLEE body. Callers whose only diff is arg in eax/edx vs
+pushed (R_AddRefEntityToScene -> R_CopyRefEntityToScene, R_CullSceneEntities ->
+R_CullModelEntity, R_ResampleImage) are fixed by matching the callee first.
+PINNED drift (2026-11-06): retail .text starts with r_bsp out-of-line inline copies Vector2Copy 10001000, VectorCopy 10001010, R_WorldVertexSize 10001030, emitted because R_CreateWorldVertexBuffer uses them inline. Using them (DX7 copy: VectorCopy xyz, Vector2Copy lmapCoord, stride helper) puts the first 5 functions at retail offsets; CreateWorldVB slot 0x1e0 = retail (bytes differ in loop pointer bias).
+Drift step 2 (2026-11-06): R_GetNormalizedColorFromDvar helper (KisakCOD, 10001290 matched) and r_bsp order CopyParseParamsToDvars, InitWorldDynamicData, LoadWorld, then Shutdown/Release/ReloadWorld: retail offsets through 10001690; same-offset 248390 -> 249193. Tie: D3DX GetSemanticName unbound after the shift. R_LoadWorld is 160/168: retail has dead xor ecx/mov eax,8/mov edi,&shadowCookieGlob before the cookie stores; memset(glob,0,8) is not it.
+Drift step 3: r_bsp_load_obj head = header inline copies in declaration order (I_sel, I_min, FloatAsInt, FloatIdentity, I_fround, Vector2Set, VectorClear, VectorSet, VectorScale, Vector4Set, Byte4Copy, LittleShort, LittleLong, FloatFromBits) then a side-bytes plane helper at 10001900. Used I_sel/I_min/Vector2Set/VectorSet/Vector4Set/Byte4Copy and R_SetDpvsPlaneSides: R_GetLumpElemCount at retail 10001940; same-offset 249193 -> 250489. Still missing FloatIdentity/LittleShort/LittleLong/FloatFromBits uses; our extra Com_ParseInternal copy (parse_inline.h) offsets them.
+Drift step 4: R_CopyLightmap (KisakCOD name) at 100019c0 restores R_BuildLightmapCoupling to 10001a20; same-offset 250489 -> 251554.
+Gemini batch g1-g6 (reviewed 2026-11-07): +15 bound functions (LerpByte, Material_LoadFile, Material_UsesDx7GridLighting, R_CountMatchingSceneEntities, R_DestroyParticleCloudBuffer, R_FinishAttachingToWindow, R_GetSceneEntDObj, R_ReduceWindowSettings, R_ReleaseAndSetNULL, R_ReleaseForShutdownOrReset, R_SetupWindowParms, R_ShutdownHardware, R_ShutdownStreams, R_SkinRigidSurface, R_UpdateGpuSyncType); cpp 119607 -> 120822; no loss; same-offset 251990 -> 251020 (g6 moved global data definitions into r_init, likely cause; to re-check).
+Gemini round 2 (g8 r_bsp_load_obj, g9 r_image log-only, g10 r_shadowcookie, g11 r_rendercmds; reviewed 2026-11-07): +13 bound functions incl. R_GetCommandBuffer, R_GrowCommandBuffer, R_AddCmdDraw{Lines,Points,Triangles}, R_EmitShadowCookieSurfs, R_LoadSunSettings, R_SetDpvsPlaneSides; cpp 120822 -> 122262; no loss; same-offset 251020 -> 251538. g7 and g12 left uncommitted edits only (not taken).

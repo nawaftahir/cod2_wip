@@ -974,19 +974,19 @@ void RB_SetInitialState()
 // Viewport calculation.
 void RB_UpdateViewportConstants()
 {
-	GfxViewport viewport;
-	float renderTargetWidth, renderTargetHeight;
-	float invRenderTargetWidth, invRenderTargetHeight;
-	float halfViewportWidth, halfViewportHeight;
-	float viewportCenterX, viewportCenterY;
+	float renderTargetSize[2];
+	float invRenderTargetSize[2];
+	float halfViewportSize[2];
+	float viewportCenter[2];
 	float normalizedViewport[2];
+	GfxViewport viewport;
 
 	backEnd.projection2D = 0;
 	backEnd.viewportIsDirty = 1;
-	renderTargetWidth = (float)dxState.renderTargetWidth;
-	invRenderTargetWidth = 1.0f / renderTargetWidth;
-	renderTargetHeight = (float)dxState.renderTargetHeight;
-	invRenderTargetHeight = 1.0f / renderTargetHeight;
+	renderTargetSize[0] = (float)dxState.renderTargetWidth;
+	invRenderTargetSize[0] = 1.0f / renderTargetSize[0];
+	renderTargetSize[1] = (float)dxState.renderTargetHeight;
+	invRenderTargetSize[1] = 1.0f / renderTargetSize[1];
 	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
 	{
 		viewport.x = 0;
@@ -996,15 +996,15 @@ void RB_UpdateViewportConstants()
 	}
 	else
 		viewport = backEnd.sceneViewport;
-	normalizedViewport[0] = viewport.width * invRenderTargetWidth;
-	normalizedViewport[1] = viewport.height * invRenderTargetHeight;
-	halfViewportWidth = normalizedViewport[0] * 0.5f;
-	halfViewportHeight = normalizedViewport[1] * 0.5f;
-	viewportCenterX = viewport.x * invRenderTargetWidth + halfViewportWidth;
-	viewportCenterY = viewport.y * invRenderTargetHeight + halfViewportHeight;
-	viewportCenterX += invRenderTargetWidth * 0.5f;
-	viewportCenterY += invRenderTargetHeight * 0.5f;
-	RB_SetCodeConstant(43, renderTargetWidth, renderTargetHeight, invRenderTargetWidth, invRenderTargetHeight);
-	RB_SetCodeConstant(46, halfViewportWidth, -halfViewportHeight, 0.0f, 1.0f);
-	RB_SetCodeConstant(47, viewportCenterX, viewportCenterY, 0.0f, 0.0f);
+	normalizedViewport[0] = viewport.width * invRenderTargetSize[0];
+	normalizedViewport[1] = viewport.height * invRenderTargetSize[1];
+	halfViewportSize[0] = normalizedViewport[0] * 0.5f;
+	halfViewportSize[1] = normalizedViewport[1] * 0.5f;
+	viewportCenter[0] = viewport.x * invRenderTargetSize[0] + halfViewportSize[0];
+	viewportCenter[1] = viewport.y * invRenderTargetSize[1] + halfViewportSize[1];
+	viewportCenter[0] += invRenderTargetSize[0] * 0.5f;
+	viewportCenter[1] += invRenderTargetSize[1] * 0.5f;
+	RB_SetCodeConstant(43, renderTargetSize[0], renderTargetSize[1], invRenderTargetSize[0], invRenderTargetSize[1]);
+	RB_SetCodeConstant(46, halfViewportSize[0], -halfViewportSize[1], 0.0f, 1.0f);
+	RB_SetCodeConstant(47, viewportCenter[0], viewportCenter[1], 0.0f, 0.0f);
 }

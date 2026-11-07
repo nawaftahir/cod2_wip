@@ -535,10 +535,14 @@ static void RB_DrawSunBlindGlare(SunFlareDynamic *flare, int frameTime)
     RB_CalcSunBlindGlare(flare, frameTime, &blind, &glare);
     byte light = (byte)(int)(glare * 255.0f);
     byte dark = (byte)(int)(blind * 255.0f);
-    unsigned int color = light * 0x010101 | ((unsigned int)dark << 24);
+    GfxColor color;
+    color.array[0] = light;
+    color.array[1] = light;
+    color.array[2] = light;
+    color.array[3] = dark;
     RB_DrawStretchPic(rgp.glareBlindMaterial, 0.0f, 0.0f,
         (float)dxState.renderTargetWidth, (float)dxState.renderTargetHeight,
-        0.0f, 0.0f, 1.0f, 1.0f, color);
+        0.0f, 0.0f, 1.0f, 1.0f, color.packed);
     RB_EndSurface();
 }
 

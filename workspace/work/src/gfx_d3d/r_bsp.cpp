@@ -14,6 +14,12 @@ void R_FinishStaticVertexBuffer(void *vb);
 void R_FreeStaticVertexBuffer(IDirect3DVertexBuffer9 *vb);
 extern "C" void Com_Memcpy(void *dest, const void *src, int count);
 
+// Name unconfirmed; PINNED out-of-line copy at 10001030 (DX7 32 B, DX9 68 B vertices).
+inline int R_WorldVertexSize()
+{
+    return r_rendererInUse->current.integer == 2 ? 0x20 : 0x44;
+}
+
 IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int vertexCount)
 {
     IDirect3DVertexBuffer9 *worldVb;
@@ -21,7 +27,7 @@ IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int 
     int sizeVerts;
     int vertIndex;
 
-    sizeVerts = (r_rendererInUse->current.integer == 2 ? 0x20 : 0x44) * vertexCount;
+    sizeVerts = R_WorldVertexSize() * vertexCount;
     dataPtr = (byte *)R_AllocStaticVertexBuffer((void **)&worldVb, sizeVerts);
     if (r_rendererInUse->current.integer == 2)
     {
@@ -31,14 +37,11 @@ IDirect3DVertexBuffer9 *R_CreateWorldVertexBuffer(GfxWorldVertex *vertices, int 
             GfxWorldVertexDx7 *dst = (GfxWorldVertexDx7 *)(dataPtr + vertIndex * sizeof(GfxWorldVertexDx7));
             const GfxWorldVertex *src = &vertices[vertIndex];
 
-            dst->xyz[0] = src->xyz[0];
-            dst->xyz[1] = src->xyz[1];
-            dst->xyz[2] = src->xyz[2];
+            VectorCopy(src->xyz, dst->xyz);
             dst->color = src->color;
             dst->texCoord[0] = src->texCoord[0];
             dst->texCoord[1] = src->texCoord[1];
-            dst->lmapCoord[0] = src->lmapCoord[0];
-            dst->lmapCoord[1] = src->lmapCoord[1];
+            Vector2Copy(src->lmapCoord, dst->lmapCoord);
         }
     }
     else
@@ -66,41 +69,26 @@ void R_ResetSunLightParseParams()
 void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight);
 
 // name unconfirmed: reads the r_lightTweak dvars into a parse block
+// SUPPORTED name: KisakCOD r_bsp.cpp; PINNED 10001290.
+static void R_GetNormalizedColorFromDvar(const dvar_t *dvar, float *outVec)
+{
+    int channelIter = 0;
+    do
+    {
+        outVec[channelIter] = (float)dvar->current.color[channelIter];
+        channelIter++;
+    } while (channelIter != 3);
+    Vec3ScaleToUnitMax(outVec, outVec);
+}
+
 static void R_GetSunLightParseParamsFromDvars(SunLightParseParams *sunParse)
 {
     sunParse->ambientScale = r_lightTweakAmbient->current.value;
     sunParse->diffuseFraction = r_lightTweakDiffuseFraction->current.value;
     sunParse->sunLight = r_lightTweakSunLight->current.value;
-    {
-        float *c = sunParse->ambientColor;
-        int i = 0;
-        do
-        {
-            c[i] = (float)r_lightTweakAmbientColor->current.color[i];
-            i++;
-        } while (i != 3);
-        Vec3ScaleToUnitMax(c, c);
-    }
-    {
-        float *c = sunParse->sunColor;
-        int i = 0;
-        do
-        {
-            c[i] = (float)r_lightTweakSunColor->current.color[i];
-            i++;
-        } while (i != 3);
-        Vec3ScaleToUnitMax(c, c);
-    }
-    {
-        float *c = sunParse->diffuseColor;
-        int i = 0;
-        do
-        {
-            c[i] = (float)r_lightTweakSunDiffuseColor->current.color[i];
-            i++;
-        } while (i != 3);
-        Vec3ScaleToUnitMax(c, c);
-    }
+    R_GetNormalizedColorFromDvar(r_lightTweakAmbientColor, sunParse->ambientColor);
+    R_GetNormalizedColorFromDvar(r_lightTweakSunColor, sunParse->sunColor);
+    R_GetNormalizedColorFromDvar(r_lightTweakSunDiffuseColor, sunParse->diffuseColor);
     sunParse->diffuseColorHasBeenSet = 1;
     VectorCopy(r_lightTweakSunDirection->current.vector, sunParse->angles);
 }
@@ -129,33 +117,6 @@ void R_SetSunLightOverride(const vec_t *sunColor)
 void R_ResetSunLightOverride()
 {
     VectorCopy(rgp.world->sunColorFromBsp, rgp.world->sunLight.color);
-}
-
-void R_ShutdownWorld()
-{
-    if (rgp.world)
-    {
-        if (rgp.world->vd.worldVb)
-        {
-            R_FreeStaticVertexBuffer(rgp.world->vd.worldVb);
-            rgp.world->vd.worldVb = NULL;
-        }
-        rgp.world = NULL;
-    }
-}
-
-void R_ReleaseWorld()
-{
-    if (rgp.world->vd.worldVb)
-    {
-        R_FreeStaticVertexBuffer(rgp.world->vd.worldVb);
-        rgp.world->vd.worldVb = NULL;
-    }
-}
-
-void R_ReloadWorld()
-{
-    rgp.world->vd.worldVb = R_CreateWorldVertexBuffer(rgp.world->vd.vertices, rgp.world->vertexCount);
 }
 
 int R_GetMaxModelSurfaceCount(const XModel *model);
@@ -229,4 +190,31 @@ void R_LoadWorld(const char *name, int *checksum)
     R_InitWorldDynamicData();
     if (r_rendererInUse->current.integer == 2)
         rgp.sunHalfAngleImage = Image_Register("$sunhalfangle", 1, 0);
+}
+
+void R_ShutdownWorld()
+{
+    if (rgp.world)
+    {
+        if (rgp.world->vd.worldVb)
+        {
+            R_FreeStaticVertexBuffer(rgp.world->vd.worldVb);
+            rgp.world->vd.worldVb = NULL;
+        }
+        rgp.world = NULL;
+    }
+}
+
+void R_ReleaseWorld()
+{
+    if (rgp.world->vd.worldVb)
+    {
+        R_FreeStaticVertexBuffer(rgp.world->vd.worldVb);
+        rgp.world->vd.worldVb = NULL;
+    }
+}
+
+void R_ReloadWorld()
+{
+    rgp.world->vd.worldVb = R_CreateWorldVertexBuffer(rgp.world->vd.vertices, rgp.world->vertexCount);
 }

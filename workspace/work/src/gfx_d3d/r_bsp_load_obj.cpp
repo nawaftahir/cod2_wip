@@ -45,6 +45,15 @@ r_globals_load_t rgl;
 typedef char occluderSizeCheck[sizeof(GfxOccluder) == 0x24 ? 1 : -1];
 
 // PINNED 10001940: lump element count, never inlined in retail (22 calls).
+
+// Name unconfirmed; PINNED out-of-line copy at 10001900: frustum side offsets from the coefficient signs.
+void R_SetDpvsPlaneSides(DpvsPlane *plane)
+{
+    plane->side[0] = FloatAsInt(plane->coeffs[0]) > 0 ? 12 : 0;
+    plane->side[1] = FloatAsInt(plane->coeffs[1]) > 0 ? 16 : 4;
+    plane->side[2] = FloatAsInt(plane->coeffs[2]) > 0 ? 20 : 8;
+}
+
 static __declspec(noinline) int R_GetLumpElemCount(const GfxBspLoad *load, int lumpIndex, int elemSize)
 {
     const lump_t *lump = &load->header->lumps[lumpIndex];
@@ -67,6 +76,19 @@ struct DiskBrushModel
     int surfaceCount;
     int unused[4];
 };
+
+// SUPPORTED name/signature: KisakCOD r_bsp_load_obj.cpp; PINNED 100019c0.
+static void R_CopyLightmap(const byte *srcImage, int srcWidth, int srcHeight, int bytesPerPixel,
+    byte *dstImage, int tileX, int tileY, int tilesWide)
+{
+    byte *dst = &dstImage[bytesPerPixel * (srcWidth * tilesWide * srcHeight * tileY + srcWidth * tileX)];
+    for (int y = 0; y < srcHeight; ++y)
+    {
+        Com_Memcpy(dst, srcImage, bytesPerPixel * srcWidth);
+        srcImage += bytesPerPixel * srcWidth;
+        dst += bytesPerPixel * srcWidth * tilesWide;
+    }
+}
 
 // PINNED 10001a20: vertex weight shared by each lightmap pair, per material.
 static int R_BuildLightmapCoupling(const GfxBspLoad *load, int (*coupling)[31])
@@ -212,15 +234,9 @@ static void R_CombineLightmapsForDx7(byte **images, int height, int width, const
             int r = I_fround((images[0][pixel] + sunVis * sunColor[0]) * 0.5f);
             int g = I_fround((images[1][pixel] + sunVis * sunColor[1]) * 0.5f);
             int b = I_fround((images[2][pixel] + sunVis * sunColor[2]) * 0.5f);
-            if (r > 255)
-                r = 255;
-            images[0][pixel + 2] = (byte)r;
-            if (g > 255)
-                g = 255;
-            images[0][pixel + 1] = (byte)g;
-            if (b > 255)
-                b = 255;
-            images[0][pixel] = (byte)b;
+            images[0][pixel + 2] = (byte)I_min(r, 255);
+            images[0][pixel + 1] = (byte)I_min(g, 255);
+            images[0][pixel] = (byte)I_min(b, 255);
             images[0][pixel + 3] = 255;
             pixel += 4;
             sunPixel += 2;
@@ -235,10 +251,8 @@ void R_LoadLightmaps(GfxBspLoad *load)
     vec3_t sunColor;
     VectorCopy(s_world.sunLight.color, sunColor);
     load->lmapMergeInfo[31].index = 31;
-    load->lmapMergeInfo[31].shift[0] = 0.0f;
-    load->lmapMergeInfo[31].shift[1] = 0.0f;
-    load->lmapMergeInfo[31].scale[0] = 1.0f;
-    load->lmapMergeInfo[31].scale[1] = 1.0f;
+    Vector2Set(load->lmapMergeInfo[31].shift, 0.0f, 0.0f);
+    Vector2Set(load->lmapMergeInfo[31].scale, 1.0f, 1.0f);
     r_lightmapGroup_t groupInfo[31];
     int reorder[31];
     int lmapCount = R_BuildLightmapMergability(load, groupInfo, reorder);
@@ -285,14 +299,8 @@ void R_LoadLightmaps(GfxBspLoad *load)
                 const byte *src = lmapData + oldIndex * 0x400000;
                 for (int k = 0; k < 4; ++k)
                 {
-                    int rowBytes = widths[k] * bytesPerPixel[k];
-                    byte *dst = images[k] + (heights[k] * wide * row + col) * rowBytes;
-                    for (int y = 0; y < heights[k]; ++y)
-                    {
-                        Com_Memcpy(dst, src, rowBytes);
-                        src += rowBytes;
-                        dst += wide * rowBytes;
-                    }
+                    R_CopyLightmap(src, widths[k], heights[k], bytesPerPixel[k], images[k], col, row, wide);
+                    src += widths[k] * heights[k] * bytesPerPixel[k];
                 }
             }
             r_lightmapMerge_t *merge = &load->lmapMergeInfo[oldIndex];
@@ -328,6 +336,15 @@ void R_LoadLightmaps(GfxBspLoad *load)
     ri.Hunk_FreeTempMemory(images[0]);
 }
 
+// SUPPORTED name: KisakCOD r_bsp_load_obj.cpp; PINNED out-of-line copy 100025d0.
+void R_LoadLightGridColors(GfxBspLoad *load)
+{
+    const lump_t *lump = &load->header->lumps[3];
+    s_world.lightGrid.colorCount = R_GetLumpElemCount(load, 3, sizeof(GfxLightGridColors));
+    s_world.lightGrid.colors = (GfxLightGridColors *)ri.Hunk_AllocInternal(lump->filelen);
+    Com_Memcpy(s_world.lightGrid.colors, load->fileBase + lump->fileofs, lump->filelen);
+}
+
 // PINNED 10002620: lump 2, 8-byte points copied field by field.
 void R_LoadLightGridPoints(GfxBspLoad *load)
 {
@@ -343,6 +360,14 @@ void R_LoadLightGridPoints(GfxBspLoad *load)
         out->needsTrace = in->needsTrace;
         out->colorsIndex = in->colorsIndex;
     }
+}
+
+// SUPPORTED name: KisakCOD r_bsp_load_obj.cpp; PINNED out-of-line copy 10002690.
+void R_LoadMaterials(GfxBspLoad *load)
+{
+    const lump_t *lump = &load->header->lumps[0];
+    load->materialCount = R_GetLumpElemCount(load, 0, sizeof(dmaterial_t));
+    load->materials = (const dmaterial_t *)(load->fileBase + lump->fileofs);
 }
 
 // PINNED 100026c0: triangle bounds and merged lightmap coords per index.
@@ -463,7 +488,7 @@ void R_LoadSurfaces(GfxBspLoad *load)
         verts[index].xyz[0] = diskVerts[index].xyz[0];
         verts[index].xyz[1] = diskVerts[index].xyz[1];
         verts[index].xyz[2] = diskVerts[index].xyz[2];
-        verts[index].color.packed = *(const unsigned int *)diskVerts[index].color;
+        Byte4Copy(diskVerts[index].color, verts[index].color.array);
         verts[index].texCoord[0] = diskVerts[index].texCoord[0];
         verts[index].texCoord[1] = diskVerts[index].texCoord[1];
         verts[index].lmapCoord[0] = diskVerts[index].lmapCoord[0];
@@ -557,17 +582,20 @@ void R_LoadSubmodels(GfxBspLoad *load)
     }
 }
 
+// SUPPORTED name: Mac r_bsp_load_obj.c; PINNED out-of-line copy 10002e40 (inlined at every call).
+const char *R_FindSpawnVar(const char *key, const char *(*vars)[2], int count)
+{
+    for (int index = 1; index < count; ++index)
+        if (!_stricmp(vars[index][0], key))
+            return vars[index][1];
+    return 0;
+}
+
 // PINNED 10002e80; descriptive name.
 double R_FloatForKey(const char *key, float defaultValue,
     const char *(*vars)[2], int count)
 {
-    const char *value = 0;
-    for (int index = 1; index < count; ++index)
-        if (!_stricmp(vars[index][0], key))
-        {
-            value = vars[index][1];
-            break;
-        }
+    const char *value = R_FindSpawnVar(key, vars, count);
     if (!value)
         return defaultValue;
     return atof(value);
@@ -662,6 +690,22 @@ foundModel:
     return 1;
 }
 
+// Name unconfirmed; PINNED out-of-line copy 10003180/38.
+void R_GetDebugGroundLightColor(float *ground, bool hasGroundLight, Bool foundGround)
+{
+    if (hasGroundLight)
+    {
+        if (foundGround)
+            Vector4Set(ground, 0.0f, 1.0f, 0.0f, 0.0f);
+        else
+            Vector4Set(ground, 1.0f, 1.0f, 0.0f, 0.0f);
+    }
+    else
+    {
+        Vector4Set(ground, 1.0f, 0.0f, 0.0f, 0.0f);
+    }
+}
+
 // PINNED 100031b0: use the Z component of modelscale_vec, as in the PC caller.
 void R_LoadMiscModel(const char *(*vars)[2], int count)
 {
@@ -674,9 +718,7 @@ void R_LoadMiscModel(const char *(*vars)[2], int count)
     float yaw = (float)R_FloatForKey("angle", 0.0f, vars, count);
     if (yaw != 0.0f)
     {
-        angles[0] = 0.0f;
-        angles[1] = yaw;
-        angles[2] = 0.0f;
+        VectorSet(angles, 0.0f, yaw, 0.0f);
     }
     else
         R_Vec3ForKey("angles", "0 0 0", vars, count, angles);
@@ -691,18 +733,7 @@ void R_LoadMiscModel(const char *(*vars)[2], int count)
     vec4_t colors[6];
     if (r_showGroundLit->current.enabled)
     {
-        ground[2] = 0.0f;
-        ground[3] = 0.0f;
-        if (hasGroundLight)
-        {
-            ground[1] = 1.0f;
-            ground[0] = foundGround ? 0.0f : 1.0f;
-        }
-        else
-        {
-            ground[1] = 0.0f;
-            ground[0] = 1.0f;
-        }
+        R_GetDebugGroundLightColor(ground, hasGroundLight, foundGround);
         R_GetStaticModelLightingFromGround(ground, &sunVisibility, colors);
     }
     else
@@ -803,6 +834,15 @@ const char *R_ParseSunLight(SunLightParseParams *params, const char *text)
         }
     }
     return text;
+}
+
+void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight);
+
+// SUPPORTED KisakCOD name; PINNED out-of-line copy 100037e0/45.
+void R_LoadSunSettings(GfxBspLoad *load)
+{
+    R_ParseSunLight(&s_world.sunParse, (const char *)(load->fileBase + load->header->lumps[37].fileofs));
+    R_InterpretSunLightParseParamsIntoLights(&s_world.sunParse, &s_world.sunLight);
 }
 
 void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight)
@@ -1010,9 +1050,7 @@ void R_LoadPortals(GfxBspLoad *load)
         DpvsPlane *outPlane = &out->plane;
         VectorCopy(plane, outPlane->coeffs);
         outPlane->coeffs[3] = -plane[3];
-        outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
-        outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
-        outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
+        R_SetDpvsPlaneSides(outPlane);
         out->cell = &s_world.cells[in[index].cellIndex];
         out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
         out->vertexCount = (byte)in[index].portalVertexCount;
@@ -1088,9 +1126,9 @@ void R_LoadNodesAndLeafs(GfxBspLoad *load)
         out->plane = ri.CM_GetPlaneNum(inNode[0]);
         out->childCount = -1;
         int child = inNode[1];
-        out->front = &((BspNodeA *)s_world.nodes)[child >= 0 ? child : nodeCount - 1 - child];
+        out->front = &((BspNodeA *)s_world.nodes)[I_sel(child, child, nodeCount - 1 - child)];
         child = inNode[2];
-        out->back = &((BspNodeA *)s_world.nodes)[child >= 0 ? child : nodeCount - 1 - child];
+        out->back = &((BspNodeA *)s_world.nodes)[I_sel(child, child, nodeCount - 1 - child)];
         inNode += 9;
         ++out;
     }
@@ -1137,9 +1175,7 @@ void R_LoadOccluders(GfxBspLoad *load)
             out->planes[planeIndex].coeffs[2] = plane[2];
             out->planes[planeIndex].coeffs[3] = -plane[3];
             DpvsPlane *outPlane = &out->planes[planeIndex];
-            outPlane->side[0] = *(const int *)&outPlane->coeffs[0] <= 0 ? 0 : 12;
-            outPlane->side[1] = *(const int *)&outPlane->coeffs[1] <= 0 ? 4 : 16;
-            outPlane->side[2] = *(const int *)&outPlane->coeffs[2] <= 0 ? 8 : 20;
+            R_SetDpvsPlaneSides(outPlane);
           }
         }
         out->vertices = &rgl.portalVerts[in->firstPortalVertex];
@@ -1186,11 +1222,11 @@ static int R_FinishLoadingAabbTrees_r(GfxAabbTree *tree, int totalTreesUsed)
         }
         return totalTreesUsed;
     }
-    int nextTree = totalTreesUsed + tree->childCount;
     tree->children = &rgl.aabbTrees[totalTreesUsed];
+    totalTreesUsed += tree->childCount;
     for (int childIndex = 0; childIndex < tree->childCount; ++childIndex)
     {
-        nextTree = R_FinishLoadingAabbTrees_r(&tree->children[childIndex], nextTree);
+        totalTreesUsed = R_FinishLoadingAabbTrees_r(&tree->children[childIndex], totalTreesUsed);
         const GfxAabbTree *child = &tree->children[childIndex];
         for (int axis = 0; axis < 3; ++axis)
         {
@@ -1200,7 +1236,7 @@ static int R_FinishLoadingAabbTrees_r(GfxAabbTree *tree, int totalTreesUsed)
                 tree->maxs[axis] = child->maxs[axis];
         }
     }
-    return nextTree;
+    return totalTreesUsed;
 }
 
 // PINNED 10003ee0: lump 22, then each root tree claims its children.
@@ -1265,17 +1301,13 @@ GfxWorld *R_LoadWorldInternal(const char *name)
     strcpy((char *)s_world.baseName, baseName);
 
     R_LoadStep("materials");
-    load.materialCount = R_GetLumpElemCount(&load, 0, sizeof(dmaterial_t));
-    load.materials = (const dmaterial_t *)(load.fileBase + load.header->lumps[0].fileofs);
+    R_LoadMaterials(&load);
     R_LoadStep("sun settings");
-    R_ParseSunLight(&s_world.sunParse, (const char *)(load.fileBase + load.header->lumps[37].fileofs));
-    R_InterpretSunLightParseParamsIntoLights(&s_world.sunParse, &s_world.sunLight);
+    R_LoadSunSettings(&load);
     R_LoadStep("lightmaps");
     R_LoadLightmaps(&load);
     R_LoadStep("lightgrid coefficients");
-    s_world.lightGrid.colorCount = R_GetLumpElemCount(&load, 3, sizeof(GfxLightGridColors));
-    s_world.lightGrid.colors = (GfxLightGridColors *)ri.Hunk_AllocInternal(load.header->lumps[3].filelen);
-    Com_Memcpy(s_world.lightGrid.colors, load.fileBase + load.header->lumps[3].fileofs, load.header->lumps[3].filelen);
+    R_LoadLightGridColors(&load);
     R_LoadStep("lightgrid hash");
     R_LoadLightGridPoints(&load);
     R_LoadStep("surfaces");

@@ -7,6 +7,7 @@
 int R_HashAssetName(const char *name);
 int R_HashString(const char *string);
 int _stricmp(const char *s0, const char *s1);
+int Com_sprintf(char *dest, unsigned int size, const char *format, ...);
 
 struct stream_source_info_t
 {
@@ -978,3 +979,12 @@ void Material_Sort()
     for (int index = 0; index < rgp.materialCount; ++index)
         rgp.sortedMaterials[index]->sortedIndex = (unsigned short)index;
 }
+
+// PINNED 10017940/50: helper to open material file.
+int Material_LoadFile(const char *filename, int *file)
+{
+    char fullFilename[64];
+    Com_sprintf(fullFilename, sizeof(fullFilename), "materials/%s", filename);
+    return ri.FS_FOpenFileRead(fullFilename, file, 1);
+}
+

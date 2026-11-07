@@ -1,15 +1,27 @@
 {
-  "functions": 775,
-  "bytes": 129487,
+  "functions": 811,
+  "bytes": 132446,
   "total": 253580,
-  "percent": 51.06356968215159,
+  "percent": 52.230459815442856,
   "baseline_lost": [],
   "gains": [
     {
       "target": "0x10001000",
       "bytes": 11,
       "name": "?Vector2Copy@@YAXQBMQAM@Z",
-      "object": "r_dpvs.obj"
+      "object": "r_bsp.obj"
+    },
+    {
+      "target": "0x10001030",
+      "bytes": 25,
+      "name": "?R_WorldVertexSize@@YAHXZ",
+      "object": "r_bsp.obj"
+    },
+    {
+      "target": "0x10001290",
+      "bytes": 39,
+      "name": "?R_GetNormalizedColorFromDvar@@YAXPBUdvar_s@@PAM@Z",
+      "object": "r_bsp.obj"
     },
     {
       "target": "0x10001490",
@@ -27,7 +39,13 @@
       "target": "0x100018a0",
       "bytes": 28,
       "name": "?Vector4Set@@YAXQAMMMMM@Z",
-      "object": "r_dpvs.obj"
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10001900",
+      "bytes": 54,
+      "name": "?R_SetDpvsPlaneSides@@YAXPAUDpvsPlane@@@Z",
+      "object": "r_bsp_load_obj.obj"
     },
     {
       "target": "0x10001940",
@@ -42,15 +60,33 @@
       "object": "r_bsp_load_obj.obj"
     },
     {
+      "target": "0x100025d0",
+      "bytes": 67,
+      "name": "?R_LoadLightGridColors@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
       "target": "0x10002620",
       "bytes": 108,
       "name": "?R_LoadLightGridPoints@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
+      "target": "0x10002690",
+      "bytes": 38,
+      "name": "?R_LoadMaterials@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
       "target": "0x10002db0",
       "bytes": 140,
       "name": "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10002e40",
+      "bytes": 50,
+      "name": "?R_FindSpawnVar@@YAPBDPBDPAY01PBDH@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
@@ -78,9 +114,21 @@
       "object": "r_bsp_load_obj.obj"
     },
     {
+      "target": "0x10003180",
+      "bytes": 38,
+      "name": "?R_GetDebugGroundLightColor@@YAXPAM_NE@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
       "target": "0x10003430",
       "bytes": 939,
       "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x100037e0",
+      "bytes": 45,
+      "name": "?R_LoadSunSettings@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
@@ -213,6 +261,12 @@
       "target": "0x10005c10",
       "bytes": 29,
       "name": "?DotProduct4@@YAMQBM0@Z",
+      "object": "r_dpvs.obj"
+    },
+    {
+      "target": "0x10005cb0",
+      "bytes": 24,
+      "name": "?R_DpvsPlaneDistToPoint@@YAMPBUDpvsPlane@@PBM@Z",
       "object": "r_dpvs.obj"
     },
     {
@@ -480,6 +534,12 @@
       "object": "r_image_load_obj.obj"
     },
     {
+      "target": "0x1000f350",
+      "bytes": 37,
+      "name": "?Image_ExpandBgr@@YAXPBEIPAE@Z",
+      "object": "r_image_load_obj.obj"
+    },
+    {
       "target": "0x1000f5a0",
       "bytes": 527,
       "name": "?Image_LoadBitmap@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z",
@@ -558,6 +618,12 @@
       "object": "r_init.obj"
     },
     {
+      "target": "0x10011420",
+      "bytes": 41,
+      "name": "?R_ReleaseAndSetNULL@@YAXPAUIUnknown@@PBD1H@Z",
+      "object": "r_init.obj"
+    },
+    {
       "target": "0x10011460",
       "bytes": 100,
       "name": "?R_SetupAntiAliasing@@YAXPBUGfxWindowParms@@@Z",
@@ -630,6 +696,12 @@
       "object": "r_init.obj"
     },
     {
+      "target": "0x10011e10",
+      "bytes": 72,
+      "name": "?R_DestroyParticleCloudBuffer@@YAXXZ",
+      "object": "r_init.obj"
+    },
+    {
       "target": "0x10011e60",
       "bytes": 160,
       "name": "?R_ReleaseDynamicBuffers@@YAXXZ",
@@ -651,6 +723,18 @@
       "target": "0x10011fe0",
       "bytes": 82,
       "name": "?R_GammaCorrect@@YAXHPAE@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x100120c0",
+      "bytes": 60,
+      "name": "?R_FinishAttachingToWindow@@YAXPBUGfxWindowParms@@@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10012210",
+      "bytes": 269,
+      "name": "?R_ReleaseForShutdownOrReset@@YAXXZ",
       "object": "r_init.obj"
     },
     {
@@ -678,6 +762,12 @@
       "object": "r_init.obj"
     },
     {
+      "target": "0x10012880",
+      "bytes": 39,
+      "name": "?R_UpdateGpuSyncType@@YAXXZ",
+      "object": "r_init.obj"
+    },
+    {
       "target": "0x100129c0",
       "bytes": 248,
       "name": "?R_CreateGameWindow@@YAEPAUGfxWindowParms@@@Z",
@@ -687,6 +777,30 @@
       "target": "0x10012b00",
       "bytes": 131,
       "name": "?R_ChooseRefreshRate@@YAHHHH@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10012b90",
+      "bytes": 133,
+      "name": "?R_SetupWindowParms@@YAXPAUGfxWindowParms@@@Z",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10012c20",
+      "bytes": 91,
+      "name": "?R_ReduceWindowSettings@@YAEXZ",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10012db0",
+      "bytes": 168,
+      "name": "?R_ShutdownHardware@@YAXXZ",
+      "object": "r_init.obj"
+    },
+    {
+      "target": "0x10013030",
+      "bytes": 68,
+      "name": "?R_ShutdownStreams@@YAXXZ",
       "object": "r_init.obj"
     },
     {
@@ -837,6 +951,12 @@
       "target": "0x10017300",
       "bytes": 7,
       "name": "?R_GetMaterialName@@YAPBDPBUMaterialInfoView@@@Z",
+      "object": "r_material.obj"
+    },
+    {
+      "target": "0x10017940",
+      "bytes": 50,
+      "name": "?Material_LoadFile@@YAHPBDPAH@Z",
       "object": "r_material.obj"
     },
     {
@@ -1050,6 +1170,24 @@
       "object": "r_model.obj"
     },
     {
+      "target": "0x1001f000",
+      "bytes": 37,
+      "name": "?R_SkinRigidSurface@@YAXPBUXSurface_s@@PBUDObjSkelMat_s@@PBMPAY02$$CBMMPAY02M@Z",
+      "object": "r_model.obj"
+    },
+    {
+      "target": "0x1001f280",
+      "bytes": 24,
+      "name": "?Material_UsesDx7GridLighting@@YAEPBUMaterial@@@Z",
+      "object": "r_model.obj"
+    },
+    {
+      "target": "0x1001f6b0",
+      "bytes": 34,
+      "name": "?R_GetSceneEntDObj@@YAPBUDObj_s@@PBUGfxSceneEntity@@PBUGfxEntity@@@Z",
+      "object": "r_model.obj"
+    },
+    {
       "target": "0x1001fda0",
       "bytes": 35,
       "name": "?R_SetEntityOriginBounds@@YAXPAUGfxSceneEntity@@PBM@Z",
@@ -1080,6 +1218,24 @@
       "object": "r_outdoor.obj"
     },
     {
+      "target": "0x10020e10",
+      "bytes": 107,
+      "name": "?R_GetCommandBuffer@@YAPAUGfxCmdHeader@@HH@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10020e80",
+      "bytes": 58,
+      "name": "?R_GrowCommandBuffer@@YAPAXH@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x100210d0",
+      "bytes": 35,
+      "name": "?R_AllocViewParms@@YAPAUGfxViewParms@@XZ",
+      "object": "r_rendercmds.obj"
+    },
+    {
       "target": "0x10021840",
       "bytes": 79,
       "name": "?R_AddCmdSetRenderTarget@@YAXW4GfxRenderTargetId@@@Z",
@@ -1098,6 +1254,12 @@
       "object": "r_rendercmds.obj"
     },
     {
+      "target": "0x10021d70",
+      "bytes": 63,
+      "name": "?R_ClearModifiedGpuSyncDvars@@YA_NXZ",
+      "object": "r_rendercmds.obj"
+    },
+    {
       "target": "0x10021db0",
       "bytes": 152,
       "name": "?R_UpdateLodDistances@@YAXXZ",
@@ -1107,6 +1269,24 @@
       "target": "0x10021ff0",
       "bytes": 73,
       "name": "?R_BeginDebugFrame@@YAXXZ",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10022350",
+      "bytes": 245,
+      "name": "?R_AddCmdDrawPoints@@YAXFFPBUGfxPointVertex@@@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10022450",
+      "bytes": 245,
+      "name": "?R_AddCmdDrawLines@@YAXFFPBUGfxPointVertex@@@Z",
+      "object": "r_rendercmds.obj"
+    },
+    {
+      "target": "0x10022550",
+      "bytes": 354,
+      "name": "?R_AddCmdDrawTriangles@@YAXPAUMaterial@@W4MaterialTechniqueType@@FPBGFPAY03$$CBMPAY02$$CBMPAY03$$CBEPAY01$$CBM@Z",
       "object": "r_rendercmds.obj"
     },
     {
@@ -1182,9 +1362,21 @@
       "object": "rb_fog.obj"
     },
     {
+      "target": "0x100238d0",
+      "bytes": 68,
+      "name": "?R_CountMatchingSceneEntities@@YAHPBHH@Z",
+      "object": "r_scene.obj"
+    },
+    {
       "target": "0x10023b90",
       "bytes": 299,
       "name": "?R_AddStaticModelToScene@@YAHH@Z",
+      "object": "r_scene.obj"
+    },
+    {
+      "target": "0x10024050",
+      "bytes": 37,
+      "name": "?LerpByte@@YAEEEM@Z",
       "object": "r_scene.obj"
     },
     {
@@ -1257,6 +1449,24 @@
       "target": "0x10027170",
       "bytes": 30,
       "name": "?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x10027190",
+      "bytes": 27,
+      "name": "?R_EmitShadowCookieSurfs@@YAXPAUGfxDrawSurf@@HW4MaterialTechniqueType@@@Z",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x100278f0",
+      "bytes": 53,
+      "name": "?R_ClearShadowReceiverTarget@@YAXXZ",
+      "object": "r_shadowcookie.obj"
+    },
+    {
+      "target": "0x10027c80",
+      "bytes": 116,
+      "name": "?R_DrawShadowCookieOverlay@@YAXXZ",
       "object": "r_shadowcookie.obj"
     },
     {
@@ -1443,6 +1653,12 @@
       "target": "0x10032d70",
       "bytes": 10,
       "name": "?RB_GpuWaited@@YAXH@Z",
+      "object": "rb_backend.obj"
+    },
+    {
+      "target": "0x10033090",
+      "bytes": 48,
+      "name": "?RB_BenchmarkSeconds@@YANPBT_LARGE_INTEGER@@0@Z",
       "object": "rb_backend.obj"
     },
     {

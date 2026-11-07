@@ -534,7 +534,7 @@ found:
 // PINNED 10019620: material names are interned; code samplers traverse typed tables.
 Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argument)
 {
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     if (!strcmp(token, "sampler"))
     {
         argument->type = 3;
@@ -1036,7 +1036,7 @@ Bool Material_LoadPassStateMap(const char **text, MaterialStateMap **stateMap)
 {
     if (!Com_MatchToken(text, "stateMap", 1))
         return 0;
-    const char *name = Com_Parse(text);
+    const char *name = Com_ParseInternal(text);
     if (!name[0] || name[0] == ';')
     {
         Com_ScriptWarning("missing stateMap filename\n");
