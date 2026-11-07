@@ -1799,6 +1799,14 @@
 "obj": "r_material_load_obj.obj",
 "why": []
 },
+"?Material_ParseSamplerSource@@YAEPAPBDPAUMaterialShaderArgument@@@Z": {
+"t": "0x10019620",
+"n": 211,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_CodeSamplerSource_r@@YAEPAPBDHPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z"
+]
+},
 "?Material_FindScalarSamplerSource@@YAEPBDPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z": {
 "t": "0x10019700",
 "n": 123,
@@ -1946,6 +1954,14 @@
 "n": 285,
 "obj": "r_material_load_obj.obj",
 "why": []
+},
+"?Material_ParseShaderArgument@@YAEPAPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z": {
+"t": "0x1001a030",
+"n": 164,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_ParseConstantSource@@YAEPAPBDPBUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z"
+]
 },
 "?Material_DefaultShaderArgument@@YAEPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z": {
 "t": "0x1001a0e0",

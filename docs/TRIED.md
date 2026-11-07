@@ -1,3 +1,7 @@
+# Material_ParseSamplerSource match - 2026-11-07
+
+Material_ParseSamplerSource (retail 10019620, 211 B; chunk 10): Com_ParseInternal reproduces inlined first token parsing while preserving out-of-line Com_Parse on material name path. 211 bytes match 100% at retail 10019620. Referees and all 2526 checkpoints passed.
+
 # Material_CodeSamplerSource_r probe - 2026-11-07
 
 Material_CodeSamplerSource_r 100194f0/303 (chunk 9): probed Com_ParseInternal and while(1) loop structures. Compiler duplicates the loop condition and clones exit paths via jump threading, emitting 352 B vs retail 303 B. Non-source-fixable block layout class. Restored.

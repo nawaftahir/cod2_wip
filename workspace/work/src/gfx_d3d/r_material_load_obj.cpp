@@ -534,7 +534,7 @@ found:
 // PINNED 10019620: material names are interned; code samplers traverse typed tables.
 Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argument)
 {
-    const char *token = Com_Parse(text);
+    const char *token = Com_ParseInternal(text);
     if (!strcmp(token, "sampler"))
     {
         argument->type = 3;
