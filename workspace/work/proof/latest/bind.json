@@ -2365,9 +2365,27 @@
 "call ?R_InitFrameBackendData@@YAXXZ"
 ]
 },
+"?R_AllocViewParms@@YAPAUGfxViewParms@@XZ": {
+"t": "0x100210d0",
+"n": 35,
+"obj": "r_rendercmds.obj",
+"why": []
+},
 "?R_BeginDebugFrame@@YAXXZ": {
 "t": "0x10021ff0",
 "n": 73,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_GetCommandBuffer@@YAPAUGfxCmdHeader@@HH@Z": {
+"t": "0x10020e10",
+"n": 107,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_GrowCommandBuffer@@YAPAXH@Z": {
+"t": "0x10020e80",
+"n": 58,
 "obj": "r_rendercmds.obj",
 "why": []
 },
@@ -2537,6 +2555,12 @@
 "obj": "r_rendercmds.obj",
 "why": []
 },
+"?R_ClearModifiedGpuSyncDvars@@YA_NXZ": {
+"t": "0x10021d70",
+"n": 63,
+"obj": "r_rendercmds.obj",
+"why": []
+},
 "?R_UpdateLodDistances@@YAXXZ": {
 "t": "0x10021db0",
 "n": 152,
@@ -2570,6 +2594,24 @@
 "?R_AbortRenderCommands@@YAXXZ": {
 "t": "0x10020dc0",
 "n": 73,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdDrawPoints@@YAXFFPBUGfxPointVertex@@@Z": {
+"t": "0x10022350",
+"n": 245,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdDrawLines@@YAXFFPBUGfxPointVertex@@@Z": {
+"t": "0x10022450",
+"n": 245,
+"obj": "r_rendercmds.obj",
+"why": []
+},
+"?R_AddCmdDrawTriangles@@YAXPAUMaterial@@W4MaterialTechniqueType@@FPBGFPAY03$$CBMPAY02$$CBMPAY03$$CBEPAY01$$CBM@Z": {
+"t": "0x10022550",
+"n": 354,
 "obj": "r_rendercmds.obj",
 "why": []
 },

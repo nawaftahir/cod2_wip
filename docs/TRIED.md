@@ -4302,3 +4302,10 @@ Remaining r_shadowcookie chunks in CHUNKS.md:
 - 0x10028120 (R_ResetShadowCookies, 35 B): dead array-init register setup (`mov edi, 0x10696bd0; xor ecx, ecx; mov eax, 8`) before constant stores.
 - 0x10028460, 0x10028480, 0x10028560, 0x10028650, 0x10028710, 0x10028780, 0x10028860, 0x10028920, 0x100289e0: <20 B std::sort iterator/pair/tag helpers or alignment tails.
 
+# r_rendercmds front-to-back pass - 2026-11-07 (worker g11)
+R_AllocViewParms 100210d0/35, R_GetCommandBuffer 10020e10/107, R_GrowCommandBuffer 10020e80/58, R_ClearModifiedGpuSyncDvars 10021d70/63, R_AddCmdDrawPoints 10022350/245, R_AddCmdDrawLines 10022450/245, R_AddCmdDrawTriangles 10022550/354 MATCHED (+7 newly bound functions, 2703 -> 2710).
+R_InitFrameBackendData 10021040/143: removing volatile from dx.dynamicBufferFrame matches size (143 B) and preamble, but hoists lea edx, [eax+219d0c] (s_cmdList = &frontEndDataOut->commands) before drawSurfCount..viewParmCount zero stores; restored.
+R_ProcessFrontendCmdInternal 10020be0/144 & R_AddFrontendCmd 10020ca0/16: making R_ProcessFrontendCmdInternal non-static emits custom LTCG register args (ecx, edx, eax) instead of retail stack args + 4-byte push ecx frame; restored.
+R_ShutdownBackendData 10020bd0/13, R_UpdateEffectsBolt 10020cb0/6, R_UpdateEffectsNonBolt 10020cc0/6, R_AddCmdTouchAllImages 100226c0/79: already 100% byte-matched to retail; unbound only due to leaf binder threshold / duplicate body at 100131b0.
+0x10021900 (16 B), 0x10021910 (16 B), 0x10021980 (80 B), 0x100219d0 (144 B), 0x10021a60 (128 B): unreferenced command helpers with custom LTCG register conventions (edx/ecx/eax, esi, ecx, ebx) that cannot be produced for uncalled C++ functions under /GL.
+R_AddCmdLightProperties 10021770/192: x87 float copy and specular alpha multiply scheduling residual (previously logged).
