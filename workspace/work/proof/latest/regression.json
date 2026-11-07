@@ -1,8 +1,8 @@
 {
-  "functions": 798,
-  "bytes": 131006,
+  "functions": 801,
+  "bytes": 131143,
   "total": 253580,
-  "percent": 51.66259168704156,
+  "percent": 51.71661802981308,
   "baseline_lost": [],
   "gains": [
     {
@@ -39,6 +39,12 @@
       "target": "0x100018a0",
       "bytes": 28,
       "name": "?Vector4Set@@YAXQAMMMMM@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x10001900",
+      "bytes": 54,
+      "name": "?R_SetDpvsPlaneSides@@YAXPAUDpvsPlane@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
@@ -108,9 +114,21 @@
       "object": "r_bsp_load_obj.obj"
     },
     {
+      "target": "0x10003180",
+      "bytes": 38,
+      "name": "?R_GetDebugGroundLightColor@@YAXPAM_NE@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
       "target": "0x10003430",
       "bytes": 939,
       "name": "?R_ParseSunLight@@YAPBDPAUSunLightParseParams@@PBD@Z",
+      "object": "r_bsp_load_obj.obj"
+    },
+    {
+      "target": "0x100037e0",
+      "bytes": 45,
+      "name": "?R_LoadSunSettings@@YAXPAUGfxBspLoad@@@Z",
       "object": "r_bsp_load_obj.obj"
     },
     {
