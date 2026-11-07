@@ -1,3 +1,18 @@
+# r_model.obj chunk sweep and 3 newly bound functions - 2026-11-07 (worker g3)
+
+Matched and bound 3 additional functions in `r_model.cpp` (`why == []` in `bind.json`, net +3 bound functions: 2688 -> 2691):
+- `R_SkinRigidSurface` (`0x1001f000`, 37 B): extracted non-static wrapper calling `R_GetRigidTransform((const DObjSkelMat *)((const byte *)bone + xsurf->boneOffset), origin, axis, scale, boneAxis)`.
+- `Material_UsesDx7GridLighting` (`0x1001f280`, 24 B): extracted non-static helper returning `byte` (`technique->passArray.dx7[0].gridLighting`) and inlined into `R_PreSkinStaticSurface`.
+- `R_GetSceneEntDObj` (`0x1001f6b0`, 34 B): extracted non-static helper selecting `sceneEnt->u.obj` (`reType == 0`) or binding `sceneEnt->u.model` to `rg.modelDObj`, inlined into `R_UpdateXModelBounds`.
+
+Remaining `r_model.obj` chunks in `docs/CHUNKS.md` logged as not source-fixable:
+- `0x1001d800`..`0x1001d820`, `0x1001f100`, `0x1001f6e0`, `0x1001fd90`, `0x1001ffb0`, `0x10020370`, `0x100203d0`..`0x100203f0`, `0x10020520`: <20B helpers below `cmp.py` 20-byte indexing threshold.
+- `0x1001da80` (`R_XModelDebugBoxes`), `0x1001de60` (`R_XModelDebugAxes`), `0x1001e220` (`R_DebugModelSurfaces`): register allocation differences (ebx vs edi for ent/sceneEnt).
+- `0x1001e260`..`0x1001ee00` (`R_TransformRigidVertex*`, `R_BlendSkinPosition`, `R_SkinXSurface*`): previously logged x87 / SSE register scheduling and frame differences.
+- `0x1001f030` (`R_SkinXSurfaceSkinned`), `0x1001f480` (`R_SkinXModelSurface`), `0x1001f4d0` (`R_SkinXModelCompoundSurface`), `0x1001f520` (`R_SkinRigidXModelCmd`), `0x1001f5b0` (`R_ConvertSurfaceBones`), `0x1001f610` (`R_SkinXModelCmd`): LTCG custom register convention difference on `R_SkinXSurfaceSkinned` (`ecx, edx` vs retail `eax, edx`) and `R_ConvertSurfaceBones`.
+- `0x1001f120` (`R_PreSkinXSurface`), `0x1001f2a0` (`R_PreSkinStaticSurface`), `0x1001f6f0` (`R_SkinXModel`), `0x1001fa70` (`R_SkinSceneDObj`), `0x1001fd70` (`R_SkinSceneEnt`), `0x10020400` (`R_LoadXModelSkins`): register allocation / stack frame layout differences and cross-TU `R_ProcessFrontendCmdInternal` (`r_rendercmds.cpp`) calling convention.
+- `0x10020350` (`R_ReleaseAllModels`), `0x100203a0` (`R_FinishLoadingModels`): already 100% byte-matched (`hits` include `0x10020350` and `0x100203a0`), duplicate COMDAT/small-body hits with `r_init.obj`.
+
 # RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
 
 RB_SetupPassDx7 (10039b40, retail 1124, ours 1104): probed semantic switch 0/1 cases in inlined RB_ApplyMaterialImageOverride (stays 1104, compiler optimizes out empty cases matching default), early return from case 0/1 (collapses pass loop into 937 bytes by dropping trailing sampler/texcoord setup), and pointer-incremented sampler iterator (stays 1104, strength-reduction arithmetic still generates 4-entry jump table and different loop frame). Restored.
