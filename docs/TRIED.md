@@ -1,3 +1,7 @@
+# Material_ParseRuleSet probe - 2026-11-07
+
+Material_ParseRuleSet 100188e0/505 (chunk 6): Com_ParseInternal brings inner parsing loop into byte-level alignment up to call site. Caller argument passing to Material_ParseRuleSetCondition requires pushed 'text' arg decided by unverified callee convention (LTCG callee ABI), and return path block layout differs. Restored per non-source-fixable callee ABI rule.
+
 # Material_ParseRuleSetCondition probe - 2026-11-07
 
 Material_ParseRuleSetCondition 100185b0/346 (chunk 5): Com_ParseInternal inlines token parsing and brings candidate from 192 B to 336 B vs retail 346 B. Remaining differences belong to non-source-fixable classes: retail aligns the do-while loop to 16-byte boundary with 7-byte lea esp,[esp] NOP padding, uses edx/ecx register allocation swap in token unget restoration, and differs in return block layout. Restored.
