@@ -1,3 +1,17 @@
+# r_image.obj chunk sweep - 2026-11-07 (worker g9)
+
+Swept all 26 `r_image.obj` chunks in `docs/CHUNKS.md` (lines 113–138). All remaining chunks in `r_image.cpp` belong to non-source-fixable classes or are blocked by cross-TU callees / slice-based unit tests:
+- `0x1000c7b0` (`Vector2Copy`, 16 B), `0x1000ddf0` (`Image_AllocTempMemory`, 16 B), `0x1000de00` (`Image_FreeTempMemory`, 16 B): <20B helpers below `cmp.py` 20-byte indexing threshold (with LTCG `eax` register convention on the temp memory wrappers).
+- `0x1000c8e0` (`R_HashAssetName`, 48 B) and `0x1000c970` (`Image_GetMipmapResolution`, 64 B): cross-TU helpers owned by `r_utils.obj` / `r_image_load_obj.obj` placed near `r_image.obj` in retail LTCG layout.
+- `0x1000c9d0` (`Image_TrackFullscreenTexture`, 149 B): 160 B slot matches except 3 instructions at `+0x10` (`mov eax, [vidConfig.width]; mov ecx, esi; dec ecx` vs retail `mov eax, esi; dec eax; mov eax, [vidConfig.width]`); calling `Image_GetPlatformScreenWidth`/`Height` causes loop strength reduction (`or ecx, -1`) expanding the function to 224 B. Restored.
+- `0x1000cba0` (`Image_SetupFromFile`, 48 B), `0x1000ccb0` (`Image_AllocProg`, 89 B), `0x1000d3f0` (`Image_UpdatePicmip`, 82 B): LTCG custom register calling conventions (`eax`/`edx`/`ecx`) and out-of-line calls to `Image_GetAvailableHashLocation` (`0x1000cb40`), which must remain `static` in `r_image.cpp` per `work/tests/test_image_shutdown.py`.
+- `0x1000cd10` (`R_ShutdownImages`, 336 B) and `0x1000d200` (`Image_Register`, 94 B): exact size matches differing only in register allocation (`al` vs `cl` in inlined `R_HashAssetName`; `ebx` vs `edi` in `Image_Register`).
+- `0x1000d450` (`Image_Reload`, 42 B) and `0x1000dd70` (`R_LoadWaterSetup`, 122 B): 100% byte-matched (`hits` in `cmp.json`), blocked only on cross-TU callees `Image_LoadFromFile` (`r_image_load_obj.obj`) and `R_WatersEquivalent` (`r_utils.obj`).
+- `0x1000d510` (`R_InitRawImage`, 80 B), `0x1000d560` (`R_RegisterBuiltinImages`, 276 B), `0x1000d880` (`R_InitImages`, 124 B): `R_InitRawImage` and `R_InitImages` inline `static int Image_GetAvailableHashLocation` instead of calling it out-of-line (`test_image_shutdown.py` slices `static int Image_GetAvailableHashLocation`); `R_RegisterBuiltinImages` differs only in `mov ebx, 1; push ebx` vs `mov bl, 1; push 1` from LTCG `bl` parameter convention on `Image_Register`.
+- `0x1000d680` (`R_SetPicmip`, 510 B): 510 B matches across all branches except 1 instruction at `+0x169` (`mov [imageGlobals.picmip], edi` vs 5-byte `mov [imageGlobals.picmip], eax`); probed chained assignment `imageGlobals.picmip = picmip = minPicmip` and direct `imageGlobals.picmip` use (flips `eax`/`ecx` allocation). Restored.
+- `0x1000de10` (`R_DownsampleMipMapBilinear`, 352 B): LTCG custom register convention (`eax`=`dst`, `edx`=`srcWidth`, `ecx`=`texelPitch`).
+- `0x1000e140`..`0x1000e550` (`std::sort` template helpers, 8 chunks): <20B template helpers (`_Dist_type`, `_Val_type`, `_Iter_cat`, `_Rotate`) below `cmp.py` indexing threshold or duplicate COMDAT hits (`pair`, `iter_swap`, `swap`).
+
 # Material_ParseSamplerSource match - 2026-11-07
 
 Material_ParseSamplerSource (retail 10019620, 211 B; chunk 10): Com_ParseInternal reproduces inlined first token parsing while preserving out-of-line Com_Parse on material name path. 211 bytes match 100% at retail 10019620. Referees and all 2526 checkpoints passed.
