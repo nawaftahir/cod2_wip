@@ -1,3 +1,23 @@
+# Material_ParseSamplerSource match - 2026-11-07
+
+Material_ParseSamplerSource (retail 10019620, 211 B; chunk 10): Com_ParseInternal reproduces inlined first token parsing while preserving out-of-line Com_Parse on material name path. 211 bytes match 100% at retail 10019620. Referees and all 2526 checkpoints passed.
+
+# Material_CodeSamplerSource_r probe - 2026-11-07
+
+Material_CodeSamplerSource_r 100194f0/303 (chunk 9): probed Com_ParseInternal and while(1) loop structures. Compiler duplicates the loop condition and clones exit paths via jump threading, emitting 352 B vs retail 303 B. Non-source-fixable block layout class. Restored.
+
+# Material_LoadPassStateMap match - 2026-11-07
+
+Material_LoadPassStateMap (retail 10018ee0, 161 B; chunk 7): Com_ParseInternal reproduces inlined parse token unget check and call to Com_ParseExt. All 161 bytes match 100% at retail 10018ee0. Referees and all 2526 checkpoints passed. same_file_offset_equal_bytes increased from 251990 to 253184 (+1194 B).
+
+# Material_ParseRuleSet probe - 2026-11-07
+
+Material_ParseRuleSet 100188e0/505 (chunk 6): Com_ParseInternal brings inner parsing loop into byte-level alignment up to call site. Caller argument passing to Material_ParseRuleSetCondition requires pushed 'text' arg decided by unverified callee convention (LTCG callee ABI), and return path block layout differs. Restored per non-source-fixable callee ABI rule.
+
+# Material_ParseRuleSetCondition probe - 2026-11-07
+
+Material_ParseRuleSetCondition 100185b0/346 (chunk 5): Com_ParseInternal inlines token parsing and brings candidate from 192 B to 336 B vs retail 346 B. Remaining differences belong to non-source-fixable classes: retail aligns the do-while loop to 16-byte boundary with 7-byte lea esp,[esp] NOP padding, uses edx/ecx register allocation swap in token unget restoration, and differs in return block layout. Restored.
+
 # RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
 
 RB_SetupPassDx7 (10039b40, retail 1124, ours 1104): probed semantic switch 0/1 cases in inlined RB_ApplyMaterialImageOverride (stays 1104, compiler optimizes out empty cases matching default), early return from case 0/1 (collapses pass loop into 937 bytes by dropping trailing sampler/texcoord setup), and pointer-incremented sampler iterator (stays 1104, strength-reduction arithmetic still generates 4-entry jump table and different loop frame). Restored.

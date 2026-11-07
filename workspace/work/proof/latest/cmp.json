@@ -3644,7 +3644,7 @@
 {
 "name": "?Material_LoadPassSamplerDx7@@YAEPAPBDHPAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 79,
+"size": 87,
 "hits": []
 },
 {
@@ -3658,7 +3658,7 @@
 {
 "name": "?Material_LoadPassSamplersDx7@@YAEPAPBDPAUMaterialPassDx7@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 579,
+"size": 546,
 "hits": []
 },
 {
@@ -3670,7 +3670,7 @@
 {
 "name": "?Material_LoadPassDx7@@YAEPAPBDPAUMaterialPassDx7@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 65,
+"size": 66,
 "hits": []
 },
 {
@@ -3690,8 +3690,10 @@
 {
 "name": "?Material_ParseSamplerSource@@YAEPAPBDPAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 149,
-"hits": []
+"size": 211,
+"hits": [
+"0x10019620"
+]
 },
 {
 "name": "?Material_FindScalarSamplerSource@@YAEPBDPBUCodeSamplerSource@@PAUMaterialShaderArgument@@@Z",
@@ -3840,8 +3842,10 @@
 {
 "name": "?Material_LoadPassStateMap@@YAEPAPBDPAPAUMaterialStateMap@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 97,
-"hits": []
+"size": 161,
+"hits": [
+"0x10018ee0"
+]
 },
 {
 "name": "?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z",
@@ -3933,7 +3937,9 @@
 "name": "?Material_ParseShaderArgument@@YAEPAPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z",
 "obj": "r_material_load_obj.obj",
 "size": 164,
-"hits": []
+"hits": [
+"0x1001a030"
+]
 },
 {
 "name": "?Material_DefaultShaderArgument@@YAEPBDPAUShaderConstantRouting@@PAUMaterialShaderArgument@@@Z",
@@ -4020,13 +4026,13 @@
 {
 "name": "?Material_LoadTechniqueDx9@@YAPAUMaterialTechnique@@PBD@Z",
 "obj": "r_material_load_obj.obj",
-"size": 646,
+"size": 534,
 "hits": []
 },
 {
 "name": "?Material_LoadTechniqueDx7@@YAPAUMaterialTechnique@@PBD@Z",
 "obj": "r_material_load_obj.obj",
-"size": 610,
+"size": 509,
 "hits": []
 },
 {
