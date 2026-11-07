@@ -1,3 +1,7 @@
+# Material_CodeSamplerSource_r probe - 2026-11-07
+
+Material_CodeSamplerSource_r 100194f0/303 (chunk 9): probed Com_ParseInternal and while(1) loop structures. Compiler duplicates the loop condition and clones exit paths via jump threading, emitting 352 B vs retail 303 B. Non-source-fixable block layout class. Restored.
+
 # Material_LoadPassStateMap match - 2026-11-07
 
 Material_LoadPassStateMap (retail 10018ee0, 161 B; chunk 7): Com_ParseInternal reproduces inlined parse token unget check and call to Com_ParseExt. All 161 bytes match 100% at retail 10018ee0. Referees and all 2526 checkpoints passed. same_file_offset_equal_bytes increased from 251990 to 253184 (+1194 B).
