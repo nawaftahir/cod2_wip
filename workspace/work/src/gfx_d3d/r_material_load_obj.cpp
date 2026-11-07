@@ -1036,7 +1036,7 @@ Bool Material_LoadPassStateMap(const char **text, MaterialStateMap **stateMap)
 {
     if (!Com_MatchToken(text, "stateMap", 1))
         return 0;
-    const char *name = Com_Parse(text);
+    const char *name = Com_ParseInternal(text);
     if (!name[0] || name[0] == ';')
     {
         Com_ScriptWarning("missing stateMap filename\n");

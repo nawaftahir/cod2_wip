@@ -1895,6 +1895,14 @@
 "call ?Material_LoadStateMap@@YAPAUMaterialStateMap@@PBD@Z"
 ]
 },
+"?Material_LoadPassStateMap@@YAEPAPBDPAPAUMaterialStateMap@@@Z": {
+"t": "0x10018ee0",
+"n": 161,
+"obj": "r_material_load_obj.obj",
+"why": [
+"call ?Material_LoadCachedStateMap@@YAPAUMaterialStateMap@@PBD@Z"
+]
+},
 "?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z": {
 "t": "0x10018250",
 "n": 109,

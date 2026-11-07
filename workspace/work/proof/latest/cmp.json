@@ -3840,8 +3840,10 @@
 {
 "name": "?Material_LoadPassStateMap@@YAEPAPBDPAPAUMaterialStateMap@@@Z",
 "obj": "r_material_load_obj.obj",
-"size": 97,
-"hits": []
+"size": 161,
+"hits": [
+"0x10018ee0"
+]
 },
 {
 "name": "?Material_FindCachedShaderText@@YA_NPBDPAPBDPAH@Z",
@@ -4020,13 +4022,13 @@
 {
 "name": "?Material_LoadTechniqueDx9@@YAPAUMaterialTechnique@@PBD@Z",
 "obj": "r_material_load_obj.obj",
-"size": 646,
+"size": 534,
 "hits": []
 },
 {
 "name": "?Material_LoadTechniqueDx7@@YAPAUMaterialTechnique@@PBD@Z",
 "obj": "r_material_load_obj.obj",
-"size": 610,
+"size": 510,
 "hits": []
 },
 {

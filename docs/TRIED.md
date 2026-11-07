@@ -1,3 +1,7 @@
+# Material_LoadPassStateMap match - 2026-11-07
+
+Material_LoadPassStateMap (retail 10018ee0, 161 B; chunk 7): Com_ParseInternal reproduces inlined parse token unget check and call to Com_ParseExt. All 161 bytes match 100% at retail 10018ee0. Referees and all 2526 checkpoints passed. same_file_offset_equal_bytes increased from 251990 to 253184 (+1194 B).
+
 # Material_ParseRuleSet probe - 2026-11-07
 
 Material_ParseRuleSet 100188e0/505 (chunk 6): Com_ParseInternal brings inner parsing loop into byte-level alignment up to call site. Caller argument passing to Material_ParseRuleSetCondition requires pushed 'text' arg decided by unverified callee convention (LTCG callee ABI), and return path block layout differs. Restored per non-source-fixable callee ABI rule.
