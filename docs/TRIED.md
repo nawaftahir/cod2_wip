@@ -31,6 +31,29 @@ Remaining `r_model.obj` chunks in `docs/CHUNKS.md` logged as not source-fixable:
 - `0x1001f030` (`R_SkinXSurfaceSkinned`), `0x1001f480` (`R_SkinXModelSurface`), `0x1001f4d0` (`R_SkinXModelCompoundSurface`), `0x1001f520` (`R_SkinRigidXModelCmd`), `0x1001f5b0` (`R_ConvertSurfaceBones`), `0x1001f610` (`R_SkinXModelCmd`): LTCG custom register convention difference on `R_SkinXSurfaceSkinned` (`ecx, edx` vs retail `eax, edx`) and `R_ConvertSurfaceBones`.
 - `0x1001f120` (`R_PreSkinXSurface`), `0x1001f2a0` (`R_PreSkinStaticSurface`), `0x1001f6f0` (`R_SkinXModel`), `0x1001fa70` (`R_SkinSceneDObj`), `0x1001fd70` (`R_SkinSceneEnt`), `0x10020400` (`R_LoadXModelSkins`): register allocation / stack frame layout differences and cross-TU `R_ProcessFrontendCmdInternal` (`r_rendercmds.cpp`) calling convention.
 - `0x10020350` (`R_ReleaseAllModels`), `0x100203a0` (`R_FinishLoadingModels`): already 100% byte-matched (`hits` include `0x10020350` and `0x100203a0`), duplicate COMDAT/small-body hits with `r_init.obj`.
+# r_scene.obj chunk sweep and LerpByte match - 2026-11-07
+
+LerpByte (retail 10024050, 37 bytes): extracted non-static helper `byte LerpByte(byte from, byte to, float frac)` using `I_fround` and inlined into `R_GetVisLightsMask` / `R_LerpEntityData` in `r_scene.cpp`. Matches retail 0x10024050 byte-for-byte (37 bytes, why == [], net +2 bound functions on gfx/g4 alongside R_CountMatchingSceneEntities).
+
+Remaining r_scene.obj chunks in docs/CHUNKS.md:
+- 0x100219c0..0x10021fd0 (`R_UncullAllSceneEntities` .. `R_LinkBModelEntity`): already emitted in `r_dpvs.cpp` / `r_scene.cpp`; chunks in CHUNKS.md are either <20B helpers (`0x10021c10`, `0x10021e30`, `0x10022d20`, `0x100243d0`) below `cmp.py` indexing threshold or cross-TU boundary functions (`r_dpvs.obj` / `r_scene.obj`) where register allocation / inlining differs.
+- 0x10022a60 (`R_AddBModelSurfacesCamera`, 528 B) and 0x10022c70 (`R_AddBModelSurfaces`, 176 B): register allocation / loop induction variable differences (esi/edi/ebx) in surface bounds / technique checks; non-source-fixable.
+- 0x10022d30..0x100238a0 (`R_UpdateSceneEntBounds`, `R_SkinSceneEntities`, `R_ClearScene`, `R_GetDefaultNearClip`): register allocation / x87 stack scheduling differences or blocked on external callees (`R_UpdateXModelBounds`, `R_SkinGfxEntity`).
+- 0x10024080 (`R_UpdateEntityLighting`, 944 B) and 0x100244b0 (`R_RenderScene`, 1968 B): large multi-loop functions with register allocation and frame layout differences (`RB_GetLightingAtPoint` / `R_SetupViewProjection` inlining context); non-source-fixable.
+
+# R_AddRefEntityToScene and R_ShortSortDrawSurfs linkage / ABI matches - 2026-11-07
+
+R_AddRefEntityToScene (retail 10023db0, 209 bytes) and R_ShortSortDrawSurfs (retail 10024460, 70 bytes): removing static from R_CopyRefEntityToScene restored standard 3-stack-argument ABI in caller R_AddRefEntityToScene, achieving 100% byte match (209 bytes at 0x10023db0). Removing static from R_ShortSortDrawSurfs gave it a distinct symbol in the map and verified extent at 0x10024460 (70 bytes, 100% byte-identical, why == []). Passes full gate and checkpoint regression.
+
+# R_AddModelRefEntity / R_DumpSceneEntities register allocation probes - 2026-11-07
+
+R_DumpSceneEntities (retail 10023920, 464 bytes): exactly 464 bytes in both ours and retail. Differs only in prologue register shrink-wrapping across qsort (push ebp before qsort vs after) and register choice (ebx/edi for ent/sceneEnt). Non-source-fixable register allocation class.
+
+R_AddModelRefEntity (retail 10023cc0, 128 bytes): emits 129 bytes (padded to 144) vs retail 128 bytes. The single 1-byte difference is opcode 0x10: retail emits 5-byte A1 mov eax, [scene.def.entities] while ours emits 6-byte 8B 0D mov ecx, [scene.def.entities]. All other instructions through ret match identically. Probed sceneEnt declaration ordering and pointer arithmetic. Restored. Non-source-fixable register allocation class.
+
+# R_CountMatchingSceneEntities out-of-line helper match - 2026-11-07
+
+R_CountMatchingSceneEntities (retail 100238d0, 80 bytes): restored out-of-line helper in r_scene.cpp matching retail 100238d0 exactly (80 bytes, 100% byte-identical, why == []). Passes byte referee, binding referee and checkpoint regression. Net +1 bound function, same_file_offset_equal_bytes 251990 -> 252264 (+274 bytes).
 
 # RB_SetupPassDx7 jump-table and loop probe - 2026-11-06
 

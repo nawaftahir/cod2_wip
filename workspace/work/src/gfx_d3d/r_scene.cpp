@@ -219,6 +219,18 @@ static int R_CompareDumpSceneEntities(const void *e0, const void *e1)
     }
 }
 
+// Name unconfirmed; PINNED out-of-line copy 100238d0.
+int R_CountMatchingSceneEntities(const int *sortedIndices, int entIndex)
+{
+    int nextIndex;
+    for (nextIndex = entIndex + 1; nextIndex != scene.def.entityCount; ++nextIndex)
+    {
+        if (R_CompareDumpSceneEntities(&sortedIndices[entIndex], &sortedIndices[nextIndex]))
+            break;
+    }
+    return nextIndex - entIndex;
+}
+
 // Name HYPOTHESIS (inlined into R_RenderScene on Mac; comparator name is from Mac STABS).
 void R_DumpSceneEntities()
 {
@@ -227,7 +239,6 @@ void R_DumpSceneEntities()
     GfxEntity *ent;
     GfxSceneEntity *sceneEnt;
     int entIndex;
-    int nextIndex;
     int count;
 
     typeNames[0] = "dobj";
@@ -247,12 +258,7 @@ void R_DumpSceneEntities()
     {
         ent = &frontEndDataOut->entities[sortedIndices[entIndex]];
         sceneEnt = &scene.sceneEnts[sortedIndices[entIndex]];
-        for (nextIndex = entIndex + 1; nextIndex != scene.def.entityCount; ++nextIndex)
-        {
-            if (R_CompareDumpSceneEntities(&sortedIndices[entIndex], &sortedIndices[nextIndex]))
-                break;
-        }
-        count = nextIndex - entIndex;
+        count = R_CountMatchingSceneEntities(sortedIndices, entIndex);
         Com_Printf("%3i: %-8s: ", count, typeNames[ent->reType]);
         switch (ent->reType)
         {
@@ -271,6 +277,12 @@ void R_DumpSceneEntities()
             break;
         }
     }
+}
+
+// PINNED 10024050/37; KisakCOD name.
+byte LerpByte(byte from, byte to, float frac)
+{
+    return (byte)(from + (to - from) * frac);
 }
 
 void R_UpdateFrameFog()
@@ -298,10 +310,10 @@ void R_UpdateFrameFog()
         rg.fogSettings[2].fogStart = (rg.fogSettings[4].fogStart - rg.fogSettings[3].fogStart) * lerpPos + rg.fogSettings[3].fogStart;
         rg.fogSettings[2].fogEnd = (rg.fogSettings[4].fogEnd - rg.fogSettings[3].fogEnd) * lerpPos + rg.fogSettings[3].fogEnd;
         rg.fogSettings[2].density = (rg.fogSettings[4].density - rg.fogSettings[3].density) * lerpPos + rg.fogSettings[3].density;
-        rg.fogSettings[2].color.array[0] = (byte)((rg.fogSettings[4].color.array[0] - rg.fogSettings[3].color.array[0]) * lerpPos + rg.fogSettings[3].color.array[0]);
-        rg.fogSettings[2].color.array[1] = (byte)((rg.fogSettings[4].color.array[1] - rg.fogSettings[3].color.array[1]) * lerpPos + rg.fogSettings[3].color.array[1]);
-        rg.fogSettings[2].color.array[2] = (byte)((rg.fogSettings[4].color.array[2] - rg.fogSettings[3].color.array[2]) * lerpPos + rg.fogSettings[3].color.array[2]);
-        rg.fogSettings[2].color.array[3] = (byte)((rg.fogSettings[4].color.array[3] - rg.fogSettings[3].color.array[3]) * lerpPos + rg.fogSettings[3].color.array[3]);
+        rg.fogSettings[2].color.array[0] = LerpByte(rg.fogSettings[3].color.array[0], rg.fogSettings[4].color.array[0], lerpPos);
+        rg.fogSettings[2].color.array[1] = LerpByte(rg.fogSettings[3].color.array[1], rg.fogSettings[4].color.array[1], lerpPos);
+        rg.fogSettings[2].color.array[2] = LerpByte(rg.fogSettings[3].color.array[2], rg.fogSettings[4].color.array[2], lerpPos);
+        rg.fogSettings[2].color.array[3] = LerpByte(rg.fogSettings[3].color.array[3], rg.fogSettings[4].color.array[3], lerpPos);
         rg.fogSettings[2].techniqueOffset = rg.fogSettings[4].techniqueOffset;
         rg.fogSettings[2].registered = 1;
         rg.fogSettings[2].clearScreen = rg.fogSettings[4].clearScreen || rg.fogSettings[3].clearScreen;
@@ -499,13 +511,13 @@ extern const dvar_t *com_statmon;
 void R_DrawModel(int entIndex);
 
 // PINNED 10023780/128; private helper name unconfirmed.
-static void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
+void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
 {
     GfxEntity *ent = &scene.def.entities[entIndex];
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
     *ent = *refEnt;
     if (refEnt->scale == 0.0f)
         ent->scale = 1.0f;
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
     memset(sceneEnt, 0, sizeof(*sceneEnt));
     if (refEnt->reType >= 4)
         R_AddDrawSurf(refEnt->customMaterial, entIndex, 31, &s_entitySurface);
@@ -561,7 +573,7 @@ GfxEntity *R_AddRefEntityToScene(const GfxEntity *refEnt, GfxModel sceneModel,
 }
 
 // PINNED 10024460/70: selection sort swaps the entire surface record.
-static void R_ShortSortDrawSurfs(GfxDrawSurf *lo, GfxDrawSurf *hi)
+void R_ShortSortDrawSurfs(GfxDrawSurf *lo, GfxDrawSurf *hi)
 {
     while (hi > lo)
     {

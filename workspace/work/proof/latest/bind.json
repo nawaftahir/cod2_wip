@@ -2591,6 +2591,18 @@
 "obj": "r_scene.obj",
 "why": []
 },
+"?R_CountMatchingSceneEntities@@YAHPBHH@Z": {
+"t": "0x100238d0",
+"n": 68,
+"obj": "r_scene.obj",
+"why": []
+},
+"?LerpByte@@YAEEEM@Z": {
+"t": "0x10024050",
+"n": 37,
+"obj": "r_scene.obj",
+"why": []
+},
 "?R_UpdateFrameFog@@YAXXZ": {
 "t": "0x10024080",
 "n": 508,
@@ -2627,6 +2639,14 @@
 "obj": "r_scene.obj",
 "why": [
 "call ?R_UpdateXModelBounds@@YAXPAUGfxSceneEntity@@PBUGfxEntity@@@Z"
+]
+},
+"?R_AddRefEntityToScene@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z": {
+"t": "0x10023db0",
+"n": 209,
+"obj": "r_scene.obj",
+"why": [
+"call ?R_AddModelRefEntity@@YAPAUGfxEntity@@PBU1@TGfxModel@@PBUcentity_s@@@Z"
 ]
 },
 "?R_ShortSortDrawSurfs@@YAXPAUGfxDrawSurf@@0@Z": {
