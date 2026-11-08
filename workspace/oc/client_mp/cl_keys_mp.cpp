@@ -28,7 +28,7 @@ extern keyname_t keynames[96];
 extern keyname_t keynames_localized[96];
 
 extern clientStatic_t cls;
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 
 extern void ReplaceStringInternal(const char **str, const char *in);
 extern void Cmd_AddCommand(const char *name, void (*func)(void));

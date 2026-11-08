@@ -163,7 +163,7 @@ struct clientConnection_t
 };
 extern clientConnection_t clientConnections[1];
 #define clc clientConnections[0]
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 extern clientStatic_t cls;
 extern unsigned char updateScreenCalled;
 

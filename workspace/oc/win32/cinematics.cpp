@@ -13,7 +13,7 @@ short unsigned int vq2[16384];
 long int ROQ_VR_tab[256];
 long int ROQ_YY_tab[256];
 long int ROQ_UB_tab[256];
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 extern ALIGNED(128) snd_local_t g_snd;
 extern clientConnection_t clientConnections[1];
 #define clc clientConnections[0]

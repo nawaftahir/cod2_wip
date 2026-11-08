@@ -446,7 +446,7 @@ struct refexport_t
 	void (*unknown86)();
 	void (*unknown87)(const void *arg, int value);
 };
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 
 // retail 0xe23438, read only by the wrapper below; name unknown
 int xmodel_unk_e23438;

@@ -24,7 +24,7 @@ clientConnection_t clientConnections[1];
 #define clc clientConnections[0]
 const dvar_t *cl_avidemo;
 Bool g_waitingForServer;
-ALIGNED(128) refexport_t re;
+refexport_t re;
 const dvar_t *cl_nodelta;
 const dvar_t *cl_showServerCommands;
 const dvar_t *cl_connectTimeout;
@@ -276,7 +276,7 @@ extern char *strchr(const char *, int);
 extern float floorf(float);
 extern int puts(const char *);
 
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 extern struct clientStatic_t cls;
 extern const dvar_t *cl_nodelta;
 extern const dvar_t *cl_noprint;
@@ -470,7 +470,7 @@ extern int CIN_PlayCinematic(const char *name, int x, int y, int w, int h, int b
 extern e_status CIN_RunCinematic(int handle);
 extern void CG_DObjCalcPose(const centity_s *cent, const DObj_s *obj, int *partBits);
 extern const char *CL_GetHudMsgIconMaterialName(int iconIndex);
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 extern void *__stdcall LoadLibraryA(const char *name);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long ms);
 extern void *__stdcall GetProcAddress(void *mod, const char *proc);

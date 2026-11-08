@@ -956,7 +956,7 @@ static void CG_CalcCrosshairColor(float alpha, float *color)
     color[3] = alpha * cg_crosshairAlpha->current.value;
 }
 
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 
 void CG_DrawTurretCrossHair(void)
 {

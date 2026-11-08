@@ -103,7 +103,7 @@ extern const char **Cmd_GetAutoCompleteFileList(const char *cmd, int *fileCount,
 extern void FS_FreeFileList(char **list, int count);
 extern int strnicmp(const char *s1, const char *s2, size_t n);
 extern void *__DefaultRuneLocale;
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 extern void CalcSplitScreenTextOffset(struct Font_s *font, float *y);
 extern void CL_DrawText(const char *text, int maxChars, struct Font_s *font, float x, float y, int horzAlign, int vertAlign, float xScale, float yScale, const float *color, int style);
 extern clientStatic_t cls;
