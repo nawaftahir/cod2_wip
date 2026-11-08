@@ -115,7 +115,6 @@ COD2_ASSERT_FIELD(clientActive_t, timeoutcount, 0x14);
 
 #if COD2_IS_PATCH_13
 
-const dvar_t *cl_punkbuster;
 const dvar_t *cl_profileTextHeight;
 const dvar_t *dvar_68a3a0;
 const dvar_t *cl_wwwDownload;

@@ -10,7 +10,8 @@ extern clientStatic_t cls;
 extern sharedUiInfo_t sharedUiInfo;
 extern qkey_t *keys;
 
-ALIGNED(16) UI_Component_data_t __ZN12UI_Component1gE;
+// retail address 0xd528f8 is 8 but not 16 aligned
+ALIGNED(8) UI_Component_data_t __ZN12UI_Component1gE;
 // unreferenced storage, size from the retail layout after UI_Component::g
 char uiComponentUnreferenced[0x18];
 #define UI_Component_g __ZN12UI_Component1gE
