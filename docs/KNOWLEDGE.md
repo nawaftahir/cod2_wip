@@ -248,3 +248,16 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - CL_ParseWWWDownload: retail stores `legacyHacks->cl_downloadSize` after the `downloadFlags & 2` branch (not before it); retail also drops the `downloadTempName[0]` guard before `[strlen-1] = 0`, but dropping it alone makes the fn 554 B (slot 576 -> -16 drift, same-offset 468K): needs the esi (msg + constant 1) regalloc too.
 - CL_CheckForResend retail frame 0xc34: low to high len@0x10, md5Str@0x14, data@0x38, info@0x438, pbBuf@0x838 (ours: data, pbBuf, info, 8 B smaller).
 - CG_SubtitlePrint: pointer ternary `d = wide ? A : B; subtitleWidth = d->current.integer` gives retail's select-then-deref shape (121 B vs 119); retail takes `msec` in ecx, ours eax.
+
+## 16. Xbox 360 linker map (xn, 11-08, SUPPORTED: names, signatures, obj only)
+- `D:\cod2_stuff\crc7_v2\CoD2MP.map` (Oct 2005, PowerPC, MSVC-style mangling). `tools/xenonnames.py MAP data/xenon_names.tsv` parses publics and static symbols
+  (21,826 rows, 15,062 with a demangled signature). Layout, addresses, link order do not transfer (different CPU and link).
+- The 66 tail functions: every Xenon signature that exists agrees with ours in param count, order and return type (CL_ConsolePrint_AddLine
+  `int(print_msg_type_t,const char*,int,int,int)`, CL_ParseServerMessage `(msg_t*)`, SVC_Status `(netadr_t)`, CM_Trace/BoxSightTrace/LinkEntity/PointContents/TempBoxModel,
+  XAnimCalc, VM_Notify, CG_ClipMoveToEntities, CG_DrawAdsOverlay, CG_DrawCursorhint, CG_FireWeapon, Menu_SetNextCursorItem, Window_Paint (windowDef_t*) ...).
+  Differences are only type spelling, none changes PC codegen: `snd_alias_t*` non-const (CG_SubtitlePrint), `const gentity_s*` (G_GetPlayerViewOrigin),
+  `refEntityType_t` enum (FX_AddFxToScene), `windowDef_t*` where we write `float (*)[4][32]` (Window_Paint). So the LTCG register-convention diffs are callee regalloc, not signatures.
+- Not in the Xenon map (PC-only or inlined there): DL_*, CL_ParseDownload, CL_ParseWWWDownload, CL_SyncGpu, CL_ReadMotd, CL_TrimWhitespace, SEH_IsChinesePunctuation,
+  PbSv*, CG_DrawScoreboard_Objective (Xenon has the other CG_DrawScoreboard_* parts, Objective is inlined into its caller), HTCache/HTEvtLst, Com_ErrorAbort, PC_EvaluateTokens.
+- fn_XXXXXX renames: none tied. fn_403580 (`unskippablecinematic`) has no Xenon twin (Xenon cl_cin_mp has CL_PlayCinematic_f, CIN_PlayAttractModeMovie, XenonPlayCinematicCallback);
+  fn_4034a0, fn_4157b0, fn_40b100, fn_412660, fn_4126c0 have no string or callee match in the Xenon names. Do not rename on a guess.
