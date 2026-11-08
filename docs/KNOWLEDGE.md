@@ -261,3 +261,24 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   PbSv*, CG_DrawScoreboard_Objective (Xenon has the other CG_DrawScoreboard_* parts, Objective is inlined into its caller), HTCache/HTEvtLst, Com_ErrorAbort, PC_EvaluateTokens.
 - fn_XXXXXX renames: none tied. fn_403580 (`unskippablecinematic`) has no Xenon twin (Xenon cl_cin_mp has CL_PlayCinematic_f, CIN_PlayAttractModeMovie, XenonPlayCinematicCallback);
   fn_4034a0, fn_4157b0, fn_40b100, fn_412660, fn_4126c0 have no string or callee match in the Xenon names. Do not rename on a guess.
+
+## 17. Wave 2 (w2, 11-08): register oracle on 1.3, jump-table targets (PINNED on retail bytes)
+- The 1.0 colour oracle (`client-1.0/tools/oracle`, REGALLOC.md) works on 1.3 unchanged: same c2.dll bytes (hook sites 0x724f6 etc. match). `tools/ra13.sh`
+  relinks `build/objs.rsp` with the logging c2 in ~20 s (no recompile) and writes `build/ra/ox.exe` + map (code identical to the release link) and the
+  F/P/C log of EVERY function. In this image wine does not hand `RA_FN` to the cave's `getenv` (F fired, name compare never matched), so the cave is
+  patched to arm for all functions when RA_FN is unset (`cave_all`). Then `split_all.py` + `cpick.py` per function as in REGALLOC.md round 5.
+- `tools/lab13.sh OBJ...` recompiles only the named objs and relinks (~25 s total) so a source variant is judged on the REAL function in the real
+  link (not an uncalled lab copy); `tools/fdiff.py build/ra/ox.exe build/ra/ox.map <anchor> <name> <retail addr>` diffs it. Only the clean
+  `tools/ratchet13.sh` accepts. Do not run it while a release build runs (both move `build/obj`).
+- The referee masks jump-table words, so a function can be "matched" with other table targets. `tools/jtdiff13.py EXE MAP` lists differing code-pointer
+  dwords in .text per function (before w2: CG_EntityEvent 60, SCR_DrawScreenField 5, CL_ConsolePrint_AddLine 4, CG_DrawScoreboard_Objective 1).
+- SCR_DrawScreenField (PINNED, retail 0x414900, 465 B): the code already matched; only the case table pointed the CONNECTING..PRIMED labels at the second
+  copy of `UI_Refresh(); UI_DrawConnectScreen();` (the wwwDlInProgress branch, 0x4149ce) instead of the first (0x4149b9). Lever: no fall-through from
+  the non-main-thread DISCONNECTED path into the case labels; write the `if (CL_AnyLocalClientChallenging()) { UI_Refresh(); UI_DrawConnectScreen(); }`
+  copy inside the branch, `break;` after the if/else, and keep the case group as its own block. The labels then own the first copy. The fullscreen switch
+  must keep separate `case X: break;` blocks (DISCONNECTED / CINEMATIC / LOGO / CONNECTING group): one merged group becomes a compare chain, no
+  table. XENON_REF's 4-flag cascade is NOT in retail PC (the PC code is the 1-flag wwwDlInProgress test; menu id 1); no PC flag/menu id was added.
+- CL_ConsolePrint_AddLine oracle log (pop order, node, n3/n16/n17, free regs with cost): `charWidth` (n3 -256, n16 16) has free {eax, edi, ebp}; ebp costs 3200
+  (neighbours with a single free reg, `off` 20 refs-units + 12) so the allocator takes the eax piece (-3 affinity from the call result) and the rest
+  spills to [esp+0x28]; the zero constant lands in ebp as the last leftover. Retail has charWidth ebp, zero edi (zero pops before `line`/charWidth, or
+  charWidth has no neighbour that is forced to ebp). Decl order of charWidth/curWidth, a separate inner `cw`: no output change (real function).

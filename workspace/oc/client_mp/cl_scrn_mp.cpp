@@ -212,8 +212,10 @@ void SCR_DrawScreenField(void)
         case CA_DISCONNECTED:
             SND_StopSounds((snd_stopsounds_arg_t)0);
             if (!(unsigned char)Sys_IsMainThread()) {
-                if (!CL_AnyLocalClientChallenging())
-                    break;
+                if (CL_AnyLocalClientChallenging()) {
+                    UI_Refresh();
+                    UI_DrawConnectScreen();
+                }
             } else {
                 if (cls.wwwDlInProgress) {
                     UI_Refresh();
@@ -221,8 +223,8 @@ void SCR_DrawScreenField(void)
                 } else {
                     UI_SetActiveMenu(1);
                 }
-                break;
             }
+            break;
         case CA_CONNECTING:
         case CA_CHALLENGING:
         case CA_CONNECTED:
@@ -243,9 +245,7 @@ void SCR_DrawScreenField(void)
     } else {
         switch (clc.state) {
         case CA_DISCONNECTED:
-            break;
         case CA_CINEMATIC:
-            break;
         case CA_LOGO:
             break;
         case CA_CONNECTING:
