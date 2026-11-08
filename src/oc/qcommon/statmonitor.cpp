@@ -8,7 +8,7 @@
 
 extern const dvar_t *com_statmon;
 extern clientStatic_t cls;
-extern ALIGNED(128) refexport_t re;
+extern refexport_t re;
 extern int Sys_Milliseconds(void);
 extern void Sys_EnterCriticalSection(int section);
 extern void Sys_LeaveCriticalSection(int section);
