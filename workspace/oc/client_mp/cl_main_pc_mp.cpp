@@ -1093,10 +1093,10 @@ void CL_ClearMutedList(void)
     memset(s_playerMute, 0, sizeof(s_playerMute));
 }
 
-char motd_buffer[256];
-
 char *LAN_GetMotdFilename(void)
 {
+    static char motd_buffer[256];
+
     FS_BuildOSPath(fs_homepath->current.string, fs_gameDirVar->current.string, "motd.txt", motd_buffer);
     return motd_buffer;
 }
