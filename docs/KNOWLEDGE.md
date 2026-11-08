@@ -282,3 +282,7 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   (neighbours with a single free reg, `off` 20 refs-units + 12) so the allocator takes the eax piece (-3 affinity from the call result) and the rest
   spills to [esp+0x28]; the zero constant lands in ebp as the last leftover. Retail has charWidth ebp, zero edi (zero pops before `line`/charWidth, or
   charWidth has no neighbour that is forced to ebp). Decl order of charWidth/curWidth, a separate inner `cw`: no output change (real function).
+
+## 1.3 .bss layout (w4, 11-08)
+- PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
+- Most of the ".text outside functions" residue is not outside functions: 43,985 B at abeca8c1 were address operands in functions equal modulo relocation, mostly .bss drift.

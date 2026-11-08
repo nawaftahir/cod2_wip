@@ -9,7 +9,7 @@ dvar_t *com_dedicated;
 // storage in its original order; the unreferenced blocks keep that layout
 static int g_largeLocalPos = 0;
 static char mem_unreferenced0[0x58] __attribute__((aligned(4)));
-ALIGNED(128) static byte g_largeLocalBuf[0x80000];
+ALIGNED(128) static byte g_largeLocalBuf[0x100000];
 static int mem_unreferenced1;
 
 static hunkUsed_t hunk_low;
