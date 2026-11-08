@@ -79,7 +79,7 @@ typedef struct {
     WNDPROC SysInputLineWndProc;
 } WinConData;
 
-static ALIGNED(16) WinConData s_wcd;
+static WinConData s_wcd;
 
 #    define CONSOLE_BUFFER_SIZE 16384
 
