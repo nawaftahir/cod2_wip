@@ -23,10 +23,10 @@
 #include "HTFTP.h"
 #undef ERR_FATAL
 
-static int dl_initialized;
-static int dl_running;
-static int dl_forceRawBytesCount;
-static HTRequest *dl_request;
+static int dl_initialized = 0;
+static int dl_running = 0;
+static int dl_forceRawBytesCount = 0;
+static HTRequest *dl_request = 0;
 static int dl_requestStatus = -1000;
 bool dl_isMotd;
 

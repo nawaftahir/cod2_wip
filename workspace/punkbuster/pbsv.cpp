@@ -280,8 +280,8 @@ inline stPbSv::~stPbSv()
 
 stPbSv pbsv;
 
-char *g_ConsoleCaptureBuf;
-long g_ConsoleCaptureBufLen;
+char *g_ConsoleCaptureBuf = 0;
+long g_ConsoleCaptureBufLen = 0;
 
 void PbSvAddEvent(int event, int clientIndex, int datalen, char *data)
 {

@@ -271,7 +271,7 @@ struct stPbCl
 };
 
 stPbCl pbcl;
-char *pbInitParam;
+char *pbInitParam = 0;
 
 extern "C" int __cdecl stricmp(const char *, const char *);
 extern void set_cl_punkbuster(char *value);

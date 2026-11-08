@@ -286,3 +286,5 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 ## 1.3 .bss layout (w4, 11-08)
 - PINNED: g_largeLocalBuf spans 0xb22f00..0xc22f00 in retail 1.3 (next symbol com_dedicated at 0xc22f00, ours was 0xba2f00). Size set to 0x100000 (opencod2 lists 524288, likely 1.0). One array vs two symbols is not distinguishable from code: SUPPORTED. Clean ratchet same-offset 1914105 -> 1933443, matched-fn unchanged.
 - Most of the ".text outside functions" residue is not outside functions: 43,985 B at abeca8c1 were address operands in functions equal modulo relocation, mostly .bss drift.
+- PINNED (retail operand + clean ratchet): motd_buffer is a function-local static of LAN_GetMotdFilename (retail 0x19a7000, in the function-static block). HTEventList_pump calls GetMessageA(&msg,0,0,0), IAT 0x593278 (+99 matched).
+- PINNED (clean ratchet, 1938165 -> 1950864): explicit `= 0` on dl_initialized/dl_running/dl_forceRawBytesCount/dl_request, pbInitParam, g_ConsoleCaptureBuf/Len moves them to retail's late bss block; .bss vsize now equals retail. Explicit zero init decides bss placement.
