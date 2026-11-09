@@ -177,6 +177,7 @@ static void SV_Map_f( void )
 		return;
 	}
 
+	Com_DedicatedModified();
 	basename = SV_GetMapBaseName(map);
 	I_strncpyz(mapname, basename, sizeof(mapname));
 	I_strlwr(mapname);
