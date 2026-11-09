@@ -4312,3 +4312,7 @@ R_AddCmdLightProperties 10021770/192: x87 float copy and specular alpha multiply
 2026-11-09 R_DpvsPlaneSetDist: DotProduct(coeffs, point) and (point, coeffs) emit the same code; retail loads point first. Not source-order fixable, reverted.
 2026-11-09 RB_ScreenRadiusToWorld: up[3] temps fit the 120 B slot (kept); y+z+x and z+y+x orders both leave x87 scheduling diff. 3 probes used.
 2026-11-09 RB_TessEntity: retail case order kept; code identical, only jump table targets differ; not bound yet, 2401 bound before and after.
+2026-11-09 TU hunt: Mac binary not available (main symlink dangling), so no STABS list; all Mac gfx_d3d files covered, no unbound code near com_*/q_*: last 4 LTCG objects (117/121) likely data-only. HYPOTHESIS.
+2026-11-09 Image_TrackFullscreenTexture: KisakCOD two-arg helpers (platform, size) with if (platform == 1) merge both tests into one cmp/jne, far from retail (dec form, two tests). Reverted.
+2026-11-09 r_init globals: round 1 moved only source position; relative definition order (ri,rg,rgp,dx,vidConfig,r_mode,r_displayRefresh,re) is unchanged, nothing to revert; 970 B same-offset loss has another cause.
+2026-11-09 r_bsp_load_obj head: LittleShort/LittleLong/FloatFromBits/FloatIdentity uses and macro-expanded parse token restore retail helper order, no loss. Com_Memset in R_ResetShadowCookies fits R_LoadWorld 176 B slot (offsets at retail through 1740+) but bytes differ. Same-offset 251545 -> 250054 until later size gaps close; NOT merged.

@@ -1,6 +1,12 @@
 // World (BSP) loading.
 #include "gfx.h"
+// Same identity helpers as q_shared.h, which clashes with gfx.h types.
+static inline short LittleShort(short l) { return l; }
+static inline int LittleLong(int l) { return l; }
+static inline float FloatFromBits(int l) { return FloatIdentity(*(float *)&l); }
 #include "universal/parse_inline.h"
+// Expands Com_ParseInternal here; retail keeps no out-of-line copy of it in this TU.
+#define R_PARSE_TOKEN(token, data_p) { ParseThreadInfo *parse = Com_GetParseThreadInfo(); parseInfo_t *pi = &parse->parseInfo[parse->parseInfoNum]; if (pi->ungetToken) { pi->ungetToken = false; *(data_p) = pi->backup_text; pi->lines = pi->backup_lines; } token = Com_ParseExt(data_p, 1); }
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -57,7 +63,7 @@ void R_SetDpvsPlaneSides(DpvsPlane *plane)
 static __declspec(noinline) int R_GetLumpElemCount(const GfxBspLoad *load, int lumpIndex, int elemSize)
 {
     const lump_t *lump = &load->header->lumps[lumpIndex];
-    if (lump->filelen + lump->fileofs > load->fileSize)
+    if (LittleLong(lump->filelen) + LittleLong(lump->fileofs) > load->fileSize)
         R_Error(ERR_DROP, "\x15LoadMap: lump extends past end of file in %s", s_world.name);
     if (lump->fileofs < 4)
         R_Error(ERR_DROP, "\x15LoadMap: funny lump offset in %s", s_world.name);
@@ -234,9 +240,9 @@ static void R_CombineLightmapsForDx7(byte **images, int height, int width, const
             int r = I_fround((images[0][pixel] + sunVis * sunColor[0]) * 0.5f);
             int g = I_fround((images[1][pixel] + sunVis * sunColor[1]) * 0.5f);
             int b = I_fround((images[2][pixel] + sunVis * sunColor[2]) * 0.5f);
-            images[0][pixel + 2] = (byte)I_min(r, 255);
-            images[0][pixel + 1] = (byte)I_min(g, 255);
-            images[0][pixel] = (byte)I_min(b, 255);
+            images[0][pixel + 2] = (byte)I_min(255, r);
+            images[0][pixel + 1] = (byte)I_min(255, g);
+            images[0][pixel] = (byte)I_min(255, b);
             images[0][pixel + 3] = 255;
             pixel += 4;
             sunPixel += 2;
@@ -761,7 +767,7 @@ const char *R_ParseSunLight(SunLightParseParams *params, const char *text)
 
     for (;;)
     {
-        token = Com_ParseInternal(&text);
+        R_PARSE_TOKEN(token, &text);
         if (!token[0] || token[0] == '}')
             break;
         if (token[0] == '{')
@@ -782,7 +788,7 @@ const char *R_ParseSunLight(SunLightParseParams *params, const char *text)
             continue;
         }
         I_strncpyz(key, token, sizeof(key));
-        token = Com_ParseInternal(&text);
+        R_PARSE_TOKEN(token, &text);
         if (!token[0] || token[0] == '}')
             break;
         I_strncpyz(value, token, sizeof(value));
@@ -1049,7 +1055,7 @@ void R_LoadPortals(GfxBspLoad *load)
         GfxPortal *out = &portals[index];
         DpvsPlane *outPlane = &out->plane;
         VectorCopy(plane, outPlane->coeffs);
-        outPlane->coeffs[3] = -plane[3];
+        outPlane->coeffs[3] = -FloatFromBits(*(const int *)&plane[3]);
         R_SetDpvsPlaneSides(outPlane);
         out->cell = &s_world.cells[in[index].cellIndex];
         out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
@@ -1108,7 +1114,7 @@ void R_LoadOccluderIndices(GfxBspLoad *load)
     GfxOccluder **out = (GfxOccluder **)ri.Hunk_AllocInternal(count * 4);
     rgl.occluderIndices = out;
     for (int index = 0; index < count; ++index)
-        out[index] = &rgl.occluders[in[index]];
+        out[index] = &rgl.occluders[LittleShort(in[index])];
 }
 
 // PINNED 10004730: nodes (lump 25) then leafs (lump 26), 36 bytes each.

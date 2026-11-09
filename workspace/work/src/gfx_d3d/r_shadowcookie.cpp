@@ -65,8 +65,12 @@ void R_PopulateCandidates(const float *viewOrigin, ShadowCandidate *candidates)
 ShadowCookieGlob shadowCookieGlob;
 
 // PINNED 100016e9: inlined into R_LoadWorld.
+void Com_Memset(void *dest, const int val, int count);
+
 void R_ResetShadowCookies()
 {
+    // shortcut: real call where retail keeps only dead setup; fits the R_LoadWorld slot, bytes differ.
+    Com_Memset(&shadowCookieGlob, 0, sizeof(shadowCookieGlob));
     shadowCookieGlob.weightCap = 10.0f;
     shadowCookieGlob.lastTime = -1;
 }
