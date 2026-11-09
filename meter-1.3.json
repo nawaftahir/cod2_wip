@@ -7,7 +7,7 @@
  "text_bytes": 1645581,
  "matched_bytes": 1547307,
  "file_bytes": 1970176,
- "same_offset_bytes": 1959885,
+ "same_offset_bytes": 1959900,
  "game_functions": 9547,
  "matched_functions": 8971,
  "tus_total": 364,
@@ -22,11 +22,11 @@
  "tus_empty": 39,
  "lib_objs_identical": 252,
  "lib_objs_total": 252,
- "text_same_offset_bytes": 1636588,
+ "text_same_offset_bytes": 1636603,
  "sections": {
   ".text": {
    "matched": 1547307,
-   "same_offset": 1636588
+   "same_offset": 1636603
   },
   ".rdata": {
    "same_offset": 229092
@@ -38,6 +38,6 @@
    "same_offset": 16384
   }
  },
- "commit": "f52d2b5f",
+ "commit": "abd8f310",
  "note": "matched_bytes/matched_functions = referee; functions_identical = referee match or same bytes at the same offset (every .text map symbol); tus_identical = source TUs whose functions are all identical (data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (never identical); tus_matched = TUs in src/; same-offset over all sections (shameter)"
 }
