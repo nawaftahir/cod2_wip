@@ -1734,7 +1734,7 @@ void CL_CheckForResend(void)
     int i;
     int len;
     char md5Str[33];
-    char pbBuf[1020];
+    char pbBuf[1032];
     char info[1024];
     char data[1024];
 
