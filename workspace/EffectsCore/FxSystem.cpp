@@ -15,7 +15,7 @@ struct refexport_t
 	bool (*IsMaterialRefractive)( Material *material );
 	void *unused16[4];
 	GfxEntity *(*AddRefEntityToScene)( const GfxEntity *refEnt, XModel *model, const void *cent );
-	void *unused21[4];
+	void *unused21[5];
 	void (*AddPolyToScene)( Material *material, int lmapIndex, int vertCount, const GfxWorldVertex *verts );
 	void (*AddLightToScene)( const float *org, float radius, float r, float g, float b );
 	void *unused27[43];

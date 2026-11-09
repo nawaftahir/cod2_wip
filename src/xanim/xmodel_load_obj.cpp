@@ -4,7 +4,7 @@
 // Renderer export slots used by the surface loader
 struct refexport_t
 {
-	void *unused0[96];
+	void *unused0[97];
 	XSurface *(*XModelReadSurface)( XModel *model, int *partBits, const unsigned char **pos, void *(*Alloc)(int) );
 	trXSkin_t *(*LoadXSkins)( XModel *model );
 };

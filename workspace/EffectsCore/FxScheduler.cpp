@@ -111,7 +111,7 @@ extern FxHelper *theFxHelper;
 // Renderer exports; only the plume slot is used here.
 struct refexport_t
 {
-	void *unused0[70];
+	void *unused0[71];
 	void (*AddPlume)( const float *origin, int score, const float *color, int duration );
 };
 extern refexport_t re;

@@ -442,7 +442,7 @@ bool Com_ValidXModelName(const char *name)
 // Renderer export slots 86 and 87 (unnamed); only the two wrappers below use them
 struct refexport_t
 {
-	void *unused0[86];
+	void *unused0[87];
 	void (*unknown86)();
 	void (*unknown87)(const void *arg, int value);
 };

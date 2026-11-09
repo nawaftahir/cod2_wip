@@ -132,9 +132,9 @@ void Com_Restart();
 struct refexport_t
 {
 	void (*Shutdown)( int );
-	void *unused0a[17];
-	void (*smpSlot18)( void );	// name unknown; retail 0x68a248
-	void *unused0b[43];
+	void *unused0a[23];
+	void (*smpSlot24)( void );	// name unknown; retail 0x68a248
+	void *unused0b[38];
 	void (*ResetImageAllocations)( void );
 	void *unused1[39];
 	void (*SyncRenderThread)( void );
@@ -2008,7 +2008,7 @@ static void Com_Init_Try_Block_Function( char *commandLine )
 	{
 		const dvar_t *smpAllowed = Dvar_RegisterBool( "r_smp_backend_allowed", Com_HasMultipleCores(), DVAR_INIT | DVAR_CHANGEABLE_RESET );
 		if ( smpAllowed->current.boolean )
-			re.smpSlot18();
+			re.smpSlot24();
 		cls.rendererStarted = qtrue;
 		CL_InitRenderer();
 		cls.soundStarted = qtrue;
