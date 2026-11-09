@@ -4104,18 +4104,21 @@
 ]
 },
 {
-"name": "?CL_Netchan_DrawProfileLine@@YAXPBDH@Z",
+"name": "?CL_Netchan_DrawProfileLine@@YAXHPBD@Z",
 "obj": "cl_net_chan_mp.obj",
 "size": 111,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4129f0",
+"0x45cb00"
+]
 },
 {
 "name": "?CL_Netchan_PrintProfileStats@@YAXH@Z",
 "obj": "cl_net_chan_mp.obj",
 "size": 1087,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x412a60"
+]
 },
 {
 "name": "?SHOWNET@@YAXPAUmsg_t@@PBD@Z",
@@ -5458,8 +5461,9 @@
 "name": "?CM_PointContents@@YAHQBMH@Z",
 "obj": "cm_test.obj",
 "size": 149,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41b540"
+]
 },
 {
 "name": "?CM_TransformedPointContents@@YAHQBMH00@Z",
@@ -5521,8 +5525,9 @@
 "name": "?CM_TempBoxModel@@YAHQBM0H@Z",
 "obj": "cm_trace.obj",
 "size": 100,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41b7e0"
+]
 },
 {
 "name": "?CM_ClipHandleToModel@@YAPAUcmodel_s@@H@Z",
@@ -5793,9 +5798,10 @@
 {
 "name": "?CM_BoxSightTrace@@YAHHQBM000HH@Z",
 "obj": "cm_trace.obj",
-"size": 1162,
-"hits": [],
-"reason": "no masked match"
+"size": 1153,
+"hits": [
+"0x41e7f0"
+]
 },
 {
 "name": "?CM_TransformedBoxSightTrace@@YAHHPBM000HH00@Z",
@@ -5841,8 +5847,9 @@
 "name": "?CM_ClearWorld@@YAXXZ",
 "obj": "cm_world.obj",
 "size": 241,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41f0d0"
+]
 },
 {
 "name": "?CM_LinkWorld@@YAXXZ",
@@ -5887,8 +5894,9 @@
 "name": "?CM_LinkEntity@@YAXPAUsvEntity_s@@PAM1H@Z",
 "obj": "cm_world.obj",
 "size": 411,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41f710"
+]
 },
 {
 "name": "?CM_LinkStaticModel@@YAXPAUcStaticModel_s@@@Z",
@@ -6961,16 +6969,21 @@
 {
 "name": "?FS_FullPath_f@@YAXXZ",
 "obj": "com_files.obj",
-"size": 10,
-"hits": [],
-"reason": "no masked match"
+"size": 7,
+"hits": [
+"0x424630",
+"0x4c8350"
+],
+"scan": 1
 },
 {
 "name": "?FS_Path_f@@YAXXZ",
 "obj": "com_files.obj",
 "size": 10,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x424640"
+],
+"scan": 1
 },
 {
 "name": "?IwdFileLanguage@@YAPBDPBD@Z",
@@ -9921,8 +9934,9 @@
 "name": "?Com_ErrorAbort@@YAXXZ",
 "obj": "common.obj",
 "size": 58,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x432680"
+]
 },
 {
 "name": "?Com_Quit_f@@YAXXZ",
@@ -35378,7 +35392,7 @@
 ]
 },
 {
-"name": "$L118301",
+"name": "$L118313",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35386,7 +35400,7 @@
 ]
 },
 {
-"name": "$L118303",
+"name": "$L118315",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35419,7 +35433,7 @@
 ]
 },
 {
-"name": "$L132184",
+"name": "$L132213",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35427,7 +35441,7 @@
 ]
 },
 {
-"name": "$L132186",
+"name": "$L132215",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35505,7 +35519,7 @@
 ]
 },
 {
-"name": "$L104450",
+"name": "$L104455",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35521,7 +35535,7 @@
 ]
 },
 {
-"name": "$L147587",
+"name": "$L147619",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -36656,8 +36670,9 @@
 "name": "?DL_DownloadLoop@@YAHXZ",
 "obj": "dl_main.obj",
 "size": 99,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4b5ee0"
+]
 },
 {
 "name": "?DL_InProgress@@YA_NXZ",
@@ -38555,11 +38570,12 @@
 ]
 },
 {
-"name": "?PbSvEvent71_813c004@@YAXXZ",
+"name": "?PbSvEvent71_813c004@@YAPADXZ",
 "obj": "pbsv.obj",
-"size": 83,
-"hits": [],
-"reason": "no masked match"
+"size": 88,
+"hits": [
+"0x4bd9f0"
+]
 },
 {
 "name": "?EnablePbSv@@YAXXZ",
@@ -38724,30 +38740,34 @@
 {
 "name": "?CG_PlayClientSoundAlias@@YAHPAUsnd_alias_list_s@@@Z",
 "obj": "cg_main_mp.obj",
-"size": 77,
-"hits": [],
-"reason": "no masked match"
+"size": 79,
+"hits": [
+"0x4c03c0"
+]
 },
 {
 "name": "?CG_PlayClientSoundAliasByName@@YAHPBD@Z",
 "obj": "cg_main_mp.obj",
-"size": 87,
-"hits": [],
-"reason": "no masked match"
+"size": 89,
+"hits": [
+"0x4c0410"
+]
 },
 {
 "name": "?CG_PlayEntitySoundAlias@@YAHHPAUsnd_alias_list_s@@@Z",
 "obj": "cg_main_mp.obj",
-"size": 77,
-"hits": [],
-"reason": "no masked match"
+"size": 79,
+"hits": [
+"0x4c0470"
+]
 },
 {
 "name": "?CG_PlayEntitySoundAliasByName@@YAHHPBD@Z",
 "obj": "cg_main_mp.obj",
-"size": 77,
-"hits": [],
-"reason": "no masked match"
+"size": 79,
+"hits": [
+"0x4c04c0"
+]
 },
 {
 "name": "?CG_PlaySoundOnFirstClient@@YAEXZ",
@@ -38778,30 +38798,34 @@
 {
 "name": "?CG_SubtitlePrint@@YAXHPBUsnd_alias_t@@@Z",
 "obj": "cg_main_mp.obj",
-"size": 121,
-"hits": [],
-"reason": "no masked match"
+"size": 119,
+"hits": [
+"0x4c0530"
+]
 },
 {
 "name": "?CG_PlaySoundAlias@@YAHHPBMPAUsnd_alias_list_s@@@Z",
 "obj": "cg_main_mp.obj",
-"size": 65,
-"hits": [],
-"reason": "no masked match"
+"size": 67,
+"hits": [
+"0x4c05b0"
+]
 },
 {
 "name": "?CG_PlaySoundAliasByName@@YAHHPBMPBD@Z",
 "obj": "cg_main_mp.obj",
-"size": 74,
-"hits": [],
-"reason": "no masked match"
+"size": 76,
+"hits": [
+"0x4c0600"
+]
 },
 {
 "name": "?CG_PlaySoundAliasAsMasterByName@@YAHHPBMPBD@Z",
 "obj": "cg_main_mp.obj",
-"size": 74,
-"hits": [],
-"reason": "no masked match"
+"size": 76,
+"hits": [
+"0x4c0650"
+]
 },
 {
 "name": "?CG_ReplaceDirective@@YAEPAH0PAD@Z",
@@ -39845,8 +39869,11 @@
 "name": "?CG_CenterPrint@@YAXPBDM@Z",
 "obj": "cg_draw_mp.obj",
 "size": 7,
-"hits": [],
-"reason": "short body, no name pair or unique twin"
+"hits": [
+"0x424630",
+"0x4c8350"
+],
+"scan": 1
 },
 {
 "name": "?CG_DrawCenterString@@YAXXZ",
@@ -41360,9 +41387,10 @@
 {
 "name": "?CG_PlayViewWeaponNotetrackSounds@@YAXXZ",
 "obj": "cg_weapons.obj",
-"size": 302,
-"hits": [],
-"reason": "no masked match"
+"size": 304,
+"hits": [
+"0x4d3820"
+]
 },
 {
 "name": "?CG_WeaponRunXModelAnims@@YAXPAUplayerState_s@@PAUweaponInfo_s@@@Z",
@@ -41704,16 +41732,18 @@
 {
 "name": "?CG_BulletHitEvent@@YAXHPAM00HH@Z",
 "obj": "cg_weapons.obj",
-"size": 246,
-"hits": [],
-"reason": "no masked match"
+"size": 248,
+"hits": [
+"0x4d7ae0"
+]
 },
 {
 "name": "?CG_BulletHitClientEvent@@YAXHPAMHH@Z",
 "obj": "cg_weapons.obj",
-"size": 109,
-"hits": [],
-"reason": "no masked match"
+"size": 111,
+"hits": [
+"0x4d7be0"
+]
 },
 {
 "name": "?ParseWeaponDefFiles@@YAXPAPBDH@Z",
@@ -41831,9 +41861,10 @@
 {
 "name": "?CG_UseOffHand@@YAXPAUcentity_s@@HH@Z",
 "obj": "offhandweapons_mp.obj",
-"size": 231,
-"hits": [],
-"reason": "no masked match"
+"size": 233,
+"hits": [
+"0x4d8450"
+]
 },
 {
 "name": "?CG_SetEquippedOffHand@@YAXH@Z",
@@ -42579,9 +42610,10 @@
 {
 "name": "?CG_ClipMoveToEntities@@YAXPBM000HHHPAUtrace_t@@@Z",
 "obj": "cg_predict_mp.obj",
-"size": 1003,
-"hits": [],
-"reason": "no masked match"
+"size": 1004,
+"hits": [
+"0x4de2a0"
+]
 },
 {
 "name": "?CG_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
