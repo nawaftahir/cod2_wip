@@ -1000,11 +1000,8 @@ void RB_UpdateViewportConstants()
 	normalizedViewport[1] = viewport.height * invRenderTargetSize[1];
 	halfViewportSize[0] = normalizedViewport[0] * 0.5f;
 	halfViewportSize[1] = normalizedViewport[1] * 0.5f;
-	float viewportOffset[2];
-	viewportOffset[0] = viewport.x * invRenderTargetSize[0];
-	viewportOffset[1] = viewport.y * invRenderTargetSize[1];
-	viewportCenter[0] = halfViewportSize[0] + viewportOffset[0];
-	viewportCenter[1] = halfViewportSize[1] + viewportOffset[1];
+	viewportCenter[0] = viewport.x * invRenderTargetSize[0] + halfViewportSize[0];
+	viewportCenter[1] = viewport.y * invRenderTargetSize[1] + halfViewportSize[1];
 	viewportCenter[0] += invRenderTargetSize[0] * 0.5f;
 	viewportCenter[1] += invRenderTargetSize[1] * 0.5f;
 	RB_SetCodeConstant(43, renderTargetSize[0], renderTargetSize[1], invRenderTargetSize[0], invRenderTargetSize[1]);
