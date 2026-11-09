@@ -1136,7 +1136,7 @@ void CL_WWWDownload(void)
 
     if (st == 1) {
         cls.download = 0;
-        FS_BuildOSPath(fs_homepath->current.string, cls.downloadName, "", toOSPath);
+        FS_BuildOSPath(fs_homepath->current.string, cls.originalDownloadName, "", toOSPath);
         toOSPath[strlen(toOSPath) - 1] = '\0';
 
         if (rename(cls.downloadTempName, toOSPath) != 0) {
@@ -1144,8 +1144,8 @@ void CL_WWWDownload(void)
             remove(cls.downloadTempName);
         }
 
-        cls.downloadTempName[0] = '\0';
         cls.downloadName[0] = '\0';
+        cls.downloadTempName[0] = '\0';
         I_strncpyz(legacyHacks->cl_downloadName, "", sizeof(legacyHacks->cl_downloadName));
 
         if (cls.wwwDlDisconnected) {

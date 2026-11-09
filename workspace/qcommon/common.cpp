@@ -148,7 +148,7 @@ struct clientStatic_t
 	qboolean rendererStarted;
 	qboolean soundStarted;
 	qboolean uiStarted;
-	char unused0[2919008];
+	char unused0[3000032];
 	int whiteMaterial;
 	int consoleMaterial;
 	int consoleFont;

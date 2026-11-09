@@ -216,7 +216,7 @@ extern void Com_Memset(void *dest, const int val, int count);
 extern qboolean NET_CompareAdr(netadr_t a, netadr_t b);
 extern int NET_CompareBaseAdr(netadr_t a, netadr_t b);
 extern const char *NET_AdrToString(netadr_t a);
-extern void NET_OutOfBandVoiceData2(netsrc_t sock, netadr_t adr, unsigned char *format, int len);
+extern void NET_OutOfBandVoiceData(netsrc_t sock, netadr_t adr, unsigned char *format, int len);
 extern qboolean NET_StringToAdr(const char *s, netadr_t *a);
 extern unsigned char NET_OutOfBandPrint(netsrc_t sock, netadr_t adr, const char *msg);
 extern unsigned char NET_OutOfBandData(netsrc_t sock, netadr_t adr, unsigned char *data, int len);
@@ -1810,7 +1810,7 @@ void PBget_cl_cdkey(char *out)
 /* retail 0x40e490 (Mac name) */
 void CL_SendPbPacket(int len, char *data)
 {
-    NET_OutOfBandVoiceData2(NS_CLIENT1, clc.serverAddress, (unsigned char *)data, len);
+    NET_OutOfBandVoiceData(NS_CLIENT1, clc.serverAddress, (unsigned char *)data, len);
 }
 
 /* retail 0x40e4d0 (Mac name) */
