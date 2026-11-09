@@ -84,7 +84,7 @@ struct DiskBrushModel
 };
 
 // SUPPORTED name/signature: KisakCOD r_bsp_load_obj.cpp; PINNED 100019c0.
-static void R_CopyLightmap(const byte *srcImage, int srcWidth, int srcHeight, int bytesPerPixel,
+void R_CopyLightmap(const byte *srcImage, int srcWidth, int srcHeight, int bytesPerPixel,
     byte *dstImage, int tileX, int tileY, int tilesWide)
 {
     byte *dst = &dstImage[bytesPerPixel * (srcWidth * tilesWide * srcHeight * tileY + srcWidth * tileX)];
@@ -251,6 +251,10 @@ static void R_CombineLightmapsForDx7(byte **images, int height, int width, const
     }
 }
 
+void Image_Upload2D(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubemapFace, unsigned int mipLevel, const unsigned char *src);
+void Image_Upload3D(GfxImage *image, D3DFORMAT format, unsigned int mipLevel, const unsigned char *src);
+// Expands Image_UploadData at the sites where retail inlines it.
+#define R_UPLOAD_LIGHTMAP(image, format, src) { if ((image)->mapType == 4) Image_Upload3D(image, format, 0, src); else Image_Upload2D(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, src); }
 // PINNED 10001fb0: merge the lump 1 pages into tiled lightmap images.
 void R_LoadLightmaps(GfxBspLoad *load)
 {
@@ -272,49 +276,69 @@ void R_LoadLightmaps(GfxBspLoad *load)
     int widths[4];
     for (int k = 0; k < 3; ++k)
     {
-        bytesPerPixel[k] = 4;
-        heights[k] = 512;
         widths[k] = 512;
+        heights[k] = 512;
     }
+    bytesPerPixel[0] = 4;
+    bytesPerPixel[1] = 4;
+    bytesPerPixel[2] = 4;
     bytesPerPixel[3] = 1;
-    heights[3] = 1024;
     widths[3] = 1024;
+    heights[3] = 1024;
     byte *images[4];
     images[0] = (byte *)ri.Hunk_AllocateTempMemoryInternal(groupInfo[0].wideCount * groupInfo[0].highCount * 0x400000);
-    for (int k = 1; k < 4; ++k)
-        images[k] = images[k - 1] + bytesPerPixel[k - 1] * widths[k - 1] * heights[k - 1] * groupInfo[0].wideCount * groupInfo[0].highCount;
+    int pageSize = groupInfo[0].highCount << 20;
+    images[1] = images[0] + pageSize * groupInfo[0].wideCount;
+    images[2] = images[1] + pageSize * groupInfo[0].wideCount;
+    images[3] = images[2] + pageSize * groupInfo[0].wideCount;
     int lmapDataSize = load->header->lumps[1].filelen;
     const byte *lmapData = load->fileBase + load->header->lumps[1].fileofs;
     if (!lmapDataSize)
         memset(images[0], 0xff, groupInfo[0].wideCount * groupInfo[0].highCount * 0x400000);
     s_world.lightmaps = (GfxLightmapArray *)ri.Hunk_AllocInternal(32 * sizeof(GfxLightmapArray));
     short groupIndex = 0;
-    int placed = 0;
-    do
+    for (int placed = 0; placed < lmapCount; ++groupIndex)
     {
         int wide = groupInfo[groupIndex].wideCount;
         int high = groupInfo[groupIndex].highCount;
         int tileCount = wide * high;
+        float scaleX = 1.0f / wide;
+        float scaleY = 1.0f / high;
         for (int tile = 0; tile < tileCount; ++tile)
         {
             int oldIndex = reorder[placed + tile];
-            int col = tile % wide;
             int row = tile / wide;
+            int col = tile % wide;
             if (lmapDataSize)
             {
                 const byte *src = lmapData + oldIndex * 0x400000;
                 for (int k = 0; k < 4; ++k)
                 {
-                    R_CopyLightmap(src, widths[k], heights[k], bytesPerPixel[k], images[k], col, row, wide);
-                    src += widths[k] * heights[k] * bytesPerPixel[k];
+                    int rows = heights[k];
+                    int width = widths[k];
+                    byte *dst = images[k] + (rows * wide * row + col) * width * bytesPerPixel[k];
+                    if (rows > 0)
+                    {
+                        int rowBytes = width * bytesPerPixel[k];
+                        int stride = wide * rowBytes;
+                        const byte *from = src;
+                        int left = rows;
+                        do
+                        {
+                            Com_Memcpy(dst, from, rowBytes);
+                            from += rowBytes;
+                            dst += stride;
+                        } while (--left);
+                    }
+                    src += width * heights[k] * bytesPerPixel[k];
                 }
             }
             r_lightmapMerge_t *merge = &load->lmapMergeInfo[oldIndex];
             merge->index = groupIndex;
-            merge->scale[0] = 1.0f / wide;
-            merge->scale[1] = 1.0f / high;
-            merge->shift[0] = col * merge->scale[0];
-            merge->shift[1] = row * merge->scale[1];
+            merge->shift[0] = col * scaleX;
+            merge->scale[0] = scaleX;
+            merge->scale[1] = scaleY;
+            merge->shift[1] = row * scaleY;
         }
         if (r_rendererInUse->current.integer == 2)
         {
@@ -322,7 +346,7 @@ void R_LoadLightmaps(GfxBspLoad *load)
             R_CombineLightmapsForDx7(images, high * 512, wide * 512, sunColor);
             GfxImage *image = s_world.lightmaps[groupIndex][0];
             Image_Setup(image, wide * 512, high * 512, 1, 3, 0, D3DFMT_A8R8G8B8);
-            Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, images[0]);
+            R_UPLOAD_LIGHTMAP(image, D3DFMT_A8R8G8B8, images[0]);
         }
         else
         {
@@ -332,12 +356,11 @@ void R_LoadLightmaps(GfxBspLoad *load)
                 GfxImage *image = s_world.lightmaps[groupIndex][k];
                 D3DFORMAT format = bytesPerPixel[k] == 4 ? D3DFMT_A8R8G8B8 : D3DFMT_L8;
                 Image_Setup(image, widths[k] * wide, heights[k] * high, 1, 3, 0, format);
-                Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, images[k]);
+                R_UPLOAD_LIGHTMAP(image, format, images[k]);
             }
         }
         placed += tileCount;
-        ++groupIndex;
-    } while (placed < lmapCount);
+    }
     s_world.lightmapCount = groupIndex;
     ri.Hunk_FreeTempMemory(images[0]);
 }
@@ -392,13 +415,13 @@ static void R_SetSurfaceBoundsAndLmapCoords(srfTriangles_t *tris, GfxWorldVertex
         GfxWorldVertex *vert = &verts[vertIndex];
         for (int axis = 0; axis < 3; ++axis)
         {
-            if (tris->bounds[0][axis] > vert->xyz[axis])
+            if (vert->xyz[axis] < tris->bounds[0][axis])
                 tris->bounds[0][axis] = vert->xyz[axis];
-            if (tris->bounds[1][axis] < vert->xyz[axis])
+            if (vert->xyz[axis] > tris->bounds[1][axis])
                 tris->bounds[1][axis] = vert->xyz[axis];
         }
-        vert->lmapCoord[0] = diskVerts[vertIndex].lmapCoord[0] * merge->scale[0] + merge->shift[0];
-        vert->lmapCoord[1] = diskVerts[vertIndex].lmapCoord[1] * merge->scale[1] + merge->shift[1];
+        vert->lmapCoord[0] = FloatFromBits(*(const int *)&diskVerts[vertIndex].lmapCoord[0]) * merge->scale[0] + merge->shift[0];
+        vert->lmapCoord[1] = FloatFromBits(*(const int *)&diskVerts[vertIndex].lmapCoord[1]) * merge->scale[1] + merge->shift[1];
     }
 }
 
@@ -423,6 +446,8 @@ static unsigned short R_GetSurfaceSortGroup(const Material *material, const GfxS
 }
 
 // PINNED 10002840: the first surface seeds the bounds.
+void ExpandBounds(const vec3_t addedmins, const vec3_t addedmaxs, vec3_t mins, vec3_t maxs);
+struct R_Vec3Bits { float v[3]; };
 static void R_CalculateWorldBounds(float *mins, float *maxs)
 {
     bool seeded = false;
@@ -437,42 +462,29 @@ static void R_CalculateWorldBounds(float *mins, float *maxs)
         const srfTriangles_t *tris = s_world.surfaces[index].tris;
         if (!seeded)
         {
-            mins[0] = tris->bounds[0][0];
-            mins[1] = tris->bounds[0][1];
-            mins[2] = tris->bounds[0][2];
-            maxs[0] = tris->bounds[1][0];
-            maxs[1] = tris->bounds[1][1];
-            maxs[2] = tris->bounds[1][2];
+            *(R_Vec3Bits *)mins = *(const R_Vec3Bits *)tris->bounds[0];
+            *(R_Vec3Bits *)maxs = *(const R_Vec3Bits *)tris->bounds[1];
             seeded = true;
         }
-        for (int axis = 0; axis < 3; ++axis)
-        {
-            if (mins[axis] > tris->bounds[0][axis])
-                mins[axis] = tris->bounds[0][axis];
-            if (maxs[axis] < tris->bounds[1][axis])
-                maxs[axis] = tris->bounds[1][axis];
-        }
+        ExpandBounds(tris->bounds[0], tris->bounds[1], mins, maxs);
     }
 }
 
 // PINNED 10002940: Kisak R_SetSkyImage, name compare instead of hash.
 static void R_SetSkyImage(const Material *skyMaterial)
 {
-    int index;
-    const MaterialTextureDef *texdef;
-    for (index = 0; index < skyMaterial->textureCount; ++index)
+    for (int index = 0; index < skyMaterial->textureCount; ++index)
     {
-        texdef = &skyMaterial->textures[index];
-        if (!_stricmp(texdef->name, "colorMap"))
-            break;
-    }
-    if (index == skyMaterial->textureCount)
+        const MaterialTextureDef *texdef = &skyMaterial->textures[index];
+        if (_stricmp(texdef->name, "colorMap"))
+            continue;
+        if (texdef->semantic == 5 || texdef->u.image->mapType != 5)
+            R_Error(ERR_DROP, "colorMap '%s' for sky material '%s' is not a cubemap\n",
+                texdef->u.image->name, skyMaterial->info.name);
+        s_world.skyImage = texdef->u.image;
+        s_world.skySamplerState = texdef->samplerState;
         return;
-    if (texdef->semantic == 5 || texdef->u.image->mapType != 5)
-        R_Error(ERR_DROP, "colorMap '%s' for sky material '%s' is not a cubemap\n",
-            texdef->u.image->name, skyMaterial->info.name);
-    s_world.skyImage = texdef->u.image;
-    s_world.skySamplerState = texdef->samplerState;
+    }
 }
 
 // PINNED 100029c0: lumps 7-9, vertices then triangle surfaces.
@@ -509,8 +521,15 @@ void R_LoadSurfaces(GfxBspLoad *load)
         verts[index].normal[1] = diskVerts[index].normal[1];
         verts[index].normal[2] = diskVerts[index].normal[2];
     }
-    R_GetLumpElemCount(load, 9, sizeof(unsigned short));
-    const unsigned short *indices = (const unsigned short *)(load->fileBase + load->header->lumps[9].fileofs);
+    const lump_t *indexLump = &load->header->lumps[9];
+    if (LittleLong(indexLump->filelen) + LittleLong(indexLump->fileofs) > load->fileSize)
+        R_Error(ERR_DROP, "LoadMap: lump extends past end of file in %s", s_world.name);
+    if (indexLump->fileofs < 4)
+        R_Error(ERR_DROP, "LoadMap: funny lump offset in %s", s_world.name);
+    int indexLen = indexLump->filelen;
+    if (indexLen < 0 || indexLen / 2 * 2 != indexLen)
+        R_Error(ERR_DROP, "LoadMap: funny lump size in %s", s_world.name);
+    int indexOfs = indexLump->fileofs;
     s_world.surfaceCount = surfCount;
     s_world.surfaces = (GfxSurface *)ri.Hunk_AllocInternal(surfCount * sizeof(GfxSurface));
     int indexBytes = 0;
@@ -527,7 +546,7 @@ void R_LoadSurfaces(GfxBspLoad *load)
         tris->surfaceType = SF_TRIANGLES;
         tris->indexCount = in[index].indexCount;
         tris->indices = (int (*)[4])indexMem;
-        Com_Memcpy(indexMem, &indices[in[index].firstIndex], tris->indexCount * 2);
+        Com_Memcpy(indexMem, load->fileBase + indexOfs + in[index].firstIndex * 2, tris->indexCount * 2);
         const r_lightmapMerge_t *merge = &load->lmapMergeInfo[(short)in[index].lightmapIndex];
         R_SetSurfaceBoundsAndLmapCoords(tris, s_world.vd.vertices, diskVerts, merge);
         Material *material = Material_Register(load->materials[(short)in[index].materialIndex].material, 9);
