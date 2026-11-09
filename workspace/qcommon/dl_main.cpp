@@ -293,11 +293,12 @@ int DL_DownloadLoop(void)
     dl_request = NULL;
     dl_running = 0;
 
-    if (dl_requestStatus >= 0)
-        return 1;
+    if (dl_requestStatus < 0) {
+        Com_Printf("DL_DownloadLoop: request terminated with failure status %d\n", dl_requestStatus);
+        return 2;
+    }
 
-    Com_Printf("DL_DownloadLoop: request terminated with failure status %d\n", dl_requestStatus);
-    return 2;
+    return 1;
 }
 
 bool DL_InProgress(void)

@@ -339,9 +339,9 @@ char *PbAuthClient(char *fromAddr, int cl_pb, char *cl_guid)
 }
 
 // name unknown: PB event 0x71
-void PbSvEvent71_813c004()
+char *PbSvEvent71_813c004()
 {
-	pbsv.AddPbEvent(0x71, -1, 0, 0, 0);
+	return pbsv.AddPbEvent(0x71, -1, 0, 0, 0);
 }
 
 void EnablePbSv()

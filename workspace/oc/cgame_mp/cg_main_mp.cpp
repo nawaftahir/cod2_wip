@@ -990,10 +990,7 @@ static void CG_SubtitlePrint(int msec, const snd_alias_t *pAlias)
         subtitleWidth = widthDvar->current.integer;
 
         minMsec = I_fround(cg_tracerScaleDistRange_0->current.value * 1000.0f);
-        if (minMsec - msec >= 0)
-            msec = minMsec;
-
-        CL_SubtitlePrint(pAlias->pszSubtitle, msec, subtitleWidth);
+        CL_SubtitlePrint(pAlias->pszSubtitle, minMsec - msec < 0 ? msec : minMsec, subtitleWidth);
     }
 }
 

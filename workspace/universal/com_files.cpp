@@ -2258,7 +2258,7 @@ static void FS_DisplayPath(int bLanguageCull)
 
 void FS_FullPath_f(void)
 {
-	FS_DisplayPath(1);
+	FS_DisplayPath(0);
 }
 
 void FS_Path_f(void)

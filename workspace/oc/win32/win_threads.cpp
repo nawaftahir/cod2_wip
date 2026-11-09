@@ -145,7 +145,8 @@ void Sys_SetValue(int valueIndex, void *data)
 
 void *Sys_GetValue(int valueIndex)
 {
-    return ((void **)TlsGetValue(s_tlsIndex))[valueIndex];
+    void **values = (void **)TlsGetValue(s_tlsIndex);
+    return values[valueIndex];
 }
 
 // retail 0x4625e0, name unknown
