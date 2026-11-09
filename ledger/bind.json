@@ -3178,7 +3178,7 @@
 "?R_GetMaxModelSurfaceCount@@YAHPBUXModel@@@Z": {
 "t": "0x100296a0",
 "n": 73,
-"obj": "r_staticmodel_load_obj.obj",
+"obj": "r_staticmodel.obj",
 "why": []
 },
 "?R_AllocStaticModels@@YAXPAUGfxAabbTree@@@Z": {
