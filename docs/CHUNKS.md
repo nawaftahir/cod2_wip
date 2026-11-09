@@ -12,7 +12,6 @@
 | r_bsp_load_obj.obj | 0x100018d0 | 16 | Vector4Set | `ret ` |
 | r_bsp_load_obj.obj | 0x100018e0 | 16 | Vector4Set | `ret ` |
 | r_bsp_load_obj.obj | 0x100018f0 | 16 | Vector4Set | `push ecx; mov dword ptr [esp], eax; fld dword ptr [esp]; pop ecx; ret ` |
-| r_bsp_load_obj.obj | 0x10001900 | 64 | Vector4Set | `mov ecx, dword ptr [eax]; mov edx, dword ptr [eax + 4]; test ecx, ecx; setle cl; dec cl; a` |
 | r_bsp_load_obj.obj | 0x100019c0 | 96 | R_GetLumpElemCount | `push ebx; push ebp; mov ebp, dword ptr [esp + 0x18]; push esi; mov esi, dword ptr [esp + 0` |
 | r_bsp_load_obj.obj | 0x10001bc0 | 624 | R_BuildLightmapCoupling | `sub esp, 0xf40; push ebx; push ebp; push esi; lea eax, [esp + 0x48]; push eax; push ecx; c` |
 | r_bsp_load_obj.obj | 0x10001e30 | 384 | R_BuildLightmapCoupling | `sub esp, 0x34; push ebx; push ebp; mov ebp, dword ptr [esp + 0x40]; xor eax, eax; test edx` |
@@ -22,9 +21,7 @@
 | r_bsp_load_obj.obj | 0x10002840 | 256 | R_LoadMaterials | `push ecx; xor eax, eax; mov dword ptr [esi], eax; mov dword ptr [esi + 4], eax; mov dword ` |
 | r_bsp_load_obj.obj | 0x10002940 | 128 | R_LoadMaterials | `push ebp; xor ebp, ebp; cmp word ptr [ebx + 0x34], bp; jbe 0x100029b4; push edi; xor edi, ` |
 | r_bsp_load_obj.obj | 0x100029c0 | 1008 | R_LoadMaterials | `sub esp, 0x28; push ebx; push ebp; push esi; mov esi, dword ptr [esp + 0x38]; push edi; mo` |
-| r_bsp_load_obj.obj | 0x10003180 | 48 | R_IsValidStaticModel | `xor ecx, ecx; cmp dl, cl; mov dword ptr [eax + 8], ecx; mov dword ptr [eax + 0xc], ecx; je` |
-| r_bsp_load_obj.obj | 0x100031b0 | 640 | R_IsValidStaticModel | `sub esp, 0x9c; push ebx; push ebp; mov ebp, dword ptr [esp + 0xa8]; push edi; lea eax, [es` |
-| r_bsp_load_obj.obj | 0x100037e0 | 48 | R_ParseSunLight | `mov ecx, dword ptr [eax]; mov edx, dword ptr [ecx + 0x134]; mov ecx, dword ptr [eax + 4]; ` |
+| r_bsp_load_obj.obj | 0x100031b0 | 640 | R_GetDebugGroundLightColor | `sub esp, 0x9c; push ebx; push ebp; mov ebp, dword ptr [esp + 0xa8]; push edi; lea eax, [es` |
 | r_bsp_load_obj.obj | 0x10003880 | 1216 | R_BuildCellAabbTrees | `sub esp, 0x21c; mov eax, dword ptr [ecx]; push ebx; push ebp; push esi; mov esi, dword ptr` |
 | r_bsp_load_obj.obj | 0x10003d40 | 416 | R_BuildCellAabbTrees | `mov eax, 0x48000000; push esi; mov esi, dword ptr [esp + 8]; mov dword ptr [esi], eax; mov` |
 | r_bsp_load_obj.obj | 0x10004300 | 208 | R_LoadPortalVerts | `push ecx; push ebx; push ebp; mov ebp, dword ptr [esp + 0x10]; push esi; push edi; mov ebx` |
@@ -341,21 +338,14 @@
 | r_scene.obj | 0x10020cf0 | 16 | R_UpdateGfxEntityBoundsCmd | `ret ` |
 | r_scene.obj | 0x10020d00 | 32 | R_UpdateGfxEntityBoundsCmd | `mov eax, dword ptr [0x101da9c8]; xor ecx, ecx; mov dword ptr [eax + 0x249d0c], ecx; mov dw` |
 | r_scene.obj | 0x10020d20 | 48 | R_UpdateGfxEntityBoundsCmd | `mov eax, dword ptr [0x101d49c4]; test eax, eax; je 0x10020d43; push eax; mov eax, dword pt` |
-| r_rendercmds.obj | 0x10020e10 | 112 | R_AbortRenderCommands | `mov ecx, dword ptr [0x1042e778]; mov edx, dword ptr [ecx + 0x30000]; mov eax, 0x30000; sub` |
-| r_rendercmds.obj | 0x10020e80 | 64 | R_AbortRenderCommands | `mov eax, dword ptr [0x1042e778]; mov ecx, dword ptr [eax + 0x30008]; push ebx; mov ebx, dw` |
 | r_rendercmds.obj | 0x10021040 | 144 | R_IssueDelayedDrawing | `mov eax, dword ptr [0x101d4d1c]; inc eax; mov dword ptr [0x101da9c8], 0x1042e780; mov dwor` |
-| r_rendercmds.obj | 0x100210d0 | 48 | R_IssueDelayedDrawing | `mov ecx, dword ptr [0x101da9c8]; mov edx, dword ptr [ecx + 0x217c7c]; mov eax, edx; imul e` |
 | r_rendercmds.obj | 0x10021770 | 208 | R_AddCmdSetMaterialColor | `mov edx, dword ptr [0x1042e778]; push esi; mov esi, dword ptr [edx + 0x30000]; mov eax, 0x` |
 | r_rendercmds.obj | 0x10021900 | 16 | R_AddCmdDrawSurfs | `push 0; push eax; push ecx; push edx; call 0x10021890; add esp, 0x10; ret ` |
 | r_rendercmds.obj | 0x10021910 | 16 | R_AddCmdDrawSurfs | `push 1; push eax; push ecx; push edx; call 0x10021890; add esp, 0x10; ret ` |
 | r_rendercmds.obj | 0x10021980 | 80 | R_AddCmdDrawSun | `mov eax, dword ptr [0x1042e778]; mov edx, dword ptr [eax + 0x30000]; mov ecx, 0x30000; sub` |
 | r_rendercmds.obj | 0x100219d0 | 144 | R_AddCmdDrawSun | `mov eax, dword ptr [0x1042e778]; push esi; push edi; mov edi, dword ptr [eax + 0x30000]; m` |
 | r_rendercmds.obj | 0x10021a60 | 128 | R_AddCmdDrawSun | `mov eax, dword ptr [0x101d4964]; test eax, eax; je 0x10021ad3; mov eax, dword ptr [0x1042e` |
-| r_rendercmds.obj | 0x10021d70 | 64 | R_ClearModifiedLightDvars | `mov eax, dword ptr [0x101ce6c8]; mov cl, byte ptr [eax + 7]; test cl, cl; push ebx; jne 0x` |
-| r_rendercmds.obj | 0x10022350 | 256 | R_AddCmdBlendSavedScreen | `mov edx, dword ptr [0x1042e778]; push ebx; mov ebx, dword ptr [edx + 0x30008]; test ebx, e` |
-| r_rendercmds.obj | 0x10022450 | 256 | R_AddCmdBlendSavedScreen | `mov edx, dword ptr [0x1042e778]; push ebx; mov ebx, dword ptr [edx + 0x30008]; test ebx, e` |
-| r_rendercmds.obj | 0x10022550 | 368 | R_AddCmdBlendSavedScreen | `mov eax, dword ptr [esp + 4]; mov ecx, dword ptr [eax + 0x38]; mov edx, dword ptr [esp + 8` |
-| r_rendercmds.obj | 0x100226c0 | 80 | R_AddCmdBlendSavedScreen | `mov eax, dword ptr [0x1042e778]; mov edx, dword ptr [eax + 0x30000]; push esi; mov esi, dw` |
+| r_rendercmds.obj | 0x100226c0 | 80 | R_AddCmdDrawTriangles | `mov eax, dword ptr [0x1042e778]; mov edx, dword ptr [eax + 0x30000]; push esi; mov esi, dw` |
 | r_rendertarget.obj | 0x10022a50 | 16 | R_InitFrameBuffer | `mov eax, 0x101d4820; jmp 0x10022940` |
 | r_rendertarget.obj | 0x10022b00 | 48 | R_InitRenderTargetImage | `push ebp; mov ebp, dword ptr [esp + 0xc]; push esi; push eax; mov eax, dword ptr [esp + 0x` |
 | r_rendertarget.obj | 0x10022b30 | 96 | R_InitRenderTargetImage | `mov eax, dword ptr [0x101d4c6c]; mov ecx, edi; sar eax, cl; push ebp; mov ebp, dword ptr [` |
@@ -407,16 +397,13 @@
 | r_screenshot.obj | 0x10026b30 | 816 | R_SaveCubemapShot | `sub esp, 0x40; push ebx; push ebp; xor eax, eax; push esi; push edi; mov dword ptr [esp + ` |
 | r_screenshot.obj | 0x10026e60 | 384 | R_SaveCubemapShot | `sub esp, 0x24; push ebx; push ebp; push esi; push edi; xor edi, edi; mov dword ptr [esp + ` |
 | r_screenshot.obj | 0x100270e0 | 144 | R_CubemapShotExtractLinearLight | `sub esp, 0x18; push esi; movzx esi, word ptr [0x101d4928]; imul esi, esi; lea eax, [esi + ` |
-| r_shadowcookie.obj | 0x10027190 | 32 | R_CompareShadowCandidates | `mov eax, esi; mov ecx, edi; call 0x100244b0; mov eax, dword ptr [esp + 4]; push 0; push ea` |
-| r_shadowcookie.obj | 0x100271b0 | 224 | R_CompareShadowCandidates | `sub esp, 8; mov eax, dword ptr [0x101d1b9c]; fld dword ptr [eax + 0xb8]; add eax, 0xb8; fc` |
-| r_shadowcookie.obj | 0x10027290 | 688 | R_CompareShadowCandidates | `sub esp, 0x4c; push ebx; push ebp; mov ebp, dword ptr [esp + 0x5c]; push edi; lea edi, [es` |
-| r_shadowcookie.obj | 0x10027540 | 80 | R_CompareShadowCandidates | `xor edx, edx; add ecx, 4; movzx eax, byte ptr [ecx + 0xc]; fld dword ptr [eax + esi]; movz` |
-| r_shadowcookie.obj | 0x10027590 | 320 | R_CompareShadowCandidates | `sub esp, 0x68; mov eax, dword ptr [0x10678ab8]; mov dword ptr [ebx + 8], eax; mov eax, dwo` |
-| r_shadowcookie.obj | 0x100276d0 | 512 | R_CompareShadowCandidates | `sub esp, 8; push ebx; mov ebx, dword ptr [0x10678510]; push ebp; push esi; mov esi, dword ` |
-| r_shadowcookie.obj | 0x100278d0 | 32 | R_CompareShadowCandidates | `push 0; push 0x3f800000; push eax; push 7; call 0x10022220; add esp, 0x10; ret ` |
-| r_shadowcookie.obj | 0x100278f0 | 64 | R_CompareShadowCandidates | `mov eax, dword ptr [0x101ce708]; cmp dword ptr [eax + 8], 2; je 0x10027924; mov ecx, dword` |
-| r_shadowcookie.obj | 0x10027930 | 848 | R_CompareShadowCandidates | `mov eax, dword ptr [0x10696c60]; sub esp, 0x1c; cmp eax, -1; je 0x10027944; mov ecx, 1; jm` |
-| r_shadowcookie.obj | 0x10027c80 | 128 | R_CompareShadowCandidates | `sub esp, 0x44; fild dword ptr [0x101d4c6c]; push esi; push edi; lea eax, [esp + 0xc]; fstp` |
+| r_shadowcookie.obj | 0x100271b0 | 224 | R_EmitShadowCookieSurfs | `sub esp, 8; mov eax, dword ptr [0x101d1b9c]; fld dword ptr [eax + 0xb8]; add eax, 0xb8; fc` |
+| r_shadowcookie.obj | 0x10027290 | 688 | R_EmitShadowCookieSurfs | `sub esp, 0x4c; push ebx; push ebp; mov ebp, dword ptr [esp + 0x5c]; push edi; lea edi, [es` |
+| r_shadowcookie.obj | 0x10027540 | 80 | R_EmitShadowCookieSurfs | `xor edx, edx; add ecx, 4; movzx eax, byte ptr [ecx + 0xc]; fld dword ptr [eax + esi]; movz` |
+| r_shadowcookie.obj | 0x10027590 | 320 | R_EmitShadowCookieSurfs | `sub esp, 0x68; mov eax, dword ptr [0x10678ab8]; mov dword ptr [ebx + 8], eax; mov eax, dwo` |
+| r_shadowcookie.obj | 0x100276d0 | 512 | R_EmitShadowCookieSurfs | `sub esp, 8; push ebx; mov ebx, dword ptr [0x10678510]; push ebp; push esi; mov esi, dword ` |
+| r_shadowcookie.obj | 0x100278d0 | 32 | R_EmitShadowCookieSurfs | `push 0; push 0x3f800000; push eax; push 7; call 0x10022220; add esp, 0x10; ret ` |
+| r_shadowcookie.obj | 0x10027930 | 848 | R_ClearShadowReceiverTarget | `mov eax, dword ptr [0x10696c60]; sub esp, 0x1c; cmp eax, -1; je 0x10027944; mov ecx, 1; jm` |
 | r_shadowcookie.obj | 0x10027f40 | 416 | R_PopulateCandidates | `sub esp, 0x18; mov eax, dword ptr [0x101ce76c]; fld dword ptr [0x1019bc78]; push ebx; push` |
 | r_shadowcookie.obj | 0x100280e0 | 64 | R_PopulateCandidates | `sub esp, 0xc4; lea eax, [esp]; push eax; push esi; call 0x10027d00; push 0x10027170; push ` |
 | r_shadowcookie.obj | 0x10028120 | 48 | R_PopulateCandidates | `push edi; mov edi, 0x10696bd0; xor ecx, ecx; mov eax, 8; mov dword ptr [0x10696bd0], 0x412` |
