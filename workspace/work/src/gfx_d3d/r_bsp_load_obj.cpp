@@ -423,6 +423,9 @@ static unsigned short R_GetSurfaceSortGroup(const Material *material, const GfxS
 }
 
 // PINNED 10002840: the first surface seeds the bounds.
+struct R_Vec3Bits { float v[3]; };
+void ExpandBounds(const vec3_t mins, const vec3_t maxs, vec3_t outMins, vec3_t outMaxs);
+
 static void R_CalculateWorldBounds(float *mins, float *maxs)
 {
     bool seeded = false;
@@ -437,42 +440,29 @@ static void R_CalculateWorldBounds(float *mins, float *maxs)
         const srfTriangles_t *tris = s_world.surfaces[index].tris;
         if (!seeded)
         {
-            mins[0] = tris->bounds[0][0];
-            mins[1] = tris->bounds[0][1];
-            mins[2] = tris->bounds[0][2];
-            maxs[0] = tris->bounds[1][0];
-            maxs[1] = tris->bounds[1][1];
-            maxs[2] = tris->bounds[1][2];
+            *(R_Vec3Bits *)mins = *(const R_Vec3Bits *)tris->bounds[0];
+            *(R_Vec3Bits *)maxs = *(const R_Vec3Bits *)tris->bounds[1];
             seeded = true;
         }
-        for (int axis = 0; axis < 3; ++axis)
-        {
-            if (mins[axis] > tris->bounds[0][axis])
-                mins[axis] = tris->bounds[0][axis];
-            if (maxs[axis] < tris->bounds[1][axis])
-                maxs[axis] = tris->bounds[1][axis];
-        }
+        ExpandBounds(tris->bounds[0], tris->bounds[1], mins, maxs);
     }
 }
 
 // PINNED 10002940: Kisak R_SetSkyImage, name compare instead of hash.
 static void R_SetSkyImage(const Material *skyMaterial)
 {
-    int index;
-    const MaterialTextureDef *texdef;
-    for (index = 0; index < skyMaterial->textureCount; ++index)
+    for (int index = 0; index < skyMaterial->textureCount; ++index)
     {
-        texdef = &skyMaterial->textures[index];
-        if (!_stricmp(texdef->name, "colorMap"))
-            break;
-    }
-    if (index == skyMaterial->textureCount)
+        const MaterialTextureDef *texdef = &skyMaterial->textures[index];
+        if (_stricmp(texdef->name, "colorMap"))
+            continue;
+        if (texdef->semantic == 5 || texdef->u.image->mapType != 5)
+            R_Error(ERR_DROP, "colorMap '%s' for sky material '%s' is not a cubemap\n",
+                texdef->u.image->name, skyMaterial->info.name);
+        s_world.skyImage = texdef->u.image;
+        s_world.skySamplerState = texdef->samplerState;
         return;
-    if (texdef->semantic == 5 || texdef->u.image->mapType != 5)
-        R_Error(ERR_DROP, "colorMap '%s' for sky material '%s' is not a cubemap\n",
-            texdef->u.image->name, skyMaterial->info.name);
-    s_world.skyImage = texdef->u.image;
-    s_world.skySamplerState = texdef->samplerState;
+    }
 }
 
 // PINNED 100029c0: lumps 7-9, vertices then triangle surfaces.
