@@ -240,9 +240,9 @@ static void R_CombineLightmapsForDx7(byte **images, int height, int width, const
             int r = I_fround((images[0][pixel] + sunVis * sunColor[0]) * 0.5f);
             int g = I_fround((images[1][pixel] + sunVis * sunColor[1]) * 0.5f);
             int b = I_fround((images[2][pixel] + sunVis * sunColor[2]) * 0.5f);
-            images[0][pixel + 2] = (byte)I_min(r, 255);
-            images[0][pixel + 1] = (byte)I_min(g, 255);
-            images[0][pixel] = (byte)I_min(b, 255);
+            images[0][pixel + 2] = (byte)I_min(255, r);
+            images[0][pixel + 1] = (byte)I_min(255, g);
+            images[0][pixel] = (byte)I_min(255, b);
             images[0][pixel + 3] = 255;
             pixel += 4;
             sunPixel += 2;
