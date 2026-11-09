@@ -401,7 +401,7 @@ void R_StaticModelBounds(XModel *model, const vec3_t *axis, float *mins, float *
                 dot = axis[1][0] * vert[1] + vert[0] * axis[0][0] + vert[2] * axis[2][0];
                 if (dot < mins[0])
                     mins[0] = dot;
-                if (dot > maxs[0])
+                if (maxs[0] < dot)
                     maxs[0] = dot;
                 dot = vert[1] * axis[1][1] + axis[2][1] * vert[2] + vert[0] * axis[0][1];
                 if (dot < mins[1])
