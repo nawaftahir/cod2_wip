@@ -191,7 +191,7 @@ void CL_Netchan_UpdateProfileStats(void)
     }
 }
 
-static void CL_Netchan_DrawProfileLine(const char *line, int y)
+static void CL_Netchan_DrawProfileLine(int y, const char *line)
 {
     CL_DrawString(32, y, line, 0, cl_profileTextHeight->current.integer);
 }
@@ -224,7 +224,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
         Com_Printf("%s\n", szLine);
     } else {
         iYPos = 0x5a;
-        CL_Netchan_DrawProfileLine(szLine, iYPos);
+        CL_Netchan_DrawProfileLine(iYPos, szLine);
     }
 
     Com_sprintf(szLine, 0x400, "Client Network Profile:");
@@ -232,7 +232,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
         Com_Printf("%s\n\n", szLine);
     } else {
         iYPos += 0xa;
-        CL_Netchan_DrawProfileLine(szLine, iYPos);
+        CL_Netchan_DrawProfileLine(iYPos, szLine);
         iYPos += 0xa;
     }
 
@@ -241,7 +241,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
         Com_Printf("%s\n", szLine);
     } else {
         iYPos += 0xa;
-        CL_Netchan_DrawProfileLine(szLine, iYPos);
+        CL_Netchan_DrawProfileLine(iYPos, szLine);
     }
 
     if (clc.pOOBProf) {
@@ -257,7 +257,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
             Com_Printf("%s\n", szLine);
         } else {
             iYPos += 0xa;
-            CL_Netchan_DrawProfileLine(szLine, iYPos);
+            CL_Netchan_DrawProfileLine(iYPos, szLine);
         }
 
         Com_sprintf(szLine, 0x400, "OOB Recieved: %5i %5i %5i    -",
@@ -268,7 +268,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
             Com_Printf("%s\n", szLine);
         } else {
             iYPos += 0xa;
-            CL_Netchan_DrawProfileLine(szLine, iYPos);
+            CL_Netchan_DrawProfileLine(iYPos, szLine);
         }
     } else {
 
@@ -277,7 +277,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
             Com_Printf("%s\n", szLine);
         } else {
             iYPos += 0xa;
-            CL_Netchan_DrawProfileLine(szLine, iYPos);
+            CL_Netchan_DrawProfileLine(iYPos, szLine);
         }
 
         Com_sprintf(szLine, 0x400, "OOB Recieved:     0     0     0    -");
@@ -285,7 +285,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
             Com_Printf("%s\n", szLine);
         } else {
             iYPos += 0xa;
-            CL_Netchan_DrawProfileLine(szLine, iYPos);
+            CL_Netchan_DrawProfileLine(iYPos, szLine);
         }
     }
 
@@ -303,7 +303,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
             Com_Printf("%s\n", szLine);
         } else {
             iYPos += 0xa;
-            CL_Netchan_DrawProfileLine(szLine, iYPos);
+            CL_Netchan_DrawProfileLine(iYPos, szLine);
         }
 
         Com_sprintf(szLine, 0x400, "    Recieved: %5i %5i %5i  %3i%%",
@@ -315,7 +315,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
             Com_Printf("%s\n", szLine);
         } else {
             iYPos += 0xa;
-            CL_Netchan_DrawProfileLine(szLine, iYPos);
+            CL_Netchan_DrawProfileLine(iYPos, szLine);
         }
     } else {
 
@@ -324,7 +324,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
             Com_Printf("%s\n", szLine);
         } else {
             iYPos += 0xa;
-            CL_Netchan_DrawProfileLine(szLine, iYPos);
+            CL_Netchan_DrawProfileLine(iYPos, szLine);
         }
 
         Com_sprintf(szLine, 0x400, "    Recieved:     0     0     0    0%");
@@ -332,7 +332,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
             Com_Printf("%s\n", szLine);
         } else {
             iYPos += 0xa;
-            CL_Netchan_DrawProfileLine(szLine, iYPos);
+            CL_Netchan_DrawProfileLine(iYPos, szLine);
         }
     }
 
@@ -342,7 +342,7 @@ void CL_Netchan_PrintProfileStats(qboolean bPrintToConsole)
         Com_Printf("%s\n", szLine);
     } else {
         iYPos += 0xa;
-        CL_Netchan_DrawProfileLine(szLine, iYPos);
+        CL_Netchan_DrawProfileLine(iYPos, szLine);
     }
 }
 
