@@ -106,12 +106,12 @@ void FUN_0043fbc0(vec2_t outSize, vec4_t texMat[2], const vec3_t normal, float p
     }
     if (texMat[1][r] != 0.0f)
     {
-        float ratio = texMat[0][r] / planeNormal[r];
+        float ratio = texMat[1][r] / planeNormal[r];
         float negRatio = -ratio;
-        texMat[0][0] += negRatio * planeNormal[0];
-        texMat[0][1] += negRatio * planeNormal[1];
-        texMat[0][2] += negRatio * planeNormal[2];
-        texMat[0][3] += ratio * planeDist;
+        texMat[1][0] += negRatio * planeNormal[0];
+        texMat[1][1] += negRatio * planeNormal[1];
+        texMat[1][2] += negRatio * planeNormal[2];
+        texMat[1][3] += ratio * planeDist;
     }
     float dot = texMat[0][0] * texMat[1][0] + texMat[0][1] * texMat[1][1] + texMat[0][2] * texMat[1][2];
     float lenSq1 = texMat[1][0] * texMat[1][0] + texMat[1][1] * texMat[1][1] + texMat[1][2] * texMat[1][2];
