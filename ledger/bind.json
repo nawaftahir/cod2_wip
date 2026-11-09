@@ -127,12 +127,6 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
-"?Com_ParseInternal@@YAPADPAPBD@Z$private$r_bsp_load_obj.obj": {
-"t": "0x1005fa50",
-"n": 68,
-"obj": "r_bsp_load_obj.obj",
-"why": []
-},
 "?R_SetDpvsPlaneSides@@YAXPAUDpvsPlane@@@Z": {
 "t": "0x10001900",
 "n": 54,
