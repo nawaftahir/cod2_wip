@@ -163,6 +163,18 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_CalculateWorldBounds@@YAXPAM0@Z": {
+"t": "0x10002840",
+"n": 246,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_SetSkyImage@@YAXPBUMaterial@@@Z": {
+"t": "0x10002940",
+"n": 118,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_LoadSubmodels@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10002db0",
 "n": 140,
