@@ -8,21 +8,7 @@ void XSurfaceGetVerts(const XSurface *surf, DObjSkelMat *boneMatrix, float *pVer
 
 void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out);
 
-// PINNED100296a0/73; descriptive name for the PC outlined helper.
-int R_GetMaxModelSurfaceCount(const XModel *model)
-{
-    XSurface **surfaces;
-    int *partBits;
-    int maxSurfaces = 0;
-    int lodCount = ri.XModelGetNumLods(model);
-    for (int lod = 0; lod < lodCount; ++lod)
-    {
-        int surfaceCount = ri.XModelGetSurfaces(model, &surfaces, lod, &partBits);
-        if (maxSurfaces < surfaceCount)
-            maxSurfaces = surfaceCount;
-    }
-    return maxSurfaces;
-}
+int R_GetMaxModelSurfaceCount(const XModel *model);
 
 // PINNED 10029780: the second retail copy of the rounded BGRA helper.
 static __declspec(noinline) void R_QuantizeStaticModelColor(byte *out, const float *color)

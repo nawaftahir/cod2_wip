@@ -2,7 +2,7 @@
 from pathlib import Path
 import subprocess
 import tempfile
-w=Path(__file__).resolve().parents[1];s=(w/'src/gfx_d3d/r_model.cpp').read_text();start=s.index('Material ***R_LoadXModelSkins(');source=s[start:s.index('\n}',start)+2]
+w=Path(__file__).resolve().parents[1];s=(w/'src/gfx_d3d/r_model_load_obj.cpp').read_text();start=s.index('Material ***R_LoadXModelSkins(');source=s[start:s.index('\n}',start)+2]
 program=r'''
 #include <cassert>
 #include <cstring>
