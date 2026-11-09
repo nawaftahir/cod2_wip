@@ -3450,8 +3450,9 @@
 "name": "?CL_CheckForResend@@YAXXZ",
 "obj": "cl_main_mp.obj",
 "size": 812,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x40e100"
+]
 },
 {
 "name": "?PBget_cl_cdkey@@YAXPAD@Z",
