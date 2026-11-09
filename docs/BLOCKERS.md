@@ -5,90 +5,102 @@ Each blocker is an unverified callee; verifying it credits callers that already 
 | # | blocker | retail | ours/retail size | status | unblocks bytes | callers |
 |---|---|---|---|---|---|---|
 | 1 | `Image_TrackFullscreenTexture` | 1000c9d0 | 149/149 | same size, bytes differ | 2102 | R_InitRenderTargets/2102 |
-| 2 | `RB_EndSurface` | 1003a8d0 | 206/202 | size differs | 1441 | RB_TessOverflow/82, RB_SetRenderTargetCmd/52, RB_SetViewportCmd/92, RB_SetStencilRefValueC |
+| 2 | `RB_DrawStretchPic` | 1002e850 | 393/393 | chain: RB_Set2D | 1087 | RB_StretchPicCmd/67, RB_DrawFullScreenColoredQuadCmd/77, RB_BlurShadowCookiePass/122, RB_D |
 | 3 | `Material_Register` | 10017100 | 145/144 | size differs | 1014 | R_RegisterMaterial/29, Material_RegisterBuiltins/71, Material_RegisterRawMaterial/88, R_Se |
-| 4 | `RB_DrawStretchPic` | 1002e850 | 393/393 | chain: RB_Set2D | 955 | RB_StretchPicCmd/67, RB_DrawFullScreenColoredQuadCmd/77, RB_BlurShadowCookiePass/122, RB_D |
-| 5 | `RB_Benchmark2D` | 100330c0 | 201/201 | chain: RB_DrawStretchPic | 918 | RB_TestFill/918 |
-| 6 | `R_CreateStaticModel` | 1002a9c0 | 242/242 | chain: R_StaticModelBounds | 626 | R_LoadMiscModel/626 |
-| 7 | `R_LevelShot` | 10026290 | 159/159 | chain: R_TakeResampledScreenshot | 567 | R_ScreenShotCmd/567 |
-| 8 | `R_SetSunFromDvars` | 10028cd0 | 826/826 | chain: Material_Register | 542 | R_UpdateFrameDvars/232, R_LoadSunThroughDvars/102, R_LoadSun/208 |
-| 9 | `Image_GenerateLightGridWeights` | 10010680 | 43/43 | chain: Image_GenerateCubemapFunction | 519 | Image_LoadBuiltin/519 |
-| 10 | `RB_UpdateViewportConstants` | ? | 315/? | size differs | 486 | RB_SetRenderTarget/486 |
-| 11 | `R_XModelDebugBoxes` | 1001da80 | 985/985 | same size, bytes differ | 484 | R_UpdateXModelBounds/484 |
-| 12 | `RB_SetupPassDx7` | 10039b40 | 1104/1124 | size differs | 404 | RB_DrawSingleTechnique/404 |
-| 13 | `RB_Set2D` | 1002e020 | 854/847 | size differs | 393 | RB_DrawStretchPic/393 |
-| 14 | `RB_SetRenderTarget` | 1003ea30 | 486/480 | chain: RB_UpdateViewportConstants | 387 | R_ClearForCubemapShot/115, R_EndCubemapShot/20, RB_SetInitialState/252 |
-| 15 | `Material_ParseCodeConstantSource_r` | 10019a80 | 589/540 | size differs | 358 | Material_ParseConstantSource/358 |
-| 16 | `Material_ParseRuleSet` | 100188e0 | 453/505 | size differs | 356 | Material_ParseStateMap/356 |
-| 17 | `Image_LoadWavelet` | 1000f380 | 539/537 | size differs | 316 | Image_LoadFromData/316 |
-| 18 | `Material_ParseStateMap` | 10018bf0 | 356/356 | chain: Material_ParseRuleSet | 274 | Material_LoadStateMap/274 |
-| 19 | `R_CreateDeviceResources` | 10012100 | 261/152 | chain: R_InitRenderTargets | 271 | R_CreateDevice/271 |
-| 20 | `RB_SaveLightVisHistory` | 10037790 | 100/94 | size differs | 265 | R_Shutdown/265 |
-| 21 | `R_InitRenderTargets` | 10022d20 | 2102/2102 | chain: Image_TrackFullscreenTexture | 261 | R_CreateDeviceResources/261 |
-| 22 | `R_TakeResampledScreenshot` | 10026110 | 150/150 | chain: R_ResampleImage | 260 | R_LevelShot/159, R_SaveGameShot/101 |
-| 23 | `R_StaticModelBounds` | 1002a360 | 443/438 | size differs | 242 | R_CreateStaticModel/242 |
-| 24 | `Image_LoadFromData` | 1000f900 | 316/261 | chain: Image_LoadWavelet | 240 | Image_LoadFromFile/240 |
-| 25 | `Image_LoadFromFile` | 1000fa40 | 240/240 | chain: Image_LoadFromData | 237 | Image_Reload/42, Material_ReloadTextures/195 |
-| 26 | `RB_ExecuteRenderCommands` | 10033d20 | 603/608 | size differs | 225 | R_IssueRenderCommands/111, R_EndDebugFrame/114 |
-| 27 | `RB_TessOverflow` | 1002df40 | 82/82 | chain: RB_EndSurface | 209 | RB_TessStaticModelCached/209 |
-| 28 | `RB_SetVertexData` | 100387d0 | 282/282 | same size, bytes differ | 199 | RB_DrawTessSurface/199 |
-| 29 | `R_SelectPointLights` | 10014f30 | 124/131 | size differs | 193 | R_GetPointLightPartitions/193 |
-| 30 | `RB_GridVisLogIndex` | 10035c40 | 129/129 | chain: RB_InsertGridVisLog | 188 | RB_GetValidGridPoint/188 |
-| 31 | `RB_GetLightingAtPoint` | 100363a0 | 674/784 | size differs | 181 | R_GetStaticModelLightingFromGrid/81, RB_SetupEntityLighting/100 |
-| 32 | `XSurfaceOptimizeRigid` | 1002da90 | 182/186 | size differs | 180 | XSurfaceOptimize/180 |
-| 33 | `RB_DrawSunFlare` | 1003bbe0 | 235/244 | size differs | 179 | RB_UpdateSunFlare/179 |
-| 34 | `RB_GenerateGlowImages` | 100306b0 | 93/93 | chain: RB_GetGlowRadii | 172 | RB_ApplyLatePostEffects/172 |
-| 35 | `RB_DrawDebugPlumes` | 10034700 | 312/297 | size differs | 170 | RB_DrawDebug/170 |
-| 36 | `R_InitHardware` | 10012c80 | 256/289 | size differs | 169 | R_Init/169 |
-| 37 | `R_ReleaseForShutdownOrReset` | 10012210 | 268/269 | size differs | 168 | R_ShutdownHardware/168 |
-| 38 | `R_FinishLoadingAabbTrees_r` | 10003d40 | 410/400 | size differs | 164 | R_LoadAabbTrees/164 |
-| 39 | `RB_SunSpriteScreenFraction` | 1003b310 | 407/407 | same size, bytes differ | 156 | RB_TraceSunVisibility/156 |
-| 40 | `R_CopyCubemapShot` | 100267e0 | 89/89 | same size, bytes differ | 154 | R_WriteCubemapShot/154 |
-| 41 | `R_ResampleImage` | 10025d10 | 364/360 | size differs | 150 | R_TakeResampledScreenshot/150 |
-| 42 | `R_CellSurfaces` | 100155a0 | 412/412 | same size, bytes differ | 146 | R_BoxSurfaces_r/146 |
-| 43 | `Material_ReloadTextures` | 10017640 | 195/195 | chain: Image_LoadFromFile | 137 | Material_ReloadTextures_f/137 |
-| 44 | `R_GenerateOutdoorLookup` | 10020950 | 211/201 | size differs | 136 | R_CreateOutdoorImage/136 |
-| 45 | `RB_InsertGridVisLog` | 10035bd0 | 111/111 | same size, bytes differ | 129 | RB_GridVisLogIndex/129 |
-| 46 | `RotatePointAroundVector` | 10059530 | 525/525 | same size, bytes differ | 129 | AxisFromForwardYaw/129 |
-| 47 | `R_InitFrameBackendData` | ? | 147/? | size differs | 126 | R_InitRenderCmds/126 |
-| 48 | `R_RenderSceneFullbright` | 10024d90 | 448/451 | size differs | 126 | R_RenderSceneMode/126 |
-| 49 | `R_WatersEquivalent` | 1002ca50 | 240/240 | same size, bytes differ | 122 | R_LoadWaterSetup/122 |
-| 50 | `R_FilterEntityIntoCells_r` | 10008600 | 335/335 | same size, bytes differ | 117 | R_CullBrushEntity/117 |
-| 51 | `R_InitImages` | 1000d880 | 203/124 | size differs | 116 | R_InitSystems/116 |
-| 52 | `RB_SetupLighting` | 1003a340 | 372/566 | size differs | 112 | RB_DrawTechnique/112 |
-| 53 | `R_UpdateXModelBounds` | 1001ffc0 | 484/484 | chain: R_XModelDebugBoxes | 108 | R_UpdateGfxEntityBounds/47, R_SkinGfxEntity/61 |
-| 54 | `R_LoadSunThroughDvars` | 100291c0 | 102/102 | chain: R_SetSunFromDvars | 106 | R_LoadSun_f/106 |
-| 55 | `XSurfaceOptimize` | 1002db80 | 180/180 | chain: XSurfaceOptimizeRigid | 102 | XModelOptimize/102 |
-| 56 | `Material_LoadTechniqueDx7` | 1001ba70 | 610/569 | size differs | 101 | Material_LoadCachedTechnique/101 |
-| 57 | `R_CubemapShotAlpha` | 100265e0 | 262/266 | size differs | 100 | R_WriteCubemapShotAlpha/100 |
-| 58 | `FresnelTerm` | 1002c370 | 203/201 | size differs | 98 | Image_WaterColorForDirection/98 |
-| 59 | `RB_UpdateSunFlare` | 1003bce0 | 179/179 | chain: RB_DrawSunFlare | 96 | RB_DrawSunPostEffects/96 |
-| 60 | `RB_GetGlowRadii` | 100305d0 | 212/212 | same size, bytes differ | 93 | RB_GenerateGlowImages/93 |
-| 61 | `R_EnumerateDisplayModes` | 100123d0 | 741/738 | size differs | 91 | R_CreateDirect3D/91 |
-| 62 | `RB_ApplyMaterialImageOverride` | 10038920 | 116/97 | size differs | 90 | RB_GetMaterialImage/90 |
-| 63 | `Image_GenerateCubemapFunction` | 10010160 | 770/780 | size differs | 89 | Image_GenerateLightGridWeights/43, Image_GenerateSunHalfAngle/46 |
-| 64 | `RB_Set3D` | 1002e380 | 230/230 | chain: RB_EndSurface | 87 | RB_DrawSun/87 |
-| 65 | `R_IssueRenderCommands` | 10020d50 | 111/111 | chain: RB_ExecuteRenderCommands | 86 | R_EndFrame/86 |
-| 66 | `Material_LoadStateMap` | 10018d60 | 274/274 | chain: Material_ParseStateMap | 84 | Material_LoadCachedStateMap/84 |
-| 67 | `RB_DrawFrameColorDebug` | 10030190 | 235/286 | size differs | 84 | RB_DrawPostDebug/84 |
-| 68 | `Material_LoadTechniqueSet` | 1001c010 | 498/543 | size differs | 79 | Material_LoadCachedTechniqueSet/79 |
-| 69 | `VectorRotate` | 1005df90 | 255/273 | size differs | 76 | VectorRotateAroundOrigin/76 |
-| 70 | `RB_DrawTextWithCursor` | 10032560 | 740/740 | same size, bytes differ | 73 | RB_DrawTextCmd/73 |
-| 71 | `RB_ScreenRadiusToWorld` | 1003f930 | 116/120 | size differs | 72 | RB_TessSprite/72 |
-| 72 | `RB_DrawGlowImage` | 100304d0 | 173/173 | chain: RB_DrawStretchPic | 71 | RB_DrawGlowImages/71 |
-| 73 | `R_UpdateFrameDvars` | 10021e50 | 232/378 | chain: R_SetSunFromDvars | 70 | R_BeginFrame/70 |
-| 74 | `RB_DrawPoints2D` | 10030de0 | 597/655 | size differs | 70 | RB_DrawPointsCmd/70 |
-| 75 | `Image_BuildWaterMap` | 1000d0f0 | 74/74 | same size, bytes differ | 58 | R_ReloadLostImages/58 |
-| 76 | `RB_DrawRawSurface` | 1002f110 | 331/331 | same size, bytes differ | 53 | RB_StretchRawCmd/53 |
-| 77 | `RB_DrawTextInSpace` | 10032a50 | 429/442 | size differs | 51 | RB_DrawTextInSpaceCmd/51 |
-| 78 | `RB_TessXModelSkinnedCached` | 10041140 | 277/276 | size differs | 38 | RB_TessXModelSkinned/38 |
-| 79 | `R_CreateWorldVertexBuffer` | 10001050 | 461/472 | size differs | 30 | R_ReloadWorld/30 |
-| 80 | `XModelUnoptimize` | 1002dcf0 | 163/162 | size differs | 30 | R_ReleaseModel/30 |
-| 81 | `R_WriteCubemapShot` | 10026920 | 154/154 | chain: R_CopyCubemapShot | 30 | R_SaveCubemapShot/30 |
-| 82 | `R_ClearForCubemapShot` | ? | 115/? | chain: RB_SetRenderTarget | 28 | R_BeginCubemapShot/28 |
-| 83 | `RB_ProjectionMatrixChanged` | ? | 227/? | size differs | 28 | RB_SetDepthHackNearClip/28 |
-| 84 | `RB_DrawSun` | 1003bff0 | 87/87 | chain: RB_Set3D | 27 | RB_DrawSunCmd/27 |
-| 85 | `R_Init` | 10012f80 | 169/169 | chain: R_InitHardware | 26 | R_BeginRegistration/26 |
-| 86 | `XModelOptimize` | 1002dc80 | 102/102 | chain: XSurfaceOptimize | 26 | R_OptimizeModel/26 |
-| 87 | `RB_TouchAllImages` | 10035890 | 171/165 | chain: RB_DrawStretchPic | 20 | RB_TouchAllImagesCmd/20 |
-| 88 | `R_UpdateGfxEntityBounds` | 10023d40 | 47/47 | chain: R_UpdateXModelBounds | 12 | R_UpdateGfxEntityBoundsCmd/12 |
+| 4 | `RB_Benchmark2D` | 100330c0 | 201/201 | chain: RB_DrawStretchPic | 918 | RB_TestFill/918 |
+| 5 | `RB_UpdateViewportConstants` | 1003e690 | 346/366 | size differs | 852 | RB_SetViewportCmd/92, RB_BeginViewCmd/274, RB_SetRenderTarget/486 |
+| 6 | `RB_EndSurface` | 1003a8d0 | 202/202 | chain: RB_DrawOptimizedTessSurface | 779 | RB_TessOverflow/82, RB_SetRenderTargetCmd/52, RB_SetStencilRefValueCmd/156, RB_ApplyEarlyP |
+| 7 | `RB_Set2D` | 1002e020 | 854/847 | size differs | 650 | RB_DrawStretchPic/393, RB_BlendSavedScreenCmd/257 |
+| 8 | `R_LevelShot` | 10026290 | 159/159 | chain: R_TakeResampledScreenshot | 567 | R_ScreenShotCmd/567 |
+| 9 | `RB_SetupEntityLighting` | 100366b0 | 100/100 | chain: RB_GetLightingAtPoint | 566 | RB_SetupLighting/566 |
+| 10 | `R_InitSystems` | 10012040 | 116/116 | chain: R_InitImages | 560 | R_CreateDevice/271, R_InitHardware/289 |
+| 11 | `R_SetSunFromDvars` | 10028cd0 | 826/826 | chain: Material_Register | 542 | R_UpdateFrameDvars/232, R_LoadSunThroughDvars/102, R_LoadSun/208 |
+| 12 | `Image_GenerateLightGridWeights` | 10010680 | 43/43 | chain: Image_GenerateCubemapFunction | 519 | Image_LoadBuiltin/519 |
+| 13 | `R_XModelDebugBoxes` | 1001da80 | 985/985 | same size, bytes differ | 484 | R_UpdateXModelBounds/484 |
+| 14 | `RB_Set3D` | 1002e380 | 230/230 | chain: RB_ChangedWorldMatrix | 448 | RB_DrawTriangles/361, RB_DrawSun/87 |
+| 15 | `RB_SetupPassDx7` | 10039b40 | 1104/1124 | size differs | 404 | RB_DrawSingleTechnique/404 |
+| 16 | `RB_SetRenderTarget` | 1003ea30 | 486/480 | chain: RB_UpdateViewportConstants | 387 | R_ClearForCubemapShot/115, R_EndCubemapShot/20, RB_SetInitialState/252 |
+| 17 | `Material_ParseCodeConstantSource_r` | 10019a80 | 589/540 | size differs | 358 | Material_ParseConstantSource/358 |
+| 18 | `Material_ParseRuleSet` | 100188e0 | 453/505 | size differs | 356 | Material_ParseStateMap/356 |
+| 19 | `R_CreateDeviceResources` | 10012100 | 261/152 | chain: R_InitRenderTargets | 319 | R_ResetDevice/319 |
+| 20 | `Image_LoadWavelet` | 1000f380 | 539/537 | size differs | 316 | Image_LoadFromData/316 |
+| 21 | `Material_ParseStateMap` | 10018bf0 | 356/356 | chain: Material_ParseRuleSet | 274 | Material_LoadStateMap/274 |
+| 22 | `RB_DrawTechnique` | 1003a580 | 112/112 | chain: RB_SetupLighting | 273 | RB_DrawOptimizedTessSurface/273 |
+| 23 | `RB_SaveLightVisHistory` | 10037790 | 100/94 | size differs | 265 | R_Shutdown/265 |
+| 24 | `R_InitRenderTargets` | 10022d20 | 2102/2102 | chain: Image_TrackFullscreenTexture | 261 | R_CreateDeviceResources/261 |
+| 25 | `R_TakeResampledScreenshot` | 10026110 | 150/150 | chain: R_ResampleImage | 260 | R_LevelShot/159, R_SaveGameShot/101 |
+| 26 | `RB_TessOverflow` | 1002df40 | 82/82 | chain: RB_EndSurface | 247 | RB_CheckOverflow/38, RB_TessStaticModelCached/209 |
+| 27 | `RB_TessSunBillboard` | 1003b0c0 | 543/580 | size differs | 244 | RB_DrawSunFlare/244 |
+| 28 | `R_StaticModelBounds` | 1002a360 | 443/438 | size differs | 242 | R_CreateStaticModel/242 |
+| 29 | `Image_LoadFromData` | 1000f900 | 316/261 | chain: Image_LoadWavelet | 240 | Image_LoadFromFile/240 |
+| 30 | `Image_LoadFromFile` | 1000fa40 | 240/240 | chain: Image_LoadFromData | 237 | Image_Reload/42, Material_ReloadTextures/195 |
+| 31 | `RB_ChangedWorldMatrix` | 1003de30 | 344/344 | same size, bytes differ | 230 | RB_Set3D/230 |
+| 32 | `RB_ExecuteRenderCommands` | 10033d20 | 603/608 | size differs | 225 | R_IssueRenderCommands/111, R_EndDebugFrame/114 |
+| 33 | `Material_CodeSamplerSource_r` | 100194f0 | 267/303 | size differs | 211 | Material_ParseSamplerSource/211 |
+| 34 | `R_AddModelRefEntity` | 10023cc0 | 128/128 | same size, bytes differ | 209 | R_AddRefEntityToScene/209 |
+| 35 | `RB_DrawOptimizedTessSurface` | 1003a690 | 273/273 | chain: RB_DrawTechnique | 202 | RB_EndSurface/202 |
+| 36 | `RB_SetVertexData` | 100387d0 | 282/282 | same size, bytes differ | 199 | RB_DrawTessSurface/199 |
+| 37 | `R_SelectPointLights` | 10014f30 | 124/131 | size differs | 193 | R_GetPointLightPartitions/193 |
+| 38 | `RB_GridVisLogIndex` | 10035c40 | 129/129 | chain: RB_InsertGridVisLog | 188 | RB_GetValidGridPoint/188 |
+| 39 | `RB_GetLightingAtPoint` | 100363a0 | 776/784 | size differs | 181 | R_GetStaticModelLightingFromGrid/81, RB_SetupEntityLighting/100 |
+| 40 | `XSurfaceOptimizeRigid` | 1002da90 | 182/186 | size differs | 180 | XSurfaceOptimize/180 |
+| 41 | `RB_DrawSunFlare` | 1003bbe0 | 244/244 | chain: RB_TessSunBillboard | 179 | RB_UpdateSunFlare/179 |
+| 42 | `RB_GenerateGlowImages` | 100306b0 | 93/93 | chain: RB_GetGlowRadii | 172 | RB_ApplyLatePostEffects/172 |
+| 43 | `RB_DrawDebugPlumes` | 10034700 | 312/297 | size differs | 170 | RB_DrawDebug/170 |
+| 44 | `R_InitHardware` | 10012c80 | 289/289 | chain: R_InitSystems | 169 | R_Init/169 |
+| 45 | `R_FinishLoadingAabbTrees_r` | 10003d40 | 402/400 | size differs | 164 | R_LoadAabbTrees/164 |
+| 46 | `Material_ParseConstantSource` | 10019ca0 | 358/358 | chain: Material_ParseCodeConstantSource_r | 164 | Material_ParseShaderArgument/164 |
+| 47 | `Material_LoadCachedStateMap` | 10018e80 | 84/84 | chain: Material_LoadStateMap | 161 | Material_LoadPassStateMap/161 |
+| 48 | `RB_SunSpriteScreenFraction` | 1003b310 | 407/407 | same size, bytes differ | 156 | RB_TraceSunVisibility/156 |
+| 49 | `R_CopyCubemapShot` | 100267e0 | 89/89 | same size, bytes differ | 154 | R_WriteCubemapShot/154 |
+| 50 | `R_ResampleImage` | 10025d10 | 364/360 | size differs | 150 | R_TakeResampledScreenshot/150 |
+| 51 | `R_CellSurfaces` | 100155a0 | 412/412 | same size, bytes differ | 146 | R_BoxSurfaces_r/146 |
+| 52 | `Material_ReloadTextures` | 10017640 | 195/195 | chain: Image_LoadFromFile | 137 | Material_ReloadTextures_f/137 |
+| 53 | `R_GenerateOutdoorLookup` | 10020950 | 211/201 | size differs | 136 | R_CreateOutdoorImage/136 |
+| 54 | `RB_InsertGridVisLog` | 10035bd0 | 111/111 | same size, bytes differ | 129 | RB_GridVisLogIndex/129 |
+| 55 | `RotatePointAroundVector` | 10059530 | 525/525 | same size, bytes differ | 129 | AxisFromForwardYaw/129 |
+| 56 | `R_InitFrameBackendData` | ? | 130/? | size differs | 126 | R_InitRenderCmds/126 |
+| 57 | `R_RenderSceneFullbright` | 10024d90 | 448/451 | size differs | 126 | R_RenderSceneMode/126 |
+| 58 | `R_WatersEquivalent` | 1002ca50 | 240/240 | same size, bytes differ | 122 | R_LoadWaterSetup/122 |
+| 59 | `R_FilterEntityIntoCells_r` | 10008600 | 335/335 | same size, bytes differ | 117 | R_CullBrushEntity/117 |
+| 60 | `R_InitImages` | 1000d880 | 203/124 | size differs | 116 | R_InitSystems/116 |
+| 61 | `RB_TessSprite` | 1003fb50 | 72/72 | chain: RB_ScreenRadiusToWorld | 116 | RB_TessEntity/116 |
+| 62 | `RB_BlurShadowCookiePass` | 10030920 | 122/122 | chain: RB_DrawStretchPic | 113 | RB_BlurShadowCookieCmd/113 |
+| 63 | `RB_SetupLighting` | 1003a340 | 566/566 | chain: RB_SetupEntityLighting | 112 | RB_DrawTechnique/112 |
+| 64 | `RB_ApplyLatePostEffects` | 10030ab0 | 172/172 | chain: RB_GenerateGlowImages | 111 | RB_ApplyLatePostEffectsCmd/111 |
+| 65 | `R_UpdateXModelBounds` | 1001ffc0 | 484/484 | chain: R_XModelDebugBoxes | 108 | R_UpdateGfxEntityBounds/47, R_SkinGfxEntity/61 |
+| 66 | `R_LoadSunThroughDvars` | 100291c0 | 102/102 | chain: R_SetSunFromDvars | 106 | R_LoadSun_f/106 |
+| 67 | `XSurfaceOptimize` | 1002db80 | 180/180 | chain: XSurfaceOptimizeRigid | 102 | XModelOptimize/102 |
+| 68 | `Material_LoadTechniqueDx7` | 1001ba70 | 509/569 | size differs | 101 | Material_LoadCachedTechnique/101 |
+| 69 | `R_CubemapShotAlpha` | 100265e0 | 262/266 | size differs | 100 | R_WriteCubemapShotAlpha/100 |
+| 70 | `FresnelTerm` | 1002c370 | 203/201 | size differs | 98 | Image_WaterColorForDirection/98 |
+| 71 | `RB_UpdateSunFlare` | 1003bce0 | 179/179 | chain: RB_DrawSunFlare | 96 | RB_DrawSunPostEffects/96 |
+| 72 | `RB_GetGlowRadii` | 100305d0 | 212/212 | same size, bytes differ | 93 | RB_GenerateGlowImages/93 |
+| 73 | `R_EnumerateDisplayModes` | 100123d0 | 741/738 | size differs | 91 | R_CreateDirect3D/91 |
+| 74 | `RB_ApplyMaterialImageOverride` | 10038920 | 116/97 | size differs | 90 | RB_GetMaterialImage/90 |
+| 75 | `Image_GenerateCubemapFunction` | 10010160 | 770/780 | size differs | 89 | Image_GenerateLightGridWeights/43, Image_GenerateSunHalfAngle/46 |
+| 76 | `R_IssueRenderCommands` | 10020d50 | 111/111 | chain: RB_ExecuteRenderCommands | 86 | R_EndFrame/86 |
+| 77 | `Material_LoadStateMap` | 10018d60 | 274/274 | chain: Material_ParseStateMap | 84 | Material_LoadCachedStateMap/84 |
+| 78 | `RB_DrawFrameColorDebug` | 10030190 | 235/286 | size differs | 84 | RB_DrawPostDebug/84 |
+| 79 | `Material_LoadTechniqueSet` | 1001c010 | 498/543 | size differs | 79 | Material_LoadCachedTechniqueSet/79 |
+| 80 | `VectorRotate` | 1005df90 | 255/273 | size differs | 76 | VectorRotateAroundOrigin/76 |
+| 81 | `RB_DrawTextWithCursor` | 10032560 | 740/740 | same size, bytes differ | 73 | RB_DrawTextCmd/73 |
+| 82 | `RB_ScreenRadiusToWorld` | 1003f930 | 118/120 | size differs | 72 | RB_TessSprite/72 |
+| 83 | `RB_DrawGlowImage` | 100304d0 | 173/173 | chain: RB_DrawStretchPic | 71 | RB_DrawGlowImages/71 |
+| 84 | `R_UpdateFrameDvars` | 10021e50 | 232/378 | chain: R_SetSunFromDvars | 70 | R_BeginFrame/70 |
+| 85 | `RB_DrawPoints2D` | 10030de0 | 597/655 | size differs | 70 | RB_DrawPointsCmd/70 |
+| 86 | `R_CreateDevice` | 100128b0 | 271/271 | chain: R_InitSystems | 64 | R_SetUpWindow/64 |
+| 87 | `RB_DrawRawSurface` | 1002f110 | 331/331 | same size, bytes differ | 53 | RB_StretchRawCmd/53 |
+| 88 | `RB_DrawTextInSpace` | 10032a50 | 429/442 | size differs | 51 | RB_DrawTextInSpaceCmd/51 |
+| 89 | `Image_LoadBuiltin` | 100108a0 | 519/519 | chain: Image_GenerateLightGridWeights | 43 | Image_Load/43 |
+| 90 | `RB_TessXModelSkinnedCached` | 10041140 | 277/276 | size differs | 38 | RB_TessXModelSkinned/38 |
+| 91 | `R_CreateWorldVertexBuffer` | 10001050 | 477/472 | size differs | 30 | R_ReloadWorld/30 |
+| 92 | `XModelUnoptimize` | 1002dcf0 | 163/162 | size differs | 30 | R_ReleaseModel/30 |
+| 93 | `R_WriteCubemapShot` | 10026920 | 154/154 | chain: R_CopyCubemapShot | 30 | R_SaveCubemapShot/30 |
+| 94 | `R_ClearForCubemapShot` | ? | 115/? | chain: RB_SetRenderTarget | 28 | R_BeginCubemapShot/28 |
+| 95 | `RB_ProjectionMatrixChanged` | ? | 227/? | size differs | 28 | RB_SetDepthHackNearClip/28 |
+| 96 | `RB_DrawSun` | 1003bff0 | 87/87 | chain: RB_Set3D | 27 | RB_DrawSunCmd/27 |
+| 97 | `R_Init` | 10012f80 | 169/169 | chain: R_InitHardware | 26 | R_BeginRegistration/26 |
+| 98 | `XModelOptimize` | 1002dc80 | 102/102 | chain: XSurfaceOptimize | 26 | R_OptimizeModel/26 |
+| 99 | `RB_TouchAllImages` | 10035890 | 171/165 | chain: RB_DrawStretchPic | 20 | RB_TouchAllImagesCmd/20 |
+| 100 | `R_UpdateGfxEntityBounds` | 10023d40 | 47/47 | chain: R_UpdateXModelBounds | 12 | R_UpdateGfxEntityBoundsCmd/12 |
