@@ -62,7 +62,8 @@ ledger as a 100% whole-TU or whole-executable match.
 ## Where source lives
 
 `src/` holds only files that are finished: every function in the file matches the referee at 100% AND
-sits at its retail offset in the linked exe. Everything else, including partly matched files, lives in
+the spacing of its functions inside the file equals retail (owner, 2026-11-10). Absolute placement in
+the exe is reported separately until the code before the file is complete. Everything else, including partly matched files, lives in
 `workspace/src/` with the same layout. The build compiles both (`src/` wins). No empty or placeholder
 files anywhere: a file exists once it has real code. A file moves to `src/` only with that proof.
 

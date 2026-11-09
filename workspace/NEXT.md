@@ -20,11 +20,9 @@ Worktree `cod2_wip/.worktrees/claude`, branch `radiant/claude`. Run shell via a 
 4. **Big files front to back:** CamWnd, MainFrm, Pmesh, XYWnd, ... one file per session, size first.
 5. Re-test `/OPT:REF /OPT:NOICF` once a region's callers exist.
 
-## Open decision (owner)
-An absolute retail offset needs every byte before the file to be right, so strictly no file except
-the first can enter `src/` until the exe is nearly done. Proposal: a file enters `src/` when all its
-functions match and their spacing inside the file equals retail; absolute placement is reported
-separately.
+## src/ rule (owner, 2026-11-10)
+A file enters `src/` when all its functions match and their spacing inside the file equals retail.
+Absolute placement is reported separately.
 
 ## Cost rules
 One file per session, then update this file and /clear. Batch functions per build (about 2 min each).
