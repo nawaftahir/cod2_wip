@@ -4309,3 +4309,6 @@ R_ProcessFrontendCmdInternal 10020be0/144 & R_AddFrontendCmd 10020ca0/16: making
 R_ShutdownBackendData 10020bd0/13, R_UpdateEffectsBolt 10020cb0/6, R_UpdateEffectsNonBolt 10020cc0/6, R_AddCmdTouchAllImages 100226c0/79: already 100% byte-matched to retail; unbound only due to leaf binder threshold / duplicate body at 100131b0.
 0x10021900 (16 B), 0x10021910 (16 B), 0x10021980 (80 B), 0x100219d0 (144 B), 0x10021a60 (128 B): unreferenced command helpers with custom LTCG register conventions (edx/ecx/eax, esi, ecx, ebx) that cannot be produced for uncalled C++ functions under /GL.
 R_AddCmdLightProperties 10021770/192: x87 float copy and specular alpha multiply scheduling residual (previously logged).
+2026-11-09 R_DpvsPlaneSetDist: DotProduct(coeffs, point) and (point, coeffs) emit the same code; retail loads point first. Not source-order fixable, reverted.
+2026-11-09 RB_ScreenRadiusToWorld: up[3] temps fit the 120 B slot (kept); y+z+x and z+y+x orders both leave x87 scheduling diff. 3 probes used.
+2026-11-09 RB_TessEntity: retail case order kept; code identical, only jump table targets differ; not bound yet, 2401 bound before and after.

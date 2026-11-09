@@ -347,11 +347,11 @@ void RB_TessParticleCloud(const GfxEntity *ent)
     if (r_logFile->current.integer)
         RB_LogPrint(va("--- RB_TessParticleCloud( %s ) ---\n", tess.material->info.name));
     GfxDrawPrimArgs args;
-    args.vertexCount = 4096;
-    args.primCount = 2048;
-    args.firstVertexFromBase = 0;
     args.u.buf.baseVertex = 0;
     args.u.buf.baseIndex = 0;
+    args.firstVertexFromBase = 0;
+    args.vertexCount = 4096;
+    args.primCount = 2048;
     RB_SetParticleCloudConstants(ent);
     if (dxState.indexBuffer != dx.particleCloudIndexBuffer)
         RB_ChangeIndices(dx.particleCloudIndexBuffer);
@@ -514,9 +514,11 @@ static bool RB_ScreenRadiusToWorld(const float *origin, float height, float *rad
         return false;
     height += height;
     const D3DMATRIX *inverse = &view->inverseViewProjectionMatrix;
-    *radius = ((height * inverse->m[1][1] * view->axis[2][1]
-        + height * inverse->m[1][2] * view->axis[2][2])
-        + height * inverse->m[1][0] * view->axis[2][0]) * w;
+    float up[3];
+    up[0] = height * inverse->m[1][0];
+    up[1] = height * inverse->m[1][1];
+    up[2] = height * inverse->m[1][2];
+    *radius = (up[1] * view->axis[2][1] + up[2] * view->axis[2][2] + up[0] * view->axis[2][0]) * w;
     return true;
 }
 
@@ -931,9 +933,8 @@ void RB_TessEntity(const GfxEntity *ent)
     switch (ent->reType)
     {
     case 4: RB_TessSprite(ent); break;
-    case 5: RB_TessRailCore(ent); break;
-    case 6: RB_TessParticleCloud(ent); break;
     case 7: RB_TessOrientedQuad(ent); break;
+    case 5: RB_TessRailCore(ent); break;
     case 8: RB_TessLine(ent); break;
     case 9:
         if (r_rendererInUse->current.integer == 2)
@@ -941,6 +942,7 @@ void RB_TessEntity(const GfxEntity *ent)
         else
             RB_TessCylinder(ent);
         break;
+    case 6: RB_TessParticleCloud(ent); break;
     }
 }
 
