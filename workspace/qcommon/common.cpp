@@ -155,7 +155,7 @@ struct clientStatic_t
 };
 struct clientConnection_t
 {
-	char unused0[264100];
+	char unused0[262540];
 	qboolean demorecording;
 	qboolean demoplaying;
 	int unused1[3];
