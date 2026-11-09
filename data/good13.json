@@ -3284,9 +3284,10 @@
 {
 "name": "?CL_TrimWhitespace_40cf40@@YAPADPAD@Z",
 "obj": "cl_main_mp.obj",
-"size": 113,
-"hits": [],
-"reason": "no masked match"
+"size": 117,
+"hits": [
+"0x40cf40"
+]
 },
 {
 "name": "?CL_BuildMd5StrFromCDKey@@YAXPAD@Z",
@@ -4183,16 +4184,18 @@
 {
 "name": "?CL_ParseWWWDownload@@YAXPAUmsg_t@@@Z",
 "obj": "cl_parse_mp.obj",
-"size": 565,
-"hits": [],
-"reason": "no masked match"
+"size": 562,
+"hits": [
+"0x413e70"
+]
 },
 {
 "name": "?CL_ParseDownload@@YAXPAUmsg_t@@@Z",
 "obj": "cl_parse_mp.obj",
-"size": 712,
-"hits": [],
-"reason": "no masked match"
+"size": 715,
+"hits": [
+"0x4140b0"
+]
 },
 {
 "name": "?CL_ParseCommandString@@YAXPAUmsg_t@@@Z",
@@ -4206,8 +4209,9 @@
 "name": "?CL_ParseServerMessage@@YAXPAUmsg_t@@@Z",
 "obj": "cl_parse_mp.obj",
 "size": 496,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4143e0"
+]
 },
 {
 "name": "?VectorClear@@YAXQAM@Z",
@@ -35374,7 +35378,7 @@
 ]
 },
 {
-"name": "$L118300",
+"name": "$L118301",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35382,7 +35386,7 @@
 ]
 },
 {
-"name": "$L118302",
+"name": "$L118303",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35415,7 +35419,7 @@
 ]
 },
 {
-"name": "$L132183",
+"name": "$L132184",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35423,7 +35427,7 @@
 ]
 },
 {
-"name": "$L132185",
+"name": "$L132186",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35501,7 +35505,7 @@
 ]
 },
 {
-"name": "$L104449",
+"name": "$L104450",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35517,7 +35521,7 @@
 ]
 },
 {
-"name": "$L147586",
+"name": "$L147587",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -36504,9 +36508,10 @@
 {
 "name": "?CL_ReadMotd@@YAXXZ",
 "obj": "cl_main_pc_mp.obj",
-"size": 98,
-"hits": [],
-"reason": "no masked match"
+"size": 104,
+"hits": [
+"0x4b50f0"
+]
 },
 {
 "name": "?CL_WWWDownload@@YAXXZ",
