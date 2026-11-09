@@ -646,21 +646,15 @@ void CL_ParseWWWDownload(msg_t *msg)
     FS_BuildOSPath(fs_homepath, cls.downloadTempName, "", toOSPath);
     I_strncpyz(cls.downloadTempName, toOSPath, sizeof(cls.downloadTempName));
 
-    if (cls.downloadTempName[0])
-        cls.downloadTempName[strlen(cls.downloadTempName) - 1] = '\0';
+    cls.downloadTempName[strlen(cls.downloadTempName) - 1] = '\0';
 
-    if (DL_BeginDownload(cls.downloadTempName, cls.downloadName)) {
-        if (cls.downloadFlags & 0x1) {
-            CL_AddReliableCommand("wwwdl bbl8r");
-            cls.wwwDlDisconnected = 1;
-        }
-        return;
+    if (!DL_BeginDownload(cls.downloadTempName, cls.downloadName)) {
+        CL_AddReliableCommand("wwwdl fail");
+        DL_CancelDownload();
+        cls.wwwDlInProgress = 0;
+        Com_Printf("Failed to initialize download for '%s'\n", cls.downloadName);
     }
 
-    CL_AddReliableCommand("wwwdl fail");
-    DL_CancelDownload();
-    cls.wwwDlInProgress = 0;
-    Com_Printf("Failed to initialize download for '%s'\n", cls.downloadName);
     if (cls.downloadFlags & 0x1) {
         CL_AddReliableCommand("wwwdl bbl8r");
         cls.wwwDlDisconnected = 1;
@@ -764,10 +758,10 @@ void CL_ParseDownload(msg_t *msg)
         FS_Write(data, size, cls.download);
     }
 
+    legacyHacks->cl_downloadCount += size;
+
     CL_AddReliableCommand(va("nextdl %d", cls.downloadBlock));
     cls.downloadBlock++;
-
-    legacyHacks->cl_downloadCount += size;
 
     if (!size) {
         // A zero length block means EOF

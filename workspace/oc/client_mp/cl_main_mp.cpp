@@ -1253,12 +1253,7 @@ static char *CL_TrimWhitespace_40cf40(char *s)
     while (e > p && (*e == ' ' || *e == '\t' || *e == '\n' || *e == '\r'))
         e--;
     e[1] = 0;
-    {
-        char *d = s;
-
-        while ((*d++ = *p++) != 0)
-            ;
-    }
+    strcpy(s, p);
     return s;
 }
 

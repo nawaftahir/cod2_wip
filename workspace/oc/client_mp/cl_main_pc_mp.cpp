@@ -1108,13 +1108,11 @@ void CL_ReadMotd(void)
 
     if (FS_ReadFile("motd.txt", &buf) >= 0) {
         dvar = Dvar_FindVar("motd");
-        if (dvar) {
+        if (dvar)
             Dvar_SetString(dvar, (const char *)buf);
-            FS_FreeFile(buf);
-        } else {
+        else
             Dvar_RegisterString("motd", (const char *)buf, DVAR_EXTERNAL);
-            FS_FreeFile(buf);
-        }
+        FS_FreeFile(buf);
     }
 }
 
