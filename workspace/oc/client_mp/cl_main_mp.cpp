@@ -3407,23 +3407,19 @@ int fn_412660(void)
 }
 
 /* retail 0x412670: wait (Sleep 1) until the renderer reports done or the cycle limit passes */
+extern unsigned __int64 Sys_Rdtsc(void);
 void CL_SyncGpu(void)
 {
-    int startLo, nowLo, limit, elapsed;
+    unsigned __int64 start, now;
+    int limit, elapsed;
 
-    __asm {
-        rdtsc
-        mov startLo, eax
-    }
+    start = Sys_Rdtsc();
     limit = re.unknown106();
     if (re.SyncGpu())
         return;
     do {
-        __asm {
-            rdtsc
-            mov nowLo, eax
-        }
-        elapsed = nowLo - startLo;
+        now = Sys_Rdtsc();
+        elapsed = (int)now - (int)start;
         if (elapsed < 0 || elapsed >= limit)
             break;
         Sleep(1);
