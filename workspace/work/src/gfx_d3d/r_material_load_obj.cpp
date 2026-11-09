@@ -763,26 +763,24 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
         return static_cast<MtlParseSuccess>((matched - 1) & MTL_PARSE_ERROR);
     }
     result = Material_ParseRuleSetConditionTest(text, token, rule);
-    if (result == MTL_PARSE_SUCCESS)
+    if (result != MTL_PARSE_SUCCESS)
+        return result;
+    do
     {
-        do
+        token = Com_ParseInternal(text);
+        if (!strcmp(token, ":"))
+            return MTL_PARSE_SUCCESS;
+        if (strcmp(token, "&&"))
         {
-            token = Com_Parse(text);
-            if (!strcmp(token, ":"))
-                return MTL_PARSE_SUCCESS;
-            if (strcmp(token, "&&"))
-            {
-                Com_ScriptWarning("expected ':' or '&&', found '%s'\n", token);
-                return MTL_PARSE_ERROR;
-            }
-            token = Com_Parse(text);
-            result = Material_ParseRuleSetConditionTest(text, token, rule);
-        } while (result == MTL_PARSE_SUCCESS);
-        if (result == MTL_PARSE_NO_MATCH)
-            Com_ScriptWarning("failed parsing conditional after '&&'\n");
-        return MTL_PARSE_ERROR;
-    }
-    return result;
+            Com_ScriptWarning("expected ':' or '&&', found '%s'\n", token);
+            return MTL_PARSE_ERROR;
+        }
+        token = Com_ParseInternal(text);
+        result = Material_ParseRuleSetConditionTest(text, token, rule);
+    } while (result == MTL_PARSE_SUCCESS);
+    if (result == MTL_PARSE_NO_MATCH)
+        Com_ScriptWarning("failed parsing conditional after '&&'\n");
+    return MTL_PARSE_ERROR;
 }
 
 static Bool Material_MatchToken(const char **text, const char *match)
@@ -860,7 +858,7 @@ static Bool Material_ParseRuleSet(const char **text, const char *name,
     ruleCount = 0;
     do
     {
-        token = Com_Parse(text);
+        token = Com_ParseInternal(text);
         if (*token == '}')
         {
             if (!ruleCount)
