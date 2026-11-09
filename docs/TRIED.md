@@ -77,3 +77,4 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CG_FireWeapon `lea ebp` before the pushes (w3, lab) | `ent->weapon` for both early tests instead of `cent->nextState.weapon` | worse: function 16 B shorter, more hunks; reverted |
 | G_GetPlayerViewOrigin push before fstp (w3, lab) | drop the parens on `origin[2] + deltaVert`; add parens on the viewHeightCurrent line | dropping them hoists the push ~0x6d too early (wrong place); adding them leaves the original 1-insn swap. Both reverted |
 | IntersectPlanes `pop esi` one fld earlier (w3, lab) | outer parens on the xyz[2] statement | no change |
+| g_splashWnd at retail 0xd76ae8 (w5, analysis, no build) | considered ALIGNED(8) or removing ALIGNED(16) | natural or 8 alignment moves s_wcd off its matched 0xd76af8 unless the unreferenced 0xd76aec..0xd76af8 gap is filled; its contents are unknown, so not changed |

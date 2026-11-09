@@ -31,7 +31,8 @@ static void *s_eventB;
 static volatile long s_flag;
 static void *s_threadValues0[5];
 static void *s_threadValues1[5];
-static DWORD s_threadId[2];
+// retail 0xd528d8, spans 12 B: next object is at 0xd528e4
+static DWORD s_threadId[3];
 static void *s_threadHandle[2];
 static void *s_eventC;
 static DWORD s_tlsIndex;
