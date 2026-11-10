@@ -12658,8 +12658,9 @@
 "name": "?PC_EvaluateTokens@@YAHPAUsource_s@@PAUtoken_s@@PAJPANH@Z",
 "obj": "l_precomp.obj",
 "size": 2587,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x43f720"
+]
 },
 {
 "name": "?PC_Evaluate@@YAHPAUsource_s@@PAJPANH@Z",
@@ -24943,9 +24944,8 @@
 "name": "_yylex",
 "obj": "scr_yacc.obj",
 "size": 4236,
-"hits": [
-"0x4850e0"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "_yy_get_next_buffer",
