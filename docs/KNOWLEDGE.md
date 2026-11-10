@@ -349,3 +349,47 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Open: cm (cm_load) is ours 0xb013f8, retail 0xb01400, so cm and cme are +8 until cmd_texts absorbs it. Everything up to scr_initialized 0xb013f4 already matches. Whether retail has 16-byte alignment or an 8-byte unreferenced object there cannot be told from the bytes (HYPOTHESIS either way). It affects CM_InitBoxHull, CG_BuildSolidList and SV_SpawnServer operands.
 - Open: SV_SpawnServer, UI_RunMenuScript and CL_InitOnceForAllClients residue includes `call 0x57b5e0` vs ours 0x57b8c0, the known libcmt strncpy order.
 - ratchet13 only rejects matched-fn loss: a same-offset DROP still prints RATCHET OK and gets accepted. Check the same-offset delta in build/gate.out before keeping an accept.
+## 18. CG_EntityEvent 116..138 rotation is not a colour pick (n3, 11-10)
+- PINNED (ra13 log ee.txt + cpick, with the w3 93..115 patch): every kind03 temp of the land arms (n17 459..578) pops with no competing cost and gets eax;
+  the w5 HYPOTHESIS row ("colouring looks retail, output rotated") holds. The emitted regs come from a later pass (local code generator), as REGALLOC round 12 "D-local".
+- PINNED (ours and retail disasm): the scratch regs of each `mov reg,[table]; mov reg,[ebp]; push; push` pair follow the order eax, ecx, edx, continuing from the
+  last scratch regs used in the code just before it in layout. Arm 47's tail ends with ecx then edx, so arm 70 starts with eax; arm 1 ends with eax, so arm 24 starts with ecx.
+- Arm 93 ends `mov ecx,[esp+0x1c]; mov eax,[clientNum]; cmp` the same way in ours and retail, so the layout rule predicts edx for arm 116 (ours: edx). Retail starts arm 116
+  with eax. So the order is not taken from layout alone. HYPOTHESIS: it is taken from IL or block-generation order, and retail generates some other block just before arm 116.
+- (n3, later) The rotated part of arm 116 ends at its `jne` (clientNum compare): the next block (bg_fallDamage loads, eax/ecx) is identical in ours and retail. PINNED on disasm.
+- The local code generator's register pick is NOT found in c2.dll yet. 0x108a97a4 (register object base, id*0x60) is used at ~60 sites (`tools/c2xref.py`);
+  no hook was written because no site is confirmed. Tools: `tools/c2dis.py C2 ADDR N` (disasm one range), `tools/c2xref.py C2 DWORD...` (byte search + covering instruction).
+## 19. winedbg on the 1.3 LTCG link (n3, 11-10)
+- `tools/c2dbg13.sh MANGLED CMDFILE` relinks build/objs.rsp under winedbg (wine 5.0.3 in cod2-msvc71-vs2003, ~15 s) with a c2.dll whose F hook
+  (0x107724f6) hits int3 when c2 starts MANGLED; CMDFILE starts with `cont` to reach it. Output build/ra/dx.exe equals ox.exe apart from the PE timestamp (2 bytes). PINNED.
+- Heap addresses are the same as in the ra13 run, and P-line dword 2 is the node (colour store 0x107834bd `mov [eax+0x10],ecx`, eax = node). PINNED.
+- CG_EntityEvent with the w3 93..115 patch: nodes 75..78 (kind03, n17 543/554/567/578) get eax (0x108a9804) at the colour store. The operand pass 0x10785eea..0x10785f12
+  copies node+0x10 to operand+0x1c (picks the width variant of the reg object). For node 78's operand 0x06c1b74c every later writer (0x10770266 and ~20 others)
+  keeps eax until the slot is freed (0x107bae7f). PINNED.
+- So at the IL/operand level nothing renames the reg. The edx/eax output of arm 116 is decided after lowering, in the instruction structure SCHED.md describes,
+  or these four nodes are not the arm-116 temps (the node-to-instruction map is not done). HYPOTHESIS.
+- Next: find the encoder that emits the arm-116 `mov r32,[edi*4+disp]` (watch the emitted code buffer, or break on the lowered instruction alloc 0x107afd98) and map nodes to instructions.
+- (n3, later) CORRECTION to the node 75..78 lines above: forcing a colour pick in winedbg (`set $ecx` at the 0x107834bd store, then diff dx.exe) shows that nodes 4..41
+  of the pick log (kind03, incl. 75..78) are temps of the weapon cases near 0x4e0f84. No forced node changes the footstep/land arms. So the arm temps
+  (`mov r,[edi*4+disp]; mov r,[ebp]`) are NOT colour nodes: they get their regs from the local allocator below. PINNED.
+- Local allocator (PINNED by watchpoint chain): `tools/c2memscan13.sh` found arm 116's bytes `8b14bd..` in c2's code buffer (0x06fac309, CheckEvents spin).
+  A watch on the ModRM byte catches the byte copier 0x107baf61 (staging buffer on the stack). It is called from 0x107bb0c8 with instruction object 0x06be7840
+  (+4 opcode 1, +0x2c dest operand 0x06f81390, kind 0x24f, +0x1c = edx 0x108a98c4).
+  The only write of edx into that field is 0x10775ac4, after 0x107759c0 (looks up which reg holds the temp in 0x108a74f0[reg]) returned none and 0x10775acc picked one.
+  0x10775acc takes the candidate list from 0x1077542e(type), class ids < 4 (eax, ecx, edx). It skips regs whose 0x108a74f0 slot is taken, tests the bitsets
+  0x108a73c8[reg], then calls 0x1077687e. The rule that makes it pick (oldest use? bitset?) is NOT read yet.
+- Next: break at 0x10775acc for the arm-116 temp (the operand 0x06f81390 is in [esp+0x14]->+0x1c path) and dump 0x108a74f0[1..3], 0x108a73c8[1..3], and 0x1077687e's result,
+  in ours and in a variant, to find the state that makes edx win.
+## 20. c2 local allocator is round robin; CG_EntityEvent matched (n3, 11-10, PINNED)
+- Short temps that are not colour nodes (e.g. `mov r,[tbl]; mov r,[ebp]; push; push`) get their reg in 0x10775acc. The candidates come from a start pointer
+  (0x1077542e: [0x108a7d0c] for GPRs) into the list at 0x108a9738 (eax, ecx, edx, ...). It takes the first reg that is free (0x108a74f0[reg] == 0)
+  and not blocked (bitset lists 0x108a73c8[reg], keyed by temp id), then 0x1077687e stores the pointer just past the chosen reg back into 0x108a7d0c.
+  So each pick starts one register after the previous pick: eax, ecx, edx, eax, ... in code-generation order over the whole function.
+  Evidence: winedbg at the 40th call (arm 116 temp 0x763): start = 0x108a9740 (edx) -> edx at once; next call starts at 0x108a9738 (eax).
+- Consequence: a register rotation residue = a different NUMBER of local-temp picks earlier in the function, mod 3. Picks made for code that a later pass
+  removes (cross-jumped duplicates) still count. Retail's arm 116 starts at eax because retail generated a second copy of the landChange tail
+  (`mov edx,[cg->time]` = one more pick) in the 93..115 arm, which cross-jumping later merged into arm 116's copy (`jne exit; jmp land`).
+- Fix (gated, matched 4360 B, all 60 table dwords right): 93..115 arm `if (clientNum != pred) return; cg->landChange = -(float)eventParm; cg->landTime = cg->time; return;`
+  and `return;` after arm 116's `cg->landTime = cg->time;` (no goto/label). Without the arm-116 `return` the merge keeps the 93 copy instead (4364 B).
+- Tools: `tools/c2dbg13.sh` (winedbg), `tools/c2memscan13.sh` (find emitted bytes in c2 memory, needs --cap-add SYS_PTRACE), `tools/c2dis.py`, `tools/c2xref.py`.
+  Forcing a colour pick in winedbg (`set $ecx` at 0x107834bd, diff dx.exe) maps colour nodes to instructions.
