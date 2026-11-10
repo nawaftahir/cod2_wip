@@ -550,3 +550,20 @@ Tooling: tools/ra13.sh TAG, then lab/al.sh TAG (split_all + cpick for this fn). 
   free reg. HYPOTHESIS: ours makes the line-746 (wrap loop) and line-762 defs one web or keeps it live across the
   wrap loop; earlier tries with a separate inner `cw` were byte-identical (TRIED w2), so the merge happens below the
   source variable level (IL copy propagation). No source form found this session; DEFER.
+
+## 26. CG_CalcCrosshairPosition / DL_BeginDownload colour dump (w7-b, 11-11, ra13 + lab/ra.sh on a clean 59ab7544 build)
+Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for one fn), lab/b.sh FN (fdiff), lab/mk.sh FN (incremental build + fdiff). PINNED on our build unless marked.
+- CG_CalcCrosshairPosition: only 2 colour nodes (y id 2 n3 10 -> esi, x id 3 n3 10 -> edi). The yaw copy (`mov ecx,[cg->gunYaw]; mov [esp+0x28],ecx; fld [esp+0x28]`)
+  is NOT a colour decision: ecx is a local pick and the residue is that the gunAng[1] store survives. Retail has no yaw store at all (fld [cg->gunYaw]),
+  keeps the pitch copy [esp+0x24] (live across the FastSinCos call) and ours drops the roll store too. So retail forwarded the yaw load from its store and
+  killed the store; ours kept both. HYPOTHESIS: our float copy is turned into an integer move early, so the inlined `angles[YAW]` float load is not
+  forwarded from it. The explicit-products (Mac) dot product form is byte-identical to base (lab, 11-11). Next: a lab fn in one TU with a vec3 filled
+  from a global and read by an inlined callee, to find which spelling forwards element 1 but not element 0.
+- DL_BeginDownload pass picks (22): host id 18 n3 84 -> esi; remoteUrl id 7 -> ebp; hostSeparator id 15 n3 66 free {edi 1, ebx 400} -> edi;
+  basic id 21 -> ebx (3800); scheme (first, id 39 n3 6) -> ebx (400); zero temp id 38 n3 3 n16 1 -> esi (cost 0, only esi free); localName id 27 -> edi.
+- Retail: scheme edi, hostSeparator and basic ebx (edi/ebx swapped vs ours), no zero temp after the copy arms (both `requestUrl = NULL` are
+  `mov [esp+..],0` immediates), and localName loaded to edi then `mov ecx,edi; push ecx` at HTLoadToFile. Implied (derived): in retail the
+  post-join zero piece is spilled (no free callee-saved reg, or the piece is never made), and hostSeparator sees ebx cheaper than edi
+  (ours edi 1 vs ebx 400, ebx cost = 100 * n16 of single-free-reg neighbours, section 25). Both point at different web shapes around the
+  copy arms, not at a colour tie. CoD4 (KisakCOD dl_main.cpp, Hex-Rays) has the same body with HT_FREE-style `x = 0` after every free and
+  one merged if/else for the copy; the merged form is already TRIED (765 B). No source form derived; DEFER.
