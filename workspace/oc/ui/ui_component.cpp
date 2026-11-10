@@ -11,8 +11,8 @@ extern sharedUiInfo_t sharedUiInfo;
 extern qkey_t *keys;
 
 UI_Component_data_t __ZN12UI_Component1gE;
-// unreferenced storage, size from the retail layout after UI_Component::g
-char uiComponentUnreferenced[0x18];
+// retail 0xd529a4..0xd529af after UI_Component::g, no reference anywhere (tools/gapref13.py); real identity unknown
+char uiComponentUnreferenced[0xc];
 #define UI_Component_g __ZN12UI_Component1gE
 extern refexport_t re;
 extern void *imp_com_developer;
