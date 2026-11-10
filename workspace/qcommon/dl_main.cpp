@@ -134,6 +134,9 @@ int DL_BeginDownload(char *localName, const char *remoteUrl)
 {
     char *requestUrl = NULL;
     char *scheme;
+    char *host;
+    char *path;
+    char *hostSeparator;
 
     if (dl_running)
         DL_CancelDownload();
@@ -161,9 +164,9 @@ int DL_BeginDownload(char *localName, const char *remoteUrl)
     dl_request = HTRequest_new();
     if (!stricmp(scheme, "http"))
     {
-        char *host = HTParse(remoteUrl, "", 8);
-        char *path = HTParse(remoteUrl, "", 5);
-        char *hostSeparator = strchr(host, '@');
+        host = HTParse(remoteUrl, "", 8);
+        path = HTParse(remoteUrl, "", 5);
+        hostSeparator = strchr(host, '@');
 
         if (hostSeparator)
         {
@@ -216,9 +219,9 @@ int DL_BeginDownload(char *localName, const char *remoteUrl)
     HTMemory_free(requestUrl);
     requestUrl = NULL;
     scheme = HTParse(remoteUrl, "", 16);
-    char *host = HTParse(remoteUrl, "", 8);
-    char *path = HTParse(remoteUrl, "", 5);
-    char *hostSeparator = strchr(host, '@');
+    host = HTParse(remoteUrl, "", 8);
+    path = HTParse(remoteUrl, "", 5);
+    hostSeparator = strchr(host, '@');
 
     if (hostSeparator)
     {
