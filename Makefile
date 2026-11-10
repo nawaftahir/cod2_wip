@@ -125,7 +125,6 @@ $(REL): $(OBJS) $(IMPLIBS) build/cod2mp.res src/tus.txt Makefile
 	@printf '%s\n' $(call win,$(OBJS)) > build/objs.rsp
 	wineserver -k 2>/dev/null; export FAKETIME='2005-10-07 02:19:36' GUIDPIN=$(PDB_GUID) LD_PRELOAD="$(wildcard /usr/lib/*/faketime/libfaketime.so.1) $(CURDIR)/build/guidpin.so"; $(LINK) $(subst /FIXED:NO,/FIXED,$(subst build\\CoD2MP_s.map,build\\release\\CoD2MP_s.map,$(LFLAGS))) /DEBUG '/PDB:c:\builds\crc6_v1\pc\cod2\pc\CoD2MP_s.pdb' /OUT:$(call win,$@) @build\\objs.rsp build\\cod2mp.res $(LIBS) > build/release/link.log 2>&1 || { tail -10 build/release/link.log; exit 1; }
 	@! grep -E 'LNK2001|LNK2019|fatal error' build/release/link.log
-	@perl tools/postlink.pl $@
 	@cp "$$(winepath -u 'c:\builds\crc6_v1\pc\cod2\pc\CoD2MP_s.pdb')" build/release/CoD2MP_s.pdb
 
 endif

@@ -20,8 +20,8 @@ paths `lab/w200/...`, `/home/nawaf/...` refer to the old `dev/claude_client` tre
 - Rich header id 100 counts LTCG C++ objects (retail 271). Six `unknown/empty_N.cpp` TUs supply the count;
   their link positions move a few register ties (search spent, 10-31c).
 - PDB GUID is pinned by `guidpin.c` (LD_PRELOAD answering Wine UuidCreate); release link runs under faketime.
-- Retail `mixerGetRecordLevel` 0x4b5ad0 has a 2-byte `je` NOPed after link (0x4b5b09): no source produces it;
-  documented post-link step (`data/postlink_ranges.txt`, owner decision).
+- `mixerGetRecordLevel` 0x4b5ad0: original retail (0bdee00f) has `je` 74 0b at 0x4b5b09, as our link emits. The
+  old anchor 8caf434c had it NOPed (90 90): a community black-screen fix, not retail (PINNED 11-10, 2-byte cmp).
 
 ## 1. The compiler: decoded mechanisms (PINNED unless tagged)
 
