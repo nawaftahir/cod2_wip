@@ -173,7 +173,6 @@ oc/cgame_mp/cg_main_mp.cpp
 oc/cgame_mp/cg_devgui.cpp
 devgui/devgui.cpp
 devgui/devgui_input.cpp
-unknown/empty_1.cpp
 devgui/devgui_util.cpp
 oc/cgame_mp/cg_consolecmds_mp.cpp
 oc/cgame_mp/cg_drawtools_mp.cpp
@@ -272,6 +271,7 @@ oc/ui_mp/ui_gamepad_menu.cpp
 oc/win32/gfx_dll_v60.cpp
 oc/win32/gfx_v60_threads.cpp
 # unknown/empty_N.cpp: retail 1.3 links 6 more /GL C++ objects (Rich 275 vs 269); placeholders by owner decision, positions copied from 1.0
+unknown/empty_1.cpp
 unknown/empty_2.cpp
 unknown/empty_3.cpp
 unknown/empty_4.cpp
