@@ -406,9 +406,10 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   positions, empty_1 after devgui_input, flipped the CG_DrawPlayerStance tie; at the end it stays matched, e59606e1). They are PLACEHOLDERS for retail's six unknown /GL C++ objects (Rich prodid 100: 275 = retail); their real names and
   positions are unknown. Effect: Rich count, checksum and the 24-byte padding now equal retail, e_lfanew 0x120, the PE header differs in
   4 bytes only. The earlier 343 B header residue was 100% this.
-- PINNED (w8-b): VC7.0 lib.exe 9466 writes the members of an INPUT LIBRARY in reverse order (objects keep arg order, go after
-  library members). So `lib /def` (D,N,T,S...) then `lib /out:x imp.lib mss_auto.obj` (S...,T,N,D,A) then one more plain
-  `lib /out:mss32.lib x.lib` gives A,D,N,T,S...: A before D, retail Rich, no post-processing. Replaces libreorder.pl.
+- PINNED (w8-b): VC7.0 lib.exe 9466 does not keep an input library member order: a second plain pass over an
+  imp+obj lib (`lib /out:mss32.lib mss32_1.lib`) reorders it so mss_auto.obj precedes the descriptor (scratch with short
+  name mss_auto.obj: A,D,N,T,S; real build with long name buildibmss_auto.obj: S,A,T,N,D = what libreorder.pl made).
+  Retail Rich, exe identical to the libreorder build. Exact lib.exe ordering rule not derived. Replaces libreorder.pl.
   RAD's real command sequence is still unknown (no build scripts in sigmaco/milesss-v6.5c af7c8fdf, only a modern vcxproj);
   this is one genuine tool sequence that yields the order. mss_auto.obj imports AIL_shutdown via __imp_, so it is a client-side
   object added to the import lib, not part of the DLL link. Other RAD libs here (KisakCOD mss32/binkw32, opencod1 mss32) are
