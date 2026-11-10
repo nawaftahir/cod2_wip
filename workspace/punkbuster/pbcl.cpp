@@ -131,9 +131,9 @@ struct stPbCl
 
 	void UnloadAgentDll()
 	{
-		if ( m_AgInstance )
+		if ( m_AgInstance ) {
 			FreeLibrary(m_AgInstance);
-		m_AgInstance = 0;
+			m_AgInstance = 0; }
 	}
 
 	void uninitialize()
@@ -161,9 +161,9 @@ struct stPbCl
 		m_ClientConnect = 0;
 		m_TrapPreExecCmd = 0;
 		m_TrapConsole = 0;
-		if ( m_ClInstance )
+		if ( m_ClInstance ) {
 			FreeLibrary(m_ClInstance);
-		m_ClInstance = 0;
+			m_ClInstance = 0; }
 	}
 
 	char *LoadClientDll()
