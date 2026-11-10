@@ -22,6 +22,10 @@ static DpvsConfig dpvsConfig;
 #define portalViewProjectionMatrix dpvsGlob.projection.viewProjectionMatrix
 #define portalInverseViewProjectionMatrix dpvsGlob.projection.inverseViewProjectionMatrix
 DpvsScene dpvsScene;
+// PINNED retail passes this table from .rdata (10182948) instead of building it on the stack.
+extern const vec4_t standardFrustumSidePlanes[4];
+const vec4_t standardFrustumSidePlanes[4] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
+    {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}};
 void ExpandBounds(const vec3_t mins, const vec3_t maxs, vec3_t outMins, vec3_t outMaxs);
 
 // Name unconfirmed; PINNED out-of-line copy 10005c30.
@@ -540,8 +544,8 @@ void R_FrustumClipPlanes(const D3DMATRIX *viewProjection, const vec4_t *sides,
     {
         float *coeffs = planes[i].coeffs;
         for (int j = 0; j < 4; ++j)
-            coeffs[j] = matrix[j * 4] * sides[i][0] + matrix[j * 4 + 2] * sides[i][2]
-                + matrix[j * 4 + 1] * sides[i][1] + matrix[j * 4 + 3] * sides[i][3];
+            coeffs[j] = sides[i][1] * matrix[j * 4 + 1] + sides[i][3] * matrix[j * 4 + 3]
+                + sides[i][0] * matrix[j * 4] + sides[i][2] * matrix[j * 4 + 2];
         VectorScale4(coeffs, 1.0f / VectorLength(coeffs), coeffs);
         planes[i].side[0] = FloatAsInt(coeffs[0]) > 0 ? 12 : 0;
         planes[i].side[1] = FloatAsInt(coeffs[1]) > 0 ? 16 : 4;
@@ -1660,10 +1664,8 @@ void R_AddWorldSurfacesDpvs(const GfxViewParms *viewParms, int cameraCell)
     activeOccluders.count = 0;
     portalViewProjectionMatrix = &viewParms->viewProjectionMatrix;
     portalInverseViewProjectionMatrix = &viewParms->inverseViewProjectionMatrix;
-    const vec4_t sides[4] = {{-1.0f, 0.0f, 0.0f, 1.0f}, {1.0f, 0.0f, 0.0f, 1.0f},
-        {0.0f, -1.0f, 0.0f, 1.0f}, {0.0f, 1.0f, 0.0f, 1.0f}};
     DpvsPlane planes[6];
-    R_FrustumClipPlanes(&viewParms->viewProjectionMatrix, sides, 4, planes);
+    R_FrustumClipPlanes(&viewParms->viewProjectionMatrix, standardFrustumSidePlanes, 4, planes);
     if (viewParms->projectionMatrix.m[3][3] == 0.0f)
         R_SetupDpvsForPoint(viewParms);
     else
