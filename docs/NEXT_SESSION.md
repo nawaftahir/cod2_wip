@@ -27,7 +27,7 @@ r_image_load_common, r_image_wavelet, r_jpeg, r_specularityimage, r_init*, r_mar
 - gfx/w-dpvshead 70ba96a3 (257,275): r_dpvs through R_AddAabbTreeSurfaces_r restructured. Open:
   R_FrustumClipPlanes 400/448 B (unread axisPlanes stores already added), R_ProjectPortal 0x10
   short, R_PortalClipPlanes missing its far-plane struct copy, R_SetupOccludersForCell 0x10 short,
-  R_AddAabbTreeSurfaces_r 0x40 short. Section "r_dpvs" further below has the drift table.
+  R_AddAabbTreeSurfaces_r 0x40 short. That branch's docs/NEXT_SESSION.md has the drift table.
 - gfx/w-imgload2 3aae0dee (272,899; 273,009 at 462eb057): r_init (R_ResetGamma slot 10011f00,
   name unconfirmed), r_marks (R_BoxSurfaces), r_material constant drift (-0x370, ~20 helper slots),
   Image_UpdatePicmip, retail_order fix for __declspec(noinline), r_material_load_obj reordered.
