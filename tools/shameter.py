@@ -16,9 +16,11 @@ def same(x, y):
 
 print('file   ours %9d  retail %9d  sha %s' % (len(da), len(db), 'IDENTICAL' if hashlib.sha256(da).digest() == hashlib.sha256(db).digest() else 'differs'))
 h = pb.OPTIONAL_HEADER.SizeOfHeaders
-print('header %-28s same %d/%d' % ('', same(da[:h], db[:h]), h))
+hsame = same(da[:h], db[:h])
+print('header %-28s same %d/%d' % ('', hsame, h))
 sb = {s.Name.rstrip(b'\0').decode(): s for s in pb.sections}
-tot = tsame = 0
+# the total counts the PE header too (11-10: it used to count sections only)
+tot, tsame = h, hsame
 for s in pa.sections:
     n = s.Name.rstrip(b'\0').decode(); r = sb.get(n)
     if not r:
@@ -31,4 +33,4 @@ for s in pa.sections:
 for n in sb:
     if n not in {s.Name.rstrip(b'\0').decode() for s in pa.sections}:
         print('%-6s only in retail' % n)
-print('ALL sections same-offset %d/%d = %.3f%%' % (tsame, tot, 100.0 * tsame / tot))
+print('ALL header+sections same-offset %d/%d = %.3f%%' % (tsame, tot, 100.0 * tsame / tot))

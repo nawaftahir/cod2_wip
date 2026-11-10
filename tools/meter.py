@@ -14,7 +14,9 @@ sha = open(shaf).read()
 sec = {}
 for m in re.finditer(r'^(\.\w+)\s+raw\s+(\d+)/\s*(\d+)\s+vsize\s+(\d+)/\s*(\d+).*same\s+(\d+)', sha, re.M):
     sec[m.group(1)] = {'same_offset': int(m.group(6)), 'raw': int(m.group(3)), 'vsize': int(m.group(5))}
-allm = re.search(r'ALL sections same-offset (\d+)/(\d+)', sha)
+hm = re.search(r'^header\s+same (\d+)/(\d+)', sha, re.M)
+sec['header'] = {'same_offset': int(hm.group(1)), 'raw': int(hm.group(2)), 'vsize': int(hm.group(2))}
+allm = re.search(r'ALL header\+sections same-offset (\d+)/(\d+)', sha)
 
 tus = [l.split('#')[0].split() for l in open('workspace/tus.txt')]
 tus = [t[0] for t in tus if t]
@@ -57,7 +59,7 @@ m = {
     'note': 'matched_bytes/matched_functions = referee; functions_identical = referee match or same bytes at the same offset '
             '(every .text map symbol); tus_identical = source TUs whose functions are all identical '
             '(data-only TUs: data identical in place; CRT/lib objs separate); tus_identical_with_data = also every data symbol in place; tus_empty = TUs with no symbol in the image (never identical); '
-            'tus_matched = TUs in src/; same-offset over all sections (shameter)',
+            'tus_matched = TUs in src/; same-offset over the PE header and all sections (shameter; header counted since 11-10)',
 }
 json.dump(m, open('meter-%s.json' % ver, 'w'), indent=1)
 print('meter-%s.json: matched-fn %d B, same-offset %d/%d, fns identical %d/%d, TUs identical %d/%d, src TUs %d (unverified %d), lib objs %d/%d' % (
