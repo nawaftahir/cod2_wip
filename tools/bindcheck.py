@@ -319,6 +319,12 @@ def neighbor_places(rows, addresses, placed):
 cands.update(neighbor_places(allc, fnva, cands))
 
 
+def adjacent_match(name, va, t, n):
+    # our next body from the same object also matches retail right after this one
+    nxt = atva.get(va + n)
+    return bool(nxt in allc and allc[nxt]['obj'] == allc.get(name, {}).get('obj') and allc[nxt]['size'] and masked_eq(va + n, t + n, allc[nxt]['size']))
+
+
 def closed_end(code, va, n):
     # the matched bytes end in ret/jmp and no internal branch reaches past them, so the
     # target function (same bytes, same rel8/rel32 displacements) cannot continue either
@@ -372,9 +378,7 @@ for name, r in cands.items():
     why = []
     # extent: target continues with padding or a known function start
     nb = read(asecs, t + n, 1)
-    # our next body from the same object also matches retail right after this one
-    nxt = atva.get(va + n)
-    nxt_eq = bool(nxt in allc and allc[nxt]['obj'] == allc.get(name, {}).get('obj') and allc[nxt]['size'] and masked_eq(va + n, t + n, allc[nxt]['size']))
+    nxt_eq = adjacent_match(name, va, t, n)
     if not (t + n in astarts or t + n in acalls or t + n in placed or nxt_eq or closed_end(code, va, n) or closed_run(name, va, t, n) or nb in (b'\xcc', b'\x90') or t + n >= atext[0] + atext[1]):
         why.append('extent')
     binds, calls = [], []

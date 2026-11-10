@@ -62,6 +62,7 @@ jobs:
           python3 workspace/work/tests/test_backend_benchmarks.py
           python3 workspace/work/tests/test_short_candidates.py
           python3 workspace/work/tests/test_library_runs.py
+          python3 workspace/work/tests/test_adjacent_extent.py
       - name: Publish measured meter on confirmed branch
         if: github.ref == 'refs/heads/gfx/main'
         run: |
