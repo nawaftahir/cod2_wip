@@ -124,6 +124,7 @@ void R_ShutdownImages();
 void R_ReleaseLostImages();
 void R_ReloadLostImages();
 void Image_Reload(GfxImage *image);
+void Image_GetPicmip(const GfxImage *image, Picmip *picmip);
 GfxImage *Image_Register(const char *name, int semantic, int imageTrack);
 IDirect3DSurface9 *Image_GetSurface(GfxImage *image);
 void R_SetPicmip();
@@ -604,14 +605,6 @@ void R_ReloadLostImages()
     }
 }
 
-// PINNED 1000d450/42: release first, then reload or raise ERR_DROP.
-void Image_Reload(GfxImage *image)
-{
-    Image_Release(image);
-    if (!Image_LoadFromFile(image))
-        R_Error(ERR_DROP, "failed to load image '%s'", image->name);
-}
-
 void Image_RebuildCosinePowerMap(float shift)
 {
     byte pixels[32 * 256];
@@ -627,6 +620,30 @@ void Image_RebuildCosinePowerMap(float shift)
     Image_BuildSpecularityMap(shift, pixels);
     Image_UploadData(rgp.specularityImage, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
 }
+
+// SUPPORTED name: Mac r_image.c; PINNED 1000d3f0/82, called from the material picmip reload.
+void Image_UpdatePicmip(GfxImage *image)
+{
+    Picmip picmip;
+
+    Image_GetPicmip(image, &picmip);
+    if (image->picmip.platform[0] == picmip.platform[0])
+        return;
+    Image_Release(image);
+    image->picmip = picmip;
+    if (!Image_LoadFromFile(image))
+        R_Error(ERR_DROP, "failed to load image '%s'", image->name);
+}
+
+
+// PINNED 1000d450/42: release first, then reload or raise ERR_DROP.
+void Image_Reload(GfxImage *image)
+{
+    Image_Release(image);
+    if (!Image_LoadFromFile(image))
+        R_Error(ERR_DROP, "failed to load image '%s'", image->name);
+}
+
 
 // PINNED1000d480: programmable images are excluded by their whole address range.
 static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data)

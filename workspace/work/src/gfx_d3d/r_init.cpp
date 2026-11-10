@@ -1112,6 +1112,7 @@ void RB_SaveLightVisHistory();
 void R_ShutdownWorld();
 void R_ReleaseAllModels();
 void Material_Shutdown();
+void Material_ClearAll();
 void R_UnlockSkinnedCache();
 
 typedef char rendererShutdownLayoutCheck[(sizeof(MaterialGlobals) == 0x299c
@@ -1137,10 +1138,7 @@ void R_Shutdown(int destroyWindow)
 	R_ShutdownWorld();
 	R_ShutdownFonts();
 	R_ReleaseAllModels();
-	Material_Shutdown();
-	memset(&materialGlobals, 0, sizeof(materialGlobals));
-	memset(rg.materialHashTable, 0, sizeof(rg.materialHashTable));
-	rgp.materialCount = 0;
+	Material_ClearAll();
 	R_ShutdownImages();
 	rgp.world = 0;
 	R_UnlockSkinnedCache();
@@ -1341,12 +1339,10 @@ bool R_CanRecoverLostDevice()
 }
 
 void R_ReleaseLostImages();
-void Material_ReleaseVertexDecls();
-void Material_ReleaseShaders();
+void Material_ReleaseDeviceObjects();
 void R_ReleaseWorld();
 void R_ReloadWorld();
-void Material_ReloadAll();
-void Material_ReloadShaders();
+void Material_ReloadDeviceObjects();
 void R_ReloadLostImages();
 
 // PINNED 100137f0/203: only DEVICELOST postpones recovery; other results continue.
@@ -1357,15 +1353,13 @@ Bool R_RecoverLostDevice()
 	ri.Printf(0, "Recovering lost device...\n");
 	R_ReleaseAllModels();
 	R_ReleaseLostImages();
-	Material_ReleaseVertexDecls();
-	Material_ReleaseShaders();
+	Material_ReleaseDeviceObjects();
 	if (rgp.world)
 		R_ReleaseWorld();
 	R_ResetDevice();
 	if (rgp.world)
 		R_ReloadWorld();
-	Material_ReloadAll();
-	Material_ReloadShaders();
+	Material_ReloadDeviceObjects();
 	R_ReloadLostImages();
 	R_FinishLoadingModels();
 	dx.sunSpriteSamples = RB_CalcSunSpriteSamples();
