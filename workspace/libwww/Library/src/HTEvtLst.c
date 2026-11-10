@@ -787,8 +787,13 @@ PUBLIC int HTEventList_pump (void)
             return 1;
         }
     }
+<<<<<<< ours
     HTPumpState = HTEndLoop;
     HTTrace("Exiting pump loop: %d\n", HTEndLoop);
+=======
+    HTPumpRunning = HTEndLoop;
+    HTPrint("Exiting pump loop: %d\n", HTEndLoop);
+>>>>>>> theirs
     HTEndLoop = 0;
     return 0;
 }
