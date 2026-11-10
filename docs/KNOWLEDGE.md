@@ -550,3 +550,11 @@ Tooling: tools/ra13.sh TAG, then lab/al.sh TAG (split_all + cpick for this fn). 
   free reg. HYPOTHESIS: ours makes the line-746 (wrap loop) and line-762 defs one web or keeps it live across the
   wrap loop; earlier tries with a separate inner `cw` were byte-identical (TRIED w2), so the merge happens below the
   source variable level (IL copy propagation). No source form found this session; DEFER.
+- (w7-c, later) Pass-1 charWidth IS logged: P line node 0x068535b8, id 53, n3 -106, **n16 0**, n17 388 (pass-2 piece is
+  id 47, node 0x06853408). n16 = 0 means the pass-1 web has no use weight at all, so it is never accepted; the pass-2
+  piece (n16 16) is created by the split. So the question is why pass 1 credits charWidth zero use weight.
+- winedbg watch on node 0x068535b8 + 0x40 with tools/c2dbg13.sh (lab/w47.sh ADDR N): 210 writes, none from color.c
+  (0x1078xxxx); all from 0x1075xxxx / 0x107axxxx / 0x107bxxxx allocators. So the heap address does NOT carry over from
+  the ra13 (cave_all, logging) link to the c2dbg13 (int3-only cave) link, contrary to the c2dbg13.sh header note.
+  Next: a debug cave that logs exactly like cave_all (same allocations) plus the int3, or take the node address from
+  inside the debug run (break at the P hook and read it), then watch +0x40.
