@@ -123,3 +123,5 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | stPbSv::LoadServerDll literal order (n1, analysis) | full disassembly vs retail | code identical apart from string addresses: no code shape to change; deferred |
 | __real pool 64 B (n1, analysis) | value-matched pool positions + F order | 2 constants misplaced (1000.0 double, 720.0f) by compile order of CL_DemoCompleted / fire_grenade; deferred |
 | CG_FireWeapon lea ebp (n1) | read TRIED | n3 already tried 4 shapes (row above); not repeated, left to n3 |
+| Rich 25/28 order, lib variants (n1) | `lib /def mss32.def mss_auto.obj` (drops mss_auto: no 28 entry); `lib mss_auto.obj mss32_imp.lib` (member list already obj-first, same Rich order) | no fix; original lib not available |
+| same-offset meter header blind spot (n1, clean gate) | shameter total includes the PE header, meter.py parses it, test_shameter.py self-test | METRIC CHANGE 1967119 -> 1971211 on an unchanged build. LANDED |
