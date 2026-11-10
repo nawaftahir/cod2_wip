@@ -24,6 +24,12 @@ assert out.index('void A(int x)\n') < out.index('void B(void) {') < out.index('v
 assert out.index('void C(void) {') < out.index('void D(void) {') and out.index('#if') < out.index('void C') < out.index('#endif'), out
 assert out.startswith('static int g;'), out
 assert out.index('void A(int x);') < out.index('void A(int x)\n'), out
+# across mode: definitions cross data, data keeps its slot
+src2 = 'void B(void) {}\nint g;\nvoid A(void) {}\n'
+c2 = items(src2)
+out2 = ''.join(c[1] for c in plan(c2, {'A': 1, 'B': 2}, across=True))
+assert out2.index('void A(void) {') < out2.index('int g;') < out2.index('void B(void) {'), out2
+assert ''.join(c[1] for c in plan(c2, {'A': 1, 'B': 2})) == src2
 # broken case: an unknown order leaves the file unchanged
 assert ''.join(c[1] for c in plan(chunks, {})) == src
 print('PASS: retail order moves only definitions, keeps unbound followers glued and preprocessor runs closed')

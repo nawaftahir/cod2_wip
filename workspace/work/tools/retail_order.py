@@ -1,6 +1,6 @@
 """Move a TU's function definitions into retail address order (definition order = emission order).
 
-Usage: retail_order.py <build dir> <src.cpp>... [--write]
+Usage: retail_order.py <build dir> <src.cpp>... [--across] [--write]
 Only top-level function definitions move; every other top-level item keeps its place. Functions
 are permuted within runs not crossed by a preprocessor line. An unbound function stays glued to
 the function before it. Prints the planned order; --write rewrites the file.
@@ -76,58 +76,81 @@ def fn_name(head):
     return m.group(1).split('::')[-1] if m else None
 
 
-def plan(chunks, retail):
-    """Return chunks with each fn run sorted by retail address of its bound leaders."""
-    out, run = [], []
-
-    def flush():
-        groups = []
-        for c in run:
-            if c[0] == 'fn' and (retail.get(fn_name(c[1][:c[1].find('{')])) is not None or not groups):
-                groups.append([c])
-            else:
-                groups[-1].append(c)
-        # a leading unbound group keeps its place, the rest sort by retail address
-        key = lambda g: retail.get(fn_name(g[0][1][:g[0][1].find('{')]), -1)
-        new = [c for g in sorted(groups, key=key) for c in g]
-        if new != run:
-            # moved definitions may now follow their callers; prototypes emit no code
-            heads = [re.sub(r'//[^\n]*|/\*.*?\*/', '', c[1][:c[1].find('{')], flags=re.S).strip() for c in run]
-            out.append(('other', ''.join(h + ';\n' for h in heads if not h.startswith('template'))))
-        out.extend(new)
-        run.clear()
-
-    for c in chunks:
-        if c[0] == 'fn':
-            run.append(c)
+def sort_fns(fns, retail):
+    """Sort definitions by retail address; an unbound one stays glued to the one before it."""
+    groups = []
+    for c in fns:
+        if retail.get(fn_name(c[1][:c[1].find('{')])) is not None or not groups:
+            groups.append([c])
         else:
-            flush()
-            out.append(c)
-    flush()
+            groups[-1].append(c)
+    # a leading unbound group keeps its place, the rest sort by retail address
+    key = lambda g: retail.get(fn_name(g[0][1][:g[0][1].find('{')]), -1)
+    return [c for g in sorted(groups, key=key) for c in g]
+
+
+def protos(fns):
+    """Prototypes for moved definitions; they emit no code."""
+    heads = [re.sub(r'//[^\n]*|/\*.*?\*/', '', c[1][:c[1].find('{')], flags=re.S).strip() for c in fns]
+    return ('other', ''.join(h + ';\n' for h in heads if not h.startswith('template')))
+
+
+def plan(chunks, retail, across=False):
+    """Reorder definitions. Default: within runs of adjacent definitions. across: within
+    preprocessor-free spans, definitions permute among their own slots while declarations
+    and data keep theirs, so data order does not change."""
+    out, span = [], []
+    for c in chunks + [('pp', '')]:
+        if c[0] == 'pp' or (not across and c[0] != 'fn'):
+            fns = [x for x in span if x[0] == 'fn']
+            new = sort_fns(fns, retail)
+            if new != fns:
+                it = iter(new)
+                body = [next(it) if x[0] == 'fn' else x for x in span]
+                first = next(k for k, x in enumerate(body) if x[0] == 'fn')
+                body.insert(first, protos(fns))
+                out.extend(body)
+            else:
+                out.extend(span)
+            if c[1]:
+                out.append(c)
+            span = []
+        else:
+            span.append(c)
     return out
 
 
-def retail_map(build):
-    """Plain function name -> retail address, from bind.json (names bound exactly once)."""
+def retail_map(build, layout=None):
+    """Plain function name -> retail address: bind.json (bound exactly once), plus pinned
+    addresses from layout/file_layout.tsv when given."""
     bind = json.load(open(Path(build) / 'bind.json'))
     seen = {}
     for mangled, row in bind.items():
         if row.get('why'):
             continue
-        name = mangled[1:].split('@')[0] if mangled.startswith('?') else mangled.lstrip('_')
-        seen.setdefault(name, []).append(int(row['t'], 16))
-    return {k: v[0] for k, v in seen.items() if len(v) == 1}
+        seen.setdefault(plain(mangled), set()).add(int(row['t'], 16))
+    if layout:
+        for line in open(layout):
+            f = line.rstrip('\n').split('\t')
+            if len(f) > 3 and f[3] in ('bind', 'pinned') and f[2] not in ('-', ''):
+                seen.setdefault(plain(f[1]), set()).add(int(f[2], 16))
+    return {k: min(v) for k, v in seen.items() if len(v) == 1}
+
+
+def plain(mangled):
+    return mangled[1:].split('@')[0] if mangled.startswith('?') else mangled.lstrip('_')
 
 
 if __name__ == '__main__':
-    args = [a for a in sys.argv[1:] if a != '--write']
-    retail = retail_map(args[0])
+    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    across = '--across' in sys.argv
+    retail = retail_map(args[0], Path(__file__).resolve().parents[1] / 'layout/file_layout.tsv' if across else None)
     for path in args[1:]:
         raw = open(path, newline='').read()
         chunks = items(raw)
         assert ''.join(c[1] for c in chunks) == raw, path
-        new = plan(chunks, retail)
-        moved = [fn_name(c[1][:c[1].find('{')]) for a, c in zip(chunks, new) if a is not c and c[0] == 'fn']
+        new = plan(chunks, retail, across)
+        moved = [fn_name(c[1][:c[1].find('{')]) for a, c in zip([x for x in chunks if x[0] == 'fn'], [x for x in new if x[0] == 'fn']) if a is not c]
         print(f'{path}: {len(moved)} moved')
         if moved and '--write' in sys.argv:
             open(path, 'w', newline='').write(''.join(c[1] for c in new))
