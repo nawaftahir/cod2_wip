@@ -594,7 +594,7 @@ void PBdvar_set(const char *var_name, const char *value)
 
 int PbDvarWalk(char **name, char **string, int *flags, char **resetString)
 {
-	static dvar_t *var;
+	static dvar_t *var = NULL;
 
 	if ( !var )
 		var = sortedDvars;
