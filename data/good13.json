@@ -42814,8 +42814,9 @@
 "name": "?CG_EntityEvent@@YAXPAUcentity_s@@H@Z",
 "obj": "cg_event_mp.obj",
 "size": 4360,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4e0980"
+]
 },
 {
 "name": "?CG_CheckEvents@@YAXPAUcentity_s@@@Z",
