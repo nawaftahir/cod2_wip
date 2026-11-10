@@ -332,3 +332,17 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   0x108a73c8[reg], then calls 0x1077687e. The rule that makes it pick (oldest use? bitset?) is NOT read yet.
 - Next: break at 0x10775acc for the arm-116 temp (the operand 0x06f81390 is in [esp+0x14]->+0x1c path) and dump 0x108a74f0[1..3], 0x108a73c8[1..3], and 0x1077687e's result,
   in ours and in a variant, to find the state that makes edx win.
+
+## 20. c2 local allocator is round robin; CG_EntityEvent matched (n3, 11-10, PINNED)
+- Short temps that are not colour nodes (e.g. `mov r,[tbl]; mov r,[ebp]; push; push`) get their reg in 0x10775acc. The candidates come from a start pointer
+  (0x1077542e: [0x108a7d0c] for GPRs) into the list at 0x108a9738 (eax, ecx, edx, ...). It takes the first reg that is free (0x108a74f0[reg] == 0)
+  and not blocked (bitset lists 0x108a73c8[reg], keyed by temp id), then 0x1077687e stores the pointer just past the chosen reg back into 0x108a7d0c.
+  So each pick starts one register after the previous pick: eax, ecx, edx, eax, ... in code-generation order over the whole function.
+  Evidence: winedbg at the 40th call (arm 116 temp 0x763): start = 0x108a9740 (edx) -> edx at once; next call starts at 0x108a9738 (eax).
+- Consequence: a register rotation residue = a different NUMBER of local-temp picks earlier in the function, mod 3. Picks made for code that a later pass
+  removes (cross-jumped duplicates) still count. Retail's arm 116 starts at eax because retail generated a second copy of the landChange tail
+  (`mov edx,[cg->time]` = one more pick) in the 93..115 arm, which cross-jumping later merged into arm 116's copy (`jne exit; jmp land`).
+- Fix (gated, matched 4360 B, all 60 table dwords right): 93..115 arm `if (clientNum != pred) return; cg->landChange = -(float)eventParm; cg->landTime = cg->time; return;`
+  and `return;` after arm 116's `cg->landTime = cg->time;` (no goto/label). Without the arm-116 `return` the merge keeps the 93 copy instead (4364 B).
+- Tools: `tools/c2dbg13.sh` (winedbg), `tools/c2memscan13.sh` (find emitted bytes in c2 memory, needs --cap-add SYS_PTRACE), `tools/c2dis.py`, `tools/c2xref.py`.
+  Forcing a colour pick in winedbg (`set $ecx` at 0x107834bd, diff dx.exe) maps colour nodes to instructions.
