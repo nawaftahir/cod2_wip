@@ -393,3 +393,10 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   and `return;` after arm 116's `cg->landTime = cg->time;` (no goto/label). Without the arm-116 `return` the merge keeps the 93 copy instead (4364 B).
 - Tools: `tools/c2dbg13.sh` (winedbg), `tools/c2memscan13.sh` (find emitted bytes in c2 memory, needs --cap-add SYS_PTRACE), `tools/c2dis.py`, `tools/c2xref.py`.
   Forcing a colour pick in winedbg (`set $ecx` at 0x107834bd, diff dx.exe) maps colour nodes to instructions.
+
+## Unknown storage (owner + lead decision, 11-10)
+Goal stays 100% reconstructed source AND identical bytes, readable for future readers. Rules, copied from cod2engine lnxded/mp-1.0 `src/unknown/`:
+- A storage-only object is allowed only where retail bytes prove an unreferenced region (no code or data reference anywhere), sized exactly from retail's neighbouring symbols.
+- It lives under `unknown/`, is named after its retail address (e.g. `unknown_b013f8`), and carries one comment line with the evidence and "real identity unknown".
+- Never rename, resize or realign a real variable to fit an offset; names only from evidence (Mac symbols, retail strings, reference source). A variable with an unknown name keeps its placeholder name and stays listed.
+- Existing placeholders (uiComponentUnreferenced, winInputUnreferenced, wiFill_21, clFill_248, the six Rich-header empty TUs) follow the same rule: each must be backed by a proven unreferenced retail gap and documented; README and KNOWLEDGE keep the full list.
