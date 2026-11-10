@@ -1,0 +1,16 @@
+#if T == 1
+    { float halfFov = cg->refdef.fov_x * 0.0087266462f;
+    *x = DotProduct(gunDir, cg->refdef.viewaxis[1]) / (forward * (float)tan(halfFov)) * -320.0f; }
+    { float halfFov = cg->refdef.fov_y * 0.0087266462f;
+    *y = DotProduct(gunDir, cg->refdef.viewaxis[2]) / (forward * (float)tan(halfFov)) * -240.0f; }
+#elif T == 2
+    { float halfFov = cg->refdef.fov_x * 0.0087266462f; float t = (float)tan(halfFov);
+    *x = DotProduct(gunDir, cg->refdef.viewaxis[1]) / (forward * t) * -320.0f; }
+    { float halfFov = cg->refdef.fov_y * 0.0087266462f; float t = (float)tan(halfFov);
+    *y = DotProduct(gunDir, cg->refdef.viewaxis[2]) / (forward * t) * -240.0f; }
+#else
+    horiz = DotProduct(gunDir, cg->refdef.viewaxis[1]);
+    *x = horiz / (forward * (float)tan((double)(cg->refdef.fov_x * 0.0087266462f))) * -320.0f;
+    vert = DotProduct(gunDir, cg->refdef.viewaxis[2]);
+    *y = vert / (forward * (float)tan((double)(cg->refdef.fov_y * 0.0087266462f))) * -240.0f;
+#endif

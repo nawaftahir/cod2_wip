@@ -1,0 +1,8 @@
+/DP=0
+/DP=0 /DT=1
+/DP=0 /DT=1 /TP
+/DP=0 /DT=2 /TP
+/DP=0 /DTF=1
+/DP=0 /DT=1 /TP /DTF=1
+/DP=0 /Oi-
+/DP=0 /DT=1 /TP /Oi-

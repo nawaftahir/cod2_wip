@@ -1,4 +1,7 @@
 /* crosshair probe caller; V selects the spelling */
+#ifdef HO
+#pragma optimize(HO, off)
+#endif
 #if HP
 #pragma optimize("p", on)
 #endif
@@ -15,6 +18,13 @@ extern cg_t * const cgc;
 #endif
 void AngleVectors(const vec3_t angles, vec3_t forward, vec3_t right, vec3_t up);
 #include <math.h>
+#if TF
+#if TF == 2
+#pragma intrinsic(tan)
+#else
+#pragma function(tan)
+#endif
+#endif
 #define NULL 0
 #if DP
 float DotProduct(const vec3_t a, const vec3_t b);
@@ -59,10 +69,22 @@ static void probe(float *x, float *y)
         return;
     }
 
+#if T == 1
+    { float halfFov = cg->refdef.fov_x * 0.0087266462f;
+    *x = DotProduct(gunDir, cg->refdef.viewaxis[1]) / (forward * (float)tan(halfFov)) * -320.0f; }
+    { float halfFov = cg->refdef.fov_y * 0.0087266462f;
+    *y = DotProduct(gunDir, cg->refdef.viewaxis[2]) / (forward * (float)tan(halfFov)) * -240.0f; }
+#elif T == 2
+    { float halfFov = cg->refdef.fov_x * 0.0087266462f; float t = (float)tan(halfFov);
+    *x = DotProduct(gunDir, cg->refdef.viewaxis[1]) / (forward * t) * -320.0f; }
+    { float halfFov = cg->refdef.fov_y * 0.0087266462f; float t = (float)tan(halfFov);
+    *y = DotProduct(gunDir, cg->refdef.viewaxis[2]) / (forward * t) * -240.0f; }
+#else
     horiz = DotProduct(gunDir, cg->refdef.viewaxis[1]);
     *x = horiz / (forward * (float)tan((double)(cg->refdef.fov_x * 0.0087266462f))) * -320.0f;
     vert = DotProduct(gunDir, cg->refdef.viewaxis[2]);
     *y = vert / (forward * (float)tan((double)(cg->refdef.fov_y * 0.0087266462f))) * -240.0f;
+#endif
 }
 
 float g_x[8];
