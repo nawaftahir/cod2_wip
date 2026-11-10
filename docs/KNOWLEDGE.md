@@ -563,3 +563,14 @@ Tooling: tools/ra13.sh TAG, then lab/al.sh TAG (split_all + cpick for this fn). 
   of charWidth is already bound to other nodes (split pieces or temps), so the variable node is a pure memory home.
   Next: find which pre-colouring splitter takes its references (watch the IL operand +0x1c bindings, REGALLOC round 7
   caveT/caveW) instead of the node. No source form predicted yet; DEFER.
+- n17 watch on the same node (+0x44, lab/w47.sh 0x068535fc): the address first holds another node bound by the IL walk
+  (0x1077fae6, n17 0x25c), freed at 0x10784da6; then the splitter at 0x1078b4a2 creates a piece there twice (n17 0, freed;
+  then n17 0x184), freed again after colouring. So PINNED: the pass-1 "charWidth" node id 53 is a SPLIT PIECE (n17 copied
+  from its parent, last parent ref at IL 388), not the variable's original web. A piece with n16 0 is a range with no
+  references: c2 split charWidth around a high-pressure stretch and kept that reference-free stretch in memory
+  ([esp+0x28]), giving the referencing ends to short pieces (the pass-2 eax piece). Retail keeps the web whole in ebp, so
+  retail's register pressure on that stretch (between the line-762 def and the line-793 use: SEH read, switch, the two
+  textBuffer stores) is lower. Our visible extra demand there is the textBuffer base loaded into ebp/edi where retail folds
+  it as a memory operand. Tried (1 build): index order `con.textBuffer[con.lineOffset + line * con.linewidth]` at both
+  stores: 90 diff lines, same as base. Next: log which stretch the splitter cuts (break at 0x1078b4a2, read the piece's
+  range) and which nodes are live there. DEFER.
