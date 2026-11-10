@@ -10,12 +10,6 @@ __declspec(noinline) void R_UpdateGfxEntityBounds(GfxEntity *ent)
     R_UpdateXModelBounds(&scene.sceneEnts[entIndex], ent);
 }
 
-// PINNED refapi callback10020cd0/12; the internal worker receives ESI.
-void R_UpdateGfxEntityBoundsCmd(GfxEntity *ent)
-{
-    R_UpdateGfxEntityBounds(ent);
-}
-
 GfxScene scene;
 
 extern const dvar_t *r_lockPvs;
