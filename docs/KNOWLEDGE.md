@@ -299,3 +299,11 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - PINNED (retail operands + renderer table, 11-09): the referee masks addresses, so wrong table slots stay "matched". Private refexport_t copies carried 1.0 slots; all now equal retail (Com_Init calls slot 24, not 18; slot 18 ClearScene before renderer init crashed gfx at 0x2591e). common.cpp clientConnection_t demo fields are 0x618 lower. Audit: compare data operands at equal .text offsets.
 - Runtime (owner, 11-10): rebuilt exe sha256 74ed742d... booted on Windows with the stock renderer, connected to a server, wwwdl completed, player could shoot; no issues reported. Local smoke only, not full V5 or byte identity.
 - PINNED (retail frame + clean ratchet 1959900 -> 1959917, matched-fn +812): CL_CheckForResend matches with pbBuf larger than 1024. 1028 and 1032 give identical code, so the true size is only bounded to that range (SUPPORTED); source uses 1032. HYPOTHESIS (one function): array slots sort by size, the larger array after the two 1024 arrays.
+
+## 18. CG_EntityEvent 116..138 rotation is not a colour pick (n3, 11-10)
+- PINNED (ra13 log ee.txt + cpick, with the w3 93..115 patch): every kind03 temp of the land arms (n17 459..578) pops with no competing cost and gets eax;
+  the w5 HYPOTHESIS row ("colouring looks retail, output rotated") holds. The emitted regs come from a later pass (local code generator), as REGALLOC round 12 "D-local".
+- PINNED (ours and retail disasm): the scratch regs of each `mov reg,[table]; mov reg,[ebp]; push; push` pair follow the order eax, ecx, edx, continuing from the
+  last scratch regs used in the code just before it in layout. Arm 47's tail ends with ecx then edx, so arm 70 starts with eax; arm 1 ends with eax, so arm 24 starts with ecx.
+- Arm 93 ends `mov ecx,[esp+0x1c]; mov eax,[clientNum]; cmp` the same way in ours and retail, so the layout rule predicts edx for arm 116 (ours: edx). Retail starts arm 116
+  with eax. So the order is not taken from layout alone. HYPOTHESIS: it is taken from IL or block-generation order, and retail generates some other block just before arm 116.
