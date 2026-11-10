@@ -29,9 +29,29 @@ def drift_by_object(bind, symbols):
     return OrderedDict((obj, sorted(d)) for obj, d in out.items())
 
 
+def net_deltas(bind, symbols):
+    """Per object: change in median drift to the next object, i.e. ours span - retail span.
+
+    An estimate; read it together with the per-object drift table.
+    """
+    rows = sorted((symbols[n][0], symbols[n][1], symbols[n][0] - int(v['t'], 16))
+                  for n, v in bind.items() if n in symbols and not v['why'])
+    per = OrderedDict()
+    for _, obj, delta in rows:
+        # library objects (LIBCMT:x) link in another order; big values are mis-bound short bodies
+        if abs(delta) < 0x10000 and ':' not in obj:
+            per.setdefault(obj, []).append(delta)
+    first = OrderedDict((obj, sorted(d)[len(d) // 2]) for obj, d in per.items())
+    keys = list(first)
+    return sorted(((first[b] - first[a], a) for a, b in zip(keys, keys[1:])), key=lambda x: -abs(x[0]))
+
+
 if __name__ == '__main__':
     build = Path(sys.argv[1])
-    table = drift_by_object(json.loads((build / 'bind.json').read_text()),
-                            parse_map((build / 'gfx.map').read_text().splitlines()))
-    for obj, deltas in table.items():
+    bind = json.loads((build / 'bind.json').read_text())
+    symbols = parse_map((build / 'gfx.map').read_text().splitlines())
+    for obj, deltas in drift_by_object(bind, symbols).items():
         print('%-34s %s' % (obj, ' '.join('%+d' % d for d in deltas[:6])))
+    print('--- net size delta (ours - retail), largest first')
+    for delta, obj in net_deltas(bind, symbols)[:15]:
+        print('%-34s %+d' % (obj, delta))

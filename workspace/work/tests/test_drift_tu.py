@@ -3,7 +3,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'tools'))
-from drift_tu import drift_by_object, parse_map
+from drift_tu import drift_by_object, net_deltas, parse_map
 
 
 class DriftTuTest(unittest.TestCase):
@@ -17,6 +17,7 @@ class DriftTuTest(unittest.TestCase):
                 '?b@@YAXXZ': {'t': '0x10001500', 'why': []},
                 '?c@@YAXXZ': {'t': '0x10001500', 'why': ['size']}}
         self.assertEqual(dict(drift_by_object(bind, symbols)), {'x.obj': [0], 'y.obj': [-0x400]})
+        self.assertEqual(net_deltas(bind, symbols), [(-0x400, 'x.obj')])
 
 
 if __name__ == '__main__':
