@@ -405,3 +405,9 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   Item_SetFocus argument block (ecx, edx, ...) that retail has as eax, ecx, edx. So retail makes one pick fewer (or two more) before that block, and the
   guard load is the candidate. Tried (no change, lab): oldCursor read directly; `if (oldCursor == -1)`; `++` in the compare; `x = x + 1`;
   `for (;cond;)`; a wrapped `break`. HYPOTHESIS: retail's guard is not a local pick (a colour node, or the guard folded with the `cursor = 0` store).
+- (n3) `tools/addrruns13.py EXE MAP ANCHOR`: 376 .text fns differ ONLY in image-address operands (972 B). Grouped by the data symbol hit (ours) and delta:
+  ui statics (uiComponentUnreferenced -16, wiFill_21 -4, winInputUnreferenced -4) ~111 fns 287 B; clip map (cm, cme, cmFill_* all +8) ~113 fns 255 B;
+  fs/common statics +4 (com_fileAccessed, fs_basepath, fs_debug, fs_checksumFeed, fs_loadStack, fs_gameDirVar, fs_restrict, fs_serverReferencedIwdNames, fs_fakeChkSum; fs_defaultConfigName -4380) ~70 fns 150 B;
+  sv_punkbuster region (+44/+12/-56) 43 fns 50 B; FX vtables (Effect +132, Particle/Emitter -176, Cylinder +220, ...) ~40 fns 55 B; sys_timeBase -8 8 fns 15 B;
+  WWW_TraceFlag (n2) 11 fns 15 B; __real@ constants (.rdata order) ~20 B; dvar pointers cl_* +4 ~13 B. A fn hit by two runs counts once.
+- Menu_SetNextCursorItem do-while with an explicit guard (`if (c < n) do {...} while (c < n);`): worse (240 B, oldCursor spilled); not the lever.
