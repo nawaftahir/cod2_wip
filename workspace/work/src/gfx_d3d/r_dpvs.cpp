@@ -586,16 +586,17 @@ static void R_ProjectPortal(int vertexCount, const vec3_t *winding, float *mins,
             return;
         }
         float invW = 1.0f / w;
-        screenSpaceWinding[index][0] = (portalViewProjectionMatrix->m[2][0] * xyz[2]
+        float *screen = screenSpaceWinding[index];
+        screen[0] = (portalViewProjectionMatrix->m[2][0] * xyz[2]
             + portalViewProjectionMatrix->m[1][0] * xyz[1] + xyz[0] * portalViewProjectionMatrix->m[0][0]
             + portalViewProjectionMatrix->m[3][0]) * invW;
-        screenSpaceWinding[index][1] = (portalViewProjectionMatrix->m[0][1] * xyz[0]
+        screen[1] = (portalViewProjectionMatrix->m[0][1] * xyz[0]
             + portalViewProjectionMatrix->m[2][1] * xyz[2] + portalViewProjectionMatrix->m[1][1] * xyz[1]
             + portalViewProjectionMatrix->m[3][1]) * invW;
-        if (mins[0] > screenSpaceWinding[index][0]) mins[0] = screenSpaceWinding[index][0];
-        if (maxs[0] < screenSpaceWinding[index][0]) maxs[0] = screenSpaceWinding[index][0];
-        if (mins[1] > screenSpaceWinding[index][1]) mins[1] = screenSpaceWinding[index][1];
-        if (maxs[1] < screenSpaceWinding[index][1]) maxs[1] = screenSpaceWinding[index][1];
+        if (mins[0] > screen[0]) mins[0] = screen[0];
+        if (maxs[0] < screen[0]) maxs[0] = screen[0];
+        if (mins[1] > screen[1]) mins[1] = screen[1];
+        if (maxs[1] < screen[1]) maxs[1] = screen[1];
     }
     if ((maxs[1] - mins[1]) * (maxs[0] - mins[0]) * 0.25f < r_portalMinClipArea->current.value)
     {
@@ -672,15 +673,14 @@ int R_PortalClipPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *winding
     bool useNormalPlanes = vertexCount <= 10;
     DpvsForceBevels forceBevels;
     bool useBevelPlanes;
+    forceBevels = DPVS_FORCE_BEVELS;
+    useBevelPlanes = true;
     if (useNormalPlanes && !r_portalBevelsOnly->current.enabled)
     {
         forceBevels = DPVS_DONT_FORCE_BEVELS;
-        useBevelPlanes = r_portalBevels->current.value > 0.0f;
-    }
-    else
-    {
-        forceBevels = DPVS_FORCE_BEVELS;
-        useBevelPlanes = true;
+        useBevelPlanes = false;
+        if (r_portalBevels->current.value > 0.0f)
+            useBevelPlanes = true;
     }
     R_GetSidePlaneNormals(winding, vertexCount, normals);
     int planeCount = 0;
@@ -697,7 +697,7 @@ int R_PortalClipPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *winding
             if (VectorLengthSquared(normals[index]) != 0.0f)
             {
                 DpvsPlane *plane = &planes[planeCount];
-                VectorCopy(normals[index], plane->coeffs);
+                memcpy(plane->coeffs, normals[index], sizeof(vec3_t));
                 plane->coeffs[3] = 0.001f - DotProduct(winding[index], plane->coeffs);
                 plane->side[0] = FloatAsInt(plane->coeffs[0]) > 0 ? 12 : 0;
                 plane->side[1] = FloatAsInt(plane->coeffs[1]) > 0 ? 16 : 4;
@@ -709,7 +709,7 @@ int R_PortalClipPlanes(DpvsPlane *planes, int vertexCount, const vec3_t *winding
     {
         planes[planeCount] = *portalNearPlane;
         double nearest = R_NearestPointOnWinding(winding, vertexCount, planes[planeCount].coeffs);
-        if (nearest > 0.0f)
+        if (nearest > 0.0)
             planes[planeCount].coeffs[3] = (float)(planes[planeCount].coeffs[3] - nearest);
         ++planeCount;
     }
