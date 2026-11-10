@@ -316,6 +316,9 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
             if (*textStart == ' ')
             {
                 textStart++;
+                whiteSpace = NULL;
+                textEnd = textStart;
+                continue;
             }
             else if (*textStart == '\n' || (*textStart == '\\' && textStart[1] == 'n'))
             {
@@ -324,6 +327,9 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
                 else
                     textStart += 2;
                 y += CG_ScoreboardGetter_4d2bc0();
+                whiteSpace = NULL;
+                textEnd = textStart;
+                continue;
             }
             else
             {
@@ -341,7 +347,10 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
                         textStart = textEnd + 1;
                     else
                         textStart = textEnd + 2;
+                    whiteSpace = NULL;
                     y += CG_ScoreboardGetter_4d2bc0();
+                    textEnd = textStart;
+                    continue;
                 }
                 else if ((float)UI_TextWidth(textStart, textEnd - textStart, font, CG_ScoreboardGetter_4d2bb0()) > 374.0f)
                 {
