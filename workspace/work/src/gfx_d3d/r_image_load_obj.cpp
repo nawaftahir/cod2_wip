@@ -60,6 +60,46 @@ GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight);
 Bool Image_ValidateHeader(const GfxImageFileHeader *fileHeader, const char *filepath);
 Bool Image_LoadFromFile(GfxImage *image);
 void R_GetLightmapWeightsForDir(const float *dir, float *weights);
+void Image_Generate2D(GfxImage *image, byte *pixels, int width, int height, D3DFORMAT format);
+void Image_Generate3D(GfxImage *image, byte *pixels, int width, int height, int depth, D3DFORMAT format);
+void Image_SetupFromFile(GfxImage *image, const GfxImageFileHeader *fileHeader, D3DFORMAT format);
+Bool Image_ValidateHeader(const GfxImageFileHeader *fileHeader, const char *filepath);
+Bool Image_LoadFromFile(GfxImage *image);
+static unsigned int Image_CountMipmapsForFile(const GfxImageFileHeader *fileHeader);
+static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst);
+void Image_LoadWavelet(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerPixel);
+void Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerPixel);
+void Image_LoadDxtc(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerBlock);
+void Image_LoadFromData(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data);
+void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
+    volatile int faceBytes, D3DFORMAT format);
+Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack);
+void Image_GenerateSpecularity(GfxImage *image);
+void R_GetLightmapWeightsForDir(const float *dir, float *weights);
+void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, byte alpha);
+void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
+    int userData, CubemapPixelCallback callback);
+void Image_GenerateLightGridWeights(GfxImage *image, int subMap);
+void Image_GenerateSunHalfAngle(GfxImage *image);
+GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight);
+
+float FresnelTerm(float n0, float n1, float cosIncidentAngle);
+
+void R_CreateOutdoorImage(GfxImage *image);
+void Com_Printf(const char *format, ...);
+
+// Light-grid cubemap weights.
+void Image_WaterColorForDirection(const float *direction, int color, byte *pixel);
+void Image_GenerateWaterColor(GfxImage *image, byte red, byte green, byte blue);
+GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack);
+GfxImage *Image_Load(const char *name, int semantic, int imageTrack);
+void Image_BuildWaterMap(GfxImage *image);
+int VecLargestAxis(const float vector[3]);
+void R_QuantizeCachedColor(const float *color, byte *out);
+
 
 // PINNED 1000f2a0/67; compare individual tag bytes, then version5.
 Bool Image_ValidateHeader(const GfxImageFileHeader *fileHeader, const char *filepath)
@@ -78,40 +118,14 @@ Bool Image_ValidateHeader(const GfxImageFileHeader *fileHeader, const char *file
     return 1;
 }
 
-// PINNED 1000fa40/240. Preserve PC ordering, including noPicmip before validation.
-Bool Image_LoadFromFile(GfxImage *image)
+
+// SUPPORTED name: KisakCOD Image_SetupFromFile; PINNED 1000f2f0/39, no callers in retail.
+void Image_SetupFromFile(GfxImage *image, const GfxImageFileHeader *fileHeader, D3DFORMAT format)
 {
-    char filepath[64];
-    GfxImageFileHeader *fileHeader;
-    if (Com_sprintf(filepath, sizeof(filepath), "%s%s%s", "images/", image->name, ".iwi") < 0)
-    {
-        Com_Printf("^1ERROR: filename '%s' too long\n", filepath);
-        return 0;
-    }
-    int length = ri.FS_ReadFile(filepath, (void **)&fileHeader);
-    if (length < 0)
-    {
-        Com_Printf("^1ERROR: image '%s' is missing\n", filepath);
-        return 0;
-    }
-    if (!length)
-    {
-        Com_Printf("^1ERROR: image '%s' has 0 length\n", filepath);
-        ri.FS_FreeFile(fileHeader);
-        return 0;
-    }
-    const byte *data = (const byte *)fileHeader + sizeof(GfxImageFileHeader);
-    if (fileHeader->flags & 3)
-        image->noPicmip = 1;
-    if (!Image_ValidateHeader(fileHeader, filepath))
-    {
-        ri.FS_FreeFile(fileHeader);
-        return 0;
-    }
-    Image_LoadFromData(image, fileHeader, data);
-    ri.FS_FreeFile(fileHeader);
-    return 1;
+    Image_Setup(image, fileHeader->dimensions[0], fileHeader->dimensions[1],
+        fileHeader->dimensions[2], fileHeader->flags, 0, format);
 }
+
 
 static unsigned int Image_CountMipmapsForFile(const GfxImageFileHeader *fileHeader)
 {
@@ -128,6 +142,7 @@ static unsigned int Image_CountMipmapsForFile(const GfxImageFileHeader *fileHead
     return count;
 }
 
+
 // PINNED 1000f5a0/527: expand BGR in-place channel order, never reverse it.
 // SUPPORTED name/shape: KisakCOD r_image_load_obj.cpp; PINNED 1000f350/37.
 static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst)
@@ -143,6 +158,7 @@ static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst)
         --count;
     } while (count);
 }
+
 
 // PINNED 1000f380/537; no Mac byte swapping or extra temporary copy on PC.
 void Image_LoadWavelet(GfxImage *image, const GfxImageFileHeader *fileHeader,
@@ -194,6 +210,7 @@ void Image_LoadWavelet(GfxImage *image, const GfxImageFileHeader *fileHeader,
         ri.Hunk_FreeTempMemory(hunkBufs[face]);
 }
 
+
 void Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader,
     const byte *data, D3DFORMAT format, int bytesPerPixel)
 {
@@ -231,6 +248,7 @@ void Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader,
         ri.Hunk_FreeTempMemory(expandedData);
 }
 
+
 // PINNED 1000f7b0/331: each mip uses rounded-up 4x4 block dimensions.
 void Image_LoadDxtc(GfxImage *image, const GfxImageFileHeader *fileHeader,
     const byte *data, D3DFORMAT format, int bytesPerBlock)
@@ -251,6 +269,7 @@ void Image_LoadDxtc(GfxImage *image, const GfxImageFileHeader *fileHeader,
         }
     }
 }
+
 
 // PINNED 1000f900/261 plus a separate 52-byte switch table at1000fa08.
 void Image_LoadFromData(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data)
@@ -274,6 +293,58 @@ void Image_LoadFromData(GfxImage *image, const GfxImageFileHeader *fileHeader, c
     }
 }
 
+
+// PINNED 1000fa40/240. Preserve PC ordering, including noPicmip before validation.
+Bool Image_LoadFromFile(GfxImage *image)
+{
+    char filepath[64];
+    GfxImageFileHeader *fileHeader;
+    if (Com_sprintf(filepath, sizeof(filepath), "%s%s%s", "images/", image->name, ".iwi") < 0)
+    {
+        Com_Printf("^1ERROR: filename '%s' too long\n", filepath);
+        return 0;
+    }
+    int length = ri.FS_ReadFile(filepath, (void **)&fileHeader);
+    if (length < 0)
+    {
+        Com_Printf("^1ERROR: image '%s' is missing\n", filepath);
+        return 0;
+    }
+    if (!length)
+    {
+        Com_Printf("^1ERROR: image '%s' has 0 length\n", filepath);
+        ri.FS_FreeFile(fileHeader);
+        return 0;
+    }
+    const byte *data = (const byte *)fileHeader + sizeof(GfxImageFileHeader);
+    if (fileHeader->flags & 3)
+        image->noPicmip = 1;
+    if (!Image_ValidateHeader(fileHeader, filepath))
+    {
+        ri.FS_FreeFile(fileHeader);
+        return 0;
+    }
+    Image_LoadFromData(image, fileHeader, data);
+    ri.FS_FreeFile(fileHeader);
+    return 1;
+}
+
+
+// PINNED 1000fb30/74 and 1000fb80/75: no callers in retail (inlined everywhere).
+void Image_Generate2D(GfxImage *image, byte *pixels, int width, int height, D3DFORMAT format)
+{
+    Image_Setup(image, width, height, 1, 3, 0, format);
+    Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+}
+
+
+void Image_Generate3D(GfxImage *image, byte *pixels, int width, int height, int depth, D3DFORMAT format)
+{
+    Image_Setup(image, width, height, depth, 11, 0, format);
+    Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+}
+
+
 // PINNED 1000fbd0/86: every face is uploaded from its own source slice.
 void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
     volatile int faceBytes, D3DFORMAT format)
@@ -288,6 +359,7 @@ void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
         facePixels += stride;
     }
 }
+
 
 // PINNED 1000fc30/169: imageTrack is unused by the PC raw loader.
 Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack)
@@ -306,6 +378,7 @@ Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack)
     return 1;
 }
 
+
 // PINNED 1000fce0/119: original lookup is32 by256, one luminance byte per texel.
 void Image_GenerateSpecularity(GfxImage *image)
 {
@@ -314,6 +387,13 @@ void Image_GenerateSpecularity(GfxImage *image)
     Image_Setup(image, 32, 256, 1, 3, 0, D3DFMT_L8);
     Image_UploadData(image, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
 }
+
+// Name UNCONFIRMED; PINNED 1000fd60/5, no callers in retail: returns its float argument.
+float Image_IdentityFloat(float value)
+{
+    return value;
+}
+
 
 // Blend weights for the 32x32 lightmap-weights image (0x1000fd70); name unconfirmed (no reference names it).
 void R_GetLightmapWeightsForDir(const float *dir, float *weights)
@@ -357,6 +437,51 @@ void R_GetLightmapWeightsForDir(const float *dir, float *weights)
     weights[3] *= 1.0f - weights[0];
 }
 
+#pragma optimize("p", on)
+void Image_LoadLightmapWeights(GfxImage *image)
+{
+    unsigned char pic[32][32][4];
+    float dir[3];
+    float weights[4];
+    float zSq;
+    int y;
+    int x;
+
+    unsigned char *pixel = &pic[0][0][0];
+    y = 0;
+    for (;;)
+    {
+        dir[1] = ((float)y + 0.5f) / 32.0f * 2.0f - 1.0f;
+        for (x = 0; x < 32; x++)
+        {
+            dir[0] = ((float)x + 0.5f) / 32.0f * 2.0f - 1.0f;
+            zSq = 1.0f - Vec2Multiply(dir);
+            if (zSq < 0.0f)
+            {
+                Vec2Normalize(dir);
+                zSq = 0.0f;
+            }
+            dir[2] = I_sqrt(zSq);
+            R_GetLightmapWeightsForDir(dir, weights);
+            pixel[0] = (unsigned char)I_fround(weights[0] * 255.0f);
+            pixel[1] = (unsigned char)I_fround(weights[1] * 255.0f);
+            pixel[2] = (unsigned char)I_fround(weights[2] * 255.0f);
+            pixel[3] = (unsigned char)I_fround(weights[3] * 255.0f);
+            pixel += 4;
+        }
+        volatile int *rowCounter = &y;
+        int nextRow = *rowCounter + 1;
+        bool moreRows = nextRow < 32;
+        *rowCounter = nextRow;
+        if (!moreRows)
+            break;
+    }
+    Image_Setup(image, 32, 32, 1, 3, 0, D3DFMT_A8R8G8B8);
+    Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, &pic[0][0][0]);
+}
+#pragma optimize("", on)
+
+
 // PINNED 100100f0/102: the four bytes reach the texture in BGRA order.
 void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, byte alpha)
 {
@@ -368,6 +493,7 @@ void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, 
     Image_Setup(image, 1, 1, 1, 3, 0, D3DFMT_A8R8G8B8);
     Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixel);
 }
+
 
 // PINNED 10010160/786: the axis descriptors are local to the original function.
 void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
@@ -433,12 +559,84 @@ void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution
         D3DFMT_A8R8G8B8);
 }
 
+// Mac r_image_load_obj SmoothStep (SUPPORTED); PINNED 10010480/21, out-of-line copy with no callers.
+float SmoothStep(float t)
+{
+    return (3.0f - (t + t)) * t * t;
+}
+
+static const vec3_t imageLightGridBasis[3] = {
+    {0.81649655f, -0.40824828f, -0.40824828f},
+    {0.0f, 0.70710677f, -0.70710677f},
+    {0.57735026f, 0.57735026f, 0.57735026f}
+};
+#define Image_TransformLightGridVector(x, y, z, out) AxisTransformVector(imageLightGridBasis, x, y, z, out)
+
+#pragma optimize("p", on)
+
+void Image_GetLightGridWeightsForVector(const float *facePos, int subMap, byte *pixel)
+{
+    float transformed[3];
+    float weights[4];
+    float smooth[3];
+    float value;
+    Image_TransformLightGridVector(facePos[0], facePos[1], facePos[2], transformed);
+    int majorAxis = VecLargestAxis(transformed);
+    float scale = 1.0f / fabsf(transformed[majorAxis]);
+    VectorScale(transformed, scale, transformed);
+    value = (transformed[0] + 1.0f) * 0.5f;
+    smooth[0] = (3.0f - (value + value)) * value * value;
+    value = (transformed[1] + 1.0f) * 0.5f;
+    smooth[1] = (3.0f - (value + value)) * value * value;
+    if (subMap == 0)
+        value = 0.5f - transformed[2] * 0.5f;
+    else
+        value = (transformed[2] + 1.0f) * 0.5f;
+    smooth[2] = (3.0f - (value + value)) * value * value;
+    float bottom = 1.0f - smooth[1];
+    float left = 1.0f - smooth[0];
+    weights[0] = left * bottom * smooth[2];
+    weights[1] = bottom * smooth[2] * smooth[0];
+    weights[2] = left * smooth[2] * smooth[1];
+    weights[3] = smooth[2] * smooth[1] * smooth[0];
+    R_QuantizeCachedColor(weights, pixel);
+}
+#pragma optimize("p", off)
+
+
 // PINNED 10010680/43: submap is passed unchanged to every pixel callback.
 void Image_GenerateLightGridWeights(GfxImage *image, int subMap)
 {
     byte pixels[6 * 32 * 32 * 4];
     Image_GenerateCubemapFunction(image, pixels, 32, subMap, Image_GetLightGridWeightsForVector);
 }
+
+
+// Cubemap pixel callback: half-angle between the sun and the face direction, packed as a byte color.
+void Image_GetSunHalfAngleForVector(const float *facePos, int unused, unsigned char *pixel)
+{
+    float dirFromEye[3];
+    float halfAngle[3];
+    const float *sunPos;
+    float s0;
+    float s1;
+    float s2;
+
+    Vec3NormalizeTo(facePos, dirFromEye);
+    sunPos = rgp.world->sunLight.position;
+    halfAngle[0] = sunPos[0] - dirFromEye[0];
+    halfAngle[1] = sunPos[1] - dirFromEye[1];
+    halfAngle[2] = sunPos[2] - dirFromEye[2];
+    Vec3Normalize(halfAngle);
+    s0 = (halfAngle[0] + 1.0f) * 0.5f;
+    s1 = (halfAngle[1] + 1.0f) * 0.5f;
+    s2 = (halfAngle[2] + 1.0f) * 0.5f;
+    pixel[2] = (unsigned char)I_fround(s0 * 255.0f);
+    pixel[1] = (unsigned char)I_fround(s1 * 255.0f);
+    pixel[0] = (unsigned char)I_fround(s2 * 255.0f);
+    pixel[3] = 0x80;
+}
+
 
 // PINNED 100107b0/46: this larger cubemap uses temporary hunk memory, not the stack.
 void Image_GenerateSunHalfAngle(GfxImage *image)
@@ -448,75 +646,6 @@ void Image_GenerateSunHalfAngle(GfxImage *image)
     ri.Hunk_FreeTempMemory(pixels);
 }
 
-GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight)
-{
-    GfxImage *image;
-
-    image = Image_Alloc(name, 5, 5, 9);
-    image->width = (unsigned short)imageWidth;
-    image->height = (unsigned short)imageHeight;
-    if (r_rendererInUse->current.integer == 2)
-        Image_Create2DTexture(image, imageWidth, imageHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
-    else
-        Image_Create2DTexture(image, imageWidth, imageHeight, 0, D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
-    return image;
-}
-#pragma optimize("p", on)
-void Image_LoadLightmapWeights(GfxImage *image)
-{
-    unsigned char pic[32][32][4];
-    float dir[3];
-    float weights[4];
-    float zSq;
-    int y;
-    int x;
-
-    unsigned char *pixel = &pic[0][0][0];
-    y = 0;
-    for (;;)
-    {
-        dir[1] = ((float)y + 0.5f) / 32.0f * 2.0f - 1.0f;
-        for (x = 0; x < 32; x++)
-        {
-            dir[0] = ((float)x + 0.5f) / 32.0f * 2.0f - 1.0f;
-            zSq = 1.0f - Vec2Multiply(dir);
-            if (zSq < 0.0f)
-            {
-                Vec2Normalize(dir);
-                zSq = 0.0f;
-            }
-            dir[2] = I_sqrt(zSq);
-            R_GetLightmapWeightsForDir(dir, weights);
-            pixel[0] = (unsigned char)I_fround(weights[0] * 255.0f);
-            pixel[1] = (unsigned char)I_fround(weights[1] * 255.0f);
-            pixel[2] = (unsigned char)I_fround(weights[2] * 255.0f);
-            pixel[3] = (unsigned char)I_fround(weights[3] * 255.0f);
-            pixel += 4;
-        }
-        volatile int *rowCounter = &y;
-        int nextRow = *rowCounter + 1;
-        bool moreRows = nextRow < 32;
-        *rowCounter = nextRow;
-        if (!moreRows)
-            break;
-    }
-    Image_Setup(image, 32, 32, 1, 3, 0, D3DFMT_A8R8G8B8);
-    Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, &pic[0][0][0]);
-}
-
-#pragma optimize("", on)
-
-float FresnelTerm(float n0, float n1, float cosIncidentAngle);
-
-void R_CreateOutdoorImage(GfxImage *image);
-void Com_Printf(const char *format, ...);
-
-// Light-grid cubemap weights.
-void Image_WaterColorForDirection(const float *direction, int color, byte *pixel);
-void Image_GenerateWaterColor(GfxImage *image, byte red, byte green, byte blue);
-GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack);
-GfxImage *Image_Load(const char *name, int semantic, int imageTrack);
-void Image_BuildWaterMap(GfxImage *image);
 
 // PINNED 100107e0/98: copy the BGRA color, then replace only alpha with Fresnel reflectance.
 void Image_WaterColorForDirection(const float *direction, int color, byte *pixel)
@@ -527,6 +656,7 @@ void Image_WaterColorForDirection(const float *direction, int color, byte *pixel
     float alpha = FresnelTerm(1.0f, 1.333f, normal[2]) * 255.0f;
     pixel[3] = (byte)I_fround(alpha);
 }
+
 
 // PINNED 10010850/70: the callback receives packed color by value, not a stack pointer.
 void Image_GenerateWaterColor(GfxImage *image, byte red, byte green, byte blue)
@@ -539,6 +669,7 @@ void Image_GenerateWaterColor(GfxImage *image, byte red, byte green, byte blue)
     color[3] = 0xff;
     Image_GenerateCubemapFunction(image, pixels, 16, *(int *)color, Image_WaterColorForDirection);
 }
+
 
 // PINNED 100108a0/519: unknown builtins return null before allocating an image.
 GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack)
@@ -609,6 +740,7 @@ GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack)
 }
 
 
+
 // SUPPORTED name: Mac r_image_load_obj.c; PINNED 10010ab0/43.
 GfxImage *Image_Load(const char *name, int semantic, int imageTrack)
 {
@@ -617,71 +749,18 @@ GfxImage *Image_Load(const char *name, int semantic, int imageTrack)
     GfxImage *image = Image_Alloc(name, 3, semantic, imageTrack);
     return Image_LoadFromFile(image) ? image : 0;
 }
-#pragma optimize("p", on)
-int VecLargestAxis(const float vector[3]);
-void R_QuantizeCachedColor(const float *color, byte *out);
 
-static __forceinline void Image_TransformLightGridVector(float x, float y, float z, float *out)
-{
-    static const vec3_t basis[3] = {
-        {0.81649655f, -0.40824828f, -0.40824828f},
-        {0.0f, 0.70710677f, -0.70710677f},
-        {0.57735026f, 0.57735026f, 0.57735026f}
-    };
-    AxisTransformVector(basis, x, y, z, out);
-}
 
-void Image_GetLightGridWeightsForVector(const float *facePos, int subMap, byte *pixel)
+GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight)
 {
-    float transformed[3];
-    float weights[4];
-    float smooth[3];
-    float value;
-    Image_TransformLightGridVector(facePos[0], facePos[1], facePos[2], transformed);
-    int majorAxis = VecLargestAxis(transformed);
-    float scale = 1.0f / fabsf(transformed[majorAxis]);
-    VectorScale(transformed, scale, transformed);
-    value = (transformed[0] + 1.0f) * 0.5f;
-    smooth[0] = (3.0f - (value + value)) * value * value;
-    value = (transformed[1] + 1.0f) * 0.5f;
-    smooth[1] = (3.0f - (value + value)) * value * value;
-    if (subMap == 0)
-        value = 0.5f - transformed[2] * 0.5f;
+    GfxImage *image;
+
+    image = Image_Alloc(name, 5, 5, 9);
+    image->width = (unsigned short)imageWidth;
+    image->height = (unsigned short)imageHeight;
+    if (r_rendererInUse->current.integer == 2)
+        Image_Create2DTexture(image, imageWidth, imageHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
     else
-        value = (transformed[2] + 1.0f) * 0.5f;
-    smooth[2] = (3.0f - (value + value)) * value * value;
-    float bottom = 1.0f - smooth[1];
-    float left = 1.0f - smooth[0];
-    weights[0] = left * bottom * smooth[2];
-    weights[1] = bottom * smooth[2] * smooth[0];
-    weights[2] = left * smooth[2] * smooth[1];
-    weights[3] = smooth[2] * smooth[1] * smooth[0];
-    R_QuantizeCachedColor(weights, pixel);
-}
-
-#pragma optimize("p", off)
-
-// Cubemap pixel callback: half-angle between the sun and the face direction, packed as a byte color.
-void Image_GetSunHalfAngleForVector(const float *facePos, int unused, unsigned char *pixel)
-{
-    float dirFromEye[3];
-    float halfAngle[3];
-    const float *sunPos;
-    float s0;
-    float s1;
-    float s2;
-
-    Vec3NormalizeTo(facePos, dirFromEye);
-    sunPos = rgp.world->sunLight.position;
-    halfAngle[0] = sunPos[0] - dirFromEye[0];
-    halfAngle[1] = sunPos[1] - dirFromEye[1];
-    halfAngle[2] = sunPos[2] - dirFromEye[2];
-    Vec3Normalize(halfAngle);
-    s0 = (halfAngle[0] + 1.0f) * 0.5f;
-    s1 = (halfAngle[1] + 1.0f) * 0.5f;
-    s2 = (halfAngle[2] + 1.0f) * 0.5f;
-    pixel[2] = (unsigned char)I_fround(s0 * 255.0f);
-    pixel[1] = (unsigned char)I_fround(s1 * 255.0f);
-    pixel[0] = (unsigned char)I_fround(s2 * 255.0f);
-    pixel[3] = 0x80;
+        Image_Create2DTexture(image, imageWidth, imageHeight, 0, D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
+    return image;
 }
