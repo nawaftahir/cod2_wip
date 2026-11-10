@@ -422,3 +422,13 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   registration order (retail and ours register in the same order). It follows the symbol NAME: renaming `dvar_68a3a0` to
   `motd` (KisakCOD cl_main_mp.cpp registers "motd" into `motd`, SUPPORTED) puts it at retail 0x68a3a0 and shifts
   cl_connectTimeout..m_pitch +4 like retail. Gate 1967333 -> 1967346. Placeholder names like dvar_XXXXXX can misplace .bss.
+
+## 23. Classification of three residues (n3, 11-10)
+- DL_BeginDownload (PINNED on bytes): ours keeps BOTH `HTSACopy(&requestUrl, remoteUrl)` arms whole, each ending with `xor esi,esi`
+  (the zero constant is put back into esi for the later `requestUrl = NULL` stores). Retail has no xor: the arms keep only their pushes
+  and jump to one shared call (cross-jump), and the later NULL stores use imm 0. So the class is the constant-zero web (colour), not a local pick:
+  the extra xor blocks the cross-jump. No source spelling found yet that ends the zero web early (TRIED w5 + n3 rows).
+- CG_CalcCrosshairPosition (PINNED on bytes): ours copies gunAng[1] (yaw) through ecx to [esp+0x28] and flds it; retail flds cg->gunYaw
+  directly (store forwarded, then dead). That ecx copy is one extra LOCAL pick, which is exactly why every later lea pair is one step
+  rotated (ours edx/eax, retail ecx/edx). Tried (lab, no change): assignment order of gunAng[0..2] (4 orders), no roll assignment, roll = 0.
+- FX_CalcOriginAndAxis: pure stack-slot order (the first float temps 0x28/0x2c/0x30 shifted by 4), no register or code difference. Not attempted.
