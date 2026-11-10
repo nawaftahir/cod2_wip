@@ -400,3 +400,18 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - It lives under `unknown/`, is named after its retail address (e.g. `unknown_b013f8`), and carries one comment line with the evidence and "real identity unknown".
 - Never rename, resize or realign a real variable to fit an offset; names only from evidence (Mac symbols, retail strings, reference source). A variable with an unknown name keeps its placeholder name and stays listed.
 - Existing placeholders (uiComponentUnreferenced, winInputUnreferenced, wiFill_21, clFill_248, the six Rich-header empty TUs) follow the same rule: each must be backed by a proven unreferenced retail gap and documented; README and KNOWLEDGE keep the full list.
+- The mixerGetRecordLevel post-link patch is NOT used in 1.3. The six `unknown/empty_N.cpp` TUs are (owner decision, see the Rich entry below).
+- OWNER DECISION + clean gate (n1, 11-10, same-offset 1963931 -> 1967115, matched-fn 1549931 -> 1552684): the six 1.0
+  `unknown/empty_N.cpp` /GL TUs are linked in 1.3 too, all six at the end of the /GL list after gfx_v60_threads (the 1.0
+  positions, empty_1 after devgui_input, flipped the CG_DrawPlayerStance tie; at the end it stays matched, e59606e1). They are PLACEHOLDERS for retail's six unknown /GL C++ objects (Rich prodid 100: 275 = retail); their real names and
+  positions are unknown. Effect: Rich count, checksum and the 24-byte padding now equal retail, e_lfanew 0x120, the PE header differs in
+  4 bytes only. The earlier 343 B header residue was 100% this.
+- Remaining 4 header bytes: Rich entries (25,9466) and (28,9466) in the other order. Both come from build/lib/mss32.lib (the import members
+  are prodid 25, mss_auto.obj from VS .NET 2002 is prodid 28). Putting mss_auto.obj first in the archive does NOT change the Rich orde
+  (lab relink); the order follows which member the link pulls first. Open.
+- stPbSv::LoadServerDll (0x4bd3e0): code is byte-identical to retail except the six string addresses, so no code-matching shape exists to
+  move the literals; the literal-pool order stays deferred.
+- __real pool (0x5c4460..0x5c44f8, 64 B): only two constants are misplaced. Double 1000.0 (users CL_DemoCompleted, CG_FxTest, HTNumToStr;
+  same users in retail) sits at ours 0x5c4460, retail 0x5c44a0: retail compiles its first user between CG_PlayerFloatSprite (F#5581) and
+  Particle::Die (F#5635), ours compiles CL_DemoCompleted at F#5436. Float 720.0 (fire_grenade) ours 0x5c44c4, retail 0x5c44e8: retail
+  compiles fire_grenade after Mantle_CreateAnims (F#6041), ours at F#6035. Call-graph DFS order shifts, no source lever with evidence.
