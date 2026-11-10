@@ -264,21 +264,22 @@ void R_LoadLightmaps(GfxBspLoad *load)
     Vector2Set(load->lmapMergeInfo[31].shift, 0.0f, 0.0f);
     Vector2Set(load->lmapMergeInfo[31].scale, 1.0f, 1.0f);
     r_lightmapGroup_t groupInfo[31];
-    int reorder[31];
+    int reorder[32];
     int lmapCount = R_BuildLightmapMergability(load, groupInfo, reorder);
     if (!lmapCount)
     {
         s_world.lightmapCount = 0;
         return;
     }
-    int bytesPerPixel[4];
-    int heights[4];
     int widths[4];
-    for (int k = 0; k < 3; ++k)
-    {
-        widths[k] = 512;
-        heights[k] = 512;
-    }
+    int heights[4];
+    int bytesPerPixel[4];
+    widths[0] = 512;
+    heights[0] = 512;
+    widths[1] = 512;
+    heights[1] = 512;
+    widths[2] = 512;
+    heights[2] = 512;
     bytesPerPixel[0] = 4;
     bytesPerPixel[1] = 4;
     bytesPerPixel[2] = 4;
@@ -286,29 +287,33 @@ void R_LoadLightmaps(GfxBspLoad *load)
     widths[3] = 1024;
     heights[3] = 1024;
     byte *images[4];
-    images[0] = (byte *)ri.Hunk_AllocateTempMemoryInternal(groupInfo[0].wideCount * groupInfo[0].highCount * 0x400000);
-    int pageSize = groupInfo[0].highCount << 20;
-    images[1] = images[0] + pageSize * groupInfo[0].wideCount;
-    images[2] = images[1] + pageSize * groupInfo[0].wideCount;
-    images[3] = images[2] + pageSize * groupInfo[0].wideCount;
+    int wide0 = groupInfo[0].wideCount;
+    int high0 = groupInfo[0].highCount;
+    images[0] = (byte *)ri.Hunk_AllocateTempMemoryInternal(wide0 * high0 * 0x400000);
+    int pageSize = high0 << 20;
+    images[1] = images[0] + pageSize * wide0;
+    images[2] = images[1] + pageSize * wide0;
+    images[3] = images[2] + pageSize * wide0;
     int lmapDataSize = load->header->lumps[1].filelen;
     const byte *lmapData = load->fileBase + load->header->lumps[1].fileofs;
     if (!lmapDataSize)
-        memset(images[0], 0xff, groupInfo[0].wideCount * groupInfo[0].highCount * 0x400000);
+        memset(images[0], 0xff, wide0 * high0 * 0x400000);
     s_world.lightmaps = (GfxLightmapArray *)ri.Hunk_AllocInternal(32 * sizeof(GfxLightmapArray));
     short groupIndex = 0;
     for (int placed = 0; placed < lmapCount; ++groupIndex)
     {
-        int wide = groupInfo[groupIndex].wideCount;
-        int high = groupInfo[groupIndex].highCount;
+        const r_lightmapGroup_t *group = &groupInfo[groupIndex];
+        int wide = group->wideCount;
+        int high = group->highCount;
         int tileCount = wide * high;
         float scaleX = 1.0f / wide;
         float scaleY = 1.0f / high;
+        int wideCopy = group->wideCount;
         for (int tile = 0; tile < tileCount; ++tile)
         {
             int oldIndex = reorder[placed + tile];
-            int row = tile / wide;
-            int col = tile % wide;
+            int row = tile / wideCopy;
+            int col = tile % wideCopy;
             if (lmapDataSize)
             {
                 const byte *src = lmapData + oldIndex * 0x400000;
