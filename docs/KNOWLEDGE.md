@@ -554,7 +554,12 @@ Tooling: tools/ra13.sh TAG, then lab/al.sh TAG (split_all + cpick for this fn). 
   id 47, node 0x06853408). n16 = 0 means the pass-1 web has no use weight at all, so it is never accepted; the pass-2
   piece (n16 16) is created by the split. So the question is why pass 1 credits charWidth zero use weight.
 - winedbg watch on node 0x068535b8 + 0x40 with tools/c2dbg13.sh (lab/w47.sh ADDR N): 210 writes, none from color.c
-  (0x1078xxxx); all from 0x1075xxxx / 0x107axxxx / 0x107bxxxx allocators. So the heap address does NOT carry over from
-  the ra13 (cave_all, logging) link to the c2dbg13 (int3-only cave) link, contrary to the c2dbg13.sh header note.
-  Next: a debug cave that logs exactly like cave_all (same allocations) plus the int3, or take the node address from
-  inside the debug run (break at the P hook and read it), then watch +0x40.
+  (0x1078xxxx); all from 0x1075xxxx / 0x107axxxx / 0x107bxxxx allocators.
+- CORRECTION (P-hook read inside the c2dbg13 run, lab/wp.sh): heap addresses DO carry over. At the pop hook 0x10782a5e
+  the debug run shows node 0x068535b8, id 0x35, n16 0, n17 0x184, the same as the ra13 log. So the watch above was on the
+  right node: from its zeroing (0x107bae7f memset) to its reuse (0x107baf61 string writes) the n16 dword is never
+  written nonzero. None of the n16 weight sites (REGALLOC round 6: 0x10711011/256/790/b46) credits one reference to the
+  pass-1 charWidth node, and its n3 -106 comes only from region subtractions. HYPOTHESIS: by pass 1 every IL reference
+  of charWidth is already bound to other nodes (split pieces or temps), so the variable node is a pure memory home.
+  Next: find which pre-colouring splitter takes its references (watch the IL operand +0x1c bindings, REGALLOC round 7
+  caveT/caveW) instead of the node. No source form predicted yet; DEFER.
