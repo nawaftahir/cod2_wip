@@ -310,3 +310,14 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - (n3, later) The rotated part of arm 116 ends at its `jne` (clientNum compare): the next block (bg_fallDamage loads, eax/ecx) is identical in ours and retail. PINNED on disasm.
 - The local code generator's register pick is NOT found in c2.dll yet. 0x108a97a4 (register object base, id*0x60) is used at ~60 sites (`tools/c2xref.py`);
   no hook was written because no site is confirmed. Tools: `tools/c2dis.py C2 ADDR N` (disasm one range), `tools/c2xref.py C2 DWORD...` (byte search + covering instruction).
+
+## 19. winedbg on the 1.3 LTCG link (n3, 11-10)
+- `tools/c2dbg13.sh MANGLED CMDFILE` relinks build/objs.rsp under winedbg (wine 5.0.3 in cod2-msvc71-vs2003, ~15 s) with a c2.dll whose F hook
+  (0x107724f6) hits int3 when c2 starts MANGLED; CMDFILE starts with `cont` to reach it. Output build/ra/dx.exe equals ox.exe apart from the PE timestamp (2 bytes). PINNED.
+- Heap addresses are the same as in the ra13 run, and P-line dword 2 is the node (colour store 0x107834bd `mov [eax+0x10],ecx`, eax = node). PINNED.
+- CG_EntityEvent with the w3 93..115 patch: nodes 75..78 (kind03, n17 543/554/567/578) get eax (0x108a9804) at the colour store. The operand pass 0x10785eea..0x10785f12
+  copies node+0x10 to operand+0x1c (picks the width variant of the reg object). For node 78's operand 0x06c1b74c every later writer (0x10770266 and ~20 others)
+  keeps eax until the slot is freed (0x107bae7f). PINNED.
+- So at the IL/operand level nothing renames the reg. The edx/eax output of arm 116 is decided after lowering, in the instruction structure SCHED.md describes,
+  or these four nodes are not the arm-116 temps (the node-to-instruction map is not done). HYPOTHESIS.
+- Next: find the encoder that emits the arm-116 `mov r32,[edi*4+disp]` (watch the emitted code buffer, or break on the lowered instruction alloc 0x107afd98) and map nodes to instructions.
