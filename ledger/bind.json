@@ -381,6 +381,18 @@
 "obj": "r_debug.obj",
 "why": []
 },
+"?R_InitDebugEntry@@YAXPAUDebugGlobals@@@Z": {
+"t": "0x100057b0",
+"n": 42,
+"obj": "r_debug.obj",
+"why": []
+},
+"?R_InitDebug@@YAXXZ": {
+"t": "0x100057e0",
+"n": 57,
+"obj": "r_debug.obj",
+"why": []
+},
 "?R_ShutdownDebugEntry@@YAXPAUDebugGlobals@@@Z": {
 "t": "0x10005820",
 "n": 143,
@@ -423,6 +435,24 @@
 "obj": "r_dpvs.obj",
 "why": []
 },
+"?VectorLengthSquared@@YAMQBM@Z": {
+"t": "0x10005b90",
+"n": 31,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?VectorLength@@YAMQBM@Z": {
+"t": "0x10005bb0",
+"n": 33,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?VectorScale4@@YAXQBMMQAM@Z": {
+"t": "0x10005be0",
+"n": 39,
+"obj": "r_dpvs.obj",
+"why": []
+},
 "?DotProduct4@@YAMQBM0@Z": {
 "t": "0x10005c10",
 "n": 29,
@@ -434,26 +464,6 @@
 "n": 24,
 "obj": "r_dpvs.obj",
 "why": []
-},
-"?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z": {
-"t": "0x10008570",
-"n": 139,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_TransformBoundsCorners@@YAXPBUGfxEntity@@QAM1PAY02$$CBM@Z": {
-"t": "0x100088c0",
-"n": 2317,
-"obj": "r_dpvs.obj",
-"why": []
-},
-"?R_CullBrushEntity@@YAXHPAUDpvsPlane@@H@Z": {
-"t": "0x100091d0",
-"n": 117,
-"obj": "r_dpvs.obj",
-"why": [
-"call ?R_FilterEntityIntoCells_r@@YAHPAUmnode_t@@HPBM1@Z"
-]
 },
 "?R_GetSidePlaneNormals@@YAXPAY02$$CBMHPAY02M@Z": {
 "t": "0x10005ee0",
@@ -514,6 +524,26 @@
 "n": 468,
 "obj": "r_dpvs.obj",
 "why": []
+},
+"?R_LinkEntityToCell@@YAXPAUGfxCell@@HPBM1@Z": {
+"t": "0x10008570",
+"n": 139,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_TransformBoundsCorners@@YAXPBUGfxEntity@@QAM1PAY02$$CBM@Z": {
+"t": "0x100088c0",
+"n": 2317,
+"obj": "r_dpvs.obj",
+"why": []
+},
+"?R_CullBrushEntity@@YAXHPAUDpvsPlane@@H@Z": {
+"t": "0x100091d0",
+"n": 117,
+"obj": "r_dpvs.obj",
+"why": [
+"call ?R_FilterEntityIntoCells_r@@YAHPAUmnode_t@@HPBM1@Z"
+]
 },
 "?R_AddVertToPortalHullPoints@@YAXPAUGfxPortal@@PBM@Z": {
 "t": "0x10009910",
@@ -2974,12 +3004,6 @@
 "why": [
 "call ?R_TakeResampledScreenshot@@YAPAEHHHH@Z"
 ]
-},
-"?VectorLength@@YAMQBM@Z": {
-"t": "0x10005bb0",
-"n": 33,
-"obj": "r_shadowcookie.obj",
-"why": []
 },
 "?R_CompareShadowCandidates@@YA_NABUShadowCandidate@@0@Z": {
 "t": "0x10027170",
@@ -6518,12 +6542,6 @@
 "?VectorCompare@@YA_NQBM0@Z": {
 "t": "0x100582a0",
 "n": 52,
-"obj": "com_math.obj",
-"why": []
-},
-"?VectorScale4@@YAXQBMMQAM@Z": {
-"t": "0x10005be0",
-"n": 39,
 "obj": "com_math.obj",
 "why": []
 },
