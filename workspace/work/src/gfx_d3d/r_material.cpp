@@ -940,13 +940,15 @@ Material *Material_Register(const char *name, int imageTrack)
     unsigned short hashIndex;
     bool found;
     Material_FindHashSlot(name, &hashIndex, &found);
-    if (found)
-        return R_GetMaterialHashTable()[hashIndex];
-    Material *material = Material_LoadBinary(name, imageTrack);
-    if (!material)
-        return Material_DuplicateDefault(name);
-    Material_AddToTable(material, hashIndex);
-    return material;
+    if (!found)
+    {
+        Material *material = Material_LoadBinary(name, imageTrack);
+        if (!material)
+            return Material_DuplicateDefault(name);
+        Material_AddToTable(material, hashIndex);
+        return material;
+    }
+    return R_GetMaterialHashTable()[hashIndex];
 }
 
 
