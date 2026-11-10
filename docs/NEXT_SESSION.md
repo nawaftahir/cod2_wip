@@ -8,7 +8,11 @@
 
 ## Branches
 - gfx/main: confirmed line. gfx/recon on origin = gfx/main.
-- gfx/w-backend: rb_backend worker (check its last commit before reuse).
+- gfx/w-backend 67723f4d: 5 byte matches in rb_backend (RB_DrawFullScreenColoredQuad 1002e9e0,
+  RB_FullScreenFilter 1002ea60, RB_NeedsBlur 10030840, RB_GetBlurRadius 10030a20,
+  RB_DrawTrianglesCmd 10031e90) held back: same-offset 252168 -> 250443. Land as a region batch
+  once rb_backend sizes close (RB_FullScreenColoredFilter, RB_NeedsGlow are size-only). Refresh the
+  rb_backend.cpp hash in work/tools/source_coverage.py after confirming no __asm line changed.
 - gfx/s1b: material work, Material_ParseRuleSet byte-identical but unbound
   (chain root Material_ParseRuleSetCondition 352/346, retail double bool conversion).
 - Worktrees with a built tree: gfx-recon, gfx-s1b, gfx-s2m, gfx-mat2. First build elsewhere ~10 min.
