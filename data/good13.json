@@ -5706,8 +5706,9 @@
 "name": "?CM_Trace@@YAXPAUtrace_t@@PBM111HH@Z",
 "obj": "cm_trace.obj",
 "size": 1422,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x41d120"
+]
 },
 {
 "name": "?CM_BoxTrace@@YAXPAUtrace_t@@PBM111HH@Z",
