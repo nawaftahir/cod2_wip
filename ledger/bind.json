@@ -205,6 +205,12 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
+"?R_IsMissingOrBadModel@@YAEPBUXModel@@@Z": {
+"t": "0x10003010",
+"n": 23,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
 "?R_IsValidStaticModel@@YAEPAY01PBDHPAPAUXModel@@PAM@Z": {
 "t": "0x10003030",
 "n": 328,
@@ -229,23 +235,19 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
-"?R_InterpretSunLightParseParamsIntoLights@@YAXPAUSunLightParseParams@@PAUGfxLight@@@Z": {
-"t": "0x10004dc0",
-"n": 371,
-"obj": "r_bsp_load_obj.obj",
-"why": []
-},
-"?R_SetParentAndCell_r@@YAXPAUBspNodeA@@0@Z": {
-"t": "0x100046e0",
-"n": 68,
-"obj": "r_bsp_load_obj.obj",
-"why": []
-},
 "?R_BuildCellAabbTrees@@YAXXZ": {
 "t": "0x10003810",
 "n": 104,
 "obj": "r_bsp_load_obj.obj",
 "why": []
+},
+"?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10003ee0",
+"n": 164,
+"obj": "r_bsp_load_obj.obj",
+"why": [
+"call ?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z"
+]
 },
 "?R_LoadCells@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10003f90",
@@ -256,6 +258,12 @@
 "?R_LoadPortalVerts@@YAXPAUGfxBspLoad@@@Z": {
 "t": "0x10004080",
 "n": 240,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_LoadCullGroups@@YAXPAUGfxBspLoad@@@Z": {
+"t": "0x10004300",
+"n": 194,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
@@ -271,17 +279,21 @@
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
-"?R_LoadAabbTrees@@YAXPAUGfxBspLoad@@@Z": {
-"t": "0x10003ee0",
-"n": 164,
+"?R_SetParentAndCell_r@@YAXPAUBspNodeA@@0@Z": {
+"t": "0x100046e0",
+"n": 68,
 "obj": "r_bsp_load_obj.obj",
-"why": [
-"call ?R_FinishLoadingAabbTrees_r@@YAHPAUGfxAabbTree@@H@Z"
-]
+"why": []
 },
 "?R_LoadStep@@YAXPBD@Z": {
 "t": "0x10004870",
 "n": 31,
+"obj": "r_bsp_load_obj.obj",
+"why": []
+},
+"?R_InterpretSunLightParseParamsIntoLights@@YAXPAUSunLightParseParams@@PAUGfxLight@@@Z": {
+"t": "0x10004dc0",
+"n": 371,
 "obj": "r_bsp_load_obj.obj",
 "why": []
 },
