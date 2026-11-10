@@ -394,6 +394,35 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Tools: `tools/c2dbg13.sh` (winedbg), `tools/c2memscan13.sh` (find emitted bytes in c2 memory, needs --cap-add SYS_PTRACE), `tools/c2dis.py`, `tools/c2xref.py`.
   Forcing a colour pick in winedbg (`set $ecx` at 0x107834bd, diff dx.exe) maps colour nodes to instructions.
 
+## Unknown storage (owner + lead decision, 11-10)
+Goal stays 100% reconstructed source AND identical bytes, readable for future readers. Rules, copied from cod2engine lnxded/mp-1.0 `src/unknown/`:
+- A storage-only object is allowed only where retail bytes prove an unreferenced region (no code or data reference anywhere), sized exactly from retail's neighbouring symbols.
+- It lives under `unknown/`, is named after its retail address (e.g. `unknown_b013f8`), and carries one comment line with the evidence and "real identity unknown".
+- Never rename, resize or realign a real variable to fit an offset; names only from evidence (Mac symbols, retail strings, reference source). A variable with an unknown name keeps its placeholder name and stays listed.
+- Existing placeholders (uiComponentUnreferenced, winInputUnreferenced, wiFill_21, clFill_248, the six Rich-header empty TUs) follow the same rule: each must be backed by a proven unreferenced retail gap and documented; README and KNOWLEDGE keep the full list.
+- The mixerGetRecordLevel post-link patch is NOT used in 1.3. The six `unknown/empty_N.cpp` TUs are (owner decision, see the Rich entry below).
+- OWNER DECISION + clean gate (n1, 11-10, same-offset 1963931 -> 1967115, matched-fn 1549931 -> 1552684): the six 1.0
+  `unknown/empty_N.cpp` /GL TUs are linked in 1.3 too, all six at the end of the /GL list after gfx_v60_threads (the 1.0
+  positions, empty_1 after devgui_input, flipped the CG_DrawPlayerStance tie; at the end it stays matched, e59606e1). They are PLACEHOLDERS for retail's six unknown /GL C++ objects (Rich prodid 100: 275 = retail); their real names and
+  positions are unknown. Effect: Rich count, checksum and the 24-byte padding now equal retail, e_lfanew 0x120, the PE header differs in
+  4 bytes only. The earlier 343 B header residue was 100% this.
+- Remaining 4 header bytes: Rich entries (25,9466) and (28,9466) in the other order. Both come from build/lib/mss32.lib (the import members
+  are prodid 25, mss_auto.obj from VS .NET 2002 is prodid 28). Putting mss_auto.obj first in the archive does NOT change the Rich orde
+  (lab relink); the order follows which member the link pulls first. Open.
+- stPbSv::LoadServerDll (0x4bd3e0): code is byte-identical to retail except the six string addresses, so no code-matching shape exists to
+  move the literals; the literal-pool order stays deferred.
+- __real pool (0x5c4460..0x5c44f8, 64 B): only two constants are misplaced. Double 1000.0 (users CL_DemoCompleted, CG_FxTest, HTNumToStr;
+  same users in retail) sits at ours 0x5c4460, retail 0x5c44a0: retail compiles its first user between CG_PlayerFloatSprite (F#5581) and
+  Particle::Die (F#5635), ours compiles CL_DemoCompleted at F#5436. Float 720.0 (fire_grenade) ours 0x5c44c4, retail 0x5c44e8: retail
+  compiles fire_grenade after Mantle_CreateAnims (F#6041), ours at F#6035. Call-graph DFS order shifts, no source lever with evidence.
+- METRIC CHANGE (n1, 11-10, 26a2aaaf): same-offset (tools/shameter.py, read by ratchet13.sh and meter.py) now counts the PE heade
+  (SizeOfHeaders, 4096 B) as well as every section; it was sections only, so header fixes showed +0. On the same build the number moved
+  1967119 -> 1971211 (+4092 = header bytes already equal) with no source change. meter-1.3.json gains `sections.header`. Self-test
+  tools/test_shameter.py (anchor vs itself = full total; one flipped header byte = total - 1) runs in ratchet13.sh.
+- Rich (25,9466)/(28,9466) order: the original Miles mss32.lib is not in dev/sdk or the reference trees (opencod1 and KisakCOD ship othe
+  Miles versions with no 9466 objects). In the link, mss_auto.obj (28) loads BEFORE the mss32 import descriptor objects (25), yet the Rich
+  lists 25 first, and our archive already has mss_auto.obj as its first member, so neither link load order nor member order explains it.
+  Open; no lib rebuild tried beyond the two variants in TRIED.
 ## 21. Rotation sweep (n3, 11-10, after merging w5-bss; baseline same-offset 1967119, matched-fn 1554291)
 - `tools/regonly13.py EXE MAP ANCHOR` lists equal-address functions whose code is equal once GPR names and image addresses are masked.
   Only 3 have a real register permutation: Menu_SetNextCursorItem (ecx>eax, edx>ecx, eax>edx, a one-step rotation),
