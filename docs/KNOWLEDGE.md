@@ -349,3 +349,15 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Open: cm (cm_load) is ours 0xb013f8, retail 0xb01400, so cm and cme are +8 until cmd_texts absorbs it. Everything up to scr_initialized 0xb013f4 already matches. Whether retail has 16-byte alignment or an 8-byte unreferenced object there cannot be told from the bytes (HYPOTHESIS either way). It affects CM_InitBoxHull, CG_BuildSolidList and SV_SpawnServer operands.
 - Open: SV_SpawnServer, UI_RunMenuScript and CL_InitOnceForAllClients residue includes `call 0x57b5e0` vs ours 0x57b8c0, the known libcmt strncpy order.
 - ratchet13 only rejects matched-fn loss: a same-offset DROP still prints RATCHET OK and gets accepted. Check the same-offset delta in build/gate.out before keeping an accept.
+- PINNED (n1, pefile field diff, build/hdr.py + rich.py): all 343 differing header bytes come from the Rich block. Every FILE/OPTIONAL
+  header field, data directory, section header, TimeDateStamp, CheckSum and the RSDS record (GUID, age 1, pdb path) are EQUAL (faketime +
+  guidpin already pin them). Rich differs in: prodid 100 (C++ /GL compiles, build 3077) count 275 retail vs 269 ours = retail linked 6 more
+  /GL C++ objects; entries (25,9466) and (28,9466) in the other order (first-seen order of those library objects); and retail pads the Rich
+  block with 24 zero bytes (e_lfanew 0x120) where ours pads 8 (0x110). That 16-byte e_lfanew shift moves every NT/section header byte.
+  Which 6 TUs are missing is unknown (the 1.0 empty_N TUs are not in 1.3); not fixable without evidence, no empty TUs added.
+- .rdata non-address residue (121 B): (a) 0x5b39e8 pbsv LoadServerDll literals: retail pool pbsvold, pbsvnew, "PB Error: Server DLL Load
+  Failure", pbag, pbsv; ours has "Load Failure" before pbsvold/pbsvnew. With the reverse-source-order rule the rename-block literals sit
+  AFTER the Load Failure literal in retail source; all are referenced only by LoadServerDll. Mac has no LoadServerDll (inlined, no line
+  table), so the original arrangement is unknown: DEFERRED. (b) 0x5c4460..0x5c44f8: __real@ float/double pool order (LTCG codegen order),
+  64 B, follows compile order, not attempted.
+- The classifier's "sys_timeBase -8" run is g_splashWnd (ours 0xd76af0, retail 0xd76ae8; static, not in the map): the open item above.
