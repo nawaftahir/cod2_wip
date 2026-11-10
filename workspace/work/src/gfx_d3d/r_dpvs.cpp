@@ -411,9 +411,9 @@ __declspec(noinline) bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
         if (stackLevel > occluder->ignoreStackLevel)
             continue;
         bool occluded = true;
-        for (int j = 0; j < occluder->viewPlaneCount; ++j)
+        DpvsPlane *plane = occluder->viewPlanes;
+        for (int j = 0; j < occluder->viewPlaneCount; ++j, ++plane)
         {
-            DpvsPlane *plane = &occluder->viewPlanes[j];
             if (stackLevel > plane->u.frontal)
                 continue;
             plane->u.frontal = 255;
@@ -433,9 +433,9 @@ __declspec(noinline) bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeC
     const float *bounds, int stackLevel)
 {
     bool partial = false;
-    for (int i = 0; i < planeCount; ++i)
+    for (; planeCount; --planeCount, ++planes)
     {
-        DpvsPlane *plane = &planes[i];
+        DpvsPlane *plane = planes;
         if (stackLevel > plane->u.frontal)
             continue;
         if (!R_DpvsPlaneFarCornerNotBehind(plane, bounds))
@@ -451,14 +451,6 @@ __declspec(noinline) bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeC
     return false;
 }
 
-static void R_AddWorldSurfaceDirect(int surfIndex)
-{
-    if (rg.surfaces[surfIndex].viewCount == scene.viewCount)
-        return;
-    rg.surfaces[surfIndex].viewCount = scene.viewCount;
-    const GfxSurface *surf = &rgp.world->surfaces[surfIndex];
-    R_AddDrawSurf(surf->material, surf->sortGroup + 2048, surf->lightmapIndex, surf->data);
-}
 
 // Convex winding extrema.
 /* PINNED 1.0 convex-winding search and plane coefficients at offsets 0..12. */
@@ -530,6 +522,13 @@ double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float
         }
     }
     return nearest;
+}
+
+static void R_AddWorldSurfaceDirect(int surfIndex)
+{
+    rg.surfaces[surfIndex].viewCount = scene.viewCount;
+    const GfxSurface *surf = &rgp.world->surfaces[surfIndex];
+    R_AddDrawSurf(surf->material, surf->sortGroup + 2048, surf->lightmapIndex, surf->data);
 }
 
 // PINNED 10006be0/446: transform homogeneous clipping planes and normalize XYZ.
@@ -976,7 +975,8 @@ static void R_AddAabbTreeSurfaces_r(GfxAabbTree *tree, DpvsPlane *planes,
             for (int i = 0; i < tree->staticModelCount; ++i)
                 R_AddStaticModelDirect(tree->staticModels[i]);
         for (int i = 0; i < tree->surfaceCount; ++i)
-            R_AddWorldSurfaceDirect(tree->startSurfIndex + i);
+            if (rg.surfaces[tree->startSurfIndex + i].viewCount != scene.viewCount)
+                R_AddWorldSurfaceDirect(tree->startSurfIndex + i);
     }
     else if (tree->childCount)
     {
