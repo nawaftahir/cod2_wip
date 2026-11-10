@@ -327,3 +327,16 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   is 16-byte alignment of cm or an unreferenced 8-byte object is unknown (HYPOTHESIS either way); deferred, not changed.
 - Note: the lab link (tools/lab13.sh -> build/ra/ox.exe) carries +0x10 .rdata constants versus retail in many fns; read data operands on
   build/release, not on the lab exe.
+- Tool (n1): `tools/diffclass13.py EXE MAP ANCHOR [N]` splits every byte differing at the same FILE offset into code / addr (dword that is
+  an image address in both files, grouped into runs by our target symbol and delta) / pad / data / header, and ranks the address runs.
+  At b4c0e627: 6760 B differ = .text code 4900, .text addr 1230, header 343, .rdata addr 163, .rdata data 121, .data addr 3.
+  (The meter's same-offset gap is computed differently, 6537 B at e63eca98; both numbers are labelled by their method.)
+- PINNED (n1, retail operands + clean gate 1963639 -> 1963759): the PbDvarWalk cursor (`static dvar_t *var` inside the fn) needs an explicit
+  `= NULL`: it then sits in the function-static block at retail 0x19a1dbc (between the Com_PrintMessage and Info_ValueForKey statics) instead
+  of the last slot 0x19a6ffc (retail leaves that slot unreferenced). Closes the cg_freeLocalEntities +4 run. Explicit zero applies to
+  function-local statics too.
+- DEFERRED (n1, retail operands): com_files bss. Retail has the startup config-name pointer (ours `fs_defaultConfigName`, KNOWLEDGE 3
+  `g_cfgName`) at 0xb1a5ac between fs_ignoreLocalized and fs_restrict, ours at 0xb1b6c8, so fs_restrict..fs_fakeChkSum run +4 and late
+  slots +8. TU bss order follows names and the real name is unknown (no Mac counterpart: the Mac Com_ExecStartupConfigs differs), so it is
+  not renamed to fit.
+- DEFERRED: win_threads statics are defined in retail order but land in name order (names unknown): +44/+12/-56 operands at 0xd528a4..f4.
