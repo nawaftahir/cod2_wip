@@ -4323,3 +4323,9 @@ R_AddCmdLightProperties 10021770/192: x87 float copy and specular alpha multiply
 2026-11-09 zero-register class, RB_SaveLightVisHistory: inline helper taking the zero as a parameter and chained s_vc_log=(byte*)(s_vc_logCount=0) both still emit two immediate stores. With earlier /G5-/G7 and /Os trials, source spelling and tuning flags are exhausted for this class; do not retry without new evidence.
 2026-11-09 RB_UpdateViewportConstants: explicit viewportOffset pair reaches retail slot 368 (was 352); frame 0x28 vs 0x34 and x87 temps still differ, 41 diffs. Declaration reorder has no effect.
    That fit lowers same-offset 252172 -> 250877 (later code leaves accidental alignment); source change backed out. Apply only with the neighbouring drift work.
+
+# r_scene.cpp register-class probes (gfx/w-scene) - 2026-11-11
+R_AddPolyToScene 10023ed0/245: dropped the int count local (use vertCount directly); fdiff unchanged (71 diff rows, size equal). Reverted.
+R_AddModelRefEntity 10023cc0/128: hoisted sceneEnt before the entity copy: edx imul scheduled early, but the prologue regressed (ecx/eax load order, +16 B). Declared after the copy: still 11 diff rows, not a match. Reverted.
+R_AddDrawSurf 10024380 (ours 112 B vs retail 117 B): retail takes material in eax, entIndex in ecx, lmapIndex in esi (ours entIndex eax, material ebx); sort = type + sort swap changed nothing. Needs the LTCG arg-register choice, not source order. Open.
+R_CopyRefEntityToScene 10023780: ours 144 B vs retail 128 B; the whole gap follows R_AddDrawSurf register convention (retail passes customMaterial eax, entIndex ecx).
