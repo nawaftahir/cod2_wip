@@ -595,3 +595,12 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
   HYPOTHESIS: the /Op traits there come from something other than an /Op inlinee (the n2 halfFov local gives the [esp+0x20] store), or
   the forward reload has another cause. Probe with `AngleVectors(&cg->gunPitch, ...)` under "p": yaw direct, pitch re-read from cg after
   the asm (retail copies it before). Cg_t has gunPitch, gunYaw, gunXOfs, gunYOfs (no gun roll, not a vec3).
+- (w7-b, 11-11, PINNED on retail bytes) Retail's tan call target 0x58f880 is libcmt `_CItan` (`sub esp,0xc; fst qword [esp]; call ...`):
+  the st0-argument intrinsic helper, i.e. the host compiles tan as an intrinsic under /Op rules (a no-"p" probe inlines fptan instead).
+  Not a com_math wrapper or a tan(float) COMDAT. Our base also calls it. The forward `fstp; fld [esp+0x18]` is present in ours too
+  (no diff there; only the slot differs once halfFov exists).
+- In-tree (w7-b): n2 halfFov local + C++ `tan(halfFov)` float overload + horiz/vert inlined into the `*x =`/`*y =` expressions gives retail's
+  tan block order (fov*k stored before the dot product, dot kept on x87 across _CItan): 444 B (retail 448, base 440). Left: yaw copy, the two
+  later dot products load the cg element with fld (retail fld the gunDir element), forward/halfFov slots +4 (yaw temp takes a slot).
+  Gate: RATCHET OK matched-fn 1553677 +0, but same-offset 1972087 (-21): GATE REJECT, reverted. With halfFov local but horiz/vert kept: 456 B.
+  Mac-style explicit sums inside the `*x =` expression: 460 B, worse.
