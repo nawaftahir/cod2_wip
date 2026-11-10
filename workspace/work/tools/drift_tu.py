@@ -5,7 +5,7 @@ The first object whose drift changes is where retail layout and ours part ways.
 """
 import json
 import sys
-from collections import OrderedDict
+from collections import Counter, OrderedDict
 from pathlib import Path
 
 
@@ -30,7 +30,7 @@ def drift_by_object(bind, symbols):
 
 
 def net_deltas(bind, symbols):
-    """Per object: change in median drift to the next object, i.e. ours span - retail span.
+    """Per object: change in the modal drift (a run of 2+ functions) to the next object, i.e. ours span - retail span.
 
     An estimate; read it together with the per-object drift table.
     """
@@ -41,7 +41,11 @@ def net_deltas(bind, symbols):
         # library objects (LIBCMT:x) link in another order; big values are mis-bound short bodies
         if abs(delta) < 0x10000 and ':' not in obj:
             per.setdefault(obj, []).append(delta)
-    first = OrderedDict((obj, sorted(d)[len(d) // 2]) for obj, d in per.items())
+    first = OrderedDict()
+    for obj, d in per.items():
+        value, count = Counter(d).most_common(1)[0]
+        if count >= 2:  # a lone drift is a mis-bind, not a run at one offset
+            first[obj] = value
     keys = list(first)
     return sorted(((first[b] - first[a], a) for a, b in zip(keys, keys[1:])), key=lambda x: -abs(x[0]))
 
