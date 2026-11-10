@@ -42113,7 +42113,7 @@
 {
 "name": "?CG_DrawScoreboard_Objective@@YAMPBMM@Z",
 "obj": "cg_scoreboard_mp.obj",
-"size": 1552,
+"size": 1540,
 "hits": [],
 "reason": "no masked match"
 },
