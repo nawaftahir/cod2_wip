@@ -411,3 +411,14 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   sv_punkbuster region (+44/+12/-56) 43 fns 50 B; FX vtables (Effect +132, Particle/Emitter -176, Cylinder +220, ...) ~40 fns 55 B; sys_timeBase -8 8 fns 15 B;
   WWW_TraceFlag (n2) 11 fns 15 B; __real@ constants (.rdata order) ~20 B; dvar pointers cl_* +4 ~13 B. A fn hit by two runs counts once.
 - Menu_SetNextCursorItem do-while with an explicit guard (`if (c < n) do {...} while (c < n);`): worse (240 B, oldCursor spilled); not the lever.
+
+## 22. Vtable order and bss order follow names/declarations, not code (n3, 11-10, PINNED by lab + clean gate)
+- FxPrimitives vtables (.rdata 0x5b1028..0x5b11b0): contents always matched, only the order differed. Lab probes show
+  vtable order = reverse of the forward class declaration order, rotated so the LAST TWO declared go to the end
+  (4 probes fit). Retail order Cloud, Particle, Tail, Emitter, Effect, Line, OrientedParticle, Cylinder, Light comes from
+  `class OrientedParticle; Line; Effect; Emitter; Tail; Particle; Cloud; Light; Cylinder;`. Gate 1967119 -> 1967333.
+  Not the compile order of ctors/dtors (ra13 F lines: Effect, Light, Particle, Emitter, Tail, Line, Cloud, OP, Cylinder).
+- cl_main .bss dvar pointers: slot order does not follow definition order (moving the definition changed nothing) nor
+  registration order (retail and ours register in the same order). It follows the symbol NAME: renaming `dvar_68a3a0` to
+  `motd` (KisakCOD cl_main_mp.cpp registers "motd" into `motd`, SUPPORTED) puts it at retail 0x68a3a0 and shifts
+  cl_connectTimeout..m_pitch +4 like retail. Gate 1967333 -> 1967346. Placeholder names like dvar_XXXXXX can misplace .bss.
