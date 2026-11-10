@@ -145,6 +145,14 @@ void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubema
         Image_Upload2D(image, format, cubemapFace, mipLevel, src);
 }
 
+// Name UNCONFIRMED; PINNED 1000eda0/31, no callers in retail: smallest block edge for a format.
+int Image_FormatMinSize(D3DFORMAT format)
+{
+    if (format == D3DFMT_DXT1 || format == D3DFMT_DXT3 || format == D3DFMT_DXT5)
+        return 4;
+    return 1;
+}
+
 // Name UNCONFIRMED (Mac 1.3 inlines this into Image_Setup); 0x1000edc0.
 static void Image_ClampPicmip(D3DFORMAT format, int width, int height, Picmip *picmip)
 {
@@ -168,6 +176,15 @@ static void Image_ClampPicmip(D3DFORMAT format, int width, int height, Picmip *p
         if (picmip->platform[platform] > picmipLimit)
             picmip->platform[platform] = picmipLimit;
     }
+}
+
+// Mac 1.3 name (SUPPORTED); PINNED 1000ee10/21, no callers in retail (Setup inlines it).
+void Image_GetPicmip(const GfxImage *image, Picmip *picmip)
+{
+    if (image->noPicmip)
+        *(unsigned short *)picmip = 0;
+    else
+        Image_PicmipForSemantic(image->semantic, picmip);
 }
 
 void Image_Setup(GfxImage *image, int width, int height, int depth, int imageFlags, DWORD usage, D3DFORMAT imageFormat)
@@ -197,6 +214,12 @@ void Image_Setup(GfxImage *image, int width, int height, int depth, int imageFla
     else
         Image_Create2DTexture(image, mipWidth, mipHeight, mipmapCount, usage, imageFormat, D3DPOOL_MANAGED);
     Image_TrackTexture(image, imageFlags, imageFormat, width, height, depth);
+}
+
+// Mac 1.3 name (SUPPORTED); PINNED 1000ef30/1, no callers in retail.
+D3DCUBEMAP_FACES Image_CubemapFace(int face)
+{
+    return (D3DCUBEMAP_FACES)face;
 }
 
 // Name from KisakCOD (CoD4); 0x1000ef40.
