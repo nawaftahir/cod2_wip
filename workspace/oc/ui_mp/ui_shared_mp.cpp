@@ -2996,7 +2996,7 @@ void Item_Text_AutoWrapped_Paint(itemDef_t *item, const char *textPtr, vec_t *co
             }
             if (*p == '\0')
                 break;
-            y += (height < 16) ? height + 1 : height + 4;
+            y += (height < 16) ? (float)(height + 1) : (float)(height + 4);
             p = newLinePtr;
             len = 0;
             newLine = 0;
