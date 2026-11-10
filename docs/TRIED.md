@@ -4331,3 +4331,6 @@ R_AddCmdLightProperties 10021770/192: x87 float copy and specular alpha multiply
 
 # Retail definition order batch - 2026-11-11
 retail_order.py moved ~260 definitions in 22 game TUs to retail address order (prototypes added, bodies unchanged): gate green, same-offset 253888 -> 253921, merged (da552d25). Stacking on it R_SetSunLightVectors param order + Image_Register noinline (gfx/w-bsp e7c61e05) and Image_Generate2D/3D/SetupFromFile (gfx/w-imgload 65a41186): gate green, same-offset 250997, not landed. Sizes upstream (R_LoadLightmaps 16 B short) still shift everything after them.
+
+# r_flares/r_fog unnamed helpers - 2026-11-11
+Retail 1000bae0 (32 B slot: dst[2]=cl, dst[1]=dl, dst[0]=arg, dst[3]=arg; inlined in R_SetFog colour) and 1000bb00 (16 B: archiveProc thunk, inlined twice in R_ArchiveFogState) are out-of-line header inline copies with no name in opencod2, KisakCOD, Mac generated_syms or Mac r_fog.c. DEFERRED (no invented names): they are the 48 B r_fog drift.
