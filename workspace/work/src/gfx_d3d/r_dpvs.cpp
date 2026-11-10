@@ -146,6 +146,7 @@ void R_SkinStaticModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex
 void R_AddDebugString(DebugGlobals *debug, const float *origin, const float *color,
     float scale, const char *text);
 void R_AddDebugBox(DebugGlobals *debug, const float *mins, const float *maxs, const float *color);
+void R_AddDebugLine(DebugGlobals *debug, const float *start, const float *end, const float *color);
 
 // Portal visitation.
 extern const dvar_t *r_portalWalkLimit;
@@ -197,7 +198,6 @@ static bool R_OccluderBehindPlane(const GfxOccluder *occluder, const DpvsPlane *
 static bool R_IsOccluderOutsideView(const GfxOccluder *occluder,
     const DpvsPlane *planes, int planeCount);
 static void R_CreateOccluderEdgePlane(const float *v0, const float *v1, DpvsPlane *plane);
-static void R_AddOccluderDebugLine(DebugGlobals *debug, const float *start, const float *end);
 void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int planeCount);
 void R_DrawModel(int entIndex);
 int R_CellForPoint(const vec_t *origin);
@@ -212,7 +212,6 @@ static void R_AddWorldSurfaceDirect(int surfIndex);
 static void R_AddWorldSurfaceWithCull(int surfIndex, DpvsPlane *planes,
     int planeCount, int stackLevel);
 static void R_PublishStaticModel(int smodelIndex, const GfxStaticModelInstance *instance);
-static void R_AddStaticModelDirect(int smodelIndex);
 static void R_AddStaticModelWithCull(int smodelIndex, DpvsPlane *planes,
     int planeCount, int stackLevel);
 static void R_AddAabbTreeSurfaces_r(GfxAabbTree *tree, DpvsPlane *planes,
@@ -528,6 +527,9 @@ double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float
     return nearest;
 }
 
+/* Retail has no out-of-line copy, so this is a macro rather than a function. */
+#define R_AddStaticModelDirect(smodelIndexExpr)     do {         int smodelIndex_ = (smodelIndexExpr);         if (rg.smodelDyncs[smodelIndex_].viewCount != scene.viewCount)         {             rg.smodelDyncs[smodelIndex_].viewCount = scene.viewCount;             const GfxStaticModelInstance *instance_ = &rgp.world->smodelInsts[smodelIndex_];             if (instance_->cullDist == 0.0f || instance_->cullDist >=                 Vec3Distance(instance_->origin, rg.lodParms.origin) * rg.lodParms.scale + rg.lodParms.bias)                 R_PublishStaticModel(smodelIndex_, instance_);         }     } while (0)
+
 static void R_AddWorldSurfaceDirect(int surfIndex)
 {
     rg.surfaces[surfIndex].viewCount = scene.viewCount;
@@ -540,6 +542,7 @@ void R_FrustumClipPlanes(const D3DMATRIX *viewProjection, const vec4_t *sides,
     int sideCount, DpvsPlane *planes)
 {
     const float *matrix = (const float *)viewProjection;
+    // Reproduces retail's unread stores; PINNED 10006be0.
     DpvsPlane axisPlanes[8];
     for (int i = 0; i < sideCount; ++i)
     {
@@ -742,20 +745,6 @@ static bool R_IsOccluderOutsideView(const GfxOccluder *occluder,
 }
 
 
-static void R_AddOccluderDebugLine(DebugGlobals *debug, const float *start, const float *end)
-{
-    if (debug->lineCount + 1 > debug->lineLimit)
-        return;
-    if (!debug->lines)
-        debug->lines = (trDebugLine_t *)ri.Z_MallocInternal(debug->lineLimit * sizeof(trDebugLine_t));
-    trDebugLine_t *line = &debug->lines[debug->lineCount];
-    VectorCopy(start, line->start);
-    VectorCopy(end, line->end);
-    VectorCopy4(colorMagenta, line->color);
-    line->depthTest = false;
-    ++debug->lineCount;
-}
-
 void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int planeCount)
 {
     activeOccluders.count = 0;
@@ -789,7 +778,7 @@ void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int p
             if (edge->plane[0]->u.frontal == edge->plane[1]->u.frontal)
                 continue;
             if (r_showPortals->current.integer)
-                R_AddOccluderDebugLine(&frontEndDataOut->debugGlobals, *edge->vertex[0], *edge->vertex[1]);
+                R_AddDebugLine(&frontEndDataOut->debugGlobals, *edge->vertex[0], *edge->vertex[1], colorMagenta);
             int side = edge->plane[0]->u.frontal;
             R_CreateOccluderEdgePlane(*edge->vertex[!side], *edge->vertex[side],
                 &activeOccluderPlanes.planes[activeOccluderPlanes.count]);
@@ -797,18 +786,6 @@ void R_SetupOccludersForCell(const GfxCell *cell, const DpvsPlane *planes, int p
         }
         occluder->viewPlaneCount = activeOccluderPlanes.count - occluder->viewPlaneCount;
     }
-}
-
-void R_DrawModel(int entIndex)
-{
-    if (!dpvsGlob.debug.drawXModels)
-        return;
-    GfxEntity *ent = &scene.def.entities[entIndex];
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    R_UpdateXModelBounds(sceneEnt, ent);
-    R_SkinSceneEnt(sceneEnt, ent);
-    sceneEnt->cullState = 5;
-    R_AddXModelSurfaces(entIndex);
 }
 
 // PINNED 10007d60/93: equality and unordered plane distances take child1.
@@ -829,16 +806,6 @@ int R_CellForPoint(const vec_t *origin)
             node = node->u.node.children[1];
     }
     return node->cellIndex;
-}
-
-void R_CullSceneLights(const DpvsPlane *planes, int planeCount)
-{
-    for (int i = 0; i < scene.dlightCount; ++i)
-    {
-        const GfxLight *light = &scene.dlights[i];
-        scene.dlightCulled[i] = R_CullPointAndRadius(light->position,
-            light->position[3], planes, planeCount) == 2;
-    }
 }
 
 // PINNED 10007dc0/66; name SUPPORTED by KisakCOD.
@@ -883,16 +850,6 @@ static bool R_PortalBehindAllPlanes(const GfxPortal *portal, const DpvsPlane *pl
 }
 
 // PINNED adjacent active count/list at 101ce5c0/101ce5c4.
-
-// PINNED 10009700/58; descriptive name, not recovered debug information.
-static __declspec(noinline) bool R_IsPortalOccluded(const GfxPortal *portal)
-{
-    for (int index = 0; index < activeOccluders.count; ++index)
-        if (R_PortalBehindAllPlanes(portal, activeOccluders.list[index]->viewPlanes,
-                activeOccluders.list[index]->viewPlaneCount))
-            return true;
-    return false;
-}
 
 // PINNED 10007ef0; side and distance arrays include the closing vertex.
 static const vec3_t *R_ChopPortalWinding(const vec3_t *vertsIn, int *vertexCount,
@@ -1001,6 +958,18 @@ static void R_AddAabbTreeSurfaces_r(GfxAabbTree *tree, DpvsPlane *planes,
         for (int i = 0; i < tree->surfaceCount; ++i)
             R_AddWorldSurfaceWithCull(tree->startSurfIndex + i, planes, planeCount, stackLevel + 1);
     }
+}
+
+void R_DrawModel(int entIndex)
+{
+    if (!dpvsGlob.debug.drawXModels)
+        return;
+    GfxEntity *ent = &scene.def.entities[entIndex];
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    R_UpdateXModelBounds(sceneEnt, ent);
+    R_SkinSceneEnt(sceneEnt, ent);
+    sceneEnt->cullState = 5;
+    R_AddXModelSurfaces(entIndex);
 }
 
 // PINNED 100083a0/288: pose hints and visibility are client callbacks, not DObj calls.
@@ -1269,18 +1238,6 @@ static void R_PublishStaticModel(int smodelIndex, const GfxStaticModelInstance *
     R_AddXModelSurfaces(entIndex);
 }
 
-static void R_AddStaticModelDirect(int smodelIndex)
-{
-    if (rg.smodelDyncs[smodelIndex].viewCount == scene.viewCount)
-        return;
-    rg.smodelDyncs[smodelIndex].viewCount = scene.viewCount;
-    const GfxStaticModelInstance *instance = &rgp.world->smodelInsts[smodelIndex];
-    if (instance->cullDist != 0.0f && instance->cullDist <
-        Vec3Distance(instance->origin, rg.lodParms.origin) * rg.lodParms.scale + rg.lodParms.bias)
-        return;
-    R_PublishStaticModel(smodelIndex, instance);
-}
-
 static void R_AddStaticModelWithCull(int smodelIndex, DpvsPlane *planes,
     int planeCount, int stackLevel)
 {
@@ -1310,6 +1267,16 @@ static void R_AddCellCullGroups(const GfxCell *cell, DpvsPlane *planes, int plan
         if (rg.cullGroups[groupIndex].viewCount != scene.viewCount)
             R_AddCullGroup(groupIndex, planes, planeCount);
     }
+}
+
+// PINNED 10009700/58; descriptive name, not recovered debug information.
+static __declspec(noinline) bool R_IsPortalOccluded(const GfxPortal *portal)
+{
+    for (int index = 0; index < activeOccluders.count; ++index)
+        if (R_PortalBehindAllPlanes(portal, activeOccluders.list[index]->viewPlanes,
+                activeOccluders.list[index]->viewPlaneCount))
+            return true;
+    return false;
 }
 
 // PINNED: 10009910; descriptive name SUPPORTED by KisakCOD.
@@ -1652,6 +1619,16 @@ void R_ClearDpvsScene()
     {
         for (cellIndex = 0; cellIndex < rgp.world->cellCount; cellIndex++)
             rgp.world->cells[cellIndex].modelRefs = 0;
+    }
+}
+
+void R_CullSceneLights(const DpvsPlane *planes, int planeCount)
+{
+    for (int i = 0; i < scene.dlightCount; ++i)
+    {
+        const GfxLight *light = &scene.dlights[i];
+        scene.dlightCulled[i] = R_CullPointAndRadius(light->position,
+            light->position[3], planes, planeCount) == 2;
     }
 }
 
