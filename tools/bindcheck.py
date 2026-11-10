@@ -372,7 +372,10 @@ for name, r in cands.items():
     why = []
     # extent: target continues with padding or a known function start
     nb = read(asecs, t + n, 1)
-    if not (t + n in astarts or t + n in acalls or t + n in placed or closed_end(code, va, n) or closed_run(name, va, t, n) or nb in (b'\xcc', b'\x90') or t + n >= atext[0] + atext[1]):
+    # our next body from the same object also matches retail right after this one
+    nxt = atva.get(va + n)
+    nxt_eq = bool(nxt in allc and allc[nxt]['obj'] == allc.get(name, {}).get('obj') and allc[nxt]['size'] and masked_eq(va + n, t + n, allc[nxt]['size']))
+    if not (t + n in astarts or t + n in acalls or t + n in placed or nxt_eq or closed_end(code, va, n) or closed_run(name, va, t, n) or nb in (b'\xcc', b'\x90') or t + n >= atext[0] + atext[1]):
         why.append('extent')
     binds, calls = [], []
     for k in range(n):
