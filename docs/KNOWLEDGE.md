@@ -550,27 +550,20 @@ Tooling: tools/ra13.sh TAG, then lab/al.sh TAG (split_all + cpick for this fn). 
   free reg. HYPOTHESIS: ours makes the line-746 (wrap loop) and line-762 defs one web or keeps it live across the
   wrap loop; earlier tries with a separate inner `cw` were byte-identical (TRIED w2), so the merge happens below the
   source variable level (IL copy propagation). No source form found this session; DEFER.
-- (w7-c, later) Pass-1 charWidth IS logged: P line node 0x068535b8, id 53, n3 -106, **n16 0**, n17 388 (pass-2 piece is
-  id 47, node 0x06853408). n16 = 0 means the pass-1 web has no use weight at all, so it is never accepted; the pass-2
-  piece (n16 16) is created by the split. So the question is why pass 1 credits charWidth zero use weight.
-- winedbg watch on node 0x068535b8 + 0x40 with tools/c2dbg13.sh (lab/w47.sh ADDR N): 210 writes, none from color.c
-  (0x1078xxxx); all from 0x1075xxxx / 0x107axxxx / 0x107bxxxx allocators.
-- CORRECTION (P-hook read inside the c2dbg13 run, lab/wp.sh): heap addresses DO carry over. At the pop hook 0x10782a5e
-  the debug run shows node 0x068535b8, id 0x35, n16 0, n17 0x184, the same as the ra13 log. So the watch above was on the
-  right node: from its zeroing (0x107bae7f memset) to its reuse (0x107baf61 string writes) the n16 dword is never
-  written nonzero. None of the n16 weight sites (REGALLOC round 6: 0x10711011/256/790/b46) credits one reference to the
-  pass-1 charWidth node, and its n3 -106 comes only from region subtractions. HYPOTHESIS: by pass 1 every IL reference
-  of charWidth is already bound to other nodes (split pieces or temps), so the variable node is a pure memory home.
-  Next: find which pre-colouring splitter takes its references (watch the IL operand +0x1c bindings, REGALLOC round 7
-  caveT/caveW) instead of the node. No source form predicted yet; DEFER.
-- n17 watch on the same node (+0x44, lab/w47.sh 0x068535fc): the address first holds another node bound by the IL walk
-  (0x1077fae6, n17 0x25c), freed at 0x10784da6; then the splitter at 0x1078b4a2 creates a piece there twice (n17 0, freed;
-  then n17 0x184), freed again after colouring. So PINNED: the pass-1 "charWidth" node id 53 is a SPLIT PIECE (n17 copied
-  from its parent, last parent ref at IL 388), not the variable's original web. A piece with n16 0 is a range with no
-  references: c2 split charWidth around a high-pressure stretch and kept that reference-free stretch in memory
-  ([esp+0x28]), giving the referencing ends to short pieces (the pass-2 eax piece). Retail keeps the web whole in ebp, so
-  retail's register pressure on that stretch (between the line-762 def and the line-793 use: SEH read, switch, the two
-  textBuffer stores) is lower. Our visible extra demand there is the textBuffer base loaded into ebp/edi where retail folds
-  it as a memory operand. Tried (1 build): index order `con.textBuffer[con.lineOffset + line * con.linewidth]` at both
-  stores: 90 diff lines, same as base. Next: log which stretch the splitter cuts (break at 0x1078b4a2, read the piece's
-  range) and which nodes are live there. DEFER.
+
+## 26. CG_CalcCrosshairPosition / DL_BeginDownload colour dump (w7-b, 11-11, ra13 + lab/ra.sh on a clean 59ab7544 build)
+Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for one fn), lab/b.sh FN (fdiff), lab/mk.sh FN (incremental build + fdiff). PINNED on our build unless marked.
+- CG_CalcCrosshairPosition: only 2 colour nodes (y id 2 n3 10 -> esi, x id 3 n3 10 -> edi). The yaw copy (`mov ecx,[cg->gunYaw]; mov [esp+0x28],ecx; fld [esp+0x28]`)
+  is NOT a colour decision: ecx is a local pick and the residue is that the gunAng[1] store survives. Retail has no yaw store at all (fld [cg->gunYaw]),
+  keeps the pitch copy [esp+0x24] (live across the FastSinCos call) and ours drops the roll store too. So retail forwarded the yaw load from its store and
+  killed the store; ours kept both. HYPOTHESIS: our float copy is turned into an integer move early, so the inlined `angles[YAW]` float load is not
+  forwarded from it. The explicit-products (Mac) dot product form is byte-identical to base (lab, 11-11). Next: a lab fn in one TU with a vec3 filled
+  from a global and read by an inlined callee, to find which spelling forwards element 1 but not element 0.
+- DL_BeginDownload pass picks (22): host id 18 n3 84 -> esi; remoteUrl id 7 -> ebp; hostSeparator id 15 n3 66 free {edi 1, ebx 400} -> edi;
+  basic id 21 -> ebx (3800); scheme (first, id 39 n3 6) -> ebx (400); zero temp id 38 n3 3 n16 1 -> esi (cost 0, only esi free); localName id 27 -> edi.
+- Retail: scheme edi, hostSeparator and basic ebx (edi/ebx swapped vs ours), no zero temp after the copy arms (both `requestUrl = NULL` are
+  `mov [esp+..],0` immediates), and localName loaded to edi then `mov ecx,edi; push ecx` at HTLoadToFile. Implied (derived): in retail the
+  post-join zero piece is spilled (no free callee-saved reg, or the piece is never made), and hostSeparator sees ebx cheaper than edi
+  (ours edi 1 vs ebx 400, ebx cost = 100 * n16 of single-free-reg neighbours, section 25). Both point at different web shapes around the
+  copy arms, not at a colour tie. CoD4 (KisakCOD dl_main.cpp, Hex-Rays) has the same body with HT_FREE-style `x = 0` after every free and
+  one merged if/else for the copy; the merged form is already TRIED (765 B). No source form derived; DEFER.
