@@ -15,6 +15,26 @@ void Image_GetSunHalfAngleForVector(const float *direction, int unused, unsigned
 
 void Wavelet_DecompressLevel(byte *src, byte *dst, WaveletDecode *decode);
 
+// PINNED 1000fb30/74 and 1000fb80/75: no callers in retail (inlined everywhere).
+void Image_Generate2D(GfxImage *image, byte *pixels, int width, int height, D3DFORMAT format)
+{
+    Image_Setup(image, width, height, 1, 3, 0, format);
+    Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+}
+
+void Image_Generate3D(GfxImage *image, byte *pixels, int width, int height, int depth, D3DFORMAT format)
+{
+    Image_Setup(image, width, height, depth, 11, 0, format);
+    Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+}
+
+// SUPPORTED name: KisakCOD Image_SetupFromFile; PINNED 1000f2f0/39, no callers in retail.
+void Image_SetupFromFile(GfxImage *image, const GfxImageFileHeader *fileHeader, D3DFORMAT format)
+{
+    Image_Setup(image, fileHeader->dimensions[0], fileHeader->dimensions[1],
+        fileHeader->dimensions[2], fileHeader->flags, 0, format);
+}
+
 void R_LoadJpg(const char *filename, byte **file, byte **pixels,
     int *width, int *height, D3DFORMAT *format);
 
