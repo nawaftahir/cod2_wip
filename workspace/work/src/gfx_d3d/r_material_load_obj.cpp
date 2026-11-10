@@ -962,30 +962,6 @@ Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass)
     }
 }
 
-// PINNED 1001aa00: publish the shader before parsing its arguments.
-__declspec(noinline) Bool Material_LoadPassVertexShader(const char **text, MaterialPassDx9 *pass, byte *techFlags)
-{
-    if (!Com_MatchToken(text, "vertexShader", 1))
-        return 0;
-    MaterialShader *shader = Material_LoadPassShader(text, 0);
-    if (!shader)
-        return 0;
-    pass->vertexShader = shader;
-    return Material_SetPassShaderArguments(text, shader, techFlags, &pass->vertexArgCount, &pass->vertexArgs);
-}
-
-// PINNED 1001aa50: pixel arguments have their own count and pointer fields.
-__declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, MaterialPassDx9 *pass, byte *techFlags)
-{
-    if (!Com_MatchToken(text, "pixelShader", 1))
-        return 0;
-    MaterialShader *shader = Material_LoadPassShader(text, 1);
-    if (!shader)
-        return 0;
-    pass->pixelShader = shader;
-    return Material_SetPassShaderArguments(text, shader, techFlags, &pass->pixelArgCount, &pass->pixelArgs);
-}
-
 // PINNED 10019400: constant names are offsets relative to the serialized table.
 unsigned int Material_FindShaderConstant(const char *shaderName,
     const D3DXSHADER_CONSTANTTABLE *table, const D3DXSHADER_CONSTANTINFO *info, const char *name)
@@ -1652,6 +1628,30 @@ Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFl
     return Material_LoadPassPixelShader(text, pass, techFlags) != 0;
 }
 
+// PINNED 1001aa00: publish the shader before parsing its arguments.
+__declspec(noinline) Bool Material_LoadPassVertexShader(const char **text, MaterialPassDx9 *pass, byte *techFlags)
+{
+    if (!Com_MatchToken(text, "vertexShader", 1))
+        return 0;
+    MaterialShader *shader = Material_LoadPassShader(text, 0);
+    if (!shader)
+        return 0;
+    pass->vertexShader = shader;
+    return Material_SetPassShaderArguments(text, shader, techFlags, &pass->vertexArgCount, &pass->vertexArgs);
+}
+
+// PINNED 1001aa50: pixel arguments have their own count and pointer fields.
+__declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, MaterialPassDx9 *pass, byte *techFlags)
+{
+    if (!Com_MatchToken(text, "pixelShader", 1))
+        return 0;
+    MaterialShader *shader = Material_LoadPassShader(text, 1);
+    if (!shader)
+        return 0;
+    pass->pixelShader = shader;
+    return Material_SetPassShaderArguments(text, shader, techFlags, &pass->pixelArgCount, &pass->pixelArgs);
+}
+
 static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,
     Bool *finished, Bool *error)
 {
@@ -1685,6 +1685,17 @@ Bool Material_LoadPassOptionsDx7(const char **text, MaterialPassDx7 *pass)
             break;
     }
     return !error;
+}
+
+// PINNED1001ad20: bind one named sampler without changing its destination field.
+Bool Material_LoadPassSamplerDx7(const char **text, int samplerIndex,
+    MaterialShaderArgument *argument)
+{
+    if (!Material_ParseNamedIndex(text, "texture", samplerIndex)
+        || !Com_MatchToken(text, "=", 1)
+        || !Material_ParseSamplerSource(text, argument))
+        return 0;
+    return Material_MatchToken(text, ";");
 }
 
 // PINNED1001ad80: modifiers survive subsequent syntax/source failures.
@@ -1787,30 +1798,6 @@ found:
         s_textureFuncsDx7[index].argCount, stageBits) != 0;
 }
 
-// PINNED1001b270: stage[index].name = function(...); is required in full.
-Bool Material_LoadPassTextureStateDx7(const char **text, int samplerIndex,
-    const char *stateName, int validTest, int *stageBits)
-{
-    if (!Material_ParseNamedIndex(text, "stage", samplerIndex)
-        || !Com_MatchToken(text, ".", 1) || !Com_MatchToken(text, stateName, 1)
-        || !Com_MatchToken(text, "=", 1))
-        return 0;
-    if (!Material_ParseTextureFunctionDx7(text, samplerIndex, validTest, stageBits))
-        return 0;
-    return Material_MatchToken(text, ";");
-}
-
-// PINNED1001ad20: bind one named sampler without changing its destination field.
-Bool Material_LoadPassSamplerDx7(const char **text, int samplerIndex,
-    MaterialShaderArgument *argument)
-{
-    if (!Material_ParseNamedIndex(text, "texture", samplerIndex)
-        || !Com_MatchToken(text, "=", 1)
-        || !Material_ParseSamplerSource(text, argument))
-        return 0;
-    return Material_MatchToken(text, ";");
-}
-
 // PINNED1001b100: the optional declaration recognizes only these two generators.
 Bool Material_LoadPassTexCoordDx7(const char **text, int samplerIndex, byte *generator)
 {
@@ -1844,6 +1831,19 @@ Bool Material_LoadPassTexCoordDx7(const char **text, int samplerIndex, byte *gen
     if (!Com_MatchToken(text, "(", 1) || !Com_MatchToken(text, ")", 1))
         return 0;
     return Com_MatchToken(text, ";", 1) != 0;
+}
+
+// PINNED1001b270: stage[index].name = function(...); is required in full.
+Bool Material_LoadPassTextureStateDx7(const char **text, int samplerIndex,
+    const char *stateName, int validTest, int *stageBits)
+{
+    if (!Material_ParseNamedIndex(text, "stage", samplerIndex)
+        || !Com_MatchToken(text, ".", 1) || !Com_MatchToken(text, stateName, 1)
+        || !Com_MatchToken(text, "=", 1))
+        return 0;
+    if (!Material_ParseTextureFunctionDx7(text, samplerIndex, validTest, stageBits))
+        return 0;
+    return Material_MatchToken(text, ";");
 }
 
 // PINNED1001b360: require one sampler, allow two, default unused slots to white.
@@ -2214,6 +2214,37 @@ MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name)
     return set;
 }
 
+static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
+{
+    int passIndex;
+
+    for (passIndex = 0; passIndex < technique->passCount; ++passIndex)
+    {
+        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, 2, technique->passArray.dx7[passIndex].samplers))
+            return false;
+    }
+    return true;
+}
+
+// Name unconfirmed.
+static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
+{
+    int passIndex;
+    const MaterialPassDx9 *pass;
+
+    if (r_rendererInUse->current.integer == 2)
+        return Material_ValidateTechniqueDx7(material, techniqueSetName, technique);
+    for (passIndex = 0; passIndex < technique->passCount; ++passIndex)
+    {
+        pass = &technique->passArray.dx9[passIndex];
+        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->vertexArgCount, pass->vertexArgs))
+            return false;
+        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->pixelArgCount, pass->pixelArgs))
+            return false;
+    }
+    return true;
+}
+
 // PINNED 1001c4e0/603: serialized pointers are offsets from the material base, including zero.
 bool Material_FixupBinary(Material *material, int imageTrack)
 {
@@ -2384,37 +2415,6 @@ static bool Material_ValidatePassArguments(const Material *material, const char 
                 return false;
             }
         }
-    }
-    return true;
-}
-
-static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
-{
-    int passIndex;
-
-    for (passIndex = 0; passIndex < technique->passCount; ++passIndex)
-    {
-        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, 2, technique->passArray.dx7[passIndex].samplers))
-            return false;
-    }
-    return true;
-}
-
-// Name unconfirmed.
-static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
-{
-    int passIndex;
-    const MaterialPassDx9 *pass;
-
-    if (r_rendererInUse->current.integer == 2)
-        return Material_ValidateTechniqueDx7(material, techniqueSetName, technique);
-    for (passIndex = 0; passIndex < technique->passCount; ++passIndex)
-    {
-        pass = &technique->passArray.dx9[passIndex];
-        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->vertexArgCount, pass->vertexArgs))
-            return false;
-        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->pixelArgCount, pass->pixelArgs))
-            return false;
     }
     return true;
 }
