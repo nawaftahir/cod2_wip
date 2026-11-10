@@ -1,48 +1,52 @@
-# Renderer next session (written 2026-11-11)
+# Renderer next session (written 2026-11-12)
 
-## Measured state (CI meter, gfx/main fd5dd1e9)
-- .text matched 894,039 / 1,093,632 = 81.75%
-- same-offset 253,888 / 1,851,392 = 13.71%
-- game C/C++ 48.44%, 774 fns; all matched functions 2715
+## Measured state (CI meter, gfx/main b0b6bfd3)
+- same-offset 273,475 / 1,851,392 = 14.77% (was 253,888 at the start of 2026-11-11)
+- .text matched 81.80%, game C/C++ 48.65%, matched functions 2726
 - LTCG TUs 117 of retail 121. SHA identical: no.
 
-## Branches
-- gfx/main: confirmed line. gfx/recon on origin = gfx/main.
-- gfx/w-backend 67723f4d: 5 byte matches in rb_backend (RB_DrawFullScreenColoredQuad 1002e9e0,
-  RB_FullScreenFilter 1002ea60, RB_NeedsBlur 10030840, RB_GetBlurRadius 10030a20,
-  RB_DrawTrianglesCmd 10031e90) held back: same-offset 252168 -> 250443. Land as a region batch
-  once rb_backend sizes close (RB_FullScreenColoredFilter, RB_NeedsGlow are size-only). Refresh the
-  rb_backend.cpp hash in work/tools/source_coverage.py after confirming no __asm line changed.
-- gfx/s1b: material work, Material_ParseRuleSet byte-identical but unbound
-  (chain root Material_ParseRuleSetCondition 352/346, retail double bool conversion).
-- Worktrees with a built tree: gfx-recon, gfx-s1b, gfx-s2m, gfx-mat2. First build elsewhere ~10 min.
-  Old gfx-g*, gfx-s1, gfx-s2 belong to earlier runs; do not reset them.
+## Method that pays now: offset first, one object at a time
+1. `retail_order.py <build> <cpp> --across --write` puts definitions in retail address order
+   (bind.json + pinned addresses from layout/file_layout.tsv). Data keeps its relative order.
+2. `drift_tu.py <build>` per object: drift must become ONE constant value per object.
+3. For each drift step, disassemble the retail gap (pefile + capstone; never name a script dis.py)
+   and restore what is missing: header inline copies, out-of-line helpers retail keeps, functions
+   retail calls out of line. Retail links NOREF, so every extern function has a body in retail;
+   refexport stores in R_GetAPI pin API function addresses; `ri` slot = (addr - 0x101d49c8) / 4.
+4. Same-offset only rises when everything before an object is aligned. Land region stacks when the
+   whole stack beats gfx/main; judge single steps by internal drift.
+5. Private helpers with no reference name: "Name unconfirmed" + PINNED address/size (established,
+   64+ in tree), only when the body reproduces retail and real callers use it.
 
-## What pays (in order)
-1. Tool blind spots: one fix credits many bodies. Example: bindcheck extent rule (KNOWLEDGE 2026-11-11).
-   It still needs a self-test in workspace/work/tests (CI rule: every metric tool has one).
-2. Region batches: close a whole TU's sizes on a branch, land when same-offset beats gfx/main.
-   Single size fixes usually lower same-offset because later code loses accidental alignment.
-3. Restoring missing structure: header helper copies in declaration order, Com_ParseInternal
-   instead of Com_Parse in parsers, I_min(constant, x) operand order, retail statement order.
+## Objects at constant internal drift
+r_bsp, r_bsp_load_obj (except below), r_buffers, r_caps, r_cmds, r_debug, r_dvars,
+r_image_load_common, r_image_wavelet, r_jpeg, r_specularityimage, r_init*, r_marks*, r_material*
+(* on branch gfx/w-imgload2, not landed).
 
-## What does not pay (logged, skip)
-Register choice, x87 scheduling, zeros stored via a register (inline helpers, chained
-assignment, /G5-/G7, /Os all tried), #pragma optimize removal (it is established practice here).
+## Branches waiting (each gate green; none beats 273,475 alone yet)
+- gfx/w-dpvshead 70ba96a3 (257,275): r_dpvs through R_AddAabbTreeSurfaces_r restructured. Open:
+  R_FrustumClipPlanes 400/448 B (unread axisPlanes stores already added), R_ProjectPortal 0x10
+  short, R_PortalClipPlanes missing its far-plane struct copy, R_SetupOccludersForCell 0x10 short,
+  R_AddAabbTreeSurfaces_r 0x40 short. Section "r_dpvs" further below has the drift table.
+- gfx/w-imgload2 3aae0dee (272,899; 273,009 at 462eb057): r_init (R_ResetGamma slot 10011f00,
+  name unconfirmed), r_marks (R_BoxSurfaces), r_material constant drift (-0x370, ~20 helper slots),
+  Image_UpdatePicmip, retail_order fix for __declspec(noinline), r_material_load_obj reordered.
+  Next: r_material_load_obj wrong-size functions (ParseRuleSetCondition 198 vs 111 insns,
+  ParseRuleSet, ParseShaderArguments, LoadPass*Dx7, LoadTechniqueDx9, ...; table in TRIED.md),
+  ~15 ret stubs (10018320/30/40, 100193f0, 1001a790/7a0, 1001ab40/50) and 32 B at 10019780.
+- gfx/w-cmds: r_outdoor, r_rendercmds, r_rendertarget, r_scene in progress.
+- Older parked: gfx/w-bsp e7c61e05 (R_LoadLightmaps 16 B short is register allocation),
+  gfx/w-backend 67723f4d.
 
-## Next targets
-- r_bsp_load_obj: R_LoadLightmaps 1552/1568 (frame now 0x218), R_LoadWorldInternal 1312/1264,
-  R_SetSunLightVectors 80/64. Closing them moves the rest of the region onto retail offsets.
-- R_CopyRefEntityToScene 144/128: fix R_AddDrawSurf argument registers (callee rule).
-- Material_ParseRuleSetCondition: unlocks ParseRuleSet + ParseStateMap.
-- Library roots: ___lc_category data and the memcpy/_strncnt CRT layout (see TRIED 2026-11-11).
+## Deferred, no name evidence
+r_flares/r_fog 1000bae0 (BGRA pack) and 1000bb00 (archiveProc thunk) = the 48 B r_fog drift;
+r_image 1000c8e0 (hash & 0x7ff), 1000ccb0, 1000ccf0.
 
 ## Gotchas
+- Never run a /tmp script you did not write; other sessions use /tmp too (gate.sh is client 1.3's).
+- `gh run view -q .conclusion` exits 0 on failure; check the text (use /tmp/gfx_land.sh pattern).
+- CI behavioral tests that slice source by comments break on reorders; parse by function instead.
+- Pushing a NEW branch name from a subagent can be refused by the permission check.
 - build.sh can print PASS lines after a compile error and leave a stale DLL: check build.log.
-- In wsl.exe bash -lc '...', single quotes inside heredocs are lost; use the Edit tool.
+- In wsl.exe bash -lc '...', $vars and quotes get mangled; put logic in a script file.
 - Some sources are CRLF; match line endings in scripted edits.
-
-## 2026-11-11 night
-- Landed: retail definition order for 22 TUs (same-offset 253888 -> 253921 local compare), drift_tu.py, retail_order.py, bindcheck extent self-test.
-- gfx/w-front: retail_order --across (functions cross data slots, pinned addresses from layout/file_layout.tsv). Dry run moves 58 in r_dpvs, 68 in r_material_load_obj. Build failed in ~12 TUs (definitions moved above statics they use); next: hoist only the failing statics or add static prototypes, per TU.
-- Parked, lose same-offset until front sizes close: gfx/w-bsp e7c61e05, gfx/w-imgload 65a41186 (stack 250997). Front blocker: R_LoadLightmaps 16 B short.
