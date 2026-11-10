@@ -41,3 +41,8 @@ assignment, /G5-/G7, /Os all tried), #pragma optimize removal (it is established
 - build.sh can print PASS lines after a compile error and leave a stale DLL: check build.log.
 - In wsl.exe bash -lc '...', single quotes inside heredocs are lost; use the Edit tool.
 - Some sources are CRLF; match line endings in scripted edits.
+
+## 2026-11-11 night
+- Landed: retail definition order for 22 TUs (same-offset 253888 -> 253921 local compare), drift_tu.py, retail_order.py, bindcheck extent self-test.
+- gfx/w-front: retail_order --across (functions cross data slots, pinned addresses from layout/file_layout.tsv). Dry run moves 58 in r_dpvs, 68 in r_material_load_obj. Build failed in ~12 TUs (definitions moved above statics they use); next: hoist only the failing statics or add static prototypes, per TU.
+- Parked, lose same-offset until front sizes close: gfx/w-bsp e7c61e05, gfx/w-imgload 65a41186 (stack 250997). Front blocker: R_LoadLightmaps 16 B short.

@@ -5,45 +5,45 @@
   "anchor": "windows/1.0/gfx_d3d_mp_x86_s.dll",
   "sha_identical": false,
   "text_bytes": 1093632,
-  "matched_bytes": 894039,
+  "matched_bytes": 894169,
   "file_bytes": 1851392,
-  "same_offset_bytes": 253888,
-  "matched_functions": 2715,
+  "same_offset_bytes": 269504,
+  "matched_functions": 2718,
   "tus_total": 117,
   "verified_source_files": 12,
   "game_cpp_denominator_status": "provisional inventory; not whole-DLL completion",
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "90ced7927e73e3845b496498b04c1dc432e179ea61775b953a4f3aec1d970f7b",
+  "candidate_sha256": "bd190bfce437983409644dfeb4f397322171b2df0238c660e4f2c56f004baf49",
   "unverified_in_src": 0,
-  "game_cpp_bytes": 122843,
+  "game_cpp_bytes": 122973,
   "game_cpp_total": 253580,
-  "game_cpp_percent": 48.443489234166734,
-  "game_cpp_functions": 774,
+  "game_cpp_percent": 48.494755106869626,
+  "game_cpp_functions": 777,
   "assembly_bytes": 10184,
   "assembly_functions": 41,
   "sections": {
     ".text": {
       "size": 1093632,
-      "same_offset": 38767,
-      "matched": 894039
+      "same_offset": 39909,
+      "matched": 894169
     },
     ".rdata": {
       "size": 598016,
-      "same_offset": 173336
+      "same_offset": 180820
     },
     ".data": {
       "size": 57344,
-      "same_offset": 24633
+      "same_offset": 28233
     },
     ".reloc": {
       "size": 98304,
-      "same_offset": 13366
+      "same_offset": 16756
     }
   },
-  "source_commit": "ee309fd5ab2697f19831f8c9837b77ea68590c01",
+  "source_commit": "0cd9921481629dd3f70c36018ae4ec9486ec5720",
   "note": "Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not complete historical TUs. Current emitted-body TU counts include short bodies certified by the binding referee. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.",
   "current_source_tus_total": 117,
-  "current_source_tus_verified": 47,
+  "current_source_tus_verified": 46,
   "current_source_tus_without_emitted_bodies": 1,
   "current_source_tus_ambiguous": 2
 }
