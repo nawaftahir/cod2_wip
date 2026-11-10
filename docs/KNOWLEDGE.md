@@ -307,3 +307,6 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   last scratch regs used in the code just before it in layout. Arm 47's tail ends with ecx then edx, so arm 70 starts with eax; arm 1 ends with eax, so arm 24 starts with ecx.
 - Arm 93 ends `mov ecx,[esp+0x1c]; mov eax,[clientNum]; cmp` the same way in ours and retail, so the layout rule predicts edx for arm 116 (ours: edx). Retail starts arm 116
   with eax. So the order is not taken from layout alone. HYPOTHESIS: it is taken from IL or block-generation order, and retail generates some other block just before arm 116.
+- (n3, later) The rotated part of arm 116 ends at its `jne` (clientNum compare): the next block (bg_fallDamage loads, eax/ecx) is identical in ours and retail. PINNED on disasm.
+- The local code generator's register pick is NOT found in c2.dll yet. 0x108a97a4 (register object base, id*0x60) is used at ~60 sites (`tools/c2xref.py`);
+  no hook was written because no site is confirmed. Tools: `tools/c2dis.py C2 ADDR N` (disasm one range), `tools/c2xref.py C2 DWORD...` (byte search + covering instruction).
