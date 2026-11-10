@@ -321,3 +321,14 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - So at the IL/operand level nothing renames the reg. The edx/eax output of arm 116 is decided after lowering, in the instruction structure SCHED.md describes,
   or these four nodes are not the arm-116 temps (the node-to-instruction map is not done). HYPOTHESIS.
 - Next: find the encoder that emits the arm-116 `mov r32,[edi*4+disp]` (watch the emitted code buffer, or break on the lowered instruction alloc 0x107afd98) and map nodes to instructions.
+- (n3, later) CORRECTION to the node 75..78 lines above: forcing a colour pick in winedbg (`set $ecx` at the 0x107834bd store, then diff dx.exe) shows that nodes 4..41
+  of the pick log (kind03, incl. 75..78) are temps of the weapon cases near 0x4e0f84. No forced node changes the footstep/land arms. So the arm temps
+  (`mov r,[edi*4+disp]; mov r,[ebp]`) are NOT colour nodes: they get their regs from the local allocator below. PINNED.
+- Local allocator (PINNED by watchpoint chain): `tools/c2memscan13.sh` found arm 116's bytes `8b14bd..` in c2's code buffer (0x06fac309, CheckEvents spin).
+  A watch on the ModRM byte catches the byte copier 0x107baf61 (staging buffer on the stack). It is called from 0x107bb0c8 with instruction object 0x06be7840
+  (+4 opcode 1, +0x2c dest operand 0x06f81390, kind 0x24f, +0x1c = edx 0x108a98c4).
+  The only write of edx into that field is 0x10775ac4, after 0x107759c0 (looks up which reg holds the temp in 0x108a74f0[reg]) returned none and 0x10775acc picked one.
+  0x10775acc takes the candidate list from 0x1077542e(type), class ids < 4 (eax, ecx, edx). It skips regs whose 0x108a74f0 slot is taken, tests the bitsets
+  0x108a73c8[reg], then calls 0x1077687e. The rule that makes it pick (oldest use? bitset?) is NOT read yet.
+- Next: break at 0x10775acc for the arm-116 temp (the operand 0x06f81390 is in [esp+0x14]->+0x1c path) and dump 0x108a74f0[1..3], 0x108a73c8[1..3], and 0x1077687e's result,
+  in ours and in a variant, to find the state that makes edx win.
