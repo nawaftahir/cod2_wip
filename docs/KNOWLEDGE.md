@@ -13,7 +13,7 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - cmp13 credits short call-free shapes only when the retail twin count equals ours: ~45 6-7 B libwww getters
   show unmatched for that reason (HYPOTHESIS: measurement artifact, bytes look identical).
 - Each `make release` runs in its own docker container: builds do not block each other (SUPPORTED, used 11-04).
-- The 1.0 `unknown/empty_N.cpp` TUs and the mixerGetRecordLevel post-link patch are NOT used in 1.3.
+- The mixerGetRecordLevel post-link patch is NOT used in 1.3. The six `unknown/empty_N.cpp` TUs are (owner decision, see the Rich entry below).
 
 ## 1. libwww (PINNED)
 - Compiled WITHOUT /GL (plain cdecl prologues): +22 KB same-offset when /GL was dropped.
@@ -394,8 +394,8 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - Tools: `tools/c2dbg13.sh` (winedbg), `tools/c2memscan13.sh` (find emitted bytes in c2 memory, needs --cap-add SYS_PTRACE), `tools/c2dis.py`, `tools/c2xref.py`.
   Forcing a colour pick in winedbg (`set $ecx` at 0x107834bd, diff dx.exe) maps colour nodes to instructions.
 - OWNER DECISION + clean gate (n1, 11-10, same-offset 1963931 -> 1967115, matched-fn 1549931 -> 1552684): the six 1.0
-  `unknown/empty_N.cpp` /GL TUs are linked in 1.3 too, at the 1.0 positions (empty_1 after devgui_input, empty_2..6 afte
-  gfx_v60_threads (the 1.0 positions flipped the CG_DrawPlayerStance tie; at the end it stays matched, e59606e1). They are PLACEHOLDERS for retail's six unknown /GL C++ objects (Rich prodid 100: 275 = retail); their real names and
+  `unknown/empty_N.cpp` /GL TUs are linked in 1.3 too, all six at the end of the /GL list after gfx_v60_threads (the 1.0
+  positions, empty_1 after devgui_input, flipped the CG_DrawPlayerStance tie; at the end it stays matched, e59606e1). They are PLACEHOLDERS for retail's six unknown /GL C++ objects (Rich prodid 100: 275 = retail); their real names and
   positions are unknown. Effect: Rich count, checksum and the 24-byte padding now equal retail, e_lfanew 0x120, the PE header differs in
   4 bytes only. The earlier 343 B header residue was 100% this.
 - Remaining 4 header bytes: Rich entries (25,9466) and (28,9466) in the other order. Both come from build/lib/mss32.lib (the import members
