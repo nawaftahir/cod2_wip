@@ -406,6 +406,7 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   positions, empty_1 after devgui_input, flipped the CG_DrawPlayerStance tie; at the end it stays matched, e59606e1). They are PLACEHOLDERS for retail's six unknown /GL C++ objects (Rich prodid 100: 275 = retail); their real names and
   positions are unknown. Effect: Rich count, checksum and the 24-byte padding now equal retail, e_lfanew 0x120, the PE header differs in
   4 bytes only. The earlier 343 B header residue was 100% this.
+- RESOLVED (w6-n6): Rich (28,9466) before (25,9466) needs mss_auto.obj BEFORE the import descriptor members in mss32.lib (S,A,T,N,D; tested all 24 orders of A,T,N,D: it is exactly 'A before D'). lib.exe appends objects after the /def members, so workspace/lib/libreorder.pl moves the last member in front of the last three (T,N,D) and rewrites the linker members; the Makefile runs it after the lib step. PE header now 0 B different from retail. Superseded text below kept for history.
 - Remaining 4 header bytes: Rich entries (25,9466) and (28,9466) in the other order. Both come from build/lib/mss32.lib (the import members
   are prodid 25, mss_auto.obj from VS .NET 2002 is prodid 28). Putting mss_auto.obj first in the archive does NOT change the Rich orde
   (lab relink); the order follows which member the link pulls first. Open.
