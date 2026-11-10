@@ -3,7 +3,7 @@
 #include <dxerr9.h>
 #include "universal/com_math.h"
 
-GfxImage *Image_AllocProg(int imageProgType, int category);
+GfxImage *Image_AllocProg(int imageProgType, unsigned char category);
 void Image_Create2DTexture(GfxImage *, int, int, int, DWORD, D3DFORMAT, D3DPOOL);
 void Image_TrackTexture(GfxImage *, int, D3DFORMAT, int, int, int);
 void Image_SetupRenderTarget(GfxImage *, int, int, D3DFORMAT);

@@ -65,7 +65,7 @@ void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int w
 inline bool Image_IsCodeImage(const GfxImage *image);
 GfxImage *Image_FindExisting(const char *name);
 static int Image_GetAvailableHashLocation(const char *name);
-GfxImage *Image_AllocProg(int imageProgType, int category);
+GfxImage *Image_AllocProg(int imageProgType, unsigned char category);
 void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
 void Image_Create3DTexture(GfxImage *image, int width, int height, int depth, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
 void Image_CreateCubeTexture(GfxImage *image, int edgeLen, int mipmapCount, D3DFORMAT imageFormat, D3DPOOL memPool);
@@ -110,7 +110,7 @@ int Image_GetPlatformScreenHeight(int platform);
 void Image_TrackFullscreenTexture(GfxImage *image, int picmip, D3DFORMAT format);
 void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int width, int height, int depth);
 static int Image_GetAvailableHashLocation(const char *name);
-GfxImage *Image_AllocProg(int imageProgType, int category);
+GfxImage *Image_AllocProg(int imageProgType, unsigned char category);
 GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
 inline bool Image_IsCodeImage(const GfxImage *image);
 void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
@@ -360,7 +360,7 @@ void Image_Construct(const char *name, int nameLen, int category, int semantic, 
     image->track = (unsigned char)imageTrack;
 }
 
-GfxImage *Image_AllocProg(int imageProgType, int category)
+GfxImage *Image_AllocProg(int imageProgType, unsigned char category)
 {
     GfxImage *image = &g_imageProgs[imageProgType];
     const char *name = g_imageProgNames[imageProgType];
@@ -393,6 +393,12 @@ inline bool Image_IsCodeImage(const GfxImage *image)
 {
     uintptr_t address = (uintptr_t)image;
     return address >= (uintptr_t)g_imageProgs && address < (uintptr_t)(g_imageProgs + 13);
+}
+
+// 1000cca0: SUPPORTED, KisakCOD r_image.cpp Image_Free(image) just calls Image_Release.
+void Image_Free(GfxImage *image)
+{
+    Image_Release(image);
 }
 
 // PINNED 1000cd10: preserve programmable images and rebuild their hash entries.
