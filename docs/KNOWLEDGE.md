@@ -321,3 +321,9 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - PINNED (n1, clean gate matched-fn 1548509 -> 1549931, CM_Trace matched): CM_ClipHandleToModel in CM_Trace is written with the
   submodel arm first, `if (model < cm.numSubModels) cmod = &cm.cmodels[model]; else { CM_GetBox; cmod = box_model; }` (retail `jge` to
   the box arm). Section 14's box-first order was a size fix from before; the callers keep their match with this order.
+- PINNED (n1, retail operands): CM_SaveLump / CM_LoadStaticModels / CMod_* residues are only .bss operands. Retail leaves 0xb013f8..0xb013ff
+  unreferenced after scr_initialized (0xb013f4) and puts `cm` at 0xb01400; ours has cm at 0xb013f8, and the -8 runs on through cme and
+  cmFill_* (retail 0xb0150c.. vs ours 0xb01504..). Plus a separate -4 at com_fileAccessed (ours 0xb1a5b8, retail 0xb1a5bc). Whether the gap
+  is 16-byte alignment of cm or an unreferenced 8-byte object is unknown (HYPOTHESIS either way); deferred, not changed.
+- Note: the lab link (tools/lab13.sh -> build/ra/ox.exe) carries +0x10 .rdata constants versus retail in many fns; read data operands on
+  build/release, not on the lab exe.
