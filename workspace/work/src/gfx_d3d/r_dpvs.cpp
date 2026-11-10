@@ -337,12 +337,11 @@ __declspec(noinline) bool R_IsBoundsOutsideView(DpvsPlane *planes, int planeCoun
         GfxOccluder *occluder = activeOccluders.list[i];
         if (stackLevel > occluder->ignoreStackLevel)
             continue;
-        int j = 0;
-        for (;; ++j)
+        DpvsPlane *plane = occluder->viewPlanes;
+        for (int j = 0; ; ++j, ++plane)
         {
             if (j >= occluder->viewPlaneCount)
                 return true;
-            DpvsPlane *plane = &occluder->viewPlanes[j];
             if (stackLevel > plane->u.frontal)
                 continue;
             plane->u.frontal = 255;
