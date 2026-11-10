@@ -1101,6 +1101,7 @@ void R_ShutdownLightDefs();
 void R_ShutdownFonts();
 void R_ShutdownImages();
 void R_ShutdownDebug();
+void R_UnregisterDvars();
 void RB_SaveLightVisHistory();
 void R_ShutdownWorld();
 void R_ReleaseAllModels();
@@ -1141,7 +1142,7 @@ void R_Shutdown(int destroyWindow)
 	if (destroyWindow)
 	{
 		R_ShutdownHardware();
-		ri.Dvar_UnregisterSystem(0x2000);
+		R_UnregisterDvars();
 	}
 	R_UnregisterCmds();
 }

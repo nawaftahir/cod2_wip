@@ -299,3 +299,9 @@ void R_RegisterDvars()
 	r_rendererInUse = ri.Dvar_RegisterEnum("r_rendererInUse", s_technologyNames, 0, 0x2040);
 	r_aspectRatio = ri.Dvar_RegisterEnum("r_aspectRatio", s_aspectRatioNames, 0, 0x2021);
 }
+
+// PINNED 1000bac0/13: retail keeps this out of line after R_RegisterDvars.
+void R_UnregisterDvars()
+{
+	ri.Dvar_UnregisterSystem(0x2000);
+}

@@ -104,6 +104,23 @@ void R_AddScaledDebugString(DebugGlobals *debug, const GfxViewParms *viewParms,
     R_AddDebugString(debug, origin, color, scale, text);
 }
 
+// PINNED 100057b0/42: retail clears the entry and sets the default limits.
+void R_InitDebugEntry(DebugGlobals *debugGlobalsEntry)
+{
+    memset(debugGlobalsEntry, 0, sizeof(DebugGlobals));
+    debugGlobalsEntry->vertLimit = 4096;
+    debugGlobalsEntry->polyLimit = 512;
+    debugGlobalsEntry->stringLimit = 4096;
+    debugGlobalsEntry->lineLimit = 16384;
+    debugGlobalsEntry->plumeLimit = 4096;
+}
+
+// PINNED 100057e0/57: R_InitDebugEntry inlined on debugGlobals.
+void R_InitDebug()
+{
+    R_InitDebugEntry(&debugGlobals);
+}
+
 void R_ShutdownDebugEntry(DebugGlobals *debugGlobalsEntry)
 {
     if (debugGlobalsEntry->polys)
@@ -143,11 +160,6 @@ void R_ShutdownDebugEntry(DebugGlobals *debugGlobalsEntry)
     }
 }
 
-void R_ShutdownDebug()
-{
-    R_ShutdownDebugEntry(&debugGlobals);
-}
-
 void R_TransferDebugGlobals(DebugGlobals *debugGlobalsEntry)
 {
     int plumeIndex;
@@ -174,6 +186,12 @@ void R_TransferDebugGlobals(DebugGlobals *debugGlobalsEntry)
         memcpy(debugGlobalsEntry->plumes, debugGlobals.plumes, debugGlobals.plumeCount * sizeof(GfxDebugPlume));
     }
     debugGlobalsEntry->plumeCount = debugGlobals.plumeCount;
+}
+
+// PINNED 10005970: the refexport R_ShutdownDebug slot stores this address.
+void R_ShutdownDebug()
+{
+    R_ShutdownDebugEntry(&debugGlobals);
 }
 
 void R_LocateDebugStrings(trDebugString_t *strings, int stringCount, int maxStringCount)
