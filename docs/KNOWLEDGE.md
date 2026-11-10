@@ -533,11 +533,13 @@ declaration layout and means nothing for the final frame.
   fewer below the temp entries. DEFER.
 - (w7-a, PINNED by c2slots13 labs) Only references to the STACK web count: scoreboard textStart/textEnd count Asian-branch
   refs only (the non-Asian copies live in registers). A dead store (overwritten before use) does not count. A chained
-   adds no weight and changes code. Merging the two identical Asian tails
-  () takes textStart 7 -> 6 but changes code (465 -> 461 insns).
-- (w7-a, gate 4d558937, same-offset +14) Scoreboard: restoring the three per-branch  tails (whiteSpace 5 -> 8) puts whiteSpace before textStart in the list, so it joins len (16) and textStart
-  keeps id12 (11): slot order now equals retail. Left: one swap at +0x4f2 (ours  before ,
-  retail the reverse) in the third tail; the statement order of that tail and of the shared loop tail is inert (4 labs).
-- (w7-a) FX_CalcOriginAndAxis: inlining scale () changes code (188 diff lines). DEFER.
+  `textStart = textEnd = next` adds no weight and changes code. Merging the two identical Asian tails
+  (`textStart = textEnd; y += ..; len = 0; continue;`) takes textStart 7 -> 6 but changes code (465 -> 461 insns).
+- (w7-a, gate 4d558937, same-offset +14) Scoreboard: restoring the three per-branch `whiteSpace = NULL; textEnd =
+  textStart; continue;` tails (whiteSpace 5 -> 8) puts whiteSpace before textStart in the list, so it joins len (16)
+  and textStart keeps id12 (11): slot order now equals retail. Left: one swap at +0x4f2 (ours `mov [esp+0x10],0` before
+  `mov ebp,edi`, retail the reverse) in the third tail; the statement order of that tail and of the shared loop tail is
+  inert (4 labs).
+- (w7-a) FX_CalcOriginAndAxis: inlining scale (`radius * sinPitch * sinYaw`) changes code (188 diff lines). DEFER.
 - Return words 0x1078863a / 0x107855c1 in the w6-n5 weight log are stale stack data, not call sites (0x107855c1 is
   mid-function, no call before it); the counter caller is not decoded.
