@@ -528,20 +528,6 @@ void Image_WaterColorForDirection(const float *direction, int color, byte *pixel
     pixel[3] = (byte)I_fround(alpha);
 }
 
-// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
-void Image_BuildWaterMap(GfxImage *image)
-{
-    if (image->category == 5)
-    {
-        if (r_rendererInUse->current.integer == 2)
-            Image_Create2DTexture(image, image->width, image->height, 1,
-                D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
-        else
-            Image_Create2DTexture(image, image->width, image->height, 0,
-                D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
-    }
-}
-
 // PINNED 10010850/70: the callback receives packed color by value, not a stack pointer.
 void Image_GenerateWaterColor(GfxImage *image, byte red, byte green, byte blue)
 {

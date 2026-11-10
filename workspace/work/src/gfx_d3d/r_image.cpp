@@ -244,6 +244,14 @@ void Image_Release(GfxImage *image)
     image->mapType = 0;
 }
 
+// 1000c970: no direct callers in retail (inlined); name and shape from KisakCOD r_image_load_common.
+void Image_GetMipmapResolution(int baseWidth, int baseHeight, int mipmap,
+    unsigned short *mipWidth, unsigned short *mipHeight)
+{
+    *mipWidth = (unsigned short)I_max(1, baseWidth >> mipmap);
+    *mipHeight = (unsigned short)I_max(1, baseHeight >> mipmap);
+}
+
 int Image_GetPlatformScreenWidth(int platform)
 {
     return platform - 1 ? vidConfig.width : 640;
@@ -341,6 +349,15 @@ static int Image_GetAvailableHashLocation(const char *name)
     for (hashIndex = R_HashAssetName(name) & 0x7ff; imageGlobals.imageHashTable[hashIndex]; hashIndex = (hashIndex + 1) & 0x7ff)
         ;
     return hashIndex;
+}
+
+// 1000cba0: no direct callers in retail (inlined into Image_Alloc); name and shape from KisakCOD.
+void Image_Construct(const char *name, int nameLen, int category, int semantic, int imageTrack, GfxImage *image)
+{
+    memcpy((void *)image->name, name, nameLen);
+    image->category = (unsigned char)category;
+    image->semantic = (unsigned char)semantic;
+    image->track = (unsigned char)imageTrack;
 }
 
 GfxImage *Image_AllocProg(int imageProgType, int category)
@@ -508,6 +525,20 @@ void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip)
     else if (picmipUsed > 3)
         picmipUsed = 3;
     picmip->platform[0] = (unsigned char)picmipUsed;
+}
+
+// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
+void Image_BuildWaterMap(GfxImage *image)
+{
+    if (image->category == 5)
+    {
+        if (r_rendererInUse->current.integer == 2)
+            Image_Create2DTexture(image, image->width, image->height, 1,
+                D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
+        else
+            Image_Create2DTexture(image, image->width, image->height, 0,
+                D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
+    }
 }
 
 // PINNED 1000d140: byte-sized predicate, then a normalized mask selects the pointer.
