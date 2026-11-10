@@ -254,9 +254,7 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
             unsigned int c;
             unsigned int c2;
 
-            int width;
-
-            while (textEnd && textStart && *textStart)
+            while (textStart && *textStart && textEnd)
             {
                 next = textStart;
                 c = SEH_ReadCharFromString(&next, 0);
@@ -291,16 +289,15 @@ float CG_DrawScoreboard_Objective(const float *color, float y)
                     SEH_ReadCharFromString(&textEnd, 0);
                     if (c != '\n')
                         SEH_ReadCharFromString(&textEnd, 0);
-                    y += CG_ScoreboardGetter_4d2bc0();
                     textStart = textEnd;
+                    y += CG_ScoreboardGetter_4d2bc0();
                     goto resetLen;
                 }
-                width = UI_TextWidth(textStart, len + 1, font, CG_ScoreboardGetter_4d2bb0());
-                if ((float)width > 374.0f)
+                if ((float)UI_TextWidth(textStart, len + 1, font, CG_ScoreboardGetter_4d2bb0()) > 374.0f)
                 {
-                    UI_DrawText(textStart, width, font, 129.0f, y + 10.08f, 0, 0, CG_ScoreboardGetter_4d2bb0(), color, 3);
-                    y += CG_ScoreboardGetter_4d2bc0();
+                    UI_DrawText(textStart, len, font, 129.0f, y + 10.08f, 0, 0, CG_ScoreboardGetter_4d2bb0(), color, 3);
                     textStart = textEnd;
+                    y += CG_ScoreboardGetter_4d2bc0();
                     goto resetLen;
                 }
                 SEH_ReadCharFromString(&textEnd, 0);
