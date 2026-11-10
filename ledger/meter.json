@@ -5,45 +5,45 @@
   "anchor": "windows/1.0/gfx_d3d_mp_x86_s.dll",
   "sha_identical": false,
   "text_bytes": 1093632,
-  "matched_bytes": 771950,
+  "matched_bytes": 894039,
   "file_bytes": 1851392,
-  "same_offset_bytes": 238722,
-  "matched_functions": 2526,
-  "tus_total": 112,
+  "same_offset_bytes": 253889,
+  "matched_functions": 2715,
+  "tus_total": 117,
   "verified_source_files": 12,
   "game_cpp_denominator_status": "provisional inventory; not whole-DLL completion",
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "0579bbae4ca7ec046c96f0afbbd2d6020a55984d217fe4460831c97b5b6e0d3d",
+  "candidate_sha256": "7347e76c51ae088c39606d3d5e12e7a4797414ddcfcb6fc603d7c586cbfc4d9c",
   "unverified_in_src": 0,
-  "game_cpp_bytes": 119171,
+  "game_cpp_bytes": 122843,
   "game_cpp_total": 253580,
-  "game_cpp_percent": 46.99542550674344,
-  "game_cpp_functions": 732,
-  "assembly_bytes": 10151,
-  "assembly_functions": 40,
+  "game_cpp_percent": 48.443489234166734,
+  "game_cpp_functions": 774,
+  "assembly_bytes": 10184,
+  "assembly_functions": 41,
   "sections": {
     ".text": {
       "size": 1093632,
-      "same_offset": 33610,
-      "matched": 771950
+      "same_offset": 38767,
+      "matched": 894039
     },
     ".rdata": {
       "size": 598016,
-      "same_offset": 169398
+      "same_offset": 173337
     },
     ".data": {
       "size": 57344,
-      "same_offset": 22652
+      "same_offset": 24633
     },
     ".reloc": {
       "size": 98304,
-      "same_offset": 9304
+      "same_offset": 13366
     }
   },
-  "source_commit": "db75b7d232f89f38714cf0bec06fb55e473b7373",
+  "source_commit": "ed9921b206c134286306b1665a828b45b6211972",
   "note": "Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not complete historical TUs. Current emitted-body TU counts include short bodies certified by the binding referee. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.",
-  "current_source_tus_total": 112,
-  "current_source_tus_verified": 45,
-  "current_source_tus_without_emitted_bodies": 0,
+  "current_source_tus_total": 117,
+  "current_source_tus_verified": 47,
+  "current_source_tus_without_emitted_bodies": 1,
   "current_source_tus_ambiguous": 2
 }

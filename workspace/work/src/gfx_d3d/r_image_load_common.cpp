@@ -88,7 +88,7 @@ static void Image_Upload2D_CopyDataBlock(int width, int height, const unsigned c
 }
 
 // Name UNCONFIRMED (Mac 1.3 inlines the 2D/cube upload into Image_UploadData); 0x1000ea20.
-static void Image_Upload2D(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubemapFace, unsigned int mipLevel, const unsigned char *src)
+void Image_Upload2D(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubemapFace, unsigned int mipLevel, const unsigned char *src)
 {
     D3DLOCKED_RECT lockedRect;
     int width;
@@ -111,7 +111,7 @@ static void Image_Upload2D(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES c
 }
 
 // Name UNCONFIRMED; 0x1000ec00.
-static void Image_Upload3D(GfxImage *image, D3DFORMAT format, unsigned int mipLevel, const unsigned char *src)
+void Image_Upload3D(GfxImage *image, D3DFORMAT format, unsigned int mipLevel, const unsigned char *src)
 {
     D3DLOCKED_BOX lockedBox;
     int width;

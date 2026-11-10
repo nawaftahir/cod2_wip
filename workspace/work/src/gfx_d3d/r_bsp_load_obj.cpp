@@ -84,7 +84,7 @@ struct DiskBrushModel
 };
 
 // SUPPORTED name/signature: KisakCOD r_bsp_load_obj.cpp; PINNED 100019c0.
-static void R_CopyLightmap(const byte *srcImage, int srcWidth, int srcHeight, int bytesPerPixel,
+void R_CopyLightmap(const byte *srcImage, int srcWidth, int srcHeight, int bytesPerPixel,
     byte *dstImage, int tileX, int tileY, int tilesWide)
 {
     byte *dst = &dstImage[bytesPerPixel * (srcWidth * tilesWide * srcHeight * tileY + srcWidth * tileX)];
@@ -251,6 +251,10 @@ static void R_CombineLightmapsForDx7(byte **images, int height, int width, const
     }
 }
 
+void Image_Upload2D(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubemapFace, unsigned int mipLevel, const unsigned char *src);
+void Image_Upload3D(GfxImage *image, D3DFORMAT format, unsigned int mipLevel, const unsigned char *src);
+// Expands Image_UploadData at the sites where retail inlines it.
+#define R_UPLOAD_LIGHTMAP(image, format, src) { if ((image)->mapType == 4) Image_Upload3D(image, format, 0, src); else Image_Upload2D(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, src); }
 // PINNED 10001fb0: merge the lump 1 pages into tiled lightmap images.
 void R_LoadLightmaps(GfxBspLoad *load)
 {
@@ -260,61 +264,86 @@ void R_LoadLightmaps(GfxBspLoad *load)
     Vector2Set(load->lmapMergeInfo[31].shift, 0.0f, 0.0f);
     Vector2Set(load->lmapMergeInfo[31].scale, 1.0f, 1.0f);
     r_lightmapGroup_t groupInfo[31];
-    int reorder[31];
+    int reorder[32];
     int lmapCount = R_BuildLightmapMergability(load, groupInfo, reorder);
     if (!lmapCount)
     {
         s_world.lightmapCount = 0;
         return;
     }
-    int bytesPerPixel[4];
-    int heights[4];
     int widths[4];
-    for (int k = 0; k < 3; ++k)
-    {
-        bytesPerPixel[k] = 4;
-        heights[k] = 512;
-        widths[k] = 512;
-    }
+    int heights[4];
+    int bytesPerPixel[4];
+    widths[0] = 512;
+    heights[0] = 512;
+    widths[1] = 512;
+    heights[1] = 512;
+    widths[2] = 512;
+    heights[2] = 512;
+    bytesPerPixel[0] = 4;
+    bytesPerPixel[1] = 4;
+    bytesPerPixel[2] = 4;
     bytesPerPixel[3] = 1;
-    heights[3] = 1024;
     widths[3] = 1024;
+    heights[3] = 1024;
     byte *images[4];
-    images[0] = (byte *)ri.Hunk_AllocateTempMemoryInternal(groupInfo[0].wideCount * groupInfo[0].highCount * 0x400000);
-    for (int k = 1; k < 4; ++k)
-        images[k] = images[k - 1] + bytesPerPixel[k - 1] * widths[k - 1] * heights[k - 1] * groupInfo[0].wideCount * groupInfo[0].highCount;
+    int wide0 = groupInfo[0].wideCount;
+    int high0 = groupInfo[0].highCount;
+    images[0] = (byte *)ri.Hunk_AllocateTempMemoryInternal(wide0 * high0 * 0x400000);
+    int pageSize = high0 << 20;
+    images[1] = images[0] + pageSize * wide0;
+    images[2] = images[1] + pageSize * wide0;
+    images[3] = images[2] + pageSize * wide0;
     int lmapDataSize = load->header->lumps[1].filelen;
     const byte *lmapData = load->fileBase + load->header->lumps[1].fileofs;
     if (!lmapDataSize)
-        memset(images[0], 0xff, groupInfo[0].wideCount * groupInfo[0].highCount * 0x400000);
+        memset(images[0], 0xff, wide0 * high0 * 0x400000);
     s_world.lightmaps = (GfxLightmapArray *)ri.Hunk_AllocInternal(32 * sizeof(GfxLightmapArray));
     short groupIndex = 0;
-    int placed = 0;
-    do
+    for (int placed = 0; placed < lmapCount; ++groupIndex)
     {
-        int wide = groupInfo[groupIndex].wideCount;
-        int high = groupInfo[groupIndex].highCount;
+        const r_lightmapGroup_t *group = &groupInfo[groupIndex];
+        int wide = group->wideCount;
+        int high = group->highCount;
         int tileCount = wide * high;
+        float scaleX = 1.0f / wide;
+        float scaleY = 1.0f / high;
+        int wideCopy = group->wideCount;
         for (int tile = 0; tile < tileCount; ++tile)
         {
             int oldIndex = reorder[placed + tile];
-            int col = tile % wide;
-            int row = tile / wide;
+            int row = tile / wideCopy;
+            int col = tile % wideCopy;
             if (lmapDataSize)
             {
                 const byte *src = lmapData + oldIndex * 0x400000;
                 for (int k = 0; k < 4; ++k)
                 {
-                    R_CopyLightmap(src, widths[k], heights[k], bytesPerPixel[k], images[k], col, row, wide);
-                    src += widths[k] * heights[k] * bytesPerPixel[k];
+                    int rows = heights[k];
+                    int width = widths[k];
+                    byte *dst = images[k] + (rows * wide * row + col) * width * bytesPerPixel[k];
+                    if (rows > 0)
+                    {
+                        int rowBytes = width * bytesPerPixel[k];
+                        int stride = wide * rowBytes;
+                        const byte *from = src;
+                        int left = rows;
+                        do
+                        {
+                            Com_Memcpy(dst, from, rowBytes);
+                            from += rowBytes;
+                            dst += stride;
+                        } while (--left);
+                    }
+                    src += width * heights[k] * bytesPerPixel[k];
                 }
             }
             r_lightmapMerge_t *merge = &load->lmapMergeInfo[oldIndex];
             merge->index = groupIndex;
-            merge->scale[0] = 1.0f / wide;
-            merge->scale[1] = 1.0f / high;
-            merge->shift[0] = col * merge->scale[0];
-            merge->shift[1] = row * merge->scale[1];
+            merge->shift[0] = col * scaleX;
+            merge->scale[0] = scaleX;
+            merge->scale[1] = scaleY;
+            merge->shift[1] = row * scaleY;
         }
         if (r_rendererInUse->current.integer == 2)
         {
@@ -322,7 +351,7 @@ void R_LoadLightmaps(GfxBspLoad *load)
             R_CombineLightmapsForDx7(images, high * 512, wide * 512, sunColor);
             GfxImage *image = s_world.lightmaps[groupIndex][0];
             Image_Setup(image, wide * 512, high * 512, 1, 3, 0, D3DFMT_A8R8G8B8);
-            Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, images[0]);
+            R_UPLOAD_LIGHTMAP(image, D3DFMT_A8R8G8B8, images[0]);
         }
         else
         {
@@ -332,12 +361,11 @@ void R_LoadLightmaps(GfxBspLoad *load)
                 GfxImage *image = s_world.lightmaps[groupIndex][k];
                 D3DFORMAT format = bytesPerPixel[k] == 4 ? D3DFMT_A8R8G8B8 : D3DFMT_L8;
                 Image_Setup(image, widths[k] * wide, heights[k] * high, 1, 3, 0, format);
-                Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, images[k]);
+                R_UPLOAD_LIGHTMAP(image, format, images[k]);
             }
         }
         placed += tileCount;
-        ++groupIndex;
-    } while (placed < lmapCount);
+    }
     s_world.lightmapCount = groupIndex;
     ri.Hunk_FreeTempMemory(images[0]);
 }
@@ -392,13 +420,13 @@ static void R_SetSurfaceBoundsAndLmapCoords(srfTriangles_t *tris, GfxWorldVertex
         GfxWorldVertex *vert = &verts[vertIndex];
         for (int axis = 0; axis < 3; ++axis)
         {
-            if (tris->bounds[0][axis] > vert->xyz[axis])
+            if (vert->xyz[axis] < tris->bounds[0][axis])
                 tris->bounds[0][axis] = vert->xyz[axis];
-            if (tris->bounds[1][axis] < vert->xyz[axis])
+            if (vert->xyz[axis] > tris->bounds[1][axis])
                 tris->bounds[1][axis] = vert->xyz[axis];
         }
-        vert->lmapCoord[0] = diskVerts[vertIndex].lmapCoord[0] * merge->scale[0] + merge->shift[0];
-        vert->lmapCoord[1] = diskVerts[vertIndex].lmapCoord[1] * merge->scale[1] + merge->shift[1];
+        vert->lmapCoord[0] = FloatFromBits(*(const int *)&diskVerts[vertIndex].lmapCoord[0]) * merge->scale[0] + merge->shift[0];
+        vert->lmapCoord[1] = FloatFromBits(*(const int *)&diskVerts[vertIndex].lmapCoord[1]) * merge->scale[1] + merge->shift[1];
     }
 }
 
@@ -423,9 +451,8 @@ static unsigned short R_GetSurfaceSortGroup(const Material *material, const GfxS
 }
 
 // PINNED 10002840: the first surface seeds the bounds.
+void ExpandBounds(const vec3_t addedmins, const vec3_t addedmaxs, vec3_t mins, vec3_t maxs);
 struct R_Vec3Bits { float v[3]; };
-void ExpandBounds(const vec3_t mins, const vec3_t maxs, vec3_t outMins, vec3_t outMaxs);
-
 static void R_CalculateWorldBounds(float *mins, float *maxs)
 {
     bool seeded = false;
@@ -499,8 +526,15 @@ void R_LoadSurfaces(GfxBspLoad *load)
         verts[index].normal[1] = diskVerts[index].normal[1];
         verts[index].normal[2] = diskVerts[index].normal[2];
     }
-    R_GetLumpElemCount(load, 9, sizeof(unsigned short));
-    const unsigned short *indices = (const unsigned short *)(load->fileBase + load->header->lumps[9].fileofs);
+    const lump_t *indexLump = &load->header->lumps[9];
+    if (LittleLong(indexLump->filelen) + LittleLong(indexLump->fileofs) > load->fileSize)
+        R_Error(ERR_DROP, "LoadMap: lump extends past end of file in %s", s_world.name);
+    if (indexLump->fileofs < 4)
+        R_Error(ERR_DROP, "LoadMap: funny lump offset in %s", s_world.name);
+    int indexLen = indexLump->filelen;
+    if (indexLen < 0 || indexLen / 2 * 2 != indexLen)
+        R_Error(ERR_DROP, "LoadMap: funny lump size in %s", s_world.name);
+    int indexOfs = indexLump->fileofs;
     s_world.surfaceCount = surfCount;
     s_world.surfaces = (GfxSurface *)ri.Hunk_AllocInternal(surfCount * sizeof(GfxSurface));
     int indexBytes = 0;
@@ -517,7 +551,7 @@ void R_LoadSurfaces(GfxBspLoad *load)
         tris->surfaceType = SF_TRIANGLES;
         tris->indexCount = in[index].indexCount;
         tris->indices = (int (*)[4])indexMem;
-        Com_Memcpy(indexMem, &indices[in[index].firstIndex], tris->indexCount * 2);
+        Com_Memcpy(indexMem, load->fileBase + indexOfs + in[index].firstIndex * 2, tris->indexCount * 2);
         const r_lightmapMerge_t *merge = &load->lmapMergeInfo[(short)in[index].lightmapIndex];
         R_SetSurfaceBoundsAndLmapCoords(tris, s_world.vd.vertices, diskVerts, merge);
         Material *material = Material_Register(load->materials[(short)in[index].materialIndex].material, 9);
@@ -645,6 +679,14 @@ Bool R_Vec4ForKeyHex(const char *key, const char *defaultValue,
     for (int index = 0; index != 4; ++index)
         out[index] = (float)components[index] * (1.0f / 255.0f);
     return found;
+}
+
+// Name unconfirmed; PINNED out-of-line copy at 10003010, no direct callers in retail.
+Bool R_IsMissingOrBadModel(const XModel *model)
+{
+    if (!model)
+        return true;
+    return ri.XModelBad(model) != 0;
 }
 
 // PINNED 10003030: validation failure retries the original default static model.
@@ -841,31 +883,6 @@ void R_LoadSunSettings(GfxBspLoad *load)
     R_InterpretSunLightParseParamsIntoLights(&s_world.sunParse, &s_world.sunLight);
 }
 
-void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight)
-{
-    vec3_t sunDirection;
-    vec3_t ambient;
-    vec3_t sunColor;
-    float sunScale;
-    float scale;
-
-    AngleVectors(sunParse->angles, sunDirection, NULL, NULL);
-    if (sunParse->ambientScale != 0.0f && Vec3ScaleToUnitMax(sunParse->ambientColor, sunParse->ambientColor) != 0.0f)
-        VectorScale(sunParse->ambientColor, sunParse->ambientScale, ambient);
-    else
-        VectorClear(ambient);
-    sunScale = sunParse->sunLight - sunParse->ambientScale;
-    scale = (1.0f - sunParse->diffuseFraction) * sunScale;
-    VectorScale(sunParse->sunColor, scale, sunColor);
-    if (sunLight)
-    {
-        VectorCopy(sunDirection, sunLight->position);
-        sunLight->position[3] = 0.0f;
-        VectorCopy(sunColor, sunLight->color);
-        VectorCopy(ambient, sunLight->u.dir.ambientColor);
-    }
-}
-
 // name unconfirmed: local BSP node layout
 struct BspNodeA
 {
@@ -881,18 +898,7 @@ struct BspNodeA
     BspNodeA *back;
 };
 
-void R_SetParentAndCell_r(BspNodeA *node, BspNodeA *parent)
-{
-    node->parent = parent;
-    if (node->childCount == -1)
-    {
-        R_SetParentAndCell_r(node->front, node);
-        R_SetParentAndCell_r(node->back, node);
-        node->leafIndex = -2;
-        if (node->front->leafIndex == node->back->leafIndex)
-            node->leafIndex = node->front->leafIndex;
-    }
-}
+void R_SetParentAndCell_r(BspNodeA *node, BspNodeA *parent);
 
 GfxWorld s_world;
 
@@ -914,40 +920,38 @@ void R_PrepareStaticModelLightingCache(GfxWorld *world, int count);
 void R_FinishStaticModelLightingCache(GfxWorld *world);
 void R_BuildCellAabbTrees();
 
-// PINNED 10003880: both passes inline the same entity key/value loop.
-static __forceinline int R_ParseEntitySpawnVars(const char **text,
-    char *characters, const char *(*vars)[2])
-{
-    int slot;
-    vars[0][0] = "";
-    int count = 1;
-    int used = 0;
-    for (;;)
-    {
-        const char *token = Com_Parse(text);
-        if (!token[0] || token[0] == '}')
-            break;
-        if (!strcmp(token, "classname"))
-            slot = 0;
-        else
-        {
-            if (count == 64)
-                R_Error(ERR_DROP, "\x15R_LoadEntities: MAX_SPAWN_VARS (%i) reached\n", 64);
-            slot = count++;
-        }
-        vars[slot][0] = characters + used;
-        int length = strlen(token) + 1;
-        used += length;
-        memcpy((char *)vars[slot][0], token, length);
-        token = Com_Parse(text);
-        vars[slot][1] = characters + used;
-        length = strlen(token) + 1;
-        used += length;
-        memcpy((char *)vars[slot][1], token, length);
-    }
-    if (!vars[0][0][0])
-        R_Error(ERR_DROP, "\x15R_LoadEntities: entity without a classname\n");
-    return count;
+// PINNED 10003880: both passes inline the same entity key/value loop; a macro leaves no stray copy.
+#define R_PARSE_SPAWN_VARS(textp, characters, vars, count) { \
+    int slot; \
+    (vars)[0][0] = ""; \
+    (count) = 1; \
+    int used = 0; \
+    for (;;) \
+    { \
+        const char *token; \
+        R_PARSE_TOKEN(token, textp); \
+        if (!token[0] || token[0] == '}') \
+            break; \
+        if (!strcmp(token, "classname")) \
+            slot = 0; \
+        else \
+        { \
+            if ((count) == 64) \
+                R_Error(ERR_DROP, "\x15R_LoadEntities: MAX_SPAWN_VARS (%i) reached\n", 64); \
+            slot = (count)++; \
+        } \
+        (vars)[slot][0] = (characters) + used; \
+        int length = strlen(token) + 1; \
+        used += length; \
+        memcpy((char *)(vars)[slot][0], token, length); \
+        R_PARSE_TOKEN(token, textp); \
+        (vars)[slot][1] = (characters) + used; \
+        length = strlen(token) + 1; \
+        used += length; \
+        memcpy((char *)(vars)[slot][1], token, length); \
+    } \
+    if (!(vars)[0][0][0]) \
+        R_Error(ERR_DROP, "\x15R_LoadEntities: entity without a classname\n"); \
 }
 
 // PINNED 10003880/1214: count valid models before allocating and loading them.
@@ -961,10 +965,11 @@ void R_LoadEntities(GfxBspLoad *load)
     const char *text = start;
     for (;;)
     {
-        const char *token = Com_Parse(&text);
+        const char *token;
+        R_PARSE_TOKEN(token, &text);
         if (!text || token[0] != '{')
             break;
-        count = R_ParseEntitySpawnVars(&text, characters, vars);
+        R_PARSE_SPAWN_VARS(&text, characters, vars, count);
         if (!_stricmp(vars[0][1], "misc_model") && R_IsValidStaticModel(vars, count, 0, 0))
             ++modelCount;
     }
@@ -974,223 +979,17 @@ void R_LoadEntities(GfxBspLoad *load)
     text = start;
     for (;;)
     {
-        const char *token = Com_Parse(&text);
+        const char *token;
+        R_PARSE_TOKEN(token, &text);
         if (token[0] != '{')
             break;
-        count = R_ParseEntitySpawnVars(&text, characters, vars);
+        R_PARSE_SPAWN_VARS(&text, characters, vars, count);
         if (!_stricmp(vars[0][1], "misc_model"))
             R_LoadMiscModel(vars, count);
     }
     R_FinishStaticModelLightingCache(&s_world);
     R_BuildCellAabbTrees();
     ri.Hunk_ClearTempMemory();
-}
-
-// PINNED 10003f90: lump 23; portals hold an index until R_LoadPortals.
-void R_LoadCells(GfxBspLoad *load)
-{
-    int count = R_GetLumpElemCount(load, 23, sizeof(DiskGfxCell));
-    const DiskGfxCell *in = (const DiskGfxCell *)(load->fileBase + load->header->lumps[23].fileofs);
-    GfxCell *out = (GfxCell *)ri.Hunk_AllocInternal(count * sizeof(GfxCell));
-    s_world.cells = out;
-    s_world.cellCount = count;
-    for (int index = 0; index < count; ++index)
-    {
-        out[index].mins[0] = in[index].mins[0];
-        out[index].mins[1] = in[index].mins[1];
-        out[index].mins[2] = in[index].mins[2];
-        out[index].maxs[0] = in[index].maxs[0];
-        out[index].maxs[1] = in[index].maxs[1];
-        out[index].maxs[2] = in[index].maxs[2];
-        out[index].aabbTree = &rgl.aabbTrees[in[index].aabbTreeIndex];
-        out[index].portals = (GfxPortal *)(in[index].firstPortal * sizeof(GfxPortal));
-        out[index].portalCount = in[index].portalCount;
-        int cullGroupCount = in[index].cullGroupCount;
-        out[index].cullGroups = cullGroupCount ? &rgl.cullGroupIndices[in[index].firstCullGroup] : 0;
-        out[index].cullGroupCount = cullGroupCount;
-        int occluderCount = in[index].occluderCount;
-        out[index].occluders = occluderCount ? &rgl.occluderIndices[in[index].firstOccluder] : 0;
-        out[index].occluderCount = occluderCount;
-    }
-}
-
-// PINNED 10004080: lump 17, Kisak name.
-void R_LoadPortalVerts(GfxBspLoad *load)
-{
-    int count = R_GetLumpElemCount(load, 17, sizeof(vec3_t));
-    const vec3_t *in = (const vec3_t *)(load->fileBase + load->header->lumps[17].fileofs);
-    vec3_t *out = (vec3_t *)ri.Hunk_AllocInternal(count * sizeof(vec3_t));
-    rgl.portalVerts = out;
-    for (int index = 0; index < count; ++index)
-    {
-        out[index][0] = in[index][0];
-        out[index][1] = in[index][1];
-        out[index][2] = in[index][2];
-    }
-}
-
-typedef char planeSlotCheck[offsetof(refimport_t, CM_GetPlaneNum)
-    - offsetof(refimport_t, Hunk_AllocInternal) == 0x240 ? 1 : -1];
-void PerpendicularVector(const vec3_t src, vec3_t dst);
-
-// PINNED 10004170: lump 24, then cell portal indices become pointers.
-void R_LoadPortals(GfxBspLoad *load)
-{
-    int count = R_GetLumpElemCount(load, 24, sizeof(DiskGfxPortal));
-    const DiskGfxPortal *in = (const DiskGfxPortal *)(load->fileBase + load->header->lumps[24].fileofs);
-    GfxPortal *portals = (GfxPortal *)ri.Hunk_AllocInternal(count * sizeof(GfxPortal));
-    for (int index = 0; index < count; ++index)
-    {
-        const float *plane = (const float *)ri.CM_GetPlaneNum(in[index].planeIndex);
-        GfxPortal *out = &portals[index];
-        DpvsPlane *outPlane = &out->plane;
-        VectorCopy(plane, outPlane->coeffs);
-        outPlane->coeffs[3] = -FloatFromBits(*(const int *)&plane[3]);
-        R_SetDpvsPlaneSides(outPlane);
-        out->cell = &s_world.cells[in[index].cellIndex];
-        out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
-        out->vertexCount = (byte)in[index].portalVertexCount;
-        out->hullPointCount = 0;
-        out->hullPoints = 0;
-        PerpendicularVector(plane, out->hullAxis[0]);
-        out->hullAxis[1][0] = out->hullAxis[0][2] * plane[1] - plane[2] * out->hullAxis[0][1];
-        out->hullAxis[1][1] = out->hullAxis[0][0] * plane[2] - plane[0] * out->hullAxis[0][2];
-        out->hullAxis[1][2] = plane[0] * out->hullAxis[0][1] - out->hullAxis[0][0] * plane[1];
-    }
-    for (int index = 0; index < s_world.cellCount; ++index)
-    {
-        GfxCell *cell = &s_world.cells[index];
-        cell->portals = cell->portalCount ? &portals[(int)cell->portals / (int)sizeof(GfxPortal)] : 0;
-    }
-}
-
-// PINNED 10004300: lump 10, Kisak R_LoadCullGroups.
-void R_LoadCullGroups(GfxBspLoad *load)
-{
-    int count = R_GetLumpElemCount(load, 10, sizeof(DiskGfxCullGroup));
-    const DiskGfxCullGroup *in = (const DiskGfxCullGroup *)(load->fileBase + load->header->lumps[10].fileofs);
-    GfxCullGroup *out = (GfxCullGroup *)ri.Hunk_AllocInternal(count * sizeof(GfxCullGroup));
-    s_world.cullGroups = out;
-    s_world.cullGroupCount = count;
-    for (int index = 0; index < count; ++index)
-    {
-        for (int axis = 0; axis < 3; ++axis)
-        {
-            out[index].mins[axis] = in[index].mins[axis];
-            out[index].maxs[axis] = in[index].maxs[axis];
-        }
-        int surfaceCount = in[index].surfaceCount;
-        out[index].surfaceCount = surfaceCount;
-        out[index].startSurfIndex = surfaceCount ? in[index].firstSurface : -1;
-    }
-}
-
-// PINNED 100043d0: lump 11, Kisak name.
-__declspec(noinline) void R_LoadCullGroupIndices(GfxBspLoad *load)
-{
-    int count = R_GetLumpElemCount(load, 11, 4);
-    const int *in = (const int *)(load->fileBase + load->header->lumps[11].fileofs);
-    int *out = (int *)ri.Hunk_AllocInternal(count * 4);
-    rgl.cullGroupIndices = out;
-    for (int index = 0; index < count; ++index)
-        out[index] = in[index];
-}
-
-// PINNED 10004670: lump 21 holds short occluder indices.
-void R_LoadOccluderIndices(GfxBspLoad *load)
-{
-    int count = R_GetLumpElemCount(load, 21, 2);
-    const short *in = (const short *)(load->fileBase + load->header->lumps[21].fileofs);
-    GfxOccluder **out = (GfxOccluder **)ri.Hunk_AllocInternal(count * 4);
-    rgl.occluderIndices = out;
-    for (int index = 0; index < count; ++index)
-        out[index] = &rgl.occluders[LittleShort(in[index])];
-}
-
-// PINNED 10004730: nodes (lump 25) then leafs (lump 26), 36 bytes each.
-void R_LoadNodesAndLeafs(GfxBspLoad *load)
-{
-    int nodeCount = R_GetLumpElemCount(load, 25, 36);
-    const int *inNode = (const int *)(load->fileBase + load->header->lumps[25].fileofs);
-    int leafCount = R_GetLumpElemCount(load, 26, sizeof(DiskLeaf));
-    const DiskLeaf *inLeaf = (const DiskLeaf *)(load->fileBase + load->header->lumps[26].fileofs);
-    s_world.nodeCount = leafCount + nodeCount;
-    s_world.nodes = (mnode_t *)ri.Hunk_AllocInternal(s_world.nodeCount * sizeof(BspNodeA));
-    BspNodeA *out = (BspNodeA *)s_world.nodes;
-    for (int index = 0; index < nodeCount; ++index)
-    {
-        out->plane = ri.CM_GetPlaneNum(inNode[0]);
-        out->childCount = -1;
-        int child = inNode[1];
-        out->front = &((BspNodeA *)s_world.nodes)[I_sel(child, child, nodeCount - 1 - child)];
-        child = inNode[2];
-        out->back = &((BspNodeA *)s_world.nodes)[I_sel(child, child, nodeCount - 1 - child)];
-        inNode += 9;
-        ++out;
-    }
-    for (int index = 0; index < leafCount; ++index)
-    {
-        out->leafIndex = inLeaf->cellNum;
-        out->cluster = inLeaf->cluster;
-        ++inLeaf;
-        ++out;
-    }
-    R_SetParentAndCell_r((BspNodeA *)s_world.nodes, 0);
-}
-
-// PINNED 10004430: lumps 18-20, planes come from the collision map.
-void R_LoadOccluders(GfxBspLoad *load)
-{
-    const DiskGfxOccluder *in;
-    int remaining;
-    const int count = R_GetLumpElemCount(load, 18, sizeof(DiskGfxOccluder));
-    in = (const DiskGfxOccluder *)(load->fileBase + load->header->lumps[18].fileofs);
-    GfxOccluder *occluders = (GfxOccluder *)ri.Hunk_AllocInternal(count * sizeof(GfxOccluder));
-    int planeCount = R_GetLumpElemCount(load, 19, 4);
-    const int *planeIndices = (const int *)(load->fileBase + load->header->lumps[19].fileofs);
-    DpvsPlane *planes = (DpvsPlane *)ri.Hunk_AllocInternal(planeCount * sizeof(DpvsPlane));
-    int edgeCount = R_GetLumpElemCount(load, 20, sizeof(DiskGfxOccluderEdge));
-    const DiskGfxOccluderEdge *inEdges = (const DiskGfxOccluderEdge *)(load->fileBase + load->header->lumps[20].fileofs);
-    GfxOccluderEdge *edges = (GfxOccluderEdge *)ri.Hunk_AllocInternal(edgeCount * sizeof(GfxOccluderEdge));
-    rgl.occluders = occluders;
-    GfxOccluder *out = occluders;
-    remaining = count;
-    if (remaining > 0)
-    do
-    {
-        out->planeCount = in->planeCount;
-        out->planes = &planes[in->firstPlane];
-        if (out->planeCount > 0)
-        {
-          const int *occluderPlanes = &planeIndices[in->firstPlane];
-          for (int planeIndex = 0; planeIndex < out->planeCount; ++planeIndex, ++occluderPlanes)
-          {
-            const float *plane = (const float *)ri.CM_GetPlaneNum(*occluderPlanes);
-            out->planes[planeIndex].coeffs[0] = plane[0];
-            out->planes[planeIndex].coeffs[1] = plane[1];
-            out->planes[planeIndex].coeffs[2] = plane[2];
-            out->planes[planeIndex].coeffs[3] = -plane[3];
-            DpvsPlane *outPlane = &out->planes[planeIndex];
-            R_SetDpvsPlaneSides(outPlane);
-          }
-        }
-        out->vertices = &rgl.portalVerts[in->firstPortalVertex];
-        out->vertexCount = in->portalVertexCount;
-        out->edgeCount = in->edgeCount;
-        out->edges = &edges[in->firstEdge];
-        for (int edgeIndex = 0; edgeIndex < out->edgeCount; ++edgeIndex)
-        {
-            const DiskGfxOccluderEdge *inEdge = &inEdges[edgeIndex];
-            out->edges[edgeIndex].plane[0] = &out->planes[inEdge->planeIndex[0]];
-            out->edges[edgeIndex].plane[1] = &out->planes[inEdge->planeIndex[1]];
-            out->edges[edgeIndex].vertex[0] = &out->vertices[inEdge->vertexIndex[0]];
-            out->edges[edgeIndex].vertex[1] = &out->vertices[inEdge->vertexIndex[1]];
-        }
-        out->viewPlaneCount = 0;
-        out->viewPlanes = 0;
-        ++in;
-        ++out;
-    } while (--remaining);
 }
 
 // PINNED 10003d40: bounds come from the surfaces or the child trees.
@@ -1254,6 +1053,231 @@ void R_LoadAabbTrees(GfxBspLoad *load)
         index = R_FinishLoadingAabbTrees_r(&rgl.aabbTrees[index], index + 1);
 }
 
+// PINNED 10003f90: lump 23; portals hold an index until R_LoadPortals.
+void R_LoadCells(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 23, sizeof(DiskGfxCell));
+    const DiskGfxCell *in = (const DiskGfxCell *)(load->fileBase + load->header->lumps[23].fileofs);
+    GfxCell *out = (GfxCell *)ri.Hunk_AllocInternal(count * sizeof(GfxCell));
+    s_world.cells = out;
+    s_world.cellCount = count;
+    for (int index = 0; index < count; ++index)
+    {
+        out[index].mins[0] = in[index].mins[0];
+        out[index].mins[1] = in[index].mins[1];
+        out[index].mins[2] = in[index].mins[2];
+        out[index].maxs[0] = in[index].maxs[0];
+        out[index].maxs[1] = in[index].maxs[1];
+        out[index].maxs[2] = in[index].maxs[2];
+        out[index].aabbTree = &rgl.aabbTrees[in[index].aabbTreeIndex];
+        out[index].portals = (GfxPortal *)(in[index].firstPortal * sizeof(GfxPortal));
+        out[index].portalCount = in[index].portalCount;
+        int cullGroupCount = in[index].cullGroupCount;
+        out[index].cullGroups = cullGroupCount ? &rgl.cullGroupIndices[in[index].firstCullGroup] : 0;
+        out[index].cullGroupCount = cullGroupCount;
+        int occluderCount = in[index].occluderCount;
+        out[index].occluders = occluderCount ? &rgl.occluderIndices[in[index].firstOccluder] : 0;
+        out[index].occluderCount = occluderCount;
+    }
+}
+
+// PINNED 10004080: lump 17, Kisak name.
+void R_LoadPortalVerts(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 17, sizeof(vec3_t));
+    const vec3_t *in = (const vec3_t *)(load->fileBase + load->header->lumps[17].fileofs);
+    vec3_t *out = (vec3_t *)ri.Hunk_AllocInternal(count * sizeof(vec3_t));
+    rgl.portalVerts = out;
+    for (int index = 0; index < count; ++index)
+    {
+        out[index][0] = in[index][0];
+        out[index][1] = in[index][1];
+        out[index][2] = in[index][2];
+    }
+}
+
+typedef char planeSlotCheck[offsetof(refimport_t, CM_GetPlaneNum)
+    - offsetof(refimport_t, Hunk_AllocInternal) == 0x240 ? 1 : -1];
+void PerpendicularVector(const vec3_t src, vec3_t dst);
+
+// PINNED 10004170: lump 24, then cell portal indices become pointers.
+void R_LoadPortals(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 24, sizeof(DiskGfxPortal));
+    const DiskGfxPortal *in = (const DiskGfxPortal *)(load->fileBase + load->header->lumps[24].fileofs);
+    GfxPortal *portals = (GfxPortal *)ri.Hunk_AllocInternal(count * sizeof(GfxPortal));
+    for (int index = 0; index < count; ++index)
+    {
+        const float *plane = (const float *)ri.CM_GetPlaneNum(in[index].planeIndex);
+        GfxPortal *out = &portals[index];
+        DpvsPlane *outPlane = &out->plane;
+        VectorCopy(plane, outPlane->coeffs);
+        outPlane->coeffs[3] = -plane[3];
+        R_SetDpvsPlaneSides(outPlane);
+        out->cell = &s_world.cells[in[index].cellIndex];
+        out->vertices = &rgl.portalVerts[in[index].firstPortalVertex];
+        out->vertexCount = (byte)in[index].portalVertexCount;
+        out->hullPointCount = 0;
+        out->hullPoints = 0;
+        PerpendicularVector(plane, out->hullAxis[0]);
+        out->hullAxis[1][0] = out->hullAxis[0][2] * plane[1] - plane[2] * out->hullAxis[0][1];
+        out->hullAxis[1][1] = out->hullAxis[0][0] * plane[2] - plane[0] * out->hullAxis[0][2];
+        out->hullAxis[1][2] = plane[0] * out->hullAxis[0][1] - out->hullAxis[0][0] * plane[1];
+    }
+    for (int index = 0; index < s_world.cellCount; ++index)
+    {
+        GfxCell *cell = &s_world.cells[index];
+        cell->portals = cell->portalCount ? &portals[(int)cell->portals / (int)sizeof(GfxPortal)] : 0;
+    }
+}
+
+// PINNED 10004300: lump 10, Kisak R_LoadCullGroups.
+void R_LoadCullGroups(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 10, sizeof(DiskGfxCullGroup));
+    const DiskGfxCullGroup *in = (const DiskGfxCullGroup *)(load->fileBase + load->header->lumps[10].fileofs);
+    GfxCullGroup *out = (GfxCullGroup *)ri.Hunk_AllocInternal(count * sizeof(GfxCullGroup));
+    s_world.cullGroups = out;
+    s_world.cullGroupCount = count;
+    for (int index = 0; index < count; ++index)
+    {
+        for (int axis = 0; axis < 3; ++axis)
+        {
+            out[index].mins[axis] = in[index].mins[axis];
+            out[index].maxs[axis] = in[index].maxs[axis];
+        }
+        int surfaceCount = in[index].surfaceCount;
+        int firstSurface;
+        if (surfaceCount)
+            firstSurface = in[index].firstSurface;
+        else
+            firstSurface = -1;
+        out[index].startSurfIndex = firstSurface;
+        out[index].surfaceCount = surfaceCount;
+    }
+}
+
+// PINNED 100043d0: lump 11, Kisak name.
+__declspec(noinline) void R_LoadCullGroupIndices(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 11, 4);
+    const int *in = (const int *)(load->fileBase + load->header->lumps[11].fileofs);
+    int *out = (int *)ri.Hunk_AllocInternal(count * 4);
+    rgl.cullGroupIndices = out;
+    for (int index = 0; index < count; ++index)
+        out[index] = in[index];
+}
+
+// PINNED 10004430: lumps 18-20, planes come from the collision map.
+void R_LoadOccluders(GfxBspLoad *load)
+{
+    const DiskGfxOccluder *in;
+    int remaining;
+    const int count = R_GetLumpElemCount(load, 18, sizeof(DiskGfxOccluder));
+    in = (const DiskGfxOccluder *)(load->fileBase + load->header->lumps[18].fileofs);
+    GfxOccluder *occluders = (GfxOccluder *)ri.Hunk_AllocInternal(count * sizeof(GfxOccluder));
+    int planeCount = R_GetLumpElemCount(load, 19, 4);
+    const int *planeIndices = (const int *)(load->fileBase + load->header->lumps[19].fileofs);
+    DpvsPlane *planes = (DpvsPlane *)ri.Hunk_AllocInternal(planeCount * sizeof(DpvsPlane));
+    int edgeCount = R_GetLumpElemCount(load, 20, sizeof(DiskGfxOccluderEdge));
+    const DiskGfxOccluderEdge *inEdges = (const DiskGfxOccluderEdge *)(load->fileBase + load->header->lumps[20].fileofs);
+    GfxOccluderEdge *edges = (GfxOccluderEdge *)ri.Hunk_AllocInternal(edgeCount * sizeof(GfxOccluderEdge));
+    rgl.occluders = occluders;
+    GfxOccluder *out = occluders;
+    remaining = count;
+    if (remaining > 0)
+    do
+    {
+        out->planeCount = in->planeCount;
+        out->planes = &planes[in->firstPlane];
+        if (out->planeCount > 0)
+        {
+          const int *occluderPlanes = &planeIndices[in->firstPlane];
+          for (int planeIndex = 0; planeIndex < out->planeCount; ++planeIndex, ++occluderPlanes)
+          {
+            const float *plane = (const float *)ri.CM_GetPlaneNum(*occluderPlanes);
+            out->planes[planeIndex].coeffs[0] = plane[0];
+            out->planes[planeIndex].coeffs[1] = plane[1];
+            out->planes[planeIndex].coeffs[2] = plane[2];
+            out->planes[planeIndex].coeffs[3] = -plane[3];
+            DpvsPlane *outPlane = &out->planes[planeIndex];
+            R_SetDpvsPlaneSides(outPlane);
+          }
+        }
+        out->vertices = &rgl.portalVerts[in->firstPortalVertex];
+        out->vertexCount = in->portalVertexCount;
+        out->edgeCount = in->edgeCount;
+        out->edges = &edges[in->firstEdge];
+        for (int edgeIndex = 0; edgeIndex < out->edgeCount; ++edgeIndex)
+        {
+            const DiskGfxOccluderEdge *inEdge = &inEdges[edgeIndex];
+            out->edges[edgeIndex].plane[0] = &out->planes[inEdge->planeIndex[0]];
+            out->edges[edgeIndex].plane[1] = &out->planes[inEdge->planeIndex[1]];
+            out->edges[edgeIndex].vertex[0] = &out->vertices[inEdge->vertexIndex[0]];
+            out->edges[edgeIndex].vertex[1] = &out->vertices[inEdge->vertexIndex[1]];
+        }
+        out->viewPlaneCount = 0;
+        out->viewPlanes = 0;
+        ++in;
+        ++out;
+    } while (--remaining);
+}
+
+// PINNED 10004670: lump 21 holds short occluder indices.
+void R_LoadOccluderIndices(GfxBspLoad *load)
+{
+    int count = R_GetLumpElemCount(load, 21, 2);
+    const short *in = (const short *)(load->fileBase + load->header->lumps[21].fileofs);
+    GfxOccluder **out = (GfxOccluder **)ri.Hunk_AllocInternal(count * 4);
+    rgl.occluderIndices = out;
+    for (int index = 0; index < count; ++index)
+        out[index] = &rgl.occluders[LittleShort(in[index])];
+}
+
+void R_SetParentAndCell_r(BspNodeA *node, BspNodeA *parent)
+{
+    node->parent = parent;
+    if (node->childCount == -1)
+    {
+        R_SetParentAndCell_r(node->front, node);
+        R_SetParentAndCell_r(node->back, node);
+        node->leafIndex = -2;
+        if (node->front->leafIndex == node->back->leafIndex)
+            node->leafIndex = node->front->leafIndex;
+    }
+}
+
+// PINNED 10004730: nodes (lump 25) then leafs (lump 26), 36 bytes each.
+void R_LoadNodesAndLeafs(GfxBspLoad *load)
+{
+    int nodeCount = R_GetLumpElemCount(load, 25, 36);
+    const int *inNode = (const int *)(load->fileBase + load->header->lumps[25].fileofs);
+    int leafCount = R_GetLumpElemCount(load, 26, sizeof(DiskLeaf));
+    const DiskLeaf *inLeaf = (const DiskLeaf *)(load->fileBase + load->header->lumps[26].fileofs);
+    s_world.nodeCount = leafCount + nodeCount;
+    BspNodeA *out = (BspNodeA *)ri.Hunk_AllocInternal(s_world.nodeCount * sizeof(BspNodeA));
+    s_world.nodes = (mnode_t *)out;
+    for (int index = 0; index < nodeCount; ++index)
+    {
+        out->plane = ri.CM_GetPlaneNum(inNode[0]);
+        out->childCount = -1;
+        int child = inNode[1];
+        out->front = &((BspNodeA *)s_world.nodes)[child >= 0 ? child : nodeCount - 1 - child];
+        child = inNode[2];
+        out->back = &((BspNodeA *)s_world.nodes)[child >= 0 ? child : nodeCount - 1 - child];
+        inNode += 9;
+        ++out;
+    }
+    for (int index = 0; index < leafCount; ++index)
+    {
+        out->leafIndex = inLeaf->cellNum;
+        out->cluster = inLeaf->cluster;
+        ++inLeaf;
+        ++out;
+    }
+    R_SetParentAndCell_r((BspNodeA *)s_world.nodes, 0);
+}
+
 const char *R_ParseSunLight(SunLightParseParams *params, const char *text);
 void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight);
 void R_LoadSun(const char *name, sunflare_t *sun);
@@ -1285,8 +1309,8 @@ GfxWorld *R_LoadWorldInternal(const char *name)
 
     s_world.name = (const char *)ri.Hunk_AllocInternal(strlen(name) + 1);
     strcpy((char *)s_world.name, name);
-    skip = name;
-    for (p = name; *p; p++)
+    skip = s_world.name;
+    for (p = s_world.name; *p; p++)
     {
         if (*p == '/')
             skip = p + 1;
@@ -1335,4 +1359,33 @@ GfxWorld *R_LoadWorldInternal(const char *name)
     R_LoadSun(name, &s_world.sun);
     R_RegisterOutdoorImage(&s_world);
     return &s_world;
+}
+
+// Name unconfirmed; PINNED out-of-line copy at 10004d80, inlined into its only caller.
+inline void R_SetSunLightVectors(GfxLight *sunLight, const vec3_t sunDirection, const vec3_t sunColor, const vec3_t ambient)
+{
+    VectorCopy(sunDirection, sunLight->position);
+    sunLight->position[3] = 0.0f;
+    VectorCopy(sunColor, sunLight->color);
+    VectorCopy(ambient, sunLight->u.dir.ambientColor);
+}
+
+void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, GfxLight *sunLight)
+{
+    vec3_t sunDirection;
+    vec3_t ambient;
+    vec3_t sunColor;
+    float sunScale;
+    float scale;
+
+    AngleVectors(sunParse->angles, sunDirection, NULL, NULL);
+    if (sunParse->ambientScale != 0.0f && Vec3ScaleToUnitMax(sunParse->ambientColor, sunParse->ambientColor) != 0.0f)
+        VectorScale(sunParse->ambientColor, sunParse->ambientScale, ambient);
+    else
+        VectorClear(ambient);
+    sunScale = sunParse->sunLight - sunParse->ambientScale;
+    scale = (1.0f - sunParse->diffuseFraction) * sunScale;
+    VectorScale(sunParse->sunColor, scale, sunColor);
+    if (sunLight)
+        R_SetSunLightVectors(sunLight, sunDirection, sunColor, ambient);
 }
