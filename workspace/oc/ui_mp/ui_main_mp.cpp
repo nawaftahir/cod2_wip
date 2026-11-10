@@ -2325,7 +2325,7 @@ static void __attribute_regparm__(0) UI_BuildServerDisplayList(qboolean force)
         motdLen = strlen(sharedUiInfo.serverStatus.motd);
 
         if (motdLen == 0) {
-            strcpy(sharedUiInfo.serverStatus.motd, va("%s - %s", UI_SafeTranslateString("EXE_COD_MULTIPLAYER"), "1.0"));
+            strcpy(sharedUiInfo.serverStatus.motd, va("%s - %s", UI_SafeTranslateString("EXE_COD_MULTIPLAYER"), COD2_VERSION_SHORT));
             motdLen = strlen(sharedUiInfo.serverStatus.motd);
         }
 
