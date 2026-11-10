@@ -5,7 +5,7 @@ The first object whose drift changes is where retail layout and ours part ways.
 """
 import json
 import sys
-from collections import OrderedDict
+from collections import Counter, OrderedDict
 from pathlib import Path
 
 
@@ -29,10 +29,10 @@ def drift_by_object(bind, symbols):
     return OrderedDict((obj, sorted(d)) for obj, d in out.items())
 
 
-def net_deltas(bind, symbols):
-    """Per object: change in median drift to the next object, i.e. ours span - retail span.
+def modal_drifts(bind, symbols):
+    """Return (OrderedDict obj -> modal drift, [order-scrambled objects]).
 
-    An estimate; read it together with the per-object drift table.
+    The mode must cover at least half of the object's bound functions, and at least 2.
     """
     rows = sorted((symbols[n][0], symbols[n][1], symbols[n][0] - int(v['t'], 16))
                   for n, v in bind.items() if n in symbols and not v['why'])
@@ -41,7 +41,22 @@ def net_deltas(bind, symbols):
         # library objects (LIBCMT:x) link in another order; big values are mis-bound short bodies
         if abs(delta) < 0x10000 and ':' not in obj:
             per.setdefault(obj, []).append(delta)
-    first = OrderedDict((obj, sorted(d)[len(d) // 2]) for obj, d in per.items())
+    modes, scrambled = OrderedDict(), []
+    for obj, d in per.items():
+        value, count = Counter(d).most_common(1)[0]
+        if count >= 2 and count * 2 >= len(d):
+            modes[obj] = value
+        else:
+            scrambled.append(obj)
+    return modes, scrambled
+
+
+def net_deltas(bind, symbols):
+    """Per object: change in the modal drift to the next object, i.e. ours span - retail span.
+
+    Order-scrambled objects (see modal_drifts) are skipped. An estimate.
+    """
+    first = modal_drifts(bind, symbols)[0]
     keys = list(first)
     return sorted(((first[b] - first[a], a) for a, b in zip(keys, keys[1:])), key=lambda x: -abs(x[0]))
 
@@ -55,3 +70,6 @@ if __name__ == '__main__':
     print('--- net size delta (ours - retail), largest first')
     for delta, obj in net_deltas(bind, symbols)[:15]:
         print('%-34s %+d' % (obj, delta))
+    print('--- order-scrambled (no dominant drift, no delta)')
+    for obj in modal_drifts(bind, symbols)[1]:
+        print(obj)
