@@ -36,6 +36,11 @@ typedef char rbFogLayoutCheck[(offsetof(r_backEndGlobals_t, fogColor) == 0x4c8
         typedef int (__stdcall *SetState)(void *, int, DWORD);   \
         ((SetState)(*(void ***)device)[57])(device, state, value); \
     } while (alwaysfails)
+static DWORD FloatAsInt(const float *value);
+__declspec(noinline) void R_ConvertPackedColorToFloat(const byte *color, float *out);
+GfxFogOffset RB_FogOffset();
+void RB_UpdateFogColor(FogColorSrcEnum source);
+void RB_SetIteratorFog();
 
 static DWORD FloatAsInt(const float *value)
 {
@@ -56,44 +61,6 @@ GfxFogOffset RB_FogOffset()
     if (!r_fog->current.enabled)
         return FOG_OFFSET_NONE;
     return ((const RBFogFrontEndView *)backEndData)->fogSettings.techniqueOffset;
-}
-
-void RB_UpdateFogColor(FogColorSrcEnum source)
-{
-    unsigned int fogColor;
-    unsigned int cachedColor;
-    if (!rg.fogIndex)
-        return;
-    if (source == FOG_COLOR_SRC_UNSPECIFIED)
-    {
-        if ((dxState.refStateBits[0] & 0xf0) == 0x20)
-            goto black;
-    }
-    else if (source == FOG_COLOR_SRC_BLACK)
-        goto black;
-    fogColor = backEnd.fogColor.packed;
-opaqueAlpha:
-    cachedColor = dxState.fog.color.packed;
-    ((byte *)&fogColor)[3] = 255;
-    if (cachedColor == fogColor)
-        return;
-    // PINNED this leaf expands logging; the iterator calls RB_LogPrint.
-    do {
-        if (RB_IsLogging())
-        {
-            fprintf(r_logFileGlob.fp, "%s",
-                "dx.device->SetRenderState( D3DRS_FOGCOLOR, fogColor.packed )\n");
-            fflush(r_logFileGlob.fp);
-        }
-        void *device = (void *)dx.device;
-        typedef int (__stdcall *SetState)(void *, int, DWORD);
-        ((SetState)(*(void ***)device)[57])(device, 34, fogColor);
-    } while (alwaysfails);
-    dxState.fog.color.packed = fogColor;
-    return;
-black:
-    fogColor = 0;
-    goto opaqueAlpha;
 }
 
 void RB_SetIteratorFog()
@@ -158,4 +125,42 @@ void RB_SetIteratorFog()
             dxState.fog.density = fog->density;
         }
     }
+}
+
+void RB_UpdateFogColor(FogColorSrcEnum source)
+{
+    unsigned int fogColor;
+    unsigned int cachedColor;
+    if (!rg.fogIndex)
+        return;
+    if (source == FOG_COLOR_SRC_UNSPECIFIED)
+    {
+        if ((dxState.refStateBits[0] & 0xf0) == 0x20)
+            goto black;
+    }
+    else if (source == FOG_COLOR_SRC_BLACK)
+        goto black;
+    fogColor = backEnd.fogColor.packed;
+opaqueAlpha:
+    cachedColor = dxState.fog.color.packed;
+    ((byte *)&fogColor)[3] = 255;
+    if (cachedColor == fogColor)
+        return;
+    // PINNED this leaf expands logging; the iterator calls RB_LogPrint.
+    do {
+        if (RB_IsLogging())
+        {
+            fprintf(r_logFileGlob.fp, "%s",
+                "dx.device->SetRenderState( D3DRS_FOGCOLOR, fogColor.packed )\n");
+            fflush(r_logFileGlob.fp);
+        }
+        void *device = (void *)dx.device;
+        typedef int (__stdcall *SetState)(void *, int, DWORD);
+        ((SetState)(*(void ***)device)[57])(device, 34, fogColor);
+    } while (alwaysfails);
+    dxState.fog.color.packed = fogColor;
+    return;
+black:
+    fogColor = 0;
+    goto opaqueAlpha;
 }

@@ -28,6 +28,13 @@ static struct
     float texelScaleY;
     unsigned char *pixels;
 } smodelLoadGlob;
+void R_AllocStaticModels(GfxAabbTree *tree);
+static int R_CompareStaticModelIndex(const void *a, const void *b);
+static int R_SortGfxAabbTreeChildren(GfxWorld *world, const float *mins, const float *maxs, int *staticModels, int staticModelCount);
+void R_SortGfxAabbTree(GfxWorld *world, GfxAabbTree *tree);
+void R_AddStaticModelToAabbTree_r(GfxWorld *world, GfxAabbTree *tree, int smodelIndex);
+static __declspec(noinline) void R_AddStaticModelToCell(int cellIndex, GfxStaticModelInstance *smodelInst, GfxWorld *world);
+static void R_FilterStaticModelIntoCells_r(GfxWorld *world, mnode_t *node, GfxStaticModelInstance *smodelInst, const vec_t *mins, const vec_t *maxs);
 
 void R_AllocStaticModels(GfxAabbTree *tree)
 {
@@ -42,11 +49,6 @@ void R_AllocStaticModels(GfxAabbTree *tree)
     }
     for (childIndex = 0; childIndex < tree->childCount; ++childIndex)
         R_AllocStaticModels(&tree->children[childIndex]);
-}
-
-static int R_CompareStaticModelIndex(const void *a, const void *b)
-{
-    return *(const int *)a - *(const int *)b;
 }
 
 static int R_SortGfxAabbTreeChildren(GfxWorld *world, const float *mins, const float *maxs, int *staticModels, int staticModelCount)
@@ -76,6 +78,11 @@ static int R_SortGfxAabbTreeChildren(GfxWorld *world, const float *mins, const f
         }
     }
     return childCount < 2 ? 0 : childCount;
+}
+
+static int R_CompareStaticModelIndex(const void *a, const void *b)
+{
+    return *(const int *)a - *(const int *)b;
 }
 
 void R_SortGfxAabbTree(GfxWorld *world, GfxAabbTree *tree)

@@ -163,22 +163,14 @@ void R_AddBModelSurfaces(GfxSceneEntity *sceneEnt, int entIndex)
 }
 
 void R_ClearDpvsScene();
-
-void R_ClearScene()
-{
-    GfxBackEndData *data;
-
-    scene.viewCount++;
-    scene.dlightCount = 0;
-    scene.drawSurfCount = 0;
-    data = frontEndDataOut;
-    scene.drawSurfs = &data->drawSurfs[data->drawSurfCount];
-    scene.polyCount = 0;
-    scene.def.entityCount = 0;
-    scene.def.entities = &data->entities[data->entityCount];
-    scene.sceneEntMaterialCount = 0;
-    R_ClearDpvsScene();
-}
+void R_ClearScene();
+static int R_CompareDumpSceneEntities(const void *e0, const void *e1);
+int R_CountMatchingSceneEntities(const int *sortedIndices, int entIndex);
+void R_DumpSceneEntities();
+byte LerpByte(byte from, byte to, float frac);
+void R_UpdateFrameFog();
+static int R_AllocSceneEntity();
+int R_AddStaticModelToScene(int smodelIndex);
 
 static int R_CompareDumpSceneEntities(const void *e0, const void *e1)
 {
@@ -279,51 +271,6 @@ void R_DumpSceneEntities()
     }
 }
 
-// PINNED 10024050/37; KisakCOD name.
-byte LerpByte(byte from, byte to, float frac)
-{
-    return (byte)(from + (to - from) * frac);
-}
-
-void R_UpdateFrameFog()
-{
-    int fadeTime;
-    float lerpPos;
-
-    if (scene.def.time >= rg.fogSettings[4].finishTime)
-    {
-        rg.fogSettings[2] = rg.fogSettings[4];
-    }
-    else if (rg.fogSettings[3].techniqueOffset != rg.fogSettings[4].techniqueOffset)
-    {
-        rg.fogSettings[2] = rg.fogSettings[4];
-        rg.fogSettings[4].finishTime = 0;
-    }
-    else
-    {
-        fadeTime = rg.fogSettings[4].finishTime - rg.fogSettings[4].startTime;
-        if (fadeTime <= 0)
-            fadeTime = 1;
-        lerpPos = (float)(scene.def.time - rg.fogSettings[4].startTime) / fadeTime;
-        if (lerpPos > 1.0f)
-            lerpPos = 1.0f;
-        rg.fogSettings[2].fogStart = (rg.fogSettings[4].fogStart - rg.fogSettings[3].fogStart) * lerpPos + rg.fogSettings[3].fogStart;
-        rg.fogSettings[2].fogEnd = (rg.fogSettings[4].fogEnd - rg.fogSettings[3].fogEnd) * lerpPos + rg.fogSettings[3].fogEnd;
-        rg.fogSettings[2].density = (rg.fogSettings[4].density - rg.fogSettings[3].density) * lerpPos + rg.fogSettings[3].density;
-        rg.fogSettings[2].color.array[0] = LerpByte(rg.fogSettings[3].color.array[0], rg.fogSettings[4].color.array[0], lerpPos);
-        rg.fogSettings[2].color.array[1] = LerpByte(rg.fogSettings[3].color.array[1], rg.fogSettings[4].color.array[1], lerpPos);
-        rg.fogSettings[2].color.array[2] = LerpByte(rg.fogSettings[3].color.array[2], rg.fogSettings[4].color.array[2], lerpPos);
-        rg.fogSettings[2].color.array[3] = LerpByte(rg.fogSettings[3].color.array[3], rg.fogSettings[4].color.array[3], lerpPos);
-        rg.fogSettings[2].techniqueOffset = rg.fogSettings[4].techniqueOffset;
-        rg.fogSettings[2].registered = 1;
-        rg.fogSettings[2].clearScreen = rg.fogSettings[4].clearScreen || rg.fogSettings[3].clearScreen;
-    }
-    if (rg.fogIndex)
-        frontEndDataOut->fogSettings = rg.fogSettings[2];
-    else
-        frontEndDataOut->fogSettings.techniqueOffset = FOG_OFFSET_NONE;
-}
-
 static int R_AllocSceneEntity()
 {
     static int warnCount;
@@ -389,6 +336,67 @@ int R_AddStaticModelToScene(int smodelIndex)
     VectorCopy(smodelInst->mins, sceneEnt->curMins);
     VectorCopy(smodelInst->maxs, sceneEnt->curMaxs);
     return entIndex;
+}
+
+// PINNED 10024050/37; KisakCOD name.
+byte LerpByte(byte from, byte to, float frac)
+{
+    return (byte)(from + (to - from) * frac);
+}
+
+void R_UpdateFrameFog()
+{
+    int fadeTime;
+    float lerpPos;
+
+    if (scene.def.time >= rg.fogSettings[4].finishTime)
+    {
+        rg.fogSettings[2] = rg.fogSettings[4];
+    }
+    else if (rg.fogSettings[3].techniqueOffset != rg.fogSettings[4].techniqueOffset)
+    {
+        rg.fogSettings[2] = rg.fogSettings[4];
+        rg.fogSettings[4].finishTime = 0;
+    }
+    else
+    {
+        fadeTime = rg.fogSettings[4].finishTime - rg.fogSettings[4].startTime;
+        if (fadeTime <= 0)
+            fadeTime = 1;
+        lerpPos = (float)(scene.def.time - rg.fogSettings[4].startTime) / fadeTime;
+        if (lerpPos > 1.0f)
+            lerpPos = 1.0f;
+        rg.fogSettings[2].fogStart = (rg.fogSettings[4].fogStart - rg.fogSettings[3].fogStart) * lerpPos + rg.fogSettings[3].fogStart;
+        rg.fogSettings[2].fogEnd = (rg.fogSettings[4].fogEnd - rg.fogSettings[3].fogEnd) * lerpPos + rg.fogSettings[3].fogEnd;
+        rg.fogSettings[2].density = (rg.fogSettings[4].density - rg.fogSettings[3].density) * lerpPos + rg.fogSettings[3].density;
+        rg.fogSettings[2].color.array[0] = LerpByte(rg.fogSettings[3].color.array[0], rg.fogSettings[4].color.array[0], lerpPos);
+        rg.fogSettings[2].color.array[1] = LerpByte(rg.fogSettings[3].color.array[1], rg.fogSettings[4].color.array[1], lerpPos);
+        rg.fogSettings[2].color.array[2] = LerpByte(rg.fogSettings[3].color.array[2], rg.fogSettings[4].color.array[2], lerpPos);
+        rg.fogSettings[2].color.array[3] = LerpByte(rg.fogSettings[3].color.array[3], rg.fogSettings[4].color.array[3], lerpPos);
+        rg.fogSettings[2].techniqueOffset = rg.fogSettings[4].techniqueOffset;
+        rg.fogSettings[2].registered = 1;
+        rg.fogSettings[2].clearScreen = rg.fogSettings[4].clearScreen || rg.fogSettings[3].clearScreen;
+    }
+    if (rg.fogIndex)
+        frontEndDataOut->fogSettings = rg.fogSettings[2];
+    else
+        frontEndDataOut->fogSettings.techniqueOffset = FOG_OFFSET_NONE;
+}
+
+void R_ClearScene()
+{
+    GfxBackEndData *data;
+
+    scene.viewCount++;
+    scene.dlightCount = 0;
+    scene.drawSurfCount = 0;
+    data = frontEndDataOut;
+    scene.drawSurfs = &data->drawSurfs[data->drawSurfCount];
+    scene.polyCount = 0;
+    scene.def.entityCount = 0;
+    scene.def.entities = &data->entities[data->entityCount];
+    scene.sceneEntMaterialCount = 0;
+    R_ClearDpvsScene();
 }
 
 extern const dvar_t *r_dlightLimit;

@@ -7,6 +7,120 @@
 
 // r_screenshot.cpp - cubemap shots and screenshots.
 extern "C" void Com_Memcpy(void *dest, const void *src, int count);
+Bool R_GetFrontBufferData(int x, int y, int width, int height, int bytesPerPixel, byte *buffer);
+void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel, byte *src, byte *dst);
+void R_UpsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel, byte *src, byte *dst);
+void R_ResampleImage(int oldWidth, int oldHeight, int newWidth, int newHeight, int bytesPerPixel, byte *data);
+byte *R_TakeResampledScreenshot(int width, int height, int bytesPerPixel, int headerSize);
+void R_TakeScreenshotTga(int x, int y, int width, int height, const char *filename);
+
+void R_UpsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel, byte *src, byte *dst)
+{
+    int nextSample = bytesPerPixel * stride;
+    byte *currSrc = src + (oldSize - 1) * nextSample;
+    float colorScale = 0.5f / newSize;
+    int column;
+
+    column = newSize - 1;
+    dst += column * nextSample;
+    currSrc[nextSample] = currSrc[0];
+    currSrc[nextSample + 1] = currSrc[1];
+    currSrc[nextSample + 2] = currSrc[2];
+    int forwardWeight = newSize - oldSize;
+    int backwardWeight = newSize + oldSize;
+    for (; column >= 0; --column)
+    {
+        if (currSrc >= src)
+        {
+            dst[0] = (byte)I_fround(colorScale * (forwardWeight * currSrc[nextSample] + backwardWeight * currSrc[0]));
+            dst[1] = (byte)I_fround(colorScale * (forwardWeight * currSrc[nextSample + 1] + backwardWeight * currSrc[1]));
+            dst[2] = (byte)I_fround(colorScale * (forwardWeight * currSrc[nextSample + 2] + backwardWeight * currSrc[2]));
+        }
+        else
+        {
+            dst[0] = (byte)I_fround(colorScale * ((forwardWeight + backwardWeight) * src[0]));
+            dst[1] = (byte)I_fround(colorScale * ((forwardWeight + backwardWeight) * src[1]));
+            dst[2] = (byte)I_fround(colorScale * ((forwardWeight + backwardWeight) * src[2]));
+        }
+        dst -= nextSample;
+        backwardWeight += 2 * oldSize;
+        forwardWeight -= 2 * oldSize;
+        if (forwardWeight < 0)
+        {
+            backwardWeight -= 2 * newSize;
+            forwardWeight += 2 * newSize;
+            currSrc -= nextSample;
+        }
+    }
+}
+
+void R_ResampleImage(int oldWidth, int oldHeight, int newWidth, int newHeight, int bytesPerPixel, byte *data)
+{
+    byte *src;
+    byte *dst;
+    int row;
+    int col;
+    if (newWidth < oldWidth)
+    {
+        src = data;
+        dst = data;
+        for (row = 0; row < oldHeight; ++row)
+        {
+            R_DownsamplePixelData(oldWidth, newWidth, 1, bytesPerPixel, src, dst);
+            src += bytesPerPixel * oldWidth;
+            dst += bytesPerPixel * newWidth;
+        }
+    }
+    else if (oldWidth < newWidth)
+    {
+        src = data + bytesPerPixel * oldWidth * (oldHeight - 1);
+        dst = data + bytesPerPixel * newWidth * (oldHeight - 1);
+        for (row = oldHeight - 1; row >= 0; --row)
+        {
+            R_UpsamplePixelData(oldWidth, newWidth, 1, bytesPerPixel, src, dst);
+            src -= bytesPerPixel * oldWidth;
+            dst -= bytesPerPixel * newWidth;
+        }
+    }
+    if (newHeight < oldHeight)
+    {
+        src = data;
+        dst = data;
+        for (col = 0; col < newWidth; ++col)
+        {
+            R_DownsamplePixelData(oldHeight, newHeight, newWidth, bytesPerPixel, src, dst);
+            src += bytesPerPixel;
+            dst += bytesPerPixel;
+        }
+    }
+    else if (oldHeight < newHeight)
+    {
+        dst = data;
+        dst += bytesPerPixel * (newWidth - 1);
+        src = dst;
+        for (col = newWidth - 1; col >= 0; --col)
+        {
+            R_UpsamplePixelData(oldHeight, newHeight, newWidth, bytesPerPixel, src, dst);
+            src -= bytesPerPixel;
+            dst -= bytesPerPixel;
+        }
+    }
+}
+
+byte *R_TakeResampledScreenshot(int width, int height, int bytesPerPixel, int headerSize)
+{
+    int allocWidth = I_max(width, vidConfig.width);
+    int allocHeight = I_max(height, vidConfig.height);
+    byte *buffer = (byte *)ri.Z_MallocInternal(allocWidth * allocHeight * bytesPerPixel + headerSize);
+    // Retail captures at the buffer start, then resamples after the header.
+    if (!R_GetFrontBufferData(0, 0, vidConfig.width, vidConfig.height, bytesPerPixel, buffer))
+    {
+        ri.Z_FreeInternal(buffer);
+        return NULL;
+    }
+    R_ResampleImage(vidConfig.width, vidConfig.height, width, height, bytesPerPixel, buffer + headerSize);
+    return buffer;
+}
 
 // PINNED: retail 0x10025e80; the PC path captures the D3D front buffer.
 Bool R_GetFrontBufferData(int x, int y, int width, int height, int bytesPerPixel, byte *buffer)
@@ -157,114 +271,6 @@ void R_DownsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPix
         dst[2] = (byte)I_fround(colorScale * color2);
         dst += nextSample;
     }
-}
-
-void R_UpsamplePixelData(int oldSize, int newSize, int stride, int bytesPerPixel, byte *src, byte *dst)
-{
-    int nextSample = bytesPerPixel * stride;
-    byte *currSrc = src + (oldSize - 1) * nextSample;
-    float colorScale = 0.5f / newSize;
-    int column;
-
-    column = newSize - 1;
-    dst += column * nextSample;
-    currSrc[nextSample] = currSrc[0];
-    currSrc[nextSample + 1] = currSrc[1];
-    currSrc[nextSample + 2] = currSrc[2];
-    int forwardWeight = newSize - oldSize;
-    int backwardWeight = newSize + oldSize;
-    for (; column >= 0; --column)
-    {
-        if (currSrc >= src)
-        {
-            dst[0] = (byte)I_fround(colorScale * (forwardWeight * currSrc[nextSample] + backwardWeight * currSrc[0]));
-            dst[1] = (byte)I_fround(colorScale * (forwardWeight * currSrc[nextSample + 1] + backwardWeight * currSrc[1]));
-            dst[2] = (byte)I_fround(colorScale * (forwardWeight * currSrc[nextSample + 2] + backwardWeight * currSrc[2]));
-        }
-        else
-        {
-            dst[0] = (byte)I_fround(colorScale * ((forwardWeight + backwardWeight) * src[0]));
-            dst[1] = (byte)I_fround(colorScale * ((forwardWeight + backwardWeight) * src[1]));
-            dst[2] = (byte)I_fround(colorScale * ((forwardWeight + backwardWeight) * src[2]));
-        }
-        dst -= nextSample;
-        backwardWeight += 2 * oldSize;
-        forwardWeight -= 2 * oldSize;
-        if (forwardWeight < 0)
-        {
-            backwardWeight -= 2 * newSize;
-            forwardWeight += 2 * newSize;
-            currSrc -= nextSample;
-        }
-    }
-}
-
-void R_ResampleImage(int oldWidth, int oldHeight, int newWidth, int newHeight, int bytesPerPixel, byte *data)
-{
-    byte *src;
-    byte *dst;
-    int row;
-    int col;
-    if (newWidth < oldWidth)
-    {
-        src = data;
-        dst = data;
-        for (row = 0; row < oldHeight; ++row)
-        {
-            R_DownsamplePixelData(oldWidth, newWidth, 1, bytesPerPixel, src, dst);
-            src += bytesPerPixel * oldWidth;
-            dst += bytesPerPixel * newWidth;
-        }
-    }
-    else if (oldWidth < newWidth)
-    {
-        src = data + bytesPerPixel * oldWidth * (oldHeight - 1);
-        dst = data + bytesPerPixel * newWidth * (oldHeight - 1);
-        for (row = oldHeight - 1; row >= 0; --row)
-        {
-            R_UpsamplePixelData(oldWidth, newWidth, 1, bytesPerPixel, src, dst);
-            src -= bytesPerPixel * oldWidth;
-            dst -= bytesPerPixel * newWidth;
-        }
-    }
-    if (newHeight < oldHeight)
-    {
-        src = data;
-        dst = data;
-        for (col = 0; col < newWidth; ++col)
-        {
-            R_DownsamplePixelData(oldHeight, newHeight, newWidth, bytesPerPixel, src, dst);
-            src += bytesPerPixel;
-            dst += bytesPerPixel;
-        }
-    }
-    else if (oldHeight < newHeight)
-    {
-        dst = data;
-        dst += bytesPerPixel * (newWidth - 1);
-        src = dst;
-        for (col = newWidth - 1; col >= 0; --col)
-        {
-            R_UpsamplePixelData(oldHeight, newHeight, newWidth, bytesPerPixel, src, dst);
-            src -= bytesPerPixel;
-            dst -= bytesPerPixel;
-        }
-    }
-}
-
-byte *R_TakeResampledScreenshot(int width, int height, int bytesPerPixel, int headerSize)
-{
-    int allocWidth = I_max(width, vidConfig.width);
-    int allocHeight = I_max(height, vidConfig.height);
-    byte *buffer = (byte *)ri.Z_MallocInternal(allocWidth * allocHeight * bytesPerPixel + headerSize);
-    // Retail captures at the buffer start, then resamples after the header.
-    if (!R_GetFrontBufferData(0, 0, vidConfig.width, vidConfig.height, bytesPerPixel, buffer))
-    {
-        ri.Z_FreeInternal(buffer);
-        return NULL;
-    }
-    R_ResampleImage(vidConfig.width, vidConfig.height, width, height, bytesPerPixel, buffer + headerSize);
-    return buffer;
 }
 
 void R_TakeScreenshotTga(int x, int y, int width, int height, const char *filename)
@@ -588,28 +594,12 @@ void R_LevelShot()
 void R_SaveJpg(const char *filename, int quality, int width, int height, byte *pixels);
 Bool R_GetFrontBufferData(int x, int y, int width, int height, int bytesPerPixel, byte *buffer);
 void R_TakeScreenshotTga(int x, int y, int width, int height, const char *filename);
-
-// PINNED 10026240/78: capture failure still frees the pixel allocation.
-__forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename)
-{
-    byte *buffer = (byte *)ri.Z_MallocInternal(width * height * 3);
-    if (R_GetFrontBufferData(x, y, width, height, 3, buffer))
-        R_SaveJpg(filename, 90, width, height, buffer);
-    ri.Z_FreeInternal(buffer);
-}
-
-// PINNED 10026330/101: savegame thumbnails use512-square resampled JPEGs.
-void R_SaveGameShot(const char *name)
-{
-    char filename[256];
-    sprintf(filename, "%s.jpg", name);
-    byte *buffer = R_TakeResampledScreenshot(512, 512, 3, 0);
-    if (buffer)
-    {
-        R_SaveJpg(filename, 90, 512, 512, buffer);
-        ri.Z_FreeInternal(buffer);
-    }
-}
+__forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename);
+void R_SaveGameShot(const char *name);
+void R_ScreenshotFilename(int number, const char *extension, char *filename);
+void R_ScreenShotCmd(int type);
+void R_ScreenShot_f();
+void R_ScreenShotJpeg_f();
 
 // PINNED 10025960: invalid signed numbers use the final screenshot name.
 void R_ScreenshotFilename(int number, const char *extension, char *filename)
@@ -690,4 +680,26 @@ void R_ScreenShot_f()
 void R_ScreenShotJpeg_f()
 {
     R_ScreenShotCmd(0);
+}
+
+// PINNED 10026240/78: capture failure still frees the pixel allocation.
+__forceinline void R_TakeScreenshotJpeg(int x, int y, int width, int height, const char *filename)
+{
+    byte *buffer = (byte *)ri.Z_MallocInternal(width * height * 3);
+    if (R_GetFrontBufferData(x, y, width, height, 3, buffer))
+        R_SaveJpg(filename, 90, width, height, buffer);
+    ri.Z_FreeInternal(buffer);
+}
+
+// PINNED 10026330/101: savegame thumbnails use512-square resampled JPEGs.
+void R_SaveGameShot(const char *name)
+{
+    char filename[256];
+    sprintf(filename, "%s.jpg", name);
+    byte *buffer = R_TakeResampledScreenshot(512, 512, 3, 0);
+    if (buffer)
+    {
+        R_SaveJpg(filename, 90, 512, 512, buffer);
+        ri.Z_FreeInternal(buffer);
+    }
 }

@@ -48,6 +48,18 @@ static const int iEdgePairs[12][2] = {
     {0,1}, {0,2}, {0,4}, {1,3}, {1,5}, {2,3},
     {2,6}, {3,7}, {4,5}, {4,6}, {5,7}, {6,7}
 };
+void R_AddDebugBox(DebugGlobals *debug, const float *mins, const float *maxs,
+    const float *color);
+void R_AddDebugString(DebugGlobals *debug, const float *origin, const float *color,
+    float scale, const char *text);
+void R_AddScaledDebugString(DebugGlobals *debug, const GfxViewParms *viewParms,
+    const float *origin, const float *color, const char *text);
+void R_ShutdownDebugEntry(DebugGlobals *debugGlobalsEntry);
+void R_ShutdownDebug();
+void R_LocateDebugStrings(trDebugString_t *strings, int stringCount, int maxStringCount);
+void R_LocateDebugLines(trDebugLine_t *lines, int lineCount, int maxLineCount);
+void R_AddPlume(const vec_t *origin, int score, const vec_t *color, int duration);
+void R_TransferDebugGlobals(DebugGlobals *debugGlobalsEntry);
 
 // PINNED 10005590; eight corner choices and twelve capacity-checked line appends.
 void R_AddDebugBox(DebugGlobals *debug, const float *mins, const float *maxs,
@@ -136,6 +148,34 @@ void R_ShutdownDebug()
     R_ShutdownDebugEntry(&debugGlobals);
 }
 
+void R_TransferDebugGlobals(DebugGlobals *debugGlobalsEntry)
+{
+    int plumeIndex;
+    int elapsed;
+
+    plumeIndex = 0;
+    while (plumeIndex < debugGlobals.plumeCount)
+    {
+        elapsed = scene.def.time - debugGlobals.plumes[plumeIndex].startTime;
+        if (elapsed < 0 || elapsed > debugGlobals.plumes[plumeIndex].duration)
+        {
+            debugGlobals.plumeCount--;
+            debugGlobals.plumes[plumeIndex] = debugGlobals.plumes[debugGlobals.plumeCount];
+        }
+        else
+        {
+            plumeIndex++;
+        }
+    }
+    if (debugGlobals.plumes)
+    {
+        if (!debugGlobalsEntry->plumes)
+            debugGlobalsEntry->plumes = (GfxDebugPlume *)ri.Z_MallocInternal(debugGlobals.plumeLimit * sizeof(GfxDebugPlume));
+        memcpy(debugGlobalsEntry->plumes, debugGlobals.plumes, debugGlobals.plumeCount * sizeof(GfxDebugPlume));
+    }
+    debugGlobalsEntry->plumeCount = debugGlobals.plumeCount;
+}
+
 void R_LocateDebugStrings(trDebugString_t *strings, int stringCount, int maxStringCount)
 {
     DebugGlobals *debugGlobalsEntry;
@@ -179,32 +219,4 @@ void R_AddPlume(const vec_t *origin, int score, const vec_t *color, int duration
     debugGlobals.plumes[debugGlobals.plumeCount].startTime = scene.def.time;
     debugGlobals.plumes[debugGlobals.plumeCount].duration = duration;
     debugGlobals.plumeCount++;
-}
-
-void R_TransferDebugGlobals(DebugGlobals *debugGlobalsEntry)
-{
-    int plumeIndex;
-    int elapsed;
-
-    plumeIndex = 0;
-    while (plumeIndex < debugGlobals.plumeCount)
-    {
-        elapsed = scene.def.time - debugGlobals.plumes[plumeIndex].startTime;
-        if (elapsed < 0 || elapsed > debugGlobals.plumes[plumeIndex].duration)
-        {
-            debugGlobals.plumeCount--;
-            debugGlobals.plumes[plumeIndex] = debugGlobals.plumes[debugGlobals.plumeCount];
-        }
-        else
-        {
-            plumeIndex++;
-        }
-    }
-    if (debugGlobals.plumes)
-    {
-        if (!debugGlobalsEntry->plumes)
-            debugGlobalsEntry->plumes = (GfxDebugPlume *)ri.Z_MallocInternal(debugGlobals.plumeLimit * sizeof(GfxDebugPlume));
-        memcpy(debugGlobalsEntry->plumes, debugGlobals.plumes, debugGlobals.plumeCount * sizeof(GfxDebugPlume));
-    }
-    debugGlobalsEntry->plumeCount = debugGlobals.plumeCount;
 }

@@ -202,31 +202,71 @@ struct RcCmdDelayedEnd { GfxCmdHeader header; };
 struct RcCmdDelayedBegin { GfxCmdHeader header; int marker; };
 struct RcCmdBlendSavedScreen { GfxCmdHeader header; int fadeMsec; int unused; };
 struct RcCmdId9 { GfxCmdHeader header; RcWords16 data; int extra; };
+void R_AddCmdSetViewport(int x, int y, int width, int height);
+void R_AddCmdBlendSavedScreen(int fadeMsec);
+int R_BeginDelayedDrawing();
+void R_EndDelayedDrawing(int marker);
+void R_IssueDelayedDrawing(int marker);
+void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
+    MaterialTechniqueType techType, GfxDrawSurfOrder order);
+void R_AddCmdId9(const RcWords16 *data, int extra);
+void R_AddCmdClearScreen(int whichToClear, const float *color, float depth, int stencil);
+void R_AddCmdSetMaterialColor(const vec_t *color);
+void R_AddCmdDrawStretchPic(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material);
+void R_AddCmdDrawStretchPicRotate(float x, float y, float w, float h, float s0, float t0, float s1, float t1, float angle, const vec_t *color, MaterialHandle material);
+void R_AddCmdDrawStretchRaw(int x, int y, int w, int h, int cols, int rows, const byte *data, int client, qboolean dirty);
+void R_AddCmdDrawTextWithCursor(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style, int cursorPos, char cursor);
+void R_AddCmdDrawTextInSpace(const char *text, FontHandle font, const vec_t *org, const vec_t *xPixelStep, const vec_t *yPixelStep, const vec_t *color);
+void R_AddCmdDrawQuadPic(vec2_t *verts, const vec_t *color, MaterialHandle material);
+void R_AddCmdDrawSprite(MaterialHandle material, const byte *rgbaColor, const vec_t *pos, float radius, float minScreenRadius, int renderFxFlags);
+void R_AddCmdDrawFullScreenColoredQuad(float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material);
+void R_AddCmdApplyEarlyPostEffects();
+void R_AddCmdHeaderOnly1C();
+void R_AddCmdEndOfList();
+void R_IssueRenderCommands();
+void R_EndDebugFrame();
+void R_AddCmdSaveScreen();
+void R_AddCmdApplyLatePostEffects(float blurRadius);
+void R_AddCmdDrawSunPostEffects(int viewIndex);
 
-// PINNED 10021bf0, API59 slot56: these are viewport integers, not clear flags.
-void R_AddCmdSetViewport(int x, int y, int width, int height)
+// name unconfirmed: header-only command id 0 (end of list)
+void R_AddCmdEndOfList()
 {
-    GfxCmdSetViewport *cmd;
-
-    cmd = (GfxCmdSetViewport *)R_GetCommandBuffer(0xd, sizeof(GfxCmdSetViewport));
-    cmd->viewport.x = x;
-    cmd->viewport.y = y;
-    cmd->viewport.width = width;
-    cmd->viewport.height = height;
+    R_GetCommandBuffer(0, sizeof(GfxCmdHeader));
 }
 
-// PINNED 100222f0, API59 slot54: enqueue blending only for a positive duration.
-void R_AddCmdBlendSavedScreen(int fadeMsec)
+// PINNED 10020d50: counters reset before execution, while command bytes remain.
+void R_IssueRenderCommands()
 {
-    RcCmdBlendSavedScreen *cmd;
+    R_AddCmdEndOfList();
+    frontEndDataOut->commands.usedTotal = 0;
+    frontEndDataOut->commands.usedCritical = 0;
+    frontEndDataOut->commands.lastCmd = 0;
+    RB_ExecuteRenderCommands(frontEndDataOut);
+    RB_EndFrame();
+    R_InitFrameBackendData();
+}
 
-    if (fadeMsec > 0)
+// PINNED 10022040: restore saved pointers before relocking the normal frame.
+void R_EndDebugFrame()
+{
+    if (!rg.registered)
+        return;
+    R_AddCmdEndOfList();
+    frontEndDataOut->commands.usedTotal = 0;
+    frontEndDataOut->commands.usedCritical = 0;
+    frontEndDataOut->commands.lastCmd = 0;
+    RB_ExecuteRenderCommands(frontEndDataOut);
+    RB_EndFrame();
+    s_cmdList = s_debugFrameGlob.restoreCmdList;
+    frontEndDataOut = s_debugFrameGlob.restoreFrontEndDataOut;
+    if (s_debugFrameGlob.restoreSkinnedCache)
     {
-        cmd = (RcCmdBlendSavedScreen *)R_GetCommandBuffer(0x1d, sizeof(RcCmdBlendSavedScreen));
-        if (!cmd)
-            return;
-        cmd->fadeMsec = fadeMsec;
+        s_debugFrameGlob.restoreSkinnedCache = 0;
+        R_LockSkinnedCache(1);
     }
+    s_debugFrameGlob.restoreCmdList = 0;
+    s_debugFrameGlob.restoreFrontEndDataOut = 0;
 }
 
 int R_BeginDelayedDrawing()
@@ -252,69 +292,6 @@ void R_IssueDelayedDrawing(int marker)
 
     cmd = (RcCmdDelayedBegin *)R_GetCommandBuffer(2, sizeof(RcCmdDelayedBegin));
     cmd->marker = (int)((byte *)s_cmdList + 8 + marker);
-}
-
-// PINNED 10021890: PC has an explicit fourth order argument.
-void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
-    MaterialTechniqueType techType, GfxDrawSurfOrder order)
-{
-    GfxCmdDrawSurfs *cmd;
-
-    cmd = (GfxCmdDrawSurfs *)R_GetCommandBuffer(0x17, sizeof(GfxCmdDrawSurfs));
-    if (!cmd)
-        return;
-    cmd->order = order;
-    cmd->drawSurfs = drawSurfs;
-    cmd->drawSurfCount = drawSurfCount;
-    cmd->techType = techType;
-}
-
-void R_AddCmdId9(const RcWords16 *data, int extra)
-{
-    RcCmdId9 *cmd;
-
-    cmd = (RcCmdId9 *)R_GetCommandBuffer(9, sizeof(RcCmdId9));
-    cmd->data = *data;
-    cmd->extra = extra;
-}
-
-// PINNED 10022220, API59 slot55: copy float payloads without arithmetic.
-void R_AddCmdClearScreen(int whichToClear, const float *color, float depth, int stencil)
-{
-    GfxCmdClearScreen *cmd;
-
-    cmd = (GfxCmdClearScreen *)R_GetCommandBuffer(0xb, sizeof(GfxCmdClearScreen));
-    cmd->whichToClear = (byte)whichToClear;
-    cmd->stencil = (byte)stencil;
-    memcpy(&cmd->depth, &depth, sizeof(depth));
-    memcpy(&cmd->color[0], &color[0], sizeof(float));
-    memcpy(&cmd->color[1], &color[1], sizeof(float));
-    memcpy(&cmd->color[2], &color[2], sizeof(float));
-    memcpy(&cmd->color[3], &color[3], sizeof(float));
-}
-
-
-// Mac command layouts; PC 1.0 offsets PINNED by the retail writers.
-
-void R_AddCmdSetMaterialColor(const vec_t *color)
-{
-    GfxCmdSetMaterialColor *cmd;
-
-    cmd = (GfxCmdSetMaterialColor *)R_GetCommandBuffer(4, sizeof(GfxCmdSetMaterialColor));
-    if (color)
-    {
-        cmd->color[0] = color[0];
-        cmd->color[1] = color[1];
-        cmd->color[2] = color[2];
-        cmd->color[3] = color[3];
-    }
-    else
-    {
-        cmd->color[0] = 0.0f;
-        cmd->color[1] = 0.0f;
-        cmd->color[2] = 0.0f;
-        cmd->color[3] = 0.0f;
-    }
 }
 
 void R_AddCmdDrawStretchPic(float x, float y, float w, float h, float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material)
@@ -486,61 +463,70 @@ void R_AddCmdDrawFullScreenColoredQuad(float s0, float t0, float s1, float t1, c
     R_ConvertColorToBytes(color, cmd->color.array);
 }
 
+
+// Mac command layouts; PC 1.0 offsets PINNED by the retail writers.
+
+void R_AddCmdSetMaterialColor(const vec_t *color)
+{
+    GfxCmdSetMaterialColor *cmd;
+
+    cmd = (GfxCmdSetMaterialColor *)R_GetCommandBuffer(4, sizeof(GfxCmdSetMaterialColor));
+    if (color)
+    {
+        cmd->color[0] = color[0];
+        cmd->color[1] = color[1];
+        cmd->color[2] = color[2];
+        cmd->color[3] = color[3];
+    }
+    else
+    {
+        cmd->color[0] = 0.0f;
+        cmd->color[1] = 0.0f;
+        cmd->color[2] = 0.0f;
+        cmd->color[3] = 0.0f;
+    }
+}
+
+// PINNED 10021890: PC has an explicit fourth order argument.
+void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
+    MaterialTechniqueType techType, GfxDrawSurfOrder order)
+{
+    GfxCmdDrawSurfs *cmd;
+
+    cmd = (GfxCmdDrawSurfs *)R_GetCommandBuffer(0x17, sizeof(GfxCmdDrawSurfs));
+    if (!cmd)
+        return;
+    cmd->order = order;
+    cmd->drawSurfs = drawSurfs;
+    cmd->drawSurfCount = drawSurfCount;
+    cmd->techType = techType;
+}
+
+void R_AddCmdId9(const RcWords16 *data, int extra)
+{
+    RcCmdId9 *cmd;
+
+    cmd = (RcCmdId9 *)R_GetCommandBuffer(9, sizeof(RcCmdId9));
+    cmd->data = *data;
+    cmd->extra = extra;
+}
+
+// PINNED 10021bf0, API59 slot56: these are viewport integers, not clear flags.
+void R_AddCmdSetViewport(int x, int y, int width, int height)
+{
+    GfxCmdSetViewport *cmd;
+
+    cmd = (GfxCmdSetViewport *)R_GetCommandBuffer(0xd, sizeof(GfxCmdSetViewport));
+    cmd->viewport.x = x;
+    cmd->viewport.y = y;
+    cmd->viewport.width = width;
+    cmd->viewport.height = height;
+}
+
 // Retail 1.0 header-only commands; ids 0x19/0xa match the Mac R_AddCmdApplyEarlyPostEffects/R_AddCmdSaveScreen.
 void R_AddCmdApplyEarlyPostEffects()
 {
     R_GetCommandBuffer(0x19, sizeof(GfxCmdHeader));
-}
-
-// name unconfirmed: header-only command id 0x1c
-void R_AddCmdHeaderOnly1C()
-{
-    R_GetCommandBuffer(0x1c, sizeof(GfxCmdHeader));
-}
-
-// name unconfirmed: header-only command id 0 (end of list)
-void R_AddCmdEndOfList()
-{
-    R_GetCommandBuffer(0, sizeof(GfxCmdHeader));
-}
-
-// PINNED 10020d50: counters reset before execution, while command bytes remain.
-void R_IssueRenderCommands()
-{
-    R_AddCmdEndOfList();
-    frontEndDataOut->commands.usedTotal = 0;
-    frontEndDataOut->commands.usedCritical = 0;
-    frontEndDataOut->commands.lastCmd = 0;
-    RB_ExecuteRenderCommands(frontEndDataOut);
-    RB_EndFrame();
-    R_InitFrameBackendData();
-}
-
-// PINNED 10022040: restore saved pointers before relocking the normal frame.
-void R_EndDebugFrame()
-{
-    if (!rg.registered)
-        return;
-    R_AddCmdEndOfList();
-    frontEndDataOut->commands.usedTotal = 0;
-    frontEndDataOut->commands.usedCritical = 0;
-    frontEndDataOut->commands.lastCmd = 0;
-    RB_ExecuteRenderCommands(frontEndDataOut);
-    RB_EndFrame();
-    s_cmdList = s_debugFrameGlob.restoreCmdList;
-    frontEndDataOut = s_debugFrameGlob.restoreFrontEndDataOut;
-    if (s_debugFrameGlob.restoreSkinnedCache)
-    {
-        s_debugFrameGlob.restoreSkinnedCache = 0;
-        R_LockSkinnedCache(1);
-    }
-    s_debugFrameGlob.restoreCmdList = 0;
-    s_debugFrameGlob.restoreFrontEndDataOut = 0;
-}
-
-void R_AddCmdSaveScreen()
-{
-    R_GetCommandBuffer(0xa, sizeof(GfxCmdHeader));
 }
 
 void R_AddCmdApplyLatePostEffects(float blurRadius)
@@ -561,6 +547,46 @@ void R_AddCmdDrawSunPostEffects(int viewIndex)
     if (!cmd)
         return;
     cmd->viewIndex = viewIndex;
+}
+
+// name unconfirmed: header-only command id 0x1c
+void R_AddCmdHeaderOnly1C()
+{
+    R_GetCommandBuffer(0x1c, sizeof(GfxCmdHeader));
+}
+
+// PINNED 10022220, API59 slot55: copy float payloads without arithmetic.
+void R_AddCmdClearScreen(int whichToClear, const float *color, float depth, int stencil)
+{
+    GfxCmdClearScreen *cmd;
+
+    cmd = (GfxCmdClearScreen *)R_GetCommandBuffer(0xb, sizeof(GfxCmdClearScreen));
+    cmd->whichToClear = (byte)whichToClear;
+    cmd->stencil = (byte)stencil;
+    memcpy(&cmd->depth, &depth, sizeof(depth));
+    memcpy(&cmd->color[0], &color[0], sizeof(float));
+    memcpy(&cmd->color[1], &color[1], sizeof(float));
+    memcpy(&cmd->color[2], &color[2], sizeof(float));
+    memcpy(&cmd->color[3], &color[3], sizeof(float));
+}
+
+void R_AddCmdSaveScreen()
+{
+    R_GetCommandBuffer(0xa, sizeof(GfxCmdHeader));
+}
+
+// PINNED 100222f0, API59 slot54: enqueue blending only for a positive duration.
+void R_AddCmdBlendSavedScreen(int fadeMsec)
+{
+    RcCmdBlendSavedScreen *cmd;
+
+    if (fadeMsec > 0)
+    {
+        cmd = (RcCmdBlendSavedScreen *)R_GetCommandBuffer(0x1d, sizeof(RcCmdBlendSavedScreen));
+        if (!cmd)
+            return;
+        cmd->fadeMsec = fadeMsec;
+    }
 }
 
 extern const dvar_t *r_zFeather;

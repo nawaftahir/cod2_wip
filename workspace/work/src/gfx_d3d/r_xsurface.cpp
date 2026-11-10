@@ -10,6 +10,17 @@ int XSurfaceGetBoneOffset(const XSurface *surf);
 void XSurfaceTransferDx7(const XVertexBuffer *surfVerts, GfxVertexDx7 *verts, int vertCount);
 void XSurfaceTransfer(const XVertexBuffer *surfVerts, GfxVertex *verts, int vertCount);
 void XSurfaceGetVerts(const XSurface *surf, DObjSkelMat *boneMatrix, float *pVert, float *pTexCoord, float *pNormal);
+int XSurfaceGetNumVerts(const XSurface *surface);
+int XSurfaceGetNumTris(const XSurface *surface);
+void XSurfaceGetTris(const XSurface *surface, r_index_t *dstIndices, short offset);
+XVertexInfo *XSurfaceGetVertexInfoArray(const XSurface *surf);
+int XSurfaceGetBoneOffset(const XSurface *surf);
+void XSurfaceTransferDx7(const XVertexBuffer *surfVerts, GfxVertexDx7 *verts, int vertCount);
+void XSurfaceTransfer(const XVertexBuffer *surfVerts, GfxVertex *verts, int vertCount);
+static inline __attribute__((always_inline)) void XSurfaceRotateNormal(const float *normal, const DObjSkelMat *mat, float *out);
+static inline __attribute__((always_inline)) void XSurfaceTransformPos(const float *pos, const DObjSkelMat *mat, float *out);
+static inline __attribute__((always_inline)) void XSurfaceTransformPosWeighted(const float *pos, const DObjSkelMat *mat, float scale, float *out);
+void XSurfaceGetVerts(const XSurface *surf, DObjSkelMat *boneMatrix, float *pVert, float *pTexCoord, float *pNormal);
 
 int XSurfaceGetNumVerts(const XSurface *surface)
 {
@@ -51,25 +62,6 @@ XVertexInfo *XSurfaceGetVertexInfoArray(const XSurface *surf)
 int XSurfaceGetBoneOffset(const XSurface *surf)
 {
     return surf->boneOffset;
-}
-
-void XSurfaceTransferDx7(const XVertexBuffer *surfVerts, GfxVertexDx7 *verts, int vertCount)
-{
-    int vertIndex;
-    const XVertexInfo *vi = (const XVertexInfo *)surfVerts;
-
-    for (vertIndex = 0; vertIndex < vertCount; vertIndex++) {
-
-        VectorCopy(vi->offset, verts[vertIndex].xyz);
-
-        VectorCopy(vi->normal, verts[vertIndex].normal);
-
-        verts[vertIndex].color = *(const GfxColor *)vi->color;
-
-        verts[vertIndex].texCoord[0] = vi->texCoordX;
-        verts[vertIndex].texCoord[1] = vi->texCoordY;
-        ++vi;
-    }
 }
 
 void XSurfaceTransfer(const XVertexBuffer *surfVerts, GfxVertex *verts, int vertCount)
@@ -188,5 +180,24 @@ void XSurfaceGetVerts(const XSurface *surf, DObjSkelMat *boneMatrix, float *pVer
             }
             pVert += 3;
         }
+    }
+}
+
+void XSurfaceTransferDx7(const XVertexBuffer *surfVerts, GfxVertexDx7 *verts, int vertCount)
+{
+    int vertIndex;
+    const XVertexInfo *vi = (const XVertexInfo *)surfVerts;
+
+    for (vertIndex = 0; vertIndex < vertCount; vertIndex++) {
+
+        VectorCopy(vi->offset, verts[vertIndex].xyz);
+
+        VectorCopy(vi->normal, verts[vertIndex].normal);
+
+        verts[vertIndex].color = *(const GfxColor *)vi->color;
+
+        verts[vertIndex].texCoord[0] = vi->texCoordX;
+        verts[vertIndex].texCoord[1] = vi->texCoordY;
+        ++vi;
     }
 }

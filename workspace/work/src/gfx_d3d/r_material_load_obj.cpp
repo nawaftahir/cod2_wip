@@ -121,6 +121,18 @@ static const PassOptionDx7 s_passOptionsDx7[] =
     { "objectiveGlow", offsetof(MaterialPassDx7, objectiveGlow) },
     { "fogToBlack", offsetof(MaterialPassDx7, fogToBlack) }
 };
+Bool Material_ParseEmptyFunctionCall(const char **text);
+void Material_SetPassOptionDx7(const PassOptionDx7 *option, Bool enabled,
+    MaterialPassDx7 *pass);
+void Material_InitPassOptionsDx7(MaterialPassDx7 *pass);
+static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,
+    Bool *finished, Bool *error);
+Bool Material_LoadPassOptionsDx7(const char **text, MaterialPassDx7 *pass);
+Bool Material_ParseIndex(const char **text, int expected);
+Bool Material_ParseNamedIndex(const char **text, const char *name, int expected);
+Bool Material_ParseTextureArgumentDx7(const char **text, int samplerIndex, int *argument);
+Bool Material_ParseTextureArgumentsDx7(const char **text, int samplerIndex,
+    int argumentCount, int *stageBits);
 
 // These helper names describe the pinned1001aaf0--1001ad10 bodies.
 Bool Material_ParseEmptyFunctionCall(const char **text)
@@ -139,6 +151,28 @@ void Material_InitPassOptionsDx7(MaterialPassDx7 *pass)
 {
     for (unsigned int index = 0; index < sizeof(s_passOptionsDx7) / sizeof(s_passOptionsDx7[0]); ++index)
         *((byte *)pass + s_passOptionsDx7[index].valueOffset) = 0;
+}
+
+// PINNED10018370: exact bracketed index, not a range or an optional suffix.
+Bool Material_ParseIndex(const char **text, int expected)
+{
+    if (!Com_MatchToken(text, "[", 1))
+        return 0;
+    int index = Com_ParseInt(text);
+    if (index != expected)
+    {
+        Com_ScriptWarning("expected %i, found %i instead\n", expected, index);
+        return 0;
+    }
+    return Com_MatchToken(text, "]", 1) != 0;
+}
+
+// PINNED100183c0: the name and bracketed index are both mandatory.
+Bool Material_ParseNamedIndex(const char **text, const char *name, int expected)
+{
+    if (!Com_MatchToken(text, name, 1))
+        return 0;
+    return Material_ParseIndex(text, expected);
 }
 
 static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,
@@ -174,28 +208,6 @@ Bool Material_LoadPassOptionsDx7(const char **text, MaterialPassDx7 *pass)
             break;
     }
     return !error;
-}
-
-// PINNED10018370: exact bracketed index, not a range or an optional suffix.
-Bool Material_ParseIndex(const char **text, int expected)
-{
-    if (!Com_MatchToken(text, "[", 1))
-        return 0;
-    int index = Com_ParseInt(text);
-    if (index != expected)
-    {
-        Com_ScriptWarning("expected %i, found %i instead\n", expected, index);
-        return 0;
-    }
-    return Com_MatchToken(text, "]", 1) != 0;
-}
-
-// PINNED100183c0: the name and bracketed index are both mandatory.
-Bool Material_ParseNamedIndex(const char **text, const char *name, int expected)
-{
-    if (!Com_MatchToken(text, name, 1))
-        return 0;
-    return Material_ParseIndex(text, expected);
 }
 
 // PINNED1001ad80: modifiers survive subsequent syntax/source failures.
@@ -292,6 +304,81 @@ static const MtlTextureFunctionDx7 s_textureFuncsDx7[] =
     { "multiplyAdd", 21, 3, MTL_TEXFUNC_VALID_BOTH },
     { "lerp", 22, 3, MTL_TEXFUNC_VALID_BOTH }
 };
+Bool Material_ParseTextureFunctionDx7(const char **text, int samplerIndex,
+    int validTest, int *stageBits);
+Bool Material_LoadPassTextureStateDx7(const char **text, int samplerIndex,
+    const char *stateName, int validTest, int *stageBits);
+Bool Material_LoadPassSamplerDx7(const char **text, int samplerIndex,
+    MaterialShaderArgument *argument);
+Bool Material_LoadPassTexCoordDx7(const char **text, int samplerIndex, byte *generator);
+Bool Material_LoadPassSamplersDx7(const char **text, MaterialPassDx7 *pass);
+Bool Material_LoadPassStagesDx7(const char **text, MaterialPassDx7 *pass);
+Bool Material_LoadPassDx7(const char **text, MaterialPassDx7 *pass);
+__declspec(noinline) Bool Material_ParseArrayOffset(const char **text, int arrayCount, int stride, int *offset);
+static __declspec(noinline) Bool Material_CodeSamplerSource_r(const char **text, int offset,
+    const CodeSamplerSource *sources, MaterialShaderArgument *argument);
+Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argument);
+Bool Material_FindScalarSamplerSource(const char *name, const CodeSamplerSource *sources,
+    MaterialShaderArgument *argument);
+unsigned int Material_FindShaderConstant(const char *shaderName,
+    const D3DXSHADER_CONSTANTTABLE *table, const D3DXSHADER_CONSTANTINFO *info, const char *name);
+Bool Material_ParseLiteralVector(const char **text, const char *type, float *literal);
+int Material_TechniqueTypeForName(const char *name);
+
+// PINNED 10019400: constant names are offsets relative to the serialized table.
+unsigned int Material_FindShaderConstant(const char *shaderName,
+    const D3DXSHADER_CONSTANTTABLE *table, const D3DXSHADER_CONSTANTINFO *info, const char *name)
+{
+    for (unsigned int index = 0; index < table->Constants; ++index)
+        if (!strcmp((const char *)table + info[index].Name, name))
+            return index;
+    printf("*WARNING*: constant '%s' is not used by shader '%s'\n", name, shaderName);
+    return ~0u;
+}
+
+// PINNED 10019700: array and subtable entries are not scalar sampler sources.
+Bool Material_FindScalarSamplerSource(const char *name, const CodeSamplerSource *sources,
+    MaterialShaderArgument *argument)
+{
+    for (int index = 0; sources[index].name; ++index)
+        if (!sources[index].subtable && !sources[index].arrayCount
+            && !strcmp(name, sources[index].name))
+        {
+            argument->u.codeSampler = sources[index].source;
+            return 1;
+        }
+    return 0;
+}
+
+// PINNED 100198c0: recognized types return success even when value parsing fails.
+Bool Material_ParseLiteralVector(const char **text, const char *type, float *literal)
+{
+    literal[0] = 0.0f;
+    literal[1] = 0.0f;
+    literal[2] = 0.0f;
+    literal[3] = 1.0f;
+    if (!strcmp(type, "float1"))
+    {
+        Material_ParseVector(text, 1, literal);
+        return 1;
+    }
+    if (!strcmp(type, "float2"))
+    {
+        Material_ParseVector(text, 2, literal);
+        return 1;
+    }
+    if (!strcmp(type, "float3"))
+    {
+        Material_ParseVector(text, 3, literal);
+        return 1;
+    }
+    if (!strcmp(type, "float4"))
+    {
+        Material_ParseVector(text, 4, literal);
+        return 1;
+    }
+    return 0;
+}
 
 // PINNED1001afc0: recognized operators publish their bits before parsing arguments.
 Bool Material_ParseTextureFunctionDx7(const char **text, int samplerIndex,
@@ -553,61 +640,6 @@ Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argu
     return 0;
 }
 
-// PINNED 10019700: array and subtable entries are not scalar sampler sources.
-Bool Material_FindScalarSamplerSource(const char *name, const CodeSamplerSource *sources,
-    MaterialShaderArgument *argument)
-{
-    for (int index = 0; sources[index].name; ++index)
-        if (!sources[index].subtable && !sources[index].arrayCount
-            && !strcmp(name, sources[index].name))
-        {
-            argument->u.codeSampler = sources[index].source;
-            return 1;
-        }
-    return 0;
-}
-
-// PINNED 10019400: constant names are offsets relative to the serialized table.
-unsigned int Material_FindShaderConstant(const char *shaderName,
-    const D3DXSHADER_CONSTANTTABLE *table, const D3DXSHADER_CONSTANTINFO *info, const char *name)
-{
-    for (unsigned int index = 0; index < table->Constants; ++index)
-        if (!strcmp((const char *)table + info[index].Name, name))
-            return index;
-    printf("*WARNING*: constant '%s' is not used by shader '%s'\n", name, shaderName);
-    return ~0u;
-}
-
-// PINNED 100198c0: recognized types return success even when value parsing fails.
-Bool Material_ParseLiteralVector(const char **text, const char *type, float *literal)
-{
-    literal[0] = 0.0f;
-    literal[1] = 0.0f;
-    literal[2] = 0.0f;
-    literal[3] = 1.0f;
-    if (!strcmp(type, "float1"))
-    {
-        Material_ParseVector(text, 1, literal);
-        return 1;
-    }
-    if (!strcmp(type, "float2"))
-    {
-        Material_ParseVector(text, 2, literal);
-        return 1;
-    }
-    if (!strcmp(type, "float3"))
-    {
-        Material_ParseVector(text, 3, literal);
-        return 1;
-    }
-    if (!strcmp(type, "float4"))
-    {
-        Material_ParseVector(text, 4, literal);
-        return 1;
-    }
-    return 0;
-}
-
 int Material_TechniqueTypeForName(const char *name)
 {
     const char *techniqueNames[34];
@@ -666,6 +698,32 @@ MtlLoadGlob mtlLoadGlob;
 typedef char cachedShaderTextLayoutCheck[(sizeof(GfxCachedShaderText) == 12 &&
     offsetof(GfxCachedShaderText, text) == 4 &&
     offsetof(GfxCachedShaderText, textSize) == 8) ? 1 : -1];
+void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedShaderText *cached);
+bool Material_CompareShaderText(const GfxCachedShaderText &left, const GfxCachedShaderText &right);
+void Material_PreloadShaderText();
+static const MtlStateMapBitName *Material_ParseStateValue(const char **text,
+    const MtlStateMapBitName *bitNames);
+static MtlParseSuccess Material_ParseRuleSetConditionTest(const char **text, const char *token,
+    MaterialStateMapRule *rule);
+static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const char *token,
+    MaterialStateMapRule *rule);
+static Bool Material_MatchToken(const char **text, const char *match);
+static Bool Material_ParseRuleSetValue(const char **text, const char *token,
+    const MtlStateMapBitGroup *stateSet, MaterialStateMapRule *rule);
+static MaterialStateMapRuleSet *Material_AllocRuleSet(int count,
+    const MaterialStateMapRule *rules);
+static Bool Material_ParseRuleSet(const char **text, const char *name,
+    const MtlStateMapBitGroup *stateSet, const MaterialStateMapRuleSet **ruleSet);
+static void Material_FixupRgbBlend(MaterialStateMapRuleSet *ruleSet);
+static void Material_FixupAlphaBlend(MaterialStateMapRuleSet *ruleSet);
+static Bool Material_ParseStateMap(const char **text, MaterialStateMap *stateMap);
+MaterialStateMap *Material_LoadStateMap(const char *name);
+MaterialStateMap *Material_LoadCachedStateMap(const char *name);
+Bool Material_LoadPassStateMap(const char **text, MaterialStateMap **stateMap);
+bool Material_FindCachedShaderText(const char *name, const char **text, int *textSize);
+extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYPE includeType,
+    const char *filename, const void *parentData, const void **data, unsigned int *byteCount);
+extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data);
 
 // PINNED 1001c7f0/173: name and text share one allocation; read results are not checked here.
 void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedShaderText *cached)
@@ -685,31 +743,51 @@ void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedSha
     cached->textSize = length;
 }
 
-// PINNED 1001c8d0/83: sort is case-sensitive although cache lookup uses _stricmp.
-bool Material_CompareShaderText(const GfxCachedShaderText &left, const GfxCachedShaderText &right)
+bool Material_FindCachedShaderText(const char *name, const char **text, int *textSize)
 {
-    return strcmp(left.name, right.name) < 0;
+    int top;
+    int bot;
+    int mid;
+    int cmp;
+
+    bot = 0;
+    top = mtlLoadGlob.cachedCount - 1;
+    while (bot <= top)
+    {
+        mid = (bot + top) >> 1;
+        cmp = _stricmp(name, mtlLoadGlob.cached[mid].name);
+        if (!cmp)
+        {
+            *textSize = mtlLoadGlob.cached[mid].textSize;
+            *text = mtlLoadGlob.cached[mid].text;
+            return 1;
+        }
+        if (cmp < 0)
+            top = mid - 1;
+        else
+            bot = mid + 1;
+    }
+    return 0;
 }
 
-// PINNED 1001c930/288: publish the existing cache, sort with the original compiler library.
-void Material_PreloadShaderText()
+extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYPE includeType,
+    const char *filename, const void *parentData, const void **data, unsigned int *byteCount)
 {
-    int shaderCount, libraryCount;
-    char **shaders = ri.FS_ListFiles("materials/shaders/", "hlsl", 0, &shaderCount, 20);
-    char **libraries = ri.FS_ListFiles("materials/shaders/lib/", "hlsl", 0, &libraryCount, 20);
-    mtlLoadGlob.cachedCount = shaderCount + libraryCount;
-    mtlLoadGlob.cached = (GfxCachedShaderText *)ri.Hunk_AllocInternal(
-        mtlLoadGlob.cachedCount * sizeof(GfxCachedShaderText));
-    GfxCachedShaderText *cached = mtlLoadGlob.cached;
-    for (int index = 0; index < shaderCount; ++index, ++cached)
-        Material_CacheShaderText(shaders[index], "", cached);
-    cached = mtlLoadGlob.cached + shaderCount;
-    for (int index = 0; index < libraryCount; ++index, ++cached)
-        Material_CacheShaderText(libraries[index], "lib/", cached);
-    std::sort(mtlLoadGlob.cached, mtlLoadGlob.cached + mtlLoadGlob.cachedCount,
-        Material_CompareShaderText);
-    ri.FS_FreeFileList(libraries, 20);
-    ri.FS_FreeFileList(shaders, 20);
+    if (Material_FindCachedShaderText(filename, (const char **)data, (int *)byteCount))
+        return 0;
+    return !Material_FindCachedShaderText(va("lib/%s", filename),
+        (const char **)data, (int *)byteCount);
+}
+
+// PINNED 10018310: cached include text is borrowed, so Close does not free it.
+extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data)
+{
+    return 0;
+}
+
+static Bool Material_MatchToken(const char **text, const char *match)
+{
+    return Com_MatchToken(text, match, 1) != 0;
 }
 
 // Names of the split helpers are unconfirmed; PC 1.0 addresses are pinned.
@@ -783,11 +861,6 @@ static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const c
         return MTL_PARSE_ERROR;
     }
     return result;
-}
-
-static Bool Material_MatchToken(const char **text, const char *match)
-{
-    return Com_MatchToken(text, match, 1) != 0;
 }
 
 static Bool Material_ParseRuleSetValue(const char **text, const char *token,
@@ -1048,46 +1121,31 @@ Bool Material_LoadPassStateMap(const char **text, MaterialStateMap **stateMap)
     return Com_MatchToken(text, ";", 1) != 0;
 }
 
-bool Material_FindCachedShaderText(const char *name, const char **text, int *textSize)
+// PINNED 1001c8d0/83: sort is case-sensitive although cache lookup uses _stricmp.
+bool Material_CompareShaderText(const GfxCachedShaderText &left, const GfxCachedShaderText &right)
 {
-    int top;
-    int bot;
-    int mid;
-    int cmp;
-
-    bot = 0;
-    top = mtlLoadGlob.cachedCount - 1;
-    while (bot <= top)
-    {
-        mid = (bot + top) >> 1;
-        cmp = _stricmp(name, mtlLoadGlob.cached[mid].name);
-        if (!cmp)
-        {
-            *textSize = mtlLoadGlob.cached[mid].textSize;
-            *text = mtlLoadGlob.cached[mid].text;
-            return 1;
-        }
-        if (cmp < 0)
-            top = mid - 1;
-        else
-            bot = mid + 1;
-    }
-    return 0;
+    return strcmp(left.name, right.name) < 0;
 }
 
-extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYPE includeType,
-    const char *filename, const void *parentData, const void **data, unsigned int *byteCount)
+// PINNED 1001c930/288: publish the existing cache, sort with the original compiler library.
+void Material_PreloadShaderText()
 {
-    if (Material_FindCachedShaderText(filename, (const char **)data, (int *)byteCount))
-        return 0;
-    return !Material_FindCachedShaderText(va("lib/%s", filename),
-        (const char **)data, (int *)byteCount);
-}
-
-// PINNED 10018310: cached include text is borrowed, so Close does not free it.
-extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data)
-{
-    return 0;
+    int shaderCount, libraryCount;
+    char **shaders = ri.FS_ListFiles("materials/shaders/", "hlsl", 0, &shaderCount, 20);
+    char **libraries = ri.FS_ListFiles("materials/shaders/lib/", "hlsl", 0, &libraryCount, 20);
+    mtlLoadGlob.cachedCount = shaderCount + libraryCount;
+    mtlLoadGlob.cached = (GfxCachedShaderText *)ri.Hunk_AllocInternal(
+        mtlLoadGlob.cachedCount * sizeof(GfxCachedShaderText));
+    GfxCachedShaderText *cached = mtlLoadGlob.cached;
+    for (int index = 0; index < shaderCount; ++index, ++cached)
+        Material_CacheShaderText(shaders[index], "", cached);
+    cached = mtlLoadGlob.cached + shaderCount;
+    for (int index = 0; index < libraryCount; ++index, ++cached)
+        Material_CacheShaderText(libraries[index], "lib/", cached);
+    std::sort(mtlLoadGlob.cached, mtlLoadGlob.cached + mtlLoadGlob.cachedCount,
+        Material_CompareShaderText);
+    ri.FS_FreeFileList(libraries, 20);
+    ri.FS_FreeFileList(shaders, 20);
 }
 
 struct ShaderIncludeVtable
@@ -1100,6 +1158,42 @@ struct ShaderInclude
 {
     const ShaderIncludeVtable *vtable;
 };
+static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args);
+static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
+static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
+__declspec(noinline) Bool Material_ParseConstantArrayOffset(const char **text, const ShaderConstantRouting *routing,
+    const CodeConstantSource *source, int *offset);
+static __declspec(noinline) Bool Material_ParseCodeConstantSource_r(const char **text, const ShaderConstantRouting *routing,
+    int offset, const CodeConstantSource *sources, MaterialShaderArgument *argument);
+Bool Material_ParseConstantSource(const char **text, const ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_FindScalarConstantSource(const char *name, const ShaderConstantRouting *routing,
+    const CodeConstantSource *sources, MaterialShaderArgument *argument);
+Bool Material_FindDefaultConstantSource(const char *name, const ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_ParseShaderArgumentArray(const char **text, ShaderConstantRouting *routing);
+Bool Material_ParseShaderArgument(const char **text, ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_DefaultShaderArgument(const char *name, ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
+    const D3DXSHADER_CONSTANTTABLE *table, byte *techFlags, MaterialShaderArgument *arguments);
+MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion);
+MaterialShader *Material_LoadPassShader(const char **text, int shaderType);
+Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *shader,
+    byte *techFlags, unsigned short *argumentCount, MaterialShaderArgument **arguments);
+Bool Material_ParseStreamIndex(const char **text, int count, int *index);
+Bool Material_ParseStreamDestination(const char **text, const char *name, byte *destination);
+Bool Material_ParseStreamSource(const char **text, const char *name, byte *source);
+Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass);
+__declspec(noinline) Bool Material_LoadPassVertexShader(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+__declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+MaterialTechnique *Material_LoadTechniqueDx9(const char *name);
+MaterialTechnique *Material_LoadTechniqueDx7(const char *name);
+MaterialTechnique *Material_LoadCachedTechnique(const char *name);
+MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name);
+MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name);
 
 // Retail passes the material in EDI (LTCG).
 static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args)
@@ -1315,350 +1409,6 @@ Bool Material_ParseConstantSource(const char **text, const ShaderConstantRouting
     }
     Com_ScriptWarning("expected 'sampler' or 'material', found '%s' instead\n", token);
     return 0;
-}
-
-// PINNED 10019e10: array entries are allowed; only subtables are excluded.
-Bool Material_FindScalarConstantSource(const char *name, const ShaderConstantRouting *routing,
-    const CodeConstantSource *sources, MaterialShaderArgument *argument)
-{
-    for (int index = 0; sources[index].name; ++index)
-    {
-        if (!sources[index].subtable && !strcmp(name, sources[index].name))
-        {
-            int source = sources[index].source;
-            if (source < 187)
-            {
-                argument->u.codeConst.firstRow = 0;
-                argument->u.codeConst.index = (unsigned short)source;
-                argument->u.codeConst.rowCount = routing->elemCount;
-                return 1;
-            }
-            if (((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Class == 3)
-                source ^= 2;
-            argument->u.codeConst.index = (unsigned short)source;
-            argument->u.codeConst.firstRow = 0;
-            argument->u.codeConst.rowCount = (byte)routing->constantInfo->RegisterCount;
-            return 1;
-        }
-    }
-    return 0;
-}
-
-// PINNED 10019ed0: a failed lookup still sets the argument type.
-Bool Material_FindDefaultConstantSource(const char *name, const ShaderConstantRouting *routing,
-    MaterialShaderArgument *argument)
-{
-    argument->type = 1;
-    if (Material_FindScalarConstantSource(name, routing, s_codeConsts, argument))
-        return true;
-    return Material_FindScalarConstantSource(name, routing, s_defaultCodeConsts, argument) != 0;
-}
-
-// PINNED 10019f10: the first index is narrowed before its range test.
-Bool Material_ParseShaderArgumentArray(const char **text, ShaderConstantRouting *routing)
-{
-    const char *token = Com_ParseInternal(text);
-    if (token[0] != '[')
-    {
-        Com_UngetToken();
-        routing->firstElem = 0;
-        routing->elemCount = (byte)((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements;
-        return true;
-    }
-    routing->firstElem = (byte)Com_ParseInt(text);
-    if (routing->firstElem < ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements)
-    {
-        token = Com_Parse(text);
-        if (token[0] == ']')
-        {
-            routing->elemCount = 1;
-            return true;
-        }
-        if (token[0] != ',')
-        {
-            Com_ScriptWarning("expected ',' or ']', found '%s' instead\n", token);
-            return false;
-        }
-        int endingIndex = Com_ParseInt(text);
-        if (endingIndex < routing->firstElem
-            || endingIndex >= ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements)
-        {
-            Com_ScriptWarning("end row index '%i' is not in the range [%i, %i]\n",
-                endingIndex, routing->firstElem,
-                ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements - 1);
-            return false;
-        }
-        routing->elemCount = (byte)(endingIndex - routing->firstElem + 1);
-        return Com_MatchToken(text, "]", 1) != 0;
-    }
-    Com_ScriptWarning("row index '%i' is not in the range [0, %i]\n", routing->firstElem,
-        ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements - 1);
-    return false;
-}
-
-// PINNED 1001a030: sampler1D is not one of this build's supported types.
-Bool Material_ParseShaderArgument(const char **text, ShaderConstantRouting *routing,
-    MaterialShaderArgument *argument)
-{
-    if (((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Class == 1)
-    {
-        if (!Material_ParseShaderArgumentArray(text, routing))
-            return 0;
-    }
-    else
-    {
-        routing->firstElem = 0;
-        routing->elemCount = 1;
-    }
-    if (!Com_MatchToken(text, "=", 1))
-        return 0;
-    switch (((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Type)
-    {
-    case 3:
-        return Material_ParseConstantSource(text, routing, argument);
-    case 10:
-    case 12:
-    case 13:
-    case 14:
-        return Material_ParseSamplerSource(text, argument);
-    default:
-        Com_ScriptWarning("unknown constant type '%i'\n", ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Type);
-        return 0;
-    }
-}
-
-// PINNED 1001a0e0: default sampler names use the separate alias table.
-Bool Material_DefaultShaderArgument(const char *name, ShaderConstantRouting *routing,
-    MaterialShaderArgument *argument)
-{
-    const D3DXSHADER_TYPEINFO *type = (const D3DXSHADER_TYPEINFO *)routing->typeInfo;
-    routing->firstElem = 0;
-    if (type->Class == 1)
-        routing->elemCount = (byte)type->Elements;
-    else
-        routing->elemCount = 1;
-    switch (type->Type)
-    {
-    case 3:
-        return Material_FindDefaultConstantSource(name, routing, argument);
-    case 10:
-    case 12:
-    case 13:
-    case 14:
-        argument->type = 3;
-        return Material_FindScalarSamplerSource(name, s_defaultCodeSamplers, argument) != 0;
-    default:
-        return 0;
-    }
-}
-
-// PINNED 1001a160: serialized offsets are relative to the constant-table header.
-Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
-    const D3DXSHADER_CONSTANTTABLE *table, byte *techFlags, MaterialShaderArgument *arguments)
-{
-    const D3DXSHADER_CONSTANTINFO *info =
-        (const D3DXSHADER_CONSTANTINFO *)((const byte *)table + table->ConstantInfo);
-    byte usedConstant[256];
-    int usedCount = 0;
-    ShaderConstantRouting routing;
-    memset(usedConstant, 0, table->Constants);
-    if (!Com_MatchToken(text, "{", 1))
-        return 0;
-    for (;;)
-    {
-        const char *token = Com_Parse(text);
-        if (!token[0])
-        {
-            Com_ScriptWarning("unexpected end-of-file\n");
-            return 0;
-        }
-        if (token[0] == '}')
-            break;
-        unsigned int index = Material_FindShaderConstant(shaderName, table, info, token);
-        if (index == ~0u)
-        {
-            Com_SetScriptWarningPrefix("^3WARNING: ");
-            Com_ScriptWarning("'%s' is not defined by %s\n", token, shaderName);
-            Com_SetScriptWarningPrefix("^1ERROR: ");
-            if (!Com_MatchToken(text, "=", 1))
-                return 0;
-            Com_SkipRestOfLine(text);
-            continue;
-        }
-        if (usedConstant[index])
-        {
-            Com_ScriptWarning("shader constant '%s' defined more than once for shader '%s'\n",
-                token, shaderName);
-            return 0;
-        }
-        usedConstant[index] = 1;
-        routing.constantInfo = &info[index];
-        routing.typeInfo = (const D3DXSHADER_TYPEINFO *)((const byte *)table + routing.constantInfo->TypeInfo);
-        arguments[usedCount].dest = routing.constantInfo->RegisterIndex;
-        if (!Material_ParseShaderArgument(text, &routing, &arguments[usedCount]))
-            return 0;
-        if (!Com_MatchToken(text, ";", 1))
-            return 0;
-        if (arguments[usedCount].type == 3)
-        {
-            if (arguments[usedCount].u.codeSampler == 14)
-                *techFlags |= 1;
-            else if (arguments[usedCount].u.codeSampler == 15)
-                *techFlags |= 2;
-        }
-        ++usedCount;
-    }
-    if (usedCount == table->Constants)
-        return 1;
-    {
-        for (unsigned int index = 0; index < table->Constants; ++index)
-        {
-            if (!usedConstant[index])
-            {
-                routing.constantInfo = &info[index];
-                routing.typeInfo = (const D3DXSHADER_TYPEINFO *)((const byte *)table + info[index].TypeInfo);
-                arguments[usedCount].dest = info[index].RegisterIndex;
-                const char *name = (const char *)table + info[index].Name;
-                if (Material_DefaultShaderArgument(name, &routing, &arguments[usedCount]))
-                {
-                    usedConstant[index] = 1;
-                    ++usedCount;
-                }
-            }
-        }
-    }
-    if (usedCount == table->Constants)
-        return 1;
-    Com_ScriptWarning("Undefined shader constant(s) in %s\n", shaderName);
-    for (unsigned int index = 0; index < table->Constants; ++index)
-        if (!usedConstant[index])
-            Com_Printf("  %s\n", (const char *)table + info[index].Name);
-    Com_Printf("%i constant(s) were undefined\n", table->Constants - usedCount);
-    return 0;
-}
-
-// PINNED 1001a4c0: compile cached PC text, retain the original failure cleanup.
-MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion)
-{
-    ShaderInclude include = { &shaderIncludeVtable };
-    D3DXMACRO defines[] = { { "PC", "" }, { 0, 0 } };
-    char profile[16];
-    char path[64];
-    const char *entry;
-    if (!shaderType)
-    {
-        Com_sprintf(profile, sizeof(profile), "vs_%i_%i", shaderVersion / 10, shaderVersion % 10);
-        entry = "vs_main";
-    }
-    else
-    {
-        Com_sprintf(profile, sizeof(profile), "ps_%i_%i", shaderVersion / 10, shaderVersion % 10);
-        entry = "ps_main";
-    }
-    Com_sprintf(path, sizeof(path), "materials/shaders/%s", name);
-    const char *text;
-    int textSize;
-    if (!Material_FindCachedShaderText(name, &text, &textSize))
-    {
-        Com_ScriptWarning("Shader '%s' wasn't preloaded\n", path);
-        return 0;
-    }
-    ID3DXBuffer *code;
-    ID3DXBuffer *messages;
-    ID3DXConstantTable *constants;
-    HRESULT result = D3DXCompileShader(text, textSize, defines, (ID3DXInclude *)&include,
-        entry, profile, 0, &code, &messages, &constants);
-    _clearfp();
-    _controlfp(_PC_24, _MCW_PC);
-    _controlfp(_MCW_EM, _MCW_EM);
-    if (messages)
-    {
-        Com_Printf("compiler message(s) for %s:\n%s\n", path, messages->GetBufferPointer());
-        messages->Release();
-    }
-    if (result < 0)
-    {
-        Com_ScriptWarning("%s compilation failed - %s\n", path, DXGetErrorDescription9A(result));
-        return 0;
-    }
-    if (!code)
-    {
-        if (constants)
-            constants->Release();
-        Com_ScriptWarning("%s compilation failed - NULL shader\n", path);
-        return 0;
-    }
-    if (!constants)
-    {
-        code->Release();
-        Com_ScriptWarning("%s compilation failed - NULL constants\n", path);
-        return 0;
-    }
-    unsigned int codeSize = code->GetBufferSize();
-    unsigned int nameSize = strlen(name) + 1;
-    MaterialShader *shader = (MaterialShader *)ri.Hunk_AllocInternal(sizeof(MaterialShader) + codeSize + nameSize);
-    shader->program = (const DWORD *)(shader + 1);
-    shader->name = (char *)(shader + 1) + codeSize;
-    memcpy((void *)shader->name, name, nameSize);
-    memcpy((void *)shader->program, code->GetBufferPointer(), codeSize);
-    shader->programLen = (unsigned short)codeSize >> 2;
-    shader->shaderType = (byte)shaderType;
-    shader->shaderVersion = (byte)shaderVersion;
-    if (!shader->shaderType)
-        result = dx.device->CreateVertexShader(shader->program, &shader->u.vertexShader);
-    else
-        result = dx.device->CreatePixelShader(shader->program, &shader->u.pixelShader);
-    if (result < 0)
-    {
-        Com_ScriptWarning("shader creation failed for %s %s %s: %s\n",
-            path, profile, entry, DXGetErrorDescription9A(result));
-        return 0;
-    }
-    code->Release();
-    constants->Release();
-    return shader;
-}
-
-// PINNED 1001a810: PC does not clamp the requested shader version.
-MaterialShader *Material_LoadPassShader(const char **text, int shaderType)
-{
-    int version = I_fround(Com_ParseFloat(text) * 10.0f);
-    const char *name = Com_Parse(text);
-    MaterialShader *shader = Material_FindShader(name, shaderType, version);
-    if (shader)
-        return shader;
-    shader = Material_CreateShader(name, shaderType, version);
-    if (!shader)
-        return 0;
-    Material_SetShader(name, shaderType, version, shader);
-    return shader;
-}
-
-// PINNED 1001a920: narrow Constants before allocation and release on both paths.
-Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *shader,
-    byte *techFlags, unsigned short *argumentCount, MaterialShaderArgument **arguments)
-{
-    ID3DXConstantTable *constants;
-    HRESULT result = D3DXGetShaderConstantTable((const DWORD *)shader->program, &constants);
-    if (result < 0)
-    {
-        Com_ScriptWarning("Couldn't get the constant table: %s (%08x)\n",
-            DXGetErrorDescription9A(result), result);
-        return 0;
-    }
-    const D3DXSHADER_CONSTANTTABLE *table = (const D3DXSHADER_CONSTANTTABLE *)constants->GetBufferPointer();
-    *argumentCount = (byte)table->Constants;
-    if (!*argumentCount)
-    {
-        *arguments = 0;
-        Bool success = Com_MatchToken(text, "{", 1) && Com_MatchToken(text, "}", 1);
-        constants->Release();
-        return success;
-    }
-    *arguments = (MaterialShaderArgument *)ri.Hunk_AllocInternal(*argumentCount * sizeof(MaterialShaderArgument));
-    Bool success = Material_ParseShaderArguments(text, shader->name, table, techFlags, *arguments);
-    constants->Release();
-    return success;
 }
 
 // PINNED 10018f90: out-of-range indices warn but still parse the closing bracket.
@@ -2029,6 +1779,350 @@ MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name)
         return 0;
     Material_SetTechniqueSet(name, set);
     return set;
+}
+
+// PINNED 10019e10: array entries are allowed; only subtables are excluded.
+Bool Material_FindScalarConstantSource(const char *name, const ShaderConstantRouting *routing,
+    const CodeConstantSource *sources, MaterialShaderArgument *argument)
+{
+    for (int index = 0; sources[index].name; ++index)
+    {
+        if (!sources[index].subtable && !strcmp(name, sources[index].name))
+        {
+            int source = sources[index].source;
+            if (source < 187)
+            {
+                argument->u.codeConst.firstRow = 0;
+                argument->u.codeConst.index = (unsigned short)source;
+                argument->u.codeConst.rowCount = routing->elemCount;
+                return 1;
+            }
+            if (((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Class == 3)
+                source ^= 2;
+            argument->u.codeConst.index = (unsigned short)source;
+            argument->u.codeConst.firstRow = 0;
+            argument->u.codeConst.rowCount = (byte)routing->constantInfo->RegisterCount;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// PINNED 10019ed0: a failed lookup still sets the argument type.
+Bool Material_FindDefaultConstantSource(const char *name, const ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument)
+{
+    argument->type = 1;
+    if (Material_FindScalarConstantSource(name, routing, s_codeConsts, argument))
+        return true;
+    return Material_FindScalarConstantSource(name, routing, s_defaultCodeConsts, argument) != 0;
+}
+
+// PINNED 10019f10: the first index is narrowed before its range test.
+Bool Material_ParseShaderArgumentArray(const char **text, ShaderConstantRouting *routing)
+{
+    const char *token = Com_ParseInternal(text);
+    if (token[0] != '[')
+    {
+        Com_UngetToken();
+        routing->firstElem = 0;
+        routing->elemCount = (byte)((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements;
+        return true;
+    }
+    routing->firstElem = (byte)Com_ParseInt(text);
+    if (routing->firstElem < ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements)
+    {
+        token = Com_Parse(text);
+        if (token[0] == ']')
+        {
+            routing->elemCount = 1;
+            return true;
+        }
+        if (token[0] != ',')
+        {
+            Com_ScriptWarning("expected ',' or ']', found '%s' instead\n", token);
+            return false;
+        }
+        int endingIndex = Com_ParseInt(text);
+        if (endingIndex < routing->firstElem
+            || endingIndex >= ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements)
+        {
+            Com_ScriptWarning("end row index '%i' is not in the range [%i, %i]\n",
+                endingIndex, routing->firstElem,
+                ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements - 1);
+            return false;
+        }
+        routing->elemCount = (byte)(endingIndex - routing->firstElem + 1);
+        return Com_MatchToken(text, "]", 1) != 0;
+    }
+    Com_ScriptWarning("row index '%i' is not in the range [0, %i]\n", routing->firstElem,
+        ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Elements - 1);
+    return false;
+}
+
+// PINNED 1001a030: sampler1D is not one of this build's supported types.
+Bool Material_ParseShaderArgument(const char **text, ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument)
+{
+    if (((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Class == 1)
+    {
+        if (!Material_ParseShaderArgumentArray(text, routing))
+            return 0;
+    }
+    else
+    {
+        routing->firstElem = 0;
+        routing->elemCount = 1;
+    }
+    if (!Com_MatchToken(text, "=", 1))
+        return 0;
+    switch (((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Type)
+    {
+    case 3:
+        return Material_ParseConstantSource(text, routing, argument);
+    case 10:
+    case 12:
+    case 13:
+    case 14:
+        return Material_ParseSamplerSource(text, argument);
+    default:
+        Com_ScriptWarning("unknown constant type '%i'\n", ((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Type);
+        return 0;
+    }
+}
+
+// PINNED 1001a0e0: default sampler names use the separate alias table.
+Bool Material_DefaultShaderArgument(const char *name, ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument)
+{
+    const D3DXSHADER_TYPEINFO *type = (const D3DXSHADER_TYPEINFO *)routing->typeInfo;
+    routing->firstElem = 0;
+    if (type->Class == 1)
+        routing->elemCount = (byte)type->Elements;
+    else
+        routing->elemCount = 1;
+    switch (type->Type)
+    {
+    case 3:
+        return Material_FindDefaultConstantSource(name, routing, argument);
+    case 10:
+    case 12:
+    case 13:
+    case 14:
+        argument->type = 3;
+        return Material_FindScalarSamplerSource(name, s_defaultCodeSamplers, argument) != 0;
+    default:
+        return 0;
+    }
+}
+
+// PINNED 1001a160: serialized offsets are relative to the constant-table header.
+Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
+    const D3DXSHADER_CONSTANTTABLE *table, byte *techFlags, MaterialShaderArgument *arguments)
+{
+    const D3DXSHADER_CONSTANTINFO *info =
+        (const D3DXSHADER_CONSTANTINFO *)((const byte *)table + table->ConstantInfo);
+    byte usedConstant[256];
+    int usedCount = 0;
+    ShaderConstantRouting routing;
+    memset(usedConstant, 0, table->Constants);
+    if (!Com_MatchToken(text, "{", 1))
+        return 0;
+    for (;;)
+    {
+        const char *token = Com_Parse(text);
+        if (!token[0])
+        {
+            Com_ScriptWarning("unexpected end-of-file\n");
+            return 0;
+        }
+        if (token[0] == '}')
+            break;
+        unsigned int index = Material_FindShaderConstant(shaderName, table, info, token);
+        if (index == ~0u)
+        {
+            Com_SetScriptWarningPrefix("^3WARNING: ");
+            Com_ScriptWarning("'%s' is not defined by %s\n", token, shaderName);
+            Com_SetScriptWarningPrefix("^1ERROR: ");
+            if (!Com_MatchToken(text, "=", 1))
+                return 0;
+            Com_SkipRestOfLine(text);
+            continue;
+        }
+        if (usedConstant[index])
+        {
+            Com_ScriptWarning("shader constant '%s' defined more than once for shader '%s'\n",
+                token, shaderName);
+            return 0;
+        }
+        usedConstant[index] = 1;
+        routing.constantInfo = &info[index];
+        routing.typeInfo = (const D3DXSHADER_TYPEINFO *)((const byte *)table + routing.constantInfo->TypeInfo);
+        arguments[usedCount].dest = routing.constantInfo->RegisterIndex;
+        if (!Material_ParseShaderArgument(text, &routing, &arguments[usedCount]))
+            return 0;
+        if (!Com_MatchToken(text, ";", 1))
+            return 0;
+        if (arguments[usedCount].type == 3)
+        {
+            if (arguments[usedCount].u.codeSampler == 14)
+                *techFlags |= 1;
+            else if (arguments[usedCount].u.codeSampler == 15)
+                *techFlags |= 2;
+        }
+        ++usedCount;
+    }
+    if (usedCount == table->Constants)
+        return 1;
+    {
+        for (unsigned int index = 0; index < table->Constants; ++index)
+        {
+            if (!usedConstant[index])
+            {
+                routing.constantInfo = &info[index];
+                routing.typeInfo = (const D3DXSHADER_TYPEINFO *)((const byte *)table + info[index].TypeInfo);
+                arguments[usedCount].dest = info[index].RegisterIndex;
+                const char *name = (const char *)table + info[index].Name;
+                if (Material_DefaultShaderArgument(name, &routing, &arguments[usedCount]))
+                {
+                    usedConstant[index] = 1;
+                    ++usedCount;
+                }
+            }
+        }
+    }
+    if (usedCount == table->Constants)
+        return 1;
+    Com_ScriptWarning("Undefined shader constant(s) in %s\n", shaderName);
+    for (unsigned int index = 0; index < table->Constants; ++index)
+        if (!usedConstant[index])
+            Com_Printf("  %s\n", (const char *)table + info[index].Name);
+    Com_Printf("%i constant(s) were undefined\n", table->Constants - usedCount);
+    return 0;
+}
+
+// PINNED 1001a4c0: compile cached PC text, retain the original failure cleanup.
+MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion)
+{
+    ShaderInclude include = { &shaderIncludeVtable };
+    D3DXMACRO defines[] = { { "PC", "" }, { 0, 0 } };
+    char profile[16];
+    char path[64];
+    const char *entry;
+    if (!shaderType)
+    {
+        Com_sprintf(profile, sizeof(profile), "vs_%i_%i", shaderVersion / 10, shaderVersion % 10);
+        entry = "vs_main";
+    }
+    else
+    {
+        Com_sprintf(profile, sizeof(profile), "ps_%i_%i", shaderVersion / 10, shaderVersion % 10);
+        entry = "ps_main";
+    }
+    Com_sprintf(path, sizeof(path), "materials/shaders/%s", name);
+    const char *text;
+    int textSize;
+    if (!Material_FindCachedShaderText(name, &text, &textSize))
+    {
+        Com_ScriptWarning("Shader '%s' wasn't preloaded\n", path);
+        return 0;
+    }
+    ID3DXBuffer *code;
+    ID3DXBuffer *messages;
+    ID3DXConstantTable *constants;
+    HRESULT result = D3DXCompileShader(text, textSize, defines, (ID3DXInclude *)&include,
+        entry, profile, 0, &code, &messages, &constants);
+    _clearfp();
+    _controlfp(_PC_24, _MCW_PC);
+    _controlfp(_MCW_EM, _MCW_EM);
+    if (messages)
+    {
+        Com_Printf("compiler message(s) for %s:\n%s\n", path, messages->GetBufferPointer());
+        messages->Release();
+    }
+    if (result < 0)
+    {
+        Com_ScriptWarning("%s compilation failed - %s\n", path, DXGetErrorDescription9A(result));
+        return 0;
+    }
+    if (!code)
+    {
+        if (constants)
+            constants->Release();
+        Com_ScriptWarning("%s compilation failed - NULL shader\n", path);
+        return 0;
+    }
+    if (!constants)
+    {
+        code->Release();
+        Com_ScriptWarning("%s compilation failed - NULL constants\n", path);
+        return 0;
+    }
+    unsigned int codeSize = code->GetBufferSize();
+    unsigned int nameSize = strlen(name) + 1;
+    MaterialShader *shader = (MaterialShader *)ri.Hunk_AllocInternal(sizeof(MaterialShader) + codeSize + nameSize);
+    shader->program = (const DWORD *)(shader + 1);
+    shader->name = (char *)(shader + 1) + codeSize;
+    memcpy((void *)shader->name, name, nameSize);
+    memcpy((void *)shader->program, code->GetBufferPointer(), codeSize);
+    shader->programLen = (unsigned short)codeSize >> 2;
+    shader->shaderType = (byte)shaderType;
+    shader->shaderVersion = (byte)shaderVersion;
+    if (!shader->shaderType)
+        result = dx.device->CreateVertexShader(shader->program, &shader->u.vertexShader);
+    else
+        result = dx.device->CreatePixelShader(shader->program, &shader->u.pixelShader);
+    if (result < 0)
+    {
+        Com_ScriptWarning("shader creation failed for %s %s %s: %s\n",
+            path, profile, entry, DXGetErrorDescription9A(result));
+        return 0;
+    }
+    code->Release();
+    constants->Release();
+    return shader;
+}
+
+// PINNED 1001a810: PC does not clamp the requested shader version.
+MaterialShader *Material_LoadPassShader(const char **text, int shaderType)
+{
+    int version = I_fround(Com_ParseFloat(text) * 10.0f);
+    const char *name = Com_Parse(text);
+    MaterialShader *shader = Material_FindShader(name, shaderType, version);
+    if (shader)
+        return shader;
+    shader = Material_CreateShader(name, shaderType, version);
+    if (!shader)
+        return 0;
+    Material_SetShader(name, shaderType, version, shader);
+    return shader;
+}
+
+// PINNED 1001a920: narrow Constants before allocation and release on both paths.
+Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *shader,
+    byte *techFlags, unsigned short *argumentCount, MaterialShaderArgument **arguments)
+{
+    ID3DXConstantTable *constants;
+    HRESULT result = D3DXGetShaderConstantTable((const DWORD *)shader->program, &constants);
+    if (result < 0)
+    {
+        Com_ScriptWarning("Couldn't get the constant table: %s (%08x)\n",
+            DXGetErrorDescription9A(result), result);
+        return 0;
+    }
+    const D3DXSHADER_CONSTANTTABLE *table = (const D3DXSHADER_CONSTANTTABLE *)constants->GetBufferPointer();
+    *argumentCount = (byte)table->Constants;
+    if (!*argumentCount)
+    {
+        *arguments = 0;
+        Bool success = Com_MatchToken(text, "{", 1) && Com_MatchToken(text, "}", 1);
+        constants->Release();
+        return success;
+    }
+    *arguments = (MaterialShaderArgument *)ri.Hunk_AllocInternal(*argumentCount * sizeof(MaterialShaderArgument));
+    Bool success = Material_ParseShaderArguments(text, shader->name, table, techFlags, *arguments);
+    constants->Release();
+    return success;
 }
 
 GfxImage *Image_Register(const char *name, int semantic, int imageTrack);

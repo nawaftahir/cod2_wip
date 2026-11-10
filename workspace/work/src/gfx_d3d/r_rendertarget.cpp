@@ -16,23 +16,11 @@ char *va(const char *format, ...);
 extern const dvar_t *r_zFeather;
 
 void Image_Release(GfxImage *image);
-
-// PINNED 10023560: the cached depth surface is an alias, not another release.
-void R_ShutdownRenderTargets()
-{
-    for (int index = 0; index < 13; ++index)
-    {
-        GfxRenderTarget *target = &dx.renderTargets[index];
-        if (target->colorSurface)
-            target->colorSurface->Release();
-        if (target->depthStencilSurface)
-            target->depthStencilSurface->Release();
-        if (target->image)
-            Image_Release(target->image);
-    }
-    memset(dx.renderTargets, 0, sizeof(dx.renderTargets));
-    dx.singleSampleDepthStencilSurface = 0;
-}
+void R_ShutdownRenderTargets();
+static const char *R_DescribeFormat(D3DFORMAT format);
+void R_InitFrameBuffer(GfxRenderTarget *renderTarget);
+IDirect3DSurface9 *R_GetOrCreateDepthStencil();
+static IDirect3DSurface9 *R_CreateSmallDepthStencil();
 
 // PINNED 0x10022710: the PC switch includes R5G6B5 and D16_LOCKABLE, not D32.
 static const char *R_DescribeFormat(D3DFORMAT format)
@@ -58,25 +46,6 @@ static const char *R_DescribeFormat(D3DFORMAT format)
     default:
         return va("unknown format 0x%08x", format);
     }
-}
-
-// PINNED 0x10022940/261: PC logs GetBackBuffer and has no texture-ID toggle.
-void R_InitFrameBuffer(GfxRenderTarget *renderTarget)
-{
-    renderTarget->width = vidConfig.width;
-    renderTarget->height = vidConfig.height;
-    HRESULT hr = dx.device->GetSwapChain(0, &dx.windows[0].swapChain);
-    if (FAILED(hr))
-        Com_Error(ERR_FATAL, "Couldn't get an interface to the swap chain: %s\n",
-            DXGetErrorDescription9(hr));
-    R_DX_CALL(dx.device->GetBackBuffer( 0, 0, D3DBACKBUFFER_TYPE_MONO, &renderTarget->colorSurface ));
-    int width, height;
-    R_GetFrameBufferExtent(&width, &height);
-    hr = dx.device->CreateDepthStencilSurface(width, height, D3DFMT_D24S8,
-        dx.multiSampleType, dx.multiSampleQuality, FALSE, &renderTarget->depthStencilSurface, NULL);
-    if (FAILED(hr))
-        Com_Error(ERR_FATAL, "Couldn't create a %i x %i depth-stencil surface: %s\n",
-            width, height, DXGetErrorDescription9(hr));
 }
 
 // PINNED 0x10022830: cache/reuse a single-sample depth surface.
@@ -114,6 +83,42 @@ static IDirect3DSurface9 *R_CreateSmallDepthStencil()
         Com_Error(ERR_FATAL, "Couldn't create a %i x %i depth-stencil surface: %s\n",
             128, 128, DXGetErrorDescription9(hr));
     return surface;
+}
+
+// PINNED 0x10022940/261: PC logs GetBackBuffer and has no texture-ID toggle.
+void R_InitFrameBuffer(GfxRenderTarget *renderTarget)
+{
+    renderTarget->width = vidConfig.width;
+    renderTarget->height = vidConfig.height;
+    HRESULT hr = dx.device->GetSwapChain(0, &dx.windows[0].swapChain);
+    if (FAILED(hr))
+        Com_Error(ERR_FATAL, "Couldn't get an interface to the swap chain: %s\n",
+            DXGetErrorDescription9(hr));
+    R_DX_CALL(dx.device->GetBackBuffer( 0, 0, D3DBACKBUFFER_TYPE_MONO, &renderTarget->colorSurface ));
+    int width, height;
+    R_GetFrameBufferExtent(&width, &height);
+    hr = dx.device->CreateDepthStencilSurface(width, height, D3DFMT_D24S8,
+        dx.multiSampleType, dx.multiSampleQuality, FALSE, &renderTarget->depthStencilSurface, NULL);
+    if (FAILED(hr))
+        Com_Error(ERR_FATAL, "Couldn't create a %i x %i depth-stencil surface: %s\n",
+            width, height, DXGetErrorDescription9(hr));
+}
+
+// PINNED 10023560: the cached depth surface is an alias, not another release.
+void R_ShutdownRenderTargets()
+{
+    for (int index = 0; index < 13; ++index)
+    {
+        GfxRenderTarget *target = &dx.renderTargets[index];
+        if (target->colorSurface)
+            target->colorSurface->Release();
+        if (target->depthStencilSurface)
+            target->depthStencilSurface->Release();
+        if (target->image)
+            Image_Release(target->image);
+    }
+    memset(dx.renderTargets, 0, sizeof(dx.renderTargets));
+    dx.singleSampleDepthStencilSurface = 0;
 }
 
 enum RenderTargetUsage {

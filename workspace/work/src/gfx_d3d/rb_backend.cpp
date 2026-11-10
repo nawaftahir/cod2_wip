@@ -204,11 +204,40 @@ void RB_ClearScreenCmd(GfxRenderCommandExecState *execState)
 }
 
 #pragma warning(disable: 4035)
+static __forceinline __int64 RB_Rdtsc();
+static Bool RB_IsGpuFinished();
+int RB_IsGpuFenceFinished();
+void R_FinishGpuFence();
+void R_InsertGpuFence();
+void RB_GpuWaited(int ticks);
+void RB_AdaptiveGpuSyncWait();
+void RB_AdaptiveGpuSyncTarget();
+void RB_AbandonGpuFence();
+void RB_AdaptiveGpuSyncFinal();
+void RB_BeginBenchmarkGpu(LARGE_INTEGER *time);
+void RB_EndBenchmarkGpu(LARGE_INTEGER *time);
+void RB_BeginScene();
+void RB_SetFrustumConstants();
 
 // Mac rdtsc_lo; retail inlines a raw rdtsc and keeps edx:eax.
 static __forceinline __int64 RB_Rdtsc()
 {
 	__asm rdtsc
+}
+
+// name unconfirmed: frustum vectors from RB_BeginViewCmd
+void RB_SetFrustumConstants()
+{
+	const GfxViewParms *viewParms;
+	float invProjDist;
+	float twoInvProjDist;
+
+	viewParms = backEnd.viewParms;
+	invProjDist = 1.0f / viewParms->inverseViewProjectionMatrix._44;
+	RB_SetCodeConstant(15, invProjDist * viewParms->inverseViewProjectionMatrix._41 - viewParms->origin[0], invProjDist * viewParms->inverseViewProjectionMatrix._42 - viewParms->origin[1], invProjDist * viewParms->inverseViewProjectionMatrix._43 - viewParms->origin[2], 0.0f);
+	twoInvProjDist = invProjDist * 2.0f;
+	RB_SetCodeConstant(16, twoInvProjDist * viewParms->inverseViewProjectionMatrix._11, twoInvProjDist * viewParms->inverseViewProjectionMatrix._12, twoInvProjDist * viewParms->inverseViewProjectionMatrix._13, 0.0f);
+	RB_SetCodeConstant(17, -(twoInvProjDist * viewParms->inverseViewProjectionMatrix._21), -(twoInvProjDist * viewParms->inverseViewProjectionMatrix._22), -(twoInvProjDist * viewParms->inverseViewProjectionMatrix._23), 0.0f);
 }
 
 // Kisak name (r_setstate_d3d.cpp); always inlined in retail.
@@ -220,17 +249,6 @@ static Bool RB_IsGpuFinished()
 	if (hr == D3DERR_DEVICELOST)
 		return true;
 	return hr != S_FALSE;
-}
-
-// refexport slot 104 (Mac RB_IsGpuFenceFinished follows AbortRenderCommands).
-int RB_IsGpuFenceFinished()
-{
-	if (!dx.flushGpuQueryIssued)
-		return true;
-	if (!RB_IsGpuFinished())
-		return false;
-	dx.flushGpuQueryIssued = 0;
-	return true;
 }
 
 // Kisak name.
@@ -311,6 +329,17 @@ void RB_AdaptiveGpuSyncFinal()
 	dx.gpuSyncDelay += (int)(RB_Rdtsc() - startTime) * 3 / 4;
 }
 
+// refexport slot 104 (Mac RB_IsGpuFenceFinished follows AbortRenderCommands).
+int RB_IsGpuFenceFinished()
+{
+	if (!dx.flushGpuQueryIssued)
+		return true;
+	if (!RB_IsGpuFinished())
+		return false;
+	dx.flushGpuQueryIssued = 0;
+	return true;
+}
+
 void RB_BeginBenchmarkGpu(LARGE_INTEGER *time)
 {
 	R_FinishGpuFence();
@@ -346,21 +375,6 @@ void RB_BeginScene()
 	backEnd.frameCount++;
 }
 
-// name unconfirmed: frustum vectors from RB_BeginViewCmd
-void RB_SetFrustumConstants()
-{
-	const GfxViewParms *viewParms;
-	float invProjDist;
-	float twoInvProjDist;
-
-	viewParms = backEnd.viewParms;
-	invProjDist = 1.0f / viewParms->inverseViewProjectionMatrix._44;
-	RB_SetCodeConstant(15, invProjDist * viewParms->inverseViewProjectionMatrix._41 - viewParms->origin[0], invProjDist * viewParms->inverseViewProjectionMatrix._42 - viewParms->origin[1], invProjDist * viewParms->inverseViewProjectionMatrix._43 - viewParms->origin[2], 0.0f);
-	twoInvProjDist = invProjDist * 2.0f;
-	RB_SetCodeConstant(16, twoInvProjDist * viewParms->inverseViewProjectionMatrix._11, twoInvProjDist * viewParms->inverseViewProjectionMatrix._12, twoInvProjDist * viewParms->inverseViewProjectionMatrix._13, 0.0f);
-	RB_SetCodeConstant(17, -(twoInvProjDist * viewParms->inverseViewProjectionMatrix._21), -(twoInvProjDist * viewParms->inverseViewProjectionMatrix._22), -(twoInvProjDist * viewParms->inverseViewProjectionMatrix._23), 0.0f);
-}
-
 extern const dvar_t *r_glow;
 extern const dvar_t *r_fullbright;
 extern const dvar_t *r_showFbColorDebug;
@@ -386,15 +400,9 @@ unsigned char RB_NeedsSceneCopy(float blurRadius)
 }
 
 void RB_InitSceneViewport();
-
-void RB_InitBackendGlobalStructs()
-{
-	memset(&backEnd, 0, sizeof(backEnd));
-	backEnd.worldEntityReType = 3;	// RT_MODEL
-	backEnd.resolvedPostSunTarget = 0xe;
-	backEnd.resolvedSceneTarget = 0xe;
-	RB_InitSceneViewport();
-}
+void RB_InitBackendGlobalStructs();
+static void RB_UpdateColorInternal(const float *floatColor, unsigned char *color);
+void RB_UpdateColor(const float *color_allies, const float *color_axis);
 
 // Mac name RB_UpdateColorInternal.
 static void RB_UpdateColorInternal(const float *floatColor, unsigned char *color)
@@ -410,6 +418,15 @@ void RB_UpdateColor(const float *color_allies, const float *color_axis)
 {
 	RB_UpdateColorInternal(color_allies, (unsigned char *)&backEnd.color_allies);
 	RB_UpdateColorInternal(color_axis, (unsigned char *)&backEnd.color_axis);
+}
+
+void RB_InitBackendGlobalStructs()
+{
+	memset(&backEnd, 0, sizeof(backEnd));
+	backEnd.worldEntityReType = 3;	// RT_MODEL
+	backEnd.resolvedPostSunTarget = 0xe;
+	backEnd.resolvedSceneTarget = 0xe;
+	RB_InitSceneViewport();
 }
 
 typedef unsigned int GfxColor;

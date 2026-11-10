@@ -46,6 +46,54 @@ float FresnelTerm(float n0, float n1, float cosIncidentAngle)
 }
 
 extern infoParm_t infoParms[];
+int R_PickMaterial(const vec_t *org, const vec_t *dir, char *name, char *surfaceFlags, char *contents, size_t charLimit);
+__declspec(noinline) void R_ConvertColorToBytes(const vec_t *colorFloat, byte *colorBytes);
+int R_HashAssetName(const char *name);
+bool R_ValidXModelName(const char *name);
+int R_CullPointAndRadius(const vec_t *origin, float radius,
+    const DpvsPlane *planes, int planeCount);
+
+// r_utils in Mac 1.3; inlined at every call site in retail 1.0.
+int R_HashAssetName(const char *name)
+{
+    int hash;
+    int i;
+
+    int mult;
+
+    hash = 0;
+    mult = 119;
+    for (i = 0; name[i]; i++)
+    {
+        hash += name[i] * mult;
+        mult++;
+    }
+    return hash;
+}
+
+bool R_ValidXModelName(const char *name)
+{
+    if (strlen(name) >= 0x40)
+        return false;
+    if (_strnicmp(name, "xmodel", 6))
+        return false;
+    return name[6] == '/' || name[6] == '\\';
+}
+
+// PINNED 1002c060/71: strict sphere/plane rejection; unordered values stay visible.
+int R_CullPointAndRadius(const vec_t *origin, float radius,
+    const DpvsPlane *planes, int planeCount)
+{
+    for (int i = 0; i < planeCount; ++i)
+    {
+        const float *plane = planes[i].coeffs;
+        float distance = plane[1] * origin[1] + plane[2] * origin[2]
+            + plane[0] * origin[0] + plane[3];
+        if (distance < -radius)
+            return 2;
+    }
+    return 0;
+}
 
 int R_PickMaterial(const vec_t *org, const vec_t *dir, char *name, char *surfaceFlags, char *contents, size_t charLimit)
 {
@@ -116,46 +164,4 @@ __declspec(noinline) void R_ConvertColorToBytes(const vec_t *colorFloat, byte *c
     colorBytes[1] = (byte)(colorFloat[1] * 255.0f);
     colorBytes[2] = (byte)(colorFloat[0] * 255.0f);
     colorBytes[3] = (byte)(colorFloat[3] * 255.0f);
-}
-
-// r_utils in Mac 1.3; inlined at every call site in retail 1.0.
-int R_HashAssetName(const char *name)
-{
-    int hash;
-    int i;
-
-    int mult;
-
-    hash = 0;
-    mult = 119;
-    for (i = 0; name[i]; i++)
-    {
-        hash += name[i] * mult;
-        mult++;
-    }
-    return hash;
-}
-
-bool R_ValidXModelName(const char *name)
-{
-    if (strlen(name) >= 0x40)
-        return false;
-    if (_strnicmp(name, "xmodel", 6))
-        return false;
-    return name[6] == '/' || name[6] == '\\';
-}
-
-// PINNED 1002c060/71: strict sphere/plane rejection; unordered values stay visible.
-int R_CullPointAndRadius(const vec_t *origin, float radius,
-    const DpvsPlane *planes, int planeCount)
-{
-    for (int i = 0; i < planeCount; ++i)
-    {
-        const float *plane = planes[i].coeffs;
-        float distance = plane[1] * origin[1] + plane[2] * origin[2]
-            + plane[0] * origin[0] + plane[3];
-        if (distance < -radius)
-            return 2;
-    }
-    return 0;
 }

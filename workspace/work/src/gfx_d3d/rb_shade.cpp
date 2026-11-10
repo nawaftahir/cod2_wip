@@ -376,24 +376,16 @@ static void RB_ScaleCodeMatrix(float scale, const float *in, float *out)
 }
 
 const float *RB_GetCodeMatrix(unsigned int code, int firstRow, int rowCount);
-
-static void RB_DeriveOutdoorLookupMatrix(float out[4][4])
-{
-    float awayBias = r_outdoorAwayBias->current.value;
-    float downBias = r_outdoorDownBias->current.value;
-    const float (*world)[4] = (const float (*)[4])RB_GetCodeMatrix(188, 0, 4);
-    const float (*inverseView)[4] = (const float (*)[4])RB_GetCodeMatrix(193, 0, 4);
-    float nearOffset[4] = {0.0f, 0.0f, -awayBias, 0.0f};
-    float worldOffset[4], outdoorOffset[4];
-    MatrixTransformVector44(nearOffset, inverseView, worldOffset);
-    worldOffset[2] += downBias;
-    MatrixTransformVector44(worldOffset, rgp.world->outdoorLookupMatrix, outdoorOffset);
-    MatrixMultiply44(world, rgp.world->outdoorLookupMatrix, out);
-    out[3][0] += outdoorOffset[0];
-    out[3][1] += outdoorOffset[1];
-    out[3][2] += outdoorOffset[2];
-    out[3][3] += outdoorOffset[3];
-}
+static void RB_DeriveOutdoorLookupMatrix(float out[4][4]);
+const float *RB_GetCodeMatrix(unsigned int code, int firstRow, int rowCount);
+void RB_GetShaderCodeConstant(const MaterialArgumentCodeConst *code,
+    const float **data, unsigned int *rowCount);
+void RB_GetMaterialConstant(const char *name, const float **data,
+    unsigned int *rowCount);
+void RB_ChangeVertexShaderConstants(int destIndex, const float *data, unsigned int rowCount);
+void RB_ChangePixelShaderConstants(int destIndex, const float *data, unsigned int rowCount);
+void RB_SetVertexShaderArguments(int argCount, const MaterialShaderArgument *args);
+void RB_SetPixelShaderArguments(int argCount, const MaterialShaderArgument *args);
 
 const float *RB_GetCodeMatrix(unsigned int code, int firstRow, int rowCount)
 {
@@ -480,6 +472,24 @@ variants:
         matrix->valid[variant] = 1;
     }
     return (float *)&matrix->matrix[variant] + firstRow * 4;
+}
+
+static void RB_DeriveOutdoorLookupMatrix(float out[4][4])
+{
+    float awayBias = r_outdoorAwayBias->current.value;
+    float downBias = r_outdoorDownBias->current.value;
+    const float (*world)[4] = (const float (*)[4])RB_GetCodeMatrix(188, 0, 4);
+    const float (*inverseView)[4] = (const float (*)[4])RB_GetCodeMatrix(193, 0, 4);
+    float nearOffset[4] = {0.0f, 0.0f, -awayBias, 0.0f};
+    float worldOffset[4], outdoorOffset[4];
+    MatrixTransformVector44(nearOffset, inverseView, worldOffset);
+    worldOffset[2] += downBias;
+    MatrixTransformVector44(worldOffset, rgp.world->outdoorLookupMatrix, outdoorOffset);
+    MatrixMultiply44(world, rgp.world->outdoorLookupMatrix, out);
+    out[3][0] += outdoorOffset[0];
+    out[3][1] += outdoorOffset[1];
+    out[3][2] += outdoorOffset[2];
+    out[3][3] += outdoorOffset[3];
 }
 
 

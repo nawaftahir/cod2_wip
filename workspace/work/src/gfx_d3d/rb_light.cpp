@@ -17,6 +17,171 @@ typedef char gridLayoutCheck[(sizeof(GfxLightGridPoint) == 8
     && sizeof(GfxLightGrid) == 16
     && offsetof(GfxBackEndData, debugGlobals) == 0x249d18
     && offsetof(refimport_t, CM_BoxSightTrace) == 0x168) ? 1 : -1];
+bool RB_FindGridPoint(const GfxLightGrid *grid, int x, int y, int z, int *index);
+void RB_AccumulateGridColors(vec4_t *out, const GfxLightGridColors *colors, float weight);
+void RB_ScaleGridColors(vec4_t *out, float scale);
+void RB_DefaultGridColors(vec4_t *out);
+bool RB_GetNearestGridColors(const GfxLightGrid *grid, int x, int y, int z,
+    vec4_t *out, float *sunVisibility);
+bool RB_InsertGridVisLog(int index, unsigned short x, unsigned short y, unsigned short z);
+int RB_GridVisLogIndex(int x, int y, int z, int insert);
+void RB_DrawGridPointBox(const float *origin, float radius, const float *color);
+void RB_DrawGridSampleBox(const float *origin);
+void RB_DrawGridCellBox(int x, int y, int z);
+bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
+    const float *pointOrigin, const float *sampleOrigin);
+const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
+    int x, int y, int z, unsigned int corner, const float *sampleOrigin);
+static int I_ffloor(const float x);
+float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out);
+
+/* PINNED 100363a0. Reuse the existing biased rounding helper; exact FP
+   instruction spelling remains unaccepted and its assembly is not C++ credit. */
+// Name unconfirmed; retail inlines fsub (0.5 - 2^-30) then fistp, like I_fround.
+static int I_ffloor(const float x)
+{
+    double bias = 0.5 - 1.0 / (1 << 30);
+    int result;
+
+    __asm fld x
+    __asm fsub bias
+    __asm fistp result
+
+    return result;
+}
+
+float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out)
+{
+    int cellX, cellY, cellZ;
+    float weights[3][2];
+    cellX = I_ffloor(sampleOrigin[0] - -131072.0f) >> 5;
+    weights[0][1] = (sampleOrigin[0] - -131072.0f) * 0.03125f - cellX;
+    weights[0][0] = 1.0f - weights[0][1];
+    cellY = I_ffloor(sampleOrigin[1] - -131072.0f) >> 5;
+    weights[1][1] = (sampleOrigin[1] - -131072.0f) * 0.03125f - cellY;
+    weights[1][0] = 1.0f - weights[1][1];
+    cellZ = I_ffloor(sampleOrigin[2] - -131072.0f) >> 6;
+    weights[2][1] = (sampleOrigin[2] - -131072.0f) * 0.015625f - cellZ;
+    weights[2][0] = 1.0f - weights[2][1];
+    if (r_showLightGrid->current.enabled)
+    {
+        RB_DrawGridCellBox(cellX, cellY, cellZ);
+        RB_DrawGridSampleBox(sampleOrigin);
+    }
+    memset(out, 0, 6 * sizeof(vec4_t));
+    float totalWeight = 0.0f;
+    float sunWeight = 0.0f;
+    for (unsigned int corner = 0; corner < 8; ++corner)
+    {
+        const GfxLightGridPoint *point = RB_GetValidGridPoint(grid,
+            cellX + (corner & 1), cellY + ((corner >> 1) & 1),
+            cellZ + ((corner >> 2) & 1), corner, sampleOrigin);
+        if (!point)
+            continue;
+        float weight = weights[1][(corner >> 1) & 1] * weights[2][(corner >> 2) & 1]
+            * weights[0][corner & 1];
+        totalWeight += weight;
+        RB_AccumulateGridColors(out, &grid->colors[point->colorsIndex], weight);
+        if (point->xyzLowBitsAndSunVisible & 1)
+            sunWeight += weight;
+    }
+    if (totalWeight < 0.98f)
+    {
+        if (totalWeight == 0.0f)
+        {
+            if (!RB_GetNearestGridColors(grid,
+                cellX + (weights[0][1] > 0.5f), cellY + (weights[1][1] > 0.5f),
+                cellZ + (weights[2][1] > 0.5f), out, &sunWeight))
+                RB_DefaultGridColors(out);
+        }
+        else
+        {
+            float inverseWeight = 1.0f / totalWeight;
+            sunWeight *= inverseWeight;
+            RB_ScaleGridColors(out, inverseWeight);
+        }
+    }
+    return sunWeight;
+}
+
+// PINNED 10035940.
+void RB_DrawGridSampleBox(const float *origin)
+{
+    vec3_t mins, maxs;
+    for (int axis = 0; axis < 3; ++axis)
+        mins[axis] = origin[axis] - 0.5f;
+    for (int axis = 0; axis < 3; ++axis)
+        maxs[axis] = origin[axis] + 0.5f;
+    R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, colorBlue);
+}
+
+// PINNED 100359c0: integer wrapping precedes signed conversion to float.
+void RB_DrawGridCellBox(int x, int y, int z)
+{
+    vec3_t mins, maxs;
+    mins[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
+    mins[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
+    mins[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
+    maxs[0] = mins[0] + 32.0f;
+    maxs[1] = mins[1] + 32.0f;
+    maxs[2] = mins[2] + 64.0f;
+    R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, colorWhite);
+}
+
+// PINNED 10035ac0: an unset corner bit avoids the collision query entirely.
+bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
+    const float *pointOrigin, const float *sampleOrigin)
+{
+    if (!(point->needsTrace & (byte)(1U << (corner & 31))))
+    {
+        if (r_showLightGrid->current.enabled)
+            RB_DrawGridPointBox(pointOrigin, 0.9f, colorGreen);
+        return true;
+    }
+    vec3_t direction, end;
+    VectorSubtract(sampleOrigin, pointOrigin, direction);
+    Vec3Normalize(direction);
+    for (int axis = 0; axis < 3; ++axis)
+        end[axis] = pointOrigin[axis] + direction[axis] * 0.01f;
+    if (ri.CM_BoxSightTrace(0, sampleOrigin, end, vec3_origin, vec3_origin, 0, 0x2001))
+    {
+        if (r_showLightGrid->current.enabled)
+            RB_DrawGridPointBox(pointOrigin, 1.1f, colorRed);
+        return false;
+    }
+    if (r_showLightGrid->current.enabled)
+        RB_DrawGridPointBox(pointOrigin, 1.0f, colorYellow);
+    return true;
+}
+
+// PINNED 10036040: logging precedes lookup; callers still see trace rejection.
+const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
+    int x, int y, int z, unsigned int corner, const float *sampleOrigin)
+{
+    if (r_vc_makelog->current.integer)
+        RB_GridVisLogIndex(x, y, z, true);
+    int index;
+    if (!RB_FindGridPoint(grid, x, y, z, &index))
+        return 0;
+    vec3_t origin;
+    origin[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
+    origin[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
+    origin[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
+    if (!RB_IsGridPointVisible(&grid->points[index], corner, origin, sampleOrigin))
+        return 0;
+    return &grid->points[index];
+}
+
+// PINNED 10035a50.
+void RB_DrawGridPointBox(const float *origin, float radius, const float *color)
+{
+    vec3_t mins, maxs;
+    for (int axis = 0; axis < 3; ++axis)
+        mins[axis] = origin[axis] - radius;
+    for (int axis = 0; axis < 3; ++axis)
+        maxs[axis] = origin[axis] + radius;
+    R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, color);
+}
 
 // PINNED 10035fb0: a miss returns the predecessor, including -1.
 bool RB_FindGridPoint(const GfxLightGrid *grid, int x, int y, int z, int *index)
@@ -150,154 +315,6 @@ int RB_GridVisLogIndex(int x, int y, int z, int insert)
     if (insert && RB_InsertGridVisLog(bottom, x, y, z))
         return bottom;
     return -1;
-}
-
-// PINNED 10035a50.
-void RB_DrawGridPointBox(const float *origin, float radius, const float *color)
-{
-    vec3_t mins, maxs;
-    for (int axis = 0; axis < 3; ++axis)
-        mins[axis] = origin[axis] - radius;
-    for (int axis = 0; axis < 3; ++axis)
-        maxs[axis] = origin[axis] + radius;
-    R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, color);
-}
-
-// PINNED 10035940.
-void RB_DrawGridSampleBox(const float *origin)
-{
-    vec3_t mins, maxs;
-    for (int axis = 0; axis < 3; ++axis)
-        mins[axis] = origin[axis] - 0.5f;
-    for (int axis = 0; axis < 3; ++axis)
-        maxs[axis] = origin[axis] + 0.5f;
-    R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, colorBlue);
-}
-
-// PINNED 100359c0: integer wrapping precedes signed conversion to float.
-void RB_DrawGridCellBox(int x, int y, int z)
-{
-    vec3_t mins, maxs;
-    mins[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
-    mins[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
-    mins[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
-    maxs[0] = mins[0] + 32.0f;
-    maxs[1] = mins[1] + 32.0f;
-    maxs[2] = mins[2] + 64.0f;
-    R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, colorWhite);
-}
-
-// PINNED 10035ac0: an unset corner bit avoids the collision query entirely.
-bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
-    const float *pointOrigin, const float *sampleOrigin)
-{
-    if (!(point->needsTrace & (byte)(1U << (corner & 31))))
-    {
-        if (r_showLightGrid->current.enabled)
-            RB_DrawGridPointBox(pointOrigin, 0.9f, colorGreen);
-        return true;
-    }
-    vec3_t direction, end;
-    VectorSubtract(sampleOrigin, pointOrigin, direction);
-    Vec3Normalize(direction);
-    for (int axis = 0; axis < 3; ++axis)
-        end[axis] = pointOrigin[axis] + direction[axis] * 0.01f;
-    if (ri.CM_BoxSightTrace(0, sampleOrigin, end, vec3_origin, vec3_origin, 0, 0x2001))
-    {
-        if (r_showLightGrid->current.enabled)
-            RB_DrawGridPointBox(pointOrigin, 1.1f, colorRed);
-        return false;
-    }
-    if (r_showLightGrid->current.enabled)
-        RB_DrawGridPointBox(pointOrigin, 1.0f, colorYellow);
-    return true;
-}
-
-// PINNED 10036040: logging precedes lookup; callers still see trace rejection.
-const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
-    int x, int y, int z, unsigned int corner, const float *sampleOrigin)
-{
-    if (r_vc_makelog->current.integer)
-        RB_GridVisLogIndex(x, y, z, true);
-    int index;
-    if (!RB_FindGridPoint(grid, x, y, z, &index))
-        return 0;
-    vec3_t origin;
-    origin[0] = (float)(int)(((unsigned int)x - 4096U) << 5);
-    origin[1] = (float)(int)(((unsigned int)y - 4096U) << 5);
-    origin[2] = (float)(int)(((unsigned int)z - 2048U) << 6);
-    if (!RB_IsGridPointVisible(&grid->points[index], corner, origin, sampleOrigin))
-        return 0;
-    return &grid->points[index];
-}
-
-/* PINNED 100363a0. Reuse the existing biased rounding helper; exact FP
-   instruction spelling remains unaccepted and its assembly is not C++ credit. */
-// Name unconfirmed; retail inlines fsub (0.5 - 2^-30) then fistp, like I_fround.
-static int I_ffloor(const float x)
-{
-    double bias = 0.5 - 1.0 / (1 << 30);
-    int result;
-
-    __asm fld x
-    __asm fsub bias
-    __asm fistp result
-
-    return result;
-}
-
-float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out)
-{
-    int cellX, cellY, cellZ;
-    float weights[3][2];
-    cellX = I_ffloor(sampleOrigin[0] - -131072.0f) >> 5;
-    weights[0][1] = (sampleOrigin[0] - -131072.0f) * 0.03125f - cellX;
-    weights[0][0] = 1.0f - weights[0][1];
-    cellY = I_ffloor(sampleOrigin[1] - -131072.0f) >> 5;
-    weights[1][1] = (sampleOrigin[1] - -131072.0f) * 0.03125f - cellY;
-    weights[1][0] = 1.0f - weights[1][1];
-    cellZ = I_ffloor(sampleOrigin[2] - -131072.0f) >> 6;
-    weights[2][1] = (sampleOrigin[2] - -131072.0f) * 0.015625f - cellZ;
-    weights[2][0] = 1.0f - weights[2][1];
-    if (r_showLightGrid->current.enabled)
-    {
-        RB_DrawGridCellBox(cellX, cellY, cellZ);
-        RB_DrawGridSampleBox(sampleOrigin);
-    }
-    memset(out, 0, 6 * sizeof(vec4_t));
-    float totalWeight = 0.0f;
-    float sunWeight = 0.0f;
-    for (unsigned int corner = 0; corner < 8; ++corner)
-    {
-        const GfxLightGridPoint *point = RB_GetValidGridPoint(grid,
-            cellX + (corner & 1), cellY + ((corner >> 1) & 1),
-            cellZ + ((corner >> 2) & 1), corner, sampleOrigin);
-        if (!point)
-            continue;
-        float weight = weights[1][(corner >> 1) & 1] * weights[2][(corner >> 2) & 1]
-            * weights[0][corner & 1];
-        totalWeight += weight;
-        RB_AccumulateGridColors(out, &grid->colors[point->colorsIndex], weight);
-        if (point->xyzLowBitsAndSunVisible & 1)
-            sunWeight += weight;
-    }
-    if (totalWeight < 0.98f)
-    {
-        if (totalWeight == 0.0f)
-        {
-            if (!RB_GetNearestGridColors(grid,
-                cellX + (weights[0][1] > 0.5f), cellY + (weights[1][1] > 0.5f),
-                cellZ + (weights[2][1] > 0.5f), out, &sunWeight))
-                RB_DefaultGridColors(out);
-        }
-        else
-        {
-            float inverseWeight = 1.0f / totalWeight;
-            sunWeight *= inverseWeight;
-            RB_ScaleGridColors(out, inverseWeight);
-        }
-    }
-    return sunWeight;
 }
 
 typedef char entityLightingLayoutCheck[(offsetof(GfxEntity, renderFxFlags) == 4

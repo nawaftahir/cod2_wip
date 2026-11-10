@@ -25,6 +25,17 @@ typedef char jpegLayoutCheck[(sizeof(jpeg_compress_struct) == 368 &&
     offsetof(jpeg_compress_struct, image_width) == 0x24 &&
     offsetof(jpeg_compress_struct, next_scanline) == 0xd8 &&
     offsetof(jpeg_error_mgr, exit) == 0x84 && offsetof(jpeg_error_mgr, printf) == 0x88) ? 1 : -1];
+static void init_destination(j_compress_ptr cinfo);
+static boolean empty_output_buffer(j_compress_ptr cinfo);
+static void term_destination(j_compress_ptr cinfo);
+static void *Z_MallocJpeg(size_t size);
+static void Z_FreeJpeg(void *pointer, size_t size);
+static void ExitJpeg();
+static void PrintfJpeg(char *message);
+void jpeg_memory_dest(j_compress_ptr cinfo, byte *buffer, size_t size);
+void R_SaveJpg(const char *filename, int quality, int width, int height, byte *pixels);
+void R_LoadJpg(const char *filename, byte **file, byte **pixels,
+    int *width, int *height, D3DFORMAT *format);
 
 // PINNED 10014580: reuse the fixed output buffer without another allocation.
 static void init_destination(j_compress_ptr cinfo)
@@ -46,6 +57,20 @@ static void term_destination(j_compress_ptr cinfo)
     hackSize = (int)(dest->size - dest->pub.free_in_buffer);
 }
 
+// PINNED 100145d0/62; helper name unconfirmed.
+void jpeg_memory_dest(j_compress_ptr cinfo, byte *buffer, size_t size)
+{
+    if (!cinfo->dest)
+        cinfo->dest = (jpeg_destination_mgr *)(*cinfo->mem->alloc_small)((j_common_ptr)cinfo,
+            JPOOL_PERMANENT, sizeof(JpegMemoryDestination));
+    JpegMemoryDestination *dest = (JpegMemoryDestination *)cinfo->dest;
+    dest->pub.init_destination = init_destination;
+    dest->pub.empty_output_buffer = empty_output_buffer;
+    dest->pub.term_destination = term_destination;
+    dest->buffer = buffer;
+    dest->size = size;
+}
+
 static void *Z_MallocJpeg(size_t size)
 {
     return ri.Z_MallocInternal(size);
@@ -64,20 +89,6 @@ static void ExitJpeg()
 static void PrintfJpeg(char *message)
 {
     ri.Printf(0, "%s\n", message);
-}
-
-// PINNED 100145d0/62; helper name unconfirmed.
-void jpeg_memory_dest(j_compress_ptr cinfo, byte *buffer, size_t size)
-{
-    if (!cinfo->dest)
-        cinfo->dest = (jpeg_destination_mgr *)(*cinfo->mem->alloc_small)((j_common_ptr)cinfo,
-            JPOOL_PERMANENT, sizeof(JpegMemoryDestination));
-    JpegMemoryDestination *dest = (JpegMemoryDestination *)cinfo->dest;
-    dest->pub.init_destination = init_destination;
-    dest->pub.empty_output_buffer = empty_output_buffer;
-    dest->pub.term_destination = term_destination;
-    dest->buffer = buffer;
-    dest->size = size;
 }
 
 // PINNED 10014670/713: release the temporary output before destroying the codec.

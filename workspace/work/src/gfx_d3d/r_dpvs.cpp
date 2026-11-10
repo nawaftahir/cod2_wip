@@ -301,6 +301,26 @@ static const vec3_t *R_ChopPortalWinding(const vec3_t *vertsIn, int *vertexCount
 // PINNED: optional far plane pointer 101ce5b4.
 // PINNED: fog plane 101ce59c and near-plane pointer 101ce5b0.
 __declspec(noinline) float R_GetFarPlaneDist();
+void R_SetupDpvsForPoint(const GfxViewParms *viewParms);
+void R_SetupDpvsForDir(const GfxViewParms *viewParms);
+static int R_ChopPortal(const GfxPortal *portal, const DpvsPlane *parentPlane,
+    const DpvsPlane *planes, int planeCount, vec3_t v[2][128], const vec3_t **finalVerts);
+bool R_ChopPortalAndAddHullPoints(GfxPortal *portal, const DpvsPlane *parentPlane,
+    const DpvsPlane *planes, int planeCount);
+static bool R_PortalBehindPlane(const GfxPortal *portal, const DpvsPlane *plane);
+static bool R_PortalBehindAnyPlane(const GfxPortal *portal, const DpvsPlane *planes, int planeCount);
+static bool R_PortalBehindAllPlanes(const GfxPortal *portal, const DpvsPlane *planes, int planeCount);
+static __declspec(noinline) bool R_IsPortalOccluded(const GfxPortal *portal);
+static bool R_IsCellInList(const GfxCell *cell, const GfxCell **list, int count);
+int R_GetFurtherCellList_r(const GfxCell *cell, const DpvsPlane *parentPlane,
+    const DpvsPlane *planes, int planeCount, vec3_t v[2][128], const GfxCell **list, int count);
+void R_PortalQueuePush(GfxPortal *portal);
+void R_ClearDpvsScene();
+float R_GetFarPlaneDist();
+void R_SetCullDist(float dist);
+GfxPortal *R_PortalQueuePopMin();
+double R_FurthestPointOnWinding(const vec3_t *points, int pointCount, const float *plane);
+double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float *plane);
 
 // PINNED 1000a3c0/389; name SUPPORTED by KisakCOD.
 void R_SetupDpvsForPoint(const GfxViewParms *viewParms)
@@ -330,60 +350,6 @@ void R_SetupDpvsForPoint(const GfxViewParms *viewParms)
         portalFogPlane.u.frontal = 255;
         portalFarPlane = &portalFogPlane;
     }
-}
-
-// PINNED 1000a550/194: directional visibility has no near/far clipping planes.
-void R_SetupDpvsForDir(const GfxViewParms *viewParms)
-{
-    VectorNegate(viewParms->axis[0], dpvsViewOrg);
-    dpvsViewOrg[3] = 0.0f;
-    VectorCopy(viewParms->axis[0], portalViewPlane.coeffs);
-    portalViewPlane.coeffs[3] = 262144.0f - DotProduct(portalViewPlane.coeffs, dpvsViewOrg);
-    portalViewPlane.side[0] = FloatAsInt(portalViewPlane.coeffs[0]) > 0 ? 12 : 0;
-    portalViewPlane.side[1] = FloatAsInt(portalViewPlane.coeffs[1]) > 0 ? 16 : 4;
-    portalViewPlane.side[2] = FloatAsInt(portalViewPlane.coeffs[2]) > 0 ? 20 : 8;
-    portalNearPlane = 0;
-    portalFarPlane = 0;
-}
-
-static int R_ChopPortal(const GfxPortal *portal, const DpvsPlane *parentPlane,
-    const DpvsPlane *planes, int planeCount, vec3_t v[2][128], const vec3_t **finalVerts)
-{
-    int vertexCount = portal->vertexCount;
-    const vec3_t *w;
-    int planeIndex;
-    w = R_ChopPortalWinding(portal->vertices, &vertexCount, parentPlane, v[0]);
-    if (!vertexCount)
-        return 0;
-    if (portalFarPlane)
-    {
-        w = R_ChopPortalWinding(w, &vertexCount, portalFarPlane, v[w == v[0]]);
-        if (!vertexCount)
-            return 0;
-    }
-    for (planeIndex = 0; planeIndex < planeCount; ++planeIndex)
-    {
-        w = R_ChopPortalWinding(w, &vertexCount, &planes[planeIndex], v[w == v[0]]);
-        if (!vertexCount)
-            return 0;
-    }
-    if (finalVerts)
-        *finalVerts = w;
-    return vertexCount;
-}
-
-// PINNED 10009b30: this variant always clips to its parent plane.
-bool R_ChopPortalAndAddHullPoints(GfxPortal *portal, const DpvsPlane *parentPlane,
-    const DpvsPlane *planes, int planeCount)
-{
-    vec3_t v[2][128];
-    const vec3_t *w;
-    int vertexCount = R_ChopPortal(portal, parentPlane, planes, planeCount, v, &w);
-    if (!vertexCount)
-        return false;
-    for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex)
-        R_AddVertToPortalHullPoints(portal, w[vertexIndex]);
-    return true;
 }
 
 // PINNED 10007dc0/66; name SUPPORTED by KisakCOD.
@@ -439,6 +405,46 @@ static __declspec(noinline) bool R_IsPortalOccluded(const GfxPortal *portal)
     return false;
 }
 
+static int R_ChopPortal(const GfxPortal *portal, const DpvsPlane *parentPlane,
+    const DpvsPlane *planes, int planeCount, vec3_t v[2][128], const vec3_t **finalVerts)
+{
+    int vertexCount = portal->vertexCount;
+    const vec3_t *w;
+    int planeIndex;
+    w = R_ChopPortalWinding(portal->vertices, &vertexCount, parentPlane, v[0]);
+    if (!vertexCount)
+        return 0;
+    if (portalFarPlane)
+    {
+        w = R_ChopPortalWinding(w, &vertexCount, portalFarPlane, v[w == v[0]]);
+        if (!vertexCount)
+            return 0;
+    }
+    for (planeIndex = 0; planeIndex < planeCount; ++planeIndex)
+    {
+        w = R_ChopPortalWinding(w, &vertexCount, &planes[planeIndex], v[w == v[0]]);
+        if (!vertexCount)
+            return 0;
+    }
+    if (finalVerts)
+        *finalVerts = w;
+    return vertexCount;
+}
+
+// PINNED 10009b30: this variant always clips to its parent plane.
+bool R_ChopPortalAndAddHullPoints(GfxPortal *portal, const DpvsPlane *parentPlane,
+    const DpvsPlane *planes, int planeCount)
+{
+    vec3_t v[2][128];
+    const vec3_t *w;
+    int vertexCount = R_ChopPortal(portal, parentPlane, planes, planeCount, v, &w);
+    if (!vertexCount)
+        return false;
+    for (int vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex)
+        R_AddVertToPortalHullPoints(portal, w[vertexIndex]);
+    return true;
+}
+
 // PINNED 10009bc0/301. Shared clipping buffers are reused down the traversal.
 static bool R_IsCellInList(const GfxCell *cell, const GfxCell **list, int count)
 {
@@ -492,6 +498,20 @@ void R_PortalQueuePush(GfxPortal *portal)
     portalQueue[index].portal = portal;
     portalQueue[index].dist = distance;
     ++portalQueueCount;
+}
+
+// PINNED 1000a550/194: directional visibility has no near/far clipping planes.
+void R_SetupDpvsForDir(const GfxViewParms *viewParms)
+{
+    VectorNegate(viewParms->axis[0], dpvsViewOrg);
+    dpvsViewOrg[3] = 0.0f;
+    VectorCopy(viewParms->axis[0], portalViewPlane.coeffs);
+    portalViewPlane.coeffs[3] = 262144.0f - DotProduct(portalViewPlane.coeffs, dpvsViewOrg);
+    portalViewPlane.side[0] = FloatAsInt(portalViewPlane.coeffs[0]) > 0 ? 12 : 0;
+    portalViewPlane.side[1] = FloatAsInt(portalViewPlane.coeffs[1]) > 0 ? 16 : 4;
+    portalViewPlane.side[2] = FloatAsInt(portalViewPlane.coeffs[2]) > 0 ? 20 : 8;
+    portalNearPlane = 0;
+    portalFarPlane = 0;
 }
 
 void R_ClearDpvsScene()

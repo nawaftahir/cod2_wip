@@ -15,6 +15,12 @@ void R_ShutdownFonts()
 Material *Material_Register(const char *name, int imageTrack);
 
 Font_s *R_LoadFont(const char *name, int imageTrack);
+Font_s *R_RegisterFont(const char *name, int imageTrack);
+void R_DuplicateFont(Font_s *fontCopy, const char *name);
+Glyph *R_GetCharacterGlyph(Font_s *font, unsigned int letter);
+float R_NormalizedTextScale(Font_s *font, float scale);
+int R_TextWidth(const char *text, int maxChars, Font_s *font);
+int R_TextHeight(Font_s *font);
 
 // PINNED 1000bce0: this uses the same registry as font duplication.
 Font_s *R_RegisterFont(const char *name, int imageTrack)
@@ -33,6 +39,29 @@ Font_s *R_RegisterFont(const char *name, int imageTrack)
     registeredFont[registeredFontCount] = font;
     ++registeredFontCount;
     return font;
+}
+
+Glyph *R_GetCharacterGlyph(Font_s *font, unsigned int letter)
+{
+    int top;
+    int bottom;
+    int mid;
+
+    if (letter >= 0x20 && letter <= 0x7F)
+        return &font->glyphs[letter - 0x20];
+    top = font->glyphCount - 1;
+    bottom = 0x60;
+    while (bottom <= top)
+    {
+        mid = (top + bottom) / 2;
+        if (font->glyphs[mid].letter == letter)
+            return &font->glyphs[mid];
+        if (font->glyphs[mid].letter < letter)
+            bottom = mid + 1;
+        else
+            top = mid - 1;
+    }
+    return &font->glyphs[14];
 }
 
 void R_DuplicateFont(Font_s *fontCopy, const char *name)
@@ -65,29 +94,6 @@ void R_DuplicateFont(Font_s *fontCopy, const char *name)
     font->name = nameCopy;
     registeredFont[fontIndex] = font;
     registeredFontCount++;
-}
-
-Glyph *R_GetCharacterGlyph(Font_s *font, unsigned int letter)
-{
-    int top;
-    int bottom;
-    int mid;
-
-    if (letter >= 0x20 && letter <= 0x7F)
-        return &font->glyphs[letter - 0x20];
-    top = font->glyphCount - 1;
-    bottom = 0x60;
-    while (bottom <= top)
-    {
-        mid = (top + bottom) / 2;
-        if (font->glyphs[mid].letter == letter)
-            return &font->glyphs[mid];
-        if (font->glyphs[mid].letter < letter)
-            bottom = mid + 1;
-        else
-            top = mid - 1;
-    }
-    return &font->glyphs[14];
 }
 
 float R_NormalizedTextScale(Font_s *font, float scale)

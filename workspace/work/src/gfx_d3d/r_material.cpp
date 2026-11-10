@@ -119,6 +119,65 @@ extern const byte g_useTechnique[34] =
     1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
     1,1,1,1,1,1,1,1,1,1,0,0,1,0,1,1,1
 };
+static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl(const MaterialStreamRouting *routingData, int streamCount, const stream_source_info_t *sourceTable);
+void Material_BuildVertexDecls(MaterialVertexDeclaration **declaration);
+void Material_ReloadAll();
+const float *Material_RegisterLiteral(const float *literal);
+const char *Material_RegisterString(const char *string);
+MaterialVertexDeclaration *Material_AllocVertexDecl(MaterialStreamRouting *routingData, int streamCount, Bool *existing);
+static bool Material_FindTechniqueSlot(const char *name, int *slot);
+MaterialTechnique *Material_FindTechnique(const char *name);
+void Material_SetTechnique(const char *name, MaterialTechnique *technique);
+static bool Material_FindTechniqueSetSlot(const char *name, int *slot);
+MaterialTechniqueSet *Material_FindTechniqueSet(const char *name);
+void Material_SetTechniqueSet(const char *name, MaterialTechniqueSet *techniqueSet);
+static bool Material_FindStateMapSlot(const char *name, int *slot);
+MaterialStateMap *Material_FindStateMap(const char *name);
+void Material_SetStateMap(const char *name, MaterialStateMap *stateMap);
+static bool Material_FindShaderSlot(const char *name, int shaderType, int shaderVersion, int *slot);
+MaterialShader *Material_FindShader(const char *name, int shaderType, int shaderVersion);
+void Material_SetShader(const char *name, int shaderType, int shaderVersion, MaterialShader *shader);
+
+// PINNED 10016390: this routine copies a literal without incrementing the count.
+const float *Material_RegisterLiteral(const float *literal)
+{
+    int index;
+    for (index = 0; index < materialGlobals.literalCount; ++index)
+    {
+        const float *entry = materialGlobals.literals[index];
+        if (literal[0] == entry[0] && literal[1] == entry[1]
+            && literal[2] == entry[2] && literal[3] == entry[3])
+            return materialGlobals.literals[index];
+    }
+    if (index == 16)
+        R_Error(ERR_DROP, "more than %i shader literals used", 16);
+    float *entry = materialGlobals.literals[index];
+    entry[0] = literal[0];
+    entry[1] = literal[1];
+    entry[2] = literal[2];
+    entry[3] = literal[3];
+    return materialGlobals.literals[index];
+}
+
+// PINNED 10016440: folded hash, case-sensitive identity and a 63-string limit.
+const char *Material_RegisterString(const char *string)
+{
+    int hash = R_HashString(string) & 63;
+    while (materialGlobals.stringIdentTable[hash])
+    {
+        if (!strcmp(materialGlobals.stringIdentTable[hash], string))
+            return materialGlobals.stringIdentTable[hash];
+        hash = (hash + 1) & 63;
+    }
+    ++materialGlobals.stringIdentCount;
+    if (materialGlobals.stringIdentCount == 64)
+        R_Error(ERR_DROP, "More than %i string identifiers used by shaders", 63);
+    int size = strlen(string) + 1;
+    char *copy = (char *)ri.Hunk_AllocInternal(size);
+    memcpy(copy, string, size);
+    materialGlobals.stringIdentTable[hash] = copy;
+    return copy;
+}
 
 static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl(const MaterialStreamRouting *routingData, int streamCount, const stream_source_info_t *sourceTable)
 {
@@ -174,65 +233,6 @@ void Material_BuildVertexDecls(MaterialVertexDeclaration **declaration)
             (*declaration)->routingData, (*declaration)->streamCount, s_streamSourceInfo[type]);
         (*declaration)->decl[type] = created;
     }
-}
-
-void Material_ReloadAll()
-{
-    int vertDeclIndex;
-    int vertDeclType;
-    MaterialVertexDeclaration *vertexDecl;
-
-    vertexDecl = materialGlobals.vertexDecls;
-    for (vertDeclIndex = 0; vertDeclIndex < 32; ++vertDeclIndex)
-    {
-        if (vertexDecl->routingData)
-        {
-            for (vertDeclType = 0; vertDeclType < 4; ++vertDeclType)
-                vertexDecl->decl[vertDeclType] = Material_BuildVertexDecl(vertexDecl->routingData, vertexDecl->streamCount, s_streamSourceInfo[vertDeclType]);
-        }
-        ++vertexDecl;
-    }
-}
-
-// PINNED 10016390: this routine copies a literal without incrementing the count.
-const float *Material_RegisterLiteral(const float *literal)
-{
-    int index;
-    for (index = 0; index < materialGlobals.literalCount; ++index)
-    {
-        const float *entry = materialGlobals.literals[index];
-        if (literal[0] == entry[0] && literal[1] == entry[1]
-            && literal[2] == entry[2] && literal[3] == entry[3])
-            return materialGlobals.literals[index];
-    }
-    if (index == 16)
-        R_Error(ERR_DROP, "more than %i shader literals used", 16);
-    float *entry = materialGlobals.literals[index];
-    entry[0] = literal[0];
-    entry[1] = literal[1];
-    entry[2] = literal[2];
-    entry[3] = literal[3];
-    return materialGlobals.literals[index];
-}
-
-// PINNED 10016440: folded hash, case-sensitive identity and a 63-string limit.
-const char *Material_RegisterString(const char *string)
-{
-    int hash = R_HashString(string) & 63;
-    while (materialGlobals.stringIdentTable[hash])
-    {
-        if (!strcmp(materialGlobals.stringIdentTable[hash], string))
-            return materialGlobals.stringIdentTable[hash];
-        hash = (hash + 1) & 63;
-    }
-    ++materialGlobals.stringIdentCount;
-    if (materialGlobals.stringIdentCount == 64)
-        R_Error(ERR_DROP, "More than %i string identifiers used by shaders", 63);
-    int size = strlen(string) + 1;
-    char *copy = (char *)ri.Hunk_AllocInternal(size);
-    memcpy(copy, string, size);
-    materialGlobals.stringIdentTable[hash] = copy;
-    return copy;
 }
 
 MaterialVertexDeclaration *Material_AllocVertexDecl(MaterialStreamRouting *routingData, int streamCount, Bool *existing)
@@ -412,6 +412,24 @@ void Material_SetShader(const char *name, int shaderType, int shaderVersion, Mat
     materialGlobals.shaderTable[slot] = shader;
 }
 
+void Material_ReloadAll()
+{
+    int vertDeclIndex;
+    int vertDeclType;
+    MaterialVertexDeclaration *vertexDecl;
+
+    vertexDecl = materialGlobals.vertexDecls;
+    for (vertDeclIndex = 0; vertDeclIndex < 32; ++vertDeclIndex)
+    {
+        if (vertexDecl->routingData)
+        {
+            for (vertDeclType = 0; vertDeclType < 4; ++vertDeclType)
+                vertexDecl->decl[vertDeclType] = Material_BuildVertexDecl(vertexDecl->routingData, vertexDecl->streamCount, s_streamSourceInfo[vertDeclType]);
+        }
+        ++vertexDecl;
+    }
+}
+
 // Partial layouts: only the fields read here (offsets PINNED on the 1.0 binary).
 struct RefractTechnique
 {
@@ -494,18 +512,13 @@ typedef char materialStartupLayoutCheck[(sizeof(MaterialGlobals) == 0x299c &&
     offsetof(r_global_permanent_t, rawTexdef) == 0x10e4) ? 1 : -1];
 
 Material **R_GetMaterialHashTable();
-
-
-Bool Material_IsDefault(const Material *material)
-{
-    if (material->textures != rgp.defaultMaterial->textures)
-        return 0;
-    if (material->constants != rgp.defaultMaterial->constants)
-        return 0;
-    if (material->techniqueSet != rgp.defaultMaterial->techniqueSet)
-        return 0;
-    return 1;
-}
+Bool Material_IsDefault(const Material *material);
+void Material_ReleaseShaders();
+void Material_ReloadShaders();
+static void Material_FindHashSlot(const char *name, unsigned short *hashIndex, bool *found);
+__declspec(noinline) static void Material_AddToTable(Material *material, unsigned short hashIndex);
+Material *Material_Duplicate(const Material *mtlCopy, const char *name);
+Material *Material_FindRegistered(const char *name);
 
 // Name unconfirmed (Mac 1.3 inlines this into Material_ReleaseAll).
 void Material_ReleaseShaders()
@@ -548,6 +561,45 @@ void Material_ReloadShaders()
     }
 }
 
+Material *Material_Duplicate(const Material *mtlCopy, const char *name)
+{
+    unsigned short hashIndex;
+    bool found;
+    Material *material;
+    const char *oldName;
+    int nameLen;
+
+    Material_FindHashSlot(name, &hashIndex, &found);
+    if (found)
+    {
+        material = R_GetMaterialHashTable()[hashIndex];
+        oldName = material->name;
+        memcpy(material, mtlCopy, sizeof(Material));
+        material->name = oldName;
+        rgp.materialLoaded = 1;
+        return material;
+    }
+    nameLen = strlen(name) + 1;
+    material = (Material *)ri.Hunk_AllocInternal(nameLen + sizeof(Material));
+    memcpy(material, mtlCopy, sizeof(Material));
+    material->name = (const char *)(material + 1);
+    memcpy(material + 1, name, nameLen);
+    Material_AddToTable(material, hashIndex);
+    return material;
+}
+
+
+Bool Material_IsDefault(const Material *material)
+{
+    if (material->textures != rgp.defaultMaterial->textures)
+        return 0;
+    if (material->constants != rgp.defaultMaterial->constants)
+        return 0;
+    if (material->techniqueSet != rgp.defaultMaterial->techniqueSet)
+        return 0;
+    return 1;
+}
+
 
 // Retail passes the name in EBX (LTCG).
 static void Material_FindHashSlot(const char *name, unsigned short *hashIndex, bool *found)
@@ -579,33 +631,6 @@ __declspec(noinline) static void Material_AddToTable(Material *material, unsigne
     *slot = material;
     if (++rgp.materialCount == 1024)
         R_Error(ERR_FATAL, "Too many unique materials (%i or more)\n", 1024);
-}
-
-Material *Material_Duplicate(const Material *mtlCopy, const char *name)
-{
-    unsigned short hashIndex;
-    bool found;
-    Material *material;
-    const char *oldName;
-    int nameLen;
-
-    Material_FindHashSlot(name, &hashIndex, &found);
-    if (found)
-    {
-        material = R_GetMaterialHashTable()[hashIndex];
-        oldName = material->name;
-        memcpy(material, mtlCopy, sizeof(Material));
-        material->name = oldName;
-        rgp.materialLoaded = 1;
-        return material;
-    }
-    nameLen = strlen(name) + 1;
-    material = (Material *)ri.Hunk_AllocInternal(nameLen + sizeof(Material));
-    memcpy(material, mtlCopy, sizeof(Material));
-    material->name = (const char *)(material + 1);
-    memcpy(material + 1, name, nameLen);
-    Material_AddToTable(material, hashIndex);
-    return material;
 }
 
 // Name unconfirmed.
@@ -859,42 +884,13 @@ void Material_Init()
 }
 
 void RB_SetFVF(DWORD fvf);
-
-// Name unconfirmed.
-void Material_ReleaseVertexDecls()
-{
-    int declIndex;
-    int declType;
-    MaterialVertexDeclaration *vertexDecl;
-    IDirect3DVertexDeclaration9 **decl;
-
-    RB_SetFVF(0);
-    vertexDecl = materialGlobals.vertexDecls;
-    for (declIndex = 32; declIndex; --declIndex)
-    {
-        decl = vertexDecl->decl;
-        for (declType = 4; declType; --declType)
-        {
-            if (*decl)
-            {
-                do
-                {
-                    (*decl)->Release();
-                    *decl = 0;
-                } while (alwaysfails);
-            }
-            ++decl;
-        }
-        ++vertexDecl;
-    }
-}
-
-void Material_ReleaseAll()
-{
-    Material_ReleaseVertexDecls();
-    memset(materialGlobals.vertexDecls, 0, sizeof(materialGlobals.vertexDecls));
-    materialGlobals.vertexDeclCount = 0;
-}
+void Material_ReleaseVertexDecls();
+void Material_ReleaseAll();
+void Material_ClearStringTable();
+void Material_ClearTechniqueTable();
+void Material_ClearTechniqueSetTable();
+void Material_ClearStateMapTable();
+void Material_Shutdown();
 
 // Names unconfirmed: the four table clears also exist inlined in Material_Shutdown.
 void Material_ClearStringTable()
@@ -939,6 +935,42 @@ void Material_ClearStateMapTable()
         if (materialGlobals.stateMapTable[index])
             materialGlobals.stateMapTable[index] = 0;
     }
+}
+
+// Name unconfirmed.
+void Material_ReleaseVertexDecls()
+{
+    int declIndex;
+    int declType;
+    MaterialVertexDeclaration *vertexDecl;
+    IDirect3DVertexDeclaration9 **decl;
+
+    RB_SetFVF(0);
+    vertexDecl = materialGlobals.vertexDecls;
+    for (declIndex = 32; declIndex; --declIndex)
+    {
+        decl = vertexDecl->decl;
+        for (declType = 4; declType; --declType)
+        {
+            if (*decl)
+            {
+                do
+                {
+                    (*decl)->Release();
+                    *decl = 0;
+                } while (alwaysfails);
+            }
+            ++decl;
+        }
+        ++vertexDecl;
+    }
+}
+
+void Material_ReleaseAll()
+{
+    Material_ReleaseVertexDecls();
+    memset(materialGlobals.vertexDecls, 0, sizeof(materialGlobals.vertexDecls));
+    materialGlobals.vertexDeclCount = 0;
 }
 
 void Material_Shutdown()

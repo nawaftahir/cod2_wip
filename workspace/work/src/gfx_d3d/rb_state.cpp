@@ -9,15 +9,8 @@
 
 DxState dxState;
 typedef char sampler_device_lost_offset[(offsetof(DxGlobals, deviceLost) == 0x2d3c) ? 1 : -1];
-
-void RB_SetDepthRange(float nearValue, float farValue)
-{
-	if (dxState.viewport.MinZ == nearValue && dxState.viewport.MaxZ == farValue)
-		return;
-	dxState.viewport.MinZ = nearValue;
-	dxState.viewport.MaxZ = farValue;
-	R_DX_CALL(dx.device->SetViewport( &dxState.viewport ));
-}
+void RB_SetDepthRange(float nearValue, float farValue);
+void RB_SetAnisotropy();
 
 void RB_SetAnisotropy()
 {
@@ -34,8 +27,22 @@ void RB_SetAnisotropy()
 		R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MAXANISOTROPY, anisotropy ));
 }
 
+void RB_SetDepthRange(float nearValue, float farValue)
+{
+	if (dxState.viewport.MinZ == nearValue && dxState.viewport.MaxZ == farValue)
+		return;
+	dxState.viewport.MinZ = nearValue;
+	dxState.viewport.MaxZ = farValue;
+	R_DX_CALL(dx.device->SetViewport( &dxState.viewport ));
+}
+
 // PC 1.0 table at 0x10190714: D3DTEXF_NONE, POINT, LINEAR, ANISOTROPIC
 static const DWORD s_filterTable[4] = { 0, 1, 2, 3 };
+static void RB_GetSamplerFilterModes(unsigned char samplerState, DWORD *minFilter, DWORD *magFilter);
+__declspec(noinline) void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);
+void RB_UnbindImage(const GfxImage *image);
+void RB_BindWhiteImages();
+void RB_InitImages();
 
 static void RB_GetSamplerFilterModes(unsigned char samplerState, DWORD *minFilter, DWORD *magFilter)
 {
@@ -128,13 +135,6 @@ void RB_UnbindImage(const GfxImage *image)
 	}
 }
 
-// PINNED 1003ec50/33: preserve each live sampler state while binding white.
-void RB_BindWhiteImages()
-{
-	for (int index = 0; index < 16; ++index)
-		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
-}
-
 void RB_InitImages()
 {
 	int samplerIndex;
@@ -144,6 +144,13 @@ void RB_InitImages()
 		for (samplerIndex = 0; samplerIndex < vidConfig.maxTextureMaps; samplerIndex++)
 			RB_SetSampler(samplerIndex, 0, NULL);
 	}
+}
+
+// PINNED 1003ec50/33: preserve each live sampler state while binding white.
+void RB_BindWhiteImages()
+{
+	for (int index = 0; index < 16; ++index)
+		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
 }
 
 static const DWORD s_blendTable[] =
@@ -346,10 +353,48 @@ static const DxStencilDecode s_stencilFuncDecode[2] =
 {
 	{ 17, (D3DRENDERSTATETYPE)56 }, { 29, (D3DRENDERSTATETYPE)189 }
 };
+static inline DWORD FloatAsInt(const float *value);
+void RB_ChangeState_1(int stateBits1);
+void RB_SetViewport(const GfxViewport *viewport);
+void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib);
+void RB_ChangeStreamSource(int streamIndex, IDirect3DVertexBuffer9 *vb, int vertexOffset, int vertexStride);
+void RB_ClearAllStreamSources();
+void RB_ChangePixelShader(IDirect3DPixelShader9 *shader);
+void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader);
+void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl);
 
 static inline DWORD FloatAsInt(const float *value)
 {
 	return *(const DWORD *)value;
+}
+
+// PINNED 10038430/104, 100384a0/104 and 10038510/114.
+void RB_ChangePixelShader(IDirect3DPixelShader9 *shader)
+{
+	if (dxState.pixelShader != shader)
+	{
+		R_DX_CALL(dx.device->SetPixelShader( shader ));
+		dxState.pixelShader = shader;
+	}
+}
+
+void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader)
+{
+	if (dxState.vertexShader != shader)
+	{
+		R_DX_CALL(dx.device->SetVertexShader( shader ));
+		dxState.vertexShader = shader;
+	}
+}
+
+void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl)
+{
+	if (dxState.vertexDecl != decl)
+	{
+		R_DX_CALL(dx.device->SetVertexDeclaration( decl ));
+		dxState.vertexDecl = decl;
+		dxState.fvf = 0;
+	}
 }
 
 void RB_ChangeState_1(int stateBits1)
@@ -486,36 +531,18 @@ void RB_ClearAllStreamSources()
         RB_ChangeStreamSource(0, 0, 0, 0);
 }
 
-// PINNED 10038430/104, 100384a0/104 and 10038510/114.
-void RB_ChangePixelShader(IDirect3DPixelShader9 *shader)
-{
-	if (dxState.pixelShader != shader)
-	{
-		R_DX_CALL(dx.device->SetPixelShader( shader ));
-		dxState.pixelShader = shader;
-	}
-}
-
-void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader)
-{
-	if (dxState.vertexShader != shader)
-	{
-		R_DX_CALL(dx.device->SetVertexShader( shader ));
-		dxState.vertexShader = shader;
-	}
-}
-
-void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl)
-{
-	if (dxState.vertexDecl != decl)
-	{
-		R_DX_CALL(dx.device->SetVertexDeclaration( decl ));
-		dxState.vertexDecl = decl;
-		dxState.fvf = 0;
-	}
-}
-
 extern const dvar_t *r_drawPrimFloor, *r_drawPrimCap;
+void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args);
+void RB_SetFVF(DWORD fvf);
+
+void RB_SetFVF(DWORD fvf)
+{
+	if (!dxState.vertexDecl && dxState.fvf == fvf)
+		return;
+	R_DX_CALL(dx.device->SetFVF( fvf ));
+	dxState.fvf = fvf;
+	dxState.vertexDecl = NULL;
+}
 
 // PINNED 10038610/150: the triangle limits do not apply to 2D draws.
 void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args)
@@ -529,15 +556,6 @@ void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args)
 			return;
 	}
 	R_DX_CALL(dx.device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, args->u.buf.baseVertex, args->firstVertexFromBase, args->vertexCount, args->u.buf.baseIndex, args->primCount ));
-}
-
-void RB_SetFVF(DWORD fvf)
-{
-	if (!dxState.vertexDecl && dxState.fvf == fvf)
-		return;
-	R_DX_CALL(dx.device->SetFVF( fvf ));
-	dxState.fvf = fvf;
-	dxState.vertexDecl = NULL;
 }
 
 r_backEndGlobals_t backEnd;

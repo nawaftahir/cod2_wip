@@ -70,16 +70,19 @@ const char *g_imageProgNames[13] = {
     "$blurred_screen", "$glow_0", "$glow_1", "$pingpong_0", "$pingpong_1",
     "$resolved_post_sun", "$resolved_scene", "$savedscreen", "$raw"
 };
+static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data);
+static void R_AddImageToList(GfxImage *image, void *data);
+void R_GetImageList(ImageList *list);
+static Bool Image_IsCodeTrack(int track);
+void R_ResetImageAllocations();
+void R_FreeImageAllocations();
+int R_GetMinSpecImageMemory();
+void R_GetImageMemory(Image_MemUsage *usage);
 
-// PINNED1000d480: programmable images are excluded by their whole address range.
-static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data)
+// PINNED1000c7c0: preserve the signed track test, including negative inputs.
+static Bool Image_IsCodeTrack(int track)
 {
-    for (unsigned int index = 0; index < 2048; ++index)
-    {
-        GfxImage *image = imageGlobals.imageHashTable[index];
-        if (image && (image < g_imageProgs || image >= g_imageProgs + 13))
-            callback(image, data);
-    }
+    return track >= 0 && (track <= 1 || track == 4);
 }
 
 // PINNED1000c7e0: the callback keeps its ordinary two-stack-argument ABI.
@@ -95,27 +98,6 @@ void R_GetImageList(ImageList *list)
 {
     list->count = 0;
     Image_Iterate(R_AddImageToList, list);
-}
-
-// PINNED1000c7c0: preserve the signed track test, including negative inputs.
-static Bool Image_IsCodeTrack(int track)
-{
-    return track >= 0 && (track <= 1 || track == 4);
-}
-
-// PINNED1000c8d0; this accessor is also present as a public retail body.
-// PINNED 1000ce60/1000ce70: these PC API callbacks contain only RET.
-void R_ResetImageAllocations()
-{
-}
-
-void R_FreeImageAllocations()
-{
-}
-
-int R_GetMinSpecImageMemory()
-{
-    return imageGlobals.totalMemory[1];
 }
 
 // PINNED1000c820: minspec is the second platform's tracked memory counter.
@@ -138,6 +120,32 @@ void R_GetImageMemory(Image_MemUsage *usage)
     usage->total = total;
     usage->lightmap = memoryByTrack[4];
     usage->minspec = R_GetMinSpecImageMemory();
+}
+
+int R_GetMinSpecImageMemory()
+{
+    return imageGlobals.totalMemory[1];
+}
+
+// PINNED1000c8d0; this accessor is also present as a public retail body.
+// PINNED 1000ce60/1000ce70: these PC API callbacks contain only RET.
+void R_ResetImageAllocations()
+{
+}
+
+void R_FreeImageAllocations()
+{
+}
+
+// PINNED1000d480: programmable images are excluded by their whole address range.
+static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data)
+{
+    for (unsigned int index = 0; index < 2048; ++index)
+    {
+        GfxImage *image = imageGlobals.imageHashTable[index];
+        if (image && (image < g_imageProgs || image >= g_imageProgs + 13))
+            callback(image, data);
+    }
 }
 
 // PINNED101a59fc/101a5a24: track labels and platform labels, respectively.
@@ -266,6 +274,46 @@ unsigned int R_AvailableTextureMemory();
 void R_SetPicmip();
 
 int Image_GetCardMemoryAmount(int imageFlags, D3DFORMAT format, int width, int height, int depth);
+int Image_GetPlatformScreenWidth(int platform);
+int Image_GetPlatformScreenHeight(int platform);
+void Image_TrackFullscreenTexture(GfxImage *image, int picmip, D3DFORMAT format);
+void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int width, int height, int depth);
+inline bool Image_IsCodeImage(const GfxImage *image);
+GfxImage *Image_FindExisting(const char *name);
+static int Image_GetAvailableHashLocation(const char *name);
+GfxImage *Image_AllocProg(int imageProgType, int category);
+void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_Create3DTexture(GfxImage *image, int width, int height, int depth, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_CreateCubeTexture(GfxImage *image, int edgeLen, int mipmapCount, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_SetupRenderTarget(GfxImage *image, int width, int height, D3DFORMAT format);
+void Image_SetupSystem(GfxImage *image, int width, int height, D3DFORMAT format);
+GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
+void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip);
+void Image_Release(GfxImage *image);
+
+// PINNED: retail 0x1000c910; the same release path is inlined in lost-image cleanup.
+void Image_Release(GfxImage *image)
+{
+    int track = image->track;
+    switch (track)
+    {
+    case 0:
+    case 1:
+    case 4:
+        break;
+    default:
+        imageGlobals.totalMemory[0] -= image->cardMemory.platform[0];
+        imageGlobals.totalMemory[1] -= image->cardMemory.platform[1];
+        break;
+    }
+    if (image->texture.basemap)
+    {
+        image->texture.basemap->Release();
+        image->texture.basemap = NULL;
+        memset(&image->cardMemory, 0, sizeof(image->cardMemory));
+    }
+    image->mapType = 0;
+}
 
 int Image_GetPlatformScreenWidth(int platform)
 {
@@ -357,26 +405,6 @@ void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int w
     }
 }
 
-// PINNED 1000cc80: native bool preserves the full-register true/false constants.
-inline bool Image_IsCodeImage(const GfxImage *image)
-{
-    uintptr_t address = (uintptr_t)image;
-    return address >= (uintptr_t)g_imageProgs && address < (uintptr_t)(g_imageProgs + 13);
-}
-
-// PINNED 1000d140: byte-sized predicate, then a normalized mask selects the pointer.
-GfxImage *Image_FindExisting(const char *name)
-{
-    unsigned int index = R_HashAssetName(name) & 0x7ff;
-    GfxImage *image = imageGlobals.imageHashTable[index];
-    while (image && strcmp(name, image->name))
-    {
-        index = (index + 1) & 0x7ff;
-        image = imageGlobals.imageHashTable[index];
-    }
-    return Image_IsCodeImage(image) ? 0 : image;
-}
-
 static int Image_GetAvailableHashLocation(const char *name)
 {
     int hashIndex;
@@ -396,6 +424,29 @@ GfxImage *Image_AllocProg(int imageProgType, int category)
     image->track = 0;
     imageGlobals.imageHashTable[Image_GetAvailableHashLocation(name)] = image;
     return image;
+}
+
+GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack)
+{
+    GfxImage *image;
+    int nameLen;
+
+    nameLen = strlen(name) + 1;
+    image = (GfxImage *)ri.Hunk_AllocInternal(sizeof(GfxImage) + nameLen);
+    image->name = (char *)(image + 1);
+    memcpy((char *)(image + 1), name, nameLen);
+    image->category = (unsigned char)category;
+    image->semantic = (unsigned char)semantic;
+    image->track = (unsigned char)imageTrack;
+    imageGlobals.imageHashTable[Image_GetAvailableHashLocation(name)] = image;
+    return image;
+}
+
+// PINNED 1000cc80: native bool preserves the full-register true/false constants.
+inline bool Image_IsCodeImage(const GfxImage *image)
+{
+    uintptr_t address = (uintptr_t)image;
+    return address >= (uintptr_t)g_imageProgs && address < (uintptr_t)(g_imageProgs + 13);
 }
 
 void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool)
@@ -461,22 +512,6 @@ void Image_SetupSystem(GfxImage *image, int width, int height, D3DFORMAT format)
     Image_TrackTexture(image, 3, format, (unsigned short)width, (unsigned short)height, 1);
 }
 
-GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack)
-{
-    GfxImage *image;
-    int nameLen;
-
-    nameLen = strlen(name) + 1;
-    image = (GfxImage *)ri.Hunk_AllocInternal(sizeof(GfxImage) + nameLen);
-    image->name = (char *)(image + 1);
-    memcpy((char *)(image + 1), name, nameLen);
-    image->category = (unsigned char)category;
-    image->semantic = (unsigned char)semantic;
-    image->track = (unsigned char)imageTrack;
-    imageGlobals.imageHashTable[Image_GetAvailableHashLocation(name)] = image;
-    return image;
-}
-
 void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip)
 {
     int picmipUsed;
@@ -509,28 +544,17 @@ void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip)
     picmip->platform[0] = (unsigned char)picmipUsed;
 }
 
-// PINNED: retail 0x1000c910; the same release path is inlined in lost-image cleanup.
-void Image_Release(GfxImage *image)
+// PINNED 1000d140: byte-sized predicate, then a normalized mask selects the pointer.
+GfxImage *Image_FindExisting(const char *name)
 {
-    int track = image->track;
-    switch (track)
+    unsigned int index = R_HashAssetName(name) & 0x7ff;
+    GfxImage *image = imageGlobals.imageHashTable[index];
+    while (image && strcmp(name, image->name))
     {
-    case 0:
-    case 1:
-    case 4:
-        break;
-    default:
-        imageGlobals.totalMemory[0] -= image->cardMemory.platform[0];
-        imageGlobals.totalMemory[1] -= image->cardMemory.platform[1];
-        break;
+        index = (index + 1) & 0x7ff;
+        image = imageGlobals.imageHashTable[index];
     }
-    if (image->texture.basemap)
-    {
-        image->texture.basemap->Release();
-        image->texture.basemap = NULL;
-        memset(&image->cardMemory, 0, sizeof(image->cardMemory));
-    }
-    image->mapType = 0;
+    return Image_IsCodeImage(image) ? 0 : image;
 }
 
 void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);

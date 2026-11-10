@@ -72,6 +72,20 @@ void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, 
 }
 
 typedef void (*CubemapPixelCallback)(const float *direction, int userData, byte *pixel);
+void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
+    int userData, CubemapPixelCallback callback);
+void Image_GenerateLightGridWeights(GfxImage *image, int subMap);
+void Image_GenerateSunHalfAngle(GfxImage *image);
+static unsigned int Image_CountMipmapsForFile(const GfxImageFileHeader *fileHeader);
+void Image_LoadWavelet(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerPixel);
+GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight);
+static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst);
+void Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerPixel);
+void Image_LoadDxtc(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerBlock);
+void Image_LoadFromData(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data);
 
 // PINNED 10010160/786: the axis descriptors are local to the original function.
 void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
@@ -217,20 +231,6 @@ void Image_LoadWavelet(GfxImage *image, const GfxImageFileHeader *fileHeader,
         ri.Hunk_FreeTempMemory(hunkBufs[face]);
 }
 
-GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight)
-{
-    GfxImage *image;
-
-    image = Image_Alloc(name, 5, 5, 9);
-    image->width = (unsigned short)imageWidth;
-    image->height = (unsigned short)imageHeight;
-    if (r_rendererInUse->current.integer == 2)
-        Image_Create2DTexture(image, imageWidth, imageHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
-    else
-        Image_Create2DTexture(image, imageWidth, imageHeight, 0, D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
-    return image;
-}
-
 // PINNED 1000f5a0/527: expand BGR in-place channel order, never reverse it.
 // SUPPORTED name/shape: KisakCOD r_image_load_obj.cpp; PINNED 1000f350/37.
 static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst)
@@ -325,6 +325,20 @@ void Image_LoadFromData(GfxImage *image, const GfxImageFileHeader *fileHeader, c
     case 12: Image_LoadDxtc(image, fileHeader, data, D3DFMT_DXT3, 16); break;
     case 13: Image_LoadDxtc(image, fileHeader, data, D3DFMT_DXT5, 16); break;
     }
+}
+
+GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight)
+{
+    GfxImage *image;
+
+    image = Image_Alloc(name, 5, 5, 9);
+    image->width = (unsigned short)imageWidth;
+    image->height = (unsigned short)imageHeight;
+    if (r_rendererInUse->current.integer == 2)
+        Image_Create2DTexture(image, imageWidth, imageHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
+    else
+        Image_Create2DTexture(image, imageWidth, imageHeight, 0, D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
+    return image;
 }
 
 void Com_Printf(const char *format, ...);
