@@ -72,4 +72,3 @@ __declspec(align(128)) cg_t cgArray[1];
 extern "C" int _fltused = 0;
 #undef cg
 extern cg_t * const cg = cgArray;
-float DotProduct(const vec3_t a, const vec3_t b) { return a[0]*b[0] + a[1]*b[1] + a[2]*b[2]; }
