@@ -518,3 +518,15 @@ declaration layout and means nothing for the final frame.
   class); Item_Text_AutoWrapped_Paint (1024 B buff, sorted) swaps two weight-5 single-item entries: ours newLineWidth
   0x24, y 0x28; retail y 0x24, newLineWidth 0x28 (quicksort tie outcome follows creation order: needs y and newLineWidth
   to reach 5 in the other order, or a one-unit weight change). Not attempted.
+- (w6-n5, MATCH, gate 4634d548, matched-fn +813) Item_Text_AutoWrapped_Paint: `if (height < 16) y += ...; else y += ...;`
+  instead of one `y += cond ? a : b;` gives y one more counted store (5 -> 6) with identical code. The >0x80 quicksort then
+  puts y below newLineWidth like retail. lab/pre.sh (break at the sort call 0x107ae0b0 / return 0x107ae0bf) and lab/qs.py
+  (lo = 0 here: no param entries) reproduce the table; lab/qaw.py found the lever (y +1 or creation order nLW, nL, y).
+  Lever class: a ternary vs if/else on an assignment changes the store count, not the code.
+- (w6-n5) Scoreboard textStart: winedbg on 0x10789a99 with `cond 1 $eax == obj` logs 6 increments (weight 7), all from
+  0x1078863a <- 0x107855c1; the stack flag at [esp+0x24] is 1 for the first 3 and 0 for the last 3. Turning the two
+  non-Asian `if/else textStart = ...` pairs into ternaries does not change its weight (non-Asian stores of textStart
+  are not counted). Retail needs either textStart <= 5 (2 fewer counted refs) or whiteSpace 7 plus textEnd 9..10
+  (lab/qa.py model); no identical-code spelling found yet. DEFER.
+- FX_CalcOriginAndAxis: the tie fix alone (cosPitch before sinPitch) is not enough; retail also has one 4-byte entry
+  fewer below the temp entries. DEFER.
