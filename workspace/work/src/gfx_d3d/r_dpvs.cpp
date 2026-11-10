@@ -540,12 +540,18 @@ void R_FrustumClipPlanes(const D3DMATRIX *viewProjection, const vec4_t *sides,
     int sideCount, DpvsPlane *planes)
 {
     const float *matrix = (const float *)viewProjection;
+    DpvsPlane axisPlanes[8];
     for (int i = 0; i < sideCount; ++i)
     {
         float *coeffs = planes[i].coeffs;
+        float axisSign = (i & 1) ? 1.0f : -1.0f;
+        int axis = (i >> 1) & 1;
         for (int j = 0; j < 4; ++j)
+        {
+            axisPlanes[i].coeffs[j] = axisSign * matrix[j * 4 + axis] + matrix[j * 4 + 3];
             coeffs[j] = sides[i][1] * matrix[j * 4 + 1] + sides[i][3] * matrix[j * 4 + 3]
                 + sides[i][0] * matrix[j * 4] + sides[i][2] * matrix[j * 4 + 2];
+        }
         VectorScale4(coeffs, 1.0f / VectorLength(coeffs), coeffs);
         planes[i].side[0] = FloatAsInt(coeffs[0]) > 0 ? 12 : 0;
         planes[i].side[1] = FloatAsInt(coeffs[1]) > 0 ? 16 : 4;
