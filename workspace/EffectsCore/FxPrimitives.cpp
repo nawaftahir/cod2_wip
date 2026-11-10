@@ -451,15 +451,15 @@ struct FxGfxEntity
 };
 
 
-class Light;
-class Particle;
 class OrientedParticle;
-class Cloud;
-class Cylinder;
-class Effect;
-class Tail;
 class Line;
+class Effect;
 class Emitter;
+class Tail;
+class Particle;
+class Cloud;
+class Light;
+class Cylinder;
 
 class Effect
 {

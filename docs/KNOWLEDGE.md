@@ -423,3 +423,20 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
   Miles versions with no 9466 objects). In the link, mss_auto.obj (28) loads BEFORE the mss32 import descriptor objects (25), yet the Rich
   lists 25 first, and our archive already has mss_auto.obj as its first member, so neither link load order nor member order explains it.
   Open; no lib rebuild tried beyond the two variants in TRIED.
+## 21. Rotation sweep (n3, 11-10, after merging w5-bss; baseline same-offset 1967119, matched-fn 1554291)
+- `tools/regonly13.py EXE MAP ANCHOR` lists equal-address functions whose code is equal once GPR names and image addresses are masked.
+  Only 3 have a real register permutation: Menu_SetNextCursorItem (ecx>eax, edx>ecx, eax>edx, a one-step rotation),
+  FX_AddFxToScene (eax>edx x2, REGALLOC "D-local lea temp") and nb_decode (eax<->ecx, "C-num"). The other ~400 rows differ only in data addresses.
+  CG_FireWeapon / CG_DrawCursorhint / XAnimCalc / CL_ConsolePrint_AddLine / DL_BeginDownload are not pure renames (order or code differs), so they are not this class.
+- Tools: `tools/c2picks13.sh MANGLED [N]` logs the local picks of one function in order. `tools/c2pickmap13.sh MANGLED ADDR SIZE K...` shifts the round-robin
+  pointer after pick K and prints the first instruction that changes, so pick K+1 maps to code. (K=0 is meaningless: the first stop is the int3.)
+- Menu_SetNextCursorItem (PINNED, ours): 8 picks eax, ecx, edx, ... Pick 1 = the while guard `mov eax,[esi+0x220]` (0x53e2fa). Picks 2..4 = the
+  Item_SetFocus argument block (ecx, edx, ...) that retail has as eax, ecx, edx. So retail makes one pick fewer (or two more) before that block, and the
+  guard load is the candidate. Tried (no change, lab): oldCursor read directly; `if (oldCursor == -1)`; `++` in the compare; `x = x + 1`;
+  `for (;cond;)`; a wrapped `break`. HYPOTHESIS: retail's guard is not a local pick (a colour node, or the guard folded with the `cursor = 0` store).
+- (n3) `tools/addrruns13.py EXE MAP ANCHOR`: 376 .text fns differ ONLY in image-address operands (972 B). Grouped by the data symbol hit (ours) and delta:
+  ui statics (uiComponentUnreferenced -16, wiFill_21 -4, winInputUnreferenced -4) ~111 fns 287 B; clip map (cm, cme, cmFill_* all +8) ~113 fns 255 B;
+  fs/common statics +4 (com_fileAccessed, fs_basepath, fs_debug, fs_checksumFeed, fs_loadStack, fs_gameDirVar, fs_restrict, fs_serverReferencedIwdNames, fs_fakeChkSum; fs_defaultConfigName -4380) ~70 fns 150 B;
+  sv_punkbuster region (+44/+12/-56) 43 fns 50 B; FX vtables (Effect +132, Particle/Emitter -176, Cylinder +220, ...) ~40 fns 55 B; sys_timeBase -8 8 fns 15 B;
+  WWW_TraceFlag (n2) 11 fns 15 B; __real@ constants (.rdata order) ~20 B; dvar pointers cl_* +4 ~13 B. A fn hit by two runs counts once.
+- Menu_SetNextCursorItem do-while with an explicit guard (`if (c < n) do {...} while (c < n);`): worse (240 B, oldCursor spilled); not the lever.
