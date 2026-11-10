@@ -299,3 +299,14 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
 - PINNED (retail operands + renderer table, 11-09): the referee masks addresses, so wrong table slots stay "matched". Private refexport_t copies carried 1.0 slots; all now equal retail (Com_Init calls slot 24, not 18; slot 18 ClearScene before renderer init crashed gfx at 0x2591e). common.cpp clientConnection_t demo fields are 0x618 lower. Audit: compare data operands at equal .text offsets.
 - Runtime (owner, 11-10): rebuilt exe sha256 74ed742d... booted on Windows with the stock renderer, connected to a server, wwwdl completed, player could shoot; no issues reported. Local smoke only, not full V5 or byte identity.
 - PINNED (retail frame + clean ratchet 1959900 -> 1959917, matched-fn +812): CL_CheckForResend matches with pbBuf larger than 1024. 1028 and 1032 give identical code, so the true size is only bounded to that range (SUPPORTED); source uses 1032. HYPOTHESIS (one function): array slots sort by size, the larger array after the two 1024 arrays.
+- PINNED (n1, 11-10, link /VERBOSE + lab): link /LTCG pulls libcmt members in the order of its undefined-symbol list, grouped by the
+  LTCG output module in objs.rsp order (Found lines: buildnumber, cl_cgame, cl_console, cl_keys, cl_main, ...). A module only carries an
+  extern its OWN source calls directly: calls that come from cross-module inlining (I_strncpyz from q_shared) do not count, so
+  strncpy was attributed to cl_main (direct strncpy in a cl_main function) although cl_cgame/cl_keys code calls it first. Not the
+  libcmt archive order, not first-X / first-F order. Within a module the observed order fits reverse compile order of the first direct
+  user (cl_keys: memmove 4118, strstr 3319, tolower 2698, toupper 1711): SUPPORTED on one module, cl_main does not fit cleanly.
+- Fix (SUPPORTED by CoD1 opencod1 and CoDUO cl_keys FindMatches, both direct
+  `strncpy(shortestMatch, s, N - 1); shortestMatch[N - 1] = 0;`): FindMatches calls strncpy directly. Gives retail order tolower,
+  strncpy 0x57b5e0, toupper 0x57b704, ieee87. Same code bytes as the inlined I_strncpyz, so retail cannot show which cl_keys function
+  was the direct caller; any one compiled between toupper's and tolower's first direct users would do (Mac 1.3 shows I_strncpyz, but
+  that file is a decompile). Tool: relink with /VERBOSE (Found / Referenced in / Loaded lines) to see which module pulls a member.

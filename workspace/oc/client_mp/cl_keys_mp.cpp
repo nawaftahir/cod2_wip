@@ -652,7 +652,8 @@ void FindMatches(const char *s)
 	matchCount++;
 	if ( matchCount == 1 )
 	{
-		I_strncpyz(shortestMatch, s, sizeof(shortestMatch));
+		strncpy(shortestMatch, s, sizeof(shortestMatch) - 1);
+		shortestMatch[sizeof(shortestMatch) - 1] = 0;
 		hasExactMatch = 1;
 		return;
 	}
