@@ -92,6 +92,22 @@ void R_AddScaledDebugString(DebugGlobals *debug, const GfxViewParms *viewParms,
     R_AddDebugString(debug, origin, color, scale, text);
 }
 
+// Retail 100057b0 / 100057e0 (names from opencod2 r_debug.c): clear and set capacities.
+void R_InitDebugEntry(DebugGlobals *debugGlobalsEntry)
+{
+    memset(debugGlobalsEntry, 0, sizeof(DebugGlobals));
+    debugGlobalsEntry->vertLimit = 4096;
+    debugGlobalsEntry->polyLimit = 512;
+    debugGlobalsEntry->stringLimit = 4096;
+    debugGlobalsEntry->lineLimit = 16384;
+    debugGlobalsEntry->plumeLimit = 4096;
+}
+
+void R_InitDebug()
+{
+    R_InitDebugEntry(&debugGlobals);
+}
+
 void R_ShutdownDebugEntry(DebugGlobals *debugGlobalsEntry)
 {
     if (debugGlobalsEntry->polys)
