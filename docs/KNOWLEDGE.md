@@ -464,3 +464,33 @@ Goal stays 100% reconstructed source AND identical bytes, readable for future re
 - PINNED (n2, clean ratchet 1967119 -> 1967333): FxPrimitives.cpp vtable order follows the forward class declarations as reverse(decl[0..6]) then reverse(decl[7..8]). Decl order OrientedParticle, Line, Effect, Emitter, Tail, Particle, Cloud, Light, Cylinder gives retail 1.3's Cloud, Particle, Tail, Emitter, Effect, Line, OrientedParticle, Cylinder, Light (FX_Restore vtable stores now match).
 - PINNED (n2, clean ratchet 1967333 -> 1967367, matched-fn +222): `$E2` / `~stPbCl` match when UnloadClientDll/UnloadAgentDll clear the instance inside the `if (m_xxInstance)` branch (same behaviour).
 - Proven unreferenced retail gaps (tools/gapref13.py, every byte offset in .text/.data/.rdata): 0xb013f8..0xb013ff (0 refs), 0xd529a4..0xd529af (0), 0xd52a40..0xd52a4b (only Sys_InitializeCriticalSections/WinMain end bound of s_criticalSections[6]), 0xd52a50..53 (0), 0xd52a58..5b (0), 0xd76aec..0xd76af7 (0). Not yet landed: adding any TU flips CG_DrawPlayerStance (see TRIED).
+
+## 24. Stack-slot packer read on the 1.3 link (w6-n5, 11-10, PINNED by winedbg on our build)
+Tool: `tools/c2slots13.sh MANGLED` (winedbg on the LTCG link, needs `tools/ra13.sh` once). Phase 1 breaks at 0x10790cba
+(once per non-param item, list order): obj +0x1c id, +0x20 size, +0x38 weight, obj[0] = symbol (name ptr at sym+4).
+Phase 2 breaks at 0x10790e62 (entry gets its offset: EBX = frame offset, entry +8 size, +0xc summed weight) and
+0x10790eb5 (`[sym+0x18] = ecx`: each member symbol of that entry). Front-end sym+0x18 before the packer is the
+declaration layout and means nothing for the final frame.
+- Item list order = size ascending, weight descending; ties are NOT declaration order (FX: sinPitch 12, cosPitch 11,
+  cosYaw e, sinYaw f, height 14, len 17, all w6). Item id = first IL reference (args right to left: FastSinCos(yaw,
+  &sinYaw, &cosYaw) gives cosYaw e before sinYaw f). Tie key still open.
+- Items merge into an existing entry (entry weight = sum). Merges seen in ours: scoreboard whiteSpace into textEnd's
+  entry (16), len + temp id12 (9); FX height + len + temps 100/10b (20).
+- Entry table index 0 gets the LOWEST esp offset, the last entry the highest (assignment loop runs last to first).
+- Two orders, chosen by frame size: FX_CalcOriginAndAxis (80 B of locals) keeps entry CREATION order (= item list order:
+  sinPitch, cosPitch, cosYaw, sinYaw, then the 4-byte temp entries, then pos, dir, point, up), its entry weights
+  6,6,6,6,20,13,31,29 are unsorted. CG_DrawScoreboard_Objective (296 B, hudElemString[256]) has its entries sorted by
+  size ascending then summed weight descending: textEnd+whiteSpace 16, next 12, font 12, len 9, textStart 7, c 4,
+  lineColor, hudElemString. The packer compares a byte count with 0x80 at 0x10790da8/0x10790dd9 (SUPPORTED: fits
+  both fns, threshold not probed with a lab fn). So in a big frame, slot order = summed-weight order; in a small frame,
+  it is item list order.
+- Correction to the w6-n2 TRIED row: scoreboard slots at the 0xb8 store block are ours textEnd 0x10, next 0x14,
+  font 0x18, len 0x1c, textStart 0x20; retail len 0x10, next 0x14, font 0x18, textStart 0x1c, textEnd 0x20 (matched by
+  the edi/ebp/esi stores and `mov [esp+0x1c],0` = len = 0). Retail therefore needs entry weights
+  len-entry > 12 >= font, textStart > textEnd: whiteSpace must join len's entry (5+4+8 = 17, no interference: len is
+  Asian-only, whiteSpace non-Asian-only), which needs whiteSpace processed after len (weight <= 5 in retail, ours 8),
+  and textEnd alone below textStart (ours 8 vs 7). HYPOTHESIS for the source: retail's non-Asian loop references
+  whiteSpace and textEnd less (fewer weighted uses), not a declaration change.
+- FX_CalcOriginAndAxis: retail has cosPitch at the lower slot (item before sinPitch in the list) and one 4-byte entry
+  fewer below the temp entries (ours temps 109/108/scale entries sit +4). Needs the list tie key and one fewer
+  non-mergeable 4-byte item; not derived yet.
