@@ -39445,9 +39445,8 @@
 "name": "?CG_DrawPlayerStance@@YAXPBUrectDef_s@@PAMPAUFont_s@@MH@Z",
 "obj": "cg_newDraw_mp.obj",
 "size": 1607,
-"hits": [
-"0x4c43b0"
-]
+"hits": [],
+"reason": "no masked match"
 },
 {
 "name": "?CG_CalcPlayerHealth@@YAMXZ",
