@@ -116,7 +116,7 @@ COD2_ASSERT_FIELD(clientActive_t, timeoutcount, 0x14);
 #if COD2_IS_PATCH_13
 
 const dvar_t *cl_profileTextHeight;
-const dvar_t *dvar_68a3a0;
+const dvar_t *motd;
 const dvar_t *cl_wwwDownload;
 
 extern void CL_WWWDownload(void);
@@ -2838,7 +2838,7 @@ void CL_InitOnceForAllClients(void)
     I_strncpyz(cls.autoupdateServerNames[3], "cod2update4.activision.com", 64);
     I_strncpyz(cls.autoupdateServerNames[4], "cod2update5.activision.com", 64);
 
-    dvar_68a3a0 = Dvar_RegisterString("motd", "", 0x1000);
+    motd = Dvar_RegisterString("motd", "", 0x1000);
 
     Cmd_AddCommand("cmd", CL_ForwardToServer_f);
     Cmd_AddCommand("configstrings", CL_Configstrings_f);
