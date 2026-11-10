@@ -1362,7 +1362,7 @@ GfxWorld *R_LoadWorldInternal(const char *name)
 }
 
 // Name unconfirmed; PINNED out-of-line copy at 10004d80, inlined into its only caller.
-inline void R_SetSunLightVectors(GfxLight *sunLight, const vec3_t sunDirection, const vec3_t sunColor, const vec3_t ambient)
+inline void R_SetSunLightVectors(GfxLight *sunLight, const vec3_t ambient, const vec3_t sunDirection, const vec3_t sunColor)
 {
     VectorCopy(sunDirection, sunLight->position);
     sunLight->position[3] = 0.0f;
@@ -1387,5 +1387,5 @@ void R_InterpretSunLightParseParamsIntoLights(SunLightParseParams *sunParse, Gfx
     scale = (1.0f - sunParse->diffuseFraction) * sunScale;
     VectorScale(sunParse->sunColor, scale, sunColor);
     if (sunLight)
-        R_SetSunLightVectors(sunLight, sunDirection, sunColor, ambient);
+        R_SetSunLightVectors(sunLight, ambient, sunDirection, sunColor);
 }

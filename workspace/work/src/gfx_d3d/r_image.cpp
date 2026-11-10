@@ -600,7 +600,7 @@ void Image_Reload(GfxImage *image)
 GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack);
 
 // PINNED 1000d200/94; also inlined in Material_FixupBinary at1001c4e0.
-GfxImage *Image_Register(const char *name, int semantic, int imageTrack)
+__declspec(noinline) GfxImage *Image_Register(const char *name, int semantic, int imageTrack)
 {
     GfxImage *image = Image_FindExisting(name);
     if (image)
