@@ -12,30 +12,6 @@ typedef char sampler_device_lost_offset[(offsetof(DxGlobals, deviceLost) == 0x2d
 void RB_SetDepthRange(float nearValue, float farValue);
 void RB_SetAnisotropy();
 
-void RB_SetAnisotropy()
-{
-	int anisotropy;
-	int samplerIndex;
-
-	dx.anisotropy = r_anisotropy->current.integer;
-	if (dx.anisotropy > dx.maxAnisotropy)
-		dx.anisotropy = dx.maxAnisotropy;
-	if (dx.anisotropy <= 1)
-		dx.anisotropy = 0;
-	anisotropy = I_max(1, dx.anisotropy);
-	for (samplerIndex = 0; samplerIndex < vidConfig.maxTextureMaps; samplerIndex++)
-		R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MAXANISOTROPY, anisotropy ));
-}
-
-void RB_SetDepthRange(float nearValue, float farValue)
-{
-	if (dxState.viewport.MinZ == nearValue && dxState.viewport.MaxZ == farValue)
-		return;
-	dxState.viewport.MinZ = nearValue;
-	dxState.viewport.MaxZ = farValue;
-	R_DX_CALL(dx.device->SetViewport( &dxState.viewport ));
-}
-
 // PC 1.0 table at 0x10190714: D3DTEXF_NONE, POINT, LINEAR, ANISOTROPIC
 static const DWORD s_filterTable[4] = { 0, 1, 2, 3 };
 static void RB_GetSamplerFilterModes(unsigned char samplerState, DWORD *minFilter, DWORD *magFilter);
@@ -43,115 +19,6 @@ __declspec(noinline) void RB_SetSampler(int samplerIndex, unsigned char samplerS
 void RB_UnbindImage(const GfxImage *image);
 void RB_BindWhiteImages();
 void RB_InitImages();
-
-static void RB_GetSamplerFilterModes(unsigned char samplerState, DWORD *minFilter, DWORD *magFilter)
-{
-	*minFilter = s_filterTable[samplerState & 3];
-	*magFilter = *minFilter;
-	if (*minFilter == D3DTEXF_ANISOTROPIC)
-	{
-		*magFilter = D3DTEXF_LINEAR;
-		if (dx.anisotropy == 0)
-			*minFilter = D3DTEXF_LINEAR;
-	}
-}
-
-__declspec(noinline) void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image)
-{
-	unsigned char currentSamplerState;
-	unsigned char diffSamplerState;
-	DWORD minFilter;
-	DWORD magFilter;
-	DWORD prevMinFilter;
-	DWORD prevMagFilter;
-	DWORD address;
-	DWORD mipFilter;
-
-	if (image != dxState.samplerImage[samplerIndex])
-	{
-		if (image)
-		{
-			if (r_logFile->current.integer)
-				RB_LogPrint(va("---------- texture %i: %s\n", samplerIndex, image->name));
-			R_DX_CALL(dx.device->SetTexture( samplerIndex, image->texture.basemap ));
-		}
-		else
-		{
-			R_DX_CALL(dx.device->SetTexture( samplerIndex, 0 ));
-		}
-		dxState.samplerImage[samplerIndex] = image;
-	}
-	if (!image)
-		return;
-	if (!(samplerState & 0xf))
-		samplerState |= backEnd.defaultSamplerState;
-	currentSamplerState = dxState.samplerState[samplerIndex];
-	diffSamplerState = samplerState ^ currentSamplerState;
-	if (!diffSamplerState)
-		return;
-	if (diffSamplerState & 3)
-	{
-		RB_GetSamplerFilterModes(samplerState, &minFilter, &magFilter);
-		RB_GetSamplerFilterModes(currentSamplerState, &prevMinFilter, &prevMagFilter);
-		if (minFilter != prevMinFilter)
-			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MINFILTER, minFilter ));
-		if (magFilter != prevMagFilter)
-			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MAGFILTER, magFilter ));
-	}
-	if (diffSamplerState & 0xc)
-	{
-		mipFilter = s_filterTable[(samplerState >> 2) & 3];
-		R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MIPFILTER, mipFilter ));
-	}
-	if (diffSamplerState & 0x70)
-	{
-		if (diffSamplerState & 0x10)
-		{
-			address = (samplerState & 0x10) ? D3DTADDRESS_CLAMP : D3DTADDRESS_WRAP;
-			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_ADDRESSU, address ));
-		}
-		if (diffSamplerState & 0x20)
-		{
-			address = (samplerState & 0x20) ? D3DTADDRESS_CLAMP : D3DTADDRESS_WRAP;
-			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_ADDRESSV, address ));
-		}
-		if (diffSamplerState & 0x40)
-		{
-			address = (samplerState & 0x40) ? D3DTADDRESS_CLAMP : D3DTADDRESS_WRAP;
-			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_ADDRESSW, address ));
-		}
-	}
-	dxState.samplerState[samplerIndex] = samplerState;
-}
-
-void RB_UnbindImage(const GfxImage *image)
-{
-	int samplerIndex;
-
-	for (samplerIndex = 0; samplerIndex < vidConfig.maxTextureMaps; samplerIndex++)
-	{
-		if (dxState.samplerImage[samplerIndex] == image)
-			RB_SetSampler(samplerIndex, 0, NULL);
-	}
-}
-
-void RB_InitImages()
-{
-	int samplerIndex;
-
-	if (!dx.deviceLost)
-	{
-		for (samplerIndex = 0; samplerIndex < vidConfig.maxTextureMaps; samplerIndex++)
-			RB_SetSampler(samplerIndex, 0, NULL);
-	}
-}
-
-// PINNED 1003ec50/33: preserve each live sampler state while binding white.
-void RB_BindWhiteImages()
-{
-	for (int index = 0; index < 16; ++index)
-		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
-}
 
 static const DWORD s_blendTable[] =
 {
@@ -187,6 +54,337 @@ static const DWORD s_cullTable[] =
 	D3DCULL_CCW,
 	D3DCULL_CW
 };
+
+extern const dvar_t *r_polygonOffsetBias;
+extern const dvar_t *r_polygonOffsetScale;
+
+struct DxStencilDecode
+{
+	int shift;
+	D3DRENDERSTATETYPE renderState;
+};
+
+enum
+{
+	DXS1_DEPTHWRITE = 1,
+	DXS1_DEPTHTEST_DISABLE = 2
+};
+
+static const DWORD s_stencilOpTable[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+static const DWORD s_stencilFuncTable[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
+static const DxStencilDecode s_stencilOpDecode[6] =
+{
+	{ 8, (D3DRENDERSTATETYPE)55 }, { 11, (D3DRENDERSTATETYPE)53 }, { 14, (D3DRENDERSTATETYPE)54 },
+	{ 20, (D3DRENDERSTATETYPE)188 }, { 23, (D3DRENDERSTATETYPE)186 }, { 26, (D3DRENDERSTATETYPE)187 }
+};
+static const DxStencilDecode s_stencilFuncDecode[2] =
+{
+	{ 17, (D3DRENDERSTATETYPE)56 }, { 29, (D3DRENDERSTATETYPE)189 }
+};
+static inline DWORD FloatAsInt(const float *value);
+void RB_ChangeState_1(int stateBits1);
+void RB_SetViewport(const GfxViewport *viewport);
+void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib);
+void RB_ChangeStreamSource(int streamIndex, IDirect3DVertexBuffer9 *vb, int vertexOffset, int vertexStride);
+void RB_ClearAllStreamSources();
+void RB_ChangePixelShader(IDirect3DPixelShader9 *shader);
+void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader);
+void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl);
+
+extern const dvar_t *r_drawPrimFloor, *r_drawPrimCap;
+void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args);
+void RB_SetFVF(DWORD fvf);
+
+r_backEndGlobals_t backEnd;
+
+extern const dvar_t *r_textureMode;
+
+// PINNED retail 0x101906b0, indexed by r_textureMode
+static const unsigned char defaultSamplerStateTable[] = { 1, 2, 6, 10, 11 };
+
+void MatrixInverse44(const float *mat, float *dst);
+void MatrixIdentity44(float out[4][4]);
+
+struct DxTextureOpDecode
+{
+	DWORD enumerant;
+	DWORD usedArgs;
+};
+
+struct DxTextureStageEnums
+{
+	D3DTEXTURESTAGESTATETYPE op;
+	D3DTEXTURESTAGESTATETYPE arg[3];
+};
+
+// PC 1.0 table at 0x101907a8: D3DTOP value and the arguments it reads
+static const DxTextureOpDecode s_textureOpTable[23] =
+{
+	{ 1, 0 }, { 2, 1 }, { 3, 2 }, { 4, 3 }, { 5, 3 }, { 6, 3 }, { 7, 3 }, { 8, 3 },
+	{ 9, 3 }, { 10, 3 }, { 11, 3 }, { 12, 3 }, { 13, 3 }, { 14, 3 }, { 15, 3 }, { 16, 3 },
+	{ 18, 3 }, { 19, 3 }, { 20, 3 }, { 21, 3 }, { 24, 3 }, { 25, 7 }, { 26, 7 }
+};
+
+// PC 1.0 table at 0x10190860: CONSTANT, CURRENT, DIFFUSE, SPECULAR, TEMP, TEXTURE, TFACTOR, DIFFUSE
+static const DWORD s_textureArgTable[8] = { 6, 1, 0, 4, 5, 2, 3, 0 };
+
+// PINNED1019087c: one viewport policy for each of the13 render targets.
+static const GfxViewportBehavior s_viewportBehaviorForRenderTarget[13] = {
+	GFX_USE_VIEWPORT_FOR_VIEW, GFX_USE_VIEWPORT_FULL, GFX_USE_VIEWPORT_FULL,
+	GFX_USE_VIEWPORT_FOR_VIEW, GFX_USE_VIEWPORT_FOR_VIEW, GFX_USE_VIEWPORT_FULL,
+	GFX_USE_VIEWPORT_FOR_VIEW, GFX_USE_VIEWPORT_FULL, GFX_USE_VIEWPORT_FULL,
+	GFX_USE_VIEWPORT_FULL, GFX_USE_VIEWPORT_FULL, GFX_USE_VIEWPORT_FULL,
+	GFX_USE_VIEWPORT_FULL
+};
+void RB_SetAnisotropy();
+void RB_SetDepthRange(float nearValue, float farValue);
+static void RB_GetSamplerFilterModes(unsigned char samplerState, DWORD *minFilter, DWORD *magFilter);
+__declspec(noinline) void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);
+void RB_UnbindImage(const GfxImage *image);
+void RB_InitImages();
+void RB_BindWhiteImages();
+void RB_SetAlphaAntiAliasingState(int stateBits0);
+void RB_ChangeState_0(int stateBits0);
+static inline DWORD FloatAsInt(const float *value);
+void RB_ChangePixelShader(IDirect3DPixelShader9 *shader);
+void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader);
+void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl);
+void RB_ChangeState_1(int stateBits1);
+void RB_SetViewport(const GfxViewport *viewport);
+void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib);
+void RB_ChangeStreamSource(int streamIndex, IDirect3DVertexBuffer9 *vb, int vertexOffset, int vertexStride);
+void RB_ClearAllStreamSources();
+void RB_SetFVF(DWORD fvf);
+void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args);
+void RB_DecideDefaultSamplerState();
+void RB_InitSceneViewport();
+static GfxCodeMatrices *RB_GetActiveCodeMatrices();
+static void RB_InvalidateCodeMatrix(GfxCodeMatrix *matrix);
+static void RB_ValidatePrimaryCodeMatrix(GfxCodeMatrix *matrix);
+static bool RB_UsingDx7Renderer();
+static void RB_ChangeTextureStageState(int stageIndex, const DxTextureStageEnums *texStageEnums, int texStageBits, int *activeTexStageBits);
+void RB_ChangeColorStageState(int stageIndex, int texStageBits);
+void RB_ChangeAlphaStageState(int stageIndex, int texStageBits);
+void RB_SetSamplerConstantDx7(unsigned int color);
+void RB_ChangeGenTexCoords(int samplerIndex, int genTexCoords);
+void RB_ChangedWorldMatrix(float worldScale);
+void RB_SetViewMatrix(const D3DMATRIX *matrix);
+void RB_SetViewMatrixForWDx7(float w);
+void RB_ProjectionMatrixChanged();
+void RB_SetDepthHackNearClip(float nearClip);
+static __declspec(noinline) void RB_CopyViewParmsMatrices(const GfxViewParms *viewParms);
+void RB_SetMatricesForView(const GfxViewParms *viewParms);
+void RB_PushMatrixStack();
+void RB_PopMatrixStack();
+void RB_UpdateViewport();
+void RB_SetRenderTarget(GfxRenderTargetId newTargetId);
+void RB_SetInitialDx7State();
+void RB_SetInitialState();
+void RB_UpdateViewportConstants();
+
+// PINNED 10038430/104, 100384a0/104 and 10038510/114.
+void RB_ChangePixelShader(IDirect3DPixelShader9 *shader)
+{
+	if (dxState.pixelShader != shader)
+	{
+		R_DX_CALL(dx.device->SetPixelShader( shader ));
+		dxState.pixelShader = shader;
+	}
+}
+
+void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader)
+{
+	if (dxState.vertexShader != shader)
+	{
+		R_DX_CALL(dx.device->SetVertexShader( shader ));
+		dxState.vertexShader = shader;
+	}
+}
+
+void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl)
+{
+	if (dxState.vertexDecl != decl)
+	{
+		R_DX_CALL(dx.device->SetVertexDeclaration( decl ));
+		dxState.vertexDecl = decl;
+		dxState.fvf = 0;
+	}
+}
+
+void RB_SetFVF(DWORD fvf)
+{
+	if (!dxState.vertexDecl && dxState.fvf == fvf)
+		return;
+	R_DX_CALL(dx.device->SetFVF( fvf ));
+	dxState.fvf = fvf;
+	dxState.vertexDecl = NULL;
+}
+
+// PINNED 10038610/150: the triangle limits do not apply to 2D draws.
+void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args)
+{
+	if (!backEnd.projection2D)
+	{
+		if (args->primCount < r_drawPrimFloor->current.integer)
+			return;
+		if (r_drawPrimCap->current.integer
+			&& args->primCount > r_drawPrimCap->current.integer)
+			return;
+	}
+	R_DX_CALL(dx.device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, args->u.buf.baseVertex, args->firstVertexFromBase, args->vertexCount, args->u.buf.baseIndex, args->primCount ));
+}
+
+void RB_DecideDefaultSamplerState()
+{
+	backEnd.defaultSamplerState = defaultSamplerStateTable[r_textureMode->current.integer];
+}
+
+void RB_InitSceneViewport()
+{
+	backEnd.sceneViewport.width = vidConfig.width;
+	backEnd.sceneViewport.height = vidConfig.height;
+}
+
+static GfxCodeMatrices *RB_GetActiveCodeMatrices()
+{
+	return &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
+}
+
+static void RB_InvalidateCodeMatrix(GfxCodeMatrix *matrix)
+{
+	matrix->valid[0] = 0;
+	matrix->valid[1] = 0;
+	matrix->valid[2] = 0;
+	matrix->valid[3] = 0;
+}
+
+static void RB_ValidatePrimaryCodeMatrix(GfxCodeMatrix *matrix)
+{
+	matrix->valid[1] = 0;
+	matrix->valid[0] = 1;
+	matrix->valid[2] = 0;
+	matrix->valid[3] = 0;
+}
+
+static bool RB_UsingDx7Renderer()
+{
+	return r_rendererInUse->current.integer == 2;
+}
+
+// name unconfirmed: tail of the Dx7 fixed-function state init
+void RB_SetInitialDx7State()
+{
+	D3DMATERIAL9 material;
+	int stageIndex;
+
+	dxState.fog.end = 1.0f;
+	dxState.fog.density = 1.0f;
+	for (stageIndex = 0; stageIndex < 8; stageIndex++)
+	{
+		dxState.refColorStageBits[stageIndex] = 0;
+		dxState.refAlphaStageBits[stageIndex] = 0;
+		dxState.activeColorStageBits[stageIndex] = 0;
+		dxState.activeAlphaStageBits[stageIndex] = 0;
+	}
+	dx.device->SetRenderState(D3DRS_LIGHTING, 0);
+	dx.device->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_COLOR1);
+	material.Ambient.r = 1.0f;
+	material.Ambient.g = 1.0f;
+	material.Ambient.b = 1.0f;
+	material.Ambient.a = 1.0f;
+	material.Diffuse.r = 1.0f;
+	material.Diffuse.g = 1.0f;
+	material.Diffuse.b = 1.0f;
+	material.Diffuse.a = 1.0f;
+	material.Specular.r = 1.0f;
+	material.Specular.g = 1.0f;
+	material.Specular.b = 1.0f;
+	material.Specular.a = 1.0f;
+	material.Emissive.r = 0.0f;
+	material.Emissive.g = 0.0f;
+	material.Emissive.b = 0.0f;
+	material.Emissive.a = 0.0f;
+	material.Power = 32.0f;
+	dx.device->SetMaterial(&material);
+	dxState.gridLighting = 0;
+	for (stageIndex = 0; stageIndex < 2; stageIndex++)
+		dxState.genTexCoords[stageIndex] = 0;
+}
+
+// PINNED1003c2a0/252; the cache starts with invalid float bit patterns.
+void RB_SetInitialState()
+{
+	int samplerIndex;
+	memset(&dxState, 0, sizeof(dxState));
+	RB_DecideDefaultSamplerState();
+	RB_SetAnisotropy();
+	dxState.activeStateBits[0] = 0x19128912;
+	dxState.activeStateBits[1] = 0xe00e0007;
+	dxState.refStateBits[0] = 0x18128812;
+	dxState.refStateBits[1] = 0xe00e0007;
+	dxState.stencilRefValue = 0;
+	backEnd.sceneViewport.x = 0;
+	backEnd.sceneViewport.y = 0;
+	backEnd.sceneViewport.width = vidConfig.width;
+	backEnd.sceneViewport.height = vidConfig.height;
+	dxState.viewport.X = 0;
+	dxState.viewport.Y = 0;
+	dxState.viewport.Width = vidConfig.width;
+	dxState.viewport.Height = vidConfig.height;
+	dxState.viewport.MinZ = 0.0f;
+	dxState.viewport.MaxZ = 1.0f;
+	dxState.renderTargetId = R_RENDERTARGET_NONE;
+	RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
+	dxState.viewportIsNull = 0;
+	RB_SetInitialDx7State();
+	for (samplerIndex = 0; samplerIndex < 16; ++samplerIndex)
+	{
+		dxState.samplerImage[samplerIndex] = NULL;
+		dxState.samplerState[samplerIndex] = 1;
+	}
+	dxState.textureColorArg = 1;
+	dxState.textureFactor = 0xffffffff;
+	memset(dxState.vertexShaderConsts, 0xff, sizeof(dxState.vertexShaderConsts));
+	memset(dxState.pixelShaderConsts, 0xff, sizeof(dxState.pixelShaderConsts));
+}
+
+// Viewport calculation.
+void RB_UpdateViewportConstants()
+{
+	float renderTargetSize[2];
+	float invRenderTargetSize[2];
+	float halfViewportSize[2];
+	float viewportCenter[2];
+	float normalizedViewport[2];
+	GfxViewport viewport;
+
+	backEnd.projection2D = 0;
+	backEnd.viewportIsDirty = 1;
+	renderTargetSize[0] = (float)dxState.renderTargetWidth;
+	invRenderTargetSize[0] = 1.0f / renderTargetSize[0];
+	renderTargetSize[1] = (float)dxState.renderTargetHeight;
+	invRenderTargetSize[1] = 1.0f / renderTargetSize[1];
+	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
+	{
+		viewport.x = 0;
+		viewport.y = 0;
+		viewport.width = dxState.renderTargetWidth;
+		viewport.height = dxState.renderTargetHeight;
+	}
+	else
+		viewport = backEnd.sceneViewport;
+	normalizedViewport[0] = viewport.width * invRenderTargetSize[0];
+	normalizedViewport[1] = viewport.height * invRenderTargetSize[1];
+	halfViewportSize[0] = normalizedViewport[0] * 0.5f;
+	halfViewportSize[1] = normalizedViewport[1] * 0.5f;
+	viewportCenter[0] = viewport.x * invRenderTargetSize[0] + halfViewportSize[0];
+	viewportCenter[1] = viewport.y * invRenderTargetSize[1] + halfViewportSize[1];
+	viewportCenter[0] += invRenderTargetSize[0] * 0.5f;
+	viewportCenter[1] += invRenderTargetSize[1] * 0.5f;
+	RB_SetCodeConstant(43, renderTargetSize[0], renderTargetSize[1], invRenderTargetSize[0], invRenderTargetSize[1]);
+	RB_SetCodeConstant(46, halfViewportSize[0], -halfViewportSize[1], 0.0f, 1.0f);
+	RB_SetCodeConstant(47, viewportCenter[0], viewportCenter[1], 0.0f, 0.0f);
+}
 
 void RB_SetAlphaAntiAliasingState(int stateBits0)
 {
@@ -327,74 +525,9 @@ void RB_ChangeState_0(int stateBits0)
 	dxState.activeStateBits[0] = stateBits0;
 }
 
-extern const dvar_t *r_polygonOffsetBias;
-extern const dvar_t *r_polygonOffsetScale;
-
-struct DxStencilDecode
-{
-	int shift;
-	D3DRENDERSTATETYPE renderState;
-};
-
-enum
-{
-	DXS1_DEPTHWRITE = 1,
-	DXS1_DEPTHTEST_DISABLE = 2
-};
-
-static const DWORD s_stencilOpTable[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
-static const DWORD s_stencilFuncTable[8] = { 1, 2, 3, 4, 5, 6, 7, 8 };
-static const DxStencilDecode s_stencilOpDecode[6] =
-{
-	{ 8, (D3DRENDERSTATETYPE)55 }, { 11, (D3DRENDERSTATETYPE)53 }, { 14, (D3DRENDERSTATETYPE)54 },
-	{ 20, (D3DRENDERSTATETYPE)188 }, { 23, (D3DRENDERSTATETYPE)186 }, { 26, (D3DRENDERSTATETYPE)187 }
-};
-static const DxStencilDecode s_stencilFuncDecode[2] =
-{
-	{ 17, (D3DRENDERSTATETYPE)56 }, { 29, (D3DRENDERSTATETYPE)189 }
-};
-static inline DWORD FloatAsInt(const float *value);
-void RB_ChangeState_1(int stateBits1);
-void RB_SetViewport(const GfxViewport *viewport);
-void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib);
-void RB_ChangeStreamSource(int streamIndex, IDirect3DVertexBuffer9 *vb, int vertexOffset, int vertexStride);
-void RB_ClearAllStreamSources();
-void RB_ChangePixelShader(IDirect3DPixelShader9 *shader);
-void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader);
-void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl);
-
 static inline DWORD FloatAsInt(const float *value)
 {
 	return *(const DWORD *)value;
-}
-
-// PINNED 10038430/104, 100384a0/104 and 10038510/114.
-void RB_ChangePixelShader(IDirect3DPixelShader9 *shader)
-{
-	if (dxState.pixelShader != shader)
-	{
-		R_DX_CALL(dx.device->SetPixelShader( shader ));
-		dxState.pixelShader = shader;
-	}
-}
-
-void RB_ChangeVertexShader(IDirect3DVertexShader9 *shader)
-{
-	if (dxState.vertexShader != shader)
-	{
-		R_DX_CALL(dx.device->SetVertexShader( shader ));
-		dxState.vertexShader = shader;
-	}
-}
-
-void RB_ChangeVertexDeclaration(IDirect3DVertexDeclaration9 *decl)
-{
-	if (dxState.vertexDecl != decl)
-	{
-		R_DX_CALL(dx.device->SetVertexDeclaration( decl ));
-		dxState.vertexDecl = decl;
-		dxState.fvf = 0;
-	}
 }
 
 void RB_ChangeState_1(int stateBits1)
@@ -488,145 +621,6 @@ void RB_ChangeState_1(int stateBits1)
 	}
 	dxState.activeStateBits[1] = stateBits1;
 }
-
-void RB_SetViewport(const GfxViewport *viewport)
-{
-	if (r_logFile->current.integer)
-		RB_LogPrint(va("Viewport at (%i, %i) with size %i x %i\n",
-		               viewport->x, viewport->y, viewport->width, viewport->height));
-	if ((DWORD)viewport->x == dxState.viewport.X &&
-	    (DWORD)viewport->y == dxState.viewport.Y &&
-	    (DWORD)viewport->width == dxState.viewport.Width &&
-	    (DWORD)viewport->height == dxState.viewport.Height)
-		return;
-	dxState.viewport.X = viewport->x;
-	dxState.viewport.Y = viewport->y;
-	dxState.viewport.Width = viewport->width;
-	dxState.viewport.Height = viewport->height;
-	R_DX_CALL(dx.device->SetViewport( &dxState.viewport ));
-}
-
-void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib)
-{
-	dxState.indexBufferDeselecting = dxState.indexBuffer;
-	dxState.indexBuffer = ib;
-	R_DX_CALL(dx.device->SetIndices( ib ));
-	dxState.indexBufferDeselecting = NULL;
-}
-
-void RB_ChangeStreamSource(int streamIndex, IDirect3DVertexBuffer9 *vb, int vertexOffset, int vertexStride)
-{
-	dxState.vertexBufferDeselecting = dxState.streams[streamIndex].vb;
-	dxState.streams[streamIndex].vb = vb;
-	dxState.streams[streamIndex].offset = vertexOffset;
-	dxState.streams[streamIndex].stride = vertexStride;
-	R_DX_CALL(dx.device->SetStreamSource( streamIndex, vb, vertexOffset, vertexStride ));
-	dxState.vertexBufferDeselecting = NULL;
-}
-
-// PINNED in 10013080: only the one PC stream participates in shutdown.
-void RB_ClearAllStreamSources()
-{
-    if (dxState.streams[0].vb || dxState.streams[0].offset || dxState.streams[0].stride)
-        RB_ChangeStreamSource(0, 0, 0, 0);
-}
-
-extern const dvar_t *r_drawPrimFloor, *r_drawPrimCap;
-void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args);
-void RB_SetFVF(DWORD fvf);
-
-void RB_SetFVF(DWORD fvf)
-{
-	if (!dxState.vertexDecl && dxState.fvf == fvf)
-		return;
-	R_DX_CALL(dx.device->SetFVF( fvf ));
-	dxState.fvf = fvf;
-	dxState.vertexDecl = NULL;
-}
-
-// PINNED 10038610/150: the triangle limits do not apply to 2D draws.
-void RB_DrawIndexedPrimitive(const GfxDrawPrimArgs *args)
-{
-	if (!backEnd.projection2D)
-	{
-		if (args->primCount < r_drawPrimFloor->current.integer)
-			return;
-		if (r_drawPrimCap->current.integer
-			&& args->primCount > r_drawPrimCap->current.integer)
-			return;
-	}
-	R_DX_CALL(dx.device->DrawIndexedPrimitive( D3DPT_TRIANGLELIST, args->u.buf.baseVertex, args->firstVertexFromBase, args->vertexCount, args->u.buf.baseIndex, args->primCount ));
-}
-
-r_backEndGlobals_t backEnd;
-
-extern const dvar_t *r_textureMode;
-
-// PINNED retail 0x101906b0, indexed by r_textureMode
-static const unsigned char defaultSamplerStateTable[] = { 1, 2, 6, 10, 11 };
-
-void RB_DecideDefaultSamplerState()
-{
-	backEnd.defaultSamplerState = defaultSamplerStateTable[r_textureMode->current.integer];
-}
-
-void RB_InitSceneViewport()
-{
-	backEnd.sceneViewport.width = vidConfig.width;
-	backEnd.sceneViewport.height = vidConfig.height;
-}
-
-static GfxCodeMatrices *RB_GetActiveCodeMatrices()
-{
-	return &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel];
-}
-
-static void RB_InvalidateCodeMatrix(GfxCodeMatrix *matrix)
-{
-	matrix->valid[0] = 0;
-	matrix->valid[1] = 0;
-	matrix->valid[2] = 0;
-	matrix->valid[3] = 0;
-}
-
-static void RB_ValidatePrimaryCodeMatrix(GfxCodeMatrix *matrix)
-{
-	matrix->valid[1] = 0;
-	matrix->valid[0] = 1;
-	matrix->valid[2] = 0;
-	matrix->valid[3] = 0;
-}
-
-static bool RB_UsingDx7Renderer()
-{
-	return r_rendererInUse->current.integer == 2;
-}
-
-void MatrixInverse44(const float *mat, float *dst);
-void MatrixIdentity44(float out[4][4]);
-
-struct DxTextureOpDecode
-{
-	DWORD enumerant;
-	DWORD usedArgs;
-};
-
-struct DxTextureStageEnums
-{
-	D3DTEXTURESTAGESTATETYPE op;
-	D3DTEXTURESTAGESTATETYPE arg[3];
-};
-
-// PC 1.0 table at 0x101907a8: D3DTOP value and the arguments it reads
-static const DxTextureOpDecode s_textureOpTable[23] =
-{
-	{ 1, 0 }, { 2, 1 }, { 3, 2 }, { 4, 3 }, { 5, 3 }, { 6, 3 }, { 7, 3 }, { 8, 3 },
-	{ 9, 3 }, { 10, 3 }, { 11, 3 }, { 12, 3 }, { 13, 3 }, { 14, 3 }, { 15, 3 }, { 16, 3 },
-	{ 18, 3 }, { 19, 3 }, { 20, 3 }, { 21, 3 }, { 24, 3 }, { 25, 7 }, { 26, 7 }
-};
-
-// PC 1.0 table at 0x10190860: CONSTANT, CURRENT, DIFFUSE, SPECULAR, TEMP, TEXTURE, TFACTOR, DIFFUSE
-static const DWORD s_textureArgTable[8] = { 6, 1, 0, 4, 5, 2, 3, 0 };
 
 static void RB_ChangeTextureStageState(int stageIndex, const DxTextureStageEnums *texStageEnums, int texStageBits, int *activeTexStageBits)
 {
@@ -746,6 +740,123 @@ void RB_ChangedWorldMatrix(float worldScale)
 		R_DX_CALL(dx.device->SetTransform( (D3DTRANSFORMSTATETYPE)(0 + 256), &activeMatrices->world.matrix[0] ));
 }
 
+void RB_SetAnisotropy()
+{
+	int anisotropy;
+	int samplerIndex;
+
+	dx.anisotropy = r_anisotropy->current.integer;
+	if (dx.anisotropy > dx.maxAnisotropy)
+		dx.anisotropy = dx.maxAnisotropy;
+	if (dx.anisotropy <= 1)
+		dx.anisotropy = 0;
+	anisotropy = I_max(1, dx.anisotropy);
+	for (samplerIndex = 0; samplerIndex < vidConfig.maxTextureMaps; samplerIndex++)
+		R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MAXANISOTROPY, anisotropy ));
+}
+
+static void RB_GetSamplerFilterModes(unsigned char samplerState, DWORD *minFilter, DWORD *magFilter)
+{
+	*minFilter = s_filterTable[samplerState & 3];
+	*magFilter = *minFilter;
+	if (*minFilter == D3DTEXF_ANISOTROPIC)
+	{
+		*magFilter = D3DTEXF_LINEAR;
+		if (dx.anisotropy == 0)
+			*minFilter = D3DTEXF_LINEAR;
+	}
+}
+
+__declspec(noinline) void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image)
+{
+	unsigned char currentSamplerState;
+	unsigned char diffSamplerState;
+	DWORD minFilter;
+	DWORD magFilter;
+	DWORD prevMinFilter;
+	DWORD prevMagFilter;
+	DWORD address;
+	DWORD mipFilter;
+
+	if (image != dxState.samplerImage[samplerIndex])
+	{
+		if (image)
+		{
+			if (r_logFile->current.integer)
+				RB_LogPrint(va("---------- texture %i: %s\n", samplerIndex, image->name));
+			R_DX_CALL(dx.device->SetTexture( samplerIndex, image->texture.basemap ));
+		}
+		else
+		{
+			R_DX_CALL(dx.device->SetTexture( samplerIndex, 0 ));
+		}
+		dxState.samplerImage[samplerIndex] = image;
+	}
+	if (!image)
+		return;
+	if (!(samplerState & 0xf))
+		samplerState |= backEnd.defaultSamplerState;
+	currentSamplerState = dxState.samplerState[samplerIndex];
+	diffSamplerState = samplerState ^ currentSamplerState;
+	if (!diffSamplerState)
+		return;
+	if (diffSamplerState & 3)
+	{
+		RB_GetSamplerFilterModes(samplerState, &minFilter, &magFilter);
+		RB_GetSamplerFilterModes(currentSamplerState, &prevMinFilter, &prevMagFilter);
+		if (minFilter != prevMinFilter)
+			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MINFILTER, minFilter ));
+		if (magFilter != prevMagFilter)
+			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MAGFILTER, magFilter ));
+	}
+	if (diffSamplerState & 0xc)
+	{
+		mipFilter = s_filterTable[(samplerState >> 2) & 3];
+		R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_MIPFILTER, mipFilter ));
+	}
+	if (diffSamplerState & 0x70)
+	{
+		if (diffSamplerState & 0x10)
+		{
+			address = (samplerState & 0x10) ? D3DTADDRESS_CLAMP : D3DTADDRESS_WRAP;
+			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_ADDRESSU, address ));
+		}
+		if (diffSamplerState & 0x20)
+		{
+			address = (samplerState & 0x20) ? D3DTADDRESS_CLAMP : D3DTADDRESS_WRAP;
+			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_ADDRESSV, address ));
+		}
+		if (diffSamplerState & 0x40)
+		{
+			address = (samplerState & 0x40) ? D3DTADDRESS_CLAMP : D3DTADDRESS_WRAP;
+			R_DX_CALL(dx.device->SetSamplerState( samplerIndex, D3DSAMP_ADDRESSW, address ));
+		}
+	}
+	dxState.samplerState[samplerIndex] = samplerState;
+}
+
+void RB_UnbindImage(const GfxImage *image)
+{
+	int samplerIndex;
+
+	for (samplerIndex = 0; samplerIndex < vidConfig.maxTextureMaps; samplerIndex++)
+	{
+		if (dxState.samplerImage[samplerIndex] == image)
+			RB_SetSampler(samplerIndex, 0, NULL);
+	}
+}
+
+void RB_InitImages()
+{
+	int samplerIndex;
+
+	if (!dx.deviceLost)
+	{
+		for (samplerIndex = 0; samplerIndex < vidConfig.maxTextureMaps; samplerIndex++)
+			RB_SetSampler(samplerIndex, 0, NULL);
+	}
+}
+
 void RB_SetViewMatrix(const D3DMATRIX *matrix)
 {
 	GfxCodeMatrices *activeMatrices;
@@ -851,6 +962,32 @@ void RB_PopMatrixStack()
 	R_DX_CALL(dx.device->SetTransform( D3DTS_PROJECTION, &backEnd.codeMatrixStack[backEnd.codeMatrixStackLevel].projection.matrix[0] ));
 }
 
+void RB_SetDepthRange(float nearValue, float farValue)
+{
+	if (dxState.viewport.MinZ == nearValue && dxState.viewport.MaxZ == farValue)
+		return;
+	dxState.viewport.MinZ = nearValue;
+	dxState.viewport.MaxZ = farValue;
+	R_DX_CALL(dx.device->SetViewport( &dxState.viewport ));
+}
+
+void RB_SetViewport(const GfxViewport *viewport)
+{
+	if (r_logFile->current.integer)
+		RB_LogPrint(va("Viewport at (%i, %i) with size %i x %i\n",
+		               viewport->x, viewport->y, viewport->width, viewport->height));
+	if ((DWORD)viewport->x == dxState.viewport.X &&
+	    (DWORD)viewport->y == dxState.viewport.Y &&
+	    (DWORD)viewport->width == dxState.viewport.Width &&
+	    (DWORD)viewport->height == dxState.viewport.Height)
+		return;
+	dxState.viewport.X = viewport->x;
+	dxState.viewport.Y = viewport->y;
+	dxState.viewport.Width = viewport->width;
+	dxState.viewport.Height = viewport->height;
+	R_DX_CALL(dx.device->SetViewport( &dxState.viewport ));
+}
+
 void RB_UpdateViewport()
 {
 	GfxViewport viewport;
@@ -870,15 +1007,6 @@ void RB_UpdateViewport()
 	dxState.viewportIsNull = 0;
 	RB_SetViewport(&viewport);
 }
-
-// PINNED1019087c: one viewport policy for each of the13 render targets.
-static const GfxViewportBehavior s_viewportBehaviorForRenderTarget[13] = {
-	GFX_USE_VIEWPORT_FOR_VIEW, GFX_USE_VIEWPORT_FULL, GFX_USE_VIEWPORT_FULL,
-	GFX_USE_VIEWPORT_FOR_VIEW, GFX_USE_VIEWPORT_FOR_VIEW, GFX_USE_VIEWPORT_FULL,
-	GFX_USE_VIEWPORT_FOR_VIEW, GFX_USE_VIEWPORT_FULL, GFX_USE_VIEWPORT_FULL,
-	GFX_USE_VIEWPORT_FULL, GFX_USE_VIEWPORT_FULL, GFX_USE_VIEWPORT_FULL,
-	GFX_USE_VIEWPORT_FULL
-};
 
 // PINNED1003ea30--1003ec15; the inventory omits the final6 bytes.
 void RB_SetRenderTarget(GfxRenderTargetId newTargetId)
@@ -912,117 +1040,34 @@ void RB_SetRenderTarget(GfxRenderTargetId newTargetId)
 	RB_UpdateViewportConstants();
 }
 
-// name unconfirmed: tail of the Dx7 fixed-function state init
-void RB_SetInitialDx7State()
+// PINNED 1003ec50/33: preserve each live sampler state while binding white.
+void RB_BindWhiteImages()
 {
-	D3DMATERIAL9 material;
-	int stageIndex;
-
-	dxState.fog.end = 1.0f;
-	dxState.fog.density = 1.0f;
-	for (stageIndex = 0; stageIndex < 8; stageIndex++)
-	{
-		dxState.refColorStageBits[stageIndex] = 0;
-		dxState.refAlphaStageBits[stageIndex] = 0;
-		dxState.activeColorStageBits[stageIndex] = 0;
-		dxState.activeAlphaStageBits[stageIndex] = 0;
-	}
-	dx.device->SetRenderState(D3DRS_LIGHTING, 0);
-	dx.device->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_COLOR1);
-	material.Ambient.r = 1.0f;
-	material.Ambient.g = 1.0f;
-	material.Ambient.b = 1.0f;
-	material.Ambient.a = 1.0f;
-	material.Diffuse.r = 1.0f;
-	material.Diffuse.g = 1.0f;
-	material.Diffuse.b = 1.0f;
-	material.Diffuse.a = 1.0f;
-	material.Specular.r = 1.0f;
-	material.Specular.g = 1.0f;
-	material.Specular.b = 1.0f;
-	material.Specular.a = 1.0f;
-	material.Emissive.r = 0.0f;
-	material.Emissive.g = 0.0f;
-	material.Emissive.b = 0.0f;
-	material.Emissive.a = 0.0f;
-	material.Power = 32.0f;
-	dx.device->SetMaterial(&material);
-	dxState.gridLighting = 0;
-	for (stageIndex = 0; stageIndex < 2; stageIndex++)
-		dxState.genTexCoords[stageIndex] = 0;
+	for (int index = 0; index < 16; ++index)
+		RB_SetSampler(index, dxState.samplerState[index], rgp.whiteImage);
 }
 
-// PINNED1003c2a0/252; the cache starts with invalid float bit patterns.
-void RB_SetInitialState()
+void RB_ChangeIndices(IDirect3DIndexBuffer9 *ib)
 {
-	int samplerIndex;
-	memset(&dxState, 0, sizeof(dxState));
-	RB_DecideDefaultSamplerState();
-	RB_SetAnisotropy();
-	dxState.activeStateBits[0] = 0x19128912;
-	dxState.activeStateBits[1] = 0xe00e0007;
-	dxState.refStateBits[0] = 0x18128812;
-	dxState.refStateBits[1] = 0xe00e0007;
-	dxState.stencilRefValue = 0;
-	backEnd.sceneViewport.x = 0;
-	backEnd.sceneViewport.y = 0;
-	backEnd.sceneViewport.width = vidConfig.width;
-	backEnd.sceneViewport.height = vidConfig.height;
-	dxState.viewport.X = 0;
-	dxState.viewport.Y = 0;
-	dxState.viewport.Width = vidConfig.width;
-	dxState.viewport.Height = vidConfig.height;
-	dxState.viewport.MinZ = 0.0f;
-	dxState.viewport.MaxZ = 1.0f;
-	dxState.renderTargetId = R_RENDERTARGET_NONE;
-	RB_SetRenderTarget(R_RENDERTARGET_FRAME_BUFFER);
-	dxState.viewportIsNull = 0;
-	RB_SetInitialDx7State();
-	for (samplerIndex = 0; samplerIndex < 16; ++samplerIndex)
-	{
-		dxState.samplerImage[samplerIndex] = NULL;
-		dxState.samplerState[samplerIndex] = 1;
-	}
-	dxState.textureColorArg = 1;
-	dxState.textureFactor = 0xffffffff;
-	memset(dxState.vertexShaderConsts, 0xff, sizeof(dxState.vertexShaderConsts));
-	memset(dxState.pixelShaderConsts, 0xff, sizeof(dxState.pixelShaderConsts));
+	dxState.indexBufferDeselecting = dxState.indexBuffer;
+	dxState.indexBuffer = ib;
+	R_DX_CALL(dx.device->SetIndices( ib ));
+	dxState.indexBufferDeselecting = NULL;
 }
 
-// Viewport calculation.
-void RB_UpdateViewportConstants()
+void RB_ChangeStreamSource(int streamIndex, IDirect3DVertexBuffer9 *vb, int vertexOffset, int vertexStride)
 {
-	float renderTargetSize[2];
-	float invRenderTargetSize[2];
-	float halfViewportSize[2];
-	float viewportCenter[2];
-	float normalizedViewport[2];
-	GfxViewport viewport;
+	dxState.vertexBufferDeselecting = dxState.streams[streamIndex].vb;
+	dxState.streams[streamIndex].vb = vb;
+	dxState.streams[streamIndex].offset = vertexOffset;
+	dxState.streams[streamIndex].stride = vertexStride;
+	R_DX_CALL(dx.device->SetStreamSource( streamIndex, vb, vertexOffset, vertexStride ));
+	dxState.vertexBufferDeselecting = NULL;
+}
 
-	backEnd.projection2D = 0;
-	backEnd.viewportIsDirty = 1;
-	renderTargetSize[0] = (float)dxState.renderTargetWidth;
-	invRenderTargetSize[0] = 1.0f / renderTargetSize[0];
-	renderTargetSize[1] = (float)dxState.renderTargetHeight;
-	invRenderTargetSize[1] = 1.0f / renderTargetSize[1];
-	if (dxState.viewportBehavior == GFX_USE_VIEWPORT_FULL)
-	{
-		viewport.x = 0;
-		viewport.y = 0;
-		viewport.width = dxState.renderTargetWidth;
-		viewport.height = dxState.renderTargetHeight;
-	}
-	else
-		viewport = backEnd.sceneViewport;
-	normalizedViewport[0] = viewport.width * invRenderTargetSize[0];
-	normalizedViewport[1] = viewport.height * invRenderTargetSize[1];
-	halfViewportSize[0] = normalizedViewport[0] * 0.5f;
-	halfViewportSize[1] = normalizedViewport[1] * 0.5f;
-	viewportCenter[0] = viewport.x * invRenderTargetSize[0] + halfViewportSize[0];
-	viewportCenter[1] = viewport.y * invRenderTargetSize[1] + halfViewportSize[1];
-	viewportCenter[0] += invRenderTargetSize[0] * 0.5f;
-	viewportCenter[1] += invRenderTargetSize[1] * 0.5f;
-	RB_SetCodeConstant(43, renderTargetSize[0], renderTargetSize[1], invRenderTargetSize[0], invRenderTargetSize[1]);
-	RB_SetCodeConstant(46, halfViewportSize[0], -halfViewportSize[1], 0.0f, 1.0f);
-	RB_SetCodeConstant(47, viewportCenter[0], viewportCenter[1], 0.0f, 0.0f);
+// PINNED in 10013080: only the one PC stream participates in shutdown.
+void RB_ClearAllStreamSources()
+{
+    if (dxState.streams[0].vb || dxState.streams[0].offset || dxState.streams[0].stride)
+        RB_ChangeStreamSource(0, 0, 0, 0);
 }

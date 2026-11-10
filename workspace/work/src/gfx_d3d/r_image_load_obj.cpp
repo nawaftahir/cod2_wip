@@ -15,61 +15,8 @@ void Image_GetSunHalfAngleForVector(const float *direction, int unused, unsigned
 
 void Wavelet_DecompressLevel(byte *src, byte *dst, WaveletDecode *decode);
 
-// PINNED 1000fbd0/86: every face is uploaded from its own source slice.
-void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
-    volatile int faceBytes, D3DFORMAT format)
-{
-    Image_Setup(image, resolution, resolution, 1, 7, 0, format);
-    const byte *facePixels = pixels;
-    for (int face = 0; face < 6; )
-    {
-        Image_UploadData(image, format, (D3DCUBEMAP_FACES)face, 0, facePixels);
-        int stride = faceBytes;
-        ++face;
-        facePixels += stride;
-    }
-}
-
 void R_LoadJpg(const char *filename, byte **file, byte **pixels,
     int *width, int *height, D3DFORMAT *format);
-
-// PINNED 1000fc30/169: imageTrack is unused by the PC raw loader.
-Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack)
-{
-    byte *pixels = 0;
-    byte *file;
-    int width, height;
-    D3DFORMAT format;
-    R_LoadJpg(filename, &file, &pixels, &width, &height, &format);
-    if (!pixels)
-        return 0;
-    Image_Setup(image, width, height, 1, 3, 0, format);
-    Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
-    ri.Hunk_FreeTempMemory(pixels);
-    ri.FS_FreeFile(file);
-    return 1;
-}
-
-// PINNED 1000fce0/119: original lookup is32 by256, one luminance byte per texel.
-void Image_GenerateSpecularity(GfxImage *image)
-{
-    byte pixels[32 * 256];
-    Image_BuildSpecularityMap(0.0f, pixels);
-    Image_Setup(image, 32, 256, 1, 3, 0, D3DFMT_L8);
-    Image_UploadData(image, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
-}
-
-// PINNED 100100f0/102: the four bytes reach the texture in BGRA order.
-void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, byte alpha)
-{
-    byte pixel[4];
-    pixel[0] = blue;
-    pixel[1] = green;
-    pixel[2] = red;
-    pixel[3] = alpha;
-    Image_Setup(image, 1, 1, 1, 3, 0, D3DFMT_A8R8G8B8);
-    Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixel);
-}
 
 typedef void (*CubemapPixelCallback)(const float *direction, int userData, byte *pixel);
 void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
@@ -87,83 +34,83 @@ void Image_LoadDxtc(GfxImage *image, const GfxImageFileHeader *fileHeader,
     const byte *data, D3DFORMAT format, int bytesPerBlock);
 void Image_LoadFromData(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data);
 
-// PINNED 10010160/786: the axis descriptors are local to the original function.
+void Com_Printf(const char *format, ...);
+int Com_sprintf(char *dest, size_t size, const char *format, ...);
+
+// Mac 1.3 name (SUPPORTED); 32x32 blend-weight image, 0x1000fe90.
+void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
+    volatile int faceBytes, D3DFORMAT format);
+Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack);
+void Image_GenerateSpecularity(GfxImage *image);
+void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, byte alpha);
 void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
-    int userData, CubemapPixelCallback callback)
+    int userData, CubemapPixelCallback callback);
+void Image_GenerateLightGridWeights(GfxImage *image, int subMap);
+void Image_GenerateSunHalfAngle(GfxImage *image);
+static unsigned int Image_CountMipmapsForFile(const GfxImageFileHeader *fileHeader);
+void Image_LoadWavelet(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerPixel);
+static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst);
+void Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerPixel);
+void Image_LoadDxtc(GfxImage *image, const GfxImageFileHeader *fileHeader,
+    const byte *data, D3DFORMAT format, int bytesPerBlock);
+void Image_LoadFromData(GfxImage *image, const GfxImageFileHeader *fileHeader, const byte *data);
+GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight);
+Bool Image_ValidateHeader(const GfxImageFileHeader *fileHeader, const char *filepath);
+Bool Image_LoadFromFile(GfxImage *image);
+void R_GetLightmapWeightsForDir(const float *dir, float *weights);
+
+// PINNED 1000f2a0/67; compare individual tag bytes, then version5.
+Bool Image_ValidateHeader(const GfxImageFileHeader *fileHeader, const char *filepath)
 {
-    int faceAxis[6][3] = {
-        { 0, 5, 3 }, { 1, 4, 3 }, { 2, 0, 4 },
-        { 3, 0, 5 }, { 4, 0, 3 }, { 5, 1, 3 }
-    };
-    float inverseResolution = 1.0f / resolution;
-    int pixelIndex = 0;
-    float axes[3][3];
-    float *origin = axes[0], *right = axes[1], *up = axes[2];
-    float rowBase[3], direction[3];
-    for (int face = 0; face < 6; ++face)
+    if (fileHeader->tag[0] != 'I' || fileHeader->tag[1] != 'W' || fileHeader->tag[2] != 'i')
     {
-        int axis = faceAxis[face][0];
-        int component = axis >> 1;
-        origin[0] = 0.0f;
-        origin[1] = 0.0f;
-        origin[2] = 0.0f;
-        origin[component] = axis & 1 ? -1.0f : 1.0f;
-        axis = faceAxis[face][1];
-        component = axis >> 1;
-        right[0] = 0.0f;
-        right[1] = 0.0f;
-        right[2] = 0.0f;
-        origin[component] = axis & 1 ? 1.0f : -1.0f;
-        right[component] = origin[component] * -2.0f;
-        axis = faceAxis[face][2];
-        component = axis >> 1;
-        up[0] = 0.0f;
-        up[1] = 0.0f;
-        up[2] = 0.0f;
-        origin[component] = axis & 1 ? 1.0f : -1.0f;
-        up[component] = origin[component] * -2.0f;
-        int row = 0;
-        VectorScale(right, inverseResolution, right);
-        VectorScale(up, inverseResolution, up);
-        if (resolution > 0)
-        {
-            VectorMA(origin, 0.5f, right, rowBase);
-            for (; row < resolution; ++row)
-            {
-                VectorCopy(rowBase, direction);
-                float rowOffset;
-                *(volatile float *)&rowOffset = row + 0.5f;
-                direction[0] += up[0] * rowOffset;
-                direction[1] += up[1] * rowOffset;
-                direction[2] += up[2] * rowOffset;
-                for (int column = 0; column < resolution; ++column)
-                {
-                    callback(direction, userData, pixels + pixelIndex * 4);
-                    ++pixelIndex;
-                    direction[0] += right[0];
-                    direction[1] += right[1];
-                    direction[2] += right[2];
-                }
-            }
-        }
+        Com_Printf("^1ERROR: image '%s' is not an IW image\n", filepath);
+        return 0;
     }
-    Image_GenerateCube(image, resolution, pixels, resolution * resolution * 4,
-        D3DFMT_A8R8G8B8);
+    if (fileHeader->version != 5)
+    {
+        Com_Printf("^1ERROR: image '%s' is version %i but should be version %i\n",
+            filepath, fileHeader->version, 5);
+        return 0;
+    }
+    return 1;
 }
 
-// PINNED 10010680/43: submap is passed unchanged to every pixel callback.
-void Image_GenerateLightGridWeights(GfxImage *image, int subMap)
+// PINNED 1000fa40/240. Preserve PC ordering, including noPicmip before validation.
+Bool Image_LoadFromFile(GfxImage *image)
 {
-    byte pixels[6 * 32 * 32 * 4];
-    Image_GenerateCubemapFunction(image, pixels, 32, subMap, Image_GetLightGridWeightsForVector);
-}
-
-// PINNED 100107b0/46: this larger cubemap uses temporary hunk memory, not the stack.
-void Image_GenerateSunHalfAngle(GfxImage *image)
-{
-    byte *pixels = (byte *)ri.Hunk_AllocateTempMemoryInternal(6 * 64 * 64 * 4);
-    Image_GenerateCubemapFunction(image, pixels, 64, 0, Image_GetSunHalfAngleForVector);
-    ri.Hunk_FreeTempMemory(pixels);
+    char filepath[64];
+    GfxImageFileHeader *fileHeader;
+    if (Com_sprintf(filepath, sizeof(filepath), "%s%s%s", "images/", image->name, ".iwi") < 0)
+    {
+        Com_Printf("^1ERROR: filename '%s' too long\n", filepath);
+        return 0;
+    }
+    int length = ri.FS_ReadFile(filepath, (void **)&fileHeader);
+    if (length < 0)
+    {
+        Com_Printf("^1ERROR: image '%s' is missing\n", filepath);
+        return 0;
+    }
+    if (!length)
+    {
+        Com_Printf("^1ERROR: image '%s' has 0 length\n", filepath);
+        ri.FS_FreeFile(fileHeader);
+        return 0;
+    }
+    const byte *data = (const byte *)fileHeader + sizeof(GfxImageFileHeader);
+    if (fileHeader->flags & 3)
+        image->noPicmip = 1;
+    if (!Image_ValidateHeader(fileHeader, filepath))
+    {
+        ri.FS_FreeFile(fileHeader);
+        return 0;
+    }
+    Image_LoadFromData(image, fileHeader, data);
+    ri.FS_FreeFile(fileHeader);
+    return 1;
 }
 
 static unsigned int Image_CountMipmapsForFile(const GfxImageFileHeader *fileHeader)
@@ -179,6 +126,22 @@ static unsigned int Image_CountMipmapsForFile(const GfxImageFileHeader *fileHead
         ++count;
     }
     return count;
+}
+
+// PINNED 1000f5a0/527: expand BGR in-place channel order, never reverse it.
+// SUPPORTED name/shape: KisakCOD r_image_load_obj.cpp; PINNED 1000f350/37.
+static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst)
+{
+    do
+    {
+        dst[0] = src[0];
+        dst[1] = src[1];
+        dst[2] = src[2];
+        dst[3] = 0xff;
+        dst += 4;
+        src += 3;
+        --count;
+    } while (count);
 }
 
 // PINNED 1000f380/537; no Mac byte swapping or extra temporary copy on PC.
@@ -229,22 +192,6 @@ void Image_LoadWavelet(GfxImage *image, const GfxImageFileHeader *fileHeader,
     }
     for (int face = faceCount - 1; face >= 0; --face)
         ri.Hunk_FreeTempMemory(hunkBufs[face]);
-}
-
-// PINNED 1000f5a0/527: expand BGR in-place channel order, never reverse it.
-// SUPPORTED name/shape: KisakCOD r_image_load_obj.cpp; PINNED 1000f350/37.
-static void Image_ExpandBgr(const byte *src, unsigned int count, byte *dst)
-{
-    do
-    {
-        dst[0] = src[0];
-        dst[1] = src[1];
-        dst[2] = src[2];
-        dst[3] = 0xff;
-        dst += 4;
-        src += 3;
-        --count;
-    } while (count);
 }
 
 void Image_LoadBitmap(GfxImage *image, const GfxImageFileHeader *fileHeader,
@@ -327,73 +274,45 @@ void Image_LoadFromData(GfxImage *image, const GfxImageFileHeader *fileHeader, c
     }
 }
 
-GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight)
+// PINNED 1000fbd0/86: every face is uploaded from its own source slice.
+void Image_GenerateCube(GfxImage *image, int resolution, const byte *pixels,
+    volatile int faceBytes, D3DFORMAT format)
 {
-    GfxImage *image;
-
-    image = Image_Alloc(name, 5, 5, 9);
-    image->width = (unsigned short)imageWidth;
-    image->height = (unsigned short)imageHeight;
-    if (r_rendererInUse->current.integer == 2)
-        Image_Create2DTexture(image, imageWidth, imageHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
-    else
-        Image_Create2DTexture(image, imageWidth, imageHeight, 0, D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
-    return image;
+    Image_Setup(image, resolution, resolution, 1, 7, 0, format);
+    const byte *facePixels = pixels;
+    for (int face = 0; face < 6; )
+    {
+        Image_UploadData(image, format, (D3DCUBEMAP_FACES)face, 0, facePixels);
+        int stride = faceBytes;
+        ++face;
+        facePixels += stride;
+    }
 }
 
-void Com_Printf(const char *format, ...);
-int Com_sprintf(char *dest, size_t size, const char *format, ...);
-
-// PINNED 1000f2a0/67; compare individual tag bytes, then version5.
-Bool Image_ValidateHeader(const GfxImageFileHeader *fileHeader, const char *filepath)
+// PINNED 1000fc30/169: imageTrack is unused by the PC raw loader.
+Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack)
 {
-    if (fileHeader->tag[0] != 'I' || fileHeader->tag[1] != 'W' || fileHeader->tag[2] != 'i')
-    {
-        Com_Printf("^1ERROR: image '%s' is not an IW image\n", filepath);
+    byte *pixels = 0;
+    byte *file;
+    int width, height;
+    D3DFORMAT format;
+    R_LoadJpg(filename, &file, &pixels, &width, &height, &format);
+    if (!pixels)
         return 0;
-    }
-    if (fileHeader->version != 5)
-    {
-        Com_Printf("^1ERROR: image '%s' is version %i but should be version %i\n",
-            filepath, fileHeader->version, 5);
-        return 0;
-    }
+    Image_Setup(image, width, height, 1, 3, 0, format);
+    Image_UploadData(image, format, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+    ri.Hunk_FreeTempMemory(pixels);
+    ri.FS_FreeFile(file);
     return 1;
 }
 
-// PINNED 1000fa40/240. Preserve PC ordering, including noPicmip before validation.
-Bool Image_LoadFromFile(GfxImage *image)
+// PINNED 1000fce0/119: original lookup is32 by256, one luminance byte per texel.
+void Image_GenerateSpecularity(GfxImage *image)
 {
-    char filepath[64];
-    GfxImageFileHeader *fileHeader;
-    if (Com_sprintf(filepath, sizeof(filepath), "%s%s%s", "images/", image->name, ".iwi") < 0)
-    {
-        Com_Printf("^1ERROR: filename '%s' too long\n", filepath);
-        return 0;
-    }
-    int length = ri.FS_ReadFile(filepath, (void **)&fileHeader);
-    if (length < 0)
-    {
-        Com_Printf("^1ERROR: image '%s' is missing\n", filepath);
-        return 0;
-    }
-    if (!length)
-    {
-        Com_Printf("^1ERROR: image '%s' has 0 length\n", filepath);
-        ri.FS_FreeFile(fileHeader);
-        return 0;
-    }
-    const byte *data = (const byte *)fileHeader + sizeof(GfxImageFileHeader);
-    if (fileHeader->flags & 3)
-        image->noPicmip = 1;
-    if (!Image_ValidateHeader(fileHeader, filepath))
-    {
-        ri.FS_FreeFile(fileHeader);
-        return 0;
-    }
-    Image_LoadFromData(image, fileHeader, data);
-    ri.FS_FreeFile(fileHeader);
-    return 1;
+    byte pixels[32 * 256];
+    Image_BuildSpecularityMap(0.0f, pixels);
+    Image_Setup(image, 32, 256, 1, 3, 0, D3DFMT_L8);
+    Image_UploadData(image, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
 }
 
 // Blend weights for the 32x32 lightmap-weights image (0x1000fd70); name unconfirmed (no reference names it).
@@ -438,7 +357,110 @@ void R_GetLightmapWeightsForDir(const float *dir, float *weights)
     weights[3] *= 1.0f - weights[0];
 }
 
-// Mac 1.3 name (SUPPORTED); 32x32 blend-weight image, 0x1000fe90.
+// PINNED 100100f0/102: the four bytes reach the texture in BGRA order.
+void Image_GenerateSolidColor(GfxImage *image, byte red, byte green, byte blue, byte alpha)
+{
+    byte pixel[4];
+    pixel[0] = blue;
+    pixel[1] = green;
+    pixel[2] = red;
+    pixel[3] = alpha;
+    Image_Setup(image, 1, 1, 1, 3, 0, D3DFMT_A8R8G8B8);
+    Image_UploadData(image, D3DFMT_A8R8G8B8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixel);
+}
+
+// PINNED 10010160/786: the axis descriptors are local to the original function.
+void Image_GenerateCubemapFunction(GfxImage *image, byte *pixels, int resolution,
+    int userData, CubemapPixelCallback callback)
+{
+    int faceAxis[6][3] = {
+        { 0, 5, 3 }, { 1, 4, 3 }, { 2, 0, 4 },
+        { 3, 0, 5 }, { 4, 0, 3 }, { 5, 1, 3 }
+    };
+    float inverseResolution = 1.0f / resolution;
+    int pixelIndex = 0;
+    float axes[3][3];
+    float *origin = axes[0], *right = axes[1], *up = axes[2];
+    float rowBase[3], direction[3];
+    for (int face = 0; face < 6; ++face)
+    {
+        int axis = faceAxis[face][0];
+        int component = axis >> 1;
+        origin[0] = 0.0f;
+        origin[1] = 0.0f;
+        origin[2] = 0.0f;
+        origin[component] = axis & 1 ? -1.0f : 1.0f;
+        axis = faceAxis[face][1];
+        component = axis >> 1;
+        right[0] = 0.0f;
+        right[1] = 0.0f;
+        right[2] = 0.0f;
+        origin[component] = axis & 1 ? 1.0f : -1.0f;
+        right[component] = origin[component] * -2.0f;
+        axis = faceAxis[face][2];
+        component = axis >> 1;
+        up[0] = 0.0f;
+        up[1] = 0.0f;
+        up[2] = 0.0f;
+        origin[component] = axis & 1 ? 1.0f : -1.0f;
+        up[component] = origin[component] * -2.0f;
+        int row = 0;
+        VectorScale(right, inverseResolution, right);
+        VectorScale(up, inverseResolution, up);
+        if (resolution > 0)
+        {
+            VectorMA(origin, 0.5f, right, rowBase);
+            for (; row < resolution; ++row)
+            {
+                VectorCopy(rowBase, direction);
+                float rowOffset;
+                *(volatile float *)&rowOffset = row + 0.5f;
+                direction[0] += up[0] * rowOffset;
+                direction[1] += up[1] * rowOffset;
+                direction[2] += up[2] * rowOffset;
+                for (int column = 0; column < resolution; ++column)
+                {
+                    callback(direction, userData, pixels + pixelIndex * 4);
+                    ++pixelIndex;
+                    direction[0] += right[0];
+                    direction[1] += right[1];
+                    direction[2] += right[2];
+                }
+            }
+        }
+    }
+    Image_GenerateCube(image, resolution, pixels, resolution * resolution * 4,
+        D3DFMT_A8R8G8B8);
+}
+
+// PINNED 10010680/43: submap is passed unchanged to every pixel callback.
+void Image_GenerateLightGridWeights(GfxImage *image, int subMap)
+{
+    byte pixels[6 * 32 * 32 * 4];
+    Image_GenerateCubemapFunction(image, pixels, 32, subMap, Image_GetLightGridWeightsForVector);
+}
+
+// PINNED 100107b0/46: this larger cubemap uses temporary hunk memory, not the stack.
+void Image_GenerateSunHalfAngle(GfxImage *image)
+{
+    byte *pixels = (byte *)ri.Hunk_AllocateTempMemoryInternal(6 * 64 * 64 * 4);
+    Image_GenerateCubemapFunction(image, pixels, 64, 0, Image_GetSunHalfAngleForVector);
+    ri.Hunk_FreeTempMemory(pixels);
+}
+
+GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight)
+{
+    GfxImage *image;
+
+    image = Image_Alloc(name, 5, 5, 9);
+    image->width = (unsigned short)imageWidth;
+    image->height = (unsigned short)imageHeight;
+    if (r_rendererInUse->current.integer == 2)
+        Image_Create2DTexture(image, imageWidth, imageHeight, 1, D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
+    else
+        Image_Create2DTexture(image, imageWidth, imageHeight, 0, D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
+    return image;
+}
 #pragma optimize("p", on)
 void Image_LoadLightmapWeights(GfxImage *image)
 {
@@ -486,6 +508,16 @@ void Image_LoadLightmapWeights(GfxImage *image)
 
 float FresnelTerm(float n0, float n1, float cosIncidentAngle);
 
+void R_CreateOutdoorImage(GfxImage *image);
+void Com_Printf(const char *format, ...);
+
+// Light-grid cubemap weights.
+void Image_WaterColorForDirection(const float *direction, int color, byte *pixel);
+void Image_GenerateWaterColor(GfxImage *image, byte red, byte green, byte blue);
+GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack);
+GfxImage *Image_Load(const char *name, int semantic, int imageTrack);
+void Image_BuildWaterMap(GfxImage *image);
+
 // PINNED 100107e0/98: copy the BGRA color, then replace only alpha with Fresnel reflectance.
 void Image_WaterColorForDirection(const float *direction, int color, byte *pixel)
 {
@@ -494,6 +526,20 @@ void Image_WaterColorForDirection(const float *direction, int color, byte *pixel
     memcpy(pixel, &color, 4);
     float alpha = FresnelTerm(1.0f, 1.333f, normal[2]) * 255.0f;
     pixel[3] = (byte)I_fround(alpha);
+}
+
+// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
+void Image_BuildWaterMap(GfxImage *image)
+{
+    if (image->category == 5)
+    {
+        if (r_rendererInUse->current.integer == 2)
+            Image_Create2DTexture(image, image->width, image->height, 1,
+                D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
+        else
+            Image_Create2DTexture(image, image->width, image->height, 0,
+                D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
+    }
 }
 
 // PINNED 10010850/70: the callback receives packed color by value, not a stack pointer.
@@ -507,9 +553,6 @@ void Image_GenerateWaterColor(GfxImage *image, byte red, byte green, byte blue)
     color[3] = 0xff;
     Image_GenerateCubemapFunction(image, pixels, 16, *(int *)color, Image_WaterColorForDirection);
 }
-
-void R_CreateOutdoorImage(GfxImage *image);
-void Com_Printf(const char *format, ...);
 
 // PINNED 100108a0/519: unknown builtins return null before allocating an image.
 GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack)
@@ -588,22 +631,6 @@ GfxImage *Image_Load(const char *name, int semantic, int imageTrack)
     GfxImage *image = Image_Alloc(name, 3, semantic, imageTrack);
     return Image_LoadFromFile(image) ? image : 0;
 }
-
-// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
-void Image_BuildWaterMap(GfxImage *image)
-{
-    if (image->category == 5)
-    {
-        if (r_rendererInUse->current.integer == 2)
-            Image_Create2DTexture(image, image->width, image->height, 1,
-                D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
-        else
-            Image_Create2DTexture(image, image->width, image->height, 0,
-                D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
-    }
-}
-
-// Light-grid cubemap weights.
 #pragma optimize("p", on)
 int VecLargestAxis(const float vector[3]);
 void R_QuantizeCachedColor(const float *color, byte *out);

@@ -22,6 +22,29 @@ void R_InitFrameBuffer(GfxRenderTarget *renderTarget);
 IDirect3DSurface9 *R_GetOrCreateDepthStencil();
 static IDirect3DSurface9 *R_CreateSmallDepthStencil();
 
+enum RenderTargetUsage {
+    RENDERTARGET_USAGE_RENDER = 0,
+    RENDERTARGET_USAGE_TEXTURE = 1,
+    RENDERTARGET_USAGE_READBACK = 2
+};
+
+extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex);
+static const char *R_DescribeFormat(D3DFORMAT format);
+IDirect3DSurface9 *R_GetOrCreateDepthStencil();
+static IDirect3DSurface9 *R_CreateSmallDepthStencil();
+void R_InitFrameBuffer(GfxRenderTarget *renderTarget);
+void R_ShutdownRenderTargets();
+static __forceinline void R_InitRenderTargetImage(int imageProgId, int width, int height,
+    D3DFORMAT format, RenderTargetUsage usage, GfxRenderTarget *renderTarget);
+static __forceinline void R_InitCookieRenderTarget(int imageProgId, GfxRenderTarget *renderTarget);
+void R_InitShadowCookieRenderTarget(GfxRenderTarget *renderTarget);
+void R_InitShadowCookieBlurRenderTarget(GfxRenderTarget *renderTarget);
+static __forceinline void R_InitFullscreenRenderTargetImage(int imageProgId, int picmip,
+    D3DFORMAT format, RenderTargetUsage usage, GfxRenderTarget *renderTarget);
+void R_InitRenderTargets();
+static void R_GetDesktopExtent(int *width, int *height);
+void R_GetFrameBufferExtent(int *width, int *height);
+
 // PINNED 0x10022710: the PC switch includes R5G6B5 and D16_LOCKABLE, not D32.
 static const char *R_DescribeFormat(D3DFORMAT format)
 {
@@ -46,6 +69,20 @@ static const char *R_DescribeFormat(D3DFORMAT format)
     default:
         return va("unknown format 0x%08x", format);
     }
+}
+
+// name unconfirmed: fullscreen uses the mode size, windowed the desktop extent
+void R_GetFrameBufferExtent(int *width, int *height)
+{
+    if (vidConfig.isFullscreen)
+    {
+        int modeWidth = vidConfig.width;
+        int modeHeight = vidConfig.height;
+        *width = modeWidth;
+        *height = modeHeight;
+        return;
+    }
+    R_GetDesktopExtent(width, height);
 }
 
 // PINNED 0x10022830: cache/reuse a single-sample depth surface.
@@ -103,29 +140,6 @@ void R_InitFrameBuffer(GfxRenderTarget *renderTarget)
         Com_Error(ERR_FATAL, "Couldn't create a %i x %i depth-stencil surface: %s\n",
             width, height, DXGetErrorDescription9(hr));
 }
-
-// PINNED 10023560: the cached depth surface is an alias, not another release.
-void R_ShutdownRenderTargets()
-{
-    for (int index = 0; index < 13; ++index)
-    {
-        GfxRenderTarget *target = &dx.renderTargets[index];
-        if (target->colorSurface)
-            target->colorSurface->Release();
-        if (target->depthStencilSurface)
-            target->depthStencilSurface->Release();
-        if (target->image)
-            Image_Release(target->image);
-    }
-    memset(dx.renderTargets, 0, sizeof(dx.renderTargets));
-    dx.singleSampleDepthStencilSurface = 0;
-}
-
-enum RenderTargetUsage {
-    RENDERTARGET_USAGE_RENDER = 0,
-    RENDERTARGET_USAGE_TEXTURE = 1,
-    RENDERTARGET_USAGE_READBACK = 2
-};
 
 // PINNED 10022a60/150: usage2 selects a dynamic system-memory texture.
 static __forceinline void R_InitRenderTargetImage(int imageProgId, int width, int height,
@@ -207,8 +221,6 @@ void R_InitRenderTargets()
         &dx.renderTargets[R_RENDERTARGET_PINGPONG_1]);
 }
 
-extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex);
-
 // name unconfirmed: virtual-desktop extent, never smaller than the primary screen
 static void R_GetDesktopExtent(int *width, int *height)
 {
@@ -225,16 +237,19 @@ static void R_GetDesktopExtent(int *width, int *height)
     *height = I_max(virtualHeight, screenHeight);
 }
 
-// name unconfirmed: fullscreen uses the mode size, windowed the desktop extent
-void R_GetFrameBufferExtent(int *width, int *height)
+// PINNED 10023560: the cached depth surface is an alias, not another release.
+void R_ShutdownRenderTargets()
 {
-    if (vidConfig.isFullscreen)
+    for (int index = 0; index < 13; ++index)
     {
-        int modeWidth = vidConfig.width;
-        int modeHeight = vidConfig.height;
-        *width = modeWidth;
-        *height = modeHeight;
-        return;
+        GfxRenderTarget *target = &dx.renderTargets[index];
+        if (target->colorSurface)
+            target->colorSurface->Release();
+        if (target->depthStencilSurface)
+            target->depthStencilSurface->Release();
+        if (target->image)
+            Image_Release(target->image);
     }
-    R_GetDesktopExtent(width, height);
+    memset(dx.renderTargets, 0, sizeof(dx.renderTargets));
+    dx.singleSampleDepthStencilSurface = 0;
 }

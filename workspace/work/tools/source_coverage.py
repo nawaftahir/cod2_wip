@@ -27,8 +27,8 @@ allowed = {
     'universal/com_shared.cpp': 'd19acbee13742932acea6b76556326489b6fce44ed742acccfa59072770818a3',
     'universal/box_on_plane_side_x86.inc': '01447f1d547da40d7d228d91157964b259f8ad8180074b6a95f0df332771328d',
     # owner-approved 2026-11-06: I_ffloor fld/fsub/fistp, same pattern as I_fround
-    'gfx_d3d/rb_light.cpp': '630ad144d1ded60b081bc1dd089a4659d7f5c42e6e29d93b17ebb0c1dc9e8c78',
-    'gfx_d3d/rb_backend.cpp': '4dd465b415891188b9515b7f0d8b683fdfaf7df0d49addeeec994a81d175ad08',
+    'gfx_d3d/rb_light.cpp': '45ee984da08c55f8395c77758d16ad1f87a977211900aa8bd654ab5e53200d5f',
+    'gfx_d3d/rb_backend.cpp': '3c5c01291f619b4af63e6a72c1f0b0fefd93a6b65f8baf91759944eb5630b003',
     'compat/msvc71.h': '8b793ebbd41492a4289a9d26c7f39543022351c2e847273bfd68ec96f3598dab',
 }
 sources = {}

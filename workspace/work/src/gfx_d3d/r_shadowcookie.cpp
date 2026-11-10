@@ -10,70 +10,10 @@ typedef char shadow_scene_entity_size[(sizeof(GfxSceneEntity) == 0x34) ? 1 : -1]
 typedef char shadow_scene_entities[(offsetof(GfxScene, sceneEnts) == 0x5c4) ? 1 : -1];
 typedef char shadow_origin_offset[(offsetof(GfxEntity, origin) == 0x3c) ? 1 : -1];
 
-void R_PopulateCandidates(const float *viewOrigin, ShadowCandidate *candidates)
-{
-    int candidateIndex;
-    for (candidateIndex = 0; candidateIndex != 24; ++candidateIndex)
-    {
-        candidates[candidateIndex].entIndex = -1;
-        candidates[candidateIndex].weight = 100000000.0f;
-    }
-    ShadowCandidate *worstCandidate = candidates;
-    for (int entIndex = 0; entIndex < scene.def.entityCount; ++entIndex)
-    {
-        const GfxEntity *ent = &scene.def.entities[entIndex];
-        int shadowHint;
-        vec3_t mins, maxs, size, sizeSquared, diff;
-        if (ent->reType != 0 || (ent->renderFxFlags & 8))
-            continue;
-        shadowHint = ent->renderFxFlags & 0xe00;
-        if (shadowHint == 0x200)
-            continue;
-        ri.DObjGetBounds(scene.sceneEnts[entIndex].u.obj, mins, maxs);
-        VectorSubtract(maxs, mins, size);
-        Vec3Mul(size, size, sizeSquared);
-        int majorAxis = sizeSquared[1] > sizeSquared[0] ? 1 : 0;
-        if (sizeSquared[2] > sizeSquared[majorAxis])
-            majorAxis = 2;
-        float majorAxisLength = size[majorAxis];
-        if (majorAxisLength == 0.0f)
-            continue;
-        VectorSubtract(ent->origin, viewOrigin, diff);
-        float entityDistance = VectorLength(diff);
-        float entityWeight = entityDistance / majorAxisLength;
-        // The original cutoff and replacement branches accept unordered values.
-        if (entityWeight >= 100000000.0f)
-            continue;
-        if (shadowHint == 0x800)
-            entityWeight = 0.0f;
-        else if (shadowHint == 0x600)
-            entityWeight *= 0.25f;
-        else if (shadowHint == 0x400)
-            entityWeight *= 4.0f;
-        if (!(entityWeight > worstCandidate->weight))
-        {
-            worstCandidate->entIndex = entIndex;
-            worstCandidate->weight = entityWeight;
-            worstCandidate = candidates;
-            for (candidateIndex = 1; candidateIndex != 24; ++candidateIndex)
-                if (candidates[candidateIndex].weight > worstCandidate->weight)
-                    worstCandidate = &candidates[candidateIndex];
-        }
-    }
-}
-
 ShadowCookieGlob shadowCookieGlob;
 
 // PINNED 100016e9: inlined into R_LoadWorld.
 void Com_Memset(void *dest, const int val, int count);
-
-void R_ResetShadowCookies()
-{
-    // shortcut: real call where retail keeps only dead setup; fits the R_LoadWorld slot, bytes differ.
-    Com_Memset(&shadowCookieGlob, 0, sizeof(shadowCookieGlob));
-    shadowCookieGlob.weightCap = 10.0f;
-    shadowCookieGlob.lastTime = -1;
-}
 
 // Shadow-cookie command generation.
 extern DxGlobals dx;
@@ -102,76 +42,6 @@ typedef char shadowDrawLayoutCheck[
     offsetof(ShadowCookieList, cookieCount) == 0xa20 &&
     sizeof(RcWords16) == 64 ? 1 : -1];
 
-// PINNED 10027930/839: a new empty group still selects/clears its receiver target.
-// Name unconfirmed; PINNED out-of-line copy 10027190/27.
-void R_EmitShadowCookieSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount, MaterialTechniqueType technique)
-{
-    qsortDrawSurfs(drawSurfs, drawSurfCount);
-    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, technique, (GfxDrawSurfOrder)0);
-}
-
-// Name unconfirmed; PINNED out-of-line copy 100278f0/53.
-void R_ClearShadowReceiverTarget()
-{
-    if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled
-        && dx.renderTargets[6].colorSurface)
-        R_AddCmdClearScreen(1, colorWhite, 0.0f, 0);
-}
-
-void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms,
-    const ShadowCookieList *shadows)
-{
-    bool first = !R_BeginDrawGroupSection(1);
-    R_BeginDrawGroupLoop(1, viewIndex);
-    const float clearColor[4] = {0.5f, 0.5f, 0.5f, 0.0f};
-    int i = 0;
-    if (shadows->cookieCount)
-    {
-        do
-        {
-            const ShadowCookie *cookie = &shadows->cookies[i];
-            int casterCount = cookie->firstReceiverDrawSurf - cookie->firstCasterDrawSurf;
-            int receiverCount = cookie->firstUnusedDrawSurf - cookie->firstReceiverDrawSurf;
-            if (receiverCount && casterCount && i < sc_debugCasterCount->current.integer)
-            {
-                RcWords16 matrix;
-                int fade;
-                memcpy(&matrix, &cookie->shadowLookupMatrix, sizeof(matrix));
-                memcpy(&fade, &cookie->fade, sizeof(fade));
-                R_AddCmdId9(&matrix, fade);
-                R_AddCmdSetRenderTarget((GfxRenderTargetId)4);
-                R_AddCmdClearScreen(7, clearColor, 1.0f, 0);
-                R_AddCmdBeginView(scene.viewCount, &scene.def, cookie->shadowViewParms, &rg.lodParms);
-                R_AddCmdSetViewport(1, 1, 126, 126);
-                GfxDrawSurf *drawSurfs = scene.drawSurfs + cookie->firstCasterDrawSurf;
-                R_EmitShadowCookieSurfs(drawSurfs, casterCount, (MaterialTechniqueType)0x1f);
-                R_AddCmdSetViewport(0, 0, 128, 128);
-                if (sc_blur->current.integer)
-                    R_AddCmdHeaderOnly1C();
-                R_AddCmdSetRenderTarget((GfxRenderTargetId)3);
-                if (first)
-                {
-                    first = false;
-                    R_ClearShadowReceiverTarget();
-                }
-                R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, &rg.lodParms);
-                if (i < sc_debugReceiverCount->current.integer)
-                {
-                    drawSurfs = scene.drawSurfs + cookie->firstReceiverDrawSurf;
-                    R_EmitShadowCookieSurfs(drawSurfs, receiverCount, (MaterialTechniqueType)0x20);
-                }
-            }
-        } while (++i != shadows->cookieCount);
-    }
-    if (first)
-    {
-        R_AddCmdSetRenderTarget((GfxRenderTargetId)3);
-        R_ClearShadowReceiverTarget();
-    }
-    R_EndDrawGroupLoop(1, viewIndex);
-    R_EndDrawGroupSection(1);
-}
-
 // Shadow selection and cookie creation.
 extern const dvar_t *sc_length;
 extern const dvar_t *sc_fadeRange;
@@ -187,6 +57,37 @@ void R_FrustumClipPlanes(const D3DMATRIX *viewProjection, const vec4_t *sides,
 void MatrixMultiply44(const float first[4][4], const float second[4][4], float out[4][4]);
 void MatrixInverse44(const float *matrix, float *out);
 
+// PINNED 10027c80/116: the overlay is square and uses one quarter of video width.
+extern vidConfig_t vidConfig;
+void MatrixIdentity44(float matrix[4][4]);
+void R_AddCmdDrawStretchPic(float x, float y, float width, float height,
+    float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material);
+void R_PopulateCandidates(const float *viewOrigin, ShadowCandidate *candidates);
+void R_ResetShadowCookies();
+void R_EmitShadowCookieSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount, MaterialTechniqueType technique);
+void R_ClearShadowReceiverTarget();
+void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms,
+    const ShadowCookieList *shadows);
+static bool R_CompareShadowCandidates(const ShadowCandidate &a, const ShadowCandidate &b);
+void R_SortShadowCandidates(ShadowCandidate *candidates);
+static void R_GetShadowLightAxis(vec3_t *axis);
+static void R_SetShadowViewParms(GfxViewParms *view, const float *mins, const float *maxs);
+static bool R_IsShadowReceiverOutside(const float *bounds, const DpvsPlane *planes);
+static void R_AddShadowReceivers(ShadowCookie *cookie, int sourceCount, int casterIndex);
+static void R_CreateShadowCookie(const GfxViewParms *viewParms, int sourceCount,
+    int entIndex, float fade, ShadowCookieList *shadows);
+void R_BuildShadowCookieList(const GfxViewParms *viewParms, const ShadowCandidate *candidates,
+    ShadowCookieList *shadows);
+void R_DrawShadowCookieOverlay();
+
+void R_ResetShadowCookies()
+{
+    // shortcut: real call where retail keeps only dead setup; fits the R_LoadWorld slot, bytes differ.
+    Com_Memset(&shadowCookieGlob, 0, sizeof(shadowCookieGlob));
+    shadowCookieGlob.weightCap = 10.0f;
+    shadowCookieGlob.lastTime = -1;
+}
+
 // PINNED 10027170/30; the original VC7.1 STL supplies the sort implementation.
 static bool R_CompareShadowCandidates(const ShadowCandidate &a, const ShadowCandidate &b)
 {
@@ -196,6 +97,14 @@ static bool R_CompareShadowCandidates(const ShadowCandidate &a, const ShadowCand
 void R_SortShadowCandidates(ShadowCandidate *candidates)
 {
     std::sort(candidates, candidates + 24, R_CompareShadowCandidates);
+}
+
+// PINNED 10027930/839: a new empty group still selects/clears its receiver target.
+// Name unconfirmed; PINNED out-of-line copy 10027190/27.
+void R_EmitShadowCookieSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount, MaterialTechniqueType technique)
+{
+    qsortDrawSurfs(drawSurfs, drawSurfCount);
+    R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, technique, (GfxDrawSurfOrder)0);
 }
 
 // PINNED 100271b0/220: choose a stable perpendicular to the incoming sun ray.
@@ -360,6 +269,130 @@ static void R_CreateShadowCookie(const GfxViewParms *viewParms, int sourceCount,
     R_AddShadowReceivers(cookie, sourceCount, entIndex);
 }
 
+// Name unconfirmed; PINNED out-of-line copy 100278f0/53.
+void R_ClearShadowReceiverTarget()
+{
+    if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled
+        && dx.renderTargets[6].colorSurface)
+        R_AddCmdClearScreen(1, colorWhite, 0.0f, 0);
+}
+
+void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms,
+    const ShadowCookieList *shadows)
+{
+    bool first = !R_BeginDrawGroupSection(1);
+    R_BeginDrawGroupLoop(1, viewIndex);
+    const float clearColor[4] = {0.5f, 0.5f, 0.5f, 0.0f};
+    int i = 0;
+    if (shadows->cookieCount)
+    {
+        do
+        {
+            const ShadowCookie *cookie = &shadows->cookies[i];
+            int casterCount = cookie->firstReceiverDrawSurf - cookie->firstCasterDrawSurf;
+            int receiverCount = cookie->firstUnusedDrawSurf - cookie->firstReceiverDrawSurf;
+            if (receiverCount && casterCount && i < sc_debugCasterCount->current.integer)
+            {
+                RcWords16 matrix;
+                int fade;
+                memcpy(&matrix, &cookie->shadowLookupMatrix, sizeof(matrix));
+                memcpy(&fade, &cookie->fade, sizeof(fade));
+                R_AddCmdId9(&matrix, fade);
+                R_AddCmdSetRenderTarget((GfxRenderTargetId)4);
+                R_AddCmdClearScreen(7, clearColor, 1.0f, 0);
+                R_AddCmdBeginView(scene.viewCount, &scene.def, cookie->shadowViewParms, &rg.lodParms);
+                R_AddCmdSetViewport(1, 1, 126, 126);
+                GfxDrawSurf *drawSurfs = scene.drawSurfs + cookie->firstCasterDrawSurf;
+                R_EmitShadowCookieSurfs(drawSurfs, casterCount, (MaterialTechniqueType)0x1f);
+                R_AddCmdSetViewport(0, 0, 128, 128);
+                if (sc_blur->current.integer)
+                    R_AddCmdHeaderOnly1C();
+                R_AddCmdSetRenderTarget((GfxRenderTargetId)3);
+                if (first)
+                {
+                    first = false;
+                    R_ClearShadowReceiverTarget();
+                }
+                R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, &rg.lodParms);
+                if (i < sc_debugReceiverCount->current.integer)
+                {
+                    drawSurfs = scene.drawSurfs + cookie->firstReceiverDrawSurf;
+                    R_EmitShadowCookieSurfs(drawSurfs, receiverCount, (MaterialTechniqueType)0x20);
+                }
+            }
+        } while (++i != shadows->cookieCount);
+    }
+    if (first)
+    {
+        R_AddCmdSetRenderTarget((GfxRenderTargetId)3);
+        R_ClearShadowReceiverTarget();
+    }
+    R_EndDrawGroupLoop(1, viewIndex);
+    R_EndDrawGroupSection(1);
+}
+
+void R_DrawShadowCookieOverlay()
+{
+    float size = (float)vidConfig.width * 0.25f;
+    RcWords16 identity;
+    MatrixIdentity44((float (*)[4])&identity);
+    R_AddCmdId9(&identity, 0x3f800000);
+    R_AddCmdDrawStretchPic(4.0f, 4.0f, size, size,
+        0.0f, 0.0f, 1.0f, 1.0f, colorWhite, rgp.shadowCookieOverlayMaterial);
+}
+
+void R_PopulateCandidates(const float *viewOrigin, ShadowCandidate *candidates)
+{
+    int candidateIndex;
+    for (candidateIndex = 0; candidateIndex != 24; ++candidateIndex)
+    {
+        candidates[candidateIndex].entIndex = -1;
+        candidates[candidateIndex].weight = 100000000.0f;
+    }
+    ShadowCandidate *worstCandidate = candidates;
+    for (int entIndex = 0; entIndex < scene.def.entityCount; ++entIndex)
+    {
+        const GfxEntity *ent = &scene.def.entities[entIndex];
+        int shadowHint;
+        vec3_t mins, maxs, size, sizeSquared, diff;
+        if (ent->reType != 0 || (ent->renderFxFlags & 8))
+            continue;
+        shadowHint = ent->renderFxFlags & 0xe00;
+        if (shadowHint == 0x200)
+            continue;
+        ri.DObjGetBounds(scene.sceneEnts[entIndex].u.obj, mins, maxs);
+        VectorSubtract(maxs, mins, size);
+        Vec3Mul(size, size, sizeSquared);
+        int majorAxis = sizeSquared[1] > sizeSquared[0] ? 1 : 0;
+        if (sizeSquared[2] > sizeSquared[majorAxis])
+            majorAxis = 2;
+        float majorAxisLength = size[majorAxis];
+        if (majorAxisLength == 0.0f)
+            continue;
+        VectorSubtract(ent->origin, viewOrigin, diff);
+        float entityDistance = VectorLength(diff);
+        float entityWeight = entityDistance / majorAxisLength;
+        // The original cutoff and replacement branches accept unordered values.
+        if (entityWeight >= 100000000.0f)
+            continue;
+        if (shadowHint == 0x800)
+            entityWeight = 0.0f;
+        else if (shadowHint == 0x600)
+            entityWeight *= 0.25f;
+        else if (shadowHint == 0x400)
+            entityWeight *= 4.0f;
+        if (!(entityWeight > worstCandidate->weight))
+        {
+            worstCandidate->entIndex = entIndex;
+            worstCandidate->weight = entityWeight;
+            worstCandidate = candidates;
+            for (candidateIndex = 1; candidateIndex != 24; ++candidateIndex)
+                if (candidates[candidateIndex].weight > worstCandidate->weight)
+                    worstCandidate = &candidates[candidateIndex];
+        }
+    }
+}
+
 // PINNED 10027f40/408: weight cap adapts to requested count and elapsed scene time.
 void R_BuildShadowCookieList(const GfxViewParms *viewParms, const ShadowCandidate *candidates,
     ShadowCookieList *shadows)
@@ -404,20 +437,4 @@ void R_BuildShadowCookieList(const GfxViewParms *viewParms, const ShadowCandidat
         shadowCookieGlob.weightCap -= seconds * sc_shadowInRate->current.value;
     if (shadowCookieGlob.weightCap < 0.0001f)
         shadowCookieGlob.weightCap = 0.0001f;
-}
-
-// PINNED 10027c80/116: the overlay is square and uses one quarter of video width.
-extern vidConfig_t vidConfig;
-void MatrixIdentity44(float matrix[4][4]);
-void R_AddCmdDrawStretchPic(float x, float y, float width, float height,
-    float s0, float t0, float s1, float t1, const vec_t *color, MaterialHandle material);
-
-void R_DrawShadowCookieOverlay()
-{
-    float size = (float)vidConfig.width * 0.25f;
-    RcWords16 identity;
-    MatrixIdentity44((float (*)[4])&identity);
-    R_AddCmdId9(&identity, 0x3f800000);
-    R_AddCmdDrawStretchPic(4.0f, 4.0f, size, size,
-        0.0f, 0.0f, 1.0f, 1.0f, colorWhite, rgp.shadowCookieOverlayMaterial);
 }

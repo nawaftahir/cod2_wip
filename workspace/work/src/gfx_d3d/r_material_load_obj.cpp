@@ -89,28 +89,6 @@ typedef char MtlStateMapSize[(sizeof(MaterialStateMap) == 48) ? 1 : -1];
 typedef char DxBlendOpOffset[(offsetof(DxGlobals, hasBlendOp) == 0x2d7c) ? 1 : -1];
 typedef char DxAlphaBlendOffset[(offsetof(DxGlobals, hasSeparateAlphaBlend) == 0x2d7d) ? 1 : -1];
 
-Bool Material_ParseVector(const char **text, int elemCount, float *vector)
-{
-    int index;
-    const char *token;
-
-    if (!Com_MatchToken(text, "(", 1))
-        return 0;
-    index = 0;
-    for (;;)
-    {
-        vector[index] = Com_ParseFloat(text);
-        if (++index == elemCount)
-            return Com_MatchToken(text, ")", 1) != 0;
-        token = Com_ParseInternal(text);
-        if (strcmp(token, ","))
-        {
-            Com_ScriptWarning("MatchToken: %s != %s\n", token, ",");
-            return 0;
-        }
-    }
-}
-
 
 // PINNED10190250: five named bytes in the PC DX7 pass.
 static const PassOptionDx7 s_passOptionsDx7[] =
@@ -133,151 +111,6 @@ Bool Material_ParseNamedIndex(const char **text, const char *name, int expected)
 Bool Material_ParseTextureArgumentDx7(const char **text, int samplerIndex, int *argument);
 Bool Material_ParseTextureArgumentsDx7(const char **text, int samplerIndex,
     int argumentCount, int *stageBits);
-
-// These helper names describe the pinned1001aaf0--1001ad10 bodies.
-Bool Material_ParseEmptyFunctionCall(const char **text)
-{
-    return Com_MatchToken(text, "(", 1) && Com_MatchToken(text, ")", 1)
-        && Com_MatchToken(text, ";", 1);
-}
-
-void Material_SetPassOptionDx7(const PassOptionDx7 *option, Bool enabled,
-    MaterialPassDx7 *pass)
-{
-    *((byte *)pass + option->valueOffset) = enabled;
-}
-
-void Material_InitPassOptionsDx7(MaterialPassDx7 *pass)
-{
-    for (unsigned int index = 0; index < sizeof(s_passOptionsDx7) / sizeof(s_passOptionsDx7[0]); ++index)
-        *((byte *)pass + s_passOptionsDx7[index].valueOffset) = 0;
-}
-
-// PINNED10018370: exact bracketed index, not a range or an optional suffix.
-Bool Material_ParseIndex(const char **text, int expected)
-{
-    if (!Com_MatchToken(text, "[", 1))
-        return 0;
-    int index = Com_ParseInt(text);
-    if (index != expected)
-    {
-        Com_ScriptWarning("expected %i, found %i instead\n", expected, index);
-        return 0;
-    }
-    return Com_MatchToken(text, "]", 1) != 0;
-}
-
-// PINNED100183c0: the name and bracketed index are both mandatory.
-Bool Material_ParseNamedIndex(const char **text, const char *name, int expected)
-{
-    if (!Com_MatchToken(text, name, 1))
-        return 0;
-    return Material_ParseIndex(text, expected);
-}
-
-static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,
-    Bool *finished, Bool *error)
-{
-    const char *token = Com_ParseInternal(text);
-    for (int index = 0; index != 5; ++index)
-    {
-        if (!strcmp(s_passOptionsDx7[index].name, token))
-        {
-            if (!Material_ParseEmptyFunctionCall(text))
-                *error = 1;
-            else
-                Material_SetPassOptionDx7(&s_passOptionsDx7[index], 1, pass);
-            return;
-        }
-    }
-    *finished = 1;
-    Com_UngetToken();
-}
-
-Bool Material_LoadPassOptionsDx7(const char **text, MaterialPassDx7 *pass)
-{
-    Bool finished;
-    Bool error;
-    Material_InitPassOptionsDx7(pass);
-    error = 0;
-    finished = 0;
-    while (!error)
-    {
-        Material_ParsePassOptionDx7(text, pass, &finished, &error);
-        if (finished)
-            break;
-    }
-    return !error;
-}
-
-// PINNED1001ad80: modifiers survive subsequent syntax/source failures.
-Bool Material_ParseTextureArgumentDx7(const char **text, int samplerIndex, int *argument)
-{
-    *argument = 0;
-    for (;;)
-    {
-        const char *token = Com_ParseInternal(text);
-        if (!strcmp(token, "complement"))
-            *argument |= 8;
-        else if (!strcmp(token, "alphaReplicate"))
-            *argument |= 16;
-        else if (!strcmp(token, "vertex"))
-        {
-            if (!Com_MatchToken(text, ".", 1) || !Com_MatchToken(text, "color", 1))
-                return 0;
-            *argument |= 2;
-            return 1;
-        }
-        else if (!strcmp(token, "texture"))
-        {
-            if (!Material_ParseIndex(text, samplerIndex))
-                return 0;
-            *argument |= 5;
-            return 1;
-        }
-        else if (!strcmp(token, "stage"))
-        {
-            if (!samplerIndex)
-            {
-                Com_ScriptWarning("'stage' is not valid for the first texture.  Use 'vertex.color' instead.\n");
-                return 0;
-            }
-            if (!Material_ParseIndex(text, samplerIndex - 1))
-                return 0;
-            *argument |= 1;
-            return 1;
-        }
-        else if (!strcmp(token, "constant"))
-        {
-            *argument |= 6;
-            return 1;
-        }
-        else
-        {
-            Com_ScriptWarning("unknown texture function argument '%s'\n", token);
-            return 0;
-        }
-    }
-}
-
-// PINNED1001af10: packed five-bit arguments start at bit10; prior bits survive.
-Bool Material_ParseTextureArgumentsDx7(const char **text, int samplerIndex,
-    int argumentCount, int *stageBits)
-{
-    if (!Com_MatchToken(text, "(", 1))
-        return 0;
-    for (int index = 0; index < argumentCount; ++index)
-    {
-        int shift = 10 + 5 * index;
-        if (shift != 10 && !Com_MatchToken(text, ",", 1))
-            return 0;
-        int argument;
-        if (!Material_ParseTextureArgumentDx7(text, samplerIndex, &argument))
-            return 0;
-        *stageBits |= argument << shift;
-    }
-    return Com_MatchToken(text, ")", 1) != 0;
-}
 
 // PINNED10190100: compact renderer operators, not D3DTEXTUREOP enum values.
 static const MtlTextureFunctionDx7 s_textureFuncsDx7[] =
@@ -325,368 +158,6 @@ unsigned int Material_FindShaderConstant(const char *shaderName,
 Bool Material_ParseLiteralVector(const char **text, const char *type, float *literal);
 int Material_TechniqueTypeForName(const char *name);
 
-// PINNED 10019400: constant names are offsets relative to the serialized table.
-unsigned int Material_FindShaderConstant(const char *shaderName,
-    const D3DXSHADER_CONSTANTTABLE *table, const D3DXSHADER_CONSTANTINFO *info, const char *name)
-{
-    for (unsigned int index = 0; index < table->Constants; ++index)
-        if (!strcmp((const char *)table + info[index].Name, name))
-            return index;
-    printf("*WARNING*: constant '%s' is not used by shader '%s'\n", name, shaderName);
-    return ~0u;
-}
-
-// PINNED 10019700: array and subtable entries are not scalar sampler sources.
-Bool Material_FindScalarSamplerSource(const char *name, const CodeSamplerSource *sources,
-    MaterialShaderArgument *argument)
-{
-    for (int index = 0; sources[index].name; ++index)
-        if (!sources[index].subtable && !sources[index].arrayCount
-            && !strcmp(name, sources[index].name))
-        {
-            argument->u.codeSampler = sources[index].source;
-            return 1;
-        }
-    return 0;
-}
-
-// PINNED 100198c0: recognized types return success even when value parsing fails.
-Bool Material_ParseLiteralVector(const char **text, const char *type, float *literal)
-{
-    literal[0] = 0.0f;
-    literal[1] = 0.0f;
-    literal[2] = 0.0f;
-    literal[3] = 1.0f;
-    if (!strcmp(type, "float1"))
-    {
-        Material_ParseVector(text, 1, literal);
-        return 1;
-    }
-    if (!strcmp(type, "float2"))
-    {
-        Material_ParseVector(text, 2, literal);
-        return 1;
-    }
-    if (!strcmp(type, "float3"))
-    {
-        Material_ParseVector(text, 3, literal);
-        return 1;
-    }
-    if (!strcmp(type, "float4"))
-    {
-        Material_ParseVector(text, 4, literal);
-        return 1;
-    }
-    return 0;
-}
-
-// PINNED1001afc0: recognized operators publish their bits before parsing arguments.
-Bool Material_ParseTextureFunctionDx7(const char **text, int samplerIndex,
-    int validTest, int *stageBits)
-{
-    const char *token = Com_ParseInternal(text);
-    unsigned int index;
-    for (index = 0; index < 21; ++index)
-        if (!strcmp(token, s_textureFuncsDx7[index].name))
-            goto found;
-    {
-        Com_ScriptWarning("expected a texture function, found '%s' instead.\n", token);
-        Com_Printf("Valid texture functions:.\n", token);
-        unsigned int listIndex = 0;
-        do
-        {
-            Com_Printf("  %s\n", s_textureFuncsDx7[listIndex].name);
-            ++listIndex;
-        } while (listIndex < 21);
-        return 0;
-    }
-found:
-    if (!(validTest & s_textureFuncsDx7[index].valid))
-    {
-        Com_ScriptWarning("%s is only valid for %s", token, validTest == 1 ? "alpha" : "color");
-        return 0;
-    }
-    *stageBits = s_textureFuncsDx7[index].enumerant;
-    return Material_ParseTextureArgumentsDx7(text, samplerIndex,
-        s_textureFuncsDx7[index].argCount, stageBits) != 0;
-}
-
-// PINNED1001b270: stage[index].name = function(...); is required in full.
-Bool Material_LoadPassTextureStateDx7(const char **text, int samplerIndex,
-    const char *stateName, int validTest, int *stageBits)
-{
-    if (!Material_ParseNamedIndex(text, "stage", samplerIndex)
-        || !Com_MatchToken(text, ".", 1) || !Com_MatchToken(text, stateName, 1)
-        || !Com_MatchToken(text, "=", 1))
-        return 0;
-    if (!Material_ParseTextureFunctionDx7(text, samplerIndex, validTest, stageBits))
-        return 0;
-    return Material_MatchToken(text, ";");
-}
-
-// PINNED1001ad20: bind one named sampler without changing its destination field.
-Bool Material_LoadPassSamplerDx7(const char **text, int samplerIndex,
-    MaterialShaderArgument *argument)
-{
-    if (!Material_ParseNamedIndex(text, "texture", samplerIndex)
-        || !Com_MatchToken(text, "=", 1)
-        || !Material_ParseSamplerSource(text, argument))
-        return 0;
-    return Material_MatchToken(text, ";");
-}
-
-// PINNED1001b100: the optional declaration recognizes only these two generators.
-Bool Material_LoadPassTexCoordDx7(const char **text, int samplerIndex, byte *generator)
-{
-    *generator = 0;
-    const char *token = Com_ParseInternal(text);
-    if (strcmp(token, "texcoord"))
-    {
-        Com_UngetToken();
-        return 1;
-    }
-    if (!Com_MatchToken(text, "[", 1))
-        return 0;
-    int index = Com_ParseInt(text);
-    if (index != samplerIndex)
-    {
-        Com_ScriptWarning("expected %i, found %i instead\n", samplerIndex, index);
-        return 0;
-    }
-    if (!Com_MatchToken(text, "]", 1) || !Com_MatchToken(text, "=", 1))
-        return 0;
-    token = Com_Parse(text);
-    if (!strcmp(token, "genEyeDirCoords"))
-        *generator = 1;
-    else if (!strcmp(token, "texScroll"))
-        *generator = 2;
-    else
-    {
-        Com_ScriptWarning("expected 'genEyeDirCoords', 'genEyeFacingDotCoords', or 'texScroll', found '%s' instead.\n", token);
-        return 0;
-    }
-    if (!Com_MatchToken(text, "(", 1) || !Com_MatchToken(text, ")", 1))
-        return 0;
-    return Com_MatchToken(text, ";", 1) != 0;
-}
-
-// PINNED1001b360: require one sampler, allow two, default unused slots to white.
-Bool Material_LoadPassSamplersDx7(const char **text, MaterialPassDx7 *pass)
-{
-    unsigned short samplerIndex = 0;
-    const char *token;
-    do
-    {
-        token = Com_Parse(text);
-        if (strcmp(token, "texture"))
-            goto expected_texture;
-        token = Com_Parse(text);
-        if (strcmp(token, "["))
-            goto expected_index;
-        int index = Com_ParseInt(text);
-        if (index != samplerIndex)
-        {
-            Com_ScriptWarning("expected %i, found %i instead\n", samplerIndex, index);
-            return 0;
-        }
-        if (!Material_MatchToken(text, "]"))
-            return 0;
-        token = Com_Parse(text);
-        if (strcmp(token, "="))
-            goto expected_assignment;
-        if (!Material_ParseSamplerSource(text, &pass->samplers[samplerIndex])
-            || !Com_MatchToken(text, ";", 1))
-            return 0;
-        if (!Material_LoadPassTexCoordDx7(text, samplerIndex, &pass->genTexCoords[samplerIndex]))
-            return 0;
-        ++samplerIndex;
-        if (samplerIndex == 2)
-            break;
-        token = Com_Parse(text);
-        Bool another = strcmp(token, "texture") == 0;
-        Com_UngetToken();
-        if (!another)
-            break;
-    } while (1);
-    for (; samplerIndex < 2; ++samplerIndex)
-    {
-        pass->samplers[samplerIndex].dest = samplerIndex;
-        pass->samplers[samplerIndex].type = 3;
-        pass->samplers[samplerIndex].u.codeSampler = 1;
-        pass->genTexCoords[samplerIndex] = 0;
-    }
-    return 1;
-expected_texture:
-    Com_ScriptWarning("MatchToken: %s != %s\n", token, "texture");
-    return 0;
-expected_index:
-    Com_ScriptWarning("MatchToken: %s != %s\n", token, "[");
-    return 0;
-expected_assignment:
-    Com_ScriptWarning("MatchToken: %s != %s\n", token, "=");
-    return 0;
-}
-
-// PINNED1001b670: one through eight RGB/alpha stage pairs, then zero-fill.
-Bool Material_LoadPassStagesDx7(const char **text, MaterialPassDx7 *pass)
-{
-    unsigned short stageIndex = 0;
-    do
-    {
-        int *colorBits = &pass->colorStageBits[stageIndex];
-        int *alphaBits = &pass->alphaStageBits[stageIndex];
-        *colorBits = 0;
-        if (!Material_LoadPassTextureStateDx7(text, stageIndex, "rgb", 1,
-                colorBits))
-            return 0;
-        *alphaBits = 0;
-        if (!Material_LoadPassTextureStateDx7(text, stageIndex, "a", 2,
-                alphaBits))
-            return 0;
-        ++stageIndex;
-        if (stageIndex == 8)
-            break;
-        Bool another = Com_Parse(text)[0] != '}';
-        Com_UngetToken();
-        if (!another)
-            break;
-    } while (1);
-    for (; stageIndex < 8; ++stageIndex)
-    {
-        pass->colorStageBits[stageIndex] = 0;
-        pass->alphaStageBits[stageIndex] = 0;
-    }
-    return 1;
-}
-
-// PINNED1001b7c0: the surrounding technique owns the pass braces.
-Bool Material_LoadPassDx7(const char **text, MaterialPassDx7 *pass)
-{
-    if (!Material_LoadPassStateMap(text, &pass->stateMap)
-        || !Material_LoadPassOptionsDx7(text, pass)
-        || !Material_LoadPassSamplersDx7(text, pass))
-        return 0;
-    return Material_LoadPassStagesDx7(text, pass) != 0;
-}
-
-// PINNED 10019480: leave the offset untouched on every parse/range failure.
-__declspec(noinline) Bool Material_ParseArrayOffset(const char **text, int arrayCount, int stride, int *offset)
-{
-    if (!Com_MatchToken(text, "[", 1))
-        return 0;
-    int index = Com_ParseInt(text);
-    if (index < 0 || index >= arrayCount)
-    {
-        Com_ScriptWarning("array index must be in range [0, %i]\n", arrayCount - 1);
-        return 0;
-    }
-    if (!Com_MatchToken(text, "]", 1))
-        return 0;
-    *offset = index * stride;
-    return 1;
-}
-
-static __declspec(noinline) Bool Material_CodeSamplerSource_r(const char **text, int offset,
-    const CodeSamplerSource *sources, MaterialShaderArgument *argument)
-{
-    int index;
-    while (Com_MatchToken(text, ".", 1))
-    {
-        const char *token = Com_Parse(text);
-        for (index = 0; sources[index].name; ++index)
-            if (!strcmp(token, sources[index].name))
-                goto found;
-        Com_ScriptWarning("unknown sampler source '%s'\n", token);
-        return 0;
-found:
-        const CodeSamplerSource *entry = &sources[index];
-        if (entry->arrayCount)
-        {
-            int arrayOffset;
-            if (!Material_ParseArrayOffset(text, entry->arrayCount,
-                    entry->arrayStride, &arrayOffset))
-                return 0;
-            offset += arrayOffset;
-        }
-        if (!entry->subtable)
-        {
-            argument->u.codeSampler = sources[index].source + offset;
-            return 1;
-        }
-        sources = entry->subtable;
-    }
-    return 0;
-}
-
-// PINNED 10019620: material names are interned; code samplers traverse typed tables.
-Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argument)
-{
-    const char *token = Com_ParseInternal(text);
-    if (!strcmp(token, "sampler"))
-    {
-        argument->type = 3;
-        return Material_CodeSamplerSource_r(text, 0, s_codeSamplers, argument);
-    }
-    if (!strcmp(token, "material"))
-    {
-        if (!Com_MatchToken(text, ".", 1))
-            return 0;
-        const char *name = Com_Parse(text);
-        argument->type = 4;
-        argument->u.name = Material_RegisterString(name);
-        return argument->u.name ? 1 : 0;
-    }
-    Com_ScriptWarning("expected 'sampler' or 'material', found '%s' instead\n", token);
-    return 0;
-}
-
-int Material_TechniqueTypeForName(const char *name)
-{
-    const char *techniqueNames[34];
-    unsigned int techniqueIndex;
-
-    techniqueNames[0] = "\"depth prepass\"";
-    techniqueNames[1] = "\"sky\"";
-    techniqueNames[2] = "\"build floatz\"";
-    techniqueNames[3] = "\"unlit no fog\"";
-    techniqueNames[4] = "\"unlit linear fog\"";
-    techniqueNames[5] = "\"unlit exp fog\"";
-    techniqueNames[6] = "\"lightmap no fog\"";
-    techniqueNames[7] = "\"lightmap linear fog\"";
-    techniqueNames[8] = "\"lightmap exp fog\"";
-    techniqueNames[9] = "\"lightprobe no fog\"";
-    techniqueNames[10] = "\"lightprobe linear fog\"";
-    techniqueNames[11] = "\"lightprobe exp fog\"";
-    techniqueNames[12] = "\"lightprobe smodel no fog\"";
-    techniqueNames[13] = "\"lightprobe smodel linear fog\"";
-    techniqueNames[14] = "\"lightprobe smodel exp fog\"";
-    techniqueNames[15] = "\"lightprobe smodel cached no fog\"";
-    techniqueNames[16] = "\"lightprobe smodel cached linear fog\"";
-    techniqueNames[17] = "\"lightprobe smodel cached exp fog\"";
-    techniqueNames[18] = "\"pointlight no fog\"";
-    techniqueNames[19] = "\"pointlight linear fog\"";
-    techniqueNames[20] = "\"pointlight exp fog\"";
-    techniqueNames[21] = "\"emissive no fog\"";
-    techniqueNames[22] = "\"emissive linear fog\"";
-    techniqueNames[23] = "\"emissive exp fog\"";
-    techniqueNames[24] = "\"emissive feathered no fog\"";
-    techniqueNames[25] = "\"emissive feathered linear fog\"";
-    techniqueNames[26] = "\"emissive feathered exp fog\"";
-    techniqueNames[27] = "\"fakelight normal\"";
-    techniqueNames[28] = "\"fakelight view\"";
-    techniqueNames[29] = "\"solid wireframe\"";
-    techniqueNames[30] = "\"shaded wireframe\"";
-    techniqueNames[31] = "\"shadowcookie caster\"";
-    techniqueNames[32] = "\"shadowcookie receiver\"";
-    techniqueNames[33] = "\"debug bumpmap\"";
-    for (techniqueIndex = 0; techniqueIndex < 34; ++techniqueIndex)
-    {
-        if (!strcmp(name, techniqueNames[techniqueIndex]))
-            return techniqueIndex;
-    }
-    return 34;
-}
-
 struct MtlLoadGlob
 {
     int cachedCount;
@@ -725,23 +196,160 @@ extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYP
     const char *filename, const void *parentData, const void **data, unsigned int *byteCount);
 extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data);
 
-// PINNED 1001c7f0/173: name and text share one allocation; read results are not checked here.
-void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedShaderText *cached)
+struct ShaderIncludeVtable
 {
-    char path[64];
-    Com_sprintf(path, sizeof(path), "materials/shaders/%s%s", prefix, name);
-    fileHandle_t file;
-    int length = ri.FS_FOpenFileRead(path, &file, 1);
-    char *buffer = (char *)ri.Hunk_AllocAlignInternal(strlen(prefix) + strlen(name) + length + 2, 1);
-    cached->name = buffer;
-    int nameLength = sprintf(buffer, "%s%s", prefix, name);
-    char *text = buffer + (nameLength + 1);
-    cached->text = text;
-    ri.FS_Read(text, length, file);
-    ri.FS_FCloseFile(file);
-    text[length] = 0;
-    cached->textSize = length;
-}
+    HRESULT (__stdcall *Open)(const void *, D3DXINCLUDE_TYPE, const char *, const void *, const void **, unsigned int *);
+    HRESULT (__stdcall *Close)(const void *, const void *);
+};
+static const ShaderIncludeVtable shaderIncludeVtable = { IncludeClass_Open, IncludeClass_Close };
+struct ShaderInclude
+{
+    const ShaderIncludeVtable *vtable;
+};
+static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args);
+static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
+static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
+__declspec(noinline) Bool Material_ParseConstantArrayOffset(const char **text, const ShaderConstantRouting *routing,
+    const CodeConstantSource *source, int *offset);
+static __declspec(noinline) Bool Material_ParseCodeConstantSource_r(const char **text, const ShaderConstantRouting *routing,
+    int offset, const CodeConstantSource *sources, MaterialShaderArgument *argument);
+Bool Material_ParseConstantSource(const char **text, const ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_FindScalarConstantSource(const char *name, const ShaderConstantRouting *routing,
+    const CodeConstantSource *sources, MaterialShaderArgument *argument);
+Bool Material_FindDefaultConstantSource(const char *name, const ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_ParseShaderArgumentArray(const char **text, ShaderConstantRouting *routing);
+Bool Material_ParseShaderArgument(const char **text, ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_DefaultShaderArgument(const char *name, ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
+    const D3DXSHADER_CONSTANTTABLE *table, byte *techFlags, MaterialShaderArgument *arguments);
+MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion);
+MaterialShader *Material_LoadPassShader(const char **text, int shaderType);
+Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *shader,
+    byte *techFlags, unsigned short *argumentCount, MaterialShaderArgument **arguments);
+Bool Material_ParseStreamIndex(const char **text, int count, int *index);
+Bool Material_ParseStreamDestination(const char **text, const char *name, byte *destination);
+Bool Material_ParseStreamSource(const char **text, const char *name, byte *source);
+Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass);
+__declspec(noinline) Bool Material_LoadPassVertexShader(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+__declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+MaterialTechnique *Material_LoadTechniqueDx9(const char *name);
+MaterialTechnique *Material_LoadTechniqueDx7(const char *name);
+MaterialTechnique *Material_LoadCachedTechnique(const char *name);
+MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name);
+MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name);
+
+GfxImage *Image_Register(const char *name, int semantic, int imageTrack);
+water_t *R_LoadWaterSetup(const water_t *water);
+
+typedef char materialBinaryLayoutCheck[(sizeof(Material) == 68 &&
+    offsetof(Material, textureCount) == 0x34 && offsetof(Material, constantCount) == 0x36 &&
+    offsetof(Material, techniqueSet) == 0x38 && offsetof(Material, textures) == 0x3c &&
+    offsetof(Material, constants) == 0x40 && sizeof(MaterialTextureDef) == 12 &&
+    sizeof(MaterialConstantDef) == 20 && sizeof(MaterialWaterDef) == 32 &&
+    sizeof(water_t) == 68 && offsetof(water_t, image) == 64) ? 1 : -1];
+
+Bool Material_ParseVector(const char **text, int elemCount, float *vector);
+Bool Material_ParseEmptyFunctionCall(const char **text);
+void Material_SetPassOptionDx7(const PassOptionDx7 *option, Bool enabled,
+    MaterialPassDx7 *pass);
+void Material_InitPassOptionsDx7(MaterialPassDx7 *pass);
+Bool Material_ParseIndex(const char **text, int expected);
+Bool Material_ParseNamedIndex(const char **text, const char *name, int expected);
+static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,
+    Bool *finished, Bool *error);
+Bool Material_LoadPassOptionsDx7(const char **text, MaterialPassDx7 *pass);
+Bool Material_ParseTextureArgumentDx7(const char **text, int samplerIndex, int *argument);
+Bool Material_ParseTextureArgumentsDx7(const char **text, int samplerIndex,
+    int argumentCount, int *stageBits);
+unsigned int Material_FindShaderConstant(const char *shaderName,
+    const D3DXSHADER_CONSTANTTABLE *table, const D3DXSHADER_CONSTANTINFO *info, const char *name);
+Bool Material_FindScalarSamplerSource(const char *name, const CodeSamplerSource *sources,
+    MaterialShaderArgument *argument);
+Bool Material_ParseLiteralVector(const char **text, const char *type, float *literal);
+Bool Material_ParseTextureFunctionDx7(const char **text, int samplerIndex,
+    int validTest, int *stageBits);
+Bool Material_LoadPassTextureStateDx7(const char **text, int samplerIndex,
+    const char *stateName, int validTest, int *stageBits);
+Bool Material_LoadPassSamplerDx7(const char **text, int samplerIndex,
+    MaterialShaderArgument *argument);
+Bool Material_LoadPassTexCoordDx7(const char **text, int samplerIndex, byte *generator);
+Bool Material_LoadPassSamplersDx7(const char **text, MaterialPassDx7 *pass);
+Bool Material_LoadPassStagesDx7(const char **text, MaterialPassDx7 *pass);
+Bool Material_LoadPassDx7(const char **text, MaterialPassDx7 *pass);
+__declspec(noinline) Bool Material_ParseArrayOffset(const char **text, int arrayCount, int stride, int *offset);
+static __declspec(noinline) Bool Material_CodeSamplerSource_r(const char **text, int offset,
+    const CodeSamplerSource *sources, MaterialShaderArgument *argument);
+Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argument);
+int Material_TechniqueTypeForName(const char *name);
+void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedShaderText *cached);
+bool Material_FindCachedShaderText(const char *name, const char **text, int *textSize);
+extern "C" HRESULT __stdcall IncludeClass_Open(const void *self, D3DXINCLUDE_TYPE includeType,
+    const char *filename, const void *parentData, const void **data, unsigned int *byteCount);
+extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *data);
+static Bool Material_MatchToken(const char **text, const char *match);
+static const MtlStateMapBitName *Material_ParseStateValue(const char **text,
+    const MtlStateMapBitName *bitNames);
+static MtlParseSuccess Material_ParseRuleSetConditionTest(const char **text, const char *token,
+    MaterialStateMapRule *rule);
+static MtlParseSuccess Material_ParseRuleSetCondition(const char **text, const char *token,
+    MaterialStateMapRule *rule);
+static Bool Material_ParseRuleSetValue(const char **text, const char *token,
+    const MtlStateMapBitGroup *stateSet, MaterialStateMapRule *rule);
+static MaterialStateMapRuleSet *Material_AllocRuleSet(int count,
+    const MaterialStateMapRule *rules);
+static Bool Material_ParseRuleSet(const char **text, const char *name,
+    const MtlStateMapBitGroup *stateSet, const MaterialStateMapRuleSet **ruleSet);
+static void Material_FixupRgbBlend(MaterialStateMapRuleSet *ruleSet);
+static void Material_FixupAlphaBlend(MaterialStateMapRuleSet *ruleSet);
+static Bool Material_ParseStateMap(const char **text, MaterialStateMap *stateMap);
+MaterialStateMap *Material_LoadStateMap(const char *name);
+MaterialStateMap *Material_LoadCachedStateMap(const char *name);
+Bool Material_LoadPassStateMap(const char **text, MaterialStateMap **stateMap);
+bool Material_CompareShaderText(const GfxCachedShaderText &left, const GfxCachedShaderText &right);
+void Material_PreloadShaderText();
+static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args);
+static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
+static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
+__declspec(noinline) Bool Material_ParseConstantArrayOffset(const char **text, const ShaderConstantRouting *routing,
+    const CodeConstantSource *source, int *offset);
+static __declspec(noinline) Bool Material_ParseCodeConstantSource_r(const char **text, const ShaderConstantRouting *routing,
+    int offset, const CodeConstantSource *sources, MaterialShaderArgument *argument);
+Bool Material_ParseConstantSource(const char **text, const ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_ParseStreamIndex(const char **text, int count, int *index);
+Bool Material_ParseStreamDestination(const char **text, const char *name, byte *destination);
+Bool Material_ParseStreamSource(const char **text, const char *name, byte *source);
+Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass);
+__declspec(noinline) Bool Material_LoadPassVertexShader(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+__declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags);
+MaterialTechnique *Material_LoadTechniqueDx9(const char *name);
+MaterialTechnique *Material_LoadTechniqueDx7(const char *name);
+MaterialTechnique *Material_LoadCachedTechnique(const char *name);
+MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name);
+MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name);
+Bool Material_FindScalarConstantSource(const char *name, const ShaderConstantRouting *routing,
+    const CodeConstantSource *sources, MaterialShaderArgument *argument);
+Bool Material_FindDefaultConstantSource(const char *name, const ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_ParseShaderArgumentArray(const char **text, ShaderConstantRouting *routing);
+Bool Material_ParseShaderArgument(const char **text, ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_DefaultShaderArgument(const char *name, ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument);
+Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
+    const D3DXSHADER_CONSTANTTABLE *table, byte *techFlags, MaterialShaderArgument *arguments);
+MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion);
+MaterialShader *Material_LoadPassShader(const char **text, int shaderType);
+Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *shader,
+    byte *techFlags, unsigned short *argumentCount, MaterialShaderArgument **arguments);
+bool Material_FixupBinary(Material *material, int imageTrack);
+Material *Material_LoadBinary(const char *name, int imageTrack);
 
 bool Material_FindCachedShaderText(const char *name, const char **text, int *textSize)
 {
@@ -788,6 +396,28 @@ extern "C" HRESULT __stdcall IncludeClass_Close(const void *self, const void *da
 static Bool Material_MatchToken(const char **text, const char *match)
 {
     return Com_MatchToken(text, match, 1) != 0;
+}
+
+// PINNED10018370: exact bracketed index, not a range or an optional suffix.
+Bool Material_ParseIndex(const char **text, int expected)
+{
+    if (!Com_MatchToken(text, "[", 1))
+        return 0;
+    int index = Com_ParseInt(text);
+    if (index != expected)
+    {
+        Com_ScriptWarning("expected %i, found %i instead\n", expected, index);
+        return 0;
+    }
+    return Com_MatchToken(text, "]", 1) != 0;
+}
+
+// PINNED100183c0: the name and bracketed index are both mandatory.
+Bool Material_ParseNamedIndex(const char **text, const char *name, int expected)
+{
+    if (!Com_MatchToken(text, name, 1))
+        return 0;
+    return Material_ParseIndex(text, expected);
 }
 
 // Names of the split helpers are unconfirmed; PC 1.0 addresses are pinned.
@@ -1121,296 +751,6 @@ Bool Material_LoadPassStateMap(const char **text, MaterialStateMap **stateMap)
     return Com_MatchToken(text, ";", 1) != 0;
 }
 
-// PINNED 1001c8d0/83: sort is case-sensitive although cache lookup uses _stricmp.
-bool Material_CompareShaderText(const GfxCachedShaderText &left, const GfxCachedShaderText &right)
-{
-    return strcmp(left.name, right.name) < 0;
-}
-
-// PINNED 1001c930/288: publish the existing cache, sort with the original compiler library.
-void Material_PreloadShaderText()
-{
-    int shaderCount, libraryCount;
-    char **shaders = ri.FS_ListFiles("materials/shaders/", "hlsl", 0, &shaderCount, 20);
-    char **libraries = ri.FS_ListFiles("materials/shaders/lib/", "hlsl", 0, &libraryCount, 20);
-    mtlLoadGlob.cachedCount = shaderCount + libraryCount;
-    mtlLoadGlob.cached = (GfxCachedShaderText *)ri.Hunk_AllocInternal(
-        mtlLoadGlob.cachedCount * sizeof(GfxCachedShaderText));
-    GfxCachedShaderText *cached = mtlLoadGlob.cached;
-    for (int index = 0; index < shaderCount; ++index, ++cached)
-        Material_CacheShaderText(shaders[index], "", cached);
-    cached = mtlLoadGlob.cached + shaderCount;
-    for (int index = 0; index < libraryCount; ++index, ++cached)
-        Material_CacheShaderText(libraries[index], "lib/", cached);
-    std::sort(mtlLoadGlob.cached, mtlLoadGlob.cached + mtlLoadGlob.cachedCount,
-        Material_CompareShaderText);
-    ri.FS_FreeFileList(libraries, 20);
-    ri.FS_FreeFileList(shaders, 20);
-}
-
-struct ShaderIncludeVtable
-{
-    HRESULT (__stdcall *Open)(const void *, D3DXINCLUDE_TYPE, const char *, const void *, const void **, unsigned int *);
-    HRESULT (__stdcall *Close)(const void *, const void *);
-};
-static const ShaderIncludeVtable shaderIncludeVtable = { IncludeClass_Open, IncludeClass_Close };
-struct ShaderInclude
-{
-    const ShaderIncludeVtable *vtable;
-};
-static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args);
-static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
-static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique);
-__declspec(noinline) Bool Material_ParseConstantArrayOffset(const char **text, const ShaderConstantRouting *routing,
-    const CodeConstantSource *source, int *offset);
-static __declspec(noinline) Bool Material_ParseCodeConstantSource_r(const char **text, const ShaderConstantRouting *routing,
-    int offset, const CodeConstantSource *sources, MaterialShaderArgument *argument);
-Bool Material_ParseConstantSource(const char **text, const ShaderConstantRouting *routing,
-    MaterialShaderArgument *argument);
-Bool Material_FindScalarConstantSource(const char *name, const ShaderConstantRouting *routing,
-    const CodeConstantSource *sources, MaterialShaderArgument *argument);
-Bool Material_FindDefaultConstantSource(const char *name, const ShaderConstantRouting *routing,
-    MaterialShaderArgument *argument);
-Bool Material_ParseShaderArgumentArray(const char **text, ShaderConstantRouting *routing);
-Bool Material_ParseShaderArgument(const char **text, ShaderConstantRouting *routing,
-    MaterialShaderArgument *argument);
-Bool Material_DefaultShaderArgument(const char *name, ShaderConstantRouting *routing,
-    MaterialShaderArgument *argument);
-Bool Material_ParseShaderArguments(const char **text, const char *shaderName,
-    const D3DXSHADER_CONSTANTTABLE *table, byte *techFlags, MaterialShaderArgument *arguments);
-MaterialShader *Material_CreateShader(const char *name, int shaderType, int shaderVersion);
-MaterialShader *Material_LoadPassShader(const char **text, int shaderType);
-Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *shader,
-    byte *techFlags, unsigned short *argumentCount, MaterialShaderArgument **arguments);
-Bool Material_ParseStreamIndex(const char **text, int count, int *index);
-Bool Material_ParseStreamDestination(const char **text, const char *name, byte *destination);
-Bool Material_ParseStreamSource(const char **text, const char *name, byte *source);
-Bool Material_LoadPassVertexDecl(const char **text, MaterialPassDx9 *pass);
-__declspec(noinline) Bool Material_LoadPassVertexShader(const char **text, MaterialPassDx9 *pass, byte *techFlags);
-__declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, MaterialPassDx9 *pass, byte *techFlags);
-Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags);
-MaterialTechnique *Material_LoadTechniqueDx9(const char *name);
-MaterialTechnique *Material_LoadTechniqueDx7(const char *name);
-MaterialTechnique *Material_LoadCachedTechnique(const char *name);
-MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name);
-MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name);
-
-// Retail passes the material in EDI (LTCG).
-static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args)
-{
-    int argIndex;
-    int index;
-
-    for (argIndex = 0; argIndex < argCount; ++argIndex)
-    {
-        if (args[argIndex].type == 2)
-        {
-            for (index = 0; index < material->constantCount; ++index)
-            {
-                if (material->constants[index].name == args[argIndex].u.name)
-                    break;
-            }
-            if (index >= material->constantCount)
-            {
-                Com_Printf("material '%s' using technique '%s' from techniqueSet '%s' doesn't expose a '%s' constant\n",
-                    material->info.name, techniqueName, techniqueSetName, args[argIndex].u.name);
-                return false;
-            }
-        }
-        else if (args[argIndex].type == 4)
-        {
-            for (index = 0; index < material->textureCount; ++index)
-            {
-                if (material->textures[index].name == args[argIndex].u.name)
-                    break;
-            }
-            if (index >= material->textureCount)
-            {
-                Com_Printf("material '%s' using technique '%s' from techniqueSet '%s' doesn't expose a '%s' texture\n",
-                    material->info.name, techniqueName, techniqueSetName, args[argIndex].u.name);
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
-{
-    int passIndex;
-
-    for (passIndex = 0; passIndex < technique->passCount; ++passIndex)
-    {
-        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, 2, technique->passArray.dx7[passIndex].samplers))
-            return false;
-    }
-    return true;
-}
-
-// Name unconfirmed.
-static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
-{
-    int passIndex;
-    const MaterialPassDx9 *pass;
-
-    if (r_rendererInUse->current.integer == 2)
-        return Material_ValidateTechniqueDx7(material, techniqueSetName, technique);
-    for (passIndex = 0; passIndex < technique->passCount; ++passIndex)
-    {
-        pass = &technique->passArray.dx9[passIndex];
-        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->vertexArgCount, pass->vertexArgs))
-            return false;
-        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->pixelArgCount, pass->pixelArgs))
-            return false;
-    }
-    return true;
-}
-
-// PINNED 10019970; descriptive name, not recovered PC debug provenance.
-__declspec(noinline) Bool Material_ParseConstantArrayOffset(const char **text, const ShaderConstantRouting *routing,
-    const CodeConstantSource *source, int *offset)
-{
-    const char *token = Com_ParseInternal(text);
-    if (token[0] != '[')
-    {
-        Com_UngetToken();
-        if (routing->elemCount > source->arrayCount)
-        {
-            Com_ScriptWarning("code constant '%s' has only %i members, but %i were requested\n",
-                source->name, source->arrayCount, routing->elemCount);
-            return 0;
-        }
-        *offset = 0;
-        return 1;
-    }
-    int index = Com_ParseInt(text);
-    if (index < 0 || index >= source->arrayCount)
-    {
-        Com_ScriptWarning("index %i is not in the range [0, %i]\n", index, source->arrayCount - 1);
-        return 0;
-    }
-    *offset = index;
-    if (routing->elemCount > 1)
-    {
-        if (!Com_MatchToken(text, ",", 1))
-            return 0;
-        int endingIndex = Com_ParseInt(text);
-        int expectedEnd = index + routing->elemCount - 1;
-        if (endingIndex != expectedEnd)
-        {
-            Com_ScriptWarning("ending index %i should be %i instead\n", endingIndex, expectedEnd);
-            return 0;
-        }
-    }
-    return Com_MatchToken(text, "]", 1) != 0;
-}
-
-// PINNED 10019a80: optional matrix rows and column-major source transposition.
-static __declspec(noinline) Bool Material_ParseCodeConstantSource_r(const char **text, const ShaderConstantRouting *routing,
-    int offset, const CodeConstantSource *sources, MaterialShaderArgument *argument)
-{
-    if (!Com_MatchToken(text, ".", 1))
-        return 0;
-    const char *token = Com_ParseInternal(text);
-    int index;
-    for (index = 0; sources[index].name; ++index)
-        if (!strcmp(token, sources[index].name))
-            goto found;
-    Com_ScriptWarning("unknown constant source '%s'\n", token);
-    return 0;
-found:
-    const CodeConstantSource *entry = &sources[index];
-    if (entry->arrayCount)
-    {
-        int arrayOffset;
-        Bool valid;
-        if (!entry->subtable && routing->elemCount > 1)
-            valid = Material_ParseConstantArrayOffset(text, routing, entry, &arrayOffset);
-        else
-            valid = Material_ParseArrayOffset(text, entry->arrayCount, entry->arrayStride, &arrayOffset);
-        if (!valid)
-            return 0;
-        offset += arrayOffset;
-    }
-    if (entry->subtable)
-        return Material_ParseCodeConstantSource_r(text, routing, offset,
-            entry->subtable, argument);
-    int source = sources[index].source + offset;
-    if (source < 187)
-    {
-        argument->u.codeConst.index = (unsigned short)source;
-        argument->u.codeConst.firstRow = 0;
-        argument->u.codeConst.rowCount = routing->elemCount;
-        return 1;
-    }
-    if (((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Class == 3)
-        source ^= 2;
-    token = Com_Parse(text);
-    if (token[0] == ';')
-    {
-        Com_UngetToken();
-        argument->u.codeConst.index = (unsigned short)source;
-        argument->u.codeConst.firstRow = 0;
-        argument->u.codeConst.rowCount = (byte)routing->constantInfo->RegisterCount;
-        return 1;
-    }
-    if (token[0] == '[')
-    {
-        argument->u.codeConst.index = (unsigned short)source;
-        int row = Com_ParseInt(text);
-        if (row < 0 || row > 3)
-        {
-            Com_ScriptWarning("row index %i should be in the range [0, 3]\n", row);
-            return 0;
-        }
-        argument->u.codeConst.firstRow = (byte)row;
-        argument->u.codeConst.rowCount = 1;
-        return Com_MatchToken(text, "]", 1) != 0;
-    }
-    Com_ScriptWarning("expected ';' or '[', found '%s' instead\n", token);
-    return 0;
-}
-
-// PINNED 10019ca0: retain the original misleading diagnostic on unknown tokens.
-Bool Material_ParseConstantSource(const char **text, const ShaderConstantRouting *routing,
-    MaterialShaderArgument *argument)
-{
-    float literal[4];
-    const char *token = Com_ParseInternal(text);
-    if (Material_ParseLiteralVector(text, token, literal))
-    {
-        if (routing->elemCount > 1)
-        {
-            Com_ScriptWarning("Each element of the array must be set to a float individually.\n");
-            return 0;
-        }
-        argument->type = 0;
-        argument->u.literalConst = Material_RegisterLiteral(literal);
-        return argument->u.literalConst ? 1 : 0;
-    }
-    if (!strcmp(token, "constant"))
-    {
-        argument->type = 1;
-        return Material_ParseCodeConstantSource_r(text, routing, 0, s_codeConsts, argument);
-    }
-    if (!strcmp(token, "material"))
-    {
-        if (routing->elemCount > 1)
-        {
-            Com_ScriptWarning("Each element of the array must be set to a material constant individually.\n");
-            return 0;
-        }
-        if (!Com_MatchToken(text, ".", 1))
-            return 0;
-        const char *name = Com_Parse(text);
-        argument->type = 2;
-        argument->u.name = Material_RegisterString(name);
-        return argument->u.name ? 1 : 0;
-    }
-    Com_ScriptWarning("expected 'sampler' or 'material', found '%s' instead\n", token);
-    return 0;
-}
-
 // PINNED 10018f90: out-of-range indices warn but still parse the closing bracket.
 Bool Material_ParseStreamIndex(const char **text, int count, int *index)
 {
@@ -1549,236 +889,122 @@ __declspec(noinline) Bool Material_LoadPassPixelShader(const char **text, Materi
     return Material_SetPassShaderArguments(text, shader, techFlags, &pass->pixelArgCount, &pass->pixelArgs);
 }
 
-// PINNED 1001aaa0: state, declaration, vertex shader, then pixel shader.
-Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags)
+// PINNED 10019400: constant names are offsets relative to the serialized table.
+unsigned int Material_FindShaderConstant(const char *shaderName,
+    const D3DXSHADER_CONSTANTTABLE *table, const D3DXSHADER_CONSTANTINFO *info, const char *name)
 {
-    if (!Material_LoadPassStateMap(text, &pass->stateMap)
-        || !Material_LoadPassVertexDecl(text, pass)
-        || !Material_LoadPassVertexShader(text, pass, techFlags))
-        return 0;
-    return Material_LoadPassPixelShader(text, pass, techFlags) != 0;
+    for (unsigned int index = 0; index < table->Constants; ++index)
+        if (!strcmp((const char *)table + info[index].Name, name))
+            return index;
+    printf("*WARNING*: constant '%s' is not used by shader '%s'\n", name, shaderName);
+    return ~0u;
 }
 
-// PINNED 1001b810..1001ba62: four passes maximum; do not consume a fifth.
-MaterialTechnique *Material_LoadTechniqueDx9(const char *name)
+// PINNED 10019620: material names are interned; code samplers traverse typed tables.
+Bool Material_ParseSamplerSource(const char **text, MaterialShaderArgument *argument)
 {
-    char path[64];
-    void *fileData;
-    Com_sprintf(path, sizeof(path), "materials/techniques/%s.tech", name);
-    if (ri.FS_ReadFile(path, &fileData) < 0)
+    const char *token = Com_ParseInternal(text);
+    if (!strcmp(token, "sampler"))
     {
-        Com_ScriptWarning("Couldn't open technique '%s'\n", path);
-        return 0;
+        argument->type = 3;
+        return Material_CodeSamplerSource_r(text, 0, s_codeSamplers, argument);
     }
-    const char *text = (const char *)fileData;
-    Com_BeginParseSession(path);
-    Com_SetScriptWarningPrefix("^1ERROR: ");
-    Com_SetSpaceDelimited(0);
-    unsigned short flags = 0;
-    unsigned short count = 0;
-    MaterialPassDx9 passes[4];
-    Bool error = 0;
-    do
+    if (!strcmp(token, "material"))
     {
-        const char *token = Com_Parse(&text);
-        if (!token[0])
-            break;
-        if (token[0] != '{')
-        {
-            Com_ScriptWarning("expected '{' but found '%s'\n", token);
-            error = 1;
-            break;
-        }
-        if (!Material_LoadPassDx9(&text, &passes[count], (byte *)&flags)
-            || !Com_MatchToken(&text, "}", 1))
-        {
-            error = 1;
-            break;
-        }
-        ++count;
-    } while (count < 4);
-    Com_EndParseSession();
-    ri.FS_FreeFile(fileData);
-    if (error)
-        return 0;
-    if (!count)
-    {
-        Com_ScriptWarning("Technique '%s' has no passes.  The technique should be left blank in the techniqueset instead.\n", name);
-        return 0;
-    }
-    int passSize = count * sizeof(MaterialPassDx9);
-    int nameSize = strlen(name) + 1;
-    MaterialTechnique *technique = (MaterialTechnique *)ri.Hunk_AllocInternal(8 + passSize + nameSize);
-    technique->name = (char *)technique + 8 + passSize;
-    memcpy((void *)technique->name, name, nameSize);
-    technique->flags = flags;
-    technique->passCount = count;
-    memcpy(&technique->passArray, passes, passSize);
-    return technique;
-}
-
-// PINNED 1001ba70..1001bcb3: DX7 does not write technique->flags.
-MaterialTechnique *Material_LoadTechniqueDx7(const char *name)
-{
-    char path[64];
-    void *fileData;
-    Com_sprintf(path, sizeof(path), "materials_dx7/techniques/%s.tech", name);
-    if (ri.FS_ReadFile(path, &fileData) < 0)
-    {
-        Com_ScriptWarning("Couldn't open technique '%s'\n", path);
-        return 0;
-    }
-    const char *text = (const char *)fileData;
-    Com_BeginParseSession(path);
-    Com_SetScriptWarningPrefix("^1ERROR: ");
-    Com_SetSpaceDelimited(0);
-    unsigned short count = 0;
-    MaterialPassDx7 passes[4];
-    Bool error = 0;
-    do
-    {
-        const char *token = Com_Parse(&text);
-        if (!token[0])
-            break;
-        if (token[0] != '{')
-        {
-            Com_ScriptWarning("expected '{' but found '%s'\n", token);
-            error = 1;
-            break;
-        }
-        if (!Material_LoadPassDx7(&text, &passes[count]) || !Com_MatchToken(&text, "}", 1))
-        {
-            error = 1;
-            break;
-        }
-        ++count;
-    } while (count < 4);
-    Com_EndParseSession();
-    ri.FS_FreeFile(fileData);
-    if (error)
-        return 0;
-    if (!count)
-    {
-        Com_ScriptWarning("Technique '%s' has no passes.  The technique should be left blank in the techniqueset instead.\n", name);
-        return 0;
-    }
-    int passSize = count * sizeof(MaterialPassDx7);
-    int nameSize = strlen(name) + 1;
-    MaterialTechnique *technique = (MaterialTechnique *)ri.Hunk_AllocInternal(8 + passSize + nameSize);
-    technique->name = (char *)technique + 8 + passSize;
-    memcpy((void *)technique->name, name, nameSize);
-    technique->passCount = count;
-    memcpy(&technique->passArray, passes, passSize);
-    return technique;
-}
-
-// PINNED 1001bde0: cached techniques bypass renderer selection and file loading.
-MaterialTechnique *Material_LoadCachedTechnique(const char *name)
-{
-    MaterialTechnique *technique = Material_FindTechnique(name);
-    if (technique)
-        return technique;
-    if (r_rendererInUse->current.integer == 2)
-    {
-        technique = Material_LoadTechniqueDx7(name);
-        if (!technique)
+        if (!Com_MatchToken(text, ".", 1))
             return 0;
+        const char *name = Com_Parse(text);
+        argument->type = 4;
+        argument->u.name = Material_RegisterString(name);
+        return argument->u.name ? 1 : 0;
     }
-    else
-    {
-        technique = Material_LoadTechniqueDx9(name);
-        if (!technique)
-            return 0;
-    }
-    Material_SetTechnique(name, technique);
-    return technique;
+    Com_ScriptWarning("expected 'sampler' or 'material', found '%s' instead\n", token);
+    return 0;
 }
 
-// PINNED 1001c010..1001c23b: grouped labels share one technique; inactive groups skip loading.
-MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
+// PINNED 10019700: array and subtable entries are not scalar sampler sources.
+Bool Material_FindScalarSamplerSource(const char *name, const CodeSamplerSource *sources,
+    MaterialShaderArgument *argument)
 {
-    char path[64];
-    void *fileData;
-    Com_sprintf(path, sizeof(path), r_rendererInUse->current.integer == 2
-        ? "materials_dx7/techniquesets/%s.techset" : "materials/techniquesets/%s.techset", name);
-    if (ri.FS_ReadFile(path, &fileData) < 0)
-    {
-        Com_Printf("^1ERROR: Couldn't open techniqueSet '%s'\n", path);
+    for (int index = 0; sources[index].name; ++index)
+        if (!sources[index].subtable && !sources[index].arrayCount
+            && !strcmp(name, sources[index].name))
+        {
+            argument->u.codeSampler = sources[index].source;
+            return 1;
+        }
+    return 0;
+}
+
+Bool Material_ParseVector(const char **text, int elemCount, float *vector)
+{
+    int index;
+    const char *token;
+
+    if (!Com_MatchToken(text, "(", 1))
         return 0;
-    }
-    int nameSize = strlen(name) + 1;
-    MaterialTechniqueSet *set = (MaterialTechniqueSet *)ri.Hunk_AllocInternal(sizeof(MaterialTechniqueSet) + nameSize);
-    set->name = (const char *)(set + 1);
-    memcpy((void *)set->name, name, nameSize);
-    const char *text = (const char *)fileData;
-    Com_BeginParseSession(path);
-    Com_SetScriptWarningPrefix("^1ERROR: ");
-    Com_SetSpaceDelimited(0);
-    Com_SetKeepStringQuotes(1);
-    int labelCount = 0;
-    int labels[34];
-    Bool used = 0;
+    index = 0;
     for (;;)
     {
-        const char *token = Com_Parse(&text);
-        if (!token[0])
-            break;
-        if (token[0] == '"')
+        vector[index] = Com_ParseFloat(text);
+        if (++index == elemCount)
+            return Com_MatchToken(text, ")", 1) != 0;
+        token = Com_ParseInternal(text);
+        if (strcmp(token, ","))
         {
-            if (labelCount == 34)
-            {
-                Com_ScriptWarning("Too many labels in technique set\n");
-                set = 0;
-                break;
-            }
-            unsigned int type = Material_TechniqueTypeForName(token);
-            labels[labelCount] = type;
-            if (type == 34)
-                goto unknown_type;
-            if (g_useTechnique[type])
-                used = 1;
-            ++labelCount;
-            if (!Com_MatchToken(&text, ":", 1))
-                goto parse_error;
-            continue;
+            Com_ScriptWarning("MatchToken: %s != %s\n", token, ",");
+            return 0;
         }
-        if (!labelCount)
-            goto unknown_type;
-        if (used)
-        {
-            MaterialTechnique *technique = Material_LoadCachedTechnique(token);
-            if (!technique)
-                goto parse_error;
-            for (int index = 0; index < labelCount; ++index)
-                set->techniques[labels[index]] = technique;
-        }
-        labelCount = 0;
-        used = 0;
-        if (!Com_MatchToken(&text, ";", 1))
-            goto parse_error;
-        continue;
-unknown_type:
-        Com_ScriptWarning("Unknown technique type '%s'\n", token);
-parse_error:
-        set = 0;
-        break;
     }
-    Com_EndParseSession();
-    ri.FS_FreeFile(fileData);
-    return set;
 }
 
-// PINNED 1001c240..1001c28e: failed loads are never inserted into the cache.
-MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name)
+// These helper names describe the pinned1001aaf0--1001ad10 bodies.
+Bool Material_ParseEmptyFunctionCall(const char **text)
 {
-    MaterialTechniqueSet *set = Material_FindTechniqueSet(name);
-    if (set)
-        return set;
-    set = Material_LoadTechniqueSet(name);
-    if (!set)
-        return 0;
-    Material_SetTechniqueSet(name, set);
-    return set;
+    return Com_MatchToken(text, "(", 1) && Com_MatchToken(text, ")", 1)
+        && Com_MatchToken(text, ";", 1);
+}
+
+void Material_SetPassOptionDx7(const PassOptionDx7 *option, Bool enabled,
+    MaterialPassDx7 *pass)
+{
+    *((byte *)pass + option->valueOffset) = enabled;
+}
+
+void Material_InitPassOptionsDx7(MaterialPassDx7 *pass)
+{
+    for (unsigned int index = 0; index < sizeof(s_passOptionsDx7) / sizeof(s_passOptionsDx7[0]); ++index)
+        *((byte *)pass + s_passOptionsDx7[index].valueOffset) = 0;
+}
+
+// PINNED 100198c0: recognized types return success even when value parsing fails.
+Bool Material_ParseLiteralVector(const char **text, const char *type, float *literal)
+{
+    literal[0] = 0.0f;
+    literal[1] = 0.0f;
+    literal[2] = 0.0f;
+    literal[3] = 1.0f;
+    if (!strcmp(type, "float1"))
+    {
+        Material_ParseVector(text, 1, literal);
+        return 1;
+    }
+    if (!strcmp(type, "float2"))
+    {
+        Material_ParseVector(text, 2, literal);
+        return 1;
+    }
+    if (!strcmp(type, "float3"))
+    {
+        Material_ParseVector(text, 3, literal);
+        return 1;
+    }
+    if (!strcmp(type, "float4"))
+    {
+        Material_ParseVector(text, 4, literal);
+        return 1;
+    }
+    return 0;
 }
 
 // PINNED 10019e10: array entries are allowed; only subtables are excluded.
@@ -2125,15 +1351,626 @@ Bool Material_SetPassShaderArguments(const char **text, const MaterialShader *sh
     return success;
 }
 
-GfxImage *Image_Register(const char *name, int semantic, int imageTrack);
-water_t *R_LoadWaterSetup(const water_t *water);
+// PINNED 1001aaa0: state, declaration, vertex shader, then pixel shader.
+Bool Material_LoadPassDx9(const char **text, MaterialPassDx9 *pass, byte *techFlags)
+{
+    if (!Material_LoadPassStateMap(text, &pass->stateMap)
+        || !Material_LoadPassVertexDecl(text, pass)
+        || !Material_LoadPassVertexShader(text, pass, techFlags))
+        return 0;
+    return Material_LoadPassPixelShader(text, pass, techFlags) != 0;
+}
 
-typedef char materialBinaryLayoutCheck[(sizeof(Material) == 68 &&
-    offsetof(Material, textureCount) == 0x34 && offsetof(Material, constantCount) == 0x36 &&
-    offsetof(Material, techniqueSet) == 0x38 && offsetof(Material, textures) == 0x3c &&
-    offsetof(Material, constants) == 0x40 && sizeof(MaterialTextureDef) == 12 &&
-    sizeof(MaterialConstantDef) == 20 && sizeof(MaterialWaterDef) == 32 &&
-    sizeof(water_t) == 68 && offsetof(water_t, image) == 64) ? 1 : -1];
+static void Material_ParsePassOptionDx7(const char **text, MaterialPassDx7 *pass,
+    Bool *finished, Bool *error)
+{
+    const char *token = Com_ParseInternal(text);
+    for (int index = 0; index != 5; ++index)
+    {
+        if (!strcmp(s_passOptionsDx7[index].name, token))
+        {
+            if (!Material_ParseEmptyFunctionCall(text))
+                *error = 1;
+            else
+                Material_SetPassOptionDx7(&s_passOptionsDx7[index], 1, pass);
+            return;
+        }
+    }
+    *finished = 1;
+    Com_UngetToken();
+}
+
+Bool Material_LoadPassOptionsDx7(const char **text, MaterialPassDx7 *pass)
+{
+    Bool finished;
+    Bool error;
+    Material_InitPassOptionsDx7(pass);
+    error = 0;
+    finished = 0;
+    while (!error)
+    {
+        Material_ParsePassOptionDx7(text, pass, &finished, &error);
+        if (finished)
+            break;
+    }
+    return !error;
+}
+
+// PINNED1001ad80: modifiers survive subsequent syntax/source failures.
+Bool Material_ParseTextureArgumentDx7(const char **text, int samplerIndex, int *argument)
+{
+    *argument = 0;
+    for (;;)
+    {
+        const char *token = Com_ParseInternal(text);
+        if (!strcmp(token, "complement"))
+            *argument |= 8;
+        else if (!strcmp(token, "alphaReplicate"))
+            *argument |= 16;
+        else if (!strcmp(token, "vertex"))
+        {
+            if (!Com_MatchToken(text, ".", 1) || !Com_MatchToken(text, "color", 1))
+                return 0;
+            *argument |= 2;
+            return 1;
+        }
+        else if (!strcmp(token, "texture"))
+        {
+            if (!Material_ParseIndex(text, samplerIndex))
+                return 0;
+            *argument |= 5;
+            return 1;
+        }
+        else if (!strcmp(token, "stage"))
+        {
+            if (!samplerIndex)
+            {
+                Com_ScriptWarning("'stage' is not valid for the first texture.  Use 'vertex.color' instead.\n");
+                return 0;
+            }
+            if (!Material_ParseIndex(text, samplerIndex - 1))
+                return 0;
+            *argument |= 1;
+            return 1;
+        }
+        else if (!strcmp(token, "constant"))
+        {
+            *argument |= 6;
+            return 1;
+        }
+        else
+        {
+            Com_ScriptWarning("unknown texture function argument '%s'\n", token);
+            return 0;
+        }
+    }
+}
+
+// PINNED1001af10: packed five-bit arguments start at bit10; prior bits survive.
+Bool Material_ParseTextureArgumentsDx7(const char **text, int samplerIndex,
+    int argumentCount, int *stageBits)
+{
+    if (!Com_MatchToken(text, "(", 1))
+        return 0;
+    for (int index = 0; index < argumentCount; ++index)
+    {
+        int shift = 10 + 5 * index;
+        if (shift != 10 && !Com_MatchToken(text, ",", 1))
+            return 0;
+        int argument;
+        if (!Material_ParseTextureArgumentDx7(text, samplerIndex, &argument))
+            return 0;
+        *stageBits |= argument << shift;
+    }
+    return Com_MatchToken(text, ")", 1) != 0;
+}
+
+// PINNED1001afc0: recognized operators publish their bits before parsing arguments.
+Bool Material_ParseTextureFunctionDx7(const char **text, int samplerIndex,
+    int validTest, int *stageBits)
+{
+    const char *token = Com_ParseInternal(text);
+    unsigned int index;
+    for (index = 0; index < 21; ++index)
+        if (!strcmp(token, s_textureFuncsDx7[index].name))
+            goto found;
+    {
+        Com_ScriptWarning("expected a texture function, found '%s' instead.\n", token);
+        Com_Printf("Valid texture functions:.\n", token);
+        unsigned int listIndex = 0;
+        do
+        {
+            Com_Printf("  %s\n", s_textureFuncsDx7[listIndex].name);
+            ++listIndex;
+        } while (listIndex < 21);
+        return 0;
+    }
+found:
+    if (!(validTest & s_textureFuncsDx7[index].valid))
+    {
+        Com_ScriptWarning("%s is only valid for %s", token, validTest == 1 ? "alpha" : "color");
+        return 0;
+    }
+    *stageBits = s_textureFuncsDx7[index].enumerant;
+    return Material_ParseTextureArgumentsDx7(text, samplerIndex,
+        s_textureFuncsDx7[index].argCount, stageBits) != 0;
+}
+
+// PINNED1001b270: stage[index].name = function(...); is required in full.
+Bool Material_LoadPassTextureStateDx7(const char **text, int samplerIndex,
+    const char *stateName, int validTest, int *stageBits)
+{
+    if (!Material_ParseNamedIndex(text, "stage", samplerIndex)
+        || !Com_MatchToken(text, ".", 1) || !Com_MatchToken(text, stateName, 1)
+        || !Com_MatchToken(text, "=", 1))
+        return 0;
+    if (!Material_ParseTextureFunctionDx7(text, samplerIndex, validTest, stageBits))
+        return 0;
+    return Material_MatchToken(text, ";");
+}
+
+// PINNED1001ad20: bind one named sampler without changing its destination field.
+Bool Material_LoadPassSamplerDx7(const char **text, int samplerIndex,
+    MaterialShaderArgument *argument)
+{
+    if (!Material_ParseNamedIndex(text, "texture", samplerIndex)
+        || !Com_MatchToken(text, "=", 1)
+        || !Material_ParseSamplerSource(text, argument))
+        return 0;
+    return Material_MatchToken(text, ";");
+}
+
+// PINNED1001b100: the optional declaration recognizes only these two generators.
+Bool Material_LoadPassTexCoordDx7(const char **text, int samplerIndex, byte *generator)
+{
+    *generator = 0;
+    const char *token = Com_ParseInternal(text);
+    if (strcmp(token, "texcoord"))
+    {
+        Com_UngetToken();
+        return 1;
+    }
+    if (!Com_MatchToken(text, "[", 1))
+        return 0;
+    int index = Com_ParseInt(text);
+    if (index != samplerIndex)
+    {
+        Com_ScriptWarning("expected %i, found %i instead\n", samplerIndex, index);
+        return 0;
+    }
+    if (!Com_MatchToken(text, "]", 1) || !Com_MatchToken(text, "=", 1))
+        return 0;
+    token = Com_Parse(text);
+    if (!strcmp(token, "genEyeDirCoords"))
+        *generator = 1;
+    else if (!strcmp(token, "texScroll"))
+        *generator = 2;
+    else
+    {
+        Com_ScriptWarning("expected 'genEyeDirCoords', 'genEyeFacingDotCoords', or 'texScroll', found '%s' instead.\n", token);
+        return 0;
+    }
+    if (!Com_MatchToken(text, "(", 1) || !Com_MatchToken(text, ")", 1))
+        return 0;
+    return Com_MatchToken(text, ";", 1) != 0;
+}
+
+// PINNED1001b360: require one sampler, allow two, default unused slots to white.
+Bool Material_LoadPassSamplersDx7(const char **text, MaterialPassDx7 *pass)
+{
+    unsigned short samplerIndex = 0;
+    const char *token;
+    do
+    {
+        token = Com_Parse(text);
+        if (strcmp(token, "texture"))
+            goto expected_texture;
+        token = Com_Parse(text);
+        if (strcmp(token, "["))
+            goto expected_index;
+        int index = Com_ParseInt(text);
+        if (index != samplerIndex)
+        {
+            Com_ScriptWarning("expected %i, found %i instead\n", samplerIndex, index);
+            return 0;
+        }
+        if (!Material_MatchToken(text, "]"))
+            return 0;
+        token = Com_Parse(text);
+        if (strcmp(token, "="))
+            goto expected_assignment;
+        if (!Material_ParseSamplerSource(text, &pass->samplers[samplerIndex])
+            || !Com_MatchToken(text, ";", 1))
+            return 0;
+        if (!Material_LoadPassTexCoordDx7(text, samplerIndex, &pass->genTexCoords[samplerIndex]))
+            return 0;
+        ++samplerIndex;
+        if (samplerIndex == 2)
+            break;
+        token = Com_Parse(text);
+        Bool another = strcmp(token, "texture") == 0;
+        Com_UngetToken();
+        if (!another)
+            break;
+    } while (1);
+    for (; samplerIndex < 2; ++samplerIndex)
+    {
+        pass->samplers[samplerIndex].dest = samplerIndex;
+        pass->samplers[samplerIndex].type = 3;
+        pass->samplers[samplerIndex].u.codeSampler = 1;
+        pass->genTexCoords[samplerIndex] = 0;
+    }
+    return 1;
+expected_texture:
+    Com_ScriptWarning("MatchToken: %s != %s\n", token, "texture");
+    return 0;
+expected_index:
+    Com_ScriptWarning("MatchToken: %s != %s\n", token, "[");
+    return 0;
+expected_assignment:
+    Com_ScriptWarning("MatchToken: %s != %s\n", token, "=");
+    return 0;
+}
+
+// PINNED1001b670: one through eight RGB/alpha stage pairs, then zero-fill.
+Bool Material_LoadPassStagesDx7(const char **text, MaterialPassDx7 *pass)
+{
+    unsigned short stageIndex = 0;
+    do
+    {
+        int *colorBits = &pass->colorStageBits[stageIndex];
+        int *alphaBits = &pass->alphaStageBits[stageIndex];
+        *colorBits = 0;
+        if (!Material_LoadPassTextureStateDx7(text, stageIndex, "rgb", 1,
+                colorBits))
+            return 0;
+        *alphaBits = 0;
+        if (!Material_LoadPassTextureStateDx7(text, stageIndex, "a", 2,
+                alphaBits))
+            return 0;
+        ++stageIndex;
+        if (stageIndex == 8)
+            break;
+        Bool another = Com_Parse(text)[0] != '}';
+        Com_UngetToken();
+        if (!another)
+            break;
+    } while (1);
+    for (; stageIndex < 8; ++stageIndex)
+    {
+        pass->colorStageBits[stageIndex] = 0;
+        pass->alphaStageBits[stageIndex] = 0;
+    }
+    return 1;
+}
+
+// PINNED1001b7c0: the surrounding technique owns the pass braces.
+Bool Material_LoadPassDx7(const char **text, MaterialPassDx7 *pass)
+{
+    if (!Material_LoadPassStateMap(text, &pass->stateMap)
+        || !Material_LoadPassOptionsDx7(text, pass)
+        || !Material_LoadPassSamplersDx7(text, pass))
+        return 0;
+    return Material_LoadPassStagesDx7(text, pass) != 0;
+}
+
+// PINNED 10019480: leave the offset untouched on every parse/range failure.
+__declspec(noinline) Bool Material_ParseArrayOffset(const char **text, int arrayCount, int stride, int *offset)
+{
+    if (!Com_MatchToken(text, "[", 1))
+        return 0;
+    int index = Com_ParseInt(text);
+    if (index < 0 || index >= arrayCount)
+    {
+        Com_ScriptWarning("array index must be in range [0, %i]\n", arrayCount - 1);
+        return 0;
+    }
+    if (!Com_MatchToken(text, "]", 1))
+        return 0;
+    *offset = index * stride;
+    return 1;
+}
+
+static __declspec(noinline) Bool Material_CodeSamplerSource_r(const char **text, int offset,
+    const CodeSamplerSource *sources, MaterialShaderArgument *argument)
+{
+    int index;
+    while (Com_MatchToken(text, ".", 1))
+    {
+        const char *token = Com_Parse(text);
+        for (index = 0; sources[index].name; ++index)
+            if (!strcmp(token, sources[index].name))
+                goto found;
+        Com_ScriptWarning("unknown sampler source '%s'\n", token);
+        return 0;
+found:
+        const CodeSamplerSource *entry = &sources[index];
+        if (entry->arrayCount)
+        {
+            int arrayOffset;
+            if (!Material_ParseArrayOffset(text, entry->arrayCount,
+                    entry->arrayStride, &arrayOffset))
+                return 0;
+            offset += arrayOffset;
+        }
+        if (!entry->subtable)
+        {
+            argument->u.codeSampler = sources[index].source + offset;
+            return 1;
+        }
+        sources = entry->subtable;
+    }
+    return 0;
+}
+
+// PINNED 1001b810..1001ba62: four passes maximum; do not consume a fifth.
+MaterialTechnique *Material_LoadTechniqueDx9(const char *name)
+{
+    char path[64];
+    void *fileData;
+    Com_sprintf(path, sizeof(path), "materials/techniques/%s.tech", name);
+    if (ri.FS_ReadFile(path, &fileData) < 0)
+    {
+        Com_ScriptWarning("Couldn't open technique '%s'\n", path);
+        return 0;
+    }
+    const char *text = (const char *)fileData;
+    Com_BeginParseSession(path);
+    Com_SetScriptWarningPrefix("^1ERROR: ");
+    Com_SetSpaceDelimited(0);
+    unsigned short flags = 0;
+    unsigned short count = 0;
+    MaterialPassDx9 passes[4];
+    Bool error = 0;
+    do
+    {
+        const char *token = Com_Parse(&text);
+        if (!token[0])
+            break;
+        if (token[0] != '{')
+        {
+            Com_ScriptWarning("expected '{' but found '%s'\n", token);
+            error = 1;
+            break;
+        }
+        if (!Material_LoadPassDx9(&text, &passes[count], (byte *)&flags)
+            || !Com_MatchToken(&text, "}", 1))
+        {
+            error = 1;
+            break;
+        }
+        ++count;
+    } while (count < 4);
+    Com_EndParseSession();
+    ri.FS_FreeFile(fileData);
+    if (error)
+        return 0;
+    if (!count)
+    {
+        Com_ScriptWarning("Technique '%s' has no passes.  The technique should be left blank in the techniqueset instead.\n", name);
+        return 0;
+    }
+    int passSize = count * sizeof(MaterialPassDx9);
+    int nameSize = strlen(name) + 1;
+    MaterialTechnique *technique = (MaterialTechnique *)ri.Hunk_AllocInternal(8 + passSize + nameSize);
+    technique->name = (char *)technique + 8 + passSize;
+    memcpy((void *)technique->name, name, nameSize);
+    technique->flags = flags;
+    technique->passCount = count;
+    memcpy(&technique->passArray, passes, passSize);
+    return technique;
+}
+
+// PINNED 1001ba70..1001bcb3: DX7 does not write technique->flags.
+MaterialTechnique *Material_LoadTechniqueDx7(const char *name)
+{
+    char path[64];
+    void *fileData;
+    Com_sprintf(path, sizeof(path), "materials_dx7/techniques/%s.tech", name);
+    if (ri.FS_ReadFile(path, &fileData) < 0)
+    {
+        Com_ScriptWarning("Couldn't open technique '%s'\n", path);
+        return 0;
+    }
+    const char *text = (const char *)fileData;
+    Com_BeginParseSession(path);
+    Com_SetScriptWarningPrefix("^1ERROR: ");
+    Com_SetSpaceDelimited(0);
+    unsigned short count = 0;
+    MaterialPassDx7 passes[4];
+    Bool error = 0;
+    do
+    {
+        const char *token = Com_Parse(&text);
+        if (!token[0])
+            break;
+        if (token[0] != '{')
+        {
+            Com_ScriptWarning("expected '{' but found '%s'\n", token);
+            error = 1;
+            break;
+        }
+        if (!Material_LoadPassDx7(&text, &passes[count]) || !Com_MatchToken(&text, "}", 1))
+        {
+            error = 1;
+            break;
+        }
+        ++count;
+    } while (count < 4);
+    Com_EndParseSession();
+    ri.FS_FreeFile(fileData);
+    if (error)
+        return 0;
+    if (!count)
+    {
+        Com_ScriptWarning("Technique '%s' has no passes.  The technique should be left blank in the techniqueset instead.\n", name);
+        return 0;
+    }
+    int passSize = count * sizeof(MaterialPassDx7);
+    int nameSize = strlen(name) + 1;
+    MaterialTechnique *technique = (MaterialTechnique *)ri.Hunk_AllocInternal(8 + passSize + nameSize);
+    technique->name = (char *)technique + 8 + passSize;
+    memcpy((void *)technique->name, name, nameSize);
+    technique->passCount = count;
+    memcpy(&technique->passArray, passes, passSize);
+    return technique;
+}
+
+// PINNED 1001bde0: cached techniques bypass renderer selection and file loading.
+MaterialTechnique *Material_LoadCachedTechnique(const char *name)
+{
+    MaterialTechnique *technique = Material_FindTechnique(name);
+    if (technique)
+        return technique;
+    if (r_rendererInUse->current.integer == 2)
+    {
+        technique = Material_LoadTechniqueDx7(name);
+        if (!technique)
+            return 0;
+    }
+    else
+    {
+        technique = Material_LoadTechniqueDx9(name);
+        if (!technique)
+            return 0;
+    }
+    Material_SetTechnique(name, technique);
+    return technique;
+}
+
+int Material_TechniqueTypeForName(const char *name)
+{
+    const char *techniqueNames[34];
+    unsigned int techniqueIndex;
+
+    techniqueNames[0] = "\"depth prepass\"";
+    techniqueNames[1] = "\"sky\"";
+    techniqueNames[2] = "\"build floatz\"";
+    techniqueNames[3] = "\"unlit no fog\"";
+    techniqueNames[4] = "\"unlit linear fog\"";
+    techniqueNames[5] = "\"unlit exp fog\"";
+    techniqueNames[6] = "\"lightmap no fog\"";
+    techniqueNames[7] = "\"lightmap linear fog\"";
+    techniqueNames[8] = "\"lightmap exp fog\"";
+    techniqueNames[9] = "\"lightprobe no fog\"";
+    techniqueNames[10] = "\"lightprobe linear fog\"";
+    techniqueNames[11] = "\"lightprobe exp fog\"";
+    techniqueNames[12] = "\"lightprobe smodel no fog\"";
+    techniqueNames[13] = "\"lightprobe smodel linear fog\"";
+    techniqueNames[14] = "\"lightprobe smodel exp fog\"";
+    techniqueNames[15] = "\"lightprobe smodel cached no fog\"";
+    techniqueNames[16] = "\"lightprobe smodel cached linear fog\"";
+    techniqueNames[17] = "\"lightprobe smodel cached exp fog\"";
+    techniqueNames[18] = "\"pointlight no fog\"";
+    techniqueNames[19] = "\"pointlight linear fog\"";
+    techniqueNames[20] = "\"pointlight exp fog\"";
+    techniqueNames[21] = "\"emissive no fog\"";
+    techniqueNames[22] = "\"emissive linear fog\"";
+    techniqueNames[23] = "\"emissive exp fog\"";
+    techniqueNames[24] = "\"emissive feathered no fog\"";
+    techniqueNames[25] = "\"emissive feathered linear fog\"";
+    techniqueNames[26] = "\"emissive feathered exp fog\"";
+    techniqueNames[27] = "\"fakelight normal\"";
+    techniqueNames[28] = "\"fakelight view\"";
+    techniqueNames[29] = "\"solid wireframe\"";
+    techniqueNames[30] = "\"shaded wireframe\"";
+    techniqueNames[31] = "\"shadowcookie caster\"";
+    techniqueNames[32] = "\"shadowcookie receiver\"";
+    techniqueNames[33] = "\"debug bumpmap\"";
+    for (techniqueIndex = 0; techniqueIndex < 34; ++techniqueIndex)
+    {
+        if (!strcmp(name, techniqueNames[techniqueIndex]))
+            return techniqueIndex;
+    }
+    return 34;
+}
+
+// PINNED 1001c010..1001c23b: grouped labels share one technique; inactive groups skip loading.
+MaterialTechniqueSet *Material_LoadTechniqueSet(const char *name)
+{
+    char path[64];
+    void *fileData;
+    Com_sprintf(path, sizeof(path), r_rendererInUse->current.integer == 2
+        ? "materials_dx7/techniquesets/%s.techset" : "materials/techniquesets/%s.techset", name);
+    if (ri.FS_ReadFile(path, &fileData) < 0)
+    {
+        Com_Printf("^1ERROR: Couldn't open techniqueSet '%s'\n", path);
+        return 0;
+    }
+    int nameSize = strlen(name) + 1;
+    MaterialTechniqueSet *set = (MaterialTechniqueSet *)ri.Hunk_AllocInternal(sizeof(MaterialTechniqueSet) + nameSize);
+    set->name = (const char *)(set + 1);
+    memcpy((void *)set->name, name, nameSize);
+    const char *text = (const char *)fileData;
+    Com_BeginParseSession(path);
+    Com_SetScriptWarningPrefix("^1ERROR: ");
+    Com_SetSpaceDelimited(0);
+    Com_SetKeepStringQuotes(1);
+    int labelCount = 0;
+    int labels[34];
+    Bool used = 0;
+    for (;;)
+    {
+        const char *token = Com_Parse(&text);
+        if (!token[0])
+            break;
+        if (token[0] == '"')
+        {
+            if (labelCount == 34)
+            {
+                Com_ScriptWarning("Too many labels in technique set\n");
+                set = 0;
+                break;
+            }
+            unsigned int type = Material_TechniqueTypeForName(token);
+            labels[labelCount] = type;
+            if (type == 34)
+                goto unknown_type;
+            if (g_useTechnique[type])
+                used = 1;
+            ++labelCount;
+            if (!Com_MatchToken(&text, ":", 1))
+                goto parse_error;
+            continue;
+        }
+        if (!labelCount)
+            goto unknown_type;
+        if (used)
+        {
+            MaterialTechnique *technique = Material_LoadCachedTechnique(token);
+            if (!technique)
+                goto parse_error;
+            for (int index = 0; index < labelCount; ++index)
+                set->techniques[labels[index]] = technique;
+        }
+        labelCount = 0;
+        used = 0;
+        if (!Com_MatchToken(&text, ";", 1))
+            goto parse_error;
+        continue;
+unknown_type:
+        Com_ScriptWarning("Unknown technique type '%s'\n", token);
+parse_error:
+        set = 0;
+        break;
+    }
+    Com_EndParseSession();
+    ri.FS_FreeFile(fileData);
+    return set;
+}
+
+// PINNED 1001c240..1001c28e: failed loads are never inserted into the cache.
+MaterialTechniqueSet *Material_LoadCachedTechniqueSet(const char *name)
+{
+    MaterialTechniqueSet *set = Material_FindTechniqueSet(name);
+    if (set)
+        return set;
+    set = Material_LoadTechniqueSet(name);
+    if (!set)
+        return 0;
+    Material_SetTechniqueSet(name, set);
+    return set;
+}
 
 // PINNED 1001c4e0/603: serialized pointers are offsets from the material base, including zero.
 bool Material_FixupBinary(Material *material, int imageTrack)
@@ -2224,3 +2061,263 @@ Material *Material_LoadBinary(const char *name, int imageTrack)
     return Material_FixupBinary(material, imageTrack) ? material : 0;
 }
 
+// PINNED 1001c7f0/173: name and text share one allocation; read results are not checked here.
+void Material_CacheShaderText(const char *name, const char *prefix, GfxCachedShaderText *cached)
+{
+    char path[64];
+    Com_sprintf(path, sizeof(path), "materials/shaders/%s%s", prefix, name);
+    fileHandle_t file;
+    int length = ri.FS_FOpenFileRead(path, &file, 1);
+    char *buffer = (char *)ri.Hunk_AllocAlignInternal(strlen(prefix) + strlen(name) + length + 2, 1);
+    cached->name = buffer;
+    int nameLength = sprintf(buffer, "%s%s", prefix, name);
+    char *text = buffer + (nameLength + 1);
+    cached->text = text;
+    ri.FS_Read(text, length, file);
+    ri.FS_FCloseFile(file);
+    text[length] = 0;
+    cached->textSize = length;
+}
+
+// PINNED 1001c8d0/83: sort is case-sensitive although cache lookup uses _stricmp.
+bool Material_CompareShaderText(const GfxCachedShaderText &left, const GfxCachedShaderText &right)
+{
+    return strcmp(left.name, right.name) < 0;
+}
+
+// PINNED 1001c930/288: publish the existing cache, sort with the original compiler library.
+void Material_PreloadShaderText()
+{
+    int shaderCount, libraryCount;
+    char **shaders = ri.FS_ListFiles("materials/shaders/", "hlsl", 0, &shaderCount, 20);
+    char **libraries = ri.FS_ListFiles("materials/shaders/lib/", "hlsl", 0, &libraryCount, 20);
+    mtlLoadGlob.cachedCount = shaderCount + libraryCount;
+    mtlLoadGlob.cached = (GfxCachedShaderText *)ri.Hunk_AllocInternal(
+        mtlLoadGlob.cachedCount * sizeof(GfxCachedShaderText));
+    GfxCachedShaderText *cached = mtlLoadGlob.cached;
+    for (int index = 0; index < shaderCount; ++index, ++cached)
+        Material_CacheShaderText(shaders[index], "", cached);
+    cached = mtlLoadGlob.cached + shaderCount;
+    for (int index = 0; index < libraryCount; ++index, ++cached)
+        Material_CacheShaderText(libraries[index], "lib/", cached);
+    std::sort(mtlLoadGlob.cached, mtlLoadGlob.cached + mtlLoadGlob.cachedCount,
+        Material_CompareShaderText);
+    ri.FS_FreeFileList(libraries, 20);
+    ri.FS_FreeFileList(shaders, 20);
+}
+
+// Retail passes the material in EDI (LTCG).
+static bool Material_ValidatePassArguments(const Material *material, const char *techniqueSetName, const char *techniqueName, int argCount, const MaterialShaderArgument *args)
+{
+    int argIndex;
+    int index;
+
+    for (argIndex = 0; argIndex < argCount; ++argIndex)
+    {
+        if (args[argIndex].type == 2)
+        {
+            for (index = 0; index < material->constantCount; ++index)
+            {
+                if (material->constants[index].name == args[argIndex].u.name)
+                    break;
+            }
+            if (index >= material->constantCount)
+            {
+                Com_Printf("material '%s' using technique '%s' from techniqueSet '%s' doesn't expose a '%s' constant\n",
+                    material->info.name, techniqueName, techniqueSetName, args[argIndex].u.name);
+                return false;
+            }
+        }
+        else if (args[argIndex].type == 4)
+        {
+            for (index = 0; index < material->textureCount; ++index)
+            {
+                if (material->textures[index].name == args[argIndex].u.name)
+                    break;
+            }
+            if (index >= material->textureCount)
+            {
+                Com_Printf("material '%s' using technique '%s' from techniqueSet '%s' doesn't expose a '%s' texture\n",
+                    material->info.name, techniqueName, techniqueSetName, args[argIndex].u.name);
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+static bool Material_ValidateTechniqueDx7(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
+{
+    int passIndex;
+
+    for (passIndex = 0; passIndex < technique->passCount; ++passIndex)
+    {
+        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, 2, technique->passArray.dx7[passIndex].samplers))
+            return false;
+    }
+    return true;
+}
+
+// Name unconfirmed.
+static bool Material_ValidateTechnique(const Material *material, const char *techniqueSetName, const MaterialTechnique *technique)
+{
+    int passIndex;
+    const MaterialPassDx9 *pass;
+
+    if (r_rendererInUse->current.integer == 2)
+        return Material_ValidateTechniqueDx7(material, techniqueSetName, technique);
+    for (passIndex = 0; passIndex < technique->passCount; ++passIndex)
+    {
+        pass = &technique->passArray.dx9[passIndex];
+        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->vertexArgCount, pass->vertexArgs))
+            return false;
+        if (!Material_ValidatePassArguments(material, techniqueSetName, technique->name, pass->pixelArgCount, pass->pixelArgs))
+            return false;
+    }
+    return true;
+}
+
+// PINNED 10019970; descriptive name, not recovered PC debug provenance.
+__declspec(noinline) Bool Material_ParseConstantArrayOffset(const char **text, const ShaderConstantRouting *routing,
+    const CodeConstantSource *source, int *offset)
+{
+    const char *token = Com_ParseInternal(text);
+    if (token[0] != '[')
+    {
+        Com_UngetToken();
+        if (routing->elemCount > source->arrayCount)
+        {
+            Com_ScriptWarning("code constant '%s' has only %i members, but %i were requested\n",
+                source->name, source->arrayCount, routing->elemCount);
+            return 0;
+        }
+        *offset = 0;
+        return 1;
+    }
+    int index = Com_ParseInt(text);
+    if (index < 0 || index >= source->arrayCount)
+    {
+        Com_ScriptWarning("index %i is not in the range [0, %i]\n", index, source->arrayCount - 1);
+        return 0;
+    }
+    *offset = index;
+    if (routing->elemCount > 1)
+    {
+        if (!Com_MatchToken(text, ",", 1))
+            return 0;
+        int endingIndex = Com_ParseInt(text);
+        int expectedEnd = index + routing->elemCount - 1;
+        if (endingIndex != expectedEnd)
+        {
+            Com_ScriptWarning("ending index %i should be %i instead\n", endingIndex, expectedEnd);
+            return 0;
+        }
+    }
+    return Com_MatchToken(text, "]", 1) != 0;
+}
+
+// PINNED 10019a80: optional matrix rows and column-major source transposition.
+static __declspec(noinline) Bool Material_ParseCodeConstantSource_r(const char **text, const ShaderConstantRouting *routing,
+    int offset, const CodeConstantSource *sources, MaterialShaderArgument *argument)
+{
+    if (!Com_MatchToken(text, ".", 1))
+        return 0;
+    const char *token = Com_ParseInternal(text);
+    int index;
+    for (index = 0; sources[index].name; ++index)
+        if (!strcmp(token, sources[index].name))
+            goto found;
+    Com_ScriptWarning("unknown constant source '%s'\n", token);
+    return 0;
+found:
+    const CodeConstantSource *entry = &sources[index];
+    if (entry->arrayCount)
+    {
+        int arrayOffset;
+        Bool valid;
+        if (!entry->subtable && routing->elemCount > 1)
+            valid = Material_ParseConstantArrayOffset(text, routing, entry, &arrayOffset);
+        else
+            valid = Material_ParseArrayOffset(text, entry->arrayCount, entry->arrayStride, &arrayOffset);
+        if (!valid)
+            return 0;
+        offset += arrayOffset;
+    }
+    if (entry->subtable)
+        return Material_ParseCodeConstantSource_r(text, routing, offset,
+            entry->subtable, argument);
+    int source = sources[index].source + offset;
+    if (source < 187)
+    {
+        argument->u.codeConst.index = (unsigned short)source;
+        argument->u.codeConst.firstRow = 0;
+        argument->u.codeConst.rowCount = routing->elemCount;
+        return 1;
+    }
+    if (((const D3DXSHADER_TYPEINFO *)routing->typeInfo)->Class == 3)
+        source ^= 2;
+    token = Com_Parse(text);
+    if (token[0] == ';')
+    {
+        Com_UngetToken();
+        argument->u.codeConst.index = (unsigned short)source;
+        argument->u.codeConst.firstRow = 0;
+        argument->u.codeConst.rowCount = (byte)routing->constantInfo->RegisterCount;
+        return 1;
+    }
+    if (token[0] == '[')
+    {
+        argument->u.codeConst.index = (unsigned short)source;
+        int row = Com_ParseInt(text);
+        if (row < 0 || row > 3)
+        {
+            Com_ScriptWarning("row index %i should be in the range [0, 3]\n", row);
+            return 0;
+        }
+        argument->u.codeConst.firstRow = (byte)row;
+        argument->u.codeConst.rowCount = 1;
+        return Com_MatchToken(text, "]", 1) != 0;
+    }
+    Com_ScriptWarning("expected ';' or '[', found '%s' instead\n", token);
+    return 0;
+}
+
+// PINNED 10019ca0: retain the original misleading diagnostic on unknown tokens.
+Bool Material_ParseConstantSource(const char **text, const ShaderConstantRouting *routing,
+    MaterialShaderArgument *argument)
+{
+    float literal[4];
+    const char *token = Com_ParseInternal(text);
+    if (Material_ParseLiteralVector(text, token, literal))
+    {
+        if (routing->elemCount > 1)
+        {
+            Com_ScriptWarning("Each element of the array must be set to a float individually.\n");
+            return 0;
+        }
+        argument->type = 0;
+        argument->u.literalConst = Material_RegisterLiteral(literal);
+        return argument->u.literalConst ? 1 : 0;
+    }
+    if (!strcmp(token, "constant"))
+    {
+        argument->type = 1;
+        return Material_ParseCodeConstantSource_r(text, routing, 0, s_codeConsts, argument);
+    }
+    if (!strcmp(token, "material"))
+    {
+        if (routing->elemCount > 1)
+        {
+            Com_ScriptWarning("Each element of the array must be set to a material constant individually.\n");
+            return 0;
+        }
+        if (!Com_MatchToken(text, ".", 1))
+            return 0;
+        const char *name = Com_Parse(text);
+        argument->type = 2;
+        argument->u.name = Material_RegisterString(name);
+        return argument->u.name ? 1 : 0;
+    }
+    Com_ScriptWarning("expected 'sampler' or 'material', found '%s' instead\n", token);
+    return 0;
+}

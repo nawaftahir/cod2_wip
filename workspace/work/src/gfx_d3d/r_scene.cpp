@@ -93,6 +93,167 @@ void R_SetLodOrigin(const refdef_t *refdef)
 extern const dvar_t *fx_sort;
 extern const dvar_t *r_drawBModels;
 
+// PINNED 10023ed0/245: backend arrays and vertex stride used by the API callback.
+typedef char polygonLayout[
+    sizeof(srfPoly_t) == 16 && sizeof(GfxWorldVertex) == 68 &&
+    offsetof(GfxBackEndData, polyCount) == 0x187c70 &&
+    offsetof(GfxBackEndData, polys) == 0x187c74 &&
+    offsetof(GfxBackEndData, polyVertCount) == 0x18fc74 &&
+    offsetof(GfxBackEndData, polyVerts) == 0x18fc78 ? 1 : -1];
+
+void R_ClearDpvsScene();
+void R_ClearScene();
+static int R_CompareDumpSceneEntities(const void *e0, const void *e1);
+int R_CountMatchingSceneEntities(const int *sortedIndices, int entIndex);
+void R_DumpSceneEntities();
+byte LerpByte(byte from, byte to, float frac);
+void R_UpdateFrameFog();
+static int R_AllocSceneEntity();
+int R_AddStaticModelToScene(int smodelIndex);
+
+extern const dvar_t *r_dlightLimit;
+
+void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent);
+
+// PINNED PC model surface submission, 10024680/286.
+extern const dvar_t *r_showTriCounts;
+extern const dvar_t *r_showVertCounts;
+extern const dvar_t *r_showSurfCounts;
+void R_AddScaledDebugString(DebugGlobals *debug, const GfxViewParms *viewParms,
+    const float *origin, const float *color, const char *text);
+
+// PINNED 101a5a2c: writable entity surface token, followed by the stride table.
+surfaceType_t s_entitySurface = (surfaceType_t)2;
+
+// PINNED 101a5a30: byte strides, including the two unused entries.
+byte s_XModelSurfaceSize[8] = {0, 0, 0, 16, 56, 16, 0, 0};
+
+// PINNED PC ref-entity submission, 10023db0/209.
+typedef char refEntityLayoutCheck[(sizeof(GfxEntity) == 116 && sizeof(GfxSceneEntity) == 52
+    && sizeof(GfxModel) == 4 && offsetof(GfxEntity, scale) == 0x38
+    && offsetof(GfxEntity, customMaterial) == 0x54
+    && offsetof(GfxSceneEntity, u) == 4 && offsetof(GfxSceneEntity, cent) == 8
+    && offsetof(GfxBackEndData, entityCount) == 0xa000c) ? 1 : -1];
+
+extern const dvar_t *com_statmon;
+void R_DrawModel(int entIndex);
+
+// Scene rendering modes; names describe roles pinned by the retail callers.
+extern DxGlobals dx;
+extern vidConfig_t vidConfig;
+extern const dvar_t *r_clearColor;
+extern const dvar_t *r_zFeather;
+void R_AddCmdBeginView(int viewCount, const GfxSceneDef *sceneDef,
+    const GfxViewParms *viewParms, const GfxLodParms *lodParms);
+void R_AddCmdSetRenderTarget(GfxRenderTargetId renderTargetId);
+void R_AddCmdSetViewport(int x, int y, int width, int height);
+void R_AddCmdClearScreen(int whichToClear, const float *color, float depth, int stencil);
+void R_AddCmdLightProperties(int lightIndex, const GfxLight *light);
+void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
+    MaterialTechniqueType techType, GfxDrawSurfOrder order);
+void R_AddCmdDrawSun(int viewIndex);
+int R_BeginDrawGroupSection(int group);
+void R_BeginDrawGroupLoop(int group, int view);
+int R_EndDrawGroupLoop(int group, int view);
+void R_EndDrawGroupSection(int group);
+
+typedef char sceneModeLayoutCheck[
+    offsetof(DxGlobals, multiSampleQuality) == 0x2c28 &&
+    offsetof(DxGlobals, renderTargets) + 6 * sizeof(GfxRenderTarget)
+        + offsetof(GfxRenderTarget, colorSurface) == 0x2cac &&
+    offsetof(r_globals_t, fogSettings) + 2 * sizeof(GfxFog)
+        + offsetof(GfxFog, color) == 0x14b8 &&
+    offsetof(r_globals_t, fogSettings) + 2 * sizeof(GfxFog)
+        + offsetof(GfxFog, registered) == 0x14c8 ? 1 : -1];
+
+// Normal scene command generation.
+void R_AddCmdDrawFullScreenColoredQuad(float s0, float t0, float s1, float t1,
+    const vec_t *color, MaterialHandle material);
+void R_AddCmdApplyEarlyPostEffects();
+void R_AddCmdApplyLatePostEffects(float blurRadius);
+void R_AddCmdDrawSunPostEffects(int viewIndex);
+void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms, const ShadowCookieList *shadows);
+
+struct GfxSceneRenderOptions
+{
+    float blurRadius;
+    Bool fullScreen;
+};
+
+typedef char normalScenePayloadCheck[
+    sizeof(PointLightPartition) == 12 && sizeof(GfxSceneRenderOptions) == 8 &&
+    offsetof(GfxSceneRenderOptions, fullScreen) == 4 &&
+    offsetof(r_global_permanent_t, clearAlphaStencilMaterial) == 0x1048 &&
+    offsetof(r_global_permanent_t, shadowClearMaterial) == 0x104c ? 1 : -1];
+
+extern const dvar_t *r_fullbright;
+extern const dvar_t *r_debugShader;
+
+// Outer scene driver and API59 rendering callback.
+extern const dvar_t *sc_enable;
+extern const dvar_t *sc_showOverlay;
+extern const dvar_t *r_dlightLimit;
+extern const dvar_t *r_showTris;
+extern const dvar_t *r_norefresh;
+extern const dvar_t *r_debugEntCounts;
+int R_CellForPoint(const vec_t *origin);
+void R_AddWorldSurfacesDpvs(const GfxViewParms *viewParms, int cameraCell);
+void R_PopulateCandidates(const float *viewOrigin, ShadowCandidate *candidates);
+void R_SortShadowCandidates(ShadowCandidate *candidates);
+void R_BuildShadowCookieList(const GfxViewParms *viewParms, const ShadowCandidate *candidates,
+    ShadowCookieList *shadows);
+int R_GetPointLightPartitions(const GfxDrawSurf *drawSurfs, int drawSurfCount,
+    PointLightPartition *partitions, int maxPartitions);
+void R_UnlockSkinnedCache();
+void R_DrawShadowCookieOverlay();
+void RB_LogPrint(const char *text);
+__declspec(noinline) void R_AddDrawSurf(const Material *material, int entIndex, int lmapIndex, const surfaceType_t *surface);
+void R_AddPolyToScene(Material *material, int lmapIndex,
+    unsigned short vertCount, const GfxWorldVertex *verts);
+void R_AddBModelSurfaces(GfxSceneEntity *sceneEnt, int entIndex);
+static int R_CompareDumpSceneEntities(const void *e0, const void *e1);
+int R_CountMatchingSceneEntities(const int *sortedIndices, int entIndex);
+void R_DumpSceneEntities();
+static int R_AllocSceneEntity();
+int R_AddStaticModelToScene(int smodelIndex);
+byte LerpByte(byte from, byte to, float frac);
+void R_UpdateFrameFog();
+void R_ClearScene();
+void R_ResetEntries(int count, float (*entries)[17]);
+void R_AddLightToScene(const vec_t *org, float radius, float r, float g, float b);
+void R_SkinGfxEntity(GfxEntity *ent);
+void R_AddXModelSurfaces(int entIndex);
+void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel);
+static GfxEntity *R_AddModelRefEntity(const GfxEntity *refEnt, GfxModel sceneModel,
+    const centity_s *cent);
+GfxEntity *R_AddRefEntityToScene(const GfxEntity *refEnt, GfxModel sceneModel,
+    const centity_s *cent);
+void R_ShortSortDrawSurfs(GfxDrawSurf *lo, GfxDrawSurf *hi);
+void qsortDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount);
+float *R_GetClearColor(float *color);
+void R_AddClearCommandsForFrameBuffer(int dynamicShadowType);
+void R_RenderSceneDx7(int viewIndex, const GfxViewParms *viewParms,
+    GfxDrawSurf *drawSurfs, int drawSurfCount);
+void R_RenderSceneFullbright(int viewIndex, const GfxViewParms *viewParms,
+    GfxDrawSurf *drawSurfs, int drawSurfCount);
+void R_RenderSceneDebugShader(const GfxViewParms *viewParms,
+    GfxDrawSurf *drawSurfs, int drawSurfCount);
+void R_DrawPointLightSurfs(int lightCount, const PointLightPartition *partitions);
+void R_ClearFloatZ();
+void R_RenderSceneDepth(int viewIndex, const GfxViewParms *viewParms,
+    GfxDrawSurf *drawSurfs, int drawSurfCount, int dynamicShadowType);
+void R_RenderSceneNormal(int viewIndex, const GfxViewParms *viewParms,
+    const GfxSceneRenderOptions *options, GfxDrawSurf *drawSurfs, int drawSurfCount,
+    int dynamicShadowType, const ShadowCookieList *shadows,
+    const PointLightPartition *partitions, int lightCount);
+void R_RenderSceneMode(int viewIndex, const GfxViewParms *viewParms,
+    const GfxSceneRenderOptions *options, GfxDrawSurf *drawSurfs, int drawSurfCount,
+    int dynamicShadowType, const ShadowCookieList *shadows,
+    const PointLightPartition *partitions, int lightCount);
+static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
+    const GfxViewParms *viewParms, const GfxSceneRenderOptions *options);
+void R_RenderScene(const refdef_t *refdef);
+
 // PINNED 10024380/117; unsigned arithmetic preserves packed-key wraparound.
 __declspec(noinline) void R_AddDrawSurf(const Material *material, int entIndex, int lmapIndex, const surfaceType_t *surface)
 {
@@ -113,14 +274,6 @@ __declspec(noinline) void R_AddDrawSurf(const Material *material, int entIndex, 
     ++scene.drawSurfCount;
     ++data->drawSurfCount;
 }
-
-// PINNED 10023ed0/245: backend arrays and vertex stride used by the API callback.
-typedef char polygonLayout[
-    sizeof(srfPoly_t) == 16 && sizeof(GfxWorldVertex) == 68 &&
-    offsetof(GfxBackEndData, polyCount) == 0x187c70 &&
-    offsetof(GfxBackEndData, polys) == 0x187c74 &&
-    offsetof(GfxBackEndData, polyVertCount) == 0x18fc74 &&
-    offsetof(GfxBackEndData, polyVerts) == 0x18fc78 ? 1 : -1];
 
 void R_AddPolyToScene(Material *material, int lmapIndex,
     unsigned short vertCount, const GfxWorldVertex *verts)
@@ -147,30 +300,20 @@ void R_AddPolyToScene(Material *material, int lmapIndex,
     ++scene.polyCount;
 }
 
-// PINNED 10024610/99; disabled brush drawing still updates cullState.
-void R_AddBModelSurfaces(GfxSceneEntity *sceneEnt, int entIndex)
+// PINNED 10023780/128; private helper name unconfirmed.
+void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
 {
-    sceneEnt->cullState = 5;
-    if (!r_drawBModels->current.enabled)
-        return;
-    const GfxBrushModel *bmodel = sceneEnt->u.bmodel;
-    int surfIndex = bmodel->startSurfIndex;
-    for (int index = 0; index < bmodel->surfaceCount; ++index, ++surfIndex)
-    {
-        GfxSurface *surf = &rgp.world->surfaces[surfIndex];
-        R_AddDrawSurf(surf->material, entIndex, surf->lightmapIndex, surf->data);
-    }
+    GfxEntity *ent = &scene.def.entities[entIndex];
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    *ent = *refEnt;
+    if (refEnt->scale == 0.0f)
+        ent->scale = 1.0f;
+    memset(sceneEnt, 0, sizeof(*sceneEnt));
+    if (refEnt->reType >= 4)
+        R_AddDrawSurf(refEnt->customMaterial, entIndex, 31, &s_entitySurface);
+    else
+        sceneEnt->u = sceneModel;
 }
-
-void R_ClearDpvsScene();
-void R_ClearScene();
-static int R_CompareDumpSceneEntities(const void *e0, const void *e1);
-int R_CountMatchingSceneEntities(const int *sortedIndices, int entIndex);
-void R_DumpSceneEntities();
-byte LerpByte(byte from, byte to, float frac);
-void R_UpdateFrameFog();
-static int R_AllocSceneEntity();
-int R_AddStaticModelToScene(int smodelIndex);
 
 static int R_CompareDumpSceneEntities(const void *e0, const void *e1)
 {
@@ -338,68 +481,52 @@ int R_AddStaticModelToScene(int smodelIndex)
     return entIndex;
 }
 
-// PINNED 10024050/37; KisakCOD name.
-byte LerpByte(byte from, byte to, float frac)
+// PINNED 10023cc0/128; private helper name unconfirmed.
+static GfxEntity *R_AddModelRefEntity(const GfxEntity *refEnt, GfxModel sceneModel,
+    const centity_s *cent)
 {
-    return (byte)(from + (to - from) * frac);
+    int entIndex = R_AllocSceneEntity();
+    if (entIndex < 0)
+        return 0;
+    GfxEntity *ent = &scene.def.entities[entIndex];
+    *ent = *refEnt;
+    if (refEnt->scale == 0.0f)
+        ent->scale = 1.0f;
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    memset(sceneEnt, 0, sizeof(*sceneEnt));
+    sceneEnt->u = sceneModel;
+    sceneEnt->cent = cent;
+    if (refEnt->reType == 1)
+        R_DrawModel(entIndex);
+    return ent;
 }
 
-void R_UpdateFrameFog()
+// PINNED 10023db0/209: higher entity types warn before allocation is attempted.
+GfxEntity *R_AddRefEntityToScene(const GfxEntity *refEnt, GfxModel sceneModel,
+    const centity_s *cent)
 {
-    int fadeTime;
-    float lerpPos;
-
-    if (scene.def.time >= rg.fogSettings[4].finishTime)
+    static int refEntityWarnFrame;
+    if (refEnt->reType <= 1)
+        return R_AddModelRefEntity(refEnt, sceneModel, cent);
+    if (com_statmon->current.enabled && (unsigned int)frontEndDataOut->entityCount >= 7365)
+        ri.StatMon_Warning(5, 3000, "gfx/2d/warning@models.jpg");
+    if (refEnt->reType < 0 || refEnt->reType >= 10)
+        R_Error(ERR_DROP, "\x15R_AddRefEntityToScene: bad reType %i", refEnt->reType);
+    if ((unsigned int)frontEndDataOut->entityCount >= 8184)
     {
-        rg.fogSettings[2] = rg.fogSettings[4];
+        if (refEntityWarnFrame != frontEndDataOut->frameCount)
+        {
+            refEntityWarnFrame = frontEndDataOut->frameCount;
+            ri.Printf(2, "refEntity buffer exceeded - not drawing model\n");
+        }
+        return 0;
     }
-    else if (rg.fogSettings[3].techniqueOffset != rg.fogSettings[4].techniqueOffset)
-    {
-        rg.fogSettings[2] = rg.fogSettings[4];
-        rg.fogSettings[4].finishTime = 0;
-    }
-    else
-    {
-        fadeTime = rg.fogSettings[4].finishTime - rg.fogSettings[4].startTime;
-        if (fadeTime <= 0)
-            fadeTime = 1;
-        lerpPos = (float)(scene.def.time - rg.fogSettings[4].startTime) / fadeTime;
-        if (lerpPos > 1.0f)
-            lerpPos = 1.0f;
-        rg.fogSettings[2].fogStart = (rg.fogSettings[4].fogStart - rg.fogSettings[3].fogStart) * lerpPos + rg.fogSettings[3].fogStart;
-        rg.fogSettings[2].fogEnd = (rg.fogSettings[4].fogEnd - rg.fogSettings[3].fogEnd) * lerpPos + rg.fogSettings[3].fogEnd;
-        rg.fogSettings[2].density = (rg.fogSettings[4].density - rg.fogSettings[3].density) * lerpPos + rg.fogSettings[3].density;
-        rg.fogSettings[2].color.array[0] = LerpByte(rg.fogSettings[3].color.array[0], rg.fogSettings[4].color.array[0], lerpPos);
-        rg.fogSettings[2].color.array[1] = LerpByte(rg.fogSettings[3].color.array[1], rg.fogSettings[4].color.array[1], lerpPos);
-        rg.fogSettings[2].color.array[2] = LerpByte(rg.fogSettings[3].color.array[2], rg.fogSettings[4].color.array[2], lerpPos);
-        rg.fogSettings[2].color.array[3] = LerpByte(rg.fogSettings[3].color.array[3], rg.fogSettings[4].color.array[3], lerpPos);
-        rg.fogSettings[2].techniqueOffset = rg.fogSettings[4].techniqueOffset;
-        rg.fogSettings[2].registered = 1;
-        rg.fogSettings[2].clearScreen = rg.fogSettings[4].clearScreen || rg.fogSettings[3].clearScreen;
-    }
-    if (rg.fogIndex)
-        frontEndDataOut->fogSettings = rg.fogSettings[2];
-    else
-        frontEndDataOut->fogSettings.techniqueOffset = FOG_OFFSET_NONE;
+    int entIndex = R_AllocSceneEntity();
+    if (entIndex < 0)
+        return 0;
+    R_CopyRefEntityToScene(entIndex, refEnt, sceneModel);
+    return &scene.def.entities[entIndex];
 }
-
-void R_ClearScene()
-{
-    GfxBackEndData *data;
-
-    scene.viewCount++;
-    scene.dlightCount = 0;
-    scene.drawSurfCount = 0;
-    data = frontEndDataOut;
-    scene.drawSurfs = &data->drawSurfs[data->drawSurfCount];
-    scene.polyCount = 0;
-    scene.def.entityCount = 0;
-    scene.def.entities = &data->entities[data->entityCount];
-    scene.sceneEntMaterialCount = 0;
-    R_ClearDpvsScene();
-}
-
-extern const dvar_t *r_dlightLimit;
 
 // name unconfirmed (refexport slot 24); entry layout unknown, 17 floats each
 void R_ResetEntries(int count, float (*entries)[17])
@@ -451,8 +578,6 @@ void R_AddLightToScene(const vec_t *org, float radius, float r, float g, float b
     light->color[2] = b;
 }
 
-void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent);
-
 // PINNED 10023d70/61: bounds must precede DObj surface publication.
 void R_SkinGfxEntity(GfxEntity *ent)
 {
@@ -462,122 +587,49 @@ void R_SkinGfxEntity(GfxEntity *ent)
     R_SkinSceneDObj(sceneEnt, ent);
 }
 
-// PINNED PC model surface submission, 10024680/286.
-extern const dvar_t *r_showTriCounts;
-extern const dvar_t *r_showVertCounts;
-extern const dvar_t *r_showSurfCounts;
-void R_AddScaledDebugString(DebugGlobals *debug, const GfxViewParms *viewParms,
-    const float *origin, const float *color, const char *text);
-
-// PINNED 101a5a2c: writable entity surface token, followed by the stride table.
-surfaceType_t s_entitySurface = (surfaceType_t)2;
-
-// PINNED 101a5a30: byte strides, including the two unused entries.
-byte s_XModelSurfaceSize[8] = {0, 0, 0, 16, 56, 16, 0, 0};
-
-void R_AddXModelSurfaces(int entIndex)
+// PINNED 10024050/37; KisakCOD name.
+byte LerpByte(byte from, byte to, float frac)
 {
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    GfxEntity *ent = &scene.def.entities[entIndex];
-    GfxModelSurface *surface = (GfxModelSurface *)sceneEnt->surfs;
-    int triCount = 0;
-    int vertCount = 0;
-    for (int index = 0; index < sceneEnt->surfCount; ++index)
+    return (byte)(from + (to - from) * frac);
+}
+
+void R_UpdateFrameFog()
+{
+    int fadeTime;
+    float lerpPos;
+
+    if (scene.def.time >= rg.fogSettings[4].finishTime)
     {
-        const Material *material = sceneEnt->materials[index];
-        if (!material)
-            continue;
-        R_AddDrawSurf(material, surface->surfType == 5 ? 2047 : entIndex,
-            31, &surface->surfType);
-        if (r_showTriCounts->current.enabled)
-            triCount += surface->xsurf->triCount;
-        else if (r_showVertCounts->current.enabled)
-            vertCount += surface->xsurf->vertCount;
-        surface = (GfxModelSurface *)((byte *)surface + s_XModelSurfaceSize[surface->surfType]);
+        rg.fogSettings[2] = rg.fogSettings[4];
     }
-    int count;
-    if (r_showTriCounts->current.enabled)
-        count = triCount;
-    else if (r_showVertCounts->current.enabled)
-        count = vertCount;
-    else if (r_showSurfCounts->current.enabled)
-        count = sceneEnt->surfCount;
-    else
-        return;
-    R_AddScaledDebugString(&frontEndDataOut->debugGlobals, rg.debugViewParms,
-        ent->origin, colorCyan, va("%i", count));
-}
-
-// PINNED PC ref-entity submission, 10023db0/209.
-typedef char refEntityLayoutCheck[(sizeof(GfxEntity) == 116 && sizeof(GfxSceneEntity) == 52
-    && sizeof(GfxModel) == 4 && offsetof(GfxEntity, scale) == 0x38
-    && offsetof(GfxEntity, customMaterial) == 0x54
-    && offsetof(GfxSceneEntity, u) == 4 && offsetof(GfxSceneEntity, cent) == 8
-    && offsetof(GfxBackEndData, entityCount) == 0xa000c) ? 1 : -1];
-
-extern const dvar_t *com_statmon;
-void R_DrawModel(int entIndex);
-
-// PINNED 10023780/128; private helper name unconfirmed.
-void R_CopyRefEntityToScene(int entIndex, const GfxEntity *refEnt, GfxModel sceneModel)
-{
-    GfxEntity *ent = &scene.def.entities[entIndex];
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    *ent = *refEnt;
-    if (refEnt->scale == 0.0f)
-        ent->scale = 1.0f;
-    memset(sceneEnt, 0, sizeof(*sceneEnt));
-    if (refEnt->reType >= 4)
-        R_AddDrawSurf(refEnt->customMaterial, entIndex, 31, &s_entitySurface);
-    else
-        sceneEnt->u = sceneModel;
-}
-
-// PINNED 10023cc0/128; private helper name unconfirmed.
-static GfxEntity *R_AddModelRefEntity(const GfxEntity *refEnt, GfxModel sceneModel,
-    const centity_s *cent)
-{
-    int entIndex = R_AllocSceneEntity();
-    if (entIndex < 0)
-        return 0;
-    GfxEntity *ent = &scene.def.entities[entIndex];
-    *ent = *refEnt;
-    if (refEnt->scale == 0.0f)
-        ent->scale = 1.0f;
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    memset(sceneEnt, 0, sizeof(*sceneEnt));
-    sceneEnt->u = sceneModel;
-    sceneEnt->cent = cent;
-    if (refEnt->reType == 1)
-        R_DrawModel(entIndex);
-    return ent;
-}
-
-// PINNED 10023db0/209: higher entity types warn before allocation is attempted.
-GfxEntity *R_AddRefEntityToScene(const GfxEntity *refEnt, GfxModel sceneModel,
-    const centity_s *cent)
-{
-    static int refEntityWarnFrame;
-    if (refEnt->reType <= 1)
-        return R_AddModelRefEntity(refEnt, sceneModel, cent);
-    if (com_statmon->current.enabled && (unsigned int)frontEndDataOut->entityCount >= 7365)
-        ri.StatMon_Warning(5, 3000, "gfx/2d/warning@models.jpg");
-    if (refEnt->reType < 0 || refEnt->reType >= 10)
-        R_Error(ERR_DROP, "\x15R_AddRefEntityToScene: bad reType %i", refEnt->reType);
-    if ((unsigned int)frontEndDataOut->entityCount >= 8184)
+    else if (rg.fogSettings[3].techniqueOffset != rg.fogSettings[4].techniqueOffset)
     {
-        if (refEntityWarnFrame != frontEndDataOut->frameCount)
-        {
-            refEntityWarnFrame = frontEndDataOut->frameCount;
-            ri.Printf(2, "refEntity buffer exceeded - not drawing model\n");
-        }
-        return 0;
+        rg.fogSettings[2] = rg.fogSettings[4];
+        rg.fogSettings[4].finishTime = 0;
     }
-    int entIndex = R_AllocSceneEntity();
-    if (entIndex < 0)
-        return 0;
-    R_CopyRefEntityToScene(entIndex, refEnt, sceneModel);
-    return &scene.def.entities[entIndex];
+    else
+    {
+        fadeTime = rg.fogSettings[4].finishTime - rg.fogSettings[4].startTime;
+        if (fadeTime <= 0)
+            fadeTime = 1;
+        lerpPos = (float)(scene.def.time - rg.fogSettings[4].startTime) / fadeTime;
+        if (lerpPos > 1.0f)
+            lerpPos = 1.0f;
+        rg.fogSettings[2].fogStart = (rg.fogSettings[4].fogStart - rg.fogSettings[3].fogStart) * lerpPos + rg.fogSettings[3].fogStart;
+        rg.fogSettings[2].fogEnd = (rg.fogSettings[4].fogEnd - rg.fogSettings[3].fogEnd) * lerpPos + rg.fogSettings[3].fogEnd;
+        rg.fogSettings[2].density = (rg.fogSettings[4].density - rg.fogSettings[3].density) * lerpPos + rg.fogSettings[3].density;
+        rg.fogSettings[2].color.array[0] = LerpByte(rg.fogSettings[3].color.array[0], rg.fogSettings[4].color.array[0], lerpPos);
+        rg.fogSettings[2].color.array[1] = LerpByte(rg.fogSettings[3].color.array[1], rg.fogSettings[4].color.array[1], lerpPos);
+        rg.fogSettings[2].color.array[2] = LerpByte(rg.fogSettings[3].color.array[2], rg.fogSettings[4].color.array[2], lerpPos);
+        rg.fogSettings[2].color.array[3] = LerpByte(rg.fogSettings[3].color.array[3], rg.fogSettings[4].color.array[3], lerpPos);
+        rg.fogSettings[2].techniqueOffset = rg.fogSettings[4].techniqueOffset;
+        rg.fogSettings[2].registered = 1;
+        rg.fogSettings[2].clearScreen = rg.fogSettings[4].clearScreen || rg.fogSettings[3].clearScreen;
+    }
+    if (rg.fogIndex)
+        frontEndDataOut->fogSettings = rg.fogSettings[2];
+    else
+        frontEndDataOut->fogSettings.techniqueOffset = FOG_OFFSET_NONE;
 }
 
 // PINNED 10024460/70: selection sort swaps the entire surface record.
@@ -668,33 +720,35 @@ void qsortDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount)
     }
 }
 
-// Scene rendering modes; names describe roles pinned by the retail callers.
-extern DxGlobals dx;
-extern vidConfig_t vidConfig;
-extern const dvar_t *r_clearColor;
-extern const dvar_t *r_zFeather;
-void R_AddCmdBeginView(int viewCount, const GfxSceneDef *sceneDef,
-    const GfxViewParms *viewParms, const GfxLodParms *lodParms);
-void R_AddCmdSetRenderTarget(GfxRenderTargetId renderTargetId);
-void R_AddCmdSetViewport(int x, int y, int width, int height);
-void R_AddCmdClearScreen(int whichToClear, const float *color, float depth, int stencil);
-void R_AddCmdLightProperties(int lightIndex, const GfxLight *light);
-void R_AddCmdDrawSurfs(GfxDrawSurf *drawSurfs, int drawSurfCount,
-    MaterialTechniqueType techType, GfxDrawSurfOrder order);
-void R_AddCmdDrawSun(int viewIndex);
-int R_BeginDrawGroupSection(int group);
-void R_BeginDrawGroupLoop(int group, int view);
-int R_EndDrawGroupLoop(int group, int view);
-void R_EndDrawGroupSection(int group);
+// PINNED 10024610/99; disabled brush drawing still updates cullState.
+void R_AddBModelSurfaces(GfxSceneEntity *sceneEnt, int entIndex)
+{
+    sceneEnt->cullState = 5;
+    if (!r_drawBModels->current.enabled)
+        return;
+    const GfxBrushModel *bmodel = sceneEnt->u.bmodel;
+    int surfIndex = bmodel->startSurfIndex;
+    for (int index = 0; index < bmodel->surfaceCount; ++index, ++surfIndex)
+    {
+        GfxSurface *surf = &rgp.world->surfaces[surfIndex];
+        R_AddDrawSurf(surf->material, entIndex, surf->lightmapIndex, surf->data);
+    }
+}
 
-typedef char sceneModeLayoutCheck[
-    offsetof(DxGlobals, multiSampleQuality) == 0x2c28 &&
-    offsetof(DxGlobals, renderTargets) + 6 * sizeof(GfxRenderTarget)
-        + offsetof(GfxRenderTarget, colorSurface) == 0x2cac &&
-    offsetof(r_globals_t, fogSettings) + 2 * sizeof(GfxFog)
-        + offsetof(GfxFog, color) == 0x14b8 &&
-    offsetof(r_globals_t, fogSettings) + 2 * sizeof(GfxFog)
-        + offsetof(GfxFog, registered) == 0x14c8 ? 1 : -1];
+// PINNED 100247f0/296: capture each partition before emitting its commands.
+void R_DrawPointLightSurfs(int lightCount, const PointLightPartition *partitions)
+{
+    for (int i = 0; i < lightCount; ++i)
+    {
+        const GfxLight *light = partitions[i].light;
+        GfxDrawSurf *surfs = scene.drawSurfs + partitions[i].firstDrawSurf;
+        int count = partitions[i].drawSurfCount;
+        R_AddCmdDrawFullScreenColoredQuad(0.0f, 0.0f, 1.0f, 1.0f,
+            colorWhite, rgp.clearAlphaStencilMaterial);
+        R_AddCmdLightProperties(0, light);
+        R_AddCmdDrawSurfs(surfs, count, (MaterialTechniqueType)0x12, (GfxDrawSurfOrder)0);
+    }
+}
 
 // PINNED 10024920/156: fog is BGRA; the clear-color dvar is RGBA.
 float *R_GetClearColor(float *color)
@@ -728,6 +782,47 @@ void R_AddClearCommandsForFrameBuffer(int dynamicShadowType)
     float color[4];
     const float *clearColor = R_GetClearColor(color);
     R_AddCmdClearScreen(flags, clearColor, 1.0f, 0);
+}
+
+// PINNED 10024a40/53: the target constant10191488 is white, including alpha.
+void R_ClearFloatZ()
+{
+    R_AddCmdClearScreen(6, colorWhite, 1.0f, 0);
+    R_AddCmdDrawFullScreenColoredQuad(0.0f, 0.0f, 1.0f, 1.0f,
+        colorWhite, rgp.shadowClearMaterial);
+}
+
+// PINNED 10024a90/456: floatZ precedes shadow depth when available.
+void R_RenderSceneDepth(int viewIndex, const GfxViewParms *viewParms,
+    GfxDrawSurf *drawSurfs, int drawSurfCount, int dynamicShadowType)
+{
+    if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled
+        && dx.renderTargets[6].colorSurface)
+    {
+        if (!R_BeginDrawGroupSection(0))
+        {
+            R_AddCmdSetRenderTarget((GfxRenderTargetId)6);
+            R_ClearFloatZ();
+        }
+        R_BeginDrawGroupLoop(0, viewIndex);
+        R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, &rg.lodParms);
+        R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, (MaterialTechniqueType)2, (GfxDrawSurfOrder)0);
+        R_EndDrawGroupLoop(0, viewIndex);
+        R_EndDrawGroupSection(0);
+    }
+    else if (dynamicShadowType == 1)
+    {
+        if (!R_BeginDrawGroupSection(0))
+        {
+            R_AddCmdSetRenderTarget((GfxRenderTargetId)3);
+            R_AddCmdClearScreen(7, colorWhite, 1.0f, 0);
+        }
+        R_BeginDrawGroupLoop(0, viewIndex);
+        R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, &rg.lodParms);
+        R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, (MaterialTechniqueType)0, (GfxDrawSurfOrder)0);
+        R_EndDrawGroupLoop(0, viewIndex);
+        R_EndDrawGroupSection(0);
+    }
 }
 
 // PINNED 10024c80/261: DX7 base, lighting and emissive passes share one view.
@@ -776,82 +871,6 @@ void R_RenderSceneDebugShader(const GfxViewParms *viewParms,
     R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, (MaterialTechniqueType)0x21, (GfxDrawSurfOrder)0);
 }
 
-// Normal scene command generation.
-void R_AddCmdDrawFullScreenColoredQuad(float s0, float t0, float s1, float t1,
-    const vec_t *color, MaterialHandle material);
-void R_AddCmdApplyEarlyPostEffects();
-void R_AddCmdApplyLatePostEffects(float blurRadius);
-void R_AddCmdDrawSunPostEffects(int viewIndex);
-void R_DrawShadowCookies(int viewIndex, const GfxViewParms *viewParms, const ShadowCookieList *shadows);
-
-struct GfxSceneRenderOptions
-{
-    float blurRadius;
-    Bool fullScreen;
-};
-
-typedef char normalScenePayloadCheck[
-    sizeof(PointLightPartition) == 12 && sizeof(GfxSceneRenderOptions) == 8 &&
-    offsetof(GfxSceneRenderOptions, fullScreen) == 4 &&
-    offsetof(r_global_permanent_t, clearAlphaStencilMaterial) == 0x1048 &&
-    offsetof(r_global_permanent_t, shadowClearMaterial) == 0x104c ? 1 : -1];
-
-// PINNED 100247f0/296: capture each partition before emitting its commands.
-void R_DrawPointLightSurfs(int lightCount, const PointLightPartition *partitions)
-{
-    for (int i = 0; i < lightCount; ++i)
-    {
-        const GfxLight *light = partitions[i].light;
-        GfxDrawSurf *surfs = scene.drawSurfs + partitions[i].firstDrawSurf;
-        int count = partitions[i].drawSurfCount;
-        R_AddCmdDrawFullScreenColoredQuad(0.0f, 0.0f, 1.0f, 1.0f,
-            colorWhite, rgp.clearAlphaStencilMaterial);
-        R_AddCmdLightProperties(0, light);
-        R_AddCmdDrawSurfs(surfs, count, (MaterialTechniqueType)0x12, (GfxDrawSurfOrder)0);
-    }
-}
-
-// PINNED 10024a40/53: the target constant10191488 is white, including alpha.
-void R_ClearFloatZ()
-{
-    R_AddCmdClearScreen(6, colorWhite, 1.0f, 0);
-    R_AddCmdDrawFullScreenColoredQuad(0.0f, 0.0f, 1.0f, 1.0f,
-        colorWhite, rgp.shadowClearMaterial);
-}
-
-// PINNED 10024a90/456: floatZ precedes shadow depth when available.
-void R_RenderSceneDepth(int viewIndex, const GfxViewParms *viewParms,
-    GfxDrawSurf *drawSurfs, int drawSurfCount, int dynamicShadowType)
-{
-    if (r_rendererInUse->current.integer != 2 && r_zFeather->current.enabled
-        && dx.renderTargets[6].colorSurface)
-    {
-        if (!R_BeginDrawGroupSection(0))
-        {
-            R_AddCmdSetRenderTarget((GfxRenderTargetId)6);
-            R_ClearFloatZ();
-        }
-        R_BeginDrawGroupLoop(0, viewIndex);
-        R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, &rg.lodParms);
-        R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, (MaterialTechniqueType)2, (GfxDrawSurfOrder)0);
-        R_EndDrawGroupLoop(0, viewIndex);
-        R_EndDrawGroupSection(0);
-    }
-    else if (dynamicShadowType == 1)
-    {
-        if (!R_BeginDrawGroupSection(0))
-        {
-            R_AddCmdSetRenderTarget((GfxRenderTargetId)3);
-            R_AddCmdClearScreen(7, colorWhite, 1.0f, 0);
-        }
-        R_BeginDrawGroupLoop(0, viewIndex);
-        R_AddCmdBeginView(scene.viewCount, &scene.def, viewParms, &rg.lodParms);
-        R_AddCmdDrawSurfs(drawSurfs, drawSurfCount, (MaterialTechniqueType)0, (GfxDrawSurfOrder)0);
-        R_EndDrawGroupLoop(0, viewIndex);
-        R_EndDrawGroupSection(0);
-    }
-}
-
 // PINNED 10025040/694: preserve delayed-group boundaries and live post settings.
 void R_RenderSceneNormal(int viewIndex, const GfxViewParms *viewParms,
     const GfxSceneRenderOptions *options, GfxDrawSurf *drawSurfs, int drawSurfCount,
@@ -894,9 +913,6 @@ void R_RenderSceneNormal(int viewIndex, const GfxViewParms *viewParms,
     R_AddCmdDrawSunPostEffects(viewIndex);
 }
 
-extern const dvar_t *r_fullbright;
-extern const dvar_t *r_debugShader;
-
 // PINNED 10025300/126: fullbright wins over DX7, then shader debug, then normal.
 void R_RenderSceneMode(int viewIndex, const GfxViewParms *viewParms,
     const GfxSceneRenderOptions *options, GfxDrawSurf *drawSurfs, int drawSurfCount,
@@ -913,25 +929,6 @@ void R_RenderSceneMode(int viewIndex, const GfxViewParms *viewParms,
         R_RenderSceneNormal(viewIndex, viewParms, options, drawSurfs, drawSurfCount,
             dynamicShadowType, shadows, partitions, lightCount);
 }
-
-// Outer scene driver and API59 rendering callback.
-extern const dvar_t *sc_enable;
-extern const dvar_t *sc_showOverlay;
-extern const dvar_t *r_dlightLimit;
-extern const dvar_t *r_showTris;
-extern const dvar_t *r_norefresh;
-extern const dvar_t *r_debugEntCounts;
-int R_CellForPoint(const vec_t *origin);
-void R_AddWorldSurfacesDpvs(const GfxViewParms *viewParms, int cameraCell);
-void R_PopulateCandidates(const float *viewOrigin, ShadowCandidate *candidates);
-void R_SortShadowCandidates(ShadowCandidate *candidates);
-void R_BuildShadowCookieList(const GfxViewParms *viewParms, const ShadowCandidate *candidates,
-    ShadowCookieList *shadows);
-int R_GetPointLightPartitions(const GfxDrawSurf *drawSurfs, int drawSurfCount,
-    PointLightPartition *partitions, int maxPartitions);
-void R_UnlockSkinnedCache();
-void R_DrawShadowCookieOverlay();
-void RB_LogPrint(const char *text);
 
 // PINNED 10025380/386: snapshot the base draw list after marks/effects emit it.
 static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
@@ -972,6 +969,22 @@ static void R_GenerateSceneCommands(const GfxViewParms *cullView, int viewIndex,
         R_DrawShadowCookieOverlay();
 }
 
+void R_ClearScene()
+{
+    GfxBackEndData *data;
+
+    scene.viewCount++;
+    scene.dlightCount = 0;
+    scene.drawSurfCount = 0;
+    data = frontEndDataOut;
+    scene.drawSurfs = &data->drawSurfs[data->drawSurfCount];
+    scene.polyCount = 0;
+    scene.def.entityCount = 0;
+    scene.def.entities = &data->entities[data->entityCount];
+    scene.sceneEntMaterialCount = 0;
+    R_ClearDpvsScene();
+}
+
 // PINNED 100257a0/371: genuine API59 slot36; refdef's view index is at+84.
 void R_RenderScene(const refdef_t *refdef)
 {
@@ -1001,4 +1014,37 @@ void R_RenderScene(const refdef_t *refdef)
         ri.Dvar_SetInt(debugCounts, 0);
         R_DumpSceneEntities();
     }
+}
+
+void R_AddXModelSurfaces(int entIndex)
+{
+    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
+    GfxEntity *ent = &scene.def.entities[entIndex];
+    GfxModelSurface *surface = (GfxModelSurface *)sceneEnt->surfs;
+    int triCount = 0;
+    int vertCount = 0;
+    for (int index = 0; index < sceneEnt->surfCount; ++index)
+    {
+        const Material *material = sceneEnt->materials[index];
+        if (!material)
+            continue;
+        R_AddDrawSurf(material, surface->surfType == 5 ? 2047 : entIndex,
+            31, &surface->surfType);
+        if (r_showTriCounts->current.enabled)
+            triCount += surface->xsurf->triCount;
+        else if (r_showVertCounts->current.enabled)
+            vertCount += surface->xsurf->vertCount;
+        surface = (GfxModelSurface *)((byte *)surface + s_XModelSurfaceSize[surface->surfType]);
+    }
+    int count;
+    if (r_showTriCounts->current.enabled)
+        count = triCount;
+    else if (r_showVertCounts->current.enabled)
+        count = vertCount;
+    else if (r_showSurfCounts->current.enabled)
+        count = sceneEnt->surfCount;
+    else
+        return;
+    R_AddScaledDebugString(&frontEndDataOut->debugGlobals, rg.debugViewParms,
+        ent->origin, colorCyan, va("%i", count));
 }

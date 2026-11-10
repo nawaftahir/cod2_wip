@@ -23,6 +23,115 @@ struct ImageGlobals
 
 ImageGlobals imageGlobals;
 
+// PINNED: PC 0x101ce890 holds 13 programmable images, each 36 bytes.
+GfxImage g_imageProgs[13];
+const char *g_imageProgNames[13] = {
+    "$dynamic_shadows", "$shadow_cookie", "$shadow_cookie_blur", "$floatz",
+    "$blurred_screen", "$glow_0", "$glow_1", "$pingpong_0", "$pingpong_1",
+    "$resolved_post_sun", "$resolved_scene", "$savedscreen", "$raw"
+};
+static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data);
+static void R_AddImageToList(GfxImage *image, void *data);
+void R_GetImageList(ImageList *list);
+static Bool Image_IsCodeTrack(int track);
+void R_ResetImageAllocations();
+void R_FreeImageAllocations();
+int R_GetMinSpecImageMemory();
+void R_GetImageMemory(Image_MemUsage *usage);
+
+// PINNED101a59fc/101a5a24: track labels and platform labels, respectively.
+static const char *imageTypeName[10] = {
+    "misc  ", "debug ", "$tex+?", "ui    ", "lmap  ",
+    "light ", "f/x   ", "hud   ", "model ", "world "
+};
+static const char *g_platform_name[2] = {"current", " min_pc"};
+
+int I_stricmp(const char *first, const char *second);
+
+extern const dvar_t *r_picmip_manual;
+extern const dvar_t *r_picmip;
+extern const dvar_t *r_picmip_bump;
+extern const dvar_t *r_picmip_spec;
+unsigned int R_AvailableTextureMemory();
+
+// PINNED: retail 0x1000d680 uses unsigned memory thresholds.
+void R_SetPicmip();
+
+int Image_GetCardMemoryAmount(int imageFlags, D3DFORMAT format, int width, int height, int depth);
+int Image_GetPlatformScreenWidth(int platform);
+int Image_GetPlatformScreenHeight(int platform);
+void Image_TrackFullscreenTexture(GfxImage *image, int picmip, D3DFORMAT format);
+void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int width, int height, int depth);
+inline bool Image_IsCodeImage(const GfxImage *image);
+GfxImage *Image_FindExisting(const char *name);
+static int Image_GetAvailableHashLocation(const char *name);
+GfxImage *Image_AllocProg(int imageProgType, int category);
+void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_Create3DTexture(GfxImage *image, int width, int height, int depth, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_CreateCubeTexture(GfxImage *image, int edgeLen, int mipmapCount, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_SetupRenderTarget(GfxImage *image, int width, int height, D3DFORMAT format);
+void Image_SetupSystem(GfxImage *image, int width, int height, D3DFORMAT format);
+GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
+void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip);
+void Image_Release(GfxImage *image);
+
+void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);
+
+Bool Image_LoadFromFile(GfxImage *image);
+
+GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack);
+
+qboolean R_WatersEquivalent(const water_t *w0, const water_t *w1);
+void R_CreateWaterSetup(const water_t *source, int waterMapSetupIndex, water_t *destination);
+
+// PINNED 1000d320/202: rebuild the existing lookup without changing its tracking.
+void RB_UnbindImage(const GfxImage *image);
+void Image_BuildSpecularityMap(float shift, unsigned char *pic);
+void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubeFace,
+    unsigned int mipLevel, const unsigned char *pixels);
+
+typedef char specularityOwnerCheck[(offsetof(r_global_permanent_t, specularityImage) == 0x1014
+    && offsetof(GfxImage, texture) == 4) ? 1 : -1];
+__declspec(noinline) void R_DownsampleMipMapBilinear(const byte *src, int srcBufferSize,
+    int srcWidth, int srcHeight, int texelPitch, byte *dst, int dstBufferSize);
+static Bool Image_IsCodeTrack(int track);
+static void R_AddImageToList(GfxImage *image, void *data);
+void R_GetImageList(ImageList *list);
+void R_GetImageMemory(Image_MemUsage *usage);
+int R_GetMinSpecImageMemory();
+void R_ResetImageAllocations();
+void R_FreeImageAllocations();
+static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data);
+static int imagecompare(GfxImage *first, GfxImage *second);
+void R_ImageList_f();
+void Image_Release(GfxImage *image);
+int Image_GetPlatformScreenWidth(int platform);
+int Image_GetPlatformScreenHeight(int platform);
+void Image_TrackFullscreenTexture(GfxImage *image, int picmip, D3DFORMAT format);
+void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int width, int height, int depth);
+static int Image_GetAvailableHashLocation(const char *name);
+GfxImage *Image_AllocProg(int imageProgType, int category);
+GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
+inline bool Image_IsCodeImage(const GfxImage *image);
+void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_Create3DTexture(GfxImage *image, int width, int height, int depth, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_CreateCubeTexture(GfxImage *image, int edgeLen, int mipmapCount, D3DFORMAT imageFormat, D3DPOOL memPool);
+void Image_SetupRenderTarget(GfxImage *image, int width, int height, D3DFORMAT format);
+void Image_SetupSystem(GfxImage *image, int width, int height, D3DFORMAT format);
+void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip);
+GfxImage *Image_FindExisting(const char *name);
+void R_ShutdownImages();
+void R_ReleaseLostImages();
+void R_ReloadLostImages();
+void Image_Reload(GfxImage *image);
+GfxImage *Image_Register(const char *name, int semantic, int imageTrack);
+IDirect3DSurface9 *Image_GetSurface(GfxImage *image);
+void R_SetPicmip();
+void R_RegisterBuiltinImages();
+void R_InitImages();
+water_t *R_LoadWaterSetup(const water_t *water);
+void Image_RebuildCosinePowerMap(float shift);
+
 // PINNED 1000de10: source and destination may be the same mip buffer.
 __declspec(noinline) void R_DownsampleMipMapBilinear(const byte *src, int srcBufferSize,
     int srcWidth, int srcHeight, int texelPitch, byte *dst, int dstBufferSize)
@@ -62,22 +171,6 @@ __declspec(noinline) void R_DownsampleMipMapBilinear(const byte *src, int srcBuf
         dst += dstRowPitch;
     }
 }
-
-// PINNED: PC 0x101ce890 holds 13 programmable images, each 36 bytes.
-GfxImage g_imageProgs[13];
-const char *g_imageProgNames[13] = {
-    "$dynamic_shadows", "$shadow_cookie", "$shadow_cookie_blur", "$floatz",
-    "$blurred_screen", "$glow_0", "$glow_1", "$pingpong_0", "$pingpong_1",
-    "$resolved_post_sun", "$resolved_scene", "$savedscreen", "$raw"
-};
-static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data);
-static void R_AddImageToList(GfxImage *image, void *data);
-void R_GetImageList(ImageList *list);
-static Bool Image_IsCodeTrack(int track);
-void R_ResetImageAllocations();
-void R_FreeImageAllocations();
-int R_GetMinSpecImageMemory();
-void R_GetImageMemory(Image_MemUsage *usage);
 
 // PINNED1000c7c0: preserve the signed track test, including negative inputs.
 static Bool Image_IsCodeTrack(int track)
@@ -126,170 +219,6 @@ int R_GetMinSpecImageMemory()
 {
     return imageGlobals.totalMemory[1];
 }
-
-// PINNED1000c8d0; this accessor is also present as a public retail body.
-// PINNED 1000ce60/1000ce70: these PC API callbacks contain only RET.
-void R_ResetImageAllocations()
-{
-}
-
-void R_FreeImageAllocations()
-{
-}
-
-// PINNED1000d480: programmable images are excluded by their whole address range.
-static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data)
-{
-    for (unsigned int index = 0; index < 2048; ++index)
-    {
-        GfxImage *image = imageGlobals.imageHashTable[index];
-        if (image && (image < g_imageProgs || image >= g_imageProgs + 13))
-            callback(image, data);
-    }
-}
-
-// PINNED101a59fc/101a5a24: track labels and platform labels, respectively.
-static const char *imageTypeName[10] = {
-    "misc  ", "debug ", "$tex+?", "ui    ", "lmap  ",
-    "light ", "f/x   ", "hud   ", "model ", "world "
-};
-static const char *g_platform_name[2] = {"current", " min_pc"};
-
-// PINNED1000d900: ascending track, then ascending current-platform memory.
-static int imagecompare(GfxImage *first, GfxImage *second)
-{
-    if (first->track > second->track)
-        return 0;
-    if (first->track < second->track)
-        return 1;
-    return first->cardMemory.platform[0] < second->cardMemory.platform[0];
-}
-
-int I_stricmp(const char *first, const char *second);
-
-// PINNED1000d940: PC has13 programmable images and the real SDK texture descs.
-void R_ImageList_f()
-{
-    ImageList list;
-    int imageTrack[10][2];
-    int total[2];
-    Bool listAllImages = 0;
-    int index;
-    int platform;
-    if (ri.Cmd_Argc() == 2 && !I_stricmp(ri.Cmd_Argv(1), "all"))
-        listAllImages = 1;
-    memset(total, 0, sizeof(total));
-    memset(imageTrack, 0, sizeof(imageTrack));
-    R_GetImageList(&list);
-    if (listAllImages)
-    {
-        for (index = 0; index < 13; ++index)
-        {
-            if ((unsigned int)list.count >= 2048)
-                break;
-            if (g_imageProgs[index].mapType)
-                list.image[list.count++] = &g_imageProgs[index];
-        }
-    }
-    std::sort(list.image, list.image + list.count, imagecompare);
-    ri.Printf(0, "\n-if-- ");
-    for (platform = 0; platform < 2; ++platform)
-        ri.Printf(0, "%s", g_platform_name[platform]);
-    ri.Printf(0, "  --name-------\n");
-    for (index = 0; index < list.count; ++index)
-    {
-        GfxImage *image = list.image[index];
-        D3DVOLUME_DESC volumeDesc;
-        D3DSURFACE_DESC surfaceDesc;
-        D3DFORMAT format;
-        switch (image->mapType)
-        {
-        case 3:
-            image->texture.map->GetLevelDesc(0, &surfaceDesc);
-            format = surfaceDesc.Format;
-            break;
-        case 4:
-            image->texture.volmap->GetLevelDesc(0, &volumeDesc);
-            format = volumeDesc.Format;
-            break;
-        case 5:
-            image->texture.cubemap->GetLevelDesc(0, &surfaceDesc);
-            format = surfaceDesc.Format;
-            break;
-        default:
-            return;
-        }
-        switch (format)
-        {
-        case D3DFMT_X8R8G8B8: ri.Printf(0, "RGB32 "); break;
-        case D3DFMT_A8R8G8B8: ri.Printf(0, "RGBA32"); break;
-        case D3DFMT_A8: ri.Printf(0, "A8    "); break;
-        case D3DFMT_L8: ri.Printf(0, "L8    "); break;
-        case D3DFMT_R5G6B5: ri.Printf(0, "RGB16 "); break;
-        case D3DFMT_A8L8: ri.Printf(0, "AL16  "); break;
-        case D3DFMT_DXT1: ri.Printf(0, "DXT1  "); break;
-        case D3DFMT_DXT3: ri.Printf(0, "DXT3  "); break;
-        case D3DFMT_DXT5: ri.Printf(0, "DXT5  "); break;
-        case D3DFMT_R32F: ri.Printf(0, "R32F  "); break;
-        }
-        ri.Printf(0, "  %s", imageTypeName[image->track]);
-        for (platform = 0; platform < 2; ++platform)
-        {
-            float sizeKB = image->cardMemory.platform[platform] * 0.0009765625f;
-            ri.Printf(0, sizeKB < 10.0f ? "%7.1f" : "%7.0f", (double)sizeKB);
-            int memory = image->cardMemory.platform[platform];
-            imageTrack[image->track][platform] += memory;
-            if (listAllImages || !Image_IsCodeTrack(image->track))
-                total[platform] += memory;
-        }
-        ri.Printf(0, "  %s\n", image->name);
-    }
-    ri.Printf(0, " ---------\n");
-    ri.Printf(0, " %i total images\n", list.count);
-    for (platform = 0; platform < 2; ++platform)
-        ri.Printf(0, " %5.1f MB %s total image size\n",
-            (double)(total[platform] * 9.5367431640625e-7f), g_platform_name[platform]);
-    ri.Printf(0, "\n");
-    ri.Printf(0, "       ");
-    for (platform = 0; platform < 2; ++platform)
-        ri.Printf(0, "%s", g_platform_name[platform]);
-    ri.Printf(0, "\n");
-    for (index = 0; index < 10; ++index)
-    {
-        ri.Printf(0, "%s:", imageTypeName[index]);
-        for (platform = 0; platform < 2; ++platform)
-            ri.Printf(0, "  %5.1f", (double)(imageTrack[index][platform] * 9.5367431640625e-7f));
-        ri.Printf(0, "  MB\n");
-    }
-    ri.Printf(0, "Related commands: meminfo, imagelist, gfx_world, gfx_model, cg_drawfps, com_statmon, tempmeminfo\n");
-}
-
-extern const dvar_t *r_picmip_manual;
-extern const dvar_t *r_picmip;
-extern const dvar_t *r_picmip_bump;
-extern const dvar_t *r_picmip_spec;
-unsigned int R_AvailableTextureMemory();
-
-// PINNED: retail 0x1000d680 uses unsigned memory thresholds.
-void R_SetPicmip();
-
-int Image_GetCardMemoryAmount(int imageFlags, D3DFORMAT format, int width, int height, int depth);
-int Image_GetPlatformScreenWidth(int platform);
-int Image_GetPlatformScreenHeight(int platform);
-void Image_TrackFullscreenTexture(GfxImage *image, int picmip, D3DFORMAT format);
-void Image_TrackTexture(GfxImage *image, int imageFlags, D3DFORMAT format, int width, int height, int depth);
-inline bool Image_IsCodeImage(const GfxImage *image);
-GfxImage *Image_FindExisting(const char *name);
-static int Image_GetAvailableHashLocation(const char *name);
-GfxImage *Image_AllocProg(int imageProgType, int category);
-void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
-void Image_Create3DTexture(GfxImage *image, int width, int height, int depth, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool);
-void Image_CreateCubeTexture(GfxImage *image, int edgeLen, int mipmapCount, D3DFORMAT imageFormat, D3DPOOL memPool);
-void Image_SetupRenderTarget(GfxImage *image, int width, int height, D3DFORMAT format);
-void Image_SetupSystem(GfxImage *image, int width, int height, D3DFORMAT format);
-GfxImage *Image_Alloc(const char *name, int category, int semantic, int imageTrack);
-void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip);
-void Image_Release(GfxImage *image);
 
 // PINNED: retail 0x1000c910; the same release path is inlined in lost-image cleanup.
 void Image_Release(GfxImage *image)
@@ -449,6 +378,43 @@ inline bool Image_IsCodeImage(const GfxImage *image)
     return address >= (uintptr_t)g_imageProgs && address < (uintptr_t)(g_imageProgs + 13);
 }
 
+// PINNED 1000cd10: preserve programmable images and rebuild their hash entries.
+void R_ShutdownImages()
+{
+    if (!dx.deviceLost)
+        for (int sampler = 0; sampler < vidConfig.maxTextureMaps; ++sampler)
+            RB_SetSampler(sampler, 0, 0);
+    GfxImage *keep[2048];
+    int keepCount = 0;
+    for (unsigned int index = 0; index < 2048; ++index)
+    {
+        GfxImage *image = imageGlobals.imageHashTable[index];
+        if (image)
+        {
+            if (Image_IsCodeImage(image))
+                keep[keepCount++] = image;
+            else
+                Image_Release(image);
+        }
+    }
+    memset(imageGlobals.imageHashTable, 0, sizeof(imageGlobals.imageHashTable));
+    for (int index = 0; index < keepCount; ++index)
+    {
+        GfxImage *image = keep[index];
+        imageGlobals.imageHashTable[Image_GetAvailableHashLocation(image->name)] = image;
+    }
+}
+
+// PINNED1000c8d0; this accessor is also present as a public retail body.
+// PINNED 1000ce60/1000ce70: these PC API callbacks contain only RET.
+void R_ResetImageAllocations()
+{
+}
+
+void R_FreeImageAllocations()
+{
+}
+
 void Image_Create2DTexture(GfxImage *image, unsigned short width, unsigned short height, int mipmapCount, DWORD usage, D3DFORMAT imageFormat, D3DPOOL memPool)
 {
     HRESULT hr;
@@ -557,33 +523,23 @@ GfxImage *Image_FindExisting(const char *name)
     return Image_IsCodeImage(image) ? 0 : image;
 }
 
-void RB_SetSampler(int samplerIndex, unsigned char samplerState, GfxImage *image);
-
-// PINNED 1000cd10: preserve programmable images and rebuild their hash entries.
-void R_ShutdownImages()
+// PINNED 1000d200/94; also inlined in Material_FixupBinary at1001c4e0.
+GfxImage *Image_Register(const char *name, int semantic, int imageTrack)
 {
-    if (!dx.deviceLost)
-        for (int sampler = 0; sampler < vidConfig.maxTextureMaps; ++sampler)
-            RB_SetSampler(sampler, 0, 0);
-    GfxImage *keep[2048];
-    int keepCount = 0;
-    for (unsigned int index = 0; index < 2048; ++index)
+    GfxImage *image = Image_FindExisting(name);
+    if (image)
+        return image;
+    if (name[0] == '$')
+        image = Image_LoadBuiltin(name, (byte)semantic, imageTrack);
+    else
     {
-        GfxImage *image = imageGlobals.imageHashTable[index];
-        if (image)
-        {
-            if (Image_IsCodeImage(image))
-                keep[keepCount++] = image;
-            else
-                Image_Release(image);
-        }
+        image = Image_Alloc(name, 3, semantic, imageTrack);
+        if (!Image_LoadFromFile(image))
+            image = 0;
     }
-    memset(imageGlobals.imageHashTable, 0, sizeof(imageGlobals.imageHashTable));
-    for (int index = 0; index < keepCount; ++index)
-    {
-        GfxImage *image = keep[index];
-        imageGlobals.imageHashTable[Image_GetAvailableHashLocation(image->name)] = image;
-    }
+    if (!image)
+        R_Error(ERR_DROP, "failed to load image '%s'", name);
+    return image;
 }
 
 void R_ReleaseLostImages()
@@ -611,8 +567,6 @@ void R_ReloadLostImages()
     }
 }
 
-Bool Image_LoadFromFile(GfxImage *image);
-
 // PINNED 1000d450/42: release first, then reload or raise ERR_DROP.
 void Image_Reload(GfxImage *image)
 {
@@ -621,25 +575,31 @@ void Image_Reload(GfxImage *image)
         R_Error(ERR_DROP, "failed to load image '%s'", image->name);
 }
 
-GfxImage *Image_LoadBuiltin(const char *name, int semantic, int imageTrack);
-
-// PINNED 1000d200/94; also inlined in Material_FixupBinary at1001c4e0.
-GfxImage *Image_Register(const char *name, int semantic, int imageTrack)
+void Image_RebuildCosinePowerMap(float shift)
 {
-    GfxImage *image = Image_FindExisting(name);
-    if (image)
-        return image;
-    if (name[0] == '$')
-        image = Image_LoadBuiltin(name, (byte)semantic, imageTrack);
-    else
+    byte pixels[32 * 256];
+    if (r_rendererInUse->current.integer == 2)
+        return;
+    RB_UnbindImage(rgp.specularityImage);
+    do
     {
-        image = Image_Alloc(name, 3, semantic, imageTrack);
-        if (!Image_LoadFromFile(image))
-            image = 0;
+        rgp.specularityImage->texture.basemap->Release();
+        rgp.specularityImage->texture.basemap = 0;
+    } while (alwaysfails);
+    Image_Create2DTexture(rgp.specularityImage, 32, 256, 1, 0, D3DFMT_L8, D3DPOOL_MANAGED);
+    Image_BuildSpecularityMap(shift, pixels);
+    Image_UploadData(rgp.specularityImage, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+}
+
+// PINNED1000d480: programmable images are excluded by their whole address range.
+static void Image_Iterate(void (*callback)(GfxImage *, void *), void *data)
+{
+    for (unsigned int index = 0; index < 2048; ++index)
+    {
+        GfxImage *image = imageGlobals.imageHashTable[index];
+        if (image && (image < g_imageProgs || image >= g_imageProgs + 13))
+            callback(image, data);
     }
-    if (!image)
-        R_Error(ERR_DROP, "failed to load image '%s'", name);
-    return image;
 }
 
 IDirect3DSurface9 *Image_GetSurface(GfxImage *image)
@@ -812,9 +772,6 @@ void R_InitImages()
     rgp.rawTexdef.u.image = rgp.rawImage;
 }
 
-qboolean R_WatersEquivalent(const water_t *w0, const water_t *w1);
-void R_CreateWaterSetup(const water_t *source, int waterMapSetupIndex, water_t *destination);
-
 water_t *R_LoadWaterSetup(const water_t *water)
 {
 	int waterCount;
@@ -836,27 +793,109 @@ water_t *R_LoadWaterSetup(const water_t *water)
 	return &rg.sceneWaterMapSetups[waterMapSetupIndex];
 }
 
-// PINNED 1000d320/202: rebuild the existing lookup without changing its tracking.
-void RB_UnbindImage(const GfxImage *image);
-void Image_BuildSpecularityMap(float shift, unsigned char *pic);
-void Image_UploadData(GfxImage *image, D3DFORMAT format, D3DCUBEMAP_FACES cubeFace,
-    unsigned int mipLevel, const unsigned char *pixels);
-
-typedef char specularityOwnerCheck[(offsetof(r_global_permanent_t, specularityImage) == 0x1014
-    && offsetof(GfxImage, texture) == 4) ? 1 : -1];
-
-void Image_RebuildCosinePowerMap(float shift)
+// PINNED1000d900: ascending track, then ascending current-platform memory.
+static int imagecompare(GfxImage *first, GfxImage *second)
 {
-    byte pixels[32 * 256];
-    if (r_rendererInUse->current.integer == 2)
-        return;
-    RB_UnbindImage(rgp.specularityImage);
-    do
+    if (first->track > second->track)
+        return 0;
+    if (first->track < second->track)
+        return 1;
+    return first->cardMemory.platform[0] < second->cardMemory.platform[0];
+}
+
+// PINNED1000d940: PC has13 programmable images and the real SDK texture descs.
+void R_ImageList_f()
+{
+    ImageList list;
+    int imageTrack[10][2];
+    int total[2];
+    Bool listAllImages = 0;
+    int index;
+    int platform;
+    if (ri.Cmd_Argc() == 2 && !I_stricmp(ri.Cmd_Argv(1), "all"))
+        listAllImages = 1;
+    memset(total, 0, sizeof(total));
+    memset(imageTrack, 0, sizeof(imageTrack));
+    R_GetImageList(&list);
+    if (listAllImages)
     {
-        rgp.specularityImage->texture.basemap->Release();
-        rgp.specularityImage->texture.basemap = 0;
-    } while (alwaysfails);
-    Image_Create2DTexture(rgp.specularityImage, 32, 256, 1, 0, D3DFMT_L8, D3DPOOL_MANAGED);
-    Image_BuildSpecularityMap(shift, pixels);
-    Image_UploadData(rgp.specularityImage, D3DFMT_L8, D3DCUBEMAP_FACE_POSITIVE_X, 0, pixels);
+        for (index = 0; index < 13; ++index)
+        {
+            if ((unsigned int)list.count >= 2048)
+                break;
+            if (g_imageProgs[index].mapType)
+                list.image[list.count++] = &g_imageProgs[index];
+        }
+    }
+    std::sort(list.image, list.image + list.count, imagecompare);
+    ri.Printf(0, "\n-if-- ");
+    for (platform = 0; platform < 2; ++platform)
+        ri.Printf(0, "%s", g_platform_name[platform]);
+    ri.Printf(0, "  --name-------\n");
+    for (index = 0; index < list.count; ++index)
+    {
+        GfxImage *image = list.image[index];
+        D3DVOLUME_DESC volumeDesc;
+        D3DSURFACE_DESC surfaceDesc;
+        D3DFORMAT format;
+        switch (image->mapType)
+        {
+        case 3:
+            image->texture.map->GetLevelDesc(0, &surfaceDesc);
+            format = surfaceDesc.Format;
+            break;
+        case 4:
+            image->texture.volmap->GetLevelDesc(0, &volumeDesc);
+            format = volumeDesc.Format;
+            break;
+        case 5:
+            image->texture.cubemap->GetLevelDesc(0, &surfaceDesc);
+            format = surfaceDesc.Format;
+            break;
+        default:
+            return;
+        }
+        switch (format)
+        {
+        case D3DFMT_X8R8G8B8: ri.Printf(0, "RGB32 "); break;
+        case D3DFMT_A8R8G8B8: ri.Printf(0, "RGBA32"); break;
+        case D3DFMT_A8: ri.Printf(0, "A8    "); break;
+        case D3DFMT_L8: ri.Printf(0, "L8    "); break;
+        case D3DFMT_R5G6B5: ri.Printf(0, "RGB16 "); break;
+        case D3DFMT_A8L8: ri.Printf(0, "AL16  "); break;
+        case D3DFMT_DXT1: ri.Printf(0, "DXT1  "); break;
+        case D3DFMT_DXT3: ri.Printf(0, "DXT3  "); break;
+        case D3DFMT_DXT5: ri.Printf(0, "DXT5  "); break;
+        case D3DFMT_R32F: ri.Printf(0, "R32F  "); break;
+        }
+        ri.Printf(0, "  %s", imageTypeName[image->track]);
+        for (platform = 0; platform < 2; ++platform)
+        {
+            float sizeKB = image->cardMemory.platform[platform] * 0.0009765625f;
+            ri.Printf(0, sizeKB < 10.0f ? "%7.1f" : "%7.0f", (double)sizeKB);
+            int memory = image->cardMemory.platform[platform];
+            imageTrack[image->track][platform] += memory;
+            if (listAllImages || !Image_IsCodeTrack(image->track))
+                total[platform] += memory;
+        }
+        ri.Printf(0, "  %s\n", image->name);
+    }
+    ri.Printf(0, " ---------\n");
+    ri.Printf(0, " %i total images\n", list.count);
+    for (platform = 0; platform < 2; ++platform)
+        ri.Printf(0, " %5.1f MB %s total image size\n",
+            (double)(total[platform] * 9.5367431640625e-7f), g_platform_name[platform]);
+    ri.Printf(0, "\n");
+    ri.Printf(0, "       ");
+    for (platform = 0; platform < 2; ++platform)
+        ri.Printf(0, "%s", g_platform_name[platform]);
+    ri.Printf(0, "\n");
+    for (index = 0; index < 10; ++index)
+    {
+        ri.Printf(0, "%s:", imageTypeName[index]);
+        for (platform = 0; platform < 2; ++platform)
+            ri.Printf(0, "  %5.1f", (double)(imageTrack[index][platform] * 9.5367431640625e-7f));
+        ri.Printf(0, "  MB\n");
+    }
+    ri.Printf(0, "Related commands: meminfo, imagelist, gfx_world, gfx_model, cg_drawfps, com_statmon, tempmeminfo\n");
 }

@@ -6,12 +6,6 @@
 static int registeredFontCount;
 static Font_s *registeredFont[16];
 
-// PINNED in 10013080: keep stale entries; the count owns their visibility.
-void R_ShutdownFonts()
-{
-    registeredFontCount = 0;
-}
-
 Material *Material_Register(const char *name, int imageTrack);
 
 Font_s *R_LoadFont(const char *name, int imageTrack);
@@ -22,23 +16,32 @@ float R_NormalizedTextScale(Font_s *font, float scale);
 int R_TextWidth(const char *text, int maxChars, Font_s *font);
 int R_TextHeight(Font_s *font);
 
-// PINNED 1000bce0: this uses the same registry as font duplication.
-Font_s *R_RegisterFont(const char *name, int imageTrack)
+void R_AddCmdDrawTextWithCursor(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style, int cursorPos, char cursor);
+
+typedef char consoleIconImportCheck[(offsetof(refimport_t, CL_GetHudMsgIconMaterialName) == 0x2a0) ? 1 : -1];
+
+void R_AddCmdDrawStretchPic(float x, float y, float w, float h,
+    float s0, float t0, float s1, float t1, const float *color, Material *material);
+void R_ShutdownFonts();
+Font_s *R_RegisterFont(const char *name, int imageTrack);
+Glyph *R_GetCharacterGlyph(Font_s *font, unsigned int letter);
+void R_DuplicateFont(Font_s *fontCopy, const char *name);
+float R_NormalizedTextScale(Font_s *font, float scale);
+int R_TextWidth(const char *text, int maxChars, Font_s *font);
+int R_TextHeight(Font_s *font);
+void R_AddCmdDrawText(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style);
+static const short *R_GetConsoleString(const short *string, int *limit, char *text,
+    float *color, Bool *foundIcon);
+static const short *R_GetConsoleIcon(const short *string, int *limit, float *width,
+    float *height, Material **material, float *color, Bool *horzFlip);
+int R_ConsoleTextWidth(const short *string, int maxChars, Font_s *font);
+void R_DrawConsoleText(const short *string, int maxChars, Font_s *font, float x,
+    float y, float xScale, float yScale, const float *color, int style);
+
+// PINNED in 10013080: keep stale entries; the count owns their visibility.
+void R_ShutdownFonts()
 {
-    for (int index = 0; index < registeredFontCount; ++index)
-        if (!I_stricmp(name, registeredFont[index]->name))
-            return registeredFont[index];
-    if (registeredFontCount >= 16)
-    {
-        R_Error(ERR_DROP, "R_RegisterFont: Too many fonts registered already.\n");
-        return 0;
-    }
-    Font_s *font = R_LoadFont(name, imageTrack);
-    if (!font)
-        R_Error(ERR_DROP, "R_RegisterFont: Error while reading font '%s'", name);
-    registeredFont[registeredFontCount] = font;
-    ++registeredFontCount;
-    return font;
+    registeredFontCount = 0;
 }
 
 Glyph *R_GetCharacterGlyph(Font_s *font, unsigned int letter)
@@ -62,6 +65,25 @@ Glyph *R_GetCharacterGlyph(Font_s *font, unsigned int letter)
             top = mid - 1;
     }
     return &font->glyphs[14];
+}
+
+// PINNED 1000bce0: this uses the same registry as font duplication.
+Font_s *R_RegisterFont(const char *name, int imageTrack)
+{
+    for (int index = 0; index < registeredFontCount; ++index)
+        if (!I_stricmp(name, registeredFont[index]->name))
+            return registeredFont[index];
+    if (registeredFontCount >= 16)
+    {
+        R_Error(ERR_DROP, "R_RegisterFont: Too many fonts registered already.\n");
+        return 0;
+    }
+    Font_s *font = R_LoadFont(name, imageTrack);
+    if (!font)
+        R_Error(ERR_DROP, "R_RegisterFont: Error while reading font '%s'", name);
+    registeredFont[registeredFontCount] = font;
+    ++registeredFontCount;
+    return font;
 }
 
 void R_DuplicateFont(Font_s *fontCopy, const char *name)
@@ -141,8 +163,6 @@ int R_TextHeight(Font_s *font)
     return font->pixelHeight;
 }
 
-void R_AddCmdDrawTextWithCursor(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style, int cursorPos, char cursor);
-
 void R_AddCmdDrawText(const char *text, int maxChars, FontHandle font, float x, float y, float xScale, float yScale, const vec_t *color, int style)
 {
     R_AddCmdDrawTextWithCursor(text, maxChars, font, x, y, xScale, yScale, color, style, -1, 0);
@@ -201,8 +221,6 @@ static const short *R_GetConsoleString(const short *string, int *limit, char *te
     *limit -= index;
     return next;
 }
-
-typedef char consoleIconImportCheck[(offsetof(refimport_t, CL_GetHudMsgIconMaterialName) == 0x2a0) ? 1 : -1];
 
 // PINNED 1000c250: only a material entry consumes the icon and updates the limit.
 static const short *R_GetConsoleIcon(const short *string, int *limit, float *width,
@@ -268,9 +286,6 @@ int R_ConsoleTextWidth(const short *string, int maxChars, Font_s *font)
     }
     return (int)width;
 }
-
-void R_AddCmdDrawStretchPic(float x, float y, float w, float h,
-    float s0, float t0, float s1, float t1, const float *color, Material *material);
 
 // PINNED 1000c4b0: update the text offset only when an icon follows it.
 void R_DrawConsoleText(const short *string, int maxChars, Font_s *font, float x,
