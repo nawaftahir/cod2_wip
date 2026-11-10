@@ -753,21 +753,6 @@ GfxImage *Image_Load(const char *name, int semantic, int imageTrack)
 }
 
 
-// PINNED 1000d0f0: category5 is the dynamic water texture, not a file reload.
-void Image_BuildWaterMap(GfxImage *image)
-{
-    if (image->category == 5)
-    {
-        if (r_rendererInUse->current.integer == 2)
-            Image_Create2DTexture(image, image->width, image->height, 1,
-                D3DUSAGE_DYNAMIC, D3DFMT_X8R8G8B8, D3DPOOL_DEFAULT);
-        else
-            Image_Create2DTexture(image, image->width, image->height, 0,
-                D3DUSAGE_DYNAMIC, D3DFMT_L8, D3DPOOL_DEFAULT);
-    }
-}
-
-
 GfxImage *R_CreateWaterMap(char *name, int imageWidth, int imageHeight)
 {
     GfxImage *image;

@@ -695,6 +695,12 @@
 "obj": "r_image.obj",
 "why": []
 },
+"?Image_GetMipmapResolution@@YAXHHHPAG0@Z": {
+"t": "0x1000c970",
+"n": 49,
+"obj": "r_image.obj",
+"why": []
+},
 "?Image_GetPlatformScreenWidth@@YAHH@Z": {
 "t": "0x1000c9b0",
 "n": 14,
@@ -716,6 +722,18 @@
 "?Image_GetAvailableHashLocation@@YAHPBD@Z": {
 "t": "0x1000cb40",
 "n": 82,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_Construct@@YAXPBDHHHHPAUGfxImage@@@Z": {
+"t": "0x1000cba0",
+"n": 45,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_AllocProg@@YAPAUGfxImage@@HE@Z": {
+"t": "0x1000cbd0",
+"n": 52,
 "obj": "r_image.obj",
 "why": []
 },
@@ -764,6 +782,12 @@
 "?Image_PicmipForSemantic@@YAXEPAUPicmip@@@Z": {
 "t": "0x1000d090",
 "n": 92,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000d0f0",
+"n": 74,
 "obj": "r_image.obj",
 "why": []
 },
@@ -897,6 +921,12 @@
 "obj": "r_image_load_common.obj",
 "why": []
 },
+"?Image_FormatMinSize@@YAHW4_D3DFORMAT@@@Z": {
+"t": "0x1000eda0",
+"n": 32,
+"obj": "r_image_load_common.obj",
+"why": []
+},
 "?Image_ClampPicmip@@YAXW4_D3DFORMAT@@HHPAUPicmip@@@Z": {
 "t": "0x1000edc0",
 "n": 79,
@@ -933,13 +963,11 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
-"?Image_LoadFromFile@@YAEPAUGfxImage@@@Z": {
-"t": "0x1000fa40",
-"n": 240,
+"?Image_SetupFromFile@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@W4_D3DFORMAT@@@Z": {
+"t": "0x1000f2f0",
+"n": 39,
 "obj": "r_image_load_obj.obj",
-"why": [
-"call ?Image_LoadFromData@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBE@Z"
-]
+"why": []
 },
 "?Image_CountMipmapsForFile@@YAIPBUGfxImageFileHeader@@@Z": {
 "t": "0x1000f320",
@@ -973,6 +1001,26 @@
 "call ?Image_LoadWavelet@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBEW4_D3DFORMAT@@H@Z"
 ]
 },
+"?Image_LoadFromFile@@YAEPAUGfxImage@@@Z": {
+"t": "0x1000fa40",
+"n": 240,
+"obj": "r_image_load_obj.obj",
+"why": [
+"call ?Image_LoadFromData@@YAXPAUGfxImage@@PBUGfxImageFileHeader@@PBE@Z"
+]
+},
+"?Image_Generate2D@@YAXPAUGfxImage@@PAEHHW4_D3DFORMAT@@@Z": {
+"t": "0x1000fb30",
+"n": 74,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_Generate3D@@YAXPAUGfxImage@@PAEHHHW4_D3DFORMAT@@@Z": {
+"t": "0x1000fb80",
+"n": 75,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
 "?Image_LoadRaw@@YAEPAUGfxImage@@PBDH@Z": {
 "t": "0x1000fc30",
 "n": 169,
@@ -991,9 +1039,27 @@
 "obj": "r_image_load_obj.obj",
 "why": []
 },
+"?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000fe90",
+"n": 605,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
 "?Image_GenerateSolidColor@@YAXPAUGfxImage@@EEEE@Z": {
 "t": "0x100100f0",
 "n": 102,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?SmoothStep@@YAMM@Z": {
+"t": "0x10010480",
+"n": 21,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
+"?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {
+"t": "0x100104a0",
+"n": 465,
 "obj": "r_image_load_obj.obj",
 "why": []
 },
@@ -1005,6 +1071,12 @@
 "call ?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z"
 ]
 },
+"?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z": {
+"t": "0x100106b0",
+"n": 256,
+"obj": "r_image_load_obj.obj",
+"why": []
+},
 "?Image_GenerateSunHalfAngle@@YAXPAUGfxImage@@@Z": {
 "t": "0x100107b0",
 "n": 46,
@@ -1013,18 +1085,6 @@
 "call ?Image_GenerateCubemapFunction@@YAXPAUGfxImage@@PAEHHP6AXPBMH1@Z@Z"
 ]
 },
-"?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z": {
-"t": "0x10010b30",
-"n": 99,
-"obj": "r_image_load_obj.obj",
-"why": []
-},
-"?Image_LoadLightmapWeights@@YAXPAUGfxImage@@@Z": {
-"t": "0x1000fe90",
-"n": 605,
-"obj": "r_image_load_obj.obj",
-"why": []
-},
 "?Image_WaterColorForDirection@@YAXPBMHPAE@Z": {
 "t": "0x100107e0",
 "n": 98,
@@ -1032,12 +1092,6 @@
 "why": [
 "call ?FresnelTerm@@YAMMMM@Z"
 ]
-},
-"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
-"t": "0x1000d0f0",
-"n": 74,
-"obj": "r_image_load_obj.obj",
-"why": []
 },
 "?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHH@Z": {
 "t": "0x100108a0",
@@ -1055,15 +1109,9 @@
 "call ?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHH@Z"
 ]
 },
-"?Image_GetLightGridWeightsForVector@@YAXPBMHPAE@Z": {
-"t": "0x100104a0",
-"n": 465,
-"obj": "r_image_load_obj.obj",
-"why": []
-},
-"?Image_GetSunHalfAngleForVector@@YAXPBMHPAE@Z": {
-"t": "0x100106b0",
-"n": 256,
+"?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z": {
+"t": "0x10010b30",
+"n": 99,
 "obj": "r_image_load_obj.obj",
 "why": []
 },
