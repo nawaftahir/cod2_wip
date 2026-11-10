@@ -630,3 +630,9 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
   is outside the caller source shapes tried here (compiler state, a different inline path or build flag), still open.
 - (w9-ch) Retail has only one copy of AngleVectors' body (lab/cp9/dup.py: 24-byte windows of 0x4279c0 occur once), so no second no-"p"
   AngleVectors definition is linked standalone.
+- (w9-ch, 11-11, PINNED by probe lab/cp9/t.sh, everything without "p") No non-"p" route to retail's tail was found. `fld; call _CItan`
+  (st0 argument) appears ONLY with "p"/Op somewhere in the fn. Without it: default /O2, /Ox, /G6, /G7, /QIfist, pragma optimize "a"/"w"
+  off, C or C++, halfFov local, `(float)tan(halfFov)` float overload, tan in its own statement: all inline fptan. `#pragma function(tan)`
+  or /Oi- give a plain `tan` call with a double pushed (`sub esp,8; fstp qword [esp]`), not retail's form. `#pragma intrinsic(tan)` with
+  /Oi- is the same. /arch:SSE, /O1, /Os, "y" off are worse; "g"/"t" off stops AngleVectors inlining. `forward` is `fst [esp+0x18]` in every
+  non-"p" build (retail `fstp; fld`). Halfway result: the "retail crosshair is not p" idea is NOT supported; its tail needs "p".

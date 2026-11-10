@@ -1,0 +1,8 @@
+/DP=0 /DT=1 /TP /O1
+/DP=0 /DT=1 /TP /Os
+/DP=0 /DT=1 /TP /Ox
+/DP=0 /DT=1 /TP /Og-
+/DP=0 /DT=1 /TP /G7
+/DP=0 /DT=1 /TP /arch:SSE
+/DP=0 /DT=1 /TP /QIfist
+/DP=0 /DT=1 /TP /G6 /Gs
