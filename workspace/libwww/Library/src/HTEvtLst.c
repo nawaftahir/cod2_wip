@@ -199,7 +199,7 @@ PRIVATE BOOL Timer_deleteWindowsTimer (HTTimer * timer)
 #endif /* WWW_WIN_ASYNC */
 
 /*
-**  Event timeout handler
+**  Event timeout handle
 **  If an event didn't occur before the timeout then call it explicitly
 **  indicating that it timed out.
 */
@@ -787,13 +787,8 @@ PUBLIC int HTEventList_pump (void)
             return 1;
         }
     }
-<<<<<<< ours
     HTPumpState = HTEndLoop;
-    HTTrace("Exiting pump loop: %d\n", HTEndLoop);
-=======
-    HTPumpRunning = HTEndLoop;
     HTPrint("Exiting pump loop: %d\n", HTEndLoop);
->>>>>>> theirs
     HTEndLoop = 0;
     return 0;
 }
