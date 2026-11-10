@@ -125,3 +125,5 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CG_FireWeapon lea ebp (n1) | read TRIED | n3 already tried 4 shapes (row above); not repeated, left to n3 |
 | Rich 25/28 order, lib variants (n1) | `lib /def mss32.def mss_auto.obj` (drops mss_auto: no 28 entry); `lib mss_auto.obj mss32_imp.lib` (member list already obj-first, same Rich order) | no fix; original lib not available |
 | same-offset meter header blind spot (n1, clean gate) | shameter total includes the PE header, meter.py parses it, test_shameter.py self-test | METRIC CHANGE 1967119 -> 1971211 on an unchanged build. LANDED |
+| Menu_SetNextCursorItem rotation (n3, lab) | m1 oldCursor direct; m3 `if (oldCursor == -1)`; m5 `if (++cursor >= count)`; m6 `cursor = cursor + 1`; m8 `for(;cond;)`; m2 `if (wrapped) break;` | m1/m3/m5/m6/m8 byte-identical to base (rotation stays); m2 232 B (wrong). Pick map: extra pick = the while guard load (KNOWLEDGE 21) |
+| Menu_SetNextCursorItem do-while (n3, lab) | `if (cursor < count) do {...} while (cursor < count);` | 240 B, oldCursor goes to a stack slot, ebp lost: worse; reverted |
