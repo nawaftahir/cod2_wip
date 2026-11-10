@@ -627,3 +627,4 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
 
 ## 27. __real pool slot = LTCG compile order of the first user (w8-a, 11-11, PINNED on ra13 F lines vs our pool 0x5c4430-0x5c44b0)
 - Each __real@ slot sits in the compile order of its first-compiled user. __real@408f400000000000 (1000.0): ours first user CL_DemoCompleted at F#73854; retail slot needs it between Pickup_Health and Particle::Die. Fix = delay CL_DemoCompleted's compile, not touch the constant.
+- Follow-up (dfs13): CL_DemoCompleted compiles right after CL_NextDemo, which compiles in the pass after Cbuf_ExecuteInternal (5329 -> 5430/5435 of 6727). Retail wants it in 5604..5634. No cut under CL_DemoCompleted differs from what matched callers imply, so the cause is the peel-pass position, not a header decl order (SUPPORTED, not proven on retail).
