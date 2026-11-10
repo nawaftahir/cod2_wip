@@ -695,6 +695,12 @@
 "obj": "r_image.obj",
 "why": []
 },
+"?Image_GetMipmapResolution@@YAXHHHPAG0@Z": {
+"t": "0x1000c970",
+"n": 49,
+"obj": "r_image.obj",
+"why": []
+},
 "?Image_GetPlatformScreenWidth@@YAHH@Z": {
 "t": "0x1000c9b0",
 "n": 14,
@@ -716,6 +722,18 @@
 "?Image_GetAvailableHashLocation@@YAHPBD@Z": {
 "t": "0x1000cb40",
 "n": 82,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_Construct@@YAXPBDHHHHPAUGfxImage@@@Z": {
+"t": "0x1000cba0",
+"n": 45,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_AllocProg@@YAPAUGfxImage@@HE@Z": {
+"t": "0x1000cbd0",
+"n": 52,
 "obj": "r_image.obj",
 "why": []
 },
@@ -764,6 +782,12 @@
 "?Image_PicmipForSemantic@@YAXEPAUPicmip@@@Z": {
 "t": "0x1000d090",
 "n": 92,
+"obj": "r_image.obj",
+"why": []
+},
+"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
+"t": "0x1000d0f0",
+"n": 74,
 "obj": "r_image.obj",
 "why": []
 },
@@ -1084,12 +1108,6 @@
 "why": [
 "call ?Image_LoadBuiltin@@YAPAUGfxImage@@PBDHH@Z"
 ]
-},
-"?Image_BuildWaterMap@@YAXPAUGfxImage@@@Z": {
-"t": "0x1000d0f0",
-"n": 74,
-"obj": "r_image_load_obj.obj",
-"why": []
 },
 "?R_CreateWaterMap@@YAPAUGfxImage@@PADHH@Z": {
 "t": "0x10010b30",
