@@ -534,10 +534,11 @@ void CG_EntityEvent(centity_t *cent, int event)
                                     cgs->media.landSound[sndIdx]);
         }
 
-        if (clientNum == cg->predictedPlayerState.clientNum) {
-
-            goto setLandChange;
-        }
+        if (clientNum != cg->predictedPlayerState.clientNum)
+            return;
+        cg->landChange = -(float)eventParm;
+        cg->landTime = cg->time;
+        return;
     } else if (event >= 116 && event < 139) {
 
         int sndIdx = event - 116;
@@ -565,9 +566,9 @@ void CG_EntityEvent(centity_t *cent, int event)
                     eventParm = 24;
                 else if (eventParm <= 0)
                     return;
-setLandChange:
                 cg->landChange = -(float)eventParm;
                 cg->landTime = cg->time;
+                return;
             }
         }
     }
