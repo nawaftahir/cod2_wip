@@ -209,9 +209,9 @@ __declspec(noinline) bool R_IsAabbOutsideView(DpvsPlane *planes, int planeCount,
 __declspec(noinline) bool R_AabbNeedsChildClipping(DpvsPlane *planes, int planeCount,
     const float *bounds, int stackLevel);
 static void R_AddWorldSurfaceDirect(int surfIndex);
+static void R_AddStaticModelDirect(int smodelIndex);
 static void R_AddWorldSurfaceWithCull(int surfIndex, DpvsPlane *planes,
     int planeCount, int stackLevel);
-static void R_PublishStaticModel(int smodelIndex, const GfxStaticModelInstance *instance);
 static void R_AddStaticModelWithCull(int smodelIndex, DpvsPlane *planes,
     int planeCount, int stackLevel);
 static void R_AddAabbTreeSurfaces_r(GfxAabbTree *tree, DpvsPlane *planes,
@@ -526,9 +526,6 @@ double R_NearestPointOnWinding(const vec3_t *points, int pointCount, const float
     }
     return nearest;
 }
-
-/* Retail has no out-of-line copy, so this is a macro rather than a function. */
-#define R_AddStaticModelDirect(smodelIndexExpr)     do {         int smodelIndex_ = (smodelIndexExpr);         if (rg.smodelDyncs[smodelIndex_].viewCount != scene.viewCount)         {             rg.smodelDyncs[smodelIndex_].viewCount = scene.viewCount;             const GfxStaticModelInstance *instance_ = &rgp.world->smodelInsts[smodelIndex_];             if (instance_->cullDist == 0.0f || instance_->cullDist >=                 Vec3Distance(instance_->origin, rg.lodParms.origin) * rg.lodParms.scale + rg.lodParms.bias)                 R_PublishStaticModel(smodelIndex_, instance_);         }     } while (0)
 
 static void R_AddWorldSurfaceDirect(int surfIndex)
 {
@@ -1223,19 +1220,33 @@ static void R_AddCullGroup(int groupIndex, DpvsPlane *planes, int planeCount)
     }
 }
 
-// PINNED 10009480/234 and10009570/283 share this actual model publication path.
-static void R_PublishStaticModel(int smodelIndex, const GfxStaticModelInstance *instance)
+/* Retail has no out-of-line copy of this; both static model adders carry it inline. */
+#define R_PUBLISH_STATIC_MODEL(smodelIndex, instance) \
+    do { \
+        if (r_showSModelNames->current.enabled) \
+            R_AddDebugString(&frontEndDataOut->debugGlobals, (instance)->origin, colorWhite, \
+                0.3f, ri.XModelGetName((instance)->model)); \
+        int entIndex = R_AddStaticModelToScene(smodelIndex); \
+        if (entIndex >= 0) \
+        { \
+            GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex]; \
+            R_SkinStaticModel(sceneEnt, &scene.def.entities[entIndex], (smodelIndex)); \
+            sceneEnt->cullState = 5; \
+            R_AddXModelSurfaces(entIndex); \
+        } \
+    } while (0)
+
+// PINNED 10009480/234.
+static void R_AddStaticModelDirect(int smodelIndex)
 {
-    if (r_showSModelNames->current.enabled)
-        R_AddDebugString(&frontEndDataOut->debugGlobals, instance->origin, colorWhite,
-            0.3f, ri.XModelGetName(instance->model));
-    int entIndex = R_AddStaticModelToScene(smodelIndex);
-    if (entIndex < 0)
+    if (rg.smodelDyncs[smodelIndex].viewCount == scene.viewCount)
         return;
-    GfxSceneEntity *sceneEnt = &scene.sceneEnts[entIndex];
-    R_SkinStaticModel(sceneEnt, &scene.def.entities[entIndex], smodelIndex);
-    sceneEnt->cullState = 5;
-    R_AddXModelSurfaces(entIndex);
+    rg.smodelDyncs[smodelIndex].viewCount = scene.viewCount;
+    const GfxStaticModelInstance *instance = &rgp.world->smodelInsts[smodelIndex];
+    if (instance->cullDist != 0.0f && instance->cullDist <
+        Vec3Distance(instance->origin, rg.lodParms.origin) * rg.lodParms.scale + rg.lodParms.bias)
+        return;
+    R_PUBLISH_STATIC_MODEL(smodelIndex, instance);
 }
 
 static void R_AddStaticModelWithCull(int smodelIndex, DpvsPlane *planes,
@@ -1254,7 +1265,7 @@ static void R_AddStaticModelWithCull(int smodelIndex, DpvsPlane *planes,
     if (R_IsBoundsOutsideView(planes, planeCount, instance->mins, stackLevel))
         return;
     rg.smodelDyncs[smodelIndex].viewCount = scene.viewCount;
-    R_PublishStaticModel(smodelIndex, instance);
+    R_PUBLISH_STATIC_MODEL(smodelIndex, instance);
 }
 
 // PINNED 10009690/55.
