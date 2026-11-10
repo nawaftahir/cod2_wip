@@ -616,3 +616,6 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
   later dot products load the cg element with fld (retail fld the gunDir element), forward/halfFov slots +4 (yaw temp takes a slot).
   Gate: RATCHET OK matched-fn 1553677 +0, but same-offset 1972087 (-21): GATE REJECT, reverted. With halfFov local but horiz/vert kept: 456 B.
   Mac-style explicit sums inside the `*x =` expression: 460 B, worse.
+
+## 27. __real pool slot = LTCG compile order of the first user (w8-a, 11-11, PINNED on ra13 F lines vs our pool 0x5c4430-0x5c44b0)
+- Each __real@ slot sits in the compile order of its first-compiled user. __real@408f400000000000 (1000.0): ours first user CL_DemoCompleted at F#73854; retail slot needs it between Pickup_Health and Particle::Die. Fix = delay CL_DemoCompleted's compile, not touch the constant.
