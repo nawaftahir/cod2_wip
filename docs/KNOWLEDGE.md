@@ -393,3 +393,15 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   and `return;` after arm 116's `cg->landTime = cg->time;` (no goto/label). Without the arm-116 `return` the merge keeps the 93 copy instead (4364 B).
 - Tools: `tools/c2dbg13.sh` (winedbg), `tools/c2memscan13.sh` (find emitted bytes in c2 memory, needs --cap-add SYS_PTRACE), `tools/c2dis.py`, `tools/c2xref.py`.
   Forcing a colour pick in winedbg (`set $ecx` at 0x107834bd, diff dx.exe) maps colour nodes to instructions.
+
+## 21. Rotation sweep (n3, 11-10, after merging w5-bss; baseline same-offset 1967119, matched-fn 1554291)
+- `tools/regonly13.py EXE MAP ANCHOR` lists equal-address functions whose code is equal once GPR names and image addresses are masked.
+  Only 3 have a real register permutation: Menu_SetNextCursorItem (ecx>eax, edx>ecx, eax>edx, a one-step rotation),
+  FX_AddFxToScene (eax>edx x2, REGALLOC "D-local lea temp") and nb_decode (eax<->ecx, "C-num"). The other ~400 rows differ only in data addresses.
+  CG_FireWeapon / CG_DrawCursorhint / XAnimCalc / CL_ConsolePrint_AddLine / DL_BeginDownload are not pure renames (order or code differs), so they are not this class.
+- Tools: `tools/c2picks13.sh MANGLED [N]` logs the local picks of one function in order. `tools/c2pickmap13.sh MANGLED ADDR SIZE K...` shifts the round-robin
+  pointer after pick K and prints the first instruction that changes, so pick K+1 maps to code. (K=0 is meaningless: the first stop is the int3.)
+- Menu_SetNextCursorItem (PINNED, ours): 8 picks eax, ecx, edx, ... Pick 1 = the while guard `mov eax,[esi+0x220]` (0x53e2fa). Picks 2..4 = the
+  Item_SetFocus argument block (ecx, edx, ...) that retail has as eax, ecx, edx. So retail makes one pick fewer (or two more) before that block, and the
+  guard load is the candidate. Tried (no change, lab): oldCursor read directly; `if (oldCursor == -1)`; `++` in the compare; `x = x + 1`;
+  `for (;cond;)`; a wrapped `break`. HYPOTHESIS: retail's guard is not a local pick (a colour node, or the guard folded with the `cursor = 0` store).
