@@ -414,7 +414,7 @@ void R_ReleaseDynamicBuffers()
 	}
 }
 
-// Name from docs/TRIED.md only, no reference source; PINNED 10011f00/14, no callers in retail (R_CreateDevice inlines it).
+// Name unconfirmed (only our notes use it); PINNED 10011f00/14, no callers in retail (R_CreateDevice inlines it).
 void R_ResetGamma()
 {
 	ri.Dvar_SetModified(r_gamma);
