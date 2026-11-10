@@ -18781,7 +18781,7 @@
 ]
 },
 {
-"name": "$L96655",
+"name": "$L96653",
 "obj": "module",
 "size": 6,
 "hits": [],
@@ -35396,7 +35396,7 @@
 ]
 },
 {
-"name": "$L118316",
+"name": "$L118313",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35404,7 +35404,7 @@
 ]
 },
 {
-"name": "$L118318",
+"name": "$L118315",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35437,7 +35437,7 @@
 ]
 },
 {
-"name": "$L132215",
+"name": "$L132212",
 "obj": "module",
 "size": 166,
 "hits": [
@@ -35445,7 +35445,7 @@
 ]
 },
 {
-"name": "$L132217",
+"name": "$L132214",
 "obj": "module",
 "size": 48,
 "hits": [
@@ -35523,7 +35523,7 @@
 ]
 },
 {
-"name": "$L104449",
+"name": "$L104446",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -35539,7 +35539,7 @@
 ]
 },
 {
-"name": "$L147621",
+"name": "$L147618",
 "obj": "module",
 "size": 21,
 "hits": [
@@ -38131,7 +38131,7 @@
 "obj": "pbcl.obj",
 "size": 22,
 "hits": [
-"0x4bd300"
+"0x4bb670"
 ]
 },
 {
@@ -38154,8 +38154,9 @@
 "name": "?UnloadClientDll@stPbCl@@QAEXXZ",
 "obj": "pbcl.obj",
 "size": 52,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4bb6f0"
+]
 },
 {
 "name": "?LoadClientDll@stPbCl@@QAEPADXZ",
@@ -38193,8 +38194,9 @@
 "name": "??1stPbCl@@QAE@XZ",
 "obj": "pbcl.obj",
 "size": 69,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x4bba50"
+]
 },
 {
 "name": "?PbClGameCommand@@YAPADPAD0@Z",
@@ -82302,8 +82304,9 @@
 "name": "_$E2",
 "obj": "pbsv.obj",
 "size": 79,
-"hits": [],
-"reason": "no masked match"
+"hits": [
+"0x592bb0"
+]
 },
 {
 "name": "_$E2",
