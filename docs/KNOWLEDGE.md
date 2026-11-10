@@ -570,6 +570,15 @@ Tooling: tools/ra13.sh TAG, then lab/al.sh TAG (split_all + cpick for this fn). 
   free reg. HYPOTHESIS: ours makes the line-746 (wrap loop) and line-762 defs one web or keeps it live across the
   wrap loop; earlier tries with a separate inner `cw` were byte-identical (TRIED w2), so the merge happens below the
   source variable level (IL copy propagation). No source form found this session; DEFER.
+- w9-al (11-11, clean baseline same-offset 1972125 reproduced). c2 0x1078b4a2 is NOT a charWidth-specific splitter: it sits
+  right after `call 0x1077c10f` (allocates a node, eax), then copies n17 (+0x44) from esi into the new node and stores esi at
+  new+0x14 (parent). A winedbg break there (lab_w9/sp.sh) fires for many nodes (500+ hits) and keeps firing after AddLine, the
+  heap base moves within the run, and no hit carried id 0x2f / n17 0xff, so the +0x1c id at this point is not the cpick id.
+  The live-node set at the split was NOT read; it needs a break armed only inside AddLine (disarm on the next function's hook). PINNED (disasm), the rest open.
+- fdiff hunk at the line-787 store (incremental, 26 diff lines): ours `xor ebp,ebp` zero reused as curWidth = 0 then
+  `mov ebp,[con.textBuffer]`; retail stores curWidth = 0 as an immediate and uses `add eax,[con.textBuffer]`. The zero web
+  dies before that store in both builds, so the textBuffer register load comes from the zero being ebp. It is a result of the
+  charWidth/zero colouring, not a separate pressure source. PINNED (fdiff).
 
 ## 26. CG_CalcCrosshairPosition / DL_BeginDownload colour dump (w7-b, 11-11, ra13 + lab/ra.sh on a clean 59ab7544 build)
 Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for one fn), lab/b.sh FN (fdiff), lab/mk.sh FN (incremental build + fdiff). PINNED on our build unless marked.
