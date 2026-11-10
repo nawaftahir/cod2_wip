@@ -7,13 +7,13 @@
   "text_bytes": 1093632,
   "matched_bytes": 894039,
   "file_bytes": 1851392,
-  "same_offset_bytes": 253921,
+  "same_offset_bytes": 253962,
   "matched_functions": 2715,
   "tus_total": 117,
   "verified_source_files": 12,
   "game_cpp_denominator_status": "provisional inventory; not whole-DLL completion",
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "68b53a4014cbf8fee44cb0e37b27107b8bea217aded9d0df5f189399d4890658",
+  "candidate_sha256": "60dfb9e209e41c4f7650d895cbd21b494fd471a242797635118141fde90d3deb",
   "unverified_in_src": 0,
   "game_cpp_bytes": 122843,
   "game_cpp_total": 253580,
@@ -24,23 +24,23 @@
   "sections": {
     ".text": {
       "size": 1093632,
-      "same_offset": 38831,
+      "same_offset": 38758,
       "matched": 894039
     },
     ".rdata": {
       "size": 598016,
-      "same_offset": 173277
+      "same_offset": 173369
     },
     ".data": {
       "size": 57344,
-      "same_offset": 24634
+      "same_offset": 24645
     },
     ".reloc": {
       "size": 98304,
-      "same_offset": 13393
+      "same_offset": 13404
     }
   },
-  "source_commit": "9b86d691a327b37ce97aa04d7dcfe905f6daa898",
+  "source_commit": "bd6747c39ee483522af5becf9c40a5220f8cc789",
   "note": "Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not complete historical TUs. Current emitted-body TU counts include short bodies certified by the binding referee. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.",
   "current_source_tus_total": 117,
   "current_source_tus_verified": 47,
