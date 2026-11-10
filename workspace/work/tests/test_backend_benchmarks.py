@@ -3,7 +3,8 @@ from pathlib import Path
 import subprocess
 import tempfile
 w=Path(__file__).resolve().parents[1];s=(w/'src/gfx_d3d/rb_backend.cpp').read_text();source=s[s.index('// GPU fill and transform benchmarks.'):s.index('// Render-command execution.')]
-a=s.index('double RB_BenchmarkSeconds(');seconds=s[a:s.index('// Backend command handlers.',a)]
+import sys;sys.path.insert(0,str(w/'tools'));from retail_order import items
+seconds=next(c[1] for c in items(s) if c[0]=='fn' and 'double RB_BenchmarkSeconds(' in c[1])
 program=r'''
 #include <cassert>
 #include <cmath>
