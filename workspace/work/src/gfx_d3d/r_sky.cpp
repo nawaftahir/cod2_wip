@@ -8,21 +8,6 @@ typedef char SunFlareLayoutCheck[(sizeof(SunFlareDynamic) == 48
     && offsetof(SunFlareDynamic, lastDot) == 28
     && offsetof(SunFlareDynamic, hitNum) == 32) ? 1 : -1];
 
-void R_FlushSun()
-{
-    for (int index = 0; index < 4; ++index)
-    {
-        SunFlareDynamic *flare = &sunFlareState[index];
-        flare->currentBlind = 0.0f;
-        flare->currentGlare = 0.0f;
-        flare->flareIntensity = 0.0f;
-        flare->hitNum = 0;
-        flare->lastDot = 0.0f;
-        flare->lastTime = 0;
-        flare->lastVisibility = 0.0f;
-    }
-}
-
 const dvar_t *r_sunsprite_shader;
 const dvar_t *r_sunsprite_size;
 const dvar_t *r_sunflare_shader;
@@ -44,6 +29,33 @@ const dvar_t *r_sunglare_max_lighten;
 const dvar_t *r_sunglare_fadein;
 const dvar_t *r_sunglare_fadeout;
 const dvar_t *r_sun_fx_position;
+
+// PINNED 101a5a38: the original21-name save/load list, in registration order.
+const char *sunDvarNames[] =
+{
+    "r_sunsprite_shader", "r_sunsprite_size", "r_sunflare_shader",
+    "r_sunflare_min_size", "r_sunflare_min_angle", "r_sunflare_max_size",
+    "r_sunflare_max_angle", "r_sunflare_max_alpha", "r_sunflare_fadein",
+    "r_sunflare_fadeout", "r_sunblind_min_angle", "r_sunblind_max_angle",
+    "r_sunblind_max_darken", "r_sunblind_fadein", "r_sunblind_fadeout",
+    "r_sunglare_min_angle", "r_sunglare_max_angle", "r_sunglare_max_lighten",
+    "r_sunglare_fadein", "r_sunglare_fadeout", "r_sun_fx_position"
+};
+
+typedef char sunFileLayoutCheck[(sizeof(sunflare_t) == 96 &&
+    offsetof(sunflare_t, spriteMaterial) == 4 && offsetof(sunflare_t, flareMaterial) == 8 &&
+    offsetof(sunflare_t, flareFadeInTime) == 36 && offsetof(sunflare_t, sunFxPosition) == 84 &&
+    offsetof(GfxWorld, sun) == 0x160 && sizeof(sunDvarNames) / sizeof(sunDvarNames[0]) == 21) ? 1 : -1];
+
+Material *Material_Register(const char *name, int imageTrack);
+extern const dvar_t *sv_cheats;
+void R_LoadSunThroughDvars(const char *name, sunflare_t *sun);
+void R_FlushSun();
+void R_RegisterSunDvars();
+void R_SetSunFromDvars(sunflare_t *sun);
+void R_LoadSun_f();
+void R_SaveSun(const char *name);
+void R_SaveSun_f();
 
 void R_RegisterSunDvars()
 {
@@ -69,27 +81,6 @@ void R_RegisterSunDvars()
 	r_sunglare_fadeout = ri.Dvar_RegisterFloat("r_sunglare_fadeout", 3.0f, 0.0f, 60.0f, 0x2000);
 	r_sun_fx_position = ri.Dvar_RegisterVec3("r_sun_fx_position", 0.0f, 0.0f, 0.0f, -360.0f, 360.0f, 0x2000);
 }
-
-// PINNED 101a5a38: the original21-name save/load list, in registration order.
-const char *sunDvarNames[] =
-{
-    "r_sunsprite_shader", "r_sunsprite_size", "r_sunflare_shader",
-    "r_sunflare_min_size", "r_sunflare_min_angle", "r_sunflare_max_size",
-    "r_sunflare_max_angle", "r_sunflare_max_alpha", "r_sunflare_fadein",
-    "r_sunflare_fadeout", "r_sunblind_min_angle", "r_sunblind_max_angle",
-    "r_sunblind_max_darken", "r_sunblind_fadein", "r_sunblind_fadeout",
-    "r_sunglare_min_angle", "r_sunglare_max_angle", "r_sunglare_max_lighten",
-    "r_sunglare_fadein", "r_sunglare_fadeout", "r_sun_fx_position"
-};
-
-typedef char sunFileLayoutCheck[(sizeof(sunflare_t) == 96 &&
-    offsetof(sunflare_t, spriteMaterial) == 4 && offsetof(sunflare_t, flareMaterial) == 8 &&
-    offsetof(sunflare_t, flareFadeInTime) == 36 && offsetof(sunflare_t, sunFxPosition) == 84 &&
-    offsetof(GfxWorld, sun) == 0x160 && sizeof(sunDvarNames) / sizeof(sunDvarNames[0]) == 21) ? 1 : -1];
-
-Material *Material_Register(const char *name, int imageTrack);
-extern const dvar_t *sv_cheats;
-void R_LoadSunThroughDvars(const char *name, sunflare_t *sun);
 
 // PINNED 10028cd0/826: half-size flares, float radians and existing biased rounding.
 void R_SetSunFromDvars(sunflare_t *sun)
@@ -154,4 +145,19 @@ void R_SaveSun_f()
         return;
     }
     R_SaveSun(ri.Cmd_Argv(1));
+}
+
+void R_FlushSun()
+{
+    for (int index = 0; index < 4; ++index)
+    {
+        SunFlareDynamic *flare = &sunFlareState[index];
+        flare->currentBlind = 0.0f;
+        flare->currentGlare = 0.0f;
+        flare->flareIntensity = 0.0f;
+        flare->hitNum = 0;
+        flare->lastDot = 0.0f;
+        flare->lastTime = 0;
+        flare->lastVisibility = 0.0f;
+    }
 }

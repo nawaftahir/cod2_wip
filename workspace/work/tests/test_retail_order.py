@@ -28,7 +28,7 @@ assert out.index('void A(int x);') < out.index('void A(int x)\n'), out
 src2 = 'void B(void) {}\nint g;\nvoid A(void) {}\n'
 c2 = items(src2)
 out2 = ''.join(c[1] for c in plan(c2, {'A': 1, 'B': 2}, across=True))
-assert out2.index('void A(void) {') < out2.index('int g;') < out2.index('void B(void) {'), out2
+assert out2.index('int g;') < out2.index('void A(void) {') < out2.index('void B(void) {'), out2
 assert ''.join(c[1] for c in plan(c2, {'A': 1, 'B': 2})) == src2
 # broken case: an unknown order leaves the file unchanged
 assert ''.join(c[1] for c in plan(chunks, {})) == src

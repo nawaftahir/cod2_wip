@@ -97,14 +97,16 @@ def protos(fns):
 
 def plan(chunks, retail, across=False):
     """Reorder definitions. Default: within runs of adjacent definitions. across: within
-    preprocessor-free spans, definitions permute among their own slots while declarations
-    and data keep theirs, so data order does not change."""
+    preprocessor-free spans, declarations and data move ahead of the sorted definitions in
+    their own relative order, so data order does not change and every definition sees them."""
     out, span = [], []
     for c in chunks + [('pp', '')]:
         if c[0] == 'pp' or (not across and c[0] != 'fn'):
             fns = [x for x in span if x[0] == 'fn']
             new = sort_fns(fns, retail)
-            if new != fns:
+            if new != fns and across:
+                out.extend([x for x in span if x[0] != 'fn'] + [protos(fns)] + new)
+            elif new != fns:
                 it = iter(new)
                 body = [next(it) if x[0] == 'fn' else x for x in span]
                 first = next(k for k, x in enumerate(body) if x[0] == 'fn')

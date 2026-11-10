@@ -16,6 +16,200 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedExchange(long volatil
 typedef HRESULT(__stdcall *BufferUnlockFn)(void *buffer);
 #define VTABLE(obj) (*(void ***)((void *)(obj)))
 
+extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT hr);
+typedef HRESULT(__stdcall *BufferLockFn)(void *buffer, UINT offset, UINT size, void **data, DWORD flags);
+void R_LockSkinnedCache(int lockType);
+void R_UnlockSkinnedCache();
+int R_AllocSkinnedCachedVerts(int vertCount);
+void R_DObjGetSurfMaterials(DObj *obj, char lod, MaterialHandle *matHandleArray);
+void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle material);
+void R_ModelBounds(const vec_t *bounds, vec_t *mins, vec_t *maxs);
+GfxBrushModel *R_RegisterInlineModel(int index);
+void R_SetIgnorePrecacheErrors(int ignore);
+bool R_GetIgnorePrecacheErrors();
+
+void XModelUnoptimize(XModel *model);
+void XModelOptimize(XModel *model);
+extern const dvar_t *r_optimizeXModels;
+
+// PC 1.0 model bounds/debug cohort, 1001d9f0--100201a3.
+extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile *, long, long);
+extern const dvar_t *developer;
+void ConvertQuatToMat(const DObjAnimMat *mat, vec3_t axis[3]);
+void TransformVectorByAnimMat(const float *in, const DObjAnimMat *mat, float *out);
+void R_AddDebugLine(DebugGlobals *debug, const float *start, const float *end, const float *color);
+
+typedef char model_bounds_layout[(offsetof(GfxEntity, origin) == 0x3c
+    && offsetof(GfxSceneEntity, cullState) == 0xc
+    && offsetof(GfxSceneEntity, curMins) == 0x14
+    && offsetof(GfxBackEndData, debugGlobals) == 0x249d18
+    && sizeof(DObjAnimMat) == 32 && sizeof(DSurface_s) == 4) ? 1 : -1];
+static void R_CalcSceneEntityPose(const GfxSceneEntity *sceneEnt, const DObj *obj, int *partBits);
+static int R_GetSurfaceData(const GfxEntity *ent, const DObj *obj,
+    DSurface_s *surfaces, int *partBits, char *lods);
+
+// PINNED 10190278: twelve consecutive endpoint pairs.
+static const int boxVerts[24][3] = {
+    {0,0,0},{1,0,0}, {0,0,0},{0,1,0},
+    {1,1,0},{1,0,0}, {1,1,0},{0,1,0},
+    {0,0,1},{1,0,1}, {0,0,1},{0,1,1},
+    {1,1,1},{1,0,1}, {1,1,1},{0,1,1},
+    {0,0,0},{0,0,1}, {1,0,0},{1,0,1},
+    {0,1,0},{0,1,1}, {1,1,0},{1,1,1},
+};
+static void R_XModelDebugBoxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
+    const DObj *obj);
+static void R_XModelDebugAxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
+    const DObj *obj);
+static void R_SetEntityOriginBounds(GfxSceneEntity *sceneEnt, const float *origin);
+static void R_ExpandBoneBounds(const vec3_t *bounds, const float *origin,
+    const vec3_t *axis, vec3_t *out);
+const DObj *R_GetSceneEntDObj(const GfxSceneEntity *sceneEnt, const GfxEntity *ent);
+void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent);
+
+// PINNED PC rigid vertex transforms, 1001e260/1001e3a0/1001ed70/1001ee00.
+typedef char rigid_vertex_layout[(sizeof(XVertexInfo) == 64
+    && sizeof(GfxVertex) == 64 && sizeof(GfxVertexDx7) == 36
+    && offsetof(XSurface, verts) == 12 && offsetof(XSurface, vertCount) == 2) ? 1 : -1];
+typedef char skinning_layout[(sizeof(XBlendInfo) == 16 && offsetof(XBlendInfo, boneOffset) == 12
+    && offsetof(XBlendInfo, boneWeight) == 14 && sizeof(GfxModelSkinnedSurface) == 16
+    && offsetof(GfxModelSkinnedSurface, skinnedCachedOffset) == 8
+    && offsetof(GfxModelSkinnedSurface, skinnedVert) == 12
+    && offsetof(SkinRigidXModelCmd, mat) == 12 && sizeof(DObjSkelMat) == 64
+    && offsetof(GfxEntity, axis) == 20 && offsetof(GfxEntity, scale) == 56
+    && offsetof(GfxEntity, origin) == 60) ? 1 : -1];
+
+// Helper names, formal argument order and TU grouping are provisional.
+void R_TransformSkelVector(const DObjSkelMat *bone, const float *in, float *out);
+void R_TransformSkelPosition(const DObjSkelMat *bone, const float *in, float *out);
+static void R_TransformRigidVertex(const DObjSkelMat *bone, const float *normal,
+    const float *binormal, const float *position, const float *tangent, GfxVertex *out);
+static void R_TransformRigidVertexDx7(const DObjSkelMat *bone, const float *position,
+    const float *normal, GfxVertexDx7 *out);
+void R_SkinXSurfaceRigid(const XSurface *surface, const DObjSkelMat *bones,
+    int boneOffset, GfxVertex *out);
+void R_SkinXSurfaceRigidDx7(const XSurface *surface, const DObjSkelMat *bones,
+    int boneOffset, GfxVertexDx7 *out);
+static __forceinline void R_BlendSkinPosition(const float *in,
+    const DObjSkelMat *bone, float weight, float *out);
+static void R_SkinXSurfaceBlended(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out);
+static void R_SkinXSurfaceBlendedDx7(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out);
+static __forceinline __m128 R_SkinVectorSse(const __m128 &in, const DObjSkelMat *bone);
+static __forceinline __m128 R_SkinPositionSse(const __m128 &in, const DObjSkelMat *bone);
+static void R_SkinXSurfaceBlendedSse(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out);
+static void R_SkinXSurfaceBlendedDx7Sse(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out);
+
+extern const dvar_t *sys_SSE;
+extern const dvar_t *r_sse_skinning;
+extern DxGlobals dx;
+
+void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out);
+void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin, const vec3_t *axis, float scale, vec3_t *out);
+
+typedef char skin_command_layout[(sizeof(SkinBuffers) == 40960
+    && offsetof(SkinXModelCmd, mat) == 8 && offsetof(SkinXModelCmd, surfacePartBits) == 12
+    && offsetof(SkinXModelCmd, surfCount) == 28 && offsetof(SkinXModelCmd, boneCount) == 29
+    && offsetof(SkinXModelCmd, matOffset) == 30) ? 1 : -1];
+
+// SUPPORTED single context from the reference; the PC command runner uses context zero.
+SkinBuffers g_skinBuffers[1];
+
+// PINNED PC pre-skin surface publication, 1001f120/1001f2a0.
+extern const dvar_t *r_skinCache;
+extern const dvar_t *r_smc_enable;
+GfxStaticModelSurfaceCached *R_CacheStaticModelSurface(GfxStaticSurface *surface,
+    const XSurface *xsurf, int smodelIndex, const Material *material);
+void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface);
+
+typedef char preSkinSurfaceLayoutCheck[(offsetof(XSurface, surfRigid) == 16
+    && offsetof(XSurface, indexBuffer) == 20
+    && offsetof(GfxSceneEntity, materials) == 44
+    && offsetof(GfxBackEndData, skinnedCacheVb) == 0x217c78
+    && offsetof(DxGlobals, skinnedCacheLockAddr) == 0x2dc0
+    && offsetof(DxGlobals, tempSkinBuf) == 0x2dd0
+    && offsetof(DxGlobals, tempSkinPos) == 0x2dd4
+    && offsetof(Material, techniqueSet) == 56
+    && offsetof(MaterialTechniqueSet, techniques) == 4
+    && offsetof(MaterialTechnique, passCount) == 6
+    && offsetof(MaterialTechnique, passArray) + offsetof(MaterialPassDx7, gridLighting) == 12
+    && sizeof(GfxStaticModelCachedSurface) == 16) ? 1 : -1];
+
+// PINNED PC model scene publication, 1001f6f0/1001fa70.
+typedef char modelPublicationLayoutCheck[(offsetof(GfxScene, sceneEntMaterialCount) == 0x1a55c
+    && offsetof(GfxScene, sceneMaterials) == 0x1a560
+    && offsetof(GfxBackEndData, surfPos) == 0x80008
+    && offsetof(GfxBackEndData, surfsBuffer) == 0x8000c
+    && sizeof(((GfxBackEndData *)0)->surfsBuffer) == 0x20000) ? 1 : -1];
+
+extern const dvar_t *r_xdebug;
+void R_AddFrontendCmd(int type, void *data);
+void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out);
+__declspec(noinline) void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin,
+    const vec3_t *axis, float scale, vec3_t *boneAxis);
+static void *Hunk_AllocXModelPrecache(int size);
+static void *Hunk_AllocXModelPrecacheColl(int size);
+__declspec(noinline) XModel *R_RegisterModel(const char *name);
+GfxBrushModel *R_RegisterInlineModel(int index);
+void R_SetIgnorePrecacheErrors(int ignore);
+bool R_GetIgnorePrecacheErrors();
+void R_ModelBounds(const vec_t *bounds, vec_t *mins, vec_t *maxs);
+void R_LockSkinnedCache(int lockType);
+void R_UnlockSkinnedCache();
+int R_AllocSkinnedCachedVerts(int vertCount);
+void R_DObjGetSurfMaterials(DObj *obj, char lod, MaterialHandle *matHandleArray);
+void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle material);
+static void R_OptimizeModel(XAssetHeader header, void *data);
+void R_FinishLoadingModels();
+static void R_ReleaseModel(XAssetHeader header, void *data);
+void R_ReleaseAllModels();
+float R_GetModelLodDistance(const float *origin, float scale);
+static int R_GetSurfaceData(const GfxEntity *ent, const DObj *obj,
+    DSurface_s *surfaces, int *partBits, char *lods);
+static void R_CalcSceneEntityPose(const GfxSceneEntity *sceneEnt, const DObj *obj, int *partBits);
+static void R_XModelDebugBoxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
+    const DObj *obj);
+static void R_XModelDebugAxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
+    const DObj *obj);
+const DObj *R_GetSceneEntDObj(const GfxSceneEntity *sceneEnt, const GfxEntity *ent);
+void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent);
+static void R_SetEntityOriginBounds(GfxSceneEntity *sceneEnt, const float *origin);
+static void R_ExpandBoneBounds(const vec3_t *bounds, const float *origin,
+    const vec3_t *axis, vec3_t *out);
+static void R_TransformRigidVertex(const DObjSkelMat *bone, const float *normal,
+    const float *binormal, const float *position, const float *tangent, GfxVertex *out);
+static void R_TransformRigidVertexDx7(const DObjSkelMat *bone, const float *position,
+    const float *normal, GfxVertexDx7 *out);
+void R_SkinXSurfaceRigid(const XSurface *surface, const DObjSkelMat *bones,
+    int boneOffset, GfxVertex *out);
+void R_SkinXSurfaceRigidDx7(const XSurface *surface, const DObjSkelMat *bones,
+    int boneOffset, GfxVertexDx7 *out);
+static __forceinline void R_BlendSkinPosition(const float *in,
+    const DObjSkelMat *bone, float weight, float *out);
+static void R_SkinXSurfaceBlended(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out);
+static void R_SkinXSurfaceBlendedDx7(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out);
+static __forceinline __m128 R_SkinPositionSse(const __m128 &in, const DObjSkelMat *bone);
+static void R_SkinXSurfaceBlendedSse(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out);
+static void R_SkinXSurfaceBlendedDx7Sse(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out);
+static __forceinline __m128 R_SkinVectorSse(const __m128 &in, const DObjSkelMat *bone);
+void R_SkinRigidSurface(const XSurface *xsurf, const DObjSkelMat *bone, const float *origin,
+    const vec3_t *axis, float scale, vec3_t *boneAxis);
+static __declspec(noinline) void R_SkinXSurfaceSkinned(GfxModelSkinnedSurface *modelSurface, const DObjSkelMat *bones);
+byte *R_SkinXModelSurface(const DObjSkelMat *bone, const GfxEntity *entity, byte *cursor);
+void R_SkinRigidXModelCmd(SkinRigidXModelCmd *cmd);
+static __declspec(noinline) void R_ConvertSurfaceBones(const SkinXModelCmd *cmd, DObjSkelMat *out);
+void R_SkinXModelCmd(SkinXModelCmd *cmd, int context);
+static int R_PreSkinXSurface(GfxSceneEntity *sceneEnt, const DObj *obj,
+    const DSurface_s *surface, int surfaceIndex, const char *lods, byte *surfPos);
+byte Material_UsesDx7GridLighting(const Material *material);
+static int R_PreSkinStaticSurface(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex,
+    const XModel *model, XSurface *xsurf, int surfaceIndex, int lod,
+    qboolean *needSkinningSurf, byte *surfPos);
+static void R_DebugModelSurfaces(const DObj *obj, const GfxEntity *ent, const GfxSceneEntity *sceneEnt);
+void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent);
+static void R_SkinXModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex);
+void R_SkinStaticModel(GfxSceneEntity *sceneEnt, GfxEntity *ent, int smodelIndex);
+void R_SkinSceneEnt(GfxSceneEntity *sceneEnt, GfxEntity *ent);
+
 // Name unconfirmed: DObjAnimMat to 4x4 skeleton matrix.
 void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out)
 {
@@ -105,21 +299,28 @@ __declspec(noinline) XModel *R_RegisterModel(const char *name)
     return ri.XModelPrecache(name + 7, Hunk_AllocXModelPrecache, Hunk_AllocXModelPrecacheColl);
 }
 
-extern "C" const char *__stdcall DXGetErrorDescription9A(HRESULT hr);
-typedef HRESULT(__stdcall *BufferLockFn)(void *buffer, UINT offset, UINT size, void **data, DWORD flags);
-void R_LockSkinnedCache(int lockType);
-void R_UnlockSkinnedCache();
-int R_AllocSkinnedCachedVerts(int vertCount);
-void R_DObjGetSurfMaterials(DObj *obj, char lod, MaterialHandle *matHandleArray);
-void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle material);
-void R_ModelBounds(const vec_t *bounds, vec_t *mins, vec_t *maxs);
-GfxBrushModel *R_RegisterInlineModel(int index);
-void R_SetIgnorePrecacheErrors(int ignore);
-bool R_GetIgnorePrecacheErrors();
-
 GfxBrushModel *R_RegisterInlineModel(int index)
 {
     return &rgp.world->models[index];
+}
+
+void R_FinishLoadingModels()
+{
+    if (!r_optimizeXModels->current.integer)
+        return;
+    ri.DB_EnumXAssets(1, R_OptimizeModel, 0, 1);
+}
+
+static void R_ReleaseModel(XAssetHeader header, void *data)
+{
+    if (ri.XModelBad(header.model))
+        return;
+    XModelUnoptimize(header.model);
+}
+
+void R_ReleaseAllModels()
+{
+    ri.DB_EnumXAssets(1, R_ReleaseModel, 0, 1);
 }
 
 void R_SetIgnorePrecacheErrors(int ignore)
@@ -153,151 +354,6 @@ void R_ModelBounds(const vec_t *bounds, vec_t *mins, vec_t *maxs)
         maxs[2] = 0.0f;
     }
 }
-
-void R_LockSkinnedCache(int lockType)
-{
-    void *vb;
-    DWORD lockFlags;
-    HRESULT hr;
-
-    vb = (void *)frontEndDataOut->skinnedCacheVb->buffer;
-    if (dx.gpuSync || lockType)
-        lockFlags = 0x1000;
-    else
-        lockFlags = 0x2000;
-    hr = ((BufferLockFn)VTABLE(vb)[0x2c / 4])(vb, 0, 0, (void **)&dx.skinnedCacheLockAddr, lockFlags);
-    if (hr < 0)
-    {
-        ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n");
-        ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(hr));
-        ri.Sys_DirectXFatalError();
-    }
-    if ((unsigned int)dx.skinnedCacheLockAddr & 0xf)
-    {
-        ((BufferUnlockFn)VTABLE(vb)[0x30 / 4])(vb);
-        dx.skinnedCacheLockAddr = 0;
-    }
-}
-
-void R_UnlockSkinnedCache()
-{
-    GfxBackEndData *data;
-    void *vb;
-
-    if (!dx.skinnedCacheLockAddr)
-        return;
-    data = frontEndDataOut;
-    dx.skinnedCacheLockAddr = 0;
-    vb = (void *)data->skinnedCacheVb->buffer;
-    do
-    {
-        RB_LogPrint("vb->Unlock()\n");
-        ((BufferUnlockFn)VTABLE(vb)[0x30 / 4])(vb);
-    } while (*(volatile int *)&alwaysfails != 0);
-}
-
-int R_AllocSkinnedCachedVerts(int vertCount)
-{
-    static int skinCacheWarnFrame;
-    int offset;
-
-    if (!dx.skinnedCacheLockAddr)
-        return -1;
-    offset = InterlockedExchangeAdd((long *)&frontEndDataOut->skinnedCacheVb->used, (r_rendererInUse->current.integer == 2 ? 0x24 : 0x40) * vertCount);
-    if (frontEndDataOut->skinnedCacheVb->used > frontEndDataOut->skinnedCacheVb->total)
-    {
-        if (offset <= frontEndDataOut->skinnedCacheVb->total)
-            InterlockedExchange((long *)&frontEndDataOut->skinnedCacheVb->used, offset);
-        if (skinCacheWarnFrame != frontEndDataOut->frameCount)
-        {
-            skinCacheWarnFrame = frontEndDataOut->frameCount;
-            ri.Printf(2, "R_MAX_SKINNED_CACHE_VERTICES exceeded - not drawing surface\n");
-        }
-        return -1;
-    }
-    return offset;
-}
-
-void R_DObjGetSurfMaterials(DObj *obj, char lod, MaterialHandle *matHandleArray)
-{
-    char lods[8];
-    int partBits[4];
-    DSurface_s surfaces[64];
-    int numModels;
-    int i;
-    int surfaceCount;
-    int surfaceIndex;
-    int modelIndex;
-    const trXSkin_t *skins;
-
-    numModels = ri.DObjGetNumModels(obj);
-    for (i = 0; i < numModels; ++i)
-        lods[i] = lod;
-    surfaceCount = ri.DObjGetSurfaceList(obj, surfaces, partBits, lods);
-    for (surfaceIndex = 0; surfaceIndex < surfaceCount; ++surfaceIndex)
-    {
-        modelIndex = surfaces[surfaceIndex].modelIndex;
-        skins = ri.XModelGetSkins(ri.DObjGetModel(obj, modelIndex));
-        if (!skins)
-            matHandleArray[surfaceIndex] = 0;
-        else
-            matHandleArray[surfaceIndex] = ((MaterialHandle **)skins)[lods[modelIndex]][surfaces[surfaceIndex].subMatIndex];
-    }
-}
-
-void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle material)
-{
-    char lods[8];
-    int partBits[4];
-    DSurface_s surfaces[64];
-    int numModels;
-    int i;
-    int modelIndex;
-    const trXSkin_t *skins;
-
-    numModels = ri.DObjGetNumModels(obj);
-    for (i = 0; i < numModels; ++i)
-        lods[i] = lod;
-    ri.DObjGetSurfaceList(obj, surfaces, partBits, lods);
-    modelIndex = surfaces[surfaceIndex].modelIndex;
-    skins = ri.XModelGetSkins(ri.DObjGetModel(obj, modelIndex));
-    if (skins)
-        ((MaterialHandle **)skins)[lods[modelIndex]][surfaces[surfaceIndex].subMatIndex] = material;
-}
-
-void XModelUnoptimize(XModel *model);
-void XModelOptimize(XModel *model);
-extern const dvar_t *r_optimizeXModels;
-
-static void R_OptimizeModel(XAssetHeader header, void *data)
-{
-    if (ri.XModelBad(header.model))
-        return;
-    XModelOptimize(header.model);
-}
-
-void R_FinishLoadingModels()
-{
-    if (!r_optimizeXModels->current.integer)
-        return;
-    ri.DB_EnumXAssets(1, R_OptimizeModel, 0, 1);
-}
-
-static void R_ReleaseModel(XAssetHeader header, void *data)
-{
-    if (ri.XModelBad(header.model))
-        return;
-    XModelUnoptimize(header.model);
-}
-
-void R_ReleaseAllModels()
-{
-    ri.DB_EnumXAssets(1, R_ReleaseModel, 0, 1);
-}
-
-// PC 1.0 model bounds/debug cohort, 1001d9f0--100201a3.
-extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile *, long, long);
-extern const dvar_t *developer;
 // PINNED 1001d960; descriptive name.
 float R_GetModelLodDistance(const float *origin, float scale)
 {
@@ -307,18 +363,6 @@ float R_GetModelLodDistance(const float *origin, float scale)
         distance /= scale;
     return distance;
 }
-void ConvertQuatToMat(const DObjAnimMat *mat, vec3_t axis[3]);
-void TransformVectorByAnimMat(const float *in, const DObjAnimMat *mat, float *out);
-void R_AddDebugLine(DebugGlobals *debug, const float *start, const float *end, const float *color);
-
-typedef char model_bounds_layout[(offsetof(GfxEntity, origin) == 0x3c
-    && offsetof(GfxSceneEntity, cullState) == 0xc
-    && offsetof(GfxSceneEntity, curMins) == 0x14
-    && offsetof(GfxBackEndData, debugGlobals) == 0x249d18
-    && sizeof(DObjAnimMat) == 32 && sizeof(DSurface_s) == 4) ? 1 : -1];
-static void R_CalcSceneEntityPose(const GfxSceneEntity *sceneEnt, const DObj *obj, int *partBits);
-static int R_GetSurfaceData(const GfxEntity *ent, const DObj *obj,
-    DSurface_s *surfaces, int *partBits, char *lods);
 
 static int R_GetSurfaceData(const GfxEntity *ent, const DObj *obj,
     DSurface_s *surfaces, int *partBits, char *lods)
@@ -336,25 +380,6 @@ static void R_CalcSceneEntityPose(const GfxSceneEntity *sceneEnt, const DObj *ob
     if (sceneEnt->cent)
         ((void (*)(const centity_s *, const DObj *, int *))ri.slot139)(sceneEnt->cent, obj, partBits);
 }
-
-// PINNED 10190278: twelve consecutive endpoint pairs.
-static const int boxVerts[24][3] = {
-    {0,0,0},{1,0,0}, {0,0,0},{0,1,0},
-    {1,1,0},{1,0,0}, {1,1,0},{0,1,0},
-    {0,0,1},{1,0,1}, {0,0,1},{0,1,1},
-    {1,1,1},{1,0,1}, {1,1,1},{0,1,1},
-    {0,0,0},{0,0,1}, {1,0,0},{1,0,1},
-    {0,1,0},{0,1,1}, {1,1,0},{1,1,1},
-};
-static void R_XModelDebugBoxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
-    const DObj *obj);
-static void R_XModelDebugAxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
-    const DObj *obj);
-static void R_SetEntityOriginBounds(GfxSceneEntity *sceneEnt, const float *origin);
-static void R_ExpandBoneBounds(const vec3_t *bounds, const float *origin,
-    const vec3_t *axis, vec3_t *out);
-const DObj *R_GetSceneEntDObj(const GfxSceneEntity *sceneEnt, const GfxEntity *ent);
-void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent);
 
 static void R_XModelDebugBoxes(const GfxSceneEntity *sceneEnt, const GfxEntity *ent,
     const DObj *obj)
@@ -432,182 +457,138 @@ static void R_XModelDebugAxes(const GfxSceneEntity *sceneEnt, const GfxEntity *e
     }
 }
 
-// PINNED 1001f6b0/34: select DObj or bind model to rg.modelDObj.
-const DObj *R_GetSceneEntDObj(const GfxSceneEntity *sceneEnt, const GfxEntity *ent)
+// PINNED 1001e220/50; composite debug helper name unconfirmed.
+static void R_DebugModelSurfaces(const DObj *obj, const GfxEntity *ent, const GfxSceneEntity *sceneEnt)
 {
-    if (ent->reType == 0)
-        return sceneEnt->u.obj;
-    DObj *obj = rg.modelDObj;
-    ri.DObjSetModel(obj, sceneEnt->u.model);
-    return obj;
+    if (r_xdebug->current.integer & 1)
+        R_XModelDebugBoxes(sceneEnt, ent, obj);
+    if (r_xdebug->current.integer & 2)
+        R_XModelDebugAxes(sceneEnt, ent, obj);
 }
 
-void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent)
+void R_LockSkinnedCache(int lockType)
 {
-    DSurface_s surfaces[64];
-    int partBits[4];
-    char lods[8];
-    XBoneInfo *boneInfo[128];
-    vec3_t bounds[2], axis[3];
-    if (sceneEnt->cullState >= 2)
-        return;
-    if (InterlockedCompareExchange((long volatile *)&sceneEnt->cullState, 1, 0))
+    void *vb;
+    DWORD lockFlags;
+    HRESULT hr;
+
+    vb = (void *)frontEndDataOut->skinnedCacheVb->buffer;
+    if (dx.gpuSync || lockType)
+        lockFlags = 0x1000;
+    else
+        lockFlags = 0x2000;
+    hr = ((BufferLockFn)VTABLE(vb)[0x2c / 4])(vb, 0, 0, (void **)&dx.skinnedCacheLockAddr, lockFlags);
+    if (hr < 0)
     {
-        while (sceneEnt->cullState < 2) {}
-        return;
+        ri.Printf(0, "********** DirectX failed a call to lock a vertex buffer or an index buffer **********\n");
+        ri.Printf(0, "********** error information:  %s\n", DXGetErrorDescription9A(hr));
+        ri.Sys_DirectXFatalError();
     }
-    const DObj *obj = R_GetSceneEntDObj(sceneEnt, ent);
-    if (ri.DObjBad(obj))
+    if ((unsigned int)dx.skinnedCacheLockAddr & 0xf)
     {
-        if (developer->current.integer)
+        ((BufferUnlockFn)VTABLE(vb)[0x30 / 4])(vb);
+        dx.skinnedCacheLockAddr = 0;
+    }
+}
+
+void R_UnlockSkinnedCache()
+{
+    GfxBackEndData *data;
+    void *vb;
+
+    if (!dx.skinnedCacheLockAddr)
+        return;
+    data = frontEndDataOut;
+    dx.skinnedCacheLockAddr = 0;
+    vb = (void *)data->skinnedCacheVb->buffer;
+    do
+    {
+        RB_LogPrint("vb->Unlock()\n");
+        ((BufferUnlockFn)VTABLE(vb)[0x30 / 4])(vb);
+    } while (*(volatile int *)&alwaysfails != 0);
+}
+
+int R_AllocSkinnedCachedVerts(int vertCount)
+{
+    static int skinCacheWarnFrame;
+    int offset;
+
+    if (!dx.skinnedCacheLockAddr)
+        return -1;
+    offset = InterlockedExchangeAdd((long *)&frontEndDataOut->skinnedCacheVb->used, (r_rendererInUse->current.integer == 2 ? 0x24 : 0x40) * vertCount);
+    if (frontEndDataOut->skinnedCacheVb->used > frontEndDataOut->skinnedCacheVb->total)
+    {
+        if (offset <= frontEndDataOut->skinnedCacheVb->total)
+            InterlockedExchange((long *)&frontEndDataOut->skinnedCacheVb->used, offset);
+        if (skinCacheWarnFrame != frontEndDataOut->frameCount)
         {
-            R_XModelDebugBoxes(sceneEnt, ent, obj);
-            R_XModelDebugAxes(sceneEnt, ent, obj);
+            skinCacheWarnFrame = frontEndDataOut->frameCount;
+            ri.Printf(2, "R_MAX_SKINNED_CACHE_VERTICES exceeded - not drawing surface\n");
         }
-        R_SetEntityOriginBounds(sceneEnt, ent->origin);
-        sceneEnt->cullState = 2;
-        return;
+        return -1;
     }
-    if (!R_GetSurfaceData(ent, obj, surfaces, partBits, lods))
-    {
-        R_SetEntityOriginBounds(sceneEnt, ent->origin);
-        sceneEnt->cullState = 2;
-        return;
-    }
-    R_CalcSceneEntityPose(sceneEnt, obj, partBits);
-    const DObjAnimMat *boneMatrix = ri.DObjGetRotTransArray(obj);
-    if (!boneMatrix)
-    {
-        R_SetEntityOriginBounds(sceneEnt, ent->origin);
-        sceneEnt->cullState = 2;
-        return;
-    }
-    ClearBounds(bounds[0], bounds[1]);
-    ri.DObjGetBoneInfo(obj, boneInfo);
-    int boneCount = ri.DObjNumBones(obj);
-    for (int bone = 0; bone < boneCount; ++bone)
-    {
-        if (partBits[bone >> 5] & (1u << (bone & 31)))
-        {
-            ConvertQuatToMat(&boneMatrix[bone], axis);
-            R_ExpandBoneBounds(boneInfo[bone]->bounds, boneMatrix[bone].trans, axis, bounds);
-        }
-    }
-    GetRotatedBounds(bounds, ent->origin, ent->axis, (vec3_t *)&sceneEnt->curMins);
-    sceneEnt->cullState = 2;
+    return offset;
 }
 
-static void R_SetEntityOriginBounds(GfxSceneEntity *sceneEnt, const float *origin)
+static __forceinline __m128 R_SkinPositionSse(const __m128 &in, const DObjSkelMat *bone)
 {
-    VectorCopy(origin, sceneEnt->curMins);
-    VectorCopy(origin, sceneEnt->curMaxs);
+    return _mm_add_ps(_mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[0]), _mm_shuffle_ps(in, in, 0)),
+        _mm_mul_ps(_mm_load_ps(bone->axis[1]), _mm_shuffle_ps(in, in, 0x55))),
+        _mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[2]), _mm_shuffle_ps(in, in, 0xaa)),
+            _mm_load_ps(bone->origin)));
 }
 
-// Retail 1001fdd0; no historical helper name is asserted.
-static void R_ExpandBoneBounds(const vec3_t *bounds, const float *origin,
-    const vec3_t *axis, vec3_t *out)
+static __forceinline __m128 R_SkinVectorSse(const __m128 &in, const DObjSkelMat *bone)
 {
-    for (int index = 0; index < 3; ++index)
-    {
-        int offset = I_sel(FloatAsInt(axis[0][index]), 0, 12);
-        float lower = ((const float *)((const byte *)bounds + offset))[0] * axis[0][index] + origin[index];
-        float upper = ((const float *)((const byte *)bounds - offset))[3] * axis[0][index] + origin[index];
-        offset = I_sel(FloatAsInt(axis[1][index]), 0, 12);
-        lower += ((const float *)((const byte *)bounds + offset))[1] * axis[1][index];
-        upper += ((const float *)((const byte *)bounds - offset))[4] * axis[1][index];
-        offset = I_sel(FloatAsInt(axis[2][index]), 0, 12);
-        lower += ((const float *)((const byte *)bounds + offset))[2] * axis[2][index];
-        upper += ((const float *)((const byte *)bounds - offset))[5] * axis[2][index];
-        if (out[0][index] > lower) out[0][index] = lower;
-        if (upper > out[1][index]) out[1][index] = upper;
-    }
+    return _mm_add_ps(_mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[0]), _mm_shuffle_ps(in, in, 0)),
+        _mm_mul_ps(_mm_load_ps(bone->axis[1]), _mm_shuffle_ps(in, in, 0x55))),
+        _mm_mul_ps(_mm_load_ps(bone->axis[2]), _mm_shuffle_ps(in, in, 0xaa)));
 }
 
-// PINNED PC rigid vertex transforms, 1001e260/1001e3a0/1001ed70/1001ee00.
-typedef char rigid_vertex_layout[(sizeof(XVertexInfo) == 64
-    && sizeof(GfxVertex) == 64 && sizeof(GfxVertexDx7) == 36
-    && offsetof(XSurface, verts) == 12 && offsetof(XSurface, vertCount) == 2) ? 1 : -1];
-typedef char skinning_layout[(sizeof(XBlendInfo) == 16 && offsetof(XBlendInfo, boneOffset) == 12
-    && offsetof(XBlendInfo, boneWeight) == 14 && sizeof(GfxModelSkinnedSurface) == 16
-    && offsetof(GfxModelSkinnedSurface, skinnedCachedOffset) == 8
-    && offsetof(GfxModelSkinnedSurface, skinnedVert) == 12
-    && offsetof(SkinRigidXModelCmd, mat) == 12 && sizeof(DObjSkelMat) == 64
-    && offsetof(GfxEntity, axis) == 20 && offsetof(GfxEntity, scale) == 56
-    && offsetof(GfxEntity, origin) == 60) ? 1 : -1];
-
-// Helper names, formal argument order and TU grouping are provisional.
-void R_TransformSkelVector(const DObjSkelMat *bone, const float *in, float *out);
-void R_TransformSkelPosition(const DObjSkelMat *bone, const float *in, float *out);
-static void R_TransformRigidVertex(const DObjSkelMat *bone, const float *normal,
-    const float *binormal, const float *position, const float *tangent, GfxVertex *out);
-static void R_TransformRigidVertexDx7(const DObjSkelMat *bone, const float *position,
-    const float *normal, GfxVertexDx7 *out);
-void R_SkinXSurfaceRigid(const XSurface *surface, const DObjSkelMat *bones,
-    int boneOffset, GfxVertex *out);
-void R_SkinXSurfaceRigidDx7(const XSurface *surface, const DObjSkelMat *bones,
-    int boneOffset, GfxVertexDx7 *out);
-static __forceinline void R_BlendSkinPosition(const float *in,
-    const DObjSkelMat *bone, float weight, float *out);
-static void R_SkinXSurfaceBlended(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out);
-static void R_SkinXSurfaceBlendedDx7(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out);
-static __forceinline __m128 R_SkinVectorSse(const __m128 &in, const DObjSkelMat *bone);
-static __forceinline __m128 R_SkinPositionSse(const __m128 &in, const DObjSkelMat *bone);
-static void R_SkinXSurfaceBlendedSse(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out);
-static void R_SkinXSurfaceBlendedDx7Sse(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out);
-static void R_TransformRigidVertex(const DObjSkelMat *bone, const float *normal,
-    const float *binormal, const float *position, const float *tangent, GfxVertex *out)
+// PINNED 1001e6e0/567: aligned loads, position weights and four streaming stores.
+static void R_SkinXSurfaceBlendedSse(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out)
 {
-    R_TransformSkelVector(bone, normal, out->normal);
-    R_TransformSkelVector(bone, binormal, out->binormal);
-    R_TransformSkelVector(bone, tangent, out->tangent);
-    R_TransformSkelPosition(bone, position, out->xyzw);
-    out->xyzw[3] = 1.0f;
-}
-
-static void R_TransformRigidVertexDx7(const DObjSkelMat *bone, const float *position,
-    const float *normal, GfxVertexDx7 *out)
-{
-    R_TransformSkelVector(bone, normal, out->normal);
-    R_TransformSkelPosition(bone, position, out->xyz);
-}
-
-void R_SkinXSurfaceRigid(const XSurface *surface, const DObjSkelMat *bones,
-    int boneOffset, GfxVertex *out)
-{
-    const DObjSkelMat *bone = (const DObjSkelMat *)((const byte *)bones + boneOffset);
     const XVertexInfo *in = &surface->verts->v;
     int remaining = surface->vertCount;
+    _mm_empty();
     while (remaining > 0)
     {
-        __declspec(align(16)) GfxVertex vertex;
-        vertex.color = *(const GfxColor *)in->color;
-        vertex.texCoord[0] = in->texCoordX;
-        vertex.texCoord[1] = in->texCoordY;
-        R_TransformRigidVertex(bone, in->normal, in->binormal, in->offset, in->tangent, &vertex);
-        ++in;
-        --remaining;
-        memcpy(out, &vertex, sizeof(vertex));
+        const DObjSkelMat *bone = (const DObjSkelMat *)((const byte *)bones + in->boneOffset);
+        __m128 normalIn = _mm_load_ps(in->normal);
+        __m128 binormalIn = _mm_load_ps(in->binormal);
+        __m128 tangentIn = _mm_load_ps(in->tangent);
+        __m128 position = R_SkinPositionSse(_mm_load_ps(in->offset), bone);
+        __m128 normal = R_SkinVectorSse(normalIn, bone);
+        _mm_prefetch((const char *)in + 128, _MM_HINT_NTA);
+        __m128 binormal = R_SkinVectorSse(binormalIn, bone);
+        __m128 tangent = R_SkinVectorSse(tangentIn, bone);
+        __m128 coords = _mm_unpackhi_ps(binormalIn, tangentIn);
+        unsigned int weights = in->numWeights;
+        if (weights)
+        {
+            position = _mm_mul_ps(position, _mm_set1_ps((float)in->boneWeight * (1.0f / 256.0f)));
+            ++in;
+            do
+            {
+                const XBlendInfo *blend = (const XBlendInfo *)in;
+                bone = (const DObjSkelMat *)((const byte *)bones + blend->boneOffset);
+                __m128 transformed = R_SkinPositionSse(_mm_load_ps(blend->offset), bone);
+                __m128 weight = _mm_set1_ps((float)blend->boneWeight * (1.0f / 65536.0f));
+                position = _mm_add_ps(position, _mm_mul_ps(weight, transformed));
+                in = (const XVertexInfo *)(blend + 1);
+            } while (--weights);
+        }
+        else
+            ++in;
+        _mm_stream_ps(out->xyzw, position);
+        __m128 normalColor = _mm_shuffle_ps(normal, normalIn, 0xfa);
+        normalColor = _mm_shuffle_ps(normal, normalColor, 0xd4);
+        _mm_stream_ps(out->normal, normalColor);
+        _mm_stream_ps(out->texCoord, _mm_shuffle_ps(coords, binormal, 0x4e));
+        __m128 tail = _mm_shuffle_ps(binormal, tangent, 0x22);
+        _mm_stream_ps(&out->binormal[2], _mm_shuffle_ps(tail, tangent, 0x9c));
         ++out;
-    }
-}
-
-void R_SkinXSurfaceRigidDx7(const XSurface *surface, const DObjSkelMat *bones,
-    int boneOffset, GfxVertexDx7 *out)
-{
-    const DObjSkelMat *bone = (const DObjSkelMat *)((const byte *)bones + boneOffset);
-    const XVertexInfo *in = &surface->verts->v;
-    int remaining = surface->vertCount;
-    while (remaining > 0)
-    {
-        GfxVertexDx7 vertex;
-        vertex.color = *(const GfxColor *)in->color;
-        vertex.texCoord[0] = in->texCoordX;
-        vertex.texCoord[1] = in->texCoordY;
-        R_TransformRigidVertexDx7(bone, in->offset, in->normal, &vertex);
-        ++in;
         --remaining;
-        memcpy(out, &vertex, sizeof(vertex));
-        ++out;
     }
 }
 
@@ -695,61 +676,6 @@ static void R_SkinXSurfaceBlendedDx7(const XSurface *surface, const DObjSkelMat 
     }
 }
 
-static __forceinline __m128 R_SkinPositionSse(const __m128 &in, const DObjSkelMat *bone)
-{
-    return _mm_add_ps(_mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[0]), _mm_shuffle_ps(in, in, 0)),
-        _mm_mul_ps(_mm_load_ps(bone->axis[1]), _mm_shuffle_ps(in, in, 0x55))),
-        _mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[2]), _mm_shuffle_ps(in, in, 0xaa)),
-            _mm_load_ps(bone->origin)));
-}
-
-// PINNED 1001e6e0/567: aligned loads, position weights and four streaming stores.
-static void R_SkinXSurfaceBlendedSse(const XSurface *surface, const DObjSkelMat *bones, GfxVertex *out)
-{
-    const XVertexInfo *in = &surface->verts->v;
-    int remaining = surface->vertCount;
-    _mm_empty();
-    while (remaining > 0)
-    {
-        const DObjSkelMat *bone = (const DObjSkelMat *)((const byte *)bones + in->boneOffset);
-        __m128 normalIn = _mm_load_ps(in->normal);
-        __m128 binormalIn = _mm_load_ps(in->binormal);
-        __m128 tangentIn = _mm_load_ps(in->tangent);
-        __m128 position = R_SkinPositionSse(_mm_load_ps(in->offset), bone);
-        __m128 normal = R_SkinVectorSse(normalIn, bone);
-        _mm_prefetch((const char *)in + 128, _MM_HINT_NTA);
-        __m128 binormal = R_SkinVectorSse(binormalIn, bone);
-        __m128 tangent = R_SkinVectorSse(tangentIn, bone);
-        __m128 coords = _mm_unpackhi_ps(binormalIn, tangentIn);
-        unsigned int weights = in->numWeights;
-        if (weights)
-        {
-            position = _mm_mul_ps(position, _mm_set1_ps((float)in->boneWeight * (1.0f / 256.0f)));
-            ++in;
-            do
-            {
-                const XBlendInfo *blend = (const XBlendInfo *)in;
-                bone = (const DObjSkelMat *)((const byte *)bones + blend->boneOffset);
-                __m128 transformed = R_SkinPositionSse(_mm_load_ps(blend->offset), bone);
-                __m128 weight = _mm_set1_ps((float)blend->boneWeight * (1.0f / 65536.0f));
-                position = _mm_add_ps(position, _mm_mul_ps(weight, transformed));
-                in = (const XVertexInfo *)(blend + 1);
-            } while (--weights);
-        }
-        else
-            ++in;
-        _mm_stream_ps(out->xyzw, position);
-        __m128 normalColor = _mm_shuffle_ps(normal, normalIn, 0xfa);
-        normalColor = _mm_shuffle_ps(normal, normalColor, 0xd4);
-        _mm_stream_ps(out->normal, normalColor);
-        _mm_stream_ps(out->texCoord, _mm_shuffle_ps(coords, binormal, 0x4e));
-        __m128 tail = _mm_shuffle_ps(binormal, tangent, 0x22);
-        _mm_stream_ps(&out->binormal[2], _mm_shuffle_ps(tail, tangent, 0x9c));
-        ++out;
-        --remaining;
-    }
-}
-
 // PINNED 1001ea80/408: the DX7 output is a 36-byte copy, not a streaming store.
 static void R_SkinXSurfaceBlendedDx7Sse(const XSurface *surface, const DObjSkelMat *bones, GfxVertexDx7 *out)
 {
@@ -788,20 +714,6 @@ static void R_SkinXSurfaceBlendedDx7Sse(const XSurface *surface, const DObjSkelM
         --remaining;
     }
 }
-
-static __forceinline __m128 R_SkinVectorSse(const __m128 &in, const DObjSkelMat *bone)
-{
-    return _mm_add_ps(_mm_add_ps(_mm_mul_ps(_mm_load_ps(bone->axis[0]), _mm_shuffle_ps(in, in, 0)),
-        _mm_mul_ps(_mm_load_ps(bone->axis[1]), _mm_shuffle_ps(in, in, 0x55))),
-        _mm_mul_ps(_mm_load_ps(bone->axis[2]), _mm_shuffle_ps(in, in, 0xaa)));
-}
-
-extern const dvar_t *sys_SSE;
-extern const dvar_t *r_sse_skinning;
-extern DxGlobals dx;
-
-void R_ConvertAnimMatToSkelMat(const DObjAnimMat *in, DObjSkelMat *out);
-void R_GetRigidTransform(const DObjSkelMat *bone, const float *origin, const vec3_t *axis, float scale, vec3_t *out);
 
 // PINNED 1001f000/37: rigid surface transform wrapper.
 void R_SkinRigidSurface(const XSurface *xsurf, const DObjSkelMat *bone, const float *origin,
@@ -846,101 +758,6 @@ static __declspec(noinline) void R_SkinXSurfaceSkinned(GfxModelSkinnedSurface *m
             R_SkinXSurfaceRigid(surface, bones, boneOffset, (GfxVertex *)out);
     }
 }
-
-// PINNED 1001f480/65; the helper name is descriptive.
-byte *R_SkinXModelSurface(const DObjSkelMat *bone, const GfxEntity *entity, byte *cursor)
-{
-    GfxModelSurface *surface = (GfxModelSurface *)cursor;
-    if (surface->surfType != 5)
-    {
-        if (surface->surfType == 4)
-        {
-            GfxModelRigidSurface *rigid = (GfxModelRigidSurface *)cursor;
-            R_SkinRigidSurface(surface->xsurf, bone, entity->origin, entity->axis, entity->scale, rigid->boneAxis);
-            return cursor + 56;
-        }
-        R_SkinXSurfaceSkinned((GfxModelSkinnedSurface *)cursor, bone);
-    }
-    return cursor + 16;
-}
-
-// PINNED 1001f520/135: one aligned pose, then variable-size surface records.
-void R_SkinRigidXModelCmd(SkinRigidXModelCmd *cmd)
-{
-    byte boneStorage[sizeof(DObjSkelMat) + 16];
-    DObjSkelMat *bone = (DObjSkelMat *)(((size_t)boneStorage + 15) & ~(size_t)15);
-    R_ConvertAnimMatToSkelMat(&cmd->mat, bone);
-    byte *cursor = (byte *)cmd->surfs;
-    for (int index = 0; index < cmd->surfCount; ++index)
-        cursor = R_SkinXModelSurface(bone, cmd->e, cursor);
-}
-
-typedef char skin_command_layout[(sizeof(SkinBuffers) == 40960
-    && offsetof(SkinXModelCmd, mat) == 8 && offsetof(SkinXModelCmd, surfacePartBits) == 12
-    && offsetof(SkinXModelCmd, surfCount) == 28 && offsetof(SkinXModelCmd, boneCount) == 29
-    && offsetof(SkinXModelCmd, matOffset) == 30) ? 1 : -1];
-
-// SUPPORTED single context from the reference; the PC command runner uses context zero.
-SkinBuffers g_skinBuffers[1];
-
-// PINNED 1001f5b0/84: convert only the bones selected by the surface bitset.
-static __declspec(noinline) void R_ConvertSurfaceBones(const SkinXModelCmd *cmd, DObjSkelMat *out)
-{
-    int count = cmd->boneCount;
-    const DObjAnimMat *in = cmd->mat;
-    for (int index = 0; index < count; ++index, ++in, ++out)
-    {
-        if (cmd->surfacePartBits[index >> 5] & (1u << (index & 31)))
-            R_ConvertAnimMatToSkelMat(in, out);
-    }
-}
-
-// PINNED 1001f610/152: offsets select a skeleton base before per-surface routing.
-void R_SkinXModelCmd(SkinXModelCmd *cmd, int context)
-{
-    DObjSkelMat *bones = g_skinBuffers[context].matArrayBuf;
-    R_ConvertSurfaceBones(cmd, bones);
-    byte *cursor = (byte *)cmd->surfs;
-    for (int index = 0; index < cmd->surfCount; ++index)
-    {
-        DObjSkelMat *bone = bones + cmd->matOffset[index];
-        GfxModelSurface *surface = (GfxModelSurface *)cursor;
-        GfxEntity *entity = cmd->e;
-        if (surface->surfType == 3)
-        {
-            R_SkinXSurfaceSkinned((GfxModelSkinnedSurface *)cursor, bone);
-            cursor += 16;
-        }
-        else if (surface->surfType == 5)
-            cursor += 16;
-        else
-        {
-            GfxModelRigidSurface *rigid = (GfxModelRigidSurface *)cursor;
-            R_SkinRigidSurface(surface->xsurf, bone, entity->origin, entity->axis, entity->scale, rigid->boneAxis);
-            cursor += 56;
-        }
-    }
-}
-
-// PINNED PC pre-skin surface publication, 1001f120/1001f2a0.
-extern const dvar_t *r_skinCache;
-extern const dvar_t *r_smc_enable;
-GfxStaticModelSurfaceCached *R_CacheStaticModelSurface(GfxStaticSurface *surface,
-    const XSurface *xsurf, int smodelIndex, const Material *material);
-void R_UsedCachedStaticModelSurface(GfxStaticModelSurfaceCached *surface);
-
-typedef char preSkinSurfaceLayoutCheck[(offsetof(XSurface, surfRigid) == 16
-    && offsetof(XSurface, indexBuffer) == 20
-    && offsetof(GfxSceneEntity, materials) == 44
-    && offsetof(GfxBackEndData, skinnedCacheVb) == 0x217c78
-    && offsetof(DxGlobals, skinnedCacheLockAddr) == 0x2dc0
-    && offsetof(DxGlobals, tempSkinBuf) == 0x2dd0
-    && offsetof(DxGlobals, tempSkinPos) == 0x2dd4
-    && offsetof(Material, techniqueSet) == 56
-    && offsetof(MaterialTechniqueSet, techniques) == 4
-    && offsetof(MaterialTechnique, passCount) == 6
-    && offsetof(MaterialTechnique, passArray) + offsetof(MaterialPassDx7, gridLighting) == 12
-    && sizeof(GfxStaticModelCachedSurface) == 16) ? 1 : -1];
 
 // PINNED 1001f120/347: material assignment precedes every allocation path.
 static int R_PreSkinXSurface(GfxSceneEntity *sceneEnt, const DObj *obj,
@@ -1074,38 +891,98 @@ done:
     return sizeof(GfxModelSkinnedSurface);
 }
 
-// PINNED PC model scene publication, 1001f6f0/1001fa70.
-typedef char modelPublicationLayoutCheck[(offsetof(GfxScene, sceneEntMaterialCount) == 0x1a55c
-    && offsetof(GfxScene, sceneMaterials) == 0x1a560
-    && offsetof(GfxBackEndData, surfPos) == 0x80008
-    && offsetof(GfxBackEndData, surfsBuffer) == 0x8000c
-    && sizeof(((GfxBackEndData *)0)->surfsBuffer) == 0x20000) ? 1 : -1];
-
-extern const dvar_t *r_xdebug;
-void R_AddFrontendCmd(int type, void *data);
-
-// PINNED 1001e220/50; composite debug helper name unconfirmed.
-static void R_DebugModelSurfaces(const DObj *obj, const GfxEntity *ent, const GfxSceneEntity *sceneEnt)
+// PINNED 1001f480/65; the helper name is descriptive.
+byte *R_SkinXModelSurface(const DObjSkelMat *bone, const GfxEntity *entity, byte *cursor)
 {
-    if (r_xdebug->current.integer & 1)
-        R_XModelDebugBoxes(sceneEnt, ent, obj);
-    if (r_xdebug->current.integer & 2)
-        R_XModelDebugAxes(sceneEnt, ent, obj);
+    GfxModelSurface *surface = (GfxModelSurface *)cursor;
+    if (surface->surfType != 5)
+    {
+        if (surface->surfType == 4)
+        {
+            GfxModelRigidSurface *rigid = (GfxModelRigidSurface *)cursor;
+            R_SkinRigidSurface(surface->xsurf, bone, entity->origin, entity->axis, entity->scale, rigid->boneAxis);
+            return cursor + 56;
+        }
+        R_SkinXSurfaceSkinned((GfxModelSkinnedSurface *)cursor, bone);
+    }
+    return cursor + 16;
 }
 
-// PINNED 1001fa70/766: acquire state 2 -> 3 before publishing scene surfaces.
-void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent)
+// PINNED 1001f520/135: one aligned pose, then variable-size surface records.
+void R_SkinRigidXModelCmd(SkinRigidXModelCmd *cmd)
 {
-    static int skinWarnFrame;
-    long volatile *state = (long volatile *)&sceneEnt->cullState;
-    if (*state >= 4)
-        return;
-    if (InterlockedCompareExchange(state, 3, 2) != 2)
+    byte boneStorage[sizeof(DObjSkelMat) + 16];
+    DObjSkelMat *bone = (DObjSkelMat *)(((size_t)boneStorage + 15) & ~(size_t)15);
+    R_ConvertAnimMatToSkelMat(&cmd->mat, bone);
+    byte *cursor = (byte *)cmd->surfs;
+    for (int index = 0; index < cmd->surfCount; ++index)
+        cursor = R_SkinXModelSurface(bone, cmd->e, cursor);
+}
+
+// PINNED 1001f5b0/84: convert only the bones selected by the surface bitset.
+static __declspec(noinline) void R_ConvertSurfaceBones(const SkinXModelCmd *cmd, DObjSkelMat *out)
+{
+    int count = cmd->boneCount;
+    const DObjAnimMat *in = cmd->mat;
+    for (int index = 0; index < count; ++index, ++in, ++out)
     {
-        while (*state < 4) {}
+        if (cmd->surfacePartBits[index >> 5] & (1u << (index & 31)))
+            R_ConvertAnimMatToSkelMat(in, out);
+    }
+}
+
+// PINNED 1001f610/152: offsets select a skeleton base before per-surface routing.
+void R_SkinXModelCmd(SkinXModelCmd *cmd, int context)
+{
+    DObjSkelMat *bones = g_skinBuffers[context].matArrayBuf;
+    R_ConvertSurfaceBones(cmd, bones);
+    byte *cursor = (byte *)cmd->surfs;
+    for (int index = 0; index < cmd->surfCount; ++index)
+    {
+        DObjSkelMat *bone = bones + cmd->matOffset[index];
+        GfxModelSurface *surface = (GfxModelSurface *)cursor;
+        GfxEntity *entity = cmd->e;
+        if (surface->surfType == 3)
+        {
+            R_SkinXSurfaceSkinned((GfxModelSkinnedSurface *)cursor, bone);
+            cursor += 16;
+        }
+        else if (surface->surfType == 5)
+            cursor += 16;
+        else
+        {
+            GfxModelRigidSurface *rigid = (GfxModelRigidSurface *)cursor;
+            R_SkinRigidSurface(surface->xsurf, bone, entity->origin, entity->axis, entity->scale, rigid->boneAxis);
+            cursor += 56;
+        }
+    }
+}
+
+// PINNED 1001f6b0/34: select DObj or bind model to rg.modelDObj.
+const DObj *R_GetSceneEntDObj(const GfxSceneEntity *sceneEnt, const GfxEntity *ent)
+{
+    if (ent->reType == 0)
+        return sceneEnt->u.obj;
+    DObj *obj = rg.modelDObj;
+    ri.DObjSetModel(obj, sceneEnt->u.model);
+    return obj;
+}
+
+void R_UpdateXModelBounds(GfxSceneEntity *sceneEnt, const GfxEntity *ent)
+{
+    DSurface_s surfaces[64];
+    int partBits[4];
+    char lods[8];
+    XBoneInfo *boneInfo[128];
+    vec3_t bounds[2], axis[3];
+    if (sceneEnt->cullState >= 2)
+        return;
+    if (InterlockedCompareExchange((long volatile *)&sceneEnt->cullState, 1, 0))
+    {
+        while (sceneEnt->cullState < 2) {}
         return;
     }
-    const DObj *obj = sceneEnt->u.obj;
+    const DObj *obj = R_GetSceneEntDObj(sceneEnt, ent);
     if (ri.DObjBad(obj))
     {
         if (developer->current.integer)
@@ -1113,86 +990,37 @@ void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent)
             R_XModelDebugBoxes(sceneEnt, ent, obj);
             R_XModelDebugAxes(sceneEnt, ent, obj);
         }
-        *state = 4;
+        R_SetEntityOriginBounds(sceneEnt, ent->origin);
+        sceneEnt->cullState = 2;
         return;
     }
+    if (!R_GetSurfaceData(ent, obj, surfaces, partBits, lods))
+    {
+        R_SetEntityOriginBounds(sceneEnt, ent->origin);
+        sceneEnt->cullState = 2;
+        return;
+    }
+    R_CalcSceneEntityPose(sceneEnt, obj, partBits);
+    const DObjAnimMat *boneMatrix = ri.DObjGetRotTransArray(obj);
+    if (!boneMatrix)
+    {
+        R_SetEntityOriginBounds(sceneEnt, ent->origin);
+        sceneEnt->cullState = 2;
+        return;
+    }
+    ClearBounds(bounds[0], bounds[1]);
+    ri.DObjGetBoneInfo(obj, boneInfo);
     int boneCount = ri.DObjNumBones(obj);
-    DSurface_s surfaces[64];
-    int partBits[4];
-    char lods[8];
-    int surfaceCount = R_GetSurfaceData(ent, obj, surfaces, partBits, lods);
-    const DObjAnimMat *boneMatrix;
-    if (!surfaceCount || !(boneMatrix = ri.DObjGetRotTransArray(obj)))
+    for (int bone = 0; bone < boneCount; ++bone)
     {
-        *state = 4;
-        return;
-    }
-    int firstMaterial = InterlockedExchangeAdd((long *)&scene.sceneEntMaterialCount, surfaceCount);
-    if ((unsigned int)(firstMaterial + surfaceCount) > 4096)
-    {
-        scene.sceneEntMaterialCount = 4096;
-        if (skinWarnFrame != frontEndDataOut->frameCount)
+        if (partBits[bone >> 5] & (1u << (bone & 31)))
         {
-            skinWarnFrame = frontEndDataOut->frameCount;
-            ri.Printf(2, "MAX_SCENE_MATERIALS exceeded - not drawing surface\n");
+            ConvertQuatToMat(&boneMatrix[bone], axis);
+            R_ExpandBoneBounds(boneInfo[bone]->bounds, boneMatrix[bone].trans, axis, bounds);
         }
-        *state = 4;
-        return;
     }
-    sceneEnt->materials = scene.sceneMaterials + firstMaterial;
-    byte surfBuffer[3584];
-    byte *cursor = surfBuffer;
-    for (int index = 0; index < surfaceCount; ++index)
-    {
-        int bytes = R_PreSkinXSurface(sceneEnt, obj, &surfaces[index], index, lods, cursor);
-        if (!bytes)
-        {
-            *state = 4;
-            return;
-        }
-        cursor += bytes;
-    }
-    int size = cursor - surfBuffer;
-    int offset = InterlockedExchangeAdd((long *)&frontEndDataOut->surfPos, size);
-    if ((unsigned int)(offset + size) > 0x20000)
-    {
-        frontEndDataOut->surfPos = 0x20000;
-        if (skinWarnFrame != frontEndDataOut->frameCount)
-        {
-            skinWarnFrame = frontEndDataOut->frameCount;
-            ri.Printf(2, "MAX_SCENE_SURFS_SIZE exceeded - not drawing surface\n");
-        }
-        *state = 4;
-        return;
-    }
-    sceneEnt->surfs = (surfaceType_t *)(frontEndDataOut->surfsBuffer + offset);
-    memcpy(sceneEnt->surfs, surfBuffer, size);
-    sceneEnt->surfCount = surfaceCount;
-    if (r_xdebug->current.integer)
-        R_DebugModelSurfaces(obj, ent, sceneEnt);
-    if (boneCount == 1)
-    {
-        SkinRigidXModelCmd command;
-        command.surfs = sceneEnt->surfs;
-        command.surfCount = surfaceCount;
-        command.e = ent;
-        command.mat = *boneMatrix;
-        R_AddFrontendCmd(2, &command);
-    }
-    else
-    {
-        SkinXModelCmd command;
-        for (int index = 0; index < surfaceCount; ++index)
-            command.matOffset[index] = (byte)ri.DObjGetMatOffset(obj, surfaces[index].modelIndex);
-        command.surfs = sceneEnt->surfs;
-        command.e = ent;
-        command.mat = boneMatrix;
-        memcpy(command.surfacePartBits, partBits, sizeof(partBits));
-        command.surfCount = (byte)surfaceCount;
-        command.boneCount = (byte)boneCount;
-        R_AddFrontendCmd(surfaceCount > 10 ? 7 : 6, &command);
-    }
-    *state = 4;
+    GetRotatedBounds(bounds, ent->origin, ent->axis, (vec3_t *)&sceneEnt->curMins);
+    sceneEnt->cullState = 2;
 }
 
 // PINNED 1001f6f0/886: all-cached static surfaces need no further skinning.
@@ -1320,4 +1148,242 @@ void R_SkinSceneEnt(GfxSceneEntity *sceneEnt, GfxEntity *ent)
         R_SkinXModel(sceneEnt, ent, -1);
     else
         R_SkinSceneDObj(sceneEnt, ent);
+}
+
+// PINNED 1001fa70/766: acquire state 2 -> 3 before publishing scene surfaces.
+void R_SkinSceneDObj(GfxSceneEntity *sceneEnt, GfxEntity *ent)
+{
+    static int skinWarnFrame;
+    long volatile *state = (long volatile *)&sceneEnt->cullState;
+    if (*state >= 4)
+        return;
+    if (InterlockedCompareExchange(state, 3, 2) != 2)
+    {
+        while (*state < 4) {}
+        return;
+    }
+    const DObj *obj = sceneEnt->u.obj;
+    if (ri.DObjBad(obj))
+    {
+        if (developer->current.integer)
+        {
+            R_XModelDebugBoxes(sceneEnt, ent, obj);
+            R_XModelDebugAxes(sceneEnt, ent, obj);
+        }
+        *state = 4;
+        return;
+    }
+    int boneCount = ri.DObjNumBones(obj);
+    DSurface_s surfaces[64];
+    int partBits[4];
+    char lods[8];
+    int surfaceCount = R_GetSurfaceData(ent, obj, surfaces, partBits, lods);
+    const DObjAnimMat *boneMatrix;
+    if (!surfaceCount || !(boneMatrix = ri.DObjGetRotTransArray(obj)))
+    {
+        *state = 4;
+        return;
+    }
+    int firstMaterial = InterlockedExchangeAdd((long *)&scene.sceneEntMaterialCount, surfaceCount);
+    if ((unsigned int)(firstMaterial + surfaceCount) > 4096)
+    {
+        scene.sceneEntMaterialCount = 4096;
+        if (skinWarnFrame != frontEndDataOut->frameCount)
+        {
+            skinWarnFrame = frontEndDataOut->frameCount;
+            ri.Printf(2, "MAX_SCENE_MATERIALS exceeded - not drawing surface\n");
+        }
+        *state = 4;
+        return;
+    }
+    sceneEnt->materials = scene.sceneMaterials + firstMaterial;
+    byte surfBuffer[3584];
+    byte *cursor = surfBuffer;
+    for (int index = 0; index < surfaceCount; ++index)
+    {
+        int bytes = R_PreSkinXSurface(sceneEnt, obj, &surfaces[index], index, lods, cursor);
+        if (!bytes)
+        {
+            *state = 4;
+            return;
+        }
+        cursor += bytes;
+    }
+    int size = cursor - surfBuffer;
+    int offset = InterlockedExchangeAdd((long *)&frontEndDataOut->surfPos, size);
+    if ((unsigned int)(offset + size) > 0x20000)
+    {
+        frontEndDataOut->surfPos = 0x20000;
+        if (skinWarnFrame != frontEndDataOut->frameCount)
+        {
+            skinWarnFrame = frontEndDataOut->frameCount;
+            ri.Printf(2, "MAX_SCENE_SURFS_SIZE exceeded - not drawing surface\n");
+        }
+        *state = 4;
+        return;
+    }
+    sceneEnt->surfs = (surfaceType_t *)(frontEndDataOut->surfsBuffer + offset);
+    memcpy(sceneEnt->surfs, surfBuffer, size);
+    sceneEnt->surfCount = surfaceCount;
+    if (r_xdebug->current.integer)
+        R_DebugModelSurfaces(obj, ent, sceneEnt);
+    if (boneCount == 1)
+    {
+        SkinRigidXModelCmd command;
+        command.surfs = sceneEnt->surfs;
+        command.surfCount = surfaceCount;
+        command.e = ent;
+        command.mat = *boneMatrix;
+        R_AddFrontendCmd(2, &command);
+    }
+    else
+    {
+        SkinXModelCmd command;
+        for (int index = 0; index < surfaceCount; ++index)
+            command.matOffset[index] = (byte)ri.DObjGetMatOffset(obj, surfaces[index].modelIndex);
+        command.surfs = sceneEnt->surfs;
+        command.e = ent;
+        command.mat = boneMatrix;
+        memcpy(command.surfacePartBits, partBits, sizeof(partBits));
+        command.surfCount = (byte)surfaceCount;
+        command.boneCount = (byte)boneCount;
+        R_AddFrontendCmd(surfaceCount > 10 ? 7 : 6, &command);
+    }
+    *state = 4;
+}
+
+static void R_SetEntityOriginBounds(GfxSceneEntity *sceneEnt, const float *origin)
+{
+    VectorCopy(origin, sceneEnt->curMins);
+    VectorCopy(origin, sceneEnt->curMaxs);
+}
+
+// Retail 1001fdd0; no historical helper name is asserted.
+static void R_ExpandBoneBounds(const vec3_t *bounds, const float *origin,
+    const vec3_t *axis, vec3_t *out)
+{
+    for (int index = 0; index < 3; ++index)
+    {
+        int offset = I_sel(FloatAsInt(axis[0][index]), 0, 12);
+        float lower = ((const float *)((const byte *)bounds + offset))[0] * axis[0][index] + origin[index];
+        float upper = ((const float *)((const byte *)bounds - offset))[3] * axis[0][index] + origin[index];
+        offset = I_sel(FloatAsInt(axis[1][index]), 0, 12);
+        lower += ((const float *)((const byte *)bounds + offset))[1] * axis[1][index];
+        upper += ((const float *)((const byte *)bounds - offset))[4] * axis[1][index];
+        offset = I_sel(FloatAsInt(axis[2][index]), 0, 12);
+        lower += ((const float *)((const byte *)bounds + offset))[2] * axis[2][index];
+        upper += ((const float *)((const byte *)bounds - offset))[5] * axis[2][index];
+        if (out[0][index] > lower) out[0][index] = lower;
+        if (upper > out[1][index]) out[1][index] = upper;
+    }
+}
+static void R_TransformRigidVertex(const DObjSkelMat *bone, const float *normal,
+    const float *binormal, const float *position, const float *tangent, GfxVertex *out)
+{
+    R_TransformSkelVector(bone, normal, out->normal);
+    R_TransformSkelVector(bone, binormal, out->binormal);
+    R_TransformSkelVector(bone, tangent, out->tangent);
+    R_TransformSkelPosition(bone, position, out->xyzw);
+    out->xyzw[3] = 1.0f;
+}
+
+static void R_TransformRigidVertexDx7(const DObjSkelMat *bone, const float *position,
+    const float *normal, GfxVertexDx7 *out)
+{
+    R_TransformSkelVector(bone, normal, out->normal);
+    R_TransformSkelPosition(bone, position, out->xyz);
+}
+
+void R_SkinXSurfaceRigid(const XSurface *surface, const DObjSkelMat *bones,
+    int boneOffset, GfxVertex *out)
+{
+    const DObjSkelMat *bone = (const DObjSkelMat *)((const byte *)bones + boneOffset);
+    const XVertexInfo *in = &surface->verts->v;
+    int remaining = surface->vertCount;
+    while (remaining > 0)
+    {
+        __declspec(align(16)) GfxVertex vertex;
+        vertex.color = *(const GfxColor *)in->color;
+        vertex.texCoord[0] = in->texCoordX;
+        vertex.texCoord[1] = in->texCoordY;
+        R_TransformRigidVertex(bone, in->normal, in->binormal, in->offset, in->tangent, &vertex);
+        ++in;
+        --remaining;
+        memcpy(out, &vertex, sizeof(vertex));
+        ++out;
+    }
+}
+
+void R_SkinXSurfaceRigidDx7(const XSurface *surface, const DObjSkelMat *bones,
+    int boneOffset, GfxVertexDx7 *out)
+{
+    const DObjSkelMat *bone = (const DObjSkelMat *)((const byte *)bones + boneOffset);
+    const XVertexInfo *in = &surface->verts->v;
+    int remaining = surface->vertCount;
+    while (remaining > 0)
+    {
+        GfxVertexDx7 vertex;
+        vertex.color = *(const GfxColor *)in->color;
+        vertex.texCoord[0] = in->texCoordX;
+        vertex.texCoord[1] = in->texCoordY;
+        R_TransformRigidVertexDx7(bone, in->offset, in->normal, &vertex);
+        ++in;
+        --remaining;
+        memcpy(out, &vertex, sizeof(vertex));
+        ++out;
+    }
+}
+
+void R_DObjGetSurfMaterials(DObj *obj, char lod, MaterialHandle *matHandleArray)
+{
+    char lods[8];
+    int partBits[4];
+    DSurface_s surfaces[64];
+    int numModels;
+    int i;
+    int surfaceCount;
+    int surfaceIndex;
+    int modelIndex;
+    const trXSkin_t *skins;
+
+    numModels = ri.DObjGetNumModels(obj);
+    for (i = 0; i < numModels; ++i)
+        lods[i] = lod;
+    surfaceCount = ri.DObjGetSurfaceList(obj, surfaces, partBits, lods);
+    for (surfaceIndex = 0; surfaceIndex < surfaceCount; ++surfaceIndex)
+    {
+        modelIndex = surfaces[surfaceIndex].modelIndex;
+        skins = ri.XModelGetSkins(ri.DObjGetModel(obj, modelIndex));
+        if (!skins)
+            matHandleArray[surfaceIndex] = 0;
+        else
+            matHandleArray[surfaceIndex] = ((MaterialHandle **)skins)[lods[modelIndex]][surfaces[surfaceIndex].subMatIndex];
+    }
+}
+
+void R_DObjReplaceMaterial(DObj *obj, char lod, int surfaceIndex, MaterialHandle material)
+{
+    char lods[8];
+    int partBits[4];
+    DSurface_s surfaces[64];
+    int numModels;
+    int i;
+    int modelIndex;
+    const trXSkin_t *skins;
+
+    numModels = ri.DObjGetNumModels(obj);
+    for (i = 0; i < numModels; ++i)
+        lods[i] = lod;
+    ri.DObjGetSurfaceList(obj, surfaces, partBits, lods);
+    modelIndex = surfaces[surfaceIndex].modelIndex;
+    skins = ri.XModelGetSkins(ri.DObjGetModel(obj, modelIndex));
+    if (skins)
+        ((MaterialHandle **)skins)[lods[modelIndex]][surfaces[surfaceIndex].subMatIndex] = material;
+}
+
+static void R_OptimizeModel(XAssetHeader header, void *data)
+{
+    if (ri.XModelBad(header.model))
+        return;
+    XModelOptimize(header.model);
 }

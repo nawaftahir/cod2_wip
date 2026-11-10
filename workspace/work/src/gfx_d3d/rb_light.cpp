@@ -35,6 +35,74 @@ const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
 static int I_ffloor(const float x);
 float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out);
 
+typedef char entityLightingLayoutCheck[(offsetof(GfxEntity, renderFxFlags) == 4
+    && offsetof(GfxEntity, origin) == 0x3c
+    && offsetof(GfxWorld, lightGrid) == 0x11c
+    && sizeof(GfxEntityLighting) == 104
+    && offsetof(r_backEndGlobals_t, viewCount) == 0x3b4) ? 1 : -1];
+extern r_backEndGlobals_t backEnd;
+
+// PINNED Win 1.0 light fitting helpers 10036720--1003766b.
+// Names are descriptive; Mac's monolithic draft is not a PC function boundary.
+
+static const vec3_t lightBasis[8] = {
+    {0.0f, 0.0f, -1.0f},
+    {0.942809045f, 0.0f, 0.333333343f},
+    {-0.471404523f, 0.816496551f, 0.333333343f},
+    {0.471404523f, 0.816496551f, 0.333333343f},
+    {-0.471404523f, -0.816496551f, -0.333333343f},
+    {0.471404523f, -0.816496551f, -0.333333343f},
+    {-0.942809045f, 0.0f, -0.333333343f},
+    {0.0f, 0.0f, 1.0f}
+};
+
+extern const dvar_t *r_vc_makelog;
+void Com_StripExtension(const char *in, char *out);
+
+// PINNED10764578/7c: six-byte grid-coordinate entries and entry count.
+byte *s_vc_log;
+int s_vc_logCount;
+
+// PINNED 10035cd0/670: display unlogged grid points in the backend debug frame.
+extern const dvar_t *r_vc_showlog;
+int R_CullPointAndRadius(const vec_t *origin, float radius,
+    const DpvsPlane *planes, int planeCount);
+void R_AddDebugString(DebugGlobals *debug, const float *origin, const float *color,
+    float scale, const char *text);
+static int I_ffloor(const float x);
+float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out);
+void RB_DrawGridSampleBox(const float *origin);
+void RB_DrawGridCellBox(int x, int y, int z);
+bool RB_IsGridPointVisible(const GfxLightGridPoint *point, unsigned int corner,
+    const float *pointOrigin, const float *sampleOrigin);
+const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
+    int x, int y, int z, unsigned int corner, const float *sampleOrigin);
+void RB_DrawGridPointBox(const float *origin, float radius, const float *color);
+bool RB_FindGridPoint(const GfxLightGrid *grid, int x, int y, int z, int *index);
+void RB_AccumulateGridColors(vec4_t *out, const GfxLightGridColors *colors, float weight);
+void RB_ScaleGridColors(vec4_t *out, float scale);
+void RB_DefaultGridColors(vec4_t *out);
+bool RB_GetNearestGridColors(const GfxLightGrid *grid, int x, int y, int z,
+    vec4_t *out, float *sunVisibility);
+bool RB_InsertGridVisLog(int index, unsigned short x, unsigned short y, unsigned short z);
+int RB_GridVisLogIndex(int x, int y, int z, int insert);
+void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting);
+static void RB_InterleaveLightColors(const float *colors, vec3_t *error);
+static void RB_AverageLightColors(const float *colors, float *average);
+static inline float RB_LightErrorIntensity(const float *color);
+static bool RB_FitDirectionalLight(int lightIndex, vec3_t *error, D3DLIGHT9 *lights);
+static int RB_DeriveAmbientEntityLights(const float *colors, float sunVisibility,
+    D3DLIGHT9 *lights, int maxLights);
+static int RB_DeriveDirectionalEntityLights(const float *colors, float sunVisibility,
+    D3DLIGHT9 *lights, int maxLights);
+int RB_DeriveEntityLights(vec4_t *colorForDir, float sunVisibility,
+    const Material *material, D3DLIGHT9 *lights, int maxLights);
+static void BuildGridFilename(const char *baseName, char *filename);
+void RB_InitLightVisHistory(const char *bspName);
+void RB_SaveLightVisHistory();
+void RB_ShowLightVisCachePoints(const GfxViewParms *viewParms,
+    const DpvsPlane *planes, int planeCount);
+
 /* PINNED 100363a0. Reuse the existing biased rounding helper; exact FP
    instruction spelling remains unaccepted and its assembly is not C++ credit. */
 // Name unconfirmed; retail inlines fsub (0.5 - 2^-30) then fistp, like I_fround.
@@ -48,60 +116,6 @@ static int I_ffloor(const float x)
     __asm fistp result
 
     return result;
-}
-
-float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out)
-{
-    int cellX, cellY, cellZ;
-    float weights[3][2];
-    cellX = I_ffloor(sampleOrigin[0] - -131072.0f) >> 5;
-    weights[0][1] = (sampleOrigin[0] - -131072.0f) * 0.03125f - cellX;
-    weights[0][0] = 1.0f - weights[0][1];
-    cellY = I_ffloor(sampleOrigin[1] - -131072.0f) >> 5;
-    weights[1][1] = (sampleOrigin[1] - -131072.0f) * 0.03125f - cellY;
-    weights[1][0] = 1.0f - weights[1][1];
-    cellZ = I_ffloor(sampleOrigin[2] - -131072.0f) >> 6;
-    weights[2][1] = (sampleOrigin[2] - -131072.0f) * 0.015625f - cellZ;
-    weights[2][0] = 1.0f - weights[2][1];
-    if (r_showLightGrid->current.enabled)
-    {
-        RB_DrawGridCellBox(cellX, cellY, cellZ);
-        RB_DrawGridSampleBox(sampleOrigin);
-    }
-    memset(out, 0, 6 * sizeof(vec4_t));
-    float totalWeight = 0.0f;
-    float sunWeight = 0.0f;
-    for (unsigned int corner = 0; corner < 8; ++corner)
-    {
-        const GfxLightGridPoint *point = RB_GetValidGridPoint(grid,
-            cellX + (corner & 1), cellY + ((corner >> 1) & 1),
-            cellZ + ((corner >> 2) & 1), corner, sampleOrigin);
-        if (!point)
-            continue;
-        float weight = weights[1][(corner >> 1) & 1] * weights[2][(corner >> 2) & 1]
-            * weights[0][corner & 1];
-        totalWeight += weight;
-        RB_AccumulateGridColors(out, &grid->colors[point->colorsIndex], weight);
-        if (point->xyzLowBitsAndSunVisible & 1)
-            sunWeight += weight;
-    }
-    if (totalWeight < 0.98f)
-    {
-        if (totalWeight == 0.0f)
-        {
-            if (!RB_GetNearestGridColors(grid,
-                cellX + (weights[0][1] > 0.5f), cellY + (weights[1][1] > 0.5f),
-                cellZ + (weights[2][1] > 0.5f), out, &sunWeight))
-                RB_DefaultGridColors(out);
-        }
-        else
-        {
-            float inverseWeight = 1.0f / totalWeight;
-            sunWeight *= inverseWeight;
-            RB_ScaleGridColors(out, inverseWeight);
-        }
-    }
-    return sunWeight;
 }
 
 // PINNED 10035940.
@@ -126,6 +140,17 @@ void RB_DrawGridCellBox(int x, int y, int z)
     maxs[1] = mins[1] + 32.0f;
     maxs[2] = mins[2] + 64.0f;
     R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, colorWhite);
+}
+
+// PINNED 10035a50.
+void RB_DrawGridPointBox(const float *origin, float radius, const float *color)
+{
+    vec3_t mins, maxs;
+    for (int axis = 0; axis < 3; ++axis)
+        mins[axis] = origin[axis] - radius;
+    for (int axis = 0; axis < 3; ++axis)
+        maxs[axis] = origin[axis] + radius;
+    R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, color);
 }
 
 // PINNED 10035ac0: an unset corner bit avoids the collision query entirely.
@@ -172,15 +197,65 @@ const GfxLightGridPoint *RB_GetValidGridPoint(const GfxLightGrid *grid,
     return &grid->points[index];
 }
 
-// PINNED 10035a50.
-void RB_DrawGridPointBox(const float *origin, float radius, const float *color)
+// PINNED 10035bd0: six-byte records in the existing history allocation.
+bool RB_InsertGridVisLog(int index, unsigned short x, unsigned short y, unsigned short z)
 {
-    vec3_t mins, maxs;
-    for (int axis = 0; axis < 3; ++axis)
-        mins[axis] = origin[axis] - radius;
-    for (int axis = 0; axis < 3; ++axis)
-        maxs[axis] = origin[axis] + radius;
-    R_AddDebugBox(&backEndData->debugGlobals, mins, maxs, color);
+    if (s_vc_logCount >= 0x400000)
+        return false;
+    memmove(s_vc_log + (index + 1) * 6, s_vc_log + index * 6,
+        (s_vc_logCount - index) * 6);
+    // PINNED 10035bd0: preserve the three pointer reads and record writes.
+    byte *volatile &log = s_vc_log;
+    ((unsigned short *)log)[index * 3] = x;
+    ((unsigned short *)log)[index * 3 + 1] = y;
+    ((unsigned short *)log)[index * 3 + 2] = z;
+    ++*(volatile int *)&s_vc_logCount;
+    return true;
+}
+
+// PINNED 10035c40: existing keys do not consume capacity.
+int RB_GridVisLogIndex(int x, int y, int z, int insert)
+{
+    int top = s_vc_logCount - 1;
+    int bottom = 0;
+    while (bottom <= top)
+    {
+        int middle = (bottom + top) >> 1;
+        const unsigned short *entry = (const unsigned short *)(s_vc_log + middle * 6);
+        int compare = x - entry[0];
+        if (!compare)
+        {
+            compare = y - entry[1];
+            if (!compare)
+            {
+                compare = z - entry[2];
+                if (!compare)
+                    return middle;
+            }
+        }
+        if (compare < 0)
+            top = middle - 1;
+        else
+            bottom = middle + 1;
+    }
+    if (insert && RB_InsertGridVisLog(bottom, x, y, z))
+        return bottom;
+    return -1;
+}
+
+// PINNED 100366b0: publish viewCount before sampling, with no missing-world guard.
+void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting)
+{
+    lighting->viewCount = backEnd.viewCount;
+    vec3_t origin;
+    if (entity->renderFxFlags & 0x80)
+        VectorCopy(entity->lighting.origin, origin);
+    else
+    {
+        VectorCopy(entity->origin, origin);
+        origin[2] += 4.0f;
+    }
+    lighting->sunVisibility = RB_GetLightingAtPoint(&rgp.world->lightGrid, origin, lighting->colorForDir);
 }
 
 // PINNED 10035fb0: a miss returns the predecessor, including -1.
@@ -271,87 +346,59 @@ bool RB_GetNearestGridColors(const GfxLightGrid *grid, int x, int y, int z,
     return true;
 }
 
-// PINNED 10035bd0: six-byte records in the existing history allocation.
-bool RB_InsertGridVisLog(int index, unsigned short x, unsigned short y, unsigned short z)
+float RB_GetLightingAtPoint(const GfxLightGrid *grid, const float *sampleOrigin, vec4_t *out)
 {
-    if (s_vc_logCount >= 0x400000)
-        return false;
-    memmove(s_vc_log + (index + 1) * 6, s_vc_log + index * 6,
-        (s_vc_logCount - index) * 6);
-    // PINNED 10035bd0: preserve the three pointer reads and record writes.
-    byte *volatile &log = s_vc_log;
-    ((unsigned short *)log)[index * 3] = x;
-    ((unsigned short *)log)[index * 3 + 1] = y;
-    ((unsigned short *)log)[index * 3 + 2] = z;
-    ++*(volatile int *)&s_vc_logCount;
-    return true;
-}
-
-// PINNED 10035c40: existing keys do not consume capacity.
-int RB_GridVisLogIndex(int x, int y, int z, int insert)
-{
-    int top = s_vc_logCount - 1;
-    int bottom = 0;
-    while (bottom <= top)
+    int cellX, cellY, cellZ;
+    float weights[3][2];
+    cellX = I_ffloor(sampleOrigin[0] - -131072.0f) >> 5;
+    weights[0][1] = (sampleOrigin[0] - -131072.0f) * 0.03125f - cellX;
+    weights[0][0] = 1.0f - weights[0][1];
+    cellY = I_ffloor(sampleOrigin[1] - -131072.0f) >> 5;
+    weights[1][1] = (sampleOrigin[1] - -131072.0f) * 0.03125f - cellY;
+    weights[1][0] = 1.0f - weights[1][1];
+    cellZ = I_ffloor(sampleOrigin[2] - -131072.0f) >> 6;
+    weights[2][1] = (sampleOrigin[2] - -131072.0f) * 0.015625f - cellZ;
+    weights[2][0] = 1.0f - weights[2][1];
+    if (r_showLightGrid->current.enabled)
     {
-        int middle = (bottom + top) >> 1;
-        const unsigned short *entry = (const unsigned short *)(s_vc_log + middle * 6);
-        int compare = x - entry[0];
-        if (!compare)
+        RB_DrawGridCellBox(cellX, cellY, cellZ);
+        RB_DrawGridSampleBox(sampleOrigin);
+    }
+    memset(out, 0, 6 * sizeof(vec4_t));
+    float totalWeight = 0.0f;
+    float sunWeight = 0.0f;
+    for (unsigned int corner = 0; corner < 8; ++corner)
+    {
+        const GfxLightGridPoint *point = RB_GetValidGridPoint(grid,
+            cellX + (corner & 1), cellY + ((corner >> 1) & 1),
+            cellZ + ((corner >> 2) & 1), corner, sampleOrigin);
+        if (!point)
+            continue;
+        float weight = weights[1][(corner >> 1) & 1] * weights[2][(corner >> 2) & 1]
+            * weights[0][corner & 1];
+        totalWeight += weight;
+        RB_AccumulateGridColors(out, &grid->colors[point->colorsIndex], weight);
+        if (point->xyzLowBitsAndSunVisible & 1)
+            sunWeight += weight;
+    }
+    if (totalWeight < 0.98f)
+    {
+        if (totalWeight == 0.0f)
         {
-            compare = y - entry[1];
-            if (!compare)
-            {
-                compare = z - entry[2];
-                if (!compare)
-                    return middle;
-            }
+            if (!RB_GetNearestGridColors(grid,
+                cellX + (weights[0][1] > 0.5f), cellY + (weights[1][1] > 0.5f),
+                cellZ + (weights[2][1] > 0.5f), out, &sunWeight))
+                RB_DefaultGridColors(out);
         }
-        if (compare < 0)
-            top = middle - 1;
         else
-            bottom = middle + 1;
+        {
+            float inverseWeight = 1.0f / totalWeight;
+            sunWeight *= inverseWeight;
+            RB_ScaleGridColors(out, inverseWeight);
+        }
     }
-    if (insert && RB_InsertGridVisLog(bottom, x, y, z))
-        return bottom;
-    return -1;
+    return sunWeight;
 }
-
-typedef char entityLightingLayoutCheck[(offsetof(GfxEntity, renderFxFlags) == 4
-    && offsetof(GfxEntity, origin) == 0x3c
-    && offsetof(GfxWorld, lightGrid) == 0x11c
-    && sizeof(GfxEntityLighting) == 104
-    && offsetof(r_backEndGlobals_t, viewCount) == 0x3b4) ? 1 : -1];
-extern r_backEndGlobals_t backEnd;
-
-// PINNED 100366b0: publish viewCount before sampling, with no missing-world guard.
-void RB_SetupEntityLighting(const GfxEntity *entity, GfxEntityLighting *lighting)
-{
-    lighting->viewCount = backEnd.viewCount;
-    vec3_t origin;
-    if (entity->renderFxFlags & 0x80)
-        VectorCopy(entity->lighting.origin, origin);
-    else
-    {
-        VectorCopy(entity->origin, origin);
-        origin[2] += 4.0f;
-    }
-    lighting->sunVisibility = RB_GetLightingAtPoint(&rgp.world->lightGrid, origin, lighting->colorForDir);
-}
-
-// PINNED Win 1.0 light fitting helpers 10036720--1003766b.
-// Names are descriptive; Mac's monolithic draft is not a PC function boundary.
-
-static const vec3_t lightBasis[8] = {
-    {0.0f, 0.0f, -1.0f},
-    {0.942809045f, 0.0f, 0.333333343f},
-    {-0.471404523f, 0.816496551f, 0.333333343f},
-    {0.471404523f, 0.816496551f, 0.333333343f},
-    {-0.471404523f, -0.816496551f, -0.333333343f},
-    {0.471404523f, -0.816496551f, -0.333333343f},
-    {-0.942809045f, 0.0f, -0.333333343f},
-    {0.0f, 0.0f, 1.0f}
-};
 
 static void RB_InterleaveLightColors(const float *colors, vec3_t *error)
 {
@@ -536,13 +583,6 @@ int RB_DeriveEntityLights(vec4_t *colorForDir, float sunVisibility,
     return RB_DeriveDirectionalEntityLights((float *)colorForDir, sunVisibility, lights, maxLights);
 }
 
-extern const dvar_t *r_vc_makelog;
-void Com_StripExtension(const char *in, char *out);
-
-// PINNED10764578/7c: six-byte grid-coordinate entries and entry count.
-byte *s_vc_log;
-int s_vc_logCount;
-
 static void BuildGridFilename(const char *baseName, char *filename)
 {
     Com_StripExtension(baseName, filename);
@@ -587,13 +627,6 @@ void RB_SaveLightVisHistory()
     s_vc_log = NULL;
     s_vc_logCount = 0;
 }
-
-// PINNED 10035cd0/670: display unlogged grid points in the backend debug frame.
-extern const dvar_t *r_vc_showlog;
-int R_CullPointAndRadius(const vec_t *origin, float radius,
-    const DpvsPlane *planes, int planeCount);
-void R_AddDebugString(DebugGlobals *debug, const float *origin, const float *color,
-    float scale, const char *text);
 
 void RB_ShowLightVisCachePoints(const GfxViewParms *viewParms,
     const DpvsPlane *planes, int planeCount)

@@ -138,6 +138,57 @@ static bool Material_FindShaderSlot(const char *name, int shaderType, int shader
 MaterialShader *Material_FindShader(const char *name, int shaderType, int shaderVersion);
 void Material_SetShader(const char *name, int shaderType, int shaderVersion, MaterialShader *shader);
 
+// Partial layouts: only the fields read here (offsets PINNED on the 1.0 binary).
+struct RefractTechnique
+{
+    unsigned char pad0[4];
+    unsigned char flags;
+};
+
+struct RefractTechniqueSet
+{
+    unsigned char pad0[4];
+    RefractTechnique *techniques[32];
+};
+
+struct RefractMaterial
+{
+    unsigned char pad0[0x38];
+    RefractTechniqueSet *techniqueSet;
+};
+
+// Partial layouts (Mac 1.3 Material; offsets PINNED on PC 1.0).
+struct MaterialInfoView
+{
+    const char *name;
+    unsigned char pad4[0xa];
+    unsigned char textureAtlasRowCount;
+    unsigned char textureAtlasColumnCount;
+};
+
+struct MaterialWaterDef;
+const float *Material_RegisterLiteral(const float *literal);
+const char *Material_RegisterString(const char *string);
+static IDirect3DVertexDeclaration9 *Material_BuildVertexDecl(const MaterialStreamRouting *routingData, int streamCount, const stream_source_info_t *sourceTable);
+void Material_BuildVertexDecls(MaterialVertexDeclaration **declaration);
+MaterialVertexDeclaration *Material_AllocVertexDecl(MaterialStreamRouting *routingData, int streamCount, Bool *existing);
+static bool Material_FindTechniqueSlot(const char *name, int *slot);
+MaterialTechnique *Material_FindTechnique(const char *name);
+void Material_SetTechnique(const char *name, MaterialTechnique *technique);
+static bool Material_FindTechniqueSetSlot(const char *name, int *slot);
+MaterialTechniqueSet *Material_FindTechniqueSet(const char *name);
+void Material_SetTechniqueSet(const char *name, MaterialTechniqueSet *techniqueSet);
+static bool Material_FindStateMapSlot(const char *name, int *slot);
+MaterialStateMap *Material_FindStateMap(const char *name);
+void Material_SetStateMap(const char *name, MaterialStateMap *stateMap);
+static bool Material_FindShaderSlot(const char *name, int shaderType, int shaderVersion, int *slot);
+MaterialShader *Material_FindShader(const char *name, int shaderType, int shaderVersion);
+void Material_SetShader(const char *name, int shaderType, int shaderVersion, MaterialShader *shader);
+void Material_ReloadAll();
+bool R_IsMaterialRefractive(const RefractMaterial *material);
+const char *R_GetMaterialName(const MaterialInfoView *handle);
+int R_GetMaterialSubimageCount(const MaterialInfoView *handle);
+
 // PINNED 10016390: this routine copies a literal without incrementing the count.
 const float *Material_RegisterLiteral(const float *literal)
 {
@@ -412,6 +463,29 @@ void Material_SetShader(const char *name, int shaderType, int shaderVersion, Mat
     materialGlobals.shaderTable[slot] = shader;
 }
 
+const char *R_GetMaterialName(const MaterialInfoView *handle)
+{
+    return handle->name;
+}
+
+int R_GetMaterialSubimageCount(const MaterialInfoView *handle)
+{
+    return handle->textureAtlasColumnCount * handle->textureAtlasRowCount;
+}
+
+bool R_IsMaterialRefractive(const RefractMaterial *material)
+{
+    RefractTechnique *technique;
+
+    if (r_rendererInUse->current.integer != 2)
+    {
+        technique = material->techniqueSet->techniques[21];
+        if (technique && (technique->flags & 1))
+            return true;
+    }
+    return false;
+}
+
 void Material_ReloadAll()
 {
     int vertDeclIndex;
@@ -429,59 +503,6 @@ void Material_ReloadAll()
         ++vertexDecl;
     }
 }
-
-// Partial layouts: only the fields read here (offsets PINNED on the 1.0 binary).
-struct RefractTechnique
-{
-    unsigned char pad0[4];
-    unsigned char flags;
-};
-
-struct RefractTechniqueSet
-{
-    unsigned char pad0[4];
-    RefractTechnique *techniques[32];
-};
-
-struct RefractMaterial
-{
-    unsigned char pad0[0x38];
-    RefractTechniqueSet *techniqueSet;
-};
-
-bool R_IsMaterialRefractive(const RefractMaterial *material)
-{
-    RefractTechnique *technique;
-
-    if (r_rendererInUse->current.integer != 2)
-    {
-        technique = material->techniqueSet->techniques[21];
-        if (technique && (technique->flags & 1))
-            return true;
-    }
-    return false;
-}
-
-// Partial layouts (Mac 1.3 Material; offsets PINNED on PC 1.0).
-struct MaterialInfoView
-{
-    const char *name;
-    unsigned char pad4[0xa];
-    unsigned char textureAtlasRowCount;
-    unsigned char textureAtlasColumnCount;
-};
-
-const char *R_GetMaterialName(const MaterialInfoView *handle)
-{
-    return handle->name;
-}
-
-int R_GetMaterialSubimageCount(const MaterialInfoView *handle)
-{
-    return handle->textureAtlasColumnCount * handle->textureAtlasRowCount;
-}
-
-struct MaterialWaterDef;
 #include "r_permanent.h"
 
 // Mac 1.3 Material (0x44 bytes); offsets PINNED on PC 1.0.
@@ -519,6 +540,206 @@ static void Material_FindHashSlot(const char *name, unsigned short *hashIndex, b
 __declspec(noinline) static void Material_AddToTable(Material *material, unsigned short hashIndex);
 Material *Material_Duplicate(const Material *mtlCopy, const char *name);
 Material *Material_FindRegistered(const char *name);
+
+Material *Material_LoadBinary(const char *name, int imageTrack);
+void Com_Printf(const char *format, ...);
+
+void Image_Reload(GfxImage *image);
+void Image_Release(GfxImage *image);
+Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack);
+
+Bool Image_LoadFromFile(GfxImage *image);
+void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip);
+void R_SetPicmip();
+void RB_BindWhiteImages();
+
+struct BuiltInMaterialTable
+{
+    const char *name;
+    Material **material;
+};
+
+// PINNED 1018e988: actual pointer destinations, not offsets into a second state block.
+static const BuiltInMaterialTable s_builtInMaterials[] =
+{
+    { "$default", &rgp.defaultMaterial },
+    { "stencil_plane", &rgp.stencilPlaneMaterial },
+    { "white", &rgp.whiteMaterial },
+    { "$additive", &rgp.additiveMaterial },
+    { "$glare_blind", &rgp.glareBlindMaterial },
+    { "$point", &rgp.pointMaterial },
+    { "$line", &rgp.lineMaterial },
+    { "clear_alpha_stencil", &rgp.clearAlphaStencilMaterial },
+    { "shadowclear", &rgp.shadowClearMaterial },
+    { "shadowcookieoverlay", &rgp.shadowCookieOverlayMaterial },
+    { "shadowcookieblur", &rgp.shadowCookieBlurMaterial },
+    { "shellshock", &rgp.shellShockMaterial },
+    { "color_channel_mixer", &rgp.colorChannelMixerMaterial },
+    { "frame_color_debug", &rgp.frameColorDebugMaterial },
+    { "frame_alpha_debug", &rgp.frameAlphaDebugMaterial },
+    { "feedbackblend", &rgp.feedbackBlendMaterial },
+    { "feedbackreplace", &rgp.feedbackReplaceMaterial },
+    { "glow_setup", &rgp.glowSetupMaterial },
+    { "glow_apply_bloom", &rgp.glowApplyBloomMaterial },
+    { "glow_apply_sky_bleed", &rgp.glowApplySkyBleedMaterial },
+    { "filter_symmetric_1", &rgp.symmetricFilterMaterial[0] },
+    { "filter_symmetric_2", &rgp.symmetricFilterMaterial[1] },
+    { "filter_symmetric_3", &rgp.symmetricFilterMaterial[2] },
+    { "filter_symmetric_4", &rgp.symmetricFilterMaterial[3] },
+    { "filter_symmetric_5", &rgp.symmetricFilterMaterial[4] },
+    { "filter_symmetric_6", &rgp.symmetricFilterMaterial[5] },
+    { "filter_symmetric_7", &rgp.symmetricFilterMaterial[6] },
+    { "filter_symmetric_8", &rgp.symmetricFilterMaterial[7] }
+};
+
+// PINNED 1018ea68, enabled by r_testFillEnable at101ce79c.
+static const BuiltInMaterialTable s_fillTestMaterials[] =
+{
+    { "filltest_normal", &rgp.normalFillMaterial },
+    { "filltest_alphablend", &rgp.alphaBlendFillMaterial },
+    { "filltest_alphatest_pass", &rgp.alphaTestPassFillMaterial },
+    { "filltest_alphatest_fail", &rgp.alphaTestFailFillMaterial },
+    { "filltest_additive", &rgp.additiveFillMaterial },
+    { "filltest_depthonly", &rgp.depthOnlyFillMaterial },
+    { "filltest_stencil_oneside_keep", &rgp.stencilOneSideKeepFillMaterial },
+    { "filltest_stencil_oneside_reject", &rgp.stencilOneSideRejectFillMaterial },
+    { "filltest_stencil_twoside_keep", &rgp.stencilTwoSideKeepFillMaterial },
+    { "filltest_stencil_twoside_reject", &rgp.stencilTwoSideRejectFillMaterial },
+    { "filltest_phong_bump", &rgp.phongBumpFillMaterial },
+    { "filltest_phong_bumpspec", &rgp.phongBumpSpecFillMaterial }
+};
+
+void Com_Error(errorParm_t code, const char *format, ...);
+void Material_PreloadShaderText();
+extern const dvar_t *r_testFillEnable;
+
+void RB_SetFVF(DWORD fvf);
+void Material_ReleaseVertexDecls();
+void Material_ReleaseAll();
+void Material_ClearStringTable();
+void Material_ClearTechniqueTable();
+void Material_ClearTechniqueSetTable();
+void Material_ClearStateMapTable();
+void Material_Shutdown();
+
+typedef char materialSortLayoutCheck[(sizeof(MaterialTechniqueSet) == 140
+    && offsetof(Material, sortKey) == 13
+    && offsetof(Material, techniqueSet) == 0x38) ? 1 : -1];
+
+void Material_ReleaseShaders();
+void Material_ReloadShaders();
+Material *Material_Duplicate(const Material *mtlCopy, const char *name);
+Bool Material_IsDefault(const Material *material);
+static void Material_FindHashSlot(const char *name, unsigned short *hashIndex, bool *found);
+__declspec(noinline) static void Material_AddToTable(Material *material, unsigned short hashIndex);
+Material *Material_FindRegistered(const char *name);
+Material *Material_Register(const char *name, int imageTrack);
+Material *Material_RegisterRawImage(const char *name, int imageTrack);
+Material *R_RegisterMaterial(const char *name, int baseImageFlags, int imageTrack);
+Material *R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrack);
+void Material_ReloadTextures(Material *material);
+void Material_ReloadTextures_f();
+void R_ApplyPicmip();
+void R_ApplyPicmip_f();
+static void Material_RegisterBuiltins(const BuiltInMaterialTable *table, int count);
+static void Material_RegisterRawMaterial();
+void Material_Init();
+void Material_ClearStringTable();
+void Material_ClearTechniqueTable();
+void Material_ClearTechniqueSetTable();
+void Material_ClearStateMapTable();
+void Material_ReleaseVertexDecls();
+void Material_ReleaseAll();
+void Material_Shutdown();
+static bool Material_Compare(const Material *left, const Material *right);
+void Material_Sort();
+int Material_LoadFile(const char *filename, int *file);
+
+// PINNED 10005290/5: the registered command is a separate tail call.
+void R_ApplyPicmip_f()
+{
+    R_ApplyPicmip();
+}
+
+// PINNED 10017350/71; helper name unconfirmed.
+static void Material_RegisterBuiltins(const BuiltInMaterialTable *table, int count)
+{
+    for (int index = 0; index < count; ++index)
+    {
+        *table[index].material = Material_Register(table[index].name, 0);
+        if (!*table[index].material)
+            Com_Error(ERR_FATAL, "Could not find material '%s'", table[index].name);
+    }
+}
+
+// PINNED 10017190/88; helper name unconfirmed.
+static void Material_RegisterRawMaterial()
+{
+    rgp.rawMaterial = Material_Register("$raw", 0);
+    if (!Material_IsDefault(rgp.rawMaterial) && rgp.rawMaterial->textureCount != 1)
+    {
+        ri.Printf(3, "material '$raw' doesn't use just one image");
+        rgp.rawMaterial = rgp.defaultMaterial;
+    }
+}
+
+// Names unconfirmed: the four table clears also exist inlined in Material_Shutdown.
+void Material_ClearStringTable()
+{
+    unsigned int index;
+
+    for (index = 0; index < 64; ++index)
+    {
+        if (materialGlobals.stringIdentTable[index])
+            materialGlobals.stringIdentTable[index] = 0;
+    }
+}
+
+void Material_ClearTechniqueTable()
+{
+    unsigned int index;
+
+    for (index = 0; index < 1024; ++index)
+    {
+        if (materialGlobals.techniqueTable[index])
+            materialGlobals.techniqueTable[index] = 0;
+    }
+}
+
+void Material_ClearTechniqueSetTable()
+{
+    unsigned int index;
+
+    for (index = 0; index < 1024; ++index)
+    {
+        if (materialGlobals.techSetTable[index])
+            materialGlobals.techSetTable[index] = 0;
+    }
+}
+
+// PINNED 10016890: technique-set subtraction is in140-byte elements.
+static bool Material_Compare(const Material *left, const Material *right)
+{
+    int diff = (int)left->sortKey - (int)right->sortKey;
+    if (diff)
+        return diff < 0;
+    diff = (const MaterialTechniqueSet *)left->techniqueSet
+        - (const MaterialTechniqueSet *)right->techniqueSet;
+    if (diff)
+        return diff < 0;
+    return false;
+}
+
+void Material_ClearStateMapTable()
+{
+    unsigned int index;
+
+    for (index = 0; index < 32; ++index)
+    {
+        if (materialGlobals.stateMapTable[index])
+            materialGlobals.stateMapTable[index] = 0;
+    }
+}
 
 // Name unconfirmed (Mac 1.3 inlines this into Material_ReleaseAll).
 void Material_ReleaseShaders()
@@ -559,6 +780,14 @@ void Material_ReloadShaders()
                 ri.Error(ERR_FATAL, "Couldn't reload shader '%s' when recovering from a lost device: %s (0x%08x)\n", shader->name, DXGetErrorDescription9(hr), hr);
         }
     }
+}
+
+// PINNED 10016e70: sort the existing table, then publish every sorted index.
+void Material_Sort()
+{
+    std::sort(rgp.sortedMaterials, rgp.sortedMaterials + rgp.materialCount, Material_Compare);
+    for (int index = 0; index < rgp.materialCount; ++index)
+        rgp.sortedMaterials[index]->sortedIndex = (unsigned short)index;
 }
 
 Material *Material_Duplicate(const Material *mtlCopy, const char *name)
@@ -633,21 +862,6 @@ __declspec(noinline) static void Material_AddToTable(Material *material, unsigne
         R_Error(ERR_FATAL, "Too many unique materials (%i or more)\n", 1024);
 }
 
-// Name unconfirmed.
-Material *Material_FindRegistered(const char *name)
-{
-    unsigned short hashIndex;
-    bool found;
-
-    Material_FindHashSlot(name, &hashIndex, &found);
-    if (!found)
-        return 0;
-    return R_GetMaterialHashTable()[hashIndex];
-}
-
-Material *Material_LoadBinary(const char *name, int imageTrack);
-void Com_Printf(const char *format, ...);
-
 // PINNED 10017100/144: failed loads duplicate the default under the requested name.
 Material *Material_Register(const char *name, int imageTrack)
 {
@@ -668,10 +882,6 @@ Material *Material_Register(const char *name, int imageTrack)
     return material;
 }
 
-void Image_Reload(GfxImage *image);
-void Image_Release(GfxImage *image);
-Bool Image_LoadRaw(GfxImage *image, const char *filename, int imageTrack);
-
 // PINNED 100171f0/81: a default raw material never releases or loads an image.
 Material *Material_RegisterRawImage(const char *name, int imageTrack)
 {
@@ -691,6 +901,18 @@ Material *R_RegisterMaterial(const char *name, int baseImageFlags, int imageTrac
     return Material_Register(name, imageTrack);
 }
 
+// Name unconfirmed.
+Material *Material_FindRegistered(const char *name)
+{
+    unsigned short hashIndex;
+    bool found;
+
+    Material_FindHashSlot(name, &hashIndex, &found);
+    if (!found)
+        return 0;
+    return R_GetMaterialHashTable()[hashIndex];
+}
+
 // PINNED 100172b0/30: empty names return the live default material.
 Material *R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrack)
 {
@@ -698,11 +920,6 @@ Material *R_RegisterRawImage(const char *name, int baseImageFlags, int imageTrac
         return rgp.defaultMaterial;
     return Material_RegisterRawImage(name, imageTrack);
 }
-
-Bool Image_LoadFromFile(GfxImage *image);
-void Image_PicmipForSemantic(unsigned char semantic, Picmip *picmip);
-void R_SetPicmip();
-void RB_BindWhiteImages();
 
 // PINNED 10017640/195: visit each non-water image once, in descending address order.
 void Material_ReloadTextures(Material *material)
@@ -748,125 +965,6 @@ void Material_ReloadTextures_f()
     Material_ReloadTextures(material);
 }
 
-// PINNED 10017730/357: a platform-zero change alone triggers release and reload.
-void R_ApplyPicmip()
-{
-    R_SetPicmip();
-    for (int slot = 0; slot < 1024; ++slot)
-    {
-        Material *material = R_GetMaterialHashTable()[slot];
-        if (!material)
-            continue;
-        for (int index = 0; index < material->textureCount; ++index)
-        {
-            MaterialTextureDef *texture = &material->textures[index];
-            if (texture->semantic == 5 || !texture->u.image)
-                continue;
-            GfxImage *image = texture->u.image;
-            Picmip picmip;
-            if (image->noPicmip)
-                memset(&picmip, 0, sizeof(picmip));
-            else
-                Image_PicmipForSemantic(image->semantic, &picmip);
-            if (image->picmip.platform[0] != picmip.platform[0])
-            {
-                Image_Release(image);
-                image->picmip = picmip;
-                if (!Image_LoadFromFile(image))
-                    R_Error(ERR_DROP, "failed to load image '%s'", image->name);
-            }
-        }
-    }
-}
-
-// PINNED 10005290/5: the registered command is a separate tail call.
-void R_ApplyPicmip_f()
-{
-    R_ApplyPicmip();
-}
-
-struct BuiltInMaterialTable
-{
-    const char *name;
-    Material **material;
-};
-
-// PINNED 1018e988: actual pointer destinations, not offsets into a second state block.
-static const BuiltInMaterialTable s_builtInMaterials[] =
-{
-    { "$default", &rgp.defaultMaterial },
-    { "stencil_plane", &rgp.stencilPlaneMaterial },
-    { "white", &rgp.whiteMaterial },
-    { "$additive", &rgp.additiveMaterial },
-    { "$glare_blind", &rgp.glareBlindMaterial },
-    { "$point", &rgp.pointMaterial },
-    { "$line", &rgp.lineMaterial },
-    { "clear_alpha_stencil", &rgp.clearAlphaStencilMaterial },
-    { "shadowclear", &rgp.shadowClearMaterial },
-    { "shadowcookieoverlay", &rgp.shadowCookieOverlayMaterial },
-    { "shadowcookieblur", &rgp.shadowCookieBlurMaterial },
-    { "shellshock", &rgp.shellShockMaterial },
-    { "color_channel_mixer", &rgp.colorChannelMixerMaterial },
-    { "frame_color_debug", &rgp.frameColorDebugMaterial },
-    { "frame_alpha_debug", &rgp.frameAlphaDebugMaterial },
-    { "feedbackblend", &rgp.feedbackBlendMaterial },
-    { "feedbackreplace", &rgp.feedbackReplaceMaterial },
-    { "glow_setup", &rgp.glowSetupMaterial },
-    { "glow_apply_bloom", &rgp.glowApplyBloomMaterial },
-    { "glow_apply_sky_bleed", &rgp.glowApplySkyBleedMaterial },
-    { "filter_symmetric_1", &rgp.symmetricFilterMaterial[0] },
-    { "filter_symmetric_2", &rgp.symmetricFilterMaterial[1] },
-    { "filter_symmetric_3", &rgp.symmetricFilterMaterial[2] },
-    { "filter_symmetric_4", &rgp.symmetricFilterMaterial[3] },
-    { "filter_symmetric_5", &rgp.symmetricFilterMaterial[4] },
-    { "filter_symmetric_6", &rgp.symmetricFilterMaterial[5] },
-    { "filter_symmetric_7", &rgp.symmetricFilterMaterial[6] },
-    { "filter_symmetric_8", &rgp.symmetricFilterMaterial[7] }
-};
-
-// PINNED 1018ea68, enabled by r_testFillEnable at101ce79c.
-static const BuiltInMaterialTable s_fillTestMaterials[] =
-{
-    { "filltest_normal", &rgp.normalFillMaterial },
-    { "filltest_alphablend", &rgp.alphaBlendFillMaterial },
-    { "filltest_alphatest_pass", &rgp.alphaTestPassFillMaterial },
-    { "filltest_alphatest_fail", &rgp.alphaTestFailFillMaterial },
-    { "filltest_additive", &rgp.additiveFillMaterial },
-    { "filltest_depthonly", &rgp.depthOnlyFillMaterial },
-    { "filltest_stencil_oneside_keep", &rgp.stencilOneSideKeepFillMaterial },
-    { "filltest_stencil_oneside_reject", &rgp.stencilOneSideRejectFillMaterial },
-    { "filltest_stencil_twoside_keep", &rgp.stencilTwoSideKeepFillMaterial },
-    { "filltest_stencil_twoside_reject", &rgp.stencilTwoSideRejectFillMaterial },
-    { "filltest_phong_bump", &rgp.phongBumpFillMaterial },
-    { "filltest_phong_bumpspec", &rgp.phongBumpSpecFillMaterial }
-};
-
-void Com_Error(errorParm_t code, const char *format, ...);
-void Material_PreloadShaderText();
-extern const dvar_t *r_testFillEnable;
-
-// PINNED 10017350/71; helper name unconfirmed.
-static void Material_RegisterBuiltins(const BuiltInMaterialTable *table, int count)
-{
-    for (int index = 0; index < count; ++index)
-    {
-        *table[index].material = Material_Register(table[index].name, 0);
-        if (!*table[index].material)
-            Com_Error(ERR_FATAL, "Could not find material '%s'", table[index].name);
-    }
-}
-
-// PINNED 10017190/88; helper name unconfirmed.
-static void Material_RegisterRawMaterial()
-{
-    rgp.rawMaterial = Material_Register("$raw", 0);
-    if (!Material_IsDefault(rgp.rawMaterial) && rgp.rawMaterial->textureCount != 1)
-    {
-        ri.Printf(3, "material '$raw' doesn't use just one image");
-        rgp.rawMaterial = rgp.defaultMaterial;
-    }
-}
-
 // PINNED 100173e0/124: share the raw image binding without overwriting its sampler.
 void Material_Init()
 {
@@ -880,60 +978,6 @@ void Material_Init()
     {
         rgp.rawTexdef.name = rgp.rawMaterial->textures[0].name;
         rgp.rawMaterial->textures = &rgp.rawTexdef;
-    }
-}
-
-void RB_SetFVF(DWORD fvf);
-void Material_ReleaseVertexDecls();
-void Material_ReleaseAll();
-void Material_ClearStringTable();
-void Material_ClearTechniqueTable();
-void Material_ClearTechniqueSetTable();
-void Material_ClearStateMapTable();
-void Material_Shutdown();
-
-// Names unconfirmed: the four table clears also exist inlined in Material_Shutdown.
-void Material_ClearStringTable()
-{
-    unsigned int index;
-
-    for (index = 0; index < 64; ++index)
-    {
-        if (materialGlobals.stringIdentTable[index])
-            materialGlobals.stringIdentTable[index] = 0;
-    }
-}
-
-void Material_ClearTechniqueTable()
-{
-    unsigned int index;
-
-    for (index = 0; index < 1024; ++index)
-    {
-        if (materialGlobals.techniqueTable[index])
-            materialGlobals.techniqueTable[index] = 0;
-    }
-}
-
-void Material_ClearTechniqueSetTable()
-{
-    unsigned int index;
-
-    for (index = 0; index < 1024; ++index)
-    {
-        if (materialGlobals.techSetTable[index])
-            materialGlobals.techSetTable[index] = 0;
-    }
-}
-
-void Material_ClearStateMapTable()
-{
-    unsigned int index;
-
-    for (index = 0; index < 32; ++index)
-    {
-        if (materialGlobals.stateMapTable[index])
-            materialGlobals.stateMapTable[index] = 0;
     }
 }
 
@@ -987,29 +1031,35 @@ void Material_Shutdown()
     Material_ClearTechniqueSetTable();
 }
 
-typedef char materialSortLayoutCheck[(sizeof(MaterialTechniqueSet) == 140
-    && offsetof(Material, sortKey) == 13
-    && offsetof(Material, techniqueSet) == 0x38) ? 1 : -1];
-
-// PINNED 10016890: technique-set subtraction is in140-byte elements.
-static bool Material_Compare(const Material *left, const Material *right)
+// PINNED 10017730/357: a platform-zero change alone triggers release and reload.
+void R_ApplyPicmip()
 {
-    int diff = (int)left->sortKey - (int)right->sortKey;
-    if (diff)
-        return diff < 0;
-    diff = (const MaterialTechniqueSet *)left->techniqueSet
-        - (const MaterialTechniqueSet *)right->techniqueSet;
-    if (diff)
-        return diff < 0;
-    return false;
-}
-
-// PINNED 10016e70: sort the existing table, then publish every sorted index.
-void Material_Sort()
-{
-    std::sort(rgp.sortedMaterials, rgp.sortedMaterials + rgp.materialCount, Material_Compare);
-    for (int index = 0; index < rgp.materialCount; ++index)
-        rgp.sortedMaterials[index]->sortedIndex = (unsigned short)index;
+    R_SetPicmip();
+    for (int slot = 0; slot < 1024; ++slot)
+    {
+        Material *material = R_GetMaterialHashTable()[slot];
+        if (!material)
+            continue;
+        for (int index = 0; index < material->textureCount; ++index)
+        {
+            MaterialTextureDef *texture = &material->textures[index];
+            if (texture->semantic == 5 || !texture->u.image)
+                continue;
+            GfxImage *image = texture->u.image;
+            Picmip picmip;
+            if (image->noPicmip)
+                memset(&picmip, 0, sizeof(picmip));
+            else
+                Image_PicmipForSemantic(image->semantic, &picmip);
+            if (image->picmip.platform[0] != picmip.platform[0])
+            {
+                Image_Release(image);
+                image->picmip = picmip;
+                if (!Image_LoadFromFile(image))
+                    R_Error(ERR_DROP, "failed to load image '%s'", image->name);
+            }
+        }
+    }
 }
 
 // PINNED 10017940/50: helper to open material file.
@@ -1019,4 +1069,3 @@ int Material_LoadFile(const char *filename, int *file)
     Com_sprintf(fullFilename, sizeof(fullFilename), "materials/%s", filename);
     return ri.FS_FOpenFileRead(fullFilename, file, 1);
 }
-
