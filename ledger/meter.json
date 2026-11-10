@@ -5,42 +5,42 @@
   "anchor": "windows/1.0/gfx_d3d_mp_x86_s.dll",
   "sha_identical": false,
   "text_bytes": 1093632,
-  "matched_bytes": 894410,
+  "matched_bytes": 894556,
   "file_bytes": 1851392,
-  "same_offset_bytes": 270955,
-  "matched_functions": 2723,
+  "same_offset_bytes": 273475,
+  "matched_functions": 2726,
   "tus_total": 117,
   "verified_source_files": 12,
   "game_cpp_denominator_status": "provisional inventory; not whole-DLL completion",
   "anchor_sha256": "4553b22daff76e1f628d7ba16fda840b8ba415ae5024072b279fe8b820f634f6",
-  "candidate_sha256": "ee92dbba6f5e5cabcbe65968fe8977cdc4a0a4b15eca29fab087736b29de0302",
+  "candidate_sha256": "b197e0a389e4ba4c3b8b2b7ee0217d0a48e65b0d69c0161c3b4a4565cb974ef3",
   "unverified_in_src": 0,
-  "game_cpp_bytes": 123214,
+  "game_cpp_bytes": 123360,
   "game_cpp_total": 253580,
-  "game_cpp_percent": 48.58979414780345,
-  "game_cpp_functions": 782,
+  "game_cpp_percent": 48.64736966637747,
+  "game_cpp_functions": 785,
   "assembly_bytes": 10184,
   "assembly_functions": 41,
   "sections": {
     ".text": {
       "size": 1093632,
-      "same_offset": 38567,
-      "matched": 894410
+      "same_offset": 40986,
+      "matched": 894556
     },
     ".rdata": {
       "size": 598016,
-      "same_offset": 183417
+      "same_offset": 183416
     },
     ".data": {
       "size": 57344,
-      "same_offset": 28236
+      "same_offset": 28233
     },
     ".reloc": {
       "size": 98304,
-      "same_offset": 16950
+      "same_offset": 17055
     }
   },
-  "source_commit": "4f82ed4d601e172cf7e69d74837bbde3eb2e3be7",
+  "source_commit": "b0b6bfd31bb09139fbcb7f13c5e4a2879b246ab9",
   "note": "Matched extents include libraries and relocation normalization, not identical linked files. Verified source snapshots are not complete historical TUs. Current emitted-body TU counts include short bodies certified by the binding referee. game_cpp uses a provisional inventory and excludes entire assembly-bearing bodies. Whole-file SHA is the finish line.",
   "current_source_tus_total": 117,
   "current_source_tus_verified": 45,
