@@ -495,3 +495,26 @@ declaration layout and means nothing for the final frame.
 - FX_CalcOriginAndAxis: retail has cosPitch at the lower slot (item before sinPitch in the list) and one 4-byte entry
   fewer below the temp entries (ours temps 109/108/scale entries sit +4). Needs the list tie key and one fewer
   non-mergeable 4-byte item; not derived yet.
+- (w6-n5, PINNED by winedbg + 5 labs) Item weight (obj+0x38) = 1 at creation (0x107886a4) plus 1 per counted reference
+  (0x10789a99, always +1 here; no loop-depth factor). The item list is kept sorted on each increment: an item moves ahead
+  only past items with a strictly LOWER weight, so among equal weights the item that reached the weight first stays first.
+  Each separate source STORE counts, even when cross-jumping later merges the copies into identical code. Scoreboard labs,
+  all with byte-identical code apart from slots: dropping 3 duplicate `whiteSpace = NULL; textEnd = textStart;` tails
+  (fall through to the shared loop tail) took whiteSpace 8 -> 5 and left textEnd/textStart unchanged; `len = 0; continue;`
+  in each of the 4 branches instead of one `goto resetLen` label took len 5 -> 8. Dropping the `textStart &&` loop tests
+  changes the code (not a lever).
+- (w6-n5, PINNED by simulation) The >0x80 sort is c2 0x107ae0c4, a K&R quicksort over entries [param count, n-1]: pivot =
+  middle entry swapped to lo, an entry moves left only if its w*1000/size is strictly greater, then recurse on both
+  sides. lab/qs.py reproduces our scoreboard post-sort table exactly from the pre-sort one.
+- Merge rule seen in every dump: an item joins the NEWEST existing entry it does not interfere with.
+- CG_DrawScoreboard_Objective state (gate 241af860, +4 same-offset): len+whiteSpace slot now matches retail. Still open:
+  retail keeps the y temp (id12) in the textStart entry and that slot below the textEnd slot. Under the rules above that
+  needs textStart processed after whiteSpace (textStart weight <= 5, ours 7); which two textStart references retail
+  lacks is not found.
+- FX_CalcOriginAndAxis tie key: the list order among weight-6 items is the order in which each reached 6 (rule above).
+  Retail needs cosPitch to reach its final weight before sinPitch. Not probed further.
+- Other six victims (c2slots13 + esp diff): CG_DrawAdsOverlay, CG_DrawGrenadePointer, XAnimCalc differ in instruction
+  ORDER only (scheduler class, not slots); CG_FireWeapon, G_GetPlayerViewOrigin have no esp-slot difference (not this
+  class); Item_Text_AutoWrapped_Paint (1024 B buff, sorted) swaps two weight-5 single-item entries: ours newLineWidth
+  0x24, y 0x28; retail y 0x24, newLineWidth 0x28 (quicksort tie outcome follows creation order: needs y and newLineWidth
+  to reach 5 in the other order, or a one-unit weight change). Not attempted.
