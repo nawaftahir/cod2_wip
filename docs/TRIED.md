@@ -118,3 +118,8 @@ Measured attempts (source: `archive/NOTES_1.3.md`). Also skip everything in `cli
 | CG_EntityEvent rotation, winedbg watchpoints (n3) | watch node+0x10 of nodes 75..78, then operand+0x1c of node 78 | the colour store writes eax; the operand keeps eax at every IL-level writer until it is freed; no rename seen. See KNOWLEDGE 19 |
 | CG_EntityEvent rotation, forced colour picks + code-buffer watch (n3) | winedbg `set $ecx` on colour stores 4..41, then a watch on arm 116's emitted ModRM byte back to its operand | colour nodes are switch temps, not the arm temps; the arm reg comes from the local allocator 0x10775acc (write 0x10775ac4). No source fix tried yet |
 | CG_EntityEvent landChange duplicate (n3) | c1/c2: landChange copy in arm 93 (no goto) | 4364 B: rotation fixed but the merge keeps arm 93's copy; c3/c4 (+ `return;` after arm 116's copy) = MATCH, c4 gated |
+| Rich count (n1, owner decision, clean gate) | link the six 1.0 empty_N.cpp TUs at the 1.0 positions | same-offset +3184, matched-fn +2753, header residue 343 -> 4 B; CG_DrawPlayerStance tie flip listed. LANDED |
+| Rich 25/28 entry order (n1, lab relink) | mss_auto.obj before the import members in build/lib/mss32.lib | no change in Rich order; reverted |
+| stPbSv::LoadServerDll literal order (n1, analysis) | full disassembly vs retail | code identical apart from string addresses: no code shape to change; deferred |
+| __real pool 64 B (n1, analysis) | value-matched pool positions + F order | 2 constants misplaced (1000.0 double, 720.0f) by compile order of CL_DemoCompleted / fire_grenade; deferred |
+| CG_FireWeapon lea ebp (n1) | read TRIED | n3 already tried 4 shapes (row above); not repeated, left to n3 |

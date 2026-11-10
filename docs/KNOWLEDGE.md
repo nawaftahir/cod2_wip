@@ -393,3 +393,17 @@ Raw source: `archive/NOTES_1.3.md` (agent log, 11-03..11-04). Failed attempts: `
   and `return;` after arm 116's `cg->landTime = cg->time;` (no goto/label). Without the arm-116 `return` the merge keeps the 93 copy instead (4364 B).
 - Tools: `tools/c2dbg13.sh` (winedbg), `tools/c2memscan13.sh` (find emitted bytes in c2 memory, needs --cap-add SYS_PTRACE), `tools/c2dis.py`, `tools/c2xref.py`.
   Forcing a colour pick in winedbg (`set $ecx` at 0x107834bd, diff dx.exe) maps colour nodes to instructions.
+- OWNER DECISION + clean gate (n1, 11-10, same-offset 1963931 -> 1967115, matched-fn 1549931 -> 1552684): the six 1.0
+  `unknown/empty_N.cpp` /GL TUs are linked in 1.3 too, at the 1.0 positions (empty_1 after devgui_input, empty_2..6 afte
+  gfx_v60_threads). They are PLACEHOLDERS for retail's six unknown /GL C++ objects (Rich prodid 100: 275 = retail); their real names and
+  positions are unknown. Effect: Rich count, checksum and the 24-byte padding now equal retail, e_lfanew 0x120, the PE header differs in
+  4 bytes only. CG_DrawPlayerStance (tie pool) flipped and is listed in ties13.txt. The earlier 343 B header residue was 100% this.
+- Remaining 4 header bytes: Rich entries (25,9466) and (28,9466) in the other order. Both come from build/lib/mss32.lib (the import members
+  are prodid 25, mss_auto.obj from VS .NET 2002 is prodid 28). Putting mss_auto.obj first in the archive does NOT change the Rich orde
+  (lab relink); the order follows which member the link pulls first. Open.
+- stPbSv::LoadServerDll (0x4bd3e0): code is byte-identical to retail except the six string addresses, so no code-matching shape exists to
+  move the literals; the literal-pool order stays deferred.
+- __real pool (0x5c4460..0x5c44f8, 64 B): only two constants are misplaced. Double 1000.0 (users CL_DemoCompleted, CG_FxTest, HTNumToStr;
+  same users in retail) sits at ours 0x5c4460, retail 0x5c44a0: retail compiles its first user between CG_PlayerFloatSprite (F#5581) and
+  Particle::Die (F#5635), ours compiles CL_DemoCompleted at F#5436. Float 720.0 (fire_grenade) ours 0x5c44c4, retail 0x5c44e8: retail
+  compiles fire_grenade after Mantle_CreateAnims (F#6041), ours at F#6035. Call-graph DFS order shifts, no source lever with evidence.
