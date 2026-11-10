@@ -629,3 +629,17 @@ Tooling: tools/ra13.sh TAG, then lab/ra.sh TAG MANGLED (split_all + cpick for on
 ## 27. __real pool slot = LTCG compile order of the first user (w8-a, 11-11, PINNED on ra13 F lines vs our pool 0x5c4430-0x5c44b0)
 - Each __real@ slot sits in the compile order of its first-compiled user. __real@408f400000000000 (1000.0): ours first user CL_DemoCompleted at F#73854; retail slot needs it between Pickup_Health and Particle::Die. Fix = delay CL_DemoCompleted's compile, not touch the constant.
 - Follow-up (dfs13): CL_DemoCompleted compiles right after CL_NextDemo, which compiles in the pass after Cbuf_ExecuteInternal (5329 -> 5430/5435 of 6727). Retail wants it in 5604..5634. No cut under CL_DemoCompleted differs from what matched callers imply, so the cause is the peel-pass position, not a header decl order (SUPPORTED, not proven on retail).
+- (w9-ch, 11-11, PINNED by probe lab/cp9: a.c AngleVectors+DotProduct TU, b.c crosshair, /GL + /LTCG) The yaw forward dies whenever the
+  crosshair function contains ANY "p" code, wherever it comes from: host-only `#pragma optimize("p", on)` with AngleVectors/DotProduct no-p,
+  DotProduct-only "p", the /Op command-line flag (both TUs or only the AngleVectors TU) all give the `mov ecx,[gunYaw]; mov [esp+0x28],ecx`
+  copy. C (/TC) and C++ (/TP) callers are identical. cg spellings (cgArray macro, `extern cg_t * const`, local `cg_t *cg = cgArray`) all copy.
+  Float-typed yaw store (volatile source: fld/fstp) is not forwarded either, so the int-move form is not the cause; `* 1.0f`,
+  `(float)(double)`, a yaw local all fold to the same int copy.
+- (w9-ch, PINNED on retail bytes) Retail's tail is "p"-shaped (forward `fstp; fld`, `(float)tan` rounded through [esp+0x20], _CItan; a
+  no-"p" probe gives `fst` and inline fptan), and retail reloads pitch from [esp+0x24] after the first fsincos, i.e. from the gunAng
+  local (pointer-angle callers such as infront 0x5103b0 re-read `[edx+0x144]` after the asm). So retail's AngleVectors argument IS a
+  local vec3 and its [1] load was forwarded from cg->gunYaw although the function is "p". `AngleVectors(&cg->gunPitch, ...)` with host
+  "p" too gives yaw direct but pitch read from cg after the asm (not retail). No probe form reproduces "p" tail + yaw forward; the cause
+  is outside the caller source shapes tried here (compiler state, a different inline path or build flag), still open.
+- (w9-ch) Retail has only one copy of AngleVectors' body (lab/cp9/dup.py: 24-byte windows of 0x4279c0 occur once), so no second no-"p"
+  AngleVectors definition is linked standalone.
